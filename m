@@ -1,60 +1,55 @@
-Return-Path: <ross.burton@intel.com>
-Received: from mail-vb0-f51.google.com (mail-vb0-f51.google.com
-	[209.85.212.51])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D729DE00709
-	for <poky@yoctoproject.org>; Mon, 11 Mar 2013 08:33:53 -0700 (PDT)
-Received: by mail-vb0-f51.google.com with SMTP id fq11so1737617vbb.10
-	for <poky@yoctoproject.org>; Mon, 11 Mar 2013 08:33:53 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=google.com; s=20120113;
-	h=x-received:mime-version:in-reply-to:references:from:date:message-id
-	:subject:to:cc:content-type:x-gm-message-state;
-	bh=T30W7+fnx710CnNPrPcE6MoUQ+cl1EoTLYlIQTcwWBc=;
-	b=nFbo13Gy+ThqdemSyw7eCxetyaFEQxY/1e7ILBM9gUmN9jf4AJNhfsOiv8FWmjXh/w
-	1SlaP77oy16Jt6nVTS4Wl9unOJDqXTZBcgPvKlX9Qe+ONP/bhfNIlEKOW0RqL+Oi7Xid
-	UnWxYeXGoNUFvwrCLOGHHzjaeWUXoNA+N1Mlr3w+BxANJmxzgKeBG/a5jtbCOQ3GP9r+
-	dlHCVmcu+AU/6lPv8auAvMYS/X8uvlLnbVV4PJ1AUd0A/rhKFRUf011WmfF/NKtVn3AU
-	ACOaVR5ZAgSVYotloHk+jWpeqsCTWlDq+HSYX0KusjFH8WZh8BZnFA7pshjF93x8GPBW
-	LDbA==
-X-Received: by 10.52.16.40 with SMTP id c8mr4345842vdd.99.1363016032942; Mon,
-	11 Mar 2013 08:33:52 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.58.213.2 with HTTP; Mon, 11 Mar 2013 08:33:32 -0700 (PDT)
-In-Reply-To: <1363015559-18728-3-git-send-email-cristian.iorga@intel.com>
-References: <1363015559-18728-1-git-send-email-cristian.iorga@intel.com>
-	<1363015559-18728-3-git-send-email-cristian.iorga@intel.com>
-From: "Burton, Ross" <ross.burton@intel.com>
-Date: Mon, 11 Mar 2013 08:33:32 -0700
-Message-ID: <CAJTo0La9P2ppXqLn=76D-bp+PKLvHWgtLGAboG19yxO+QH7rVA@mail.gmail.com>
-To: Cristian Iorga <cristian.iorga@intel.com>
-X-Gm-Message-State: ALoCoQm8vLMOUw3pyjBzu9Vxjxaxuv+F6psc6skWmE5+Q/r4FNEidACcbXEALmAa/0x24kCR4Fzt
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 3/3] upstream-tracking: added dbus no-update reason
-X-BeenThere: poky@yoctoproject.org
+Return-Path: <richard.purdie@intel.com>
+Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
+	by mx1.pokylinux.org (Postfix) with ESMTP id BF8F44C810C9
+	for <poky@lists.pokylinux.org>; Mon, 18 Oct 2010 11:45:18 -0500 (CDT)
+Received: by pug.o-hand.com (Postfix)
+	id F34EF12EC3F7; Mon, 18 Oct 2010 12:20:39 -0500 (CDT)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by pug.o-hand.com (Postfix) with ESMTP id C899812EC2F5
+	for <poky@o-hand.com>; Mon, 18 Oct 2010 12:20:39 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 18 Oct 2010 09:45:17 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.57,345,1283756400"; d="scan'208";a="668491727"
+Received: from unknown (HELO [10.255.16.59]) ([10.255.16.59])
+	by orsmga001.jf.intel.com with ESMTP; 18 Oct 2010 09:45:15 -0700
+From: Richard Purdie <richard.purdie@intel.com>
+To: poky <poky@o-hand.com>
+Message-ID: <1287420312.1720.253.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+Subject: Poky's mailing list has moved to mailman
+X-BeenThere: poky@pokylinux.org
 X-Mailman-Version: 2.1.13
 Precedence: list
-List-Id: Poky build system developer discussion & patch submission for
-	meta-yocto <poky.yoctoproject.org>
-List-Unsubscribe: <https://lists.yoctoproject.org/options/poky>,
-	<mailto:poky-request@yoctoproject.org?subject=unsubscribe>
-List-Archive: <http://lists.yoctoproject.org/pipermail/poky>
-List-Post: <mailto:poky@yoctoproject.org>
-List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
-List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
-	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 11 Mar 2013 15:33:54 -0000
-Content-Type: text/plain; charset=UTF-8
+List-Id: Poky build system developer discussion <poky.pokylinux.org>
+List-Unsubscribe: <https://lists.pokylinux.org/options/poky>,
+	<mailto:poky-request@pokylinux.org?subject=unsubscribe>
+List-Archive: <http://lists.pokylinux.org/pipermail/poky>
+List-Post: <mailto:poky@pokylinux.org>
+List-Help: <mailto:poky-request@pokylinux.org?subject=help>
+List-Subscribe: <https://lists.pokylinux.org/listinfo/poky>,
+	<mailto:poky-request@pokylinux.org?subject=subscribe>
+X-List-Received-Date: Mon, 18 Oct 2010 16:45:19 -0000
+Date: Mon, 18 Oct 2010 16:45:19 -0000
+X-Original-Date: Mon, 18 Oct 2010 17:45:12 +0100
+X-List-Received-Date: Mon, 18 Oct 2010 16:45:19 -0000
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"
 
-On 11 March 2013 08:25, Cristian Iorga <cristian.iorga@intel.com> wrote:
-> D-Bus 1.7.x is the development branch.
+SGksCgpXZSdyZSB0aWR5aW5nIHVwIHRoZSB2YXJpb3VzIHNlcnZpY2VzIHRoYXQgYmFjayB1cCB0
+aGUgUG9reSBwcm9qZWN0IGFuZAphcyBwYXJ0IG9mIHRoaXMgd2UndmUgbW92ZWQgb3ZlciB0byBt
+YWlsbWFuIGZvciB0aGUgbWFpbGluZyBsaXN0LiBUaGUKbGlzdCBhZGRyZXNzIGlzIGFsc28gbm93
+IHBva3lAbGlzdHMucG9reWxpbnV4Lm9yZyBpbnN0ZWFkIG9mCnBva3lAby1oYW5kLmNvbSBhbHRo
+b3VnaCB0aGUgb2xkIGFkZHJlc3Mgd2lsbCBjb250aW51ZSB0byB3b3JrLgoKTGV0IG1lIGtub3cg
+aWYgYW55b25lIGhhcyBhbnkgcHJvYmxlbXMuCgpDaGVlcnMsCgpSaWNoYXJkCgoKCi0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLQpJbnRlbCBDb3Jwb3JhdGlvbiAoVUspIExpbWl0ZWQKUmVnaXN0ZXJlZCBOby4gMTEzNDk0
+NSAoRW5nbGFuZCkKUmVnaXN0ZXJlZCBPZmZpY2U6IFBpcGVycyBXYXksIFN3aW5kb24gU04zIDFS
+SgpWQVQgTm86IDg2MCAyMTczIDQ3CgpUaGlzIGUtbWFpbCBhbmQgYW55IGF0dGFjaG1lbnRzIG1h
+eSBjb250YWluIGNvbmZpZGVudGlhbCBtYXRlcmlhbCBmb3IKdGhlIHNvbGUgdXNlIG9mIHRoZSBp
+bnRlbmRlZCByZWNpcGllbnQocykuIEFueSByZXZpZXcgb3IgZGlzdHJpYnV0aW9uCmJ5IG90aGVy
+cyBpcyBzdHJpY3RseSBwcm9oaWJpdGVkLiBJZiB5b3UgYXJlIG5vdCB0aGUgaW50ZW5kZWQKcmVj
+aXBpZW50LCBwbGVhc2UgY29udGFjdCB0aGUgc2VuZGVyIGFuZCBkZWxldGUgYWxsIGNvcGllcy4K
 
-Can we not teach the service that checks about development/stable
-releases, as it would be useful to get notifications about a new 1.6.x
-release.
-
-(I admit that a generalised way of saying what a stable release is
-isn't trivial - maybe a regexp to filter?  i.e. Dbus might be
-something like "[0-9]+\.[02468]+\.[0-9]+".
-
-Ross
 
