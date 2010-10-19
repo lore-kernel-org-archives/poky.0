@@ -1,33 +1,37 @@
-Return-Path: <Xiaofeng.Yan@windriver.com>
+Return-Path: <rpurdie@linux.intel.com>
 Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7D6B44C806DA
-	for <poky@lists.pokylinux.org>; Tue, 19 Oct 2010 04:52:25 -0500 (CDT)
+	by mx1.pokylinux.org (Postfix) with ESMTP id E09A54C801BF
+	for <poky@lists.pokylinux.org>; Tue, 19 Oct 2010 11:43:33 -0500 (CDT)
 Received: by pug.o-hand.com (Postfix)
-	id 2756F12EC35C; Tue, 19 Oct 2010 05:27:49 -0500 (CDT)
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	id 773D312EC33C; Tue, 19 Oct 2010 12:18:58 -0500 (CDT)
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
 	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by pug.o-hand.com (Postfix) with ESMTP id 025BB12EC332
-	for <poky@o-hand.com>; Tue, 19 Oct 2010 05:27:48 -0500 (CDT)
-Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id o9J9qNfw024630
-	for <poky@o-hand.com>; Tue, 19 Oct 2010 02:52:24 -0700 (PDT)
-Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
-	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Tue, 19 Oct 2010 02:52:23 -0700
-Received: from [128.224.163.183] ([128.224.163.183]) by
-	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Tue, 19 Oct 2010 02:52:23 -0700
-Message-ID: <4CBD6A0E.8010609@windriver.com>
-Date: Tue, 19 Oct 2010 17:51:10 +0800
-From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.1.11) Gecko/20100713 Thunderbird/3.0.6
-MIME-Version: 1.0
-To: "poky@o-hand.com" <poky@o-hand.com>
-X-OriginalArrivalTime: 19 Oct 2010 09:52:23.0511 (UTC)
-	FILETIME=[54389E70:01CB6F73]
-Subject: [PULL]: Add some necessary sources needed by lsb test with auto mode
+	by pug.o-hand.com (Postfix) with ESMTP id AB69C12EC225
+	for <poky@o-hand.com>; Tue, 19 Oct 2010 12:18:57 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id o9JGhTQW001923;
+	Tue, 19 Oct 2010 17:43:29 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 01380-09; Tue, 19 Oct 2010 17:43:25 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id o9JGhMtH001917
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Tue, 19 Oct 2010 17:43:23 +0100
+From: Richard Purdie <rpurdie@linux.intel.com>
+To: Joe Sauer <jsauer@vernier.com>
+In-Reply-To: <AANLkTimT6dmQHiOq4Qve36h6=3HNXiF2zckvVjbj8PMK@mail.gmail.com>
+References: <AANLkTimT6dmQHiOq4Qve36h6=3HNXiF2zckvVjbj8PMK@mail.gmail.com>
+Date: Tue, 19 Oct 2010 17:43:17 +0100
+Message-ID: <1287506597.1720.1691.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky@o-hand.com
+Subject: Re: qemu-arm broke after Ubuntu 10.04 libc upgrade
 X-BeenThere: poky@pokylinux.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,28 +43,37 @@ List-Post: <mailto:poky@pokylinux.org>
 List-Help: <mailto:poky-request@pokylinux.org?subject=help>
 List-Subscribe: <https://lists.pokylinux.org/listinfo/poky>,
 	<mailto:poky-request@pokylinux.org?subject=subscribe>
-X-List-Received-Date: Tue, 19 Oct 2010 09:52:26 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Tue, 19 Oct 2010 16:43:34 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-  Hi Saul,
-We add some necessary sources which will be used if we test images by 
-lsb suite.
+On Mon, 2010-10-18 at 16:40 -0700, Joe Sauer wrote:
+> A few days ago my Ubuntu 10.04 build machine pulled in this upgrade:
+> 
+> Upgrade: linux-libc-dev (2.6.32-24.42, 2.6.32-25.44),
+> linux-image-2.6.32-24-generic-pae (2.6.32-24.42, 2.6.32-24.43)
+> 
+> and now I can't build binary locales -- I get these errors building
+> glibc:
+> 
+> qemu-arm: relocation error: qemu-arm: symbol fcntl,  version GLIBC_2.0
+> not defined in file libpthread.so.0 with link time reference
+> qemu-arm: relocation error: qemu-arm: symbol unlink, version GLIBC_2.0
+> not defined in file libc.so.6 with link time reference
+> 
+> Short of trying to back out that upgrade does anyone have an idea of a
+> fix?
 
+If you run a build with the -DDDv options you'll see the command that is
+failing. Does this fail outright by itself if you just run the command?
 
-  meta/recipes-extended/images/poky-image-lsb.bb   |    1
-  meta/recipes-extended/lsb/file/lsb_release       |  388 ++++++++++
-  meta/recipes-extended/lsb/lsb_4.0.bb             |   79 ++
-  meta/recipes-extended/tasks/task-poky-lsb-add.bb |  875 
-+++++++++++++++++++++++
-  4 files changed, 1343 insertions(+)
+Can you simply it any further and have it work?
 
-Xiaofeng Yan (1):
-       LSB:Add lsb_release and a lsb task list
+Failing that try running this command under strace and see if those logs
+show up anything useful?
 
-Pull URL: 
-http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=xiaofeng/distro
-Thanks,
-Yan
+Cheers,
+
+Richard
 
 
