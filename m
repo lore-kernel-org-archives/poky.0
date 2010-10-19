@@ -1,32 +1,26 @@
-Return-Path: <lei.mei@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 4C8024C803A5
-	for <poky@pokylinux.org>; Mon, 18 Oct 2010 19:42:12 -0500 (CDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 18 Oct 2010 17:42:11 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.57,347,1283756400"; 
-	d="scan'208,217";a="848464467"
-Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
-	by fmsmga001.fm.intel.com with ESMTP; 18 Oct 2010 17:42:11 -0700
-Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
-	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Tue, 19 Oct 2010 08:42:09 +0800
-Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
-	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
-	Tue, 19 Oct 2010 08:42:09 +0800
-From: "Mei, Lei" <lei.mei@intel.com>
-To: "poky@pokylinux.org" <poky@pokylinux.org>
-Date: Tue, 19 Oct 2010 08:42:07 +0800
-Thread-Topic: subscribe
-Thread-Index: ActvJnVof3DUMf0hTk+lHNy4z2BH0w==
-Message-ID: <749B9D3DBF0F054390025D9EAFF47F222FE8F620@shsmsx501.ccr.corp.intel.com>
-Accept-Language: zh-CN, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: zh-CN, en-US
+Return-Path: <Xiaofeng.Yan@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8CDC14C80B60
+	for <poky@pokylinux.org>; Mon, 18 Oct 2010 20:33:20 -0500 (CDT)
+Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id o9J1XJmB018651
+	for <poky@pokylinux.org>; Mon, 18 Oct 2010 18:33:19 -0700 (PDT)
+Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
+	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Mon, 18 Oct 2010 18:33:18 -0700
+Received: from [128.224.163.183] ([128.224.163.183]) by
+	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Mon, 18 Oct 2010 18:33:18 -0700
+Message-ID: <4CBCF518.2040300@windriver.com>
+Date: Tue, 19 Oct 2010 09:32:08 +0800
+From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.1.11) Gecko/20100713 Thunderbird/3.0.6
 MIME-Version: 1.0
-Subject: subscribe
+To: poky@pokylinux.org
+X-OriginalArrivalTime: 19 Oct 2010 01:33:18.0894 (UTC)
+	FILETIME=[9BD6ACE0:01CB6F2D]
+Subject: Hi
 X-BeenThere: poky@pokylinux.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,116 +32,9 @@ List-Post: <mailto:poky@pokylinux.org>
 List-Help: <mailto:poky-request@pokylinux.org?subject=help>
 List-Subscribe: <https://lists.pokylinux.org/listinfo/poky>,
 	<mailto:poky-request@pokylinux.org?subject=subscribe>
-X-List-Received-Date: Tue, 19 Oct 2010 00:42:12 -0000
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_749B9D3DBF0F054390025D9EAFF47F222FE8F620shsmsx501ccrcor_"
+X-List-Received-Date: Tue, 19 Oct 2010 01:33:21 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
---_000_749B9D3DBF0F054390025D9EAFF47F222FE8F620shsmsx501ccrcor_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Hi,
 
-
-
-
-
----
-Mei, Lei
-Email: lei.mei@intel.com
-
-
---_000_749B9D3DBF0F054390025D9EAFF47F222FE8F620shsmsx501ccrcor_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-
-<head>
-<META HTTP-EQUIV=3D"Content-Type" CONTENT=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3DGenerator content=3D"Microsoft Word 12 (filtered medium)">
-<style>
-<!--
- /* Font Definitions */
- @font-face
-	{font-family:\5B8B\4F53;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@\5B8B\4F53";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
- /* Style Definitions */
- p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	text-align:justify;
-	text-justify:inter-ideograph;
-	font-size:10.5pt;
-	font-family:"Calibri","sans-serif";}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:purple;
-	text-decoration:underline;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri","sans-serif";
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;}
- /* Page Definitions */
- @page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
-div.WordSection1
-	{page:WordSection1;}
--->
-</style>
-<!--[if gte mso 9]><xml>
- <o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
- <o:shapelayout v:ext=3D"edit">
-  <o:idmap v:ext=3D"edit" data=3D"1" />
- </o:shapelayout></xml><![endif]-->
-</head>
-
-<body lang=3DZH-CN link=3Dblue vlink=3Dpurple style=3D'text-justify-trim:pu=
-nctuation'>
-
-<div class=3DWordSection1>
-
-<p class=3DMsoNormal><span lang=3DEN-US><o:p>&nbsp;</o:p></span></p>
-
-<p class=3DMsoNormal><span lang=3DEN-US><o:p>&nbsp;</o:p></span></p>
-
-<p class=3DMsoNormal><span lang=3DEN-US><o:p>&nbsp;</o:p></span></p>
-
-<p class=3DMsoNormal><span lang=3DEN-US><o:p>&nbsp;</o:p></span></p>
-
-<p class=3DMsoNormal><span lang=3DEN-US>---<o:p></o:p></span></p>
-
-<p class=3DMsoNormal><span lang=3DEN-US>Mei, Lei<o:p></o:p></span></p>
-
-<p class=3DMsoNormal><span lang=3DEN-US>Email: lei.mei@intel.com<o:p></o:p>=
-</span></p>
-
-<p class=3DMsoNormal><span lang=3DEN-US><o:p>&nbsp;</o:p></span></p>
-
-</div>
-
-</body>
-
-</html>
-
---_000_749B9D3DBF0F054390025D9EAFF47F222FE8F620shsmsx501ccrcor_--
