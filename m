@@ -1,23 +1,30 @@
-Return-Path: <qing.he@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 15BA94C801BF
-	for <poky@pokylinux.org>; Wed, 20 Oct 2010 04:00:32 -0500 (CDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 20 Oct 2010 02:00:32 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.57,354,1283756400"; d="scan'208";a="618491702"
-Received: from qhe2-db.sh.intel.com ([10.239.13.48])
-	by fmsmga002.fm.intel.com with ESMTP; 20 Oct 2010 02:00:32 -0700
-Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
-	(envelope-from <qing.he@intel.com>) id 1P8UTC-0003pI-7b
-	for poky@pokylinux.org; Wed, 20 Oct 2010 16:56:26 +0800
-Date: Wed, 20 Oct 2010 16:56:26 +0800
-From: Qing He <qing.he@intel.com>
-To: poky@pokylinux.org
-Message-ID: <20101020085626.GA14696@qhe2-db>
-MIME-Version: 1.0
-User-Agent: Mutt/1.5.20 (2009-06-14)
-Subject: [PULL] fixes for bash and nfs-utils
+Return-Path: <rpurdie@linux.intel.com>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id B435C4C801BF
+	for <poky@pokylinux.org>; Wed, 20 Oct 2010 04:28:45 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id o9K9SiCL014909;
+	Wed, 20 Oct 2010 10:28:44 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 14820-02; Wed, 20 Oct 2010 10:28:40 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id o9K9SaHs014903
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Wed, 20 Oct 2010 10:28:36 +0100
+From: Richard Purdie <rpurdie@linux.intel.com>
+To: Qing He <qing.he@intel.com>
+In-Reply-To: <20101020085626.GA14696@qhe2-db>
+References: <20101020085626.GA14696@qhe2-db>
+Date: Wed, 20 Oct 2010 10:28:28 +0100
+Message-ID: <1287566908.16386.34.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky <poky@pokylinux.org>
+Subject: Re: [PULL] fixes for bash and nfs-utils
 X-BeenThere: poky@pokylinux.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,26 +36,32 @@ List-Post: <mailto:poky@pokylinux.org>
 List-Help: <mailto:poky-request@pokylinux.org?subject=help>
 List-Subscribe: <https://lists.pokylinux.org/listinfo/poky>,
 	<mailto:poky-request@pokylinux.org?subject=subscribe>
-X-List-Received-Date: Wed, 20 Oct 2010 09:00:33 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-List-Received-Date: Wed, 20 Oct 2010 09:28:46 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-this fixes bug 483 and bug 387.
+On Wed, 2010-10-20 at 16:56 +0800, Qing He wrote:
+> this fixes bug 483 and bug 387.
+> 
+> Thanks,
+> Qing
+> 
+> ---
+>  meta/recipes-connectivity/nfs-utils/nfs-utils/nfsserver |    6 +++---
+>  meta/recipes-connectivity/nfs-utils/nfs-utils_1.2.2.bb  |    2 +-
+>  meta/recipes-extended/bash/bash.inc                     |    2 +-
+>  meta/recipes-extended/bash/bash_3.2.48.bb               |    2 +-
+>  meta/recipes-extended/bash/bash_4.1.bb                  |    2 +-
+>  5 files changed, 7 insertions(+), 7 deletions(-)
+> 
+> Qing He (2):
+>       bash: fix job control
+>       nfs-utils: fix nfs server initscript
+> 
+> Pull URL: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=qhe/fix
 
-Thanks,
-Qing
+Merged into master, thanks!
 
----
- meta/recipes-connectivity/nfs-utils/nfs-utils/nfsserver |    6 +++---
- meta/recipes-connectivity/nfs-utils/nfs-utils_1.2.2.bb  |    2 +-
- meta/recipes-extended/bash/bash.inc                     |    2 +-
- meta/recipes-extended/bash/bash_3.2.48.bb               |    2 +-
- meta/recipes-extended/bash/bash_4.1.bb                  |    2 +-
- 5 files changed, 7 insertions(+), 7 deletions(-)
+Richard
 
-Qing He (2):
-      bash: fix job control
-      nfs-utils: fix nfs server initscript
-
-Pull URL: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=qhe/fix
 
