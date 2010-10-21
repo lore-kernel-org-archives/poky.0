@@ -1,30 +1,30 @@
-Return-Path: <rpurdie@linux.intel.com>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 4EB9A4C80054
-	for <poky@pokylinux.org>; Thu, 21 Oct 2010 08:50:18 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id o9LDoHqW004037;
-	Thu, 21 Oct 2010 14:50:17 +0100
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 03414-09; Thu, 21 Oct 2010 14:50:13 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id o9LDoBrR004028
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Thu, 21 Oct 2010 14:50:11 +0100
-From: Richard Purdie <rpurdie@linux.intel.com>
-To: Mark Hatle <mark.hatle@windriver.com>
-In-Reply-To: <4CBF4A78.6000908@windriver.com>
-References: <4CBF4A78.6000908@windriver.com>
-Date: Thu, 21 Oct 2010 14:50:01 +0100
-Message-ID: <1287669001.16386.499.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky <poky@pokylinux.org>
-Subject: Re: [pull] syslog.conf update
+Return-Path: <mark.hatle@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id CD4174C80054
+	for <poky@pokylinux.org>; Thu, 21 Oct 2010 12:27:52 -0500 (CDT)
+Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id o9LHRpdY006813
+	for <poky@pokylinux.org>; Thu, 21 Oct 2010 10:27:51 -0700 (PDT)
+Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
+	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Thu, 21 Oct 2010 10:27:51 -0700
+Received: from Macintosh-5.local ([172.25.36.230]) by
+	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Thu, 21 Oct 2010 10:27:50 -0700
+Message-ID: <4CC07816.3040908@windriver.com>
+Date: Thu, 21 Oct 2010 12:27:50 -0500
+From: Mark Hatle <mark.hatle@windriver.com>
+Organization: Wind River Systems
+User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
+	rv:1.9.2.11) Gecko/20101013 Thunderbird/3.1.5
+MIME-Version: 1.0
+To: poky@pokylinux.org
+References: <749B9D3DBF0F054390025D9EAFF47F222FE8FA5E@shsmsx501.ccr.corp.intel.com><1287489755.1720.1284.camel@rex><749B9D3DBF0F054390025D9EAFF47F222FE8FF87@shsmsx501.ccr.corp.intel.com><1287566700.16386.33.camel@rex><749B9D3DBF0F054390025D9EAFF47F222FE902E6@shsmsx501.ccr.corp.intel.com>
+	<1287665502.16386.455.camel@rex>
+In-Reply-To: <1287665502.16386.455.camel@rex>
+X-OriginalArrivalTime: 21 Oct 2010 17:27:51.0347 (UTC)
+	FILETIME=[49B4F830:01CB7145]
+Subject: [PULL] Fix at -- was Re: [PULL] at: Non root install patch is not necessary (Bug246)
 X-BeenThere: poky@pokylinux.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,30 +36,54 @@ List-Post: <mailto:poky@pokylinux.org>
 List-Help: <mailto:poky-request@pokylinux.org?subject=help>
 List-Subscribe: <https://lists.pokylinux.org/listinfo/poky>,
 	<mailto:poky-request@pokylinux.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Oct 2010 13:50:18 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Thu, 21 Oct 2010 17:27:53 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Wed, 2010-10-20 at 15:00 -0500, Mark Hatle wrote:
-> The following changes since commit 1d5567c43df124175b4c4454d2f316bb20242509:
-> 
->    poky-default-revisions: define SRCREV for pseudo-nativesdk (2010-10-20 
-> 17:49:59 +0100)
-> 
-> are available in the git repository at:
->    git://git.pokylinux.org/poky-contrib mhatle/syslog
-> 
-> Mark Hatle (1):
->        busybox/sysklogd: syslog.conf files
-> 
->   meta/recipes-core/busybox/busybox.inc          |    7 +++++--
->   meta/recipes-core/busybox/busybox_1.16.2.bb    |    2 +-
->   meta/recipes-extended/sysklogd/sysklogd.inc    |    5 ++++-
->   meta/recipes-extended/sysklogd/sysklogd_1.5.bb |    2 +-
->   4 files changed, 11 insertions(+), 5 deletions(-)
+This commit introduced a bug, the following fixes the issue:
 
-Merged into master, thanks.
+Pull request follows....
 
-Richard
+The following changes since commit f1a209b142d2319d2594b051c01d9997184bfcb4:
+
+   busybox/sysklogd: syslog.conf files (2010-10-21 14:05:57 +0100)
+
+are available in the git repository at:
+   git://git.pokylinux.org/poky-contrib.git mhatle/at
+
+Mark Hatle (1):
+       at: Fix nonstripbinaries.patch
+
+  .../at/files/nonstripbinaries.patch                |    6 +++---
+  1 files changed, 3 insertions(+), 3 deletions(-)
+
+
+On 10/21/10 7:51 AM, Richard Purdie wrote:
+> On Thu, 2010-10-21 at 13:17 +0800, Mei, Lei wrote:
+>> Hi Richard,
+>>      I have added the description to the nonstripbinaries.patch, please check it, thank you~
+>>
+>>   meta/recipes-extended/at/at_3.1.12.bb                 |    2
+>>   meta/recipes-extended/at/files/nonrootinstall.patch   |   75 ------------------
+>>   meta/recipes-extended/at/files/nonstripbinaries.patch |   25 ++++++
+>>   3 files changed, 26 insertions(+), 76 deletions(-)
+>>
+>> Mei Lei (1):
+>>        at: remove nonrootinstall patch and modify some relevant files
+>>
+>> Pull URL: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=lmei3/distro
+>
+> Merged to master, thanks.
+>
+> As a note for future, no # to comment lines is needed in a patch header.
+>
+> Cheers,
+>
+> Richard
+>
+> _______________________________________________
+> poky mailing list
+> poky@pokylinux.org
+> https://lists.pokylinux.org/listinfo/poky
 
 
