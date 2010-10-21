@@ -1,36 +1,37 @@
-Return-Path: <bruce.ashfield@gmail.com>
-Received: from mail-iw0-f171.google.com (mail-iw0-f171.google.com
-	[209.85.214.171])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 181964C801BF
-	for <poky@pokylinux.org>; Wed, 20 Oct 2010 23:46:52 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by iwn38 with SMTP id 38so132630iwn.2
-	for <poky@pokylinux.org>; Wed, 20 Oct 2010 21:46:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:received:received:date:message-id
-	:subject:from:to:cc:content-type;
-	bh=AXSeSIOGD4H35klnmapV93w+cm+BTKKE5wH10HcFSC8=;
-	b=m+LfL+CdXoqLtgoShqw4a24MfWc6iYqqbtjv5y74+DLBNHiBJPDxljxCFyKgWjtJq+
-	oJfU5eqdY24pqYGI3T5kJUY+CzVAEK1MngoqkrhI7D+kEZDSUur/ETGLMSpPj06f2Sgr
-	j/s7Z722VE7HWzf5TekhSIvpsy/3YX7N/Nr74=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:date:message-id:subject:from:to:cc:content-type;
-	b=NDcUljzbIGZp0yk6+bP6KMi+VVpctZ2ZyQnptK/Rt31lmCmH753bcmInZ4+25r2kKU
-	gGVO2sd4oBb166ATlr0XlN30tDluyzfuXEaxg7dGAElSERDhTFXmtkpMcsg1D3iqPf55
-	os0MDomLS7WGBI5wF+iwq3Pv4b40AmpLbPYsc=
+Return-Path: <lei.mei@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 565EC4C803C9
+	for <poky@pokylinux.org>; Thu, 21 Oct 2010 00:17:52 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 20 Oct 2010 22:17:51 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.58,215,1286175600"; d="scan'208";a="566021908"
+Received: from pgsmsx601.gar.corp.intel.com ([10.221.43.69])
+	by orsmga002.jf.intel.com with ESMTP; 20 Oct 2010 22:17:51 -0700
+Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
+	pgsmsx601.gar.corp.intel.com (10.221.43.69) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Thu, 21 Oct 2010 13:17:48 +0800
+Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
+	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
+	Thu, 21 Oct 2010 13:17:47 +0800
+From: "Mei, Lei" <lei.mei@intel.com>
+To: Richard Purdie <rpurdie@linux.intel.com>
+Date: Thu, 21 Oct 2010 13:17:47 +0800
+Thread-Topic: [PULL] at: Non root install patch is not necessary (Bug 246)
+Thread-Index: ActwOLWN+xUFMG3FSAW1+3NawxkXvgApB4nw
+Message-ID: <749B9D3DBF0F054390025D9EAFF47F222FE902E6@shsmsx501.ccr.corp.intel.com>
+References: <749B9D3DBF0F054390025D9EAFF47F222FE8FA5E@shsmsx501.ccr.corp.intel.com>
+	<1287489755.1720.1284.camel@rex>
+	<749B9D3DBF0F054390025D9EAFF47F222FE8FF87@shsmsx501.ccr.corp.intel.com>
+	<1287566700.16386.33.camel@rex>
+In-Reply-To: <1287566700.16386.33.camel@rex>
+Accept-Language: zh-CN, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: zh-CN, en-US
 MIME-Version: 1.0
-Received: by 10.42.1.78 with SMTP id 14mr185214icf.111.1287636403996; Wed, 20
-	Oct 2010 21:46:43 -0700 (PDT)
-Received: by 10.231.207.66 with HTTP; Wed, 20 Oct 2010 21:46:43 -0700 (PDT)
-Date: Thu, 21 Oct 2010 00:46:43 -0400
-Message-ID: <AANLkTikBkCSh7kJfshniCFpAqky+stOHmVL1NtQZxTLh@mail.gmail.com>
-From: Bruce Ashfield <bruce.ashfield@gmail.com>
-To: "Purdie, Richard" <richard.purdie@intel.com>, "Wold,
-	Saul" <saul.wold@intel.com>
-Cc: poky <poky@pokylinux.org>
-Subject: [PULL] powerpc build fixes
+Cc: "poky@pokylinux.org" <poky@pokylinux.org>
+Subject: Re: [PULL] at: Non root install patch is not necessary (Bug 246)
 X-BeenThere: poky@pokylinux.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,79 +43,47 @@ List-Post: <mailto:poky@pokylinux.org>
 List-Help: <mailto:poky-request@pokylinux.org?subject=help>
 List-Subscribe: <https://lists.pokylinux.org/listinfo/poky>,
 	<mailto:poky-request@pokylinux.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Oct 2010 04:46:52 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Thu, 21 Oct 2010 05:17:52 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-When building poky-image-sato, two build errors popped up. When
-the original integration was done, the tuning bounced back and forth
-on this, it looks like a mismatch was sent up for merge mistakenly.
-
-This fixes the tuning and tweaks gst-ffmpeg to get everything building
-for sato. I don't see the need for altivec tests (or optimizations) for
-gst-ffmpeg at the moment, so my suggestion is to simply disable
-the tests.
-
-Cheers,
-
-Bruce
-
----------------------------------------------
-
-The following changes since commit 27d06858b5f3138039bddecc0eaaee1e05e21b48:
-  Joshua Lock (1):
-        gnome-icon-theme: fix build
-
-are available in the git repository at:
-
-  ssh://git@git.pokylinux.org/poky-contrib zedd/kernel
-
-Bruce Ashfield (2):
-      mpc8315e-rdb: align PACKAGE_EXTRA_ARCHS with tuning
-      gst-ffmpeg: powerpc build errors
-
- meta/conf/machine/mpc8315e-rdb.conf                |    2 +-
- .../gstreamer/gst-ffmpeg_0.10.1.bb                 |    2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
-
---------------------------------------------------
-
-commit 5de98a1c528529cc937d721c77c72897733f84d8
-Author: Bruce Ashfield <bruce.ashfield@windriver.com>
-Date:   Thu Oct 21 00:37:54 2010 -0400
-
-    gst-ffmpeg: powerpc build errors
-
-    Fixes [BUGID #501]
-
-    While building the poky-image-sato target, gst-ffmpeg failed when
-    it attempted to run altivec tests on the host. We can live without
-    this optimization, so the easiest fix is to simply disable it.
-
-    Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
-
-:100644 100644 65d60f9... 9bd371e... M
-meta/recipes-multimedia/gstreamer/gst-ffmpeg_0.10.1.bb
-
-commit 6cd2bb751c9d2b44f896f18508d59247d879c278
-Author: Bruce Ashfield <bruce.ashfield@windriver.com>
-Date:   Thu Oct 21 00:30:07 2010 -0400
-
-    mpc8315e-rdb: align PACKAGE_EXTRA_ARCHS with tuning
-
-    Fixes [BUGID #500]
-
-    While the tuning for the mpc8315e is 603e, the PACKAGE_EXTRA_ARCHES
-    was ppce300. This created a mismatch and resulted in rootfs assembly
-    issues due to missing locales.
-
-    We align both at 603 and can revist a better tuning in the future.
-
-    Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
-
-:100644 100644 a2aeea9... e42a9f2... M  meta/conf/machine/mpc8315e-rdb.conf
-
-
--- 
-"Thou shalt not follow the NULL pointer, for chaos and madness await
-thee at its end"
+SGkgUmljaGFyZCwNCiAgICBJIGhhdmUgYWRkZWQgdGhlIGRlc2NyaXB0aW9uIHRvIHRoZSBub25z
+dHJpcGJpbmFyaWVzLnBhdGNoLCBwbGVhc2UgY2hlY2sgaXQsIHRoYW5rIHlvdX4NCg0KIG1ldGEv
+cmVjaXBlcy1leHRlbmRlZC9hdC9hdF8zLjEuMTIuYmIgICAgICAgICAgICAgICAgIHwgICAgMiAN
+CiBtZXRhL3JlY2lwZXMtZXh0ZW5kZWQvYXQvZmlsZXMvbm9ucm9vdGluc3RhbGwucGF0Y2ggICB8
+ICAgNzUgLS0tLS0tLS0tLS0tLS0tLS0tDQogbWV0YS9yZWNpcGVzLWV4dGVuZGVkL2F0L2ZpbGVz
+L25vbnN0cmlwYmluYXJpZXMucGF0Y2ggfCAgIDI1ICsrKysrKw0KIDMgZmlsZXMgY2hhbmdlZCwg
+MjYgaW5zZXJ0aW9ucygrKSwgNzYgZGVsZXRpb25zKC0pDQoNCk1laSBMZWkgKDEpOg0KICAgICAg
+YXQ6IHJlbW92ZSBub25yb290aW5zdGFsbCBwYXRjaCBhbmQgbW9kaWZ5IHNvbWUgcmVsZXZhbnQg
+ZmlsZXMNCg0KUHVsbCBVUkw6IGh0dHA6Ly9naXQucG9reWxpbnV4Lm9yZy9jZ2l0LmNnaS9wb2t5
+LWNvbnRyaWIvbG9nLz9oPWxtZWkzL2Rpc3Rybw0KDQpjb21taXQgM2M2OTVkNWQyMTAyMjdjNTc0
+NGZhOTA3MzZmZWI3YzMwOGM2YmYxNQ0KQXV0aG9yOiBNZWkgTGVpIDxsZWkubWVpQGludGVsLmNv
+bT4NCkRhdGU6ICAgVGh1IE9jdCAyMSAxMjozNjo1MSAyMDEwICswODAwDQoNCiAgICBhdDogcmVt
+b3ZlIG5vbnJvb3RpbnN0YWxsIHBhdGNoIGFuZCBtb2RpZnkgc29tZSByZWxldmFudCBmaWxlcw0K
+ICAgIA0KICAgIHJlbW92ZSBub25yb290aW5zdGFsbCBwYXRjaCwgYW5kIHVzZSBhIHBhdGNoIG5h
+bWVkIG5vbnN0cmlwYmluYXJpZXMgdG8gbW9kaWZ5IHRoZSAvYXQtMy4xLjEwLjIvTWFrZWZpbGUu
+aW4sIHNvIGl0IGNhbiBhbHNvIGhhbmRsZXMgc3RyaXBwaW5nIG9mIHRoZSBiaW5hcmllcw0KICAg
+IA0KICAgIEZpeCBbQlVHIDI0Nl0NCiAgICANCiAgICBTaWduZWQtb2ZmLWJ5OiBNZWkgTGVpIDxs
+ZWkubWVpQGludGVsLmNvbT4NCg0KVGhhbmtzDQpMZWkNCg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdl
+LS0tLS0NCkZyb206IFJpY2hhcmQgUHVyZGllIFttYWlsdG86cnB1cmRpZUBsaW51eC5pbnRlbC5j
+b21dIA0KU2VudDogV2VkbmVzZGF5LCBPY3RvYmVyIDIwLCAyMDEwIDU6MjUgUE0NClRvOiBNZWks
+IExlaQ0KU3ViamVjdDogUkU6IFtQVUxMXSBhdDogTm9uIHJvb3QgaW5zdGFsbCBwYXRjaCBpcyBu
+b3QgbmVjZXNzYXJ5IChCdWcgMjQ2KQ0KDQpPbiBXZWQsIDIwMTAtMTAtMjAgYXQgMTc6MDUgKzA4
+MDAsIE1laSwgTGVpIHdyb3RlOg0KPiBIaSBSaWNoYXJkLA0KPiAgICBJIGhhdmUgcmUtZml4ZWQg
+dGhpcyBidWcsIHBsZWFzZSBjaGVjayBpdCwgdGhhbmsgeW91fg0KPiANCj4gIG1ldGEvcmVjaXBl
+cy1leHRlbmRlZC9hdC9hdF8zLjEuMTIuYmIgICAgICAgICAgICAgICAgIHwgICAgMiANCj4gIG1l
+dGEvcmVjaXBlcy1leHRlbmRlZC9hdC9maWxlcy9ub25yb290aW5zdGFsbC5wYXRjaCAgIHwgICA3
+NSAtLS0tLS0tLS0tLS0tLS0tLS0NCj4gIG1ldGEvcmVjaXBlcy1leHRlbmRlZC9hdC9maWxlcy9u
+b25zdHJpcGJpbmFyaWVzLnBhdGNoIHwgICAyMSArKysrKw0KPiAgMyBmaWxlcyBjaGFuZ2VkLCAy
+MiBpbnNlcnRpb25zKCspLCA3NiBkZWxldGlvbnMoLSkNCj4gDQo+IE1laSBMZWkgKDEpOg0KPiAg
+ICAgICBhdDogcmVtb3ZlIG5vbnJvb3RpbnN0YWxsIHBhdGNoIGFuZCBtb2RpZnkgcmVsZXZhbnQg
+ZmlsZXMNCg0KVGhhbmtzLCBtdWNoIGJldHRlci4gT25lIG1vcmUgc21hbGwgdGhpbmcgdGhvdWdo
+IC0gY291bGQgeW91IGFkZCBhDQpoZWFkZXIgdG8gdGhlIHBhdGNoIHdpdGggYSBkZXNjcmlwdGlv
+biBvZiB3aGF0IGl0IGRvZXMsIHdoeSBhbmQgd2hvIG1hZGUNCnRoZSBjaGFuZ2UuIEluIHRoaXMg
+Y2FzZSBpdHMgZmFpcmx5IG9idmlvdXMgYnV0IGl0cyBhIGdvb2QgaWRlYSBpbg0KZ2VuZXJhbCBh
+cyB3aGVuIHlvdSBjb21lIGJhY2sgdG8gYSBwYXRjaCBzaXggbW9udGhzIGxhdGVyIHlvdSBjYW4N
+CnJlbWVtYmVyIHdoeSBpdHMgdGhlcmUhDQoNCkFsc28sIHBva3kgcHVsbCByZXF1ZXN0cyBsaWtl
+IHRoaXMgc2hvdWxkIGJlIGdvaW5nIHRvIHRoZSBQb2t5IG1haWxpbmcNCmxpc3QuDQoNCkNoZWVy
+cywNCg0KUmljaGFyZA0KDQoNCg0K
 
