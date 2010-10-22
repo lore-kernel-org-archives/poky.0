@@ -1,35 +1,39 @@
 Return-Path: <rpurdie@linux.intel.com>
+Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 6D6704C801BF
+	for <poky@lists.pokylinux.org>; Fri, 22 Oct 2010 08:51:03 -0500 (CDT)
+Received: by pug.o-hand.com (Postfix)
+	id AC97E12EC2F2; Fri, 22 Oct 2010 09:26:37 -0500 (CDT)
 Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
 	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 253454C801BF
-	for <poky@pokylinux.org>; Fri, 22 Oct 2010 04:26:39 -0500 (CDT)
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by pug.o-hand.com (Postfix) with ESMTP id 50E7612EC27E
+	for <poky@o-hand.com>; Fri, 22 Oct 2010 09:26:37 -0500 (CDT)
 Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id o9M9QduZ024165;
-	Fri, 22 Oct 2010 10:26:39 +0100
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id o9MDp2aw030023
+	for <poky@o-hand.com>; Fri, 22 Oct 2010 14:51:02 +0100
 Received: from tim.rpsys.net ([127.0.0.1])
 	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
 	port 10024) with LMTP
-	id 24086-02; Fri, 22 Oct 2010 10:26:31 +0100 (BST)
+	id 29922-02 for <poky@o-hand.com>; Fri, 22 Oct 2010 14:50:58 +0100 (BST)
 Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id o9M9QRNG024154
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Fri, 22 Oct 2010 10:26:28 +0100
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id o9MDorF4030017
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO)
+	for <poky@o-hand.com>; Fri, 22 Oct 2010 14:50:53 +0100
 From: Richard Purdie <rpurdie@linux.intel.com>
-To: Mark Hatle <mark.hatle@windriver.com>
-In-Reply-To: <4CC07816.3040908@windriver.com>
-References: <749B9D3DBF0F054390025D9EAFF47F222FE8FA5E@shsmsx501.ccr.corp.intel.com>
-	<1287489755.1720.1284.camel@rex>
-	<749B9D3DBF0F054390025D9EAFF47F222FE8FF87@shsmsx501.ccr.corp.intel.com>
-	<1287566700.16386.33.camel@rex>
-	<749B9D3DBF0F054390025D9EAFF47F222FE902E6@shsmsx501.ccr.corp.intel.com>
-	<1287665502.16386.455.camel@rex>  <4CC07816.3040908@windriver.com>
-Date: Fri, 22 Oct 2010 10:26:15 +0100
-Message-ID: <1287739575.16386.652.camel@rex>
+To: poky@o-hand.com
+In-Reply-To: <4CAE54A1.1080803@mlbassoc.com>
+References: <4CADD32A.9010908@mlbassoc.com>
+	<1286462951.15840.6345.camel@rex> <4CADE06F.6040308@mlbassoc.com>
+	<4CADFA77.3070305@mlbassoc.com> <1286475616.15840.6565.camel@rex>
+	<4CAE54A1.1080803@mlbassoc.com>
+Date: Fri, 22 Oct 2010 14:50:39 +0100
+Message-ID: <1287755439.16386.736.camel@rex>
 Mime-Version: 1.0
 X-Mailer: Evolution 2.28.3 
 X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@pokylinux.org
-Subject: Re: [PULL] Fix at -- was Re: [PULL] at: Non root install patch is not necessary (Bug246)
+Subject: Re: SVN woes persist
 X-BeenThere: poky@pokylinux.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,29 +45,54 @@ List-Post: <mailto:poky@pokylinux.org>
 List-Help: <mailto:poky-request@pokylinux.org?subject=help>
 List-Subscribe: <https://lists.pokylinux.org/listinfo/poky>,
 	<mailto:poky-request@pokylinux.org?subject=subscribe>
-X-List-Received-Date: Fri, 22 Oct 2010 09:26:40 -0000
+X-List-Received-Date: Fri, 22 Oct 2010 13:51:03 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On Thu, 2010-10-21 at 12:27 -0500, Mark Hatle wrote:
-> This commit introduced a bug, the following fixes the issue:
+On Thu, 2010-10-07 at 17:15 -0600, Gary Thomas wrote:
+> I updated to include these changes and gave it a try.  Here's what I did:
 > 
-> Pull request follows....
+>    % mkdir /work/new_build
+>    % cd /work/poky_tree
+>    % . poky-init-build-env /work/new_build
+>      ... adjust DL_DIR, etc in conf/local.conf
+>          SSTATE_MIRRORS is not defined yet
+>    % bitbake some-image
 > 
-> The following changes since commit f1a209b142d2319d2594b051c01d9997184bfcb4:
+>    % mv sstate-cache sstate
+>    % mv tmp tmp.old
+>      ... adjust conf/local.conf to set SSTATE_MIRRORS like this
+>          SSTATE_MIRRORS ?= "\
+>          file://.* file:///work/new_build/sstate/"
 > 
->    busybox/sysklogd: syslog.conf files (2010-10-21 14:05:57 +0100)
+>    % bitbake some-image
 > 
-> are available in the git repository at:
->    git://git.pokylinux.org/poky-contrib.git mhatle/at
+> First of all, it took an incredible length of time (maybe a minute on my fast machine)
+> to even move past the resolve step.  Then it went off spewing lines about the state files
+> (sadly I didn't save them).  It then proceeded to run through some 322 steps, telling me
+> more about state files.  This took quite some time.  Then it seemed to just start the
+> normal build all over, apparently without regard to any of the sstate info.
 > 
-> Mark Hatle (1):
->        at: Fix nonstripbinaries.patch
+> Did I miss something?  Is this how it should work?
 > 
->   .../at/files/nonstripbinaries.patch                |    6 +++---
->   1 files changed, 3 insertions(+), 3 deletions(-)
+> Sorry to be such a pain over this, but I'd really like to see this part working.
+> If there's something I can help with it, please let me know - I know my way around
+> Python code, but I don't know all the internals of how you expect this to work.
 
-Merged into master, thanks.
+Sorry not to get back to you sooner, I'm being pulled in a few different
+directions and we're coming up to release.
+
+In my own tests I've noticed a few issues and I've just pushed a number
+of fixes into the master branch which should help in various areas. 
+
+With regard to your specific test and problem, it shouldn't rebuild
+everything. It turns out that I'd tested with http:// mirror urls and
+not file:// ones which needed and extra piece of code to handle them
+correctly.
+
+Have another try with master and see if things are better this time!
+
+Cheers,
 
 Richard
 
