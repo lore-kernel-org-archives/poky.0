@@ -1,37 +1,30 @@
-Return-Path: <gary@mlbassoc.com>
+Return-Path: <jsauer@vernier.com>
 Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 8BF194C8101B
-	for <poky@lists.pokylinux.org>; Fri, 22 Oct 2010 12:55:53 -0500 (CDT)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 378514C810B4
+	for <poky@lists.pokylinux.org>; Fri, 22 Oct 2010 19:04:23 -0500 (CDT)
 Received: by pug.o-hand.com (Postfix)
-	id 1386B12EC358; Fri, 22 Oct 2010 13:31:28 -0500 (CDT)
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by pug.o-hand.com (Postfix) with ESMTP id EE0A912EC27E
-	for <poky@o-hand.com>; Fri, 22 Oct 2010 13:31:27 -0500 (CDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 593EE1660357; Fri, 22 Oct 2010 11:55:51 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=ham version=3.3.1
-Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
-	by mail.chez-thomas.org (Postfix) with ESMTP id D7F7416602EC;
-	Fri, 22 Oct 2010 11:55:50 -0600 (MDT)
-Message-ID: <4CC1D026.7050408@mlbassoc.com>
-Date: Fri, 22 Oct 2010 11:55:50 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.1.9) Gecko/20100430 Fedora/3.0.4-2.fc11 Thunderbird/3.0.4
+	id D42D712EC203; Fri, 22 Oct 2010 19:39:58 -0500 (CDT)
+Received: from na3sys009aog110.obsmtp.com (na3sys009aog110.obsmtp.com
+	[74.125.149.203])
+	by pug.o-hand.com (Postfix) with SMTP id 71F5612EC11B
+	for <poky@o-hand.com>; Fri, 22 Oct 2010 19:39:58 -0500 (CDT)
+Received: from source ([209.85.216.52]) by na3sys009aob110.postini.com
+	([74.125.148.12]) with SMTP
+	ID DSNKTMImhiqPwRoh+/m3NudXlZBbk/uBH9Kf@postini.com;
+	Fri, 22 Oct 2010 17:04:22 PDT
+Received: by mail-qw0-f52.google.com with SMTP id 5so208126qwh.25
+	for <poky@o-hand.com>; Fri, 22 Oct 2010 17:04:22 -0700 (PDT)
 MIME-Version: 1.0
-To: Richard Purdie <rpurdie@linux.intel.com>
-References: <4CADD32A.9010908@mlbassoc.com>	 <1286462951.15840.6345.camel@rex>
-	<4CADE06F.6040308@mlbassoc.com>	 <4CADFA77.3070305@mlbassoc.com>
-	<1286475616.15840.6565.camel@rex>	 <4CAE54A1.1080803@mlbassoc.com>
-	<1287755439.16386.736.camel@rex>	 <4CC199D1.3000309@mlbassoc.com>
-	<1287757765.16386.771.camel@rex>
-In-Reply-To: <1287757765.16386.771.camel@rex>
-Cc: poky@o-hand.com
-Subject: Re: SVN woes persist
+Received: by 10.229.229.10 with SMTP id jg10mr2976096qcb.3.1287792262002; Fri,
+	22 Oct 2010 17:04:22 -0700 (PDT)
+Received: by 10.229.66.93 with HTTP; Fri, 22 Oct 2010 17:04:21 -0700 (PDT)
+In-Reply-To: <AANLkTimT6dmQHiOq4Qve36h6=3HNXiF2zckvVjbj8PMK@mail.gmail.com>
+References: <AANLkTimT6dmQHiOq4Qve36h6=3HNXiF2zckvVjbj8PMK@mail.gmail.com>
+Date: Fri, 22 Oct 2010 17:04:21 -0700
+Message-ID: <AANLkTikrgDhE75nv7bbWTSJd5=QKahLOus7noENetC4P@mail.gmail.com>
+From: Joe Sauer <jsauer@vernier.com>
+To: poky@o-hand.com
+Subject: Re: qemu-arm broke after Ubuntu 10.04 libc upgrade
 X-BeenThere: poky@pokylinux.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,45 +36,95 @@ List-Post: <mailto:poky@pokylinux.org>
 List-Help: <mailto:poky-request@pokylinux.org?subject=help>
 List-Subscribe: <https://lists.pokylinux.org/listinfo/poky>,
 	<mailto:poky-request@pokylinux.org?subject=subscribe>
-X-List-Received-Date: Fri, 22 Oct 2010 17:55:53 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Sat, 23 Oct 2010 00:04:23 -0000
+Content-Type: multipart/alternative; boundary=0016363b934252384d04933d8028
 
-On 10/22/2010 08:29 AM, Richard Purdie wrote:
-> On Fri, 2010-10-22 at 08:04 -0600, Gary Thomas wrote:
->> Will do.
->>
->> Should this address the similar issue with GIT packages.  These seem
->> to be updating every time as well:
->>     git_github.com.wrpseudo.pseudo.git.tar.gz
->>     git_git.pokylinux.org.wr-kernel-tools.git.tar.gz
->>     git_git.pokylinux.org.prelink-cross.git.tar.gz
+--0016363b934252384d04933d8028
+Content-Type: text/plain; charset=ISO-8859-1
+
+I finally found the problem that was causing my build of glibc to fail.  I'm
+sending this message for the benefit of posterity.
+
+Here's the smoking gun:
+
+jsauer@jazzman:/home/trunk.green/build$ sudo sysctl -n vm.mmap_min_addr
+65536
+
+Of course, that value should be 0!!!!!!
+
+The Ubuntu 10.04 update of glibc/kernel last Friday must have set this value
+back to the default.  Of course the error message I was getting gave NO CLUE
+about the actual cause:
+
+    qemu-arm: relocation error: qemu-arm: symbol unlink, version GLIBC_2.0
+not defined in file libc.so.6 with link time reference
+
+It only took a week to figure this out.  I'm going put the "sysctl -w
+vm.mmap_min_addr=0" command in the build script so this can never happen
+again!
+
+--Joe
+
+
+On Mon, Oct 18, 2010 at 4:40 PM, Joe Sauer <jsauer@vernier.com> wrote:
+
+> A few days ago my Ubuntu 10.04 build machine pulled in this upgrade:
 >
-> There are changes in master which will stop everything except the
-> linux-wrs recipe doing that. The linux-wrs recipe uses "fullclone" mode
-> of the git fetcher and this has known issues which we will address soon.
+> Upgrade: linux-libc-dev (2.6.32-24.42, 2.6.32-25.44),
+> linux-image-2.6.32-24-generic-pae (2.6.32-24.42, 2.6.32-24.43)
 >
-> If anything other than linux-wrs is refreshing on master other than that
-> recipe, let us know.
-
-Looks good.  The one one that got updated today with a full build was pseudo
-and that's because the pinned revision was changed since I last merged.
-
->> I'm still hoping for a way to have a static (no network needed) setup
->> soon.  I have to provide such in a training for some of my customers
->> in about a month :-)
+> and now I can't build binary locales -- I get these errors building glibc:
 >
-> It is meant to work like that!
+> qemu-arm: relocation error: qemu-arm: symbol fcntl,  version GLIBC_2.0 not
+> defined in file libpthread.so.0 with link time reference
+> qemu-arm: relocation error: qemu-arm: symbol unlink, version GLIBC_2.0 not
+> defined in file libc.so.6 with link time reference
+>
+> Short of trying to back out that upgrade does anyone have an idea of a fix?
+>
+> --Joe Sauer
+>
 
-This part is working much better now, thanks.
+--0016363b934252384d04933d8028
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
 
-Any progress on a way to hot-start things with the staged packages?
-When last I tried it, it brought my system to its knees with no benefit
-(see original message from 2010-10-07)
+I finally found the problem that was causing my build of glibc to fail.=A0 =
+I&#39;m sending this message for the benefit of posterity.<br><br>Here&#39;=
+s the smoking gun:<br><br>jsauer@jazzman:/home/trunk.green/build$ sudo sysc=
+tl -n vm.mmap_min_addr<br>
+65536<br><br>Of course, that value should be 0!!!!!!<br><br>The Ubuntu 10.0=
+4 update of glibc/kernel last Friday must have set this value back to the d=
+efault.=A0 Of course the error message I was getting gave NO CLUE about the=
+ actual cause:<br>
+<br><font size=3D"1"><span style=3D"font-family: courier new,monospace;">=
+=A0=A0=A0 qemu-arm: relocation error: qemu-arm: symbol unlink, version GLIB=
+C_2.0 not defined in file libc.so.6 with link time reference</span></font><=
+br><br>It only took a week to figure this out.=A0 I&#39;m going put the &qu=
+ot;sysctl -w vm.mmap_min_addr=3D0&quot; command in the build script so this=
+ can never happen again!<br>
+<br>--Joe<br><br><br><div class=3D"gmail_quote">On Mon, Oct 18, 2010 at 4:4=
+0 PM, Joe Sauer <span dir=3D"ltr">&lt;<a href=3D"mailto:jsauer@vernier.com"=
+>jsauer@vernier.com</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quo=
+te" style=3D"margin: 0pt 0pt 0pt 0.8ex; border-left: 1px solid rgb(204, 204=
+, 204); padding-left: 1ex;">
+A few days ago my Ubuntu 10.04 build machine pulled in this upgrade:<br><br=
+><font size=3D"1"><span style=3D"font-family: courier new,monospace;">Upgra=
+de: linux-libc-dev (2.6.32-24.42, 2.6.32-25.44), linux-image-2.6.32-24-gene=
+ric-pae (2.6.32-24.42, 2.6.32-24.43)</span></font><br>
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+<br>and now I can&#39;t build binary locales -- I get these errors building=
+ glibc:<br><br><font size=3D"1"><span style=3D"font-family: courier new,mon=
+ospace;">qemu-arm: relocation error: qemu-arm: symbol fcntl,=A0 version GLI=
+BC_2.0 not defined in file libpthread.so.0 with link time reference</span><=
+br style=3D"font-family: courier new,monospace;">
 
+<span style=3D"font-family: courier new,monospace;">qemu-arm: relocation er=
+ror: qemu-arm: symbol unlink, version GLIBC_2.0 not defined in file libc.so=
+.6 with link time reference</span></font><br><br>Short of trying to back ou=
+t that upgrade does anyone have an idea of a fix?<br>
+<font color=3D"#888888">
+<br>--Joe Sauer<br>
+</font></blockquote></div><br>
+
+--0016363b934252384d04933d8028--
