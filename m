@@ -1,27 +1,25 @@
-Return-Path: <rpurdie@linux.intel.com>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D95814C80BD4
-	for <poky@pokylinux.org>; Wed, 27 Oct 2010 06:26:54 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id o9RBQsLs005113
-	for <poky@pokylinux.org>; Wed, 27 Oct 2010 12:26:54 +0100
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP id 04517-07 for <poky@pokylinux.org>;
-	Wed, 27 Oct 2010 12:26:50 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id o9RBQhAY005106
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO)
-	for <poky@pokylinux.org>; Wed, 27 Oct 2010 12:26:45 +0100
-From: Richard Purdie <rpurdie@linux.intel.com>
-To: poky <poky@pokylinux.org>
-Date: Wed, 27 Oct 2010 12:26:42 +0100
-Message-ID: <1288178802.1285.2594.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Subject: Poky Laverne 4.0 Released
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id A48604C80287
+	for <poky@lists.pokylinux.org>; Wed, 27 Oct 2010 16:33:27 -0500 (CDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 902AD1660748; Wed, 27 Oct 2010 15:33:26 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=ham version=3.3.1
+Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 036BB1660746;
+	Wed, 27 Oct 2010 15:33:26 -0600 (MDT)
+Message-ID: <4CC89AA5.7080900@mlbassoc.com>
+Date: Wed, 27 Oct 2010 15:33:25 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.1.9) Gecko/20100430 Fedora/3.0.4-2.fc11 Thunderbird/3.0.4
+MIME-Version: 1.0
+To: Poky <poky@lists.pokylinux.org>
+Subject: Using prebuilt toolchains
 X-BeenThere: poky@pokylinux.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,130 +31,21 @@ List-Post: <mailto:poky@pokylinux.org>
 List-Help: <mailto:poky-request@pokylinux.org?subject=help>
 List-Subscribe: <https://lists.pokylinux.org/listinfo/poky>,
 	<mailto:poky-request@pokylinux.org?subject=subscribe>
-X-List-Received-Date: Wed, 27 Oct 2010 11:26:55 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Wed, 27 Oct 2010 21:33:28 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-It gives me great pleasure to announce a new Poky release, Poky
-'Laverne' 4.0. This comes alongside the launch of the Yocto Project
-which is a new Linux Foundation project targeted at embedded developers
-of which Poky is now proud to be a part. This aims to be a place
-embedded developers can collaborate around a tools and other
-developments, see http://www.yoctoproject.org/ for more information.
+Congratulations on Laverne (4.0) and Yocto - I hope they are
+prosperous for all :-)
 
-As part of this, we're making the split clear between the reference
-binaries that usually accompany a release which are now a part of the
-Yocto Project and the build system itself which remains Poky.
+Is there any way to configure Poky (laverne) with a prebuilt
+toolchain, e.g. a meta-toolchain setup?  I no longer see any
+mention of this in the manual (although I've never succeeded
+to use such, no matter how hard I've tried)
 
-Sources and binaries are linked to from both the Poky website and
-http://www.yoctoproject.org/
-
-Release notes for Poky 4.0 and Yocto 0.9 follow.
-
-
-Yocto 0.9 built by Poky Laverne Release 4.0
-===========================================
-
-- Features and Updates
-- Known Issues
-
-
-FEATURES AND UPDATES
-====================
-
-- Poky Build System Updates
-   * Task based shared state
-   * Split packages directory (now recipes-*)
-   * BSP layer specifcation
-   * Enhanced layer support
-   * Support for multiple build directories
-   * Support for readonly central installs
-   * Ability to build GPL v2 only target images
-   * Swapper integrated to detect host contamination
-   * Shared state and checksumming leading to prebuilt binary support
-- Prelink Tool Integration
-   * Integration of cross prelink tools into Poky
-- Toolchain Update
-   * GCC 4.5.0
-   * Binutils 2.20.1
-   * eglibc 2.12 is default libc provider
-- New and Updated Recipes
-   * Major update of core recipes
-   * Added additional packages towards LSB support
-   * Added QT4 libraries and demo code
-   * Xorg stack updates
-   * Yocto embedded kernel (2.6.35) and support tools
-- Packaging
-   * Default to rpm packaging backend (ipk and deb still available)
-   * Used pseudo for setting ownership and permissions
-   * Software package management now use RPM5 and Zypper
-- Standalone Yocto SDK Generator
-   * Enable embedded application development       
-   * Generated by Poky
-   * Consists of a sysroot representing a target system
-   * Includes a standalone cross compiler and cross build tools
-     to isolate the two systems
-- Yocto SDK Generator IDE Plug-ins
-   * Works within IDE using Yocto sysroot environment and cross
-     platform toolchains
-   * Remote user space tool suite interaction
-   * Eclipse support               
-   * Anjuta support
-- Yocto SDK Generator remote agent
-   * TCF extension allowing remote control
-   * Runs on the target "device"
-   * Manage tasks e.g. deployment, launching remote tools, setup
-     cross debugging session
-- Qemu basic system simulation/emulation
-   * Enhanced with GL passthrough (x86)
-   * User mode NFS support 
-- User space tool suite for target device tuning, analyzing and 
-  optimizing, which includes
-   * OProfile
-   * Powertop      
-   * Latencytop
-   * Perf
-   * ftrace/lttng user space
-- Host side clients for tools on target devices and IDE interaction, 
-  which includes     
-   * ProfileUI
-   * Lttv-viewer
-- Updated Documentation includes
-   * Core Reference Manunal Updated
-   * BSP developer's guide
-   * Quick Start Guide
-   * FAQs
-
-
-
-KNOWN ISSUES
-============
-
-See bugzilla.yoctoproject.org
-
-382 - OprofileUI cross endian issues
-
-439 - No audio from the Blacksand board Front Channel auido jack.
-      Workaround: run the following cmd: 'amixer sset "Front" 30 on'
-
-467 - Issues building with Fedora 14, this distribution provided a
-      version of make that is not compatible with the Poky build
-      system, the workaround it to build a native version of make via
-      the build system. Users of Fedora 14 will need to do a
-      'bitbake make-native' before running any other targets.
-
-429 - Building poky from scratch with /opt/poky in your path cause host
-      contamination issues, be sure that /opt/poky is not in your path
-      if building from scratch
-
-160 - Emenlow Hardware gets stuck in the reboot sequence and
-      needs to be power cycled.
-
-Zypper / RPM Issues
-489/490/491 - Due to some architectual difference between zypper and
-              rpm5.0, there are some compatibility issues that prevent 
-              zypper from working correctly. Packages can still be  
-              managed with the rpm commands.
-
-
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
