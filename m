@@ -1,35 +1,27 @@
-Return-Path: <dexuan.cui@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 01D8C4C81016
-	for <poky@pokylinux.org>; Tue, 26 Oct 2010 02:25:28 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 26 Oct 2010 00:25:25 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.58,239,1286175600"; d="scan'208";a="340476058"
-Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
-	by azsmga001.ch.intel.com with ESMTP; 26 Oct 2010 00:25:18 -0700
-Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
-	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Tue, 26 Oct 2010 15:24:19 +0800
-Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
-	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
-	Tue, 26 Oct 2010 15:24:18 +0800
-From: "Cui, Dexuan" <dexuan.cui@intel.com>
-To: "'poky@pokylinux.org'" <poky@pokylinux.org>
-Date: Tue, 26 Oct 2010 15:24:17 +0800
-Thread-Topic: [PULL] busybox: enable more options for tar to support more
-	file formats
-Thread-Index: ActwNUV7UjU51QfeS9CumoVDvGW1TABTiEcgANbEbkA=
-Message-ID: <1865303E0DED764181A9D882DEF65FB677CE107452@shsmsx502.ccr.corp.intel.com>
-References: <20101020085626.GA14696@qhe2-db>
-	<1865303E0DED764181A9D882DEF65FB674E057FB47@shsmsx502.ccr.corp.intel.com>
-In-Reply-To: <1865303E0DED764181A9D882DEF65FB674E057FB47@shsmsx502.ccr.corp.intel.com>
-Accept-Language: zh-CN, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: zh-CN, en-US
-MIME-Version: 1.0
-Subject: [PULL] busybox: enable more options for tar to support more file formats
+Return-Path: <rpurdie@linux.intel.com>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D95814C80BD4
+	for <poky@pokylinux.org>; Wed, 27 Oct 2010 06:26:54 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id o9RBQsLs005113
+	for <poky@pokylinux.org>; Wed, 27 Oct 2010 12:26:54 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP id 04517-07 for <poky@pokylinux.org>;
+	Wed, 27 Oct 2010 12:26:50 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id o9RBQhAY005106
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO)
+	for <poky@pokylinux.org>; Wed, 27 Oct 2010 12:26:45 +0100
+From: Richard Purdie <rpurdie@linux.intel.com>
+To: poky <poky@pokylinux.org>
+Date: Wed, 27 Oct 2010 12:26:42 +0100
+Message-ID: <1288178802.1285.2594.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Subject: Poky Laverne 4.0 Released
 X-BeenThere: poky@pokylinux.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,32 +33,130 @@ List-Post: <mailto:poky@pokylinux.org>
 List-Help: <mailto:poky-request@pokylinux.org?subject=help>
 List-Subscribe: <https://lists.pokylinux.org/listinfo/poky>,
 	<mailto:poky-request@pokylinux.org?subject=subscribe>
-X-List-Received-Date: Tue, 26 Oct 2010 07:25:30 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Wed, 27 Oct 2010 11:26:55 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-$ scripts/create-pull-request -r 2ecf311fbca970f6ea2d80accc3f925b097b664e -=
-b dcui/master
-Note: <commit_id> parameter assumed as 'HEAD'
+It gives me great pleasure to announce a new Poky release, Poky
+'Laverne' 4.0. This comes alongside the launch of the Yocto Project
+which is a new Linux Foundation project targeted at embedded developers
+of which Poky is now proud to be a part. This aims to be a place
+embedded developers can collaborate around a tools and other
+developments, see http://www.yoctoproject.org/ for more information.
 
- meta/recipes-core/busybox/busybox-1.16.2/defconfig |   14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+As part of this, we're making the split clear between the reference
+binaries that usually accompany a release which are now a part of the
+Yocto Project and the build system itself which remains Poky.
 
-Dexuan Cui (1):
-      busybox: enable more options for tar to support more file formats.
+Sources and binaries are linked to from both the Poky website and
+http://www.yoctoproject.org/
 
-Pull URL: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=3Ddcui/mast=
-er
+Release notes for Poky 4.0 and Yocto 0.9 follow.
 
 
-commit b952fae48c45e39a14ec9c24b0ee544a741c3f69
-Author: Dexuan Cui <dexuan.cui@intel.com>
-Date:   Tue Oct 26 15:10:26 2010 +0800
+Yocto 0.9 built by Poky Laverne Release 4.0
+===========================================
 
-    busybox: enable more options for tar to support more file formats.
+- Features and Updates
+- Known Issues
 
-    Fixes [BUGID #495]
 
-    Signed-off-by: Dexuan Cui <dexuan.cui@intel.com>=
+FEATURES AND UPDATES
+====================
+
+- Poky Build System Updates
+   * Task based shared state
+   * Split packages directory (now recipes-*)
+   * BSP layer specifcation
+   * Enhanced layer support
+   * Support for multiple build directories
+   * Support for readonly central installs
+   * Ability to build GPL v2 only target images
+   * Swapper integrated to detect host contamination
+   * Shared state and checksumming leading to prebuilt binary support
+- Prelink Tool Integration
+   * Integration of cross prelink tools into Poky
+- Toolchain Update
+   * GCC 4.5.0
+   * Binutils 2.20.1
+   * eglibc 2.12 is default libc provider
+- New and Updated Recipes
+   * Major update of core recipes
+   * Added additional packages towards LSB support
+   * Added QT4 libraries and demo code
+   * Xorg stack updates
+   * Yocto embedded kernel (2.6.35) and support tools
+- Packaging
+   * Default to rpm packaging backend (ipk and deb still available)
+   * Used pseudo for setting ownership and permissions
+   * Software package management now use RPM5 and Zypper
+- Standalone Yocto SDK Generator
+   * Enable embedded application development       
+   * Generated by Poky
+   * Consists of a sysroot representing a target system
+   * Includes a standalone cross compiler and cross build tools
+     to isolate the two systems
+- Yocto SDK Generator IDE Plug-ins
+   * Works within IDE using Yocto sysroot environment and cross
+     platform toolchains
+   * Remote user space tool suite interaction
+   * Eclipse support               
+   * Anjuta support
+- Yocto SDK Generator remote agent
+   * TCF extension allowing remote control
+   * Runs on the target "device"
+   * Manage tasks e.g. deployment, launching remote tools, setup
+     cross debugging session
+- Qemu basic system simulation/emulation
+   * Enhanced with GL passthrough (x86)
+   * User mode NFS support 
+- User space tool suite for target device tuning, analyzing and 
+  optimizing, which includes
+   * OProfile
+   * Powertop      
+   * Latencytop
+   * Perf
+   * ftrace/lttng user space
+- Host side clients for tools on target devices and IDE interaction, 
+  which includes     
+   * ProfileUI
+   * Lttv-viewer
+- Updated Documentation includes
+   * Core Reference Manunal Updated
+   * BSP developer's guide
+   * Quick Start Guide
+   * FAQs
+
+
+
+KNOWN ISSUES
+============
+
+See bugzilla.yoctoproject.org
+
+382 - OprofileUI cross endian issues
+
+439 - No audio from the Blacksand board Front Channel auido jack.
+      Workaround: run the following cmd: 'amixer sset "Front" 30 on'
+
+467 - Issues building with Fedora 14, this distribution provided a
+      version of make that is not compatible with the Poky build
+      system, the workaround it to build a native version of make via
+      the build system. Users of Fedora 14 will need to do a
+      'bitbake make-native' before running any other targets.
+
+429 - Building poky from scratch with /opt/poky in your path cause host
+      contamination issues, be sure that /opt/poky is not in your path
+      if building from scratch
+
+160 - Emenlow Hardware gets stuck in the reboot sequence and
+      needs to be power cycled.
+
+Zypper / RPM Issues
+489/490/491 - Due to some architectual difference between zypper and
+              rpm5.0, there are some compatibility issues that prevent 
+              zypper from working correctly. Packages can still be  
+              managed with the rpm commands.
+
+
 
