@@ -1,42 +1,31 @@
-Return-Path: <kevin.tian@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 84D6F4C80BD4
-	for <poky@lists.pokylinux.org>; Thu, 28 Oct 2010 07:55:39 -0500 (CDT)
+Return-Path: <jiajun.xu@intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 37A9F4C80BD4
+	for <poky@pokylinux.org>; Thu, 28 Oct 2010 20:53:47 -0500 (CDT)
 Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 28 Oct 2010 05:55:36 -0700
+	by azsmga101.ch.intel.com with ESMTP; 28 Oct 2010 18:53:46 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.58,252,1286175600"; d="scan'208";a="341590609"
-Received: from pgsmsx603.gar.corp.intel.com ([10.221.43.87])
-	by azsmga001.ch.intel.com with ESMTP; 28 Oct 2010 05:55:29 -0700
-Received: from pgsmsx509.gar.corp.intel.com (172.30.13.17) by
-	pgsmsx603.gar.corp.intel.com (10.221.43.87) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Thu, 28 Oct 2010 20:55:27 +0800
-Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
-	PGSMSX509.gar.corp.intel.com (172.30.13.17) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Thu, 28 Oct 2010 20:55:27 +0800
-Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
-	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
-	Thu, 28 Oct 2010 20:55:26 +0800
-From: "Tian, Kevin" <kevin.tian@intel.com>
-To: Gary Thomas <gary@mlbassoc.com>, "Ke, Liping" <liping.ke@intel.com>
-Date: Thu, 28 Oct 2010 20:54:57 +0800
-Thread-Topic: [poky] Using prebuilt toolchains
-Thread-Index: Act2lApatHSmOn47SHeLHzV4P7+RSwACt4fw
-Message-ID: <625BA99ED14B2D499DC4E29D8138F1504D1277934F@shsmsx502.ccr.corp.intel.com>
-References: <4CC89AA5.7080900@mlbassoc.com>
-	<8EA2C2C4116BF44AB370468FBF85A77701969CD2DE@orsmsx504.amr.corp.intel.com>
-	<4CC8B08D.10402@mlbassoc.com>
-	<789F9655DD1B8F43B48D77C5D30659732FC450EE@shsmsx501.ccr.corp.intel.com>
-	<789F9655DD1B8F43B48D77C5D30659732FC45129@shsmsx501.ccr.corp.intel.com>
-	<4CC95FAD.9050801@mlbassoc.com>
-In-Reply-To: <4CC95FAD.9050801@mlbassoc.com>
+X-IronPort-AV: E=Sophos;i="4.58,255,1286175600"; d="scan'208";a="341921860"
+Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
+	by azsmga001.ch.intel.com with ESMTP; 28 Oct 2010 18:53:45 -0700
+Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
+	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Fri, 29 Oct 2010 09:53:35 +0800
+Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
+	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
+	Fri, 29 Oct 2010 09:53:34 +0800
+From: "Xu, Jiajun" <jiajun.xu@intel.com>
+To: "poky@pokylinux.org" <poky@pokylinux.org>
+Date: Fri, 29 Oct 2010 09:53:32 +0800
+Thread-Topic: [PULL]  imagetest-qemu: Add test case for dmesg check
+Thread-Index: Act3DBdsWjTJWziWTju1/6ltkkfCfQ==
+Message-ID: <D5AB6E638E5A3E4B8F4406B113A5A19A3003F01B@shsmsx501.ccr.corp.intel.com>
 Accept-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 acceptlanguage: en-US
 MIME-Version: 1.0
-Cc: Poky <poky@lists.pokylinux.org>
-Subject: Re: Using prebuilt toolchains
+Subject: [PULL] imagetest-qemu: Add test case for dmesg check
 X-BeenThere: poky@pokylinux.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -48,101 +37,47 @@ List-Post: <mailto:poky@pokylinux.org>
 List-Help: <mailto:poky-request@pokylinux.org?subject=help>
 List-Subscribe: <https://lists.pokylinux.org/listinfo/poky>,
 	<mailto:poky-request@pokylinux.org?subject=subscribe>
-X-List-Received-Date: Thu, 28 Oct 2010 12:55:39 -0000
+X-List-Received-Date: Fri, 29 Oct 2010 01:53:47 -0000
 Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
->From: Gary Thomas [mailto:gary@mlbassoc.com]
->Sent: Thursday, October 28, 2010 7:34 PM
->
->On 10/27/2010 08:35 PM, Ke, Liping wrote:
->> Hi, Gary
->>
->> Seems I misunderstand something. Seems what you want is about how to
->> create a recipe which could reuse you pre-build images and save build
->> time.
->>
->> But anyway, for normal application developers, providing an easy-to-use
->> sdk-toolchain tarball is helpful. In theory, they have no needs to build
->> the whole poky system by themselves.
->
->Sadly, that's what they insist on :-(
->
->Mostly my customers want to be able to [re]build exactly what's in their
->embedded environment, typically from scratch.  Poky does this great, but
->the overhead of rebuilding the toolchain is a huge portion of the effort.
+ meta/classes/imagetest-qemu.bbclass                       |    6 +
+ scripts/qemuimage-testlib                                 |   56 +++++++++=
++++++
+ scripts/qemuimage-tests/sanity/dmesg                      |   53 +++++++++=
+++++
+ scripts/qemuimage-tests/scenario/qemuarm/poky-image-sato  |    1
+ scripts/qemuimage-tests/scenario/qemuarm/poky-image-sdk   |    1
+ scripts/qemuimage-tests/scenario/qemumips/poky-image-sato |    1
+ scripts/qemuimage-tests/scenario/qemumips/poky-image-sdk  |    1
+ scripts/qemuimage-tests/scenario/qemuppc/poky-image-sato  |    1
+ scripts/qemuimage-tests/scenario/qemuppc/poky-image-sdk   |    1
+ scripts/qemuimage-tests/scenario/qemux86/poky-image-sato  |    1
+ scripts/qemuimage-tests/scenario/qemux86/poky-image-sdk   |    1
+ scripts/qemuimage-tests/tools/dmesg.sh                    |   26 ++++++
+ 12 files changed, 147 insertions(+), 2 deletions(-)
 
-that's reasonable, as people want the full control of the given bits. Actua=
-lly this is one
-major reason why people go to open source side. :-)
+Jiajun Xu (1):
+      imagetest-qemu: Add test case for dmesg check in target
 
->
->As for Kevin's comment:
->>
->> On the other hand, I think the new checksum and task based prebuilt can =
-serve similar
->> purpose for you... or even more since your users should be happier if yo=
-u could provide
->more
->> prebuilt stuff to them besides just toolchain. This is the merit of this=
- project, to have end
->> user really focusing on their own customization and value-added bits. :-=
-)
->>
->
->This would be great and I've been working with Richard on it for a long ti=
-me.
->Sadly, it still doesn't work correctly and provides no benefit in its curr=
-ent
->state.
+Pull URL: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=3Djxu49/mas=
+ter
 
-well, please report any issues you encountered with it, and we'll work toge=
-ther to make
-this fancy feature dancing well.
+commit c2703156b3fb191c088606433b7e585f3ca3af58
+Author: Jiajun Xu <jiajun.xu@intel.com>
+Date:   Fri Oct 29 09:42:06 2010 +0800
 
->
->... I keep using Poky (at the very bleeding edge) and hoping :-)
+    imagetest-qemu: Add test case for dmesg check in target
 
-it's always good to see such mails from you. :-)
+    Add a test case for error log check with command dmesg in target. The
+    case introduces a new folder in target, "/opt/test", which holds test
+    scripts running in target.
 
-Thanks
-Kevin
+    Signed-off-by Jiajun Xu <jiajun.xu@intel.com>
 
->
->>>>> -----Original Message-----
->>>>> From: poky-bounces@pokylinux.org [mailto:poky-bounces@pokylinux.org]
->>>> On Behalf Of Gary Thomas
->>>>> Sent: Wednesday, October 27, 2010 2:33 PM
->>>>> To: Poky
->>>>> Subject: [poky] Using prebuilt toolchains
->>>>>
->>>>> Congratulations on Laverne (4.0) and Yocto - I hope they are
->>>>> prosperous for all :-)
->>>>>
->>>>> Is there any way to configure Poky (laverne) with a prebuilt
->>>>> toolchain, e.g. a meta-toolchain setup?  I no longer see any
->>>>> mention of this in the manual (although I've never succeeded
->>>>> to use such, no matter how hard I've tried)
->>>>>
->>>>
->>>> --
->>>> ------------------------------------------------------------
->>>> Gary Thomas                 |  Consulting for the
->>>> MLB Associates              |    Embedded world
->>>> ------------------------------------------------------------
->>>> _______________________________________________
->>>> poky mailing list
->>>> poky@pokylinux.org
->>>> https://lists.pokylinux.org/listinfo/poky
->>> _______________________________________________
->>> poky mailing list
->>> poky@pokylinux.org
->>> https://lists.pokylinux.org/listinfo/poky
->
->--
->------------------------------------------------------------
->Gary Thomas                 |  Consulting for the
->MLB Associates              |    Embedded world
->------------------------------------------------------------
+
+Best Regards,
+Jiajun
+
 
