@@ -1,34 +1,35 @@
-Return-Path: <tiagoprn@gmail.com>
-Received: from mail-wy0-f171.google.com (mail-wy0-f171.google.com
-	[74.125.82.171])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A2FB54C80BD4
-	for <poky@pokylinux.org>; Fri, 29 Oct 2010 06:51:35 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by wyb39 with SMTP id 39so3124669wyb.2
-	for <poky@pokylinux.org>; Fri, 29 Oct 2010 04:51:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:received:received:date:message-id
-	:subject:from:to:content-type;
-	bh=iFzHgzHuxKVSTe6oMC1Ed01FaxBRbReFWKLztPHfIxI=;
-	b=LWerDhVywSxrtswVoowWjGh53gEHPEFD0xLi5iwR+idXu4+VxEHtlm4g3VNEamQuWg
-	LXa94AVqF13Z9KB9RBv1BDP2cU8AbSEZ4ZHJ7o7x884TLh0wy3ZQ6Q3jKJqogWzS7KMJ
-	3DXcXUcHXWNG8v6LXwyGqTHO0eTrWIMLX+K8c=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:date:message-id:subject:from:to:content-type;
-	b=J5MJReYXBzSwcwZzwJDxkX8LIdSAHa5P50gfMbvTivuVk0osebCcHtsMFOA1gnQRi3
-	GYQhcyIGBU60g0zfAA0L9var0ChEJX867qFXd9CHu9G3Rf9CyCO5JNo3PVQywB/ildug
-	Lilch0B2/ydE0z6ohvB8PCofHOSDX7QNnJ3KY=
+Return-Path: <jiajun.xu@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 7328B4C80287
+	for <poky@pokylinux.org>; Fri, 29 Oct 2010 11:55:53 -0500 (CDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 29 Oct 2010 09:55:53 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.58,260,1286175600"; d="scan'208";a="621599067"
+Received: from pgsmsx603.gar.corp.intel.com ([10.221.43.87])
+	by fmsmga002.fm.intel.com with ESMTP; 29 Oct 2010 09:55:52 -0700
+Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
+	pgsmsx603.gar.corp.intel.com (10.221.43.87) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Sat, 30 Oct 2010 00:55:51 +0800
+Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
+	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
+	Sat, 30 Oct 2010 00:55:50 +0800
+From: "Xu, Jiajun" <jiajun.xu@intel.com>
+To: "Tian, Kevin" <kevin.tian@intel.com>, "poky@pokylinux.org"
+	<poky@pokylinux.org>
+Date: Sat, 30 Oct 2010 00:55:48 +0800
+Thread-Topic: [PULL]  imagetest-qemu: Add test case for dmesg check
+Thread-Index: Act3DBdsWjTJWziWTju1/6ltkkfCfQAAInIAAB9Gw6A=
+Message-ID: <D5AB6E638E5A3E4B8F4406B113A5A19A3003F2F1@shsmsx501.ccr.corp.intel.com>
+References: <D5AB6E638E5A3E4B8F4406B113A5A19A3003F01B@shsmsx501.ccr.corp.intel.com>
+	<625BA99ED14B2D499DC4E29D8138F1504D127794C3@shsmsx502.ccr.corp.intel.com>
+In-Reply-To: <625BA99ED14B2D499DC4E29D8138F1504D127794C3@shsmsx502.ccr.corp.intel.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
 MIME-Version: 1.0
-Received: by 10.216.23.147 with SMTP id v19mr1505408wev.58.1288353094049; Fri,
-	29 Oct 2010 04:51:34 -0700 (PDT)
-Received: by 10.216.183.66 with HTTP; Fri, 29 Oct 2010 04:51:33 -0700 (PDT)
-Date: Fri, 29 Oct 2010 09:51:33 -0200
-Message-ID: <AANLkTi=8S+SadPfPiHZU7eASZDH-K+JH=_w00u5xEK15@mail.gmail.com>
-From: tiagoprn <tiagoprn@gmail.com>
-To: poky@pokylinux.org
-Subject: poky/yocto tools on a nokia n800
+Subject: Re: [PULL] imagetest-qemu: Add test case for dmesg check
 X-BeenThere: poky@pokylinux.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,69 +41,55 @@ List-Post: <mailto:poky@pokylinux.org>
 List-Help: <mailto:poky-request@pokylinux.org?subject=help>
 List-Subscribe: <https://lists.pokylinux.org/listinfo/poky>,
 	<mailto:poky-request@pokylinux.org?subject=subscribe>
-X-List-Received-Date: Fri, 29 Oct 2010 11:51:36 -0000
-Content-Type: multipart/alternative; boundary=0016364d1f15841f720493c014c5
-
---0016364d1f15841f720493c014c5
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Fri, 29 Oct 2010 16:55:53 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
- Hello everyone!
+>=20
+> Instead of hardcoding QEMU_IPADDR, how about aligning it with
+> poky-qemu script?
+>=20
 
- I have a question. I have just read about the yocto/poky projects and here
-I am with a hope. :)
+Yes. It's better to get ip address of target with poky-qemu script. I modif=
+ied the code, now ip address is parsed from qemu startup command line.
 
- I have a nokia n800 (an internet tablet abandoned by Nokia just about 2
-years ago).
+ meta/classes/imagetest-qemu.bbclass                       |    6
+ scripts/qemuimage-testlib                                 |  122 +++++++++=
+++++-
+ scripts/qemuimage-tests/sanity/boot                       |    3
+ scripts/qemuimage-tests/sanity/dmesg                      |   52 +++++
+ scripts/qemuimage-tests/sanity/ssh                        |    5
+ scripts/qemuimage-tests/scenario/qemuarm/poky-image-sato  |    1
+ scripts/qemuimage-tests/scenario/qemuarm/poky-image-sdk   |    1
+ scripts/qemuimage-tests/scenario/qemumips/poky-image-sato |    1
+ scripts/qemuimage-tests/scenario/qemumips/poky-image-sdk  |    1
+ scripts/qemuimage-tests/scenario/qemuppc/poky-image-sato  |    1
+ scripts/qemuimage-tests/scenario/qemuppc/poky-image-sdk   |    1
+ scripts/qemuimage-tests/scenario/qemux86/poky-image-sato  |    1
+ scripts/qemuimage-tests/scenario/qemux86/poky-image-sdk   |    1
+ scripts/qemuimage-tests/tools/dmesg.sh                    |   26 ++
+ 14 files changed, 211 insertions(+), 11 deletions(-)
 
- With poky/yocto project tools, is it possible to install a linux toolchain
-with X and the touchscreen/wireless components working, for an example, in =
-a
-SD Card and boot my device into it?
+Jiajun Xu (1):
+      imagetest-qemu: Add test case for dmesg check in target
 
- I'm anxious for that.
+Pull URL: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=3Djxu49/mas=
+ter
 
- Thanks for your support.
+commit 2095a4b7c4a727979ec7bf1eda887016496e1586
+Author: Jiajun Xu <jiajun.xu@intel.com>
+Date:   Sat Oct 30 01:03:22 2010 +0800
 
- Regard,
+    imagetest-qemu: Add test case for dmesg check in target
 
---=20
-***
-TIAGOPRN
-*Desenvolvedor Web, Linux e Windows
-*(Django, Python, Delphi, Lazarus, MySQL, SQLite)
-E-mail: tiagoprn@gmail.com
-Blog: http://tgplima.net84.net
-LinkedIn (profile p=C3=BAblico): http://br.linkedin.com/in/tiagoparanhoslim=
-a
-twitter: https://twitter.com/tiagoprn
-identi.ca: http://identi.ca/tiagoprn
+    Add a test case for error log check with command dmesg in target. The
+    case introduces a new folder in target, "/opt/test", which holds test
+    scripts running in target.
 
---0016364d1f15841f720493c014c5
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+    Signed-off-by Jiajun Xu <jiajun.xu@intel.com>
 
-=C2=A0Hello everyone!<br>=C2=A0<br>=C2=A0I have a question. I have just rea=
-d about the yocto/poky projects and here I am with a hope. :)<br>=C2=A0<br>=
-=C2=A0I have a nokia n800 (an internet tablet abandoned by Nokia just about=
- 2 years ago). <br>=C2=A0<br>
-=C2=A0With poky/yocto project tools, is it possible to install a linux tool=
-chain with X and the touchscreen/wireless components working, for an exampl=
-e, in a SD Card and boot my device into it?<br>=C2=A0<br>=C2=A0I&#39;m anxi=
-ous for that. <br>
-=C2=A0<br>=C2=A0Thanks for your support. <br>=C2=A0<br>=C2=A0Regard, <br cl=
-ear=3D"all"><br>-- <br>***<br>TIAGOPRN<br><b>Desenvolvedor Web, Linux e Win=
-dows<br></b>(Django, Python, Delphi, Lazarus, MySQL, SQLite)<br>E-mail: <a =
-href=3D"mailto:tiagoprn@gmail.com" target=3D"_blank">tiagoprn@gmail.com</a>=
-<br>
-Blog: <a href=3D"http://tgplima.net84.net" target=3D"_blank">http://tgplima=
-.net84.net</a><br>LinkedIn (profile p=C3=BAblico): <a href=3D"http://br.lin=
-kedin.com/in/tiagoparanhoslima" target=3D"_blank">http://br.linkedin.com/in=
-/tiagoparanhoslima</a><br>
-twitter: <a href=3D"https://twitter.com/tiagoprn" target=3D"_blank">https:/=
-/twitter.com/tiagoprn</a><div><a href=3D"http://identi.ca" target=3D"_blank=
-">identi.ca</a>:=C2=A0<a href=3D"http://identi.ca/tiagoprn" target=3D"_blan=
-k">http://identi.ca/tiagoprn</a><br>
-<br><br><br></div><br>
+Best Regards,
+Jiajun
 
---0016364d1f15841f720493c014c5--
+
