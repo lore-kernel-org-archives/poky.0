@@ -1,40 +1,24 @@
-Return-Path: <rcwoolley@gmail.com>
-Received: from mail-wy0-f171.google.com (mail-wy0-f171.google.com
-	[74.125.82.171])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C08904C80044
-	for <poky@pokylinux.org>; Mon,  1 Nov 2010 12:07:37 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by wyb39 with SMTP id 39so5960896wyb.2
-	for <poky@pokylinux.org>; Mon, 01 Nov 2010 10:07:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:received:received:in-reply-to
-	:references:date:message-id:subject:from:to:cc:content-type
-	:content-transfer-encoding;
-	bh=I2Pyuifzer8/R9xcxVV/Aa7JmLlG0B9OQdG6wPMRt+o=;
-	b=Pr51gse7dMasmitnV6zy/+vaw9UdFpUuhI/uhH/1ODgczsjaPJBP2lfrPfz+8sa9LL
-	ymQFrWMwyUGPmvjBR6yOYXUHNsolo4zeSt3jgXzL37ESZYE4m4HZQrTdHogphy7vvtUA
-	cN64FMOFwFIBbVX8u8iEDxoiPN7KQvJJIf1qo=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type:content-transfer-encoding;
-	b=anoR+pYermb9f7KbM50FIzgkGDspeuq2mtkU21vR9h1mfVHfugM0u08N0Vz8DlCnEe
-	43RpRYZGDPz+UmgwOfydhOvgbGvm1oX5uKhjf7e4jrlFxH8rYIxFkUeRN70QzV50zVZK
-	X/S43hPL0ioX4E3lC7MeKOkYWIqSZsUvtfTLU=
+Return-Path: <saul.wold@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D70164C80132
+	for <poky@pokylinux.org>; Mon,  1 Nov 2010 13:20:05 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 01 Nov 2010 11:20:05 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.58,274,1286175600"; d="scan'208";a="569300511"
+Received: from unknown (HELO [10.255.12.117]) ([10.255.12.117])
+	by orsmga002.jf.intel.com with ESMTP; 01 Nov 2010 11:20:05 -0700
+Message-ID: <4CCF04B5.4030606@intel.com>
+Date: Mon, 01 Nov 2010 18:19:33 +0000
+From: Saul Wold <saul.wold@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
 MIME-Version: 1.0
-Received: by 10.216.13.207 with SMTP id b57mr7926952web.32.1288631254101; Mon,
-	01 Nov 2010 10:07:34 -0700 (PDT)
-Received: by 10.216.74.79 with HTTP; Mon, 1 Nov 2010 10:07:34 -0700 (PDT)
-In-Reply-To: <4CCBD4B3.1090300@windriver.com>
-References: <AANLkTikxFm-z7tUAJV8zMvxOqQ3u3A9GbaSdJy0yuJjr@mail.gmail.com>
-	<4CCBD4B3.1090300@windriver.com>
-Date: Mon, 1 Nov 2010 13:07:34 -0400
-Message-ID: <AANLkTim-uqWgVo7Pj9dnu80RGn4VyP4gSYfAMF4-W51d@mail.gmail.com>
-From: Rob Woolley <rcwoolley@gmail.com>
-To: Mark Hatle <mark.hatle@windriver.com>
-Cc: poky@pokylinux.org
-Subject: Re: do_rootfs() RPM error message
+To: poky@pokylinux.org
+References: <4CCE94E0.50903@windriver.com>
+In-Reply-To: <4CCE94E0.50903@windriver.com>
+Subject: Re: [PULL]Fix adding GDBM_File module for perl
 X-BeenThere: poky@pokylinux.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,82 +30,52 @@ List-Post: <mailto:poky@pokylinux.org>
 List-Help: <mailto:poky-request@pokylinux.org?subject=help>
 List-Subscribe: <https://lists.pokylinux.org/listinfo/poky>,
 	<mailto:poky-request@pokylinux.org?subject=subscribe>
-X-List-Received-Date: Mon, 01 Nov 2010 17:07:38 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Mon, 01 Nov 2010 18:20:06 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thanks, Mark.
+On 11/01/2010 10:22 AM, Lu Jingdong wrote:
+> Note:<commit_id>  parameter assumed as 'HEAD'
+>
+>    meta/recipes-devtools/perl/perl-5.8.8/config.sh                                     |    8
+>    meta/recipes-devtools/perl/perl-5.8.8/perl-enable-gdbm.patch                        |   17 +
+>    meta/recipes-devtools/perl/perl_5.8.8.bb                                            |    2
+>
+This patch looks OK to me and I will pull it.
+(Nitin, please take note of this config change for your work).
 
-I've filed the bug: http://bugzilla.pokylinux.org/show_bug.cgi?id=3D517
+>    meta/recipes-extended/texinfo/texinfo-4.13a/texinfo-4.12-zlib.patch                 |  169 ++++++++++
+>    meta/recipes-extended/texinfo/texinfo-4.13a/texinfo-4.13a-data_types.patch          |   32 +
+>    meta/recipes-extended/texinfo/texinfo-4.13a/texinfo-4.13a-help-index-segfault.patch |   23 +
+>    meta/recipes-extended/texinfo/texinfo-4.13a/texinfo-4.13a-mosdo-crash.patch         |   11
+>    meta/recipes-extended/texinfo/texinfo-4.13a/texinfo-4.13a-powerpc.patch             |   12
+>    meta/recipes-extended/texinfo/texinfo_4.13a.bb                                      |   57 +++
 
-Best regards,
-Rob
+I am just reviewing the textinfo patch at this point and first comment 
+is that you need to comment the patches, there is no information about 
+their origin and why they are needed.
 
-On Sat, Oct 30, 2010 at 4:17 AM, Mark Hatle <mark.hatle@windriver.com> wrot=
-e:
-> Please file a bug in the bugzilla.yoctoproject.org and attach the patch.
-> =A0I'll get it generated as soon as I get back to the states from CELF.
+As we are adding a new recipe, is this based on the existing 
+OpenEmbedded recipe and if so, you need to credit OE.  I noticed in OE 
+that they have a different set of depends and patches, so I wanted to 
+verify this.
+
+Minor nit: for SRC_URI, you could use ${PN} as follows:
+    http://ftp.gnu.org/gnu/${PN}/${PN}-${PV}.tar.gz
+
+Sau!
+
+
+
+
+>    9 files changed, 327 insertions(+), 4 deletions(-)
 >
-> --Mark
+> Jingdong Lu (2):
+>         texinfo: Add new package
+>         Fix adding GDBM_File module for LSB test.
 >
-> On 10/29/10 8:48 PM, Rob Woolley wrote:
->>
->> Hi,
->>
->> I ran into a minor build system glitch and wanted to share the
->> workaround I used.
->>
->> I was following the steps in the Poky quick start guide. =A0When the
->> build got to the do_rootfs() task, the rpm command complained on all
->> packages with:
->>
->> =A0 =A0 =A0 =A0installing package<PKG> =A0needs 125MB on the /boot files=
-ystem
->>
->> My /boot partition is only 100MB which is what triggered the problem.
->>
->> However, since the disk space on the host filesystem is irrelevant for
->> assembling the rootfs for the target, I added --ignoresize to the rpm
->> line that triggered the problem.
->>
->> I suspect that it's related to the fact that rpm -U was used with
->> --justdb and without --root. =A0It may be needed on similar rpm calls as
->> well.
->>
->> Once I made the change my build completed successfully.
->>
->> Cheers,
->> Rob
->>
->> diff --git a/meta/classes/rootfs_rpm.bbclass
->> b/meta/classes/rootfs_rpm.bbclass
->> index 6e9cbba..ceab7c9 100644
->> --- a/meta/classes/rootfs_rpm.bbclass
->> +++ b/meta/classes/rootfs_rpm.bbclass
->> @@ -80,7 +80,7 @@ fakeroot rootfs_rpm_do_rootfs () {
->> =A0 =A0 =A0 =A0 # an actual package install!
->> =A0 =A0 =A0 =A0 ${RPM} -D "_dbpath ${IMAGE_ROOTFS}/install" -D "`cat
->> ${DEPLOY_DIR_RPM}/solvedb.macro`" \
->> =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 -D "__dbi_cdb create mp_mmapsize=3D128Mb=
- mp_size=3D1Mb
->> nofsync" \
->> - =A0 =A0 =A0 =A0 =A0 =A0 =A0 -U --justdb --noscripts --notriggers --nop=
-arentdirs
->> --nolinktos \
->> + =A0 =A0 =A0 =A0 =A0 =A0 =A0 -U --justdb --noscripts --notriggers --nop=
-arentdirs
->> --nolinktos --ignoresize \
->> =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 ${IMAGE_ROOTFS}/install/install.manifest
->>
->> =A0 =A0 =A0 =A0 if [ ! -z "${PACKAGE_INSTALL_ATTEMPTONLY}" ]; then
->> _______________________________________________
->> poky mailing list
->> poky@pokylinux.org
->> https://lists.pokylinux.org/listinfo/poky
+> Pull URL:
+> http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=jingdonglu/distro
 >
-> _______________________________________________
-> poky mailing list
-> poky@pokylinux.org
-> https://lists.pokylinux.org/listinfo/poky
->
+
 
