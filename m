@@ -1,23 +1,28 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D70164C80132
-	for <poky@pokylinux.org>; Mon,  1 Nov 2010 13:20:05 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 01 Nov 2010 11:20:05 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.58,274,1286175600"; d="scan'208";a="569300511"
-Received: from unknown (HELO [10.255.12.117]) ([10.255.12.117])
-	by orsmga002.jf.intel.com with ESMTP; 01 Nov 2010 11:20:05 -0700
-Message-ID: <4CCF04B5.4030606@intel.com>
-Date: Mon, 01 Nov 2010 18:19:33 +0000
-From: Saul Wold <saul.wold@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
+Return-Path: <mark.hatle@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D6D024C80044
+	for <poky@pokylinux.org>; Mon,  1 Nov 2010 14:32:11 -0500 (CDT)
+Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oA1JWBdr005262
+	for <poky@pokylinux.org>; Mon, 1 Nov 2010 12:32:11 -0700 (PDT)
+Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
+	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Mon, 1 Nov 2010 12:32:10 -0700
+Received: from Macintosh-5.local ([172.25.36.227]) by
+	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Mon, 1 Nov 2010 12:32:10 -0700
+Message-ID: <4CCF15BA.6070108@windriver.com>
+Date: Mon, 01 Nov 2010 14:32:10 -0500
+From: Mark Hatle <mark.hatle@windriver.com>
+Organization: Wind River Systems
+User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
+	rv:1.9.2.12) Gecko/20101027 Thunderbird/3.1.6
 MIME-Version: 1.0
 To: poky@pokylinux.org
 References: <4CCE94E0.50903@windriver.com>
 In-Reply-To: <4CCE94E0.50903@windriver.com>
+X-OriginalArrivalTime: 01 Nov 2010 19:32:11.0326 (UTC)
+	FILETIME=[7ABEADE0:01CB79FB]
 Subject: Re: [PULL]Fix adding GDBM_File module for perl
 X-BeenThere: poky@pokylinux.org
 X-Mailman-Version: 2.1.13
@@ -30,44 +35,39 @@ List-Post: <mailto:poky@pokylinux.org>
 List-Help: <mailto:poky-request@pokylinux.org?subject=help>
 List-Subscribe: <https://lists.pokylinux.org/listinfo/poky>,
 	<mailto:poky-request@pokylinux.org?subject=subscribe>
-X-List-Received-Date: Mon, 01 Nov 2010 18:20:06 -0000
+X-List-Received-Date: Mon, 01 Nov 2010 19:32:12 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 11/01/2010 10:22 AM, Lu Jingdong wrote:
+I've been doing some thinking about how various perl and related components 
+should be implemented if they do potentially optional things.
+
+My concern is that by adding gdbm to the build, that other components will 
+change and potentially require more disk space.  We really need a way to 
+optionally use gdbm, if available in these configurations.  I'm really not sure 
+if there is currently a way to tell bitbake:
+
+I really want gdbm, but if nothing else wants it.. I don't want it.  Then for 
+LSB specific builds, we manually require gdbm as an LSB requirement (due to the 
+gdbm perl module requirements.)
+
+Richard, any suggestions on how to work with this?
+
+--Mark
+
+On 11/1/10 5:22 AM, Lu Jingdong wrote:
 > Note:<commit_id>  parameter assumed as 'HEAD'
 >
 >    meta/recipes-devtools/perl/perl-5.8.8/config.sh                                     |    8
 >    meta/recipes-devtools/perl/perl-5.8.8/perl-enable-gdbm.patch                        |   17 +
 >    meta/recipes-devtools/perl/perl_5.8.8.bb                                            |    2
 >
-This patch looks OK to me and I will pull it.
-(Nitin, please take note of this config change for your work).
-
 >    meta/recipes-extended/texinfo/texinfo-4.13a/texinfo-4.12-zlib.patch                 |  169 ++++++++++
 >    meta/recipes-extended/texinfo/texinfo-4.13a/texinfo-4.13a-data_types.patch          |   32 +
 >    meta/recipes-extended/texinfo/texinfo-4.13a/texinfo-4.13a-help-index-segfault.patch |   23 +
 >    meta/recipes-extended/texinfo/texinfo-4.13a/texinfo-4.13a-mosdo-crash.patch         |   11
 >    meta/recipes-extended/texinfo/texinfo-4.13a/texinfo-4.13a-powerpc.patch             |   12
 >    meta/recipes-extended/texinfo/texinfo_4.13a.bb                                      |   57 +++
-
-I am just reviewing the textinfo patch at this point and first comment 
-is that you need to comment the patches, there is no information about 
-their origin and why they are needed.
-
-As we are adding a new recipe, is this based on the existing 
-OpenEmbedded recipe and if so, you need to credit OE.  I noticed in OE 
-that they have a different set of depends and patches, so I wanted to 
-verify this.
-
-Minor nit: for SRC_URI, you could use ${PN} as follows:
-    http://ftp.gnu.org/gnu/${PN}/${PN}-${PV}.tar.gz
-
-Sau!
-
-
-
-
 >    9 files changed, 327 insertions(+), 4 deletions(-)
 >
 > Jingdong Lu (2):
