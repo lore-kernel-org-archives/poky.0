@@ -1,29 +1,34 @@
-Return-Path: <mark.hatle@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D6D024C80044
-	for <poky@pokylinux.org>; Mon,  1 Nov 2010 14:32:11 -0500 (CDT)
-Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oA1JWBdr005262
-	for <poky@pokylinux.org>; Mon, 1 Nov 2010 12:32:11 -0700 (PDT)
-Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
-	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Mon, 1 Nov 2010 12:32:10 -0700
-Received: from Macintosh-5.local ([172.25.36.227]) by
-	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Mon, 1 Nov 2010 12:32:10 -0700
-Message-ID: <4CCF15BA.6070108@windriver.com>
-Date: Mon, 01 Nov 2010 14:32:10 -0500
-From: Mark Hatle <mark.hatle@windriver.com>
-Organization: Wind River Systems
-User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
-	rv:1.9.2.12) Gecko/20101027 Thunderbird/3.1.6
+Return-Path: <j.michael.detwiler@gmail.com>
+Received: from mail-iw0-f171.google.com (mail-iw0-f171.google.com
+	[209.85.214.171])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4BD0B4C803A5
+	for <poky@pokylinux.org>; Tue,  2 Nov 2010 15:50:23 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by iwn41 with SMTP id 41so258941iwn.2
+	for <poky@pokylinux.org>; Tue, 02 Nov 2010 13:50:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:received:received:date:message-id
+	:subject:from:to:content-type;
+	bh=Z7MZIAA1Bmrm4ErmU03X0b40rUiGhfqWg5jhCx2M5Ws=;
+	b=pzKkd97HTV2KgHrZd8cjA0R+W63Vo6cGR+zuAOn+pLecnJRKNPwRRu7niREBs6R+mV
+	QULXfC/TYrkYFtByYVUIu1tkG7CSPjFfHqD78ikRVPh258lzZirMKby4GviSlXTsp+cc
+	dmNg+A2JfNUx+BmzDhmoq3YOak6SpKgZk0Q7I=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:date:message-id:subject:from:to:content-type;
+	b=bBt9E9ZCS3cT/YIShszDpdV2zUIwegKBn63owsjsYPTHfhx17a3ls3AqKPxUKU5djS
+	HbBFihqRD6tDUJaiEs5Qjlrvr6UJWCwqgq/Ni14h0R2s6lhgvE3ddEigihMKrZRt8K9f
+	32TNHeSpvdolXuszKhm7vUYetnajCzj/O5Jis=
 MIME-Version: 1.0
+Received: by 10.231.35.202 with SMTP id q10mr9905657ibd.138.1288731022659;
+	Tue, 02 Nov 2010 13:50:22 -0700 (PDT)
+Received: by 10.231.172.212 with HTTP; Tue, 2 Nov 2010 13:50:22 -0700 (PDT)
+Date: Tue, 2 Nov 2010 16:50:22 -0400
+Message-ID: <AANLkTi=iHsCxaWVUaD1fMCsRZot4+SHUHAK9xpdku1Cv@mail.gmail.com>
+From: Mike Detwiler <j.michael.detwiler@gmail.com>
 To: poky@pokylinux.org
-References: <4CCE94E0.50903@windriver.com>
-In-Reply-To: <4CCE94E0.50903@windriver.com>
-X-OriginalArrivalTime: 01 Nov 2010 19:32:11.0326 (UTC)
-	FILETIME=[7ABEADE0:01CB79FB]
-Subject: Re: [PULL]Fix adding GDBM_File module for perl
+Subject: Extending meta-toolchain-sdk
 X-BeenThere: poky@pokylinux.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,47 +40,20 @@ List-Post: <mailto:poky@pokylinux.org>
 List-Help: <mailto:poky-request@pokylinux.org?subject=help>
 List-Subscribe: <https://lists.pokylinux.org/listinfo/poky>,
 	<mailto:poky-request@pokylinux.org?subject=subscribe>
-X-List-Received-Date: Mon, 01 Nov 2010 19:32:12 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 02 Nov 2010 20:50:23 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 
-I've been doing some thinking about how various perl and related components 
-should be implemented if they do potentially optional things.
+Hello,
 
-My concern is that by adding gdbm to the build, that other components will 
-change and potentially require more disk space.  We really need a way to 
-optionally use gdbm, if available in these configurations.  I'm really not sure 
-if there is currently a way to tell bitbake:
+I have run 'bitbake meta-toolchain-sdk' and installed the tarball that
+it generates. However, I found that the sdk did not contain all the
+third-party libraries that I would like it to have. For example, the
+application I'm developing has a dependency on libgmp. I notice that
+there are bitbake files for gmp in meta/recipes-support/gmp. Is there
+a simple way (e.g. in build/conf/local.conf) to have this added to the
+list of libraries that are included in the sdk?
 
-I really want gdbm, but if nothing else wants it.. I don't want it.  Then for 
-LSB specific builds, we manually require gdbm as an LSB requirement (due to the 
-gdbm perl module requirements.)
+Best regards,
 
-Richard, any suggestions on how to work with this?
-
---Mark
-
-On 11/1/10 5:22 AM, Lu Jingdong wrote:
-> Note:<commit_id>  parameter assumed as 'HEAD'
->
->    meta/recipes-devtools/perl/perl-5.8.8/config.sh                                     |    8
->    meta/recipes-devtools/perl/perl-5.8.8/perl-enable-gdbm.patch                        |   17 +
->    meta/recipes-devtools/perl/perl_5.8.8.bb                                            |    2
->
->    meta/recipes-extended/texinfo/texinfo-4.13a/texinfo-4.12-zlib.patch                 |  169 ++++++++++
->    meta/recipes-extended/texinfo/texinfo-4.13a/texinfo-4.13a-data_types.patch          |   32 +
->    meta/recipes-extended/texinfo/texinfo-4.13a/texinfo-4.13a-help-index-segfault.patch |   23 +
->    meta/recipes-extended/texinfo/texinfo-4.13a/texinfo-4.13a-mosdo-crash.patch         |   11
->    meta/recipes-extended/texinfo/texinfo-4.13a/texinfo-4.13a-powerpc.patch             |   12
->    meta/recipes-extended/texinfo/texinfo_4.13a.bb                                      |   57 +++
->    9 files changed, 327 insertions(+), 4 deletions(-)
->
-> Jingdong Lu (2):
->         texinfo: Add new package
->         Fix adding GDBM_File module for LSB test.
->
-> Pull URL:
-> http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=jingdonglu/distro
->
-
+-Mike
 
