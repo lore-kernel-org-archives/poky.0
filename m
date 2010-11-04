@@ -1,26 +1,38 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 37DE94C80287
-	for <poky@lists.pokylinux.org>; Wed,  3 Nov 2010 17:34:41 -0500 (CDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 03 Nov 2010 15:34:40 -0700
+Return-Path: <dexuan.cui@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id DB1B64C80287
+	for <poky@pokylinux.org>; Wed,  3 Nov 2010 19:28:59 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 03 Nov 2010 17:28:59 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.58,291,1286175600"; d="scan'208";a="623303004"
-Received: from unknown (HELO [10.255.12.198]) ([10.255.12.198])
-	by fmsmga002.fm.intel.com with ESMTP; 03 Nov 2010 15:34:40 -0700
-Message-ID: <4CD1E380.8080207@intel.com>
-Date: Wed, 03 Nov 2010 15:34:40 -0700
-From: Saul Wold <saul.wold@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
+X-IronPort-AV: E=Sophos;i="4.58,292,1286175600"; d="scan'208";a="674084474"
+Received: from pgsmsx603.gar.corp.intel.com ([10.221.43.87])
+	by orsmga001.jf.intel.com with ESMTP; 03 Nov 2010 17:28:58 -0700
+Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
+	pgsmsx603.gar.corp.intel.com (10.221.43.87) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Thu, 4 Nov 2010 08:28:57 +0800
+Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
+	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi; Thu, 4 Nov 2010
+	08:28:56 +0800
+From: "Cui, Dexuan" <dexuan.cui@intel.com>
+To: 'Mike Detwiler' <j.michael.detwiler@gmail.com>, "Wold, Saul"
+	<saul.wold@intel.com>
+Date: Thu, 4 Nov 2010 08:28:55 +0800
+Thread-Topic: [poky] Extending meta-toolchain-sdk
+Thread-Index: Act7ZgkTDUsvuX8cTg2YQUyOI0cO4QAT7rhQ
+Message-ID: <1865303E0DED764181A9D882DEF65FB67A65C6F4AF@shsmsx502.ccr.corp.intel.com>
+References: <AANLkTi=iHsCxaWVUaD1fMCsRZot4+SHUHAK9xpdku1Cv@mail.gmail.com>
+	<1865303E0DED764181A9D882DEF65FB67A65C6F4AD@shsmsx502.ccr.corp.intel.com>
+	<4CD0DB45.7000607@intel.com>
+	<AANLkTi=b9YK0+beYcCL4Ddyx3dc873Uem6u1d+h_N-iM@mail.gmail.com>
+In-Reply-To: <AANLkTi=b9YK0+beYcCL4Ddyx3dc873Uem6u1d+h_N-iM@mail.gmail.com>
+Accept-Language: zh-CN, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: zh-CN, en-US
 MIME-Version: 1.0
-To: Gary Thomas <gary@mlbassoc.com>
-References: <4CD16A8E.7090100@mlbassoc.com> <4CD1815D.8050105@intel.com>
-	<4CD1839D.7070606@mlbassoc.com>
-In-Reply-To: <4CD1839D.7070606@mlbassoc.com>
-Cc: Poky <poky@lists.pokylinux.org>
-Subject: Re: Inconsistent timestamp use
+Cc: "poky@pokylinux.org" <poky@pokylinux.org>
+Subject: Re: Extending meta-toolchain-sdk
 X-BeenThere: poky@pokylinux.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,57 +44,32 @@ List-Post: <mailto:poky@pokylinux.org>
 List-Help: <mailto:poky-request@pokylinux.org?subject=help>
 List-Subscribe: <https://lists.pokylinux.org/listinfo/poky>,
 	<mailto:poky-request@pokylinux.org?subject=subscribe>
-X-List-Received-Date: Wed, 03 Nov 2010 22:34:41 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 04 Nov 2010 00:29:00 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/03/2010 08:45 AM, Gary Thomas wrote:
-> On 11/03/2010 09:35 AM, Saul Wold wrote:
->> On 11/03/2010 06:58 AM, Gary Thomas wrote:
->>> The Poky root file system (init scripts) has a mechanism for
->>> supporting systems without a working hardware [time of day] clock.
->>> It seems that this has suffered some rot recently and is now
->>> quite inconsistent:
->>> * rootfs_update_timestamp() uses a different format for the time stamp
->>> * the init scripts look for /etc/timestamp2, not /etc/timestamp which
->>> is created with the image
->>>
->>> The attached patch makes this consistent and the system clock now works
->>> much better (about as good as a machine without a hardware clock can!)
->>>
->>
->> Hi Gary,
->>
->> This is a good change for the smaller images that use the busybox date
->> function, but will break images that use the real date command.
->> Unfortunately, they happen to use different formats for setting the time
->> and date.
->>
->> It may be that we need 2 timestamp files, one for a busybox system and a
->> second for the standard date command and then extend the check in the
->> init scripts to figure out which date we are using currently.
->
-> Fair enough.  I was just trying to make what's there work consistently.
->
-> Perhaps it's good enough to remove the "-s" option from the setting
-> function and change back to the old format (+%m%d%H%M%Y).  I'm pretty
-> sure that the full-on date program will handle that, as does busybox.
->
-I just verified that the +%2m%2d%2H%2M%Y format will work correctly for 
-both version of dates, and you are correct that the -s option should go 
-away.
+Mike Detwiler wrote:
+> I tried the following line instead:
+>=20
+> SDK-EXTRAS +=3D "gmp-dev"
+>=20
+> This did not produce an error, but it also did not seem to add the
+> library to the sdk. Is it possible that this is because the variable
+> SDK-EXTRAS is also set in meta/recipes-gnome/tasks/task-sdk-gmae.inc
+> with the line below.
+>=20
+> SDK-EXTRAS =3D ""
+> It looks like this could clobber my setting of the variable, depending
+> on the order of evaluation.
+I think we can change the line of task-sdk-gmae.inc to
+SDK-EXTRAS ?=3D ""
+This allows the setting of environment variable to be used if a user does s=
+et it.
+And I think increasing the PR of the related recipe files is also necessary=
+, or else, the change may not actually take effect, unless we build from sc=
+ratch or do a "bitbake -c clean xxx".
 
-The save-rtc.sh script needs to be fixed to use the correct format.
-
-I reponed bug #265 and commented that, if you want to add yourself to 
-that bug.
-
-Sau!
-
-
-> Note: I think the change 41d02d40ed83c791e7a4c1d57d829d706af42e74 was
-> actually incorrect.  The proper change would have been to fix the
-> timestamp generation to be consistent.
->
-
+Thanks,
+-- Dexuan=
 
