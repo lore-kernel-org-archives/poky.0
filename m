@@ -1,23 +1,26 @@
-Return-Path: <qing.he@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C4C034C80287
-	for <poky@lists.pokylinux.org>; Thu,  4 Nov 2010 03:02:15 -0500 (CDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 04 Nov 2010 01:02:15 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.58,294,1286175600"; d="scan'208";a="854057448"
-Received: from qhe2-db.sh.intel.com ([10.239.13.109])
-	by fmsmga001.fm.intel.com with ESMTP; 04 Nov 2010 01:02:13 -0700
-Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
-	(envelope-from <qing.he@intel.com>) id 1PDuhh-0000GB-5H
-	for poky@lists.pokylinux.org; Thu, 04 Nov 2010 15:57:49 +0800
-Date: Thu, 4 Nov 2010 15:57:49 +0800
-From: Qing He <qing.he@intel.com>
-To: poky@lists.pokylinux.org
-Message-ID: <20101104075749.GA993@qhe2-db>
+Return-Path: <Xiaofeng.Yan@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 0182C4C80B70
+	for <poky@lists.pokylinux.org>; Thu,  4 Nov 2010 03:10:25 -0500 (CDT)
+Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oA48APAn005602
+	for <poky@lists.pokylinux.org>; Thu, 4 Nov 2010 01:10:25 -0700 (PDT)
+Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
+	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Thu, 4 Nov 2010 01:10:25 -0700
+Received: from [128.224.163.183] ([128.224.163.183]) by
+	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Thu, 4 Nov 2010 01:10:24 -0700
+Message-ID: <4CD2699E.7010008@windriver.com>
+Date: Thu, 04 Nov 2010 16:06:54 +0800
+From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.1.11) Gecko/20100713 Thunderbird/3.0.6
 MIME-Version: 1.0
-User-Agent: Mutt/1.5.20 (2009-06-14)
-Subject: [PULL] bzip2 security upgrade
+To: poky@lists.pokylinux.org
+X-OriginalArrivalTime: 04 Nov 2010 08:10:25.0205 (UTC)
+	FILETIME=[BC093650:01CB7BF7]
+Subject: [PULL]: Add lsb_release needed by lsb test
 X-BeenThere: poky@pokylinux.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,27 +32,18 @@ List-Post: <mailto:poky@pokylinux.org>
 List-Help: <mailto:poky-request@pokylinux.org?subject=help>
 List-Subscribe: <https://lists.pokylinux.org/listinfo/poky>,
 	<mailto:poky-request@pokylinux.org?subject=subscribe>
-X-List-Received-Date: Thu, 04 Nov 2010 08:02:16 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-List-Received-Date: Thu, 04 Nov 2010 08:10:26 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Upgrade bzip2 to 1.0.6 to fix CVE-2010-0405:
-   http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2010-0405
+  meta/recipes-extended/lsb/lsb_1.4.bb |   83 
++++++++++++++++++++++++++++++++++++
+  1 file changed, 83 insertions(+)
 
-Thanks,
-Qing
+Xiaofeng Yan (1):
+       LSB: Add a new package
 
----
- meta/recipes-extended/bzip2/bzip2-1.0.5/Makefile.am  |   41 -------------------
- meta/recipes-extended/bzip2/bzip2-1.0.5/configure.ac |   14 ------
- meta/recipes-extended/bzip2/bzip2-1.0.6/Makefile.am  |   41 +++++++++++++++++++
- meta/recipes-extended/bzip2/bzip2-1.0.6/configure.ac |   14 ++++++
- meta/recipes-extended/bzip2/bzip2_1.0.5.bb           |   26 ------------
- meta/recipes-extended/bzip2/bzip2_1.0.6.bb           |   26 ++++++++++++
- 6 files changed, 81 insertions(+), 81 deletions(-)
+Pull URL: 
+http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=xiaofeng/distro
 
-Qing He (1):
-      bzip2: upgrade to version 1.0.6
-
-Pull URL: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=qhe/fix
 
