@@ -1,24 +1,38 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 933114C80287
-	for <poky@pokylinux.org>; Thu,  4 Nov 2010 16:17:47 -0500 (CDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 04 Nov 2010 14:17:46 -0700
+Return-Path: <dexuan.cui@intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 234AE4C810A8
+	for <poky@pokylinux.org>; Thu,  4 Nov 2010 19:29:32 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 04 Nov 2010 17:29:32 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.58,298,1286175600"; d="scan'208";a="854290492"
-Received: from unknown (HELO [10.255.12.198]) ([10.255.12.198])
-	by fmsmga001.fm.intel.com with ESMTP; 04 Nov 2010 14:17:46 -0700
-Message-ID: <4CD322FA.3030505@intel.com>
-Date: Thu, 04 Nov 2010 14:17:46 -0700
-From: Saul Wold <saul.wold@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
+X-IronPort-AV: E=Sophos;i="4.58,299,1286175600"; d="scan'208";a="344879463"
+Received: from pgsmsx601.gar.corp.intel.com ([10.221.43.69])
+	by azsmga001.ch.intel.com with ESMTP; 04 Nov 2010 17:29:31 -0700
+Received: from pgsmsx509.gar.corp.intel.com (172.30.13.17) by
+	pgsmsx601.gar.corp.intel.com (10.221.43.69) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Fri, 5 Nov 2010 08:29:30 +0800
+Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
+	PGSMSX509.gar.corp.intel.com (172.30.13.17) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Fri, 5 Nov 2010 08:29:30 +0800
+Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
+	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi; Fri, 5 Nov 2010
+	08:29:29 +0800
+From: "Cui, Dexuan" <dexuan.cui@intel.com>
+To: "Wold, Saul" <saul.wold@intel.com>, Mark Hatle <mark.hatle@windriver.com>
+Date: Fri, 5 Nov 2010 08:29:27 +0800
+Thread-Topic: [poky] [PULL] fixes to eglibc and busybox
+Thread-Index: Act8ZdhMzlLF9oQjRi6e5Qb/c1WwmAAGf7gw
+Message-ID: <1865303E0DED764181A9D882DEF65FB67A65C6F4BA@shsmsx502.ccr.corp.intel.com>
+References: <20101020085626.GA14696@qhe2-db><1865303E0DED764181A9D882DEF65FB674E057FB47@shsmsx502.ccr.corp.intel.com><1865303E0DED764181A9D882DEF65FB677CE107452@shsmsx502.ccr.corp.intel.com>
+	<1865303E0DED764181A9D882DEF65FB67A65C6F4B3@shsmsx502.ccr.corp.intel.com><4CD2CD9F.70501@windriver.com>
+	<4CD2F717.3090306@intel.com>	<4CD2F9B1.3040903@windriver.com>
+	<4CD322FA.3030505@intel.com>
+In-Reply-To: <4CD322FA.3030505@intel.com>
+Accept-Language: zh-CN, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: zh-CN, en-US
 MIME-Version: 1.0
-To: Mark Hatle <mark.hatle@windriver.com>
-References: <20101020085626.GA14696@qhe2-db><1865303E0DED764181A9D882DEF65FB674E057FB47@shsmsx502.ccr.corp.intel.com><1865303E0DED764181A9D882DEF65FB677CE107452@shsmsx502.ccr.corp.intel.com>	<1865303E0DED764181A9D882DEF65FB67A65C6F4B3@shsmsx502.ccr.corp.intel.com><4CD2CD9F.70501@windriver.com>	<4CD2F717.3090306@intel.com>
-	<4CD2F9B1.3040903@windriver.com>
-In-Reply-To: <4CD2F9B1.3040903@windriver.com>
 Cc: "poky@pokylinux.org" <poky@pokylinux.org>
 Subject: Re: [PULL] fixes to eglibc and busybox
 X-BeenThere: poky@pokylinux.org
@@ -32,112 +46,24 @@ List-Post: <mailto:poky@pokylinux.org>
 List-Help: <mailto:poky-request@pokylinux.org?subject=help>
 List-Subscribe: <https://lists.pokylinux.org/listinfo/poky>,
 	<mailto:poky-request@pokylinux.org?subject=subscribe>
-X-List-Received-Date: Thu, 04 Nov 2010 21:17:47 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 05 Nov 2010 00:29:33 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/04/2010 11:21 AM, Mark Hatle wrote:
-> On 11/4/10 1:10 PM, Saul Wold wrote:
->> On 11/04/2010 08:13 AM, Mark Hatle wrote:
->>> On 11/3/10 7:55 PM, Cui, Dexuan wrote:
->>>> BTW: The fix to busybox is a RESEND since looks it was neglected. :-)
->>>>
->>>> $ scripts/create-pull-request -r 2ecf311fbca970f6ea2d80accc3f925b097b664e -b dcui/master
->>>> Note:<commit_id>     parameter assumed as 'HEAD'
->>>>
->>>>      meta/recipes-core/busybox/busybox-1.16.2/defconfig |   14 +++++++-------
->>>>      meta/recipes-core/eglibc/eglibc-package.inc        |    2 +-
->>>>      meta/recipes-core/eglibc/eglibc_2.12.bb            |    2 +-
->>>>      3 files changed, 9 insertions(+), 9 deletions(-)
->>>>
->>>> Dexuan Cui (2):
->>>>           busybox: enable more options for tar to support more file formats.
->>>>           eglibc: install the missing /etc/ld.so.conf into target
->>>>
->>>> Pull URL: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dcui/master
->>>>
->>>>
->>>> commit 61e77cb2e9a240110c50925d1b3f908d14b02f24
->>>> Author: Dexuan Cui<dexuan.cui@intel.com>
->>>> Date:   Tue Nov 2 15:42:09 2010 +0800
->>>>
->>>>         eglibc: install the missing /etc/ld.so.conf into target
->>>
->>> My preference is that /etc/ld.so.conf not always be installed onto the target.
->>> It's not required for anything to function, and as long as only default library
->>> directories are used, even ldconfig will run properly with it not existing (or
->>> empty).
->>>
->>> If we do install it, we need to make sure it's empty.  I don't think it's
->>> appropriate to advocate alternative library directories on an embedded platform.
->>>
->> Mark,
->>
->> The default one that we are installing contains entries for
->> /usr/local/lib and /usr/X11R6/lib
->>
->> I understand you would rather it be empty, is that correct?
->
-> Generally speaking, we should not be placing software into /usr/local/lib as
-> part of the Yocto work.  That location, and /opt/* are reserved for system
-> administrators to place their own software...  So that location, if necessary,
-> should be done by the system admin.
->
-Agreed
+>> On 11/04/2010 11:21 AM, Mark Hatle wrote:
+>>=20
+>> So yes, my preference is that it's either absent or empty for
+>> embedded systems.=20
 
-> The /usr/X11R6/lib location should be a symlink to /usr/lib.  As all of the X
-> libraries are installed into /usr/lib... so there is no reason to have this
-> location in the ld.so.conf.  (Note I have not verified that that is a symlink...
-> or if the directory is empty -- but it should be...)
->
-I don't think we even install an X11R6 directory anymore, so it can be 
-removed!  CONFIRMED no /usr/X11R6 dir in a yocto image.
+Hi Mark and Saul,
+Thanks very much for the detailed explanation!!
+So I'll make a new patch to install an empty ld.so.conf (to avoid the annoy=
+ing spurious warning from ldconfig).
 
-Sau!
+BTW: I'll send the new PULL mail to yocto@yoctoproject.org as this is not r=
+elated to poky core.
 
-> So yes, my preference is that it's either absent or empty for embedded systems.
->
-> --Mark
->
->>
->> Sau!
->>
->>
->>>>         ${sysconfdir} should be added into FILES_${PN}.
->>>>
->>>>         Fixes [BUGID #511]
->>>>
->>>>         Signed-off-by: Dexuan Cui<dexuan.cui@intel.com>
->>>>
->>>> commit b952fae48c45e39a14ec9c24b0ee544a741c3f69
->>>> Author: Dexuan Cui<dexuan.cui@intel.com>
->>>> Date:   Tue Oct 26 15:10:26 2010 +0800
->>>>
->>>>         busybox: enable more options for tar to support more file formats.
->>>>
->>>>         Fixes [BUGID #495]
->>>>
->>>>         Signed-off-by: Dexuan Cui<dexuan.cui@intel.com>
->>>> _______________________________________________
->>>> poky mailing list
->>>> poky@pokylinux.org
->>>> https://lists.pokylinux.org/listinfo/poky
->>>
->>> _______________________________________________
->>> poky mailing list
->>> poky@pokylinux.org
->>> https://lists.pokylinux.org/listinfo/poky
->>>
->>
->> _______________________________________________
->> poky mailing list
->> poky@pokylinux.org
->> https://lists.pokylinux.org/listinfo/poky
->
-> _______________________________________________
-> poky mailing list
-> poky@pokylinux.org
-> https://lists.pokylinux.org/listinfo/poky
->
-
+Thanks,
+-- Dexuan=
 
