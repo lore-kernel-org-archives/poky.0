@@ -1,22 +1,29 @@
-Return-Path: <bruce.ashfield@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5D4784C811A6;
-	Mon,  8 Nov 2010 15:06:33 -0600 (CST)
-Received: from localhost.localdomain (yow-bashfiel-d2.ottawa.windriver.com
-	[128.224.146.167])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oA8L6T25028719;
-	Mon, 8 Nov 2010 13:06:31 -0800 (PST)
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-To: saul.wold@intel.com, rpurdie@linux.intel.com
-Date: Mon,  8 Nov 2010 16:06:40 -0500
-Message-Id: <4e3d8e771e60738d0601dd7dc98186029bcd2935.1289250219.git.bruce.ashfield@windriver.com>
-X-Mailer: git-send-email 1.7.0.4
-In-Reply-To: <1289250400-16953-1-git-send-email-bruce.ashfield@windriver.com>
-References: <1289250400-16953-1-git-send-email-bruce.ashfield@windriver.com>
-In-Reply-To: <94e24bd11b32f486e7a249cb856d9ade46f9bdc4.1289250219.git.bruce.ashfield@windriver.com>
-References: <94e24bd11b32f486e7a249cb856d9ade46f9bdc4.1289250219.git.bruce.ashfield@windriver.com>
-Cc: yocto@yoctoproject.org, poky@yoctoproject.org
-Subject: [PATCH 2/2] kernel: prefer the kernel produced uImage
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8F3014C80815
+	for <poky@yoctoproject.org>; Mon,  8 Nov 2010 15:31:39 -0600 (CST)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 5F6141660940; Mon,  8 Nov 2010 14:31:38 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=ham version=3.3.1
+Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
+	by mail.chez-thomas.org (Postfix) with ESMTP id A7546166093D;
+	Mon,  8 Nov 2010 14:31:37 -0700 (MST)
+Message-ID: <4CD86C39.6080005@mlbassoc.com>
+Date: Mon, 08 Nov 2010 14:31:37 -0700
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.1.9) Gecko/20100430 Fedora/3.0.4-2.fc11 Thunderbird/3.0.4
+MIME-Version: 1.0
+To: "Tian, Kevin" <kevin.tian@intel.com>
+References: <625BA99ED14B2D499DC4E29D8138F1504D190FD631@shsmsx502.ccr.corp.intel.com>	<1289162495.28481.16096.camel@rex>
+	<625BA99ED14B2D499DC4E29D8138F1504D190FD851@shsmsx502.ccr.corp.intel.com>
+In-Reply-To: <625BA99ED14B2D499DC4E29D8138F1504D190FD851@shsmsx502.ccr.corp.intel.com>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PULL] two sstate fixes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,37 +35,74 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 08 Nov 2010 21:06:33 -0000
+X-List-Received-Date: Mon, 08 Nov 2010 21:31:39 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The custom uImage produced by the kernel classes by default
-does not universally boot and working with existing uboot
-configurations and setups.
+On 11/07/2010 05:49 PM, Tian, Kevin wrote:
+>> From: Richard Purdie [mailto:rpurdie@linux.intel.com]
+>> Sent: Monday, November 08, 2010 4:42 AM
+>>
+>> On Fri, 2010-11-05 at 15:53 +0800, Tian, Kevin wrote:
+>>> meta/classes/package.bbclass |    1 +
+>>>   meta/conf/distro/poky.conf   |    2 +-
+>>>   2 files changed, 2 insertions(+), 1 deletion(-)
+>>>
+>>> commit bb9d4efa4076cfcf0998ecafb6d6b0969b97d224
+>>> Author: Kevin Tian<kevin.tian@intel.com>
+>>> Date:   Fri Nov 5 15:16:50 2010 +0800
+>>>
+>>>      poky.conf: add PWD to BB_HASHBASE_WHITELIST
+>>>
+>>>      Without doing this I can't reuse prebuilts generated from one directory in another
+>>>      build directory which is really not comfortable for developers. Due to difference
+>>>      on PWD variable, base hash becomes different for every sstate package.
+>>>
+>>>      So here PWD is added to the hase base whitelist, which makes most prebuilts reusable
+>>>      now in a different build directory. However there still remains one issue about
+>>>      do_populate_sysroot sstate package. Absolute path is encoded in this task which
+>>>      then blocks reuse on them. Perhaps we need some redesign for do_populate_sysroot
+>> into
+>>>      two stages, with all absolute path related operations moved to the 2nd stage. This
+>>>      way then the 1st stage can be reused.
+>>
+>>>      Partially fix [BUGID #522]
+>>>
+>>>      Signed-off-by Kevin Tian<kevin.tian@intel.com>
+>>>
+>>> commit 599ccdfa9d53e43fb2e44fdfd57de5d91868428b
+>>> Author: Kevin Tian<kevin.tian@intel.com>
+>>> Date:   Tue Oct 26 15:54:43 2010 +0800
+>>>
+>>>      package.bbclass: make sure 'sysroots' created before lockfile
+>>>
+>>>      package sstate requires a lock under sysroots/, which however may not be
+>>>      created when sstate_setscene functions are executed and then causes failures.
+>>>      here we make sure 'sysroots' created before do_package_setscene is executed.
+>>>
+>>>      Signed-off-by: Kevin Tian<kevin.tian@intel.com>
+>>> Pull URL: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=tk/master
+>>
+>> Good catches, I've merged these, thanks!
+>>
+>> You're right btw, we shouldn't be using hardcoded paths and we should
+>> fix that. Can you confirm you were using staging packages from a recent
+>> poky build though (0.9 release at least) as there were some bugs fixed
+>> in that area coming up to release.
+>>
+>
+> I forgot the exact commit after the rebase before sending pull request, but I know
+> it's around the 0.9 release. So I'll make another build to make sure it's still the problem. :-)
 
-This changes the preference to the uImage constructed by
-the kbuild processes and falls back to the other techniques
-if uImage is requested by the kernel does not produce one.
+These changes seem to have vastly improved this mechanism.  I'm still
+testing, but I was [finally] able to actually use the sstate info to
+make a new build.
 
-Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
----
- meta/classes/kernel.bbclass |    4 +++-
- 1 files changed, 3 insertions(+), 1 deletions(-)
+Hooray :-)
 
-diff --git a/meta/classes/kernel.bbclass b/meta/classes/kernel.bbclass
-index 4c79a98..bb76285 100644
---- a/meta/classes/kernel.bbclass
-+++ b/meta/classes/kernel.bbclass
-@@ -481,7 +481,9 @@ do_deploy() {
- 	fi
- 
- 	if test "x${KERNEL_IMAGETYPE}" = "xuImage" ; then 
--		if test -e arch/${ARCH}/boot/compressed/vmlinux ; then
-+		if test -e arch/${ARCH}/boot/uImage ; then
-+			cp arch/${ARCH}/boot/uImage ${DEPLOYDIR}/uImage-${PV}-${PR}-${MACHINE}-${DATETIME}.bin
-+		elif test -e arch/${ARCH}/boot/compressed/vmlinux ; then
- 			${OBJCOPY} -O binary -R .note -R .comment -S arch/${ARCH}/boot/compressed/vmlinux linux.bin
- 			uboot-mkimage -A ${ARCH} -O linux -T kernel -C none -a ${UBOOT_ENTRYPOINT} -e ${UBOOT_ENTRYPOINT} -n "${DISTRO_NAME}/${PV}/${MACHINE}" -d linux.bin ${DEPLOYDIR}/uImage-${PV}-${PR}-${MACHINE}-${DATETIME}.bin
- 			rm -f linux.bin
 -- 
-1.7.0.4
-
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
