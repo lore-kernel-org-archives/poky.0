@@ -1,25 +1,32 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 454FD4C80815
-	for <poky@yoctoproject.org>; Mon,  8 Nov 2010 09:59:15 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 08 Nov 2010 07:59:14 -0800
+Return-Path: <elizabeth.flanagan@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5D2924C80BCF
+	for <poky@yoctoproject.org>; Mon,  8 Nov 2010 13:01:02 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 08 Nov 2010 11:00:43 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.58,314,1286175600"; d="scan'208";a="345958999"
-Received: from unknown (HELO [10.255.12.208]) ([10.255.12.208])
-	by azsmga001.ch.intel.com with ESMTP; 08 Nov 2010 07:59:13 -0800
-Message-ID: <4CD81E51.1040304@linux.intel.com>
-Date: Mon, 08 Nov 2010 07:59:13 -0800
-From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.12) Gecko/20101027 Lightning/1.0b2 Thunderbird/3.1.6
+X-IronPort-AV: E=Sophos;i="4.59,169,1288594800"; d="scan'208";a="624697109"
+Received: from orsmsx604.amr.corp.intel.com ([10.22.226.87])
+	by fmsmga002.fm.intel.com with ESMTP; 08 Nov 2010 11:00:43 -0800
+Received: from orsmsx606.amr.corp.intel.com (10.22.226.128) by
+	orsmsx604.amr.corp.intel.com (10.22.226.87) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Mon, 8 Nov 2010 10:58:01 -0800
+Received: from orsmsx504.amr.corp.intel.com ([10.22.226.207]) by
+	orsmsx606.amr.corp.intel.com ([10.22.226.128]) with mapi;
+	Mon, 8 Nov 2010 10:57:52 -0800
+From: "Flanagan, Elizabeth" <elizabeth.flanagan@intel.com>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Date: Mon, 8 Nov 2010 10:57:52 -0800
+Thread-Topic: [PULL] quilt configure fix for newer versions of patch. Fix
+	for Bug #525
+Thread-Index: Act/dti3kC6v7QLqSiCv1l/cEwXPCg==
+Message-ID: <F8468D2C47091F478582319BFF717BA20271B93922@orsmsx504.amr.corp.intel.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
 MIME-Version: 1.0
-To: Bruce Ashfield <bruce.ashfield@windriver.com>
-References: <cover.1289057313.git.dvhart@linux.intel.com>
-	<4CD6C358.8010907@linux.intel.com> <4CD782A9.8080201@windriver.com>
-In-Reply-To: <4CD782A9.8080201@windriver.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/3] git-pull: new pull request generation and sending scripts
+Subject: [PULL] quilt configure fix for newer versions of patch. Fix for Bug #525
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,64 +38,16 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 08 Nov 2010 15:59:15 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 08 Nov 2010 19:01:02 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On 11/07/2010 08:55 PM, Bruce Ashfield wrote:
-> On 10-11-07 10:18 AM, Darren Hart wrote:
->> On 11/06/2010 11:28 AM, Darren Hart wrote:
->>> The following patches replace the existing create-pull-request script
->>> and create
->>> a new send-pull-request. See 2/3 for details on the motivation and
->>> functionality
->>> of the new create-pull-request script.
->>
->> Thinking about this, I realized that the script would be usefull for
->> just sending patches as well (for developers without a contrib branch).
->> Perhaps the scripts should not contain "pull" in their name and the
->> remote git branch as well as the hosting site should be both optional
->> and configurable. These are relatively trivial changes which we could
->> address in a subsequent series if people agree that this initial set is
->> the right approach for our project.
->
-> I saw these in action at the LPC, and I like the two
-> phase approach here. Since it gives a chance to edit/update
-> review before sending, and like 'git mailinfo' it creates
-> the parts you need and doesn't actually do anything
-> without a second command :)
->
-> Having the patches via email is key for me, so I'm glad
-> to see that in place. Do we assume that discretion will
-> be used and we don't need a throttle/limit on the patches ?
-> But then again, thinking about it, 200+ patch dumps
-> to go lkml without the world ending (and it shouldn't
-> really be common here) so this probably isn't an issue.
-
-I thought a bit about ensuring proper ordering (I've made scripts wait 5 
-seconds between patches before). As for abuse... well, I think it is 
-unlikely - if someone wants to abuse the list, there are innumerable 
-ways to go about it, this being one of the least efficient ;-)
-
->
-> So definitely acked-by me.
->
-
-Excellent - and this brings up a point I wanted to discuss. One of the 
-stated reasons for doing this was to facilitate peer review. Now that I 
-have Bruce's Acked-by:, I could reword the commit messages to include 
-them, or Richard could add them when he does the pull, but I do think 
-they should be present in the final commits to poky proper.
-
-Richard - how would you like to see that done? My suggestion would be 
-that if you accept these as they are, that you append Bruce's Acked-by 
-and your Signed-off-by. If I end up having to take another pass and send 
-a V2 pull request, I could confirm Bruce still agrees (in a side 
-channel) and add his Acked-by.
-
-Thanks,
-
--- 
-Darren Hart
-Embedded Linux Kernel
+IG1ldGEvcmVjaXBlcy1kZXZ0b29scy9xdWlsdC9xdWlsdC5pbmMgICAgICAgICAgICAgICAgICAg
+ICAgfCAgICAzICstCiBtZXRhL3JlY2lwZXMtZGV2dG9vbHMvcXVpbHQvcXVpbHQvZ251X3BhdGNo
+X3Rlc3RfZml4LnBhdGNoIHwgICAxOQorKysrKysrKysrKysrCiAyIGZpbGVzIGNoYW5nZWQsIDIx
+IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKCkJldGggRmxhbmFnYW4gKDEpOgogICAgICBx
+dWlsdDogRml4ZWQgY29uZmlndXJlIHRlc3QgZm9yIHBhdGNoIC0tdmVyc2lvbi4KClB1bGwgVVJM
+OgpodHRwOi8vZ2l0LnBva3lsaW51eC5vcmcvY2dpdC5jZ2kvcG9reS1jb250cmliL2xvZy8/aD1l
+ZmxhbmFnYW4vcXVpbHRfZml4Cgo=
 
