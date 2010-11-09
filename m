@@ -1,31 +1,29 @@
-Return-Path: <mark.hatle@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 95E444C81068
-	for <poky@yoctoproject.org>; Tue,  9 Nov 2010 10:14:39 -0600 (CST)
-Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oA9GEbL8027317;
-	Tue, 9 Nov 2010 08:14:37 -0800 (PST)
-Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
-	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Tue, 9 Nov 2010 08:14:36 -0800
-Received: from Macintosh-5.local ([172.25.36.228]) by
-	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Tue, 9 Nov 2010 08:14:36 -0800
-Message-ID: <4CD9736B.9070902@windriver.com>
-Date: Tue, 09 Nov 2010 10:14:35 -0600
-From: Mark Hatle <mark.hatle@windriver.com>
-Organization: Wind River Systems
-User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
-	rv:1.9.2.12) Gecko/20101027 Thunderbird/3.1.6
+Return-Path: <Ryan_D_Phillips@Dell.com>
+Received: from ausc60ps301.us.dell.com (ausc60ps301.us.dell.com
+	[143.166.148.206])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8AC7F4C81068
+	for <poky@yoctoproject.org>; Tue,  9 Nov 2010 10:31:42 -0600 (CST)
+X-Loopcount0: from 10.175.216.251
+From: <Ryan_D_Phillips@Dell.com>
+To: <poky@yoctoproject.org>
+Date: Tue, 9 Nov 2010 10:31:37 -0600
+Thread-Topic: Introduction and Request for HTTP Git Access
+Thread-Index: AcuAK5RPzPK4AbQFQZuR6O5DotGCcg==
+Message-ID: <017987BD9AB15445B9968338EC889BB1082088F12E@AUSX7MCPS301.AMER.DELL.COM>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-cr-puzzleid: {98B0F990-68FB-4023-AE00-BFF426C8C491}
+x-cr-hashedpuzzle: AjvG B+Wg DN41 EFmn ESZq E0GW FE06 FYtT FtOo GPyf GUAa
+	Gr4a Jykk J9wZ KAdb
+	LTwe; 1; cABvAGsAeQBAAHkAbwBjAHQAbwBwAHIAbwBqAGUAYwB0AC4AbwByAGcA;
+	Sosha1_v1; 7; {98B0F990-68FB-4023-AE00-BFF426C8C491};
+	cgB5AGEAbgBfAGQAXwBwAGgAaQBsAGwAaQBwAHMAQABkAGUAbABsAC4AYwBvAG0A;
+	Tue, 09 Nov 2010 16:31:37 GMT;
+	SQBuAHQAcgBvAGQAdQBjAHQAaQBvAG4AIABhAG4AZAAgAFIAZQBxAHUAZQBzAHQAIABmAG8AcgAgAEgAVABUAFAAIABHAGkAdAAgAEEAYwBjAGUAcwBzAA==
+acceptlanguage: en-US
 MIME-Version: 1.0
-To: Gary Thomas <gary@mlbassoc.com>
-References: <4CD9456C.7090907@mlbassoc.com> <4CD968B0.2050505@windriver.com>
-	<4CD972D3.6070305@mlbassoc.com>
-In-Reply-To: <4CD972D3.6070305@mlbassoc.com>
-X-OriginalArrivalTime: 09 Nov 2010 16:14:36.0952 (UTC)
-	FILETIME=[344AC180:01CB8029]
-Cc: poky@yoctoproject.org
-Subject: Re: New staging error
+Subject: Introduction and Request for HTTP Git Access
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,63 +35,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 09 Nov 2010 16:14:39 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 09 Nov 2010 16:31:42 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/9/10 10:12 AM, Gary Thomas wrote:
-> On 11/09/2010 08:28 AM, Mark Hatle wrote:
->> On 11/9/10 6:58 AM, Gary Thomas wrote:
->>> With the new staging (master of 2010-11-08), I'm seeing lots of these
->>> messages
->>> when I build from scratch:
->>>
->>> NOTE: Running setscene task 81 of 364
->>> (/local/poky-amltd/meta/recipes-core/sysvinit/sysvinit_2.88dsf.bb:do_populate_sysroot_setscene)
->>>
->>> NOTE: package netbase-4.41-r1: task do_populate_sysroot_setscene: Started
->>> NOTE: Staging package
->>> /home/local/poky-new2/sstate-cache/sstate-netbase-ppc603e-poky-linux-4.41-r1-ppc603e-1-83766f23e3f9013cb26b768478638f1d_populate-sysroot.tgz
->>> does not exist
->>> ERROR: ld.so: object 'libpseudo.so' from LD_PRELOAD cannot be
->>> preloaded: ignored.
->>> ERROR: ld.so: object 'libpseudo.so' from LD_PRELOAD cannot be
->>> preloaded: ignored.
->>>
->>> Questions:
->>> * What does this mean? Can I fix it somehow?
->>> * If it's ignored, it should be a WARNING, not an ERROR
->>>
->>
->> It is an error, but unfortunately not one that can caught. (The error
->> comes from ld.so, which will happily ignore a failed preload. If someone
->> knows how to make it fatal, we should do so!)
->>
->> I've normally seen the libpseudo.so failed to preload when either you
->> are running as root (as a safety precaution against tampering), you've
->> upgraded your host's libc since pseudo was built, or suddenly you are
->> running 64-bit (or 32-bit) binaries when pseudo is built for the other
->> architecture type.
->
-> None of these are the case.  I was simply trying to test/verify the staging
-> mechanism.  I think the error happens because LD_PRELOAD=libpseudo.so seems
-> to be set, even before the sysroots tree where it lives has been populated.
+Good Day!
 
-Odd -- we definitely want to fix this.  Sounds like a bug in the staging code.. 
-(Note, we're working on changing some of the way pseudo loads into memory as 
-well as operates through the run sequence -- so it might have the side effect of 
-fixing this issue....  but it's worth filing this as a bug, and if you have a 
-way to reproduce it file that as well.)
+My name is Ryan Phillips (irc: rphillips), a former Gentoo Linux Developer,=
+ currently a software developer architecting an embedded firmware solution =
+on OE for my employer. With the release of Yocto, we are extremely interest=
+ed in trying it out and possibly contributing to the project. My cohort wor=
+king with me is Sean Hudson (irc: darknighte), and is someone who you may s=
+ee contributions from as well.
 
---Mark
+A major stumbling block we must work around is the restrictive firewall and=
+ git checkouts. We have found out the git-http-backend works extremely well=
+, and are requesting this support on git.pokylinux.org. We suspect other pe=
+ople within larger corporations would have a similar problem, and by adding=
+ this support would help the community at large.
 
->> I'd suggest checking to see if you can figure out what caused the
->> message so we can get it fixed. But if you are unable to figure it out,
->> you'll need to clean and rebuild pseudo-native. (I don't remember the
->> clean target to ignore the sstate cache... or maybe we're planning on
->> adding one and haven't yet.) You may need to 'rm' pseudo from the sstate
->> cache. To force it to build fresh.
->
->
+I can help out in any way possible.
 
+Regards,
+Ryan Phillips
 
