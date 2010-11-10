@@ -1,40 +1,29 @@
-Return-Path: <adamthecamper@gmail.com>
+Return-Path: <dvhart@linux.intel.com>
 Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 6CAB34C80BCF
-	for <poky@lists.pokylinux.org>; Wed, 10 Nov 2010 11:06:50 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 39F1B4C80BCF
+	for <poky@lists.pokylinux.org>; Wed, 10 Nov 2010 11:38:45 -0600 (CST)
 Received: by pug.o-hand.com (Postfix)
-	id 8562712EC2F5; Wed, 10 Nov 2010 11:43:26 -0600 (CST)
-Received: from mail-pv0-f172.google.com (mail-pv0-f172.google.com
-	[74.125.83.172])
-	by pug.o-hand.com (Postfix) with ESMTP id 5CB6B12EC1F4
-	for <poky@o-hand.com>; Wed, 10 Nov 2010 11:43:26 -0600 (CST)
-Received: by pvc21 with SMTP id 21so182148pvc.3
-	for <poky@o-hand.com>; Wed, 10 Nov 2010 09:06:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:received:mime-version:received:from:date
-	:message-id:subject:to:content-type:content-transfer-encoding;
-	bh=elXIlOCFqBMOEsusagYuulV+JRijAl+NTJiKfLnQMxk=;
-	b=lch/+ad291Ox02wecZ6T2wDvlmE0P0so/JH9uW90yhThiAaWdKZVnk5F4haFGiGB9D
-	hszcR1qfXd4Kr+9HB7MOM1W2J4bK7lEvbyROavEvT1K4TEW3GpLgfrodEmc9Jj33jdcC
-	5HCdi+QWxhfqS49UOHNViavVrLZzwpTT8rVuk=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:from:date:message-id:subject:to:content-type
-	:content-transfer-encoding;
-	b=kvGuaWthprSz9eO84UeZzvvzTAm0mxvd42aujeQfmfB2yXUJekxywltB39C0Wm9QXD
-	D4/tLuDEt9yIOLDVG83N0ymjrnSlTBEd7WoH9MjHQ4PeDow9XqF/q9EO6bPKAlDZ56kq
-	DegN0ZRH8UggW8QPGXYruQlEdP3luvjlZCb8E=
-Received: by 10.42.216.142 with SMTP id hi14mr5596399icb.511.1289408804224;
-	Wed, 10 Nov 2010 09:06:44 -0800 (PST)
+	id 7010812EC2B1; Wed, 10 Nov 2010 12:15:21 -0600 (CST)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by pug.o-hand.com (Postfix) with ESMTP id 3428A12EC1F4
+	for <poky@o-hand.com>; Wed, 10 Nov 2010 12:15:21 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 10 Nov 2010 09:38:42 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.59,178,1288594800"; d="scan'208";a="625464788"
+Received: from doubt.jf.intel.com (HELO [10.24.5.209]) ([10.24.5.209])
+	by fmsmga002.fm.intel.com with ESMTP; 10 Nov 2010 09:38:42 -0800
+Message-ID: <4CDAD8A1.6050401@linux.intel.com>
+Date: Wed, 10 Nov 2010 09:38:41 -0800
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.12) Gecko/20101027 Lightning/1.0b2 Thunderbird/3.1.6
 MIME-Version: 1.0
-Received: by 10.231.17.141 with HTTP; Wed, 10 Nov 2010 09:06:24 -0800 (PST)
-From: Adam Saleh <adamthecamper@gmail.com>
-Date: Wed, 10 Nov 2010 18:06:24 +0100
-Message-ID: <AANLkTimhDA7iuBkedMY-Q64n38Wc861ymKe-hrH6cg2k@mail.gmail.com>
-To: poky@o-hand.com
-Subject: How much space does poky need?
+To: Adam Saleh <adamthecamper@gmail.com>
+References: <AANLkTimhDA7iuBkedMY-Q64n38Wc861ymKe-hrH6cg2k@mail.gmail.com>
+In-Reply-To: <AANLkTimhDA7iuBkedMY-Q64n38Wc861ymKe-hrH6cg2k@mail.gmail.com>
+Cc: poky@o-hand.com
+Subject: Re: How much space does poky need?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,20 +35,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 10 Nov 2010 17:06:51 -0000
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Wed, 10 Nov 2010 17:38:47 -0000
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hello,
+On 11/10/2010 09:06 AM, Adam Saleh wrote:
+> Hello,
+>
+> I am making myself a poky-build server, and I remember that when in
+> use, build system with all downloaded and compiled packages could take
+> up a quite a lot of space (several gigs). Unfortunately, I don§t
+> remember how many.
 
-I am making myself a poky-build server, and I remember that when in
-use, build system with all downloaded and compiled packages could take
-up a quite a lot of space (several gigs). Unfortunately, I don=C2=A7t
-remember how many.
-Could you advise me how large partition should I set for the
-enviroment? I plan on building mainly qemu-x86 and qemu-arm targets.
 
-Thanks
+The Yocto Quick Start 
+(http://www.yoctoproject.org/docs/yocto-quick-start/yocto-project-qs.html) 
+provides some guidance here. If you were building for just one 
+architecture, I suggest allocating at least 100GB for builds.
 
-Adam
+
+> Could you advise me how large partition should I set for the
+> enviroment? I plan on building mainly qemu-x86 and qemu-arm targets.
+
+2 archs, I'd start with 200GB.
+
+-- 
+Darren Hart
+Yocto Linux Kernel
 
