@@ -1,32 +1,23 @@
-Return-Path: <rpurdie@linux.intel.com>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C45414C81001
-	for <poky@yoctoproject.org>; Tue,  9 Nov 2010 18:36:02 -0600 (CST)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oAA0ZkDF024945;
-	Wed, 10 Nov 2010 00:35:46 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 24644-05; Wed, 10 Nov 2010 00:35:41 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oAA0ZWev024930
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Wed, 10 Nov 2010 00:35:36 GMT
-From: Richard Purdie <rpurdie@linux.intel.com>
-To: Ryan D Phillips <ryan_d_phillips@dell.com>
-In-Reply-To: <4CD9C14F.7010902@dell.com>
-References: <017987BD9AB15445B9968338EC889BB1082088F12E@AUSX7MCPS301.AMER.DELL.COM>
-	<4CD98D69.5020003@intel.com> <20101109183140.GC8761@denix.org>
-	<4CD9C14F.7010902@dell.com>
-Date: Wed, 10 Nov 2010 08:10:28 +0800
-Message-ID: <1289347828.1272.78.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: Introduction and Request for HTTP Git Access
+Return-Path: <qing.he@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 6B1FC4C80BCF
+	for <poky@yoctoproject.org>; Wed, 10 Nov 2010 03:00:21 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 10 Nov 2010 01:00:20 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.59,177,1288594800"; d="scan'208";a="676064120"
+Received: from qhe2-db.sh.intel.com ([10.239.13.109])
+	by orsmga001.jf.intel.com with ESMTP; 10 Nov 2010 01:00:20 -0800
+Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
+	(envelope-from <qing.he@intel.com>) id 1PG6T7-0008FF-BR
+	for poky@yoctoproject.org; Wed, 10 Nov 2010 16:55:49 +0800
+Date: Wed, 10 Nov 2010 16:55:49 +0800
+From: Qing He <qing.he@intel.com>
+To: poky@yoctoproject.org
+Message-ID: <20101110085549.GA31687@qhe2-db>
+MIME-Version: 1.0
+User-Agent: Mutt/1.5.20 (2009-06-14)
+Subject: [PULL] fixes of libnss-mdns and license checksum
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,51 +29,24 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 10 Nov 2010 00:36:03 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 10 Nov 2010 09:00:21 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Tue, 2010-11-09 at 15:46 -0600, Ryan D Phillips wrote:
-> On 11/9/2010 12:31 PM, Denys Dmytriyenko wrote:
-> > On Tue, Nov 09, 2010 at 10:05:29AM -0800, Scott Garman wrote:
-> >> On 11/09/2010 08:31 AM, Ryan_D_Phillips@Dell.com wrote:
-> >>> Good Day!
-> >>>
-> >>> My name is Ryan Phillips (irc: rphillips), a former Gentoo Linux
-> >>> Developer, currently a software developer architecting an embedded
-> >>> firmware solution on OE for my employer. With the release of Yocto,
-> >>> we are extremely interested in trying it out and possibly
-> >>> contributing to the project. My cohort working with me is Sean Hudson
-> >>> (irc: darknighte), and is someone who you may see contributions from
-> >>> as well.
-> >>>
-> >>> A major stumbling block we must work around is the restrictive
-> >>> firewall and git checkouts. We have found out the git-http-backend
-> >>> works extremely well, and are requesting this support on
-> >>> git.pokylinux.org. We suspect other people within larger corporations
-> >>> would have a similar problem, and by adding this support would help
-> >>> the community at large.
-> >>>
-> >
-> 
-> Hmm. I didn't mean to start a firestorm. Read only git-http-backend 
-> access is something that we would find useful. As an alternative, we can 
-> create repo.or.cz mirrors, but I'm not all that keen on this.
+The libnss-mdns patch fixes bug 510
+The other fix the license checksum that was effectively disabled by a
+typo.
 
-I'm travelling at the moment so I'll just keep this brief.
+Thanks,
+Qing
+---
+ meta/classes/insane.bbclass                               |    4 ++--
+ meta/recipes-connectivity/libnss-mdns/libnss-mdns_0.10.bb |    5 +++--
+ 2 files changed, 5 insertions(+), 4 deletions(-)
 
-I'm more than happy to try and find a way to share git.yoctoproject.org
-over http for cloning, that shouldn't be too hard. I'll see if I can get
-something working next week although I'm meant to be taking some
-vacation too.
+Qing He (2):
+      libnss-mdns: fix package removal
+      insane.bbclass: fix qa_configure and qa_staging
 
-For push access over https, that is a lot more difficult as it is
-unlikely to integrate well with our access control system. I'd need to
-do more reading before I could really comment on that. It appears
-changes in git support it better at least.
-
-Cheers,
-
-Richard
-
+Pull URL: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=qhe/fix
 
