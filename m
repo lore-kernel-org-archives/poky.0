@@ -1,30 +1,28 @@
-Return-Path: <rpurdie@linux.intel.com>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 544FD4C80815
-	for <poky@lists.pokylinux.org>; Wed, 10 Nov 2010 07:44:25 -0600 (CST)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oAADiOBj002898;
-	Wed, 10 Nov 2010 13:44:24 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 02821-03; Wed, 10 Nov 2010 13:44:20 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oAADiD3k002892
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Wed, 10 Nov 2010 13:44:17 GMT
-From: Richard Purdie <rpurdie@linux.intel.com>
-To: Gary Thomas <gary@mlbassoc.com>
-In-Reply-To: <4CD29C94.4070301@mlbassoc.com>
-References: <4CD29C94.4070301@mlbassoc.com>
-Date: Wed, 10 Nov 2010 21:44:10 +0800
-Message-ID: <1289396650.1272.299.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: Poky <poky@lists.pokylinux.org>
-Subject: Re: timestamp overkill?
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 490554C80B6B
+	for <poky@pokylinux.org>; Wed, 10 Nov 2010 08:03:12 -0600 (CST)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id B1DE116609B3; Wed, 10 Nov 2010 07:03:11 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=ham version=3.3.1
+Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 19B0D16609B1;
+	Wed, 10 Nov 2010 07:03:11 -0700 (MST)
+Message-ID: <4CDAA61F.30008@mlbassoc.com>
+Date: Wed, 10 Nov 2010 07:03:11 -0700
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.1.9) Gecko/20100430 Fedora/3.0.4-2.fc11 Thunderbird/3.0.4
+MIME-Version: 1.0
+To: Richard Purdie <rpurdie@linux.intel.com>
+References: <4CD3EF04.8030208@mlbassoc.com> <1289396521.1272.294.camel@rex>
+In-Reply-To: <1289396521.1272.294.camel@rex>
+Cc: Poky <poky@pokylinux.org>
+Subject: Re: A question about overrides
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,29 +34,86 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 10 Nov 2010 13:44:25 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Wed, 10 Nov 2010 14:03:13 -0000
+X-Groupsio-MsgNum: 129
+Content-Type: multipart/mixed; boundary="------------040008010008030308050900"
+
+--------------040008010008030308050900
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Thu, 2010-11-04 at 05:44 -0600, Gary Thomas wrote:
-> I just noticed that there are two identical functions in image.bbclass
-> to set/update the image timestamp.  Why?  Left over from a previous era?
-> 
-> $ find meta* -name "*.bb*" -or -name "*.inc" | xargs grep create_etc_timestamp
-> meta/classes/image.bbclass:create_etc_timestamp() {
-> meta/classes/image.bbclass:# export the zap_root_password, create_etc_timestamp and remote_init_link
-> meta/classes/image.bbclass:EXPORT_FUNCTIONS zap_root_password create_etc_timestamp remove_init_link do_rootfs make_zimage_symlink_relative set_image_autologin 
-> rootfs_update_timestamp rootfs_no_x_startup
-> 
-> Notice that 'create_etc_timestamp' does not seem to be used by
-> any recipe.  Perhaps it should be removed?
+On 11/10/2010 06:42 AM, Richard Purdie wrote:
+> On Fri, 2010-11-05 at 05:48 -0600, Gary Thomas wrote:
+>> I have my own distribution layer, built on the poky distribution.
+>> In other words, my layer defines a few basic setups, then inherits
+>> poky to do the rest.
+>>
+>> For the most part, I've been successful with this.  The problem at
+>> hand is that for my distribution, I need to support a couple of
+>> different architectures and at the moment, one of them needs to
+>> stay in the stone age tools-wise.  In my distro.conf, I have
+>> lines like these to select those tools for just that architecture:
+>>     GCCVERSION_armv7a ?= "4.3.3"
+>> This works for everything (I've tried), except this:
+>>     POKYLIBC_armv7a ?= "glibc"
+>>
+>> * Is there some magic I'm missing with regard to the 'POKYLIBC' symbol?
+>> * Perhaps there's some other way?
+>>
+>> For now, I'm overriding this in local.conf, but that requires
+>> hand tuning that I'd like to avoid.
+>
+> Can you be more specific about what your distro.conf file says? I'm
+> guessing you're requiring poky.conf in there? Are you setting the value
+> after the require and does it work if you do it beforehand?
+>
+> I ask as that variable is used in a require in poky.conf, effectively
+> causing an immediate expansion of the variable so it needs to be set
+> before poky.conf, not afterwards.
 
-The one that is unused should probably be removed. Please file a bug
-and/or submit a patch!
+Yes, I do have a require poky.conf and I'm setting these variables
+before that statement.
 
-Cheers,
+I've attached the files I use (slightly sanitized).  Note that the only
+way I could work this out was to define POKYLIBC in local.conf
 
-Richard
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
+--------------040008010008030308050900
+Content-Type: text/plain;
+ name="mydistro.conf"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+ filename="mydistro.conf"
 
+IyBNeSBsb2NhbGl6ZWQsIGxheWVyZWQgZGlzdHJpYnV0aW9uCgpyZXF1aXJlIGNvbmYvZGlzdHJv
+L2luY2x1ZGUvbXlkaXN0cm8tZml4ZWQtcmV2aXNpb25zLmluYwpyZXF1aXJlIGNvbmYvZGlzdHJv
+L3Bva3kuY29uZgoKRElTVFJPID0gIm15ZGlzdHJvIgpESVNUUk9fTkFNRSA9ICJNeSBMb2NhbCBF
+bWJlZGRlZCAoUG9reSBQb3dlcmVkKSIKRElTVFJPX1ZFUlNJT04gPSAiMC45OStzbmFwc2hvdC0k
+e0RBVEV9IgoKIyBBbGxvdyBoYXJkd2FyZSBvdmVycmlkZXMsIGUuZy4gYXJtdjdhCk9WRVJSSURF
+UyAuPSAiOiR7RkVFRF9BUkNIfToke1NPQ19GQU1JTFl9IgoKIyBVc2UgQSZNIGtlcm5lbHMKUFJF
+RkVSUkVEX1BST1ZJREVSX3ZpcnR1YWwva2VybmVsID0gImxpbnV4LW15ZGlzdHJvIgoKIyBVc2Ug
+QSZNIG9wa2cgc2V0dXAKRVhUUkFPUEtHQ09ORklHID0gIm15ZGlzdHJvLWZlZWQtY29uZmlnLW9w
+a2ciCg==
 
+--------------040008010008030308050900
+Content-Type: text/plain;
+ name="mydistro-fixed-revisions.inc"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+ filename="mydistro-fixed-revisions.inc"
+
+IwojIE92ZXJyaWRlIHBpbm5lZCB2ZXJzaW9ucyAodGhlc2UgdmFyaWFibGVzIGFyZSB1c2VkIGJ5
+IFBva3kpCiMKCiMKIyBOb3RlOiBvbmx5IEFSTSB1c2VzIG9sZCwgZml4ZWQgdG9vbHMgKGJlY2F1
+c2Ugb2YgVEkgcGFja2FnZXMpCiMKR0NDVkVSU0lPTl9hcm12N2EgPz0gIjQuMy4zIgpTREtHQ0NW
+RVJTSU9OX2FybXY3YSA/PSAiNC4zLjMiCiNCSU5VVkVSU0lPTiA/PSAiMi4yMC4xIgpCSU5VVkVS
+U0lPTl9hcm12N2EgPSAiMi4xOC41MC4wLjciCkdMSUJDVkVSU0lPTl9hcm12N2EgPz0gIjIuMTAu
+MSIKTElOVVhMSUJDVkVSU0lPTl9hcm12N2EgPz0gIjIuNi4zNCIKCiMgRklYTUU/IE92ZXJyaWRl
+IHRoaXMgaW4gbG9jYWwuY29uZgpQT0tZTElCQyA/PSAiZWdsaWJjIgoKU1JDUkVWX3BuLWZmbXBl
+ZyA9ICIyNDU5NiIKCg==
+
+--------------040008010008030308050900--
