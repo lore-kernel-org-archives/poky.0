@@ -1,28 +1,28 @@
 Return-Path: <gary@mlbassoc.com>
 Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 490554C80B6B
-	for <poky@pokylinux.org>; Wed, 10 Nov 2010 08:03:12 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 66DFB4C80044
+	for <poky@lists.pokylinux.org>; Wed, 10 Nov 2010 08:09:53 -0600 (CST)
 Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id B1DE116609B3; Wed, 10 Nov 2010 07:03:11 -0700 (MST)
+	id DF57A16609B7; Wed, 10 Nov 2010 07:09:52 -0700 (MST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	hermes.chez-thomas.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
 	autolearn=ham version=3.3.1
 Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 19B0D16609B1;
-	Wed, 10 Nov 2010 07:03:11 -0700 (MST)
-Message-ID: <4CDAA61F.30008@mlbassoc.com>
-Date: Wed, 10 Nov 2010 07:03:11 -0700
+	by mail.chez-thomas.org (Postfix) with ESMTP id 4942D16609B2;
+	Wed, 10 Nov 2010 07:09:52 -0700 (MST)
+Message-ID: <4CDAA7B0.1070903@mlbassoc.com>
+Date: Wed, 10 Nov 2010 07:09:52 -0700
 From: Gary Thomas <gary@mlbassoc.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
 	rv:1.9.1.9) Gecko/20100430 Fedora/3.0.4-2.fc11 Thunderbird/3.0.4
 MIME-Version: 1.0
 To: Richard Purdie <rpurdie@linux.intel.com>
-References: <4CD3EF04.8030208@mlbassoc.com> <1289396521.1272.294.camel@rex>
-In-Reply-To: <1289396521.1272.294.camel@rex>
-Cc: Poky <poky@pokylinux.org>
-Subject: Re: A question about overrides
+References: <4CD29C94.4070301@mlbassoc.com> <1289396650.1272.299.camel@rex>
+In-Reply-To: <1289396650.1272.299.camel@rex>
+Cc: Poky <poky@lists.pokylinux.org>
+Subject: Re: timestamp overkill?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,48 +34,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 10 Nov 2010 14:03:13 -0000
-X-Groupsio-MsgNum: 129
-Content-Type: multipart/mixed; boundary="------------040008010008030308050900"
+X-List-Received-Date: Wed, 10 Nov 2010 14:09:53 -0000
+X-Groupsio-MsgNum: 130
+Content-Type: multipart/mixed; boundary="------------020507060907070401090808"
 
---------------040008010008030308050900
+--------------020507060907070401090808
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 11/10/2010 06:42 AM, Richard Purdie wrote:
-> On Fri, 2010-11-05 at 05:48 -0600, Gary Thomas wrote:
->> I have my own distribution layer, built on the poky distribution.
->> In other words, my layer defines a few basic setups, then inherits
->> poky to do the rest.
+On 11/10/2010 06:44 AM, Richard Purdie wrote:
+> On Thu, 2010-11-04 at 05:44 -0600, Gary Thomas wrote:
+>> I just noticed that there are two identical functions in image.bbclass
+>> to set/update the image timestamp.  Why?  Left over from a previous era?
 >>
->> For the most part, I've been successful with this.  The problem at
->> hand is that for my distribution, I need to support a couple of
->> different architectures and at the moment, one of them needs to
->> stay in the stone age tools-wise.  In my distro.conf, I have
->> lines like these to select those tools for just that architecture:
->>     GCCVERSION_armv7a ?= "4.3.3"
->> This works for everything (I've tried), except this:
->>     POKYLIBC_armv7a ?= "glibc"
+>> $ find meta* -name "*.bb*" -or -name "*.inc" | xargs grep create_etc_timestamp
+>> meta/classes/image.bbclass:create_etc_timestamp() {
+>> meta/classes/image.bbclass:# export the zap_root_password, create_etc_timestamp and remote_init_link
+>> meta/classes/image.bbclass:EXPORT_FUNCTIONS zap_root_password create_etc_timestamp remove_init_link do_rootfs make_zimage_symlink_relative set_image_autologin
+>> rootfs_update_timestamp rootfs_no_x_startup
 >>
->> * Is there some magic I'm missing with regard to the 'POKYLIBC' symbol?
->> * Perhaps there's some other way?
->>
->> For now, I'm overriding this in local.conf, but that requires
->> hand tuning that I'd like to avoid.
+>> Notice that 'create_etc_timestamp' does not seem to be used by
+>> any recipe.  Perhaps it should be removed?
 >
-> Can you be more specific about what your distro.conf file says? I'm
-> guessing you're requiring poky.conf in there? Are you setting the value
-> after the require and does it work if you do it beforehand?
->
-> I ask as that variable is used in a require in poky.conf, effectively
-> causing an immediate expansion of the variable so it needs to be set
-> before poky.conf, not afterwards.
+> The one that is unused should probably be removed. Please file a bug
+> and/or submit a patch!
 
-Yes, I do have a require poky.conf and I'm setting these variables
-before that statement.
-
-I've attached the files I use (slightly sanitized).  Note that the only
-way I could work this out was to define POKYLIBC in local.conf
+Attached.
 
 -- 
 ------------------------------------------------------------
@@ -83,37 +67,29 @@ Gary Thomas                 |  Consulting for the
 MLB Associates              |    Embedded world
 ------------------------------------------------------------
 
---------------040008010008030308050900
+--------------020507060907070401090808
 Content-Type: text/plain;
- name="mydistro.conf"
+ name="0001-Remove-superfluous-create_etc_timestamp-function.patch"
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment;
- filename="mydistro.conf"
+ filename*0="0001-Remove-superfluous-create_etc_timestamp-function.patch"
 
-IyBNeSBsb2NhbGl6ZWQsIGxheWVyZWQgZGlzdHJpYnV0aW9uCgpyZXF1aXJlIGNvbmYvZGlzdHJv
-L2luY2x1ZGUvbXlkaXN0cm8tZml4ZWQtcmV2aXNpb25zLmluYwpyZXF1aXJlIGNvbmYvZGlzdHJv
-L3Bva3kuY29uZgoKRElTVFJPID0gIm15ZGlzdHJvIgpESVNUUk9fTkFNRSA9ICJNeSBMb2NhbCBF
-bWJlZGRlZCAoUG9reSBQb3dlcmVkKSIKRElTVFJPX1ZFUlNJT04gPSAiMC45OStzbmFwc2hvdC0k
-e0RBVEV9IgoKIyBBbGxvdyBoYXJkd2FyZSBvdmVycmlkZXMsIGUuZy4gYXJtdjdhCk9WRVJSSURF
-UyAuPSAiOiR7RkVFRF9BUkNIfToke1NPQ19GQU1JTFl9IgoKIyBVc2UgQSZNIGtlcm5lbHMKUFJF
-RkVSUkVEX1BST1ZJREVSX3ZpcnR1YWwva2VybmVsID0gImxpbnV4LW15ZGlzdHJvIgoKIyBVc2Ug
-QSZNIG9wa2cgc2V0dXAKRVhUUkFPUEtHQ09ORklHID0gIm15ZGlzdHJvLWZlZWQtY29uZmlnLW9w
-a2ciCg==
+RnJvbSA3OGIwZDZjNWExMmQ1M2FmYjEzYTIwZTUxZTE2NTNiZDU3MmM1MmM2IE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBHYXJ5IFRob21hcyA8Z2FyeUBtbGJhc3NvYy5jb20+CkRhdGU6
+IFdlZCwgMTAgTm92IDIwMTAgMDc6MDg6NDggLTA3MDAKU3ViamVjdDogW1BBVENIXSBSZW1vdmUg
+c3VwZXJmbHVvdXMgJ2NyZWF0ZV9ldGNfdGltZXN0YW1wKCknIGZ1bmN0aW9uIC0gc2VlbXMgdG8g
+YmUgYSBkdXBsaWNhdGUgb2YgJ3Jvb3Rmc191cGRhdGVfdGltZXN0YW1wKCknCgpTaWduZWQtb2Zm
+LWJ5OiBHYXJ5IFRob21hcyA8Z2FyeUBtbGJhc3NvYy5jb20+Ci0tLQogbWV0YS9jbGFzc2VzL2lt
+YWdlLmJiY2xhc3MgfCAgICA0IC0tLS0KIDEgZmlsZXMgY2hhbmdlZCwgMCBpbnNlcnRpb25zKCsp
+LCA0IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL21ldGEvY2xhc3Nlcy9pbWFnZS5iYmNsYXNz
+IGIvbWV0YS9jbGFzc2VzL2ltYWdlLmJiY2xhc3MKaW5kZXggNGJlNTEwMy4uMDIyMmJhNiAxMDA2
+NDQKLS0tIGEvbWV0YS9jbGFzc2VzL2ltYWdlLmJiY2xhc3MKKysrIGIvbWV0YS9jbGFzc2VzL2lt
+YWdlLmJiY2xhc3MKQEAgLTE4MiwxMCArMTgyLDYgQEAgemFwX3Jvb3RfcGFzc3dvcmQgKCkgewog
+CW12ICR7SU1BR0VfUk9PVEZTfS9ldGMvcGFzc3dkLm5ldyAke0lNQUdFX1JPT1RGU30vZXRjL3Bh
+c3N3ZAogfSAKIAotY3JlYXRlX2V0Y190aW1lc3RhbXAoKSB7Ci0JZGF0ZSAtdSArJTJtJTJkJTJI
+JTJNJTRZID4ke0lNQUdFX1JPT1RGU30vZXRjL3RpbWVzdGFtcAotfQotCiAjIFR1cm4gYW55IHN5
+bWJvbGljIC9zYmluL2luaXQgbGluayBpbnRvIGEgZmlsZQogcmVtb3ZlX2luaXRfbGluayAoKSB7
+CiAJaWYgWyAtaCAke0lNQUdFX1JPT1RGU30vc2Jpbi9pbml0IF07IHRoZW4KLS0gCjEuNi4yLjUK
+Cg==
 
---------------040008010008030308050900
-Content-Type: text/plain;
- name="mydistro-fixed-revisions.inc"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment;
- filename="mydistro-fixed-revisions.inc"
-
-IwojIE92ZXJyaWRlIHBpbm5lZCB2ZXJzaW9ucyAodGhlc2UgdmFyaWFibGVzIGFyZSB1c2VkIGJ5
-IFBva3kpCiMKCiMKIyBOb3RlOiBvbmx5IEFSTSB1c2VzIG9sZCwgZml4ZWQgdG9vbHMgKGJlY2F1
-c2Ugb2YgVEkgcGFja2FnZXMpCiMKR0NDVkVSU0lPTl9hcm12N2EgPz0gIjQuMy4zIgpTREtHQ0NW
-RVJTSU9OX2FybXY3YSA/PSAiNC4zLjMiCiNCSU5VVkVSU0lPTiA/PSAiMi4yMC4xIgpCSU5VVkVS
-U0lPTl9hcm12N2EgPSAiMi4xOC41MC4wLjciCkdMSUJDVkVSU0lPTl9hcm12N2EgPz0gIjIuMTAu
-MSIKTElOVVhMSUJDVkVSU0lPTl9hcm12N2EgPz0gIjIuNi4zNCIKCiMgRklYTUU/IE92ZXJyaWRl
-IHRoaXMgaW4gbG9jYWwuY29uZgpQT0tZTElCQyA/PSAiZWdsaWJjIgoKU1JDUkVWX3BuLWZmbXBl
-ZyA9ICIyNDU5NiIKCg==
-
---------------040008010008030308050900--
+--------------020507060907070401090808--
