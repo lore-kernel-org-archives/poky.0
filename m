@@ -1,24 +1,25 @@
 Return-Path: <saul.wold@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7B3934C80044
-	for <poky@yoctoproject.org>; Wed, 10 Nov 2010 13:40:32 -0600 (CST)
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 9969E4C80FA4
+	for <poky@yoctoproject.org>; Wed, 10 Nov 2010 13:40:38 -0600 (CST)
 Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 10 Nov 2010 11:40:32 -0800
+	by azsmga102.ch.intel.com with ESMTP; 10 Nov 2010 11:40:38 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,179,1288594800"; d="scan'208";a="347126147"
+X-IronPort-AV: E=Sophos;i="4.59,179,1288594800"; d="scan'208";a="347126189"
 Received: from unknown (HELO [10.255.13.55]) ([10.255.13.55])
-	by azsmga001.ch.intel.com with ESMTP; 10 Nov 2010 11:40:31 -0800
-Message-ID: <4CDAF52F.5030303@intel.com>
-Date: Wed, 10 Nov 2010 11:40:31 -0800
+	by azsmga001.ch.intel.com with ESMTP; 10 Nov 2010 11:40:37 -0800
+Message-ID: <4CDAF535.2040209@intel.com>
+Date: Wed, 10 Nov 2010 11:40:37 -0800
 From: Saul Wold <saul.wold@intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
 	Thunderbird/3.0.5
 MIME-Version: 1.0
-To: poky@yoctoproject.org
-References: <F8468D2C47091F478582319BFF717BA20271B93922@orsmsx504.amr.corp.intel.com>
-In-Reply-To: <F8468D2C47091F478582319BFF717BA20271B93922@orsmsx504.amr.corp.intel.com>
-Subject: Re: [PULL] quilt configure fix for newer versions of patch. Fix for Bug #525
+To: Bruce Ashfield <bruce.ashfield@windriver.com>
+References: <1289250091-15889-1-git-send-email-bruce.ashfield@windriver.com>
+In-Reply-To: <1289250091-15889-1-git-send-email-bruce.ashfield@windriver.com>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PULL] qemumips wacom tablet support
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,26 +31,41 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 10 Nov 2010 19:40:32 -0000
+X-List-Received-Date: Wed, 10 Nov 2010 19:40:38 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 11/08/2010 10:57 AM, Flanagan, Elizabeth wrote:
->   meta/recipes-devtools/quilt/quilt.inc                      |    3 +-
->   meta/recipes-devtools/quilt/quilt/gnu_patch_test_fix.patch |   19
-> +++++++++++++
->   2 files changed, 21 insertions(+), 1 deletion(-)
+On 11/08/2010 01:01 PM, Bruce Ashfield wrote:
+> The following changes fix the qemumips target to have wacom USB
+> tablet support. This fixes bugid #394.
 >
-> Beth Flanagan (1):
->        quilt: Fixed configure test for patch --version.
+> The following changes since commit 724088189e699c67adf949f5baaa8de83483c82c:
+>    Richard Purdie (1):
+>          Poky ->  Yocto name change
 >
-> Pull URL:
-> http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=eflanagan/quilt_fix
+> are available in the git repository at:
 >
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+>    ssh://git@git.pokylinux.org/poky-contrib zedd/kernel
+>
+> Bruce Ashfield (2):
+>        qemumips: re-enable wacom and standard USB UI options
+>        wrs_meta: add USB options for wacom tablet support
+>
+> J. Aaron Gamble (2):
+>        Added qemumips /etc/pointercal file for touchscreen calibration
+>        tslib: 32bit big endian support
+>
+>   .../conf/distro/include/poky-default-revisions.inc |    2 +-
+>   .../formfactor/files/qemumips/machconfig           |    4 +-
+>   .../pointercal/files/qemumips/pointercal           |    1 +
+>   .../tslib/tslib/32bitBE-support.patch              |   52 ++++++++++++++++++++
+>   meta/recipes-graphics/tslib/tslib_1.0.bb           |    4 +-
+>   scripts/poky-qemu-internal                         |    2 +-
+>   6 files changed, 60 insertions(+), 5 deletions(-)
+>   create mode 100644 meta/recipes-bsp/pointercal/files/qemumips/pointercal
+>   create mode 100644 meta/recipes-graphics/tslib/tslib/32bitBE-support.patch
+>
+>
 >
 Merged into Master
 
