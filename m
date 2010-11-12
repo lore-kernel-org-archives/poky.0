@@ -1,29 +1,18 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
-	by mx1.pokylinux.org (Postfix) with ESMTP id DA67E4C8108C
-	for <poky@lists.pokylinux.org>; Fri, 12 Nov 2010 11:52:07 -0600 (CST)
-Received: by pug.o-hand.com (Postfix)
-	id D700812EC3D2; Fri, 12 Nov 2010 12:28:52 -0600 (CST)
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by pug.o-hand.com (Postfix) with ESMTP id A8C6F12EC117
-	for <poky@o-hand.com>; Fri, 12 Nov 2010 12:28:52 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 12 Nov 2010 09:52:06 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,188,1288594800"; d="scan'208";a="348029401"
-Received: from doubt.jf.intel.com (HELO [10.24.141.45]) ([10.24.141.45])
-	by azsmga001.ch.intel.com with ESMTP; 12 Nov 2010 09:52:06 -0800
-Message-ID: <4CDD7EC6.6050804@linux.intel.com>
-Date: Fri, 12 Nov 2010 09:52:06 -0800
-From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.12) Gecko/20101027 Lightning/1.0b2 Thunderbird/3.1.6
-MIME-Version: 1.0
-To: Marc <mbalcells@gmail.com>
-References: <AANLkTinE-MSLQ4FGC-2QA3QyNpmxKtdJAPET67bRkyHM@mail.gmail.com>
-In-Reply-To: <AANLkTinE-MSLQ4FGC-2QA3QyNpmxKtdJAPET67bRkyHM@mail.gmail.com>
-Cc: poky@o-hand.com
-Subject: Re: newbie recipe question
+Return-Path: <bruce.ashfield@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2ECB84C80815;
+	Fri, 12 Nov 2010 12:40:11 -0600 (CST)
+Received: from localhost.localdomain (yow-bashfiel-d2.ottawa.windriver.com
+	[128.224.146.167])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oACIe97O022416;
+	Fri, 12 Nov 2010 10:40:09 -0800 (PST)
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+To: rpurdie@linux.intel.com
+Date: Fri, 12 Nov 2010 13:40:28 -0500
+Message-Id: <cover.1289583673.git.bruce.ashfield@windriver.com>
+X-Mailer: git-send-email 1.7.0.4
+Cc: yocto@yoctoproject.org, poky@yoctoproject.org
+Subject: [PATCH 0/2] linux-wrs: improve BSP-bootstrap process
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,56 +24,54 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 12 Nov 2010 17:52:08 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 12 Nov 2010 18:40:11 -0000
 
-On 11/12/2010 08:49 AM, Marc wrote:
-> Hello, I'm a newbie in creating recipes for poky and I'm running through
-> a series of problems.
-> I'm trying to make a recipe in order to build an ipk package containing
-> a series of webpages and scripts, I have them at a subversion repository.
-> For now it works simply by pointing at the svn repository and specifiing
-> at do_install every directories files to their destination. like this:
-> =======================================================================
-> SRCREV = "${AUTOREV}"
-> PR = "${SRCREV}"
->
-> SRC_URI = "svn://server/svn/;module=webpackage;proto=http "
->
-> S = "${WORKDIR}"
->
-> do_install(){
-> install -m 0755 -d ${D}/etc/
-> install -m 0755 -d ${D}/www/
-> install -m 0755 -d ${D}/www/images
-> install -m 0755 -d ${D}/www/cgi-bin
-> install -m 0755 -d ${D}/www/includes
-> install -m 0755 ${S}/*.htm${D}/www/
-> install -m 0755 ${S}/*.css${D}/www/
-> install -m 0755 ${S}/includes/* ${D}/www/includes/
-> install -m 0755 ${S}/cgi-bin/* ${D}/www/cgi-bin/
-> install -m 0755 ${S}/images/* ${D}/www/images/
->
-> }
-> =================================================================
->
-> Is there any other way to do this without having to specify the whole
-> subdirectory structure and every file extension? ( * is not working)
-> Since I'm adding and deleting files to my repository pretty frequently I
-> don't wan't having to modify the recipe each time.
->
+I've been looking to improve the introduction of new boards
+to the supported kernel for some time, and this takes us
+most of the way there. Now with a machine.conf and a defconfig
+you can create an initial working environment for BSP development
+with no manual/workaround steps.
 
-I'm no expert on this aspect of the build, but one option would be to 
-use autotools to have a "make install" target and the poky recipe could 
-use that. Alternatively I don't see any reason why you couldn't write an 
-install script as part of your repository and just have do_install() 
-call that.
+When creating a new BSP there isn't always an upstream branch
+to validate SRCREVs against. Therefore, creating a new BSP
+required extra manipulations of the git repository, even though
+the branch for the build would be dynamically created.
 
-You're right, you don't want to have much in the way of install logic in 
-the recipe.
+To fix this, provide a fallback to the 'standard' branch if
+WRMACHINE is not assigned a specific value for the given MACHINE.
+The fallback saved in KBRANCH, and represents the branch that
+we should build, even if no fallback is required. Some substeps
+of the recipe have been updated to use KBRANCH rather than
+enforcing MACHINE-KERNELTYPE.
 
--- 
-Darren Hart
-Yocto Linux Kernel
+There will be one additional change to not track the SRCREV
+of wrs_meta as a fallback, but I wasn't able to get the 
+standard branch tracking working, so I'm sending this as-is
+for now.
+
+I've tested this with my kernel development layer, and with
+the stock meta directories only. Either way, I was able
+to build and test a 'qemumips-variant' quickly.
+
+Cheers,
+
+Bruce
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: zedd/kernel
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/kernel
+
+Thanks,
+    Bruce Ashfield <bruce.ashfield@windriver.com>
+---
+
+
+Bruce Ashfield (2):
+  linux-wrs: implement BSP bootstrapping via fallback branches
+  linux-wrs: BSP bootstrap
+
+ .../conf/distro/include/poky-default-revisions.inc |    2 +-
+ meta/recipes-kernel/linux/linux-wrs_git.bb         |   40 ++++++++++++++++----
+ 2 files changed, 33 insertions(+), 9 deletions(-)
+
 
