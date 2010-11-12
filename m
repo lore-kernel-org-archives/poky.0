@@ -1,19 +1,24 @@
-Return-Path: <josh@openedhand.com>
-Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 906344C81174
-	for <poky@yoctoproject.org>; Fri, 12 Nov 2010 15:37:56 -0600 (CST)
-Received: from [192.168.0.7] (5ada2504.bb.sky.com [90.218.37.4])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by pug.o-hand.com (Postfix) with ESMTP id B1ACD12EC117
-	for <poky@yoctoproject.org>; Fri, 12 Nov 2010 16:14:41 -0600 (CST)
-From: Joshua Lock <josh@openedhand.com>
-To: poky@yoctoproject.org
-Date: Fri, 12 Nov 2010 21:37:48 +0000
-Message-ID: <1289597868.27930.44.camel@scimitar>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.32.0 (2.32.0-2.fc14) 
-Subject: [PATCH 4/5] poky-default-revisions: bump swabber version
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 0E9544C80044
+	for <poky@yoctoproject.org>; Fri, 12 Nov 2010 16:13:59 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 12 Nov 2010 14:13:59 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.59,189,1288594800"; d="scan'208";a="626255387"
+Received: from doubt.jf.intel.com (HELO [10.24.1.112]) ([10.24.1.112])
+	by fmsmga002.fm.intel.com with ESMTP; 12 Nov 2010 14:13:59 -0800
+Message-ID: <4CDDBC2A.5070009@linux.intel.com>
+Date: Fri, 12 Nov 2010 14:14:02 -0800
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.12) Gecko/20101027 Lightning/1.0b2 Thunderbird/3.1.6
+MIME-Version: 1.0
+To: Joshua Lock <josh@openedhand.com>
+References: <1289597497.27930.33.camel@scimitar>
+In-Reply-To: <1289597497.27930.33.camel@scimitar>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/5] Enable swabber integration for host-contamination detection
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -25,33 +30,85 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 12 Nov 2010 21:37:56 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Fri, 12 Nov 2010 22:14:00 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
+Hi Josh,
 
-Signed-off-by: Joshua Lock <josh@linux.intel.com>
----
- .../conf/distro/include/poky-default-revisions.inc |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+Did you send this with send-pull-request? If so, what are you using for 
+sendmail. The patches didn't come through as replies to the cover letter 
+- I need to understand why and see if I can address it.
 
-diff --git a/meta/conf/distro/include/poky-default-revisions.inc
-b/meta/conf/distro/include/poky-default-revisions.inc
-index 4571995..eb857ea 100644
---- a/meta/conf/distro/include/poky-default-revisions.inc
-+++ b/meta/conf/distro/include/poky-default-revisions.inc
-@@ -150,7 +150,7 @@ SRCREV_pn-qemugl-nativesdk ??=
-"d888bbc723c00d197d34a39b5b7448660ec1b1c0"
- SRCREV_pn-sat-solver = "aa799f7bae0ec055e0e527203635001bb7346dbc"
- SRCREV_pn-screenshot ??= "292"
- SRCREV_pn-settings-daemon ??= "2059"
--SRCREV_pn-swabber-native ??= "782099b6ec9a1b3f9bde8e8eea66f349b87aaa6f"
-+SRCREV_pn-swabber-native ??= "1ffb646ffd4266afae181286e45d1b6f7965c47e"
- SRCREV_pn-table ??= "4b267533ce16656cba4104fc39dc12709c1bdddf"
- SRCREV_pn-tasks ??= "ea52d46d691c5fce4473ea4e24a35411381f3a65"
- SRCREV_pn-trace-cmd ??= "0d252224626bd6926324f023a65f20c165232891"
+Thanks,
+
+--
+Darren
+
+On 11/12/2010 01:31 PM, Joshua Lock wrote:
+>
+> This set of patches adds a user class to do host-contamination detection
+> whilst
+> building a Poky image.
+>
+> The class uses a bitbake-runtask wrapper script which wraps calls to
+> bitbake-runtask in strace and logs the strace output for later
+> processing.
+> Similar to rm_work the class adds an extra task at the end of the build
+> to run
+> the swabber tool over the strace logs and generate a contamination
+> report.
+>
+> The classes disables PARALLEL_MAKE on several packages which refused to
+> run
+> under strace with parallelism enabled.
+>
+> I have succesfully built all packages in poky-image-minimal under strace
+> with
+> this patchset.
+>
+> The final two patches in the series update the version of swabber to the
+> latest
+> git HEAD and updates the command in the class to work with this
+> revision.
+> The hard coded paths are undesirable and don't work reliably across
+> distributions, for example Fedora 14 ships Python 2.7. They will be
+> removed
+> when a future swabber update includes provisioning for handling such
+> things
+> through configuration files.
+>
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>    Branch: josh/swabber
+>    Browse:
+> http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=josh/swabber
+>
+> Thanks,
+>      Joshua Lock<josh@linux.intel.com>
+> ---
+>
+>
+> Joshua Lock (5):
+>    bitbake-runtask-strace: simple shell script to wrap tasks in a strace
+>      call
+>    image-swab: introduce a class for generating swabber reports
+>    gitignore: ignore the default downloads directory
+>    poky-default-revisions: bump swabber version
+>    image-swab: update swabber command for latest version
+>
+>   .gitignore                                         |    1 +
+>   bitbake/bin/bitbake-runtask-strace                 |    8 ++
+>   meta/classes/image-swab.bbclass                    |   83
+> ++++++++++++++++++++
+>   .../conf/distro/include/poky-default-revisions.inc |    2 +-
+>   meta/conf/local.conf.sample                        |    1 +
+>   5 files changed, 94 insertions(+), 1 deletions(-)
+>   create mode 100755 bitbake/bin/bitbake-runtask-strace
+>   create mode 100644 meta/classes/image-swab.bbclass
+>
+
+
 -- 
-1.7.3.2
-
-
+Darren Hart
+Embedded Linux Kernel
 
