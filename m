@@ -1,26 +1,19 @@
-Return-Path: <scott.a.garman@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E4B2C4C811BC
-	for <poky@yoctoproject.org>; Fri, 12 Nov 2010 13:05:39 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 12 Nov 2010 11:05:39 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,188,1288594800"; d="scan'208";a="348058369"
-Received: from rrsmsx603.amr.corp.intel.com ([10.31.0.57])
-	by azsmga001.ch.intel.com with ESMTP; 12 Nov 2010 11:05:38 -0800
-Received: from [10.255.13.72] (10.255.13.72) by rrsmsx603.amr.corp.intel.com
-	(10.31.0.57) with Microsoft SMTP Server (TLS) id 8.2.254.0;
-	Fri, 12 Nov 2010 12:05:36 -0700
-Message-ID: <4CDD8FFF.6090707@intel.com>
-Date: Fri, 12 Nov 2010 11:05:35 -0800
-From: Scott Garman <scott.a.garman@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.12) Gecko/20101027 Lightning/1.0b2 Thunderbird/3.1.6
-MIME-Version: 1.0
-To: <poky@yoctoproject.org>
-References: <AANLkTinE-MSLQ4FGC-2QA3QyNpmxKtdJAPET67bRkyHM@mail.gmail.com>
-In-Reply-To: <AANLkTinE-MSLQ4FGC-2QA3QyNpmxKtdJAPET67bRkyHM@mail.gmail.com>
-Subject: Re: newbie recipe question
+Return-Path: <josh@openedhand.com>
+Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 940B04C80815
+	for <poky@yoctoproject.org>; Fri, 12 Nov 2010 15:33:11 -0600 (CST)
+Received: from [192.168.0.7] (5ada2504.bb.sky.com [90.218.37.4])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by pug.o-hand.com (Postfix) with ESMTP id 8590212EC117
+	for <poky@yoctoproject.org>; Fri, 12 Nov 2010 16:09:56 -0600 (CST)
+From: Joshua Lock <josh@openedhand.com>
+To: poky@yoctoproject.org
+Date: Fri, 12 Nov 2010 21:31:37 +0000
+Message-ID: <1289597497.27930.33.camel@scimitar>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.0 (2.32.0-2.fc14) 
+Subject: [PATCH 0/5] Enable swabber integration for host-contamination detection
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,51 +25,75 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 12 Nov 2010 19:05:40 -0000
-Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
+X-List-Received-Date: Fri, 12 Nov 2010 21:33:11 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On 11/12/2010 08:49 AM, Marc wrote:
-> Hello, I'm a newbie in creating recipes for poky and I'm running through
-> a series of problems.
-> I'm trying to make a recipe in order to build an ipk package containing
-> a series of webpages and scripts, I have them at a subversion repository.
-> For now it works simply by pointing at the svn repository and specifiing
-> at do_install every directories files to their destination. like this:
-> =======================================================================
-> SRCREV = "${AUTOREV}"
-> PR = "${SRCREV}"
->
-> SRC_URI = "svn://server/svn/;module=webpackage;proto=http "
->
-> S = "${WORKDIR}"
->
-> do_install(){
-> install -m 0755 -d ${D}/etc/
-> install -m 0755 -d ${D}/www/
-> install -m 0755 -d ${D}/www/images
-> install -m 0755 -d ${D}/www/cgi-bin
-> install -m 0755 -d ${D}/www/includes
-> install -m 0755 ${S}/*.htm${D}/www/
-> install -m 0755 ${S}/*.css${D}/www/
-> install -m 0755 ${S}/includes/* ${D}/www/includes/
-> install -m 0755 ${S}/cgi-bin/* ${D}/www/cgi-bin/
-> install -m 0755 ${S}/images/* ${D}/www/images/
->
-> }
-> =================================================================
->
-> Is there any other way to do this without having to specify the whole
-> subdirectory structure and every file extension? ( * is not working)
-> Since I'm adding and deleting files to my repository pretty frequently I
-> don't wan't having to modify the recipe each time.
 
-I haven't tested this locally, but I believe file globbing is supposed 
-to work. Have you tried *.*?
+This set of patches adds a user class to do host-contamination detection
+whilst
+building a Poky image.
 
-Scott
+The class uses a bitbake-runtask wrapper script which wraps calls to
+bitbake-runtask in strace and logs the strace output for later
+processing.
+Similar to rm_work the class adds an extra task at the end of the build
+to run
+the swabber tool over the strace logs and generate a contamination
+report.
+
+The classes disables PARALLEL_MAKE on several packages which refused to
+run
+under strace with parallelism enabled.
+
+I have succesfully built all packages in poky-image-minimal under strace
+with
+this patchset.
+
+The final two patches in the series update the version of swabber to the
+latest
+git HEAD and updates the command in the class to work with this
+revision.
+The hard coded paths are undesirable and don't work reliably across
+distributions, for example Fedora 14 ships Python 2.7. They will be
+removed 
+when a future swabber update includes provisioning for handling such
+things
+through configuration files.
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: josh/swabber
+  Browse:
+http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=josh/swabber
+
+Thanks,
+    Joshua Lock <josh@linux.intel.com>
+---
+
+
+Joshua Lock (5):
+  bitbake-runtask-strace: simple shell script to wrap tasks in a strace
+    call
+  image-swab: introduce a class for generating swabber reports
+  gitignore: ignore the default downloads directory
+  poky-default-revisions: bump swabber version
+  image-swab: update swabber command for latest version
+
+ .gitignore                                         |    1 +
+ bitbake/bin/bitbake-runtask-strace                 |    8 ++
+ meta/classes/image-swab.bbclass                    |   83
+++++++++++++++++++++
+ .../conf/distro/include/poky-default-revisions.inc |    2 +-
+ meta/conf/local.conf.sample                        |    1 +
+ 5 files changed, 94 insertions(+), 1 deletions(-)
+ create mode 100755 bitbake/bin/bitbake-runtask-strace
+ create mode 100644 meta/classes/image-swab.bbclass
 
 -- 
-Scott Garman
-Embedded Linux Distro Engineer - Yocto Project
+1.7.3.2
+
+-- 
+Joshua Lock
+        Intel Open Source Technology Centre
+
 
