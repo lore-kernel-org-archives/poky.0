@@ -1,31 +1,38 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 6DDAD4C80FD4
-	for <poky@lists.pokylinux.org>; Fri, 12 Nov 2010 17:55:23 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 0E5091660783; Fri, 12 Nov 2010 16:55:22 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=ham version=3.3.1
-Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 82145166074E;
-	Fri, 12 Nov 2010 16:55:19 -0700 (MST)
-Message-ID: <4CDDD3E7.3000305@mlbassoc.com>
-Date: Fri, 12 Nov 2010 16:55:19 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.1.9) Gecko/20100430 Fedora/3.0.4-2.fc11 Thunderbird/3.0.4
+Return-Path: <mbalcells@gmail.com>
+Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 1DBDA4C80BD8
+	for <poky@yoctoproject.org>; Sat, 13 Nov 2010 10:29:30 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by wwi14 with SMTP id 14so430879wwi.11
+	for <poky@yoctoproject.org>; Sat, 13 Nov 2010 08:29:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:received:received:in-reply-to
+	:references:date:message-id:subject:from:to:cc:content-type;
+	bh=DEqO4STV/BQebsTYxX9GB0of2D0rN3HjINYwoqXhfGY=;
+	b=rBwk9RNysrdF6hfdhWmJz0mjq3n0SrO+lFUq+goxINVY8wd1flGtueqQWy2ExzsY1n
+	1EoOoXgb3KKj82VeR+3AgqiPRuiuvY2t1hUL6FvgP21Hzu4Ye8UloCFq5p+gcPSrIycf
+	UiyoDYSqfrY1iQb0KUL8qOq+03TN6dxKsNJWE=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:cc:content-type;
+	b=CO3ysp6qfz5y1ghJ/d8OYIVUwNZQXcqnkM4BKNfm5BTncotV1aL/U5cC1d1xhlWdqd
+	a5sWbZWzV5RTWaYrqAZn2c5ac/xlwEPaKqut3ATT42CjsIHGLpNgQYvnU+SCmvQxHRiZ
+	+bScpgmuh35fv/77NBPFcaJ8En61nowkn0fxY=
 MIME-Version: 1.0
-To: Richard Purdie <rpurdie@linux.intel.com>
-References: <4CDB2A52.6060400@mlbassoc.com> <1289539963.1272.3055.camel@rex>	
-	<4CDCF848.9020703@mlbassoc.com>
-	<1289550656.1272.3179.camel@rex>	 <4CDCFC57.20909@mlbassoc.com>
-	<1289604672.1272.4108.camel@rex>
-In-Reply-To: <1289604672.1272.4108.camel@rex>
-Cc: Poky <poky@lists.pokylinux.org>
-Subject: Re: SSTATE builds more broken than I thought
+Received: by 10.227.174.206 with SMTP id u14mr3939667wbz.40.1289665769516;
+	Sat, 13 Nov 2010 08:29:29 -0800 (PST)
+Received: by 10.227.136.205 with HTTP; Sat, 13 Nov 2010 08:29:29 -0800 (PST)
+In-Reply-To: <4CDD8FFF.6090707@intel.com>
+References: <AANLkTinE-MSLQ4FGC-2QA3QyNpmxKtdJAPET67bRkyHM@mail.gmail.com>
+	<4CDD8FFF.6090707@intel.com>
+Date: Sat, 13 Nov 2010 17:29:29 +0100
+Message-ID: <AANLkTikQqNmh-zk1iBuGp+gcRNXiJcgQru6J78eRW9JN@mail.gmail.com>
+From: Marc <mbalcells@gmail.com>
+To: Scott Garman <scott.a.garman@intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: newbie recipe question
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,66 +44,124 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 12 Nov 2010 23:55:23 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Sat, 13 Nov 2010 16:29:31 -0000
+Content-Type: multipart/alternative; boundary=00248c0ef1fe1230760494f1b6aa
 
-On 11/12/2010 04:31 PM, Richard Purdie wrote:
-> On Fri, 2010-11-12 at 01:35 -0700, Gary Thomas wrote:
->> On 11/12/2010 01:30 AM, Richard Purdie wrote:
->>> On Fri, 2010-11-12 at 01:18 -0700, Gary Thomas wrote:
->>>>> Are these all files or are they symlinks? Are they just present for
->>>>> deploy-ipk or are there others?
->>>>
->>>> They are files.
->>>>
->>>> Sorry, but I don't understand your other question.  These are the only
->>>> extra files polluting the tree, except for Python *.py? object files
->>>> which are also always created.
->>>
->>> Are there any files related to other sstate tasks such as
->>> populate-sysroot*.tgz or package*.tgz or is there just *deploy-ipk*.tgz?
->>>
->>> In other words I'm wondering if this is something specific to the
->>> deploy-ipk sstate task...
->>
->> The only extra files created are *deploy-ipk*.tgz
->> This most certainly is restricted to the deploy-ipk sstate task and only
->> happens if SSTATE_MIRRORS is defined.
+--00248c0ef1fe1230760494f1b6aa
+Content-Type: text/plain; charset=ISO-8859-1
+
+Yes it works on files but not on subdirectories
+
+On Fri, Nov 12, 2010 at 8:05 PM, Scott Garman <scott.a.garman@intel.com>wrote:
+
+> On 11/12/2010 08:49 AM, Marc wrote:
 >
-> This should be fixed in ae98f7eacb9e61fe086d88dc694b4c651af9fee3, it
-> turns out to be an issue with the local fetcher not searching DL_DIR.
+>> Hello, I'm a newbie in creating recipes for poky and I'm running through
+>> a series of problems.
+>> I'm trying to make a recipe in order to build an ipk package containing
+>> a series of webpages and scripts, I have them at a subversion repository.
+>> For now it works simply by pointing at the svn repository and specifiing
+>> at do_install every directories files to their destination. like this:
+>> =======================================================================
+>> SRCREV = "${AUTOREV}"
+>> PR = "${SRCREV}"
+>>
+>> SRC_URI = "svn://server/svn/;module=webpackage;proto=http "
+>>
+>> S = "${WORKDIR}"
+>>
+>> do_install(){
+>> install -m 0755 -d ${D}/etc/
+>> install -m 0755 -d ${D}/www/
+>> install -m 0755 -d ${D}/www/images
+>> install -m 0755 -d ${D}/www/cgi-bin
+>> install -m 0755 -d ${D}/www/includes
+>> install -m 0755 ${S}/*.htm${D}/www/
+>> install -m 0755 ${S}/*.css${D}/www/
+>> install -m 0755 ${S}/includes/* ${D}/www/includes/
+>> install -m 0755 ${S}/cgi-bin/* ${D}/www/cgi-bin/
+>> install -m 0755 ${S}/images/* ${D}/www/images/
+>>
+>> }
+>> =================================================================
+>>
+>> Is there any other way to do this without having to specify the whole
+>> subdirectory structure and every file extension? ( * is not working)
+>> Since I'm adding and deleting files to my repository pretty frequently I
+>> don't wan't having to modify the recipe each time.
+>>
+>
+> I haven't tested this locally, but I believe file globbing is supposed to
+> work. Have you tried *.*?
+>
+> Scott
+>
+> --
+> Scott Garman
+> Embedded Linux Distro Engineer - Yocto Project
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
 
-Trying the same process as in bug #526, it failed with this error:
 
-NOTE: package gcc-cross-initial-4.5.0-r10: task do_fetch: Started
-ERROR: Error in executing python function in: /local/poky-amltd/meta/recipes-devtools/gcc/gcc-cross-initial_4.5.0.bb
-ERROR: Exception:<type 'exceptions.AttributeError'> Message:'module' object has no attribute 'exists'
-NOTE: Running task 330 of 3106 (ID: 1534, /local/poky-amltd/meta/recipes-kernel/linux-libc-headers/linux-libc-headers_2.6.34.bb, do_patch)
-ERROR: Traceback:
-ERROR:   File "base_do_fetch", line 64, in <module>
-ERROR:
-ERROR:   File "base_do_fetch", line 12, in base_do_fetch
-ERROR:
-ERROR:   File "/home/local/poky-amltd/scripts/..//bitbake/lib/bb/fetch/__init__.py", line 220, in init
-ERROR:     urldata[url].setup_localpath(d)
-ERROR:
-ERROR:   File "/home/local/poky-amltd/scripts/..//bitbake/lib/bb/fetch/__init__.py", line 529, in setup_localpath
-ERROR:     self.localpath = self.method.localpath(self.url, self, d)
-ERROR:
-ERROR:   File "/home/local/poky-amltd/scripts/..//bitbake/lib/bb/fetch/local.py", line 54, in localpath
-ERROR:     if os.exists(dlpath):
-ERROR:
-ERROR: The lines leading to this error were:
-ERROR:  0060:                                   bb.note("%s-%s: %s has no entry in conf/checksums.ini, not checking URI" % (pn,pv,uri))
-ERROR:  0061:           except Exception:
-ERROR:  0062:                   raise bb.build.FuncFailed("Checksum of '%s' failed" % uri)
-ERROR:  0063:
-ERROR: Task failed: ('Function base_do_fetch failed', '/home/local/poky-after-rp-fix/tmp/work/armv7a-poky-linux-gnueabi/gcc-cross-initial-4.5.0-r10/temp/log.do_fetch.2110')
 
 -- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+Marc.
 
+--00248c0ef1fe1230760494f1b6aa
+Content-Type: text/html; charset=ISO-8859-1
+
+Yes it works on files but not on subdirectories<br><br><div class="gmail_quote">On Fri, Nov 12, 2010 at 8:05 PM, Scott Garman <span dir="ltr">&lt;<a href="mailto:scott.a.garman@intel.com">scott.a.garman@intel.com</a>&gt;</span> wrote:<br>
+<blockquote class="gmail_quote" style="margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex;"><div class="im">On 11/12/2010 08:49 AM, Marc wrote:<br>
+</div><div><div></div><div class="h5"><blockquote class="gmail_quote" style="margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+Hello, I&#39;m a newbie in creating recipes for poky and I&#39;m running through<br>
+a series of problems.<br>
+I&#39;m trying to make a recipe in order to build an ipk package containing<br>
+a series of webpages and scripts, I have them at a subversion repository.<br>
+For now it works simply by pointing at the svn repository and specifiing<br>
+at do_install every directories files to their destination. like this:<br>
+=======================================================================<br>
+SRCREV = &quot;${AUTOREV}&quot;<br>
+PR = &quot;${SRCREV}&quot;<br>
+<br>
+SRC_URI = &quot;svn://server/svn/;module=webpackage;proto=http &quot;<br>
+<br>
+S = &quot;${WORKDIR}&quot;<br>
+<br>
+do_install(){<br>
+install -m 0755 -d ${D}/etc/<br>
+install -m 0755 -d ${D}/www/<br>
+install -m 0755 -d ${D}/www/images<br>
+install -m 0755 -d ${D}/www/cgi-bin<br>
+install -m 0755 -d ${D}/www/includes<br>
+install -m 0755 ${S}/*.htm${D}/www/<br>
+install -m 0755 ${S}/*.css${D}/www/<br>
+install -m 0755 ${S}/includes/* ${D}/www/includes/<br>
+install -m 0755 ${S}/cgi-bin/* ${D}/www/cgi-bin/<br>
+install -m 0755 ${S}/images/* ${D}/www/images/<br>
+<br>
+}<br>
+=================================================================<br>
+<br>
+Is there any other way to do this without having to specify the whole<br>
+subdirectory structure and every file extension? ( * is not working)<br>
+Since I&#39;m adding and deleting files to my repository pretty frequently I<br>
+don&#39;t wan&#39;t having to modify the recipe each time.<br>
+</blockquote>
+<br></div></div>
+I haven&#39;t tested this locally, but I believe file globbing is supposed to work. Have you tried *.*?<br>
+<br>
+Scott<br><font color="#888888">
+<br>
+-- <br>
+Scott Garman<br>
+Embedded Linux Distro Engineer - Yocto Project<br>
+_______________________________________________<br>
+poky mailing list<br>
+<a href="mailto:poky@yoctoproject.org" target="_blank">poky@yoctoproject.org</a><br>
+<a href="https://lists.yoctoproject.org/listinfo/poky" target="_blank">https://lists.yoctoproject.org/listinfo/poky</a><br>
+</font></blockquote></div><br><br clear="all"><br>-- <br>Marc.<br>
+
+--00248c0ef1fe1230760494f1b6aa--
