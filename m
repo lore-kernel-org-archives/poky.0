@@ -1,31 +1,33 @@
 Return-Path: <rpurdie@linux.intel.com>
 Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
 	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id CF3AB4C80052
-	for <poky@pokylinux.org>; Sun, 14 Nov 2010 11:28:23 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id E17CE4C80815
+	for <poky@lists.pokylinux.org>; Sun, 14 Nov 2010 11:58:18 -0600 (CST)
 Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oAEHSJR4007253;
-	Sun, 14 Nov 2010 17:28:19 GMT
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oAEHwIBt007549;
+	Sun, 14 Nov 2010 17:58:18 GMT
 Received: from tim.rpsys.net ([127.0.0.1])
 	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
 	port 10024) with LMTP
-	id 06982-04; Sun, 14 Nov 2010 17:28:15 +0000 (GMT)
+	id 07095-07; Sun, 14 Nov 2010 17:58:14 +0000 (GMT)
 Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oAEHSB7d007247
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oAEHwAYT007542
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Sun, 14 Nov 2010 17:28:11 GMT
+	Sun, 14 Nov 2010 17:58:11 GMT
 From: Richard Purdie <rpurdie@linux.intel.com>
-To: R P Herrold <herrold@owlriver.com>
-In-Reply-To: <alpine.LRH.1.00.1011121008220.9384@oebafba.bjyevire.pbz>
-References: <4CDC6E99.4030709@intel.com> <1289537887.1272.3010.camel@rex>
-	<alpine.LRH.1.00.1011121008220.9384@oebafba.bjyevire.pbz>
-Date: Sun, 14 Nov 2010 17:28:08 +0000
-Message-ID: <1289755688.1272.4934.camel@rex>
+To: Gary Thomas <gary@mlbassoc.com>
+In-Reply-To: <4CDDD3E7.3000305@mlbassoc.com>
+References: <4CDB2A52.6060400@mlbassoc.com> <1289539963.1272.3055.camel@rex>
+	<4CDCF848.9020703@mlbassoc.com> <1289550656.1272.3179.camel@rex>
+	<4CDCFC57.20909@mlbassoc.com> <1289604672.1272.4108.camel@rex>
+	<4CDDD3E7.3000305@mlbassoc.com>
+Date: Sun, 14 Nov 2010 17:58:08 +0000
+Message-ID: <1289757488.1272.4980.camel@rex>
 Mime-Version: 1.0
 X-Mailer: Evolution 2.28.3 
 X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky <poky@pokylinux.org>
-Subject: Re: Rough timing of rpm vs opkg rootfs builds
+Cc: Poky <poky@lists.pokylinux.org>
+Subject: Re: SSTATE builds more broken than I thought
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,46 +39,63 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 14 Nov 2010 17:28:24 -0000
+X-List-Received-Date: Sun, 14 Nov 2010 17:58:19 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On Fri, 2010-11-12 at 10:12 -0500, R P Herrold wrote:
-> On Fri, 12 Nov 2010, Richard Purdie wrote:
+On Fri, 2010-11-12 at 16:55 -0700, Gary Thomas wrote:
+> On 11/12/2010 04:31 PM, Richard Purdie wrote:
+> > On Fri, 2010-11-12 at 01:35 -0700, Gary Thomas wrote:
+> >> On 11/12/2010 01:30 AM, Richard Purdie wrote:
+> >>> On Fri, 2010-11-12 at 01:18 -0700, Gary Thomas wrote:
+> >>>>> Are these all files or are they symlinks? Are they just present for
+> >>>>> deploy-ipk or are there others?
+> >>>>
+> >>>> They are files.
+> >>>>
+> >>>> Sorry, but I don't understand your other question.  These are the only
+> >>>> extra files polluting the tree, except for Python *.py? object files
+> >>>> which are also always created.
+> >>>
+> >>> Are there any files related to other sstate tasks such as
+> >>> populate-sysroot*.tgz or package*.tgz or is there just *deploy-ipk*.tgz?
+> >>>
+> >>> In other words I'm wondering if this is something specific to the
+> >>> deploy-ipk sstate task...
+> >>
+> >> The only extra files created are *deploy-ipk*.tgz
+> >> This most certainly is restricted to the deploy-ipk sstate task and only
+> >> happens if SSTATE_MIRRORS is defined.
+> >
+> > This should be fixed in ae98f7eacb9e61fe086d88dc694b4c651af9fee3, it
+> > turns out to be an issue with the local fetcher not searching DL_DIR.
 > 
-> > I suspect there is an optimisation that can be added for the rpm
-> > indexing to make this incremental updating possible.
-> 
-> Usually naiive ('Rough') timing tests with rpm do not disable 
-> un-needed checksum cross checks, key verifications, and such, 
-> which are senseless in a closed or protected build environment
-> 
-> Publishing the testing harnesses would permit evaluation of 
-> such -- absent a second person checking the methodology, it is 
-> probably premature to start kinkering.  Publishing final 
-> numbers without a reproduceable methodology is just not good 
-> science
+> Trying the same process as in bug #526, it failed with this error:
+[...]
 
-Whilst Saul didn't specifically mention it, these numbers come from a
-build system which is designed for reproducible builds. Saul is probably
-doing something like enabling the ipk or rpm package backends, then
-simply running:
+Right, I messed up those commits. I should know better than make commits
+when travelling and jetlagged.
 
-time bitbake poky-image-minimal
+I ended up reverting the first fixes and pushing a set of different
+fixes.
 
-then running it again so only the rootfs generation happens. The logs
-output to the console will make it clear if that is the case or not.
+Previously you (and I think Kevin Tian) reporting bitbake spending a
+huge amount of time thinking about shared state. When I was debugging
+this I noticed a potential cause of that, my local test setups were
+evidently just too fast to notice it. I added another commit:
 
-So the tests can easily be reproduced and I'd welcome anyone else to
-look into what the rootfs task is spending its time doing. The ideas you
-mention above about checksums and key verifications would be very
-interesting to looking into, particularly as we're in a closed
-environment.
+http://git.pokylinux.org/cgit.cgi/poky/commit/?id=89929e1f283c8508c505c9731ad933880abf22a1
+
+which should make things faster (n^2 faster where n is the number of
+tasks).
+
+Thanks again for testing and reporting the issues, I believe this code
+will make a significant difference for people once it works reliably and
+we're close to making that happen.
 
 Cheers,
 
 Richard
-
 
 
 
