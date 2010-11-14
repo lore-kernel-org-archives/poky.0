@@ -1,38 +1,31 @@
-Return-Path: <fransmeulenbroeks@gmail.com>
-Received: from mail-iw0-f171.google.com (mail-iw0-f171.google.com
-	[209.85.214.171])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 886614C80BCF
-	for <poky@pokylinux.org>; Sun, 14 Nov 2010 10:01:09 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by iwn38 with SMTP id 38so6467471iwn.2
-	for <poky@pokylinux.org>; Sun, 14 Nov 2010 08:01:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:received:received:in-reply-to
-	:references:date:message-id:subject:from:to:cc:content-type;
-	bh=2XMioy6Slj1D668G6mXx5sC8+J5WtxUnnOOwo/SzOxs=;
-	b=t49dR0BtYyPVlRffat2+w1A4TAdVBV6N4/RxS6RviJciwMLlcEPg3P5lv0qsyt4W0O
-	fPTbVvsQmReVymA5Zow/KnWTR7UlGAjbs3VmGUwKM46Qakx3qUQSDQEXF0W/bHhzkOWi
-	+QAP04kxn6ozTAkGVkT/Tf5A2DkXRhrIFo0LE=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type;
-	b=GBv1YVrRyaHCZj1zNuX6wMMZITnGyQHO+kGhKpLsL0o7oinLKXh5bOIF5NJgN9qko8
-	VPg93X8OGKy2qkAry19STEtZxdY5zEANqQfL0/PKIAPWScMrg11rPB1cw3f6NcCaLLgV
-	WbsUCJeX//rdtDNWetMNXy2+O8QMnU0XnH76A=
-MIME-Version: 1.0
-Received: by 10.42.213.201 with SMTP id gx9mr475253icb.201.1289750468869; Sun,
-	14 Nov 2010 08:01:08 -0800 (PST)
-Received: by 10.231.33.4 with HTTP; Sun, 14 Nov 2010 08:01:08 -0800 (PST)
-In-Reply-To: <1289273912.1272.24.camel@rex>
-References: <1289273912.1272.24.camel@rex>
-Date: Sun, 14 Nov 2010 17:01:08 +0100
-Message-ID: <AANLkTi=RZHYWsHncK=dAv2EFfSZxaWnWaWBwbgkHysEJ@mail.gmail.com>
-From: Frans Meulenbroeks <fransmeulenbroeks@gmail.com>
-To: Richard Purdie <rpurdie@linux.intel.com>
+Return-Path: <rpurdie@linux.intel.com>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id CF3AB4C80052
+	for <poky@pokylinux.org>; Sun, 14 Nov 2010 11:28:23 -0600 (CST)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oAEHSJR4007253;
+	Sun, 14 Nov 2010 17:28:19 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 06982-04; Sun, 14 Nov 2010 17:28:15 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oAEHSB7d007247
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Sun, 14 Nov 2010 17:28:11 GMT
+From: Richard Purdie <rpurdie@linux.intel.com>
+To: R P Herrold <herrold@owlriver.com>
+In-Reply-To: <alpine.LRH.1.00.1011121008220.9384@oebafba.bjyevire.pbz>
+References: <4CDC6E99.4030709@intel.com> <1289537887.1272.3010.camel@rex>
+	<alpine.LRH.1.00.1011121008220.9384@oebafba.bjyevire.pbz>
+Date: Sun, 14 Nov 2010 17:28:08 +0000
+Message-ID: <1289755688.1272.4934.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+X-Virus-Scanned: amavisd-new at rpsys.net
 Cc: poky <poky@pokylinux.org>
-Subject: Re: Bitbake fetchers
+Subject: Re: Rough timing of rpm vs opkg rootfs builds
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,29 +37,47 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 14 Nov 2010 16:01:09 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Sun, 14 Nov 2010 17:28:24 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-2010/11/9 Richard Purdie <rpurdie@linux.intel.com>:
-> Hi,
->
-> I've talked with various people about the bitbake fetchers and I think
-> the time has come for an overhaul. I'm going to take the opportunity to
-> write down all the various issues I've seen with the current approach so
-> we can then come up with a plan and some changes to address this.
->
-> Some things that currently bother me:
-[...]
+On Fri, 2010-11-12 at 10:12 -0500, R P Herrold wrote:
+> On Fri, 12 Nov 2010, Richard Purdie wrote:
+> 
+> > I suspect there is an optimisation that can be added for the rpm
+> > indexing to make this incremental updating possible.
+> 
+> Usually naiive ('Rough') timing tests with rpm do not disable 
+> un-needed checksum cross checks, key verifications, and such, 
+> which are senseless in a closed or protected build environment
+> 
+> Publishing the testing harnesses would permit evaluation of 
+> such -- absent a second person checking the methodology, it is 
+> probably premature to start kinkering.  Publishing final 
+> numbers without a reproduceable methodology is just not good 
+> science
 
-Interesting ideas & plans Richard!
+Whilst Saul didn't specifically mention it, these numbers come from a
+build system which is designed for reproducible builds. Saul is probably
+doing something like enabling the ipk or rpm package backends, then
+simply running:
 
-What I miss is the possibility for a fetcher or a specific SRC_URI
-entry to disable storing the results in downloads.
-This typically seems to be an issue wrt cvs, where a change in the cvs
-repo is not detected.
-(or I am simply doing something wrong).
+time bitbake poky-image-minimal
 
-When rewriting perhaps adding a disable-save-local-copy flag would be nice.
+then running it again so only the rootfs generation happens. The logs
+output to the console will make it clear if that is the case or not.
 
-Frans
+So the tests can easily be reproduced and I'd welcome anyone else to
+look into what the rootfs task is spending its time doing. The ideas you
+mention above about checksums and key verifications would be very
+interesting to looking into, particularly as we're in a closed
+environment.
+
+Cheers,
+
+Richard
+
+
+
+
 
