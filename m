@@ -1,33 +1,38 @@
-Return-Path: <rpurdie@linux.intel.com>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 934A24C80BCF
-	for <poky@yoctoproject.org>; Sun, 14 Nov 2010 07:04:45 -0600 (CST)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oAED4fjl004899;
-	Sun, 14 Nov 2010 13:04:41 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 04841-01; Sun, 14 Nov 2010 13:04:37 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oAED4ZC3004893
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Sun, 14 Nov 2010 13:04:35 GMT
-From: Richard Purdie <rpurdie@linux.intel.com>
-To: "Tian, Kevin" <kevin.tian@intel.com>
-In-Reply-To: <625BA99ED14B2D499DC4E29D8138F1504D2A9B4E64@shsmsx502.ccr.corp.intel.com>
-References: <AANLkTinE-MSLQ4FGC-2QA3QyNpmxKtdJAPET67bRkyHM@mail.gmail.com>
-	<4CDD8FFF.6090707@intel.com>
-	<AANLkTikQqNmh-zk1iBuGp+gcRNXiJcgQru6J78eRW9JN@mail.gmail.com>
-	<625BA99ED14B2D499DC4E29D8138F1504D2A9B4E64@shsmsx502.ccr.corp.intel.com>
-Date: Sun, 14 Nov 2010 13:04:34 +0000
-Message-ID: <1289739874.1272.4579.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: newbie recipe question
+Return-Path: <fransmeulenbroeks@gmail.com>
+Received: from mail-iw0-f171.google.com (mail-iw0-f171.google.com
+	[209.85.214.171])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 886614C80BCF
+	for <poky@pokylinux.org>; Sun, 14 Nov 2010 10:01:09 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by iwn38 with SMTP id 38so6467471iwn.2
+	for <poky@pokylinux.org>; Sun, 14 Nov 2010 08:01:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:received:received:in-reply-to
+	:references:date:message-id:subject:from:to:cc:content-type;
+	bh=2XMioy6Slj1D668G6mXx5sC8+J5WtxUnnOOwo/SzOxs=;
+	b=t49dR0BtYyPVlRffat2+w1A4TAdVBV6N4/RxS6RviJciwMLlcEPg3P5lv0qsyt4W0O
+	fPTbVvsQmReVymA5Zow/KnWTR7UlGAjbs3VmGUwKM46Qakx3qUQSDQEXF0W/bHhzkOWi
+	+QAP04kxn6ozTAkGVkT/Tf5A2DkXRhrIFo0LE=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:cc:content-type;
+	b=GBv1YVrRyaHCZj1zNuX6wMMZITnGyQHO+kGhKpLsL0o7oinLKXh5bOIF5NJgN9qko8
+	VPg93X8OGKy2qkAry19STEtZxdY5zEANqQfL0/PKIAPWScMrg11rPB1cw3f6NcCaLLgV
+	WbsUCJeX//rdtDNWetMNXy2+O8QMnU0XnH76A=
+MIME-Version: 1.0
+Received: by 10.42.213.201 with SMTP id gx9mr475253icb.201.1289750468869; Sun,
+	14 Nov 2010 08:01:08 -0800 (PST)
+Received: by 10.231.33.4 with HTTP; Sun, 14 Nov 2010 08:01:08 -0800 (PST)
+In-Reply-To: <1289273912.1272.24.camel@rex>
+References: <1289273912.1272.24.camel@rex>
+Date: Sun, 14 Nov 2010 17:01:08 +0100
+Message-ID: <AANLkTi=RZHYWsHncK=dAv2EFfSZxaWnWaWBwbgkHysEJ@mail.gmail.com>
+From: Frans Meulenbroeks <fransmeulenbroeks@gmail.com>
+To: Richard Purdie <rpurdie@linux.intel.com>
+Cc: poky <poky@pokylinux.org>
+Subject: Re: Bitbake fetchers
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,26 +44,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 14 Nov 2010 13:04:46 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Sun, 14 Nov 2010 16:01:09 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 
-On Sun, 2010-11-14 at 08:56 +0800, Tian, Kevin wrote:
-> From: Marc
-> Sent: Sunday, November 14, 2010 12:29 AM
-> 
-> > Yes it works on files but not on subdirectories
-> 
-> Then I think Darren's suggestion is what you expect: write a install script which
-> contains all the tricks you want (subdirectory, *, ...), and then have do_install
-> invoke that script directly...
+2010/11/9 Richard Purdie <rpurdie@linux.intel.com>:
+> Hi,
+>
+> I've talked with various people about the bitbake fetchers and I think
+> the time has come for an overhaul. I'm going to take the opportunity to
+> write down all the various issues I've seen with the current approach so
+> we can then come up with a plan and some changes to address this.
+>
+> Some things that currently bother me:
+[...]
 
-Its not something I'd encourage but you could just do a cp -r (recursive
-copy). You would then need to be careful about owners and permissions
-though (which is why you'll see install being used most often).
+Interesting ideas & plans Richard!
 
-Cheers,
+What I miss is the possibility for a fetcher or a specific SRC_URI
+entry to disable storing the results in downloads.
+This typically seems to be an issue wrt cvs, where a change in the cvs
+repo is not detected.
+(or I am simply doing something wrong).
 
-Richard
+When rewriting perhaps adding a disable-save-local-copy flag would be nice.
 
+Frans
 
