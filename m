@@ -1,25 +1,20 @@
-Return-Path: <Jingdong.Lu@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0F7434C80FA7
-	for <poky@pokylinux.org>; Tue, 16 Nov 2010 04:21:00 -0600 (CST)
-Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oAGAKxJq026841
-	for <poky@pokylinux.org>; Tue, 16 Nov 2010 02:20:59 -0800 (PST)
-Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
-	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Tue, 16 Nov 2010 02:20:59 -0800
-Received: from [128.224.162.176] ([128.224.162.176]) by
-	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Tue, 16 Nov 2010 02:20:58 -0800
-From: Lu Jingdong <jingdong.lu@windriver.com>
-To: poky <poky@pokylinux.org>
-Date: Tue, 16 Nov 2010 18:21:45 +0800
-Message-ID: <1289902905.1859.4.camel@eric-desktop>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-X-OriginalArrivalTime: 16 Nov 2010 10:20:59.0526 (UTC)
-	FILETIME=[F69CBA60:01CB8577]
-Subject: [PULL]Removing "--with-wctype-functions" for python
+Return-Path: <dongxiao.xu@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D8E454C80052
+	for <poky@yoctoproject.org>; Tue, 16 Nov 2010 07:41:44 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 16 Nov 2010 05:41:44 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.59,206,1288594800"; d="scan'208";a="678004569"
+Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.22])
+	by orsmga001.jf.intel.com with ESMTP; 16 Nov 2010 05:41:43 -0800
+Message-Id: <0bee46c94b8c296612b737a67b37afeb428f0bed.1289914983.git.dongxiao.xu@intel.com>
+In-Reply-To: <cover.1289914982.git.dongxiao.xu@intel.com>
+References: <cover.1289914982.git.dongxiao.xu@intel.com>
+From: Dongxiao Xu <dongxiao.xu@intel.com>
+Date: Mon, 15 Nov 2010 20:56:18 +0800
+To: poky@yoctoproject.org
+Subject: [PATCH 01/14] bluez4: Upgraded to version 4.79.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,26 +26,43 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 16 Nov 2010 10:21:00 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 16 Nov 2010 13:41:45 -0000
 
-Subject: [PATCH 3/3] Removing --with-wctype-functions for fixing
-failures of python runtime test of LSB.
-
-Signed-off-by: Jingdong Lu <jingdong.lu@windriver.com>
+Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
 ---
- meta/recipes-devtools/python/python.inc      |    1 -
- meta/recipes-devtools/python/python_2.6.5.bb |    2 +-
- 2 files changed, 1 insertions(+), 2 deletions(-)
+ .../{bluez4-4.66 => bluez4-4.79}/bluetooth.conf    |    0
+ .../fix-dfutool-usb-declaration-mismatch.patch     |    0
+ .../hid2hci_usb_init.patch                         |    0
+ .../{bluez4-4.66 => bluez4-4.79}/sbc-thumb.patch   |    0
+ .../bluez/{bluez4_4.66.bb => bluez4_4.79.bb}       |    0
+ 5 files changed, 0 insertions(+), 0 deletions(-)
+ rename meta/recipes-connectivity/bluez/{bluez4-4.66 => bluez4-4.79}/bluetooth.conf (100%)
+ rename meta/recipes-connectivity/bluez/{bluez4-4.66 => bluez4-4.79}/fix-dfutool-usb-declaration-mismatch.patch (100%)
+ rename meta/recipes-connectivity/bluez/{bluez4-4.66 => bluez4-4.79}/hid2hci_usb_init.patch (100%)
+ rename meta/recipes-connectivity/bluez/{bluez4-4.66 => bluez4-4.79}/sbc-thumb.patch (100%)
+ rename meta/recipes-connectivity/bluez/{bluez4_4.66.bb => bluez4_4.79.bb} (100%)
 
-Pull URL:
-http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=jingdonglu/distro
-
-
+diff --git a/meta/recipes-connectivity/bluez/bluez4-4.66/bluetooth.conf b/meta/recipes-connectivity/bluez/bluez4-4.79/bluetooth.conf
+similarity index 100%
+rename from meta/recipes-connectivity/bluez/bluez4-4.66/bluetooth.conf
+rename to meta/recipes-connectivity/bluez/bluez4-4.79/bluetooth.conf
+diff --git a/meta/recipes-connectivity/bluez/bluez4-4.66/fix-dfutool-usb-declaration-mismatch.patch b/meta/recipes-connectivity/bluez/bluez4-4.79/fix-dfutool-usb-declaration-mismatch.patch
+similarity index 100%
+rename from meta/recipes-connectivity/bluez/bluez4-4.66/fix-dfutool-usb-declaration-mismatch.patch
+rename to meta/recipes-connectivity/bluez/bluez4-4.79/fix-dfutool-usb-declaration-mismatch.patch
+diff --git a/meta/recipes-connectivity/bluez/bluez4-4.66/hid2hci_usb_init.patch b/meta/recipes-connectivity/bluez/bluez4-4.79/hid2hci_usb_init.patch
+similarity index 100%
+rename from meta/recipes-connectivity/bluez/bluez4-4.66/hid2hci_usb_init.patch
+rename to meta/recipes-connectivity/bluez/bluez4-4.79/hid2hci_usb_init.patch
+diff --git a/meta/recipes-connectivity/bluez/bluez4-4.66/sbc-thumb.patch b/meta/recipes-connectivity/bluez/bluez4-4.79/sbc-thumb.patch
+similarity index 100%
+rename from meta/recipes-connectivity/bluez/bluez4-4.66/sbc-thumb.patch
+rename to meta/recipes-connectivity/bluez/bluez4-4.79/sbc-thumb.patch
+diff --git a/meta/recipes-connectivity/bluez/bluez4_4.66.bb b/meta/recipes-connectivity/bluez/bluez4_4.79.bb
+similarity index 100%
+rename from meta/recipes-connectivity/bluez/bluez4_4.66.bb
+rename to meta/recipes-connectivity/bluez/bluez4_4.79.bb
 -- 
-Lu Jingdong
-jingdong.lu@windriver.com
-China, Wind River
+1.6.3.3
 
 
