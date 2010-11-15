@@ -1,36 +1,30 @@
 Return-Path: <kevin.tian@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A8C734C80052
-	for <poky@lists.pokylinux.org>; Sun, 14 Nov 2010 21:30:04 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 14 Nov 2010 19:30:03 -0800
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4AD0D4C80815
+	for <poky@lists.pokylinux.org>; Sun, 14 Nov 2010 22:06:50 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 14 Nov 2010 20:06:46 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,198,1288594800"; d="scan'208";a="677454329"
-Received: from pgsmsx601.gar.corp.intel.com ([10.221.43.69])
-	by orsmga001.jf.intel.com with ESMTP; 14 Nov 2010 19:30:02 -0800
-Received: from pgsmsx509.gar.corp.intel.com (172.30.13.17) by
-	pgsmsx601.gar.corp.intel.com (10.221.43.69) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Mon, 15 Nov 2010 11:29:58 +0800
+X-IronPort-AV: E=Sophos;i="4.59,198,1288594800"; d="scan'208";a="857554687"
+Received: from pgsmsx603.gar.corp.intel.com ([10.221.43.87])
+	by fmsmga001.fm.intel.com with ESMTP; 14 Nov 2010 20:06:38 -0800
 Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
-	PGSMSX509.gar.corp.intel.com (172.30.13.17) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Mon, 15 Nov 2010 11:29:58 +0800
+	pgsmsx603.gar.corp.intel.com (10.221.43.87) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Mon, 15 Nov 2010 12:06:28 +0800
 Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
 	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
-	Mon, 15 Nov 2010 11:29:57 +0800
+	Mon, 15 Nov 2010 12:06:26 +0800
 From: "Tian, Kevin" <kevin.tian@intel.com>
-To: "Tian, Kevin" <kevin.tian@intel.com>, Richard Purdie
-	<rpurdie@linux.intel.com>, Gary Thomas <gary@mlbassoc.com>
-Date: Mon, 15 Nov 2010 11:29:56 +0800
+To: Richard Purdie <rpurdie@linux.intel.com>, Gary Thomas <gary@mlbassoc.com>
+Date: Mon, 15 Nov 2010 12:06:25 +0800
 Thread-Topic: [poky] SSTATE builds more broken than I thought
-Thread-Index: AcuEJYqurQN4uQ4HSGGZReOM/DDgtAAOg8AAAAE442AAA98koA==
-Message-ID: <625BA99ED14B2D499DC4E29D8138F1504D2A9B5126@shsmsx502.ccr.corp.intel.com>
+Thread-Index: AcuEJYqurQN4uQ4HSGGZReOM/DDgtAAU/psg
+Message-ID: <625BA99ED14B2D499DC4E29D8138F1504D2A9B5160@shsmsx502.ccr.corp.intel.com>
 References: <4CDB2A52.6060400@mlbassoc.com> <1289539963.1272.3055.camel@rex>
 	<4CDCF848.9020703@mlbassoc.com> <1289550656.1272.3179.camel@rex>
 	<4CDCFC57.20909@mlbassoc.com> <1289604672.1272.4108.camel@rex>
 	<4CDDD3E7.3000305@mlbassoc.com> <1289757488.1272.4980.camel@rex>
-	<625BA99ED14B2D499DC4E29D8138F1504D2A9B4F70@shsmsx502.ccr.corp.intel.com>
-	<625BA99ED14B2D499DC4E29D8138F1504D2A9B4FBD@shsmsx502.ccr.corp.intel.com>
-In-Reply-To: <625BA99ED14B2D499DC4E29D8138F1504D2A9B4FBD@shsmsx502.ccr.corp.intel.com>
+In-Reply-To: <1289757488.1272.4980.camel@rex>
 Accept-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
@@ -49,131 +43,96 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 15 Nov 2010 03:30:05 -0000
+X-List-Received-Date: Mon, 15 Nov 2010 04:06:50 -0000
 Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-well, a typo in siggen.py causes below confusion, which I sent a pull reque=
-st at:
-http://git.pokylinux.org/cgit.cgi/poky-contrib/commit/?h=3Dtk/master&id=3De=
-0df54e800a811c355a748308218edb33f963e9a
+>From: Richard Purdie
+>Sent: Monday, November 15, 2010 1:58 AM
+>To: Gary Thomas
+>Cc: Poky
+>Subject: Re: [poky] SSTATE builds more broken than I thought
+>
+>On Fri, 2010-11-12 at 16:55 -0700, Gary Thomas wrote:
+>> On 11/12/2010 04:31 PM, Richard Purdie wrote:
+>> > On Fri, 2010-11-12 at 01:35 -0700, Gary Thomas wrote:
+>> >> On 11/12/2010 01:30 AM, Richard Purdie wrote:
+>> >>> On Fri, 2010-11-12 at 01:18 -0700, Gary Thomas wrote:
+>> >>>>> Are these all files or are they symlinks? Are they just present fo=
+r
+>> >>>>> deploy-ipk or are there others?
+>> >>>>
+>> >>>> They are files.
+>> >>>>
+>> >>>> Sorry, but I don't understand your other question.  These are the o=
+nly
+>> >>>> extra files polluting the tree, except for Python *.py? object file=
+s
+>> >>>> which are also always created.
+>> >>>
+>> >>> Are there any files related to other sstate tasks such as
+>> >>> populate-sysroot*.tgz or package*.tgz or is there just *deploy-ipk*.=
+tgz?
+>> >>>
+>> >>> In other words I'm wondering if this is something specific to the
+>> >>> deploy-ipk sstate task...
+>> >>
+>> >> The only extra files created are *deploy-ipk*.tgz
+>> >> This most certainly is restricted to the deploy-ipk sstate task and o=
+nly
+>> >> happens if SSTATE_MIRRORS is defined.
+>> >
+>> > This should be fixed in ae98f7eacb9e61fe086d88dc694b4c651af9fee3, it
+>> > turns out to be an issue with the local fetcher not searching DL_DIR.
+>>
+>> Trying the same process as in bug #526, it failed with this error:
+>[...]
+>
+>Right, I messed up those commits. I should know better than make commits
+>when travelling and jetlagged.
+>
+>I ended up reverting the first fixes and pushing a set of different
+>fixes.
+>
+>Previously you (and I think Kevin Tian) reporting bitbake spending a
+>huge amount of time thinking about shared state. When I was debugging
+>this I noticed a potential cause of that, my local test setups were
+>evidently just too fast to notice it. I added another commit:
 
-After clearing that out, the symptom of 31 cases could be refined as:
+how did your local test exactly setup?
 
-- all 4 sstate tasks vary (populate_sysroot, deploy_ipk, deploy_rpm, and pa=
-ckage), and
-all vary on do_install taskhash. do_install taskhash is same for 4 tasks in=
- same build
+>
+>http://git.pokylinux.org/cgit.cgi/poky/commit/?id=3D89929e1f283c8508c505c9=
+731ad93388
+>0abf22a1
+>
+>which should make things faster (n^2 faster where n is the number of
+>tasks).
 
-- populate_sysroot has one more difference on basehash
+I did a quick test just now, the result is not that promising. The total ti=
+me
+of sstate setscene took ~8min this time, however there're also less tasks
+executed:
 
-- both basehash and taskhash differences don't list explicit variable diffe=
-rences
+Previous run: ~25min, sstate-setscene starts from 133 of 1673 tasks
+Current run: ~8min, sstate_setscene starts from 1283 of 1673 tasks
 
-- it's always reproducible. I use bzip2 as the example. In original build p=
-roviding sstate
-prebuilts, bzip2 clean/rebuild always takes the desired prebuilts. In 2nd b=
-uild using
-prebuilts, bzip2 clean/rebuild always start from scratch with same checksum=
- cross
-the builds (by manually removing new prebuilts generated by itself)
+From the build process, there did have more recipes rebuilt from scratch
+instead of taking prebuilt this time, such as gcc, etc. The build even didn=
+'t
+finish, with C preprocessor sanity check failure on gcc-runtime.
 
-- their native equivalents DO reuse prebuilts, such as bzip2-native
+This may not be a good test though, as I'm still using the prebuilts genera=
+ted
+from last week (at d9ff2f897aa271e6b2d7e4dcaf8b8d19de513b50), while
+the 2nd build uses latest ddbf5e9c48afdeefeaec120a02d43536f5fd1ce1 plus
+my siggen fix.
 
-I may need have more debug into the execution process to catch the differen=
-ce, but
-I only have time back on this tomorrow. So if anyone else could reproduce i=
-t
-and take some look, it'd be great. If we could make rest 31 recipes working=
-, that
-would really boost build performance, since several big time-consuming reci=
-pes fall
-into this remaining group like kernel, webkit-gtk, etc.
+I'll redo a slow test by having both builds from the same commit, while kee=
+ping
+original env for further analysis later.
 
 Thanks
 Kevin
-
->From: Tian, Kevin
->Sent: Monday, November 15, 2010 9:36 AM
->
->>From: Tian, Kevin
->>Sent: Monday, November 15, 2010 9:14 AM
->>
->>I haven't got time looking into all of them. For random 3 (bzip2, gnome-v=
-fs, webkit-gtk),
->>they have the same symptom on populate_sysroot, e.g:
->>
->>basehash changed from c7c1d0c7ea052eef6f6665b8959b44fc to
->>3eb4a010cbfb3b15df49d433f6593b0c
->>Variable BB_TASKHASH value changed from 9e077b25e1e2c50d4f8a09a9356a6a6c =
-to
->>0d6608b425d8a59b21f5874b4914b412
->>Hash for dependent task
->>/home/poky/tasks/poky/meta/recipes-extended/bzip2/bzip2_1.0.5.bb.do_insta=
-ll
->changed
->>from c4cba89fa491ecb0916a56f1e75c5f17 to c4e7f58c385e384749cc20ca1bd8fccf
->>
->>* basehash varies while no variable is explicitly listed by bitbake-diffs=
-igs. I expected
->>to see the variable causing difference to be marked explicitly here.
->>* taskhash varies due to do_install, however bitbake-diffsigs doesn't lis=
-t how do_install
->>checksum is calculated. I made a quick comparison between run.do_install =
-scripts, with
->>major difference still on expanded variables. There may still have some w=
-hitelist work
->>to be done.
->>
->>I used same source tree for two builds, which share same sstate-cache dir=
-ectory.
->>
->
->Another interesting thing. When I compare other prebuilt tasks, all the re=
-st tasks
->show the difference on task dependencies of do_install, which then results=
- in the
->taskhash difference. Take 'package' for example:
->
->---
->
->Tasks this task depends on changed from set
->
->(['GLIBCTARGETOS', 'TARGET_VENDOR', 'FILE', 'PACKAGES', 'PR', 'PV',
->'package_do_package', 'DEPLOY_DIR', 'PF', 'PE', 'PN', 'package_rpm_do_pack=
-age',
->'MULTIMACH_TARGET_SYS', 'D', 'TARGET_ARCH', 'TARGET_OS', 'TMPDIR', 'PKGD',
->'WORKDIR', 'PACKAGEFUNCS', 'EXTENDPE', 'MULTIMACH_ARCH',
->'PACKAGE_PREPROCESS_FUNCS'])
->
->to set
->
->(['GLIBCTARGETOS', 'TARGET_VENDOR', 'FILE', 'PACKAGES', 'PR', 'PV',
->'package_do_package', 'DEPLOY_DIR', 'PF', 'PE', 'PN', 'package_rpm_do_pack=
-age',
->'MULTIMACH_TARGET_SYS', 'D', 'TARGET_ARCH', 'TARGET_OS', 'TMPDIR', 'PKGD',
->'WORKDIR', 'PACKAGEFUNCS', 'EXTENDPE', 'MULTIMACH_ARCH',
->'PACKAGE_PREPROCESS_FUNCS'])
->
->Hash for dependent task
->/home/poky/tasks/poky/meta/recipes-extended/bzip2/bzip2_1.0.5.bb.do_instal=
-l changed
->from c4cba89fa491ecb0916a56f1e75c5f17 to c4e7f58c385e384749cc20ca1bd8fccf
->
->---
->
->First, I carefully checked above dependency list, which show NO difference=
- at all.
->
->Second, you can see the taskhash values actually match my earlier post abo=
-ut
->populate_sysroot prebuilts. However at that place no dep info is shown exc=
-ept
->the hashvalue change.
->
->I'll try more to see whether it's consistent.
->
->Thanks
->Kevin
 
