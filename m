@@ -1,31 +1,43 @@
 Return-Path: <kevin.tian@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 1A6544C80052
-	for <poky@pokylinux.org>; Sun, 14 Nov 2010 21:20:51 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 14 Nov 2010 19:20:45 -0800
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id A8C734C80052
+	for <poky@lists.pokylinux.org>; Sun, 14 Nov 2010 21:30:04 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 14 Nov 2010 19:30:03 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,198,1288594800"; d="scan'208";a="626710729"
-Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
-	by fmsmga002.fm.intel.com with ESMTP; 14 Nov 2010 19:20:45 -0800
+X-IronPort-AV: E=Sophos;i="4.59,198,1288594800"; d="scan'208";a="677454329"
+Received: from pgsmsx601.gar.corp.intel.com ([10.221.43.69])
+	by orsmga001.jf.intel.com with ESMTP; 14 Nov 2010 19:30:02 -0800
+Received: from pgsmsx509.gar.corp.intel.com (172.30.13.17) by
+	pgsmsx601.gar.corp.intel.com (10.221.43.69) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Mon, 15 Nov 2010 11:29:58 +0800
 Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
-	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Mon, 15 Nov 2010 11:19:50 +0800
+	PGSMSX509.gar.corp.intel.com (172.30.13.17) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Mon, 15 Nov 2010 11:29:58 +0800
 Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
 	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
-	Mon, 15 Nov 2010 11:19:45 +0800
+	Mon, 15 Nov 2010 11:29:57 +0800
 From: "Tian, Kevin" <kevin.tian@intel.com>
-To: "poky@pokylinux.org" <poky@pokylinux.org>
-Date: Mon, 15 Nov 2010 11:19:43 +0800
-Thread-Topic: siggen.py: fix comparison around runtaskdeps
-Thread-Index: AcuEc/KShq8jfE44SM2zSgZDmkrpvw==
-Message-ID: <625BA99ED14B2D499DC4E29D8138F1504D2A9B5106@shsmsx502.ccr.corp.intel.com>
+To: "Tian, Kevin" <kevin.tian@intel.com>, Richard Purdie
+	<rpurdie@linux.intel.com>, Gary Thomas <gary@mlbassoc.com>
+Date: Mon, 15 Nov 2010 11:29:56 +0800
+Thread-Topic: [poky] SSTATE builds more broken than I thought
+Thread-Index: AcuEJYqurQN4uQ4HSGGZReOM/DDgtAAOg8AAAAE442AAA98koA==
+Message-ID: <625BA99ED14B2D499DC4E29D8138F1504D2A9B5126@shsmsx502.ccr.corp.intel.com>
+References: <4CDB2A52.6060400@mlbassoc.com> <1289539963.1272.3055.camel@rex>
+	<4CDCF848.9020703@mlbassoc.com> <1289550656.1272.3179.camel@rex>
+	<4CDCFC57.20909@mlbassoc.com> <1289604672.1272.4108.camel@rex>
+	<4CDDD3E7.3000305@mlbassoc.com> <1289757488.1272.4980.camel@rex>
+	<625BA99ED14B2D499DC4E29D8138F1504D2A9B4F70@shsmsx502.ccr.corp.intel.com>
+	<625BA99ED14B2D499DC4E29D8138F1504D2A9B4FBD@shsmsx502.ccr.corp.intel.com>
+In-Reply-To: <625BA99ED14B2D499DC4E29D8138F1504D2A9B4FBD@shsmsx502.ccr.corp.intel.com>
 Accept-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 acceptlanguage: en-US
 MIME-Version: 1.0
-Subject: siggen.py: fix comparison around runtaskdeps
+Cc: Poky <poky@lists.pokylinux.org>
+Subject: Re: SSTATE builds more broken than I thought
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,30 +49,131 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 15 Nov 2010 03:20:51 -0000
+X-List-Received-Date: Mon, 15 Nov 2010 03:30:05 -0000
 Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-(sorry to use old pull request, as I haven't setup my box correctly yet.)
+well, a typo in siggen.py causes below confusion, which I sent a pull reque=
+st at:
+http://git.pokylinux.org/cgit.cgi/poky-contrib/commit/?h=3Dtk/master&id=3De=
+0df54e800a811c355a748308218edb33f963e9a
 
- bitbake/lib/bb/siggen.py |    4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+After clearing that out, the symptom of 31 cases could be refined as:
 
-commit e0df54e800a811c355a748308218edb33f963e9a
-Author: Kevin Tian <kevin.tian@intel.com>
-Date:   Mon Nov 15 10:58:49 2010 +0800
+- all 4 sstate tasks vary (populate_sysroot, deploy_ipk, deploy_rpm, and pa=
+ckage), and
+all vary on do_install taskhash. do_install taskhash is same for 4 tasks in=
+ same build
 
-    siggen.py: fix comparison around runtaskdeps
+- populate_sysroot has one more difference on basehash
 
-    two dep lists should be sorted before the comparison, or else it just
-    causes false-positive confusion.
+- both basehash and taskhash differences don't list explicit variable diffe=
+rences
 
-    Also fix 'taskdeps' to 'runtaskdeps' when printing out the difference.
+- it's always reproducible. I use bzip2 as the example. In original build p=
+roviding sstate
+prebuilts, bzip2 clean/rebuild always takes the desired prebuilts. In 2nd b=
+uild using
+prebuilts, bzip2 clean/rebuild always start from scratch with same checksum=
+ cross
+the builds (by manually removing new prebuilts generated by itself)
 
-    Signed-off-by: Kevin Tian <kevin.tian@intel.com>
-Pull URL: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=3Dtk/master
+- their native equivalents DO reuse prebuilts, such as bzip2-native
+
+I may need have more debug into the execution process to catch the differen=
+ce, but
+I only have time back on this tomorrow. So if anyone else could reproduce i=
+t
+and take some look, it'd be great. If we could make rest 31 recipes working=
+, that
+would really boost build performance, since several big time-consuming reci=
+pes fall
+into this remaining group like kernel, webkit-gtk, etc.
 
 Thanks
 Kevin
+
+>From: Tian, Kevin
+>Sent: Monday, November 15, 2010 9:36 AM
+>
+>>From: Tian, Kevin
+>>Sent: Monday, November 15, 2010 9:14 AM
+>>
+>>I haven't got time looking into all of them. For random 3 (bzip2, gnome-v=
+fs, webkit-gtk),
+>>they have the same symptom on populate_sysroot, e.g:
+>>
+>>basehash changed from c7c1d0c7ea052eef6f6665b8959b44fc to
+>>3eb4a010cbfb3b15df49d433f6593b0c
+>>Variable BB_TASKHASH value changed from 9e077b25e1e2c50d4f8a09a9356a6a6c =
+to
+>>0d6608b425d8a59b21f5874b4914b412
+>>Hash for dependent task
+>>/home/poky/tasks/poky/meta/recipes-extended/bzip2/bzip2_1.0.5.bb.do_insta=
+ll
+>changed
+>>from c4cba89fa491ecb0916a56f1e75c5f17 to c4e7f58c385e384749cc20ca1bd8fccf
+>>
+>>* basehash varies while no variable is explicitly listed by bitbake-diffs=
+igs. I expected
+>>to see the variable causing difference to be marked explicitly here.
+>>* taskhash varies due to do_install, however bitbake-diffsigs doesn't lis=
+t how do_install
+>>checksum is calculated. I made a quick comparison between run.do_install =
+scripts, with
+>>major difference still on expanded variables. There may still have some w=
+hitelist work
+>>to be done.
+>>
+>>I used same source tree for two builds, which share same sstate-cache dir=
+ectory.
+>>
+>
+>Another interesting thing. When I compare other prebuilt tasks, all the re=
+st tasks
+>show the difference on task dependencies of do_install, which then results=
+ in the
+>taskhash difference. Take 'package' for example:
+>
+>---
+>
+>Tasks this task depends on changed from set
+>
+>(['GLIBCTARGETOS', 'TARGET_VENDOR', 'FILE', 'PACKAGES', 'PR', 'PV',
+>'package_do_package', 'DEPLOY_DIR', 'PF', 'PE', 'PN', 'package_rpm_do_pack=
+age',
+>'MULTIMACH_TARGET_SYS', 'D', 'TARGET_ARCH', 'TARGET_OS', 'TMPDIR', 'PKGD',
+>'WORKDIR', 'PACKAGEFUNCS', 'EXTENDPE', 'MULTIMACH_ARCH',
+>'PACKAGE_PREPROCESS_FUNCS'])
+>
+>to set
+>
+>(['GLIBCTARGETOS', 'TARGET_VENDOR', 'FILE', 'PACKAGES', 'PR', 'PV',
+>'package_do_package', 'DEPLOY_DIR', 'PF', 'PE', 'PN', 'package_rpm_do_pack=
+age',
+>'MULTIMACH_TARGET_SYS', 'D', 'TARGET_ARCH', 'TARGET_OS', 'TMPDIR', 'PKGD',
+>'WORKDIR', 'PACKAGEFUNCS', 'EXTENDPE', 'MULTIMACH_ARCH',
+>'PACKAGE_PREPROCESS_FUNCS'])
+>
+>Hash for dependent task
+>/home/poky/tasks/poky/meta/recipes-extended/bzip2/bzip2_1.0.5.bb.do_instal=
+l changed
+>from c4cba89fa491ecb0916a56f1e75c5f17 to c4e7f58c385e384749cc20ca1bd8fccf
+>
+>---
+>
+>First, I carefully checked above dependency list, which show NO difference=
+ at all.
+>
+>Second, you can see the taskhash values actually match my earlier post abo=
+ut
+>populate_sysroot prebuilts. However at that place no dep info is shown exc=
+ept
+>the hashvalue change.
+>
+>I'll try more to see whether it's consistent.
+>
+>Thanks
+>Kevin
 
