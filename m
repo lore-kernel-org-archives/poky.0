@@ -1,36 +1,36 @@
 Return-Path: <bruce.ashfield@gmail.com>
 Received: from mail-iw0-f176.google.com (mail-iw0-f176.google.com
 	[209.85.214.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 4ABC24C80052;
-	Mon, 15 Nov 2010 15:16:30 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8A9DF4C80FAC;
+	Mon, 15 Nov 2010 15:19:30 -0600 (CST)
 Authentication-Results: mx1.pokylinux.org; dkim=pass
 	(1024-bit key; insecure key) header.i=@gmail.com;
 	x-dkim-adsp=none (insecure policy)
-Received: by iwn33 with SMTP id 33so217920iwn.35
-	for <multiple recipients>; Mon, 15 Nov 2010 13:16:29 -0800 (PST)
+Received: by iwn33 with SMTP id 33so221604iwn.35
+	for <multiple recipients>; Mon, 15 Nov 2010 13:19:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
 	h=domainkey-signature:mime-version:received:received:in-reply-to
 	:references:date:message-id:subject:from:to:cc:content-type
 	:content-transfer-encoding;
-	bh=dnec2dXFuphtdzMYrulWxt+9AYVAOiXi3IaLJhaPhps=;
-	b=DRPXs7SBTb5cYHVUeCX7d18wg5zjdGyiW7qdyz41SWJ5edK9uOxqaBXcfAVtoqoiu9
-	xwYxhUcy7h69aRxldpWNn+0Dc/NOJwxNKtQ5RyPAFDdm9MGD/b90QxSQXsnqvL9C7Ftl
-	t4zx5qZdiyEwZQ/cJJ28Dcnc7vhCOCg/jzOq0=
+	bh=SCC3qLJ57VfI2LldfbEAposoomeyUD2+pGCRLNyqFMA=;
+	b=mYLUpDX7tOFLxqSMLV8nOuk0oJ1LVfEhD/Az5b5UcKc8bCDjpv21AnfbxNrbaNR0w9
+	DB8tOlPwURRyKP3LxIQcCXsMZM8UNonfsjY5JuSKZ6JjuPSlqdHzw0urpFwAXNkWNHVq
+	M8rONc5wqbC7eetRQecqugQ04jmFDmRozchC8=
 DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
 	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
 	:cc:content-type:content-transfer-encoding;
-	b=cVDkKCkwnv/aaDUceRcgDezTyRRYZTY5QFKloBa8UpXhRbkC/UZ7NsM4MUGEYPLeE5
-	3ym1JvXTL+vGZTaiBUTFyV+FR9IjY7M8jDtgzc2mbWL32wDsTDzUS8qC54WYhwuS2cYt
-	Q3S5ajHFVeVcFuWKRGoC5Q/HRcd8C+fRRWWdY=
+	b=tBty9rQL5xSs89A9LHFm6lpp7sCC/uxzPwvSE93UQRZYHTkihVjTITbRf6Li2ZJCDR
+	8gtSoAgqkzGADrzyMi3Aw8YaEJhZlRczPvRkU3ZEo0vKVVA6MMM4AquYXZpq7KoQQHhE
+	1E7JOumM7Xs5eNUoWQiIhcIElbtJrWWpigUCw=
 MIME-Version: 1.0
-Received: by 10.231.37.199 with SMTP id y7mr4780894ibd.127.1289855787905; Mon,
-	15 Nov 2010 13:16:27 -0800 (PST)
-Received: by 10.231.208.73 with HTTP; Mon, 15 Nov 2010 13:16:27 -0800 (PST)
+Received: by 10.231.17.11 with SMTP id q11mr4792797iba.102.1289855966314; Mon,
+	15 Nov 2010 13:19:26 -0800 (PST)
+Received: by 10.231.208.73 with HTTP; Mon, 15 Nov 2010 13:19:26 -0800 (PST)
 In-Reply-To: <4CE1A1A5.1020003@linux.intel.com>
 References: <cover.1289839979.git.bruce.ashfield@windriver.com>
 	<4CE1A1A5.1020003@linux.intel.com>
-Date: Mon, 15 Nov 2010 16:16:27 -0500
-Message-ID: <AANLkTim4+siYZ3_G47gSVEVfv_md23X2FtDAz5GWVFM8@mail.gmail.com>
+Date: Mon, 15 Nov 2010 16:19:26 -0500
+Message-ID: <AANLkTi=PQWzd0vumGRTMzn0suop+FB7n7hHYjLTfRdPN@mail.gmail.com>
 From: Bruce Ashfield <bruce.ashfield@gmail.com>
 To: Darren Hart <dvhart@linux.intel.com>
 Cc: yocto@yoctoproject.org, poky@yoctoproject.org
@@ -46,7 +46,7 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 15 Nov 2010 21:16:30 -0000
+X-List-Received-Date: Mon, 15 Nov 2010 21:19:30 -0000
 Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: quoted-printable
 
@@ -91,18 +91,11 @@ me
 er
 > to see these squashed into a single commit.
 
-Definitely. Not bisectable, but I wanted to keep the changes logically
-separated,
-since it allowed a commit message that wasn't too long to read and
-be useful. Since there are several recipe categories, boards and layers
-involved, I made the choice to split things up.
+Hmmm. I was largely thinking about another patch series. The commit message=
+s
+for these are pretty small. I've squashed and updated my contrib branch.
 
-I typically insist on bisectable series as well, but have made exceptions :=
-)
-
-I'm happy to squash things though, if Richard wants them squashed
-I'll resend .. or it might be quicker to rebase and squash on merge,
-either works for me.
+Cheers,
 
 Bruce
 
