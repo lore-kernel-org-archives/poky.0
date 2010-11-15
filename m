@@ -1,20 +1,20 @@
 Return-Path: <dongxiao.xu@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 3A4154C811CC
-	for <poky@yoctoproject.org>; Tue, 16 Nov 2010 07:41:54 -0600 (CST)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 50F3E4C811A6
+	for <poky@yoctoproject.org>; Tue, 16 Nov 2010 07:41:56 -0600 (CST)
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 16 Nov 2010 05:41:54 -0800
+	by orsmga101.jf.intel.com with ESMTP; 16 Nov 2010 05:41:45 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,206,1288594800"; d="scan'208";a="574291025"
+X-IronPort-AV: E=Sophos;i="4.59,206,1288594800"; d="scan'208";a="574290986"
 Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.22])
-	by orsmga002.jf.intel.com with ESMTP; 16 Nov 2010 05:41:53 -0800
-Message-Id: <e91d4293c8ab7a1431460ac88f667d61908b18c7.1289914983.git.dongxiao.xu@intel.com>
+	by orsmga002.jf.intel.com with ESMTP; 16 Nov 2010 05:41:45 -0800
+Message-Id: <741c7430fbae09a66716f866d52e8bb08a0f5d24.1289914983.git.dongxiao.xu@intel.com>
 In-Reply-To: <cover.1289914982.git.dongxiao.xu@intel.com>
 References: <cover.1289914982.git.dongxiao.xu@intel.com>
 From: Dongxiao Xu <dongxiao.xu@intel.com>
-Date: Tue, 16 Nov 2010 09:56:49 +0800
+Date: Mon, 15 Nov 2010 21:16:28 +0800
 To: poky@yoctoproject.org
-Subject: [PATCH 07/14] libical: Upgraded to version 0.46
+Subject: [PATCH 02/14] neon: Upgraded to version 0.29.5
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,29 +26,24 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 16 Nov 2010 13:41:54 -0000
+X-List-Received-Date: Tue, 16 Nov 2010 13:41:56 -0000
 
 Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
 ---
- .../libical/{libical_0.44.bb => libical_0.46.bb}   |    1 +
- 1 files changed, 1 insertions(+), 0 deletions(-)
- rename meta/recipes-sato/libical/{libical_0.44.bb => libical_0.46.bb} (97%)
+ .../{neon-0.29.3 => neon-0.29.5}/pkgconfig.patch   |    0
+ .../neon/{neon_0.29.3.bb => neon_0.29.5.bb}        |    0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+ rename meta/recipes-support/neon/{neon-0.29.3 => neon-0.29.5}/pkgconfig.patch (100%)
+ rename meta/recipes-support/neon/{neon_0.29.3.bb => neon_0.29.5.bb} (100%)
 
-diff --git a/meta/recipes-sato/libical/libical_0.44.bb b/meta/recipes-sato/libical/libical_0.46.bb
-similarity index 97%
-rename from meta/recipes-sato/libical/libical_0.44.bb
-rename to meta/recipes-sato/libical/libical_0.46.bb
-index 0b016a0..7b2d7b3 100644
---- a/meta/recipes-sato/libical/libical_0.44.bb
-+++ b/meta/recipes-sato/libical/libical_0.46.bb
-@@ -5,6 +5,7 @@ LICENSE = "LGPLv2.1 | MPLv1.1"
- LIC_FILES_CHKSUM = "file://COPYING;md5=35da21efce2b9f0ca07524c9f844e6ed \
- 			file://LICENSE;md5=35da21efce2b9f0ca07524c9f844e6ed"
- SECTION = "libs"
-+PR = "r0"
- 
- SRC_URI = "${SOURCEFORGE_MIRROR}/freeassociation/${P}.tar.gz"
- 
+diff --git a/meta/recipes-support/neon/neon-0.29.3/pkgconfig.patch b/meta/recipes-support/neon/neon-0.29.5/pkgconfig.patch
+similarity index 100%
+rename from meta/recipes-support/neon/neon-0.29.3/pkgconfig.patch
+rename to meta/recipes-support/neon/neon-0.29.5/pkgconfig.patch
+diff --git a/meta/recipes-support/neon/neon_0.29.3.bb b/meta/recipes-support/neon/neon_0.29.5.bb
+similarity index 100%
+rename from meta/recipes-support/neon/neon_0.29.3.bb
+rename to meta/recipes-support/neon/neon_0.29.5.bb
 -- 
 1.6.3.3
 
