@@ -1,21 +1,21 @@
 Return-Path: <ke.yu@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 4F73E4C811CD
-	for <poky@yoctoproject.org>; Wed, 17 Nov 2010 02:49:31 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 17 Nov 2010 00:49:31 -0800
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D1C934C811CF
+	for <poky@yoctoproject.org>; Wed, 17 Nov 2010 02:49:32 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 17 Nov 2010 00:49:32 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,210,1288594800"; d="scan'208";a="574633695"
+X-IronPort-AV: E=Sophos;i="4.59,210,1288594800"; d="scan'208";a="627604438"
 Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.154.168])
-	by orsmga002.jf.intel.com with ESMTP; 17 Nov 2010 00:49:30 -0800
-Message-Id: <4f46ffea89f43628a6447fd199edf860c3c4d3f4.1289982119.git.ke.yu@intel.com>
+	by fmsmga002.fm.intel.com with ESMTP; 17 Nov 2010 00:49:32 -0800
+Message-Id: <df83e573651f479f8d670ba93c672df3472c5135.1289982119.git.ke.yu@intel.com>
 In-Reply-To: <cover.1289982119.git.ke.yu@intel.com>
 References: <cover.1289982119.git.ke.yu@intel.com>
 From: Yu Ke <ke.yu@intel.com>
-Date: Mon, 15 Nov 2010 21:39:59 +0800
+Date: Tue, 16 Nov 2010 14:39:13 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 03/10] mesa-dri: upgrade from 7.8.2 to 7.9
+Subject: [PATCH 04/10] libdrm: upgrade from 2.4.21 to 2.4.22
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,135 +27,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 17 Nov 2010 08:49:31 -0000
+X-List-Received-Date: Wed, 17 Nov 2010 08:49:33 -0000
 
 Signed-off-by: Yu Ke <ke.yu@intel.com>
 ---
  .../distro/include/preferred-xorg-versions.inc     |    2 +-
- meta/recipes-graphics/mesa/mesa-dri_7.8.2.bb       |   53 --------------------
- meta/recipes-graphics/mesa/mesa-dri_7.9.bb         |   40 +++++++++++++++
- 3 files changed, 41 insertions(+), 54 deletions(-)
- delete mode 100644 meta/recipes-graphics/mesa/mesa-dri_7.8.2.bb
- create mode 100644 meta/recipes-graphics/mesa/mesa-dri_7.9.bb
+ .../installtests.patch                             |    0
+ .../drm/{libdrm_2.4.21.bb => libdrm_2.4.22.bb}     |    0
+ 3 files changed, 1 insertions(+), 1 deletions(-)
+ rename meta/recipes-graphics/drm/{libdrm-2.4.21 => libdrm-2.4.22}/installtests.patch (100%)
+ rename meta/recipes-graphics/drm/{libdrm_2.4.21.bb => libdrm_2.4.22.bb} (100%)
 
 diff --git a/meta/conf/distro/include/preferred-xorg-versions.inc b/meta/conf/distro/include/preferred-xorg-versions.inc
-index 64dbadd..0010e72 100644
+index 0010e72..b8e9d37 100644
 --- a/meta/conf/distro/include/preferred-xorg-versions.inc
 +++ b/meta/conf/distro/include/preferred-xorg-versions.inc
-@@ -136,7 +136,7 @@ PREFERRED_VERSION_xtrans-native ?= "1.2.5"
- PREFERRED_VERSION_xtrans-nativesdk ?= "1.2.5"
+@@ -137,7 +137,7 @@ PREFERRED_VERSION_xtrans-nativesdk ?= "1.2.5"
  PREFERRED_VERSION_xvinfo ?= "1.0.2"
  PREFERRED_VERSION_xwininfo ?= "1.1.0"
--PREFERRED_VERSION_mesa-dri ?= "7.8.2"
-+PREFERRED_VERSION_mesa-dri ?= "7.9"
- PREFERRED_VERSION_libdrm ?= "2.4.21"
+ PREFERRED_VERSION_mesa-dri ?= "7.9"
+-PREFERRED_VERSION_libdrm ?= "2.4.21"
++PREFERRED_VERSION_libdrm ?= "2.4.22"
  PREFERRED_VERSION_xcb-proto ?= "1.6"
  PREFERRED_VERSION_libxcb ?= "1.6"
-diff --git a/meta/recipes-graphics/mesa/mesa-dri_7.8.2.bb b/meta/recipes-graphics/mesa/mesa-dri_7.8.2.bb
-deleted file mode 100644
-index caa9b2e..0000000
---- a/meta/recipes-graphics/mesa/mesa-dri_7.8.2.bb
-+++ /dev/null
-@@ -1,53 +0,0 @@
--include mesa-common.inc
--
--LIC_FILES_CHKSUM = "file://docs/license.html;md5=7a3373c039b6b925c427755a4f779c1d"
--
--PROTO_DEPS = "xf86driproto glproto dri2proto"
--LIB_DEPS = "libdrm virtual/libx11 libxext libxxf86vm libxdamage libxfixes expat"
--
--DEPENDS = "${PROTO_DEPS}  ${LIB_DEPS} mesa-dri-glsl-native"
--
--PR = "r2"
--
--SRC_URI += "file://crossfix.patch"
--
--# most of our targets do not have DRI so will use mesa-xlib
--DEFAULT_PREFERENCE = "-1"
--
--# Atom PCs have DRI support so use mesa-dri by default
--DEFAULT_PREFERENCE_atom-pc = "1"
--
--LEAD_SONAME = "libGL.so.1"
--
--EXTRA_OECONF += "--with-driver=dri --disable-egl --disable-gallium"
--
--# We need glsl-compile built for buildhost arch instead of target (is provided by mesa-dri-glsl-native)"
--do_configure_prepend() {
--	sed -i "s#^GLSL_CL = .*\$#GLSL_CL = ${STAGING_BINDIR_NATIVE}/glsl-compile#g" ${S}/src/mesa/shader/slang/library/Makefile
--}
--
--do_install_append () {
--	install -d ${D}/usr/bin
--	install -m 0755 ${S}/progs/xdemos/{glxdemo,glxgears,glxheads,glxinfo} ${D}/usr/bin/
--}
--
--python populate_packages_prepend() {
--	import os.path
--
--	dri_drivers_root = os.path.join(bb.data.getVar('libdir', d, 1), "dri")
--
--	do_split_packages(d, dri_drivers_root, '^(.*)_dri\.so$', 'mesa-dri-driver-%s', 'Mesa %s DRI driver', extra_depends='')
--}
--
--COMPATIBLE_HOST = '(i.86.*-linux|x86_64.*-linux)'
--
--PACKAGES =+ "${PN}-xprogs"
--PACKAGES_DYNAMIC = "mesa-dri-driver-*"
--
--FILES_${PN}-dbg += "${libdir}/dri/.debug/*"
--FILES_${PN}-xprogs = "${bindir}/glxdemo ${bindir}/glxgears ${bindir}/glxheads ${bindir}/glxinfo"
--
--#
--# Header generated by i586-poky-linux-gcc gen_matypes.c -o gen_matypes -I ../../../include/GL -I ../../../include -I .. -I ../main/ -I ../math -I ../glapi/ -I ../tnl
--# then run gen_matypes > matypes.h on device
--#
-diff --git a/meta/recipes-graphics/mesa/mesa-dri_7.9.bb b/meta/recipes-graphics/mesa/mesa-dri_7.9.bb
-new file mode 100644
-index 0000000..d84070e
---- /dev/null
-+++ b/meta/recipes-graphics/mesa/mesa-dri_7.9.bb
-@@ -0,0 +1,40 @@
-+include mesa-common.inc
-+
-+LIC_FILES_CHKSUM = "file://docs/license.html;md5=7a3373c039b6b925c427755a4f779c1d"
-+
-+PROTO_DEPS = "xf86driproto glproto dri2proto"
-+LIB_DEPS = "libdrm virtual/libx11 libxext libxxf86vm libxdamage libxfixes expat"
-+
-+DEPENDS = "${PROTO_DEPS}  ${LIB_DEPS} mesa-dri-glsl-native talloc"
-+
-+PR = "r0"
-+
-+SRC_URI = "ftp://ftp.freedesktop.org/pub/mesa/${PV}/MesaLib-${PV}.tar.bz2 \
-+		   "
-+
-+SRC_URI += "file://crossfix.patch"
-+
-+# most of our targets do not have DRI so will use mesa-xlib
-+DEFAULT_PREFERENCE = "-1"
-+
-+# Atom PCs have DRI support so use mesa-dri by default
-+DEFAULT_PREFERENCE_atom-pc = "1"
-+
-+LEAD_SONAME = "libGL.so.1"
-+
-+EXTRA_OECONF += "--with-driver=dri --disable-egl --disable-gallium"
-+
-+python populate_packages_prepend() {
-+	import os.path
-+
-+	dri_drivers_root = os.path.join(bb.data.getVar('libdir', d, 1), "dri")
-+
-+	do_split_packages(d, dri_drivers_root, '^(.*)_dri\.so$', 'mesa-dri-driver-%s', 'Mesa %s DRI driver', extra_depends='')
-+}
-+
-+COMPATIBLE_HOST = '(i.86.*-linux|x86_64.*-linux)'
-+
-+PACKAGES =+ "${PN}-xprogs"
-+PACKAGES_DYNAMIC = "mesa-dri-driver-*"
-+
-+FILES_${PN}-dbg += "${libdir}/dri/.debug/*"
+ PREFERRED_VERSION_libxcb-nativesdk ?= "1.6"
+diff --git a/meta/recipes-graphics/drm/libdrm-2.4.21/installtests.patch b/meta/recipes-graphics/drm/libdrm-2.4.22/installtests.patch
+similarity index 100%
+rename from meta/recipes-graphics/drm/libdrm-2.4.21/installtests.patch
+rename to meta/recipes-graphics/drm/libdrm-2.4.22/installtests.patch
+diff --git a/meta/recipes-graphics/drm/libdrm_2.4.21.bb b/meta/recipes-graphics/drm/libdrm_2.4.22.bb
+similarity index 100%
+rename from meta/recipes-graphics/drm/libdrm_2.4.21.bb
+rename to meta/recipes-graphics/drm/libdrm_2.4.22.bb
 -- 
 1.7.0.4
 
