@@ -1,20 +1,20 @@
 Return-Path: <dongxiao.xu@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 50F3E4C811A6
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id EA27D4C811CF
 	for <poky@yoctoproject.org>; Tue, 16 Nov 2010 07:41:56 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 16 Nov 2010 05:41:45 -0800
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 16 Nov 2010 05:41:56 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,206,1288594800"; d="scan'208";a="574290986"
+X-IronPort-AV: E=Sophos;i="4.59,206,1288594800"; d="scan'208";a="627284049"
 Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.22])
-	by orsmga002.jf.intel.com with ESMTP; 16 Nov 2010 05:41:45 -0800
-Message-Id: <741c7430fbae09a66716f866d52e8bb08a0f5d24.1289914983.git.dongxiao.xu@intel.com>
+	by fmsmga002.fm.intel.com with ESMTP; 16 Nov 2010 05:41:56 -0800
+Message-Id: <48f7c15dfdac58db09a9394203fe86695c36b3ad.1289914983.git.dongxiao.xu@intel.com>
 In-Reply-To: <cover.1289914982.git.dongxiao.xu@intel.com>
 References: <cover.1289914982.git.dongxiao.xu@intel.com>
 From: Dongxiao Xu <dongxiao.xu@intel.com>
-Date: Mon, 15 Nov 2010 21:16:28 +0800
+Date: Tue, 16 Nov 2010 10:17:14 +0800
 To: poky@yoctoproject.org
-Subject: [PATCH 02/14] neon: Upgraded to version 0.29.5
+Subject: [PATCH 09/14] tremor: Upgraded to rev 17572 (2010/10/27)
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,24 +26,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 16 Nov 2010 13:41:56 -0000
+X-List-Received-Date: Tue, 16 Nov 2010 13:41:57 -0000
 
 Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
 ---
- .../{neon-0.29.3 => neon-0.29.5}/pkgconfig.patch   |    0
- .../neon/{neon_0.29.3.bb => neon_0.29.5.bb}        |    0
- 2 files changed, 0 insertions(+), 0 deletions(-)
- rename meta/recipes-support/neon/{neon-0.29.3 => neon-0.29.5}/pkgconfig.patch (100%)
- rename meta/recipes-support/neon/{neon_0.29.3.bb => neon_0.29.5.bb} (100%)
+ .../{tremor_20100422.bb => tremor_20101027.bb}     |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+ rename meta/recipes-multimedia/tremor/{tremor_20100422.bb => tremor_20101027.bb} (88%)
 
-diff --git a/meta/recipes-support/neon/neon-0.29.3/pkgconfig.patch b/meta/recipes-support/neon/neon-0.29.5/pkgconfig.patch
-similarity index 100%
-rename from meta/recipes-support/neon/neon-0.29.3/pkgconfig.patch
-rename to meta/recipes-support/neon/neon-0.29.5/pkgconfig.patch
-diff --git a/meta/recipes-support/neon/neon_0.29.3.bb b/meta/recipes-support/neon/neon_0.29.5.bb
-similarity index 100%
-rename from meta/recipes-support/neon/neon_0.29.3.bb
-rename to meta/recipes-support/neon/neon_0.29.5.bb
+diff --git a/meta/recipes-multimedia/tremor/tremor_20100422.bb b/meta/recipes-multimedia/tremor/tremor_20101027.bb
+similarity index 88%
+rename from meta/recipes-multimedia/tremor/tremor_20100422.bb
+rename to meta/recipes-multimedia/tremor/tremor_20101027.bb
+index 5c66b2a..e5eab6c 100644
+--- a/meta/recipes-multimedia/tremor/tremor_20100422.bb
++++ b/meta/recipes-multimedia/tremor/tremor_20101027.bb
+@@ -8,7 +8,7 @@ DEPENDS = "libogg"
+ SRCDATE = "${PV}"
+ PR = "r0"
+ 
+-SRC_URI = "svn://svn.xiph.org/trunk;module=Tremor;rev=17157;proto=http"
++SRC_URI = "svn://svn.xiph.org/trunk;module=Tremor;rev=17572;proto=http"
+ 
+ S = "${WORKDIR}/Tremor"
+ 
 -- 
 1.6.3.3
 
