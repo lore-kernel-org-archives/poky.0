@@ -1,39 +1,19 @@
-Return-Path: <eballetbo@gmail.com>
-Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
-	by mx1.pokylinux.org (Postfix) with ESMTP id AC6794C80BD4
-	for <poky@lists.pokylinux.org>; Tue, 16 Nov 2010 10:21:26 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by pug.o-hand.com (Postfix)
-	id BCA5D12EC2F1; Tue, 16 Nov 2010 10:58:24 -0600 (CST)
-Received: from mail-qw0-f44.google.com (mail-qw0-f44.google.com
-	[209.85.216.44])
-	by pug.o-hand.com (Postfix) with ESMTP id 93AE812EC1C5
-	for <poky@o-hand.com>; Tue, 16 Nov 2010 10:58:24 -0600 (CST)
-Received: by qwd7 with SMTP id 7so719730qwd.3
-	for <poky@o-hand.com>; Tue, 16 Nov 2010 08:21:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:received:received:date:message-id
-	:subject:from:to:content-type;
-	bh=7mGX/2GNCtY7Ymnsln1dzpea08RZKNDubrcFF6kTvkI=;
-	b=IGQvXx8sxtvmE6Wd2rH66m73lJO1GuMQzGLkwoucIRuSPB86rHclO3gyNlIT4ceGmD
-	z5h8cms/Nb8M0DzQu1khzwWgEMU0TTBhxC3NdXa0cDmSoujT3iynu3OoUqGJjCNh5iri
-	xiOFn/tCjth064yqDpFPeJ+QTkKiVdhtLnoJ0=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:date:message-id:subject:from:to:content-type;
-	b=dcXgBRfBYgyjlaUQFkFMQOygjqpuGtMJnax0kX5FTNwSGmk/+nfs754Ltk0rd4YgOc
-	8Bw+gsXqYt30H0gSIeOWaD3m+DJ0Jg9gInCuUU2bbsiv6x2L1ewymZHnw2jc+N52juW+
-	+xl5kjX3f9ORyrGkVSEWtX9Qi6pcUY6JBcXFY=
-MIME-Version: 1.0
-Received: by 10.229.109.197 with SMTP id k5mr6569855qcp.14.1289924485400; Tue,
-	16 Nov 2010 08:21:25 -0800 (PST)
-Received: by 10.229.182.82 with HTTP; Tue, 16 Nov 2010 08:21:25 -0800 (PST)
-Date: Tue, 16 Nov 2010 17:21:25 +0100
-Message-ID: <AANLkTimMW5MSHuru4wFZeLTnkY8hELr+kuOC8BtOi=MJ@mail.gmail.com>
-From: =?UTF-8?Q?Enric_Balletb=C3=B2_i_Serra?= <eballetbo@gmail.com>
-To: poky@o-hand.com
-Subject: install and kernel directories in rootfs tarball
+Return-Path: <scott.a.garman@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8F40D4C80BD4
+	for <poky@yoctoproject.org>; Tue, 16 Nov 2010 16:59:48 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 16 Nov 2010 14:59:48 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.59,207,1288594800"; d="scan'208";a="858323768"
+Received: from unknown (HELO localhost) ([10.7.199.163])
+	by fmsmga001.fm.intel.com with ESMTP; 16 Nov 2010 14:59:48 -0800
+Message-Id: <cover.1289947396.git.scott.a.garman@intel.com>
+From: Scott Garman <scott.a.garman@intel.com>
+Date: Tue, 16 Nov 2010 14:43:16 -0800
+To: poky@yoctoproject.org
+CC: 
+Subject: [PATCH 0/1] busybox: Fix another make 3.82 issue
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -45,21 +25,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 16 Nov 2010 16:21:26 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Tue, 16 Nov 2010 22:59:48 -0000
 
-Hi,
+This fixes two "mixed implicit and normal rules" Makefile errors during
+do_configure, seen on Fedora 14 build hosts.
 
-After building a recent sato image using latest commits from git
-repositories, the rootfs contains current directories
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: sgarman/busybox-fix
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=sgarman/busybox-fix
 
-  $ ls
-  bin  boot  dev  etc  home  install  kernel  lib  media  mnt  proc
-sbin  sys  tmp  usr  var
+Thanks,
+    Scott Garman <scott.a.garman@intel.com>
+---
 
-Are the 'install' and 'kernel' included in rootfs for some reason or
-it's a bug ?
 
-Cheers,
-   Enric
+Scott Garman (1):
+  busybox: Fix another make 3.82 issue
+
+ .../busybox/busybox-1.16.2/make-382-fix2.patch     |   24 ++++++++++++++++++++
+ meta/recipes-core/busybox/busybox_1.16.2.bb        |    1 +
+ 2 files changed, 25 insertions(+), 0 deletions(-)
+ create mode 100644 meta/recipes-core/busybox/busybox-1.16.2/make-382-fix2.patch
+
+-- 
+1.7.3.2
+
 
