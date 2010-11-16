@@ -1,24 +1,24 @@
 Return-Path: <qing.he@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A06A34C80FD4
-	for <poky@yoctoproject.org>; Wed, 17 Nov 2010 02:47:05 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 17 Nov 2010 00:47:04 -0800
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 6CEFA4C81146
+	for <poky@yoctoproject.org>; Wed, 17 Nov 2010 02:47:18 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 17 Nov 2010 00:47:06 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,210,1288594800"; d="scan'208";a="858463526"
+X-IronPort-AV: E=Sophos;i="4.59,210,1288594800"; d="scan'208";a="349803969"
 Received: from qhe2-db.sh.intel.com ([10.239.13.109])
-	by fmsmga001.fm.intel.com with ESMTP; 17 Nov 2010 00:46:46 -0800
+	by azsmga001.ch.intel.com with ESMTP; 17 Nov 2010 00:46:46 -0800
 Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
-	(envelope-from <qing.he@intel.com>) id 1PIdah-0007ko-U6
+	(envelope-from <qing.he@intel.com>) id 1PIdah-0007l0-Vc
 	for poky@yoctoproject.org; Wed, 17 Nov 2010 16:42:07 +0800
-Message-Id: <7f3c8857e147f4ae1f7d4a026aef1f8b33d91653.1289983189.git.qing.he@intel.com>
+Message-Id: <da001ef98f848feb129c43457d1c784143fdec75.1289983189.git.qing.he@intel.com>
 In-Reply-To: <cover.1289983189.git.qing.he@intel.com>
 References: <cover.1289983189.git.qing.he@intel.com>
 From: Qing He <qing.he@intel.com>
-Date: Mon, 15 Nov 2010 17:16:56 +0800
+Date: Tue, 16 Nov 2010 13:32:31 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 1/9] libnl: upgrade to version 2.0
+Subject: [PATCH 3/9] syslinux: upgrade to version 4.03
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,82 +30,59 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 17 Nov 2010 08:47:05 -0000
+X-List-Received-Date: Wed, 17 Nov 2010 08:47:18 -0000
 
-from 1.1
-removed outdated patches
+from 3.86
+rebased the patch
 
 Signed-off-by: Qing He <qing.he@intel.com>
 ---
- meta/recipes-support/libnl/libnl/compilefix.patch  |   12 ------------
- .../libnl/libnl/local-includes.patch               |   11 -----------
- .../libnl/{libnl_1.1.bb => libnl_2.0.bb}           |   11 +++++------
- 3 files changed, 5 insertions(+), 29 deletions(-)
- delete mode 100644 meta/recipes-support/libnl/libnl/compilefix.patch
- delete mode 100644 meta/recipes-support/libnl/libnl/local-includes.patch
- rename meta/recipes-support/libnl/{libnl_1.1.bb => libnl_2.0.bb} (61%)
+ .../syslinux/files/cross-build.patch               |    7 ++++++-
+ .../{syslinux_3.86.bb => syslinux_4.03.bb}         |    2 +-
+ 2 files changed, 7 insertions(+), 2 deletions(-)
+ rename meta/recipes-devtools/syslinux/{syslinux_3.86.bb => syslinux_4.03.bb} (99%)
 
-diff --git a/meta/recipes-support/libnl/libnl/compilefix.patch b/meta/recipes-support/libnl/libnl/compilefix.patch
-deleted file mode 100644
-index f75ff28..0000000
---- a/meta/recipes-support/libnl/libnl/compilefix.patch
-+++ /dev/null
-@@ -1,12 +0,0 @@
--Index: libnl-1.1/include/netlink-local.h
--===================================================================
----- libnl-1.1.orig/include/netlink-local.h	2009-09-04 10:10:09.000000000 +0100
--+++ libnl-1.1/include/netlink-local.h	2009-09-04 10:10:15.000000000 +0100
--@@ -26,6 +26,7 @@
-- #include <sys/socket.h>
-- #include <inttypes.h>
-- #include <assert.h>
--+#include <limits.h>
-- 
-- #include <arpa/inet.h>
-- #include <netdb.h>
-diff --git a/meta/recipes-support/libnl/libnl/local-includes.patch b/meta/recipes-support/libnl/libnl/local-includes.patch
-deleted file mode 100644
-index 5af4630..0000000
---- a/meta/recipes-support/libnl/libnl/local-includes.patch
-+++ /dev/null
-@@ -1,11 +0,0 @@
----- libnl-1.0-pre6/Makefile.opts.in.orig	2006-08-24 14:57:42.000000000 +0200
--+++ libnl-1.0-pre6/Makefile.opts.in	2006-08-24 14:58:20.000000000 +0200
--@@ -10,7 +10,7 @@
-- #
-- 
-- CC               := @CC@
---CFLAGS           := @CFLAGS@
--+CFLAGS           := -I./include -I. -I../include @CFLAGS@
-- LDFLAGS          := @LDFLAGS@
-- CPPFLAGS         := @CPPFLAGS@
-- PACKAGE_NAME     := @PACKAGE_NAME@
-diff --git a/meta/recipes-support/libnl/libnl_1.1.bb b/meta/recipes-support/libnl/libnl_2.0.bb
-similarity index 61%
-rename from meta/recipes-support/libnl/libnl_1.1.bb
-rename to meta/recipes-support/libnl/libnl_2.0.bb
-index 683df91..fa96215 100644
---- a/meta/recipes-support/libnl/libnl_1.1.bb
-+++ b/meta/recipes-support/libnl/libnl_2.0.bb
-@@ -4,13 +4,12 @@ SECTION = "libs/network"
- PRIORITY = "optional"
+diff --git a/meta/recipes-devtools/syslinux/files/cross-build.patch b/meta/recipes-devtools/syslinux/files/cross-build.patch
+index c90c7af..8115629 100644
+--- a/meta/recipes-devtools/syslinux/files/cross-build.patch
++++ b/meta/recipes-devtools/syslinux/files/cross-build.patch
+@@ -10,6 +10,10 @@ also AUXDIR stays in $(LIBDIR)/syslinux rather than $(DATADIR)/syslinux
  
- LICENSE = "LGPLv2.1"
--LIC_FILES_CHKSUM = "file://COPYING;md5=2b41e13261a330ee784153ecbb6a82bc \
--                    file://src/utils.c;beginline=4;endline=9;md5=6e99dfba5cfd64e92b4eb2c7b31e5e4e"
-+LIC_FILES_CHKSUM = "file://COPYING;md5=2b41e13261a330ee784153ecbb6a82bc"
+ 07/08/2010 - qhe
  
++updated for 4.03
++
++11/16/2010 - Qing He <qing.he@intel.com>
++
+ ---
+ diff --git a/MCONFIG b/MCONFIG
+ index e9c16d3..4d49f33 100644
+@@ -43,7 +47,8 @@ index e9c16d3..4d49f33 100644
+ -CC	 = gcc
+ +CC	 ?= gcc
+  gcc_ok   = $(shell tmpf=gcc_ok.$$$$.tmp; \
+- 		   if $(CC) $(1) -c $(topdir)/dummy.c -o $$tmpf 2>/dev/null ; \
++ 		   if $(CC) $(GCCOPT) $(1) -c $(topdir)/dummy.c \
++ 			-o $$tmpf 2>/dev/null ; \
+  		   then echo '$(1)'; else echo '$(2)'; fi; \
+  		   rm -f $$tmpf)
+  
+diff --git a/meta/recipes-devtools/syslinux/syslinux_3.86.bb b/meta/recipes-devtools/syslinux/syslinux_4.03.bb
+similarity index 99%
+rename from meta/recipes-devtools/syslinux/syslinux_3.86.bb
+rename to meta/recipes-devtools/syslinux/syslinux_4.03.bb
+index 42295b5..74e3f60 100644
+--- a/meta/recipes-devtools/syslinux/syslinux_3.86.bb
++++ b/meta/recipes-devtools/syslinux/syslinux_4.03.bb
+@@ -7,7 +7,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=0636e73ff0215e8d672dc4c32c317bb3 \
+ # If you really want to run syslinux, you need mtools.  We just want the
+ # ldlinux.* stuff for now, so skip mtools-native
+ DEPENDS = "nasm-native"
 -PR = "r1"
 +PR = "r0"
  
--SRC_URI= "http://www.infradead.org/~tgr/libnl/files/${PN}-${PV}.tar.gz \
--          file://local-includes.patch;apply=yes \
--          file://compilefix.patch;apply=yes"
-+SRC_URI= "http://www.infradead.org/~tgr/libnl/files/${PN}-${PV}.tar.gz"
- 
- inherit autotools pkgconfig
-+
-+LEAD_SONAME = "libnl.so"
+ SRC_URI = "${KERNELORG_MIRROR}/pub/linux/utils/boot/syslinux/syslinux-${PV}.tar.bz2 \
+            file://cross-build.patch"
 -- 
 1.7.0
 
