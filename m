@@ -1,28 +1,19 @@
 Return-Path: <scott.a.garman@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E4DF34C803A5
-	for <poky@yoctoproject.org>; Wed, 17 Nov 2010 17:17:44 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 17 Nov 2010 15:17:44 -0800
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 818144C80B71
+	for <poky@yoctoproject.org>; Wed, 17 Nov 2010 17:29:10 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 17 Nov 2010 15:29:10 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,213,1288594800"; d="scan'208";a="350124968"
-Received: from rrsmsx603.amr.corp.intel.com ([10.31.0.57])
-	by azsmga001.ch.intel.com with ESMTP; 17 Nov 2010 15:17:44 -0800
-Received: from [10.7.199.73] (10.7.199.73) by rrsmsx603.amr.corp.intel.com
-	(10.31.0.57) with Microsoft SMTP Server (TLS) id 8.2.254.0;
-	Wed, 17 Nov 2010 16:17:43 -0700
-Message-ID: <4CE46244.40404@intel.com>
-Date: Wed, 17 Nov 2010 15:16:20 -0800
+X-IronPort-AV: E=Sophos;i="4.59,213,1288594800"; d="scan'208";a="858737537"
+Received: from sgarman-ws.jf.intel.com (HELO localhost) ([10.7.199.73])
+	by fmsmga001.fm.intel.com with ESMTP; 17 Nov 2010 15:29:10 -0800
+Message-Id: <cover.1290036267.git.scott.a.garman@intel.com>
 From: Scott Garman <scott.a.garman@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.12) Gecko/20101103 Fedora/1.0-0.33.b2pre.fc14
-	Lightning/1.0b3pre Thunderbird/3.1.6
-MIME-Version: 1.0
-To: <poky@yoctoproject.org>
-References: <cover.1289983189.git.qing.he@intel.com>
-	<368bc202ae4626cbae23c63f1e1daf0514c29a63.1289983189.git.qing.he@intel.com>
-In-Reply-To: <368bc202ae4626cbae23c63f1e1daf0514c29a63.1289983189.git.qing.he@intel.com>
-Subject: Re: [PATCH 4/9] busybox: upgrade to version 1.17.3
+Date: Wed, 17 Nov 2010 15:24:27 -0800
+To: poky@yoctoproject.org
+CC: 
+Subject: [PATCH 0/2] tar: upgrade to version 1.25
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,20 +25,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 17 Nov 2010 23:17:45 -0000
-Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 17 Nov 2010 23:29:10 -0000
 
-On 11/16/2010 06:51 PM, Qing He wrote:
-> from 1.16.2
-> update license info: add checksum and change gplv2+ to gplv2
+Saul,
 
-This upgrade makes my previous make 3.82 pull request obsolete, as this
-version of busybox builds fine on my Fedora 14 system.
+This pull request includes a trivial upgrade to the tar recipe and
+fixes some errors in the openssh distro tracking information.
 
-Scott
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: sgarman/tar-upgrade
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=sgarman/tar-upgrade
+
+Thanks,
+    Scott Garman <scott.a.garman@intel.com>
+---
+
+
+Scott Garman (2):
+  tar: upgrade to version 1.25
+  distro_tracking_fields.inc: update tar and openssh
+
+ .../conf/distro/include/distro_tracking_fields.inc |   15 ++++++++-------
+ meta/recipes-extended/tar/tar_1.23.bb              |    9 ---------
+ meta/recipes-extended/tar/tar_1.25.bb              |    9 +++++++++
+ 3 files changed, 17 insertions(+), 16 deletions(-)
+ delete mode 100644 meta/recipes-extended/tar/tar_1.23.bb
+ create mode 100644 meta/recipes-extended/tar/tar_1.25.bb
 
 -- 
-Scott Garman
-Embedded Linux Distro Engineer - Yocto Project
+1.7.3.2
+
 
