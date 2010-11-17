@@ -1,25 +1,21 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E69154C80A74
-	for <poky@lists.pokylinux.org>; Wed, 17 Nov 2010 08:28:34 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 47FA21660736; Wed, 17 Nov 2010 07:28:33 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=ham version=3.3.1
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 7664416606ED;
-	Wed, 17 Nov 2010 07:28:32 -0700 (MST)
-Message-ID: <4CE3E68F.7070506@mlbassoc.com>
-Date: Wed, 17 Nov 2010 07:28:31 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.12) Gecko/20101027 Fedora/3.1.6-1.fc13 Thunderbird/3.1.6
-MIME-Version: 1.0
-To: Poky <poky@lists.pokylinux.org>
-Subject: Change in bitbake rules or processing?
+Return-Path: <josh@openedhand.com>
+Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 784F54C80A74
+	for <poky@yoctoproject.org>; Wed, 17 Nov 2010 08:28:54 -0600 (CST)
+Received: from [10.250.128.97] (unknown [158.43.2.102])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by pug.o-hand.com (Postfix) with ESMTP id 0F98812EC1CD
+	for <poky@yoctoproject.org>; Wed, 17 Nov 2010 09:05:54 -0600 (CST)
+From: Joshua Lock <josh@openedhand.com>
+To: poky@yoctoproject.org
+In-Reply-To: <625BA99ED14B2D499DC4E29D8138F1504D31419AED@shsmsx502.ccr.corp.intel.com>
+References: <625BA99ED14B2D499DC4E29D8138F1504D31419AED@shsmsx502.ccr.corp.intel.com>
+Date: Wed, 17 Nov 2010 14:28:43 +0000
+Message-ID: <1290004124.2518.4.camel@scimitar>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.0 (2.32.0-2.fc14) 
+Subject: Re: a new problem with sstate
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,28 +27,45 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 17 Nov 2010 14:28:35 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Wed, 17 Nov 2010 14:28:54 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-I had a recipe (.bbappend file) which added something like this:
-   SRC_URI_powerpc =+ "file://my.patch "
+On Wed, 2010-11-17 at 21:21 +0800, Tian, Kevin wrote:
+> When looking into the problem why some prebuilts can't be reused, I've struggled with
+> another issue these days. It's more severe because the 2nd build can't even succeed
+> when prebuilt is used.
+> 
+> The failure happened randomly on eglibc, eglibc-initial, and gcc-runtime. The error log
+> shows that either gcc libraries or eglibc headers are not correctly installed when building
+> those recipes. This first led me to think about potential dependency problem among 
+> those recipes. However this only happens when prebuilt is used. A fresh build just 
+> succeeds.
+> 
+> Finally it turns out from two factors:
+> 
+> 	o sstate.bbclass has special handling about -initial and -intermediate recipes. If 
+> a complete (e.g. gcc-cross or eglibc) setscene function has been invoked already, 
+> installation for those special sstate packages is skipped, while still marked as 
+> accelerate-able
 
-This fails when trying to build with today's master.  I had to
-change it to this:
-   SRC_URI_append = "file://my.patch "
+The special casing in the sstate class was added to work around the fact
+that the toolchain bootstrap overwrites some pieces of the sysroot
+(bug#239).
 
-I also cannot have the "powerpc" override or else it doesn't work.
+http://bugzilla.yoctoproject.org/show_bug.cgi?id=239
 
-* Has this behaviour changed?
-* Should it not work, or was I just lucky before?
-* How can I get the machine/architecture override back in there?
+If this is still not working is there anything stopping us from
+expanding the workaround Richard started in
+ecf2eb1efa145d5c8f350697ec605ea58beb9ba7 as a temporary fix until bug
+239 is fixed?
 
-Thanks
+http://git.yoctoproject.org/cgit/cgit.cgi/poky/commit/?id=ecf2eb1efa145d5c8f350697ec605ea58beb9ba7
 
+Cheers,
+Joshua
 -- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+Joshua Lock
+        Intel Open Source Technology Centre
+
 
