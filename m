@@ -1,21 +1,21 @@
 Return-Path: <scott.a.garman@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 989744C80FA7
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id F19B54C80FA7
 	for <poky@yoctoproject.org>; Wed, 17 Nov 2010 17:29:10 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 17 Nov 2010 15:29:10 -0800
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 17 Nov 2010 15:29:10 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,213,1288594800"; d="scan'208";a="627844803"
+X-IronPort-AV: E=Sophos;i="4.59,213,1288594800"; d="scan'208";a="350129258"
 Received: from sgarman-ws.jf.intel.com (HELO localhost) ([10.7.199.73])
-	by fmsmga002.fm.intel.com with ESMTP; 17 Nov 2010 15:29:10 -0800
-Message-Id: <d0e9bf11695cdb77a6736a050d8054b2ab788869.1290036267.git.scott.a.garman@intel.com>
+	by azsmga001.ch.intel.com with ESMTP; 17 Nov 2010 15:29:10 -0800
+Message-Id: <0f7f0b88445d48778b5a38aefae327fb155540a7.1290036267.git.scott.a.garman@intel.com>
 In-Reply-To: <cover.1290036267.git.scott.a.garman@intel.com>
 References: <cover.1290036267.git.scott.a.garman@intel.com>
 From: Scott Garman <scott.a.garman@intel.com>
-Date: Wed, 17 Nov 2010 13:44:15 -0800
+Date: Wed, 17 Nov 2010 13:53:40 -0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 1/2] tar: upgrade to version 1.25
+Subject: [PATCH 2/2] distro_tracking_fields.inc: update tar and openssh
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,46 +27,50 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 17 Nov 2010 23:29:10 -0000
+X-List-Received-Date: Wed, 17 Nov 2010 23:29:11 -0000
+
+Updated to include recent tar upgrade.
+Also fixes inaccurate info in openssh.
 
 Signed-off-by: Scott Garman <scott.a.garman@intel.com>
 ---
- meta/recipes-extended/tar/tar_1.23.bb |    9 ---------
- meta/recipes-extended/tar/tar_1.25.bb |    9 +++++++++
- 2 files changed, 9 insertions(+), 9 deletions(-)
- delete mode 100644 meta/recipes-extended/tar/tar_1.23.bb
- create mode 100644 meta/recipes-extended/tar/tar_1.25.bb
+ .../conf/distro/include/distro_tracking_fields.inc |   15 ++++++++-------
+ 1 files changed, 8 insertions(+), 7 deletions(-)
 
-diff --git a/meta/recipes-extended/tar/tar_1.23.bb b/meta/recipes-extended/tar/tar_1.23.bb
-deleted file mode 100644
-index 093c0b4..0000000
---- a/meta/recipes-extended/tar/tar_1.23.bb
-+++ /dev/null
-@@ -1,9 +0,0 @@
--require tar.inc
--
--LICENSE = "GPLv3"
--LIC_FILES_CHKSUM = "file://COPYING;md5=f27defe1e96c2e1ecd4e0c9be8967949"
--
--PR = "r0"
--
--SRC_URI[md5sum] = "41e2ca4b924ec7860e51b43ad06cdb7e"
--SRC_URI[sha256sum] = "c9328372db62fbb1d94c9e4e3cefc961111af46de47085b635359c00a0eebe36"
-diff --git a/meta/recipes-extended/tar/tar_1.25.bb b/meta/recipes-extended/tar/tar_1.25.bb
-new file mode 100644
-index 0000000..cdb6f54
---- /dev/null
-+++ b/meta/recipes-extended/tar/tar_1.25.bb
-@@ -0,0 +1,9 @@
-+require tar.inc
+diff --git a/meta/conf/distro/include/distro_tracking_fields.inc b/meta/conf/distro/include/distro_tracking_fields.inc
+index 372297a..09bdd6e 100644
+--- a/meta/conf/distro/include/distro_tracking_fields.inc
++++ b/meta/conf/distro/include/distro_tracking_fields.inc
+@@ -1942,21 +1942,22 @@ RECIPE_MAINTAINER_pn-grep = "Scott Garman <scott.a.garman@intel.com>"
+ 
+ RECIPE_STATUS_pn-openssh = "red" 
+ DEPENDENCY_CHECK_pn-openssh = "not done"
+-RECIPE_LATEST_VERSION_pn-openssh = "5.5p1"
++RECIPE_LATEST_VERSION_pn-openssh = "5.6p1"
+ RECIPE_INTEL_SECTION_pn-openssh = "base"
+-RECIPE_NO_OF_PATCHES_pn-openssh = "0"
+-RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-openssh = "1 month"
+-RECIPE_LATEST_RELEASE_DATE_pn-openssh = "04/2010"
++RECIPE_NO_OF_PATCHES_pn-openssh = "1"
++RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-openssh = "4 months"
++RECIPE_LATEST_RELEASE_DATE_pn-openssh = "08/2010"
+ RECIPE_MAINTAINER_pn-openssh = "Scott Garman <scott.a.garman@intel.com>"
+ 
+ RECIPE_STATUS_pn-tar = "green" 
+ DEPENDENCY_CHECK_pn-tar = "not done"
+-RECIPE_LATEST_VERSION_pn-tar = "1.23"
++RECIPE_LATEST_VERSION_pn-tar = "1.25"
+ RECIPE_INTEL_SECTION_pn-tar = "base"
+ RECIPE_NO_OF_PATCHES_pn-tar = "2"
+-RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-tar = "12 months"
+-RECIPE_LATEST_RELEASE_DATE_pn-tar = "03/2010"
++RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-tar = "2 weeks"
++RECIPE_LATEST_RELEASE_DATE_pn-tar = "11/2010"
+ RECIPE_MAINTAINER_pn-tar = "Scott Garman <scott.a.garman@intel.com>"
 +
-+LICENSE = "GPLv3"
-+LIC_FILES_CHKSUM = "file://COPYING;md5=d32239bcb673463ab874e80d47fae504"
-+
-+PR = "r0"
-+
-+SRC_URI[md5sum] = "6e497f861c77bbba2f7da4e10270995b"
-+SRC_URI[sha256sum] = "f3f6ce41b8e0f327abd05c95990f113ddafbae131e10f79a99728ed46458494b"
+ RECIPE_STATUS_pn-lrzsz="yellow" # patch investigation needed.
+ RECIPE_LATEST_VERSION_pn-lrzsz="0.12.20"
+ RECIPE_NO_OF_PATCHES_pn-lrzsz="3"
 -- 
 1.7.3.2
 
