@@ -1,21 +1,22 @@
-Return-Path: <scott.a.garman@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id F19B54C80FA7
-	for <poky@yoctoproject.org>; Wed, 17 Nov 2010 17:29:10 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 17 Nov 2010 15:29:10 -0800
+Return-Path: <edwin.zhai@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 85BB54C80A74
+	for <poky@pokylinux.org>; Wed, 17 Nov 2010 17:45:36 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 17 Nov 2010 15:45:36 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,213,1288594800"; d="scan'208";a="350129258"
-Received: from sgarman-ws.jf.intel.com (HELO localhost) ([10.7.199.73])
-	by azsmga001.ch.intel.com with ESMTP; 17 Nov 2010 15:29:10 -0800
-Message-Id: <0f7f0b88445d48778b5a38aefae327fb155540a7.1290036267.git.scott.a.garman@intel.com>
-In-Reply-To: <cover.1290036267.git.scott.a.garman@intel.com>
-References: <cover.1290036267.git.scott.a.garman@intel.com>
-From: Scott Garman <scott.a.garman@intel.com>
-Date: Wed, 17 Nov 2010 13:53:40 -0800
-To: poky@yoctoproject.org
-CC: 
-Subject: [PATCH 2/2] distro_tracking_fields.inc: update tar and openssh
+X-IronPort-AV: E=Sophos;i="4.59,213,1288594800"; d="scan'208";a="627848686"
+Received: from shxpwgzhai1a.ccr.corp.intel.com (HELO [10.239.48.130])
+	([10.239.48.130])
+	by fmsmga002.fm.intel.com with ESMTP; 17 Nov 2010 15:45:30 -0800
+Message-ID: <4CE4693D.9040303@intel.com>
+Date: Thu, 18 Nov 2010 07:46:05 +0800
+From: "Zhai, Edwin" <edwin.zhai@intel.com>
+User-Agent: Thunderbird 2.0.0.17 (Windows/20080914)
+MIME-Version: 1.0
+To: "Wold, Saul" <saul.wold@intel.com>, 
+	"poky@pokylinux.org" <poky@pokylinux.org>
+Subject: [PULL] X apps and UX update
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,51 +28,85 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 17 Nov 2010 23:29:11 -0000
+X-List-Received-Date: Wed, 17 Nov 2010 23:45:36 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Updated to include recent tar upgrade.
-Also fixes inaccurate info in openssh.
+Saul,
+These are simple updates for some X apps and UX. Pls. review and pull.
 
-Signed-off-by: Scott Garman <scott.a.garman@intel.com>
----
- .../conf/distro/include/distro_tracking_fields.inc |   15 ++++++++-------
- 1 files changed, 8 insertions(+), 7 deletions(-)
 
-diff --git a/meta/conf/distro/include/distro_tracking_fields.inc b/meta/conf/distro/include/distro_tracking_fields.inc
-index 372297a..09bdd6e 100644
---- a/meta/conf/distro/include/distro_tracking_fields.inc
-+++ b/meta/conf/distro/include/distro_tracking_fields.inc
-@@ -1942,21 +1942,22 @@ RECIPE_MAINTAINER_pn-grep = "Scott Garman <scott.a.garman@intel.com>"
- 
- RECIPE_STATUS_pn-openssh = "red" 
- DEPENDENCY_CHECK_pn-openssh = "not done"
--RECIPE_LATEST_VERSION_pn-openssh = "5.5p1"
-+RECIPE_LATEST_VERSION_pn-openssh = "5.6p1"
- RECIPE_INTEL_SECTION_pn-openssh = "base"
--RECIPE_NO_OF_PATCHES_pn-openssh = "0"
--RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-openssh = "1 month"
--RECIPE_LATEST_RELEASE_DATE_pn-openssh = "04/2010"
-+RECIPE_NO_OF_PATCHES_pn-openssh = "1"
-+RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-openssh = "4 months"
-+RECIPE_LATEST_RELEASE_DATE_pn-openssh = "08/2010"
- RECIPE_MAINTAINER_pn-openssh = "Scott Garman <scott.a.garman@intel.com>"
- 
- RECIPE_STATUS_pn-tar = "green" 
- DEPENDENCY_CHECK_pn-tar = "not done"
--RECIPE_LATEST_VERSION_pn-tar = "1.23"
-+RECIPE_LATEST_VERSION_pn-tar = "1.25"
- RECIPE_INTEL_SECTION_pn-tar = "base"
- RECIPE_NO_OF_PATCHES_pn-tar = "2"
--RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-tar = "12 months"
--RECIPE_LATEST_RELEASE_DATE_pn-tar = "03/2010"
-+RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-tar = "2 weeks"
-+RECIPE_LATEST_RELEASE_DATE_pn-tar = "11/2010"
- RECIPE_MAINTAINER_pn-tar = "Scott Garman <scott.a.garman@intel.com>"
-+
- RECIPE_STATUS_pn-lrzsz="yellow" # patch investigation needed.
- RECIPE_LATEST_VERSION_pn-lrzsz="0.12.20"
- RECIPE_NO_OF_PATCHES_pn-lrzsz="3"
--- 
-1.7.3.2
+================================================================================
+
+Note: <commit_id> parameter assumed as 'HEAD'
+
+ meta/conf/distro/include/poky-default-revisions.inc                  
+|    2
+ meta/recipes-connectivity/avahi/avahi_0.6.27.bb                      
+|   16 ---
+ meta/recipes-connectivity/avahi/avahi_0.6.28.bb                      
+|   16 +++
+ meta/recipes-extended/ed/ed-1.4/ed-1.2-build.patch                   
+|   43 --------
+ meta/recipes-extended/ed/ed-1.5/ed-1.2-build.patch                   
+|   43 ++++++++
+ meta/recipes-extended/ed/ed_1.4.bb                                   
+|   22 ----
+ meta/recipes-extended/ed/ed_1.5.bb                                   
+|   22 ++++
+ meta/recipes-extended/libuser/libuser-0.56.16/disable-sgml-doc.patch 
+|   18 ---
+ meta/recipes-extended/libuser/libuser-0.56.18/disable-sgml-doc.patch 
+|   18 +++
+ meta/recipes-extended/libuser/libuser_0.56.16.bb                     
+|   20 ---
+ meta/recipes-extended/libuser/libuser_0.56.18.bb                     
+|   20 +++
+ meta/recipes-extended/xz/xz_4.999.9beta.bb                           
+|   20 ---
+ meta/recipes-extended/xz/xz_5.0.0.bb                                 
+|   20 +++
+ meta/recipes-sato/pimlico/tasks_0.16.bb                              
+|   14 --
+ meta/recipes-sato/pimlico/tasks_0.18.bb                              
+|   14 ++
+ meta/recipes-support/atk/atk_1.30.0.bb                               
+|   10 -
+ meta/recipes-support/atk/atk_1.32.0.bb                               
+|   10 +
+ meta/recipes-support/libassuan/libassuan_2.0.0.bb                    
+|   15 --
+ meta/recipes-support/libassuan/libassuan_2.0.1.bb                    
+|   15 ++
+ meta/recipes-support/libgpg-error/libgpg-error-1.8/pkgconfig.patch   
+|   53 ----------
+ meta/recipes-support/libgpg-error/libgpg-error-1.9/pkgconfig.patch   
+|   53 ++++++++++
+ meta/recipes-support/libgpg-error/libgpg-error_1.8.bb                
+|   24 ----
+ meta/recipes-support/libgpg-error/libgpg-error_1.9.bb                
+|   24 ++++
+ meta/recipes-support/libsoup/libsoup-2.4_2.31.2.bb                   
+|   17 ---
+ meta/recipes-support/libsoup/libsoup-2.4_2.32.1.bb                   
+|   17 +++
+ 25 files changed, 273 insertions(+), 273 deletions(-)
+
+Zhai Edwin (10):
+      libgpg-error: Update to 1.9
+      libassuan: Update to 2.0.1
+      libuser: Update to 0.56.18
+      xz: Update to 5.0.0
+      ed: Update to 1.5
+      avahi: Update to 0.6.28
+      libowl-av: Update to svn r416
+      tasks: Update to 0.18
+      atk: Update to 1.32.0
+      libsoup-2.4: Update to 2.32.1
+
+Pull URL: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=gzhai/distro
+
+Thanks,
+edwin
 
 
