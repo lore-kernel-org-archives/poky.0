@@ -1,24 +1,24 @@
 Return-Path: <qing.he@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5F06D4C80BD4
-	for <poky@yoctoproject.org>; Wed, 17 Nov 2010 02:41:15 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 17 Nov 2010 00:41:14 -0800
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id EA6104C80FAC
+	for <poky@yoctoproject.org>; Wed, 17 Nov 2010 02:46:46 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 17 Nov 2010 00:46:46 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,210,1288594800"; d="scan'208";a="349802476"
+X-IronPort-AV: E=Sophos;i="4.59,210,1288594800"; d="scan'208";a="627604023"
 Received: from qhe2-db.sh.intel.com ([10.239.13.109])
-	by azsmga001.ch.intel.com with ESMTP; 17 Nov 2010 00:41:14 -0800
+	by fmsmga002.fm.intel.com with ESMTP; 17 Nov 2010 00:46:46 -0800
 Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
-	(envelope-from <qing.he@intel.com>) id 1PIdVM-0007gF-3n
-	for poky@yoctoproject.org; Wed, 17 Nov 2010 16:36:36 +0800
-Message-Id: <a03c4017a13bda3f20b8f39a4c099cb28f349968.1289982751.git.qing.he@intel.com>
-In-Reply-To: <cover.1289982751.git.qing.he@intel.com>
-References: <cover.1289982751.git.qing.he@intel.com>
+	(envelope-from <qing.he@intel.com>) id 1PIdai-0007lO-1F
+	for poky@yoctoproject.org; Wed, 17 Nov 2010 16:42:08 +0800
+Message-Id: <636187635942b70a5891f308157844ed1e18ebbe.1289983189.git.qing.he@intel.com>
+In-Reply-To: <cover.1289983189.git.qing.he@intel.com>
+References: <cover.1289983189.git.qing.he@intel.com>
 From: Qing He <qing.he@intel.com>
-Date: Wed, 17 Nov 2010 16:26:58 +0800
+Date: Wed, 17 Nov 2010 13:55:14 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 1/1] curl: fix native dependency
+Subject: [PATCH 7/9] dhcp: upgrade to version 4.2.0
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,48 +30,61 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 17 Nov 2010 08:41:15 -0000
+X-List-Received-Date: Wed, 17 Nov 2010 08:46:47 -0000
 
-disable gnutls for -native
-also fix --with-gnutls parameter for target
+from 4.1.1-P1
 
 Signed-off-by: Qing He <qing.he@intel.com>
 ---
- meta/recipes-support/curl/curl_7.21.2.bb |    7 +++++--
- 1 files changed, 5 insertions(+), 2 deletions(-)
+ .../dhcp-3.0.3-dhclient-dbus.patch                 |    0
+ .../fix-client-path.patch                          |    0
+ .../fixincludes.patch                              |    0
+ .../{dhcp-4.1.1-P1 => dhcp-4.2.0}/noattrmode.patch |    0
+ .../dhcp/{dhcp-4.1.1-P1 => dhcp-4.2.0}/site.h      |    0
+ .../dhcp/{dhcp_4.1.1-P1.bb => dhcp_4.2.0.bb}       |    2 +-
+ 6 files changed, 1 insertions(+), 1 deletions(-)
+ rename meta/recipes-connectivity/dhcp/{dhcp-4.1.1-P1 => dhcp-4.2.0}/dhcp-3.0.3-dhclient-dbus.patch (100%)
+ rename meta/recipes-connectivity/dhcp/{dhcp-4.1.1-P1 => dhcp-4.2.0}/fix-client-path.patch (100%)
+ rename meta/recipes-connectivity/dhcp/{dhcp-4.1.1-P1 => dhcp-4.2.0}/fixincludes.patch (100%)
+ rename meta/recipes-connectivity/dhcp/{dhcp-4.1.1-P1 => dhcp-4.2.0}/noattrmode.patch (100%)
+ rename meta/recipes-connectivity/dhcp/{dhcp-4.1.1-P1 => dhcp-4.2.0}/site.h (100%)
+ rename meta/recipes-connectivity/dhcp/{dhcp_4.1.1-P1.bb => dhcp_4.2.0.bb} (94%)
 
-diff --git a/meta/recipes-support/curl/curl_7.21.2.bb b/meta/recipes-support/curl/curl_7.21.2.bb
-index 1e11222..fd1d5dd 100644
---- a/meta/recipes-support/curl/curl_7.21.2.bb
-+++ b/meta/recipes-support/curl/curl_7.21.2.bb
-@@ -8,7 +8,7 @@ LIC_FILES_CHKSUM = "file://COPYING;beginline=7;md5=3a34942f4ae3fbf1a303160714e66
- DEPENDS = "zlib gnutls"
- DEPENDS_virtclass-native = "zlib-native"
- DEPENDS_virtclass-nativesdk = "zlib-nativesdk"
--PR = "r0"
-+PR = "r1"
+diff --git a/meta/recipes-connectivity/dhcp/dhcp-4.1.1-P1/dhcp-3.0.3-dhclient-dbus.patch b/meta/recipes-connectivity/dhcp/dhcp-4.2.0/dhcp-3.0.3-dhclient-dbus.patch
+similarity index 100%
+rename from meta/recipes-connectivity/dhcp/dhcp-4.1.1-P1/dhcp-3.0.3-dhclient-dbus.patch
+rename to meta/recipes-connectivity/dhcp/dhcp-4.2.0/dhcp-3.0.3-dhclient-dbus.patch
+diff --git a/meta/recipes-connectivity/dhcp/dhcp-4.1.1-P1/fix-client-path.patch b/meta/recipes-connectivity/dhcp/dhcp-4.2.0/fix-client-path.patch
+similarity index 100%
+rename from meta/recipes-connectivity/dhcp/dhcp-4.1.1-P1/fix-client-path.patch
+rename to meta/recipes-connectivity/dhcp/dhcp-4.2.0/fix-client-path.patch
+diff --git a/meta/recipes-connectivity/dhcp/dhcp-4.1.1-P1/fixincludes.patch b/meta/recipes-connectivity/dhcp/dhcp-4.2.0/fixincludes.patch
+similarity index 100%
+rename from meta/recipes-connectivity/dhcp/dhcp-4.1.1-P1/fixincludes.patch
+rename to meta/recipes-connectivity/dhcp/dhcp-4.2.0/fixincludes.patch
+diff --git a/meta/recipes-connectivity/dhcp/dhcp-4.1.1-P1/noattrmode.patch b/meta/recipes-connectivity/dhcp/dhcp-4.2.0/noattrmode.patch
+similarity index 100%
+rename from meta/recipes-connectivity/dhcp/dhcp-4.1.1-P1/noattrmode.patch
+rename to meta/recipes-connectivity/dhcp/dhcp-4.2.0/noattrmode.patch
+diff --git a/meta/recipes-connectivity/dhcp/dhcp-4.1.1-P1/site.h b/meta/recipes-connectivity/dhcp/dhcp-4.2.0/site.h
+similarity index 100%
+rename from meta/recipes-connectivity/dhcp/dhcp-4.1.1-P1/site.h
+rename to meta/recipes-connectivity/dhcp/dhcp-4.2.0/site.h
+diff --git a/meta/recipes-connectivity/dhcp/dhcp_4.1.1-P1.bb b/meta/recipes-connectivity/dhcp/dhcp_4.2.0.bb
+similarity index 94%
+rename from meta/recipes-connectivity/dhcp/dhcp_4.1.1-P1.bb
+rename to meta/recipes-connectivity/dhcp/dhcp_4.2.0.bb
+index e9759de..3f770d9 100644
+--- a/meta/recipes-connectivity/dhcp/dhcp_4.1.1-P1.bb
++++ b/meta/recipes-connectivity/dhcp/dhcp_4.2.0.bb
+@@ -1,6 +1,6 @@
+ require dhcp4.inc
  
- SRC_URI = "http://curl.haxx.se/download/curl-${PV}.tar.bz2 \
-            file://noldlibpath.patch \
-@@ -17,7 +17,6 @@ SRC_URI = "http://curl.haxx.se/download/curl-${PV}.tar.bz2 \
- inherit autotools pkgconfig binconfig
+-PR = "r1"
++PR = "r0"
  
- EXTRA_OECONF = "--with-zlib=${STAGING_LIBDIR}/../ \
--                --with-gnutls=${STAGING_BINDIR_CROSS}/ \
-                 --without-ssl \
-                 --without-libssh2 \
- 		--with-random=/dev/urandom \
-@@ -25,6 +24,10 @@ EXTRA_OECONF = "--with-zlib=${STAGING_LIBDIR}/../ \
- 		--enable-crypto-auth \
- 		"
- 
-+EXTRA_OECONF_append = " --with-gnutls=${STAGING_LIBDIR}/../"
-+EXTRA_OECONF_virtclass-native_append = " --without-gnutls"
-+EXTRA_OECONF_virtclass-nativesdk_append = " --without-gnutls"
-+
- do_configure_prepend() {
- 	sed -i s:OPT_GNUTLS/bin:OPT_GNUTLS:g configure.ac
- }
+ SRC_URI += "file://fixincludes.patch \
+             file://dhcp-3.0.3-dhclient-dbus.patch;striplevel=0 \
 -- 
 1.7.0
 
