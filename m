@@ -1,19 +1,21 @@
 Return-Path: <dongxiao.xu@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E62C04C80A74
-	for <poky@yoctoproject.org>; Thu, 18 Nov 2010 08:48:29 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 18 Nov 2010 06:48:29 -0800
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 3E1E64C80B71
+	for <poky@yoctoproject.org>; Thu, 18 Nov 2010 08:48:31 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 18 Nov 2010 06:48:30 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,217,1288594800"; d="scan'208";a="678754589"
+X-IronPort-AV: E=Sophos;i="4.59,217,1288594800"; d="scan'208";a="575119260"
 Received: from gw-vmm.sh.intel.com (HELO localhost) ([10.239.48.110])
-	by orsmga001.jf.intel.com with ESMTP; 18 Nov 2010 06:48:28 -0800
-Message-Id: <cover.1290091759.git.dongxiao.xu@intel.com>
+	by orsmga002.jf.intel.com with ESMTP; 18 Nov 2010 06:48:30 -0800
+Message-Id: <a15a9776e961a709701d4f6c51ab899d14984890.1290091760.git.dongxiao.xu@intel.com>
+In-Reply-To: <cover.1290091759.git.dongxiao.xu@intel.com>
+References: <cover.1290091759.git.dongxiao.xu@intel.com>
 From: Dongxiao Xu <dongxiao.xu@intel.com>
-Date: Thu, 18 Nov 2010 22:49:19 +0800
+Date: Thu, 18 Nov 2010 12:34:24 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 0/7] Base lib/utils upgrade, Dongxiao, 2010/11/18
+Subject: [PATCH 1/7] pm-utils: Upgrade to version 1.4.1
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -25,90 +27,71 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 18 Nov 2010 14:48:30 -0000
+X-List-Received-Date: Thu, 18 Nov 2010 14:48:31 -0000
 
-Hi Saul,
+Also fixed its metadata.
 
-Here are some base lib/utils recipe upgrade, please help to review and pull.
-
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: dxu4/distro
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dxu4/distro
-
-Thanks,
-    Dongxiao Xu <dongxiao.xu@intel.com>
+Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
 ---
-
-
-Dongxiao Xu (7):
-  pm-utils: Upgrade to version 1.4.1
-  netbase: Upgrade to version 4.43
-  mtd-utils: Upgrade to version 1.4.1
-  msynctool: Upgrade to version 0.38
-  polkit: Upgrade to version 0.99
-  polkit-gnome: Upgrade to version 0.99
-  distro_tracking: Update distro tracking fields for pm-utils, netbase,
-    etc.
-
- .../conf/distro/include/distro_tracking_fields.inc |   56 +++++++++++++------
- meta/recipes-bsp/pm-utils/pm-utils_1.3.0.bb        |   17 ------
- meta/recipes-bsp/pm-utils/pm-utils_1.4.1.bb        |   23 ++++++++
- .../opensync/msynctool_0.37.bb                     |   14 -----
- .../opensync/msynctool_0.38.bb                     |   20 +++++++
- .../{netbase => netbase-4.43}/colinux/interfaces   |    0
- .../{netbase => netbase-4.43}/epia/interfaces      |    0
- .../netbase/{netbase => netbase-4.43}/hosts        |    0
- .../netbase/{netbase => netbase-4.43}/init         |    0
- .../netbase/{netbase => netbase-4.43}/interfaces   |    0
- .../{netbase => netbase-4.43}/mtx-1/interfaces     |    0
- .../netbase/{netbase => netbase-4.43}/nfsroot      |    0
- .../{netbase => netbase-4.43}/nokia800/interfaces  |    0
- .../netbase/{netbase => netbase-4.43}/openmn/hosts |    0
- .../{netbase => netbase-4.43}/openmn/interfaces    |    0
- .../{netbase => netbase-4.43}/qemuarm/interfaces   |    0
- .../{netbase => netbase-4.43}/qemuarmv6/interfaces |    0
- .../{netbase => netbase-4.43}/qemuarmv7/interfaces |    0
- .../qemux86-64/interfaces                          |    0
- .../{netbase => netbase-4.43}/qemux86/interfaces   |    0
- .../{netbase => netbase-4.43}/tosa/interfaces      |    0
- .../{netbase => netbase-4.43}/wrt54/interfaces     |    0
- .../{netbase => netbase-4.43}/xxs1500/interfaces   |    0
- .../netbase/{netbase_4.41.bb => netbase_4.43.bb}   |    6 ++-
- ...size-64-and-writesize-4096-as-normal-nand.patch |   24 --------
- .../add-exclusion-to-mkfs-jffs2-git-2.patch        |    0
- .../mtd/{mtd-utils_1.3.1.bb => mtd-utils_1.4.1.bb} |   13 +++--
- meta/recipes-extended/polkit/polkit-gnome_0.96.bb  |   19 -------
- meta/recipes-extended/polkit/polkit-gnome_0.99.bb  |   27 +++++++++
- .../polkit/{polkit_0.96.bb => polkit_0.99.bb}      |   14 ++++-
- 30 files changed, 133 insertions(+), 100 deletions(-)
+ meta/recipes-bsp/pm-utils/pm-utils_1.3.0.bb |   17 -----------------
+ meta/recipes-bsp/pm-utils/pm-utils_1.4.1.bb |   23 +++++++++++++++++++++++
+ 2 files changed, 23 insertions(+), 17 deletions(-)
  delete mode 100644 meta/recipes-bsp/pm-utils/pm-utils_1.3.0.bb
  create mode 100644 meta/recipes-bsp/pm-utils/pm-utils_1.4.1.bb
- delete mode 100644 meta/recipes-connectivity/opensync/msynctool_0.37.bb
- create mode 100644 meta/recipes-connectivity/opensync/msynctool_0.38.bb
- rename meta/recipes-core/netbase/{netbase => netbase-4.43}/colinux/interfaces (100%)
- rename meta/recipes-core/netbase/{netbase => netbase-4.43}/epia/interfaces (100%)
- rename meta/recipes-core/netbase/{netbase => netbase-4.43}/hosts (100%)
- rename meta/recipes-core/netbase/{netbase => netbase-4.43}/init (100%)
- rename meta/recipes-core/netbase/{netbase => netbase-4.43}/interfaces (100%)
- rename meta/recipes-core/netbase/{netbase => netbase-4.43}/mtx-1/interfaces (100%)
- rename meta/recipes-core/netbase/{netbase => netbase-4.43}/nfsroot (100%)
- rename meta/recipes-core/netbase/{netbase => netbase-4.43}/nokia800/interfaces (100%)
- rename meta/recipes-core/netbase/{netbase => netbase-4.43}/openmn/hosts (100%)
- rename meta/recipes-core/netbase/{netbase => netbase-4.43}/openmn/interfaces (100%)
- rename meta/recipes-core/netbase/{netbase => netbase-4.43}/qemuarm/interfaces (100%)
- rename meta/recipes-core/netbase/{netbase => netbase-4.43}/qemuarmv6/interfaces (100%)
- rename meta/recipes-core/netbase/{netbase => netbase-4.43}/qemuarmv7/interfaces (100%)
- rename meta/recipes-core/netbase/{netbase => netbase-4.43}/qemux86-64/interfaces (100%)
- rename meta/recipes-core/netbase/{netbase => netbase-4.43}/qemux86/interfaces (100%)
- rename meta/recipes-core/netbase/{netbase => netbase-4.43}/tosa/interfaces (100%)
- rename meta/recipes-core/netbase/{netbase => netbase-4.43}/wrt54/interfaces (100%)
- rename meta/recipes-core/netbase/{netbase => netbase-4.43}/xxs1500/interfaces (100%)
- rename meta/recipes-core/netbase/{netbase_4.41.bb => netbase_4.43.bb} (90%)
- delete mode 100644 meta/recipes-devtools/mtd/mtd-utils-1.3.1/add-oobsize-64-and-writesize-4096-as-normal-nand.patch
- rename meta/recipes-devtools/mtd/{mtd-utils-1.3.1 => mtd-utils-1.4.1}/add-exclusion-to-mkfs-jffs2-git-2.patch (100%)
- rename meta/recipes-devtools/mtd/{mtd-utils_1.3.1.bb => mtd-utils_1.4.1.bb} (61%)
- delete mode 100644 meta/recipes-extended/polkit/polkit-gnome_0.96.bb
- create mode 100644 meta/recipes-extended/polkit/polkit-gnome_0.99.bb
- rename meta/recipes-extended/polkit/{polkit_0.96.bb => polkit_0.99.bb} (51%)
+
+diff --git a/meta/recipes-bsp/pm-utils/pm-utils_1.3.0.bb b/meta/recipes-bsp/pm-utils/pm-utils_1.3.0.bb
+deleted file mode 100644
+index fef87d3..0000000
+--- a/meta/recipes-bsp/pm-utils/pm-utils_1.3.0.bb
++++ /dev/null
+@@ -1,17 +0,0 @@
+-SECTION = "base"
+-SUMMARY = "Utilities and scripts for power management"
+-DESCRIPTION = "Simple shell command line toos to suspect and hibernate."
+-LICENSE="GPL"
+-
+-PR = "r0"
+-
+-SRC_URI = "http://pm-utils.freedesktop.org/releases/pm-utils-${PV}.tar.gz"
+-
+-inherit pkgconfig autotools
+-
+-FILES_${PN}-dbg += "${libdir}/pm-utils/bin/.debug \
+-		    ${datadir}/doc/pm-utils/README.debugging"
+-
+-do_configure_prepend () {
+-	autoreconf -f -i -s
+-}
+diff --git a/meta/recipes-bsp/pm-utils/pm-utils_1.4.1.bb b/meta/recipes-bsp/pm-utils/pm-utils_1.4.1.bb
+new file mode 100644
+index 0000000..a4ac230
+--- /dev/null
++++ b/meta/recipes-bsp/pm-utils/pm-utils_1.4.1.bb
+@@ -0,0 +1,23 @@
++SECTION = "base"
++SUMMARY = "Utilities and scripts for power management"
++DESCRIPTION = "Simple shell command line toos to suspect and hibernate."
++HOMEPAGE = "http://pm-utils.freedesktop.org/wiki/"
++LICENSE="GPLv2"
++LIC_FILES_CHKSUM = "file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f \
++                    file://src/pm-pmu.c;beginline=1;endline=22;md5=3c1ddbc54e735fb4a0386e14c78a3147"
++
++PR = "r0"
++
++SRC_URI = "http://pm-utils.freedesktop.org/releases/pm-utils-${PV}.tar.gz"
++
++inherit pkgconfig autotools
++
++FILES_${PN}-dbg += "${libdir}/pm-utils/bin/.debug \
++		    ${datadir}/doc/pm-utils/README.debugging"
++
++do_configure_prepend () {
++	autoreconf -f -i -s
++}
++
++SRC_URI[md5sum] = "1742a556089c36c3a89eb1b957da5a60"
++SRC_URI[sha256sum] = "8ed899032866d88b2933a1d34cc75e8ae42dcde20e1cc21836baaae3d4370c0b"
+-- 
+1.7.0.4
 
 
