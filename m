@@ -1,22 +1,19 @@
-Return-Path: <josh@openedhand.com>
-Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 710B44C80B71
-	for <poky@yoctoproject.org>; Thu, 18 Nov 2010 05:01:12 -0600 (CST)
-Received: from [10.250.128.97] (unknown [158.43.2.102])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by pug.o-hand.com (Postfix) with ESMTP id D7DED12EC1CD
-	for <poky@yoctoproject.org>; Thu, 18 Nov 2010 05:38:15 -0600 (CST)
-From: Joshua Lock <josh@openedhand.com>
+Return-Path: <dongxiao.xu@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E62C04C80A74
+	for <poky@yoctoproject.org>; Thu, 18 Nov 2010 08:48:29 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 18 Nov 2010 06:48:29 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.59,217,1288594800"; d="scan'208";a="678754589"
+Received: from gw-vmm.sh.intel.com (HELO localhost) ([10.239.48.110])
+	by orsmga001.jf.intel.com with ESMTP; 18 Nov 2010 06:48:28 -0800
+Message-Id: <cover.1290091759.git.dongxiao.xu@intel.com>
+From: Dongxiao Xu <dongxiao.xu@intel.com>
+Date: Thu, 18 Nov 2010 22:49:19 +0800
 To: poky@yoctoproject.org
-In-Reply-To: <d08034b54b5cd2dbf4acf072441d1bc31d916a0f.1290046217.git.sgw@linux.intel.com>
-References: <cover.1290046217.git.sgw@linux.intel.com>
-	<d08034b54b5cd2dbf4acf072441d1bc31d916a0f.1290046217.git.sgw@linux.intel.com>
-Date: Thu, 18 Nov 2010 11:01:03 +0000
-Message-ID: <1290078063.2487.9.camel@scimitar>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.32.0 (2.32.0-2.fc14) 
-Subject: Re: [PATCH 1/5] Meta: Recipe Reogranization
+CC: 
+Subject: [PATCH 0/7] Base lib/utils upgrade, Dongxiao, 2010/11/18
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,43 +25,90 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 18 Nov 2010 11:01:12 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 18 Nov 2010 14:48:30 -0000
 
-Hey Saul,
+Hi Saul,
 
-On Sun, 2010-11-07 at 09:16 -0800, Saul Wold wrote:
-> This is the next stage of recipe reorganization, in this stage
-> many recipes where moved to a new meta-demoapps layer since this
-> is more appropriate for demo usage then the core.  Additional some
-> recipes were moved to meta-extras to indicate they may be depercated
-> at a future time.
-> 
-> A number of recipes were modified since dependencies need to be
-> corrected.
+Here are some base lib/utils recipe upgrade, please help to review and pull.
 
-This seems like a good move to make, however I'm disturbed by some of
-the things that have been moved to meta-demoapps. 
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: dxu4/distro
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dxu4/distro
 
-I'd like to see this literally just containing applications, I think we
-should support any libraries in the core metadata so that people can
-more easily build on them.
+Thanks,
+    Dongxiao Xu <dongxiao.xu@intel.com>
+---
 
-Some explicit examples are telepathy-gabble (XMPP connection manager for
-telepathy) and telepathy-farsight (audio/video framework used by
-Telepathy). I can see quite a few of our users wanting to use these
-libraries.
 
-Further you've moved gnome-settings-daemon to meta-demoapps, I'm a bit
-worried about having an images dependencies live in a separate
-(potentially disabled) layer to the image. Any particular reason for
-this move? Is the intention to move the whole Sato UI to meta-demoapps?
+Dongxiao Xu (7):
+  pm-utils: Upgrade to version 1.4.1
+  netbase: Upgrade to version 4.43
+  mtd-utils: Upgrade to version 1.4.1
+  msynctool: Upgrade to version 0.38
+  polkit: Upgrade to version 0.99
+  polkit-gnome: Upgrade to version 0.99
+  distro_tracking: Update distro tracking fields for pm-utils, netbase,
+    etc.
 
-Cheers,
-Joshua
--- 
-Joshua Lock
-        Intel Open Source Technology Centre
+ .../conf/distro/include/distro_tracking_fields.inc |   56 +++++++++++++------
+ meta/recipes-bsp/pm-utils/pm-utils_1.3.0.bb        |   17 ------
+ meta/recipes-bsp/pm-utils/pm-utils_1.4.1.bb        |   23 ++++++++
+ .../opensync/msynctool_0.37.bb                     |   14 -----
+ .../opensync/msynctool_0.38.bb                     |   20 +++++++
+ .../{netbase => netbase-4.43}/colinux/interfaces   |    0
+ .../{netbase => netbase-4.43}/epia/interfaces      |    0
+ .../netbase/{netbase => netbase-4.43}/hosts        |    0
+ .../netbase/{netbase => netbase-4.43}/init         |    0
+ .../netbase/{netbase => netbase-4.43}/interfaces   |    0
+ .../{netbase => netbase-4.43}/mtx-1/interfaces     |    0
+ .../netbase/{netbase => netbase-4.43}/nfsroot      |    0
+ .../{netbase => netbase-4.43}/nokia800/interfaces  |    0
+ .../netbase/{netbase => netbase-4.43}/openmn/hosts |    0
+ .../{netbase => netbase-4.43}/openmn/interfaces    |    0
+ .../{netbase => netbase-4.43}/qemuarm/interfaces   |    0
+ .../{netbase => netbase-4.43}/qemuarmv6/interfaces |    0
+ .../{netbase => netbase-4.43}/qemuarmv7/interfaces |    0
+ .../qemux86-64/interfaces                          |    0
+ .../{netbase => netbase-4.43}/qemux86/interfaces   |    0
+ .../{netbase => netbase-4.43}/tosa/interfaces      |    0
+ .../{netbase => netbase-4.43}/wrt54/interfaces     |    0
+ .../{netbase => netbase-4.43}/xxs1500/interfaces   |    0
+ .../netbase/{netbase_4.41.bb => netbase_4.43.bb}   |    6 ++-
+ ...size-64-and-writesize-4096-as-normal-nand.patch |   24 --------
+ .../add-exclusion-to-mkfs-jffs2-git-2.patch        |    0
+ .../mtd/{mtd-utils_1.3.1.bb => mtd-utils_1.4.1.bb} |   13 +++--
+ meta/recipes-extended/polkit/polkit-gnome_0.96.bb  |   19 -------
+ meta/recipes-extended/polkit/polkit-gnome_0.99.bb  |   27 +++++++++
+ .../polkit/{polkit_0.96.bb => polkit_0.99.bb}      |   14 ++++-
+ 30 files changed, 133 insertions(+), 100 deletions(-)
+ delete mode 100644 meta/recipes-bsp/pm-utils/pm-utils_1.3.0.bb
+ create mode 100644 meta/recipes-bsp/pm-utils/pm-utils_1.4.1.bb
+ delete mode 100644 meta/recipes-connectivity/opensync/msynctool_0.37.bb
+ create mode 100644 meta/recipes-connectivity/opensync/msynctool_0.38.bb
+ rename meta/recipes-core/netbase/{netbase => netbase-4.43}/colinux/interfaces (100%)
+ rename meta/recipes-core/netbase/{netbase => netbase-4.43}/epia/interfaces (100%)
+ rename meta/recipes-core/netbase/{netbase => netbase-4.43}/hosts (100%)
+ rename meta/recipes-core/netbase/{netbase => netbase-4.43}/init (100%)
+ rename meta/recipes-core/netbase/{netbase => netbase-4.43}/interfaces (100%)
+ rename meta/recipes-core/netbase/{netbase => netbase-4.43}/mtx-1/interfaces (100%)
+ rename meta/recipes-core/netbase/{netbase => netbase-4.43}/nfsroot (100%)
+ rename meta/recipes-core/netbase/{netbase => netbase-4.43}/nokia800/interfaces (100%)
+ rename meta/recipes-core/netbase/{netbase => netbase-4.43}/openmn/hosts (100%)
+ rename meta/recipes-core/netbase/{netbase => netbase-4.43}/openmn/interfaces (100%)
+ rename meta/recipes-core/netbase/{netbase => netbase-4.43}/qemuarm/interfaces (100%)
+ rename meta/recipes-core/netbase/{netbase => netbase-4.43}/qemuarmv6/interfaces (100%)
+ rename meta/recipes-core/netbase/{netbase => netbase-4.43}/qemuarmv7/interfaces (100%)
+ rename meta/recipes-core/netbase/{netbase => netbase-4.43}/qemux86-64/interfaces (100%)
+ rename meta/recipes-core/netbase/{netbase => netbase-4.43}/qemux86/interfaces (100%)
+ rename meta/recipes-core/netbase/{netbase => netbase-4.43}/tosa/interfaces (100%)
+ rename meta/recipes-core/netbase/{netbase => netbase-4.43}/wrt54/interfaces (100%)
+ rename meta/recipes-core/netbase/{netbase => netbase-4.43}/xxs1500/interfaces (100%)
+ rename meta/recipes-core/netbase/{netbase_4.41.bb => netbase_4.43.bb} (90%)
+ delete mode 100644 meta/recipes-devtools/mtd/mtd-utils-1.3.1/add-oobsize-64-and-writesize-4096-as-normal-nand.patch
+ rename meta/recipes-devtools/mtd/{mtd-utils-1.3.1 => mtd-utils-1.4.1}/add-exclusion-to-mkfs-jffs2-git-2.patch (100%)
+ rename meta/recipes-devtools/mtd/{mtd-utils_1.3.1.bb => mtd-utils_1.4.1.bb} (61%)
+ delete mode 100644 meta/recipes-extended/polkit/polkit-gnome_0.96.bb
+ create mode 100644 meta/recipes-extended/polkit/polkit-gnome_0.99.bb
+ rename meta/recipes-extended/polkit/{polkit_0.96.bb => polkit_0.99.bb} (51%)
 
 
