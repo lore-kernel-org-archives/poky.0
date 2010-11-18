@@ -1,26 +1,38 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E36854C80052
-	for <poky@yoctoproject.org>; Wed, 17 Nov 2010 23:13:12 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 17 Nov 2010 21:13:12 -0800
+Return-Path: <kevin.tian@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 883494C81002
+	for <poky@yoctoproject.org>; Wed, 17 Nov 2010 23:14:29 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 17 Nov 2010 21:14:29 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,215,1288594800"; d="scan'208";a="678628330"
-Received: from unknown (HELO [10.255.13.148]) ([10.255.13.148])
-	by orsmga001.jf.intel.com with ESMTP; 17 Nov 2010 21:13:12 -0800
-Message-ID: <4CE4B5E7.8000400@intel.com>
-Date: Wed, 17 Nov 2010 21:13:11 -0800
-From: Saul Wold <saul.wold@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
+X-IronPort-AV: E=Sophos;i="4.59,215,1288594800"; d="scan'208";a="858831812"
+Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
+	by fmsmga001.fm.intel.com with ESMTP; 17 Nov 2010 21:14:28 -0800
+Received: from pgsmsx509.gar.corp.intel.com (172.30.13.17) by
+	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Thu, 18 Nov 2010 13:14:18 +0800
+Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
+	PGSMSX509.gar.corp.intel.com (172.30.13.17) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Thu, 18 Nov 2010 13:14:18 +0800
+Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
+	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
+	Thu, 18 Nov 2010 13:14:17 +0800
+From: "Tian, Kevin" <kevin.tian@intel.com>
+To: Joshua Lock <josh@openedhand.com>, "poky@yoctoproject.org"
+	<poky@yoctoproject.org>
+Date: Thu, 18 Nov 2010 13:14:14 +0800
+Thread-Topic: [poky] a new problem with sstate
+Thread-Index: AcuGY8w9hgnTP4OeTCKVmawgxUBiaAAev7nA
+Message-ID: <625BA99ED14B2D499DC4E29D8138F1504D31419DAB@shsmsx502.ccr.corp.intel.com>
+References: <625BA99ED14B2D499DC4E29D8138F1504D31419AED@shsmsx502.ccr.corp.intel.com>
+	<1290004124.2518.4.camel@scimitar>
+In-Reply-To: <1290004124.2518.4.camel@scimitar>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
 MIME-Version: 1.0
-To: "He, Qing" <qing.he@intel.com>
-References: <cover.1289983189.git.qing.he@intel.com>
-	<4CE41F9A.1020407@intel.com> <20101118031230.GA3589@qhe2-db>
-In-Reply-To: <20101118031230.GA3589@qhe2-db>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 0/9] [PULL] base utils and libs upgrade
+Subject: Re: a new problem with sstate
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,178 +44,77 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 18 Nov 2010 05:13:13 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 18 Nov 2010 05:14:29 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/17/2010 07:12 PM, He, Qing wrote:
-> On Thu, 2010-11-18 at 02:31 +0800, Wold, Saul wrote:
->> On 11/17/2010 12:39 AM, Qing He wrote:
->>>
->>>
->>> Pull URL: git://git.pokylinux.org/poky-contrib.git
->>>     Branch: qhe/distro
->>>     Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=qhe/distro
->>>
->>> Thanks,
->>>       Qing He
->>> ---
->>>
->> I will take this set of updates, but had one question below.
+>From: Joshua Lock
+>Sent: Wednesday, November 17, 2010 10:29 PM
+>
+>On Wed, 2010-11-17 at 21:21 +0800, Tian, Kevin wrote:
+>> When looking into the problem why some prebuilts can't be reused, I've s=
+truggled with
+>> another issue these days. It's more severe because the 2nd build can't e=
+ven succeed
+>> when prebuilt is used.
 >>
->> Sau!
+>> The failure happened randomly on eglibc, eglibc-initial, and gcc-runtime=
+. The error log
+>> shows that either gcc libraries or eglibc headers are not correctly inst=
+alled when building
+>> those recipes. This first led me to think about potential dependency pro=
+blem among
+>> those recipes. However this only happens when prebuilt is used. A fresh =
+build just
+>> succeeds.
 >>
->>>
->>> Qing He (9):
->>>     libnl: upgrade to version 2.0
->> Why did you remove the utils.c from the LIC_FILES_CHKSUM list?
->
-> Saul,
-> 	There is a major directory re-org of the libnl, so utils.c is
-> not there anymore.
->
-Please include this information in the commit message.
-
-> 	There is however, some problem in this package. A new
-> src/COPYING is introduced labeled GPLv3, but not a single file is under
-> this license, all of them are still LGPLv2 or GPLv2.
->
-If that is the case, we should keep the old recipe around also and label 
-the new recipe as GPLv3, remember that depending on the working of v2 
-licenses they can have newer versions of the license apply.
-
-Since the upstream has chosen to include v3, we should keep the v2 version.
-
-Sau!
-
-> Thanks,
-> Qing
->
+>> Finally it turns out from two factors:
 >>
->>>     libtasn1: upgrade to version 2.8
->>>     syslinux: upgrade to version 4.03
->>>     busybox: upgrade to version 1.17.3
->>>     dbus: upgrade to version 1.4.0
->>>     dbus-glib: upgrade to version 0.88
->>>     dhcp: upgrade to version 4.2.0
->>>     sysstat: upgrade to version 9.1.5
->>>     openssl: upgrade to version 0.9.8p
->>>
->>>    .../dhcp-3.0.3-dhclient-dbus.patch                 |    0
->>>    .../fix-client-path.patch                          |    0
->>>    .../fixincludes.patch                              |    0
->>>    .../{dhcp-4.1.1-P1 =>   dhcp-4.2.0}/noattrmode.patch |    0
->>>    .../dhcp/{dhcp-4.1.1-P1 =>   dhcp-4.2.0}/site.h      |    0
->>>    .../dhcp/{dhcp_4.1.1-P1.bb =>   dhcp_4.2.0.bb}       |    2 +-
->>>    .../configure-targets.patch                        |    0
->>>    .../debian/ca.patch                                |    0
->>>    .../debian/config-hurd.patch                       |    0
->>>    .../debian/debian-targets.patch                    |    0
->>>    .../debian/engines-path.patch                      |    0
->>>    .../debian/kfreebsd-pipe.patch                     |    0
->>>    .../debian/make-targets.patch                      |    0
->>>    .../debian/man-dir.patch                           |    0
->>>    .../debian/man-section.patch                       |    0
->>>    .../debian/no-rpath.patch                          |    0
->>>    .../debian/no-symbolic.patch                       |    0
->>>    .../debian/perl-path.diff                          |    0
->>>    .../debian/pic.patch                               |    0
->>>    .../debian/pkg-config.patch                        |    0
->>>    .../debian/rc4-amd64.patch                         |    0
->>>    .../debian/rehash-crt.patch                        |    0
->>>    .../debian/rehash_pod.patch                        |    0
->>>    .../debian/series                                  |    0
->>>    .../debian/shared-lib-ext.patch                    |    0
->>>    .../debian/stddef.patch                            |    0
->>>    .../debian/valgrind.patch                          |    0
->>>    .../debian/version-script.patch                    |    0
->>>    .../shared-libs.patch                              |    0
->>>    .../{openssl_0.9.8o.bb =>   openssl_0.9.8p.bb}       |    0
->>>    .../B921600.patch                                  |    0
->>>    .../busybox-appletlib-dependency.patch             |    0
->>>    .../{busybox-1.16.2 =>   busybox-1.17.3}/defconfig   |    0
->>>    .../get_header_tar.patch                           |    0
->>>    .../make-382-fix.patch                             |    0
->>>    .../run-parts.in.usr-bin.patch                     |    6 +-
->>>    .../udhcpc-fix-nfsroot.patch                       |    0
->>>    .../udhcpscript.patch                              |    0
->>>    meta/recipes-core/busybox/busybox.inc              |    9 +++-
->>>    .../{busybox_1.16.2.bb =>   busybox_1.17.3.bb}       |    2 +-
->>>    .../dbus/dbus-1.2.24/fix-install-daemon.patch      |   56 --------------------
->>>    .../dbus/{dbus-1.2.24 =>   dbus-1.4.0}/dbus-1.init   |    0
->>>    .../dbus/{dbus-1.2.24 =>   dbus-1.4.0}/tmpdir.patch  |    0
->>>    .../fix_asneeded.patch                             |    0
->>>    .../no-examples.patch                              |    0
->>>    .../dbus/{dbus-glib_0.86.bb =>   dbus-glib_0.88.bb}  |    0
->>>    meta/recipes-core/dbus/dbus.inc                    |    1 -
->>>    .../dbus/{dbus_1.2.24.bb =>   dbus_1.4.0.bb}         |    2 +-
->>>    .../syslinux/files/cross-build.patch               |    7 ++-
->>>    .../{syslinux_3.86.bb =>   syslinux_4.03.bb}         |    2 +-
->>>    .../sysstat/{sysstat_9.1.4.bb =>   sysstat_9.1.5.bb} |    0
->>>    .../gnutls/{libtasn1_2.7.bb =>   libtasn1_2.8.bb}    |    2 +-
->>>    meta/recipes-support/libnl/libnl/compilefix.patch  |   12 ----
->>>    .../libnl/libnl/local-includes.patch               |   11 ----
->>>    .../libnl/{libnl_1.1.bb =>   libnl_2.0.bb}           |   11 ++--
->>>    55 files changed, 27 insertions(+), 96 deletions(-)
->>>    rename meta/recipes-connectivity/dhcp/{dhcp-4.1.1-P1 =>   dhcp-4.2.0}/dhcp-3.0.3-dhclient-dbus.patch (100%)
->>>    rename meta/recipes-connectivity/dhcp/{dhcp-4.1.1-P1 =>   dhcp-4.2.0}/fix-client-path.patch (100%)
->>>    rename meta/recipes-connectivity/dhcp/{dhcp-4.1.1-P1 =>   dhcp-4.2.0}/fixincludes.patch (100%)
->>>    rename meta/recipes-connectivity/dhcp/{dhcp-4.1.1-P1 =>   dhcp-4.2.0}/noattrmode.patch (100%)
->>>    rename meta/recipes-connectivity/dhcp/{dhcp-4.1.1-P1 =>   dhcp-4.2.0}/site.h (100%)
->>>    rename meta/recipes-connectivity/dhcp/{dhcp_4.1.1-P1.bb =>   dhcp_4.2.0.bb} (94%)
->>>    rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>   openssl-0.9.8p}/configure-targets.patch (100%)
->>>    rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>   openssl-0.9.8p}/debian/ca.patch (100%)
->>>    rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>   openssl-0.9.8p}/debian/config-hurd.patch (100%)
->>>    rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>   openssl-0.9.8p}/debian/debian-targets.patch (100%)
->>>    rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>   openssl-0.9.8p}/debian/engines-path.patch (100%)
->>>    rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>   openssl-0.9.8p}/debian/kfreebsd-pipe.patch (100%)
->>>    rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>   openssl-0.9.8p}/debian/make-targets.patch (100%)
->>>    rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>   openssl-0.9.8p}/debian/man-dir.patch (100%)
->>>    rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>   openssl-0.9.8p}/debian/man-section.patch (100%)
->>>    rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>   openssl-0.9.8p}/debian/no-rpath.patch (100%)
->>>    rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>   openssl-0.9.8p}/debian/no-symbolic.patch (100%)
->>>    rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>   openssl-0.9.8p}/debian/perl-path.diff (100%)
->>>    rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>   openssl-0.9.8p}/debian/pic.patch (100%)
->>>    rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>   openssl-0.9.8p}/debian/pkg-config.patch (100%)
->>>    rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>   openssl-0.9.8p}/debian/rc4-amd64.patch (100%)
->>>    rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>   openssl-0.9.8p}/debian/rehash-crt.patch (100%)
->>>    rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>   openssl-0.9.8p}/debian/rehash_pod.patch (100%)
->>>    rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>   openssl-0.9.8p}/debian/series (100%)
->>>    rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>   openssl-0.9.8p}/debian/shared-lib-ext.patch (100%)
->>>    rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>   openssl-0.9.8p}/debian/stddef.patch (100%)
->>>    rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>   openssl-0.9.8p}/debian/valgrind.patch (100%)
->>>    rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>   openssl-0.9.8p}/debian/version-script.patch (100%)
->>>    rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>   openssl-0.9.8p}/shared-libs.patch (100%)
->>>    rename meta/recipes-connectivity/openssl/{openssl_0.9.8o.bb =>   openssl_0.9.8p.bb} (100%)
->>>    rename meta/recipes-core/busybox/{busybox-1.16.2 =>   busybox-1.17.3}/B921600.patch (100%)
->>>    rename meta/recipes-core/busybox/{busybox-1.16.2 =>   busybox-1.17.3}/busybox-appletlib-dependency.patch (100%)
->>>    rename meta/recipes-core/busybox/{busybox-1.16.2 =>   busybox-1.17.3}/defconfig (100%)
->>>    rename meta/recipes-core/busybox/{busybox-1.16.2 =>   busybox-1.17.3}/get_header_tar.patch (100%)
->>>    rename meta/recipes-core/busybox/{busybox-1.16.2 =>   busybox-1.17.3}/make-382-fix.patch (100%)
->>>    rename meta/recipes-core/busybox/{busybox-1.16.2 =>   busybox-1.17.3}/run-parts.in.usr-bin.patch (82%)
->>>    rename meta/recipes-core/busybox/{busybox-1.16.2 =>   busybox-1.17.3}/udhcpc-fix-nfsroot.patch (100%)
->>>    rename meta/recipes-core/busybox/{busybox-1.16.2 =>   busybox-1.17.3}/udhcpscript.patch (100%)
->>>    rename meta/recipes-core/busybox/{busybox_1.16.2.bb =>   busybox_1.17.3.bb} (98%)
->>>    delete mode 100644 meta/recipes-core/dbus/dbus-1.2.24/fix-install-daemon.patch
->>>    rename meta/recipes-core/dbus/{dbus-1.2.24 =>   dbus-1.4.0}/dbus-1.init (100%)
->>>    rename meta/recipes-core/dbus/{dbus-1.2.24 =>   dbus-1.4.0}/tmpdir.patch (100%)
->>>    rename meta/recipes-core/dbus/{dbus-glib-0.86 =>   dbus-glib-0.88}/fix_asneeded.patch (100%)
->>>    rename meta/recipes-core/dbus/{dbus-glib-0.86 =>   dbus-glib-0.88}/no-examples.patch (100%)
->>>    rename meta/recipes-core/dbus/{dbus-glib_0.86.bb =>   dbus-glib_0.88.bb} (100%)
->>>    rename meta/recipes-core/dbus/{dbus_1.2.24.bb =>   dbus_1.4.0.bb} (64%)
->>>    rename meta/recipes-devtools/syslinux/{syslinux_3.86.bb =>   syslinux_4.03.bb} (99%)
->>>    rename meta/recipes-extended/sysstat/{sysstat_9.1.4.bb =>   sysstat_9.1.5.bb} (100%)
->>>    rename meta/recipes-support/gnutls/{libtasn1_2.7.bb =>   libtasn1_2.8.bb} (98%)
->>>    delete mode 100644 meta/recipes-support/libnl/libnl/compilefix.patch
->>>    delete mode 100644 meta/recipes-support/libnl/libnl/local-includes.patch
->>>    rename meta/recipes-support/libnl/{libnl_1.1.bb =>   libnl_2.0.bb} (61%)
->>>
->>> _______________________________________________
->>> poky mailing list
->>> poky@yoctoproject.org
->>> https://lists.yoctoproject.org/listinfo/poky
->>>
->>
+>> 	o sstate.bbclass has special handling about -initial and -intermediate =
+recipes. If
+>> a complete (e.g. gcc-cross or eglibc) setscene function has been invoked=
+ already,
+>> installation for those special sstate packages is skipped, while still m=
+arked as
+>> accelerate-able
+>
+>The special casing in the sstate class was added to work around the fact
+>that the toolchain bootstrap overwrites some pieces of the sysroot
+>(bug#239).
+>
+>http://bugzilla.yoctoproject.org/show_bug.cgi?id=3D239
+
+Yes, I can see the reason for that special case.
+
+>
+>If this is still not working is there anything stopping us from
+>expanding the workaround Richard started in
+>ecf2eb1efa145d5c8f350697ec605ea58beb9ba7 as a temporary fix until bug
+>239 is fixed?
+>
+>http://git.yoctoproject.org/cgit/cgit.cgi/poky/commit/?id=3Decf2eb1efa145d=
+5c8f350697ec6
+>05ea58beb9ba7
 >
 
+I think that works for most case, if there's no change to libc/gcc bootstra=
+p recipes.
+If there happens to be one or several changed, the bootstrap process is act=
+ually
+broken since some of them may be a null installation while marked finished.=
+ This
+allows other tasks depending on them to continue but finally failed to find=
+ necessary
+bits.
+
+I'm thinking about expanding that. It'd be good to not use prebuilt for all=
+ libc/gcc
+bootstrap recipes once any of them is changed. That way the normal bootstra=
+p process
+is started from scratch. However I haven't found a right way to achieve tha=
+t yet. :/
+
+Thanks
+Kevin
 
