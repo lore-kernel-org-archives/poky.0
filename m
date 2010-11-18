@@ -1,21 +1,21 @@
 Return-Path: <dongxiao.xu@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E64914C811CC
-	for <poky@yoctoproject.org>; Thu, 18 Nov 2010 08:48:35 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 18 Nov 2010 06:48:35 -0800
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 3FC2B4C811CE
+	for <poky@yoctoproject.org>; Thu, 18 Nov 2010 08:48:37 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 18 Nov 2010 06:48:36 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,217,1288594800"; d="scan'208";a="575119284"
+X-IronPort-AV: E=Sophos;i="4.59,217,1288594800"; d="scan'208";a="858979888"
 Received: from gw-vmm.sh.intel.com (HELO localhost) ([10.239.48.110])
-	by orsmga002.jf.intel.com with ESMTP; 18 Nov 2010 06:48:35 -0800
-Message-Id: <412b1d8a4043d0e284e4c936dc2866be00e5f180.1290091760.git.dongxiao.xu@intel.com>
+	by fmsmga001.fm.intel.com with ESMTP; 18 Nov 2010 06:48:36 -0800
+Message-Id: <b183bd7cd0810c279ad2026bed476422c04ca39c.1290091760.git.dongxiao.xu@intel.com>
 In-Reply-To: <cover.1290091759.git.dongxiao.xu@intel.com>
 References: <cover.1290091759.git.dongxiao.xu@intel.com>
 From: Dongxiao Xu <dongxiao.xu@intel.com>
-Date: Thu, 18 Nov 2010 14:27:49 +0800
+Date: Thu, 18 Nov 2010 14:28:26 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 5/7] polkit: Upgrade to version 0.99
+Subject: [PATCH 6/7] polkit-gnome: Upgrade to version 0.99
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,49 +27,76 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 18 Nov 2010 14:48:36 -0000
+X-List-Received-Date: Thu, 18 Nov 2010 14:48:37 -0000
 
-Add some missing files while do_package.
 Also fix its metadata
 
 Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
 ---
- .../polkit/{polkit_0.96.bb => polkit_0.99.bb}      |   14 +++++++++++---
- 1 files changed, 11 insertions(+), 3 deletions(-)
- rename meta/recipes-extended/polkit/{polkit_0.96.bb => polkit_0.99.bb} (51%)
+ meta/recipes-extended/polkit/polkit-gnome_0.96.bb |   19 --------------
+ meta/recipes-extended/polkit/polkit-gnome_0.99.bb |   27 +++++++++++++++++++++
+ 2 files changed, 27 insertions(+), 19 deletions(-)
+ delete mode 100644 meta/recipes-extended/polkit/polkit-gnome_0.96.bb
+ create mode 100644 meta/recipes-extended/polkit/polkit-gnome_0.99.bb
 
-diff --git a/meta/recipes-extended/polkit/polkit_0.96.bb b/meta/recipes-extended/polkit/polkit_0.99.bb
-similarity index 51%
-rename from meta/recipes-extended/polkit/polkit_0.96.bb
-rename to meta/recipes-extended/polkit/polkit_0.99.bb
-index e6e030b..6551cae 100644
---- a/meta/recipes-extended/polkit/polkit_0.96.bb
-+++ b/meta/recipes-extended/polkit/polkit_0.99.bb
-@@ -2,13 +2,21 @@ DESCRIPTION = "The polkit package is an application-level toolkit for defining a
- HOMEPAGE = "http://code.google.com/p/polkit/"
- LICENSE = "LGPLv2+"
- LIC_FILES_CHKSUM = "file://COPYING;md5=155db86cdbafa7532b41f390409283eb \
--                    file://src/polkit/polkit.h;md5=8aa8924570fc5570d20e4a4ad5d2db51 \
--                    file://docs/polkit/html/license.html;md5=4c17ef1587e0f096c82157160d4e340e"
-+                    file://src/polkit/polkit.h;beginline=1;endilne=20;md5=9f797b8912dac8a806be820c14e783f8 \
-+                    file://docs/polkit/html/license.html;md5=54750ec6ece444c50b823234d445dd99"
- 
- SRC_URI = "http://hal.freedesktop.org/releases/polkit-${PV}.tar.gz"
--PR = "r2"
+diff --git a/meta/recipes-extended/polkit/polkit-gnome_0.96.bb b/meta/recipes-extended/polkit/polkit-gnome_0.96.bb
+deleted file mode 100644
+index 50387f3..0000000
+--- a/meta/recipes-extended/polkit/polkit-gnome_0.96.bb
++++ /dev/null
+@@ -1,19 +0,0 @@
+-HOMEPAGE = "http://www.packagekit.org/"
+-DEPENDS = "polkit dbus-glib gconf gtk+"
+-LICENSE = "LGPLv2+"
+-
+-SRC_URI = "http://hal.freedesktop.org/releases/polkit-gnome-${PV}.tar.bz2 \
+-          "
+-
+-EXTRA_OECONF = " --disable-scrollkeeper \
+-                 --disable-man-pages \
+-                 --disable-examples \
+-                 --disable-gtk-doc \
+-                 --disable-introspection "
+-
+-inherit autotools pkgconfig
+-
+-FILES_${PN} += " ${datadir}/dbus-1 \
+-                 ${datadir}/PolicyKit \
+-               "
+-
+diff --git a/meta/recipes-extended/polkit/polkit-gnome_0.99.bb b/meta/recipes-extended/polkit/polkit-gnome_0.99.bb
+new file mode 100644
+index 0000000..f4fb337
+--- /dev/null
++++ b/meta/recipes-extended/polkit/polkit-gnome_0.99.bb
+@@ -0,0 +1,27 @@
++SUMMARY = "GNOME Authentication Agent for PolicyKit"
++DESCRIPTION = "PolicyKit-gnome provides an Authentication Agent for PolicyKit that integrates well with the GNOME desktop environment"
++HOMEPAGE = "http://www.packagekit.org/"
++BUGTRACKER = "http://bugzilla.gnome.org/"
++DEPENDS = "polkit dbus-glib gconf gtk+"
++LICENSE = "LGPLv2+"
++LIC_FILES_CHKSUM = "file://COPYING;md5=74579fab173e4c5e12aac0cd83ee98ec \
++                    file://src/main.c;beginline=1;endline=20;md5=aba145d1802f2329ba561e3e48ecb795"
++
++SRC_URI = "http://hal.freedesktop.org/releases/polkit-gnome-${PV}.tar.bz2 \
++          "
++
 +PR = "r0"
- DEPENDS = "libpam expat dbus-glib eggdbus intltool"
- RDEPENDS = "libpam"
- EXTRA_OECONF = "--with-authfw=pam --with-os-type=moblin --disable-man-pages --disable-gtk-doc --disable-introspection"
- 
- inherit autotools pkgconfig
 +
-+FILES_${PN} += "${libdir}/${PN}-1/extensions/*.so \
-+                ${datadir}/${PN}-1/actions/* \
-+                ${datadir}/dbus-1/system-services/*"
-+FILES_${PN}-dbg += "${libdir}/${PN}-1/extensions/.debug/*.so"
++EXTRA_OECONF = " --disable-scrollkeeper \
++                 --disable-man-pages \
++                 --disable-examples \
++                 --disable-gtk-doc \
++                 --disable-introspection "
 +
-+SRC_URI[md5sum] = "fcc4d7b19c08ad54d3ce0eae0ab12398"
-+SRC_URI[sha256sum] = "f612c7c26ec822f67751420057a4ae113fc50ab51070758faacf2ad30bb3583f"
++inherit autotools pkgconfig
++
++FILES_${PN} += " ${datadir}/dbus-1 \
++                 ${datadir}/PolicyKit \
++               "
++SRC_URI[md5sum] = "f1a2565083266bc8c05c60aa7d8a0f6a"
++SRC_URI[sha256sum] = "73c4d04aa89d9a9687f3650327c0ec1cba704e9d5b7fc193958fa81d621208ba"
 -- 
 1.7.0.4
 
