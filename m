@@ -1,21 +1,19 @@
-Return-Path: <dongxiao.xu@intel.com>
+Return-Path: <ke.yu@intel.com>
 Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E55334C811CE
-	for <poky@yoctoproject.org>; Thu, 18 Nov 2010 08:48:38 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 079594C80FA7
+	for <poky@yoctoproject.org>; Thu, 18 Nov 2010 11:07:19 -0600 (CST)
 Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 18 Nov 2010 06:48:38 -0800
+	by azsmga101.ch.intel.com with ESMTP; 18 Nov 2010 09:07:19 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,217,1288594800"; d="scan'208";a="350399212"
-Received: from gw-vmm.sh.intel.com (HELO localhost) ([10.239.48.110])
-	by azsmga001.ch.intel.com with ESMTP; 18 Nov 2010 06:48:37 -0800
-Message-Id: <d7b553fbfd65089790f374e9d58ba61aa29f438b.1290091760.git.dongxiao.xu@intel.com>
-In-Reply-To: <cover.1290091759.git.dongxiao.xu@intel.com>
-References: <cover.1290091759.git.dongxiao.xu@intel.com>
-From: Dongxiao Xu <dongxiao.xu@intel.com>
-Date: Thu, 18 Nov 2010 19:51:05 +0800
+X-IronPort-AV: E=Sophos;i="4.59,218,1288594800"; d="scan'208";a="350463906"
+Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.154.168])
+	by azsmga001.ch.intel.com with ESMTP; 18 Nov 2010 09:07:04 -0800
+Message-Id: <cover.1290097804.git.ke.yu@intel.com>
+From: Yu Ke <ke.yu@intel.com>
+Date: Fri, 19 Nov 2010 00:30:04 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 7/7] distro_tracking: Update distro tracking fields for pm-utils, netbase, etc.
+Subject: [PATCH 0/5] upgrade xserver v2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,138 +25,51 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 18 Nov 2010 14:48:39 -0000
+X-List-Received-Date: Thu, 18 Nov 2010 17:07:20 -0000
 
-pm-utils
-netbase
-mtd-utils
-glib-2.0
-msynctool
-polkit
-polkit-gnome
+accodring to Saul's comments, V2 patch has the following changes
+- add clear explanation on the commit message.
+- correct the license check sum and  test it
+  against latest poky/master
+- add SRI_URI checksum
+- mesa/cairo related recpies(mesa, talloc, libxml2,cairo) are still hold,
+  as one time build failure are observed. Although the failure
+  disappers after build again, it is better to find out the reason
+  before submitting it.
 
-Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: kyu3/upgrade-11-18
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kyu3/upgrade-11-18
+
+Thanks,
+    Yu Ke <ke.yu@intel.com>
 ---
- .../conf/distro/include/distro_tracking_fields.inc |   56 +++++++++++++------
- 1 files changed, 38 insertions(+), 18 deletions(-)
 
-diff --git a/meta/conf/distro/include/distro_tracking_fields.inc b/meta/conf/distro/include/distro_tracking_fields.inc
-index dc4ee49..ef51fb5 100644
---- a/meta/conf/distro/include/distro_tracking_fields.inc
-+++ b/meta/conf/distro/include/distro_tracking_fields.inc
-@@ -148,7 +148,7 @@ RECIPE_INTEL_SECTION_pn-glib-2.0 = "base libs"
- RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-glib-2.0 = "8 days"
- RECIPE_LATEST_RELEASE_DATE_pn-glib-2.0 = "2010/11/09"
- RECIPE_COMMENTS_pn-glib-2.0 = ""
--RECIPE_MAINTAINER_pn-glib-2.0 = "Kevin Tian <kevin.tian@intel.com>"
-+RECIPE_MAINTAINER_pn-glib-2.0 = "Dongxiao Xu <dongxiao.xu@intel.com>"
- 
- RECIPE_STATUS_pn-libpam = "green"
- DISTRO_PN_ALIAS_pn-libpam = "Meego=pam Fedora=pam OpenSuSE=pam Ubuntu=pam Mandriva=pam Debian=pam"
-@@ -748,12 +748,12 @@ DISTRO_PN_ALIAS_pn-opkg-utils = "OSPDT upstream=http://svn.openmoko.org/trunk/sr
- 
- RECIPE_STATUS_pn-polkit = "green"
- DEPENDENCY_CHECK_pn-polkit = "not done"
--RECIPE_LATEST_VERSION_pn-polkit = "0.96"
-+RECIPE_LATEST_VERSION_pn-polkit = "0.99"
- RECIPE_INTEL_SECTION_pn-polkit = "base utils"
--RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-polkit = "2 months"
--RECIPE_LATEST_RELEASE_DATE_pn-polkit = "01/2010"
-+RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-polkit = "1 months"
-+RECIPE_LATEST_RELEASE_DATE_pn-polkit = "2010/09/15"
- RECIPE_COMMENTS_pn-polkit = ""
--RECIPE_MAINTAINER_pn-polkit = "Kevin Tian <kevin.tian@intel.com>"
-+RECIPE_MAINTAINER_pn-polkit = "Dongxiao Xu <dongxiao.xu@intel.com>"
- 
- RECIPE_STATUS_pn-psplash = "not done"
- DEPENDENCY_CHECK_pn-psplash = "not done"
-@@ -808,14 +808,14 @@ RECIPE_MAINTAINER_pn-iproute2 = "Kevin Tian <kevin.tian@intel.com>"
- 
- RECIPE_STATUS_pn-netbase = "green"
- DEPENDENCY_CHECK_pn-netbase = "not done"
--RECIPE_LATEST_VERSION_pn-netbase = "4.41"
-+RECIPE_LATEST_VERSION_pn-netbase = "4.43"
- RECIPE_PATCH_pn-netbase+busybox = "marked as REMOVAL"
- RECIPE_PATCH_pn-many = "local scripts"
- RECIPE_INTEL_SECTION_pn-netbase = "base utils"
- RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-netbase = "2 years"
--RECIPE_LATEST_RELEASE_DATE_pn-netbase = "04/2010"
-+RECIPE_LATEST_RELEASE_DATE_pn-netbase = "2010/10/23"
- RECIPE_COMMENTS_pn-netbase = ""
--RECIPE_MAINTAINER_pn-netbase = "Kevin Tian <kevin.tian@intel.com>"
-+RECIPE_MAINTAINER_pn-netbase = "Dongxiao Xu <dongxiao.xu@intel.com>"
- 
- RECIPE_STATUS_pn-busybox = "green"
- DEPENDENCY_CHECK_pn-busybox = "not done"
-@@ -1118,9 +1118,14 @@ RECIPE_STATUS_pn-modutils-collateral = "red"
- RECIPE_LATEST_VERSION_pn-modutils-collateral = "1.0"
- RECIPE_MAINTAINER_pn-modutils-collateral = "Kevin Tian <kevin.tian@intel.com>"
- 
--RECIPE_STATUS_pn-mtd-utils = "red"
--RECIPE_LATEST_VERSION_pn-mtd-utils = "1.3.1+a67747b7a314e685085b62e8239442ea54959dbc"
--RECIPE_MAINTAINER_pn-mtd-utils = "Kevin Tian <kevin.tian@intel.com>"
-+RECIPE_STATUS_pn-mtd-utils = "green"
-+DEPENDENCY_CHECK_pn-mtd-utils = "not done"
-+RECIPE_LATEST_VERSION_pn-mtd-utils = "1.4.1"
-+RECIPE_INTEL_SECTION_pn-mtd-utils = "base utils"
-+RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-mtd-utils = "1 months"
-+RECIPE_LATEST_RELEASE_DATE_pn-mtd-utils = "2010/10/15"
-+RECIPE_COMMENTS_pn-mtd-utils = ""
-+RECIPE_MAINTAINER_pn-mtd-utils = "Dongxiao Xu <dongxiao.xu@intel.com>"
- 
- RECIPE_STATUS_pn-ohm = "red"
- RECIPE_LATEST_VERSION_pn-ohm = "3cb3496846508929b9f2d05683ec93523de7947c"
-@@ -1174,18 +1179,28 @@ RECIPE_STATUS_pn-fuse = "red"
- RECIPE_LATEST_VERSION_pn-fuse = "2.8.4"
- RECIPE_MAINTAINER_pn-fuse = "Kevin Tian <kevin.tian@intel.com>"
- 
--RECIPE_STATUS_pn-msynctool = "red"
-+RECIPE_STATUS_pn-msynctool = "green"
-+DEPENDENCY_CHECK_pn-msynctool = "not done"
- RECIPE_LATEST_VERSION_pn-msynctool = "0.38"
--RECIPE_MAINTAINER_pn-msynctool = "Kevin Tian <kevin.tian@intel.com>"
-+RECIPE_INTEL_SECTION_pn-msynctool = "base utils"
-+RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-msynctool = "3 months"
-+RECIPE_LATEST_RELEASE_DATE_pn-msynctool = "2008/11/11"
-+RECIPE_COMMENTS_pn-msynctool = ""
-+RECIPE_MAINTAINER_pn-msynctool = "Dongxiao Xu <dongxiao.xu@intel.com>"
- DISTRO_PN_ALIAS_pn-msynctool = "OpenSuse=msynctool Mandriva=msynctool"
- 
- RECIPE_STATUS_pn-mtools = "red"
- RECIPE_LATEST_VERSION_pn-mtools = "4.0.13"
- RECIPE_MAINTAINER_pn-mtools = "Kevin Tian <kevin.tian@intel.com>"
- 
--RECIPE_STATUS_pn-pm-utils = "red"
--RECIPE_LATEST_VERSION_pn-pm-utils = "1.3.0"
--RECIPE_MAINTAINER_pn-pm-utils = "Kevin Tian <kevin.tian@intel.com>"
-+RECIPE_STATUS_pn-pm-utils = "green"
-+DEPENDENCY_CHECK_pn-pm-utils = "not done"
-+RECIPE_LATEST_VERSION_pn-pm-utils = "1.4.1"
-+RECIPE_INTEL_SECTION_pn-pm-utils = "base utils"
-+RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-pm-utils = "15 days"
-+RECIPE_LATEST_RELEASE_DATE_pn-pm-utils = "2010o/07/04"
-+RECIPE_COMMENTS_pn-pm-utils = ""
-+RECIPE_MAINTAINER_pn-pm-utils = "Dongxiao Xu <dongxiao.xu@intel.com>"
- 
- RECIPE_STATUS_pn-psmisc = "red"
- RECIPE_LATEST_VERSION_pn-psmisc = "22.11"
-@@ -4755,8 +4770,13 @@ RECIPE_STATUS_pn-metacity = "red"
- RECIPE_LATEST_VERSION_pn-metacity = "2.30.1"
- RECIPE_MAINTAINER_pn-metacity = "Edwin Zhai <edwin.zhai@intel.com>"
- 
--RECIPE_STATUS_pn-polkit-gnome = "red"
--RECIPE_LATEST_VERSION_pn-polkit-gnome = "0.96"
-+RECIPE_STATUS_pn-polkit-gnome = "green"
-+DEPENDENCY_CHECK_pn-polkit-gnome = "not done"
-+RECIPE_LATEST_VERSION_pn-polkit-gnome = "0.99"
-+RECIPE_INTEL_SECTION_pn-polkit-gnome = "base utils"
-+RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-polkit-gnome = "1 months"
-+RECIPE_LATEST_RELEASE_DATE_pn-polkit-gnome = "2010/09/15"
-+RECIPE_COMMENTS_pn-polkit-gnome = ""
- RECIPE_MAINTAINER_pn-polkit-gnome = "Edwin Zhai <edwin.zhai@intel.com>"
- 
- RECIPE_STATUS_pn-pong-clock = "red"
--- 
-1.7.0.4
+
+Yu Ke (5):
+  libdrm: upgrade from 2.4.21 to 2.4.22
+  xf86-video-intel: upgrade from 2.12.0 to 2.13.0
+  xserver-xf86-dri-lite: upgrade from 1.9.0 rc4 to 1.9.2
+  xrandr: upgrade from 1.3.2 to 1.3.4
+  pixman: upgrade from 0.18.2 to 0.20.0
+
+ .../distro/include/preferred-xorg-versions.inc     |   10 +++---
+ .../installtests.patch                             |    0
+ meta/recipes-graphics/drm/libdrm_2.4.21.bb         |    4 --
+ meta/recipes-graphics/drm/libdrm_2.4.22.bb         |    7 ++++
+ .../xorg-app/xrandr/resolve_symbol_clash.patch     |   33 --------------------
+ .../xorg-app/{xrandr_1.3.2.bb => xrandr_1.3.4.bb}  |    3 +-
+ ...-intel_2.12.0.bb => xf86-video-intel_2.13.0.bb} |    3 ++
+ .../{pixman_0.18.2.bb => pixman_0.20.0.bb}         |    3 ++
+ ....8.99.904.bb => xserver-xf86-dri-lite_1.9.2.bb} |    5 ++-
+ 9 files changed, 24 insertions(+), 44 deletions(-)
+ rename meta/recipes-graphics/drm/{libdrm-2.4.21 => libdrm-2.4.22}/installtests.patch (100%)
+ delete mode 100644 meta/recipes-graphics/drm/libdrm_2.4.21.bb
+ create mode 100644 meta/recipes-graphics/drm/libdrm_2.4.22.bb
+ delete mode 100644 meta/recipes-graphics/xorg-app/xrandr/resolve_symbol_clash.patch
+ rename meta/recipes-graphics/xorg-app/{xrandr_1.3.2.bb => xrandr_1.3.4.bb} (61%)
+ rename meta/recipes-graphics/xorg-driver/{xf86-video-intel_2.12.0.bb => xf86-video-intel_2.13.0.bb} (67%)
+ rename meta/recipes-graphics/xorg-lib/{pixman_0.18.2.bb => pixman_0.20.0.bb} (80%)
+ rename meta/recipes-graphics/xorg-xserver/{xserver-xf86-dri-lite_1.8.99.904.bb => xserver-xf86-dri-lite_1.9.2.bb} (76%)
 
 
