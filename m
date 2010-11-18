@@ -1,23 +1,27 @@
-Return-Path: <ke.yu@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C746E4C80A74
-	for <poky@yoctoproject.org>; Wed, 17 Nov 2010 18:42:19 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 17 Nov 2010 16:42:19 -0800
+Return-Path: <qing.he@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id B95ED4C80A74
+	for <poky@yoctoproject.org>; Wed, 17 Nov 2010 21:17:17 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 17 Nov 2010 19:17:17 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,214,1288594800"; d="scan'208";a="574929374"
-Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.154.168])
-	by orsmga002.jf.intel.com with ESMTP; 17 Nov 2010 16:42:18 -0800
-Date: Thu, 18 Nov 2010 08:12:32 +0800
-From: Yu Ke <ke.yu@intel.com>
-To: Saul Wold <saul.wold@intel.com>
-Message-ID: <20101118001232.GC7070@kyu3-hedt>
-References: <cover.1289982119.git.ke.yu@intel.com> <4CE41B63.4040001@intel.com>
+X-IronPort-AV: E=Sophos;i="4.59,215,1288594800"; d="scan'208";a="627898783"
+Received: from qhe2-db.sh.intel.com ([10.239.13.29])
+	by fmsmga002.fm.intel.com with ESMTP; 17 Nov 2010 19:17:16 -0800
+Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
+	(envelope-from <qing.he@intel.com>)
+	id 1PIuvG-0000wz-Cw; Thu, 18 Nov 2010 11:12:30 +0800
+Date: Thu, 18 Nov 2010 11:12:30 +0800
+From: Qing He <qing.he@intel.com>
+To: "Wold, Saul" <saul.wold@intel.com>
+Message-ID: <20101118031230.GA3589@qhe2-db>
+References: <cover.1289983189.git.qing.he@intel.com>
+	<4CE41F9A.1020407@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <4CE41B63.4040001@intel.com>
+In-Reply-To: <4CE41F9A.1020407@intel.com>
 User-Agent: Mutt/1.5.20 (2009-06-14)
 Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 00/10] xserver upgrade
+Subject: Re: [PATCH 0/9] [PULL] base utils and libs upgrade
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,120 +33,165 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 18 Nov 2010 00:42:20 -0000
+X-List-Received-Date: Thu, 18 Nov 2010 03:17:18 -0000
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Nov 17, 10:13, Saul Wold wrote:
-> On 11/17/2010 12:21 AM, Yu Ke wrote:
-> >upgrade the xserver to X11R7.6 RC1
+On Thu, 2010-11-18 at 02:31 +0800, Wold, Saul wrote:
+> On 11/17/2010 12:39 AM, Qing He wrote:
 > >
-> >Pull URL: git://git.pokylinux.org/poky-contrib.git
-> >   Branch: kyu3/upgrade-11-17
-> >   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kyu3/upgrade-11-17
 > >
-> >Thanks,
-> >     Yu Ke<ke.yu@intel.com>
-> >---
-> Ke:
-> 
-> Most of these changes are OK, but I am going to get a little picky
-> on some of them, so I will need you to resubmit these changes once
-> you have fixed the issues.  Mostly it's about the commit messages.
+> > Pull URL: git://git.pokylinux.org/poky-contrib.git
+> >    Branch: qhe/distro
+> >    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=qhe/distro
+> >
+> > Thanks,
+> >      Qing He
+> > ---
+> >
+> I will take this set of updates, but had one question below.
 > 
 > Sau!
+> 
+> >
+> > Qing He (9):
+> >    libnl: upgrade to version 2.0
+> Why did you remove the utils.c from the LIC_FILES_CHKSUM list?
 
-Thanks Saul for the careful reviewing. I get a bit rush so did not check the commit message much. I will revise the commit message accordingly and resubmit.
+Saul,
+	There is a major directory re-org of the libnl, so utils.c is
+not there anymore.
 
-Regards
-Ke
+	There is however, some problem in this package. A new
+src/COPYING is introduced labeled GPLv3, but not a single file is under
+this license, all of them are still LGPLv2 or GPLv2.
+
+Thanks,
+Qing
 
 > 
+> >    libtasn1: upgrade to version 2.8
+> >    syslinux: upgrade to version 4.03
+> >    busybox: upgrade to version 1.17.3
+> >    dbus: upgrade to version 1.4.0
+> >    dbus-glib: upgrade to version 0.88
+> >    dhcp: upgrade to version 4.2.0
+> >    sysstat: upgrade to version 9.1.5
+> >    openssl: upgrade to version 0.9.8p
 > >
-> >Yu Ke (10):
-> >   talloc: add new recipes talloc 2.0.1
-> Theres no LIC_FILES_CHKSUM metadata, also the LICENSE meta data
-> needs to be explict about what version of LGPL (such as v2, v2.1 or
-> v3)
-> 
-> >   upgrade to 2.7.8
-> What package, and it's not Signed-off-by anyone
-> 
-> >   mesa-dri: upgrade from 7.8.2 to 7.9
-> Why did you change the SRC_URI and remove the MesaDemos?  You also
-> removed the do_configure_prepend and do_install_append with no
-> explaination.
-> 
-> >   libdrm: upgrade from 2.4.21 to 2.4.22
-> >   xf86-video-intel: upgrade from 2.12.0 to 2.13.0
-> >   xserver-xf86-dri-lite: upgrade from 1.9.0 rc4 to 1.9.2
-> >   xrandr: upgrade from 1.3.2 to 1.3.4
-> Please be explicit about why the patch is being removed
-> 
-> >   pixman: upgrade from 0.18.2 to 0.20.0
-> >   cairo: upgrade from 1.8.10 to 1.10.0
-> Please be explicit in the commit message about removing patches and
-> why, is the code in the upstream, did libtool or other autoconf code
-> change to remove the need for this patch?
-> 
-> >   cairo dependency fix
+> >   .../dhcp-3.0.3-dhclient-dbus.patch                 |    0
+> >   .../fix-client-path.patch                          |    0
+> >   .../fixincludes.patch                              |    0
+> >   .../{dhcp-4.1.1-P1 =>  dhcp-4.2.0}/noattrmode.patch |    0
+> >   .../dhcp/{dhcp-4.1.1-P1 =>  dhcp-4.2.0}/site.h      |    0
+> >   .../dhcp/{dhcp_4.1.1-P1.bb =>  dhcp_4.2.0.bb}       |    2 +-
+> >   .../configure-targets.patch                        |    0
+> >   .../debian/ca.patch                                |    0
+> >   .../debian/config-hurd.patch                       |    0
+> >   .../debian/debian-targets.patch                    |    0
+> >   .../debian/engines-path.patch                      |    0
+> >   .../debian/kfreebsd-pipe.patch                     |    0
+> >   .../debian/make-targets.patch                      |    0
+> >   .../debian/man-dir.patch                           |    0
+> >   .../debian/man-section.patch                       |    0
+> >   .../debian/no-rpath.patch                          |    0
+> >   .../debian/no-symbolic.patch                       |    0
+> >   .../debian/perl-path.diff                          |    0
+> >   .../debian/pic.patch                               |    0
+> >   .../debian/pkg-config.patch                        |    0
+> >   .../debian/rc4-amd64.patch                         |    0
+> >   .../debian/rehash-crt.patch                        |    0
+> >   .../debian/rehash_pod.patch                        |    0
+> >   .../debian/series                                  |    0
+> >   .../debian/shared-lib-ext.patch                    |    0
+> >   .../debian/stddef.patch                            |    0
+> >   .../debian/valgrind.patch                          |    0
+> >   .../debian/version-script.patch                    |    0
+> >   .../shared-libs.patch                              |    0
+> >   .../{openssl_0.9.8o.bb =>  openssl_0.9.8p.bb}       |    0
+> >   .../B921600.patch                                  |    0
+> >   .../busybox-appletlib-dependency.patch             |    0
+> >   .../{busybox-1.16.2 =>  busybox-1.17.3}/defconfig   |    0
+> >   .../get_header_tar.patch                           |    0
+> >   .../make-382-fix.patch                             |    0
+> >   .../run-parts.in.usr-bin.patch                     |    6 +-
+> >   .../udhcpc-fix-nfsroot.patch                       |    0
+> >   .../udhcpscript.patch                              |    0
+> >   meta/recipes-core/busybox/busybox.inc              |    9 +++-
+> >   .../{busybox_1.16.2.bb =>  busybox_1.17.3.bb}       |    2 +-
+> >   .../dbus/dbus-1.2.24/fix-install-daemon.patch      |   56 --------------------
+> >   .../dbus/{dbus-1.2.24 =>  dbus-1.4.0}/dbus-1.init   |    0
+> >   .../dbus/{dbus-1.2.24 =>  dbus-1.4.0}/tmpdir.patch  |    0
+> >   .../fix_asneeded.patch                             |    0
+> >   .../no-examples.patch                              |    0
+> >   .../dbus/{dbus-glib_0.86.bb =>  dbus-glib_0.88.bb}  |    0
+> >   meta/recipes-core/dbus/dbus.inc                    |    1 -
+> >   .../dbus/{dbus_1.2.24.bb =>  dbus_1.4.0.bb}         |    2 +-
+> >   .../syslinux/files/cross-build.patch               |    7 ++-
+> >   .../{syslinux_3.86.bb =>  syslinux_4.03.bb}         |    2 +-
+> >   .../sysstat/{sysstat_9.1.4.bb =>  sysstat_9.1.5.bb} |    0
+> >   .../gnutls/{libtasn1_2.7.bb =>  libtasn1_2.8.bb}    |    2 +-
+> >   meta/recipes-support/libnl/libnl/compilefix.patch  |   12 ----
+> >   .../libnl/libnl/local-includes.patch               |   11 ----
+> >   .../libnl/{libnl_1.1.bb =>  libnl_2.0.bb}           |   11 ++--
+> >   55 files changed, 27 insertions(+), 96 deletions(-)
+> >   rename meta/recipes-connectivity/dhcp/{dhcp-4.1.1-P1 =>  dhcp-4.2.0}/dhcp-3.0.3-dhclient-dbus.patch (100%)
+> >   rename meta/recipes-connectivity/dhcp/{dhcp-4.1.1-P1 =>  dhcp-4.2.0}/fix-client-path.patch (100%)
+> >   rename meta/recipes-connectivity/dhcp/{dhcp-4.1.1-P1 =>  dhcp-4.2.0}/fixincludes.patch (100%)
+> >   rename meta/recipes-connectivity/dhcp/{dhcp-4.1.1-P1 =>  dhcp-4.2.0}/noattrmode.patch (100%)
+> >   rename meta/recipes-connectivity/dhcp/{dhcp-4.1.1-P1 =>  dhcp-4.2.0}/site.h (100%)
+> >   rename meta/recipes-connectivity/dhcp/{dhcp_4.1.1-P1.bb =>  dhcp_4.2.0.bb} (94%)
+> >   rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>  openssl-0.9.8p}/configure-targets.patch (100%)
+> >   rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>  openssl-0.9.8p}/debian/ca.patch (100%)
+> >   rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>  openssl-0.9.8p}/debian/config-hurd.patch (100%)
+> >   rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>  openssl-0.9.8p}/debian/debian-targets.patch (100%)
+> >   rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>  openssl-0.9.8p}/debian/engines-path.patch (100%)
+> >   rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>  openssl-0.9.8p}/debian/kfreebsd-pipe.patch (100%)
+> >   rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>  openssl-0.9.8p}/debian/make-targets.patch (100%)
+> >   rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>  openssl-0.9.8p}/debian/man-dir.patch (100%)
+> >   rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>  openssl-0.9.8p}/debian/man-section.patch (100%)
+> >   rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>  openssl-0.9.8p}/debian/no-rpath.patch (100%)
+> >   rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>  openssl-0.9.8p}/debian/no-symbolic.patch (100%)
+> >   rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>  openssl-0.9.8p}/debian/perl-path.diff (100%)
+> >   rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>  openssl-0.9.8p}/debian/pic.patch (100%)
+> >   rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>  openssl-0.9.8p}/debian/pkg-config.patch (100%)
+> >   rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>  openssl-0.9.8p}/debian/rc4-amd64.patch (100%)
+> >   rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>  openssl-0.9.8p}/debian/rehash-crt.patch (100%)
+> >   rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>  openssl-0.9.8p}/debian/rehash_pod.patch (100%)
+> >   rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>  openssl-0.9.8p}/debian/series (100%)
+> >   rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>  openssl-0.9.8p}/debian/shared-lib-ext.patch (100%)
+> >   rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>  openssl-0.9.8p}/debian/stddef.patch (100%)
+> >   rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>  openssl-0.9.8p}/debian/valgrind.patch (100%)
+> >   rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>  openssl-0.9.8p}/debian/version-script.patch (100%)
+> >   rename meta/recipes-connectivity/openssl/{openssl-0.9.8o =>  openssl-0.9.8p}/shared-libs.patch (100%)
+> >   rename meta/recipes-connectivity/openssl/{openssl_0.9.8o.bb =>  openssl_0.9.8p.bb} (100%)
+> >   rename meta/recipes-core/busybox/{busybox-1.16.2 =>  busybox-1.17.3}/B921600.patch (100%)
+> >   rename meta/recipes-core/busybox/{busybox-1.16.2 =>  busybox-1.17.3}/busybox-appletlib-dependency.patch (100%)
+> >   rename meta/recipes-core/busybox/{busybox-1.16.2 =>  busybox-1.17.3}/defconfig (100%)
+> >   rename meta/recipes-core/busybox/{busybox-1.16.2 =>  busybox-1.17.3}/get_header_tar.patch (100%)
+> >   rename meta/recipes-core/busybox/{busybox-1.16.2 =>  busybox-1.17.3}/make-382-fix.patch (100%)
+> >   rename meta/recipes-core/busybox/{busybox-1.16.2 =>  busybox-1.17.3}/run-parts.in.usr-bin.patch (82%)
+> >   rename meta/recipes-core/busybox/{busybox-1.16.2 =>  busybox-1.17.3}/udhcpc-fix-nfsroot.patch (100%)
+> >   rename meta/recipes-core/busybox/{busybox-1.16.2 =>  busybox-1.17.3}/udhcpscript.patch (100%)
+> >   rename meta/recipes-core/busybox/{busybox_1.16.2.bb =>  busybox_1.17.3.bb} (98%)
+> >   delete mode 100644 meta/recipes-core/dbus/dbus-1.2.24/fix-install-daemon.patch
+> >   rename meta/recipes-core/dbus/{dbus-1.2.24 =>  dbus-1.4.0}/dbus-1.init (100%)
+> >   rename meta/recipes-core/dbus/{dbus-1.2.24 =>  dbus-1.4.0}/tmpdir.patch (100%)
+> >   rename meta/recipes-core/dbus/{dbus-glib-0.86 =>  dbus-glib-0.88}/fix_asneeded.patch (100%)
+> >   rename meta/recipes-core/dbus/{dbus-glib-0.86 =>  dbus-glib-0.88}/no-examples.patch (100%)
+> >   rename meta/recipes-core/dbus/{dbus-glib_0.86.bb =>  dbus-glib_0.88.bb} (100%)
+> >   rename meta/recipes-core/dbus/{dbus_1.2.24.bb =>  dbus_1.4.0.bb} (64%)
+> >   rename meta/recipes-devtools/syslinux/{syslinux_3.86.bb =>  syslinux_4.03.bb} (99%)
+> >   rename meta/recipes-extended/sysstat/{sysstat_9.1.4.bb =>  sysstat_9.1.5.bb} (100%)
+> >   rename meta/recipes-support/gnutls/{libtasn1_2.7.bb =>  libtasn1_2.8.bb} (98%)
+> >   delete mode 100644 meta/recipes-support/libnl/libnl/compilefix.patch
+> >   delete mode 100644 meta/recipes-support/libnl/libnl/local-includes.patch
+> >   rename meta/recipes-support/libnl/{libnl_1.1.bb =>  libnl_2.0.bb} (61%)
 > >
-> >  .../distro/include/preferred-xorg-versions.inc     |   12 ++--
-> >  .../libxml/{libxml2_2.7.7.bb =>  libxml2_2.7.8.bb}  |    0
-> >  meta/recipes-extended/talloc/talloc_2.0.1.bb       |   18 +++++++
-> >  meta/recipes-gnome/gtk+/gtk+_2.20.1.bb             |    2 +-
-> >  meta/recipes-gnome/librsvg/librsvg_2.26.3.bb       |    2 +-
-> >  .../cairo/cairo-1.8.10/hardcoded_libtool.patch     |   17 ------
-> >  meta/recipes-graphics/cairo/cairo_1.10.0.bb        |    7 +++
-> >  meta/recipes-graphics/cairo/cairo_1.8.10.bb        |    8 ---
-> >  .../installtests.patch                             |    0
-> >  .../drm/{libdrm_2.4.21.bb =>  libdrm_2.4.22.bb}     |    0
-> >  meta/recipes-graphics/mesa/mesa-dri_7.8.2.bb       |   53 --------------------
-> >  meta/recipes-graphics/mesa/mesa-dri_7.9.bb         |   40 +++++++++++++++
-> >  meta/recipes-graphics/pango/pango_1.28.0.bb        |    2 +-
-> >  .../xorg-app/xrandr/resolve_symbol_clash.patch     |   33 ------------
-> >  .../xorg-app/{xrandr_1.3.2.bb =>  xrandr_1.3.4.bb}  |    2 -
-> >  ...-intel_2.12.0.bb =>  xf86-video-intel_2.13.0.bb} |    0
-> >  .../{pixman_0.18.2.bb =>  pixman_0.20.0.bb}         |    0
-> >  ....8.99.904.bb =>  xserver-xf86-dri-lite_1.9.2.bb} |    2 +-
-> >  meta/recipes-kernel/lttng/lttng-viewer_0.12.35.bb  |    2 +-
-> >  .../gstreamer/gstreamer_0.10.30.bb                 |    2 +-
-> >  .../gtk-engines/gtk-sato-engine_svn.bb             |    2 +-
-> >  meta/recipes-sato/leafpad/leafpad_0.8.17.bb        |    2 +-
-> >  meta/recipes-sato/libowl/libowl_svn.bb             |    2 +-
-> >  .../matchbox-keyboard/matchbox-keyboard_svn.bb     |    2 +-
-> >  .../matchbox-panel-2/matchbox-panel-2_svn.bb       |    2 +-
-> >  .../matchbox-terminal/matchbox-terminal_svn.bb     |    2 +-
-> >  .../recipes-sato/owl-video-widget/libowl-av_svn.bb |    2 +-
-> >  meta/recipes-sato/pcmanfm/pcmanfm_0.9.7.bb         |    2 +-
-> >  meta/recipes-sato/screenshot/screenshot_svn.bb     |    2 +
-> >  meta/recipes-sato/webkit/webkit-gtk_svn.bb         |    2 +-
-> >  meta/recipes-support/libfm/libfm_0.1.12.bb         |    2 +-
-> >  meta/recipes-support/libsoup/libsoup-2.4_2.31.2.bb |    2 +-
-> >  32 files changed, 90 insertions(+), 136 deletions(-)
-> >  rename meta/recipes-core/libxml/{libxml2_2.7.7.bb =>  libxml2_2.7.8.bb} (100%)
-> >  create mode 100644 meta/recipes-extended/talloc/talloc_2.0.1.bb
-> >  delete mode 100644 meta/recipes-graphics/cairo/cairo-1.8.10/hardcoded_libtool.patch
-> >  create mode 100644 meta/recipes-graphics/cairo/cairo_1.10.0.bb
-> >  delete mode 100644 meta/recipes-graphics/cairo/cairo_1.8.10.bb
-> >  rename meta/recipes-graphics/drm/{libdrm-2.4.21 =>  libdrm-2.4.22}/installtests.patch (100%)
-> >  rename meta/recipes-graphics/drm/{libdrm_2.4.21.bb =>  libdrm_2.4.22.bb} (100%)
-> >  delete mode 100644 meta/recipes-graphics/mesa/mesa-dri_7.8.2.bb
-> >  create mode 100644 meta/recipes-graphics/mesa/mesa-dri_7.9.bb
-> >  delete mode 100644 meta/recipes-graphics/xorg-app/xrandr/resolve_symbol_clash.patch
-> >  rename meta/recipes-graphics/xorg-app/{xrandr_1.3.2.bb =>  xrandr_1.3.4.bb} (82%)
-> >  rename meta/recipes-graphics/xorg-driver/{xf86-video-intel_2.12.0.bb =>  xf86-video-intel_2.13.0.bb} (100%)
-> >  rename meta/recipes-graphics/xorg-lib/{pixman_0.18.2.bb =>  pixman_0.20.0.bb} (100%)
-> >  rename meta/recipes-graphics/xorg-xserver/{xserver-xf86-dri-lite_1.8.99.904.bb =>  xserver-xf86-dri-lite_1.9.2.bb} (98%)
-> >
-> >_______________________________________________
-> >poky mailing list
-> >poky@yoctoproject.org
-> >https://lists.yoctoproject.org/listinfo/poky
+> > _______________________________________________
+> > poky mailing list
+> > poky@yoctoproject.org
+> > https://lists.yoctoproject.org/listinfo/poky
 > >
 > 
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
 
