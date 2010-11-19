@@ -1,21 +1,21 @@
 Return-Path: <paul.eggleton@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 82E634C80BD4
-	for <poky@yoctoproject.org>; Fri, 19 Nov 2010 04:24:02 -0600 (CST)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id AFEB24C80BD4
+	for <poky@yoctoproject.org>; Fri, 19 Nov 2010 04:26:33 -0600 (CST)
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 19 Nov 2010 02:24:01 -0800
+	by orsmga101.jf.intel.com with ESMTP; 19 Nov 2010 02:26:32 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,222,1288594800"; d="scan'208";a="679064046"
+X-IronPort-AV: E=Sophos;i="4.59,222,1288594800"; d="scan'208";a="679064526"
 Received: from unknown (HELO helios.localnet) ([10.255.16.119])
-	by orsmga001.jf.intel.com with ESMTP; 19 Nov 2010 02:24:00 -0800
+	by orsmga001.jf.intel.com with ESMTP; 19 Nov 2010 02:26:31 -0800
 From: Paul Eggleton <paul.eggleton@intel.com>
 Organization: Intel Corporation
 To: poky@yoctoproject.org
-Date: Fri, 19 Nov 2010 10:23:57 +0000
+Date: Fri, 19 Nov 2010 10:26:30 +0000
 User-Agent: KMail/1.13.5 (Linux/2.6.35-22-generic-pae; KDE/4.5.1; i686; ; )
 MIME-Version: 1.0
-Message-Id: <201011191023.58154.paul.eggleton@intel.com>
-Subject: PATCH: openssl: disable execstack flag to prevent problems with SELinux
+Message-Id: <201011191026.30354.paul.eggleton@intel.com>
+Subject: [PATCH] sanity.bbclass: add wget to required utilities
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,45 +27,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 19 Nov 2010 10:24:02 -0000
+X-List-Received-Date: Fri, 19 Nov 2010 10:26:33 -0000
 Content-Type: Text/Plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-openssl: disable execstack flag to prevent problems with SELinux
-
-The execstack flag gets set on libcrypto.so by default which causes SELinux
-to prevent it from being loaded on systems using SELinux, which includes
-Fedora. This patch disables the execstack flag. (Note: Red Hat do this in
-their openssl packaging.)
+sanity.bbclass: add wget to required utilities
 
 Signed-off-by: Paul Eggleton <paul.eggleton@intel.com>
 
----
-diff --git a/meta/recipes-connectivity/openssl/openssl.inc b/meta/recipes-connectivity/openssl/openssl.inc
-index da90456..15144b1 100644
---- a/meta/recipes-connectivity/openssl/openssl.inc
-+++ b/meta/recipes-connectivity/openssl/openssl.inc
-@@ -15,7 +15,7 @@ S = "${WORKDIR}/openssl-${PV}"
+diff --git a/meta/classes/sanity.bbclass b/meta/classes/sanity.bbclass
+index 7f1f800..06aeddc 100644
+--- a/meta/classes/sanity.bbclass
++++ b/meta/classes/sanity.bbclass
+@@ -106,7 +106,7 @@ def check_sanity(e):
+ 	if not check_app_exists('${BUILD_PREFIX}g++', e.data):
+ 		missing = missing + "C++ Compiler (%sg++)," % data.getVar("BUILD_PREFIX", e.data, True)
  
- AR_append = " r"
- CFLAG = "${@base_conditional('SITEINFO_ENDIANESS', 'le', '-DL_ENDIAN', '-DB_ENDIAN', d)} \
--	-DTERMIO ${FULL_OPTIMIZATION} -Wall"
-+	-DTERMIO ${FULL_OPTIMIZATION} -Wall -Wa,--noexecstack"
+-	required_utilities = "patch help2man diffstat texi2html makeinfo cvs svn bzip2 tar gzip gawk hg chrpath"
++	required_utilities = "patch help2man diffstat texi2html makeinfo cvs svn bzip2 tar gzip gawk hg chrpath wget"
  
- # -02 does not work on mipsel: ssh hangs when it tries to read /dev/urandom
- CFLAG_mtx-1 := "${@'${CFLAG}'.replace('-O2', '')}"
-diff --git a/meta/recipes-connectivity/openssl/openssl_0.9.8o.bb b/meta/recipes-connectivity/openssl/openssl_0.9.8o.bb
-index 3949540..fe02272 100644
---- a/meta/recipes-connectivity/openssl/openssl_0.9.8o.bb
-+++ b/meta/recipes-connectivity/openssl/openssl_0.9.8o.bb
-@@ -1,6 +1,6 @@
- require openssl.inc
- 
--PR = "r0"
-+PR = "r1"
- SRC_URI += "file://debian/ca.patch \
-             file://debian/config-hurd.patch;apply=no \
-             file://debian/debian-targets.patch \
+ 	# qemu-native needs gcc 3.x
+ 	if "qemu-native" not in assume_provided and "gcc3-native" in assume_provided:
 ---------------------------------------------------------------------
 Intel Corporation (UK) Limited
 Registered No. 1134945 (England)
