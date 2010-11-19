@@ -1,21 +1,21 @@
 Return-Path: <edwin.zhai@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 06C024C811CC
-	for <poky@yoctoproject.org>; Fri, 19 Nov 2010 05:21:31 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 19 Nov 2010 03:21:31 -0800
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 885CB4C811D6
+	for <poky@yoctoproject.org>; Fri, 19 Nov 2010 05:21:33 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 19 Nov 2010 03:21:33 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,222,1288594800"; d="scan'208";a="679076626"
+X-IronPort-AV: E=Sophos;i="4.59,222,1288594800"; d="scan'208";a="575472817"
 Received: from gzhai-nhm.sh.intel.com (HELO localhost) ([10.239.36.111])
-	by orsmga001.jf.intel.com with ESMTP; 19 Nov 2010 03:21:31 -0800
-Message-Id: <ecd133b433405dc16079c8de218511d0f0ec1322.1290165996.git.edwin.zhai@intel.com>
+	by orsmga002.jf.intel.com with ESMTP; 19 Nov 2010 03:21:32 -0800
+Message-Id: <d2560228f7a4a9595be9bcd10f4f95176b4a0312.1290165996.git.edwin.zhai@intel.com>
 In-Reply-To: <cover.1290165996.git.edwin.zhai@intel.com>
 References: <cover.1290165996.git.edwin.zhai@intel.com>
 From: Zhai Edwin <edwin.zhai@intel.com>
 Date: Fri, 19 Nov 2010 08:00:36 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 07/17] libowl-av: Update to svn r416
+Subject: [PATCH 08/17] tasks: Update to 0.18
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,26 +27,18 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 19 Nov 2010 11:21:32 -0000
+X-List-Received-Date: Fri, 19 Nov 2010 11:21:33 -0000
 
 Signed-off-by: Zhai Edwin <edwin.zhai@intel.com>
 ---
- .../conf/distro/include/poky-default-revisions.inc |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ .../pimlico/{tasks_0.16.bb => tasks_0.18.bb}       |    0
+ 1 files changed, 0 insertions(+), 0 deletions(-)
+ rename meta/recipes-sato/pimlico/{tasks_0.16.bb => tasks_0.18.bb} (100%)
 
-diff --git a/meta/conf/distro/include/poky-default-revisions.inc b/meta/conf/distro/include/poky-default-revisions.inc
-index 09a7452..b91f7cd 100644
---- a/meta/conf/distro/include/poky-default-revisions.inc
-+++ b/meta/conf/distro/include/poky-default-revisions.inc
-@@ -62,7 +62,7 @@ SRCREV_pn-libgdbus ??= "aeab6e3c0185b271ca343b439470491b99cc587f"
- SRCREV_pn-libgsmd ??= "4335"
- SRCREV_pn-libmatchbox ??= "1531"
- SRCREV_pn-libowl ??= "408"
--SRCREV_pn-libowl-av ??= "398"
-+SRCREV_pn-libowl-av ??= "416"
- SRCREV_pn-libx11 ??= "d23aad31338e7d869d878d5aa1b6b91d20287005"
- SRCREV_pn-libx11-diet ??= "d23aad31338e7d869d878d5aa1b6b91d20287005"
- SRCREV_pn-libx11-native ??= "d23aad31338e7d869d878d5aa1b6b91d20287005"
+diff --git a/meta/recipes-sato/pimlico/tasks_0.16.bb b/meta/recipes-sato/pimlico/tasks_0.18.bb
+similarity index 100%
+rename from meta/recipes-sato/pimlico/tasks_0.16.bb
+rename to meta/recipes-sato/pimlico/tasks_0.18.bb
 -- 
 1.6.3.3
 
