@@ -1,23 +1,21 @@
-Return-Path: <qing.he@intel.com>
+Return-Path: <paul.eggleton@intel.com>
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9B9104C80BD4
-	for <poky@yoctoproject.org>; Thu, 18 Nov 2010 22:45:21 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 82E634C80BD4
+	for <poky@yoctoproject.org>; Fri, 19 Nov 2010 04:24:02 -0600 (CST)
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 18 Nov 2010 20:45:13 -0800
+	by orsmga102.jf.intel.com with ESMTP; 19 Nov 2010 02:24:01 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,221,1288594800"; d="scan'208";a="678997487"
-Received: from qhe2-db.sh.intel.com ([10.239.13.31])
-	by orsmga001.jf.intel.com with ESMTP; 18 Nov 2010 20:45:13 -0800
-Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
-	(envelope-from <qing.he@intel.com>) id 1PJIlt-00087u-Ua
-	for poky@yoctoproject.org; Fri, 19 Nov 2010 12:40:25 +0800
-Date: Fri, 19 Nov 2010 12:40:25 +0800
-From: Qing He <qing.he@intel.com>
+X-IronPort-AV: E=Sophos;i="4.59,222,1288594800"; d="scan'208";a="679064046"
+Received: from unknown (HELO helios.localnet) ([10.255.16.119])
+	by orsmga001.jf.intel.com with ESMTP; 19 Nov 2010 02:24:00 -0800
+From: Paul Eggleton <paul.eggleton@intel.com>
+Organization: Intel Corporation
 To: poky@yoctoproject.org
-Message-ID: <20101119044025.GB31096@qhe2-db>
+Date: Fri, 19 Nov 2010 10:23:57 +0000
+User-Agent: KMail/1.13.5 (Linux/2.6.35-22-generic-pae; KDE/4.5.1; i686; ; )
 MIME-Version: 1.0
-User-Agent: Mutt/1.5.20 (2009-06-14)
-Subject: [PATCH] fix a typo in usermanual on lazy default
+Message-Id: <201011191023.58154.paul.eggleton@intel.com>
+Subject: PATCH: openssl: disable execstack flag to prevent problems with SELinux
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,26 +27,54 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 19 Nov 2010 04:45:21 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-List-Received-Date: Fri, 19 Nov 2010 10:24:02 -0000
+Content-Type: Text/Plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-"??= ... is a lazy version of ??=", the second should be ?=
+openssl: disable execstack flag to prevent problems with SELinux
 
-Signed-off-by: Qing He <qing.he@intel.com>
+The execstack flag gets set on libcrypto.so by default which causes SELinux
+to prevent it from being loaded on systems using SELinux, which includes
+Fedora. This patch disables the execstack flag. (Note: Red Hat do this in
+their openssl packaging.)
+
+Signed-off-by: Paul Eggleton <paul.eggleton@intel.com>
 
 ---
-diff --git a/bitbake/doc/manual/usermanual.xml b/bitbake/doc/manual/usermanual.xml
-index 748ac31..2b7a0b5 100644
---- a/bitbake/doc/manual/usermanual.xml
-+++ b/bitbake/doc/manual/usermanual.xml
-@@ -97,7 +97,7 @@ share common metadata between many packages.</para></listitem>
-                 <title>Setting a default value (??=)</title>
-                 <para><screen><varname>A</varname> ??= "somevalue"</screen></para>
-                 <para><screen><varname>A</varname> ??= "someothervalue"</screen></para>
--                <para>If <varname>A</varname> is set before the above, it will retain that value.  If <varname>A</varname> is unset prior to the above, <varname>A</varname> will be set to <literal>someothervalue</literal>.  This is a lazy version of ??=, in that the assignment does not occur until the end of the parsing process, so that the last, rather than the first, ??= assignment to a given variable will be used.</para>
-+                <para>If <varname>A</varname> is set before the above, it will retain that value.  If <varname>A</varname> is unset prior to the above, <varname>A</varname> will be set to <literal>someothervalue</literal>.  This is a lazy version of ?=, in that the assignment does not occur until the end of the parsing process, so that the last, rather than the first, ??= assignment to a given variable will be used.</para>
-             </section>
-             <section>
-                 <title>Immediate variable expansion (:=)</title>
+diff --git a/meta/recipes-connectivity/openssl/openssl.inc b/meta/recipes-connectivity/openssl/openssl.inc
+index da90456..15144b1 100644
+--- a/meta/recipes-connectivity/openssl/openssl.inc
++++ b/meta/recipes-connectivity/openssl/openssl.inc
+@@ -15,7 +15,7 @@ S = "${WORKDIR}/openssl-${PV}"
+ 
+ AR_append = " r"
+ CFLAG = "${@base_conditional('SITEINFO_ENDIANESS', 'le', '-DL_ENDIAN', '-DB_ENDIAN', d)} \
+-	-DTERMIO ${FULL_OPTIMIZATION} -Wall"
++	-DTERMIO ${FULL_OPTIMIZATION} -Wall -Wa,--noexecstack"
+ 
+ # -02 does not work on mipsel: ssh hangs when it tries to read /dev/urandom
+ CFLAG_mtx-1 := "${@'${CFLAG}'.replace('-O2', '')}"
+diff --git a/meta/recipes-connectivity/openssl/openssl_0.9.8o.bb b/meta/recipes-connectivity/openssl/openssl_0.9.8o.bb
+index 3949540..fe02272 100644
+--- a/meta/recipes-connectivity/openssl/openssl_0.9.8o.bb
++++ b/meta/recipes-connectivity/openssl/openssl_0.9.8o.bb
+@@ -1,6 +1,6 @@
+ require openssl.inc
+ 
+-PR = "r0"
++PR = "r1"
+ SRC_URI += "file://debian/ca.patch \
+             file://debian/config-hurd.patch;apply=no \
+             file://debian/debian-targets.patch \
+---------------------------------------------------------------------
+Intel Corporation (UK) Limited
+Registered No. 1134945 (England)
+Registered Office: Pipers Way, Swindon SN3 1RJ
+VAT No: 860 2173 47
+
+This e-mail and any attachments may contain confidential material for
+the sole use of the intended recipient(s). Any review or distribution
+by others is strictly prohibited. If you are not the intended
+recipient, please contact the sender and delete all copies.
+
 
