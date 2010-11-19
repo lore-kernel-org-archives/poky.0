@@ -1,25 +1,26 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 767984C810B6
-	for <poky@yoctoproject.org>; Fri, 19 Nov 2010 12:28:04 -0600 (CST)
+Return-Path: <scott.a.garman@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id ABC854C81068
+	for <poky@yoctoproject.org>; Fri, 19 Nov 2010 12:33:34 -0600 (CST)
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 19 Nov 2010 10:28:04 -0800
+	by fmsmga102.fm.intel.com with ESMTP; 19 Nov 2010 10:33:34 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,224,1288594800"; d="scan'208";a="859476670"
-Received: from unknown (HELO [10.255.13.99]) ([10.255.13.99])
-	by fmsmga001.fm.intel.com with ESMTP; 19 Nov 2010 10:28:04 -0800
-Message-ID: <4CE6C1B3.6080906@intel.com>
-Date: Fri, 19 Nov 2010 10:28:03 -0800
-From: Saul Wold <saul.wold@intel.com>
+X-IronPort-AV: E=Sophos;i="4.59,224,1288594800"; d="scan'208";a="859478111"
+Received: from rrsmsx603.amr.corp.intel.com ([10.31.0.57])
+	by fmsmga001.fm.intel.com with ESMTP; 19 Nov 2010 10:33:34 -0800
+Received: from [10.255.13.110] (10.255.13.110) by rrsmsx603.amr.corp.intel.com
+	(10.31.0.57) with Microsoft SMTP Server (TLS) id 8.2.254.0;
+	Fri, 19 Nov 2010 11:33:34 -0700
+Message-ID: <4CE6C2FC.8020602@intel.com>
+Date: Fri, 19 Nov 2010 10:33:32 -0800
+From: Scott Garman <scott.a.garman@intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
+	rv:1.9.2.12) Gecko/20101027 Lightning/1.0b2 Thunderbird/3.1.6
 MIME-Version: 1.0
-To: poky@yoctoproject.org
-References: <cover.1289922022.git.dexuan.cui@intel.com>
-	<1865303E0DED764181A9D882DEF65FB6808B4A9CBD@shsmsx502.ccr.corp.intel.com>
-In-Reply-To: <1865303E0DED764181A9D882DEF65FB6808B4A9CBD@shsmsx502.ccr.corp.intel.com>
-Subject: Re: [PATCH 00/12] X11-libs, Dexuan, 2010.11.16
+To: <poky@yoctoproject.org>
+References: <cover.1290179273.git.josh@linux.intel.com>
+In-Reply-To: <cover.1290179273.git.josh@linux.intel.com>
+Subject: Re: [PATCH 0/1] Enable parallel installations of SDK's from different Poky versions
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,65 +32,45 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 19 Nov 2010 18:28:04 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Fri, 19 Nov 2010 18:33:34 -0000
+Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 11/16/2010 05:35 PM, Cui, Dexuan wrote:
+On 11/19/2010 07:07 AM, Joshua Lock wrote:
+> Simple patch to enable multiple SDK installations under the /opt/poky namespace separated into folders matching the version of the corresponding Poky distro release.
+>
 > Pull URL: git://git.pokylinux.org/poky-contrib.git
->    Branch: dcui/master
->    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dcui/master
+>    Branch: josh/sdk
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=josh/sdk
 >
 > Thanks,
->      Dexuan Cui<dexuan.cui@intel.com>
+>      Joshua Lock<josh@linux.intel.com>
 > ---
 >
 >
-> Dexuan Cui (12):
->    damageproto: upgrade from 1.2.0 to the latest version 1.2.1
->    fixesproto: upgrade from 4.1.1 to the latest version 4.1.2
->    fontsproto: upgrade from 2.1.0 to the latest version 2.1.1
->    glproto: upgrade from 1.4.11 to the latest version 1.4.12
->    kbproto: upgrade from 1.0.4 to the latest version 1.0.5
->    randrproto: upgrade from 1.3.1 to the latest version 1.3.2
->    recordproto: upgrade from 1.14 to the latest version 1.14.1
->    scrnsaverproto: upgrade from 1.2.0 to the latest version 1.2.1
->    videoproto: upgrade from 2.3.0 to the latest version 2.3.1
->    xcmiscproto: upgrade from 1.2.0 to the latest version 1.2.1
->    xextproto: upgrade from 7.1.1 to the latest version 7.1.2
->    Distro Tracking: update distro tracking field for recipes of Graphics
->      libs
+> Joshua Lock (1):
+>    poky.conf: move the SDK install into version directories
 >
->   .../conf/distro/include/distro_tracking_fields.inc |   66 ++++++++++----------
->   .../distro/include/preferred-xorg-versions.inc     |   38 ++++++------
->   ...bxscrnsaver_1.2.0.bb =>  libxscrnsaver_1.2.1.bb} |    2 +-
->   .../{damageproto_1.2.0.bb =>  damageproto_1.2.1.bb} |    2 +-
->   .../xorg-proto/fixesproto_4.1.1.bb                 |   11 ---
->   .../xorg-proto/fixesproto_4.1.2.bb                 |   11 +++
->   .../{fontsproto_2.1.0.bb =>  fontsproto_2.1.1.bb}   |    2 +-
->   .../{glproto_1.4.11.bb =>  glproto_1.4.12.bb}       |    2 +-
->   .../{kbproto_1.0.4.bb =>  kbproto_1.0.5.bb}         |    2 +-
->   .../{randrproto_1.3.1.bb =>  randrproto_1.3.2.bb}   |    2 +-
->   .../{recordproto_1.14.bb =>  recordproto_1.14.1.bb} |    2 +-
->   .../{videoproto_2.3.0.bb =>  videoproto_2.3.1.bb}   |    2 +-
->   .../{xcmiscproto_1.2.0.bb =>  xcmiscproto_1.2.1.bb} |    2 +-
->   .../{xextproto_7.1.1.bb =>  xextproto_7.1.2.bb}     |    0
->   14 files changed, 72 insertions(+), 72 deletions(-)
->   rename meta/recipes-graphics/xorg-lib/{libxscrnsaver_1.2.0.bb =>  libxscrnsaver_1.2.1.bb} (95%)
->   rename meta/recipes-graphics/xorg-proto/{damageproto_1.2.0.bb =>  damageproto_1.2.1.bb} (96%)
->   delete mode 100644 meta/recipes-graphics/xorg-proto/fixesproto_4.1.1.bb
->   create mode 100644 meta/recipes-graphics/xorg-proto/fixesproto_4.1.2.bb
->   rename meta/recipes-graphics/xorg-proto/{fontsproto_2.1.0.bb =>  fontsproto_2.1.1.bb} (96%)
->   rename meta/recipes-graphics/xorg-proto/{glproto_1.4.11.bb =>  glproto_1.4.12.bb} (96%)
->   rename meta/recipes-graphics/xorg-proto/{kbproto_1.0.4.bb =>  kbproto_1.0.5.bb} (96%)
->   rename meta/recipes-graphics/xorg-proto/{randrproto_1.3.1.bb =>  randrproto_1.3.2.bb} (96%)
->   rename meta/recipes-graphics/xorg-proto/{recordproto_1.14.bb =>  recordproto_1.14.1.bb} (96%)
->   rename meta/recipes-graphics/xorg-proto/{videoproto_2.3.0.bb =>  videoproto_2.3.1.bb} (93%)
->   rename meta/recipes-graphics/xorg-proto/{xcmiscproto_1.2.0.bb =>  xcmiscproto_1.2.1.bb} (95%)
->   rename meta/recipes-graphics/xorg-proto/{xextproto_7.1.1.bb =>  xextproto_7.1.2.bb} (100%)
+>   meta/conf/distro/poky.conf |    2 +-
+>   1 files changed, 1 insertions(+), 1 deletions(-)
 >
-Pulled into Master
 
-Thanks
-    Sau!
+NAK. This would potentially break the poky-qemu script, which needs to 
+differentiate between whether it is being run with an in-tree Poky setup 
+or a standalone toolchain. See how the SDKDIR variable is set in 
+poky-qemu-internal.
+
+Mark rightly points out that hardcoded paths to SDK installations is 
+kludgy and we need to move toward allowing arbitrary install locations. 
+That however is going to take some coordination and edge-case planning 
+before we can begin to do the refactoring. Please keep me in the loop on 
+those discussions.
+
+Thanks,
+
+Scott
+
+-- 
+Scott Garman
+Embedded Linux Distro Engineer - Yocto Project
 
