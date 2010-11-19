@@ -1,21 +1,21 @@
 Return-Path: <edwin.zhai@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A9D574C811CF
-	for <poky@yoctoproject.org>; Fri, 19 Nov 2010 05:21:29 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 19 Nov 2010 03:21:29 -0800
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id F2A544C811CC
+	for <poky@yoctoproject.org>; Fri, 19 Nov 2010 05:21:30 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 19 Nov 2010 03:21:30 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,222,1288594800"; d="scan'208";a="628377098"
+X-IronPort-AV: E=Sophos;i="4.59,222,1288594800"; d="scan'208";a="350821175"
 Received: from gzhai-nhm.sh.intel.com (HELO localhost) ([10.239.36.111])
-	by fmsmga002.fm.intel.com with ESMTP; 19 Nov 2010 03:21:28 -0800
-Message-Id: <b6d72820ebb90e03f31cea7530509f23146958ac.1290165996.git.edwin.zhai@intel.com>
+	by azsmga001.ch.intel.com with ESMTP; 19 Nov 2010 03:21:30 -0800
+Message-Id: <0f7dadf0201b70ba00c6dda070e07449c5fdec8a.1290165996.git.edwin.zhai@intel.com>
 In-Reply-To: <cover.1290165996.git.edwin.zhai@intel.com>
 References: <cover.1290165996.git.edwin.zhai@intel.com>
 From: Zhai Edwin <edwin.zhai@intel.com>
 Date: Fri, 19 Nov 2010 08:00:36 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 05/17] ed: Update to 1.5
+Subject: [PATCH 06/17] avahi: Update to 0.6.28
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,24 +27,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 19 Nov 2010 11:21:29 -0000
+X-List-Received-Date: Fri, 19 Nov 2010 11:21:31 -0000
 
 Signed-off-by: Zhai Edwin <edwin.zhai@intel.com>
 ---
- .../ed/{ed-1.4 => ed-1.5}/ed-1.2-build.patch       |    0
- meta/recipes-extended/ed/{ed_1.4.bb => ed_1.5.bb}  |    0
- 2 files changed, 0 insertions(+), 0 deletions(-)
- rename meta/recipes-extended/ed/{ed-1.4 => ed-1.5}/ed-1.2-build.patch (100%)
- rename meta/recipes-extended/ed/{ed_1.4.bb => ed_1.5.bb} (100%)
+ .../avahi/{avahi_0.6.27.bb => avahi_0.6.28.bb}     |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+ rename meta/recipes-connectivity/avahi/{avahi_0.6.27.bb => avahi_0.6.28.bb} (98%)
 
-diff --git a/meta/recipes-extended/ed/ed-1.4/ed-1.2-build.patch b/meta/recipes-extended/ed/ed-1.5/ed-1.2-build.patch
-similarity index 100%
-rename from meta/recipes-extended/ed/ed-1.4/ed-1.2-build.patch
-rename to meta/recipes-extended/ed/ed-1.5/ed-1.2-build.patch
-diff --git a/meta/recipes-extended/ed/ed_1.4.bb b/meta/recipes-extended/ed/ed_1.5.bb
-similarity index 100%
-rename from meta/recipes-extended/ed/ed_1.4.bb
-rename to meta/recipes-extended/ed/ed_1.5.bb
+diff --git a/meta/recipes-connectivity/avahi/avahi_0.6.27.bb b/meta/recipes-connectivity/avahi/avahi_0.6.28.bb
+similarity index 98%
+rename from meta/recipes-connectivity/avahi/avahi_0.6.27.bb
+rename to meta/recipes-connectivity/avahi/avahi_0.6.28.bb
+index 8793d67..736c615 100644
+--- a/meta/recipes-connectivity/avahi/avahi_0.6.27.bb
++++ b/meta/recipes-connectivity/avahi/avahi_0.6.28.bb
+@@ -7,7 +7,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=2d5025d4aa3495befef8f17206a5b0a1 \
+                     file://avahi-client/client.h;endline=23;md5=f4ac741a25c4f434039ba3e18c8674cf"
+ 
+ RDEPENDS_avahi-daemon = "sysvinit-pidof"
+-PR = "r2"
++PR = "r0"
+ 
+ EXTRA_OECONF += "--disable-gtk3"
+ 
 -- 
 1.6.3.3
 
