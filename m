@@ -1,31 +1,19 @@
-Return-Path: <rpurdie@linux.intel.com>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id F15854C80FA7
-	for <poky@yoctoproject.org>; Fri, 19 Nov 2010 04:27:57 -0600 (CST)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oAJARtHZ012608;
-	Fri, 19 Nov 2010 10:27:55 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 12134-08; Fri, 19 Nov 2010 10:27:51 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oAJARj8p012567
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Fri, 19 Nov 2010 10:27:45 GMT
-From: Richard Purdie <rpurdie@linux.intel.com>
-To: Dongxiao Xu <dongxiao.xu@intel.com>
-In-Reply-To: <fa09979bfc38e15dc4b9ab199c11302284583a18.1289969353.git.dongxiao.xu@intel.com>
-References: <cover.1289969353.git.dongxiao.xu@intel.com>
-	<fa09979bfc38e15dc4b9ab199c11302284583a18.1289969353.git.dongxiao.xu@intel.com>
-Date: Fri, 19 Nov 2010 10:27:32 +0000
-Message-ID: <1290162452.1272.12090.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 1/1] bitbake: optimize file parsing speed
+Return-Path: <edwin.zhai@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 843384C80A74
+	for <poky@yoctoproject.org>; Fri, 19 Nov 2010 05:21:23 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 19 Nov 2010 03:21:22 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.59,222,1288594800"; d="scan'208";a="628377075"
+Received: from gzhai-nhm.sh.intel.com (HELO localhost) ([10.239.36.111])
+	by fmsmga002.fm.intel.com with ESMTP; 19 Nov 2010 03:21:22 -0800
+Message-Id: <cover.1290165996.git.edwin.zhai@intel.com>
+From: Zhai Edwin <edwin.zhai@intel.com>
+Date: Fri, 19 Nov 2010 19:26:36 +0800
+To: poky@yoctoproject.org
+CC: 
+Subject: [PATCH 00/17] *** [PULL] X apps/UX upgrade, Edwin, Nov19, 2010 ***
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,90 +25,78 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 19 Nov 2010 10:27:58 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 19 Nov 2010 11:21:23 -0000
 
-On Wed, 2010-11-17 at 12:10 +0800, Dongxiao Xu wrote:
-> build some data cache for generate_dependencies() on hand, and later
-> each time when parsing the bb file, we do not need to build them again
-> and again.
-> 
-> This optimization could get about 50% speed gain when parsing all ~800
-> bb files.
-> 
-> Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
-> ---
->  bitbake/lib/bb/cooker.py |    2 ++
->  bitbake/lib/bb/data.py   |   11 ++++++-----
->  2 files changed, 8 insertions(+), 5 deletions(-)
-> 
-> diff --git a/bitbake/lib/bb/cooker.py b/bitbake/lib/bb/cooker.py
-> index 33eb65e..05e6c16 100644
-> --- a/bitbake/lib/bb/cooker.py
-> +++ b/bitbake/lib/bb/cooker.py
-> @@ -76,6 +76,8 @@ class BBCooker:
->  
->          self.configuration.data = bb.data.init()
->  
-> +        bb.data.init_data_cache(self.configuration.data)
-> +
->          if not server:
->              bb.data.setVar("BB_WORKERCONTEXT", "1", self.configuration.data)
->  
-> diff --git a/bitbake/lib/bb/data.py b/bitbake/lib/bb/data.py
-> index fee10cc..a9e539f 100644
-> --- a/bitbake/lib/bb/data.py
-> +++ b/bitbake/lib/bb/data.py
-> @@ -296,17 +296,18 @@ def build_dependencies(key, keys, shelldeps, d):
->      #bb.note("Variable %s references %s and calls %s" % (key, str(deps), str(execs)))
->      #d.setVarFlag(key, "vardeps", deps)
->  
-> -def generate_dependencies(d):
-> +def init_data_cache(d):
-> +    bb.data.keylist = set(key for key in d.keys() if not key.startswith("__"))
-> +    bb.data.shelldeps = set(key for key in bb.data.keylist if d.getVarFlag(key, "export") and not d.getVarFlag(key, "unexport"))
->  
-> -    keys = set(key for key in d.keys() if not key.startswith("__"))
-> -    shelldeps = set(key for key in keys if d.getVarFlag(key, "export") and not d.getVarFlag(key, "unexport"))
-> +def generate_dependencies(d):
->  
->      deps = {}
->      taskdeps = {}
->  
->      tasklist = bb.data.getVar('__BBTASKS', d) or []
->      for task in tasklist:
-> -        deps[task] = build_dependencies(task, keys, shelldeps, d)
-> +        deps[task] = build_dependencies(task, bb.data.keylist, bb.data.shelldeps, d)
->  
->          newdeps = deps[task]
->          seen = set()
-> @@ -316,7 +317,7 @@ def generate_dependencies(d):
->              newdeps = set()
->              for dep in nextdeps:
->                  if dep not in deps:
-> -                    deps[dep] = build_dependencies(dep, keys, shelldeps, d)
-> +                    deps[dep] = build_dependencies(dep, bb.data.keylist, bb.data.shelldeps, d)
->                  newdeps |=  deps[dep]
->              newdeps -= seen
->          taskdeps[task] = seen | newdeps
+Saul,
+This is upgrade for X apps and UX. Pls. review and pull.
+Thanks,
+edwin
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: gzhai/distro
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=gzhai/distro
+
+Thanks,
+    Zhai Edwin <edwin.zhai@intel.com>
+---
 
 
-I'm afraid this isn't going to be quite this simple although this does
-prove those lines of code are a big hotspot in parsing.
+Dongxiao Xu (1):
+  matchbox-panel: Change function name "sync" to avoid conflict
 
-Why? You're creating the key and export lists for the base configuration
-data whereas the original code creates these lists for the *total*
-parsed metadata. There will therefore be differences in the values held
-by the two caches :(.
+Zhai Edwin (16):
+  libgpg-error: Update to 1.9
+  libassuan: Update to 2.0.1
+  libuser: Update to 0.56.18
+  xz: Update to 5.0.0
+  ed: Update to 1.5
+  avahi: Update to 0.6.28
+  libowl-av: Update to svn r416
+  tasks: Update to 0.18
+  atk: Update to 1.32.0
+  libsoup-2.4: Update to 2.32.1
+  matchbox-panel-2: Update to svn r2111
+  libgnome-keyring: Update to 2.32.0
+  gnome-keyring: Update to 2.32.1
+  libfm: Update to 0.1.14
+  pcmanfm: Update to 0.9.8
+  commit ae8dd607a154e8639d18014eb442f0fa48d55971
 
-As an example, if you set:
-
-FOO = "bar" in a .bb file, 'FOO' will not appear in your keywords cache.
-
-Cheers,
-
-Richard
-
+ .../conf/distro/include/distro_tracking_fields.inc |   82 ++++++++++----------
+ .../conf/distro/include/poky-default-revisions.inc |    4 +-
+ .../avahi/{avahi_0.6.27.bb => avahi_0.6.28.bb}     |    2 +-
+ .../ed/{ed-1.4 => ed-1.5}/ed-1.2-build.patch       |    0
+ meta/recipes-extended/ed/{ed_1.4.bb => ed_1.5.bb}  |    0
+ .../disable-sgml-doc.patch                         |    0
+ .../{libuser_0.56.16.bb => libuser_0.56.18.bb}     |    0
+ .../xz/{xz_4.999.9beta.bb => xz_5.0.0.bb}          |    0
+ ...e-keyring_2.31.4.bb => gnome-keyring_2.32.1.bb} |    0
+ ...eyring_2.30.1.bb => libgnome-keyring_2.32.0.bb} |    0
+ .../matchbox-panel-2/matchbox-panel-2_svn.bb       |    2 +-
+ .../pcmanfm/{pcmanfm_0.9.7.bb => pcmanfm_0.9.8.bb} |    0
+ .../pimlico/{tasks_0.16.bb => tasks_0.18.bb}       |    0
+ .../atk/{atk_1.30.0.bb => atk_1.32.0.bb}           |    2 +-
+ .../{libassuan_2.0.0.bb => libassuan_2.0.1.bb}     |    4 +-
+ .../libfm/{libfm_0.1.12.bb => libfm_0.1.14.bb}     |    0
+ .../pkgconfig.patch                                |    0
+ .../{libgpg-error_1.8.bb => libgpg-error_1.9.bb}   |    0
+ ...libsoup-2.4_2.31.2.bb => libsoup-2.4_2.32.1.bb} |    2 +-
+ 19 files changed, 49 insertions(+), 49 deletions(-)
+ rename meta/recipes-connectivity/avahi/{avahi_0.6.27.bb => avahi_0.6.28.bb} (98%)
+ rename meta/recipes-extended/ed/{ed-1.4 => ed-1.5}/ed-1.2-build.patch (100%)
+ rename meta/recipes-extended/ed/{ed_1.4.bb => ed_1.5.bb} (100%)
+ rename meta/recipes-extended/libuser/{libuser-0.56.16 => libuser-0.56.18}/disable-sgml-doc.patch (100%)
+ rename meta/recipes-extended/libuser/{libuser_0.56.16.bb => libuser_0.56.18.bb} (100%)
+ rename meta/recipes-extended/xz/{xz_4.999.9beta.bb => xz_5.0.0.bb} (100%)
+ rename meta/recipes-gnome/gnome/{gnome-keyring_2.31.4.bb => gnome-keyring_2.32.1.bb} (100%)
+ rename meta/recipes-gnome/gnome/{libgnome-keyring_2.30.1.bb => libgnome-keyring_2.32.0.bb} (100%)
+ rename meta/recipes-sato/pcmanfm/{pcmanfm_0.9.7.bb => pcmanfm_0.9.8.bb} (100%)
+ rename meta/recipes-sato/pimlico/{tasks_0.16.bb => tasks_0.18.bb} (100%)
+ rename meta/recipes-support/atk/{atk_1.30.0.bb => atk_1.32.0.bb} (81%)
+ rename meta/recipes-support/libassuan/{libassuan_2.0.0.bb => libassuan_2.0.1.bb} (72%)
+ rename meta/recipes-support/libfm/{libfm_0.1.12.bb => libfm_0.1.14.bb} (100%)
+ rename meta/recipes-support/libgpg-error/{libgpg-error-1.8 => libgpg-error-1.9}/pkgconfig.patch (100%)
+ rename meta/recipes-support/libgpg-error/{libgpg-error_1.8.bb => libgpg-error_1.9.bb} (100%)
+ rename meta/recipes-support/libsoup/{libsoup-2.4_2.31.2.bb => libsoup-2.4_2.32.1.bb} (86%)
 
 
