@@ -1,23 +1,41 @@
-Return-Path: <qing.he@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 6E3184C80BD4
-	for <poky@yoctoproject.org>; Thu, 18 Nov 2010 21:55:51 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 18 Nov 2010 19:55:50 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,221,1288594800"; d="scan'208";a="678987710"
-Received: from qhe2-db.sh.intel.com ([10.239.13.31])
-	by orsmga001.jf.intel.com with ESMTP; 18 Nov 2010 19:55:50 -0800
-Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
-	(envelope-from <qing.he@intel.com>)
-	id 1PJI06-00084O-SD; Fri, 19 Nov 2010 11:51:02 +0800
-Date: Fri, 19 Nov 2010 11:51:02 +0800
-From: Qing He <qing.he@intel.com>
-To: poky@yoctoproject.org
-Message-ID: <20101119035102.GA31016@qhe2-db>
+Return-Path: <kergoth@gmail.com>
+Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
+	[74.125.82.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D90E24C80FA7
+	for <poky@yoctoproject.org>; Thu, 18 Nov 2010 22:13:49 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by wyf19 with SMTP id 19so4208271wyf.35
+	for <poky@yoctoproject.org>; Thu, 18 Nov 2010 20:13:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:received:mime-version:sender:received
+	:in-reply-to:references:from:date:x-google-sender-auth:message-id
+	:subject:to:content-type;
+	bh=trrxvaMh8pe22s7Oo4Wnt2R74HYVB/FQCW+Hhh0psm0=;
+	b=QXo0V18MPkx6XJLIugTDFO0eMFJMw5tFC3DPrd5HLzoniwlL3wi4soJzak4OUvTnPd
+	gxbzos+GHSbY+ENVfiHfWfbFg45otEZSjumbIgsl9hvgeGL2y3YTos3y6079QTpy0+7k
+	Q6ZpFLLAjDQ0X15vc4qjvS/UDO0pj//i3czvk=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:sender:in-reply-to:references:from:date
+	:x-google-sender-auth:message-id:subject:to:content-type;
+	b=q3oQpXV/g3AVVGQ/yUY5DJIvK/gVOhh4HldfqyoJsUkbTQ9MG5fMqfxTPFyXKbzbEk
+	wU/y6NE7djSZVo2uceWckdoCaBGwEnv0Gb6bnX5A6kWo/LtWbjRZ0c9iFnPp0Isw+nQ2
+	gHgH3sqq83rSvfshYJJPCYo7C7jXh6eJiGU8A=
+Received: by 10.216.24.139 with SMTP id x11mr1342880wex.27.1290140028709; Thu,
+	18 Nov 2010 20:13:48 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mutt/1.5.20 (2009-06-14)
-Subject: [PATCH][RFC] bitbake: add task tracking
+Sender: kergoth@gmail.com
+Received: by 10.216.67.67 with HTTP; Thu, 18 Nov 2010 20:13:28 -0800 (PST)
+In-Reply-To: <AANLkTik0YrJrrOrnA26H8aWDG6ZEmf-4p6buE=+B3N8U@mail.gmail.com>
+References: <20101119035102.GA31016@qhe2-db>
+	<AANLkTik0YrJrrOrnA26H8aWDG6ZEmf-4p6buE=+B3N8U@mail.gmail.com>
+From: Chris Larson <clarson@kergoth.com>
+Date: Thu, 18 Nov 2010 21:13:28 -0700
+X-Google-Sender-Auth: 0bOjFL8YXakaSQwSDMokpRRVGO0
+Message-ID: <AANLkTi=qcEgerfv5skbCV6Ff+J+o_bJxkqwSnvg5C4kr@mail.gmail.com>
+To: poky@yoctoproject.org
+Subject: Re: [PATCH][RFC] bitbake: add task tracking
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,115 +47,67 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 19 Nov 2010 03:55:51 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-List-Received-Date: Fri, 19 Nov 2010 04:13:50 -0000
+Content-Type: multipart/alternative; boundary=0016e6dbe2951f2a5c0495602224
 
-Add a new option to record start and end time of every task
+--0016e6dbe2951f2a5c0495602224
+Content-Type: text/plain; charset=UTF-8
 
-Signed-off-by: Qing He <qing.he@intel.com>
+On Thu, Nov 18, 2010 at 8:51 PM, Qing He <qing.he@intel.com> wrote:
 
----
-diff --git a/bitbake/bin/bitbake b/bitbake/bin/bitbake
-index 797b5a8..e43568b 100755
---- a/bitbake/bin/bitbake
-+++ b/bitbake/bin/bitbake
-@@ -147,6 +147,9 @@ Default BBFILES are the .bb files in the current directory.""")
-     parser.add_option("-P", "--profile", help = "profile the command and print a report",
-                action = "store_true", dest = "profile", default = False)
- 
-+    parser.add_option("-t", "--track", help = "record start and end time of all tasks",
-+               action = "store_true", dest = "track_tasks", default = False)
-+
-     parser.add_option("-u", "--ui", help = "userinterface to use",
-                action = "store", dest = "ui")
- 
-diff --git a/bitbake/lib/bb/runqueue.py b/bitbake/lib/bb/runqueue.py
-index 85ecafc..fa0b0b3 100644
---- a/bitbake/lib/bb/runqueue.py
-+++ b/bitbake/lib/bb/runqueue.py
-@@ -29,6 +29,7 @@ import signal
- import stat
- import fcntl
- import copy
-+import time
- 
- try:
-     import cPickle as pickle
-@@ -997,6 +998,7 @@ class RunQueueExecute:
-         self.cooker = rq.cooker
-         self.cfgData = rq.cfgData
-         self.rqdata = rq.rqdata
-+        self.track = rq.cooker.configuration.track_tasks
- 
-         self.number_tasks = int(bb.data.getVar("BB_NUMBER_THREADS", self.cfgData, 1) or 1)
-         self.scheduler = bb.data.getVar("BB_SCHEDULER", self.cfgData, 1) or "speed"
-@@ -1009,6 +1011,9 @@ class RunQueueExecute:
-         self.build_procs = {}
-         self.failed_fnids = []
- 
-+        if self.track:
-+            self.tout = open("task-track.log", "w")
-+
-     def runqueue_process_waitpid(self):
-         """
-         Return none is there are no processes awaiting result collection, otherwise
-@@ -1039,6 +1044,10 @@ class RunQueueExecute:
-         for pipe in self.build_pipes:
-             self.build_pipes[pipe].read()
- 
-+        if self.track and self.tout:
-+            self.tout.flush()
-+            self.tout.close()
-+
-     def finish(self):
-         self.rq.state = runQueueCleanUp
- 
-@@ -1054,6 +1063,10 @@ class RunQueueExecute:
-             self.rq.state = runQueueFailed
-             return
- 
-+        if self.track and self.tout:
-+            self.tout.flush()
-+            self.tout.close()
-+
-         self.rq.state = runQueueComplete
-         return
- 
-@@ -1170,6 +1183,8 @@ class RunQueueExecuteTasks(RunQueueExecute):
-         self.stats.taskCompleted()
-         bb.event.fire(runQueueTaskCompleted(task, self.stats, self.rq), self.cfgData)
-         self.task_completeoutright(task)
-+        if self.track:
-+            self.tout.write("complete: %f (%s)\n" % (time.time(), self.rqdata.get_user_idstring(task)))
- 
-     def task_fail(self, task, exitcode):
-         """
-@@ -1183,6 +1198,8 @@ class RunQueueExecuteTasks(RunQueueExecute):
-         bb.event.fire(runQueueTaskFailed(task, self.stats, self.rq), self.cfgData)
-         if self.rqdata.taskData.abort:
-             self.rq.state = runQueueCleanUp
-+        if self.track:
-+            self.tout.write("fail: %f (%s)\n" % (time.time(), self.rqdata.get_user_idstring(task)))
- 
-     def task_skip(self, task):
-         self.runq_running[task] = 1
-@@ -1221,6 +1238,8 @@ class RunQueueExecuteTasks(RunQueueExecute):
-                                                                 self.stats.total,
-                                                                 task,
-                                                                 self.rqdata.get_user_idstring(task)))
-+                if self.track:
-+                    self.tout.write("noexec: %f (%s)\n" % (time.time(), self.rqdata.get_user_idstring(task)))
-                 self.runq_running[task] = 1
-                 self.stats.taskActive()
-                 bb.build.make_stamp(task, self.rqdata.dataCache, fn)
-@@ -1233,6 +1252,8 @@ class RunQueueExecuteTasks(RunQueueExecute):
-                                                                 task,
-                                                                 self.rqdata.get_user_idstring(task)))
- 
-+            if self.track:
-+                self.tout.write("start: %f (%s)\n" % (time.time(), self.rqdata.get_user_idstring(task)))
-             proc = self.fork_off_task(fn, task, taskname)
- 
-             self.build_pids[proc.pid] = task
+> Add a new option to record start and end time of every task
+>
+> Signed-off-by: Qing He <qing.he@intel.com>
+>
 
+This is useful conceptually, and I'm glad to see others touching the bitbake
+code, so kudos on that, but implementation wise, I have concerns.  For one,
+this doesn't need to be in bitbake at all, it's quite easily implemented in
+the metadata using an event handler and the task events.  For two,
+hardcoding the log file and format seems unwise.
+ --
+Christopher Larson
+clarson at kergoth dot com
+Founder - BitBake, OpenEmbedded, OpenZaurus
+Maintainer - Tslib
+Senior Software Engineer, Mentor Graphics
+
+
+
+-- 
+Christopher Larson
+clarson at kergoth dot com
+Founder - BitBake, OpenEmbedded, OpenZaurus
+Maintainer - Tslib
+Senior Software Engineer, Mentor Graphics
+
+--0016e6dbe2951f2a5c0495602224
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div class=3D"gmail_quote"><div class=3D"im">On Thu, Nov 18, 2010 at 8:51 P=
+M, Qing He <span dir=3D"ltr">&lt;<a href=3D"mailto:qing.he@intel.com" targe=
+t=3D"_blank">qing.he@intel.com</a>&gt;</span> wrote:<br><div class=3D"gmail=
+_quote"><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border=
+-left:1px #ccc solid;padding-left:1ex">
+
+
+<div>Add a new option to record start and end time of every task<br>
+<br>
+Signed-off-by: Qing He &lt;<a href=3D"mailto:qing.he@intel.com" target=3D"_=
+blank">qing.he@intel.com</a>&gt;</div></blockquote></div><br></div>This is =
+useful conceptually, and I&#39;m glad to see others touching the bitbake co=
+de, so kudos on that, but implementation wise, I have concerns. =C2=A0For o=
+ne, this doesn&#39;t need to be in bitbake at all, it&#39;s quite easily im=
+plemented in the metadata using an event handler and the task events. =C2=
+=A0For two, hardcoding the log file and format seems unwise.<br>
+
+<font color=3D"#888888">
+-- <br>Christopher Larson<br>clarson at kergoth dot com<br>Founder - BitBak=
+e, OpenEmbedded, OpenZaurus<br>Maintainer - Tslib<br>Senior Software Engine=
+er, Mentor Graphics<br>
+</font></div><br><br clear=3D"all"><br>-- <br>Christopher Larson<br>clarson=
+ at kergoth dot com<br>Founder - BitBake, OpenEmbedded, OpenZaurus<br>Maint=
+ainer - Tslib<br>Senior Software Engineer, Mentor Graphics<br>
+
+--0016e6dbe2951f2a5c0495602224--
