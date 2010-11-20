@@ -1,25 +1,27 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 231204C80052
-	for <poky@yoctoproject.org>; Fri, 19 Nov 2010 16:43:19 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 19 Nov 2010 14:43:18 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,226,1288594800"; d="scan'208";a="628553487"
-Received: from unknown (HELO [10.255.13.99]) ([10.255.13.99])
-	by fmsmga002.fm.intel.com with ESMTP; 19 Nov 2010 14:43:18 -0800
-Message-ID: <4CE6FD86.1020101@intel.com>
-Date: Fri, 19 Nov 2010 14:43:18 -0800
-From: Saul Wold <saul.wold@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
+Return-Path: <mark.hatle@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 73B8B4C80A74
+	for <poky@yoctoproject.org>; Fri, 19 Nov 2010 19:23:51 -0600 (CST)
+Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oAK1NphK016316
+	for <poky@yoctoproject.org>; Fri, 19 Nov 2010 17:23:51 -0800 (PST)
+Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
+	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Fri, 19 Nov 2010 17:23:50 -0800
+Received: from Macintosh-5.local ([172.25.36.227]) by
+	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Fri, 19 Nov 2010 17:23:50 -0800
+Message-ID: <4CE72325.1050806@windriver.com>
+Date: Fri, 19 Nov 2010 19:23:49 -0600
+From: Mark Hatle <mark.hatle@windriver.com>
+Organization: Wind River Systems
+User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
+	rv:1.9.2.12) Gecko/20101027 Thunderbird/3.1.6
 MIME-Version: 1.0
 To: poky@yoctoproject.org
-References: <cover.1289982751.git.qing.he@intel.com>	<4CE41D36.8010207@intel.com>
-	<4CE41E5B.3080205@intel.com>
-In-Reply-To: <4CE41E5B.3080205@intel.com>
-Subject: Re: [PATCH 0/1] curl-native build fix
+X-OriginalArrivalTime: 20 Nov 2010 01:23:51.0068 (UTC)
+	FILETIME=[969B4DC0:01CB8851]
+Subject: Sourcing of poky-init-build-env from a non-bash shell...
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,44 +33,65 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 19 Nov 2010 22:43:19 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Sat, 20 Nov 2010 01:23:51 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 7bit
 
-On 11/17/2010 10:26 AM, Scott Garman wrote:
-> On 11/17/2010 10:21 AM, Saul Wold wrote:
->> On 11/17/2010 12:32 AM, Qing He wrote:
->>>
->>> Pull URL: git://git.pokylinux.org/poky-contrib.git
->>>      Branch: qhe/fix
->>>      Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=qhe/fix
->>>
->>> Thanks,
->>>        Qing He
->>> ---
->>>
->>>
->>> Qing He (1):
->>>      curl: fix native dependency
->> Can you give more details about why this change was needed at this point?
->
-> Saul,
->
-> This was a problem I had reported to Qing off-list. It causes
-> curl-native to fail on my Ubuntu 10.10 hosts.
->
-Scott,
+In recent days I've had a few people complain to me that the only way they can
+use Poky is to switch from their preferred shell to bash.  So I took it upon
+myself to attempt to address this issue.
 
-So we root-caused this to be because you had the gnutls-dev package 
-installed on your system, so I am still not conviced that disabling 
-gnutls on the native side is correct.  We might need to look at adding 
-gnutls as a native dependency of curl-native.
+In poky-contrib, commit 479e626839e3c9beb789ec2919d5438930eb04cf, head of
+mhatle/initenv branch, is a patch that will allow the script to be sourced in
+any reasonable shell.
 
-I will investigate this further.
+I've attempted to test this with:
+  * bash
+  * dash
+  * ksh (ksh-93)
+  * zsh
+  * tcsh
 
-Sau!
+It should also work with csh and pdksh, but I don't have a local version to try it.
 
-> Scott
->
+If anyone using Poky regularly uses a non-bash shell, could you please try this
+and verify that things are working for you?
+
+For those of you who use the bash shell regularly, if you wouldn't mind trying
+it in your configurations I'd appreciate it.
+
+(I'm always looking for code reviews as well....)
+
+--Mark
+
+(Commit message follows)
+
+commit 479e626839e3c9beb789ec2919d5438930eb04cf
+Author: Mark Hatle <mark.hatle@windriver.com>
+Date:   Fri Nov 19 18:10:31 2010 -0600
+
+    poky-init-build-env: Update the build env to work in all POSIX and CSH shells
+
+    The poky-init-build-env was updated to determine the shell type and work in
+    all POSIX and CSH shells (within reason).  Some tricky magic was involved in
+    determining the type of shell in use (csh or posix), and then configuring
+    the directories.
+
+    If the script was sourced with bash, then it works as it did before.  If it
+    was sourced with any other shell, it requires the user's pwd to be the same
+    as the OEROOT.
+
+    In the scripts directory, poky-init-build-env used to further source the
+    poky-env-internal script.  This script was broken up into two primary pieces:
+      1) The chunk that sets up the environment
+      2) The chunk that verifies and sets up the BUILDDIR
+
+    The first component was further seperated into two items, an sh and a csh
+    version.  While it's possible to combine them, it's much easier this way.
+
+    The second component runs as a stand-a-lone sh script, so it is written for
+    use in /bin/sh
+
+    Signed-off-by: Mark Hatle <mark.hatle@windriver.com>
 
 
