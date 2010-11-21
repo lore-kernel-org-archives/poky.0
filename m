@@ -1,27 +1,28 @@
-Return-Path: <Bruce.Ashfield@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0A9764C808B6
-	for <poky@yoctoproject.org>; Sun, 21 Nov 2010 11:55:43 -0600 (CST)
-Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oALHtg1v025308;
-	Sun, 21 Nov 2010 09:55:42 -0800 (PST)
-Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
-	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Sun, 21 Nov 2010 09:55:41 -0800
-Received: from bruce-ashfields-macbook.local ([128.224.143.6]) by
-	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Sun, 21 Nov 2010 09:55:41 -0800
-Message-ID: <4CE95D1B.7040407@windriver.com>
-Date: Sun, 21 Nov 2010 12:55:39 -0500
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
-	rv:1.9.2.12) Gecko/20101027 Thunderbird/3.1.6
-MIME-Version: 1.0
+Return-Path: <rpurdie@linux.intel.com>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 014474C80BD4
+	for <poky@yoctoproject.org>; Sun, 21 Nov 2010 12:06:56 -0600 (CST)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oALI6rBR017413;
+	Sun, 21 Nov 2010 18:06:53 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 16842-09; Sun, 21 Nov 2010 18:06:49 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oALI6jBT017407
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Sun, 21 Nov 2010 18:06:46 GMT
+From: Richard Purdie <rpurdie@linux.intel.com>
 To: Tom Zanussi <tom.zanussi@intel.com>
-References: <cover.1290351524.git.tom.zanussi@intel.com>
 In-Reply-To: <cover.1290351524.git.tom.zanussi@intel.com>
-X-OriginalArrivalTime: 21 Nov 2010 17:55:41.0770 (UTC)
-	FILETIME=[50298AA0:01CB89A5]
+References: <cover.1290351524.git.tom.zanussi@intel.com>
+Date: Sun, 21 Nov 2010 18:06:24 +0000
+Message-ID: <1290362784.1272.15726.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+X-Virus-Scanned: amavisd-new at rpsys.net
 Cc: poky@yoctoproject.org
 Subject: Re: [PATCH 0/1] emenlow build fix
 X-BeenThere: poky@yoctoproject.org
@@ -35,39 +36,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 21 Nov 2010 17:55:44 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Sun, 21 Nov 2010 18:06:57 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On 10-11-21 9:58 AM, Tom Zanussi wrote:
+On Sun, 2010-11-21 at 08:58 -0600, Tom Zanussi wrote:
 > This patch fixes up a small oversight in the recent renaming that causes
 > a build failure for emenlow.
-
-Argh. Indeed.
-
-Acked-by: Bruce Ashfield <bruce.ashfield@windriver.com>
-
-Bruce
-
->
+> 
 > Pull URL: git://git.pokylinux.org/poky-contrib.git
->    Branch: tzanussi/emenlow-fixes
->    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=tzanussi/emenlow-fixes
->
+>   Branch: tzanussi/emenlow-fixes
+>   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=tzanussi/emenlow-fixes
+> 
 > Thanks,
->      Tom Zanussi<tom.zanussi@intel.com>
-> ---
->
->
-> Tom Zanussi (1):
->    emenlow: fix linux-yocto .bbappend
->
->   .../recipes/linux/linux-yocto_git.bbappend         |    2 +-
->   1 files changed, 1 insertions(+), 1 deletions(-)
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+>     Tom Zanussi <tom.zanussi@intel.com>
+
+Thanks Tom, I was about to merge this but I see Saul has beaten us to
+it.
+
+Cheers,
+
+Richard
 
 
