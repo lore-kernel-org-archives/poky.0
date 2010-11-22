@@ -1,35 +1,19 @@
-Return-Path: <liping.ke@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2DE4F4C81065
-	for <poky@lists.pokylinux.org>; Sun, 21 Nov 2010 19:29:01 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 21 Nov 2010 17:29:00 -0800
+Return-Path: <dongxiao.xu@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 1B6A34C80052
+	for <poky@yoctoproject.org>; Sun, 21 Nov 2010 23:59:01 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 21 Nov 2010 21:59:00 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,232,1288594800"; d="scan'208";a="576125112"
-Received: from pgsmsx601.gar.corp.intel.com ([10.221.43.69])
-	by orsmga002.jf.intel.com with ESMTP; 21 Nov 2010 17:28:59 -0800
-Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
-	pgsmsx601.gar.corp.intel.com (10.221.43.69) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Mon, 22 Nov 2010 09:28:32 +0800
-Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
-	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
-	Mon, 22 Nov 2010 09:28:16 +0800
-From: "Ke, Liping" <liping.ke@intel.com>
-To: Gary Thomas <gary@mlbassoc.com>, Richard Purdie <rpurdie@linux.intel.com>
-Date: Mon, 22 Nov 2010 09:28:18 +0800
-Thread-Topic: [poky] meta-toolchain-sdk
-Thread-Index: AcuJeb+0McYbf+NTRZagnITP/gDZOwAaphoA
-Message-ID: <789F9655DD1B8F43B48D77C5D30659732FE95F26@shsmsx501.ccr.corp.intel.com>
-References: <4CE8EC19.6030103@mlbassoc.com>
-	<1290342337.1272.15331.camel@rex> <4CE913F7.5070906@mlbassoc.com>
-In-Reply-To: <4CE913F7.5070906@mlbassoc.com>
-Accept-Language: zh-CN, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: zh-CN, en-US
-MIME-Version: 1.0
-Cc: Poky <poky@lists.pokylinux.org>
-Subject: Re: meta-toolchain-sdk
+X-IronPort-AV: E=Sophos;i="4.59,234,1288594800"; d="scan'208";a="629016647"
+Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.9])
+	by fmsmga002.fm.intel.com with ESMTP; 21 Nov 2010 21:59:00 -0800
+Message-Id: <cover.1290405852.git.dongxiao.xu@intel.com>
+From: Dongxiao Xu <dongxiao.xu@intel.com>
+Date: Mon, 22 Nov 2010 14:04:12 +0800
+To: poky@yoctoproject.org
+CC: 
+Subject: [PATCH 0/1][RFC] Optimize file parsing speed
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,29 +25,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 22 Nov 2010 01:29:01 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Mon, 22 Nov 2010 05:59:01 -0000
 
->=20
-> There's nothing at all in tmp/deploy/sdk
->=20
-Hi, Gary
-Then it's very strange. In 0.9 release, the sdk tarball should exist in thi=
-s sdk folder.
-I will try a new build to verify your problem.
+Hi Richard,
 
-Thanks!
-criping
+I found that when parsing bitbake files, most of the variables in
+d.keys() are in distro_tracking_fields.inc, and they are not used in
+normal build.
 
-> --
-> ------------------------------------------------------------
-> Gary Thomas                 |  Consulting for the
-> MLB Associates              |    Embedded world
-> ------------------------------------------------------------
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+This pull request moves some distro related functions in
+utility-tasks.bbclass into distrodata.bbclass, and remove the inclusion
+of distro_tracking_fields.inc from poky.conf. This could gain about 25%
+parsing time saving.
+
+Please help to review and pull. Thanks!
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: dxu4/perf
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dxu4/perf
+
+Thanks,
+    Dongxiao Xu <dongxiao.xu@intel.com>
+---
+
+
+Dongxiao Xu (1):
+  utility-tasks.bbclass: Move distro related tasks to
+    distrodata.bbclass
+
+ meta/classes/distrodata.bbclass    |  440 +++++++++++++++++++++++++++++++++++
+ meta/classes/utility-tasks.bbclass |  442 ------------------------------------
+ meta/conf/distro/poky.conf         |    1 -
+ 3 files changed, 440 insertions(+), 443 deletions(-)
+
 
