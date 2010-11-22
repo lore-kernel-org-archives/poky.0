@@ -1,29 +1,30 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 63C094C80B6B
-	for <poky@yoctoproject.org>; Mon, 22 Nov 2010 09:37:40 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 2404016607F1; Mon, 22 Nov 2010 08:37:40 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=ham version=3.3.1
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id D03A41660787;
-	Mon, 22 Nov 2010 08:37:38 -0700 (MST)
-Message-ID: <4CEA8E42.1060404@mlbassoc.com>
-Date: Mon, 22 Nov 2010 08:37:38 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.12) Gecko/20101027 Fedora/3.1.6-1.fc13 Thunderbird/3.1.6
-MIME-Version: 1.0
-To: Richard Purdie <rpurdie@linux.intel.com>
-References: <4CE8FECD.5050905@mlbassoc.com> <1290434035.2579.15.camel@scimitar>
-	<1290439997.1272.16996.camel@rex>
-In-Reply-To: <1290439997.1272.16996.camel@rex>
+Return-Path: <rpurdie@linux.intel.com>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5FFD74C80B6B
+	for <poky@yoctoproject.org>; Mon, 22 Nov 2010 09:56:58 -0600 (CST)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oAMFutCG029349;
+	Mon, 22 Nov 2010 15:56:55 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 28901-09; Mon, 22 Nov 2010 15:56:51 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oAMFungY029342
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Mon, 22 Nov 2010 15:56:49 GMT
+From: Richard Purdie <rpurdie@linux.intel.com>
+To: Saul Wold <sgw@linux.intel.com>
+In-Reply-To: <cover.1290046217.git.sgw@linux.intel.com>
+References: <cover.1290046217.git.sgw@linux.intel.com>
+Date: Mon, 22 Nov 2010 15:56:48 +0000
+Message-ID: <1290441408.1272.17029.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+X-Virus-Scanned: amavisd-new at rpsys.net
 Cc: poky@yoctoproject.org
-Subject: Re: BBFILE_PRIORITY confusion
+Subject: Re: [PATCH 0/5] Recipe Reorganization
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,44 +36,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 22 Nov 2010 15:37:40 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Mon, 22 Nov 2010 15:56:58 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On 11/22/2010 08:33 AM, Richard Purdie wrote:
-> On Mon, 2010-11-22 at 13:53 +0000, Joshua Lock wrote:
->> On Sun, 2010-11-21 at 04:13 -0700, Gary Thomas wrote:
->>>
->>> It seems to me that BBFILE_PRIORITY is a bit too zealous; barring any other
->>> constraint, I should think that the 2.6.32 recipe should always take precedence.
->>>
->>> Am I missing something here, or is it a bug?
->>>
->>
->> This is working exactly as intended, you've told bitbake that the
->> manufacturer layer has a higher priority so it's using that to satisfy
->> any recipe it can, regardless of version. If you'd like the platform to
->> be able to be prioritised over the manufacturer you'd need to adjust the
->> priority accordingly.
->>
->> If you want the most highest version recipe to be used, regardless of
->> layer, you could set the priorities to be the same.
->>
->> Perhaps you could work around this by having your platforms pin specific
->> kernel versions when they need an older kernel?
->
-> Or you give the layers the same priority, then the usual mechanisms take
-> effect. As Joshua says, its doing exactly what its intended to do
-> though.
+On Wed, 2010-11-17 at 18:10 -0800, Saul Wold wrote:
+> This is the next stage in recipe reorganization to clean up
+> the world build space.
+> 
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>   Branch: distro/stage
+>   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=distro/stage
+> 
+> Thanks,
+>     Saul Wold <sgw@linux.intel.com>
+> ---
+> 
+> 
+> Saul Wold (5):
+>   Meta: Recipe Reogranization
+>   libsndfile: Upgrade to 1.0.23
+>   telepathy: initial update
+>   subversion: Fix host contamination
+>   web_svn: Fixup Patching and add libowl
 
-Fair enough, but I have to admit that it's certainly not clear in the
-documentation that priority overrides version numbers no matter what.
+I've merged this series, thanks!
 
-I've changed my setup to use equal priorities as that does what I want.
+Richard
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
 
