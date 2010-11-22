@@ -1,19 +1,19 @@
 Return-Path: <kevin.tian@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id F1EE04C808B6
-	for <poky@pokylinux.org>; Tue, 23 Nov 2010 01:13:10 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 22 Nov 2010 23:13:10 -0800
-Message-Id: <0d30dc$k8jjqv@orsmga001.jf.intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 9C1074C810E3
+	for <poky@pokylinux.org>; Tue, 23 Nov 2010 01:13:12 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 22 Nov 2010 23:13:12 -0800
+Message-Id: <c6d829$pkivqr@fmsmga001.fm.intel.com>
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,241,1288594800"; d="scan'208";a="680120163"
+X-IronPort-AV: E=Sophos;i="4.59,241,1288594800"; d="scan'208";a="860454753"
 Received: from poky-desktop-ktian1.sh.intel.com (HELO localhost)
 	([10.239.36.116])
-	by orsmga001.jf.intel.com with ESMTP; 22 Nov 2010 23:13:09 -0800
+	by fmsmga001.fm.intel.com with ESMTP; 22 Nov 2010 23:13:11 -0800
 From: Kevin Tian <kevin.tian@intel.com>
-Date: Tue, 23 Nov 2010 14:40:36 +0800
+Date: Mon, 22 Nov 2010 19:21:50 +0800
 To: poky@pokylinux.org
-Subject: [PATCH 0/5] another series of sstate enhancement
+Subject: [PATCH 1/5] poky.conf: add more hash whitelist
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -25,43 +25,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 23 Nov 2010 07:13:11 -0000
+X-List-Received-Date: Tue, 23 Nov 2010 07:13:12 -0000
 
-This includes some bug fixes and enhancements on both checksum calculation and
-bitbake-diffsigs tool. With those fixes, two sato builds with same source tree 
-can fully reuse sstate packages except final rootfs genaration, while two builds
-with different source tree (same content) still have several mismatches left.
+DATE are referenced by patch_do_patch
+TIME are referenced by do_distro_check/do_checkpkg
+BBPATH/THISDIR/OEROOT/_ impacts the scenario when using different source path.
+(OEROOT are brought in as a shell variable, included as dependency of shell tasks)
+DL_DIR/SSTATE_DIR are listed as dependency too, by pstaging_fetch
 
-For the shell variables, I adopted Richard's suggestion to simply whitelist 
-them for now. That way allows wider test on sstate feature.
+Some tasks may not contribute to sstate packages, e.g. do_checkpkg. But for
+safety all of them are whitelist this time.
 
-Remaining works:
-  o better shell variable handling
-  o gcc/libc bootstrap investigation
-  o more incremental based tests
-  o so far the setscene stage is still a bit slow. need understand whether it's
-    desired due to vast disk operations
+How to handle preserved shell variables is still in progress, which contributes to
+another large set of volatile dependencies bound to build system
 
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: tk/sstate
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=tk/sstate
-
-Thanks,
-    Kevin Tian <kevin.tian@intel.com>
+Signed-off-by: Kevin Tian <kevin.tian@intel.com>
 ---
+ meta/conf/distro/poky.conf |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
-
-Kevin Tian (5):
-  poky.conf: add more hash whitelist
-  siggen.py: set 'runtaskdeps' correctly
-  siggen.py: fix python error when comparing sstate generated from
-    different srcpath
-  siggen.py: fix the wrong usage on BB_TASKHASH_WHITELIST
-  poky.conf: whitelist shell variables which are volatile to build
-    system
-
- bitbake/lib/bb/siggen.py   |   42 ++++++++++++++++++++++++++----------------
- meta/conf/distro/poky.conf |    3 ++-
- 2 files changed, 28 insertions(+), 17 deletions(-)
+diff --git a/meta/conf/distro/poky.conf b/meta/conf/distro/poky.conf
+index 09e02b8..ae13d9a 100644
+--- a/meta/conf/distro/poky.conf
++++ b/meta/conf/distro/poky.conf
+@@ -144,4 +144,4 @@ require conf/distro/include/distro_tracking_fields.inc
+ # Setup our hash policy
+ BB_SIGNATURE_HANDLER = "basic"
+ BB_HASHTASK_WHITELIST = "(.*-cross$|.*-native$|.*-cross-initial$|.*-cross-intermediate$|^virtual:native:.*|^virtual:nativesdk:.*)"
+-BB_HASHBASE_WHITELIST = "TMPDIR FILE PATH PWD"
++BB_HASHBASE_WHITELIST = "TMPDIR FILE PATH PWD TIME DATE BBPATH OEROOT DL_DIR SSTATE_DIR THISDIR _"
+-- 
+1.6.0.4
 
 
