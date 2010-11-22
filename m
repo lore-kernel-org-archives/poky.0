@@ -1,21 +1,31 @@
-Return-Path: <lei.mei@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id AAFAA4C81103
-	for <poky@yoctoproject.org>; Mon, 22 Nov 2010 10:39:42 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 22 Nov 2010 08:39:36 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,237,1288594800"; d="scan'208";a="351806655"
-Received: from daocaoren-desktop.sh.intel.com (HELO localhost)
-	([10.239.48.112])
-	by azsmga001.ch.intel.com with ESMTP; 22 Nov 2010 08:39:33 -0800
-Message-Id: <ed2fe9735d937d5476cfdbf6dbd82f71914c0486.1290443719.git.lei.mei@intel.com>
-In-Reply-To: <cover.1290443719.git.lei.mei@intel.com>
-References: <cover.1290443719.git.lei.mei@intel.com>
-From: Mei Lei <lei.mei@intel.com>
-Date: Tue, 23 Nov 2010 00:32:07 +0800
-To: poky@yoctoproject.org
-Subject: [PATCH 1/1] This patch contains four recipes license checksum information
+Return-Path: <rpurdie@linux.intel.com>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id A8BC94C803A5
+	for <poky@pokylinux.org>; Mon, 22 Nov 2010 11:05:23 -0600 (CST)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oAMH5KwP031578;
+	Mon, 22 Nov 2010 17:05:20 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 30372-08; Mon, 22 Nov 2010 17:05:16 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oAMH5DJs031565
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Mon, 22 Nov 2010 17:05:13 GMT
+From: Richard Purdie <rpurdie@linux.intel.com>
+To: Paul Eggleton <paul.eggleton@intel.com>
+In-Reply-To: <e159ff2c957d06e1106b7ba221e7b36d3bc06fe9.1290423211.git.paul.eggleton@intel.com>
+References: <cover.1290423211.git.paul.eggleton@intel.com>
+	<e159ff2c957d06e1106b7ba221e7b36d3bc06fe9.1290423211.git.paul.eggleton@intel.com>
+Date: Mon, 22 Nov 2010 17:05:11 +0000
+Message-ID: <1290445511.1272.17129.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky@pokylinux.org
+Subject: Re: [PATCH 3/3] qemu: fix failure to find zlib header files during configure
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,68 +37,53 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 22 Nov 2010 16:39:42 -0000
+X-List-Received-Date: Mon, 22 Nov 2010 17:05:24 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-    libxtrap
-    lttng-control
-    dpkg
-    minicom
+Hi Paul,
 
-    Signed-off-by: Mei Lei<lei.mei@intel.com>
----
- meta/recipes-devtools/dpkg/dpkg_1.15.8.5.bb      |    1 +
- meta/recipes-extended/minicom/minicom_2.3.bb     |    1 +
- meta/recipes-graphics/xorg-lib/libxtrap_1.0.0.bb |    2 +-
- meta/recipes-kernel/lttng/lttng-control_0.87.bb  |    2 +-
- 4 files changed, 4 insertions(+), 2 deletions(-)
+On Fri, 2010-11-19 at 12:37 +0000, Paul Eggleton wrote:
+> Corrects problems during configure of qemu-native due to the BUILD_CFLAGS
+> not being included when attempting to compile the test program for zlib
+> within the configure script.
+> 
+> Signed-off-by: Paul Eggleton <paul.eggleton@intel.com>
+> ---
+>  .../qemu/qemu-0.12.4/fix-configure-checks.patch    |   16 ++++++++++++++++
+>  meta/recipes-devtools/qemu/qemu_0.12.4.bb          |    3 ++-
+>  2 files changed, 18 insertions(+), 1 deletions(-)
+>  create mode 100644 meta/recipes-devtools/qemu/qemu-0.12.4/fix-configure-checks.patch
+> 
+> diff --git a/meta/recipes-devtools/qemu/qemu-0.12.4/fix-configure-checks.patch b/meta/recipes-devtools/qemu/qemu-0.12.4/fix-configure-checks.patch
+> new file mode 100644
+> index 0000000..e397848
+> --- /dev/null
+> +++ b/meta/recipes-devtools/qemu/qemu-0.12.4/fix-configure-checks.patch
+> @@ -0,0 +1,16 @@
+> +Adds BUILD_CFLAGS to QEMU_CFLAGS so that zlib configure check succeeds.
+> +Without this, zlib configure check was failing without zlib headers installed
+> +on the host system.
+> +
+> +Author: Paul Eggleton <paul.eggleton@intel.com>
+> +
+> +--- qemu-0.12.4.orig/configure
+> ++++ qemu-0.12.4/configure
+> +@@ -99,6 +99,7 @@ QEMU_CFLAGS="-Wstrict-prototypes -Wredun
+> + QEMU_CFLAGS="-D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE $QEMU_CFLAGS"
+> + QEMU_CFLAGS="-U_FORTIFY_SOURCE $QEMU_CFLAGS"
+> + QEMU_CFLAGS="-I. -I\$(SRC_PATH) $QEMU_CFLAGS"
+> ++QEMU_CFLAGS="$QEMU_CFLAGS $BUILD_CFLAGS"
+> + LDFLAGS="-g $LDFLAGS"
+> + 
 
-diff --git a/meta/recipes-devtools/dpkg/dpkg_1.15.8.5.bb b/meta/recipes-devtools/dpkg/dpkg_1.15.8.5.bb
-index c8069fe..43ab8f6 100644
---- a/meta/recipes-devtools/dpkg/dpkg_1.15.8.5.bb
-+++ b/meta/recipes-devtools/dpkg/dpkg_1.15.8.5.bb
-@@ -1,4 +1,5 @@
- require dpkg.inc
-+LIC_FILES_CHKSUM = "file://COPYING;md5=751419260aa954499f7abaabaa882bbe"
- 
- SRC_URI += "file://noman.patch;patch=1 \
-             file://check_snprintf.patch \
-diff --git a/meta/recipes-extended/minicom/minicom_2.3.bb b/meta/recipes-extended/minicom/minicom_2.3.bb
-index a114e30..a6d2224 100644
---- a/meta/recipes-extended/minicom/minicom_2.3.bb
-+++ b/meta/recipes-extended/minicom/minicom_2.3.bb
-@@ -1,6 +1,7 @@
- SECTION = "console/network"
- DEPENDS = "ncurses"
- LICENSE = "GPL"
-+LIC_FILES_CHKSUM = "file://COPYING;md5=420477abc567404debca0a2a1cb6b645"
- SRC_URI = "http://alioth.debian.org/frs/download.php/2332/minicom-${PV}.tar.gz \
- 	file://rename-conflicting-functions.patch \
- 	"
-diff --git a/meta/recipes-graphics/xorg-lib/libxtrap_1.0.0.bb b/meta/recipes-graphics/xorg-lib/libxtrap_1.0.0.bb
-index 7a25ae5..39c7bef 100644
---- a/meta/recipes-graphics/xorg-lib/libxtrap_1.0.0.bb
-+++ b/meta/recipes-graphics/xorg-lib/libxtrap_1.0.0.bb
-@@ -1,5 +1,5 @@
- require xorg-lib-common.inc
--
-+LIC_FILES_CHKSUM = "file://COPYING;md5=fe7cbb8cc97683303f7814685cc47305"
- DESCRIPTION = "X11 event trapping extension library"
- DEPENDS += "libxt trapproto libxext"
- PR = "r1"
-diff --git a/meta/recipes-kernel/lttng/lttng-control_0.87.bb b/meta/recipes-kernel/lttng/lttng-control_0.87.bb
-index da6a6c6..6c162b4 100644
---- a/meta/recipes-kernel/lttng/lttng-control_0.87.bb
-+++ b/meta/recipes-kernel/lttng/lttng-control_0.87.bb
-@@ -3,7 +3,7 @@ DESCRIPTION = "The Linux trace toolkit is a suite of tools designed to \
- extract program execution details from the Linux operating system and  \
- interpret them."
- LICENSE = "GPL"
--
-+LIC_FILES_CHKSUM = "file://COPYING;md5=id32239bcb673463ab874e80d47fae504"
- PR = "r0"
- 
- LTTDATE = "09062010"
--- 
-1.6.3.3
+Should this be $CFLAGS? I just wonder what the effect of injecting
+BUILD_CFLAGS would be in the target case (qemu vs. qemu-native)?
+
+In the native case CFLAGS == BUILD_CFLAGS.
+
+Cheers,
+
+Richard
 
 
