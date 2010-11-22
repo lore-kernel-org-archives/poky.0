@@ -1,19 +1,19 @@
 Return-Path: <kevin.tian@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 973D24C811D2
-	for <poky@pokylinux.org>; Tue, 23 Nov 2010 01:13:16 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 22 Nov 2010 23:13:16 -0800
-Message-Id: <849307$afpesu@azsmga001.ch.intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 51CC14C811D5
+	for <poky@pokylinux.org>; Tue, 23 Nov 2010 01:13:18 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 22 Nov 2010 23:13:17 -0800
+Message-Id: <b9dded$h5sn3a@orsmga002.jf.intel.com>
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,241,1288594800"; d="scan'208";a="352107427"
+X-IronPort-AV: E=Sophos;i="4.59,241,1288594800"; d="scan'208";a="576609391"
 Received: from poky-desktop-ktian1.sh.intel.com (HELO localhost)
 	([10.239.36.116])
-	by azsmga001.ch.intel.com with ESMTP; 22 Nov 2010 23:13:15 -0800
+	by orsmga002.jf.intel.com with ESMTP; 22 Nov 2010 23:13:16 -0800
 From: Kevin Tian <kevin.tian@intel.com>
-Date: Mon, 22 Nov 2010 22:17:26 +0800
+Date: Tue, 23 Nov 2010 00:35:03 +0800
 To: poky@pokylinux.org
-Subject: [PATCH 3/5] siggen.py: fix python error when comparing sstate generated from different srcpath
+Subject: [PATCH 4/5] siggen.py: fix the wrong usage on BB_TASKHASH_WHITELIST
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -25,81 +25,41 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 23 Nov 2010 07:13:16 -0000
+X-List-Received-Date: Tue, 23 Nov 2010 07:13:18 -0000
 
-So far bitbake-diffsigs is broken when comparing two sstate packages built from
-different source directories. The problem is that the key for taskhash contains
-full path, such as:
-
-/home/poky/tasks/poky/meta/recipes-kernel/linux/linux-yocto_git.bb.do_patch
-
-This results in a key error when searching in the 2nd package.
-
-To fix that a new key 'srcpath' is introduced, which is literally copied from
-OEROOT. This info can then assist above task comparison
-
-Two other small improvements are included too:
-
-  - stamp directory may not be created if using "bitbake -S" in a scatch build
-  - better output about changes on dependent tasks
+BB_TASKHASH_WHITELIST is expected to filter out native tasks from the
+dependency list for target recipe's checksum. However current code
+actually implements the opposite. All native sstate packages end up
+to have empty task dependency while target sstate packages still have
+native tasks counted into the checksum.
 
 Signed-off-by: Kevin Tian <kevin.tian@intel.com>
 ---
- bitbake/lib/bb/siggen.py |   24 ++++++++++++++++++------
- 1 files changed, 18 insertions(+), 6 deletions(-)
+ bitbake/lib/bb/siggen.py |   10 ++++++----
+ 1 files changed, 6 insertions(+), 4 deletions(-)
 
 diff --git a/bitbake/lib/bb/siggen.py b/bitbake/lib/bb/siggen.py
-index 9e956ee..20f57ad 100644
+index 20f57ad..26ec5ce 100644
 --- a/bitbake/lib/bb/siggen.py
 +++ b/bitbake/lib/bb/siggen.py
-@@ -47,6 +47,7 @@ class SignatureGeneratorBasic(SignatureGenerator):
-         self.runtaskdeps = {}
-         self.gendeps = {}
-         self.lookupcache = {}
-+        self.srcpath = data.getVar("OEROOT", True)
-         self.basewhitelist = (data.getVar("BB_HASHBASE_WHITELIST", True) or "").split()
-         self.taskwhitelist = data.getVar("BB_HASHTASK_WHITELIST", True) or None
- 
-@@ -132,8 +133,10 @@ class SignatureGeneratorBasic(SignatureGenerator):
-             sigfile = stampbase + "." + task + ".sigdata" + "." + self.taskhash[k]
-         else:
-             sigfile = stampbase + "." + task + ".sigbasedata" + "." + self.basehash[k]
-+        bb.utils.mkdirhier(os.path.dirname(sigfile))
- 
-         data = {}
-+        data['srcpath'] = self.srcpath
-         data['basewhitelist'] = self.basewhitelist
-         data['taskwhitelist'] = self.taskwhitelist
-         data['taskdeps'] = self.taskdeps[fn][task]
-@@ -227,13 +230,22 @@ def compare_sigfiles(a, b):
-     #if removed:
-     #    print "Dependency on Variable %s was removed (value %s)" % (dep, a_data['gendeps'][dep])
- 
--    if 'runtaskdeps' in a_data and 'runtaskdeps' in b_data and sorted(a_data['runtaskdeps']) != sorted(b_data['runtaskdeps']):
--        print "Tasks this task depends on changed from %s to %s" % (sorted(a_data['runtaskdeps']), sorted(b_data['runtaskdeps']))
--
--    if 'runtaskhashes' in a_data:
-+    if 'runtaskdeps' in a_data and 'runtaskdeps' in b_data:
-+        b_data_new = [dep.replace(b_data['srcpath'], a_data['srcpath']) for dep in b_data['runtaskdeps']]
-+        if sorted(a_data['runtaskdeps']) != sorted(b_data_new):
-+            print "Tasks this task depends on have been changed:"
-+            for dep in a_data['runtaskdeps']:
-+                if not dep in b_data_new:
-+                    print "-- %s" % dep
-+            for dep in b_data_new:
-+                if not dep in a_data['runtaskdeps']:
-+                    print "++ %s" % dep.replace(a_data['srcpath'], b_data['srcpath'])
-+
-+    if 'runtaskhashes' in a_data and 'runtaskhashes' in b_data:
-         for dep in a_data['runtaskhashes']:
--            if a_data['runtaskhashes'][dep] != b_data['runtaskhashes'][dep]:
--                print "Hash for dependent task %s changed from %s to %s" % (dep, a_data['runtaskhashes'][dep], b_data['runtaskhashes'][dep])
-+            dep_b = dep.replace(a_data['srcpath'], b_data['srcpath'])
-+            if dep_b in b_data['runtaskhashes'] and a_data['runtaskhashes'][dep] != b_data['runtaskhashes'][dep_b]:
-+                print "Hash for dependent task %s changed from %s to %s" % (dep, a_data['runtaskhashes'][dep], b_data['runtaskhashes'][dep_b])
- 
- def dump_sigfile(a):
-     p1 = pickle.Unpickler(file(a, "rb"))
+@@ -109,11 +109,13 @@ class SignatureGeneratorBasic(SignatureGenerator):
+         data = dataCache.basetaskhash[k]
+         self.runtaskdeps[k] = []
+         for dep in sorted(deps):
+-            if self.twl and self.twl.search(dataCache.pkg_fn[fn]):
+-                #bb.note("Skipping %s" % dep)
+-                continue
++            if self.twl and not self.twl.search(dataCache.pkg_fn[fn]):
++                dep_fn = re.search("(?P<fn>.*)\..*", dep).group('fn')
++                if self.twl.search(dataCache.pkg_fn[dep_fn]):
++                    #bb.note("Skipping %s" % dep)
++                    continue
+             if dep not in self.taskhash:
+-                 bb.fatal("%s is not in taskhash, caller isn't calling in dependency order?", dep)
++                bb.fatal("%s is not in taskhash, caller isn't calling in dependency order?", dep)
+             data = data + self.taskhash[dep]
+             self.runtaskdeps[k].append(dep)
+         h = hashlib.md5(data).hexdigest()
 -- 
 1.6.0.4
 
