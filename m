@@ -1,26 +1,24 @@
-Return-Path: <paul.eggleton@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 1D1874C803A5
-	for <poky@pokylinux.org>; Mon, 22 Nov 2010 11:19:02 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 22 Nov 2010 09:19:00 -0800
+Return-Path: <saul.wold@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id BFA9B4C80052
+	for <poky@yoctoproject.org>; Mon, 22 Nov 2010 11:47:56 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 22 Nov 2010 09:47:56 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,237,1288594800"; d="scan'208";a="351825878"
-Received: from unknown (HELO helios.localnet) ([10.255.16.138])
-	by azsmga001.ch.intel.com with ESMTP; 22 Nov 2010 09:18:59 -0800
-From: Paul Eggleton <paul.eggleton@intel.com>
-Organization: Intel Corporation
-To: Richard Purdie <rpurdie@linux.intel.com>
-Date: Mon, 22 Nov 2010 17:18:56 +0000
-User-Agent: KMail/1.13.5 (Linux/2.6.35-22-generic-pae; KDE/4.5.1; i686; ; )
-References: <cover.1290423211.git.paul.eggleton@intel.com>
-	<e159ff2c957d06e1106b7ba221e7b36d3bc06fe9.1290423211.git.paul.eggleton@intel.com>
-	<1290445511.1272.17129.camel@rex>
-In-Reply-To: <1290445511.1272.17129.camel@rex>
+X-IronPort-AV: E=Sophos;i="4.59,237,1288594800"; d="scan'208";a="860239850"
+Received: from unknown (HELO [10.255.13.171]) ([10.255.13.171])
+	by fmsmga001.fm.intel.com with ESMTP; 22 Nov 2010 09:47:56 -0800
+Message-ID: <4CEAACCB.8080103@intel.com>
+Date: Mon, 22 Nov 2010 09:47:55 -0800
+From: Saul Wold <saul.wold@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
 MIME-Version: 1.0
-Message-Id: <201011221718.57086.paul.eggleton@intel.com>
-Cc: "poky@pokylinux.org" <poky@pokylinux.org>
-Subject: Re: [PATCH 3/3] qemu: fix failure to find zlib header files during configure
+To: poky@yoctoproject.org
+References: <cover.1290036267.git.scott.a.garman@intel.com>
+In-Reply-To: <cover.1290036267.git.scott.a.garman@intel.com>
+Subject: Re: [PATCH 0/2] tar: upgrade to version 1.25
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,25 +30,39 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 22 Nov 2010 17:19:03 -0000
-Content-Type: Text/Plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-List-Received-Date: Mon, 22 Nov 2010 17:47:57 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-T24gTW9uZGF5IDIyIE5vdmVtYmVyIDIwMTAgMTc6MDU6MTEgUmljaGFyZCBQdXJkaWUgd3JvdGU6
-Cj4gU2hvdWxkIHRoaXMgYmUgJENGTEFHUz8gSSBqdXN0IHdvbmRlciB3aGF0IHRoZSBlZmZlY3Qg
-b2YgaW5qZWN0aW5nCj4gQlVJTERfQ0ZMQUdTIHdvdWxkIGJlIGluIHRoZSB0YXJnZXQgY2FzZSAo
-cWVtdSB2cy4gcWVtdS1uYXRpdmUpPwo+IAo+IEluIHRoZSBuYXRpdmUgY2FzZSBDRkxBR1MgPT0g
-QlVJTERfQ0ZMQUdTLgoKWWVzLCBhY3R1YWxseSB0aGUgaW5pdGlhbCB2ZXJzaW9uIG9mIG15IHBh
-dGNoIHVzZWQgQ0ZMQUdTIHdoaWNoIHdvcmtzIGp1c3QgZmluZSAoZm9yIHFlbXUtbmF0aXZlLCBJ
-IGhhdmUgdG8gYWRtaXQgdG8gbm90IHRlc3RpbmcgcWVtdSksIHNvIEknbSBoYXBweSB0byBmb3Ig
-dGhhdCB0byBiZSBjaGFuZ2VkLgoKQ2hlZXJzLApQYXVsCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpJbnRlbCBDb3Jw
-b3JhdGlvbiAoVUspIExpbWl0ZWQKUmVnaXN0ZXJlZCBOby4gMTEzNDk0NSAoRW5nbGFuZCkKUmVn
-aXN0ZXJlZCBPZmZpY2U6IFBpcGVycyBXYXksIFN3aW5kb24gU04zIDFSSgpWQVQgTm86IDg2MCAy
-MTczIDQ3CgpUaGlzIGUtbWFpbCBhbmQgYW55IGF0dGFjaG1lbnRzIG1heSBjb250YWluIGNvbmZp
-ZGVudGlhbCBtYXRlcmlhbCBmb3IKdGhlIHNvbGUgdXNlIG9mIHRoZSBpbnRlbmRlZCByZWNpcGll
-bnQocykuIEFueSByZXZpZXcgb3IgZGlzdHJpYnV0aW9uCmJ5IG90aGVycyBpcyBzdHJpY3RseSBw
-cm9oaWJpdGVkLiBJZiB5b3UgYXJlIG5vdCB0aGUgaW50ZW5kZWQKcmVjaXBpZW50LCBwbGVhc2Ug
-Y29udGFjdCB0aGUgc2VuZGVyIGFuZCBkZWxldGUgYWxsIGNvcGllcy4K
+On 11/17/2010 03:24 PM, Scott Garman wrote:
+> Saul,
+>
+> This pull request includes a trivial upgrade to the tar recipe and
+> fixes some errors in the openssh distro tracking information.
+>
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>    Branch: sgarman/tar-upgrade
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=sgarman/tar-upgrade
+>
+> Thanks,
+>      Scott Garman<scott.a.garman@intel.com>
+> ---
+>
+>
+> Scott Garman (2):
+>    tar: upgrade to version 1.25
+>    distro_tracking_fields.inc: update tar and openssh
+>
+>   .../conf/distro/include/distro_tracking_fields.inc |   15 ++++++++-------
+>   meta/recipes-extended/tar/tar_1.23.bb              |    9 ---------
+>   meta/recipes-extended/tar/tar_1.25.bb              |    9 +++++++++
+>   3 files changed, 17 insertions(+), 16 deletions(-)
+>   delete mode 100644 meta/recipes-extended/tar/tar_1.23.bb
+>   create mode 100644 meta/recipes-extended/tar/tar_1.25.bb
+>
+Pulled into Master
+
+Thanks
+	Sau!
 
 
