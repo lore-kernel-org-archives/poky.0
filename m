@@ -1,21 +1,27 @@
-Return-Path: <dongxiao.xu@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 10AEA4C810E8
-	for <poky@yoctoproject.org>; Sun, 21 Nov 2010 23:59:02 -0600 (CST)
+Return-Path: <saul.wold@intel.com>
+Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 6AECC4C81062
+	for <poky@lists.pokylinux.org>; Mon, 22 Nov 2010 00:10:01 -0600 (CST)
+Received: by pug.o-hand.com (Postfix)
+	id 445BC12EC27F; Mon, 22 Nov 2010 00:47:18 -0600 (CST)
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by pug.o-hand.com (Postfix) with ESMTP id DA94E12EC27D
+	for <poky@o-hand.com>; Mon, 22 Nov 2010 00:47:17 -0600 (CST)
 Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 21 Nov 2010 21:59:02 -0800
+	by azsmga102.ch.intel.com with ESMTP; 21 Nov 2010 22:10:00 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,234,1288594800"; d="scan'208";a="351594314"
-Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.9])
-	by azsmga001.ch.intel.com with ESMTP; 21 Nov 2010 21:59:01 -0800
-Message-Id: <8f7bf75e0437af568fae9790e64c368ea34f49fb.1290405852.git.dongxiao.xu@intel.com>
-In-Reply-To: <cover.1290405852.git.dongxiao.xu@intel.com>
-References: <cover.1290405852.git.dongxiao.xu@intel.com>
-From: Dongxiao Xu <dongxiao.xu@intel.com>
-Date: Mon, 22 Nov 2010 14:02:37 +0800
-To: poky@yoctoproject.org
-CC: 
-Subject: [PATCH 1/1] utility-tasks.bbclass: Move distro related tasks to distrodata.bbclass
+X-IronPort-AV: E=Sophos;i="4.59,234,1288594800"; d="scan'208";a="351597293"
+Received: from unknown (HELO [10.255.13.171]) ([10.255.13.171])
+	by azsmga001.ch.intel.com with ESMTP; 21 Nov 2010 22:09:59 -0800
+Message-ID: <4CEA0938.4090703@intel.com>
+Date: Sun, 21 Nov 2010 22:10:00 -0800
+From: Saul Wold <saul.wold@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
+MIME-Version: 1.0
+To: "poky@o-hand.com" <poky@o-hand.com>
+Subject: [PULL] Consolidated Distro Update
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,940 +33,234 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 22 Nov 2010 05:59:03 -0000
+X-List-Received-Date: Mon, 22 Nov 2010 06:10:01 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Most of the d.keys() used in file parsing are variables in
-distro_tracking_fields.inc, which are not used in normal build.
-Therefore remove the inclusion of distro_tracking_fields.inc from
-poky.conf. Besides, move distro related tasks to distrodata.bbclass,
-which includes that tracking field file.
-By this change, the file parsing time could save about 25%.
 
-Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
+Richard,
+
+Please pull this set of distro updates.
+
+Thanks
+     Sau!
+
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+    Branch: distro/master
+    Browse: 
+http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=distro/master
+
+Thanks,
+      Saul Wold <Saul.Wold@intel.com>
 ---
- meta/classes/distrodata.bbclass    |  440 +++++++++++++++++++++++++++++++++++
- meta/classes/utility-tasks.bbclass |  442 ------------------------------------
- meta/conf/distro/poky.conf         |    1 -
- 3 files changed, 440 insertions(+), 443 deletions(-)
 
-diff --git a/meta/classes/distrodata.bbclass b/meta/classes/distrodata.bbclass
-index f6642f0..221dfae 100644
---- a/meta/classes/distrodata.bbclass
-+++ b/meta/classes/distrodata.bbclass
-@@ -211,3 +211,443 @@ do_distrodataall() {
- 	:
- }
- 
-+addtask checkpkg
-+do_checkpkg[nostamp] = "1"
-+python do_checkpkg() {
-+	import sys
-+	import re
-+	import tempfile
-+
-+	"""
-+	sanity check to ensure same name and type. Match as many patterns as possible
-+	such as:
-+		gnome-common-2.20.0.tar.gz (most common format)
-+		gtk+-2.90.1.tar.gz
-+		xf86-intput-synaptics-12.6.9.tar.gz
-+		dri2proto-2.3.tar.gz
-+		blktool_4.orig.tar.gz
-+		libid3tag-0.15.1b.tar.gz
-+		unzip552.tar.gz
-+		icu4c-3_6-src.tgz
-+		genext2fs_1.3.orig.tar.gz
-+		gst-fluendo-mp3
-+	"""
-+	prefix1 = "[a-zA-Z][a-zA-Z0-9]*([\-_][a-zA-Z]\w+)*[\-_]"	# match most patterns which uses "-" as separator to version digits
-+	prefix2 = "[a-zA-Z]+"			# a loose pattern such as for unzip552.tar.gz
-+	prefix = "(%s|%s)" % (prefix1, prefix2)
-+	suffix = "(tar\.gz|tgz|tar\.bz2|zip)"
-+	suffixtuple = ("tar.gz", "tgz", "zip", "tar.bz2")
-+
-+	sinterstr = "(?P<name>%s?)(?P<ver>.*)" % prefix
-+	sdirstr = "(?P<name>%s)(?P<ver>.*)\.(?P<type>%s$)" % (prefix, suffix)
-+
-+	def parse_inter(s):
-+		m = re.search(sinterstr, s)
-+		if not m:
-+			return None
-+		else:
-+			return (m.group('name'), m.group('ver'), "")
-+
-+	def parse_dir(s):
-+		m = re.search(sdirstr, s)
-+		if not m:
-+			return None
-+		else:
-+			return (m.group('name'), m.group('ver'), m.group('type'))
-+
-+	"""
-+	Check whether 'new' is newer than 'old' version. We use existing vercmp() for the
-+	purpose. PE is cleared in comparison as it's not for build, and PV is cleared too
-+	for simplicity as it's somehow difficult to get from various upstream format
-+	"""
-+	def __vercmp(old, new):
-+		(on, ov, ot) = old
-+		(en, ev, et) = new
-+		if on != en or (et and et not in suffixtuple):
-+			return 0
-+
-+		ov = re.search("\d+[^a-zA-Z]+", ov).group()
-+		ev = re.search("\d+[^a-zA-Z]+", ev).group()
-+		return bb.utils.vercmp(("0", ov, ""), ("0", ev, ""))
-+
-+	"""
-+	wrapper for fetch upstream directory info
-+		'url'	- upstream link customized by regular expression
-+		'd'	- database
-+		'tmpf'	- tmpfile for fetcher output
-+	We don't want to exit whole build due to one recipe error. So handle all exceptions 
-+	gracefully w/o leaking to outer. 
-+	"""
-+	def internal_fetch_wget(url, d, tmpf):
-+		status = "ErrFetchUnknown"
-+		try: 
-+			"""
-+			Clear internal url cache as it's a temporary check. Not doing so will have 
-+			bitbake check url multiple times when looping through a single url
-+			"""
-+			fn = bb.data.getVar('FILE', d, 1)
-+			bb.fetch.urldata_cache[fn] = {}
-+			bb.fetch.init([url], d)
-+		except bb.fetch.NoMethodError:
-+			status = "ErrFetchNoMethod"
-+		except:
-+			status = "ErrInitUrlUnknown"
-+		else:
-+			"""
-+			To avoid impacting bitbake build engine, this trick is required for reusing bitbake
-+			interfaces. bb.fetch.go() is not appliable as it checks downloaded content in ${DL_DIR}
-+			while we don't want to pollute that place. So bb.fetch.checkstatus() is borrowed here
-+			which is designed for check purpose but we override check command for our own purpose
-+			"""
-+			ld = bb.data.createCopy(d)
-+			bb.data.setVar('CHECKCOMMAND_wget', "/usr/bin/env wget -t 1 --passive-ftp -O %s '${URI}'" \
-+					% tmpf.name, d)
-+			bb.data.update_data(ld)
-+
-+			try:
-+				bb.fetch.checkstatus(ld)
-+			except bb.fetch.MissingParameterError:
-+				status = "ErrMissParam"
-+			except bb.fetch.FetchError:
-+				status = "ErrFetch"
-+			except bb.fetch.MD5SumError:
-+				status = "ErrMD5Sum"
-+			except:
-+				status = "ErrFetchUnknown"
-+			else:
-+				status = "SUCC" 
-+		return status
-+
-+	"""
-+	Check on middle version directory such as "2.4/" in "http://xxx/2.4/pkg-2.4.1.tar.gz", 
-+		'url'	- upstream link customized by regular expression
-+		'd'	- database
-+		'curver' - current version
-+	Return new version if success, or else error in "Errxxxx" style
-+	"""
-+	def check_new_dir(url, curver, d):
-+		pn = bb.data.getVar('PN', d, 1)
-+		f = tempfile.NamedTemporaryFile(delete=False, prefix="%s-1-" % pn)
-+		status = internal_fetch_wget(url, d, f)
-+		fhtml = f.read()
-+
-+		if status == "SUCC" and len(fhtml):
-+			newver = parse_inter(curver)
-+
-+			"""
-+			match "*4.1/">*4.1/ where '*' matches chars
-+			N.B. add package name, only match for digits
-+			"""
-+			m = re.search("^%s" % prefix, curver)
-+			if m:
-+				s = "%s[^\d\"]*?(\d+[\.\-_])+\d+/?" % m.group()
-+			else:
-+				s = "(\d+[\.\-_])+\d+/?"
-+				
-+			searchstr = "[hH][rR][eE][fF]=\"%s\">" % s
-+			reg = re.compile(searchstr)
-+
-+			valid = 0
-+			for line in fhtml.split("\n"):
-+				if line.find(curver) >= 0:
-+					valid = 1
-+
-+				m = reg.search(line)
-+				if m:
-+					ver = m.group().split("\"")[1]
-+					ver = ver.strip("/")
-+					ver = parse_inter(ver)
-+					if ver and __vercmp(newver, ver) < 0:
-+						newver = ver
-+
-+			"""Expect a match for curver in directory list, or else it indicates unknown format"""
-+			if not valid:
-+				status = "ErrParseInterDir"
-+			else:
-+				"""rejoin the path name"""
-+				status = newver[0] + newver[1]
-+		elif not len(fhtml):
-+			status = "ErrHostNoDir"
-+
-+		f.close()
-+		if status != "ErrHostNoDir" and re.match("Err", status):
-+			logpath = bb.data.getVar('LOG_DIR', d, 1)
-+			os.system("cp %s %s/" % (f.name, logpath))
-+		os.unlink(f.name)
-+		return status
-+
-+	"""
-+	Check on the last directory to search '2.4.1' in "http://xxx/2.4/pkg-2.4.1.tar.gz", 
-+		'url'	- upstream link customized by regular expression
-+		'd'	- database
-+		'curname' - current package name
-+	Return new version if success, or else error in "Errxxxx" style
-+	"""
-+	def check_new_version(url, curname, d):
-+		"""possible to have no version in pkg name, such as spectrum-fw"""
-+		if not re.search("\d+", curname):
-+			return pcurver
-+		pn = bb.data.getVar('PN', d, 1)
-+		f = tempfile.NamedTemporaryFile(delete=False, prefix="%s-2-" % pn)
-+		status = internal_fetch_wget(url, d, f)
-+		fhtml = f.read()
-+
-+		if status == "SUCC" and len(fhtml):
-+			newver = parse_dir(curname)
-+
-+			"""match "{PN}-5.21.1.tar.gz">{PN}-5.21.1.tar.gz """
-+			pn1 = re.search("^%s" % prefix, curname).group()
-+			s = "[^\"]*%s[^\d\"]*?(\d+[\.\-_])+[^\"]*" % pn1
-+			searchstr = "[hH][rR][eE][fF]=\"%s\">" % s
-+			reg = re.compile(searchstr)
-+	
-+			valid = 0
-+			for line in fhtml.split("\n"):
-+				m = reg.search(line)
-+				if m:
-+					valid = 1
-+					ver = m.group().split("\"")[1].split("/")[-1]
-+					ver = parse_dir(ver)
-+					if ver and __vercmp(newver, ver) < 0:
-+						newver = ver
-+	
-+			"""Expect a match for curver in directory list, or else it indicates unknown format"""
-+			if not valid:
-+				status = "ErrParseDir"
-+			else:
-+				"""newver still contains a full package name string"""
-+				status = re.search("(\d+[.\-_])*\d+", newver[1]).group()
-+		elif not len(fhtml):
-+			status = "ErrHostNoDir"
-+
-+		f.close()
-+		"""if host hasn't directory information, no need to save tmp file"""
-+		if status != "ErrHostNoDir" and re.match("Err", status):
-+			logpath = bb.data.getVar('LOG_DIR', d, 1)
-+			os.system("cp %s %s/" % (f.name, logpath))
-+		os.unlink(f.name)
-+		return status
-+
-+	"""first check whether a uri is provided"""
-+	src_uri = bb.data.getVar('SRC_URI', d, 1)
-+	if not src_uri:
-+		return
-+
-+	"""initialize log files."""
-+	logpath = bb.data.getVar('LOG_DIR', d, 1)
-+	bb.utils.mkdirhier(logpath)
-+	logfile = os.path.join(logpath, "poky_pkg_info.log.%s" % bb.data.getVar('DATETIME', d, 1))
-+	if not os.path.exists(logfile):
-+		slogfile = os.path.join(logpath, "poky_pkg_info.log")
-+		if os.path.exists(slogfile):
-+			os.remove(slogfile)
-+		os.system("touch %s" % logfile)
-+		os.symlink(logfile, slogfile)
-+
-+	"""generate package information from .bb file"""
-+	pname = bb.data.getVar('PN', d, 1)
-+	pdesc = bb.data.getVar('DESCRIPTION', d, 1)
-+	pgrp = bb.data.getVar('SECTION', d, 1)
-+
-+	found = 0
-+	for uri in src_uri.split():
-+		m = re.compile('(?P<type>[^:]*)').match(uri)
-+		if not m:
-+			raise MalformedUrl(uri)
-+		elif m.group('type') in ('http', 'https', 'ftp', 'cvs', 'svn', 'git'):
-+			found = 1
-+			pproto = m.group('type')
-+			break
-+	if not found:
-+		pproto = "file"
-+	pupver = "N/A"
-+	pstatus = "ErrUnknown"
-+
-+	(type, host, path, user, pswd, parm) = bb.decodeurl(uri)
-+	if type in ['http', 'https', 'ftp']:
-+		pcurver = bb.data.getVar('PV', d, 1)
-+	else:
-+		pcurver = bb.data.getVar("SRCREV", d, 1)
-+
-+	if type in ['http', 'https', 'ftp']:
-+		newver = pcurver
-+		altpath = path
-+		dirver = "-"
-+		curname = "-"
-+	
-+		"""
-+		match version number amid the path, such as "5.7" in:
-+			http://download.gnome.org/sources/${PN}/5.7/${PN}-${PV}.tar.gz	
-+		N.B. how about sth. like "../5.7/5.8/..."? Not find such example so far :-P
-+		"""
-+		m = re.search(r"[^/]*(\d+\.)+\d+([\-_]r\d+)*/", path)
-+		if m:
-+			altpath = path.split(m.group())[0]
-+			dirver = m.group().strip("/")
-+	
-+			"""use new path and remove param. for wget only param is md5sum"""
-+			alturi = bb.encodeurl([type, host, altpath, user, pswd, {}])
-+	
-+			newver = check_new_dir(alturi, dirver, d)
-+			altpath = path
-+			if not re.match("Err", newver) and dirver != newver:
-+				altpath = altpath.replace(dirver, newver, 1)
-+				
-+		"""Now try to acquire all remote files in current directory"""
-+		if not re.match("Err", newver):
-+			curname = altpath.split("/")[-1]
-+	
-+			"""get remote name by skipping pacakge name"""
-+			m = re.search(r"/.*/", altpath)
-+			if not m:
-+				altpath = "/"
-+			else:
-+				altpath = m.group()
-+	
-+			alturi = bb.encodeurl([type, host, altpath, user, pswd, {}])
-+			newver = check_new_version(alturi, curname, d)
-+			if not re.match("Err", newver):
-+				pupver = newver
-+				if pupver != pcurver:
-+					pstatus = "UPDATE"
-+				else:
-+					pstatus = "MATCH"
-+	
-+		if re.match("Err", newver):
-+			pstatus = newver + ":" + altpath + ":" + dirver + ":" + curname
-+	elif type == 'git':
-+		if user:
-+			gituser = user + '@'
-+		else:
-+			gituser = ""
-+
-+		if 'protocol' in parm:
-+			gitproto = parm['protocol']
-+		else:
-+			gitproto = "rsync"
-+
-+		gitcmd = "git ls-remote %s://%s%s%s HEAD 2>&1" % (gitproto, gituser, host, path)
-+		print gitcmd
-+		ver = os.popen(gitcmd).read()
-+		if ver and re.search("HEAD", ver):
-+			pupver = ver.split("\t")[0]
-+			if pcurver == pupver:
-+				pstatus = "MATCH"
-+			else:
-+				pstatus = "UPDATE"
-+		else:
-+			pstatus = "ErrGitAccess"
-+	elif type == 'svn':
-+		options = []
-+		if user:
-+			options.append("--username %s" % user)
-+		if pswd:
-+			options.append("--password %s" % pswd)
-+		svnproto = 'svn'
-+		if 'proto' in parm:
-+			svnproto = parm['proto']
-+		if 'rev' in parm:
-+			pcurver = parm['rev']
-+
-+		svncmd = "svn info %s %s://%s%s/%s/ 2>&1" % (" ".join(options), svnproto, host, path, parm["module"])
-+		print svncmd
-+		svninfo = os.popen(svncmd).read()
-+		for line in svninfo.split("\n"):
-+			if re.search("^Last Changed Rev:", line):
-+				pupver = line.split(" ")[-1]
-+				if pcurver == pupver:
-+					pstatus = "MATCH"
-+				else:
-+					pstatus = "UPDATE"
-+
-+		if re.match("Err", pstatus):
-+			pstatus = "ErrSvnAccess"
-+	elif type == 'cvs':
-+		pupver = "HEAD"
-+		pstatus = "UPDATE"
-+	elif type == 'file':
-+		"""local file is always up-to-date"""
-+		pupver = pcurver
-+		pstatus = "MATCH"
-+	else:
-+		pstatus = "ErrUnsupportedProto"
-+
-+	if re.match("Err", pstatus):
-+		pstatus += ":%s%s" % (host, path)
-+
-+	"""Read from manual distro tracking fields as alternative"""
-+	pmver = bb.data.getVar("RECIPE_LATEST_VERSION", d, 1)
-+	if not pmver:
-+		pmver = "N/A"
-+		pmstatus = "ErrNoRecipeData"
-+	else:
-+		if pmver == pcurver:
-+			pmstatus = "MATCH"
-+		else:
-+			pmstatus = "UPDATE"
-+	
-+	lf = bb.utils.lockfile(logfile + ".lock")
-+	f = open(logfile, "a")
-+	f.write("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" % \
-+		  (pname, pgrp, pproto, pcurver, pmver, pupver, pmstatus, pstatus, pdesc))
-+	f.close()
-+	bb.utils.unlockfile(lf)
-+}
-+
-+addtask checkpkgall after do_checkpkg
-+do_checkpkgall[recrdeptask] = "do_checkpkg"
-+do_checkpkgall[nostamp] = "1"
-+do_checkpkgall() {
-+	:
-+}
-+
-+#addhandler check_eventhandler
-+python check_eventhandler() {
-+    from bb.event import Handled, NotHandled
-+    # if bb.event.getName(e) == "TaskStarted":
-+
-+    if bb.event.getName(e) == "BuildStarted":
-+        import oe.distro_check as dc
-+        tmpdir = bb.data.getVar('TMPDIR', e.data, 1)
-+        distro_check_dir = os.path.join(tmpdir, "distro_check")
-+        datetime = bb.data.getVar('DATETIME', e.data, 1)
-+        """initialize log files."""
-+        logpath = bb.data.getVar('LOG_DIR', e.data, 1)
-+        bb.utils.mkdirhier(logpath)
-+        logfile = os.path.join(logpath, "distrocheck.%s.csv" % bb.data.getVar('DATETIME', e.data, 1))
-+        if not os.path.exists(logfile):
-+                slogfile = os.path.join(logpath, "distrocheck.csv")
-+                if os.path.exists(slogfile):
-+                        os.remove(slogfile)
-+                os.system("touch %s" % logfile)
-+                os.symlink(logfile, slogfile)
-+                bb.data.setVar('LOG_FILE', logfile, e.data)
-+
-+    return NotHandled
-+}
-+
-+addtask distro_check
-+do_distro_check[nostamp] = "1"
-+python do_distro_check() {
-+    """checks if the package is present in other public Linux distros"""
-+    import oe.distro_check as dc
-+    localdata = bb.data.createCopy(d)
-+    bb.data.update_data(localdata)
-+    tmpdir = bb.data.getVar('TMPDIR', d, 1)
-+    distro_check_dir = os.path.join(tmpdir, "distro_check")
-+    datetime = bb.data.getVar('DATETIME', localdata, 1)
-+    dc.update_distro_data(distro_check_dir, datetime)
-+
-+    # do the comparison
-+    result = dc.compare_in_distro_packages_list(distro_check_dir, d)
-+
-+    # save the results
-+    dc.save_distro_check_result(result, datetime, d)
-+}
-+
-+addtask distro_checkall after do_distro_check
-+do_distro_checkall[recrdeptask] = "do_distro_check"
-+do_distro_checkall[nostamp] = "1"
-+do_distro_checkall() {
-+	:
-+}
-diff --git a/meta/classes/utility-tasks.bbclass b/meta/classes/utility-tasks.bbclass
-index 205a206..3ab37fa 100644
---- a/meta/classes/utility-tasks.bbclass
-+++ b/meta/classes/utility-tasks.bbclass
-@@ -47,396 +47,6 @@ python do_rebuild() {
- #	bb.build.exec_func('do_clean', d)
- #}
- 
--addtask checkpkg
--do_checkpkg[nostamp] = "1"
--python do_checkpkg() {
--	import sys
--	import re
--	import tempfile
--
--	"""
--	sanity check to ensure same name and type. Match as many patterns as possible
--	such as:
--		gnome-common-2.20.0.tar.gz (most common format)
--		gtk+-2.90.1.tar.gz
--		xf86-intput-synaptics-12.6.9.tar.gz
--		dri2proto-2.3.tar.gz
--		blktool_4.orig.tar.gz
--		libid3tag-0.15.1b.tar.gz
--		unzip552.tar.gz
--		icu4c-3_6-src.tgz
--		genext2fs_1.3.orig.tar.gz
--		gst-fluendo-mp3
--	"""
--	prefix1 = "[a-zA-Z][a-zA-Z0-9]*([\-_][a-zA-Z]\w+)*[\-_]"	# match most patterns which uses "-" as separator to version digits
--	prefix2 = "[a-zA-Z]+"			# a loose pattern such as for unzip552.tar.gz
--	prefix = "(%s|%s)" % (prefix1, prefix2)
--	suffix = "(tar\.gz|tgz|tar\.bz2|zip)"
--	suffixtuple = ("tar.gz", "tgz", "zip", "tar.bz2")
--
--	sinterstr = "(?P<name>%s?)(?P<ver>.*)" % prefix
--	sdirstr = "(?P<name>%s)(?P<ver>.*)\.(?P<type>%s$)" % (prefix, suffix)
--
--	def parse_inter(s):
--		m = re.search(sinterstr, s)
--		if not m:
--			return None
--		else:
--			return (m.group('name'), m.group('ver'), "")
--
--	def parse_dir(s):
--		m = re.search(sdirstr, s)
--		if not m:
--			return None
--		else:
--			return (m.group('name'), m.group('ver'), m.group('type'))
--
--	"""
--	Check whether 'new' is newer than 'old' version. We use existing vercmp() for the
--	purpose. PE is cleared in comparison as it's not for build, and PV is cleared too
--	for simplicity as it's somehow difficult to get from various upstream format
--	"""
--	def __vercmp(old, new):
--		(on, ov, ot) = old
--		(en, ev, et) = new
--		if on != en or (et and et not in suffixtuple):
--			return 0
--
--		ov = re.search("\d+[^a-zA-Z]+", ov).group()
--		ev = re.search("\d+[^a-zA-Z]+", ev).group()
--		return bb.utils.vercmp(("0", ov, ""), ("0", ev, ""))
--
--	"""
--	wrapper for fetch upstream directory info
--		'url'	- upstream link customized by regular expression
--		'd'	- database
--		'tmpf'	- tmpfile for fetcher output
--	We don't want to exit whole build due to one recipe error. So handle all exceptions 
--	gracefully w/o leaking to outer. 
--	"""
--	def internal_fetch_wget(url, d, tmpf):
--		status = "ErrFetchUnknown"
--		try: 
--			"""
--			Clear internal url cache as it's a temporary check. Not doing so will have 
--			bitbake check url multiple times when looping through a single url
--			"""
--			fn = bb.data.getVar('FILE', d, 1)
--			bb.fetch.urldata_cache[fn] = {}
--			bb.fetch.init([url], d)
--		except bb.fetch.NoMethodError:
--			status = "ErrFetchNoMethod"
--		except:
--			status = "ErrInitUrlUnknown"
--		else:
--			"""
--			To avoid impacting bitbake build engine, this trick is required for reusing bitbake
--			interfaces. bb.fetch.go() is not appliable as it checks downloaded content in ${DL_DIR}
--			while we don't want to pollute that place. So bb.fetch.checkstatus() is borrowed here
--			which is designed for check purpose but we override check command for our own purpose
--			"""
--			ld = bb.data.createCopy(d)
--			bb.data.setVar('CHECKCOMMAND_wget', "/usr/bin/env wget -t 1 --passive-ftp -O %s '${URI}'" \
--					% tmpf.name, d)
--			bb.data.update_data(ld)
--
--			try:
--				bb.fetch.checkstatus(ld)
--			except bb.fetch.MissingParameterError:
--				status = "ErrMissParam"
--			except bb.fetch.FetchError:
--				status = "ErrFetch"
--			except bb.fetch.MD5SumError:
--				status = "ErrMD5Sum"
--			except:
--				status = "ErrFetchUnknown"
--			else:
--				status = "SUCC" 
--		return status
--
--	"""
--	Check on middle version directory such as "2.4/" in "http://xxx/2.4/pkg-2.4.1.tar.gz", 
--		'url'	- upstream link customized by regular expression
--		'd'	- database
--		'curver' - current version
--	Return new version if success, or else error in "Errxxxx" style
--	"""
--	def check_new_dir(url, curver, d):
--		pn = bb.data.getVar('PN', d, 1)
--		f = tempfile.NamedTemporaryFile(delete=False, prefix="%s-1-" % pn)
--		status = internal_fetch_wget(url, d, f)
--		fhtml = f.read()
--
--		if status == "SUCC" and len(fhtml):
--			newver = parse_inter(curver)
--
--			"""
--			match "*4.1/">*4.1/ where '*' matches chars
--			N.B. add package name, only match for digits
--			"""
--			m = re.search("^%s" % prefix, curver)
--			if m:
--				s = "%s[^\d\"]*?(\d+[\.\-_])+\d+/?" % m.group()
--			else:
--				s = "(\d+[\.\-_])+\d+/?"
--				
--			searchstr = "[hH][rR][eE][fF]=\"%s\">" % s
--			reg = re.compile(searchstr)
--
--			valid = 0
--			for line in fhtml.split("\n"):
--				if line.find(curver) >= 0:
--					valid = 1
--
--				m = reg.search(line)
--				if m:
--					ver = m.group().split("\"")[1]
--					ver = ver.strip("/")
--					ver = parse_inter(ver)
--					if ver and __vercmp(newver, ver) < 0:
--						newver = ver
--
--			"""Expect a match for curver in directory list, or else it indicates unknown format"""
--			if not valid:
--				status = "ErrParseInterDir"
--			else:
--				"""rejoin the path name"""
--				status = newver[0] + newver[1]
--		elif not len(fhtml):
--			status = "ErrHostNoDir"
--
--		f.close()
--		if status != "ErrHostNoDir" and re.match("Err", status):
--			logpath = bb.data.getVar('LOG_DIR', d, 1)
--			os.system("cp %s %s/" % (f.name, logpath))
--		os.unlink(f.name)
--		return status
--
--	"""
--	Check on the last directory to search '2.4.1' in "http://xxx/2.4/pkg-2.4.1.tar.gz", 
--		'url'	- upstream link customized by regular expression
--		'd'	- database
--		'curname' - current package name
--	Return new version if success, or else error in "Errxxxx" style
--	"""
--	def check_new_version(url, curname, d):
--		"""possible to have no version in pkg name, such as spectrum-fw"""
--		if not re.search("\d+", curname):
--			return pcurver
--		pn = bb.data.getVar('PN', d, 1)
--		f = tempfile.NamedTemporaryFile(delete=False, prefix="%s-2-" % pn)
--		status = internal_fetch_wget(url, d, f)
--		fhtml = f.read()
--
--		if status == "SUCC" and len(fhtml):
--			newver = parse_dir(curname)
--
--			"""match "{PN}-5.21.1.tar.gz">{PN}-5.21.1.tar.gz """
--			pn1 = re.search("^%s" % prefix, curname).group()
--			s = "[^\"]*%s[^\d\"]*?(\d+[\.\-_])+[^\"]*" % pn1
--			searchstr = "[hH][rR][eE][fF]=\"%s\">" % s
--			reg = re.compile(searchstr)
--	
--			valid = 0
--			for line in fhtml.split("\n"):
--				m = reg.search(line)
--				if m:
--					valid = 1
--					ver = m.group().split("\"")[1].split("/")[-1]
--					ver = parse_dir(ver)
--					if ver and __vercmp(newver, ver) < 0:
--						newver = ver
--	
--			"""Expect a match for curver in directory list, or else it indicates unknown format"""
--			if not valid:
--				status = "ErrParseDir"
--			else:
--				"""newver still contains a full package name string"""
--				status = re.search("(\d+[.\-_])*\d+", newver[1]).group()
--		elif not len(fhtml):
--			status = "ErrHostNoDir"
--
--		f.close()
--		"""if host hasn't directory information, no need to save tmp file"""
--		if status != "ErrHostNoDir" and re.match("Err", status):
--			logpath = bb.data.getVar('LOG_DIR', d, 1)
--			os.system("cp %s %s/" % (f.name, logpath))
--		os.unlink(f.name)
--		return status
--
--	"""first check whether a uri is provided"""
--	src_uri = bb.data.getVar('SRC_URI', d, 1)
--	if not src_uri:
--		return
--
--	"""initialize log files."""
--	logpath = bb.data.getVar('LOG_DIR', d, 1)
--	bb.utils.mkdirhier(logpath)
--	logfile = os.path.join(logpath, "poky_pkg_info.log.%s" % bb.data.getVar('DATETIME', d, 1))
--	if not os.path.exists(logfile):
--		slogfile = os.path.join(logpath, "poky_pkg_info.log")
--		if os.path.exists(slogfile):
--			os.remove(slogfile)
--		os.system("touch %s" % logfile)
--		os.symlink(logfile, slogfile)
--
--	"""generate package information from .bb file"""
--	pname = bb.data.getVar('PN', d, 1)
--	pdesc = bb.data.getVar('DESCRIPTION', d, 1)
--	pgrp = bb.data.getVar('SECTION', d, 1)
--
--	found = 0
--	for uri in src_uri.split():
--		m = re.compile('(?P<type>[^:]*)').match(uri)
--		if not m:
--			raise MalformedUrl(uri)
--		elif m.group('type') in ('http', 'https', 'ftp', 'cvs', 'svn', 'git'):
--			found = 1
--			pproto = m.group('type')
--			break
--	if not found:
--		pproto = "file"
--	pupver = "N/A"
--	pstatus = "ErrUnknown"
--
--	(type, host, path, user, pswd, parm) = bb.decodeurl(uri)
--	if type in ['http', 'https', 'ftp']:
--		pcurver = bb.data.getVar('PV', d, 1)
--	else:
--		pcurver = bb.data.getVar("SRCREV", d, 1)
--
--	if type in ['http', 'https', 'ftp']:
--		newver = pcurver
--		altpath = path
--		dirver = "-"
--		curname = "-"
--	
--		"""
--		match version number amid the path, such as "5.7" in:
--			http://download.gnome.org/sources/${PN}/5.7/${PN}-${PV}.tar.gz	
--		N.B. how about sth. like "../5.7/5.8/..."? Not find such example so far :-P
--		"""
--		m = re.search(r"[^/]*(\d+\.)+\d+([\-_]r\d+)*/", path)
--		if m:
--			altpath = path.split(m.group())[0]
--			dirver = m.group().strip("/")
--	
--			"""use new path and remove param. for wget only param is md5sum"""
--			alturi = bb.encodeurl([type, host, altpath, user, pswd, {}])
--	
--			newver = check_new_dir(alturi, dirver, d)
--			altpath = path
--			if not re.match("Err", newver) and dirver != newver:
--				altpath = altpath.replace(dirver, newver, 1)
--				
--		"""Now try to acquire all remote files in current directory"""
--		if not re.match("Err", newver):
--			curname = altpath.split("/")[-1]
--	
--			"""get remote name by skipping pacakge name"""
--			m = re.search(r"/.*/", altpath)
--			if not m:
--				altpath = "/"
--			else:
--				altpath = m.group()
--	
--			alturi = bb.encodeurl([type, host, altpath, user, pswd, {}])
--			newver = check_new_version(alturi, curname, d)
--			if not re.match("Err", newver):
--				pupver = newver
--				if pupver != pcurver:
--					pstatus = "UPDATE"
--				else:
--					pstatus = "MATCH"
--	
--		if re.match("Err", newver):
--			pstatus = newver + ":" + altpath + ":" + dirver + ":" + curname
--	elif type == 'git':
--		if user:
--			gituser = user + '@'
--		else:
--			gituser = ""
--
--		if 'protocol' in parm:
--			gitproto = parm['protocol']
--		else:
--			gitproto = "rsync"
--
--		gitcmd = "git ls-remote %s://%s%s%s HEAD 2>&1" % (gitproto, gituser, host, path)
--		print gitcmd
--		ver = os.popen(gitcmd).read()
--		if ver and re.search("HEAD", ver):
--			pupver = ver.split("\t")[0]
--			if pcurver == pupver:
--				pstatus = "MATCH"
--			else:
--				pstatus = "UPDATE"
--		else:
--			pstatus = "ErrGitAccess"
--	elif type == 'svn':
--		options = []
--		if user:
--			options.append("--username %s" % user)
--		if pswd:
--			options.append("--password %s" % pswd)
--		svnproto = 'svn'
--		if 'proto' in parm:
--			svnproto = parm['proto']
--		if 'rev' in parm:
--			pcurver = parm['rev']
--
--		svncmd = "svn info %s %s://%s%s/%s/ 2>&1" % (" ".join(options), svnproto, host, path, parm["module"])
--		print svncmd
--		svninfo = os.popen(svncmd).read()
--		for line in svninfo.split("\n"):
--			if re.search("^Last Changed Rev:", line):
--				pupver = line.split(" ")[-1]
--				if pcurver == pupver:
--					pstatus = "MATCH"
--				else:
--					pstatus = "UPDATE"
--
--		if re.match("Err", pstatus):
--			pstatus = "ErrSvnAccess"
--	elif type == 'cvs':
--		pupver = "HEAD"
--		pstatus = "UPDATE"
--	elif type == 'file':
--		"""local file is always up-to-date"""
--		pupver = pcurver
--		pstatus = "MATCH"
--	else:
--		pstatus = "ErrUnsupportedProto"
--
--	if re.match("Err", pstatus):
--		pstatus += ":%s%s" % (host, path)
--
--	"""Read from manual distro tracking fields as alternative"""
--	pmver = bb.data.getVar("RECIPE_LATEST_VERSION", d, 1)
--	if not pmver:
--		pmver = "N/A"
--		pmstatus = "ErrNoRecipeData"
--	else:
--		if pmver == pcurver:
--			pmstatus = "MATCH"
--		else:
--			pmstatus = "UPDATE"
--	
--	lf = bb.utils.lockfile(logfile + ".lock")
--	f = open(logfile, "a")
--	f.write("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" % \
--		  (pname, pgrp, pproto, pcurver, pmver, pupver, pmstatus, pstatus, pdesc))
--	f.close()
--	bb.utils.unlockfile(lf)
--}
--
--addtask checkpkgall after do_checkpkg
--do_checkpkgall[recrdeptask] = "do_checkpkg"
--do_checkpkgall[nostamp] = "1"
--do_checkpkgall() {
--	:
--}
--
- addtask checkuri
- do_checkuri[nostamp] = "1"
- python do_checkuri() {
-@@ -487,55 +97,3 @@ do_buildall[recrdeptask] = "do_build"
- do_buildall() {
- 	:
- }
--
--#addhandler check_eventhandler
--python check_eventhandler() {
--    from bb.event import Handled, NotHandled
--    # if bb.event.getName(e) == "TaskStarted":
--
--    if bb.event.getName(e) == "BuildStarted":
--        import oe.distro_check as dc
--        tmpdir = bb.data.getVar('TMPDIR', e.data, 1)
--        distro_check_dir = os.path.join(tmpdir, "distro_check")
--        datetime = bb.data.getVar('DATETIME', e.data, 1)
--        """initialize log files."""
--        logpath = bb.data.getVar('LOG_DIR', e.data, 1)
--        bb.utils.mkdirhier(logpath)
--        logfile = os.path.join(logpath, "distrocheck.%s.csv" % bb.data.getVar('DATETIME', e.data, 1))
--        if not os.path.exists(logfile):
--                slogfile = os.path.join(logpath, "distrocheck.csv")
--                if os.path.exists(slogfile):
--                        os.remove(slogfile)
--                os.system("touch %s" % logfile)
--                os.symlink(logfile, slogfile)
--                bb.data.setVar('LOG_FILE', logfile, e.data)
--
--    return NotHandled
--}
--
--addtask distro_check
--do_distro_check[nostamp] = "1"
--python do_distro_check() {
--    """checks if the package is present in other public Linux distros"""
--    import oe.distro_check as dc
--    localdata = bb.data.createCopy(d)
--    bb.data.update_data(localdata)
--    tmpdir = bb.data.getVar('TMPDIR', d, 1)
--    distro_check_dir = os.path.join(tmpdir, "distro_check")
--    datetime = bb.data.getVar('DATETIME', localdata, 1)
--    dc.update_distro_data(distro_check_dir, datetime)
--
--    # do the comparison
--    result = dc.compare_in_distro_packages_list(distro_check_dir, d)
--
--    # save the results
--    dc.save_distro_check_result(result, datetime, d)
--}
--
--addtask distro_checkall after do_distro_check
--do_distro_checkall[recrdeptask] = "do_distro_check"
--do_distro_checkall[nostamp] = "1"
--do_distro_checkall() {
--	:
--}
--
-diff --git a/meta/conf/distro/poky.conf b/meta/conf/distro/poky.conf
-index b3c9f1a..684215d 100644
---- a/meta/conf/distro/poky.conf
-+++ b/meta/conf/distro/poky.conf
-@@ -139,7 +139,6 @@ COMMERCIAL_QT ?= ""
- 
- 
- require conf/distro/include/world-broken.inc
--require conf/distro/include/distro_tracking_fields.inc
- 
- # Setup our hash policy
- BB_SIGNATURE_HANDLER = "basic"
--- 
-1.6.3.3
+
+Dongxiao Xu (7):
+    pm-utils: Upgrade to version 1.4.1
+    netbase: Upgrade to version 4.43
+    mtd-utils: Upgrade to version 1.4.1
+    msynctool: Upgrade to version 0.38
+    polkit: Upgrade to version 0.99
+    polkit-gnome: Upgrade to version 0.99
+    distro_tracking: Update distro tracking fields for pm-utils, netbase,
+      etc.
+
+Saul Wold (3):
+    libfm: rename patch directory for package update
+    ed: fix patch and LIC_FILES_CHKSUM
+    pimlico-tasks: remove patch
+
+Scott Garman (2):
+    tar: upgrade to version 1.25
+    distro_tracking_fields.inc: update tar and openssh
+
+Yu Ke (5):
+    libdrm: upgrade from 2.4.21 to 2.4.22
+    xf86-video-intel: upgrade from 2.12.0 to 2.13.0
+    xserver-xf86-dri-lite: upgrade from 1.9.0 rc4 to 1.9.2
+    xrandr: upgrade from 1.3.2 to 1.3.4
+    pixman: upgrade from 0.18.2 to 0.20.0
+
+Zhai Edwin (16):
+    libgpg-error: Update to 1.9
+    libassuan: Update to 2.0.1
+    libuser: Update to 0.56.18
+    xz: Update to 5.0.0
+    ed: Update to 1.5
+    avahi: Update to 0.6.28
+    libowl-av: Update to svn r416
+    tasks: Update to 0.18
+    atk: Update to 1.32.0
+    libsoup-2.4: Update to 2.32.1
+    matchbox-panel-2: Update to svn r2111
+    libgnome-keyring: Update to 2.32.0
+    gnome-keyring: Update to 2.32.1
+    libfm: Update to 0.1.14
+    pcmanfm: Update to 0.9.8
+    distro tracking: Updates for libgpg-error...
+
+   .../conf/distro/include/distro_tracking_fields.inc |  153 
++++++++++++---------
+   .../conf/distro/include/poky-default-revisions.inc |    4 +-
+   .../distro/include/preferred-xorg-versions.inc     |   10 +-
+   meta/recipes-bsp/pm-utils/pm-utils_1.3.0.bb        |   17 ---
+   meta/recipes-bsp/pm-utils/pm-utils_1.4.1.bb        |   23 +++
+   .../avahi/{avahi_0.6.27.bb =avahi_0.6.28.bb}     |    2 +-
+   .../opensync/msynctool_0.37.bb                     |   14 --
+   .../opensync/msynctool_0.38.bb                     |   20 +++
+   .../{netbase =netbase-4.43}/colinux/interfaces   |    0
+   .../{netbase =netbase-4.43}/epia/interfaces      |    0
+   .../netbase/{netbase =netbase-4.43}/hosts        |    0
+   .../netbase/{netbase =netbase-4.43}/init         |    0
+   .../netbase/{netbase =netbase-4.43}/interfaces   |    0
+   .../{netbase =netbase-4.43}/mtx-1/interfaces     |    0
+   .../netbase/{netbase =netbase-4.43}/nfsroot      |    0
+   .../{netbase =netbase-4.43}/nokia800/interfaces  |    0
+   .../netbase/{netbase =netbase-4.43}/openmn/hosts |    0
+   .../{netbase =netbase-4.43}/openmn/interfaces    |    0
+   .../{netbase =netbase-4.43}/qemuarm/interfaces   |    0
+   .../{netbase =netbase-4.43}/qemuarmv6/interfaces |    0
+   .../{netbase =netbase-4.43}/qemuarmv7/interfaces |    0
+   .../qemux86-64/interfaces                          |    0
+   .../{netbase =netbase-4.43}/qemux86/interfaces   |    0
+   .../{netbase =netbase-4.43}/tosa/interfaces      |    0
+   .../{netbase =netbase-4.43}/wrt54/interfaces     |    0
+   .../{netbase =netbase-4.43}/xxs1500/interfaces   |    0
+   .../netbase/{netbase_4.41.bb =netbase_4.43.bb}   |    6 +-
+   ...size-64-and-writesize-4096-as-normal-nand.patch |   24 ---
+   .../add-exclusion-to-mkfs-jffs2-git-2.patch        |    0
+   .../mtd/{mtd-utils_1.3.1.bb =mtd-utils_1.4.1.bb} |   13 ++-
+   .../ed/{ed-1.4 =ed-1.5}/ed-1.2-build.patch       |   16 +--
+   meta/recipes-extended/ed/{ed_1.4.bb =ed_1.5.bb}  |    4 +-
+   .../disable-sgml-doc.patch                         |    0
+   .../{libuser_0.56.16.bb =libuser_0.56.18.bb}     |    0
+   meta/recipes-extended/polkit/polkit-gnome_0.96.bb  |   19 ---
+   meta/recipes-extended/polkit/polkit-gnome_0.99.bb  |   27 ++++
+   .../polkit/{polkit_0.96.bb =polkit_0.99.bb}      |   14 ++-
+   meta/recipes-extended/tar/tar_1.23.bb              |    9 --
+   meta/recipes-extended/tar/tar_1.25.bb              |    9 ++
+   .../xz/{xz_4.999.9beta.bb =xz_5.0.0.bb}          |    0
+   ...e-keyring_2.31.4.bb =gnome-keyring_2.32.1.bb} |    0
+   ...eyring_2.30.1.bb =libgnome-keyring_2.32.0.bb} |    0
+   .../installtests.patch                             |    0
+   meta/recipes-graphics/drm/libdrm_2.4.21.bb         |    4 -
+   meta/recipes-graphics/drm/libdrm_2.4.22.bb         |    7 +
+   .../xorg-app/xrandr/resolve_symbol_clash.patch     |   33 -----
+   .../xorg-app/{xrandr_1.3.2.bb =xrandr_1.3.4.bb}  |    3 +-
+   ...-intel_2.12.0.bb =xf86-video-intel_2.13.0.bb} |    3 +
+   .../{pixman_0.18.2.bb =pixman_0.20.0.bb}         |    3 +
+   ....8.99.904.bb =xserver-xf86-dri-lite_1.9.2.bb} |    5 +-
+   .../matchbox-panel-2/fix_sync_funcname.patch       |   34 -----
+   .../matchbox-panel-2/matchbox-panel-2_svn.bb       |    5 +-
+   .../pcmanfm/{pcmanfm_0.9.7.bb =pcmanfm_0.9.8.bb} |    0
+   .../pimlico/tasks/fix_pre-GTK+2.16.patch           |   26 ----
+   .../pimlico/{tasks_0.16.bb =tasks_0.18.bb}       |    0
+   .../atk/{atk_1.30.0.bb =atk_1.32.0.bb}           |    2 +-
+   .../{libassuan_2.0.0.bb =libassuan_2.0.1.bb}     |    4 +-
+   .../add_missing.patch                              |    0
+   .../libfm/{libfm_0.1.12.bb =libfm_0.1.14.bb}     |    0
+   .../pkgconfig.patch                                |    0
+   .../{libgpg-error_1.8.bb =libgpg-error_1.9.bb}   |    1 -
+   ...libsoup-2.4_2.31.2.bb =libsoup-2.4_2.32.1.bb} |    2 +-
+   62 files changed, 233 insertions(+), 283 deletions(-)
+   delete mode 100644 meta/recipes-bsp/pm-utils/pm-utils_1.3.0.bb
+   create mode 100644 meta/recipes-bsp/pm-utils/pm-utils_1.4.1.bb
+   rename meta/recipes-connectivity/avahi/{avahi_0.6.27.bb 
+=avahi_0.6.28.bb} (98%)
+   delete mode 100644 meta/recipes-connectivity/opensync/msynctool_0.37.bb
+   create mode 100644 meta/recipes-connectivity/opensync/msynctool_0.38.bb
+   rename meta/recipes-core/netbase/{netbase 
+=netbase-4.43}/colinux/interfaces (100%)
+   rename meta/recipes-core/netbase/{netbase 
+=netbase-4.43}/epia/interfaces (100%)
+   rename meta/recipes-core/netbase/{netbase =netbase-4.43}/hosts (100%)
+   rename meta/recipes-core/netbase/{netbase =netbase-4.43}/init (100%)
+   rename meta/recipes-core/netbase/{netbase =netbase-4.43}/interfaces 
+(100%)
+   rename meta/recipes-core/netbase/{netbase 
+=netbase-4.43}/mtx-1/interfaces (100%)
+   rename meta/recipes-core/netbase/{netbase =netbase-4.43}/nfsroot (100%)
+   rename meta/recipes-core/netbase/{netbase 
+=netbase-4.43}/nokia800/interfaces (100%)
+   rename meta/recipes-core/netbase/{netbase =netbase-4.43}/openmn/hosts 
+(100%)
+   rename meta/recipes-core/netbase/{netbase 
+=netbase-4.43}/openmn/interfaces (100%)
+   rename meta/recipes-core/netbase/{netbase 
+=netbase-4.43}/qemuarm/interfaces (100%)
+   rename meta/recipes-core/netbase/{netbase 
+=netbase-4.43}/qemuarmv6/interfaces (100%)
+   rename meta/recipes-core/netbase/{netbase 
+=netbase-4.43}/qemuarmv7/interfaces (100%)
+   rename meta/recipes-core/netbase/{netbase 
+=netbase-4.43}/qemux86-64/interfaces (100%)
+   rename meta/recipes-core/netbase/{netbase 
+=netbase-4.43}/qemux86/interfaces (100%)
+   rename meta/recipes-core/netbase/{netbase 
+=netbase-4.43}/tosa/interfaces (100%)
+   rename meta/recipes-core/netbase/{netbase 
+=netbase-4.43}/wrt54/interfaces (100%)
+   rename meta/recipes-core/netbase/{netbase 
+=netbase-4.43}/xxs1500/interfaces (100%)
+   rename meta/recipes-core/netbase/{netbase_4.41.bb =netbase_4.43.bb} (90%)
+   delete mode 100644 
+meta/recipes-devtools/mtd/mtd-utils-1.3.1/add-oobsize-64-and-writesize-4096-as-normal-nand.patch
+   rename meta/recipes-devtools/mtd/{mtd-utils-1.3.1 
+=mtd-utils-1.4.1}/add-exclusion-to-mkfs-jffs2-git-2.patch (100%)
+   rename meta/recipes-devtools/mtd/{mtd-utils_1.3.1.bb 
+=mtd-utils_1.4.1.bb} (61%)
+   rename meta/recipes-extended/ed/{ed-1.4 =ed-1.5}/ed-1.2-build.patch (76%)
+   rename meta/recipes-extended/ed/{ed_1.4.bb =ed_1.5.bb} (70%)
+   rename meta/recipes-extended/libuser/{libuser-0.56.16 
+=libuser-0.56.18}/disable-sgml-doc.patch (100%)
+   rename meta/recipes-extended/libuser/{libuser_0.56.16.bb 
+=libuser_0.56.18.bb} (100%)
+   delete mode 100644 meta/recipes-extended/polkit/polkit-gnome_0.96.bb
+   create mode 100644 meta/recipes-extended/polkit/polkit-gnome_0.99.bb
+   rename meta/recipes-extended/polkit/{polkit_0.96.bb =polkit_0.99.bb} 
+(51%)
+   delete mode 100644 meta/recipes-extended/tar/tar_1.23.bb
+   create mode 100644 meta/recipes-extended/tar/tar_1.25.bb
+   rename meta/recipes-extended/xz/{xz_4.999.9beta.bb =xz_5.0.0.bb} (100%)
+   rename meta/recipes-gnome/gnome/{gnome-keyring_2.31.4.bb 
+=gnome-keyring_2.32.1.bb} (100%)
+   rename meta/recipes-gnome/gnome/{libgnome-keyring_2.30.1.bb 
+=libgnome-keyring_2.32.0.bb} (100%)
+   rename meta/recipes-graphics/drm/{libdrm-2.4.21 
+=libdrm-2.4.22}/installtests.patch (100%)
+   delete mode 100644 meta/recipes-graphics/drm/libdrm_2.4.21.bb
+   create mode 100644 meta/recipes-graphics/drm/libdrm_2.4.22.bb
+   delete mode 100644 
+meta/recipes-graphics/xorg-app/xrandr/resolve_symbol_clash.patch
+   rename meta/recipes-graphics/xorg-app/{xrandr_1.3.2.bb 
+=xrandr_1.3.4.bb} (61%)
+   rename meta/recipes-graphics/xorg-driver/{xf86-video-intel_2.12.0.bb 
+=xf86-video-intel_2.13.0.bb} (67%)
+   rename meta/recipes-graphics/xorg-lib/{pixman_0.18.2.bb 
+=pixman_0.20.0.bb} (80%)
+   rename 
+meta/recipes-graphics/xorg-xserver/{xserver-xf86-dri-lite_1.8.99.904.bb 
+=xserver-xf86-dri-lite_1.9.2.bb} (76%)
+   delete mode 100644 
+meta/recipes-sato/matchbox-panel-2/matchbox-panel-2/fix_sync_funcname.patch
+   rename meta/recipes-sato/pcmanfm/{pcmanfm_0.9.7.bb =pcmanfm_0.9.8.bb} 
+(100%)
+   delete mode 100644 meta/recipes-sato/pimlico/tasks/fix_pre-GTK+2.16.patch
+   rename meta/recipes-sato/pimlico/{tasks_0.16.bb =tasks_0.18.bb} (100%)
+   rename meta/recipes-support/atk/{atk_1.30.0.bb =atk_1.32.0.bb} (81%)
+   rename meta/recipes-support/libassuan/{libassuan_2.0.0.bb 
+=libassuan_2.0.1.bb} (72%)
+   rename meta/recipes-support/libfm/{libfm-0.1.12 
+=libfm-0.1.14}/add_missing.patch (100%)
+   rename meta/recipes-support/libfm/{libfm_0.1.12.bb =libfm_0.1.14.bb} 
+(100%)
+   rename meta/recipes-support/libgpg-error/{libgpg-error-1.8 
+=libgpg-error-1.9}/pkgconfig.patch (100%)
+   rename meta/recipes-support/libgpg-error/{libgpg-error_1.8.bb 
+=libgpg-error_1.9.bb} (96%)
+   rename meta/recipes-support/libsoup/{libsoup-2.4_2.31.2.bb 
+=libsoup-2.4_2.32.1.bb} (86%)
+
 
 
