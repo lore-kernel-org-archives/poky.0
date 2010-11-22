@@ -1,21 +1,21 @@
-Return-Path: <edwin.zhai@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 1B4BD4C8112F
-	for <poky@yoctoproject.org>; Mon, 22 Nov 2010 07:09:50 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 22 Nov 2010 05:09:50 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,236,1288594800"; d="scan'208";a="576281829"
-Received: from gw-vmm.sh.intel.com (HELO localhost) ([10.239.48.110])
-	by orsmga002.jf.intel.com with ESMTP; 22 Nov 2010 05:09:50 -0800
-Message-Id: <8ded0b06c2489de41f7a65304fb3a28ef504ffc6.1290431109.git.edwin.zhai@intel.com>
-In-Reply-To: <cover.1290431109.git.edwin.zhai@intel.com>
-References: <cover.1290431109.git.edwin.zhai@intel.com>
-From: Zhai Edwin <gzhai@yocto-build3-desktop.(none)>
-Date: Mon, 22 Nov 2010 10:43:17 +0800
+Return-Path: <josh@openedhand.com>
+Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 1B9C14C80052
+	for <poky@yoctoproject.org>; Mon, 22 Nov 2010 07:54:04 -0600 (CST)
+Received: from [10.250.128.97] (unknown [158.43.2.102])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by pug.o-hand.com (Postfix) with ESMTP id 7EBCC12EC1C5
+	for <poky@yoctoproject.org>; Mon, 22 Nov 2010 08:31:21 -0600 (CST)
+From: Joshua Lock <josh@openedhand.com>
 To: poky@yoctoproject.org
-CC: 
-Subject: [PATCH 1/1] tasks: remove unused patch completely
+In-Reply-To: <4CE8FECD.5050905@mlbassoc.com>
+References: <4CE8FECD.5050905@mlbassoc.com>
+Date: Mon, 22 Nov 2010 13:53:55 +0000
+Message-ID: <1290434035.2579.15.camel@scimitar>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.0 (2.32.0-2.fc14) 
+Subject: Re: BBFILE_PRIORITY confusion
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,31 +27,63 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 22 Nov 2010 13:09:51 -0000
+X-List-Received-Date: Mon, 22 Nov 2010 13:54:04 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-remove patch in 509b30dee.
+On Sun, 2010-11-21 at 04:13 -0700, Gary Thomas wrote:
+> I'm building a multi-layered system, something like this:
+>    meta-manufacturer/...
+>    meta-platform/...
+> 
+> The idea is that we'll put any packages and support that are
+> useful for all platforms we make in meta-manufacturer/ and only
+> target platform specifics in meta-platform/
+> 
+> I had set BBFILE_PRIORITY=6 in meta-manufacturer/ and 7 in meta-platform/
+> 
+> Here's the confusion.  I originally had something like this for our internal
+> kernel packages:
+>    meta-manufacturer/packages/linux/linux-manufacturer_2.6.32.bb
+>    meta-platform/packages/linux/linux-manufacturer_2.6.28.bb
+> This was due to the fact that some other platform we make is already
+> using 2.6.32, but we still have some back at 2.6.28
+> 
+> Today, I tried to bring one of those platforms to 2.6.32, so I added
+> this (exactly as I have done for other platforms already running 2.6.32):
+>    meta-platform/packages/linux/linux-manufacturer_2.6.32.bbappend
+> initially leaving the linux-manufacturer_2.6.28.bb in place.
+> 
+> Much to my surprise, bitbake/poky never even reads the linux-manufacturer_2.6.32.bbappend
+> file!  This seems to be related to BBFILE_PRIORITY - when I swapped the
+> priorities around, it started to work.  While this gets me moving, I think
+> it's wrong - I may need at some point for this platform to be able to override
+> some manufacturer recipe, etc.
+> 
+> It seems to me that BBFILE_PRIORITY is a bit too zealous; barring any other
+> constraint, I should think that the 2.6.32 recipe should always take precedence.
+> 
+> Am I missing something here, or is it a bug?
+> 
 
-Signed-off-by: Zhai Edwin <edwin.zhai@intel.com>
----
- meta/recipes-sato/pimlico/tasks_0.18.bb |    4 +---
- 1 files changed, 1 insertions(+), 3 deletions(-)
+This is working exactly as intended, you've told bitbake that the
+manufacturer layer has a higher priority so it's using that to satisfy
+any recipe it can, regardless of version. If you'd like the platform to
+be able to be prioritised over the manufacturer you'd need to adjust the
+priority accordingly.
 
-diff --git a/meta/recipes-sato/pimlico/tasks_0.18.bb b/meta/recipes-sato/pimlico/tasks_0.18.bb
-index 999da76..f363855 100644
---- a/meta/recipes-sato/pimlico/tasks_0.18.bb
-+++ b/meta/recipes-sato/pimlico/tasks_0.18.bb
-@@ -5,9 +5,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f \
-                     file://src/omoko/openmoko-tasks.c;endline=20;md5=04d56a46863c9f4247694f40257a836a \
-                     file://src/hildon/hildon-tasks.c;endline=21;md5=488ddf31dc14b2196dec7cc736211b52"
- 
--SRC_URI = "http://pimlico-project.org/sources/${PN}/${PN}-${PV}.tar.gz \
--           file://fix_pre-GTK+2.16.patch;apply=yes \
--           "
-+SRC_URI = "http://pimlico-project.org/sources/${PN}/${PN}-${PV}.tar.gz"
- 
- OWL_poky = "--with-owl"
- 
+If you want the most highest version recipe to be used, regardless of
+layer, you could set the priorities to be the same.
+
+Perhaps you could work around this by having your platforms pin specific
+kernel versions when they need an older kernel?
+
+Hope that helps clarify things.
+
+Cheers,
+Joshua
 -- 
-1.7.0.4
+Joshua Lock
+        Intel Open Source Technology Centre
 
 
