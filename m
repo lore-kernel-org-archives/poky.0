@@ -1,25 +1,31 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 91AC04C80052
-	for <poky@pokylinux.org>; Mon, 22 Nov 2010 12:14:14 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 22 Nov 2010 10:14:13 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,237,1288594800"; d="scan'208";a="629241753"
-Received: from unknown (HELO [10.255.13.171]) ([10.255.13.171])
-	by fmsmga002.fm.intel.com with ESMTP; 22 Nov 2010 10:14:12 -0800
-Message-ID: <4CEAB2F0.2030700@intel.com>
-Date: Mon, 22 Nov 2010 10:14:08 -0800
-From: Saul Wold <saul.wold@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
-MIME-Version: 1.0
-To: Lu Jingdong <jingdong.lu@windriver.com>
-References: <4CCE94E0.50903@windriver.com>
-In-Reply-To: <4CCE94E0.50903@windriver.com>
-Cc: "poky@pokylinux.org" <poky@pokylinux.org>
-Subject: Re: [PULL]Fix adding GDBM_File module for perl
+Return-Path: <rpurdie@linux.intel.com>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D5DFD4C80052
+	for <poky@pokylinux.org>; Mon, 22 Nov 2010 13:23:11 -0600 (CST)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oAMJN8Rl001817;
+	Mon, 22 Nov 2010 19:23:08 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 01242-10; Mon, 22 Nov 2010 19:23:04 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oAMJMvLF001811
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Mon, 22 Nov 2010 19:22:58 GMT
+From: Richard Purdie <rpurdie@linux.intel.com>
+To: Paul Eggleton <paul.eggleton@intel.com>
+In-Reply-To: <d037e804e0b097a273b3385cddccef4b3791a8fd.1290423211.git.paul.eggleton@intel.com>
+References: <cover.1290423211.git.paul.eggleton@intel.com>
+	<d037e804e0b097a273b3385cddccef4b3791a8fd.1290423211.git.paul.eggleton@intel.com>
+Date: Mon, 22 Nov 2010 19:22:55 +0000
+Message-ID: <1290453775.1272.17276.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky@pokylinux.org
+Subject: Re: [PATCH 1/3] openssl: disable execstack flag to prevent problems with SELinux
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,40 +37,46 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 22 Nov 2010 18:14:14 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Mon, 22 Nov 2010 19:23:12 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On 11/01/2010 03:22 AM, Lu Jingdong wrote:
-> Note:<commit_id>  parameter assumed as 'HEAD'
->
->    meta/recipes-devtools/perl/perl-5.8.8/config.sh                                     |    8
->    meta/recipes-devtools/perl/perl-5.8.8/perl-enable-gdbm.patch                        |   17 +
->    meta/recipes-devtools/perl/perl_5.8.8.bb                                            |    2
->
-Jingdong,
+Hi Paul,
 
-We have not forgotten about your changes, we are trying to determine the 
-impact of the changes you are suggesting.  Can you please let us know 
-what the size difference would of perl by adding this change?  Is it 
-just a simple perl module?  What additional dependencies occur when you 
-add this patch and their impact on size.
+On Wed, 2010-11-17 at 11:37 +0000, Paul Eggleton wrote:
+> The execstack flag gets set on libcrypto.so by default which causes SELinux
+> to prevent it from being loaded on systems using SELinux, which includes
+> Fedora. This patch disables the execstack flag. (Note: Red Hat do this in
+> their openssl packaging.)
+> 
+> Signed-off-by: Paul Eggleton <paul.eggleton@intel.com>
+> ---
+>  meta/recipes-connectivity/openssl/openssl.inc      |    2 +-
+>  .../recipes-connectivity/openssl/openssl_0.9.8p.bb |    2 +-
+>  2 files changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/meta/recipes-connectivity/openssl/openssl.inc b/meta/recipes-connectivity/openssl/openssl.inc
+> index da90456..15144b1 100644
+> --- a/meta/recipes-connectivity/openssl/openssl.inc
+> +++ b/meta/recipes-connectivity/openssl/openssl.inc
+> @@ -15,7 +15,7 @@ S = "${WORKDIR}/openssl-${PV}"
+>  
+>  AR_append = " r"
+>  CFLAG = "${@base_conditional('SITEINFO_ENDIANESS', 'le', '-DL_ENDIAN', '-DB_ENDIAN', d)} \
+> -	-DTERMIO ${FULL_OPTIMIZATION} -Wall"
+> +	-DTERMIO ${FULL_OPTIMIZATION} -Wall -Wa,--noexecstack"
 
-Sau!
->    meta/recipes-extended/texinfo/texinfo-4.13a/texinfo-4.12-zlib.patch                 |  169 ++++++++++
->    meta/recipes-extended/texinfo/texinfo-4.13a/texinfo-4.13a-data_types.patch          |   32 +
->    meta/recipes-extended/texinfo/texinfo-4.13a/texinfo-4.13a-help-index-segfault.patch |   23 +
->    meta/recipes-extended/texinfo/texinfo-4.13a/texinfo-4.13a-mosdo-crash.patch         |   11
->    meta/recipes-extended/texinfo/texinfo-4.13a/texinfo-4.13a-powerpc.patch             |   12
->    meta/recipes-extended/texinfo/texinfo_4.13a.bb                                      |   57 +++
->    9 files changed, 327 insertions(+), 4 deletions(-)
->
-> Jingdong Lu (2):
->         texinfo: Add new package
->         Fix adding GDBM_File module for LSB test.
->
-> Pull URL:
-> http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=jingdonglu/distro
->
+Should this flag be used for both the -native and target versions or
+just the native one?
+
+If its just native specific, you should be able to do something like:
+
+CFLAG_append_virtclass-native = " -Wa,--noexecstack"
+
+Cheers,
+
+Richard
+ 
+
 
 
