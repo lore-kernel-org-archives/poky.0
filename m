@@ -1,30 +1,25 @@
-Return-Path: <rpurdie@linux.intel.com>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A8BC94C803A5
-	for <poky@pokylinux.org>; Mon, 22 Nov 2010 11:05:23 -0600 (CST)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oAMH5KwP031578;
-	Mon, 22 Nov 2010 17:05:20 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 30372-08; Mon, 22 Nov 2010 17:05:16 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oAMH5DJs031565
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Mon, 22 Nov 2010 17:05:13 GMT
-From: Richard Purdie <rpurdie@linux.intel.com>
-To: Paul Eggleton <paul.eggleton@intel.com>
-In-Reply-To: <e159ff2c957d06e1106b7ba221e7b36d3bc06fe9.1290423211.git.paul.eggleton@intel.com>
+Return-Path: <paul.eggleton@intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 1D1874C803A5
+	for <poky@pokylinux.org>; Mon, 22 Nov 2010 11:19:02 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 22 Nov 2010 09:19:00 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.59,237,1288594800"; d="scan'208";a="351825878"
+Received: from unknown (HELO helios.localnet) ([10.255.16.138])
+	by azsmga001.ch.intel.com with ESMTP; 22 Nov 2010 09:18:59 -0800
+From: Paul Eggleton <paul.eggleton@intel.com>
+Organization: Intel Corporation
+To: Richard Purdie <rpurdie@linux.intel.com>
+Date: Mon, 22 Nov 2010 17:18:56 +0000
+User-Agent: KMail/1.13.5 (Linux/2.6.35-22-generic-pae; KDE/4.5.1; i686; ; )
 References: <cover.1290423211.git.paul.eggleton@intel.com>
 	<e159ff2c957d06e1106b7ba221e7b36d3bc06fe9.1290423211.git.paul.eggleton@intel.com>
-Date: Mon, 22 Nov 2010 17:05:11 +0000
-Message-ID: <1290445511.1272.17129.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@pokylinux.org
+	<1290445511.1272.17129.camel@rex>
+In-Reply-To: <1290445511.1272.17129.camel@rex>
+MIME-Version: 1.0
+Message-Id: <201011221718.57086.paul.eggleton@intel.com>
+Cc: "poky@pokylinux.org" <poky@pokylinux.org>
 Subject: Re: [PATCH 3/3] qemu: fix failure to find zlib header files during configure
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -37,53 +32,25 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 22 Nov 2010 17:05:24 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 22 Nov 2010 17:19:03 -0000
+Content-Type: Text/Plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Hi Paul,
-
-On Fri, 2010-11-19 at 12:37 +0000, Paul Eggleton wrote:
-> Corrects problems during configure of qemu-native due to the BUILD_CFLAGS
-> not being included when attempting to compile the test program for zlib
-> within the configure script.
-> 
-> Signed-off-by: Paul Eggleton <paul.eggleton@intel.com>
-> ---
->  .../qemu/qemu-0.12.4/fix-configure-checks.patch    |   16 ++++++++++++++++
->  meta/recipes-devtools/qemu/qemu_0.12.4.bb          |    3 ++-
->  2 files changed, 18 insertions(+), 1 deletions(-)
->  create mode 100644 meta/recipes-devtools/qemu/qemu-0.12.4/fix-configure-checks.patch
-> 
-> diff --git a/meta/recipes-devtools/qemu/qemu-0.12.4/fix-configure-checks.patch b/meta/recipes-devtools/qemu/qemu-0.12.4/fix-configure-checks.patch
-> new file mode 100644
-> index 0000000..e397848
-> --- /dev/null
-> +++ b/meta/recipes-devtools/qemu/qemu-0.12.4/fix-configure-checks.patch
-> @@ -0,0 +1,16 @@
-> +Adds BUILD_CFLAGS to QEMU_CFLAGS so that zlib configure check succeeds.
-> +Without this, zlib configure check was failing without zlib headers installed
-> +on the host system.
-> +
-> +Author: Paul Eggleton <paul.eggleton@intel.com>
-> +
-> +--- qemu-0.12.4.orig/configure
-> ++++ qemu-0.12.4/configure
-> +@@ -99,6 +99,7 @@ QEMU_CFLAGS="-Wstrict-prototypes -Wredun
-> + QEMU_CFLAGS="-D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE $QEMU_CFLAGS"
-> + QEMU_CFLAGS="-U_FORTIFY_SOURCE $QEMU_CFLAGS"
-> + QEMU_CFLAGS="-I. -I\$(SRC_PATH) $QEMU_CFLAGS"
-> ++QEMU_CFLAGS="$QEMU_CFLAGS $BUILD_CFLAGS"
-> + LDFLAGS="-g $LDFLAGS"
-> + 
-
-Should this be $CFLAGS? I just wonder what the effect of injecting
-BUILD_CFLAGS would be in the target case (qemu vs. qemu-native)?
-
-In the native case CFLAGS == BUILD_CFLAGS.
-
-Cheers,
-
-Richard
+T24gTW9uZGF5IDIyIE5vdmVtYmVyIDIwMTAgMTc6MDU6MTEgUmljaGFyZCBQdXJkaWUgd3JvdGU6
+Cj4gU2hvdWxkIHRoaXMgYmUgJENGTEFHUz8gSSBqdXN0IHdvbmRlciB3aGF0IHRoZSBlZmZlY3Qg
+b2YgaW5qZWN0aW5nCj4gQlVJTERfQ0ZMQUdTIHdvdWxkIGJlIGluIHRoZSB0YXJnZXQgY2FzZSAo
+cWVtdSB2cy4gcWVtdS1uYXRpdmUpPwo+IAo+IEluIHRoZSBuYXRpdmUgY2FzZSBDRkxBR1MgPT0g
+QlVJTERfQ0ZMQUdTLgoKWWVzLCBhY3R1YWxseSB0aGUgaW5pdGlhbCB2ZXJzaW9uIG9mIG15IHBh
+dGNoIHVzZWQgQ0ZMQUdTIHdoaWNoIHdvcmtzIGp1c3QgZmluZSAoZm9yIHFlbXUtbmF0aXZlLCBJ
+IGhhdmUgdG8gYWRtaXQgdG8gbm90IHRlc3RpbmcgcWVtdSksIHNvIEknbSBoYXBweSB0byBmb3Ig
+dGhhdCB0byBiZSBjaGFuZ2VkLgoKQ2hlZXJzLApQYXVsCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpJbnRlbCBDb3Jw
+b3JhdGlvbiAoVUspIExpbWl0ZWQKUmVnaXN0ZXJlZCBOby4gMTEzNDk0NSAoRW5nbGFuZCkKUmVn
+aXN0ZXJlZCBPZmZpY2U6IFBpcGVycyBXYXksIFN3aW5kb24gU04zIDFSSgpWQVQgTm86IDg2MCAy
+MTczIDQ3CgpUaGlzIGUtbWFpbCBhbmQgYW55IGF0dGFjaG1lbnRzIG1heSBjb250YWluIGNvbmZp
+ZGVudGlhbCBtYXRlcmlhbCBmb3IKdGhlIHNvbGUgdXNlIG9mIHRoZSBpbnRlbmRlZCByZWNpcGll
+bnQocykuIEFueSByZXZpZXcgb3IgZGlzdHJpYnV0aW9uCmJ5IG90aGVycyBpcyBzdHJpY3RseSBw
+cm9oaWJpdGVkLiBJZiB5b3UgYXJlIG5vdCB0aGUgaW50ZW5kZWQKcmVjaXBpZW50LCBwbGVhc2Ug
+Y29udGFjdCB0aGUgc2VuZGVyIGFuZCBkZWxldGUgYWxsIGNvcGllcy4K
 
 
