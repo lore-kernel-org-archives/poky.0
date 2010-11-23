@@ -1,21 +1,21 @@
 Return-Path: <lei.mei@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C87A54C81065
-	for <poky@yoctoproject.org>; Tue, 23 Nov 2010 04:07:08 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 23 Nov 2010 02:07:08 -0800
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C1E4E4C811D6
+	for <poky@yoctoproject.org>; Tue, 23 Nov 2010 04:07:12 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 23 Nov 2010 02:07:12 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,241,1288594800"; d="scan'208";a="576651120"
+X-IronPort-AV: E=Sophos;i="4.59,241,1288594800"; d="scan'208";a="629474926"
 Received: from daocaoren-desktop.sh.intel.com (HELO localhost)
 	([10.239.48.112])
-	by orsmga002.jf.intel.com with ESMTP; 23 Nov 2010 02:07:07 -0800
-Message-Id: <a20b156a6feff2545cdbaa8beba08e3ea0a2b26b.1290506494.git.lei.mei@intel.com>
+	by fmsmga002.fm.intel.com with ESMTP; 23 Nov 2010 02:07:11 -0800
+Message-Id: <36a6751ca3f9268441c2fb07bcb73f420f3a1a92.1290506494.git.lei.mei@intel.com>
 In-Reply-To: <cover.1290506494.git.lei.mei@intel.com>
 References: <cover.1290506494.git.lei.mei@intel.com>
 From: Mei Lei <lei.mei@intel.com>
-Date: Tue, 23 Nov 2010 14:07:08 +0800
+Date: Tue, 23 Nov 2010 14:10:45 +0800
 To: poky@yoctoproject.org
-Subject: [PATCH 05/25] liberation-fonts:Add license file checksum to bb file
+Subject: [PATCH 07/25] libxpm: Add license file checksum to bb file
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,26 +27,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 23 Nov 2010 10:07:09 -0000
+X-List-Received-Date: Tue, 23 Nov 2010 10:07:12 -0000
 
 Add COPYING file checksum to bb file
 
-Signed-off-by: Mei Lei <lei.mei@intel.com>
+Signed-off-by: Mei Lei<lei.mei@intel.com>
 ---
- .../ttf-fonts/liberation-fonts_1.04.bb             |    1 +
+ meta/recipes-graphics/xorg-lib/libxpm_3.5.7.bb |    1 +
  1 files changed, 1 insertions(+), 0 deletions(-)
 
-diff --git a/meta/recipes-graphics/ttf-fonts/liberation-fonts_1.04.bb b/meta/recipes-graphics/ttf-fonts/liberation-fonts_1.04.bb
-index 6b887e3..afb4a57 100644
---- a/meta/recipes-graphics/ttf-fonts/liberation-fonts_1.04.bb
-+++ b/meta/recipes-graphics/ttf-fonts/liberation-fonts_1.04.bb
-@@ -5,6 +5,7 @@ BUGTRACKER = "https://bugzilla.redhat.com/"
- SECTION = "x11/fonts"
- PRIORITY = "optional"
- LICENSE = "GPLv2"
-+LIC_FILES_CHKSUM = "file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f"
- PACKAGE_ARCH = "all"
- RDEPENDS = "fontconfig-utils"
+diff --git a/meta/recipes-graphics/xorg-lib/libxpm_3.5.7.bb b/meta/recipes-graphics/xorg-lib/libxpm_3.5.7.bb
+index 75c10bf..2794600 100644
+--- a/meta/recipes-graphics/xorg-lib/libxpm_3.5.7.bb
++++ b/meta/recipes-graphics/xorg-lib/libxpm_3.5.7.bb
+@@ -2,6 +2,7 @@ require xorg-lib-common.inc
+ 
+ DESCRIPTION = "X11 Pixmap library"
+ LICENSE = "X-BSD"
++LIC_FILES_CHKSUM = "file://COPYING;md5=1e8b098093f3bb7a8fed64938e8e465e"
+ DEPENDS += "libxext libsm libxt"
+ PR = "r3"
  PE = "1"
 -- 
 1.6.3.3
