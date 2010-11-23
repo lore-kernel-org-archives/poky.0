@@ -1,21 +1,21 @@
 Return-Path: <lei.mei@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 801184C811D7
-	for <poky@yoctoproject.org>; Tue, 23 Nov 2010 04:07:41 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 23 Nov 2010 02:07:41 -0800
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id DD53C4C811D8
+	for <poky@yoctoproject.org>; Tue, 23 Nov 2010 04:07:44 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 23 Nov 2010 02:07:44 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,241,1288594800"; d="scan'208";a="629475056"
+X-IronPort-AV: E=Sophos;i="4.59,241,1288594800"; d="scan'208";a="352160121"
 Received: from daocaoren-desktop.sh.intel.com (HELO localhost)
 	([10.239.48.112])
-	by fmsmga002.fm.intel.com with ESMTP; 23 Nov 2010 02:07:40 -0800
-Message-Id: <d4fc3c2dba54fcfb65fbb1f1d9f77b673f703370.1290506494.git.lei.mei@intel.com>
+	by azsmga001.ch.intel.com with ESMTP; 23 Nov 2010 02:07:43 -0800
+Message-Id: <2ab840038577a05c6d98907a68a403a11fce54cf.1290506494.git.lei.mei@intel.com>
 In-Reply-To: <cover.1290506494.git.lei.mei@intel.com>
 References: <cover.1290506494.git.lei.mei@intel.com>
 From: Mei Lei <lei.mei@intel.com>
-Date: Tue, 23 Nov 2010 16:55:31 +0800
+Date: Tue, 23 Nov 2010 17:17:34 +0800
 To: poky@yoctoproject.org
-Subject: [PATCH 21/25] dosfstools:Add license checksum and update the GPL information
+Subject: [PATCH 22/25] expat:Add license checksum to bb file
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,46 +27,24 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 23 Nov 2010 10:07:41 -0000
+X-List-Received-Date: Tue, 23 Nov 2010 10:07:45 -0000
 
-Add COPYING file checksum to bb file and update the "GPL" to "GPLv2" according to the COPYING file
+Add COPYING file checksum to bb file
 
 Signed-off-by: Mei Lei <lei.mei@intel.com>
 ---
- .../recipes-devtools/dosfstools/dosfstools_2.10.bb |    4 ++--
- .../recipes-devtools/dosfstools/dosfstools_2.11.bb |    4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ meta/recipes-core/expat/expat_2.0.1.bb |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
-diff --git a/meta/recipes-devtools/dosfstools/dosfstools_2.10.bb b/meta/recipes-devtools/dosfstools/dosfstools_2.10.bb
-index 100044b..dadf2f9 100644
---- a/meta/recipes-devtools/dosfstools/dosfstools_2.10.bb
-+++ b/meta/recipes-devtools/dosfstools/dosfstools_2.10.bb
-@@ -6,8 +6,8 @@ DESCRIPTION = "DOS FAT Filesystem Utilities"
- 
- SECTION = "base"
- PRIORITY = "optional"
--LICENSE = "GPL"
+diff --git a/meta/recipes-core/expat/expat_2.0.1.bb b/meta/recipes-core/expat/expat_2.0.1.bb
+index 9983fe5..d6101ac 100644
+--- a/meta/recipes-core/expat/expat_2.0.1.bb
++++ b/meta/recipes-core/expat/expat_2.0.1.bb
+@@ -1,3 +1,3 @@
+ require expat.inc
 -
-+LICENSE = "GPLv2"
-+LIC_FILES_CHKSUM = "file://mkdosfs/COPYING;md5=cbe67f08d6883bff587f615f0cc81aa8"
- PR = "r2"
- 
- SRC_URI = "ftp://ftp.uni-erlangen.de/pub/Linux/LOCAL/dosfstools/dosfstools-${PV}.src.tar.gz \
-diff --git a/meta/recipes-devtools/dosfstools/dosfstools_2.11.bb b/meta/recipes-devtools/dosfstools/dosfstools_2.11.bb
-index a5f6e03..f21e7b9 100644
---- a/meta/recipes-devtools/dosfstools/dosfstools_2.11.bb
-+++ b/meta/recipes-devtools/dosfstools/dosfstools_2.11.bb
-@@ -6,8 +6,8 @@ DESCRIPTION = "DOS FAT Filesystem Utilities"
- 
- SECTION = "base"
- PRIORITY = "optional"
--LICENSE = "GPL"
--
-+LICENSE = "GPLv2"
-+LIC_FILES_CHKSUM = "file://mkdosfs/COPYING;md5=cbe67f08d6883bff587f615f0cc81aa8"
++LIC_FILES_CHKSUM = "file://COPYING;md5=1b71f681713d1256e1c23b0890920874"
  PR = "r0"
- 
- SRC_URI = "ftp://ftp.uni-erlangen.de/pub/Linux/LOCAL/dosfstools/dosfstools-${PV}.src.tar.gz \
 -- 
 1.6.3.3
 
