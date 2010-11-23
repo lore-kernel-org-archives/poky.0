@@ -1,21 +1,21 @@
 Return-Path: <lei.mei@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D82944C811F4
-	for <poky@yoctoproject.org>; Tue, 23 Nov 2010 04:07:24 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 23 Nov 2010 02:07:24 -0800
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id F3BEA4C811F8
+	for <poky@yoctoproject.org>; Tue, 23 Nov 2010 04:07:26 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 23 Nov 2010 02:07:26 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,241,1288594800"; d="scan'208";a="576651186"
+X-IronPort-AV: E=Sophos;i="4.59,241,1288594800"; d="scan'208";a="680165767"
 Received: from daocaoren-desktop.sh.intel.com (HELO localhost)
 	([10.239.48.112])
-	by orsmga002.jf.intel.com with ESMTP; 23 Nov 2010 02:07:23 -0800
-Message-Id: <f044481ecfcffddc82a068f1afd86dfa34e86fba.1290506494.git.lei.mei@intel.com>
+	by orsmga001.jf.intel.com with ESMTP; 23 Nov 2010 02:07:25 -0800
+Message-Id: <ee15b9a1196591ed79f1592fe965f984cede3f19.1290506494.git.lei.mei@intel.com>
 In-Reply-To: <cover.1290506494.git.lei.mei@intel.com>
 References: <cover.1290506494.git.lei.mei@intel.com>
 From: Mei Lei <lei.mei@intel.com>
 Date: Tue, 23 Nov 2010 14:10:45 +0800
 To: poky@yoctoproject.org
-Subject: [PATCH 13/25] dpkg:Add license file checksum to bb file
+Subject: [PATCH 14/25] minicom: Add license file checksum and update the GPL information to bb file
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,25 +27,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 23 Nov 2010 10:07:25 -0000
+X-List-Received-Date: Tue, 23 Nov 2010 10:07:27 -0000
 
-Add COPYING checksum to bb file
+Add COPYING checksum to bb file and update the "GPL" to "GPLv2" according to COPYING
 
 Signed-off-by: Mei Lei<lei.mei@intel.com>
 ---
- meta/recipes-devtools/dpkg/dpkg_1.15.8.5.bb |    1 +
- 1 files changed, 1 insertions(+), 0 deletions(-)
+ meta/recipes-extended/minicom/minicom_2.3.bb |    3 ++-
+ 1 files changed, 2 insertions(+), 1 deletions(-)
 
-diff --git a/meta/recipes-devtools/dpkg/dpkg_1.15.8.5.bb b/meta/recipes-devtools/dpkg/dpkg_1.15.8.5.bb
-index c8069fe..43ab8f6 100644
---- a/meta/recipes-devtools/dpkg/dpkg_1.15.8.5.bb
-+++ b/meta/recipes-devtools/dpkg/dpkg_1.15.8.5.bb
-@@ -1,4 +1,5 @@
- require dpkg.inc
-+LIC_FILES_CHKSUM = "file://COPYING;md5=751419260aa954499f7abaabaa882bbe"
- 
- SRC_URI += "file://noman.patch;patch=1 \
-             file://check_snprintf.patch \
+diff --git a/meta/recipes-extended/minicom/minicom_2.3.bb b/meta/recipes-extended/minicom/minicom_2.3.bb
+index a114e30..c327e94 100644
+--- a/meta/recipes-extended/minicom/minicom_2.3.bb
++++ b/meta/recipes-extended/minicom/minicom_2.3.bb
+@@ -1,6 +1,7 @@
+ SECTION = "console/network"
+ DEPENDS = "ncurses"
+-LICENSE = "GPL"
++LICENSE = "GPLv2"
++LIC_FILES_CHKSUM = "file://COPYING;md5=420477abc567404debca0a2a1cb6b645"
+ SRC_URI = "http://alioth.debian.org/frs/download.php/2332/minicom-${PV}.tar.gz \
+ 	file://rename-conflicting-functions.patch \
+ 	"
 -- 
 1.6.3.3
 
