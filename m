@@ -1,23 +1,24 @@
-Return-Path: <josh@openedhand.com>
-Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E453C4C80B6B
-	for <poky@yoctoproject.org>; Tue, 23 Nov 2010 11:23:11 -0600 (CST)
-Received: from [10.250.128.97] (unknown [158.43.2.102])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by pug.o-hand.com (Postfix) with ESMTP id 492F912EC1C5
-	for <poky@yoctoproject.org>; Tue, 23 Nov 2010 12:00:31 -0600 (CST)
-From: Joshua Lock <josh@openedhand.com>
+Return-Path: <paul.eggleton@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8FE464C810B1
+	for <poky@yoctoproject.org>; Tue, 23 Nov 2010 11:38:20 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 23 Nov 2010 09:38:19 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.59,243,1288594800"; d="scan'208";a="680307067"
+Received: from unknown (HELO helios.localnet) ([10.255.16.147])
+	by orsmga001.jf.intel.com with ESMTP; 23 Nov 2010 09:38:17 -0800
+From: Paul Eggleton <paul.eggleton@intel.com>
+Organization: Intel Corporation
 To: poky@yoctoproject.org
-In-Reply-To: <4CE6A7FF.4040507@windriver.com>
-References: <cover.1290179273.git.josh@linux.intel.com>
-	<00ec71b3834779b9c4a278b403729f2822a41845.1290179273.git.josh@linux.intel.com>
-	<4CE6A7FF.4040507@windriver.com>
-Date: Tue, 23 Nov 2010 17:22:56 +0000
-Message-ID: <1290532976.9539.16.camel@scimitar>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.32.1 (2.32.1-1.fc14) 
-Subject: Re: [PATCH 1/1] poky.conf: move the SDK install into versiondirectories
+Date: Tue, 23 Nov 2010 17:38:13 +0000
+User-Agent: KMail/1.13.5 (Linux/2.6.35-22-generic-pae; KDE/4.5.1; i686; ; )
+References: <0d30dc$k8jjru@orsmga001.jf.intel.com>
+	<4CEBE73A.5050502@mentor.com>
+In-Reply-To: <4CEBE73A.5050502@mentor.com>
+MIME-Version: 1.0
+Message-Id: <201011231738.14133.paul.eggleton@intel.com>
+Subject: Re: [PATCH 5/5] poky.conf: whitelist shell variables which are	volatile to build system
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,24 +30,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 23 Nov 2010 17:23:12 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 23 Nov 2010 17:38:20 -0000
+Content-Type: Text/Plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 2010-11-19 at 10:38 -0600, Mark Hatle wrote:
-> As we move beyond 1.0 work.  Would it make sense to focus on making sure the SDK
-> tooling works no matter where it is installed?
+On Tuesday 23 November 2010 16:09:30 Tom Rini wrote:
+> Looking over our signature code you may also need:
+> FILE_DIRNAME PARALLEL_MAKE MIRRORS PREMIRRORS SSH_TTY SSH_CLIENT=20
+> SSH_CONNECTION SESSION_MANAGER GTK_RC_FILES GREP_OPTIONS
+> and you have SSH_AUTH_SOCK listed twice (can I suggest splitting this=20
+> into more lines?).
 
-It sure would. Theoretically that's already the case we just default to
-extracting the SDK to a sane place.
-
-Are you suggesting that we just inflate to a child of cwd and do the leg
-work to ensure this *should* work?
+I've split it onto multiple lines and added your vars to the list in the co=
+ntrib/paule/sstate branch.
 
 Cheers,
-Joshua
--- 
-Joshua Lock
-        Intel Open Source Technology Centre
+Paul
+---------------------------------------------------------------------
+Intel Corporation (UK) Limited
+Registered No. 1134945 (England)
+Registered Office: Pipers Way, Swindon SN3 1RJ
+VAT No: 860 2173 47
+
+This e-mail and any attachments may contain confidential material for
+the sole use of the intended recipient(s). Any review or distribution
+by others is strictly prohibited. If you are not the intended
+recipient, please contact the sender and delete all copies.
 
 
