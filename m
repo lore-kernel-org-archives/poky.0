@@ -1,37 +1,24 @@
-Return-Path: <kevin.tian@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 14E434C80B6B
-	for <poky@yoctoproject.org>; Mon, 22 Nov 2010 23:33:30 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 22 Nov 2010 21:33:29 -0800
+Return-Path: <tom.zanussi@intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 39FA74C803A5
+	for <poky@yoctoproject.org>; Mon, 22 Nov 2010 23:40:21 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 22 Nov 2010 21:40:20 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,240,1288594800"; d="scan'208";a="629416897"
-Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
-	by fmsmga002.fm.intel.com with ESMTP; 22 Nov 2010 21:33:28 -0800
-Received: from pgsmsx509.gar.corp.intel.com (172.30.13.17) by
-	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Tue, 23 Nov 2010 13:33:26 +0800
-Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
-	PGSMSX509.gar.corp.intel.com (172.30.13.17) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Tue, 23 Nov 2010 13:33:26 +0800
-Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
-	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
-	Tue, 23 Nov 2010 13:33:25 +0800
-From: "Tian, Kevin" <kevin.tian@intel.com>
-To: Mark Hatle <mark.hatle@windriver.com>, "poky@yoctoproject.org"
-	<poky@yoctoproject.org>
-Date: Tue, 23 Nov 2010 13:33:22 +0800
-Thread-Topic: [poky] Another staging question
-Thread-Index: AcuAI3JdmddDSm8SQty0tXStaLiUsgKrEYBg
-Message-ID: <625BA99ED14B2D499DC4E29D8138F1504D3A61A0A5@shsmsx502.ccr.corp.intel.com>
-References: <4CD94ADD.2090607@mlbassoc.com> <4CD96997.60802@windriver.com>
-In-Reply-To: <4CD96997.60802@windriver.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
-MIME-Version: 1.0
-Subject: Re: Another staging question
+X-IronPort-AV: E=Sophos;i="4.59,240,1288594800"; d="scan'208";a="352082094"
+Received: from unknown (HELO [10.255.13.161]) ([10.255.13.161])
+	by azsmga001.ch.intel.com with ESMTP; 22 Nov 2010 21:40:20 -0800
+From: Tom Zanussi <tom.zanussi@intel.com>
+To: "Tian, Kevin" <kevin.tian@intel.com>
+In-Reply-To: <625BA99ED14B2D499DC4E29D8138F1504D3A619D9B@shsmsx502.ccr.corp.intel.com>
+References: <cover.1290467442.git.tom.zanussi@intel.com>
+	<625BA99ED14B2D499DC4E29D8138F1504D3A619D9B@shsmsx502.ccr.corp.intel.com>
+Date: Mon, 22 Nov 2010 23:40:29 -0600
+Message-ID: <1290490829.2784.141.camel@elmorro>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH 0/1] Add blktrace package
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,50 +30,49 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 23 Nov 2010 05:33:30 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Tue, 23 Nov 2010 05:40:21 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
->From: Mark Hatle
->Sent: Tuesday, November 09, 2010 11:33 PM
->
->On 11/9/10 7:21 AM, Gary Thomas wrote:
->> I've found another peculiarity with the new staging scheme(*).
->> I have two target platforms, which for all intents and purposes
->> are identical - both are Motorola MPC83xx (e300 core).  The only
->> reason for two target machines is the kernel, plus platform specifics.
->>
->> I built totally from scratch (no SSTATE_MIRRORS) for target machine A.
->> I then tested the staging by building in a new tree, again for machine A=
-.
->> This worked great - the build used mostly the staged packages.  About
->> the only things that were rebuilt were the target specific packages.
->>
->> When I tried it for machine B, again in a totally empty directory, using
->> the 'sstate-cache' directory of the first build as SSTATE_MIRRORS, all o=
-f
->> the toolchain was rebuilt (GCC  and friends), but there was no need, the
->> staged version should have been used.
->>
->> Is this expected?
->> What could I do to fix it?
->
->This tells me that the checksumming code found something that it believed
->changed the system behavior.  Likely a machine type or CFLAG or similar.
->
->RP -- is there a way to determine "what changed [and why]" without re-runn=
-ing
->the build?  We found this invaluable when debugging the WR build system's
->checksumming, configuration files and packaging recipes.
->
+On Mon, 2010-11-22 at 16:19 -0800, Tian, Kevin wrote:
+> >From: Tom Zanussi
+> >Sent: Tuesday, November 23, 2010 7:11 AM
+> >
+> >Add blktrace, one of the tracing/profiling tools mentioned in the Yocto v1.0
+> >tracing/profiling tools list posted here:
+> >
+> >https://lists.yoctoproject.org/pipermail/yocto/2010-November/000281.html
+> >
+> >Pull URL: git://git.pokylinux.org/poky-contrib.git
+> >  Branch: tzanussi/traceprof
+> >  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=tzanussi/traceprof
+> >
+> >Thanks,
+> >    Tom Zanussi <tom.zanussi@intel.com>
+> >---
+> >
+> >
+> >Tom Zanussi (1):
+> >  blktrace: new package
+> >
+> > .../conf/distro/include/poky-default-revisions.inc |    1 +
+> > meta/recipes-core/tasks/task-poky-tools.bb         |    3 +-
+> > .../blktrace/blktrace/blktrace-makefile.patch      |   53
+> >++++++++++++++++++++
+> > meta/recipes-kernel/blktrace/blktrace_git.bb       |   25 +++++++++
+> > 4 files changed, 81 insertions(+), 1 deletions(-)
+> > create mode 100644 meta/recipes-kernel/blktrace/blktrace/blktrace-makefile.patch
+> > create mode 100644 meta/recipes-kernel/blktrace/blktrace_git.bb
+> 
+> New recipe should start from "r0" for PR.
+> 
 
-Just saw this from bottom of my mailbox. "bitbake name -S" will record chec=
-ksum
-for the name and also all the tasks it depends on under tmp/stamps. And the=
-n you
-can use "bitbake-diffsig" to check the detail.=20
+OK, thanks for pointing that out.
 
-Thanks
-Kevin
+Tom
+
+> Thanks
+> Kevin
+
+
 
