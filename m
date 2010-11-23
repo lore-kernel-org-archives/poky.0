@@ -1,23 +1,37 @@
-Return-Path: <ke.yu@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5304A4C80052
-	for <poky@yoctoproject.org>; Mon, 22 Nov 2010 17:31:46 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 22 Nov 2010 15:31:45 -0800
+Return-Path: <kevin.tian@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 9C6D44C808B6
+	for <poky@yoctoproject.org>; Mon, 22 Nov 2010 18:20:05 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 22 Nov 2010 16:20:05 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,239,1288594800"; d="scan'208";a="576487602"
-Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.154.168])
-	by orsmga002.jf.intel.com with ESMTP; 22 Nov 2010 15:31:44 -0800
-Date: Tue, 23 Nov 2010 06:29:46 +0800
-From: Yu Ke <ke.yu@intel.com>
-To: Mei Lei <lei.mei@intel.com>
-Message-ID: <20101122222946.GA16273@kyu3-hedt>
-References: <cover.1290443719.git.lei.mei@intel.com>
+X-IronPort-AV: E=Sophos;i="4.59,239,1288594800"; d="scan'208";a="860361871"
+Received: from pgsmsx601.gar.corp.intel.com ([10.221.43.69])
+	by fmsmga001.fm.intel.com with ESMTP; 22 Nov 2010 16:20:01 -0800
+Received: from pgsmsx509.gar.corp.intel.com (172.30.13.17) by
+	pgsmsx601.gar.corp.intel.com (10.221.43.69) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Tue, 23 Nov 2010 08:19:32 +0800
+Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
+	PGSMSX509.gar.corp.intel.com (172.30.13.17) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Tue, 23 Nov 2010 08:19:32 +0800
+Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
+	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
+	Tue, 23 Nov 2010 08:19:31 +0800
+From: "Tian, Kevin" <kevin.tian@intel.com>
+To: "Zanussi, Tom" <tom.zanussi@intel.com>, "poky@yoctoproject.org"
+	<poky@yoctoproject.org>
+Date: Tue, 23 Nov 2010 08:19:20 +0800
+Thread-Topic: [poky] [PATCH 0/1] Add blktrace package
+Thread-Index: AcuKm7+BkzHzMqJMRUm1QxaohuudVQAB/K3Q
+Message-ID: <625BA99ED14B2D499DC4E29D8138F1504D3A619D9B@shsmsx502.ccr.corp.intel.com>
+References: <cover.1290467442.git.tom.zanussi@intel.com>
+In-Reply-To: <cover.1290467442.git.tom.zanussi@intel.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
 MIME-Version: 1.0
-In-Reply-To: <cover.1290443719.git.lei.mei@intel.com>
-User-Agent: Mutt/1.5.20 (2009-06-14)
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/1] Update libxtrap lttng-control dpkg minicom Update four recipes license checksum information
+Subject: Re: [PATCH 0/1] Add blktrace package
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,44 +43,45 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 22 Nov 2010 23:31:46 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-List-Received-Date: Tue, 23 Nov 2010 00:20:05 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Meilei,
+>From: Tom Zanussi
+>Sent: Tuesday, November 23, 2010 7:11 AM
+>
+>Add blktrace, one of the tracing/profiling tools mentioned in the Yocto v1=
+.0
+>tracing/profiling tools list posted here:
+>
+>https://lists.yoctoproject.org/pipermail/yocto/2010-November/000281.html
+>
+>Pull URL: git://git.pokylinux.org/poky-contrib.git
+>  Branch: tzanussi/traceprof
+>  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=3Dtzanussi=
+/traceprof
+>
+>Thanks,
+>    Tom Zanussi <tom.zanussi@intel.com>
+>---
+>
+>
+>Tom Zanussi (1):
+>  blktrace: new package
+>
+> .../conf/distro/include/poky-default-revisions.inc |    1 +
+> meta/recipes-core/tasks/task-poky-tools.bb         |    3 +-
+> .../blktrace/blktrace/blktrace-makefile.patch      |   53
+>++++++++++++++++++++
+> meta/recipes-kernel/blktrace/blktrace_git.bb       |   25 +++++++++
+> 4 files changed, 81 insertions(+), 1 deletions(-)
+> create mode 100644 meta/recipes-kernel/blktrace/blktrace/blktrace-makefil=
+e.patch
+> create mode 100644 meta/recipes-kernel/blktrace/blktrace_git.bb
 
-   I notice you use the same lmei3/chksum branch for the last 3 patch push, this will override the patch you send previous. Usually we use different branch names for different patch push, or rebase the branch to have all the patches in the one branch. So could you please rebase the lmei3/chksum?
+New recipe should start from "r0" for PR.
 
-Regards
-Ke
-
-On Nov 23, 00:35, Mei Lei wrote:
->         libxtrap
->         lttng-control
->         dpkg
->         minicom
-> 
-> 
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->   Branch: lmei3/chksum
->   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=lmei3/chksum
-> 
-> Thanks,
->     Mei Lei <lei.mei@intel.com>
-> ---
-> 
-> 
-> Mei Lei (1):
->   This patch contains four recipes license checksum information
-> 
->  meta/recipes-devtools/dpkg/dpkg_1.15.8.5.bb      |    1 +
->  meta/recipes-extended/minicom/minicom_2.3.bb     |    1 +
->  meta/recipes-graphics/xorg-lib/libxtrap_1.0.0.bb |    2 +-
->  meta/recipes-kernel/lttng/lttng-control_0.87.bb  |    2 +-
->  4 files changed, 4 insertions(+), 2 deletions(-)
-> 
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+Thanks
+Kevin
 
