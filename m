@@ -1,20 +1,18 @@
 Return-Path: <tom.zanussi@intel.com>
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 800774C8112F
-	for <poky@yoctoproject.org>; Tue, 23 Nov 2010 00:09:54 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 22 Nov 2010 22:09:54 -0800
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5F75C4C811D3
+	for <poky@yoctoproject.org>; Tue, 23 Nov 2010 00:09:57 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 22 Nov 2010 22:09:57 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,240,1288594800"; d="scan'208";a="576593863"
-Received: from unknown (HELO [10.255.13.161]) ([10.255.13.161])
-	by orsmga002.jf.intel.com with ESMTP; 22 Nov 2010 22:09:52 -0800
+X-IronPort-AV: E=Sophos;i="4.59,240,1288594800"; d="scan'208";a="680106764"
+Received: from unknown (HELO localhost) ([10.255.13.161])
+	by orsmga001.jf.intel.com with ESMTP; 22 Nov 2010 22:09:36 -0800
+Message-Id: <cover.1290492217.git.tom.zanussi@intel.com>
 From: Tom Zanussi <tom.zanussi@intel.com>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Date: Tue, 23 Nov 2010 00:09:55 -0600
-Message-ID: <1290492595.2784.149.camel@elmorro>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Subject: [KERNEL][PATCH 1/1] wrs_meta: add blktrace feature
+Date: Tue, 23 Nov 2010 00:03:37 -0600
+To: poky@yoctoproject.org
+Subject: [PATCH 0/1] Add blktrace package
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,54 +24,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 23 Nov 2010 06:09:54 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 23 Nov 2010 06:09:57 -0000
 
-Add a 'blktrace feature' that turns on kernel support for blktrace, a
-block I/O tracing tool.  Added to 'standard' alongside similar tracing
-tool config.
+Add blktrace, one of the tracing/profiling tools mentioned in the Yocto v1.0
+tracing/profiling tools list posted here:
 
-Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
+https://lists.yoctoproject.org/pipermail/yocto/2010-November/000281.html
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: tzanussi/traceprof
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=tzanussi/traceprof
+
+Thanks,
+    Tom Zanussi <tom.zanussi@intel.com>
 ---
- .../kernel-cache/features/blktrace/blktrace.cfg    |    1 +
- .../kernel-cache/features/blktrace/blktrace.scc    |    1 +
- wrs/cfg/kernel-cache/ktypes/standard/standard.scc  |    3 +++
- 3 files changed, 5 insertions(+), 0 deletions(-)
- create mode 100644 wrs/cfg/kernel-cache/features/blktrace/blktrace.cfg
- create mode 100644 wrs/cfg/kernel-cache/features/blktrace/blktrace.scc
-
-diff --git a/wrs/cfg/kernel-cache/features/blktrace/blktrace.cfg b/wrs/cfg/kernel-cache/features/blktrace/blktrace.cfg
-new file mode 100644
-index 0000000..3e61f2b
---- /dev/null
-+++ b/wrs/cfg/kernel-cache/features/blktrace/blktrace.cfg
-@@ -0,0 +1 @@
-+CONFIG_BLK_DEV_IO_TRACE=y
-diff --git a/wrs/cfg/kernel-cache/features/blktrace/blktrace.scc b/wrs/cfg/kernel-cache/features/blktrace/blktrace.scc
-new file mode 100644
-index 0000000..945714b
---- /dev/null
-+++ b/wrs/cfg/kernel-cache/features/blktrace/blktrace.scc
-@@ -0,0 +1 @@
-+kconf non-hardware blktrace.cfg
-diff --git a/wrs/cfg/kernel-cache/ktypes/standard/standard.scc b/wrs/cfg/kernel-cache/ktypes/standard/standard.scc
-index 7eb9585..8f07220 100644
---- a/wrs/cfg/kernel-cache/ktypes/standard/standard.scc
-+++ b/wrs/cfg/kernel-cache/ktypes/standard/standard.scc
-@@ -16,6 +16,9 @@ include mips.scc
- include features/lttng/lttng.scc
- tag lttng
- 
-+include features/blktrace/blktrace.scc
-+tag blktrace
-+
- include features/ocd/ocd.scc
- tag ocd
- 
--- 
-1.7.0.4
 
 
+Tom Zanussi (1):
+  blktrace: new package
+
+ .../conf/distro/include/poky-default-revisions.inc |    1 +
+ meta/recipes-core/tasks/task-poky-tools.bb         |    4 +-
+ .../blktrace/blktrace/blktrace-makefile.patch      |   53 ++++++++++++++++++++
+ meta/recipes-kernel/blktrace/blktrace_git.bb       |   25 +++++++++
+ 4 files changed, 82 insertions(+), 1 deletions(-)
+ create mode 100644 meta/recipes-kernel/blktrace/blktrace/blktrace-makefile.patch
+ create mode 100644 meta/recipes-kernel/blktrace/blktrace_git.bb
 
 
