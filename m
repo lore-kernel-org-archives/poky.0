@@ -1,21 +1,21 @@
 Return-Path: <lei.mei@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D3E1F4C811E2
-	for <poky@yoctoproject.org>; Tue, 23 Nov 2010 04:07:14 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 23 Nov 2010 02:07:14 -0800
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 9390E4C811D7
+	for <poky@yoctoproject.org>; Tue, 23 Nov 2010 04:07:16 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 23 Nov 2010 02:07:16 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,241,1288594800"; d="scan'208";a="680165708"
+X-IronPort-AV: E=Sophos;i="4.59,241,1288594800"; d="scan'208";a="860503618"
 Received: from daocaoren-desktop.sh.intel.com (HELO localhost)
 	([10.239.48.112])
-	by orsmga001.jf.intel.com with ESMTP; 23 Nov 2010 02:07:13 -0800
-Message-Id: <654255e40382a33d5a09e67bf22c633c673ab802.1290506494.git.lei.mei@intel.com>
+	by fmsmga001.fm.intel.com with ESMTP; 23 Nov 2010 02:06:59 -0800
+Message-Id: <83946841825bbfc74c1a87cb77ac4ce5717995d6.1290506494.git.lei.mei@intel.com>
 In-Reply-To: <cover.1290506494.git.lei.mei@intel.com>
 References: <cover.1290506494.git.lei.mei@intel.com>
 From: Mei Lei <lei.mei@intel.com>
-Date: Tue, 23 Nov 2010 14:10:45 +0800
+Date: Tue, 23 Nov 2010 13:24:46 +0800
 To: poky@yoctoproject.org
-Subject: [PATCH 08/25] libxprintapputil:Add license checksum to bb file
+Subject: [PATCH 01/25] galago-daemon: Add license file checksum and update GPL information
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,27 +27,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 23 Nov 2010 10:07:15 -0000
+X-List-Received-Date: Tue, 23 Nov 2010 10:07:16 -0000
 
-Get the license checksum information from the /src/xpapputil.c
+Add COPYING file checksum to bb file and update the "GPL" to "GPLv2" according to the COPYING
 
-Signed-off-by: Mei Lei<lei.mei@intel.com>
+Signed-off-by: Mei Lei <lei.mei@intel.com>
 ---
- .../xorg-lib/libxprintapputil_1.0.1.bb             |    1 +
- 1 files changed, 1 insertions(+), 0 deletions(-)
+ .../galago/galago-daemon_0.5.1.bb                  |    3 ++-
+ 1 files changed, 2 insertions(+), 1 deletions(-)
 
-diff --git a/meta/recipes-graphics/xorg-lib/libxprintapputil_1.0.1.bb b/meta/recipes-graphics/xorg-lib/libxprintapputil_1.0.1.bb
-index 3a24a88..75723aa 100644
---- a/meta/recipes-graphics/xorg-lib/libxprintapputil_1.0.1.bb
-+++ b/meta/recipes-graphics/xorg-lib/libxprintapputil_1.0.1.bb
-@@ -3,6 +3,7 @@ require xorg-lib-common.inc
- DESCRIPTION = "Xprint job utility client library"
- DEPENDS += "libxp libxt libxprintutil"
- PR = "r1"
-+LIC_FILES_CHKSUM = "file://src/xpapputil.c;beginline=2;endline=27;md5=be811cca90200613a672dc96206a767b"
- PE = "1"
+diff --git a/meta/recipes-connectivity/galago/galago-daemon_0.5.1.bb b/meta/recipes-connectivity/galago/galago-daemon_0.5.1.bb
+index da49b3d..69627ae 100644
+--- a/meta/recipes-connectivity/galago/galago-daemon_0.5.1.bb
++++ b/meta/recipes-connectivity/galago/galago-daemon_0.5.1.bb
+@@ -1,7 +1,8 @@
+ SUMMARY =       "Desktop presence framework"
+ DESCRIPTION =   "Galago is a desktop presence framework, designed to transmit presence information between programs."
+ HOMEPAGE =      "http://www.galago-project.org/"
+-LICENSE =       "GPL"
++LICENSE =       "GPLv2"
++LIC_FILES_CHKSUM = "file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f"
+ DEPENDS =       "gettext libgalago dbus glib-2.0"
  
- XORG_PN = "libXprintAppUtil"
+ SRC_URI =       "http://www.galago-project.org/files/releases/source/${PN}/${P}.tar.gz "
 -- 
 1.6.3.3
 
