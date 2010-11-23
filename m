@@ -1,21 +1,21 @@
 Return-Path: <lei.mei@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C1E4E4C811D6
-	for <poky@yoctoproject.org>; Tue, 23 Nov 2010 04:07:12 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 23 Nov 2010 02:07:12 -0800
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D3E1F4C811E2
+	for <poky@yoctoproject.org>; Tue, 23 Nov 2010 04:07:14 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 23 Nov 2010 02:07:14 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,241,1288594800"; d="scan'208";a="629474926"
+X-IronPort-AV: E=Sophos;i="4.59,241,1288594800"; d="scan'208";a="680165708"
 Received: from daocaoren-desktop.sh.intel.com (HELO localhost)
 	([10.239.48.112])
-	by fmsmga002.fm.intel.com with ESMTP; 23 Nov 2010 02:07:11 -0800
-Message-Id: <36a6751ca3f9268441c2fb07bcb73f420f3a1a92.1290506494.git.lei.mei@intel.com>
+	by orsmga001.jf.intel.com with ESMTP; 23 Nov 2010 02:07:13 -0800
+Message-Id: <654255e40382a33d5a09e67bf22c633c673ab802.1290506494.git.lei.mei@intel.com>
 In-Reply-To: <cover.1290506494.git.lei.mei@intel.com>
 References: <cover.1290506494.git.lei.mei@intel.com>
 From: Mei Lei <lei.mei@intel.com>
 Date: Tue, 23 Nov 2010 14:10:45 +0800
 To: poky@yoctoproject.org
-Subject: [PATCH 07/25] libxpm: Add license file checksum to bb file
+Subject: [PATCH 08/25] libxprintapputil:Add license checksum to bb file
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,27 +27,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 23 Nov 2010 10:07:12 -0000
+X-List-Received-Date: Tue, 23 Nov 2010 10:07:15 -0000
 
-Add COPYING file checksum to bb file
+Get the license checksum information from the /src/xpapputil.c
 
 Signed-off-by: Mei Lei<lei.mei@intel.com>
 ---
- meta/recipes-graphics/xorg-lib/libxpm_3.5.7.bb |    1 +
+ .../xorg-lib/libxprintapputil_1.0.1.bb             |    1 +
  1 files changed, 1 insertions(+), 0 deletions(-)
 
-diff --git a/meta/recipes-graphics/xorg-lib/libxpm_3.5.7.bb b/meta/recipes-graphics/xorg-lib/libxpm_3.5.7.bb
-index 75c10bf..2794600 100644
---- a/meta/recipes-graphics/xorg-lib/libxpm_3.5.7.bb
-+++ b/meta/recipes-graphics/xorg-lib/libxpm_3.5.7.bb
-@@ -2,6 +2,7 @@ require xorg-lib-common.inc
- 
- DESCRIPTION = "X11 Pixmap library"
- LICENSE = "X-BSD"
-+LIC_FILES_CHKSUM = "file://COPYING;md5=1e8b098093f3bb7a8fed64938e8e465e"
- DEPENDS += "libxext libsm libxt"
- PR = "r3"
+diff --git a/meta/recipes-graphics/xorg-lib/libxprintapputil_1.0.1.bb b/meta/recipes-graphics/xorg-lib/libxprintapputil_1.0.1.bb
+index 3a24a88..75723aa 100644
+--- a/meta/recipes-graphics/xorg-lib/libxprintapputil_1.0.1.bb
++++ b/meta/recipes-graphics/xorg-lib/libxprintapputil_1.0.1.bb
+@@ -3,6 +3,7 @@ require xorg-lib-common.inc
+ DESCRIPTION = "Xprint job utility client library"
+ DEPENDS += "libxp libxt libxprintutil"
+ PR = "r1"
++LIC_FILES_CHKSUM = "file://src/xpapputil.c;beginline=2;endline=27;md5=be811cca90200613a672dc96206a767b"
  PE = "1"
+ 
+ XORG_PN = "libXprintAppUtil"
 -- 
 1.6.3.3
 
