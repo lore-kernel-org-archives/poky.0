@@ -1,21 +1,21 @@
 Return-Path: <lei.mei@intel.com>
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id ABAF04C81065
-	for <poky@yoctoproject.org>; Tue, 23 Nov 2010 04:07:35 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 23 Nov 2010 02:07:35 -0800
+	by mx1.pokylinux.org (Postfix) with ESMTP id A04FF4C81065
+	for <poky@yoctoproject.org>; Tue, 23 Nov 2010 04:07:37 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 23 Nov 2010 02:07:37 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,241,1288594800"; d="scan'208";a="680165785"
+X-IronPort-AV: E=Sophos;i="4.59,241,1288594800"; d="scan'208";a="576651243"
 Received: from daocaoren-desktop.sh.intel.com (HELO localhost)
 	([10.239.48.112])
-	by orsmga001.jf.intel.com with ESMTP; 23 Nov 2010 02:07:34 -0800
-Message-Id: <0d5eca359e9ecc9a90fdcd209f435d88341608a3.1290506494.git.lei.mei@intel.com>
+	by orsmga002.jf.intel.com with ESMTP; 23 Nov 2010 02:07:36 -0800
+Message-Id: <3d0cf659fb8df379e2b4655bc0f993901a7aa263.1290506494.git.lei.mei@intel.com>
 In-Reply-To: <cover.1290506494.git.lei.mei@intel.com>
 References: <cover.1290506494.git.lei.mei@intel.com>
 From: Mei Lei <lei.mei@intel.com>
-Date: Tue, 23 Nov 2010 14:59:48 +0800
+Date: Tue, 23 Nov 2010 16:39:45 +0800
 To: poky@yoctoproject.org
-Subject: [PATCH 18/25] apt:Add license checksum to bb file
+Subject: [PATCH 19/25] beecrypt:Add license checksum and update the GPL to bb file
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,27 +27,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 23 Nov 2010 10:07:35 -0000
+X-List-Received-Date: Tue, 23 Nov 2010 10:07:37 -0000
 
-Add COPYING.GPL file checksum to bb file
+Add COPYING and COPYING.LIB checksum to bb file,add the "LGPLv2.1" according to COPYING.LIB
 
 Signed-off-by: Mei Lei <lei.mei@intel.com>
 ---
- meta/recipes-devtools/apt/apt_0.7.14.bb |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ meta/recipes-support/beecrypt/beecrypt_4.1.2.bb |    4 +++-
+ 1 files changed, 3 insertions(+), 1 deletions(-)
 
-diff --git a/meta/recipes-devtools/apt/apt_0.7.14.bb b/meta/recipes-devtools/apt/apt_0.7.14.bb
-index 0ea9b48..43353fa 100644
---- a/meta/recipes-devtools/apt/apt_0.7.14.bb
-+++ b/meta/recipes-devtools/apt/apt_0.7.14.bb
-@@ -1,6 +1,6 @@
- DEPENDS = "curl db"
- RDEPENDS = "dpkg"
--
-+LIC_FILES_CHKSUM = "file://COPYING.GPL;md5=0636e73ff0215e8d672dc4c32c317bb3"
- require apt.inc
+diff --git a/meta/recipes-support/beecrypt/beecrypt_4.1.2.bb b/meta/recipes-support/beecrypt/beecrypt_4.1.2.bb
+index dfcc6ba..0da36d9 100644
+--- a/meta/recipes-support/beecrypt/beecrypt_4.1.2.bb
++++ b/meta/recipes-support/beecrypt/beecrypt_4.1.2.bb
+@@ -8,7 +8,9 @@ SRC_URI="${SOURCEFORGE_MIRROR}/beecrypt/beecrypt-${PV}.tar.gz \
+ 	 file://x64fix.patch \
+ 	 file://disable-icu-check.patch \
+ 	 file://fix-security.patch"
+-LICENSE = "GPLv2"
++LICENSE = "GPLv2&LGPLv2.1"
++LIC_FILES_CHKSUM = "file://COPYING;md5=9894370afd5dfe7d02b8d14319e729a1 \
++	            file://COPYING.LIB;md5=dcf3c825659e82539645da41a7908589"
+ DEPENDS = "icu"
  
- PR = "r3"
+ PR = "r0"
 -- 
 1.6.3.3
 
