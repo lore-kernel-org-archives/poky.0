@@ -1,21 +1,21 @@
 Return-Path: <lei.mei@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 58F054C811EB
-	for <poky@yoctoproject.org>; Tue, 23 Nov 2010 04:07:33 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 23 Nov 2010 02:07:32 -0800
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id ABAF04C81065
+	for <poky@yoctoproject.org>; Tue, 23 Nov 2010 04:07:35 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 23 Nov 2010 02:07:35 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,241,1288594800"; d="scan'208";a="352160058"
+X-IronPort-AV: E=Sophos;i="4.59,241,1288594800"; d="scan'208";a="680165785"
 Received: from daocaoren-desktop.sh.intel.com (HELO localhost)
 	([10.239.48.112])
-	by azsmga001.ch.intel.com with ESMTP; 23 Nov 2010 02:07:31 -0800
-Message-Id: <2dc0c2a5ed99fd1560f97afdd7e84ba6b5bcd184.1290506494.git.lei.mei@intel.com>
+	by orsmga001.jf.intel.com with ESMTP; 23 Nov 2010 02:07:34 -0800
+Message-Id: <0d5eca359e9ecc9a90fdcd209f435d88341608a3.1290506494.git.lei.mei@intel.com>
 In-Reply-To: <cover.1290506494.git.lei.mei@intel.com>
 References: <cover.1290506494.git.lei.mei@intel.com>
 From: Mei Lei <lei.mei@intel.com>
-Date: Tue, 23 Nov 2010 14:52:41 +0800
+Date: Tue, 23 Nov 2010 14:59:48 +0800
 To: poky@yoctoproject.org
-Subject: [PATCH 17/25] apr-util:Add license checksum to bb file
+Subject: [PATCH 18/25] apt:Add license checksum to bb file
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,28 +27,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 23 Nov 2010 10:07:33 -0000
+X-List-Received-Date: Tue, 23 Nov 2010 10:07:35 -0000
 
-Add LICENSE file checksum to bb file
+Add COPYING.GPL file checksum to bb file
 
 Signed-off-by: Mei Lei <lei.mei@intel.com>
 ---
- meta/recipes-support/apr/apr-util_1.3.4.bb |    2 +-
+ meta/recipes-devtools/apt/apt_0.7.14.bb |    2 +-
  1 files changed, 1 insertions(+), 1 deletions(-)
 
-diff --git a/meta/recipes-support/apr/apr-util_1.3.4.bb b/meta/recipes-support/apr/apr-util_1.3.4.bb
-index 2e608e8..44d904c 100644
---- a/meta/recipes-support/apr/apr-util_1.3.4.bb
-+++ b/meta/recipes-support/apr/apr-util_1.3.4.bb
-@@ -2,7 +2,7 @@ DESCRIPTION = "Apache Portable Runtime (APR) companion library"
- SECTION = "libs"
- DEPENDS = "apr expat gdbm"
- LICENSE = "Apache License, Version 2.0"
+diff --git a/meta/recipes-devtools/apt/apt_0.7.14.bb b/meta/recipes-devtools/apt/apt_0.7.14.bb
+index 0ea9b48..43353fa 100644
+--- a/meta/recipes-devtools/apt/apt_0.7.14.bb
++++ b/meta/recipes-devtools/apt/apt_0.7.14.bb
+@@ -1,6 +1,6 @@
+ DEPENDS = "curl db"
+ RDEPENDS = "dpkg"
 -
-+LIC_FILES_CHKSUM = "file://LICENSE;md5= "
- PR = "r5"
++LIC_FILES_CHKSUM = "file://COPYING.GPL;md5=0636e73ff0215e8d672dc4c32c317bb3"
+ require apt.inc
  
- SRC_URI = "${APACHE_MIRROR}/apr/${P}.tar.gz \
+ PR = "r3"
 -- 
 1.6.3.3
 
