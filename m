@@ -1,29 +1,30 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E56714C80BEF
-	for <poky@yoctoproject.org>; Wed, 24 Nov 2010 06:35:55 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id DE4DD16603F6; Wed, 24 Nov 2010 05:35:54 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=ham version=3.3.1
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id D8FA516603C5;
-	Wed, 24 Nov 2010 05:35:53 -0700 (MST)
-Message-ID: <4CED06A9.8060806@mlbassoc.com>
-Date: Wed, 24 Nov 2010 05:35:53 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.12) Gecko/20101027 Fedora/3.1.6-1.fc13 Thunderbird/3.1.6
+Return-Path: <mark.hatle@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 651DC4C803A5
+	for <poky@yoctoproject.org>; Wed, 24 Nov 2010 08:15:07 -0600 (CST)
+Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oAOEF6BJ029649
+	for <poky@yoctoproject.org>; Wed, 24 Nov 2010 06:15:06 -0800 (PST)
+Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
+	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Wed, 24 Nov 2010 06:15:06 -0800
+Received: from Macintosh-5.local ([172.25.36.227]) by
+	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Wed, 24 Nov 2010 06:15:06 -0800
+Message-ID: <4CED1DE9.9020208@windriver.com>
+Date: Wed, 24 Nov 2010 08:15:05 -0600
+From: Mark Hatle <mark.hatle@windriver.com>
+Organization: Wind River Systems
+User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
+	rv:1.9.2.12) Gecko/20101027 Thunderbird/3.1.6
 MIME-Version: 1.0
-To: Joshua Lock <josh@openedhand.com>
-References: <4CECEF5D.2040702@mlbassoc.com> <4CECF7F0.3080303@mlbassoc.com>
-	<1290599248.2799.16.camel@scimitar>
-In-Reply-To: <1290599248.2799.16.camel@scimitar>
-Cc: poky@yoctoproject.org
-Subject: Re: bitbake package-index broken?
+To: Lu Jingdong <jingdong.lu@windriver.com>
+References: <1290573970.1858.83.camel@eric-desktop>
+In-Reply-To: <1290573970.1858.83.camel@eric-desktop>
+X-OriginalArrivalTime: 24 Nov 2010 14:15:06.0904 (UTC)
+	FILETIME=[FECE8180:01CB8BE1]
+Cc: poky <poky@yoctoproject.org>
+Subject: Re: [PATCH 2/3] Add new package libxml-perl in order to enable graphic LSB test(OLVER-Core test).
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,40 +36,45 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 24 Nov 2010 12:35:56 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Wed, 24 Nov 2010 14:15:07 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 7bit
 
-On 11/24/2010 04:47 AM, Joshua Lock wrote:
-> On Wed, 2010-11-24 at 04:33 -0700, Gary Thomas wrote:
->> On 11/24/2010 03:56 AM, Gary Thomas wrote:
->>> With a recent build, bitbake package-index doesn't seem to do anything.
->>> e.g. if I look at tmp/deploy/ipk/*/Packages.gz before and after, there
->>> are no changes.
->>>
->>> I tried to build a simple package and add it to my database. Sadly,
->>> it's not being updated at all, so the new package does not appear on
->>> the board.
->>>
->>> Any ideas what might be wrong?
->>
->> A quick check shows that do_build() in the package-index recipe is never
->> really run!
->>
->> I found a workaround by just building an image which has a root file system.
->> This also forces a package database rebuild.  It would be nice to figure out
->> what's broken though (it certainly _used_ to work)
->>
->
-> I'm not really familiar with the ipk classes so can't offer a quick
-> solution, could I ask you to file a bug so that we can track this issue
-> and assign resources to fix?
+I don't see a DESCRIPTION or SUMMARY field in this new package.
 
-Done - bug #544
+--Mark
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+On 11/23/10 10:46 PM, Lu Jingdong wrote:
+> Signed-off-by: Jingdong Lu <jingdong.lu@windriver.com>
+> ---
+>  meta/recipes-devtools/perl/libxml-perl_0.08.bb |   15 +++++++++++++++
+>  1 files changed, 15 insertions(+), 0 deletions(-)
+>  create mode 100644 meta/recipes-devtools/perl/libxml-perl_0.08.bb
+> 
+> diff --git a/meta/recipes-devtools/perl/libxml-perl_0.08.bb
+> b/meta/recipes-devtools/perl/libxml-perl_0.08.bb
+> new file mode 100644
+> index 0000000..6c3c9c7
+> --- /dev/null
+> +++ b/meta/recipes-devtools/perl/libxml-perl_0.08.bb
+> @@ -0,0 +1,15 @@
+> +SECTION = "libs"
+> +LICENSE = "Artistic"
+> +DEPENDS += "libxml-parser-perl"
+> +
+> +SRC_URI =
+> "http://www.cpan.org/modules/by-module/XML/${PN}-${PV}.tar.gz"
+> +
+> +EXTRA_CPANFLAGS = "EXPATLIBPATH=${STAGING_LIBDIR} EXPATINCPATH=
+> ${STAGING_INCDIR}"
+> +
+> +inherit cpan
+> +
+> +do_compile() {
+> +       export LIBC="$(find ${STAGING_DIR_TARGET}/${base_libdir}/ -name
+> 'libc-*.so')"
+> +       cpan_do_compile
+> +}
+> +
+
 
