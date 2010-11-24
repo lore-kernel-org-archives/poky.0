@@ -1,19 +1,28 @@
-Return-Path: <kevin.tian@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 482E24C811FA
-	for <poky@pokylinux.org>; Tue, 23 Nov 2010 23:17:47 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 23 Nov 2010 21:17:46 -0800
-Message-Id: <c6d829$pkuj17@fmsmga001.fm.intel.com>
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,246,1288594800"; d="scan'208";a="860834859"
-Received: from poky-desktop-ktian1.sh.intel.com (HELO localhost)
-	([10.239.36.116])
-	by fmsmga001.fm.intel.com with ESMTP; 23 Nov 2010 21:17:46 -0800
-From: Kevin Tian <kevin.tian@intel.com>
-Date: Wed, 24 Nov 2010 12:27:18 +0800
-To: poky@pokylinux.org
-Subject: [PATCH 1/1] *.bbappend: don't expand FILESEXTRAPATHS immediately
+Return-Path: <Jingdong.Lu@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 3BFEB4C811FB
+	for <poky@yoctoproject.org>; Tue, 23 Nov 2010 23:21:39 -0600 (CST)
+Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oAO5LbEY010822;
+	Tue, 23 Nov 2010 21:21:37 -0800 (PST)
+Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
+	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Tue, 23 Nov 2010 21:21:37 -0800
+Received: from [128.224.162.176] ([128.224.162.176]) by
+	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Tue, 23 Nov 2010 21:21:37 -0800
+From: Lu Jingdong <jingdong.lu@windriver.com>
+To: Saul Wold <saul.wold@intel.com>
+In-Reply-To: <4CEAB2EB.5090505@intel.com>
+References: <1289902905.1859.4.camel@eric-desktop> <4CEAB2EB.5090505@intel.com>
+Date: Wed, 24 Nov 2010 13:23:09 +0800
+Message-ID: <1290576189.1858.117.camel@eric-desktop>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+X-OriginalArrivalTime: 24 Nov 2010 05:21:37.0709 (UTC)
+	FILETIME=[77D6F5D0:01CB8B97]
+Cc: poky@yoctoproject.org
+Subject: Re: [PULL]Removing "--with-wctype-functions" for python
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -25,61 +34,43 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 24 Nov 2010 05:17:47 -0000
+X-List-Received-Date: Wed, 24 Nov 2010 05:21:39 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-There's no point to expand FILESEXTRAPATHS immediately, since the place where
-it's referenced still use normal getVar(FILESEXTRAPATHS, d, True). This way
-it doesn't help anything except adding one more breaking variable on sstate.
+On Mon, 2010-11-22 at 10:14 -0800, Saul Wold wrote:
+> On 11/16/2010 02:21 AM, Lu Jingdong wrote:
+> > Subject: [PATCH 3/3] Removing --with-wctype-functions for fixing
+> > failures of python runtime test of LSB.
+> >
+> Jingdong,
+> 
+> Can you give us more information about which tests is failing and why?
+> We are also looking into the background as to why wctype-functions is 
+> enabled in Python for both OE and Poky.
+> 
+> Thanks
+>     Sau!
+> 
+Sual,
+Python with wctype-functions will cause the following failures of LSB
+test.
+Python Runtime Tests 
+|-- test_codecs.py
+|-- test_re.py
+|-- test_unicode.py
+Reference:
+1) http://bugs.python.org/issue1609
+2) README of python
+	The following systems are still supported in Python 2.5, but
+	support will be dropped in 2.6:
+	- Systems using --with-wctype-functions
+	- Win9x, WinME
 
-Signed-off-by: Kevin Tian <kevin.tian@intel.com>
----
- documentation/bsp-guide/bsp.xml                    |    2 +-
- .../recipes/formfactor/formfactor_0.0.bbappend     |    2 +-
- .../recipes/linux/linux-yocto_git.bbappend         |    2 +-
- meta-emenlow/recipes/linux/linux_2.6.33.2.bbappend |    2 +-
- 4 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/documentation/bsp-guide/bsp.xml b/documentation/bsp-guide/bsp.xml
-index 9e25068..0d716a3 100644
---- a/documentation/bsp-guide/bsp.xml
-+++ b/documentation/bsp-guide/bsp.xml
-@@ -307,7 +307,7 @@ meta-bsp/packages/image-creator/image-creator-native_0.1.bb
-                 The example below shows extra files contained in a folder called ${PN} (the package name).
-             </para>
-             <programlisting>
--FILESEXTRAPATHS := "${THISDIR}/${PN}"
-+FILESEXTRAPATHS = "${THISDIR}/${PN}"
-             </programlisting>
-             <para>
-             This technique allows the BSP to add machine-specific configuration files to the layer directory, 
-diff --git a/meta-emenlow/recipes/formfactor/formfactor_0.0.bbappend b/meta-emenlow/recipes/formfactor/formfactor_0.0.bbappend
-index 4a41d48..a64f367 100644
---- a/meta-emenlow/recipes/formfactor/formfactor_0.0.bbappend
-+++ b/meta-emenlow/recipes/formfactor/formfactor_0.0.bbappend
-@@ -1,3 +1,3 @@
--FILESEXTRAPATHS := "${THISDIR}/${PN}"
-+FILESEXTRAPATHS = "${THISDIR}/${PN}"
-  
- PRINC = "1"
-diff --git a/meta-emenlow/recipes/linux/linux-yocto_git.bbappend b/meta-emenlow/recipes/linux/linux-yocto_git.bbappend
-index 9fa2937..77c5223 100644
---- a/meta-emenlow/recipes/linux/linux-yocto_git.bbappend
-+++ b/meta-emenlow/recipes/linux/linux-yocto_git.bbappend
-@@ -1,3 +1,3 @@
--FILESEXTRAPATHS := "${THISDIR}/${PN}"
-+FILESEXTRAPATHS = "${THISDIR}/${PN}"
- COMPATIBLE_MACHINE_emenlow = "emenlow"
- KMACHINE_emenlow  = "emenlow"
-diff --git a/meta-emenlow/recipes/linux/linux_2.6.33.2.bbappend b/meta-emenlow/recipes/linux/linux_2.6.33.2.bbappend
-index fac0921..c6f81d4 100644
---- a/meta-emenlow/recipes/linux/linux_2.6.33.2.bbappend
-+++ b/meta-emenlow/recipes/linux/linux_2.6.33.2.bbappend
-@@ -1,3 +1,3 @@
--FILESPATH := "${FILESPATH}:${@os.path.dirname(bb.data.getVar('FILE', d, True))}"
-+FILESEXTRAPATH = "${THISDIR}/${PN}"
- SRC_URI += "file://defconfig"
- COMPATIBLE_MACHINE_emenlow = "emenlow"
 -- 
-1.6.0.4
+Lu Jingdong
+jingdong.lu@windriver.com
+China, Wind River
 
 
