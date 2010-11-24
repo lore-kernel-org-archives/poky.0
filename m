@@ -1,28 +1,25 @@
-Return-Path: <Jingdong.Lu@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 3BFEB4C811FB
-	for <poky@yoctoproject.org>; Tue, 23 Nov 2010 23:21:39 -0600 (CST)
-Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oAO5LbEY010822;
-	Tue, 23 Nov 2010 21:21:37 -0800 (PST)
-Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
-	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Tue, 23 Nov 2010 21:21:37 -0800
-Received: from [128.224.162.176] ([128.224.162.176]) by
-	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Tue, 23 Nov 2010 21:21:37 -0800
-From: Lu Jingdong <jingdong.lu@windriver.com>
-To: Saul Wold <saul.wold@intel.com>
-In-Reply-To: <4CEAB2EB.5090505@intel.com>
-References: <1289902905.1859.4.camel@eric-desktop> <4CEAB2EB.5090505@intel.com>
-Date: Wed, 24 Nov 2010 13:23:09 +0800
-Message-ID: <1290576189.1858.117.camel@eric-desktop>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-X-OriginalArrivalTime: 24 Nov 2010 05:21:37.0709 (UTC)
-	FILETIME=[77D6F5D0:01CB8B97]
-Cc: poky@yoctoproject.org
-Subject: Re: [PULL]Removing "--with-wctype-functions" for python
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D05414C80052
+	for <poky@lists.pokylinux.org>; Wed, 24 Nov 2010 04:56:32 -0600 (CST)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 4256016608B2; Wed, 24 Nov 2010 03:56:31 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=ham version=3.3.1
+Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 7714E16608B0;
+	Wed, 24 Nov 2010 03:56:30 -0700 (MST)
+Message-ID: <4CECEF5D.2040702@mlbassoc.com>
+Date: Wed, 24 Nov 2010 03:56:29 -0700
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.12) Gecko/20101027 Fedora/3.1.6-1.fc13 Thunderbird/3.1.6
+MIME-Version: 1.0
+To: Poky <poky@lists.pokylinux.org>
+Subject: bitbake package-index broken?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,43 +31,25 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 24 Nov 2010 05:21:39 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Wed, 24 Nov 2010 10:56:33 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Mon, 2010-11-22 at 10:14 -0800, Saul Wold wrote:
-> On 11/16/2010 02:21 AM, Lu Jingdong wrote:
-> > Subject: [PATCH 3/3] Removing --with-wctype-functions for fixing
-> > failures of python runtime test of LSB.
-> >
-> Jingdong,
-> 
-> Can you give us more information about which tests is failing and why?
-> We are also looking into the background as to why wctype-functions is 
-> enabled in Python for both OE and Poky.
-> 
-> Thanks
->     Sau!
-> 
-Sual,
-Python with wctype-functions will cause the following failures of LSB
-test.
-Python Runtime Tests 
-|-- test_codecs.py
-|-- test_re.py
-|-- test_unicode.py
-Reference:
-1) http://bugs.python.org/issue1609
-2) README of python
-	The following systems are still supported in Python 2.5, but
-	support will be dropped in 2.6:
-	- Systems using --with-wctype-functions
-	- Win9x, WinME
+With a recent build, bitbake package-index doesn't seem to do anything.
+e.g. if I look at tmp/deploy/ipk/*/Packages.gz before and after, there
+are no changes.
 
+I tried to build a simple package and add it to my database.  Sadly,
+it's not being updated at all, so the new package does not appear on
+the board.
+
+Any ideas what might be wrong?
+
+Thanks
 
 -- 
-Lu Jingdong
-jingdong.lu@windriver.com
-China, Wind River
-
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
