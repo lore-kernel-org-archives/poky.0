@@ -1,29 +1,30 @@
-Return-Path: <scott.a.garman@intel.com>
-Received: from masterfoo.zenlinux.com (li38-254.members.linode.com
-	[207.192.74.254])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C63AA4C8110C
-	for <poky@yoctoproject.org>; Wed, 24 Nov 2010 12:56:47 -0600 (CST)
-Received: from localhost (c-76-105-143-140.hsd1.or.comcast.net
-	[76.105.143.140])
-	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
-	(No client certificate requested)
-	by masterfoo.zenlinux.com (Postfix) with ESMTP id 37D68302BA
-	for <poky@yoctoproject.org>; Wed, 24 Nov 2010 13:56:41 -0500 (EST)
-Message-Id: <7132b636ec4ec379be8d4e9b47136a64691988c4.1290624288.git.scott.a.garman@intel.com>
-In-Reply-To: <cover.1290624288.git.scott.a.garman@intel.com>
-References: <cover.1290624288.git.scott.a.garman@intel.com>
-From: Scott Garman <scott.a.garman@intel.com>
-Date: Wed, 24 Nov 2010 10:42:23 -0800
-To: poky@yoctoproject.org
-CC: 
-X-MasterFoo-MailScanner-Information: Please contact the ISP for more
-	information
-X-MailScanner-ID: 37D68302BA.4E70B
-X-MasterFoo-MailScanner: Found to be clean
-X-MasterFoo-MailScanner-SpamCheck: not spam
-X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
-X-Spam-Status: No
-Subject: [PATCH 4/4] distro_tracking_fields.inc: update sudo, libpam, and mtools
+Return-Path: <rpurdie@linux.intel.com>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id BE00B4C80FA8
+	for <poky@pokylinux.org>; Wed, 24 Nov 2010 15:48:17 -0600 (CST)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oAOLmFZW003769;
+	Wed, 24 Nov 2010 21:48:15 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 03549-02; Wed, 24 Nov 2010 21:48:10 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oAOLm5FI003762
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Wed, 24 Nov 2010 21:48:05 GMT
+From: Richard Purdie <rpurdie@linux.intel.com>
+To: Kevin Tian <kevin.tian@intel.com>
+In-Reply-To: <c6d829$pkuj17@fmsmga001.fm.intel.com>
+References: <c6d829$pkuj17@fmsmga001.fm.intel.com>
+Date: Wed, 24 Nov 2010 21:47:59 +0000
+Message-ID: <1290635279.26464.142.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky@pokylinux.org
+Subject: Re: [PATCH 1/1] *.bbappend: don't expand FILESEXTRAPATHS immediately
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,74 +36,81 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 24 Nov 2010 18:56:48 -0000
+X-List-Received-Date: Wed, 24 Nov 2010 21:48:18 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Scott Garman <scott.a.garman@intel.com>
----
- .../conf/distro/include/distro_tracking_fields.inc |   31 +++++++++++---------
- 1 files changed, 17 insertions(+), 14 deletions(-)
+On Wed, 2010-11-24 at 12:27 +0800, Kevin Tian wrote:
+> There's no point to expand FILESEXTRAPATHS immediately, since the place where
+> it's referenced still use normal getVar(FILESEXTRAPATHS, d, True). This way
+> it doesn't help anything except adding one more breaking variable on sstate.
 
-diff --git a/meta/conf/distro/include/distro_tracking_fields.inc b/meta/conf/distro/include/distro_tracking_fields.inc
-index 63bb126..5eadadd 100644
---- a/meta/conf/distro/include/distro_tracking_fields.inc
-+++ b/meta/conf/distro/include/distro_tracking_fields.inc
-@@ -153,13 +153,12 @@ RECIPE_MAINTAINER_pn-glib-2.0 = "Dongxiao Xu <dongxiao.xu@intel.com>"
- RECIPE_STATUS_pn-libpam = "green"
- DISTRO_PN_ALIAS_pn-libpam = "Meego=pam Fedora=pam OpenSuSE=pam Ubuntu=pam Mandriva=pam Debian=pam"
- DEPENDENCY_CHECK_pn-libpam = "not done"
--RECIPE_LATEST_VERSION_pn-libpam = "1.1.1"
--RECIPE_PATCH_pn-libpam+disable_crossbinary = "added by RP; 2008; padout requires native compilation and not used in the target. so disable it. local patch"
-+RECIPE_LATEST_VERSION_pn-libpam = "1.1.3"
- RECIPE_INTEL_SECTION_pn-libpam = "base libs"
--RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-libpam = "6 months"
--RECIPE_LATEST_RELEASE_DATE_pn-libpam = "12/2009"
-+RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-libpam = "2 months"
-+RECIPE_LATEST_RELEASE_DATE_pn-libpam = "2010/10/28"
- RECIPE_COMMENTS_pn-libpam = ""
--RECIPE_MAINTAINER_pn-libpam = "Kevin Tian <kevin.tian@intel.com>"
-+RECIPE_MAINTAINER_pn-libpam = "Scott Garman <scott.a.garman@intel.com>"
- 
- RECIPE_STATUS_pn-libgpg-error = "yellow" # specific .pc handle
- DEPENDENCY_CHECK_pn-libgpg-error = "not done"
-@@ -776,14 +775,12 @@ RECIPE_MAINTAINER_pn-pax-utils = "Kevin Tian <kevin.tian@intel.com>"
- 
- RECIPE_STATUS_pn-sudo = "green"
- DEPENDENCY_CHECK_pn-sudo = "not done"
--RECIPE_LATEST_VERSION_pn-sudo = "1.7.2p7"
--RECIPE_PATCH_pn-sudo+autofoo = "to be pushed upstream"
--RECIPE_PATCH_pn-sudo+noexec-link = "to be pushed upstream"
-+RECIPE_LATEST_VERSION_pn-sudo = "1.7.4p4"
- RECIPE_INTEL_SECTION_pn-sudo = "base utils"
--RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-sudo = "1 months"
--RECIPE_LATEST_RELEASE_DATE_pn-sudo = "06/2010"
-+RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-sudo = "1 month"
-+RECIPE_LATEST_RELEASE_DATE_pn-sudo = "2010/09/07"
- RECIPE_COMMENTS_pn-sudo = ""
--RECIPE_MAINTAINER_pn-sudo = "Kevin Tian <kevin.tian@intel.com>"
-+RECIPE_MAINTAINER_pn-sudo = "Scott Garman <scott.a.garman@intel.com>"
- 
- RECIPE_STATUS_pn-blktool = "green"
- DEPENDENCY_CHECK_pn-blktool = "not done"
-@@ -1189,9 +1186,15 @@ RECIPE_COMMENTS_pn-msynctool = ""
- RECIPE_MAINTAINER_pn-msynctool = "Dongxiao Xu <dongxiao.xu@intel.com>"
- DISTRO_PN_ALIAS_pn-msynctool = "OpenSuse=msynctool Mandriva=msynctool"
- 
--RECIPE_STATUS_pn-mtools = "red"
--RECIPE_LATEST_VERSION_pn-mtools = "4.0.13"
--RECIPE_MAINTAINER_pn-mtools = "Kevin Tian <kevin.tian@intel.com>"
-+RECIPE_STATUS_pn-mtools = "green"
-+DEPENDENCY_CHECK_pn-mtools = "not done"
-+RECIPE_LATEST_VERSION_pn-mtools = "4.0.15"
-+RECIPE_INTEL_SECTION_pn-mtools = "optional"
-+RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-mtools = "1 day"
-+RECIPE_LATEST_RELEASE_DATE_pn-mtools = "2010/10/17"
-+RECIPE_COMMENTS_pn-mtools = ""
-+RECIPE_LATEST_VERSION_pn-mtools = "4.0.15"
-+RECIPE_MAINTAINER_pn-mtools = "Scott Garman <scott.a.garman@intel.com>"
- 
- RECIPE_STATUS_pn-pm-utils = "green"
- DEPENDENCY_CHECK_pn-pm-utils = "not done"
--- 
-1.7.1
+There is a very significant reason for doing immediate expansion with
+these variables.
+
+The := ensures that the expansion happens in the context of the current
+file. Look at the value of
+
+bitbake formfactor -e | grep ^FILESEXTRAPATH
+
+before and after this patch and you'll see what I mean. It ensures the
+directory containing the bbappend is searched for source files as well
+as the directory containing the .bb file.
+
+Cheers,
+
+Richard
+
+
+
+> Signed-off-by: Kevin Tian <kevin.tian@intel.com>
+> ---
+>  documentation/bsp-guide/bsp.xml                    |    2 +-
+>  .../recipes/formfactor/formfactor_0.0.bbappend     |    2 +-
+>  .../recipes/linux/linux-yocto_git.bbappend         |    2 +-
+>  meta-emenlow/recipes/linux/linux_2.6.33.2.bbappend |    2 +-
+>  4 files changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/documentation/bsp-guide/bsp.xml b/documentation/bsp-guide/bsp.xml
+> index 9e25068..0d716a3 100644
+> --- a/documentation/bsp-guide/bsp.xml
+> +++ b/documentation/bsp-guide/bsp.xml
+> @@ -307,7 +307,7 @@ meta-bsp/packages/image-creator/image-creator-native_0.1.bb
+>                  The example below shows extra files contained in a folder called ${PN} (the package name).
+>              </para>
+>              <programlisting>
+> -FILESEXTRAPATHS := "${THISDIR}/${PN}"
+> +FILESEXTRAPATHS = "${THISDIR}/${PN}"
+>              </programlisting>
+>              <para>
+>              This technique allows the BSP to add machine-specific configuration files to the layer directory, 
+> diff --git a/meta-emenlow/recipes/formfactor/formfactor_0.0.bbappend b/meta-emenlow/recipes/formfactor/formfactor_0.0.bbappend
+> index 4a41d48..a64f367 100644
+> --- a/meta-emenlow/recipes/formfactor/formfactor_0.0.bbappend
+> +++ b/meta-emenlow/recipes/formfactor/formfactor_0.0.bbappend
+> @@ -1,3 +1,3 @@
+> -FILESEXTRAPATHS := "${THISDIR}/${PN}"
+> +FILESEXTRAPATHS = "${THISDIR}/${PN}"
+>   
+>  PRINC = "1"
+> diff --git a/meta-emenlow/recipes/linux/linux-yocto_git.bbappend b/meta-emenlow/recipes/linux/linux-yocto_git.bbappend
+> index 9fa2937..77c5223 100644
+> --- a/meta-emenlow/recipes/linux/linux-yocto_git.bbappend
+> +++ b/meta-emenlow/recipes/linux/linux-yocto_git.bbappend
+> @@ -1,3 +1,3 @@
+> -FILESEXTRAPATHS := "${THISDIR}/${PN}"
+> +FILESEXTRAPATHS = "${THISDIR}/${PN}"
+>  COMPATIBLE_MACHINE_emenlow = "emenlow"
+>  KMACHINE_emenlow  = "emenlow"
+> diff --git a/meta-emenlow/recipes/linux/linux_2.6.33.2.bbappend b/meta-emenlow/recipes/linux/linux_2.6.33.2.bbappend
+> index fac0921..c6f81d4 100644
+> --- a/meta-emenlow/recipes/linux/linux_2.6.33.2.bbappend
+> +++ b/meta-emenlow/recipes/linux/linux_2.6.33.2.bbappend
+> @@ -1,3 +1,3 @@
+> -FILESPATH := "${FILESPATH}:${@os.path.dirname(bb.data.getVar('FILE', d, True))}"
+> +FILESEXTRAPATH = "${THISDIR}/${PN}"
+>  SRC_URI += "file://defconfig"
+>  COMPATIBLE_MACHINE_emenlow = "emenlow"
+
 
 
