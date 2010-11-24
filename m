@@ -1,25 +1,21 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D05414C80052
-	for <poky@lists.pokylinux.org>; Wed, 24 Nov 2010 04:56:32 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 4256016608B2; Wed, 24 Nov 2010 03:56:31 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=ham version=3.3.1
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 7714E16608B0;
-	Wed, 24 Nov 2010 03:56:30 -0700 (MST)
-Message-ID: <4CECEF5D.2040702@mlbassoc.com>
-Date: Wed, 24 Nov 2010 03:56:29 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.12) Gecko/20101027 Fedora/3.1.6-1.fc13 Thunderbird/3.1.6
-MIME-Version: 1.0
-To: Poky <poky@lists.pokylinux.org>
-Subject: bitbake package-index broken?
+Return-Path: <lei.mei@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 6E46B4C80B70
+	for <poky@yoctoproject.org>; Wed, 24 Nov 2010 05:02:45 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 24 Nov 2010 03:02:45 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.59,247,1288594800"; d="scan'208";a="860917167"
+Received: from daocaoren-desktop.sh.intel.com (HELO localhost)
+	([10.239.48.112])
+	by fmsmga001.fm.intel.com with ESMTP; 24 Nov 2010 03:02:44 -0800
+Message-Id: <890e14cff0ec480fcad4cfdf7f29616722aa20fa.1290596255.git.lei.mei@intel.com>
+In-Reply-To: <cover.1290596255.git.lei.mei@intel.com>
+References: <cover.1290596255.git.lei.mei@intel.com>
+From: Mei Lei <lei.mei@intel.com>
+Date: Wed, 24 Nov 2010 13:46:23 +0800
+To: poky@yoctoproject.org
+Subject: [PATCH 02/20] libffi:Add license checksum to bb file
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,25 +27,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 24 Nov 2010 10:56:33 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 24 Nov 2010 11:02:45 -0000
 
-With a recent build, bitbake package-index doesn't seem to do anything.
-e.g. if I look at tmp/deploy/ipk/*/Packages.gz before and after, there
-are no changes.
+Add LICENSE file checksum to bb file
 
-I tried to build a simple package and add it to my database.  Sadly,
-it's not being updated at all, so the new package does not appear on
-the board.
+Signed-off-by: Mei Lei <lei.mei@intel.com>
+---
+ meta/recipes-gnome/libffi/libffi_3.0.9.bb |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
-Any ideas what might be wrong?
-
-Thanks
-
+diff --git a/meta/recipes-gnome/libffi/libffi_3.0.9.bb b/meta/recipes-gnome/libffi/libffi_3.0.9.bb
+index 3959ef2..7e3c1d8 100644
+--- a/meta/recipes-gnome/libffi/libffi_3.0.9.bb
++++ b/meta/recipes-gnome/libffi/libffi_3.0.9.bb
+@@ -1,6 +1,6 @@
+ SRC_URI = "ftp://sourceware.org/pub/libffi/${BPN}-${PV}.tar.gz"
+ LICENSE = "MIT"
+-
++LIC_FILES_CHKSUM = "file://LICENSE;md5=fa09cb778aaba64dc9eac37ab7e4e5d8"
+ inherit autotools
+ 
+ BBCLASSEXTEND = "native"
 -- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+1.6.3.3
+
 
