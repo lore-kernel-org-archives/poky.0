@@ -1,21 +1,21 @@
 Return-Path: <ke.yu@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id AA18A4C811AD
-	for <poky@yoctoproject.org>; Sun, 28 Nov 2010 07:06:01 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 28 Nov 2010 05:06:01 -0800
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 3FEB34C810B0
+	for <poky@yoctoproject.org>; Sun, 28 Nov 2010 07:06:03 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 28 Nov 2010 05:06:02 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,270,1288594800"; d="scan'208";a="578286837"
+X-IronPort-AV: E=Sophos;i="4.59,270,1288594800"; d="scan'208";a="862041995"
 Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.154.168])
-	by orsmga002.jf.intel.com with ESMTP; 28 Nov 2010 05:06:01 -0800
-Message-Id: <2675920d5fd570d1c1186ff2e1d29c9d22abcc96.1290943560.git.ke.yu@intel.com>
+	by fmsmga001.fm.intel.com with ESMTP; 28 Nov 2010 05:06:02 -0800
+Message-Id: <0564d1518fbcc7d482b65953d61317f95d1f425d.1290943560.git.ke.yu@intel.com>
 In-Reply-To: <cover.1290943560.git.ke.yu@intel.com>
 References: <cover.1290943560.git.ke.yu@intel.com>
 From: Yu Ke <ke.yu@intel.com>
-Date: Wed, 24 Nov 2010 12:50:55 +0800
+Date: Wed, 24 Nov 2010 12:51:42 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 03/11] talloc: add new recipes talloc 2.0.1
+Subject: [PATCH 04/11] mesa-dri: upgrade from 7.8.2 to 7.9
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,50 +27,142 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 28 Nov 2010 13:06:01 -0000
+X-List-Received-Date: Sun, 28 Nov 2010 13:06:03 -0000
 
-talloc is a hierarchical, reference counted memory pool system with destructors.
-It is the core memory allocator used in Samba. Mesa7.9 also depends on it,so add
-it for mesa7.9.
+with the following changes:
 
-It is ported from OpenEmbedded, with some format modification.
+- remove mesa-demos, because starting from mesa 7.9,
+  mesa-demos becomes a standalone src tar ball in
+  upstream, so there will be a seperate recipes to
+  build the mesa-demos
+
+- add dependency of talloc and libxml2-native
 
 Signed-off-by: Yu Ke <ke.yu@intel.com>
 ---
- meta/recipes-extended/talloc/talloc_2.0.1.bb |   24 ++++++++++++++++++++++++
- 1 files changed, 24 insertions(+), 0 deletions(-)
- create mode 100644 meta/recipes-extended/talloc/talloc_2.0.1.bb
+ .../distro/include/preferred-xorg-versions.inc     |    2 +-
+ meta/recipes-graphics/mesa/mesa-dri_7.8.2.bb       |   53 --------------------
+ meta/recipes-graphics/mesa/mesa-dri_7.9.bb         |   38 ++++++++++++++
+ 3 files changed, 39 insertions(+), 54 deletions(-)
+ delete mode 100644 meta/recipes-graphics/mesa/mesa-dri_7.8.2.bb
+ create mode 100644 meta/recipes-graphics/mesa/mesa-dri_7.9.bb
 
-diff --git a/meta/recipes-extended/talloc/talloc_2.0.1.bb b/meta/recipes-extended/talloc/talloc_2.0.1.bb
+diff --git a/meta/conf/distro/include/preferred-xorg-versions.inc b/meta/conf/distro/include/preferred-xorg-versions.inc
+index eaea3d6..703d3a6 100644
+--- a/meta/conf/distro/include/preferred-xorg-versions.inc
++++ b/meta/conf/distro/include/preferred-xorg-versions.inc
+@@ -136,7 +136,7 @@ PREFERRED_VERSION_xtrans-native ?= "1.2.5"
+ PREFERRED_VERSION_xtrans-nativesdk ?= "1.2.5"
+ PREFERRED_VERSION_xvinfo ?= "1.0.2"
+ PREFERRED_VERSION_xwininfo ?= "1.1.0"
+-PREFERRED_VERSION_mesa-dri ?= "7.8.2"
++PREFERRED_VERSION_mesa-dri ?= "7.9"
+ PREFERRED_VERSION_libdrm ?= "2.4.22"
+ PREFERRED_VERSION_xcb-proto ?= "1.6"
+ PREFERRED_VERSION_libxcb ?= "1.6"
+diff --git a/meta/recipes-graphics/mesa/mesa-dri_7.8.2.bb b/meta/recipes-graphics/mesa/mesa-dri_7.8.2.bb
+deleted file mode 100644
+index caa9b2e..0000000
+--- a/meta/recipes-graphics/mesa/mesa-dri_7.8.2.bb
++++ /dev/null
+@@ -1,53 +0,0 @@
+-include mesa-common.inc
+-
+-LIC_FILES_CHKSUM = "file://docs/license.html;md5=7a3373c039b6b925c427755a4f779c1d"
+-
+-PROTO_DEPS = "xf86driproto glproto dri2proto"
+-LIB_DEPS = "libdrm virtual/libx11 libxext libxxf86vm libxdamage libxfixes expat"
+-
+-DEPENDS = "${PROTO_DEPS}  ${LIB_DEPS} mesa-dri-glsl-native"
+-
+-PR = "r2"
+-
+-SRC_URI += "file://crossfix.patch"
+-
+-# most of our targets do not have DRI so will use mesa-xlib
+-DEFAULT_PREFERENCE = "-1"
+-
+-# Atom PCs have DRI support so use mesa-dri by default
+-DEFAULT_PREFERENCE_atom-pc = "1"
+-
+-LEAD_SONAME = "libGL.so.1"
+-
+-EXTRA_OECONF += "--with-driver=dri --disable-egl --disable-gallium"
+-
+-# We need glsl-compile built for buildhost arch instead of target (is provided by mesa-dri-glsl-native)"
+-do_configure_prepend() {
+-	sed -i "s#^GLSL_CL = .*\$#GLSL_CL = ${STAGING_BINDIR_NATIVE}/glsl-compile#g" ${S}/src/mesa/shader/slang/library/Makefile
+-}
+-
+-do_install_append () {
+-	install -d ${D}/usr/bin
+-	install -m 0755 ${S}/progs/xdemos/{glxdemo,glxgears,glxheads,glxinfo} ${D}/usr/bin/
+-}
+-
+-python populate_packages_prepend() {
+-	import os.path
+-
+-	dri_drivers_root = os.path.join(bb.data.getVar('libdir', d, 1), "dri")
+-
+-	do_split_packages(d, dri_drivers_root, '^(.*)_dri\.so$', 'mesa-dri-driver-%s', 'Mesa %s DRI driver', extra_depends='')
+-}
+-
+-COMPATIBLE_HOST = '(i.86.*-linux|x86_64.*-linux)'
+-
+-PACKAGES =+ "${PN}-xprogs"
+-PACKAGES_DYNAMIC = "mesa-dri-driver-*"
+-
+-FILES_${PN}-dbg += "${libdir}/dri/.debug/*"
+-FILES_${PN}-xprogs = "${bindir}/glxdemo ${bindir}/glxgears ${bindir}/glxheads ${bindir}/glxinfo"
+-
+-#
+-# Header generated by i586-poky-linux-gcc gen_matypes.c -o gen_matypes -I ../../../include/GL -I ../../../include -I .. -I ../main/ -I ../math -I ../glapi/ -I ../tnl
+-# then run gen_matypes > matypes.h on device
+-#
+diff --git a/meta/recipes-graphics/mesa/mesa-dri_7.9.bb b/meta/recipes-graphics/mesa/mesa-dri_7.9.bb
 new file mode 100644
-index 0000000..dfbaf31
+index 0000000..6f0f984
 --- /dev/null
-+++ b/meta/recipes-extended/talloc/talloc_2.0.1.bb
-@@ -0,0 +1,24 @@
-+DESCRIPTION = "Hierarchical, reference counted memory pool system with destructors"
-+HOMEPAGE = "http://talloc.samba.org"
-+BUGTRACKER = "https://bugzilla.samba.org/"
-+LICENSE = "LGPLv3+"
-+LIC_FILES_CHKSUM = "file://talloc.c;beginline=8;endline=26;md5=ea9b6ec07a6d8b3e771f0ec75ca3a317"
++++ b/meta/recipes-graphics/mesa/mesa-dri_7.9.bb
+@@ -0,0 +1,38 @@
++include mesa-common.inc
++
++LIC_FILES_CHKSUM = "file://docs/license.html;md5=7a3373c039b6b925c427755a4f779c1d"
++
++PROTO_DEPS = "xf86driproto glproto dri2proto"
++LIB_DEPS = "libdrm virtual/libx11 libxext libxxf86vm libxdamage libxfixes expat \
++            libxml2-native talloc"
++
++DEPENDS = "${PROTO_DEPS}  ${LIB_DEPS} mesa-dri-glsl-native"
 +
 +PR = "r0"
 +
-+SRC_URI = "http://samba.org/ftp/${BPN}/${BPN}-${PV}.tar.gz"
++SRC_URI = "ftp://ftp.freedesktop.org/pub/mesa/${PV}/MesaLib-${PV}.tar.bz2 \
++           file://crossfix.patch"
 +
-+SRC_URI[md5sum] = "c6e736540145ca58cb3dcb42f91cf57b"
-+SRC_URI[sha256sum] = "5b810527405f29d54f50efd78bf2c89e318f2cd8bed001f22f2a1412fd27c9b4"
++# most of our targets do not have DRI so will use mesa-xlib
++DEFAULT_PREFERENCE = "-1"
 +
-+inherit autotools pkgconfig
++# Atom PCs have DRI support so use mesa-dri by default
++DEFAULT_PREFERENCE_atom-pc = "1"
 +
-+# autoreconf doesn't work well while reconfiguring included libreplace
-+do_configure () {
-+       gnu-configize
-+       oe_runconf
++LEAD_SONAME = "libGL.so.1"
++
++EXTRA_OECONF += "--with-driver=dri --disable-egl --disable-gallium"
++
++python populate_packages_prepend() {
++	import os.path
++
++	dri_drivers_root = os.path.join(bb.data.getVar('libdir', d, 1), "dri")
++
++	do_split_packages(d, dri_drivers_root, '^(.*)_dri\.so$', 'mesa-dri-driver-%s', 'Mesa %s DRI driver', extra_depends='')
 +}
 +
-+TARGET_CC_ARCH += "${LDFLAGS}"
++COMPATIBLE_HOST = '(i.86.*-linux|x86_64.*-linux)'
 +
-+BBCLASSEXTEND = "native"
++PACKAGES_DYNAMIC = "mesa-dri-driver-*"
++
++FILES_${PN}-dbg += "${libdir}/dri/.debug/*"
 -- 
 1.7.0.4
 
