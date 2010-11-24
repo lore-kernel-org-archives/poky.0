@@ -1,21 +1,21 @@
 Return-Path: <ke.yu@intel.com>
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 634B84C80FB6
-	for <poky@yoctoproject.org>; Sun, 28 Nov 2010 07:06:00 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 28 Nov 2010 05:05:59 -0800
+	by mx1.pokylinux.org (Postfix) with ESMTP id AA18A4C811AD
+	for <poky@yoctoproject.org>; Sun, 28 Nov 2010 07:06:01 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 28 Nov 2010 05:06:01 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,270,1288594800"; d="scan'208";a="681700101"
+X-IronPort-AV: E=Sophos;i="4.59,270,1288594800"; d="scan'208";a="578286837"
 Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.154.168])
-	by orsmga001.jf.intel.com with ESMTP; 28 Nov 2010 05:05:59 -0800
-Message-Id: <f7c5a04d7583e0f9246cfb5b3cecf5686a14426b.1290943560.git.ke.yu@intel.com>
+	by orsmga002.jf.intel.com with ESMTP; 28 Nov 2010 05:06:01 -0800
+Message-Id: <2675920d5fd570d1c1186ff2e1d29c9d22abcc96.1290943560.git.ke.yu@intel.com>
 In-Reply-To: <cover.1290943560.git.ke.yu@intel.com>
 References: <cover.1290943560.git.ke.yu@intel.com>
 From: Yu Ke <ke.yu@intel.com>
-Date: Fri, 26 Nov 2010 19:48:11 +0800
+Date: Wed, 24 Nov 2010 12:50:55 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 02/11] libxml2-native: remove the --without-debug option
+Subject: [PATCH 03/11] talloc: add new recipes talloc 2.0.1
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,40 +27,50 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 28 Nov 2010 13:06:00 -0000
+X-List-Received-Date: Sun, 28 Nov 2010 13:06:01 -0000
 
-mesa 7.9 build script es_generator.py use libxml2 API xmlLsCountNode,
-which only available in debug module, so remove the --without-debug
-option for mesa 7.9
+talloc is a hierarchical, reference counted memory pool system with destructors.
+It is the core memory allocator used in Samba. Mesa7.9 also depends on it,so add
+it for mesa7.9.
+
+It is ported from OpenEmbedded, with some format modification.
 
 Signed-off-by: Yu Ke <ke.yu@intel.com>
 ---
- meta/recipes-core/libxml/libxml2.inc      |    2 +-
- meta/recipes-core/libxml/libxml2_2.7.7.bb |    2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ meta/recipes-extended/talloc/talloc_2.0.1.bb |   24 ++++++++++++++++++++++++
+ 1 files changed, 24 insertions(+), 0 deletions(-)
+ create mode 100644 meta/recipes-extended/talloc/talloc_2.0.1.bb
 
-diff --git a/meta/recipes-core/libxml/libxml2.inc b/meta/recipes-core/libxml/libxml2.inc
-index 6959b69..748a7fb 100644
---- a/meta/recipes-core/libxml/libxml2.inc
-+++ b/meta/recipes-core/libxml/libxml2.inc
-@@ -20,7 +20,7 @@ SRC_URI = "ftp://xmlsoft.org/libxml2/libxml2-${PV}.tar.gz \
- inherit autotools pkgconfig binconfig
- 
- EXTRA_OECONF = "--without-python --without-debug --without-legacy --without-catalog --without-docbook --with-c14n"
--EXTRA_OECONF_virtclass-native = "--with-python=${STAGING_BINDIR}/python --without-debug --without-legacy --with-catalog --without-docbook --with-c14n"
-+EXTRA_OECONF_virtclass-native = "--with-python=${STAGING_BINDIR}/python --without-legacy --with-catalog --without-docbook --with-c14n"
- 
- # required for pythong binding
- export HOST_SYS
-diff --git a/meta/recipes-core/libxml/libxml2_2.7.7.bb b/meta/recipes-core/libxml/libxml2_2.7.7.bb
-index deb28b3..656cb88 100644
---- a/meta/recipes-core/libxml/libxml2_2.7.7.bb
-+++ b/meta/recipes-core/libxml/libxml2_2.7.7.bb
-@@ -1,3 +1,3 @@
- require libxml2.inc
- 
--PR = "r1"
-+PR = "r2"
+diff --git a/meta/recipes-extended/talloc/talloc_2.0.1.bb b/meta/recipes-extended/talloc/talloc_2.0.1.bb
+new file mode 100644
+index 0000000..dfbaf31
+--- /dev/null
++++ b/meta/recipes-extended/talloc/talloc_2.0.1.bb
+@@ -0,0 +1,24 @@
++DESCRIPTION = "Hierarchical, reference counted memory pool system with destructors"
++HOMEPAGE = "http://talloc.samba.org"
++BUGTRACKER = "https://bugzilla.samba.org/"
++LICENSE = "LGPLv3+"
++LIC_FILES_CHKSUM = "file://talloc.c;beginline=8;endline=26;md5=ea9b6ec07a6d8b3e771f0ec75ca3a317"
++
++PR = "r0"
++
++SRC_URI = "http://samba.org/ftp/${BPN}/${BPN}-${PV}.tar.gz"
++
++SRC_URI[md5sum] = "c6e736540145ca58cb3dcb42f91cf57b"
++SRC_URI[sha256sum] = "5b810527405f29d54f50efd78bf2c89e318f2cd8bed001f22f2a1412fd27c9b4"
++
++inherit autotools pkgconfig
++
++# autoreconf doesn't work well while reconfiguring included libreplace
++do_configure () {
++       gnu-configize
++       oe_runconf
++}
++
++TARGET_CC_ARCH += "${LDFLAGS}"
++
++BBCLASSEXTEND = "native"
 -- 
 1.7.0.4
 
