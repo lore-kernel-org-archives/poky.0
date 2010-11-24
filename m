@@ -1,21 +1,21 @@
 Return-Path: <lei.mei@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 13D6F4C811CF
-	for <poky@yoctoproject.org>; Wed, 24 Nov 2010 05:02:58 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 24 Nov 2010 03:02:57 -0800
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2F3334C811EE
+	for <poky@yoctoproject.org>; Wed, 24 Nov 2010 05:03:01 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 24 Nov 2010 03:03:00 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,247,1288594800"; d="scan'208";a="629869434"
+X-IronPort-AV: E=Sophos;i="4.59,247,1288594800"; d="scan'208";a="680587304"
 Received: from daocaoren-desktop.sh.intel.com (HELO localhost)
 	([10.239.48.112])
-	by fmsmga002.fm.intel.com with ESMTP; 24 Nov 2010 03:02:57 -0800
-Message-Id: <a9489ba77111fc85e0d4da70481f054987a9d662.1290596255.git.lei.mei@intel.com>
+	by orsmga001.jf.intel.com with ESMTP; 24 Nov 2010 03:03:00 -0800
+Message-Id: <cb45aa05e0f5cbf3fd234a28b6eb209b0a9625aa.1290596255.git.lei.mei@intel.com>
 In-Reply-To: <cover.1290596255.git.lei.mei@intel.com>
 References: <cover.1290596255.git.lei.mei@intel.com>
 From: Mei Lei <lei.mei@intel.com>
-Date: Wed, 24 Nov 2010 17:19:32 +0800
+Date: Wed, 24 Nov 2010 18:02:28 +0800
 To: poky@yoctoproject.org
-Subject: [PATCH 11/20] bison:Add license checksum to bb file
+Subject: [PATCH 13/20] diffstat:Add license checksum to bb file
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,28 +27,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 24 Nov 2010 11:02:58 -0000
+X-List-Received-Date: Wed, 24 Nov 2010 11:03:01 -0000
 
-Add COPYING file checksum to bb file
+Add install-sh file checksum to bb file
 
 Signed-off-by: Mei Lei <lei.mei@intel.com>
 ---
- meta/recipes-devtools/bison/bison_2.4.3.bb |    3 ++-
- 1 files changed, 2 insertions(+), 1 deletions(-)
+ meta/recipes-devtools/diffstat/diffstat_1.54.bb |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
 
-diff --git a/meta/recipes-devtools/bison/bison_2.4.3.bb b/meta/recipes-devtools/bison/bison_2.4.3.bb
-index 1d053cf..61ab44a 100644
---- a/meta/recipes-devtools/bison/bison_2.4.3.bb
-+++ b/meta/recipes-devtools/bison/bison_2.4.3.bb
-@@ -1,6 +1,7 @@
- DESCRIPTION = "GNU Project parser generator (yacc replacement)."
- HOMEPAGE = "http://www.gnu.org/software/bison/"
--LICENSE = "GPL"
-+LICENSE = "GPLv3"
-+LIC_FILES_CHKSUM = "file://COPYING;md5=d32239bcb673463ab874e80d47fae504"
+diff --git a/meta/recipes-devtools/diffstat/diffstat_1.54.bb b/meta/recipes-devtools/diffstat/diffstat_1.54.bb
+index 622b52f..8fc51e9 100644
+--- a/meta/recipes-devtools/diffstat/diffstat_1.54.bb
++++ b/meta/recipes-devtools/diffstat/diffstat_1.54.bb
+@@ -6,6 +6,7 @@ PRIORITY = "optional"
  SECTION = "devel"
- PRIORITY = "optional"
- DEPENDS = "gettext bison-native"
+ DEPENDS = "gettext"
+ LICENSE = "MIT"
++LIC_FILES_CHKSUM = "file://install-sh;endline=42;md5=b3549726c1022bee09c174c72a0ca4a5"
+ PR = "r0"
+ 
+ SRC_URI = "ftp://invisible-island.net/diffstat/diffstat-${PV}.tgz"
 -- 
 1.6.3.3
 
