@@ -1,23 +1,26 @@
-Return-Path: <josh@openedhand.com>
-Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9A5DC4C80FAD
-	for <poky@yoctoproject.org>; Wed, 24 Nov 2010 10:06:41 -0600 (CST)
-Received: from [10.250.128.97] (unknown [158.43.2.102])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by pug.o-hand.com (Postfix) with ESMTP id 8B2DE12EC11B;
-	Wed, 24 Nov 2010 10:44:05 -0600 (CST)
-From: Joshua Lock <josh@openedhand.com>
-To: Gary Thomas <gary@mlbassoc.com>
-In-Reply-To: <4CED3737.70900@mlbassoc.com>
-References: <4CED2DC0.2080605@mlbassoc.com>
-	<1290614009.2799.19.camel@scimitar>  <4CED3737.70900@mlbassoc.com>
-Date: Wed, 24 Nov 2010 16:06:31 +0000
-Message-ID: <1290614791.2799.23.camel@scimitar>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.32.1 (2.32.1-1.fc14) 
-Cc: poky@yoctoproject.org
-Subject: Re: Extending SDK
+Return-Path: <saul.wold@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 88B3B4C80052
+	for <poky@yoctoproject.org>; Wed, 24 Nov 2010 10:53:06 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 24 Nov 2010 08:52:55 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.59,249,1288594800"; d="scan'208";a="577223240"
+Received: from unknown (HELO [10.255.13.150]) ([10.255.13.150])
+	by orsmga002.jf.intel.com with ESMTP; 24 Nov 2010 08:52:54 -0800
+Message-ID: <4CED42E6.50703@intel.com>
+Date: Wed, 24 Nov 2010 08:52:54 -0800
+From: Saul Wold <saul.wold@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
+MIME-Version: 1.0
+To: Mark Hatle <mark.hatle@windriver.com>
+References: <1290573970.1858.83.camel@eric-desktop>
+	<4CED1DE9.9020208@windriver.com>
+In-Reply-To: <4CED1DE9.9020208@windriver.com>
+Cc: poky <poky@yoctoproject.org>
+Subject: Re: [PATCH 2/3] Add new package libxml-perl in order to enable graphic LSB test(OLVER-Core test).
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,47 +32,63 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 24 Nov 2010 16:06:41 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Wed, 24 Nov 2010 16:53:06 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Wed, 2010-11-24 at 09:03 -0700, Gary Thomas wrote:
-> On 11/24/2010 08:53 AM, Joshua Lock wrote:
-> > On Wed, 2010-11-24 at 08:22 -0700, Gary Thomas wrote:
-> >> I've built meta-toolchain-sdk and although it was saved in the
-> >> wrong place, all seems to be working well.  Until I tried to
-> >> build a program that uses some package which was not part of
-> >> the "default" set.   In particular, I tried to build 'xeyes'
-> >> outside of Poky using the SDK, but it needs xt and xmu libraries
-> >> which are built for my target, but weren't in the SDK I built.
-> >>
-> >> Questions:
-> >>     * Did I miss something in building the SDK that left these out?
-> >>     * Is there a way, hopefully straight forward, of adding additonal
-> >>       packages to the SDK?  Can this be done incrementally, i.e. I
-> >>       already have an SDK installed, can I do some magic to just add
-> >>       the xt support?
-> >>
-> >
-> > The SDK currently installs a fixed set of packages, the headers deemed
-> > useful for gnome-mobile development - this isn't currently very useful
-> > and is an area I'd like to improve.
-> >
-> > The SDK does come with a package manager (opkg-cl) which you should be
-> > able to configure to point at your existing feeds and then use to
-> > install additional headers into your SDK.
-> 
-> Thanks, I'll give it a try.  I suppose that I'd need to install the -dev
-> packages for the stuff I want?
-> 
+On 11/24/2010 06:15 AM, Mark Hatle wrote:
+> I don't see a DESCRIPTION or SUMMARY field in this new package.
+>
+It's also missing the checksums LIC_FILES_CHKSUM, SRC_URI[md5] and 
+SRC_URI[sha256].
 
-Quite right, I'd recommend the -dbg packages too if you anticipate a
-debugging session.
+The checksums can be generated via their respective programs md5sum and 
+sha256sum.
 
-Cheers,
-Joshua
--- 
-Joshua Lock
-        Intel Open Source Technology Centre
+Please add these to all new recipes.
+
+Thanks
+   Sau!
+
+> --Mark
+>
+> On 11/23/10 10:46 PM, Lu Jingdong wrote:
+>> Signed-off-by: Jingdong Lu<jingdong.lu@windriver.com>
+>> ---
+>>   meta/recipes-devtools/perl/libxml-perl_0.08.bb |   15 +++++++++++++++
+>>   1 files changed, 15 insertions(+), 0 deletions(-)
+>>   create mode 100644 meta/recipes-devtools/perl/libxml-perl_0.08.bb
+>>
+>> diff --git a/meta/recipes-devtools/perl/libxml-perl_0.08.bb
+>> b/meta/recipes-devtools/perl/libxml-perl_0.08.bb
+>> new file mode 100644
+>> index 0000000..6c3c9c7
+>> --- /dev/null
+>> +++ b/meta/recipes-devtools/perl/libxml-perl_0.08.bb
+>> @@ -0,0 +1,15 @@
+>> +SECTION = "libs"
+>> +LICENSE = "Artistic"
+>> +DEPENDS += "libxml-parser-perl"
+>> +
+>> +SRC_URI =
+>> "http://www.cpan.org/modules/by-module/XML/${PN}-${PV}.tar.gz"
+>> +
+>> +EXTRA_CPANFLAGS = "EXPATLIBPATH=${STAGING_LIBDIR} EXPATINCPATH=
+>> ${STAGING_INCDIR}"
+>> +
+>> +inherit cpan
+>> +
+>> +do_compile() {
+>> +       export LIBC="$(find ${STAGING_DIR_TARGET}/${base_libdir}/ -name
+>> 'libc-*.so')"
+>> +       cpan_do_compile
+>> +}
+>> +
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
 
 
