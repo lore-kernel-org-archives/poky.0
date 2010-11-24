@@ -1,21 +1,21 @@
 Return-Path: <lei.mei@intel.com>
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 6E46B4C80B70
-	for <poky@yoctoproject.org>; Wed, 24 Nov 2010 05:02:45 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 24 Nov 2010 03:02:45 -0800
+	by mx1.pokylinux.org (Postfix) with ESMTP id 83A5C4C80B70
+	for <poky@yoctoproject.org>; Wed, 24 Nov 2010 05:02:46 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 24 Nov 2010 03:02:46 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,247,1288594800"; d="scan'208";a="860917167"
+X-IronPort-AV: E=Sophos;i="4.59,247,1288594800"; d="scan'208";a="629869395"
 Received: from daocaoren-desktop.sh.intel.com (HELO localhost)
 	([10.239.48.112])
-	by fmsmga001.fm.intel.com with ESMTP; 24 Nov 2010 03:02:44 -0800
-Message-Id: <890e14cff0ec480fcad4cfdf7f29616722aa20fa.1290596255.git.lei.mei@intel.com>
+	by fmsmga002.fm.intel.com with ESMTP; 24 Nov 2010 03:02:45 -0800
+Message-Id: <0b35808bbf8066337541200f1f4b3d183eb0bc16.1290596255.git.lei.mei@intel.com>
 In-Reply-To: <cover.1290596255.git.lei.mei@intel.com>
 References: <cover.1290596255.git.lei.mei@intel.com>
 From: Mei Lei <lei.mei@intel.com>
-Date: Wed, 24 Nov 2010 13:46:23 +0800
+Date: Wed, 24 Nov 2010 13:53:41 +0800
 To: poky@yoctoproject.org
-Subject: [PATCH 02/20] libffi:Add license checksum to bb file
+Subject: [PATCH 03/20] libgdbus:Add license checksum and update the GPL information
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,27 +27,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 24 Nov 2010 11:02:45 -0000
+X-List-Received-Date: Wed, 24 Nov 2010 11:02:46 -0000
 
-Add LICENSE file checksum to bb file
+Add COPYING and COPYING.LIB files checksum to bb file and update the "GPL" to "GPLv2", "LGPL" to "LGPLv2.1" according to the license files
 
 Signed-off-by: Mei Lei <lei.mei@intel.com>
 ---
- meta/recipes-gnome/libffi/libffi_3.0.9.bb |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ meta/recipes-support/libgdbus/libgdbus_git.bb |    4 +++-
+ 1 files changed, 3 insertions(+), 1 deletions(-)
 
-diff --git a/meta/recipes-gnome/libffi/libffi_3.0.9.bb b/meta/recipes-gnome/libffi/libffi_3.0.9.bb
-index 3959ef2..7e3c1d8 100644
---- a/meta/recipes-gnome/libffi/libffi_3.0.9.bb
-+++ b/meta/recipes-gnome/libffi/libffi_3.0.9.bb
-@@ -1,6 +1,6 @@
- SRC_URI = "ftp://sourceware.org/pub/libffi/${BPN}-${PV}.tar.gz"
- LICENSE = "MIT"
--
-+LIC_FILES_CHKSUM = "file://LICENSE;md5=fa09cb778aaba64dc9eac37ab7e4e5d8"
- inherit autotools
- 
- BBCLASSEXTEND = "native"
+diff --git a/meta/recipes-support/libgdbus/libgdbus_git.bb b/meta/recipes-support/libgdbus/libgdbus_git.bb
+index f0101f9..c465023 100644
+--- a/meta/recipes-support/libgdbus/libgdbus_git.bb
++++ b/meta/recipes-support/libgdbus/libgdbus_git.bb
+@@ -1,6 +1,8 @@
+ HOMEPAGE = "http://www.moblin.org/projects/projects_connman.php"
+ SUMMARY  = "Moblin Glib D-Bus integration"
+-LICENSE  = "GPL LGPL"
++LICENSE  = "GPLv2&LGPLv2.1"
++LIC_FILES_CHKSUM = "file://COPYING;md5=12f884d2ae1ff87c09e5b7ccc2c4ca7e \
++		    file://COPYING.LIB;md5=fb504b67c50331fc78734fed90fb0e09"
+ DEPENDS  = "glib-2.0 dbus"
+ PV       = "0.0+git${SRCREV}"
+ S        = "${WORKDIR}/git"
 -- 
 1.6.3.3
 
