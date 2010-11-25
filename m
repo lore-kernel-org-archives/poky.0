@@ -1,21 +1,25 @@
-Return-Path: <lei.mei@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A51564C81103
-	for <poky@yoctoproject.org>; Thu, 25 Nov 2010 04:50:58 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 25 Nov 2010 02:50:52 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,253,1288594800"; d="scan'208";a="680967018"
-Received: from daocaoren-desktop.sh.intel.com (HELO localhost)
-	([10.239.48.112])
-	by orsmga001.jf.intel.com with ESMTP; 25 Nov 2010 02:50:51 -0800
-Message-Id: <acadf08a588a5927441120f2d1765cf2075f64d7.1290681886.git.lei.mei@intel.com>
-In-Reply-To: <cover.1290681886.git.lei.mei@intel.com>
-References: <cover.1290681886.git.lei.mei@intel.com>
-From: Mei Lei <lei.mei@intel.com>
-Date: Thu, 25 Nov 2010 18:41:57 +0800
-To: poky@yoctoproject.org
-Subject: [PATCH 20/20] flex:Add license checksum and add the license information
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id CEB5D4C810FF
+	for <poky@lists.pokylinux.org>; Thu, 25 Nov 2010 05:06:49 -0600 (CST)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 98C9A166090D; Thu, 25 Nov 2010 04:06:48 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=ham version=3.3.1
+Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id B2BD31660855;
+	Thu, 25 Nov 2010 04:06:47 -0700 (MST)
+Message-ID: <4CEE4347.1070700@mlbassoc.com>
+Date: Thu, 25 Nov 2010 04:06:47 -0700
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.12) Gecko/20101027 Fedora/3.1.6-1.fc13 Thunderbird/3.1.6
+MIME-Version: 1.0
+To: Poky <poky@lists.pokylinux.org>
+Subject: bitbake listtasks broken
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,27 +31,43 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 25 Nov 2010 10:50:58 -0000
+X-List-Received-Date: Thu, 25 Nov 2010 11:06:50 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Add COPYING file checksum to bb file and add the "BSD" information according to the COPYING file
+Filed as bug #548
 
-Signed-off-by: Mei Lei <lei.mei@intel.com>
----
- meta/recipes-devtools/flex/flex_2.5.35.bb |    3 ++-
- 1 files changed, 2 insertions(+), 1 deletions(-)
+This command [no longer?] produces any output:
+   bitbake recipe -c listtasks
 
-diff --git a/meta/recipes-devtools/flex/flex_2.5.35.bb b/meta/recipes-devtools/flex/flex_2.5.35.bb
-index eddaa48..9b59a72 100644
---- a/meta/recipes-devtools/flex/flex_2.5.35.bb
-+++ b/meta/recipes-devtools/flex/flex_2.5.35.bb
-@@ -1,4 +1,5 @@
- require flex.inc
- PR = "r1"
--
-+LICENSE="BSD"
-+LIC_FILES_CHKSUM = "file://COPYING;md5=e4742cf92e89040b39486a6219b68067"
- BBCLASSEXTEND = "native"
+$ bitbake qemu -c listtasks
+NOTE: Handling BitBake files: | (0756/0756) [100 %]
+Parsing of 756 .bb files complete (0 cached, 756 parsed). 913 targets, 34 skipped, 0 masked, 0 errors.
+
+OE Build Configuration:
+BB_VERSION        = "1.11.0"
+METADATA_BRANCH   = "local_master"
+METADATA_REVISION = "94b1fda09671b58aafb54983e4a6e499f6ffc369"
+TARGET_ARCH       = "i586"
+TARGET_OS         = "linux"
+MACHINE           = "qemux86"
+DISTRO            = "poky"
+DISTRO_VERSION    = "0.9+snapshot-20101125"
+TARGET_FPU        = ""
+
+NOTE: Resolving any missing task queue dependencies
+NOTE: Preparing runqueue
+NOTE: Executing runqueue
+NOTE: Full skip list set([])
+NOTE: Running task 1 of 1 (ID: 0, /tmp/poky-amltd/meta/recipes-devtools/qemu/qemu_0.12.4.bb, do_listtasks)
+NOTE: package qemu-0.12.4-r22: task do_listtasks: Started
+NOTE: package qemu-0.12.4-r22: task do_listtasks: Succeeded
+NOTE: Tasks Summary: Attempted 1 tasks of which 0 didn't need to be rerun and 0 failed.
+
+
 -- 
-1.6.3.3
-
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
