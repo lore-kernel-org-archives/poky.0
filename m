@@ -1,21 +1,21 @@
 Return-Path: <ke.yu@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C97CB4C8110E
-	for <poky@yoctoproject.org>; Thu, 25 Nov 2010 08:17:40 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 25 Nov 2010 06:17:40 -0800
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8CE814C811D0
+	for <poky@yoctoproject.org>; Thu, 25 Nov 2010 08:17:42 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 25 Nov 2010 06:17:42 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,255,1288594800"; d="scan'208";a="681015202"
+X-IronPort-AV: E=Sophos;i="4.59,255,1288594800"; d="scan'208";a="577577452"
 Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.154.168])
-	by orsmga001.jf.intel.com with ESMTP; 25 Nov 2010 06:17:39 -0800
-Message-Id: <44758360af1258c28c961549409171277a0f123e.1290689785.git.ke.yu@intel.com>
+	by orsmga002.jf.intel.com with ESMTP; 25 Nov 2010 06:17:41 -0800
+Message-Id: <b6941f9da10ebccaac7aebb0fec2b08949ad5fdb.1290689785.git.ke.yu@intel.com>
 In-Reply-To: <cover.1290689785.git.ke.yu@intel.com>
 References: <cover.1290689785.git.ke.yu@intel.com>
 From: Yu Ke <ke.yu@intel.com>
-Date: Thu, 25 Nov 2010 20:12:39 +0800
+Date: Thu, 25 Nov 2010 20:13:45 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 3/8] libdrm: add license checksum
+Subject: [PATCH 4/8] qemugl: add license checksum
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,25 +27,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 25 Nov 2010 14:17:41 -0000
+X-List-Received-Date: Thu, 25 Nov 2010 14:17:42 -0000
+
+also correct the license type according to the src
 
 Signed-off-by: Yu Ke <ke.yu@intel.com>
 ---
- meta/recipes-graphics/drm/libdrm_2.4.22.bb |    2 ++
- 1 files changed, 2 insertions(+), 0 deletions(-)
+ meta/recipes-graphics/mesa/qemugl_git.bb |    4 +++-
+ 1 files changed, 3 insertions(+), 1 deletions(-)
 
-diff --git a/meta/recipes-graphics/drm/libdrm_2.4.22.bb b/meta/recipes-graphics/drm/libdrm_2.4.22.bb
-index e0c0f01..d8e0fff 100644
---- a/meta/recipes-graphics/drm/libdrm_2.4.22.bb
-+++ b/meta/recipes-graphics/drm/libdrm_2.4.22.bb
-@@ -1,5 +1,7 @@
- require libdrm.inc
+diff --git a/meta/recipes-graphics/mesa/qemugl_git.bb b/meta/recipes-graphics/mesa/qemugl_git.bb
+index 8f89291..19d6557 100644
+--- a/meta/recipes-graphics/mesa/qemugl_git.bb
++++ b/meta/recipes-graphics/mesa/qemugl_git.bb
+@@ -1,7 +1,9 @@
+ DESCRIPTION = "QEMU i386 OpenGL passtrough"
+ HOMEPAGE = "http://savannah.nongnu.org/projects/qemugl"
+ SECTION = "x11/drivers"
+-LICENSE = "GPL"
++LICENSE = "MIT"
++LIC_FILES_CHKSUM = "file://opengl_client.c;beginline=4;endline=23;md5=a7dbe915be5fb5df8fd496f348ed9a05 \
++                    file://parse_mesa_get_c.c;befinline=4;endline=23;md5=a55f258f32720c9565a425a3956bcb5e"
  
-+LIC_FILES_CHKSUM = "file://xf86drm.c;beginline=9;endline=32;md5=c8a3b961af7667c530816761e949dc71"
-+
- SRC_URI += "file://installtests.patch"
- SRC_URI[md5sum] = "3bdfa33f35d1c902e5115cceb5500c83"
- SRC_URI[sha256sum] = "0bb0e594e4094d9000d80f38e96e8f640b6364f96cfef5b970cf4481443c6b3d"
+ DEPENDS = "virtual/libx11 xproto glproto libxfixes"
+ 
 -- 
 1.7.0.4
 
