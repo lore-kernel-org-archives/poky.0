@@ -1,27 +1,19 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 62E8E4C810C1
-	for <poky@lists.pokylinux.org>; Thu, 25 Nov 2010 05:38:08 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 24F9116608B5; Thu, 25 Nov 2010 04:38:08 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=ham version=3.3.1
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 2CCB016608B5;
-	Thu, 25 Nov 2010 04:38:07 -0700 (MST)
-Message-ID: <4CEE4A9E.6030107@mlbassoc.com>
-Date: Thu, 25 Nov 2010 04:38:06 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.12) Gecko/20101027 Fedora/3.1.6-1.fc13 Thunderbird/3.1.6
-MIME-Version: 1.0
-To: Poky <poky@lists.pokylinux.org>
-References: <4CEE4347.1070700@mlbassoc.com>
-In-Reply-To: <4CEE4347.1070700@mlbassoc.com>
-Subject: Re: bitbake listtasks broken
+Return-Path: <ke.yu@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 003E34C80FA4
+	for <poky@yoctoproject.org>; Thu, 25 Nov 2010 08:17:35 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 25 Nov 2010 06:17:35 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.59,255,1288594800"; d="scan'208";a="861347304"
+Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.154.168])
+	by fmsmga001.fm.intel.com with ESMTP; 25 Nov 2010 06:17:35 -0800
+Message-Id: <cover.1290689785.git.ke.yu@intel.com>
+From: Yu Ke <ke.yu@intel.com>
+Date: Thu, 25 Nov 2010 20:56:25 +0800
+To: poky@yoctoproject.org
+CC: 
+Subject: [PATCH 0/8] add license checksum
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,47 +25,45 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 25 Nov 2010 11:38:08 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 25 Nov 2010 14:17:36 -0000
 
-On 11/25/2010 04:06 AM, Gary Thomas wrote:
-> Filed as bug #548
->
-> This command [no longer?] produces any output:
-> bitbake recipe -c listtasks
->
-> $ bitbake qemu -c listtasks
-> NOTE: Handling BitBake files: | (0756/0756) [100 %]
-> Parsing of 756 .bb files complete (0 cached, 756 parsed). 913 targets, 34 skipped, 0 masked, 0 errors.
->
-> OE Build Configuration:
-> BB_VERSION = "1.11.0"
-> METADATA_BRANCH = "local_master"
-> METADATA_REVISION = "94b1fda09671b58aafb54983e4a6e499f6ffc369"
-> TARGET_ARCH = "i586"
-> TARGET_OS = "linux"
-> MACHINE = "qemux86"
-> DISTRO = "poky"
-> DISTRO_VERSION = "0.9+snapshot-20101125"
-> TARGET_FPU = ""
->
-> NOTE: Resolving any missing task queue dependencies
-> NOTE: Preparing runqueue
-> NOTE: Executing runqueue
-> NOTE: Full skip list set([])
-> NOTE: Running task 1 of 1 (ID: 0, /tmp/poky-amltd/meta/recipes-devtools/qemu/qemu_0.12.4.bb, do_listtasks)
-> NOTE: package qemu-0.12.4-r22: task do_listtasks: Started
-> NOTE: package qemu-0.12.4-r22: task do_listtasks: Succeeded
-> NOTE: Tasks Summary: Attempted 1 tasks of which 0 didn't need to be rerun and 0 failed.
+add license checksum for:
+- fotowall
+- iputils
+- libdrm
+- qemugl
+- xf86-video-vesa
+- xf86-input-synaptics
+- xf86-video-intel
+- xf86-video-omapfb
 
-To be fair, it does do something, but the results are hidden in
-the temp/log.do_listtasks file.  Certainly not what the documentation
-implies...
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: kyu3/license
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kyu3/license
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+Thanks,
+    Yu Ke <ke.yu@intel.com>
+---
+
+
+Yu Ke (8):
+  fotowall: add license checksum
+  iputils: add license checksum
+  libdrm: add license checksum
+  qemugl: add license checksum
+  xf86-video-vesa: add license checksum
+  xf86-input-synaptics: add license checksum
+  xf86-video-intel: add license checksum
+  xf86-video-omapfb: add license checksum
+
+ meta/recipes-extended/iputils/iputils_s20100418.bb |    5 +++++
+ meta/recipes-graphics/drm/libdrm_2.4.22.bb         |    2 ++
+ meta/recipes-graphics/mesa/qemugl_git.bb           |    4 +++-
+ .../xorg-driver/xf86-input-synaptics_1.2.1.bb      |    2 ++
+ .../xorg-driver/xf86-video-intel_2.13.0.bb         |    2 ++
+ .../xorg-driver/xf86-video-omapfb_git.bb           |    2 ++
+ .../xorg-driver/xf86-video-vesa_2.3.0.bb           |    2 ++
+ meta/recipes-qt/qt-apps/fotowall_0.9.bb            |    2 ++
+ 8 files changed, 20 insertions(+), 1 deletions(-)
+
 
