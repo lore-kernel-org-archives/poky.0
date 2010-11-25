@@ -1,21 +1,21 @@
 Return-Path: <dongxiao.xu@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D06BE4C8112F
-	for <poky@yoctoproject.org>; Fri, 26 Nov 2010 00:53:36 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 25 Nov 2010 22:53:36 -0800
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 406F54C8112F
+	for <poky@yoctoproject.org>; Fri, 26 Nov 2010 00:53:38 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 25 Nov 2010 22:53:38 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,260,1288594800"; d="scan'208";a="630447404"
+X-IronPort-AV: E=Sophos;i="4.59,259,1288594800"; d="scan'208";a="353434695"
 Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.9])
-	by fmsmga002.fm.intel.com with ESMTP; 25 Nov 2010 22:53:36 -0800
-Message-Id: <55bbd1a7e860a8a30cc9d028afc2ef762218fd10.1290736298.git.dongxiao.xu@intel.com>
+	by azsmga001.ch.intel.com with ESMTP; 25 Nov 2010 22:53:37 -0800
+Message-Id: <8c363b8bf3bff2d85ef05fafe56ee63cae1337f7.1290736298.git.dongxiao.xu@intel.com>
 In-Reply-To: <cover.1290736297.git.dongxiao.xu@intel.com>
 References: <cover.1290736297.git.dongxiao.xu@intel.com>
 From: Dongxiao Xu <dongxiao.xu@intel.com>
-Date: Wed, 24 Nov 2010 11:35:18 +0800
+Date: Thu, 25 Nov 2010 13:48:07 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 06/14] minicom: Upgrade to version 2.4
+Subject: [PATCH 07/14] wpa-supplicant: Upgrade to version 0.7.3
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,82 +27,117 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 26 Nov 2010 06:53:37 -0000
-
-Fixed its metadata
+X-List-Received-Date: Fri, 26 Nov 2010 06:53:38 -0000
 
 Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
 ---
- .../{minicom-2.3 => minicom-2.4}/gcc4-scope.patch  |    0
- .../rename-conflicting-functions.patch             |    0
- meta/recipes-extended/minicom/minicom_2.3.bb       |   18 ----------------
- meta/recipes-extended/minicom/minicom_2.4.bb       |   22 ++++++++++++++++++++
- 4 files changed, 22 insertions(+), 18 deletions(-)
- rename meta/recipes-extended/minicom/{minicom-2.3 => minicom-2.4}/gcc4-scope.patch (100%)
- rename meta/recipes-extended/minicom/{minicom-2.3 => minicom-2.4}/rename-conflicting-functions.patch (100%)
- delete mode 100644 meta/recipes-extended/minicom/minicom_2.3.bb
- create mode 100644 meta/recipes-extended/minicom/minicom_2.4.bb
+ meta/conf/distro/include/poky-fixed-revisions.inc  |    2 +-
+ .../99_wpa_supplicant                              |    0
+ .../defaults-sane                                  |    0
+ .../defconfig                                      |    0
+ .../defconfig-gnutls                               |    0
+ .../init.sh                                        |    0
+ .../wpa-supplicant.sh                              |    0
+ .../wpa_supplicant-0.5.7-always-scan.patch         |    0
+ ...a_supplicant-fix-deprecated-dbus-function.patch |    0
+ .../wpa_supplicant.conf                            |    0
+ .../wpa_supplicant.conf-sane                       |    0
+ .../wpa_supplicant_default.conf                    |    0
+ .../wpa-supplicant/wpa-supplicant_0.7.2.bb         |    3 ---
+ .../wpa-supplicant/wpa-supplicant_0.7.3.bb         |    6 ++++++
+ 14 files changed, 7 insertions(+), 4 deletions(-)
+ rename meta/recipes-connectivity/wpa-supplicant/{wpa-supplicant-0.7.2 => wpa-supplicant-0.7.3}/99_wpa_supplicant (100%)
+ rename meta/recipes-connectivity/wpa-supplicant/{wpa-supplicant-0.7.2 => wpa-supplicant-0.7.3}/defaults-sane (100%)
+ rename meta/recipes-connectivity/wpa-supplicant/{wpa-supplicant-0.7.2 => wpa-supplicant-0.7.3}/defconfig (100%)
+ rename meta/recipes-connectivity/wpa-supplicant/{wpa-supplicant-0.7.2 => wpa-supplicant-0.7.3}/defconfig-gnutls (100%)
+ rename meta/recipes-connectivity/wpa-supplicant/{wpa-supplicant-0.7.2 => wpa-supplicant-0.7.3}/init.sh (100%)
+ rename meta/recipes-connectivity/wpa-supplicant/{wpa-supplicant-0.7.2 => wpa-supplicant-0.7.3}/wpa-supplicant.sh (100%)
+ rename meta/recipes-connectivity/wpa-supplicant/{wpa-supplicant-0.7.2 => wpa-supplicant-0.7.3}/wpa_supplicant-0.5.7-always-scan.patch (100%)
+ rename meta/recipes-connectivity/wpa-supplicant/{wpa-supplicant-0.7.2 => wpa-supplicant-0.7.3}/wpa_supplicant-fix-deprecated-dbus-function.patch (100%)
+ rename meta/recipes-connectivity/wpa-supplicant/{wpa-supplicant-0.7.2 => wpa-supplicant-0.7.3}/wpa_supplicant.conf (100%)
+ rename meta/recipes-connectivity/wpa-supplicant/{wpa-supplicant-0.7.2 => wpa-supplicant-0.7.3}/wpa_supplicant.conf-sane (100%)
+ rename meta/recipes-connectivity/wpa-supplicant/{wpa-supplicant-0.7.2 => wpa-supplicant-0.7.3}/wpa_supplicant_default.conf (100%)
+ delete mode 100644 meta/recipes-connectivity/wpa-supplicant/wpa-supplicant_0.7.2.bb
+ create mode 100644 meta/recipes-connectivity/wpa-supplicant/wpa-supplicant_0.7.3.bb
 
-diff --git a/meta/recipes-extended/minicom/minicom-2.3/gcc4-scope.patch b/meta/recipes-extended/minicom/minicom-2.4/gcc4-scope.patch
+diff --git a/meta/conf/distro/include/poky-fixed-revisions.inc b/meta/conf/distro/include/poky-fixed-revisions.inc
+index 0eb2af4..c437a1c 100644
+--- a/meta/conf/distro/include/poky-fixed-revisions.inc
++++ b/meta/conf/distro/include/poky-fixed-revisions.inc
+@@ -6,7 +6,7 @@ PREFERRED_VERSION_elfutils ?= "0.89"
+ PREFERRED_VERSION_hal ?= "0.5.14"
+ PREFERRED_VERSION_hal-info ?= "20091130"
+ PREFERRED_VERSION_udev ?= "158"
+-PREFERRED_VERSION_wpa-supplicant ?= "0.6.10"
++PREFERRED_VERSION_wpa-supplicant ?= "0.7.3"
+ 
+ # Force the python versions in one place
+ PYTHON_BASEVERSION ?= "2.6"
+diff --git a/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.2/99_wpa_supplicant b/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.3/99_wpa_supplicant
 similarity index 100%
-rename from meta/recipes-extended/minicom/minicom-2.3/gcc4-scope.patch
-rename to meta/recipes-extended/minicom/minicom-2.4/gcc4-scope.patch
-diff --git a/meta/recipes-extended/minicom/minicom-2.3/rename-conflicting-functions.patch b/meta/recipes-extended/minicom/minicom-2.4/rename-conflicting-functions.patch
+rename from meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.2/99_wpa_supplicant
+rename to meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.3/99_wpa_supplicant
+diff --git a/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.2/defaults-sane b/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.3/defaults-sane
 similarity index 100%
-rename from meta/recipes-extended/minicom/minicom-2.3/rename-conflicting-functions.patch
-rename to meta/recipes-extended/minicom/minicom-2.4/rename-conflicting-functions.patch
-diff --git a/meta/recipes-extended/minicom/minicom_2.3.bb b/meta/recipes-extended/minicom/minicom_2.3.bb
+rename from meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.2/defaults-sane
+rename to meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.3/defaults-sane
+diff --git a/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.2/defconfig b/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.3/defconfig
+similarity index 100%
+rename from meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.2/defconfig
+rename to meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.3/defconfig
+diff --git a/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.2/defconfig-gnutls b/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.3/defconfig-gnutls
+similarity index 100%
+rename from meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.2/defconfig-gnutls
+rename to meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.3/defconfig-gnutls
+diff --git a/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.2/init.sh b/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.3/init.sh
+similarity index 100%
+rename from meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.2/init.sh
+rename to meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.3/init.sh
+diff --git a/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.2/wpa-supplicant.sh b/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.3/wpa-supplicant.sh
+similarity index 100%
+rename from meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.2/wpa-supplicant.sh
+rename to meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.3/wpa-supplicant.sh
+diff --git a/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.2/wpa_supplicant-0.5.7-always-scan.patch b/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.3/wpa_supplicant-0.5.7-always-scan.patch
+similarity index 100%
+rename from meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.2/wpa_supplicant-0.5.7-always-scan.patch
+rename to meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.3/wpa_supplicant-0.5.7-always-scan.patch
+diff --git a/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.2/wpa_supplicant-fix-deprecated-dbus-function.patch b/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.3/wpa_supplicant-fix-deprecated-dbus-function.patch
+similarity index 100%
+rename from meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.2/wpa_supplicant-fix-deprecated-dbus-function.patch
+rename to meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.3/wpa_supplicant-fix-deprecated-dbus-function.patch
+diff --git a/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.2/wpa_supplicant.conf b/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.3/wpa_supplicant.conf
+similarity index 100%
+rename from meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.2/wpa_supplicant.conf
+rename to meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.3/wpa_supplicant.conf
+diff --git a/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.2/wpa_supplicant.conf-sane b/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.3/wpa_supplicant.conf-sane
+similarity index 100%
+rename from meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.2/wpa_supplicant.conf-sane
+rename to meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.3/wpa_supplicant.conf-sane
+diff --git a/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.2/wpa_supplicant_default.conf b/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.3/wpa_supplicant_default.conf
+similarity index 100%
+rename from meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.2/wpa_supplicant_default.conf
+rename to meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.3/wpa_supplicant_default.conf
+diff --git a/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant_0.7.2.bb b/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant_0.7.2.bb
 deleted file mode 100644
-index c327e94..0000000
---- a/meta/recipes-extended/minicom/minicom_2.3.bb
+index d1f6c6d..0000000
+--- a/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant_0.7.2.bb
 +++ /dev/null
-@@ -1,18 +0,0 @@
--SECTION = "console/network"
--DEPENDS = "ncurses"
--LICENSE = "GPLv2"
--LIC_FILES_CHKSUM = "file://COPYING;md5=420477abc567404debca0a2a1cb6b645"
--SRC_URI = "http://alioth.debian.org/frs/download.php/2332/minicom-${PV}.tar.gz \
--	file://rename-conflicting-functions.patch \
--	"
+@@ -1,3 +0,0 @@
+-require wpa-supplicant-0.7.inc
 -
--#	file://gcc4-scope.patch;patch=1 \
--
--inherit autotools gettext
--
--do_install() {
--	for d in doc extras man lib src; do make -C $d DESTDIR=${D} install; done
--}
--
--SRC_URI[md5sum] = "0ebe7a91898384ca906787cc4e2c3f25"
--SRC_URI[sha256sum] = "2acbc3d4a07e1134ee285a72fa44bbc27703b02dba02be68db9e6fd8320356fb"
-diff --git a/meta/recipes-extended/minicom/minicom_2.4.bb b/meta/recipes-extended/minicom/minicom_2.4.bb
+-PR = "r1"
+diff --git a/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant_0.7.3.bb b/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant_0.7.3.bb
 new file mode 100644
-index 0000000..439dbd7
+index 0000000..2d7729c
 --- /dev/null
-+++ b/meta/recipes-extended/minicom/minicom_2.4.bb
-@@ -0,0 +1,22 @@
-+SUMMARY = "Text-based modem control and terminal emulation program"
-+DESCRIPTION = "Minicom is a text-based modem control and terminal emulation program for Unix-like operating systems"
-+SECTION = "console/network"
-+DEPENDS = "ncurses"
-+LICENSE = "GPLv2+"
-+LIC_FILES_CHKSUM = "file://COPYING;md5=420477abc567404debca0a2a1cb6b645 \
-+                    file://src/minicom.h;beginline=1;endline=12;md5=a58838cb709f0db517f4e42730c49e81"
++++ b/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant_0.7.3.bb
+@@ -0,0 +1,6 @@
++require wpa-supplicant-0.7.inc
 +
-+SRC_URI = "http://alioth.debian.org/frs/download.php/3195/minicom-${PV}.tar.gz \
-+	file://rename-conflicting-functions.patch \
-+	"
++PR = "r0"
 +
-+#	file://gcc4-scope.patch;patch=1 \
-+
-+inherit autotools gettext
-+
-+do_install() {
-+	for d in doc extras man lib src; do make -C $d DESTDIR=${D} install; done
-+}
-+
-+SRC_URI[md5sum] = "700976a3c2dcc8bbd50ab9bb1c08837b"
-+SRC_URI[sha256sum] = "700976a3c2dcc8bbd50ab9bb1c08837b"
++SRC_URI[md5sum] = "f516f191384a9a546e3f5145c08addda"
++SRC_URI[sha256sum] = "d0cd50caa85346ccc376dcda5ed3c258eef19a93b3cade39d25760118ad59443"
 -- 
 1.6.3.3
 
