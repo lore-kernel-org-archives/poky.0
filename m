@@ -1,21 +1,21 @@
 Return-Path: <ke.yu@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7012F4C80FAD
-	for <poky@yoctoproject.org>; Thu, 25 Nov 2010 08:17:39 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 25 Nov 2010 06:17:38 -0800
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C97CB4C8110E
+	for <poky@yoctoproject.org>; Thu, 25 Nov 2010 08:17:40 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 25 Nov 2010 06:17:40 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,255,1288594800"; d="scan'208";a="353208661"
+X-IronPort-AV: E=Sophos;i="4.59,255,1288594800"; d="scan'208";a="681015202"
 Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.154.168])
-	by azsmga001.ch.intel.com with ESMTP; 25 Nov 2010 06:17:38 -0800
-Message-Id: <6a00413dbf1684b4d8e72db2a8086824a66f1374.1290689785.git.ke.yu@intel.com>
+	by orsmga001.jf.intel.com with ESMTP; 25 Nov 2010 06:17:39 -0800
+Message-Id: <44758360af1258c28c961549409171277a0f123e.1290689785.git.ke.yu@intel.com>
 In-Reply-To: <cover.1290689785.git.ke.yu@intel.com>
 References: <cover.1290689785.git.ke.yu@intel.com>
 From: Yu Ke <ke.yu@intel.com>
-Date: Thu, 25 Nov 2010 19:51:08 +0800
+Date: Thu, 25 Nov 2010 20:12:39 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 2/8] iputils: add license checksum
+Subject: [PATCH 3/8] libdrm: add license checksum
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,29 +27,25 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 25 Nov 2010 14:17:39 -0000
+X-List-Received-Date: Thu, 25 Nov 2010 14:17:41 -0000
 
 Signed-off-by: Yu Ke <ke.yu@intel.com>
 ---
- meta/recipes-extended/iputils/iputils_s20100418.bb |    5 +++++
- 1 files changed, 5 insertions(+), 0 deletions(-)
+ meta/recipes-graphics/drm/libdrm_2.4.22.bb |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
 
-diff --git a/meta/recipes-extended/iputils/iputils_s20100418.bb b/meta/recipes-extended/iputils/iputils_s20100418.bb
-index 3f793ec..bdb5265 100644
---- a/meta/recipes-extended/iputils/iputils_s20100418.bb
-+++ b/meta/recipes-extended/iputils/iputils_s20100418.bb
-@@ -5,6 +5,11 @@ SECTION = "console/network"
+diff --git a/meta/recipes-graphics/drm/libdrm_2.4.22.bb b/meta/recipes-graphics/drm/libdrm_2.4.22.bb
+index e0c0f01..d8e0fff 100644
+--- a/meta/recipes-graphics/drm/libdrm_2.4.22.bb
++++ b/meta/recipes-graphics/drm/libdrm_2.4.22.bb
+@@ -1,5 +1,7 @@
+ require libdrm.inc
  
- LICENSE = "BSD & GPLv2+"
- 
-+LIC_FILES_CHKSUM = "file://ping.c;beginline=1;endline=35;md5=f9ceb201733e9a6cf8f00766dd278d82 \
-+                    file://tracepath.c;beginline=1;endline=10;md5=0ecea2bf60bff2f3d840096d87647f3d \
-+                    file://arping.c;beginline=1;endline=10;md5=ada2a6d06acc90f943bddf40d15e0541 \
-+                    file://tftpd.c;beginline=1;endline=32;md5=28834bf8a91a5b8a92755dbee709ef96 "
++LIC_FILES_CHKSUM = "file://xf86drm.c;beginline=9;endline=32;md5=c8a3b961af7667c530816761e949dc71"
 +
- DEPENDS = "sysfsutils openssl"
- 
- PR = "r0"
+ SRC_URI += "file://installtests.patch"
+ SRC_URI[md5sum] = "3bdfa33f35d1c902e5115cceb5500c83"
+ SRC_URI[sha256sum] = "0bb0e594e4094d9000d80f38e96e8f640b6364f96cfef5b970cf4481443c6b3d"
 -- 
 1.7.0.4
 
