@@ -1,21 +1,21 @@
 Return-Path: <edwin.zhai@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5AA934C811D3
-	for <poky@yoctoproject.org>; Thu,  2 Dec 2010 23:32:04 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 02 Dec 2010 21:32:03 -0800
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id B1B5C4C8110E
+	for <poky@yoctoproject.org>; Thu,  2 Dec 2010 23:32:08 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 02 Dec 2010 21:32:08 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,291,1288594800"; d="scan'208";a="356478241"
+X-IronPort-AV: E=Sophos;i="4.59,291,1288594800"; d="scan'208";a="632665778"
 Received: from gw-vmm.sh.intel.com (HELO localhost) ([10.239.48.110])
-	by azsmga001.ch.intel.com with ESMTP; 02 Dec 2010 21:32:03 -0800
-Message-Id: <e59ed8befd3ebff29fc66e1dec9f7fe1eac3ae71.1291354553.git.edwin.zhai@intel.com>
+	by fmsmga002.fm.intel.com with ESMTP; 02 Dec 2010 21:31:46 -0800
+Message-Id: <395b62cff797f309fe312a6824ada879d2924e86.1291354553.git.edwin.zhai@intel.com>
 In-Reply-To: <cover.1291354552.git.edwin.zhai@intel.com>
 References: <cover.1291354552.git.edwin.zhai@intel.com>
 From: Zhai Edwin <edwin.zhai@intel.com>
-Date: Wed, 1 Dec 2010 13:45:21 +0800
+Date: Fri, 26 Nov 2010 23:10:16 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 14/14] gtk-engines: Update to 2.20.2
+Subject: [PATCH 02/14] tidy: Add license checksum
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,38 +27,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 03 Dec 2010 05:32:04 -0000
+X-List-Received-Date: Fri, 03 Dec 2010 05:32:08 -0000
 
 Signed-off-by: Zhai Edwin <edwin.zhai@intel.com>
 ---
- ...gtk-engines_2.14.0.bb => gtk-engines_2.20.2.bb} |   11 ++++++++---
- 1 files changed, 8 insertions(+), 3 deletions(-)
- rename meta/recipes-gnome/gtk-engines/{gtk-engines_2.14.0.bb => gtk-engines_2.20.2.bb} (85%)
+ meta/recipes-graphics/clutter/tidy.inc    |    2 +-
+ meta/recipes-graphics/clutter/tidy_git.bb |    3 +++
+ 2 files changed, 4 insertions(+), 1 deletions(-)
 
-diff --git a/meta/recipes-gnome/gtk-engines/gtk-engines_2.14.0.bb b/meta/recipes-gnome/gtk-engines/gtk-engines_2.20.2.bb
-similarity index 85%
-rename from meta/recipes-gnome/gtk-engines/gtk-engines_2.14.0.bb
-rename to meta/recipes-gnome/gtk-engines/gtk-engines_2.20.2.bb
-index d711f07..3cbc4d7 100644
---- a/meta/recipes-gnome/gtk-engines/gtk-engines_2.14.0.bb
-+++ b/meta/recipes-gnome/gtk-engines/gtk-engines_2.20.2.bb
-@@ -1,9 +1,14 @@
--LICENSE = "GPL"
--SECTION = "x11/base"
- DESCRIPTION = "GTK theme engines"
-+HOMEPAGE = "http://www.gnome.org/"
-+BUGTRACKER = "https://bugzilla.gnome.org/"
-+
-+LICENSE = "LGPLv2.1"
-+LIC_FILES_CHKSUM = "file://COPYING;md5=2d5025d4aa3495befef8f17206a5b0a1"
-+
-+SECTION = "x11/base"
- DEPENDS = "gtk+"
+diff --git a/meta/recipes-graphics/clutter/tidy.inc b/meta/recipes-graphics/clutter/tidy.inc
+index 7d5862b..1968591 100644
+--- a/meta/recipes-graphics/clutter/tidy.inc
++++ b/meta/recipes-graphics/clutter/tidy.inc
+@@ -1,6 +1,6 @@
+ DESCRIPTION = "Tidy library"
+ HOMEPAGE = "http://www.clutter-project.org/"
+-LICENSE = "LGPL"
++LICENSE = "LGPLv2.1+"
  
--PR = "r1"
-+PR = "r0"
+ STDDEPENDS = "clutter-1.0"
+ BASE_CONF = "--disable-gtk-doc"
+diff --git a/meta/recipes-graphics/clutter/tidy_git.bb b/meta/recipes-graphics/clutter/tidy_git.bb
+index 1785260..222ac6e 100644
+--- a/meta/recipes-graphics/clutter/tidy_git.bb
++++ b/meta/recipes-graphics/clutter/tidy_git.bb
+@@ -1,5 +1,8 @@
+ require tidy.inc
  
- PACKAGES_DYNAMIC = "gtk-engine-* gtk-theme-*"
++LIC_FILES_CHKSUM = "file://COPYING;md5=7fbc338309ac38fefcd64b04bb903e34 \
++                    file://tidy/tidy.h;endline=21;md5=ac342e7aac55849bf0755d79967fa3e8"
++
+ PV = "0.1.0+git${SRCPV}"
+ PR = "r7"
  
 -- 
 1.7.0.4
