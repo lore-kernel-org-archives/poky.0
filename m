@@ -1,23 +1,23 @@
 Return-Path: <qing.he@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 4ACA04C80815
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 70F9E4C81001
 	for <poky@yoctoproject.org>; Fri, 26 Nov 2010 03:49:20 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 26 Nov 2010 01:49:19 -0800
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 26 Nov 2010 01:49:20 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,260,1288594800"; d="scan'208";a="630481216"
+X-IronPort-AV: E=Sophos;i="4.59,260,1288594800"; d="scan'208";a="577806846"
 Received: from qhe2-db.sh.intel.com ([10.239.13.31])
-	by fmsmga002.fm.intel.com with ESMTP; 26 Nov 2010 01:49:19 -0800
+	by orsmga002.jf.intel.com with ESMTP; 26 Nov 2010 01:49:19 -0800
 Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
 	(envelope-from <qing.he@intel.com>)
-	id 1PLuqu-00053c-10; Fri, 26 Nov 2010 17:44:24 +0800
-Message-Id: <61bbe9bea9193e56ddb4de3b40bb6d6c7b5880ca.1290764498.git.qing.he@intel.com>
+	id 1PLuqt-00053W-Uk; Fri, 26 Nov 2010 17:44:24 +0800
+Message-Id: <b143452c672bc707432a91e5a5e055e5a97805d1.1290764498.git.qing.he@intel.com>
 In-Reply-To: <cover.1290764497.git.qing.he@intel.com>
 References: <cover.1290764497.git.qing.he@intel.com>
 From: Qing He <qing.he@intel.com>
-Date: Fri, 26 Nov 2010 16:19:07 +0800
+Date: Fri, 26 Nov 2010 16:15:08 +0800
 To: poky@yoctoproject.org
-Subject: [PATCH 02/15] diffutils: update license
+Subject: [PATCH 01/15] aspell: update license
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,26 +33,23 @@ X-List-Received-Date: Fri, 26 Nov 2010 09:49:20 -0000
 
 Signed-off-by: Qing He <qing.he@intel.com>
 ---
- meta/recipes-extended/diffutils/diffutils_2.8.1.bb |    6 ++++--
- 1 files changed, 4 insertions(+), 2 deletions(-)
+ meta/recipes-support/aspell/aspell_0.60.6.bb |    3 ++-
+ 1 files changed, 2 insertions(+), 1 deletions(-)
 
-diff --git a/meta/recipes-extended/diffutils/diffutils_2.8.1.bb b/meta/recipes-extended/diffutils/diffutils_2.8.1.bb
-index 2b94cc7..09df13b 100644
---- a/meta/recipes-extended/diffutils/diffutils_2.8.1.bb
-+++ b/meta/recipes-extended/diffutils/diffutils_2.8.1.bb
-@@ -1,8 +1,10 @@
--SECTION = "base"
--LICENSE = "GPL"
- DESCRIPTION = "Diffutils contains the GNU diff, diff3, \
- sdiff, and cmp utilities. These programs are usually \
- used for creating patch files."
-+SECTION = "base"
-+LICENSE = "GPLv2+"
-+LIC_FILES_CHKSUM = "file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f"
-+
- PR = "r4"
+diff --git a/meta/recipes-support/aspell/aspell_0.60.6.bb b/meta/recipes-support/aspell/aspell_0.60.6.bb
+index 8d43a70..3b8b08a 100644
+--- a/meta/recipes-support/aspell/aspell_0.60.6.bb
++++ b/meta/recipes-support/aspell/aspell_0.60.6.bb
+@@ -1,7 +1,8 @@
+ SRC_URI = "ftp://ftp.gnu.org/gnu/aspell/aspell-${PV}.tar.gz"
+ DESCRIPTION = "GNU Aspell spell-checker"
+ SECTION = "console/utils"
+-LICENSE="LGPL"
++LICENSE="LGPLv2 | LGPLv2.1"
++LIC_FILES_CHKSUM = "file://COPYING;md5=7fbc338309ac38fefcd64b04bb903e34"
  
- SRC_URI = "${GNU_MIRROR}/diffutils/diffutils-${PV}.tar.gz"
+ PACKAGES += "libaspell libpspell libpspell-dev aspell-utils"
+ 
 -- 
 1.7.0
 
