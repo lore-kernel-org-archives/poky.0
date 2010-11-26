@@ -1,23 +1,34 @@
-Return-Path: <qing.he@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A0F034C81001
-	for <poky@yoctoproject.org>; Fri, 26 Nov 2010 03:49:21 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 26 Nov 2010 01:49:20 -0800
+Return-Path: <kevin.tian@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5A9C34C811CC
+	for <poky@pokylinux.org>; Fri, 26 Nov 2010 06:06:19 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 26 Nov 2010 04:06:19 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,260,1288594800"; d="scan'208";a="353481567"
-Received: from qhe2-db.sh.intel.com ([10.239.13.31])
-	by azsmga001.ch.intel.com with ESMTP; 26 Nov 2010 01:49:19 -0800
-Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
-	(envelope-from <qing.he@intel.com>)
-	id 1PLuqu-00054s-7l; Fri, 26 Nov 2010 17:44:24 +0800
-Message-Id: <01a4667b3c2800ccdfa1328692dc5ae956b40d13.1290764498.git.qing.he@intel.com>
-In-Reply-To: <cover.1290764497.git.qing.he@intel.com>
-References: <cover.1290764497.git.qing.he@intel.com>
-From: Qing He <qing.he@intel.com>
-Date: Fri, 26 Nov 2010 17:40:26 +0800
-To: poky@yoctoproject.org
-Subject: [PATCH 15/15] u-boot-mkimage: update license info
+X-IronPort-AV: E=Sophos;i="4.59,260,1288594800"; d="scan'208";a="630516191"
+Received: from pgsmsx601.gar.corp.intel.com ([10.221.43.69])
+	by fmsmga002.fm.intel.com with ESMTP; 26 Nov 2010 04:06:08 -0800
+Received: from pgsmsx509.gar.corp.intel.com (172.30.13.17) by
+	pgsmsx601.gar.corp.intel.com (10.221.43.69) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Fri, 26 Nov 2010 20:06:07 +0800
+Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
+	PGSMSX509.gar.corp.intel.com (172.30.13.17) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Fri, 26 Nov 2010 20:06:06 +0800
+Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
+	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
+	Fri, 26 Nov 2010 20:06:05 +0800
+From: "Tian, Kevin" <kevin.tian@intel.com>
+To: "poky@pokylinux.org" <poky@pokylinux.org>
+Date: Fri, 26 Nov 2010 20:05:53 +0800
+Thread-Topic: about sstate setscene slowness
+Thread-Index: AcuNYkYTgK5hze14RTujn87NCGOizg==
+Message-ID: <625BA99ED14B2D499DC4E29D8138F1504D42C68279@shsmsx502.ccr.corp.intel.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
+MIME-Version: 1.0
+Subject: about sstate setscene slowness
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,26 +40,20 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 26 Nov 2010 09:49:21 -0000
+X-List-Received-Date: Fri, 26 Nov 2010 12:06:19 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Qing He <qing.he@intel.com>
----
- meta/recipes-bsp/uboot/u-boot-mkimage_2009.08.bb |    3 ++-
- 1 files changed, 2 insertions(+), 1 deletions(-)
+I just realized that sstate setscene tasks are also launched through same i=
+nterface
+as normal tasks, i.e. 'exec' through fork_off_task. So the majority of slow=
+ness comes
+from the overhead of 'exec' too. Of course the disk i/o contentions also co=
+ntribute
+a bit which however is less obvious compared to the former factor in my cal=
+culation.
 
-diff --git a/meta/recipes-bsp/uboot/u-boot-mkimage_2009.08.bb b/meta/recipes-bsp/uboot/u-boot-mkimage_2009.08.bb
-index bf07198..895763b 100644
---- a/meta/recipes-bsp/uboot/u-boot-mkimage_2009.08.bb
-+++ b/meta/recipes-bsp/uboot/u-boot-mkimage_2009.08.bb
-@@ -1,5 +1,6 @@
- DESCRIPTION = "U-boot bootloader mkimage tool"
--LICENSE = "GPL"
-+LICENSE = "GPLv2+"
-+LIC_FILES_CHKSUM = "file://COPYING;md5=4c6cde5df68eff615d36789dc18edd3b"
- SECTION = "bootloader"
- 
- PR = "r1"
--- 
-1.7.0
-
+Thanks
+Kevin
 
