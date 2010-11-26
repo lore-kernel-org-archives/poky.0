@@ -1,23 +1,23 @@
 Return-Path: <qing.he@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 70F9E4C81001
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8AE3D4C80815
 	for <poky@yoctoproject.org>; Fri, 26 Nov 2010 03:49:20 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 26 Nov 2010 01:49:20 -0800
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 26 Nov 2010 01:49:19 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,260,1288594800"; d="scan'208";a="577806846"
+X-IronPort-AV: E=Sophos;i="4.59,260,1288594800"; d="scan'208";a="861565286"
 Received: from qhe2-db.sh.intel.com ([10.239.13.31])
-	by orsmga002.jf.intel.com with ESMTP; 26 Nov 2010 01:49:19 -0800
+	by fmsmga001.fm.intel.com with ESMTP; 26 Nov 2010 01:49:19 -0800
 Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
 	(envelope-from <qing.he@intel.com>)
-	id 1PLuqt-00053W-Uk; Fri, 26 Nov 2010 17:44:24 +0800
-Message-Id: <b143452c672bc707432a91e5a5e055e5a97805d1.1290764498.git.qing.he@intel.com>
+	id 1PLuqu-00053o-1s; Fri, 26 Nov 2010 17:44:24 +0800
+Message-Id: <bfc68ee082ebb0300e790c449109d9d995f21c3d.1290764498.git.qing.he@intel.com>
 In-Reply-To: <cover.1290764497.git.qing.he@intel.com>
 References: <cover.1290764497.git.qing.he@intel.com>
 From: Qing He <qing.he@intel.com>
-Date: Fri, 26 Nov 2010 16:15:08 +0800
+Date: Fri, 26 Nov 2010 16:43:02 +0800
 To: poky@yoctoproject.org
-Subject: [PATCH 01/15] aspell: update license
+Subject: [PATCH 04/15] hdparm: update license info
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,23 +33,21 @@ X-List-Received-Date: Fri, 26 Nov 2010 09:49:20 -0000
 
 Signed-off-by: Qing He <qing.he@intel.com>
 ---
- meta/recipes-support/aspell/aspell_0.60.6.bb |    3 ++-
- 1 files changed, 2 insertions(+), 1 deletions(-)
+ meta/recipes-extended/hdparm/hdparm_6.3.bb |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
 
-diff --git a/meta/recipes-support/aspell/aspell_0.60.6.bb b/meta/recipes-support/aspell/aspell_0.60.6.bb
-index 8d43a70..3b8b08a 100644
---- a/meta/recipes-support/aspell/aspell_0.60.6.bb
-+++ b/meta/recipes-support/aspell/aspell_0.60.6.bb
-@@ -1,7 +1,8 @@
- SRC_URI = "ftp://ftp.gnu.org/gnu/aspell/aspell-${PV}.tar.gz"
- DESCRIPTION = "GNU Aspell spell-checker"
+diff --git a/meta/recipes-extended/hdparm/hdparm_6.3.bb b/meta/recipes-extended/hdparm/hdparm_6.3.bb
+index 94d1e6e..0f69a3f 100644
+--- a/meta/recipes-extended/hdparm/hdparm_6.3.bb
++++ b/meta/recipes-extended/hdparm/hdparm_6.3.bb
+@@ -3,6 +3,7 @@ and manipulating various IDE drive and driver parameters."
  SECTION = "console/utils"
--LICENSE="LGPL"
-+LICENSE="LGPLv2 | LGPLv2.1"
-+LIC_FILES_CHKSUM = "file://COPYING;md5=7fbc338309ac38fefcd64b04bb903e34"
+ PRIORITY = "optional"
+ LICENSE = "BSD"
++LIC_FILES_CHKSUM = "file://LICENSE.TXT;md5=910a8a42c962d238619c75fdb78bdb24"
  
- PACKAGES += "libaspell libpspell libpspell-dev aspell-utils"
- 
+ SRC_URI = "${SOURCEFORGE_MIRROR}/hdparm/hdparm-${PV}.tar.gz \
+ 	   file://bswap.patch;patch=1 \
 -- 
 1.7.0
 
