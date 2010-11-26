@@ -1,21 +1,21 @@
 Return-Path: <edwin.zhai@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5498F4C811CD
-	for <poky@yoctoproject.org>; Fri, 26 Nov 2010 10:08:11 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 26 Nov 2010 08:08:10 -0800
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 3ADE64C811CD
+	for <poky@yoctoproject.org>; Fri, 26 Nov 2010 10:08:12 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 26 Nov 2010 08:08:12 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,261,1288594800"; d="scan'208";a="681310616"
+X-IronPort-AV: E=Sophos;i="4.59,261,1288594800"; d="scan'208";a="630566285"
 Received: from gw-vmm.sh.intel.com (HELO localhost) ([10.239.48.110])
-	by orsmga001.jf.intel.com with ESMTP; 26 Nov 2010 08:08:10 -0800
-Message-Id: <bbd34fbbf0063db80b882fc9df7264ae96d20814.1290787706.git.edwin.zhai@intel.com>
+	by fmsmga002.fm.intel.com with ESMTP; 26 Nov 2010 08:08:11 -0800
+Message-Id: <86d20c0bc447e10af72e3a574c1244b14e4cbc44.1290787706.git.edwin.zhai@intel.com>
 In-Reply-To: <cover.1290787706.git.edwin.zhai@intel.com>
 References: <cover.1290787706.git.edwin.zhai@intel.com>
 From: Zhai Edwin <edwin.zhai@intel.com>
-Date: Fri, 26 Nov 2010 22:05:18 +0800
+Date: Fri, 26 Nov 2010 22:18:28 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 01/11] gtk-doc: Add license checksum
+Subject: [PATCH 02/11] gtk-theme-torturer: Add license check sum
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,26 +27,25 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 26 Nov 2010 16:08:11 -0000
+X-List-Received-Date: Fri, 26 Nov 2010 16:08:12 -0000
 
 Signed-off-by: Zhai Edwin <edwin.zhai@intel.com>
 ---
- meta/recipes-gnome/gtk-doc/gtk-doc.bb |    2 ++
- 1 files changed, 2 insertions(+), 0 deletions(-)
+ .../gtk-theme-torturer/gtk-theme-torturer_git.bb   |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
 
-diff --git a/meta/recipes-gnome/gtk-doc/gtk-doc.bb b/meta/recipes-gnome/gtk-doc/gtk-doc.bb
-index 3f5e291..0e7828c 100644
---- a/meta/recipes-gnome/gtk-doc/gtk-doc.bb
-+++ b/meta/recipes-gnome/gtk-doc/gtk-doc.bb
-@@ -1,6 +1,8 @@
- SECTION = "x11/base"
- SRC_URI = "file://gtk-doc.m4"
- LICENSE = "LGPL"
-+LIC_FILES_CHKSUM = "file://../gtk-doc.m4;endline=10;md5=868a952d8bb2d825d724854cfaf8f14e"
-+
- PR = "r4"
+diff --git a/meta/recipes-gnome/gtk-theme-torturer/gtk-theme-torturer_git.bb b/meta/recipes-gnome/gtk-theme-torturer/gtk-theme-torturer_git.bb
+index adcdf2e..a84ab04 100644
+--- a/meta/recipes-gnome/gtk-theme-torturer/gtk-theme-torturer_git.bb
++++ b/meta/recipes-gnome/gtk-theme-torturer/gtk-theme-torturer_git.bb
+@@ -3,6 +3,7 @@ DEPENDS = "gtk+"
+ HOMEPAGE = "http://wiki.laptop.org/go/GTK_for_OLPC"
+ SECTION = "devel"
+ LICENSE = "GPL"
++LIC_FILES_CHKSUM = "file://appwindow.c;endline=13;md5=8c09920de460c7ea1f64ee56986aabd9"
  
- ALLOW_EMPTY_${PN} = "1"
+ PV = "0.0.0+git${SRCDATE}"
+ 
 -- 
 1.7.0.4
 
