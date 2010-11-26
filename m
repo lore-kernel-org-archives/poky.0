@@ -1,23 +1,23 @@
 Return-Path: <qing.he@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id AA10C4C81001
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id B2EC24C811CE
 	for <poky@yoctoproject.org>; Fri, 26 Nov 2010 03:49:20 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 26 Nov 2010 01:49:20 -0800
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 26 Nov 2010 01:49:20 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,260,1288594800"; d="scan'208";a="353481563"
+X-IronPort-AV: E=Sophos;i="4.59,260,1288594800"; d="scan'208";a="577806848"
 Received: from qhe2-db.sh.intel.com ([10.239.13.31])
-	by azsmga001.ch.intel.com with ESMTP; 26 Nov 2010 01:49:19 -0800
+	by orsmga002.jf.intel.com with ESMTP; 26 Nov 2010 01:49:19 -0800
 Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
 	(envelope-from <qing.he@intel.com>)
-	id 1PLuqu-00053u-2d; Fri, 26 Nov 2010 17:44:24 +0800
-Message-Id: <ec6ce8cffe8af57e32df64fd839b1ff125115b38.1290764498.git.qing.he@intel.com>
+	id 1PLuqu-000540-31; Fri, 26 Nov 2010 17:44:24 +0800
+Message-Id: <ca428bdfe878f6aa234d32f4a03a87ea4a8cccfb.1290764498.git.qing.he@intel.com>
 In-Reply-To: <cover.1290764497.git.qing.he@intel.com>
 References: <cover.1290764497.git.qing.he@intel.com>
 From: Qing He <qing.he@intel.com>
-Date: Fri, 26 Nov 2010 16:52:11 +0800
+Date: Fri, 26 Nov 2010 16:58:00 +0800
 To: poky@yoctoproject.org
-Subject: [PATCH 05/15] ncurses: update license info
+Subject: [PATCH 06/15] parted: update license info
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,21 +33,22 @@ X-List-Received-Date: Fri, 26 Nov 2010 09:49:20 -0000
 
 Signed-off-by: Qing He <qing.he@intel.com>
 ---
- meta/recipes-core/ncurses/ncurses.inc |    1 +
- 1 files changed, 1 insertions(+), 0 deletions(-)
+ meta/recipes-extended/parted/parted_1.9.0.bb |    3 ++-
+ 1 files changed, 2 insertions(+), 1 deletions(-)
 
-diff --git a/meta/recipes-core/ncurses/ncurses.inc b/meta/recipes-core/ncurses/ncurses.inc
-index d5d251c..3f897f6 100644
---- a/meta/recipes-core/ncurses/ncurses.inc
-+++ b/meta/recipes-core/ncurses/ncurses.inc
-@@ -2,6 +2,7 @@ SUMMARY = "The New Curses library"
- DESCRIPTION = "SVr4 and XSI-Curses compatible curses library and terminfo tools including tic, infocmp, captoinfo. Supports color, multiple highlights, forms-drawing characters, and automatic recognition of keypad and function-key sequences. Extensions include resizable windows and mouse support on both xterm and Linux console using the gpm library."
- HOMEPAGE = "http://www.gnu.org/software/ncurses/ncurses.html"
- LICENSE = "MIT"
-+LIC_FILES_CHKSUM = "file://ncurses/base/version.c;beginline=1;endline=27;md5=cf3c7ab00720a1b83391f49ea9956277"
- SECTION = "libs"
- DEPENDS = "ncurses-native"
- DEPENDS_virtclass-native = ""
+diff --git a/meta/recipes-extended/parted/parted_1.9.0.bb b/meta/recipes-extended/parted/parted_1.9.0.bb
+index f2a2651..96253b2 100644
+--- a/meta/recipes-extended/parted/parted_1.9.0.bb
++++ b/meta/recipes-extended/parted/parted_1.9.0.bb
+@@ -1,6 +1,7 @@
+ DESCRIPTION = "parted, the GNU partition resizing program"
+ HOMEPAGE = "http://www.gnu.org/software/parted/parted.html"
+-LICENSE = "GPLv2"
++LICENSE = "GPLv3+"
++LIC_FILES_CHKSUM = "file://COPYING;md5=4c61b8950dc1aab4d2aa7c2ae6b1cfb3"
+ SECTION = "console/tools"
+ DEPENDS = "readline e2fsprogs"
+ PR = "r3"
 -- 
 1.7.0
 
