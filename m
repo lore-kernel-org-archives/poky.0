@@ -1,21 +1,39 @@
-Return-Path: <tom.zanussi@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id AE0EC4C8112F
-	for <poky@yoctoproject.org>; Fri, 26 Nov 2010 22:04:07 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 26 Nov 2010 20:04:07 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,264,1288594800"; d="scan'208";a="578013913"
-Received: from unknown (HELO localhost) ([10.255.13.200])
-	by orsmga002.jf.intel.com with ESMTP; 26 Nov 2010 20:04:06 -0800
-Message-Id: <910315642f086925fe4861b7374400255728cd2b.1290830448.git.tom.zanussi@intel.com>
-In-Reply-To: <cover.1290830448.git.tom.zanussi@intel.com>
-References: <cover.1290830448.git.tom.zanussi@intel.com>
-From: Tom Zanussi <tom.zanussi@linux.intel.com>
-Date: Fri, 26 Nov 2010 11:57:22 -0600
-To: poky@yoctoproject.org
-Cc: Tom Zanussi <tom.zanussi@linux.intel.com>
-Subject: [PATCH 1/1] sysprof: new package
+Return-Path: <eballetbo@gmail.com>
+Received: from mail-pw0-f48.google.com (mail-pw0-f48.google.com
+	[209.85.160.48])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 68CE04C80815
+	for <poky@yoctoproject.org>; Sat, 27 Nov 2010 02:50:49 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by pwj9 with SMTP id 9so685536pwj.35
+	for <poky@yoctoproject.org>; Sat, 27 Nov 2010 00:50:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:received:received:in-reply-to
+	:references:date:message-id:subject:from:to:cc:content-type
+	:content-transfer-encoding;
+	bh=knz3YSfTs8R+zem5AMvBl5mRJ2zuqRbb8raf9TvpQ2Q=;
+	b=UaVt3zOQ13mF+nb56CDwmWCLUCeAKJx0Ck8goHt0+1MNZA5vk1Fcf7hEnPKdzFcQEG
+	D+Oc1vbmfXiyy/SBXXZdO5YXCaB/P8b8ECcn/phTs2SAQcuQCID02Twmz9t6ZU4Exg6o
+	gYL4cwizub9qNf0YXvPymb7uiFbpFgcw8y/H0=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:cc:content-type:content-transfer-encoding;
+	b=OPxSU5VZeWVkJA8xWlz3V9/41wAaRiEAo++9MhWkWjdaFOhVTvk+6AtpJcNhYdJ2JA
+	KwV8B13eD825FLQO4I6/MTx6VFh44sIa2oW/ObjGGnORAUUdPWrujOpQj4Ek7L44QrDq
+	sbRbQGr2HjMj70g5F1n3KIUTFiqIyavE7m26U=
+MIME-Version: 1.0
+Received: by 10.143.16.6 with SMTP id t6mr3310711wfi.113.1290847848922; Sat,
+	27 Nov 2010 00:50:48 -0800 (PST)
+Received: by 10.143.9.9 with HTTP; Sat, 27 Nov 2010 00:50:48 -0800 (PST)
+In-Reply-To: <AANLkTikicPDkiO+z1_4+w1vs1y77hA6XmN=PH0kHs3kx@mail.gmail.com>
+References: <AANLkTikicPDkiO+z1_4+w1vs1y77hA6XmN=PH0kHs3kx@mail.gmail.com>
+Date: Sat, 27 Nov 2010 09:50:48 +0100
+Message-ID: <AANLkTinEbfDJHkNBTgyHO1mqBgc_AfJ_WzoMpniteBA_@mail.gmail.com>
+From: =?UTF-8?Q?Enric_Balletb=C3=B2_i_Serra?= <eballetbo@gmail.com>
+To: Bai Shuwei <baishuwei@gmail.com>
+Cc: poky@yoctoproject.org
+Subject: Re: how much disk space should be used when Poky is installed?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,65 +45,50 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 27 Nov 2010 04:04:08 -0000
+X-List-Received-Date: Sat, 27 Nov 2010 08:50:49 -0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Add sysprof, a system-wide performance profiler for Linux.
+Hi,
 
-Signed-off-by: Tom Zanussi <tom.zanussi@linux.intel.com>
----
- .../conf/distro/include/poky-default-revisions.inc |    1 +
- meta/recipes-core/tasks/task-poky-tools.bb         |    1 +
- meta/recipes-kernel/sysprof/sysprof_git.bb         |   18 ++++++++++++++++++
- 3 files changed, 20 insertions(+), 0 deletions(-)
- create mode 100644 meta/recipes-kernel/sysprof/sysprof_git.bb
+2010/11/27 Bai Shuwei <baishuwei@gmail.com>:
+> Hi, all:
+> =C2=A0 when i try to install poky-image-minimal image for poky, it takes
+>>25G disk space, but it is failure as "No space left on disk". I =C2=A0wan=
+t
+> to know how much free disk i should prepare before intall it. thanks
+> all!
+>
+> It will more pleasure if you can list the size needed for the bellow imag=
+es
+>
+> =C2=A0 =C2=A0poky-image-minimal
+> =C2=A0 =C2=A0poky-image-sato
+> =C2=A0 =C2=A0meta-toolchain
+> =C2=A0 =C2=A0meta-toolchain-sdk
+>
+ I've no data about the space required but you can append
+INHERIT+=3D"rm_work" in your local.conf to reduce the space used by
+poky.
 
-diff --git a/meta/conf/distro/include/poky-default-revisions.inc b/meta/conf/distro/include/poky-default-revisions.inc
-index f55ece2..1c2d01a 100644
---- a/meta/conf/distro/include/poky-default-revisions.inc
-+++ b/meta/conf/distro/include/poky-default-revisions.inc
-@@ -178,4 +178,5 @@ SRCDATE_yaffs2-utils ??= "20071107"
- SRCREV_pn-zaurusd ??= "358"
- SRCREV_pn-zypper ??= "9eb0e248e06c8d20ad054be2439149d9ede37531"
- SRCREV_pn-blktrace ??= "1e09f6e9012826fca69fa07222b7bc53c3e629ee"
-+SRCREV_pn-sysprof ??= "38a6af1f0a45e528fd2842983da71e0f23c70d6a"
- 
-diff --git a/meta/recipes-core/tasks/task-poky-tools.bb b/meta/recipes-core/tasks/task-poky-tools.bb
-index dddef02..918d0a1 100644
---- a/meta/recipes-core/tasks/task-poky-tools.bb
-+++ b/meta/recipes-core/tasks/task-poky-tools.bb
-@@ -48,6 +48,7 @@ RRECOMMENDS_task-poky-tools-profile = "\
-     trace-cmd \
-     kernel-module-oprofile \
-     blktrace \
-+    sysprof \
-     "
- 
- #    exmap-console
-diff --git a/meta/recipes-kernel/sysprof/sysprof_git.bb b/meta/recipes-kernel/sysprof/sysprof_git.bb
-new file mode 100644
-index 0000000..cc2616e
---- /dev/null
-+++ b/meta/recipes-kernel/sysprof/sysprof_git.bb
-@@ -0,0 +1,18 @@
-+DESCRIPTION = "sysprof - System-wide Performance Profiler for Linux"
-+LICENSE = "GPLv2"
-+LIC_FILES_CHKSUM = "file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f"
-+
-+DEPENDS = "gtk+ libglade"
-+
-+PR = r0
-+PV = "1.1.6+git${SRCPV}"
-+
-+SRC_URI = "git://git.gnome.org/sysprof;protocol=git \
-+           "
-+
-+SRC_URI[md5sum] = "80902a7b3d6f7cb83eb6b47e87538747"
-+SRC_URI[sha256sum] = "1c6403278fa4f3b37a1fb9f0784e496dce1703fe84ac03b2650bf469133a0cb3"
-+
-+S = "${WORKDIR}/git"
-+
-+inherit autotools
--- 
-1.7.0.4
+Hope it helps you.
+   Enric
 
+>
+> Best Regards
+>
+> Bai Shuwei
+>
+>
+>
+> --
+> Love other people, as same as love yourself!
+> Don't think all the time, do it by your hands!
+>
+> E-Mail: baishuwei@gmail.com
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
 
