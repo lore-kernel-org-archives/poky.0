@@ -1,21 +1,21 @@
 Return-Path: <ke.yu@intel.com>
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A54B14C810AE
-	for <poky@yoctoproject.org>; Sun, 28 Nov 2010 07:06:16 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 28 Nov 2010 05:06:07 -0800
+	by mx1.pokylinux.org (Postfix) with ESMTP id 40AF34C811AD
+	for <poky@yoctoproject.org>; Sun, 28 Nov 2010 07:06:18 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 28 Nov 2010 05:06:09 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,270,1288594800"; d="scan'208";a="681700125"
+X-IronPort-AV: E=Sophos;i="4.59,270,1288594800"; d="scan'208";a="578286863"
 Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.154.168])
-	by orsmga001.jf.intel.com with ESMTP; 28 Nov 2010 05:06:07 -0800
-Message-Id: <3dd176d65c3dbfd883b2c93223d3306663dbb049.1290943560.git.ke.yu@intel.com>
+	by orsmga002.jf.intel.com with ESMTP; 28 Nov 2010 05:06:08 -0800
+Message-Id: <454a538ec3b42960c774c2fd0e71071bc1e33590.1290943560.git.ke.yu@intel.com>
 In-Reply-To: <cover.1290943560.git.ke.yu@intel.com>
 References: <cover.1290943560.git.ke.yu@intel.com>
 From: Yu Ke <ke.yu@intel.com>
-Date: Sat, 27 Nov 2010 20:48:49 +0800
+Date: Sat, 27 Nov 2010 19:45:12 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 07/11] glew: add new recipes glew 1.5.7
+Subject: [PATCH 08/11] mesa-demo: add new recpies mesa demo 8.0.2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,199 +27,41 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 28 Nov 2010 13:06:17 -0000
+X-List-Received-Date: Sun, 28 Nov 2010 13:06:18 -0000
 
-The OpenGL Extension Wrangler Library (GLEW) is a cross-platform open-source C/C++ extension loading library. GLEW provides efficient run-time mechanisms for determining which OpenGL extensions are supported on the target platform.
-
-mesa-demos requires glew, so port it from OE, with the following changes:
-- upgrade it from 1.5.1 to 1.5.7
-- add license checksum
+mesa-demo is originally part of mesa in 7.8 or earlier version. But starting from 7.9, mesa-demo become a seperate tar ball and has its own version 8.0.2, so this commit add new recipe for mesa-demos
 
 Signed-off-by: Yu Ke <ke.yu@intel.com>
 ---
- meta/recipes-graphics/glew/files/autotools.patch |  146 ++++++++++++++++++++++
- meta/recipes-graphics/glew/glew_1.5.7.bb         |   19 +++
- 2 files changed, 165 insertions(+), 0 deletions(-)
- create mode 100644 meta/recipes-graphics/glew/files/autotools.patch
- create mode 100644 meta/recipes-graphics/glew/glew_1.5.7.bb
+ meta/recipes-graphics/mesa/mesa-demos_8.0.1.bb |   19 +++++++++++++++++++
+ 1 files changed, 19 insertions(+), 0 deletions(-)
+ create mode 100644 meta/recipes-graphics/mesa/mesa-demos_8.0.1.bb
 
-diff --git a/meta/recipes-graphics/glew/files/autotools.patch b/meta/recipes-graphics/glew/files/autotools.patch
+diff --git a/meta/recipes-graphics/mesa/mesa-demos_8.0.1.bb b/meta/recipes-graphics/mesa/mesa-demos_8.0.1.bb
 new file mode 100644
-index 0000000..7fe1d6e
+index 0000000..fde2453
 --- /dev/null
-+++ b/meta/recipes-graphics/glew/files/autotools.patch
-@@ -0,0 +1,146 @@
-+Index: glew/Makefile.am
-+===================================================================
-+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
-++++ glew/Makefile.am	2009-12-02 00:30:23.296641663 +0100
-+@@ -0,0 +1,5 @@
-++
-++ACLOCAL_AMFLAGS = -I m4 --install
-++
-++SUBDIRS = include src
-++
-+Index: glew/configure.ac
-+===================================================================
-+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
-++++ glew/configure.ac	2009-12-02 00:30:23.296641663 +0100
-+@@ -0,0 +1,67 @@
-++#                                               -*- Autoconf -*-
-++# Process this file with autoconf to produce a configure script.
-++
-++AC_PREREQ([2.62])
-++AC_INIT([glew], [1.5.7], [BUG-REPORT-ADDRESS])
-++AC_CONFIG_SRCDIR([src/glew.c])
-++AC_CONFIG_HEADERS([config.h])
-++AM_INIT_AUTOMAKE([-Wall -Werror foreign])
-++AC_CONFIG_MACRO_DIR([m4])
-++
-++LT_INIT
-++
-++# Checks for programs.
-++AC_PROG_CC
-++AC_PROG_INSTALL
-++AC_PROG_LN_S
-++
-++# Checks for libraries.
-++
-++# Checks for header files.
-++AC_CHECK_HEADERS([inttypes.h stddef.h stdint.h stdlib.h string.h])
-++
-++# Checks for typedefs, structures, and compiler characteristics.
-++AC_TYPE_INT32_T
-++AC_TYPE_INT64_T
-++AC_TYPE_UINT64_T
-++AC_CHECK_TYPES([ptrdiff_t])
-++
-++# Checks for library functions.
-++AC_FUNC_MALLOC
-++AC_CHECK_FUNCS([strtol])
-++
-++# Check for pkgconfig libs
-++
-++PKG_CHECK_MODULES([X11], [x11])
-++AC_SUBST([X11_LIBS])
-++AC_SUBST([X11_CFLAGS])
-++
-++PKG_CHECK_MODULES([XMU], [xmu])
-++AC_SUBST([XMU_LIBS])
-++AC_SUBST([XMU_CFLAGS])
-++
-++PKG_CHECK_MODULES([XI], [xi])
-++AC_SUBST([XI_LIBS])
-++AC_SUBST([XI_CFLAGS])
-++
-++PKG_CHECK_MODULES([XEXT], [xext])
-++AC_SUBST([XEXT_LIBS])
-++AC_SUBST([XEXT_CFLAGS])
-++
-++# Check for GLU is enough and imples gl so no doubled -lGL in LDFLAGS
-++PKG_CHECK_MODULES([GLU], [glu])
-++AC_SUBST([GLU_LIBS])
-++AC_SUBST([GLU_CFLAGS])
-++
-++# ENABLE option for Multiple Rendering Contexts support
-++AC_CHECK_ENABLE_GLEWMX
-++
-++# for now we use the same version as the package, but that should be avoided
-++# in the future
-++
-++AC_SUBST([LIBGLEW_SO_VERSION], [1:5:7])
-++
-++AC_CONFIG_FILES([Makefile
-++                 include/Makefile
-++                 src/Makefile])
-++AC_OUTPUT
-+Index: glew/src/Makefile.am
-+===================================================================
-+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
-++++ glew/src/Makefile.am	2009-12-02 00:33:48.690786110 +0100
-+@@ -0,0 +1,35 @@
-++
-++AM_CPPFLAGS = -I$(top_srcdir)/include
-++
-++if ENABLE_GLEWMX
-++AM_CPPFLAGS += -DGLEW_MX
-++endif
-++
-++AM_CFLAGS = @X11_CFLAGS@ \
-++            @XMU_CFLAGS@ \
-++            @XI_CFLAGS@ \
-++            @XEXT_CFLAGS@ \
-++            @GLU_CFLAGS@
-++
-++lib_LTLIBRARIES = libGLEW.la
-++
-++libGLEW_la_SOURCES = glew.c
-++
-++libGLEW_la_LIBADD = @X11_LIBS@ \
-++                    @XMU_LIBS@ \
-++                    @XI_LIBS@ \
-++                    @XEXT_LIBS@ \
-++                    @GLU_LIBS@
-++
-++libGLEW_la_LDFLAGS = -version-number @LIBGLEW_SO_VERSION@
-++
-++bin_PROGRAMS = glewinfo visualinfo
-++
-++glewinfo_SOURCES = glewinfo.c
-++
-++glewinfo_LDADD = libGLEW.la
-++
-++visualinfo_SOURCES =  visualinfo.c
-++
-++visualinfo_LDADD = libGLEW.la
-++
-+Index: glew/m4/glewmx.m4
-+===================================================================
-+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
-++++ glew/m4/glewmx.m4	2009-12-02 00:30:23.296641663 +0100
-+@@ -0,0 +1,11 @@
-++
-++AC_DEFUN([AC_CHECK_ENABLE_GLEWMX],[
-++AC_MSG_CHECKING([whether to include Multiple Rendering Contexts support])
-++AC_ARG_ENABLE([glewmx],
-++   [AS_HELP_STRING([--enable-glewmx], [enable GLEW Multiple Rendering Contexts (default is no)])],
-++   [ENABLE_GLEWMX="$enableval"],
-++   [ENABLE_GLEWMX="no"])
-++AC_MSG_RESULT([${ENABLE_GLEWMX}])
-++AM_CONDITIONAL([ENABLE_GLEWMX], [test x"${ENABLE_GLEWMX}" = "xyes"])
-++])
-++
-+Index: glew/include/Makefile.am
-+===================================================================
-+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
-++++ glew/include/Makefile.am	2009-12-02 00:30:23.296641663 +0100
-+@@ -0,0 +1,3 @@
-++
-++nobase_include_HEADERS = GL/glew.h  GL/glxew.h  GL/wglew.h
-++
-diff --git a/meta/recipes-graphics/glew/glew_1.5.7.bb b/meta/recipes-graphics/glew/glew_1.5.7.bb
-new file mode 100644
-index 0000000..e2e6b43
---- /dev/null
-+++ b/meta/recipes-graphics/glew/glew_1.5.7.bb
++++ b/meta/recipes-graphics/mesa/mesa-demos_8.0.1.bb
 @@ -0,0 +1,19 @@
-+DESCRIPTION = "The OpenGL Extension Wrangler Library (GLEW) is a cross-platform open-source C/C++ extension loading library."
-+HOMEPAGE = "http://glew.sourceforge.net/"
-+BUGTRACKER = "http://sourceforge.net/tracker/?group_id=67586"
++DESCRIPTION = "mesa demo applications"
++HOMEPAGE = "http://mesa3d.org"
++BUGTRACKER = "https://bugs.freedesktop.org"
 +SECTION = "x11"
-+LICENSE = "MIT"
-+LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=2ac251558de685c6b9478d89be3149c2"
 +
-+DEPENDS = "virtual/libx11 virtual/libgl libxext libxi libxmu"
++LICENSE = "MIT & PD"
++LIC_FILES_CHKSUM = "file://src/xdemos/glxgears.c;beginline=1;endline=20;md5=914225785450eff644a86c871d3ae00e \
++                    file://src/xdemos/glxdemo.c;beginline=1;endline=8;md5=b01d5ab1aee94d35b7efaa2ef48e1a06"
++
++DEPENDS = "virtual/libx11 virtual/libgl glew"
 +
 +PR = "r0"
 +
-+SRC_URI = "${SOURCEFORGE_MIRROR}/project/glew/glew/${PV}/glew-${PV}.tgz \
-+           file://autotools.patch \
-+          "
++SRC_URI = "ftp://ftp.freedesktop.org/pub/mesa/demos/${PV}/${PN}-${PV}.tar.bz2"
 +
-+SRC_URI[md5sum] = "f913ce9dbde4cd250b932731b3534ded"
-+SRC_URI[sha256sum] = "86bd36a163640d6027ec6be5fdd8a6e3b90f02dcf55f95c3c2429ebb58be3107"
++inherit autotools pkgconfig
 +
-+inherit autotools lib_package
++SRC_URI[md5sum] = "320c2a4b6edc6faba35d9cb1e2a30bf4"
++SRC_URI[sha256sum] = "4bc7f2b20d17e3eebfec288f2367a435cd2db71fc5ac9ece2c14827e290d77d1"
 -- 
 1.7.0.4
 
