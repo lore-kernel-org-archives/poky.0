@@ -1,34 +1,19 @@
-Return-Path: <baishuwei@gmail.com>
-Received: from mail-qw0-f48.google.com (mail-qw0-f48.google.com
-	[209.85.216.48])
-	by mx1.pokylinux.org (Postfix) with ESMTP id EEFFA4C81060
-	for <poky@yoctoproject.org>; Fri, 26 Nov 2010 20:38:55 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by qwc9 with SMTP id 9so336740qwc.35
-	for <poky@yoctoproject.org>; Fri, 26 Nov 2010 18:38:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:received:received:date:message-id
-	:subject:from:to:content-type;
-	bh=HtaZ6pTNX5+eCEVjUOwPKuS6iQiPrNk06EehVOme08k=;
-	b=GngUTYCP+xQAZx9gJTmnXktiFnqqhzmeUBm73lwXux9XIv0OzkT+9+Yv5gKvcVMrzM
-	F7O1eb8qRc3ZupbWhT4miksnuZqqHcilXrAv+HE6lA6tF4hdbcY1YmjjtXGkhoK/RK11
-	qyG9emJIVKixNgBKIZnCWsOF6JaO7fOXlRXcE=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:date:message-id:subject:from:to:content-type;
-	b=UXRNISH0ATV1jLxl0+6MgdaYbqzrwOEZ0z4J+FkcKa1XgG2Oq/PA/mYgYnPDbufSSF
-	oaN5rpSQUf7ldtr6bgtLhufLkUCTcKinWTK3/w08M38+ohR9PczYvZa/xbz7DFK20f3k
-	u7IqzYP+NbgVd0CqxvbJ2eMyx0AWzhNAztUZ4=
-MIME-Version: 1.0
-Received: by 10.229.189.4 with SMTP id dc4mr2333866qcb.106.1290825535121; Fri,
-	26 Nov 2010 18:38:55 -0800 (PST)
-Received: by 10.229.221.131 with HTTP; Fri, 26 Nov 2010 18:38:55 -0800 (PST)
-Date: Sat, 27 Nov 2010 10:38:55 +0800
-Message-ID: <AANLkTikicPDkiO+z1_4+w1vs1y77hA6XmN=PH0kHs3kx@mail.gmail.com>
-From: Bai Shuwei <baishuwei@gmail.com>
+Return-Path: <tom.zanussi@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5BCC04C80815
+	for <poky@yoctoproject.org>; Fri, 26 Nov 2010 22:04:06 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 26 Nov 2010 20:04:05 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.59,264,1288594800"; d="scan'208";a="861761635"
+Received: from unknown (HELO localhost) ([10.255.13.200])
+	by fmsmga001.fm.intel.com with ESMTP; 26 Nov 2010 20:04:05 -0800
+Message-Id: <cover.1290830448.git.tom.zanussi@intel.com>
+From: Tom Zanussi <tom.zanussi@intel.com>
+Date: Fri, 26 Nov 2010 22:00:48 -0600
 To: poky@yoctoproject.org
-Subject: how much disk space should be used when Poky is installed?
+Cc: Tom Zanussi <tom.zanussi@linux.intel.com>
+Subject: [PATCH 0/1] Add sysprof package
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,32 +25,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 27 Nov 2010 02:38:56 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Sat, 27 Nov 2010 04:04:06 -0000
 
-Hi, all:
-   when i try to install poky-image-minimal image for poky, it takes
->25G disk space, but it is failure as "No space left on disk". I  want
-to know how much free disk i should prepare before intall it. thanks
-all!
+Add sysprof, one of the tracing/profiling tools mentioned in the Yocto v1.0
+tracing/profiling tools list posted here:
 
-It will more pleasure if you can list the size needed for the bellow images
+https://lists.yoctoproject.org/pipermail/yocto/2010-November/000281.html
 
-    poky-image-minimal
-    poky-image-sato
-    meta-toolchain
-    meta-toolchain-sdk
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: tzanussi/sysprof
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=tzanussi/sysprof
 
-
-Best Regards
-
-Bai Shuwei
+Thanks,
+    Tom Zanussi <tom.zanussi@intel.com>
+---
 
 
+Tom Zanussi (1):
+  sysprof: new package
 
--- 
-Love other people, as same as love yourself!
-Don't think all the time, do it by your hands!
+ .../conf/distro/include/poky-default-revisions.inc |    1 +
+ meta/recipes-core/tasks/task-poky-tools.bb         |    1 +
+ meta/recipes-kernel/sysprof/sysprof_git.bb         |   18 ++++++++++++++++++
+ 3 files changed, 20 insertions(+), 0 deletions(-)
+ create mode 100644 meta/recipes-kernel/sysprof/sysprof_git.bb
 
-E-Mail: baishuwei@gmail.com
 
