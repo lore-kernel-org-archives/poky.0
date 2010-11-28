@@ -1,21 +1,25 @@
-Return-Path: <ke.yu@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B81C64C810B0
-	for <poky@yoctoproject.org>; Sun, 28 Nov 2010 07:06:29 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 28 Nov 2010 05:06:29 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,270,1288594800"; d="scan'208";a="630938371"
-Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.154.168])
-	by fmsmga002.fm.intel.com with ESMTP; 28 Nov 2010 05:06:11 -0800
-Message-Id: <9a4582a0b3227903fd6ae8253bd8bd7eb8faf9c0.1290943560.git.ke.yu@intel.com>
-In-Reply-To: <cover.1290943560.git.ke.yu@intel.com>
-References: <cover.1290943560.git.ke.yu@intel.com>
-From: Yu Ke <ke.yu@intel.com>
-Date: Sun, 28 Nov 2010 11:33:34 +0800
-To: poky@yoctoproject.org
-CC: 
-Subject: [PATCH 10/11] qemugl: upgrade to git commit 33466cd83c2a9d7d3fb9fe437fb6a4d6fbd866b9
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 10A694C810B0
+	for <poky@lists.pokylinux.org>; Sun, 28 Nov 2010 07:29:11 -0600 (CST)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 8B7EA16607E5; Sun, 28 Nov 2010 06:29:10 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=ham version=3.3.1
+Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
+	by mail.chez-thomas.org (Postfix) with ESMTP id F054E16606CD;
+	Sun, 28 Nov 2010 06:29:09 -0700 (MST)
+Message-ID: <4CF25925.6070407@mlbassoc.com>
+Date: Sun, 28 Nov 2010 06:29:09 -0700
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.1.9) Gecko/20100430 Fedora/3.0.4-2.fc11 Thunderbird/3.0.4
+MIME-Version: 1.0
+To: Poky <poky@lists.pokylinux.org>
+Subject: Can't build meta-toolchain-sdk
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,31 +31,82 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 28 Nov 2010 13:06:29 -0000
+X-List-Received-Date: Sun, 28 Nov 2010 13:29:11 -0000
+X-Groupsio-MsgNum: 649
+Content-Type: multipart/mixed; boundary="------------080004030605060702050503"
 
-qemugl has no update since May 2009. Compared to current SRCREV, there is 3 new commit in upstream. So simply upgrade the SRCREV to the latest commit of May 2009, to include the 3 new commits.
+--------------080004030605060702050503
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Yu Ke <ke.yu@intel.com>
----
- .../conf/distro/include/poky-default-revisions.inc |    4 ++--
- 1 files changed, 2 insertions(+), 2 deletions(-)
+This target is currently broken, at least for PowerPC:
 
-diff --git a/meta/conf/distro/include/poky-default-revisions.inc b/meta/conf/distro/include/poky-default-revisions.inc
-index c5a0c7f..bcf7164 100644
---- a/meta/conf/distro/include/poky-default-revisions.inc
-+++ b/meta/conf/distro/include/poky-default-revisions.inc
-@@ -145,8 +145,8 @@ QEMUSRCREV ??= "72bb3c7571226af13cfe9eec020a56add3d30a70"
- SRCREV_pn-qemu-native ??= "${QEMUSRCREV}"
- SRCREV_pn-qemu-nativesdk ??= "${QEMUSRCREV}"
- SRCREV_pn-qemu ??= "${QEMUSRCREV}"
--SRCREV_pn-qemugl ??= "d888bbc723c00d197d34a39b5b7448660ec1b1c0"
--SRCREV_pn-qemugl-nativesdk ??= "d888bbc723c00d197d34a39b5b7448660ec1b1c0"
-+SRCREV_pn-qemugl ??= "33466cd83c2a9d7d3fb9fe437fb6a4d6fbd866b9"
-+SRCREV_pn-qemugl-nativesdk ??= "33466cd83c2a9d7d3fb9fe437fb6a4d6fbd866b9"
- SRCREV_pn-sat-solver = "aa799f7bae0ec055e0e527203635001bb7346dbc"
- SRCREV_pn-screenshot ??= "292"
- SRCREV_pn-settings-daemon ??= "2059"
+OE Build Configuration:
+BB_VERSION        = "1.11.0"
+METADATA_BRANCH   = "local_master"
+METADATA_REVISION = "94b1fda09671b58aafb54983e4a6e499f6ffc369"
+TARGET_ARCH       = "powerpc"
+TARGET_OS         = "linux"
+MACHINE           = "qemuppc"
+DISTRO            = "poky"
+DISTRO_VERSION    = "0.9+snapshot-20101127"
+TARGET_FPU        = ""
+
+At least two things need to be fixed.
+
+* Pull this change from poky-contrib:
+   commit 34660ef99020b9e3386df7b388f866fc7aa47d5c
+   Author: Saul Wold <sgw@linux.intel.com>
+   Date:   Mon Nov 22 22:11:52 2010 -0800
+
+     libsndfile: remove patches that are no longer required by upstream
+
+     Signed-off-by: Saul Wold <sgw@linux.intel.com>
+
+* Add the attached patch
+
 -- 
-1.7.0.4
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
+
+--------------080004030605060702050503
+Content-Type: text/plain;
+ name="0002-Add-missing-config-file-allows-builds-on-PowerPC.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename*0="0002-Add-missing-config-file-allows-builds-on-PowerPC.patch"
+
+From cca9c281cb901d4d69ea8d59b08fb57f50db65f2 Mon Sep 17 00:00:00 2001
+From: Gary Thomas <gary@mlbassoc.com>
+Date: Sun, 28 Nov 2010 06:21:28 -0700
+Subject: [PATCH 2/2] Add missing config file - allows builds on PowerPC
+
+Signed-off-by: Gary Thomas <gary@mlbassoc.com>
+---
+ .../gnome/libart-lgpl/powerpc/art_config.h         |   10 ++++++++++
+ 1 files changed, 10 insertions(+), 0 deletions(-)
+ create mode 100644 meta/recipes-gnome/gnome/libart-lgpl/powerpc/art_config.h
+
+diff --git a/meta/recipes-gnome/gnome/libart-lgpl/powerpc/art_config.h b/meta/recipes-gnome/gnome/libart-lgpl/powerpc/art_config.h
+new file mode 100644
+index 0000000..b0e74ad
+--- /dev/null
++++ b/meta/recipes-gnome/gnome/libart-lgpl/powerpc/art_config.h
+@@ -0,0 +1,10 @@
++/* Automatically generated by gen_art_config.c */
++
++#define ART_SIZEOF_CHAR 1
++#define ART_SIZEOF_SHORT 2
++#define ART_SIZEOF_INT 4
++#define ART_SIZEOF_LONG 4
++
++typedef unsigned char art_u8;
++typedef unsigned short art_u16;
++typedef unsigned int art_u32;
+-- 
+1.6.2.5
 
 
+--------------080004030605060702050503--
