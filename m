@@ -1,25 +1,30 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 10A694C810B0
-	for <poky@lists.pokylinux.org>; Sun, 28 Nov 2010 07:29:11 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 8B7EA16607E5; Sun, 28 Nov 2010 06:29:10 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=ham version=3.3.1
-Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
-	by mail.chez-thomas.org (Postfix) with ESMTP id F054E16606CD;
-	Sun, 28 Nov 2010 06:29:09 -0700 (MST)
-Message-ID: <4CF25925.6070407@mlbassoc.com>
-Date: Sun, 28 Nov 2010 06:29:09 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.1.9) Gecko/20100430 Fedora/3.0.4-2.fc11 Thunderbird/3.0.4
-MIME-Version: 1.0
-To: Poky <poky@lists.pokylinux.org>
-Subject: Can't build meta-toolchain-sdk
+Return-Path: <rpurdie@linux.intel.com>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D4C1D4C80039
+	for <poky@lists.pokylinux.org>; Sun, 28 Nov 2010 15:19:27 -0600 (CST)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oASLJQRC021031;
+	Sun, 28 Nov 2010 21:19:26 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 20784-04; Sun, 28 Nov 2010 21:19:22 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oASLJF37021024
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Sun, 28 Nov 2010 21:19:18 GMT
+From: Richard Purdie <rpurdie@linux.intel.com>
+To: Gary Thomas <gary@mlbassoc.com>
+In-Reply-To: <4CE408E8.2030102@mlbassoc.com>
+References: <4CE408E8.2030102@mlbassoc.com>
+Date: Sun, 28 Nov 2010 12:13:40 +0000
+Message-ID: <1290946420.27143.49.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: Poky <poky@lists.pokylinux.org>
+Subject: Re: Noexec tasks?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,82 +36,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 28 Nov 2010 13:29:11 -0000
-X-Groupsio-MsgNum: 649
-Content-Type: multipart/mixed; boundary="------------080004030605060702050503"
-
---------------080004030605060702050503
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Sun, 28 Nov 2010 21:19:29 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-This target is currently broken, at least for PowerPC:
+On Wed, 2010-11-17 at 09:55 -0700, Gary Thomas wrote:
+> Messages like these are [fairly] new:
+>    NOTE: Noexec task 3045 of 3117 (ID: 505, /local/poky-amltd/meta/recipes-devtools/gcc/gcc-cross_4.5.0.bb, do_package_write)
+> I don't see that they add much (any?) value and just increase the
+> noise.  For example, if I rerun 'bitbake some-image' which has N
+> steps, I get N-2 of these followed by a couple of steps that actually
+> do the work.  Pretty annoying when N is large (for most images, N is
+> measured in thousands of steps)
+> 
+> Can these messages be suppressed?  Is there any good reason to show them?
 
-OE Build Configuration:
-BB_VERSION        = "1.11.0"
-METADATA_BRANCH   = "local_master"
-METADATA_REVISION = "94b1fda09671b58aafb54983e4a6e499f6ffc369"
-TARGET_ARCH       = "powerpc"
-TARGET_OS         = "linux"
-MACHINE           = "qemuppc"
-DISTRO            = "poky"
-DISTRO_VERSION    = "0.9+snapshot-20101127"
-TARGET_FPU        = ""
+They're meant to appear once, the first time a noexec task is "skipped"
+in the same way the other running task X of Y messages appear. I found
+the bug that was causing the to repeat all the time and will push a fix
+which should make the messages much less annoying :).
 
-At least two things need to be fixed.
+Cheers,
 
-* Pull this change from poky-contrib:
-   commit 34660ef99020b9e3386df7b388f866fc7aa47d5c
-   Author: Saul Wold <sgw@linux.intel.com>
-   Date:   Mon Nov 22 22:11:52 2010 -0800
-
-     libsndfile: remove patches that are no longer required by upstream
-
-     Signed-off-by: Saul Wold <sgw@linux.intel.com>
-
-* Add the attached patch
-
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
-
---------------080004030605060702050503
-Content-Type: text/plain;
- name="0002-Add-missing-config-file-allows-builds-on-PowerPC.patch"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
- filename*0="0002-Add-missing-config-file-allows-builds-on-PowerPC.patch"
-
-From cca9c281cb901d4d69ea8d59b08fb57f50db65f2 Mon Sep 17 00:00:00 2001
-From: Gary Thomas <gary@mlbassoc.com>
-Date: Sun, 28 Nov 2010 06:21:28 -0700
-Subject: [PATCH 2/2] Add missing config file - allows builds on PowerPC
-
-Signed-off-by: Gary Thomas <gary@mlbassoc.com>
----
- .../gnome/libart-lgpl/powerpc/art_config.h         |   10 ++++++++++
- 1 files changed, 10 insertions(+), 0 deletions(-)
- create mode 100644 meta/recipes-gnome/gnome/libart-lgpl/powerpc/art_config.h
-
-diff --git a/meta/recipes-gnome/gnome/libart-lgpl/powerpc/art_config.h b/meta/recipes-gnome/gnome/libart-lgpl/powerpc/art_config.h
-new file mode 100644
-index 0000000..b0e74ad
---- /dev/null
-+++ b/meta/recipes-gnome/gnome/libart-lgpl/powerpc/art_config.h
-@@ -0,0 +1,10 @@
-+/* Automatically generated by gen_art_config.c */
-+
-+#define ART_SIZEOF_CHAR 1
-+#define ART_SIZEOF_SHORT 2
-+#define ART_SIZEOF_INT 4
-+#define ART_SIZEOF_LONG 4
-+
-+typedef unsigned char art_u8;
-+typedef unsigned short art_u16;
-+typedef unsigned int art_u32;
--- 
-1.6.2.5
+Richard
 
 
---------------080004030605060702050503--
+
