@@ -1,21 +1,21 @@
 Return-Path: <edwin.zhai@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 099874C81060
-	for <poky@yoctoproject.org>; Wed,  1 Dec 2010 23:55:29 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 01 Dec 2010 21:55:29 -0800
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5D0204C810FF
+	for <poky@yoctoproject.org>; Wed,  1 Dec 2010 23:55:31 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 01 Dec 2010 21:55:31 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,286,1288594800"; d="scan'208";a="863431185"
+X-IronPort-AV: E=Sophos;i="4.59,286,1288594800"; d="scan'208";a="355914857"
 Received: from gw-vmm.sh.intel.com (HELO localhost) ([10.239.48.110])
-	by fmsmga001.fm.intel.com with ESMTP; 01 Dec 2010 21:55:29 -0800
-Message-Id: <c498823ef77fd06cb1beb418a2df184f123594c3.1291269468.git.edwin.zhai@intel.com>
+	by azsmga001.ch.intel.com with ESMTP; 01 Dec 2010 21:55:30 -0800
+Message-Id: <402d14166c944726052f78ad84819a8ab429993c.1291269468.git.edwin.zhai@intel.com>
 In-Reply-To: <cover.1291269468.git.edwin.zhai@intel.com>
 References: <cover.1291269468.git.edwin.zhai@intel.com>
 From: Zhai Edwin <edwin.zhai@intel.com>
-Date: Fri, 26 Nov 2010 13:56:56 +0800
+Date: Sun, 28 Nov 2010 15:24:13 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 04/14] acpid: update to 1.0.10
+Subject: [PATCH 05/14] consolekit: Update to 0.4.3
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,55 +27,88 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 02 Dec 2010 05:55:30 -0000
+X-List-Received-Date: Thu, 02 Dec 2010 05:55:31 -0000
 
 Signed-off-by: Zhai Edwin <edwin.zhai@intel.com>
 ---
- meta/recipes-bsp/acpid/acpid.inc       |    7 +++++--
- meta/recipes-bsp/acpid/acpid_1.0.10.bb |    6 ++++++
- meta/recipes-bsp/acpid/acpid_1.0.6.bb  |    3 ---
- 3 files changed, 11 insertions(+), 5 deletions(-)
- create mode 100644 meta/recipes-bsp/acpid/acpid_1.0.10.bb
- delete mode 100644 meta/recipes-bsp/acpid/acpid_1.0.6.bb
+ .../recipes-support/consolekit/consolekit_0.3.0.bb |   16 ---------------
+ .../consolekit/files/nopolkit.patch                |    8 +++---
+ meta/recipes-tbd/consolekit/consolekit_0.4.3.bb    |   21 ++++++++++++++++++++
+ 3 files changed, 25 insertions(+), 20 deletions(-)
+ delete mode 100644 meta/recipes-support/consolekit/consolekit_0.3.0.bb
+ create mode 100644 meta/recipes-tbd/consolekit/consolekit_0.4.3.bb
 
-diff --git a/meta/recipes-bsp/acpid/acpid.inc b/meta/recipes-bsp/acpid/acpid.inc
-index 8ac523d..3c0219f 100644
---- a/meta/recipes-bsp/acpid/acpid.inc
-+++ b/meta/recipes-bsp/acpid/acpid.inc
-@@ -1,7 +1,10 @@
--SECTION = "base"
- DESCRIPTION = "A daemon for delivering ACPI events."
--LICENSE="GPL"
-+HOMEPAGE = "http://sourceforge.net/projects/acpid/"
-+BUGTRACKER = "http://sourceforge.net/tracker/?group_id=33140&atid=407341"
-+
-+LICENSE="GPLv2+"
- 
-+SECTION = "base"
- SRC_URI = "${SOURCEFORGE_MIRROR}/acpid/acpid-${PV}.tar.gz \
-            file://init"
- 
-diff --git a/meta/recipes-bsp/acpid/acpid_1.0.10.bb b/meta/recipes-bsp/acpid/acpid_1.0.10.bb
-new file mode 100644
-index 0000000..ab4b582
---- /dev/null
-+++ b/meta/recipes-bsp/acpid/acpid_1.0.10.bb
-@@ -0,0 +1,6 @@
-+require acpid.inc
-+
-+LIC_FILES_CHKSUM = "file://COPYING;md5=8ca43cbc842c2336e835926c2166c28b \
-+                    file://acpid.h;endline=24;md5=324a9cf225ae69ddaad1bf9d942115b5"
-+
-+PR = "r0"
-diff --git a/meta/recipes-bsp/acpid/acpid_1.0.6.bb b/meta/recipes-bsp/acpid/acpid_1.0.6.bb
+diff --git a/meta/recipes-support/consolekit/consolekit_0.3.0.bb b/meta/recipes-support/consolekit/consolekit_0.3.0.bb
 deleted file mode 100644
-index a95cb54..0000000
---- a/meta/recipes-bsp/acpid/acpid_1.0.6.bb
+index 0d0dfea..0000000
+--- a/meta/recipes-support/consolekit/consolekit_0.3.0.bb
 +++ /dev/null
-@@ -1,3 +0,0 @@
--require acpid.inc
--LIC_FILES_CHKSUM = "file://COPYING;md5=8ca43cbc842c2336e835926c2166c28b"
--PR = "r5"
+@@ -1,16 +0,0 @@
+-DESCRIPTION = "ConsoleKit is a framework for defining and tracking users, login sessions, and seats."
+-LICENSE = "GPLv2"
+-LIC_FILES_CHKSUM = "file://COPYING;md5=59530bdf33659b29e73d4adb9f9f6552"
+-DEPENDS = "dbus"
+-
+-inherit gnome
+-
+-SRC_URI = "http://people.freedesktop.org/~mccann/dist/ConsoleKit-${PV}.tar.bz2 \
+-           file://nopolkit.patch;patch=1"
+-S = "${WORKDIR}/ConsoleKit-${PV}"
+-
+-FILES_${PN} += "${libdir}/ConsoleKit ${datadir}/dbus-1 ${datadir}/PolicyKit"
+-
+-
+-
+-
+diff --git a/meta/recipes-support/consolekit/files/nopolkit.patch b/meta/recipes-support/consolekit/files/nopolkit.patch
+index bebbcaf..7a1f02a 100644
+--- a/meta/recipes-support/consolekit/files/nopolkit.patch
++++ b/meta/recipes-support/consolekit/files/nopolkit.patch
+@@ -1,13 +1,13 @@
+-Index: ConsoleKit-0.3.0/configure.ac
++Index: ConsoleKit-0.4.3/configure.ac
+ ===================================================================
+---- ConsoleKit-0.3.0.orig/configure.ac	2009-05-22 12:53:27.000000000 +0100
+-+++ ConsoleKit-0.3.0/configure.ac	2009-05-22 12:53:56.000000000 +0100
++--- ConsoleKit-0.4.3.orig/configure.ac	2010-10-26 22:34:03.000000000 +0800
+++++ ConsoleKit-0.4.3/configure.ac	2010-11-28 15:28:26.000000000 +0800
+ @@ -55,10 +55,7 @@
+    gthread-2.0 >= $GLIB_REQUIRED_VERSION
+  )
+  
+ -PKG_CHECK_MODULES(POLKIT,
+--  polkit >= $POLKIT_REQUIRED_VERSION,
++-  polkit-gobject-1 >= $POLKIT_REQUIRED_VERSION,
+ -  have_polkit=yes,
+ -  have_polkit=no)
+ +have_polkit=no
+diff --git a/meta/recipes-tbd/consolekit/consolekit_0.4.3.bb b/meta/recipes-tbd/consolekit/consolekit_0.4.3.bb
+new file mode 100644
+index 0000000..f1da72b
+--- /dev/null
++++ b/meta/recipes-tbd/consolekit/consolekit_0.4.3.bb
+@@ -0,0 +1,21 @@
++DESCRIPTION = "ConsoleKit is a framework for defining and tracking users, login sessions, and seats."
++HOMEPAGE="http://www.freedesktop.org/wiki/Software/ConsoleKit"
++BUGTRACKER="https://bugs.freedesktop.org/buglist.cgi?query_format=specific&product=ConsoleKit"
++
++LICENSE = "GPLv2+"
++LIC_FILES_CHKSUM = "file://COPYING;md5=59530bdf33659b29e73d4adb9f9f6552 \
++                    file://src/main.c;endline=21;md5=0a994e09769780220163255d8f9071c3"
++
++DEPENDS = "dbus"
++
++inherit gnome
++
++SRC_URI = "http://www.freedesktop.org/software/ConsoleKit/dist/ConsoleKit-0.4.3.tar.bz2 \
++           file://nopolkit.patch;patch=1"
++S = "${WORKDIR}/ConsoleKit-${PV}"
++
++FILES_${PN} += "${libdir}/ConsoleKit ${datadir}/dbus-1 ${datadir}/PolicyKit"
++
++
++
++
 -- 
 1.7.0.4
 
