@@ -1,39 +1,19 @@
-Return-Path: <eballetbo@gmail.com>
-Received: from mail-pw0-f48.google.com (mail-pw0-f48.google.com
-	[209.85.160.48])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 68CE04C80815
-	for <poky@yoctoproject.org>; Sat, 27 Nov 2010 02:50:49 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by pwj9 with SMTP id 9so685536pwj.35
-	for <poky@yoctoproject.org>; Sat, 27 Nov 2010 00:50:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:received:received:in-reply-to
-	:references:date:message-id:subject:from:to:cc:content-type
-	:content-transfer-encoding;
-	bh=knz3YSfTs8R+zem5AMvBl5mRJ2zuqRbb8raf9TvpQ2Q=;
-	b=UaVt3zOQ13mF+nb56CDwmWCLUCeAKJx0Ck8goHt0+1MNZA5vk1Fcf7hEnPKdzFcQEG
-	D+Oc1vbmfXiyy/SBXXZdO5YXCaB/P8b8ECcn/phTs2SAQcuQCID02Twmz9t6ZU4Exg6o
-	gYL4cwizub9qNf0YXvPymb7uiFbpFgcw8y/H0=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type:content-transfer-encoding;
-	b=OPxSU5VZeWVkJA8xWlz3V9/41wAaRiEAo++9MhWkWjdaFOhVTvk+6AtpJcNhYdJ2JA
-	KwV8B13eD825FLQO4I6/MTx6VFh44sIa2oW/ObjGGnORAUUdPWrujOpQj4Ek7L44QrDq
-	sbRbQGr2HjMj70g5F1n3KIUTFiqIyavE7m26U=
-MIME-Version: 1.0
-Received: by 10.143.16.6 with SMTP id t6mr3310711wfi.113.1290847848922; Sat,
-	27 Nov 2010 00:50:48 -0800 (PST)
-Received: by 10.143.9.9 with HTTP; Sat, 27 Nov 2010 00:50:48 -0800 (PST)
-In-Reply-To: <AANLkTikicPDkiO+z1_4+w1vs1y77hA6XmN=PH0kHs3kx@mail.gmail.com>
-References: <AANLkTikicPDkiO+z1_4+w1vs1y77hA6XmN=PH0kHs3kx@mail.gmail.com>
-Date: Sat, 27 Nov 2010 09:50:48 +0100
-Message-ID: <AANLkTinEbfDJHkNBTgyHO1mqBgc_AfJ_WzoMpniteBA_@mail.gmail.com>
-From: =?UTF-8?Q?Enric_Balletb=C3=B2_i_Serra?= <eballetbo@gmail.com>
-To: Bai Shuwei <baishuwei@gmail.com>
-Cc: poky@yoctoproject.org
-Subject: Re: how much disk space should be used when Poky is installed?
+Return-Path: <ke.yu@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8F3624C80B6A
+	for <poky@yoctoproject.org>; Sun, 28 Nov 2010 07:05:49 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 28 Nov 2010 05:05:48 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.59,270,1288594800"; d="scan'208";a="630938296"
+Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.154.168])
+	by fmsmga002.fm.intel.com with ESMTP; 28 Nov 2010 05:05:48 -0800
+Message-Id: <cover.1290943560.git.ke.yu@intel.com>
+From: Yu Ke <ke.yu@intel.com>
+Date: Sun, 28 Nov 2010 19:26:00 +0800
+To: poky@yoctoproject.org
+CC: 
+Subject: [PATCH 00/11] recpies upgrade: mesa and other graphics recipes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -45,50 +25,56 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 27 Nov 2010 08:50:49 -0000
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Sun, 28 Nov 2010 13:05:49 -0000
 
-Hi,
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: kyu3/upgrade-11-28
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kyu3/upgrade-11-28
 
-2010/11/27 Bai Shuwei <baishuwei@gmail.com>:
-> Hi, all:
-> =C2=A0 when i try to install poky-image-minimal image for poky, it takes
->>25G disk space, but it is failure as "No space left on disk". I =C2=A0wan=
-t
-> to know how much free disk i should prepare before intall it. thanks
-> all!
->
-> It will more pleasure if you can list the size needed for the bellow imag=
-es
->
-> =C2=A0 =C2=A0poky-image-minimal
-> =C2=A0 =C2=A0poky-image-sato
-> =C2=A0 =C2=A0meta-toolchain
-> =C2=A0 =C2=A0meta-toolchain-sdk
->
- I've no data about the space required but you can append
-INHERIT+=3D"rm_work" in your local.conf to reduce the space used by
-poky.
+Thanks,
+    Yu Ke <ke.yu@intel.com>
+---
 
-Hope it helps you.
-   Enric
 
->
-> Best Regards
->
-> Bai Shuwei
->
->
->
-> --
-> Love other people, as same as love yourself!
-> Don't think all the time, do it by your hands!
->
-> E-Mail: baishuwei@gmail.com
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
+Yu Ke (11):
+  sqlite: upgrade from 3.6.23 to 3.7.3
+  libxml2-native: remove the --without-debug option
+  talloc: add new recipes talloc 2.0.1
+  mesa-dri: upgrade from 7.8.2 to 7.9
+  mesa-xlib: upgrade from 7.8.2 to 7.9
+  mesa: enable glu
+  glew: add new recipes glew 1.5.7
+  mesa-demo: add new recpies mesa demo 8.0.2
+  mesa-dri-glsl-native: upgrade from 7.8.2 to 7.9
+  qemugl: upgrade to git commit
+    33466cd83c2a9d7d3fb9fe437fb6a4d6fbd866b9
+  xf86-video-omapfb: upgrade to latest commit
+
+ .../conf/distro/include/poky-default-revisions.inc |    6 +-
+ .../distro/include/preferred-xorg-versions.inc     |    2 +-
+ meta/recipes-core/libxml/libxml2.inc               |    2 +-
+ meta/recipes-core/libxml/libxml2_2.7.7.bb          |    2 +-
+ meta/recipes-extended/talloc/talloc_2.0.1.bb       |   24 ++++
+ meta/recipes-graphics/glew/files/autotools.patch   |  146 ++++++++++++++++++++
+ meta/recipes-graphics/glew/glew_1.5.7.bb           |   19 +++
+ meta/recipes-graphics/mesa/mesa-common.inc         |    5 +-
+ meta/recipes-graphics/mesa/mesa-demos_8.0.1.bb     |   19 +++
+ ...native_7.8.2.bb => mesa-dri-glsl-native_7.9.bb} |    9 +-
+ meta/recipes-graphics/mesa/mesa-dri_7.8.2.bb       |   53 -------
+ meta/recipes-graphics/mesa/mesa-dri_7.9.bb         |   38 +++++
+ .../mesa/{mesa-xlib_7.8.2.bb => mesa-xlib_7.9.bb}  |   15 +--
+ meta/recipes-support/sqlite/sqlite3_3.6.23.1.bb    |    3 -
+ meta/recipes-support/sqlite/sqlite3_3.7.3.bb       |    5 +
+ 15 files changed, 270 insertions(+), 78 deletions(-)
+ create mode 100644 meta/recipes-extended/talloc/talloc_2.0.1.bb
+ create mode 100644 meta/recipes-graphics/glew/files/autotools.patch
+ create mode 100644 meta/recipes-graphics/glew/glew_1.5.7.bb
+ create mode 100644 meta/recipes-graphics/mesa/mesa-demos_8.0.1.bb
+ rename meta/recipes-graphics/mesa/{mesa-dri-glsl-native_7.8.2.bb => mesa-dri-glsl-native_7.9.bb} (58%)
+ delete mode 100644 meta/recipes-graphics/mesa/mesa-dri_7.8.2.bb
+ create mode 100644 meta/recipes-graphics/mesa/mesa-dri_7.9.bb
+ rename meta/recipes-graphics/mesa/{mesa-xlib_7.8.2.bb => mesa-xlib_7.9.bb} (51%)
+ delete mode 100644 meta/recipes-support/sqlite/sqlite3_3.6.23.1.bb
+ create mode 100644 meta/recipes-support/sqlite/sqlite3_3.7.3.bb
+
 
