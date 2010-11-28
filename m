@@ -1,31 +1,33 @@
-Return-Path: <rpurdie@linux.intel.com>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 8527A4C81110
-	for <poky@yoctoproject.org>; Sun, 28 Nov 2010 15:20:23 -0600 (CST)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oASLKILk021132;
-	Sun, 28 Nov 2010 21:20:18 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 20810-08; Sun, 28 Nov 2010 21:20:14 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oASLK8uW021113
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Sun, 28 Nov 2010 21:20:11 GMT
-From: Richard Purdie <rpurdie@linux.intel.com>
-To: Gary Thomas <gary@mlbassoc.com>
-In-Reply-To: <4CED06A9.8060806@mlbassoc.com>
-References: <4CECEF5D.2040702@mlbassoc.com> <4CECF7F0.3080303@mlbassoc.com>
-	<1290599248.2799.16.camel@scimitar>  <4CED06A9.8060806@mlbassoc.com>
-Date: Sun, 28 Nov 2010 16:19:17 +0000
-Message-ID: <1290961157.27143.348.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-X-Virus-Scanned: amavisd-new at rpsys.net
+Return-Path: <Tom_Rini@mentor.com>
+Received: from relay1.mentorg.com (relay1.mentorg.com [192.94.38.131])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 959BC4C8108C
+	for <poky@yoctoproject.org>; Sun, 28 Nov 2010 16:12:41 -0600 (CST)
+Received: from svr-orw-fem-01.mgc.mentorg.com ([147.34.98.93])
+	by relay1.mentorg.com with esmtp 
+	id 1PMpU8-0004qF-Rz from Tom_Rini@mentor.com ;
+	Sun, 28 Nov 2010 14:12:40 -0800
+Received: from na2-mail.mgc.mentorg.com ([134.86.114.213]) by
+	svr-orw-fem-01.mgc.mentorg.com with Microsoft
+	SMTPSVC(6.0.3790.4675); Sun, 28 Nov 2010 14:12:40 -0800
+Received: from [172.30.80.63] ([172.30.80.63]) by na2-mail.mgc.mentorg.com
+	with Microsoft SMTPSVC(6.0.3790.3959); 
+	Sun, 28 Nov 2010 15:12:39 -0700
+Message-ID: <4CF2D3CE.1010108@mentor.com>
+Date: Sun, 28 Nov 2010 15:12:30 -0700
+From: Tom Rini <tom_rini@mentor.com>
+Organization: Mentor Graphics Corporation
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.1.15) Gecko/20101027 Lightning/1.0b1 Thunderbird/3.0.10
+MIME-Version: 1.0
+To: Richard Purdie <rpurdie@linux.intel.com>
+References: <625BA99ED14B2D499DC4E29D8138F1504D31419AED@shsmsx502.ccr.corp.intel.com>	
+	<1290004124.2518.4.camel@scimitar>
+	<4CE3E72E.6070904@mentor.com> <1290946854.27143.65.camel@rex>
+In-Reply-To: <1290946854.27143.65.camel@rex>
+X-OriginalArrivalTime: 28 Nov 2010 22:12:39.0689 (UTC)
+	FILETIME=[5ED98790:01CB8F49]
 Cc: poky@yoctoproject.org
-Subject: Re: bitbake package-index broken?
+Subject: Re: a new problem with sstate
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,46 +39,40 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 28 Nov 2010 21:20:24 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Sun, 28 Nov 2010 22:12:42 -0000
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Wed, 2010-11-24 at 05:35 -0700, Gary Thomas wrote:
-> On 11/24/2010 04:47 AM, Joshua Lock wrote:
-> > On Wed, 2010-11-24 at 04:33 -0700, Gary Thomas wrote:
-> >> On 11/24/2010 03:56 AM, Gary Thomas wrote:
-> >>> With a recent build, bitbake package-index doesn't seem to do anything.
-> >>> e.g. if I look at tmp/deploy/ipk/*/Packages.gz before and after, there
-> >>> are no changes.
-> >>>
-> >>> I tried to build a simple package and add it to my database. Sadly,
-> >>> it's not being updated at all, so the new package does not appear on
-> >>> the board.
-> >>>
-> >>> Any ideas what might be wrong?
-> >>
-> >> A quick check shows that do_build() in the package-index recipe is never
-> >> really run!
-> >>
-> >> I found a workaround by just building an image which has a root file system.
-> >> This also forces a package database rebuild.  It would be nice to figure out
-> >> what's broken though (it certainly _used_ to work)
-> >>
-> >
-> > I'm not really familiar with the ipk classes so can't offer a quick
-> > solution, could I ask you to file a bug so that we can track this issue
-> > and assign resources to fix?
-> 
-> Done - bug #544
+On 11/28/2010 05:20 AM, Richard Purdie wrote:
+> On Wed, 2010-11-17 at 07:31 -0700, Tom Rini wrote:
+>> With old style packaged-staging we workaround this by doing:
+>>
+>> # We want to be certain that the scene is set for us only after it's set for
+>> # our dependencies, to avoid problems with pstage package install order.
+>> do_setscene[deptask] = "do_setscene"
+>>
+>> Can something similar be done for the sstate way of the world?
+>
+> Unfortunately not. sstate differs as the code tries to be clever about
+> the dependencies and reverse walks the dependency tree. This means that
+> if:
+>
+> A =>  B =>  C =>  D =>  E
+>
+> where "=>" means "depends on" then sstate will try and install a sstate
+> package for A, then B, then C and *stop* once it finds a match.
+>
+> This fixes one of the annoyances of packaged-staging where if you're
+> building an image and have all the ipks installed, it would still
+> install the cross toolchain.
 
-I've a fix I'll push shortly. The reason was that we marked do_build as
-noexec and package-index did all its work in do_build. The updates
-changes this and marks more tasks in that recipe as noexec to make
-things more efficient.
+Er, so you're saying sstate has a 3 steps back limit?  Or am I just 
+misunderstanding the example?  That would sound like other things are a 
+bit hard to get done with sstate?  Or should stuff like bitbake 
+virtual/kernel ; bitbake -c menuconfig virtual/kernel ; bitbake 
+virtual/kernel (roughly...) still work?
 
-Cheers,
-
-Richard
-
-
+-- 
+Tom Rini
+Mentor Graphics Corporation
 
