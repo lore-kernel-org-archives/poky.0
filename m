@@ -1,21 +1,21 @@
 Return-Path: <ke.yu@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 764BE4C811AD
-	for <poky@yoctoproject.org>; Sun, 28 Nov 2010 07:06:06 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 28 Nov 2010 05:06:06 -0800
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 10C8D4C811E1
+	for <poky@yoctoproject.org>; Sun, 28 Nov 2010 07:06:11 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 28 Nov 2010 05:06:10 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,270,1288594800"; d="scan'208";a="354053929"
+X-IronPort-AV: E=Sophos;i="4.59,270,1288594800"; d="scan'208";a="862042014"
 Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.154.168])
-	by azsmga001.ch.intel.com with ESMTP; 28 Nov 2010 05:06:05 -0800
-Message-Id: <2e1a35c60e52a2b10f043c4ed5a0fd730ffd90df.1290943560.git.ke.yu@intel.com>
+	by fmsmga001.fm.intel.com with ESMTP; 28 Nov 2010 05:06:10 -0800
+Message-Id: <c0c4540535c37d5582bec4e7c30d38759c8a2973.1290943560.git.ke.yu@intel.com>
 In-Reply-To: <cover.1290943560.git.ke.yu@intel.com>
 References: <cover.1290943560.git.ke.yu@intel.com>
 From: Yu Ke <ke.yu@intel.com>
-Date: Sat, 27 Nov 2010 21:43:34 +0800
+Date: Sun, 28 Nov 2010 10:10:07 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 06/11] mesa: enable glu
+Subject: [PATCH 09/11] mesa-dri-glsl-native: upgrade from 7.8.2 to 7.9
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,63 +27,53 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 28 Nov 2010 13:06:06 -0000
+X-List-Received-Date: Sun, 28 Nov 2010 13:06:11 -0000
 
-GLU is needed by glew, which in turn needed by mesa-demos
+with the following changes
+- add license checksum
+- add dependency of talloc-native, because mesa 7.9 start to use talloc to manage its memory.
 
 Signed-off-by: Yu Ke <ke.yu@intel.com>
 ---
- meta/recipes-graphics/mesa/mesa-common.inc  |    5 ++++-
- meta/recipes-graphics/mesa/mesa-dri_7.9.bb  |    2 +-
- meta/recipes-graphics/mesa/mesa-xlib_7.9.bb |    2 +-
- 3 files changed, 6 insertions(+), 3 deletions(-)
+ ...native_7.8.2.bb => mesa-dri-glsl-native_7.9.bb} |    9 +++++----
+ 1 files changed, 5 insertions(+), 4 deletions(-)
+ rename meta/recipes-graphics/mesa/{mesa-dri-glsl-native_7.8.2.bb => mesa-dri-glsl-native_7.9.bb} (58%)
 
-diff --git a/meta/recipes-graphics/mesa/mesa-common.inc b/meta/recipes-graphics/mesa/mesa-common.inc
-index 240f956..f029d3d 100644
---- a/meta/recipes-graphics/mesa/mesa-common.inc
-+++ b/meta/recipes-graphics/mesa/mesa-common.inc
-@@ -13,7 +13,7 @@ PROVIDES = "virtual/libgl"
+diff --git a/meta/recipes-graphics/mesa/mesa-dri-glsl-native_7.8.2.bb b/meta/recipes-graphics/mesa/mesa-dri-glsl-native_7.9.bb
+similarity index 58%
+rename from meta/recipes-graphics/mesa/mesa-dri-glsl-native_7.8.2.bb
+rename to meta/recipes-graphics/mesa/mesa-dri-glsl-native_7.9.bb
+index f6121c1..ffc113b 100644
+--- a/meta/recipes-graphics/mesa/mesa-dri-glsl-native_7.8.2.bb
++++ b/meta/recipes-graphics/mesa/mesa-dri-glsl-native_7.9.bb
+@@ -3,22 +3,23 @@ HOMEPAGE = "http://mesa3d.org"
+ BUGTRACKER = "https://bugs.freedesktop.org"
+ SECTION = "x11"
+ LICENSE = "MIT"
++LIC_FILES_CHKSUM = "file://main.cpp;endline=22;md5=a12a9c0208ee64a07ce314dfed4c81eb"
+ PR = "r0"
  
- inherit autotools pkgconfig
+-DEPENDS = "makedepend-native"
++DEPENDS = "makedepend-native talloc-native"
  
--EXTRA_OECONF = "--disable-glu \
-+EXTRA_OECONF = "--enable-glu \
-                 --disable-glw \
-                 --disable-glut \
-                 --enable-glx-tls"
-@@ -21,4 +21,7 @@ EXTRA_OECONF = "--disable-glu \
- # Multiple virtual/gl providers being built breaks staging
- EXCLUDE_FROM_WORLD = "1"
+ SRC_URI = "ftp://ftp.freedesktop.org/pub/mesa/${PV}/MesaLib-${PV}.tar.bz2"
  
-+PACKAGES =+ "libglu libglu-dev"
+-S = "${WORKDIR}/Mesa-7.8.2/src/glsl/"
++S = "${WORKDIR}/Mesa-${PV}/src/glsl"
  
-+FILES_libglu = "${libdir}/libGLU.so.*"
-+FILES_libglu-dev = "${libdir}/libGLU.* ${includedir}/GL/glu*.h"
-diff --git a/meta/recipes-graphics/mesa/mesa-dri_7.9.bb b/meta/recipes-graphics/mesa/mesa-dri_7.9.bb
-index 6f0f984..313b655 100644
---- a/meta/recipes-graphics/mesa/mesa-dri_7.9.bb
-+++ b/meta/recipes-graphics/mesa/mesa-dri_7.9.bb
-@@ -8,7 +8,7 @@ LIB_DEPS = "libdrm virtual/libx11 libxext libxxf86vm libxdamage libxfixes expat
+ inherit native
  
- DEPENDS = "${PROTO_DEPS}  ${LIB_DEPS} mesa-dri-glsl-native"
+ # use default config for native build
+ do_configure_prepend() {
+-	ln -s ${S}/../../configs/default ${S}/../../configs/current
++	ln -sf ${S}/../../configs/default ${S}/../../configs/current
+ }
  
--PR = "r0"
-+PR = "r1"
- 
- SRC_URI = "ftp://ftp.freedesktop.org/pub/mesa/${PV}/MesaLib-${PV}.tar.bz2 \
-            file://crossfix.patch"
-diff --git a/meta/recipes-graphics/mesa/mesa-xlib_7.9.bb b/meta/recipes-graphics/mesa/mesa-xlib_7.9.bb
-index c4d3b31..a816e93 100644
---- a/meta/recipes-graphics/mesa/mesa-xlib_7.9.bb
-+++ b/meta/recipes-graphics/mesa/mesa-xlib_7.9.bb
-@@ -10,6 +10,6 @@ LIB_DEPS = "virtual/libx11 libxext libxxf86vm libxdamage libxfixes talloc libxml
- DEPENDS = "${PROTO_DEPS}  ${LIB_DEPS}"
- 
- PE = "1"
--PR = "r0"
-+PR = "r1"
- 
- EXTRA_OECONF += "--with-driver=xlib"
+ do_install() {
+ 	install -d ${D}/${bindir}
+-	install -m 755 ${S}/apps/compile ${D}/${bindir}/glsl-compile
++	install -m 755 ${S}/glsl_compiler ${D}/${bindir}/
+ }
 -- 
 1.7.0.4
 
