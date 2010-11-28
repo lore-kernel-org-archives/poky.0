@@ -1,21 +1,21 @@
 Return-Path: <ke.yu@intel.com>
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 829974C810B0
+	by mx1.pokylinux.org (Postfix) with ESMTP id B81C64C810B0
 	for <poky@yoctoproject.org>; Sun, 28 Nov 2010 07:06:29 -0600 (CST)
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 28 Nov 2010 05:06:28 -0800
+	by fmsmga101.fm.intel.com with ESMTP; 28 Nov 2010 05:06:29 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,270,1288594800"; d="scan'208";a="630938351"
+X-IronPort-AV: E=Sophos;i="4.59,270,1288594800"; d="scan'208";a="630938371"
 Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.154.168])
-	by fmsmga002.fm.intel.com with ESMTP; 28 Nov 2010 05:06:03 -0800
-Message-Id: <0964e61dd741d7e304f01cd57931c44da61d2db9.1290943560.git.ke.yu@intel.com>
+	by fmsmga002.fm.intel.com with ESMTP; 28 Nov 2010 05:06:11 -0800
+Message-Id: <9a4582a0b3227903fd6ae8253bd8bd7eb8faf9c0.1290943560.git.ke.yu@intel.com>
 In-Reply-To: <cover.1290943560.git.ke.yu@intel.com>
 References: <cover.1290943560.git.ke.yu@intel.com>
 From: Yu Ke <ke.yu@intel.com>
-Date: Sat, 27 Nov 2010 09:24:56 +0800
+Date: Sun, 28 Nov 2010 11:33:34 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 05/11] mesa-xlib: upgrade from 7.8.2 to 7.9
+Subject: [PATCH 10/11] qemugl: upgrade to git commit 33466cd83c2a9d7d3fb9fe437fb6a4d6fbd866b9
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,47 +29,28 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Sun, 28 Nov 2010 13:06:29 -0000
 
-- starting from mesa 7.9, mesa-demos is not bundled with mesa in upstream, so remove the mesa demo in mesa recipes. there will be a seperate recipes to build mesa-demos
+qemugl has no update since May 2009. Compared to current SRCREV, there is 3 new commit in upstream. So simply upgrade the SRCREV to the latest commit of May 2009, to include the 3 new commits.
 
 Signed-off-by: Yu Ke <ke.yu@intel.com>
 ---
- .../mesa/{mesa-xlib_7.8.2.bb => mesa-xlib_7.9.bb}  |   13 +++----------
- 1 files changed, 3 insertions(+), 10 deletions(-)
- rename meta/recipes-graphics/mesa/{mesa-xlib_7.8.2.bb => mesa-xlib_7.9.bb} (52%)
+ .../conf/distro/include/poky-default-revisions.inc |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/meta/recipes-graphics/mesa/mesa-xlib_7.8.2.bb b/meta/recipes-graphics/mesa/mesa-xlib_7.9.bb
-similarity index 52%
-rename from meta/recipes-graphics/mesa/mesa-xlib_7.8.2.bb
-rename to meta/recipes-graphics/mesa/mesa-xlib_7.9.bb
-index 093ad6e..c4d3b31 100644
---- a/meta/recipes-graphics/mesa/mesa-xlib_7.8.2.bb
-+++ b/meta/recipes-graphics/mesa/mesa-xlib_7.9.bb
-@@ -1,9 +1,11 @@
- include mesa-common.inc
- 
-+SRC_URI = "ftp://ftp.freedesktop.org/pub/mesa/${PV}/MesaLib-${PV}.tar.bz2"
-+
- LIC_FILES_CHKSUM = "file://docs/license.html;md5=7a3373c039b6b925c427755a4f779c1d"
- 
- PROTO_DEPS = "xf86driproto glproto"
--LIB_DEPS = "virtual/libx11 libxext libxxf86vm libxdamage libxfixes"
-+LIB_DEPS = "virtual/libx11 libxext libxxf86vm libxdamage libxfixes talloc libxml2-native"
- 
- DEPENDS = "${PROTO_DEPS}  ${LIB_DEPS}"
- 
-@@ -11,12 +13,3 @@ PE = "1"
- PR = "r0"
- 
- EXTRA_OECONF += "--with-driver=xlib"
--
--do_install_append () {
--    install -d ${D}/${bindir}
--    install -m 0755 ${S}/progs/xdemos/{glxdemo,glxgears,glxheads,glxinfo} ${D}/${bindir}
--}
--
--PACKAGES =+ "${PN}-xprogs"
--
--FILES_${PN}-xprogs = "${bindir}/glxdemo ${bindir}/glxgears ${bindir}/glxheads ${bindir}/glxinfo"
+diff --git a/meta/conf/distro/include/poky-default-revisions.inc b/meta/conf/distro/include/poky-default-revisions.inc
+index c5a0c7f..bcf7164 100644
+--- a/meta/conf/distro/include/poky-default-revisions.inc
++++ b/meta/conf/distro/include/poky-default-revisions.inc
+@@ -145,8 +145,8 @@ QEMUSRCREV ??= "72bb3c7571226af13cfe9eec020a56add3d30a70"
+ SRCREV_pn-qemu-native ??= "${QEMUSRCREV}"
+ SRCREV_pn-qemu-nativesdk ??= "${QEMUSRCREV}"
+ SRCREV_pn-qemu ??= "${QEMUSRCREV}"
+-SRCREV_pn-qemugl ??= "d888bbc723c00d197d34a39b5b7448660ec1b1c0"
+-SRCREV_pn-qemugl-nativesdk ??= "d888bbc723c00d197d34a39b5b7448660ec1b1c0"
++SRCREV_pn-qemugl ??= "33466cd83c2a9d7d3fb9fe437fb6a4d6fbd866b9"
++SRCREV_pn-qemugl-nativesdk ??= "33466cd83c2a9d7d3fb9fe437fb6a4d6fbd866b9"
+ SRCREV_pn-sat-solver = "aa799f7bae0ec055e0e527203635001bb7346dbc"
+ SRCREV_pn-screenshot ??= "292"
+ SRCREV_pn-settings-daemon ??= "2059"
 -- 
 1.7.0.4
 
