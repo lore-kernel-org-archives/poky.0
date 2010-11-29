@@ -1,21 +1,28 @@
-Return-Path: <lei.mei@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E49344C81229
-	for <poky@yoctoproject.org>; Mon, 29 Nov 2010 01:19:17 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 28 Nov 2010 23:19:12 -0800
+Return-Path: <qing.he@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id DAD924C811F8
+	for <poky@yoctoproject.org>; Mon, 29 Nov 2010 02:22:47 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 29 Nov 2010 00:22:47 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,275,1288594800"; d="scan'208";a="862221301"
-Received: from daocaoren-desktop.sh.intel.com (HELO localhost)
-	([10.239.48.112])
-	by fmsmga001.fm.intel.com with ESMTP; 28 Nov 2010 23:19:11 -0800
-Message-Id: <de844d714ef007f2f8e41b83b9f445b213063d23.1291014682.git.lei.mei@intel.com>
-In-Reply-To: <cover.1291014682.git.lei.mei@intel.com>
-References: <cover.1291014682.git.lei.mei@intel.com>
-From: Mei Lei <lei.mei@intel.com>
-Date: Mon, 29 Nov 2010 15:06:03 +0800
-To: poky@yoctoproject.org
-Subject: [PATCH 3/6] initscripts:Add license checksum 'n/a' for local recipes
+X-IronPort-AV: E=Sophos;i="4.59,275,1288594800"; d="scan'208";a="578500716"
+Received: from qhe2-db.sh.intel.com ([10.239.13.31])
+	by orsmga002.jf.intel.com with ESMTP; 29 Nov 2010 00:22:46 -0800
+Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
+	(envelope-from <qing.he@intel.com>)
+	id 1PMyvj-000560-RI; Mon, 29 Nov 2010 16:17:47 +0800
+Date: Mon, 29 Nov 2010 16:17:47 +0800
+From: Qing He <qing.he@intel.com>
+To: Richard Purdie <rpurdie@linux.intel.com>
+Message-ID: <20101129081747.GA10141@qhe2-db>
+References: <cover.1289982751.git.qing.he@intel.com>
+	<a03c4017a13bda3f20b8f39a4c099cb28f349968.1289982751.git.qing.he@intel.com>
+	<1290954166.27143.217.camel@rex>
+MIME-Version: 1.0
+In-Reply-To: <1290954166.27143.217.camel@rex>
+User-Agent: Mutt/1.5.20 (2009-06-14)
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH 1/1] curl: fix native dependency
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,26 +34,43 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 29 Nov 2010 07:19:18 -0000
+X-List-Received-Date: Mon, 29 Nov 2010 08:22:48 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Signed-off-by: Mei Lei <lei.mei@intel.com>
----
- meta/recipes-core/initscripts/initscripts_1.0.bb |    1 +
- 1 files changed, 1 insertions(+), 0 deletions(-)
+On Sun, 2010-11-28 at 22:22 +0800, Richard Purdie wrote:
+> On Wed, 2010-11-17 at 16:26 +0800, Qing He wrote:
+> > @@ -25,6 +24,10 @@ EXTRA_OECONF = "--with-zlib=${STAGING_LIBDIR}/../ \
+> >  		--enable-crypto-auth \
+> >  		"
+> >  
+> > +EXTRA_OECONF_append = " --with-gnutls=${STAGING_LIBDIR}/../"
+> > +EXTRA_OECONF_virtclass-native_append = " --without-gnutls"
+> > +EXTRA_OECONF_virtclass-nativesdk_append = " --without-gnutls"
+> > +
+> >  do_configure_prepend() {
+> >  	sed -i s:OPT_GNUTLS/bin:OPT_GNUTLS:g configure.ac
+> >  }
+> 
+> I'm going to push a fix but I wanted to note that the above is not
+> correct. Let me walk through this since I expect various people find
+> this confusing.
 
-diff --git a/meta/recipes-core/initscripts/initscripts_1.0.bb b/meta/recipes-core/initscripts/initscripts_1.0.bb
-index 1ec007d..fc77a80 100644
---- a/meta/recipes-core/initscripts/initscripts_1.0.bb
-+++ b/meta/recipes-core/initscripts/initscripts_1.0.bb
-@@ -5,6 +5,7 @@ PRIORITY = "required"
- DEPENDS = "makedevs"
- RDEPENDS = "makedevs"
- LICENSE = "GPLv2"
-+LIC_FILES_CHKSUM = "n/a"
- PR = "r122"
- 
- SRC_URI = "file://functions \
--- 
-1.6.3.3
+Thanks for the explanation.
 
+In fact, at first, I also tried to use
+EXTRA_OECONF_append_virtclass-native, in the hope to override variable
+EXTRA_OECONF_append for different virtual classes. However, the
+log.do_configure still showed "--with-gnutls=...", that's why I then
+changed to the form in the patch, and it looked working.
+
+
+And I also see something in the smart data implementation:
+    __setvar_regexp__ = re.compile('(?P<base>.*?)(?P<keyword>_append|_prepend)(_(?P<add>.*))?')
+
+Does that mean append/prepend is expected to appear before everything
+else?
+
+Thanks,
+Qing
 
