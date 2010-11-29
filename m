@@ -1,19 +1,19 @@
 Return-Path: <kevin.tian@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 059504C80FA4
-	for <poky@pokylinux.org>; Sun, 28 Nov 2010 20:48:53 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 28 Nov 2010 18:48:52 -0800
-Message-Id: <849307$ahpr75@azsmga001.ch.intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 53D2C4C80FA4
+	for <poky@pokylinux.org>; Sun, 28 Nov 2010 20:48:55 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 28 Nov 2010 18:48:55 -0800
+Message-Id: <b9dded$h7k3g9@orsmga002.jf.intel.com>
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,274,1288594800"; d="scan'208";a="354217194"
+X-IronPort-AV: E=Sophos;i="4.59,274,1288594800"; d="scan'208";a="578424335"
 Received: from poky-desktop-ktian1.sh.intel.com (HELO localhost)
 	([10.239.36.36])
-	by azsmga001.ch.intel.com with ESMTP; 28 Nov 2010 18:48:51 -0800
+	by orsmga002.jf.intel.com with ESMTP; 28 Nov 2010 18:48:54 -0800
 From: Kevin Tian <kevin.tian@intel.com>
-Date: Mon, 29 Nov 2010 10:28:47 +0800
+Date: Mon, 29 Nov 2010 10:21:48 +0800
 To: poky@pokylinux.org
-Subject: [PATCH 0/4] Miscellaneous fixes on master
+Subject: [PATCH 2/4] font-alias: remove unnecessary patch on COPYING
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -25,29 +25,33 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 29 Nov 2010 02:48:54 -0000
+X-List-Received-Date: Mon, 29 Nov 2010 02:48:55 -0000
 
-This fixes several errors I've seen on latest master.
+since the COPYING is up-to-date already, or else it simply causes confusion to do_patch
 
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: tk/master
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=tk/master
-
-Thanks,
-    Kevin Tian <kevin.tian@intel.com>
+Signed-off-by: Kevin Tian <kevin.tian@intel.com>
 ---
-
-
-Kevin Tian (4):
-  librsvg: append SRC_URI after inherit
-  font-alias: remove unnecessary patch on COPYING
-  libfontenc: add dependency on font-util
-  xproto: disable spec generation
-
- meta/recipes-gnome/librsvg/librsvg_2.32.0.bb       |    6 +++---
  .../recipes-graphics/xorg-font/font-alias_1.0.3.bb |    4 +---
- meta/recipes-graphics/xorg-lib/libfontenc_1.1.0.bb |    4 ++--
- meta/recipes-graphics/xorg-proto/xproto_7.0.19.bb  |    3 ++-
- 4 files changed, 8 insertions(+), 9 deletions(-)
+ 1 files changed, 1 insertions(+), 3 deletions(-)
+
+diff --git a/meta/recipes-graphics/xorg-font/font-alias_1.0.3.bb b/meta/recipes-graphics/xorg-font/font-alias_1.0.3.bb
+index 667d615..c146439 100644
+--- a/meta/recipes-graphics/xorg-font/font-alias_1.0.3.bb
++++ b/meta/recipes-graphics/xorg-font/font-alias_1.0.3.bb
+@@ -9,11 +9,9 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=bf0158b89be493d523d69d9f29265038 \
+                     file://misc/fonts.alias;md5=a8ec05d528431d4c9703b55a7efd67a8 \
+                     file://100dpi/fonts.alias;md5=85bebd6ca213aa656c301a72eb4397cb"
+ 
+-SRC_URI += "file://fix_COPYING_1f8141a5e3b585dfccc748400b05c9c24b41e767.patch"
+-
+ DEPENDS = "virtual/xserver font-util"
+ RDEPENDS = "encodings font-util"
+ RDEPENDS_virtclass-native = "font-util"
+ 
+ PE = "1"
+-PR = "${INC_PR}.0"
++PR = "${INC_PR}.1"
+-- 
+1.6.0.4
 
 
