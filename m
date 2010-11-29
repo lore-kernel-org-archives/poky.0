@@ -1,42 +1,36 @@
-Return-Path: <kergoth@gmail.com>
-Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
-	[74.125.82.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5F4AB4C80B6A
-	for <poky@yoctoproject.org>; Sun, 28 Nov 2010 23:53:51 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by wyf28 with SMTP id 28so4396009wyf.35
-	for <poky@yoctoproject.org>; Sun, 28 Nov 2010 21:53:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:received:mime-version:sender:received
-	:in-reply-to:references:from:date:x-google-sender-auth:message-id
-	:subject:to:cc:content-type;
-	bh=cbwxPA4/HxAKvQYSy6wLlUEF2dOvd3hfvSs+i1WGiSo=;
-	b=yAsz1UxDEBLBgCyla7JfBj/6Iw8rTr0t/rkaHeykN3J86ukxhBnn23TZbRGg6ZLoBQ
-	mCV72c2/rJEruC4fb8xE+gnTj9XN5C77TOEHhwMSzPtyzNgDh+gVD5RNwdDWMia1j1Z/
-	TpfxEUSXebqiTItz/H1aMAokqE+ToHzm5MYT4=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:sender:in-reply-to:references:from:date
-	:x-google-sender-auth:message-id:subject:to:cc:content-type;
-	b=UyZqKtVN6y085R9PoNOUP5HKWvHNjWuQu8IGazcN89rW6ZjIgwociTYxD2ZH2Mht3H
-	cJarU/6WpNR8wTT1CIhQ+4aOgtX2JIshf7TUHqjMJcSQYXpmH/MjkcHKVxUaPq/HFJR6
-	RMBCK39OwGRtCeTdqGfPzJjsCpyrVykEAsQZk=
-Received: by 10.216.22.70 with SMTP id s48mr2692102wes.27.1291010030580; Sun,
-	28 Nov 2010 21:53:50 -0800 (PST)
-MIME-Version: 1.0
-Sender: kergoth@gmail.com
-Received: by 10.216.67.67 with HTTP; Sun, 28 Nov 2010 21:53:30 -0800 (PST)
-In-Reply-To: <625BA99ED14B2D499DC4E29D8138F1504D42C686F3@shsmsx502.ccr.corp.intel.com>
+Return-Path: <kevin.tian@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 672054C811FD
+	for <poky@yoctoproject.org>; Sun, 28 Nov 2010 23:58:59 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 28 Nov 2010 21:58:59 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.59,274,1288594800"; d="scan'208";a="578466617"
+Received: from pgsmsx603.gar.corp.intel.com ([10.221.43.87])
+	by orsmga002.jf.intel.com with ESMTP; 28 Nov 2010 21:58:58 -0800
+Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
+	pgsmsx603.gar.corp.intel.com (10.221.43.87) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Mon, 29 Nov 2010 13:58:49 +0800
+Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
+	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
+	Mon, 29 Nov 2010 13:58:47 +0800
+From: "Tian, Kevin" <kevin.tian@intel.com>
+To: Chris Larson <clarson@kergoth.com>
+Date: Mon, 29 Nov 2010 13:58:46 +0800
+Thread-Topic: [poky] [PATCH 1/1] curl: fix native dependency
+Thread-Index: AcuPic5h8NX0fCRFRmWYIbWaMlOqswAAHZzw
+Message-ID: <625BA99ED14B2D499DC4E29D8138F1504D42C68736@shsmsx502.ccr.corp.intel.com>
 References: <cover.1289982751.git.qing.he@intel.com>
 	<a03c4017a13bda3f20b8f39a4c099cb28f349968.1289982751.git.qing.he@intel.com>
 	<1290954166.27143.217.camel@rex>
 	<625BA99ED14B2D499DC4E29D8138F1504D42C686F3@shsmsx502.ccr.corp.intel.com>
-From: Chris Larson <clarson@kergoth.com>
-Date: Sun, 28 Nov 2010 22:53:30 -0700
-X-Google-Sender-Auth: C8atlqNdehrD0iWmRZEe8rDUEuY
-Message-ID: <AANLkTi=oxv9goiEMAfpkDAvq7n_GfGUMSXsonXDdzixd@mail.gmail.com>
-To: "Tian, Kevin" <kevin.tian@intel.com>
+	<AANLkTi=oxv9goiEMAfpkDAvq7n_GfGUMSXsonXDdzixd@mail.gmail.com>
+In-Reply-To: <AANLkTi=oxv9goiEMAfpkDAvq7n_GfGUMSXsonXDdzixd@mail.gmail.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
+MIME-Version: 1.0
 Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: [PATCH 1/1] curl: fix native dependency
 X-BeenThere: poky@yoctoproject.org
@@ -50,29 +44,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 29 Nov 2010 05:53:51 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Mon, 29 Nov 2010 05:58:59 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On Sun, Nov 28, 2010 at 10:26 PM, Tian, Kevin <kevin.tian@intel.com> wrote:
-> This also confuses me a bit. When virtclass-native is expanded, EXTRA_OECONF_append
-> is simply a variable. In that case the expanded value should override the 1st assignment
-> of EXTRA_OECONF_append, and then we should get:
->
-> EXTRA_OECONF_append = " --without-gnutls "
->
-> and then that's what we expect.
->
-> I guess I may still overlook something here, and really appreciate your explanation
-> on the whole flow which is helpful. :-)
-
-No, EXTRA_OECONF_append is never a variable.  _append/_prepend are
-operations, not part of the name.  The value gets set aside in a list
-of appends for that variable.  One _append cannot override/replace
-another on the same variable, its always cumulative.
--- 
-Christopher Larson
-clarson at kergoth dot com
-Founder - BitBake, OpenEmbedded, OpenZaurus
-Maintainer - Tslib
-Senior Software Engineer, Mentor Graphics
+PkZyb206IENocmlzIExhcnNvbg0KPlNlbnQ6IE1vbmRheSwgTm92ZW1iZXIgMjksIDIwMTAgMTo1
+NCBQTQ0KPg0KPk9uIFN1biwgTm92IDI4LCAyMDEwIGF0IDEwOjI2IFBNLCBUaWFuLCBLZXZpbiA8
+a2V2aW4udGlhbkBpbnRlbC5jb20+IHdyb3RlOg0KPj4gVGhpcyBhbHNvIGNvbmZ1c2VzIG1lIGEg
+Yml0LiBXaGVuIHZpcnRjbGFzcy1uYXRpdmUgaXMgZXhwYW5kZWQsIEVYVFJBX09FQ09ORl9hcHBl
+bmQNCj4+IGlzIHNpbXBseSBhIHZhcmlhYmxlLiBJbiB0aGF0IGNhc2UgdGhlIGV4cGFuZGVkIHZh
+bHVlIHNob3VsZCBvdmVycmlkZSB0aGUgMXN0IGFzc2lnbm1lbnQNCj4+IG9mIEVYVFJBX09FQ09O
+Rl9hcHBlbmQsIGFuZCB0aGVuIHdlIHNob3VsZCBnZXQ6DQo+Pg0KPj4gRVhUUkFfT0VDT05GX2Fw
+cGVuZCA9ICIgLS13aXRob3V0LWdudXRscyAiDQo+Pg0KPj4gYW5kIHRoZW4gdGhhdCdzIHdoYXQg
+d2UgZXhwZWN0Lg0KPj4NCj4+IEkgZ3Vlc3MgSSBtYXkgc3RpbGwgb3Zlcmxvb2sgc29tZXRoaW5n
+IGhlcmUsIGFuZCByZWFsbHkgYXBwcmVjaWF0ZSB5b3VyIGV4cGxhbmF0aW9uDQo+PiBvbiB0aGUg
+d2hvbGUgZmxvdyB3aGljaCBpcyBoZWxwZnVsLiA6LSkNCj4NCj5ObywgRVhUUkFfT0VDT05GX2Fw
+cGVuZCBpcyBuZXZlciBhIHZhcmlhYmxlLiAgX2FwcGVuZC9fcHJlcGVuZCBhcmUNCj5vcGVyYXRp
+b25zLCBub3QgcGFydCBvZiB0aGUgbmFtZS4gIFRoZSB2YWx1ZSBnZXRzIHNldCBhc2lkZSBpbiBh
+IGxpc3QNCj5vZiBhcHBlbmRzIGZvciB0aGF0IHZhcmlhYmxlLiAgT25lIF9hcHBlbmQgY2Fubm90
+IG92ZXJyaWRlL3JlcGxhY2UNCj5hbm90aGVyIG9uIHRoZSBzYW1lIHZhcmlhYmxlLCBpdHMgYWx3
+YXlzIGN1bXVsYXRpdmUuDQoNCnllcywgeW91J3JlIGNvcnJlY3QuIFRoYW5rcyBmb3IgcG9pbnRp
+bmcgaXQgb3V0Lg0KDQpUaGFua3MsDQpLZXZpbg0K
 
