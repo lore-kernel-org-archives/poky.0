@@ -1,36 +1,35 @@
-Return-Path: <kevin.tian@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 4DEF84C80039
-	for <poky@yoctoproject.org>; Sun, 28 Nov 2010 23:27:07 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 28 Nov 2010 21:27:06 -0800
+Return-Path: <dongxiao.xu@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id DBB934C80039
+	for <poky@yoctoproject.org>; Sun, 28 Nov 2010 23:46:22 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 28 Nov 2010 21:46:22 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,274,1288594800"; d="scan'208";a="631086784"
-Received: from pgsmsx603.gar.corp.intel.com ([10.221.43.87])
-	by fmsmga002.fm.intel.com with ESMTP; 28 Nov 2010 21:27:06 -0800
-Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
-	pgsmsx603.gar.corp.intel.com (10.221.43.87) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Mon, 29 Nov 2010 13:26:57 +0800
-Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
-	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
-	Mon, 29 Nov 2010 13:26:56 +0800
-From: "Tian, Kevin" <kevin.tian@intel.com>
-To: Richard Purdie <rpurdie@linux.intel.com>, "He, Qing" <qing.he@intel.com>
-Date: Mon, 29 Nov 2010 13:26:54 +0800
-Thread-Topic: [poky] [PATCH 1/1] curl: fix native dependency
-Thread-Index: AcuPQga4Px2j+qulRkO0K7yoVNEJigAQxS5A
-Message-ID: <625BA99ED14B2D499DC4E29D8138F1504D42C686F3@shsmsx502.ccr.corp.intel.com>
-References: <cover.1289982751.git.qing.he@intel.com>
-	<a03c4017a13bda3f20b8f39a4c099cb28f349968.1289982751.git.qing.he@intel.com>
-	<1290954166.27143.217.camel@rex>
-In-Reply-To: <1290954166.27143.217.camel@rex>
+X-IronPort-AV: E=Sophos;i="4.59,274,1288594800"; d="scan'208";a="578463946"
+Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
+	by orsmga002.jf.intel.com with ESMTP; 28 Nov 2010 21:46:21 -0800
+Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
+	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Mon, 29 Nov 2010 13:45:55 +0800
+Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
+	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
+	Mon, 29 Nov 2010 13:45:54 +0800
+From: "Xu, Dongxiao" <dongxiao.xu@intel.com>
+To: Richard Purdie <rpurdie@linux.intel.com>
+Date: Mon, 29 Nov 2010 13:45:54 +0800
+Thread-Topic: [poky] [PATCH 0/1][RFC] Optimize file parsing speed
+Thread-Index: AcuPQgVWjzc+6y2BSrq8FmsCKA8lygARntLw
+Message-ID: <D5AB6E638E5A3E4B8F4406B113A5A19A30346BE1@shsmsx501.ccr.corp.intel.com>
+References: <cover.1290405852.git.dongxiao.xu@intel.com>
+	<1290954465.27143.226.camel@rex>
+In-Reply-To: <1290954465.27143.226.camel@rex>
 Accept-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 acceptlanguage: en-US
 MIME-Version: 1.0
 Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 1/1] curl: fix native dependency
+Subject: Re: [PATCH 0/1][RFC] Optimize file parsing speed
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,104 +41,123 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 29 Nov 2010 05:27:07 -0000
+X-List-Received-Date: Mon, 29 Nov 2010 05:46:23 -0000
 Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
->From: Richard Purdie
->Sent: Sunday, November 28, 2010 10:23 PM
->
->On Wed, 2010-11-17 at 16:26 +0800, Qing He wrote:
->> @@ -25,6 +24,10 @@ EXTRA_OECONF =3D "--with-zlib=3D${STAGING_LIBDIR}/../=
- \
->>  		--enable-crypto-auth \
->>  		"
->>
->> +EXTRA_OECONF_append =3D " --with-gnutls=3D${STAGING_LIBDIR}/../"
->> +EXTRA_OECONF_virtclass-native_append =3D " --without-gnutls"
->> +EXTRA_OECONF_virtclass-nativesdk_append =3D " --without-gnutls"
->> +
->>  do_configure_prepend() {
->>  	sed -i s:OPT_GNUTLS/bin:OPT_GNUTLS:g configure.ac
->>  }
->
->I'm going to push a fix but I wanted to note that the above is not
->correct. Let me walk through this since I expect various people find
->this confusing.
->
->EXTRA_OECONF_virtclass-native_append =3D "X"
->
->means append "X" to the variable EXTRA_OECONF_virtclass-native
->
->So as bitbake expands this,
->
->EXTRA_OECONF_virtclass-native =3D "X" (since EXTRA_OECONF_virtclass-native
->was empty)
->
->When bitbake expands overrides, the virtclass-native can be removed and
->this overwrites the original EXTRA_OECONF variable so EXTRA_OECONF
->becomes just X.
+Richard Purdie wrote:
+> Hi Dongxiao,
+>=20
+> On Mon, 2010-11-22 at 14:04 +0800, Dongxiao Xu wrote:
+>> I found that when parsing bitbake files, most of the variables in
+>> d.keys() are in distro_tracking_fields.inc, and they are not used in
+>> normal build.=20
+>>=20
+>> This pull request moves some distro related functions in
+>> utility-tasks.bbclass into distrodata.bbclass, and remove the
+>> inclusion of distro_tracking_fields.inc from poky.conf. This could
+>> gain about 25% parsing time saving.
+>=20
+> I'm going to take the patch but I'd like to be clear where the speed
+> gains come from with this change. I suspect some are due to a smaller
+> number of keys but I also suspect the smaller number of tasks
+> involved helps too!  =20
 
-I guess this will not happen, since finalize() first expands override and t=
-hen
-handle append/prepend. In that way virtclass-native has been expanded befor=
-e
-append is handled, and thus finally we'll get a variable EXTRA_OECONF_virtc=
-lass-native
-which ends up to mean nothing in the database. Is it true?
+Hi Richard,
 
->
->Now taking:
->
->EXTRA_OECONF_append_virtclass-native =3D "X"
->
->This is different. In this case, when overrides are expanded, this
->becomes EXTRA_OECONF_append and then X is added to EXTRA_OECONF.
->
->If the virtclass-native is never expanded (not in OVERRIDES), the append
->is never "seen" by bitbake.
->
->Unfortunately rewriting the above to:
->
->EXTRA_OECONF_append =3D " --with-gnutls=3D${STAGING_LIBDIR}/../"
->EXTRA_OECONF_append_virtclass-native =3D " --without-gnutls"
->EXTRA_OECONF_append_virtclass-nativesdk =3D " --without-gnutls"
->
->doesn't help since we end up with two appends in the native/nativesdk
->cases. There is a way out of this though:
+I did a profiling for the parsing time w/ and w/o the patch.
 
-This also confuses me a bit. When virtclass-native is expanded, EXTRA_OECON=
-F_append
-is simply a variable. In that case the expanded value should override the 1=
-st assignment
-of EXTRA_OECONF_append, and then we should get:
+Here a piece of the profiling result:
 
-EXTRA_OECONF_append =3D " --without-gnutls "
 
-and then that's what we expect.
+W/ PATCH:
 
-I guess I may still overlook something here, and really appreciate your exp=
-lanation
-on the whole flow which is helpful. :-)
+Mon Nov 29 13:23:42 2010    profile.log
 
-Thanks
-Kevin
+         32756805 function calls (31268348 primitive calls) in 60.195 CPU s=
+econds
 
->
->+CURLGNUTLS =3D " --with-gnutls=3D${STAGING_LIBDIR}/../"
->+CURLGNUTLS_virtclass-native =3D "--without-gnutls"
->+CURLGNUTLS_virtclass-nativesdk =3D "--without-gnutls"
->
->and then reference CURLGNUTLS in EXTRA_OECONF which is what my update
->does :)
->
->Cheers,
->
->Richard
->
->_______________________________________________
->poky mailing list
->poky@yoctoproject.org
->https://lists.yoctoproject.org/listinfo/poky
+   Ordered by: internal time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+  3572737    4.950    0.000   12.849    0.000 /sda1/yocto/scripts/..//bitba=
+ke/lib/bb/data_smart.py:285(getVarFlag)
+  3917977    4.464    0.000    4.464    0.000 /sda1/yocto/scripts/..//bitba=
+ke/lib/bb/data_smart.py:191(_findVar)
+873129/431998    3.040    0.000   16.824    0.000 /sda1/yocto/scripts/..//b=
+itbake/lib/bb/data_smart.py:86(expandWithRefs)
+  1745340    3.007    0.000    4.555    0.000 /usr/lib/python2.6/copy.py:65=
+(copy)
+   286785    2.570    0.000   20.051    0.000 /sda1/yocto/scripts/..//bitba=
+ke/lib/bb/data.py:271(build_dependencies)
+   565710    2.532    0.000    5.015    0.000 /sda1/yocto/scripts/..//bitba=
+ke/lib/bb/COW.py:97(__getitem__)
+      917    2.394    0.003   27.726    0.030 /sda1/yocto/scripts/..//bitba=
+ke/lib/bb/data.py:299(generate_dependencies)
+   288439    2.350    0.000   11.607    0.000 /sda1/yocto/scripts/..//bitba=
+ke/lib/bb/data_smart.py:212(setVar)
+1428066/1144003    1.882    0.000   16.762    0.000 /sda1/yocto/scripts/../=
+/bitbake/lib/bb/data_smart.py:246(getVar)
+...
+     2389    0.004    0.000    2.528    0.001 /sda1/yocto/scripts/..//bitba=
+ke/lib/bb/data.py:267(update_data)
+
+
+W/O PATCH:
+
+Mon Nov 29 13:28:36 2010    profile.log
+
+         49110091 function calls (47618793 primitive calls) in 75.338 CPU s=
+econds
+
+   Ordered by: internal time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+  7547331    8.230    0.000   19.467    0.000 /sda1/yocto/scripts/..//bitba=
+ke/lib/bb/data_smart.py:285(getVarFlag)
+  7908236    8.113    0.000    8.113    0.000 /sda1/yocto/scripts/..//bitba=
+ke/lib/bb/data_smart.py:191(_findVar)
+      917    3.987    0.004   43.045    0.047 /sda1/yocto/scripts/..//bitba=
+ke/lib/bb/data.py:299(generate_dependencies)
+  5061763    3.812    0.000    5.633    0.000 /sda1/yocto/scripts/..//bitba=
+ke/lib/bb/data.py:301(<genexpr>)
+    84656    3.318    0.000   13.475    0.000 /sda1/yocto/scripts/..//bitba=
+ke/lib/bb/data.py:302(<genexpr>)
+897804/450300    2.838    0.000   15.801    0.000 /sda1/yocto/scripts/..//b=
+itbake/lib/bb/data_smart.py:86(expandWithRefs)
+   294083    2.777    0.000   18.854    0.000 /sda1/yocto/scripts/..//bitba=
+ke/lib/bb/data.py:271(build_dependencies)
+  1783941    2.740    0.000    4.154    0.000 /usr/lib/python2.6/copy.py:65=
+(copy)
+   592115    2.432    0.000    5.179    0.000 /sda1/yocto/scripts/..//bitba=
+ke/lib/bb/COW.py:97(__getitem__)
+...
+     2389    0.004    0.000    2.656    0.001 /sda1/yocto/scripts/..//bitba=
+ke/lib/bb/data.py:267(update_data)
+
+
+
+From the profiling result we can see that, generate_dependencies() time red=
+uces from 43 seconds to 27 seconds, while build_dependencies() mostly keeps=
+ unchanged (From 20 seconds to 18.8 seconds). Therefore the biggest overhea=
+d reduced by the patch should be the two lines of code to parsing keys in g=
+enerate_dependencies() function.
+
+>=20
+> Also, a lot of those keys are override keys so perhaps its speeding up
+> update_data() calls and some of the gain is from there too?
+
+Update_data() has some gains but not much, see the above profile result.
+
+Thanks,
+Dongxiao
+
+>=20
+> Anyhow, its a good move :)
+>=20
+> Cheers,
+>=20
+> Richard
+
 
