@@ -1,38 +1,19 @@
-Return-Path: <kevin.tian@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 672054C811FD
-	for <poky@yoctoproject.org>; Sun, 28 Nov 2010 23:58:59 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 28 Nov 2010 21:58:59 -0800
+Return-Path: <dongxiao.xu@intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 0C53F4C811F4
+	for <poky@yoctoproject.org>; Mon, 29 Nov 2010 00:09:32 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 28 Nov 2010 22:09:32 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,274,1288594800"; d="scan'208";a="578466617"
-Received: from pgsmsx603.gar.corp.intel.com ([10.221.43.87])
-	by orsmga002.jf.intel.com with ESMTP; 28 Nov 2010 21:58:58 -0800
-Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
-	pgsmsx603.gar.corp.intel.com (10.221.43.87) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Mon, 29 Nov 2010 13:58:49 +0800
-Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
-	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
-	Mon, 29 Nov 2010 13:58:47 +0800
-From: "Tian, Kevin" <kevin.tian@intel.com>
-To: Chris Larson <clarson@kergoth.com>
-Date: Mon, 29 Nov 2010 13:58:46 +0800
-Thread-Topic: [poky] [PATCH 1/1] curl: fix native dependency
-Thread-Index: AcuPic5h8NX0fCRFRmWYIbWaMlOqswAAHZzw
-Message-ID: <625BA99ED14B2D499DC4E29D8138F1504D42C68736@shsmsx502.ccr.corp.intel.com>
-References: <cover.1289982751.git.qing.he@intel.com>
-	<a03c4017a13bda3f20b8f39a4c099cb28f349968.1289982751.git.qing.he@intel.com>
-	<1290954166.27143.217.camel@rex>
-	<625BA99ED14B2D499DC4E29D8138F1504D42C686F3@shsmsx502.ccr.corp.intel.com>
-	<AANLkTi=oxv9goiEMAfpkDAvq7n_GfGUMSXsonXDdzixd@mail.gmail.com>
-In-Reply-To: <AANLkTi=oxv9goiEMAfpkDAvq7n_GfGUMSXsonXDdzixd@mail.gmail.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
-MIME-Version: 1.0
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 1/1] curl: fix native dependency
+X-IronPort-AV: E=Sophos;i="4.59,274,1288594800"; d="scan'208";a="354271551"
+Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.9])
+	by azsmga001.ch.intel.com with ESMTP; 28 Nov 2010 22:09:32 -0800
+Message-Id: <cover.1291011420.git.dongxiao.xu@intel.com>
+From: Dongxiao Xu <dongxiao.xu@intel.com>
+Date: Mon, 29 Nov 2010 14:17:00 +0800
+To: poky@yoctoproject.org
+CC: 
+Subject: [PATCH 00/13][PULL] Fix LICENSE and LIC_FILES_CHKSUM info
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,26 +25,56 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 29 Nov 2010 05:58:59 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-List-Received-Date: Mon, 29 Nov 2010 06:09:33 -0000
 
-PkZyb206IENocmlzIExhcnNvbg0KPlNlbnQ6IE1vbmRheSwgTm92ZW1iZXIgMjksIDIwMTAgMTo1
-NCBQTQ0KPg0KPk9uIFN1biwgTm92IDI4LCAyMDEwIGF0IDEwOjI2IFBNLCBUaWFuLCBLZXZpbiA8
-a2V2aW4udGlhbkBpbnRlbC5jb20+IHdyb3RlOg0KPj4gVGhpcyBhbHNvIGNvbmZ1c2VzIG1lIGEg
-Yml0LiBXaGVuIHZpcnRjbGFzcy1uYXRpdmUgaXMgZXhwYW5kZWQsIEVYVFJBX09FQ09ORl9hcHBl
-bmQNCj4+IGlzIHNpbXBseSBhIHZhcmlhYmxlLiBJbiB0aGF0IGNhc2UgdGhlIGV4cGFuZGVkIHZh
-bHVlIHNob3VsZCBvdmVycmlkZSB0aGUgMXN0IGFzc2lnbm1lbnQNCj4+IG9mIEVYVFJBX09FQ09O
-Rl9hcHBlbmQsIGFuZCB0aGVuIHdlIHNob3VsZCBnZXQ6DQo+Pg0KPj4gRVhUUkFfT0VDT05GX2Fw
-cGVuZCA9ICIgLS13aXRob3V0LWdudXRscyAiDQo+Pg0KPj4gYW5kIHRoZW4gdGhhdCdzIHdoYXQg
-d2UgZXhwZWN0Lg0KPj4NCj4+IEkgZ3Vlc3MgSSBtYXkgc3RpbGwgb3Zlcmxvb2sgc29tZXRoaW5n
-IGhlcmUsIGFuZCByZWFsbHkgYXBwcmVjaWF0ZSB5b3VyIGV4cGxhbmF0aW9uDQo+PiBvbiB0aGUg
-d2hvbGUgZmxvdyB3aGljaCBpcyBoZWxwZnVsLiA6LSkNCj4NCj5ObywgRVhUUkFfT0VDT05GX2Fw
-cGVuZCBpcyBuZXZlciBhIHZhcmlhYmxlLiAgX2FwcGVuZC9fcHJlcGVuZCBhcmUNCj5vcGVyYXRp
-b25zLCBub3QgcGFydCBvZiB0aGUgbmFtZS4gIFRoZSB2YWx1ZSBnZXRzIHNldCBhc2lkZSBpbiBh
-IGxpc3QNCj5vZiBhcHBlbmRzIGZvciB0aGF0IHZhcmlhYmxlLiAgT25lIF9hcHBlbmQgY2Fubm90
-IG92ZXJyaWRlL3JlcGxhY2UNCj5hbm90aGVyIG9uIHRoZSBzYW1lIHZhcmlhYmxlLCBpdHMgYWx3
-YXlzIGN1bXVsYXRpdmUuDQoNCnllcywgeW91J3JlIGNvcnJlY3QuIFRoYW5rcyBmb3IgcG9pbnRp
-bmcgaXQgb3V0Lg0KDQpUaGFua3MsDQpLZXZpbg0K
+Hi Saul,
+
+This pull request updates some LICENSE information, also it add
+LIC_FILES_CHKSUM if missing.
+
+Besides, the last commit fixed [BUGID #531].
+
+Please help to review and pull, thanks!
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: dxu4/license
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dxu4/license
+
+Thanks,
+    Dongxiao Xu <dongxiao.xu@intel.com>
+---
+
+
+Dongxiao Xu (13):
+  linux-firmware: Update LIC_FILES_CHKSUM info
+  clutter-gst: Update LICENSE and LIC_FILES_CHKSUM info
+  gst-ffmpeg: Update LICENSE and LIC_FILES_CHKSUM info
+  gst-fluendo-mp3: Update LICENSE and LIC_FILES_CHKSUM info
+  gst-fluendo-mpegdemux: Fix LICENSE info
+  gupnp: Update LICENSE and LIC_FILES_CHKSUM info
+  libomxil: Fix LICENSE and LIC_FILES_CHKSUM info
+  libsamplerate0: Fix LICENSE and LIC_FILES_CHKSUM info
+  libtelepathy: Fix LICENSE and LIC_FILES_CHKSUM info
+  pulseaudio: Fix LICENSE and LIC_FILES_CHKSUM info
+  telepathy-idle: Fix LICENSE and LIC_FILES_CHKSUM info
+  zeroconf: Fix LICENSE and LIC_FILES_CHKSUM info
+  Use completion scheduler in rm_work.bbclass
+
+ meta/classes/rm_work.bbclass                       |    1 +
+ meta/recipes-connectivity/gupnp/gupnp_0.13.2.bb    |    4 +++-
+ .../telepathy/libtelepathy_0.3.3.bb                |    4 +++-
+ .../telepathy/telepathy-idle_0.1.6.bb              |    4 +++-
+ meta/recipes-connectivity/zeroconf/zeroconf_0.9.bb |    4 +++-
+ .../clutter/clutter-gst-1.0_git.bb                 |    3 +++
+ meta/recipes-graphics/clutter/clutter-gst.inc      |    2 +-
+ .../linux-firmware/linux-firmware_git.bb           |   13 +++++++++++++
+ .../gstreamer/gst-ffmpeg_0.10.1.bb                 |    5 ++++-
+ .../gstreamer/gst-fluendo-mp3_0.10.2.bb            |    3 +++
+ .../gstreamer/gst-fluendo-mpegdemux_0.10.7.bb      |    4 ++++
+ meta/recipes-multimedia/gstreamer/gst-fluendo.inc  |    1 -
+ meta/recipes-multimedia/libomxil/libomxil_0.3.3.bb |    4 +++-
+ .../libsamplerate/libsamplerate0_0.1.2.bb          |    4 +++-
+ meta/recipes-multimedia/pulseaudio/pulseaudio.inc  |    6 +++++-
+ 15 files changed, 52 insertions(+), 10 deletions(-)
+
 
