@@ -1,28 +1,31 @@
-Return-Path: <qing.he@intel.com>
+Return-Path: <liping.ke@intel.com>
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id DAD924C811F8
-	for <poky@yoctoproject.org>; Mon, 29 Nov 2010 02:22:47 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2C9C54C811F8
+	for <poky@yoctoproject.org>; Mon, 29 Nov 2010 03:08:06 -0600 (CST)
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 29 Nov 2010 00:22:47 -0800
+	by orsmga102.jf.intel.com with ESMTP; 29 Nov 2010 01:08:05 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,275,1288594800"; d="scan'208";a="578500716"
-Received: from qhe2-db.sh.intel.com ([10.239.13.31])
-	by orsmga002.jf.intel.com with ESMTP; 29 Nov 2010 00:22:46 -0800
-Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
-	(envelope-from <qing.he@intel.com>)
-	id 1PMyvj-000560-RI; Mon, 29 Nov 2010 16:17:47 +0800
-Date: Mon, 29 Nov 2010 16:17:47 +0800
-From: Qing He <qing.he@intel.com>
-To: Richard Purdie <rpurdie@linux.intel.com>
-Message-ID: <20101129081747.GA10141@qhe2-db>
-References: <cover.1289982751.git.qing.he@intel.com>
-	<a03c4017a13bda3f20b8f39a4c099cb28f349968.1289982751.git.qing.he@intel.com>
-	<1290954166.27143.217.camel@rex>
+X-IronPort-AV: E=Sophos;i="4.59,275,1288594800"; d="scan'208";a="578511332"
+Received: from pgsmsx603.gar.corp.intel.com ([10.221.43.87])
+	by orsmga002.jf.intel.com with ESMTP; 29 Nov 2010 01:08:05 -0800
+Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
+	pgsmsx603.gar.corp.intel.com (10.221.43.87) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Mon, 29 Nov 2010 17:07:38 +0800
+Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
+	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
+	Mon, 29 Nov 2010 17:07:38 +0800
+From: "Ke, Liping" <liping.ke@intel.com>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Date: Mon, 29 Nov 2010 17:07:34 +0800
+Thread-Topic: Request to mailing list poky rejected
+Thread-Index: AcuPSkAC5986MckGQniNrlXOG/UQXwAWif8A
+Message-ID: <789F9655DD1B8F43B48D77C5D30659732FF6B4D1@shsmsx501.ccr.corp.intel.com>
+Accept-Language: zh-CN, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: zh-CN, en-US
 MIME-Version: 1.0
-In-Reply-To: <1290954166.27143.217.camel@rex>
-User-Agent: Mutt/1.5.20 (2009-06-14)
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 1/1] curl: fix native dependency
+Subject: FW: Request to mailing list poky rejected
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,43 +37,42 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 29 Nov 2010 08:22:48 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-List-Received-Date: Mon, 29 Nov 2010 09:08:06 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, 2010-11-28 at 22:22 +0800, Richard Purdie wrote:
-> On Wed, 2010-11-17 at 16:26 +0800, Qing He wrote:
-> > @@ -25,6 +24,10 @@ EXTRA_OECONF = "--with-zlib=${STAGING_LIBDIR}/../ \
-> >  		--enable-crypto-auth \
-> >  		"
-> >  
-> > +EXTRA_OECONF_append = " --with-gnutls=${STAGING_LIBDIR}/../"
-> > +EXTRA_OECONF_virtclass-native_append = " --without-gnutls"
-> > +EXTRA_OECONF_virtclass-nativesdk_append = " --without-gnutls"
-> > +
-> >  do_configure_prepend() {
-> >  	sed -i s:OPT_GNUTLS/bin:OPT_GNUTLS:g configure.ac
-> >  }
-> 
-> I'm going to push a fix but I wanted to note that the above is not
-> correct. Let me walk through this since I expect various people find
-> this confusing.
+Finally understand why I can't send out the mail to the mail list. Seems po=
+ky list will not accept the mail with the attachment size of 175kb?
 
-Thanks for the explanation.
+Send the mail to confirm that I can send mail to this mail list.
+Btw: so could anybody tell me the exact attachment size limit of poky mail =
+list?
 
-In fact, at first, I also tried to use
-EXTRA_OECONF_append_virtclass-native, in the hope to override variable
-EXTRA_OECONF_append for different virtual classes. However, the
-log.do_configure still showed "--with-gnutls=...", that's why I then
-changed to the form in the patch, and it looked working.
+Thanks & Regards,
+criping
 
 
-And I also see something in the smart data implementation:
-    __setvar_regexp__ = re.compile('(?P<base>.*?)(?P<keyword>_append|_prepend)(_(?P<add>.*))?')
-
-Does that mean append/prepend is expected to appear before everything
-else?
-
-Thanks,
-Qing
+> -----Original Message-----
+> From: poky-bounces@yoctoproject.org [mailto:poky-
+> bounces@yoctoproject.org] On Behalf Of poky-owner@yoctoproject.org
+> Sent: Monday, November 29, 2010 6:19 AM
+> To: Ke, Liping
+> Subject: Request to mailing list poky rejected
+>=20
+> Your request to the poky mailing list
+>=20
+>     Posting of your message titled "RE: [poky] Eclipse plugin
+> question"
+>=20
+> has been rejected by the list moderator.  The moderator gave the
+> following reason for rejecting your request:
+>=20
+> "Your message was too big; please post a link to the screenshot as its
+> too large to sent to everyone on the list."
+>=20
+> Any questions or comments should be directed to the list administrator
+> at:
+>=20
+>     poky-owner@yoctoproject.org
 
