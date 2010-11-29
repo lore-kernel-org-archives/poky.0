@@ -1,20 +1,20 @@
 Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2C5E84C80FAC
-	for <poky@yoctoproject.org>; Thu,  2 Dec 2010 20:57:47 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 02 Dec 2010 18:57:46 -0800
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 780A34C810E6
+	for <poky@yoctoproject.org>; Thu,  2 Dec 2010 20:57:49 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 02 Dec 2010 18:57:49 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,291,1288594800"; d="scan'208";a="683448449"
+X-IronPort-AV: E=Sophos;i="4.59,291,1288594800"; d="scan'208";a="580102223"
 Received: from mukti.sc.intel.com (HELO localhost) ([143.183.140.51])
-	by orsmga001.jf.intel.com with ESMTP; 02 Dec 2010 18:57:46 -0800
-Message-Id: <905ca7da7a0bce9e0a587e8e47dee2e0d8a77859.1291344572.git.nitin.a.kamble@intel.com>
+	by orsmga002.jf.intel.com with ESMTP; 02 Dec 2010 18:57:47 -0800
+Message-Id: <b4eed5185f3519a3d68be6b4b762fc865eab01d6.1291344572.git.nitin.a.kamble@intel.com>
 In-Reply-To: <cover.1291344572.git.nitin.a.kamble@intel.com>
 References: <cover.1291344572.git.nitin.a.kamble@intel.com>
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Date: Wed, 1 Dec 2010 12:42:48 -0800
+Date: Mon, 29 Nov 2010 09:09:44 -0800
 To: poky@yoctoproject.org
-Subject: [PATCH 5/6] tcl: upgrade from 8.5.8 to 8.5.9
+Subject: [PATCH 6/6] distro_tracking_fields: update fields for devel/toolchain recipes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,176 +26,142 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 03 Dec 2010 02:57:47 -0000
-
-Rebased this patch to the newer upstream code.
-  modified:    fix_non_native_build_issue.patch
-
-Deleted following patch as the newer upstream code includes it already.
-  deleted:    tcl/mips-tclstrtod.patch
-
-tcl: update checksums
+X-List-Received-Date: Fri, 03 Dec 2010 02:57:49 -0000
 
 Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
 ---
- .../tcltk/tcl/fix_non_native_build_issue.patch     |   46 ++++++++++----------
- .../tcltk/tcl/mips-tclstrtod.patch                 |   28 ------------
- .../tcltk/{tcl_8.5.8.bb => tcl_8.5.9.bb}           |    8 ++-
- 3 files changed, 28 insertions(+), 54 deletions(-)
- delete mode 100644 meta/recipes-devtools/tcltk/tcl/mips-tclstrtod.patch
- rename meta/recipes-devtools/tcltk/{tcl_8.5.8.bb => tcl_8.5.9.bb} (89%)
+ .../conf/distro/include/distro_tracking_fields.inc |   39 +++++++++-----------
+ 1 files changed, 18 insertions(+), 21 deletions(-)
 
-diff --git a/meta/recipes-devtools/tcltk/tcl/fix_non_native_build_issue.patch b/meta/recipes-devtools/tcltk/tcl/fix_non_native_build_issue.patch
-index b2d98c1..0b8b26c 100644
---- a/meta/recipes-devtools/tcltk/tcl/fix_non_native_build_issue.patch
-+++ b/meta/recipes-devtools/tcltk/tcl/fix_non_native_build_issue.patch
-@@ -2,62 +2,62 @@ Index: unix/Makefile.in
- ===================================================================
- --- unix.orig/Makefile.in
- +++ unix/Makefile.in
--@@ -622,20 +622,20 @@ ro-test: tcltest
-- shell: tclsh
-+@@ -619,20 +619,20 @@ ro-test: tcltest@EXEEXT@
-+ shell: ${TCL_EXE}
-  	@LD_LIBRARY_PATH_VAR@="`pwd`:$${@LD_LIBRARY_PATH_VAR@}"; export @LD_LIBRARY_PATH_VAR@; \
-  	TCL_LIBRARY="${TCL_BUILDTIME_LIBRARY}"; export TCL_LIBRARY; \
---	./tclsh $(SCRIPT)
--+	tclsh $(SCRIPT)
-+-	./${TCL_EXE} $(SCRIPT)
-++	${TCL_EXE} $(SCRIPT)
-  
-  # This target can be used to run tclsh inside either gdb or insight
-- gdb: tclsh
-+ gdb: ${TCL_EXE}
-  	@echo "set env @LD_LIBRARY_PATH_VAR@=\"`pwd`:$${@LD_LIBRARY_PATH_VAR@}\"" > gdb.run
-  	@echo "set env TCL_LIBRARY=${TCL_BUILDTIME_LIBRARY}" >> gdb.run
---	$(GDB) ./tclsh --command=gdb.run
--+	$(GDB) tclsh --command=gdb.run
-+-	$(GDB) ./${TCL_EXE} --command=gdb.run
-++	$(GDB) ${TCL_EXE} --command=gdb.run
-  	rm gdb.run
-  
-  # This target can be used to run tclsh inside ddd
-- ddd: tclsh
-+ ddd: ${TCL_EXE}
-  	@echo "set env @LD_LIBRARY_PATH_VAR@=\"`pwd`:$${@LD_LIBRARY_PATH_VAR@}\"" > gdb.run
-  	@echo "set env TCL_LIBRARY=${TCL_BUILDTIME_LIBRARY}" >> gdb.run
---	$(DDD) -command=gdb.run ./tclsh
--+	$(DDD) -command=gdb.run tclsh
-+-	$(DDD) -command=gdb.run ./${TCL_EXE}
-++	$(DDD) -command=gdb.run ${TCL_EXE}
-  	rm gdb.run
-  
-  VALGRINDARGS=--tool=memcheck --num-callers=8 --leak-resolution=high --leak-check=yes --show-reachable=yes -v
--@@ -648,7 +648,7 @@ valgrind: tclsh tcltest
-- valgrindshell: tclsh
-+@@ -645,7 +645,7 @@ valgrind: ${TCL_EXE} tcltest@EXEEXT@
-+ valgrindshell: ${TCL_EXE}
-  	@LD_LIBRARY_PATH_VAR@="`pwd`:$${@LD_LIBRARY_PATH_VAR@}"; export @LD_LIBRARY_PATH_VAR@; \
-  	TCL_LIBRARY="${TCL_BUILDTIME_LIBRARY}"; export TCL_LIBRARY; \
---	valgrind $(VALGRINDARGS) ./tclsh $(SCRIPT)
--+	valgrind $(VALGRINDARGS) tclsh $(SCRIPT)
-+-	valgrind $(VALGRINDARGS) ./${TCL_EXE} $(SCRIPT)
-++	valgrind $(VALGRINDARGS) ${TCL_EXE} $(SCRIPT)
-  
-  # The following target outputs the name of the top-level source directory for
-  # Tcl (it is used by Tk's configure script, for example). The .NO_PARALLEL
--@@ -817,14 +817,14 @@ install-tzdata: tclsh
-+@@ -809,14 +809,14 @@ install-tzdata: ${TCL_EXE}
-  	@echo "Installing time zone data"
-  	@@LD_LIBRARY_PATH_VAR@="`pwd`:$${@LD_LIBRARY_PATH_VAR@}"; export @LD_LIBRARY_PATH_VAR@; \
-  	TCL_LIBRARY="${TCL_BUILDTIME_LIBRARY}"; export TCL_LIBRARY; \
---	./tclsh $(TOOL_DIR)/installData.tcl \
--+	tclsh $(TOOL_DIR)/installData.tcl \
-+-	./${TCL_EXE} $(TOOL_DIR)/installData.tcl \
-++	${TCL_EXE} $(TOOL_DIR)/installData.tcl \
-  	    $(TOP_DIR)/library/tzdata "$(SCRIPT_INSTALL_DIR)"/tzdata
-  
-- install-msgs: tclsh
-+ install-msgs: ${TCL_EXE}
-  	@echo "Installing message catalogs"
-  	@@LD_LIBRARY_PATH_VAR@="`pwd`:$${@LD_LIBRARY_PATH_VAR@}"; export @LD_LIBRARY_PATH_VAR@; \
-  	TCL_LIBRARY="${TCL_BUILDTIME_LIBRARY}"; export TCL_LIBRARY; \
---	./tclsh $(TOOL_DIR)/installData.tcl \
--+	tclsh $(TOOL_DIR)/installData.tcl \
-+-	./${TCL_EXE} $(TOOL_DIR)/installData.tcl \
-++	${TCL_EXE} $(TOOL_DIR)/installData.tcl \
-  	    $(TOP_DIR)/library/msgs "$(SCRIPT_INSTALL_DIR)"/msgs
-  
-  install-doc: doc
--@@ -1764,7 +1764,7 @@ html-tk: tclsh
-+@@ -1756,7 +1756,7 @@ html-tk: ${TCL_EXE}
-  BUILD_HTML = \
-  	@@LD_LIBRARY_PATH_VAR@="`pwd`:$${@LD_LIBRARY_PATH_VAR@}"; export @LD_LIBRARY_PATH_VAR@; \
-  	TCL_LIBRARY="${TCL_BUILDTIME_LIBRARY}"; export TCL_LIBRARY; \
---	./tclsh $(TOOL_DIR)/tcltk-man2html.tcl --htmldir="$(HTML_INSTALL_DIR)" \
--+	tclsh $(TOOL_DIR)/tcltk-man2html.tcl --htmldir="$(HTML_INSTALL_DIR)" \
-+-	./${TCL_EXE} $(TOOL_DIR)/tcltk-man2html.tcl --htmldir="$(HTML_INSTALL_DIR)" \
-++	${TCL_EXE} $(TOOL_DIR)/tcltk-man2html.tcl --htmldir="$(HTML_INSTALL_DIR)" \
-  		--srcdir=$(TOP_DIR)/.. $(BUILD_HTML_FLAGS)
-  
-  #
-diff --git a/meta/recipes-devtools/tcltk/tcl/mips-tclstrtod.patch b/meta/recipes-devtools/tcltk/tcl/mips-tclstrtod.patch
-deleted file mode 100644
-index c1e0d63..0000000
---- a/meta/recipes-devtools/tcltk/tcl/mips-tclstrtod.patch
-+++ /dev/null
-@@ -1,28 +0,0 @@
--http://sourceforge.net/tracker/index.php?func=detail&aid=2902010&group_id=10894&atid=110894
--
--Pulled from OE by: Saul Wold <saul.wold@intel.com>
--
----- ../generic/tclStrToD.c.orig
--+++ ../generic/tclStrToD.c
--@@ -71,9 +71,10 @@
-- 
-- /*
--  * MIPS floating-point units need special settings in control registers
--- * to use gradual underflow as we expect.
--+ * to use gradual underflow as we expect.  This fix is for the MIPSpro
--+ * compiler.  
--  */
---#if defined(__mips)
--+#if defined(__sgi) && defined(_COMPILER_VERSION)
-- #include <sys/fpu.h>
-- #endif
-- /*
--@@ -2166,7 +2167,7 @@
--     } bitwhack;
-- #endif
-- 
---#if defined(__mips)
--+#if defined(__sgi) && defined(_COMPILER_VERSION)
--     union fpc_csr mipsCR;
-- 
--     mipsCR.fc_word = get_fpc_csr();
-diff --git a/meta/recipes-devtools/tcltk/tcl_8.5.8.bb b/meta/recipes-devtools/tcltk/tcl_8.5.9.bb
-similarity index 89%
-rename from meta/recipes-devtools/tcltk/tcl_8.5.8.bb
-rename to meta/recipes-devtools/tcltk/tcl_8.5.9.bb
-index 1edb57b..aa1805b 100644
---- a/meta/recipes-devtools/tcltk/tcl_8.5.8.bb
-+++ b/meta/recipes-devtools/tcltk/tcl_8.5.9.bb
-@@ -11,14 +11,16 @@ LIC_CHKSUM_FILES = "file://../license.terms;md5=7b4d3c71b2d9a8c1b373609867975570
-     file://../win/license.terms;md5=7b4d3c71b2d9a8c1b373609867975570 \
-     "
+diff --git a/meta/conf/distro/include/distro_tracking_fields.inc b/meta/conf/distro/include/distro_tracking_fields.inc
+index 18e9996..9eb0d93 100644
+--- a/meta/conf/distro/include/distro_tracking_fields.inc
++++ b/meta/conf/distro/include/distro_tracking_fields.inc
+@@ -15,7 +15,7 @@ RECIPE_LATEST_VERIONS_pn-gccmakedep = "check"
+ RECIPE_MAINTAINER_pn-gccmakedep = "Dexuan Cui <dexuan.cui@intel.com>"
+ DISTRO_PN_ALIAS_pn-gccmakedep = "Mandriva=gccmakedep Ubuntu=xutils-dev"
  
--PR = "r4"
-+PR = "r0"
+-RECIPE_STATUS_pn-git = "red"
++RECIPE_STATUS_pn-git = "green"
+ RECIPE_LATEST_VERIONS_pn-git = "1.7.3.2"
+ RECIPE_MAINTAINER_pn-git = "Nitin A Kamble <nitin.a.kamble@intel.com>"
  
- BASE_SRC_URI = "${SOURCEFORGE_MIRROR}/tcl/tcl${PV}-src.tar.gz \
-                 file://tcl-add-soname.patch"
+@@ -33,8 +33,8 @@ RECIPE_STATUS_pn-libsoup = "red"
+ RECIPE_LATEST_VERIONS_pn-libsoup = "check"
+ RECIPE_MAINTAINER_pn-libsoup = "Edwin Zhai <edwin.zhai@intel.com>"
  
- SRC_URI = "${BASE_SRC_URI} \
--	   file://fix_non_native_build_issue.patch \
--           file://mips-tclstrtod.patch;striplevel=0"
-+	   file://fix_non_native_build_issue.patch "
+-RECIPE_STATUS_pn-libtimedate-perl = "red"
+-RECIPE_LATEST_VERIONS_pn-libtimedate-perl = "check"
++RECIPE_STATUS_pn-libtimedate-perl = "green"
++RECIPE_LATEST_VERIONS_pn-libtimedate-perl = "1.20"
+ RECIPE_MAINTAINER_pn-libtimedate-perl = "Nitin A Kamble <nitin.a.kamble@intel.com>"
+ DISTRO_PN_ALIAS_pn-libtimedate-perl = "Debian=libtimedate-perl Ubuntu=libtimedate-perl"
+ 
+@@ -50,8 +50,8 @@ RECIPE_STATUS_pn-loudmouth = "red"
+ RECIPE_LATEST_VERIONS_pn-loudmouth = "check"
+ RECIPE_MAINTAINER_pn-loudmouth = "Dongxiao Xu <dongxiao.xu@intel.com"
+ 
+-RECIPE_STATUS_pn-makedepend = "red"
+-RECIPE_LATEST_VERIONS_pn-makedepend = "check"
++RECIPE_STATUS_pn-makedepend = "green"
++RECIPE_LATEST_VERIONS_pn-makedepend = "1.0.3"
+ RECIPE_MAINTAINER_pn-makedepend = "Nitin A Kamble <nitin.a.kamble@intel.com>"
+ DISTRO_PN_ALIAS_pn-makedepend = "Mandriva=makedepend Ubuntu=xutils-dev"
+ 
+@@ -75,8 +75,12 @@ RECIPE_LATEST_RELEASE_DATE_pn-minicom="2010/12/20"
+ RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-minicom="22 months"
+ RECIPE_MAINTAINER_pn-minicom = "Dongxiao Xu <dongxiao.xu@intel.com>"
+ 
++RECIPE_STATUS_pn-moblin-proto = "red"
++RECIPE_LATEST_VERIONS_pn-moblin-proto = "check"
++RECIPE_MAINTAINER_pn-moblin-proto = "Dexuan Cui <dexuan.cui@intel.com>"
 +
-+SRC_URI[md5sum] = "8512d8db3233041dd68a81476906012a"
-+SRC_URI[sha256sum] = "3ab671b417e3eeb41b9cef626d742d8f7f57425101e83e5fcad1d552cd99237d"
+ RECIPE_STATUS_pn-patch = "red"
+-RECIPE_LATEST_VERIONS_pn-patch = "check"
++RECIPE_LATEST_VERIONS_pn-patch = "2.6.1"
+ RECIPE_MAINTAINER_pn-patch = "Nitin A Kamble <nitin.a.kamble@intel.com>"
  
- SRC_URI_virtclass-native = "${BASE_SRC_URI}"
+ RECIPE_STATUS_pn-python-imaging = "green"
+@@ -91,8 +95,8 @@ RECIPE_STATUS_pn-screen = "red"
+ RECIPE_LATEST_VERIONS_pn-screen = "check"
+ RECIPE_MAINTAINER_pn-screen = "Qing He <qing.he@intel.com>"
  
+-RECIPE_STATUS_pn-subversion = "red"
+-RECIPE_LATEST_VERIONS_pn-subversion = "check"
++RECIPE_STATUS_pn-subversion = "green"
++RECIPE_LATEST_VERIONS_pn-subversion = "1.6.13"
+ RECIPE_MAINTAINER_pn-subversion = "Nitin A Kamble <nitin.a.kamble@intel.com>"
+ 
+ RECIPE_STATUS_pn-trace-cmd = "red"
+@@ -2570,11 +2574,8 @@ RECIPE_STATUS_pn-binutils="green"
+ RECIPE_LATEST_VERSION_pn-binutils="2.20.1"
+ RECIPE_MAINTAINER_pn-binutils = "Nitin A Kamble <nitin.a.kamble@intel.com>"
+ 
+-RECIPE_STATUS_pn-gcc="red" 
++RECIPE_STATUS_pn-gcc="green" 
+ RECIPE_LATEST_VERSION_pn-gcc="4.5.1"
+-RECIPE_NO_OF_PATCHES_pn-gcc="8"
+-RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-gcc="5 months"
+-RECIPE_LATEST_RELEASE_DATE_pn-gcc="2010/03/03"
+ RECIPE_MAINTAINER_pn-gcc = "Nitin A Kamble <nitin.a.kamble@intel.com>"
+ 
+ RECIPE_STATUS_pn-autoconf="red" 
+@@ -2624,7 +2625,7 @@ RECIPE_STATUS_pn-intltool="green"
+ RECIPE_LATEST_VERSION_pn-intltool="0.40.6"
+ RECIPE_MAINTAINER_pn-intltool = "Nitin A Kamble <nitin.a.kamble@intel.com>"
+ 
+-RECIPE_STATUS_pn-libtool="red" 
++RECIPE_STATUS_pn-libtool="green" 
+ RECIPE_LATEST_VERSION_pn-libtool="2.4"
+ RECIPE_MAINTAINER_pn-libtool = "Nitin A Kamble <nitin.a.kamble@intel.com>"
+ 
+@@ -2705,7 +2706,7 @@ RECIPE_STATUS_pn-quilt="green"
+ RECIPE_LATEST_VERSION_pn-quilt="0.48"
+ RECIPE_MAINTAINER_pn-quilt = "Nitin A Kamble <nitin.a.kamble@intel.com>"
+ 
+-RECIPE_STATUS_pn-tcl="red"
++RECIPE_STATUS_pn-tcl="green"
+ RECIPE_LATEST_VERSION_pn-tcl="8.5.9"
+ RECIPE_MAINTAINER_pn-tcl = "Nitin A Kamble <nitin.a.kamble@intel.com>"
+ 
+@@ -2713,7 +2714,7 @@ RECIPE_STATUS_pn-unifdef="green" # poky local source files
+ RECIPE_LATEST_VERSION_pn-unifdef="2.6.18+git"
+ RECIPE_MAINTAINER_pn-unifdef = "Nitin A Kamble <nitin.a.kamble@intel.com>"
+ 
+-RECIPE_STATUS_pn-gnu-config="green" # upgraded
++RECIPE_STATUS_pn-gnu-config="red" 
+ RECIPE_LATEST_VERSION_pn-gnu-config="0.1+cvs20080123"
+ DISTRO_PN_ALIAS_pn-gnu-config = "OpenedHand"
+ RECIPE_MAINTAINER_pn-gnu-config = "Nitin A Kamble <nitin.a.kamble@intel.com>"
+@@ -2726,7 +2727,7 @@ RECIPE_STATUS_pn-gmp="green"
+ RECIPE_LATEST_VERSION_pn-gmp="5.0.1"
+ RECIPE_MAINTAINER_pn-gmp = "Nitin A Kamble <nitin.a.kamble@intel.com>"
+ 
+-RECIPE_STATUS_pn-libmpc="red"
++RECIPE_STATUS_pn-libmpc="green"
+ RECIPE_LATEST_VERSION_pn-libmpc="0.8.2"
+ RECIPE_MAINTAINER_pn-libmpc = "Nitin A Kamble <nitin.a.kamble@intel.com>"
+ DISTRO_PN_ALIAS_pn-libmpc = "Fedora=libmpc OpenSuse=libmpc2"
+@@ -2739,10 +2740,6 @@ RECIPE_STATUS_pn-libconvert-asn1-perl="red" # 0.22 version does not build, so cr
+ RECIPE_LATEST_VERSION_pn-libconvert-asn1-perl="0.22"
+ RECIPE_MAINTAINER_pn-libconvert-asn1-perl = "Nitin A Kamble <nitin.a.kamble@intel.com>"
+ 
+-RECIPE_STATUS_pn-libtimedate-perl="red" 
+-RECIPE_LATEST_VERSION_pn-libtimedate-perl="1.20"
+-RECIPE_MAINTAINER_pn-ilibtimedate-perl = "Nitin A Kamble <nitin.a.kamble@intel.com>"
+-
+ RECIPE_STATUS_pn-libxml-parser-perl="red" 
+ RECIPE_LATEST_VERSION_pn-libxml-parser-perl="2.36"
+ RECIPE_MAINTAINER_pn-libxml-parser-perl = "Nitin A Kamble <nitin.a.kamble@intel.com>"
+@@ -2753,7 +2750,7 @@ RECIPE_LATEST_RELEASE_DATE_pn-cmake-native="2010/11/03"
+ RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-cmake-native="4 month"
+ RECIPE_MAINTAINER_pn-cmake-native = "Dongxiao Xu <dongxiao.xu@intel.com>"
+ 
+-RECIPE_STATUS_pn-m4="red" 
++RECIPE_STATUS_pn-m4="green" 
+ RECIPE_LATEST_VERSION_pn-m4="1.4.15"
+ RECIPE_MAINTAINER_pn-m4="Nitin A Kamble <nitin.a.kamble@intel.com>"
+ RECIPE_COMMENTS_pn-m4= "Dongxiao Xu <dongxiao.xu@intel.com> will own GPLv2 m4"
 -- 
 1.7.2.2
 
