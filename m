@@ -1,47 +1,24 @@
-Return-Path: <kergoth@gmail.com>
-Received: from mail-ew0-f48.google.com (mail-ew0-f48.google.com
-	[209.85.215.48])
-	by mx1.pokylinux.org (Postfix) with ESMTP id F40C84C810B0
-	for <poky@yoctoproject.org>; Mon, 29 Nov 2010 09:25:10 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by ewy9 with SMTP id 9so2096939ewy.35
-	for <poky@yoctoproject.org>; Mon, 29 Nov 2010 07:25:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:received:mime-version:sender:received
-	:in-reply-to:references:from:date:x-google-sender-auth:message-id
-	:subject:to:cc:content-type:content-transfer-encoding;
-	bh=dZH35xqtjffv67V2KZVnY6ameKMqvpguWsYcVFl7Oj4=;
-	b=BJSz6ND3uLd1sG1YbruXd4zMyG2CJEq+6oDtyVkenGi112MvsD6hWNl2zElImaSpPN
-	1Y9WY5EG5HubZOKbtfBQi+vdVZCnah8n5oZVeqZm/NGxahBd4sdjyhhleURwN/tt08dS
-	5f6KTYETx94bV7lDx7ngvX9xJdZyQAEbPnmfg=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:sender:in-reply-to:references:from:date
-	:x-google-sender-auth:message-id:subject:to:cc:content-type
-	:content-transfer-encoding;
-	b=vuuNEleLlDtByYCc5ukCO+Ed0SlpuWUjTVkNO6WJgn1/EjoP/d4WCl8OABseoW3eI6
-	MkyfV+tBprBph13nyyV19uCXj5U6i6q2KAcJfuLt5UWFvMVmsqyfpF+M4X+COEpmv7P5
-	hSSrykqsOVR5KK8Z8GbwD50ligftPNCfsfzoI=
-Received: by 10.216.154.8 with SMTP id g8mr513997wek.12.1291044309300; Mon, 29
-	Nov 2010 07:25:09 -0800 (PST)
+Return-Path: <saul.wold@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 341794C80815
+	for <poky@yoctoproject.org>; Mon, 29 Nov 2010 15:58:01 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 29 Nov 2010 13:58:00 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.59,277,1288594800"; d="scan'208";a="578758292"
+Received: from unknown (HELO [10.255.12.252]) ([10.255.12.252])
+	by orsmga002.jf.intel.com with ESMTP; 29 Nov 2010 13:58:00 -0800
+Message-ID: <4CF421E8.3050707@intel.com>
+Date: Mon, 29 Nov 2010 13:58:00 -0800
+From: Saul Wold <saul.wold@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
 MIME-Version: 1.0
-Sender: kergoth@gmail.com
-Received: by 10.216.67.67 with HTTP; Mon, 29 Nov 2010 07:24:48 -0800 (PST)
-In-Reply-To: <1291033557.14277.944.camel@rex>
-References: <cover.1289982751.git.qing.he@intel.com>
-	<a03c4017a13bda3f20b8f39a4c099cb28f349968.1289982751.git.qing.he@intel.com>
-	<1290954166.27143.217.camel@rex>
-	<625BA99ED14B2D499DC4E29D8138F1504D42C686F3@shsmsx502.ccr.corp.intel.com>
-	<AANLkTi=oxv9goiEMAfpkDAvq7n_GfGUMSXsonXDdzixd@mail.gmail.com>
-	<1291033557.14277.944.camel@rex>
-From: Chris Larson <clarson@kergoth.com>
-Date: Mon, 29 Nov 2010 08:24:48 -0700
-X-Google-Sender-Auth: 9j_qhNI4WU-IvcNlytpPue4IlDI
-Message-ID: <AANLkTinYx+43yRYFu=BYQPVJHox6CmBgOMFF199z3BC=@mail.gmail.com>
-To: Richard Purdie <rpurdie@linux.intel.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 1/1] curl: fix native dependency
+To: poky@yoctoproject.org
+References: <cover.1291014682.git.lei.mei@intel.com>
+In-Reply-To: <cover.1291014682.git.lei.mei@intel.com>
+Subject: Re: [PATCH 0/6] Update five recipes License information
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -53,55 +30,48 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 29 Nov 2010 15:25:11 -0000
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Mon, 29 Nov 2010 21:58:01 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 29, 2010 at 5:25 AM, Richard Purdie <rpurdie@linux.intel.com> w=
-rote:
-> On Sun, 2010-11-28 at 22:53 -0700, Chris Larson wrote:
->> On Sun, Nov 28, 2010 at 10:26 PM, Tian, Kevin <kevin.tian@intel.com> wro=
-te:
->> > This also confuses me a bit. When virtclass-native is expanded, EXTRA_=
-OECONF_append
->> > is simply a variable. In that case the expanded value should override =
-the 1st assignment
->> > of EXTRA_OECONF_append, and then we should get:
->> >
->> > EXTRA_OECONF_append =3D " --without-gnutls "
->> >
->> > and then that's what we expect.
->> >
->> > I guess I may still overlook something here, and really appreciate you=
-r explanation
->> > on the whole flow which is helpful. :-)
->>
->> No, EXTRA_OECONF_append is never a variable. =C2=A0_append/_prepend are
->> operations, not part of the name. =C2=A0The value gets set aside in a li=
-st
->> of appends for that variable. =C2=A0One _append cannot override/replace
->> another on the same variable, its always cumulative.
+On 11/28/2010 11:11 PM, Mei Lei wrote:
+> This contains five recipes license MD5sum update, four of them are local recipes. And also update the insane.bbclass for local recipes' license is  "n/a"
 >
-> Right.
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>    Branch: lmei3/chksum4
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=lmei3/chksum4
 >
-> Interestingly though, if I add this to curl*.bb:
+> Thanks,
+>      Mei Lei<lei.mei@intel.com>
+> ---
 >
-> FOO =3D "A"
-> FOO_append =3D "B"
-> FOO_append_virtclass-native =3D "C"
 >
-> and then "bitbake curl-native -e | grep FOO" (he recipe has a
-> BBCLASSEXTEND native) what should I see?
->
-> I see FOO =3D "AB" which is not what I thought it would do...
+> Mei Lei (6):
+>    insane.bbclass: Add local file checksum condition for 'n/a'
+>    Keymaps:Add license checksum 'n/a' for this local recipe
+>    initscripts:Add license checksum 'n/a' for local recipes
+>    eee-acpi-scripts:Add license checksum 'n/a' for this local recipe
+>    modutils-initscripts:Add license checksum 'n/a' for this local recipe
+I did not accept these changes since we will use the suggestion from 
+Richard to use ${POKYBASE}/LICENSE and ${POKYBASE}/meta/COPYING.MIT for 
+the LIC_FILES_CHKSUM.
 
-Hmm, this isn't what I'd expect either.  It's certainly not what was
-originally intended -- _append_<foo> and _prepend_<foo> were always
-supposed to act like normal _append/_prepend, just conditional ones.
---=20
-Christopher Larson
-clarson at kergoth dot com
-Founder - BitBake, OpenEmbedded, OpenZaurus
-Maintainer - Tslib
-Senior Software Engineer, Mentor Graphics
+Sau!
+
+>    gthumb:Add license checksum to bb file
+>
+>   meta/classes/insane.bbclass                        |    4 ++++
+>   .../eee-acpi-scripts/eee-acpi-scripts_git.bb       |    2 +-
+>   meta/recipes-bsp/keymaps/keymaps_1.0.bb            |    1 +
+>   meta/recipes-core/initscripts/initscripts_1.0.bb   |    1 +
+>   meta/recipes-gnome/gthumb/gthumb_2.12.0.bb         |    1 +
+>   .../modutils/modutils-initscripts.bb               |    1 +
+>   6 files changed, 9 insertions(+), 1 deletions(-)
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
+
 
