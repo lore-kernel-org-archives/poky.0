@@ -1,21 +1,21 @@
 Return-Path: <lei.mei@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 577B44C81216
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E49344C81229
 	for <poky@yoctoproject.org>; Mon, 29 Nov 2010 01:19:17 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 28 Nov 2010 23:19:16 -0800
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 28 Nov 2010 23:19:12 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,275,1288594800"; d="scan'208";a="354290823"
+X-IronPort-AV: E=Sophos;i="4.59,275,1288594800"; d="scan'208";a="862221301"
 Received: from daocaoren-desktop.sh.intel.com (HELO localhost)
 	([10.239.48.112])
-	by azsmga001.ch.intel.com with ESMTP; 28 Nov 2010 23:19:16 -0800
-Message-Id: <9f7aba94361d27a77cdf881406229db231c0c36f.1291014682.git.lei.mei@intel.com>
+	by fmsmga001.fm.intel.com with ESMTP; 28 Nov 2010 23:19:11 -0800
+Message-Id: <de844d714ef007f2f8e41b83b9f445b213063d23.1291014682.git.lei.mei@intel.com>
 In-Reply-To: <cover.1291014682.git.lei.mei@intel.com>
 References: <cover.1291014682.git.lei.mei@intel.com>
 From: Mei Lei <lei.mei@intel.com>
-Date: Mon, 29 Nov 2010 15:06:41 +0800
+Date: Mon, 29 Nov 2010 15:06:03 +0800
 To: poky@yoctoproject.org
-Subject: [PATCH 6/6] gthumb:Add license checksum to bb file
+Subject: [PATCH 3/6] initscripts:Add license checksum 'n/a' for local recipes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,27 +27,25 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 29 Nov 2010 07:19:17 -0000
-
-Add COPYING file checksum to bb file
+X-List-Received-Date: Mon, 29 Nov 2010 07:19:18 -0000
 
 Signed-off-by: Mei Lei <lei.mei@intel.com>
 ---
- meta/recipes-gnome/gthumb/gthumb_2.12.0.bb |    1 +
+ meta/recipes-core/initscripts/initscripts_1.0.bb |    1 +
  1 files changed, 1 insertions(+), 0 deletions(-)
 
-diff --git a/meta/recipes-gnome/gthumb/gthumb_2.12.0.bb b/meta/recipes-gnome/gthumb/gthumb_2.12.0.bb
-index f6755b0..27f63db 100644
---- a/meta/recipes-gnome/gthumb/gthumb_2.12.0.bb
-+++ b/meta/recipes-gnome/gthumb/gthumb_2.12.0.bb
-@@ -1,6 +1,7 @@
- DESCRIPTION = "gThumb is an image viewer and browser for the GNOME Desktop"
- SECTION = "x11/gnome"
+diff --git a/meta/recipes-core/initscripts/initscripts_1.0.bb b/meta/recipes-core/initscripts/initscripts_1.0.bb
+index 1ec007d..fc77a80 100644
+--- a/meta/recipes-core/initscripts/initscripts_1.0.bb
++++ b/meta/recipes-core/initscripts/initscripts_1.0.bb
+@@ -5,6 +5,7 @@ PRIORITY = "required"
+ DEPENDS = "makedevs"
+ RDEPENDS = "makedevs"
  LICENSE = "GPLv2"
-+LIC_FILES_CHKSUM = "file://COPYING;md5=59530bdf33659b29e73d4adb9f9f6552"
- DEPENDS = "glib-2.0 gtk+ libxml2 gnome-doc-utils libunique gconf-dbus libpng gstreamer jpeg tiff"
- PR = "r1"
++LIC_FILES_CHKSUM = "n/a"
+ PR = "r122"
  
+ SRC_URI = "file://functions \
 -- 
 1.6.3.3
 
