@@ -1,21 +1,21 @@
 Return-Path: <lei.mei@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5B6544C81229
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 577B44C81216
 	for <poky@yoctoproject.org>; Mon, 29 Nov 2010 01:19:17 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 28 Nov 2010 23:19:16 -0800
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 28 Nov 2010 23:19:16 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,275,1288594800"; d="scan'208";a="862221314"
+X-IronPort-AV: E=Sophos;i="4.59,275,1288594800"; d="scan'208";a="354290823"
 Received: from daocaoren-desktop.sh.intel.com (HELO localhost)
 	([10.239.48.112])
-	by fmsmga001.fm.intel.com with ESMTP; 28 Nov 2010 23:19:14 -0800
-Message-Id: <38de8902cc5ec3cd46bacf225dbc890d83908f5c.1291014682.git.lei.mei@intel.com>
+	by azsmga001.ch.intel.com with ESMTP; 28 Nov 2010 23:19:16 -0800
+Message-Id: <9f7aba94361d27a77cdf881406229db231c0c36f.1291014682.git.lei.mei@intel.com>
 In-Reply-To: <cover.1291014682.git.lei.mei@intel.com>
 References: <cover.1291014682.git.lei.mei@intel.com>
 From: Mei Lei <lei.mei@intel.com>
-Date: Mon, 29 Nov 2010 15:06:33 +0800
+Date: Mon, 29 Nov 2010 15:06:41 +0800
 To: poky@yoctoproject.org
-Subject: [PATCH 5/6] modutils-initscripts:Add license checksum 'n/a' for this local recipe
+Subject: [PATCH 6/6] gthumb:Add license checksum to bb file
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,22 +29,24 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Mon, 29 Nov 2010 07:19:17 -0000
 
+Add COPYING file checksum to bb file
+
 Signed-off-by: Mei Lei <lei.mei@intel.com>
 ---
- .../modutils/modutils-initscripts.bb               |    1 +
+ meta/recipes-gnome/gthumb/gthumb_2.12.0.bb |    1 +
  1 files changed, 1 insertions(+), 0 deletions(-)
 
-diff --git a/meta/recipes-kernel/modutils/modutils-initscripts.bb b/meta/recipes-kernel/modutils/modutils-initscripts.bb
-index b8fc6c2..74a22d2 100644
---- a/meta/recipes-kernel/modutils/modutils-initscripts.bb
-+++ b/meta/recipes-kernel/modutils/modutils-initscripts.bb
+diff --git a/meta/recipes-gnome/gthumb/gthumb_2.12.0.bb b/meta/recipes-gnome/gthumb/gthumb_2.12.0.bb
+index f6755b0..27f63db 100644
+--- a/meta/recipes-gnome/gthumb/gthumb_2.12.0.bb
++++ b/meta/recipes-gnome/gthumb/gthumb_2.12.0.bb
 @@ -1,6 +1,7 @@
- SECTION = "base"
- DESCRIPTION = "modutils configuration files"
- LICENSE = "PD"
-+LIC_FILES_CHKSUM = "n/a"
- SRC_URI = "file://modutils.sh"
- PR = "r4"
+ DESCRIPTION = "gThumb is an image viewer and browser for the GNOME Desktop"
+ SECTION = "x11/gnome"
+ LICENSE = "GPLv2"
++LIC_FILES_CHKSUM = "file://COPYING;md5=59530bdf33659b29e73d4adb9f9f6552"
+ DEPENDS = "glib-2.0 gtk+ libxml2 gnome-doc-utils libunique gconf-dbus libpng gstreamer jpeg tiff"
+ PR = "r1"
  
 -- 
 1.6.3.3
