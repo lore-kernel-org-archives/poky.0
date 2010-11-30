@@ -1,24 +1,32 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 6A2484C810B1
-	for <poky@yoctoproject.org>; Mon, 29 Nov 2010 16:47:25 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 29 Nov 2010 14:47:24 -0800
+Return-Path: <qing.he@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8E56B4C803A5
+	for <poky@yoctoproject.org>; Mon, 29 Nov 2010 19:49:28 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 29 Nov 2010 17:49:28 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,277,1288594800"; d="scan'208";a="682135940"
-Received: from unknown (HELO [10.255.13.215]) ([10.255.13.215])
-	by orsmga001.jf.intel.com with ESMTP; 29 Nov 2010 14:47:24 -0800
-Message-ID: <4CF42D7C.7000802@intel.com>
-Date: Mon, 29 Nov 2010 14:47:24 -0800
-From: Saul Wold <saul.wold@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
+X-IronPort-AV: E=Sophos;i="4.59,277,1288594800"; d="scan'208";a="578831551"
+Received: from qhe2-db.sh.intel.com ([10.239.13.31])
+	by orsmga002.jf.intel.com with ESMTP; 29 Nov 2010 17:49:27 -0800
+Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
+	(envelope-from <qing.he@intel.com>)
+	id 1PNFGd-0001j5-JZ; Tue, 30 Nov 2010 09:44:27 +0800
+Date: Tue, 30 Nov 2010 09:44:27 +0800
+From: Qing He <qing.he@intel.com>
+To: Richard Purdie <rpurdie@linux.intel.com>
+Message-ID: <20101130014427.GA6584@qhe2-db>
+References: <cover.1289982751.git.qing.he@intel.com>
+	<a03c4017a13bda3f20b8f39a4c099cb28f349968.1289982751.git.qing.he@intel.com>
+	<1290954166.27143.217.camel@rex>
+	<625BA99ED14B2D499DC4E29D8138F1504D42C686F3@shsmsx502.ccr.corp.intel.com>
+	<AANLkTi=oxv9goiEMAfpkDAvq7n_GfGUMSXsonXDdzixd@mail.gmail.com>
+	<1291033557.14277.944.camel@rex>
 MIME-Version: 1.0
-To: poky@yoctoproject.org
-References: <cover.1290506494.git.lei.mei@intel.com>
-In-Reply-To: <cover.1290506494.git.lei.mei@intel.com>
-Subject: Re: [PATCH 00/25]galago-daemon gccmakedep...(25 recipes) license checksum
+In-Reply-To: <1291033557.14277.944.camel@rex>
+User-Agent: Mutt/1.5.20 (2009-06-14)
+Cc: Chris Larson <clarson@kergoth.com>,
+	"poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH 1/1] curl: fix native dependency
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,86 +38,70 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 29 Nov 2010 22:47:25 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 30 Nov 2010 01:49:28 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 11/23/2010 02:01 AM, Mei Lei wrote:
-> This includes 25 recipes license file checksum update.
->
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->    Branch: lmei3/chksum
->    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=lmei3/chksum
->
-> Thanks,
->      Mei Lei<lei.mei@intel.com>
-> ---
->
->
-> Mei Lei (25):
->    galago-daemon: Add license file checksum and update GPL information
->    gccmakedep: Add license checksum to bb file
->    gnome-doc-utils:Add LGPL file and GPL file checksum to bb file
->    libart-lgpl:Add license file checksum and update the GPL information
->    liberation-fonts:Add license file checksum to bb file
->    libunique:Add license file checksum to bb file
->    libxpm: Add license file checksum to bb file
->    libxprintapputil:Add license checksum to bb file
->    libxprintutil:Add license checksum to bb file
->    ttf-bitstream-vera:Add license file checksum to bb file
->    libxtrap:Add license file checksum to bb file
->    lttng:Add license file checksum and update the GPL information
->    dpkg:Add license file checksum to bb file
->    minicom: Add license file checksum and update the GPL information to
->      bb file
->    acpid: Add license checksum to bb file
->    apr:Add license checksum to bb file
->    apr-util:Add license checksum to bb file
->    apt:Add license checksum to bb file
->    beecrypt:Add license checksum and update the GPL to bb file
->    chrpath:Add license checksum and update the GPL to bb file
->    dosfstools:Add license checksum and update the GPL information
->    expat:Add license checksum to bb file
->    gssdp:Add license checksum and update the GPL information
->    insserv:Add license checksum and update the GPL information
->    libacpi:Add license checksum to bb file
->
->   meta/recipes-bsp/acpid/acpid_1.0.6.bb              |    2 +-
->   meta/recipes-bsp/libacpi/libacpi_0.2.bb            |    1 +
->   .../galago/galago-daemon_0.5.1.bb                  |    3 ++-
->   meta/recipes-connectivity/gupnp/gssdp_0.7.1.bb     |    3 ++-
->   meta/recipes-core/expat/expat_2.0.1.bb             |    2 +-
->   meta/recipes-devtools/apt/apt_0.7.14.bb            |    2 +-
->   meta/recipes-devtools/chrpath/chrpath_0.13.bb      |    3 ++-
->   .../recipes-devtools/dosfstools/dosfstools_2.10.bb |    4 ++--
->   .../recipes-devtools/dosfstools/dosfstools_2.11.bb |    4 ++--
->   meta/recipes-devtools/dpkg/dpkg_1.15.8.5.bb        |    1 +
->   meta/recipes-devtools/insserv/insserv_1.11.0.bb    |    3 ++-
->   meta/recipes-extended/minicom/minicom_2.3.bb       |    3 ++-
->   meta/recipes-gnome/gnome/gnome-doc-utils_0.12.0.bb |    3 ++-
->   meta/recipes-gnome/gnome/libart-lgpl_2.3.19.bb     |    3 ++-
->   .../ttf-fonts/liberation-fonts_1.04.bb             |    1 +
->   .../ttf-fonts/ttf-bitstream-vera_1.10.bb           |    1 +
->   meta/recipes-graphics/xorg-lib/libxpm_3.5.7.bb     |    1 +
->   .../xorg-lib/libxprintapputil_1.0.1.bb             |    1 +
->   .../xorg-lib/libxprintutil_1.0.1.bb                |    1 +
->   meta/recipes-graphics/xorg-lib/libxtrap_1.0.0.bb   |    2 +-
->   .../recipes-graphics/xorg-util/gccmakedep_1.0.2.bb |    2 +-
->   meta/recipes-kernel/lttng/lttng-control_0.87.bb    |    4 ++--
->   meta/recipes-support/apr/apr-util_1.3.4.bb         |    2 +-
->   meta/recipes-support/apr/apr_1.3.3.bb              |    2 +-
->   meta/recipes-support/beecrypt/beecrypt_4.1.2.bb    |    4 +++-
->   meta/recipes-tbd/libunique/libunique_1.1.6.bb      |    2 +-
->   26 files changed, 38 insertions(+), 22 deletions(-)
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
+On Mon, 2010-11-29 at 20:25 +0800, Richard Purdie wrote:
+> On Sun, 2010-11-28 at 22:53 -0700, Chris Larson wrote:
+> > On Sun, Nov 28, 2010 at 10:26 PM, Tian, Kevin <kevin.tian@intel.com> wrote:
+> > > This also confuses me a bit. When virtclass-native is expanded, EXTRA_OECONF_append
+> > > is simply a variable. In that case the expanded value should override the 1st assignment
+> > > of EXTRA_OECONF_append, and then we should get:
+> > >
+> > > EXTRA_OECONF_append = " --without-gnutls "
+> > >
+> > > and then that's what we expect.
+> > >
+> > > I guess I may still overlook something here, and really appreciate your explanation
+> > > on the whole flow which is helpful. :-)
+> > 
+> > No, EXTRA_OECONF_append is never a variable.  _append/_prepend are
+> > operations, not part of the name.  The value gets set aside in a list
+> > of appends for that variable.  One _append cannot override/replace
+> > another on the same variable, its always cumulative.
+> 
+> Right.
+> 
+> Interestingly though, if I add this to curl*.bb:
+> 
+> FOO = "A"
+> FOO_append = "B"
+> FOO_append_virtclass-native = "C"
+> 
+> and then "bitbake curl-native -e | grep FOO" (he recipe has a
+> BBCLASSEXTEND native) what should I see?
+> 
+> I see FOO = "AB" which is not what I thought it would do...
 
-Pulled into Master
+This is very interesting, I didn't see "AC" when preparing the patch
+so went the other way. After seeing your experiment, I also tried this:
 
-Thanks
-    Sau!
+FOO = "A"
+FOO_virtclass-native = "B"
+FOO_virtclass-native_append = "C"
+
+Then for curl-native, FOO = "BC", and there is an explicit variable
+FOO_virtclass-native = "BC", this does not exist in RP's test.
+So it's more clear to me now what "*_append is never a variable" means.
+
+
+However, the gut feeling is that this construct introduces some
+inconsistency. If "_append" is never a variable, but "_virtclass-native"
+is, how is bitbake supposed to handle FOO_append_virtclass-native and
+translate it into a FOO_virtclass-native variable?
+
+To be more specific, if append is to be handled earlier than virtclass,
+FOO may not be able to be evaluated at the time when append/prepend is
+processed, as the following test case:
+
+FOO = "A"
+FOO_virtclass-native = "B"
+FOO_append = "C"
+FOO_append_virtclass-nativesdk = "D"
+
+How should it be handled?
+
+Thanks,
+Qing
 
