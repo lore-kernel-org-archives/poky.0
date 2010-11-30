@@ -1,25 +1,33 @@
-Return-Path: <elizabeth.flanagan@intel.com>
+Return-Path: <david.c.stewart@intel.com>
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 4ECDE4C81233
-	for <poky@yoctoproject.org>; Tue, 30 Nov 2010 12:29:11 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 30 Nov 2010 10:29:10 -0800
+	by mx1.pokylinux.org (Postfix) with ESMTP id 7623E4C81231;
+	Tue, 30 Nov 2010 12:58:16 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 30 Nov 2010 10:58:15 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,281,1288594800"; d="scan'208";a="579125938"
-Received: from eflanlinux.jf.intel.com (HELO [10.7.201.99]) ([10.7.201.99])
-	by orsmga002.jf.intel.com with ESMTP; 30 Nov 2010 10:29:10 -0800
-Message-ID: <4CF54216.7060607@intel.com>
-Date: Tue, 30 Nov 2010 10:27:34 -0800
-From: Elizabeth Flanagan <elizabeth.flanagan@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.15) Gecko/20101026 SUSE/3.0.10 Lightning/1.0b1
-	Thunderbird/3.0.10 ThunderBrowse/3.3.3
+X-IronPort-AV: E=Sophos;i="4.59,281,1288594800"; d="scan'208";a="682461681"
+Received: from orsmsx604.amr.corp.intel.com ([10.22.226.87])
+	by orsmga001.jf.intel.com with ESMTP; 30 Nov 2010 10:58:16 -0800
+Received: from orsmsx605.amr.corp.intel.com (10.22.226.10) by
+	orsmsx604.amr.corp.intel.com (10.22.226.87) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Tue, 30 Nov 2010 10:58:15 -0800
+Received: from orsmsx501.amr.corp.intel.com ([10.22.226.209]) by
+	orsmsx605.amr.corp.intel.com ([10.22.226.10]) with mapi;
+	Tue, 30 Nov 2010 10:58:14 -0800
+From: "Stewart, David C" <david.c.stewart@intel.com>
+To: "yocto-announce@yoctoproject.org" <yocto-announce@yoctoproject.org>,
+	"yocto@yoctoproject.org" <yocto@yoctoproject.org>, "poky@yoctoproject.org"
+	<poky@yoctoproject.org>
+Date: Tue, 30 Nov 2010 10:58:13 -0800
+Thread-Topic: Yocto Project announces new and updated documentation
+Thread-Index: AcuQwIomzhli0PNXTKiH2cAOwuyd3g==
+Message-ID: <B27EBC40D200ED48A3F4CC2EBEABAE0B25BC90DFC6@orsmsx501.amr.corp.intel.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
 MIME-Version: 1.0
-To: "Wold, Saul" <saul.wold@intel.com>
-References: <4CF53E28.6020708@intel.com> <4CF5419C.2060508@intel.com>
-In-Reply-To: <4CF5419C.2060508@intel.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: Current Autobuilder nightly failures for build #133
+Subject: Yocto Project announces new and updated documentation
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,73 +39,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 30 Nov 2010 18:29:11 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 30 Nov 2010 18:58:16 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-I'm looking at ways of automating this into a nicer format, until then,
-I'll try to get this out every nightly.
+The Yocto Project is pleased to announce some new kernel documentation on t=
+he yoctoproject.org web site and a revision for the Poky Reference Manual.
 
--b
+Kernel Architecture and Use Manual
 
-On 11/30/2010 10:25 AM, Wold, Saul wrote:
-> On 11/30/2010 10:10 AM, Elizabeth Flanagan wrote:
->> All,
->>
->> Here are the failures for the currently running nightly. The build is
->> not complete yet, so more issues will be coming. This list is only for
->> issues logged as ERRORs.
->>
-> Thanks for this summary, this will be good to track moving forward and 
-> keep the team aware of what's happening.
-> 
-> Sau!
-> 
-> 
->> Package Name:
->> blktrace-1.0.1+git0+1e09f6e9012826fca69fa07222b7bc53c3e629ee-r0
->>
->> Targets Failing:
->> poky-image-sdk	x86
->> poky-image-sdk	qemumips
->>
->> Note:
->> Fails at do_compile
->>
-> I am not sure what changed, but the build is now working with 
-> distro/master, may have needed a kernel patch to catch up with the master.
-> 
->> -------------------]
->> Package Name:
->> xrandr-1_1.3.4-r0
->>
->> Targets Failing:
->> All
->>
->> Note:
->> do_qa_configure fails because MD5 for the license file has changed.
->>
-> Fixed in distro/master
-> 
->> -------------------
->> Package Name:
->> dhcp-4.2.0
->>
->> Targets Failing:
->> poky-image-lsb qemuarm
->> poky-image-lsb qemumips
->>
->> Note:
->> fails at do_compile. patch submitted.
->> -------------------
->>
-> Tested and fixed in distro/master
->>
->> _______________________________________________
->> poky mailing list
->> poky@yoctoproject.org
->> https://lists.yoctoproject.org/listinfo/poky
->>
-> 
+We have just released a new manual on the project web site which explains t=
+he major concepts and usage of the Yocto Project kernel. The kernel is base=
+d on the Linux kernel from kernel.org, and includes a mechanism for applyin=
+g git branches for various architectures, platforms and devices. The docume=
+nt is available from
 
+http://www.yoctoproject.org/sites/default/files/kernel-manual_3.pdf
+
+
+Poky Reference Manual
+
+The main reference manual for the build system has been updated, and a new =
+version is available from the website on
+
+http://www.yoctoproject.org/docs/poky-ref-manual/poky-ref-manual.html
+
+
+We appreciate your feedback on these updates and participation in the proje=
+ct.
+
+Dave=20
 
