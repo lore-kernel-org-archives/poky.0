@@ -1,29 +1,29 @@
 Return-Path: <scott.a.garman@intel.com>
 Received: from masterfoo.zenlinux.com (li38-254.members.linode.com
 	[207.192.74.254])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 923AB4C80FAC
-	for <poky@yoctoproject.org>; Thu,  2 Dec 2010 15:55:43 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 66D084C80FAC
+	for <poky@yoctoproject.org>; Thu,  2 Dec 2010 15:55:44 -0600 (CST)
 Received: from localhost (c-76-105-143-140.hsd1.or.comcast.net
 	[76.105.143.140])
 	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
 	(No client certificate requested)
-	by masterfoo.zenlinux.com (Postfix) with ESMTP id 4586A30503
-	for <poky@yoctoproject.org>; Thu,  2 Dec 2010 16:55:32 -0500 (EST)
-Message-Id: <6354279041f28cfe255e32bb19e490b55243dbe9.1291326732.git.scott.a.garman@intel.com>
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id 7DB69304F8
+	for <poky@yoctoproject.org>; Thu,  2 Dec 2010 16:55:37 -0500 (EST)
+Message-Id: <748343a5ec43c6e76274dacd653eb3194eb6ed1b.1291326732.git.scott.a.garman@intel.com>
 In-Reply-To: <cover.1291326732.git.scott.a.garman@intel.com>
 References: <cover.1291326732.git.scott.a.garman@intel.com>
 From: Scott Garman <scott.a.garman@intel.com>
-Date: Sun, 28 Nov 2010 20:46:27 -0800
+Date: Mon, 29 Nov 2010 20:47:12 -0800
 To: poky@yoctoproject.org
 CC: 
 X-MasterFoo-MailScanner-Information: Please contact the ISP for more
 	information
-X-MailScanner-ID: 4586A30503.F3744
+X-MailScanner-ID: 7DB69304F8.33380
 X-MasterFoo-MailScanner: Found to be clean
 X-MasterFoo-MailScanner-SpamCheck: not spam
 X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
 X-Spam-Status: No
-Subject: [PATCH 1/3] insserv: upgrade to version 1.14.0
+Subject: [PATCH 2/3] libatomics-ops: recipe updates, fix build for mips
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,400 +35,181 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 02 Dec 2010 21:55:43 -0000
+X-List-Received-Date: Thu, 02 Dec 2010 21:55:44 -0000
 
-* Removed obsolete patches
-* Disabled make check tests which cannot be run when cross-compiled
-* Added SUMMARY, DESCRIPTION, and PRIORITY fields
+* Added another patch from Gentoo/OE to allow package to build for
+  mips arches
+* Added SUMMARY, HOMEPAGE, and SECTION fields
 * Added source checksums
 
 Signed-off-by: Scott Garman <scott.a.garman@intel.com>
 ---
- .../insserv/files/40_segfault_virtprov.dpatch      |   89 --------------------
- .../insserv/files/42_loopnochangemsg.dpatch        |   20 -----
- .../insserv/files/crosscompile_fix.patch           |   22 -----
- .../insserv/files/disable_runtests.patch           |   18 ++++
- meta/recipes-devtools/insserv/files/make.patch     |   58 -------------
- meta/recipes-devtools/insserv/files/makefile.patch |   70 +++++++++++++++
- meta/recipes-devtools/insserv/insserv_1.11.0.bb    |   18 ----
- meta/recipes-devtools/insserv/insserv_1.14.0.bb    |   24 +++++
- 8 files changed, 112 insertions(+), 207 deletions(-)
- delete mode 100644 meta/recipes-devtools/insserv/files/40_segfault_virtprov.dpatch
- delete mode 100644 meta/recipes-devtools/insserv/files/42_loopnochangemsg.dpatch
- delete mode 100644 meta/recipes-devtools/insserv/files/crosscompile_fix.patch
- create mode 100644 meta/recipes-devtools/insserv/files/disable_runtests.patch
- delete mode 100644 meta/recipes-devtools/insserv/files/make.patch
- create mode 100644 meta/recipes-devtools/insserv/files/makefile.patch
- delete mode 100644 meta/recipes-devtools/insserv/insserv_1.11.0.bb
- create mode 100644 meta/recipes-devtools/insserv/insserv_1.14.0.bb
+ .../gentoo/libatomic_ops-1.2-mips.patch            |  125 ++++++++++++++++++++
+ .../pulseaudio/libatomics-ops_1.2.bb               |   17 ++-
+ 2 files changed, 137 insertions(+), 5 deletions(-)
+ create mode 100644 meta/recipes-multimedia/pulseaudio/libatomics-ops/gentoo/libatomic_ops-1.2-mips.patch
 
-diff --git a/meta/recipes-devtools/insserv/files/40_segfault_virtprov.dpatch b/meta/recipes-devtools/insserv/files/40_segfault_virtprov.dpatch
-deleted file mode 100644
-index 9b00813..0000000
---- a/meta/recipes-devtools/insserv/files/40_segfault_virtprov.dpatch
-+++ /dev/null
-@@ -1,89 +0,0 @@
--#! /bin/sh /usr/share/dpatch/dpatch-run
--## 40_segfault_virtprov.dpatch by Petter Reinholdtsen
--
--Avoid segfault when an enabled service provide a virtual system
--facility.
--
--@DPATCH@
----- insserv/insserv.c
--+++ insserv/insserv.c	2008-02-01 11:43:45.634618329 +0100
--@@ -166,7 +166,7 @@ typedef struct pwd_struct {
-- 
-- static list_t pwd = { &(pwd), &(pwd) }, * topd = &(pwd);
-- 
---static void pushd(const char *const __restrict path);
--+static void pushd(const char *const __restrict path) __attribute__((nonnull(1)));
-- static void pushd(const char *const path)
-- {
--     pwd_t *  dir;
--@@ -305,13 +305,13 @@ out:
--     return getserv(ptr);
-- }
-- 
---static serv_t * findserv(const char *const __restrict serv) __attribute__((nonnull(1)));
--+static serv_t * findserv(const char *const __restrict serv);
-- static serv_t * findserv(const char *const serv)
-- {
--     list_t * ptr;
--     serv_t * ret = (serv_t*)0;
-- 
---    if (!serv)
--+    if (serv == (const char*)0)
-- 	goto out;
-- 
--     list_for_each(ptr, serv_start) {
--@@ -334,6 +334,9 @@ static void rememberreq(serv_t *serv, ui
--     list_t * ptr;
--     uint old = bit;
-- 
--+    if (!tmp)
--+	error("%s", strerror(errno));
--+
--     while ((token = strsep(&tmp, delimeter))) {
-- 	boolean found = false;
-- 	req_t * this;
--@@ -399,6 +402,9 @@ static void reversereq(const serv_t * se
--     char * rev = strdupa(list);
--     uint old = bit;
-- 
--+    if (!rev)
--+	error("%s", strerror(errno));
--+
--     while ((dep = strsep(&rev, delimeter)) && *dep) {
-- 	serv_t * tmp;
-- 	list_t * ptr;
--@@ -437,7 +443,7 @@ static void reversereq(const serv_t * se
-- /*
--  * Check required services for name
--  */
---static boolean chkrequired(const char *const __restrict name) __attribute__((nonnull(1)));
--+static boolean chkrequired(const char *const __restrict name);
-- static boolean chkrequired(const char *const name)
-- {
--     serv_t * serv = findserv(name);
----- insserv/listing.h
--+++ insserv/listing.h	2008-02-01 11:40:45.347748072 +0100
--@@ -97,11 +97,11 @@ extern int makeprov(const char *__restri
-- extern void setorder(const char *__restrict script, const int order, boolean recursive) __attribute__((nonnull(1)));
-- extern int getorder(const char *__restrict script) __attribute__((nonnull(1)));
-- extern boolean notincluded(const char *__restrict script, const int runlevel) __attribute__((nonnull(1)));
---extern boolean foreach(const char **__restrict script, int *__restrict order, const int runlevel) __attribute__((nonnull(1,2)));
---extern void virtprov(const char *__restrict virt, const char *__restrict real) __attribute__((nonnull(1,2)));
--+extern boolean foreach(const char **__restrict script, int *__restrict order, const int runlevel) __attribute__((nonnull(2)));
--+extern void virtprov(const char *__restrict virt, const char *__restrict real) __attribute__((nonnull(1)));
-- extern const char * getscript(const char *__restrict prov) __attribute__((nonnull(1)));
-- extern const char * getprovides(const char *__restrict script) __attribute__((nonnull(1)));
---extern boolean listscripts(const char **__restrict script, const int lvl) __attribute__((nonnull(1)));
--+extern boolean listscripts(const char **__restrict script, const int lvl);
-- extern int maxorder;
-- extern boolean is_loop_detected(void);
-- 
--@@ -116,7 +116,7 @@ extern int map_has_runlevels(void);
-- extern int map_runlevel_to_lvl (const int runlevel);
-- extern int map_key_to_lvl(const char key);
-- 
---static inline char * xstrdup(const char *__restrict s) __attribute__((always_inline,nonnull(1)));
--+static inline char * xstrdup(const char *__restrict s) __attribute__((always_inline));
-- static inline char * xstrdup(const char * s)
-- {
--     char * r;
-diff --git a/meta/recipes-devtools/insserv/files/42_loopnochangemsg.dpatch b/meta/recipes-devtools/insserv/files/42_loopnochangemsg.dpatch
-deleted file mode 100644
-index 4a15f58..0000000
---- a/meta/recipes-devtools/insserv/files/42_loopnochangemsg.dpatch
-+++ /dev/null
-@@ -1,20 +0,0 @@
--#! /bin/sh /usr/share/dpatch/dpatch-run
--## 40_loopnochangemsg.dpatch by Petter Reinholdtsen
--
--Make it more obvious that introducing a loop will not change the
--existing boot sequence.  Thanks to Frans Pop for the rationale for
--this change.
--
--@DPATCH@
--
----- insserv-1.11.0.orig/insserv.c
--+++ insserv-1.11.0/insserv.c
--@@ -2647,7 +2647,7 @@
--     follow_all();
-- 
--     if (is_loop_detected() && !ignore)
---	error("exiting now!\n");
--+	error("exiting without changing boot order!\n");
-- 
--     /*
--      * Re-order some well known scripts to get
-diff --git a/meta/recipes-devtools/insserv/files/crosscompile_fix.patch b/meta/recipes-devtools/insserv/files/crosscompile_fix.patch
-deleted file mode 100644
-index 14d8db4..0000000
---- a/meta/recipes-devtools/insserv/files/crosscompile_fix.patch
-+++ /dev/null
-@@ -1,22 +0,0 @@
--Index: insserv-1.11.0/Makefile
--===================================================================
----- insserv-1.11.0.orig/Makefile	2008-08-25 16:00:00.000000000 +0100
--+++ insserv-1.11.0/Makefile	2008-08-25 16:00:25.000000000 +0100
--@@ -18,16 +18,7 @@
-- #
-- # Architecture
-- #
---ifdef RPM_OPT_FLAGS
---	  COPTS = -g $(RPM_OPT_FLAGS)
---else
---	   ARCH = $(shell uname -i)
---ifeq ($(ARCH),i386)
---	  COPTS = -O2 -mcpu=i586 -mtune=i686
---else
---	  COPTS = -O2
---endif
---endif
--+COPTS = -O2
-- COPTS += -g
-- 
-- 	 MY_CFLAGS = $(CFLAGS) -Wall $(COPTS) $(DEBUG) $(LOOPS) -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 \
-diff --git a/meta/recipes-devtools/insserv/files/disable_runtests.patch b/meta/recipes-devtools/insserv/files/disable_runtests.patch
+diff --git a/meta/recipes-multimedia/pulseaudio/libatomics-ops/gentoo/libatomic_ops-1.2-mips.patch b/meta/recipes-multimedia/pulseaudio/libatomics-ops/gentoo/libatomic_ops-1.2-mips.patch
 new file mode 100644
-index 0000000..4e40848
+index 0000000..29f07b9
 --- /dev/null
-+++ b/meta/recipes-devtools/insserv/files/disable_runtests.patch
-@@ -0,0 +1,18 @@
-+# Disable the make check runtime tests, which cannot be run when
-+# cross-compiled.
++++ b/meta/recipes-multimedia/pulseaudio/libatomics-ops/gentoo/libatomic_ops-1.2-mips.patch
+@@ -0,0 +1,125 @@
++# Patch copied from the OpenEmbedded libatomics-ops recipe. Original
++# source was from Gentoo.
 +#
 +# Signed-off-by: Scott Garman <scott.a.garman@intel.com>
-+diff -urN insserv-1.14.0.orig//Makefile insserv-1.14.0/Makefile
-+--- insserv-1.14.0.orig//Makefile	2010-11-28 17:12:01.715597293 -0800
-++++ insserv-1.14.0/Makefile	2010-11-28 17:16:33.837780660 -0800
-+@@ -119,8 +119,8 @@
-+ ifeq ($(ISSUSE),-DSUSE)
-+ 	issuse=true tests/common
-+ #	issuse=true tests/suse
-+-else
-+-	tests/common
-++#else
-++#	tests/common
-+ endif
++diff --git a/src/atomic_ops.h b/src/atomic_ops.h
++index c23f30b..791b360 100755
++--- a/src/atomic_ops.h
+++++ b/src/atomic_ops.h
++@@ -220,6 +220,9 @@
++ # if defined(__cris__) || defined(CRIS)
++ #   include "atomic_ops/sysdeps/gcc/cris.h"
++ # endif
+++# if defined(__mips__) 
+++#   include "atomic_ops/sysdeps/gcc/mips.h"
+++# endif
++ #endif /* __GNUC__ && !AO_USE_PTHREAD_DEFS */
 + 
-+ install:	$(TODO) check
-diff --git a/meta/recipes-devtools/insserv/files/make.patch b/meta/recipes-devtools/insserv/files/make.patch
-deleted file mode 100644
-index bb3b51a..0000000
---- a/meta/recipes-devtools/insserv/files/make.patch
-+++ /dev/null
-@@ -1,58 +0,0 @@
--=== modified file 'Makefile'
----- old/Makefile	2008-06-24 14:49:47 +0000
--+++ new/Makefile	2008-06-24 15:56:15 +0000
--@@ -7,10 +7,10 @@
-- INITDIR  =	/etc/init.d
-- INSCONF  =	/etc/insserv.conf
-- #DESTDIR =	/tmp/root
---#DEBUG	 =	-DDEBUG=1 -Wpacked
--+DEBUG	 =	-DDEBUG=1 -Wpacked
-- #LOOPS	 =	-DIGNORE_LOOPS=1
-- DEBUG	 =
---ISSUSE	 =	-DSUSE
--+#ISSUSE	 =	-DSUSE
-- DESTDIR	 =
-- VERSION	 =	1.11.0
-- DATE	 =	$(shell date +'%d%b%y' | tr '[:lower:]' '[:upper:]')
--@@ -28,7 +28,9 @@
-- 	  COPTS = -O2
-- endif
-- endif
---	 CFLAGS = -Wall $(COPTS) $(DEBUG) $(LOOPS) -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 \
--+COPTS += -g
--+
--+	 MY_CFLAGS = $(CFLAGS) -Wall $(COPTS) $(DEBUG) $(LOOPS) -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 \
-- 		  $(ISSUSE) -DINITDIR=\"$(INITDIR)\" -DINSCONF=\"$(INSCONF)\" -pipe
-- 	  CLOOP = -falign-loops=0
-- 	     CC = gcc
--@@ -58,13 +60,13 @@
-- all: $(TODO)
-- 
-- listing.o:	listing.c listing.h .system
---	$(CC) $(CFLAGS) $(CLOOP) -c $<
--+	$(CC) $(MY_CFLAGS) $(CLOOP) -c $<
-- 
-- insserv.o:	insserv.c listing.h .system
---	$(CC) $(CFLAGS) $(CLOOP) -c $<
--+	$(CC) $(MY_CFLAGS) $(CLOOP) -c $<
-- 
-- insserv:	insserv.o listing.o
---	$(CC) $(CFLAGS) -Wl,-O,3,--relax -o $@ $^
--+	$(CC) $(MY_CFLAGS) -Wl,-O,3,--relax -o $@ $^
-- 
-- ifeq ($(ISSUSE),-DSUSE)
-- insserv.8:	insserv.8.in .system
--@@ -86,10 +88,10 @@
-- -include .depend.listing .depend.insserv
-- 
-- .depend.listing:
---	@$(CC) $(CFLAGS) -M listing.c >$@ 2>/dev/null
--+	@$(CC) $(MY_CFLAGS) -M listing.c >$@ 2>/dev/null
-- 
-- .depend.insserv:
---	@$(CC) $(CFLAGS) -M insserv.c >$@ 2>/dev/null
--+	@$(CC) $(MY_CFLAGS) -M insserv.c >$@ 2>/dev/null
-- 
-- install:	$(TODO)
-- 	$(MKDIR)   $(SBINDIR)
--
-diff --git a/meta/recipes-devtools/insserv/files/makefile.patch b/meta/recipes-devtools/insserv/files/makefile.patch
-new file mode 100644
-index 0000000..19e99c6
---- /dev/null
-+++ b/meta/recipes-devtools/insserv/files/makefile.patch
-@@ -0,0 +1,70 @@
-+# Enable debug options and modify the use of CLFAGS (carried over
-+# from the previous version's patch).
-+#
-+# Signed-off-by: Scott Garman <scott.a.garman@intel.com>
-+diff -urN insserv-1.14.0.orig//Makefile insserv-1.14.0//Makefile
-+--- insserv-1.14.0.orig//Makefile	2010-04-29 03:33:40.000000000 -0700
-++++ insserv-1.14.0//Makefile	2010-11-28 17:09:20.537996190 -0800
-+@@ -8,27 +8,16 @@
-+ INITDIR  =	/etc/init.d
-+ INSCONF  =	/etc/insserv.conf
-+ #DESTDIR =	/tmp/root
-+-#DEBUG	 =	-DDEBUG=1 -Wpacked
-++DEBUG	 =	-DDEBUG=1 -Wpacked
-+ DEBUG	 =
-+-ISSUSE	 =	-DSUSE
-++#ISSUSE	 =	-DSUSE
-+ DESTDIR	 =
-+ VERSION	 =	1.14.0
-+ DATE	 =	$(shell date +'%d%b%y' | tr '[:lower:]' '[:upper:]')
-+ 
-+-#
-+-# Architecture
-+-#
-+-ifdef RPM_OPT_FLAGS
-+-	  COPTS = -g $(RPM_OPT_FLAGS)
-+-else
-+-	   ARCH = $(shell uname -i)
-+-ifeq ($(ARCH),i386)
-+-	  COPTS = -g -O3 -mcpu=i586 -mtune=i686
-+-else
-+-	  COPTS = -g -O2
-+-endif
-+-endif
-+-	 CFLAGS = -W -Wall $(COPTS) $(DEBUG) $(LOOPS) -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 \
-++COPTS = -O2 -g
++ #if defined(__INTEL_COMPILER) && !defined(AO_USE_PTHREAD_DEFS)
++diff --git a/src/atomic_ops/sysdeps/Makefile.am b/src/atomic_ops/sysdeps/Makefile.am
++index 74122b4..d6737c0 100644
++--- a/src/atomic_ops/sysdeps/Makefile.am
+++++ b/src/atomic_ops/sysdeps/Makefile.am
++@@ -29,6 +29,7 @@ nobase_sysdep_HEADERS= generic_pthread.h \
++ 	  gcc/powerpc.h gcc/sparc.h \
++ 	  gcc/hppa.h gcc/m68k.h gcc/s390.h \
++ 	  gcc/ia64.h gcc/x86_64.h gcc/cris.h \
+++	  gcc/mips.h \
++ 	\
++ 	  icc/ia64.h \
++ 	\
++diff --git a/src/atomic_ops/sysdeps/gcc/mips.h b/src/atomic_ops/sysdeps/gcc/mips.h
++new file mode 100644
++index 0000000..e7f3a5d
++--- /dev/null
+++++ b/src/atomic_ops/sysdeps/gcc/mips.h
++@@ -0,0 +1,89 @@
+++/* 
+++ * Copyright (c) 2005  Thiemo Seufer <ths@networkno.de>
+++ * Copyright (c) 2007  Zhang Le <r0bertz@gentoo.org>
+++ *
+++ * THIS MATERIAL IS PROVIDED AS IS, WITH ABSOLUTELY NO WARRANTY EXPRESSED
+++ * OR IMPLIED.  ANY USE IS AT YOUR OWN RISK.
+++ *
+++ * Permission is hereby granted to use or copy this program
+++ * for any purpose,  provided the above notices are retained on all copies.
+++ * Permission to modify the code and to distribute modified code is granted,
+++ * provided the above notices are retained, and a notice that the code was
+++ * modified is included with the above copyright notice.
+++ */
 ++
-++	 MY_CFLAGS = $(CFLAGS) -W -Wall $(COPTS) $(DEBUG) $(LOOPS) -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 \
-+ 		  $(ISSUSE) -DINITDIR=\"$(INITDIR)\" -DINSCONF=\"$(INSCONF)\" -pipe
-+ 	  CLOOP = -falign-loops=0
-+ 	LDFLAGS = -Wl,-O,3,--relax
-+@@ -75,13 +64,13 @@
-+ all:		$(TODO)
-+ 
-+ insserv:	insserv.o listing.o
-+-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
-++	$(CC) $(MY_CFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
-+ 
-+ listing.o:	listing.c listing.h config.h .system
-+-	$(CC) $(CFLAGS) $(CLOOP) -c $<
-++	$(CC) $(MY_CFLAGS) $(CLOOP) -c $<
-+ 
-+ insserv.o:	insserv.c listing.h config.h .system
-+-	$(CC) $(CFLAGS) $(CLOOP) -c $<
-++	$(CC) $(MY_CFLAGS) $(CLOOP) -c $<
-+ 
-+ listing.h:	.system
-+ 
-+@@ -119,10 +108,10 @@
-+ -include	.depend.listing .depend.insserv
-+ 
-+ .depend.listing::	listing.c listing.h
-+-	@$(CC) $(CFLAGS) -M listing.c >$@ 2>/dev/null
-++	@$(CC) $(MY_CFLAGS) -M listing.c >$@ 2>/dev/null
-+ 
-+ .depend.insserv::	insserv.c listing.h
-+-	@$(CC) $(CFLAGS) -M insserv.c >$@ 2>/dev/null
-++	@$(CC) $(MY_CFLAGS) -M insserv.c >$@ 2>/dev/null
-+ 
-+ endif
-+ 
-diff --git a/meta/recipes-devtools/insserv/insserv_1.11.0.bb b/meta/recipes-devtools/insserv/insserv_1.11.0.bb
-deleted file mode 100644
-index f3c79ee..0000000
---- a/meta/recipes-devtools/insserv/insserv_1.11.0.bb
-+++ /dev/null
-@@ -1,18 +0,0 @@
--LICENSE = "GPLv2"
--LIC_FILES_CHKSUM = "file://COPYING;md5=0636e73ff0215e8d672dc4c32c317bb3"
--SECTION = "base"
--PR = "r1"
--
--SRC_URI = "ftp://ftp.suse.com/pub/projects/init/${BPN}-${PV}.tar.gz \
--        file://40_segfault_virtprov.dpatch;patch=1 \
--        file://42_loopnochangemsg.dpatch;patch=1 \
--        file://make.patch;patch=1 \
--        file://crosscompile_fix.patch;patch=1 \
--        file://insserv.conf"
--
--do_install () {
--	oe_runmake 'DESTDIR=${D}' install
--	install -m0644 ${WORKDIR}/insserv.conf ${D}${sysconfdir}/insserv.conf
--}
--
--BBCLASSEXTEND = "native"
-diff --git a/meta/recipes-devtools/insserv/insserv_1.14.0.bb b/meta/recipes-devtools/insserv/insserv_1.14.0.bb
-new file mode 100644
-index 0000000..75f79d9
---- /dev/null
-+++ b/meta/recipes-devtools/insserv/insserv_1.14.0.bb
-@@ -0,0 +1,24 @@
-+SUMMARY = "Enable an installed system init script"
-+DESCRIPTION = "Enable an installed system init script by reading the comment header of the script"
-+# There is no known home page for insserv
-+SECTION = "base"
-+PRIORITY = "optional"
-+LICENSE = "GPLv2"
-+LIC_FILES_CHKSUM = "file://COPYING;md5=751419260aa954499f7abaabaa882bbe"
+++#include "../all_aligned_atomic_load_store.h"
+++#include "../test_and_set_t_is_ao_t.h"
+++
+++/* Data dependence does not imply read ordering.  */
+++#define AO_NO_DD_ORDERING
+++
+++AO_INLINE void
+++AO_nop_full()
+++{
+++  __asm__ __volatile__(
+++      "       .set push           \n"
+++      "       .set mips3          \n"
+++      "       .set noreorder      \n"
+++      "       .set nomacro        \n"
+++      "       sync                \n"
+++      "       .set pop              "
+++      : : : "memory");
+++}
+++
+++#define AO_HAVE_nop_full
+++
+++AO_INLINE int
+++AO_compare_and_swap(volatile AO_t *addr, AO_t old, AO_t new_val)
+++{
+++  register int was_equal = 0;
+++  register int temp;
+++
+++  __asm__ __volatile__(
+++      "       .set push           \n"
+++      "       .set mips3          \n"
+++      "       .set noreorder      \n"
+++      "       .set nomacro        \n"
+++      "1:     ll      %0, %1      \n"
+++      "       bne     %0, %4, 2f  \n"
+++      "       move    %0, %3      \n"
+++      "       sc      %0, %1      \n"
+++      "       .set pop            \n"
+++      "       beqz    %0, 1b      \n"
+++      "       li      %2, 1       \n"
+++      "2:                           "
+++      : "=&r" (temp), "+R" (*addr), "+r" (was_equal)
+++      : "r" (new_val), "r" (old)
+++      : "memory");
+++  return was_equal;
+++}
+++
+++#define AO_HAVE_compare_and_swap
+++
+++AO_INLINE AO_t
+++AO_fetch_and_add_full (volatile AO_t *p, AO_t incr)
+++{
+++  AO_t result, temp;
+++  __asm__ __volatile__(
+++      "       .set push           \n"
+++      "       .set mips3          \n"
+++      "       .set noreorder      \n"
+++      "       .set nomacro        \n"
+++      "1:     ll      %1, %2      \n"
+++      "       addu    %0, %1, %3  \n"
+++      "       sc      %0, %2      \n"
+++      "       beqz    %0, 1b      \n"
+++      "       addu    %0, %1, %3  \n"
+++      "       sync                \n"
+++      "       .set pop            \n"
+++      : "=&r" (result), "=&r" (temp), "=m" (*p)
+++      : "r" (incr), "m" (*p)
+++      : "memory");
+++  return result;
+++}
+++
+++#define AO_HAVE_fetch_and_add_full
+++
+++/*
+++ * FIXME: fetch_and_add_full implemented, any others?
+++ */
+diff --git a/meta/recipes-multimedia/pulseaudio/libatomics-ops_1.2.bb b/meta/recipes-multimedia/pulseaudio/libatomics-ops_1.2.bb
+index 0160c3d..79f4517 100644
+--- a/meta/recipes-multimedia/pulseaudio/libatomics-ops_1.2.bb
++++ b/meta/recipes-multimedia/pulseaudio/libatomics-ops_1.2.bb
+@@ -1,13 +1,20 @@
++SUMMARY = "A library for atomic integer operations"
+ DESCRIPTION = "A library for atomic integer operations"
++HOMEPAGE = "http://www.hpl.hp.com/research/linux/atomic_ops/"
++SECTION = "optional"
+ LICENSE = "GPLv2&MIT"
+ LIC_FILES_CHKSUM = "file://doc/COPYING;md5=94d55d512a9ba36caa9b7df079bae19f \
+-		    file://doc/LICENSING.txt;md5=607073e04548eac7d1f763e480477bab \
++                    file://doc/LICENSING.txt;md5=607073e04548eac7d1f763e480477bab \
+ 		   "
+-PR = "r4"
++PR = "r5"
+ 
+-SRC_URI = "http://www.hpl.hp.com/research/linux/atomic_ops/download/libatomic_ops-1.2.tar.gz \
+-           file://fedora/libatomic_ops-1.2-ppclwzfix.patch;patch=1 \
+-           file://doublefix.patch;patch=1"
++SRC_URI = "http://www.hpl.hp.com/research/linux/atomic_ops/download/libatomic_ops-${PV}.tar.gz \
++           file://fedora/libatomic_ops-1.2-ppclwzfix.patch \
++           file://gentoo/libatomic_ops-1.2-mips.patch \
++           file://doublefix.patch"
 +
-+PR = "r0"
-+
-+SRC_URI = "ftp://ftp.suse.com/pub/projects/init/${PN}-${PV}.tar.bz2 \
-+           file://makefile.patch \
-+           file://disable_runtests.patch \
-+           file://insserv.conf"
-+
-+SRC_URI[md5sum] = "4a97d900855148842b1aa8f33b988b47"
-+SRC_URI[sha256sum] = "89a0a093b1cf3d802ad40568e64b496b493f51ff9825905c8bd12738b374ca47"
-+
-+do_install () {
-+	oe_runmake 'DESTDIR=${D}' install
-+	install -m0644 ${WORKDIR}/insserv.conf ${D}${sysconfdir}/insserv.conf
-+}
-+
-+BBCLASSEXTEND = "native"
++SRC_URI[md5sum] = "1b65e48271c81e3fa2d7a9a69bab7504"
++SRC_URI[sha256sum] = "a3d8768aa8fd2f6ae79be2d756b3a6b48816b3889ae906be3d5ffb2de5a5c781"
+ 
+ S = "${WORKDIR}/libatomic_ops-${PV}"
+ 
 -- 
 1.7.1
 
