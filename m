@@ -1,23 +1,23 @@
 Return-Path: <qing.he@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0A06B4C8110B
-	for <poky@yoctoproject.org>; Mon, 29 Nov 2010 23:58:45 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 29 Nov 2010 21:58:44 -0800
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id BFE114C8110B
+	for <poky@yoctoproject.org>; Mon, 29 Nov 2010 23:58:46 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 29 Nov 2010 21:58:44 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,278,1288594800"; d="scan'208";a="682241813"
+X-IronPort-AV: E=Sophos;i="4.59,278,1288594800"; d="scan'208";a="862588688"
 Received: from qhe2-db.sh.intel.com ([10.239.13.31])
-	by orsmga001.jf.intel.com with ESMTP; 29 Nov 2010 21:58:43 -0800
+	by fmsmga001.fm.intel.com with ESMTP; 29 Nov 2010 21:58:43 -0800
 Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
 	(envelope-from <qing.he@intel.com>)
-	id 1PNJ9r-0005nc-Pr; Tue, 30 Nov 2010 13:53:43 +0800
-Message-Id: <da20577b0f265b3f5bc56b1590546bbd1db63921.1291096296.git.qing.he@intel.com>
+	id 1PNJ9r-0005ni-S8; Tue, 30 Nov 2010 13:53:43 +0800
+Message-Id: <101decfe15a5eb74c8a65fc42b885295b233d039.1291096296.git.qing.he@intel.com>
 In-Reply-To: <cover.1291096296.git.qing.he@intel.com>
 References: <cover.1291096296.git.qing.he@intel.com>
 From: Qing He <qing.he@intel.com>
-Date: Tue, 30 Nov 2010 13:35:42 +0800
+Date: Tue, 30 Nov 2010 13:45:21 +0800
 To: poky@yoctoproject.org
-Subject: [PATCH 1/2] bind: add new recipe
+Subject: [PATCH 2/2] dhcp: fix cross build
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,415 +29,166 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 30 Nov 2010 05:58:46 -0000
+X-List-Received-Date: Tue, 30 Nov 2010 05:58:47 -0000
 
-version 9.7.2-P2
-based on bind recipe from openembedded
-
-the exportlib is used by building dhcp
+the new internal bind9 is not cross compiling friendly, use
+the external library
 
 Signed-off-by: Qing He <qing.he@intel.com>
 ---
- .../bind/bind-9.7.2-P2/conf.patch                  |  301 ++++++++++++++++++++
- .../bind/bind-9.7.2-P2/cross-build-fix.patch       |   19 ++
- meta/recipes-connectivity/bind/bind_9.7.2-P2.bb    |   54 ++++
- 3 files changed, 374 insertions(+), 0 deletions(-)
- create mode 100644 meta/recipes-connectivity/bind/bind-9.7.2-P2/conf.patch
- create mode 100644 meta/recipes-connectivity/bind/bind-9.7.2-P2/cross-build-fix.patch
- create mode 100644 meta/recipes-connectivity/bind/bind_9.7.2-P2.bb
+ .../dhcp/dhcp-4.2.0/fix-external-bind.patch        |  101 ++++++++++++++++++++
+ meta/recipes-connectivity/dhcp/dhcp4.inc           |    6 +-
+ meta/recipes-connectivity/dhcp/dhcp_4.2.0.bb       |    6 +-
+ 3 files changed, 110 insertions(+), 3 deletions(-)
+ create mode 100644 meta/recipes-connectivity/dhcp/dhcp-4.2.0/fix-external-bind.patch
 
-diff --git a/meta/recipes-connectivity/bind/bind-9.7.2-P2/conf.patch b/meta/recipes-connectivity/bind/bind-9.7.2-P2/conf.patch
+diff --git a/meta/recipes-connectivity/dhcp/dhcp-4.2.0/fix-external-bind.patch b/meta/recipes-connectivity/dhcp/dhcp-4.2.0/fix-external-bind.patch
 new file mode 100644
-index 0000000..202c531
+index 0000000..2206b71
 --- /dev/null
-+++ b/meta/recipes-connectivity/bind/bind-9.7.2-P2/conf.patch
-@@ -0,0 +1,301 @@
-+diff -urN bind-9.3.1.orig/conf/db.0 bind-9.3.1/conf/db.0
-+--- bind-9.3.1.orig/conf/db.0	1970-01-01 01:00:00.000000000 +0100
-++++ bind-9.3.1/conf/db.0	2005-07-10 22:14:00.000000000 +0200
-+@@ -0,0 +1,12 @@
-++;
-++; BIND reverse data file for broadcast zone
-++;
-++$TTL	604800
-++@	IN	SOA	localhost. root.localhost. (
-++			      1		; Serial
-++			 604800		; Refresh
-++			  86400		; Retry
-++			2419200		; Expire
-++			 604800 )	; Negative Cache TTL
-++;
-++@	IN	NS	localhost.
-+diff -urN bind-9.3.1.orig/conf/db.127 bind-9.3.1/conf/db.127
-+--- bind-9.3.1.orig/conf/db.127	1970-01-01 01:00:00.000000000 +0100
-++++ bind-9.3.1/conf/db.127	2005-07-10 22:14:00.000000000 +0200
-+@@ -0,0 +1,13 @@
-++;
-++; BIND reverse data file for local loopback interface
-++;
-++$TTL	604800
-++@	IN	SOA	localhost. root.localhost. (
-++			      1		; Serial
-++			 604800		; Refresh
-++			  86400		; Retry
-++			2419200		; Expire
-++			 604800 )	; Negative Cache TTL
-++;
-++@	IN	NS	localhost.
-++1.0.0	IN	PTR	localhost.
-+diff -urN bind-9.3.1.orig/conf/db.empty bind-9.3.1/conf/db.empty
-+--- bind-9.3.1.orig/conf/db.empty	1970-01-01 01:00:00.000000000 +0100
-++++ bind-9.3.1/conf/db.empty	2005-07-10 22:14:00.000000000 +0200
-+@@ -0,0 +1,14 @@
-++; BIND reverse data file for empty rfc1918 zone
-++;
-++; DO NOT EDIT THIS FILE - it is used for multiple zones.
-++; Instead, copy it, edit named.conf, and use that copy.
-++;
-++$TTL	86400
-++@	IN	SOA	localhost. root.localhost. (
-++			      1		; Serial
-++			 604800		; Refresh
-++			  86400		; Retry
-++			2419200		; Expire
-++			  86400 )	; Negative Cache TTL
-++;
-++@	IN	NS	localhost.
-+diff -urN bind-9.3.1.orig/conf/db.local bind-9.3.1/conf/db.local
-+--- bind-9.3.1.orig/conf/db.local	1970-01-01 01:00:00.000000000 +0100
-++++ bind-9.3.1/conf/db.local	2005-07-10 22:14:00.000000000 +0200
-+@@ -0,0 +1,13 @@
-++;
-++; BIND data file for local loopback interface
-++;
-++$TTL	604800
-++@	IN	SOA	localhost. root.localhost. (
-++			      1		; Serial
-++			 604800		; Refresh
-++			  86400		; Retry
-++			2419200		; Expire
-++			 604800 )	; Negative Cache TTL
-++;
-++@	IN	NS	localhost.
-++@	IN	A	127.0.0.1
-+diff -urN bind-9.3.1.orig/conf/db.root bind-9.3.1/conf/db.root
-+--- bind-9.3.1.orig/conf/db.root	1970-01-01 01:00:00.000000000 +0100
-++++ bind-9.3.1/conf/db.root	2005-07-10 22:14:00.000000000 +0200
-+@@ -0,0 +1,45 @@
-++
-++; <<>> DiG 9.2.3 <<>> ns . @a.root-servers.net.
-++;; global options:  printcmd
-++;; Got answer:
-++;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 18944
-++;; flags: qr aa rd; QUERY: 1, ANSWER: 13, AUTHORITY: 0, ADDITIONAL: 13
-++
-++;; QUESTION SECTION:
-++;.				IN	NS
-++
-++;; ANSWER SECTION:
-++.			518400	IN	NS	A.ROOT-SERVERS.NET.
-++.			518400	IN	NS	B.ROOT-SERVERS.NET.
-++.			518400	IN	NS	C.ROOT-SERVERS.NET.
-++.			518400	IN	NS	D.ROOT-SERVERS.NET.
-++.			518400	IN	NS	E.ROOT-SERVERS.NET.
-++.			518400	IN	NS	F.ROOT-SERVERS.NET.
-++.			518400	IN	NS	G.ROOT-SERVERS.NET.
-++.			518400	IN	NS	H.ROOT-SERVERS.NET.
-++.			518400	IN	NS	I.ROOT-SERVERS.NET.
-++.			518400	IN	NS	J.ROOT-SERVERS.NET.
-++.			518400	IN	NS	K.ROOT-SERVERS.NET.
-++.			518400	IN	NS	L.ROOT-SERVERS.NET.
-++.			518400	IN	NS	M.ROOT-SERVERS.NET.
-++
-++;; ADDITIONAL SECTION:
-++A.ROOT-SERVERS.NET.	3600000	IN	A	198.41.0.4
-++B.ROOT-SERVERS.NET.	3600000	IN	A	192.228.79.201
-++C.ROOT-SERVERS.NET.	3600000	IN	A	192.33.4.12
-++D.ROOT-SERVERS.NET.	3600000	IN	A	128.8.10.90
-++E.ROOT-SERVERS.NET.	3600000	IN	A	192.203.230.10
-++F.ROOT-SERVERS.NET.	3600000	IN	A	192.5.5.241
-++G.ROOT-SERVERS.NET.	3600000	IN	A	192.112.36.4
-++H.ROOT-SERVERS.NET.	3600000	IN	A	128.63.2.53
-++I.ROOT-SERVERS.NET.	3600000	IN	A	192.36.148.17
-++J.ROOT-SERVERS.NET.	3600000	IN	A	192.58.128.30
-++K.ROOT-SERVERS.NET.	3600000	IN	A	193.0.14.129
-++L.ROOT-SERVERS.NET.	3600000	IN	A	198.32.64.12
-++M.ROOT-SERVERS.NET.	3600000	IN	A	202.12.27.33
-++
-++;; Query time: 81 msec
-++;; SERVER: 198.41.0.4#53(a.root-servers.net.)
-++;; WHEN: Sun Feb  1 11:27:14 2004
-++;; MSG SIZE  rcvd: 436
-++
-+diff -urN bind-9.3.1.orig/conf/named.conf bind-9.3.1/conf/named.conf
-+--- bind-9.3.1.orig/conf/named.conf	1970-01-01 01:00:00.000000000 +0100
-++++ bind-9.3.1/conf/named.conf	2005-07-10 22:33:46.000000000 +0200
-+@@ -0,0 +1,49 @@
-++// This is the primary configuration file for the BIND DNS server named.
-++//
-++// If you are just adding zones, please do that in /etc/bind/named.conf.local
-++
-++include "/etc/bind/named.conf.options";
-++
-++// prime the server with knowledge of the root servers
-++zone "." {
-++	type hint;
-++	file "/etc/bind/db.root";
-++};
-++
-++// be authoritative for the localhost forward and reverse zones, and for
-++// broadcast zones as per RFC 1912
-++
-++zone "localhost" {
-++	type master;
-++	file "/etc/bind/db.local";
-++};
-++
-++zone "127.in-addr.arpa" {
-++	type master;
-++	file "/etc/bind/db.127";
-++};
-++
-++zone "0.in-addr.arpa" {
-++	type master;
-++	file "/etc/bind/db.0";
-++};
-++
-++zone "255.in-addr.arpa" {
-++	type master;
-++	file "/etc/bind/db.255";
-++};
-++
-++// zone "com" { type delegation-only; };
-++// zone "net" { type delegation-only; };
-++
-++// From the release notes:
-++//  Because many of our users are uncomfortable receiving undelegated answers
-++//  from root or top level domains, other than a few for whom that behaviour
-++//  has been trusted and expected for quite some length of time, we have now
-++//  introduced the "root-delegations-only" feature which applies delegation-only
-++//  logic to all top level domains, and to the root domain.  An exception list
-++//  should be specified, including "MUSEUM" and "DE", and any other top level
-++//  domains from whom undelegated responses are expected and trusted.
-++// root-delegation-only exclude { "DE"; "MUSEUM"; };
-++
-++include "/etc/bind/named.conf.local";
-+diff -urN bind-9.3.1.orig/conf/named.conf.local bind-9.3.1/conf/named.conf.local
-+--- bind-9.3.1.orig/conf/named.conf.local	1970-01-01 01:00:00.000000000 +0100
-++++ bind-9.3.1/conf/named.conf.local	2005-07-10 22:14:06.000000000 +0200
-+@@ -0,0 +1,8 @@
-++//
-++// Do any local configuration here
-++//
-++
-++// Consider adding the 1918 zones here, if they are not used in your
-++// organization
-++//include "/etc/bind/zones.rfc1918";
-++
-+diff -urN bind-9.3.1.orig/conf/named.conf.options bind-9.3.1/conf/named.conf.options
-+--- bind-9.3.1.orig/conf/named.conf.options	1970-01-01 01:00:00.000000000 +0100
-++++ bind-9.3.1/conf/named.conf.options	2005-07-10 22:14:06.000000000 +0200
-+@@ -0,0 +1,24 @@
-++options {
-++	directory "/var/cache/bind";
-++
-++	// If there is a firewall between you and nameservers you want
-++	// to talk to, you might need to uncomment the query-source
-++	// directive below.  Previous versions of BIND always asked
-++	// questions using port 53, but BIND 8.1 and later use an unprivileged
-++	// port by default.
-++
-++	// query-source address * port 53;
-++
-++	// If your ISP provided one or more IP addresses for stable 
-++	// nameservers, you probably want to use them as forwarders.  
-++	// Uncomment the following block, and insert the addresses replacing 
-++	// the all-0's placeholder.
-++
-++	// forwarders {
-++	// 	0.0.0.0;
-++	// };
-++
-++	auth-nxdomain no;    # conform to RFC1035
-++
-++};
-++
-+diff -urN bind-9.3.1.orig/conf/zones.rfc1918 bind-9.3.1/conf/zones.rfc1918
-+--- bind-9.3.1.orig/conf/zones.rfc1918	1970-01-01 01:00:00.000000000 +0100
-++++ bind-9.3.1/conf/zones.rfc1918	2005-07-10 22:14:10.000000000 +0200
-+@@ -0,0 +1,20 @@
-++zone "10.in-addr.arpa"      { type master; file "/etc/bind/db.empty"; };
-++ 
-++zone "16.172.in-addr.arpa"  { type master; file "/etc/bind/db.empty"; };
-++zone "17.172.in-addr.arpa"  { type master; file "/etc/bind/db.empty"; };
-++zone "18.172.in-addr.arpa"  { type master; file "/etc/bind/db.empty"; };
-++zone "19.172.in-addr.arpa"  { type master; file "/etc/bind/db.empty"; };
-++zone "20.172.in-addr.arpa"  { type master; file "/etc/bind/db.empty"; };
-++zone "21.172.in-addr.arpa"  { type master; file "/etc/bind/db.empty"; };
-++zone "22.172.in-addr.arpa"  { type master; file "/etc/bind/db.empty"; };
-++zone "23.172.in-addr.arpa"  { type master; file "/etc/bind/db.empty"; };
-++zone "24.172.in-addr.arpa"  { type master; file "/etc/bind/db.empty"; };
-++zone "25.172.in-addr.arpa"  { type master; file "/etc/bind/db.empty"; };
-++zone "26.172.in-addr.arpa"  { type master; file "/etc/bind/db.empty"; };
-++zone "27.172.in-addr.arpa"  { type master; file "/etc/bind/db.empty"; };
-++zone "28.172.in-addr.arpa"  { type master; file "/etc/bind/db.empty"; };
-++zone "29.172.in-addr.arpa"  { type master; file "/etc/bind/db.empty"; };
-++zone "30.172.in-addr.arpa"  { type master; file "/etc/bind/db.empty"; };
-++zone "31.172.in-addr.arpa"  { type master; file "/etc/bind/db.empty"; };
-++
-++zone "168.192.in-addr.arpa" { type master; file "/etc/bind/db.empty"; };
-+diff -urN bind-9.3.1.orig/init.d bind-9.3.1/init.d
-+--- bind-9.3.1.orig/init.d	1970-01-01 01:00:00.000000000 +0100
-++++ bind-9.3.1/init.d	2005-07-10 23:09:58.000000000 +0200
-+@@ -0,0 +1,63 @@
-++#!/bin/sh
-++
-++PATH=/sbin:/bin:/usr/sbin:/usr/bin
-++
-++# for a chrooted server: "-u bind -t /var/lib/named"
-++# Don't modify this line, change or create /etc/default/bind9.
-++OPTIONS=""
-++
-++test -f /etc/default/bind9 && . /etc/default/bind9
-++
-++test -x /usr/sbin/rndc || exit 0
-++
-++case "$1" in
-++    start)
-++	echo -n "Starting domain name service: named"
-++
-++	modprobe capability >/dev/null 2>&1 || true
-++
-++	# dirs under /var/run can go away on reboots.
-++	mkdir -p /var/run/bind/run
-++	mkdir -p /var/cache/bind
-++	chmod 775 /var/run/bind/run
-++	chown root:bind /var/run/bind/run >/dev/null 2>&1 || true
-++
-++	if [ ! -x /usr/sbin/named ]; then
-++	    echo "named binary missing - not starting"
-++	    exit 1
-++	fi
-++	if start-stop-daemon --start --quiet --exec /usr/sbin/named \
-++		--pidfile /var/run/bind/run/named.pid -- $OPTIONS; then
-++	    if [ -x /sbin/resolvconf ] ; then
-++		echo "nameserver 127.0.0.1" | /sbin/resolvconf -a lo
-++	    fi
-++	fi
-++	echo "."	
-++    ;;
-++
-++    stop)
-++	echo -n "Stopping domain name service: named"
-++	if [ -x /sbin/resolvconf ]; then
-++	    /sbin/resolvconf -d lo
-++	fi
-++	/usr/sbin/rndc stop
-++	echo "."	
-++    ;;
-++
-++    reload)
-++	/usr/sbin/rndc reload
-++    ;;
-++
-++    restart|force-reload)
-++	$0 stop
-++	sleep 2
-++	$0 start
-++    ;;
-++    
-++    *)
-++	echo "Usage: /etc/init.d/bind {start|stop|reload|restart|force-reload}" >&2
-++	exit 1
-++    ;;
-++esac
-++
-++exit 0
-diff --git a/meta/recipes-connectivity/bind/bind-9.7.2-P2/cross-build-fix.patch b/meta/recipes-connectivity/bind/bind-9.7.2-P2/cross-build-fix.patch
-new file mode 100644
-index 0000000..dc89c52
---- /dev/null
-+++ b/meta/recipes-connectivity/bind/bind-9.7.2-P2/cross-build-fix.patch
-@@ -0,0 +1,19 @@
++++ b/meta/recipes-connectivity/dhcp/dhcp-4.2.0/fix-external-bind.patch
+@@ -0,0 +1,101 @@
 +11/30/2010
-+gen.c should be build by BUILD_CC
++--with-libbind=PATH is available but not used by Makefile,
++this patch is to allow building with external bind
 +
 +Signed-off-by: Qing He <qing.he@intel.com>
 +
-+diff --git a/lib/export/dns/Makefile.in b/lib/export/dns/Makefile.in
-+index aeadf57..d3fae74 100644
-+--- a/lib/export/dns/Makefile.in
-++++ b/lib/export/dns/Makefile.in
-+@@ -166,7 +166,8 @@ code.h:	gen
-+ 	./gen -s ${srcdir} > code.h
++diff --git a/Makefile.am b/Makefile.am
++index 928d926..cd17af8 100644
++--- a/Makefile.am
+++++ b/Makefile.am
++@@ -21,7 +21,7 @@ EXTRA_DIST = RELNOTES LICENSE \
++ 	     util/bindvar.sh \
++ 	     bind/Makefile bind/bind.tar.gz bind/version.tmp 
 + 
-+ gen: ${srcdir}/gen.c
-+-	${CC} ${ALL_CFLAGS} ${LDFLAGS} -o $@ ${srcdir}/gen.c ${LIBS}
-++	${BUILD_CC} ${BUILD_CFLAGS} -I${top_srcdir}/lib/isc/include \
-++	${BUILD_CPPFLAGS} ${BUILD_LDFLAGS} -o $@ ${srcdir}/gen.c ${BUILD_LIBS}
++-SUBDIRS = bind includes tests common dst omapip client dhcpctl relay server
+++SUBDIRS = includes tests common dst omapip client dhcpctl relay server
 + 
-+ #We don't need rbtdb64 for this library
-+ #rbtdb64.@O@: rbtdb.c
-diff --git a/meta/recipes-connectivity/bind/bind_9.7.2-P2.bb b/meta/recipes-connectivity/bind/bind_9.7.2-P2.bb
-new file mode 100644
-index 0000000..0cc8caf
---- /dev/null
-+++ b/meta/recipes-connectivity/bind/bind_9.7.2-P2.bb
-@@ -0,0 +1,54 @@
-+DESCRIPTION = "ISC Internet Domain Name Server"
-+HOMEPAGE = "http://www.isc.org/sw/bind/"
-+SECTION = "console/network"
++ nobase_include_HEADERS = dhcpctl/dhcpctl.h
++ 
++diff --git a/client/Makefile.am b/client/Makefile.am
++index 77ed055..5a77f2d 100644
++--- a/client/Makefile.am
+++++ b/client/Makefile.am
++@@ -5,7 +5,7 @@ dhclient_SOURCES = clparse.c dhclient.c dhc6.c \
++ 		   scripts/netbsd scripts/nextstep scripts/openbsd \
++ 		   scripts/solaris scripts/openwrt
++ dhclient_LDADD = ../common/libdhcp.a ../omapip/libomapi.a \
++-		 ../bind/lib/libdns.a ../bind/lib/libisc.a
+++		 $(libbind)/lib/libdns.a $(libbind)/lib/libisc.a
++ man_MANS = dhclient.8 dhclient-script.8 dhclient.conf.5 dhclient.leases.5
++ EXTRA_DIST = $(man_MANS)
++ 
++diff --git a/configure.ac b/configure.ac
++index ff832aa..60d342c 100644
++--- a/configure.ac
+++++ b/configure.ac
++@@ -500,6 +500,7 @@ no)
++ 	libbind="$use_libbind"
++ 	;;
++ esac
+++AC_SUBST([libbind])
++ 
++ # OpenLDAP support.
++ AC_ARG_WITH(ldap,
++diff --git a/dhcpctl/Makefile.am b/dhcpctl/Makefile.am
++index 61049be..85aefa3 100644
++--- a/dhcpctl/Makefile.am
+++++ b/dhcpctl/Makefile.am
++@@ -6,10 +6,10 @@ EXTRA_DIST = $(man_MANS)
++ 
++ omshell_SOURCES = omshell.c
++ omshell_LDADD = libdhcpctl.a ../common/libdhcp.a ../omapip/libomapi.a \
++-	        ../bind/lib/libdns.a ../bind/lib/libisc.a
+++	        $(libbind)/lib/libdns.a $(libbind)/lib/libisc.a
++ 
++ libdhcpctl_a_SOURCES = dhcpctl.c callback.c remote.c
++ 
++ cltest_SOURCES = cltest.c
++ cltest_LDADD = libdhcpctl.a ../common/libdhcp.a ../omapip/libomapi.a \
++-	       ../bind/lib/libdns.a ../bind/lib/libisc.a
++\ No newline at end of file
+++	       $(libbind)/lib/libdns.a $(libbind)/lib/libisc.a
++diff --git a/omapip/Makefile.am b/omapip/Makefile.am
++index 595950a..17f2233 100644
++--- a/omapip/Makefile.am
+++++ b/omapip/Makefile.am
++@@ -10,5 +10,5 @@ man_MANS = omapi.3
++ EXTRA_DIST = $(man_MANS)
++ 
++ svtest_SOURCES = test.c
++-svtest_LDADD = libomapi.a ../bind/lib/libdns.a ../bind/lib/libisc.a
+++svtest_LDADD = libomapi.a $(libbind)/lib/libdns.a $(libbind)/lib/libisc.a
++ 
++diff --git a/relay/Makefile.am b/relay/Makefile.am
++index d8757ca..a7885da 100644
++--- a/relay/Makefile.am
+++++ b/relay/Makefile.am
++@@ -3,7 +3,7 @@ AM_CPPFLAGS = -DLOCALSTATEDIR='"@localstatedir@"'
++ sbin_PROGRAMS = dhcrelay
++ dhcrelay_SOURCES = dhcrelay.c
++ dhcrelay_LDADD = ../common/libdhcp.a ../omapip/libomapi.a \
++-		 ../bind/lib/libdns.a ../bind/lib/libisc.a
+++		 $(libbind)/lib/libdns.a $(libbind)/lib/libisc.a
++ man_MANS = dhcrelay.8
++ EXTRA_DIST = $(man_MANS)
++ 
++diff --git a/server/Makefile.am b/server/Makefile.am
++index cdfaf47..d2c254b 100644
++--- a/server/Makefile.am
+++++ b/server/Makefile.am
++@@ -8,8 +8,8 @@ dhcpd_SOURCES = dhcpd.c dhcp.c bootp.c confpars.c db.c class.c failover.c \
++ 
++ dhcpd_CFLAGS = $(LDAP_CFLAGS)
++ dhcpd_LDADD = ../common/libdhcp.a ../omapip/libomapi.a \
++-	      ../dhcpctl/libdhcpctl.a ../bind/lib/libdns.a \
++-	      ../bind/lib/libisc.a
+++	      ../dhcpctl/libdhcpctl.a $(libbind)/lib/libdns.a \
+++	      $(libbind)/lib/libisc.a
++ 
++ man_MANS = dhcpd.8 dhcpd.conf.5 dhcpd.leases.5
++ EXTRA_DIST = $(man_MANS)
+diff --git a/meta/recipes-connectivity/dhcp/dhcp4.inc b/meta/recipes-connectivity/dhcp/dhcp4.inc
+index f97de30..e7cff3e 100644
+--- a/meta/recipes-connectivity/dhcp/dhcp4.inc
++++ b/meta/recipes-connectivity/dhcp/dhcp4.inc
+@@ -10,6 +10,8 @@ HOMEPAGE = "http://www.isc.org/"
+ LICENSE = "ISC"
+ LIC_FILES_CHKSUM = "file://LICENSE;beginline=4;md5=bb6fd41f5895b67088ebea61ad365e74"
+ 
++DEPENDS = "bind"
 +
-+LICENSE = "BSD"
-+LIC_FILES_CHKSUM = "file://COPYRIGHT;md5=fe11ac92dcbd84134d91b6e2c2eccab5"
-+
-+DEPENDS = "openssl"
-+PR = "r0"
-+
-+SRC_URI = "ftp://ftp.isc.org/isc/bind9/${PV}/${PN}-${PV}.tar.gz \
-+	   file://conf.patch \
-+           file://cross-build-fix.patch \
-+	   "
-+
-+# --enable-exportlib is necessary for building dhcp
-+EXTRA_OECONF = " --enable-ipv6=no --with-randomdev=/dev/random --disable-threads \
-+                 --disable-devpoll --disable-epoll \
-+                 --sysconfdir=${sysconfdir}/bind \
-+                 --with-openssl=${STAGING_LIBDIR}/.. --with-libxml2=${STAGING_LIBDIR}/.. \
-+                 --enable-exportlib --with-export-includedir=${includedir} --with-export-libdir=${libdir} \
+ SRC_URI = "ftp://ftp.isc.org/isc/dhcp/dhcp-${PV}.tar.gz \
+            file://site.h \
+ 	   file://init-relay file://default-relay \
+@@ -22,7 +24,9 @@ TARGET_CFLAGS += "-D_GNU_SOURCE"
+ EXTRA_OECONF = "--with-srv-lease-file=${localstatedir}/lib/dhcp/dhcpd.leases \
+                 --with-srv6-lease-file=${localstatedir}/lib/dhcp/dhcpd6.leases \
+                 --with-cli-lease-file=${localstatedir}/lib/dhcp/dhclient.leases \
+-                --with-cli6-lease-file=${localstatedir}/lib/dhcp/dhclient6.leases"
++                --with-cli6-lease-file=${localstatedir}/lib/dhcp/dhclient6.leases \
++                --with-libbind=${STAGING_LIBDIR}/.. \
 +               "
-+inherit autotools update-rc.d
-+
-+INITSCRIPT_NAME = "bind"
-+INITSCRIPT_PARAMS = "defaults"
-+
-+PARALLEL_MAKE = ""
-+
-+PACKAGES_prepend = "${PN}-utils "
-+FILES_${PN}-utils = "${bindir}/host ${bindir}/dig ${bindir}/nslookup"
-+FILES_${PN}-dev += "${bindir}/isc-config.h"
-+
-+do_install_append() {
-+	rm "${D}/usr/bin/nslookup"
-+	install -d "${D}/etc/bind"
-+	install -d "${D}/etc/init.d"
-+	install -m 644 ${S}/conf/* "${D}/etc/bind"
-+	install -m 755 "${S}/init.d" "${D}/etc/init.d/bind"
-+}
-+
-+CONFFILES_${PN} = " \
-+	${sysconfdir}/bind/named.conf \
-+	${sysconfdir}/bind/named.conf.local \
-+	${sysconfdir}/bind/named.conf.options \
-+	${sysconfdir}/bind/db.0 \
-+	${sysconfdir}/bind/db.127 \
-+	${sysconfdir}/bind/db.empty \
-+	${sysconfdir}/bind/db.local \
-+	${sysconfdir}/bind/db.root \
-+	"
-+
-+SRC_URI[md5sum] = "e74de6ec9c2cd27576794c873bd85f4a"
-+SRC_URI[sha256sum] = "e6d5938184066fc793c28ff975e09e9721116aede2a2d6d93b1be5e8654a5c8a"
+ 
+ do_compile_prepend () {
+ 	cp -f ${WORKDIR}/site.h ${S}/includes
+diff --git a/meta/recipes-connectivity/dhcp/dhcp_4.2.0.bb b/meta/recipes-connectivity/dhcp/dhcp_4.2.0.bb
+index 3f770d9..99920be 100644
+--- a/meta/recipes-connectivity/dhcp/dhcp_4.2.0.bb
++++ b/meta/recipes-connectivity/dhcp/dhcp_4.2.0.bb
+@@ -1,7 +1,9 @@
+ require dhcp4.inc
+ 
+-PR = "r0"
++PR = "r1"
+ 
+ SRC_URI += "file://fixincludes.patch \
+             file://dhcp-3.0.3-dhclient-dbus.patch;striplevel=0 \
+-            file://fix-client-path.patch"
++            file://fix-client-path.patch \
++            file://fix-external-bind.patch \
++           "
 -- 
 1.7.0
 
