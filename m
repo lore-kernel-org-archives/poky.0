@@ -1,28 +1,18 @@
-Return-Path: <qing.he@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 122B94C81231
-	for <poky@yoctoproject.org>; Tue, 30 Nov 2010 23:16:40 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 30 Nov 2010 21:16:40 -0800
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 9C9514C80052
+	for <poky@yoctoproject.org>; Wed,  1 Dec 2010 10:46:21 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 01 Dec 2010 08:46:21 -0800
+Message-Id: <c6d829$pn5r0b@fmsmga001.fm.intel.com>
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,282,1288594800"; d="scan'208";a="355346188"
-Received: from qhe2-db.sh.intel.com ([10.239.13.31])
-	by azsmga001.ch.intel.com with ESMTP; 30 Nov 2010 21:16:39 -0800
-Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
-	(envelope-from <qing.he@intel.com>)
-	id 1PNeyg-0003bm-Dy; Wed, 01 Dec 2010 13:11:38 +0800
-Date: Wed, 1 Dec 2010 13:11:38 +0800
-From: Qing He <qing.he@intel.com>
-To: "Flanagan, Elizabeth" <elizabeth.flanagan@intel.com>
-Message-ID: <20101201051137.GA18268@qhe2-db>
-References: <cover.1291096296.git.qing.he@intel.com>
-	<da20577b0f265b3f5bc56b1590546bbd1db63921.1291096296.git.qing.he@intel.com>
-	<DC74E0187B44084E9AD28300B75DFE300293A6E4@orsmsx504.amr.corp.intel.com>
-MIME-Version: 1.0
-In-Reply-To: <DC74E0187B44084E9AD28300B75DFE300293A6E4@orsmsx504.amr.corp.intel.com>
-User-Agent: Mutt/1.5.20 (2009-06-14)
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 1/2] bind: add new recipe
+X-IronPort-AV: E=Sophos;i="4.59,284,1288594800"; d="scan'208";a="863169551"
+Received: from unknown (HELO localhost) ([10.255.13.244])
+	by fmsmga001.fm.intel.com with ESMTP; 01 Dec 2010 08:46:21 -0800
+From: Darren Hart <dvhart@linux.intel.com>
+Date: Wed, 1 Dec 2010 08:38:04 -0800
+To: poky@yoctoproject.org,tom.zanussi@intel.com,bruce.ashfield@windriver.com
+Subject: [PATCH 0/3] Initial Linaro layer
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,16 +24,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 01 Dec 2010 05:16:41 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-List-Received-Date: Wed, 01 Dec 2010 16:46:21 -0000
 
-On Wed, 2010-12-01 at 00:48 +0800, Flanagan, Elizabeth wrote:
-> One issue with this patch. The license for DHCP and BIND reads the
-> same so LICENSE should probably be the same, "ISC"
+This patch series implements an initial Linaro layer. It builds the stable
+Linaro Linux kernel tree with the stable Linaro gcc tree. A basic
+beagleboard-linaro machine is defined using a defconfig from an earlier kernel
+for OMAP3.
 
-This is good catch, thank you.
+These patches successfully build poky-image-minimal but have not yet been tested
+on real hardware.
+
+Pull URL: git://git.pokylinux.org/meta-linaro.git
+  Branch: master
+  Browse: http://git.pokylinux.org/cgit.cgi/meta-linaro/log/?h=master
 
 Thanks,
-Qing
+    Darren Hart <dvhart@linux.intel.com>
+
+Darren Hart (1):
+  Initial meta-linaro skeleton
+
+Nitin A Kamble (2):
+  gcc_4.5.1.linaro: implement new gcc recipe from linaro code
+  beagleboard-linaro machine: use linaro gcc for this machine
+
 
