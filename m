@@ -1,32 +1,28 @@
-Return-Path: <dongxiao.xu@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7D1EA4C80815
-	for <poky@yoctoproject.org>; Tue, 30 Nov 2010 19:58:05 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 30 Nov 2010 17:58:05 -0800
+Return-Path: <qing.he@intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 122B94C81231
+	for <poky@yoctoproject.org>; Tue, 30 Nov 2010 23:16:40 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 30 Nov 2010 21:16:40 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,282,1288594800"; d="scan'208";a="862935306"
-Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
-	by fmsmga001.fm.intel.com with ESMTP; 30 Nov 2010 17:58:04 -0800
-Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
-	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Wed, 1 Dec 2010 09:57:13 +0800
-Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
-	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi; Wed, 1 Dec 2010
-	09:57:12 +0800
-From: "Xu, Dongxiao" <dongxiao.xu@intel.com>
-To: Richard Purdie <rpurdie@linux.intel.com>
-Date: Wed, 1 Dec 2010 09:57:11 +0800
-Thread-Topic: About the operator "??="
-Thread-Index: AcuQ+xGLEfP2UAIORSyAo5XLjNLiFA==
-Message-ID: <D5AB6E638E5A3E4B8F4406B113A5A19A303B2EF0@shsmsx501.ccr.corp.intel.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
+X-IronPort-AV: E=Sophos;i="4.59,282,1288594800"; d="scan'208";a="355346188"
+Received: from qhe2-db.sh.intel.com ([10.239.13.31])
+	by azsmga001.ch.intel.com with ESMTP; 30 Nov 2010 21:16:39 -0800
+Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
+	(envelope-from <qing.he@intel.com>)
+	id 1PNeyg-0003bm-Dy; Wed, 01 Dec 2010 13:11:38 +0800
+Date: Wed, 1 Dec 2010 13:11:38 +0800
+From: Qing He <qing.he@intel.com>
+To: "Flanagan, Elizabeth" <elizabeth.flanagan@intel.com>
+Message-ID: <20101201051137.GA18268@qhe2-db>
+References: <cover.1291096296.git.qing.he@intel.com>
+	<da20577b0f265b3f5bc56b1590546bbd1db63921.1291096296.git.qing.he@intel.com>
+	<DC74E0187B44084E9AD28300B75DFE300293A6E4@orsmsx504.amr.corp.intel.com>
 MIME-Version: 1.0
+In-Reply-To: <DC74E0187B44084E9AD28300B75DFE300293A6E4@orsmsx504.amr.corp.intel.com>
+User-Agent: Mutt/1.5.20 (2009-06-14)
 Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: About the operator "??="
+Subject: Re: [PATCH 1/2] bind: add new recipe
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,29 +34,16 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 01 Dec 2010 01:58:05 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Wed, 01 Dec 2010 05:16:41 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Hi Richard,
+On Wed, 2010-12-01 at 00:48 +0800, Flanagan, Elizabeth wrote:
+> One issue with this patch. The license for DHCP and BIND reads the
+> same so LICENSE should probably be the same, "ISC"
 
-Recently when investigating the file parsing speed, I found the implementat=
-ion of "??=3D" is another hot spot. This operator will not apply the defaul=
-t assignment until the end of the parse, which is different from "?=3D". Ac=
-cording to current poky, the users for "??=3D" is mostly the scm revisions =
-stored in poky-default-revisions.inc.
+This is good catch, thank you.
 
-Currently the final assignment logic for "??=3D" is added in finalize(), wh=
-ich costs about 20% parsing time.=20
-
-The differences between "??=3D" and "?=3D" are straight forward, however I =
-don't fully understand in which senario the "??=3D" should be used. Or in o=
-ther word, why those scm revisions should use "??=3D". Could you help to cl=
-arify a bit? Thanks so much!
-
-BTW, I noticed that openembedded doesn't use this operator.
-
-Best Regards,
--- Dongxiao =
+Thanks,
+Qing
 
