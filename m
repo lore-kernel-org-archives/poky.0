@@ -1,21 +1,19 @@
 Return-Path: <lei.mei@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id DC35C4C803A5
-	for <poky@yoctoproject.org>; Wed,  1 Dec 2010 18:38:31 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 01 Dec 2010 16:38:31 -0800
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5D3DF4C81060
+	for <poky@yoctoproject.org>; Wed,  1 Dec 2010 18:38:44 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 01 Dec 2010 16:38:29 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,285,1288594800"; d="scan'208";a="682991997"
+X-IronPort-AV: E=Sophos;i="4.59,285,1288594800"; d="scan'208";a="355823463"
 Received: from daocaoren-desktop.sh.intel.com (HELO localhost)
 	([10.239.48.112])
-	by orsmga001.jf.intel.com with ESMTP; 01 Dec 2010 16:38:30 -0800
-Message-Id: <619fc99f47b66472258ce9e73865c35605bda50c.1291250127.git.lei.mei@intel.com>
-In-Reply-To: <cover.1291250127.git.lei.mei@intel.com>
-References: <cover.1291250127.git.lei.mei@intel.com>
+	by azsmga001.ch.intel.com with ESMTP; 01 Dec 2010 16:38:29 -0800
+Message-Id: <cover.1291250127.git.lei.mei@intel.com>
 From: Mei Lei <lei.mei@intel.com>
-Date: Thu, 2 Dec 2010 08:27:12 +0800
+Date: Thu, 2 Dec 2010 08:35:27 +0800
 To: poky@yoctoproject.org
-Subject: [PATCH 1/1] opkg-config-base: remove the variable "L" from bb file
+Subject: [PATCH 0/1]Fix opkg-config-base little issue
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,27 +25,23 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 02 Dec 2010 00:38:32 -0000
+X-List-Received-Date: Thu, 02 Dec 2010 00:38:44 -0000
 
-This variable should remove because of the change to bitbake.conf and insane.bbclass were removed in modutils-collateral patch.
-We use ${POKYBASE} to replace the ${L}
+remove the variable "L" from bb file,because the change to bitbake.conf and insane.bbclass were removed in modutils-collateral patch.We use ${POKYBASE} to replace the ${L}
 
-Signed-off-by: Mei Lei <lei.mei@intel.com>
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: lmei3/fix-opkg-config
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=lmei3/fix-opkg-config
+
+Thanks,
+    Mei Lei <lei.mei@intel.com>
 ---
+
+
+Mei Lei (1):
+  opkg-config-base: remove the variable "L" from bb file
+
  meta/recipes-devtools/opkg/opkg-config-base_1.0.bb |    1 -
  1 files changed, 0 insertions(+), 1 deletions(-)
-
-diff --git a/meta/recipes-devtools/opkg/opkg-config-base_1.0.bb b/meta/recipes-devtools/opkg/opkg-config-base_1.0.bb
-index 6a73003..c2bf347 100644
---- a/meta/recipes-devtools/opkg/opkg-config-base_1.0.bb
-+++ b/meta/recipes-devtools/opkg/opkg-config-base_1.0.bb
-@@ -1,5 +1,4 @@
- DESCRIPTION = "Base configuration files for opkg"
--L = ${OEROOT}/meta
- LICENSE = "MIT"
- LIC_FILES_CHKSUM = "file://${POKYBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
- PACKAGE_ARCH = "${MACHINE_ARCH}"
--- 
-1.6.3.3
 
 
