@@ -1,25 +1,24 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 4D1904C80039
-	for <poky@yoctoproject.org>; Thu,  2 Dec 2010 14:34:16 -0600 (CST)
+Return-Path: <elizabeth.flanagan@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E18014C80039
+	for <poky@yoctoproject.org>; Thu,  2 Dec 2010 14:36:50 -0600 (CST)
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 02 Dec 2010 12:34:15 -0800
+	by orsmga102.jf.intel.com with ESMTP; 02 Dec 2010 12:36:36 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,289,1288594800"; d="scan'208";a="683332408"
-Received: from unknown (HELO [10.255.12.252]) ([10.255.12.252])
-	by orsmga001.jf.intel.com with ESMTP; 02 Dec 2010 12:34:15 -0800
-Message-ID: <4CF802C6.9020509@intel.com>
-Date: Thu, 02 Dec 2010 12:34:14 -0800
-From: Saul Wold <saul.wold@intel.com>
+X-IronPort-AV: E=Sophos;i="4.59,289,1288594800"; d="scan'208";a="683333171"
+Received: from eflanlinux.jf.intel.com (HELO [10.7.201.99]) ([10.7.201.99])
+	by orsmga001.jf.intel.com with ESMTP; 02 Dec 2010 12:36:36 -0800
+Message-ID: <4CF802EB.1010005@intel.com>
+Date: Thu, 02 Dec 2010 12:34:51 -0800
+From: Elizabeth Flanagan <elizabeth.flanagan@intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
+	rv:1.9.1.15) Gecko/20101026 SUSE/3.0.10 Lightning/1.0b1
+	Thunderbird/3.0.10 ThunderBrowse/3.3.3
 MIME-Version: 1.0
-To: Zhai Edwin <edwin.zhai@intel.com>
-References: <cover.1291269468.git.edwin.zhai@intel.com>
-In-Reply-To: <cover.1291269468.git.edwin.zhai@intel.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 00/14] X apps and base utils upgrade, Edwin, Dec2, 2010
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+References: <4CF53E28.6020708@intel.com>
+In-Reply-To: <4CF53E28.6020708@intel.com>
+Subject: Current Autobuilder nightly failures for build #136
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,106 +30,43 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 02 Dec 2010 20:34:16 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Thu, 02 Dec 2010 20:36:51 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 7bit
 
-On 12/01/2010 09:57 PM, Zhai Edwin wrote:
-> Saul,
-> Some upgrades for X apps and base utils.
-> Thanks,
-> edwin
->
-Edwin,
+All,
 
-Please review this request more3 carefully and update your commit 
-messages with more details about the changes to patches and why you are 
-deleting patches.
+The currently building nightly #136 is having issues already:
+
+-------------------
+
+Package Name:
+libnl_2.0
+
+Targets Failing:
+qemux86 poky-image-sdk
+
+Note:
+Fails at do_compile
+
+-------------------
+
+Also, our incremental #12 is having issues with a recently updated
+package. I'll monitor this on the nightly to see if it has carried over.
+
+-------------------
+
+Package Name:
+qemugl_git
+
+Targets Failing:
+All qemux86-64
+
+Note:
+Fails at do_compile
+
+-------------------
 
 
-Thanks
-     Sau!
-
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->    Branch: gzhai/distro04
->    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=gzhai/distro04
->
-> Thanks,
->      Zhai Edwin<edwin.zhai@intel.com>
-> ---
->
->
-> Zhai Edwin (14):
->    pointercal: Add license checksum
->    tidy: Add license checksum
->    beecrypt: Update to 4.2.1
->    acpid: update to 1.0.10
->    consolekit: Update to 0.4.3
->    eee-acpi-scripts: Update to 1.1.11
->    ethtool: Update to 2.6.36
->    puzzles: Update to svn r9023
->    x11perf: Update to 1.5.2
->    x11vnc: Update to 0.9.12
->    web: Update to svn r129
->    gnome-desktop: Update to 2.32.1
->    gnome-icon-theme: Update to 2.31.0
->    gtk-engines: Update to 2.20.2
->
->   .../conf/distro/include/poky-default-revisions.inc |    4 +-
->   meta/recipes-bsp/acpid/acpid.inc                   |    7 +-
->   meta/recipes-bsp/acpid/acpid_1.0.10.bb             |    6 ++
->   meta/recipes-bsp/acpid/acpid_1.0.6.bb              |    3 -
->   .../eee-acpi-scripts/eee-acpi-scripts_git.bb       |   15 ++--
->   .../eee-acpi-scripts/files/remove-doc-check.patch  |   76 +++++++++----------
->   meta/recipes-bsp/pointercal/files/COPYING          |    2 +
->   meta/recipes-bsp/pointercal/pointercal_0.0.bb      |    5 +-
->   .../{ethtool_2.6.34.bb =>  ethtool_2.6.36.bb}       |    0
->   meta/recipes-gnome/gnome/gnome-desktop.inc         |    4 +-
->   .../gnome/gnome-desktop/no-desktop-docs.patch      |   10 ---
->   meta/recipes-gnome/gnome/gnome-desktop_2.26.2.bb   |    3 -
->   meta/recipes-gnome/gnome/gnome-desktop_2.32.1.bb   |    4 +
->   .../gnome/gnome-icon-theme/iconpath-option.patch   |   79 +++++++++----------
->   ...-theme_2.22.0.bb =>  gnome-icon-theme_2.31.0.bb} |   12 ++-
->   ...gtk-engines_2.14.0.bb =>  gtk-engines_2.20.2.bb} |   11 ++-
->   meta/recipes-graphics/clutter/tidy.inc             |    2 +-
->   meta/recipes-graphics/clutter/tidy_git.bb          |    3 +
->   meta/recipes-graphics/x11vnc/x11vnc_0.9.12.bb      |   15 ++++
->   meta/recipes-graphics/x11vnc/x11vnc_0.9.3.bb       |   11 ---
->   meta/recipes-graphics/xorg-app/x11perf_1.5.2.bb    |   10 +++
->   meta/recipes-graphics/xorg-app/x11perf_1.5.bb      |    6 --
->   .../recipes-sato/puzzles/files/makedist_hack.patch |   17 ----
->   .../puzzles/{puzzles_r7593.bb =>  puzzles_r9023.bb} |   14 ++--
->   meta/recipes-sato/web/web_svn.bb                   |    2 +-
->   .../beecrypt/beecrypt/disable-icu-check.patch      |   12 ++--
->   .../beecrypt/beecrypt/fix-security.patch           |   51 +++++++------
->   .../{beecrypt_4.1.2.bb =>  beecrypt_4.2.1.bb}       |   10 ++-
->   .../recipes-support/consolekit/consolekit_0.3.0.bb |   16 ----
->   .../consolekit/files/nopolkit.patch                |    8 +-
->   meta/recipes-tbd/consolekit/consolekit_0.4.3.bb    |   21 +++++
->   31 files changed, 226 insertions(+), 213 deletions(-)
->   create mode 100644 meta/recipes-bsp/acpid/acpid_1.0.10.bb
->   delete mode 100644 meta/recipes-bsp/acpid/acpid_1.0.6.bb
->   create mode 100644 meta/recipes-bsp/pointercal/files/COPYING
->   rename meta/recipes-extended/ethtool/{ethtool_2.6.34.bb =>  ethtool_2.6.36.bb} (100%)
->   delete mode 100644 meta/recipes-gnome/gnome/gnome-desktop/no-desktop-docs.patch
->   delete mode 100644 meta/recipes-gnome/gnome/gnome-desktop_2.26.2.bb
->   create mode 100644 meta/recipes-gnome/gnome/gnome-desktop_2.32.1.bb
->   rename meta/recipes-gnome/gnome/{gnome-icon-theme_2.22.0.bb =>  gnome-icon-theme_2.31.0.bb} (55%)
->   rename meta/recipes-gnome/gtk-engines/{gtk-engines_2.14.0.bb =>  gtk-engines_2.20.2.bb} (85%)
->   create mode 100644 meta/recipes-graphics/x11vnc/x11vnc_0.9.12.bb
->   delete mode 100644 meta/recipes-graphics/x11vnc/x11vnc_0.9.3.bb
->   create mode 100644 meta/recipes-graphics/xorg-app/x11perf_1.5.2.bb
->   delete mode 100644 meta/recipes-graphics/xorg-app/x11perf_1.5.bb
->   delete mode 100644 meta/recipes-sato/puzzles/files/makedist_hack.patch
->   rename meta/recipes-sato/puzzles/{puzzles_r7593.bb =>  puzzles_r9023.bb} (74%)
->   rename meta/recipes-support/beecrypt/{beecrypt_4.1.2.bb =>  beecrypt_4.2.1.bb} (63%)
->   delete mode 100644 meta/recipes-support/consolekit/consolekit_0.3.0.bb
->   create mode 100644 meta/recipes-tbd/consolekit/consolekit_0.4.3.bb
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
-
+-b
 
