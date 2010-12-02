@@ -1,29 +1,33 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 519BC4C80052
-	for <poky@yoctoproject.org>; Thu,  2 Dec 2010 08:41:23 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 064EC166083C; Thu,  2 Dec 2010 07:41:23 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=ham version=3.3.1
-Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 60C3D166083F;
-	Thu,  2 Dec 2010 07:41:21 -0700 (MST)
-Message-ID: <4CF7B011.20902@mlbassoc.com>
-Date: Thu, 02 Dec 2010 07:41:21 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.1.9) Gecko/20100430 Fedora/3.0.4-2.fc11 Thunderbird/3.0.4
+Return-Path: <nitin.a.kamble@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 1E8294C80052
+	for <poky@yoctoproject.org>; Thu,  2 Dec 2010 10:31:24 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 02 Dec 2010 08:31:23 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.59,288,1288594800"; d="scan'208";a="579917746"
+Received: from orsmsx604.amr.corp.intel.com ([10.22.226.87])
+	by orsmga002.jf.intel.com with ESMTP; 02 Dec 2010 08:31:23 -0800
+Received: from orsmsx601.amr.corp.intel.com (10.22.226.213) by
+	orsmsx604.amr.corp.intel.com (10.22.226.87) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Thu, 2 Dec 2010 08:31:23 -0800
+Received: from orsmsx504.amr.corp.intel.com ([10.22.226.207]) by
+	orsmsx601.amr.corp.intel.com ([10.22.226.213]) with mapi;
+	Thu, 2 Dec 2010 08:31:23 -0800
+From: "Kamble, Nitin A" <nitin.a.kamble@intel.com>
+To: "Yu, Ke" <ke.yu@intel.com>, "poky@yoctoproject.org" <poky@yoctoproject.org>
+Date: Thu, 2 Dec 2010 08:31:20 -0800
+Thread-Topic: [poky] [RFC PATCH 0/2] Add SRC_URI checksum support
+Thread-Index: AcuSKpVXCukHti8YSlOUh1llBhGmHwAE6d0g
+Message-ID: <9DA5872FEF993D41B7173F58FCF6BE94023D9923@orsmsx504.amr.corp.intel.com>
+References: <cover.1291291436.git.ke.yu@intel.com>
+In-Reply-To: <cover.1291291436.git.ke.yu@intel.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
 MIME-Version: 1.0
-To: Paul Eggleton <paul.eggleton@linux.intel.com>
-References: <cover.1291135878.git.paul.eggleton@linux.intel.com>	<201012021413.15532.paul.eggleton@linux.intel.com>	<4CF7AA43.2070503@mlbassoc.com>
-	<201012021436.16462.paul.eggleton@linux.intel.com>
-In-Reply-To: <201012021436.16462.paul.eggleton@linux.intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 1/1] sanity.bbclass: add check for creation of long filenames
+Subject: Re: [RFC PATCH 0/2] Add SRC_URI checksum support
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,33 +39,46 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 02 Dec 2010 14:41:23 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 02 Dec 2010 16:31:24 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On 12/02/2010 07:36 AM, Paul Eggleton wrote:
-> On Thursday 02 December 2010 14:16:35 Gary Thomas wrote:
->> On 12/02/2010 07:13 AM, Paul Eggleton wrote:
->>> On Thursday 02 December 2010 12:21:06 Gary Thomas wrote:
->>>> Is this information cached?  It's seems quite the burden
->>>> to have to create/remove ~400 files each time on startup.
->>>
->>> I'm not sure what you mean - this check (well, all sanity checks) should only occur once per invocation of bitbake.
->>
->> Precisely what I mean.  The computed max length won't change
->> unless you move the tmp or sstate-cache directories, so recomputing
->> it every time you run bitbake is a horrible overhead.
->
-> It would also change if the filesystem where TMPDIR or SSTATE_DIR is stored changes, which could occur without the path itself changing, e.g. someone switches over their home directory to be encrypted. It would be possible to cache this check based on the filesystem and path, but is it really worth it given that we would have to read the disk to check if these had changed anyway? I do understand we have to be careful about items we add to the sanity checks, but in this instance we're talking about writing one file - something that should take a matter of milliseconds.
+Ke,
+This automatic SRC_URI checksum is what I was looking for. Thanks for doing=
+ it.=20
 
-It looks like I misunderstood your code - it's only creating
-one file per directory, so that's OK.
+Nitin
 
-Sorry for the bother
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+> -----Original Message-----
+> From: poky-bounces@yoctoproject.org [mailto:poky-
+> bounces@yoctoproject.org] On Behalf Of Yu Ke
+> Sent: Thursday, December 02, 2010 4:04 AM
+> To: poky@yoctoproject.org
+> Subject: [poky] [RFC PATCH 0/2] Add SRC_URI checksum support
+>=20
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>   Branch: kyu3/srcuri
+>   Browse: http://git.pokylinux.org/cgit.cgi/poky-
+> contrib/log/?h=3Dkyu3/srcuri
+>=20
+> Thanks,
+>     Yu Ke <ke.yu@intel.com>
+> ---
+>=20
+>=20
+> Yu Ke (2):
+>   [RFC] Add SRC_URI checksum
+>   [RFC] Automatically patch recipes to add the SRC_URI checksum
+>=20
+>  meta/classes/base.bbclass  |    4 +-
+>  meta/classes/utils.bbclass |  101
+> ++++++++++++++++++++++++++++++++++++++-----
+>  2 files changed, 92 insertions(+), 13 deletions(-)
+>=20
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
