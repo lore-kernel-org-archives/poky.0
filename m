@@ -1,19 +1,19 @@
-Return-Path: <lei.mei@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5D3DF4C81060
-	for <poky@yoctoproject.org>; Wed,  1 Dec 2010 18:38:44 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 01 Dec 2010 16:38:29 -0800
+Return-Path: <dongxiao.xu@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 70A334C803A5
+	for <poky@yoctoproject.org>; Wed,  1 Dec 2010 18:41:34 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 01 Dec 2010 16:41:34 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,285,1288594800"; d="scan'208";a="355823463"
-Received: from daocaoren-desktop.sh.intel.com (HELO localhost)
-	([10.239.48.112])
-	by azsmga001.ch.intel.com with ESMTP; 01 Dec 2010 16:38:29 -0800
-Message-Id: <cover.1291250127.git.lei.mei@intel.com>
-From: Mei Lei <lei.mei@intel.com>
-Date: Thu, 2 Dec 2010 08:35:27 +0800
+X-IronPort-AV: E=Sophos;i="4.59,285,1288594800"; d="scan'208";a="632213699"
+Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.9])
+	by fmsmga002.fm.intel.com with ESMTP; 01 Dec 2010 16:41:33 -0800
+Message-Id: <cover.1291251005.git.dongxiao.xu@intel.com>
+From: Dongxiao Xu <dongxiao.xu@intel.com>
+Date: Thu, 2 Dec 2010 08:50:05 +0800
 To: poky@yoctoproject.org
-Subject: [PATCH 0/1]Fix opkg-config-base little issue
+CC: 
+Subject: [PATCH 0/1][PULL][RFC] package.bbclass: Use hard link for packages split instead of copy
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -25,23 +25,24 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 02 Dec 2010 00:38:44 -0000
+X-List-Received-Date: Thu, 02 Dec 2010 00:41:34 -0000
 
-remove the variable "L" from bb file,because the change to bitbake.conf and insane.bbclass were removed in modutils-collateral patch.We use ${POKYBASE} to replace the ${L}
+When doing package split, we use hard link instead of copy, which can
+save about 10% disk space when building poky-image-minimal.
 
 Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: lmei3/fix-opkg-config
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=lmei3/fix-opkg-config
+  Branch: dxu4/perf
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dxu4/perf
 
 Thanks,
-    Mei Lei <lei.mei@intel.com>
+    Dongxiao Xu <dongxiao.xu@intel.com>
 ---
 
 
-Mei Lei (1):
-  opkg-config-base: remove the variable "L" from bb file
+Dongxiao Xu (1):
+  package.bbclass: Use hard link for package split instead of copy
 
- meta/recipes-devtools/opkg/opkg-config-base_1.0.bb |    1 -
- 1 files changed, 0 insertions(+), 1 deletions(-)
+ meta/classes/package.bbclass |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
 
 
