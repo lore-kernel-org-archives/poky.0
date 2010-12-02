@@ -1,29 +1,24 @@
-Return-Path: <scott.a.garman@intel.com>
-Received: from masterfoo.zenlinux.com (li38-254.members.linode.com
-	[207.192.74.254])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A08A24C80039
-	for <poky@yoctoproject.org>; Thu,  2 Dec 2010 15:55:53 -0600 (CST)
-Received: from localhost (c-76-105-143-140.hsd1.or.comcast.net
-	[76.105.143.140])
-	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
-	(No client certificate requested)
-	by masterfoo.zenlinux.com (Postfix) with ESMTP id A99E130504
-	for <poky@yoctoproject.org>; Thu,  2 Dec 2010 16:55:42 -0500 (EST)
-Message-Id: <8bdbe88bc6f47bee20cd48731a37c7041372c49e.1291326732.git.scott.a.garman@intel.com>
-In-Reply-To: <cover.1291326732.git.scott.a.garman@intel.com>
-References: <cover.1291326732.git.scott.a.garman@intel.com>
-From: Scott Garman <scott.a.garman@intel.com>
-Date: Mon, 29 Nov 2010 21:04:24 -0800
-To: poky@yoctoproject.org
-CC: 
-X-MasterFoo-MailScanner-Information: Please contact the ISP for more
-	information
-X-MailScanner-ID: A99E130504.A151B
-X-MasterFoo-MailScanner: Found to be clean
-X-MasterFoo-MailScanner-SpamCheck: not spam
-X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
-X-Spam-Status: No
-Subject: [PATCH 3/3] distro_tracking_fields.inc: update insserv and libatomics-ops
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D29464C80039
+	for <poky@yoctoproject.org>; Thu,  2 Dec 2010 16:12:38 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 02 Dec 2010 14:12:38 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.59,289,1288594800"; d="scan'208";a="580028958"
+Received: from unknown (HELO [10.255.13.208]) ([10.255.13.208])
+	by orsmga002.jf.intel.com with ESMTP; 02 Dec 2010 14:12:38 -0800
+Message-ID: <4CF819D1.30108@linux.intel.com>
+Date: Thu, 02 Dec 2010 14:12:33 -0800
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.12) Gecko/20101027 Lightning/1.0b2 Thunderbird/3.1.6
+MIME-Version: 1.0
+To: Adrian Alonso <aalonso@secretlab.ca>
+References: <1291257381-21280-1-git-send-email-aalonso@secretlab.ca>
+In-Reply-To: <1291257381-21280-1-git-send-email-aalonso@secretlab.ca>
+Cc: poky@yoctoproject.org, Saul Wold <sgw@linux.intel.com>
+Subject: Re: [PATCH 1/2] librsvg: fix gdk-pixbuf-query-loaders not found	in path
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,53 +30,50 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 02 Dec 2010 21:55:53 -0000
+X-List-Received-Date: Thu, 02 Dec 2010 22:12:39 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Scott Garman <scott.a.garman@intel.com>
----
- .../conf/distro/include/distro_tracking_fields.inc |   19 ++++++++++++++-----
- 1 files changed, 14 insertions(+), 5 deletions(-)
+On 12/01/2010 06:36 PM, Adrian Alonso wrote:
+> * Fix configure: error: gdk-pixbuf-query-loaders not found in path
+> * Bump PR
+>
+ > Signed-off-by: Adrian Alonso<aalonso@secretlab.ca>
 
-diff --git a/meta/conf/distro/include/distro_tracking_fields.inc b/meta/conf/distro/include/distro_tracking_fields.inc
-index 18e9996..da5ecc0 100644
---- a/meta/conf/distro/include/distro_tracking_fields.inc
-+++ b/meta/conf/distro/include/distro_tracking_fields.inc
-@@ -1068,10 +1068,15 @@ RECIPE_LATEST_RELEASE_DATE_pn-watchdog = "06/2010"
- RECIPE_COMMENTS_pn-watchdog = ""
- DISTRO_PN_ALIAS_pn-watchdog = "Debian=watchdog Ubuntu=watchdog Mandriva=watchdog"
- 
--RECIPE_STATUS_pn-libatomics-ops = "red"
-+RECIPE_STATUS_pn-libatomics-ops = "green"
-+DEPENDENCY_CHECK_pn-libatomics-ops = "not done"
-+RECIPE_LATEST_VERSION_pn-libatomics-ops = "1.2"
-+RECIPE_NO_OF_PATCHES_pn-libatomics-ops = "3"
-+RECIPE_INTEL_SECTION_pn-libatomics-ops = "optional"
-+RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-libatomics-ops = "unknown"
-+RECIPE_LATEST_RELEASE_DATE_pn-libatomics-ops = "unknown"
- DISTRO_PN_ALIAS_pn-libatomics-ops = "Meego=libatomic-ops Debian=libatomic-ops Ubuntu=libatomic-ops OpenSuSE=libatomic-ops Mandriva=libatomic-ops"
--RECIPE_LATEST_VERSION_pn-libatomics-ops = "7.2alpha4"
--RECIPE_MAINTAINER_pn-libatomics-ops = "Kevin Tian <kevin.tian@intel.com>"
-+RECIPE_MAINTAINER_pn-libatomics-ops = "Scott Garman <scott.a.garman@intel.com>"
- 
- RECIPE_STATUS_pn-libffi  = "red"
- RECIPE_LATEST_VERSION_pn-libffi  = "3.0.9"
-@@ -1113,9 +1118,13 @@ RECIPE_LATEST_RELEASE_DATE_pn-gssdp="2010/11/12"
- RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-gssdp="2 month"
- RECIPE_MAINTAINER_pn-gssdp = "Dongxiao Xu <dongxiao.xu@intel.com>"
- 
--RECIPE_STATUS_pn-insserv = "red"
-+RECIPE_STATUS_pn-insserv = "green"
-+DEPENDENCY_CHECK_pn-insserv = "not done"
- RECIPE_LATEST_VERSION_pn-insserv = "1.14.0"
--RECIPE_MAINTAINER_pn-insserv = "Kevin Tian <kevin.tian@intel.com>"
-+RECIPE_INTEL_SECTION_pn-insserv = "base"
-+RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-insserv = "unknown"
-+RECIPE_LATEST_RELEASE_DATE_pn-insserv = "unknown"
-+RECIPE_MAINTAINER_pn-insserv = "Scott Garman <scott.a.garman@intel.com>"
- 
- RECIPE_STATUS_pn-modutils-collateral = "red"
- RECIPE_LATEST_VERSION_pn-modutils-collateral = "1.0"
+With the exception of the inconsistent whitespace in 
+do_configure_prepend, it looks good. At least it fixes the same error 
+for me.
+
+Acked-by: Darren Hart <dvhart@linux.intel.com>
+
+> ---
+>   meta/recipes-gnome/librsvg/librsvg_2.32.0.bb |    3 ++-
+>   1 files changed, 2 insertions(+), 1 deletions(-)
+>
+> diff --git a/meta/recipes-gnome/librsvg/librsvg_2.32.0.bb b/meta/recipes-gnome/librsvg/librsvg_2.32.0.bb
+> index a421b68..2f257fc 100644
+> --- a/meta/recipes-gnome/librsvg/librsvg_2.32.0.bb
+> +++ b/meta/recipes-gnome/librsvg/librsvg_2.32.0.bb
+> @@ -8,7 +8,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f \
+>
+>   SECTION = "x11/utils"
+>   DEPENDS = "gtk+ libcroco cairo libxml2 popt"
+> -PR = "r1"
+> +PR = "r2"
+>
+>   inherit autotools pkgconfig gnome
+>
+> @@ -17,6 +17,7 @@ EXTRA_OECONF = "--disable-mozilla-plugin --without-svgz --without-croco --disabl
+>   SRC_URI += "file://doc_Makefile.patch"
+>
+>   do_configure_prepend () {
+> +    export GDK_PIXBUF_QUERYLOADERS="${libdir}/gtk-2.0/version/loaders"
+>   	echo "CLEANFILES=">  gtk-doc.make
+>   }
+>
+
+
 -- 
-1.7.1
-
+Darren Hart
+Yocto Linux Kernel
 
