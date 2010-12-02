@@ -1,26 +1,22 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 3C1324C80FAC
-	for <poky@yoctoproject.org>; Thu,  2 Dec 2010 13:13:53 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 02 Dec 2010 11:13:41 -0800
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 599DE4C80FAC
+	for <poky@yoctoproject.org>; Thu,  2 Dec 2010 13:16:38 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 02 Dec 2010 11:16:37 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,289,1288594800"; d="scan'208";a="356235956"
-Received: from unknown (HELO [10.255.12.252]) ([10.255.12.252])
-	by azsmga001.ch.intel.com with ESMTP; 02 Dec 2010 11:13:40 -0800
-Message-ID: <4CF7EFE4.9010103@intel.com>
-Date: Thu, 02 Dec 2010 11:13:40 -0800
-From: Saul Wold <saul.wold@intel.com>
+X-IronPort-AV: E=Sophos;i="4.59,289,1288594800"; d="scan'208";a="632504231"
+Received: from unknown (HELO [10.255.13.208]) ([10.255.13.208])
+	by fmsmga002.fm.intel.com with ESMTP; 02 Dec 2010 11:16:37 -0800
+Message-ID: <4CF7F092.9020703@linux.intel.com>
+Date: Thu, 02 Dec 2010 11:16:34 -0800
+From: Darren Hart <dvhart@linux.intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
+	rv:1.9.2.12) Gecko/20101027 Lightning/1.0b2 Thunderbird/3.1.6
 MIME-Version: 1.0
-To: Adrian Alonso <aalonso00@gmail.com>
-References: <1291257381-21280-1-git-send-email-aalonso@secretlab.ca>	<1291257381-21280-2-git-send-email-aalonso@secretlab.ca>	<4CF726CC.7020505@intel.com>
-	<AANLkTimnWdnV9nvrPqyNCDv6ZpDq+KLm8RBiV4K6MaJq@mail.gmail.com>
-In-Reply-To: <AANLkTimnWdnV9nvrPqyNCDv6ZpDq+KLm8RBiV4K6MaJq@mail.gmail.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 2/2] xrandr: fix license checksum
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>, 
+	Dongxiao Xu <dongxiao.xu@intel.com>
+Subject: gst-ffmpeg linker failure
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,91 +28,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 02 Dec 2010 19:13:53 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Thu, 02 Dec 2010 19:16:38 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 7bit
 
-On 12/01/2010 09:02 PM, Adrian Alonso wrote:
-> Ok,
->
-> Do yocto has a work queue page? like patchwork web interface
-> I saw some treads about LICENSE CHECKSUM errors
-> but only both propossed patchs prevent me to build poky-sato for
-> a demo that at presenting tomorrow at my school.
->
-We are using a Maintainer mode similar to the kernel mode, currently
-we do not have any kind of work queue page or patchwork interface.
+I see the following failure trying to build gst-ffmpeg for qemux86-64 on both Ubuntu 10.10 and Fedora 13. It seems to be complaining that things aren't being built with -fPIC.
 
-I will be pulling your fix into the next round of patches.
+From log.do_compile:
 
-Sau!
+x86_64-poky-linux-libtool: link:  ccache  x86_64-poky-linux-gcc -L/vol/1/dvhart/poky.git/build/tmp/sysroots/x86_64-poky-linux/usr/lib -shared  -fPIC -DPIC  .libs/libgstffmpeg_la-gstffmpeg.o .libs/libgstffmpeg_la-gstffmpegprotocol.o .libs/libgstffmpeg_la-gstffmpegcodecmap.o .libs/libgstffmpeg_la-gstffmpegenc.o .libs/libgstffmpeg_la-gstffmpegdec.o .libs/libgstffmpeg_la-gstffmpegdemux.o .libs/libgstffmpeg_la-gstffmpegdeinterlace.o .libs/libgstffmpeg_la-gstffmpegscale.o  -Wl,--whole-archive ../../gst-libs/ext/ffmpeg/libavformat/.libs/libavformat.a -Wl,--no-whole-archive  -Wl,-rpath -Wl,/vol/1/dvhart/poky.git/build/tmp/sysroots/x86_64-poky-linux/usr/lib -L/vol/1/dvhart/poky.git/build/tmp/sysroots/x86_64-poky-linux/usr/lib/.libs -L/vol/1/dvhart/poky.git/build/tmp/sysroots/x86_64-poky-linux/usr/lib /vol/1/dvhart/poky.git/build/tmp/sysroots/x86_64-poky-linux/usr/lib/libvorbisenc.so /vol/1/dvhart/poky.git/build/tmp/sysroots/x86_64-poky-linux/usr/lib/libvorbis.so /vol/1/dvhart/poky.git
+/build/tmp/sysroots/x86_64-poky-linux/usr/lib/libogg.so /vol/1/dvhart/poky.git/build/tmp/sysroots/x86_64-poky-linux/usr/lib/libgstbase-0.10.so /vol/1/dvhart/poky.git/build/tmp/sysroots/x86_64-poky-linux/usr/lib/libgstreamer-0.10.so /vol/1/dvhart/poky.git/build/tmp/sysroots/x86_64-poky-linux/usr/lib/libgobject-2.0.so /vol/1/dvhart/poky.git/build/tmp/sysroots/x86_64-poky-linux/usr/lib/libgmodule-2.0.so /vol/1/dvhart/poky.git/build/tmp/sysroots/x86_64-poky-linux/usr/lib/libxml2.so -ldl /vol/1/dvhart/poky.git/build/tmp/sysroots/x86_64-poky-linux/usr/lib/libz.so -lm /vol/1/dvhart/poky.git/build/tmp/sysroots/x86_64-poky-linux/usr/lib/libgthread-2.0.so -lpthread /vol/1/dvhart/poky.git/build/tmp/sysroots/x86_64-poky-linux/usr/lib/libglib-2.0.so -lrt  -pthread -pthread -O2 -Wl,-O1 -Wl,--as-needed -pthread   -pthread -Wl,-soname -Wl,libgstffmpeg.so -Wl,-version-script -Wl,.libs/libgstffmpeg.ver -o .libs/libgstffmpeg.so
+/vol/1/dvhart/poky.git/build/tmp/sysroots/x86_64-linux/usr/libexec/x86_64-poky-linux/gcc/x86_64-poky-linux/4.5.1/ld: .libs/libgstffmpeg_la-gstffmpeg.o: relocation R_X86_64_32 against `.text' can not be used when making a shared object; recompile with -fPIC
+.libs/libgstffmpeg_la-gstffmpeg.o: could not read symbols: Bad value
+collect2: ld returned 1 exit status
+make[3]: *** [libgstffmpeg.la] Error 1
+make[3]: Leaving directory `/vol/1/dvhart/poky.git/build/tmp/work/x86_64-poky-linux/gst-ffmpeg-0.10.1-r5/gst-ffmpeg-0.10.1/ext/ffmpeg'
+make[2]: *** [all-recursive] Error 1
+make[2]: Leaving directory `/vol/1/dvhart/poky.git/build/tmp/work/x86_64-poky-linux/gst-ffmpeg-0.10.1-r5/gst-ffmpeg-0.10.1/ext'
+make[1]: *** [all-recursive] Error 1
+make[1]: Leaving directory `/vol/1/dvhart/poky.git/build/tmp/work/x86_64-poky-linux/gst-ffmpeg-0.10.1-r5/gst-ffmpeg-0.10.1'
+make: *** [all] Error 2
+FATAL: oe_runmake failed
+ERROR: Task failed: ('function do_compile failed', '/vol/1/dvhart/poky.git/build/tmp/work/x86_64-poky-linux/gst-ffmpeg-0.10.1-r5/temp/log.do_compile.22338')
 
 
-> Regards
->
-> On Wed, Dec 1, 2010 at 10:55 PM, Saul Wold <saul.wold@intel.com
-> <mailto:saul.wold@intel.com>> wrote:
->
->     On 12/01/2010 06:36 PM, Adrian Alonso wrote:
->
->         * Fix FATAL: Licensing warning: LIC_FILES_CHKSUM does not match
->         * Bump PR
->
->     Adrian,
->
->     Thanks for these patches, we already have this change queue as part
->     of a consolidated request.  We hope to have it in master tomorrow
->     sometime.
->
->     Sau!
->
->
->         Signed-off-by: Adrian Alonso<aalonso@secretlab.ca
->         <mailto:aalonso@secretlab.ca>>
->         ---
->           meta/recipes-graphics/xorg-app/xrandr_1.3.4.bb
->         <http://xrandr_1.3.4.bb> |    4 ++--
->           1 files changed, 2 insertions(+), 2 deletions(-)
->
->         diff --git a/meta/recipes-graphics/xorg-app/xrandr_1.3.4.bb
->         <http://xrandr_1.3.4.bb>
->         b/meta/recipes-graphics/xorg-app/xrandr_1.3.4.bb
->         <http://xrandr_1.3.4.bb>
->         index 8712ff6..7d2a678 100644
->         --- a/meta/recipes-graphics/xorg-app/xrandr_1.3.4.bb
->         <http://xrandr_1.3.4.bb>
->         +++ b/meta/recipes-graphics/xorg-app/xrandr_1.3.4.bb
->         <http://xrandr_1.3.4.bb>
->         @@ -2,10 +2,10 @@ require xorg-app-common.inc
->
->           DESCRIPTION = "X Resize and Rotate extension command."
->           LICENSE= "BSD-X"
->         -LIC_FILES_CHKSUM =
->         "file://COPYING;md5=4c5c132d3690478179d78ec3bf064584"
->         +LIC_FILES_CHKSUM =
->         "file://COPYING;md5=fe1608bdb33cf8c62a4438f7d34679b3"
->           DEPENDS += "libxrandr libxrender"
->           PE = "1"
->         -PR = "r0"
->         +PR = "r1"
->
->           SRC_URI[md5sum] = "d6d20038257eba5178b523e10239d51c"
->           SRC_URI[sha256sum] =
->         "5e4a2492e6cc51345aa571b95283c43c2771c4f444837dbce2699d62f76b4adb"
->
->
->     _______________________________________________
->     poky mailing list
->     poky@yoctoproject.org <mailto:poky@yoctoproject.org>
->     https://lists.yoctoproject.org/listinfo/poky
->
->
->
->
-> --
-> Saludos
-> Adrian Alonso
-> http://aalonso.wordpress.com
->
-
+-- 
+Darren Hart
+Yocto Linux Kernel
 
