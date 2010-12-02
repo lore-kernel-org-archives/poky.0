@@ -1,24 +1,30 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D29464C80039
-	for <poky@yoctoproject.org>; Thu,  2 Dec 2010 16:12:38 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 02 Dec 2010 14:12:38 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,289,1288594800"; d="scan'208";a="580028958"
-Received: from unknown (HELO [10.255.13.208]) ([10.255.13.208])
-	by orsmga002.jf.intel.com with ESMTP; 02 Dec 2010 14:12:38 -0800
-Message-ID: <4CF819D1.30108@linux.intel.com>
-Date: Thu, 02 Dec 2010 14:12:33 -0800
-From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.12) Gecko/20101027 Lightning/1.0b2 Thunderbird/3.1.6
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id CDEA94C80039
+	for <poky@yoctoproject.org>; Thu,  2 Dec 2010 16:16:40 -0600 (CST)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 851C5166083E; Thu,  2 Dec 2010 15:16:40 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=ham version=3.3.1
+Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 308671660718;
+	Thu,  2 Dec 2010 15:16:39 -0700 (MST)
+Message-ID: <4CF81AC7.7040305@mlbassoc.com>
+Date: Thu, 02 Dec 2010 15:16:39 -0700
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.1.9) Gecko/20100430 Fedora/3.0.4-2.fc11 Thunderbird/3.0.4
 MIME-Version: 1.0
-To: Adrian Alonso <aalonso@secretlab.ca>
-References: <1291257381-21280-1-git-send-email-aalonso@secretlab.ca>
-In-Reply-To: <1291257381-21280-1-git-send-email-aalonso@secretlab.ca>
-Cc: poky@yoctoproject.org, Saul Wold <sgw@linux.intel.com>
-Subject: Re: [PATCH 1/2] librsvg: fix gdk-pixbuf-query-loaders not found	in path
+To: "Zhang, Jessica" <jessica.zhang@intel.com>
+References: <789F9655DD1B8F43B48D77C5D30659732FF051D3@shsmsx501.ccr.corp.intel.com>
+	<4CF7E4C4.6@mlbassoc.com>
+	<9AFCD584B0B67B48AE8D8585BE30BA9502086966@orsmsx504.amr.corp.intel.com>
+In-Reply-To: <9AFCD584B0B67B48AE8D8585BE30BA9502086966@orsmsx504.amr.corp.intel.com>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: FW: Eclipse plugin question
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,50 +36,142 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 02 Dec 2010 22:12:39 -0000
+X-List-Received-Date: Thu, 02 Dec 2010 22:16:41 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 12/01/2010 06:36 PM, Adrian Alonso wrote:
-> * Fix configure: error: gdk-pixbuf-query-loaders not found in path
-> * Bump PR
+On 12/02/2010 12:40 PM, Zhang, Jessica wrote:
+> OK, can you try this to ensure your tcf terminal etc. is behaving...
+> 1. Window->Open Perspective->Other->Remote system Explorer
+> 2. In the RSE window, you should see local and below it should have the
+> remote host/board, there should be "Terminals", can you right click
+> "Terminals" and select connect, it'll prompt you to login, after you login,
+> in the right pane of IDE, it should open a remote TCF terminal to the board
+> and do some thing in the remote terminal, e.g. run your program there, etc.
+> 3. Once you've connected, you can also select "Shells"->"Launch Shell", this
+> will open a remote shell tab in the IDE and do something there...
 >
- > Signed-off-by: Adrian Alonso<aalonso@secretlab.ca>
+> Let us know you findings and we'll debug your issue from there.
 
-With the exception of the inconsistent whitespace in 
-do_configure_prepend, it looks good. At least it fixes the same error 
-for me.
+Interestingly, when I right-click on Terminals, I only have the option
+to _disconnect_, not connect.
 
-Acked-by: Darren Hart <dvhart@linux.intel.com>
+I went ahead and disconnected, then reconnected.  More messages like
+before on my host console.  No remote TCF terminal.  See
+   http://www.mlbassoc.com/poky/EclipsePlugin/TCF-after-connect.png
 
-> ---
->   meta/recipes-gnome/librsvg/librsvg_2.32.0.bb |    3 ++-
->   1 files changed, 2 insertions(+), 1 deletions(-)
->
-> diff --git a/meta/recipes-gnome/librsvg/librsvg_2.32.0.bb b/meta/recipes-gnome/librsvg/librsvg_2.32.0.bb
-> index a421b68..2f257fc 100644
-> --- a/meta/recipes-gnome/librsvg/librsvg_2.32.0.bb
-> +++ b/meta/recipes-gnome/librsvg/librsvg_2.32.0.bb
-> @@ -8,7 +8,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f \
->
->   SECTION = "x11/utils"
->   DEPENDS = "gtk+ libcroco cairo libxml2 popt"
-> -PR = "r1"
-> +PR = "r2"
->
->   inherit autotools pkgconfig gnome
->
-> @@ -17,6 +17,7 @@ EXTRA_OECONF = "--disable-mozilla-plugin --without-svgz --without-croco --disabl
->   SRC_URI += "file://doc_Makefile.patch"
->
->   do_configure_prepend () {
-> +    export GDK_PIXBUF_QUERYLOADERS="${libdir}/gtk-2.0/version/loaders"
->   	echo "CLEANFILES=">  gtk-doc.make
->   }
->
+Then I tried to explicitly open a terminal, no luck either
+   http://www.mlbassoc.com/poky/EclipsePlugin/TCF-after-open-terminal.png
 
+I also tried to open a shell, still no joy
+   http://www.mlbassoc.com/poky/EclipsePlugin/TCF-after-launch-shell.png
+
+Anything else I can try?
+
+> Gary Thomas wrote:
+>> On 11/25/2010 07:13 PM, Ke, Liping wrote:
+>>> Seems I use wrong mail list and lost the mail.
+>>>
+>>> Yes. Indeed we need to document this considering the code will
+>>> be finally in the TCF upstream, more users might need it.
+>>
+>> I've tried these, but still can't run any programs.
+>>
+>> When I'm in the RSE browser mode, I can talk to the board, view
+>> processes, files, etc.
+>>
+>> However, when I try to run code, it just sits there.  I see the
+>> attached messages on the host console where I started eclipse.  Does
+>> this help?
+>> I can see on my target machine that my program was downloaded (I told
+>> it to go to /tmp/yocto_app), but it just doesn't seem to run via the
+>> remote connection.
+>>
+>> Ideas?
+>>
+>>>> -----Original Message-----
+>>>> From: Ke, Liping
+>>>> Sent: Friday, November 26, 2010 9:35 AM
+>>>> To: 'Gary Thomas'; Poky
+>>>> Subject: RE: [poky] Eclipse plugin question
+>>>>
+>>>> Hi, Gary
+>>>>
+>>>> Thanks for the trying. I have seen your screenshot. Just one more
+>>>> question. You have set up an connection 192.168.12.177. Can you
+>>>> tell us which connection type you are created? If you're creating
+>>>> TCF connection(Please fill the properties of your connection, such
+>>>> as prompt char [$ or # or>, default is #, it depends on the host
+>>>> environment]), yes, you need to have a agent running on your
+>>>> target. The details are: For CDT remote debugger, it depends on
+>>>> shell/terminal services. If no response back, it will wait for the
+>>>> input ( Current tcf shell/terminal service is similar as telnet
+>>>> shell/terminal service, so both of them will not exist but wait for
+>>>> the new input stream of target, that's why you see the no-response
+>>>> problem.).
+>>>>
+>>>> One validation style is that you switch your eclipse perspective ->
+>>>> RSE browser, there, you will see the connection name 192.168.12.177
+>>>> you have created. And in that view, you can use RSE browser to view
+>>>> your target. If RSE viewer works fine, they your debugger
+>>>> connection will just be fine.
+>>>>
+>>>>
+>>>> Paste a screenshot of tcf connection property settings in the
+>>>> attachment. At the same time, an agent will be run in the target.
+>>>>
+>>>> Command.Prompt: $ (in my target machine ubuntu, for normal user, it
+>>>> is $. If logged in as root user in target unbuntu, I will change it
+>>>> to #. If you are using normal user, please run agent as normal user.
+>>>> Otherwise, please run it as $sudo ./agent -Llog)
+>>>> Login.Prompt: never change it.
+>>>> Login.Required: true (in normal case, we need to login)
+>>>> Password.Prompt: never change it.
+>>>> Pwd.Required: false If your target permit no password and could be
+>>>> directly login, leave it as "false"
+>>>>
+>>>> Hope above information is useful to you:) Any problem, just let us
+>>>> know!
+>>>>
+>>>> Thanks a lot!
+>>>> criping
+>>>>
+>>>>> -----Original Message-----
+>>>>> From: poky-bounces@yoctoproject.org [mailto:poky-
+>>>>> bounces@yoctoproject.org] On Behalf Of Gary Thomas
+>>>>> Sent: Friday, November 26, 2010 12:12 AM
+>>>>> To: Poky
+>>>>> Subject: [poky] Eclipse plugin question
+>>>>>
+>>>>> I have the eclipse plugin working fairly well now - I can build an
+>>>>> application, etc.  I tried manually downloading the code to my
+>>>>> board (I have real hardware, not QEMU) and it runs fine.
+>>>>>
+>>>>> Next, I wanted to try running/debugging from eclipse.  I set up the
+>>>>> run configuration and the code was downloaded to the board.  The
+>>>>> last indication said it was starting the debugger.
+>>>>> This window stayed up a long time and then nothing more.
+>>>>>
+>>>>> Note: I did figure out that I needed tcf-agent running on my board
+>>>>> (this is not documented).  I also have GDB server on the board.
+>>>>>
+>>>>> You can see my setup at http://www.mlbassoc.com/poky/eclipse_plugin
+>>>>>
+>>>>> Thanks for any ideas/pointers
+>>>>>
+>>>>> --
+>>>>> ------------------------------------------------------------
+>>>>> Gary Thomas                 |  Consulting for the
+>>>>> MLB Associates              |    Embedded world
+>>>>> ------------------------------------------------------------
+>>>>> _______________________________________________
+>>>>> poky mailing list
+>>>>> poky@yoctoproject.org
+>>>>> https://lists.yoctoproject.org/listinfo/poky
 
 -- 
-Darren Hart
-Yocto Linux Kernel
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
