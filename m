@@ -1,21 +1,21 @@
-Return-Path: <edwin.zhai@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id EE0CE4C811D3
-	for <poky@yoctoproject.org>; Wed,  1 Dec 2010 23:55:42 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 01 Dec 2010 21:55:42 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,286,1288594800"; d="scan'208";a="579745538"
-Received: from gw-vmm.sh.intel.com (HELO localhost) ([10.239.48.110])
-	by orsmga002.jf.intel.com with ESMTP; 01 Dec 2010 21:55:42 -0800
-Message-Id: <8eb763f332fbb63041abf634e28c0dc45513a2c9.1291269468.git.edwin.zhai@intel.com>
-In-Reply-To: <cover.1291269468.git.edwin.zhai@intel.com>
-References: <cover.1291269468.git.edwin.zhai@intel.com>
-From: Zhai Edwin <edwin.zhai@intel.com>
-Date: Wed, 1 Dec 2010 13:45:21 +0800
+Return-Path: <josh@openedhand.com>
+Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E61DF4C803A5
+	for <poky@yoctoproject.org>; Thu,  2 Dec 2010 03:47:12 -0600 (CST)
+Received: from [192.168.0.7] (5ad4d784.bb.sky.com [90.212.215.132])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by pug.o-hand.com (Postfix) with ESMTP id 2DFF412EC1F4
+	for <poky@yoctoproject.org>; Thu,  2 Dec 2010 04:25:03 -0600 (CST)
+From: Joshua Lock <josh@openedhand.com>
 To: poky@yoctoproject.org
-CC: 
-Subject: [PATCH 14/14] gtk-engines: Update to 2.20.2
+In-Reply-To: <4CF6F396.9030805@linux.intel.com>
+References: <4CF6F396.9030805@linux.intel.com>
+Date: Thu, 02 Dec 2010 09:47:04 +0000
+Message-ID: <1291283224.2534.0.camel@scimitar>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.1 (2.32.1-1.fc14) 
+Subject: Re: [PATCH] Remove gstreamer and libtheora in favor of those in the base poky meta
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,40 +27,68 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 02 Dec 2010 05:55:43 -0000
+X-List-Received-Date: Thu, 02 Dec 2010 09:47:13 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Zhai Edwin <edwin.zhai@intel.com>
----
- ...gtk-engines_2.14.0.bb => gtk-engines_2.20.2.bb} |   11 ++++++++---
- 1 files changed, 8 insertions(+), 3 deletions(-)
- rename meta/recipes-gnome/gtk-engines/{gtk-engines_2.14.0.bb => gtk-engines_2.20.2.bb} (85%)
+On Wed, 2010-12-01 at 17:17 -0800, Darren Hart wrote:
+> Any objections?
 
-diff --git a/meta/recipes-gnome/gtk-engines/gtk-engines_2.14.0.bb b/meta/recipes-gnome/gtk-engines/gtk-engines_2.20.2.bb
-similarity index 85%
-rename from meta/recipes-gnome/gtk-engines/gtk-engines_2.14.0.bb
-rename to meta/recipes-gnome/gtk-engines/gtk-engines_2.20.2.bb
-index d711f07..3cbc4d7 100644
---- a/meta/recipes-gnome/gtk-engines/gtk-engines_2.14.0.bb
-+++ b/meta/recipes-gnome/gtk-engines/gtk-engines_2.20.2.bb
-@@ -1,9 +1,14 @@
--LICENSE = "GPL"
--SECTION = "x11/base"
- DESCRIPTION = "GTK theme engines"
-+HOMEPAGE = "http://www.gnome.org/"
-+BUGTRACKER = "https://bugzilla.gnome.org/"
-+
-+LICENSE = "LGPLv2.1"
-+LIC_FILES_CHKSUM = "file://COPYING;md5=2d5025d4aa3495befef8f17206a5b0a1"
-+
-+SECTION = "x11/base"
- DEPENDS = "gtk+"
- 
--PR = "r1"
-+PR = "r0"
- 
- PACKAGES_DYNAMIC = "gtk-engine-* gtk-theme-*"
- 
+None from me
+
+> 
+> From 3018332dc69843a9e4dbd6c11538f66d5dea9bf6 Mon Sep 17 00:00:00 2001
+> From: Darren Hart <dvhart@linux.intel.com>
+> Date: Wed, 1 Dec 2010 15:39:03 -0800
+> Subject: [PATCH] Remove gstreamer and libtheora in favor of those in the base poky meta
+> 
+> The demo layer needed newer versions of gstreamer and libtheora than those
+> provided by the base poky meta layer. Now that those have been updated,
+> these can be removed. This also addresses a bug in gst-plugins-base where
+> -DTREMOR caused the build to fail (possibly only on very parallel builds).
+> The poky meta version of gstreamer removes the -DTREMOR directive via a
+> patch.
+> 
+> Signed-off-by: Darren Hart <dvhart@linux.intel.com>
+> ---
+>  recipes-multimedia/gstreamer/gst-meta-base_0.10.bb |   56 ---
+>  .../gstreamer/gst-plugins-bad_0.10.20.bb           |   24 -
+>  .../gstreamer/gst-plugins-base_0.10.30.bb          |   22 -
+>  .../gstreamer/gst-plugins-good_0.10.25.bb          |   19 -
+>  .../gstreamer/gst-plugins-ugly_0.10.16.bb          |   19 -
+>  recipes-multimedia/gstreamer/gst-plugins.inc       |   41 --
+>  .../gstreamer/gstreamer-0.10.30/check_fix.patch    |   17 -
+>  .../gst-inspect-check-error.patch                  |   14 -
+>  .../gstreamer-0.10.30/gstregistrybinary.c          |  487 --------------------
+>  .../gstreamer-0.10.30/gstregistrybinary.h          |  194 --------
+>  recipes-multimedia/gstreamer/gstreamer_0.10.30.bb  |   30 --
+>  .../libtheora/libtheora-1.1.1/no-docs.patch        |   13 -
+>  recipes-multimedia/libtheora/libtheora.inc         |   18 -
+>  recipes-multimedia/libtheora/libtheora_1.1.1.bb    |    9 -
+> 
+>  14 files changed, 0 insertions(+), 963 deletions(-)
+> 
+>  delete mode 100644 recipes-multimedia/gstreamer/gst-meta-base_0.10.bb
+>  delete mode 100644 recipes-multimedia/gstreamer/gst-plugins-bad_0.10.20.bb
+>  delete mode 100644 recipes-multimedia/gstreamer/gst-plugins-base_0.10.30.bb
+>  delete mode 100644 recipes-multimedia/gstreamer/gst-plugins-good_0.10.25.bb
+>  delete mode 100644 recipes-multimedia/gstreamer/gst-plugins-ugly_0.10.16.bb
+>  delete mode 100644 recipes-multimedia/gstreamer/gst-plugins.inc
+>  delete mode 100644 recipes-multimedia/gstreamer/gstreamer-0.10.30/check_fix.patch
+>  delete mode 100644 recipes-multimedia/gstreamer/gstreamer-0.10.30/gst-inspect-check-error.patch
+>  delete mode 100644 recipes-multimedia/gstreamer/gstreamer-0.10.30/gstregistrybinary.c
+>  delete mode 100644 recipes-multimedia/gstreamer/gstreamer-0.10.30/gstregistrybinary.h
+>  delete mode 100644 recipes-multimedia/gstreamer/gstreamer_0.10.30.bb
+>  delete mode 100644 recipes-multimedia/libtheora/libtheora-1.1.1/no-docs.patch
+>  delete mode 100644 recipes-multimedia/libtheora/libtheora.inc
+>  delete mode 100644 recipes-multimedia/libtheora/libtheora_1.1.1.bb
+> 
+> 
+> Note: I've snipped the patch as it is strictly a removal of the above files.
+> 
+
 -- 
-1.7.0.4
+Joshua Lock
+        Intel Open Source Technology Centre
 
 
