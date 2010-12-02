@@ -1,21 +1,29 @@
-Return-Path: <josh@openedhand.com>
-Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E61DF4C803A5
-	for <poky@yoctoproject.org>; Thu,  2 Dec 2010 03:47:12 -0600 (CST)
-Received: from [192.168.0.7] (5ad4d784.bb.sky.com [90.212.215.132])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by pug.o-hand.com (Postfix) with ESMTP id 2DFF412EC1F4
-	for <poky@yoctoproject.org>; Thu,  2 Dec 2010 04:25:03 -0600 (CST)
-From: Joshua Lock <josh@openedhand.com>
-To: poky@yoctoproject.org
-In-Reply-To: <4CF6F396.9030805@linux.intel.com>
-References: <4CF6F396.9030805@linux.intel.com>
-Date: Thu, 02 Dec 2010 09:47:04 +0000
-Message-ID: <1291283224.2534.0.camel@scimitar>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.32.1 (2.32.1-1.fc14) 
-Subject: Re: [PATCH] Remove gstreamer and libtheora in favor of those in the base poky meta
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D543E4C80052
+	for <poky@yoctoproject.org>; Thu,  2 Dec 2010 06:21:07 -0600 (CST)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 399701660818; Thu,  2 Dec 2010 05:21:07 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=ham version=3.3.1
+Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 8A1E716607BE;
+	Thu,  2 Dec 2010 05:21:06 -0700 (MST)
+Message-ID: <4CF78F32.4030700@mlbassoc.com>
+Date: Thu, 02 Dec 2010 05:21:06 -0700
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.1.9) Gecko/20100430 Fedora/3.0.4-2.fc11 Thunderbird/3.0.4
+MIME-Version: 1.0
+To: Paul Eggleton <paul.eggleton@linux.intel.com>
+References: <cover.1291135878.git.paul.eggleton@linux.intel.com>
+	<cc23b209094288c749968a2933959c097ae2d3e6.1291135878.git.paul.eggleton@linux.intel.com>
+In-Reply-To: <cc23b209094288c749968a2933959c097ae2d3e6.1291135878.git.paul.eggleton@linux.intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 1/1] sanity.bbclass: add check for creation of long	filenames
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,68 +35,82 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 02 Dec 2010 09:47:13 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Thu, 02 Dec 2010 12:21:08 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Wed, 2010-12-01 at 17:17 -0800, Darren Hart wrote:
-> Any objections?
+On 11/30/2010 09:40 AM, Paul Eggleton wrote:
+> Detect and fail if filesystem in use for TMPDIR or SSTATE_DIR has an
+> unreasonably short file name length limit (eg. eCryptFS). This can cause
+> "file name too long" errors during poky builds (e.g. when writing sstate
+> files for packages with a git revision as the version).
 
-None from me
+Is this information cached?  It's seems quite the burden
+to have to create/remove ~400 files each time on startup.
 
-> 
-> From 3018332dc69843a9e4dbd6c11538f66d5dea9bf6 Mon Sep 17 00:00:00 2001
-> From: Darren Hart <dvhart@linux.intel.com>
-> Date: Wed, 1 Dec 2010 15:39:03 -0800
-> Subject: [PATCH] Remove gstreamer and libtheora in favor of those in the base poky meta
-> 
-> The demo layer needed newer versions of gstreamer and libtheora than those
-> provided by the base poky meta layer. Now that those have been updated,
-> these can be removed. This also addresses a bug in gst-plugins-base where
-> -DTREMOR caused the build to fail (possibly only on very parallel builds).
-> The poky meta version of gstreamer removes the -DTREMOR directive via a
-> patch.
-> 
-> Signed-off-by: Darren Hart <dvhart@linux.intel.com>
+> Signed-off-by: Paul Eggleton<paul.eggleton@linux.intel.com>
 > ---
->  recipes-multimedia/gstreamer/gst-meta-base_0.10.bb |   56 ---
->  .../gstreamer/gst-plugins-bad_0.10.20.bb           |   24 -
->  .../gstreamer/gst-plugins-base_0.10.30.bb          |   22 -
->  .../gstreamer/gst-plugins-good_0.10.25.bb          |   19 -
->  .../gstreamer/gst-plugins-ugly_0.10.16.bb          |   19 -
->  recipes-multimedia/gstreamer/gst-plugins.inc       |   41 --
->  .../gstreamer/gstreamer-0.10.30/check_fix.patch    |   17 -
->  .../gst-inspect-check-error.patch                  |   14 -
->  .../gstreamer-0.10.30/gstregistrybinary.c          |  487 --------------------
->  .../gstreamer-0.10.30/gstregistrybinary.h          |  194 --------
->  recipes-multimedia/gstreamer/gstreamer_0.10.30.bb  |   30 --
->  .../libtheora/libtheora-1.1.1/no-docs.patch        |   13 -
->  recipes-multimedia/libtheora/libtheora.inc         |   18 -
->  recipes-multimedia/libtheora/libtheora_1.1.1.bb    |    9 -
-> 
->  14 files changed, 0 insertions(+), 963 deletions(-)
-> 
->  delete mode 100644 recipes-multimedia/gstreamer/gst-meta-base_0.10.bb
->  delete mode 100644 recipes-multimedia/gstreamer/gst-plugins-bad_0.10.20.bb
->  delete mode 100644 recipes-multimedia/gstreamer/gst-plugins-base_0.10.30.bb
->  delete mode 100644 recipes-multimedia/gstreamer/gst-plugins-good_0.10.25.bb
->  delete mode 100644 recipes-multimedia/gstreamer/gst-plugins-ugly_0.10.16.bb
->  delete mode 100644 recipes-multimedia/gstreamer/gst-plugins.inc
->  delete mode 100644 recipes-multimedia/gstreamer/gstreamer-0.10.30/check_fix.patch
->  delete mode 100644 recipes-multimedia/gstreamer/gstreamer-0.10.30/gst-inspect-check-error.patch
->  delete mode 100644 recipes-multimedia/gstreamer/gstreamer-0.10.30/gstregistrybinary.c
->  delete mode 100644 recipes-multimedia/gstreamer/gstreamer-0.10.30/gstregistrybinary.h
->  delete mode 100644 recipes-multimedia/gstreamer/gstreamer_0.10.30.bb
->  delete mode 100644 recipes-multimedia/libtheora/libtheora-1.1.1/no-docs.patch
->  delete mode 100644 recipes-multimedia/libtheora/libtheora.inc
->  delete mode 100644 recipes-multimedia/libtheora/libtheora_1.1.1.bb
-> 
-> 
-> Note: I've snipped the patch as it is strictly a removal of the above files.
-> 
+>   meta/classes/sanity.bbclass |   33 ++++++++++++++++++++++++++++++++-
+>   1 files changed, 32 insertions(+), 1 deletions(-)
+>
+> diff --git a/meta/classes/sanity.bbclass b/meta/classes/sanity.bbclass
+> index 06aeddc..90e8911 100644
+> --- a/meta/classes/sanity.bbclass
+> +++ b/meta/classes/sanity.bbclass
+> @@ -21,6 +21,21 @@ def check_conf_exists(fn, data):
+>   			return True
+>   	return False
+>
+> +def check_create_long_filename(filepath, pathname):
+> +	testfile = os.path.join(filepath, ''.join([`num`[-1] for num in xrange(1,200)]))
+> +	try:
+> +		if not os.path.exists(filepath):
+> +			os.path.mkdir(filepath)
+> +		f = file(testfile, "w")
+> +		f.close()
+> +		os.remove(testfile)
+> +	except IOError as (errno, strerror):
+> +		if errno == 36: # ENAMETOOLONG
+> +			return "Failed to create a file with a long name in {0}. Please use a filesystem that does not unreasonably limit filename length.\n".format(pathname)
+> +		else:
+> +			return "Failed to create a file in {0}: {1}".format(pathname, strerror)
+> +	return ""
+> +
+>   def check_sanity(e):
+>   	from bb import note, error, data, __version__
+>
+> @@ -163,10 +178,26 @@ def check_sanity(e):
+>   		if os.path.exists('%s/libc.so.6' % lib32path) and not os.path.exists('/usr/include/gnu/stubs-32.h'):
+>   			messages = messages + "You have a 32-bit libc, but no 32-bit headers.  You must install the 32-bit libc headers.\n"
+>
+> +	tmpdir = data.getVar('TMPDIR', e.data, True)
+> +
+> +	#
+> +	# Check that TMPDIR isn't on a filesystem with limited filename length (eg. eCryptFS)
+> +	#
+> +	testmsg = check_create_long_filename(tmpdir, "TMPDIR")
+> +	if testmsg != "":
+> +		messages = messages + testmsg
+> +	#
+> +	# Check that SSTATE_DIR isn't on a filesystem with limited filename length (eg. eCryptFS)
+> +	#
+> +	sstatedir = data.getVar('SSTATE_DIR', e.data, True)
+> +	if sstatedir != "":
+> +		testmsg = check_create_long_filename(sstatedir, "SSTATE_DIR")
+> +		if testmsg != "":
+> +			messages = messages + testmsg
+> +
+>   	#
+>   	# Check that TMPDIR hasn't changed location since the last time we were run
+>   	#
+> -	tmpdir = data.getVar('TMPDIR', e.data, True)
+>   	checkfile = os.path.join(tmpdir, "saved_tmpdir")
+>   	if os.path.exists(checkfile):
+>   		f = file(checkfile, "r")
 
 -- 
-Joshua Lock
-        Intel Open Source Technology Centre
-
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
