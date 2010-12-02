@@ -1,21 +1,21 @@
 Return-Path: <lei.mei@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 8E9A84C810D8
-	for <poky@yoctoproject.org>; Thu,  2 Dec 2010 07:50:40 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 02 Dec 2010 05:50:40 -0800
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 596FF4C810EE
+	for <poky@yoctoproject.org>; Thu,  2 Dec 2010 07:50:42 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 02 Dec 2010 05:50:41 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,288,1288594800"; d="scan'208";a="632399902"
+X-IronPort-AV: E=Sophos;i="4.59,288,1288594800"; d="scan'208";a="579867208"
 Received: from daocaoren-desktop.sh.intel.com (HELO localhost)
 	([10.239.48.112])
-	by fmsmga002.fm.intel.com with ESMTP; 02 Dec 2010 05:50:39 -0800
-Message-Id: <a84282c25a32131769eb061c14af639a78d3cd2e.1291296360.git.lei.mei@intel.com>
+	by orsmga002.jf.intel.com with ESMTP; 02 Dec 2010 05:50:41 -0800
+Message-Id: <c6c4dbe3e0dea38a3324a28c9c66477507c71c10.1291296360.git.lei.mei@intel.com>
 In-Reply-To: <cover.1291296360.git.lei.mei@intel.com>
 References: <cover.1291296360.git.lei.mei@intel.com>
 From: Mei Lei <lei.mei@intel.com>
-Date: Thu, 2 Dec 2010 18:59:47 +0800
+Date: Thu, 2 Dec 2010 21:11:53 +0800
 To: poky@yoctoproject.org
-Subject: [PATCH 4/8] initramfs-live-boot:Add license checksum to bb file
+Subject: [PATCH 5/8] fstests:Add license checksum and update the GPL information
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,27 +27,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 02 Dec 2010 13:50:40 -0000
+X-List-Received-Date: Thu, 02 Dec 2010 13:50:42 -0000
 
-Add COPYING.MIT file checksum to bb file
+Add source file license checksum to bb file and update the "GPL" to "ZLIB" according to the license information
 
 Signed-off-by: Mei Lei <lei.mei@intel.com>
 ---
- .../initrdscripts/initramfs-live-boot_1.0.bb       |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ meta/recipes-graphics/fstests/fstests_svn.bb |    3 ++-
+ 1 files changed, 2 insertions(+), 1 deletions(-)
 
-diff --git a/meta/recipes-core/initrdscripts/initramfs-live-boot_1.0.bb b/meta/recipes-core/initrdscripts/initramfs-live-boot_1.0.bb
-index ba36a58..7eb8db1 100644
---- a/meta/recipes-core/initrdscripts/initramfs-live-boot_1.0.bb
-+++ b/meta/recipes-core/initrdscripts/initramfs-live-boot_1.0.bb
-@@ -1,6 +1,6 @@
- DESCRIPTON = "A live image init script"
- LICENSE = "MIT"
--
-+LIC_FILES_CHKSUM = "file://${POKYBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
- SRC_URI = "file://init-live.sh"
- 
- PR = "r2"
+diff --git a/meta/recipes-graphics/fstests/fstests_svn.bb b/meta/recipes-graphics/fstests/fstests_svn.bb
+index b407521..241d6b9 100644
+--- a/meta/recipes-graphics/fstests/fstests_svn.bb
++++ b/meta/recipes-graphics/fstests/fstests_svn.bb
+@@ -1,7 +1,8 @@
+ DESCRIPTION = "Various benchmarning tests for X"
+ HOMEPAGE = "http://www.o-hand.com"
+ SECTION = "devel"
+-LICENSE = "GPL"
++LICENSE = "ZLIB"
++LIC_FILES_CHKSUM = "file://test-pango-gdk.c;endline=24;md5=1ee74ec851ecda57eb7ac6cc180f7655"
+ DEPENDS = "pango libxext libxft virtual/libx11 gtk+"
+ PV = "0.0+svnr${SRCREV}"
+ PR = "r1"
 -- 
 1.6.3.3
 
