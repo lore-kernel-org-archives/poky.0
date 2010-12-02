@@ -1,25 +1,21 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 065DC4C80FAC
-	for <poky@yoctoproject.org>; Thu,  2 Dec 2010 13:05:28 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 02 Dec 2010 11:05:28 -0800
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 207724C80FAC
+	for <poky@yoctoproject.org>; Thu,  2 Dec 2010 13:12:06 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 02 Dec 2010 11:12:05 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,289,1288594800"; d="scan'208";a="683300364"
-Received: from unknown (HELO [10.255.12.252]) ([10.255.12.252])
-	by orsmga001.jf.intel.com with ESMTP; 02 Dec 2010 11:05:16 -0800
-Message-ID: <4CF7EDEC.3040301@intel.com>
-Date: Thu, 02 Dec 2010 11:05:16 -0800
-From: Saul Wold <saul.wold@intel.com>
+X-IronPort-AV: E=Sophos;i="4.59,289,1288594800"; d="scan'208";a="632502623"
+Received: from unknown (HELO [10.255.13.208]) ([10.255.13.208])
+	by fmsmga002.fm.intel.com with ESMTP; 02 Dec 2010 11:11:58 -0800
+Message-ID: <4CF7EF7B.30300@linux.intel.com>
+Date: Thu, 02 Dec 2010 11:11:55 -0800
+From: Darren Hart <dvhart@linux.intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
+	rv:1.9.2.12) Gecko/20101027 Lightning/1.0b2 Thunderbird/3.1.6
 MIME-Version: 1.0
-To: Qing He <qing.he@intel.com>
-References: <cover.1291096296.git.qing.he@intel.com>
-In-Reply-To: <cover.1291096296.git.qing.he@intel.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 0/2] fix cross build of dhcp 4.2.0
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Problems with devshell over ssh with X forwarding and then with ./configure for gst-ffmpeg
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,50 +27,73 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 02 Dec 2010 19:05:29 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Thu, 02 Dec 2010 19:12:06 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 7bit
 
-On 11/29/2010 09:51 PM, Qing He wrote:
-> dhcp 4.2.0 introduces bind9 dependency, however, the cross compiling
-> doesn't work, this patch set fixes the issue. Tested for arm target
->
-> Thanks,
-> Qing
->
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->    Branch: qhe/fix
->    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=qhe/fix
->
-> Thanks,
->      Qing He<qing.he@intel.com>
-> ---
->
->
-> Qing He (2):
->    bind: add new recipe
->    dhcp: fix cross build
->
->   .../bind/bind-9.7.2-P2/conf.patch                  |  301 ++++++++++++++++++++
->   .../bind/bind-9.7.2-P2/cross-build-fix.patch       |   19 ++
->   meta/recipes-connectivity/bind/bind_9.7.2-P2.bb    |   54 ++++
->   .../dhcp/dhcp-4.2.0/fix-external-bind.patch        |  101 +++++++
->   meta/recipes-connectivity/dhcp/dhcp4.inc           |    6 +-
->   meta/recipes-connectivity/dhcp/dhcp_4.2.0.bb       |    6 +-
->   6 files changed, 484 insertions(+), 3 deletions(-)
->   create mode 100644 meta/recipes-connectivity/bind/bind-9.7.2-P2/conf.patch
->   create mode 100644 meta/recipes-connectivity/bind/bind-9.7.2-P2/cross-build-fix.patch
->   create mode 100644 meta/recipes-connectivity/bind/bind_9.7.2-P2.bb
->   create mode 100644 meta/recipes-connectivity/dhcp/dhcp-4.2.0/fix-external-bind.patch
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
-Pulled into Master with LICENSE tweak
+I'm trying to debug a build (linker) failure in gst-ffmpeg and getting unexpected results from devshell.
 
-Thanks
-Sau!
+$ ssh -X nhm
+$ screen
+...
+$ bitbake gst-ffmpeg -c devshell
 
+NOTE: package gst-ffmpeg-0.10.1-r5: task do_devshell: Started
+ERROR: Task failed: ('function do_devshell failed', '/vol/1/dvhart/poky.git/build/tmp/work/x86_64-poky-linux/gst-ffmpeg-0.10.1-r5/temp/log.do_devshell.22436')
+ERROR: Logfile of failure stored in: /vol/1/dvhart/poky.git/build/tmp/work/x86_64-poky-linux/gst-ffmpeg-0.10.1-r5/temp/log.do_devshell.22436
+Log data follows:
+| Failed to summon the GConf demon; exiting.  Failed to contact configuration server; some possible causes are that you need to enable TCP/IP networking for ORBit, or you have stale NFS locks due to a system crash. See http://projects.gnome.org/gconf/ for information. (Details -  1: Failed to get connection to session: /bin/dbus-launch terminated abnormally with the following error: Autolaunch requested, but X11 support not compiled in.
+| Cannot continue.
+| )
+| ERROR: Task failed: ('function do_devshell failed', '/vol/1/dvhart/poky.git/build/tmp/work/x86_64-poky-linux/gst-ffmpeg-0.10.1-r5/temp/log.do_devshell.22436')
+NOTE: package gst-ffmpeg-0.10.1-r5: task do_devshell: Failed
+ERROR: Task 4 (/home/dvhart/data/poky.git/meta/recipes-multimedia/gstreamer/gst-ffmpeg_0.10.1.bb, do_devshell) failed with 1
+ERROR: '/home/dvhart/data/poky.git/meta/recipes-multimedia/gstreamer/gst-ffmpeg_0.10.1.bb' failed
+
+
+Running gnome-terminal from the same shell opens a gnome-terminal as expected. Changing my local.conf to contain:
+
+TERMCMD = 'xterm -T "$TERMWINDOWTITLE"'
+TERMCMDRUN = '${XTERM_TERMCMD} -e bash'
+
+Succeeds in opening the new terminal, but configure fails unexpectedly:
+
+...gst-ffmpeg-0.10.1]$ ./configure
+configure: loading site script /home/dvhart/data/poky.git/meta/site/endian-little
+configure: loading site script /home/dvhart/data/poky.git/meta/site/common-glibc
+configure: loading site script /home/dvhart/data/poky.git/meta/site/x86_64-linux
+configure: loading site script /home/dvhart/data/poky.git/meta/site/common
+configure: loading site script /vol/1/dvhart/poky.git/build/tmp/sysroots/x86_64-poky-linux/usr/share/x86_64-poky-linux_config_site.d/zlib_config
+configure: loading site script /vol/1/dvhart/poky.git/build/tmp/sysroots/x86_64-poky-linux/usr/share/x86_64-poky-linux_config_site.d/eglibc_config
+checking build system type... x86_64-unknown-linux-gnu
+checking host system type... x86_64-unknown-linux-gnu
+checking target system type... x86_64-unknown-linux-gnu
+checking whether to enable maintainer-specific portions of Makefiles... no
+configure: configuring gst-ffmpeg for release
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a thread-safe mkdir -p... /bin/mkdir -p
+checking for gawk... gawk
+checking whether make sets $(MAKE)... yes
+checking how to print strings... printf
+checking for style of include used by make... GNU
+checking for gcc... ccache  x86_64-poky-linux-gcc -L/vol/1/dvhart/poky.git/build/tmp/sysroots/x86_64-poky-linux/usr/lib
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... configure: error: in `/vol/1/dvhart/poky.git/build/tmp/work/x86_64-poky-linux/gst-ffmpeg-0.10.1-r5/gst-ffmpeg-0.10.1':
+configure: error: cannot run C compiled programs.
+If you meant to cross compile, use `--host'.
+See `config.log' for more details.
+
+
+I expected ./configure to succeed and for make to fail as it did in the log.do_compile log.
+
+
+My local.conf has 'MACHINE ?= "qemux86-64"'
+
+Any thoughts?
+-- 
+Darren Hart
+Yocto Linux Kernel
 
