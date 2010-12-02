@@ -1,25 +1,25 @@
 Return-Path: <saul.wold@intel.com>
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2BCC54C80052
-	for <poky@yoctoproject.org>; Thu,  2 Dec 2010 12:02:03 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 7D4804C80039
+	for <poky@yoctoproject.org>; Thu,  2 Dec 2010 12:03:51 -0600 (CST)
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 02 Dec 2010 10:02:02 -0800
+	by fmsmga102.fm.intel.com with ESMTP; 02 Dec 2010 10:03:51 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,289,1288594800"; d="scan'208";a="863670000"
+X-IronPort-AV: E=Sophos;i="4.59,289,1288594800"; d="scan'208";a="863671579"
 Received: from unknown (HELO [10.255.12.252]) ([10.255.12.252])
-	by fmsmga001.fm.intel.com with ESMTP; 02 Dec 2010 10:02:02 -0800
-Message-ID: <4CF7DF1A.2080702@intel.com>
-Date: Thu, 02 Dec 2010 10:02:02 -0800
+	by fmsmga001.fm.intel.com with ESMTP; 02 Dec 2010 10:03:51 -0800
+Message-ID: <4CF7DF86.3030201@intel.com>
+Date: Thu, 02 Dec 2010 10:03:50 -0800
 From: Saul Wold <saul.wold@intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
 	Thunderbird/3.0.5
 MIME-Version: 1.0
-To: Mei Lei <lei.mei@intel.com>
-References: <cover.1290681886.git.lei.mei@intel.com>
-In-Reply-To: <cover.1290681886.git.lei.mei@intel.com>
+To: Qing He <qing.he@intel.com>
+References: <cover.1290764497.git.qing.he@intel.com>
+In-Reply-To: <cover.1290764497.git.qing.he@intel.com>
 Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 00/20]Add 20 recipes license file MD5sum information
+Subject: Re: [PATCH 00/15] update license information of several packages
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,65 +31,58 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 02 Dec 2010 18:02:03 -0000
+X-List-Received-Date: Thu, 02 Dec 2010 18:03:51 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 11/25/2010 02:44 AM, Mei Lei wrote:
-> This includes 20 recipes license file MD5sum update
->
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->    Branch: lmei3/chksum2
->    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=lmei3/chksum2
+On 11/26/2010 01:41 AM, Qing He wrote:
+> This patch set adds LIC_FILES_CHKSUM for several packages
 >
 > Thanks,
->      Mei Lei<lei.mei@intel.com>
+> Qing
+>
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>    Branch: qhe/distro
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=qhe/distro
+>
+> Thanks,
+>      Qing He<qing.he@intel.com>
 > ---
 >
 >
-> Mei Lei (20):
->    mpfr:Add license checksum and update the GPL information
->    perl:Add license checksum to bb file
->    prelink:Add license checksum to bb file
->    python:Add license checksum to bb file
->    python-dbus:Add license checksum to bb file
->    python-imaging:Add license checksum to bb file
->    python-pygobject:Add license checksum and update the GPL information
->    python-pygtk:Add license checksum and update the GPL information
->    python-pyrex:Add license checksum and update the License information
->    python-scons:Add license checksum and update the GPL information
->    quilt:Add license checksum and update the GPL information
->    make:Add license checksum and update the GPL information
->    lsof:Add license checksum to bb file
->    dtc:Add license checksum and add the GPL information
->    libtheora:Add license checksum to bb file
->    libxml-simple-perl:Add license checksum to bb file
->    mc:Add license checksum to bb file
->    qmmp:Add license checksum to bb file
->    base-files:Add license checksum to bb file
->    flex:Add license checksum and add the license information
+> Qing He (15):
+>    aspell: update license
+>    diffutils: update license
+>    fakechroot: update license info
+>    hdparm: update license info
+>    ncurses: update license info
+>    parted: update license info
+>    resolvconf: update license info
+>    setserial: update license info
+>    tiff: update license info
+>    tinylogin: update license info
+>    v86d: update license info
+>    zaurusd: update license info
+>    yaffs2-utils: update license info
+>    ubootchart: update license info
+>    u-boot-mkimage: update license info
 >
->   meta/recipes-core/base-files/base-files_3.0.14.bb  |    2 +-
->   meta/recipes-devtools/flex/flex_2.5.35.bb          |    3 ++-
->   meta/recipes-devtools/make/make_3.82.bb            |    4 +++-
->   .../perl/libxml-simple-perl_2.18.bb                |    1 +
->   meta/recipes-devtools/perl/perl_5.8.8.bb           |    2 ++
->   meta/recipes-devtools/prelink/prelink_git.bb       |    1 +
->   meta/recipes-devtools/python/python-dbus_0.83.1.bb |    1 +
->   .../python/python-imaging_1.1.7.bb                 |    1 +
->   .../python/python-pygobject_2.21.1.bb              |    3 ++-
->   .../recipes-devtools/python/python-pygtk_2.17.0.bb |    3 ++-
->   meta/recipes-devtools/python/python-pyrex_0.9.9.bb |    3 ++-
->   meta/recipes-devtools/python/python-scons_2.0.1.bb |    3 ++-
->   meta/recipes-devtools/python/python_2.6.6.bb       |    2 +-
->   meta/recipes-devtools/quilt/quilt_0.48.bb          |    3 ++-
->   meta/recipes-extended/lsof/lsof_4.84.bb            |    2 +-
->   meta/recipes-extended/mc/mc_4.7.3.bb               |    1 +
->   meta/recipes-kernel/dtc/dtc_git.bb                 |    4 ++++
->   .../libtheora/libtheora_1.1.1.bb                   |    2 +-
->   meta/recipes-qt/qt-apps/qmmp_0.4.1.bb              |    1 +
->   meta/recipes-support/mpfr/mpfr_3.0.0.bb            |    4 +++-
->   20 files changed, 34 insertions(+), 12 deletions(-)
+>   meta/recipes-bsp/setserial/setserial_2.17.bb       |    3 +++
+>   meta/recipes-bsp/uboot/u-boot-mkimage_2009.08.bb   |    3 ++-
+>   meta/recipes-bsp/v86d/v86d_0.1.9.bb                |    2 ++
+>   meta/recipes-bsp/zaurusd/zaurusd_svn.bb            |    3 ++-
+>   .../resolvconf/resolvconf_1.43.bb                  |    3 ++-
+>   meta/recipes-core/ncurses/ncurses.inc              |    1 +
+>   meta/recipes-core/tinylogin/tinylogin_1.4.bb       |    3 ++-
+>   meta/recipes-devtools/fakechroot/fakechroot_2.9.bb |    3 ++-
+>   meta/recipes-devtools/ubootchart/ubootchart_svn.bb |    1 +
+>   meta/recipes-devtools/yaffs2/yaffs2-utils.inc      |    1 +
+>   meta/recipes-extended/diffutils/diffutils_2.8.1.bb |    6 ++++--
+>   meta/recipes-extended/hdparm/hdparm_6.3.bb         |    1 +
+>   meta/recipes-extended/parted/parted_1.9.0.bb       |    3 ++-
+>   meta/recipes-multimedia/libtiff/tiff_3.8.2.bb      |    1 +
+>   meta/recipes-support/aspell/aspell_0.60.6.bb       |    3 ++-
+>   15 files changed, 28 insertions(+), 9 deletions(-)
 >
 > _______________________________________________
 > poky mailing list
