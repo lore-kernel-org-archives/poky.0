@@ -1,28 +1,25 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 642514C80052
-	for <poky@yoctoproject.org>; Thu,  2 Dec 2010 12:26:14 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id EB1A91660523; Thu,  2 Dec 2010 11:26:13 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=ham version=3.3.1
-Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
-	by mail.chez-thomas.org (Postfix) with ESMTP id DA12316603C2;
-	Thu,  2 Dec 2010 11:26:12 -0700 (MST)
-Message-ID: <4CF7E4C4.6@mlbassoc.com>
-Date: Thu, 02 Dec 2010 11:26:12 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.1.9) Gecko/20100430 Fedora/3.0.4-2.fc11 Thunderbird/3.0.4
+Return-Path: <saul.wold@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id EAD5D4C80052
+	for <poky@yoctoproject.org>; Thu,  2 Dec 2010 12:29:47 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 02 Dec 2010 10:29:47 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.59,289,1288594800"; d="scan'208";a="632489274"
+Received: from unknown (HELO [10.255.12.252]) ([10.255.12.252])
+	by fmsmga002.fm.intel.com with ESMTP; 02 Dec 2010 10:29:47 -0800
+Message-ID: <4CF7E59A.8030704@intel.com>
+Date: Thu, 02 Dec 2010 10:29:46 -0800
+From: Saul Wold <saul.wold@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
 MIME-Version: 1.0
-To: "Ke, Liping" <liping.ke@intel.com>
-References: <789F9655DD1B8F43B48D77C5D30659732FF051D3@shsmsx501.ccr.corp.intel.com>
-In-Reply-To: <789F9655DD1B8F43B48D77C5D30659732FF051D3@shsmsx501.ccr.corp.intel.com>
+To: Yu Ke <ke.yu@intel.com>
+References: <cover.1290943560.git.ke.yu@intel.com>
+In-Reply-To: <cover.1290943560.git.ke.yu@intel.com>
 Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: FW: Eclipse plugin question
+Subject: Re: [PATCH 00/11] recpies upgrade: mesa and other graphics recipes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,176 +31,70 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 02 Dec 2010 18:26:14 -0000
-X-Groupsio-MsgNum: 818
-Content-Type: multipart/mixed; boundary="------------030203070104010301030205"
-
---------------030203070104010301030205
+X-List-Received-Date: Thu, 02 Dec 2010 18:29:48 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 11/25/2010 07:13 PM, Ke, Liping wrote:
-> Seems I use wrong mail list and lost the mail.
+On 11/28/2010 03:26 AM, Yu Ke wrote:
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>    Branch: kyu3/upgrade-11-28
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kyu3/upgrade-11-28
 >
-> Yes. Indeed we need to document this considering the code will
-> be finally in the TCF upstream, more users might need it.
+> Thanks,
+>      Yu Ke<ke.yu@intel.com>
+> ---
+>
+>
+> Yu Ke (11):
+>    sqlite: upgrade from 3.6.23 to 3.7.3
+>    libxml2-native: remove the --without-debug option
+>    talloc: add new recipes talloc 2.0.1
+>    mesa-dri: upgrade from 7.8.2 to 7.9
+>    mesa-xlib: upgrade from 7.8.2 to 7.9
+>    mesa: enable glu
+>    glew: add new recipes glew 1.5.7
+>    mesa-demo: add new recpies mesa demo 8.0.2
+>    mesa-dri-glsl-native: upgrade from 7.8.2 to 7.9
+>    qemugl: upgrade to git commit
+>      33466cd83c2a9d7d3fb9fe437fb6a4d6fbd866b9
+>    xf86-video-omapfb: upgrade to latest commit
+>
+>   .../conf/distro/include/poky-default-revisions.inc |    6 +-
+>   .../distro/include/preferred-xorg-versions.inc     |    2 +-
+>   meta/recipes-core/libxml/libxml2.inc               |    2 +-
+>   meta/recipes-core/libxml/libxml2_2.7.7.bb          |    2 +-
+>   meta/recipes-extended/talloc/talloc_2.0.1.bb       |   24 ++++
+>   meta/recipes-graphics/glew/files/autotools.patch   |  146 ++++++++++++++++++++
+>   meta/recipes-graphics/glew/glew_1.5.7.bb           |   19 +++
+>   meta/recipes-graphics/mesa/mesa-common.inc         |    5 +-
+>   meta/recipes-graphics/mesa/mesa-demos_8.0.1.bb     |   19 +++
+>   ...native_7.8.2.bb =>  mesa-dri-glsl-native_7.9.bb} |    9 +-
+>   meta/recipes-graphics/mesa/mesa-dri_7.8.2.bb       |   53 -------
+>   meta/recipes-graphics/mesa/mesa-dri_7.9.bb         |   38 +++++
+>   .../mesa/{mesa-xlib_7.8.2.bb =>  mesa-xlib_7.9.bb}  |   15 +--
+>   meta/recipes-support/sqlite/sqlite3_3.6.23.1.bb    |    3 -
+>   meta/recipes-support/sqlite/sqlite3_3.7.3.bb       |    5 +
+>   15 files changed, 270 insertions(+), 78 deletions(-)
+>   create mode 100644 meta/recipes-extended/talloc/talloc_2.0.1.bb
+>   create mode 100644 meta/recipes-graphics/glew/files/autotools.patch
+>   create mode 100644 meta/recipes-graphics/glew/glew_1.5.7.bb
+>   create mode 100644 meta/recipes-graphics/mesa/mesa-demos_8.0.1.bb
+>   rename meta/recipes-graphics/mesa/{mesa-dri-glsl-native_7.8.2.bb =>  mesa-dri-glsl-native_7.9.bb} (58%)
+>   delete mode 100644 meta/recipes-graphics/mesa/mesa-dri_7.8.2.bb
+>   create mode 100644 meta/recipes-graphics/mesa/mesa-dri_7.9.bb
+>   rename meta/recipes-graphics/mesa/{mesa-xlib_7.8.2.bb =>  mesa-xlib_7.9.bb} (51%)
+>   delete mode 100644 meta/recipes-support/sqlite/sqlite3_3.6.23.1.bb
+>   create mode 100644 meta/recipes-support/sqlite/sqlite3_3.7.3.bb
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
+Pulled into Master
 
-I've tried these, but still can't run any programs.
+Thanks
 
-When I'm in the RSE browser mode, I can talk to the board, view processes,
-files, etc.
-
-However, when I try to run code, it just sits there.  I see the attached
-messages on the host console where I started eclipse.  Does this help?
-I can see on my target machine that my program was downloaded (I told
-it to go to /tmp/yocto_app), but it just doesn't seem to run via the
-remote connection.
-
-Ideas?
-
->> -----Original Message-----
->> From: Ke, Liping
->> Sent: Friday, November 26, 2010 9:35 AM
->> To: 'Gary Thomas'; Poky
->> Subject: RE: [poky] Eclipse plugin question
->>
->> Hi, Gary
->>
->> Thanks for the trying. I have seen your screenshot. Just one more
->> question. You have set up an connection 192.168.12.177. Can you tell us
->> which connection type you are created? If you're creating TCF
->> connection(Please fill the properties of your connection, such as
->> prompt char [$ or # or>, default is #, it depends on the host
->> environment]), yes, you need to have a agent running on your target.
->> The details are:
->> For CDT remote debugger, it depends on shell/terminal services. If no
->> response back, it will wait for the input ( Current tcf shell/terminal
->> service is similar as telnet shell/terminal service, so both of them
->> will not exist but wait for the new input stream of target, that's why
->> you see the no-response problem.).
->>
->> One validation style is that you switch your eclipse perspective ->  RSE
->> browser, there, you will see the connection name 192.168.12.177 you
->> have created. And in that view, you can use RSE browser to view your
->> target. If RSE viewer works fine, they your debugger connection will
->> just be fine.
->>
->>
->> Paste a screenshot of tcf connection property settings in the
->> attachment. At the same time, an agent will be run in the target.
->>
->> Command.Prompt: $ (in my target machine ubuntu, for normal user, it is
->> $. If logged in as root user in target unbuntu, I will change it to #.
->> If you are using normal user, please run agent as normal user.
->> Otherwise, please run it as $sudo ./agent -Llog)
->> Login.Prompt: never change it.
->> Login.Required: true (in normal case, we need to login)
->> Password.Prompt: never change it.
->> Pwd.Required: false If your target permit no password and could be
->> directly login, leave it as "false"
->>
->> Hope above information is useful to you:) Any problem, just let us know!
->>
->> Thanks a lot!
->> criping
->>
->>> -----Original Message-----
->>> From: poky-bounces@yoctoproject.org [mailto:poky-
->>> bounces@yoctoproject.org] On Behalf Of Gary Thomas
->>> Sent: Friday, November 26, 2010 12:12 AM
->>> To: Poky
->>> Subject: [poky] Eclipse plugin question
->>>
->>> I have the eclipse plugin working fairly well now - I can build an
->>> application, etc.  I tried manually downloading the code to my board
->>> (I have real hardware, not QEMU) and it runs fine.
->>>
->>> Next, I wanted to try running/debugging from eclipse.  I set up the
->>> run configuration and the code was downloaded to the board.  The last
->>> indication said it was starting the debugger.
->>> This window stayed up a long time and then nothing more.
->>>
->>> Note: I did figure out that I needed tcf-agent running on my board
->>> (this is not documented).  I also have GDB server on the board.
->>>
->>> You can see my setup at http://www.mlbassoc.com/poky/eclipse_plugin
->>>
->>> Thanks for any ideas/pointers
->>>
->>> --
->>> ------------------------------------------------------------
->>> Gary Thomas                 |  Consulting for the
->>> MLB Associates              |    Embedded world
->>> ------------------------------------------------------------
->>> _______________________________________________
->>> poky mailing list
->>> poky@yoctoproject.org
->>> https://lists.yoctoproject.org/listinfo/poky
-
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
-
---------------030203070104010301030205
-Content-Type: text/plain;
- name="eclipse_messages"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
- filename="eclipse_messages"
-
-Stream subscribed
-new stream id: VS0 , type: Terminals is created
-new stream id: VS1 , type: Terminals is created
-write line: root
-
-value is root
-
-write: ****Console terminal shell T1848 exited, current shell ID T1848
-write line: 
-
-value is 
-
-write: TCF shell Service: Connected
-write line: echo $PWD'>'
-
-write line: chmod +x /tmp/yocto_app;exit
-
-stream id: VS0 type: Terminals is disposed
-stream id: VS1 type: Terminals is disposed
-org.eclipse.rse.services.clientserver.messages.SystemMessageException: TCF error report:
-Command: Terminals exit "T1848"
-Time: 2010-12-02 06:03:53.559
-Error text: Invalid context ID
-Error code: 16
-        at org.eclipse.tm.internal.tcf.rse.TCFRSETask.getS(Unknown Source)
-        at org.eclipse.tm.internal.tcf.rse.shells.TCFTerminalShell.exit(Unknown Source)
-        at org.eclipse.rse.internal.services.shells.TerminalServiceHostShell.exit(TerminalServiceHostShell.java:122)
-        at org.eclipse.rse.services.shells.HostShellProcessAdapter.destroy(HostShellProcessAdapter.java:66)
-        at org.eclipse.cdt.launch.remote.RemoteRunLaunchDelegate.remoteFileDownload(RemoteRunLaunchDelegate.java:294)
-        at org.eclipse.cdt.launch.remote.RemoteRunLaunchDelegate.launch(RemoteRunLaunchDelegate.java:219)
-        at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:853)
-        at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:702)
-        at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:923)
-        at org.eclipse.debug.internal.ui.DebugUIPlugin$7.run(DebugUIPlugin.java:1009)
-        at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
-new stream id: VS2 , type: Terminals is created
-new stream id: VS3 , type: Terminals is created
-write line: root
-
-value is root
-
-write: ****Console terminal shell T1853 exited, current shell ID T1853
-write line: 
-
-value is 
-
-write: TCF shell Service: Connected
-write line: echo $PWD'>'
-
-write line: /tmp/yocto_app;exit
+   Sau!
 
 
-
---------------030203070104010301030205--
