@@ -1,25 +1,23 @@
-Return-Path: <edwin.zhai@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A375C4C80039
-	for <poky@yoctoproject.org>; Thu,  2 Dec 2010 21:18:33 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 02 Dec 2010 19:18:33 -0800
+Return-Path: <qing.he@intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E1FD04C80FAC
+	for <poky@yoctoproject.org>; Thu,  2 Dec 2010 21:23:56 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 02 Dec 2010 19:23:56 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,291,1288594800"; d="scan'208";a="632637113"
-Received: from shxpwgzhai1a.ccr.corp.intel.com (HELO [10.239.48.130])
-	([10.239.48.130])
-	by fmsmga002.fm.intel.com with ESMTP; 02 Dec 2010 19:18:32 -0800
-Message-ID: <4CF86186.6080706@intel.com>
-Date: Fri, 03 Dec 2010 11:18:30 +0800
-From: "Zhai, Edwin" <edwin.zhai@intel.com>
-User-Agent: Thunderbird 2.0.0.17 (Windows/20080914)
-MIME-Version: 1.0
-To: "Wold, Saul" <saul.wold@intel.com>
-References: <cover.1291269468.git.edwin.zhai@intel.com>
-	<4CF802C6.9020509@intel.com>
-In-Reply-To: <4CF802C6.9020509@intel.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 00/14] X apps and base utils upgrade, Edwin, Dec2, 2010
+X-IronPort-AV: E=Sophos;i="4.59,291,1288594800"; d="scan'208";a="356445613"
+Received: from qhe2-db.sh.intel.com ([10.239.13.31])
+	by azsmga001.ch.intel.com with ESMTP; 02 Dec 2010 19:23:55 -0800
+Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
+	(envelope-from <qing.he@intel.com>)
+	id 1POMAe-0002k8-7T; Fri, 03 Dec 2010 11:18:52 +0800
+Message-Id: <7ec2917dbcf5acb0d6a42a285d4647c09fcae225.1291346206.git.qing.he@intel.com>
+In-Reply-To: <cover.1291346206.git.qing.he@intel.com>
+References: <cover.1291346206.git.qing.he@intel.com>
+From: Qing He <qing.he@intel.com>
+Date: Fri, 3 Dec 2010 11:12:55 +0800
+To: poky@yoctoproject.org
+Subject: [PATCH 1/1] libnl: fix parallel make
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,115 +29,68 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 03 Dec 2010 03:18:34 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 03 Dec 2010 03:23:57 -0000
 
-Sorry, I'll send new one.
+lex/yacc generated header file should be explicitly listed for
+makefile dependency
 
+also add flex-native and bison-native for the recipe
 
-Wold, Saul wrote:
-> On 12/01/2010 09:57 PM, Zhai Edwin wrote:
->   
->> Saul,
->> Some upgrades for X apps and base utils.
->> Thanks,
->> edwin
->>
->>     
-> Edwin,
->
-> Please review this request more3 carefully and update your commit 
-> messages with more details about the changes to patches and why you are 
-> deleting patches.
->
->
-> Thanks
->      Sau!
->
->   
->> Pull URL: git://git.pokylinux.org/poky-contrib.git
->>    Branch: gzhai/distro04
->>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=gzhai/distro04
->>
->> Thanks,
->>      Zhai Edwin<edwin.zhai@intel.com>
->> ---
->>
->>
->> Zhai Edwin (14):
->>    pointercal: Add license checksum
->>    tidy: Add license checksum
->>    beecrypt: Update to 4.2.1
->>    acpid: update to 1.0.10
->>    consolekit: Update to 0.4.3
->>    eee-acpi-scripts: Update to 1.1.11
->>    ethtool: Update to 2.6.36
->>    puzzles: Update to svn r9023
->>    x11perf: Update to 1.5.2
->>    x11vnc: Update to 0.9.12
->>    web: Update to svn r129
->>    gnome-desktop: Update to 2.32.1
->>    gnome-icon-theme: Update to 2.31.0
->>    gtk-engines: Update to 2.20.2
->>
->>   .../conf/distro/include/poky-default-revisions.inc |    4 +-
->>   meta/recipes-bsp/acpid/acpid.inc                   |    7 +-
->>   meta/recipes-bsp/acpid/acpid_1.0.10.bb             |    6 ++
->>   meta/recipes-bsp/acpid/acpid_1.0.6.bb              |    3 -
->>   .../eee-acpi-scripts/eee-acpi-scripts_git.bb       |   15 ++--
->>   .../eee-acpi-scripts/files/remove-doc-check.patch  |   76 +++++++++----------
->>   meta/recipes-bsp/pointercal/files/COPYING          |    2 +
->>   meta/recipes-bsp/pointercal/pointercal_0.0.bb      |    5 +-
->>   .../{ethtool_2.6.34.bb =>  ethtool_2.6.36.bb}       |    0
->>   meta/recipes-gnome/gnome/gnome-desktop.inc         |    4 +-
->>   .../gnome/gnome-desktop/no-desktop-docs.patch      |   10 ---
->>   meta/recipes-gnome/gnome/gnome-desktop_2.26.2.bb   |    3 -
->>   meta/recipes-gnome/gnome/gnome-desktop_2.32.1.bb   |    4 +
->>   .../gnome/gnome-icon-theme/iconpath-option.patch   |   79 +++++++++----------
->>   ...-theme_2.22.0.bb =>  gnome-icon-theme_2.31.0.bb} |   12 ++-
->>   ...gtk-engines_2.14.0.bb =>  gtk-engines_2.20.2.bb} |   11 ++-
->>   meta/recipes-graphics/clutter/tidy.inc             |    2 +-
->>   meta/recipes-graphics/clutter/tidy_git.bb          |    3 +
->>   meta/recipes-graphics/x11vnc/x11vnc_0.9.12.bb      |   15 ++++
->>   meta/recipes-graphics/x11vnc/x11vnc_0.9.3.bb       |   11 ---
->>   meta/recipes-graphics/xorg-app/x11perf_1.5.2.bb    |   10 +++
->>   meta/recipes-graphics/xorg-app/x11perf_1.5.bb      |    6 --
->>   .../recipes-sato/puzzles/files/makedist_hack.patch |   17 ----
->>   .../puzzles/{puzzles_r7593.bb =>  puzzles_r9023.bb} |   14 ++--
->>   meta/recipes-sato/web/web_svn.bb                   |    2 +-
->>   .../beecrypt/beecrypt/disable-icu-check.patch      |   12 ++--
->>   .../beecrypt/beecrypt/fix-security.patch           |   51 +++++++------
->>   .../{beecrypt_4.1.2.bb =>  beecrypt_4.2.1.bb}       |   10 ++-
->>   .../recipes-support/consolekit/consolekit_0.3.0.bb |   16 ----
->>   .../consolekit/files/nopolkit.patch                |    8 +-
->>   meta/recipes-tbd/consolekit/consolekit_0.4.3.bb    |   21 +++++
->>   31 files changed, 226 insertions(+), 213 deletions(-)
->>   create mode 100644 meta/recipes-bsp/acpid/acpid_1.0.10.bb
->>   delete mode 100644 meta/recipes-bsp/acpid/acpid_1.0.6.bb
->>   create mode 100644 meta/recipes-bsp/pointercal/files/COPYING
->>   rename meta/recipes-extended/ethtool/{ethtool_2.6.34.bb =>  ethtool_2.6.36.bb} (100%)
->>   delete mode 100644 meta/recipes-gnome/gnome/gnome-desktop/no-desktop-docs.patch
->>   delete mode 100644 meta/recipes-gnome/gnome/gnome-desktop_2.26.2.bb
->>   create mode 100644 meta/recipes-gnome/gnome/gnome-desktop_2.32.1.bb
->>   rename meta/recipes-gnome/gnome/{gnome-icon-theme_2.22.0.bb =>  gnome-icon-theme_2.31.0.bb} (55%)
->>   rename meta/recipes-gnome/gtk-engines/{gtk-engines_2.14.0.bb =>  gtk-engines_2.20.2.bb} (85%)
->>   create mode 100644 meta/recipes-graphics/x11vnc/x11vnc_0.9.12.bb
->>   delete mode 100644 meta/recipes-graphics/x11vnc/x11vnc_0.9.3.bb
->>   create mode 100644 meta/recipes-graphics/xorg-app/x11perf_1.5.2.bb
->>   delete mode 100644 meta/recipes-graphics/xorg-app/x11perf_1.5.bb
->>   delete mode 100644 meta/recipes-sato/puzzles/files/makedist_hack.patch
->>   rename meta/recipes-sato/puzzles/{puzzles_r7593.bb =>  puzzles_r9023.bb} (74%)
->>   rename meta/recipes-support/beecrypt/{beecrypt_4.1.2.bb =>  beecrypt_4.2.1.bb} (63%)
->>   delete mode 100644 meta/recipes-support/consolekit/consolekit_0.3.0.bb
->>   create mode 100644 meta/recipes-tbd/consolekit/consolekit_0.4.3.bb
->>
->> _______________________________________________
->> poky mailing list
->> poky@yoctoproject.org
->> https://lists.yoctoproject.org/listinfo/poky
->>
->>     
->
->   
+Signed-off-by: Qing He <qing.he@intel.com>
+---
+ .../libnl/libnl-2.0/fix-makefile.patch             |   22 ++++++++++++++++++++
+ meta/recipes-support/libnl/libnl_2.0.bb            |    7 ++++-
+ 2 files changed, 27 insertions(+), 2 deletions(-)
+ create mode 100644 meta/recipes-support/libnl/libnl-2.0/fix-makefile.patch
+
+diff --git a/meta/recipes-support/libnl/libnl-2.0/fix-makefile.patch b/meta/recipes-support/libnl/libnl-2.0/fix-makefile.patch
+new file mode 100644
+index 0000000..d9f00be
+--- /dev/null
++++ b/meta/recipes-support/libnl/libnl-2.0/fix-makefile.patch
+@@ -0,0 +1,22 @@
++12/03/2010
++
++add explicit rules for header files generated by lex and yacc,
++otherwise the build of lib/route/pktloc.c may fail in a parallel
++environment.
++
++Signed-off-by: Qing He <qing.he@intel.com>
++diff --git a/lib/Makefile.am b/lib/Makefile.am
++index 92a916e..e8b8ef3 100644
++--- a/lib/Makefile.am
+++++ b/lib/Makefile.am
++@@ -35,6 +35,10 @@ route/pktloc_grammar.c: route/pktloc_grammar.l
++ route/pktloc_syntax.c: route/pktloc_syntax.y
++ 	$(YACC) -d $(YFLAGS) -o $@ $^
++ 
+++route/pktloc.$(OBJEXT): route/pktloc_syntax.h route/pktloc_grammar.h
+++route/pktloc_syntax.h: route/pktloc_syntax.c
+++route/pktloc_grammar.h: route/pktloc_grammar.c
+++
++ libnl_route_la_LDFLAGS = -version-info 2:0:0
++ libnl_route_la_LIBADD  = libnl.la
++ libnl_route_la_SOURCES = \
+diff --git a/meta/recipes-support/libnl/libnl_2.0.bb b/meta/recipes-support/libnl/libnl_2.0.bb
+index fa96215..e275670 100644
+--- a/meta/recipes-support/libnl/libnl_2.0.bb
++++ b/meta/recipes-support/libnl/libnl_2.0.bb
+@@ -6,9 +6,12 @@ PRIORITY = "optional"
+ LICENSE = "LGPLv2.1"
+ LIC_FILES_CHKSUM = "file://COPYING;md5=2b41e13261a330ee784153ecbb6a82bc"
+ 
+-PR = "r0"
++DEPENDS = "flex-native bison-native"
++PR = "r1"
+ 
+-SRC_URI= "http://www.infradead.org/~tgr/libnl/files/${PN}-${PV}.tar.gz"
++SRC_URI= "http://www.infradead.org/~tgr/libnl/files/${PN}-${PV}.tar.gz \
++          file://fix-makefile.patch \
++         "
+ 
+ inherit autotools pkgconfig
+ 
+-- 
+1.7.0
+
 
