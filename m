@@ -1,25 +1,25 @@
-Return-Path: <Jingdong.Lu@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B54EC4C80FAC
-	for <poky@yoctoproject.org>; Fri,  3 Dec 2010 03:27:00 -0600 (CST)
-Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oB39R0fW002718
-	for <poky@yoctoproject.org>; Fri, 3 Dec 2010 01:27:00 -0800 (PST)
-Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
-	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Fri, 3 Dec 2010 01:27:00 -0800
-Received: from [128.224.162.176] ([128.224.162.176]) by
-	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Fri, 3 Dec 2010 01:26:59 -0800
-From: Lu Jingdong <jingdong.lu@windriver.com>
-To: poky <poky@yoctoproject.org>
-Date: Fri, 03 Dec 2010 17:28:13 +0800
-Message-ID: <1291368493.30228.2.camel@eric-desktop>
+Return-Path: <josh@linux.intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id A25294C80052
+	for <poky@yoctoproject.org>; Fri,  3 Dec 2010 07:29:52 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 03 Dec 2010 05:29:52 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.59,293,1288594800"; d="scan'208";a="356619422"
+Received: from unknown (HELO [10.255.16.46]) ([10.255.16.46])
+	by azsmga001.ch.intel.com with ESMTP; 03 Dec 2010 05:29:50 -0800
+From: Joshua Lock <josh@linux.intel.com>
+To: Saul Wold <saul.wold@intel.com>
+In-Reply-To: <4CF7ED8F.6070203@intel.com>
+References: <cover.1290790131.git.josh@linux.intel.com>
+	<b35d224ec6ee86dd9623103d4020c9e7895a6ccb.1290790131.git.josh@linux.intel.com>
+	<4CF7ED8F.6070203@intel.com>
+Date: Fri, 03 Dec 2010 13:29:44 +0000
+Message-ID: <1291382984.2728.8.camel@scimitar>
 Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-X-OriginalArrivalTime: 03 Dec 2010 09:27:00.0175 (UTC)
-	FILETIME=[3CD4BDF0:01CB92CC]
-Subject: [PATCH 5/8] Add new package perl-uri in order to enable graphic LSB test(OLVER-Core test).
+X-Mailer: Evolution 2.32.1 (2.32.1-1.fc14) 
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH 1/2] local.conf.sample: Note extra variables required when disabling en_US locale
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,59 +31,90 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 03 Dec 2010 09:27:00 -0000
+X-List-Received-Date: Fri, 03 Dec 2010 13:29:53 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Jingdong Lu <jingdong.lu@windriver.com>
+On Thu, 2010-12-02 at 11:03 -0800, Saul Wold wrote:
+> On 11/26/2010 06:23 AM, Joshua Lock wrote:
+> > When changing which locales are generated for libc it may also be neccessary to
+> > change IMAGE_LINGUAS and LIMIT_BUILT_LOCALES
+> >
+> > Signed-off-by: Joshua Lock<josh@linux.intel.com>
+> > ---
+> >   meta/conf/local.conf.sample |    7 ++++++-
+> >   1 files changed, 6 insertions(+), 1 deletions(-)
+> >
+> > diff --git a/meta/conf/local.conf.sample b/meta/conf/local.conf.sample
+> > index fae949c..4ba250d 100644
+> > --- a/meta/conf/local.conf.sample
+> > +++ b/meta/conf/local.conf.sample
+> > @@ -158,8 +158,13 @@ ENABLE_BINARY_LOCALE_GENERATION = "1"
+> >
+> >   # Set GLIBC_GENERATE_LOCALES to the locales you wish to generate should you not
+> >   # wish to perform the time-consuming step of generating all LIBC locales.
+> > +# NOTE: If removing en_US.UTF-8 you will also need to uncomment, and set
+> > +# appropriate values for IMAGE_LINGUAS and LIMIT_BUILT_LOCALES
+> >   # WARNING: this may break localisation!
+> > -#GLIBC_GENERATE_LOCALES = "en_GB.UTF-8 en_US.UTF-8"
+> > +#GLIBC_GENERATE_LOCALES = "en_GB.UTF-8"
+> > +# See message above as to whether setting these is required
+> > +#IMAGE_LINGUAS ?= "en-gb"
+> > +#LIMIT_BUILT_LOCALES ?= "POSIX en_GB"
+> >
+> Should these LOCALES be en_US, en_GB or BOTH?  I know we have had 
+> discussion on this in the past.
+> 
+> Let's be consistent on this please.
+
+Good catch. I think the GLIBC_GENERATE_LOCALES should be both as it was
+before but as the IMAGE_LINGUAS and LIMIT_BUILT_LOCALES only need
+changing if en_US.UTF-8 is removed they should not include en_US
+
+Updated patch follows and branch fixed:
+
+From 6d532f464a897f28da4c7dcb72ddcad0bcc65f6c Mon Sep 17 00:00:00 2001
+Message-Id:
+<6d532f464a897f28da4c7dcb72ddcad0bcc65f6c.1291382830.git.josh@linux.intel.com>
+In-Reply-To: <cover.1291382830.git.josh@linux.intel.com>
+References: <cover.1291382830.git.josh@linux.intel.com>
+From: Joshua Lock <josh@linux.intel.com>
+Date: Fri, 26 Nov 2010 14:23:16 +0000
+Subject: [PATCH 1/2] local.conf.sample: Note extra variables required
+when disabling en_US locale
+
+When changing which locales are generated for libc it may also be
+neccessary to
+change IMAGE_LINGUAS and LIMIT_BUILT_LOCALES
+
+Signed-off-by: Joshua Lock <josh@linux.intel.com>
 ---
- meta/recipes-devtools/perl/perl-uri_1.56.bb |   25
-+++++++++++++++++++++++++
- 1 files changed, 25 insertions(+), 0 deletions(-)
- create mode 100644 meta/recipes-devtools/perl/perl-uri_1.56.bb
+ meta/conf/local.conf.sample |    5 +++++
+ 1 files changed, 5 insertions(+), 0 deletions(-)
 
-diff --git a/meta/recipes-devtools/perl/perl-uri_1.56.bb
-b/meta/recipes-devtools/perl/perl-uri_1.56.bb
-new file mode 100644
-index 0000000..7dd5668
---- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-uri_1.56.bb
-@@ -0,0 +1,25 @@
-+DESCRIPTION = "This package contains the URI.pm module with friends. \
-+The module implements the URI class. URI objects can be used to access
-\
-+and manipulate the various components that make up these strings."
-+
-+SECTION = "libs"
-+LICENSE = "Artistic"
-+PR = "r0"
-+
-+LIC_FILES_CHKSUM =
-"file://README;beginline=26;endline=30;md5=6c33ae5c87fd1c4897714e122dd9c23d"
-+
-+DEPENDS += "perl"
-+
-+SRC_URI = "http://www.cpan.org/authors/id/G/GA/GAAS/URI-${PV}.tar.gz"
-+
-+S = "${WORKDIR}/URI-${PV}"
-+
-+EXTRA_CPANFLAGS = "EXPATLIBPATH=${STAGING_LIBDIR} EXPATINCPATH=
-${STAGING_INCDIR}"
-+
-+inherit cpan
-+
-+do_compile() {
-+       export LIBC="$(find ${STAGING_DIR_TARGET}/${base_libdir}/ -name
-'libc-*.so')"
-+       cpan_do_compile
-+}
-+
+diff --git a/meta/conf/local.conf.sample b/meta/conf/local.conf.sample
+index fae949c..9bff292 100644
+--- a/meta/conf/local.conf.sample
++++ b/meta/conf/local.conf.sample
+@@ -158,8 +158,13 @@ ENABLE_BINARY_LOCALE_GENERATION = "1"
+ 
+ # Set GLIBC_GENERATE_LOCALES to the locales you wish to generate should
+you not
+ # wish to perform the time-consuming step of generating all LIBC
+locales.
++# NOTE: If removing en_US.UTF-8 you will also need to uncomment, and
+set
++# appropriate values for IMAGE_LINGUAS and LIMIT_BUILT_LOCALES
+ # WARNING: this may break localisation!
+ #GLIBC_GENERATE_LOCALES = "en_GB.UTF-8 en_US.UTF-8"
++# See message above as to whether setting these is required
++#IMAGE_LINGUAS ?= "en-gb"
++#LIMIT_BUILT_LOCALES ?= "POSIX en_GB"
+ 
+ # Default to not build 32 bit libs on 64 bit systems, comment this
+ # out if that is desired
 -- 
-1.7.0.4
+1.7.3.2
 
--- 
-Lu Jingdong
-jingdong.lu@windriver.com
-China, Wind River
 
 
