@@ -1,19 +1,21 @@
 Return-Path: <dongxiao.xu@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id BA2774C80039
-	for <poky@yoctoproject.org>; Fri,  3 Dec 2010 02:43:21 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 03 Dec 2010 00:43:21 -0800
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4F5484C80039
+	for <poky@yoctoproject.org>; Fri,  3 Dec 2010 02:43:23 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 03 Dec 2010 00:43:22 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,292,1288594800"; d="scan'208";a="632708314"
+X-IronPort-AV: E=Sophos;i="4.59,292,1288594800"; d="scan'208";a="356532680"
 Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.9])
-	by fmsmga002.fm.intel.com with ESMTP; 03 Dec 2010 00:43:20 -0800
-Message-Id: <cover.1291366245.git.dongxiao.xu@intel.com>
+	by azsmga001.ch.intel.com with ESMTP; 03 Dec 2010 00:43:22 -0800
+Message-Id: <f5469c542db8771d1f0ef3db4c5fa21d9bab9652.1291366245.git.dongxiao.xu@intel.com>
+In-Reply-To: <cover.1291366245.git.dongxiao.xu@intel.com>
+References: <cover.1291366245.git.dongxiao.xu@intel.com>
 From: Dongxiao Xu <dongxiao.xu@intel.com>
-Date: Fri, 3 Dec 2010 16:50:45 +0800
+Date: Fri, 3 Dec 2010 14:18:02 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 00/19][PULL] Update LIC_FILES_CHKSUM info for local file recipes
+Subject: [PATCH 01/19] run-postinsts: update LIC_FILES_CHKSUM info
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -25,62 +27,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 03 Dec 2010 08:43:22 -0000
+X-List-Received-Date: Fri, 03 Dec 2010 08:43:23 -0000
 
-Hi Saul,
-
-This pull request update LIC_FILES_CHKSUM info for local file recipes,
-please help to review and pull.
-
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: dxu4/distro
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dxu4/distro
-
-Thanks,
-    Dongxiao Xu <dongxiao.xu@intel.com>
+Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
 ---
+ meta/recipes-devtools/dpkg/run-postinsts_1.0.bb |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
 
-
-Dongxiao Xu (19):
-  run-postinsts: update LIC_FILES_CHKSUM info
-  task-poky: update LIC_FILES_CHKSUM info
-  task-poky-lsb: update LIC_FILES_CHKSUM info
-  task-poky-sdk: update LIC_FILES_CHKSUM info
-  formfactor: update LIC_FILES_CHKSUM info
-  task-poky-x11-sato: update LIC_FILES_CHKSUM info
-  task-base: update LIC_FILES_CHKSUM info
-  task-poky-tools: update LIC_FILES_CHKSUM info
-  task-poky-standalone-gmae-sdk-target: update LIC_FILES_CHKSUM info
-  task-poky-sdk-gmae: update LIC_FILES_CHKSUM info
-  task-poky-basic: update LIC_FILES_CHKSUM info
-  telepathy-glib: update LIC_FILES_CHKSUM info
-  task-poky-apps-x11-pimlico: update LIC_FILES_CHKSUM info
-  task-poky-standalone-sdk-target: update LIC_FILES_CHKSUM info
-  task-poky-qt: update LIC_FILES_CHKSUM info
-  ppp-dialin: update LIC_FILES_CHKSUM info
-  task-poky-nfs: update LIC_FILES_CHKSUM info
-  task-poky-boot: update LIC_FILES_CHKSUM info
-  bluez-hcidump: update LICENSE and LIC_FILES_CHKSUM info
-
- meta/recipes-bsp/formfactor/formfactor_0.0.bb      |    2 ++
- .../bluez/bluez-hcidump_1.42.bb                    |    4 +++-
- .../ppp-dialin/ppp-dialin_0.1.bb                   |    2 ++
- .../telepathy/telepathy-glib_0.13.5.bb             |    2 +-
- meta/recipes-core/tasks/task-base.bb               |    2 ++
- meta/recipes-core/tasks/task-poky-boot.bb          |    2 ++
- meta/recipes-core/tasks/task-poky-nfs.bb           |    4 +++-
- meta/recipes-core/tasks/task-poky-sdk.bb           |    2 ++
- .../tasks/task-poky-standalone-sdk-target.bb       |    2 ++
- meta/recipes-core/tasks/task-poky-tools.bb         |    2 ++
- meta/recipes-devtools/dpkg/run-postinsts_1.0.bb    |    2 ++
- meta/recipes-extended/tasks/task-poky-basic.bb     |    2 ++
- meta/recipes-extended/tasks/task-poky-lsb.bb       |    2 ++
- meta/recipes-gnome/tasks/task-poky-sdk-gmae.bb     |    2 ++
- .../tasks/task-poky-standalone-gmae-sdk-target.bb  |    2 ++
- meta/recipes-qt/tasks/task-poky-qt.bb              |    2 ++
- .../tasks/task-poky-apps-x11-pimlico.bb            |    2 ++
- meta/recipes-sato/tasks/task-poky-x11-sato.bb      |    2 ++
- meta/recipes-sato/tasks/task-poky.bb               |    2 ++
- 19 files changed, 39 insertions(+), 3 deletions(-)
+diff --git a/meta/recipes-devtools/dpkg/run-postinsts_1.0.bb b/meta/recipes-devtools/dpkg/run-postinsts_1.0.bb
+index 44e840e..72cb65f 100644
+--- a/meta/recipes-devtools/dpkg/run-postinsts_1.0.bb
++++ b/meta/recipes-devtools/dpkg/run-postinsts_1.0.bb
+@@ -2,6 +2,8 @@ DESCRIPTION = "Run postinstall scripts on device using awk"
+ SECTION = "devel"
+ PR = "r6"
+ LICENSE = "MIT"
++LIC_FILES_CHKSUM = "file://${POKYBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58 \
++                    file://${POKYBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
+ 
+ SRC_URI = "file://run-postinsts file://run-postinsts.awk"
+ 
+-- 
+1.6.3.3
 
 
