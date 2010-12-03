@@ -1,19 +1,37 @@
-Return-Path: <scott.m.rifenbark@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id BB1324C80FAC
-	for <poky@yoctoproject.org>; Thu,  2 Dec 2010 18:44:30 -0600 (CST)
+Return-Path: <dongxiao.xu@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 393E24C80FAC
+	for <poky@yoctoproject.org>; Thu,  2 Dec 2010 18:50:39 -0600 (CST)
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 02 Dec 2010 16:44:30 -0800
+	by orsmga101.jf.intel.com with ESMTP; 02 Dec 2010 16:50:38 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,290,1288594800"; d="scan'208";a="580071524"
-Received: from scottrif-desktop.jf.intel.com (HELO localhost) ([10.7.201.157])
-	by orsmga002.jf.intel.com with ESMTP; 02 Dec 2010 16:44:28 -0800
-Message-Id: <cover.1291334813.git.scott.m.rifenbark@intel.com>
-From: Scott Rifenbark <scott.m.rifenbark@intel.com>
-Date: Thu, 2 Dec 2010 16:06:53 -0800
-To: poky@yoctoproject.org
-CC: 
-Subject: [PULL] Documentation updates
+X-IronPort-AV: E=Sophos;i="4.59,290,1288594800"; d="scan'208";a="580072948"
+Received: from pgsmsx603.gar.corp.intel.com ([10.221.43.87])
+	by orsmga002.jf.intel.com with ESMTP; 02 Dec 2010 16:50:37 -0800
+Received: from pgsmsx509.gar.corp.intel.com (172.30.13.17) by
+	pgsmsx603.gar.corp.intel.com (10.221.43.87) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Fri, 3 Dec 2010 08:50:11 +0800
+Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
+	PGSMSX509.gar.corp.intel.com (172.30.13.17) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Fri, 3 Dec 2010 08:50:11 +0800
+Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
+	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi; Fri, 3 Dec 2010
+	08:50:06 +0800
+From: "Xu, Dongxiao" <dongxiao.xu@intel.com>
+To: Gary Thomas <gary@mlbassoc.com>, Darren Hart <dvhart@linux.intel.com>
+Date: Fri, 3 Dec 2010 08:50:05 +0800
+Thread-Topic: [poky] gst-ffmpeg linker failure
+Thread-Index: AcuSeJofAlpoGLHMSS+t0D7s9kyCEwACz2yg
+Message-ID: <D5AB6E638E5A3E4B8F4406B113A5A19A30410F2D@shsmsx501.ccr.corp.intel.com>
+References: <4CF7F092.9020703@linux.intel.com> <4CF82B7C.5000305@mlbassoc.com>
+In-Reply-To: <4CF82B7C.5000305@mlbassoc.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
+MIME-Version: 1.0
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: gst-ffmpeg linker failure
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -25,124 +43,99 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 03 Dec 2010 00:44:31 -0000
+X-List-Received-Date: Fri, 03 Dec 2010 00:50:39 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Please pull all these.  They involve the Poky Reference Manual, the Quick Start, 
-a new Kernel manual, and application of some mis-spellings noted from a contributor
-Cyril (the last one in this list).
+Hi Darren,
 
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: srifenbark/docs
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=srifenbark/docs
+Gst-ffmpeg is to be upgrade in this round. I will do it and check the issue=
+.=20
 
 Thanks,
-    Scott Rifenbark <scott.m.rifenbark@intel.com>
----
+Dongxiao
 
-
-Scott Rifenbark (70):
-  Added a new PNG file into the tar command.
-  Added a new PNG file (bsp-title.png) as the imagedata tag.
-  Added a new PNG file into the tar command.
-  BSP Developers Guide:  Edits to text
-  BSP Guide Makefile:  HTML generation debugging edits.
-  BSP guide:  Updated the book id.
-  BSP Guide:  Created new file for XSL customization expansion.
-  BSP Guide:  I created a new figure for the title page.
-  BSP Guide:  Updated xsltproc command to pass the
-    bsp-guide-customization.xsl style sheet.
-  Poky Reference Manual:  Clean up of the XML tags
-  Poky Reference Manual:  A couple more minor fixes.
-  Poky Reference Manual: XML tag clean up and command example text
-    indentation.
-  Poky Reference Manual:  Cleaned up and checked all XML tags.
-  Poky Reference Manual:  Added consistency to literallayout text.
-  Poky Reference Manual:  Spell check performed.
-  Poky Reference Manual:  Added BBLAYERS to glossary.
-  Poky Reference Manual:  Added BBFILE_COLLECTIONS glossary term.
-  Poky Reference Manual:  Added BBFILE_PRIORITY glossary term.
-  Poky Reference Manual:  Fixed broken link in Ref Images appendix.
-  Poky Reference Manual:  Clean up Makefile
-  Poky Reference Manual:  Added XSL Customization layer use
-  Poky Reference Manual:  Added XSL Customization layer file
-  BSP Guide and BSP Chapter:  Sync'ed these two files
-  BSP Guide:  Fixed tag mis-match.
-  Poky Reference Manual:  Fixed list tag.
-  Poky Reference Manual:  Changed source location of the bsp.xml file
-  BSP Guide and BSP Chapter in Poky Reference Manual:  Changed wording
-  Poky Reference Manual:  Removed the bsp.xml file.
-  Poky Reference Manual:  General edits for English.
-  Poky Reference Manual:  Task wording made consistent
-  Poky Reference Manual:  Added a glossary definition for BBPATH.
-  Poky Reference Manual:  General edits up to the "Debugging with GDB
-    Remotely" section.
-  Poky Reference Manual: Added INC_PR documentation.
-  Poky Reference Manual:  General edits to the developing chapter.
-  documentation/poky-ref-manual/development.xml:  Fixed orderedlist and
-    itemizedlist spacing.
-  documentation/yocto-project-qs/yocto-project-qs.xml:  Corrected
-    poky-qemu command example in the 'Using Pre-Build Binaries and
-    QEMU' section.
-  documentation/kerenl-manual:  New directory and files for kernel
-    manual.
-  documentation/kernel-manual/Makefile:  fixed mis-spelling of kernel
-    for files
-  documentation/kernel-manual/yocto-project-kernal-manual.xml: and
-    yocto-project-kernal-manual-customization.xsl removed from tree.
-  documentation/kernel-manual/yocto-project-kernel-manual.xml and
-    yocto-project-kernel-manual-customization.xsl:  Renamed files with
-    correct spelling for kernel.
-  .git/.gitignore:  Added files for the new kernel document.
-  documentation/kernel-manual/yocto-project-kernel-manual.xml:  Removed
-    sections not fit for 0.9 release.
-  documentation/kernel-manual/style.css:  Changed h2 through h6 styles.
-  documentation/kernel-manual/yocto-project-kernel-manual.xml: Added a
-    new section called "BSP: Creating:
-  documentation/kernel-manual/figures/kernel-title.png:  Added a PNG
-    file to display in the PDF version on the title page.
-  documentation/kernel-manual/Makefile: Added code to create a PDF
-    version.
-  documentation/kernel-manual/yocto-project-kernel-manual.xml:  removed
-    the code that inserts the image.
-  poky/.git/.gitignore:  added the yocto-project-kernel-manual.pdf file
-  documentation/kernel-manual/kernel-manual.xml: added this file so
-    that PDF could be built.
-  documentation/kernel-manual/Makefile:  changed the name of the PDF
-    output file to "kernel-manual.pdf"
-  poky/.gitignore:  updated the lines for the kernel manual
-  documentation/kernel-manual/Makefile:  changed the pdf, tgz, and html
-    output files to be named "kernel-manual"
-  documentation/poky-ref-manual/poky-ref-manual.xml:  Changed the
-    revision date to 24 November 2010
-  documentation/kernel-manual/yocto-project-kernel-manual.xml:  Removed
-    this file so manual could be structured into a book with chapters.
-  documentation/kernel-manual: Added these files so the book could have
-    chapters.
-  documentation/kernel-manual:  Modified to call new chapter structure.
-  documentation/kernel-manual/kernel-concepts.xml:  Updated the text so
-    that the conceptual figure showing the kernel is out.
-  documentation/kernel-manual/kernel-manual.xml:  Changed the copyright
-    statement to conform to sharing.
-  documentation/kernel-manual/kerenel-how-to.xml:  Edits to clean up
-    text.
-  documentation/kernel-manual/kernel-how-to.xml:  Completed scrub to
-    the text.
-  documentation/kernel-manual:  Added an image to the authorgroup so a
-    title would display in the HTML version of the manual.
-  documentation/poky-ref-manual:  Updated the list of links to include
-    a link to the Yocto Project site.
-  documentation/poky-ref-manual:  Fixed to mis-spellings
-  documentation/poky-ref-manual:  Fixed two typo's
-  documentation/yocto-project-qs:  Added the gnome-doc-utils package to
-    the Fedora required pacakge list.
-  documentation/poky-ref-manual:  Updated Mailing Lists and IRC
-    sections in Appendix I
-  documentation/poky-ref-manual:  English scrub performed for
-    consistency.
-  documentation/poky-ref-manual: Changed spelling of bitbake to
-    "BitBake" when used in text.
-  documentation/poky-ref-manual:  General edits up the Parsing section.
-  documentation/poky-ref-manual:  changes applied from a patch
-    submitted by Cyril Humbert.
+Gary Thomas wrote:
+> On 12/02/2010 12:16 PM, Darren Hart wrote:
+>> I see the following failure trying to build gst-ffmpeg for
+>> qemux86-64 on both Ubuntu 10.10 and Fedora 13. It seems to be
+>> complaining that things aren't being built with -fPIC. =20
+>>=20
+>>> From log.do_compile:
+>>=20
+>> x86_64-poky-linux-libtool: link:  ccache  x86_64-poky-linux-gcc
+>> -L/vol/1/dvhart/poky.git/build/tmp/sysroots/x86_64-poky-linux/usr/lib
+>> -shared  -fPIC -DPIC  .libs/libgstffmpeg_la-gstffmpeg.o
+>> .libs/libgstffmpeg_la-gstffmpegprotocol.o
+>> .libs/libgstffmpeg_la-gstffmpegcodecmap.o
+>> .libs/libgstffmpeg_la-gstffmpegenc.o
+>> .libs/libgstffmpeg_la-gstffmpegdec.o
+>> .libs/libgstffmpeg_la-gstffmpegdemux.o
+>> .libs/libgstffmpeg_la-gstffmpegdeinterlace.o
+>> .libs/libgstffmpeg_la-gstffmpegscale.o  -Wl,--whole-archive
+>> ../../gst-libs/ext/ffmpeg/libavformat/.libs/libavformat.a
+>> -Wl,--no-whole-archive  -Wl,-rpath
+>> -Wl,/vol/1/dvhart/poky.git/build/tmp/sysroots/x86_64-poky-linux/usr/li
+>> b
+>> -L/vol/1/dvhart/poky.git/build/tmp/sysroots/x86_64-poky-linux/usr/lib/
+>> .libs=20
+>> -L/vol/1/dvhart/poky.git/build/tmp/sysroots/x86_64-poky-linux/usr/lib
+>> /vol/1/dvhart/poky.git/build/tmp/sysroots/x86_64-poky-linux/usr/lib/li
+>> bvorbisenc.so
+>> /vol/1/dvhart/poky.git/build/tmp/sysroots/x86_64-poky-linux/usr/lib/li
+>> bvorbis.so /vol/1/dvhart/poky.g
+> it
+>> /build/tmp/sysroots/x86_64-poky-linux/usr/lib/libogg.so
+>> /vol/1/dvhart/poky.git/build/tmp/sysroots/x86_64-poky-linux/usr/lib/libg=
+stbase-0.10.so
+>> /vol/1/dvhart/poky.git/build/tmp/sysroots/x86_64-poky-linux/usr/lib/libg=
+streamer-0.10.so
+>> /vol/1/dvhart/poky.git/build/tmp/sysroots/x86_64-poky-linux/usr/lib/libg=
+object-2.0.so
+>> /vol/1/dvhart/poky.git/build/tmp/sysroots/x86_64-poky-linux/usr/lib/libg=
+module-2.0.so
+>> /vol/1/dvhart/poky.git/build/tmp/sysroots/x86_64-poky-linux/usr/lib/libx=
+ml2.so
+>> -ldl
+>> /vol/1/dvhart/poky.git/build/tmp/sysroots/x86_64-poky-linux/usr/lib/libz=
+.so
+>> -lm
+>> /vol/1/dvhart/poky.git/build/tmp/sysroots/x86_64-poky-linux/usr/lib/libg=
+thread-2.0.so
+>> -lpthread
+>> /vol/1/dvhart/poky.git/build/tmp/sysroots/x86_64-poky-linux/usr/lib/libg=
+lib-2.0.so
+>> -lrt  -pthread -pthread -O2 -Wl,-O1 -Wl,--as-needed -pthread =20
+>> -pthread -Wl,-soname -Wl,libgstffmpeg.so -Wl,-version-script
+>> -Wl,.libs/libgstffmpeg.ver -o .libs/libgstffmpeg.so
+>> /vol/1/dvhart/poky.git/build/tmp/sysroots/x86_64-linux/usr/libexec/x86
+>> _64-poky-linux/gcc/x86_64-poky-linux/4.5.1/ld:
+>> .libs/libgstffmpeg_la-gstffmpeg.o: relocation R_X86_64_32 against
+>> `.text' can not be used when making a shared object; recompile with
+>> -fPIC .libs/libgstffmpeg_la-gstffmpeg.o: could not read symbols: Bad
+>> value              =20
+>> collect2: ld returned 1 exit status
+>> make[3]: *** [libgstffmpeg.la] Error 1
+>> make[3]: Leaving directory
+>> `/vol/1/dvhart/poky.git/build/tmp/work/x86_64-poky-linux/gst-ffmpeg-0.10=
+.1-r5/gst-ffmpeg-0.10.1/ext/ffmpeg'
+>> make[2]: *** [all-recursive] Error 1
+>> make[2]: Leaving directory
+>> `/vol/1/dvhart/poky.git/build/tmp/work/x86_64-poky-linux/gst-ffmpeg-0.10=
+.1-r5/gst-ffmpeg-0.10.1/ext'
+>> make[1]: *** [all-recursive] Error 1
+>> make[1]: Leaving directory
+>> `/vol/1/dvhart/poky.git/build/tmp/work/x86_64-poky-linux/gst-ffmpeg-0.10=
+.1-r5/gst-ffmpeg-0.10.1'
+>> make: *** [all] Error 2
+>> FATAL: oe_runmake failed
+>> ERROR: Task failed: ('function do_compile failed',
+>> '/vol/1/dvhart/poky.git/build/tmp/work/x86_64-poky-linux/gst-ffmpeg-0.
+>> 10.1-r5/temp/log.do_compile.22338')
+>>=20
+>=20
+> Maybe you should try a newer version?  gst-ffmpeg_0.10.8 builds for
+> me in Poky (my layer of course)=20
 
 
