@@ -1,21 +1,21 @@
 Return-Path: <dongxiao.xu@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 4F5484C80039
-	for <poky@yoctoproject.org>; Fri,  3 Dec 2010 02:43:23 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 03 Dec 2010 00:43:22 -0800
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id A2F8C4C80039
+	for <poky@yoctoproject.org>; Fri,  3 Dec 2010 02:43:24 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 03 Dec 2010 00:43:24 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,292,1288594800"; d="scan'208";a="356532680"
+X-IronPort-AV: E=Sophos;i="4.59,292,1288594800"; d="scan'208";a="683520694"
 Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.9])
-	by azsmga001.ch.intel.com with ESMTP; 03 Dec 2010 00:43:22 -0800
-Message-Id: <f5469c542db8771d1f0ef3db4c5fa21d9bab9652.1291366245.git.dongxiao.xu@intel.com>
+	by orsmga001.jf.intel.com with ESMTP; 03 Dec 2010 00:43:23 -0800
+Message-Id: <a0e80843b509cfd84d4153972392126ad9b9c0a6.1291366245.git.dongxiao.xu@intel.com>
 In-Reply-To: <cover.1291366245.git.dongxiao.xu@intel.com>
 References: <cover.1291366245.git.dongxiao.xu@intel.com>
 From: Dongxiao Xu <dongxiao.xu@intel.com>
-Date: Fri, 3 Dec 2010 14:18:02 +0800
+Date: Fri, 3 Dec 2010 14:19:22 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 01/19] run-postinsts: update LIC_FILES_CHKSUM info
+Subject: [PATCH 02/19] task-poky: update LIC_FILES_CHKSUM info
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,26 +27,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 03 Dec 2010 08:43:23 -0000
+X-List-Received-Date: Fri, 03 Dec 2010 08:43:24 -0000
 
 Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
 ---
- meta/recipes-devtools/dpkg/run-postinsts_1.0.bb |    2 ++
+ meta/recipes-sato/tasks/task-poky.bb |    2 ++
  1 files changed, 2 insertions(+), 0 deletions(-)
 
-diff --git a/meta/recipes-devtools/dpkg/run-postinsts_1.0.bb b/meta/recipes-devtools/dpkg/run-postinsts_1.0.bb
-index 44e840e..72cb65f 100644
---- a/meta/recipes-devtools/dpkg/run-postinsts_1.0.bb
-+++ b/meta/recipes-devtools/dpkg/run-postinsts_1.0.bb
-@@ -2,6 +2,8 @@ DESCRIPTION = "Run postinstall scripts on device using awk"
- SECTION = "devel"
- PR = "r6"
+diff --git a/meta/recipes-sato/tasks/task-poky.bb b/meta/recipes-sato/tasks/task-poky.bb
+index 1f97195..cfcbacb 100644
+--- a/meta/recipes-sato/tasks/task-poky.bb
++++ b/meta/recipes-sato/tasks/task-poky.bb
+@@ -4,6 +4,8 @@
+ 
+ DESCRIPTION = "Tasks for OpenedHand Poky"
  LICENSE = "MIT"
 +LIC_FILES_CHKSUM = "file://${POKYBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58 \
 +                    file://${POKYBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
+ PR = "r33"
  
- SRC_URI = "file://run-postinsts file://run-postinsts.awk"
- 
+ PACKAGES = "\
 -- 
 1.6.3.3
 
