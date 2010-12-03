@@ -1,25 +1,21 @@
-Return-Path: <paul.eggleton@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 20FB64C80039
-	for <poky@yoctoproject.org>; Fri,  3 Dec 2010 10:09:07 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 03 Dec 2010 08:09:05 -0800
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E9A264C80A74
+	for <poky@yoctoproject.org>; Fri,  3 Dec 2010 10:34:59 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 03 Dec 2010 08:34:59 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,293,1288594800"; d="scan'208";a="356686321"
+X-IronPort-AV: E=Sophos;i="4.59,294,1288594800"; d="scan'208";a="580284997"
 Received: from unknown (HELO helios.localnet) ([10.255.16.36])
-	by azsmga001.ch.intel.com with ESMTP; 03 Dec 2010 08:09:04 -0800
-From: Paul Eggleton <paul.eggleton@intel.com>
+	by orsmga002.jf.intel.com with ESMTP; 03 Dec 2010 08:34:57 -0800
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
 Organization: Intel Corporation (UK)
-To: "Wold, Saul" <saul.wold@intel.com>
-Date: Fri, 3 Dec 2010 16:09:03 +0000
+To: poky@yoctoproject.org
+Date: Fri, 3 Dec 2010 16:34:55 +0000
 User-Agent: KMail/1.13.5 (Linux/2.6.35-22-generic-pae; KDE/4.5.1; i686; ; )
-References: <201011191023.58154.paul.eggleton@intel.com>
-	<4CF7E972.6070308@intel.com>
-In-Reply-To: <4CF7E972.6070308@intel.com>
 MIME-Version: 1.0
-Message-Id: <201012031609.03784.paul.eggleton@intel.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: PATCH: openssl: disable execstack flag to prevent problems with SELinux
+Message-Id: <201012031634.56033.paul.eggleton@linux.intel.com>
+Subject: sstate status
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,42 +27,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 03 Dec 2010 16:09:07 -0000
-Content-Type: Text/Plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Fri, 03 Dec 2010 16:35:00 -0000
+Content-Type: Text/Plain;
+  charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-On Thursday 02 December 2010 18:46:10 you wrote:
-> On 11/19/2010 02:23 AM, Paul Eggleton wrote:
-> > openssl: disable execstack flag to prevent problems with SELinux
-> >
-> > The execstack flag gets set on libcrypto.so by default which causes SEL=
-inux
-> > to prevent it from being loaded on systems using SELinux, which includes
-> > Fedora. This patch disables the execstack flag. (Note: Red Hat do this =
-in
-> > their openssl packaging.)
-> >
-> Should this be a native only CFLAG change?
->=20
-> Since we are not SELinux on the target (that might be a layer someone=20
-> else might provide).
+Hi all,
 
-AFAICT there's no benefit to leaving the execstack flag enabled for this li=
-brary. However if we want to take the conservative approach and leave it as=
--is for the target that's fine. Let me know if that's the case and I will p=
-roduce a new patch.
+I've been doing some tests with sstate, and I've managed to get to a stage where I can share the SSTATE_DIR between my two machines (one running Fedora 14 and the other Kubuntu 10.10) and almost get a successful build from a clean TMPDIR. My last test got to poky-image-minimal.do_rootfs and then failed due to some kind of package dependency issue:
+
+--------- snip ---------
+| Processing rpm...
+| Processing zypper...
+| error: Failed dependencies:
+|       elfutils >= 0.148 is needed by rpm-5.1.10-r7.i586
+|       libaugeas0 >= 0.7.3 is needed by zypper-1.4.7+git0+9eb0e248e06c8d20ad054be2439149d9ede37531-r1.i586
+| ERROR: Task failed: ('function do_rootfs failed', '/home/pokystuff/tmp/work/qemux86-poky-linux/poky-image-minimal-1.0-r0/temp/log.do_rootfs.6874')
+--------- snip ---------
+
+A "bitbake -c clean augeas elfutils" and then "bitbake poky-image-minimal" again went through OK (and built the aforementioned recipes from sstate) , so I'm not sure what went wrong here.
+
+My current state of work is in the paule/sstate contrib branch, which is based on Kevin's tk/sstate branch. Kevin, I think the sooner we can move this towards master the better, then we can get some wider testing.
+
+FYI Joshua has made bug #507 into a tracking bug for current sstate issues:
+http://bugzilla.pokylinux.org/show_bug.cgi?id=507
 
 Cheers,
 Paul
----------------------------------------------------------------------
-Intel Corporation (UK) Limited
-Registered No. 1134945 (England)
-Registered Office: Pipers Way, Swindon SN3 1RJ
-VAT No: 860 2173 47
-
-This e-mail and any attachments may contain confidential material for
-the sole use of the intended recipient(s). Any review or distribution
-by others is strictly prohibited. If you are not the intended
-recipient, please contact the sender and delete all copies.
-
 
