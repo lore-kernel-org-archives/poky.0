@@ -1,21 +1,26 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E9A264C80A74
-	for <poky@yoctoproject.org>; Fri,  3 Dec 2010 10:34:59 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 03 Dec 2010 08:34:59 -0800
+Return-Path: <saul.wold@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4C30F4C80039
+	for <poky@yoctoproject.org>; Fri,  3 Dec 2010 13:22:06 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 03 Dec 2010 11:22:05 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,294,1288594800"; d="scan'208";a="580284997"
-Received: from unknown (HELO helios.localnet) ([10.255.16.36])
-	by orsmga002.jf.intel.com with ESMTP; 03 Dec 2010 08:34:57 -0800
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-Organization: Intel Corporation (UK)
-To: poky@yoctoproject.org
-Date: Fri, 3 Dec 2010 16:34:55 +0000
-User-Agent: KMail/1.13.5 (Linux/2.6.35-22-generic-pae; KDE/4.5.1; i686; ; )
+X-IronPort-AV: E=Sophos;i="4.59,294,1288594800"; d="scan'208";a="864191762"
+Received: from unknown (HELO [10.255.13.235]) ([10.255.13.235])
+	by fmsmga001.fm.intel.com with ESMTP; 03 Dec 2010 11:22:05 -0800
+Message-ID: <4CF9435C.9060405@intel.com>
+Date: Fri, 03 Dec 2010 11:22:04 -0800
+From: Saul Wold <saul.wold@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
 MIME-Version: 1.0
-Message-Id: <201012031634.56033.paul.eggleton@linux.intel.com>
-Subject: sstate status
+To: Zhai Edwin <edwin.zhai@intel.com>
+References: <cover.1291354552.git.edwin.zhai@intel.com>
+	<ad61b47ae60afc07308e0d2b007610335052fa35.1291354553.git.edwin.zhai@intel.com>
+In-Reply-To: <ad61b47ae60afc07308e0d2b007610335052fa35.1291354553.git.edwin.zhai@intel.com>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH 03/14] beecrypt: Update to 4.2.1
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,31 +32,200 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 03 Dec 2010 16:35:00 -0000
-Content-Type: Text/Plain;
-  charset="us-ascii"
+X-List-Received-Date: Fri, 03 Dec 2010 19:22:06 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi all,
+On 11/26/2010 12:57 AM, Zhai Edwin wrote:
+> Rebased disable-icu-check.patch&  fix-security.patch. Removed x64fix.patch as
+> it is already in upstream. Also some configure changes: removing "--with-arch"
+> as it can't cowork with expert mode, adding "--disable-openmp" to avoid
+> unnecessary dependency.
+>
 
-I've been doing some tests with sstate, and I've managed to get to a stage where I can share the SSTATE_DIR between my two machines (one running Fedora 14 and the other Kubuntu 10.10) and almost get a successful build from a clean TMPDIR. My last test got to poky-image-minimal.do_rootfs and then failed due to some kind of package dependency issue:
+Edwin:
 
---------- snip ---------
-| Processing rpm...
-| Processing zypper...
-| error: Failed dependencies:
-|       elfutils >= 0.148 is needed by rpm-5.1.10-r7.i586
-|       libaugeas0 >= 0.7.3 is needed by zypper-1.4.7+git0+9eb0e248e06c8d20ad054be2439149d9ede37531-r1.i586
-| ERROR: Task failed: ('function do_rootfs failed', '/home/pokystuff/tmp/work/qemux86-poky-linux/poky-image-minimal-1.0-r0/temp/log.do_rootfs.6874')
---------- snip ---------
+I am not taking this patch
 
-A "bitbake -c clean augeas elfutils" and then "bitbake poky-image-minimal" again went through OK (and built the aforementioned recipes from sstate) , so I'm not sure what went wrong here.
+The --with-arch is needed for correct cross-compilation, please review 
+this change and resubmit.  Did you test on cross-compiling?
 
-My current state of work is in the paule/sstate contrib branch, which is based on Kevin's tk/sstate branch. Kevin, I think the sooner we can move this towards master the better, then we can get some wider testing.
+Is openmp a newly supported option to beecrypt?  What are the dependencies?
 
-FYI Joshua has made bug #507 into a tracking bug for current sstate issues:
-http://bugzilla.pokylinux.org/show_bug.cgi?id=507
+Sau!
 
-Cheers,
-Paul
+
+> Signed-off-by: Zhai Edwin<edwin.zhai@intel.com>
+> ---
+>   .../beecrypt/beecrypt/disable-icu-check.patch      |   12 ++--
+>   .../beecrypt/beecrypt/fix-security.patch           |   51 ++++++++++----------
+>   .../recipes-support/beecrypt/beecrypt/x64fix.patch |   23 ---------
+>   .../{beecrypt_4.1.2.bb =>  beecrypt_4.2.1.bb}       |    9 ++--
+>   4 files changed, 37 insertions(+), 58 deletions(-)
+>   delete mode 100644 meta/recipes-support/beecrypt/beecrypt/x64fix.patch
+>   rename meta/recipes-support/beecrypt/{beecrypt_4.1.2.bb =>  beecrypt_4.2.1.bb} (65%)
+>
+> diff --git a/meta/recipes-support/beecrypt/beecrypt/disable-icu-check.patch b/meta/recipes-support/beecrypt/beecrypt/disable-icu-check.patch
+> index 3e18a87..4a2f414 100644
+> --- a/meta/recipes-support/beecrypt/beecrypt/disable-icu-check.patch
+> +++ b/meta/recipes-support/beecrypt/beecrypt/disable-icu-check.patch
+> @@ -2,11 +2,11 @@ We are unable to run code at configure time in a cross environemnt, but as we
+>   control the build we can be fairly certain this dependency is met.
+>
+>   JL 05/07/10
+> -Index: beecrypt-4.1.2/configure.ac
+> +Index: beecrypt-4.2.1/configure.ac
+>   ===================================================================
+> ---- beecrypt-4.1.2.orig/configure.ac	2004-12-21 11:37:56.000000000 +0000
+> -+++ beecrypt-4.1.2/configure.ac	2010-07-05 16:09:50.390083494 +0100
+> -@@ -243,32 +243,6 @@
+> +--- beecrypt-4.2.1.orig/configure.ac	2010-11-26 17:12:25.000000000 +0800
+> ++++ beecrypt-4.2.1/configure.ac	2010-11-26 17:12:30.000000000 +0800
+> +@@ -292,32 +292,6 @@
+>    # Predefines and checks for C++ API support
+>    AH_TEMPLATE([CPPGLUE],[Define to 1 if you want to include the C++ code])
+>
+> @@ -36,6 +36,6 @@ Index: beecrypt-4.1.2/configure.ac
+>   -  AC_LANG_POP(C)
+>   -fi
+>   -
+> + AM_CONDITIONAL([WITH_CPLUSPLUS],[test "$ac_with_cplusplus" = yes])
+> +
+>    if test "$ac_with_cplusplus" = yes ; then
+> -   AC_DEFINE([CPPGLUE],1)
+> - fi
+> diff --git a/meta/recipes-support/beecrypt/beecrypt/fix-security.patch b/meta/recipes-support/beecrypt/beecrypt/fix-security.patch
+> index 6103562..f28e393 100644
+> --- a/meta/recipes-support/beecrypt/beecrypt/fix-security.patch
+> +++ b/meta/recipes-support/beecrypt/beecrypt/fix-security.patch
+> @@ -3,20 +3,38 @@ project:
+>   http://www.mail-archive.com/fink-commits@lists.sourceforge.net/msg75742.html
+>
+>   JL 05/07/10
+> -Index: beecrypt-4.1.2/c++/security/Security.h
+> +Index: beecrypt-4.2.1/include/beecrypt/c++/beeyond/BeeCertificate.h
+>   ===================================================================
+> ---- beecrypt-4.1.2.orig/c++/security/Security.h	2010-07-05 17:15:34.811273306 +0100
+> -+++ beecrypt-4.1.2/c++/security/Security.h	2010-07-05 17:15:38.696388531 +0100
+> -@@ -75,8 +75,6 @@
+> +--- beecrypt-4.2.1.orig/include/beecrypt/c++/beeyond/BeeCertificate.h	2010-11-26 17:22:57.000000000 +0800
+> ++++ beecrypt-4.2.1/include/beecrypt/c++/beeyond/BeeCertificate.h	2010-11-26 17:23:01.000000000 +0800
+> +@@ -147,13 +147,13 @@
+> + 			mutable bytearray* enc;
+> +
+> + 			BeeCertificate();
+> +-			BeeCertificate(InputStream&  in) throw (IOException);
+> +
+> + 			void encodeTBS(DataOutputStream&  out) const throw (IOException);
+> +
+> + 			bytearray* encodeTBS() const throw (CertificateEncodingException);
+> +
+>    		public:
+> - 			typedef vector<const Provider*>  provider_vector;
+> - 			typedef provider_vector::iterator provider_vector_iterator;
+> --
+> ++			BeeCertificate(InputStream&  in) throw (IOException);
+> + 			BeeCertificate(const BeeCertificate&) throw (CloneNotSupportedException);
+> + 			virtual ~BeeCertificate();
+> +
+> +Index: beecrypt-4.2.1/include/beecrypt/c++/security/Security.h
+> +===================================================================
+> +--- beecrypt-4.2.1.orig/include/beecrypt/c++/security/Security.h	2010-11-26 17:20:55.000000000 +0800
+> ++++ beecrypt-4.2.1/include/beecrypt/c++/security/Security.h	2010-11-26 17:21:36.000000000 +0800
+> +@@ -61,7 +61,6 @@
+> + 			friend class SecureRandom;
+> + 			friend class Signature;
+> +
+>   -		private:
+>    			struct spi
+>    			{
+>    				Object* cspi;
+> -@@ -91,6 +89,7 @@
+> +@@ -76,6 +75,7 @@
+>    			static spi* getSpi(const String&  algo, const String&  type, const Provider&) throw (NoSuchAlgorithmException);
+>    			static spi* getFirstSpi(const String&  type);
+>
+> @@ -24,20 +42,3 @@ Index: beecrypt-4.1.2/c++/security/Security.h
+>    			static const String&  getKeyStoreDefault();
+>
+>    			static bool _init;
+> -Index: beecrypt-4.1.2/c++/beeyond/BeeCertificate.h
+> -===================================================================
+> ---- beecrypt-4.1.2.orig/c++/beeyond/BeeCertificate.h	2004-11-03 09:37:27.000000000 +0000
+> -+++ beecrypt-4.1.2/c++/beeyond/BeeCertificate.h	2010-07-05 17:16:25.216332324 +0100
+> -@@ -150,11 +150,11 @@
+> - 			mutable String* str;
+> -
+> - 			BeeCertificate();
+> --			BeeCertificate(InputStream&  in) throw (IOException);
+> -
+> - 			bytearray* encodeTBS() const;
+> -
+> - 		public:
+> -+			BeeCertificate(InputStream&  in) throw (IOException);
+> - 			BeeCertificate(const BeeCertificate&);
+> - 			virtual ~BeeCertificate();
+> -
+> diff --git a/meta/recipes-support/beecrypt/beecrypt/x64fix.patch b/meta/recipes-support/beecrypt/beecrypt/x64fix.patch
+> deleted file mode 100644
+> index ac02425..0000000
+> --- a/meta/recipes-support/beecrypt/beecrypt/x64fix.patch
+> +++ /dev/null
+> @@ -1,23 +0,0 @@
+> -Don't have 64 appended to the libdir for 64bit platforms.
+> -
+> -JL 05/07/10
+> -Index: beecrypt-4.1.2/configure.ac
+> -===================================================================
+> ---- beecrypt-4.1.2.orig/configure.ac	2010-07-05 16:39:43.000000000 +0100
+> -+++ beecrypt-4.1.2/configure.ac	2010-07-05 16:40:27.521082866 +0100
+> -@@ -585,15 +585,6 @@
+> -
+> - # Check where to install the libraries
+> - bc_libalt=
+> --case $target_os in
+> --linux*)
+> --  case $bc_target_arch in
+> --  powerpc64 | s390x | x86_64)
+> --    bc_libalt="64"
+> --    ;;
+> --  esac
+> --  ;;
+> --esac
+> - AC_SUBST(LIBALT,$bc_libalt)
+> -
+> - # Generate output files.
+> diff --git a/meta/recipes-support/beecrypt/beecrypt_4.1.2.bb b/meta/recipes-support/beecrypt/beecrypt_4.2.1.bb
+> similarity index 65%
+> rename from meta/recipes-support/beecrypt/beecrypt_4.1.2.bb
+> rename to meta/recipes-support/beecrypt/beecrypt_4.2.1.bb
+> index 0da36d9..8f2ffc6 100644
+> --- a/meta/recipes-support/beecrypt/beecrypt_4.1.2.bb
+> +++ b/meta/recipes-support/beecrypt/beecrypt_4.2.1.bb
+> @@ -5,12 +5,13 @@
+>   DESCRIPTION="Beecrypt is a general-purpose cryptography library."
+>   HOMEPAGE="http://sourceforge.net/projects/beecrypt"
+>   SRC_URI="${SOURCEFORGE_MIRROR}/beecrypt/beecrypt-${PV}.tar.gz \
+> -	 file://x64fix.patch \
+>   	 file://disable-icu-check.patch \
+>   	 file://fix-security.patch"
+> -LICENSE = "GPLv2&LGPLv2.1"
+> +LICENSE = "GPLv2&  LGPLv2.1"
+>   LIC_FILES_CHKSUM = "file://COPYING;md5=9894370afd5dfe7d02b8d14319e729a1 \
+> -	            file://COPYING.LIB;md5=dcf3c825659e82539645da41a7908589"
+> +                    file://COPYING.LIB;md5=dcf3c825659e82539645da41a7908589 \
+> +                    file://include/beecrypt/beecrypt.h;endline=20;md5=47a93eef539aac237eef86297a4d71c1"
+> +
+>   DEPENDS = "icu"
+>
+>   PR = "r0"
+> @@ -18,6 +19,6 @@ PR = "r0"
+>   inherit autotools
+>   acpaths=""
+>
+> -EXTRA_OECONF="--with-arch=${TARGET_ARCH} --without-python --enable-shared --enable-static"
+> +EXTRA_OECONF="--without-python --enable-shared --enable-static --disable-openmp"
+>
+>   BBCLASSEXTEND = "native"
+
 
