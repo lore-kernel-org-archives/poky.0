@@ -1,34 +1,25 @@
-Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 480564C80039
-	for <poky@yoctoproject.org>; Thu,  2 Dec 2010 21:01:03 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 02 Dec 2010 19:01:02 -0800
+Return-Path: <edwin.zhai@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id A375C4C80039
+	for <poky@yoctoproject.org>; Thu,  2 Dec 2010 21:18:33 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 02 Dec 2010 19:18:33 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,291,1288594800"; d="scan'208";a="683450073"
-Received: from orsmsx602.amr.corp.intel.com ([10.22.226.211])
-	by orsmga001.jf.intel.com with ESMTP; 02 Dec 2010 19:01:02 -0800
-Received: from orsmsx504.amr.corp.intel.com ([10.22.226.207]) by
-	orsmsx602.amr.corp.intel.com ([10.22.226.211]) with mapi;
-	Thu, 2 Dec 2010 19:01:02 -0800
-From: "Kamble, Nitin A" <nitin.a.kamble@intel.com>
-To: Darren Hart <dvhart@linux.intel.com>, Adrian Alonso <aalonso@secretlab.ca>
-Date: Thu, 2 Dec 2010 19:01:00 -0800
-Thread-Topic: [poky] [PATCH 1/2] librsvg: fix gdk-pixbuf-query-loaders not
-	found	in path
-Thread-Index: AcuSbg6Z9K+ixnolTE+flqACYS8QDQAKCKGg
-Message-ID: <9DA5872FEF993D41B7173F58FCF6BE94023DA393@orsmsx504.amr.corp.intel.com>
-References: <1291257381-21280-1-git-send-email-aalonso@secretlab.ca>
-	<4CF819D1.30108@linux.intel.com>
-In-Reply-To: <4CF819D1.30108@linux.intel.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
+X-IronPort-AV: E=Sophos;i="4.59,291,1288594800"; d="scan'208";a="632637113"
+Received: from shxpwgzhai1a.ccr.corp.intel.com (HELO [10.239.48.130])
+	([10.239.48.130])
+	by fmsmga002.fm.intel.com with ESMTP; 02 Dec 2010 19:18:32 -0800
+Message-ID: <4CF86186.6080706@intel.com>
+Date: Fri, 03 Dec 2010 11:18:30 +0800
+From: "Zhai, Edwin" <edwin.zhai@intel.com>
+User-Agent: Thunderbird 2.0.0.17 (Windows/20080914)
 MIME-Version: 1.0
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>,
-	Saul Wold <sgw@linux.intel.com>
-Subject: Re: [PATCH 1/2] librsvg: fix gdk-pixbuf-query-loaders not found	in path
+To: "Wold, Saul" <saul.wold@intel.com>
+References: <cover.1291269468.git.edwin.zhai@intel.com>
+	<4CF802C6.9020509@intel.com>
+In-Reply-To: <4CF802C6.9020509@intel.com>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH 00/14] X apps and base utils upgrade, Edwin, Dec2, 2010
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,78 +31,115 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 03 Dec 2010 03:01:03 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Fri, 03 Dec 2010 03:18:34 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
+
+Sorry, I'll send new one.
 
 
-
-> -----Original Message-----
-> From: poky-bounces@yoctoproject.org [mailto:poky-
-> bounces@yoctoproject.org] On Behalf Of Darren Hart
-> Sent: Thursday, December 02, 2010 2:13 PM
-> To: Adrian Alonso
-> Cc: poky@yoctoproject.org; Saul Wold
-> Subject: Re: [poky] [PATCH 1/2] librsvg: fix gdk-pixbuf-query-loaders
-> not found in path
->=20
-> On 12/01/2010 06:36 PM, Adrian Alonso wrote:
-> > * Fix configure: error: gdk-pixbuf-query-loaders not found in path
-> > * Bump PR
-> >
->  > Signed-off-by: Adrian Alonso<aalonso@secretlab.ca>
->=20
-> With the exception of the inconsistent whitespace in
-> do_configure_prepend, it looks good. At least it fixes the same error
-> for me.
->=20
-> Acked-by: Darren Hart <dvhart@linux.intel.com>
-
-
-Fixes same error for me too. I am running fedora 12 64bit host.
-Acked-by: Darren Hart <nitin.a.kamble@intel.com>
-
-Thanks,
-Nitin
-
->=20
-> > ---
-> >   meta/recipes-gnome/librsvg/librsvg_2.32.0.bb |    3 ++-
-> >   1 files changed, 2 insertions(+), 1 deletions(-)
-> >
-> > diff --git a/meta/recipes-gnome/librsvg/librsvg_2.32.0.bb
-> b/meta/recipes-gnome/librsvg/librsvg_2.32.0.bb
-> > index a421b68..2f257fc 100644
-> > --- a/meta/recipes-gnome/librsvg/librsvg_2.32.0.bb
-> > +++ b/meta/recipes-gnome/librsvg/librsvg_2.32.0.bb
-> > @@ -8,7 +8,7 @@ LIC_FILES_CHKSUM =3D
-> "file://COPYING;md5=3D94d55d512a9ba36caa9b7df079bae19f \
-> >
-> >   SECTION =3D "x11/utils"
-> >   DEPENDS =3D "gtk+ libcroco cairo libxml2 popt"
-> > -PR =3D "r1"
-> > +PR =3D "r2"
-> >
-> >   inherit autotools pkgconfig gnome
-> >
-> > @@ -17,6 +17,7 @@ EXTRA_OECONF =3D "--disable-mozilla-plugin --without-
-> svgz --without-croco --disabl
-> >   SRC_URI +=3D "file://doc_Makefile.patch"
-> >
-> >   do_configure_prepend () {
-> > +    export GDK_PIXBUF_QUERYLOADERS=3D"${libdir}/gtk-
-> 2.0/version/loaders"
-> >   	echo "CLEANFILES=3D">  gtk-doc.make
-> >   }
-> >
->=20
->=20
-> --
-> Darren Hart
-> Yocto Linux Kernel
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+Wold, Saul wrote:
+> On 12/01/2010 09:57 PM, Zhai Edwin wrote:
+>   
+>> Saul,
+>> Some upgrades for X apps and base utils.
+>> Thanks,
+>> edwin
+>>
+>>     
+> Edwin,
+>
+> Please review this request more3 carefully and update your commit 
+> messages with more details about the changes to patches and why you are 
+> deleting patches.
+>
+>
+> Thanks
+>      Sau!
+>
+>   
+>> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>>    Branch: gzhai/distro04
+>>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=gzhai/distro04
+>>
+>> Thanks,
+>>      Zhai Edwin<edwin.zhai@intel.com>
+>> ---
+>>
+>>
+>> Zhai Edwin (14):
+>>    pointercal: Add license checksum
+>>    tidy: Add license checksum
+>>    beecrypt: Update to 4.2.1
+>>    acpid: update to 1.0.10
+>>    consolekit: Update to 0.4.3
+>>    eee-acpi-scripts: Update to 1.1.11
+>>    ethtool: Update to 2.6.36
+>>    puzzles: Update to svn r9023
+>>    x11perf: Update to 1.5.2
+>>    x11vnc: Update to 0.9.12
+>>    web: Update to svn r129
+>>    gnome-desktop: Update to 2.32.1
+>>    gnome-icon-theme: Update to 2.31.0
+>>    gtk-engines: Update to 2.20.2
+>>
+>>   .../conf/distro/include/poky-default-revisions.inc |    4 +-
+>>   meta/recipes-bsp/acpid/acpid.inc                   |    7 +-
+>>   meta/recipes-bsp/acpid/acpid_1.0.10.bb             |    6 ++
+>>   meta/recipes-bsp/acpid/acpid_1.0.6.bb              |    3 -
+>>   .../eee-acpi-scripts/eee-acpi-scripts_git.bb       |   15 ++--
+>>   .../eee-acpi-scripts/files/remove-doc-check.patch  |   76 +++++++++----------
+>>   meta/recipes-bsp/pointercal/files/COPYING          |    2 +
+>>   meta/recipes-bsp/pointercal/pointercal_0.0.bb      |    5 +-
+>>   .../{ethtool_2.6.34.bb =>  ethtool_2.6.36.bb}       |    0
+>>   meta/recipes-gnome/gnome/gnome-desktop.inc         |    4 +-
+>>   .../gnome/gnome-desktop/no-desktop-docs.patch      |   10 ---
+>>   meta/recipes-gnome/gnome/gnome-desktop_2.26.2.bb   |    3 -
+>>   meta/recipes-gnome/gnome/gnome-desktop_2.32.1.bb   |    4 +
+>>   .../gnome/gnome-icon-theme/iconpath-option.patch   |   79 +++++++++----------
+>>   ...-theme_2.22.0.bb =>  gnome-icon-theme_2.31.0.bb} |   12 ++-
+>>   ...gtk-engines_2.14.0.bb =>  gtk-engines_2.20.2.bb} |   11 ++-
+>>   meta/recipes-graphics/clutter/tidy.inc             |    2 +-
+>>   meta/recipes-graphics/clutter/tidy_git.bb          |    3 +
+>>   meta/recipes-graphics/x11vnc/x11vnc_0.9.12.bb      |   15 ++++
+>>   meta/recipes-graphics/x11vnc/x11vnc_0.9.3.bb       |   11 ---
+>>   meta/recipes-graphics/xorg-app/x11perf_1.5.2.bb    |   10 +++
+>>   meta/recipes-graphics/xorg-app/x11perf_1.5.bb      |    6 --
+>>   .../recipes-sato/puzzles/files/makedist_hack.patch |   17 ----
+>>   .../puzzles/{puzzles_r7593.bb =>  puzzles_r9023.bb} |   14 ++--
+>>   meta/recipes-sato/web/web_svn.bb                   |    2 +-
+>>   .../beecrypt/beecrypt/disable-icu-check.patch      |   12 ++--
+>>   .../beecrypt/beecrypt/fix-security.patch           |   51 +++++++------
+>>   .../{beecrypt_4.1.2.bb =>  beecrypt_4.2.1.bb}       |   10 ++-
+>>   .../recipes-support/consolekit/consolekit_0.3.0.bb |   16 ----
+>>   .../consolekit/files/nopolkit.patch                |    8 +-
+>>   meta/recipes-tbd/consolekit/consolekit_0.4.3.bb    |   21 +++++
+>>   31 files changed, 226 insertions(+), 213 deletions(-)
+>>   create mode 100644 meta/recipes-bsp/acpid/acpid_1.0.10.bb
+>>   delete mode 100644 meta/recipes-bsp/acpid/acpid_1.0.6.bb
+>>   create mode 100644 meta/recipes-bsp/pointercal/files/COPYING
+>>   rename meta/recipes-extended/ethtool/{ethtool_2.6.34.bb =>  ethtool_2.6.36.bb} (100%)
+>>   delete mode 100644 meta/recipes-gnome/gnome/gnome-desktop/no-desktop-docs.patch
+>>   delete mode 100644 meta/recipes-gnome/gnome/gnome-desktop_2.26.2.bb
+>>   create mode 100644 meta/recipes-gnome/gnome/gnome-desktop_2.32.1.bb
+>>   rename meta/recipes-gnome/gnome/{gnome-icon-theme_2.22.0.bb =>  gnome-icon-theme_2.31.0.bb} (55%)
+>>   rename meta/recipes-gnome/gtk-engines/{gtk-engines_2.14.0.bb =>  gtk-engines_2.20.2.bb} (85%)
+>>   create mode 100644 meta/recipes-graphics/x11vnc/x11vnc_0.9.12.bb
+>>   delete mode 100644 meta/recipes-graphics/x11vnc/x11vnc_0.9.3.bb
+>>   create mode 100644 meta/recipes-graphics/xorg-app/x11perf_1.5.2.bb
+>>   delete mode 100644 meta/recipes-graphics/xorg-app/x11perf_1.5.bb
+>>   delete mode 100644 meta/recipes-sato/puzzles/files/makedist_hack.patch
+>>   rename meta/recipes-sato/puzzles/{puzzles_r7593.bb =>  puzzles_r9023.bb} (74%)
+>>   rename meta/recipes-support/beecrypt/{beecrypt_4.1.2.bb =>  beecrypt_4.2.1.bb} (63%)
+>>   delete mode 100644 meta/recipes-support/consolekit/consolekit_0.3.0.bb
+>>   create mode 100644 meta/recipes-tbd/consolekit/consolekit_0.4.3.bb
+>>
+>> _______________________________________________
+>> poky mailing list
+>> poky@yoctoproject.org
+>> https://lists.yoctoproject.org/listinfo/poky
+>>
+>>     
+>
+>   
 
