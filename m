@@ -1,21 +1,21 @@
 Return-Path: <dongxiao.xu@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 887654C81060
-	for <poky@yoctoproject.org>; Fri,  3 Dec 2010 02:43:53 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 03 Dec 2010 00:43:53 -0800
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 0C71C4C811FC
+	for <poky@yoctoproject.org>; Fri,  3 Dec 2010 02:43:54 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 03 Dec 2010 00:43:54 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,292,1288594800"; d="scan'208";a="356532805"
+X-IronPort-AV: E=Sophos;i="4.59,292,1288594800"; d="scan'208";a="632708433"
 Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.9])
-	by azsmga001.ch.intel.com with ESMTP; 03 Dec 2010 00:43:52 -0800
-Message-Id: <5fb46efbc3bcd30682112ddc2c85d7a437204812.1291366246.git.dongxiao.xu@intel.com>
+	by fmsmga002.fm.intel.com with ESMTP; 03 Dec 2010 00:43:50 -0800
+Message-Id: <fb77f275b921e6ea49d323f7d1850e1a5d4a07d4.1291366246.git.dongxiao.xu@intel.com>
 In-Reply-To: <cover.1291366245.git.dongxiao.xu@intel.com>
 References: <cover.1291366245.git.dongxiao.xu@intel.com>
 From: Dongxiao Xu <dongxiao.xu@intel.com>
-Date: Fri, 3 Dec 2010 14:46:08 +0800
+Date: Fri, 3 Dec 2010 14:39:24 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 19/19] bluez-hcidump: update LICENSE and LIC_FILES_CHKSUM info
+Subject: [PATCH 18/19] task-poky-boot: update LIC_FILES_CHKSUM info
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,28 +27,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 03 Dec 2010 08:43:53 -0000
+X-List-Received-Date: Fri, 03 Dec 2010 08:43:55 -0000
 
 Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
 ---
- .../bluez/bluez-hcidump_1.42.bb                    |    4 +++-
- 1 files changed, 3 insertions(+), 1 deletions(-)
+ meta/recipes-core/tasks/task-poky-boot.bb |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
 
-diff --git a/meta/recipes-connectivity/bluez/bluez-hcidump_1.42.bb b/meta/recipes-connectivity/bluez/bluez-hcidump_1.42.bb
-index 8d4e41b..d974dc5 100644
---- a/meta/recipes-connectivity/bluez/bluez-hcidump_1.42.bb
-+++ b/meta/recipes-connectivity/bluez/bluez-hcidump_1.42.bb
-@@ -5,7 +5,9 @@ and displays the commands, events and data in a human-readable form."
- SECTION = "console"
- PRIORITY = "optional"
- DEPENDS = "bluez4"
--LICENSE = "GPL"
-+LICENSE = "GPLv2+"
-+LIC_FILES_CHKSUM = "file://COPYING;md5=eb723b61539feef013de476e68b5c50a \
-+                    file://src/hcidump.c;beginline=1;endline=23;md5=22f51010959a0cd483c4d7f0bd77aaa3"
- PR = "r0"
+diff --git a/meta/recipes-core/tasks/task-poky-boot.bb b/meta/recipes-core/tasks/task-poky-boot.bb
+index 4143369..e9c8e8a 100644
+--- a/meta/recipes-core/tasks/task-poky-boot.bb
++++ b/meta/recipes-core/tasks/task-poky-boot.bb
+@@ -4,6 +4,8 @@
  
- SRC_URI = "http://bluez.sourceforge.net/download/bluez-hcidump-${PV}.tar.gz"
+ DESCRIPTION = "Task for OpenedHand Poky - minimal bootable image"
+ LICENSE = "MIT"
++LIC_FILES_CHKSUM = "file://${POKYBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58 \
++                    file://${POKYBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
+ PACKAGE_ARCH = "${MACHINE_ARCH}"
+ DEPENDS = "virtual/kernel"
+ ALLOW_EMPTY = "1"
 -- 
 1.6.3.3
 
