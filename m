@@ -1,27 +1,29 @@
-Return-Path: <scott.a.garman@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D0B194C80A74
-	for <poky@yoctoproject.org>; Fri,  3 Dec 2010 22:58:26 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 03 Dec 2010 20:58:26 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,297,1288594800"; d="scan'208";a="580459381"
-Received: from rrsmsx603.amr.corp.intel.com ([10.31.0.57])
-	by orsmga002.jf.intel.com with ESMTP; 03 Dec 2010 20:58:26 -0800
-Received: from [10.255.13.202] (10.255.13.202) by rrsmsx603.amr.corp.intel.com
-	(10.31.0.57) with Microsoft SMTP Server (TLS) id 8.2.254.0;
-	Fri, 3 Dec 2010 21:58:26 -0700
-Message-ID: <4CF9CA70.9060107@intel.com>
-Date: Fri, 3 Dec 2010 20:58:24 -0800
-From: Scott Garman <scott.a.garman@intel.com>
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 88C404C80039
+	for <poky@yoctoproject.org>; Sat,  4 Dec 2010 06:47:37 -0600 (CST)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 30A941660952; Sat,  4 Dec 2010 05:47:37 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=ham version=3.3.1
+Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 4B5BA166094E;
+	Sat,  4 Dec 2010 05:47:36 -0700 (MST)
+Message-ID: <4CFA3868.4020604@mlbassoc.com>
+Date: Sat, 04 Dec 2010 05:47:36 -0700
+From: Gary Thomas <gary@mlbassoc.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.1.15) Gecko/20101027 Thunderbird/3.0.10
+	rv:1.9.1.9) Gecko/20100430 Fedora/3.0.4-2.fc11 Thunderbird/3.0.4
 MIME-Version: 1.0
-To: <poky@yoctoproject.org>
-References: <cover.1291035335.git.rpurdie@linux.intel.com>
-	<a3ec07a2417519432c4dc9d64f6f1b0df1169fa4.1291035335.git.rpurdie@linux.intel.com>
-In-Reply-To: <a3ec07a2417519432c4dc9d64f6f1b0df1169fa4.1291035335.git.rpurdie@linux.intel.com>
-Subject: Re: [PATCH 1/3] imagetest-qemu: Allow the task to run after any	rootfs is created and also standalone
+To: Paul Eggleton <paul.eggleton@linux.intel.com>
+References: <201012031634.56033.paul.eggleton@linux.intel.com>
+	<4CF97DC2.8040209@mlbassoc.com>
+In-Reply-To: <4CF97DC2.8040209@mlbassoc.com>
+Cc: poky@yoctoproject.org
+Subject: Re: sstate status
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,62 +35,84 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 04 Dec 2010 04:58:27 -0000
-Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
+X-List-Received-Date: Sat, 04 Dec 2010 12:47:37 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 11/28/2010 06:45 AM, Richard Purdie wrote:
-> One bitbake invocation can cause multiple images to be generated. We should test
-> each one and we cna do this by running after the rootfs task. Running the tests
-> standlone is also still possible with a new separate standlone task.
+On 12/03/2010 04:31 PM, Gary Thomas wrote:
+> On 12/03/2010 09:34 AM, Paul Eggleton wrote:
+>> Hi all,
+>>
+>> I've been doing some tests with sstate, and I've managed to get to a
+>> stage where I can share the SSTATE_DIR between my two machines (one
+>> running Fedora 14 and the other Kubuntu 10.10) and almost get a
+>> successful build from a clean TMPDIR. My last test got to
+>> poky-image-minimal.do_rootfs and then failed due to some kind of
+>> package dependency issue:
+>>
+>> --------- snip ---------
+>> | Processing rpm...
+>> | Processing zypper...
+>> | error: Failed dependencies:
+>> | elfutils>= 0.148 is needed by rpm-5.1.10-r7.i586
+>> | libaugeas0>= 0.7.3 is needed by
+>> zypper-1.4.7+git0+9eb0e248e06c8d20ad054be2439149d9ede37531-r1.i586
+>> | ERROR: Task failed: ('function do_rootfs failed',
+>> '/home/pokystuff/tmp/work/qemux86-poky-linux/poky-image-minimal-1.0-r0/temp/log.do_rootfs.6874')
+>>
+>> --------- snip ---------
+>>
+>> A "bitbake -c clean augeas elfutils" and then "bitbake
+>> poky-image-minimal" again went through OK (and built the
+>> aforementioned recipes from sstate) , so I'm not sure what went wrong
+>> here.
+>>
+>> My current state of work is in the paule/sstate contrib branch, which
+>> is based on Kevin's tk/sstate branch. Kevin, I think the sooner we can
+>> move this towards master the better, then we can get some wider testing.
+>>
+>> FYI Joshua has made bug #507 into a tracking bug for current sstate
+>> issues:
+>> http://bugzilla.pokylinux.org/show_bug.cgi?id=507
 >
-> Signed-off-by: Richard Purdie<rpurdie@linux.intel.com>
-
-Acked-by: Scott Garman <scott.a.garman@intel.com>
-
-(with Jiajun's modification)
-
-> ---
->   meta/classes/imagetest-qemu.bbclass |   19 ++++++++++++++-----
->   1 files changed, 14 insertions(+), 5 deletions(-)
+> I gave this a simple try and it failed miserably. Working from a copy of
+> Paul's branch in poky-contrib, here's what I did:
 >
-> diff --git a/meta/classes/imagetest-qemu.bbclass b/meta/classes/imagetest-qemu.bbclass
-> index 07bdf01..3c1586e 100644
-> --- a/meta/classes/imagetest-qemu.bbclass
-> +++ b/meta/classes/imagetest-qemu.bbclass
-> @@ -1,8 +1,3 @@
-> -addtask qemuimagetest before do_build
-> -# after do_rootfs
-> -do_qemuimagetest[nostamp] = "1"
-> -do_qemuimagetest[depends] += "qemu-native:do_populate_sysroot"
-> -
->   # Test related variables
->   # By default, TEST_DIR is created under WORKDIR
->   TEST_DIR ?= "${WORKDIR}/qemuimagetest"
-> @@ -12,6 +7,20 @@ TEST_TMP ?= "${TEST_DIR}/tmp"
->   TEST_SCEN ?= "sanity"
+> * On machine A (x86 Fedora 11)
+> % bitbake poky-image-minimal
 >
->   python do_qemuimagetest() {
-> +    qemuimagetest_main(d)
-> +}
-> +addtask qemuimagetest before do_build after do_rootfs
-> +do_qemuimagetest[nostamp] = "1"
-> +do_qemuimagetest[depends] += "qemu-native:do_populate_sysroot"
-> +
-> +python do_qemuimagetest_standalone() {
-> +    qemuimagetest_main(d)
-> +}
-> +addtask qemuimagetest_standalone
-> +do_qemuimagetest_standalone[nostamp] = "1"
-> +do_qemuimagetest_standalone[depends] += "qemu-native:do_populate_sysroot"
-> +
-> +python qemuimagetest_main(d) {
->       import sys
->       import re
->       import os
+> * On machine B (x86 Fedora 13)
+> -- Copy sstate-cache from machine A to /tmp/sstate-cache (rsync with
+> all perms & timestamps preserved)
+> -- Using the identical conf/local.conf file from machine A, except
+> I set up SSTATE_MIRRORS like this
+> SSTATE_MIRRORS ?= "\
+> file://.* file:///tmp/sstate-cache/"
+> % bitbake poky-image-minimal
+>
+> Fell apart pretty badly. Look at the output
+> http://www.mlbassoc.com/poky/poky_with_sstate.out
+>
+> Also, it seemed to be rebuilding a lot of packages. IMO, there's
+> no reason it should have to rebuild _any_
+>
 
+One thing that seems to be significant is the base build directory path.
+In the case above, they did not match, i.e.
+   * On machine A, BUILDDIR=/tmp/sstate_testing
+   * On machine B, BUILDDIR=/home/local/my_sstate_test
+I tried it this way as it matches my [customer's] expected usage.
+
+I've rerun the experiment again where I used identical paths on both
+machines and the results were vastly improved.  It still takes a horrible
+length of time (64 minutes on a fast 4 processor box) and rebuilds way to
+many packages for just replaying what's already been done though (IMO).
+Results are at
+   http://www.mlbassoc.com/poky/poky_with_sstate_same_paths.out
 
 -- 
-Scott Garman
-Embedded Linux Distro Engineer - Yocto Project
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
