@@ -1,48 +1,39 @@
 Return-Path: <kevin.tian@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A9E5A4C80039
-	for <poky@yoctoproject.org>; Sun,  5 Dec 2010 03:32:17 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 05 Dec 2010 01:32:17 -0800
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 1C9844C80039
+	for <poky@yoctoproject.org>; Sun,  5 Dec 2010 03:43:36 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 05 Dec 2010 01:43:36 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,301,1288594800"; d="scan'208";a="864637958"
-Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
-	by fmsmga001.fm.intel.com with ESMTP; 05 Dec 2010 01:32:16 -0800
+X-IronPort-AV: E=Sophos;i="4.59,301,1288594800"; d="scan'208";a="357238337"
+Received: from pgsmsx601.gar.corp.intel.com ([10.221.43.69])
+	by azsmga001.ch.intel.com with ESMTP; 05 Dec 2010 01:43:35 -0800
 Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
-	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Sun, 5 Dec 2010 17:32:15 +0800
+	pgsmsx601.gar.corp.intel.com (10.221.43.69) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Sun, 5 Dec 2010 17:43:33 +0800
 Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
 	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi; Sun, 5 Dec 2010
-	17:32:14 +0800
+	17:43:32 +0800
 From: "Tian, Kevin" <kevin.tian@intel.com>
-To: Chris Larson <clarson@kergoth.com>, Richard Purdie
-	<rpurdie@linux.intel.com>
-Date: Sun, 5 Dec 2010 17:32:00 +0800
+To: "He, Qing" <qing.he@intel.com>, Richard Purdie <rpurdie@linux.intel.com>
+Date: Sun, 5 Dec 2010 17:43:30 +0800
 Thread-Topic: [poky] [PATCH 1/1] curl: fix native dependency
-Thread-Index: AcuP2aNiSvR2LVlgQmW0nGqoNcXY6wEfQQLg
-Message-ID: <625BA99ED14B2D499DC4E29D8138F1504D475430EC@shsmsx502.ccr.corp.intel.com>
+Thread-Index: AcuQMNP5Y6B8DaeMSu2bzxFmJH7P2gEJX2rg
+Message-ID: <625BA99ED14B2D499DC4E29D8138F1504D475430ED@shsmsx502.ccr.corp.intel.com>
 References: <cover.1289982751.git.qing.he@intel.com>
 	<a03c4017a13bda3f20b8f39a4c099cb28f349968.1289982751.git.qing.he@intel.com>
 	<1290954166.27143.217.camel@rex>
 	<625BA99ED14B2D499DC4E29D8138F1504D42C686F3@shsmsx502.ccr.corp.intel.com>
 	<AANLkTi=oxv9goiEMAfpkDAvq7n_GfGUMSXsonXDdzixd@mail.gmail.com>
-	<1291033557.14277.944.camel@rex>
-	<AANLkTinYx+43yRYFu=BYQPVJHox6CmBgOMFF199z3BC=@mail.gmail.com>
-In-Reply-To: <AANLkTinYx+43yRYFu=BYQPVJHox6CmBgOMFF199z3BC=@mail.gmail.com>
+	<1291033557.14277.944.camel@rex> <20101130014427.GA6584@qhe2-db>
+In-Reply-To: <20101130014427.GA6584@qhe2-db>
 Accept-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-cr-hashedpuzzle: AzOn BuzF CBYs EaTq ErBg GLVB G5G4 IVYt Ls8l NNsk OJ9t
-	PQoM RDUA Sqnd cP86 gjEo; 3;
-	YwBsAGEAcgBzAG8AbgBAAGsAZQByAGcAbwB0AGgALgBjAG8AbQA7AHAAbwBrAHkAQAB5AG8AYwB0AG8AcAByAG8AagBlAGMAdAAuAG8AcgBnADsAcgBwAHUAcgBkAGkAZQBAAGwAaQBuAHUAeAAuAGkAbgB0AGUAbAAuAGMAbwBtAA==;
-	Sosha1_v1; 7; {89CFCCA3-A934-4E95-90A4-293E4B16DB3C};
-	awBlAHYAaQBuAC4AdABpAGEAbgBAAGkAbgB0AGUAbAAuAGMAbwBtAA==; Sun,
-	05 Dec 2010 09:32:00 GMT;
-	UgBFADoAIABbAHAAbwBrAHkAXQAgAFsAUABBAFQAQwBIACAAMQAvADEAXQAgAGMAdQByAGwAOgAgAGYAaQB4ACAAbgBhAHQAaQB2AGUAIABkAGUAcABlAG4AZABlAG4AYwB5AA==
-x-cr-puzzleid: {89CFCCA3-A934-4E95-90A4-293E4B16DB3C}
 acceptlanguage: en-US
 MIME-Version: 1.0
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Cc: Chris Larson <clarson@kergoth.com>,
+	"poky@yoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: [PATCH 1/1] curl: fix native dependency
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -55,59 +46,126 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 05 Dec 2010 09:32:18 -0000
+X-List-Received-Date: Sun, 05 Dec 2010 09:43:37 -0000
 Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-PkZyb206IENocmlzIExhcnNvbg0KPlNlbnQ6IE1vbmRheSwgTm92ZW1iZXIgMjksIDIwMTAgMTE6
-MjUgUE0NCj4NCj5PbiBNb24sIE5vdiAyOSwgMjAxMCBhdCA1OjI1IEFNLCBSaWNoYXJkIFB1cmRp
-ZSA8cnB1cmRpZUBsaW51eC5pbnRlbC5jb20+IHdyb3RlOg0KPj4gT24gU3VuLCAyMDEwLTExLTI4
-IGF0IDIyOjUzIC0wNzAwLCBDaHJpcyBMYXJzb24gd3JvdGU6DQo+Pj4gT24gU3VuLCBOb3YgMjgs
-IDIwMTAgYXQgMTA6MjYgUE0sIFRpYW4sIEtldmluIDxrZXZpbi50aWFuQGludGVsLmNvbT4gd3Jv
-dGU6DQo+Pj4gPiBUaGlzIGFsc28gY29uZnVzZXMgbWUgYSBiaXQuIFdoZW4gdmlydGNsYXNzLW5h
-dGl2ZSBpcyBleHBhbmRlZCwNCj5FWFRSQV9PRUNPTkZfYXBwZW5kDQo+Pj4gPiBpcyBzaW1wbHkg
-YSB2YXJpYWJsZS4gSW4gdGhhdCBjYXNlIHRoZSBleHBhbmRlZCB2YWx1ZSBzaG91bGQgb3ZlcnJp
-ZGUgdGhlIDFzdA0KPmFzc2lnbm1lbnQNCj4+PiA+IG9mIEVYVFJBX09FQ09ORl9hcHBlbmQsIGFu
-ZCB0aGVuIHdlIHNob3VsZCBnZXQ6DQo+Pj4gPg0KPj4+ID4gRVhUUkFfT0VDT05GX2FwcGVuZCA9
-ICIgLS13aXRob3V0LWdudXRscyAiDQo+Pj4gPg0KPj4+ID4gYW5kIHRoZW4gdGhhdCdzIHdoYXQg
-d2UgZXhwZWN0Lg0KPj4+ID4NCj4+PiA+IEkgZ3Vlc3MgSSBtYXkgc3RpbGwgb3Zlcmxvb2sgc29t
-ZXRoaW5nIGhlcmUsIGFuZCByZWFsbHkgYXBwcmVjaWF0ZSB5b3VyIGV4cGxhbmF0aW9uDQo+Pj4g
-PiBvbiB0aGUgd2hvbGUgZmxvdyB3aGljaCBpcyBoZWxwZnVsLiA6LSkNCj4+Pg0KPj4+IE5vLCBF
-WFRSQV9PRUNPTkZfYXBwZW5kIGlzIG5ldmVyIGEgdmFyaWFibGUuIMKgX2FwcGVuZC9fcHJlcGVu
-ZCBhcmUNCj4+PiBvcGVyYXRpb25zLCBub3QgcGFydCBvZiB0aGUgbmFtZS4gwqBUaGUgdmFsdWUg
-Z2V0cyBzZXQgYXNpZGUgaW4gYSBsaXN0DQo+Pj4gb2YgYXBwZW5kcyBmb3IgdGhhdCB2YXJpYWJs
-ZS4gwqBPbmUgX2FwcGVuZCBjYW5ub3Qgb3ZlcnJpZGUvcmVwbGFjZQ0KPj4+IGFub3RoZXIgb24g
-dGhlIHNhbWUgdmFyaWFibGUsIGl0cyBhbHdheXMgY3VtdWxhdGl2ZS4NCj4+DQo+PiBSaWdodC4N
-Cj4+DQo+PiBJbnRlcmVzdGluZ2x5IHRob3VnaCwgaWYgSSBhZGQgdGhpcyB0byBjdXJsKi5iYjoN
-Cj4+DQo+PiBGT08gPSAiQSINCj4+IEZPT19hcHBlbmQgPSAiQiINCj4+IEZPT19hcHBlbmRfdmly
-dGNsYXNzLW5hdGl2ZSA9ICJDIg0KPj4NCj4+IGFuZCB0aGVuICJiaXRiYWtlIGN1cmwtbmF0aXZl
-IC1lIHwgZ3JlcCBGT08iIChoZSByZWNpcGUgaGFzIGENCj4+IEJCQ0xBU1NFWFRFTkQgbmF0aXZl
-KSB3aGF0IHNob3VsZCBJIHNlZT8NCj4+DQo+PiBJIHNlZSBGT08gPSAiQUIiIHdoaWNoIGlzIG5v
-dCB3aGF0IEkgdGhvdWdodCBpdCB3b3VsZCBkby4uLg0KPg0KPkhtbSwgdGhpcyBpc24ndCB3aGF0
-IEknZCBleHBlY3QgZWl0aGVyLiAgSXQncyBjZXJ0YWlubHkgbm90IHdoYXQgd2FzDQo+b3JpZ2lu
-YWxseSBpbnRlbmRlZCAtLSBfYXBwZW5kXzxmb28+IGFuZCBfcHJlcGVuZF88Zm9vPiB3ZXJlIGFs
-d2F5cw0KPnN1cHBvc2VkIHRvIGFjdCBsaWtlIG5vcm1hbCBfYXBwZW5kL19wcmVwZW5kLCBqdXN0
-IGNvbmRpdGlvbmFsIG9uZXMuDQoNCkkgZ3Vlc3MgaXQncyByZWxhdGVkIHRvIGJlbG93IGxpbmVz
-IChmcm9tIGZpbmFsaXplKCkpOg0KDQogICAgICAgICAgICAgICAgICAgICMgbWF5YmUgdGhlIE9W
-RVJSSURFIHdhcyBub3QgeWV0IGFkZGVkIHNvIGtlZXAgdGhlIGFwcGVuZA0KICAgICAgICAgICAg
-ICAgICAgICBpZiAobyBhbmQgbyBpbiBvdmVycmlkZXMpIG9yIG5vdCBvOg0KICAgICAgICAgICAg
-ICAgICAgICAgICAgc2VsZi5kZWxWYXJGbGFnKGFwcGVuZCwgIl9hcHBlbmQiKQ0KICAgICAgICAg
-ICAgICAgICAgICBpZiBvIGFuZCBub3QgbyBpbiBvdmVycmlkZXM6DQogICAgICAgICAgICAgICAg
-ICAgICAgICBjb250aW51ZQ0KDQpGT09fYXBwZW5kID0gIkIiIGlzIHBhcnNlZCBpbnRvICgiQiIs
-IE5PTkUpDQpGT09fYXBwZW5kX3ZpcnRjbGFzcy1uYXRpdmUgPSAiQyIgaXMgcGFyc2VkIGludG8g
-KCJDIiwgdmlydGNsYXNzLW5hdGl2ZSkNCg0KSWYgKCJDIiwgdmlydGNsYXNzLW5hdGl2ZSkgaXMg
-ZW51bWVyYXRlZCBmaXJzdCwgdGhlIHJlc3VsdCBpcyBkZXNpcmVkOiAiQyIgaXMgYXBwZW5kZWQN
-CnRvIEZPTyB3aXRoICgiQiIsIE5PTkUpIHNpbXBseSByZW1vdmVkLg0KDQpJZiAoIkIiLCBOT05F
-KSBpcyBlbnVtZXJhdGVkIGZpcnN0LCB0aGVuIHRoZSByZXN0IGFwcGVuZGl4ZXMgYXJlIHJlbW92
-ZWQgdG9vIHdoaWNoDQppcyBub3QgZGVzaXJlZC4NCg0KVGhlIG5ldCBlZmZlY3QgaXMgdGhhdCB0
-aGUgMXN0IGFwcGVuZGl4IGFsd2F5cyB0YWtlcyBlZmZlY3Qgb3ZlciB0aGUgcmVzdCB1bmxlc3Mg
-aXQNCmhhcyBhbiBvdmVycmlkZSB3aGljaCBoYXNuJ3QgYmVlbiBmb3VuZCB5ZXQuDQoNCkJlc2lk
-ZXMgdGhpcyBwcm9ibGVtLCB0aGVyZSdzIGFsc28gbm8gY29uc2lkZXJhdGlvbiBhYm91dCBvdmVy
-cmlkZSBwcmlvcml0eS4gSXQgY2FuJ3QNCmhhbmRsZSBtdWx0aXBsZSBvdmVycmlkZXMgb24gc2Ft
-ZSBGT09fYXBwZW5kLg0KDQpUbyBzb2x2ZSBpdCwgd2Ugc3RpbGwgbmVlZCB0byBpdGVyYXRlIG92
-ZXJyaWRlIGxpc3QgZnJvbSBoaWdoZXN0IHByaW9yaXR5IHRvIGxvd2VzdCBlbmQsDQphbmQgdGhl
-biBjaG9vc2UgdGhlIHZhbHVlIGZyb20gdGhlIG9uZSBmaXJzdGx5IG1hdGNoaW5nIGFuIG92ZXJy
-aWRlLiBNeSByZW1vdGUgDQptYWNoaW5lIGlzIGRvd24gbm93IGFuZCB0aHVzIHVuYWJsZSB0byB2
-ZXJpZnkgaXQgdGhvdWdoLg0KDQpUaGFua3MNCktldmluDQo=
+>From: He, Qing
+>Sent: Tuesday, November 30, 2010 9:44 AM
+>
+>On Mon, 2010-11-29 at 20:25 +0800, Richard Purdie wrote:
+>> On Sun, 2010-11-28 at 22:53 -0700, Chris Larson wrote:
+>> > On Sun, Nov 28, 2010 at 10:26 PM, Tian, Kevin <kevin.tian@intel.com> w=
+rote:
+>> > > This also confuses me a bit. When virtclass-native is expanded,
+>EXTRA_OECONF_append
+>> > > is simply a variable. In that case the expanded value should overrid=
+e the 1st
+>assignment
+>> > > of EXTRA_OECONF_append, and then we should get:
+>> > >
+>> > > EXTRA_OECONF_append =3D " --without-gnutls "
+>> > >
+>> > > and then that's what we expect.
+>> > >
+>> > > I guess I may still overlook something here, and really appreciate y=
+our explanation
+>> > > on the whole flow which is helpful. :-)
+>> >
+>> > No, EXTRA_OECONF_append is never a variable.  _append/_prepend are
+>> > operations, not part of the name.  The value gets set aside in a list
+>> > of appends for that variable.  One _append cannot override/replace
+>> > another on the same variable, its always cumulative.
+>>
+>> Right.
+>>
+>> Interestingly though, if I add this to curl*.bb:
+>>
+>> FOO =3D "A"
+>> FOO_append =3D "B"
+>> FOO_append_virtclass-native =3D "C"
+>>
+>> and then "bitbake curl-native -e | grep FOO" (he recipe has a
+>> BBCLASSEXTEND native) what should I see?
+>>
+>> I see FOO =3D "AB" which is not what I thought it would do...
+>
+>This is very interesting, I didn't see "AC" when preparing the patch
+>so went the other way. After seeing your experiment, I also tried this:
+>
+>FOO =3D "A"
+>FOO_virtclass-native =3D "B"
+>FOO_virtclass-native_append =3D "C"
+>
+>Then for curl-native, FOO =3D "BC", and there is an explicit variable
+>FOO_virtclass-native =3D "BC", this does not exist in RP's test.
+>So it's more clear to me now what "*_append is never a variable" means.
+>
+>
+>However, the gut feeling is that this construct introduces some
+>inconsistency. If "_append" is never a variable, but "_virtclass-native"
+>is, how is bitbake supposed to handle FOO_append_virtclass-native and
+>translate it into a FOO_virtclass-native variable?
+
+See finalize() in data_smart.py. the override for _append/_prepend is handl=
+ed
+specifically which is different from normal overrides tweak. There's some b=
+ug
+though which I described in another mail. In a nutshell, FOO_append_virtcla=
+ss-native
+is parsed into a flag for FOO, with name as 'append', the value as ("C", vi=
+rtclass-native).
+when finalize() handles _append/_prepend, "C" is appended to FOO directly a=
+nd
+thus there's no FOO_virtclass-native being generated in the middle.
+
+I'm not sure whether FOO_virtclass-native_append =3D "C" is a valid usage t=
+hough.
+At least it's not in current design. As in your example, finally a new vari=
+able
+is created (FOO_virtclass-native) with value as 'BC'. Though override is ha=
+ndled
+before _append/_prepend, finalize() may be invoked multiple times. The 1st =
+time
+will give you:
+
+FOO =3D "A"
+FOO_virtclass-native =3D "BC"
+
+and then later invocations will get:
+
+FOO =3D "BC"
+FOO_virtclass-native =3D "BC"
+
+This though gives a right result in the end, it's dangerous as its value is=
+ volatile
+in the middle.
+
+>
+>To be more specific, if append is to be handled earlier than virtclass,
+>FOO may not be able to be evaluated at the time when append/prepend is
+>processed, as the following test case:
+>
+>FOO =3D "A"
+>FOO_virtclass-native =3D "B"
+>FOO_append =3D "C"
+>FOO_append_virtclass-nativesdk =3D "D"
+>
+>How should it be handled?
+>
+
+The expected result will be:
+
+a) if you build pkgname, you'll get FOO =3D "AC" as the effect of _append
+
+b) if you build pkgname-native, you'll get FOO =3D "BC" because overrides a=
+re
+handled before _append/_prepend
+
+a) if you build pkgname-nativesdk, you'll get FOO =3D "AD" because override
+appendix is used
+
+Thanks
+Kevin
 
