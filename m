@@ -1,46 +1,34 @@
 Return-Path: <kevin.tian@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 508294C80039
-	for <poky@yoctoproject.org>; Sun,  5 Dec 2010 03:49:01 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 05 Dec 2010 01:48:59 -0800
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 6742F4C80052
+	for <poky@yoctoproject.org>; Sun,  5 Dec 2010 05:07:20 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 05 Dec 2010 03:07:19 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,301,1288594800"; d="scan'208";a="357239214"
-Received: from pgsmsx601.gar.corp.intel.com ([10.221.43.69])
-	by azsmga001.ch.intel.com with ESMTP; 05 Dec 2010 01:48:58 -0800
-Received: from pgsmsx509.gar.corp.intel.com (172.30.13.17) by
-	pgsmsx601.gar.corp.intel.com (10.221.43.69) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Sun, 5 Dec 2010 17:48:56 +0800
+X-IronPort-AV: E=Sophos;i="4.59,301,1288594800"; d="scan'208";a="633239533"
+Received: from pgsmsx603.gar.corp.intel.com ([10.221.43.87])
+	by fmsmga002.fm.intel.com with ESMTP; 05 Dec 2010 03:07:17 -0800
 Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
-	PGSMSX509.gar.corp.intel.com (172.30.13.17) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Sun, 5 Dec 2010 17:48:56 +0800
+	pgsmsx603.gar.corp.intel.com (10.221.43.87) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Sun, 5 Dec 2010 19:07:16 +0800
 Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
 	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi; Sun, 5 Dec 2010
-	17:48:55 +0800
+	19:07:15 +0800
 From: "Tian, Kevin" <kevin.tian@intel.com>
-To: Richard Purdie <rpurdie@linux.intel.com>, Frans Meulenbroeks
-	<fransmeulenbroeks@gmail.com>
-Date: Sun, 5 Dec 2010 17:48:54 +0800
-Thread-Topic: [poky] [PATCH 1/1] curl: fix native dependency
-Thread-Index: AcuP2Jc83bQu78lxRe6t+Z4wYC2WygEiMYvw
-Message-ID: <625BA99ED14B2D499DC4E29D8138F1504D475430EE@shsmsx502.ccr.corp.intel.com>
-References: <cover.1289982751.git.qing.he@intel.com>
-	<a03c4017a13bda3f20b8f39a4c099cb28f349968.1289982751.git.qing.he@intel.com>
-	<1290954166.27143.217.camel@rex>
-	<625BA99ED14B2D499DC4E29D8138F1504D42C686F3@shsmsx502.ccr.corp.intel.com>
-	<AANLkTi=oxv9goiEMAfpkDAvq7n_GfGUMSXsonXDdzixd@mail.gmail.com>
-	<1291033557.14277.944.camel@rex>
-	<AANLkTi=3f9NUcm3+1xNz2bL0+gaasfGN8-bU6Zov6Ut-@mail.gmail.com>
-	<1291043827.14277.1149.camel@rex>
-In-Reply-To: <1291043827.14277.1149.camel@rex>
+To: Paul Eggleton <paul.eggleton@linux.intel.com>, "poky@yoctoproject.org"
+	<poky@yoctoproject.org>
+Date: Sun, 5 Dec 2010 19:07:13 +0800
+Thread-Topic: sstate status
+Thread-Index: AcuTCAh7OXwgyCKtSA2y++c8/WZYcABZEAQg
+Message-ID: <625BA99ED14B2D499DC4E29D8138F1504D475430F3@shsmsx502.ccr.corp.intel.com>
+References: <201012031634.56033.paul.eggleton@linux.intel.com>
+In-Reply-To: <201012031634.56033.paul.eggleton@linux.intel.com>
 Accept-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 acceptlanguage: en-US
 MIME-Version: 1.0
-Cc: Chris Larson <clarson@kergoth.com>,
-	"poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 1/1] curl: fix native dependency
+Subject: Re: sstate status
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -52,69 +40,67 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 05 Dec 2010 09:49:01 -0000
+X-List-Received-Date: Sun, 05 Dec 2010 11:07:20 -0000
 Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
->From: Richard Purdie
->Sent: Monday, November 29, 2010 11:17 PM
+>From: Paul Eggleton [mailto:paul.eggleton@linux.intel.com]
+>Sent: Saturday, December 04, 2010 12:35 AM
 >
->On Mon, 2010-11-29 at 14:04 +0100, Frans Meulenbroeks wrote:
->> 2010/11/29 Richard Purdie <rpurdie@linux.intel.com>:
->> > Interestingly though, if I add this to curl*.bb:
->> >
->> > FOO =3D "A"
->> > FOO_append =3D "B"
->> > FOO_append_virtclass-native =3D "C"
->> >
->> > and then "bitbake curl-native -e | grep FOO" (he recipe has a
->> > BBCLASSEXTEND native) what should I see?
->> >
->> > I see FOO =3D "AB" which is not what I thought it would do...
->> >
->>
->> Hm.
->> Please allow me the remark that, if this does not do what you as
->> expert expect it to to, that probably for mere mortals like me, this
->> is a construct that is way too complicated.
+>Hi all,
 >
->Its not that its too complicated, its just that its not following what
->I've understood to be the rules that variables follow. This is probably
->a bug in the parser but I'm very careful about jumping to that
->conclusion as there could be another explanation, not least the way
->virtclass as an override is implemented. I'd be interested in Chris'
->opinion which is why I was non-committal in calling it a bug ;-).
+>I've been doing some tests with sstate, and I've managed to get to a stage=
+ where I can
+>share the SSTATE_DIR between my two machines (one running Fedora 14 and th=
+e other
+>Kubuntu 10.10) and almost get a successful build from a clean TMPDIR. My l=
+ast test got to
+>poky-image-minimal.do_rootfs and then failed due to some kind of package d=
+ependency
+>issue:
 >
->> What is the rationale that _append is not a variable? Wouldn't it be
->> more logical/orthogonal/clearer if it was (and get appended at the end
->> as most people seem to expect/assume)
+>--------- snip ---------
+>| Processing rpm...
+>| Processing zypper...
+>| error: Failed dependencies:
+>|       elfutils >=3D 0.148 is needed by rpm-5.1.10-r7.i586
+>|       libaugeas0 >=3D 0.7.3 is needed by
+>zypper-1.4.7+git0+9eb0e248e06c8d20ad054be2439149d9ede37531-r1.i586
+>| ERROR: Task failed: ('function do_rootfs failed',
+>'/home/pokystuff/tmp/work/qemux86-poky-linux/poky-image-minimal-1.0-r0/tem=
+p/log.
+>do_rootfs.6874')
+>--------- snip ---------
 >
->The point is that appends should stack and this is exactly the same as
->normal variable rules, e.g.:
+>A "bitbake -c clean augeas elfutils" and then "bitbake poky-image-minimal"=
+ again went
+>through OK (and built the aforementioned recipes from sstate) , so I'm not=
+ sure what went
+>wrong here.
 >
->FOO =3D "A"
->FOO +=3D "B"
->FOO +=3D "C"
->
->and you'd expect the result to be "A B C", not "A C" which it would be
->if +=3D was the append operator did not stack.
->
+>My current state of work is in the paule/sstate contrib branch, which is b=
+ased on Kevin's
+>tk/sstate branch. Kevin, I think the sooner we can move this towards maste=
+r the better,
+>then we can get some wider testing.
 
-then what about:
-
-FOO =3D "A"
-FOO_append =3D "B"
-FOO_append_virtclass-native =3D "C"
-
-should it be "A C" or "A B C"?
-
-I think I find the problem in current code (sent out in another mail), but =
-the
-fix would depend on the answer here. From the current code, it looks design=
-ed
-for "A C".
+Thanks for your fixes. I made some mistakes when occasionally rebase and sm=
+ash my=20
+commits with master and it's good that you caught them. I agree that we nee=
+d make it
+into master as early as possible. I saw Richard has pushed some different e=
+nhancements.
+Let's give it some tests then.
 
 Thanks
 Kevin
+
+>
+>FYI Joshua has made bug #507 into a tracking bug for current sstate issues=
+:
+>http://bugzilla.pokylinux.org/show_bug.cgi?id=3D507
+>
+
+
 
