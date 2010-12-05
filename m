@@ -1,31 +1,27 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 3DD684C80052
-	for <poky@yoctoproject.org>; Sun,  5 Dec 2010 06:02:57 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id B50E916608A3; Sun,  5 Dec 2010 05:02:56 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=ham version=3.3.1
-Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
-	by mail.chez-thomas.org (Postfix) with ESMTP id E0BD21660893;
-	Sun,  5 Dec 2010 05:02:55 -0700 (MST)
-Message-ID: <4CFB7F6F.60407@mlbassoc.com>
-Date: Sun, 05 Dec 2010 05:02:55 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.1.9) Gecko/20100430 Fedora/3.0.4-2.fc11 Thunderbird/3.0.4
+Return-Path: <wd@denx.de>
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
+	by mx1.pokylinux.org (Postfix) with ESMTP id F0E094C80050
+	for <poky@yoctoproject.org>; Sun,  5 Dec 2010 06:57:56 -0600 (CST)
+Received: from frontend1.mail.m-online.net (unknown [192.168.8.180])
+	by mail-out.m-online.net (Postfix) with ESMTP id E2C641C1D9EA
+	for <poky@yoctoproject.org>; Sun,  5 Dec 2010 13:57:55 +0100 (CET)
+X-Auth-Info: /oD18Q/I1ipII8upF/bA22wHmSEPMzCtfbRl4hvoOpg=
+Received: from diddl.denx.de (ppp-188-174-79-57.dynamic.mnet-online.de
+	[188.174.79.57])
+	by smtp-auth.mnet-online.de (Postfix) with ESMTPA id 77F171C0037A
+	for <poky@yoctoproject.org>; Sun,  5 Dec 2010 13:57:55 +0100 (CET)
+Received: from gemini.denx.de (gemini.denx.de [10.0.0.2])
+	by diddl.denx.de (Postfix) with ESMTP id 51DC43335217
+	for <poky@yoctoproject.org>; Sun,  5 Dec 2010 13:57:55 +0100 (CET)
+Received: from gemini.denx.de (localhost.localdomain [127.0.0.1])
+	by gemini.denx.de (Postfix) with ESMTP id 1B42C351
+	for <poky@yoctoproject.org>; Sun,  5 Dec 2010 13:57:55 +0100 (CET)
+To: poky@yoctoproject.org
+From: Wolfgang Denk <wd@denx.de>
 MIME-Version: 1.0
-To: "Tian, Kevin" <kevin.tian@intel.com>
-References: <201012031634.56033.paul.eggleton@linux.intel.com>	<4CF97DC2.8040209@mlbassoc.com>
-	<4CFA3868.4020604@mlbassoc.com>
-	<625BA99ED14B2D499DC4E29D8138F1504D475430F6@shsmsx502.ccr.corp.intel.com>
-In-Reply-To: <625BA99ED14B2D499DC4E29D8138F1504D475430F6@shsmsx502.ccr.corp.intel.com>
-Cc: Paul Eggleton <paul.eggleton@linux.intel.com>,
-	"poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: sstate status
+Date: Sun, 05 Dec 2010 13:57:55 +0100
+Message-Id: <20101205125755.1B42C351@gemini.denx.de>
+Subject: elfutils build fails on Fedroa 14
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,112 +33,53 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 05 Dec 2010 12:02:57 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Sun, 05 Dec 2010 12:57:57 -0000
+Content-type: text/plain; charset=ISO-8859-1
+Content-transfer-encoding: 8bit
 
-On 12/05/2010 04:19 AM, Tian, Kevin wrote:
->> From: Gary Thomas
->> Sent: Saturday, December 04, 2010 8:48 PM
->>
->> On 12/03/2010 04:31 PM, Gary Thomas wrote:
->>> On 12/03/2010 09:34 AM, Paul Eggleton wrote:
->>>> Hi all,
->>>>
->>>> I've been doing some tests with sstate, and I've managed to get to a
->>>> stage where I can share the SSTATE_DIR between my two machines (one
->>>> running Fedora 14 and the other Kubuntu 10.10) and almost get a
->>>> successful build from a clean TMPDIR. My last test got to
->>>> poky-image-minimal.do_rootfs and then failed due to some kind of
->>>> package dependency issue:
->>>>
->>>> --------- snip ---------
->>>> | Processing rpm...
->>>> | Processing zypper...
->>>> | error: Failed dependencies:
->>>> | elfutils>= 0.148 is needed by rpm-5.1.10-r7.i586
->>>> | libaugeas0>= 0.7.3 is needed by
->>>> zypper-1.4.7+git0+9eb0e248e06c8d20ad054be2439149d9ede37531-r1.i586
->>>> | ERROR: Task failed: ('function do_rootfs failed',
->>>>
->> '/home/pokystuff/tmp/work/qemux86-poky-linux/poky-image-minimal-1.0-r0/temp/log.
->> do_rootfs.6874')
->>>>
->>>> --------- snip ---------
->>>>
->>>> A "bitbake -c clean augeas elfutils" and then "bitbake
->>>> poky-image-minimal" again went through OK (and built the
->>>> aforementioned recipes from sstate) , so I'm not sure what went wrong
->>>> here.
->>>>
->>>> My current state of work is in the paule/sstate contrib branch, which
->>>> is based on Kevin's tk/sstate branch. Kevin, I think the sooner we can
->>>> move this towards master the better, then we can get some wider testing.
->>>>
->>>> FYI Joshua has made bug #507 into a tracking bug for current sstate
->>>> issues:
->>>> http://bugzilla.pokylinux.org/show_bug.cgi?id=507
->>>
->>> I gave this a simple try and it failed miserably. Working from a copy of
->>> Paul's branch in poky-contrib, here's what I did:
->>>
->>> * On machine A (x86 Fedora 11)
->>> % bitbake poky-image-minimal
->>>
->>> * On machine B (x86 Fedora 13)
->>> -- Copy sstate-cache from machine A to /tmp/sstate-cache (rsync with
->>> all perms&  timestamps preserved)
->>> -- Using the identical conf/local.conf file from machine A, except
->>> I set up SSTATE_MIRRORS like this
->>> SSTATE_MIRRORS ?= "\
->>> file://.* file:///tmp/sstate-cache/"
->>> % bitbake poky-image-minimal
->>>
->>> Fell apart pretty badly. Look at the output
->>> http://www.mlbassoc.com/poky/poky_with_sstate.out
->>>
->>> Also, it seemed to be rebuilding a lot of packages. IMO, there's
->>> no reason it should have to rebuild _any_
->>>
->>
->> One thing that seems to be significant is the base build directory path.
->> In the case above, they did not match, i.e.
->>    * On machine A, BUILDDIR=/tmp/sstate_testing
->>    * On machine B, BUILDDIR=/home/local/my_sstate_test
->> I tried it this way as it matches my [customer's] expected usage.
->
-> I think in usual case the directory paths would mismatch. So let's stick to that
-> configuration to expose more issues. In my previous debug, I have made it
-> in a good shape but would now turn to RP's branch to try more experiments.
->
-> It would be good if you also try that one:
-> http://git.pokylinux.org/cgit/cgit.cgi/poky-contrib/log/?h=rpurdie/tweaks2
->
->>
->> I've rerun the experiment again where I used identical paths on both
->> machines and the results were vastly improved.  It still takes a horrible
->> length of time (64 minutes on a fast 4 processor box) and rebuilds way to
->> many packages for just replaying what's already been done though (IMO).
->> Results are at
->>    http://www.mlbassoc.com/poky/poky_with_sstate_same_paths.out
->>
->
-> In my run ~25min are consumed just for sstate check/installation on a NHM 4-core box.
-> then several minutes for rootfs generation if two builds totally match. the slow sstate
-> phase comes from same reason as a slow build - the 'exec' overhead. I use 'sato' as
-> the target.
->
-> In your case, however there're still some packages rebuilt, such as gzip-native,
-> unifdef-native, eglibc-initial, ncurses, etc. and also gcc related packages are rebuilt
-> which just consumes time. Has your source tree changed between the two builds?
+Trying to build on a Fedora 14 box, elfutis fails with this error:
 
-Do, identical source trees for all three runs.
+...
+| make[2]: Entering directory `/opt/poky/build-laverne-4.0-kilauea/tmp/work/x86_64-linux/elfutils-native-0.148-r1/elfutils-0.148/src'
+...
+| ccache gcc -std=gnu99 -Wall -Wshadow -Werror -Wunused -Wextra -fgnu89-inline -Wformat=2   -isystem/opt/poky/build-laverne-4.0-kilauea/tmp/sysroots/x86_64-linux/usr/include -O2 -Wl,-rpath-link,../libelf:../libdw -L/opt/poky/build-laverne-4.0-kilauea/tmp/sysroots/x86_64-linux/usr/lib -Wl,-rpath-link,/opt/poky/build-laverne-4.0-kilauea/tmp/sysroots/x86_64-linux/usr/lib -Wl,-rpath,/opt/poky/build-laverne-4.0-kilauea/tmp/sysroots/x86_64-linux/usr/lib -Wl,-O1 -o objdump objdump.o ../libasm/libasm.so ../libebl/libebl.a ../libelf/libelf.so ../lib/libeu.a  -ldl
+| ./ld: unrecognized option '--no-add-needed'
+| Try `ld --help' or `ld --usage' for more information.
+| collect2: ld returned 64 exit status
+| make[2]: *** [addr2line] Error 1
+| make[2]: *** Waiting for unfinished jobs....
+| ./ld: unrecognized option '--no-add-needed'
+| Try `ld --help' or `ld --usage' for more information.
+| collect2: ld returned 64 exit status
+| make[2]: *** [elfcmp] Error 1
+| ./ld: unrecognized option '--no-add-needed'
+| Try `ld --help' or `ld --usage' for more information.
+| collect2: ld returned 64 exit status
 
-I'll try it again later today with Richard's tree.
+In Fedora 14, the following command gets generated:
+
+/usr/libexec/gcc/x86_64-redhat-linux/4.5.1/collect2 --build-id --no-add-needed --eh-frame-hdr -m elf_x86_64 --hash-style=gnu -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o objdump /usr/lib/gcc/x86_64-redhat-linux/4.5.1/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/4.5.1/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/4.5.1/crtbegin.o -L/opt/poky/build-laverne-4.0-kilauea/tmp/sysroots/x86_64-linux/usr/lib -L/usr/lib/gcc/x86_64-redhat-linux/4.5.1 -L/usr/lib/gcc/x86_64-redhat-linux/4.5.1/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/4.5.1/../../.. --add-needed -rpath-link ../libelf:../libdw -rpath-link /opt/poky/build-laverne-4.0-kilauea/tmp/sysroots/x86_64-linux/usr/lib -rpath /opt/poky/build-laverne-4.0-kilauea/tmp/sysroots/x86_64-linux/usr/lib -O1 objdump.o ../libasm/libasm.so ../libebl/libebl.a ../libelf/libelf.so ../lib/libeu.a -ldl -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as
+ -needed /usr/lib/gcc/x86_64-redhat-linux/4.5.1/crtend.o /usr/lib/gcc/x86_64-redhat-linux/4.5.1/../../../../lib64/crtn.o
+./ld: unrecognized option '--no-add-needed'
+Try `ld --help' or `ld --usage' for more information.
+collect2: ld returned 64 exit status
+
+Unfortunately the "ld" command in elfutils-0.148 does not understand
+the '--no-add-needed'; I've tried to find any existing fixes for
+this, but what I found just added a "-Xlinker --add-needed" to the
+command line, which does not help here since ./ld understands neither
+'--no-add-needed' nor '--add-needed'.
+
+Any ideas?
+
+Best regards,
+
+Wolfgang Denk
 
 -- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+DENX Software Engineering GmbH,     MD: Wolfgang Denk & Detlev Zundel
+HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
+Phone: (+49)-8142-66989-10 Fax: (+49)-8142-66989-80 Email: wd@denx.de
+The use of anthropomorphic terminology when  dealing  with  computing
+systems is a symptom of professional immaturity.   -- Edsger Dijkstra
 
