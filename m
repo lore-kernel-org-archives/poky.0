@@ -1,22 +1,24 @@
 Return-Path: <qing.he@intel.com>
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 99EDA4C80A74
-	for <poky@yoctoproject.org>; Mon,  6 Dec 2010 02:10:55 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 06 Dec 2010 00:10:55 -0800
+	by mx1.pokylinux.org (Postfix) with ESMTP id 91C7D4C80039
+	for <poky@yoctoproject.org>; Mon,  6 Dec 2010 03:26:08 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 06 Dec 2010 01:26:08 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,305,1288594800"; d="scan'208";a="864881834"
+X-IronPort-AV: E=Sophos;i="4.59,305,1288594800"; d="scan'208";a="633466599"
 Received: from qhe2-db.sh.intel.com ([10.239.13.31])
-	by fmsmga001.fm.intel.com with ESMTP; 06 Dec 2010 00:10:54 -0800
+	by fmsmga002.fm.intel.com with ESMTP; 06 Dec 2010 01:26:07 -0800
 Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
 	(envelope-from <qing.he@intel.com>)
-	id 1PPW4x-0007Qa-Tt; Mon, 06 Dec 2010 16:05:47 +0800
-Message-Id: <8aea95012c9ad30c652104f7dda4a5733c764596.1291622614.git.qing.he@intel.com>
-In-Reply-To: <cover.1291622614.git.qing.he@intel.com>
-References: <cover.1291622614.git.qing.he@intel.com>
-From: Qing He <qing.he@intel.com>
-Date: Mon, 6 Dec 2010 15:50:39 +0800
+	id 1PPXFk-0007TP-SC; Mon, 06 Dec 2010 17:21:00 +0800
+Date: Mon, 6 Dec 2010 17:21:00 +0800
+From: "He, Qing" <qing.he@intel.com>
 To: poky@yoctoproject.org
+Message-ID: <20101206092100.GB28618@qhe2-db>
+References: <cover.1291622614.git.qing.he@intel.com>
+MIME-Version: 1.0
+In-Reply-To: <cover.1291622614.git.qing.he@intel.com>
+User-Agent: Mutt/1.5.20 (2009-06-14)
 Subject: [PATCH] libnl: fix typo in the Makefile fix
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -29,7 +31,9 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 06 Dec 2010 08:10:55 -0000
+X-List-Received-Date: Mon, 06 Dec 2010 09:26:08 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
 change .$(OBJEXT) to .lo in the rule to reflect libtool setup
 
