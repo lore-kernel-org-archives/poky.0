@@ -1,21 +1,37 @@
-Return-Path: <josh@linux.intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id AEA0A4C80A74
-	for <poky@yoctoproject.org>; Mon,  6 Dec 2010 10:13:07 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 06 Dec 2010 08:12:03 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,305,1288594800"; d="scan'208";a="357693938"
-Received: from unknown (HELO localhost) ([10.255.16.53])
-	by azsmga001.ch.intel.com with ESMTP; 06 Dec 2010 08:12:02 -0800
-Message-Id: <69396fc01d7401d6a110ba30e7a06d2abd45e007.1291651199.git.josh@linux.intel.com>
-In-Reply-To: <cover.1291651199.git.josh@linux.intel.com>
-References: <cover.1291651199.git.josh@linux.intel.com>
-From: Joshua Lock <josh@linux.intel.com>
-Date: Wed, 1 Dec 2010 16:59:04 +0000
+Return-Path: <fransmeulenbroeks@gmail.com>
+Received: from mail-ey0-f176.google.com (mail-ey0-f176.google.com
+	[209.85.215.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 3B5114C80050
+	for <poky@yoctoproject.org>; Mon,  6 Dec 2010 13:06:10 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by eyz10 with SMTP id 10so6641826eyz.35
+	for <poky@yoctoproject.org>; Mon, 06 Dec 2010 11:06:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:received:received:from:to:cc:subject:date
+	:message-id:x-mailer;
+	bh=ldNqUAEYUYVrAdxuxBRsNmdkGeD7BfS+lFgB7joCpbM=;
+	b=Ct75uh/Uik467z93YiRIMzsH2EFlVf4UPfSl0jptoBvIfqm7RRTEl4nh7pZgzZPKXk
+	FafoHVDVk7KyeYPEMqpqXSvIpKdauvTcLxwawc5Cy8rSy2Q+sTvHNfIVKe8EUnBVIQzk
+	3SYRx12gm1dvTRdq6rM98Z0bip9nskg5v2abk=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=from:to:cc:subject:date:message-id:x-mailer;
+	b=qI5NultbBLaLrhXYH8FpqJElyrA2zWgr5KPrsfTtPBK1wfZV2RrX2l5d1WAwtZjP8q
+	BHhzaoEqpX4g2xhcJTbTWgzzhKD86vNB4a1GQ8sOLJ27ytwy1vhvZ1kQmykYRPmuZCVJ
+	6Hf/ljbn3RRUWkRJvGruaDyb+CYs6ZPVTWBnc=
+Received: by 10.213.3.66 with SMTP id 2mr6152480ebm.82.1291662368795;
+	Mon, 06 Dec 2010 11:06:08 -0800 (PST)
+Received: from localhost.localdomain (j200125.upc-j.chello.nl [24.132.200.125])
+	by mx.google.com with ESMTPS id x54sm4976102eeh.23.2010.12.06.11.06.07
+	(version=TLSv1/SSLv3 cipher=RC4-MD5);
+	Mon, 06 Dec 2010 11:06:07 -0800 (PST)
+From: Frans Meulenbroeks <fransmeulenbroeks@gmail.com>
 To: poky@yoctoproject.org
-CC: 
-Subject: [PATCH 09/10] bitbake/cooker: fix idle command processing in servers
+Date: Mon,  6 Dec 2010 20:05:57 +0100
+Message-Id: <1291662362-13810-1-git-send-email-fransmeulenbroeks@gmail.com>
+X-Mailer: git-send-email 1.6.4.2
+Subject: [PATCH 1/4] libcdio: new recipe (brought over from OE)
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,36 +43,49 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 06 Dec 2010 16:13:07 -0000
+X-List-Received-Date: Mon, 06 Dec 2010 19:06:10 -0000
 
-idle command processing in each of the servers does not handle an explicit
-None return value, which means the goggle UI ends up repeatedly adding
-"Tasks Summary:" rows to the list.
-
-This patch modifies BBCooker.buildTargets.buildTargetsIdle to return False
-when BuildCompleted is fired, as is done in BBCooker.buildFile.buildFileIdle.
-It may be that the correct way to fix this is to change the idle command
-processing in the servers.
-
-Signed-off-by: Joshua Lock <josh@linux.intel.com>
+Signed-off-by: Frans Meulenbroeks <fransmeulenbroeks@gmail.com>
 ---
- bitbake/lib/bb/cooker.py |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ meta/recipes-multimedia/libcdio/libcdio_0.82.bb |   28 +++++++++++++++++++++++
+ 1 files changed, 28 insertions(+), 0 deletions(-)
+ create mode 100644 meta/recipes-multimedia/libcdio/libcdio_0.82.bb
 
-diff --git a/bitbake/lib/bb/cooker.py b/bitbake/lib/bb/cooker.py
-index 054dac8..8c55e3e 100644
---- a/bitbake/lib/bb/cooker.py
-+++ b/bitbake/lib/bb/cooker.py
-@@ -734,7 +734,7 @@ class BBCooker:
-             if not retval:
-                 bb.event.fire(bb.event.BuildCompleted(buildname, targets, failures), self.configuration.event_data)
-                 self.command.finishAsyncCommand()
--                return None
-+                return False
-             if retval is True:
-                 return True
-             return 0.5
+diff --git a/meta/recipes-multimedia/libcdio/libcdio_0.82.bb b/meta/recipes-multimedia/libcdio/libcdio_0.82.bb
+new file mode 100644
+index 0000000..6f5e240
+--- /dev/null
++++ b/meta/recipes-multimedia/libcdio/libcdio_0.82.bb
+@@ -0,0 +1,28 @@
++DESCRIPTION = "The GNU Compact Disc Input and Control library (libcdio) contains a library for CD-ROM and CD image access."
++HOMEPAGE = "http://www.gnu.org/software/libcdio/"
++SECTION = "libs"
++PRIORITY = "optional"
++LICENSE = "GPLv3+"
++LIC_FILES_CHKSUM = "file://COPYING;md5=d32239bcb673463ab874e80d47fae504"
++
++DEPENDS = "ncurses"
++PR = "r0"
++
++SRC_URI = "${GNU_MIRROR}/${PN}/${P}.tar.gz"
++SRC_URI[md5sum] = "1c29b18e01ab2b966162bc727bf3c360"
++SRC_URI[sha256sum] = "1acb3de8e0927906ade7a34c5853173d3068b87b02dfba80d0bf11e47f0b5d39"
++
++inherit autotools pkgconfig
++
++EXTRA_OECONF = "ac_cv_member_struct_tm_tm_gmtoff=no"
++
++PACKAGES += "${PN}-utils"
++
++FILES_${PN} = "${libdir}/${PN}${SOLIB}"
++FILES_${PN}-utils = "${bindir}/*"
++
++python populate_packages_prepend () {
++        glibdir = bb.data.expand('${libdir}', d)
++        do_split_packages(d, glibdir, '^lib(.*)\.so\..*', 'lib%s', 'gstreamer %s library', extra_depends='', allow_links=True)
++}
++DEBUG_OPTIMIZATION_thumb = "-Os -fno-omit-frame-pointer -g"
 -- 
-1.7.3.2
+1.6.4.2
 
 
