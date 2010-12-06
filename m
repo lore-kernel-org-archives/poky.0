@@ -1,19 +1,21 @@
 Return-Path: <dongxiao.xu@intel.com>
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5E6BF4C80050
-	for <poky@yoctoproject.org>; Mon,  6 Dec 2010 19:42:43 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 06 Dec 2010 17:42:42 -0800
+	by mx1.pokylinux.org (Postfix) with ESMTP id B6D1B4C81081
+	for <poky@yoctoproject.org>; Mon,  6 Dec 2010 19:42:44 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 06 Dec 2010 17:42:44 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,308,1288594800"; d="scan'208";a="581190990"
+X-IronPort-AV: E=Sophos;i="4.59,308,1288594800"; d="scan'208";a="684548095"
 Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.9])
-	by orsmga002.jf.intel.com with ESMTP; 06 Dec 2010 17:42:42 -0800
-Message-Id: <cover.1291683028.git.dongxiao.xu@intel.com>
+	by orsmga001.jf.intel.com with ESMTP; 06 Dec 2010 17:42:43 -0800
+Message-Id: <0969b7dd1a56d7d16a94da3ed45ee59d42280290.1291683028.git.dongxiao.xu@intel.com>
+In-Reply-To: <cover.1291683028.git.dongxiao.xu@intel.com>
+References: <cover.1291683028.git.dongxiao.xu@intel.com>
 From: Dongxiao Xu <dongxiao.xu@intel.com>
-Date: Tue, 7 Dec 2010 08:50:28 +0800
+Date: Mon, 6 Dec 2010 20:26:08 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 0/3][RFC] Poky disk space size optimization
+Subject: [PATCH 1/3] package.bbclass: Use hard link for package split instead of copy
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -25,47 +27,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 07 Dec 2010 01:42:43 -0000
+X-List-Received-Date: Tue, 07 Dec 2010 01:42:44 -0000
 
-This RFC aims to reduce the poky disk space size.
+When doing package split, we use hard link instead of copy, which can
+save about 10% disk space when building poky-image-minimal.
 
-The optimization point is the duplicated file copies in WORKDIR and
-sysroot directories. When installing, files will be copied from source
-code package into the image folder; Then some files will be copied
-from image folder to sysroot-destdir, and some other files will be
-copied from image folder to package folder. While doing package split,
-some files will be copied from package folder to packages-split folder,
-etc.
+If fail, it will fall back to the copyfile function.
 
-The thought is to use hard link to replace the direct copy.
-The three commits do the work of:
-
-a) package.bbclass: hard link "image-->sysroot-destdir"
-b) sstate.bbclass:  hard link "package-->packages-split"
-c) staging.bbclass: hard link "sysroot-destdir-->sysroots".
-
-After testing with minimal/sato/sdk build, this approach could save
-about 20% disk space.
-(minimal: 23G -> 19G, sato: 44G -> 35G, sdk: 54G -> 44G).
-
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: dxu4/perf
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dxu4/perf
-
-Thanks,
-    Dongxiao Xu <dongxiao.xu@intel.com>
+Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
 ---
-
-
-Dongxiao Xu (3):
-  package.bbclass: Use hard link for package split instead of copy
-  sstate.bbclass: Use hard link when staging files into sysroots
-  staging.bbclass: use hardlink when staging files to sysroot-destdir
-
  meta/classes/package.bbclass |    8 +++++---
- meta/classes/sstate.bbclass  |    2 +-
- meta/classes/staging.bbclass |   27 ++++++++++++++++++++++++++-
- meta/lib/oe/path.py          |   28 ++++++++++++++++++++++++++++
- 4 files changed, 60 insertions(+), 5 deletions(-)
+ 1 files changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/meta/classes/package.bbclass b/meta/classes/package.bbclass
+index d39c694..2b4747b 100644
+--- a/meta/classes/package.bbclass
++++ b/meta/classes/package.bbclass
+@@ -406,9 +406,11 @@ python populate_packages () {
+ 			fpath = os.path.join(root,file)
+ 			dpath = os.path.dirname(fpath)
+ 			bb.mkdirhier(dpath)
+-			ret = bb.copyfile(file, fpath)
+-			if ret is False or ret == 0:
+-				raise bb.build.FuncFailed("File population failed")
++			ret = os.system("ln -f %s %s" % (file, fpath))
++			if ret is False:
++				ret = bb.copyfile(file, fpath)
++				if ret is False or ret == 0:
++					raise bb.build.FuncFailed("File population failed")
+ 		del localdata
+ 	os.chdir(workdir)
+ 
+-- 
+1.6.3.3
 
 
