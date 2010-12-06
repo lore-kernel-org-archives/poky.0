@@ -1,27 +1,38 @@
-Return-Path: <wd@denx.de>
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
-	by mx1.pokylinux.org (Postfix) with ESMTP id F0E094C80050
-	for <poky@yoctoproject.org>; Sun,  5 Dec 2010 06:57:56 -0600 (CST)
-Received: from frontend1.mail.m-online.net (unknown [192.168.8.180])
-	by mail-out.m-online.net (Postfix) with ESMTP id E2C641C1D9EA
-	for <poky@yoctoproject.org>; Sun,  5 Dec 2010 13:57:55 +0100 (CET)
-X-Auth-Info: /oD18Q/I1ipII8upF/bA22wHmSEPMzCtfbRl4hvoOpg=
-Received: from diddl.denx.de (ppp-188-174-79-57.dynamic.mnet-online.de
-	[188.174.79.57])
-	by smtp-auth.mnet-online.de (Postfix) with ESMTPA id 77F171C0037A
-	for <poky@yoctoproject.org>; Sun,  5 Dec 2010 13:57:55 +0100 (CET)
-Received: from gemini.denx.de (gemini.denx.de [10.0.0.2])
-	by diddl.denx.de (Postfix) with ESMTP id 51DC43335217
-	for <poky@yoctoproject.org>; Sun,  5 Dec 2010 13:57:55 +0100 (CET)
-Received: from gemini.denx.de (localhost.localdomain [127.0.0.1])
-	by gemini.denx.de (Postfix) with ESMTP id 1B42C351
-	for <poky@yoctoproject.org>; Sun,  5 Dec 2010 13:57:55 +0100 (CET)
-To: poky@yoctoproject.org
-From: Wolfgang Denk <wd@denx.de>
-MIME-Version: 1.0
-Date: Sun, 05 Dec 2010 13:57:55 +0100
-Message-Id: <20101205125755.1B42C351@gemini.denx.de>
-Subject: elfutils build fails on Fedroa 14
+Return-Path: <rpurdie@linux.intel.com>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 743514C80A74
+	for <poky@yoctoproject.org>; Sun,  5 Dec 2010 19:04:31 -0600 (CST)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oB614RQA032493;
+	Mon, 6 Dec 2010 01:04:27 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 32393-02; Mon,  6 Dec 2010 01:04:23 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oB614JGJ032487
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Mon, 6 Dec 2010 01:04:19 GMT
+From: Richard Purdie <rpurdie@linux.intel.com>
+To: "Tian, Kevin" <kevin.tian@intel.com>
+In-Reply-To: <625BA99ED14B2D499DC4E29D8138F1504D475430EC@shsmsx502.ccr.corp.intel.com>
+References: <cover.1289982751.git.qing.he@intel.com>
+	<a03c4017a13bda3f20b8f39a4c099cb28f349968.1289982751.git.qing.he@intel.com>
+	<1290954166.27143.217.camel@rex>
+	<625BA99ED14B2D499DC4E29D8138F1504D42C686F3@shsmsx502.ccr.corp.intel.com>
+	<AANLkTi=oxv9goiEMAfpkDAvq7n_GfGUMSXsonXDdzixd@mail.gmail.com>
+	<1291033557.14277.944.camel@rex>
+	<AANLkTinYx+43yRYFu=BYQPVJHox6CmBgOMFF199z3BC=@mail.gmail.com>
+	<625BA99ED14B2D499DC4E29D8138F1504D475430EC@shsmsx502.ccr.corp.intel.com>
+Date: Mon, 06 Dec 2010 01:04:17 +0000
+Message-ID: <1291597457.14277.2931.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: Chris Larson <clarson@kergoth.com>,
+	"poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH 1/1] curl: fix native dependency
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,53 +44,97 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 05 Dec 2010 12:57:57 -0000
-Content-type: text/plain; charset=ISO-8859-1
-Content-transfer-encoding: 8bit
+X-List-Received-Date: Mon, 06 Dec 2010 01:04:32 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Trying to build on a Fedora 14 box, elfutis fails with this error:
+On Sun, 2010-12-05 at 17:32 +0800, Tian, Kevin wrote:
+> >From: Chris Larson
+> >Sent: Monday, November 29, 2010 11:25 PM
+> >On Mon, Nov 29, 2010 at 5:25 AM, Richard Purdie <rpurdie@linux.intel.com> wrote:
+> >> Interestingly though, if I add this to curl*.bb:
+> >>
+> >> FOO = "A"
+> >> FOO_append = "B"
+> >> FOO_append_virtclass-native = "C"
+> >>
+> >> and then "bitbake curl-native -e | grep FOO" (he recipe has a
+> >> BBCLASSEXTEND native) what should I see?
+> >>
+> >> I see FOO = "AB" which is not what I thought it would do...
+> >
+> >Hmm, this isn't what I'd expect either.  It's certainly not what was
+> >originally intended -- _append_<foo> and _prepend_<foo> were always
+> >supposed to act like normal _append/_prepend, just conditional ones.
 
-...
-| make[2]: Entering directory `/opt/poky/build-laverne-4.0-kilauea/tmp/work/x86_64-linux/elfutils-native-0.148-r1/elfutils-0.148/src'
-...
-| ccache gcc -std=gnu99 -Wall -Wshadow -Werror -Wunused -Wextra -fgnu89-inline -Wformat=2   -isystem/opt/poky/build-laverne-4.0-kilauea/tmp/sysroots/x86_64-linux/usr/include -O2 -Wl,-rpath-link,../libelf:../libdw -L/opt/poky/build-laverne-4.0-kilauea/tmp/sysroots/x86_64-linux/usr/lib -Wl,-rpath-link,/opt/poky/build-laverne-4.0-kilauea/tmp/sysroots/x86_64-linux/usr/lib -Wl,-rpath,/opt/poky/build-laverne-4.0-kilauea/tmp/sysroots/x86_64-linux/usr/lib -Wl,-O1 -o objdump objdump.o ../libasm/libasm.so ../libebl/libebl.a ../libelf/libelf.so ../lib/libeu.a  -ldl
-| ./ld: unrecognized option '--no-add-needed'
-| Try `ld --help' or `ld --usage' for more information.
-| collect2: ld returned 64 exit status
-| make[2]: *** [addr2line] Error 1
-| make[2]: *** Waiting for unfinished jobs....
-| ./ld: unrecognized option '--no-add-needed'
-| Try `ld --help' or `ld --usage' for more information.
-| collect2: ld returned 64 exit status
-| make[2]: *** [elfcmp] Error 1
-| ./ld: unrecognized option '--no-add-needed'
-| Try `ld --help' or `ld --usage' for more information.
-| collect2: ld returned 64 exit status
+This is what I'd have expected too.
 
-In Fedora 14, the following command gets generated:
+> I guess it's related to below lines (from finalize()):
+> 
+>                     # maybe the OVERRIDE was not yet added so keep the append
+>                     if (o and o in overrides) or not o:
+>                         self.delVarFlag(append, "_append")
+>                     if o and not o in overrides:
+>                         continue
 
-/usr/libexec/gcc/x86_64-redhat-linux/4.5.1/collect2 --build-id --no-add-needed --eh-frame-hdr -m elf_x86_64 --hash-style=gnu -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o objdump /usr/lib/gcc/x86_64-redhat-linux/4.5.1/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/4.5.1/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/4.5.1/crtbegin.o -L/opt/poky/build-laverne-4.0-kilauea/tmp/sysroots/x86_64-linux/usr/lib -L/usr/lib/gcc/x86_64-redhat-linux/4.5.1 -L/usr/lib/gcc/x86_64-redhat-linux/4.5.1/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/4.5.1/../../.. --add-needed -rpath-link ../libelf:../libdw -rpath-link /opt/poky/build-laverne-4.0-kilauea/tmp/sysroots/x86_64-linux/usr/lib -rpath /opt/poky/build-laverne-4.0-kilauea/tmp/sysroots/x86_64-linux/usr/lib -O1 objdump.o ../libasm/libasm.so ../libebl/libebl.a ../libelf/libelf.so ../lib/libeu.a -ldl -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as
- -needed /usr/lib/gcc/x86_64-redhat-linux/4.5.1/crtend.o /usr/lib/gcc/x86_64-redhat-linux/4.5.1/../../../../lib64/crtn.o
-./ld: unrecognized option '--no-add-needed'
-Try `ld --help' or `ld --usage' for more information.
-collect2: ld returned 64 exit status
+Correct, it is these lines that are the problem.
 
-Unfortunately the "ld" command in elfutils-0.148 does not understand
-the '--no-add-needed'; I've tried to find any existing fixes for
-this, but what I found just added a "-Xlinker --add-needed" to the
-command line, which does not help here since ./ld understands neither
-'--no-add-needed' nor '--add-needed'.
+> FOO_append = "B" is parsed into ("B", NONE)
+> FOO_append_virtclass-native = "C" is parsed into ("C", virtclass-native)
+> 
+> If ("C", virtclass-native) is enumerated first, the result is desired: "C" is appended
+> to FOO with ("B", NONE) simply removed.
+> 
+> If ("B", NONE) is enumerated first, then the rest appendixes are removed too which
+> is not desired.
 
-Any ideas?
+This is exactly the problem.
 
-Best regards,
+> The net effect is that the 1st appendix always takes effect over the rest unless it
+> has an override which hasn't been found yet.
 
-Wolfgang Denk
+Right. I had a play with the code and can confirm a patch as follows
+fixes this problem. I've also made it warn when it finds code that would
+effect behaviour. For Poky its throwing up a warning about EXTRA_OEMAKE
+but its actually fine as whilst there is an unexpanded override, there
+is never any _append or _prepend to trigger this bug (the warning can
+show false positives). It would be nice to see if OE is suffering from
+this problem anywhere before we accept this fix into bitbake upstream.
+I'll also remove this error before this goes into Poky.
 
--- 
-DENX Software Engineering GmbH,     MD: Wolfgang Denk & Detlev Zundel
-HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
-Phone: (+49)-8142-66989-10 Fax: (+49)-8142-66989-80 Email: wd@denx.de
-The use of anthropomorphic terminology when  dealing  with  computing
-systems is a symptom of professional immaturity.   -- Edsger Dijkstra
+http://git.pokylinux.org/cgit.cgi/poky-contrib/commit/?h=rpurdie/bitbake&id=c77410305fe736aa195ce720c8317b39da057052
+
+> Besides this problem, there's also no consideration about override priority. It can't
+> handle multiple overrides on same FOO_append.
+> 
+> To solve it, we still need to iterate override list from highest priority to lowest end,
+> and then choose the value from the one firstly matching an override. My remote 
+> machine is down now and thus unable to verify it though.
+
+This is a good point but its not a simple one :)
+
+FOO = "A"
+FOO_append_OVERA = "B"
+FOO_append_OVERB = "C"
+
+could result in ABC or ACB depending on whether OVERA was added to
+OVERRIDES late on. There isn't much we can probably do about that
+though.
+
+FOO = "A"
+FOO_append_OVERA_OVERB = "B"
+FOO_append_OVERB_OVERA = "C"
+
+plain won't work at present if I read the code correctly. I'm not sure
+there is an ordering constraint here though as "ABC" is the correct
+answer and either an OVERRIDE is appended or it isn't and priority isn't
+an issue?
+
+Chris: Any thoughts on any of this?
+
+Cheers,
+
+Richard
+
+
 
