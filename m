@@ -1,24 +1,19 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B7D174C80A74
-	for <poky@yoctoproject.org>; Mon,  6 Dec 2010 10:06:53 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 06 Dec 2010 08:06:53 -0800
+Return-Path: <josh@linux.intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 05BA64C80A74
+	for <poky@yoctoproject.org>; Mon,  6 Dec 2010 10:11:01 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 06 Dec 2010 08:11:01 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,305,1288594800"; d="scan'208";a="633563362"
-Received: from unknown (HELO helios.localnet) ([10.255.16.43])
-	by fmsmga002.fm.intel.com with ESMTP; 06 Dec 2010 08:06:52 -0800
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-Organization: Intel Corporation (UK)
+X-IronPort-AV: E=Sophos;i="4.59,305,1288594800"; d="scan'208";a="581013698"
+Received: from unknown (HELO localhost) ([10.255.16.53])
+	by orsmga002.jf.intel.com with ESMTP; 06 Dec 2010 08:11:01 -0800
+Message-Id: <cover.1291651199.git.josh@linux.intel.com>
+From: Joshua Lock <josh@linux.intel.com>
+Date: Mon, 6 Dec 2010 15:59:59 +0000
 To: poky@yoctoproject.org
-Date: Mon, 6 Dec 2010 16:06:45 +0000
-User-Agent: KMail/1.13.5 (Linux/2.6.35-23-generic-pae; KDE/4.5.1; i686; ; )
-References: <201012031634.56033.paul.eggleton@linux.intel.com>
-	<1291414305.14277.2746.camel@rex>
-In-Reply-To: <1291414305.14277.2746.camel@rex>
-MIME-Version: 1.0
-Message-Id: <201012061606.45790.paul.eggleton@linux.intel.com>
-Subject: Re: sstate status
+CC: 
+Subject: [PATCH 00/10] BitBake GUI fixes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,22 +25,49 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 06 Dec 2010 16:06:54 -0000
-Content-Type: Text/Plain;
-  charset="iso-8859-1"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 06 Dec 2010 16:11:02 -0000
 
-On Friday 03 December 2010 22:11:45 Richard Purdie wrote:
-> I notice a number of patches in your branches which shouldn't be needed
-> if we use the two patches at the head of: 
-> 
-> http://git.pokylinux.org/cgit/cgit.cgi/poky-contrib/log/?h=rpurdie/tweaks2
-> 
-> Could you please test using those two changes, or let me know if those
-> changes cause problems.
+This series of patches fixes the BitBake GUI's and some of the code they
+interact with such that I can now successfully use the goggle UI with the
+XMLRPC server.
 
-I just tested with your branch; it definitely obviates the need to exclude large amounts of variables, however BB_TASKHASH is still being included in the hash and this causes many mismatches.
+The series is currently pretty useless due to bug#561
+(http://bugzilla.pokylinux.org/show_bug.cgi?id=561) preventing use of the
+goggle UI with the none server however I would appreciate review on the patch
+set before it becomes to large.
 
-Cheers,
-Paul
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: josh/master
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=josh/master
+
+Thanks,
+    Joshua Lock <josh@linux.intel.com>
+---
+
+
+Joshua Lock (10):
+  bitbake/crumbs: Fix crumbs UI for bitbake event class name changes
+  bitbake/crumbs: do the test for ignored messages sooner
+  bitbake/crumbs: fix the event name determination
+  bitbake/goggle: interaction tweaks
+  bitbake/depexp: Factor ProgressBar into a separate class in crumbs/
+  bitbake/crumbs: add optional pbar parameter to
+    RunningBuild.handle_event()
+  bitbake/goggle: add a ProgressBar for parse progress
+  bitbake/xmlrpc: Modify xmlrpc server to work with Python 2.7
+  bitbake/cooker: fix idle command processing in servers
+  bitbake/goggle: automatically show most recently added  message
+
+ bitbake/lib/bb/cooker.py                 |    2 +-
+ bitbake/lib/bb/server/xmlrpc.py          |   68 +++++++++++++++++++++++++++++-
+ bitbake/lib/bb/ui/crumbs/progress.py     |   17 +++++++
+ bitbake/lib/bb/ui/crumbs/runningbuild.py |   26 +++++++----
+ bitbake/lib/bb/ui/depexp.py              |   19 ++-------
+ bitbake/lib/bb/ui/goggle.py              |   15 +++++-
+ 6 files changed, 117 insertions(+), 30 deletions(-)
+ create mode 100644 bitbake/lib/bb/ui/crumbs/progress.py
+
+-- 
+1.7.3.2
+
 
