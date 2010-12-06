@@ -1,25 +1,31 @@
-Return-Path: <qing.he@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 91C7D4C80039
-	for <poky@yoctoproject.org>; Mon,  6 Dec 2010 03:26:08 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 06 Dec 2010 01:26:08 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,305,1288594800"; d="scan'208";a="633466599"
-Received: from qhe2-db.sh.intel.com ([10.239.13.31])
-	by fmsmga002.fm.intel.com with ESMTP; 06 Dec 2010 01:26:07 -0800
-Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
-	(envelope-from <qing.he@intel.com>)
-	id 1PPXFk-0007TP-SC; Mon, 06 Dec 2010 17:21:00 +0800
-Date: Mon, 6 Dec 2010 17:21:00 +0800
-From: "He, Qing" <qing.he@intel.com>
-To: poky@yoctoproject.org
-Message-ID: <20101206092100.GB28618@qhe2-db>
-References: <cover.1291622614.git.qing.he@intel.com>
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 9DA054C80039
+	for <poky@lists.pokylinux.org>; Mon,  6 Dec 2010 05:19:45 -0600 (CST)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id B9E261660394; Mon,  6 Dec 2010 04:19:29 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.1
+Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
+	by mail.chez-thomas.org (Postfix) with ESMTP id E6817166030A;
+	Mon,  6 Dec 2010 04:19:05 -0700 (MST)
+Message-ID: <4CFCC6A9.1060907@mlbassoc.com>
+Date: Mon, 06 Dec 2010 04:19:05 -0700
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.12) Gecko/20101103 Fedora/1.0-0.33.b2pre.fc13
+	Thunderbird/3.1.6
 MIME-Version: 1.0
-In-Reply-To: <cover.1291622614.git.qing.he@intel.com>
-User-Agent: Mutt/1.5.20 (2009-06-14)
-Subject: [PATCH] libnl: fix typo in the Makefile fix
+To: Poky <poky@lists.pokylinux.org>
+References: <201012031634.56033.paul.eggleton@linux.intel.com>	<4CF97DC2.8040209@mlbassoc.com>
+	<4CFA3868.4020604@mlbassoc.com>
+	<625BA99ED14B2D499DC4E29D8138F1504D475430F6@shsmsx502.ccr.corp.intel.com>
+	<4CFB7F6F.60407@mlbassoc.com>
+In-Reply-To: <4CFB7F6F.60407@mlbassoc.com>
+Subject: Re: sstate status
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,65 +37,130 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 06 Dec 2010 09:26:08 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-List-Received-Date: Mon, 06 Dec 2010 11:19:46 -0000
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-change .$(OBJEXT) to .lo in the rule to reflect libtool setup
+On 12/05/2010 05:02 AM, Gary Thomas wrote:
+> On 12/05/2010 04:19 AM, Tian, Kevin wrote:
+>>> From: Gary Thomas
+>>> Sent: Saturday, December 04, 2010 8:48 PM
+>>>
+>>> On 12/03/2010 04:31 PM, Gary Thomas wrote:
+>>>> On 12/03/2010 09:34 AM, Paul Eggleton wrote:
+>>>>> Hi all,
+>>>>>
+>>>>> I've been doing some tests with sstate, and I've managed to get to a
+>>>>> stage where I can share the SSTATE_DIR between my two machines (one
+>>>>> running Fedora 14 and the other Kubuntu 10.10) and almost get a
+>>>>> successful build from a clean TMPDIR. My last test got to
+>>>>> poky-image-minimal.do_rootfs and then failed due to some kind of
+>>>>> package dependency issue:
+>>>>>
+>>>>> --------- snip ---------
+>>>>> | Processing rpm...
+>>>>> | Processing zypper...
+>>>>> | error: Failed dependencies:
+>>>>> | elfutils>= 0.148 is needed by rpm-5.1.10-r7.i586
+>>>>> | libaugeas0>= 0.7.3 is needed by
+>>>>> zypper-1.4.7+git0+9eb0e248e06c8d20ad054be2439149d9ede37531-r1.i586
+>>>>> | ERROR: Task failed: ('function do_rootfs failed',
+>>>>>
+>>> '/home/pokystuff/tmp/work/qemux86-poky-linux/poky-image-minimal-1.0-r0/temp/log.
+>>> do_rootfs.6874')
+>>>>>
+>>>>> --------- snip ---------
+>>>>>
+>>>>> A "bitbake -c clean augeas elfutils" and then "bitbake
+>>>>> poky-image-minimal" again went through OK (and built the
+>>>>> aforementioned recipes from sstate) , so I'm not sure what went wrong
+>>>>> here.
+>>>>>
+>>>>> My current state of work is in the paule/sstate contrib branch, which
+>>>>> is based on Kevin's tk/sstate branch. Kevin, I think the sooner we can
+>>>>> move this towards master the better, then we can get some wider testing.
+>>>>>
+>>>>> FYI Joshua has made bug #507 into a tracking bug for current sstate
+>>>>> issues:
+>>>>> http://bugzilla.pokylinux.org/show_bug.cgi?id=507
+>>>>
+>>>> I gave this a simple try and it failed miserably. Working from a copy of
+>>>> Paul's branch in poky-contrib, here's what I did:
+>>>>
+>>>> * On machine A (x86 Fedora 11)
+>>>> % bitbake poky-image-minimal
+>>>>
+>>>> * On machine B (x86 Fedora 13)
+>>>> -- Copy sstate-cache from machine A to /tmp/sstate-cache (rsync with
+>>>> all perms& timestamps preserved)
+>>>> -- Using the identical conf/local.conf file from machine A, except
+>>>> I set up SSTATE_MIRRORS like this
+>>>> SSTATE_MIRRORS ?= "\
+>>>> file://.* file:///tmp/sstate-cache/"
+>>>> % bitbake poky-image-minimal
+>>>>
+>>>> Fell apart pretty badly. Look at the output
+>>>> http://www.mlbassoc.com/poky/poky_with_sstate.out
+>>>>
+>>>> Also, it seemed to be rebuilding a lot of packages. IMO, there's
+>>>> no reason it should have to rebuild _any_
+>>>>
+>>>
+>>> One thing that seems to be significant is the base build directory path.
+>>> In the case above, they did not match, i.e.
+>>> * On machine A, BUILDDIR=/tmp/sstate_testing
+>>> * On machine B, BUILDDIR=/home/local/my_sstate_test
+>>> I tried it this way as it matches my [customer's] expected usage.
+>>
+>> I think in usual case the directory paths would mismatch. So let's stick to that
+>> configuration to expose more issues. In my previous debug, I have made it
+>> in a good shape but would now turn to RP's branch to try more experiments.
+>>
+>> It would be good if you also try that one:
+>> http://git.pokylinux.org/cgit/cgit.cgi/poky-contrib/log/?h=rpurdie/tweaks2
+>>
+>>>
+>>> I've rerun the experiment again where I used identical paths on both
+>>> machines and the results were vastly improved. It still takes a horrible
+>>> length of time (64 minutes on a fast 4 processor box) and rebuilds way to
+>>> many packages for just replaying what's already been done though (IMO).
+>>> Results are at
+>>> http://www.mlbassoc.com/poky/poky_with_sstate_same_paths.out
+>>>
+>>
+>> In my run ~25min are consumed just for sstate check/installation on a NHM 4-core box.
+>> then several minutes for rootfs generation if two builds totally match. the slow sstate
+>> phase comes from same reason as a slow build - the 'exec' overhead. I use 'sato' as
+>> the target.
+>>
+>> In your case, however there're still some packages rebuilt, such as gzip-native,
+>> unifdef-native, eglibc-initial, ncurses, etc. and also gcc related packages are rebuilt
+>> which just consumes time. Has your source tree changed between the two builds?
+>
+> No, identical source trees for all three runs.
+>
+> I'll try it again later today with Richard's tree.
+>
 
-Signed-off-by: Qing He <qing.he@intel.com>
----
+I've now rerun this with Richard's tweak2 changes, building in completely
+different tree paths.  While it did work, I don't see the point as it took
+even longer the second time (using the sstate cache) and generated just as
+much work :-(  Something is still not working as desired.
 
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: qhe/fix
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=qhe/fix
+Original 'bitbake poky-image-minimal' into /tmp/sstate_testing
+   time - 111 minutes
+   space - 22.9 GB (in tmp)
 
- .../libnl/libnl-2.0/fix-makefile.patch             |   10 +++++++++-
- meta/recipes-support/libnl/libnl_2.0.bb            |    2 +-
- 2 files changed, 10 insertions(+), 2 deletions(-)
+Rerun, using the sstate-cache from the first run
+   time - 114 minutes
+   space - 21.7 GB
 
-diff --git a/meta/recipes-support/libnl/libnl-2.0/fix-makefile.patch b/meta/recipes-support/libnl/libnl-2.0/fix-makefile.patch
-index d9f00be..214b0db 100644
---- a/meta/recipes-support/libnl/libnl-2.0/fix-makefile.patch
-+++ b/meta/recipes-support/libnl/libnl-2.0/fix-makefile.patch
-@@ -5,6 +5,14 @@ otherwise the build of lib/route/pktloc.c may fail in a parallel
- environment.
- 
- Signed-off-by: Qing He <qing.he@intel.com>
-+
-+12/06/2010
-+
-+the dependency rule should really read pktloc.lo instead of
-+pktloc.$(OBJEXT), since it's in a libtool setup.
-+
-+Signed-off-by: Qing He <qing.he@intel.com>
-+
- diff --git a/lib/Makefile.am b/lib/Makefile.am
- index 92a916e..e8b8ef3 100644
- --- a/lib/Makefile.am
-@@ -13,7 +21,7 @@ index 92a916e..e8b8ef3 100644
-  route/pktloc_syntax.c: route/pktloc_syntax.y
-  	$(YACC) -d $(YFLAGS) -o $@ $^
-  
--+route/pktloc.$(OBJEXT): route/pktloc_syntax.h route/pktloc_grammar.h
-++route/pktloc.lo: route/pktloc_syntax.h route/pktloc_grammar.h
- +route/pktloc_syntax.h: route/pktloc_syntax.c
- +route/pktloc_grammar.h: route/pktloc_grammar.c
- +
-diff --git a/meta/recipes-support/libnl/libnl_2.0.bb b/meta/recipes-support/libnl/libnl_2.0.bb
-index e275670..eb89f0d 100644
---- a/meta/recipes-support/libnl/libnl_2.0.bb
-+++ b/meta/recipes-support/libnl/libnl_2.0.bb
-@@ -7,7 +7,7 @@ LICENSE = "LGPLv2.1"
- LIC_FILES_CHKSUM = "file://COPYING;md5=2b41e13261a330ee784153ecbb6a82bc"
- 
- DEPENDS = "flex-native bison-native"
--PR = "r1"
-+PR = "r2"
- 
- SRC_URI= "http://www.infradead.org/~tgr/libnl/files/${PN}-${PV}.tar.gz \
-           file://fix-makefile.patch \
+I think this last line from the rerun test is telling:
+   NOTE: Tasks Summary: Attempted 1621 tasks of which 282 didn't need to be rerun and 0 failed.
+
 -- 
-1.7.0
-
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
