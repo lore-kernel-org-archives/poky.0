@@ -1,21 +1,21 @@
 Return-Path: <dongxiao.xu@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0CB664C810AF
-	for <poky@yoctoproject.org>; Mon,  6 Dec 2010 19:42:45 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 06 Dec 2010 17:42:45 -0800
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4B3AC4C811B9
+	for <poky@yoctoproject.org>; Mon,  6 Dec 2010 19:42:47 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 06 Dec 2010 17:42:47 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,308,1288594800"; d="scan'208";a="633773190"
+X-IronPort-AV: E=Sophos;i="4.59,308,1288594800"; d="scan'208";a="684548113"
 Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.9])
-	by fmsmga002.fm.intel.com with ESMTP; 06 Dec 2010 17:42:45 -0800
-Message-Id: <cd175abc315b3d7d9e58db1bd9af9d62629a67de.1291683028.git.dongxiao.xu@intel.com>
+	by orsmga001.jf.intel.com with ESMTP; 06 Dec 2010 17:42:46 -0800
+Message-Id: <c4bba74b67bbbdb5fcab31b1dd8f9bc7983b4426.1291683029.git.dongxiao.xu@intel.com>
 In-Reply-To: <cover.1291683028.git.dongxiao.xu@intel.com>
 References: <cover.1291683028.git.dongxiao.xu@intel.com>
 From: Dongxiao Xu <dongxiao.xu@intel.com>
-Date: Mon, 6 Dec 2010 20:36:15 +0800
+Date: Mon, 6 Dec 2010 20:37:36 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 2/3] sstate.bbclass: Use hard link when staging files into sysroots
+Subject: [PATCH 3/3] staging.bbclass: use hardlink when staging files to sysroot-destdir
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,69 +27,61 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 07 Dec 2010 01:42:46 -0000
+X-List-Received-Date: Tue, 07 Dec 2010 01:42:47 -0000
 
-Use hard link instead of copy when staging files from sysroot-destdir
-into sysroots directory. This can save about 10% disk space for
-poky-image-minimal.
-
-If fail, it will fall back to copy function
+Use hardlink to replace copy when staging files to sysroot-destdir.
+If fail, it will fall back to copy function.
 
 Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
 ---
- meta/classes/sstate.bbclass |    2 +-
- meta/lib/oe/path.py         |   28 ++++++++++++++++++++++++++++
- 2 files changed, 29 insertions(+), 1 deletions(-)
+ meta/classes/staging.bbclass |   27 ++++++++++++++++++++++++++-
+ 1 files changed, 26 insertions(+), 1 deletions(-)
 
-diff --git a/meta/classes/sstate.bbclass b/meta/classes/sstate.bbclass
-index 3696a8c..b6c477b 100644
---- a/meta/classes/sstate.bbclass
-+++ b/meta/classes/sstate.bbclass
-@@ -115,7 +115,7 @@ def sstate_install(ss, d):
-         locks.append(bb.utils.lockfile(lock))
+diff --git a/meta/classes/staging.bbclass b/meta/classes/staging.bbclass
+index e82db83..159562d 100644
+--- a/meta/classes/staging.bbclass
++++ b/meta/classes/staging.bbclass
+@@ -3,6 +3,31 @@ packagedstaging_fastpath () {
+ 	:
+ }
  
-     for state in ss['dirs']:
--        oe.path.copytree(state[1], state[2])
-+        oe.path.hardlink(state[1], state[2])
-         for walkroot, dirs, files in os.walk(state[1]):
-             for file in files:
-                 srcpath = os.path.join(walkroot, file)
-diff --git a/meta/lib/oe/path.py b/meta/lib/oe/path.py
-index f42faea..589b524 100644
---- a/meta/lib/oe/path.py
-+++ b/meta/lib/oe/path.py
-@@ -106,3 +106,31 @@ def symlink(source, destination, force=False):
-     except OSError, e:
-         if e.errno != errno.EEXIST or os.readlink(destination) != source:
-             raise
++hardlink() {
++	local src="$1"
++	local dest="$2"
++	local name names srcname destname
 +
-+def hardlink(src, dst):
-+    names = os.listdir(src)
++	if [ ! -d "$dest" ]; then
++		mkdir -p "$dest"
++	fi
 +
-+    bb.mkdirhier(dst)
++	names=$(ls $src)
++	for name in $names
++	do
++		srcname=$src"/"$name
++		destname=$dest"/"$name
++		if [ -d "$srcname" ]; then
++			hardlink $srcname $destname
++		else
++			ln -f $srcname $destname || true
++			if [ ! -e $destname ]; then
++				cp -fpPR $srcname $destname
++			fi
++		fi
++	done
++}
 +
-+    errors = []
-+    for name in names:
-+        srcname = os.path.join(src, name)
-+        dstname = os.path.join(dst, name)
-+        try:
-+            if os.path.islink(srcname):
-+                linkto = os.readlink(srcname)
-+                if os.path.lexists(dstname):
-+                    os.unlink(dstname)
-+                os.symlink(linkto, dstname)
-+            elif os.path.isdir(srcname):
-+                hardlink(srcname, dstname)
-+            else:
-+                ret = os.system("ln -f %s %s" % (srcname, dstname))
-+                if ret is False:
-+                    bb.utils.copyfile(srcname, dstname)
-+        except (IOError, os.error), why:
-+            errors.append((srcname, dstname, str(why)))
-+        except Error, err:
-+            errors.extend(err.args[0])
-+    if errors:
-+        raise Error, errors
+ sysroot_stage_dir() {
+ 	src="$1"
+ 	dest="$2"
+@@ -17,7 +42,7 @@ sysroot_stage_dir() {
+ 	# However we always want to stage a $src itself, even if it's empty
+ 	mkdir -p "$dest"
+ 	if [ -d "$src" ]; then
+-		cp -fpPR "$src"/* "$dest"
++		hardlink "$src" "$dest"
+ 	fi
+ }
+ 
 -- 
 1.6.3.3
 
