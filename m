@@ -1,28 +1,23 @@
-Return-Path: <ke.yu@intel.com>
-Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
-	by mx1.pokylinux.org (Postfix) with ESMTP id BA96F4C80039
-	for <poky@lists.pokylinux.org>; Mon,  6 Dec 2010 01:10:50 -0600 (CST)
-Received: by pug.o-hand.com (Postfix)
-	id 7018312EC1F7; Mon,  6 Dec 2010 01:48:54 -0600 (CST)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by pug.o-hand.com (Postfix) with ESMTP id 3276D12EC11B
-	for <poky@o-hand.com>; Mon,  6 Dec 2010 01:48:54 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 05 Dec 2010 23:10:49 -0800
+Return-Path: <qing.he@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 99EDA4C80A74
+	for <poky@yoctoproject.org>; Mon,  6 Dec 2010 02:10:55 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 06 Dec 2010 00:10:55 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,305,1288594800"; d="scan'208";a="684242587"
-Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.154.168])
-	by orsmga001.jf.intel.com with ESMTP; 05 Dec 2010 23:10:48 -0800
-Date: Mon, 6 Dec 2010 12:42:04 +0800
-From: Yu Ke <ke.yu@intel.com>
-To: Saul Wold <saul.wold@intel.com>
-Message-ID: <20101206044204.GA28648@kyu3-hedt>
-References: <4CF6F810.7030605@intel.com>
-MIME-Version: 1.0
-In-Reply-To: <4CF6F810.7030605@intel.com>
-User-Agent: Mutt/1.5.20 (2009-06-14)
-Cc: "poky@o-hand.com" <poky@o-hand.com>
-Subject: Re: Updated Checksum List
+X-IronPort-AV: E=Sophos;i="4.59,305,1288594800"; d="scan'208";a="864881834"
+Received: from qhe2-db.sh.intel.com ([10.239.13.31])
+	by fmsmga001.fm.intel.com with ESMTP; 06 Dec 2010 00:10:54 -0800
+Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
+	(envelope-from <qing.he@intel.com>)
+	id 1PPW4x-0007Qa-Tt; Mon, 06 Dec 2010 16:05:47 +0800
+Message-Id: <8aea95012c9ad30c652104f7dda4a5733c764596.1291622614.git.qing.he@intel.com>
+In-Reply-To: <cover.1291622614.git.qing.he@intel.com>
+References: <cover.1291622614.git.qing.he@intel.com>
+From: Qing He <qing.he@intel.com>
+Date: Mon, 6 Dec 2010 15:50:39 +0800
+To: poky@yoctoproject.org
+Subject: [PATCH] libnl: fix typo in the Makefile fix
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,100 +29,63 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 06 Dec 2010 07:10:50 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-List-Received-Date: Mon, 06 Dec 2010 08:10:55 -0000
 
-Hi Saul,
+change .$(OBJEXT) to .lo in the rule to reflect libtool setup
 
-when I add the license checksum for x11-common, xserver-nodm-init, I find they are GPLv2 license, not MIT, so should we add a GPL license file, like file://${POKYBASE}/meta/COPYING.GPLv2? Dongxiao also meet similar issue.
+Signed-off-by: Qing He <qing.he@intel.com>
+---
 
-Regards
-Ke
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: qhe/fix
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=qhe/fix
 
-On Dec 01, 17:36, Saul Wold wrote:
-> 
-> Folks,
-> 
-> We are now down to 58 recipes that require checksum updates, many of
-> those are images/tasks or other poky related recipes.  Richard and I
-> have agreed that the LIC_FILES_CHKSUM for those recipes should use
-> 
-> LIC_FILES_CHKSUM =
-> "file://${POKYBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58 \
-> file://${POKYBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
-> 
-> Therefore, I did not accept the changes for n/a.
-> 
-> It seems that there are about 20 of the tasks and meta recipes,
-> which leaves about 40 remaining to compute checksums for.
-> 
-> Thanks again to the team for pushing this to completion.
+ .../libnl/libnl-2.0/fix-makefile.patch             |   10 +++++++++-
+ meta/recipes-support/libnl/libnl_2.0.bb            |    2 +-
+ 2 files changed, 10 insertions(+), 2 deletions(-)
 
-> "task-poky","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,1,1,0,"None"
-> "hostap-conf","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,1,1,0,"None"
-> "task-poky-lsb","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,1,1,0,"None"
-> "initscripts","Kevin Tian <kevin.tian@intel.com>",0,1,1,1,1,0,"None"
-> "mutter","Edwin Zhai <edwin.zhai@intel.com>",0,1,0,"2.28.1+git0+c96345dd81176f171c2d15dd9d5c5b20f334f842","2.29.1_0.4",0,"None"
-> "groff","None",0,0,0,"1.18.1.4","None",0,"None"
-> "x11-common","Yu Ke <ke.yu@intel.com>",0,1,1,0.1,0.1,0,"None"
-> "initramfs-live-install","Kevin Tian <kevin.tian@intel.com>",0,1,1,1,1,0,"None"
-> "libexif","Qing He <qing.he@intel.com>",0,1,0,"0.6.16","0.6.19",0,"None"
-> "task-poky-sdk","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,1,1,0,"None"
-> "formfactor","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,0,0,0,"None"
-> "modutils-initscripts","Kevin Tian <kevin.tian@intel.com>",0,1,1,1,1,0,"None"
-> "keymaps","Kevin Tian <kevin.tian@intel.com>",0,1,1,1,1,0,"None"
-> "web","Edwin Zhai <edwin.zhai@intel.com>",0,1,0,"0.0+svnr97","None",0,"None"
-> "task-poky-x11-sato","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,1,1,0,"None"
-> "update-modules","Qing He <qing.he@intel.com>",0,1,1,1,1,0,"None"
-> "xserver-nodm-init","Yu Ke <ke.yu@intel.com>",0,1,1,1,1,0,"None"
-> "libsoup","Edwin Zhai <edwin.zhai@intel.com>",0,1,0,02/02/00,"None",0,"None"
-> "clutter","Edwin Zhai <edwin.zhai@intel.com>",0,1,0,"1.0.0+git0+e957e277b8a4893ce8c99e94402036d42a8b3748",01/02/08,0,"None"
-> "task-base","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,1,1,0,"None"
-> "task-poky-tools","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,1,1,0,"None"
-> "tidy","Edwin Zhai <edwin.zhai@intel.com>",0,1,1,"0.1.0+git0+e25416e1293e1074bfa6727c80527dcff5b1f3cb","0.1.0+git0+e25416e1293e1074bfa6727c80527dcff5b1f3cb",0,"None"
-> "rpm","Joshua Lock <joshua.lock@intel.com>",0,1,0,05/01/10,04/08/00,0,"None"
-> "x11vnc","Edwin Zhai <edwin.zhai@intel.com>",0,1,0,"0.9.3","0.9.11_dev",0,"None"
-> "usbinit","Qing He <qing.he@intel.com>",0,1,0,1,"n/a",0,"None"
-> "makedevs","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,"1.0.0","1.0.0",0,"None"
-> "task-poky-standalone-gmae-sdk-target","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,1,1,0,"None"
-> "initramfs-boot","Kevin Tian <kevin.tian@intel.com>",0,1,1,1,1,0,"None"
-> "bluez-hcidump","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,1.42,1.42,0,"None"
-> "task-poky-sdk-gmae","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,1,1,0,"None"
-> "initramfs-live-boot","Kevin Tian <kevin.tian@intel.com>",0,1,1,1,1,0,"None"
-> "task-poky-basic","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,1,1,0,"None"
-> "patch","Nitin A Kamble <nitin.a.kamble@intel.com>",0,1,0,02/05/09,"None",0,"None"
-> "gnome-icon-theme","Edwin Zhai <edwin.zhai@intel.com>",0,1,0,02/22/00,"2.30.2",0,"None"
-> "gnome-desktop","Edwin Zhai <edwin.zhai@intel.com>",0,1,0,02/26/02,"2.31.2",0,"None"
-> "web-webkit","Zhai Edwin <edwin.zhai@intel.com>",0,1,1,"0.0+svnr110","0.0+svnr110",0,"None"
-> "telepathy-glib","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,0,"0.13.5","0.11.6",0,"None"
-> "gtk-theme-darkilouche","Edwin Zhai <edwin.zhai@intel.com>",0,1,1,1,1,0,"None"
-> "gtkhtml2","Edwin Zhai <edwin.zhai@intel.com>",0,1,0,"2.11.0+svnr1144",02/11/01,0,"None"
-> "x11perf","Edwin Zhai <edwin.zhai@intel.com>",0,1,0,1.5,01/05/01,0,"None"
-> "pointercal","Zhai Edwin <edwin.zhai@intel.com>",0,1,1,0,0,0,"None"
-> "orinoco-conf","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,1,1,0,"None"
-> "task-poky-apps-x11-pimlico","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,1,1,0,"None"
-> "udev-extraconf","Qing He <qing.he@intel.com>",0,1,1,0,0,0,"None"
-> "task-poky-standalone-sdk-target","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,1,1,0,"None"
-> "task-poky-qt","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,1,1,0,"None"
-> "ppp-dialin","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,0,0.1,"check",0,"None"
-> "qemu-config","Qing He <qing.he@intel.com>",0,1,1,1,1,0,"None"
-> "tcl","Nitin A Kamble <nitin.a.kamble@intel.com>",0,1,0,08/05/08,08/05/09,0,"None"
-> "meta-ide-support","Joshua Lock <joshua.lock@intel.com>",0,1,0,1,"None",0,"None"
-> "task-poky-nfs","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,1,1,0,"None"
-> "task-poky-boot","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,1,1,0,"None"
-> "eee-acpi-scripts","Kevin Tian <kevin.tian@intel.com>",0,1,0,"0.0+gitdf785afdacedf869b20fb88a793c13b539819270","1.1.10+eaaa266e8c3b91b19d8ac861334b41ce7530e8c5",0,"None"
-> "gtk-engines","Edwin Zhai <edwin.zhai@intel.com>",0,1,0,02/14/00,2.18,0,"None"
-> "fstests","Nitin A Kamble <nitin.a.kamble@intel.com>",0,1,0,"0.0+svnr266","0.0+svnr426",1,"svnr266 is poky default"
-> "bluez-dtl1-workaround","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,1,1,0,"None"
-> "xserver-xf86-config","Yu Ke <ke.yu@intel.com>",0,1,1,0.1,0.1,0,"None"
-> "run-postinsts","Dongxiao Xu <dongxiao.xu@intel.com",0,1,0,1,"None",0,"None"
-> "clutter-1.0","Edwin Zhai <edwin.zhai@intel.com>",0,1,1,"1.0+git0+ce5025d0a2b701541ca9343686f9dac858905da4","1.0+git0+ce5025d0a2b701541ca9343686f9dac858905da4",0,"None"
-> 
-
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+diff --git a/meta/recipes-support/libnl/libnl-2.0/fix-makefile.patch b/meta/recipes-support/libnl/libnl-2.0/fix-makefile.patch
+index d9f00be..214b0db 100644
+--- a/meta/recipes-support/libnl/libnl-2.0/fix-makefile.patch
++++ b/meta/recipes-support/libnl/libnl-2.0/fix-makefile.patch
+@@ -5,6 +5,14 @@ otherwise the build of lib/route/pktloc.c may fail in a parallel
+ environment.
+ 
+ Signed-off-by: Qing He <qing.he@intel.com>
++
++12/06/2010
++
++the dependency rule should really read pktloc.lo instead of
++pktloc.$(OBJEXT), since it's in a libtool setup.
++
++Signed-off-by: Qing He <qing.he@intel.com>
++
+ diff --git a/lib/Makefile.am b/lib/Makefile.am
+ index 92a916e..e8b8ef3 100644
+ --- a/lib/Makefile.am
+@@ -13,7 +21,7 @@ index 92a916e..e8b8ef3 100644
+  route/pktloc_syntax.c: route/pktloc_syntax.y
+  	$(YACC) -d $(YFLAGS) -o $@ $^
+  
+-+route/pktloc.$(OBJEXT): route/pktloc_syntax.h route/pktloc_grammar.h
+++route/pktloc.lo: route/pktloc_syntax.h route/pktloc_grammar.h
+ +route/pktloc_syntax.h: route/pktloc_syntax.c
+ +route/pktloc_grammar.h: route/pktloc_grammar.c
+ +
+diff --git a/meta/recipes-support/libnl/libnl_2.0.bb b/meta/recipes-support/libnl/libnl_2.0.bb
+index e275670..eb89f0d 100644
+--- a/meta/recipes-support/libnl/libnl_2.0.bb
++++ b/meta/recipes-support/libnl/libnl_2.0.bb
+@@ -7,7 +7,7 @@ LICENSE = "LGPLv2.1"
+ LIC_FILES_CHKSUM = "file://COPYING;md5=2b41e13261a330ee784153ecbb6a82bc"
+ 
+ DEPENDS = "flex-native bison-native"
+-PR = "r1"
++PR = "r2"
+ 
+ SRC_URI= "http://www.infradead.org/~tgr/libnl/files/${PN}-${PV}.tar.gz \
+           file://fix-makefile.patch \
+-- 
+1.7.0
 
 
