@@ -1,20 +1,20 @@
 Return-Path: <josh@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C49F84C810E1
-	for <poky@yoctoproject.org>; Mon,  6 Dec 2010 10:11:21 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 06 Dec 2010 08:11:21 -0800
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2483B4C810AF
+	for <poky@yoctoproject.org>; Mon,  6 Dec 2010 10:11:28 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 06 Dec 2010 08:11:27 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,305,1288594800"; d="scan'208";a="684372709"
+X-IronPort-AV: E=Sophos;i="4.59,305,1288594800"; d="scan'208";a="633564986"
 Received: from unknown (HELO localhost) ([10.255.16.53])
-	by orsmga001.jf.intel.com with ESMTP; 06 Dec 2010 08:11:20 -0800
-Message-Id: <39cfe37a67ab06d6237e6c4780d1839023203ece.1291651199.git.josh@linux.intel.com>
+	by fmsmga002.fm.intel.com with ESMTP; 06 Dec 2010 08:11:27 -0800
+Message-Id: <4c90388522badd008f9a5a9ae658b6b3bf5b030c.1291651199.git.josh@linux.intel.com>
 In-Reply-To: <cover.1291651199.git.josh@linux.intel.com>
 References: <cover.1291651199.git.josh@linux.intel.com>
 From: Joshua Lock <josh@linux.intel.com>
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 03/10] bitbake/crumbs: fix the event name determination
+Subject: [PATCH 04/10] bitbake/goggle: interaction tweaks
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,32 +26,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-Date: Mon, 06 Dec 2010 16:11:22 -0000
-X-Original-Date: Thu, 11 Nov 2010 10:18:11 +0000
-X-List-Received-Date: Mon, 06 Dec 2010 16:11:22 -0000
+Date: Mon, 06 Dec 2010 16:11:28 -0000
+X-Original-Date: Thu, 11 Nov 2010 10:26:48 +0000
+X-List-Received-Date: Mon, 06 Dec 2010 16:11:28 -0000
 
-Due to some recent change *somewhere* we need to explicitly look at the
-name attribute on the instances class, rather than the name attribute of
-the instance.
+Set the goggle window to a more sane default size (640x480) and hook up the
+close button.
 
 Signed-off-by: Joshua Lock <josh@linux.intel.com>
 ---
- bitbake/lib/bb/ui/crumbs/runningbuild.py |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ bitbake/lib/bb/ui/goggle.py |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
 
-diff --git a/bitbake/lib/bb/ui/crumbs/runningbuild.py b/bitbake/lib/bb/ui/crumbs/runningbuild.py
-index 711697c..d4ba4b7 100644
---- a/bitbake/lib/bb/ui/crumbs/runningbuild.py
-+++ b/bitbake/lib/bb/ui/crumbs/runningbuild.py
-@@ -83,7 +83,7 @@ class RunningBuild (gobject.GObject):
-             # Add the message to the tree either at the top level if parent is
-             # None otherwise as a descendent of a task.
-             self.model.append (parent,
--                               (event.__name__.split()[-1], # e.g. MsgWarn, MsgError
-+                               (event.__class__.__name__.split()[-1], # e.g. MsgWarn, MsgError
-                                 package,
-                                 task,
-                                 event._message,
+diff --git a/bitbake/lib/bb/ui/goggle.py b/bitbake/lib/bb/ui/goggle.py
+index 2cfa002..d29d576 100644
+--- a/bitbake/lib/bb/ui/goggle.py
++++ b/bitbake/lib/bb/ui/goggle.py
+@@ -41,6 +41,8 @@ class MainWindow (gtk.Window):
+         scrolled_window = gtk.ScrolledWindow ()
+         self.add (scrolled_window)
+         self.cur_build_tv = RunningBuildTreeView()
++        self.connect("delete-event", gtk.main_quit)
++        self.set_default_size(640, 480)
+         scrolled_window.add (self.cur_build_tv)
+ 
+ def init (server, eventHandler):
 -- 
 1.7.3.2
 
