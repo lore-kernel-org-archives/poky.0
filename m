@@ -1,25 +1,28 @@
-Return-Path: <edwin.zhai@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id AA80B4C80A74
-	for <poky@yoctoproject.org>; Mon,  6 Dec 2010 00:48:05 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 05 Dec 2010 22:48:05 -0800
+Return-Path: <ke.yu@intel.com>
+Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
+	by mx1.pokylinux.org (Postfix) with ESMTP id BA96F4C80039
+	for <poky@lists.pokylinux.org>; Mon,  6 Dec 2010 01:10:50 -0600 (CST)
+Received: by pug.o-hand.com (Postfix)
+	id 7018312EC1F7; Mon,  6 Dec 2010 01:48:54 -0600 (CST)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by pug.o-hand.com (Postfix) with ESMTP id 3276D12EC11B
+	for <poky@o-hand.com>; Mon,  6 Dec 2010 01:48:54 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 05 Dec 2010 23:10:49 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,305,1288594800"; d="scan'208";a="633428837"
-Received: from shxpwgzhai1a.ccr.corp.intel.com (HELO [10.239.48.130])
-	([10.239.48.130])
-	by fmsmga002.fm.intel.com with ESMTP; 05 Dec 2010 22:48:04 -0800
-Message-ID: <4CFC8767.8000500@intel.com>
-Date: Mon, 06 Dec 2010 14:49:11 +0800
-From: "Zhai, Edwin" <edwin.zhai@intel.com>
-User-Agent: Thunderbird 2.0.0.17 (Windows/20080914)
+X-IronPort-AV: E=Sophos;i="4.59,305,1288594800"; d="scan'208";a="684242587"
+Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.154.168])
+	by orsmga001.jf.intel.com with ESMTP; 05 Dec 2010 23:10:48 -0800
+Date: Mon, 6 Dec 2010 12:42:04 +0800
+From: Yu Ke <ke.yu@intel.com>
+To: Saul Wold <saul.wold@intel.com>
+Message-ID: <20101206044204.GA28648@kyu3-hedt>
+References: <4CF6F810.7030605@intel.com>
 MIME-Version: 1.0
-To: "Wold, Saul" <saul.wold@intel.com>
-References: <cover.1291354552.git.edwin.zhai@intel.com>	<ad61b47ae60afc07308e0d2b007610335052fa35.1291354553.git.edwin.zhai@intel.com>
-	<4CF9435C.9060405@intel.com>
-In-Reply-To: <4CF9435C.9060405@intel.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 03/14] beecrypt: Update to 4.2.1
+In-Reply-To: <4CF6F810.7030605@intel.com>
+User-Agent: Mutt/1.5.20 (2009-06-14)
+Cc: "poky@o-hand.com" <poky@o-hand.com>
+Subject: Re: Updated Checksum List
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,220 +34,100 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 06 Dec 2010 06:48:06 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 06 Dec 2010 07:10:50 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
+Hi Saul,
 
+when I add the license checksum for x11-common, xserver-nodm-init, I find they are GPLv2 license, not MIT, so should we add a GPL license file, like file://${POKYBASE}/meta/COPYING.GPLv2? Dongxiao also meet similar issue.
 
-Wold, Saul wrote:
-> On 11/26/2010 12:57 AM, Zhai Edwin wrote:
->   
->> Rebased disable-icu-check.patch&  fix-security.patch. Removed x64fix.patch as
->> it is already in upstream. Also some configure changes: removing "--with-arch"
->> as it can't cowork with expert mode, adding "--disable-openmp" to avoid
->> unnecessary dependency.
->>
->>     
->
-> Edwin:
->
-> I am not taking this patch
->
-> The --with-arch is needed for correct cross-compilation, please review 
-> this change and resubmit.  Did you test on cross-compiling?
->   
+Regards
+Ke
 
-Yes, cross-compile with arm/x86 works well. Without "--with-arch", poky 
-still can figure out the build/host/target for beecrypt.  
-"-enable-expert-mode" is one new configure option that allow customized 
-CFLAGS, and is enabled by default as poky always set CFLAGS.
-> Is openmp a newly supported option to beecrypt?  
+On Dec 01, 17:36, Saul Wold wrote:
+> 
+> Folks,
+> 
+> We are now down to 58 recipes that require checksum updates, many of
+> those are images/tasks or other poky related recipes.  Richard and I
+> have agreed that the LIC_FILES_CHKSUM for those recipes should use
+> 
+> LIC_FILES_CHKSUM =
+> "file://${POKYBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58 \
+> file://${POKYBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
+> 
+> Therefore, I did not accept the changes for n/a.
+> 
+> It seems that there are about 20 of the tasks and meta recipes,
+> which leaves about 40 remaining to compute checksums for.
+> 
+> Thanks again to the team for pushing this to completion.
 
-Yes
-> What are the dependencies?
->   
+> "task-poky","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,1,1,0,"None"
+> "hostap-conf","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,1,1,0,"None"
+> "task-poky-lsb","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,1,1,0,"None"
+> "initscripts","Kevin Tian <kevin.tian@intel.com>",0,1,1,1,1,0,"None"
+> "mutter","Edwin Zhai <edwin.zhai@intel.com>",0,1,0,"2.28.1+git0+c96345dd81176f171c2d15dd9d5c5b20f334f842","2.29.1_0.4",0,"None"
+> "groff","None",0,0,0,"1.18.1.4","None",0,"None"
+> "x11-common","Yu Ke <ke.yu@intel.com>",0,1,1,0.1,0.1,0,"None"
+> "initramfs-live-install","Kevin Tian <kevin.tian@intel.com>",0,1,1,1,1,0,"None"
+> "libexif","Qing He <qing.he@intel.com>",0,1,0,"0.6.16","0.6.19",0,"None"
+> "task-poky-sdk","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,1,1,0,"None"
+> "formfactor","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,0,0,0,"None"
+> "modutils-initscripts","Kevin Tian <kevin.tian@intel.com>",0,1,1,1,1,0,"None"
+> "keymaps","Kevin Tian <kevin.tian@intel.com>",0,1,1,1,1,0,"None"
+> "web","Edwin Zhai <edwin.zhai@intel.com>",0,1,0,"0.0+svnr97","None",0,"None"
+> "task-poky-x11-sato","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,1,1,0,"None"
+> "update-modules","Qing He <qing.he@intel.com>",0,1,1,1,1,0,"None"
+> "xserver-nodm-init","Yu Ke <ke.yu@intel.com>",0,1,1,1,1,0,"None"
+> "libsoup","Edwin Zhai <edwin.zhai@intel.com>",0,1,0,02/02/00,"None",0,"None"
+> "clutter","Edwin Zhai <edwin.zhai@intel.com>",0,1,0,"1.0.0+git0+e957e277b8a4893ce8c99e94402036d42a8b3748",01/02/08,0,"None"
+> "task-base","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,1,1,0,"None"
+> "task-poky-tools","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,1,1,0,"None"
+> "tidy","Edwin Zhai <edwin.zhai@intel.com>",0,1,1,"0.1.0+git0+e25416e1293e1074bfa6727c80527dcff5b1f3cb","0.1.0+git0+e25416e1293e1074bfa6727c80527dcff5b1f3cb",0,"None"
+> "rpm","Joshua Lock <joshua.lock@intel.com>",0,1,0,05/01/10,04/08/00,0,"None"
+> "x11vnc","Edwin Zhai <edwin.zhai@intel.com>",0,1,0,"0.9.3","0.9.11_dev",0,"None"
+> "usbinit","Qing He <qing.he@intel.com>",0,1,0,1,"n/a",0,"None"
+> "makedevs","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,"1.0.0","1.0.0",0,"None"
+> "task-poky-standalone-gmae-sdk-target","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,1,1,0,"None"
+> "initramfs-boot","Kevin Tian <kevin.tian@intel.com>",0,1,1,1,1,0,"None"
+> "bluez-hcidump","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,1.42,1.42,0,"None"
+> "task-poky-sdk-gmae","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,1,1,0,"None"
+> "initramfs-live-boot","Kevin Tian <kevin.tian@intel.com>",0,1,1,1,1,0,"None"
+> "task-poky-basic","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,1,1,0,"None"
+> "patch","Nitin A Kamble <nitin.a.kamble@intel.com>",0,1,0,02/05/09,"None",0,"None"
+> "gnome-icon-theme","Edwin Zhai <edwin.zhai@intel.com>",0,1,0,02/22/00,"2.30.2",0,"None"
+> "gnome-desktop","Edwin Zhai <edwin.zhai@intel.com>",0,1,0,02/26/02,"2.31.2",0,"None"
+> "web-webkit","Zhai Edwin <edwin.zhai@intel.com>",0,1,1,"0.0+svnr110","0.0+svnr110",0,"None"
+> "telepathy-glib","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,0,"0.13.5","0.11.6",0,"None"
+> "gtk-theme-darkilouche","Edwin Zhai <edwin.zhai@intel.com>",0,1,1,1,1,0,"None"
+> "gtkhtml2","Edwin Zhai <edwin.zhai@intel.com>",0,1,0,"2.11.0+svnr1144",02/11/01,0,"None"
+> "x11perf","Edwin Zhai <edwin.zhai@intel.com>",0,1,0,1.5,01/05/01,0,"None"
+> "pointercal","Zhai Edwin <edwin.zhai@intel.com>",0,1,1,0,0,0,"None"
+> "orinoco-conf","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,1,1,0,"None"
+> "task-poky-apps-x11-pimlico","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,1,1,0,"None"
+> "udev-extraconf","Qing He <qing.he@intel.com>",0,1,1,0,0,0,"None"
+> "task-poky-standalone-sdk-target","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,1,1,0,"None"
+> "task-poky-qt","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,1,1,0,"None"
+> "ppp-dialin","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,0,0.1,"check",0,"None"
+> "qemu-config","Qing He <qing.he@intel.com>",0,1,1,1,1,0,"None"
+> "tcl","Nitin A Kamble <nitin.a.kamble@intel.com>",0,1,0,08/05/08,08/05/09,0,"None"
+> "meta-ide-support","Joshua Lock <joshua.lock@intel.com>",0,1,0,1,"None",0,"None"
+> "task-poky-nfs","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,1,1,0,"None"
+> "task-poky-boot","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,1,1,0,"None"
+> "eee-acpi-scripts","Kevin Tian <kevin.tian@intel.com>",0,1,0,"0.0+gitdf785afdacedf869b20fb88a793c13b539819270","1.1.10+eaaa266e8c3b91b19d8ac861334b41ce7530e8c5",0,"None"
+> "gtk-engines","Edwin Zhai <edwin.zhai@intel.com>",0,1,0,02/14/00,2.18,0,"None"
+> "fstests","Nitin A Kamble <nitin.a.kamble@intel.com>",0,1,0,"0.0+svnr266","0.0+svnr426",1,"svnr266 is poky default"
+> "bluez-dtl1-workaround","Dongxiao Xu <dongxiao.xu@intel.com>",0,1,1,1,1,0,"None"
+> "xserver-xf86-config","Yu Ke <ke.yu@intel.com>",0,1,1,0.1,0.1,0,"None"
+> "run-postinsts","Dongxiao Xu <dongxiao.xu@intel.com",0,1,0,1,"None",0,"None"
+> "clutter-1.0","Edwin Zhai <edwin.zhai@intel.com>",0,1,1,"1.0+git0+ce5025d0a2b701541ca9343686f9dac858905da4","1.0+git0+ce5025d0a2b701541ca9343686f9dac858905da4",0,"None"
+> 
 
-Without "--disable-openmp", beecrypt would be linked with some *so from 
-openmp(absent). Then rpm configure get failed as it found libbeecrypt.so 
-linked with missing *so.
-> Sau!
->
->
->   
->> Signed-off-by: Zhai Edwin<edwin.zhai@intel.com>
->> ---
->>   .../beecrypt/beecrypt/disable-icu-check.patch      |   12 ++--
->>   .../beecrypt/beecrypt/fix-security.patch           |   51 ++++++++++----------
->>   .../recipes-support/beecrypt/beecrypt/x64fix.patch |   23 ---------
->>   .../{beecrypt_4.1.2.bb =>  beecrypt_4.2.1.bb}       |    9 ++--
->>   4 files changed, 37 insertions(+), 58 deletions(-)
->>   delete mode 100644 meta/recipes-support/beecrypt/beecrypt/x64fix.patch
->>   rename meta/recipes-support/beecrypt/{beecrypt_4.1.2.bb =>  beecrypt_4.2.1.bb} (65%)
->>
->> diff --git a/meta/recipes-support/beecrypt/beecrypt/disable-icu-check.patch b/meta/recipes-support/beecrypt/beecrypt/disable-icu-check.patch
->> index 3e18a87..4a2f414 100644
->> --- a/meta/recipes-support/beecrypt/beecrypt/disable-icu-check.patch
->> +++ b/meta/recipes-support/beecrypt/beecrypt/disable-icu-check.patch
->> @@ -2,11 +2,11 @@ We are unable to run code at configure time in a cross environemnt, but as we
->>   control the build we can be fairly certain this dependency is met.
->>
->>   JL 05/07/10
->> -Index: beecrypt-4.1.2/configure.ac
->> +Index: beecrypt-4.2.1/configure.ac
->>   ===================================================================
->> ---- beecrypt-4.1.2.orig/configure.ac	2004-12-21 11:37:56.000000000 +0000
->> -+++ beecrypt-4.1.2/configure.ac	2010-07-05 16:09:50.390083494 +0100
->> -@@ -243,32 +243,6 @@
->> +--- beecrypt-4.2.1.orig/configure.ac	2010-11-26 17:12:25.000000000 +0800
->> ++++ beecrypt-4.2.1/configure.ac	2010-11-26 17:12:30.000000000 +0800
->> +@@ -292,32 +292,6 @@
->>    # Predefines and checks for C++ API support
->>    AH_TEMPLATE([CPPGLUE],[Define to 1 if you want to include the C++ code])
->>
->> @@ -36,6 +36,6 @@ Index: beecrypt-4.1.2/configure.ac
->>   -  AC_LANG_POP(C)
->>   -fi
->>   -
->> + AM_CONDITIONAL([WITH_CPLUSPLUS],[test "$ac_with_cplusplus" = yes])
->> +
->>    if test "$ac_with_cplusplus" = yes ; then
->> -   AC_DEFINE([CPPGLUE],1)
->> - fi
->> diff --git a/meta/recipes-support/beecrypt/beecrypt/fix-security.patch b/meta/recipes-support/beecrypt/beecrypt/fix-security.patch
->> index 6103562..f28e393 100644
->> --- a/meta/recipes-support/beecrypt/beecrypt/fix-security.patch
->> +++ b/meta/recipes-support/beecrypt/beecrypt/fix-security.patch
->> @@ -3,20 +3,38 @@ project:
->>   http://www.mail-archive.com/fink-commits@lists.sourceforge.net/msg75742.html
->>
->>   JL 05/07/10
->> -Index: beecrypt-4.1.2/c++/security/Security.h
->> +Index: beecrypt-4.2.1/include/beecrypt/c++/beeyond/BeeCertificate.h
->>   ===================================================================
->> ---- beecrypt-4.1.2.orig/c++/security/Security.h	2010-07-05 17:15:34.811273306 +0100
->> -+++ beecrypt-4.1.2/c++/security/Security.h	2010-07-05 17:15:38.696388531 +0100
->> -@@ -75,8 +75,6 @@
->> +--- beecrypt-4.2.1.orig/include/beecrypt/c++/beeyond/BeeCertificate.h	2010-11-26 17:22:57.000000000 +0800
->> ++++ beecrypt-4.2.1/include/beecrypt/c++/beeyond/BeeCertificate.h	2010-11-26 17:23:01.000000000 +0800
->> +@@ -147,13 +147,13 @@
->> + 			mutable bytearray* enc;
->> +
->> + 			BeeCertificate();
->> +-			BeeCertificate(InputStream&  in) throw (IOException);
->> +
->> + 			void encodeTBS(DataOutputStream&  out) const throw (IOException);
->> +
->> + 			bytearray* encodeTBS() const throw (CertificateEncodingException);
->> +
->>    		public:
->> - 			typedef vector<const Provider*>  provider_vector;
->> - 			typedef provider_vector::iterator provider_vector_iterator;
->> --
->> ++			BeeCertificate(InputStream&  in) throw (IOException);
->> + 			BeeCertificate(const BeeCertificate&) throw (CloneNotSupportedException);
->> + 			virtual ~BeeCertificate();
->> +
->> +Index: beecrypt-4.2.1/include/beecrypt/c++/security/Security.h
->> +===================================================================
->> +--- beecrypt-4.2.1.orig/include/beecrypt/c++/security/Security.h	2010-11-26 17:20:55.000000000 +0800
->> ++++ beecrypt-4.2.1/include/beecrypt/c++/security/Security.h	2010-11-26 17:21:36.000000000 +0800
->> +@@ -61,7 +61,6 @@
->> + 			friend class SecureRandom;
->> + 			friend class Signature;
->> +
->>   -		private:
->>    			struct spi
->>    			{
->>    				Object* cspi;
->> -@@ -91,6 +89,7 @@
->> +@@ -76,6 +75,7 @@
->>    			static spi* getSpi(const String&  algo, const String&  type, const Provider&) throw (NoSuchAlgorithmException);
->>    			static spi* getFirstSpi(const String&  type);
->>
->> @@ -24,20 +42,3 @@ Index: beecrypt-4.1.2/c++/security/Security.h
->>    			static const String&  getKeyStoreDefault();
->>
->>    			static bool _init;
->> -Index: beecrypt-4.1.2/c++/beeyond/BeeCertificate.h
->> -===================================================================
->> ---- beecrypt-4.1.2.orig/c++/beeyond/BeeCertificate.h	2004-11-03 09:37:27.000000000 +0000
->> -+++ beecrypt-4.1.2/c++/beeyond/BeeCertificate.h	2010-07-05 17:16:25.216332324 +0100
->> -@@ -150,11 +150,11 @@
->> - 			mutable String* str;
->> -
->> - 			BeeCertificate();
->> --			BeeCertificate(InputStream&  in) throw (IOException);
->> -
->> - 			bytearray* encodeTBS() const;
->> -
->> - 		public:
->> -+			BeeCertificate(InputStream&  in) throw (IOException);
->> - 			BeeCertificate(const BeeCertificate&);
->> - 			virtual ~BeeCertificate();
->> -
->> diff --git a/meta/recipes-support/beecrypt/beecrypt/x64fix.patch b/meta/recipes-support/beecrypt/beecrypt/x64fix.patch
->> deleted file mode 100644
->> index ac02425..0000000
->> --- a/meta/recipes-support/beecrypt/beecrypt/x64fix.patch
->> +++ /dev/null
->> @@ -1,23 +0,0 @@
->> -Don't have 64 appended to the libdir for 64bit platforms.
->> -
->> -JL 05/07/10
->> -Index: beecrypt-4.1.2/configure.ac
->> -===================================================================
->> ---- beecrypt-4.1.2.orig/configure.ac	2010-07-05 16:39:43.000000000 +0100
->> -+++ beecrypt-4.1.2/configure.ac	2010-07-05 16:40:27.521082866 +0100
->> -@@ -585,15 +585,6 @@
->> -
->> - # Check where to install the libraries
->> - bc_libalt=
->> --case $target_os in
->> --linux*)
->> --  case $bc_target_arch in
->> --  powerpc64 | s390x | x86_64)
->> --    bc_libalt="64"
->> --    ;;
->> --  esac
->> --  ;;
->> --esac
->> - AC_SUBST(LIBALT,$bc_libalt)
->> -
->> - # Generate output files.
->> diff --git a/meta/recipes-support/beecrypt/beecrypt_4.1.2.bb b/meta/recipes-support/beecrypt/beecrypt_4.2.1.bb
->> similarity index 65%
->> rename from meta/recipes-support/beecrypt/beecrypt_4.1.2.bb
->> rename to meta/recipes-support/beecrypt/beecrypt_4.2.1.bb
->> index 0da36d9..8f2ffc6 100644
->> --- a/meta/recipes-support/beecrypt/beecrypt_4.1.2.bb
->> +++ b/meta/recipes-support/beecrypt/beecrypt_4.2.1.bb
->> @@ -5,12 +5,13 @@
->>   DESCRIPTION="Beecrypt is a general-purpose cryptography library."
->>   HOMEPAGE="http://sourceforge.net/projects/beecrypt"
->>   SRC_URI="${SOURCEFORGE_MIRROR}/beecrypt/beecrypt-${PV}.tar.gz \
->> -	 file://x64fix.patch \
->>   	 file://disable-icu-check.patch \
->>   	 file://fix-security.patch"
->> -LICENSE = "GPLv2&LGPLv2.1"
->> +LICENSE = "GPLv2&  LGPLv2.1"
->>   LIC_FILES_CHKSUM = "file://COPYING;md5=9894370afd5dfe7d02b8d14319e729a1 \
->> -	            file://COPYING.LIB;md5=dcf3c825659e82539645da41a7908589"
->> +                    file://COPYING.LIB;md5=dcf3c825659e82539645da41a7908589 \
->> +                    file://include/beecrypt/beecrypt.h;endline=20;md5=47a93eef539aac237eef86297a4d71c1"
->> +
->>   DEPENDS = "icu"
->>
->>   PR = "r0"
->> @@ -18,6 +19,6 @@ PR = "r0"
->>   inherit autotools
->>   acpaths=""
->>
->> -EXTRA_OECONF="--with-arch=${TARGET_ARCH} --without-python --enable-shared --enable-static"
->> +EXTRA_OECONF="--without-python --enable-shared --enable-static --disable-openmp"
->>
->>   BBCLASSEXTEND = "native"
->>     
->
->   
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+
 
