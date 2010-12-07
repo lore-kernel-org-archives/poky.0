@@ -1,28 +1,29 @@
 Return-Path: <wd@denx.de>
 Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 001B24C811E4
+	by mx1.pokylinux.org (Postfix) with ESMTP id 069E04C811E5
 	for <poky@yoctoproject.org>; Tue,  7 Dec 2010 15:14:27 -0600 (CST)
 Received: from frontend1.mail.m-online.net (frontend1.mail.intern.m-online.net
 	[192.168.8.180])
-	by mail-out.m-online.net (Postfix) with ESMTP id 27DB718059F6;
-	Tue,  7 Dec 2010 22:14:26 +0100 (CET)
+	by mail-out.m-online.net (Postfix) with ESMTP id 9DF001805940
+	for <poky@yoctoproject.org>; Tue,  7 Dec 2010 22:14:26 +0100 (CET)
 X-Auth-Info: AtrY9kE1I+MFs8Ovyqew1tgS6yGqvCtD/tc+Us40+/Q=
 Received: from diddl.denx.de (ppp-188-174-79-57.dynamic.mnet-online.de
 	[188.174.79.57])
-	by smtp-auth.mnet-online.de (Postfix) with ESMTPA id 6B17E1C00129;
-	Tue,  7 Dec 2010 22:14:26 +0100 (CET)
+	by smtp-auth.mnet-online.de (Postfix) with ESMTPA id D0B2B1C0015D
+	for <poky@yoctoproject.org>; Tue,  7 Dec 2010 22:14:26 +0100 (CET)
 Received: from gemini.denx.de (gemini.denx.de [10.0.0.2])
-	by diddl.denx.de (Postfix) with ESMTP id 3C5253335217;
-	Tue,  7 Dec 2010 22:14:26 +0100 (CET)
+	by diddl.denx.de (Postfix) with ESMTP id 649D2333521F
+	for <poky@yoctoproject.org>; Tue,  7 Dec 2010 22:14:26 +0100 (CET)
 Received: by gemini.denx.de (Postfix, from userid 500)
-	id 1500FD0B11B; Tue,  7 Dec 2010 22:14:26 +0100 (CET)
+	id 536C9D0E429; Tue,  7 Dec 2010 22:14:26 +0100 (CET)
 From: Wolfgang Denk <wd@denx.de>
 To: poky@yoctoproject.org
-Date: Tue,  7 Dec 2010 22:13:58 +0100
-Message-Id: <1291756443-28767-1-git-send-email-wd@denx.de>
+Date: Tue,  7 Dec 2010 22:14:03 +0100
+Message-Id: <1291756443-28767-6-git-send-email-wd@denx.de>
 X-Mailer: git-send-email 1.7.3.2
-Cc: Vasily Khoruzhick <anarsoul@gmail.com>
-Subject: [PATCH 0/5] Fedora 14 Patches
+In-Reply-To: <1291756443-28767-1-git-send-email-wd@denx.de>
+References: <1291756443-28767-1-git-send-email-wd@denx.de>
+Subject: [PATCH 5/5] elfutils-0.148: fix problems with `ld' not recognizing options
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,54 +37,107 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Tue, 07 Dec 2010 21:14:28 -0000
 
-From: Vasily Khoruzhick <anarsoul@gmail.com>
+Recent versions of gcc (for example in Fedora 14) will call the
+included linker with options like "-rpath", "-rpath-link" and
+"--add-needed" resp. "--no-add-needed" wich cause the linker to fail.
+Previde backward compatibility renames for the "-rpath*" options and
+add dummy handling for the "*add-needed" options.
 
-The following is a series of patches trying to get Poky (both laverne
-4.0 and top of tree) to build under a Fedora 14 x86_64 system.
+Signed-off-by: Wolfgang Denk <wd@denx.de>
+---
+I have to admit that I dislike the approach of ignoring the
+"*add-needed" options myself, but I haven't found a way to stop the
+Fedora compiler from inserting these options.
 
-I'm not through yet (for example, commenting out NO32LIBS=1 still
-fails), but eventually others find this helpful, or tell me that there
-is an easier way to get Poky to build.
-
-Thanks.
-
-Summary:
-
-[1/5] eglibc: fix build issue with make-3.82
- meta/recipes-core/eglibc/eglibc_2.12.bb            |    3 ++-
- .../eglibc/files/eglibc-make-382.patch             |   15 +++++++++++++++
- 2 files changed, 17 insertions(+), 1 deletions(-)
-
-[2/5] gstreamer: fix build issue with make-3.82
- .../gstreamer-0.10.29/gstreamer-make-382.patch     |  178 ++++++++++++++++++++
- .../gstreamer/gstreamer_0.10.30.bb                 |    5 +-
- 2 files changed, 181 insertions(+), 2 deletions(-)
-
-[3/5] Add support for 40x configuration (kilauea from OE)
- meta/conf/machine/include/tune-ppc405.inc          |    6 ++++++
- meta/conf/machine/kilauea.conf                     |   22 ++++++++++++++++++++++
- 2 files changed, 28 insertions(+), 0 deletions(-)
-
-[4/5] elfutils-0.148: fix build problem with "ar"
- .../elfutils/elfutils-0.148/ar-options.patch       |   11 +++++++++++
- meta/recipes-devtools/elfutils/elfutils_0.148.bb   |    3 ++-
- 2 files changed, 13 insertions(+), 1 deletions(-)
-
-[5/5] elfutils-0.148: fix problems with `ld' not recognizing options
  .../elfutils/elfutils-0.148/ld-compatibility.patch |   56 ++++++++++++++++++++
  meta/recipes-devtools/elfutils/elfutils_0.148.bb   |    3 +-
  2 files changed, 58 insertions(+), 1 deletions(-)
+ create mode 100644 meta/recipes-devtools/elfutils/elfutils-0.148/ld-compatibility.patch
 
-
-
-Best regards,
-
-Wolfgang Denk
-
+diff --git a/meta/recipes-devtools/elfutils/elfutils-0.148/ld-compatibility.patch b/meta/recipes-devtools/elfutils/elfutils-0.148/ld-compatibility.patch
+new file mode 100644
+index 0000000..74eb706
+--- /dev/null
++++ b/meta/recipes-devtools/elfutils/elfutils-0.148/ld-compatibility.patch
+@@ -0,0 +1,56 @@
++--- elfutils-0.148/src/ld.c.ORIG	2010-04-13 22:08:02.000000000 +0200
+++++ elfutils-0.148/src/ld.c	2010-12-06 22:38:54.837104954 +0100
++@@ -78,6 +78,8 @@
++ #if YYDEBUG
++     ARGP_yydebug,
++ #endif
+++    ARGP_add_needed,
+++    ARGP_no_add_needed,
++   };
++ 
++ 
++@@ -190,6 +192,11 @@
++     N_("Read version information from FILE."), 0 },
++   { "emulation", 'm', "NAME", 0, N_("Set emulation to NAME."), 0 },
++ 
+++  { "add-needed", ARGP_add_needed, NULL, 0,
+++    N_("Dummy implementation - does nothing"), 0 },
+++  { "no-add-needed", ARGP_no_add_needed, NULL, 0,
+++    N_("Dummy implementation - does nothing"), 0 },
+++
++   { NULL, 0, NULL, 0, NULL, 0 }
++ };
++ 
++@@ -509,6 +516,8 @@
++ 	{ "-export-dynamic", "--export-dynamic" },
++ 	{ "-dynamic-linker", "--dynamic-linker" },
++ 	{ "-static", "--static" },
+++	{ "-rpath", "--rpath" },
+++	{ "-rpath-link", "--rpath-link" },
++       };
++   const size_t nargs = sizeof (args) / sizeof (args[0]);
++ 
++@@ -754,6 +763,11 @@
++       conserve_memory = 1;
++       break;
++ 
+++    case ARGP_add_needed:	/* dummy entry, do nothing */
+++      break;
+++    case ARGP_no_add_needed:	/* dummy entry, do nothing */
+++      break;
+++
++     default:
++       return ARGP_ERR_UNKNOWN;
++     }
++@@ -898,6 +912,11 @@
++       }
++       break;
++ 
+++    case ARGP_add_needed:	/* dummy entry, do nothing */
+++      break;
+++    case ARGP_no_add_needed:	/* dummy entry, do nothing */
+++      break;
+++
++     default:
++       /* We can catch all other options here.  They either have
++ 	 already been handled or, if the parameter was not correct,
+diff --git a/meta/recipes-devtools/elfutils/elfutils_0.148.bb b/meta/recipes-devtools/elfutils/elfutils_0.148.bb
+index 5a7beaa..16dfb46 100644
+--- a/meta/recipes-devtools/elfutils/elfutils_0.148.bb
++++ b/meta/recipes-devtools/elfutils/elfutils_0.148.bb
+@@ -6,7 +6,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=0636e73ff0215e8d672dc4c32c317bb3\
+                     file://EXCEPTION;md5=570adcb0c1218ab57f2249c67d0ce417"
+ DEPENDS = "libtool zlib"
+ 
+-PR = "r2"
++PR = "r3"
+ 
+ SRC_URI = "https://fedorahosted.org/releases/e/l/elfutils/elfutils-${PV}.tar.bz2"
+ 
+@@ -25,6 +25,7 @@ SRC_URI += "\
+         file://elf_additions.diff \
+ 	file://elfutils-fsize.patch \
+ 	file://ar-options.patch \
++	file://ld-compatibility.patch \
+ "
+ 
+ # The buildsystem wants to generate 2 .h files from source using a binary it just built,
 -- 
-DENX Software Engineering GmbH,     MD: Wolfgang Denk & Detlev Zundel
-HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
-Phone: (+49)-8142-66989-10 Fax: (+49)-8142-66989-80 Email: wd@denx.de
-Always try to do things in chronological order; it's  less  confusing
-that way.
+1.7.3.2
+
 
