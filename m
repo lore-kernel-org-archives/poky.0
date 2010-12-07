@@ -1,21 +1,21 @@
 Return-Path: <dongxiao.xu@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id F3BF84C81205
-	for <poky@yoctoproject.org>; Wed,  8 Dec 2010 00:28:23 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 07 Dec 2010 22:28:23 -0800
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id BA3D54C81200
+	for <poky@yoctoproject.org>; Wed,  8 Dec 2010 00:28:32 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 07 Dec 2010 22:28:32 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,315,1288594800"; d="scan'208";a="865769204"
+X-IronPort-AV: E=Sophos;i="4.59,315,1288594800"; d="scan'208";a="358635992"
 Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.9])
-	by fmsmga001.fm.intel.com with ESMTP; 07 Dec 2010 22:28:21 -0800
-Message-Id: <1e75308c5041a1233c47c50c34e9c83feb367d61.1291790130.git.dongxiao.xu@intel.com>
+	by azsmga001.ch.intel.com with ESMTP; 07 Dec 2010 22:28:17 -0800
+Message-Id: <d6a414833f0372903aa707b51ad449c8f4b396a2.1291790130.git.dongxiao.xu@intel.com>
 In-Reply-To: <cover.1291790130.git.dongxiao.xu@intel.com>
 References: <cover.1291790130.git.dongxiao.xu@intel.com>
 From: Dongxiao Xu <dongxiao.xu@intel.com>
-Date: Tue, 7 Dec 2010 17:03:40 +0800
+Date: Tue, 7 Dec 2010 16:57:28 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 6/7] pulseaudio: upgrade to version 0.9.21
+Subject: [PATCH 3/7] gst-ffmpeg: upgrade to version 0.10.11
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,297 +27,218 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 08 Dec 2010 06:28:24 -0000
+X-List-Received-Date: Wed, 08 Dec 2010 06:28:33 -0000
 
-There is a bug in pulseaudio uptream which uses new instructions on old
-arm platform. So we keep arm version of pulseaudio unchanged.
+Derived the recipe from openembedded.
+
+For poky, we use the ffmpeg lib contained in the package, while
+openembedded use the system ffmpeg library.
+
+Remove the two patches in 0.10.1 since the original logic is not
+exist in latest version.
+
+Update recipe metadata.
 
 Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
 ---
- meta/conf/distro/include/poky-fixed-revisions.inc  |    4 +
- .../pulseaudio/pulseaudio-0.9.21/armv4+v5asm.patch |   59 ++++++++++++++++++++
- .../pulseaudio-0.9.21/autoconf_version.patch       |   15 +++++
- .../pulseaudio/pulseaudio-0.9.21/buildfix.patch    |   15 +++++
- .../pulseaudio-0.9.21/configure_silent_rules.patch |   31 ++++++++++
- .../pulseaudio-0.9.21/gcc4-compile-fix.patch       |   20 +++++++
- .../pulseaudio/pulseaudio-0.9.21/tls_m4.patch      |   32 +++++++++++
- .../pulseaudio-0.9.21/volatiles.04_pulse           |    2 +
- .../pulseaudio/pulseaudio_0.9.21.bb                |   28 +++++++++
- 9 files changed, 206 insertions(+), 0 deletions(-)
- create mode 100644 meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/armv4+v5asm.patch
- create mode 100644 meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/autoconf_version.patch
- create mode 100644 meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/buildfix.patch
- create mode 100644 meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/configure_silent_rules.patch
- create mode 100644 meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/gcc4-compile-fix.patch
- create mode 100644 meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/tls_m4.patch
- create mode 100644 meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/volatiles.04_pulse
- create mode 100644 meta/recipes-multimedia/pulseaudio/pulseaudio_0.9.21.bb
+ .../gst-ffmpeg-0.10.1/configure_fix.patch          |   13 -----
+ .../gstreamer/gst-ffmpeg-0.10.1/no_beos.patch      |   55 --------------------
+ .../gstreamer/gst-ffmpeg-0.10.11/lower-rank.diff   |   14 +++++
+ .../gstreamer/gst-ffmpeg_0.10.1.bb                 |   35 ------------
+ .../gstreamer/gst-ffmpeg_0.10.11.bb                |   39 ++++++++++++++
+ 5 files changed, 53 insertions(+), 103 deletions(-)
+ delete mode 100644 meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.1/configure_fix.patch
+ delete mode 100644 meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.1/no_beos.patch
+ create mode 100644 meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.11/lower-rank.diff
+ delete mode 100644 meta/recipes-multimedia/gstreamer/gst-ffmpeg_0.10.1.bb
+ create mode 100644 meta/recipes-multimedia/gstreamer/gst-ffmpeg_0.10.11.bb
 
-diff --git a/meta/conf/distro/include/poky-fixed-revisions.inc b/meta/conf/distro/include/poky-fixed-revisions.inc
-index c437a1c..db348ca 100644
---- a/meta/conf/distro/include/poky-fixed-revisions.inc
-+++ b/meta/conf/distro/include/poky-fixed-revisions.inc
-@@ -8,6 +8,10 @@ PREFERRED_VERSION_hal-info ?= "20091130"
- PREFERRED_VERSION_udev ?= "158"
- PREFERRED_VERSION_wpa-supplicant ?= "0.7.3"
- 
-+PULSEAUDIOVERSION ?= "0.9.21"
-+PULSEAUDIOVERSION_arm ?= "0.9.15"
-+PREFERRED_VERSION_pulseaudio ?= "${PULSEAUDIOVERSION}"
-+
- # Force the python versions in one place
- PYTHON_BASEVERSION ?= "2.6"
- PREFERRED_VERSION_python ?= "2.6.6"
-diff --git a/meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/armv4+v5asm.patch b/meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/armv4+v5asm.patch
+diff --git a/meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.1/configure_fix.patch b/meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.1/configure_fix.patch
+deleted file mode 100644
+index 15f5649..0000000
+--- a/meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.1/configure_fix.patch
++++ /dev/null
+@@ -1,13 +0,0 @@
+-Index: gst-ffmpeg-0.10.1/gst-libs/ext/ffmpeg/configure.ac
+-===================================================================
+---- gst-ffmpeg-0.10.1.orig/gst-libs/ext/ffmpeg/configure.ac	2008-03-19 23:21:04.000000000 +0000
+-+++ gst-ffmpeg-0.10.1/gst-libs/ext/ffmpeg/configure.ac	2008-03-19 23:21:31.000000000 +0000
+-@@ -775,7 +775,7 @@
+- 
+- dnl Check for SDL, used in ffplay, and ffserver
+- AC_FF_ALLOW_DISABLE(CONFIG_FFPLAY, ffplay, ffmpeg media player,[
+--  AM_PATH_SDL(, CONFIG_FFPLAY=yes, CONFIG_FPFLAY=no)
+-+  CONFIG_FPFLAY=no
+- ])
+- 
+- dnl media server or not?
+diff --git a/meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.1/no_beos.patch b/meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.1/no_beos.patch
+deleted file mode 100644
+index 9ffcaff..0000000
+--- a/meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.1/no_beos.patch
++++ /dev/null
+@@ -1,55 +0,0 @@
+-The AC_LANG sections upset libtool 2.2.2, easiest fix is to remove them.
+-Using a .cpp file in a Makefile means configure.ac must use AC_PROG_CXX
+-so patch out the section from the makefile too.
+-
+-RP - 14/4/08
+-
+-Index: gst-ffmpeg-0.10.1/gst-libs/ext/ffmpeg/configure.ac
+-===================================================================
+---- gst-ffmpeg-0.10.1.orig/gst-libs/ext/ffmpeg/configure.ac	2008-04-14 23:55:25.000000000 +0100
+-+++ gst-ffmpeg-0.10.1/gst-libs/ext/ffmpeg/configure.ac	2008-04-14 23:56:18.000000000 +0100
+-@@ -742,26 +742,7 @@
+- 
+- dnl Beos Audio
+- AC_FF_ALLOW_DISABLE(CONFIG_AUDIO_BEOS, audio-beos, BeOS audio support,[
+--  if test x$TARGET_OS = xbeos; then
+--    AC_LANG_CPLUSPLUS
+--    AC_CHECK_HEADER(SoundPlayer.h,[
+--      OLD_CXXFLAGS="$CXXFLAGS"
+--      CXXFLAGS="$CXXFLAGS -lbe -lmedia"
+--      AC_MSG_CHECKING(For BeOS audio libraries)
+--      AC_TRY_COMPILE([
+--#include <Application.h>
+--#include <SoundPlayer.h>
+--        ],[
+--          BSoundPlayer *p = new BSoundPlayer(NULL,NULL,NULL);
+--        ],[ CONFIG_AUDIO_BEOS=yes && AC_MSG_RESULT(yes) ],[
+--          CONFIG_AUDIO_BEOS=no && AC_MSG_RESULT(no)
+--      ])
+--      CXXFLAGS="$OLD_CXXFLAGS"
+--    ], CONFIG_AUDIO_BEOS=no)
+--    AC_LANG_C
+--  else
+-     CONFIG_AUDIO_BEOS=no
+--  fi
+- ])
+- 
+- dnl Check for freetype2, used in vook/libdrawtext.so
+-Index: gst-ffmpeg-0.10.1/gst-libs/ext/ffmpeg/libavformat/Makefile.am
+-===================================================================
+---- gst-ffmpeg-0.10.1.orig/gst-libs/ext/ffmpeg/libavformat/Makefile.am	2008-04-14 23:58:44.000000000 +0100
+-+++ gst-ffmpeg-0.10.1/gst-libs/ext/ffmpeg/libavformat/Makefile.am	2008-04-14 23:58:55.000000000 +0100
+-@@ -24,13 +24,6 @@
+- audiooss_SRC = audio.c
+- endif
+- 
+--if CONFIG_AUDIO_BEOS
+--audiobeos_SRC = beosaudio.cpp
+--audiobeos_LIBS = \
+--	-lbe \
+--	-lmedia
+--endif
+--
+- if CONFIG_VIDEO4LINUX
+- v4l_SRC = grab.c v4l2.c
+- endif
+diff --git a/meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.11/lower-rank.diff b/meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.11/lower-rank.diff
 new file mode 100644
-index 0000000..f07ee67
+index 0000000..bffdb8a
 --- /dev/null
-+++ b/meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/armv4+v5asm.patch
-@@ -0,0 +1,59 @@
++++ b/meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.11/lower-rank.diff
+@@ -0,0 +1,14 @@
++Lower the rank of ffmpeg plugin so codecs that hook into accelerated pieces (e.g. dsp or hw engines) can get picked over this
 +Derived from OE by Dongxiao Xu <dongxiao.xu@intel.com>
 +
-+Index: pulseaudio-0.9.21/src/pulsecore/svolume_arm.c
-+===================================================================
-+--- pulseaudio-0.9.21.orig/src/pulsecore/svolume_arm.c
-++++ pulseaudio-0.9.21/src/pulsecore/svolume_arm.c
-+@@ -37,6 +37,14 @@
-+ 
-+ #if defined (__arm__)
-+ 
-++/*
-++   the code below uses armv6 instructions; we can safely ifdef this away as the code is only
-++   called if the arm architecture is v6 or higher
-++*/
-++#if (!defined (__ARM_ARCH_4__) && !defined (__ARM_ARCH_4T__) \
-++	&& !defined (__ARM_ARCH_5__)&& !defined (__ARM_ARCH_5E__) && !defined (__ARM_ARCH_5T__) \
-++	&& !defined (__ARM_ARCH_5TE__) && !defined (__ARM_ARCH_5TEJ__))
-++
-+ #define MOD_INC() \
-+     " subs  r0, r6, %2              \n\t" \
-+     " addcs r0, %1                  \n\t" \
-+@@ -179,11 +187,15 @@ static void run_test (void) {
-+ }
-+ #endif
-+ 
-++#endif /* (!defined (__ARM_ARCH_4__) && !defined (__ARM_ARCH_4T__) ... */
-+ #endif /* defined (__arm__) */
-+ 
-+ 
-+ void pa_volume_func_init_arm (pa_cpu_arm_flag_t flags) {
-+ #if defined (__arm__)
-++#if (!defined (__ARM_ARCH_4__) && !defined (__ARM_ARCH_4T__) \
-++	&& !defined (__ARM_ARCH_5__)&& !defined (__ARM_ARCH_5E__) && !defined (__ARM_ARCH_5T__) \
-++	&& !defined (__ARM_ARCH_5TE__) && !defined (__ARM_ARCH_5TEJ__))
-+     pa_log_info("Initialising ARM optimized functions.");
-+ 
-+ #ifdef RUN_TEST
-+@@ -191,5 +203,6 @@ void pa_volume_func_init_arm (pa_cpu_arm
-+ #endif
-+ 
-+     pa_set_volume_func (PA_SAMPLE_S16NE,     (pa_do_volume_func_t) pa_volume_s16ne_arm);
-++#endif /* (!defined (__ARM_ARCH_4__) && !defined (__ARM_ARCH_4T__) ... */
-+ #endif /* defined (__arm__) */
-+ }
-+Index: pulseaudio-0.9.21/src/modules/bluetooth/sbc_math.h
-+===================================================================
-+--- pulseaudio-0.9.21.orig/src/modules/bluetooth/sbc_math.h
-++++ pulseaudio-0.9.21/src/modules/bluetooth/sbc_math.h
-+@@ -47,7 +47,9 @@ typedef int32_t sbc_fixed_t;
-+ 
-+ #define SBC_FIXED_0(val) { val = 0; }
-+ #define MUL(a, b)        ((a) * (b))
-+-#ifdef __arm__
-++#if (defined(__arm__) && !defined (__ARM_ARCH_4__) && !defined (__ARM_ARCH_4T__) \
-++	&& !defined (__ARM_ARCH_5__)&& !defined (__ARM_ARCH_5E__) && !defined (__ARM_ARCH_5T__) \
-++	&& !defined (__ARM_ARCH_5TE__) && !defined (__ARM_ARCH_5TEJ__))
-+ #define MULA(a, b, res) ({				\
-+ 		int tmp = res;			\
-+ 		__asm__(				\
-diff --git a/meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/autoconf_version.patch b/meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/autoconf_version.patch
++--- /tmp/gstffmpegdec.c	2009-03-05 09:31:15.000000000 +0100
+++++ gst-ffmpeg-0.10.6/ext/ffmpeg/gstffmpegdec.c	2009-03-05 09:33:09.000000000 +0100
++@@ -2588,7 +2588,7 @@
++       case CODEC_ID_MSMPEG4V3:
++       case CODEC_ID_H264:
++       case CODEC_ID_COOK:
++-        rank = GST_RANK_PRIMARY;
+++        rank = GST_RANK_SECONDARY;
++         break;
++       case CODEC_ID_DVVIDEO:
++         /* we have a good dv decoder, fast on both ppc as well as x86. they say
+diff --git a/meta/recipes-multimedia/gstreamer/gst-ffmpeg_0.10.1.bb b/meta/recipes-multimedia/gstreamer/gst-ffmpeg_0.10.1.bb
+deleted file mode 100644
+index 599492f..0000000
+--- a/meta/recipes-multimedia/gstreamer/gst-ffmpeg_0.10.1.bb
++++ /dev/null
+@@ -1,35 +0,0 @@
+-DESCRIPTION = "FFmpeg-based GStreamer plug-in"
+-SECTION = "multimedia"
+-PRIORITY = "optional"
+-LICENSE = "LGPLv2+ & GPLv2+"
+-LIC_FILES_CHKSUM = "file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f \
+-                    file://gst-libs/ext/ffmpeg/libavcodec/libpostproc/postprocess.h;beginline=1;endline=17;md5=a0c398349079dbd0ce70f03de8bc193a \
+-                    file://gst-libs/ext/ffmpeg/ffserver.c;beginlin=1;endline=18;md5=49bde48d6d5c631f6f49d74ed491ea08"
+-HOMEPAGE = "http://www.gstreamer.net/"
+-DEPENDS = "gstreamer zlib gst-plugins-base"
+-PR = "r4"
+-
+-inherit autotools pkgconfig
+-
+-SRC_URI = "http://gstreamer.freedesktop.org/src/${PN}/${PN}-${PV}.tar.bz2 \
+-           file://no_beos.patch;patch=1 \
+-           file://configure_fix.patch;patch=1"
+-
+-FILES_${PN} += "${libdir}/gstreamer-0.10/*.so"
+-FILES_${PN}-dbg += "${libdir}/gstreamer-0.10/.debug"
+-FILES_${PN}-dev += "${libdir}/gstreamer-0.10/*.la ${libdir}/gstreamer-0.10/*.a"
+-
+-EXTRA_OECONF = "--disable-sdltest --disable-ffplay --disable-freetypetest \
+-		--disable-vorbis --disable-vorbistest --disable-encoders \
+-		--disable-v4l --disable-audio-oss --disable-dv1394 \
+-		--disable-vhook --disable-ffmpeg --disable-ffserver \
+-		--enable-pp --disable-decoder-vorbis --with-pic=no --disable-altivec"
+-
+-# We do this because the install program is called with -s which causes it to
+-# call "strip" and it then mangles cross compiled stuff..
+-PATH_prepend="${STAGING_DIR_NATIVE}${prefix_native}/${TARGET_SYS}/bin:"
+-
+-# Hack to get STAGING_LIBDIR into the linker path when building ffmpeg
+-CC = "${CCACHE} ${HOST_PREFIX}gcc -L${STAGING_LIBDIR}"
+-
+-acpaths = "-I ${S}/common/m4"
+diff --git a/meta/recipes-multimedia/gstreamer/gst-ffmpeg_0.10.11.bb b/meta/recipes-multimedia/gstreamer/gst-ffmpeg_0.10.11.bb
 new file mode 100644
-index 0000000..80d0003
+index 0000000..96f08b6
 --- /dev/null
-+++ b/meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/autoconf_version.patch
-@@ -0,0 +1,15 @@
-+Derived from OE by Dongxiao Xu <dongxiao.xu@intel.com>
++++ b/meta/recipes-multimedia/gstreamer/gst-ffmpeg_0.10.11.bb
+@@ -0,0 +1,39 @@
++DESCRIPTION = "FFmpeg-based GStreamer plug-in"
++SECTION = "multimedia"
++PRIORITY = "optional"
++LICENSE = "GPLv2+ & LGPLv2+ & ( (GPLv2+ & LGPLv2.1+) | (GPLv3+ & LGPLv3+) )"
++LIC_FILES_CHKSUM = "file://COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
++                    file://ext/libpostproc/gstpostproc.c;beginline=1;endline=18;md5=5896e445e41681324381f5869ee33d38 \
++                    file://COPYING.LIB;md5=55ca817ccb7d5b5b66355690e9abc605 \
++                    file://ext/ffmpeg/gstffmpeg.h;beginline=1;endline=18;md5=ff65467b0c53cdfa98d0684c1bc240a9 \
++                    file://gst-libs/ext/ffmpeg/LICENSE;md5=524b5ee4bdbbf755ebbb76727ba80b0d \
++                    file://gst-libs/ext/ffmpeg/COPYING.GPLv2;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
++                    file://gst-libs/ext/ffmpeg/COPYING.GPLv3;md5=d32239bcb673463ab874e80d47fae504 \
++                    file://gst-libs/ext/ffmpeg/COPYING.LGPLv2.1;md5=e344c8fa836c3a41c4cbd79d7bd3a379 \
++                    file://gst-libs/ext/ffmpeg/COPYING.LGPLv3;md5=e6a600fd5e1d9cbde2d983680233ad02"
++HOMEPAGE = "http://www.gstreamer.net/"
++DEPENDS = "gstreamer gst-plugins-base zlib"
 +
-+Index: pulseaudio-0.9.15/configure.ac
-+===================================================================
-+--- pulseaudio-0.9.15.orig/configure.ac	2009-04-14 00:09:53.000000000 +0100
-++++ pulseaudio-0.9.15/configure.ac	2009-05-22 11:32:50.000000000 +0100
-+@@ -20,7 +20,7 @@
-+ # along with PulseAudio; if not, write to the Free Software Foundation,
-+ # Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
-+ 
-+-AC_PREREQ(2.63)
-++AC_PREREQ(2.61)
-+ 
-+ m4_define(pa_major, [0])
-+ m4_define(pa_minor, [9])
-diff --git a/meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/buildfix.patch b/meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/buildfix.patch
-new file mode 100644
-index 0000000..ea8d769
---- /dev/null
-+++ b/meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/buildfix.patch
-@@ -0,0 +1,15 @@
-+Derived from OE by Dongxiao Xu <dongxiao.xu@intel.com>
++inherit autotools pkgconfig
 +
-+Index: pulseaudio-0.9.11/src/pulsecore/atomic.h
-+===================================================================
-+--- pulseaudio-0.9.11.orig/src/pulsecore/atomic.h
-++++ pulseaudio-0.9.11/src/pulsecore/atomic.h
-+@@ -40,6 +40,8 @@
-+ #error "Please include config.h before including this file!"
-+ #endif
-+ 
-++#include "macro.h"
-++
-+ #ifdef HAVE_ATOMIC_BUILTINS
-+ 
-+ /* __sync based implementation */
-diff --git a/meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/configure_silent_rules.patch b/meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/configure_silent_rules.patch
-new file mode 100644
-index 0000000..fd5abd5
---- /dev/null
-+++ b/meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/configure_silent_rules.patch
-@@ -0,0 +1,31 @@
-+Derived from OE by Dongxiao Xu <dongxiao.xu@intel.com>
-+
-+Index: pulseaudio-0.9.19/configure.ac
-+===================================================================
-+--- pulseaudio-0.9.19.orig/configure.ac	2009-10-31 11:40:00.000000000 +0000
-++++ pulseaudio-0.9.19/configure.ac	2009-10-31 11:50:35.000000000 +0000
-+@@ -27,12 +27,13 @@
-+ AC_CONFIG_SRCDIR([src/daemon/main.c])
-+ AC_CONFIG_MACRO_DIR([m4])
-+ AC_CONFIG_HEADERS([config.h])
-+-AM_INIT_AUTOMAKE([foreign 1.11 -Wall -Wno-portability silent-rules tar-pax])
-++AM_INIT_AUTOMAKE([foreign 1.10 -Wall -Wno-portability tar-pax])
-+ 
-+ m4_define(pa_major, `echo $VERSION | cut -d. -f1 | cut -d- -f1`)
-+ m4_define(pa_minor, `echo $VERSION | cut -d. -f2 | cut -d- -f1`)
-+ m4_define(pa_micro, `echo $VERSION | cut -d. -f3 | cut -d- -f1`)
-+ 
-++
-+ AC_SUBST(PA_MAJOR, pa_major)
-+ AC_SUBST(PA_MINOR, pa_minor)
-+ AC_SUBST(PA_MICRO, pa_micro)
-+@@ -80,7 +81,8 @@
-+       ;;
-+ esac
-+ 
-+-AM_SILENT_RULES([yes])
-++# only use if available
-++m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
-+ 
-+ #### Checks for programs. ####
-+ 
-diff --git a/meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/gcc4-compile-fix.patch b/meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/gcc4-compile-fix.patch
-new file mode 100644
-index 0000000..2969cba
---- /dev/null
-+++ b/meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/gcc4-compile-fix.patch
-@@ -0,0 +1,20 @@
-+| fix for more strict syntax compliance in gcc4.x
-+| pulsecore/core-util.c: In function 'pa_raise_priority':
-+| pulsecore/core-util.c:547: error: label at end of compound statement
-+| Signed off: mickey@openmoko.org
-+|
-+Derived from OE by Dongxiao Xu <dongxiao.xu@intel.com>
-+
-+Index: pulseaudio-0.9.6/src/pulsecore/core-util.c
-+===================================================================
-+--- pulseaudio-0.9.6.orig/src/pulsecore/core-util.c
-++++ pulseaudio-0.9.6/src/pulsecore/core-util.c
-+@@ -535,7 +535,7 @@ void pa_raise_priority(void) {
-+         pa_log_info("Successfully gained high priority class.");
-+ #endif
-+ 
-+-fail:
-++fail:;
-+ 
-+ #if defined(HAVE_SYS_CAPABILITY_H)
-+     if (caps) {
-diff --git a/meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/tls_m4.patch b/meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/tls_m4.patch
-new file mode 100644
-index 0000000..a8292b2
---- /dev/null
-+++ b/meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/tls_m4.patch
-@@ -0,0 +1,32 @@
-+Derived from OE by Dongxiao Xu <dongxiao.xu@intel.com>
-+
-+Index: pulseaudio-0.9.15/m4/tls.m4
-+===================================================================
-+--- pulseaudio-0.9.15.orig/m4/tls.m4	2008-08-19 23:25:02.000000000 +0200
-++++ pulseaudio-0.9.15/m4/tls.m4	2009-07-10 09:55:25.266365511 +0200
-+@@ -1,12 +1,19 @@
-+ AC_DEFUN([CC_CHECK_TLS], [
-+   AC_CACHE_CHECK([whether $CC knows __thread for Thread-Local Storage],
-+     cc_cv_tls___thread,
-+-    [AC_COMPILE_IFELSE(
-+-      AC_LANG_PROGRAM(
-+-        [[static __thread int a = 6;]],
-+-        [[a = 5;]]),
-+-      [cc_cv_tls___thread=yes],
-+-      [cc_cv_tls___thread=no])
-++    [AC_LINK_IFELSE([__thread int a; int b; int main() { return a = b; }],
-++	 [chktls_save_LDFLAGS="$LDFLAGS"
-++	  LDFLAGS="-shared -Wl,--no-undefined $LDFLAGS"
-++	  chktls_save_CFLAGS="$CFLAGS"
-++	  CFLAGS="-fPIC $CFLAGS"
-++	  dnl If -shared works, test if TLS works in a shared library.
-++	  AC_LINK_IFELSE([int f() { return 0; }],
-++	    AC_LINK_IFELSE([__thread int a; int b; int f() { return a = b; }],
-++	      [cc_cv_tls___thread=yes],
-++	      [cc_cv_tls___thread=no]),
-++	    [cc_cv_tls___thread=yes])
-++	  CFLAGS="$chktls_save_CFLAGS"
-++	  LDFLAGS="$chktls_save_LDFLAGS"], [cc_cv_tls___thread=no])
-+     ])
-+   
-+   AS_IF([test "x$cc_cv_tls___thread" = "xyes"],
-diff --git a/meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/volatiles.04_pulse b/meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/volatiles.04_pulse
-new file mode 100644
-index 0000000..5b19980
---- /dev/null
-+++ b/meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/volatiles.04_pulse
-@@ -0,0 +1,2 @@
-+# <type> <owner> <group> <mode> <path> <linksource>
-+d pulse pulse 0755 /var/run/pulse none
-diff --git a/meta/recipes-multimedia/pulseaudio/pulseaudio_0.9.21.bb b/meta/recipes-multimedia/pulseaudio/pulseaudio_0.9.21.bb
-new file mode 100644
-index 0000000..d2c21c4
---- /dev/null
-+++ b/meta/recipes-multimedia/pulseaudio/pulseaudio_0.9.21.bb
-@@ -0,0 +1,28 @@
-+require pulseaudio.inc
++SRC_URI = "http://gstreamer.freedesktop.org/src/${PN}/${PN}-${PV}.tar.bz2 \
++           file://lower-rank.diff \
++"
 +
 +PR = "r0"
 +
-+DEPENDS += "gdbm speex"
++EXTRA_OECONF = " --with-ffmpeg-extra-configure=\"--target-os=linux\" "
 +
-+DEFAULT_PREFERENCE_om-gta01 = "-1"
-+DEFAULT_PREFERENCE_om-gta02 = "-1"
-+DEFAULT_PREFERENCE_motorola-ezx = "-1"
++FILES_${PN} += "${libdir}/gstreamer-0.10/*.so"
++FILES_${PN}-dbg += "${libdir}/gstreamer-0.10/.debug"
++FILES_${PN}-dev += "${libdir}/gstreamer-0.10/*.la ${libdir}/gstreamer-0.10/*.a"
 +
-+inherit gettext
++# We do this because the install program is called with -s which causes it to
++# call "strip" and it then mangles cross compiled stuff..
++PATH_prepend := "${TOOLCHAIN_PATH}/${TARGET_SYS}/bin:"
 +
-+SRC_URI += "\
-+  file://buildfix.patch \
-+  file://autoconf_version.patch \
-+  file://tls_m4.patch \
-+  file://configure_silent_rules.patch \
-+  file://armv4+v5asm.patch \
-+"
++# Hack to get STAGING_LIBDIR into the linker path when building ffmpeg
++CC = "${CCACHE} ${HOST_PREFIX}gcc ${TARGET_CC_ARCH} -L${STAGING_LIBDIR}"
 +
-+do_compile_prepend() {
-+    cd ${S}
-+    mkdir -p ${S}/libltdl
-+    cp ${STAGING_LIBDIR}/libltdl* ${S}/libltdl
-+}
-+
-+SRC_URI[md5sum] = "76e623c4c72e2258bc8bdeb1599bad74"
-+SRC_URI[sha256sum] = "94e22356ac70ee95388ae58da90d88c6b3186d1938618d21671627ff56cee254"
++SRC_URI[md5sum] = "0d23197ba7ac06ea34fa66d38469ebe5"
++SRC_URI[sha256sum] = "ff36a138e5af4ed8dcc459d6d6521fe66ed31ec29ba9a924dc3675c6749a692e"
 -- 
 1.6.3.3
 
