@@ -1,40 +1,19 @@
-Return-Path: <rpurdie@linux.intel.com>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 897C24C80050
-	for <poky@yoctoproject.org>; Tue,  7 Dec 2010 06:37:52 -0600 (CST)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oB7CbnoK002833;
-	Tue, 7 Dec 2010 12:37:49 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 02099-06; Tue,  7 Dec 2010 12:37:45 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oB7CbfbJ002826
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Tue, 7 Dec 2010 12:37:42 GMT
-From: Richard Purdie <rpurdie@linux.intel.com>
-To: "Tian, Kevin" <kevin.tian@intel.com>
-In-Reply-To: <625BA99ED14B2D499DC4E29D8138F1504D47543B3B@shsmsx502.ccr.corp.intel.com>
-References: <cover.1289982751.git.qing.he@intel.com>
-	<a03c4017a13bda3f20b8f39a4c099cb28f349968.1289982751.git.qing.he@intel.com>
-	<1290954166.27143.217.camel@rex>
-	<625BA99ED14B2D499DC4E29D8138F1504D42C686F3@shsmsx502.ccr.corp.intel.com>
-	<AANLkTi=oxv9goiEMAfpkDAvq7n_GfGUMSXsonXDdzixd@mail.gmail.com>
-	<1291033557.14277.944.camel@rex>
-	<AANLkTinYx+43yRYFu=BYQPVJHox6CmBgOMFF199z3BC=@mail.gmail.com>
-	<625BA99ED14B2D499DC4E29D8138F1504D475430EC@shsmsx502.ccr.corp.intel.com>
-	<1291597457.14277.2931.camel@rex>
-	<625BA99ED14B2D499DC4E29D8138F1504D47543B3B@shsmsx502.ccr.corp.intel.com>
-Date: Tue, 07 Dec 2010 12:37:35 +0000
-Message-ID: <1291725455.11475.10.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: Chris Larson <clarson@kergoth.com>,
-	"poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 1/1] curl: fix native dependency
+Return-Path: <ke.yu@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id B3A9F4C8110D
+	for <poky@yoctoproject.org>; Tue,  7 Dec 2010 06:43:54 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 07 Dec 2010 04:43:54 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.59,310,1288594800"; d="scan'208";a="865414468"
+Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.154.168])
+	by fmsmga001.fm.intel.com with ESMTP; 07 Dec 2010 04:43:53 -0800
+Message-Id: <cover.1291716364.git.ke.yu@intel.com>
+From: Yu Ke <ke.yu@intel.com>
+Date: Tue, 7 Dec 2010 18:06:04 +0800
+To: poky@yoctoproject.org
+CC: 
+Subject: [PATCH 0/3] add license checksum
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,47 +25,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 07 Dec 2010 12:37:52 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 07 Dec 2010 12:43:55 -0000
 
-On Tue, 2010-12-07 at 15:55 +0800, Tian, Kevin wrote:
-> >From: Richard Purdie [mailto:rpurdie@linux.intel.com]
-> >http://git.pokylinux.org/cgit.cgi/poky-contrib/commit/?h=rpurdie/bitbake&id=c77410305f
-> >e736aa195ce720c8317b39da057052
-> 
-> yes, that looks a clear fix.
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: kyu3/12-07-license
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kyu3/12-07-license
 
-In the absence of Chris saying no, I've merged this into Poky so it
-doesn't get lost.
+Thanks,
+    Yu Ke <ke.yu@intel.com>
+---
 
-> Actually my original thought was a little bit different. Atm I thought that only one
-> appendix should take effect, i.e:
-> 
-> FOO = "A"
-> FOO_append_OVERA = "B"
-> FOO_append_OVERB = "C"
-> 
-> If OVERB is higher priority than OVERA, the result would be "AC" then.
-> 
-> Now obviously my earlier thought is wrong. Every _append appends a new
-> value if the override is valid. :-)
 
-Right, there is just the question of ordering.
+Yu Ke (3):
+  x11-common: add license checksum
+  xserver-nodm-init: add license checksum
+  xserver-xf86-config: add license checksum
 
-> I also thought that there's no ordering constraint in this design. either "A B C"
-> or "A C B" could work, unless the appendix itself has order constraint, say 
-> a patch sequence. But I'm not sure whether there's real usage and we need
-> to handle it or not.
-
-I think its not something we should worry too much about, just something
-to be aware of.
-
-I do still think we should support FOO_append_OVERA_OVERB_OVERC though
-perhaps we should leave a bug open on that?
-
-Cheers,
-
-Richard
+ .../x11-common/x11-common/gplv2-license.patch      |  353 ++++++++++++++++++++
+ meta/recipes-graphics/x11-common/x11-common_0.1.bb |    7 +-
+ .../x11-common/xserver-nodm-init.bb                |    9 +-
+ .../xserver-nodm-init/gplv2-license.patch          |  353 ++++++++++++++++++++
+ .../xorg-xserver/xserver-xf86-config_0.1.bb        |    1 +
+ 5 files changed, 718 insertions(+), 5 deletions(-)
+ create mode 100644 meta/recipes-graphics/x11-common/x11-common/gplv2-license.patch
+ create mode 100644 meta/recipes-graphics/x11-common/xserver-nodm-init/gplv2-license.patch
 
 
