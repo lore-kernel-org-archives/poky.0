@@ -1,21 +1,21 @@
 Return-Path: <dongxiao.xu@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9889E4C80FB2
-	for <poky@yoctoproject.org>; Tue,  7 Dec 2010 01:01:50 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 06 Dec 2010 23:01:50 -0800
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id B10D64C81199
+	for <poky@yoctoproject.org>; Tue,  7 Dec 2010 01:01:51 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 06 Dec 2010 23:01:51 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,310,1288594800"; d="scan'208";a="684619191"
+X-IronPort-AV: E=Sophos;i="4.59,310,1288594800"; d="scan'208";a="633839564"
 Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.9])
-	by orsmga001.jf.intel.com with ESMTP; 06 Dec 2010 23:01:47 -0800
-Message-Id: <d4a0f4c671c837fdd8c0fc39674d7a6f10575bb5.1291705845.git.dongxiao.xu@intel.com>
+	by fmsmga002.fm.intel.com with ESMTP; 06 Dec 2010 23:01:51 -0800
+Message-Id: <95375d5beb830f52889003e04d78f750643b1952.1291705845.git.dongxiao.xu@intel.com>
 In-Reply-To: <cover.1291705845.git.dongxiao.xu@intel.com>
 References: <cover.1291705845.git.dongxiao.xu@intel.com>
 From: Dongxiao Xu <dongxiao.xu@intel.com>
-Date: Tue, 7 Dec 2010 14:08:53 +0800
+Date: Tue, 7 Dec 2010 14:09:29 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 2/7] gst-ffmpeg: upgrade to version 0.10.11
+Subject: [PATCH 3/7] gst-fluendo-mp3: upgrade to version 0.10.15
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,230 +27,82 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 07 Dec 2010 07:01:50 -0000
+X-List-Received-Date: Tue, 07 Dec 2010 07:01:51 -0000
 
-Derived the recipe from openembedded.
+Remove configure_fix.patch since the original logic is not exist in
+upstream code.
 
-For poky, we use the ffmpeg lib contained in the package, while
-openembedded use the system ffmpeg library.
-
-Update recipe metadata.
+Fix recipe metadata.
 
 Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
 ---
- meta/conf/distro/poky.conf                         |    3 +-
- .../gst-ffmpeg-0.10.1/configure_fix.patch          |   13 -----
- .../gstreamer/gst-ffmpeg-0.10.1/no_beos.patch      |   55 --------------------
- .../gstreamer/gst-ffmpeg-0.10.11/lower-rank.diff   |   14 +++++
- .../gstreamer/gst-ffmpeg_0.10.1.bb                 |   35 ------------
- .../gstreamer/gst-ffmpeg_0.10.11.bb                |   39 ++++++++++++++
- 6 files changed, 55 insertions(+), 104 deletions(-)
- delete mode 100644 meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.1/configure_fix.patch
- delete mode 100644 meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.1/no_beos.patch
- create mode 100644 meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.11/lower-rank.diff
- delete mode 100644 meta/recipes-multimedia/gstreamer/gst-ffmpeg_0.10.1.bb
- create mode 100644 meta/recipes-multimedia/gstreamer/gst-ffmpeg_0.10.11.bb
+ .../gstreamer/gst-fluendo-mp3/configure_fix.patch  |   16 ----------------
+ .../gstreamer/gst-fluendo-mp3_0.10.15.bb           |   13 +++++++++++++
+ .../gstreamer/gst-fluendo-mp3_0.10.2.bb            |   12 ------------
+ 3 files changed, 13 insertions(+), 28 deletions(-)
+ delete mode 100644 meta/recipes-multimedia/gstreamer/gst-fluendo-mp3/configure_fix.patch
+ create mode 100644 meta/recipes-multimedia/gstreamer/gst-fluendo-mp3_0.10.15.bb
+ delete mode 100644 meta/recipes-multimedia/gstreamer/gst-fluendo-mp3_0.10.2.bb
 
-diff --git a/meta/conf/distro/poky.conf b/meta/conf/distro/poky.conf
-index dcb21f7..eacdfd0 100644
---- a/meta/conf/distro/poky.conf
-+++ b/meta/conf/distro/poky.conf
-@@ -129,7 +129,8 @@ LGPLv2_WHITELIST_GPLv3 = "libassuan gnutls libtasn1 libidn"
- # This is a list of packages that require a commercial license to ship
- # product. If shipped as part of an image these packages may have 
- # implications so they are disabled by default
--COMMERCIAL_LICENSE ?= "lame gst-fluendo-mp3 libmad mpeg2dec ffmpeg qmmp"
-+COMMERCIAL_LICENSE ?= ""
-+#COMMERCIAL_LICENSE ?= "lame gst-fluendo-mp3 libmad mpeg2dec ffmpeg qmmp"
- COMMERCIAL_AUDIO_PLUGINS ?= ""
- # COMMERCIAL_AUDIO_PLUGINS ?= "gst-plugins-ugly-mad gst-plugins-ugly-mpegaudioparse"
- COMMERCIAL_VIDEO_PLUGINS ?= ""
-diff --git a/meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.1/configure_fix.patch b/meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.1/configure_fix.patch
+diff --git a/meta/recipes-multimedia/gstreamer/gst-fluendo-mp3/configure_fix.patch b/meta/recipes-multimedia/gstreamer/gst-fluendo-mp3/configure_fix.patch
 deleted file mode 100644
-index 15f5649..0000000
---- a/meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.1/configure_fix.patch
+index d8b213b..0000000
+--- a/meta/recipes-multimedia/gstreamer/gst-fluendo-mp3/configure_fix.patch
 +++ /dev/null
-@@ -1,13 +0,0 @@
--Index: gst-ffmpeg-0.10.1/gst-libs/ext/ffmpeg/configure.ac
+@@ -1,16 +0,0 @@
+-Index: gst-fluendo-mp3-0.10.2/configure.ac
 -===================================================================
----- gst-ffmpeg-0.10.1.orig/gst-libs/ext/ffmpeg/configure.ac	2008-03-19 23:21:04.000000000 +0000
--+++ gst-ffmpeg-0.10.1/gst-libs/ext/ffmpeg/configure.ac	2008-03-19 23:21:31.000000000 +0000
--@@ -775,7 +775,7 @@
+---- gst-fluendo-mp3-0.10.2.orig/configure.ac	2008-03-19 23:00:15.000000000 +0000
+-+++ gst-fluendo-mp3-0.10.2/configure.ac	2008-03-19 23:00:31.000000000 +0000
+-@@ -19,10 +19,9 @@
+- AC_SUBST(ACLOCAL_AMFLAGS, "-I m4 -I common/m4")
 - 
-- dnl Check for SDL, used in ffplay, and ffserver
-- AC_FF_ALLOW_DISABLE(CONFIG_FFPLAY, ffplay, ffmpeg media player,[
---  AM_PATH_SDL(, CONFIG_FFPLAY=yes, CONFIG_FPFLAY=no)
--+  CONFIG_FPFLAY=no
-- ])
+- dnl check for tools
+--AS_LIBTOOL_TAGS
+- AM_PROG_LIBTOOL
+- dnl AC_PROG_CC
+--dnl AC_PROG_LIBTOOL
+-+AC_PROG_LIBTOOL
 - 
-- dnl media server or not?
-diff --git a/meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.1/no_beos.patch b/meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.1/no_beos.patch
-deleted file mode 100644
-index 9ffcaff..0000000
---- a/meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.1/no_beos.patch
-+++ /dev/null
-@@ -1,55 +0,0 @@
--The AC_LANG sections upset libtool 2.2.2, easiest fix is to remove them.
--Using a .cpp file in a Makefile means configure.ac must use AC_PROG_CXX
--so patch out the section from the makefile too.
--
--RP - 14/4/08
--
--Index: gst-ffmpeg-0.10.1/gst-libs/ext/ffmpeg/configure.ac
--===================================================================
----- gst-ffmpeg-0.10.1.orig/gst-libs/ext/ffmpeg/configure.ac	2008-04-14 23:55:25.000000000 +0100
--+++ gst-ffmpeg-0.10.1/gst-libs/ext/ffmpeg/configure.ac	2008-04-14 23:56:18.000000000 +0100
--@@ -742,26 +742,7 @@
-- 
-- dnl Beos Audio
-- AC_FF_ALLOW_DISABLE(CONFIG_AUDIO_BEOS, audio-beos, BeOS audio support,[
---  if test x$TARGET_OS = xbeos; then
---    AC_LANG_CPLUSPLUS
---    AC_CHECK_HEADER(SoundPlayer.h,[
---      OLD_CXXFLAGS="$CXXFLAGS"
---      CXXFLAGS="$CXXFLAGS -lbe -lmedia"
---      AC_MSG_CHECKING(For BeOS audio libraries)
---      AC_TRY_COMPILE([
---#include <Application.h>
---#include <SoundPlayer.h>
---        ],[
---          BSoundPlayer *p = new BSoundPlayer(NULL,NULL,NULL);
---        ],[ CONFIG_AUDIO_BEOS=yes && AC_MSG_RESULT(yes) ],[
---          CONFIG_AUDIO_BEOS=no && AC_MSG_RESULT(no)
---      ])
---      CXXFLAGS="$OLD_CXXFLAGS"
---    ], CONFIG_AUDIO_BEOS=no)
---    AC_LANG_C
---  else
--     CONFIG_AUDIO_BEOS=no
---  fi
-- ])
-- 
-- dnl Check for freetype2, used in vook/libdrawtext.so
--Index: gst-ffmpeg-0.10.1/gst-libs/ext/ffmpeg/libavformat/Makefile.am
--===================================================================
----- gst-ffmpeg-0.10.1.orig/gst-libs/ext/ffmpeg/libavformat/Makefile.am	2008-04-14 23:58:44.000000000 +0100
--+++ gst-ffmpeg-0.10.1/gst-libs/ext/ffmpeg/libavformat/Makefile.am	2008-04-14 23:58:55.000000000 +0100
--@@ -24,13 +24,6 @@
-- audiooss_SRC = audio.c
-- endif
-- 
---if CONFIG_AUDIO_BEOS
---audiobeos_SRC = beosaudio.cpp
---audiobeos_LIBS = \
---	-lbe \
---	-lmedia
---endif
---
-- if CONFIG_VIDEO4LINUX
-- v4l_SRC = grab.c v4l2.c
-- endif
-diff --git a/meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.11/lower-rank.diff b/meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.11/lower-rank.diff
+- dnl decide on error flags
+- AS_COMPILER_FLAG(-Wall, GST_WALL="yes", GST_WALL="no")
+diff --git a/meta/recipes-multimedia/gstreamer/gst-fluendo-mp3_0.10.15.bb b/meta/recipes-multimedia/gstreamer/gst-fluendo-mp3_0.10.15.bb
 new file mode 100644
-index 0000000..bffdb8a
+index 0000000..da9cb2b
 --- /dev/null
-+++ b/meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.11/lower-rank.diff
-@@ -0,0 +1,14 @@
-+Lower the rank of ffmpeg plugin so codecs that hook into accelerated pieces (e.g. dsp or hw engines) can get picked over this
-+Derived from OE by Dongxiao Xu <dongxiao.xu@intel.com>
++++ b/meta/recipes-multimedia/gstreamer/gst-fluendo-mp3_0.10.15.bb
+@@ -0,0 +1,13 @@
++require gst-fluendo.inc
 +
-+--- /tmp/gstffmpegdec.c	2009-03-05 09:31:15.000000000 +0100
-++++ gst-ffmpeg-0.10.6/ext/ffmpeg/gstffmpegdec.c	2009-03-05 09:33:09.000000000 +0100
-+@@ -2588,7 +2588,7 @@
-+       case CODEC_ID_MSMPEG4V3:
-+       case CODEC_ID_H264:
-+       case CODEC_ID_COOK:
-+-        rank = GST_RANK_PRIMARY;
-++        rank = GST_RANK_SECONDARY;
-+         break;
-+       case CODEC_ID_DVVIDEO:
-+         /* we have a good dv decoder, fast on both ppc as well as x86. they say
-diff --git a/meta/recipes-multimedia/gstreamer/gst-ffmpeg_0.10.1.bb b/meta/recipes-multimedia/gstreamer/gst-ffmpeg_0.10.1.bb
-deleted file mode 100644
-index 599492f..0000000
---- a/meta/recipes-multimedia/gstreamer/gst-ffmpeg_0.10.1.bb
-+++ /dev/null
-@@ -1,35 +0,0 @@
--DESCRIPTION = "FFmpeg-based GStreamer plug-in"
--SECTION = "multimedia"
--PRIORITY = "optional"
--LICENSE = "LGPLv2+ & GPLv2+"
--LIC_FILES_CHKSUM = "file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f \
--                    file://gst-libs/ext/ffmpeg/libavcodec/libpostproc/postprocess.h;beginline=1;endline=17;md5=a0c398349079dbd0ce70f03de8bc193a \
--                    file://gst-libs/ext/ffmpeg/ffserver.c;beginlin=1;endline=18;md5=49bde48d6d5c631f6f49d74ed491ea08"
--HOMEPAGE = "http://www.gstreamer.net/"
--DEPENDS = "gstreamer zlib gst-plugins-base"
--PR = "r4"
--
--inherit autotools pkgconfig
--
--SRC_URI = "http://gstreamer.freedesktop.org/src/${PN}/${PN}-${PV}.tar.bz2 \
--           file://no_beos.patch;patch=1 \
--           file://configure_fix.patch;patch=1"
--
--FILES_${PN} += "${libdir}/gstreamer-0.10/*.so"
--FILES_${PN}-dbg += "${libdir}/gstreamer-0.10/.debug"
--FILES_${PN}-dev += "${libdir}/gstreamer-0.10/*.la ${libdir}/gstreamer-0.10/*.a"
--
--EXTRA_OECONF = "--disable-sdltest --disable-ffplay --disable-freetypetest \
--		--disable-vorbis --disable-vorbistest --disable-encoders \
--		--disable-v4l --disable-audio-oss --disable-dv1394 \
--		--disable-vhook --disable-ffmpeg --disable-ffserver \
--		--enable-pp --disable-decoder-vorbis --with-pic=no --disable-altivec"
--
--# We do this because the install program is called with -s which causes it to
--# call "strip" and it then mangles cross compiled stuff..
--PATH_prepend="${STAGING_DIR_NATIVE}${prefix_native}/${TARGET_SYS}/bin:"
--
--# Hack to get STAGING_LIBDIR into the linker path when building ffmpeg
--CC = "${CCACHE} ${HOST_PREFIX}gcc -L${STAGING_LIBDIR}"
--
--acpaths = "-I ${S}/common/m4"
-diff --git a/meta/recipes-multimedia/gstreamer/gst-ffmpeg_0.10.11.bb b/meta/recipes-multimedia/gstreamer/gst-ffmpeg_0.10.11.bb
-new file mode 100644
-index 0000000..96f08b6
---- /dev/null
-+++ b/meta/recipes-multimedia/gstreamer/gst-ffmpeg_0.10.11.bb
-@@ -0,0 +1,39 @@
-+DESCRIPTION = "FFmpeg-based GStreamer plug-in"
-+SECTION = "multimedia"
-+PRIORITY = "optional"
-+LICENSE = "GPLv2+ & LGPLv2+ & ( (GPLv2+ & LGPLv2.1+) | (GPLv3+ & LGPLv3+) )"
-+LIC_FILES_CHKSUM = "file://COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
-+                    file://ext/libpostproc/gstpostproc.c;beginline=1;endline=18;md5=5896e445e41681324381f5869ee33d38 \
-+                    file://COPYING.LIB;md5=55ca817ccb7d5b5b66355690e9abc605 \
-+                    file://ext/ffmpeg/gstffmpeg.h;beginline=1;endline=18;md5=ff65467b0c53cdfa98d0684c1bc240a9 \
-+                    file://gst-libs/ext/ffmpeg/LICENSE;md5=524b5ee4bdbbf755ebbb76727ba80b0d \
-+                    file://gst-libs/ext/ffmpeg/COPYING.GPLv2;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
-+                    file://gst-libs/ext/ffmpeg/COPYING.GPLv3;md5=d32239bcb673463ab874e80d47fae504 \
-+                    file://gst-libs/ext/ffmpeg/COPYING.LGPLv2.1;md5=e344c8fa836c3a41c4cbd79d7bd3a379 \
-+                    file://gst-libs/ext/ffmpeg/COPYING.LGPLv3;md5=e6a600fd5e1d9cbde2d983680233ad02"
-+HOMEPAGE = "http://www.gstreamer.net/"
-+DEPENDS = "gstreamer gst-plugins-base zlib"
++LICENSE = "MIT"
++LIC_FILES_CHKSUM = "file://COPYING;md5=98326cbb1723a5a97e9b1db62e9faa05"
 +
-+inherit autotools pkgconfig
-+
-+SRC_URI = "http://gstreamer.freedesktop.org/src/${PN}/${PN}-${PV}.tar.bz2 \
-+           file://lower-rank.diff \
-+"
++acpaths = "-I ${S}/common/m4 -I ${S}/m4"
 +
 +PR = "r0"
 +
-+EXTRA_OECONF = " --with-ffmpeg-extra-configure=\"--target-os=linux\" "
++DESCRIPTION = "Fluendo closed-format mp3 GStreamer plug-in"
 +
-+FILES_${PN} += "${libdir}/gstreamer-0.10/*.so"
-+FILES_${PN}-dbg += "${libdir}/gstreamer-0.10/.debug"
-+FILES_${PN}-dev += "${libdir}/gstreamer-0.10/*.la ${libdir}/gstreamer-0.10/*.a"
-+
-+# We do this because the install program is called with -s which causes it to
-+# call "strip" and it then mangles cross compiled stuff..
-+PATH_prepend := "${TOOLCHAIN_PATH}/${TARGET_SYS}/bin:"
-+
-+# Hack to get STAGING_LIBDIR into the linker path when building ffmpeg
-+CC = "${CCACHE} ${HOST_PREFIX}gcc ${TARGET_CC_ARCH} -L${STAGING_LIBDIR}"
-+
-+SRC_URI[md5sum] = "0d23197ba7ac06ea34fa66d38469ebe5"
-+SRC_URI[sha256sum] = "ff36a138e5af4ed8dcc459d6d6521fe66ed31ec29ba9a924dc3675c6749a692e"
++SRC_URI[md5sum] = "dac7a9fa988650ec1be6c4c743a86cd4"
++SRC_URI[sha256sum] = "b444e6f3f87f5b819c1327ff3ed1afe9c09c195ba79ecf7e7409b375fa81cb06"
+diff --git a/meta/recipes-multimedia/gstreamer/gst-fluendo-mp3_0.10.2.bb b/meta/recipes-multimedia/gstreamer/gst-fluendo-mp3_0.10.2.bb
+deleted file mode 100644
+index 3000d71..0000000
+--- a/meta/recipes-multimedia/gstreamer/gst-fluendo-mp3_0.10.2.bb
++++ /dev/null
+@@ -1,12 +0,0 @@
+-require gst-fluendo.inc
+-
+-LICENSE = "MIT"
+-LIC_FILES_CHKSUM = "file://COPYING;md5=086bf92d974e459276adbfd808c615b4"
+-
+-acpaths = "-I ${S}/common/m4 -I ${S}/m4"
+-
+-SRC_URI += "file://configure_fix.patch;patch=1"
+-
+-PR = "r1"
+-
+-DESCRIPTION = "Fluendo closed-format mp3 GStreamer plug-in"
 -- 
 1.6.3.3
 
