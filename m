@@ -1,30 +1,33 @@
-Return-Path: <Alex.deVries@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 60F004C811DB
-	for <poky@yoctoproject.org>; Tue,  7 Dec 2010 15:27:23 -0600 (CST)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oB7LRMeU005093
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Tue, 7 Dec 2010 13:27:22 -0800 (PST)
-Received: from ALA-MBB.corp.ad.wrs.com ([169.254.2.204]) by
-	ALA-HCA.corp.ad.wrs.com ([147.11.189.40]) with mapi id 14.01.0255.000;
-	Tue, 7 Dec 2010 13:27:22 -0800
-From: "deVries, Alex" <Alex.deVries@windriver.com>
-To: Scott Garman <scott.a.garman@intel.com>
-Thread-Topic: [poky] Master Stability
-Thread-Index: AQHLlbJUyClcDryP80CeGlWg8hnW3ZOVx2uAgAAQeACAAAMkAIAAKsCA
-Date: Tue, 7 Dec 2010 21:27:22 +0000
-Message-ID: <74857834-4B10-4FD1-89C3-D5671140B69D@windriver.com>
-References: <4CFD94DD.7010906@intel.com> <4CFE7269.4000507@intel.com>
-	<1291747386.9405.3.camel@scimitar> <4CFE82DC.5020608@intel.com>
-In-Reply-To: <4CFE82DC.5020608@intel.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [128.224.146.236]
+Return-Path: <wd@denx.de>
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 295F94C80FD4
+	for <poky@yoctoproject.org>; Tue,  7 Dec 2010 16:01:22 -0600 (CST)
+Received: from frontend1.mail.m-online.net (frontend1.mail.intern.m-online.net
+	[192.168.8.180])
+	by mail-out.m-online.net (Postfix) with ESMTP id E0F7918102BA;
+	Tue,  7 Dec 2010 23:01:21 +0100 (CET)
+X-Auth-Info: aZMrfzdZWifRJPXGyhuBjyjMO0JM2qm3tchBixz1JEY=
+Received: from diddl.denx.de (ppp-188-174-79-57.dynamic.mnet-online.de
+	[188.174.79.57])
+	by smtp-auth.mnet-online.de (Postfix) with ESMTPA id 38CAD1C00129;
+	Tue,  7 Dec 2010 23:01:22 +0100 (CET)
+Received: from gemini.denx.de (unknown [10.0.0.2])
+	by diddl.denx.de (Postfix) with ESMTP id AF2FD3335219;
+	Tue,  7 Dec 2010 23:01:21 +0100 (CET)
+Received: from gemini.denx.de (localhost.localdomain [127.0.0.1])
+	by gemini.denx.de (Postfix) with ESMTP id 74EB2D0E429;
+	Tue,  7 Dec 2010 23:01:21 +0100 (CET)
+To: poky@yoctoproject.org
+From: Wolfgang Denk <wd@denx.de>
 MIME-Version: 1.0
-Cc: "<poky@yoctoproject.org>" <poky@yoctoproject.org>
-Subject: Re: Master Stability
+In-reply-to: <1291756443-28767-1-git-send-email-wd@denx.de>
+References: <1291756443-28767-1-git-send-email-wd@denx.de>
+Comments: In-reply-to Wolfgang Denk <wd@denx.de>
+	message dated "Tue, 07 Dec 2010 22:13:58 +0100."
+Date: Tue, 07 Dec 2010 23:01:21 +0100
+Message-Id: <20101207220121.74EB2D0E429@gemini.denx.de>
+Cc: Vasily Khoruzhick <anarsoul@gmail.com>
+Subject: Re: [PATCH 0/5] Fedora 14 Patches
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,24 +39,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 07 Dec 2010 21:27:23 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <57691484DE912348A236429BEE4FF529@corp.ad.wrs.com>
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Tue, 07 Dec 2010 22:01:23 -0000
+Content-type: text/plain; charset=ISO-8859-1
+Content-transfer-encoding: 8bit
 
+In message <1291756443-28767-1-git-send-email-wd@denx.de> I wrote:
+> From: Vasily Khoruzhick <anarsoul@gmail.com>
+> 
+> The following is a series of patches trying to get Poky (both laverne
+> 4.0 and top of tree) to build under a Fedora 14 x86_64 system.
 
-On 2010-12-07, at 1:54 PM, Scott Garman wrote:
+Oops. Please punt that included "From:" line; it's just a bad copy &
+paste from the first actual patch.
 
-> We're definitely hardware constrained for it. I want a pony also. ;)
+Sorry.
 
-Ponies are pretty cheap these days.=20
+Best regards,
 
-Does Intel have a plan to expand the amount of hardware used for automated =
-builds? It would give us a lot more build coverage and help with overall bu=
-ild quality.
+Wolfgang Denk
 
-
-- A
-
+-- 
+DENX Software Engineering GmbH,     MD: Wolfgang Denk & Detlev Zundel
+HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
+Phone: (+49)-8142-66989-10 Fax: (+49)-8142-66989-80 Email: wd@denx.de
+Never put off until tomorrow what you can put off indefinitely.
 
