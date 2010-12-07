@@ -1,21 +1,21 @@
 Return-Path: <dongxiao.xu@intel.com>
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 86D714C81205
+	by mx1.pokylinux.org (Postfix) with ESMTP id BD0054C81205
 	for <poky@yoctoproject.org>; Wed,  8 Dec 2010 00:28:23 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
 	by fmsmga101.fm.intel.com with ESMTP; 07 Dec 2010 22:28:23 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,315,1288594800"; d="scan'208";a="634245013"
+X-IronPort-AV: E=Sophos;i="4.59,315,1288594800"; d="scan'208";a="865769175"
 Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.9])
-	by fmsmga002.fm.intel.com with ESMTP; 07 Dec 2010 22:28:22 -0800
-Message-Id: <aa998698fa23cbb9b3dbd298813e49ab487ecfc5.1291790130.git.dongxiao.xu@intel.com>
+	by fmsmga001.fm.intel.com with ESMTP; 07 Dec 2010 22:28:14 -0800
+Message-Id: <5aab92ace21993c02038cf61d80d3e0df5750799.1291790130.git.dongxiao.xu@intel.com>
 In-Reply-To: <cover.1291790130.git.dongxiao.xu@intel.com>
 References: <cover.1291790130.git.dongxiao.xu@intel.com>
 From: Dongxiao Xu <dongxiao.xu@intel.com>
-Date: Tue, 7 Dec 2010 17:04:01 +0800
+Date: Tue, 7 Dec 2010 16:55:01 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 7/7] distro_tracking: update gupnp, gst-ffmpeg, gst-fluendo-mp3, etc.
+Subject: [PATCH 1/7] gssdp: upgrade to version 0.9.0
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,83 +29,156 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Wed, 08 Dec 2010 06:28:23 -0000
 
+Derive introspection.m4 from gobject-introspection package to solve the
+autoreconf issue.
+
+Add option "--disable-introspection" since gobject-introspection breaks
+cross compile.
+
 Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
 ---
- .../conf/distro/include/distro_tracking_fields.inc |   35 ++++++++++++++------
- 1 files changed, 25 insertions(+), 10 deletions(-)
+ .../gupnp/files/introspection.patch                |  101 ++++++++++++++++++++
+ .../gupnp/{gssdp_0.7.1.bb => gssdp_0.9.0.bb}       |   12 ++-
+ 2 files changed, 112 insertions(+), 1 deletions(-)
+ create mode 100644 meta/recipes-connectivity/gupnp/files/introspection.patch
+ rename meta/recipes-connectivity/gupnp/{gssdp_0.7.1.bb => gssdp_0.9.0.bb} (66%)
 
-diff --git a/meta/conf/distro/include/distro_tracking_fields.inc b/meta/conf/distro/include/distro_tracking_fields.inc
-index 43a92e1..18ff320 100644
---- a/meta/conf/distro/include/distro_tracking_fields.inc
-+++ b/meta/conf/distro/include/distro_tracking_fields.inc
-@@ -1957,9 +1957,12 @@ RECIPE_STATUS_pn-empathy = "red"
- RECIPE_LATEST_VERSION_pn-empathy = "2.31.2"
- RECIPE_MAINTAINER_pn-empathy = "Dongxiao Xu <dongxiao.xu@intel.com>"
+diff --git a/meta/recipes-connectivity/gupnp/files/introspection.patch b/meta/recipes-connectivity/gupnp/files/introspection.patch
+new file mode 100644
+index 0000000..15de41f
+--- /dev/null
++++ b/meta/recipes-connectivity/gupnp/files/introspection.patch
+@@ -0,0 +1,101 @@
++Copied from gobject-introspection/m4/introspection.m4
++By Dongxiao Xu <dongxiao.xu@intel.com>
++
++diff -ruN gssdp-0.9.0-orig/m4/introspection.m4 gssdp-0.9.0/m4/introspection.m4
++--- gssdp-0.9.0-orig/m4/introspection.m4	1970-01-01 08:00:00.000000000 +0800
+++++ gssdp-0.9.0/m4/introspection.m4	2010-12-06 11:08:16.000000000 +0800
++@@ -0,0 +1,94 @@
+++dnl -*- mode: autoconf -*-
+++dnl Copyright 2009 Johan Dahlin
+++dnl
+++dnl This file is free software; the author(s) gives unlimited
+++dnl permission to copy and/or distribute it, with or without
+++dnl modifications, as long as this notice is preserved.
+++dnl
+++
+++# serial 1
+++
+++m4_define([_GOBJECT_INTROSPECTION_CHECK_INTERNAL],
+++[
+++    AC_BEFORE([AC_PROG_LIBTOOL],[$0])dnl setup libtool first
+++    AC_BEFORE([AM_PROG_LIBTOOL],[$0])dnl setup libtool first
+++    AC_BEFORE([LT_INIT],[$0])dnl setup libtool first
+++
+++    dnl enable/disable introspection
+++    m4_if([$2], [require],
+++    [dnl
+++        enable_introspection=yes
+++    ],[dnl
+++        AC_ARG_ENABLE(introspection,
+++                  AS_HELP_STRING([--enable-introspection[=@<:@no/auto/yes@:>@]],
+++                                 [Enable introspection for this build]),, 
+++                                 [enable_introspection=auto])
+++    ])dnl
+++
+++    AC_MSG_CHECKING([for gobject-introspection])
+++
+++    dnl presence/version checking
+++    AS_CASE([$enable_introspection],
+++    [no], [dnl
+++        found_introspection="no (disabled, use --enable-introspection to enable)"
+++    ],dnl
+++    [yes],[dnl
+++        PKG_CHECK_EXISTS([gobject-introspection-1.0],,
+++                         AC_MSG_ERROR([gobject-introspection-1.0 is not installed]))
+++        PKG_CHECK_EXISTS([gobject-introspection-1.0 >= $1],
+++                         found_introspection=yes,
+++                         AC_MSG_ERROR([You need to have gobject-introspection >= $1 installed to build AC_PACKAGE_NAME]))
+++    ],dnl
+++    [auto],[dnl
+++        PKG_CHECK_EXISTS([gobject-introspection-1.0 >= $1], found_introspection=yes, found_introspection=no)
+++    ],dnl
+++    [dnl	
+++        AC_MSG_ERROR([invalid argument passed to --enable-introspection, should be one of @<:@no/auto/yes@:>@])
+++    ])dnl
+++
+++    AC_MSG_RESULT([$found_introspection])
+++
+++    INTROSPECTION_SCANNER=
+++    INTROSPECTION_COMPILER=
+++    INTROSPECTION_GENERATE=
+++    INTROSPECTION_GIRDIR=
+++    INTROSPECTION_TYPELIBDIR=
+++    if test "x$found_introspection" = "xyes"; then
+++       INTROSPECTION_SCANNER=`$PKG_CONFIG --variable=g_ir_scanner gobject-introspection-1.0`
+++       INTROSPECTION_COMPILER=`$PKG_CONFIG --variable=g_ir_compiler gobject-introspection-1.0`
+++       INTROSPECTION_GENERATE=`$PKG_CONFIG --variable=g_ir_generate gobject-introspection-1.0`
+++       INTROSPECTION_GIRDIR=`$PKG_CONFIG --variable=girdir gobject-introspection-1.0`
+++       INTROSPECTION_TYPELIBDIR="$($PKG_CONFIG --variable=typelibdir gobject-introspection-1.0)"
+++       INTROSPECTION_CFLAGS=`$PKG_CONFIG --cflags gobject-introspection-1.0`
+++       INTROSPECTION_LIBS=`$PKG_CONFIG --libs gobject-introspection-1.0`
+++       INTROSPECTION_MAKEFILE=`$PKG_CONFIG --variable=datadir gobject-introspection-1.0`/gobject-introspection-1.0/Makefile.introspection
+++    fi
+++    AC_SUBST(INTROSPECTION_SCANNER)
+++    AC_SUBST(INTROSPECTION_COMPILER)
+++    AC_SUBST(INTROSPECTION_GENERATE)
+++    AC_SUBST(INTROSPECTION_GIRDIR)
+++    AC_SUBST(INTROSPECTION_TYPELIBDIR)
+++    AC_SUBST(INTROSPECTION_CFLAGS)
+++    AC_SUBST(INTROSPECTION_LIBS)
+++    AC_SUBST(INTROSPECTION_MAKEFILE)
+++
+++    AM_CONDITIONAL(HAVE_INTROSPECTION, test "x$found_introspection" = "xyes")
+++])
+++
+++
+++dnl Usage:
+++dnl   GOBJECT_INTROSPECTION_CHECK([minimum-g-i-version])
+++
+++AC_DEFUN([GOBJECT_INTROSPECTION_CHECK],
+++[
+++  _GOBJECT_INTROSPECTION_CHECK_INTERNAL([$1])
+++])
+++
+++dnl Usage:
+++dnl   GOBJECT_INTROSPECTION_REQUIRE([minimum-g-i-version])
+++
+++
+++AC_DEFUN([GOBJECT_INTROSPECTION_REQUIRE],
+++[
+++  _GOBJECT_INTROSPECTION_CHECK_INTERNAL([$1], [require])
+++])
+diff --git a/meta/recipes-connectivity/gupnp/gssdp_0.7.1.bb b/meta/recipes-connectivity/gupnp/gssdp_0.9.0.bb
+similarity index 66%
+rename from meta/recipes-connectivity/gupnp/gssdp_0.7.1.bb
+rename to meta/recipes-connectivity/gupnp/gssdp_0.9.0.bb
+index 2143984..09bcc38 100644
+--- a/meta/recipes-connectivity/gupnp/gssdp_0.7.1.bb
++++ b/meta/recipes-connectivity/gupnp/gssdp_0.9.0.bb
+@@ -4,10 +4,20 @@ LICENSE = "LGPLv2"
+ LIC_FILES_CHKSUM = "file://COPYING;md5=3bf50002aefd002f49e7bb854063f7e7"
+ DEPENDS = "glib-2.0 libsoup-2.4 libglade"
  
--RECIPE_STATUS_pn-gupnp = "red"
--RECIPE_LATEST_VERSION_pn-gupnp = "0.13.3"
--RECIPE_MAINTAINER_pn-gupnp = "Dongxiao Xu <dongxiao.xu@intel.com>"
-+RECIPE_STATUS_pn-gupnp = "green"
-+RECIPE_LATEST_VERSION_pn-gupnp = "0.14.0"
-+RECIPE_NO_OF_PATCHES_pn-gupnp= "1"
-+RECIPE_LATEST_RELEASE_DATE_pn-gupnp= "2010/09/16"
-+RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-gupnp= "1 month"
-+RECIPE_MAINTAINER_pn-gupnp= "Dongxiao Xu <dongxiao.xu@intel.com>"
+-SRC_URI = "http://gupnp.org/sites/all/files/sources/${PN}-${PV}.tar.gz"
++SRC_URI = "http://gupnp.org/sites/all/files/sources/${PN}-${PV}.tar.gz \
++           file://introspection.patch"
  
- RECIPE_STATUS_pn-gupnp-av = "green"
- RECIPE_LATEST_VERSION_pn-gupnp-av = "0.7.0"
-@@ -2427,9 +2430,12 @@ RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-gst-openmax= "18 months"
- RECIPE_MAINTAINER_pn-gst-openmax = "Dongxiao Xu <dongxiao.xu@intel.com>"
- DISTRO_PN_ALIAS_pn-gst-openmax="OSPDT upstream=http://cgit.freedesktop.org/gstreamer/gst-openmax"
+ inherit autotools pkgconfig
  
--RECIPE_STATUS_pn-gst-ffmpeg = "red"
-+RECIPE_STATUS_pn-gst-ffmpeg = "green"
- DISTRO_PN_ALIAS_pn-gst-ffmpeg = "Mandriva=gstreamer0.10-ffmpeg Debian=gstreamer0.10-ffmpeg"
--RECIPE_LATEST_VERSION_pn-gst-ffmpeg = "0.10.10"
-+RECIPE_LATEST_VERSION_pn-gst-ffmpeg = "0.10.11"
-+RECIPE_NO_OF_PATCHES_pn-gst-ffmpeg = "1"
-+RECIPE_LATEST_RELEASE_DATE_pn-gst-ffmpeg = "2010/07/15"
-+RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-gst-ffmpeg = "4 months"
- RECIPE_MAINTAINER_pn-gst-ffmpeg = "Dongxiao Xu <dongxiao.xu@intel.com>"
+ PACKAGES =+ "gssdp-tools"
  
- RECIPE_STATUS_pn-alsa-oss = "red"
-@@ -2441,8 +2447,11 @@ DISTRO_PN_ALIAS_pn-libsndfile1 = "Meego=libsndfile Fedora=libsndfile OpenSuSE=li
- RECIPE_LATEST_VERSION_pn-libsndfile1 = "1.0.21 "
- RECIPE_MAINTAINER_pn-libsndfile1 = "Dongxiao Xu <dongxiao.xu@intel.com>"
- 
--RECIPE_STATUS_pn-pulseaudio = "red"
-+RECIPE_STATUS_pn-pulseaudio = "green"
- RECIPE_LATEST_VERSION_pn-pulseaudio = "0.9.21"
-+RECIPE_NO_OF_PATCHES_pn-pulseaudio = "5"
-+RECIPE_LATEST_RELEASE_DATE_pn-pulseaudio = "2009/10/23"
-+RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-pulseaudio = "12 days"
- RECIPE_MAINTAINER_pn-pulseaudio = "Dongxiao Xu <dongxiao.xu@intel.com>"
- 
- RECIPE_STATUS_pn-taglib = "green"
-@@ -2456,13 +2465,19 @@ RECIPE_STATUS_pn-libnice = "red"
- RECIPE_LATEST_VERSION_pn-libnice = "0.0.12"
- RECIPE_MAINTAINER_pn-libnice = "Dongxiao Xu <dongxiao.xu@intel.com>"
- 
--RECIPE_STATUS_pn-gst-fluendo-mp3 = "red"
--RECIPE_LATEST_VERSION_pn-gst-fluendo-mp3 = "0.10.10"
-+RECIPE_STATUS_pn-gst-fluendo-mp3 = "green"
-+RECIPE_LATEST_VERSION_pn-gst-fluendo-mp3 = "0.10.15"
-+RECIPE_NO_OF_PATCHES_pn-gst-fluendo-mp3 = "1"
-+RECIPE_LATEST_RELEASE_DATE_pn-gst-fluendo-mp3 = "2010/10/21"
-+RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-gst-fluendo-mp3 = "3 months"
- RECIPE_MAINTAINER_pn-gst-fluendo-mp3 = "Dongxiao Xu <dongxiao.xu@intel.com>"
- DISTRO_PN_ALIAS_pn-gst-fluendo-mp3 = "Debian=gstreamer0.10-fluendo-mp3  Ubuntu=gstreamer0.10-fluendo-mp3"
- 
--RECIPE_STATUS_pn-gst-fluendo-mpegdemux = "red"
--RECIPE_LATEST_VERSION_pn-gst-fluendo-mpegdemux = "0.10.23"
-+RECIPE_STATUS_pn-gst-fluendo-mpegdemux = "green"
-+RECIPE_LATEST_VERSION_pn-gst-fluendo-mpegdemux = "0.10.20"
-+RECIPE_NO_OF_PATCHES_pn-gst-fluendo-mpegdemux = "0"
-+RECIPE_LATEST_RELEASE_DATE_pn-gst-fluendo-mpegdemux = "2010/10/20"
-+RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-gst-fluendo-mpegdemux = "1 months"
- RECIPE_MAINTAINER_pn-gst-fluendo-mpegdemux = "Dongxiao Xu <dongxiao.xu@intel.com>"
- DISTRO_PN_ALIAS_pn-gst-fluendo-mpegdemux = "Ubuntu=gstreamer0.10-fluendo-mpegdemux Debian=gstreamer0.10-fluendo-mpegdemux"
- 
+ FILES_gssdp-tools = "${bindir}/gssdp* ${datadir}/gssdp/*.glade"
++
++EXTRA_OECONF = "--disable-introspection"
++
++PR = "r0"
++
++SRC_URI[md5sum] = "8605138eac1e7fb8ec8cf502a928ea81"
++SRC_URI[sha256sum] = "6e4de2ecc90d2ac8b3694af1954984d04de25fb01dd2f2748d7221add8ead9e0" 
++
++
 -- 
 1.6.3.3
 
