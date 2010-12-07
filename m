@@ -1,21 +1,21 @@
 Return-Path: <ke.yu@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 43A4A4C8110D
-	for <poky@yoctoproject.org>; Tue,  7 Dec 2010 06:43:56 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 07 Dec 2010 04:43:56 -0800
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 99EA84C811C4
+	for <poky@yoctoproject.org>; Tue,  7 Dec 2010 06:43:58 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 07 Dec 2010 04:43:58 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,310,1288594800"; d="scan'208";a="633932292"
+X-IronPort-AV: E=Sophos;i="4.59,310,1288594800"; d="scan'208";a="358171447"
 Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.154.168])
-	by fmsmga002.fm.intel.com with ESMTP; 07 Dec 2010 04:43:55 -0800
-Message-Id: <410d0152d0e7e676c0d9da93ffe166d608ae4d38.1291716364.git.ke.yu@intel.com>
+	by azsmga001.ch.intel.com with ESMTP; 07 Dec 2010 04:43:57 -0800
+Message-Id: <135b95e8167c62407f7408ff074d555a8bf9e148.1291716364.git.ke.yu@intel.com>
 In-Reply-To: <cover.1291716364.git.ke.yu@intel.com>
 References: <cover.1291716364.git.ke.yu@intel.com>
 From: Yu Ke <ke.yu@intel.com>
-Date: Mon, 6 Dec 2010 12:17:04 +0800
+Date: Tue, 7 Dec 2010 17:42:14 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 1/3] x11-common: add license checksum
+Subject: [PATCH 2/3] xserver-nodm-init: add license checksum
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,23 +27,42 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 07 Dec 2010 12:43:56 -0000
-
-it is local file recipe and no GPLv2 license file, so
-add a patch to add GPLv2 license file
+X-List-Received-Date: Tue, 07 Dec 2010 12:43:59 -0000
 
 Signed-off-by: Yu Ke <ke.yu@intel.com>
 ---
- .../x11-common/x11-common/gplv2-license.patch      |  353 ++++++++++++++++++++
- meta/recipes-graphics/x11-common/x11-common_0.1.bb |    7 +-
- 2 files changed, 358 insertions(+), 2 deletions(-)
- create mode 100644 meta/recipes-graphics/x11-common/x11-common/gplv2-license.patch
+ .../x11-common/xserver-nodm-init.bb                |    9 +-
+ .../xserver-nodm-init/gplv2-license.patch          |  353 ++++++++++++++++++++
+ 2 files changed, 359 insertions(+), 3 deletions(-)
+ create mode 100644 meta/recipes-graphics/x11-common/xserver-nodm-init/gplv2-license.patch
 
-diff --git a/meta/recipes-graphics/x11-common/x11-common/gplv2-license.patch b/meta/recipes-graphics/x11-common/x11-common/gplv2-license.patch
+diff --git a/meta/recipes-graphics/x11-common/xserver-nodm-init.bb b/meta/recipes-graphics/x11-common/xserver-nodm-init.bb
+index c77b2f0..03a6ca3 100644
+--- a/meta/recipes-graphics/x11-common/xserver-nodm-init.bb
++++ b/meta/recipes-graphics/x11-common/xserver-nodm-init.bb
+@@ -1,11 +1,14 @@
+ DESCRIPTION = "Simple Xserver Init Script (no dm)"
+-LICENSE = "GPL"
++LICENSE = "GPLv2"
++LIC_FILES_CHKSUM = "file://COPYING;md5=751419260aa954499f7abaabaa882bbe"
+ SECTION = "x11"
+ PRIORITY = "optional"
+-PR = "r22"
++PR = "r23"
+ RDEPENDS_${PN} = "dbus-wait sudo"
+ 
+-SRC_URI = "file://xserver-nodm"
++SRC_URI = "file://xserver-nodm \
++           file://gplv2-license.patch"
++
+ S = ${WORKDIR}
+ 
+ PACKAGE_ARCH = "all"
+diff --git a/meta/recipes-graphics/x11-common/xserver-nodm-init/gplv2-license.patch b/meta/recipes-graphics/x11-common/xserver-nodm-init/gplv2-license.patch
 new file mode 100644
 index 0000000..ec93253
 --- /dev/null
-+++ b/meta/recipes-graphics/x11-common/x11-common/gplv2-license.patch
++++ b/meta/recipes-graphics/x11-common/xserver-nodm-init/gplv2-license.patch
 @@ -0,0 +1,353 @@
 +COPYING: add GPLv2 license file
 +
@@ -398,26 +417,6 @@ index 0000000..ec93253
 ++consider it more useful to permit linking proprietary applications with the
 ++library.  If this is what you want to do, use the GNU Lesser General
 ++Public License instead of this License.
-diff --git a/meta/recipes-graphics/x11-common/x11-common_0.1.bb b/meta/recipes-graphics/x11-common/x11-common_0.1.bb
-index 6791f96..d156285 100644
---- a/meta/recipes-graphics/x11-common/x11-common_0.1.bb
-+++ b/meta/recipes-graphics/x11-common/x11-common_0.1.bb
-@@ -1,10 +1,13 @@
- DESCRIPTION = "Common X11 scripts"
- LICENSE = "GPLv2"
-+LIC_FILES_CHKSUM = "file://COPYING;md5=751419260aa954499f7abaabaa882bbe"
- SECTION = "x11"
- RDEPENDS_${PN} = "xmodmap xdpyinfo xtscal xinit formfactor"
--PR = "r38"
-+PR = "r39"
-+
-+SRC_URI = "file://etc \
-+           file://gplv2-license.patch"
- 
--SRC_URI = "file://etc"
- S = ${WORKDIR}
- 
- PACKAGE_ARCH = "all"
 -- 
 1.7.0.4
 
