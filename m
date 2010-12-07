@@ -1,20 +1,42 @@
-Return-Path: <tom.zanussi@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 508824C81069
-	for <poky@yoctoproject.org>; Tue,  7 Dec 2010 01:07:51 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 06 Dec 2010 23:07:51 -0800
+Return-Path: <kevin.tian@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id EAF6A4C80050
+	for <poky@pokylinux.org>; Tue,  7 Dec 2010 01:18:15 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 06 Dec 2010 23:18:15 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,310,1288594800"; d="scan'208";a="581259232"
-Received: from unknown (HELO [10.255.13.237]) ([10.255.13.237])
-	by orsmga002.jf.intel.com with ESMTP; 06 Dec 2010 23:07:50 -0800
-From: Tom Zanussi <tom.zanussi@intel.com>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Date: Tue, 07 Dec 2010 01:08:09 -0600
-Message-ID: <1291705689.2848.65.camel@elmorro>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Subject: [PATCH 3/3] crownbay: add EG20T config
+X-IronPort-AV: E=Sophos;i="4.59,310,1288594800"; d="scan'208";a="865307054"
+Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
+	by fmsmga001.fm.intel.com with ESMTP; 06 Dec 2010 23:17:58 -0800
+Received: from pgsmsx509.gar.corp.intel.com (172.30.13.17) by
+	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Tue, 7 Dec 2010 15:17:56 +0800
+Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
+	PGSMSX509.gar.corp.intel.com (172.30.13.17) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Tue, 7 Dec 2010 15:17:56 +0800
+Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
+	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi; Tue, 7 Dec 2010
+	15:17:55 +0800
+From: "Tian, Kevin" <kevin.tian@intel.com>
+To: Gary Thomas <gary@mlbassoc.com>
+Date: Tue, 7 Dec 2010 15:17:51 +0800
+Thread-Topic: [poky] sstate status
+Thread-Index: AcuVNz2X0XxLBwDNQQG2EDaCqY9IYAApmG6A
+Message-ID: <625BA99ED14B2D499DC4E29D8138F1504D47543AEE@shsmsx502.ccr.corp.intel.com>
+References: <201012031634.56033.paul.eggleton@linux.intel.com>
+	<4CF97DC2.8040209@mlbassoc.com> <4CFA3868.4020604@mlbassoc.com>
+	<625BA99ED14B2D499DC4E29D8138F1504D475430F6@shsmsx502.ccr.corp.intel.com>
+	<4CFB7F6F.60407@mlbassoc.com> <4CFCC607.9040803@mlbassoc.com>
+In-Reply-To: <4CFCC607.9040803@mlbassoc.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
+MIME-Version: 1.0
+Cc: Paul Eggleton <paul.eggleton@linux.intel.com>,
+	"poky@pokylinux.org" <poky@pokylinux.org>, "Purdie,
+	Richard" <richard.purdie@intel.com>
+Subject: Re: sstate status
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,74 +48,119 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 07 Dec 2010 07:07:51 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 07 Dec 2010 07:18:16 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Hardware config options for the Platform Controller Hub EG20T.
-
-Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
----
- wrs/cfg/kernel-cache/bsp/crownbay/crownbay.scc |    1 +
- wrs/cfg/kernel-cache/bsp/crownbay/eg20t.cfg    |   36 ++++++++++++++++++++++++
- 2 files changed, 37 insertions(+), 0 deletions(-)
- create mode 100644 wrs/cfg/kernel-cache/bsp/crownbay/eg20t.cfg
-
-diff --git a/wrs/cfg/kernel-cache/bsp/crownbay/crownbay.scc b/wrs/cfg/kernel-cache/bsp/crownbay/crownbay.scc
-index c37fcf1..89a0725 100644
---- a/wrs/cfg/kernel-cache/bsp/crownbay/crownbay.scc
-+++ b/wrs/cfg/kernel-cache/bsp/crownbay/crownbay.scc
-@@ -1,4 +1,5 @@
- kconf hardware crownbay.cfg
-+kconf hardware eg20t.cfg
- 
- include features/latencytop/latencytop.scc
- include features/profiling/profiling.scc
-diff --git a/wrs/cfg/kernel-cache/bsp/crownbay/eg20t.cfg b/wrs/cfg/kernel-cache/bsp/crownbay/eg20t.cfg
-new file mode 100644
-index 0000000..0e05f70
---- /dev/null
-+++ b/wrs/cfg/kernel-cache/bsp/crownbay/eg20t.cfg
-@@ -0,0 +1,36 @@
-+# Hardware support for the Platform Controller Hub EG20T
-+
-+CONFIG_DMADEVICES=y
-+CONFIG_DMA_ENGINE=y
-+CONFIG_PCH_UART_DMA=y
-+CONFIG_SERIAL_8250_PCI=y
-+CONFIG_SERIAL_8250_PCH=y
-+CONFIG_SERIAL_8250_PCH_DMA=y
-+
-+CONFIG_SPI=y
-+CONFIG_PCH_SPI=y
-+CONFIG_PCH_SPI_PLATFORM_DEVICE=y
-+CONFIG_PCH_SPI_PLATFORM_DEVICE_COUNT=1
-+
-+CONFIG_PCH_PHUB=y
-+
-+CONFIG_NETDEVICES=y
-+CONFIG_NETDEV_1000=y
-+CONFIG_PCH_GBE=y
-+
-+CONFIG_USB_GADGET=y
-+CONFIG_USB_GADGET_PCH=y
-+CONFIG_USB_GADGET_DUALSPEED=y
-+CONFIG_PCH_USBDEV=y
-+CONFIG_USB_GADGET_SELECTED=y
-+
-+CONFIG_PCH_I2C=y
-+
-+CONFIG_GPIOLIB=y
-+CONFIG_PCH_GPIO=y
-+
-+CONFIG_PCH_IEEE1588=y
-+
-+CONFIG_CAN=y
-+CONFIG_CAN_DEV=y
-+CONFIG_PCH_CAN=y
--- 
-1.7.0.4
-
-
-
+PkZyb206IEdhcnkgVGhvbWFzIFttYWlsdG86Z2FyeUBtbGJhc3NvYy5jb21dDQo+U2VudDogTW9u
+ZGF5LCBEZWNlbWJlciAwNiwgMjAxMCA3OjE2IFBNDQo+DQo+T24gMTIvMDUvMjAxMCAwNTowMiBB
+TSwgR2FyeSBUaG9tYXMgd3JvdGU6DQo+PiBPbiAxMi8wNS8yMDEwIDA0OjE5IEFNLCBUaWFuLCBL
+ZXZpbiB3cm90ZToNCj4+Pj4gRnJvbTogR2FyeSBUaG9tYXMNCj4+Pj4gU2VudDogU2F0dXJkYXks
+IERlY2VtYmVyIDA0LCAyMDEwIDg6NDggUE0NCj4+Pj4NCj4+Pj4gT24gMTIvMDMvMjAxMCAwNDoz
+MSBQTSwgR2FyeSBUaG9tYXMgd3JvdGU6DQo+Pj4+PiBPbiAxMi8wMy8yMDEwIDA5OjM0IEFNLCBQ
+YXVsIEVnZ2xldG9uIHdyb3RlOg0KPj4+Pj4+IEhpIGFsbCwNCj4+Pj4+Pg0KPj4+Pj4+IEkndmUg
+YmVlbiBkb2luZyBzb21lIHRlc3RzIHdpdGggc3N0YXRlLCBhbmQgSSd2ZSBtYW5hZ2VkIHRvIGdl
+dCB0byBhDQo+Pj4+Pj4gc3RhZ2Ugd2hlcmUgSSBjYW4gc2hhcmUgdGhlIFNTVEFURV9ESVIgYmV0
+d2VlbiBteSB0d28gbWFjaGluZXMgKG9uZQ0KPj4+Pj4+IHJ1bm5pbmcgRmVkb3JhIDE0IGFuZCB0
+aGUgb3RoZXIgS3VidW50dSAxMC4xMCkgYW5kIGFsbW9zdCBnZXQgYQ0KPj4+Pj4+IHN1Y2Nlc3Nm
+dWwgYnVpbGQgZnJvbSBhIGNsZWFuIFRNUERJUi4gTXkgbGFzdCB0ZXN0IGdvdCB0bw0KPj4+Pj4+
+IHBva3ktaW1hZ2UtbWluaW1hbC5kb19yb290ZnMgYW5kIHRoZW4gZmFpbGVkIGR1ZSB0byBzb21l
+IGtpbmQgb2YNCj4+Pj4+PiBwYWNrYWdlIGRlcGVuZGVuY3kgaXNzdWU6DQo+Pj4+Pj4NCj4+Pj4+
+PiAtLS0tLS0tLS0gc25pcCAtLS0tLS0tLS0NCj4+Pj4+PiB8IFByb2Nlc3NpbmcgcnBtLi4uDQo+
+Pj4+Pj4gfCBQcm9jZXNzaW5nIHp5cHBlci4uLg0KPj4+Pj4+IHwgZXJyb3I6IEZhaWxlZCBkZXBl
+bmRlbmNpZXM6DQo+Pj4+Pj4gfCBlbGZ1dGlscz49IDAuMTQ4IGlzIG5lZWRlZCBieSBycG0tNS4x
+LjEwLXI3Lmk1ODYNCj4+Pj4+PiB8IGxpYmF1Z2VhczA+PSAwLjcuMyBpcyBuZWVkZWQgYnkNCj4+
+Pj4+PiB6eXBwZXItMS40LjcrZ2l0MCs5ZWIwZTI0OGUwNmM4ZDIwYWQwNTRiZTI0MzkxNDlkOWVk
+ZTM3NTMxLXIxLmk1ODYNCj4+Pj4+PiB8IEVSUk9SOiBUYXNrIGZhaWxlZDogKCdmdW5jdGlvbiBk
+b19yb290ZnMgZmFpbGVkJywNCj4+Pj4+Pg0KPj4+Pg0KPicvaG9tZS9wb2t5c3R1ZmYvdG1wL3dv
+cmsvcWVtdXg4Ni1wb2t5LWxpbnV4L3Bva3ktaW1hZ2UtbWluaW1hbC0xLjAtcjAvdGVtcC9sb2cu
+DQo+Pj4+IGRvX3Jvb3Rmcy42ODc0JykNCj4+Pj4+Pg0KPj4+Pj4+IC0tLS0tLS0tLSBzbmlwIC0t
+LS0tLS0tLQ0KPj4+Pj4+DQo+Pj4+Pj4gQSAiYml0YmFrZSAtYyBjbGVhbiBhdWdlYXMgZWxmdXRp
+bHMiIGFuZCB0aGVuICJiaXRiYWtlDQo+Pj4+Pj4gcG9reS1pbWFnZS1taW5pbWFsIiBhZ2FpbiB3
+ZW50IHRocm91Z2ggT0sgKGFuZCBidWlsdCB0aGUNCj4+Pj4+PiBhZm9yZW1lbnRpb25lZCByZWNp
+cGVzIGZyb20gc3N0YXRlKSAsIHNvIEknbSBub3Qgc3VyZSB3aGF0IHdlbnQgd3JvbmcNCj4+Pj4+
+PiBoZXJlLg0KPj4+Pj4+DQo+Pj4+Pj4gTXkgY3VycmVudCBzdGF0ZSBvZiB3b3JrIGlzIGluIHRo
+ZSBwYXVsZS9zc3RhdGUgY29udHJpYiBicmFuY2gsIHdoaWNoDQo+Pj4+Pj4gaXMgYmFzZWQgb24g
+S2V2aW4ncyB0ay9zc3RhdGUgYnJhbmNoLiBLZXZpbiwgSSB0aGluayB0aGUgc29vbmVyIHdlIGNh
+bg0KPj4+Pj4+IG1vdmUgdGhpcyB0b3dhcmRzIG1hc3RlciB0aGUgYmV0dGVyLCB0aGVuIHdlIGNh
+biBnZXQgc29tZSB3aWRlciB0ZXN0aW5nLg0KPj4+Pj4+DQo+Pj4+Pj4gRllJIEpvc2h1YSBoYXMg
+bWFkZSBidWcgIzUwNyBpbnRvIGEgdHJhY2tpbmcgYnVnIGZvciBjdXJyZW50IHNzdGF0ZQ0KPj4+
+Pj4+IGlzc3VlczoNCj4+Pj4+PiBodHRwOi8vYnVnemlsbGEucG9reWxpbnV4Lm9yZy9zaG93X2J1
+Zy5jZ2k/aWQ9NTA3DQo+Pj4+Pg0KPj4+Pj4gSSBnYXZlIHRoaXMgYSBzaW1wbGUgdHJ5IGFuZCBp
+dCBmYWlsZWQgbWlzZXJhYmx5LiBXb3JraW5nIGZyb20gYSBjb3B5IG9mDQo+Pj4+PiBQYXVsJ3Mg
+YnJhbmNoIGluIHBva3ktY29udHJpYiwgaGVyZSdzIHdoYXQgSSBkaWQ6DQo+Pj4+Pg0KPj4+Pj4g
+KiBPbiBtYWNoaW5lIEEgKHg4NiBGZWRvcmEgMTEpDQo+Pj4+PiAlIGJpdGJha2UgcG9reS1pbWFn
+ZS1taW5pbWFsDQo+Pj4+Pg0KPj4+Pj4gKiBPbiBtYWNoaW5lIEIgKHg4NiBGZWRvcmEgMTMpDQo+
+Pj4+PiAtLSBDb3B5IHNzdGF0ZS1jYWNoZSBmcm9tIG1hY2hpbmUgQSB0byAvdG1wL3NzdGF0ZS1j
+YWNoZSAocnN5bmMgd2l0aA0KPj4+Pj4gYWxsIHBlcm1zJiB0aW1lc3RhbXBzIHByZXNlcnZlZCkN
+Cj4+Pj4+IC0tIFVzaW5nIHRoZSBpZGVudGljYWwgY29uZi9sb2NhbC5jb25mIGZpbGUgZnJvbSBt
+YWNoaW5lIEEsIGV4Y2VwdA0KPj4+Pj4gSSBzZXQgdXAgU1NUQVRFX01JUlJPUlMgbGlrZSB0aGlz
+DQo+Pj4+PiBTU1RBVEVfTUlSUk9SUyA/PSAiXA0KPj4+Pj4gZmlsZTovLy4qIGZpbGU6Ly8vdG1w
+L3NzdGF0ZS1jYWNoZS8iDQo+Pj4+PiAlIGJpdGJha2UgcG9reS1pbWFnZS1taW5pbWFsDQo+Pj4+
+Pg0KPj4+Pj4gRmVsbCBhcGFydCBwcmV0dHkgYmFkbHkuIExvb2sgYXQgdGhlIG91dHB1dA0KPj4+
+Pj4gaHR0cDovL3d3dy5tbGJhc3NvYy5jb20vcG9reS9wb2t5X3dpdGhfc3N0YXRlLm91dA0KPj4+
+Pj4NCj4+Pj4+IEFsc28sIGl0IHNlZW1lZCB0byBiZSByZWJ1aWxkaW5nIGEgbG90IG9mIHBhY2th
+Z2VzLiBJTU8sIHRoZXJlJ3MNCj4+Pj4+IG5vIHJlYXNvbiBpdCBzaG91bGQgaGF2ZSB0byByZWJ1
+aWxkIF9hbnlfDQo+Pj4+Pg0KPj4+Pg0KPj4+PiBPbmUgdGhpbmcgdGhhdCBzZWVtcyB0byBiZSBz
+aWduaWZpY2FudCBpcyB0aGUgYmFzZSBidWlsZCBkaXJlY3RvcnkgcGF0aC4NCj4+Pj4gSW4gdGhl
+IGNhc2UgYWJvdmUsIHRoZXkgZGlkIG5vdCBtYXRjaCwgaS5lLg0KPj4+PiAqIE9uIG1hY2hpbmUg
+QSwgQlVJTERESVI9L3RtcC9zc3RhdGVfdGVzdGluZw0KPj4+PiAqIE9uIG1hY2hpbmUgQiwgQlVJ
+TERESVI9L2hvbWUvbG9jYWwvbXlfc3N0YXRlX3Rlc3QNCj4+Pj4gSSB0cmllZCBpdCB0aGlzIHdh
+eSBhcyBpdCBtYXRjaGVzIG15IFtjdXN0b21lcidzXSBleHBlY3RlZCB1c2FnZS4NCj4+Pg0KPj4+
+IEkgdGhpbmsgaW4gdXN1YWwgY2FzZSB0aGUgZGlyZWN0b3J5IHBhdGhzIHdvdWxkIG1pc21hdGNo
+LiBTbyBsZXQncyBzdGljayB0byB0aGF0DQo+Pj4gY29uZmlndXJhdGlvbiB0byBleHBvc2UgbW9y
+ZSBpc3N1ZXMuIEluIG15IHByZXZpb3VzIGRlYnVnLCBJIGhhdmUgbWFkZSBpdA0KPj4+IGluIGEg
+Z29vZCBzaGFwZSBidXQgd291bGQgbm93IHR1cm4gdG8gUlAncyBicmFuY2ggdG8gdHJ5IG1vcmUg
+ZXhwZXJpbWVudHMuDQo+Pj4NCj4+PiBJdCB3b3VsZCBiZSBnb29kIGlmIHlvdSBhbHNvIHRyeSB0
+aGF0IG9uZToNCj4+PiBodHRwOi8vZ2l0LnBva3lsaW51eC5vcmcvY2dpdC9jZ2l0LmNnaS9wb2t5
+LWNvbnRyaWIvbG9nLz9oPXJwdXJkaWUvdHdlYWtzMg0KPj4+DQo+Pj4+DQo+Pj4+IEkndmUgcmVy
+dW4gdGhlIGV4cGVyaW1lbnQgYWdhaW4gd2hlcmUgSSB1c2VkIGlkZW50aWNhbCBwYXRocyBvbiBi
+b3RoDQo+Pj4+IG1hY2hpbmVzIGFuZCB0aGUgcmVzdWx0cyB3ZXJlIHZhc3RseSBpbXByb3ZlZC4g
+SXQgc3RpbGwgdGFrZXMgYSBob3JyaWJsZQ0KPj4+PiBsZW5ndGggb2YgdGltZSAoNjQgbWludXRl
+cyBvbiBhIGZhc3QgNCBwcm9jZXNzb3IgYm94KSBhbmQgcmVidWlsZHMgd2F5IHRvDQo+Pj4+IG1h
+bnkgcGFja2FnZXMgZm9yIGp1c3QgcmVwbGF5aW5nIHdoYXQncyBhbHJlYWR5IGJlZW4gZG9uZSB0
+aG91Z2ggKElNTykuDQo+Pj4+IFJlc3VsdHMgYXJlIGF0DQo+Pj4+IGh0dHA6Ly93d3cubWxiYXNz
+b2MuY29tL3Bva3kvcG9reV93aXRoX3NzdGF0ZV9zYW1lX3BhdGhzLm91dA0KPj4+Pg0KPj4+DQo+
+Pj4gSW4gbXkgcnVuIH4yNW1pbiBhcmUgY29uc3VtZWQganVzdCBmb3Igc3N0YXRlIGNoZWNrL2lu
+c3RhbGxhdGlvbiBvbiBhIE5ITSA0LWNvcmUgYm94Lg0KPj4+IHRoZW4gc2V2ZXJhbCBtaW51dGVz
+IGZvciByb290ZnMgZ2VuZXJhdGlvbiBpZiB0d28gYnVpbGRzIHRvdGFsbHkgbWF0Y2guIHRoZSBz
+bG93IHNzdGF0ZQ0KPj4+IHBoYXNlIGNvbWVzIGZyb20gc2FtZSByZWFzb24gYXMgYSBzbG93IGJ1
+aWxkIC0gdGhlICdleGVjJyBvdmVyaGVhZC4gSSB1c2UgJ3NhdG8nIGFzDQo+Pj4gdGhlIHRhcmdl
+dC4NCj4+Pg0KPj4+IEluIHlvdXIgY2FzZSwgaG93ZXZlciB0aGVyZSdyZSBzdGlsbCBzb21lIHBh
+Y2thZ2VzIHJlYnVpbHQsIHN1Y2ggYXMgZ3ppcC1uYXRpdmUsDQo+Pj4gdW5pZmRlZi1uYXRpdmUs
+IGVnbGliYy1pbml0aWFsLCBuY3Vyc2VzLCBldGMuIGFuZCBhbHNvIGdjYyByZWxhdGVkIHBhY2th
+Z2VzIGFyZSByZWJ1aWx0DQo+Pj4gd2hpY2gganVzdCBjb25zdW1lcyB0aW1lLiBIYXMgeW91ciBz
+b3VyY2UgdHJlZSBjaGFuZ2VkIGJldHdlZW4gdGhlIHR3byBidWlsZHM/DQo+Pg0KPj4gTm8sIGlk
+ZW50aWNhbCBzb3VyY2UgdHJlZXMgZm9yIGFsbCB0aHJlZSBydW5zLg0KPj4NCj4+IEknbGwgdHJ5
+IGl0IGFnYWluIGxhdGVyIHRvZGF5IHdpdGggUmljaGFyZCdzIHRyZWUuDQo+Pg0KPg0KPkkndmUg
+bm93IHJlcnVuIHRoaXMgd2l0aCBSaWNoYXJkJ3MgdHdlYWsyIGNoYW5nZXMsIGJ1aWxkaW5nIGlu
+IGNvbXBsZXRlbHkNCj5kaWZmZXJlbnQgdHJlZSBwYXRocy4gIFdoaWxlIGl0IGRpZCB3b3JrLCBJ
+IGRvbid0IHNlZSB0aGUgcG9pbnQgYXMgaXQgdG9vaw0KPmV2ZW4gbG9uZ2VyIHRoZSBzZWNvbmQg
+dGltZSAodXNpbmcgdGhlIHNzdGF0ZSBjYWNoZSkgYW5kIGdlbmVyYXRlZCBqdXN0IGFzDQo+bXVj
+aCB3b3JrIDotKCAgU29tZXRoaW5nIGlzIHN0aWxsIG5vdCB3b3JraW5nIGFzIGRlc2lyZWQuDQo+
+DQo+T3JpZ2luYWwgJ2JpdGJha2UgcG9reS1pbWFnZS1taW5pbWFsJyBpbnRvIC90bXAvc3N0YXRl
+X3Rlc3RpbmcNCj4gICB0aW1lIC0gMTExIG1pbnV0ZXMNCj4gICBzcGFjZSAtIDIyLjkgR0IgKGlu
+IHRtcCkNCj4NCj5SZXJ1biwgdXNpbmcgdGhlIHNzdGF0ZS1jYWNoZSBmcm9tIHRoZSBmaXJzdCBy
+dW4NCj4gICB0aW1lIC0gMTE0IG1pbnV0ZXMNCj4gICBzcGFjZSAtIDIxLjcgR0INCj4NCj5JIHRo
+aW5rIHRoaXMgbGFzdCBsaW5lIGZyb20gdGhlIHJlcnVuIHRlc3QgaXMgdGVsbGluZzoNCj4gICBO
+T1RFOiBUYXNrcyBTdW1tYXJ5OiBBdHRlbXB0ZWQgMTYyMSB0YXNrcyBvZiB3aGljaCAyODIgZGlk
+bid0IG5lZWQgdG8gYmUgcmVydW4gYW5kDQo+MCBmYWlsZWQuDQoNCkkgaGF2ZSAiIEF0dGVtcHRl
+ZCAxNjIxIHRhc2tzIG9mIHdoaWNoIDk1MyBkaWRuJ3QgbmVlZCB0byBiZSByZXJ1biBhbmQgMCBm
+YWlsZWQuIg0KSXQgc2hvdWxkIGNvbWUgZnJvbSB0aGUgZmFjdCB0aGF0IEkgdXNlIHNhbWUgc291
+cmNlIGRpcmVjdG9yeSB0aGlzIHRpbWUuIEkgaGF2ZSBvbmUgZml4DQpmb3IgZGlmZmVyZW5jZSBz
+b3VyY2UgdHJlZSBpbiBteSBwcmV2aW91cyBicmFuY2gsIHdoaWNoIGlzIHN0aWxsIHVuZGVyIGRp
+c2N1c3Npb24gd2l0aCBSUA0KYW5kIG5vdCBpbiBSUCdzIGJyYW5jaCB5ZXQuIFNvIHNvcnJ5IGZv
+ciBpbmNvbnZlbmllbmNlLiBJIHNob3VsZCByYWlzZSB0aGUgaW5mbyBlYXJsaWVyLg0KDQpBbHRo
+b3VnaCB0aGF0LCBJIHRvb2sgYSBxdWljayBsb29rIG9mIG15IGJ1aWxkLiBUaGUgdGhpbmcgaXMg
+YSBiaXQgd2VpcmQuIEl0J3Mgc2ltaWxhciB0bw0KeW91ciBwcmV2aW91cyByZXN1bHQgd2l0aCBQ
+YXVsJ3MgYnJhbmNoLCB0aGF0IG1hbnkgcmVjaXBlcyBhcmUgcmVidWlsdCB0aG91Z2ggdGhleSdy
+ZQ0KY2xhaW1lZCB0byBiZSBhY2NlbGVyYWJsZSwgc3VjaCBhcyBnemlwLW5hdGl2ZSwgdW5pZmRl
+Zi1uYXRpdmUsIGV0Yy4gVGhlIHJlc3VsdCBpcyB0aGF0DQpuZXcgc3N0YXRlIHBhY2thZ2VzIGFy
+ZSBnZW5lcmF0ZWQgdG8gc2ltcGx5IG92ZXJyaWRlIG9sZCBvbmUuIFRoZXkgRE8gaGF2ZSBzYW1l
+DQpjaGVja3N1bSBiZWNhdXNlIG9ubHkgb25lIHZlcnNpb24gZXhpc3RzIHdpdGggbmV3IHRpbWVz
+dGFtcC4NCg0KSSBkaWRuJ3QgbG9vayBpbnRvIHJlY2VudCBjb21taXRzIHlldC4gSXQgbG9va3Mg
+dGhhdCB0aGUgY2hlY2tzdW0gY2FsY3VsYXRlZCBhdCBzZXRzY2VuZQ0Kc3RhZ2UgaXMgZGlmZmVy
+ZW50IHRoYW4gdGhlIG9uZSBmaW5hbGx5IHdyaXR0ZW4gaW50byBzc3RhdGUgcGFja2FnZS4NCg0K
+VGhhbmtzDQpLZXZpbg0K
 
