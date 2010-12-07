@@ -1,39 +1,41 @@
 Return-Path: <bruce.ashfield@gmail.com>
 Received: from mail-iw0-f176.google.com (mail-iw0-f176.google.com
 	[209.85.214.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 30B4C4C811C4
-	for <poky@yoctoproject.org>; Tue,  7 Dec 2010 09:56:35 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4F9AD4C811C4
+	for <poky@yoctoproject.org>; Tue,  7 Dec 2010 10:01:16 -0600 (CST)
 Authentication-Results: mx1.pokylinux.org; dkim=pass
 	(1024-bit key; insecure key) header.i=@gmail.com;
 	x-dkim-adsp=none (insecure policy)
-Received: by iwn7 with SMTP id 7so43470iwn.35
-	for <poky@yoctoproject.org>; Tue, 07 Dec 2010 07:56:35 -0800 (PST)
+Received: by iwn7 with SMTP id 7so48200iwn.35
+	for <poky@yoctoproject.org>; Tue, 07 Dec 2010 08:01:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
 	h=domainkey-signature:mime-version:received:received:in-reply-to
 	:references:date:message-id:subject:from:to:cc:content-type
 	:content-transfer-encoding;
-	bh=634bj38eMQOHw+qltWkX82ATc046HX9juFS+xZjg+zA=;
-	b=AmPfR/YWICmdL6D9y/vIvDWTa7spuNpX0xBg/1zp+95YXCI0+UEXwNpgDGCW9mdLrC
-	8lZhChz2ib+oZTzjVPXDlB6UE6SJQ4Eu6DKcEsWuFXtVl6vQR+ymjgRRG457M91V6p8n
-	TpXALpKZ3RVNNx57B0b9Bw7JvMyAjY9armJQw=
+	bh=Q02Ybs6akhp+MgfvRiL1wcqgEcfxp27pH03oQH1B5cg=;
+	b=ZspKeoL44xV0iMDu7HmR3wxXXPieP3hMhNZQ+e5+NUv0fLlQ4DgKyImQ9k4VgFdJqv
+	r87kNvpSLridT/OBbVUsPRY1Ts27oHuIWDIgLPyeZeBFU1ul4UfNFP2pqBbFHxzsOADV
+	QGGDzoLq1u0DjFkzEOHkc3pauaogUaEQLkAoc=
 DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
 	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
 	:cc:content-type:content-transfer-encoding;
-	b=KFnP5RR7XUAJMnrBZSUE2YoNRhzkcty5AUDfDxCXYtCKPqR+CsQbqDUzTuPyxzUYBd
-	BT75RC7nZ3X2ejHY6AxTUeZpwCk34uAAbhEuxl2HezPcymTeeEHCywmzKtS4MJdd88uQ
-	XbdZTnWrd9zN5S6nzn+Avo37yJb+j3SRs1iVg=
+	b=j8Qo9wdbdOarx5RNbxWTmO+ddzZ1E8T0hxG4FgrAnjsl4OwdhAgeg9Z+GZO9lY4L/g
+	z+KjGaY0dgb/0z2zSC22Ste5qelcdroloxgYzVSRa24nfv3B92/YzxJjammjMz+Llx0T
+	1kxpBx+NTYkWWiCBsEUzotvCWMezTVPQyLM+M=
 MIME-Version: 1.0
-Received: by 10.231.13.140 with SMTP id c12mr7767798iba.154.1291737393068;
-	Tue, 07 Dec 2010 07:56:33 -0800 (PST)
-Received: by 10.231.207.5 with HTTP; Tue, 7 Dec 2010 07:56:33 -0800 (PST)
-In-Reply-To: <1291705675.2848.61.camel@elmorro>
-References: <1291705675.2848.61.camel@elmorro>
-Date: Tue, 7 Dec 2010 10:56:33 -0500
-Message-ID: <AANLkTin2L8a1RQe8+nQfqekJxd8W342Xc0jpJLdieo+r@mail.gmail.com>
+Received: by 10.231.30.68 with SMTP id t4mr7782571ibc.129.1291737675849; Tue,
+	07 Dec 2010 08:01:15 -0800 (PST)
+Received: by 10.231.207.5 with HTTP; Tue, 7 Dec 2010 08:01:15 -0800 (PST)
+In-Reply-To: <41b29f580092411b9d6d3d6a5b8ecbe2b289ed3c.1291703954.git.tom.zanussi@intel.com>
+References: <cover.1291703954.git.tom.zanussi@intel.com>
+	<41b29f580092411b9d6d3d6a5b8ecbe2b289ed3c.1291703954.git.tom.zanussi@intel.com>
+Date: Tue, 7 Dec 2010 11:01:15 -0500
+Message-ID: <AANLkTindUNw7STsfrFiZMj9nu73Jx-FCq8mh9GOZ1EpB@mail.gmail.com>
 From: Bruce Ashfield <bruce.ashfield@gmail.com>
-To: Tom Zanussi <tom.zanussi@intel.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 00/00][KERNEL] crownbay-meta: kernel drivers
+To: Tom Zanussi <tom.zanussi@intel.com>, "Purdie,
+	Richard" <richard.purdie@intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 1/1] meta-crownbay: new layer for E6xx/EG20T systems
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -45,1127 +47,722 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 07 Dec 2010 15:56:35 -0000
+X-List-Received-Date: Tue, 07 Dec 2010 16:01:16 -0000
 Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Dec 7, 2010 at 2:07 AM, Tom Zanussi <tom.zanussi@intel.com> wrote:
-> This patchset provides EMGD 1.5 graphics and EG20T PCH kernel drivers
-> for the crownbay-meta layer.
+On Tue, Dec 7, 2010 at 12:57 AM, Tom Zanussi <tom.zanussi@intel.com> wrote:
+> This layer provides support for Tunnel Creek + Topcliff Intel systems.
 >
-> 00/00 because the patches are too big to post on the list - look at
-> the git branch directly to see them.
+> It supports the E6xx embedded on-chip graphics via the Intel Embedded
+> Media and Graphics Driver (EMGD) 1.5 Gold Driver.
 
-Tom,
+This part of the patch series, coupled with my questions on the kernel
+patches themselves makes me wonder about doing a README along
+with a BSP/meta layer.
 
-Do you have a link to a board description ? I did  a quick search
-and didn't find quite what I was looking for. I just wanted to check
-the config options against a feature spec and/or block diagram.
+We've used them successfully with BSPs in the past, they are simple,
+text and provide technical/testing information only.
 
-I haven't checked your meta layer patch set yet, so you may
-have that information there.
+If anyone else sees value in this, I have some templates that I can float
+for comment.
 
 Cheers,
 
 Bruce
 
 >
-> Pull URL: git://git.pokylinux.org/linux-2.6-windriver-contrib.git
-> =A0Branch: tzanussi/crownbay-standard
-> =A0Browse: http://git.pokylinux.org/cgit.cgi/linux-2.6-windriver-contrib/=
-log/?h=3Dtzanussi/crownbay-standard
+> The EMGD and EG20T PCH kernel drivers are of course GPL'ed and are
+> submitted in a separate patchset for the 2.6.34 yocto kernel.
 >
-> Thanks,
-> =A0 =A0Tom Zanussi <tom.zanussi@intel.com>
+> The userspace X drivers and supporting libraries however are closed
+> and need to be manually copied into the layer before building. =A0The
+> details on how to do this can be found in the README.before.building
+> doc in meta-crownbay/.
 >
-> Tom Zanussi (15):
-> =A0crownbay: emgd 1.5 'Gold' driver
-> =A0emgd: build fixups
-> =A0eg20t: Add official 2.6.33 pch_uart patch
-> =A0eg20t: Add official 2.6.33 pch_dma patch
-> =A0eg20t: Fix pch_dma compile error
-> =A0eg20t: Add official 2.6.33 pch_spi patch
-> =A0eg20t: Fix 2.6.34 pch_dma compile error
-> =A0eg20t: Add official 2.6.33 pch_phub patch
-> =A0eg20t: Add official 2.6.33 pch_gbe patch
-> =A0eg20t: Add official 2.6.33 pch_usbdev patch
-> =A0eg20t: Add official 2.6.33 pch_i2c patch
-> =A0eg20t: Add official 2.6.33 pch_gpio patch
-> =A0eg20t: Fix 2.6.34 pch_gpio patch reject
-> =A0eg20t: Add official 2.6.33 pch_ieee1588 patch
-> =A0eg20t: Add official 2.6.33 pch_can patch
->
-> =A0Documentation/ioctl/ioctl-number.txt =A0 =A0 =A0 =A0 =A0 =A0 =A0 | =A0=
- =A02 +
-> =A0drivers/char/Kconfig =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0 =A0 =A0 | =A0 18 +
-> =A0drivers/char/Makefile =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0 =A0 =A0| =A0 =A04 +
-> =A0drivers/char/pch_ieee1588/Makefile =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 | =
-=A0 =A03 +
-> =A0drivers/char/pch_ieee1588/pch_1588.c =A0 =A0 =A0 =A0 =A0 =A0 =A0 | 388=
-2 +++++++++++++++++++
-> =A0drivers/char/pch_ieee1588/pch_1588.h =A0 =A0 =A0 =A0 =A0 =A0 =A0 | =A0=
-527 +++
-> =A0drivers/char/pch_phub/Makefile =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0=
- | =A0 =A03 +
-> =A0drivers/char/pch_phub/pch_phub.c =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 |=
- =A0800 ++++
-> =A0drivers/char/pch_phub/pch_phub.h =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 |=
- =A0 48 +
-> =A0drivers/dma/Kconfig =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0 =A0 =A0 =A0| =A0 =A09 +
-> =A0drivers/dma/Makefile =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0 =A0 =A0 | =A0 =A01 +
-> =A0drivers/dma/pch_dma.c =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0 =A0 =A0| 2519 ++++++++++++
-> =A0drivers/dma/pch_dma.h =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0 =A0 =A0| =A0153 +
-> =A0drivers/gpio/Kconfig =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0 =A0 =A0 | =A0 =A09 +
-> =A0drivers/gpio/Makefile =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0 =A0 =A0| =A0 =A03 +-
-> =A0drivers/gpio/Makefile.rej =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0 =A0| =A0 =A07 +
-> =A0drivers/gpio/pch_gpio.c =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0 =A0 =A0| =A0901 +++++
-> =A0drivers/gpio/pch_gpio.h =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0 =A0 =A0| =A0245 ++
-> =A0drivers/gpu/drm/Kconfig =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0 =A0 =A0| =A0 =A09 +
-> =A0drivers/gpu/drm/Makefile =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0 =A0 | =A0 =A01 +
-> =A0drivers/gpu/drm/emgd/COPYING =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0 | =A0351 ++
-> =A0drivers/gpu/drm/emgd/Makefile =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0| =A0271 ++
-> =A0drivers/gpu/drm/emgd/emgd/cfg/config.h =A0 =A0 =A0 =A0 =A0 =A0 | =A011=
-9 +
-> =A0drivers/gpu/drm/emgd/emgd/cfg/config_default.h =A0 =A0 | =A0192 +
-> =A0drivers/gpu/drm/emgd/emgd/cfg/config_helper.c =A0 =A0 =A0| =A0234 ++
-> =A0drivers/gpu/drm/emgd/emgd/cfg/personality.h =A0 =A0 =A0 =A0| =A0 44 +
-> =A0.../gpu/drm/emgd/emgd/core/init/cmn/igd_global.c =A0 | =A0 37 +
-> =A0.../gpu/drm/emgd/emgd/core/init/cmn/igd_gtt_init.c | =A0249 ++
-> =A0drivers/gpu/drm/emgd/emgd/core/init/cmn/igd_init.c | =A0876 +++++
-> =A0.../drm/emgd/emgd/core/init/cmn/init_dispatch.h =A0 =A0| =A0 58 +
-> =A0drivers/gpu/drm/emgd/emgd/core/init/plb/init_plb.c | =A0453 +++
-> =A0.../drm/emgd/emgd/core/init/plb/micro_init_plb.c =A0 | =A0620 +++
-> =A0drivers/gpu/drm/emgd/emgd/core/init/tnc/init_tnc.c | =A0547 +++
-> =A0.../drm/emgd/emgd/core/init/tnc/micro_init_tnc.c =A0 | =A0877 +++++
-> =A0drivers/gpu/drm/emgd/emgd/display/dsp/cmn/dsp.c =A0 =A0| 2351 ++++++++=
-+++
-> =A0.../drm/emgd/emgd/display/dsp/cmn/dsp_dispatch.h =A0 | =A0 56 +
-> =A0.../gpu/drm/emgd/emgd/display/dsp/plb/dsp_plb.c =A0 =A0| =A0659 ++++
-> =A0.../gpu/drm/emgd/emgd/display/dsp/tnc/dsp_tnc.c =A0 =A0| =A0491 +++
-> =A0.../gpu/drm/emgd/emgd/display/mode/cmn/igd_mode.c =A0| 2198 ++++++++++=
-+
-> =A0drivers/gpu/drm/emgd/emgd/display/mode/cmn/match.c | 1319 +++++++
-> =A0drivers/gpu/drm/emgd/emgd/display/mode/cmn/match.h | =A0 50 +
-> =A0.../drm/emgd/emgd/display/mode/cmn/micro_mode.c =A0 =A0| 1645 ++++++++
-> =A0.../drm/emgd/emgd/display/mode/cmn/mode_dispatch.h | =A0328 ++
-> =A0.../gpu/drm/emgd/emgd/display/mode/cmn/vga_mode.c =A0| 1286 ++++++
-> =A0.../drm/emgd/emgd/display/mode/plb/clocks_plb.c =A0 =A0| =A0512 +++
-> =A0.../emgd/emgd/display/mode/plb/micro_mode_plb.c =A0 =A0| 1376 +++++++
-> =A0.../gpu/drm/emgd/emgd/display/mode/plb/mode_plb.c =A0| 1849 +++++++++
-> =A0.../drm/emgd/emgd/display/mode/tnc/clocks_tnc.c =A0 =A0| =A0591 +++
-> =A0.../emgd/emgd/display/mode/tnc/micro_mode_tnc.c =A0 =A0| 2301 ++++++++=
-+++
-> =A0.../gpu/drm/emgd/emgd/display/mode/tnc/mode_tnc.c =A0| 1908 +++++++++
-> =A0drivers/gpu/drm/emgd/emgd/display/pd/cmn/pd.c =A0 =A0 =A0| =A0517 +++
-> =A0.../gpu/drm/emgd/emgd/display/pi/cmn/displayid.c =A0 | 1059 +++++
-> =A0drivers/gpu/drm/emgd/emgd/display/pi/cmn/edid.c =A0 =A0| 1186 ++++++
-> =A0.../drm/emgd/emgd/display/pi/cmn/i2c_dispatch.h =A0 =A0| =A0 71 +
-> =A0drivers/gpu/drm/emgd/emgd/display/pi/cmn/igd_pi.c =A0| =A0261 ++
-> =A0.../gpu/drm/emgd/emgd/display/pi/cmn/mode_table.c =A0| 2549 ++++++++++=
-++
-> =A0.../gpu/drm/emgd/emgd/display/pi/cmn/pd_init_all.c | =A0200 +
-> =A0drivers/gpu/drm/emgd/emgd/display/pi/cmn/pi.c =A0 =A0 =A0| 1795 ++++++=
-+++
-> =A0drivers/gpu/drm/emgd/emgd/display/pi/plb/i2c_plb.c | =A0941 +++++
-> =A0.../drm/emgd/emgd/display/pi/tnc/i2c_bitbash_tnc.c | =A0589 +++
-> =A0.../drm/emgd/emgd/display/pi/tnc/i2c_gmbus_tnc.c =A0 | =A0926 +++++
-> =A0drivers/gpu/drm/emgd/emgd/drm/bitmap_data.h =A0 =A0 =A0 =A0| =A0 26 +
-> =A0drivers/gpu/drm/emgd/emgd/drm/drm_emgd_private.h =A0 | =A0139 +
-> =A0drivers/gpu/drm/emgd/emgd/drm/emgd_drv.c =A0 =A0 =A0 =A0 =A0 | 1981 ++=
+> Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
+> ---
+> =A0meta-crownbay/COPYING.MIT =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
+=A0 =A0| =A0 17 +++
+> =A0meta-crownbay/README.before.building =A0 =A0 =A0 =A0 =A0 =A0 =A0 | =A0=
+112 ++++++++++++++++++++
+> =A0meta-crownbay/conf/layer.conf =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
+=A0| =A0 10 ++
+> =A0meta-crownbay/conf/machine/crownbay.conf =A0 =A0 =A0 =A0 =A0 | =A0 46 =
 ++++++++
-> =A0drivers/gpu/drm/emgd/emgd/drm/emgd_drv.h =A0 =A0 =A0 =A0 =A0 | =A0175 =
+> =A0.../formfactor/formfactor/crownbay/machconfig =A0 =A0 =A0| =A0 =A03 +
+> =A0.../recipes/formfactor/formfactor_0.0.bbappend =A0 =A0 | =A0 =A03 +
+> =A0.../recipes/linux/linux-yocto_git.bbappend =A0 =A0 =A0 =A0 | =A0 =A03 =
 +
-> =A0drivers/gpu/drm/emgd/emgd/drm/emgd_fb.c =A0 =A0 =A0 =A0 =A0 =A0| =A062=
-6 +++
-> =A0drivers/gpu/drm/emgd/emgd/drm/emgd_interface.c =A0 =A0 | 2230 ++++++++=
-+++
-> =A0drivers/gpu/drm/emgd/emgd/drm/emgd_mmap.c =A0 =A0 =A0 =A0 =A0| =A0179 =
-+
-> =A0drivers/gpu/drm/emgd/emgd/drm/emgd_test_pvrsrv.c =A0 | 1365 +++++++
-> =A0drivers/gpu/drm/emgd/emgd/drm/splash_screen.c =A0 =A0 =A0| =A0106 +
-> =A0drivers/gpu/drm/emgd/emgd/drm/splash_screen.h =A0 =A0 =A0| =A0 54 +
-> =A0drivers/gpu/drm/emgd/emgd/drm/user_config.c =A0 =A0 =A0 =A0| =A0137 +
-> =A0drivers/gpu/drm/emgd/emgd/drm/user_config.h =A0 =A0 =A0 =A0| =A0106 +
-> =A0drivers/gpu/drm/emgd/emgd/gmm/gmm.c =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0| =
-=A0806 ++++
-> =A0drivers/gpu/drm/emgd/emgd/gmm/gtt.c =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0| =
-=A0362 ++
-> =A0drivers/gpu/drm/emgd/emgd/include/cmd.h =A0 =A0 =A0 =A0 =A0 =A0| =A0 4=
-2 +
-> =A0drivers/gpu/drm/emgd/emgd/include/context.h =A0 =A0 =A0 =A0| =A0246 ++
-> =A0drivers/gpu/drm/emgd/emgd/include/debug.h =A0 =A0 =A0 =A0 =A0| =A0171 =
-+
-> =A0drivers/gpu/drm/emgd/emgd/include/decode.h =A0 =A0 =A0 =A0 | =A0 71 +
-> =A0drivers/gpu/drm/emgd/emgd/include/dispatch.h =A0 =A0 =A0 | =A0 54 +
-> =A0drivers/gpu/drm/emgd/emgd/include/dispatch_utils.h | =A0 73 +
-> =A0drivers/gpu/drm/emgd/emgd/include/displayid.h =A0 =A0 =A0| =A0645 ++++
-> =A0drivers/gpu/drm/emgd/emgd/include/dsp.h =A0 =A0 =A0 =A0 =A0 =A0| =A0 4=
-7 +
-> =A0drivers/gpu/drm/emgd/emgd/include/edid.h =A0 =A0 =A0 =A0 =A0 | =A0131 =
-+
-> =A0drivers/gpu/drm/emgd/emgd/include/general.h =A0 =A0 =A0 =A0| =A0 85 +
-> =A0drivers/gpu/drm/emgd/emgd/include/instr_common.h =A0 | =A0 49 +
-> =A0drivers/gpu/drm/emgd/emgd/include/intelpci.h =A0 =A0 =A0 | =A0 91 +
-> =A0drivers/gpu/drm/emgd/emgd/include/math_fix.h =A0 =A0 =A0 | =A0 54 +
-> =A0drivers/gpu/drm/emgd/emgd/include/memlist.h =A0 =A0 =A0 =A0| =A0145 +
-> =A0drivers/gpu/drm/emgd/emgd/include/memory.h =A0 =A0 =A0 =A0 | =A0416 ++
-> =A0drivers/gpu/drm/emgd/emgd/include/mode.h =A0 =A0 =A0 =A0 =A0 | =A0306 =
-++
-> =A0drivers/gpu/drm/emgd/emgd/include/mode_access.h =A0 =A0| =A0 53 +
-> =A0drivers/gpu/drm/emgd/emgd/include/module_init.h =A0 =A0| =A0104 +
-> =A0drivers/gpu/drm/emgd/emgd/include/msvdx.h =A0 =A0 =A0 =A0 =A0| =A0234 =
-++
-> =A0drivers/gpu/drm/emgd/emgd/include/pci.h =A0 =A0 =A0 =A0 =A0 =A0| =A025=
-2 ++
-> =A0drivers/gpu/drm/emgd/emgd/include/pd.h =A0 =A0 =A0 =A0 =A0 =A0 | =A076=
-6 ++++
-> =A0drivers/gpu/drm/emgd/emgd/include/pd_init.h =A0 =A0 =A0 =A0| =A0192 +
-> =A0drivers/gpu/drm/emgd/emgd/include/pi.h =A0 =A0 =A0 =A0 =A0 =A0 | =A0 8=
-6 +
-> =A0drivers/gpu/drm/emgd/emgd/include/plb/appcontext.h | =A0 62 +
-> =A0drivers/gpu/drm/emgd/emgd/include/plb/cmd.h =A0 =A0 =A0 =A0| =A0499 ++=
-+
-> =A0drivers/gpu/drm/emgd/emgd/include/plb/context.h =A0 =A0| =A0190 +
-> =A0drivers/gpu/drm/emgd/emgd/include/plb/instr.h =A0 =A0 =A0| =A0225 ++
-> =A0drivers/gpu/drm/emgd/emgd/include/plb/mi.h =A0 =A0 =A0 =A0 | =A0 72 +
-> =A0drivers/gpu/drm/emgd/emgd/include/plb/regs.h =A0 =A0 =A0 | =A0727 ++++
-> =A0drivers/gpu/drm/emgd/emgd/include/plb/sgx.h =A0 =A0 =A0 =A0| =A0212 +
-> =A0drivers/gpu/drm/emgd/emgd/include/plb/state3d.h =A0 =A0| =A0393 ++
-> =A0.../gpu/drm/emgd/emgd/include/plb/state3d_plb.h =A0 =A0| 1294 +++++++
-> =A0drivers/gpu/drm/emgd/emgd/include/psb_regs.h =A0 =A0 =A0 | =A0659 ++++
-> =A0drivers/gpu/drm/emgd/emgd/include/rb.h =A0 =A0 =A0 =A0 =A0 =A0 | =A018=
-7 +
-> =A0drivers/gpu/drm/emgd/emgd/include/reset.h =A0 =A0 =A0 =A0 =A0| =A0 38 =
-+
-> =A0drivers/gpu/drm/emgd/emgd/include/sched.h =A0 =A0 =A0 =A0 =A0| =A0196 =
-+
-> =A0drivers/gpu/drm/emgd/emgd/include/state2d.h =A0 =A0 =A0 =A0| =A0 64 +
-> =A0drivers/gpu/drm/emgd/emgd/include/tnc/appcontext.h | =A0 35 +
-> =A0drivers/gpu/drm/emgd/emgd/include/tnc/cmd.h =A0 =A0 =A0 =A0| =A0 34 +
-> =A0drivers/gpu/drm/emgd/emgd/include/tnc/context.h =A0 =A0| =A0 32 +
-> =A0drivers/gpu/drm/emgd/emgd/include/tnc/igd_tnc_wa.h | =A0 93 +
-> =A0drivers/gpu/drm/emgd/emgd/include/tnc/instr.h =A0 =A0 =A0| =A0 41 +
-> =A0drivers/gpu/drm/emgd/emgd/include/tnc/mi.h =A0 =A0 =A0 =A0 | =A0 36 +
-> =A0drivers/gpu/drm/emgd/emgd/include/tnc/regs.h =A0 =A0 =A0 | =A0868 ++++=
-+
-> =A0drivers/gpu/drm/emgd/emgd/include/tnc/sgx.h =A0 =A0 =A0 =A0| =A0 31 +
-> =A0drivers/gpu/drm/emgd/emgd/include/tnc/state3d.h =A0 =A0| =A0 38 +
-> =A0.../gpu/drm/emgd/emgd/include/tnc/state3d_plb.h =A0 =A0| =A0 33 +
-> =A0drivers/gpu/drm/emgd/emgd/include/topaz.h =A0 =A0 =A0 =A0 =A0| =A0205 =
-+
-> =A0drivers/gpu/drm/emgd/emgd/include/utils.h =A0 =A0 =A0 =A0 =A0| =A0169 =
-+
-> =A0drivers/gpu/drm/emgd/emgd/include/vga.h =A0 =A0 =A0 =A0 =A0 =A0| =A010=
-2 +
-> =A0drivers/gpu/drm/emgd/emgd/oal/src/math_fix.c =A0 =A0 =A0 | =A0133 +
-> =A0drivers/gpu/drm/emgd/emgd/oal/src/memmap.c =A0 =A0 =A0 =A0 | =A0 50 +
-> =A0drivers/gpu/drm/emgd/emgd/oal/src/pci.c =A0 =A0 =A0 =A0 =A0 =A0| =A027=
-2 ++
-> =A0drivers/gpu/drm/emgd/emgd/pal/Makefile.include =A0 =A0 | =A0 49 +
-> =A0drivers/gpu/drm/emgd/emgd/pal/lpd/lpd.c =A0 =A0 =A0 =A0 =A0 =A0| =A010=
-9 +
-> =A0drivers/gpu/drm/emgd/emgd/pal/lpd/pd_print.h =A0 =A0 =A0 | =A0 66 +
-> =A0drivers/gpu/drm/emgd/emgd/pal/lvds/lvds.c =A0 =A0 =A0 =A0 =A0| 1546 ++=
+> =A0.../xserver-xf86-config/crownbay/xorg.conf =A0 =A0 =A0 =A0 | =A0 47 ++=
 ++++++
-> =A0drivers/gpu/drm/emgd/emgd/pal/lvds/lvds.h =A0 =A0 =A0 =A0 =A0| =A0165 =
-+
-> =A0drivers/gpu/drm/emgd/emgd/pal/sdvo/sdvo.def =A0 =A0 =A0 =A0| =A0 =A05 =
-+
-> =A0drivers/gpu/drm/emgd/emgd/pal/sdvo/sdvo_attr.c =A0 =A0 | 1458 +++++++
-> =A0drivers/gpu/drm/emgd/emgd/pal/sdvo/sdvo_attr.h =A0 =A0 | =A0136 +
-> =A0drivers/gpu/drm/emgd/emgd/pal/sdvo/sdvo_hdmi.c =A0 =A0 | =A0519 +++
-> =A0drivers/gpu/drm/emgd/emgd/pal/sdvo/sdvo_hdmi.h =A0 =A0 | =A0177 +
-> =A0drivers/gpu/drm/emgd/emgd/pal/sdvo/sdvo_intf.c =A0 =A0 | =A0696 ++++
-> =A0drivers/gpu/drm/emgd/emgd/pal/sdvo/sdvo_intf.h =A0 =A0 | =A0481 +++
-> =A0drivers/gpu/drm/emgd/emgd/pal/sdvo/sdvo_port.c =A0 =A0 | 3536 ++++++++=
-+++++++++
-> =A0drivers/gpu/drm/emgd/emgd/pal/sdvo/sdvo_port.h =A0 =A0 | =A0 62 +
-> =A0.../state/appcontext/cmn/appcontext_dispatch.h =A0 =A0 | =A0 51 +
-> =A0.../emgd/state/appcontext/cmn/igd_appcontext.c =A0 =A0 | =A0149 +
-> =A0.../emgd/state/appcontext/plb/appcontext_plb.c =A0 =A0 | =A0209 +
-> =A0.../gpu/drm/emgd/emgd/state/power/cmn/igd_pwr.c =A0 =A0| =A0290 ++
-> =A0.../drm/emgd/emgd/state/power/cmn/pwr_dispatch.h =A0 | =A0 52 +
-> =A0.../gpu/drm/emgd/emgd/state/power/plb/pwr_plb.c =A0 =A0| =A0124 +
-> =A0drivers/gpu/drm/emgd/emgd/state/reg/cmn/reg.c =A0 =A0 =A0| =A0346 ++
-> =A0.../gpu/drm/emgd/emgd/state/reg/cmn/reg_dispatch.h | =A0 65 +
-> =A0drivers/gpu/drm/emgd/emgd/state/reg/plb/reg_plb.c =A0| 1034 +++++
-> =A0drivers/gpu/drm/emgd/emgd/state/reg/tnc/reg_tnc.c =A0| 1112 ++++++
-> =A0drivers/gpu/drm/emgd/emgd/utils/math_fix.c =A0 =A0 =A0 =A0 | =A0133 +
-> =A0drivers/gpu/drm/emgd/emgd/utils/memmap.c =A0 =A0 =A0 =A0 =A0 | =A0 50 =
-+
-> =A0drivers/gpu/drm/emgd/emgd/utils/pci.c =A0 =A0 =A0 =A0 =A0 =A0 =A0| =A0=
-272 ++
-> =A0drivers/gpu/drm/emgd/emgd/video/msvdx/msvdx.c =A0 =A0 =A0| =A0841 ++++
-> =A0drivers/gpu/drm/emgd/emgd/video/msvdx/msvdx_init.c | =A0742 ++++
-> =A0drivers/gpu/drm/emgd/emgd/video/msvdx/msvdx_pvr.c =A0| =A0310 ++
-> =A0drivers/gpu/drm/emgd/emgd/video/msvdx/msvdx_pvr.h =A0| =A0 54 +
-> =A0.../gpu/drm/emgd/emgd/video/overlay/cmn/igd_ovl.c =A0| =A0452 +++
-> =A0.../drm/emgd/emgd/video/overlay/cmn/micro_ovl.c =A0 =A0| =A0160 +
-> =A0.../drm/emgd/emgd/video/overlay/cmn/ovl_coeff.c =A0 =A0| 1122 ++++++
-> =A0.../drm/emgd/emgd/video/overlay/cmn/ovl_coeff.h =A0 =A0| =A0 40 +
-> =A0.../drm/emgd/emgd/video/overlay/cmn/ovl_dispatch.h | =A0 52 +
-> =A0.../gpu/drm/emgd/emgd/video/overlay/cmn/ovl_virt.h | =A0 85 +
-> =A0.../emgd/emgd/video/overlay/plb/micro_ovl_plb.c =A0 =A0| 1706 ++++++++
-> =A0.../gpu/drm/emgd/emgd/video/overlay/plb/ovl2_plb.c | =A0536 +++
-> =A0.../gpu/drm/emgd/emgd/video/overlay/plb/ovl2_plb.h | =A0 50 +
-> =A0.../emgd/emgd/video/overlay/plb/ovl2_regs_plb.h =A0 =A0| =A0 70 +
-> =A0.../gpu/drm/emgd/emgd/video/overlay/plb/ovl_plb.c =A0| 2165 ++++++++++=
-+
-> =A0.../emgd/emgd/video/overlay/plb/ovl_plb_cache.c =A0 =A0| =A0315 ++
-> =A0.../emgd/emgd/video/overlay/plb/ovl_plb_cache.h =A0 =A0| =A0155 +
-> =A0.../drm/emgd/emgd/video/overlay/plb/ovl_regs_plb.h | =A0180 +
-> =A0.../emgd/emgd/video/overlay/tnc/micro_ovl_tnc.c =A0 =A0| 1708 ++++++++
-> =A0.../emgd/emgd/video/overlay/tnc/ovl2_regs_tnc.h =A0 =A0| =A0 70 +
-> =A0.../gpu/drm/emgd/emgd/video/overlay/tnc/ovl2_tnc.c | =A0462 +++
-> =A0.../gpu/drm/emgd/emgd/video/overlay/tnc/ovl2_tnc.h | =A0 50 +
-> =A0.../drm/emgd/emgd/video/overlay/tnc/ovl_regs_tnc.h | =A0185 +
-> =A0.../gpu/drm/emgd/emgd/video/overlay/tnc/ovl_tnc.c =A0| 2106 ++++++++++
-> =A0.../emgd/emgd/video/overlay/tnc/ovl_tnc_cache.c =A0 =A0| =A0241 ++
-> =A0.../emgd/emgd/video/overlay/tnc/ovl_tnc_cache.h =A0 =A0| =A0157 +
-> =A0drivers/gpu/drm/emgd/emgd/video/topaz/topaz.c =A0 =A0 =A0| =A0314 ++
-> =A0drivers/gpu/drm/emgd/emgd/video/topaz/topaz_hdr.h =A0| =A0123 +
-> =A0drivers/gpu/drm/emgd/emgd/video/topaz/topaz_init.c | 1093 ++++++
-> =A0drivers/gpu/drm/emgd/include/emgd_drm.h =A0 =A0 =A0 =A0 =A0 =A0| =A076=
-0 ++++
-> =A0drivers/gpu/drm/emgd/include/emgd_shared.h =A0 =A0 =A0 =A0 | =A0 93 +
-> =A0drivers/gpu/drm/emgd/include/gart.h =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0| =
-=A0 33 +
-> =A0drivers/gpu/drm/emgd/include/igd.h =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 | 1=
-469 +++++++
-> =A0drivers/gpu/drm/emgd/include/igd_2d.h =A0 =A0 =A0 =A0 =A0 =A0 =A0| =A0=
-375 ++
-> =A0drivers/gpu/drm/emgd/include/igd_appcontext.h =A0 =A0 =A0| =A0 74 +
-> =A0drivers/gpu/drm/emgd/include/igd_blend.h =A0 =A0 =A0 =A0 =A0 | =A0 75 =
-+
-> =A0drivers/gpu/drm/emgd/include/igd_debug.h =A0 =A0 =A0 =A0 =A0 | =A0 66 =
-+
-> =A0drivers/gpu/drm/emgd/include/igd_errno.h =A0 =A0 =A0 =A0 =A0 | =A0 48 =
-+
-> =A0drivers/gpu/drm/emgd/include/igd_gart.h =A0 =A0 =A0 =A0 =A0 =A0| =A0 7=
-2 +
-> =A0drivers/gpu/drm/emgd/include/igd_gmm.h =A0 =A0 =A0 =A0 =A0 =A0 | =A037=
-4 ++
-> =A0drivers/gpu/drm/emgd/include/igd_init.h =A0 =A0 =A0 =A0 =A0 =A0| =A083=
-4 ++++
-> =A0drivers/gpu/drm/emgd/include/igd_interrupt.h =A0 =A0 =A0 | =A0295 ++
-> =A0drivers/gpu/drm/emgd/include/igd_mode.h =A0 =A0 =A0 =A0 =A0 =A0| =A089=
-6 +++++
-> =A0drivers/gpu/drm/emgd/include/igd_ovl.h =A0 =A0 =A0 =A0 =A0 =A0 | =A030=
-5 ++
-> =A0drivers/gpu/drm/emgd/include/igd_pd.h =A0 =A0 =A0 =A0 =A0 =A0 =A0| =A0=
-497 +++
-> =A0drivers/gpu/drm/emgd/include/igd_pi.h =A0 =A0 =A0 =A0 =A0 =A0 =A0| =A0=
-132 +
-> =A0drivers/gpu/drm/emgd/include/igd_pwr.h =A0 =A0 =A0 =A0 =A0 =A0 | =A0 6=
-0 +
-> =A0drivers/gpu/drm/emgd/include/igd_rb.h =A0 =A0 =A0 =A0 =A0 =A0 =A0| =A0=
- 94 +
-> =A0drivers/gpu/drm/emgd/include/igd_render.h =A0 =A0 =A0 =A0 =A0| =A0508 =
-+++
-> =A0drivers/gpu/drm/emgd/include/igd_reset.h =A0 =A0 =A0 =A0 =A0 | =A0 50 =
-+
-> =A0drivers/gpu/drm/emgd/include/igd_version.h =A0 =A0 =A0 =A0 | =A0 36 +
-> =A0drivers/gpu/drm/emgd/include/igd_vga.h =A0 =A0 =A0 =A0 =A0 =A0 | =A0 6=
-0 +
-> =A0drivers/gpu/drm/emgd/include/io.h =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0|=
- =A0417 ++
-> =A0drivers/gpu/drm/emgd/include/memmap.h =A0 =A0 =A0 =A0 =A0 =A0 =A0| =A0=
- 99 +
-> =A0drivers/gpu/drm/emgd/pvr/include4/dbgdrvif.h =A0 =A0 =A0 | =A0267 ++
-> =A0drivers/gpu/drm/emgd/pvr/include4/img_defs.h =A0 =A0 =A0 | =A0108 +
-> =A0drivers/gpu/drm/emgd/pvr/include4/img_types.h =A0 =A0 =A0| =A0128 +
-> =A0drivers/gpu/drm/emgd/pvr/include4/ioctldef.h =A0 =A0 =A0 | =A0 98 +
-> =A0drivers/gpu/drm/emgd/pvr/include4/pdumpdefs.h =A0 =A0 =A0| =A0 99 +
-> =A0drivers/gpu/drm/emgd/pvr/include4/pvr_debug.h =A0 =A0 =A0| =A0127 +
-> =A0drivers/gpu/drm/emgd/pvr/include4/pvrmodule.h =A0 =A0 =A0| =A0 31 +
-> =A0drivers/gpu/drm/emgd/pvr/include4/pvrversion.h =A0 =A0 | =A0 38 +
-> =A0drivers/gpu/drm/emgd/pvr/include4/regpaths.h =A0 =A0 =A0 | =A0 43 +
-> =A0drivers/gpu/drm/emgd/pvr/include4/services.h =A0 =A0 =A0 | =A0870 ++++=
-+
-> =A0drivers/gpu/drm/emgd/pvr/include4/servicesext.h =A0 =A0| =A0648 ++++
-> =A0drivers/gpu/drm/emgd/pvr/include4/sgx_options.h =A0 =A0| =A0224 ++
-> =A0drivers/gpu/drm/emgd/pvr/include4/sgxapi_km.h =A0 =A0 =A0| =A0327 ++
-> =A0drivers/gpu/drm/emgd/pvr/include4/sgxscript.h =A0 =A0 =A0| =A0 81 +
-> =A0.../services4/3rdparty/emgd_displayclass/emgd_dc.c | 2680 ++++++++++++=
-+
-> =A0.../services4/3rdparty/emgd_displayclass/emgd_dc.h | =A0335 ++
-> =A0.../3rdparty/emgd_displayclass/emgd_dc_linux.c =A0 =A0 | =A0148 +
-> =A0.../services4/include/env/linux/pvr_drm_shared.h =A0 | =A0 63 +
-> =A0.../drm/emgd/pvr/services4/include/kernelbuffer.h =A0| =A0 60 +
-> =A0.../drm/emgd/pvr/services4/include/kerneldisplay.h | =A0156 +
-> =A0.../drm/emgd/pvr/services4/include/pvr_bridge.h =A0 =A0| 1383 +++++++
-> =A0.../drm/emgd/pvr/services4/include/pvr_bridge_km.h | =A0288 ++
-> =A0.../gpu/drm/emgd/pvr/services4/include/pvrmmap.h =A0 | =A0 36 +
-> =A0.../drm/emgd/pvr/services4/include/pvrsrv_errors.h | =A0193 +
-> =A0.../drm/emgd/pvr/services4/include/servicesint.h =A0 | =A0276 ++
-> =A0.../drm/emgd/pvr/services4/include/sgx_bridge.h =A0 =A0| =A0477 +++
-> =A0.../drm/emgd/pvr/services4/include/sgx_mkif_km.h =A0 | =A0334 ++
-> =A0.../gpu/drm/emgd/pvr/services4/include/sgxinfo.h =A0 | =A0288 ++
-> =A0.../services4/srvkm/bridged/bridged_pvr_bridge.c =A0 | 3413 ++++++++++=
+> =A0.../xorg-xserver/xserver-xf86-config_0.1.bbappend =A0| =A0 =A03 +
+> =A0.../xorg-xserver/xserver-xf86-emgd-bin_1.7.99.2.bb | =A0 90 ++++++++++=
 ++++++
-> =A0.../services4/srvkm/bridged/bridged_pvr_bridge.h =A0 | =A0231 ++
-> =A0.../pvr/services4/srvkm/bridged/bridged_support.c =A0| =A0 85 +
-> =A0.../pvr/services4/srvkm/bridged/bridged_support.h =A0| =A0 43 +
-> =A0.../srvkm/bridged/sgx/bridged_sgx_bridge.c =A0 =A0 =A0 =A0 | 2514 ++++=
-++++++++
-> =A0.../srvkm/bridged/sgx/bridged_sgx_bridge.h =A0 =A0 =A0 =A0 | =A0 42 +
-> =A0.../pvr/services4/srvkm/common/buffer_manager.c =A0 =A0| 2073 ++++++++=
-++
-> =A0.../emgd/pvr/services4/srvkm/common/deviceclass.c =A0| 2003 ++++++++++
-> =A0.../emgd/pvr/services4/srvkm/common/devicemem.c =A0 =A0| 1456 +++++++
-> =A0.../drm/emgd/pvr/services4/srvkm/common/handle.c =A0 | 1549 ++++++++
-> =A0.../gpu/drm/emgd/pvr/services4/srvkm/common/hash.c | =A0463 +++
-> =A0.../drm/emgd/pvr/services4/srvkm/common/lists.c =A0 =A0| =A0 99 +
-> =A0.../gpu/drm/emgd/pvr/services4/srvkm/common/mem.c =A0| =A0151 +
-> =A0.../emgd/pvr/services4/srvkm/common/mem_debug.c =A0 =A0| =A0250 ++
-> =A0.../drm/emgd/pvr/services4/srvkm/common/metrics.c =A0| =A0160 +
-> =A0.../emgd/pvr/services4/srvkm/common/pdump_common.c | 1727 +++++++++
-> =A0.../drm/emgd/pvr/services4/srvkm/common/perproc.c =A0| =A0283 ++
-> =A0.../drm/emgd/pvr/services4/srvkm/common/power.c =A0 =A0| =A0747 ++++
-> =A0.../drm/emgd/pvr/services4/srvkm/common/pvrsrv.c =A0 | 1198 ++++++
-> =A0.../drm/emgd/pvr/services4/srvkm/common/queue.c =A0 =A0| 1165 ++++++
-> =A0.../gpu/drm/emgd/pvr/services4/srvkm/common/ra.c =A0 | 1871 +++++++++
-> =A0.../drm/emgd/pvr/services4/srvkm/common/resman.c =A0 | =A0717 ++++
-> =A0.../drm/emgd/pvr/services4/srvkm/devices/sgx/mmu.c | 2776 ++++++++++++=
-+
-> =A0.../drm/emgd/pvr/services4/srvkm/devices/sgx/mmu.h | =A0139 +
-> =A0.../drm/emgd/pvr/services4/srvkm/devices/sgx/pb.c =A0| =A0458 +++
-> =A0.../services4/srvkm/devices/sgx/sgx_bridge_km.h =A0 =A0| =A0147 +
-> =A0.../pvr/services4/srvkm/devices/sgx/sgxconfig.h =A0 =A0| =A0165 +
-> =A0.../pvr/services4/srvkm/devices/sgx/sgxinfokm.h =A0 =A0| =A0352 ++
-> =A0.../emgd/pvr/services4/srvkm/devices/sgx/sgxinit.c | 2271 +++++++++++
-> =A0.../emgd/pvr/services4/srvkm/devices/sgx/sgxkick.c | =A0744 ++++
-> =A0.../pvr/services4/srvkm/devices/sgx/sgxpower.c =A0 =A0 | =A0469 +++
-> =A0.../pvr/services4/srvkm/devices/sgx/sgxreset.c =A0 =A0 | =A0489 +++
-> =A0.../pvr/services4/srvkm/devices/sgx/sgxtransfer.c =A0| =A0549 +++
-> =A0.../pvr/services4/srvkm/devices/sgx/sgxutils.c =A0 =A0 | =A0994 +++++
-> =A0.../pvr/services4/srvkm/devices/sgx/sgxutils.h =A0 =A0 | =A0 99 +
-> =A0.../emgd/pvr/services4/srvkm/env/linux/env_data.h =A0| =A0 66 +
-> =A0.../pvr/services4/srvkm/env/linux/env_perproc.h =A0 =A0| =A0 56 +
-> =A0.../drm/emgd/pvr/services4/srvkm/env/linux/event.c | =A0273 ++
-> =A0.../drm/emgd/pvr/services4/srvkm/env/linux/event.h | =A0 32 +
-> =A0.../pvr/services4/srvkm/env/linux/kbuild/Makefile =A0| =A0153 +
-> =A0.../emgd/pvr/services4/srvkm/env/linux/linkage.h =A0 | =A0 61 +
-> =A0.../drm/emgd/pvr/services4/srvkm/env/linux/lock.h =A0| =A0 32 +
-> =A0.../drm/emgd/pvr/services4/srvkm/env/linux/mm.c =A0 =A0| 2385 ++++++++=
+> =A0.../xserver-xf86-emgd/crosscompile.patch =A0 =A0 =A0 =A0 =A0 | =A0 19 =
 ++++
-> =A0.../drm/emgd/pvr/services4/srvkm/env/linux/mm.h =A0 =A0| =A0331 ++
-> =A0.../drm/emgd/pvr/services4/srvkm/env/linux/mmap.c =A0| 1157 ++++++
-> =A0.../drm/emgd/pvr/services4/srvkm/env/linux/mmap.h =A0| =A0107 +
-> =A0.../emgd/pvr/services4/srvkm/env/linux/module.c =A0 =A0| =A0764 ++++
-> =A0.../drm/emgd/pvr/services4/srvkm/env/linux/mutex.c | =A0136 +
-> =A0.../drm/emgd/pvr/services4/srvkm/env/linux/mutex.h | =A0 70 +
-> =A0.../emgd/pvr/services4/srvkm/env/linux/mutils.c =A0 =A0| =A0133 +
-> =A0.../emgd/pvr/services4/srvkm/env/linux/mutils.h =A0 =A0| =A0101 +
-> =A0.../emgd/pvr/services4/srvkm/env/linux/osfunc.c =A0 =A0| 2558 ++++++++=
-++++
-> =A0.../emgd/pvr/services4/srvkm/env/linux/osperproc.c | =A0113 +
-> =A0.../drm/emgd/pvr/services4/srvkm/env/linux/pdump.c | =A0662 ++++
-> =A0.../pvr/services4/srvkm/env/linux/private_data.h =A0 | =A0 67 +
-> =A0.../drm/emgd/pvr/services4/srvkm/env/linux/proc.c =A0| =A0970 +++++
-> =A0.../drm/emgd/pvr/services4/srvkm/env/linux/proc.h =A0| =A0115 +
-> =A0.../pvr/services4/srvkm/env/linux/pvr_bridge_k.c =A0 | =A0651 ++++
-> =A0.../emgd/pvr/services4/srvkm/env/linux/pvr_debug.c | =A0426 ++
-> =A0.../emgd/pvr/services4/srvkm/env/linux/pvr_drm.c =A0 | =A0309 ++
-> =A0.../emgd/pvr/services4/srvkm/env/linux/pvr_drm.h =A0 | =A0 69 +
-> =A0.../emgd/pvr/services4/srvkm/hwdefs/sgx535defs.h =A0 | =A0637 +++
-> =A0.../emgd/pvr/services4/srvkm/hwdefs/sgx540defs.h =A0 | =A0590 +++
-> =A0.../emgd/pvr/services4/srvkm/hwdefs/sgx545defs.h =A0 | =A0832 ++++
-> =A0.../drm/emgd/pvr/services4/srvkm/hwdefs/sgxdefs.h =A0| =A0 82 +
-> =A0.../emgd/pvr/services4/srvkm/hwdefs/sgxerrata.h =A0 =A0| =A0307 ++
-> =A0.../pvr/services4/srvkm/hwdefs/sgxfeaturedefs.h =A0 =A0| =A0164 +
-> =A0.../drm/emgd/pvr/services4/srvkm/hwdefs/sgxmmu.h =A0 | =A0 79 +
-> =A0.../pvr/services4/srvkm/include/buffer_manager.h =A0 | =A0218 ++
-> =A0.../drm/emgd/pvr/services4/srvkm/include/device.h =A0| =A0278 ++
-> =A0.../drm/emgd/pvr/services4/srvkm/include/handle.h =A0| =A0382 ++
-> =A0.../drm/emgd/pvr/services4/srvkm/include/hash.h =A0 =A0| =A0 73 +
-> =A0.../drm/emgd/pvr/services4/srvkm/include/lists.h =A0 | =A0176 +
-> =A0.../drm/emgd/pvr/services4/srvkm/include/metrics.h | =A0130 +
-> =A0.../drm/emgd/pvr/services4/srvkm/include/osfunc.h =A0| =A0487 +++
-> =A0.../emgd/pvr/services4/srvkm/include/osperproc.h =A0 | =A0 76 +
-> =A0.../emgd/pvr/services4/srvkm/include/pdump_km.h =A0 =A0| =A0452 +++
-> =A0.../pvr/services4/srvkm/include/pdump_osfunc.h =A0 =A0 | =A0137 +
-> =A0.../drm/emgd/pvr/services4/srvkm/include/perproc.h | =A0110 +
-> =A0.../drm/emgd/pvr/services4/srvkm/include/power.h =A0 | =A0120 +
-> =A0.../drm/emgd/pvr/services4/srvkm/include/queue.h =A0 | =A0119 +
-> =A0.../gpu/drm/emgd/pvr/services4/srvkm/include/ra.h =A0| =A0155 +
-> =A0.../drm/emgd/pvr/services4/srvkm/include/resman.h =A0| =A0113 +
-> =A0.../pvr/services4/srvkm/include/services_headers.h | =A0 49 +
-> =A0.../drm/emgd/pvr/services4/srvkm/include/srvkm.h =A0 | =A0 69 +
-> =A0.../emgd/pvr/services4/system/common/sysconfig.c =A0 | 1612 ++++++++
-> =A0.../emgd/pvr/services4/system/common/sysutils.c =A0 =A0| =A0 30 +
-> =A0.../emgd/pvr/services4/system/include/oemfuncs.h =A0 | =A0 72 +
-> =A0.../services4/system/include/sys_pvr_drm_shared.h =A0| =A0 38 +
-> =A0.../emgd/pvr/services4/system/include/syscommon.h =A0| =A0 31 +
-> =A0.../emgd/pvr/services4/system/include/sysconfig.h =A0| =A0330 ++
-> =A0.../emgd/pvr/services4/system/include/sysinfo.h =A0 =A0| =A0 43 +
-> =A0.../emgd/pvr/services4/system/include/syslocal.h =A0 | =A0 84 +
-> =A0.../drm/emgd/pvr/services4/system/plb/sysconfig.c =A0| =A0 50 +
-> =A0.../gpu/drm/emgd/pvr/services4/system/plb/sysplb.h | =A0 37 +
-> =A0.../drm/emgd/pvr/services4/system/tnc/sysconfig.c =A0| =A0 50 +
-> =A0.../gpu/drm/emgd/pvr/services4/system/tnc/systnc.h | =A0 40 +
-> =A0.../emgd/pvr/tools/intern/debug/client/linuxsrv.h =A0| =A0 48 +
-> =A0.../tools/intern/debug/dbgdriv/common/dbgdriv.c =A0 =A0| 2076 ++++++++=
-++
-> =A0.../tools/intern/debug/dbgdriv/common/dbgdriv.h =A0 =A0| =A0116 +
-> =A0.../tools/intern/debug/dbgdriv/common/hostfunc.h =A0 | =A0 58 +
-> =A0.../pvr/tools/intern/debug/dbgdriv/common/hotkey.c | =A0135 +
-> =A0.../pvr/tools/intern/debug/dbgdriv/common/hotkey.h | =A0 60 +
-> =A0.../pvr/tools/intern/debug/dbgdriv/common/ioctl.c =A0| =A0371 ++
-> =A0.../pvr/tools/intern/debug/dbgdriv/common/ioctl.h =A0| =A0 87 +
-> =A0.../tools/intern/debug/dbgdriv/linux/hostfunc.c =A0 =A0| =A0302 ++
-> =A0.../intern/debug/dbgdriv/linux/kbuild/Makefile =A0 =A0 | =A0 35 +
-> =A0.../pvr/tools/intern/debug/dbgdriv/linux/main.c =A0 =A0| =A0298 ++
-> =A0.../debug/dbgdriv/linux/makefile.linux.common =A0 =A0 =A0| =A0 40 +
-> =A0drivers/i2c/busses/Kconfig =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0=
- =A0 | =A0 =A08 +
-> =A0drivers/i2c/busses/Makefile =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0 =A0| =A0 =A03 +
-> =A0drivers/i2c/busses/i2c-pch.c =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0 | =A0910 +++++
-> =A0drivers/i2c/busses/i2c-pch.h =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0 | =A0147 +
-> =A0drivers/i2c/i2c-dev.c =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0 =A0 =A0| =A0 21 +
-> =A0drivers/net/Kconfig =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0 =A0 =A0 =A0| =A0 =A05 +
-> =A0drivers/net/Makefile =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0 =A0 =A0 | =A0 =A01 +
-> =A0drivers/net/can/Kconfig =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0 =A0 =A0| =A0 =A08 +
-> =A0drivers/net/can/Makefile =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0 =A0 | =A0 =A01 +
-> =A0drivers/net/can/pch_can.c =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0 =A0| 4077 ++++++++++++++++++++
-> =A0drivers/net/can/pch_can.h =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0 =A0| =A0438 +++
-> =A0drivers/net/pch_gbe/Makefile =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0 | =A0 =A06 +
-> =A0drivers/net/pch_gbe/pch_debug.h =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0| =A0 57 +
-> =A0drivers/net/pch_gbe/pch_gbe.h =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0| =A0230 ++
-> =A0drivers/net/pch_gbe/pch_gbe_api.c =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0|=
- =A0575 +++
-> =A0drivers/net/pch_gbe/pch_gbe_api.h =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0|=
- =A0227 ++
-> =A0drivers/net/pch_gbe/pch_gbe_defines.h =A0 =A0 =A0 =A0 =A0 =A0 =A0| =A0=
-345 ++
-> =A0drivers/net/pch_gbe/pch_gbe_ethtool.c =A0 =A0 =A0 =A0 =A0 =A0 =A0| 119=
-7 ++++++
-> =A0drivers/net/pch_gbe/pch_gbe_hw.h =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 |=
- =A0249 ++
-> =A0drivers/net/pch_gbe/pch_gbe_mac.c =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0|=
- =A0519 +++
-> =A0drivers/net/pch_gbe/pch_gbe_mac.h =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0|=
- =A0119 +
-> =A0drivers/net/pch_gbe/pch_gbe_main.c =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 | 2=
-974 ++++++++++++++
-> =A0drivers/net/pch_gbe/pch_gbe_nvm.c =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0|=
- =A0 49 +
-> =A0drivers/net/pch_gbe/pch_gbe_nvm.h =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0|=
- =A0 37 +
-> =A0drivers/net/pch_gbe/pch_gbe_osdep.h =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0| =
-=A0 75 +
-> =A0drivers/net/pch_gbe/pch_gbe_param.c =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0| =
-=A0594 +++
-> =A0drivers/net/pch_gbe/pch_gbe_pci_ids.h =A0 =A0 =A0 =A0 =A0 =A0 =A0| =A0=
- 37 +
-> =A0drivers/net/pch_gbe/pch_gbe_phy.c =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0|=
- =A0495 +++
-> =A0drivers/net/pch_gbe/pch_gbe_phy.h =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0|=
- =A0136 +
-> =A0drivers/net/pch_gbe/pch_gbe_plat.c =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 | =
-=A0168 +
-> =A0drivers/net/pch_gbe/pch_gbe_regs.h =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 | =
-=A0351 ++
-> =A0drivers/serial/8250.c =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0 =A0 =A0| =A0796 ++++-
-> =A0drivers/serial/8250_pch.h =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0 =A0| =A0 58 +
-> =A0drivers/serial/8250_pci.c =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0 =A0| =A0225 ++-
-> =A0drivers/serial/Kconfig =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0=
- =A0 =A0 | =A0 15 +
-> =A0drivers/serial/Makefile =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0 =A0 =A0| =A0 10 +
-> =A0drivers/spi/Kconfig =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0 =A0 =A0 =A0| =A0 26 +
-> =A0drivers/spi/Makefile =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0 =A0 =A0 | =A0 =A04 +
-> =A0drivers/spi/pch_spi.h =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0 =A0 =A0| =A0177 +
-> =A0drivers/spi/pch_spi_main.c =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0=
- =A0 | 1824 +++++++++
-> =A0drivers/spi/pch_spi_platform_devices.c =A0 =A0 =A0 =A0 =A0 =A0 | =A0 5=
-6 +
-> =A0drivers/usb/gadget/Kconfig =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0=
- =A0 | =A0 16 +
-> =A0drivers/usb/gadget/Makefile =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0 =A0| =A0 =A05 +
-> =A0drivers/usb/gadget/gadget_chips.h =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0|=
- =A0 10 +
-> =A0drivers/usb/gadget/pch_udc.c =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0 | 3558 +++++++++++++++++
-> =A0drivers/usb/gadget/pch_udc.h =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0 | =A0515 +++
-> =A0392 files changed, 185552 insertions(+), 14 deletions(-)
-> =A0create mode 100644 drivers/char/pch_ieee1588/Makefile
-> =A0create mode 100644 drivers/char/pch_ieee1588/pch_1588.c
-> =A0create mode 100644 drivers/char/pch_ieee1588/pch_1588.h
-> =A0create mode 100644 drivers/char/pch_phub/Makefile
-> =A0create mode 100644 drivers/char/pch_phub/pch_phub.c
-> =A0create mode 100644 drivers/char/pch_phub/pch_phub.h
-> =A0create mode 100644 drivers/dma/pch_dma.c
-> =A0create mode 100644 drivers/dma/pch_dma.h
-> =A0create mode 100644 drivers/gpio/Makefile.rej
-> =A0create mode 100644 drivers/gpio/pch_gpio.c
-> =A0create mode 100644 drivers/gpio/pch_gpio.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/COPYING
-> =A0create mode 100644 drivers/gpu/drm/emgd/Makefile
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/cfg/config.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/cfg/config_default.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/cfg/config_helper.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/cfg/personality.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/core/init/cmn/igd_global.=
-c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/core/init/cmn/igd_gtt_ini=
-t.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/core/init/cmn/igd_init.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/core/init/cmn/init_dispat=
-ch.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/core/init/plb/init_plb.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/core/init/plb/micro_init_=
-plb.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/core/init/tnc/init_tnc.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/core/init/tnc/micro_init_=
-tnc.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/display/dsp/cmn/dsp.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/display/dsp/cmn/dsp_dispa=
-tch.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/display/dsp/plb/dsp_plb.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/display/dsp/tnc/dsp_tnc.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/display/mode/cmn/igd_mode=
-.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/display/mode/cmn/match.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/display/mode/cmn/match.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/display/mode/cmn/micro_mo=
-de.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/display/mode/cmn/mode_dis=
-patch.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/display/mode/cmn/vga_mode=
-.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/display/mode/plb/clocks_p=
-lb.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/display/mode/plb/micro_mo=
-de_plb.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/display/mode/plb/mode_plb=
-.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/display/mode/tnc/clocks_t=
-nc.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/display/mode/tnc/micro_mo=
-de_tnc.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/display/mode/tnc/mode_tnc=
-.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/display/pd/cmn/pd.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/display/pi/cmn/displayid.=
-c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/display/pi/cmn/edid.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/display/pi/cmn/i2c_dispat=
-ch.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/display/pi/cmn/igd_pi.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/display/pi/cmn/mode_table=
-.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/display/pi/cmn/pd_init_al=
-l.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/display/pi/cmn/pi.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/display/pi/plb/i2c_plb.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/display/pi/tnc/i2c_bitbas=
-h_tnc.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/display/pi/tnc/i2c_gmbus_=
-tnc.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/drm/bitmap_data.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/drm/drm_emgd_private.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/drm/emgd_drv.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/drm/emgd_drv.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/drm/emgd_fb.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/drm/emgd_interface.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/drm/emgd_mmap.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/drm/emgd_test_pvrsrv.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/drm/splash_screen.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/drm/splash_screen.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/drm/user_config.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/drm/user_config.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/gmm/gmm.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/gmm/gtt.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/cmd.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/context.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/debug.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/decode.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/dispatch.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/dispatch_utils.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/displayid.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/dsp.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/edid.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/general.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/instr_common.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/intelpci.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/math_fix.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/memlist.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/memory.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/mode.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/mode_access.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/module_init.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/msvdx.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/pci.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/pd.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/pd_init.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/pi.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/plb/appcontext.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/plb/cmd.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/plb/context.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/plb/instr.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/plb/mi.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/plb/regs.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/plb/sgx.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/plb/state3d.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/plb/state3d_plb.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/psb_regs.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/rb.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/reset.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/sched.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/state2d.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/tnc/appcontext.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/tnc/cmd.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/tnc/context.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/tnc/igd_tnc_wa.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/tnc/instr.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/tnc/mi.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/tnc/regs.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/tnc/sgx.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/tnc/state3d.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/tnc/state3d_plb.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/topaz.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/utils.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/include/vga.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/oal/src/math_fix.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/oal/src/memmap.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/oal/src/pci.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/pal/Makefile.include
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/pal/lpd/lpd.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/pal/lpd/pd_print.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/pal/lvds/lvds.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/pal/lvds/lvds.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/pal/sdvo/sdvo.def
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/pal/sdvo/sdvo_attr.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/pal/sdvo/sdvo_attr.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/pal/sdvo/sdvo_hdmi.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/pal/sdvo/sdvo_hdmi.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/pal/sdvo/sdvo_intf.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/pal/sdvo/sdvo_intf.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/pal/sdvo/sdvo_port.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/pal/sdvo/sdvo_port.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/state/appcontext/cmn/appc=
-ontext_dispatch.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/state/appcontext/cmn/igd_=
-appcontext.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/state/appcontext/plb/appc=
-ontext_plb.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/state/power/cmn/igd_pwr.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/state/power/cmn/pwr_dispa=
-tch.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/state/power/plb/pwr_plb.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/state/reg/cmn/reg.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/state/reg/cmn/reg_dispatc=
-h.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/state/reg/plb/reg_plb.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/state/reg/tnc/reg_tnc.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/utils/math_fix.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/utils/memmap.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/utils/pci.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/video/msvdx/msvdx.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/video/msvdx/msvdx_init.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/video/msvdx/msvdx_pvr.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/video/msvdx/msvdx_pvr.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/video/overlay/cmn/igd_ovl=
-.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/video/overlay/cmn/micro_o=
-vl.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/video/overlay/cmn/ovl_coe=
-ff.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/video/overlay/cmn/ovl_coe=
-ff.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/video/overlay/cmn/ovl_dis=
-patch.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/video/overlay/cmn/ovl_vir=
-t.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/video/overlay/plb/micro_o=
-vl_plb.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/video/overlay/plb/ovl2_pl=
-b.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/video/overlay/plb/ovl2_pl=
-b.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/video/overlay/plb/ovl2_re=
-gs_plb.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/video/overlay/plb/ovl_plb=
-.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/video/overlay/plb/ovl_plb=
-_cache.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/video/overlay/plb/ovl_plb=
-_cache.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/video/overlay/plb/ovl_reg=
-s_plb.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/video/overlay/tnc/micro_o=
-vl_tnc.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/video/overlay/tnc/ovl2_re=
-gs_tnc.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/video/overlay/tnc/ovl2_tn=
-c.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/video/overlay/tnc/ovl2_tn=
-c.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/video/overlay/tnc/ovl_reg=
-s_tnc.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/video/overlay/tnc/ovl_tnc=
-.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/video/overlay/tnc/ovl_tnc=
-_cache.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/video/overlay/tnc/ovl_tnc=
-_cache.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/video/topaz/topaz.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/video/topaz/topaz_hdr.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/emgd/video/topaz/topaz_init.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/include/emgd_drm.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/include/emgd_shared.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/include/gart.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/include/igd.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/include/igd_2d.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/include/igd_appcontext.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/include/igd_blend.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/include/igd_debug.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/include/igd_errno.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/include/igd_gart.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/include/igd_gmm.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/include/igd_init.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/include/igd_interrupt.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/include/igd_mode.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/include/igd_ovl.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/include/igd_pd.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/include/igd_pi.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/include/igd_pwr.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/include/igd_rb.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/include/igd_render.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/include/igd_reset.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/include/igd_version.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/include/igd_vga.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/include/io.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/include/memmap.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/include4/dbgdrvif.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/include4/img_defs.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/include4/img_types.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/include4/ioctldef.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/include4/pdumpdefs.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/include4/pvr_debug.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/include4/pvrmodule.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/include4/pvrversion.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/include4/regpaths.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/include4/services.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/include4/servicesext.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/include4/sgx_options.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/include4/sgxapi_km.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/include4/sgxscript.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/3rdparty/emgd_di=
-splayclass/emgd_dc.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/3rdparty/emgd_di=
-splayclass/emgd_dc.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/3rdparty/emgd_di=
-splayclass/emgd_dc_linux.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/include/env/linu=
-x/pvr_drm_shared.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/include/kernelbu=
-ffer.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/include/kerneldi=
-splay.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/include/pvr_brid=
-ge.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/include/pvr_brid=
-ge_km.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/include/pvrmmap.=
-h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/include/pvrsrv_e=
-rrors.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/include/services=
-int.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/include/sgx_brid=
-ge.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/include/sgx_mkif=
-_km.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/include/sgxinfo.=
-h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/bridged/br=
-idged_pvr_bridge.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/bridged/br=
-idged_pvr_bridge.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/bridged/br=
-idged_support.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/bridged/br=
-idged_support.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/bridged/sg=
-x/bridged_sgx_bridge.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/bridged/sg=
-x/bridged_sgx_bridge.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/common/buf=
-fer_manager.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/common/dev=
-iceclass.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/common/dev=
-icemem.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/common/han=
-dle.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/common/has=
-h.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/common/lis=
-ts.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/common/mem=
-.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/common/mem=
-_debug.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/common/met=
-rics.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/common/pdu=
-mp_common.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/common/per=
-proc.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/common/pow=
-er.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/common/pvr=
-srv.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/common/que=
-ue.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/common/ra.=
-c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/common/res=
-man.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/devices/sg=
-x/mmu.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/devices/sg=
-x/mmu.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/devices/sg=
-x/pb.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/devices/sg=
-x/sgx_bridge_km.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/devices/sg=
-x/sgxconfig.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/devices/sg=
-x/sgxinfokm.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/devices/sg=
-x/sgxinit.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/devices/sg=
-x/sgxkick.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/devices/sg=
-x/sgxpower.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/devices/sg=
-x/sgxreset.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/devices/sg=
-x/sgxtransfer.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/devices/sg=
-x/sgxutils.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/devices/sg=
-x/sgxutils.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/=
-env_data.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/=
-env_perproc.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/=
-event.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/=
-event.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/=
-kbuild/Makefile
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/=
-linkage.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/=
-lock.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/=
-mm.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/=
-mm.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/=
-mmap.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/=
-mmap.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/=
-module.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/=
-mutex.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/=
-mutex.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/=
-mutils.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/=
-mutils.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/=
-osfunc.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/=
-osperproc.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/=
-pdump.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/=
-private_data.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/=
-proc.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/=
-proc.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/=
-pvr_bridge_k.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/=
-pvr_debug.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/=
-pvr_drm.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/=
-pvr_drm.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/hwdefs/sgx=
-535defs.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/hwdefs/sgx=
-540defs.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/hwdefs/sgx=
-545defs.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/hwdefs/sgx=
-defs.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/hwdefs/sgx=
-errata.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/hwdefs/sgx=
-featuredefs.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/hwdefs/sgx=
-mmu.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/include/bu=
-ffer_manager.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/include/de=
-vice.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/include/ha=
-ndle.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/include/ha=
-sh.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/include/li=
-sts.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/include/me=
-trics.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/include/os=
-func.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/include/os=
-perproc.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/include/pd=
-ump_km.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/include/pd=
-ump_osfunc.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/include/pe=
-rproc.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/include/po=
-wer.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/include/qu=
-eue.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/include/ra=
-.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/include/re=
-sman.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/include/se=
-rvices_headers.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/srvkm/include/sr=
-vkm.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/system/common/sy=
-sconfig.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/system/common/sy=
-sutils.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/system/include/o=
-emfuncs.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/system/include/s=
-ys_pvr_drm_shared.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/system/include/s=
-yscommon.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/system/include/s=
-ysconfig.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/system/include/s=
-ysinfo.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/system/include/s=
-yslocal.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/system/plb/sysco=
-nfig.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/system/plb/syspl=
-b.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/system/tnc/sysco=
-nfig.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/services4/system/tnc/systn=
-c.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/tools/intern/debug/client/=
-linuxsrv.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/tools/intern/debug/dbgdriv=
-/common/dbgdriv.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/tools/intern/debug/dbgdriv=
-/common/dbgdriv.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/tools/intern/debug/dbgdriv=
-/common/hostfunc.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/tools/intern/debug/dbgdriv=
-/common/hotkey.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/tools/intern/debug/dbgdriv=
-/common/hotkey.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/tools/intern/debug/dbgdriv=
-/common/ioctl.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/tools/intern/debug/dbgdriv=
-/common/ioctl.h
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/tools/intern/debug/dbgdriv=
-/linux/hostfunc.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/tools/intern/debug/dbgdriv=
-/linux/kbuild/Makefile
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/tools/intern/debug/dbgdriv=
-/linux/main.c
-> =A0create mode 100644 drivers/gpu/drm/emgd/pvr/tools/intern/debug/dbgdriv=
-/linux/makefile.linux.common
-> =A0create mode 100644 drivers/i2c/busses/i2c-pch.c
-> =A0create mode 100644 drivers/i2c/busses/i2c-pch.h
-> =A0create mode 100644 drivers/net/can/pch_can.c
-> =A0create mode 100644 drivers/net/can/pch_can.h
-> =A0create mode 100644 drivers/net/pch_gbe/Makefile
-> =A0create mode 100644 drivers/net/pch_gbe/pch_debug.h
-> =A0create mode 100644 drivers/net/pch_gbe/pch_gbe.h
-> =A0create mode 100644 drivers/net/pch_gbe/pch_gbe_api.c
-> =A0create mode 100644 drivers/net/pch_gbe/pch_gbe_api.h
-> =A0create mode 100644 drivers/net/pch_gbe/pch_gbe_defines.h
-> =A0create mode 100644 drivers/net/pch_gbe/pch_gbe_ethtool.c
-> =A0create mode 100644 drivers/net/pch_gbe/pch_gbe_hw.h
-> =A0create mode 100644 drivers/net/pch_gbe/pch_gbe_mac.c
-> =A0create mode 100644 drivers/net/pch_gbe/pch_gbe_mac.h
-> =A0create mode 100644 drivers/net/pch_gbe/pch_gbe_main.c
-> =A0create mode 100644 drivers/net/pch_gbe/pch_gbe_nvm.c
-> =A0create mode 100644 drivers/net/pch_gbe/pch_gbe_nvm.h
-> =A0create mode 100644 drivers/net/pch_gbe/pch_gbe_osdep.h
-> =A0create mode 100644 drivers/net/pch_gbe/pch_gbe_param.c
-> =A0create mode 100644 drivers/net/pch_gbe/pch_gbe_pci_ids.h
-> =A0create mode 100644 drivers/net/pch_gbe/pch_gbe_phy.c
-> =A0create mode 100644 drivers/net/pch_gbe/pch_gbe_phy.h
-> =A0create mode 100644 drivers/net/pch_gbe/pch_gbe_plat.c
-> =A0create mode 100644 drivers/net/pch_gbe/pch_gbe_regs.h
-> =A0create mode 100644 drivers/serial/8250_pch.h
-> =A0create mode 100644 drivers/spi/pch_spi.h
-> =A0create mode 100644 drivers/spi/pch_spi_main.c
-> =A0create mode 100644 drivers/spi/pch_spi_platform_devices.c
-> =A0create mode 100644 drivers/usb/gadget/pch_udc.c
-> =A0create mode 100644 drivers/usb/gadget/pch_udc.h
+> =A0.../fix_open_max_preprocessor_error.patch =A0 =A0 =A0 =A0 =A0| =A0 13 =
++++
+> =A0.../xserver-xf86-emgd/macro_tweak.patch =A0 =A0 =A0 =A0 =A0 =A0| =A0 1=
+8 +++
+> =A0.../xorg-xserver/xserver-xf86-emgd/nodolt.patch =A0 =A0| =A0 12 ++
+> =A0.../xorg-xserver/xserver-xf86-emgd_1.7.99.2.bb =A0 =A0 | =A0 25 +++++
+> =A015 files changed, 421 insertions(+), 0 deletions(-)
+> =A0create mode 100644 meta-crownbay/COPYING.MIT
+> =A0create mode 100755 meta-crownbay/README.before.building
+> =A0create mode 100644 meta-crownbay/conf/layer.conf
+> =A0create mode 100644 meta-crownbay/conf/machine/crownbay.conf
+> =A0create mode 100644 meta-crownbay/recipes/formfactor/formfactor/crownba=
+y/machconfig
+> =A0create mode 100644 meta-crownbay/recipes/formfactor/formfactor_0.0.bba=
+ppend
+> =A0create mode 100644 meta-crownbay/recipes/linux/linux-yocto_git.bbappen=
+d
+> =A0create mode 100644 meta-crownbay/recipes/xorg-xserver/xserver-xf86-con=
+fig/crownbay/xorg.conf
+> =A0create mode 100644 meta-crownbay/recipes/xorg-xserver/xserver-xf86-con=
+fig_0.1.bbappend
+> =A0create mode 100644 meta-crownbay/recipes/xorg-xserver/xserver-xf86-emg=
+d-bin_1.7.99.2.bb
+> =A0create mode 100644 meta-crownbay/recipes/xorg-xserver/xserver-xf86-emg=
+d/crosscompile.patch
+> =A0create mode 100644 meta-crownbay/recipes/xorg-xserver/xserver-xf86-emg=
+d/fix_open_max_preprocessor_error.patch
+> =A0create mode 100644 meta-crownbay/recipes/xorg-xserver/xserver-xf86-emg=
+d/macro_tweak.patch
+> =A0create mode 100644 meta-crownbay/recipes/xorg-xserver/xserver-xf86-emg=
+d/nodolt.patch
+> =A0create mode 100644 meta-crownbay/recipes/xorg-xserver/xserver-xf86-emg=
+d_1.7.99.2.bb
+>
+> diff --git a/meta-crownbay/COPYING.MIT b/meta-crownbay/COPYING.MIT
+> new file mode 100644
+> index 0000000..fb950dc
+> --- /dev/null
+> +++ b/meta-crownbay/COPYING.MIT
+> @@ -0,0 +1,17 @@
+> +Permission is hereby granted, free of charge, to any person obtaining a =
+copy
+> +of this software and associated documentation files (the "Software"), to=
+ deal
+> +in the Software without restriction, including without limitation the ri=
+ghts
+> +to use, copy, modify, merge, publish, distribute, sublicense, and/or sel=
+l
+> +copies of the Software, and to permit persons to whom the Software is
+> +furnished to do so, subject to the following conditions:
+> +
+> +The above copyright notice and this permission notice shall be included =
+in
+> +all copies or substantial portions of the Software.
+> +
+> +THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS =
+OR
+> +IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> +FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL =
+THE
+> +AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+> +LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING =
+FROM,
+> +OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS I=
+N
+> +THE SOFTWARE.
+> diff --git a/meta-crownbay/README.before.building b/meta-crownbay/README.=
+before.building
+> new file mode 100755
+> index 0000000..ded4c05
+> --- /dev/null
+> +++ b/meta-crownbay/README.before.building
+> @@ -0,0 +1,112 @@
+> +The meta-crownbay layer makes use of the proprietary Intel EMGD
+> +userspace drivers, which at this point in time require that the user
+> +accept the Intel license by manually extracting the binaries and
+> +copying them to the proper location in the meta-crownbay layer.
+> +
+> +There currently isn't an automated way to do this, thus the manual
+> +step. =A0When Yocto supports a click-through installation mechanism, the
+> +binary files will be packaged as part of the recipe, and this step
+> +will be unnecessary.
+> +
+> +These steps require that you run a graphical application in Windows.
+> +Windows 7 was used for these instructions, but it shouldn't matter
+> +which version of Windows you use.
+> +
+> +The first step of the process is to download the EMGD 1.5 Gold Driver.
+> +Here is the current link to the URL which it can be downloaded from:
+> +
+> +http://edc.intel.com/Software/Downloads/EMGD/
+> +
+> +In the Download Now tab, select:
+> +
+> +Intel=AE architecture-based product: Intel Atom Processor E6XX Series
+> +Operating System: MeeGo 1.0 IVI Linux (kernel 2.6.33.3, X.server 1.8.0)
+> +
+> +That will give you a large zip file:
+> +
+> +IEMGD_1_5_GOLD_ALL_1742.zip
+> +
+> +Extract the files in the zip file, which will in turn give you a large
+> +.exe file:
+> +
+> +IEMGD_1_5_GOLD_ALL_1742.exe
+> +
+> +Run IEMGD_1_5_GOLD_ALL_1742.exe to install, accept licenses, etc.
+> +
+> +If it says to install watcom, follow the instructions to do that.
+> +
+> +When the installation completes, an application named "emgd-ced" will
+> +be present in the install directory. =A0Double-click to run it.
+> +
+> +Select the menu item: New Configuration
+> +
+> +In the tabbed page, make the following selections and/or enter the
+> +specified data:
+> +
+> +Configuration File Name: myconfig
+> +Platform Chipset: Intel Atom Processor E6xx
+> +Port Devices: LVDS, sDVO
+> +
+> +Hit the 'Next' button.
+> +
+> +On the next tabbed page, make the following selections and/or enter
+> +the specified data:
+> +
+> +Readable Port Name: portname0
+> +Encoder Configuration: Select sDVO Device: Internal LVDS
+> +
+> +Hit the 'Finish' button.
+> +
+> +Select the menu item: New Package
+> +
+> +In the tabbed page, make the following selections and/or enter the
+> +specified data:
+> +
+> +Package File Name: mypackage
+> +Configurations: selec myconfig.cnfg
+> +Target OS: Linux operating System
+> +
+> +Hit the 'Finish' button.
+> +
+> +Select the menu item: Generate Installation
+> +
+> +This will create the EMGD installation package:
+> +
+> +Generating EMGD installation...
+> +
+> +The installation package should now be under the 'workspace'
+> +subdirectory of the directory you installed to:
+> +
+> +workspace/installation/mypackage.pkg_installation/IEMGD_HEAD_Linux/IEMGD=
+_HEAD_Linux.tgz
+> +
+> +This is the file you are interested in. =A0Copy it to your Poky build
+> +system, and uncompress/untar it:
+> +
+> +$ tar cvfz IEMGD_HEAD_Linux.tgz
+> +
+> +Finally, copy Xorg-xserver binaries in the Meego1.0 driver directory
+> +to the xserver-xf86-emgd-bin directory in the meta-crownbay layer:
+> +
+> +$ cp IEMGD_HEAD_Linux/MeeGo1.0/driver/Xorg-xserver-1.7.99/* meta-crownba=
+y/recipes/xorg-xserver/xserver-xf86-emgd-bin
+> +
+> +You also need to copy the IEMGD License.txt file to the same directory:
+> +
+> +$ cp IEMGD_HEAD_Linux/License/License.txt meta-crownbay/recipes/xorg-xse=
+rver/xserver-xf86-emgd-bin
+> +
+> +At this point, you should be able to build meta-crownbay images as usual=
+.
+> +
+> +----
+> +
+> +For reference, the EMGD Driver documentation is also available at the
+> +above link (it's also part of the installation).
+> +
+> +The specific text of the document is:
+> +
+> +User Guide: Intel=AE Embedded Media and Graphics Driver, EFI Video
+> +Driver, EPOG, and Video BIOS v1.5 for Windows* XP and Linux* Provides
+> +installation requirements/procedures & describes the vbios/firmware,
+> +configuration options, & functionality of Intel=AE EMGD under Windows* &
+> +Linux*. Refer to guide for details.
+> +
+> +File Type/Size: PDF 3,340KB
+> +Version: 008 : October 2010
+> diff --git a/meta-crownbay/conf/layer.conf b/meta-crownbay/conf/layer.con=
+f
+> new file mode 100644
+> index 0000000..79dd89b
+> --- /dev/null
+> +++ b/meta-crownbay/conf/layer.conf
+> @@ -0,0 +1,10 @@
+> +# We have a conf and classes directory, add to BBPATH
+> +BBPATH :=3D "${BBPATH}:${LAYERDIR}"
+> +
+> +# We have a recipes directory, add to BBFILES
+> +BBFILES :=3D "${BBFILES} ${LAYERDIR}/recipes/*/*.bb \
+> + =A0 =A0 =A0 ${LAYERDIR}/recipes/*/*.bbappend"
+> +
+> +BBFILE_COLLECTIONS +=3D "crownbay"
+> +BBFILE_PATTERN_crownbay :=3D "^${LAYERDIR}/"
+> +BBFILE_PRIORITY_crownbay =3D "6"
+> diff --git a/meta-crownbay/conf/machine/crownbay.conf b/meta-crownbay/con=
+f/machine/crownbay.conf
+> new file mode 100644
+> index 0000000..a2c349a
+> --- /dev/null
+> +++ b/meta-crownbay/conf/machine/crownbay.conf
+> @@ -0,0 +1,46 @@
+> +#@TYPE: Machine
+> +#@NAME: crownbay
+> +
+> +#@DESCRIPTION: Machine configuration for Crown Bay systems
+> +# i.e. E660 + EG20T
+> +
+> +TARGET_ARCH =3D "i586"
+> +PACKAGE_EXTRA_ARCHS =3D "x86 atom"
+> +
+> +include conf/machine/include/tune-atom.inc
+> +
+> +BASE_PACKAGE_ARCH=3D"atom"
+> +
+> +MACHINE_FEATURES =3D "kernel26 screen keyboard pci usbhost ext2 ext3 x86=
+ \
+> + =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0acpi serial usbgadget"
+> +
+> +KERNEL_IMAGETYPE =3D "bzImage"
+> +
+> +PREFERRED_PROVIDER_virtual/kernel ?=3D "linux-yocto"
+> +PREFERRED_PROVIDER_virtual/libx11 ?=3D "libx11-trim"
+> +PREFERRED_PROVIDER_virtual/libgl =A0?=3D "mesa-dri"
+> +PREFERRED_PROVIDER_virtual/xserver ?=3D "xserver-xf86-emgd"
+> +PREFERRED_PROVIDER_virtual/xserver-xf86 ?=3D "xserver-xf86-emgd"
+> +XSERVER ?=3D "xserver-xf86-emgd \
+> + =A0 =A0 =A0 =A0 =A0 xserver-xf86-emgd-bin \
+> + =A0 =A0 =A0 =A0 =A0 xf86-input-mouse \
+> + =A0 =A0 =A0 =A0 =A0 xf86-input-keyboard \
+> + =A0 =A0 =A0 =A0 =A0 xf86-input-evdev \
+> + =A0 =A0 =A0 =A0 =A0 xf86-input-synaptics \
+> + =A0 =A0 =A0 =A0 =A0 xf86-video-vesa"
+> +
+> +PREFERRED_VERSION_xserver-xf86-emgd ?=3D "1.7.99.2"
+> +PREFERRED_VERSION_xserver-xf86-emgd-bin ?=3D "1.7.99.2"
+> +
+> +SERIAL_CONSOLE =3D "115200 ttyS0"
+> +
+> +MACHINE_EXTRA_RRECOMMENDS =3D "kernel-modules eee-acpi-scripts"
+> +
+> +GUI_MACHINE_CLASS =3D "bigscreen"
+> +
+> +IMAGE_ROOTFS_SIZE_ext3 =3D "2000000"
+> +
+> +IMAGE_FSTYPES ?=3D "ext3 cpio.gz"
+> +
+> +GLIBC_ADDONS =3D "nptl"
+> +GLIBC_EXTRA_OECONF =3D "--with-tls"
+> diff --git a/meta-crownbay/recipes/formfactor/formfactor/crownbay/machcon=
+fig b/meta-crownbay/recipes/formfactor/formfactor/crownbay/machconfig
+> new file mode 100644
+> index 0000000..ffce012
+> --- /dev/null
+> +++ b/meta-crownbay/recipes/formfactor/formfactor/crownbay/machconfig
+> @@ -0,0 +1,3 @@
+> +# Assume a USB mouse and keyboard are connected
+> +HAVE_TOUCHSCREEN=3D0
+> +HAVE_KEYBOARD=3D1
+> diff --git a/meta-crownbay/recipes/formfactor/formfactor_0.0.bbappend b/m=
+eta-crownbay/recipes/formfactor/formfactor_0.0.bbappend
+> new file mode 100644
+> index 0000000..4a41d48
+> --- /dev/null
+> +++ b/meta-crownbay/recipes/formfactor/formfactor_0.0.bbappend
+> @@ -0,0 +1,3 @@
+> +FILESEXTRAPATHS :=3D "${THISDIR}/${PN}"
+> +
+> +PRINC =3D "1"
+> diff --git a/meta-crownbay/recipes/linux/linux-yocto_git.bbappend b/meta-=
+crownbay/recipes/linux/linux-yocto_git.bbappend
+> new file mode 100644
+> index 0000000..3a50a32
+> --- /dev/null
+> +++ b/meta-crownbay/recipes/linux/linux-yocto_git.bbappend
+> @@ -0,0 +1,3 @@
+> +FILESEXTRAPATHS :=3D "${THISDIR}/${PN}"
+> +COMPATIBLE_MACHINE_crownbay =3D "crownbay"
+> +KMACHINE_crownbay =A0=3D "crownbay"
+> diff --git a/meta-crownbay/recipes/xorg-xserver/xserver-xf86-config/crown=
+bay/xorg.conf b/meta-crownbay/recipes/xorg-xserver/xserver-xf86-config/crow=
+nbay/xorg.conf
+> new file mode 100644
+> index 0000000..f78a538
+> --- /dev/null
+> +++ b/meta-crownbay/recipes/xorg-xserver/xserver-xf86-config/crownbay/xor=
+g.conf
+> @@ -0,0 +1,47 @@
+> +##
+> +## X Config options generated from CED
+> +## x11 conf skeleton
+> +## DriverVer=3D
+> +##
+> +
+> +Section "Screen"
+> + =A0 =A0Identifier =A0 =A0"Screen0"
+> + =A0 =A0Device =A0 =A0 =A0 =A0"IntelEMGD-0"
+> + =A0 =A0Monitor =A0 =A0 =A0 "Monitor0"
+> + =A0 =A0SubSection =A0 =A0"Display"
+> + =A0 =A0EndSubSection
+> +EndSection
+> +
+> +# Primary (First/only) display
+> +Section "Device"
+> + =A0 =A0Identifier "IntelEMGD-0"
+> + =A0 =A0Driver =A0 =A0 "emgd"
+> + =A0 =A0VendorName "Intel(R) DEG"
+> + =A0 =A0BoardName =A0"Embedded Graphics"
+> + =A0 =A0BusID =A0 =A0 =A0"0:2:0"
+> + =A0 =A0Screen =A0 =A0 =A00
+> + =A0 =A0Option =A0 =A0 "PcfVersion" =A0 =A0 =A0 =A0 =A0 =A0"1792"
+> + =A0 =A0Option =A0 =A0 "ConfigId" =A0 =A0 =A0 =A0 =A0 =A0 =A0"1"
+> + =A0 =A0Option =A0 =A0 "ALL/1/name" =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
+"e6xx"
+> + =A0 =A0Option =A0 =A0 "ALL/1/General/PortOrder" =A0 =A0 =A0"40000"
+> + =A0 =A0Option =A0 =A0 "ALL/1/General/DisplayConfig" =A0"1"
+> + =A0 =A0Option =A0 =A0 "ALL/1/General/DisplayDetect" =A0"1"
+> + =A0 =A0Option =A0 =A0 "ALL/1/Port/4/General/name" =A0 =A0 =A0 =A0 =A0 "=
+lvds"
+> + =A0 =A0Option =A0 =A0 "ALL/1/Port/4/General/EdidAvail" =A0 =A0 =A0"3"
+> + =A0 =A0Option =A0 =A0 "ALL/1/Port/4/General/EdidNotAvail" =A0 "1"
+> + =A0 =A0Option =A0 =A0 "ALL/1/Port/4/General/Rotation" =A0 =A0 =A0 "0"
+> + =A0 =A0Option =A0 =A0 "ALL/1/Port/4/General/Edid" =A0 =A0 =A0 =A0 =A0 "=
+1"
+> +EndSection
+> +
+> +Section "ServerLayout"
+> + =A0 =A0Identifier =A0 =A0 "Default Layout"
+> + =A0 =A0Screen 0 =A0 =A0 =A0 "Screen0" 0 0
+> + =A0 # InputDevice =A0 =A0"Mouse0" "CorePointer"
+> + =A0 # InputDevice =A0 =A0"Keyboard0" "CoreKeyboard"
+> + =A0 # InputDevice =A0 =A0"DevInputMice" "SendCoreEvents"
+> +EndSection
+> +
+> +Section "ServerFlags"
+> + =A0 =A0Option =A0 =A0 =A0 =A0"DontZap" =A0"0"
+> + =A0 =A0Option =A0 =A0 =A0 =A0"AutoAddDevices" =A0"False"
+> +EndSection
+> diff --git a/meta-crownbay/recipes/xorg-xserver/xserver-xf86-config_0.1.b=
+bappend b/meta-crownbay/recipes/xorg-xserver/xserver-xf86-config_0.1.bbappe=
+nd
+> new file mode 100644
+> index 0000000..4b8d0e6
+> --- /dev/null
+> +++ b/meta-crownbay/recipes/xorg-xserver/xserver-xf86-config_0.1.bbappend
+> @@ -0,0 +1,3 @@
+> +THISDIR :=3D "${@os.path.dirname(bb.data.getVar('FILE', d, True))}"
+> +FILESPATH =3D. "${@base_set_filespath(["${THISDIR}/${PN}"], d)}:"
+> +
+> diff --git a/meta-crownbay/recipes/xorg-xserver/xserver-xf86-emgd-bin_1.7=
+.99.2.bb b/meta-crownbay/recipes/xorg-xserver/xserver-xf86-emgd-bin_1.7.99.=
+2.bb
+> new file mode 100644
+> index 0000000..1b2e1e8
+> --- /dev/null
+> +++ b/meta-crownbay/recipes/xorg-xserver/xserver-xf86-emgd-bin_1.7.99.2.b=
+b
+> @@ -0,0 +1,90 @@
+> +SUMMARY =3D "EMGD 1.5 xserver binaries"
+> +DESCRIPTION =3D "EMGD 1.5 includes some userspace binaries that use non-=
+free licensing. =A0Intel Open Source Technology Center unfortunately has no=
+ power to change that, but tries to make their use as painless as possible.=
+ =A0Please see the README.before.building in meta-crownbay/recipes/xorg-xer=
+ver for instuctions on the (simple) manual steps necessary to make the nece=
+ssary binaries available to this recipe. =A0Please do that before building =
+an image"
+> +
+> +LICENSE =3D "Intel-binary-only"
+> +LIC_FILES_CHKSUM =3D "file://${WORKDIR}/License.txt;md5=3D95c4d031b83ab8=
+03f3f2401b04ecfbcd"
+> +PR =3D "r0"
+> +
+> +FILESPATH =3D "${FILE_DIRNAME}/xserver-xf86-emgd-bin"
+> +
+> +FILES_${PN} =3D "${libdir}/*.so.* ${libdir}/dri ${libdir}/xorg/modules/d=
+rivers"
+> +
+> +SRC_URI =3D "file://emgd_dri.so \
+> + =A0 =A0 =A0 =A0 =A0 file://emgd_drv.so \
+> + =A0 =A0 =A0 =A0 =A0 file://emgd_drv_video.so \
+> + =A0 =A0 =A0 =A0 =A0 file://libEGL.so \
+> + =A0 =A0 =A0 =A0 =A0 file://libGLES_CM.so \
+> + =A0 =A0 =A0 =A0 =A0 file://libGLESv2.so \
+> + =A0 =A0 =A0 =A0 =A0 file://libIMGegl.so \
+> + =A0 =A0 =A0 =A0 =A0 file://libOpenVG.so \
+> + =A0 =A0 =A0 =A0 =A0 file://libOpenVGU.so \
+> + =A0 =A0 =A0 =A0 =A0 file://libPVROGL.so \
+> + =A0 =A0 =A0 =A0 =A0 file://libPVRScopeServices.so \
+> + =A0 =A0 =A0 =A0 =A0 file://libXegd_escape.so.2.0.0 \
+> + =A0 =A0 =A0 =A0 =A0 file://libglslcompiler.so \
+> + =A0 =A0 =A0 =A0 =A0 file://libpvr2d.so \
+> + =A0 =A0 =A0 =A0 =A0 file://libpvrPVR2D_DRIWSEGL.so \
+> + =A0 =A0 =A0 =A0 =A0 file://libsrv_init.so \
+> + =A0 =A0 =A0 =A0 =A0 file://libsrv_um.so \
+> + =A0 =A0 =A0 =A0 =A0 file://libva-x11.so.1.0.1 \
+> + =A0 =A0 =A0 =A0 =A0 file://libva.so.1.0.1 \
+> + =A0 =A0 =A0 =A0 =A0 file://License.txt"
+> +
+> +S =3D "${WORKDIR}"
+> +
+> +do_install () {
+> + =A0 =A0 =A0 install -d -m 0755 ${D}/${libdir}/dri ${D}/${libdir}/xorg/m=
+odules/drivers
+> +
+> + =A0 =A0 =A0 install -m 0755 ${S}/emgd_dri.so =A0 =A0 =A0 =A0 =A0 =A0 =
+=A0 =A0 =A0 =A0 =A0 =A0${D}${libdir}/dri/emgd_dri.so.1.1.15.3082
+> + =A0 =A0 =A0 ln -sf =A0 =A0 =A0 =A0 =A0emgd_dri.so.1.1.15.3082 =A0 =A0 =
+=A0 =A0 =A0 =A0 =A0 =A0 ${D}${libdir}/dri/emgd_dri.so
+> +
+> + =A0 =A0 =A0 install -m 0755 ${S}/emgd_drv.so =A0 =A0 =A0 =A0 =A0 =A0 =
+=A0 =A0 =A0 =A0 =A0 =A0${D}${libdir}/xorg/modules/drivers/emgd_drv.so
+> + =A0 =A0 =A0 install -m 0755 ${S}/emgd_drv_video.so =A0 =A0 =A0 =A0 =A0 =
+=A0 =A0 =A0 =A0${D}${libdir}/xorg/modules/drivers/emgd_drv_video.so
+> +
+> + =A0 =A0 =A0 install -m 0755 ${S}/libEGL.so =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
+=A0 =A0 =A0 =A0 =A0 =A0${D}${libdir}/libEGL.so.1.1.15.3082
+> + =A0 =A0 =A0 ln -sf =A0 =A0 =A0 =A0 =A0libEGL.so.1.1.15.3082 =A0 =A0 =A0=
+ =A0 =A0 =A0 =A0 =A0 =A0 ${D}${libdir}/libEGL.so
+> +
+> + =A0 =A0 =A0 install -m 0755 ${S}/libGLES_CM.so =A0 =A0 =A0 =A0 =A0 =A0 =
+=A0 =A0 =A0 =A0 =A0${D}${libdir}/libGLES_CM.so.1.1.15.3082
+> + =A0 =A0 =A0 ln -sf =A0 =A0 =A0 =A0 =A0libGLES_CM.so.1.1.15.3082 =A0 =A0=
+ =A0 =A0 =A0 =A0 =A0 ${D}${libdir}/libGLES_CM.so
+> +
+> + =A0 =A0 =A0 install -m 0755 ${S}/libGLESv2.so =A0 =A0 =A0 =A0 =A0 =A0 =
+=A0 =A0 =A0 =A0 =A0 ${D}${libdir}/libGLESv2.so.1.1.15.3082
+> + =A0 =A0 =A0 ln -sf =A0 =A0 =A0 =A0 =A0libGLESv2.so.1.1.15.3082 =A0 =A0 =
+=A0 =A0 =A0 =A0 =A0 =A0${D}${libdir}/libGLESv2.so
+> +
+> + =A0 =A0 =A0 install -m 0755 ${S}/libIMGegl.so =A0 =A0 =A0 =A0 =A0 =A0 =
+=A0 =A0 =A0 =A0 =A0 ${D}${libdir}/libIMGegl.so.1.1.15.3082
+> + =A0 =A0 =A0 ln -sf =A0 =A0 =A0 =A0 =A0libIMGegl.so.1.1.15.3082 =A0 =A0 =
+=A0 =A0 =A0 =A0 =A0 =A0${D}${libdir}/libIMGegl.so
+> +
+> + =A0 =A0 =A0 install -m 0755 ${S}/libOpenVG.so =A0 =A0 =A0 =A0 =A0 =A0 =
+=A0 =A0 =A0 =A0 =A0 ${D}${libdir}/libOpenVG.so.1.1.15.3082
+> + =A0 =A0 =A0 ln -sf =A0 =A0 =A0 =A0 =A0libOpenVG.so.1.1.15.3082 =A0 =A0 =
+=A0 =A0 =A0 =A0 =A0 =A0${D}${libdir}/libOpenVG.so
+> +
+> + =A0 =A0 =A0 install -m 0755 ${S}/libOpenVGU.so =A0 =A0 =A0 =A0 =A0 =A0 =
+=A0 =A0 =A0 =A0 =A0${D}${libdir}/libOpenVGU.so.1.1.15.3082
+> + =A0 =A0 =A0 ln -sf =A0 =A0 =A0 =A0 =A0libOpenVG.so.1.1.15.3082 =A0 =A0 =
+=A0 =A0 =A0 =A0 =A0 =A0${D}${libdir}/libOpenVGU.so
+> +
+> + =A0 =A0 =A0 install -m 0755 ${S}/libPVROGL.so =A0 =A0 =A0 =A0 =A0 =A0 =
+=A0 =A0 =A0 =A0 =A0 ${D}${libdir}/libPVROGL.so.1.1.15.3082
+> + =A0 =A0 =A0 ln -sf =A0 =A0 =A0 =A0 =A0libPVROGL.so.1.1.15.3082 =A0 =A0 =
+=A0 =A0 =A0 =A0 =A0 =A0${D}${libdir}/libPVROGL.so
+> +
+> + =A0 =A0 =A0 install -m 0755 ${S}/libPVRScopeServices.so =A0 =A0 =A0 =A0=
+ =A0 =A0 ${D}${libdir}/libPVRScopeServices.so.1.1.15.3082
+> + =A0 =A0 =A0 ln -sf =A0 =A0 =A0 =A0 =A0libPVRScopeServices.so.1.1.15.308=
+2 =A0 =A0 =A0${D}${libdir}/libPVRScopeServices.so
+> +
+> + =A0 =A0 =A0 install -m 0755 ${S}/libXegd_escape.so.2.0.0 =A0 =A0 =A0 =
+=A0 =A0 =A0${D}${libdir}/libXegd_escape.so.2.0.0
+> +
+> + =A0 =A0 =A0 install -m 0755 ${S}/libglslcompiler.so =A0 =A0 =A0 =A0 =A0=
+ =A0 =A0 =A0 ${D}${libdir}/libglslcompiler.so.1.1.15.3082
+> + =A0 =A0 =A0 ln -sf =A0 =A0 =A0 =A0 =A0libglslcompiler.so.1.1.15.3082 =
+=A0 =A0 =A0 =A0 =A0${D}${libdir}/libglslcompiler.so
+> +
+> + =A0 =A0 =A0 install -m 0755 ${S}/libpvr2d.so =A0 =A0 =A0 =A0 =A0 =A0 =
+=A0 =A0 =A0 =A0 =A0 =A0${D}${libdir}/libpvr2d.so.1.1.15.3082
+> + =A0 =A0 =A0 ln -sf =A0 =A0 =A0 =A0 =A0libpvr2d.so.1.1.15.3082 =A0 =A0 =
+=A0 =A0 =A0 =A0 =A0 =A0 ${D}${libdir}/libpvr2d.so
+> +
+> + =A0 =A0 =A0 install -m 0755 ${S}/libpvrPVR2D_DRIWSEGL.so =A0 =A0 =A0 =
+=A0 =A0 =A0${D}${libdir}/libpvrPVR2D_DRIWSEGL.so.1.1.15.3082
+> + =A0 =A0 =A0 ln -sf =A0 =A0 =A0 =A0 =A0libpvrPVR2D_DRIWSEGL.so.1.1.15.30=
+82 =A0 =A0 ${D}${libdir}/libpvrPVR2D_DRIWSEGL.so
+> +
+> + =A0 =A0 =A0 install -m 0755 ${S}/libsrv_init.so =A0 =A0 =A0 =A0 =A0 =A0=
+ =A0 =A0 =A0 =A0 ${D}${libdir}/libsrv_init.so.1.1.15.3082
+> + =A0 =A0 =A0 ln -sf =A0 =A0 =A0 =A0 =A0libsrv_init.so.1.1.15.3082 =A0 =
+=A0 =A0 =A0 =A0 =A0 =A0${D}${libdir}/libsrv_init.so
+> +
+> + =A0 =A0 =A0 install -m 0755 ${S}/libsrv_um.so =A0 =A0 =A0 =A0 =A0 =A0 =
+=A0 =A0 =A0 =A0 =A0 ${D}${libdir}/libsrv_um.so.1.1.15.3082
+> + =A0 =A0 =A0 ln -sf =A0 =A0 =A0 =A0 =A0libsrv_um.so.1.1.15.3082 =A0 =A0 =
+=A0 =A0 =A0 =A0 =A0 =A0${D}${libdir}/libsrv_um.so
+> +
+> + =A0 =A0 =A0 install -m 0755 ${S}/libva-x11.so.1.0.1 =A0 =A0 =A0 =A0 =A0=
+ =A0 =A0 =A0 ${D}${libdir}/libva-x11.so.1.0.1
+> +
+> + =A0 =A0 =A0 install -m 0755 ${S}/libva.so.1.0.1 =A0 =A0 =A0 =A0 =A0 =A0=
+ =A0 =A0 =A0 =A0 ${D}${libdir}/libva.so.1.0.1
+> +}
+> +
+> +LEAD_SONAME =3D "libEGL.so"
+> diff --git a/meta-crownbay/recipes/xorg-xserver/xserver-xf86-emgd/crossco=
+mpile.patch b/meta-crownbay/recipes/xorg-xserver/xserver-xf86-emgd/crosscom=
+pile.patch
+> new file mode 100644
+> index 0000000..2341e40
+> --- /dev/null
+> +++ b/meta-crownbay/recipes/xorg-xserver/xserver-xf86-emgd/crosscompile.p=
+atch
+> @@ -0,0 +1,19 @@
+> +Index: xorg-server-1.7.99.2/configure.ac
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> +--- xorg-server-1.7.99.2.orig/configure.ac =A0 =A0 2010-01-29 16:38:49.0=
+00000000 +0000
+> ++++ xorg-server-1.7.99.2/configure.ac =A02010-01-29 16:42:39.000000000 +=
+0000
+> +@@ -503,14 +503,10 @@
+> +
+> + dnl Uses --default-font-path if set, otherwise checks for /etc/X11/font=
+path.d,
+> + dnl otherwise uses standard subdirectories of FONTROOTDIR
+> +-AC_CHECK_FILE([${sysconfdir}/X11/fontpath.d],
+> +- =A0 =A0 =A0[DEFAULT_FONT_PATH=3D'catalogue:${sysconfdir}/X11/fontpath.=
+d'],
+> +- =A0 =A0 =A0[
+> + =A0 =A0 =A0 =A0 =A0 =A0 =A0 DEFAULT_FONT_PATH=3D"${FONTMISCDIR}/,${FONT=
+TTFDIR}/,${FONTOTFDIR}/,${FONTTYPE1DIR}/,${FONT100DPIDIR}/,${FONT75DPIDIR}/=
+"
+> + =A0 =A0 =A0 =A0 =A0 =A0 =A0 case $host_os in
+> + =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 darwin*) =A0 =A0DEFAULT_FON=
+T_PATH=3D"${DEFAULT_FONT_PATH},/Library/Fonts,/System/Library/Fonts" ;;
+> + =A0 =A0 =A0 =A0 =A0 =A0 =A0 esac
+> +- =A0 =A0 =A0])
+> + AC_ARG_WITH(default-font-path, AS_HELP_STRING([--with-default-font-path=
+=3DPATH], [Comma separated list of font dirs]),
+> + =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 [ FONTPATH=
+=3D"$withval" ],
+> + =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 [ FONTPATH=
+=3D"${DEFAULT_FONT_PATH}" ])
+> diff --git a/meta-crownbay/recipes/xorg-xserver/xserver-xf86-emgd/fix_ope=
+n_max_preprocessor_error.patch b/meta-crownbay/recipes/xorg-xserver/xserver=
+-xf86-emgd/fix_open_max_preprocessor_error.patch
+> new file mode 100644
+> index 0000000..565832e
+> --- /dev/null
+> +++ b/meta-crownbay/recipes/xorg-xserver/xserver-xf86-emgd/fix_open_max_p=
+reprocessor_error.patch
+> @@ -0,0 +1,13 @@
+> +Index: git/os/osdep.h
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> +--- git.orig/os/osdep.h =A0 =A0 =A0 =A02008-10-07 18:38:21.000000000 +01=
+00
+> ++++ git/os/osdep.h =A0 =A0 2008-10-07 18:39:36.000000000 +0100
+> +@@ -92,7 +92,7 @@
+> + =A0* like sysconf(_SC_OPEN_MAX) is not supported.
+> + =A0*/
+> +
+> +-#if OPEN_MAX <=3D 256
+> ++#if 0
+> + #define MAXSOCKS (OPEN_MAX - 1)
+> + #else
+> + #define MAXSOCKS 256
+> diff --git a/meta-crownbay/recipes/xorg-xserver/xserver-xf86-emgd/macro_t=
+weak.patch b/meta-crownbay/recipes/xorg-xserver/xserver-xf86-emgd/macro_twe=
+ak.patch
+> new file mode 100644
+> index 0000000..6998adf
+> --- /dev/null
+> +++ b/meta-crownbay/recipes/xorg-xserver/xserver-xf86-emgd/macro_tweak.pa=
+tch
+> @@ -0,0 +1,18 @@
+> +Index: xorg-server-1.5.0/xorg-server.m4
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> +--- xorg-server-1.5.0.orig/xorg-server.m4 =A0 =A0 =A02007-05-29 20:36:51=
+.000000000 +0100
+> ++++ xorg-server-1.5.0/xorg-server.m4 =A0 2008-11-04 23:56:55.000000000 +=
+0000
+> +@@ -28,9 +28,12 @@
+> + # Checks for the $1 define in xorg-server.h (from the sdk). =A0If it
+> + # is defined, then add $1 to $REQUIRED_MODULES.
+> +
+> ++m4_pattern_allow(PKG_CONFIG_SYSROOT_DIR)
+> ++
+> + AC_DEFUN([XORG_DRIVER_CHECK_EXT],[
+> ++ =A0 =A0 =A0PKG_PROG_PKG_CONFIG
+> + =A0 =A0 =A0 SAVE_CFLAGS=3D"$CFLAGS"
+> +- =A0 =A0 =A0CFLAGS=3D"$CFLAGS -I`pkg-config --variable=3Dsdkdir xorg-se=
+rver`"
+> ++ =A0 =A0 =A0CFLAGS=3D"$CFLAGS -I$PKG_CONFIG_SYSROOT_DIR`pkg-config --va=
+riable=3Dsdkdir xorg-server`"
+> + =A0 =A0 =A0 AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+> + #include "xorg-server.h"
+> + #if !defined $1
+> diff --git a/meta-crownbay/recipes/xorg-xserver/xserver-xf86-emgd/nodolt.=
+patch b/meta-crownbay/recipes/xorg-xserver/xserver-xf86-emgd/nodolt.patch
+> new file mode 100644
+> index 0000000..6b34032
+> --- /dev/null
+> +++ b/meta-crownbay/recipes/xorg-xserver/xserver-xf86-emgd/nodolt.patch
+> @@ -0,0 +1,12 @@
+> +Index: git/configure.ac
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> +--- git.orig/configure.ac =A0 =A0 =A02009-01-15 20:35:31.000000000 +0000
+> ++++ git/configure.ac =A0 2009-01-15 20:35:38.000000000 +0000
+> +@@ -62,7 +62,6 @@
+> + AC_LIBTOOL_WIN32_DLL
+> + AC_DISABLE_STATIC
+> + AC_PROG_LIBTOOL
+> +-DOLT
+> + AC_PROG_MAKE_SET
+> + PKG_PROG_PKG_CONFIG
+> + AC_PROG_LEX
+> diff --git a/meta-crownbay/recipes/xorg-xserver/xserver-xf86-emgd_1.7.99.=
+2.bb b/meta-crownbay/recipes/xorg-xserver/xserver-xf86-emgd_1.7.99.2.bb
+> new file mode 100644
+> index 0000000..d5d15df
+> --- /dev/null
+> +++ b/meta-crownbay/recipes/xorg-xserver/xserver-xf86-emgd_1.7.99.2.bb
+> @@ -0,0 +1,25 @@
+> +require recipes-graphics/xorg-xserver/xserver-xf86-dri-lite.inc
+> +
+> +LIC_FILES_CHKSUM =3D "file://COPYING;md5=3D3dd2bbe3563837f80ed8926b06c1c=
+353"
+> +
+> +PROTO_DEPS +=3D "xf86driproto dri2proto"
+> +
+> +DEPENDS +=3D "font-util"
+> +
+> +PE =3D "1"
+> +PR =3D "r0"
+> +
+> +SRC_URI +=3D "file://nodolt.patch \
+> + =A0 =A0 =A0 =A0 =A0 =A0file://crosscompile.patch"
+> +
+> +# Misc build failure for master HEAD
+> +SRC_URI +=3D "file://fix_open_max_preprocessor_error.patch"
+> +
+> +SRC_URI[md5sum] =3D "5c8773499a6a8c1ddaedf33577ec9634"
+> +SRC_URI[sha256sum] =3D "8b30800004c98fc7a8e6ff31a339f28451be5132e774443b=
+e22bf226e1791e34"
+> +
+> +RDEPENDS_${PN} +=3D "xserver-xf86-emgd-bin"
+> +
+> +COMPATIBLE_MACHINE =3D "crownbay"
+> +
+> +EXTRA_OECONF +=3D "--enable-dga --enable-dri --enable-dri2"
+> --
+> 1.7.0.4
 >
 >
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 >
 >
 
