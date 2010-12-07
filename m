@@ -1,24 +1,24 @@
 Return-Path: <dvhart@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 3133E4C80050
-	for <poky@yoctoproject.org>; Mon,  6 Dec 2010 21:35:10 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 06 Dec 2010 19:35:09 -0800
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 7F41C4C80050
+	for <poky@yoctoproject.org>; Mon,  6 Dec 2010 21:46:31 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 06 Dec 2010 19:46:31 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,308,1288594800"; d="scan'208";a="684573220"
+X-IronPort-AV: E=Sophos;i="4.59,308,1288594800"; d="scan'208";a="581216983"
 Received: from unknown (HELO [10.255.13.18]) ([10.255.13.18])
-	by orsmga001.jf.intel.com with ESMTP; 06 Dec 2010 19:35:09 -0800
-Message-ID: <4CFDAB6C.2080600@linux.intel.com>
-Date: Mon, 06 Dec 2010 19:35:08 -0800
+	by orsmga002.jf.intel.com with ESMTP; 06 Dec 2010 19:46:30 -0800
+Message-ID: <4CFDAE16.3030703@linux.intel.com>
+Date: Mon, 06 Dec 2010 19:46:30 -0800
 From: Darren Hart <dvhart@linux.intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.2.12) Gecko/20101027 Lightning/1.0b2 Thunderbird/3.1.6
 MIME-Version: 1.0
 To: Bruce Ashfield <bruce.ashfield@windriver.com>
-References: <4CFD6C73.20006@linux.intel.com> <4CFD871A.10904@windriver.com>
-In-Reply-To: <4CFD871A.10904@windriver.com>
-Cc: poky@yoctoproject.org
-Subject: Re: PREEMPT_RT support
+References: <4CFD6EFA.8050503@linux.intel.com> <4CFD8581.5080106@windriver.com>
+In-Reply-To: <4CFD8581.5080106@windriver.com>
+Cc: Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>, poky@yoctoproject.org
+Subject: Re: Proper recipe naming and PV definition
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,64 +30,71 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 07 Dec 2010 03:35:10 -0000
+X-List-Received-Date: Tue, 07 Dec 2010 03:46:31 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 12/06/2010 05:00 PM, Bruce Ashfield wrote:
-> On 10-12-06 6:06 PM, Darren Hart wrote:
->> I'm looking at how to best support PREEMPT_RT. We have a few things in
->> the works which prevent the ideal scenario (which is just a new recipe
->> using the preempt_rt branch in linux-yocto).
+On 12/06/2010 04:53 PM, Bruce Ashfield wrote:
+> On 10-12-06 6:17 PM, Darren Hart wrote:
+>> I'm having trouble determining what the best practice is for naming a
+>> linux kernel recipe.
 >>
->> 2.6.34 never had an -rt patch. The WR folks created one that builds and
->> is undergoing review from tglx - but that doesn't appear to be near the
->> top of his stack. 2.6.37 is still pending an -rt patch, also blocked on
->> -tglx.
->
-> We'll be doing one at WR eventually, so it will exist in
-> one form or another for version > 2.6.34.
-
-My wording above wasn't quite right. tglx will be releasing a 2.6.37 -rt 
-tree, that is committed. We're just waiting for it to emerge. There are 
-a handful of reworks that will begin with 2.6.37 and may delay things 
-some, but it will emerge.
-
->
+>> The meta-linaro layer contains a linux-linaro recipe, and eventually I'd
+>> like it to contain two. One for the stable kernel and one for the
+>> development kernel. These are currently 2.6.35 and 2.6.37 respectively.
+>> I currently have:
 >>
->> I'm thinking of creating a meta-rt layer which would provide a latest
->> -rt kernel and the rt-tests suite along with a non-graphical image
->> definition that facilitates latency detection and rt performance
->> measurement. poky-image-rt-test or something along those lines.
+>> linux-linaro-2.6.35_git.bb
+>> PV=2.6.35
 >>
->> Any objection to this approach? As we will eventually move these recipes
->> into the core poky recipes, I'd suggest we put this in an
->> "experimental/meta_rt" git repository.
+>> This results in directory names in the build tree like:
+>> linux-linaro-2.6.36_2.6.35 (or similar, with the version duplicated). As
+>> I understand it, the PV _must_ contain a standard Linux kernel version
+>> along the lines of 2.6.[0-9]+-* (and parsing fails without it).
+>>
+>> In order to both track the version and distinguish between stable and
+>> dev, would something like the following be appropriate? This also
+>> replaces _git with _KERNELVER (as proposed by Marcin).
+>>
+>> linux-linaro-stable_2.6.35.bb
+>> PV=2.6.35+git${SRCREV}
+>>
+>> linux-linaro-dev_2.6.37.bb
+>> PV=2.6.37+git${SRCREV}
 >
-> I'm worrying about this muddying the water with respect to the
-> -rt branches in the linux-yocto repositories. In particular if
-> we go *backward* from the 2.6.34 variant that we already have
-> (remember, that -rt kernel has been heavily abused for 9
-> months now and is just as stable (probably more so for
-> non-x86) as anything else you'll find).
+> For me the _git is not negotiable. It is the indication of
+> the source of the package. One of the main points about building
+> from an upstream git source is that we can bump it via the
+> SRCREV and leave the recipe alone.
 >
-> Why can't we continue to consolidate these into fewer kernels
-> and recipes ? We can't share fixes and BSPs easily if everything
-> is kept separate. We can obviously pair the tests/utilities along
-> with the linux-yocto -rt branches, so I'd prefer that approach
-> and continue to work on improving the base that we already
-> have.
+> I'm going to continue using this:
+>
+> PV = "${LINUX_VERSION}+git${SRCPV}"
 
-Hrm. Perhaps my perception of the 2.6.34 kernel is flawed. I wasn't 
-aware that this particular version of the patch had seen so much 
-runtime. If that is the case, instead of an rt-layer, I'll just prepare 
-an rt kernel recipe (as we discussed) using the linux-yocto kernel and 
-add rt-tests. Both to the core poky meta dir.
+You have SRCPV here - I believe you intended SRCREV - correct?
 
-I think it would still make sense to have a linux-rt_tip.bb, which 
-builds from linux-2.6-tip.git/rt/head as a sort of developers kernel. 
-Perhaps this would work well with the other dev recipes you have simmering?
+If so, then your PV looks the same as mine above. The place where I 
+replaced the _git was in the filename of the recipe. It still isn't 
+clear to me what the _VERSION part of recipe-name_VERSION.bb is meant to 
+indicate or how exactly it is used. It clearly isn't the exact and 
+complete version of the source, that is what PE.PV is for, and PR 
+identifies the recipe version (for lack of a better description).
 
+For linux-yocto, _git is not actually very descriptive, while 
+linux-yocto_2.6.34 and linux-yocto_2.6.37 are (there are two git trees - 
+so "_git" doesn't tell the user much about where the source comes from). 
+Whether the backing sourcecode source is a tarball, a git tree, or 
+something else entirely is, IMO, an implementation detail which is 
+adequately described by the PV we have agreed on above. This is used in 
+the directory name of the build and IIRC in the messages printed to the 
+console and logs, so the package and it's source should remain clear.
+
+I do appreciate the value of -stable and -dev naming which don't have to 
+change just because the underlying version changed - although I can see 
+the argument that being forced to change when the version changes makes 
+the change obvious to all users - which can be valuable.
+
+A few more iterations on this and I think we'll have something :-)
 
 -- 
 Darren Hart
