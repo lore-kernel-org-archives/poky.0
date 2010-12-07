@@ -1,43 +1,35 @@
-Return-Path: <fransmeulenbroeks@gmail.com>
-Received: from mail-iw0-f176.google.com (mail-iw0-f176.google.com
-	[209.85.214.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 1D72B4C80A74
-	for <poky@yoctoproject.org>; Tue,  7 Dec 2010 03:23:23 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by iwn7 with SMTP id 7so922020iwn.35
-	for <poky@yoctoproject.org>; Tue, 07 Dec 2010 01:23:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:received:received:in-reply-to
-	:references:date:message-id:subject:from:to:cc:content-type
-	:content-transfer-encoding;
-	bh=FBq2DgpKpxCK97zfvFJ4BCKWWwmc8vT3MZHK5KFPf/U=;
-	b=S0a9L/t8hFevOeIL/RvI7WXm86ygZf1KJwi664TA45qMc3/IpcDyeTI6FQAuJQiNyz
-	L6nsCotO8vYJnR+hnqHn7iT75BVXN2JcGNFxiwC5+RCSpuG//GMuCQ3wLwzS5JpvNtP6
-	Ijp3A7QBRpWlPdtcQFKRuDDJ4Ng9lJrfOzKqo=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type:content-transfer-encoding;
-	b=ATN7jPLnoI/s5tX22H9px5WP0FxSPRoas1XhZzL0PhGaDow3f8vQiXYs4ZhMDtRRpz
-	FUhaRnnHN1HWXexXAQ6fbErgld3ljKmBF7H970Pt9F6RzDviOoAjO1eUOIbqDmAorG7+
-	5eAbA7l+vgUxrdtrrMfE+Mv0wDBDM17CcdxFU=
+Return-Path: <kevin.tian@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id B89604C80A74
+	for <poky@yoctoproject.org>; Tue,  7 Dec 2010 05:16:04 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 07 Dec 2010 03:16:04 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.59,310,1288594800"; d="scan'208";a="684683270"
+Received: from pgsmsx601.gar.corp.intel.com ([10.221.43.69])
+	by orsmga001.jf.intel.com with ESMTP; 07 Dec 2010 03:15:56 -0800
+Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
+	pgsmsx601.gar.corp.intel.com (10.221.43.69) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Tue, 7 Dec 2010 19:15:04 +0800
+Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
+	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi; Tue, 7 Dec 2010
+	19:15:03 +0800
+From: "Tian, Kevin" <kevin.tian@intel.com>
+To: "Wold, Saul" <saul.wold@intel.com>, "Xu, Dongxiao" <dongxiao.xu@intel.com>
+Date: Tue, 7 Dec 2010 19:15:01 +0800
+Thread-Topic: [poky] [PATCH 0/3][RFC] Poky disk space size optimization
+Thread-Index: AcuVuR/XbN3/DUrWTt+W9yFQRRBP8wARRIng
+Message-ID: <625BA99ED14B2D499DC4E29D8138F1504D4776DBE9@shsmsx502.ccr.corp.intel.com>
+References: <cover.1291683028.git.dongxiao.xu@intel.com>
+	<4CFDA034.9050703@intel.com>
+In-Reply-To: <4CFDA034.9050703@intel.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
 MIME-Version: 1.0
-Received: by 10.231.191.4 with SMTP id dk4mr7319652ibb.82.1291713802812; Tue,
-	07 Dec 2010 01:23:22 -0800 (PST)
-Received: by 10.231.200.140 with HTTP; Tue, 7 Dec 2010 01:23:22 -0800 (PST)
-In-Reply-To: <4CFD9E17.5070209@intel.com>
-References: <AANLkTi==kWiyOrmeUeUVNeC8FT0B8XxruHA0X4qMaPs_@mail.gmail.com>
-	<4CFD68A2.20408@intel.com> <20101206225236.GD29253@denix.org>
-	<4CFD9E17.5070209@intel.com>
-Date: Tue, 7 Dec 2010 10:23:22 +0100
-Message-ID: <AANLkTikHxJ=4iWnx=-afTjj8Y6=qca2jv5y7yovqzAMe@mail.gmail.com>
-From: Frans Meulenbroeks <fransmeulenbroeks@gmail.com>
-To: Saul Wold <saul.wold@intel.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>,
-	"openembedded-devel@lists.openembedded.org"
-	<openembedded-devel@lists.openembedded.org>
-Subject: Re: [oe] libcdaudio license issue
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH 0/3][RFC] Poky disk space size optimization
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -49,68 +41,104 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 07 Dec 2010 09:23:23 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Tue, 07 Dec 2010 11:16:05 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-Replying to 3 replies in this one
-
-
-2010/12/7 Saul Wold <saul.wold@intel.com>:
-> On 12/06/2010 02:52 PM, Denys Dmytriyenko wrote:
->>
->> On Mon, Dec 06, 2010 at 02:50:10PM -0800, Saul Wold wrote:
->>>
->>> On 12/06/2010 11:48 AM, Frans Meulenbroeks wrote:
->>>>
->>>> I was checking libcdaudio for LICENSE info.
->>>> recipe says GPL
->>>> COPYING file is the GPLv2 one
->>>> README file says:
->>>>
->>>> libcdaudio is distributed under the GNU Library General Public
->>>> License, included in this package under the top level source directory
->>>> in the file COPYING
->>>>
->>>> C files also mention LGPL. but say v2 or later
->>>>
->>>> What to do with this in the LICENSE field? LGPLv2+ ?
->>>>
->>> This seems reasonable, you should also include the header chunk in the
->>> LIC_FILES_CHKSUM, you can specify start and end lines for the checksum.
-
-Yes, I'm aware of this. Would you want to add all the header chunks
-that state this, or only e.g. the most important one (assuming such a
-file can be identified)
-I've seen the text in different files.
-
-Also is poky planning to take this recipe? If not, it is kind-a
-pointless for me to update it, so I'd rather waste time on something
-else :-)
->>
->> Saul,
->>
->> We don't have this feature in OpenEmbedded yet... But it would be nice t=
-o
->> port
->> it from Poky though! :)
-
-Note that adding/using  LIC_FILES_CHKSUM in OE should be harmless as
-it is a var, which is not used.
-So if we wnat to move into that dir we might consider keeping the
-field in the OE recipes (currently for libaudio it is not there)
->>
-> Denys, sorry I saw this via my poky email and did not notice it was OE al=
-so,
-> I will what what I cross post next time!
-
-The recipe is also in OE and of course suffers from the same issue.
-That's why I posted to both lists.
+>From: Saul Wold
+>Sent: Tuesday, December 07, 2010 10:47 AM
 >
-> Glad to hear that you like the idea! =A0We will have all Poky recipes
-> checksummed this week!
+>On 12/06/2010 04:50 PM, Dongxiao Xu wrote:
+>> This RFC aims to reduce the poky disk space size.
+>>
+>> The optimization point is the duplicated file copies in WORKDIR and
+>> sysroot directories. When installing, files will be copied from source
+>> code package into the image folder; Then some files will be copied
+>> from image folder to sysroot-destdir, and some other files will be
+>> copied from image folder to package folder. While doing package split,
+>> some files will be copied from package folder to packages-split folder,
+>> etc.
+>>
+>There are a couple of concerns with this method, which may lead to
+>problems, first is that using links and modifying permissions, it's
+>possible that depending on the usage the permissions might be set
+>differently.  This will could lead to a second problem: psuedo. It's
+>unclear at this point how psuedo will handle this.
+>
+>I am sure you have been doing testing, just not sure of corner cases.
+>
+>I know we accepted the first change for the package split link to the
+>deploy area, that one made sense as it was package level, this is file
+>level and may have hidden problems.
 
-Cool!
+I also agree with Saul here. There do have some difference among those dire=
+ctories
+for their own purpose, which finally result in some difference. For example=
+, there're=20
+different tweaks on libtool and pkgconfig files between sysroot and packagi=
+ng. That's
+why 'image' is copied to package and then sysroot-destdir, and then do nece=
+ssary
+tweaks independently. Here if you want to hard link image to sysroot-destdi=
+r, you
+need make sure it done after the copy from image to package. Or else you'll=
+ end up
+to have problem there.
 
-Frans
+But if you can make sure that given a copy path you're modifying, the
+source and the destination are exactly same, and no other path refers to
+the source directory, perhaps it's fine to do hard link.
+
+Thanks
+Kevin
+
+>
+>I am sure that Richard will correct me and add his comments as he
+>recovers from his travels.
+>
+>Sau!
+>
+>> The thought is to use hard link to replace the direct copy.
+>> The three commits do the work of:
+>>
+>> a) package.bbclass: hard link "image-->sysroot-destdir"
+>> b) sstate.bbclass:  hard link "package-->packages-split"
+>> c) staging.bbclass: hard link "sysroot-destdir-->sysroots".
+>>
+>> After testing with minimal/sato/sdk build, this approach could save
+>> about 20% disk space.
+>> (minimal: 23G ->  19G, sato: 44G ->  35G, sdk: 54G ->  44G).
+>>
+>> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>>    Branch: dxu4/perf
+>>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=3Ddxu4/=
+perf
+>>
+>> Thanks,
+>>      Dongxiao Xu<dongxiao.xu@intel.com>
+>> ---
+>>
+>>
+>> Dongxiao Xu (3):
+>>    package.bbclass: Use hard link for package split instead of copy
+>>    sstate.bbclass: Use hard link when staging files into sysroots
+>>    staging.bbclass: use hardlink when staging files to sysroot-destdir
+>>
+>>   meta/classes/package.bbclass |    8 +++++---
+>>   meta/classes/sstate.bbclass  |    2 +-
+>>   meta/classes/staging.bbclass |   27 ++++++++++++++++++++++++++-
+>>   meta/lib/oe/path.py          |   28 ++++++++++++++++++++++++++++
+>>   4 files changed, 60 insertions(+), 5 deletions(-)
+>>
+>> _______________________________________________
+>> poky mailing list
+>> poky@yoctoproject.org
+>> https://lists.yoctoproject.org/listinfo/poky
+>>
+>
+>_______________________________________________
+>poky mailing list
+>poky@yoctoproject.org
+>https://lists.yoctoproject.org/listinfo/poky
 
