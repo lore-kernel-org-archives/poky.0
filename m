@@ -1,29 +1,30 @@
 Return-Path: <wd@denx.de>
 Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 069E04C811E5
+	by mx1.pokylinux.org (Postfix) with ESMTP id EE6F04C811D0
 	for <poky@yoctoproject.org>; Tue,  7 Dec 2010 15:14:27 -0600 (CST)
 Received: from frontend1.mail.m-online.net (frontend1.mail.intern.m-online.net
 	[192.168.8.180])
-	by mail-out.m-online.net (Postfix) with ESMTP id 9DF001805940
-	for <poky@yoctoproject.org>; Tue,  7 Dec 2010 22:14:26 +0100 (CET)
+	by mail-out.m-online.net (Postfix) with ESMTP id 1CB9418059D0;
+	Tue,  7 Dec 2010 22:14:26 +0100 (CET)
 X-Auth-Info: AtrY9kE1I+MFs8Ovyqew1tgS6yGqvCtD/tc+Us40+/Q=
 Received: from diddl.denx.de (ppp-188-174-79-57.dynamic.mnet-online.de
 	[188.174.79.57])
-	by smtp-auth.mnet-online.de (Postfix) with ESMTPA id D0B2B1C0015D
-	for <poky@yoctoproject.org>; Tue,  7 Dec 2010 22:14:26 +0100 (CET)
+	by smtp-auth.mnet-online.de (Postfix) with ESMTPA id 6A9881C000AD;
+	Tue,  7 Dec 2010 22:14:26 +0100 (CET)
 Received: from gemini.denx.de (gemini.denx.de [10.0.0.2])
-	by diddl.denx.de (Postfix) with ESMTP id 649D2333521F
-	for <poky@yoctoproject.org>; Tue,  7 Dec 2010 22:14:26 +0100 (CET)
+	by diddl.denx.de (Postfix) with ESMTP id 413DF3335219;
+	Tue,  7 Dec 2010 22:14:26 +0100 (CET)
 Received: by gemini.denx.de (Postfix, from userid 500)
-	id 536C9D0E429; Tue,  7 Dec 2010 22:14:26 +0100 (CET)
+	id 1D41AD0E429; Tue,  7 Dec 2010 22:14:26 +0100 (CET)
 From: Wolfgang Denk <wd@denx.de>
 To: poky@yoctoproject.org
-Date: Tue,  7 Dec 2010 22:14:03 +0100
-Message-Id: <1291756443-28767-6-git-send-email-wd@denx.de>
+Date: Tue,  7 Dec 2010 22:13:59 +0100
+Message-Id: <1291756443-28767-2-git-send-email-wd@denx.de>
 X-Mailer: git-send-email 1.7.3.2
 In-Reply-To: <1291756443-28767-1-git-send-email-wd@denx.de>
 References: <1291756443-28767-1-git-send-email-wd@denx.de>
-Subject: [PATCH 5/5] elfutils-0.148: fix problems with `ld' not recognizing options
+Cc: Vasily Khoruzhick <anarsoul@gmail.com>
+Subject: [PATCH 1/5] eglibc: fix build issue with make-3.82
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,106 +38,67 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Tue, 07 Dec 2010 21:14:28 -0000
 
-Recent versions of gcc (for example in Fedora 14) will call the
-included linker with options like "-rpath", "-rpath-link" and
-"--add-needed" resp. "--no-add-needed" wich cause the linker to fail.
-Previde backward compatibility renames for the "-rpath*" options and
-add dummy handling for the "*add-needed" options.
+From: Vasily Khoruzhick <anarsoul@gmail.com>
 
+Add patch to fix this error when building eglibc-2.11, eglibc-2.12
+with make-3.82:
+
+make[2]: Entering directory `eglibc-2_12/libc/manual'
+Makefile:246: *** mixed implicit and normal rules.  Stop.
+
+Signed-off-by: Vasily Khoruzhick <anarsoul@gmail.com>
+Signed-off-by: Khem Raj <raj.khem@gmail.com>
+
+Adapted for Poky from OE commit fbcef38
 Signed-off-by: Wolfgang Denk <wd@denx.de>
 ---
-I have to admit that I dislike the approach of ignoring the
-"*add-needed" options myself, but I haven't found a way to stop the
-Fedora compiler from inserting these options.
+ meta/recipes-core/eglibc/eglibc_2.12.bb            |    3 ++-
+ .../eglibc/files/eglibc-make-382.patch             |   15 +++++++++++++++
+ 2 files changed, 17 insertions(+), 1 deletions(-)
+ create mode 100644 meta/recipes-core/eglibc/files/eglibc-make-382.patch
 
- .../elfutils/elfutils-0.148/ld-compatibility.patch |   56 ++++++++++++++++++++
- meta/recipes-devtools/elfutils/elfutils_0.148.bb   |    3 +-
- 2 files changed, 58 insertions(+), 1 deletions(-)
- create mode 100644 meta/recipes-devtools/elfutils/elfutils-0.148/ld-compatibility.patch
-
-diff --git a/meta/recipes-devtools/elfutils/elfutils-0.148/ld-compatibility.patch b/meta/recipes-devtools/elfutils/elfutils-0.148/ld-compatibility.patch
+diff --git a/meta/recipes-core/eglibc/eglibc_2.12.bb b/meta/recipes-core/eglibc/eglibc_2.12.bb
+index 3d0dc73..d188bca 100644
+--- a/meta/recipes-core/eglibc/eglibc_2.12.bb
++++ b/meta/recipes-core/eglibc/eglibc_2.12.bb
+@@ -2,7 +2,7 @@ require eglibc.inc
+ 
+ DEPENDS += "gperf-native"
+ FILESPATHPKG =. "eglibc-svn:"
+-PR = "r12"
++PR = "r13"
+ 
+ EGLIBC_BRANCH="eglibc-2_12"
+ SRC_URI = "svn://www.eglibc.org/svn/branches/;module=${EGLIBC_BRANCH};proto=http \
+@@ -10,6 +10,7 @@ SRC_URI = "svn://www.eglibc.org/svn/branches/;module=${EGLIBC_BRANCH};proto=http
+            file://IO-acquire-lock-fix.patch \
+            file://shorten-build-commands.patch \
+            file://mips-rld-map-check.patch \
++	   file://eglibc-make-382.patch \
+            file://etc/ld.so.conf \
+            file://generate-supported.mk \
+ 	   file://fix-for-make-3.82.diff"
+diff --git a/meta/recipes-core/eglibc/files/eglibc-make-382.patch b/meta/recipes-core/eglibc/files/eglibc-make-382.patch
 new file mode 100644
-index 0000000..74eb706
+index 0000000..5ecad90
 --- /dev/null
-+++ b/meta/recipes-devtools/elfutils/elfutils-0.148/ld-compatibility.patch
-@@ -0,0 +1,56 @@
-+--- elfutils-0.148/src/ld.c.ORIG	2010-04-13 22:08:02.000000000 +0200
-++++ elfutils-0.148/src/ld.c	2010-12-06 22:38:54.837104954 +0100
-+@@ -78,6 +78,8 @@
-+ #if YYDEBUG
-+     ARGP_yydebug,
-+ #endif
-++    ARGP_add_needed,
-++    ARGP_no_add_needed,
-+   };
++++ b/meta/recipes-core/eglibc/files/eglibc-make-382.patch
+@@ -0,0 +1,15 @@
++http://git.frugalware.org/gitweb/gitweb.cgi?p=frugalware-current.git;a=blob_plain;f=source/base/glibc/make-3.82-fix.patch;hb=8217c32ecc2e14962847ba3d8a272eb64a3dba4f
++
++--- libc/manual/Makefile
+++++ libc/manual/Makefile
++@@ -232,7 +232,9 @@
++ .PHONY: stubs
++ stubs: $(objpfx)stubs
++ endif
++-$(objpfx)stubs ../po/manual.pot $(objpfx)stamp%:
+++$(objpfx)stubs ../po/manual.pot:
+++	touch $@
+++$(objpfx)stamp%:
++ 	$(make-target-directory)
++ 	touch $@
 + 
-+ 
-+@@ -190,6 +192,11 @@
-+     N_("Read version information from FILE."), 0 },
-+   { "emulation", 'm', "NAME", 0, N_("Set emulation to NAME."), 0 },
-+ 
-++  { "add-needed", ARGP_add_needed, NULL, 0,
-++    N_("Dummy implementation - does nothing"), 0 },
-++  { "no-add-needed", ARGP_no_add_needed, NULL, 0,
-++    N_("Dummy implementation - does nothing"), 0 },
-++
-+   { NULL, 0, NULL, 0, NULL, 0 }
-+ };
-+ 
-+@@ -509,6 +516,8 @@
-+ 	{ "-export-dynamic", "--export-dynamic" },
-+ 	{ "-dynamic-linker", "--dynamic-linker" },
-+ 	{ "-static", "--static" },
-++	{ "-rpath", "--rpath" },
-++	{ "-rpath-link", "--rpath-link" },
-+       };
-+   const size_t nargs = sizeof (args) / sizeof (args[0]);
-+ 
-+@@ -754,6 +763,11 @@
-+       conserve_memory = 1;
-+       break;
-+ 
-++    case ARGP_add_needed:	/* dummy entry, do nothing */
-++      break;
-++    case ARGP_no_add_needed:	/* dummy entry, do nothing */
-++      break;
-++
-+     default:
-+       return ARGP_ERR_UNKNOWN;
-+     }
-+@@ -898,6 +912,11 @@
-+       }
-+       break;
-+ 
-++    case ARGP_add_needed:	/* dummy entry, do nothing */
-++      break;
-++    case ARGP_no_add_needed:	/* dummy entry, do nothing */
-++      break;
-++
-+     default:
-+       /* We can catch all other options here.  They either have
-+ 	 already been handled or, if the parameter was not correct,
-diff --git a/meta/recipes-devtools/elfutils/elfutils_0.148.bb b/meta/recipes-devtools/elfutils/elfutils_0.148.bb
-index 5a7beaa..16dfb46 100644
---- a/meta/recipes-devtools/elfutils/elfutils_0.148.bb
-+++ b/meta/recipes-devtools/elfutils/elfutils_0.148.bb
-@@ -6,7 +6,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=0636e73ff0215e8d672dc4c32c317bb3\
-                     file://EXCEPTION;md5=570adcb0c1218ab57f2249c67d0ce417"
- DEPENDS = "libtool zlib"
- 
--PR = "r2"
-+PR = "r3"
- 
- SRC_URI = "https://fedorahosted.org/releases/e/l/elfutils/elfutils-${PV}.tar.bz2"
- 
-@@ -25,6 +25,7 @@ SRC_URI += "\
-         file://elf_additions.diff \
- 	file://elfutils-fsize.patch \
- 	file://ar-options.patch \
-+	file://ld-compatibility.patch \
- "
- 
- # The buildsystem wants to generate 2 .h files from source using a binary it just built,
 -- 
 1.7.3.2
 
