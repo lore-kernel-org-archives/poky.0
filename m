@@ -1,21 +1,21 @@
 Return-Path: <dongxiao.xu@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 827114C80050
-	for <poky@yoctoproject.org>; Tue,  7 Dec 2010 01:01:47 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 06 Dec 2010 23:01:46 -0800
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 9889E4C80FB2
+	for <poky@yoctoproject.org>; Tue,  7 Dec 2010 01:01:50 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 06 Dec 2010 23:01:50 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,310,1288594800"; d="scan'208";a="358054703"
+X-IronPort-AV: E=Sophos;i="4.59,310,1288594800"; d="scan'208";a="684619191"
 Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.9])
-	by azsmga001.ch.intel.com with ESMTP; 06 Dec 2010 23:01:46 -0800
-Message-Id: <a66b2e06ba4f0b3f3e68cdcd7a6b804041e26d4a.1291705845.git.dongxiao.xu@intel.com>
+	by orsmga001.jf.intel.com with ESMTP; 06 Dec 2010 23:01:47 -0800
+Message-Id: <d4a0f4c671c837fdd8c0fc39674d7a6f10575bb5.1291705845.git.dongxiao.xu@intel.com>
 In-Reply-To: <cover.1291705845.git.dongxiao.xu@intel.com>
 References: <cover.1291705845.git.dongxiao.xu@intel.com>
 From: Dongxiao Xu <dongxiao.xu@intel.com>
-Date: Tue, 7 Dec 2010 14:02:56 +0800
+Date: Tue, 7 Dec 2010 14:08:53 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 1/7] gssdp: upgrade to version 0.9.0
+Subject: [PATCH 2/7] gst-ffmpeg: upgrade to version 0.10.11
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,158 +27,230 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 07 Dec 2010 07:01:47 -0000
+X-List-Received-Date: Tue, 07 Dec 2010 07:01:50 -0000
 
-Derive introspection.m4 from gobject-introspection package to solve the
-autoreconf issue.
+Derived the recipe from openembedded.
 
-Add option "--disable-introspection" since gobject-introspection breaks
-cross compile.
+For poky, we use the ffmpeg lib contained in the package, while
+openembedded use the system ffmpeg library.
+
+Update recipe metadata.
 
 Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
 ---
- .../gupnp/gssdp-0.9.0/introspection.patch          |  101 ++++++++++++++++++++
- .../gupnp/{gssdp_0.7.1.bb => gssdp_0.9.0.bb}       |   12 ++-
- 2 files changed, 112 insertions(+), 1 deletions(-)
- create mode 100644 meta/recipes-connectivity/gupnp/gssdp-0.9.0/introspection.patch
- rename meta/recipes-connectivity/gupnp/{gssdp_0.7.1.bb => gssdp_0.9.0.bb} (66%)
+ meta/conf/distro/poky.conf                         |    3 +-
+ .../gst-ffmpeg-0.10.1/configure_fix.patch          |   13 -----
+ .../gstreamer/gst-ffmpeg-0.10.1/no_beos.patch      |   55 --------------------
+ .../gstreamer/gst-ffmpeg-0.10.11/lower-rank.diff   |   14 +++++
+ .../gstreamer/gst-ffmpeg_0.10.1.bb                 |   35 ------------
+ .../gstreamer/gst-ffmpeg_0.10.11.bb                |   39 ++++++++++++++
+ 6 files changed, 55 insertions(+), 104 deletions(-)
+ delete mode 100644 meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.1/configure_fix.patch
+ delete mode 100644 meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.1/no_beos.patch
+ create mode 100644 meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.11/lower-rank.diff
+ delete mode 100644 meta/recipes-multimedia/gstreamer/gst-ffmpeg_0.10.1.bb
+ create mode 100644 meta/recipes-multimedia/gstreamer/gst-ffmpeg_0.10.11.bb
 
-diff --git a/meta/recipes-connectivity/gupnp/gssdp-0.9.0/introspection.patch b/meta/recipes-connectivity/gupnp/gssdp-0.9.0/introspection.patch
+diff --git a/meta/conf/distro/poky.conf b/meta/conf/distro/poky.conf
+index dcb21f7..eacdfd0 100644
+--- a/meta/conf/distro/poky.conf
++++ b/meta/conf/distro/poky.conf
+@@ -129,7 +129,8 @@ LGPLv2_WHITELIST_GPLv3 = "libassuan gnutls libtasn1 libidn"
+ # This is a list of packages that require a commercial license to ship
+ # product. If shipped as part of an image these packages may have 
+ # implications so they are disabled by default
+-COMMERCIAL_LICENSE ?= "lame gst-fluendo-mp3 libmad mpeg2dec ffmpeg qmmp"
++COMMERCIAL_LICENSE ?= ""
++#COMMERCIAL_LICENSE ?= "lame gst-fluendo-mp3 libmad mpeg2dec ffmpeg qmmp"
+ COMMERCIAL_AUDIO_PLUGINS ?= ""
+ # COMMERCIAL_AUDIO_PLUGINS ?= "gst-plugins-ugly-mad gst-plugins-ugly-mpegaudioparse"
+ COMMERCIAL_VIDEO_PLUGINS ?= ""
+diff --git a/meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.1/configure_fix.patch b/meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.1/configure_fix.patch
+deleted file mode 100644
+index 15f5649..0000000
+--- a/meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.1/configure_fix.patch
++++ /dev/null
+@@ -1,13 +0,0 @@
+-Index: gst-ffmpeg-0.10.1/gst-libs/ext/ffmpeg/configure.ac
+-===================================================================
+---- gst-ffmpeg-0.10.1.orig/gst-libs/ext/ffmpeg/configure.ac	2008-03-19 23:21:04.000000000 +0000
+-+++ gst-ffmpeg-0.10.1/gst-libs/ext/ffmpeg/configure.ac	2008-03-19 23:21:31.000000000 +0000
+-@@ -775,7 +775,7 @@
+- 
+- dnl Check for SDL, used in ffplay, and ffserver
+- AC_FF_ALLOW_DISABLE(CONFIG_FFPLAY, ffplay, ffmpeg media player,[
+--  AM_PATH_SDL(, CONFIG_FFPLAY=yes, CONFIG_FPFLAY=no)
+-+  CONFIG_FPFLAY=no
+- ])
+- 
+- dnl media server or not?
+diff --git a/meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.1/no_beos.patch b/meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.1/no_beos.patch
+deleted file mode 100644
+index 9ffcaff..0000000
+--- a/meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.1/no_beos.patch
++++ /dev/null
+@@ -1,55 +0,0 @@
+-The AC_LANG sections upset libtool 2.2.2, easiest fix is to remove them.
+-Using a .cpp file in a Makefile means configure.ac must use AC_PROG_CXX
+-so patch out the section from the makefile too.
+-
+-RP - 14/4/08
+-
+-Index: gst-ffmpeg-0.10.1/gst-libs/ext/ffmpeg/configure.ac
+-===================================================================
+---- gst-ffmpeg-0.10.1.orig/gst-libs/ext/ffmpeg/configure.ac	2008-04-14 23:55:25.000000000 +0100
+-+++ gst-ffmpeg-0.10.1/gst-libs/ext/ffmpeg/configure.ac	2008-04-14 23:56:18.000000000 +0100
+-@@ -742,26 +742,7 @@
+- 
+- dnl Beos Audio
+- AC_FF_ALLOW_DISABLE(CONFIG_AUDIO_BEOS, audio-beos, BeOS audio support,[
+--  if test x$TARGET_OS = xbeos; then
+--    AC_LANG_CPLUSPLUS
+--    AC_CHECK_HEADER(SoundPlayer.h,[
+--      OLD_CXXFLAGS="$CXXFLAGS"
+--      CXXFLAGS="$CXXFLAGS -lbe -lmedia"
+--      AC_MSG_CHECKING(For BeOS audio libraries)
+--      AC_TRY_COMPILE([
+--#include <Application.h>
+--#include <SoundPlayer.h>
+--        ],[
+--          BSoundPlayer *p = new BSoundPlayer(NULL,NULL,NULL);
+--        ],[ CONFIG_AUDIO_BEOS=yes && AC_MSG_RESULT(yes) ],[
+--          CONFIG_AUDIO_BEOS=no && AC_MSG_RESULT(no)
+--      ])
+--      CXXFLAGS="$OLD_CXXFLAGS"
+--    ], CONFIG_AUDIO_BEOS=no)
+--    AC_LANG_C
+--  else
+-     CONFIG_AUDIO_BEOS=no
+--  fi
+- ])
+- 
+- dnl Check for freetype2, used in vook/libdrawtext.so
+-Index: gst-ffmpeg-0.10.1/gst-libs/ext/ffmpeg/libavformat/Makefile.am
+-===================================================================
+---- gst-ffmpeg-0.10.1.orig/gst-libs/ext/ffmpeg/libavformat/Makefile.am	2008-04-14 23:58:44.000000000 +0100
+-+++ gst-ffmpeg-0.10.1/gst-libs/ext/ffmpeg/libavformat/Makefile.am	2008-04-14 23:58:55.000000000 +0100
+-@@ -24,13 +24,6 @@
+- audiooss_SRC = audio.c
+- endif
+- 
+--if CONFIG_AUDIO_BEOS
+--audiobeos_SRC = beosaudio.cpp
+--audiobeos_LIBS = \
+--	-lbe \
+--	-lmedia
+--endif
+--
+- if CONFIG_VIDEO4LINUX
+- v4l_SRC = grab.c v4l2.c
+- endif
+diff --git a/meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.11/lower-rank.diff b/meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.11/lower-rank.diff
 new file mode 100644
-index 0000000..15de41f
+index 0000000..bffdb8a
 --- /dev/null
-+++ b/meta/recipes-connectivity/gupnp/gssdp-0.9.0/introspection.patch
-@@ -0,0 +1,101 @@
-+Copied from gobject-introspection/m4/introspection.m4
-+By Dongxiao Xu <dongxiao.xu@intel.com>
++++ b/meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.11/lower-rank.diff
+@@ -0,0 +1,14 @@
++Lower the rank of ffmpeg plugin so codecs that hook into accelerated pieces (e.g. dsp or hw engines) can get picked over this
++Derived from OE by Dongxiao Xu <dongxiao.xu@intel.com>
 +
-+diff -ruN gssdp-0.9.0-orig/m4/introspection.m4 gssdp-0.9.0/m4/introspection.m4
-+--- gssdp-0.9.0-orig/m4/introspection.m4	1970-01-01 08:00:00.000000000 +0800
-++++ gssdp-0.9.0/m4/introspection.m4	2010-12-06 11:08:16.000000000 +0800
-+@@ -0,0 +1,94 @@
-++dnl -*- mode: autoconf -*-
-++dnl Copyright 2009 Johan Dahlin
-++dnl
-++dnl This file is free software; the author(s) gives unlimited
-++dnl permission to copy and/or distribute it, with or without
-++dnl modifications, as long as this notice is preserved.
-++dnl
-++
-++# serial 1
-++
-++m4_define([_GOBJECT_INTROSPECTION_CHECK_INTERNAL],
-++[
-++    AC_BEFORE([AC_PROG_LIBTOOL],[$0])dnl setup libtool first
-++    AC_BEFORE([AM_PROG_LIBTOOL],[$0])dnl setup libtool first
-++    AC_BEFORE([LT_INIT],[$0])dnl setup libtool first
-++
-++    dnl enable/disable introspection
-++    m4_if([$2], [require],
-++    [dnl
-++        enable_introspection=yes
-++    ],[dnl
-++        AC_ARG_ENABLE(introspection,
-++                  AS_HELP_STRING([--enable-introspection[=@<:@no/auto/yes@:>@]],
-++                                 [Enable introspection for this build]),, 
-++                                 [enable_introspection=auto])
-++    ])dnl
-++
-++    AC_MSG_CHECKING([for gobject-introspection])
-++
-++    dnl presence/version checking
-++    AS_CASE([$enable_introspection],
-++    [no], [dnl
-++        found_introspection="no (disabled, use --enable-introspection to enable)"
-++    ],dnl
-++    [yes],[dnl
-++        PKG_CHECK_EXISTS([gobject-introspection-1.0],,
-++                         AC_MSG_ERROR([gobject-introspection-1.0 is not installed]))
-++        PKG_CHECK_EXISTS([gobject-introspection-1.0 >= $1],
-++                         found_introspection=yes,
-++                         AC_MSG_ERROR([You need to have gobject-introspection >= $1 installed to build AC_PACKAGE_NAME]))
-++    ],dnl
-++    [auto],[dnl
-++        PKG_CHECK_EXISTS([gobject-introspection-1.0 >= $1], found_introspection=yes, found_introspection=no)
-++    ],dnl
-++    [dnl	
-++        AC_MSG_ERROR([invalid argument passed to --enable-introspection, should be one of @<:@no/auto/yes@:>@])
-++    ])dnl
-++
-++    AC_MSG_RESULT([$found_introspection])
-++
-++    INTROSPECTION_SCANNER=
-++    INTROSPECTION_COMPILER=
-++    INTROSPECTION_GENERATE=
-++    INTROSPECTION_GIRDIR=
-++    INTROSPECTION_TYPELIBDIR=
-++    if test "x$found_introspection" = "xyes"; then
-++       INTROSPECTION_SCANNER=`$PKG_CONFIG --variable=g_ir_scanner gobject-introspection-1.0`
-++       INTROSPECTION_COMPILER=`$PKG_CONFIG --variable=g_ir_compiler gobject-introspection-1.0`
-++       INTROSPECTION_GENERATE=`$PKG_CONFIG --variable=g_ir_generate gobject-introspection-1.0`
-++       INTROSPECTION_GIRDIR=`$PKG_CONFIG --variable=girdir gobject-introspection-1.0`
-++       INTROSPECTION_TYPELIBDIR="$($PKG_CONFIG --variable=typelibdir gobject-introspection-1.0)"
-++       INTROSPECTION_CFLAGS=`$PKG_CONFIG --cflags gobject-introspection-1.0`
-++       INTROSPECTION_LIBS=`$PKG_CONFIG --libs gobject-introspection-1.0`
-++       INTROSPECTION_MAKEFILE=`$PKG_CONFIG --variable=datadir gobject-introspection-1.0`/gobject-introspection-1.0/Makefile.introspection
-++    fi
-++    AC_SUBST(INTROSPECTION_SCANNER)
-++    AC_SUBST(INTROSPECTION_COMPILER)
-++    AC_SUBST(INTROSPECTION_GENERATE)
-++    AC_SUBST(INTROSPECTION_GIRDIR)
-++    AC_SUBST(INTROSPECTION_TYPELIBDIR)
-++    AC_SUBST(INTROSPECTION_CFLAGS)
-++    AC_SUBST(INTROSPECTION_LIBS)
-++    AC_SUBST(INTROSPECTION_MAKEFILE)
-++
-++    AM_CONDITIONAL(HAVE_INTROSPECTION, test "x$found_introspection" = "xyes")
-++])
-++
-++
-++dnl Usage:
-++dnl   GOBJECT_INTROSPECTION_CHECK([minimum-g-i-version])
-++
-++AC_DEFUN([GOBJECT_INTROSPECTION_CHECK],
-++[
-++  _GOBJECT_INTROSPECTION_CHECK_INTERNAL([$1])
-++])
-++
-++dnl Usage:
-++dnl   GOBJECT_INTROSPECTION_REQUIRE([minimum-g-i-version])
-++
-++
-++AC_DEFUN([GOBJECT_INTROSPECTION_REQUIRE],
-++[
-++  _GOBJECT_INTROSPECTION_CHECK_INTERNAL([$1], [require])
-++])
-diff --git a/meta/recipes-connectivity/gupnp/gssdp_0.7.1.bb b/meta/recipes-connectivity/gupnp/gssdp_0.9.0.bb
-similarity index 66%
-rename from meta/recipes-connectivity/gupnp/gssdp_0.7.1.bb
-rename to meta/recipes-connectivity/gupnp/gssdp_0.9.0.bb
-index 2143984..09bcc38 100644
---- a/meta/recipes-connectivity/gupnp/gssdp_0.7.1.bb
-+++ b/meta/recipes-connectivity/gupnp/gssdp_0.9.0.bb
-@@ -4,10 +4,20 @@ LICENSE = "LGPLv2"
- LIC_FILES_CHKSUM = "file://COPYING;md5=3bf50002aefd002f49e7bb854063f7e7"
- DEPENDS = "glib-2.0 libsoup-2.4 libglade"
- 
--SRC_URI = "http://gupnp.org/sites/all/files/sources/${PN}-${PV}.tar.gz"
-+SRC_URI = "http://gupnp.org/sites/all/files/sources/${PN}-${PV}.tar.gz \
-+           file://introspection.patch"
- 
- inherit autotools pkgconfig
- 
- PACKAGES =+ "gssdp-tools"
- 
- FILES_gssdp-tools = "${bindir}/gssdp* ${datadir}/gssdp/*.glade"
++--- /tmp/gstffmpegdec.c	2009-03-05 09:31:15.000000000 +0100
+++++ gst-ffmpeg-0.10.6/ext/ffmpeg/gstffmpegdec.c	2009-03-05 09:33:09.000000000 +0100
++@@ -2588,7 +2588,7 @@
++       case CODEC_ID_MSMPEG4V3:
++       case CODEC_ID_H264:
++       case CODEC_ID_COOK:
++-        rank = GST_RANK_PRIMARY;
+++        rank = GST_RANK_SECONDARY;
++         break;
++       case CODEC_ID_DVVIDEO:
++         /* we have a good dv decoder, fast on both ppc as well as x86. they say
+diff --git a/meta/recipes-multimedia/gstreamer/gst-ffmpeg_0.10.1.bb b/meta/recipes-multimedia/gstreamer/gst-ffmpeg_0.10.1.bb
+deleted file mode 100644
+index 599492f..0000000
+--- a/meta/recipes-multimedia/gstreamer/gst-ffmpeg_0.10.1.bb
++++ /dev/null
+@@ -1,35 +0,0 @@
+-DESCRIPTION = "FFmpeg-based GStreamer plug-in"
+-SECTION = "multimedia"
+-PRIORITY = "optional"
+-LICENSE = "LGPLv2+ & GPLv2+"
+-LIC_FILES_CHKSUM = "file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f \
+-                    file://gst-libs/ext/ffmpeg/libavcodec/libpostproc/postprocess.h;beginline=1;endline=17;md5=a0c398349079dbd0ce70f03de8bc193a \
+-                    file://gst-libs/ext/ffmpeg/ffserver.c;beginlin=1;endline=18;md5=49bde48d6d5c631f6f49d74ed491ea08"
+-HOMEPAGE = "http://www.gstreamer.net/"
+-DEPENDS = "gstreamer zlib gst-plugins-base"
+-PR = "r4"
+-
+-inherit autotools pkgconfig
+-
+-SRC_URI = "http://gstreamer.freedesktop.org/src/${PN}/${PN}-${PV}.tar.bz2 \
+-           file://no_beos.patch;patch=1 \
+-           file://configure_fix.patch;patch=1"
+-
+-FILES_${PN} += "${libdir}/gstreamer-0.10/*.so"
+-FILES_${PN}-dbg += "${libdir}/gstreamer-0.10/.debug"
+-FILES_${PN}-dev += "${libdir}/gstreamer-0.10/*.la ${libdir}/gstreamer-0.10/*.a"
+-
+-EXTRA_OECONF = "--disable-sdltest --disable-ffplay --disable-freetypetest \
+-		--disable-vorbis --disable-vorbistest --disable-encoders \
+-		--disable-v4l --disable-audio-oss --disable-dv1394 \
+-		--disable-vhook --disable-ffmpeg --disable-ffserver \
+-		--enable-pp --disable-decoder-vorbis --with-pic=no --disable-altivec"
+-
+-# We do this because the install program is called with -s which causes it to
+-# call "strip" and it then mangles cross compiled stuff..
+-PATH_prepend="${STAGING_DIR_NATIVE}${prefix_native}/${TARGET_SYS}/bin:"
+-
+-# Hack to get STAGING_LIBDIR into the linker path when building ffmpeg
+-CC = "${CCACHE} ${HOST_PREFIX}gcc -L${STAGING_LIBDIR}"
+-
+-acpaths = "-I ${S}/common/m4"
+diff --git a/meta/recipes-multimedia/gstreamer/gst-ffmpeg_0.10.11.bb b/meta/recipes-multimedia/gstreamer/gst-ffmpeg_0.10.11.bb
+new file mode 100644
+index 0000000..96f08b6
+--- /dev/null
++++ b/meta/recipes-multimedia/gstreamer/gst-ffmpeg_0.10.11.bb
+@@ -0,0 +1,39 @@
++DESCRIPTION = "FFmpeg-based GStreamer plug-in"
++SECTION = "multimedia"
++PRIORITY = "optional"
++LICENSE = "GPLv2+ & LGPLv2+ & ( (GPLv2+ & LGPLv2.1+) | (GPLv3+ & LGPLv3+) )"
++LIC_FILES_CHKSUM = "file://COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
++                    file://ext/libpostproc/gstpostproc.c;beginline=1;endline=18;md5=5896e445e41681324381f5869ee33d38 \
++                    file://COPYING.LIB;md5=55ca817ccb7d5b5b66355690e9abc605 \
++                    file://ext/ffmpeg/gstffmpeg.h;beginline=1;endline=18;md5=ff65467b0c53cdfa98d0684c1bc240a9 \
++                    file://gst-libs/ext/ffmpeg/LICENSE;md5=524b5ee4bdbbf755ebbb76727ba80b0d \
++                    file://gst-libs/ext/ffmpeg/COPYING.GPLv2;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
++                    file://gst-libs/ext/ffmpeg/COPYING.GPLv3;md5=d32239bcb673463ab874e80d47fae504 \
++                    file://gst-libs/ext/ffmpeg/COPYING.LGPLv2.1;md5=e344c8fa836c3a41c4cbd79d7bd3a379 \
++                    file://gst-libs/ext/ffmpeg/COPYING.LGPLv3;md5=e6a600fd5e1d9cbde2d983680233ad02"
++HOMEPAGE = "http://www.gstreamer.net/"
++DEPENDS = "gstreamer gst-plugins-base zlib"
 +
-+EXTRA_OECONF = "--disable-introspection"
++inherit autotools pkgconfig
++
++SRC_URI = "http://gstreamer.freedesktop.org/src/${PN}/${PN}-${PV}.tar.bz2 \
++           file://lower-rank.diff \
++"
 +
 +PR = "r0"
 +
-+SRC_URI[md5sum] = "8605138eac1e7fb8ec8cf502a928ea81"
-+SRC_URI[sha256sum] = "6e4de2ecc90d2ac8b3694af1954984d04de25fb01dd2f2748d7221add8ead9e0" 
++EXTRA_OECONF = " --with-ffmpeg-extra-configure=\"--target-os=linux\" "
 +
++FILES_${PN} += "${libdir}/gstreamer-0.10/*.so"
++FILES_${PN}-dbg += "${libdir}/gstreamer-0.10/.debug"
++FILES_${PN}-dev += "${libdir}/gstreamer-0.10/*.la ${libdir}/gstreamer-0.10/*.a"
 +
++# We do this because the install program is called with -s which causes it to
++# call "strip" and it then mangles cross compiled stuff..
++PATH_prepend := "${TOOLCHAIN_PATH}/${TARGET_SYS}/bin:"
++
++# Hack to get STAGING_LIBDIR into the linker path when building ffmpeg
++CC = "${CCACHE} ${HOST_PREFIX}gcc ${TARGET_CC_ARCH} -L${STAGING_LIBDIR}"
++
++SRC_URI[md5sum] = "0d23197ba7ac06ea34fa66d38469ebe5"
++SRC_URI[sha256sum] = "ff36a138e5af4ed8dcc459d6d6521fe66ed31ec29ba9a924dc3675c6749a692e"
 -- 
 1.6.3.3
 
