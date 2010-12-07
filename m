@@ -1,20 +1,20 @@
 Return-Path: <tom.zanussi@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 3678C4C81069
-	for <poky@yoctoproject.org>; Tue,  7 Dec 2010 01:07:48 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 06 Dec 2010 23:07:47 -0800
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 508824C81069
+	for <poky@yoctoproject.org>; Tue,  7 Dec 2010 01:07:51 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 06 Dec 2010 23:07:51 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,310,1288594800"; d="scan'208";a="865304957"
+X-IronPort-AV: E=Sophos;i="4.59,310,1288594800"; d="scan'208";a="581259232"
 Received: from unknown (HELO [10.255.13.237]) ([10.255.13.237])
-	by fmsmga001.fm.intel.com with ESMTP; 06 Dec 2010 23:07:47 -0800
+	by orsmga002.jf.intel.com with ESMTP; 06 Dec 2010 23:07:50 -0800
 From: Tom Zanussi <tom.zanussi@intel.com>
 To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Date: Tue, 07 Dec 2010 01:08:06 -0600
-Message-ID: <1291705686.2848.64.camel@elmorro>
+Date: Tue, 07 Dec 2010 01:08:09 -0600
+Message-ID: <1291705689.2848.65.camel@elmorro>
 Mime-Version: 1.0
 X-Mailer: Evolution 2.28.3 
-Subject: [PATCH 2/3] crownbay: add drm emgd feature
+Subject: [PATCH 3/3] crownbay: add EG20T config
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,46 +26,71 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 07 Dec 2010 07:07:48 -0000
+X-List-Received-Date: Tue, 07 Dec 2010 07:07:51 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-Config options to enable the emgd 1.5 'Gold' driver.
+Hardware config options for the Platform Controller Hub EG20T.
 
 Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
 ---
- wrs/cfg/kernel-cache/bsp/crownbay/crownbay.scc     |    1 +
- .../kernel-cache/features/drm-emgd/drm-emgd.cfg    |    3 +++
- .../kernel-cache/features/drm-emgd/drm-emgd.scc    |    1 +
- 3 files changed, 5 insertions(+), 0 deletions(-)
- create mode 100644 wrs/cfg/kernel-cache/features/drm-emgd/drm-emgd.cfg
- create mode 100644 wrs/cfg/kernel-cache/features/drm-emgd/drm-emgd.scc
+ wrs/cfg/kernel-cache/bsp/crownbay/crownbay.scc |    1 +
+ wrs/cfg/kernel-cache/bsp/crownbay/eg20t.cfg    |   36 ++++++++++++++++++++++++
+ 2 files changed, 37 insertions(+), 0 deletions(-)
+ create mode 100644 wrs/cfg/kernel-cache/bsp/crownbay/eg20t.cfg
 
 diff --git a/wrs/cfg/kernel-cache/bsp/crownbay/crownbay.scc b/wrs/cfg/kernel-cache/bsp/crownbay/crownbay.scc
-index 5f4c7fa..c37fcf1 100644
+index c37fcf1..89a0725 100644
 --- a/wrs/cfg/kernel-cache/bsp/crownbay/crownbay.scc
 +++ b/wrs/cfg/kernel-cache/bsp/crownbay/crownbay.scc
-@@ -4,3 +4,4 @@ include features/latencytop/latencytop.scc
+@@ -1,4 +1,5 @@
+ kconf hardware crownbay.cfg
++kconf hardware eg20t.cfg
+ 
+ include features/latencytop/latencytop.scc
  include features/profiling/profiling.scc
- include features/serial/8250.scc
- include features/logbuf/size-normal.scc
-+include features/drm-emgd/drm-emgd.scc
-diff --git a/wrs/cfg/kernel-cache/features/drm-emgd/drm-emgd.cfg b/wrs/cfg/kernel-cache/features/drm-emgd/drm-emgd.cfg
+diff --git a/wrs/cfg/kernel-cache/bsp/crownbay/eg20t.cfg b/wrs/cfg/kernel-cache/bsp/crownbay/eg20t.cfg
 new file mode 100644
-index 0000000..cb9558d
+index 0000000..0e05f70
 --- /dev/null
-+++ b/wrs/cfg/kernel-cache/features/drm-emgd/drm-emgd.cfg
-@@ -0,0 +1,3 @@
-+CONFIG_DRM=y
-+CONFIG_DRM_EGD=m
-+CONFIG_DRM_KMS_HELPER=m
-diff --git a/wrs/cfg/kernel-cache/features/drm-emgd/drm-emgd.scc b/wrs/cfg/kernel-cache/features/drm-emgd/drm-emgd.scc
-new file mode 100644
-index 0000000..672ee2e
---- /dev/null
-+++ b/wrs/cfg/kernel-cache/features/drm-emgd/drm-emgd.scc
-@@ -0,0 +1 @@
-+kconf hardware drm-emgd.cfg
++++ b/wrs/cfg/kernel-cache/bsp/crownbay/eg20t.cfg
+@@ -0,0 +1,36 @@
++# Hardware support for the Platform Controller Hub EG20T
++
++CONFIG_DMADEVICES=y
++CONFIG_DMA_ENGINE=y
++CONFIG_PCH_UART_DMA=y
++CONFIG_SERIAL_8250_PCI=y
++CONFIG_SERIAL_8250_PCH=y
++CONFIG_SERIAL_8250_PCH_DMA=y
++
++CONFIG_SPI=y
++CONFIG_PCH_SPI=y
++CONFIG_PCH_SPI_PLATFORM_DEVICE=y
++CONFIG_PCH_SPI_PLATFORM_DEVICE_COUNT=1
++
++CONFIG_PCH_PHUB=y
++
++CONFIG_NETDEVICES=y
++CONFIG_NETDEV_1000=y
++CONFIG_PCH_GBE=y
++
++CONFIG_USB_GADGET=y
++CONFIG_USB_GADGET_PCH=y
++CONFIG_USB_GADGET_DUALSPEED=y
++CONFIG_PCH_USBDEV=y
++CONFIG_USB_GADGET_SELECTED=y
++
++CONFIG_PCH_I2C=y
++
++CONFIG_GPIOLIB=y
++CONFIG_PCH_GPIO=y
++
++CONFIG_PCH_IEEE1588=y
++
++CONFIG_CAN=y
++CONFIG_CAN_DEV=y
++CONFIG_PCH_CAN=y
 -- 
 1.7.0.4
 
