@@ -1,29 +1,39 @@
-Return-Path: <scott.a.garman@intel.com>
-Received: from masterfoo.zenlinux.com (li38-254.members.linode.com
-	[207.192.74.254])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B78804C811F4
-	for <poky@yoctoproject.org>; Tue,  7 Dec 2010 23:25:53 -0600 (CST)
-Received: from localhost (c-76-105-143-140.hsd1.or.comcast.net
-	[76.105.143.140])
-	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
-	(No client certificate requested)
-	by masterfoo.zenlinux.com (Postfix) with ESMTP id 33741304F9
-	for <poky@yoctoproject.org>; Wed,  8 Dec 2010 00:25:49 -0500 (EST)
-Message-Id: <d101f08a4edaa96f5dff038447f9fc8bf021aa9b.1291785237.git.scott.a.garman@intel.com>
-In-Reply-To: <cover.1291785237.git.scott.a.garman@intel.com>
-References: <cover.1291785237.git.scott.a.garman@intel.com>
-From: Scott Garman <scott.a.garman@intel.com>
-Date: Tue, 7 Dec 2010 20:59:06 -0800
-To: poky@yoctoproject.org
-CC: 
-X-MasterFoo-MailScanner-Information: Please contact the ISP for more
-	information
-X-MailScanner-ID: 33741304F9.50510
-X-MasterFoo-MailScanner: Found to be clean
-X-MasterFoo-MailScanner-SpamCheck: not spam
-X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
-X-Spam-Status: No
-Subject: [PATCH 1/1] Make poky-qemu and related scripts work with arbitrary SDK locations
+Return-Path: <dongxiao.xu@intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5E2404C811E5
+	for <poky@yoctoproject.org>; Wed,  8 Dec 2010 00:20:01 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 07 Dec 2010 22:20:00 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.59,315,1288594800"; d="scan'208";a="358633404"
+Received: from pgsmsx601.gar.corp.intel.com ([10.221.43.69])
+	by azsmga001.ch.intel.com with ESMTP; 07 Dec 2010 22:20:00 -0800
+Received: from pgsmsx509.gar.corp.intel.com (172.30.13.17) by
+	pgsmsx601.gar.corp.intel.com (10.221.43.69) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Wed, 8 Dec 2010 14:19:14 +0800
+Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
+	PGSMSX509.gar.corp.intel.com (172.30.13.17) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Wed, 8 Dec 2010 14:19:14 +0800
+Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
+	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi; Wed, 8 Dec 2010
+	14:19:13 +0800
+From: "Xu, Dongxiao" <dongxiao.xu@intel.com>
+To: "Tian, Kevin" <kevin.tian@intel.com>, "Wold, Saul" <saul.wold@intel.com>
+Date: Wed, 8 Dec 2010 14:19:12 +0800
+Thread-Topic: [poky] [PATCH 0/3][RFC] Poky disk space size optimization
+Thread-Index: AcuVuR/XbN3/DUrWTt+W9yFQRRBP8wARRIngACXVRNA=
+Message-ID: <D5AB6E638E5A3E4B8F4406B113A5A19A314F2A1A@shsmsx501.ccr.corp.intel.com>
+References: <cover.1291683028.git.dongxiao.xu@intel.com>
+	<4CFDA034.9050703@intel.com>
+	<625BA99ED14B2D499DC4E29D8138F1504D4776DBE9@shsmsx502.ccr.corp.intel.com>
+In-Reply-To: <625BA99ED14B2D499DC4E29D8138F1504D4776DBE9@shsmsx502.ccr.corp.intel.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
+MIME-Version: 1.0
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH 0/3][RFC] Poky disk space size optimization
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,204 +45,145 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 08 Dec 2010 05:25:53 -0000
+X-List-Received-Date: Wed, 08 Dec 2010 06:20:01 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-* No longer assume SDK toolchains are installed in /opt/poky
-* [BUGFIX #568] where specifying paths to both the kernel and fs
-  image caused an error due to POKY_NATIVE_SYSROOT never being
-  set, triggering failure of poky-qemu-ifup/ifdown
-* Cosmetic improvements to usage() functions by using basename
+Thanks for your review.
+Some comments from me, see inline.
 
-Signed-off-by: Scott Garman <scott.a.garman@intel.com>
----
- scripts/poky-find-native-sysroot |    2 +-
- scripts/poky-qemu                |   38 ++++++++++++++++++++++----------------
- scripts/poky-qemu-ifdown         |    9 +--------
- scripts/poky-qemu-ifup           |    9 +--------
- scripts/poky-qemu-internal       |   16 +---------------
- 5 files changed, 26 insertions(+), 48 deletions(-)
+Tian, Kevin wrote:
+>> From: Saul Wold
+>> Sent: Tuesday, December 07, 2010 10:47 AM
+>>=20
+>> On 12/06/2010 04:50 PM, Dongxiao Xu wrote:
+>>> This RFC aims to reduce the poky disk space size.
+>>>=20
+>>> The optimization point is the duplicated file copies in WORKDIR and
+>>> sysroot directories. When installing, files will be copied from
+>>> source code package into the image folder; Then some files will be
+>>> copied from image folder to sysroot-destdir, and some other files
+>>> will be copied from image folder to package folder. While doing
+>>> package split, some files will be copied from package folder to
+>>> packages-split folder, etc.=20
+>>>=20
+>> There are a couple of concerns with this method, which may lead to
+>> problems, first is that using links and modifying permissions, it's
+>> possible that depending on the usage the permissions might be set
+>> differently.  This will could lead to a second problem: psuedo. It's
+>> unclear at this point how psuedo will handle this.
 
-diff --git a/scripts/poky-find-native-sysroot b/scripts/poky-find-native-sysroot
-index d8002f9..2262294 100755
---- a/scripts/poky-find-native-sysroot
-+++ b/scripts/poky-find-native-sysroot
-@@ -1,7 +1,7 @@
- #!/bin/bash
- #
- # Find a native sysroot to use - either from an in-tree Poky build or
--# from a toolchain installation in /opt/poky. It then ensures the variable
-+# from a toolchain installation. It then ensures the variable
- # $POKY_NATIVE_SYSROOT is set to the sysroot's base directory, and sets 
- # $PSEUDO to the path of the pseudo binary.
- #
-diff --git a/scripts/poky-qemu b/scripts/poky-qemu
-index bc312e0..67af439 100755
---- a/scripts/poky-qemu
-+++ b/scripts/poky-qemu
-@@ -31,9 +31,9 @@ usage() {
-     echo "    serial - enables a serial console on /dev/ttyS0"
-     echo ""
-     echo "Examples:"
--    echo "  $0 qemuarm"
--    echo "  $0 qemux86-64 poky-image-sato ext3"
--    echo "  $0 path/to/bzImage-qemux86.bin path/to/nfsrootdir/ serial"
-+    echo "  $MYNAME qemuarm"
-+    echo "  $MYNAME qemux86-64 poky-image-sato ext3"
-+    echo "  $MYNAME path/to/bzImage-qemux86.bin path/to/nfsrootdir/ serial"
-     exit 1
- }
- 
-@@ -213,23 +213,29 @@ setup_tmpdir() {
-                 echo "before running this script" >&2;
-                 exit 1; }
- 
--            # We have bitbake in PATH, get TMPDIR and BUILD_SYS
--            # from the environment
-+            # We have bitbake in PATH, get TMPDIR from bitbake
-             TMPDIR=`bitbake -e | grep TMPDIR=\" | cut -d '=' -f2 | cut -d '"' -f2`
--            BUILD_SYS=`bitbake -e | grep BUILD_SYS=\" | cut -d '=' -f2 | cut -d '"' -f2`
-         else
--            BUILD_ARCH=`uname -m`
--            BUILD_OS=`uname | tr '[A-Z]' '[a-z]'`
--            BUILD_SYS="$BUILD_ARCH-$BUILD_OS"
-             TMPDIR=$BUILDDIR/tmp
-         fi
--        if [ -z "$POKY_NATIVE_SYSROOT" ]; then
--            POKY_NATIVE_SYSROOT=$TMPDIR/sysroots/$BUILD_SYS
--        fi
--        CROSSPATH=$POKY_NATIVE_SYSROOT/usr/bin
-     fi
- }
- 
-+setup_sysroot() {
-+	# Toolchain installs set up $POKY_NATIVE_SYSROOT in their
-+	# environment script. If that variable isn't set, we're
-+	# either in an in-tree poky scenario or the environment
-+	# script wasn't source'd.
-+	if [ -z "$POKY_NATIVE_SYSROOT" ]; then
-+		setup_tmpdir
-+		BUILD_ARCH=`uname -m`
-+		BUILD_OS=`uname | tr '[A-Z]' '[a-z]'`
-+		BUILD_SYS="$BUILD_ARCH-$BUILD_OS"
-+
-+		POKY_NATIVE_SYSROOT=$TMPDIR/sysroots/$BUILD_SYS
-+	fi 
-+}
-+
- # Locate a rootfs image based on defaults defined above
- findimage() {
-     where=$1
-@@ -254,8 +260,6 @@ findimage() {
- }
- 
- if [[ -e "$ROOTFS" && -z "$FSTYPE" ]]; then
--    setup_tmpdir
--
-     # Extract the filename extension
-     EXT=`echo $ROOTFS | awk -F . '{ print \$NF }'`
-     if [[ "x$EXT" == "xext2" || "x$EXT" == "xext3" || 
-@@ -281,7 +285,6 @@ fi
- # KERNEL is now set for all cases
- 
- if [ -z "$FSTYPE" ]; then
--    setup_tmpdir
-     eval FSTYPE=\$${machine2}_DEFAULT_FSTYPE
- 
-     if [ -z "$FSTYPE" ]; then
-@@ -318,6 +321,9 @@ echo "KERNEL: [$KERNEL]"
- echo "ROOTFS: [$ROOTFS]"
- echo "FSTYPE: [$FSTYPE]"
- 
-+setup_sysroot
-+# POKY_NATIVE_SYSROOT is now set for all cases
-+
- # We can't run without a libGL.so
- libgl='no'
- 
-diff --git a/scripts/poky-qemu-ifdown b/scripts/poky-qemu-ifdown
-index 60ca919..bc90a9c 100755
---- a/scripts/poky-qemu-ifdown
-+++ b/scripts/poky-qemu-ifdown
-@@ -27,7 +27,7 @@
- # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
- 
- usage() {
--	echo "sudo $0 <tap-dev> <native-sysroot-basedir>"
-+	echo "sudo $(basename $0) <tap-dev> <native-sysroot-basedir>"
- }
- 
- if [ $EUID -ne 0 ]; then
-@@ -46,13 +46,6 @@ NATIVE_SYSROOT_DIR=$2
- TUNCTL=$NATIVE_SYSROOT_DIR/usr/bin/tunctl
- if [ ! -e "$TUNCTL" ]; then
- 	echo "Error: Unable to find tunctl binary in '$NATIVE_SYSROOT_DIR/usr/bin'"
--
--	if [[ "$NATIVE_SYSROOT_DIR" =~ ^\/opt\/poky ]]; then
--		echo "This shouldn't happen - something is wrong with your toolchain installation"
--	else
--		echo "Have you run 'bitbake meta-ide-support'?"
--	fi
--
- 	exit 1
- fi
- 
-diff --git a/scripts/poky-qemu-ifup b/scripts/poky-qemu-ifup
-index 8685c83..f82848c 100755
---- a/scripts/poky-qemu-ifup
-+++ b/scripts/poky-qemu-ifup
-@@ -34,7 +34,7 @@
- # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
- 
- usage() {
--	echo "sudo $0 <gid> <native-sysroot-basedir>"
-+	echo "sudo $(basename $0) <gid> <native-sysroot-basedir>"
- }
- 
- if [ $EUID -ne 0 ]; then
-@@ -53,13 +53,6 @@ NATIVE_SYSROOT_DIR=$2
- TUNCTL=$NATIVE_SYSROOT_DIR/usr/bin/tunctl
- if [ ! -x "$TUNCTL" ]; then
- 	echo "Error: Unable to find tunctl binary in '$NATIVE_SYSROOT_DIR/usr/bin'"
--
--	if [[ "$NATIVE_SYSROOT_DIR" =~ ^\/opt\/poky ]]; then
--		echo "This shouldn't happen - something is wrong with your toolchain installation"
--	else
--		echo "Have you run 'bitbake meta-ide-support'?"
--	fi
--	
- 	exit 1
- fi
- 
-diff --git a/scripts/poky-qemu-internal b/scripts/poky-qemu-internal
-index 62c1040..ca2511a 100755
---- a/scripts/poky-qemu-internal
-+++ b/scripts/poky-qemu-internal
-@@ -394,23 +394,9 @@ if [ "x$QEMUOPTIONS" = "x" ]; then
-     return
- fi
- 
--SDKDIR="/opt/poky/sysroots"
--if [ "$MACHINE" = "qemuarm" -o "$MACHINE" = "spitz" -o "$MACHINE" = "borzoi" -o "$MACHINE" = "akita" -o "$MACHINE" = "nokia800" ]; then
--    SDKPATH="$SDKDIR/arm-poky-linux-gnueabi/bin"
--fi
--
--if [ "$MACHINE" = "qemux86" ]; then
--    SDKPATH="$SDKDIR/i586-poky-linux/bin"
--fi
--
--if [ "$MACHINE" = "qemux86-64" ]; then
--    SDKPATH="$SDKDIR/x86_64-poky-linux/bin"
--fi
--
--PATH=$CROSSPATH:$SDKPATH:$PATH
-+PATH=$CROSSPATH:$POKY_NATIVE_SYSROOT/usr/bin:$PATH
- 
- QEMUBIN=`which $QEMU`
--
- if [ ! -x "$QEMUBIN" ]; then
-     echo "Error: No QEMU binary '$QEMU' could be found."
-     cleanup
--- 
-1.7.1
+For normal files, the file name is a hard link to the disk storage. Therefo=
+re if we use hard link instead of copy, what we present to pseudo doesn't c=
+hange.
+
+For file permissions, could you give some example on permission change?
+Per my understanding, file permissions are determined while do_install, whi=
+ch is beyond the following process. (package.bbclass will also do some file=
+ permission operations, but it is done before the hard link.)
+
+hard link "image-->sysroot-destdir"
+hard link "package-->packages-split"
+hard link "sysroot-destdir-->sysroots".
+
+After these hardlink is done, I am not aware there is file permission chang=
+e. (Postinst is an exception, which is run in target system and not related=
+ with our build process).
+
+>>=20
+>> I am sure you have been doing testing, just not sure of corner cases.
+>>=20
+>> I know we accepted the first change for the package split link to the
+>> deploy area, that one made sense as it was package level, this is
+>> file level and may have hidden problems.
+
+Actually this is also file level link. But it doesn't matter since package-=
+->packages-split doesn't change any file.
+
+>=20
+> I also agree with Saul here. There do have some difference among
+> those directories for their own purpose, which finally result in some
+> difference. For example, there're different tweaks on libtool and
+> pkgconfig files between sysroot and packaging. That's why 'image' is
+> copied to package and then sysroot-destdir, and then do necessary
+> tweaks independently. Here if you want to hard link image to
+> sysroot-destdir, you need make sure it done after the copy from image
+> to package. Or else you'll end up to have problem there.      =20
+
+For those ".la" files,
+In "image-->sysroot-destdir" process, dependency_libs will be modified in i=
+mage folder before hard link.
+In "package-->packages-split", dependency_libs are the same and it is modif=
+ied after "image-->package" copies is done.
+
+No matter which runs first, they will modify dependency_libs for their own =
+copy, since files within "sysroot-destdir" and "package" are NOT hardlink. =
+They maintain separate copies.
+
+I think there should be no problem.
+
+Anyway we hope Richard could give us a comment in case we missed something.
+
+Thanks,
+Dongxiao
+
+>=20
+> But if you can make sure that given a copy path you're modifying, the
+> source and the destination are exactly same, and no other path refers
+> to the source directory, perhaps it's fine to do hard link. =20
+>=20
+> Thanks
+> Kevin
+>=20
+>>=20
+>> I am sure that Richard will correct me and add his comments as he
+>> recovers from his travels.=20
+>>=20
+>> Sau!
+>>=20
+>>> The thought is to use hard link to replace the direct copy.
+>>> The three commits do the work of:
+>>>=20
+>>> a) package.bbclass: hard link "image-->sysroot-destdir"
+>>> b) sstate.bbclass:  hard link "package-->packages-split"
+>>> c) staging.bbclass: hard link "sysroot-destdir-->sysroots".
+>>>=20
+>>> After testing with minimal/sato/sdk build, this approach could save
+>>> about 20% disk space. (minimal: 23G ->  19G, sato: 44G ->  35G,
+>>> sdk: 54G ->  44G).=20
+>>>=20
+>>> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>>>    Branch: dxu4/perf
+>>>    Browse:
+>>> http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=3Ddxu4/perf
+>>>=20
+>>> Thanks,
+>>>      Dongxiao Xu<dongxiao.xu@intel.com>
+>>> ---
+>>>=20
+>>>=20
+>>> Dongxiao Xu (3):
+>>>    package.bbclass: Use hard link for package split instead of copy
+>>>    sstate.bbclass: Use hard link when staging files into sysroots
+>>>    staging.bbclass: use hardlink when staging files to
+>>> sysroot-destdir=20
+>>>=20
+>>>   meta/classes/package.bbclass |    8 +++++---
+>>>   meta/classes/sstate.bbclass  |    2 +-
+>>>   meta/classes/staging.bbclass |   27 ++++++++++++++++++++++++++-
+>>>   meta/lib/oe/path.py          |   28 ++++++++++++++++++++++++++++
+>>>   4 files changed, 60 insertions(+), 5 deletions(-)
+>>>=20
+>>> _______________________________________________
+>>> poky mailing list
+>>> poky@yoctoproject.org
+>>> https://lists.yoctoproject.org/listinfo/poky
+>>>=20
+>>=20
+>> _______________________________________________
+>> poky mailing list
+>> poky@yoctoproject.org
+>> https://lists.yoctoproject.org/listinfo/poky
 
 
