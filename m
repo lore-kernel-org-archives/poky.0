@@ -1,21 +1,28 @@
-Return-Path: <edwin.zhai@intel.com>
+Return-Path: <saul.wold@intel.com>
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E878B4C811E7
-	for <poky@yoctoproject.org>; Tue,  7 Dec 2010 19:12:52 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id B38DB4C811F8
+	for <poky@yoctoproject.org>; Tue,  7 Dec 2010 19:16:38 -0600 (CST)
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 07 Dec 2010 17:12:52 -0800
+	by fmsmga102.fm.intel.com with ESMTP; 07 Dec 2010 17:16:38 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,313,1288594800"; d="scan'208";a="634165037"
-Received: from gw-vmm.sh.intel.com (HELO localhost) ([10.239.48.110])
-	by fmsmga002.fm.intel.com with ESMTP; 07 Dec 2010 17:12:52 -0800
-Message-Id: <d2b8534f05c77f9081c3df3e55adf95731c2296a.1291769648.git.edwin.zhai@intel.com>
-In-Reply-To: <cover.1291769648.git.edwin.zhai@intel.com>
-References: <cover.1291769648.git.edwin.zhai@intel.com>
-From: Zhai Edwin <edwin.zhai@intel.com>
-Date: Thu, 2 Dec 2010 15:11:53 +0800
-To: poky@yoctoproject.org
-CC: 
-Subject: [PATCH 1/1] qemu: Enable KVM support on x86/x86-64 host
+X-IronPort-AV: E=Sophos;i="4.59,313,1288594800"; d="scan'208";a="634165900"
+Received: from unknown (HELO [10.255.13.6]) ([10.255.13.6])
+	by fmsmga002.fm.intel.com with ESMTP; 07 Dec 2010 17:16:38 -0800
+Message-ID: <4CFEDC75.6060207@intel.com>
+Date: Tue, 07 Dec 2010 17:16:37 -0800
+From: Saul Wold <saul.wold@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
+MIME-Version: 1.0
+To: "Stewart, David C" <david.c.stewart@intel.com>
+References: <4CFD94DD.7010906@intel.com>
+	<4CFE7269.4000507@intel.com>	<1291747386.9405.3.camel@scimitar>
+	<4CFE82DC.5020608@intel.com>	<74857834-4B10-4FD1-89C3-D5671140B69D@windriver.com>
+	<B27EBC40D200ED48A3F4CC2EBEABAE0B25BBC511D0@orsmsx501.amr.corp.intel.com>
+In-Reply-To: <B27EBC40D200ED48A3F4CC2EBEABAE0B25BBC511D0@orsmsx501.amr.corp.intel.com>
+Cc: "<poky@yoctoproject.org>" <poky@yoctoproject.org>
+Subject: Re: Master Stability
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,68 +34,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 08 Dec 2010 01:12:53 -0000
+X-List-Received-Date: Wed, 08 Dec 2010 01:16:38 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-User need build kvm module for native kernel and install them by "modprobe
-kvm_intel". Then add "kvm" option to poky-qemu to enable it.
+On 12/07/2010 05:06 PM, Stewart, David C wrote:
+>> From: poky-bounces@yoctoproject.org [mailto:poky-
+>> bounces@yoctoproject.org] On Behalf Of deVries, Alex
+>> Sent: Tuesday, December 07, 2010 1:27 PM
+>>
+>> Does Intel have a plan to expand the amount of hardware used for
+>> automated builds? It would give us a lot more build coverage and help
+>> with overall build quality.
+>
+> New server has arrived, waiting to be integrated into the hosted data center.
+>
+> I'm trying to get a bead on whether we need more, and can try to budget this for next quarter if the new one isn't enough.
+>
+We will need new hardware next qtr, maybe even soon, as we start to 
+enable more targets and add support for swabber on a semi-regular basis 
+our cycles are going to be greatly diminished.
 
-Signed-off-by: Zhai Edwin <edwin.zhai@intel.com>
----
- meta/recipes-devtools/qemu/qemu.inc |    2 +-
- scripts/poky-qemu                   |   12 ++++++++++++
- 2 files changed, 13 insertions(+), 1 deletions(-)
+We should really look into getting a large multi-core machine to help.
 
-diff --git a/meta/recipes-devtools/qemu/qemu.inc b/meta/recipes-devtools/qemu/qemu.inc
-index 12ce82f..33c2c71 100644
---- a/meta/recipes-devtools/qemu/qemu.inc
-+++ b/meta/recipes-devtools/qemu/qemu.inc
-@@ -3,7 +3,7 @@ HOMEPAGE = "http://qemu.org"
- LICENSE = "GPLv2 & LGPLv2.1"
- DEPENDS = "zlib"
- 
--EXTRA_OECONF = "--target-list=arm-linux-user,arm-softmmu,i386-linux-user,i386-softmmu,x86_64-linux-user,x86_64-softmmu,mips-linux-user,mips-softmmu,ppc-linux-user,ppc-softmmu,mipsel-linux-user --disable-werror --disable-vnc-tls"
-+EXTRA_OECONF = "--target-list=arm-linux-user,arm-softmmu,i386-linux-user,i386-softmmu,x86_64-linux-user,x86_64-softmmu,mips-linux-user,mips-softmmu,ppc-linux-user,ppc-softmmu,mipsel-linux-user --disable-werror --disable-vnc-tls --enable-kvm"
- #EXTRA_OECONF += "--disable-sdl"
- 
- inherit autotools
-diff --git a/scripts/poky-qemu b/scripts/poky-qemu
-index bc312e0..05deb81 100755
---- a/scripts/poky-qemu
-+++ b/scripts/poky-qemu
-@@ -84,6 +84,7 @@ process_filename() {
- 
- # Parse command line args without requiring specific ordering. It's a
- # bit more complex, but offers a great user experience.
-+KVM_ENABLED="no"
- i=1
- while [ $i -le $# ]; do
-     arg=${!i}
-@@ -124,6 +125,10 @@ while [ $i -le $# ]; do
-             SCRIPT_QEMU_OPT="$SCRIPT_QEMU_OPT -serial stdio"
-             SCRIPT_KERNEL_OPT="$SCRIPT_KERNEL_OPT console=ttyS0"
-             ;;
-+        "kvm")
-+            KVM_ENABLED="yes"
-+            KVM_CAPABLE=`grep 'vmx\|smx' /proc/cpuinfo`
-+            ;;
-         *)
-             # A directory name is an nfs rootfs
-             if [ -d "$arg" ]; then
-@@ -152,6 +157,13 @@ while [ $i -le $# ]; do
-     i=$((i + 1))
- done
- 
-+# Detect KVM configuration
-+if [[ "x$KVM_ENABLED" == "xyes" && ! -z "$KVM_CAPABLE" ]]; then
-+    if [[ "x$MACHINE" == "xqemux86" || "x$MACHINE" == "xqemux86-64" ]]; then
-+        SCRIPT_QEMU_OPT="$SCRIPT_QEMU_OPT -enable-kvm"
-+    fi
-+fi
-+
- # Report errors for missing combinations of options
- if [[ -z "$MACHINE" && -z "$KERNEL" ]]; then
-     echo "Error: you must specify at least a MACHINE or KERNEL argument"
--- 
-1.7.0.4
+Sau!
+
+
+  _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
 
 
