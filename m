@@ -1,38 +1,26 @@
-Return-Path: <dongxiao.xu@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C70A94C80FFE
-	for <poky@yoctoproject.org>; Wed,  8 Dec 2010 07:02:43 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 08 Dec 2010 05:02:43 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,315,1288594800"; d="scan'208";a="634338635"
-Received: from pgsmsx603.gar.corp.intel.com ([10.221.43.87])
-	by fmsmga002.fm.intel.com with ESMTP; 08 Dec 2010 05:02:27 -0800
-Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
-	pgsmsx603.gar.corp.intel.com (10.221.43.87) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Wed, 8 Dec 2010 21:02:26 +0800
-Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
-	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi; Wed, 8 Dec 2010
-	21:02:25 +0800
-From: "Xu, Dongxiao" <dongxiao.xu@intel.com>
-To: "Tian, Kevin" <kevin.tian@intel.com>, Richard Purdie
-	<rpurdie@linux.intel.com>
-Date: Wed, 8 Dec 2010 21:02:23 +0800
-Thread-Topic: [poky] About the operator "??="
-Thread-Index: AcuWwvrDSdKYfTdKRRuU73KRtggVxQACGNOgAAKuB4AAAFP7IA==
-Message-ID: <D5AB6E638E5A3E4B8F4406B113A5A19A314F2BBB@shsmsx501.ccr.corp.intel.com>
-References: <D5AB6E638E5A3E4B8F4406B113A5A19A303B2EF0@shsmsx501.ccr.corp.intel.com>
-	<1291804222.1554.256.camel@rex>
-	<625BA99ED14B2D499DC4E29D8138F1504D515D0DC5@shsmsx502.ccr.corp.intel.com>
-	<625BA99ED14B2D499DC4E29D8138F1504D515D0DDB@shsmsx502.ccr.corp.intel.com>
-In-Reply-To: <625BA99ED14B2D499DC4E29D8138F1504D515D0DDB@shsmsx502.ccr.corp.intel.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 9435F4C810AE
+	for <poky@lists.pokylinux.org>; Wed,  8 Dec 2010 07:12:28 -0600 (CST)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 11634166020A; Wed,  8 Dec 2010 06:12:13 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.1
+Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 4B4921660209;
+	Wed,  8 Dec 2010 06:11:52 -0700 (MST)
+Message-ID: <4CFF8418.6060901@mlbassoc.com>
+Date: Wed, 08 Dec 2010 06:11:52 -0700
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.12) Gecko/20101103 Fedora/1.0-0.33.b2pre.fc13
+	Thunderbird/3.1.6
 MIME-Version: 1.0
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: About the operator "??="
+To: Poky <poky@lists.pokylinux.org>
+Subject: [PATCH] Making using layers even friendlier
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,81 +32,94 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 08 Dec 2010 13:02:44 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Wed, 08 Dec 2010 13:12:28 -0000
+X-Groupsio-MsgNum: 1072
+Content-Type: multipart/mixed; boundary="------------050208010602020107040604"
 
-Tian, Kevin wrote:
->> From: Tian, Kevin
->> Sent: Wednesday, December 08, 2010 7:35 PM
->>=20
->>> From: Richard Purdie
->>> Sent: Wednesday, December 08, 2010 6:30 PM
->>>=20
->>> Hi Dongxiao,
->>>=20
->>> On Wed, 2010-12-01 at 09:57 +0800, Xu, Dongxiao wrote:
->>>> Recently when investigating the file parsing speed, I found the
->>>> implementation of "??=3D" is another hot spot. This operator will not
->>>> apply the default assignment until the end of the parse, which is
->>>> different from "?=3D". According to current poky, the users for "??=3D=
-"
->>>> is mostly the scm revisions stored in poky-default-revisions.inc.
->>>>=20
->>>> Currently the final assignment logic for "??=3D" is added in
->>>> finalize(), which costs about 20% parsing time.
->>>=20
->>> Can I take a look at the graph showing that? I'm a little surprised
->>> it takes 20% of the time, that is a rather scary amount!
->>>=20
->>=20
->> I don't have the graph, but did do a simple test by printing the lazy
->> value list in finalize(). There're 166 items in total. Regarding
->> finalize() may be invoked multiple times for same recipe and we have
->> over 700 recipes scanned in a fresh run, it may contribute obvious
->> overhead just like what Dongxiao previously optimized for distro
->> tracking fields.=20
->>=20
->> I think we could remove the lazy key from the list after grabbing it
->> as=20
->> the default value, and is now testing it...
->>=20
->=20
-> I have a simple patch:
->=20
-> diff --git a/bitbake/lib/bb/parse/ast.py
-> b/bitbake/lib/bb/parse/ast.py index 870ae65..4b98799 100644 ---
-> a/bitbake/lib/bb/parse/ast.py +++ b/bitbake/lib/bb/parse/ast.py
-> @@ -301,10 +301,13 @@ def handleInherit(statements, m):
->      statements.append(InheritNode(m.group(1)))
->=20
->  def finalize(fn, d, variant =3D None):
-> +    assigned =3D bb.data.getVar("__lazy_assigned", d) or ()
->      for lazykey in bb.data.getVar("__lazy_assigned", d) or ():
->          if bb.data.getVar(lazykey, d) is None:
->              val =3D bb.data.getVarFlag(lazykey, "defaultval", d)
->              bb.data.setVar(lazykey, val, d)
-> +            assigned.remove(lazykey)
-> +    bb.data.setVar("__lazy_assigned", assigned, d)
->=20
->      bb.data.expandKeys(d)
->      bb.data.update_data(d)
->=20
-> However it doesn't work as I expect. Every time the lazy list always
-> contains 166 items. It looks that each finalize() is invoked in
-> different database context, while I haven't found the global copy
-> yet. Or did I make some silly mistake here? :/  =20
+--------------050208010602020107040604
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Per my understanding, "d" is an object instance, each time when doing final=
-ize, "d" is a different instance.
-Therefore each round "d" will always have 166 items.
+I'm building poky for a number of unique platforms which I
+want to keep logically separate.  By using the new BBLAYERS
+support, this is working out quite well.
 
-Thanks,
-Dongxiao
+However, I find it cumbersome to start a new build for a given
+platform.  This is because conf/local.conf and conf/bblayers.conf
+need to be tailored for that platform.  In particular, the file
+conf/bblayers.conf needs to be modified to incorporate the
+meta layers used by the given platform.
 
->=20
-> Thanks
-> Kevin
+By incorporating the attached patch, this can now be done easily
+on the initial build tree setup.  Just run something like this:
+   % POKYCONF=meta-board1/conf . <POKYBASE>/poky-init-build-env my_build_tree
+As the build tree is set up, the files from <POKYBASE>/meta-board1/conf
+will be used to populate the <BUILD>/conf directory.  These can then
+be adjusted as necessary.  The patch allows for the provided config
+files to be either <POKYBASE> relative or absolute, allowing even
+more flexibility.
+
+Comments?
+
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
+
+--------------050208010602020107040604
+Content-Type: text/plain;
+ name="0001-Allow-the-environment-variable-POKYCONF-to-provide-t.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename*0="0001-Allow-the-environment-variable-POKYCONF-to-provide-t.pa";
+ filename*1="tch"
+
+From 2323932145370e2fea2a427c3c493d04b043981b Mon Sep 17 00:00:00 2001
+From: Gary Thomas <gary@mlbassoc.com>
+Date: Wed, 8 Dec 2010 05:59:09 -0700
+Subject: [PATCH] Allow the environment variable POKYCONF to provide the basis for the working "conf" directory.
+
+By using the POKYCONF variable, a meta layer can provide the basic setup for files to
+be used during a build.  This is similar to the default values stored in the main meta
+tree, .../meta/conf/local.conf.sample, etc
+
+Signed-off-by: Gary Thomas <gary@mlbassoc.com>
+---
+ scripts/poky-env-internal |   18 ++++++++++++++++++
+ 1 files changed, 18 insertions(+), 0 deletions(-)
+
+diff --git a/scripts/poky-env-internal b/scripts/poky-env-internal
+index 5b206ed..c8b39c9 100755
+--- a/scripts/poky-env-internal
++++ b/scripts/poky-env-internal
+@@ -58,6 +58,24 @@ if ! (test -d "$BITBAKEDIR" && test -d "$BUILDDIR"); then
+     return
+ fi
+ 
++# 
++# $POKYCONF can point to a directory for the template local.conf & bblayers.conf
++#
++if [ "x" != "x$POKYCONF" ]; then
++    if ! (test -d "$POKYCONF"); then
++	# Allow POKYCONF=meta-xyz/conf as a shortcut
++	if [ -d "$OEROOT/$POKYCONF" ]; then
++	    POKYCONF="$OEROOT/$POKYCONF"
++	fi
++	if ! (test -d "$POKYCONF"); then
++	    echo >&2 "Error: '$POKYCONF' must be a directory containing local.conf & bblayers.conf"
++	    return
++	fi
++    fi
++    POKYLAYERCONF="$POKYCONF/bblayers.conf"
++    POKYLOCALCONF="$POKYCONF/local.conf"
++fi
++
+ if [ "x" = "x$POKYLOCALCONF" ]; then
+     POKYLOCALCONF="$OEROOT/meta/conf/local.conf.sample"
+ fi
+-- 
+1.7.2.3
 
 
+--------------050208010602020107040604--
