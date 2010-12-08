@@ -1,26 +1,20 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id CA0EF4C8120E
-	for <poky@lists.pokylinux.org>; Wed,  8 Dec 2010 07:48:22 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 858CE16602DA; Wed,  8 Dec 2010 06:48:07 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.1
-Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
-	by mail.chez-thomas.org (Postfix) with ESMTP id EDF0716603CA;
-	Wed,  8 Dec 2010 06:47:28 -0700 (MST)
-Message-ID: <4CFF8C70.7010803@mlbassoc.com>
-Date: Wed, 08 Dec 2010 06:47:28 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.12) Gecko/20101103 Fedora/1.0-0.33.b2pre.fc13
-	Thunderbird/3.1.6
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 06FC54C8120E
+	for <poky@pokylinux.org>; Wed,  8 Dec 2010 08:02:36 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 08 Dec 2010 06:02:36 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.59,315,1288594800"; d="scan'208";a="634352033"
+Received: from unknown (HELO helios.localnet) ([10.255.16.53])
+	by fmsmga002.fm.intel.com with ESMTP; 08 Dec 2010 06:02:19 -0800
+To: "poky@pokylinux.org" <poky@pokylinux.org>
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
+Organization: Intel Corporation (UK)
+Date: Wed, 8 Dec 2010 14:02:15 +0000
 MIME-Version: 1.0
-To: Poky <poky@lists.pokylinux.org>
-Subject: README.hardware
+Message-Id: <201012081402.16308.paul.eggleton@linux.intel.com>
+Subject: Re: sstate status
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,20 +26,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 08 Dec 2010 13:48:23 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Wed, 08 Dec 2010 14:02:37 -0000
+Content-Type: Text/Plain;
+  charset="iso-8859-1"
 Content-Transfer-Encoding: 7bit
 
-This file seems quite out of date, in fact it's not been updated
-for 9 months :-(
+On Wednesday 08 December 2010 11:41:22 you wrote:
+> Do we still need those variable whitelisting changes? Based on original
+> branch you pushed (basically RP's branch rebased on master imo), I think it
+> basically works at least for a single recipe build though above weird issue
+> exists for image build.
+>
+> Of course we need keep some bitbake specific variables in whitelist, such as
+> DATE, TIME and several others you added in last commit.
 
-I don't know enough details to suggest a patch, but I think it
-would be useful to update it to reflect "today's Poky/Yocto" world,
-especially with the new visibility of the project.
+Aren't many of those variables still exposed via preserved_envvars_list()?
+ 
+> On the other hand, did you observe my issue on this new push? I want to
+> understand its root cause, which is really funny. 
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+I have to admit I didn't look closely enough to be sure - I was mainly testing between two different build machines which don't share the same native arch, so the native packages were rebuilt anyway. I'm starting a fresh build now with my new branch to see if I can reproduce your results.
+
+Cheers,
+Paul
 
