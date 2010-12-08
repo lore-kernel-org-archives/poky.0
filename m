@@ -1,20 +1,20 @@
 Return-Path: <nitin.a.kamble@intel.com>
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 65BA24C811ED
-	for <poky@yoctoproject.org>; Mon, 13 Dec 2010 10:46:46 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 25CE14C811F9
+	for <poky@yoctoproject.org>; Mon, 13 Dec 2010 10:46:50 -0600 (CST)
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 13 Dec 2010 08:46:46 -0800
+	by orsmga101.jf.intel.com with ESMTP; 13 Dec 2010 08:46:50 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,336,1288594800"; d="scan'208";a="686681037"
+X-IronPort-AV: E=Sophos;i="4.59,336,1288594800"; d="scan'208";a="686681067"
 Received: from mukti.sc.intel.com (HELO localhost) ([143.183.140.51])
-	by orsmga001.jf.intel.com with ESMTP; 13 Dec 2010 08:46:45 -0800
-Message-Id: <20d443bd4066961120d899851ad86d6e266ea214.1292258655.git.nitin.a.kamble@intel.com>
+	by orsmga001.jf.intel.com with ESMTP; 13 Dec 2010 08:46:49 -0800
+Message-Id: <5eb6651b77d3d86db55711441de62b33eb1e73d7.1292258655.git.nitin.a.kamble@intel.com>
 In-Reply-To: <cover.1292258655.git.nitin.a.kamble@intel.com>
 References: <cover.1292258655.git.nitin.a.kamble@intel.com>
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Date: Thu, 9 Dec 2010 10:16:51 -0800
+Date: Tue, 7 Dec 2010 16:35:50 -0800
 To: poky@yoctoproject.org
-Subject: [PATCH 4/6] gnu-config: upgrade recipe to the latest repo head
+Subject: [PATCH 6/6] distro_tracking: update status for upgraded recipes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,324 +26,93 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 13 Dec 2010 16:46:46 -0000
+X-List-Received-Date: Mon, 13 Dec 2010 16:46:50 -0000
 
-gnu-config recipe was using cvs repo for sources, and now the upstream
-has changed and is using git to export the repo. Using git repo for
-src_uri, was causing circular dependancy for bitbake. Hence using a
-tarball exported by the web git interface.
-
-Currently the http fetcher can not handle the web git url properly,
-hence temporarily relying on the autobuilder, with the hope that new
-bitbake fetchers would fix the issue. A bug has been opened for the
-fetcher issue: http://bugzilla.pokylinux.org/show_bug.cgi?id=573
-
-for example the git web url of the tarball is :
-http://git.savannah.gnu.org/gitweb/?p=config.git;a=snapshot;h=3155524d0410c37b6286465249264c7981ab8cba;sf=tgz
+distro_tracking: chaning owner of python-pygtk
+As the python-pygtk's version is tightly connected to the gtk+ recipe version.
+changing the recipe ower to Edwin who is the gtk+ recipe owner.
 
 Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
 ---
- .../gnu-config/config-guess-uclibc.patch           |  130 +++++++++-----------
- .../gnu-config/gnu-config_20080123.bb              |   38 ------
- meta/recipes-devtools/gnu-config/gnu-config_git.bb |   48 +++++++
- 3 files changed, 107 insertions(+), 109 deletions(-)
- delete mode 100644 meta/recipes-devtools/gnu-config/gnu-config_20080123.bb
- create mode 100644 meta/recipes-devtools/gnu-config/gnu-config_git.bb
+ .../conf/distro/include/distro_tracking_fields.inc |   21 +++++++++----------
+ 1 files changed, 10 insertions(+), 11 deletions(-)
 
-diff --git a/meta/recipes-devtools/gnu-config/gnu-config/config-guess-uclibc.patch b/meta/recipes-devtools/gnu-config/gnu-config/config-guess-uclibc.patch
-index f820cef..4f10adb 100644
---- a/meta/recipes-devtools/gnu-config/gnu-config/config-guess-uclibc.patch
-+++ b/meta/recipes-devtools/gnu-config/gnu-config/config-guess-uclibc.patch
-@@ -3,11 +3,11 @@ Patch courtesy gentoo-portage/sys-devel/gnuconfig/files/automake-1.8.5-config-gu
- updated to 20050516 by Marcin 'Hrw' Juszkiewicz (by hand)
- updated to 20080123 by Nitin A Kamble (by hand)
+diff --git a/meta/conf/distro/include/distro_tracking_fields.inc b/meta/conf/distro/include/distro_tracking_fields.inc
+index 7a88447..5ba28d1 100644
+--- a/meta/conf/distro/include/distro_tracking_fields.inc
++++ b/meta/conf/distro/include/distro_tracking_fields.inc
+@@ -79,7 +79,7 @@ RECIPE_STATUS_pn-moblin-proto = "red"
+ RECIPE_LATEST_VERIONS_pn-moblin-proto = "check"
+ RECIPE_MAINTAINER_pn-moblin-proto = "Dexuan Cui <dexuan.cui@intel.com>"
  
--Index: config/config.guess
-+Index: config-1a0cbc1/config.guess
- ===================================================================
----- config.orig/config.guess
--+++ config/config.guess
--@@ -139,6 +139,19 @@ UNAME_RELEASE=`(uname -r) 2>/dev/null` |
-+--- config-1a0cbc1.orig/config.guess
-++++ config-1a0cbc1/config.guess
-+@@ -140,6 +140,19 @@ UNAME_RELEASE=`(uname -r) 2>/dev/null` |
-  UNAME_SYSTEM=`(uname -s) 2>/dev/null`  || UNAME_SYSTEM=unknown
-  UNAME_VERSION=`(uname -v) 2>/dev/null` || UNAME_VERSION=unknown
-  
-@@ -27,7 +27,24 @@ Index: config/config.guess
-  # Note: order is significant - the case branches are not exclusive.
-  
-  case "${UNAME_MACHINE}:${UNAME_SYSTEM}:${UNAME_RELEASE}:${UNAME_VERSION}" in
--@@ -840,13 +853,13 @@ EOF
-+@@ -191,7 +204,7 @@ case "${UNAME_MACHINE}:${UNAME_SYSTEM}:$
-+ 	# suitable tag, in the style of linux-gnu.
-+ 	case "${UNAME_VERSION}" in
-+ 	    Debian*)
-+-		release='-gnu'
-++		release='-${LIBC}'
-+ 		;;
-+ 	    *)
-+ 		release=`echo ${UNAME_RELEASE}|sed -e 's/[-_].*/\./'`
-+@@ -870,29 +883,29 @@ EOF
-+         esac
-+ 	objdump --private-headers /bin/sh | grep -q ld.so.1
-+ 	if test "$?" = 0 ; then LIBC="libc1" ; else LIBC="" ; fi
-+-	echo ${UNAME_MACHINE}-unknown-linux-gnu${LIBC}
-++	echo ${UNAME_MACHINE}-unknown-linux-${LIBC}
-+ 	exit ;;
-+     arm*:Linux:*:*)
-+ 	eval $set_cc_for_build
-  	if echo __ARM_EABI__ | $CC_FOR_BUILD -E - 2>/dev/null \
-  	    | grep -q __ARM_EABI__
-  	then
-@@ -42,14 +59,22 @@ Index: config/config.guess
- +	echo ${UNAME_MACHINE}-unknown-linux-${LIBC}
-  	exit ;;
-      cris:Linux:*:*)
-- 	echo cris-axis-linux-gnu
--@@ -855,16 +868,16 @@ EOF
-- 	echo crisv32-axis-linux-gnu
-+-	echo cris-axis-linux-gnu
-++	echo cris-axis-linux-${LIBC}
-+ 	exit ;;
-+     crisv32:Linux:*:*)
-+-	echo crisv32-axis-linux-gnu
-++	echo crisv32-axis-linux-${LIBC}
-  	exit ;;
-      frv:Linux:*:*)
- -    	echo frv-unknown-linux-gnu
- +    	echo frv-unknown-linux-${LIBC}
-  	exit ;;
-+     i*86:Linux:*:*)
-+ 	LIBC=gnu
-+@@ -906,13 +919,13 @@ EOF
-+ 	echo "${UNAME_MACHINE}-pc-linux-${LIBC}"
-+ 	exit ;;
-      ia64:Linux:*:*)
- -	echo ${UNAME_MACHINE}-unknown-linux-gnu
- +	echo ${UNAME_MACHINE}-unknown-linux-${LIBC}
-@@ -62,21 +87,12 @@ Index: config/config.guess
- -	echo ${UNAME_MACHINE}-unknown-linux-gnu
- +	echo ${UNAME_MACHINE}-unknown-linux-${LIBC}
-  	exit ;;
--     mips:Linux:*:*)
-+     mips:Linux:*:* | mips64:Linux:*:*)
-  	eval $set_cc_for_build
--@@ -887,7 +900,7 @@ EOF
-- 		s: ::g
-- 		p
-- 	    }'`"
---	test x"${CPU}" != x && { echo "${CPU}-unknown-linux-gnu"; exit; }
--+	test x"${CPU}" != x && { echo "${CPU}-unknown-linux-${LIBC}"; exit; }
-- 	;;
--     mips64:Linux:*:*)
-- 	eval $set_cc_for_build
--@@ -910,16 +923,16 @@ EOF
-- 		s: ::g
-- 		p
-- 	    }'`"
-+@@ -931,54 +944,54 @@ EOF
-+ 	#endif
-+ EOF
-+ 	eval `$CC_FOR_BUILD -E $dummy.c 2>/dev/null | grep '^CPU'`
- -	test x"${CPU}" != x && { echo "${CPU}-unknown-linux-gnu"; exit; }
- +	test x"${CPU}" != x && { echo "${CPU}-unknown-linux-${LIBC}"; exit; }
-  	;;
-@@ -84,24 +100,13 @@ Index: config/config.guess
- -	echo or32-unknown-linux-gnu
- +	echo or32-unknown-linux-${LIBC}
-  	exit ;;
--     ppc:Linux:*:*)
---	echo powerpc-unknown-linux-gnu
--+	echo powerpc-unknown-linux-${LIBC}
-- 	exit ;;
--     ppc64:Linux:*:*)
---	echo powerpc64-unknown-linux-gnu
--+	echo powerpc64-unknown-linux-${LIBC}
-+     padre:Linux:*:*)
-+-	echo sparc-unknown-linux-gnu
-++	echo sparc-unknown-linux-${LIBC}
-  	exit ;;
--     alpha:Linux:*:*)
-- 	case `sed -n '/^cpu model/s/^.*: \(.*\)/\1/p' < /proc/cpuinfo` in
--@@ -932,40 +945,40 @@ EOF
-- 	  EV68*) UNAME_MACHINE=alphaev68 ;;
--         esac
-- 	objdump --private-headers /bin/sh | grep ld.so.1 >/dev/null
---	if test "$?" = 0 ; then LIBC="libc1" ; else LIBC="" ; fi
---	echo ${UNAME_MACHINE}-unknown-linux-gnu${LIBC}
--+	if test "$?" = 0 ; then LIBC="gnulibc1" ; fi
--+	echo ${UNAME_MACHINE}-unknown-linux-${LIBC}
-+     parisc64:Linux:*:* | hppa64:Linux:*:*)
-+-	echo hppa64-unknown-linux-gnu
-++	echo hppa64-unknown-linux-${LIBC}
-  	exit ;;
-      parisc:Linux:*:* | hppa:Linux:*:*)
-  	# Look for CPU level
-@@ -114,9 +119,13 @@ Index: config/config.guess
- +	  *)    echo hppa-unknown-linux-${LIBC} ;;
-  	esac
-  	exit ;;
--     parisc64:Linux:*:* | hppa64:Linux:*:*)
---	echo hppa64-unknown-linux-gnu
--+	echo hppa64-unknown-linux-${LIBC}
-+     ppc64:Linux:*:*)
-+-	echo powerpc64-unknown-linux-gnu
-++	echo powerpc64-unknown-linux-${LIBC}
-+ 	exit ;;
-+     ppc:Linux:*:*)
-+-	echo powerpc-unknown-linux-gnu
-++	echo powerpc-unknown-linux-${LIBC}
-  	exit ;;
-      s390:Linux:*:* | s390x:Linux:*:*)
-  	echo ${UNAME_MACHINE}-ibm-linux
-@@ -133,8 +142,13 @@ Index: config/config.guess
- -	echo ${UNAME_MACHINE}-unknown-linux-gnu
- +	echo ${UNAME_MACHINE}-unknown-linux-${LIBC}
-  	exit ;;
-+     tile*:Linux:*:*)
-+-	echo ${UNAME_MACHINE}-tilera-linux-gnu
-++	echo ${UNAME_MACHINE}-tilera-linux-${LIBC}
-+ 	exit ;;
-      vax:Linux:*:*)
-- 	echo ${UNAME_MACHINE}-dec-linux-gnu
-+-	echo ${UNAME_MACHINE}-dec-linux-gnu
-++	echo ${UNAME_MACHINE}-dec-linux-${LIBC}
-  	exit ;;
-      x86_64:Linux:*:*)
- -	echo x86_64-unknown-linux-gnu
-@@ -144,31 +158,5 @@ Index: config/config.guess
- -    	echo ${UNAME_MACHINE}-unknown-linux-gnu
- +    	echo ${UNAME_MACHINE}-unknown-linux-${LIBC}
-  	exit ;;
--     i*86:Linux:*:*)
-- 	# The BFD linker knows what the default object file format is, so
--@@ -980,20 +993,21 @@ EOF
-- 				    p'`
--         case "$ld_supported_targets" in
-- 	  elf32-i386)
---		TENTATIVE="${UNAME_MACHINE}-pc-linux-gnu"
--+		TENTATIVE="${UNAME_MACHINE}-pc-linux-${LIBC}"
-- 		;;
-- 	  a.out-i386-linux)
---		echo "${UNAME_MACHINE}-pc-linux-gnuaout"
--+		echo "${UNAME_MACHINE}-pc-linux-${LIBC}aout"
-- 		exit ;;
-- 	  coff-i386)
---		echo "${UNAME_MACHINE}-pc-linux-gnucoff"
--+		echo "${UNAME_MACHINE}-pc-linux-${LIBC}coff"
-- 		exit ;;
-- 	  "")
-- 		# Either a pre-BFD a.out linker (linux-gnuoldld) or
-- 		# one that does not give us useful --help.
---		echo "${UNAME_MACHINE}-pc-linux-gnuoldld"
--+		echo "${UNAME_MACHINE}-pc-linux-${LIBC}oldld"
-- 		exit ;;
-- 	esac
--+	if [ $LIBC != "gnu" -o $LIBC != "gnulibc1" ];then echo "$TENTATIVE" && exit; fi
-- 	# Determine whether the default compiler is a.out or elf
-- 	eval $set_cc_for_build
-- 	sed 's/^	//' << EOF >$dummy.c
-+     i*86:DYNIX/ptx:4*:*)
-+ 	# ptx 4.0 does uname -s correctly, with DYNIX/ptx in there.
-diff --git a/meta/recipes-devtools/gnu-config/gnu-config_20080123.bb b/meta/recipes-devtools/gnu-config/gnu-config_20080123.bb
-deleted file mode 100644
-index 5d7d646..0000000
---- a/meta/recipes-devtools/gnu-config/gnu-config_20080123.bb
-+++ /dev/null
-@@ -1,38 +0,0 @@
--DESCRIPTION = "gnu-configize"
--SECTION = "devel"
--LICENSE = "GPLv1+"
--LIC_FILES_CHKSUM = "file://config.guess;endline=39;md5=a089987af4a25cb0419d1c2fd6d495e3"
--DEPENDS = ""
--INHIBIT_DEFAULT_DEPS = "1"
--
--FIXEDSRCDATE = "${@bb.data.getVar('FILE', d, 1).split('_')[-1].split('.')[0]}"
--PV = "0.1+cvs${FIXEDSRCDATE}"
--PR = "r1"
--
--SRC_URI = "cvs://anonymous@cvs.sv.gnu.org/cvsroot/config;module=config;method=pserver;date=${FIXEDSRCDATE} \
--	   file://config-guess-uclibc.patch \
--           file://gnu-configize.in"
--S = "${WORKDIR}/config"
--
--do_compile() {
--	:
--}
--
--do_install () {
--	install -d ${D}${datadir}/gnu-config \
--		   ${D}${bindir}
--	cat ${WORKDIR}/gnu-configize.in | \
--		sed -e 's,@gnu-configdir@,${datadir}/gnu-config,g' \
--		    -e 's,@autom4te_perllibdir@,${datadir}/autoconf,g' > ${D}${bindir}/gnu-configize
--	# In the native case we want the system perl as perl-native can't have built yet
--	if [ "${BUILD_ARCH}" != "${TARGET_ARCH}" ]; then
--		sed -i -e 's,/usr/bin/perl,${bindir}/perl,g' ${D}${bindir}/gnu-configize
--	fi
--	chmod 755 ${D}${bindir}/gnu-configize
--	install -m 0644 config.guess config.sub ${D}${datadir}/gnu-config/
--}
--
--PACKAGES = "${PN}"
--FILES_${PN} = "${bindir} ${datadir}/gnu-config"
--
--BBCLASSEXTEND = "native"
-diff --git a/meta/recipes-devtools/gnu-config/gnu-config_git.bb b/meta/recipes-devtools/gnu-config/gnu-config_git.bb
-new file mode 100644
-index 0000000..9f0fed4
---- /dev/null
-+++ b/meta/recipes-devtools/gnu-config/gnu-config_git.bb
-@@ -0,0 +1,48 @@
-+DESCRIPTION = "gnu-configize"
-+SECTION = "devel"
-+LICENSE = "GPLv2+"
-+LIC_FILES_CHKSUM = "file://config.guess;beginline=9;endline=39;md5=b41f5a207cf8503d8706f4cf0844cd47"
-+DEPENDS = ""
-+INHIBIT_DEFAULT_DEPS = "1"
-+
-+SRCREV = "3155524d0410c37b6286465249264c7981ab8cba"
-+SRCREV_SHORT = "${@bb.data.getVar('SRCREV', d, 1)[0:7]}"
-+
-+PV = "0.0+git${SRCREV_SHORT}"
-+PR = "r0"
-+
-+# Bellow is the git web interface pointer to the tarball. The ';' in the url  
-+# currently is not working for the bitbake http fetcher. Until that bug gets 
-+# fixed using the autobuilder source mirror url to get the tarball.
-+#
-+# SRC_URI="http://git.savannah.gnu.org/gitweb/?p=config.git;a=snapshot;h=${SRCREV};sf=tgz;localfile=${DL_DIR}/config-${SRCREV_SHORT}.tar.gz "
-+
-+SRC_URI = "\
-+        http://autobuilder.pokylinux.org/sources/config-${SRCREV_SHORT}.tar.gz \
-+	file://config-guess-uclibc.patch \
-+        file://gnu-configize.in"
-+
-+S = "${WORKDIR}/config-${SRCREV_SHORT}/"
-+
-+do_compile() {
-+	:
-+}
-+
-+do_install () {
-+	install -d ${D}${datadir}/gnu-config \
-+		   ${D}${bindir}
-+	cat ${WORKDIR}/gnu-configize.in | \
-+		sed -e 's,@gnu-configdir@,${datadir}/gnu-config,g' \
-+		    -e 's,@autom4te_perllibdir@,${datadir}/autoconf,g' > ${D}${bindir}/gnu-configize
-+	# In the native case we want the system perl as perl-native can't have built yet
-+	if [ "${BUILD_ARCH}" != "${TARGET_ARCH}" ]; then
-+		sed -i -e 's,/usr/bin/perl,${bindir}/perl,g' ${D}${bindir}/gnu-configize
-+	fi
-+	chmod 755 ${D}${bindir}/gnu-configize
-+	install -m 0644 config.guess config.sub ${D}${datadir}/gnu-config/
-+}
-+
-+PACKAGES = "${PN}"
-+FILES_${PN} = "${bindir} ${datadir}/gnu-config"
-+
-+BBCLASSEXTEND = "native"
+-RECIPE_STATUS_pn-patch = "red"
++RECIPE_STATUS_pn-patch = "green"
+ RECIPE_LATEST_VERIONS_pn-patch = "2.6.1"
+ RECIPE_MAINTAINER_pn-patch = "Nitin A Kamble <nitin.a.kamble@intel.com>"
+ 
+@@ -2602,7 +2602,7 @@ RECIPE_STATUS_pn-gcc="green"
+ RECIPE_LATEST_VERSION_pn-gcc="4.5.1"
+ RECIPE_MAINTAINER_pn-gcc = "Nitin A Kamble <nitin.a.kamble@intel.com>"
+ 
+-RECIPE_STATUS_pn-autoconf="red" 
++RECIPE_STATUS_pn-autoconf="green" 
+ RECIPE_LATEST_VERSION_pn-autoconf="2.68"
+ RECIPE_MAINTAINER_pn-autoconf = "Nitin A Kamble <nitin.a.kamble@intel.com>"
+ 
+@@ -2631,8 +2631,7 @@ RECIPE_STATUS_pn-flex="green"
+ RECIPE_LATEST_VERSION_pn-flex="2.5.35"
+ RECIPE_MAINTAINER_pn-flex = "Nitin A Kamble <nitin.a.kamble@intel.com>"
+ 
+-RECIPE_STATUS_pn-fstests="red"  
+-RECIPE_NO_UPDATE_REASON_pn-fstests="svnr266 is poky default"
++RECIPE_STATUS_pn-fstests="green"  
+ RECIPE_LATEST_VERSION_pn-fstests="0.0+svnr426"
+ DISTRO_PN_ALIAS_pn-fstests = "OpenedHand"
+ RECIPE_MAINTAINER_pn-fstests = "Nitin A Kamble <nitin.a.kamble@intel.com>"
+@@ -2695,15 +2694,15 @@ RECIPE_STATUS_pn-python-pycurl="green"
+ RECIPE_LATEST_VERSION_pn-python-pycurl="7.19.0"
+ RECIPE_MAINTAINER_pn-python-pycurl = "Nitin A Kamble <nitin.a.kamble@intel.com>"
+ 
+-RECIPE_STATUS_pn-python-pygobject="red"
++RECIPE_STATUS_pn-python-pygobject="green"
+ DISTRO_PN_ALIAS_pn-python-pygobject = "Meego=pygobject2 Fedora=pygobject2 Ubuntu=pygobject Debian=pygobject"
+-RECIPE_LATEST_VERSION_pn-python-pygobject="2.21.1"
++RECIPE_LATEST_VERSION_pn-python-pygobject="2.27.0"
+ RECIPE_MAINTAINER_pn-python-pygobject = "Nitin A Kamble <nitin.a.kamble@intel.com>"
+ 
+ RECIPE_STATUS_pn-python-pygtk="red"
+ DISTRO_PN_ALIAS_pn-python-pygtk = "Debian=python-gtk2 Fedora=pygtk2 OpenSuSE=python-gtk"
+ RECIPE_LATEST_VERSION_pn-python-pygtk="2.17.0"
+-RECIPE_MAINTAINER_pn-python-pygtk = "Nitin A Kamble <nitin.a.kamble@intel.com>"
++RECIPE_MAINTAINER_pn-python-pygtk = "Zhai Edwin <edwin.zhai@intel.com>"
+ 
+ RECIPE_STATUS_pn-python-pyrex="green"
+ RECIPE_LATEST_VERSION_pn-python-pyrex="0.9.9"
+@@ -2734,8 +2733,8 @@ RECIPE_STATUS_pn-unifdef="green" # poky local source files
+ RECIPE_LATEST_VERSION_pn-unifdef="2.6.18+git"
+ RECIPE_MAINTAINER_pn-unifdef = "Nitin A Kamble <nitin.a.kamble@intel.com>"
+ 
+-RECIPE_STATUS_pn-gnu-config="red" 
+-RECIPE_LATEST_VERSION_pn-gnu-config="0.1+cvs20080123"
++RECIPE_STATUS_pn-gnu-config="green" 
++RECIPE_LATEST_VERSION_pn-gnu-config="0.0+git3155524"
+ DISTRO_PN_ALIAS_pn-gnu-config = "OpenedHand"
+ RECIPE_MAINTAINER_pn-gnu-config = "Nitin A Kamble <nitin.a.kamble@intel.com>"
+ 
+@@ -2756,11 +2755,11 @@ RECIPE_STATUS_pn-byacc="green"
+ RECIPE_LATEST_VERSION_pn-byacc="20100610"
+ RECIPE_MAINTAINER_pn-byacc = "Nitin A Kamble <nitin.a.kamble@intel.com>"
+ 
+-RECIPE_STATUS_pn-libconvert-asn1-perl="red" # 0.22 version does not build, so created a recipe for version 0.21
++RECIPE_STATUS_pn-libconvert-asn1-perl="green" # 0.22 version does not build, so created a recipe for version 0.21
+ RECIPE_LATEST_VERSION_pn-libconvert-asn1-perl="0.22"
+ RECIPE_MAINTAINER_pn-libconvert-asn1-perl = "Nitin A Kamble <nitin.a.kamble@intel.com>"
+ 
+-RECIPE_STATUS_pn-libxml-parser-perl="red" 
++RECIPE_STATUS_pn-libxml-parser-perl="green" 
+ RECIPE_LATEST_VERSION_pn-libxml-parser-perl="2.36"
+ RECIPE_MAINTAINER_pn-libxml-parser-perl = "Nitin A Kamble <nitin.a.kamble@intel.com>"
+ 
 -- 
 1.7.2.2
 
