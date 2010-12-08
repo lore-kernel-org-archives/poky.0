@@ -1,22 +1,27 @@
-Return-Path: <josh@openedhand.com>
-Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 30E734C811F9
-	for <poky@yoctoproject.org>; Wed,  8 Dec 2010 06:14:54 -0600 (CST)
-Received: from [10.250.128.97] (unknown [158.43.2.102])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by pug.o-hand.com (Postfix) with ESMTP id CA17612EC117
-	for <poky@yoctoproject.org>; Wed,  8 Dec 2010 06:53:04 -0600 (CST)
-From: Joshua Lock <josh@openedhand.com>
-To: poky@yoctoproject.org
-In-Reply-To: <4CFE82DC.5020608@intel.com>
-References: <4CFD94DD.7010906@intel.com> <4CFE7269.4000507@intel.com>
-	<1291747386.9405.3.camel@scimitar>  <4CFE82DC.5020608@intel.com>
-Date: Wed, 08 Dec 2010 12:14:44 +0000
-Message-ID: <1291810484.2516.3.camel@scimitar>
+Return-Path: <rpurdie@linux.intel.com>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id DF48A4C80FA4;
+	Wed,  8 Dec 2010 06:49:24 -0600 (CST)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oB8CnO9H020350;
+	Wed, 8 Dec 2010 12:49:24 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 20231-02; Wed,  8 Dec 2010 12:49:20 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oB8CnHTN020344
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Wed, 8 Dec 2010 12:49:17 GMT
+From: Richard Purdie <rpurdie@linux.intel.com>
+To: yocto <yocto@yoctoproject.org>, poky <poky@yoctoproject.org>
+Date: Wed, 08 Dec 2010 12:49:08 +0000
+Message-ID: <1291812548.1554.475.camel@rex>
 Mime-Version: 1.0
-X-Mailer: Evolution 2.32.1 (2.32.1-1.fc14) 
-Subject: Re: Master Stability
+X-Mailer: Evolution 2.28.3 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Subject: Adding extra metadata to Yocto/Poky
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,58 +33,41 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 08 Dec 2010 12:14:54 -0000
+X-List-Received-Date: Wed, 08 Dec 2010 12:49:25 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On Tue, 2010-12-07 at 10:54 -0800, Scott Garman wrote:
-> On 12/07/2010 10:43 AM, Joshua Lock wrote:
-> > On Tue, 2010-12-07 at 09:44 -0800, Elizabeth Flanagan wrote:
-> >> Acked-by: Beth Flanagan
-> >>
-> >> (Stands on build engineer soap box)
-> >>
-> >> If at all possible, when you try to verify a fix, do a full clean build
-> >> for more than just one arch using BB_NUMBER_THREADS and PARALLEL_MAKE.
-> >> With the number of pull requests coming through, it becomes more and
-> >> more vital to verify patches prior to sending them out.
-> >>
-> >> Preferably, I'd like to start seeing people add something like a
-> >> Verified-with:<build target>  tag to pull requests, so we can at least
-> >> identify pulls that need more peer review than normal.
-> >
-> > Personally I'd like to see links to an autobuilder report showing it has
-> > succeeded and if such a tag is *not* on a pull request it's
-> > automatically pushed to an autobuilder instance with the success of the
-> > build sent back to the list as a reply to the patch thread.
-> >
-> > I think hardware constraints make this a bit of a pipe dream though?
-> 
-> We're definitely hardware constrained for it. I want a pony also. ;)
+Hi,
 
-I've become increasingly jealous because some colleagues have a unicorn!
-It's called git test-sequence:
-http://dustin.github.com/2010/03/28/git-test-sequence.html
+We're in a position where we have people wanting to extend Poky but
+wondering exactly how to add their own layer and make Poky useful for
+their specific use cases.
 
-> 
-> Beth has started working on customizing Buildbot's web interface to 
-> allow finer-grained control over what gets built. A longer-range goal of 
-> this is eventually be able to pick which targets and architectures get 
-> built from a custom autobuilder buildset. That way someone with a commit 
-> to quilt (which has very few dependencies) wouldn't have to build all of 
-> poky-image-sato to demonstrate their build works. With something like 
-> that in place, we can start to consider having individual developers 
-> test their changes on our autobuilder infrastructure. Which would kick ass.
+This is a topic I want to work with the OE community on and have
+discussion about but equally, people are interested at the moment and we
+need something people can experiment with now so we can see what works
+and what doesn't.
 
-No kidding, can't wait!
+With this in mind I'm proposing we create a "poky-extras" repository
+which contains multiple user contributed layers.
 
-Hopefully we can tie something like git test-sequence into this such
-that we can do these things from our lovely shell environments :-)
+My proposed ground rules are:
+
+* it has the OE style open contributions model
+* consists of a set of layers, each clearly identified at the top level
+* each layer has a clearly named maintainer or maintainers
+* people respect the layer maintainers
+* layers are split into logical "topics" where at all possible
+
+Ultimately, the repo structure and some of the details could change but
+I'd like to experiment and see what we can come up with which is
+probably the only way we're going to move forward.
+
+Any comments, objections or better ideas? :)
 
 Cheers,
-Joshua
--- 
-Joshua Lock
-        Intel Open Source Technology Centre
+
+Richard
+
 
 
