@@ -1,39 +1,19 @@
 Return-Path: <dongxiao.xu@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5E2404C811E5
-	for <poky@yoctoproject.org>; Wed,  8 Dec 2010 00:20:01 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 07 Dec 2010 22:20:00 -0800
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4BA334C811E5
+	for <poky@yoctoproject.org>; Wed,  8 Dec 2010 00:28:15 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 07 Dec 2010 22:28:14 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,315,1288594800"; d="scan'208";a="358633404"
-Received: from pgsmsx601.gar.corp.intel.com ([10.221.43.69])
-	by azsmga001.ch.intel.com with ESMTP; 07 Dec 2010 22:20:00 -0800
-Received: from pgsmsx509.gar.corp.intel.com (172.30.13.17) by
-	pgsmsx601.gar.corp.intel.com (10.221.43.69) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Wed, 8 Dec 2010 14:19:14 +0800
-Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
-	PGSMSX509.gar.corp.intel.com (172.30.13.17) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Wed, 8 Dec 2010 14:19:14 +0800
-Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
-	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi; Wed, 8 Dec 2010
-	14:19:13 +0800
-From: "Xu, Dongxiao" <dongxiao.xu@intel.com>
-To: "Tian, Kevin" <kevin.tian@intel.com>, "Wold, Saul" <saul.wold@intel.com>
-Date: Wed, 8 Dec 2010 14:19:12 +0800
-Thread-Topic: [poky] [PATCH 0/3][RFC] Poky disk space size optimization
-Thread-Index: AcuVuR/XbN3/DUrWTt+W9yFQRRBP8wARRIngACXVRNA=
-Message-ID: <D5AB6E638E5A3E4B8F4406B113A5A19A314F2A1A@shsmsx501.ccr.corp.intel.com>
-References: <cover.1291683028.git.dongxiao.xu@intel.com>
-	<4CFDA034.9050703@intel.com>
-	<625BA99ED14B2D499DC4E29D8138F1504D4776DBE9@shsmsx502.ccr.corp.intel.com>
-In-Reply-To: <625BA99ED14B2D499DC4E29D8138F1504D4776DBE9@shsmsx502.ccr.corp.intel.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
-MIME-Version: 1.0
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 0/3][RFC] Poky disk space size optimization
+X-IronPort-AV: E=Sophos;i="4.59,315,1288594800"; d="scan'208";a="581652981"
+Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.9])
+	by orsmga002.jf.intel.com with ESMTP; 07 Dec 2010 22:28:13 -0800
+Message-Id: <cover.1291790130.git.dongxiao.xu@intel.com>
+From: Dongxiao Xu <dongxiao.xu@intel.com>
+Date: Wed, 8 Dec 2010 14:35:30 +0800
+To: poky@yoctoproject.org
+CC: 
+Subject: [PATCH 0/7][PULL] updated: connectivity/multimedia, recipe upgrade, Dongxiao
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -45,145 +25,75 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 08 Dec 2010 06:20:01 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Wed, 08 Dec 2010 06:28:16 -0000
 
-Thanks for your review.
-Some comments from me, see inline.
+Hi Saul,
 
-Tian, Kevin wrote:
->> From: Saul Wold
->> Sent: Tuesday, December 07, 2010 10:47 AM
->>=20
->> On 12/06/2010 04:50 PM, Dongxiao Xu wrote:
->>> This RFC aims to reduce the poky disk space size.
->>>=20
->>> The optimization point is the duplicated file copies in WORKDIR and
->>> sysroot directories. When installing, files will be copied from
->>> source code package into the image folder; Then some files will be
->>> copied from image folder to sysroot-destdir, and some other files
->>> will be copied from image folder to package folder. While doing
->>> package split, some files will be copied from package folder to
->>> packages-split folder, etc.=20
->>>=20
->> There are a couple of concerns with this method, which may lead to
->> problems, first is that using links and modifying permissions, it's
->> possible that depending on the usage the permissions might be set
->> differently.  This will could lead to a second problem: psuedo. It's
->> unclear at this point how psuedo will handle this.
+This pull request should have addressed the issues you raised yesterday.
+Please help to review and pull.
 
-For normal files, the file name is a hard link to the disk storage. Therefo=
-re if we use hard link instead of copy, what we present to pseudo doesn't c=
-hange.
-
-For file permissions, could you give some example on permission change?
-Per my understanding, file permissions are determined while do_install, whi=
-ch is beyond the following process. (package.bbclass will also do some file=
- permission operations, but it is done before the hard link.)
-
-hard link "image-->sysroot-destdir"
-hard link "package-->packages-split"
-hard link "sysroot-destdir-->sysroots".
-
-After these hardlink is done, I am not aware there is file permission chang=
-e. (Postinst is an exception, which is run in target system and not related=
- with our build process).
-
->>=20
->> I am sure you have been doing testing, just not sure of corner cases.
->>=20
->> I know we accepted the first change for the package split link to the
->> deploy area, that one made sense as it was package level, this is
->> file level and may have hidden problems.
-
-Actually this is also file level link. But it doesn't matter since package-=
-->packages-split doesn't change any file.
-
->=20
-> I also agree with Saul here. There do have some difference among
-> those directories for their own purpose, which finally result in some
-> difference. For example, there're different tweaks on libtool and
-> pkgconfig files between sysroot and packaging. That's why 'image' is
-> copied to package and then sysroot-destdir, and then do necessary
-> tweaks independently. Here if you want to hard link image to
-> sysroot-destdir, you need make sure it done after the copy from image
-> to package. Or else you'll end up to have problem there.      =20
-
-For those ".la" files,
-In "image-->sysroot-destdir" process, dependency_libs will be modified in i=
-mage folder before hard link.
-In "package-->packages-split", dependency_libs are the same and it is modif=
-ied after "image-->package" copies is done.
-
-No matter which runs first, they will modify dependency_libs for their own =
-copy, since files within "sysroot-destdir" and "package" are NOT hardlink. =
-They maintain separate copies.
-
-I think there should be no problem.
-
-Anyway we hope Richard could give us a comment in case we missed something.
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: dxu4/distro
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dxu4/distro
 
 Thanks,
-Dongxiao
+    Dongxiao Xu <dongxiao.xu@intel.com>
+---
 
->=20
-> But if you can make sure that given a copy path you're modifying, the
-> source and the destination are exactly same, and no other path refers
-> to the source directory, perhaps it's fine to do hard link. =20
->=20
-> Thanks
-> Kevin
->=20
->>=20
->> I am sure that Richard will correct me and add his comments as he
->> recovers from his travels.=20
->>=20
->> Sau!
->>=20
->>> The thought is to use hard link to replace the direct copy.
->>> The three commits do the work of:
->>>=20
->>> a) package.bbclass: hard link "image-->sysroot-destdir"
->>> b) sstate.bbclass:  hard link "package-->packages-split"
->>> c) staging.bbclass: hard link "sysroot-destdir-->sysroots".
->>>=20
->>> After testing with minimal/sato/sdk build, this approach could save
->>> about 20% disk space. (minimal: 23G ->  19G, sato: 44G ->  35G,
->>> sdk: 54G ->  44G).=20
->>>=20
->>> Pull URL: git://git.pokylinux.org/poky-contrib.git
->>>    Branch: dxu4/perf
->>>    Browse:
->>> http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=3Ddxu4/perf
->>>=20
->>> Thanks,
->>>      Dongxiao Xu<dongxiao.xu@intel.com>
->>> ---
->>>=20
->>>=20
->>> Dongxiao Xu (3):
->>>    package.bbclass: Use hard link for package split instead of copy
->>>    sstate.bbclass: Use hard link when staging files into sysroots
->>>    staging.bbclass: use hardlink when staging files to
->>> sysroot-destdir=20
->>>=20
->>>   meta/classes/package.bbclass |    8 +++++---
->>>   meta/classes/sstate.bbclass  |    2 +-
->>>   meta/classes/staging.bbclass |   27 ++++++++++++++++++++++++++-
->>>   meta/lib/oe/path.py          |   28 ++++++++++++++++++++++++++++
->>>   4 files changed, 60 insertions(+), 5 deletions(-)
->>>=20
->>> _______________________________________________
->>> poky mailing list
->>> poky@yoctoproject.org
->>> https://lists.yoctoproject.org/listinfo/poky
->>>=20
->>=20
->> _______________________________________________
->> poky mailing list
->> poky@yoctoproject.org
->> https://lists.yoctoproject.org/listinfo/poky
+
+Dongxiao Xu (7):
+  gssdp: upgrade to version 0.9.0
+  gupnp: upgrade to version 0.14.0
+  gst-ffmpeg: upgrade to version 0.10.11
+  gst-fluendo-mp3: upgrade to version 0.10.15
+  gst-fluendo-mpegdemux: upgrade to version 0.10.62
+  pulseaudio: upgrade to version 0.9.21
+  distro_tracking: update gupnp, gst-ffmpeg, gst-fluendo-mp3, etc.
+
+ .../conf/distro/include/distro_tracking_fields.inc |   35 +++++--
+ meta/conf/distro/include/poky-fixed-revisions.inc  |    4 +
+ .../gupnp/files/introspection.patch                |  101 ++++++++++++++++++++
+ .../gupnp/{gssdp_0.7.1.bb => gssdp_0.9.0.bb}       |   12 ++-
+ .../gupnp/{gupnp_0.13.2.bb => gupnp_0.14.0.bb}     |   10 ++-
+ .../gst-ffmpeg-0.10.1/configure_fix.patch          |   13 ---
+ .../gstreamer/gst-ffmpeg-0.10.1/no_beos.patch      |   55 -----------
+ .../gstreamer/gst-ffmpeg-0.10.11/lower-rank.diff   |   14 +++
+ .../gstreamer/gst-ffmpeg_0.10.1.bb                 |   35 -------
+ .../gstreamer/gst-ffmpeg_0.10.11.bb                |   39 ++++++++
+ .../gstreamer/gst-fluendo-mp3/configure_fix.patch  |   16 ---
+ .../gstreamer/gst-fluendo-mp3_0.10.15.bb           |   13 +++
+ .../gstreamer/gst-fluendo-mp3_0.10.2.bb            |   12 ---
+ .../gstreamer/gst-fluendo-mpegdemux_0.10.62.bb     |   13 +++
+ .../gstreamer/gst-fluendo-mpegdemux_0.10.7.bb      |    6 -
+ .../pulseaudio/pulseaudio-0.9.21/armv4+v5asm.patch |   59 ++++++++++++
+ .../pulseaudio-0.9.21/autoconf_version.patch       |   15 +++
+ .../pulseaudio/pulseaudio-0.9.21/buildfix.patch    |   15 +++
+ .../pulseaudio-0.9.21/configure_silent_rules.patch |   31 ++++++
+ .../pulseaudio-0.9.21/gcc4-compile-fix.patch       |   20 ++++
+ .../pulseaudio/pulseaudio-0.9.21/tls_m4.patch      |   32 ++++++
+ .../pulseaudio-0.9.21/volatiles.04_pulse           |    2 +
+ .../pulseaudio/pulseaudio_0.9.21.bb                |   28 ++++++
+ 23 files changed, 430 insertions(+), 150 deletions(-)
+ create mode 100644 meta/recipes-connectivity/gupnp/files/introspection.patch
+ rename meta/recipes-connectivity/gupnp/{gssdp_0.7.1.bb => gssdp_0.9.0.bb} (66%)
+ rename meta/recipes-connectivity/gupnp/{gupnp_0.13.2.bb => gupnp_0.14.0.bb} (81%)
+ delete mode 100644 meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.1/configure_fix.patch
+ delete mode 100644 meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.1/no_beos.patch
+ create mode 100644 meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.11/lower-rank.diff
+ delete mode 100644 meta/recipes-multimedia/gstreamer/gst-ffmpeg_0.10.1.bb
+ create mode 100644 meta/recipes-multimedia/gstreamer/gst-ffmpeg_0.10.11.bb
+ delete mode 100644 meta/recipes-multimedia/gstreamer/gst-fluendo-mp3/configure_fix.patch
+ create mode 100644 meta/recipes-multimedia/gstreamer/gst-fluendo-mp3_0.10.15.bb
+ delete mode 100644 meta/recipes-multimedia/gstreamer/gst-fluendo-mp3_0.10.2.bb
+ create mode 100644 meta/recipes-multimedia/gstreamer/gst-fluendo-mpegdemux_0.10.62.bb
+ delete mode 100644 meta/recipes-multimedia/gstreamer/gst-fluendo-mpegdemux_0.10.7.bb
+ create mode 100644 meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/armv4+v5asm.patch
+ create mode 100644 meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/autoconf_version.patch
+ create mode 100644 meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/buildfix.patch
+ create mode 100644 meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/configure_silent_rules.patch
+ create mode 100644 meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/gcc4-compile-fix.patch
+ create mode 100644 meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/tls_m4.patch
+ create mode 100644 meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/volatiles.04_pulse
+ create mode 100644 meta/recipes-multimedia/pulseaudio/pulseaudio_0.9.21.bb
 
 
