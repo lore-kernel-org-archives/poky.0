@@ -1,30 +1,37 @@
-Return-Path: <rpurdie@linux.intel.com>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id EBDF44C81207
-	for <poky@pokylinux.org>; Wed,  8 Dec 2010 05:14:12 -0600 (CST)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oB8BE5V3019217;
-	Wed, 8 Dec 2010 11:14:05 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 19103-03; Wed,  8 Dec 2010 11:14:01 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oB8BDv1P019211
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Wed, 8 Dec 2010 11:13:58 GMT
-From: Richard Purdie <rpurdie@linux.intel.com>
-To: Jon Masters <jonathan@jonmasters.org>
-In-Reply-To: <1291790384.2779.124.camel@constitution.bos.jonmasters.org>
-References: <1291790384.2779.124.camel@constitution.bos.jonmasters.org>
-Date: Wed, 08 Dec 2010 11:13:50 +0000
-Message-ID: <1291806830.1554.307.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@pokylinux.org
-Subject: Re: local.conf template
+Return-Path: <kevin.tian@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 329774C81206
+	for <poky@yoctoproject.org>; Wed,  8 Dec 2010 05:22:52 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 08 Dec 2010 03:22:51 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.59,315,1288594800"; d="scan'208";a="581718483"
+Received: from pgsmsx601.gar.corp.intel.com ([10.221.43.69])
+	by orsmga002.jf.intel.com with ESMTP; 08 Dec 2010 03:22:44 -0800
+Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
+	pgsmsx601.gar.corp.intel.com (10.221.43.69) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Wed, 8 Dec 2010 19:22:43 +0800
+Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
+	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi; Wed, 8 Dec 2010
+	19:22:42 +0800
+From: "Tian, Kevin" <kevin.tian@intel.com>
+To: Paul Eggleton <paul.eggleton@linux.intel.com>, "poky@yoctoproject.org"
+	<poky@yoctoproject.org>
+Date: Wed, 8 Dec 2010 19:22:40 +0800
+Thread-Topic: [poky] sstate status
+Thread-Index: AcuWLRbjlOrgm8NrRoukk/biAf9EKwAnIvQw
+Message-ID: <625BA99ED14B2D499DC4E29D8138F1504D515D0DC4@shsmsx502.ccr.corp.intel.com>
+References: <201012031634.56033.paul.eggleton@linux.intel.com>
+	<201012061606.45790.paul.eggleton@linux.intel.com>
+	<1291725996.11475.22.camel@rex>
+	<201012071636.55690.paul.eggleton@linux.intel.com>
+In-Reply-To: <201012071636.55690.paul.eggleton@linux.intel.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
+MIME-Version: 1.0
+Subject: Re: sstate status
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,21 +43,39 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 08 Dec 2010 11:14:13 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 08 Dec 2010 11:22:52 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 2010-12-08 at 01:39 -0500, Jon Masters wrote:
-> Can I suggest that the local.conf be updated to include MACHINE targets
-> like beagleboard under "Other supported machines". It's listed neither
-> in the 4.0 laverne release nor in the latest git tree. Alternatively,
-> since I'm new here, would you accept a git pull request or two?
+>From: Paul Eggleton
+>Sent: Wednesday, December 08, 2010 12:37 AM
+>
+>On Tuesday 07 December 2010 12:46:36 Richard Purdie wrote:
+>> Agreed, I'll take that patch on its own, I just want to move carefully
+>> to the end result.
+>>
+>> Can you rebase your sstate branch onto master, pull in the above changes
+>> not already in master and lets see where we are?
+>
+>Done - pushed to contrib paule/sstate. I have omitted Kevin's bitbake-diff=
+sigs srcpath fix
+>which is still being worked on.
+>
 
-Patches are welcome, likewise git pull requests. Cleaning up the MACHINE
-entries in local.conf.sample sounds like a good idea.
+The weird behavior I saw yesterday is still there: lots of recipes (such as=
+ gzip-native) are
+rebuilt when I build poky-image-minimal, which however finally ends up to o=
+verride my
+sstate cache with same checksums.=20
 
-Cheers,
+If I end the build when it finished setscene stage, and then simply build t=
+asks in the runqueue
+such as gzip-native, git-native, . It just succeeds by reusing sstate packa=
+ge.
 
-Richard
+Quite strange... Still look into it now.
 
+Thanks
+Kevin
 
