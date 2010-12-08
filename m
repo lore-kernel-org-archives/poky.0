@@ -1,25 +1,36 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id AC1784C8120C
-	for <poky@yoctoproject.org>; Wed,  8 Dec 2010 05:31:40 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 08 Dec 2010 03:31:40 -0800
+Return-Path: <kevin.tian@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id CC2E14C8120A
+	for <poky@yoctoproject.org>; Wed,  8 Dec 2010 05:35:09 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 08 Dec 2010 03:35:09 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,315,1288594800"; d="scan'208";a="865851834"
-Received: from unknown (HELO helios.localnet) ([10.255.16.53])
-	by fmsmga001.fm.intel.com with ESMTP; 08 Dec 2010 03:31:39 -0800
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-Organization: Intel Corporation (UK)
-To: poky@yoctoproject.org
-Date: Wed, 8 Dec 2010 11:31:36 +0000
-User-Agent: KMail/1.13.5 (Linux/2.6.35-23-generic-pae; KDE/4.5.1; i686; ; )
-References: <201012031634.56033.paul.eggleton@linux.intel.com>
-	<201012071636.55690.paul.eggleton@linux.intel.com>
-	<625BA99ED14B2D499DC4E29D8138F1504D515D0DC4@shsmsx502.ccr.corp.intel.com>
-In-Reply-To: <625BA99ED14B2D499DC4E29D8138F1504D515D0DC4@shsmsx502.ccr.corp.intel.com>
+X-IronPort-AV: E=Sophos;i="4.59,315,1288594800"; d="scan'208";a="581725159"
+Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
+	by orsmga002.jf.intel.com with ESMTP; 08 Dec 2010 03:35:08 -0800
+Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
+	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Wed, 8 Dec 2010 19:35:03 +0800
+Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
+	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi; Wed, 8 Dec 2010
+	19:35:02 +0800
+From: "Tian, Kevin" <kevin.tian@intel.com>
+To: Richard Purdie <rpurdie@linux.intel.com>, "Xu, Dongxiao"
+	<dongxiao.xu@intel.com>
+Date: Wed, 8 Dec 2010 19:35:00 +0800
+Thread-Topic: [poky] About the operator "??="
+Thread-Index: AcuWwvrDSdKYfTdKRRuU73KRtggVxQACGNOg
+Message-ID: <625BA99ED14B2D499DC4E29D8138F1504D515D0DC5@shsmsx502.ccr.corp.intel.com>
+References: <D5AB6E638E5A3E4B8F4406B113A5A19A303B2EF0@shsmsx501.ccr.corp.intel.com>
+	<1291804222.1554.256.camel@rex>
+In-Reply-To: <1291804222.1554.256.camel@rex>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
 MIME-Version: 1.0
-Message-Id: <201012081131.37242.paul.eggleton@linux.intel.com>
-Subject: Re: sstate status
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: About the operator "??="
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,25 +42,41 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 08 Dec 2010 11:31:40 -0000
-Content-Type: Text/Plain;
-  charset="iso-8859-1"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 08 Dec 2010 11:35:10 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On Wednesday 08 December 2010 11:22:40 Tian, Kevin wrote:
-> The weird behavior I saw yesterday is still there: lots of recipes (such as gzip-native) are
-> rebuilt when I build poky-image-minimal, which however finally ends up to override my
-> sstate cache with same checksums. 
-> 
-> If I end the build when it finished setscene stage, and then simply build tasks in the runqueue
-> such as gzip-native, git-native, . It just succeeds by reusing sstate package.
-> 
-> Quite strange... Still look into it now.
+>From: Richard Purdie
+>Sent: Wednesday, December 08, 2010 6:30 PM
+>
+>Hi Dongxiao,
+>
+>On Wed, 2010-12-01 at 09:57 +0800, Xu, Dongxiao wrote:
+>> Recently when investigating the file parsing speed, I found the
+>> implementation of "??=3D" is another hot spot. This operator will not
+>> apply the default assignment until the end of the parse, which is
+>> different from "?=3D". According to current poky, the users for "??=3D" =
+is
+>> mostly the scm revisions stored in poky-default-revisions.inc.
+>>
+>> Currently the final assignment logic for "??=3D" is added in finalize(),
+>> which costs about 20% parsing time.
+>
+>Can I take a look at the graph showing that? I'm a little surprised it
+>takes 20% of the time, that is a rather scary amount!
+>
 
-Oops, it appears that I pushed the wrong branch to paule/sstate yesterday. I've re-pushed a new one which actually includes the variable whitelisting changes.
+I don't have the graph, but did do a simple test by printing the lazy value
+list in finalize(). There're 166 items in total. Regarding finalize() may b=
+e
+invoked multiple times for same recipe and we have over 700 recipes scanned
+in a fresh run, it may contribute obvious overhead just like what Dongxiao
+previously optimized for distro tracking fields.
 
-Sorry about that!
+I think we could remove the lazy key from the list after grabbing it as the
+default value, and is now testing it...
 
-Cheers,
-Paul
+Thanks
+Kevin
 
