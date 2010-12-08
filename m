@@ -1,27 +1,26 @@
-Return-Path: <koen@dominion.thruhere.net>
-Received: from mail-ew0-f45.google.com (mail-ew0-f45.google.com
-	[209.85.215.45])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B6E784C81229
-	for <poky@pokylinux.org>; Wed,  8 Dec 2010 09:53:56 -0600 (CST)
-Received: by ewy10 with SMTP id 10so934585ewy.32
-	for <poky@pokylinux.org>; Wed, 08 Dec 2010 07:53:55 -0800 (PST)
-Received: by 10.216.90.79 with SMTP id d57mr169495wef.65.1291823622388;
-	Wed, 08 Dec 2010 07:53:42 -0800 (PST)
-Received: from [172.20.1.5] (ip545070eb.adsl-surfen.hetnet.nl [84.80.112.235])
-	by mx.google.com with ESMTPS id o51sm340660wes.39.2010.12.08.07.53.41
-	(version=TLSv1/SSLv3 cipher=RC4-MD5);
-	Wed, 08 Dec 2010 07:53:41 -0800 (PST)
-Mime-Version: 1.0 (Apple Message framework v1082)
-From: Koen Kooi <koen@dominion.thruhere.net>
-In-Reply-To: <1291821677.2779.143.camel@constitution.bos.jonmasters.org>
-Date: Wed, 8 Dec 2010 16:53:39 +0100
-Message-Id: <48260A0C-FEAC-473C-8C27-5B46D6A02666@dominion.thruhere.net>
-References: <1291791085.2779.125.camel@constitution.bos.jonmasters.org>
-	<1291806770.1554.304.camel@rex>
-	<1291821677.2779.143.camel@constitution.bos.jonmasters.org>
-To: poky@pokylinux.org
-X-Mailer: Apple Mail (2.1082)
-Subject: Re: distcc/ccache?
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5D69F4C8122B
+	for <poky@yoctoproject.org>; Wed,  8 Dec 2010 09:56:00 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 08 Dec 2010 07:55:59 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.59,316,1288594800"; d="scan'208";a="634380966"
+Received: from unknown (HELO helios.localnet) ([10.255.16.40])
+	by fmsmga002.fm.intel.com with ESMTP; 08 Dec 2010 07:55:59 -0800
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
+Organization: Intel Corporation (UK)
+To: Gary Thomas <gary@mlbassoc.com>
+Date: Wed, 8 Dec 2010 15:55:57 +0000
+User-Agent: KMail/1.13.5 (Linux/2.6.35-23-generic-pae; KDE/4.5.1; i686; ; )
+References: <201012081402.16308.paul.eggleton@linux.intel.com>
+	<201012081406.20138.paul.eggleton@linux.intel.com>
+	<4CFF9907.3090901@mlbassoc.com>
+In-Reply-To: <4CFF9907.3090901@mlbassoc.com>
+MIME-Version: 1.0
+Message-Id: <201012081555.57544.paul.eggleton@linux.intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: sstate status
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,28 +32,18 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 08 Dec 2010 15:53:57 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Wed, 08 Dec 2010 15:56:00 -0000
+Content-Type: Text/Plain;
+  charset="utf-8"
+Content-Transfer-Encoding: 7bit
 
+On Wednesday 08 December 2010 14:41:11 you wrote:
+> Query: what sort of machine do you use for this testing?  I have a
+> Core-2 quad @2.4GHz with 3GB of RAM and it takes me around 5 hours
+> to make a full test.
 
-Op 8 dec 2010, om 16:21 heeft Jon Masters het volgende geschreven:
+Well, it depends on what you use as a "full test". For most of my testing I just use poky-image-minimal, although I really ought to be doing poky-image-sato or something a bit more substantial on a regular basis. poky-image-minimal takes about 25 mins on my build machine (a Core i7 870 with 6GB RAM).
 
-> On Wed, 2010-12-08 at 11:12 +0000, Richard Purdie wrote:
->> On Wed, 2010-12-08 at 01:51 -0500, Jon Masters wrote:
->>> Anyone happen to know if poky plays nicely with distcc?
->>=20
->> I think most success has been with icecc in the past and there is a
->> icecc class which has code to enable that. It turns out that =
-compiling
->> isn't the main bottleneck in builds though and icecc isn't something =
-we
->> test in Poky at this time, we just provide the same class OE has =
-which
->> may or may not work.
->=20
-> Thanks. Someone else pointed me to Icecream, too
-
-I'm having a massive reply-to fail here since this list does NOT munge =
-reply-to for a change :)=
+Cheers,
+Paul
 
