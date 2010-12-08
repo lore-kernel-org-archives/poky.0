@@ -1,22 +1,39 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C3EA14C8122E
-	for <poky@yoctoproject.org>; Wed,  8 Dec 2010 13:31:17 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 08 Dec 2010 11:31:17 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,316,1288594800"; d="scan'208";a="866023942"
-Received: from unknown (HELO [10.255.13.4]) ([10.255.13.4])
-	by fmsmga001.fm.intel.com with ESMTP; 08 Dec 2010 11:31:17 -0800
-Message-ID: <4CFFDD04.4030008@linux.intel.com>
-Date: Wed, 08 Dec 2010 11:31:16 -0800
-From: Saul Wold <sgw@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
+Return-Path: <fransmeulenbroeks@gmail.com>
+Received: from mail-iw0-f180.google.com (mail-iw0-f180.google.com
+	[209.85.214.180])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 29A0B4C81233
+	for <poky@yoctoproject.org>; Wed,  8 Dec 2010 14:11:51 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by iwn37 with SMTP id 37so2182045iwn.25
+	for <poky@yoctoproject.org>; Wed, 08 Dec 2010 12:11:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:received:received:in-reply-to
+	:references:date:message-id:subject:from:to:cc:content-type
+	:content-transfer-encoding;
+	bh=o2wJZf7cx5aCwjnNLtVuDcNsOM6HgOHbTpga6JjdLJw=;
+	b=oGMEkC+DiL/9CqbXJ5u96E/qZfVEH9L8l6X3lcQpjDsX+ESAi9urzqfTW7qAz7KqdP
+	BoIhrpEnXOw8gNf7QjXWk9/LdgnvtHpIEdO2NQu2vO22UsnbddKVGq2UZXLG1BcCRNOn
+	15E8qKElMhwVsndf9+KcSvNZwJs0x5MNorzl8=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:cc:content-type:content-transfer-encoding;
+	b=H9YngevzKBzZJcN5ex+qnvQ5pWoUlffiGr2eFOD3sxAqXkCBpbmpliAOTgiRHZR2cr
+	MquaARpPF+szzzxKmkZLuxBlir/B6V89kBbJ+qDd4P/rarOY2ZdPogw+JWGdO5mkvIg2
+	fiC4e04dWERX4AuUt/5rA/FcHLLPFMs3z1ArA=
 MIME-Version: 1.0
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: [PULL] Consolidated Pull Request 12/8
+Received: by 10.231.14.10 with SMTP id e10mr9710210iba.132.1291839110564; Wed,
+	08 Dec 2010 12:11:50 -0800 (PST)
+Received: by 10.231.200.140 with HTTP; Wed, 8 Dec 2010 12:11:50 -0800 (PST)
+In-Reply-To: <1291803453.3076.13.camel@eric-desktop>
+References: <1291803453.3076.13.camel@eric-desktop>
+Date: Wed, 8 Dec 2010 21:11:50 +0100
+Message-ID: <AANLkTim-h+UbTH8py-ik_8XcfXY+k+8RiJ4MdKqncG+U@mail.gmail.com>
+From: Frans Meulenbroeks <fransmeulenbroeks@gmail.com>
+To: Lu Jingdong <jingdong.lu@windriver.com>
+Cc: poky <poky@yoctoproject.org>
+Subject: Re: [PATCH 5/8] perl-uri: Add perl-uri
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,135 +45,136 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 08 Dec 2010 19:31:18 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 08 Dec 2010 20:11:51 -0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
+
+2010/12/8 Lu Jingdong <jingdong.lu@windriver.com>:
+> Subject: [PATCH 5/8] perl-uri: Add perl-uri
+>
+> Add perl-uri in order to enable graphic LSB test(OLVER-Core test).
+>
+> Signed-off-by: Jingdong Lu <jingdong.lu@windriver.com>
+> ---
+> =A0meta/recipes-devtools/perl/perl-uri_1.56.bb | =A0 25
+> +++++++++++++++++++++++++
+> =A01 files changed, 25 insertions(+), 0 deletions(-)
+> =A0create mode 100644 meta/recipes-devtools/perl/perl-uri_1.56.bb
+
+Is there a particular naming scheme for this.
+OE has liburi-perl_1.55.bb
+
+and poky has e.g.
+meta/recipes-devtools/perl/libxml-parser-perl_2.36.bb
+
+I would have expected this to be called liburi-perl_1.56.bb
+>
+> diff --git a/meta/recipes-devtools/perl/perl-uri_1.56.bb
+> b/meta/recipes-devtools/perl/perl-uri_1.56.bb
+> new file mode 100644
+> index 0000000..7dd5668
+> --- /dev/null
+> +++ b/meta/recipes-devtools/perl/perl-uri_1.56.bb
+> @@ -0,0 +1,25 @@
+> +DESCRIPTION =3D "This package contains the URI.pm module with friends. \
+> +The module implements the URI class. URI objects can be used to access
+> \
+> +and manipulate the various components that make up these strings."
+> +
+> +SECTION =3D "libs"
+> +LICENSE =3D "Artistic"
+
+This does not seem correct:
+http://www.cpan.org/authors/id/G/GA/GAAS/URI-1.56.readme says:
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+THis is also what the README file says
+
+and http://dev.perl.org/licenses/ says:
+
+Perl5 is Copyright (C) 1993-2005, by Larry Wall and others.
+
+It is free software; you can redistribute it and/or modify it under
+the terms of either:
+
+a) the GNU General Public License as published by the Free Software
+Foundation; either external linkversion 1, or (at your option) any
+later versionexternal link, or
+
+b) the "Artistic License".
+
+So I'd say it should be:
+
+LICENSE =3D "Artistic|GPLv1+"
 
 
-Richard,
+> +PR =3D "r0"
+> +
+> +LIC_FILES_CHKSUM =3D
+> "file://README;beginline=3D26;endline=3D30;md5=3D6c33ae5c87fd1c4897714e12=
+2dd9c23d"
+> +
+> +DEPENDS +=3D "perl"
 
-This has various build fixes along with updates and License Checksum 
-changes.
+This DEPENDS is already dragged in by the
+inherit cpan
+below. It it in meta/classes/cpan.class and says:
+DEPENDS  +=3D "${@["perl", "perl-native"][(bb.data.inherits_class('native',=
+ d))]}"
+RDEPENDS  +=3D "${@["perl", ""][(bb.data.inherits_class('native', d))]}"
 
+> +
+> +SRC_URI =3D "http://www.cpan.org/authors/id/G/GA/GAAS/URI-${PV}.tar.gz"Y
+> +
+> +S =3D "${WORKDIR}/URI-${PV}"
+> +
+> +EXTRA_CPANFLAGS =3D "EXPATLIBPATH=3D${STAGING_LIBDIR} EXPATINCPATH=3D
+> ${STAGING_INCDIR}"
+> +
+> +inherit cpan
+> +
+> +do_compile() {
+> + =A0 =A0 =A0 export LIBC=3D"$(find ${STAGING_DIR_TARGET}/${base_libdir}/=
+ -name
+> 'libc-*.so')"
+> + =A0 =A0 =A0 cpan_do_compile
+> +}
+> +
+As this is a pure perl recipe it is hw independent, so it should have
 
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-   Branch: distro/master
-   Browse: 
-http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=distro/master
+PACKAGE_ARCH =3D "all"
 
-Thanks,
-     Saul Wold <sgw@linux.intel.com>
----
+also maybe one might want to add
+BBCLASSEXTEND=3D"native"
 
+Otherwise (at least that is my understanding) recipes that depend on
+this one do not build (but maybe the new style staging made the native
+recipe unneeded).
 
-Dongxiao Xu (7):
-   gssdp: upgrade to version 0.9.0
-   gupnp: upgrade to version 0.14.0
-   gst-ffmpeg: upgrade to version 0.10.11
-   gst-fluendo-mp3: upgrade to version 0.10.15
-   gst-fluendo-mpegdemux: upgrade to version 0.10.62
-   pulseaudio: upgrade to version 0.9.21
-   distro_tracking: update gupnp, gst-ffmpeg, gst-fluendo-mp3, etc.
-
-Mei Lei (1):
-   modutils-initscripts:Add license checksum to bb file
-
-Paul Eggleton (1):
-   openssl-native: disable execstack flag to prevent problems with
-     SELinux
-
-Saul Wold (2):
-   libart-lgpl: add mips art_config.h
-   world-broken: Update with Clutter items
-
-Yu Ke (3):
-   x11-common: add license checksum
-   xserver-nodm-init: add license checksum
-   xserver-xf86-config: add license checksum
-
-  .../conf/distro/include/distro_tracking_fields.inc |   35 ++-
-  meta/conf/distro/include/poky-fixed-revisions.inc  |    4 +
-  meta/conf/distro/include/world-broken.inc          |    5 +
-  .../gupnp/files/introspection.patch                |  101 ++++++
-  .../gupnp/{gssdp_0.7.1.bb => gssdp_0.9.0.bb}       |   12 +-
-  .../gupnp/{gupnp_0.13.2.bb => gupnp_0.14.0.bb}     |   10 +-
-  meta/recipes-connectivity/openssl/openssl.inc      |    6 +-
-  .../recipes-connectivity/openssl/openssl_0.9.8p.bb |    2 +-
-  .../gnome/libart-lgpl/mips/art_config.h            |   10 +
-  .../x11-common/x11-common/gplv2-license.patch      |  353 
-++++++++++++++++++++
-  meta/recipes-graphics/x11-common/x11-common_0.1.bb |    7 +-
-  .../x11-common/xserver-nodm-init.bb                |    9 +-
-  .../xserver-nodm-init/gplv2-license.patch          |  353 
-++++++++++++++++++++
-  .../xorg-xserver/xserver-xf86-config_0.1.bb        |    1 +
-  meta/recipes-kernel/modutils/files/PD.patch        |    6 +
-  .../modutils/modutils-initscripts.bb               |    4 +-
-  .../gst-ffmpeg-0.10.1/configure_fix.patch          |   13 -
-  .../gstreamer/gst-ffmpeg-0.10.1/no_beos.patch      |   55 ---
-  .../gstreamer/gst-ffmpeg-0.10.11/lower-rank.diff   |   14 +
-  .../gstreamer/gst-ffmpeg_0.10.1.bb                 |   35 --
-  .../gstreamer/gst-ffmpeg_0.10.11.bb                |   39 +++
-  .../gstreamer/gst-fluendo-mp3/configure_fix.patch  |   16 -
-  .../gstreamer/gst-fluendo-mp3_0.10.15.bb           |   13 +
-  .../gstreamer/gst-fluendo-mp3_0.10.2.bb            |   12 -
-  .../gstreamer/gst-fluendo-mpegdemux_0.10.62.bb     |   13 +
-  .../gstreamer/gst-fluendo-mpegdemux_0.10.7.bb      |    6 -
-  .../pulseaudio/pulseaudio-0.9.21/armv4+v5asm.patch |   59 ++++
-  .../pulseaudio-0.9.21/autoconf_version.patch       |   15 +
-  .../pulseaudio/pulseaudio-0.9.21/buildfix.patch    |   15 +
-  .../pulseaudio-0.9.21/configure_silent_rules.patch |   31 ++
-  .../pulseaudio-0.9.21/gcc4-compile-fix.patch       |   20 ++
-  .../pulseaudio/pulseaudio-0.9.21/tls_m4.patch      |   32 ++
-  .../pulseaudio-0.9.21/volatiles.04_pulse           |    2 +
-  .../pulseaudio/pulseaudio_0.9.21.bb                |   28 ++
-  34 files changed, 1178 insertions(+), 158 deletions(-)
-  create mode 100644 
-meta/recipes-connectivity/gupnp/files/introspection.patch
-  rename meta/recipes-connectivity/gupnp/{gssdp_0.7.1.bb => 
-gssdp_0.9.0.bb} (66%)
-  rename meta/recipes-connectivity/gupnp/{gupnp_0.13.2.bb => 
-gupnp_0.14.0.bb} (81%)
-  create mode 100644 meta/recipes-gnome/gnome/libart-lgpl/mips/art_config.h
-  create mode 100644 
-meta/recipes-graphics/x11-common/x11-common/gplv2-license.patch
-  create mode 100644 
-meta/recipes-graphics/x11-common/xserver-nodm-init/gplv2-license.patch
-  create mode 100644 meta/recipes-kernel/modutils/files/PD.patch
-  delete mode 100644 
-meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.1/configure_fix.patch
-  delete mode 100644 
-meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.1/no_beos.patch
-  create mode 100644 
-meta/recipes-multimedia/gstreamer/gst-ffmpeg-0.10.11/lower-rank.diff
-  delete mode 100644 meta/recipes-multimedia/gstreamer/gst-ffmpeg_0.10.1.bb
-  create mode 100644 meta/recipes-multimedia/gstreamer/gst-ffmpeg_0.10.11.bb
-  delete mode 100644 
-meta/recipes-multimedia/gstreamer/gst-fluendo-mp3/configure_fix.patch
-  create mode 100644 
-meta/recipes-multimedia/gstreamer/gst-fluendo-mp3_0.10.15.bb
-  delete mode 100644 
-meta/recipes-multimedia/gstreamer/gst-fluendo-mp3_0.10.2.bb
-  create mode 100644 
-meta/recipes-multimedia/gstreamer/gst-fluendo-mpegdemux_0.10.62.bb
-  delete mode 100644 
-meta/recipes-multimedia/gstreamer/gst-fluendo-mpegdemux_0.10.7.bb
-  create mode 100644 
-meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/armv4+v5asm.patch
-  create mode 100644 
-meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/autoconf_version.patch
-  create mode 100644 
-meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/buildfix.patch
-  create mode 100644 
-meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/configure_silent_rules.patch
-  create mode 100644 
-meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/gcc4-compile-fix.patch
-  create mode 100644 
-meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/tls_m4.patch
-  create mode 100644 
-meta/recipes-multimedia/pulseaudio/pulseaudio-0.9.21/volatiles.04_pulse
-  create mode 100644 meta/recipes-multimedia/pulseaudio/pulseaudio_0.9.21.bb
+Anyway (and slightly off-topic here):
+we also have
+meta/recipes-devtools/perl/libxml-simple-perl-native_2.18.bb
+meta/recipes-devtools/perl/libxml-parser-perl-native_2.36.bb
+and I guess that might well be for that reason. (and not sure why
+these do not use BBCLASSEXTEND, the OE version does!)
 
 
 
+
+Best regards, Frans
+
+> --
+> 1.7.0.4
+> --
+> Lu Jingdong
+> jingdong.lu@windriver.com
+> China, Wind River
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
 
