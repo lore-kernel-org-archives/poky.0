@@ -1,39 +1,28 @@
-Return-Path: <fransmeulenbroeks@gmail.com>
-Received: from mail-iw0-f180.google.com (mail-iw0-f180.google.com
-	[209.85.214.180])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 29A0B4C81233
-	for <poky@yoctoproject.org>; Wed,  8 Dec 2010 14:11:51 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by iwn37 with SMTP id 37so2182045iwn.25
-	for <poky@yoctoproject.org>; Wed, 08 Dec 2010 12:11:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:received:received:in-reply-to
-	:references:date:message-id:subject:from:to:cc:content-type
-	:content-transfer-encoding;
-	bh=o2wJZf7cx5aCwjnNLtVuDcNsOM6HgOHbTpga6JjdLJw=;
-	b=oGMEkC+DiL/9CqbXJ5u96E/qZfVEH9L8l6X3lcQpjDsX+ESAi9urzqfTW7qAz7KqdP
-	BoIhrpEnXOw8gNf7QjXWk9/LdgnvtHpIEdO2NQu2vO22UsnbddKVGq2UZXLG1BcCRNOn
-	15E8qKElMhwVsndf9+KcSvNZwJs0x5MNorzl8=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type:content-transfer-encoding;
-	b=H9YngevzKBzZJcN5ex+qnvQ5pWoUlffiGr2eFOD3sxAqXkCBpbmpliAOTgiRHZR2cr
-	MquaARpPF+szzzxKmkZLuxBlir/B6V89kBbJ+qDd4P/rarOY2ZdPogw+JWGdO5mkvIg2
-	fiC4e04dWERX4AuUt/5rA/FcHLLPFMs3z1ArA=
+Return-Path: <sgw@linux.intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 19DCA4C81233
+	for <poky@yoctoproject.org>; Wed,  8 Dec 2010 16:18:23 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 08 Dec 2010 14:18:22 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.59,317,1288594800"; d="scan'208";a="581903582"
+Received: from unknown (HELO [10.255.13.4]) ([10.255.13.4])
+	by orsmga002.jf.intel.com with ESMTP; 08 Dec 2010 14:18:21 -0800
+Message-ID: <4D00042C.6040403@linux.intel.com>
+Date: Wed, 08 Dec 2010 14:18:20 -0800
+From: Saul Wold <sgw@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
 MIME-Version: 1.0
-Received: by 10.231.14.10 with SMTP id e10mr9710210iba.132.1291839110564; Wed,
-	08 Dec 2010 12:11:50 -0800 (PST)
-Received: by 10.231.200.140 with HTTP; Wed, 8 Dec 2010 12:11:50 -0800 (PST)
-In-Reply-To: <1291803453.3076.13.camel@eric-desktop>
-References: <1291803453.3076.13.camel@eric-desktop>
-Date: Wed, 8 Dec 2010 21:11:50 +0100
-Message-ID: <AANLkTim-h+UbTH8py-ik_8XcfXY+k+8RiJ4MdKqncG+U@mail.gmail.com>
-From: Frans Meulenbroeks <fransmeulenbroeks@gmail.com>
-To: Lu Jingdong <jingdong.lu@windriver.com>
-Cc: poky <poky@yoctoproject.org>
-Subject: Re: [PATCH 5/8] perl-uri: Add perl-uri
+To: Wolfgang Denk <wd@denx.de>
+References: <1291756443-28767-1-git-send-email-wd@denx.de>	<201012081124.45901.paul.eggleton@linux.intel.com>
+	<20101208113542.9D65E140688@gemini.denx.de>
+In-Reply-To: <20101208113542.9D65E140688@gemini.denx.de>
+Cc: Vasily Khoruzhick <anarsoul@gmail.com>,
+	Paul Eggleton <paul.eggleton@linux.intel.com>,
+	"poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH 0/5] Fedora 14 Patches
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -45,136 +34,103 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 08 Dec 2010 20:11:51 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Wed, 08 Dec 2010 22:18:23 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-2010/12/8 Lu Jingdong <jingdong.lu@windriver.com>:
-> Subject: [PATCH 5/8] perl-uri: Add perl-uri
+On 12/08/2010 03:35 AM, Wolfgang Denk wrote:
+> Dear Paul Eggleton,
 >
-> Add perl-uri in order to enable graphic LSB test(OLVER-Core test).
+> In message<201012081124.45901.paul.eggleton@linux.intel.com>  you wrote:
+>>
+>> FYI I'm building on a Fedora 14 x86_64 system here, as is Joshua Lock.
 >
-> Signed-off-by: Jingdong Lu <jingdong.lu@windriver.com>
-> ---
-> =A0meta/recipes-devtools/perl/perl-uri_1.56.bb | =A0 25
-> +++++++++++++++++++++++++
-> =A01 files changed, 25 insertions(+), 0 deletions(-)
-> =A0create mode 100644 meta/recipes-devtools/perl/perl-uri_1.56.bb
-
-Is there a particular naming scheme for this.
-OE has liburi-perl_1.55.bb
-
-and poky has e.g.
-meta/recipes-devtools/perl/libxml-parser-perl_2.36.bb
-
-I would have expected this to be called liburi-perl_1.56.bb
+> Ah, that's good to know.
 >
-> diff --git a/meta/recipes-devtools/perl/perl-uri_1.56.bb
-> b/meta/recipes-devtools/perl/perl-uri_1.56.bb
-> new file mode 100644
-> index 0000000..7dd5668
-> --- /dev/null
-> +++ b/meta/recipes-devtools/perl/perl-uri_1.56.bb
-> @@ -0,0 +1,25 @@
-> +DESCRIPTION =3D "This package contains the URI.pm module with friends. \
-> +The module implements the URI class. URI objects can be used to access
-> \
-> +and manipulate the various components that make up these strings."
-> +
-> +SECTION =3D "libs"
-> +LICENSE =3D "Artistic"
+Wolfgang,
 
-This does not seem correct:
-http://www.cpan.org/authors/id/G/GA/GAAS/URI-1.56.readme says:
+Thanks for your patches and assistance.
 
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
-
-THis is also what the README file says
-
-and http://dev.perl.org/licenses/ says:
-
-Perl5 is Copyright (C) 1993-2005, by Larry Wall and others.
-
-It is free software; you can redistribute it and/or modify it under
-the terms of either:
-
-a) the GNU General Public License as published by the Free Software
-Foundation; either external linkversion 1, or (at your option) any
-later versionexternal link, or
-
-b) the "Artistic License".
-
-So I'd say it should be:
-
-LICENSE =3D "Artistic|GPLv1+"
+Not sure if you saw the Release Notes regarding F14 and building 
+make-native first and installing that locally due to problems with F14's 
+make.  See http://bugzilla.pokylinux.org/show_bug.cgi?id=467
+and http://www.yoctoproject.org/download/yocto-project-4-0-release-notes
 
 
-> +PR =3D "r0"
-> +
-> +LIC_FILES_CHKSUM =3D
-> "file://README;beginline=3D26;endline=3D30;md5=3D6c33ae5c87fd1c4897714e12=
-2dd9c23d"
-> +
-> +DEPENDS +=3D "perl"
-
-This DEPENDS is already dragged in by the
-inherit cpan
-below. It it in meta/classes/cpan.class and says:
-DEPENDS  +=3D "${@["perl", "perl-native"][(bb.data.inherits_class('native',=
- d))]}"
-RDEPENDS  +=3D "${@["perl", ""][(bb.data.inherits_class('native', d))]}"
-
-> +
-> +SRC_URI =3D "http://www.cpan.org/authors/id/G/GA/GAAS/URI-${PV}.tar.gz"Y
-> +
-> +S =3D "${WORKDIR}/URI-${PV}"
-> +
-> +EXTRA_CPANFLAGS =3D "EXPATLIBPATH=3D${STAGING_LIBDIR} EXPATINCPATH=3D
-> ${STAGING_INCDIR}"
-> +
-> +inherit cpan
-> +
-> +do_compile() {
-> + =A0 =A0 =A0 export LIBC=3D"$(find ${STAGING_DIR_TARGET}/${base_libdir}/=
- -name
-> 'libc-*.so')"
-> + =A0 =A0 =A0 cpan_do_compile
-> +}
-> +
-As this is a pure perl recipe it is hw independent, so it should have
-
-PACKAGE_ARCH =3D "all"
-
-also maybe one might want to add
-BBCLASSEXTEND=3D"native"
-
-Otherwise (at least that is my understanding) recipes that depend on
-this one do not build (but maybe the new style staging made the native
-recipe unneeded).
-
-Anyway (and slightly off-topic here):
-we also have
-meta/recipes-devtools/perl/libxml-simple-perl-native_2.18.bb
-meta/recipes-devtools/perl/libxml-parser-perl-native_2.36.bb
-and I guess that might well be for that reason. (and not sure why
-these do not use BBCLASSEXTEND, the OE version does!)
-
-
-
-
-Best regards, Frans
-
-> --
-> 1.7.0.4
-> --
-> Lu Jingdong
-> jingdong.lu@windriver.com
-> China, Wind River
+>> On Tuesday 07 December 2010 21:13:58 Wolfgang Denk wrote:
+>>> From: Vasily Khoruzhick<anarsoul@gmail.com>
+>>>
+>>> The following is a series of patches trying to get Poky (both laverne
+>>> 4.0 and top of tree) to build under a Fedora 14 x86_64 system.
+>>
+>> What are you building exactly? (distro/image/etc.)
 >
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+> I've been testing mainly with laverne-4.0, and I'm tryting to build
+> poky-image-sdk for some PowerPC and ARM configs.
+>
+>>> [1/5] eglibc: fix build issue with make-3.82
+>>>   meta/recipes-core/eglibc/eglibc_2.12.bb            |    3 ++-
+>>>   .../eglibc/files/eglibc-make-382.patch             |   15 +++++++++++++++
+>>>   2 files changed, 17 insertions(+), 1 deletions(-)
+>>
+>> A similar fix has already been applied to master.
+>
+> I see. Must have missed that.
+>
+>>> [2/5] gstreamer: fix build issue with make-3.82
+>>>   .../gstreamer-0.10.29/gstreamer-make-382.patch     |  178 ++++++++++++++++++++
+>>>   .../gstreamer/gstreamer_0.10.30.bb                 |    5 +-
+>>>   2 files changed, 181 insertions(+), 2 deletions(-)
+>>
+>> This patch is needed; however it doesn't seem to work because (a) the inner patch file is in the wrong directory (gstreamer-0.10.29 instead of gstreamer-0.10.30), and (b) when this is moved into the correct location on my system it fails do_patch. I hav
+>> en't yet looked into why.
+>
+> Argh.  I missed that, too, when rebasing my patcehs (which were done
+> against laverne-4.0) against current master. Sorry.
+>
+> Is master supposed to build poky-image-sdk for PowerPC?
+>
+Yes, this should build you can see the status of master on our build 
+machine at http://autobuilder.pokylinux.org:8010/waterfall we are 
+working on stabilizing the build (meta-toolchain-sdk is failing currently).
+
+>>> [3/5] Add support for 40x configuration (kilauea from OE)
+>>>   meta/conf/machine/include/tune-ppc405.inc          |    6 ++++++
+>>>   meta/conf/machine/kilauea.conf                     |   22 ++++++++++++++++++++++
+>>>   2 files changed, 28 insertions(+), 0 deletions(-)
+>>
+>> I'm guessing that this one is unrelated to getting things working on F14?
+>
+> Yes, it is unrelated. It's one of the targets I use for testing.
+>
+You should investigate creating a BSP Layer such as meta-kilauea that 
+you can put your changes into.
+
+>>> [4/5] elfutils-0.148: fix build problem with "ar"
+>>>   .../elfutils/elfutils-0.148/ar-options.patch       |   11 +++++++++++
+>>>   meta/recipes-devtools/elfutils/elfutils_0.148.bb   |    3 ++-
+>>>   2 files changed, 13 insertions(+), 1 deletions(-)
+>>>
+>>> [5/5] elfutils-0.148: fix problems with `ld' not recognizing options
+>>>   .../elfutils/elfutils-0.148/ld-compatibility.patch |   56 ++++++++++++++++++++
+>>>   meta/recipes-devtools/elfutils/elfutils_0.148.bb   |    3 +-
+>>>   2 files changed, 58 insertions(+), 1 deletions(-)
+>>
+>> Not sure about these two; for me with master this builds successfully. Could you retry with master and see if it works for you?
+>
+> Yes, will do.  I testes master about two weeks ago, when it didn't
+> build, but I will retest this now.
+>
+Thanks again, if you find more problems please let us now and we will 
+pull the changes.
+
+Sau!
+
+>
+> Thanks.
+>
+> Best regards,
+>
+> Wolfgang Denk
 >
 
