@@ -1,24 +1,25 @@
 Return-Path: <paul.eggleton@linux.intel.com>
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 506044C8120D
-	for <poky@yoctoproject.org>; Wed,  8 Dec 2010 05:24:52 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 08 Dec 2010 03:24:50 -0800
+	by mx1.pokylinux.org (Postfix) with ESMTP id AC1784C8120C
+	for <poky@yoctoproject.org>; Wed,  8 Dec 2010 05:31:40 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 08 Dec 2010 03:31:40 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,315,1288594800"; d="scan'208";a="634316534"
+X-IronPort-AV: E=Sophos;i="4.59,315,1288594800"; d="scan'208";a="865851834"
 Received: from unknown (HELO helios.localnet) ([10.255.16.53])
-	by fmsmga002.fm.intel.com with ESMTP; 08 Dec 2010 03:24:48 -0800
+	by fmsmga001.fm.intel.com with ESMTP; 08 Dec 2010 03:31:39 -0800
 From: Paul Eggleton <paul.eggleton@linux.intel.com>
 Organization: Intel Corporation (UK)
-To: Wolfgang Denk <wd@denx.de>
-Date: Wed, 8 Dec 2010 11:24:45 +0000
+To: poky@yoctoproject.org
+Date: Wed, 8 Dec 2010 11:31:36 +0000
 User-Agent: KMail/1.13.5 (Linux/2.6.35-23-generic-pae; KDE/4.5.1; i686; ; )
-References: <1291756443-28767-1-git-send-email-wd@denx.de>
-In-Reply-To: <1291756443-28767-1-git-send-email-wd@denx.de>
+References: <201012031634.56033.paul.eggleton@linux.intel.com>
+	<201012071636.55690.paul.eggleton@linux.intel.com>
+	<625BA99ED14B2D499DC4E29D8138F1504D515D0DC4@shsmsx502.ccr.corp.intel.com>
+In-Reply-To: <625BA99ED14B2D499DC4E29D8138F1504D515D0DC4@shsmsx502.ccr.corp.intel.com>
 MIME-Version: 1.0
-Message-Id: <201012081124.45901.paul.eggleton@linux.intel.com>
-Cc: Vasily Khoruzhick <anarsoul@gmail.com>, poky@yoctoproject.org
-Subject: Re: [PATCH 0/5] Fedora 14 Patches
+Message-Id: <201012081131.37242.paul.eggleton@linux.intel.com>
+Subject: Re: sstate status
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,55 +31,24 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 08 Dec 2010 11:24:52 -0000
+X-List-Received-Date: Wed, 08 Dec 2010 11:31:40 -0000
 Content-Type: Text/Plain;
   charset="iso-8859-1"
 Content-Transfer-Encoding: 7bit
 
-Hi Wolfgang / Vasily,
-
-FYI I'm building on a Fedora 14 x86_64 system here, as is Joshua Lock.
-
-On Tuesday 07 December 2010 21:13:58 Wolfgang Denk wrote:
-> From: Vasily Khoruzhick <anarsoul@gmail.com>
+On Wednesday 08 December 2010 11:22:40 Tian, Kevin wrote:
+> The weird behavior I saw yesterday is still there: lots of recipes (such as gzip-native) are
+> rebuilt when I build poky-image-minimal, which however finally ends up to override my
+> sstate cache with same checksums. 
 > 
-> The following is a series of patches trying to get Poky (both laverne
-> 4.0 and top of tree) to build under a Fedora 14 x86_64 system.
-
-What are you building exactly? (distro/image/etc.)
- 
-> [1/5] eglibc: fix build issue with make-3.82
->  meta/recipes-core/eglibc/eglibc_2.12.bb            |    3 ++-
->  .../eglibc/files/eglibc-make-382.patch             |   15 +++++++++++++++
->  2 files changed, 17 insertions(+), 1 deletions(-)
-
-A similar fix has already been applied to master.
- 
-> [2/5] gstreamer: fix build issue with make-3.82
->  .../gstreamer-0.10.29/gstreamer-make-382.patch     |  178 ++++++++++++++++++++
->  .../gstreamer/gstreamer_0.10.30.bb                 |    5 +-
->  2 files changed, 181 insertions(+), 2 deletions(-)
-
-This patch is needed; however it doesn't seem to work because (a) the inner patch file is in the wrong directory (gstreamer-0.10.29 instead of gstreamer-0.10.30), and (b) when this is moved into the correct location on my system it fails do_patch. I haven't yet looked into why.
-
-> [3/5] Add support for 40x configuration (kilauea from OE)
->  meta/conf/machine/include/tune-ppc405.inc          |    6 ++++++
->  meta/conf/machine/kilauea.conf                     |   22 ++++++++++++++++++++++
->  2 files changed, 28 insertions(+), 0 deletions(-)
-
-I'm guessing that this one is unrelated to getting things working on F14?
- 
-> [4/5] elfutils-0.148: fix build problem with "ar"
->  .../elfutils/elfutils-0.148/ar-options.patch       |   11 +++++++++++
->  meta/recipes-devtools/elfutils/elfutils_0.148.bb   |    3 ++-
->  2 files changed, 13 insertions(+), 1 deletions(-)
+> If I end the build when it finished setscene stage, and then simply build tasks in the runqueue
+> such as gzip-native, git-native, . It just succeeds by reusing sstate package.
 > 
-> [5/5] elfutils-0.148: fix problems with `ld' not recognizing options
->  .../elfutils/elfutils-0.148/ld-compatibility.patch |   56 ++++++++++++++++++++
->  meta/recipes-devtools/elfutils/elfutils_0.148.bb   |    3 +-
->  2 files changed, 58 insertions(+), 1 deletions(-)
+> Quite strange... Still look into it now.
 
-Not sure about these two; for me with master this builds successfully. Could you retry with master and see if it works for you?
+Oops, it appears that I pushed the wrong branch to paule/sstate yesterday. I've re-pushed a new one which actually includes the variable whitelisting changes.
+
+Sorry about that!
 
 Cheers,
 Paul
