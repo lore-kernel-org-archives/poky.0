@@ -1,25 +1,24 @@
 Return-Path: <dvhart@linux.intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9080C4C8122F
-	for <poky@pokylinux.org>; Wed,  8 Dec 2010 11:39:37 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 08 Dec 2010 09:39:36 -0800
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4D6CB4C81231;
+	Wed,  8 Dec 2010 11:43:44 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 08 Dec 2010 09:43:42 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,316,1288594800"; d="scan'208";a="358901522"
+X-IronPort-AV: E=Sophos;i="4.59,316,1288594800"; d="scan'208";a="865977495"
 Received: from unknown (HELO [10.255.13.189]) ([10.255.13.189])
-	by azsmga001.ch.intel.com with ESMTP; 08 Dec 2010 09:39:36 -0800
-Message-ID: <4CFFC2CE.4090809@linux.intel.com>
-Date: Wed, 08 Dec 2010 09:39:26 -0800
+	by fmsmga001.fm.intel.com with ESMTP; 08 Dec 2010 09:43:41 -0800
+Message-ID: <4CFFC3C3.4090003@linux.intel.com>
+Date: Wed, 08 Dec 2010 09:43:31 -0800
 From: Darren Hart <dvhart@linux.intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.2.12) Gecko/20101027 Lightning/1.0b2 Thunderbird/3.1.6
 MIME-Version: 1.0
 To: Richard Purdie <rpurdie@linux.intel.com>
-References: <1291791085.2779.125.camel@constitution.bos.jonmasters.org>
-	<1291806770.1554.304.camel@rex>
-In-Reply-To: <1291806770.1554.304.camel@rex>
-Cc: poky@pokylinux.org
-Subject: Re: distcc/ccache?
+References: <1291812548.1554.475.camel@rex>
+In-Reply-To: <1291812548.1554.475.camel@rex>
+Cc: yocto <yocto@yoctoproject.org>, poky <poky@yoctoproject.org>
+Subject: Re: Adding extra metadata to Yocto/Poky
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,64 +30,44 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 08 Dec 2010 17:39:37 -0000
+X-List-Received-Date: Wed, 08 Dec 2010 17:43:44 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 12/08/2010 03:12 AM, Richard Purdie wrote:
-> On Wed, 2010-12-08 at 01:51 -0500, Jon Masters wrote:
->> Anyone happen to know if poky plays nicely with distcc?
+On 12/08/2010 04:49 AM, Richard Purdie wrote:
+> Hi,
 >
-> I think most success has been with icecc in the past and there is a
-> icecc class which has code to enable that. It turns out that compiling
-> isn't the main bottleneck in builds though and icecc isn't something we
-> test in Poky at this time, we just provide the same class OE has which
-> may or may not work.
+> We're in a position where we have people wanting to extend Poky but
+> wondering exactly how to add their own layer and make Poky useful for
+> their specific use cases.
+>
+> This is a topic I want to work with the OE community on and have
+> discussion about but equally, people are interested at the moment and we
+> need something people can experiment with now so we can see what works
+> and what doesn't.
+>
+> With this in mind I'm proposing we create a "poky-extras" repository
+> which contains multiple user contributed layers.
+>
+> My proposed ground rules are:
+>
+> * it has the OE style open contributions model
+> * consists of a set of layers, each clearly identified at the top level
+> * each layer has a clearly named maintainer or maintainers
+> * people respect the layer maintainers
+> * layers are split into logical "topics" where at all possible
+>
+> Ultimately, the repo structure and some of the details could change but
+> I'd like to experiment and see what we can come up with which is
+> probably the only way we're going to move forward.
+>
+> Any comments, objections or better ideas? :)
 
-While not distributed compiling related, the following might add some 
-perspective as to what to expect with more compile nodes.
-
-I tried a poky-image-sdk (qemux86_64) build on a 4 socket Westmere 
-machine (40 physical cores total, 80 hardware threads). I set my 
-local.conf to:
-
-BB_NUMBER_THREADS = "160"
-PARALLEL_MAKE = "-j 160"
-
-After a warm-up build (get everything downloaded) I cleaned tmp and 
-sstate-cache and did another build. This one build took 118 minutes to 
-complete.
-
-$ time bitbake poky-image-sdk
-
-<time passes & bitbake spews messages like g++ and a buggy stl program>
-
-NOTE: Tasks Summary: Attempted 5619 tasks of which 300 didn't need to be 
-rerun and 0 failed.
-
-real    117m56.025s
-user    961m28.822s
-sys     464m27.318s
-
-
-I checked the CPU load periodically, often finding it under 10%. While 
-not a scientific test, what this tells me is that the build is 
-relatively serialized and/or much of the process is blocked on I/O. It 
-also suggests that a really big machine isn't all that helpful in 
-speeding up builds (although 117m is nothing to be ashamed of!).
-
-One could likely run four parallel builds on this system and have them 
-complete in about the same amount of time. I ran 4 copies of the above 
-load (even leaving the parallelism settings at 160). All 4 builds 
-completed in between 186 and 192 minutes. The system load average about 
-120 (just eyeballing it), with peaks as high as 700. All four builds 
-used the same disk, suggesting build dependencies leading to build 
-serialization is the primary bottleneck. So while you definitely want a 
-good number of CPUs to build, that number tapers off rapidly. Somewhere 
-around 10 I'd guess (for single builds). I'd have to run a number of 
-more tests to be sure.
-
-Anyway, hopefully that adds a datapoint of some use.
+Sounds like a good approach to me. What would the expectation of 
+"lifecycle" be? Will these layers move to the poky git repository after 
+some proven time to join things like meta-linaro and meta-demo (which 
+should be renamed meta-dlna) or should we move these layers to 
+poky-extras too?
 
 -- 
 Darren Hart
