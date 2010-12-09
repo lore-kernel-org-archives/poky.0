@@ -1,37 +1,28 @@
-Return-Path: <fransmeulenbroeks@gmail.com>
-Received: from mail-gx0-f169.google.com (mail-gx0-f169.google.com
-	[209.85.161.169])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D100F4C80A74
-	for <poky@yoctoproject.org>; Thu,  9 Dec 2010 12:43:47 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by gxk5 with SMTP id 5so1618023gxk.28
-	for <poky@yoctoproject.org>; Thu, 09 Dec 2010 10:43:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:received:received:in-reply-to
-	:references:date:message-id:subject:from:to:content-type;
-	bh=VdYWb2wCv/Guqc4Wnk8NwOeY6QGrc0Itzemw2pxhFN8=;
-	b=sJp6R8AkaYyQit8MddvBGmMfC/KkgHUmzDgkcDkt1Mb7EV54P5AOiQU0C1knF/NUTI
-	ZrmFvXfWsoDGkTmthqc67RU85j0c2LDBx4twWfAenmW1SLsf6+MX8xvzOOy0l8OIe/MY
-	lI/gm9Yhpl5punuKQYpyRjz8RAQan4H56cZ6M=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:content-type;
-	b=K5AKeZaj5THCeEMjISopg0I8iFRwfQQ2VC/sqQzUhswi2vTjQxkYUXXOI/aMPf4qTc
-	Ym9ZiI/izWBtYsoWAJ3M995G87DThe+NxyLbtrX2rvPEmhwPjcniXMNxMApKC4S7C9bm
-	N2KA0niEIhc/RihBNf5K+v7yY3qeGsSZLWhGc=
-MIME-Version: 1.0
-Received: by 10.231.182.13 with SMTP id ca13mr608462ibb.57.1291920227283; Thu,
-	09 Dec 2010 10:43:47 -0800 (PST)
-Received: by 10.231.200.140 with HTTP; Thu, 9 Dec 2010 10:43:47 -0800 (PST)
-In-Reply-To: <4D0120ED.6060801@linux.intel.com>
-References: <4D0120ED.6060801@linux.intel.com>
-Date: Thu, 9 Dec 2010 19:43:47 +0100
-Message-ID: <AANLkTi=wXJsc=0ZjxF1tU8eZV=UWGOCR+5k4qXxC4w-H@mail.gmail.com>
-From: Frans Meulenbroeks <fransmeulenbroeks@gmail.com>
-To: Darren Hart <dvhart@linux.intel.com>, poky@yoctoproject.org
-Subject: Re: Kernel recipe naming
+Return-Path: <josh@openedhand.com>
+Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2A68E4C80A74
+	for <poky@yoctoproject.org>; Thu,  9 Dec 2010 12:46:45 -0600 (CST)
+Received: from [192.168.1.181] (unknown [83.217.123.106])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by pug.o-hand.com (Postfix) with ESMTP id 2CC4E12EC1C5;
+	Thu,  9 Dec 2010 13:25:00 -0600 (CST)
+From: Joshua Lock <josh@openedhand.com>
+To: Wolfgang Denk <wd@denx.de>
+In-Reply-To: <20101209160605.0A664D1CAD4@gemini.denx.de>
+References: <1291756443-28767-1-git-send-email-wd@denx.de>
+	<201012081124.45901.paul.eggleton@linux.intel.com>
+	<20101208113542.9D65E140688@gemini.denx.de>
+	<4D00042C.6040403@linux.intel.com>
+	<20101209085846.264F5D301D6@gemini.denx.de>
+	<1291897825.6078.11.camel@scimitar>
+	<20101209160605.0A664D1CAD4@gemini.denx.de>
+Date: Thu, 09 Dec 2010 18:46:37 +0000
+Message-ID: <1291920397.6078.39.camel@scimitar>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.1 (2.32.1-1.fc14) 
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/5] Fedora 14 Patches
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,24 +34,51 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 09 Dec 2010 18:43:48 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Thu, 09 Dec 2010 18:46:45 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-2010/12/9 Darren Hart <dvhart@linux.intel.com>:
-> I asked Richard about recipe naming convention this morning. We were pressed for
-> time, but this is what I took away from the discussion.
->
-> For typical packages, the filename typically looks like:
->
-> package-name_version.bb
+On Thu, 2010-12-09 at 17:06 +0100, Wolfgang Denk wrote:
+> Dear Joshua,
+> 
+> In message <1291897825.6078.11.camel@scimitar> you wrote:
+> > > 
+> > > I'm trying to build Poky for some PowerPC and ARM architectures
+> > > (PPC6xx, PPC4xx, ARM Kirkwood, etc.), and see a number of build
+> > > issues.  I started reportung these:
+> > > http://bugzilla.pokylinux.org/show_bug.cgi?id=572
+> > > http://bugzilla.pokylinux.org/show_bug.cgi?id=574
+> > 
+> > I'm not at all familiar with PPC machines and not especially familiar
+> > with Arm but I assume these are new machine definitions which you've
+> > added? If that is the case can you share the machine configurations,
+> > this could help us (or more knowledgeable others) to work out your
+> > issue?
+> 
+> I sent one of the configs (kilauea = PPC405EX) as part of these
+> patches, please see
+> http://thread.gmane.org/gmane.linux.embedded.poky/942/focus=946
+> 
+> The other one (tqm5200 = MPC5200) is an attachment to
+> http://bugzilla.pokylinux.org/show_bug.cgi?id=574 - please see
+> http://bugzilla.pokylinux.org/attachment.cgi?id=78
+> 
+> > Do you have more success if you use one of the machines we already have
+> > in the Poky tree? qemuppc and mpc8315e-rdb for PPC or qemuarm and
+> > beagleboard for Arm?
+> 
+> I didn't try qemuppc yet; I successfully built mpc8315e-rdb for
+> laverne on Fedora 13 (but failed on F 14). Did not try current master
+> yet.
 
-For perl cpan recipes the policy in OE is:
-if the package is called X::Y the recipe name becomes
-libX-Y-perl_version.bb
+OK, I have filed an issue in our Bugzilla - we need to pull together a
+Laverne point release for F14.
+http://bugzilla.pokylinux.org/show_bug.cgi?id=578
 
-poky has only a few perl cpan packages but they seem to follow the same pattern.
-In any case I feel it is quite desirable that they have perl in the
-name, so they are easily identifiable as such.
+Thanks,
+Joshua
+-- 
+Joshua Lock
+        Intel Open Source Technology Centre
 
-Frans
 
