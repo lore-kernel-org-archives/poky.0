@@ -1,21 +1,28 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C508E4C80A74
-	for <poky@yoctoproject.org>; Thu,  9 Dec 2010 12:33:23 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 09 Dec 2010 10:33:23 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,321,1288594800"; d="scan'208";a="685581705"
-Received: from doubt.jf.intel.com (HELO [10.24.4.158]) ([10.24.4.158])
-	by orsmga001.jf.intel.com with ESMTP; 09 Dec 2010 10:33:23 -0800
-Message-ID: <4D0120ED.6060801@linux.intel.com>
-Date: Thu, 09 Dec 2010 10:33:17 -0800
-From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.12) Gecko/20101027 Lightning/1.0b2 Thunderbird/3.1.6
-MIME-Version: 1.0
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Kernel recipe naming
+Return-Path: <josh@openedhand.com>
+Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 086E14C80A74
+	for <poky@yoctoproject.org>; Thu,  9 Dec 2010 12:40:54 -0600 (CST)
+Received: from [192.168.1.181] (unknown [83.217.123.106])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by pug.o-hand.com (Postfix) with ESMTP id EC1AC12EC1C5;
+	Thu,  9 Dec 2010 13:19:09 -0600 (CST)
+From: Joshua Lock <josh@openedhand.com>
+To: Wolfgang Denk <wd@denx.de>
+In-Reply-To: <20101209172927.580BED3DE62@gemini.denx.de>
+References: <1291756443-28767-1-git-send-email-wd@denx.de>
+	<201012081124.45901.paul.eggleton@linux.intel.com>
+	<20101208113542.9D65E140688@gemini.denx.de>
+	<4D00042C.6040403@linux.intel.com>
+	<20101209085846.264F5D301D6@gemini.denx.de>
+	<1291897825.6078.11.camel@scimitar>
+	<20101209172927.580BED3DE62@gemini.denx.de>
+Date: Thu, 09 Dec 2010 18:40:46 +0000
+Message-ID: <1291920046.6078.36.camel@scimitar>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.1 (2.32.1-1.fc14) 
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/5] Fedora 14 Patches
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,56 +34,76 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 09 Dec 2010 18:33:23 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Thu, 09 Dec 2010 18:40:55 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-I asked Richard about recipe naming convention this morning. We were pressed for
-time, but this is what I took away from the discussion.
+On Thu, 2010-12-09 at 18:29 +0100, Wolfgang Denk wrote:
+> Dear Joshua,
+> 
+> In message <1291897825.6078.11.camel@scimitar> you wrote:
+> >
+> > > Makefiles, especially as this was trivial to do, and in case of eglibc
+> > > I could just apply the corresponding commit from OE.
+> > > 
+> > > But actually the make-3.82 issues are the smallest of my problems.
+> > > 
+> > > I'm trying to build Poky for some PowerPC and ARM architectures
+> > > (PPC6xx, PPC4xx, ARM Kirkwood, etc.), and see a number of build
+> > > issues.  I started reportung these:
+> > > http://bugzilla.pokylinux.org/show_bug.cgi?id=572
+> > > http://bugzilla.pokylinux.org/show_bug.cgi?id=574
+> > 
+> > I'm not at all familiar with PPC machines and not especially familiar
+> > with Arm but I assume these are new machine definitions which you've
+> > added? If that is the case can you share the machine configurations,
+> > this could help us (or more knowledgeable others) to work out your
+> > issue?
+> > 
+> > Do you have more success if you use one of the machines we already have
+> > in the Poky tree? qemuppc and mpc8315e-rdb for PPC or qemuarm and
+> > beagleboard for Arm?
+> > 
+> > FWIW I have successfully built and run a minimal image on the
+> > mpc8315e-rdb and the beagleboard using the Laverne tree.
+> > > 
+> > > Are there any plans to include PPC and ARM targets for example int he
+> > > autobuilder testing?
+> > 
+> > We already do, the autobuilder currently tests qemuarm and qemuppc and I
+> > believe we will be adding beagleboard and mpc8315e-rdb.
+> 
+> Trying to build "poky-image-sdk" for qemuppc on Fedora 14 / i686
+> fails with the
+> 
+> ./ld: cannot load ld backend library 'libld_elf_i386.so':
+> libld_elf_i386.so: cannot open shared object file: No such file or
+> directory
+> 
+> error described in part 2 of
+> http://bugzilla.pokylinux.org/show_bug.cgi?id=572
 
-For typical packages, the filename typically looks like:
+OK - we can definitely build poky-image-sdk for qemuppc, see the
+autobuilder log here[1].
 
-package-name_version.bb
+Can you tell me if this was a clean build? We unfortunately have a known
+fragility in our toolchain[2] and it's possible that a previous partial
+build is causing issue here.
 
-For kernels this gets a bit more complex as it's useful to indicate the source
-of the kernel (linaro, omap, etc.) as well as the base kernel version (2.6.33)
-and Richard feels it would be nice to indicate in the filename what the
-underlying source repository is (_git). (I agree up to the last point, but for
-the source repository type, it seems to me if a user needs that much detail
-they can open the .bb file and check the SRC_URI.)
+Secondly, out of curiosity, do you have SELINUX enabled on your Fedora
+machines? We're still ironing out some issues with regards to that.
 
-So for a linux recipe, naming as follows seems to meet the above:
+Thanks for persisting with this, hopefully we can help you get going
+soon!
 
-linux-linaro_2.6.35+git.bb
-linux-linaro_2.6.37+git.bb
+Regards,
+Joshua
 
-I mentioned the -stable and -devel tags which he agreed could be useful, how to
-integrate them into the naming scheme wasn't clear to me though. Perhaps:
-
-linux-linaro-stable_2.6.35+git.bb
-linux-linaro-devel_2.6.37+git.bb
-
-Although to me, stable and 2.6.35 are redundant for this kernel, and something
-along the lines of the following is just as informative, and doesn't pollute the
-directory listings quite as much (and doesn't have to be renamed when stable
-rebases):
-
-linux-linaro_stable.bb
-linux-linaro_devel.bb
-
-In any of the above cases, the PV value doesn't seem to be disputed:
-
-PV=2.6.35+git${SRCPV}
-
-or possibly
-
-PV=2.6.35-linaro+git${SRCPV}
-
-Although including linaro in the PV is probably redundant as it's included in
-the PN and those are typically reported together IIRC $PN_$PV.
-
-Thoughts?
+1.
+http://autobuilder.pokylinux.org:8010/builders/poky-incremental/builds/24/steps/shell_29
+2. http://bugzilla.pokylinux.org/show_bug.cgi?id=239
 -- 
-Darren Hart
-Yocto Linux Kernel
+Joshua Lock
+        Intel Open Source Technology Centre
+
 
