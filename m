@@ -1,38 +1,37 @@
-Return-Path: <wd@denx.de>
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
-	by mx1.pokylinux.org (Postfix) with ESMTP id DAE914C81240
-	for <poky@yoctoproject.org>; Thu,  9 Dec 2010 02:58:47 -0600 (CST)
-Received: from frontend1.mail.m-online.net (frontend1.mail.intern.m-online.net
-	[192.168.8.180])
-	by mail-out.m-online.net (Postfix) with ESMTP id 205551844244;
-	Thu,  9 Dec 2010 09:58:46 +0100 (CET)
-X-Auth-Info: 1/FlsUP4w90oZkZztKl1uwaD7F6tUIDfYJK71MoRXDk=
-Received: from diddl.denx.de (ppp-188-174-79-57.dynamic.mnet-online.de
-	[188.174.79.57])
-	by smtp-auth.mnet-online.de (Postfix) with ESMTPA id 731741C001C6;
-	Thu,  9 Dec 2010 09:58:46 +0100 (CET)
-Received: from gemini.denx.de (gemini.denx.de [10.0.0.2])
-	by diddl.denx.de (Postfix) with ESMTP id 3BE7F3335217;
-	Thu,  9 Dec 2010 09:58:46 +0100 (CET)
-Received: from gemini.denx.de (localhost.localdomain [127.0.0.1])
-	by gemini.denx.de (Postfix) with ESMTP id 264F5D301D6;
-	Thu,  9 Dec 2010 09:58:46 +0100 (CET)
-To: Saul Wold <sgw@linux.intel.com>
-From: Wolfgang Denk <wd@denx.de>
-MIME-Version: 1.0
-In-reply-to: <4D00042C.6040403@linux.intel.com>
-References: <1291756443-28767-1-git-send-email-wd@denx.de>
-	<201012081124.45901.paul.eggleton@linux.intel.com>
-	<20101208113542.9D65E140688@gemini.denx.de>
-	<4D00042C.6040403@linux.intel.com>
-Comments: In-reply-to Saul Wold <sgw@linux.intel.com>
-	message dated "Wed, 08 Dec 2010 14:18:20 -0800."
-Date: Thu, 09 Dec 2010 09:58:46 +0100
-Message-Id: <20101209085846.264F5D301D6@gemini.denx.de>
-Cc: Vasily Khoruzhick <anarsoul@gmail.com>,
-	Paul Eggleton <paul.eggleton@linux.intel.com>,
-	"poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 0/5] Fedora 14 Patches
+Return-Path: <rpurdie@linux.intel.com>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id A79284C81234
+	for <poky@yoctoproject.org>; Thu,  9 Dec 2010 05:24:26 -0600 (CST)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oB9BOMUx005953;
+	Thu, 9 Dec 2010 11:24:22 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 05798-02; Thu,  9 Dec 2010 11:24:18 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oB9BOGmh005946
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Thu, 9 Dec 2010 11:24:17 GMT
+From: Richard Purdie <rpurdie@linux.intel.com>
+To: "Xu, Dongxiao" <dongxiao.xu@intel.com>, Chris Larson <clarson@kergoth.com>
+In-Reply-To: <D5AB6E638E5A3E4B8F4406B113A5A19A314F3004@shsmsx501.ccr.corp.intel.com>
+References: <D5AB6E638E5A3E4B8F4406B113A5A19A303B2EF0@shsmsx501.ccr.corp.intel.com>
+	<1291804222.1554.256.camel@rex>
+	<625BA99ED14B2D499DC4E29D8138F1504D515D0DC5@shsmsx502.ccr.corp.intel.com>
+	<D5AB6E638E5A3E4B8F4406B113A5A19A314F2BAE@shsmsx501.ccr.corp.intel.com>
+	<1291819067.1554.606.camel@rex>
+	<D5AB6E638E5A3E4B8F4406B113A5A19A314F2E1C@shsmsx501.ccr.corp.intel.com>
+	<625BA99ED14B2D499DC4E29D8138F1504D515D10E7@shsmsx502.ccr.corp.intel.com>
+	<D5AB6E638E5A3E4B8F4406B113A5A19A314F3004@shsmsx501.ccr.corp.intel.com>
+Date: Thu, 09 Dec 2010 11:24:06 +0000
+Message-ID: <1291893846.1554.793.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: About the operator "??="
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,67 +43,114 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 09 Dec 2010 08:58:48 -0000
-Content-type: text/plain; charset=ISO-8859-1
-Content-transfer-encoding: 8bit
+X-List-Received-Date: Thu, 09 Dec 2010 11:24:27 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Dear Saul,
+On Thu, 2010-12-09 at 15:59 +0800, Xu, Dongxiao wrote:
+> Tian, Kevin wrote:
+> >> From: Xu, Dongxiao
+> >> Sent: Thursday, December 09, 2010 11:33 AM
+> >> During the file parsing process, the getVar is called
+> >> "1435156/1148654" 
+> >> times (actually I am still confused what "/" means...), and among
+> >> them, 322121 times of getVar call return "None", thus about 1/3 or
+> >> 1/4 of the total calls. 
 
-In message <4D00042C.6040403@linux.intel.com> you wrote:
->
-> Thanks for your patches and assistance.
+Ok, that is a pretty significant portion of the time.
+
+> >> I tried to use the following patch to have a test. Also I paste a
+> >> profile log. 
+> >> From the result we can see it has over 15% performance gain. (from
+> >> 39.3 
+> >> secs to 33.7 secs).
+
+So despite that, it still significantly helps performance. Could you
+also give some raw performance numbers? By this I mean make the timing
+runs with profiling turned off so work out the time it takes before and
+after the patch with the profiling off so the numbers are "real" with
+"time bitbake xxx"?
+
+It always pays just to sanity check and this gives the "real"
+performance gain.
+
+> >> In usermanual, the "??=" definition is:
+> >> 
+> >> Setting a default value (??=)
+> >> 	A ??= "somevalue"
+> >> 	A ??= "someothervalue"
+> >> If A is set before the above, it will retain that value.  If A is
+> >> unset 
+> >> prior to the above, A will be set to someothervalue.  This is a lazy
+> >> version of ?=, in that the assignment does not occur until the end of
+> >> the parsing process, so that the last, rather than the first, ??=
+> >> assignment to a given variable will be used. 
+> >> 
+> >> Our patch logic isn't strickly following the "??=" definition, since
+> >> the assignment doesn't occurs in end of parsing process...
+> >> Except this one, I think other behaviors for ??= do not change.
+> > 
+> > I think it is, as long as a getVar on a variable happens after all
+> > the evaluations of that variable which I think should be true or else
+> > even current design has problem. In that way when evaluating variable
+> > assignments, you keep 'defaultvalue' updated until the last "??="
+> > assignment. Then later a getVar() on that variable happens which then
+> > you just return the right defaultvalue. :-)    
 > 
-> Not sure if you saw the Release Notes regarding F14 and building 
-> make-native first and installing that locally due to problems with F14's 
-> make.  See http://bugzilla.pokylinux.org/show_bug.cgi?id=467
-> and http://www.yoctoproject.org/download/yocto-project-4-0-release-notes
+> Agree.
 
-Yes, I saw trhis, but decided it made more sense to fix the broken
-Makefiles, especially as this was trivial to do, and in case of eglibc
-I could just apply the corresponding commit from OE.
+I also agree, I think we can adjust the definition of how this is
+handled slightly. There is also a change in behaviour as now, when one
+of these variables is looked up, it will get the default value rather
+than None if finalise() hasn't been called. I don't think this is much
+of an issue though.
 
-But actually the make-3.82 issues are the smallest of my problems.
+> >> --- a/bitbake/lib/bb/parse/ast.py
+> >> +++ b/bitbake/lib/bb/parse/ast.py
+> >> @@ -109,10 +109,8 @@ class DataNode(AstNode):
+> >>         if 'flag' in groupd and groupd['flag'] != None:
+> >>             bb.data.setVarFlag(key, groupd['flag'], val, data)
+> >>         elif groupd["lazyques"]:
+> >> -            assigned = bb.data.getVar("__lazy_assigned", data) or []
+> >> -            assigned.append(key)
+> >> -            bb.data.setVar("__lazy_assigned", assigned, data)
+> >>             bb.data.setVarFlag(key, "defaultval", val, data)
+> >> +            bb.data.setVar(key, None, data)
+> > 
+> > This I think is incorrect. You actually wiped out previous assignment
+> > before ??=, and thus end up to always have default value favored
+> > unless there're other direct assignments after ??= evaluation. Just
+> > touch the flag should be enough.   
+> 
+> Ah, yes, I need to check whether the value has been setVar before, see following patch. 
+> 
+> This two lines are necessary in the following patch
+> 
+> +            if bb.data.getVarFlag(key, "content", data) is None:
+> +                bb.data.setVar(key, None, data)
+> 
+> because setVar will add the key into override list, which could not be
+> achieved by just calling "setVarFlag". For the later formal patch, I
+> will add comments on the two lines.
 
-I'm trying to build Poky for some PowerPC and ARM architectures
-(PPC6xx, PPC4xx, ARM Kirkwood, etc.), and see a number of build
-issues.  I started reportung these:
-http://bugzilla.pokylinux.org/show_bug.cgi?id=572
-http://bugzilla.pokylinux.org/show_bug.cgi?id=574
+This is a little worrying and I think we have insight into a new bug
+here which is that if you just have a variable:
 
-Are there any plans to include PPC and ARM targets for example int he
-autobuilder testing?
+foo_OVERA[bar] = "x"
 
-> Yes, this should build you can see the status of master on our build 
-> machine at http://autobuilder.pokylinux.org:8010/waterfall we are 
-> working on stabilizing the build (meta-toolchain-sdk is failing currently).
+and foo is never set as a variable directly, the override is never
+expanded.
 
-What I cannot see (maybe I just don't know where to look) is if the
-autobuilder includes any PPC and ARM targets at all, and if so, which
-these are.
+There is a strong argument here to make setVar(...) a special case of
+setVarFlag(..., "content") although I worry about the performance
+implications.
 
-> > Yes, it is unrelated. It's one of the targets I use for testing.
-> >
-> You should investigate creating a BSP Layer such as meta-kilauea that 
-> you can put your changes into.
+Chris: Any opinion?
 
-Sorry for asking stupid questions - I'm still pretty new to Poky and
-haven't really understood some of the concepts: what would be the
-benefit (for me, or for the project) of such a layer?  Why not adding
-just another machine configuration?
+Cheers,
 
-> Thanks again, if you find more problems please let us now and we will 
-> pull the changes.
+Richard
 
-Thanks!
 
-Best regards,
 
-Wolfgang Denk
-
--- 
-DENX Software Engineering GmbH,     MD: Wolfgang Denk & Detlev Zundel
-HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
-Phone: (+49)-8142-66989-10 Fax: (+49)-8142-66989-80 Email: wd@denx.de
-A weak mind is like a microscope, which magnifies trifling things,
-but cannot receive great ones.      -- Philip Earl of Chesterfield
 
