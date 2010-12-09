@@ -1,40 +1,43 @@
-Return-Path: <rpurdie@linux.intel.com>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id DCF0B4C80B70
-	for <poky@yoctoproject.org>; Thu,  9 Dec 2010 09:16:32 -0600 (CST)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oB9FGTDD008567;
-	Thu, 9 Dec 2010 15:16:29 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 08488-02; Thu,  9 Dec 2010 15:16:25 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oB9FGODF008561
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Thu, 9 Dec 2010 15:16:24 GMT
-From: Richard Purdie <rpurdie@linux.intel.com>
-To: Qing He <qing.he@intel.com>
-In-Reply-To: <20101208031204.GA20033@qhe2-db>
-References: <a03c4017a13bda3f20b8f39a4c099cb28f349968.1289982751.git.qing.he@intel.com>
-	<1290954166.27143.217.camel@rex>
-	<625BA99ED14B2D499DC4E29D8138F1504D42C686F3@shsmsx502.ccr.corp.intel.com>
-	<AANLkTi=oxv9goiEMAfpkDAvq7n_GfGUMSXsonXDdzixd@mail.gmail.com>
-	<1291033557.14277.944.camel@rex>
-	<AANLkTinYx+43yRYFu=BYQPVJHox6CmBgOMFF199z3BC=@mail.gmail.com>
-	<625BA99ED14B2D499DC4E29D8138F1504D475430EC@shsmsx502.ccr.corp.intel.com>
-	<1291597457.14277.2931.camel@rex>
-	<625BA99ED14B2D499DC4E29D8138F1504D47543B3B@shsmsx502.ccr.corp.intel.com>
-	<1291725455.11475.10.camel@rex>  <20101208031204.GA20033@qhe2-db>
-Date: Thu, 09 Dec 2010 15:16:12 +0000
-Message-ID: <1291907772.1554.894.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>,
-	Chris Larson <clarson@kergoth.com>
-Subject: Re: [PATCH 1/1] curl: fix native dependency
+Return-Path: <leon.woestenberg@gmail.com>
+Received: from mail-vw0-f48.google.com (mail-vw0-f48.google.com
+	[209.85.212.48])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 950EF4C80B70
+	for <poky@yoctoproject.org>; Thu,  9 Dec 2010 09:43:14 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by vws18 with SMTP id 18so1651558vws.35
+	for <poky@yoctoproject.org>; Thu, 09 Dec 2010 07:43:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:received:received:in-reply-to
+	:references:date:message-id:subject:from:to:cc:content-type;
+	bh=Upf8kNs69V1rhMNwsXhn0SYcmXtQfiKZAnK3xP4vbBQ=;
+	b=OIsEQhjAr7JbUKsDab4fEpBvv0DZjZcHlFl+DvTecNqbjBKa0NZxZrvLf5e4ah51ZS
+	LSugrha4kIUAAW7Fn+AJqLtiSGOnu9c3vFVPgRQu8Dv7LyU7e4Fl6gEH3KLR7Dq6HCaE
+	rN5NcqFiKe3F3CvqfEyDdMqmV3fIDrlzG35/E=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:cc:content-type;
+	b=p3ZqcOGJ6L1ruBlGr98xIP+hOIdZXCOSUO74MOZlz9kNvaBXGv4zeAhQFpRQG1V9+6
+	adSYmz8/q+KBAsAwWMKWIMv2CjD28UOlCVc1Ru4yGkpRixINnh4ewHWDtlnJEiMcSChW
+	Ci4vXuQBVJMGX2yBpV0FPzZLJMDl+/BAfRgGs=
+MIME-Version: 1.0
+Received: by 10.229.84.147 with SMTP id j19mr8156628qcl.155.1291909393997;
+	Thu, 09 Dec 2010 07:43:13 -0800 (PST)
+Received: by 10.229.223.203 with HTTP; Thu, 9 Dec 2010 07:43:13 -0800 (PST)
+In-Reply-To: <1291897825.6078.11.camel@scimitar>
+References: <1291756443-28767-1-git-send-email-wd@denx.de>
+	<201012081124.45901.paul.eggleton@linux.intel.com>
+	<20101208113542.9D65E140688@gemini.denx.de>
+	<4D00042C.6040403@linux.intel.com>
+	<20101209085846.264F5D301D6@gemini.denx.de>
+	<1291897825.6078.11.camel@scimitar>
+Date: Thu, 9 Dec 2010 16:43:13 +0100
+Message-ID: <AANLkTikvUb+SmGvn3i=U7KpEiYHq24XbOnjZMFTh6K1j@mail.gmail.com>
+From: Leon Woestenberg <leon.woestenberg@gmail.com>
+To: Joshua Lock <josh@openedhand.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/5] Fedora 14 Patches
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,108 +49,43 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 09 Dec 2010 15:16:33 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 09 Dec 2010 15:43:14 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 
-On Wed, 2010-12-08 at 11:12 +0800, Qing He wrote:
-> Thank you for the fix, I've been looking the smart data section
-> recently, and the rationale becomes much clearer to me.
-> 
-> However, the following case still has some confusion:
-> 
-> FOO = "A"
-> FOO_append = "B"
-> FOO_virtclass-native = "C"
-> 
-> when in virtclass-native, the output is simply "C", instead of "CB"
-> as I expected
+Hello Joshua,
 
-This is a tricky one. It would be interesting to see if this applies
-with other overrides such as MACHINE. The reason I say that is the way
-the virtclass-native override is added (see native.bbclass).
+On Thu, Dec 9, 2010 at 1:30 PM, Joshua Lock <josh@openedhand.com> wrote:
+> On Thu, 2010-12-09 at 09:58 +0100, Wolfgang Denk wrote:
+>> Dear Saul,
+>> >
+>> > Thanks for your patches and assistance.
+>> >
+>
+> I'm not at all familiar with PPC machines and not especially familiar
+> with Arm but I assume these are new machine definitions which you've
+> added? If that is the case can you share the machine configurations,
+> this could help us (or more knowledgeable others) to work out your
+> issue?
+>
+>
+Is something preventing the Yocto guys to look at the OpenEmbedded
+GIT, where these machines and recipes came from in the first place?
 
-> > > I also thought that there's no ordering constraint in this design. either "A B C"
-> > > or "A C B" could work, unless the appendix itself has order constraint, say 
-> > > a patch sequence. But I'm not sure whether there's real usage and we need
-> > > to handle it or not.
-> > 
-> > I think its not something we should worry too much about, just something
-> > to be aware of.
-> 
-> There is some occasion where the ordering may matter, for example, CFLAGS
-> (and some other command line options). But even this may avoid the need of
-> predicatable order if we are careful.
+Obviously most of these machines come directly from OE.
 
-Right, there are cases it will matter like patch application but we just
-need to be sensitive to that when writing metadata.
+What I don't understand is that all that is sitting in OpenEmbedded is
+considered 'new' in Poky/Yocto, while it was thrown away in the first
+place by Poky and Yocto.
 
-> > I do still think we should support FOO_append_OVERA_OVERB_OVERC though
-> > perhaps we should leave a bug open on that?
-> 
-> This question also arose when I read the code, then I realize that
-> FOO_append_OVERA_OVERB_OVERC doesn't work in current design. Previously
-> I expected something like a staged handling, i.e. peeling off the
-> append/prepend first, and then handling override, but actually they are
-> not that loosely coupled.
+We have had numerous discussion on how we can extend Yocto back to
+include the PowerPC, ARM, MIPS stuff again, but it takes people to
+look across the wall again.
 
-I'd also actually thought the code worked differently to how it does
-before I looked at it!
+If there's legal issues involved in looking over the wall, I'ld like
+to see that confirmed, as it greatly influences the way we can work
+with the community.
 
-> That said, it seems supporting multiple overrides in append is still
-> ok, I tried to sketch a patch as follow, seems work for
-> FOO_append_virtclass-native_qemux86 = "C"
-
-This looks reasonable. In python you should used "True" and "False"
-instead of "1" and "0".
-
-I've just mentally been asking myself what if this was a variable like
-SRC_URI where the name contains an "_" but since we don't allow
-overrides to contain the character, I think we're safe.
-
-I also think you can simplify the logic slightly to be:
-
-+                            for override in o.split('_'):
-+                                if not override in overrides:
-+                                    keep.append((a ,o)) 
-+                                    continue
-
-?
-
-Cheers,
-
-Richard
-
-> ---
-> diff --git a/bitbake/lib/bb/data_smart.py b/bitbake/lib/bb/data_smart.py
-> index c8cd8f8..116ea10 100644
-> --- a/bitbake/lib/bb/data_smart.py
-> +++ b/bitbake/lib/bb/data_smart.py
-> @@ -160,9 +160,15 @@ class DataSmart:
->                  for append in appends:
->                      keep = []
->                      for (a, o) in self.getVarFlag(append, op) or []:
-> -                        if o and not o in overrides:
-> -                            keep.append((a ,o))
-> -                            continue
-> +                        if o:
-> +                            applicable = 1
-> +                            for override in o.split('_'):
-> +                                if not override in overrides:
-> +                                    applicable = 0
-> +                                    break
-> +                            if not applicable:
-> +                                keep.append((a ,o))
-> +                                continue
->  
->                          if op is "_append":
->                              sval = self.getVar(append, False) or ""
-> ---
-> 
-> 
-> Thanks,
-> Qing
-> 
-
-
+Regards,
+-- 
+Leon
 
