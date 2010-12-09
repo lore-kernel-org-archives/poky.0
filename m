@@ -1,28 +1,28 @@
 Return-Path: <sgw@linux.intel.com>
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 19DCA4C81233
-	for <poky@yoctoproject.org>; Wed,  8 Dec 2010 16:18:23 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 08 Dec 2010 14:18:22 -0800
+	by mx1.pokylinux.org (Postfix) with ESMTP id 64CE14C81227
+	for <poky@yoctoproject.org>; Wed,  8 Dec 2010 18:47:11 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 08 Dec 2010 16:47:10 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,317,1288594800"; d="scan'208";a="581903582"
+X-IronPort-AV: E=Sophos;i="4.59,318,1288594800"; d="scan'208";a="685312449"
 Received: from unknown (HELO [10.255.13.4]) ([10.255.13.4])
-	by orsmga002.jf.intel.com with ESMTP; 08 Dec 2010 14:18:21 -0800
-Message-ID: <4D00042C.6040403@linux.intel.com>
-Date: Wed, 08 Dec 2010 14:18:20 -0800
+	by orsmga001.jf.intel.com with ESMTP; 08 Dec 2010 16:47:10 -0800
+Message-ID: <4D00270D.7070601@linux.intel.com>
+Date: Wed, 08 Dec 2010 16:47:09 -0800
 From: Saul Wold <sgw@linux.intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
 	Thunderbird/3.0.5
 MIME-Version: 1.0
-To: Wolfgang Denk <wd@denx.de>
-References: <1291756443-28767-1-git-send-email-wd@denx.de>	<201012081124.45901.paul.eggleton@linux.intel.com>
-	<20101208113542.9D65E140688@gemini.denx.de>
-In-Reply-To: <20101208113542.9D65E140688@gemini.denx.de>
-Cc: Vasily Khoruzhick <anarsoul@gmail.com>,
-	Paul Eggleton <paul.eggleton@linux.intel.com>,
-	"poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 0/5] Fedora 14 Patches
+To: Frans Meulenbroeks <fransmeulenbroeks@gmail.com>
+References: <AANLkTi==kWiyOrmeUeUVNeC8FT0B8XxruHA0X4qMaPs_@mail.gmail.com>	<4CFD68A2.20408@intel.com>	<20101206225236.GD29253@denix.org>	<4CFD9E17.5070209@intel.com>
+	<AANLkTikHxJ=4iWnx=-afTjj8Y6=qca2jv5y7yovqzAMe@mail.gmail.com>
+In-Reply-To: <AANLkTikHxJ=4iWnx=-afTjj8Y6=qca2jv5y7yovqzAMe@mail.gmail.com>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>,
+	"openembedded-devel@lists.openembedded.org"
+	<openembedded-devel@lists.openembedded.org>
+Subject: Re: [oe] libcdaudio license issue
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,103 +34,92 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 08 Dec 2010 22:18:23 -0000
+X-List-Received-Date: Thu, 09 Dec 2010 00:47:11 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 12/08/2010 03:35 AM, Wolfgang Denk wrote:
-> Dear Paul Eggleton,
+On 12/07/2010 01:23 AM, Frans Meulenbroeks wrote:
+> Replying to 3 replies in this one
 >
-> In message<201012081124.45901.paul.eggleton@linux.intel.com>  you wrote:
->>
->> FYI I'm building on a Fedora 14 x86_64 system here, as is Joshua Lock.
 >
-> Ah, that's good to know.
->
-Wolfgang,
-
-Thanks for your patches and assistance.
-
-Not sure if you saw the Release Notes regarding F14 and building 
-make-native first and installing that locally due to problems with F14's 
-make.  See http://bugzilla.pokylinux.org/show_bug.cgi?id=467
-and http://www.yoctoproject.org/download/yocto-project-4-0-release-notes
-
-
->> On Tuesday 07 December 2010 21:13:58 Wolfgang Denk wrote:
->>> From: Vasily Khoruzhick<anarsoul@gmail.com>
+> 2010/12/7 Saul Wold<saul.wold@intel.com>:
+>> On 12/06/2010 02:52 PM, Denys Dmytriyenko wrote:
 >>>
->>> The following is a series of patches trying to get Poky (both laverne
->>> 4.0 and top of tree) to build under a Fedora 14 x86_64 system.
->>
->> What are you building exactly? (distro/image/etc.)
+>>> On Mon, Dec 06, 2010 at 02:50:10PM -0800, Saul Wold wrote:
+>>>>
+>>>> On 12/06/2010 11:48 AM, Frans Meulenbroeks wrote:
+>>>>>
+>>>>> I was checking libcdaudio for LICENSE info.
+>>>>> recipe says GPL
+>>>>> COPYING file is the GPLv2 one
+>>>>> README file says:
+>>>>>
+>>>>> libcdaudio is distributed under the GNU Library General Public
+>>>>> License, included in this package under the top level source directory
+>>>>> in the file COPYING
+>>>>>
+>>>>> C files also mention LGPL. but say v2 or later
+>>>>>
+>>>>> What to do with this in the LICENSE field? LGPLv2+ ?
+>>>>>
+>>>> This seems reasonable, you should also include the header chunk in the
+>>>> LIC_FILES_CHKSUM, you can specify start and end lines for the checksum.
 >
-> I've been testing mainly with laverne-4.0, and I'm tryting to build
-> poky-image-sdk for some PowerPC and ARM configs.
+> Yes, I'm aware of this. Would you want to add all the header chunks
+> that state this, or only e.g. the most important one (assuming such a
+> file can be identified)
+> I've seen the text in different files.
 >
->>> [1/5] eglibc: fix build issue with make-3.82
->>>   meta/recipes-core/eglibc/eglibc_2.12.bb            |    3 ++-
->>>   .../eglibc/files/eglibc-make-382.patch             |   15 +++++++++++++++
->>>   2 files changed, 17 insertions(+), 1 deletions(-)
->>
->> A similar fix has already been applied to master.
->
-> I see. Must have missed that.
->
->>> [2/5] gstreamer: fix build issue with make-3.82
->>>   .../gstreamer-0.10.29/gstreamer-make-382.patch     |  178 ++++++++++++++++++++
->>>   .../gstreamer/gstreamer_0.10.30.bb                 |    5 +-
->>>   2 files changed, 181 insertions(+), 2 deletions(-)
->>
->> This patch is needed; however it doesn't seem to work because (a) the inner patch file is in the wrong directory (gstreamer-0.10.29 instead of gstreamer-0.10.30), and (b) when this is moved into the correct location on my system it fails do_patch. I hav
->> en't yet looked into why.
->
-> Argh.  I missed that, too, when rebasing my patcehs (which were done
-> against laverne-4.0) against current master. Sorry.
->
-> Is master supposed to build poky-image-sdk for PowerPC?
->
-Yes, this should build you can see the status of master on our build 
-machine at http://autobuilder.pokylinux.org:8010/waterfall we are 
-working on stabilizing the build (meta-toolchain-sdk is failing currently).
 
->>> [3/5] Add support for 40x configuration (kilauea from OE)
->>>   meta/conf/machine/include/tune-ppc405.inc          |    6 ++++++
->>>   meta/conf/machine/kilauea.conf                     |   22 ++++++++++++++++++++++
->>>   2 files changed, 28 insertions(+), 0 deletions(-)
->>
->> I'm guessing that this one is unrelated to getting things working on F14?
->
-> Yes, it is unrelated. It's one of the targets I use for testing.
->
-You should investigate creating a BSP Layer such as meta-kilauea that 
-you can put your changes into.
+I would suggest the most important one as mostly those headers would be 
+the same. Picking something like a common header file or the file that 
+contains main() would make sense.
 
->>> [4/5] elfutils-0.148: fix build problem with "ar"
->>>   .../elfutils/elfutils-0.148/ar-options.patch       |   11 +++++++++++
->>>   meta/recipes-devtools/elfutils/elfutils_0.148.bb   |    3 ++-
->>>   2 files changed, 13 insertions(+), 1 deletions(-)
->>>
->>> [5/5] elfutils-0.148: fix problems with `ld' not recognizing options
->>>   .../elfutils/elfutils-0.148/ld-compatibility.patch |   56 ++++++++++++++++++++
->>>   meta/recipes-devtools/elfutils/elfutils_0.148.bb   |    3 +-
->>>   2 files changed, 58 insertions(+), 1 deletions(-)
->>
->> Not sure about these two; for me with master this builds successfully. Could you retry with master and see if it works for you?
->
-> Yes, will do.  I testes master about two weeks ago, when it didn't
-> build, but I will retest this now.
->
-Thanks again, if you find more problems please let us now and we will 
-pull the changes.
+> Also is poky planning to take this recipe? If not, it is kind-a
+> pointless for me to update it, so I'd rather waste time on something
+> else :-)
+
+At this point I think the work you are doing is valuable but better 
+suited to live in a layer.  The core is really targeted to be as generic 
+as possible to allow for a broad variety of devices.
+
+Richard recently suggested that a repo be created for such meta layers. 
+We are working out the details on creating and opening up that repo.
 
 Sau!
 
+>>>
+>>> Saul,
+>>>
+>>> We don't have this feature in OpenEmbedded yet... But it would be nice to
+>>> port
+>>> it from Poky though! :)
 >
-> Thanks.
+> Note that adding/using  LIC_FILES_CHKSUM in OE should be harmless as
+> it is a var, which is not used.
+> So if we wnat to move into that dir we might consider keeping the
+> field in the OE recipes (currently for libaudio it is not there)
+>>>
+>> Denys, sorry I saw this via my poky email and did not notice it was OE also,
+>> I will what what I cross post next time!
 >
-> Best regards,
+> The recipe is also in OE and of course suffers from the same issue.
+> That's why I posted to both lists.
+>>
+>> Glad to hear that you like the idea!  We will have all Poky recipes
+>> checksummed this week!
 >
-> Wolfgang Denk
+> Cool!
 >
+> Frans
+>
+
+
+-- 
+     Sau!
+
+Saul Wold
+Yocto Component Wrangler @ Intel
+Yocto Project / Poky Build System
+
 
