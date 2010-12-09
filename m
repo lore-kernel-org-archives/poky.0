@@ -1,29 +1,39 @@
-Return-Path: <scott.a.garman@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9F7924C80FD4
-	for <poky@yoctoproject.org>; Thu,  9 Dec 2010 15:33:43 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 09 Dec 2010 13:33:42 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,322,1288594800"; d="scan'208";a="359558343"
-Received: from rrsmsx603.amr.corp.intel.com ([10.31.0.57])
-	by azsmga001.ch.intel.com with ESMTP; 09 Dec 2010 13:33:21 -0800
-Received: from [10.255.13.44] (10.255.13.44) by rrsmsx603.amr.corp.intel.com
-	(10.31.0.57) with Microsoft SMTP Server (TLS) id 8.2.254.0;
-	Thu, 9 Dec 2010 14:33:21 -0700
-Message-ID: <4D014B1C.7080208@intel.com>
-Date: Thu, 9 Dec 2010 13:33:16 -0800
-From: Scott Garman <scott.a.garman@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.1.15) Gecko/20101027 Thunderbird/3.0.10
+Return-Path: <wd@denx.de>
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C13CB4C80FA4
+	for <poky@yoctoproject.org>; Thu,  9 Dec 2010 16:02:01 -0600 (CST)
+Received: from frontend1.mail.m-online.net (unknown [192.168.8.180])
+	by mail-out.m-online.net (Postfix) with ESMTP id 74A871C0F594;
+	Thu,  9 Dec 2010 23:02:00 +0100 (CET)
+X-Auth-Info: gQKyPz5uEFWFHY1qdIuquFnVHT5rhh7Wf1UnOEcJ/tI=
+Received: from diddl.denx.de (ppp-188-174-79-57.dynamic.mnet-online.de
+	[188.174.79.57])
+	by smtp-auth.mnet-online.de (Postfix) with ESMTPA id 3BB111C00118;
+	Thu,  9 Dec 2010 23:02:00 +0100 (CET)
+Received: from gemini.denx.de (unknown [10.0.0.2])
+	by diddl.denx.de (Postfix) with ESMTP id 6C8D93335217;
+	Thu,  9 Dec 2010 23:01:59 +0100 (CET)
+Received: from gemini.denx.de (localhost.localdomain [127.0.0.1])
+	by gemini.denx.de (Postfix) with ESMTP id 0CA1AD522FF;
+	Thu,  9 Dec 2010 23:01:59 +0100 (CET)
+To: Joshua Lock <josh@openedhand.com>
+From: Wolfgang Denk <wd@denx.de>
 MIME-Version: 1.0
-To: Richard Purdie <rpurdie@linux.intel.com>
-References: <cover.1291785237.git.scott.a.garman@intel.com>	
-	<d101f08a4edaa96f5dff038447f9fc8bf021aa9b.1291785237.git.scott.a.garman@intel.com>
-	<1291906826.1554.883.camel@rex>
-In-Reply-To: <1291906826.1554.883.camel@rex>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 1/1] Make poky-qemu and related scripts work with arbitrary SDK locations
+In-reply-to: <1291920397.6078.39.camel@scimitar>
+References: <1291756443-28767-1-git-send-email-wd@denx.de>
+	<201012081124.45901.paul.eggleton@linux.intel.com>
+	<20101208113542.9D65E140688@gemini.denx.de>
+	<4D00042C.6040403@linux.intel.com>
+	<20101209085846.264F5D301D6@gemini.denx.de>
+	<1291897825.6078.11.camel@scimitar>
+	<20101209160605.0A664D1CAD4@gemini.denx.de>
+	<1291920397.6078.39.camel@scimitar>
+Comments: In-reply-to Joshua Lock <josh@openedhand.com>
+	message dated "Thu, 09 Dec 2010 18:46:37 +0000."
+Date: Thu, 09 Dec 2010 23:01:59 +0100
+Message-Id: <20101209220159.0CA1AD522FF@gemini.denx.de>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/5] Fedora 14 Patches
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,87 +45,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 09 Dec 2010 21:33:43 -0000
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 09 Dec 2010 22:02:02 -0000
+Content-type: text/plain; charset=ISO-8859-1
+Content-transfer-encoding: 8bit
 
-On 12/09/2010 07:00 AM, Richard Purdie wrote:
-> On Tue, 2010-12-07 at 20:59 -0800, Scott Garman wrote:
->> diff --git a/scripts/poky-find-native-sysroot b/scripts/poky-find-native-sysroot
->> index d8002f9..2262294 100755
->> --- a/scripts/poky-find-native-sysroot
->> +++ b/scripts/poky-find-native-sysroot
->> diff --git a/scripts/poky-qemu b/scripts/poky-qemu
->> index bc312e0..67af439 100755
->> --- a/scripts/poky-qemu
->> +++ b/scripts/poky-qemu
->> @@ -31,9 +31,9 @@ usage() {
->>       echo "    serial - enables a serial console on /dev/ttyS0"
->>       echo ""
->>       echo "Examples:"
->> -    echo "  $0 qemuarm"
->> -    echo "  $0 qemux86-64 poky-image-sato ext3"
->> -    echo "  $0 path/to/bzImage-qemux86.bin path/to/nfsrootdir/ serial"
->> +    echo "  $MYNAME qemuarm"
->> +    echo "  $MYNAME qemux86-64 poky-image-sato ext3"
->> +    echo "  $MYNAME path/to/bzImage-qemux86.bin path/to/nfsrootdir/ serial"
->>       exit 1
->>   }
->>
->> @@ -213,23 +213,29 @@ setup_tmpdir() {
->>                   echo "before running this script">&2;
->>                   exit 1; }
->>
->> -            # We have bitbake in PATH, get TMPDIR and BUILD_SYS
->> -            # from the environment
->> +            # We have bitbake in PATH, get TMPDIR from bitbake
->>               TMPDIR=`bitbake -e | grep TMPDIR=\" | cut -d '=' -f2 | cut -d '"' -f2`
->> -            BUILD_SYS=`bitbake -e | grep BUILD_SYS=\" | cut -d '=' -f2 | cut -d '"' -f2`
->>           else
->> -            BUILD_ARCH=`uname -m`
->> -            BUILD_OS=`uname | tr '[A-Z]' '[a-z]'`
->> -            BUILD_SYS="$BUILD_ARCH-$BUILD_OS"
->>               TMPDIR=$BUILDDIR/tmp
->>           fi
->> -        if [ -z "$POKY_NATIVE_SYSROOT" ]; then
->> -            POKY_NATIVE_SYSROOT=$TMPDIR/sysroots/$BUILD_SYS
->> -        fi
->> -        CROSSPATH=$POKY_NATIVE_SYSROOT/usr/bin
->>       fi
->>   }
->
-> Hmm, you remove CROSSPATH yet still reference it later. I think the code
-> has become confused. I'm going to merge the patch as it improves the
-> situation compared to how it is at the moment. I'll give some background
-> though:
->
-> There are three things we really want to reference in PATH:
->
-> a) The "native" or "nativesdk" tools
-> b) The "cross" tools, i.e. TARGET_PREFIX-gcc
-> c) The "cross" tools without the prefix, e.g. "gcc", replacing the
->     usual gcc you'd find in PATH. This last part is to allow distcc in a
->     image to use the compiler outside the emulation.
->
-> The distcc thing did used to work but I doubt it does at the moment as I
-> think this has just been reduced to the native case accidentally.
->
-> The paths in the sysroot corresponding to these are:
->
-> /opt/poky/sysroots/HOST-pokysdk-linux/usr/bin
-> /opt/poky/sysroots/HOST-pokysdk-linux/usr/bin/TARGET-poky-linux
-> /opt/poky/sysroots/HOST-pokysdk-linux/usr/libexec/TARGET-poky-linux/gcc/TARGET-poky-linux/GCCVERSION/
->
-> and there are similar paths in a Poky build directory.
->
-> I hope that helps clear things up a bit.
+Dear Joshua,
 
-Thanks Richard, that does clarify things. I will file a bug for this and 
-address it soon.
+In message <1291920397.6078.39.camel@scimitar> you wrote:
+>
+> OK, I have filed an issue in our Bugzilla - we need to pull together a
+> Laverne point release for F14.
+> http://bugzilla.pokylinux.org/show_bug.cgi?id=578
 
-Scott
+Current top of tree fails also to build "poky-image-sdk" on Ubuntu
+10.04:
+
+ERROR: Task failed: Fetch failed: Unable to fetch URL git://git.pokylinux.org/linux-2.6-windriver.git;protocol=git;fullclone=1;branch=qemu_ppc32-standard;name=machine from any source.
+NOTE: package linux-yocto-2.6.34+git0+d1cd5c80ee97e81e130be8c3de3965b770f320d6_0+9ac0daee43dd19d8bea828cf79450c9748ae0daa-r13: task do_fetch: Failed
+ERROR: Task 572 (/net/gemini/home/wd/git/poky/6xx/meta/recipes-kernel/linux/linux-yocto_git.bb, do_fetch) failed with 1
+
+
+Best regards,
+
+Wolfgang Denk
 
 -- 
-Scott Garman
-Embedded Linux Distro Engineer - Yocto Project
+DENX Software Engineering GmbH,     MD: Wolfgang Denk & Detlev Zundel
+HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
+Phone: (+49)-8142-66989-10 Fax: (+49)-8142-66989-80 Email: wd@denx.de
+No journaling file system can recover your data if the disk dies.
+                                 - Steve Rago in <D4Cw1p.L9E@plc.com>
 
