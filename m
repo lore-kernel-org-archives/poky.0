@@ -1,21 +1,21 @@
 Return-Path: <dongxiao.xu@intel.com>
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 48BBD4C81245
-	for <poky@yoctoproject.org>; Thu,  9 Dec 2010 02:46:28 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id BC9CB4C81247
+	for <poky@yoctoproject.org>; Thu,  9 Dec 2010 02:46:29 -0600 (CST)
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 09 Dec 2010 00:46:28 -0800
+	by orsmga102.jf.intel.com with ESMTP; 09 Dec 2010 00:46:29 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,319,1288594800"; d="scan'208";a="582043203"
+X-IronPort-AV: E=Sophos;i="4.59,319,1288594800"; d="scan'208";a="582043213"
 Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.9])
-	by orsmga002.jf.intel.com with ESMTP; 09 Dec 2010 00:46:27 -0800
-Message-Id: <05ac772caa383464626b43da91c06ee867d59f48.1291884926.git.dongxiao.xu@intel.com>
+	by orsmga002.jf.intel.com with ESMTP; 09 Dec 2010 00:46:28 -0800
+Message-Id: <bd4846d09f67996e58a2d90d0b22414af271ba53.1291884926.git.dongxiao.xu@intel.com>
 In-Reply-To: <cover.1291884926.git.dongxiao.xu@intel.com>
 References: <cover.1291884926.git.dongxiao.xu@intel.com>
 From: Dongxiao Xu <dongxiao.xu@intel.com>
-Date: Thu, 9 Dec 2010 16:51:55 +0800
+Date: Thu, 9 Dec 2010 16:53:46 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 3/4] bluez-dtl1-workaround: update LIC_FILES_CHKSUM info
+Subject: [PATCH 4/4] hostap-conf: update LICENSE and LIC_FILES_CHKSUM info
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,26 +27,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 09 Dec 2010 08:46:28 -0000
+X-List-Received-Date: Thu, 09 Dec 2010 08:46:30 -0000
 
 Import GPLv2 COPYING file.
 
 Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
 ---
- .../bluez/bluez-dtl1-workaround/COPYING.patch      |  344 ++++++++++++++++++++
- .../bluez/bluez-dtl1-workaround_1.0.bb             |    6 +-
- 2 files changed, 348 insertions(+), 2 deletions(-)
- create mode 100644 meta/recipes-connectivity/bluez/bluez-dtl1-workaround/COPYING.patch
+ meta/recipes-bsp/hostap/files/COPYING.patch |  344 +++++++++++++++++++++++++++
+ meta/recipes-bsp/hostap/hostap-conf_1.0.bb  |    8 +-
+ 2 files changed, 349 insertions(+), 3 deletions(-)
+ create mode 100644 meta/recipes-bsp/hostap/files/COPYING.patch
 
-diff --git a/meta/recipes-connectivity/bluez/bluez-dtl1-workaround/COPYING.patch b/meta/recipes-connectivity/bluez/bluez-dtl1-workaround/COPYING.patch
+diff --git a/meta/recipes-bsp/hostap/files/COPYING.patch b/meta/recipes-bsp/hostap/files/COPYING.patch
 new file mode 100644
-index 0000000..95342e3
+index 0000000..fe5471e
 --- /dev/null
-+++ b/meta/recipes-connectivity/bluez/bluez-dtl1-workaround/COPYING.patch
++++ b/meta/recipes-bsp/hostap/files/COPYING.patch
 @@ -0,0 +1,344 @@
-+diff -ruN bluez-dtl1-workaround-1.0-orig/COPYING bluez-dtl1-workaround-1.0/COPYING
-+--- bluez-dtl1-workaround-1.0-orig/COPYING	1970-01-01 08:00:00.000000000 +0800
-++++ bluez-dtl1-workaround-1.0/COPYING	2010-12-09 16:50:46.014910500 +0800
++diff -ruN hostap-conf-1.0-orig/COPYING hostap-conf-1.0/COPYING
++--- hostap-conf-1.0-orig/COPYING	1970-01-01 08:00:00.000000000 +0800
+++++ hostap-conf-1.0/COPYING	2010-12-09 16:36:48.000000000 +0800
 +@@ -0,0 +1,340 @@
 ++		    GNU GENERAL PUBLIC LICENSE
 ++		       Version 2, June 1991
@@ -388,25 +388,28 @@ index 0000000..95342e3
 ++consider it more useful to permit linking proprietary applications with the
 ++library.  If this is what you want to do, use the GNU Library General
 ++Public License instead of this License.
-diff --git a/meta/recipes-connectivity/bluez/bluez-dtl1-workaround_1.0.bb b/meta/recipes-connectivity/bluez/bluez-dtl1-workaround_1.0.bb
-index 64000b7..4dfdcb2 100644
---- a/meta/recipes-connectivity/bluez/bluez-dtl1-workaround_1.0.bb
-+++ b/meta/recipes-connectivity/bluez/bluez-dtl1-workaround_1.0.bb
-@@ -1,10 +1,12 @@
- DESCRIPTION = "A nasty hack for for dtl1-cs driver to workaround suspend/resume."
- LICENSE = "GPLv2"
+diff --git a/meta/recipes-bsp/hostap/hostap-conf_1.0.bb b/meta/recipes-bsp/hostap/hostap-conf_1.0.bb
+index ce06966..ef004e6 100644
+--- a/meta/recipes-bsp/hostap/hostap-conf_1.0.bb
++++ b/meta/recipes-bsp/hostap/hostap-conf_1.0.bb
+@@ -1,12 +1,14 @@
+ DESCRIPTION = "PCMCIA-cs configuration files for wireless LAN cards based on Intersil's Prism2/2.5/3 chipset"
+ SECTION = "kernel/modules"
+ PRIORITY = "optional"
+-LICENSE = "GPL"
++LICENSE = "GPLv2"
 +LIC_FILES_CHKSUM = "file://COPYING;md5=393a5ca445f6965873eca0259a17f833"
- SECTION = "console" 
- PRIORITY = "optional" 
--PR = "r1"
-+PR = "r2"
-  
--SRC_URI = "file://02dtl1_cs.sh"
-+SRC_URI = "file://02dtl1_cs.sh \
+ RDEPENDS = "update-modules"
+ PACKAGE_ARCH = "all"
+-PR = "r10"
++PR = "r11"
+ 
+-SRC_URI = "file://hostap_cs.modalias"
++SRC_URI = "file://hostap_cs.modalias \
 +           file://COPYING.patch"
  
- do_install() { 
-         install -d ${D}${sysconfdir}/apm/event.d/ 
+ do_compile() {
+ }
 -- 
 1.6.3.3
 
