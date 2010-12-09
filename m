@@ -1,34 +1,35 @@
-Return-Path: <rpurdie@linux.intel.com>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id DD7914C80B70
-	for <poky@yoctoproject.org>; Thu,  9 Dec 2010 10:58:00 -0600 (CST)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oB9GvwBo009661;
-	Thu, 9 Dec 2010 16:57:58 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 09080-09; Thu,  9 Dec 2010 16:57:54 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oB9GvovJ009654
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Thu, 9 Dec 2010 16:57:50 GMT
-From: Richard Purdie <rpurdie@linux.intel.com>
-To: Leon Woestenberg <leon.woestenberg@gmail.com>
-In-Reply-To: <AANLkTikvUb+SmGvn3i=U7KpEiYHq24XbOnjZMFTh6K1j@mail.gmail.com>
+Return-Path: <wd@denx.de>
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 6B07B4C80A74
+	for <poky@yoctoproject.org>; Thu,  9 Dec 2010 11:29:29 -0600 (CST)
+Received: from frontend1.mail.m-online.net (unknown [192.168.8.180])
+	by mail-out.m-online.net (Postfix) with ESMTP id 236C71C08DEE;
+	Thu,  9 Dec 2010 18:29:27 +0100 (CET)
+X-Auth-Info: 6tDLM8ikX5C3FXU9L3GXI8j+lj1m9i1trhpzYNfZk9Y=
+Received: from diddl.denx.de (ppp-188-174-79-57.dynamic.mnet-online.de
+	[188.174.79.57])
+	by smtp-auth.mnet-online.de (Postfix) with ESMTPA id AE9281C001A3;
+	Thu,  9 Dec 2010 18:29:27 +0100 (CET)
+Received: from gemini.denx.de (gemini.denx.de [10.0.0.2])
+	by diddl.denx.de (Postfix) with ESMTP id 8C1C23335217;
+	Thu,  9 Dec 2010 18:29:27 +0100 (CET)
+Received: from gemini.denx.de (localhost.localdomain [127.0.0.1])
+	by gemini.denx.de (Postfix) with ESMTP id 580BED3DE62;
+	Thu,  9 Dec 2010 18:29:27 +0100 (CET)
+To: Joshua Lock <josh@openedhand.com>
+From: Wolfgang Denk <wd@denx.de>
+MIME-Version: 1.0
+In-reply-to: <1291897825.6078.11.camel@scimitar>
 References: <1291756443-28767-1-git-send-email-wd@denx.de>
 	<201012081124.45901.paul.eggleton@linux.intel.com>
 	<20101208113542.9D65E140688@gemini.denx.de>
 	<4D00042C.6040403@linux.intel.com>
 	<20101209085846.264F5D301D6@gemini.denx.de>
 	<1291897825.6078.11.camel@scimitar>
-	<AANLkTikvUb+SmGvn3i=U7KpEiYHq24XbOnjZMFTh6K1j@mail.gmail.com>
-Date: Thu, 09 Dec 2010 16:57:38 +0000
-Message-ID: <1291913858.1554.909.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-X-Virus-Scanned: amavisd-new at rpsys.net
+Comments: In-reply-to Joshua Lock <josh@openedhand.com>
+	message dated "Thu, 09 Dec 2010 12:30:25 +0000."
+Date: Thu, 09 Dec 2010 18:29:27 +0100
+Message-Id: <20101209172927.580BED3DE62@gemini.denx.de>
 Cc: poky@yoctoproject.org
 Subject: Re: [PATCH 0/5] Fedora 14 Patches
 X-BeenThere: poky@yoctoproject.org
@@ -42,45 +43,64 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 09 Dec 2010 16:58:01 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 09 Dec 2010 17:29:30 -0000
+Content-type: text/plain; charset=ISO-8859-1
+Content-transfer-encoding: 8bit
 
-On Thu, 2010-12-09 at 16:43 +0100, Leon Woestenberg wrote:
-> Is something preventing the Yocto guys to look at the OpenEmbedded
-> GIT, where these machines and recipes came from in the first place?
+Dear Joshua,
 
-No, this is something we do a lot of the time and you can see it in the
-commit logs. When something comes from OE, credit is given.
-
-> Obviously most of these machines come directly from OE.
+In message <1291897825.6078.11.camel@scimitar> you wrote:
+>
+> > Makefiles, especially as this was trivial to do, and in case of eglibc
+> > I could just apply the corresponding commit from OE.
+> > 
+> > But actually the make-3.82 issues are the smallest of my problems.
+> > 
+> > I'm trying to build Poky for some PowerPC and ARM architectures
+> > (PPC6xx, PPC4xx, ARM Kirkwood, etc.), and see a number of build
+> > issues.  I started reportung these:
+> > http://bugzilla.pokylinux.org/show_bug.cgi?id=572
+> > http://bugzilla.pokylinux.org/show_bug.cgi?id=574
 > 
-> What I don't understand is that all that is sitting in OpenEmbedded is
-> considered 'new' in Poky/Yocto, while it was thrown away in the first
-> place by Poky and Yocto.
+> I'm not at all familiar with PPC machines and not especially familiar
+> with Arm but I assume these are new machine definitions which you've
+> added? If that is the case can you share the machine configurations,
+> this could help us (or more knowledgeable others) to work out your
+> issue?
+> 
+> Do you have more success if you use one of the machines we already have
+> in the Poky tree? qemuppc and mpc8315e-rdb for PPC or qemuarm and
+> beagleboard for Arm?
+> 
+> FWIW I have successfully built and run a minimal image on the
+> mpc8315e-rdb and the beagleboard using the Laverne tree.
+> > 
+> > Are there any plans to include PPC and ARM targets for example int he
+> > autobuilder testing?
+> 
+> We already do, the autobuilder currently tests qemuarm and qemuppc and I
+> believe we will be adding beagleboard and mpc8315e-rdb.
 
-Nothing has ever been thrown away. Poky has been around a long time,
-things get added to OE which didn't make it into Poky. What Joshua is
-trying to understand is what missing.
+Trying to build "poky-image-sdk" for qemuppc on Fedora 14 / i686
+fails with the
 
-> We have had numerous discussion on how we can extend Yocto back to
-> include the PowerPC, ARM, MIPS stuff again, but it takes people to
-> look across the wall again.
+./ld: cannot load ld backend library 'libld_elf_i386.so':
+libld_elf_i386.so: cannot open shared object file: No such file or
+directory
 
-qemuppc, qemuarm and qemumips built and boot in Poky, we test this
-extremely regularly so there is no fundamental architecture issue. Where
-did this come from? Large chunks of it from OE. There is obviously some
-problem for certain classes of machines. I'd very much like to
-understand what is broken so we can go and fix it.
+error described in part 2 of
+http://bugzilla.pokylinux.org/show_bug.cgi?id=572
 
-> If there's legal issues involved in looking over the wall, I'ld like
-> to see that confirmed, as it greatly influences the way we can work
-> with the community.
 
-There are no legal issues.
+Will try now in Ubuntu 10.04...
 
-Cheers,
+Best regards,
 
-Richard
+Wolfgang Denk
 
+-- 
+DENX Software Engineering GmbH,     MD: Wolfgang Denk & Detlev Zundel
+HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
+Phone: (+49)-8142-66989-10 Fax: (+49)-8142-66989-80 Email: wd@denx.de
+No user-servicable parts inside. Refer to qualified service personnel.
 
