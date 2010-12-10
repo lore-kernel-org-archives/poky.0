@@ -1,26 +1,18 @@
 Return-Path: <dvhart@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E24C34C80050
-	for <poky@yoctoproject.org>; Fri, 10 Dec 2010 13:10:29 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 10 Dec 2010 11:10:29 -0800
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 0D2EF4C80BEF
+	for <poky@yoctoproject.org>; Fri, 10 Dec 2010 13:55:55 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 10 Dec 2010 11:55:55 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,325,1288594800"; d="scan'208";a="685946770"
-Received: from doubt.jf.intel.com (HELO [10.7.199.164]) ([10.7.199.164])
-	by orsmga001.jf.intel.com with ESMTP; 10 Dec 2010 11:10:29 -0800
-Message-ID: <4D027B17.9040705@linux.intel.com>
-Date: Fri, 10 Dec 2010 11:10:15 -0800
+X-IronPort-AV: E=Sophos;i="4.59,325,1288594800"; d="scan'208";a="582557212"
+Received: from doubt.jf.intel.com (HELO localhost) ([10.7.199.164])
+	by orsmga002.jf.intel.com with ESMTP; 10 Dec 2010 11:55:55 -0800
+Message-Id: <cover.1292010816.git.dvhart@linux.intel.com>
 From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
-MIME-Version: 1.0
-To: Richard Purdie <rpurdie@linux.intel.com>
-References: <4CFEB16A.1010507@linux.intel.com>	 <1291761530.1554.169.camel@rex>
-	<4CFEBBE2.3040300@linux.intel.com>	
-	<4CFEDF08.5040704@linux.intel.com> <1291902796.1554.864.camel@rex>
-In-Reply-To: <1291902796.1554.864.camel@rex>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: RFC: Undocumented Recipe Variables Script
+Date: Fri, 10 Dec 2010 11:53:36 -0800
+To: sgw@linux.intel.com,poky@yoctoproject.org
+Subject: [PATCH 0/5] Recipe variable cleanup - typos mostly
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,360 +24,46 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 10 Dec 2010 19:10:30 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 10 Dec 2010 19:55:56 -0000
 
-On 12/09/2010 05:53 AM, Richard Purdie wrote:
- > On Tue, 2010-12-07 at 17:27 -0800, Darren Hart wrote:
- >> After discussing a bit with Richard, we felt seeing a count for each
- >> recipe that used a variable along with the doc tag (documentation.conf)
- >> would aid in identifying which variables needed documentation. The
- >> attached script accomplishes this. The -T argument will limit output to
- >> only variables with doc tags - which should make updating the
- >> documentation rather trivial.
- >>
- >> Things like PROVIDES with 50 occurences under meta and an existing doc
- >> tag should be prioritized for documentation updates. After that, things
- >> like BBCLASSEXTEND with 117 users and no doc-tag should follow.
- >>
- >> Richard, could you give the output a scan and let me know if there is
- >> additional filtering I could add to make the results easier to digest?
- >> If they look good to you, can you have a go at identifying a set of
- >> variables that should get documentation updates?
- >
- > Some of whats listed is still documented, e.g. PACKAGES_ or RDEPENDS_.
+An investigation into undocumented variables revealed a few typos
+in common recipe variables. The following patches address those for:
+
+DESCRIPTION
+PARALLEL_MAKE
+LIC_FILES_CHKSUM
+
+The latter uncovered a few bad md5sums and other typos, those are addressed
+as well.
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: dvhart/var-cleanup
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dvhart/var-cleanup
+
+Thanks,
+    Darren Hart <dvhart@linux.intel.com>
+---
 
 
-The trailing _ probably indicates something like PACKAGES_append or 
-similar, where the character after the _ was not [A-Z_]. I should 
-probably drop those or allow for [a-z] as well.
+Darren Hart (5):
+  Correct DESCRIPTION typos in various recipes
+  image-swab: Correct PARALLEL_MAKE typo
+  Correct LIC_FILES_CHKSUM typos
+  tcl: Correct license checksums
+  linux-libc-headers: Correct license checksum
 
+ meta/classes/image-swab.bbclass                    |    2 +-
+ .../initrdscripts/initramfs-boot_1.0.bb            |    2 +-
+ .../initrdscripts/initramfs-live-boot_1.0.bb       |    2 +-
+ .../initrdscripts/initramfs-live-install_1.0.bb    |    2 +-
+ meta/recipes-core/tasks/task-poky-sdk.bb           |    2 +-
+ meta/recipes-devtools/nasm/nasm_2.07.bb            |    2 +-
+ meta/recipes-devtools/quilt/quilt.inc              |    2 +-
+ meta/recipes-devtools/tcltk/tcl_8.5.9.bb           |   12 ++++++------
+ meta/recipes-extended/groff/groff_1.18.1.4.bb      |    2 +-
+ meta/recipes-gnome/tasks/task-poky-sdk-gmae.bb     |    2 +-
+ .../tasks/task-poky-standalone-gmae-sdk-target.bb  |    2 +-
+ .../linux-libc-headers/linux-libc-headers.inc      |    2 +-
+ 12 files changed, 17 insertions(+), 17 deletions(-)
 
- > I've done a *very* rough filter over this to highlight the ones I think
- > we need to try and document first and some other things I noticed:
- >
- > We should check if these are in the bitbake manual:
- >
- > BB_CURRENTTASK                        1
- > BB_DEFAULT_TASK                       4
- > BB_HASHCHECK_FUNCTION                 1
- > BB_HASHFILENAME                       1
- > BB_MIN_VERSION                        1
- > BB_RUNTASK                            1
- > BB_SCHEDULER                          1
- > BB_TASKHASH                           1
- > BB_VERSION                            1
- > BB_WORKERCONTEXT                      1
-
-
-None of the above appear in bitbake/doc/manual/usermanual.xml, but I will
-include this file as a -d doc in future runs of the script.
-
-
- >
- > I'd like to know what is setting this as we shouldn't using BROKEN IMO:
- > BROKEN                                1
-
-
-meta/recipes-multimedia/alsa/alsa-tools_1.0.20.bb:BROKEN
-
-
- > Some subset of these should be documented:
- > SSTATE_BUILDDIR                       1
- > SSTATE_DIR                            1
- > SSTATE_INSTDIR                        1
- > SSTATE_MANFILEBASE                    1
- > SSTATE_MANFILEPREFIX                  1
- > SSTATE_MANIFESTS                      1
- > SSTATE_MIRRORS                        1
- > SSTATE_PKG                            1
- > SSTATE_PKGARCH                        1
- > SSTATE_PKGNAME                        1
- > SSTATE_SCAN_CMD                       1
- > SSTATE_VERSION                        1
- >
- > Something is broken here with a misspelling:
- > DESCRIPTON                            6
- > PARALELL_MAKE_                        1
-
-
-Patches forthcoming.
-
-
- >
- > These variables are dead iirc and shouldn't be referenced anywhere:
- > NATIVE_INSTALL_WORKS                  1
- > PSTAGING_ACTIVE                       1
- > PSTAGING_DISABLED                     1
-
-
-Opened BUG  http://bugzilla.pokylinux.org/show_bug.cgi?id=582
-
-(And looks like I need to include .inc files in my recipes list too)
-
-
- > I also wondered about these:
- > LIC_CHKSUM_FILES                      2
- > LIC_FILE_CHKSUM                       1
-
-
-Patches forthcoming
-
-
- > these are ones I'd like to see documented with a higher priority:
-
-Great, thanks for the review Richard.
-
-Scott, how do you want these tracked? Perhaps you could create a handful of
-bugs, one for each block of variables. High use count, already with doc 
-tags,
-BUILD_*, IMAGE_*... something along those lines?
-
- >
- > ALLOW_EMPTY                           24
- > ALTERNATIVE_LINKS                     4
- > APPEND                                2
- > BBCLASSEXTEND                         117
- > BUGTRACKER                            114
- > BUILD_AR                              1
- > BUILD_ARCH                            4     The name of the building 
-architecture. E.g. i686.
- > BUILD_CC                              11
- > BUILD_CC_ARCH                         2     FIXME
- > BUILD_CFLAGS                          7
- > BUILD_CXX                             3
- > BUILD_CXXFLAGS                        3
- > BUILD_LD                              1
- > BUILD_LDFLAGS                         5
- > BUILD_OS                              3
- > BUILD_PREFIX                          4     FIXME
- > BUILD_RANLIB                          1
- > BUILD_SYS                             13    FIXME
- > BUILD_VENDOR                          2     FIXME
- > CCACHE                                6
- > CFLAGS_                               10
- > CLEANFUNCS                            2
- > CMDLINE_                              1
- > CMDLINE_CONSOLE                       1
- > COMMERCIAL_AUDIO_PLUGINS              2
- > COMMERCIAL_LICENSE                    1
- > COMMERCIAL_QT                         1
- > COMMERCIAL_VIDEO_PLUGINS              1
- > COMPATIBLE_HOST                       17    A regular expression 
-which matches the HOST_SYS names supported by the package/file. Failure 
-to match will cause the file to be skipped by the parser.
- > CONFFILES                             3
- > CPPFLAGS                              13
- > CXXFLAGS                              14
- > DEBIANNAME_                           2
- > DEBIAN_NAMES                          6
- > DEBIAN_NOAUTONAME_                    3
- > DEFAULT_PREFERENCE_                   14
- > DEPLOY_DIR                            7
- > DEPLOY_DIR_DEB                        2
- > DEPLOY_DIR_IMAGE                      13
- > DEPLOY_DIR_IPK                        3
- > DEPLOY_DIR_RPM                        2
- > DEPLOY_DIR_SRC                        1
- > DEPLOY_DIR_TAR                        1
- > DEPLOY_KEEP_PACKAGES                  2
- > DESCRIPTION_                          8
- > EXCLUDE_FROM_SHLIBS                   1
- > EXCLUDE_FROM_WORLD                    10
- > EXPORT_FUNCTIONS                      24
- > EXTRA_AUTORECONF                      4
- > EXTRA_CFLAGS                          1
- > EXTRA_CPANFLAGS                       2
- > EXTRA_DIST                            3
- > EXTRA_IMAGEDEPENDS                    1
- > EXTRA_NATIVE_PKGCONFIG_PATH           1
- > EXTRA_OECONF_                         12
- > EXTRA_OEMAKE_                         2
- > EXTRA_OEMAKE_NETGROUP                 1
- > EXTRA_QMAKEVARS_POST                  1
- > EXTRA_QMAKEVARS_PRE                   1
- > EXTRA_RDEPENDS                        1
- > FAKEROOT                              4
- > FAKEROOTENV                           1
- > FILESDIR                              11
- > FILESEXTRAPATHS                       1
- > FILESPATH                             10
- > FILESPATHBASE                         1
- > FILESPATHPKG                          2
- > FILES_                                179
- > FILE_DIRNAME                          11
- > FULL_OPTIMIZATION_                    2
- > GIT_CONFIG                            1
- > GIT_CORE_CONFIG                       1
- > GIT_PROXY_COMMAND                     1
- > GIT_PROXY_IGNORE                      1
- > HOST_AR                               1
- > HOST_ARCH                             9     The name of the target 
-architecture. Normally same as the TARGET_ARCH. @see TARGET_ARCH @group base
- > HOST_AR_KERNEL_ARCH                   1
- > HOST_CC                               1
- > HOST_CC_ARCH                          5     Normally same as the 
-TARGET_CC_ARCH. @see TARGET_CC_ARCH @group base
- > HOST_CC_KERNEL_ARCH                   2
- > HOST_CFLAGS                           1
- > HOST_CXX                              1
- > HOST_CXXFLAGS                         1
- > HOST_LDFLAGS                          1
- > HOST_OS                               7
- > HOST_PREFIX                           10    Normally same as the 
-TARGET_PREFIX. @see TARGET_PREFIX @group base
- > HOST_RANLIB                           1
- > HOST_SYS                              21    FIXME
- > HOST_VENDOR                           6     The name of the vendor. 
-Normally same as the TARGET_VENDOR. @see TARGET_VENDOR
- > IMAGEROOTFS                           2
- > IMAGETEST                             1
- > IMAGE_BASENAME                        2
- > IMAGE_CMD_                            1
- > IMAGE_DEPENDS_                        1
- > IMAGE_DEVICE_TABLE                    1
- > IMAGE_DEVICE_TABLES                   1
- > IMAGE_LINGUAS                         3
- > IMAGE_LINK_NAME                       3
- > IMAGE_LOCALES                         2
- > IMAGE_NAME                            5
- > IMAGE_OVERHEAD_FACTOR                 1
- > IMAGE_PKGTYPE                         5
- > IMAGE_POSTPROCESS_COMMAND             1
- > IMAGE_PREPROCESS_COMMAND              2
- > IMAGE_ROOTFS                          12
- > IMAGE_ROOTFS_SIZE                     1
- > INHIBIT_AUTOTOOLS_DEPS                2
- > INHIBIT_AUTO_STAGE                    1
- > INHIBIT_DEFAULT_DEPS                  13
- > KERNELDIR                             1
- > KERNEL_ALT_IMAGETYPE                  1
- > KERNEL_CC                             5
- > KERNEL_FEATURES                       1
- > KERNEL_IMAGE_BASE_NAME                2
- > KERNEL_IMAGE_MAXSIZE                  1
- > KERNEL_IMAGE_SYMLINK_NAME             2
- > KERNEL_LD                             4
- > KERNEL_VERSION                        6
- > KMACHINE                              1
- > LAYER_CONF_VERSION                    1
- > LCONF_VERSION                         1
- > LDFLAGS                               32
- > LDFLAGS_                              2
- > LEAD_SONAME                           12
- > LICENCE                               5
- > LINGUAS_INSTALL                       4
- > LOG_DIR                               3
- > MACHINE_ARCH                          27
- > MACHINE_ESSENTIAL_EXTRA_RDEPENDS      2
- > MACHINE_ESSENTIAL_EXTRA_RRECOMMENDS   2
- > MACHINE_POSTPROCESS_COMMAND           1
- > MIRRORS                               1
- > MULTIMACH_ARCH                        3
- > MULTIMACH_HOST_SYS                    2
- > MULTIMACH_TARGET_SYS                  5
- > OBJCOPY                               2
- > OBJDUMP                               2
- > OVERRIDES                             13
- > PACKAGES_                             6
- > PACKAGES_DYNAMIC                      19
- > PACKAGE_ARCHS                         10
- > PACKAGE_INSTALL                       4
- > PACKAGE_INSTALL_ATTEMPTONLY           4
- > PACKAGE_PREPROCESS_FUNCS              4
- > PARALLEL_MAKE_                        1
- > PATCHRESOLVE                          1
- > PATH_                                 2
- > PF                                    3     Package name - Package 
-version - Package revision (PN-PV-PR)
- > PKG                                   6
- > PKGD                                  7
- > PKGDATA_DIR                           4
- > PKGDEST                               8
- > PKGDESTWORK                           1
- > PKGFN                                 4
- > PKGHIST_DIR                           2
- > PKG_                                  12
- > PKG_CONFIG                            1
- > PKG_CONFIG_DIR                        3
- > PKG_CONFIG_PATH                       3
- > PKG_CONFIG_SYSROOT_DIR                5
- > PREFERRED_PROVIDER_                   1
- > PRIORITY                              73    Importance of package, 
-default values are 'optional' or 'needed'.
- > PROVIDES                              50    Names for additional 
-build time dependencies that this package will provide. @group dependencies
- > QA_LOGFILE                            1
- > ROOTFS_PKGMANAGE                      5
- > ROOTFS_PKGMANAGE_BOOTSTRAP            3
- > ROOTFS_POSTINSTALL_COMMAND            2
- > ROOTFS_POSTPROCESS_COMMAND            7
- > RPM_POSTPROCESS_COMMANDS              1
- > RPM_PREPROCESS_COMMANDS               1
- > RPROVIDES                             9     Names for additional run 
-time dependencies that this package will provide.  This is used to 
-populate the ipkg:Provides field. @group dependencies
- > RRECOMMENDS_                          21
- > RREPLACES_                            4
- > RSUGGESTS                             4
- > SDKMACHINE                            2
- > SDK_ARCH                              8
- > SDK_CC_ARCH                           3
- > SDK_DEPLOY                            2
- > SDK_DIR                               2
- > SDK_NAME                              2
- > SDK_OS                                4
- > SDK_OUTPUT                            3
- > SDK_PREFIX                            3
- > SDK_VENDOR                            3
- > SRCREV_                               1
- > SRCREV_FORMAT                         2
- > SRC_URI_                              43
- > STAGING_BINDIR                        3
- > STAGING_BINDIR_CROSS                  11
- > STAGING_BINDIR_NATIVE                 13
- > STAGING_BINDIR_TOOLCHAIN              2
- > STAGING_DATADIR                       16
- > STAGING_DATADIR_NATIVE                3
- > STAGING_DIR                           13
- > STAGING_DIR_HOST                      18
- > STAGING_DIR_NATIVE                    19
- > STAGING_DIR_TARGET                    18
- > STAGING_ETCDIR_NATIVE                 3
- > STAGING_EXECPREFIXDIR                 1
- > STAGING_INCDIR                        39
- > STAGING_INCDIR_NATIVE                 6
- > STAGING_LIBDIR                        42
- > STAGING_LIBDIR_NATIVE                 9
- > STAMP                                 3     The directory that holds 
-files to keep track of what was built.
- > SYSROOT_DESTDIR                       12
- > TARGETARCH                            1
- > TARGETFPU                             1
- > TARGETOS                              1
- > TARGET_AR_KERNEL_ARCH                 1
- > TARGET_CC_ARCH                        5     FIXME
- > TARGET_CC_ARCH_                       1
- > TARGET_CC_KERNEL_ARCH                 2
- > TARGET_CPPFLAGS                       3
- > TARGET_LDFLAGS                        1
- > TARGET_LD_KERNEL_ARCH                 2
- > TARGET_PREFIX                         23    The prefix for the cross 
-compile toolchain. E.g arm-linux- .
- > TARGET_SYS                            19    The target system is 
-composed out of TARGET_ARCH,TARGET_VENDOR and TARGET_OS.
- > TARGET_VENDOR                         7     FIXME
- > TOPDIR                                3
- > XORG_PN                               33
- >
- >
- >
- >
- >
-
-
--- 
-Darren Hart
-Yocto Linux Kernel
 
