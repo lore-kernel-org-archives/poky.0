@@ -1,22 +1,22 @@
 Return-Path: <bruce.ashfield@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 207BB4C810B0;
+	by mx1.pokylinux.org (Postfix) with ESMTP id 7F5B04C811DB;
 	Fri, 10 Dec 2010 10:01:44 -0600 (CST)
 Received: from localhost.localdomain (yow-bashfiel-d2.ottawa.windriver.com
 	[128.224.146.167])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oBAG1dCS027769;
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oBAG1dCT027769;
 	Fri, 10 Dec 2010 08:01:42 -0800 (PST)
 From: Bruce Ashfield <bruce.ashfield@windriver.com>
 To: rpurdie@linux.intel.com
-Date: Fri, 10 Dec 2010 11:02:54 -0500
-Message-Id: <5046c5de2cdd90b09025e15fb1b5b29156bd112f.1291996631.git.bruce.ashfield@windriver.com>
+Date: Fri, 10 Dec 2010 11:02:55 -0500
+Message-Id: <8a5b5c7c2f9279852dda0930e4776bd4fe3b80d6.1291996631.git.bruce.ashfield@windriver.com>
 X-Mailer: git-send-email 1.7.0.4
 In-Reply-To: <cover.1291996631.git.bruce.ashfield@windriver.com>
 References: <cover.1291996631.git.bruce.ashfield@windriver.com>
 In-Reply-To: <cover.1291996631.git.bruce.ashfield@windriver.com>
 References: <cover.1291996631.git.bruce.ashfield@windriver.com>
 Cc: yocto@yoctoproject.org, poky@yoctoproject.org, saul.wold@intel.com
-Subject: [PATCH 2/3] linux-libc-headers-yocto: use common linux-yocto routines
+Subject: [PATCH 3/3] qemu: update arm timer handling
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,64 +30,124 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Fri, 10 Dec 2010 16:01:44 -0000
 
-Modify linux-libc-headers-yocto to use the common linux-yocto
-routines, so headers exported to userspace will track the
-branches in the yocto kernel git repository.
+commit e388771458b4ff3ad81ab70e390b24d069647da4 in the upstream
+kernel factored/cleaned the SP804 timer code. This commit exposed
+issues in the qemu timer emulation that was dependent on the
+old behaviour. As a result, no kernel past 2.6.34 would boot on
+qemu-system-arm.
 
-This commit also switches supported boards to prefer the
-yocto libc headers.
+The quick fix is to backport two patches from the latest qemu
+repositories that fix the timer handling under emulation. Long
+term, these will be dropped when qemu is upreved.
 
 Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
 ---
- .../linux-libc-headers-yocto_git.bb                |   21 ++++++++-----------
- 1 files changed, 9 insertions(+), 12 deletions(-)
+ .../qemu-0.12.4/arm_timer-fix-oneshot-mode.patch   |   32 ++++++++++++++++
+ .../arm_timer-reload-timer-when-enabled.patch      |   40 ++++++++++++++++++++
+ meta/recipes-devtools/qemu/qemu_0.12.4.bb          |    4 +-
+ 3 files changed, 75 insertions(+), 1 deletions(-)
+ create mode 100644 meta/recipes-devtools/qemu/qemu-0.12.4/arm_timer-fix-oneshot-mode.patch
+ create mode 100644 meta/recipes-devtools/qemu/qemu-0.12.4/arm_timer-reload-timer-when-enabled.patch
 
-diff --git a/meta/recipes-kernel/linux-libc-headers/linux-libc-headers-yocto_git.bb b/meta/recipes-kernel/linux-libc-headers/linux-libc-headers-yocto_git.bb
-index 3e3c1fa..0515233 100644
---- a/meta/recipes-kernel/linux-libc-headers/linux-libc-headers-yocto_git.bb
-+++ b/meta/recipes-kernel/linux-libc-headers/linux-libc-headers-yocto_git.bb
-@@ -1,4 +1,7 @@
- require linux-libc-headers.inc
-+include recipes-kernel/linux/linux-yocto.inc
+diff --git a/meta/recipes-devtools/qemu/qemu-0.12.4/arm_timer-fix-oneshot-mode.patch b/meta/recipes-devtools/qemu/qemu-0.12.4/arm_timer-fix-oneshot-mode.patch
+new file mode 100644
+index 0000000..530736c
+--- /dev/null
++++ b/meta/recipes-devtools/qemu/qemu-0.12.4/arm_timer-fix-oneshot-mode.patch
+@@ -0,0 +1,32 @@
++From a9cf98d939c4f6539fad7e7d812ea16d96ba3dc9 Mon Sep 17 00:00:00 2001
++From: Rabin Vincent <rabin@rab.in>
++Date: Sun, 2 May 2010 15:20:52 +0530
++Subject: [PATCH] arm_timer: fix oneshot mode
 +
-+B = "${S}"
++commit id: a9cf98d939c4f6539fad7e7d812ea16d96ba3dc9 in git://git.sv.gnu.org/qemu.git
++
++In oneshot mode, the delta needs to come from the TimerLoad register,
++not the maximum limit.
++
++Signed-off-by: Rabin Vincent <rabin@rab.in>
++Signed-off-by: Aurelien Jarno <aurelien@aurel32.net>
++---
++ hw/arm_timer.c |    2 +-
++ 1 files changed, 1 insertions(+), 1 deletions(-)
++
++diff --git a/hw/arm_timer.c b/hw/arm_timer.c
++index 5b6947a..9073ffc 100644
++--- a/hw/arm_timer.c
+++++ b/hw/arm_timer.c
++@@ -71,7 +71,7 @@ static void arm_timer_recalibrate(arm_timer_state *s, int reload)
++ {
++     uint32_t limit;
++ 
++-    if ((s->control & TIMER_CTRL_PERIODIC) == 0) {
+++    if ((s->control & (TIMER_CTRL_PERIODIC | TIMER_CTRL_ONESHOT)) == 0) {
++         /* Free running.  */
++         if (s->control & TIMER_CTRL_32BIT)
++             limit = 0xffffffff;
++-- 
++1.6.5.2
++
+diff --git a/meta/recipes-devtools/qemu/qemu-0.12.4/arm_timer-reload-timer-when-enabled.patch b/meta/recipes-devtools/qemu/qemu-0.12.4/arm_timer-reload-timer-when-enabled.patch
+new file mode 100644
+index 0000000..1890e21
+--- /dev/null
++++ b/meta/recipes-devtools/qemu/qemu-0.12.4/arm_timer-reload-timer-when-enabled.patch
+@@ -0,0 +1,40 @@
++From d6759902cb467c002086853d2eb38fb969c29f7f Mon Sep 17 00:00:00 2001
++From: Rabin Vincent <rabin@rab.in>
++Date: Sun, 2 May 2010 15:20:51 +0530
++Subject: [PATCH] arm_timer: reload timer when enabled
++
++commit id: d6759902cb467c002086853d2eb38fb969c29f7f in git://git.sv.gnu.org/qemu.git
++
++Reload the timer when TimerControl is written, if the timer is to be
++enabled.  Otherwise, if an earlier write to TimerLoad was done while
++periodic mode was not set, s->delta may incorrectly still have the value
++of the maximum limit instead of the value written to TimerLoad.
++
++This problem is evident on versatileap on current linux-next, which
++enables TIMER_CTRL_32BIT before writing to TimerLoad and then enabling
++periodic mode and starting the timer.  This causes the first periodic
++tick to be scheduled to occur after 0xffffffff periods, leading to a
++perceived hang while the kernel waits for the first timer tick.
++
++Signed-off-by: Rabin Vincent <rabin@rab.in>
++Signed-off-by: Aurelien Jarno <aurelien@aurel32.net>
++---
++ hw/arm_timer.c |    2 +-
++ 1 files changed, 1 insertions(+), 1 deletions(-)
++
++diff --git a/hw/arm_timer.c b/hw/arm_timer.c
++index 9fef191..5b6947a 100644
++--- a/hw/arm_timer.c
+++++ b/hw/arm_timer.c
++@@ -113,7 +113,7 @@ static void arm_timer_write(void *opaque, target_phys_addr_t offset,
++         case 1: freq >>= 4; break;
++         case 2: freq >>= 8; break;
++         }
++-        arm_timer_recalibrate(s, 0);
+++        arm_timer_recalibrate(s, s->control & TIMER_CTRL_ENABLE);
++         ptimer_set_freq(s->timer, freq);
++         if (s->control & TIMER_CTRL_ENABLE) {
++             /* Restart the timer if still enabled.  */
++-- 
++1.6.5.2
++
+diff --git a/meta/recipes-devtools/qemu/qemu_0.12.4.bb b/meta/recipes-devtools/qemu/qemu_0.12.4.bb
+index 04526d1..6125bca 100644
+--- a/meta/recipes-devtools/qemu/qemu_0.12.4.bb
++++ b/meta/recipes-devtools/qemu/qemu_0.12.4.bb
+@@ -25,7 +25,9 @@ SRC_URI = "\
+     file://cursor-shadow-fix.patch \
+     file://vmware-vga-fifo-rewind.patch \
+     file://fix-configure-checks.patch \
+-    file://powerpc_rom.bin"
++    file://powerpc_rom.bin \
++    file://arm_timer-fix-oneshot-mode.patch \
++    file://arm_timer-reload-timer-when-enabled.patch"
  
- INHIBIT_DEFAULT_DEPS = "1"
- DEPENDS += "unifdef-native"
-@@ -8,7 +11,9 @@ PR = "r1"
- 
- SRC_URI = "git://git.pokylinux.org/linux-2.6-windriver.git;fullclone=1"
- 
--S = "${WORKDIR}/linux"
-+SRCREV_FORMAT = "meta_machine"
-+SRC_URI = "git://git.pokylinux.org/linux-2.6-windriver.git;protocol=git;fullclone=1;branch=${KBRANCH};name=machine \
-+           git://git.pokylinux.org/linux-2.6-windriver.git;protocol=git;noclone=1;branch=wrs_meta;name=meta"
- 
- set_arch() {
- 	case ${TARGET_ARCH} in
-@@ -26,19 +31,11 @@ do_configure() {
- 	oe_runmake allnoconfig ARCH=$ARCH
- }
- 
--do_kernel_checkout() {
--	if [ -d ${WORKDIR}/.git/refs/remotes/origin ]; then
--		rm -rf ${S}
--		mkdir ${S}
--		mv ${WORKDIR}/.git ${S}
--		mv ${S}/.git/refs/remotes/origin/* ${S}/.git/refs/heads
--		rmdir ${S}/.git/refs/remotes/origin
--	fi
--	cd ${S}
--	git checkout -f standard
-+do_kernel_configme() {
- }
- 
--addtask kernel_checkout before do_patch after do_unpack
-+do_patch () {
-+}
- 
- do_compile () {
- }
+ SRC_URI[md5sum] = "93e6b134dff89b2799f57b7d9e0e0fc5"
+ SRC_URI[sha256sum] = "1a29a5b5151162d1de035c4926d1a1dbffee4a145ef61ee865d6b82aaea0602e"
 -- 
 1.7.0.4
 
