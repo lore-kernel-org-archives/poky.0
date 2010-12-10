@@ -1,27 +1,24 @@
-Return-Path: <Xiaofeng.Yan@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 24B1A4C80FD4
-	for <poky@lists.pokylinux.org>; Fri, 10 Dec 2010 03:10:34 -0600 (CST)
-Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oBA9AVTP023459;
-	Fri, 10 Dec 2010 01:10:32 -0800 (PST)
-Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
-	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Fri, 10 Dec 2010 01:10:30 -0800
-Received: from [128.224.163.183] ([128.224.163.183]) by
-	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Fri, 10 Dec 2010 01:10:30 -0800
-Message-ID: <4D01EE60.7080700@windriver.com>
-Date: Fri, 10 Dec 2010 17:09:52 +0800
-From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.1.11) Gecko/20100713 Thunderbird/3.0.6
-MIME-Version: 1.0
-To: poky@lists.pokylinux.org
-X-OriginalArrivalTime: 10 Dec 2010 09:10:30.0991 (UTC)
-	FILETIME=[181F7DF0:01CB984A]
-Cc: "Wold, Saul" <saul.wold@intel.com>
-Subject: [PULL]: Two scripts for lsb test
+Return-Path: <josh@openedhand.com>
+Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 0DD274C80FA4
+	for <poky@yoctoproject.org>; Fri, 10 Dec 2010 05:42:20 -0600 (CST)
+Received: from [10.250.128.97] (unknown [158.43.2.102])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by pug.o-hand.com (Postfix) with ESMTP id 5402A12EC1C5;
+	Fri, 10 Dec 2010 06:20:36 -0600 (CST)
+From: Joshua Lock <josh@openedhand.com>
+To: Tom Zanussi <tom.zanussi@intel.com>
+In-Reply-To: <1291923332.18502.158.camel@elmorro>
+References: <4CFF8C70.7010803@mlbassoc.com>
+	<1291921712.6078.48.camel@scimitar>  <4D012B68.1000201@mlbassoc.com>
+	<1291923332.18502.158.camel@elmorro>
+Date: Fri, 10 Dec 2010 11:42:09 +0000
+Message-ID: <1291981329.2483.1.camel@scimitar>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.1 (2.32.1-1.fc14) 
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: README.hardware
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,41 +30,61 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 10 Dec 2010 09:10:35 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Fri, 10 Dec 2010 11:42:20 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-Hi Saul & Mark,
+On Thu, 2010-12-09 at 13:35 -0600, Tom Zanussi wrote:
+> On Thu, 2010-12-09 at 11:18 -0800, Gary Thomas wrote:
+> > On 12/09/2010 12:08 PM, Joshua Lock wrote:
+> > > On Wed, 2010-12-08 at 06:47 -0700, Gary Thomas wrote:
+> > >> This file seems quite out of date, in fact it's not been updated
+> > >> for 9 months :-(
+> > >>
+> > >> I don't know enough details to suggest a patch, but I think it
+> > >> would be useful to update it to reflect "today's Poky/Yocto" world,
+> > >> especially with the new visibility of the project.
+> > >>
+> > >
+> > > I agree, although I'm also wondering if it would be better to have this
+> > > information on the wiki where it can be more easily maintained by the
+> > > community.
+> > >
+> > > Or a balance? any machine in meta/conf/machine documented in
+> > > README.hardware and anything else on the wiki.
+> > >
+> > 
+> > Wikis are great, but I tend to think of the Poky "checkout" tree
+> > as self-sufficient.  It has the full manual, etc, already so forcing
+> > the user to have to go to the Wiki for such information (which is
+> > really only overview anyway) would not be ideal.  A combination
+> > of hard files and Wiki would be OK as long as the README.hardware
+> > at least mentions the "well sanctioned" ports, which right now
+> > it does not.
+> > 
+> > I also tend to err on the side of my [sadly] many customers
+> > that may have to work in non-internet-connected environments,
+> > so making them have to get to a Wiki to find such answers is
+> > not really acceptable.
+> > 
+> 
+> I touched a bit on the current README.hardware in this posting, which
+> suggests converting each machine into a BSP layer:
+> 
+> https://lists.yoctoproject.org/pipermail/poky/2010-December/001104.html
+> 
+> In that scheme, the individual sections in README.hardware would be
+> moved into their own machine-specific READMEs for each BSP, keeping
+> everything together.  The individual READMEs could also be made
+> separately available on the 'BSP downloads' page and/or wiki for
+> convenience.  Does that sound reasonable?
 
-I push two scripts to poky and other people can solve bugs from lsb. 
-they may ensure whether the bugs modified by them is right or not with 
-this script. I want to write a user manual  about how to make a test on 
-wiki web "https://wiki.pokylinux.org/wiki/", if you permit me. I can't 
-integrate them to auto-test function from Jiajun Xu because of some 
-problems form rpm database on target platform.
+This sounds reasonable to me.
 
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-   Branch: xiaofeng/distro
-   Browse: 
-http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=xiaofeng/distro
-
-Thanks,
-     Xiaofeng Yan <xiaofeng.yan@windriver.com>
----
-
-
-Xiaofeng Yan (2):
-   creat-lsb-image: download lsb test suite and creat a image with lsb
-     test suite
-   lsbsetup: Set up lsb test environment on target platform
-
-  meta/recipes-extended/lsbsetup/lsb/LSB_Setup.sh |  197 
-+++++++++++++++++++++++
-  meta/recipes-extended/lsbsetup/lsbsetup_0.9.bb  |   32 ++++
-  scripts/creat-lsb-image                         |  170 +++++++++++++++++++
-  3 files changed, 399 insertions(+), 0 deletions(-)
-  create mode 100644 meta/recipes-extended/lsbsetup/lsb/LSB_Setup.sh
-  create mode 100644 meta/recipes-extended/lsbsetup/lsbsetup_0.9.bb
-  create mode 100755 scripts/creat-lsb-image
+Cheers,
+Joshua
+-- 
+Joshua Lock
+        Intel Open Source Technology Centre
 
 
