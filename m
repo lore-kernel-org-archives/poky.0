@@ -1,30 +1,27 @@
 Return-Path: <rpurdie@linux.intel.com>
 Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
 	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5E5464C81001
-	for <poky@yoctoproject.org>; Fri, 10 Dec 2010 10:50:17 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id D956E4C80050
+	for <poky@yoctoproject.org>; Fri, 10 Dec 2010 11:25:51 -0600 (CST)
 Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oBAGoAi6028148;
-	Fri, 10 Dec 2010 16:50:10 GMT
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oBAHPpjM028615
+	for <poky@yoctoproject.org>; Fri, 10 Dec 2010 17:25:51 GMT
 Received: from tim.rpsys.net ([127.0.0.1])
 	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 28009-02; Fri, 10 Dec 2010 16:50:05 +0000 (GMT)
+	port 10024) with LMTP id 28513-02 for <poky@yoctoproject.org>;
+	Fri, 10 Dec 2010 17:25:47 +0000 (GMT)
 Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oBAGo3dI028134
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Fri, 10 Dec 2010 16:50:04 GMT
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id oBAHPhDv028609
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO)
+	for <poky@yoctoproject.org>; Fri, 10 Dec 2010 17:25:44 GMT
 From: Richard Purdie <rpurdie@linux.intel.com>
-To: Darren Hart <dvhart@linux.intel.com>
-In-Reply-To: <4D0120ED.6060801@linux.intel.com>
-References: <4D0120ED.6060801@linux.intel.com>
-Date: Fri, 10 Dec 2010 16:49:49 +0000
-Message-ID: <1291999789.14420.65.camel@rex>
+To: poky <poky@yoctoproject.org>
+Date: Fri, 10 Dec 2010 17:25:30 +0000
+Message-ID: <1292001930.14420.84.camel@rex>
 Mime-Version: 1.0
 X-Mailer: Evolution 2.28.3 
 X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: Kernel recipe naming
+Subject: Cleanup task for bitbake.conf and Poky core cross and cross-canadian
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,74 +33,43 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 10 Dec 2010 16:50:17 -0000
+X-List-Received-Date: Fri, 10 Dec 2010 17:25:52 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On Thu, 2010-12-09 at 10:33 -0800, Darren Hart wrote:
-> I asked Richard about recipe naming convention this morning. We were pressed for
-> time, but this is what I took away from the discussion.
-> 
-> For typical packages, the filename typically looks like:
-> 
-> package-name_version.bb
-> 
-> For kernels this gets a bit more complex as it's useful to indicate the source
-> of the kernel (linaro, omap, etc.) as well as the base kernel version (2.6.33)
-> and Richard feels it would be nice to indicate in the filename what the
-> underlying source repository is (_git). (I agree up to the last point, but for
-> the source repository type, it seems to me if a user needs that much detail
-> they can open the .bb file and check the SRC_URI.)
-> 
-> So for a linux recipe, naming as follows seems to meet the above:
-> 
-> linux-linaro_2.6.35+git.bb
-> linux-linaro_2.6.37+git.bb
+Working on the canadian task, I'm reminded that some of the core
+variables are a bit of a mess. There is a roadmap in mind to try and
+clean this up which is something like the following:
 
-So far so good :)
+Split target library generation away from the toolchain (gcc-runtime) [done]
+Fix cross-canadian recipes to use TARGET_ARCH in PN [done]
+Fix cross recipes to use TARGET_ARCH in PN
 
-> I mentioned the -stable and -devel tags which he agreed could be useful, how to
-> integrate them into the naming scheme wasn't clear to me though. Perhaps:
-> 
-> linux-linaro-stable_2.6.35+git.bb
-> linux-linaro-devel_2.6.37+git.bb
+Once these two things are done it should allow us to start using
+MULTIMACH_HOST_SYS instead of MULTIMACH_TARGET_SYS for the following
+core variables in bitbake.conf: STAMP, WORKDIR, PKGDATA_DIR,
+STAGING_KERNEL_DIR. 
 
-No, PN should remain the same for things that are the same target. So
-this should really be:
+The idea is if something is built to run on arch XXX then it should live
+in the XXX workdir. Currently *-cross run on the HOST/BUILD architecture
+but live in the target workdir.
 
-linux-linaro-2.6.35+git-stable.bb
-linux-linaro_2.6.37+git-devel.bb
+Once we do this I think a lot of the mangling done in cross and
+cross-canadian.bbclass should be able to be removed for variables like
+STAGING_DIR_TARGET, STAGING_DIR_HOST, MULTIMACH_TARGET_SYS, PKGDATA_DIR,
+PKGHIST_DIR, PKG_CONFIG_DIR, PKG_CONFIG_SYSROOT_DIR.
 
-> Although to me, stable and 2.6.35 are redundant for this kernel, and something
-> along the lines of the following is just as informative, and doesn't pollute the
-> directory listings quite as much (and doesn't have to be renamed when stable
-> rebases):
-> 
-> linux-linaro_stable.bb
-> linux-linaro_devel.bb
+Also of note is that if we can obtain a sysroot per target machine and
+default to that model, this means parts of bitbake.conf like:
 
-This would be equally fine as long as you never expect to have two
-versions. Since PV overrides whats in there that part of the string is
-just for the user's reference and is quite open to various uses.
+# This should really be MULTIMACH_TARGET_SYS but that breaks "all" and machine 
+# specific packages - hack around it for now.
+STAGING_DIR_TARGET = "${STAGING_DIR}/${BASEPKG_TARGET_SYS}"
 
-> In any of the above cases, the PV value doesn't seem to be disputed:
-> 
-> PV=2.6.35+git${SRCPV}
-> 
-> or possibly
-> 
-> PV=2.6.35-linaro+git${SRCPV}
->
-> Although including linaro in the PV is probably redundant as it's included in
-> the PN and those are typically reported together IIRC $PN_$PV.
->
-> Thoughts?
+are no longer needed.
 
-This latter one is redundant as PN reflects it.
-
-Note that there are some issues with the fetcher that mean linux-yocto
-may break these guidelines for a short while. We're planning to fix the
-fetcher.
+I thought I'd at least document these things since I just touched upon
+them again with the cross-canadian changes.
 
 Cheers,
 
