@@ -1,23 +1,23 @@
 Return-Path: <qing.he@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 1780D4C80FD4
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 13A0F4C80FA4
 	for <poky@yoctoproject.org>; Fri, 10 Dec 2010 02:53:12 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 10 Dec 2010 00:53:11 -0800
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 10 Dec 2010 00:53:11 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,323,1288594800"; d="scan'208";a="685788161"
+X-IronPort-AV: E=Sophos;i="4.59,323,1288594800"; d="scan'208";a="635002356"
 Received: from qhe2-db.sh.intel.com ([10.239.13.31])
-	by orsmga001.jf.intel.com with ESMTP; 10 Dec 2010 00:53:10 -0800
+	by fmsmga002.fm.intel.com with ESMTP; 10 Dec 2010 00:53:10 -0800
 Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
 	(envelope-from <qing.he@intel.com>)
-	id 1PQydz-00039h-9I; Fri, 10 Dec 2010 16:47:59 +0800
-Message-Id: <ec95a239e91582523fb3ef862ca0c3a37ce17870.1291970759.git.qing.he@intel.com>
+	id 1PQydz-00039b-8s; Fri, 10 Dec 2010 16:47:59 +0800
+Message-Id: <a13244baa1cdf7a35460e464ddc82db0ba4324b8.1291970759.git.qing.he@intel.com>
 In-Reply-To: <cover.1291970759.git.qing.he@intel.com>
 References: <cover.1291970759.git.qing.he@intel.com>
 From: Qing He <qing.he@intel.com>
-Date: Fri, 10 Dec 2010 16:42:12 +0800
+Date: Fri, 10 Dec 2010 16:41:24 +0800
 To: poky@yoctoproject.org
-Subject: [PATCH 7/8] usbinit: update license info
+Subject: [PATCH 6/8] qemu-config: update license info
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,29 +33,29 @@ X-List-Received-Date: Fri, 10 Dec 2010 08:53:12 -0000
 
 Signed-off-by: Qing He <qing.he@intel.com>
 ---
- meta/recipes-bsp/usbinit/usbinit.bb          |    3 +
- meta/recipes-bsp/usbinit/usbinit/COPYING.GPL |  339 ++++++++++++++++++++++++++
+ meta/recipes-bsp/qemu-config/qemu-config.bb        |    3 +
+ .../qemu-config/qemu-config/COPYING.GPL            |  339 ++++++++++++++++++++
  2 files changed, 342 insertions(+), 0 deletions(-)
- create mode 100644 meta/recipes-bsp/usbinit/usbinit/COPYING.GPL
+ create mode 100644 meta/recipes-bsp/qemu-config/qemu-config/COPYING.GPL
 
-diff --git a/meta/recipes-bsp/usbinit/usbinit.bb b/meta/recipes-bsp/usbinit/usbinit.bb
-index 1d4575b..951650a 100644
---- a/meta/recipes-bsp/usbinit/usbinit.bb
-+++ b/meta/recipes-bsp/usbinit/usbinit.bb
+diff --git a/meta/recipes-bsp/qemu-config/qemu-config.bb b/meta/recipes-bsp/qemu-config/qemu-config.bb
+index fc59320..e7ac7e8 100644
+--- a/meta/recipes-bsp/qemu-config/qemu-config.bb
++++ b/meta/recipes-bsp/qemu-config/qemu-config.bb
 @@ -1,5 +1,8 @@
- DESCRIPTION = "Initscript to manage gadget Ethernet"
+ DESCRIPTION = "Adds scripts to use distcc on the host system under qemu"
 +
  LICENSE = "GPL"
 +LIC_FILES_CHKSUM = "file://COPYING.GPL;md5=751419260aa954499f7abaabaa882bbe"
 +
- PRIORITY = "optional"
- PR = "r1"
+ RDEPENDS = "distcc task-poky-nfs-server oprofileui-server rsync bash"
+ PR = "r17"
  
-diff --git a/meta/recipes-bsp/usbinit/usbinit/COPYING.GPL b/meta/recipes-bsp/usbinit/usbinit/COPYING.GPL
+diff --git a/meta/recipes-bsp/qemu-config/qemu-config/COPYING.GPL b/meta/recipes-bsp/qemu-config/qemu-config/COPYING.GPL
 new file mode 100644
 index 0000000..d511905
 --- /dev/null
-+++ b/meta/recipes-bsp/usbinit/usbinit/COPYING.GPL
++++ b/meta/recipes-bsp/qemu-config/qemu-config/COPYING.GPL
 @@ -0,0 +1,339 @@
 +		    GNU GENERAL PUBLIC LICENSE
 +		       Version 2, June 1991
