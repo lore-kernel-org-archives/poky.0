@@ -1,20 +1,20 @@
 Return-Path: <dvhart@linux.intel.com>
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 46E8C4C80BEF
+	by mx1.pokylinux.org (Postfix) with ESMTP id 7F53E4C80BEF
 	for <poky@yoctoproject.org>; Fri, 10 Dec 2010 13:55:56 -0600 (CST)
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
 	by orsmga101.jf.intel.com with ESMTP; 10 Dec 2010 11:55:55 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,325,1288594800"; d="scan'208";a="582557213"
+X-IronPort-AV: E=Sophos;i="4.59,325,1288594800"; d="scan'208";a="582557214"
 Received: from doubt.jf.intel.com (HELO localhost) ([10.7.199.164])
 	by orsmga002.jf.intel.com with ESMTP; 10 Dec 2010 11:55:55 -0800
-Message-Id: <4dcf7061ab385fcddd33cfb8d4a2359b5d863762.1292010816.git.dvhart@linux.intel.com>
+Message-Id: <405331226d5cac74e426136acc65c8999b940b17.1292010816.git.dvhart@linux.intel.com>
 In-Reply-To: <cover.1292010816.git.dvhart@linux.intel.com>
 References: <cover.1292010816.git.dvhart@linux.intel.com>
 From: Darren Hart <dvhart@linux.intel.com>
-Date: Fri, 10 Dec 2010 10:52:04 -0800
+Date: Fri, 10 Dec 2010 11:34:29 -0800
 To: sgw@linux.intel.com,poky@yoctoproject.org
-Subject: [PATCH 1/5] Correct DESCRIPTION typos in various recipes
+Subject: [PATCH 3/5] Correct LIC_FILES_CHKSUM typos
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,88 +28,55 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Fri, 10 Dec 2010 19:55:56 -0000
 
-An investigation into undocumented variables uncovered a few mispellings
-of the variable DESCRIPTION.
+An investigation into undocumented variables uncovered a handful
+of LIC_FILES_CHKSUM spelling errors
 
 Signed-off-by: Darren Hart <dvhart@linux.intel.com>
 ---
- .../initrdscripts/initramfs-boot_1.0.bb            |    2 +-
- .../initrdscripts/initramfs-live-boot_1.0.bb       |    2 +-
- .../initrdscripts/initramfs-live-install_1.0.bb    |    2 +-
- meta/recipes-core/tasks/task-poky-sdk.bb           |    2 +-
- meta/recipes-gnome/tasks/task-poky-sdk-gmae.bb     |    2 +-
- .../tasks/task-poky-standalone-gmae-sdk-target.bb  |    2 +-
- 6 files changed, 6 insertions(+), 6 deletions(-)
+ meta/recipes-devtools/nasm/nasm_2.07.bb       |    2 +-
+ meta/recipes-devtools/quilt/quilt.inc         |    2 +-
+ meta/recipes-extended/groff/groff_1.18.1.4.bb |    2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/meta/recipes-core/initrdscripts/initramfs-boot_1.0.bb b/meta/recipes-core/initrdscripts/initramfs-boot_1.0.bb
-index 8b2acae..8be0193 100644
---- a/meta/recipes-core/initrdscripts/initramfs-boot_1.0.bb
-+++ b/meta/recipes-core/initrdscripts/initramfs-boot_1.0.bb
-@@ -1,4 +1,4 @@
--DESCRIPTON = "A live image init script"
-+DESCRIPTION = "A live image init script"
- LICENSE = "MIT"
- LIC_FILES_CHKSUM = "file://${POKYBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
- SRC_URI = "file://init-boot.sh"
-diff --git a/meta/recipes-core/initrdscripts/initramfs-live-boot_1.0.bb b/meta/recipes-core/initrdscripts/initramfs-live-boot_1.0.bb
-index 7eb8db1..83e3be9 100644
---- a/meta/recipes-core/initrdscripts/initramfs-live-boot_1.0.bb
-+++ b/meta/recipes-core/initrdscripts/initramfs-live-boot_1.0.bb
-@@ -1,4 +1,4 @@
--DESCRIPTON = "A live image init script"
-+DESCRIPTION = "A live image init script"
- LICENSE = "MIT"
- LIC_FILES_CHKSUM = "file://${POKYBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
- SRC_URI = "file://init-live.sh"
-diff --git a/meta/recipes-core/initrdscripts/initramfs-live-install_1.0.bb b/meta/recipes-core/initrdscripts/initramfs-live-install_1.0.bb
-index b3a16bd..82a1e44 100644
---- a/meta/recipes-core/initrdscripts/initramfs-live-install_1.0.bb
-+++ b/meta/recipes-core/initrdscripts/initramfs-live-install_1.0.bb
-@@ -1,4 +1,4 @@
--DESCRIPTON = "A live image init script"
-+DESCRIPTION = "A live image init script"
- LICENSE = "MIT"
- LIC_FILES_CHKSUM = "file://${POKYBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
- SRC_URI = "file://init-install.sh"
-diff --git a/meta/recipes-core/tasks/task-poky-sdk.bb b/meta/recipes-core/tasks/task-poky-sdk.bb
-index 61e9dfb..758cc2e 100644
---- a/meta/recipes-core/tasks/task-poky-sdk.bb
-+++ b/meta/recipes-core/tasks/task-poky-sdk.bb
-@@ -2,7 +2,7 @@
- # Copyright (C) 2007 OpenedHand Ltd.
- #
+diff --git a/meta/recipes-devtools/nasm/nasm_2.07.bb b/meta/recipes-devtools/nasm/nasm_2.07.bb
+index b42196e..a1c0718 100644
+--- a/meta/recipes-devtools/nasm/nasm_2.07.bb
++++ b/meta/recipes-devtools/nasm/nasm_2.07.bb
+@@ -1,7 +1,7 @@
+ DESCRIPTION = "General-purpose x86 assembler"
+ SECTION = "devel"
+ LICENSE = "simplifiedBSD"
+-LIC_CHKSUM_FILES = "file://LICENSE;md5=d89d124974e487e5d64da6f1cd8acfbb"
++LIC_FILES_CHKSUM = "file://LICENSE;md5=d89d124974e487e5d64da6f1cd8acfbb"
+ COMPATIBLE_HOST = '(x86_64|i.86).*-(linux|freebsd.*)'
  
--DESCRIPTON = "Software Development Tasks for OpenedHand Poky"
-+DESCRIPTION = "Software Development Tasks for OpenedHand Poky"
- LICENSE = "MIT"
- LIC_FILES_CHKSUM = "file://${POKYBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58 \
-                     file://${POKYBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
-diff --git a/meta/recipes-gnome/tasks/task-poky-sdk-gmae.bb b/meta/recipes-gnome/tasks/task-poky-sdk-gmae.bb
-index 1618ec4..b3b5ebb 100644
---- a/meta/recipes-gnome/tasks/task-poky-sdk-gmae.bb
-+++ b/meta/recipes-gnome/tasks/task-poky-sdk-gmae.bb
-@@ -2,7 +2,7 @@
- # Copyright (C) 2007 OpenedHand Ltd.
- #
+ PR = "r0"
+diff --git a/meta/recipes-devtools/quilt/quilt.inc b/meta/recipes-devtools/quilt/quilt.inc
+index 77d1bcf..4542511 100644
+--- a/meta/recipes-devtools/quilt/quilt.inc
++++ b/meta/recipes-devtools/quilt/quilt.inc
+@@ -2,7 +2,7 @@ DESCRIPTION = "Tool to work with series of patches."
+ HOMEPAGE = "http://savannah.nongnu.org/projects/quilt/"
+ SECTION = "devel"
+ LICENSE = "GPLv2"
+-LIC_CHKSUM_FILES = "file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f"
++LIC_FILES_CHKSUM = "file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f"
  
--DESCRIPTON = "Gnome Mobile And Embedded Software Development Kit for OpenedHand Poky"
-+DESCRIPTION = "Gnome Mobile And Embedded Software Development Kit for OpenedHand Poky"
- LICENSE = "MIT"
- LIC_FILES_CHKSUM = "file://${POKYBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58 \
-                     file://${POKYBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
-diff --git a/meta/recipes-gnome/tasks/task-poky-standalone-gmae-sdk-target.bb b/meta/recipes-gnome/tasks/task-poky-standalone-gmae-sdk-target.bb
-index 22ee991..cf81bf3 100644
---- a/meta/recipes-gnome/tasks/task-poky-standalone-gmae-sdk-target.bb
-+++ b/meta/recipes-gnome/tasks/task-poky-standalone-gmae-sdk-target.bb
-@@ -2,7 +2,7 @@
- # Copyright (C) 2007 OpenedHand Ltd.
- #
+ SRC_URI = "http://download.savannah.gnu.org/releases/quilt/quilt-${PV}.tar.gz \
+         file://install.patch \
+diff --git a/meta/recipes-extended/groff/groff_1.18.1.4.bb b/meta/recipes-extended/groff/groff_1.18.1.4.bb
+index 0c4e1a6..02b484a 100644
+--- a/meta/recipes-extended/groff/groff_1.18.1.4.bb
++++ b/meta/recipes-extended/groff/groff_1.18.1.4.bb
+@@ -5,7 +5,7 @@ HOMEPAGE = "ftp://ftp.gnu.org/gnu/groff/"
+ LICENSE = "GPLv2"
+ PR = "r1"
  
--DESCRIPTON = "Gnome Mobile And Embedded Software Development Kit for OpenedHand Poky"
-+DESCRIPTION = "Gnome Mobile And Embedded Software Development Kit for OpenedHand Poky"
- LICENSE = "MIT"
- LIC_FILES_CHKSUM = "file://${POKYBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58 \
-                     file://${POKYBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
+-LIC_FILE_CHKSUM = "file://CORYING;md5=e43fc16fccd8519fba405f0a0ff6e8a3"
++LIC_FILES_CHKSUM = "file://COPYING;md5=e43fc16fccd8519fba405f0a0ff6e8a3"
+ 
+ SRC_URI = "ftp://ftp.gnu.org/gnu/groff/groff-${PV}.tar.gz \
+           file://groff-1.18.1.4-remove-mom.patch;striplevel=1 \
 -- 
 1.7.1
 
