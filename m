@@ -1,20 +1,20 @@
 Return-Path: <dvhart@linux.intel.com>
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 8869C4C811C4
+	by mx1.pokylinux.org (Postfix) with ESMTP id C348B4C811CD
 	for <poky@yoctoproject.org>; Fri, 10 Dec 2010 13:56:07 -0600 (CST)
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 10 Dec 2010 11:56:06 -0800
+	by orsmga102.jf.intel.com with ESMTP; 10 Dec 2010 11:56:07 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,325,1288594800"; d="scan'208";a="685959881"
+X-IronPort-AV: E=Sophos;i="4.59,325,1288594800"; d="scan'208";a="685959882"
 Received: from doubt.jf.intel.com (HELO localhost) ([10.7.199.164])
 	by orsmga001.jf.intel.com with ESMTP; 10 Dec 2010 11:55:55 -0800
-Message-Id: <6d64f7df084448846bf38f26bbbe2fa7ad84f335.1292010816.git.dvhart@linux.intel.com>
+Message-Id: <959c8bf8a17e0c4bd2669ebe7a033b11d65277bc.1292010816.git.dvhart@linux.intel.com>
 In-Reply-To: <cover.1292010816.git.dvhart@linux.intel.com>
 References: <cover.1292010816.git.dvhart@linux.intel.com>
 From: Darren Hart <dvhart@linux.intel.com>
-Date: Fri, 10 Dec 2010 11:35:14 -0800
+Date: Fri, 10 Dec 2010 11:38:04 -0800
 To: sgw@linux.intel.com,poky@yoctoproject.org
-Subject: [PATCH 4/5] tcl: Correct license checksums
+Subject: [PATCH 5/5] linux-libc-headers: Correct license checksum
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,37 +28,27 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Fri, 10 Dec 2010 19:56:07 -0000
 
-Correct a typo in LIC_FILES_CHKSUM in the tcl recipe and the changed md5sums
-that appeared during a test build.
+Correct a typo in LIC_FILES_CHKSUM for linux-libc-headers as well as update
+the md5sum.
 
 Signed-off-by: Darren Hart <dvhart@linux.intel.com>
 ---
- meta/recipes-devtools/tcltk/tcl_8.5.9.bb |   12 ++++++------
- 1 files changed, 6 insertions(+), 6 deletions(-)
+ .../linux-libc-headers/linux-libc-headers.inc      |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
-diff --git a/meta/recipes-devtools/tcltk/tcl_8.5.9.bb b/meta/recipes-devtools/tcltk/tcl_8.5.9.bb
-index aa1805b..12e2bd0 100644
---- a/meta/recipes-devtools/tcltk/tcl_8.5.9.bb
-+++ b/meta/recipes-devtools/tcltk/tcl_8.5.9.bb
-@@ -3,12 +3,12 @@ LICENSE = "tcl"
- SECTION = "devel/tcltk"
- HOMEPAGE = "http://tcl.sourceforge.net"
- DEPENDS = "tcl-native"
--LIC_CHKSUM_FILES = "file://../license.terms;md5=7b4d3c71b2d9a8c1b373609867975570 \
--    file://../compat/license.terms;md5=7b4d3c71b2d9a8c1b373609867975570 \
--    file://../library/license.terms;md5=7b4d3c71b2d9a8c1b373609867975570 \
--    file://../macosx/license.terms;md5=7b4d3c71b2d9a8c1b373609867975570 \
--    file://../tests/license.terms;md5=7b4d3c71b2d9a8c1b373609867975570 \
--    file://../win/license.terms;md5=7b4d3c71b2d9a8c1b373609867975570 \
-+LIC_FILES_CHKSUM = "file://../license.terms;md5=a47a9be26d03f925fc1fbd2784f27e11 \
-+    file://../compat/license.terms;md5=a47a9be26d03f925fc1fbd2784f27e11 \
-+    file://../library/license.terms;md5=a47a9be26d03f925fc1fbd2784f27e11 \
-+    file://../macosx/license.terms;md5=a47a9be26d03f925fc1fbd2784f27e11 \
-+    file://../tests/license.terms;md5=a47a9be26d03f925fc1fbd2784f27e11 \
-+    file://../win/license.terms;md5=a47a9be26d03f925fc1fbd2784f27e11 \
-     "
+diff --git a/meta/recipes-kernel/linux-libc-headers/linux-libc-headers.inc b/meta/recipes-kernel/linux-libc-headers/linux-libc-headers.inc
+index e6cb1d8..f25aed4 100644
+--- a/meta/recipes-kernel/linux-libc-headers/linux-libc-headers.inc
++++ b/meta/recipes-kernel/linux-libc-headers/linux-libc-headers.inc
+@@ -2,7 +2,7 @@ DESCRIPTION = "Sanitized set of 2.6 kernel headers for the C library's use."
+ SECTION = "devel"
+ LICENSE = "GPLv2"
  
- PR = "r0"
+-LIC_CHKSUM_FILES = "file://COPYING " 
++LIC_FILES_CHKSUM = "file://COPYING;md5=d7810fab7487fb0aad327b76f1be7cd7" 
+ SRC_URI = "${KERNELORG_MIRROR}/pub/linux/kernel/v2.6/linux-${PV}.tar.bz2"
+ 
+ #DEPENDS = "cross-linkage"
 -- 
 1.7.1
 
