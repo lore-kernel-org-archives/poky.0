@@ -1,24 +1,18 @@
-Return-Path: <josh@openedhand.com>
-Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0DD274C80FA4
-	for <poky@yoctoproject.org>; Fri, 10 Dec 2010 05:42:20 -0600 (CST)
-Received: from [10.250.128.97] (unknown [158.43.2.102])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by pug.o-hand.com (Postfix) with ESMTP id 5402A12EC1C5;
-	Fri, 10 Dec 2010 06:20:36 -0600 (CST)
-From: Joshua Lock <josh@openedhand.com>
-To: Tom Zanussi <tom.zanussi@intel.com>
-In-Reply-To: <1291923332.18502.158.camel@elmorro>
-References: <4CFF8C70.7010803@mlbassoc.com>
-	<1291921712.6078.48.camel@scimitar>  <4D012B68.1000201@mlbassoc.com>
-	<1291923332.18502.158.camel@elmorro>
-Date: Fri, 10 Dec 2010 11:42:09 +0000
-Message-ID: <1291981329.2483.1.camel@scimitar>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.32.1 (2.32.1-1.fc14) 
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: README.hardware
+Return-Path: <bruce.ashfield@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 008424C81001;
+	Fri, 10 Dec 2010 10:01:41 -0600 (CST)
+Received: from localhost.localdomain (yow-bashfiel-d2.ottawa.windriver.com
+	[128.224.146.167])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oBAG1dCQ027769;
+	Fri, 10 Dec 2010 08:01:40 -0800 (PST)
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+To: rpurdie@linux.intel.com
+Date: Fri, 10 Dec 2010 11:02:52 -0500
+Message-Id: <cover.1291996631.git.bruce.ashfield@windriver.com>
+X-Mailer: git-send-email 1.7.0.4
+Cc: yocto@yoctoproject.org, poky@yoctoproject.org, saul.wold@intel.com
+Subject: [PATCH 0/3] linux-yocto: refactor recipes and update the kernel
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,61 +24,109 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 10 Dec 2010 11:42:20 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 10 Dec 2010 16:01:42 -0000
 
-On Thu, 2010-12-09 at 13:35 -0600, Tom Zanussi wrote:
-> On Thu, 2010-12-09 at 11:18 -0800, Gary Thomas wrote:
-> > On 12/09/2010 12:08 PM, Joshua Lock wrote:
-> > > On Wed, 2010-12-08 at 06:47 -0700, Gary Thomas wrote:
-> > >> This file seems quite out of date, in fact it's not been updated
-> > >> for 9 months :-(
-> > >>
-> > >> I don't know enough details to suggest a patch, but I think it
-> > >> would be useful to update it to reflect "today's Poky/Yocto" world,
-> > >> especially with the new visibility of the project.
-> > >>
-> > >
-> > > I agree, although I'm also wondering if it would be better to have this
-> > > information on the wiki where it can be more easily maintained by the
-> > > community.
-> > >
-> > > Or a balance? any machine in meta/conf/machine documented in
-> > > README.hardware and anything else on the wiki.
-> > >
-> > 
-> > Wikis are great, but I tend to think of the Poky "checkout" tree
-> > as self-sufficient.  It has the full manual, etc, already so forcing
-> > the user to have to go to the Wiki for such information (which is
-> > really only overview anyway) would not be ideal.  A combination
-> > of hard files and Wiki would be OK as long as the README.hardware
-> > at least mentions the "well sanctioned" ports, which right now
-> > it does not.
-> > 
-> > I also tend to err on the side of my [sadly] many customers
-> > that may have to work in non-internet-connected environments,
-> > so making them have to get to a Wiki to find such answers is
-> > not really acceptable.
-> > 
-> 
-> I touched a bit on the current README.hardware in this posting, which
-> suggests converting each machine into a BSP layer:
-> 
-> https://lists.yoctoproject.org/pipermail/poky/2010-December/001104.html
-> 
-> In that scheme, the individual sections in README.hardware would be
-> moved into their own machine-specific READMEs for each BSP, keeping
-> everything together.  The individual READMEs could also be made
-> separately available on the 'BSP downloads' page and/or wiki for
-> convenience.  Does that sound reasonable?
+Richard,
 
-This sounds reasonable to me.
+Consider these patches for merging. I've been building and working
+with these for 2 weeks now, and while they may not be perfect, they
+work and we need more eyes on 2.6.37.
 
-Cheers,
-Joshua
--- 
-Joshua Lock
-        Intel Open Source Technology Centre
+What we get is the following:
+
+ - factoring of the code into some reusable routines in the form
+   of a linux-yocto bbclass. The -stable, -devel and libc headers
+   recipes are all using this common code
+
+ - A new branching scheme for the 2.6.37 kernel that generalizes
+   the branch names and shows their hierarchy. The tools that
+   process the kernel needed a lot of 'unlearning' about the
+   old structure (this took a lot of my time working on this).
+
+   If this needs to be tweaked more, we can do it later, since
+   the big changes are done and agreed on, and we can't delay
+   scaling this out to more boards much longer.
+
+ - A -stable recipe that continues to build the 2.6.34 kernel
+   and a move of the main recipe to track the development
+   2.6.37-rc5 tree. The qemu* targets have their defaults
+   changed to 2.6.37-rc, while the hardware targets remain
+   on 2.6.34 for a bit longer
+
+    ** As discussed. The -stable naming of a recipe is
+       transitional and will eventually be removed and we'll
+       switch between kernels via a different mechanism
+
+ - perf is moved into a linux-tools.inc, we can add more to
+   this and re-use it more easily from here
+
+ - BSP boostrapping is streamlined (docs to follow).
+
+Note: The temporary commenting of the preferred libc-headers provider
+was intentional. There is something strange happening when
+headers are generated for 2.6.34 that was breaking libc builds.
+To avoid holding up this series, we'll go with the default
+libc headers for a short while.
+
+I've built and booted all the qemu* targets on 2.6.37
+(minimal and sato), I've built most of the hardware
+targets. I noticed some strangeness with the mouse on
+ARM, and that will need to be looked at further. I've done
+some audits on the kernel configuration in 2.6.37, and
+while it looks sane, full BSP testing will tell us if
+anything major changed (that I missed).
+
+If there are better suggestions on how we can stage and
+get mileage on this code, I'm all ears, but this is a kernel
+uprev, so I expect some issues (there always is even though
+I've done plenty of these). If we don't want anything
+destabilizing in the tree, I'm fine with this and we just
+need to come up with a plan.
+
+What remains (I'm only one person!):
+
+ - BSP porting and full BSP testing
+ - Investigation into the libc-headers issue
+ - Continued cleanup
+ - Feature merging into 2.6.37 (lttng, yaffs, etc)
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: zedd/kernel
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/kernel
+
+Thanks,
+    Bruce Ashfield <bruce.ashfield@windriver.com>
+---
+
+
+Bruce Ashfield (3):
+  yocto-kernel: factor common routes, update to 2.6.37 and branch
+    renaming
+  linux-libc-headers-yocto: use common linux-yocto routines
+  qemu: update arm timer handling
+
+ meta-emenlow/conf/machine/emenlow.conf             |    3 +-
+ meta/classes/kernel-yocto.bbclass                  |  202 ++++++++++++++++++
+ .../conf/distro/include/poky-default-revisions.inc |   36 +++-
+ meta/conf/machine/atom-pc.conf                     |    3 +-
+ meta/conf/machine/beagleboard.conf                 |    3 +-
+ meta/conf/machine/include/qemu.inc                 |    1 +
+ meta/conf/machine/mpc8315e-rdb.conf                |    3 +-
+ meta/conf/machine/routerstationpro.conf            |    3 +-
+ .../qemu-0.12.4/arm_timer-fix-oneshot-mode.patch   |   32 +++
+ .../arm_timer-reload-timer-when-enabled.patch      |   40 ++++
+ meta/recipes-devtools/qemu/qemu_0.12.4.bb          |    4 +-
+ .../linux-libc-headers-yocto_git.bb                |   25 +--
+ meta/recipes-kernel/linux/linux-tools.inc          |   19 ++
+ .../recipes-kernel/linux/linux-yocto-stable_git.bb |   41 ++++
+ meta/recipes-kernel/linux/linux-yocto.inc          |   23 ++
+ meta/recipes-kernel/linux/linux-yocto_git.bb       |  219 ++------------------
+ 16 files changed, 420 insertions(+), 237 deletions(-)
+ create mode 100644 meta/classes/kernel-yocto.bbclass
+ create mode 100644 meta/recipes-devtools/qemu/qemu-0.12.4/arm_timer-fix-oneshot-mode.patch
+ create mode 100644 meta/recipes-devtools/qemu/qemu-0.12.4/arm_timer-reload-timer-when-enabled.patch
+ create mode 100644 meta/recipes-kernel/linux/linux-tools.inc
+ create mode 100644 meta/recipes-kernel/linux/linux-yocto-stable_git.bb
+ create mode 100644 meta/recipes-kernel/linux/linux-yocto.inc
 
 
