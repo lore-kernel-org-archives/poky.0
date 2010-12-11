@@ -1,33 +1,25 @@
-Return-Path: <kergoth@gmail.com>
-Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2C4BC4C80BEF
-	for <poky@yoctoproject.org>; Fri, 10 Dec 2010 17:59:11 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by wwb31 with SMTP id 31so5050421wwb.11
-	for <poky@yoctoproject.org>; Fri, 10 Dec 2010 15:59:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:received:mime-version:sender:received
-	:in-reply-to:references:from:date:x-google-sender-auth:message-id
-	:subject:to:cc:content-type:content-transfer-encoding;
-	bh=QWM0fGfQZ57FELjxwPoik0Nn5XR4xwLHIwd4ffJayHY=;
-	b=dhADBnMIlS6tLvJJ45ewyk2crLktgl3KH95vorlMt0PtVkruLiaVvVut8VPNnA6R/X
-	l9rzHWYnf8zuJ5kzSCnt4d6Zzo7+SpOOtaBbcW1YdSj8mDjP4HR2MAXvgy5WQ+9x1dzw
-	eGbBtku060wEG6/SYyvdfbiTEqBOMHXdhNffk=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:sender:in-reply-to:references:from:date
-	:x-google-sender-auth:message-id:subject:to:cc:content-type
-	:content-transfer-encoding;
-	b=usMBnvh6nTLdAFOQhBRKGSOji88tTjZLMsfkJvUVsbUs0Vo4i2JSbCkfduz/rZf5p+
-	zyXaU6uuoDtjUuWcYTm11g4K8ebcLlfm81pWxS8plw14063yLYKecyxOtki371iUD7Nu
-	pcjVvFYSFDhRKmeiHu+s/KV4DbuPZEFIzXB0w=
-Received: by 10.216.180.6 with SMTP id i6mr1673708wem.57.1292025549813; Fri,
-	10 Dec 2010 15:59:09 -0800 (PST)
-MIME-Version: 1.0
-Sender: kergoth@gmail.com
-Received: by 10.216.67.67 with HTTP; Fri, 10 Dec 2010 15:58:49 -0800 (PST)
-In-Reply-To: <1292024521.14420.99.camel@rex>
+Return-Path: <dongxiao.xu@intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id CC19E4C80BEF
+	for <poky@yoctoproject.org>; Fri, 10 Dec 2010 20:48:12 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 10 Dec 2010 18:48:12 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.59,327,1288594800"; d="scan'208";a="360162192"
+Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
+	by azsmga001.ch.intel.com with ESMTP; 10 Dec 2010 18:48:11 -0800
+Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
+	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Sat, 11 Dec 2010 10:48:10 +0800
+Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
+	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
+	Sat, 11 Dec 2010 10:48:08 +0800
+From: "Xu, Dongxiao" <dongxiao.xu@intel.com>
+To: Richard Purdie <rpurdie@linux.intel.com>
+Date: Sat, 11 Dec 2010 10:48:06 +0800
+Thread-Topic: [poky] About the operator "??="
+Thread-Index: AcuYw+rPyOSXCouAQJqqH8k2KIg2EgAF3wEw
+Message-ID: <D5AB6E638E5A3E4B8F4406B113A5A19A317D6D81@shsmsx501.ccr.corp.intel.com>
 References: <D5AB6E638E5A3E4B8F4406B113A5A19A303B2EF0@shsmsx501.ccr.corp.intel.com>
 	<1291804222.1554.256.camel@rex>
 	<625BA99ED14B2D499DC4E29D8138F1504D515D0DC5@shsmsx502.ccr.corp.intel.com>
@@ -41,12 +33,14 @@ References: <D5AB6E638E5A3E4B8F4406B113A5A19A303B2EF0@shsmsx501.ccr.corp.intel.c
 	<1291898758.1554.819.camel@rex>
 	<D5AB6E638E5A3E4B8F4406B113A5A19A314F313A@shsmsx501.ccr.corp.intel.com>
 	<1292024521.14420.99.camel@rex>
-From: Chris Larson <clarson@kergoth.com>
-Date: Fri, 10 Dec 2010 16:58:49 -0700
-X-Google-Sender-Auth: ShzVMmxJoTTKIq1_HwilgGxL3pg
-Message-ID: <AANLkTikVWrJd3CCtFOokTh=B2HQRO1v0qZRVGdBr_52O@mail.gmail.com>
-To: Richard Purdie <rpurdie@linux.intel.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+In-Reply-To: <1292024521.14420.99.camel@rex>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
+MIME-Version: 1.0
+Cc: Chris Larson <clarson@kergoth.com>,
+	"poky@yoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: About the operator "??="
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -59,35 +53,82 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 10 Dec 2010 23:59:11 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Sat, 11 Dec 2010 02:48:13 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Dec 10, 2010 at 4:42 PM, Richard Purdie <rpurdie@linux.intel.com> w=
-rote:
+Richard Purdie wrote:
 > On Thu, 2010-12-09 at 22:44 +0800, Xu, Dongxiao wrote:
 >> I made the following patch (setVarFlag.patch) to move everything in
 >> setVar to setVarFlag, please help to review it.
->>
+>>=20
 >> Please note one place that I modified, see the indent of
->> "self._seen_overrides[override].add( var )", I thought it was a bug in
->> original code.
->
-> No, its not. Its making sure [override] exists before trying to add var
-> to it. It could also be:
->
+>> "self._seen_overrides[override].add( var )", I thought it was a bug
+>> in original code.
+>=20
+> No, its not. Its making sure [override] exists before trying to add
+> var to it. It could also be:=20
+>=20
 > if override not in self._seen_overrides:
-> =C2=A0 =C2=A0self._seen_overrides[override] =3D set(var)
+>     self._seen_overrides[override] =3D set(var)
 > else:
-> =C2=A0 =C2=A0self._seen_overrides[override].add( var )
->
+>     self._seen_overrides[override].add( var )
 
-For master, we can use defaultdict for that sort of thing.  What's
-poky's current python version requirement?
---=20
-Christopher Larson
-clarson at kergoth dot com
-Founder - BitBake, OpenEmbedded, OpenZaurus
-Maintainer - Tslib
-Senior Software Engineer, Mentor Graphics
+Thanks, I understand now.
+
+For overrides, we only override the variable flag "content", and there is n=
+o concept for overriding the other variable flags. Does my understanding co=
+rrect?
+If this is the case, we should add the following constraint.
+
++            if override not in self._seen_overrides:
++                self._seen_overrides[override] =3D set()
++            if flag =3D=3D "content":
++                self._seen_overrides[override].add( var )
+
+Otherwise, each time when setVarFlag() for a certain key, all flag values w=
+ill will be added to self._seen_overrides[override], and for different flag=
+s, the value may be different types, and there will be errors like:
+
+NOTE: Handling BitBake files: | (0116/0765) [15 %]ERROR: cannot concatenate=
+ 'str' and 'NoneType' objects while parsing /home/dongxiao/poky/meta/recipe=
+s-devtools/dpkg/dpkg_1.15.8.5.bb.=20
+
+>=20
+>> After adding this, the "two lines" in original "??=3D" optimization
+>> patch are no longer needed.=20
+>>=20
+>> +            if bb.data.getVarFlag(key, "content", data) is None:
+>> +                bb.data.setVar(key, None, data)
+>>=20
+>> I rerun "time bitbake -p" with the two patches (see below, one is
+>> setVarFlag.patch, another is the "??=3D" optimization patch) The
+>> result is:=20
+>>=20
+>> real    0m27.049s
+>> user    0m26.340s
+>> sys     0m0.440s
+>>=20
+>> The parsing time is a bit longer ( < 1 sec) than without the
+>> following "setVarFlag.patch".
+>=20
+> Patches look good to me other than the above. I also talked to Chris
+> on irc on #oe earlier today and we agreed this is a good move for
+> setVar bringing both into line although the whole way the datastore
+> works could still be better.  =20
+>=20
+> Could you send these patches through a pull request please and lets
+> get them merged.=20
+
+OK, I will make a pull request after the above question got clear.
+
+Thanks,
+Dongxiao
+
+>=20
+> Cheers,
+>=20
+> Richard
+
 
