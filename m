@@ -1,21 +1,21 @@
 Return-Path: <sgw@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id F1FBD4C811C4
-	for <poky@yoctoproject.org>; Sat, 11 Dec 2010 13:36:04 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 11 Dec 2010 11:36:04 -0800
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D0CA14C811CE
+	for <poky@yoctoproject.org>; Sat, 11 Dec 2010 13:36:05 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 11 Dec 2010 11:36:05 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,329,1288594800"; d="scan'208";a="635384975"
+X-IronPort-AV: E=Sophos;i="4.59,329,1288594800"; d="scan'208";a="360328441"
 Received: from unknown (HELO localhost) ([10.255.13.46])
-	by fmsmga002.fm.intel.com with ESMTP; 11 Dec 2010 11:36:03 -0800
-Message-Id: <b0d0a2444490f8b17a386c791499c8179e715500.1292096034.git.sgw@linux.intel.com>
+	by azsmga001.ch.intel.com with ESMTP; 11 Dec 2010 11:36:04 -0800
+Message-Id: <17b219983646fe56ab20f49f724eed7145049e8e.1292096034.git.sgw@linux.intel.com>
 In-Reply-To: <cover.1292096034.git.sgw@linux.intel.com>
 References: <cover.1292096034.git.sgw@linux.intel.com>
 From: Saul Wold <Saul.Wold@intel.com>
-Date: Fri, 10 Dec 2010 17:01:25 -0800
+Date: Fri, 10 Dec 2010 17:01:45 -0800
 To: poky@yoctoproject.org
 Cc: Saul Wold <Saul.Wold@intel.com>
-Subject: [PATCH 08/13] task-poky-clutter: Add LIC_FILES_CHKSUM
+Subject: [PATCH 09/13] libxscrnsaver: Add LIC_FILES_CHKSUM
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,27 +27,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 11 Dec 2010 19:36:05 -0000
+X-List-Received-Date: Sat, 11 Dec 2010 19:36:06 -0000
 
 Signed-off-by: Saul Wold <Saul.Wold@intel.com>
 ---
- meta/recipes-graphics/tasks/task-poky-clutter.bb |    3 +++
- 1 files changed, 3 insertions(+), 0 deletions(-)
+ .../xorg-lib/libxscrnsaver_1.2.1.bb                |    4 +++-
+ 1 files changed, 3 insertions(+), 1 deletions(-)
 
-diff --git a/meta/recipes-graphics/tasks/task-poky-clutter.bb b/meta/recipes-graphics/tasks/task-poky-clutter.bb
-index 844fb90..5e54f15 100644
---- a/meta/recipes-graphics/tasks/task-poky-clutter.bb
-+++ b/meta/recipes-graphics/tasks/task-poky-clutter.bb
-@@ -4,6 +4,9 @@
+diff --git a/meta/recipes-graphics/xorg-lib/libxscrnsaver_1.2.1.bb b/meta/recipes-graphics/xorg-lib/libxscrnsaver_1.2.1.bb
+index a95cc96..3df0aca 100644
+--- a/meta/recipes-graphics/xorg-lib/libxscrnsaver_1.2.1.bb
++++ b/meta/recipes-graphics/xorg-lib/libxscrnsaver_1.2.1.bb
+@@ -1,7 +1,9 @@
+ require xorg-lib-common.inc
  
- DESCRIPTION = "Clutter Tasks for OpenedHand Poky"
- LICENSE = "MIT"
-+LIC_FILES_CHKSUM = "file://${POKYBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58 \
-+                    file://${POKYBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
+ DESCRIPTION = "X Screen Saver extension library"
+-LICENSE = "GPL"
++LICENSE = "MIT"
++LIC_FILES_CHKSUM = "file://COPYING;md5=21fd154ee757813632ada871a34113fb"
 +
- PR = "r3"
- 
- PACKAGES = "\
+ DEPENDS += "libxext scrnsaverproto"
+ PROVIDES = "libxss"
+ RREPLACES = "libxss"
 -- 
 1.7.1.1
 
