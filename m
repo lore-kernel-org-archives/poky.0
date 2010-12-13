@@ -1,37 +1,34 @@
-Return-Path: <fransmeulenbroeks@gmail.com>
-Received: from mail-iw0-f182.google.com (mail-iw0-f182.google.com
-	[209.85.214.182])
-	by mx1.pokylinux.org (Postfix) with ESMTP id EE65E4C80050
-	for <poky@yoctoproject.org>; Sun, 12 Dec 2010 09:04:37 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by iwn39 with SMTP id 39so10761843iwn.13
-	for <poky@yoctoproject.org>; Sun, 12 Dec 2010 07:04:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:received:received:in-reply-to
-	:references:date:message-id:subject:from:to:content-type;
-	bh=7zz3JNnPKoxXIhTAYOUlZHqw+KlvQUPiU0Il1E5O4HU=;
-	b=U1T1bO6idqb5Yh0fIdiUmOBdeAI4gtJUrZ/Xo9E/pQtdz0Vpd/5+tw1tWg9uK/yYlT
-	SfoefnNQBfxbh9RLTJRv4ifRFJ8zcvaHQ1raXgUaLl8+gwjEIy40xsd4i9Wfg7/uA5EI
-	pTAvx47fgMG7UPc35zGAXcOyYpFlR/FTBkHhE=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:content-type;
-	b=MyAmfck8R7iLV65Lu0bMAuF9uXoqLCfEizD9sPZsyAF7eqsohzq2WkZIkJnwU0ATxh
-	CVaNy2k5GuFIuh/YuGM72fwUYfFMkYISsBF/MSY6c63/XYI5MUh+hocTyvWkBTRq2V/j
-	Wu9x42najTevrafsT/AvVYGzUyBA72USB5CJU=
+Return-Path: <jiajun.xu@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id B14554C80050;
+	Sun, 12 Dec 2010 20:11:24 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 12 Dec 2010 18:11:24 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.59,333,1288594800"; d="scan'208";a="583063354"
+Received: from pgsmsx601.gar.corp.intel.com ([10.221.43.69])
+	by orsmga002.jf.intel.com with ESMTP; 12 Dec 2010 18:11:23 -0800
+Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
+	pgsmsx601.gar.corp.intel.com (10.221.43.69) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Mon, 13 Dec 2010 10:10:34 +0800
+Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
+	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
+	Mon, 13 Dec 2010 10:10:33 +0800
+From: "Xu, Jiajun" <jiajun.xu@intel.com>
+To: Saul Wold <sgw@linux.intel.com>, "poky@yoctoproject.org"
+	<poky@yoctoproject.org>, Yocto Project Discussion <yocto@yoctoproject.org>
+Date: Mon, 13 Dec 2010 10:10:32 +0800
+Thread-Topic: [poky] Milestone 2 Stabilization Branch Created (Resend)
+Thread-Index: AcuZa8ltkuCJO3iORSyNN+d7uJxSNwA/s47Q
+Message-ID: <D5AB6E638E5A3E4B8F4406B113A5A19A317D6F75@shsmsx501.ccr.corp.intel.com>
+References: <4D03D481.4050104@linux.intel.com>
+In-Reply-To: <4D03D481.4050104@linux.intel.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
 MIME-Version: 1.0
-Received: by 10.231.38.10 with SMTP id z10mr1112124ibd.107.1292166276927; Sun,
-	12 Dec 2010 07:04:36 -0800 (PST)
-Received: by 10.231.200.140 with HTTP; Sun, 12 Dec 2010 07:04:36 -0800 (PST)
-In-Reply-To: <1292166104-22971-1-git-send-email-fransmeulenbroeks@gmail.com>
-References: <1292166104-22971-1-git-send-email-fransmeulenbroeks@gmail.com>
-Date: Sun, 12 Dec 2010 16:04:36 +0100
-Message-ID: <AANLkTinXasdCKTy=K=+cLue-J_=8ujL8qHzGGAXMfj65@mail.gmail.com>
-From: Frans Meulenbroeks <fransmeulenbroeks@gmail.com>
-To: poky@yoctoproject.org
-Subject: Re: [PATCH 1/4] libcdio: new recipe (brought over from OE)
+Subject: Re: Milestone 2 Stabilization Branch Created (Resend)
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,8 +40,48 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 12 Dec 2010 15:04:38 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Mon, 13 Dec 2010 02:11:25 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Apologies for resending this. This was not intended. Frans.
+> [Resend with correct mailing lists]
+>=20
+>=20
+> Yocto / Poky Folks:
+>=20
+> Thanks to everyone's hard work, we are currently on working getting
+> the first build of M2 started and available for QA testing on Monday.
+>=20
+> I have pushed out the lastest commit that was pending in the
+> distro/master area to both master and create a builds/milestone branch
+> which is where bug fixes for M2 will go.
+>=20
+> There is currently an issue with the PPC Kernel build on this branch
+> and that is being worked, this may impact getting a PPC build available b=
+y Monday.
+>=20
+> For the next week as we stabilize M2, please ensure that any patch or
+> pull requests indicate that this is for M2 or not.  By default all
+> commits will go to master regardless.
+>=20
+
+Hi Saul,
+Nightly build is near finished now. PPC and some non-x86 real hardware targ=
+et building failed. I begin downloading them now and will start QA testing.
+
+> Thanks
+>      Sau!
+> Saul Wold
+> Yocto Component Wrangler @ Intel
+> Yocto Project / Poky Build System
+>=20
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+
+Best Regards,
+Jiajun
+
 
