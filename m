@@ -1,22 +1,35 @@
-Return-Path: <bruce.ashfield@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id DFF604C81110;
-	Sun, 12 Dec 2010 23:40:27 -0600 (CST)
-Received: from localhost.localdomain (yow-bashfiel-d2.ottawa.windriver.com
-	[128.224.146.167])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oBD5eOSo026351;
-	Sun, 12 Dec 2010 21:40:26 -0800 (PST)
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-To: rpurdie@linux.intel.com, saul.wold@intel.com
-Date: Mon, 13 Dec 2010 00:41:46 -0500
-Message-Id: <a6e6af91a9044782e8bf2e4582e98eacc123c2fc.1292218710.git.bruce.ashfield@windriver.com>
-X-Mailer: git-send-email 1.7.0.4
-In-Reply-To: <cover.1292218710.git.bruce.ashfield@windriver.com>
-References: <cover.1292218710.git.bruce.ashfield@windriver.com>
-In-Reply-To: <cover.1292218710.git.bruce.ashfield@windriver.com>
-References: <cover.1292218710.git.bruce.ashfield@windriver.com>
-Cc: yocto@yoctoproject.org, poky@yoctoproject.org
-Subject: [PATCH 1/1] qemuppc: update 2.6.37 SRCREV
+Return-Path: <qing.he@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D8B8D4C810D2
+	for <poky@yoctoproject.org>; Sun, 12 Dec 2010 23:57:18 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 12 Dec 2010 21:57:18 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.59,334,1288594800"; d="scan'208";a="635704379"
+Received: from qhe2-db.sh.intel.com ([10.239.13.31])
+	by fmsmga002.fm.intel.com with ESMTP; 12 Dec 2010 21:57:17 -0800
+Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
+	(envelope-from <qing.he@intel.com>)
+	id 1PS1KM-0004zt-UW; Mon, 13 Dec 2010 13:52:02 +0800
+Date: Mon, 13 Dec 2010 13:52:02 +0800
+From: Qing He <qing.he@intel.com>
+To: Richard Purdie <rpurdie@linux.intel.com>
+Message-ID: <20101213055202.GA19053@qhe2-db>
+References: <625BA99ED14B2D499DC4E29D8138F1504D42C686F3@shsmsx502.ccr.corp.intel.com>
+	<AANLkTi=oxv9goiEMAfpkDAvq7n_GfGUMSXsonXDdzixd@mail.gmail.com>
+	<1291033557.14277.944.camel@rex>
+	<AANLkTinYx+43yRYFu=BYQPVJHox6CmBgOMFF199z3BC=@mail.gmail.com>
+	<625BA99ED14B2D499DC4E29D8138F1504D475430EC@shsmsx502.ccr.corp.intel.com>
+	<1291597457.14277.2931.camel@rex>
+	<625BA99ED14B2D499DC4E29D8138F1504D47543B3B@shsmsx502.ccr.corp.intel.com>
+	<1291725455.11475.10.camel@rex> <20101208031204.GA20033@qhe2-db>
+	<1291907772.1554.894.camel@rex>
+MIME-Version: 1.0
+In-Reply-To: <1291907772.1554.894.camel@rex>
+User-Agent: Mutt/1.5.20 (2009-06-14)
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>,
+	Chris Larson <clarson@kergoth.com>
+Subject: Re: [PATCH 1/1] curl: fix native dependency
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,33 +41,69 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 13 Dec 2010 05:40:28 -0000
+X-List-Received-Date: Mon, 13 Dec 2010 05:57:19 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Fixes [BUGID: 585]
+On Thu, 2010-12-09 at 23:16 +0800, Richard Purdie wrote:
+> On Wed, 2010-12-08 at 11:12 +0800, Qing He wrote:
+> > Thank you for the fix, I've been looking the smart data section
+> > recently, and the rationale becomes much clearer to me.
+> > 
+> > However, the following case still has some confusion:
+> > 
+> > FOO = "A"
+> > FOO_append = "B"
+> > FOO_virtclass-native = "C"
+> > 
+> > when in virtclass-native, the output is simply "C", instead of "CB"
+> > as I expected
+> 
+> This is a tricky one. It would be interesting to see if this applies
+> with other overrides such as MACHINE. The reason I say that is the way
+> the virtclass-native override is added (see native.bbclass).
 
-The qemuppc irq handling was only partially updated to 2.6.37,
-this completes the job. qemuppc builds and boots with this
-change.
+So you mean this is intended? The FOO_append is meant to be hidden by
+the use of an override? I'd rather have expected something like this:
 
-Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
 ---
- .../conf/distro/include/poky-default-revisions.inc |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+diff --git a/bitbake/lib/bb/data_smart.py b/bitbake/lib/bb/data_smart.py
+index c8cd8f8..3e4c710 100644
+--- a/bitbake/lib/bb/data_smart.py
++++ b/bitbake/lib/bb/data_smart.py
+@@ -149,6 +149,11 @@ class DataSmart:
+             for var in vars:
+                 name = var[:-l]
+                 try:
++                    for op in __setvar_keyword__:
++                        if op in self[name]:
++                            sval = self.getVarFlag(name, op, False)
++                            self.setVarFlag(var, op, sval)
++
+                     self[name] = self[var]
+                 except Exception:
+                     bb.msg.note(1, bb.msg.domain.Data, "Untracked delVar")
 
-diff --git a/meta/conf/distro/include/poky-default-revisions.inc b/meta/conf/distro/include/poky-default-revisions.inc
-index 81c39ab..be635e5 100644
---- a/meta/conf/distro/include/poky-default-revisions.inc
-+++ b/meta/conf/distro/include/poky-default-revisions.inc
-@@ -98,7 +98,7 @@ SRCREV_meta_pn-linux-yocto-stable ?= "d1cd5c80ee97e81e130be8c3de3965b770f320d6"
- # development SRCREVs
- SRCREV_machine_pn-linux-yocto_qemuarm = "87e00a2d47ba80b4ad1f9170cb3f6cf81f21d739"
- SRCREV_machine_pn-linux-yocto_qemumips = "7231e473dd981a28e3cea9f677ed60583e731550"
--SRCREV_machine_pn-linux-yocto_qemuppc = "3ab3559637130b65d8889fa74286fdb57935726f"
-+SRCREV_machine_pn-linux-yocto_qemuppc = "e2b529d7d74a9b21e1d1715f0c4062a4fd92a3ed"
- SRCREV_machine_pn-linux-yocto_qemux86 = "87aacc373557f8849dde8618fbe1f7f8f2af6038"
- SRCREV_machine_pn-linux-yocto_qemux86-64 = "87aacc373557f8849dde8618fbe1f7f8f2af6038"
- SRCREV_machine_pn-linux-yocto_emenlow = "87aacc373557f8849dde8618fbe1f7f8f2af6038"
--- 
-1.7.0.4
+---
 
+
+> SRC_URI where the name contains an "_" but since we don't allow
+> overrides to contain the character, I think we're safe.
+> 
+> I also think you can simplify the logic slightly to be:
+> 
+> +                            for override in o.split('_'):
+> +                                if not override in overrides:
+> +                                    keep.append((a ,o)) 
+> +                                    continue
+> 
+> ?
+> 
+
+This `continue' falls into the scope of `for override in o.split'
+instead of the former one, chances are the (a, o) can be appended
+more than once if multiple overrides not present.
+
+Thanks,
+Qing
 
