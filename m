@@ -1,39 +1,34 @@
-Return-Path: <fransmeulenbroeks@gmail.com>
-Received: from mail-iw0-f182.google.com (mail-iw0-f182.google.com
-	[209.85.214.182])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 99E364C810AC
-	for <poky@yoctoproject.org>; Mon, 13 Dec 2010 04:42:08 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by iwn39 with SMTP id 39so11889770iwn.13
-	for <poky@yoctoproject.org>; Mon, 13 Dec 2010 02:42:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:received:received:in-reply-to
-	:references:date:message-id:subject:from:to:cc:content-type;
-	bh=9wFoZp6OD/WID95rowkwoMZzyTqaes9K4kqFkwxovYo=;
-	b=ZKsnD1JB8CNMEbExssXZ7CQdvd+FbGcDbfmHPf7a9iBTy79L3vHm9ZFXi50iOxlYn1
-	LWcVSKghTTYtz8m5z1eHwX//5Qn8eOzFPVFIMfxYtiS9OjgsIYdaekQV2EzRz8gPyHeK
-	cYCrZiO1r8nMKTYtjTlleUIitLTkAQMFTbujw=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type;
-	b=OS8sO7TSukIyxskPbQ7X7EWPGiZYq+lKu76KF9iwI6kR06VtmEF9yClwEISZVe/bVO
-	rlsBXCe7m3QIs7cZex+2dJbPjBLXC9yky/I3/18AFsgGzUAeZbTv7ETPiOblAuxg9y8w
-	hoC/YR84KkrvnDh64HIIUogHlU2WU6tViKEQ0=
+Return-Path: <qing.he@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id B305B4C80048
+	for <poky@yoctoproject.org>; Mon, 13 Dec 2010 04:53:59 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 13 Dec 2010 02:53:59 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.59,335,1288594800"; d="scan'208";a="867536121"
+Received: from qhe2-db.sh.intel.com ([10.239.13.31])
+	by fmsmga001.fm.intel.com with ESMTP; 13 Dec 2010 02:53:58 -0800
+Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
+	(envelope-from <qing.he@intel.com>)
+	id 1PS5xT-0005Zj-Hw; Mon, 13 Dec 2010 18:48:43 +0800
+Date: Mon, 13 Dec 2010 18:48:43 +0800
+From: Qing He <qing.he@intel.com>
+To: Richard Purdie <rpurdie@linux.intel.com>
+Message-ID: <20101213104843.GA21407@qhe2-db>
+References: <AANLkTi=oxv9goiEMAfpkDAvq7n_GfGUMSXsonXDdzixd@mail.gmail.com>
+	<1291033557.14277.944.camel@rex>
+	<AANLkTinYx+43yRYFu=BYQPVJHox6CmBgOMFF199z3BC=@mail.gmail.com>
+	<625BA99ED14B2D499DC4E29D8138F1504D475430EC@shsmsx502.ccr.corp.intel.com>
+	<1291597457.14277.2931.camel@rex>
+	<625BA99ED14B2D499DC4E29D8138F1504D47543B3B@shsmsx502.ccr.corp.intel.com>
+	<1291725455.11475.10.camel@rex> <20101208031204.GA20033@qhe2-db>
+	<1291907772.1554.894.camel@rex> <20101213055202.GA19053@qhe2-db>
 MIME-Version: 1.0
-Received: by 10.231.206.7 with SMTP id fs7mr1717140ibb.82.1292236928314; Mon,
-	13 Dec 2010 02:42:08 -0800 (PST)
-Received: by 10.231.200.140 with HTTP; Mon, 13 Dec 2010 02:42:08 -0800 (PST)
-In-Reply-To: <625BA99ED14B2D499DC4E29D8138F1504D5A7A1627@shsmsx502.ccr.corp.intel.com>
-References: <1292166132-23035-1-git-send-email-fransmeulenbroeks@gmail.com>
-	<625BA99ED14B2D499DC4E29D8138F1504D5A7A1627@shsmsx502.ccr.corp.intel.com>
-Date: Mon, 13 Dec 2010 11:42:08 +0100
-Message-ID: <AANLkTikNQDymk6J3XvSAu9NzbbYgAw3QqpYADH2wSeZu@mail.gmail.com>
-From: Frans Meulenbroeks <fransmeulenbroeks@gmail.com>
-To: "Tian, Kevin" <kevin.tian@intel.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH] rm_work.bbclass: allow a shell var to override rm_work
+In-Reply-To: <20101213055202.GA19053@qhe2-db>
+User-Agent: Mutt/1.5.20 (2009-06-14)
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>,
+	Chris Larson <clarson@kergoth.com>
+Subject: Re: [PATCH 1/1] curl: fix native dependency
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -45,57 +40,55 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 13 Dec 2010 10:42:08 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Mon, 13 Dec 2010 10:54:00 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-2010/12/13 Tian, Kevin <kevin.tian@intel.com>:
->>From: Frans Meulenbroeks
->>Sent: Sunday, December 12, 2010 11:02 PM
->>
->>Sometimes one is building with rm_work, but for a specific build you want to
->>keep the work even if the build is successful.
->>One way to achieve this is to comment the INHERIT += "rm_work" from your
->>local.conf file, but this means that all recipes need to be reparsed which takes some time.
->>
->>This patch introduces a variable KEEP_WORK
->>If this variable is set the work will not be removed.
->>Intended use is
->>KEEP_WORK=1 bitbake yourrecipe.bb
->>Default behaviour is kept the same (in case KEEP_WORK is not set)
->>
->>Note that in order for this to work KEEP_WORK needs to be added to the env var
->>BB_ENV_EXTRAWHITE
->>e.g. export BB_ENV_EXTRAWHITE="KEEP_WORK"
->>
->>We still might want to improve the test so it only keeps the work if KEEP_WORK is > 0
->>(or do not execute the task at all if KEEP_WORK is not set).
->>Also we might want to add KEEP_WORK to the whitelist of vars that are always ok
->
-> Is it useful to further extend this KEEP_WORK option to allow task-based selection?
-> For example, I may only be interested on the sysroot installation path, and thus:
->
-> KEEP_WORK="install populate_sysroot" bitbake yourrecipe.bb
->
-> Currently the scope of rm_work is just binary: keep all or remove all. A finer granule
-> control gives us flexibility to concentrate on several tasks which most likely causes
-> trouble while still able to reduce the footprint.
->
-> Comment? :-)
->
-> Thanks
-> Kevin
->
-Seems a good plan to me, but it is beyond my capabilities to implement that.
-It is useful to have an easy way to keep all though.
-e.g. KEEP_WORK="all".
-I don't think it is desirable to have to say
-KEEP_WORK="configure compile install package ..." to keep all.
+On Mon, 2010-12-13 at 13:52 +0800, Qing He wrote:
+> On Thu, 2010-12-09 at 23:16 +0800, Richard Purdie wrote:
+> > On Wed, 2010-12-08 at 11:12 +0800, Qing He wrote:
+> > > Thank you for the fix, I've been looking the smart data section
+> > > recently, and the rationale becomes much clearer to me.
+> > > 
+> > > However, the following case still has some confusion:
+> > > 
+> > > FOO = "A"
+> > > FOO_append = "B"
+> > > FOO_virtclass-native = "C"
+> > > 
+> > > when in virtclass-native, the output is simply "C", instead of "CB"
+> > > as I expected
+> > 
+> > This is a tricky one. It would be interesting to see if this applies
+> > with other overrides such as MACHINE. The reason I say that is the way
+> > the virtclass-native override is added (see native.bbclass).
+> 
+> So you mean this is intended? The FOO_append is meant to be hidden by
+> the use of an override? I'd rather have expected something like this:
+> 
+> ---
+> diff --git a/bitbake/lib/bb/data_smart.py b/bitbake/lib/bb/data_smart.py
+> index c8cd8f8..3e4c710 100644
+> --- a/bitbake/lib/bb/data_smart.py
+> +++ b/bitbake/lib/bb/data_smart.py
+> @@ -149,6 +149,11 @@ class DataSmart:
+>              for var in vars:
+>                  name = var[:-l]
+>                  try:
+> +                    for op in __setvar_keyword__:
+> +                        if op in self[name]:
+> +                            sval = self.getVarFlag(name, op, False)
+> +                            self.setVarFlag(var, op, sval)
+> +
+>                      self[name] = self[var]
+>                  except Exception:
+>                      bb.msg.note(1, bb.msg.domain.Data, "Untracked delVar")
+> 
+> ---
 
-The typical use case for me is to keep either nothing because I want
-to save space, or keep all because for some reason the package has an
-issue or for some other reason I want to examine the log.
-In the latter case I prefer having a little bit too much above having
-a little bit too little.
+never mind, I thought "self[name]" as "self.dict[name]", it turns out to
+be __setitem__ which is at last a setVar() call.
 
-Best regards, Frans
+Thanks,
+Qing
 
