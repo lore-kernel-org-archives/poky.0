@@ -1,21 +1,21 @@
 Return-Path: <dongxiao.xu@intel.com>
 Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E59AE4C810C0
-	for <poky@yoctoproject.org>; Mon, 13 Dec 2010 08:59:27 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id D1F934C811AB
+	for <poky@yoctoproject.org>; Mon, 13 Dec 2010 08:59:28 -0600 (CST)
 Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 13 Dec 2010 06:59:27 -0800
+	by azsmga101.ch.intel.com with ESMTP; 13 Dec 2010 06:59:28 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,336,1288594800"; d="scan'208";a="360904861"
+X-IronPort-AV: E=Sophos;i="4.59,336,1288594800"; d="scan'208";a="360904867"
 Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.9])
-	by azsmga001.ch.intel.com with ESMTP; 13 Dec 2010 06:59:26 -0800
-Message-Id: <65dc22f0f968b02e90ea3dd984e3cf12137f9b23.1292251971.git.dongxiao.xu@intel.com>
+	by azsmga001.ch.intel.com with ESMTP; 13 Dec 2010 06:59:28 -0800
+Message-Id: <60012e9607ac9c7c62b63cf75e38da18e9cf3ee6.1292251971.git.dongxiao.xu@intel.com>
 In-Reply-To: <cover.1292251971.git.dongxiao.xu@intel.com>
 References: <cover.1292251971.git.dongxiao.xu@intel.com>
 From: Dongxiao Xu <dongxiao.xu@intel.com>
-Date: Mon, 13 Dec 2010 22:50:48 +0800
+Date: Mon, 13 Dec 2010 22:51:16 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 1/2] bitbake: Make setVar a special case of setVarFlag
+Subject: [PATCH 2/2] bitbake: Change the way to implement ??= operator
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,98 +27,58 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 13 Dec 2010 14:59:28 -0000
+X-List-Received-Date: Mon, 13 Dec 2010 14:59:29 -0000
 
-Move logic in setVar into setVarFlag, and make setVar a special case
-of setVarFlag.
-
-This can fix the bug that, if we assign foo_OVERA[bar] = "x" and foo
-is never set as a variable directly, the override is never expanded
-in original code.
+Previously we implement ??= operator while doing finalize(), which hurts
+performance due to the large index of keys. This new method will return
+getVarFlag("defaultval") if getVar returns None. This patch brings about
+15% performance gain when parsing bb files.
 
 Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
 ---
- bitbake/lib/bb/data_smart.py |   60 +++++++++++++++++++----------------------
- 1 files changed, 28 insertions(+), 32 deletions(-)
+ bitbake/lib/bb/data_smart.py |    3 +++
+ bitbake/lib/bb/parse/ast.py  |    7 -------
+ 2 files changed, 3 insertions(+), 7 deletions(-)
 
 diff --git a/bitbake/lib/bb/data_smart.py b/bitbake/lib/bb/data_smart.py
-index c8cd8f8..a8b179f 100644
+index a8b179f..708f686 100644
 --- a/bitbake/lib/bb/data_smart.py
 +++ b/bitbake/lib/bb/data_smart.py
-@@ -205,38 +205,7 @@ class DataSmart:
-             self.initVar(var)
- 
-     def setVar(self, var, value):
--        self.expand_cache = {}
--        match  = __setvar_regexp__.match(var)
--        if match and match.group("keyword") in __setvar_keyword__:
--            base = match.group('base')
--            keyword = match.group("keyword")
--            override = match.group('add')
--            l = self.getVarFlag(base, keyword) or []
--            l.append([value, override])
--            self.setVarFlag(base, keyword, l)
--
--            # todo make sure keyword is not __doc__ or __module__
--            # pay the cookie monster
--            try:
--                self._special_values[keyword].add( base )
--            except KeyError:
--                self._special_values[keyword] = set()
--                self._special_values[keyword].add( base )
--
--            return
--
--        if not var in self.dict:
--            self._makeShadowCopy(var)
--
--        # more cookies for the cookie monster
--        if '_' in var:
--            override = var[var.rfind('_')+1:]
--            if override not in self._seen_overrides:
--                self._seen_overrides[override] = set()
--            self._seen_overrides[override].add( var )
--
--        # setting var
--        self.dict[var]["content"] = value
-+        self.setVarFlag(var, "content", value)
- 
+@@ -210,6 +210,9 @@ class DataSmart:
      def getVar(self, var, exp):
          value = self.getVarFlag(var, "content")
-@@ -273,6 +242,33 @@ class DataSmart:
-         self.dict[var] = {}
  
-     def setVarFlag(self, var, flag, flagvalue):
-+        self.expand_cache = {}
-+        match  = __setvar_regexp__.match(var)
-+        if match and match.group("keyword") in __setvar_keyword__:
-+            base = match.group('base')
-+            keyword = match.group("keyword")
-+            # todo make sure keyword is not __doc__ or __module__
-+            # pay the cookie monster
-+            try:
-+                self._special_values[keyword].add( base )
-+            except KeyError:
-+                self._special_values[keyword] = set()
-+                self._special_values[keyword].add( base )
++        if value is None:
++            value = self.getVarFlag(var, "defaultval")
 +
-+            if flag == "content":
-+                override = match.group('add')
-+                l = self.getVarFlag(base, keyword) or []
-+                l.append([flagvalue, override])
-+                self.setVarFlag(base, keyword, l)
-+                return
-+
-+        # more cookies for the cookie monster
-+        elif '_' in var:
-+            override = var[var.rfind('_')+1:]
-+            if override not in self._seen_overrides:
-+                self._seen_overrides[override] = set()
-+            self._seen_overrides[override].add( var )
-+
-         if not var in self.dict:
-             self._makeShadowCopy(var)
-         self.dict[var][flag] = flagvalue
+         if exp and value:
+             return self.expand(value, var)
+         return value
+diff --git a/bitbake/lib/bb/parse/ast.py b/bitbake/lib/bb/parse/ast.py
+index 870ae65..cace9ab 100644
+--- a/bitbake/lib/bb/parse/ast.py
++++ b/bitbake/lib/bb/parse/ast.py
+@@ -109,9 +109,6 @@ class DataNode(AstNode):
+         if 'flag' in groupd and groupd['flag'] != None:
+             bb.data.setVarFlag(key, groupd['flag'], val, data)
+         elif groupd["lazyques"]:
+-            assigned = bb.data.getVar("__lazy_assigned", data) or []
+-            assigned.append(key)
+-            bb.data.setVar("__lazy_assigned", assigned, data)
+             bb.data.setVarFlag(key, "defaultval", val, data)
+         else:
+             bb.data.setVar(key, val, data)
+@@ -301,10 +298,6 @@ def handleInherit(statements, m):
+     statements.append(InheritNode(m.group(1)))
+ 
+ def finalize(fn, d, variant = None):
+-    for lazykey in bb.data.getVar("__lazy_assigned", d) or ():
+-        if bb.data.getVar(lazykey, d) is None:
+-            val = bb.data.getVarFlag(lazykey, "defaultval", d)
+-            bb.data.setVar(lazykey, val, d)
+ 
+     bb.data.expandKeys(d)
+     bb.data.update_data(d)
 -- 
 1.6.3.3
 
