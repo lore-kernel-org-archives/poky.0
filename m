@@ -1,34 +1,38 @@
-Return-Path: <qing.he@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B305B4C80048
-	for <poky@yoctoproject.org>; Mon, 13 Dec 2010 04:53:59 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 13 Dec 2010 02:53:59 -0800
+Return-Path: <kevin.tian@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 12FF04C811AB;
+	Mon, 13 Dec 2010 05:58:47 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 13 Dec 2010 03:58:46 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,335,1288594800"; d="scan'208";a="867536121"
-Received: from qhe2-db.sh.intel.com ([10.239.13.31])
-	by fmsmga001.fm.intel.com with ESMTP; 13 Dec 2010 02:53:58 -0800
-Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
-	(envelope-from <qing.he@intel.com>)
-	id 1PS5xT-0005Zj-Hw; Mon, 13 Dec 2010 18:48:43 +0800
-Date: Mon, 13 Dec 2010 18:48:43 +0800
-From: Qing He <qing.he@intel.com>
-To: Richard Purdie <rpurdie@linux.intel.com>
-Message-ID: <20101213104843.GA21407@qhe2-db>
-References: <AANLkTi=oxv9goiEMAfpkDAvq7n_GfGUMSXsonXDdzixd@mail.gmail.com>
-	<1291033557.14277.944.camel@rex>
-	<AANLkTinYx+43yRYFu=BYQPVJHox6CmBgOMFF199z3BC=@mail.gmail.com>
-	<625BA99ED14B2D499DC4E29D8138F1504D475430EC@shsmsx502.ccr.corp.intel.com>
-	<1291597457.14277.2931.camel@rex>
-	<625BA99ED14B2D499DC4E29D8138F1504D47543B3B@shsmsx502.ccr.corp.intel.com>
-	<1291725455.11475.10.camel@rex> <20101208031204.GA20033@qhe2-db>
-	<1291907772.1554.894.camel@rex> <20101213055202.GA19053@qhe2-db>
+X-IronPort-AV: E=Sophos;i="4.59,335,1288594800"; d="scan'208";a="686592479"
+Received: from pgsmsx603.gar.corp.intel.com ([10.221.43.87])
+	by orsmga001.jf.intel.com with ESMTP; 13 Dec 2010 03:58:45 -0800
+Received: from pgsmsx509.gar.corp.intel.com (172.30.13.17) by
+	pgsmsx603.gar.corp.intel.com (10.221.43.87) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Mon, 13 Dec 2010 19:58:43 +0800
+Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
+	PGSMSX509.gar.corp.intel.com (172.30.13.17) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Mon, 13 Dec 2010 19:58:43 +0800
+Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
+	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
+	Mon, 13 Dec 2010 19:58:42 +0800
+From: "Tian, Kevin" <kevin.tian@intel.com>
+To: "Tian, Kevin" <kevin.tian@intel.com>, "yocto@yoctoproject.org"
+	<yocto@yoctoproject.org>, "poky@yoctoproject.org" <poky@yoctoproject.org>
+Date: Mon, 13 Dec 2010 19:58:40 +0800
+Thread-Topic: update status of M2 sprint tasks
+Thread-Index: AcuavGSFfZ5sOVqBQ5iLJs8wzdJPSwAAIZBQ
+Message-ID: <625BA99ED14B2D499DC4E29D8138F1504D5A7A1694@shsmsx502.ccr.corp.intel.com>
+References: <625BA99ED14B2D499DC4E29D8138F1504D5A7A1691@shsmsx502.ccr.corp.intel.com>
+In-Reply-To: <625BA99ED14B2D499DC4E29D8138F1504D5A7A1691@shsmsx502.ccr.corp.intel.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
 MIME-Version: 1.0
-In-Reply-To: <20101213055202.GA19053@qhe2-db>
-User-Agent: Mutt/1.5.20 (2009-06-14)
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>,
-	Chris Larson <clarson@kergoth.com>
-Subject: Re: [PATCH 1/1] curl: fix native dependency
+Cc: "Wold, Saul" <saul.wold@intel.com>
+Subject: Re: update status of M2 sprint tasks
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,55 +44,77 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 13 Dec 2010 10:54:00 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-List-Received-Date: Mon, 13 Dec 2010 11:58:47 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 2010-12-13 at 13:52 +0800, Qing He wrote:
-> On Thu, 2010-12-09 at 23:16 +0800, Richard Purdie wrote:
-> > On Wed, 2010-12-08 at 11:12 +0800, Qing He wrote:
-> > > Thank you for the fix, I've been looking the smart data section
-> > > recently, and the rationale becomes much clearer to me.
-> > > 
-> > > However, the following case still has some confusion:
-> > > 
-> > > FOO = "A"
-> > > FOO_append = "B"
-> > > FOO_virtclass-native = "C"
-> > > 
-> > > when in virtclass-native, the output is simply "C", instead of "CB"
-> > > as I expected
-> > 
-> > This is a tricky one. It would be interesting to see if this applies
-> > with other overrides such as MACHINE. The reason I say that is the way
-> > the virtclass-native override is added (see native.bbclass).
-> 
-> So you mean this is intended? The FOO_append is meant to be hidden by
-> the use of an override? I'd rather have expected something like this:
-> 
-> ---
-> diff --git a/bitbake/lib/bb/data_smart.py b/bitbake/lib/bb/data_smart.py
-> index c8cd8f8..3e4c710 100644
-> --- a/bitbake/lib/bb/data_smart.py
-> +++ b/bitbake/lib/bb/data_smart.py
-> @@ -149,6 +149,11 @@ class DataSmart:
->              for var in vars:
->                  name = var[:-l]
->                  try:
-> +                    for op in __setvar_keyword__:
-> +                        if op in self[name]:
-> +                            sval = self.getVarFlag(name, op, False)
-> +                            self.setVarFlag(var, op, sval)
-> +
->                      self[name] = self[var]
->                  except Exception:
->                      bb.msg.note(1, bb.msg.domain.Data, "Untracked delVar")
-> 
-> ---
+I tried to CC all the owners in original mail, which however ended up to ne=
+ed moderation
+because too many recipients. (not sure why only Saul is kept. :-)) So pleas=
+e take a look
+on below list to make sure your owned item being updated.
 
-never mind, I thought "self[name]" as "self.dict[name]", it turns out to
-be __setitem__ which is at last a setVar() call.
+Thanks
+Kevin
 
-Thanks,
-Qing
+>From: Tian, Kevin
+>Sent: Monday, December 13, 2010 7:54 PM
+>
+>Hi, owners,
+>
+>Since M2 code frozen happened last week and now M2 test has been started, =
+could owners
+>of each M2 sprint tasks update the latest status on the wiki?
+>
+>https://wiki.yoctoproject.org/wiki/Yocto_1.0_Schedule
+>
+>As Saul sent out earlier, we only accept bug fixes on M2 branch now. So if=
+ a given task has
+>not been done (WIP or on track), could you either move it into M3 or fill =
+an updated date
+>when current one is past?
+>
+>--M2SB--
+>
+>"Distro Audit: Package Description/Summary completed", "WIP, Done by Dec 0=
+8" (Mark)
+>"Zypper/RPM (small writeup)", "WIP, Done by Dec 06" (Mark/Qing)
+>"oprofileUI", "WIP, done by Dec 10 " (Jessica)
+>
+>--M2SC--
+>"Distro Audit: Licence Checksums ", "WIP, done by Dec 10 " (Saul)
+>"Zypper/RPM (upgrade to latest version)", "Starting, done by Dec 10" (Mark=
+/Qing)
+>"push of all relevant Wind River patchs to Yocto ", "WIP, on track for com=
+pletion by Dec 03
+>" (Mark)
+>"Tracing: blktrace and sysprof recipes ", "sysprof by Dec 03 " (Tom)
+>
+>--M2SD--
+>"Yocto Installer for SDK Generator Installation functions support ", "WIP,=
+ done Dec 09"
+>(Jessica)
+>"Yocto Installer support for image-creator ", "WIP" (Jessica)
+>
+>--M2SE--
+>"Zypper/RPM (integration design)", "slipped out from sprint D" (Mark/Qing)
+>"Distro Audit: Upgrades Completed (Phase1)", "WIP" (Saul)
+>"Distro Audit: Src Checksums", "WIP, Done by Dec 9" (Saul)
+>"enable KVM with qemu", "on track" (Saul/Edwin)
+>"Performance Enhancement Completed", "on track being reviewed" (Saul/Dongx=
+iao/Qing)
+>"User specified qemu config support", "on track for Dec 9" (Saul/Criping)
+>"SDK Version Control support in SDK generator installer", "on track" (Jess=
+ica)
+>"Tracing: Initial SystemTap recipe", "on track" (Tom)
+>"Documentation for swabber", "on track" (Alex)
+>"Defect triage process in public documented and implemented" (Saul)
+>
+>Thanks
+>Kevin
+>_______________________________________________
+>yocto mailing list
+>yocto@yoctoproject.org
+>https://lists.yoctoproject.org/listinfo/yocto
 
