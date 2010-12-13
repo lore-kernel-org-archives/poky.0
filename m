@@ -1,21 +1,21 @@
 Return-Path: <mark.hatle@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5F0C54C81205
-	for <poky@yoctoproject.org>; Mon, 13 Dec 2010 13:38:56 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2CBF04C811EE
+	for <poky@yoctoproject.org>; Mon, 13 Dec 2010 13:38:57 -0600 (CST)
 Received: from msp-mhatle-lx2.wrs.com (msp-mhatle-lx2.wrs.com [172.25.34.61])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oBDJcmLu002800; 
-	Mon, 13 Dec 2010 11:38:55 -0800 (PST)
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oBDJcmLv002800; 
+	Mon, 13 Dec 2010 11:38:56 -0800 (PST)
 From: Mark Hatle <mark.hatle@windriver.com>
 To: rpurdie@linux.intel.com
-Date: Mon, 13 Dec 2010 13:39:00 -0600
-Message-Id: <f7866dcb1d9dbd71421a71fdabacea85fa0ad240.1292268594.git.mark.hatle@windriver.com>
+Date: Mon, 13 Dec 2010 13:39:01 -0600
+Message-Id: <05ecda34237004ad08ed637dbee55c2a6dcd3c67.1292268594.git.mark.hatle@windriver.com>
 X-Mailer: git-send-email 1.7.2.3
 In-Reply-To: <cover.1292268594.git.mark.hatle@windriver.com>
 References: <cover.1292268594.git.mark.hatle@windriver.com>
 In-Reply-To: <cover.1292268594.git.mark.hatle@windriver.com>
 References: <cover.1292268594.git.mark.hatle@windriver.com>
 Cc: poky@yoctoproject.org
-Subject: [PATCH 5/7] recipes-graphics: Add SUMMARY and update DESCRIPTION
+Subject: [PATCH 6/7] recipes-kernel: Update SUMMARY and DESCRIPTION
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,157 +27,129 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 13 Dec 2010 19:38:56 -0000
+X-List-Received-Date: Mon, 13 Dec 2010 19:38:57 -0000
 
-Add the missing SUMMARY fields and update DESCRIPTION fields if necessary
+Add missing SUMMARY and updated DESCRIPTION fields if necessary
 
 Signed-off-by: Mark Hatle <mark.hatle@windriver.com>
 ---
- meta/recipes-graphics/cairo/cairo.inc              |    5 ++++-
- meta/recipes-graphics/drm/libdrm.inc               |    1 +
- .../fontconfig/fontconfig_2.8.0.bb                 |    1 +
- meta/recipes-graphics/freetype/freetype_2.4.3.bb   |    6 +++++-
- meta/recipes-graphics/libfakekey/libfakekey_svn.bb |    4 +++-
- .../libxsettings-client_0.10.bb                    |    6 +++++-
- .../menu-cache/menu-cache_0.3.2.bb                 |    1 +
- .../ttf-fonts/liberation-fonts_1.04.bb             |    1 +
- meta/recipes-graphics/xcb/libpthread-stubs_0.3.bb  |    1 +
- meta/recipes-graphics/xorg-app/xauth_1.0.5.bb      |    2 +-
- meta/recipes-graphics/xorg-app/xkbcomp_1.1.1.bb    |    2 ++
- meta/recipes-graphics/xorg-lib/xtrans_1.2.6.bb     |    2 ++
- 12 files changed, 27 insertions(+), 5 deletions(-)
+ meta/recipes-kernel/dtc/dtc.inc                    |    1 +
+ meta/recipes-kernel/kexec/kexec-tools.inc          |    1 +
+ meta/recipes-kernel/lttng/lttng-control_0.88.bb    |    1 +
+ meta/recipes-kernel/lttng/lttng-ust_0.8.bb         |    1 +
+ meta/recipes-kernel/lttng/lttng-viewer_0.12.35.bb  |    1 +
+ .../module-init-tools/module-init-tools.inc        |    1 +
+ meta/recipes-kernel/modutils/modutils_2.4.27.bb    |    1 +
+ meta/recipes-kernel/oprofile/oprofile_0.9.6.bb     |    1 +
+ meta/recipes-kernel/oprofile/oprofile_cvs.bb       |    1 +
+ meta/recipes-kernel/oprofile/oprofileui.inc        |    1 +
+ meta/recipes-kernel/powertop/powertop_1.13.bb      |    1 +
+ 11 files changed, 11 insertions(+), 0 deletions(-)
 
-diff --git a/meta/recipes-graphics/cairo/cairo.inc b/meta/recipes-graphics/cairo/cairo.inc
-index e73a839..e750d6e 100644
---- a/meta/recipes-graphics/cairo/cairo.inc
-+++ b/meta/recipes-graphics/cairo/cairo.inc
-@@ -1,4 +1,7 @@
--DESCRIPTION = "Cairo graphics library"
-+SUMMARY = "A 2D graphics library"
-+DESCRIPTION = "Cairo is a 2D graphics library designed to provide high-quality display \
-+and print output. Cairo is designed to produce consistent output on all output media while \
-+taking advantage of display hardware acceleration when available."
- HOMEPAGE = "http://cairographics.org"
- BUGTRACKER = "http://bugs.freedesktop.org"
- SECTION = "libs"
-diff --git a/meta/recipes-graphics/drm/libdrm.inc b/meta/recipes-graphics/drm/libdrm.inc
-index 4f153ff..54968db 100644
---- a/meta/recipes-graphics/drm/libdrm.inc
-+++ b/meta/recipes-graphics/drm/libdrm.inc
+diff --git a/meta/recipes-kernel/dtc/dtc.inc b/meta/recipes-kernel/dtc/dtc.inc
+index 35cb3f0..e068df3 100644
+--- a/meta/recipes-kernel/dtc/dtc.inc
++++ b/meta/recipes-kernel/dtc/dtc.inc
 @@ -1,3 +1,4 @@
-+SUMMARY = "Direct Rendering Manager userspace library"
- DESCRIPTION = "userspace library for accessing the DRM(direct rendering manager)"
- HOMEPAGE = "http://dri.freedesktop.org"
- SECTION = "x11/base"
-diff --git a/meta/recipes-graphics/fontconfig/fontconfig_2.8.0.bb b/meta/recipes-graphics/fontconfig/fontconfig_2.8.0.bb
-index 052ae25..8d2d6b5 100644
---- a/meta/recipes-graphics/fontconfig/fontconfig_2.8.0.bb
-+++ b/meta/recipes-graphics/fontconfig/fontconfig_2.8.0.bb
++SUMMARY = "Device Tree Compiler"
+ DESCRIPTION = "The Device Tree Compiler is a tool used to manipulate the Open-Firmware-like device tree used by PowerPC kernels."
+ SECTION = "bootloader"
+ PRIORITY = "optional"
+diff --git a/meta/recipes-kernel/kexec/kexec-tools.inc b/meta/recipes-kernel/kexec/kexec-tools.inc
+index 70c9efc..bbe5107 100644
+--- a/meta/recipes-kernel/kexec/kexec-tools.inc
++++ b/meta/recipes-kernel/kexec/kexec-tools.inc
 @@ -1,3 +1,4 @@
-+SUMMARY = "Font configuration and customization library"
- DESCRIPTION = "A library for configuring and customizing font access."
- HOMEPAGE = "http://www.fontconfig.org"
- BUGTRACKER = "https://bugs.freedesktop.org/enter_bug.cgi?product=fontconfig"
-diff --git a/meta/recipes-graphics/freetype/freetype_2.4.3.bb b/meta/recipes-graphics/freetype/freetype_2.4.3.bb
-index 2508559..63061fb 100644
---- a/meta/recipes-graphics/freetype/freetype_2.4.3.bb
-+++ b/meta/recipes-graphics/freetype/freetype_2.4.3.bb
-@@ -1,4 +1,8 @@
--DESCRIPTION = "Freetype font rendering library"
-+SUMMARY = "Freetype font rendering library"
-+DESCRIPTION = "FreeType is a software font engine that is designed to be small, efficient, \
-+highly customizable, and portable while capable of producing high-quality output (glyph \
-+images). It can be used in graphics libraries, display servers, font conversion tools, text \
-+image generation tools, and many other products as well."
- HOMEPAGE = "http://www.freetype.org/"
- BUGTRACKER = "https://savannah.nongnu.org/bugs/?group=freetype"
- 
-diff --git a/meta/recipes-graphics/libfakekey/libfakekey_svn.bb b/meta/recipes-graphics/libfakekey/libfakekey_svn.bb
-index 8949140..719a680 100644
---- a/meta/recipes-graphics/libfakekey/libfakekey_svn.bb
-+++ b/meta/recipes-graphics/libfakekey/libfakekey_svn.bb
-@@ -1,4 +1,6 @@
--DESCRIPTION = "libfakekey"
-+SUMMARY = "Library for converting characters to X key-presses"
-+DESCRIPTION = "libfakekey is a simple library for converting UTF-8 characters into 'fake' X \
-+key-presses."
- HOMEPAGE = "http://matchbox-project.org/"
- BUGTRACKER = "http://bugzilla.openedhand.com/"
- 
-diff --git a/meta/recipes-graphics/libxsettings-client/libxsettings-client_0.10.bb b/meta/recipes-graphics/libxsettings-client/libxsettings-client_0.10.bb
-index 9dcd56c..eac3499 100644
---- a/meta/recipes-graphics/libxsettings-client/libxsettings-client_0.10.bb
-+++ b/meta/recipes-graphics/libxsettings-client/libxsettings-client_0.10.bb
-@@ -1,4 +1,8 @@
--DESCRIPTION = "Common code for XSETTINGS"
-+SUMMARY = "utility functions for the Xsettings protocol"
-+DESCRIPTION = "Libraries used for applications making use of the Xsettings configuration \
-+setting propagation protocol. Controls setting of double click timeout, drag-and-drop \
-+threshold, and default foreground and background colors for all applications running within a \
-+desktop."
- HOMEPAGE = "http://matchbox-project.org/sources/optional-dependencies/"
- BUGTRACKER = "http://bugzilla.openedhand.com/"
- SECTION = "x/libs"
-diff --git a/meta/recipes-graphics/menu-cache/menu-cache_0.3.2.bb b/meta/recipes-graphics/menu-cache/menu-cache_0.3.2.bb
-index a812ece..3d21256 100644
---- a/meta/recipes-graphics/menu-cache/menu-cache_0.3.2.bb
-+++ b/meta/recipes-graphics/menu-cache/menu-cache_0.3.2.bb
++SUMMARY = "Kexec fast reboot tools"
+ DESCRIPTION = "Kexec is a fast reboot feature that lets you reboot to a new Linux kernel"
+ AUTHOR = "Eric Biederman"
+ HOMEPAGE = "http://kernel.org/pub/linux/utils/kernel/kexec/"
+diff --git a/meta/recipes-kernel/lttng/lttng-control_0.88.bb b/meta/recipes-kernel/lttng/lttng-control_0.88.bb
+index 502064f..535be2d 100644
+--- a/meta/recipes-kernel/lttng/lttng-control_0.88.bb
++++ b/meta/recipes-kernel/lttng/lttng-control_0.88.bb
+@@ -1,4 +1,5 @@
+ SECTION = "devel"
++SUMMARY = "Linux Trace Toolkit Control"
+ DESCRIPTION = "The Linux trace toolkit is a suite of tools designed to \
+ extract program execution details from the Linux operating system and  \
+ interpret them."
+diff --git a/meta/recipes-kernel/lttng/lttng-ust_0.8.bb b/meta/recipes-kernel/lttng/lttng-ust_0.8.bb
+index 7d88b16..507ee50 100644
+--- a/meta/recipes-kernel/lttng/lttng-ust_0.8.bb
++++ b/meta/recipes-kernel/lttng/lttng-ust_0.8.bb
 @@ -1,3 +1,4 @@
-+SUMMARY = "Library for caching application menus"
- DESCRIPTION = "A library creating and utilizing caches to speed up freedesktop.org application menus"
- HOMEPAGE = "http://lxde.sourceforge.net/"
- BUGTRACKER = ""
-diff --git a/meta/recipes-graphics/ttf-fonts/liberation-fonts_1.04.bb b/meta/recipes-graphics/ttf-fonts/liberation-fonts_1.04.bb
-index 6e897a3..bba1c24 100644
---- a/meta/recipes-graphics/ttf-fonts/liberation-fonts_1.04.bb
-+++ b/meta/recipes-graphics/ttf-fonts/liberation-fonts_1.04.bb
++SUMMARY = "Linux Trace Toolkit Userspace Tracer"
+ DESCRIPTION = "The LTTng Userspace Tracer (UST) is a library accompanied by a set of tools to trace userspace code"
+ HOMEPAGE = "http://lttng.org/ust"
+ BUGTRACKER = "n/a"
+diff --git a/meta/recipes-kernel/lttng/lttng-viewer_0.12.35.bb b/meta/recipes-kernel/lttng/lttng-viewer_0.12.35.bb
+index 550d8f5..94c6155 100644
+--- a/meta/recipes-kernel/lttng/lttng-viewer_0.12.35.bb
++++ b/meta/recipes-kernel/lttng/lttng-viewer_0.12.35.bb
 @@ -1,3 +1,4 @@
-+SUMMARY = "Liberation(tm) Fonts"
- DESCRIPTION = "The Liberation(tm) Fonts is a font family originally created by Ascender(c) which aims metric compatibility as usage of Arial, Times New Roman, Courier New"
- HOMEPAGE = "https://fedorahosted.org/liberation-fonts/"
- BUGTRACKER = "https://bugzilla.redhat.com/"
-diff --git a/meta/recipes-graphics/xcb/libpthread-stubs_0.3.bb b/meta/recipes-graphics/xcb/libpthread-stubs_0.3.bb
-index 3ef9ab2..038c00f 100644
---- a/meta/recipes-graphics/xcb/libpthread-stubs_0.3.bb
-+++ b/meta/recipes-graphics/xcb/libpthread-stubs_0.3.bb
++SUMMARY = "Linux Trace Toolkit Viewer"
+ DESCRIPTION = "The Linux trace toolkit is a suite of tools designed to \
+ extract program execution details from the Linux operating system and  \
+ interpret them."
+diff --git a/meta/recipes-kernel/module-init-tools/module-init-tools.inc b/meta/recipes-kernel/module-init-tools/module-init-tools.inc
+index f1319ad..49522c7 100644
+--- a/meta/recipes-kernel/module-init-tools/module-init-tools.inc
++++ b/meta/recipes-kernel/module-init-tools/module-init-tools.inc
 @@ -1,3 +1,4 @@
-+SUMMARY = "Library that provides weak aliases for pthread functions"
- DESCRIPTION = "This library provides weak aliases for pthread functions \
- not provided in libc or otherwise available by default."
- HOMEPAGE = "http://xcb.freedesktop.org"
-diff --git a/meta/recipes-graphics/xorg-app/xauth_1.0.5.bb b/meta/recipes-graphics/xorg-app/xauth_1.0.5.bb
-index daccca7..43e51c8 100644
---- a/meta/recipes-graphics/xorg-app/xauth_1.0.5.bb
-+++ b/meta/recipes-graphics/xorg-app/xauth_1.0.5.bb
-@@ -1,5 +1,5 @@
- require xorg-app-common.inc
--
-+SUMMARY = "X authority utilities"
- DESCRIPTION = "X application to edit and display the authorization \
- information used in connecting to the X server"
- 
-diff --git a/meta/recipes-graphics/xorg-app/xkbcomp_1.1.1.bb b/meta/recipes-graphics/xorg-app/xkbcomp_1.1.1.bb
-index 6f43668..bd40e42 100644
---- a/meta/recipes-graphics/xorg-app/xkbcomp_1.1.1.bb
-+++ b/meta/recipes-graphics/xorg-app/xkbcomp_1.1.1.bb
-@@ -1,5 +1,7 @@
- require xorg-app-common.inc
- 
-+SUMMARY = "X Keyboard Extensions"
-+
- DESCRIPTION = "The X Keyboard Extension essentially replaces the core protocol definition of keyboard."
- 
- LIC_FILES_CHKSUM = "file://COPYING;md5=08436e4f4476964e2e2dd7e7e41e076a"
-diff --git a/meta/recipes-graphics/xorg-lib/xtrans_1.2.6.bb b/meta/recipes-graphics/xorg-lib/xtrans_1.2.6.bb
-index 6a533e7..f2d9394 100644
---- a/meta/recipes-graphics/xorg-lib/xtrans_1.2.6.bb
-+++ b/meta/recipes-graphics/xorg-lib/xtrans_1.2.6.bb
-@@ -1,3 +1,5 @@
-+SUMMARY = "X transport library"
-+
- DESCRIPTION = "network API translation layer to insulate X applications and \
- libraries from OS network vageries."
- 
++SUMMARY = "Kernel Module Utilities"
+ DESCRIPTION = "This package contains a set of programs for loading, inserting, and removing kernel modules for Linux (versions 2.5.48 and above). It serves the same function that the modutils package serves for Linux 2.4"
+ LICENSE = "GPLv2+"
+ LIC_FILES_CHKSUM = "file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f \
+diff --git a/meta/recipes-kernel/modutils/modutils_2.4.27.bb b/meta/recipes-kernel/modutils/modutils_2.4.27.bb
+index 0174f83..54e3a73 100644
+--- a/meta/recipes-kernel/modutils/modutils_2.4.27.bb
++++ b/meta/recipes-kernel/modutils/modutils_2.4.27.bb
+@@ -1,4 +1,5 @@
+ SECTION = "base"
++SUMMARY = "Kernel module utilities"
+ DESCRIPTION = "These utilities are intended to make a Linux modular kernel \
+ manageable for all users, administrators and distribution maintainers."
+ LICENSE = "GPLv2"
+diff --git a/meta/recipes-kernel/oprofile/oprofile_0.9.6.bb b/meta/recipes-kernel/oprofile/oprofile_0.9.6.bb
+index 894bb9a..85e065f 100644
+--- a/meta/recipes-kernel/oprofile/oprofile_0.9.6.bb
++++ b/meta/recipes-kernel/oprofile/oprofile_0.9.6.bb
+@@ -1,3 +1,4 @@
++SUMMARY = "System-Wide Profiler"
+ DESCRIPTION = "OProfile is a system-wide profiler for Linux systems, capable \
+ of profiling all running code at low overhead."
+ HOMEPAGE = "http://oprofile.sourceforge.net/news/"
+diff --git a/meta/recipes-kernel/oprofile/oprofile_cvs.bb b/meta/recipes-kernel/oprofile/oprofile_cvs.bb
+index dd8dd58..f2ff5ad 100644
+--- a/meta/recipes-kernel/oprofile/oprofile_cvs.bb
++++ b/meta/recipes-kernel/oprofile/oprofile_cvs.bb
+@@ -1,6 +1,7 @@
+ PV = "0.9.4+cvs${SRCDATE}"
+ PR = "r0"
+ SECTION = "devel"
++SUMMARY = "System-Wide Profiler"
+ DESCRIPTION = "OProfile is a system-wide profiler for Linux systems, capable \
+ of profiling all running code at low overhead."
+ LICENSE = "GPL"
+diff --git a/meta/recipes-kernel/oprofile/oprofileui.inc b/meta/recipes-kernel/oprofile/oprofileui.inc
+index 22b56a5..731e037 100644
+--- a/meta/recipes-kernel/oprofile/oprofileui.inc
++++ b/meta/recipes-kernel/oprofile/oprofileui.inc
+@@ -1,3 +1,4 @@
++SUMMARY = "User Interface for the System-Wide Profiler"
+ DESCRIPTION = "User interface for the OProfile tool"
+ HOMEPAGE = "http://labs.o-hand.com/oprofileui/"
+ BUGTRACKER = "http://bugzilla.o-hand.com/"
+diff --git a/meta/recipes-kernel/powertop/powertop_1.13.bb b/meta/recipes-kernel/powertop/powertop_1.13.bb
+index 3988406..dff4fcd 100644
+--- a/meta/recipes-kernel/powertop/powertop_1.13.bb
++++ b/meta/recipes-kernel/powertop/powertop_1.13.bb
+@@ -1,3 +1,4 @@
++SUMMARY = "Power usage tool"
+ DESCRIPTION = "PowerTOP, a tool that helps you find what software is using the most power."
+ HOMEPAGE = "http://www.lesswatts.org/"
+ BUGTRACKER = "http://bugzilla.lesswatts.org/"
 -- 
 1.7.2.2
 
