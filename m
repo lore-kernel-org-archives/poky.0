@@ -1,22 +1,35 @@
-Return-Path: <bruce.ashfield@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 995924C80050;
-	Mon, 13 Dec 2010 00:26:32 -0600 (CST)
-Received: from localhost.localdomain (yow-bashfiel-d2.ottawa.windriver.com
-	[128.224.146.167])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oBD6QThS002593;
-	Sun, 12 Dec 2010 22:26:31 -0800 (PST)
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-To: rpurdie@linux.intel.com, saul.wold@intel.com
-Date: Mon, 13 Dec 2010 01:27:51 -0500
-Message-Id: <69ad383525657b44dc7eeb347e888deebb501b00.1292221596.git.bruce.ashfield@windriver.com>
-X-Mailer: git-send-email 1.7.0.4
-In-Reply-To: <cover.1292221596.git.bruce.ashfield@windriver.com>
-References: <cover.1292221596.git.bruce.ashfield@windriver.com>
-In-Reply-To: <cover.1292221596.git.bruce.ashfield@windriver.com>
-References: <cover.1292221596.git.bruce.ashfield@windriver.com>
-Cc: yocto@yoctoproject.org, poky@yoctoproject.org
-Subject: [PATCH 1/1] linux-yocto: fix machine compatibility
+Return-Path: <kevin.tian@intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id B1FB54C80050
+	for <poky@yoctoproject.org>; Mon, 13 Dec 2010 02:44:49 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 13 Dec 2010 00:44:36 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.59,335,1288594800"; d="scan'208";a="360789264"
+Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
+	by azsmga001.ch.intel.com with ESMTP; 13 Dec 2010 00:44:35 -0800
+Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
+	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Mon, 13 Dec 2010 16:44:14 +0800
+Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
+	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
+	Mon, 13 Dec 2010 16:43:59 +0800
+From: "Tian, Kevin" <kevin.tian@intel.com>
+To: Frans Meulenbroeks <fransmeulenbroeks@gmail.com>, "poky@yoctoproject.org"
+	<poky@yoctoproject.org>
+Date: Mon, 13 Dec 2010 16:43:58 +0800
+Thread-Topic: [poky] [PATCH] rm_work.bbclass: allow a shell var to override
+	rm_work
+Thread-Index: AcuaDZsIZLMdkxujSUe93ElUnT4vtQAk4+XA
+Message-ID: <625BA99ED14B2D499DC4E29D8138F1504D5A7A1627@shsmsx502.ccr.corp.intel.com>
+References: <1292166132-23035-1-git-send-email-fransmeulenbroeks@gmail.com>
+In-Reply-To: <1292166132-23035-1-git-send-email-fransmeulenbroeks@gmail.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
+MIME-Version: 1.0
+Subject: Re: [PATCH] rm_work.bbclass: allow a shell var to override	rm_work
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,68 +41,53 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 13 Dec 2010 06:26:32 -0000
+X-List-Received-Date: Mon, 13 Dec 2010 08:44:49 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-During the last phase of the recipe factoring, the board compatibility
-lists ended up in the wrong place, which meant we had an incomplete
-list of boards, and the same set of boards for both kernels (stable
-and devel).
+>From: Frans Meulenbroeks
+>Sent: Sunday, December 12, 2010 11:02 PM
+>
+>Sometimes one is building with rm_work, but for a specific build you want =
+to
+>keep the work even if the build is successful.
+>One way to achieve this is to comment the INHERIT +=3D "rm_work" from your
+>local.conf file, but this means that all recipes need to be reparsed which=
+ takes some time.
+>
+>This patch introduces a variable KEEP_WORK
+>If this variable is set the work will not be removed.
+>Intended use is
+>KEEP_WORK=3D1 bitbake yourrecipe.bb
+>Default behaviour is kept the same (in case KEEP_WORK is not set)
+>
+>Note that in order for this to work KEEP_WORK needs to be added to the env=
+ var
+>BB_ENV_EXTRAWHITE
+>e.g. export BB_ENV_EXTRAWHITE=3D"KEEP_WORK"
+>
+>We still might want to improve the test so it only keeps the work if KEEP_=
+WORK is > 0
+>(or do not execute the task at all if KEEP_WORK is not set).
+>Also we might want to add KEEP_WORK to the whitelist of vars that are alwa=
+ys ok
 
-To fix this, I've yanked the compatibility to the recipes themselves and
-updated the emenlow to have a -stable bbappend.
+Is it useful to further extend this KEEP_WORK option to allow task-based se=
+lection?
+For example, I may only be interested on the sysroot installation path, and=
+ thus:
 
-Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
----
- ...it.bbappend => linux-yocto-stable_git.bbappend} |    0
- .../recipes-kernel/linux/linux-yocto-stable_git.bb |    2 ++
- meta/recipes-kernel/linux/linux-yocto.inc          |    2 --
- meta/recipes-kernel/linux/linux-yocto_git.bb       |    1 +
- 4 files changed, 3 insertions(+), 2 deletions(-)
- rename meta-emenlow/recipes/linux/{linux-yocto_git.bbappend => linux-yocto-stable_git.bbappend} (100%)
+KEEP_WORK=3D"install populate_sysroot" bitbake yourrecipe.bb
 
-diff --git a/meta-emenlow/recipes/linux/linux-yocto_git.bbappend b/meta-emenlow/recipes/linux/linux-yocto-stable_git.bbappend
-similarity index 100%
-rename from meta-emenlow/recipes/linux/linux-yocto_git.bbappend
-rename to meta-emenlow/recipes/linux/linux-yocto-stable_git.bbappend
-diff --git a/meta/recipes-kernel/linux/linux-yocto-stable_git.bb b/meta/recipes-kernel/linux/linux-yocto-stable_git.bb
-index 8ecd86f..dd4d176 100644
---- a/meta/recipes-kernel/linux/linux-yocto-stable_git.bb
-+++ b/meta/recipes-kernel/linux/linux-yocto-stable_git.bb
-@@ -17,6 +17,8 @@ PR = "r0"
- PV = "${LINUX_VERSION}+git${SRCPV}"
- SRCREV_FORMAT = "meta_machine"
- 
-+COMPATIBLE_MACHINE = "(qemuarm|qemux86|qemuppc|qemumips|qemux86-64|atom-pc|routerstationpro|mpc8315e-rdb|beagleboard)"
-+
- # this performs a fixup on the SRCREV for new/undefined BSPs
- python __anonymous () {
-     import bb, re
-diff --git a/meta/recipes-kernel/linux/linux-yocto.inc b/meta/recipes-kernel/linux/linux-yocto.inc
-index 095b337..2a77f4a 100644
---- a/meta/recipes-kernel/linux/linux-yocto.inc
-+++ b/meta/recipes-kernel/linux/linux-yocto.inc
-@@ -7,8 +7,6 @@ LICENSE = "GPL"
- # and it can be specific to the machine or shared
- KMACHINE = "UNDEFINED"
- 
--COMPATIBLE_MACHINE = "(qemuarm|qemux86|qemuppc|qemumips|qemux86-64|atom-pc|routerstationpro)"
--
- # Set this to 'preempt_rt' in the local.conf if you want a real time kernel
- LINUX_KERNEL_TYPE ?= standard
- 
-diff --git a/meta/recipes-kernel/linux/linux-yocto_git.bb b/meta/recipes-kernel/linux/linux-yocto_git.bb
-index 1e3df47..f40fe38 100644
---- a/meta/recipes-kernel/linux/linux-yocto_git.bb
-+++ b/meta/recipes-kernel/linux/linux-yocto_git.bb
-@@ -20,6 +20,7 @@ SRCREV_FORMAT = "meta_machine"
- SRC_URI = "git://git.pokylinux.org/linux-yocto-2.6.37;protocol=git;fullclone=1;branch=${KBRANCH};name=machine \
-            git://git.pokylinux.org/linux-yocto-2.6.37;protocol=git;noclone=1;branch=meta;name=meta"
- 
-+COMPATIBLE_MACHINE = "(qemuarm|qemux86|qemuppc|qemumips|qemux86-64)"
- 
- # Functionality flags
- KERNEL_REVISION_CHECKING ?= "t"
--- 
-1.7.0.4
+Currently the scope of rm_work is just binary: keep all or remove all. A fi=
+ner granule
+control gives us flexibility to concentrate on several tasks which most lik=
+ely causes
+trouble while still able to reduce the footprint.
 
+Comment? :-)
+
+Thanks
+Kevin
 
