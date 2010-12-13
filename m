@@ -1,16 +1,16 @@
-Return-Path: <saul.wold@intel.com>
+Return-Path: <sgw@linux.intel.com>
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C50584C81110;
-	Mon, 13 Dec 2010 12:32:27 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 3CA414C80FA4;
+	Mon, 13 Dec 2010 13:03:40 -0600 (CST)
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 13 Dec 2010 10:32:27 -0800
+	by fmsmga101.fm.intel.com with ESMTP; 13 Dec 2010 11:03:39 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,336,1288594800"; d="scan'208";a="867698294"
+X-IronPort-AV: E=Sophos;i="4.59,337,1288594800"; d="scan'208";a="867711112"
 Received: from unknown (HELO [10.24.5.122]) ([10.24.5.122])
-	by fmsmga001.fm.intel.com with ESMTP; 13 Dec 2010 10:32:27 -0800
-Message-ID: <4D0666BA.7010707@intel.com>
-Date: Mon, 13 Dec 2010 10:32:26 -0800
-From: Saul Wold <saul.wold@intel.com>
+	by fmsmga001.fm.intel.com with ESMTP; 13 Dec 2010 11:03:23 -0800
+Message-ID: <4D066DFB.5010100@linux.intel.com>
+Date: Mon, 13 Dec 2010 11:03:23 -0800
+From: Saul Wold <sgw@linux.intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
 	Thunderbird/3.0.5
@@ -34,7 +34,7 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 13 Dec 2010 18:32:28 -0000
+X-List-Received-Date: Mon, 13 Dec 2010 19:03:40 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
@@ -100,5 +100,13 @@ Sau!
 >> Thanks
 >> Kevin
 >
+
+
+-- 
+     Sau!
+
+Saul Wold
+Yocto Component Wrangler @ Intel
+Yocto Project / Poky Build System
 
 
