@@ -1,20 +1,20 @@
 Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 400D54C80FA4
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 7A9AF4C80FA4
 	for <poky@yoctoproject.org>; Mon, 13 Dec 2010 11:47:07 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 13 Dec 2010 09:47:06 -0800
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 13 Dec 2010 09:47:07 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,336,1288594800"; d="scan'208";a="867676656"
+X-IronPort-AV: E=Sophos;i="4.59,336,1288594800"; d="scan'208";a="635875128"
 Received: from mukti.sc.intel.com (HELO localhost) ([143.183.140.51])
-	by fmsmga001.fm.intel.com with ESMTP; 13 Dec 2010 09:47:06 -0800
-Message-Id: <2eb23fbe7fda1fa5854beebda8f2ce3150012479.1292262360.git.nitin.a.kamble@intel.com>
+	by fmsmga002.fm.intel.com with ESMTP; 13 Dec 2010 09:47:07 -0800
+Message-Id: <05e758f172d6e7974b8df052caebb75d05e692c8.1292262360.git.nitin.a.kamble@intel.com>
 In-Reply-To: <cover.1292262360.git.nitin.a.kamble@intel.com>
 References: <cover.1292262360.git.nitin.a.kamble@intel.com>
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Date: Mon, 13 Dec 2010 09:09:58 -0800
+Date: Mon, 13 Dec 2010 09:23:27 -0800
 To: poky@yoctoproject.org
-Subject: [PATCH 1/2] gcc_4.5.1: Move the license related information in the right file
+Subject: [PATCH 2/2] eglibc: organize the recipes lic and other meta data in common file
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,47 +30,57 @@ X-List-Received-Date: Mon, 13 Dec 2010 17:47:07 -0000
 
 Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
 ---
- meta/recipes-devtools/gcc/gcc-4.5.1.inc |    9 ++++++++-
- meta/recipes-devtools/gcc/gcc_4.5.1.bb  |    6 ------
- 2 files changed, 8 insertions(+), 7 deletions(-)
+ meta/recipes-core/eglibc/eglibc-common.inc  |   11 +++++++++++
+ meta/recipes-core/eglibc/eglibc-initial.inc |    3 ++-
+ meta/recipes-core/eglibc/eglibc.inc         |    9 ++-------
+ 3 files changed, 15 insertions(+), 8 deletions(-)
+ create mode 100644 meta/recipes-core/eglibc/eglibc-common.inc
 
-diff --git a/meta/recipes-devtools/gcc/gcc-4.5.1.inc b/meta/recipes-devtools/gcc/gcc-4.5.1.inc
-index bb10fef..3edc4d4 100644
---- a/meta/recipes-devtools/gcc/gcc-4.5.1.inc
-+++ b/meta/recipes-devtools/gcc/gcc-4.5.1.inc
-@@ -1,9 +1,16 @@
- require gcc-common.inc
--LICENSE = "GPLv3"
- 
- DEPENDS =+ "mpfr gmp libmpc elfutils"
- NATIVEDEPS = "mpfr-native gmp-native gettext-native libmpc-native elfutils-native"
- 
-+LICENSE="GCC RUNTIME LIBRARY EXCEPTION & GPLv2 & GPLv3 & LGPLv2.1 & LGPLv3"
+diff --git a/meta/recipes-core/eglibc/eglibc-common.inc b/meta/recipes-core/eglibc/eglibc-common.inc
+new file mode 100644
+index 0000000..a9b1476
+--- /dev/null
++++ b/meta/recipes-core/eglibc/eglibc-common.inc
+@@ -0,0 +1,11 @@
++SUMMARY = "Embedded GLIBC (GNU C Library)"
++DESCRIPTION = "Embedded GLIBC (EGLIBC) is a variant of the GNU C Library (GLIBC) that is designed to work well on embedded systems. EGLIBC strives to be source and binary compatible with GLIBC. EGLIBC's goals include reduced footprint, configurable components, better support for cross-compilation and cross-testing."
++HOMEPAGE = "http://www.eglibc.org/home"
++SECTION = "libs"
++PRIORITY = "required"
++LICENSE = "LGPL"
++INC_PR = "r11"
++LIC_FILES_CHKSUM = "file://LICENSES;md5=07a394b26e0902b9ffdec03765209770 \
++      file://COPYING;md5=393a5ca445f6965873eca0259a17f833 \
++      file://posix/rxspencer/COPYRIGHT;md5=dc5485bb394a13b2332ec1c785f5d83a \
++      file://COPYING.LIB;md5=bbb461211a33b134d42ed5ee802b37ff "
+diff --git a/meta/recipes-core/eglibc/eglibc-initial.inc b/meta/recipes-core/eglibc/eglibc-initial.inc
+index a240ae2..d49ec8a 100644
+--- a/meta/recipes-core/eglibc/eglibc-initial.inc
++++ b/meta/recipes-core/eglibc/eglibc-initial.inc
+@@ -1,4 +1,5 @@
+-SECTION = "libs"
++require eglibc-common.inc
 +
-+LIC_FILES_CHKSUM = "file://COPYING;md5=59530bdf33659b29e73d4adb9f9f6552 \
-+                   file://COPYING3;md5=d32239bcb673463ab874e80d47fae504 \
-+                   file://COPYING3.LIB;md5=6a6a8e020838b23406c81b19c1d46df6 \
-+                   file://COPYING.LIB;md5=2d5025d4aa3495befef8f17206a5b0a1 \
-+		   file://COPYING.RUNTIME;md5=fe60d87048567d4fe8c8a0ed2448bcc8"
+ DEPENDS = "linux-libc-headers virtual/${TARGET_PREFIX}gcc-initial"
+ PROVIDES = "virtual/${TARGET_PREFIX}libc-initial"
+ 
+diff --git a/meta/recipes-core/eglibc/eglibc.inc b/meta/recipes-core/eglibc/eglibc.inc
+index 2857a40..4698254 100644
+--- a/meta/recipes-core/eglibc/eglibc.inc
++++ b/meta/recipes-core/eglibc/eglibc.inc
+@@ -1,10 +1,5 @@
+-SUMMARY = "Embedded GLIBC (GNU C Library)"
+-DESCRIPTION = "Embedded GLIBC (EGLIBC) is a variant of the GNU C Library (GLIBC) that is designed to work well on embedded systems. EGLIBC strives to be source and binary compatible with GLIBC. EGLIBC's goals include reduced footprint, configurable components, better support for cross-compilation and cross-testing."
+-HOMEPAGE = "http://www.eglibc.org/home"
+-SECTION = "libs"
+-PRIORITY = "required"
+-LICENSE = "LGPL"
+-INC_PR = "r11"
++require eglibc-common.inc
 +
- SRC_URI = "${GNU_MIRROR}/gcc/gcc-${PV}/gcc-${PV}.tar.bz2 \
- 	   file://gcc-4.3.1-ARCH_FLAGS_FOR_TARGET.patch \
- 	   file://100-uclibc-conf.patch \
-diff --git a/meta/recipes-devtools/gcc/gcc_4.5.1.bb b/meta/recipes-devtools/gcc/gcc_4.5.1.bb
-index d4a257e..81c1fa9 100644
---- a/meta/recipes-devtools/gcc/gcc_4.5.1.bb
-+++ b/meta/recipes-devtools/gcc/gcc_4.5.1.bb
-@@ -1,10 +1,4 @@
- PR = "r0"
--LICENSE="GCC RUNTIME LIBRARY EXCEPTION & GPLv2 & GPLv3 & LGPLv2.1 & LGPLv3"
--LIC_FILES_CHKSUM = "file://COPYING;md5=59530bdf33659b29e73d4adb9f9f6552 \
--                   file://COPYING3;md5=d32239bcb673463ab874e80d47fae504 \
--                   file://COPYING3.LIB;md5=6a6a8e020838b23406c81b19c1d46df6 \
--                   file://COPYING.LIB;md5=2d5025d4aa3495befef8f17206a5b0a1 \
--		   file://COPYING.RUNTIME;md5=fe60d87048567d4fe8c8a0ed2448bcc8"
- require gcc-${PV}.inc
- require gcc-configure-target.inc
- require gcc-package-target.inc
+ # nptl needs unwind support in gcc, which can't be built without glibc.
+ DEPENDS = "virtual/${TARGET_PREFIX}gcc-intermediate linux-libc-headers"
+ #this leads to circular deps, so lets not add it yet
 -- 
 1.7.2.2
 
