@@ -1,35 +1,44 @@
-Return-Path: <qing.he@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D8B8D4C810D2
-	for <poky@yoctoproject.org>; Sun, 12 Dec 2010 23:57:18 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 12 Dec 2010 21:57:18 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,334,1288594800"; d="scan'208";a="635704379"
-Received: from qhe2-db.sh.intel.com ([10.239.13.31])
-	by fmsmga002.fm.intel.com with ESMTP; 12 Dec 2010 21:57:17 -0800
-Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
-	(envelope-from <qing.he@intel.com>)
-	id 1PS1KM-0004zt-UW; Mon, 13 Dec 2010 13:52:02 +0800
-Date: Mon, 13 Dec 2010 13:52:02 +0800
-From: Qing He <qing.he@intel.com>
-To: Richard Purdie <rpurdie@linux.intel.com>
-Message-ID: <20101213055202.GA19053@qhe2-db>
-References: <625BA99ED14B2D499DC4E29D8138F1504D42C686F3@shsmsx502.ccr.corp.intel.com>
-	<AANLkTi=oxv9goiEMAfpkDAvq7n_GfGUMSXsonXDdzixd@mail.gmail.com>
-	<1291033557.14277.944.camel@rex>
-	<AANLkTinYx+43yRYFu=BYQPVJHox6CmBgOMFF199z3BC=@mail.gmail.com>
-	<625BA99ED14B2D499DC4E29D8138F1504D475430EC@shsmsx502.ccr.corp.intel.com>
-	<1291597457.14277.2931.camel@rex>
-	<625BA99ED14B2D499DC4E29D8138F1504D47543B3B@shsmsx502.ccr.corp.intel.com>
-	<1291725455.11475.10.camel@rex> <20101208031204.GA20033@qhe2-db>
-	<1291907772.1554.894.camel@rex>
+Return-Path: <bruce.ashfield@gmail.com>
+Received: from mail-iw0-f182.google.com (mail-iw0-f182.google.com
+	[209.85.214.182])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4175C4C810D2;
+	Mon, 13 Dec 2010 00:19:21 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by iwn39 with SMTP id 39so11590247iwn.13
+	for <multiple recipients>; Sun, 12 Dec 2010 22:19:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:received:received:in-reply-to
+	:references:date:message-id:subject:from:to:cc:content-type
+	:content-transfer-encoding;
+	bh=4HFRDzVoiWhRABladbPqzN1Kgl1yM2eQoMgH0zx8tpY=;
+	b=pS0bP19lzbIpSek8SisZ/PsQyg0cHgTFZ68j1FwW04MPo+VLCyImXooMrPK2EqdFnJ
+	2tXXEMQ+4z7cjYtrd8bQ0DP6hhlNuaj9WkM+HumFAbjqHUMzCpsM4byVCaAiEJ5g7jjZ
+	IjL/nz7Z8ITjQlL/UlridzU8bDpAnJjW+9FB0=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:cc:content-type:content-transfer-encoding;
+	b=gkHqSQLSACc8kal0zWUn1IQmEktjOitB4nc39HiSCQ6WnPMj+fkHVq4eqPGlmLIpFo
+	petbQEOu0UfKjgg4A6ab3e7daRoLfVI9pk0MDjQeGYA0Z7i+zyoAYsd6nitkKCA8ViGy
+	ptZL+uvJk/ITa5JsqGqYG242LEKvwk1m5tbR8=
 MIME-Version: 1.0
-In-Reply-To: <1291907772.1554.894.camel@rex>
-User-Agent: Mutt/1.5.20 (2009-06-14)
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>,
-	Chris Larson <clarson@kergoth.com>
-Subject: Re: [PATCH 1/1] curl: fix native dependency
+Received: by 10.231.33.129 with SMTP id h1mr1329850ibd.129.1292221160843; Sun,
+	12 Dec 2010 22:19:20 -0800 (PST)
+Received: by 10.231.207.1 with HTTP; Sun, 12 Dec 2010 22:19:20 -0800 (PST)
+In-Reply-To: <4D05A9B5.9060408@windriver.com>
+References: <4D03D481.4050104@linux.intel.com>
+	<D5AB6E638E5A3E4B8F4406B113A5A19A317D6F75@shsmsx501.ccr.corp.intel.com>
+	<AANLkTimmRm=o9L=L=TuQ58Pd4or4eeNZtOWr=Hq6Un_y@mail.gmail.com>
+	<D5AB6E638E5A3E4B8F4406B113A5A19A317D70F3@shsmsx501.ccr.corp.intel.com>
+	<4D05A9B5.9060408@windriver.com>
+Date: Mon, 13 Dec 2010 01:19:20 -0500
+Message-ID: <AANLkTimFfkPTAyj4u0AtkOFth+wQSMvx-yF+4TZZwasi@mail.gmail.com>
+From: Bruce Ashfield <bruce.ashfield@gmail.com>
+To: "Xu, Jiajun" <jiajun.xu@intel.com>
+Cc: Yocto Project Discussion <yocto@yoctoproject.org>,
+	"poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: Milestone 2 Stabilization Branch Created (Resend)
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,69 +50,119 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 13 Dec 2010 05:57:19 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-List-Received-Date: Mon, 13 Dec 2010 06:19:21 -0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 2010-12-09 at 23:16 +0800, Richard Purdie wrote:
-> On Wed, 2010-12-08 at 11:12 +0800, Qing He wrote:
-> > Thank you for the fix, I've been looking the smart data section
-> > recently, and the rationale becomes much clearer to me.
-> > 
-> > However, the following case still has some confusion:
-> > 
-> > FOO = "A"
-> > FOO_append = "B"
-> > FOO_virtclass-native = "C"
-> > 
-> > when in virtclass-native, the output is simply "C", instead of "CB"
-> > as I expected
-> 
-> This is a tricky one. It would be interesting to see if this applies
-> with other overrides such as MACHINE. The reason I say that is the way
-> the virtclass-native override is added (see native.bbclass).
+On Mon, Dec 13, 2010 at 12:05 AM, Bruce Ashfield
+<bruce.ashfield@windriver.com> wrote:
+> On 10-12-13 12:03 AM, Xu, Jiajun wrote:
+>>>
+>>> On Sun, Dec 12, 2010 at 9:10 PM, Xu, Jiajun<jiajun.xu@intel.com> =A0wro=
+te:
+>>>>>
+>>>>> [Resend with correct mailing lists]
+>>>>>
+>>>>>
+>>>>> Yocto / Poky Folks:
+>>>>>
+>>>>> Thanks to everyone's hard work, we are currently on working getting
+>>>>> the first build of M2 started and available for QA testing on Monday.
+>>>>>
+>>>>> I have pushed out the lastest commit that was pending in the
+>>>>> distro/master area to both master and create a builds/milestone
+>>>>> branch which is where bug fixes for M2 will go.
+>>>>>
+>>>>> There is currently an issue with the PPC Kernel build on this branch
+>>>>> and that is being worked, this may impact getting a PPC build
+>>>>> available by Monday.
+>>>>>
+>>>>> For the next week as we stabilize M2, please ensure that any patch
+>>>>> or pull requests indicate that this is for M2 or not. =A0By default
+>>>>> all commits will go to master regardless.
+>>>>>
+>>>>
+>>>> Hi Saul,
+>>>> Nightly build is near finished now. PPC and some non-x86 real
+>>>> hardware
+>>>
+>>> target building failed. I begin downloading them now and will start QA
+>>> testing.
+>>>
+>>> Is there somewhere I can check a log of the build errors ? We flipped
+>>> in the
+>>> 2.6.37 kernel and associated tools, but the any hardware targets
+>>> should still be building 2.6.34 and be unaffected.
+>>>
+>>> If it isn't a kernel that failed to build .. then I'm less help :)
+>>>
+>>
+>> For beagleboard,
+>> http://autobuilder.pokylinux.org:8010/builders/nightly-release/builds/14=
+6/steps/shell_46/logs/stdio/text.
+>> For mpc8315e-rdb,
+>> http://autobuilder.pokylinux.org:8010/builders/nightly-release/builds/14=
+6/steps/shell_49/logs/stdio/text.
+>
+> Both those boards are building random kernels .. one is building
+> the omap-pm (which is broken) and the other built linux-dummy.
+>
+> So something went wrong with the merge of the new kernel, and could
+> be related to the board compatibility .. I'll have a look.
 
-So you mean this is intended? The FOO_append is meant to be hidden by
-the use of an override? I'd rather have expected something like this:
+I made some changes (patch will be out shortly), they fix the emenlow, and
+I can easily build the fsl and beagleboard out of the box with the changes
+in place. Looks like a couple of boards were dropped from the stable
+kernel recipe in all the chaos.
 
----
-diff --git a/bitbake/lib/bb/data_smart.py b/bitbake/lib/bb/data_smart.py
-index c8cd8f8..3e4c710 100644
---- a/bitbake/lib/bb/data_smart.py
-+++ b/bitbake/lib/bb/data_smart.py
-@@ -149,6 +149,11 @@ class DataSmart:
-             for var in vars:
-                 name = var[:-l]
-                 try:
-+                    for op in __setvar_keyword__:
-+                        if op in self[name]:
-+                            sval = self.getVarFlag(name, op, False)
-+                            self.setVarFlag(var, op, sval)
-+
-                     self[name] = self[var]
-                 except Exception:
-                     bb.msg.note(1, bb.msg.domain.Data, "Untracked delVar")
+Bruce
 
----
+>
+> Bruce
+>
+>>
+>>> Cheers,
+>>>
+>>> Bruce
+>>>
+>>>>
+>>>>> Thanks
+>>>>> =A0 =A0 =A0Sau!
+>>>>> Saul Wold
+>>>>> Yocto Component Wrangler @ Intel
+>>>>> Yocto Project / Poky Build System
+>>>>>
+>>>>> _______________________________________________
+>>>>> poky mailing list
+>>>>> poky@yoctoproject.org
+>>>>> https://lists.yoctoproject.org/listinfo/poky
+>>>>
+>>>> Best Regards,
+>>>> Jiajun
+>>>>
+>>>> _______________________________________________
+>>>> poky mailing list
+>>>> poky@yoctoproject.org
+>>>> https://lists.yoctoproject.org/listinfo/poky
+>>>>
+>>>
+>>>
+>>>
+>>
+>> Best Regards,
+>> Jiajun
+>>
+>>
+>> _______________________________________________
+>> poky mailing list
+>> poky@yoctoproject.org
+>> https://lists.yoctoproject.org/listinfo/poky
+>
+>
 
 
-> SRC_URI where the name contains an "_" but since we don't allow
-> overrides to contain the character, I think we're safe.
-> 
-> I also think you can simplify the logic slightly to be:
-> 
-> +                            for override in o.split('_'):
-> +                                if not override in overrides:
-> +                                    keep.append((a ,o)) 
-> +                                    continue
-> 
-> ?
-> 
 
-This `continue' falls into the scope of `for override in o.split'
-instead of the former one, chances are the (a, o) can be appended
-more than once if multiple overrides not present.
-
-Thanks,
-Qing
+--=20
+"Thou shalt not follow the NULL pointer, for chaos and madness await
+thee at its end"
 
