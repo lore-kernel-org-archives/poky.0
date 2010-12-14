@@ -1,21 +1,21 @@
 Return-Path: <josh@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 6EEF54C80FA8
-	for <poky@yoctoproject.org>; Thu, 16 Dec 2010 10:33:41 -0600 (CST)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 652294C81081
+	for <poky@yoctoproject.org>; Thu, 16 Dec 2010 10:33:48 -0600 (CST)
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 16 Dec 2010 08:33:41 -0800
+	by orsmga102.jf.intel.com with ESMTP; 16 Dec 2010 08:33:48 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,356,1288594800"; d="scan'208";a="687831363"
+X-IronPort-AV: E=Sophos;i="4.59,356,1288594800"; d="scan'208";a="687831398"
 Received: from unknown (HELO localhost) ([10.255.16.75])
-	by orsmga001.jf.intel.com with ESMTP; 16 Dec 2010 08:33:40 -0800
-Message-Id: <cc9e307cb37347e028fa7a8613c7306043d32951.1292516982.git.josh@linux.intel.com>
+	by orsmga001.jf.intel.com with ESMTP; 16 Dec 2010 08:33:47 -0800
+Message-Id: <0e7de81fa0e7fb3dc908c85796ca740b399959e5.1292516982.git.josh@linux.intel.com>
 In-Reply-To: <cover.1292516982.git.josh@linux.intel.com>
 References: <cover.1292516982.git.josh@linux.intel.com>
 From: Joshua Lock <josh@linux.intel.com>
-Date: Wed, 15 Dec 2010 13:42:15 +0000
+Date: Tue, 14 Dec 2010 17:56:53 +0000
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 6/8] contacts: fix for make 3.82
+Subject: [PATCH 7/8] gst-plugins: fix for make 3.82
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,54 +27,118 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Dec 2010 16:33:41 -0000
+X-List-Received-Date: Thu, 16 Dec 2010 16:33:48 -0000
 
 Signed-off-by: Joshua Lock <josh@linux.intel.com>
 ---
- meta/recipes-sato/pimlico/contacts/make-382.patch |   14 ++++++++++++++
- meta/recipes-sato/pimlico/contacts_git.bb         |    5 +++--
- 2 files changed, 17 insertions(+), 2 deletions(-)
- create mode 100644 meta/recipes-sato/pimlico/contacts/make-382.patch
+ .../gstreamer/gst-plugins-bad_0.10.20.bb           |    2 +-
+ .../gstreamer/gst-plugins-base_0.10.30.bb          |    2 +-
+ .../gstreamer/gst-plugins-good_0.10.25.bb          |    2 +-
+ .../gstreamer/gst-plugins-ugly_0.10.16.bb          |    2 +-
+ meta/recipes-multimedia/gstreamer/gst-plugins.inc  |    5 +++-
+ .../gstreamer/gst-plugins/make-382.patch           |   25 ++++++++++++++++++++
+ 6 files changed, 33 insertions(+), 5 deletions(-)
+ create mode 100644 meta/recipes-multimedia/gstreamer/gst-plugins/make-382.patch
 
-diff --git a/meta/recipes-sato/pimlico/contacts/make-382.patch b/meta/recipes-sato/pimlico/contacts/make-382.patch
-new file mode 100644
-index 0000000..f85d6b2
---- /dev/null
-+++ b/meta/recipes-sato/pimlico/contacts/make-382.patch
-@@ -0,0 +1,14 @@
-+Fix for stricter parser in make 3.82. This fix has been pushed to upstream git.
-+
-+JL - 15/12/10
-+
-+Index: git/Makefile.am
-+===================================================================
-+--- git.orig/Makefile.am
-++++ git/Makefile.am
-+@@ -11,4 +11,4 @@ DISTCLEANFILES = $(INTLTOOL_BUILT)
-+ MAINTAINERCLEANFILES = aclocal.m4 compile config.guess config.sub configure depcomp $(INTLTOOL_BUILT:=.in) install-sh ltmain.sh mkinstalldirs Makefile.in missing
-+ 
-+ snapshot:
-+-        $(MAKE) dist distdir=$(PACKAGE)-snap`date +"%Y%m%d"`
-++	$(MAKE) dist distdir=$(PACKAGE)-snap`date +"%Y%m%d"`
-diff --git a/meta/recipes-sato/pimlico/contacts_git.bb b/meta/recipes-sato/pimlico/contacts_git.bb
-index bff4e28..c375435 100644
---- a/meta/recipes-sato/pimlico/contacts_git.bb
-+++ b/meta/recipes-sato/pimlico/contacts_git.bb
-@@ -6,11 +6,12 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f \
-                     file://src/contacts-gtk.c;endline=23;md5=e1ee9b9e72045f2d3aa44cf17313b46e"
+diff --git a/meta/recipes-multimedia/gstreamer/gst-plugins-bad_0.10.20.bb b/meta/recipes-multimedia/gstreamer/gst-plugins-bad_0.10.20.bb
+index 59e127c..7e1dbc6 100644
+--- a/meta/recipes-multimedia/gstreamer/gst-plugins-bad_0.10.20.bb
++++ b/meta/recipes-multimedia/gstreamer/gst-plugins-bad_0.10.20.bb
+@@ -9,7 +9,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=0636e73ff0215e8d672dc4c32c317bb3 \
  
- PV = "0.12+git${SRCPV}"
+ DEPENDS += "gst-plugins-base libmusicbrainz tremor"
+ 
 -PR = "r0"
 +PR = "r1"
  
- S = "${WORKDIR}/git"
+ inherit gettext
  
--SRC_URI =+ "git://git.gnome.org/${PN};protocol=git"
-+SRC_URI =+ "git://git.gnome.org/${PN};protocol=git \
-+	    file://make-382.patch"
+diff --git a/meta/recipes-multimedia/gstreamer/gst-plugins-base_0.10.30.bb b/meta/recipes-multimedia/gstreamer/gst-plugins-base_0.10.30.bb
+index 71d211a..7f36266 100644
+--- a/meta/recipes-multimedia/gstreamer/gst-plugins-base_0.10.30.bb
++++ b/meta/recipes-multimedia/gstreamer/gst-plugins-base_0.10.30.bb
+@@ -15,7 +15,7 @@ SRC_URI += " file://gst-plugins-base-tremor.patch"
+ SRC_URI[md5sum] = "3ad90152b58563e1314af26c263f3c4c"
+ SRC_URI[sha256sum] = "63938641380be9935c804ae8d55acdcfd93920ed2deb72dcf70f027a78b085d7"
  
- S = "${WORKDIR}/git"
+-PR = "r1"
++PR = "r2"
  
+ inherit gettext
+ 
+diff --git a/meta/recipes-multimedia/gstreamer/gst-plugins-good_0.10.25.bb b/meta/recipes-multimedia/gstreamer/gst-plugins-good_0.10.25.bb
+index 83b43b6..852995d 100644
+--- a/meta/recipes-multimedia/gstreamer/gst-plugins-good_0.10.25.bb
++++ b/meta/recipes-multimedia/gstreamer/gst-plugins-good_0.10.25.bb
+@@ -7,7 +7,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=a6f89e2100d9b6cdffcea4f398e37343 \
+ 
+ DEPENDS += "gst-plugins-base gconf cairo jpeg libpng gtk+ zlib libid3tag flac \
+ 	    speex"
+-PR = "r0"
++PR = "r1"
+ 
+ inherit gettext
+ 
+diff --git a/meta/recipes-multimedia/gstreamer/gst-plugins-ugly_0.10.16.bb b/meta/recipes-multimedia/gstreamer/gst-plugins-ugly_0.10.16.bb
+index 7dda685..aa0ef9f 100644
+--- a/meta/recipes-multimedia/gstreamer/gst-plugins-ugly_0.10.16.bb
++++ b/meta/recipes-multimedia/gstreamer/gst-plugins-ugly_0.10.16.bb
+@@ -7,7 +7,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=a6f89e2100d9b6cdffcea4f398e37343 \
+                     file://gst/mpegstream/gstmpegparse.h;beginline=1;endline=18;md5=ff65467b0c53cdfa98d0684c1bc240a9"
+ 
+ DEPENDS += "gst-plugins-base libid3tag libmad mpeg2dec liba52 lame"
+-PR = "r0"
++PR = "r1"
+ 
+ inherit gettext
+ 
+diff --git a/meta/recipes-multimedia/gstreamer/gst-plugins.inc b/meta/recipes-multimedia/gstreamer/gst-plugins.inc
+index cd3e0a0..644a78e 100644
+--- a/meta/recipes-multimedia/gstreamer/gst-plugins.inc
++++ b/meta/recipes-multimedia/gstreamer/gst-plugins.inc
+@@ -7,7 +7,10 @@ DEPENDS = "gstreamer"
+ 
+ inherit autotools pkgconfig
+ 
+-SRC_URI = "http://gstreamer.freedesktop.org/src/${PN}/${PN}-${PV}.tar.bz2"
++FILESPATH =. "${FILE_DIRNAME}/gst-plugins:"
++
++SRC_URI = "http://gstreamer.freedesktop.org/src/${PN}/${PN}-${PV}.tar.bz2 \
++	   file://make-382.patch"
+ 
+ EXTRA_OECONF = "--disable-valgrind --disable-debug --disable-examples "
+ 
+diff --git a/meta/recipes-multimedia/gstreamer/gst-plugins/make-382.patch b/meta/recipes-multimedia/gstreamer/gst-plugins/make-382.patch
+new file mode 100644
+index 0000000..28caf07
+--- /dev/null
++++ b/meta/recipes-multimedia/gstreamer/gst-plugins/make-382.patch
+@@ -0,0 +1,25 @@
++Index: gst-plugins-base-0.10.29/common/gtk-doc-plugins.mak
++===================================================================
++--- gst-plugins-base-0.10.29.orig/common/gtk-doc-plugins.mak
+++++ gst-plugins-base-0.10.29/common/gtk-doc-plugins.mak
++@@ -352,7 +352,7 @@ dist-hook: dist-check-gtkdoc dist-hook-l
++ 	-cp $(srcdir)/$(DOC_MODULE).types $(distdir)/
++ 	-cp $(srcdir)/$(DOC_MODULE)-sections.txt $(distdir)/
++ 	cd $(distdir) && rm -f $(DISTCLEANFILES)
++-        -gtkdoc-rebase --online --relative --html-dir=$(distdir)/html
+++	-gtkdoc-rebase --online --relative --html-dir=$(distdir)/html
++ 
++ .PHONY : dist-hook-local docs
++ 
++Index: gst-plugins-base-0.10.29/common/gtk-doc.mak
++===================================================================
++--- gst-plugins-base-0.10.29.orig/common/gtk-doc.mak
+++++ gst-plugins-base-0.10.29/common/gtk-doc.mak
++@@ -232,6 +232,6 @@ dist-hook: dist-check-gtkdoc dist-hook-l
++ 	-cp $(srcdir)/$(DOC_MODULE).types $(distdir)/
++ 	-cp $(srcdir)/$(DOC_MODULE)-sections.txt $(distdir)/
++ 	cd $(distdir) && rm -f $(DISTCLEANFILES)
++-        -gtkdoc-rebase --online --relative --html-dir=$(distdir)/html
+++	-gtkdoc-rebase --online --relative --html-dir=$(distdir)/html
++ 
++ .PHONY : dist-hook-local docs
 -- 
 1.7.3.3
 
