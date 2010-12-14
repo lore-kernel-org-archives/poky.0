@@ -1,25 +1,21 @@
-Return-Path: <Jingdong.Lu@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id AFEE94C811FC
-	for <poky@yoctoproject.org>; Tue, 14 Dec 2010 03:02:44 -0600 (CST)
-Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oBE92il0001786
-	for <poky@yoctoproject.org>; Tue, 14 Dec 2010 01:02:44 -0800 (PST)
-Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
-	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Tue, 14 Dec 2010 01:02:44 -0800
-Received: from [128.224.162.176] ([128.224.162.176]) by
-	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Tue, 14 Dec 2010 01:02:43 -0800
-From: Lu Jingdong <jingdong.lu@windriver.com>
-To: poky <poky@yoctoproject.org>
-Date: Tue, 14 Dec 2010 17:04:05 +0800
-Message-ID: <1292317445.2240.2.camel@eric-desktop>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-X-OriginalArrivalTime: 14 Dec 2010 09:02:44.0088 (UTC)
-	FILETIME=[AB7ABF80:01CB9B6D]
-Subject: [PATCH 10/10] mailx: Add mailx
+Return-Path: <ke.yu@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5DACA4C811E4
+	for <poky@yoctoproject.org>; Tue, 14 Dec 2010 04:04:46 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 14 Dec 2010 02:04:43 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.59,341,1288594800"; d="scan'208";a="686942566"
+Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
+	by orsmga001.jf.intel.com with ESMTP; 14 Dec 2010 02:04:43 -0800
+Message-Id: <b17a9056f9de3313cb6d212aa7a689883358862a.1292320885.git.ke.yu@intel.com>
+In-Reply-To: <cover.1292320885.git.ke.yu@intel.com>
+References: <cover.1292320885.git.ke.yu@intel.com>
+From: Yu Ke <ke.yu@intel.com>
+Date: Tue, 14 Dec 2010 15:55:33 +0800
+To: poky@yoctoproject.org
+CC: 
+Subject: [PATCH 1/1] FetchData: add SRC_URI checksum
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,54 +27,107 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 14 Dec 2010 09:02:44 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 14 Dec 2010 10:04:46 -0000
 
-Subject: [PATCH 10/10] mailx: Add mailx
+This patch add the per-recipe SRC_URI checksum verification.
 
-Signed-off-by: Jingdong Lu <jingdong.lu@windriver.com>
+- SRC_URI format
+The format of SRC_URI checksum follow OE definition:
+
+1. SRC_URI has single src
+SRC_URI = "http://some.domain/file.tar.gz"
+SRC_URI[md5sum] = "xxxxxxxxxxxxxxx"
+SRC_URI[sha256sum] = "xxxxxxxxxxxxxxxxxxxxxx"
+
+2. SRC_URI has multiple src, every src need specify name
+SRC_URI = "http://some.domain/file1.tar.gz;name=name1 \
+           http://some.domain/file2.tar.gz;name=name2 "
+SRC_URI[name1.md5sum] = "xxxxxxxxxxxxxxx"
+SRC_URI[name1.sha256sum] = "xxxxxxxxxxxxxxxxxxxxxx"
+SRC_URI[name2.md5sum] = "xxxxxxxxxxxxxxx"
+SRC_URI[name2.sha256sum] = "xxxxxxxxxxxxxxxxxxxxxx"
+
+- SRC_URI checking invocation:
+the checksum checking is invoked in do_fetch phase,
+so it can be invoked manually by
+
+# bitbake -f -c fetch <recipe_name>
+
+if recipes has no SRC_URI checksum item, bitbake will show warning:
+"
+WARNING: Missing SRC_URI checksum for xxxx.tar.gz, consider to add
+SRC_URI[md5sum] = "5c69f16d452b0bb3d44bc3c10556c072"
+SRC_URI[sha256sum] = "f4e0ada8d4d516bbb8600a3ee7d9046c9c79e38cd781df9ffc46d8f16acd1768"
+"
+thus recipe author can add it to recpie file after SRC_URI
+
+Signed-off-by: Yu Ke <ke.yu@intel.com>
 ---
- meta/recipes-extended/mailx/mailx_12.4.bb |   21 +++++++++++++++++++++
- 1 files changed, 21 insertions(+), 0 deletions(-)
- create mode 100644 meta/recipes-extended/mailx/mailx_12.4.bb
+ bitbake/lib/bb/fetch/__init__.py |   36 ++++++++++++++++++++++++++++++++++++
+ 1 files changed, 36 insertions(+), 0 deletions(-)
 
-diff --git a/meta/recipes-extended/mailx/mailx_12.4.bb
-b/meta/recipes-extended/mailx/mailx_12.4.bb
-new file mode 100644
-index 0000000..ffda949
---- /dev/null
-+++ b/meta/recipes-extended/mailx/mailx_12.4.bb
-@@ -0,0 +1,21 @@
-+DESCRIPTION = "Mailx is an enhanced mail command, which provides the
-functionality \
-+of the POSIX mailx command, as well as SysV mail and Berkeley Mail \
-+(from which it is derived)."
-+HOMEPAGE = "http://heirloom.sourceforge.net/mailx.html"
-+SECTION = "console/network"
+diff --git a/bitbake/lib/bb/fetch/__init__.py b/bitbake/lib/bb/fetch/__init__.py
+index 50955f1..d3360b1 100644
+--- a/bitbake/lib/bb/fetch/__init__.py
++++ b/bitbake/lib/bb/fetch/__init__.py
+@@ -231,6 +231,29 @@ def removefile(f):
+     except:
+         pass
+ 
++def verify_checksum(d, ud):
++    """
++    verify the MD5 and SHA256 checksum for downloaded src
++    return True if matched, False if not
++    """
++    md5data = bb.utils.md5_file(ud.localpath)
++    sha256data = bb.utils.sha256_file(ud.localpath)
 +
-+PRIORITY = "required"
-+LICENSE = "BSD with advertising and MPLv1.1"
-+PR = "r0"
++    if (ud.md5_expected == None or ud.sha256_expected == None):
++        bb.warn("Missing SRC_URI checksum for %s, consider to add\n" \
++                "SRC_URI[%s] = \"%s\"\nSRC_URI[%s] = \"%s\"" \
++                % (ud.localpath, ud.md5_name, md5data, ud.sha256_name, sha256data))
++        # TODO: change to "return False" once all recpies has checksum entry
++        return True
 +
-+#COPYING or Licence
-+LIC_FILES_CHKSUM =
-"file://COPYING;md5=4202a0a62910cf94f7af8a3436a2a2dd"
++    if (ud.md5_expected != md5data or ud.sha256_expected != sha256data):
++        bb.error("The checksums for '%s' did not match." % ud.localpath)
++        bb.error("Expected MD5: '%s' and Got: '%s'" % (ud.md5_expected, md5data))
++        bb.error("Expected SHA256: '%s' and Got: '%s'" % (ud.sha256_expected, sha256data))
++        return False
 +
-+SRC_URI = "http://downloads.sourceforge.net/heirloom/mailx-12.4.tar.bz2
-\
-+          "
++    return True
 +
-+#inherit autotools gettext
+ def go(d, urls = None):
+     """
+     Fetch all urls
+@@ -283,6 +306,9 @@ def go(d, urls = None):
+         else:
+             Fetch.write_md5sum(u, ud, d)
+ 
++        if not verify_checksum(d, ud):
++            raise FetchError("%s checksum mismatch." % u)
 +
-+do_install() {
-+       make DESTDIR=${D} PREFIX=/usr UCBINSTALL=install install
-+}
+         bb.utils.unlockfile(lf)
+ 
+ def checkstatus(d, urls = None):
+@@ -502,6 +528,16 @@ class FetchData(object):
+         if not self.pswd and "pswd" in self.parm:
+             self.pswd = self.parm["pswd"]
+         self.setup = False
++
++        if "name" in self.parm:
++            self.md5_name = "%s.md5sum" % self.parm["name"]
++            self.sha256_name = "%s.sha256sum" % self.parm["name"]
++        else:
++            self.md5_name = "md5sum"
++            self.sha256_name = "sha256sum"
++        self.md5_expected = bb.data.getVarFlag("SRC_URI", self.md5_name, d)
++        self.sha256_expected = bb.data.getVarFlag("SRC_URI", self.sha256_name, d)
++
+         for m in methods:
+             if m.supports(url, self, d):
+                 self.method = m
 -- 
 1.7.0.4
--- 
-Lu Jingdong
-jingdong.lu@windriver.com
-China, Wind River
 
 
