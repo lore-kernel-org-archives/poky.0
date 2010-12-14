@@ -1,20 +1,21 @@
 Return-Path: <josh@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 30A304C811E3
-	for <poky@yoctoproject.org>; Wed, 15 Dec 2010 10:28:24 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 15 Dec 2010 08:28:14 -0800
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id DF0044C811E4
+	for <poky@yoctoproject.org>; Wed, 15 Dec 2010 10:28:34 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 15 Dec 2010 08:28:34 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,349,1288594800"; d="scan'208";a="584003800"
+X-IronPort-AV: E=Sophos;i="4.59,349,1288594800"; d="scan'208";a="636610353"
 Received: from unknown (HELO localhost) ([10.255.16.78])
-	by orsmga002.jf.intel.com with ESMTP; 15 Dec 2010 08:28:12 -0800
-Message-Id: <72ddd5c20246a5d5b1752b58a61ef75b4c39cc40.1292430240.git.josh@linux.intel.com>
+	by fmsmga002.fm.intel.com with ESMTP; 15 Dec 2010 08:28:34 -0800
+Message-Id: <0cc23a86562d0ce1e236ceb4a56a8f19d400192f.1292430240.git.josh@linux.intel.com>
 In-Reply-To: <cover.1292430240.git.josh@linux.intel.com>
 References: <cover.1292430240.git.josh@linux.intel.com>
 From: Joshua Lock <josh@linux.intel.com>
+Date: Tue, 14 Dec 2010 12:21:33 +0000
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 03/14] eglibc: fix build of eglibc-initial for make 3.82
+Subject: [PATCH 06/14] busybox: additional fixes for Make 3.82
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,74 +27,74 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-Date: Wed, 15 Dec 2010 16:28:24 -0000
-X-Original-Date: Tue, 9 Nov 2010 12:14:28 +0000
-X-List-Received-Date: Wed, 15 Dec 2010 16:28:24 -0000
+X-List-Received-Date: Wed, 15 Dec 2010 16:28:35 -0000
 
-Make 3.82, as shipped with Fedora 14, fixes some holes in the parser which in
-turn breaks behaviour of some Makefiles. Most notably eglibc's.
+There where still some mixed implicit and normal rules in the Busybox Makefile,
+Update our existing make-382.patch to split these into separate rules.
 
 Signed-off-by: Joshua Lock <josh@linux.intel.com>
 ---
- .../eglibc/eglibc-2.12/fix-for-make-3.82.diff      |   25 ++++++++++++++++++++
- meta/recipes-core/eglibc/eglibc_2.12.bb            |    5 ++-
- 2 files changed, 28 insertions(+), 2 deletions(-)
- create mode 100644 meta/recipes-core/eglibc/eglibc-2.12/fix-for-make-3.82.diff
+ .../busybox/busybox-1.16.2/make-382-fix.patch      |   43 +++++++++++++++++---
+ 1 files changed, 37 insertions(+), 6 deletions(-)
 
-diff --git a/meta/recipes-core/eglibc/eglibc-2.12/fix-for-make-3.82.diff b/meta/recipes-core/eglibc/eglibc-2.12/fix-for-make-3.82.diff
-new file mode 100644
-index 0000000..934d31a
---- /dev/null
-+++ b/meta/recipes-core/eglibc/eglibc-2.12/fix-for-make-3.82.diff
-@@ -0,0 +1,25 @@
-+Make 3.82, as shipped with Fedora 14, fixes some holes in the parser which in
-+turn breaks behaviour of some Makefiles. Most notably eglibc's.
-+
-+http://www.mail-archive.com/bug-make@gnu.org/msg06220.html
-+
-+Fix back-ported from glibc/eglibc revision control.
-+
-+JL 13/10/10
-+
-+Index: libc/manual/Makefile
+diff --git a/meta/recipes-core/busybox/busybox-1.16.2/make-382-fix.patch b/meta/recipes-core/busybox/busybox-1.16.2/make-382-fix.patch
+index 4ef125d..010457c 100644
+--- a/meta/recipes-core/busybox/busybox-1.16.2/make-382-fix.patch
++++ b/meta/recipes-core/busybox/busybox-1.16.2/make-382-fix.patch
+@@ -6,10 +6,10 @@ Subject: mkmakefile: make 3.82 fix
+ Signed-off-by: Thomas Chou <thomas@wytron.com.tw>
+ Signed-off-by: Denys Vlasenko <dvlasenk@redhat.com>
+ ---
+-diff --git a/scripts/mkmakefile b/scripts/mkmakefile
+-index 7f9d544..9fc51a7 100755
+---- a/scripts/mkmakefile
+-+++ b/scripts/mkmakefile
++Index: busybox-1.16.2/scripts/mkmakefile
 +===================================================================
-+--- libc.orig/manual/Makefile
-++++ libc/manual/Makefile
-+@@ -243,7 +243,10 @@ ifdef objpfx
-+ .PHONY: stubs
-+ stubs: $(objpfx)stubs
-+ endif
-+-$(objpfx)stubs ../po/manual.pot $(objpfx)stamp%:
-++$(objpfx)stubs ../po/manual.pot:
-++	$(make-target-directory)
-++	touch $@
-++$(objpfx)stamp%:
-+ 	$(make-target-directory)
-+ 	touch $@
++--- busybox-1.16.2.orig/scripts/mkmakefile
+++++ busybox-1.16.2/scripts/mkmakefile
+ @@ -31,6 +31,9 @@ all:
+  
+  Makefile:;
+@@ -21,5 +21,36 @@ index 7f9d544..9fc51a7 100755
+ +%/:
+  	\$(MAKE) -C \$(KERNELSRC) O=\$(KERNELOUTPUT) \$@
+  EOF
+---
+-cgit v0.8.2.1
++Index: busybox-1.16.2/Makefile
++===================================================================
++--- busybox-1.16.2.orig/Makefile
+++++ busybox-1.16.2/Makefile
++@@ -428,11 +428,15 @@ ifeq ($(config-targets),1)
++ -include $(srctree)/arch/$(ARCH)/Makefile
++ export KBUILD_DEFCONFIG
 + 
-diff --git a/meta/recipes-core/eglibc/eglibc_2.12.bb b/meta/recipes-core/eglibc/eglibc_2.12.bb
-index 752c1d8..9db1436 100644
---- a/meta/recipes-core/eglibc/eglibc_2.12.bb
-+++ b/meta/recipes-core/eglibc/eglibc_2.12.bb
-@@ -2,7 +2,7 @@ require eglibc.inc
- 
- DEPENDS += "gperf-native"
- FILESPATHPKG =. "eglibc-svn:"
--PR = "r9"
-+PR = "r10"
- 
- EGLIBC_BRANCH="eglibc-2_12"
- SRC_URI = "svn://www.eglibc.org/svn/branches/;module=${EGLIBC_BRANCH};proto=http \
-@@ -11,7 +11,8 @@ SRC_URI = "svn://www.eglibc.org/svn/branches/;module=${EGLIBC_BRANCH};proto=http
-            file://shorten-build-commands.patch \
-            file://mips-rld-map-check.patch \
-            file://etc/ld.so.conf \
--           file://generate-supported.mk"
-+           file://generate-supported.mk \
-+	   file://fix-for-make-3.82.diff"
- SRC_URI_append_virtclass-nativesdk = " file://ld-search-order.patch"
- S = "${WORKDIR}/${EGLIBC_BRANCH}/libc"
- B = "${WORKDIR}/build-${TARGET_SYS}"
++-config %config: scripts_basic outputmakefile FORCE
+++config: scripts_basic outputmakefile FORCE
++ 	$(Q)mkdir -p include
++ 	$(Q)$(MAKE) $(build)=scripts/kconfig $@
++ 	$(Q)$(MAKE) -C $(srctree) KBUILD_SRC= .kernelrelease
++ 
+++%config: scripts_basic outputmakefile FORCE
+++	$(Q)mkdir -p include
+++	$(Q)$(MAKE) $(build)=scripts/kconfig $@
+++	$(Q)$(MAKE) -C $(srctree) KBUILD_SRC= .kernelrelease
++ else
++ # ===========================================================================
++ # Build targets only - this includes busybox, arch specific targets, clean
++@@ -1280,7 +1284,10 @@ endif
++ 	$(Q)$(MAKE) $(build)=$(build-dir) $(target-dir)$(notdir $@)
++ 
++ # Modules
++-/ %/: prepare scripts FORCE
+++%/: prepare scripts FORCE
+++	$(Q)$(MAKE) KBUILD_MODULES=$(if $(CONFIG_MODULES),1) \
+++	$(build)=$(build-dir)
+++/: prepare scripts FORCE
++ 	$(Q)$(MAKE) KBUILD_MODULES=$(if $(CONFIG_MODULES),1) \
++ 	$(build)=$(build-dir)
++ %.ko: prepare scripts FORCE
 -- 
 1.7.3.3
 
