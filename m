@@ -1,26 +1,30 @@
-Return-Path: <tom.zanussi@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B6E8D4C811B9;
-	Tue, 14 Dec 2010 01:50:18 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 13 Dec 2010 23:50:15 -0800
+Return-Path: <david.c.stewart@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2FD864C80BCF;
+	Tue, 14 Dec 2010 10:29:49 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 14 Dec 2010 08:29:38 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,341,1288594800"; d="scan'208";a="686910609"
-Received: from unknown (HELO [10.255.13.56]) ([10.255.13.56])
-	by orsmga001.jf.intel.com with ESMTP; 13 Dec 2010 23:50:13 -0800
-From: Tom Zanussi <tom.zanussi@intel.com>
-To: "Tian, Kevin" <kevin.tian@intel.com>
-In-Reply-To: <625BA99ED14B2D499DC4E29D8138F1504D5A7A1691@shsmsx502.ccr.corp.intel.com>
-References: <625BA99ED14B2D499DC4E29D8138F1504D5A7A1691@shsmsx502.ccr.corp.intel.com>
-Date: Tue, 14 Dec 2010 01:50:11 -0600
-Message-ID: <1292313011.19586.2.camel@elmorro>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-X-Mailman-Approved-At: Tue, 14 Dec 2010 08:38:10 -0600
-Cc: "yocto@yoctoproject.org" <yocto@yoctoproject.org>,
-	"poky@yoctoproject.org" <poky@yoctoproject.org>, "Wold,
-	Saul" <saul.wold@intel.com>
-Subject: Re: update status of M2 sprint tasks
+X-IronPort-AV: E=Sophos;i="4.59,342,1288594800"; d="scan'208";a="868085744"
+Received: from orsmsx603.amr.corp.intel.com ([10.22.226.49])
+	by fmsmga001.fm.intel.com with ESMTP; 14 Dec 2010 08:29:38 -0800
+Received: from orsmsx501.amr.corp.intel.com ([10.22.226.209]) by
+	orsmsx603.amr.corp.intel.com ([10.22.226.49]) with mapi;
+	Tue, 14 Dec 2010 08:29:38 -0800
+From: "Stewart, David C" <david.c.stewart@intel.com>
+To: "yocto-announce@yoctoproject.org" <yocto-announce@yoctoproject.org>,
+	"yocto@yoctoproject.org" <yocto@yoctoproject.org>, "poky@yoctoproject.org"
+	<poky@yoctoproject.org>
+Date: Tue, 14 Dec 2010 08:29:36 -0800
+Thread-Topic: Announcing new resources: demo video and Getting Started
+Thread-Index: AcubrBkkJmVXu/+STE+XG/6ylEsF4Q==
+Message-ID: <B27EBC40D200ED48A3F4CC2EBEABAE0B25C0A48707@orsmsx501.amr.corp.intel.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
+MIME-Version: 1.0
+Subject: Announcing new resources: demo video and Getting Started
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,62 +36,39 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 14 Dec 2010 07:50:19 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 14 Dec 2010 16:29:49 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 2010-12-13 at 03:53 -0800, Tian, Kevin wrote:
-> Hi, owners,
-> 
-> Since M2 code frozen happened last week and now M2 test has been started, could owners
-> of each M2 sprint tasks update the latest status on the wiki?
-> 
-> https://wiki.yoctoproject.org/wiki/Yocto_1.0_Schedule
-> 
-> As Saul sent out earlier, we only accept bug fixes on M2 branch now. So if a given task has
-> not been done (WIP or on track), could you either move it into M3 or fill an updated date
-> when current one is past?
-> 
-> --M2SB--
-> 
-> "Distro Audit: Package Description/Summary completed", "WIP, Done by Dec 08" (Mark)
-> "Zypper/RPM (small writeup)", "WIP, Done by Dec 06" (Mark/Qing)
-> "oprofileUI", "WIP, done by Dec 10 " (Jessica)
-> 
-> --M2SC--
-> "Distro Audit: Licence Checksums ", "WIP, done by Dec 10 " (Saul)
-> "Zypper/RPM (upgrade to latest version)", "Starting, done by Dec 10" (Mark/Qing)
-> "push of all relevant Wind River patchs to Yocto ", "WIP, on track for completion by Dec 03 " (Mark)
-> "Tracing: blktrace and sysprof recipes ", "sysprof by Dec 03 " (Tom)
+We are pleased to announce some new resources on the Yocto Project.
 
-This is done, but there's a bug (581) against blktrace that I need to
-look at.
+When you build a custom Linux distribution for your device using the Yocto =
+Project, you can also build an Application Development Toolkit (ADT) which =
+corresponds to that distribution. The toolkit also comes with an Eclipse ID=
+E plug-in.
 
-> 
-> --M2SD--
-> "Yocto Installer for SDK Generator Installation functions support ", "WIP, done Dec 09" (Jessica)
-> "Yocto Installer support for image-creator ", "WIP" (Jessica)
-> 
-> --M2SE--
-> "Zypper/RPM (integration design)", "slipped out from sprint D" (Mark/Qing)
-> "Distro Audit: Upgrades Completed (Phase1)", "WIP" (Saul)
-> "Distro Audit: Src Checksums", "WIP, Done by Dec 9" (Saul)
-> "enable KVM with qemu", "on track" (Saul/Edwin)
-> "Performance Enhancement Completed", "on track being reviewed" (Saul/Dongxiao/Qing)
-> "User specified qemu config support", "on track for Dec 9" (Saul/Criping)
-> "SDK Version Control support in SDK generator installer", "on track" (Jessica)
-> "Tracing: Initial SystemTap recipe", "on track" (Tom)
+Sometimes it helps to have a little demo of how the ADT works to get you st=
+arted
 
-BSP work not on the schedule has pushed this out - I'll be getting to it
-as soon as that work's done, sometime this week...
+Jessica Zhang, the ADT maintainer did a five minute demo screen cast of how=
+ to get the Eclipse plug-in working.  You can view this video at http://www=
+.youtube.com/watch?v=3D3ZlOu-gLsh0 and there is a link in the Resources sec=
+tion of the Yocto Project website (http://www.yoctoproject.org/resources) a=
+long with other useful resources. Thanks Jessica for contributing this!
 
-Tom
+We also made some enhancements to our "Getting Started" page, to make a cou=
+ple of things clearer:
 
-> "Documentation for swabber", "on track" (Alex)
-> "Defect triage process in public documented and implemented" (Saul)
-> 
-> Thanks
-> Kevin
+* We now have a "contact us" link to send mail to the project organizers wi=
+thout using the public list.
 
+* We also added a bunch of ideas on this page of how to contribute to the p=
+roject. We hope you find it useful.
 
+You can find this on http://www.yoctoproject.org/getting-started
+
+Thank you again for your contributions to the project. Code is of course al=
+ways really welcome as a contribution, and we also welcome informational pi=
+eces like Jessica's video.
 
