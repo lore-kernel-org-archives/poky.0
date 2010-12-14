@@ -1,27 +1,19 @@
-Return-Path: <koen@dominion.thruhere.net>
-Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
-	[74.125.82.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0EE4F4C81069
-	for <poky@yoctoproject.org>; Tue, 14 Dec 2010 06:33:01 -0600 (CST)
-Received: by wye20 with SMTP id 20so454915wye.35
-	for <poky@yoctoproject.org>; Tue, 14 Dec 2010 04:33:00 -0800 (PST)
-Received: by 10.216.145.147 with SMTP id p19mr3043780wej.86.1292329980840;
-	Tue, 14 Dec 2010 04:33:00 -0800 (PST)
-Received: from [172.20.0.255] (ip545070eb.adsl-surfen.hetnet.nl
-	[84.80.112.235])
-	by mx.google.com with ESMTPS id p4sm25289wej.4.2010.12.14.04.32.59
-	(version=TLSv1/SSLv3 cipher=RC4-MD5);
-	Tue, 14 Dec 2010 04:32:59 -0800 (PST)
-Mime-Version: 1.0 (Apple Message framework v1082)
-From: Koen Kooi <koen@dominion.thruhere.net>
-In-Reply-To: <cover.1292320885.git.ke.yu@intel.com>
-Date: Tue, 14 Dec 2010 13:32:59 +0100
-Message-Id: <657D8911-61AF-4B18-A02E-08007B063534@dominion.thruhere.net>
-References: <cover.1292320885.git.ke.yu@intel.com>
-To: Yu Ke <ke.yu@intel.com>
-X-Mailer: Apple Mail (2.1082)
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/1] SRC_URI checksum support v2
+Return-Path: <kevin.tian@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 299EF4C81069
+	for <poky@pokylinux.org>; Tue, 14 Dec 2010 08:14:30 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 14 Dec 2010 06:14:29 -0800
+Message-Id: <0d30dc$kf5f5e@orsmga001.jf.intel.com>
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.59,342,1288594800"; d="scan'208";a="686996654"
+Received: from poky-desktop-ktian1.sh.intel.com (HELO localhost)
+	([10.239.36.126])
+	by orsmga001.jf.intel.com with ESMTP; 14 Dec 2010 06:14:28 -0800
+From: Kevin Tian <kevin.tian@intel.com>
+Date: Tue, 14 Dec 2010 21:40:03 +0800
+To: poky@pokylinux.org,paul.eggleton@linux.intel.com,rpurdie@linux.intel.com
+Subject: [PATCH 0/1] Fix weird rebuild issue even when sstate signature doesn't change
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,44 +25,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 14 Dec 2010 12:33:02 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Tue, 14 Dec 2010 14:14:30 -0000
+
+This patch is to fix one weird issue I've keeping seeing recently when using sstate.
+Even with a minimal build, there're around 50 recipes rebuilt from scratch even though
+sstate packages in sstate_cache do match. Actually the end result is to just overwrite
+sstate packages again with same sigature for those recipes.
+https://lists.yoctoproject.org/pipermail/poky/2010-December/001063.html
+
+The cause for this mess is from misinterpretation of the index of a list, which then
+points to wrong setscene tasks instead of desired ones. The end result is that some
+tasks which don't need execution are scheduled while other setscene tasks which need
+run are simply skipped.
+
+It's based on Paul's sstate branch.
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: tk/sstate
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=tk/sstate
+
+Thanks,
+    Kevin Tian <kevin.tian@intel.com>
+---
 
 
-Op 14 dec 2010, om 11:01 heeft Yu Ke het volgende geschreven:
+Kevin Tian (1):
+  runqueue.py: use correct task ID when checking validity of setscene
+    tasks
 
-> This patch add SRC_URI checksum support. With this patch,fetcher
-> can verify the MD5 and SHA256 checksum of download src with the
-> value defined in recipes SRC_URI.
-
-Awesome, I have been waiting for that!
-
->=20
-> This is the V2 patch. The major change compared to V1 is:
-> moving the logic from poky bbclass to bitbake fetcher, per
-> Richard's comment
->=20
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->  Branch: kyu3/srcuri-v2
->  Browse: =
-http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=3Dkyu3/srcuri-v2
->=20
-> Thanks,
->    Yu Ke <ke.yu@intel.com>
-> ---
->=20
->=20
-> Yu Ke (1):
->  FetchData: add SRC_URI checksum
->=20
-> bitbake/lib/bb/fetch/__init__.py |   36 =
-++++++++++++++++++++++++++++++++++++
-> 1 files changed, 36 insertions(+), 0 deletions(-)
->=20
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+ bitbake/lib/bb/runqueue.py |   16 +++++++++++-----
+ 1 files changed, 11 insertions(+), 5 deletions(-)
 
 
