@@ -1,20 +1,21 @@
 Return-Path: <josh@linux.intel.com>
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5ABEE4C811E4
-	for <poky@yoctoproject.org>; Wed, 15 Dec 2010 10:28:51 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 731994C811ED
+	for <poky@yoctoproject.org>; Wed, 15 Dec 2010 10:28:53 -0600 (CST)
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 15 Dec 2010 08:28:50 -0800
+	by fmsmga102.fm.intel.com with ESMTP; 15 Dec 2010 08:28:53 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,349,1288594800"; d="scan'208";a="868560529"
+X-IronPort-AV: E=Sophos;i="4.59,349,1288594800"; d="scan'208";a="868560696"
 Received: from unknown (HELO localhost) ([10.255.16.78])
-	by fmsmga001.fm.intel.com with ESMTP; 15 Dec 2010 08:28:27 -0800
-Message-Id: <30c39cc97c384134661300e107d7a81f257f8034.1292430240.git.josh@linux.intel.com>
+	by fmsmga001.fm.intel.com with ESMTP; 15 Dec 2010 08:28:47 -0800
+Message-Id: <9e11fbf9048b17526ca8160d82b69f386595c9a7.1292430240.git.josh@linux.intel.com>
 In-Reply-To: <cover.1292430240.git.josh@linux.intel.com>
 References: <cover.1292430240.git.josh@linux.intel.com>
 From: Joshua Lock <josh@linux.intel.com>
+Date: Tue, 14 Dec 2010 15:39:42 +0000
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 05/14] procps: fix for build against make 3.82
+Subject: [PATCH 08/14] gstreamer: fix to comply with make 3.82's stricter parser
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,60 +27,73 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-Date: Wed, 15 Dec 2010 16:28:51 -0000
-X-Original-Date: Fri, 12 Nov 2010 16:36:54 +0000
-X-List-Received-Date: Wed, 15 Dec 2010 16:28:51 -0000
+X-List-Received-Date: Wed, 15 Dec 2010 16:28:53 -0000
 
 Signed-off-by: Joshua Lock <josh@linux.intel.com>
 ---
- .../procps-3.2.7/procps-3.2.8+gmake-3.82.patch     |   17 +++++++++++++++++
- meta/recipes-extended/procps/procps_3.2.7.bb       |    3 ++-
- 2 files changed, 19 insertions(+), 1 deletions(-)
- create mode 100644 meta/recipes-extended/procps/procps-3.2.7/procps-3.2.8+gmake-3.82.patch
+ .../gstreamer/gstreamer-0.10.29/make-382.patch     |   32 ++++++++++++++++++++
+ .../gstreamer/gstreamer_0.10.29.bb                 |    7 ++--
+ 2 files changed, 36 insertions(+), 3 deletions(-)
+ create mode 100644 meta/recipes-multimedia/gstreamer/gstreamer-0.10.29/make-382.patch
 
-diff --git a/meta/recipes-extended/procps/procps-3.2.7/procps-3.2.8+gmake-3.82.patch b/meta/recipes-extended/procps/procps-3.2.7/procps-3.2.8+gmake-3.82.patch
+diff --git a/meta/recipes-multimedia/gstreamer/gstreamer-0.10.29/make-382.patch b/meta/recipes-multimedia/gstreamer/gstreamer-0.10.29/make-382.patch
 new file mode 100644
-index 0000000..23310e0
+index 0000000..1af2a81
 --- /dev/null
-+++ b/meta/recipes-extended/procps/procps-3.2.7/procps-3.2.8+gmake-3.82.patch
-@@ -0,0 +1,17 @@
-+Fix for stricter Makefile parser in Make 3.82 take from Gentoo bugzilla:
-+http://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo-x86/sys-process/procps/files/procps-3.2.8%2Bgmake-3.82.patch?revision=1.1
++++ b/meta/recipes-multimedia/gstreamer/gstreamer-0.10.29/make-382.patch
+@@ -0,0 +1,32 @@
++The whitespaces instead of tabs here cause the new, stricter, parser in make
++3.82 to barf on the doc makefiles.
 +
-+Index: procps-3.2.8/Makefile
++This patch should no longer be required in more recent gstreamer version
++
++JL - 14/12/10
++
++Index: gstreamer-0.10.29/common/gtk-doc.mak
 +===================================================================
-+--- procps-3.2.8.orig/Makefile
-++++ procps-3.2.8/Makefile
-+@@ -174,7 +174,8 @@ INSTALL := $(BINFILES) $(MANFILES)
-+ # want this rule first, use := on ALL, and ALL not filled in yet
-+ all: do_all
++--- gstreamer-0.10.29.orig/common/gtk-doc.mak
+++++ gstreamer-0.10.29/common/gtk-doc.mak
++@@ -232,6 +232,6 @@ dist-hook: dist-check-gtkdoc dist-hook-l
++ 	-cp $(srcdir)/$(DOC_MODULE).types $(distdir)/
++ 	-cp $(srcdir)/$(DOC_MODULE)-sections.txt $(distdir)/
++ 	cd $(distdir) && rm -f $(DISTCLEANFILES)
++-        -gtkdoc-rebase --online --relative --html-dir=$(distdir)/html
+++	-gtkdoc-rebase --online --relative --html-dir=$(distdir)/html
 + 
-+--include */module.mk
-++-include proc/module.mk
-++-include ps/module.mk
++ .PHONY : dist-hook-local docs
++Index: gstreamer-0.10.29/common/gtk-doc-plugins.mak
++===================================================================
++--- gstreamer-0.10.29.orig/common/gtk-doc-plugins.mak
+++++ gstreamer-0.10.29/common/gtk-doc-plugins.mak
++@@ -352,7 +352,7 @@ dist-hook: dist-check-gtkdoc dist-hook-l
++ 	-cp $(srcdir)/$(DOC_MODULE).types $(distdir)/
++ 	-cp $(srcdir)/$(DOC_MODULE)-sections.txt $(distdir)/
++ 	cd $(distdir) && rm -f $(DISTCLEANFILES)
++-        -gtkdoc-rebase --online --relative --html-dir=$(distdir)/html
+++	-gtkdoc-rebase --online --relative --html-dir=$(distdir)/html
 + 
-+ do_all:    $(ALL)
++ .PHONY : dist-hook-local docs
 + 
-diff --git a/meta/recipes-extended/procps/procps_3.2.7.bb b/meta/recipes-extended/procps/procps_3.2.7.bb
-index b795c2b..4703525 100644
---- a/meta/recipes-extended/procps/procps_3.2.7.bb
-+++ b/meta/recipes-extended/procps/procps_3.2.7.bb
-@@ -1,6 +1,6 @@
- require procps.inc
+diff --git a/meta/recipes-multimedia/gstreamer/gstreamer_0.10.29.bb b/meta/recipes-multimedia/gstreamer/gstreamer_0.10.29.bb
+index 38e28fa..9b7185a 100644
+--- a/meta/recipes-multimedia/gstreamer/gstreamer_0.10.29.bb
++++ b/meta/recipes-multimedia/gstreamer/gstreamer_0.10.29.bb
+@@ -9,11 +9,12 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=55ca817ccb7d5b5b66355690e9abc605 \
+                     file://gst/gst.h;beginline=1;endline=21;md5=8e5fe5e87d33a04479fde862e238eaa4"
+ DEPENDS = "glib-2.0 gettext libxml2 bison-native flex-native"
  
--PR = "r9"
-+PR = "r10"
+-PR = "r0"
++PR = "r1"
  
- inherit update-rc.d update-alternatives
+ SRC_URI = "http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-${PV}.tar.bz2 \
+-           file://check_fix.patch;patch=1 \
+-           file://gst-inspect-check-error.patch;patch=1"
++           file://check_fix.patch \
++           file://gst-inspect-check-error.patch \
++	   file://make-382.patch"
  
-@@ -16,6 +16,7 @@ SRC_URI += "file://procmodule.patch;patch=1 \
- 	    file://linux-limits.patch;patch=1 \
- 	    file://sysctl.conf \
- 	    file://procps.init \
-+	    file://procps-3.2.8+gmake-3.82.patch \
- 	    "
+ inherit autotools pkgconfig
  
- FILES = "${bindir}/top.${PN} ${base_bindir}/ps.${PN} ${bindir}/uptime.${PN} ${base_bindir}/kill.${PN} \
 -- 
 1.7.3.3
 
