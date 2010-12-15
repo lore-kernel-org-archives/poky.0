@@ -1,25 +1,26 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 3EADF4C811B9
-	for <poky@yoctoproject.org>; Wed, 15 Dec 2010 11:14:45 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 15 Dec 2010 09:14:44 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,350,1288594800"; d="scan'208";a="362118403"
-Received: from unknown (HELO [10.255.14.1]) ([10.255.14.1])
-	by azsmga001.ch.intel.com with ESMTP; 15 Dec 2010 09:14:44 -0800
-Message-ID: <4D08F784.8020908@intel.com>
-Date: Wed, 15 Dec 2010 09:14:44 -0800
-From: Saul Wold <saul.wold@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4B8A54C80048
+	for <poky@lists.pokylinux.org>; Wed, 15 Dec 2010 11:33:26 -0600 (CST)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id B1D7E16602EC; Wed, 15 Dec 2010 10:33:25 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.1
+Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
+	by mail.chez-thomas.org (Postfix) with ESMTP id AB23C16602C5;
+	Wed, 15 Dec 2010 10:33:23 -0700 (MST)
+Message-ID: <4D08FBE3.9020904@mlbassoc.com>
+Date: Wed, 15 Dec 2010 10:33:23 -0700
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
 MIME-Version: 1.0
-To: Dexuan Cui <dexuan.cui@intel.com>
-References: <cover.1292312335.git.dexuan.cui@intel.com>
-In-Reply-To: <cover.1292312335.git.dexuan.cui@intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/1] fix gnome-desktop build failure
+To: Poky <poky@lists.pokylinux.org>
+Subject: Extending recipes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,30 +32,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 15 Dec 2010 17:14:45 -0000
+X-List-Received-Date: Wed, 15 Dec 2010 17:33:26 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 12/13/2010 11:38 PM, Dexuan Cui wrote:
-> This is used to fix Bug 587 - gnome-desktop: do_compile failed.
->
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->    Branch: dcui/master
->    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dcui/master
->
-> Thanks,
->      Dexuan Cui<dexuan.cui@intel.com>
-> ---
->
->
-> Dexuan Cui (1):
->    gnome-desktop: add --disable-desktop-docs
->
->   meta/recipes-gnome/gnome/gnome-desktop.inc |    7 +++++--
->   1 files changed, 5 insertions(+), 2 deletions(-)
->
-Thanks for the fast turn, this is pulled into M2 and Master
+I have a number of recipes that are in the Poky core that
+need a little extending for my environment.  Mostly, this
+can be done with a .bbappend file, but some are a bit trickier.
 
-Sau!
+For example, in meta/recipes-multimedia/gstreamer/gst-plugins-ugly_0.10.16.bb
+there are a couple of lines which control how this package is
+configured and built.  In particular:
+   DEPENDS += "gst-plugins-base libid3tag libmad mpeg2dec liba52 lame"
+   EXTRA_OECONF += "--with-plugins=a52dec,lame,id3tag,mad,mpeg2dec,mpegstream,mpegaudioparse,asfdemux,realmedia"
+In my case, I want to have the h264 encoder/decoder built as well.
+I don't see a [good?] way to change these lines to be effectively:
+   DEPENDS += "gst-plugins-base libid3tag libmad mpeg2dec liba52 lame x264"
+   EXTRA_OECONF += "--with-plugins=a52dec,lame,id3tag,mad,mpeg2dec,mpegstream,mpegaudioparse,asfdemux,realmedia,x264"
 
+The DEPENDS variable is easy enough to extend in .bbappend,
+but how should I handle EXTRA_OECONF?
+
+Thanks for any ideas
+
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
