@@ -1,21 +1,21 @@
 Return-Path: <scott.m.rifenbark@intel.com>
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7FB1F4C8106A
+	by mx1.pokylinux.org (Postfix) with ESMTP id BD40E4C8106A
 	for <poky@yoctoproject.org>; Mon, 20 Dec 2010 14:23:59 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
 	by orsmga101.jf.intel.com with ESMTP; 20 Dec 2010 12:23:58 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,203,1291622400"; d="scan'208";a="585536769"
+X-IronPort-AV: E=Sophos;i="4.60,203,1291622400"; d="scan'208";a="689034101"
 Received: from scottrif-desktop.jf.intel.com (HELO localhost) ([10.7.201.54])
-	by orsmga002.jf.intel.com with ESMTP; 20 Dec 2010 12:23:58 -0800
-Message-Id: <9603b1b781812e5aae44f8d0150577064034d683.1292876262.git.scott.m.rifenbark@intel.com>
+	by orsmga001.jf.intel.com with ESMTP; 20 Dec 2010 12:23:58 -0800
+Message-Id: <9dcc022748fe42a77e52e6ee3e39e4253b9f4d3e.1292876262.git.scott.m.rifenbark@intel.com>
 In-Reply-To: <cover.1292876262.git.scott.m.rifenbark@intel.com>
 References: <cover.1292876262.git.scott.m.rifenbark@intel.com>
 From: Scott Rifenbark <scott.m.rifenbark@intel.com>
-Date: Tue, 14 Dec 2010 16:45:22 -0800
+Date: Tue, 14 Dec 2010 17:03:53 -0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 01/29] documentation/bsp-guide/bsp.xml: Changed meta naming convention
+Subject: [PATCH 04/29] documentation/bsp-guide/bsp.xml: Added information about /binary
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,31 +29,31 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Mon, 20 Dec 2010 20:23:59 -0000
 
-Replaced meta-<bsp_name>/recipes-<bsp_name> with meta-<bsp_name>/recipes-bsp.
-This conforms to how the BSP standard will be working.
+Added information in the section about Pre-built User Binaries.
+In the first paragraph I stated that this directory would contain
+the Application Development Toolkit and minimal live images when the
+BSP is "tarred" up and placed on the Yocto Project website.
 
 Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
 ---
- documentation/bsp-guide/bsp.xml |    6 +++---
- 1 files changed, 3 insertions(+), 3 deletions(-)
+ documentation/bsp-guide/bsp.xml |    4 +++-
+ 1 files changed, 3 insertions(+), 1 deletions(-)
 
 diff --git a/documentation/bsp-guide/bsp.xml b/documentation/bsp-guide/bsp.xml
-index 3cad0fd..f55d14c 100644
+index 9698e93..321965a 100644
 --- a/documentation/bsp-guide/bsp.xml
 +++ b/documentation/bsp-guide/bsp.xml
-@@ -82,9 +82,9 @@ meta-&lt;bsp_name&gt;/recipes-kernel/bootloader/bootloader_0.1.bb
- meta-&lt;bsp_name&gt;/recipes-kernel/linux/linux-bsp-2.6.50/*.patch
- meta-&lt;bsp_name&gt;/recipes-kernel/linux/linux-bsp-2.6.50/defconfig-bsp
- meta-&lt;bsp_name&gt;/recipes-kernel/linux/linux-bsp_2.6.50.bb
--meta-&lt;bsp_name&gt;/recipes-&lt;bsp_name&gt;/modem/modem-driver_0.1.bb
--meta-&lt;bsp_name&gt;/recipes-&lt;bsp_name&gt;/modem/modem-daemon_0.1.bb
--meta-&lt;bsp_name&gt;/recipes-&lt;bsp_name&gt;/image-creator/image-creator-native_0.1.bb
-+meta-&lt;bsp_name&gt;/recipes-bsp/modem/modem-driver_0.1.bb
-+meta-&lt;bsp_name&gt;/recipes-bsp/modem/modem-daemon_0.1.bb
-+meta-&lt;bsp_name&gt;/recipes-bsp/image-creator/image-creator-native_0.1.bb
- meta-&lt;bsp_name&gt;/prebuilds/
-                 </programlisting>
-             </para>
+@@ -105,7 +105,9 @@ meta-&lt;bsp_name&gt;/prebuilds/
+ 
+             <para>
+                 This optional area contains useful pre-built kernels and userspace filesystem 
+-                images appropriate to the target system. 
++                images appropriate to the target system.
++                This directory contains the Application Development Toolkit (ADT) and minimal
++                live images when the BSP is has been "tar-balled" and placed on the Yocto Project website. 
+                 You can use these kernels and images to get a system running and quickly get started 
+                 on development tasks. 
+                 The exact types of binaries present are highly hardware-dependent.
 -- 
 1.7.0.4
 
