@@ -1,21 +1,23 @@
-Return-Path: <josh@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 6C0A64C811FA
-	for <poky@yoctoproject.org>; Wed, 15 Dec 2010 10:29:50 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 15 Dec 2010 08:29:50 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,349,1288594800"; d="scan'208";a="687433470"
-Received: from unknown (HELO localhost) ([10.255.16.78])
-	by orsmga001.jf.intel.com with ESMTP; 15 Dec 2010 08:29:49 -0800
-Message-Id: <6e71b0a012f0676c06b7b4788d932f320fca0b74.1292430240.git.josh@linux.intel.com>
-In-Reply-To: <cover.1292430240.git.josh@linux.intel.com>
-References: <cover.1292430240.git.josh@linux.intel.com>
-From: Joshua Lock <josh@linux.intel.com>
-Date: Wed, 15 Dec 2010 14:31:21 +0000
+Return-Path: <josh@openedhand.com>
+Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
+	by mx1.pokylinux.org (Postfix) with ESMTP id BA4364C80048
+	for <poky@yoctoproject.org>; Wed, 15 Dec 2010 10:45:04 -0600 (CST)
+Received: from [10.250.128.97] (unknown [158.43.2.102])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by pug.o-hand.com (Postfix) with ESMTP id D02F512EC117
+	for <poky@yoctoproject.org>; Wed, 15 Dec 2010 11:23:39 -0600 (CST)
+From: Joshua Lock <josh@openedhand.com>
 To: poky@yoctoproject.org
-CC: 
-Subject: [PATCH 14/14] web-webkit: fix for make 3.82
+In-Reply-To: <9DA5872FEF993D41B7173F58FCF6BE9404FAD617@orsmsx504.amr.corp.intel.com>
+References: <20101205125755.1B42C351@gemini.denx.de>
+	<20101211104711.GB10409@gmail.com>
+	<9DA5872FEF993D41B7173F58FCF6BE9404FAD617@orsmsx504.amr.corp.intel.com>
+Date: Wed, 15 Dec 2010 16:44:55 +0000
+Message-ID: <1292431496.18631.2.camel@scimitar>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.1 (2.32.1-1.fc14) 
+Subject: Re: elfutils build fails on Fedroa 14
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,55 +29,107 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 15 Dec 2010 16:29:50 -0000
+X-List-Received-Date: Wed, 15 Dec 2010 16:45:04 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Joshua Lock <josh@linux.intel.com>
----
- meta/recipes-sato/web/web-webkit/make-382.patch |   15 +++++++++++++++
- meta/recipes-sato/web/web-webkit_svn.bb         |    5 +++--
- 2 files changed, 18 insertions(+), 2 deletions(-)
- create mode 100644 meta/recipes-sato/web/web-webkit/make-382.patch
+On Wed, 2010-12-15 at 08:26 -0800, Kamble, Nitin A wrote:
+> > 
+> > On (05/12/10 13:57), Wolfgang Denk wrote:
+> > > Trying to build on a Fedora 14 box, elfutis fails with this error:
+> > >
+> > > ...
+> > > | make[2]: Entering directory `/opt/poky/build-laverne-4.0-
+> > kilauea/tmp/work/x86_64-linux/elfutils-native-0.148-r1/elfutils-
+> > 0.148/src'
+> > > ...
+> > > | ccache gcc -std=gnu99 -Wall -Wshadow -Werror -Wunused -Wextra -
+> > fgnu89-inline -Wformat=2   -isystem/opt/poky/build-laverne-4.0-
+> > kilauea/tmp/sysroots/x86_64-linux/usr/include -O2 -Wl,-rpath-
+> > link,../libelf:../libdw -L/opt/poky/build-laverne-4.0-
+> > kilauea/tmp/sysroots/x86_64-linux/usr/lib -Wl,-rpath-
+> > link,/opt/poky/build-laverne-4.0-kilauea/tmp/sysroots/x86_64-
+> > linux/usr/lib -Wl,-rpath,/opt/poky/build-laverne-4.0-
+> > kilauea/tmp/sysroots/x86_64-linux/usr/lib -Wl,-O1 -o objdump objdump.o
+> > ../libasm/libasm.so ../libebl/libebl.a ../libelf/libelf.so
+> > ../lib/libeu.a  -ldl
+> > > | ./ld: unrecognized option '--no-add-needed'
+> > > | Try `ld --help' or `ld --usage' for more information.
+> > > | collect2: ld returned 64 exit status
+> > > | make[2]: *** [addr2line] Error 1
+> > > | make[2]: *** Waiting for unfinished jobs....
+> > > | ./ld: unrecognized option '--no-add-needed'
+> > > | Try `ld --help' or `ld --usage' for more information.
+> > > | collect2: ld returned 64 exit status
+> > > | make[2]: *** [elfcmp] Error 1
+> > > | ./ld: unrecognized option '--no-add-needed'
+> > > | Try `ld --help' or `ld --usage' for more information.
+> > > | collect2: ld returned 64 exit status
+> > >
+> > > In Fedora 14, the following command gets generated:
+> > >
+> > > /usr/libexec/gcc/x86_64-redhat-linux/4.5.1/collect2 --build-id --no-
+> > add-needed --eh-frame-hdr -m elf_x86_64 --hash-style=gnu -dynamic-
+> > linker /lib64/ld-linux-x86-64.so.2 -o objdump /usr/lib/gcc/x86_64-
+> > redhat-linux/4.5.1/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-
+> > linux/4.5.1/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-
+> > linux/4.5.1/crtbegin.o -L/opt/poky/build-laverne-4.0-
+> > kilauea/tmp/sysroots/x86_64-linux/usr/lib -L/usr/lib/gcc/x86_64-redhat-
+> > linux/4.5.1 -L/usr/lib/gcc/x86_64-redhat-linux/4.5.1/../../../../lib64
+> > -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-
+> > linux/4.5.1/../../.. --add-needed -rpath-link ../libelf:../libdw -
+> > rpath-link /opt/poky/build-laverne-4.0-kilauea/tmp/sysroots/x86_64-
+> > linux/usr/lib -rpath /opt/poky/build-laverne-4.0-
+> > kilauea/tmp/sysroots/x86_64-linux/usr/lib -O1 objdump.o
+> > ../libasm/libasm.so ../libebl/libebl.a ../libelf/libelf.so
+> > ../lib/libeu.a -ldl -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc
+> > --as-needed -lgcc_s --no-
+> >  as
+> > >  -needed /usr/lib/gcc/x86_64-redhat-linux/4.5.1/crtend.o
+> > /usr/lib/gcc/x86_64-redhat-linux/4.5.1/../../../../lib64/crtn.o
+> > > ./ld: unrecognized option '--no-add-needed'
+> > > Try `ld --help' or `ld --usage' for more information.
+> > > collect2: ld returned 64 exit status
+> > >
+> > > Unfortunately the "ld" command in elfutils-0.148 does not understand
+> > > the '--no-add-needed'; I've tried to find any existing fixes for
+> > > this, but what I found just added a "-Xlinker --add-needed" to the
+> > > command line, which does not help here since ./ld understands neither
+> > > '--no-add-needed' nor '--add-needed'.
+> > >
+> > > Any ideas?
+> > 
+> > I think we really dont need the tools part only libelf is needed so one
+> > way
+> > is to not build everything but just do targetted make targets and avoid
+> > building tools as its happening
+> > 
+> > secondly you could try to add --program-prefix="elfutils-" or somesuch
+> > then the linker from elfutils will be called elfutils-ld but I dont
+> > know if
+> > it will work because renaming happens during the install phase you have
+> > to try it out.
+> > 
+> > -Khem
+> 
+> Has anybody else seeing this failure? I am building on the fedora 14
+> x86_64, with latest master and I do not see this issue.
+> 
+> Wolfgang, Are you using any different layer or machine with this failure ?
 
-diff --git a/meta/recipes-sato/web/web-webkit/make-382.patch b/meta/recipes-sato/web/web-webkit/make-382.patch
-new file mode 100644
-index 0000000..253743d
---- /dev/null
-+++ b/meta/recipes-sato/web/web-webkit/make-382.patch
-@@ -0,0 +1,15 @@
-+Make 3.82 does not allow 8 spaces instead of a tab
-+
-+JL - 15/12/10
-+
-+Index: webkit/Makefile.am
-+===================================================================
-+--- webkit.orig/Makefile.am
-++++ webkit/Makefile.am
-+@@ -5,5 +5,5 @@ SUBDIRS = src data
-+ MAINTAINERCLEANFILES = aclocal.m4 compile config.guess config.sub configure depcomp install-sh ltmain.sh Makefile.in missing
-+ 
-+ snapshot:
-+-        $(MAKE) dist distdir=$(PACKAGE)-snap`date +"%Y%m%d"`
-++	$(MAKE) dist distdir=$(PACKAGE)-snap`date +"%Y%m%d"`
-+ 
-diff --git a/meta/recipes-sato/web/web-webkit_svn.bb b/meta/recipes-sato/web/web-webkit_svn.bb
-index 9cdf1f9..895d49b 100644
---- a/meta/recipes-sato/web/web-webkit_svn.bb
-+++ b/meta/recipes-sato/web/web-webkit_svn.bb
-@@ -8,10 +8,11 @@ SECTION = "x11"
- DEPENDS = "libxml2 glib-2.0 gtk+ libglade webkit-gtk curl gconf js libowl"
- 
- PV = "0.0+svnr${SRCREV}"
--PR = "r2"
-+PR = "r3"
- 
- SRC_URI = "svn://svn.o-hand.com/repos/web/branches;module=webkit;proto=http \
--           file://link-with-g++.patch;patch=1"
-+           file://link-with-g++.patch \
-+	   file://make-382.patch"
- 
- S = "${WORKDIR}/webkit"
- 
+I suspect this is an issue whereby an unsupported MACHINE has been added
+and something has caused the linker to become subtly broken. This may
+well be a BSP documentation issue - I'm expecting that this may all stem
+from some missing COMPATIBLE_MACHINE declaration resulting in an
+unsupported mixture of components being used.
+
+I'm hoping to get time to step through this issue and reproduce. Unless
+someone else would like to volunteer? ;-)
+
+Cheers,
+Joshua
 -- 
-1.7.3.3
+Joshua Lock
+        Intel Open Source Technology Centre
 
 
