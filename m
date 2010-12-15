@@ -1,21 +1,21 @@
 Return-Path: <scott.m.rifenbark@intel.com>
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0D3D44C811E1
-	for <poky@yoctoproject.org>; Mon, 20 Dec 2010 14:23:59 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4A59F4C811E1
+	for <poky@yoctoproject.org>; Mon, 20 Dec 2010 14:24:00 -0600 (CST)
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
 	by orsmga101.jf.intel.com with ESMTP; 20 Dec 2010 12:23:58 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,203,1291622400"; d="scan'208";a="585536771"
+X-IronPort-AV: E=Sophos;i="4.60,203,1291622400"; d="scan'208";a="585536772"
 Received: from scottrif-desktop.jf.intel.com (HELO localhost) ([10.7.201.54])
 	by orsmga002.jf.intel.com with ESMTP; 20 Dec 2010 12:23:58 -0800
-Message-Id: <92976b91d862d9a4bcba363243df60647bdd9f0e.1292876262.git.scott.m.rifenbark@intel.com>
+Message-Id: <105230d416e0e9e525d0445c8aadbcfc98d48b4b.1292876262.git.scott.m.rifenbark@intel.com>
 In-Reply-To: <cover.1292876262.git.scott.m.rifenbark@intel.com>
 References: <cover.1292876262.git.scott.m.rifenbark@intel.com>
 From: Scott Rifenbark <scott.m.rifenbark@intel.com>
-Date: Wed, 15 Dec 2010 09:28:22 -0800
+Date: Wed, 15 Dec 2010 12:46:11 -0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 06/29] documentation/bsp-guide/bsp.xml: Inserted text before the file structure example
+Subject: [PATCH 08/29] documentation/bsp-work/bsp.xml: Added crownbay BSP example to section 1.1.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,42 +29,46 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Mon, 20 Dec 2010 20:24:00 -0000
 
-Added some text in section 1.1 explaining that the file structure example
-is an example and that the file structure of specific BSPs could differ.
-
 Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
 ---
- documentation/bsp-guide/bsp.xml |   10 ++++------
- 1 files changed, 4 insertions(+), 6 deletions(-)
+ documentation/bsp-guide/bsp.xml |   24 ++++++++++++++++++++++++
+ 1 files changed, 24 insertions(+), 0 deletions(-)
 
 diff --git a/documentation/bsp-guide/bsp.xml b/documentation/bsp-guide/bsp.xml
-index 10fff0b..874ef6d 100644
+index f7dd12e..d2e293f 100644
 --- a/documentation/bsp-guide/bsp.xml
 +++ b/documentation/bsp-guide/bsp.xml
-@@ -41,11 +41,6 @@
-             the build system they are using.
-         </para>
- 
--        <note><para>
--            The file structure shown below is only an example and actual structures for 
--            specific BSPs could differ.
--        </para></note>
--
-         <para>
-             The BSP specification does not include a build system or other tools -
-             it is concerned with the hardware-specific components only. 
-@@ -75,7 +70,10 @@
+@@ -89,6 +89,30 @@ meta-&lt;bsp_name&gt;/recipes-kernel/linux/linux-wrs_git.bbappend
              </para>
  
              <para>
--                The file structure inside the base directory takes on the following form:
-+                Below is the common form for the file structure inside a base directory.
-+                While you can use this basic form for the standard, realize that the actual structures
-+                for specific BSPs could differ. 
++                Below is an example of the crownbay BSP:
 +
-                 <programlisting>
- meta-&lt;bsp_name&gt;/                                
- meta-&lt;bsp_name&gt;/binary/zImage
++                <programlisting>
++meta-crownbay/COPYING.MIT
++meta-crownbay/README
++meta-crownbay/binary/.gitignore
++meta-crownbay/conf/layer.conf
++meta-crownbay/conf/machine/crownbay.conf
++meta-crownbay/recipes-bsp/formfactor/formfactor/crownbay/machconfig
++meta-crownbay/recipes-bsp/formfactor/formfactor_0.0.bbappend
++meta-crownbay/recipes-graphics/xorg-xserver/xserver-xf86-config/crownbay/xcorg.conf
++meta-crownbay/recipes-graphics/xorg-xserver/xserver-xf86-config_0.1.bbappend
++meta-crownbay/recipes-graphics/xorg-xserver/xserver-xf86-emgd-bin/.gitignore
++meta-crownbay/recipes-graphics/xorg-xserver/xserver-xf86-emgd-bin_1.7.99.2.bb
++meta-crownbay/recipes-graphics/xorg-xserver/xserver-xf86-emgd/crosscompile.patch
++meta-crownbay/recipes-graphics/xorg-xserver/xserver-xf86-emgd/fix_open_max_preprocessor_error.patch
++meta-crownbay/recipes-graphics/xorg-xserver/xserver-xf86-emgd/macro_tweak.patch
++meta-crownbay/recipes-graphics/xorg-xserver/xserver-xf86-emgd/nodolt.patch
++meta-crownbay/recipes-graphics/xorg-xserver/xserver-xf86-emgd_1.7.99.2.bb
++meta-crownbay/recipes-kernel/linux/linux-wrs_git.bbappend
++                </programlisting>
++            </para>
++
++            <para>
+                 The following sections detail what these files and directories could contain.
+             </para>
+ 
 -- 
 1.7.0.4
 
