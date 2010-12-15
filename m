@@ -1,25 +1,24 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0AC6E4C80048
-	for <poky@yoctoproject.org>; Wed, 15 Dec 2010 13:28:50 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 15 Dec 2010 11:28:50 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,350,1288594800"; d="scan'208";a="584063352"
-Received: from unknown (HELO [10.255.14.19]) ([10.255.14.19])
-	by orsmga002.jf.intel.com with ESMTP; 15 Dec 2010 11:28:50 -0800
-Message-ID: <4D0916F4.9060703@linux.intel.com>
-Date: Wed, 15 Dec 2010 11:28:52 -0800
-From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
-MIME-Version: 1.0
-To: Paul Eggleton <paul.eggleton@intel.com>
-References: <cover.1292430240.git.josh@linux.intel.com>
-	<c5ab4d56f97a0e45b124d40c9f536541be04c201.1292430240.git.josh@linux.intel.com>
-In-Reply-To: <c5ab4d56f97a0e45b124d40c9f536541be04c201.1292430240.git.josh@linux.intel.com>
+Return-Path: <Alex.deVries@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8F0384C80BCF
+	for <poky@yoctoproject.org>; Wed, 15 Dec 2010 14:32:09 -0600 (CST)
+Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oBFKW8as021561;
+	Wed, 15 Dec 2010 12:32:08 -0800 (PST)
+Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
+	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Wed, 15 Dec 2010 12:32:08 -0800
+Received: from localhost ([128.224.146.68]) by ala-mail06.corp.ad.wrs.com with
+	Microsoft SMTPSVC(6.0.3790.1830); Wed, 15 Dec 2010 12:32:08 -0800
+From: Alex deVries <alex.devries@windriver.com>
+To: rpurdie@linux.intel.com
+Date: Wed, 15 Dec 2010 15:34:56 -0500
+Message-Id: <cover.1292444983.git.alex.devries@windriver.com>
+X-Mailer: git-send-email 1.7.0.4
+X-OriginalArrivalTime: 15 Dec 2010 20:32:08.0515 (UTC)
+	FILETIME=[25032930:01CB9C97]
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 01/14] openssl-native: disable execstack flag to prevent problems with SELinux
+Subject: [PATCH 0/4] Integration of latest swabber
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,60 +30,42 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 15 Dec 2010 19:28:51 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 15 Dec 2010 20:32:10 -0000
 
-On 11/17/2010 03:37 AM, Paul Eggleton wrote:
-> The execstack flag gets set on libcrypto.so by default which causes SELinux
-> to prevent it from being loaded on systems using SELinux, which includes
-> Fedora. This patch disables the execstack flag. (Note: Red Hat do this in
-> their openssl packaging.)
->
-> Signed-off-by: Paul Eggleton<paul.eggleton@linux.intel.com>
-> ---
->   meta/recipes-connectivity/openssl/openssl.inc      |    6 +++++-
->   .../recipes-connectivity/openssl/openssl_0.9.8o.bb |    2 +-
->   2 files changed, 6 insertions(+), 2 deletions(-)
->
-> diff --git a/meta/recipes-connectivity/openssl/openssl.inc b/meta/recipes-connectivity/openssl/openssl.inc
-> index 11dd1e5..dc2ff3e 100644
-> --- a/meta/recipes-connectivity/openssl/openssl.inc
-> +++ b/meta/recipes-connectivity/openssl/openssl.inc
-> @@ -15,7 +15,11 @@ S = "${WORKDIR}/openssl-${PV}"
->
->   AR_append = " r"
->   CFLAG = "${@base_conditional('SITEINFO_ENDIANESS', 'le', '-DL_ENDIAN', '-DB_ENDIAN', d)} \
-> -	-DTERMIO ${FULL_OPTIMIZATION} -Wall"
-> +	-DTERMIO ${FULL_OPTIMIZATION}"
+Merge of latest swabber and interface code.  Highlights are:
+- include distro filter files
+- calculate ccache directory properly
+- use latest version of swabber.
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: adevries/swabber
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=adevries/swabber
+
+Thanks,
+    Alex deVries <alex.devries@windriver.com>
+---
 
 
-Why do we need to remove -Wall? Doesn't that reduce our visibility into 
-potential issues?
+Alex deVries (4):
+  Stop using hardcoded paths, use new Ubuntu and generic filters.
+  Swabber's update_distro automatically updates the blob now.
+  Calculate CCACHE_DIR by calling host's ccache config.
+  Update to the latest swabber.
 
+ meta/classes/image-swab.bbclass                    |   12 +++++-----
+ .../conf/distro/include/poky-default-revisions.inc |    2 +-
+ meta/conf/swabber/Ubuntu-10.04.1-64/blacklist      |    6 +++++
+ meta/conf/swabber/Ubuntu-10.04.1-64/filters        |    7 ++++++
+ meta/conf/swabber/Ubuntu-10.04.1-64/whitelist      |   23 ++++++++++++++++++++
+ meta/conf/swabber/generic/blacklist                |    2 +
+ meta/conf/swabber/generic/filters                  |   10 ++++++++
+ meta/conf/swabber/generic/whitelist                |   15 +++++++++++++
+ 8 files changed, 70 insertions(+), 7 deletions(-)
+ create mode 100644 meta/conf/swabber/Ubuntu-10.04.1-64/blacklist
+ create mode 100644 meta/conf/swabber/Ubuntu-10.04.1-64/filters
+ create mode 100644 meta/conf/swabber/Ubuntu-10.04.1-64/whitelist
+ create mode 100644 meta/conf/swabber/generic/blacklist
+ create mode 100644 meta/conf/swabber/generic/filters
+ create mode 100644 meta/conf/swabber/generic/whitelist
 
-> +
-> +# Avoid binaries being marked as requiring an executable stack (which causes
-> +# issues with SELinux on the host)
-> +CFLAG_append_virtclass-native = " -Wa,--noexecstack"
->
->   # -02 does not work on mipsel: ssh hangs when it tries to read /dev/urandom
->   CFLAG_mtx-1 := "${@'${CFLAG}'.replace('-O2', '')}"
-> diff --git a/meta/recipes-connectivity/openssl/openssl_0.9.8o.bb b/meta/recipes-connectivity/openssl/openssl_0.9.8o.bb
-> index 31c5568..aa11cdf 100644
-> --- a/meta/recipes-connectivity/openssl/openssl_0.9.8o.bb
-> +++ b/meta/recipes-connectivity/openssl/openssl_0.9.8o.bb
-> @@ -1,6 +1,6 @@
->   require openssl.inc
->
-> -PR = "r0"
-> +PR = "r1"
->   SRC_URI += "file://debian/ca.patch \
->               file://debian/config-hurd.patch;apply=no \
->               file://debian/debian-targets.patch \
-
-
--- 
-Darren Hart
-Yocto Linux Kernel
 
