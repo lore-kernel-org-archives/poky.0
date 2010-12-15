@@ -1,20 +1,20 @@
 Return-Path: <josh@linux.intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 8B1CE4C811DB
-	for <poky@yoctoproject.org>; Wed, 15 Dec 2010 10:28:13 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 15 Dec 2010 08:28:13 -0800
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 183B34C811DA
+	for <poky@yoctoproject.org>; Wed, 15 Dec 2010 10:28:21 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 15 Dec 2010 08:28:20 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,349,1288594800"; d="scan'208";a="636610223"
+X-IronPort-AV: E=Sophos;i="4.59,349,1288594800"; d="scan'208";a="868560496"
 Received: from unknown (HELO localhost) ([10.255.16.78])
-	by fmsmga002.fm.intel.com with ESMTP; 15 Dec 2010 08:27:58 -0800
-Message-Id: <c5ab4d56f97a0e45b124d40c9f536541be04c201.1292430240.git.josh@linux.intel.com>
+	by fmsmga001.fm.intel.com with ESMTP; 15 Dec 2010 08:28:20 -0800
+Message-Id: <261ca885962ba9606bcad4c5415927a79fdd7b96.1292430240.git.josh@linux.intel.com>
 In-Reply-To: <cover.1292430240.git.josh@linux.intel.com>
 References: <cover.1292430240.git.josh@linux.intel.com>
-From: Paul Eggleton <paul.eggleton@intel.com>
+From: Joshua Lock <josh@linux.intel.com>
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 01/14] openssl-native: disable execstack flag to prevent problems with SELinux
+Subject: [PATCH 04/14] busybox: import upstream patch for make 3.82
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,50 +26,67 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-Date: Wed, 15 Dec 2010 16:28:13 -0000
-X-Original-Date: Wed, 17 Nov 2010 11:37:47 +0000
-X-List-Received-Date: Wed, 15 Dec 2010 16:28:13 -0000
+Date: Wed, 15 Dec 2010 16:28:21 -0000
+X-Original-Date: Tue, 9 Nov 2010 12:18:14 +0000
+X-List-Received-Date: Wed, 15 Dec 2010 16:28:21 -0000
 
-The execstack flag gets set on libcrypto.so by default which causes SELinux
-to prevent it from being loaded on systems using SELinux, which includes
-Fedora. This patch disables the execstack flag. (Note: Red Hat do this in
-their openssl packaging.)
-
-Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
+Signed-off-by: Joshua Lock <josh@linux.intel.com>
 ---
- meta/recipes-connectivity/openssl/openssl.inc      |    6 +++++-
- .../recipes-connectivity/openssl/openssl_0.9.8o.bb |    2 +-
- 2 files changed, 6 insertions(+), 2 deletions(-)
+ .../busybox/busybox-1.16.2/make-382-fix.patch      |   25 ++++++++++++++++++++
+ meta/recipes-core/busybox/busybox_1.16.2.bb        |    3 +-
+ 2 files changed, 27 insertions(+), 1 deletions(-)
+ create mode 100644 meta/recipes-core/busybox/busybox-1.16.2/make-382-fix.patch
 
-diff --git a/meta/recipes-connectivity/openssl/openssl.inc b/meta/recipes-connectivity/openssl/openssl.inc
-index 11dd1e5..dc2ff3e 100644
---- a/meta/recipes-connectivity/openssl/openssl.inc
-+++ b/meta/recipes-connectivity/openssl/openssl.inc
-@@ -15,7 +15,11 @@ S = "${WORKDIR}/openssl-${PV}"
- 
- AR_append = " r"
- CFLAG = "${@base_conditional('SITEINFO_ENDIANESS', 'le', '-DL_ENDIAN', '-DB_ENDIAN', d)} \
--	-DTERMIO ${FULL_OPTIMIZATION} -Wall"
-+	-DTERMIO ${FULL_OPTIMIZATION}"
+diff --git a/meta/recipes-core/busybox/busybox-1.16.2/make-382-fix.patch b/meta/recipes-core/busybox/busybox-1.16.2/make-382-fix.patch
+new file mode 100644
+index 0000000..4ef125d
+--- /dev/null
++++ b/meta/recipes-core/busybox/busybox-1.16.2/make-382-fix.patch
+@@ -0,0 +1,25 @@
++From ef6c6d8cfef071435ccf275ad404a501626b706c Mon Sep 17 00:00:00 2001
++From: Thomas Chou <thomas@wytron.com.tw>
++Date: Tue, 19 Oct 2010 07:17:12 +0000
++Subject: mkmakefile: make 3.82 fix
 +
-+# Avoid binaries being marked as requiring an executable stack (which causes 
-+# issues with SELinux on the host)
-+CFLAG_append_virtclass-native = " -Wa,--noexecstack"
- 
- # -02 does not work on mipsel: ssh hangs when it tries to read /dev/urandom
- CFLAG_mtx-1 := "${@'${CFLAG}'.replace('-O2', '')}"
-diff --git a/meta/recipes-connectivity/openssl/openssl_0.9.8o.bb b/meta/recipes-connectivity/openssl/openssl_0.9.8o.bb
-index 31c5568..aa11cdf 100644
---- a/meta/recipes-connectivity/openssl/openssl_0.9.8o.bb
-+++ b/meta/recipes-connectivity/openssl/openssl_0.9.8o.bb
-@@ -1,6 +1,6 @@
- require openssl.inc
- 
++Signed-off-by: Thomas Chou <thomas@wytron.com.tw>
++Signed-off-by: Denys Vlasenko <dvlasenk@redhat.com>
++---
++diff --git a/scripts/mkmakefile b/scripts/mkmakefile
++index 7f9d544..9fc51a7 100755
++--- a/scripts/mkmakefile
+++++ b/scripts/mkmakefile
++@@ -31,6 +31,9 @@ all:
++ 
++ Makefile:;
++ 
++-\$(filter-out all Makefile,\$(MAKECMDGOALS)) %/:
+++\$(filter-out all Makefile,\$(MAKECMDGOALS)):
+++	\$(MAKE) -C \$(KERNELSRC) O=\$(KERNELOUTPUT) \$@
+++
+++%/:
++ 	\$(MAKE) -C \$(KERNELSRC) O=\$(KERNELOUTPUT) \$@
++ EOF
++--
++cgit v0.8.2.1
+diff --git a/meta/recipes-core/busybox/busybox_1.16.2.bb b/meta/recipes-core/busybox/busybox_1.16.2.bb
+index 0952f4d..06fef62 100644
+--- a/meta/recipes-core/busybox/busybox_1.16.2.bb
++++ b/meta/recipes-core/busybox/busybox_1.16.2.bb
+@@ -1,5 +1,5 @@
+ require busybox.inc
 -PR = "r0"
 +PR = "r1"
- SRC_URI += "file://debian/ca.patch \
-             file://debian/config-hurd.patch;apply=no \
-             file://debian/debian-targets.patch \
+ 
+ SRC_URI = "http://www.busybox.net/downloads/busybox-${PV}.tar.bz2;name=tarball \
+            file://udhcpscript.patch \
+@@ -8,6 +8,7 @@ SRC_URI = "http://www.busybox.net/downloads/busybox-${PV}.tar.bz2;name=tarball \
+            file://get_header_tar.patch \
+            file://busybox-appletlib-dependency.patch \
+            file://run-parts.in.usr-bin.patch \
++           file://make-382-fix.patch \
+            file://find-touchscreen.sh \
+            file://busybox-cron \
+            file://busybox-httpd \
 -- 
 1.7.3.3
 
