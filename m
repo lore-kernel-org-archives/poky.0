@@ -1,21 +1,21 @@
 Return-Path: <scott.m.rifenbark@intel.com>
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id F1D1E4C808B0
-	for <poky@yoctoproject.org>; Mon, 20 Dec 2010 14:23:58 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 3CA7F4C808B0
+	for <poky@yoctoproject.org>; Mon, 20 Dec 2010 14:23:59 -0600 (CST)
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
 	by orsmga101.jf.intel.com with ESMTP; 20 Dec 2010 12:23:58 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,203,1291622400"; d="scan'208";a="689034099"
+X-IronPort-AV: E=Sophos;i="4.60,203,1291622400"; d="scan'208";a="689034100"
 Received: from scottrif-desktop.jf.intel.com (HELO localhost) ([10.7.201.54])
 	by orsmga001.jf.intel.com with ESMTP; 20 Dec 2010 12:23:58 -0800
-Message-Id: <b5fdc2e806ff600fb871605ffdd820b29b7f4ce4.1292876262.git.scott.m.rifenbark@intel.com>
+Message-Id: <049b9785c16ba00d91be794d2aa7a3620856ab5c.1292876262.git.scott.m.rifenbark@intel.com>
 In-Reply-To: <cover.1292876262.git.scott.m.rifenbark@intel.com>
 References: <cover.1292876262.git.scott.m.rifenbark@intel.com>
 From: Scott Rifenbark <scott.m.rifenbark@intel.com>
-Date: Tue, 14 Dec 2010 16:54:14 -0800
+Date: Tue, 14 Dec 2010 16:56:20 -0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 02/29] documentation/bsp-guide/bsp.xml: Added note qualifying BSP file structure.
+Subject: [PATCH 03/29] documentation/bsp-guide/bsp.xml: Fixed typo
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,30 +29,28 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Mon, 20 Dec 2010 20:23:59 -0000
 
-Inserted a note that states the BSP file structure shown is an example
-only and that a given BSP could have different files.
+Two lines had been earlier turned into a single sentence but the
+capitalization of the second line still remained.
+I switched "The" into "the".
 
 Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
 ---
- documentation/bsp-guide/bsp.xml |    5 +++++
- 1 files changed, 5 insertions(+), 0 deletions(-)
+ documentation/bsp-guide/bsp.xml |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
 diff --git a/documentation/bsp-guide/bsp.xml b/documentation/bsp-guide/bsp.xml
-index f55d14c..21bc5e4 100644
+index 21bc5e4..9698e93 100644
 --- a/documentation/bsp-guide/bsp.xml
 +++ b/documentation/bsp-guide/bsp.xml
-@@ -41,6 +41,11 @@
-             the build system they are using.
-         </para>
- 
-+        <note><para>
-+            The file structure shown below is only an example and actual structures for 
-+            specific BSPs could differ.
-+        </para></note>
-+
-         <para>
-             The BSP specification does not include a build system or other tools -
-             it is concerned with the hardware-specific components only. 
+@@ -33,7 +33,7 @@
+             It is intended that this information can be 
+             used by other systems besides Poky and OpenEmbedded and that it will be simple
+             to extract information and convert it to other formats if required.
+-            Poky, through its standard layers mechanism, can directly accept The format 
++            Poky, through its standard layers mechanism, can directly accept the format 
+             described as a layer.
+             The BSP captures all 
+             the hardware-specific details in one place in a standard format, which is 
 -- 
 1.7.0.4
 
