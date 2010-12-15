@@ -1,28 +1,28 @@
 Return-Path: <Alex.deVries@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0CA1E4C811DA
-	for <poky@yoctoproject.org>; Wed, 15 Dec 2010 15:14:38 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 0F1CE4C811DB
+	for <poky@yoctoproject.org>; Wed, 15 Dec 2010 15:14:39 -0600 (CST)
 Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oBFLEYOt028819;
-	Wed, 15 Dec 2010 13:14:34 -0800 (PST)
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oBFLEWLH028813;
+	Wed, 15 Dec 2010 13:14:32 -0800 (PST)
 Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
 	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Wed, 15 Dec 2010 13:14:34 -0800
+	Wed, 15 Dec 2010 13:14:32 -0800
 Received: from localhost ([128.224.146.68]) by ala-mail06.corp.ad.wrs.com with
-	Microsoft SMTPSVC(6.0.3790.1830); Wed, 15 Dec 2010 13:14:33 -0800
+	Microsoft SMTPSVC(6.0.3790.1830); Wed, 15 Dec 2010 13:14:32 -0800
 From: Alex deVries <alex.devries@windriver.com>
 To: rpurdie@linux.intel.com
-Date: Wed, 15 Dec 2010 16:17:20 -0500
-Message-Id: <da9d10c8676c55876e47e637e223e18c8d6118c2.1292447662.git.alex.devries@windriver.com>
+Date: Wed, 15 Dec 2010 16:17:19 -0500
+Message-Id: <20345be11fd1983ca77e3e2b43eed88af7219eb9.1292447662.git.alex.devries@windriver.com>
 X-Mailer: git-send-email 1.7.0.4
 In-Reply-To: <cover.1292447662.git.alex.devries@windriver.com>
 References: <cover.1292447662.git.alex.devries@windriver.com>
 In-Reply-To: <cover.1292447662.git.alex.devries@windriver.com>
 References: <cover.1292447662.git.alex.devries@windriver.com>
-X-OriginalArrivalTime: 15 Dec 2010 21:14:34.0001 (UTC)
-	FILETIME=[123D8010:01CB9C9D]
+X-OriginalArrivalTime: 15 Dec 2010 21:14:32.0829 (UTC)
+	FILETIME=[118AAAD0:01CB9C9D]
 Cc: poky@yoctoproject.org
-Subject: [PATCH 3/4] Calculate CCACHE_DIR by calling host's ccache config.
+Subject: [PATCH 2/4] Swabber's update_distro automatically updates the blob now.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,24 +38,27 @@ X-List-Received-Date: Wed, 15 Dec 2010 21:14:39 -0000
 
 Signed-off-by: Alex deVries <alex.devries@windriver.com>
 ---
- meta/classes/image-swab.bbclass |    4 ++++
- 1 files changed, 4 insertions(+), 0 deletions(-)
+ meta/classes/image-swab.bbclass |    6 +-----
+ 1 files changed, 1 insertions(+), 5 deletions(-)
 
 diff --git a/meta/classes/image-swab.bbclass b/meta/classes/image-swab.bbclass
-index 28918d0..ec949ff 100644
+index 9ddd1c9..28918d0 100644
 --- a/meta/classes/image-swab.bbclass
 +++ b/meta/classes/image-swab.bbclass
-@@ -68,6 +68,10 @@ do_generate_swabber_report () {
+@@ -60,12 +60,8 @@ python() {
+ }
  
-   REPORTSTAMP=${SWAB_ORIG_TASK}-`date +%2m%2d%2H%2M%Y`
+ do_generate_swabber_report () {
+-  echo "Updating host data"
  
-+  if [ `which ccache` ] ; then
-+    CCACHE_DIR=`( ccache -s | grep "cache directory" | grep -o '[^ ]*$' 2> /dev/null )`
-+  fi
-+
-   if [ "$(ls -A ${HOST_DATA})" ]; then
-     echo "Generating swabber report"
-     swabber -d ${HOST_DATA} -l ${SWABBER_LOGS} -o ${SWABBER_REPORT}/report-${REPORTSTAMP}.txt -r ${SWABBER_REPORT}/extra_report-${REPORTSTAMP}.txt -c all -p ${TOPDIR} -f ${OEROOT}/meta/conf/swabber ${TOPDIR} ${OEROOT} ${CCACHE_DIR}
+-  # Ensure we have the very latest host information
+-  if [ "${NOSWABBERUPDATE}" != "1" ]; then
+-     update_distro ${HOST_DATA}
+-  fi
++  update_distro ${HOST_DATA}
+ 
+   # Swabber can't create the directory for us
+   mkdir -p ${SWABBER_REPORT}
 -- 
 1.7.0.4
 
