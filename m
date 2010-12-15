@@ -1,40 +1,25 @@
-Return-Path: <kergoth@gmail.com>
-Received: from mail-ww0-f42.google.com (mail-ww0-f42.google.com [74.125.82.42])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2E6664C80BCF
-	for <poky@lists.pokylinux.org>; Wed, 15 Dec 2010 11:57:58 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by wwi17 with SMTP id 17so5748379wwi.3
-	for <poky@lists.pokylinux.org>; Wed, 15 Dec 2010 09:57:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:received:mime-version:sender:received
-	:in-reply-to:references:from:date:x-google-sender-auth:message-id
-	:subject:to:content-type:content-transfer-encoding;
-	bh=ZQoJ7Crwaf0nKdXJOt9GrqFOpbN24ebM/BbuOKdkOxQ=;
-	b=fLFPwoQkWceksXHZQbVf0bfeimes7axZ6STNXKLERtzkMEE8bkvMQkcFjbQgUwRFk5
-	ByXGvG5UH2z9B3XfHum47oGP3M0yiyh3wibxp3dTvGIpfAH4f0hHCkhxdtfMH8RyrKlB
-	f5a5kW9Mps4mURAGu1KTrgnvlHW+dnzCgYai4=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:sender:in-reply-to:references:from:date
-	:x-google-sender-auth:message-id:subject:to:content-type
-	:content-transfer-encoding;
-	b=cecpo1164HO8Yxgj/DIphqsDqzxhBziI2H2BKQv13Kl6VtSpVfii0Jn4Sg13c99/a9
-	Rdca3sJlfUEtA2MgSSeke3cxW97j7u7neOyV8OVzo1N55djf7pBjgWeloNUvoRvf//sR
-	5FDIhRXKKIDwkwSUNKbkWURp8T/3d3d6ZaLHs=
-Received: by 10.216.46.19 with SMTP id q19mr1234520web.0.1292435876892; Wed,
-	15 Dec 2010 09:57:56 -0800 (PST)
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 0AC6E4C80048
+	for <poky@yoctoproject.org>; Wed, 15 Dec 2010 13:28:50 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 15 Dec 2010 11:28:50 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.59,350,1288594800"; d="scan'208";a="584063352"
+Received: from unknown (HELO [10.255.14.19]) ([10.255.14.19])
+	by orsmga002.jf.intel.com with ESMTP; 15 Dec 2010 11:28:50 -0800
+Message-ID: <4D0916F4.9060703@linux.intel.com>
+Date: Wed, 15 Dec 2010 11:28:52 -0800
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
 MIME-Version: 1.0
-Sender: kergoth@gmail.com
-Received: by 10.216.67.67 with HTTP; Wed, 15 Dec 2010 09:57:36 -0800 (PST)
-In-Reply-To: <4D08FBE3.9020904@mlbassoc.com>
-References: <4D08FBE3.9020904@mlbassoc.com>
-From: Chris Larson <clarson@kergoth.com>
-Date: Wed, 15 Dec 2010 10:57:36 -0700
-X-Google-Sender-Auth: 8QVxrJX0DVFsVZriJdxOJ8ZHnKU
-Message-ID: <AANLkTi=36pdAvEaL3bXTHVyu4OBEOTFh7eL2SegGpaaT@mail.gmail.com>
-To: Poky <poky@lists.pokylinux.org>
-Subject: Re: Extending recipes
+To: Paul Eggleton <paul.eggleton@intel.com>
+References: <cover.1292430240.git.josh@linux.intel.com>
+	<c5ab4d56f97a0e45b124d40c9f536541be04c201.1292430240.git.josh@linux.intel.com>
+In-Reply-To: <c5ab4d56f97a0e45b124d40c9f536541be04c201.1292430240.git.josh@linux.intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 01/14] openssl-native: disable execstack flag to prevent problems with SELinux
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,43 +31,60 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 15 Dec 2010 17:57:58 -0000
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Wed, 15 Dec 2010 19:28:51 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Dec 15, 2010 at 10:33 AM, Gary Thomas <gary@mlbassoc.com> wrote:
-> I have a number of recipes that are in the Poky core that
-> need a little extending for my environment. =C2=A0Mostly, this
-> can be done with a .bbappend file, but some are a bit trickier.
+On 11/17/2010 03:37 AM, Paul Eggleton wrote:
+> The execstack flag gets set on libcrypto.so by default which causes SELinux
+> to prevent it from being loaded on systems using SELinux, which includes
+> Fedora. This patch disables the execstack flag. (Note: Red Hat do this in
+> their openssl packaging.)
 >
-> For example, in
-> meta/recipes-multimedia/gstreamer/gst-plugins-ugly_0.10.16.bb
-> there are a couple of lines which control how this package is
-> configured and built. =C2=A0In particular:
-> =C2=A0DEPENDS +=3D "gst-plugins-base libid3tag libmad mpeg2dec liba52 lam=
-e"
-> =C2=A0EXTRA_OECONF +=3D
-> "--with-plugins=3Da52dec,lame,id3tag,mad,mpeg2dec,mpegstream,mpegaudiopar=
-se,asfdemux,realmedia"
-> In my case, I want to have the h264 encoder/decoder built as well.
-> I don't see a [good?] way to change these lines to be effectively:
-> =C2=A0DEPENDS +=3D "gst-plugins-base libid3tag libmad mpeg2dec liba52 lam=
-e x264"
-> =C2=A0EXTRA_OECONF +=3D
-> "--with-plugins=3Da52dec,lame,id3tag,mad,mpeg2dec,mpegstream,mpegaudiopar=
-se,asfdemux,realmedia,x264"
+> Signed-off-by: Paul Eggleton<paul.eggleton@linux.intel.com>
+> ---
+>   meta/recipes-connectivity/openssl/openssl.inc      |    6 +++++-
+>   .../recipes-connectivity/openssl/openssl_0.9.8o.bb |    2 +-
+>   2 files changed, 6 insertions(+), 2 deletions(-)
 >
-> The DEPENDS variable is easy enough to extend in .bbappend,
-> but how should I handle EXTRA_OECONF?
+> diff --git a/meta/recipes-connectivity/openssl/openssl.inc b/meta/recipes-connectivity/openssl/openssl.inc
+> index 11dd1e5..dc2ff3e 100644
+> --- a/meta/recipes-connectivity/openssl/openssl.inc
+> +++ b/meta/recipes-connectivity/openssl/openssl.inc
+> @@ -15,7 +15,11 @@ S = "${WORKDIR}/openssl-${PV}"
+>
+>   AR_append = " r"
+>   CFLAG = "${@base_conditional('SITEINFO_ENDIANESS', 'le', '-DL_ENDIAN', '-DB_ENDIAN', d)} \
+> -	-DTERMIO ${FULL_OPTIMIZATION} -Wall"
+> +	-DTERMIO ${FULL_OPTIMIZATION}"
 
-The list of plugins should likely be shifted into its own variable in
-the core, so that its easier to override.  Alternatively, you could
-use oe_filter_out() to remove the current --with-plugins and add your
-own.
---=20
-Christopher Larson
-clarson at kergoth dot com
-Founder - BitBake, OpenEmbedded, OpenZaurus
-Maintainer - Tslib
-Senior Software Engineer, Mentor Graphics
+
+Why do we need to remove -Wall? Doesn't that reduce our visibility into 
+potential issues?
+
+
+> +
+> +# Avoid binaries being marked as requiring an executable stack (which causes
+> +# issues with SELinux on the host)
+> +CFLAG_append_virtclass-native = " -Wa,--noexecstack"
+>
+>   # -02 does not work on mipsel: ssh hangs when it tries to read /dev/urandom
+>   CFLAG_mtx-1 := "${@'${CFLAG}'.replace('-O2', '')}"
+> diff --git a/meta/recipes-connectivity/openssl/openssl_0.9.8o.bb b/meta/recipes-connectivity/openssl/openssl_0.9.8o.bb
+> index 31c5568..aa11cdf 100644
+> --- a/meta/recipes-connectivity/openssl/openssl_0.9.8o.bb
+> +++ b/meta/recipes-connectivity/openssl/openssl_0.9.8o.bb
+> @@ -1,6 +1,6 @@
+>   require openssl.inc
+>
+> -PR = "r0"
+> +PR = "r1"
+>   SRC_URI += "file://debian/ca.patch \
+>               file://debian/config-hurd.patch;apply=no \
+>               file://debian/debian-targets.patch \
+
+
+-- 
+Darren Hart
+Yocto Linux Kernel
 
