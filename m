@@ -1,20 +1,20 @@
 Return-Path: <josh@linux.intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E5D8F4C811B9
-	for <poky@yoctoproject.org>; Wed, 15 Dec 2010 10:28:06 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 15 Dec 2010 08:28:06 -0800
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8B1CE4C811DB
+	for <poky@yoctoproject.org>; Wed, 15 Dec 2010 10:28:13 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 15 Dec 2010 08:28:13 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,349,1288594800"; d="scan'208";a="362092178"
+X-IronPort-AV: E=Sophos;i="4.59,349,1288594800"; d="scan'208";a="636610223"
 Received: from unknown (HELO localhost) ([10.255.16.78])
-	by azsmga001.ch.intel.com with ESMTP; 15 Dec 2010 08:28:05 -0800
-Message-Id: <6026999e81042a7f6560f9bce04390865509b235.1292430240.git.josh@linux.intel.com>
+	by fmsmga002.fm.intel.com with ESMTP; 15 Dec 2010 08:27:58 -0800
+Message-Id: <c5ab4d56f97a0e45b124d40c9f536541be04c201.1292430240.git.josh@linux.intel.com>
 In-Reply-To: <cover.1292430240.git.josh@linux.intel.com>
 References: <cover.1292430240.git.josh@linux.intel.com>
 From: Paul Eggleton <paul.eggleton@intel.com>
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 02/14] qemu: fix failure to find zlib header files during configure
+Subject: [PATCH 01/14] openssl-native: disable execstack flag to prevent problems with SELinux
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,68 +26,50 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-Date: Wed, 15 Dec 2010 16:28:07 -0000
-X-Original-Date: Fri, 19 Nov 2010 15:03:32 +0000
-X-List-Received-Date: Wed, 15 Dec 2010 16:28:07 -0000
+Date: Wed, 15 Dec 2010 16:28:13 -0000
+X-Original-Date: Wed, 17 Nov 2010 11:37:47 +0000
+X-List-Received-Date: Wed, 15 Dec 2010 16:28:13 -0000
 
-Corrects problems during configure of qemu-native due to the BUILD_CFLAGS
-not being included when attempting to compile the test program for zlib
-within the configure script.
+The execstack flag gets set on libcrypto.so by default which causes SELinux
+to prevent it from being loaded on systems using SELinux, which includes
+Fedora. This patch disables the execstack flag. (Note: Red Hat do this in
+their openssl packaging.)
 
-Signed-off-by: Paul Eggleton <paul.eggleton@intel.com>
-Signed-off-by: Richard Purdie <rpurdie@linux.intel.com>
+Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
 ---
- .../qemu/qemu-0.12.4/fix-configure-checks.patch    |   20 ++++++++++++++++++++
- meta/recipes-devtools/qemu/qemu_0.12.4.bb          |    3 ++-
- 2 files changed, 22 insertions(+), 1 deletions(-)
- create mode 100644 meta/recipes-devtools/qemu/qemu-0.12.4/fix-configure-checks.patch
+ meta/recipes-connectivity/openssl/openssl.inc      |    6 +++++-
+ .../recipes-connectivity/openssl/openssl_0.9.8o.bb |    2 +-
+ 2 files changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/meta/recipes-devtools/qemu/qemu-0.12.4/fix-configure-checks.patch b/meta/recipes-devtools/qemu/qemu-0.12.4/fix-configure-checks.patch
-new file mode 100644
-index 0000000..28ca2b3
---- /dev/null
-+++ b/meta/recipes-devtools/qemu/qemu-0.12.4/fix-configure-checks.patch
-@@ -0,0 +1,20 @@
-+In native builds, qemu can fail to find zlib development files in the native 
-+sysroot and the build machine might not have zlib-dev packages installed.
+diff --git a/meta/recipes-connectivity/openssl/openssl.inc b/meta/recipes-connectivity/openssl/openssl.inc
+index 11dd1e5..dc2ff3e 100644
+--- a/meta/recipes-connectivity/openssl/openssl.inc
++++ b/meta/recipes-connectivity/openssl/openssl.inc
+@@ -15,7 +15,11 @@ S = "${WORKDIR}/openssl-${PV}"
+ 
+ AR_append = " r"
+ CFLAG = "${@base_conditional('SITEINFO_ENDIANESS', 'le', '-DL_ENDIAN', '-DB_ENDIAN', d)} \
+-	-DTERMIO ${FULL_OPTIMIZATION} -Wall"
++	-DTERMIO ${FULL_OPTIMIZATION}"
 +
-+Add CFLAGS to qemu's CFLAGS which in the native case means BUILD_CFLAGS are
-+added and files in the sysroot can be found.
-+
-+Patch from Paul Eggleton, Comments by RP 28/11/10
-+
-+Index: qemu-0.12.4/configure
-+===================================================================
-+--- qemu-0.12.4.orig/configure
-++++ qemu-0.12.4/configure
-+@@ -99,6 +99,7 @@ QEMU_CFLAGS="-Wstrict-prototypes -Wredun
-+ QEMU_CFLAGS="-D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE $QEMU_CFLAGS"
-+ QEMU_CFLAGS="-U_FORTIFY_SOURCE $QEMU_CFLAGS"
-+ QEMU_CFLAGS="-I. -I\$(SRC_PATH) $QEMU_CFLAGS"
-++QEMU_CFLAGS="$QEMU_CFLAGS $CFLAGS"
-+ LDFLAGS="-g $LDFLAGS"
-+ 
-+ gcc_flags="-Wold-style-declaration -Wold-style-definition"
-diff --git a/meta/recipes-devtools/qemu/qemu_0.12.4.bb b/meta/recipes-devtools/qemu/qemu_0.12.4.bb
-index 6e7d86f..ec0d9d2 100644
---- a/meta/recipes-devtools/qemu/qemu_0.12.4.bb
-+++ b/meta/recipes-devtools/qemu/qemu_0.12.4.bb
++# Avoid binaries being marked as requiring an executable stack (which causes 
++# issues with SELinux on the host)
++CFLAG_append_virtclass-native = " -Wa,--noexecstack"
+ 
+ # -02 does not work on mipsel: ssh hangs when it tries to read /dev/urandom
+ CFLAG_mtx-1 := "${@'${CFLAG}'.replace('-O2', '')}"
+diff --git a/meta/recipes-connectivity/openssl/openssl_0.9.8o.bb b/meta/recipes-connectivity/openssl/openssl_0.9.8o.bb
+index 31c5568..aa11cdf 100644
+--- a/meta/recipes-connectivity/openssl/openssl_0.9.8o.bb
++++ b/meta/recipes-connectivity/openssl/openssl_0.9.8o.bb
 @@ -1,6 +1,6 @@
- require qemu.inc
+ require openssl.inc
  
--PR = "r22"
-+PR = "r23"
- 
- FILESPATH = "${FILE_DIRNAME}/qemu-${PV}"
- FILESDIR = "${WORKDIR}"
-@@ -21,6 +21,7 @@ SRC_URI = "\
-     file://arm-cp15-fix.patch \
-     file://cursor-shadow-fix.patch \
-     file://vmware-vga-fifo-rewind.patch \
-+    file://fix-configure-checks.patch \
-     file://powerpc_rom.bin"
- 
- do_install_append () {
+-PR = "r0"
++PR = "r1"
+ SRC_URI += "file://debian/ca.patch \
+             file://debian/config-hurd.patch;apply=no \
+             file://debian/debian-targets.patch \
 -- 
 1.7.3.3
 
