@@ -1,20 +1,20 @@
 Return-Path: <josh@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 183B34C811DA
-	for <poky@yoctoproject.org>; Wed, 15 Dec 2010 10:28:21 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 15 Dec 2010 08:28:20 -0800
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 30A304C811E3
+	for <poky@yoctoproject.org>; Wed, 15 Dec 2010 10:28:24 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 15 Dec 2010 08:28:14 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,349,1288594800"; d="scan'208";a="868560496"
+X-IronPort-AV: E=Sophos;i="4.59,349,1288594800"; d="scan'208";a="584003800"
 Received: from unknown (HELO localhost) ([10.255.16.78])
-	by fmsmga001.fm.intel.com with ESMTP; 15 Dec 2010 08:28:20 -0800
-Message-Id: <261ca885962ba9606bcad4c5415927a79fdd7b96.1292430240.git.josh@linux.intel.com>
+	by orsmga002.jf.intel.com with ESMTP; 15 Dec 2010 08:28:12 -0800
+Message-Id: <72ddd5c20246a5d5b1752b58a61ef75b4c39cc40.1292430240.git.josh@linux.intel.com>
 In-Reply-To: <cover.1292430240.git.josh@linux.intel.com>
 References: <cover.1292430240.git.josh@linux.intel.com>
 From: Joshua Lock <josh@linux.intel.com>
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 04/14] busybox: import upstream patch for make 3.82
+Subject: [PATCH 03/14] eglibc: fix build of eglibc-initial for make 3.82
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,67 +26,74 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-Date: Wed, 15 Dec 2010 16:28:21 -0000
-X-Original-Date: Tue, 9 Nov 2010 12:18:14 +0000
-X-List-Received-Date: Wed, 15 Dec 2010 16:28:21 -0000
+Date: Wed, 15 Dec 2010 16:28:24 -0000
+X-Original-Date: Tue, 9 Nov 2010 12:14:28 +0000
+X-List-Received-Date: Wed, 15 Dec 2010 16:28:24 -0000
+
+Make 3.82, as shipped with Fedora 14, fixes some holes in the parser which in
+turn breaks behaviour of some Makefiles. Most notably eglibc's.
 
 Signed-off-by: Joshua Lock <josh@linux.intel.com>
 ---
- .../busybox/busybox-1.16.2/make-382-fix.patch      |   25 ++++++++++++++++++++
- meta/recipes-core/busybox/busybox_1.16.2.bb        |    3 +-
- 2 files changed, 27 insertions(+), 1 deletions(-)
- create mode 100644 meta/recipes-core/busybox/busybox-1.16.2/make-382-fix.patch
+ .../eglibc/eglibc-2.12/fix-for-make-3.82.diff      |   25 ++++++++++++++++++++
+ meta/recipes-core/eglibc/eglibc_2.12.bb            |    5 ++-
+ 2 files changed, 28 insertions(+), 2 deletions(-)
+ create mode 100644 meta/recipes-core/eglibc/eglibc-2.12/fix-for-make-3.82.diff
 
-diff --git a/meta/recipes-core/busybox/busybox-1.16.2/make-382-fix.patch b/meta/recipes-core/busybox/busybox-1.16.2/make-382-fix.patch
+diff --git a/meta/recipes-core/eglibc/eglibc-2.12/fix-for-make-3.82.diff b/meta/recipes-core/eglibc/eglibc-2.12/fix-for-make-3.82.diff
 new file mode 100644
-index 0000000..4ef125d
+index 0000000..934d31a
 --- /dev/null
-+++ b/meta/recipes-core/busybox/busybox-1.16.2/make-382-fix.patch
++++ b/meta/recipes-core/eglibc/eglibc-2.12/fix-for-make-3.82.diff
 @@ -0,0 +1,25 @@
-+From ef6c6d8cfef071435ccf275ad404a501626b706c Mon Sep 17 00:00:00 2001
-+From: Thomas Chou <thomas@wytron.com.tw>
-+Date: Tue, 19 Oct 2010 07:17:12 +0000
-+Subject: mkmakefile: make 3.82 fix
++Make 3.82, as shipped with Fedora 14, fixes some holes in the parser which in
++turn breaks behaviour of some Makefiles. Most notably eglibc's.
 +
-+Signed-off-by: Thomas Chou <thomas@wytron.com.tw>
-+Signed-off-by: Denys Vlasenko <dvlasenk@redhat.com>
-+---
-+diff --git a/scripts/mkmakefile b/scripts/mkmakefile
-+index 7f9d544..9fc51a7 100755
-+--- a/scripts/mkmakefile
-++++ b/scripts/mkmakefile
-+@@ -31,6 +31,9 @@ all:
++http://www.mail-archive.com/bug-make@gnu.org/msg06220.html
++
++Fix back-ported from glibc/eglibc revision control.
++
++JL 13/10/10
++
++Index: libc/manual/Makefile
++===================================================================
++--- libc.orig/manual/Makefile
+++++ libc/manual/Makefile
++@@ -243,7 +243,10 @@ ifdef objpfx
++ .PHONY: stubs
++ stubs: $(objpfx)stubs
++ endif
++-$(objpfx)stubs ../po/manual.pot $(objpfx)stamp%:
+++$(objpfx)stubs ../po/manual.pot:
+++	$(make-target-directory)
+++	touch $@
+++$(objpfx)stamp%:
++ 	$(make-target-directory)
++ 	touch $@
 + 
-+ Makefile:;
-+ 
-+-\$(filter-out all Makefile,\$(MAKECMDGOALS)) %/:
-++\$(filter-out all Makefile,\$(MAKECMDGOALS)):
-++	\$(MAKE) -C \$(KERNELSRC) O=\$(KERNELOUTPUT) \$@
-++
-++%/:
-+ 	\$(MAKE) -C \$(KERNELSRC) O=\$(KERNELOUTPUT) \$@
-+ EOF
-+--
-+cgit v0.8.2.1
-diff --git a/meta/recipes-core/busybox/busybox_1.16.2.bb b/meta/recipes-core/busybox/busybox_1.16.2.bb
-index 0952f4d..06fef62 100644
---- a/meta/recipes-core/busybox/busybox_1.16.2.bb
-+++ b/meta/recipes-core/busybox/busybox_1.16.2.bb
-@@ -1,5 +1,5 @@
- require busybox.inc
--PR = "r0"
-+PR = "r1"
+diff --git a/meta/recipes-core/eglibc/eglibc_2.12.bb b/meta/recipes-core/eglibc/eglibc_2.12.bb
+index 752c1d8..9db1436 100644
+--- a/meta/recipes-core/eglibc/eglibc_2.12.bb
++++ b/meta/recipes-core/eglibc/eglibc_2.12.bb
+@@ -2,7 +2,7 @@ require eglibc.inc
  
- SRC_URI = "http://www.busybox.net/downloads/busybox-${PV}.tar.bz2;name=tarball \
-            file://udhcpscript.patch \
-@@ -8,6 +8,7 @@ SRC_URI = "http://www.busybox.net/downloads/busybox-${PV}.tar.bz2;name=tarball \
-            file://get_header_tar.patch \
-            file://busybox-appletlib-dependency.patch \
-            file://run-parts.in.usr-bin.patch \
-+           file://make-382-fix.patch \
-            file://find-touchscreen.sh \
-            file://busybox-cron \
-            file://busybox-httpd \
+ DEPENDS += "gperf-native"
+ FILESPATHPKG =. "eglibc-svn:"
+-PR = "r9"
++PR = "r10"
+ 
+ EGLIBC_BRANCH="eglibc-2_12"
+ SRC_URI = "svn://www.eglibc.org/svn/branches/;module=${EGLIBC_BRANCH};proto=http \
+@@ -11,7 +11,8 @@ SRC_URI = "svn://www.eglibc.org/svn/branches/;module=${EGLIBC_BRANCH};proto=http
+            file://shorten-build-commands.patch \
+            file://mips-rld-map-check.patch \
+            file://etc/ld.so.conf \
+-           file://generate-supported.mk"
++           file://generate-supported.mk \
++	   file://fix-for-make-3.82.diff"
+ SRC_URI_append_virtclass-nativesdk = " file://ld-search-order.patch"
+ S = "${WORKDIR}/${EGLIBC_BRANCH}/libc"
+ B = "${WORKDIR}/build-${TARGET_SYS}"
 -- 
 1.7.3.3
 
