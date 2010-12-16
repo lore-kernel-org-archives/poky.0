@@ -1,29 +1,32 @@
 Return-Path: <richard.purdie@linuxfoundation.org>
 Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 952084C810E1
-	for <poky@pokylinux.org>; Thu, 16 Dec 2010 09:29:39 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id AC0814C810E1
+	for <poky@pokylinux.org>; Thu, 16 Dec 2010 09:30:15 -0600 (CST)
 Received: from localhost (dan.rpsys.net [127.0.0.1])
 	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	oBGFUpiT030056; Thu, 16 Dec 2010 15:30:52 GMT
+	oBGFVQ39030121; Thu, 16 Dec 2010 15:31:26 GMT
 X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
 Received: from dan.rpsys.net ([127.0.0.1])
 	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id g3vSQjAAPY1E; Thu, 16 Dec 2010 15:30:51 +0000 (GMT)
+	with LMTP id hcoS5obxfxhB; Thu, 16 Dec 2010 15:31:25 +0000 (GMT)
 Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
 	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	oBGFUjHL030048
+	oBGFVMha030079
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Thu, 16 Dec 2010 15:30:47 GMT
+	Thu, 16 Dec 2010 15:31:23 GMT
 From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Kevin Tian <kevin.tian@intel.com>
-In-Reply-To: <0d30dc$kfrh4k@orsmga001.jf.intel.com>
-References: <0d30dc$kfrh4k@orsmga001.jf.intel.com>
-Date: Thu, 16 Dec 2010 15:29:17 +0000
-Message-ID: <1292513357.26558.4007.camel@rex>
+To: "Tian, Kevin" <kevin.tian@intel.com>
+In-Reply-To: <625BA99ED14B2D499DC4E29D8138F1504D5F40965E@shsmsx502.ccr.corp.intel.com>
+References: <0d30dc$kf5f5e@orsmga001.jf.intel.com>
+	<1292404338.26558.1582.camel@rex> <4D08E868.6090606@mlbassoc.com>
+	<625BA99ED14B2D499DC4E29D8138F1504D5F40965E@shsmsx502.ccr.corp.intel.com>
+Date: Thu, 16 Dec 2010 15:29:53 +0000
+Message-ID: <1292513393.26558.4009.camel@rex>
 Mime-Version: 1.0
 X-Mailer: Evolution 2.28.3 
-Cc: paul.eggleton@linux.intel.com, poky@pokylinux.org
-Subject: Re: [PATCH 2/3] kernel.bbclass: rename do_deploy and add vardepsexclusive accordingly
+Cc: "paul.eggleton@linux.intel.com" <paul.eggleton@linux.intel.com>,
+	"poky@pokylinux.org" <poky@pokylinux.org>
+Subject: Re: [PATCH 0/1] Fix weird rebuild issue even when sstate signature doesn't change
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,67 +38,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Dec 2010 15:29:39 -0000
+X-List-Received-Date: Thu, 16 Dec 2010 15:30:16 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On Thu, 2010-12-16 at 16:56 +0800, Kevin Tian wrote:
-> rename do_deploy to kernel_do_deploy and export it. Then add exclusive
-> list for two variables it refers to:
+On Thu, 2010-12-16 at 16:45 +0800, Tian, Kevin wrote:
+> >From: Gary Thomas [mailto:gary@mlbassoc.com]
+> >Sent: Thursday, December 16, 2010 12:10 AM
+> >
+> >Note to Richard: I'm still seeing a ton of Noexec messages every time I rebuild
+> >a package in this tree.  I thought I understood you to say they should happen
+> >at most once?
+> >
 > 
-> +kernel_do_deploy[vardepsexclude] = "DATETIME"
-> +KERNEL_IMAGE_BASE_NAME[vardepsexclude] = "DATETIME"
+> Yes, RP's previous patch does reduce the Noexec messages a lot. However there
+> remains one problem. Current stamp file check also calculates the stamp of tasks
+> depended on. If those stamps are newer or not exist, the check return False to
+> indicate mismatched stamp.
 > 
-> This avoids the last road block linux-yocto for sstate.
+> In 'noexec' case, some 'noexec' tasks happen to have some dependent tasks
+> skipped which thus don't generate stamp files. This makes the check always
+> failed for those 'noexec' tasks and thus you always observe the Noexec messages.
+> 
+> I have a patch to fix that, and will send out soon. :-)
 
-Shouldn't this just need only the 
-
-KERNEL_IMAGE_BASE_NAME[vardepsexclude] = "DATETIME"
-
-change?
+I've pushed what I think is the correct fix for this problem, let me
+know how it looks.
 
 Cheers,
 
 Richard
-
-> Signed-off-by: Kevin Tian <kevin.tian@intel.com>
-> ---
->  meta/classes/kernel.bbclass |    4 +++-
->  meta/conf/distro/poky.conf  |    2 ++
->  2 files changed, 5 insertions(+), 1 deletions(-)
-> 
-> diff --git a/meta/classes/kernel.bbclass b/meta/classes/kernel.bbclass
-> index bb76285..341809a 100644
-> --- a/meta/classes/kernel.bbclass
-> +++ b/meta/classes/kernel.bbclass
-> @@ -474,7 +474,7 @@ addtask sizecheck before do_install after do_compile
->  KERNEL_IMAGE_BASE_NAME ?= "${KERNEL_IMAGETYPE}-${PV}-${PR}-${MACHINE}-${DATETIME}"
->  KERNEL_IMAGE_SYMLINK_NAME ?= "${KERNEL_IMAGETYPE}-${MACHINE}"
->  
-> -do_deploy() {
-> +kernel_do_deploy() {
->  	install -m 0644 arch/${ARCH}/boot/${KERNEL_IMAGETYPE} ${DEPLOYDIR}/${KERNEL_IMAGE_BASE_NAME}.bin
->  	if (grep -q -i -e '^CONFIG_MODULES=y$' .config); then
->  		tar -cvzf ${DEPLOYDIR}/modules-${KERNEL_VERSION}-${PR}-${MACHINE}.tgz -C ${D} lib
-> @@ -504,6 +504,8 @@ do_deploy[dirs] = "${DEPLOYDIR} ${B}"
->  
->  addtask deploy before do_package after do_install
->  
-> +EXPORT_FUNCTIONS do_deploy
-> +
->  # perf must be enabled in individual kernel recipes
->  PACKAGES =+ "perf"
->  FILES_perf = "${bindir}/* \
-> diff --git a/meta/conf/distro/poky.conf b/meta/conf/distro/poky.conf
-> index 95ca097..735e0c0 100644
-> --- a/meta/conf/distro/poky.conf
-> +++ b/meta/conf/distro/poky.conf
-> @@ -145,3 +145,5 @@ BB_SIGNATURE_HANDLER = "basic"
->  BB_HASHTASK_WHITELIST = "(.*-cross$|.*-native$|.*-cross-initial$|.*-cross-intermediate$|^virtual:native:.*|^virtual:nativesdk:.*)"
->  BB_HASHBASE_WHITELIST = "TMPDIR FILE PATH PWD BB_TASKHASH BBPATH DL_DIR SSTATE_DIR THISDIR FILESEXTRAPATHS FILE_DIRNAME HOME LOGNAME SHELL TERM USER"
->  patch_do_patch[vardepsexclude] = "DATE SRCDATE"
-> +kernel_do_deploy[vardepsexclude] = "DATETIME"
-> +KERNEL_IMAGE_BASE_NAME[vardepsexclude] = "DATETIME"
-
 
 
