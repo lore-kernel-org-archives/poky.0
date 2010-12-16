@@ -1,20 +1,22 @@
-Return-Path: <tom.zanussi@intel.com>
+Return-Path: <dvhart@linux.intel.com>
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id DF70B4C81110
-	for <poky@yoctoproject.org>; Wed, 15 Dec 2010 16:36:42 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id BD8754C80BCF
+	for <poky@yoctoproject.org>; Wed, 15 Dec 2010 18:18:11 -0600 (CST)
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 15 Dec 2010 14:36:42 -0800
+	by fmsmga101.fm.intel.com with ESMTP; 15 Dec 2010 16:18:11 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,351,1288594800"; d="scan'208";a="636757237"
-Received: from unknown (HELO [10.255.13.76]) ([10.255.13.76])
-	by fmsmga002.fm.intel.com with ESMTP; 15 Dec 2010 14:36:41 -0800
-From: Tom Zanussi <tom.zanussi@intel.com>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Date: Wed, 15 Dec 2010 16:36:41 -0600
-Message-ID: <1292452601.2104.17.camel@elmorro>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Subject: [PATCH 1/1] meta-crownbay: update crownbay SRCREVs
+X-IronPort-AV: E=Sophos;i="4.59,351,1288594800"; d="scan'208";a="636784980"
+Received: from unknown (HELO [10.255.14.19]) ([10.255.14.19])
+	by fmsmga002.fm.intel.com with ESMTP; 15 Dec 2010 16:17:55 -0800
+Message-ID: <4D095AB5.6060805@linux.intel.com>
+Date: Wed, 15 Dec 2010 16:17:57 -0800
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
+MIME-Version: 1.0
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>, 
+	Yocto Project Discussions <yocto@linux.intel.com>
+Subject: RFC: README.hardware: Intel Atom device documentation
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,35 +28,95 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 15 Dec 2010 22:36:43 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Thu, 16 Dec 2010 00:18:12 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 7bit
 
-Update crownbay machine and meta SRCREVs to point the correct place in
-the kernel tree.
+I ran across some issues working with USB keys while booting a couple
+different Intel Atom based devices. I drafted the following documenting
+what I learned from the process. I'd like to add this (or something
+similar) to README.hardware.
 
-In keeping with the 'self-contained' aspect of the BSP, also keep it
-in the meta-crownbay layer.
+Thoughts/Comments?
 
-Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
----
- meta-crownbay/conf/machine/crownbay.conf |    3 +++
- 1 files changed, 3 insertions(+), 0 deletions(-)
 
-diff --git a/meta-crownbay/conf/machine/crownbay.conf b/meta-crownbay/conf/machine/crownbay.conf
-index 1fc27b7..de59bc0 100644
---- a/meta-crownbay/conf/machine/crownbay.conf
-+++ b/meta-crownbay/conf/machine/crownbay.conf
-@@ -44,3 +44,6 @@ IMAGE_FSTYPES ?= "ext3 cpio.gz"
- 
- GLIBC_ADDONS = "nptl"
- GLIBC_EXTRA_OECONF = "--with-tls"
-+
-+SRCREV_machine_pn-linux-wrs_crownbay = "f0afe10edaed24575eb115ad69c366fc24ea9380"
-+SRCREV_meta_pn-linux-wrs = "2f315f96f26a93d22fe0fc524de629e7c46b8469"
+Intel Atom based PCs and devices (atom-pc)
+==========================================
+
+The atom-pc MACHINE is tested on the following platforms:
+
+  o Asus eee901
+  o Acer Aspire One
+  o Toshiba NB305
+  o Intel BlackSand development board (FIXME: correct name)
+
+and is likely to work on many unlisted atom based devices. The MACHINE
+type supports ethernet, wifi, sound, and i915 graphics by default in
+addition to common PC input devices, busses, and so on.
+
+Depending on the device, it can boot from a traditional hard-disk, a USB
+device, or over the network. Writing poky generated images to physical
+is straightforward with a caveat for USB devices. The following examples
+assume the target boot device is /dev/sdb, be sure to verify this and
+use the correct device as the following commands are run as root and are
+not reversable.
+
+Hard Disk:
+  1. Build a directdisk image format. This will generate proper
+     partition tables that will in turn be written to the physical media.
+  
+  2. Use the "dd" utility to write the image to the raw block device.
+     For example:
+
+     $ dd if=poky-image-minimal-live-atom-pc-20101214120906.ddimg of=/dev/sdb
+     FIXME: verify image name and extension
+
+USB Device:
+  1. Build an hddimg image format. This is a simple filesystem without
+     partition tables and is suitable for USB keys.
+
+  2. Use the "dd" utility to write the image to the raw block device.
+     For example:
+
+     $ dd if=poky-image-minimal-live-atom-pc-20101214120906.hddimg of=/dev/sdb
+
+  If the device fails to boot with "Boot error" displayed, it is likely
+  the BIOS cannot understand the physical layout of the disk (or rather
+  it expects it to be a particular layout and can't handle anything
+  else). There are two possible solutions to this problem:
+
+  1. Change the BIOS USB Device setting to HDD mode. The label will vary
+     my device, but the idea is to force BIOS to read the
+     Cylinder/Head/Sector geometry from the device.
+
+  2. Without such an option, the BIOS generally boots the device in
+     USB-ZIP mode.
+
+     a. Configure the USB device for USB-ZIP mode:
+     
+     # mkdiskimage -4 /dev/sdb 0 63 62
+
+     Where 63 and 62 are the cylinder and head count as reported by
+     fdisk.  Remove and reinsert the device to allow the kernel to
+     detect the new partition layout.
+
+     b. Copy the contents of the poky image to the USB-ZIP mode device:
+
+     # mount -o loop poky-image-minimal-live-atom-pc-20101214120906.hddimg  /tmp/image
+     # mount /dev/sdb4 /tmp/usbkey
+     # cp -rf /tmp/image/* /tmp/usbkey
+
+     c. Install the syslinux boot loader:
+
+     # syslinux /dev/sdb4
+
+  Install the boot device in the target board and configure the BIOS to
+  boot from it.
+
+  For more details on the USB-ZIP scenario, see the syslinux documentation:
+  http://git.kernel.org/?p=boot/syslinux/syslinux.git;a=blob_plain;f=doc/usbkey.txt;hb=HEAD
+
 -- 
-1.7.0.4
-
-
-
+Darren Hart
+Yocto Linux Kernel
 
