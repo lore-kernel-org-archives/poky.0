@@ -1,24 +1,30 @@
-Return-Path: <josh@openedhand.com>
-Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 984D84C81081
-	for <poky@yoctoproject.org>; Thu, 16 Dec 2010 09:45:27 -0600 (CST)
-Received: from [192.168.0.7] (5ad2c26b.bb.sky.com [90.210.194.107])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by pug.o-hand.com (Postfix) with ESMTP id 17E1912EC1F6
-	for <poky@yoctoproject.org>; Thu, 16 Dec 2010 10:24:05 -0600 (CST)
-From: Joshua Lock <josh@openedhand.com>
-To: poky@yoctoproject.org
-In-Reply-To: <201012160949.49288.paul.eggleton@intel.com>
-References: <cover.1292430240.git.josh@linux.intel.com>
-	<c5ab4d56f97a0e45b124d40c9f536541be04c201.1292430240.git.josh@linux.intel.com>
-	<4D0916F4.9060703@linux.intel.com>
-	<201012160949.49288.paul.eggleton@intel.com>
-Date: Thu, 16 Dec 2010 15:45:19 +0000
-Message-ID: <1292514319.2472.3.camel@scimitar>
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 63A8F4C80FA8
+	for <poky@yoctoproject.org>; Thu, 16 Dec 2010 09:50:17 -0600 (CST)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	oBGFpVA9031124; Thu, 16 Dec 2010 15:51:31 GMT
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id htavCms3QZKS; Thu, 16 Dec 2010 15:51:31 +0000 (GMT)
+Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	oBGFpOMw031069
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Thu, 16 Dec 2010 15:51:26 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Lianhao Lu <lianhao.lu@intel.com>
+In-Reply-To: <39f0fc7689c9ddf429a5a2fd4fad7e74c0d98bb6.1292464057.git.lianhao.lu@intel.com>
+References: <cover.1292464057.git.lianhao.lu@intel.com>
+	<39f0fc7689c9ddf429a5a2fd4fad7e74c0d98bb6.1292464057.git.lianhao.lu@intel.com>
+Date: Thu, 16 Dec 2010 15:49:56 +0000
+Message-ID: <1292514596.26558.4040.camel@rex>
 Mime-Version: 1.0
-X-Mailer: Evolution 2.32.1 (2.32.1-1.fc14) 
-Subject: Re: [PATCH 01/14] openssl-native: disable execstack flag to prevent problems with SELinux
+X-Mailer: Evolution 2.28.3 
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 1/1] meta-environment: Added package of meta-environment-${TARGET_ARCH} for environment files.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,26 +36,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Dec 2010 15:45:27 -0000
+X-List-Received-Date: Thu, 16 Dec 2010 15:50:17 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On Thu, 2010-12-16 at 09:49 +0000, Paul Eggleton wrote:
-> On Wednesday 15 December 2010 19:28:52 Darren Hart wrote:
-> > > -	-DTERMIO ${FULL_OPTIMIZATION} -Wall"
-> > > +	-DTERMIO ${FULL_OPTIMIZATION}"
-> > 
-> > Why do we need to remove -Wall? Doesn't that reduce our visibility into 
-> > potential issues?
-> 
-> We don't - actually this was a mistake that I was sure had I removed from the original patch. -Wall should be put back in.
+Hi Lianhao,
 
-I've merged the patch which does this to josh/laverne.
+On Thu, 2010-12-16 at 09:40 +0800, Lianhao Lu wrote:
+> [BUGID #565] Fixing bug #565, added package of
+> meta-environment-${TARGET_ARCH} for environment files used by
+> cross-canadian toolchain.
+> 
+> Also corrected the situation of empty config site file for target.
+> 
+> Signed-off-by: Lianhao Lu <lianhao.lu@intel.com>
+> ---
+>  meta/classes/toolchain-scripts.bbclass         |   32 ++++++++++
+>  meta/recipes-core/meta/meta-environment.bb     |   75 ++++++++++++++++++++++++
+>  meta/recipes-core/tasks/task-cross-canadian.bb |    1 +
+>  3 files changed, 108 insertions(+), 0 deletions(-)
+>  create mode 100644 meta/recipes-core/meta/meta-environment.bb
+
+This recipe looks complex and seems to include a lot of
+cross-canadian.bbclass.
+
+Would it be possible to inherit that class instead and try and keep the
+recipe simpler? You can always drop the "meta" inherit. I'm worried
+about the amount of code duplication here.
 
 Cheers,
-Joshua
--- 
-Joshua Lock
-        Intel Open Source Technology Centre
+
+Richard
+
 
 
