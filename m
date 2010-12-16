@@ -1,29 +1,23 @@
-Return-Path: <scott.a.garman@intel.com>
+Return-Path: <sgw@linux.intel.com>
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 981AD4C80B71;
-	Thu, 16 Dec 2010 15:56:33 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 16 Dec 2010 13:56:33 -0800
+	by mx1.pokylinux.org (Postfix) with ESMTP id B9FE74C811D9;
+	Thu, 16 Dec 2010 16:04:29 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 16 Dec 2010 14:04:29 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,357,1288594800"; d="scan'208";a="637196369"
-Received: from rrsmsx603.amr.corp.intel.com ([10.31.0.57])
-	by fmsmga002.fm.intel.com with ESMTP; 16 Dec 2010 13:56:33 -0800
-Received: from [10.255.14.24] (10.255.14.24) by rrsmsx603.amr.corp.intel.com
-	(10.31.0.57) with Microsoft SMTP Server (TLS) id 8.2.254.0;
-	Thu, 16 Dec 2010 14:56:32 -0700
-Message-ID: <4D0A8B0F.8000208@intel.com>
-Date: Thu, 16 Dec 2010 13:56:31 -0800
-From: Scott Garman <scott.a.garman@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101208 Thunderbird/3.1.7
+X-IronPort-AV: E=Sophos;i="4.59,357,1288594800"; d="scan'208";a="869082731"
+Received: from unknown (HELO [10.255.14.3]) ([10.255.14.3])
+	by fmsmga001.fm.intel.com with ESMTP; 16 Dec 2010 14:04:29 -0800
+Message-ID: <4D0A8CEC.5030709@linux.intel.com>
+Date: Thu, 16 Dec 2010 14:04:28 -0800
+From: Saul Wold <sgw@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
 MIME-Version: 1.0
-To: "Tian, Kevin" <kevin.tian@intel.com>
-References: <4D096431.2000107@linux.intel.com>
-	<625BA99ED14B2D499DC4E29D8138F1504D5F4093D7@shsmsx502.ccr.corp.intel.com>
-In-Reply-To: <625BA99ED14B2D499DC4E29D8138F1504D5F4093D7@shsmsx502.ccr.corp.intel.com>
-Cc: Yocto Project Discussion <yocto@yoctoproject.org>,
+To: Yocto Project Discussion <yocto@yoctoproject.org>, 
 	"poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: Recipe Updating Status and call to action
+Subject: Announcing poky-extras repository available
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,39 +29,39 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Dec 2010 21:56:33 -0000
-Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
+X-List-Received-Date: Thu, 16 Dec 2010 22:04:29 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 12/15/2010 06:40 PM, Tian, Kevin wrote:
-> On the other hand, along with this I realize that there's one area we need further
-> discuss. How often should we upgrade packages in a given release cycle? MeeGo
-> only does once. For Yocto we want to keep our recipes in cutting-edge which is
-> why we schedule two upgrade windows in M2 and M3 this time.
 
-I'd like to question this. Is the goal for Poky/Yocto to track the 
-bleeding-edge releases of software, or is the goal to be a well-tested 
-and stable foundation for embedded software applications?
+Hello All,
 
-Upgrading a recipe within a couple of weeks of its release may end up 
-using more of our resources if/when we encounter new bugs that were 
-introduced in the new release. Or worse, if we don't encounter them 
-during distro builds and then our users take our release and discover 
-them for themselves.
+Recently Richard sent around an email proposing that a new repository be 
+created for hosting layers that are not part of the core Yocto Metadata.
 
-I'm not saying we need to be as conservative as long-term-support 
-enterprise Linux distros, but IMHO I think racing to always upgrade our 
-recipes to versions released a handful of weeks ago can be 
-counterproductive in many situations.
+This new repository "poky-extras" can host different contributed layers 
+and will be open to any one.
 
-A policy I might put forward for consideration is this: recipe upgrades 
-are done once per release cycle, and upstream versions that have come 
-out within the last 30 days should not be upgraded unless we have a 
-really good reason for doing so.
+ From Richard's proposed ground rules:
 
-Scott
+> * it has the OE style open contributions model
+> * consists of a set of layers, each clearly identified at the top level
+> * each layer has a clearly named maintainer or maintainers
+> * people respect the layer maintainers
+> * layers are split into logical "topics" where at all possible
+
+The first layer contained in this new repository is the meta-linaro 
+layer, the top level repository will be removed short since it will now 
+be maintained in poky-extras.
+
+If you require write access to this repository, please send your request 
+to git-requests@yoctoproject.org
 
 -- 
-Scott Garman
-Embedded Linux Distro Engineer - Yocto Project
+     Sau!
+
+Saul Wold
+Yocto Component Wrangler @ Intel
+Yocto Project / Poky Build System
+
 
