@@ -1,21 +1,25 @@
-Return-Path: <lianhao.lu@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E6F384C80FAD
-	for <poky@yoctoproject.org>; Wed, 15 Dec 2010 19:52:46 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 15 Dec 2010 17:52:46 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,352,1288594800"; d="scan'208";a="362364610"
-Received: from llu-piketon.sh.intel.com ([10.239.36.141])
-	by azsmga001.ch.intel.com with ESMTP; 15 Dec 2010 17:52:45 -0800
-Received: from lulianhao by llu-piketon.sh.intel.com with local (Exim 4.71)
-	(envelope-from <lianhao.lu@intel.com>)
-	id 1PT34H-0007SD-Df; Thu, 16 Dec 2010 09:55:41 +0800
-Message-Id: <cover.1292464057.git.lianhao.lu@intel.com>
-From: Lianhao Lu <lianhao.lu@intel.com>
-Date: Thu, 16 Dec 2010 09:47:37 +0800
-To: poky@yoctoproject.org
-Subject: [PATCH 0/1] [BUGID #565] fixing. Added package of meta-environment-${TARGET_ARCH}
+Return-Path: <Jingdong.Lu@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id EA9544C80048
+	for <poky@yoctoproject.org>; Wed, 15 Dec 2010 20:23:59 -0600 (CST)
+Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oBG2NxBk015636
+	for <poky@yoctoproject.org>; Wed, 15 Dec 2010 18:23:59 -0800 (PST)
+Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
+	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Wed, 15 Dec 2010 18:23:59 -0800
+Received: from [128.224.162.176] ([128.224.162.176]) by
+	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Wed, 15 Dec 2010 18:23:58 -0800
+From: Lu Jingdong <jingdong.lu@windriver.com>
+To: poky <poky@yoctoproject.org>
+Date: Thu, 16 Dec 2010 10:25:16 +0800
+Message-ID: <1292466316.1852.4.camel@eric-desktop>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+X-OriginalArrivalTime: 16 Dec 2010 02:23:59.0392 (UTC)
+	FILETIME=[4C135A00:01CB9CC8]
+Subject: [PATCH 1/1] ed: Change bin path
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,27 +31,46 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Dec 2010 01:52:47 -0000
+X-List-Received-Date: Thu, 16 Dec 2010 02:24:00 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-This fixing is dependant upon the commit 78c0263 of bug #586 fixing on branch jzhang/sdkversion.
+Subject: [PATCH 1/1] ed: Change bin path
 
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: llu/bug565
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=llu/bug565
+LSB states that ed should be in /bin/ and change bin path of ed from
+usr/bin into bin for LSB.
 
-Thanks,
-    Lianhao Lu <lianhao.lu@intel.com>
+Signed-off-by: Jingdong Lu <jingdong.lu@windriver.com>
 ---
+ meta/recipes-extended/ed/ed_1.5.bb |    6 +++++-
+ 1 files changed, 5 insertions(+), 1 deletions(-)
 
+diff --git a/meta/recipes-extended/ed/ed_1.5.bb
+b/meta/recipes-extended/ed/ed_1.5.bb
+index 8ea0e3f..6c09cb9 100644
+--- a/meta/recipes-extended/ed/ed_1.5.bb
++++ b/meta/recipes-extended/ed/ed_1.5.bb
+@@ -8,7 +8,11 @@ LIC_FILES_CHKSUM =
+"file://COPYING;md5=f27defe1e96c2e1ecd4e0c9be8967949 \
 
-Lianhao Lu (1):
-  meta-environment: Added package of meta-environment-${TARGET_ARCH}
-    for     environment files.
+file://main.c;endline=24;md5=177fe82d0649e545591a13fdce5733e8"
 
- meta/classes/toolchain-scripts.bbclass         |   32 ++++++++++
- meta/recipes-core/meta/meta-environment.bb     |   75 ++++++++++++++++++++++++
- meta/recipes-core/tasks/task-cross-canadian.bb |    1 +
- 3 files changed, 108 insertions(+), 0 deletions(-)
- create mode 100644 meta/recipes-core/meta/meta-environment.bb
+ SECTION = "base"
+-PR = "r0"
++PR = "r1"
++
++# LSB states that ed should be in /bin/
++bindir = "${base_bindir}"
++
+
+ SRC_URI = "${GNU_MIRROR}/ed/ed-${PV}.tar.gz \
+            file://ed-1.2-build.patch"
+-- 
+1.7.0.4
+
+-- 
+Lu Jingdong
+jingdong.lu@windriver.com
+China, Wind River
 
 
