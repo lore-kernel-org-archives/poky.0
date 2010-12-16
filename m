@@ -1,25 +1,20 @@
-Return-Path: <paul.eggleton@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A032C4C81110
-	for <poky@yoctoproject.org>; Thu, 16 Dec 2010 03:49:52 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 16 Dec 2010 01:49:51 -0800
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 12E4C4C80BCF
+	for <poky@yoctoproject.org>; Thu, 16 Dec 2010 04:39:15 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 16 Dec 2010 02:39:14 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,354,1288594800"; d="scan'208";a="687724793"
-Received: from unknown (HELO helios.localnet) ([10.255.16.84])
-	by orsmga001.jf.intel.com with ESMTP; 16 Dec 2010 01:49:50 -0800
-From: Paul Eggleton <paul.eggleton@intel.com>
-Organization: Intel Corporation (UK)
+X-IronPort-AV: E=Sophos;i="4.59,354,1288594800"; d="scan'208";a="584276696"
+Received: from unknown (HELO helios) ([10.255.16.84])
+	by orsmga002.jf.intel.com with SMTP; 16 Dec 2010 02:39:07 -0800
+Received: by helios (sSMTP sendmail emulation); Thu, 16 Dec 2010 10:39:06 +0000
+Message-Id: <d5a2ba1ee8fc7b9b491df15b9f84de8d47010e80.1292495814.git.paul.eggleton@linux.intel.com>
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
+Date: Thu, 16 Dec 2010 10:29:50 +0000
 To: poky@yoctoproject.org
-Date: Thu, 16 Dec 2010 09:49:48 +0000
-User-Agent: KMail/1.13.5 (Linux/2.6.35-23-generic-pae; KDE/4.5.1; i686; ; )
-References: <cover.1292430240.git.josh@linux.intel.com>
-	<c5ab4d56f97a0e45b124d40c9f536541be04c201.1292430240.git.josh@linux.intel.com>
-	<4D0916F4.9060703@linux.intel.com>
-In-Reply-To: <4D0916F4.9060703@linux.intel.com>
-MIME-Version: 1.0
-Message-Id: <201012160949.49288.paul.eggleton@intel.com>
-Subject: Re: [PATCH 01/14] openssl-native: disable execstack flag to prevent problems with SELinux
+CC: 
+Subject: [PATCH 1/1] openssl: restore -Wall flag
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,31 +26,43 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Dec 2010 09:49:52 -0000
-Content-Type: Text/Plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Thu, 16 Dec 2010 10:39:15 -0000
 
-On Wednesday 15 December 2010 19:28:52 Darren Hart wrote:
-> > -	-DTERMIO ${FULL_OPTIMIZATION} -Wall"
-> > +	-DTERMIO ${FULL_OPTIMIZATION}"
->=20
-> Why do we need to remove -Wall? Doesn't that reduce our visibility into=20
-> potential issues?
+The -Wall flag was unintentionally removed from the end of the CFLAG var in
+089612794d4d8d9c79bd2a4365d6df78371f7f40 by me. This patch puts it back in.
 
-We don't - actually this was a mistake that I was sure had I removed from t=
-he original patch. -Wall should be put back in.
+Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
+---
+ meta/recipes-connectivity/openssl/openssl.inc      |    2 +-
+ .../recipes-connectivity/openssl/openssl_0.9.8p.bb |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-Cheers,
-Paul
----------------------------------------------------------------------
-Intel Corporation (UK) Limited
-Registered No. 1134945 (England)
-Registered Office: Pipers Way, Swindon SN3 1RJ
-VAT No: 860 2173 47
-
-This e-mail and any attachments may contain confidential material for
-the sole use of the intended recipient(s). Any review or distribution
-by others is strictly prohibited. If you are not the intended
-recipient, please contact the sender and delete all copies.
+diff --git a/meta/recipes-connectivity/openssl/openssl.inc b/meta/recipes-connectivity/openssl/openssl.inc
+index 5cc5732..f054c26 100644
+--- a/meta/recipes-connectivity/openssl/openssl.inc
++++ b/meta/recipes-connectivity/openssl/openssl.inc
+@@ -15,7 +15,7 @@ S = "${WORKDIR}/openssl-${PV}"
+ 
+ AR_append = " r"
+ CFLAG = "${@base_conditional('SITEINFO_ENDIANESS', 'le', '-DL_ENDIAN', '-DB_ENDIAN', d)} \
+-	-DTERMIO ${FULL_OPTIMIZATION}"
++	-DTERMIO ${FULL_OPTIMIZATION} -Wall"
+ 
+ # Avoid binaries being marked as requiring an executable stack (which causes 
+ # issues with SELinux on the host)
+diff --git a/meta/recipes-connectivity/openssl/openssl_0.9.8p.bb b/meta/recipes-connectivity/openssl/openssl_0.9.8p.bb
+index 42888f6..3ae6bf4 100644
+--- a/meta/recipes-connectivity/openssl/openssl_0.9.8p.bb
++++ b/meta/recipes-connectivity/openssl/openssl_0.9.8p.bb
+@@ -1,6 +1,6 @@
+ require openssl.inc
+ 
+-PR = "r1"
++PR = "r2"
+ SRC_URI += "file://debian/ca.patch \
+             file://debian/config-hurd.patch;apply=no \
+             file://debian/debian-targets.patch \
+-- 
+1.7.1
 
 
