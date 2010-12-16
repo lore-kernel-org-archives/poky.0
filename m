@@ -1,21 +1,21 @@
 Return-Path: <scott.m.rifenbark@intel.com>
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9D7594C811E6
+	by mx1.pokylinux.org (Postfix) with ESMTP id A2E034C811EA
 	for <poky@yoctoproject.org>; Mon, 20 Dec 2010 14:24:01 -0600 (CST)
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
 	by orsmga101.jf.intel.com with ESMTP; 20 Dec 2010 12:23:58 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,203,1291622400"; d="scan'208";a="585536781"
+X-IronPort-AV: E=Sophos;i="4.60,203,1291622400"; d="scan'208";a="585536782"
 Received: from scottrif-desktop.jf.intel.com (HELO localhost) ([10.7.201.54])
 	by orsmga002.jf.intel.com with ESMTP; 20 Dec 2010 12:23:58 -0800
-Message-Id: <2c9b63decb379f39ca83c7f222cc857a8b218f9e.1292876262.git.scott.m.rifenbark@intel.com>
+Message-Id: <3d76a7cf9823f6ca922b37ddb7a1a23c38a8cb1e.1292876262.git.scott.m.rifenbark@intel.com>
 In-Reply-To: <cover.1292876262.git.scott.m.rifenbark@intel.com>
 References: <cover.1292876262.git.scott.m.rifenbark@intel.com>
 From: Scott Rifenbark <scott.m.rifenbark@intel.com>
-Date: Thu, 16 Dec 2010 13:39:14 -0800
+Date: Thu, 16 Dec 2010 13:58:32 -0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 21/29] documentation/bsp-guide/bsp.xml: Updated Layer Configuration File Section
+Subject: [PATCH 23/29] documentation/bsp-guide/bsp.xml: Updated Display Support Files section.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,29 +29,28 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Mon, 20 Dec 2010 20:24:01 -0000
 
-Added wording to be sure user knows to replace "bsp" and "_bsp" in the
-boilerplate template example with the actual BSP name (i.e. <bsp_name>).
+Added wording to indicate this directory as optional if the BSP had
+special requirements for graphics support.
 
 Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
 ---
- documentation/bsp-guide/bsp.xml |    4 +++-
- 1 files changed, 3 insertions(+), 1 deletions(-)
+ documentation/bsp-guide/bsp.xml |    3 ++-
+ 1 files changed, 2 insertions(+), 1 deletions(-)
 
 diff --git a/documentation/bsp-guide/bsp.xml b/documentation/bsp-guide/bsp.xml
-index 8518bf0..5dd4aa7 100644
+index 2120a1b..94dd516 100644
 --- a/documentation/bsp-guide/bsp.xml
 +++ b/documentation/bsp-guide/bsp.xml
-@@ -186,7 +186,9 @@ meta-&lt;bsp_name&gt;/conf/layer.conf
-             <para>
-                 This file identifies the structure as a Poky layer, identifies the  
-                 contents of the layer, and contains information about how Poky should use it. 
--                Generally, a standard boilerplate file such as the following works:
-+                Generally, a standard boilerplate file such as the following works.
-+                In the following example you would replace "bsp" and "_bsp" with the actual name
-+                of the BSP (i.e. &lt;bsp_name&gt; from the example template).
-             </para>
+@@ -294,7 +294,8 @@ meta-&lt;bsp_name&gt;/recipes-graphics/*
+             </programlisting>
  
              <para>
+-                This directory contains graphics recipes for the BSP.
++                This optional directory contains recipes for the BSP if it has 
++                special requirements for graphics support.
+                 All files that are needed for the BSP to support a display are kept here. 
+                 For example, in the crownbay BSP several display support files exist:
+                 <programlisting>
 -- 
 1.7.0.4
 
