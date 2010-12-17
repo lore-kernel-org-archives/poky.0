@@ -1,35 +1,24 @@
-Return-Path: <kevin.tian@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 8DDC44C81081
-	for <poky@pokylinux.org>; Fri, 17 Dec 2010 05:38:57 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 17 Dec 2010 03:38:57 -0800
+Return-Path: <josh@linux.intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 781AB4C80FA8
+	for <poky@yoctoproject.org>; Fri, 17 Dec 2010 06:03:38 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 17 Dec 2010 04:01:36 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.59,360,1288594800"; d="scan'208";a="584667259"
-Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
-	by orsmga002.jf.intel.com with ESMTP; 17 Dec 2010 03:38:56 -0800
-Received: from pgsmsx509.gar.corp.intel.com (172.30.13.17) by
-	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Fri, 17 Dec 2010 19:38:55 +0800
-Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
-	PGSMSX509.gar.corp.intel.com (172.30.13.17) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Fri, 17 Dec 2010 19:38:55 +0800
-Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
-	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
-	Fri, 17 Dec 2010 19:38:54 +0800
-From: "Tian, Kevin" <kevin.tian@intel.com>
-To: "yocto@yoctoproject.org" <yocto@yoctoproject.org>, "poky@pokylinux.org"
-	<poky@pokylinux.org>
-Date: Fri, 17 Dec 2010 19:38:30 +0800
-Thread-Topic: Yocto LTP wiki page
-Thread-Index: Acud3u1lfRgVTRGhQjyFZsa2kcQO3Q==
-Message-ID: <625BA99ED14B2D499DC4E29D8138F1504D5F409B76@shsmsx502.ccr.corp.intel.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
-MIME-Version: 1.0
-Subject: Yocto LTP wiki page
+X-IronPort-AV: E=Sophos;i="4.59,360,1288594800"; d="scan'208";a="363089284"
+Received: from unknown (HELO [10.255.16.45]) ([10.255.16.45])
+	by azsmga001.ch.intel.com with ESMTP; 17 Dec 2010 04:01:34 -0800
+From: Joshua Lock <josh@linux.intel.com>
+To: poky@yoctoproject.org
+In-Reply-To: <4D0A94D0.3050309@intel.com>
+References: <cover.1292516982.git.josh@linux.intel.com>
+	<0e7de81fa0e7fb3dc908c85796ca740b399959e5.1292516982.git.josh@linux.intel.com>
+	<4D0A94D0.3050309@intel.com>
+Date: Fri, 17 Dec 2010 12:01:27 +0000
+Message-ID: <1292587287.6483.1.camel@scimitar>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.1 (2.32.1-1.fc14) 
+Subject: Re: [PATCH 7/8] gst-plugins: fix for make 3.82
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,45 +30,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 17 Dec 2010 11:38:57 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Fri, 17 Dec 2010 12:03:38 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Hi, all,
+On Thu, 2010-12-16 at 14:38 -0800, Saul Wold wrote:
+> On 12/14/2010 09:56 AM, Joshua Lock wrote:
+> > Signed-off-by: Joshua Lock<josh@linux.intel.com>
+> > ---
+> >   .../gstreamer/gst-plugins-bad_0.10.20.bb           |    2 +-
+> >   .../gstreamer/gst-plugins-base_0.10.30.bb          |    2 +-
+> >   .../gstreamer/gst-plugins-good_0.10.25.bb          |    2 +-
+> >   .../gstreamer/gst-plugins-ugly_0.10.16.bb          |    2 +-
+> >   meta/recipes-multimedia/gstreamer/gst-plugins.inc  |    5 +++-
+> >   .../gstreamer/gst-plugins/make-382.patch           |   25 ++++++++++++++++++++
+> This patch is required for the current versions of the plugins.  Most 
+> have this already fixed, can you please verify your patch and build.
+> 
+> I just built this and got manual patching, we may want to revert this one.
 
-I just create a new wiki page to track LTP status for Yocto Project:
+Whoops, my bad - I saw gst-plugins-base fail with a similar error to
+what I was seeing on my laverne branch so just cherry-picked this patch
+from said branch.
 
-https://wiki.yoctoproject.org/wiki/LTP_result
+I have a patch that fixes this.
 
-Embedded Linux distribution is unlike a typical desktop Linux, because it's=
- normally
-customized for specific purpose and thus not all packages required by norma=
-l Linux
-test suites (LTP/POSIX/LSB) are included in a specific profile.
+Cheers,
+Joshua
+-- 
+Joshua Lock
+        Intel Open Source Technology Centre
 
-Given that, the major purpose of this wiki page is for tracking and referen=
-ce. For
-one we want to track the ongoing trend in each Yocto release/milestone, and=
- fix
-regressions in time. In the meantime, we also want to understand what a fai=
-lure
-implicates. Is it simply come from the fact of customization, or from some =
-problems
-in installed packages? For the former we want to document them, and for the=
- latter
-we'd like to fix them.
-
-I tried to make the page simple, as there could be many combinations to sho=
-w
-the data (milestones, machines, error types, etc.). Now it's still experime=
-ntal and
-under development. So far I use qemux86 result from the 12/11 nightly resul=
-t
-as the example based on SDK profile. Later when our QA team finish the M2 t=
-est,=20
-we'll update this page to reflect latest milestone information.
-
-Thanks
-Kevin
 
