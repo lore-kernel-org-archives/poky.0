@@ -1,42 +1,39 @@
-Return-Path: <raj.khem@gmail.com>
-Received: from mail-gw0-f54.google.com (mail-gw0-f54.google.com [74.125.83.54])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 937D54C80B71
-	for <poky@yoctoproject.org>; Thu, 16 Dec 2010 21:31:27 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by gwj21 with SMTP id 21so161395gwj.13
-	for <poky@yoctoproject.org>; Thu, 16 Dec 2010 19:31:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:received:mime-version:received:in-reply-to
-	:references:from:date:message-id:subject:to:cc:content-type
-	:content-transfer-encoding;
-	bh=G9Emzbj2OMB2HMtx2Zbp4LsOatJ4itZOIICqTplAdvI=;
-	b=ia48GOkMSNtBW/xXmo+6vBuRF/mnyBZ3kCqkE+8GSfCSOKJ67AAaYJqjq74s6Ubq0L
-	TBoYNdsB1QtrltHiwef94r/pVipBoQV7YWjIeB9Mb67jp+Z4hf1YOCRUonmxua36pYMi
-	xnsLqAx6mlZl1y/AtUCD/B63GXJKOJd0RpSos=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc:content-type:content-transfer-encoding;
-	b=ZxXoC4OAtU3KWgD+rno4d9kaPQYY7/OxywK4Lp8lytwKbbMmzPgUb+KzB/4vp+jbKE
-	Vq5/bJeKZVojLTPVtbcMSomEBru23KDrTXWnVJnjA3085dFrKTJoXUl8zvukpjrHs10u
-	rYzIybem5XJZGTOwOcCATRIg++9On2AaoYnLE=
-Received: by 10.90.10.21 with SMTP id 21mr1662971agj.112.1292556686043; Thu,
-	16 Dec 2010 19:31:26 -0800 (PST)
+Return-Path: <kevin.tian@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id B60EF4C80FA8
+	for <poky@pokylinux.org>; Thu, 16 Dec 2010 22:24:22 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 16 Dec 2010 20:24:22 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.59,359,1288594800"; d="scan'208";a="584583343"
+Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
+	by orsmga002.jf.intel.com with ESMTP; 16 Dec 2010 20:24:20 -0800
+Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
+	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Fri, 17 Dec 2010 12:23:30 +0800
+Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
+	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
+	Fri, 17 Dec 2010 12:23:12 +0800
+From: "Tian, Kevin" <kevin.tian@intel.com>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+Date: Fri, 17 Dec 2010 12:23:11 +0800
+Thread-Topic: [poky] about 'noexec' message
+Thread-Index: AcudNKa5dm3ZRMmkQbq1P74zRWZejQAbI3Bw
+Message-ID: <625BA99ED14B2D499DC4E29D8138F1504D5F40997F@shsmsx502.ccr.corp.intel.com>
+References: <0d30dc$kf5f5e@orsmga001.jf.intel.com>
+	<1292404338.26558.1582.camel@rex> <4D08E868.6090606@mlbassoc.com>
+	<625BA99ED14B2D499DC4E29D8138F1504D5F40965E@shsmsx502.ccr.corp.intel.com>
+	<625BA99ED14B2D499DC4E29D8138F1504D5F4096A4@shsmsx502.ccr.corp.intel.com>
+	<1292512754.26558.3993.camel@rex>
+In-Reply-To: <1292512754.26558.3993.camel@rex>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
 MIME-Version: 1.0
-Received: by 10.90.86.4 with HTTP; Thu, 16 Dec 2010 19:31:05 -0800 (PST)
-In-Reply-To: <9DA5872FEF993D41B7173F58FCF6BE9405051258@orsmsx504.amr.corp.intel.com>
-References: <20101205125755.1B42C351@gemini.denx.de>
-	<20101211104711.GB10409@gmail.com>
-	<9DA5872FEF993D41B7173F58FCF6BE9404FAD617@orsmsx504.amr.corp.intel.com>
-	<1292431496.18631.2.camel@scimitar> <1292431754.18631.4.camel@scimitar>
-	<9DA5872FEF993D41B7173F58FCF6BE9405051258@orsmsx504.amr.corp.intel.com>
-From: Khem Raj <raj.khem@gmail.com>
-Date: Thu, 16 Dec 2010 19:31:05 -0800
-Message-ID: <AANLkTikiu=YyB9ZLw=q1hJcsQ+w3LtZ9jdNCp4GkObNe@mail.gmail.com>
-To: "Kamble, Nitin A" <nitin.a.kamble@intel.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: elfutils build fails on Fedroa 14
+Cc: "paul.eggleton@linux.intel.com" <paul.eggleton@linux.intel.com>,
+	"poky@pokylinux.org" <poky@pokylinux.org>
+Subject: Re: about 'noexec' message
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -48,28 +45,75 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 17 Dec 2010 03:31:27 -0000
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Fri, 17 Dec 2010 04:24:23 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On Thu, Dec 16, 2010 at 5:19 PM, Kamble, Nitin A
-<nitin.a.kamble@intel.com> wrote:
->>
->> Actually, this theory makes less sense now that I've re-read the
->> initial
->> email and seen that the failure is in elfutils native - damn...
->>
->> I've not had any problems building that recipe on Fedora 14 x86_64
->> here...
->>
->> Joshua
->> --
->
->
-> Thanks Josh for looking at this. Actually we closed this bug. It was issu=
-e with PATH variable for the bug reporter. It had . in the path too early, =
-causing wrong ld to be chosen. Look at http://bugzilla.pokylinux.org/show_b=
-ug.cgi?id=3D572 for more information.
-
-hmmm probably adding . to PATH is not a very good idea :)
+PkZyb206IFJpY2hhcmQgUHVyZGllIFttYWlsdG86cmljaGFyZC5wdXJkaWVAbGludXhmb3VuZGF0
+aW9uLm9yZ10NCj5TZW50OiBUaHVyc2RheSwgRGVjZW1iZXIgMTYsIDIwMTAgMTE6MTkgUE0NCj4N
+Cj5PbiBUaHUsIDIwMTAtMTItMTYgYXQgMTc6NDggKzA4MDAsIFRpYW4sIEtldmluIHdyb3RlOg0K
+Pj4gPkZyb206IFRpYW4sIEtldmluDQo+PiA+U2VudDogVGh1cnNkYXksIERlY2VtYmVyIDE2LCAy
+MDEwIDQ6NDYgUE0NCj4+ID4NCj4+ID4+RnJvbTogR2FyeSBUaG9tYXMgW21haWx0bzpnYXJ5QG1s
+YmFzc29jLmNvbV0NCj4+ID4+U2VudDogVGh1cnNkYXksIERlY2VtYmVyIDE2LCAyMDEwIDEyOjEw
+IEFNDQo+PiA+Pg0KPj4gPj5Ob3RlIHRvIFJpY2hhcmQ6IEknbSBzdGlsbCBzZWVpbmcgYSB0b24g
+b2YgTm9leGVjIG1lc3NhZ2VzIGV2ZXJ5IHRpbWUgSSByZWJ1aWxkDQo+PiA+PmEgcGFja2FnZSBp
+biB0aGlzIHRyZWUuICBJIHRob3VnaHQgSSB1bmRlcnN0b29kIHlvdSB0byBzYXkgdGhleSBzaG91
+bGQgaGFwcGVuDQo+PiA+PmF0IG1vc3Qgb25jZT8NCj4+ID4+DQo+PiA+DQo+PiA+WWVzLCBSUCdz
+IHByZXZpb3VzIHBhdGNoIGRvZXMgcmVkdWNlIHRoZSBOb2V4ZWMgbWVzc2FnZXMgYSBsb3QuIEhv
+d2V2ZXIgdGhlcmUNCj4+ID5yZW1haW5zIG9uZSBwcm9ibGVtLiBDdXJyZW50IHN0YW1wIGZpbGUg
+Y2hlY2sgYWxzbyBjYWxjdWxhdGVzIHRoZSBzdGFtcCBvZiB0YXNrcw0KPj4gPmRlcGVuZGVkIG9u
+LiBJZiB0aG9zZSBzdGFtcHMgYXJlIG5ld2VyIG9yIG5vdCBleGlzdCwgdGhlIGNoZWNrIHJldHVy
+biBGYWxzZSB0bw0KPj4gPmluZGljYXRlIG1pc21hdGNoZWQgc3RhbXAuDQo+PiA+DQo+PiA+SW4g
+J25vZXhlYycgY2FzZSwgc29tZSAnbm9leGVjJyB0YXNrcyBoYXBwZW4gdG8gaGF2ZSBzb21lIGRl
+cGVuZGVudCB0YXNrcw0KPj4gPnNraXBwZWQgd2hpY2ggdGh1cyBkb24ndCBnZW5lcmF0ZSBzdGFt
+cCBmaWxlcy4gVGhpcyBtYWtlcyB0aGUgY2hlY2sgYWx3YXlzDQo+PiA+ZmFpbGVkIGZvciB0aG9z
+ZSAnbm9leGVjJyB0YXNrcyBhbmQgdGh1cyB5b3UgYWx3YXlzIG9ic2VydmUgdGhlIE5vZXhlYyBt
+ZXNzYWdlcy4NCj4+ID4NCj4+ID5JIGhhdmUgYSBwYXRjaCB0byBmaXggdGhhdCwgYW5kIHdpbGwg
+c2VuZCBvdXQgc29vbi4gOi0pDQo+PiA+DQo+Pg0KPj4gVGhvdWdoIEkgbWFuYWdlZCB0byByZW1v
+dmUgdGhlIHJlc3QgJ25vZXhlYycgbWVzc2FnZXMgYnkgYWRkaW5nIGJlbG93IGluDQo+PiBjaGVj
+a19zdGFtcF90YXNrKCk6DQo+Pg0KPj4gCWlmICdub2V4ZWMnIGluIHRhc2tkZXAgYW5kIHRhc2tu
+YW1lIGluIHRhc2tkZXBbJ25vZXhlYyddDQo+PiAJCXJldHVybiBUcnVlDQo+Pg0KPj4gSSByZWFs
+aXplZCB0aGVyZSdzIG9uZSBwb3RlbnRpYWwgcmlzay4gVGhvdWdoICdub2V4ZWMnIHRhc2sgaXMg
+bm90IGV4ZWN1dGVkIGF0IGFsbCwNCj4+IGl0J3MgY29uc2lkZXJlZCB0byBiZSBhIG5vcm1hbCB0
+YXNrIHdoaWNoIG5vcm1hbGx5IHBsYXlzIHRoZSByb2xlIG9mIHRoZSBzeW5jDQo+PiBwb2ludHMu
+IElkZWFsbHkgaWYgdGhlcmUncmUgY2hhbmdlcyBvbiBzdGFtcCBmaWxlIG9mIHRhc2tzIHRoYXQg
+dGhpcyAnbm9leGVjJyB0YXNrDQo+PiBkZXBlbmRzIG9uLCB3ZSBzdGlsbCB3YW50IHRvIGdlbmVy
+YXRlIGEgbmV3IHN0YW1wIGZpbGUgZm9yIHRoZSAnbm9leGVjJyB0YXNrLg0KPj4gVGhhdCB3YXkg
+b3RoZXIgdGFza3MgZGVwZW5kaW5nIG9uIHRoYXQgJ25vZXhlYycgdGFzayB3aWxsIHRyaWdnZXIg
+cmVidWlsZCB0b28uDQo+Pg0KPj4gSWYgd2UgYWx3YXlzIHRha2UgJ25vZXhlYycgdGFzayBhd2F5
+IGZyb20gdGhlIGNvbXBhcmlzb24sIGFib3ZlIGNoYWluIGVmZmVjdA0KPj4gZGlzYXBwZWFycy4N
+Cj4+DQo+PiBDdXJyZW50IGNvbXBhcmlzb24gY29uZGl0aW9uIGZvciBzdGFtcCBmaWxlcyBpczoN
+Cj4+DQo+PiAJaWYgbm90IHQyIG9yIHQxIDwgdDINCj4+IAkJaXNjdXJyZW50ID0gRmFsc2UNCj4+
+DQo+PiBJJ20gbm90IHN1cmUgdW5kZXIgd2hpY2ggY2FzZSBhIHN0YW1wIGZpbGUgKHQyKSBkb2Vz
+bid0IGV4aXN0LCBhbmQgd2hldGhlciBpdCdzDQo+PiBzYWZlIHRvIHVzZToNCj4+IAlpZiBub3Qg
+dDIgYW5kIG5vdCBub2V4ZWMgb3IgdDIgYW5kIHQxIDwgdDI6DQo+PiAJCWlzY3VycmVudCA9IEZh
+bHNlDQo+Pg0KPj4gdG8gY2hlY2sgc3RhbXAgZmlsZSBmb3IgJ25vZXhlYycgdGFzay4NCj4+DQo+
+PiBPciBhbHRlcm5hdGl2ZSBpcyB0byBzaW1wbHkgY29udmVydCBiYi5ub3RlIHRvIGJiLmRlYnVn
+IGZvciAnbm9leGVjJyBtZXNzYWdlLiA6LSkNCj4NCj5JJ3ZlIGxvb2tlZCBhdCB0aGlzIGFuZCBy
+ZWFsaXNlZCB0aGF0IHNjZW5lcXVldWUgc2hvdWxkIG5vdCBiZSB0cnlpbmcgdG8NCj5za2lwIG5v
+ZXhlYyB0YXNrcyBhcyB0aGlzIG1lYW5zIHRoZSBzdGFtcHMgZG9uJ3QgZ2V0IGdlbmVyYXRlZC4g
+SW5zdGVhZCwNCj5pdCBzaG91bGQganVzdCBmYWlsb3V0cmlnaHQgYW5kIGxldCB0aGUgc2Vjb25k
+YXJ5IGNvZGUgaW4gdGhlIG1haW4NCj5ydW5xdWV1ZSBkZWFsIHdpdGggdGhlbSBhdCB0aGUgY29y
+cmVjdCBwb2ludCBpbiB0aW1lLg0KPg0KPkkndmUgcHVzaGVkIHRoaXMgY2hhbmdlLCBsZXRzIHNl
+ZSBpZiBpdCBzb2x2ZXMgdGhlIGlzc3VlcyBwZW9wbGUgaGF2ZQ0KPmJlZW4gc2VlaW5nLiBJdCBj
+ZXJ0YWlubHkgbWFrZXMgdGhlIG91dHB1dCBmcm9tIGJpdGJha2UgbW9yZSByZWFkYWJsZQ0KPmFn
+YWluLg0KPg0KDQpVbmZvcnR1bmF0ZWx5IEkgdGhpbmsgdGhpcyBjYXVzZXMgYW5vdGhlciBwcm9i
+bGVtIHdoZW4gdXNpbmcgc3N0YXRlLiBJIGdvdCBhbiBlcnJvcg0KZnJvbSBtNC1uYXRpdmUgd2hl
+biBidWlsZGluZyBmcm9tIHNjcmF0Y2ggKHdpdGggcHJlYnVpbHQgYXZhaWxhYmxlKToNCg0KRVJS
+T1I6IGluc3RhbGw6IGNhbm5vdCBzdGF0IGB4eHgvdG1wL3N5c3Jvb3RzL2k2ODYtbGludXgvdXNy
+L3NoYXJlL2dudS1jb25maWcvY29uZmlnLnN1Yg0KDQpBY3R1YWxseSBmcm9tIHRoZSBsb2cgZ251
+LWNvbmZpZy5kb19wb3B1bGF0ZV9zeXNyb290IGhhcyBiZWVuIGFjY2VsZXJhdGVkIGVhcmxpZXIg
+aW4NCnNldHNjZW5lIHN0YWdlLCB3aXRoIG5lY2Vzc2FyeSBzeXNyb290IGZpbGVzIGluc3RhbGxl
+ZC4gSG93ZXZlciBsYXRlciBnbnUtY29uZmlnLW5hdGl2ZQ0KaXMgc3RpbGwgY29uc2lkZXJlZCBy
+ZXF1aXJpbmcgcmVidWlsZCwgYW5kIHRodXMgdGhlIGluc3RhbGxlZCBzeXNyb290IGZpbGVzIGFy
+ZSByZW1vdmVkIGFnYWluLg0KVGhlIHdlaXJkIHRoaW5nIHVuZGVyIHRoaXMgY29uZGl0aW9uIGlz
+IHRoYXQgbTQtbmF0aXZlIHRob3VnaHQgdGhhdCBkb19wb3B1bGF0ZV9zeXNyb290DQpvZiBnbnUt
+Y29uZmlnLW5hdGl2ZSBoYXMgYmVlbiBjb21wbGV0ZWQgYW5kIHRodXMgZG9lc24ndCB3YWl0IGZv
+ciBuZXcgYnVpbGQgb2YgDQpnbnUtY29uZmlnLW5hdGl2ZSB0byBjb21wbGV0ZSwgd2hpY2ggdGhl
+biB0cmlnZ2VycyBhYm92ZSBlcnJvci4NCg0KSSBoYXZlbid0IGZpZ3VyZSBvdXQgdGhlIHJlYXNv
+biB3aHkgdGhpcyBjb21taXQgY2F1c2VzIHRoaXMgY29uZmxpY3Rpb246IHNzdGF0ZSBwYWNrYWdl
+DQppcyBpbnN0YWxsZWQgc3VjY2Vzc2Z1bGx5IGJ1dCB0aGUgcGFja2FnZSBzdGlsbCByZXF1aXJl
+cyByZWJ1aWxkLiBCeSByZXZlcnRpbmcgdGhpcyBjaGFuZ2UNCnRoaXMgZXJyb3IgZGlzYXBwZWFy
+cy4NCg0KVGhhbmtzDQpLZXZpbg0K
 
