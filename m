@@ -1,20 +1,22 @@
-Return-Path: <tom.zanussi@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 700DD4C80B71
-	for <poky@yoctoproject.org>; Fri, 17 Dec 2010 14:02:50 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 17 Dec 2010 12:02:50 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,189,1291622400"; d="scan'208";a="637616087"
-Received: from unknown (HELO [10.255.14.44]) ([10.255.14.44])
-	by fmsmga002.fm.intel.com with ESMTP; 17 Dec 2010 12:02:49 -0800
-From: Tom Zanussi <tom.zanussi@intel.com>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Date: Fri, 17 Dec 2010 14:02:37 -0600
-Message-ID: <1292616157.2104.462.camel@elmorro>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Subject: [PATCH 1/1] meta-crownbay: add a machine configuration that doesn't use EMGD graphics
+Return-Path: <bruce.ashfield@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id DB65B4C80B70;
+	Fri, 17 Dec 2010 14:49:03 -0600 (CST)
+Received: from localhost.localdomain (yow-bashfiel-d2.ottawa.windriver.com
+	[128.224.146.167])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oBHKmjRb025159;
+	Fri, 17 Dec 2010 12:48:47 -0800 (PST)
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+To: rpurdie@linux.intel.com, saul.wold@intel.com
+Date: Fri, 17 Dec 2010 15:50:16 -0500
+Message-Id: <8312a1834b24a22fb7f17ed82d9c053fa8565c76.1292618741.git.bruce.ashfield@windriver.com>
+X-Mailer: git-send-email 1.7.0.4
+In-Reply-To: <cover.1292618741.git.bruce.ashfield@windriver.com>
+References: <cover.1292618741.git.bruce.ashfield@windriver.com>
+In-Reply-To: <cover.1292618741.git.bruce.ashfield@windriver.com>
+References: <cover.1292618741.git.bruce.ashfield@windriver.com>
+Cc: yocto@yoctoproject.org, poky@yoctoproject.org
+Subject: [PATCH 1/1] linux-yocto: remove or adjust to _ in branch names
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,155 +28,148 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 17 Dec 2010 20:02:50 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 17 Dec 2010 20:49:04 -0000
 
-This adds a second machine to the meta-crownbay BSP that uses generic
-vesa graphics instead of the Intel-proprietary straight 'crownbay'
-version that does.
+The existing 2.6.34 kernel tree uses _ where poky typically
+uses -. This is a historical artifact, since working with
+gnu Make and shells means avoiding - is wise. The opposite
+is true in Yocto.
 
-The name of the new machine is 'crownbay-noemgd'.
+To avoid using the _ reserved character wherever possible
+we can simply remove it from the branch names in the
+new 2.6.37 kernel, but to keep the content stable in the
+0.9 2.6.34 kernel, we map _ to - for the purposes of
+packaging.
 
-Though the graphics quality isn't as nice, the binaries for this
-version can be distributed without any need for license click-throughs
-or the manual step currently required for the EMGD version.
+To further faciliate this switch, the branch names no
+longer need to be shortened in the KMACHINE mappings, but
+can be fully specified and the tools/processing adapt as
+required. This gives us the flexibility to map multiple
+boards to a single branch for building.
 
-Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
+Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
 ---
- meta-crownbay/conf/layer.conf                      |    6 ++-
- meta-crownbay/conf/machine/crownbay-noemgd.conf    |   45 ++++++++++++++++++++
- .../formfactor/crownbay-noemgd/machconfig          |    3 +
- .../xserver-xf86-config/crownbay-noemgd/xorg.conf  |   26 +++++++++++
- .../recipes-kernel/linux/linux-wrs_git.bbappend    |    4 ++
- 5 files changed, 83 insertions(+), 1 deletions(-)
- create mode 100644 meta-crownbay/conf/machine/crownbay-noemgd.conf
- create mode 100644 meta-crownbay/recipes-bsp/formfactor/formfactor/crownbay-noemgd/machconfig
- create mode 100644 meta-crownbay/recipes-graphics/xorg-xserver/xserver-xf86-config/crownbay-noemgd/xorg.conf
+ meta/classes/kernel-yocto.bbclass                  |   12 +++++-------
+ .../conf/distro/include/poky-default-revisions.inc |    2 +-
+ .../recipes-kernel/linux/linux-yocto-stable_git.bb |    8 ++++++--
+ meta/recipes-kernel/linux/linux-yocto_git.bb       |   18 +++++++++---------
+ 4 files changed, 21 insertions(+), 19 deletions(-)
 
-diff --git a/meta-crownbay/conf/layer.conf b/meta-crownbay/conf/layer.conf
-index 52581e1..cee4ba2 100644
---- a/meta-crownbay/conf/layer.conf
-+++ b/meta-crownbay/conf/layer.conf
-@@ -5,6 +5,10 @@ BBPATH := "${BBPATH}:${LAYERDIR}"
- BBFILES := "${BBFILES} ${LAYERDIR}/recipes-*/*/*.bb \
- 	${LAYERDIR}/recipes-*/*/*.bbappend"
+diff --git a/meta/classes/kernel-yocto.bbclass b/meta/classes/kernel-yocto.bbclass
+index 8e82012..f541878 100644
+--- a/meta/classes/kernel-yocto.bbclass
++++ b/meta/classes/kernel-yocto.bbclass
+@@ -10,7 +10,7 @@ S = "${WORKDIR}/linux"
+ # and is used in the SRC_URI. The machine is then set back to ${MACHINE},
+ # since futher processing will use that to create local branches
+ python __anonymous () {
+-    import bb, re
++    import bb, re, string
  
--BBFILE_COLLECTIONS += "crownbay"
-+BBFILE_COLLECTIONS_crownbay += "crownbay"
- BBFILE_PATTERN_crownbay := "^${LAYERDIR}/"
- BBFILE_PRIORITY_crownbay = "6"
+     version = bb.data.getVar("LINUX_VERSION", d, 1)
+     # 2.6.34 signifies the old-style tree, so we need some temporary
+@@ -29,12 +29,14 @@ python __anonymous () {
+         # The branch for a build is:
+         #    yocto/<kernel type>/${KMACHINE} or
+         #    yocto/<kernel type>/${KMACHINE}/base
+-        bb.data.setVar("KBRANCH", bb.data.expand("yocto/${LINUX_KERNEL_TYPE}/${KMACHINE}",d), d)
++        bb.data.setVar("KBRANCH", bb.data.expand("${KMACHINE}",d), d)
+         bb.data.setVar("KMETA", "meta", d)
+ 
+         mach = bb.data.getVar("KMACHINE", d, 1)
+         # drop the "/base" if it was on the KMACHINE
+         kmachine = mach.replace('/base','')
++        # drop everything but the last segment
++        kmachine = os.path.basename( kmachine )
+         # and then write KMACHINE back
+         bb.data.setVar('KMACHINE_' + bb.data.expand("${MACHINE}",d), kmachine, d)
+ 
+@@ -51,11 +53,7 @@ do_patch() {
+ 	    defconfig=${WORKDIR}/defconfig
+ 	fi
+ 
+-	if [ -n "${BOOTSTRAP}" ]; then
+-	    kbranch="yocto/${LINUX_KERNEL_TYPE}/${KMACHINE}"
+-	else
+-	    kbranch=${KBRANCH}
+-	fi
++	kbranch=${KBRANCH}
+ 
+ 	# simply ensures that a branch of the right name has been created
+ 	createme ${ARCH} ${kbranch} ${defconfig}
+diff --git a/meta/conf/distro/include/poky-default-revisions.inc b/meta/conf/distro/include/poky-default-revisions.inc
+index a8fdf81..6b77bee 100644
+--- a/meta/conf/distro/include/poky-default-revisions.inc
++++ b/meta/conf/distro/include/poky-default-revisions.inc
+@@ -57,7 +57,7 @@ SRCREV_pn-gypsy ??= "147"
+ SRCREV_pn-inputproto ??= "7203036522ba9d4b224d282d6afc2d0b947711ee"
+ SRCREV_pn-inputproto-native ??= "7203036522ba9d4b224d282d6afc2d0b947711ee"
+ SRCREV_pn-inputproto-nativesdk ??= "7203036522ba9d4b224d282d6afc2d0b947711ee"
+-SRCREV_pn-kern-tools-native ??= "c85dcdd2dc50d71476a11c2960bf14c2b144b3c7"
++SRCREV_pn-kern-tools-native ??= "796d7fef92b2eed449c17c14441587ff0c465368"
+ SRCREV_pn-libdrm ??= "3f3c5be6f908272199ccf53f108b1124bfe0a00e"
+ SRCREV_pn-libfakekey ??= "2031"
+ SRCREV_pn-libgdbus ??= "aeab6e3c0185b271ca343b439470491b99cc587f"
+diff --git a/meta/recipes-kernel/linux/linux-yocto-stable_git.bb b/meta/recipes-kernel/linux/linux-yocto-stable_git.bb
+index dd4d176..a059f3d 100644
+--- a/meta/recipes-kernel/linux/linux-yocto-stable_git.bb
++++ b/meta/recipes-kernel/linux/linux-yocto-stable_git.bb
+@@ -12,7 +12,8 @@ KMACHINE_mpc8315e-rdb = "fsl-mpc8315e-rdb"
+ KMACHINE_beagleboard = "beagleboard"
+ 
+ LINUX_VERSION ?= "2.6.34"
+-LINUX_VERSION_EXTENSION ?= "-yocto-${LINUX_KERNEL_TYPE}"
++LINUX_VERSION_EXTENSION ?= "-yocto-${LINUX_KERNEL_TYPE_EXTENSION}"
 +
-+BBFILE_COLLECTIONS_crownbay-noemgd += "crownbay-noemgd"
-+BBFILE_PATTERN_crownbay-noemgd := "^${LAYERDIR}/"
-+BBFILE_PRIORITY_crownbay-noemgd = "6"
-diff --git a/meta-crownbay/conf/machine/crownbay-noemgd.conf b/meta-crownbay/conf/machine/crownbay-noemgd.conf
-new file mode 100644
-index 0000000..535cf55
---- /dev/null
-+++ b/meta-crownbay/conf/machine/crownbay-noemgd.conf
-@@ -0,0 +1,45 @@
-+#@TYPE: Machine
-+#@NAME: crownbay-noemgd
+ PR = "r0"
+ PV = "${LINUX_VERSION}+git${SRCPV}"
+ SRCREV_FORMAT = "meta_machine"
+@@ -21,11 +22,14 @@ COMPATIBLE_MACHINE = "(qemuarm|qemux86|qemuppc|qemumips|qemux86-64|atom-pc|route
+ 
+ # this performs a fixup on the SRCREV for new/undefined BSPs
+ python __anonymous () {
+-    import bb, re
++    import bb, re, string
+ 
+     rev = bb.data.getVar("SRCREV_machine", d, 1)
+     if rev == "standard":
+         bb.data.setVar("SRCREV_machine", "${SRCREV_meta}", d)
 +
-+#@DESCRIPTION: Machine configuration for Crown Bay systems, without Intel-proprietary graphics bits
-+# i.e. E660 + EG20T
-+
-+TARGET_ARCH = "i586"
-+PACKAGE_EXTRA_ARCHS = "x86 atom"
-+
-+include conf/machine/include/tune-atom.inc
-+
-+BASE_PACKAGE_ARCH="atom"
-+
-+MACHINE_FEATURES = "kernel26 screen keyboard pci usbhost ext2 ext3 x86 \
-+                    acpi serial usbgadget"
-+
-+KERNEL_IMAGETYPE = "bzImage"
-+
-+PREFERRED_PROVIDER_virtual/kernel ?= "linux-wrs"
-+PREFERRED_PROVIDER_virtual/libx11 ?= "libx11-trim"
-+PREFERRED_PROVIDER_virtual/libgl  ?= "mesa-dri"
-+PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xf86-dri-lite"
-+PREFERRED_PROVIDER_virtual/xserver-xf86 ?= "xserver-xf86-dri-lite"
-+XSERVER ?= "xserver-xf86-dri-lite \
-+           xf86-input-mouse \
-+           xf86-input-keyboard \
-+           xf86-input-evdev \
-+           xf86-input-synaptics \
-+           xf86-video-vesa"
-+
-+SERIAL_CONSOLE = "115200 ttyS0"
-+
-+MACHINE_EXTRA_RRECOMMENDS = "kernel-modules eee-acpi-scripts"
-+
-+GUI_MACHINE_CLASS = "bigscreen"
-+
-+IMAGE_ROOTFS_SIZE_ext3 = "2000000"
-+
-+IMAGE_FSTYPES ?= "ext3 cpio.gz"
-+
-+GLIBC_ADDONS = "nptl"
-+GLIBC_EXTRA_OECONF = "--with-tls"
-+
-+SRCREV_machine_pn-linux-wrs_crownbay-noemgd = "f0afe10edaed24575eb115ad69c366fc24ea9380"
-+SRCREV_meta_pn-linux-wrs = "2f315f96f26a93d22fe0fc524de629e7c46b8469"
-diff --git a/meta-crownbay/recipes-bsp/formfactor/formfactor/crownbay-noemgd/machconfig b/meta-crownbay/recipes-bsp/formfactor/formfactor/crownbay-noemgd/machconfig
-new file mode 100644
-index 0000000..ffce012
---- /dev/null
-+++ b/meta-crownbay/recipes-bsp/formfactor/formfactor/crownbay-noemgd/machconfig
-@@ -0,0 +1,3 @@
-+# Assume a USB mouse and keyboard are connected
-+HAVE_TOUCHSCREEN=0
-+HAVE_KEYBOARD=1
-diff --git a/meta-crownbay/recipes-graphics/xorg-xserver/xserver-xf86-config/crownbay-noemgd/xorg.conf b/meta-crownbay/recipes-graphics/xorg-xserver/xserver-xf86-config/crownbay-noemgd/xorg.conf
-new file mode 100644
-index 0000000..da4fc3c
---- /dev/null
-+++ b/meta-crownbay/recipes-graphics/xorg-xserver/xserver-xf86-config/crownbay-noemgd/xorg.conf
-@@ -0,0 +1,26 @@
-+Section "Device"
-+    Identifier	"Generic VESA"
-+    Driver	"vesa"
-+EndSection
-+
-+Section "Monitor"
-+    Identifier    "Generic Monitor"
-+    Option        "DPMS"
-+EndSection
-+
-+Section "Screen"
-+    Identifier    "Default Screen"
-+    Device	  "Generic VESA"
-+    Monitor       "Generic Monitor"
-+    DefaultDepth  24
-+EndSection
-+
-+Section "ServerLayout"
-+    Identifier     "Default Layout"
-+    Screen         "Default Screen"
-+EndSection
-+
-+Section "ServerFlags"
-+    Option        "DontZap"  "0"
-+    Option        "AutoAddDevices"  "False"
-+EndSection
-diff --git a/meta-crownbay/recipes-kernel/linux/linux-wrs_git.bbappend b/meta-crownbay/recipes-kernel/linux/linux-wrs_git.bbappend
-index 9709c36..aebe789 100644
---- a/meta-crownbay/recipes-kernel/linux/linux-wrs_git.bbappend
-+++ b/meta-crownbay/recipes-kernel/linux/linux-wrs_git.bbappend
-@@ -1,3 +1,7 @@
- FILESEXTRAPATHS := "${THISDIR}/${PN}"
-+
- COMPATIBLE_MACHINE_crownbay = "crownbay"
- WRMACHINE_crownbay  = "crownbay"
-+
-+COMPATIBLE_MACHINE_crownbay-noemgd = "crownbay-noemgd"
-+WRMACHINE_crownbay-noemgd  = "crownbay"
++    kerntype = string.replace(bb.data.expand("${LINUX_KERNEL_TYPE}", d), "_", "-")
++    bb.data.setVar("LINUX_KERNEL_TYPE_EXTENSION", kerntype, d)
+ }
+ 
+ SRC_URI = "git://git.pokylinux.org/linux-2.6-windriver.git;protocol=git;fullclone=1;branch=${KBRANCH};name=machine \
+diff --git a/meta/recipes-kernel/linux/linux-yocto_git.bb b/meta/recipes-kernel/linux/linux-yocto_git.bb
+index f40fe38..6677f99 100644
+--- a/meta/recipes-kernel/linux/linux-yocto_git.bb
++++ b/meta/recipes-kernel/linux/linux-yocto_git.bb
+@@ -1,15 +1,15 @@
+ inherit kernel
+ require linux-yocto.inc
+ 
+-KMACHINE_qemux86  = "common_pc/base"
+-KMACHINE_qemux86-64  = "common_pc_64"
+-KMACHINE_qemuppc  = "qemu_ppc32"
+-KMACHINE_qemumips = "mti_malta32_be"
+-KMACHINE_qemuarm  = "arm_versatile_926ejs"
+-KMACHINE_atom-pc  = "atom-pc"
+-KMACHINE_routerstationpro = "routerstationpro"
+-KMACHINE_mpc8315e-rdb = "fsl-mpc8315e-rdb"
+-KMACHINE_beagleboard = "beagleboard"
++KMACHINE_qemux86  = "yocto/standard/common_pc/base"
++KMACHINE_qemux86-64  = "yocto/standard/common-pc-64"
++KMACHINE_qemuppc  = "yocto/standard/qemu-ppc32"
++KMACHINE_qemumips = "yocto/standard/mti-malta32-be"
++KMACHINE_qemuarm  = "yocto/standard/arm-versatile-926ejs"
++KMACHINE_atom-pc  = "yocto/standard/common-pc/atom-pc"
++KMACHINE_routerstationpro = "yocto/standard/routerstationpro"
++KMACHINE_mpc8315e-rdb = "yocto/standard/fsl-mpc8315e-rdb"
++KMACHINE_beagleboard = "yocto/standard/beagleboard"
+ 
+ LINUX_VERSION ?= "2.6.37"
+ LINUX_VERSION_EXTENSION ?= "-yocto-${LINUX_KERNEL_TYPE}"
 -- 
 1.7.0.4
-
-
 
 
