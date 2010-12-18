@@ -1,20 +1,18 @@
-Return-Path: <tom.zanussi@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 746204C80B70
-	for <poky@yoctoproject.org>; Fri, 17 Dec 2010 17:24:41 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 17 Dec 2010 15:23:40 -0800
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4AEA24C80B71
+	for <poky@yoctoproject.org>; Fri, 17 Dec 2010 18:20:22 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 17 Dec 2010 16:20:21 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,190,1291622400"; d="scan'208";a="363363212"
-Received: from unknown (HELO [10.255.14.44]) ([10.255.14.44])
-	by azsmga001.ch.intel.com with ESMTP; 17 Dec 2010 15:23:40 -0800
-From: Tom Zanussi <tom.zanussi@intel.com>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Date: Fri, 17 Dec 2010 17:23:46 -0600
-Message-ID: <1292628226.2104.506.camel@elmorro>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Subject: [PATCH] meta-crownbay: update README
+X-IronPort-AV: E=Sophos;i="4.60,190,1291622400"; d="scan'208";a="688334735"
+Received: from unknown (HELO localhost) ([10.255.14.50])
+	by orsmga001.jf.intel.com with ESMTP; 17 Dec 2010 16:20:21 -0800
+Message-Id: <cover.1292630935.git.dvhart@linux.intel.com>
+From: Darren Hart <dvhart@linux.intel.com>
+Date: Fri, 17 Dec 2010 16:08:55 -0800
+To: poky@yoctoproject.org,tom.zanussi@intel.com,bruce.ashfield@intel.com
+Subject: [PATCH 0/4] Initial Real-Time Linux recipes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,90 +24,56 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 17 Dec 2010 23:24:41 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Sat, 18 Dec 2010 00:20:22 -0000
 
-Update the crownbay README with information explaining the available
-machine configurations.
+This patch provides an initial set of PREEMPT_RT kernel and related
+test and image recipes. The poky-image-minimal-rt image has been boot
+tested on qemux86-64, and that is currently the only "COMPATIBLE_MACHINE".
+More will be added as they are tested and confirmed working.
 
-Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
+To make use of the rt-tests pacakge included in the new images, you need
+to select linux-yocto-rt as the preferred kernel provider in your local.conf
+or in a supported machine config. qemu.inc has been updated to allow for
+the setting of the kernel provider in your local.conf.
+
+It was my intent to have the image specify the require kernel, but things
+don't really work that way. As such, it may be that having the images
+just to add rt-tests is overkill and unecessarily pollutes the images
+directory. I'm open to ideas on how to best go about building rt images.
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: dvhart/rt
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dvhart/rt
+
+Thanks,
+    Darren Hart <dvhart@linux.intel.com>
 ---
- meta-crownbay/README |   36 +++++++++++++++++++++++++++++++++---
- 1 files changed, 33 insertions(+), 3 deletions(-)
 
-diff --git a/meta-crownbay/README b/meta-crownbay/README
-index f0a710b..be842d6 100644
---- a/meta-crownbay/README
-+++ b/meta-crownbay/README
-@@ -1,5 +1,27 @@
- This README file contains information on building the meta-crownbay
--BSP layer, and booting the images contained in the /binary directory.
-+BSP layer using any of the supported machine configurations, and
-+booting the images contained in the /binary directory.
-+
-+The meta-crownbay layer contains support for 2 different machine
-+configurations, identical except for the fact that one ('crownbay')
-+makes use of the Intel-proprietary EMGD 1.5 graphics driver, and the
-+other ('crownbay-noemgd') does not.
-+
-+The default 'crownbay' configuration requires an extra manual step
-+before building in order for the build to complete.  Please see
-+section II below for details.
-+
-+The 'crownbay-noemgd' configuration doesn't require any special setup,
-+but since it uses generic vesa, the graphics aren't as nice and don't
-+perform as well as the 'crownbay', which does make use of the EMGD
-+graphics driver.
-+
-+If you're only interested in booting the images in the /binary
-+directory of a BSP tarball you've downloaded, there's nothing special
-+to do - the appropriate images (for either normal or -noemgd) are
-+already in the /binary directory depending on which BSP tarball you
-+downloaded.
-+
- Please see the corresponding sections below for details.
- 
- 
-@@ -7,7 +29,8 @@ Table of Contents
- =================
- 
-   I. Building the meta-crownbay BSP layer
-- II. Special notes for building the meta-crownbay BSP layer
-+ II. Special notes for building the meta-crownbay BSP layer (with EMGD
-+     graphics)
- III. Booting the images in /binary
- 
- 
-@@ -31,10 +54,16 @@ bblayers.conf e.g.:
- 
-   yocto/meta-intel/meta-crownbay \
- 
--To enable the crownbay layer, add the crownbay MACHINE to local.conf:
-+To enable the crownbay (with EMGD graphics) layer, add the crownbay
-+MACHINE to local.conf:
- 
-   MACHINE ?= "crownbay"
- 
-+To enable the crownbay-noemgd layer, add the crownbay-noemgd MACHINE
-+to local.conf:
-+
-+  MACHINE ?= "crownbay-noemgd"
-+
- You should then be able to build a crownbay image as such:
- 
-   $ source poky-init-build-env
-@@ -46,6 +75,7 @@ that below, in the section 'Booting the images from /binary').
- 
- 
- II. Special notes for building the meta-crownbay BSP layer
-+    (with EMGD graphics)
- ==========================================================
- 
- The meta-crownbay layer makes use of the proprietary Intel EMGD
+
+Darren Hart (4):
+  linux-yocto-rt: initial PREEMPT_RT recipe for the linux-yocto stable
+    kernel
+  rt-tests: add the PREEMPT_RT rt-tests testsuite and recipes-tests
+    directory
+  poky-image-minimal-rt*: Add initial real-time image recipes
+  machine/qemu: Allow for users to override the preferred kernel
+    version
+
+ .../conf/distro/include/poky-default-revisions.inc |    3 +
+ meta/conf/machine/include/qemu.inc                 |    2 +-
+ .../images/poky-image-minimal-rt-directdisk.bb     |   15 ++++++
+ .../images/poky-image-minimal-rt-live.bb           |   15 ++++++
+ meta/recipes-core/images/poky-image-minimal-rt.bb  |   15 ++++++
+ .../linux/linux-yocto-rt_stablegit.bb              |   47 ++++++++++++++++++++
+ meta/recipes-tests/rt/rt-tests_git.bb              |   22 +++++++++
+ 7 files changed, 118 insertions(+), 1 deletions(-)
+ create mode 100644 meta/recipes-core/images/poky-image-minimal-rt-directdisk.bb
+ create mode 100644 meta/recipes-core/images/poky-image-minimal-rt-live.bb
+ create mode 100644 meta/recipes-core/images/poky-image-minimal-rt.bb
+ create mode 100644 meta/recipes-kernel/linux/linux-yocto-rt_stablegit.bb
+ create mode 100644 meta/recipes-tests/rt/rt-tests_git.bb
+
 -- 
-1.7.0.4
-
-
+1.7.2.3
 
 
