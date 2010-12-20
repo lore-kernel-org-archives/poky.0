@@ -1,29 +1,29 @@
 Return-Path: <richard.purdie@linuxfoundation.org>
 Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id AEB924C80BD8
-	for <poky@yoctoproject.org>; Mon, 20 Dec 2010 09:49:17 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5521B4C80BD8
+	for <poky@yoctoproject.org>; Mon, 20 Dec 2010 10:11:58 -0600 (CST)
 Received: from localhost (dan.rpsys.net [127.0.0.1])
 	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	oBKFoavA030125; Mon, 20 Dec 2010 15:50:36 GMT
+	oBKGCGbb031261; Mon, 20 Dec 2010 16:12:16 GMT
 X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
 Received: from dan.rpsys.net ([127.0.0.1])
 	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id 1bJxT8-+7O3X; Mon, 20 Dec 2010 15:50:35 +0000 (GMT)
+	with LMTP id TvN3Y-VHkKf7; Mon, 20 Dec 2010 16:12:16 +0000 (GMT)
 Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
 	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	oBKFoV78030117
+	oBKGCBxA031239
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Mon, 20 Dec 2010 15:50:33 GMT
+	Mon, 20 Dec 2010 16:12:13 GMT
 From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Scott Rifenbark <scott.m.rifenbark@intel.com>
-In-Reply-To: <cover.1292534378.git.scott.m.rifenbark@intel.com>
-References: <cover.1292534378.git.scott.m.rifenbark@intel.com>
-Date: Mon, 20 Dec 2010 15:48:48 +0000
-Message-ID: <1292860128.25087.4607.camel@rex>
+To: Yu Ke <ke.yu@intel.com>
+In-Reply-To: <cover.1292567626.git.ke.yu@intel.com>
+References: <cover.1292567626.git.ke.yu@intel.com>
+Date: Mon, 20 Dec 2010 16:10:28 +0000
+Message-ID: <1292861428.25087.4661.camel@rex>
 Mime-Version: 1.0
 X-Mailer: Evolution 2.28.3 
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/1] Docs: Updating Yocto Quick Start
+Subject: Re: [PATCH 0/1] SRC_URI checksum support v3
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,21 +35,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 20 Dec 2010 15:49:18 -0000
+X-List-Received-Date: Mon, 20 Dec 2010 16:11:58 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On Thu, 2010-12-16 at 13:19 -0800, Scott Rifenbark wrote:
-> Fixed a grammar problem in the document.
+On Fri, 2010-12-17 at 14:33 +0800, Yu Ke wrote:
+> This patch add SRC_URI checksum support. With this patch,fetcher
+> can verify the MD5 and SHA256 checksum of download src with the
+> value defined in recipes SRC_URI.
+> 
+> This is the v3 patch with following changes compared with v2:
+> - add configurable variable BB_STRICT_CHECKSUM to handle checksum missing case
+>   if checksum is missing and BB_STRICT_CHECKSUM = "1", bitbake will fatal
+> - add check to only verify checksum for protocol http/https/ftp/ftps, not
+>   verify checksum for local file and other SCM
 > 
 > Pull URL: git://git.pokylinux.org/poky-contrib.git
->   Branch: srifenbark/qs-work
->   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=srifenbark/qs-work
-> 
-> Thanks,
->     Scott Rifenbark <scott.m.rifenbark@intel.com>
+>   Branch: kyu3/srcuri-v3
+>   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kyu3/srcuri-v3
 
-Merged into master, thanks.
+I merged this, then realised there was a problem with subsequent builds
+proceeding with corrupt files. I've pushed a fix for at least part of
+that.
+
+I'm wondering if we should rename the file to something like the
+original name + ".corrupt" to make sure we don't use a known broken
+file?
+
+Cheers,
 
 Richard
 
