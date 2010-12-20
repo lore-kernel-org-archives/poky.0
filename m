@@ -1,29 +1,19 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9714D4C80050
-	for <poky@yoctoproject.org>; Mon, 20 Dec 2010 08:55:02 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	oBKEuL0m027187; Mon, 20 Dec 2010 14:56:21 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id oKr7r1kll07S; Mon, 20 Dec 2010 14:56:21 +0000 (GMT)
-Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	oBKEuHGe027174
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Mon, 20 Dec 2010 14:56:19 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Paul Eggleton <paul.eggleton@linux.intel.com>
-In-Reply-To: <cover.1292523172.git.paul.eggleton@linux.intel.com>
-References: <cover.1292523172.git.paul.eggleton@linux.intel.com>
-Date: Mon, 20 Dec 2010 14:54:34 +0000
-Message-ID: <1292856874.25087.4494.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/3] sanity checking improvements
+Return-Path: <josh@linux.intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4D1AA4C808B0
+	for <poky@yoctoproject.org>; Mon, 20 Dec 2010 09:01:58 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 20 Dec 2010 07:01:57 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,202,1291622400"; d="scan'208";a="688938124"
+Received: from unknown (HELO localhost) ([10.255.16.58])
+	by orsmga001.jf.intel.com with ESMTP; 20 Dec 2010 07:01:56 -0800
+Message-Id: <cover.1292856365.git.josh@linux.intel.com>
+From: Joshua Lock <josh@linux.intel.com>
+Date: Mon, 20 Dec 2010 14:46:05 +0000
+To: poky@yoctoproject.org
+CC: 
+Subject: [PATCH 0/3] Misc build fixes v2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,23 +25,42 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 20 Dec 2010 14:55:03 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 20 Dec 2010 15:01:58 -0000
 
-On Thu, 2010-12-16 at 18:12 +0000, Paul Eggleton wrote:
-> These changes fix indenting in sanity.bbclass, provide a fix for bug #562
-> and introduce the (previously posted) check for filename length on top.
-> 
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->   Branch: paule/sanity-checks
->   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=paule/sanity-checks
-> 
-> Thanks,
->     Paul Eggleton <paul.eggleton@linux.intel.com>
+This series includes a corrected fix for gst-plugins-base for make 3.82 as
+well as a more correct fix to enable gthumb to build on a system without
+gtk-doc installed.
 
-Merged into master, thanks!
+We do this by providing a gtk-doc-native recipe and having gtk-doc depend on
+it. That way we have a binary to run on the build system to generate the
+documentation as well as a target version so that the pkgconfig test passes.
 
-Richard
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: josh/make-382
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=josh/make-382
+
+Thanks,
+    Joshua Lock <josh@linux.intel.com>
+---
+
+
+Joshua Lock (3):
+  gst-plugins: fix for make 3.82
+  gnome-common: add native variant via BBCLASSEXTEND
+  gnome-doc-utils: ensure a native variant exists for document
+    generation
+
+ meta/recipes-gnome/gnome/gnome-common_2.28.0.bb    |    2 +
+ .../gnome/gnome-doc-utils-native_0.20.2.bb         |    7 +++++
+ meta/recipes-gnome/gnome/gnome-doc-utils.inc       |    4 +--
+ .../gstreamer/gst-plugins-base_0.10.30.bb          |    5 ++-
+ meta/recipes-multimedia/gstreamer/gst-plugins.inc  |    2 +
+ .../gstreamer/gst-plugins/make-382.patch           |   25 ++++++++++++++++++++
+ 6 files changed, 40 insertions(+), 5 deletions(-)
+ create mode 100644 meta/recipes-gnome/gnome/gnome-doc-utils-native_0.20.2.bb
+ create mode 100644 meta/recipes-multimedia/gstreamer/gst-plugins/make-382.patch
+
+-- 
+1.7.3.3
 
 
