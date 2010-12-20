@@ -1,21 +1,30 @@
-Return-Path: <scott.m.rifenbark@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 495584C8120C
-	for <poky@yoctoproject.org>; Mon, 20 Dec 2010 14:24:02 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 20 Dec 2010 12:23:58 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,203,1291622400"; d="scan'208";a="585536786"
-Received: from scottrif-desktop.jf.intel.com (HELO localhost) ([10.7.201.54])
-	by orsmga002.jf.intel.com with ESMTP; 20 Dec 2010 12:23:58 -0800
-Message-Id: <5abbaafe9549fb4cb3b24b4298e4760b0ab8e2af.1292876262.git.scott.m.rifenbark@intel.com>
-In-Reply-To: <cover.1292876262.git.scott.m.rifenbark@intel.com>
-References: <cover.1292876262.git.scott.m.rifenbark@intel.com>
-From: Scott Rifenbark <scott.m.rifenbark@intel.com>
-Date: Fri, 17 Dec 2010 16:59:47 -0800
-To: poky@yoctoproject.org
-CC: 
-Subject: [PATCH 29/29] documentation/bsp-guide/bsp.xml: Spell checked the file.
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 911284C80BD8
+	for <poky@pokylinux.org>; Mon, 20 Dec 2010 15:17:58 -0600 (CST)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	oBKLHhWI012095; Mon, 20 Dec 2010 21:17:43 GMT
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id 29eL0eTgl5d7; Mon, 20 Dec 2010 21:17:43 +0000 (GMT)
+Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	oBKLHan5012092
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Mon, 20 Dec 2010 21:17:38 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Khem Raj <raj.khem@gmail.com>
+In-Reply-To: <20101220032118.GD26429@gmail.com>
+References: <b9dded$hdep5f@orsmga002.jf.intel.com>
+	<20101220032118.GD26429@gmail.com>
+Date: Mon, 20 Dec 2010 21:15:52 +0000
+Message-ID: <1292879752.25087.5050.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+Cc: paul.eggleton@linux.intel.com, poky@pokylinux.org
+Subject: Re: [PATCH 2/3] kernel.bbclass: introduce UIMAGE_BASE_NAME
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,63 +36,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 20 Dec 2010 20:24:02 -0000
+X-List-Received-Date: Mon, 20 Dec 2010 21:17:59 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
----
- documentation/bsp-guide/bsp.xml |   10 +++++-----
- 1 files changed, 5 insertions(+), 5 deletions(-)
+On Sun, 2010-12-19 at 19:21 -0800, Khem Raj wrote:
+> On (17/12/10 08:51), Kevin Tian wrote:
+> >  addtask sizecheck before do_install after do_compile
+> >  
+> >  KERNEL_IMAGE_BASE_NAME ?= "${KERNEL_IMAGETYPE}-${PV}-${PR}-${MACHINE}-${DATETIME}"
+> > +UIMAGE_BASE_NAME ?= "uImage-${PV}-${PR}-${MACHINE}-${DATETIME}"
+> >  # Don't include the DATETIME variable in the sstate package signatures
+> >  KERNEL_IMAGE_BASE_NAME[vardepsexclude] = "DATETIME"
+> >  KERNEL_IMAGE_SYMLINK_NAME ?= "${KERNEL_IMAGETYPE}-${MACHINE}"
+> > @@ -484,16 +485,16 @@ kernel_do_deploy() {
+> >  
+> >  	if test "x${KERNEL_IMAGETYPE}" = "xuImage" ; then 
+> >  		if test -e arch/${ARCH}/boot/uImage ; then
+> > -			cp arch/${ARCH}/boot/uImage ${DEPLOYDIR}/uImage-${PV}-${PR}-${MACHINE}-${DATETIME}.bin
+> > +			cp arch/${ARCH}/boot/uImage ${DEPLOYDIR}/${UIMAGE_BASE_NAME}.bin
+> 
+> why using KERNEL_IMAGE_BASE_NAME does not work here ?
 
-diff --git a/documentation/bsp-guide/bsp.xml b/documentation/bsp-guide/bsp.xml
-index e2c9487..f5fd217 100644
---- a/documentation/bsp-guide/bsp.xml
-+++ b/documentation/bsp-guide/bsp.xml
-@@ -260,7 +260,7 @@ TARGET_CC_ARCH = "-m32 -march=core2 -msse3 -mtune=generic -mfpmath=sse"
-                 files included with Poky itself.
-             </para>
-             <para>
--                Both the base package architecuture file and the tune file are optional for a Poky BSP layer.
-+                Both the base package architecture file and the tune file are optional for a Poky BSP layer.
-             </para>
-             </section>
- 
-@@ -330,7 +330,7 @@ meta-&lt;bsp_name&gt;/recipes-kernel/linux/linux-yocto-stable.bbappend
-                 directory.
-             </para>
-             <para>
--                Supppose you use a BSP that uses the <filename>linux-yocto-stable_git.bb</filename> kernel, 
-+                Suppose you use a BSP that uses the <filename>linux-yocto-stable_git.bb</filename> kernel, 
-                 which is the preferred kernel to use for developing a new BSP using the Yocto Project.
-                 In other words, you have selected the kernel in your 
-                 <filename>&lt;bsp_name&gt;.conf</filename> file by adding the following statement:
-@@ -369,7 +369,7 @@ KMACHINE_crownbay = "crownbay"
-             </para>
-             <para>
-                 For example, suppose you had a set of configuration options in a file called 
--                <filename>defonfig</filename>.  
-+                <filename>defconfig</filename>.  
-                 If you put that file inside a directory named 
-                 <filename class='directory'>/linux-yocto-stable</filename> and then added 
-                 a SRC_URI statement such as the following to the append file, those configuration
-@@ -381,7 +381,7 @@ SRC_URI += "file://defconfig"
-             <para>
-                 As mentioned earlier, you can group related configurations into multiple files and 
-                 name them all in the SRC_URI statement as well.
--                For example, you could group separate configurations specifically for ethernet and graphics
-+                For example, you could group separate configurations specifically for Ethernet and graphics
-                 into their own files and add those by using a SRC_URI statement like the 
-                 following in your append file:
-                 <programlisting>
-@@ -409,7 +409,7 @@ SRC_URI += "file://defconfig \
-                 In general, however, the Yocto Project maintainers take care of moving the SRC_URI-specified 
-                 configuration options to the <filename class='directory'>wrs_meta</filename> branch.
-                 Not only is it easier for BSP developers to not have to worry about putting those 
--                configurations in the branch, but having the manintainers do it allows them to apply 
-+                configurations in the branch, but having the maintainers do it allows them to apply 
-                 'global' knowledge about the kinds of common configuration options multiple BSPs in 
-                 the tree are typically using.  
-                 This allows for promotion of common configurations into common features.
--- 
-1.7.0.4
+Agreed, this doesn't make sense. I've pushed:
+
+http://git.pokylinux.org/cgit.cgi/poky/commit/?id=2e94e9a4fed33b1c7c5b0ce1dbc566e24344280c
+
+since its clear that KERNEL_IMAGETYPE = "uImage".
+
+Cheers,
+
+Richard
 
 
