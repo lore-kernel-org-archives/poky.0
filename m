@@ -1,32 +1,21 @@
-Return-Path: <wd@denx.de>
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
-	by mx1.pokylinux.org (Postfix) with ESMTP id BB2884C80039
-	for <poky@yoctoproject.org>; Mon, 20 Dec 2010 03:29:13 -0600 (CST)
-Received: from frontend1.mail.m-online.net (unknown [192.168.8.180])
-	by mail-out.m-online.net (Postfix) with ESMTP id 5B2171C08CCD;
-	Mon, 20 Dec 2010 10:29:12 +0100 (CET)
-X-Auth-Info: Pzl6cicnjpxkXhpCYBpb+0e/agChCcxRbQHtKFfGnI8=
-Received: from diddl.denx.de (ppp-188-174-79-57.dynamic.mnet-online.de
-	[188.174.79.57])
-	by smtp-auth.mnet-online.de (Postfix) with ESMTPA id EAFE31C001FA;
-	Mon, 20 Dec 2010 10:29:11 +0100 (CET)
-Received: from gemini.denx.de (gemini.denx.de [10.0.0.2])
-	by diddl.denx.de (Postfix) with ESMTP id C330A316EC0B;
-	Mon, 20 Dec 2010 10:29:11 +0100 (CET)
-Received: from gemini.denx.de (localhost.localdomain [127.0.0.1])
-	by gemini.denx.de (Postfix) with ESMTP id AF1F8CDE29A;
-	Mon, 20 Dec 2010 10:29:11 +0100 (CET)
-To: Joshua Lock <josh@linux.intel.com>
-From: Wolfgang Denk <wd@denx.de>
-MIME-Version: 1.0
-In-reply-to: <cover.1292600657.git.josh@linux.intel.com>
-References: <cover.1292600657.git.josh@linux.intel.com>
-Comments: In-reply-to Joshua Lock <josh@linux.intel.com>
-	message dated "Fri, 17 Dec 2010 15:44:17 +0000."
-Date: Mon, 20 Dec 2010 10:29:11 +0100
-Message-Id: <20101220092911.AF1F8CDE29A@gemini.denx.de>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/4] Misc build fixes
+Return-Path: <josh@openedhand.com>
+Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
+	by mx1.pokylinux.org (Postfix) with ESMTP id DC8A54C8106A
+	for <poky@yoctoproject.org>; Mon, 20 Dec 2010 05:34:42 -0600 (CST)
+Received: from [10.250.128.97] (unknown [158.43.2.102])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by pug.o-hand.com (Postfix) with ESMTP id 8B86312EC331
+	for <poky@yoctoproject.org>; Mon, 20 Dec 2010 06:13:34 -0600 (CST)
+From: Joshua Lock <josh@openedhand.com>
+To: poky@yoctoproject.org
+In-Reply-To: <AANLkTi=MRFdxg-0VO-shfgGf80607Fe9RhT1VtPMRwsF@mail.gmail.com>
+References: <AANLkTi=MRFdxg-0VO-shfgGf80607Fe9RhT1VtPMRwsF@mail.gmail.com>
+Date: Mon, 20 Dec 2010 11:34:35 +0000
+Message-ID: <1292844875.2466.11.camel@scimitar>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.1 (2.32.1-1.fc14) 
+Subject: Re: mpd: COMMERCIAL_LICENSE etc
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,50 +27,41 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 20 Dec 2010 09:29:14 -0000
-Content-type: text/plain; charset=ISO-8859-1
-Content-transfer-encoding: 8bit
+X-List-Received-Date: Mon, 20 Dec 2010 11:34:43 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Dear Joshua,
+On Sat, 2010-12-18 at 18:26 +0100, Frans Meulenbroeks wrote:
+> Hi,
+> 
+> I was trying to add mpd to poky and bumped upon COMMERCIAL_LICENSE
+> Should I set
+> COMMERCIAL_LICENSE = ""
+> in my local.conf. That allows me to add lame etc to mpd.
+> Not sure if that is the desired way. Overruling COMMERCIAL_LICENSE seems wrong.
 
-In message <cover.1292600657.git.josh@linux.intel.com> you wrote:
-> This series includes a corrected fix for gst-plugins-base for make 3.82 as
-> well as fixes to enable gthumb to build on a system without gtk-doc installed
+This is something we need to document better, and I filed a bug about
+that recently (#576).
 
-Thanks.
+There's a comment in poky.conf on how the variable is used
+(http://git.yoctoproject.org/cgit/cgit.cgi/poky/tree/meta/conf/distro/poky.conf#n130) as well as a comment on the bug I filed (http://bugzilla.pokylinux.org/show_bug.cgi?id=576#c1)
 
->   gthumb: add gnome-doc-utils-native to DEPENDS
+> 
+> I'm also stuct at how to add these conditionally.
+> The OE recipe has:
+>            ${@base_conditional('ENTERPRISE_DISTRO', '1', '', 'libmad
+> libid3tag lame', d)}"
+> I tried replacing ENTERPRISE_DISTRO with COMMERCIAL_LICENSE but that
+> did not work as it is not a boolean var
+> and my python is not good enough to come up with a better fix.
 
-Using your poky-contrib/josh/make-382git branch and trying to build
-poky-image-sdk for qemuppc on F14 results for me in this:
+I think adding a boolean value for detecting whether we can build this
+software would be a great idea, care to file a bug?
 
-...
-| checking dynamic linker characteristics... (cached) GNU/Linux ld.so
-| checking how to hardcode library paths into programs... immediate
-| checking for glib-genmarshal... /opt/poky/build-work-qemuppc/tmp/sysroots/x86_64-linux/usr/bin/glib-genmarshal
-| checking for glib-mkenums... /opt/poky/build-work-qemuppc/tmp/sysroots/x86_64-linux/usr/bin/glib-mkenums
-| checking for powerpc-poky-linux-pkg-config... no
-| checking for pkg-config... /opt/poky/build-work-qemuppc/tmp/sysroots/x86_64-linux/usr/bin/pkg-config
-| configure: WARNING: using cross tools not prefixed with host triplet
-| checking pkg-config is at least version 0.9.0... yes
-| checking gnome-doc-utils >= 0.3.2... no
-| configure: error: gnome-doc-utils >= 0.3.2 not found
-| FATAL: oe_runconf failed
-| ERROR: Task failed: ('function do_configure failed', '/opt/poky/build-work-qemuppc/tmp/work/ppc603e-poky-linux/gthumb-2.12.0-r2/temp/log.do_configure.5399')
-NOTE: package gthumb-2.12.0-r2: task do_configure: Failed
-ERROR: Task 1387 (/home/wd/git/poky/work/meta/recipes-gnome/gthumb/gthumb_2.12.0.bb, do_configure) failed with 1
-ERROR: '/home/wd/git/poky/work/meta/recipes-gnome/gthumb/gthumb_2.12.0.bb' failed
-
-Am I missing something?
-
-Best regards,
-
-Wolfgang Denk
-
+Cheers,
+Joshua
 -- 
-DENX Software Engineering GmbH,     MD: Wolfgang Denk & Detlev Zundel
-HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
-Phone: (+49)-8142-66989-10 Fax: (+49)-8142-66989-80 Email: wd@denx.de
-"Never give in.  Never give in.  Never. Never. Never."
-- Winston Churchill
+Joshua Lock
+        Intel Open Source Technology Centre
+
 
