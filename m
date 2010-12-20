@@ -1,29 +1,23 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E80084C80B70
-	for <poky@yoctoproject.org>; Mon, 20 Dec 2010 13:33:16 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 6DFFB166037C; Mon, 20 Dec 2010 12:33:16 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=ham version=3.3.1
-Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
-	by mail.chez-thomas.org (Postfix) with ESMTP id F01561660373;
-	Mon, 20 Dec 2010 12:33:14 -0700 (MST)
-Message-ID: <4D0FAF7A.6060601@mlbassoc.com>
-Date: Mon, 20 Dec 2010 12:33:14 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C9A024C80B70
+	for <poky@yoctoproject.org>; Mon, 20 Dec 2010 13:47:43 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 20 Dec 2010 11:47:43 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,203,1291622400"; d="scan'208";a="689024465"
+Received: from unknown (HELO [10.255.14.74]) ([10.255.14.74])
+	by orsmga001.jf.intel.com with ESMTP; 20 Dec 2010 11:47:43 -0800
+Message-ID: <4D0FB2DE.8010302@linux.intel.com>
+Date: Mon, 20 Dec 2010 11:47:42 -0800
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
 MIME-Version: 1.0
-To: Darren Hart <dvhart@linux.intel.com>
-References: <cover.1292870880.git.dvhart@linux.intel.com>
-In-Reply-To: <cover.1292870880.git.dvhart@linux.intel.com>
-Cc: poky@yoctoproject.org, Josh Lock <josh@linux.intel.com>
-Subject: Re: [PATCH 0/1] send-pull-request: Use current date in mail headers
+To: poky@yoctoproject.org, tom.zanussi@intel.com, bruce.ashfield@windriver.com
+References: <cover.1292630935.git.dvhart@linux.intel.com>
+In-Reply-To: <cover.1292630935.git.dvhart@linux.intel.com>
+Subject: Re: [PATCH 0/4] Initial Real-Time Linux recipes (DO NOT PULL)
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,34 +29,33 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 20 Dec 2010 19:33:17 -0000
+X-List-Received-Date: Mon, 20 Dec 2010 19:47:44 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 12/20/2010 11:50 AM, Darren Hart wrote:
-> This series was sent using the updated send-pull-request script. See
-> PATCH 1/1 for details.
+On 12/17/2010 04:08 PM, Darren Hart wrote:
+> RESEND: corrected Bruce's email address, apologies for the duplicate
 >
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->    Branch: dvhart/git-pull
->    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dvhart/git-pull
+> This patch provides an initial set of PREEMPT_RT kernel and related
+> test and image recipes. The poky-image-minimal-rt image has been boot
+> tested on qemux86-64, and that is currently the only "COMPATIBLE_MACHINE".
+> More will be added as they are tested and confirmed working.
 >
-> Thanks,
->      Darren Hart<dvhart@linux.intel.com>
-> ---
+> To make use of the rt-tests pacakge included in the new images, you need
+> to select linux-yocto-rt as the preferred kernel provider in your local.conf
+> or in a supported machine config. qemu.inc has been updated to allow for
+> the setting of the kernel provider in your local.conf.
 >
+> It was my intent to have the image specify the require kernel, but things
+> don't really work that way. As such, it may be that having the images
+> just to add rt-tests is overkill and unecessarily pollutes the images
+> directory. I'm open to ideas on how to best go about building rt images.
 >
-> Darren Hart (1):
->    send-pull-request: Use current date in mail headers
->
->   scripts/send-pull-request |    6 +++++-
->   1 files changed, 5 insertions(+), 1 deletions(-)
 
-Much better, thanks
+I'll be redoing these as meta-rt layer and rebase them on fixes to the 
+stable kernel recipe from Bruce. Please DO NOT PULL.
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+--
+Darren Hart
+Yocto Linux Kernel
 
