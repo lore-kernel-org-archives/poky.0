@@ -1,31 +1,33 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 20A084C80050
-	for <poky@yoctoproject.org>; Tue, 21 Dec 2010 11:41:17 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	oBLHgaTs020895; Tue, 21 Dec 2010 17:42:36 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id lGNmeom3RTFc; Tue, 21 Dec 2010 17:42:36 +0000 (GMT)
-Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	oBLHgVHx020878
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Tue, 21 Dec 2010 17:42:32 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Khem Raj <raj.khem@gmail.com>
-In-Reply-To: <AANLkTikE3+s+WV8PYhPA0Z+T4kzquR6cb_uQf=e-ECNr@mail.gmail.com>
-References: <cover.1292920700.git.raj.khem@gmail.com>
-	<20101221151305.4C9E1126EB19@gemini.denx.de>
-	<AANLkTikE3+s+WV8PYhPA0Z+T4kzquR6cb_uQf=e-ECNr@mail.gmail.com>
-Date: Tue, 21 Dec 2010 17:40:44 +0000
-Message-ID: <1292953244.25087.6330.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/3] gcc 4.5.4 + linaro update
+Return-Path: <nitin.a.kamble@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D6A8A4C80050
+	for <poky@yoctoproject.org>; Tue, 21 Dec 2010 12:16:15 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 21 Dec 2010 10:15:37 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,208,1291622400"; d="scan'208";a="870536144"
+Received: from orsmsx602.amr.corp.intel.com ([10.22.226.211])
+	by fmsmga001.fm.intel.com with ESMTP; 21 Dec 2010 10:15:37 -0800
+Received: from orsmsx504.amr.corp.intel.com ([10.22.226.207]) by
+	orsmsx602.amr.corp.intel.com ([10.22.226.211]) with mapi;
+	Tue, 21 Dec 2010 10:15:37 -0800
+From: "Kamble, Nitin A" <nitin.a.kamble@intel.com>
+To: Joshua Lock <josh@linux.intel.com>, "poky@yoctoproject.org"
+	<poky@yoctoproject.org>
+Date: Tue, 21 Dec 2010 10:15:35 -0800
+Thread-Topic: [poky] [PATCH 11/14] owl-video-widget: fix Makefile for super
+	strict make 3.82
+Thread-Index: AcucdUeVMyNvrGxpSVCcgA6GyoliygExasBw
+Message-ID: <9DA5872FEF993D41B7173F58FCF6BE9405196335@orsmsx504.amr.corp.intel.com>
+References: <cover.1292430240.git.josh@linux.intel.com>
+	<a8b8557e4cb34b594bb620eb276bcaf7a8e0a8e3.1292430240.git.josh@linux.intel.com>
+In-Reply-To: <a8b8557e4cb34b594bb620eb276bcaf7a8e0a8e3.1292430240.git.josh@linux.intel.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
+MIME-Version: 1.0
+Subject: Re: [PATCH 11/14] owl-video-widget: fix Makefile for super	strict make 3.82
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,26 +39,83 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Dec 2010 17:41:18 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 21 Dec 2010 18:16:16 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2010-12-21 at 08:55 -0800, Khem Raj wrote:
-> On Tue, Dec 21, 2010 at 7:13 AM, Wolfgang Denk <wd@denx.de> wrote:
-> > If I apply your patches on top of current head, I see a failure like
-> > this:
-> >
-> > ERROR: Task failed: Unknown fetch Error: local variable 'md5data' referenced before assignment
-> > NOTE: package gcc-cross-initial-4.5.2-r0: task do_fetch: Failed
-> >
-> 
-> hmm interesting. I did not see this error. But anyway wait for the V2
-> of the patchset
+Hi Josh,
+ After including your patch, my build was still failing on the owl-video re=
+cipe. I noticed PR bump is missing in this commit.
 
-This was a bug in master which is now fixed.
+Thanks,
+Nitin
 
-Cheers,
 
-Richard
-
+> -----Original Message-----
+> From: poky-bounces@yoctoproject.org [mailto:poky-
+> bounces@yoctoproject.org] On Behalf Of Joshua Lock
+> Sent: Wednesday, December 15, 2010 4:28 AM
+> To: poky@yoctoproject.org
+> Subject: [poky] [PATCH 11/14] owl-video-widget: fix Makefile for super
+> strict make 3.82
+>=20
+> Signed-off-by: Joshua Lock <josh@linux.intel.com>
+> ---
+>  .../owl-video-widget/owl-video/make-382.patch      |   15
+> +++++++++++++++
+>  .../recipes-sato/owl-video-widget/owl-video_svn.bb |    3 ++-
+>  2 files changed, 17 insertions(+), 1 deletions(-)
+>  create mode 100644 meta/recipes-sato/owl-video-widget/owl-video/make-
+> 382.patch
+>=20
+> diff --git a/meta/recipes-sato/owl-video-widget/owl-video/make-
+> 382.patch b/meta/recipes-sato/owl-video-widget/owl-video/make-382.patch
+> new file mode 100644
+> index 0000000..7d8aff7
+> --- /dev/null
+> +++ b/meta/recipes-sato/owl-video-widget/owl-video/make-382.patch
+> @@ -0,0 +1,15 @@
+> +Make 3.82 is much stricter and demands tabs. Obey.
+> +
+> +JL - 15/12/10
+> +
+> +Index: video/Makefile.am
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> +--- video.orig/Makefile.am
+> ++++ video/Makefile.am
+> +@@ -4,5 +4,5 @@ SUBDIRS =3D src
+> + MAINTAINERCLEANFILES =3D aclocal.m4 compile config.guess config.sub
+> configure depcomp intltool-extract intltool-merge intltool-update
+> install-sh ltmain.sh Makefile.in missing
+> +
+> + snapshot:
+> +-        $(MAKE) dist distdir=3D$(PACKAGE)-snap`date +"%Y%m%d"`
+> ++	$(MAKE) dist distdir=3D$(PACKAGE)-snap`date +"%Y%m%d"`
+> +
+> diff --git a/meta/recipes-sato/owl-video-widget/owl-video_svn.bb
+> b/meta/recipes-sato/owl-video-widget/owl-video_svn.bb
+> index 07c52ef..5419bea 100644
+> --- a/meta/recipes-sato/owl-video-widget/owl-video_svn.bb
+> +++ b/meta/recipes-sato/owl-video-widget/owl-video_svn.bb
+> @@ -21,7 +21,8 @@ SRC_URI =3D "svn://svn.o-
+> hand.com/repos/misc/trunk;module=3Dvideo;proto=3Dhttp \
+>             file://stock_volume-min.png \
+>             file://stock_volume-med.png \
+>             file://stock_volume-max.png \
+> -           file://owl-video-widget.desktop"
+> +           file://owl-video-widget.desktop \
+> +	   file://make-382.patch"
+>=20
+>  inherit autotools pkgconfig
+>=20
+> --
+> 1.7.3.3
+>=20
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
