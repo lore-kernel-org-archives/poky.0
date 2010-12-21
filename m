@@ -1,19 +1,29 @@
-Return-Path: <kevin.tian@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9F1084C811DF
-	for <poky@pokylinux.org>; Tue, 21 Dec 2010 01:28:46 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 20 Dec 2010 23:27:45 -0800
-Message-Id: <849307$arkaj1@azsmga001.ch.intel.com>
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,207,1291622400"; d="scan'208";a="364522112"
-Received: from poky-desktop-ktian1.sh.intel.com (HELO localhost)
-	([10.239.36.131])
-	by azsmga001.ch.intel.com with ESMTP; 20 Dec 2010 23:27:45 -0800
-From: Kevin Tian <kevin.tian@intel.com>
-Date: Tue, 21 Dec 2010 15:07:33 +0800
-To: poky@pokylinux.org
-Subject: [PATCH 0/1] fix broken sstate in fork() model
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 1E1104C80039
+	for <poky@pokylinux.org>; Tue, 21 Dec 2010 02:49:33 -0600 (CST)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	oBL8op8E032213; Tue, 21 Dec 2010 08:50:52 GMT
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id gDs-SrRJBI9Y; Tue, 21 Dec 2010 08:50:51 +0000 (GMT)
+Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	oBL8okL4032200
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Tue, 21 Dec 2010 08:50:49 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Kevin Tian <kevin.tian@intel.com>
+In-Reply-To: <0d30dc$kh8l3j@orsmga001.jf.intel.com>
+References: <0d30dc$kh8l3j@orsmga001.jf.intel.com>
+Date: Tue, 21 Dec 2010 08:49:01 +0000
+Message-ID: <1292921341.25087.5749.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+Cc: poky@pokylinux.org
+Subject: Re: [PATCH 1/1] runqueue.py: set BB_TASKHASH approriately after moving to fork()
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -25,29 +35,23 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Dec 2010 07:28:46 -0000
+X-List-Received-Date: Tue, 21 Dec 2010 08:49:34 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Frankly speaking I'm not very clear about which part of data requires re-initialization
-and which part doesn't in the child. But one obvious difference from previous exec()
-model is that environmental variables are not exported again since they're already in
-the data store. Original way to pass BB_TASKHASH through env now simply breaks and thus
-there's no signature in sstate packages. The fix is simple, to simply set variable 
-directly, but I'm not sure whether there're other similar issues regarding to env handle
-here...
+On Tue, 2010-12-21 at 15:02 +0800, Kevin Tian wrote:
+> In previous exec() model, cooker is re-initialized from scratch with environmental
+> variable exported accordingly. Now in fork() model, environmental variables are
+> not exported again, and thus original method to export BB_TASKHASH doesn't apply
+> now which breaks all sstate packages. Now we can set data variable directly instead.
+> 
+> Signed-off-by: Kevin Tian <kevin.tian@intel.com>
+> ---
+>  bitbake/lib/bb/runqueue.py |    3 ++-
+>  1 files changed, 2 insertions(+), 1 deletions(-)
 
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: tk/master
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=tk/master
+Merged into master, thanks.
 
-Thanks,
-    Kevin Tian <kevin.tian@intel.com>
----
-
-
-Kevin Tian (1):
-  runqueue.py: set BB_TASKHASH approriately after moving to fork()
-
- bitbake/lib/bb/runqueue.py |    3 ++-
- 1 files changed, 2 insertions(+), 1 deletions(-)
+Richard
 
 
