@@ -1,40 +1,23 @@
-Return-Path: <raj.khem@gmail.com>
-Received: from mail-gx0-f169.google.com (mail-gx0-f169.google.com
-	[209.85.161.169])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 770E24C80039
-	for <poky@yoctoproject.org>; Tue, 21 Dec 2010 10:55:26 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by gxk5 with SMTP id 5so2188455gxk.28
-	for <poky@yoctoproject.org>; Tue, 21 Dec 2010 08:55:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:received:mime-version:received:in-reply-to
-	:references:from:date:message-id:subject:to:cc:content-type
-	:content-transfer-encoding;
-	bh=ghUKEyzlO1dfXuE6RZJdEKQOzm4heDYannIlibpJ0fQ=;
-	b=OVKruI98evlbE5kJAudPpAdlKQS98B+vdx5at2MpFeP93hvNlEF6Z2vFOPz1iulvSM
-	wtIWgqbxgNhfdSQBYgYABBnbqfRNTfQTXaC8SdgsAlag+qXc0qRrZNoBlu2qQxdsB6Jk
-	iYUQG232+5ygl5fvi6N+4pR4FSsXU2iPdXejU=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc:content-type:content-transfer-encoding;
-	b=KB8VC1hFQuBTMe07dzRvdGZqQ+kSmvUXGI1c6ABMOnFfnQAiFUmNkO2MnMZPgKwbag
-	PFH4OJPyQumm729yYYiozwVhNyzHKgEMcmGc6sv/E0GP95w0IZSwOyteRuJFEWNplnsm
-	rTbAIJ9OJxpsI6eupnfyhYioMuiNrBSXxBpZ4=
-Received: by 10.90.120.17 with SMTP id s17mr7206195agc.193.1292950525955; Tue,
-	21 Dec 2010 08:55:25 -0800 (PST)
-MIME-Version: 1.0
-Received: by 10.90.86.4 with HTTP; Tue, 21 Dec 2010 08:55:05 -0800 (PST)
-In-Reply-To: <20101221151305.4C9E1126EB19@gemini.denx.de>
-References: <cover.1292920700.git.raj.khem@gmail.com>
-	<20101221151305.4C9E1126EB19@gemini.denx.de>
-From: Khem Raj <raj.khem@gmail.com>
-Date: Tue, 21 Dec 2010 08:55:05 -0800
-Message-ID: <AANLkTikE3+s+WV8PYhPA0Z+T4kzquR6cb_uQf=e-ECNr@mail.gmail.com>
-To: Wolfgang Denk <wd@denx.de>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/3] gcc 4.5.4 + linaro update
+Return-Path: <qing.he@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id AD4C94C80050
+	for <poky@yoctoproject.org>; Tue, 21 Dec 2010 11:25:43 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 21 Dec 2010 09:25:43 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,208,1291622400"; d="scan'208";a="870511812"
+Received: from qhe2-db.sh.intel.com ([10.239.13.38])
+	by fmsmga001.fm.intel.com with ESMTP; 21 Dec 2010 09:25:43 -0800
+Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
+	(envelope-from <qing.he@intel.com>)
+	id 1PV5sq-0007yn-Rb; Wed, 22 Dec 2010 01:20:20 +0800
+Message-Id: <58c4affd052b2859fc9f86375f7ec0f354b14bc5.1292950145.git.qing.he@intel.com>
+In-Reply-To: <cover.1292950144.git.qing.he@intel.com>
+References: <cover.1292950144.git.qing.he@intel.com>
+From: Qing He <qing.he@intel.com>
+Date: Wed, 22 Dec 2010 00:30:27 +0800
+To: poky@yoctoproject.org
+Subject: [PATCH 3/4] data_smart: remote data
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,57 +29,69 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Dec 2010 16:55:27 -0000
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Tue, 21 Dec 2010 17:25:43 -0000
 
-On Tue, Dec 21, 2010 at 7:13 AM, Wolfgang Denk <wd@denx.de> wrote:
-> Dear Khem Raj,
->
-> In message <cover.1292920700.git.raj.khem@gmail.com> you wrote:
->>
->> This branch brings in gcc 4.5.2 and on top linaro's enhancements to gcc =
-4.5
->> I have made sure that it builds poky-image-minimal for arm, ppc, x86, mi=
-ps
->> qemu and boots on all of them. It did not boot on ppc however poky-qemu
->> did not boot any images for me even the ones built without these enhance=
-ments
->> i.e. on vanilla yocto. So I used a qemu 0.12.5 built with OE
->> which worked well. I need help in testing it out. So please test these p=
-atches rigourously
->> with standard testing setup you use before you pull them
->>
->> If there are issues found let me know
->
-> The 4.5.4 in the subject is just a typo?
+ad hoc version of remote data for data_smart
+the data.dict["_remote_data"]["content"] is supposed to be the socket
+used for data connection
 
-yes it is.
+Signed-off-by: Qing He <qing.he@intel.com>
+---
+ bitbake/lib/bb/data_smart.py |   25 ++++++++++++++++++++++++-
+ 1 files changed, 24 insertions(+), 1 deletions(-)
 
->
-> If I apply your patches on top of current head, I see a failure like
-> this:
->
-> ERROR: Task failed: Unknown fetch Error: local variable 'md5data' referen=
-ced before assignment
-> NOTE: package gcc-cross-initial-4.5.2-r0: task do_fetch: Failed
->
+diff --git a/bitbake/lib/bb/data_smart.py b/bitbake/lib/bb/data_smart.py
+index c8cd8f8..9b630eb 100644
+--- a/bitbake/lib/bb/data_smart.py
++++ b/bitbake/lib/bb/data_smart.py
+@@ -32,6 +32,13 @@ import copy, re, sys
+ import bb
+ from bb   import utils
+ from bb.COW  import COWDictBase
++import socket
++
++try:
++    import cPickle as pickle
++except ImportError:
++    import pickle
++    bb.msg.note(1, bb.msg.domain.Cache, "Importing cPickle failed. Falling back to a very slow implementation.")
+ 
+ 
+ __setvar_keyword__ = ["_append", "_prepend"]
+@@ -189,6 +196,12 @@ class DataSmart:
+             if var in dest:
+                 return dest[var]
+ 
++            if "_remote_data" in dest:
++                s = dest["_remote_data"]["content"]
++                s.send(var)
++                l = int(s.recv(4), 16)
++                return pickle.loads(s.recv(l, socket.MSG_WAITALL))
++
+             if "_data" not in dest:
+                 break
+             dest = dest["_data"]
+@@ -351,8 +364,18 @@ class DataSmart:
+                 _keys(d["_data"], mykey)
+ 
+             for key in d.keys():
+-                if key != "_data":
++                if key != "_data" and key != "_remote_data":
+                     mykey[key] = None
++
++            if "_remote_data" in d:
++                s = d["_remote_data"]["content"]
++                s.send("_cmd_keys")
++                l = int(s.recv(4), 16)
++                rk = pickle.loads(s.recv(l, socket.MSG_WAITALL))
++                for key in rk:
++                    if key != "_data":
++                        mykey[key] = None
++
+         keytab = {}
+         _keys(self.dict, keytab)
+         return keytab.keys()
+-- 
+1.7.0
 
-hmm interesting. I did not see this error. But anyway wait for the V2
-of the patchset
->
-> Best regards,
->
-> Wolfgang Denk
->
-> --
-> DENX Software Engineering GmbH, =C2=A0 =C2=A0 MD: Wolfgang Denk & Detlev =
-Zundel
-> HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
-> Phone: (+49)-8142-66989-10 Fax: (+49)-8142-66989-80 Email: wd@denx.de
-> C++ was an interesting and valuable experiment, but we've learned its
-> lessons and it's time to move on.
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0- Peter Curran in <DCqM4z.BxB@isgtec.com>
->
 
