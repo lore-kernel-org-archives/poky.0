@@ -1,23 +1,22 @@
-Return-Path: <josh@linux.intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 74B204C808B0
-	for <poky@yoctoproject.org>; Tue, 21 Dec 2010 04:54:05 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 21 Dec 2010 02:53:35 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,207,1291622400"; d="scan'208";a="870392210"
-Received: from unknown (HELO [10.255.16.49]) ([10.255.16.49])
-	by fmsmga001.fm.intel.com with ESMTP; 21 Dec 2010 02:53:34 -0800
-From: Joshua Lock <josh@linux.intel.com>
+Return-Path: <josh@openedhand.com>
+Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 9DD494C808B0
+	for <poky@yoctoproject.org>; Tue, 21 Dec 2010 04:54:32 -0600 (CST)
+Received: from [10.250.128.97] (unknown [158.43.2.102])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by pug.o-hand.com (Postfix) with ESMTP id 27CC212EC1C5
+	for <poky@yoctoproject.org>; Tue, 21 Dec 2010 05:33:26 -0600 (CST)
+From: Joshua Lock <josh@openedhand.com>
 To: poky@yoctoproject.org
-In-Reply-To: <839e299af32e8de5c86e7225954533a452409a2d.1292870880.git.dvhart@linux.intel.com>
-References: <cover.1292870880.git.dvhart@linux.intel.com>
-	<839e299af32e8de5c86e7225954533a452409a2d.1292870880.git.dvhart@linux.intel.com>
-Date: Tue, 21 Dec 2010 10:52:48 +0000
-Message-ID: <1292928768.2701.1.camel@scimitar>
+In-Reply-To: <20101221053230.GB20780@kyu3-hedt>
+References: <cover.1292567626.git.ke.yu@intel.com>
+	<1292861428.25087.4661.camel@rex>  <20101221053230.GB20780@kyu3-hedt>
+Date: Tue, 21 Dec 2010 10:54:23 +0000
+Message-ID: <1292928863.2701.2.camel@scimitar>
 Mime-Version: 1.0
 X-Mailer: Evolution 2.32.1 (2.32.1-1.fc14) 
-Subject: Re: [PATCH 1/1] send-pull-request: Use current date in mail headers
+Subject: Re: [PATCH 0/1] SRC_URI checksum support v3
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,46 +28,42 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Dec 2010 10:54:05 -0000
+X-List-Received-Date: Tue, 21 Dec 2010 10:54:32 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On Mon, 2010-12-20 at 10:50 -0800, Darren Hart wrote:
-> Some users experience problems viewing the pull requests as a sequential
-> mail series due to the script using the git commit date for the patches
-> and today's date for the cover letter.
+On Tue, 2010-12-21 at 13:32 +0800, Yu Ke wrote:
+> On Dec 20, 16:10, Richard Purdie wrote:
+> > On Fri, 2010-12-17 at 14:33 +0800, Yu Ke wrote:
+> > > This patch add SRC_URI checksum support. With this patch,fetcher
+> > > can verify the MD5 and SHA256 checksum of download src with the
+> > > value defined in recipes SRC_URI.
+> > > 
+> > > This is the v3 patch with following changes compared with v2:
+> > > - add configurable variable BB_STRICT_CHECKSUM to handle checksum missing case
+> > >   if checksum is missing and BB_STRICT_CHECKSUM = "1", bitbake will fatal
+> > > - add check to only verify checksum for protocol http/https/ftp/ftps, not
+> > >   verify checksum for local file and other SCM
+> > > 
+> > > Pull URL: git://git.pokylinux.org/poky-contrib.git
+> > >   Branch: kyu3/srcuri-v3
+> > >   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kyu3/srcuri-v3
+> > 
+> > I merged this, then realised there was a problem with subsequent builds
+> > proceeding with corrupt files. I've pushed a fix for at least part of
+> > that.
 > 
-> Address this by renaming the email Date: header to Old-Date: and adding
-> a new Date: header with a current timestamp.
+> Thanks, it is indeed necessary fix.
 > 
-> Signed-off-by: Darren Hart <dvhart@linux.intel.com>
-> Reported-by: Gary Thomas <gary@mlbassoc.com>
-> Cc: Josh Lock <josh@linux.intel.com>
+> BTW, I am also thinking if we could merge Fetch.write_md5sum and
+> Fetch.verify_md5sum into verify_checksum, since they are all checksum
+> related, puting them together would be more clean logically.
 
-Acked-by: Joshua Lock <josh@linux.intel.com>
+That makes the assumption that you only want to verify a checksum when
+fetching one, which I don't think is correct?
 
-> ---
->  scripts/send-pull-request |    6 +++++-
->  1 files changed, 5 insertions(+), 1 deletions(-)
-> 
-> diff --git a/scripts/send-pull-request b/scripts/send-pull-request
-> index 0576a5d..03a78f9 100755
-> --- a/scripts/send-pull-request
-> +++ b/scripts/send-pull-request
-> @@ -118,7 +118,11 @@ if [ "$cont" == "y" ] || [ "$cont" == "Y" ]; then
->          # 
->          # Use tail to remove the email envelope from git or formail as
->          # msmtp (sendmail) would choke on them.
-> -        cat $PATCH | formail -I "To: $TO" -I "CC: $CC" | tail -n +2 | sendmail -t
-> +        #
-> +        # Modify the patch date for sequential delivery, but retain the
-> +        # original date as "Old-Date".
-> +        DATE=$(date +"%a, %d %b %Y %k:%M:%S %z")
-> +        cat $PATCH | formail -I "To: $TO" -I "CC: $CC" -i "Date: $DATE" | tail -n +2 | sendmail -t
->          if [ $? -eq 1 ]; then
->              ERROR=1
->          fi
-
+Cheers,
+Joshua
 -- 
 Joshua Lock
         Intel Open Source Technology Centre
