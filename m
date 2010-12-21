@@ -1,29 +1,26 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id EE3284C80039
-	for <poky@yoctoproject.org>; Tue, 21 Dec 2010 06:52:45 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	oBLCrcf5009328; Tue, 21 Dec 2010 12:53:38 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id JltawiIBqwnc; Tue, 21 Dec 2010 12:53:38 +0000 (GMT)
-Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	oBLCrSbS009324
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Tue, 21 Dec 2010 12:53:31 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Scott Rifenbark <scott.m.rifenbark@intel.com>
-In-Reply-To: <cover.1292876262.git.scott.m.rifenbark@intel.com>
-References: <cover.1292876262.git.scott.m.rifenbark@intel.com>
-Date: Tue, 21 Dec 2010 12:51:42 +0000
-Message-ID: <1292935902.25087.6012.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
+Return-Path: <ke.yu@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 124D04C81067
+	for <poky@yoctoproject.org>; Tue, 21 Dec 2010 07:11:39 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 21 Dec 2010 05:11:39 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,208,1291622400"; d="scan'208";a="870424542"
+Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
+	by fmsmga001.fm.intel.com with ESMTP; 21 Dec 2010 05:11:38 -0800
+Date: Tue, 21 Dec 2010 21:17:12 +0800
+From: Yu Ke <ke.yu@intel.com>
+To: Joshua Lock <josh@openedhand.com>
+Message-ID: <20101221131712.GC20780@kyu3-hedt>
+References: <cover.1292567626.git.ke.yu@intel.com>
+	<1292861428.25087.4661.camel@rex>
+	<20101221053230.GB20780@kyu3-hedt>
+	<1292928863.2701.2.camel@scimitar>
+MIME-Version: 1.0
+In-Reply-To: <1292928863.2701.2.camel@scimitar>
+User-Agent: Mutt/1.5.20 (2009-06-14)
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 00/29] Docs - BSP Guide Updates for changes to the BSP template
+Subject: Re: [PATCH 0/1] SRC_URI checksum support v3
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,26 +32,55 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Dec 2010 12:52:46 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 21 Dec 2010 13:11:40 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Mon, 2010-12-20 at 12:17 -0800, Scott Rifenbark wrote:
-> This group of commits represents the work done to the BSP Guide with Tom Z.
-> and Saul W.  I have updated the template to match a more generic standard
-> that is based on the crownbay BSP that Tom has created.  The rest of the 
-> work reflects re-writing the individual sections to match changes in the template.
-> There were several iterations to the work between Tom and I.
+On Dec 21, 10:54, Joshua Lock wrote:
+> On Tue, 2010-12-21 at 13:32 +0800, Yu Ke wrote:
+> > On Dec 20, 16:10, Richard Purdie wrote:
+> > > On Fri, 2010-12-17 at 14:33 +0800, Yu Ke wrote:
+> > > > This patch add SRC_URI checksum support. With this patch,fetcher
+> > > > can verify the MD5 and SHA256 checksum of download src with the
+> > > > value defined in recipes SRC_URI.
+> > > > 
+> > > > This is the v3 patch with following changes compared with v2:
+> > > > - add configurable variable BB_STRICT_CHECKSUM to handle checksum missing case
+> > > >   if checksum is missing and BB_STRICT_CHECKSUM = "1", bitbake will fatal
+> > > > - add check to only verify checksum for protocol http/https/ftp/ftps, not
+> > > >   verify checksum for local file and other SCM
+> > > > 
+> > > > Pull URL: git://git.pokylinux.org/poky-contrib.git
+> > > >   Branch: kyu3/srcuri-v3
+> > > >   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kyu3/srcuri-v3
+> > > 
+> > > I merged this, then realised there was a problem with subsequent builds
+> > > proceeding with corrupt files. I've pushed a fix for at least part of
+> > > that.
+> > 
+> > Thanks, it is indeed necessary fix.
+> > 
+> > BTW, I am also thinking if we could merge Fetch.write_md5sum and
+> > Fetch.verify_md5sum into verify_checksum, since they are all checksum
+> > related, puting them together would be more clean logically.
 > 
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->   Branch: srifenbark/bsp-work
->   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=srifenbark/bsp-work
+> That makes the assumption that you only want to verify a checksum when
+> fetching one, which I don't think is correct?
+
+Do you mean other place may also need verify a checksum? If that is the case, it still can call the verify_checksum() to perform verifcation, right?
+
+Regards
+Ke
+
 > 
-> Thanks,
->     Scott Rifenbark <scott.m.rifenbark@intel.com>
-
-Merged into master, thanks.
-
-Richard
-
+> Cheers,
+> Joshua
+> -- 
+> Joshua Lock
+>         Intel Open Source Technology Centre
+> 
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
