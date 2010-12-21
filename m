@@ -1,22 +1,23 @@
 Return-Path: <josh@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 528044C80BD8
-	for <poky@yoctoproject.org>; Tue, 21 Dec 2010 04:50:06 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 21 Dec 2010 02:50:06 -0800
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 74B204C808B0
+	for <poky@yoctoproject.org>; Tue, 21 Dec 2010 04:54:05 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 21 Dec 2010 02:53:35 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,207,1291622400"; d="scan'208";a="585758916"
-Received: from unknown (HELO localhost) ([10.255.16.49])
-	by orsmga002.jf.intel.com with ESMTP; 21 Dec 2010 02:50:05 -0800
-Message-Id: <d2abe5da855ce2418a782bc919008b4811734d90.1292928497.git.josh@linux.intel.com>
-In-Reply-To: <cover.1292928497.git.josh@linux.intel.com>
-References: <cover.1292928497.git.josh@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="4.60,207,1291622400"; d="scan'208";a="870392210"
+Received: from unknown (HELO [10.255.16.49]) ([10.255.16.49])
+	by fmsmga001.fm.intel.com with ESMTP; 21 Dec 2010 02:53:34 -0800
 From: Joshua Lock <josh@linux.intel.com>
-Old-Date: Tue, 21 Dec 2010 10:42:02 +0000
-Date: Tue, 21 Dec 2010 10:49:59 +0000
 To: poky@yoctoproject.org
-CC: 
-Subject: [PATCH 1/1] gnome-doc-utils: use BBCLASSEXTEND for native variant
+In-Reply-To: <839e299af32e8de5c86e7225954533a452409a2d.1292870880.git.dvhart@linux.intel.com>
+References: <cover.1292870880.git.dvhart@linux.intel.com>
+	<839e299af32e8de5c86e7225954533a452409a2d.1292870880.git.dvhart@linux.intel.com>
+Date: Tue, 21 Dec 2010 10:52:48 +0000
+Message-ID: <1292928768.2701.1.camel@scimitar>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.1 (2.32.1-1.fc14) 
+Subject: Re: [PATCH 1/1] send-pull-request: Use current date in mail headers
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,49 +29,48 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Dec 2010 10:50:06 -0000
+X-List-Received-Date: Tue, 21 Dec 2010 10:54:05 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-A recent patch from me created a native variant of gnome-doc-utils with a new
-recipe file. This is uneccesarry. BBCLASSEXTEND is the brighter future.
+On Mon, 2010-12-20 at 10:50 -0800, Darren Hart wrote:
+> Some users experience problems viewing the pull requests as a sequential
+> mail series due to the script using the git commit date for the patches
+> and today's date for the cover letter.
+> 
+> Address this by renaming the email Date: header to Old-Date: and adding
+> a new Date: header with a current timestamp.
+> 
+> Signed-off-by: Darren Hart <dvhart@linux.intel.com>
+> Reported-by: Gary Thomas <gary@mlbassoc.com>
+> Cc: Josh Lock <josh@linux.intel.com>
 
-Signed-off-by: Joshua Lock <josh@linux.intel.com>
----
- .../gnome/gnome-doc-utils-native_0.20.2.bb         |    7 -------
- meta/recipes-gnome/gnome/gnome-doc-utils.inc       |    3 +++
- 2 files changed, 3 insertions(+), 7 deletions(-)
- delete mode 100644 meta/recipes-gnome/gnome/gnome-doc-utils-native_0.20.2.bb
+Acked-by: Joshua Lock <josh@linux.intel.com>
 
-diff --git a/meta/recipes-gnome/gnome/gnome-doc-utils-native_0.20.2.bb b/meta/recipes-gnome/gnome/gnome-doc-utils-native_0.20.2.bb
-deleted file mode 100644
-index 30d5a5b..0000000
---- a/meta/recipes-gnome/gnome/gnome-doc-utils-native_0.20.2.bb
-+++ /dev/null
-@@ -1,7 +0,0 @@
--require gnome-doc-utils_${PV}.bb
--
--inherit native
--
--DEPENDS = "libxml2-native libxslt-native"
--
--PR = "r0"
-diff --git a/meta/recipes-gnome/gnome/gnome-doc-utils.inc b/meta/recipes-gnome/gnome/gnome-doc-utils.inc
-index 0cd8203..7328c59 100644
---- a/meta/recipes-gnome/gnome/gnome-doc-utils.inc
-+++ b/meta/recipes-gnome/gnome/gnome-doc-utils.inc
-@@ -1,5 +1,6 @@
- LICENSE = "GPL LGPL"
- DEPENDS = "libxml2 libxslt libxslt-native gnome-doc-utils-native"
-+DEPENDS_virtclass-native = "libxml2-native libxslt-native"
- 
- inherit gnome
- 
-@@ -11,3 +12,5 @@ do_install_append() {
- }
- 
- FILES_${PN} += "${datadir}/xml*"
-+
-+BBCLASSEXTEND = "native"
+> ---
+>  scripts/send-pull-request |    6 +++++-
+>  1 files changed, 5 insertions(+), 1 deletions(-)
+> 
+> diff --git a/scripts/send-pull-request b/scripts/send-pull-request
+> index 0576a5d..03a78f9 100755
+> --- a/scripts/send-pull-request
+> +++ b/scripts/send-pull-request
+> @@ -118,7 +118,11 @@ if [ "$cont" == "y" ] || [ "$cont" == "Y" ]; then
+>          # 
+>          # Use tail to remove the email envelope from git or formail as
+>          # msmtp (sendmail) would choke on them.
+> -        cat $PATCH | formail -I "To: $TO" -I "CC: $CC" | tail -n +2 | sendmail -t
+> +        #
+> +        # Modify the patch date for sequential delivery, but retain the
+> +        # original date as "Old-Date".
+> +        DATE=$(date +"%a, %d %b %Y %k:%M:%S %z")
+> +        cat $PATCH | formail -I "To: $TO" -I "CC: $CC" -i "Date: $DATE" | tail -n +2 | sendmail -t
+>          if [ $? -eq 1 ]; then
+>              ERROR=1
+>          fi
+
 -- 
-1.7.3.3
+Joshua Lock
+        Intel Open Source Technology Centre
 
 
