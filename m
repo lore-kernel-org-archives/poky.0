@@ -1,29 +1,40 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 42CAC4C80050
-	for <poky@lists.pokylinux.org>; Tue, 21 Dec 2010 10:52:53 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 4F92316603F4; Tue, 21 Dec 2010 09:52:52 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.1
-Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
-	by mail.chez-thomas.org (Postfix) with ESMTP id B384C16603BF;
-	Tue, 21 Dec 2010 09:52:51 -0700 (MST)
-Message-ID: <4D10DB63.60408@mlbassoc.com>
-Date: Tue, 21 Dec 2010 09:52:51 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
+Return-Path: <raj.khem@gmail.com>
+Received: from mail-gx0-f169.google.com (mail-gx0-f169.google.com
+	[209.85.161.169])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 770E24C80039
+	for <poky@yoctoproject.org>; Tue, 21 Dec 2010 10:55:26 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by gxk5 with SMTP id 5so2188455gxk.28
+	for <poky@yoctoproject.org>; Tue, 21 Dec 2010 08:55:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:received:mime-version:received:in-reply-to
+	:references:from:date:message-id:subject:to:cc:content-type
+	:content-transfer-encoding;
+	bh=ghUKEyzlO1dfXuE6RZJdEKQOzm4heDYannIlibpJ0fQ=;
+	b=OVKruI98evlbE5kJAudPpAdlKQS98B+vdx5at2MpFeP93hvNlEF6Z2vFOPz1iulvSM
+	wtIWgqbxgNhfdSQBYgYABBnbqfRNTfQTXaC8SdgsAlag+qXc0qRrZNoBlu2qQxdsB6Jk
+	iYUQG232+5ygl5fvi6N+4pR4FSsXU2iPdXejU=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+	:cc:content-type:content-transfer-encoding;
+	b=KB8VC1hFQuBTMe07dzRvdGZqQ+kSmvUXGI1c6ABMOnFfnQAiFUmNkO2MnMZPgKwbag
+	PFH4OJPyQumm729yYYiozwVhNyzHKgEMcmGc6sv/E0GP95w0IZSwOyteRuJFEWNplnsm
+	rTbAIJ9OJxpsI6eupnfyhYioMuiNrBSXxBpZ4=
+Received: by 10.90.120.17 with SMTP id s17mr7206195agc.193.1292950525955; Tue,
+	21 Dec 2010 08:55:25 -0800 (PST)
 MIME-Version: 1.0
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-References: <4D10CB88.4040308@mlbassoc.com> <1292949865.25087.6264.camel@rex>
-In-Reply-To: <1292949865.25087.6264.camel@rex>
-Cc: Poky <poky@lists.pokylinux.org>
-Subject: Re: Write-protect $DL_DIR
+Received: by 10.90.86.4 with HTTP; Tue, 21 Dec 2010 08:55:05 -0800 (PST)
+In-Reply-To: <20101221151305.4C9E1126EB19@gemini.denx.de>
+References: <cover.1292920700.git.raj.khem@gmail.com>
+	<20101221151305.4C9E1126EB19@gemini.denx.de>
+From: Khem Raj <raj.khem@gmail.com>
+Date: Tue, 21 Dec 2010 08:55:05 -0800
+Message-ID: <AANLkTikE3+s+WV8PYhPA0Z+T4kzquR6cb_uQf=e-ECNr@mail.gmail.com>
+To: Wolfgang Denk <wd@denx.de>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/3] gcc 4.5.4 + linaro update
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,44 +46,57 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Dec 2010 16:52:54 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 21 Dec 2010 16:55:27 -0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On 12/21/2010 09:44 AM, Richard Purdie wrote:
-> On Tue, 2010-12-21 at 08:45 -0700, Gary Thomas wrote:
->> In my quest for a well-packaged Poky that I can distribute
->> to my customers, I'd like to give them a pre-populated $DL_DIR
->> tree (also in response to those customers that have little or
->> no net access).  This would likely be in /opt/XYZ and practice
->> would dictate that it be read-only.
->>
->> Sadly, this doesn't work.  When I try to build Poky with a
->> read-only $DL_DIR, it simply hangs on every 'fetch' step.
->>
->> Note: I could avoid this problem (although I think it's a
->> bug even if it should never be experienced) by being able
->> to easily provide source mirrors for the packages.  So far,
->> I've not figured out how to do this; I'd like to add my
->> own mirror lists, similar to those in meta/classes/poky.bbclass
->> Would this be a way forward?  If so, how?
->>
->> Thanks for any ideas
+On Tue, Dec 21, 2010 at 7:13 AM, Wolfgang Denk <wd@denx.de> wrote:
+> Dear Khem Raj,
 >
-> Make the readonly directory a file:// source in PREMIRRORS. You can use
-> the SSTATE_MIRRORS syntax in local.conf to do this without a class file.
+> In message <cover.1292920700.git.raj.khem@gmail.com> you wrote:
+>>
+>> This branch brings in gcc 4.5.2 and on top linaro's enhancements to gcc =
+4.5
+>> I have made sure that it builds poky-image-minimal for arm, ppc, x86, mi=
+ps
+>> qemu and boots on all of them. It did not boot on ppc however poky-qemu
+>> did not boot any images for me even the ones built without these enhance=
+ments
+>> i.e. on vanilla yocto. So I used a qemu 0.12.5 built with OE
+>> which worked well. I need help in testing it out. So please test these p=
+atches rigourously
+>> with standard testing setup you use before you pull them
+>>
+>> If there are issues found let me know
 >
-> It won't actually copy them to DL_DIR if they're already local.
+> The 4.5.4 in the subject is just a typo?
 
-This sounds good.  Do you have an example of what to put into
-local.conf?  I'm not sure what you mean by using the SSTATE_MIRRORS
-syntax above.
+yes it is.
 
-Thanks
+>
+> If I apply your patches on top of current head, I see a failure like
+> this:
+>
+> ERROR: Task failed: Unknown fetch Error: local variable 'md5data' referen=
+ced before assignment
+> NOTE: package gcc-cross-initial-4.5.2-r0: task do_fetch: Failed
+>
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+hmm interesting. I did not see this error. But anyway wait for the V2
+of the patchset
+>
+> Best regards,
+>
+> Wolfgang Denk
+>
+> --
+> DENX Software Engineering GmbH, =C2=A0 =C2=A0 MD: Wolfgang Denk & Detlev =
+Zundel
+> HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
+> Phone: (+49)-8142-66989-10 Fax: (+49)-8142-66989-80 Email: wd@denx.de
+> C++ was an interesting and valuable experiment, but we've learned its
+> lessons and it's time to move on.
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0- Peter Curran in <DCqM4z.BxB@isgtec.com>
+>
 
