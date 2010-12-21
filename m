@@ -1,25 +1,24 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 042494C80039
-	for <poky@yoctoproject.org>; Mon, 20 Dec 2010 22:20:16 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 20 Dec 2010 20:20:09 -0800
+Return-Path: <ke.yu@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 19AA74C808B0
+	for <poky@yoctoproject.org>; Mon, 20 Dec 2010 23:26:41 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 20 Dec 2010 21:26:41 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,205,1291622400"; d="scan'208";a="364467627"
-Received: from unknown (HELO [10.255.14.74]) ([10.255.14.74])
-	by azsmga001.ch.intel.com with ESMTP; 20 Dec 2010 20:20:09 -0800
-Message-ID: <4D102AFA.6010507@linux.intel.com>
-Date: Mon, 20 Dec 2010 20:20:10 -0800
-From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
+X-IronPort-AV: E=Sophos;i="4.60,206,1291622400"; d="scan'208";a="585684868"
+Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
+	by orsmga002.jf.intel.com with ESMTP; 20 Dec 2010 21:26:40 -0800
+Date: Tue, 21 Dec 2010 13:32:30 +0800
+From: Yu Ke <ke.yu@intel.com>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+Message-ID: <20101221053230.GB20780@kyu3-hedt>
+References: <cover.1292567626.git.ke.yu@intel.com>
+	<1292861428.25087.4661.camel@rex>
 MIME-Version: 1.0
-To: Bruce Ashfield <bruce.ashfield@gmail.com>
-References: <4D07DAB8.3030504@linux.intel.com>	<AANLkTikHHcSXRBu-z3dZHEHiQOnTZkJH9KtRHWpjsTiS@mail.gmail.com>	<4D0F9D30.5040401@linux.intel.com>	<20101220211902.GB17904@gmail.com>
-	<AANLkTi=c=cqbA0+O8hYiUOssiOmCLvWMe1VbsgLoBCXo@mail.gmail.com>
-In-Reply-To: <AANLkTi=c=cqbA0+O8hYiUOssiOmCLvWMe1VbsgLoBCXo@mail.gmail.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: kernel type selection
+In-Reply-To: <1292861428.25087.4661.camel@rex>
+User-Agent: Mutt/1.5.20 (2009-06-14)
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/1] SRC_URI checksum support v3
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,167 +30,63 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Dec 2010 04:20:17 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 21 Dec 2010 05:26:42 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 12/20/2010 07:24 PM, Bruce Ashfield wrote:
-> On Mon, Dec 20, 2010 at 4:19 PM, Khem Raj<raj.khem@gmail.com>  wrote:
->> On (20/12/10 10:15), Darren Hart wrote:
->>> On 12/19/2010 09:08 PM, Bruce Ashfield wrote:
->>>> On Tue, Dec 14, 2010 at 3:59 PM, Darren Hart<dvhart@linux.intel.com>    wrote:
->>>>> In developing new kernel recipes, I've run across some difficulty in
->>>>> determining the ideal way to select one kernel recipe over another. The
->>>>> machine configs specify the preferred provider. For the Linaro layer, I
->>>>> setup new machine configs which specified the linux-linaro as the preferred
->>>>> kernel.
->>>>
->>>> kicking some life into this thread, I scanned it earlier, but was preoccupied
->>>> with getting .37 out and the SRCREV issues until now.
->>>>
->>>> I've had similar issues to this when working on the -stable versus -dev
->>>> yocto trees. Since the preferred kernel is in the machine files, switching
->>>> between -stable and -dev requires an update to the conf files, and if a
->>>> machine prefers one kernel type, manually building one forces a wait
->>>> through the preferred kernel first (not always what I wanted).
->>>>
->>>>>
->>>>> As I'm working with preempt_rt, I'm running into this again. I could create
->>>>> more machine configs, but this approach won't scale well (having to create a
->>>>> copy of all the supported machine configs just to change the preferred
->>>>> kernel). I could set LINUX_KERNEL_TYPE="preempt_rt" in my local.conf, but
->>>>> that would reuse all the settings in the existing recipes (like
->>>>> COMPATIBLE_MACHINES), all of which don't necessary apply to the new kernel
->>>>> type.
->>>>
->>>> LINUX_KERNEL_TYPE_<machine>="preempt_rt"
->>>>
->>>> Would be the way to put in your local conf and have it only impact
->>>> a single machine. But now that I think of it, I haven't tried that in
->>>> the local.conf, so someone can correct me if variable overrides don't
->>>> work there.
->>>>
->>>>>
->>>>> I've considered looking for a way to specify the kernel type in the new
->>>>> image definitions (ie poky-image-rt) and creating new recipes for each
->>>>> kernel type. I like the idea of one recipe per kernel type as this makes
->>>>> things more explicit and avoids contamination between the various kernel
->>>>> types. This approach however seems to be at odds with the Poky way of doing
->>>>> this which, as I understand it, would be to specify the provider in the
->>>>> machine config and any modifiers (like type) in the local.conf.
->>>>
->>>> I'd agree that cloning and adding more machine configs just to
->>>> change kernel types will rapidly increase the count, and if we don't
->>>> setup includes appropriately, could lead to errors.
->>>>
->>>>>
->>>>> Can we get a discussion started here to determine some best practices?
->>>>
->>>> I'm not sure about best practices, but I had planned to tackle
->>>> this in similar ways to what we've been using layers at Wind River to solve this
->>>> for the past several years.
->>>>
->>>> a) have a single recipe that switches the kernel type based on a
->>>>      variable being set. That's pretty much what you have above, but
->>>>      as we've discussed in the past, mux'ing through a single recipe
->>>>      that behaves differently based on configuration isn't always in line
->>>>      with other recipes I've seen.
->>>> b) make a -rt layer, that when included overrides the preferred kernel to
->>>>      preempt_rt. This is consistent with other layering schemes that trigger
->>>>      behaviour when you include a particular layer. The addition of the layer
->>>>      is the indication that you want a specific configuration to happen.
->>>> c) put the preferred kernel in an include file, and make that include
->>>>      conditional on something that is set in the local environment. This is
->>>>      pretty much what we'd do with the kernel type being set, so there's
->>>>      really not much different here.
->>>
->>> Taking a step back and thinking about this from a user's perspective.
->>>
->>> a.1) Edit local.conf
->>>        LINUX_KERNEL_TYPE_atom-pc="preempt_rt"
->>>     A tad arcane, but any habitual bitbake user shouldn't complain too
->>>     much. This assumes the only thing that needs to change for PREEMPT_RT
->>>     is the kernel type, when, in fact, things like COMPATIBLE_MACHINES
->>>     should also change or the user is likely to run into strange errors
->>>     if they try to build on an untested machine.
->>>
->>> a.2) Edit local.conf
->>>     PREFERRED_PROVIDER_vitual/kernel_atom-pc-"linux-yocto-rt"
->>>     Other than being slightly more arcane, this addresses the issues of
->>>     the kernel type solution.
->>>
->>> b) Edit bblayers.conf
->>>     /path/to/poky/meta-rt
->>>     Fairly intuitive user-action. The machine.conf appends should likely
->>>     follow a.2.
->>>
->>> c) pretty much the same as a)
->>>
->>> I still find the tying of PREEMPT_RT to the machine to be
->>> non-intuitive, and the setting in the build conf to be too broad. It
->>> applies to every image built for those machines. This makes adding rt
->>> specific images a bit irregular since you could build them without
->>> a preempt_rt kernel (or perhaps an RDEPENDS would prevent build) and
->>> if the other settings are in place, selecting a non-rt image will result
->>> in that image with a PREEMPT_RT kernel.
->>>
->>> In my opinion, the ideal user experience would be:
->>>
->>> $ bitbake poky-image-rt
->>>
->>> Which then reports:
->>>
->>> Error: $MACHINE does not have linux-yocto-rt support.
->>>
->>> or it successfully builds.
->>>
->>> The problem with this approach as I understand it, is the image
->>> recipe is too far along in the bitbake process to be able to
->>> influence the
->>> kernel selected for the image.
->>>
->>> So we can either opt for b) which I see as the least of all evils, or we
->>> can look into ways to enhance image recipes to be able to influence
->>> PREFERRED_PROVIDER_virtual/kernel.
->>>
->>> Thoughts?
->>
->> How about making preemt_rt part of MACHINE_FEATURE or DISTRO_FEATURE
->> and when chosen it uses the right kernel.
->
-> Hi Khem,
->
-> This would work as well, but takes us to the same place we are with
-> other options (and that's the sticky point), in that we need dedicated
-> machine conf files to specify the different kernel type.
->
-> We've got a variable that is specific to the yocto kernel recipes that
-> serves the purpose for now, and triggering it by the inclusion of a
-> meta-rt layer makes the selection the cleanest we've come up with
-> so far.
+On Dec 20, 16:10, Richard Purdie wrote:
+> On Fri, 2010-12-17 at 14:33 +0800, Yu Ke wrote:
+> > This patch add SRC_URI checksum support. With this patch,fetcher
+> > can verify the MD5 and SHA256 checksum of download src with the
+> > value defined in recipes SRC_URI.
+> > 
+> > This is the v3 patch with following changes compared with v2:
+> > - add configurable variable BB_STRICT_CHECKSUM to handle checksum missing case
+> >   if checksum is missing and BB_STRICT_CHECKSUM = "1", bitbake will fatal
+> > - add check to only verify checksum for protocol http/https/ftp/ftps, not
+> >   verify checksum for local file and other SCM
+> > 
+> > Pull URL: git://git.pokylinux.org/poky-contrib.git
+> >   Branch: kyu3/srcuri-v3
+> >   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kyu3/srcuri-v3
+> 
+> I merged this, then realised there was a problem with subsequent builds
+> proceeding with corrupt files. I've pushed a fix for at least part of
+> that.
 
-Right, with meta-rt we can just explicitly set the virtual/kernel 
-provider to linux-yocto-rt in the layer.conf, and we don't need to 
-modify a single machine.conf. We can ensure we only build for the 
-supported machines with the COMPATIBLE_MACHINES variable in the 
-linux-yocto-rt recipe itself.
+Thanks, it is indeed necessary fix.
 
-I have this booting in qemux86-64 as of today. Working on atom-pc now - 
-getting some odd output from the configme kernel tooling...
+BTW, I am also thinking if we could merge Fetch.write_md5sum and Fetch.verify_md5sum into verify_checksum, since they are all checksum related, puting them together would be more clean logically.
 
-> Again, this is a good idea, and if the recipe specific variable were to
-> be changed in the future, we could definitely use this to indicate the
-> kernel type to the recipes and make a decision based these variables.
->
-> And you never know, we may decide on some combination of all
-> the options! Thanks for adding more to the conversation.
+> 
+> I'm wondering if we should rename the file to something like the
+> original name + ".corrupt" to make sure we don't use a known broken
+> file?
 
-Agreed - Khem, Saul, and I had a good follow-up to this in IRC. In the 
-end, we felt the meta-rt layer lent itself to the simplest user action 
-to get a preempt_rt image as well as minimizing any special magic for 
-machine configs. Simple scales well and is easily maintained.
+Yes, I prefer to do that. It is more robust, and when meet corrupt file, if bitbake did not clean the downloaded file, user also need to do that. so it is better for bitbake to do that automatically for user.
 
--- 
-Darren Hart
-Yocto Linux Kernel
+so combined with the above points, the verify_checksum can be:
+"
+if ud.md5 file exist
+	touch ud.md5 and return
+
+check the checksum, if mismatch, rename download file to *.corrupt and raise exception
+
+write the ud.md5 file
+"
+
+Comment?
+
+Regards
+Ke
+
+> 
+> Cheers,
+> 
+> Richard
+> 
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
