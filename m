@@ -1,28 +1,39 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 10E584C810E8
-	for <poky@yoctoproject.org>; Tue, 21 Dec 2010 16:23:44 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 21 Dec 2010 14:23:43 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,209,1291622400"; d="scan'208";a="639006350"
-Received: from unknown (HELO [10.255.14.74]) ([10.255.14.74])
-	by fmsmga002.fm.intel.com with ESMTP; 21 Dec 2010 14:23:28 -0800
-Message-ID: <4D1128E4.1030302@linux.intel.com>
-Date: Tue, 21 Dec 2010 14:23:32 -0800
-From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
+Return-Path: <raj.khem@gmail.com>
+Received: from mail-gy0-f176.google.com (mail-gy0-f176.google.com
+	[209.85.160.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 158484C810E8
+	for <poky@yoctoproject.org>; Tue, 21 Dec 2010 16:24:59 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by gyf1 with SMTP id 1so2226220gyf.35
+	for <poky@yoctoproject.org>; Tue, 21 Dec 2010 14:24:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:received:mime-version:received:in-reply-to
+	:references:from:date:message-id:subject:to:cc:content-type;
+	bh=SIBDQr2sCjlbeMUd4vjWmrC2lZXeYmQkhQhWwwug6kw=;
+	b=xBIhL9GzLtem6vOzyUjEPnQE/GEBt3HHuvTlAyguFELhqz61f8rw8b9k1PgSw4XawW
+	M3f0hOWQs0nGLJQXBYiGKInWivrA6xgZAlulq1afIKcxzGuXB3Xmve9ny96b/O8Lavjk
+	NY/aSfFldwij6WMlMgQVjwZz2JahgFS0UbHzg=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+	:cc:content-type;
+	b=u/W5/1dVfRhMlKcKFYXXU5rRBm8Fict4VYCdnGAxi5p1EEHb+ycspJyWryOi/nz+Xc
+	nmYqy55HZx3rjExapc2S8JHn5xQaMD2l8SoNtKE2ndsY+ma5pqiNS7SMOkrLLQbc0wLZ
+	iewcuWHXVvvBoItEjxRzdQDhdNRQAvXIr+gEs=
+Received: by 10.90.10.31 with SMTP id 31mr7711845agj.85.1292970298712; Tue, 21
+	Dec 2010 14:24:58 -0800 (PST)
 MIME-Version: 1.0
-To: Khem Raj <raj.khem@gmail.com>
-References: <1292924367-19873-1-git-send-email-raj.khem@gmail.com>
-	<4D1119EA.9010806@linux.intel.com>
-	<AANLkTim9J_92mWgmrRW4_sSXm=AW1wfFwdZcArEbC20a@mail.gmail.com>
-	<AANLkTi=Ypr+KkdnumWb9uwAC7trR5RYgAbbFjf9nbfpi@mail.gmail.com>
-	<AANLkTiken51h6GtYZm1HY7kEStV=P1Bes9AkJDx82SDa@mail.gmail.com>
-In-Reply-To: <AANLkTiken51h6GtYZm1HY7kEStV=P1Bes9AkJDx82SDa@mail.gmail.com>
+Received: by 10.90.86.4 with HTTP; Tue, 21 Dec 2010 14:24:38 -0800 (PST)
+In-Reply-To: <4D111BA0.4070909@linux.intel.com>
+References: <cover.1292920700.git.raj.khem@gmail.com>
+	<4D111BA0.4070909@linux.intel.com>
+From: Khem Raj <raj.khem@gmail.com>
+Date: Tue, 21 Dec 2010 14:24:38 -0800
+Message-ID: <AANLkTikRWi_s_X9o0ZFpqB=B07UqipZP6kA3CD8wEB=Z@mail.gmail.com>
+To: Darren Hart <dvhart@linux.intel.com>
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH] scripts/send-pull-request: Use git send-mail instead of sendmail
+Subject: Re: [PATCH 0/3] gcc 4.5.4 + linaro update
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,28 +45,39 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Dec 2010 22:23:44 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 21 Dec 2010 22:24:59 -0000
+Content-Type: text/plain; charset=UTF-8
 
-On 12/21/2010 02:22 PM, Khem Raj wrote:
->> I don't see this as a one vs the other sort of thing. I've been sending
->> patches to the lists using Darren's front end, but then using git send-email
->> to actually transmit the patches (since I don't have sendmail on all
->> my boxes).
+On Tue, Dec 21, 2010 at 1:26 PM, Darren Hart <dvhart@linux.intel.com> wrote:
+> On 12/21/2010 01:27 AM, Khem Raj wrote:
 >>
->> So I'd suggest simply making the sending configurable, since clobbering
->> one with the other doesn't meet everyone's needs.
+>> Hello,
+>>
+>> This branch brings in gcc 4.5.2 and on top linaro's enhancements to gcc
+>> 4.5
+>> I have made sure that it builds poky-image-minimal for arm, ppc, x86, mips
+>> qemu and boots on all of them. It did not boot on ppc however poky-qemu
+>> did not boot any images for me even the ones built without these
+>> enhancements
+>> i.e. on vanilla yocto. So I used a qemu 0.12.5 built with OE
+>> which worked well. I need help in testing it out. So please test these
+>> patches rigourously
+>> with standard testing setup you use before you pull them
+>>
+>> If there are issues found let me know
 >
-> yes that would be preferable.
+> Hi Khem,
+>
+> So with this in place, we should be able to remove all the toolchain work
+> from the meta-linaro layer - is that correct?
 
-Have a patch en-route.... some testing first... be a moment.
+w.r.t gcc yes but if you are using other stuff like optimizes string
+functions or kernel enhancements from linaro
+they still stand
 
 >
-> -Khem
-
-
--- 
-Darren Hart
-Yocto Linux Kernel
+> --
+> Darren Hart
+> Yocto Linux Kernel
+>
 
