@@ -1,32 +1,32 @@
-Return-Path: <wd@denx.de>
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
-	by mx1.pokylinux.org (Postfix) with ESMTP id CAC134C80039
-	for <poky@yoctoproject.org>; Tue, 21 Dec 2010 09:13:06 -0600 (CST)
-Received: from frontend1.mail.m-online.net (unknown [192.168.8.180])
-	by mail-out.m-online.net (Postfix) with ESMTP id 985E11C00E3D;
-	Tue, 21 Dec 2010 16:13:05 +0100 (CET)
-X-Auth-Info: dQ8VbDv5GFMdE1cKjUc3A+lpcnatTygZ3W6cXrTRpBs=
-Received: from diddl.denx.de (ppp-188-174-79-57.dynamic.mnet-online.de
-	[188.174.79.57])
-	by smtp-auth.mnet-online.de (Postfix) with ESMTPA id 8B0DC1C0016C;
-	Tue, 21 Dec 2010 16:13:05 +0100 (CET)
-Received: from gemini.denx.de (gemini.denx.de [10.0.0.2])
-	by diddl.denx.de (Postfix) with ESMTP id 69450316EC0B;
-	Tue, 21 Dec 2010 16:13:05 +0100 (CET)
-Received: from gemini.denx.de (localhost.localdomain [127.0.0.1])
-	by gemini.denx.de (Postfix) with ESMTP id 4C9E1126EB19;
-	Tue, 21 Dec 2010 16:13:05 +0100 (CET)
-To: Khem Raj <raj.khem@gmail.com>
-From: Wolfgang Denk <wd@denx.de>
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 379AF4C81067
+	for <poky@pokylinux.org>; Tue, 21 Dec 2010 09:14:28 -0600 (CST)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id B8FB416603C9; Tue, 21 Dec 2010 08:14:27 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.1
+Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 3D3401660185;
+	Tue, 21 Dec 2010 08:14:26 -0700 (MST)
+Message-ID: <4D10C452.1000405@mlbassoc.com>
+Date: Tue, 21 Dec 2010 08:14:26 -0700
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
 MIME-Version: 1.0
-In-reply-to: <cover.1292920700.git.raj.khem@gmail.com>
-References: <cover.1292920700.git.raj.khem@gmail.com>
-Comments: In-reply-to Khem Raj <raj.khem@gmail.com>
-	message dated "Tue, 21 Dec 2010 01:27:00 -0800."
-Date: Tue, 21 Dec 2010 16:13:05 +0100
-Message-Id: <20101221151305.4C9E1126EB19@gemini.denx.de>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/3] gcc 4.5.4 + linaro update
+To: "Tian, Kevin" <kevin.tian@intel.com>
+References: <4D0ABF1C.6090706@intel.com>	<625BA99ED14B2D499DC4E29D8138F1504D5F40984C@shsmsx502.ccr.corp.intel.com>	<4D0AC7D8.8080001@intel.com>	<625BA99ED14B2D499DC4E29D8138F1504D5F409868@shsmsx502.ccr.corp.intel.com>	<4D0ACB43.8050909@intel.com>	<625BA99ED14B2D499DC4E29D8138F1504D5F409997@shsmsx502.ccr.corp.intel.com>	<625BA99ED14B2D499DC4E29D8138F1504D5F4099DD@shsmsx502.ccr.corp.intel.com>	<AANLkTi=ViynyC5=Dmm_MDqOLz8_R-ThxxPwHYYRWBU9a@mail.gmail.com>	<1292594329.25087.40.camel@rex>	<4D0B7CF4.4070407@mlbassoc.com>	<625BA99ED14B2D499DC4E29D8138F1504D5F6A3C8D@shsmsx502.ccr.corp.intel.com>	<625BA99ED14B2D499DC4E29D8138F1504D5F6A40FF@shsmsx502.ccr.corp.intel.com>
+	<4D109DE4.2070901@mlbassoc.com>
+In-Reply-To: <4D109DE4.2070901@mlbassoc.com>
+Cc: "paul.eggleton@linux.intel.com" <paul.eggleton@linux.intel.com>,
+	Chris Larson <clarson@kergoth.com>,
+	"poky@pokylinux.org" <poky@pokylinux.org>
+Subject: Re: perl binary hard-code path hurts sstate
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,42 +38,110 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Dec 2010 15:13:07 -0000
-Content-type: text/plain; charset=ISO-8859-1
-Content-transfer-encoding: 8bit
+X-List-Received-Date: Tue, 21 Dec 2010 15:14:28 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Dear Khem Raj,
+On 12/21/2010 05:30 AM, Gary Thomas wrote:
+> On 12/21/2010 04:51 AM, Tian, Kevin wrote:
+>>> From: Tian, Kevin
+>>> Sent: Tuesday, December 21, 2010 9:10 AM
+>>>
+>>>> From: Gary Thomas
+>>>> Sent: Friday, December 17, 2010 11:09 PM
+>>>>
+>>>> On 12/17/2010 06:58 AM, Richard Purdie wrote:
+>>>>> On Fri, 2010-12-17 at 06:49 -0700, Chris Larson wrote:
+>>>>>> These sorts of issues aren't new, or fun, sadly. We've run into many
+>>>>>> like this using packaged staging. We had to use the variable to
+>>>>>> disable packaged-staging for exactly this reason, so something similar
+>>>>>> for sstate would indeed be useful for this.
+>>>>>
+>>>>> In cases like this I'd suggest adding the encoded path into the checksum
+>>>>> via vardeps. This means the sstate package will be reused when the path
+>>>>> matches but not otherwise.
+>>>>>
+>>>>> We can then work on removing the dependencies which I agree is the goal
+>>>>> but we should get them identified first.
+>>>>
+>>>> Sadly, this problem is not confined to perl. I just tried this experiment:
+>>
+>> Hi, Gary, I can't reproduce in my side, though I use only one machine.
+>>
+>>>> * Build Poky on MachineA to some directory $NEW
+>>>> * Copy Poky ($POKYBASE) and $NEW/sstate-cache to MachineB, in this case
+>>>> the path for $POKYBASE is the same on both machines but $NEW differs.
+>>>> MachineA:$NEW does not exist on MachineB
+>>>> * Try to build on Machine B, pointing SSTATE_MIRRORS to $NEW/sstate-cache
+>>>> This build is in $NEW2
+>>
+>> compare to your steps, mine is:
+>>
+>> * build Poky in $DIR1, with sstate generated in ${SSTATE-CACHE} (a global one)
+>> * then with same $POKYBASE, create a new build $DIR2, with SSTATE_MIRRORS
+>> pointing to ${SSTATE-CACHE}
+>> * move $DIR1 to $DIR1.bak
+>>
+>> This way if there's reference to $DIR1, I should be able to observe failure
+>>
+>>>> The process fails for me building the kernel:
+>>>> | arm-poky-linux-gnueabi-ld: libgcc.a: No such file: No such file or directory
+>>>> Looking carefully, I can see that the compiler is looking for libgcc.a in
+>>>> the directory path $NEW that is only on MachineA.
+>>
+>> However I didn't see above failure and most sstate packages could be reused
+>> successfully except several ones depending on perl-native...
+>>
+>>>>
+>>>> So this is the same problem Paul had, just for the cross compiler
+>>>> instead of perl.
+>>>>
+>>>> n.b. Is there a bug # I should use to be tracking this?
+>>>>
+>>>
+>>> I'll see whether I can reproduce this after RP's new fix about perl-native.
+>>
+>> so Gary, could you try latest poky master or verify whether my single-machine steps
+>> may expose same failure in your side? Or is there any step not equivalent between
+>> our cases?
+>
+> Yes, I'll try it now, thanks
+>
 
-In message <cover.1292920700.git.raj.khem@gmail.com> you wrote:
-> 
-> This branch brings in gcc 4.5.2 and on top linaro's enhancements to gcc 4.5
-> I have made sure that it builds poky-image-minimal for arm, ppc, x86, mips
-> qemu and boots on all of them. It did not boot on ppc however poky-qemu
-> did not boot any images for me even the ones built without these enhancements
-> i.e. on vanilla yocto. So I used a qemu 0.12.5 built with OE
-> which worked well. I need help in testing it out. So please test these patches rigourously 
-> with standard testing setup you use before you pull them
-> 
-> If there are issues found let me know
+Still fails.  There is one step I wasn't clear on - if you
+just follow the steps above, you'll succeed and get a working
+result, using only the staged (sstate cached) packages.  However,
+if you try and build some other package, or in my case I forced
+a build of the kernel, it fails.
 
-The 4.5.4 in the subject is just a typo?
+Amended steps to reproduce this failure:
+   * Build Poky on MachineA, results in MachineA:NEW1
+   * Copy MachineA:NEW1/sstate-cache to MachineB:NEW1_CACHE
+   * Build Poky on MachineB, results in MachineB:NEW2, using
+     MachineB:NEW1_CACHE for SSTATE_MIRRORS
+   * Disable SSTATE_MIRRORS in conf/local.conf on MachineB:NEW2
+   * Build a package from scratch.  In my case, I rebuilt the kernel:
+     - bitbake virtual/kernel -c clean
+     - rm sstate-cache/sstate-linux-am*
+     - bitbake virtual/kernel
+     My kernel is based on a local recipe linux-am_X.Y.Z
 
-If I apply your patches on top of current head, I see a failure like
-this:
+     Note: I tried to simplify this process by using 'cleanall'
+     but ran into a fetch problem (reported separately)
 
-ERROR: Task failed: Unknown fetch Error: local variable 'md5data' referenced before assignment
-NOTE: package gcc-cross-initial-4.5.2-r0: task do_fetch: Failed
+Notes:
+   * For my testing, I used a simple package set, e.g. poky-image-minimal
+   * My Poky tree is based on today's master 4cd40dbaa8aef7b6b9ff9ce892a576b802f4b1ec
+   * I notice that this process now rebuilds some 20 packages from scratch
+     on MachineB.  These include the perl-native, etc, that this thread has
+     been discussing.  Is this expected?
 
-
-Best regards,
-
-Wolfgang Denk
+Thanks for working on this; it's getting close and will be
+a big help to my customers.
 
 -- 
-DENX Software Engineering GmbH,     MD: Wolfgang Denk & Detlev Zundel
-HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
-Phone: (+49)-8142-66989-10 Fax: (+49)-8142-66989-80 Email: wd@denx.de
-C++ was an interesting and valuable experiment, but we've learned its
-lessons and it's time to move on.
-                            - Peter Curran in <DCqM4z.BxB@isgtec.com>
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
