@@ -1,27 +1,33 @@
-Return-Path: <ke.yu@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5793F4C81067
-	for <poky@yoctoproject.org>; Tue, 21 Dec 2010 07:19:23 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 21 Dec 2010 05:19:23 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,208,1291622400"; d="scan'208";a="870427199"
-Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
-	by fmsmga001.fm.intel.com with ESMTP; 21 Dec 2010 05:19:22 -0800
-Date: Tue, 21 Dec 2010 21:25:15 +0800
-From: Yu Ke <ke.yu@intel.com>
-To: Yu Ke <ke.yu@intel.com>
-Message-ID: <20101221132515.GD20780@kyu3-hedt>
-References: <cover.1292567626.git.ke.yu@intel.com>
-	<1292861428.25087.4661.camel@rex>
-	<20101221053230.GB20780@kyu3-hedt>
-	<1292928863.2701.2.camel@scimitar>
-	<20101221131712.GC20780@kyu3-hedt>
-MIME-Version: 1.0
-In-Reply-To: <20101221131712.GC20780@kyu3-hedt>
-User-Agent: Mutt/1.5.20 (2009-06-14)
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/1] SRC_URI checksum support v3
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 552844C808B0
+	for <poky@yoctoproject.org>; Tue, 21 Dec 2010 08:08:24 -0600 (CST)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	oBLE9ecB012042; Tue, 21 Dec 2010 14:09:41 GMT
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id JymBMNLFZ0Gm; Tue, 21 Dec 2010 14:09:40 +0000 (GMT)
+Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	oBLE9WfJ012038
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Tue, 21 Dec 2010 14:09:35 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: "Kamble, Nitin A" <nitin.a.kamble@intel.com>
+In-Reply-To: <9DA5872FEF993D41B7173F58FCF6BE9405051258@orsmsx504.amr.corp.intel.com>
+References: <20101205125755.1B42C351@gemini.denx.de>
+	<20101211104711.GB10409@gmail.com>
+	<9DA5872FEF993D41B7173F58FCF6BE9404FAD617@orsmsx504.amr.corp.intel.com>
+	<1292431496.18631.2.camel@scimitar> <1292431754.18631.4.camel@scimitar>
+	<9DA5872FEF993D41B7173F58FCF6BE9405051258@orsmsx504.amr.corp.intel.com>
+Date: Tue, 21 Dec 2010 14:07:46 +0000
+Message-ID: <1292940466.25087.6094.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: elfutils build fails on Fedroa 14
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,59 +39,24 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Dec 2010 13:19:23 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-List-Received-Date: Tue, 21 Dec 2010 14:08:24 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-On Dec 21, 21:17, Yu Ke wrote:
-> On Dec 21, 10:54, Joshua Lock wrote:
-> > On Tue, 2010-12-21 at 13:32 +0800, Yu Ke wrote:
-> > > On Dec 20, 16:10, Richard Purdie wrote:
-> > > > On Fri, 2010-12-17 at 14:33 +0800, Yu Ke wrote:
-> > > > > This patch add SRC_URI checksum support. With this patch,fetcher
-> > > > > can verify the MD5 and SHA256 checksum of download src with the
-> > > > > value defined in recipes SRC_URI.
-> > > > > 
-> > > > > This is the v3 patch with following changes compared with v2:
-> > > > > - add configurable variable BB_STRICT_CHECKSUM to handle checksum missing case
-> > > > >   if checksum is missing and BB_STRICT_CHECKSUM = "1", bitbake will fatal
-> > > > > - add check to only verify checksum for protocol http/https/ftp/ftps, not
-> > > > >   verify checksum for local file and other SCM
-> > > > > 
-> > > > > Pull URL: git://git.pokylinux.org/poky-contrib.git
-> > > > >   Branch: kyu3/srcuri-v3
-> > > > >   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kyu3/srcuri-v3
-> > > > 
-> > > > I merged this, then realised there was a problem with subsequent builds
-> > > > proceeding with corrupt files. I've pushed a fix for at least part of
-> > > > that.
-> > > 
-> > > Thanks, it is indeed necessary fix.
-> > > 
-> > > BTW, I am also thinking if we could merge Fetch.write_md5sum and
-> > > Fetch.verify_md5sum into verify_checksum, since they are all checksum
-> > > related, puting them together would be more clean logically.
-> > 
-> > That makes the assumption that you only want to verify a checksum when
-> > fetching one, which I don't think is correct?
-> 
-> Do you mean other place may also need verify a checksum? If that is the case, it still can call the verify_checksum() to perform verifcation, right?
+On Thu, 2010-12-16 at 17:19 -0800, Kamble, Nitin A wrote:
+> Thanks Josh for looking at this. Actually we closed this bug. It was
+> issue with PATH variable for the bug reporter. It had . in the path
+> too early, causing wrong ld to be chosen. Look at
+> http://bugzilla.pokylinux.org/show_bug.cgi?id=572 for more
+> information.
 
-Oh, just see Richard has replied the email, it is pretty clear, so no question from me now.
+With issues like this which we can easily detect we should add then to
+sanity.bbclass. I added a test in commit 68030f4.
 
-Regards
-Ke
+Cheers,
 
-> 
-> > 
-> > Cheers,
-> > Joshua
-> > -- 
-> > Joshua Lock
-> >         Intel Open Source Technology Centre
-> > 
-> > _______________________________________________
-> > poky mailing list
-> > poky@yoctoproject.org
-> > https://lists.yoctoproject.org/listinfo/poky
+Richard
+
+
+
 
