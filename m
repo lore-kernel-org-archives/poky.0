@@ -1,24 +1,33 @@
-Return-Path: <ke.yu@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 19AA74C808B0
-	for <poky@yoctoproject.org>; Mon, 20 Dec 2010 23:26:41 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 20 Dec 2010 21:26:41 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,206,1291622400"; d="scan'208";a="585684868"
-Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
-	by orsmga002.jf.intel.com with ESMTP; 20 Dec 2010 21:26:40 -0800
-Date: Tue, 21 Dec 2010 13:32:30 +0800
-From: Yu Ke <ke.yu@intel.com>
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-Message-ID: <20101221053230.GB20780@kyu3-hedt>
-References: <cover.1292567626.git.ke.yu@intel.com>
-	<1292861428.25087.4661.camel@rex>
+Return-Path: <wd@denx.de>
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 84A014C808B0
+	for <poky@yoctoproject.org>; Tue, 21 Dec 2010 01:27:08 -0600 (CST)
+Received: from frontend1.mail.m-online.net (frontend1.mail.intern.m-online.net
+	[192.168.8.180])
+	by mail-out.m-online.net (Postfix) with ESMTP id 24D4C1853B8A;
+	Tue, 21 Dec 2010 08:27:06 +0100 (CET)
+X-Auth-Info: xfuUntUGl0FUgY42vVARV/3LFphr17Dq8J2GamyxHOQ=
+Received: from diddl.denx.de (ppp-188-174-79-57.dynamic.mnet-online.de
+	[188.174.79.57])
+	by smtp-auth.mnet-online.de (Postfix) with ESMTPA id E667D1C0027F;
+	Tue, 21 Dec 2010 08:27:06 +0100 (CET)
+Received: from gemini.denx.de (unknown [10.0.0.2])
+	by diddl.denx.de (Postfix) with ESMTP id C3D9320005DC;
+	Tue, 21 Dec 2010 08:27:06 +0100 (CET)
+Received: from gemini.denx.de (localhost.localdomain [127.0.0.1])
+	by gemini.denx.de (Postfix) with ESMTP id A79A3B715C;
+	Tue, 21 Dec 2010 08:27:06 +0100 (CET)
+To: Joshua Lock <josh@linux.intel.com>
+From: Wolfgang Denk <wd@denx.de>
 MIME-Version: 1.0
-In-Reply-To: <1292861428.25087.4661.camel@rex>
-User-Agent: Mutt/1.5.20 (2009-06-14)
+In-reply-to: <cover.1292856365.git.josh@linux.intel.com>
+References: <cover.1292856365.git.josh@linux.intel.com>
+Comments: In-reply-to Joshua Lock <josh@linux.intel.com>
+	message dated "Mon, 20 Dec 2010 14:46:05 +0000."
+Date: Tue, 21 Dec 2010 08:27:06 +0100
+Message-Id: <20101221072706.A79A3B715C@gemini.denx.de>
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/1] SRC_URI checksum support v3
+Subject: Re: [PATCH 0/3] Misc build fixes v2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,63 +39,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Dec 2010 05:26:42 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-List-Received-Date: Tue, 21 Dec 2010 07:27:09 -0000
+Content-type: text/plain; charset=ISO-8859-1
+Content-transfer-encoding: 8bit
 
-On Dec 20, 16:10, Richard Purdie wrote:
-> On Fri, 2010-12-17 at 14:33 +0800, Yu Ke wrote:
-> > This patch add SRC_URI checksum support. With this patch,fetcher
-> > can verify the MD5 and SHA256 checksum of download src with the
-> > value defined in recipes SRC_URI.
-> > 
-> > This is the v3 patch with following changes compared with v2:
-> > - add configurable variable BB_STRICT_CHECKSUM to handle checksum missing case
-> >   if checksum is missing and BB_STRICT_CHECKSUM = "1", bitbake will fatal
-> > - add check to only verify checksum for protocol http/https/ftp/ftps, not
-> >   verify checksum for local file and other SCM
-> > 
-> > Pull URL: git://git.pokylinux.org/poky-contrib.git
-> >   Branch: kyu3/srcuri-v3
-> >   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kyu3/srcuri-v3
+Dear Joshua Lock,
+
+In message <cover.1292856365.git.josh@linux.intel.com> you wrote:
+> This series includes a corrected fix for gst-plugins-base for make 3.82 as
+> well as a more correct fix to enable gthumb to build on a system without
+> gtk-doc installed.
 > 
-> I merged this, then realised there was a problem with subsequent builds
-> proceeding with corrupt files. I've pushed a fix for at least part of
-> that.
-
-Thanks, it is indeed necessary fix.
-
-BTW, I am also thinking if we could merge Fetch.write_md5sum and Fetch.verify_md5sum into verify_checksum, since they are all checksum related, puting them together would be more clean logically.
-
+> We do this by providing a gtk-doc-native recipe and having gtk-doc depend on
+> it. That way we have a binary to run on the build system to generate the
+> documentation as well as a target version so that the pkgconfig test passes.
 > 
-> I'm wondering if we should rename the file to something like the
-> original name + ".corrupt" to make sure we don't use a known broken
-> file?
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>   Branch: josh/make-382
+>   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=josh/make-382
 
-Yes, I prefer to do that. It is more robust, and when meet corrupt file, if bitbake did not clean the downloaded file, user also need to do that. so it is better for bitbake to do that automatically for user.
+I confirm that I can build both poky-image-sdk and meta-toolchain-sdk
+for "qemuppc" on Fedora 14 / x86_64 with these patches.
 
-so combined with the above points, the verify_checksum can be:
-"
-if ud.md5 file exist
-	touch ud.md5 and return
+Tested-by: Wolfgang Denk <wd@denx.de>
 
-check the checksum, if mismatch, rename download file to *.corrupt and raise exception
 
-write the ud.md5 file
-"
+Best regards,
 
-Comment?
+Wolfgang Denk
 
-Regards
-Ke
-
-> 
-> Cheers,
-> 
-> Richard
-> 
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+-- 
+DENX Software Engineering GmbH,     MD: Wolfgang Denk & Detlev Zundel
+HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
+Phone: (+49)-8142-66989-10 Fax: (+49)-8142-66989-80 Email: wd@denx.de
+A Freudian slip is when you say one thing but mean your mother.
 
