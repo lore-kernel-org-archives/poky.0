@@ -1,31 +1,44 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5D9704C808B0
-	for <poky@yoctoproject.org>; Tue, 21 Dec 2010 05:04:41 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	oBLB60fE005027; Tue, 21 Dec 2010 11:06:00 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id 5qsTKElGNOHR; Tue, 21 Dec 2010 11:06:00 +0000 (GMT)
-Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	oBLB5q2w005024
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Tue, 21 Dec 2010 11:05:54 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Joshua Lock <josh@openedhand.com>
-In-Reply-To: <1292928863.2701.2.camel@scimitar>
-References: <cover.1292567626.git.ke.yu@intel.com>
-	<1292861428.25087.4661.camel@rex>  <20101221053230.GB20780@kyu3-hedt>
-	<1292928863.2701.2.camel@scimitar>
-Date: Tue, 21 Dec 2010 11:04:06 +0000
-Message-ID: <1292929446.25087.5890.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/1] SRC_URI checksum support v3
+Return-Path: <kevin.tian@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id A689B4C808B0
+	for <poky@pokylinux.org>; Tue, 21 Dec 2010 05:43:40 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 21 Dec 2010 03:43:39 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,207,1291622400"; d="scan'208";a="689259076"
+Received: from pgsmsx601.gar.corp.intel.com ([10.221.43.69])
+	by orsmga001.jf.intel.com with ESMTP; 21 Dec 2010 03:43:38 -0800
+Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
+	pgsmsx601.gar.corp.intel.com (10.221.43.69) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Tue, 21 Dec 2010 19:43:37 +0800
+Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
+	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
+	Tue, 21 Dec 2010 19:43:37 +0800
+From: "Tian, Kevin" <kevin.tian@intel.com>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>, Chris Larson
+	<clarson@kergoth.com>
+Date: Tue, 21 Dec 2010 19:43:14 +0800
+Thread-Topic: [poky] perl binary hard-code path hurts sstate
+Thread-Index: Acud8uDM+JpiPb/DQLiWW2AipImIoADEOSxg
+Message-ID: <625BA99ED14B2D499DC4E29D8138F1504D5F6A40F9@shsmsx502.ccr.corp.intel.com>
+References: <4D0ABF1C.6090706@intel.com>
+	<625BA99ED14B2D499DC4E29D8138F1504D5F40984C@shsmsx502.ccr.corp.intel.com>
+	<4D0AC7D8.8080001@intel.com>
+	<625BA99ED14B2D499DC4E29D8138F1504D5F409868@shsmsx502.ccr.corp.intel.com>
+	<4D0ACB43.8050909@intel.com>
+	<625BA99ED14B2D499DC4E29D8138F1504D5F409997@shsmsx502.ccr.corp.intel.com>
+	<625BA99ED14B2D499DC4E29D8138F1504D5F4099DD@shsmsx502.ccr.corp.intel.com>
+	<AANLkTi=ViynyC5=Dmm_MDqOLz8_R-ThxxPwHYYRWBU9a@mail.gmail.com>
+	<1292594329.25087.40.camel@rex>
+In-Reply-To: <1292594329.25087.40.camel@rex>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
+MIME-Version: 1.0
+Cc: "paul.eggleton@linux.intel.com" <paul.eggleton@linux.intel.com>,
+	"poky@pokylinux.org" <poky@pokylinux.org>
+Subject: Re: perl binary hard-code path hurts sstate
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,30 +50,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Dec 2010 11:04:41 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 21 Dec 2010 11:43:41 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On Tue, 2010-12-21 at 10:54 +0000, Joshua Lock wrote:
-> On Tue, 2010-12-21 at 13:32 +0800, Yu Ke wrote:
-> > BTW, I am also thinking if we could merge Fetch.write_md5sum and
-> > Fetch.verify_md5sum into verify_checksum, since they are all checksum
-> > related, puting them together would be more clean logically.
-> 
-> That makes the assumption that you only want to verify a checksum when
-> fetching one, which I don't think is correct?
-
-We really only want to take the time to compute the checksums once, then
-mark something to say we've checked it and move on.
-
-I think the use of the ".md5" file is misleading and we should probably
-find a more logical approach to this but in principle checking after
-download should be ok. We can always have something to enable a recheck
-if the user really wanted it I guess but most of the time it will be a
-waste of time.
-
-Cheers,
-
-Richard
-
+PkZyb206IFJpY2hhcmQgUHVyZGllIFttYWlsdG86cmljaGFyZC5wdXJkaWVAbGludXhmb3VuZGF0
+aW9uLm9yZ10NCj5TZW50OiBGcmlkYXksIERlY2VtYmVyIDE3LCAyMDEwIDk6NTkgUE0NCj4NCj5P
+biBGcmksIDIwMTAtMTItMTcgYXQgMDY6NDkgLTA3MDAsIENocmlzIExhcnNvbiB3cm90ZToNCj4+
+IFRoZXNlIHNvcnRzIG9mIGlzc3VlcyBhcmVuJ3QgbmV3LCBvciBmdW4sIHNhZGx5LiAgV2UndmUg
+cnVuIGludG8gbWFueQ0KPj4gbGlrZSB0aGlzIHVzaW5nIHBhY2thZ2VkIHN0YWdpbmcuICBXZSBo
+YWQgdG8gdXNlIHRoZSB2YXJpYWJsZSB0bw0KPj4gZGlzYWJsZSBwYWNrYWdlZC1zdGFnaW5nIGZv
+ciBleGFjdGx5IHRoaXMgcmVhc29uLCBzbyBzb21ldGhpbmcgc2ltaWxhcg0KPj4gZm9yIHNzdGF0
+ZSB3b3VsZCBpbmRlZWQgYmUgdXNlZnVsIGZvciB0aGlzLg0KPg0KPkluIGNhc2VzIGxpa2UgdGhp
+cyBJJ2Qgc3VnZ2VzdCBhZGRpbmcgdGhlIGVuY29kZWQgcGF0aCBpbnRvIHRoZSBjaGVja3N1bQ0K
+PnZpYSB2YXJkZXBzLiBUaGlzIG1lYW5zIHRoZSBzc3RhdGUgcGFja2FnZSB3aWxsIGJlIHJldXNl
+ZCB3aGVuIHRoZSBwYXRoDQo+bWF0Y2hlcyBidXQgbm90IG90aGVyd2lzZS4NCj4NCj5XZSBjYW4g
+dGhlbiB3b3JrIG9uIHJlbW92aW5nIHRoZSBkZXBlbmRlbmNpZXMgd2hpY2ggSSBhZ3JlZSBpcyB0
+aGUgZ29hbA0KPmJ1dCB3ZSBzaG91bGQgZ2V0IHRoZW0gaWRlbnRpZmllZCBmaXJzdC4NCj4NCg0K
+d2l0aCBSUCdzIG5ldyBmaXgsIEkgY2FuIHZlcmlmeSB0aGlzIGlzc3VlIGF0IGxlYXN0IHNvbHZl
+ZCBmb3Igbm93LiBJJ2xsIHRoaW5rIGFib3V0DQpob3cgdG8gaW1wcm92ZSBpdCBsYXRlci4NCg0K
+QlRXLCB3aXRoIHRoaXMgY2hhbmdlLCBub3cgdGhlcmUncmUgMTAgbmF0aXZlIHJlY2lwZXMgcmVx
+dWlyaW5nIHJlYnVpbGQgY29uc2VxdWVudGx5Og0KDQpwZXJsLW5hdGl2ZSAtPiBvcGVuc3NsLW5h
+dGl2ZSAtPiBnaXQtbmF0aXZlIC0+IHBzZXVkby1uYXRpdmUgLT4gbGlidG9vbC1jcm9zcw0KICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgfD4gcHJlbGluay1u
+YXRpdmUNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgICAgICAgICAgICAgIHw+
+IGtlcm4tdG9vbHMtbmF0aXZlDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8PiBw
+eXRob24tbmF0aXZlIC0+IGxpYnhtbDItbmF0aXZlIC0+bGlieHNsdC1uYXRpdmUNCg0KVGhhbmtz
+DQpLZXZpbg0KDQo=
 
