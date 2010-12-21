@@ -1,39 +1,30 @@
-Return-Path: <raj.khem@gmail.com>
-Received: from mail-gy0-f176.google.com (mail-gy0-f176.google.com
-	[209.85.160.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 158484C810E8
-	for <poky@yoctoproject.org>; Tue, 21 Dec 2010 16:24:59 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by gyf1 with SMTP id 1so2226220gyf.35
-	for <poky@yoctoproject.org>; Tue, 21 Dec 2010 14:24:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:received:mime-version:received:in-reply-to
-	:references:from:date:message-id:subject:to:cc:content-type;
-	bh=SIBDQr2sCjlbeMUd4vjWmrC2lZXeYmQkhQhWwwug6kw=;
-	b=xBIhL9GzLtem6vOzyUjEPnQE/GEBt3HHuvTlAyguFELhqz61f8rw8b9k1PgSw4XawW
-	M3f0hOWQs0nGLJQXBYiGKInWivrA6xgZAlulq1afIKcxzGuXB3Xmve9ny96b/O8Lavjk
-	NY/aSfFldwij6WMlMgQVjwZz2JahgFS0UbHzg=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc:content-type;
-	b=u/W5/1dVfRhMlKcKFYXXU5rRBm8Fict4VYCdnGAxi5p1EEHb+ycspJyWryOi/nz+Xc
-	nmYqy55HZx3rjExapc2S8JHn5xQaMD2l8SoNtKE2ndsY+ma5pqiNS7SMOkrLLQbc0wLZ
-	iewcuWHXVvvBoItEjxRzdQDhdNRQAvXIr+gEs=
-Received: by 10.90.10.31 with SMTP id 31mr7711845agj.85.1292970298712; Tue, 21
-	Dec 2010 14:24:58 -0800 (PST)
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D21BF4C808B0
+	for <poky@yoctoproject.org>; Tue, 21 Dec 2010 16:34:18 -0600 (CST)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 921E61660552; Tue, 21 Dec 2010 15:34:17 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.1
+Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 39E261660524;
+	Tue, 21 Dec 2010 15:34:16 -0700 (MST)
+Message-ID: <4D112B68.10303@mlbassoc.com>
+Date: Tue, 21 Dec 2010 15:34:16 -0700
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
 MIME-Version: 1.0
-Received: by 10.90.86.4 with HTTP; Tue, 21 Dec 2010 14:24:38 -0800 (PST)
-In-Reply-To: <4D111BA0.4070909@linux.intel.com>
-References: <cover.1292920700.git.raj.khem@gmail.com>
-	<4D111BA0.4070909@linux.intel.com>
-From: Khem Raj <raj.khem@gmail.com>
-Date: Tue, 21 Dec 2010 14:24:38 -0800
-Message-ID: <AANLkTikRWi_s_X9o0ZFpqB=B07UqipZP6kA3CD8wEB=Z@mail.gmail.com>
-To: Darren Hart <dvhart@linux.intel.com>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+References: <4D10CB88.4040308@mlbassoc.com> <4D10D857.8080906@intel.com>	
+	<4D10F862.5040302@mlbassoc.com> <1292966869.25087.6574.camel@rex>
+In-Reply-To: <1292966869.25087.6574.camel@rex>
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/3] gcc 4.5.4 + linaro update
+Subject: Re: Write-protect $DL_DIR
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -45,39 +36,67 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Dec 2010 22:24:59 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Tue, 21 Dec 2010 22:34:19 -0000
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Dec 21, 2010 at 1:26 PM, Darren Hart <dvhart@linux.intel.com> wrote:
-> On 12/21/2010 01:27 AM, Khem Raj wrote:
+On 12/21/2010 02:27 PM, Richard Purdie wrote:
+> On Tue, 2010-12-21 at 11:56 -0700, Gary Thomas wrote:
+>> On 12/21/2010 09:39 AM, Scott Garman wrote:
+>>> On 12/21/2010 07:45 AM, Gary Thomas wrote:
+>>>> In my quest for a well-packaged Poky that I can distribute
+>>>> to my customers, I'd like to give them a pre-populated $DL_DIR
+>>>> tree (also in response to those customers that have little or
+>>>> no net access). This would likely be in /opt/XYZ and practice
+>>>> would dictate that it be read-only.
+>>>>
+>>>> Sadly, this doesn't work. When I try to build Poky with a
+>>>> read-only $DL_DIR, it simply hangs on every 'fetch' step.
+>>>>
+>>>> Note: I could avoid this problem (although I think it's a
+>>>> bug even if it should never be experienced) by being able
+>>>> to easily provide source mirrors for the packages. So far,
+>>>> I've not figured out how to do this; I'd like to add my
+>>>> own mirror lists, similar to those in meta/classes/poky.bbclass
+>>>> Would this be a way forward? If so, how?
+>>>>
+>>>> Thanks for any ideas
+>>>
+>>> Hi Gary,
+>>>
+>>> Being able to do this is an important priority. Please file a bug to
+>> track it if there isn't a current workaround.
 >>
->> Hello,
->>
->> This branch brings in gcc 4.5.2 and on top linaro's enhancements to gcc
->> 4.5
->> I have made sure that it builds poky-image-minimal for arm, ppc, x86, mips
->> qemu and boots on all of them. It did not boot on ppc however poky-qemu
->> did not boot any images for me even the ones built without these
->> enhancements
->> i.e. on vanilla yocto. So I used a qemu 0.12.5 built with OE
->> which worked well. I need help in testing it out. So please test these
->> patches rigourously
->> with standard testing setup you use before you pull them
->>
->> If there are issues found let me know
+>> Done, bug #606.
 >
-> Hi Khem,
->
-> So with this in place, we should be able to remove all the toolchain work
-> from the meta-linaro layer - is that correct?
+> Sorry but this isn't what is being asked and I don't think that bug is
+> reasonable. DL_DIR needs to be writeable. You can implement a readonly
+> mirror just fine without requiring that so we have what I think is a
+> very reasonable way to solve the problem.
 
-w.r.t gcc yes but if you are using other stuff like optimizes string
-functions or kernel enhancements from linaro
-they still stand
+>> I'll also look at Richard's new support for MIRRORS/PREMIRRORS
+>> to see how to make it work for my environment.
+>
+> Please do this and report back on how you get one. I'm fine with
+> documenting this and making things clearer. Turning DL_DIR into some new
+> mirror and having a new writable area for state information isn't the
+> right way to solve this problem though when we have mirror handling for
+> exactly this kind of use case already.
 
->
-> --
-> Darren Hart
-> Yocto Linux Kernel
->
+I understand that these are really [now] two separate things.
+I had been trying to use $DL_DIR as a pure mirror, but your change
+of today will make that no longer necessary.
+
+I went ahead and filed the bug about a read-only $DL_DIR because
+it causes the build to hang/build silently which could cause confusion.
+The build should either fail at fetch time with a message or be
+sanity checked.
+
+I've tried your changes and they solve my problem well, thanks.
+
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
