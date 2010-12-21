@@ -1,22 +1,22 @@
 Return-Path: <jessica.zhang@intel.com>
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 07B0B4C811EC
+	by mx1.pokylinux.org (Postfix) with ESMTP id 91EC44C81210
 	for <poky@yoctoproject.org>; Mon,  3 Jan 2011 17:47:52 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
 	by orsmga102.jf.intel.com with ESMTP; 03 Jan 2011 15:47:48 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,268,1291622400"; d="scan'208";a="589553088"
+X-IronPort-AV: E=Sophos;i="4.60,268,1291622400"; d="scan'208";a="693216400"
 Received: from jzhang-desktop.jf.intel.com (HELO localhost) ([10.7.201.52])
-	by orsmga002.jf.intel.com with ESMTP; 03 Jan 2011 15:47:48 -0800
-Message-Id: <59d97b473a1f0cb65e3faee26b755eadae3abd30.1294099430.git.jessica.zhang@intel.com>
+	by orsmga001.jf.intel.com with ESMTP; 03 Jan 2011 15:47:48 -0800
+Message-Id: <ec91400efef8c544c0d6a31d2f56c79b883ff2f8.1294099430.git.jessica.zhang@intel.com>
 In-Reply-To: <cover.1294099429.git.jessica.zhang@intel.com>
 References: <cover.1294099429.git.jessica.zhang@intel.com>
 From: Liping Ke <liping.ke@intel.com>
-Date: Wed, 22 Dec 2010 08:54:43 +0800
+Date: Wed, 22 Dec 2010 03:26:14 +0800
 To: poky@yoctoproject.org
 CC: 
 X-Mailman-Approved-At: Mon, 03 Jan 2011 18:04:14 -0600
-Subject: [PATCH 39/59] Add opkg source tarball for testing.
+Subject: [PATCH 37/59] Modify folders per Josh's suggestion
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,14 +32,27 @@ X-List-Received-Date: Mon, 03 Jan 2011 23:47:55 -0000
 
 Signed-off-by: Liping Ke <liping.ke@intel.com>
 ---
- scripts/adt-installer/opkg/build/opkg-0.1.8.tar.gz |  Bin 0 -> 437009 bytes
- 1 files changed, 0 insertions(+), 0 deletions(-)
- create mode 100644 scripts/adt-installer/opkg/build/opkg-0.1.8.tar.gz
+ scripts/adt-installer/opkg-0.1.8.tar.gz            |  Bin 437009 -> 0 bytes
+ .../{ => opkg/conf}/opkg-sdk-i586.conf             |    0
+ .../{ => opkg/conf}/opkg-sdk-x86_64.conf           |    0
+ scripts/adt-installer/{ => scripts}/util           |    8 +++--
+ .../{ => scripts}/yocto_installer_internal         |    8 +++--
+ scripts/adt-installer/yocto_installer              |   34 ++++++++++---------
+ scripts/adt-installer/yocto_installer.conf         |    6 +++
+ 7 files changed, 34 insertions(+), 22 deletions(-)
+ delete mode 100644 scripts/adt-installer/opkg-0.1.8.tar.gz
+ rename scripts/adt-installer/{ => opkg/conf}/opkg-sdk-i586.conf (100%)
+ rename scripts/adt-installer/{ => opkg/conf}/opkg-sdk-x86_64.conf (100%)
+ rename scripts/adt-installer/{ => scripts}/util (93%)
+ rename scripts/adt-installer/{ => scripts}/yocto_installer_internal (97%)
 
-diff --git a/scripts/adt-installer/opkg/build/opkg-0.1.8.tar.gz b/scripts/adt-installer/opkg/build/opkg-0.1.8.tar.gz
-new file mode 100644
-index 0000000000000000000000000000000000000000..eb16094bd564ac07a78ff00de86174036f241372
+diff --git a/scripts/adt-installer/opkg-0.1.8.tar.gz b/scripts/adt-installer/opkg-0.1.8.tar.gz
+deleted file mode 100644
+index eb16094bd564ac07a78ff00de86174036f241372..0000000000000000000000000000000000000000
 GIT binary patch
+literal 0
+HcmV?d00001
+
 literal 437009
 zcmV(pK=8jGiwFShzky2v1ME9%cj88}^L6wqIt&xA!^8MFnF+a(F}B(8@B&Ue2RpKm
 z8l!6=5k2f-C*I$FtEyWskjInV&4)eba*jdjuCA`Gs;*bJ-R1pVb*I*-y{o_at3EsM
@@ -8437,9 +8450,190 @@ z<lhNZQ5w!l#>=sTi30SwN8@@Kri4kSTAeldu04arh2V=PEqCIkL3Cr>%1st*k9(i-
 zxy6@<Q_f0}@HE>>WmWYuRc8*zH3+Xew^<DE!N}#|&%>XGKbe32fA=%5=>T{h0A($w
 AZvX%Q
 
-literal 0
-HcmV?d00001
-
+diff --git a/scripts/adt-installer/opkg-sdk-i586.conf b/scripts/adt-installer/opkg/conf/opkg-sdk-i586.conf
+similarity index 100%
+rename from scripts/adt-installer/opkg-sdk-i586.conf
+rename to scripts/adt-installer/opkg/conf/opkg-sdk-i586.conf
+diff --git a/scripts/adt-installer/opkg-sdk-x86_64.conf b/scripts/adt-installer/opkg/conf/opkg-sdk-x86_64.conf
+similarity index 100%
+rename from scripts/adt-installer/opkg-sdk-x86_64.conf
+rename to scripts/adt-installer/opkg/conf/opkg-sdk-x86_64.conf
+diff --git a/scripts/adt-installer/util b/scripts/adt-installer/scripts/util
+similarity index 93%
+rename from scripts/adt-installer/util
+rename to scripts/adt-installer/scripts/util
+index 7065d6d..530cf73 100644
+--- a/scripts/adt-installer/util
++++ b/scripts/adt-installer/scripts/util
+@@ -95,7 +95,9 @@ fi
+ 
+ source $config_file
+ 
+-LOCAL_OPKG_LOC="./opkg"
++LOCAL_OPKG_LOC="./opkg/build/opkg"
++LOCAL_OPKG_FOLDER="./opkg/build"
++LOCAL_OPKG_SOURCE_FILE="$LOCAL_OPKG_FOLDER/opkg-*.tar.gz"
+ OPKG_LIBDIR="/var/lib"
+ 
+ # List all supported root fs types and target types,
+@@ -104,8 +106,8 @@ YOCTOADT_SUPPORTED_ROOTFS="minimal sato sdk lsb"
+ YOCTOADT_SUPPORTED_TARGETS="x86 x86_64 arm powerpc mips"
+ # Different host (32 bit or 64 bit) will have different opkg
+ # configuration files
+-YOCTOADT_OPKG_CONF_FILE_32="opkg-sdk-i586.conf"
+-YOCTOADT_OPKG_CONF_FILE_64="opkg-sdk-x86_64.conf"
++YOCTOADT_OPKG_CONF_FILE_32="./opkg/conf/opkg-sdk-i586.conf"
++YOCTOADT_OPKG_CONF_FILE_64="./opkg/conf/opkg-sdk-x86_64.conf"
+ # yocto adt installation log file
+ YOCTOADT_INSTALL_LOG_FILE="yocto_installer.log"
+ # Temp folders holding qemu/rootfs downloaded images
+diff --git a/scripts/adt-installer/yocto_installer_internal b/scripts/adt-installer/scripts/yocto_installer_internal
+similarity index 97%
+rename from scripts/adt-installer/yocto_installer_internal
+rename to scripts/adt-installer/scripts/yocto_installer_internal
+index c395e1b..68548ff 100755
+--- a/scripts/adt-installer/yocto_installer_internal
++++ b/scripts/adt-installer/scripts/yocto_installer_internal
+@@ -73,13 +73,15 @@ else
+ fi
+ 
+ #first update repository
++OPKG_CMD=$LOCAL_OPKG_LOC/bin/opkg-cl
++
+ echo_info "[ADT_INST] Updateing opkg..."
+-./opkg/bin/opkg-cl -f $OPKG_CONFIG_FILE -o $NATIVE_INSTALL_DIR update &>> $YOCTOADT_INSTALL_LOG_FILE
++$OPKG_CMD -f $OPKG_CONFIG_FILE -o $NATIVE_INSTALL_DIR update &>> $YOCTOADT_INSTALL_LOG_FILE
+ #echo_info "[ADT_INST] opkg update process ended..."
+ check_result
+ 
+ #install below must sdk-host packages
+-OPKG_INSTALL_CMD="./opkg/bin/opkg-cl --force-overwrite"
++OPKG_INSTALL_CMD="$OPKG_CMD --force-overwrite"
+ OPKG_INSTALL_NATIVE_CMD="$OPKG_INSTALL_CMD  -f $OPKG_CONFIG_FILE -o $NATIVE_INSTALL_DIR install"
+ 
+ echo_info "[ADT_INST] Installing pseudo nativesdk ...\n"
+@@ -216,7 +218,7 @@ fi
+ 
+ 
+ #Main part
+-. util
++. scripts/util
+ 
+ parse_config
+ 
+diff --git a/scripts/adt-installer/yocto_installer b/scripts/adt-installer/yocto_installer
+index bad590c..f85a773 100755
+--- a/scripts/adt-installer/yocto_installer
++++ b/scripts/adt-installer/yocto_installer
+@@ -124,31 +124,37 @@ install_opkg()
+ {
+ if [ ! -x "$LOCAL_OPKG_LOC/bin/opkg-cl" ]; then
+   echo_info "[ADT_INST]  OPKG is not setup, setting up opkg in local, which is required for installing yocto ADT...\n"
+-  if [ ! -f opkg-*.gz ]; then
++
++  if [ ! -f $LOCAL_OPKG_SOURCE_FILE ]; then
+     echo_info "[ADT_INST] Error: OPKG source tarball is not found!"
+     exit -1
+   fi
+ 
+-  if [ -d "$LOCAL_OPKG_LOC" ]; then
++  if [ -d $LOCAL_OPKG_LOC ]; then
+     echo_info "[ADT_INST] Deleting old OPKG folder, which doesn't contain executables... "
+     rm -rf $LOCAL_OPKG_LOC
+   fi
+ 
+-  echo_info "[ADT_INST] Untar opkg source tarball ...\n"  
+-  tar zvfx opkg-*.gz &>> $YOCTOADT_INSTALL_LOG_FILE
++  echo_info "[ADT_INST] Untar opkg source tarball ...\n"
++
++  parent_folder=`eval echo $PWD`
++  cd $LOCAL_OPKG_FOLDER
++
++  tar zvfx opkg-*.gz &>> $parent_folder/$YOCTOADT_INSTALL_LOG_FILE
+   check_result
+   cd opkg-*
+   echo_info "[ADT_INST] Configure opkg ...\n"
+-  ./configure --prefix=${PWD}/../$LOCAL_OPKG_LOC --with-opkglibdir=$OPKG_LIBDIR --disable-curl --disable-ssl-curl --disable-gpg --disable-shave >> $YOCTOADT_INSTALL_LOG_FILE
++  ./configure --prefix=$parent_folder/$LOCAL_OPKG_LOC --with-opkglibdir=$OPKG_LIBDIR --disable-curl --disable-ssl-curl --disable-gpg --disable-shave >> $parent_folder/$YOCTOADT_INSTALL_LOG_FILE
+   check_result
+   echo_info "[ADT_INST] Make opkg ...\n"
+-  make &>> $YOCTOADT_INSTALL_LOG_FILE
++  make &>> $parent_folder/$YOCTOADT_INSTALL_LOG_FILE
+   check_result
+   echo_info "[ADT_INST] Make Install opkg ...\n"
+-  make install &>> $YOCTOADT_INSTALL_LOG_FILE
++  make install &>> $parent_folder/$YOCTOADT_INSTALL_LOG_FILE
+   #if meet error when installing opkg, cancel the installation
+   check_result
+-  cd ..
++  cd $parent_folder
++
+   echo_info "[ADT_INST] Successfully installed OPKG.\n"
+ fi
+ }
+@@ -217,7 +223,7 @@ clear
+ run_path=`dirname $0`
+ cd $run_path
+ 
+-if [ ! -f "util" ]; then
++if [ ! -f "scripts/util" ]; then
+   echo -e "[ADT_INST] Error: Script file: util, can't be found under: $run_path!"
+   echo -e "\n#############################################################################"
+   echo -e "# Meet error(s) when installing Yocto ADT! Please check log file for details. "
+@@ -225,7 +231,7 @@ if [ ! -f "util" ]; then
+   exit -1
+ fi
+ 
+-if [ ! -f "yocto_installer_internal" ]; then
++if [ ! -f "scripts/yocto_installer_internal" ]; then
+   echo -e "[ADT_INST] Error: Script file: yocto_installer_internal, can't be found under: $run_path!"
+   echo -e "\n#############################################################################"
+   echo -e "# Meet error(s) when installing Yocto ADT! Please check log file for details. "
+@@ -233,7 +239,7 @@ if [ ! -f "yocto_installer_internal" ]; then
+   exit -1
+ fi
+ 
+-. util
++. scripts/util
+ 
+ if [ -f "$YOCTOADT_INSTALL_LOG_FILE" ]; then
+   rm $YOCTOADT_INSTALL_LOG_FILE
+@@ -261,7 +267,7 @@ echo_info "[ADT_INST] Continuing installation requires sudo password ..."
+ 
+ username=`id -nu`
+ groupname=`id -ng`
+-sudo ./yocto_installer_internal $username $groupname
++sudo scripts/yocto_installer_internal $username $groupname
+ 
+ result="$?"
+ #echo_info "\n############################################################"
+@@ -269,9 +275,5 @@ if [ "$result" == "0" ]; then
+   echo_info "\n############################################################"
+   echo_info "# Yocto ADT has been successfully installed."
+   echo_info "############################################################\n"
+-#else
+-#  echo_info "# Meet error(s) during installing Yocto ADT! Please  "
+-
+ fi
+-#echo_info "############################################################\n"
+ 
+diff --git a/scripts/adt-installer/yocto_installer.conf b/scripts/adt-installer/yocto_installer.conf
+index 3d17764..b88a57f 100644
+--- a/scripts/adt-installer/yocto_installer.conf
++++ b/scripts/adt-installer/yocto_installer.conf
+@@ -31,6 +31,12 @@ YOCTOADT_ROOTFS_mips="sdk"
+ YOCTOADT_TARGET_SYSROOT_IMAGE_mips="sdk"
+ YOCTOADT_TARGET_SYSROOT_mips="$HOME/test-yocto/mips"
+ 
++YOCTOADT_TARGET_x86_64="N"
++YOCTOADT_ROOTFS_x86_64="sdk minimal"
++YOCTOADT_TARGET_SYSROOT_IMAGE_x86_64="sdk"
++YOCTOADT_TARGET_SYSROOT_x86_64="$HOME/test-yocto/x86_64"
++
++
+ 
+ 
+ 
 -- 
 1.7.0.4
 
