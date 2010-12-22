@@ -1,29 +1,31 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5ECAD4C80FAC
-	for <poky@yoctoproject.org>; Wed, 22 Dec 2010 08:50:00 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	oBMEpMOE000398; Wed, 22 Dec 2010 14:51:22 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id lIoiS0qDHe2f; Wed, 22 Dec 2010 14:51:22 +0000 (GMT)
-Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	oBMEpI6e000392
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Wed, 22 Dec 2010 14:51:20 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Koen Kooi <koen@dominion.thruhere.net>
-In-Reply-To: <70D74F2C-4429-4294-9668-2D17B8A31943@dominion.thruhere.net>
-References: <70D74F2C-4429-4294-9668-2D17B8A31943@dominion.thruhere.net>
-Date: Wed, 22 Dec 2010 14:49:28 +0000
-Message-ID: <1293029368.25087.7644.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2A5364C80039
+	for <poky@yoctoproject.org>; Wed, 22 Dec 2010 08:51:56 -0600 (CST)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id D43E21660382; Wed, 22 Dec 2010 07:51:55 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.1
+Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 21047166031F;
+	Wed, 22 Dec 2010 07:51:55 -0700 (MST)
+Message-ID: <4D12108B.2040503@mlbassoc.com>
+Date: Wed, 22 Dec 2010 07:51:55 -0700
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
+MIME-Version: 1.0
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+References: <4D10CB88.4040308@mlbassoc.com> <4D10D857.8080906@intel.com>	
+	<4D10F862.5040302@mlbassoc.com>
+	<1292966869.25087.6574.camel@rex> <4D112B68.10303@mlbassoc.com>
+In-Reply-To: <4D112B68.10303@mlbassoc.com>
 Cc: poky@yoctoproject.org
-Subject: Re: RDEPENDS = "foo" in core layer
+Subject: Re: Write-protect $DL_DIR
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,18 +37,57 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 22 Dec 2010 14:50:00 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Wed, 22 Dec 2010 14:51:56 -0000
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Wed, 2010-12-22 at 14:49 +0100, Koen Kooi wrote:
-> The core layer has tons of RDEPENDS = "foo", which should actually be
-> RDEPENDS_${PN}. What's the policy on those?
+On 12/21/2010 03:34 PM, Gary Thomas wrote:
+  ... snip
+>
+> I've tried your changes and they solve my problem well, thanks.
+>
 
-They should be fixed. Patches very welcome...
+I have had a problem with this (after more testing).  Originally,
+I had DL_DIR="/work/misc/Poky/sources/", using it somewhat like
+a mirror.  With your changes yesterday, I added these lines to
+my distro.conf:
 
-Cheers,
+   # Provide pre-staged sources
+   PREMIRRORS_append = "\
+   bzr://.*/.*   file:///work/misc/Poky/sources/ \n \
+   cvs://.*/.*   file:///work/misc/Poky/sources/ \n \
+   git://.*/.*   file:///work/misc/Poky/sources/ \n \
+   hg://.*/.*    file:///work/misc/Poky/sources/ \n \
+   osc://.*/.*   file:///work/misc/Poky/sources/ \n \
+   p4://.*/.*    file:///work/misc/Poky/sources/ \n \
+   svk://.*/.*   file:///work/misc/Poky/sources/ \n \
+   svn://.*/.*   file:///work/misc/Poky/sources/ \n"
 
-Richard
+   MIRRORS_append = "\
+   ftp://.*/.*      file:///work/misc/Poky/sources/ \n \
+   http://.*/.*     file:///work/misc/Poky/sources/ \n \
+   https://.*/.*    file:///work/misc/Poky/sources/ \n"
 
+   require conf/distro/include/my-fixed-revisions.inc
+   require conf/distro/poky.conf
+
+I also disabled DL_DIR in local.conf, falling back to using
+"downloads" in my build tree (/work/local/new_p60).
+
+As you can see, my distro uses Poky as its base, just overriding
+and/or adding some features for our environment.
+
+With this setup, the build for gconf-dbus_svn fails in the
+unpack stage, with this error:
+   NOTE: Unpacking /work/local/new_p60/downloads/trunk_developer.imendio.com_.svn.gconf-dbus_705_.tar.gz to 
+/work/local/new_p60/tmp/work/armv7a-poky-linux-gnueabi/gconf-dbus-2.16.0+svnr705-r0/
+   tar: /work/local/new_p60/downloads/trunk_developer.imendio.com_.svn.gconf-dbus_705_.tar.gz: Cannot open: No such file or directory
+
+Did I set this up incorrectly?
+
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
