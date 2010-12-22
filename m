@@ -1,22 +1,29 @@
-Return-Path: <josh@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 73A5A4C8109B
-	for <poky@yoctoproject.org>; Wed, 22 Dec 2010 11:09:24 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 22 Dec 2010 09:09:24 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,214,1291622400"; d="scan'208";a="689822560"
-Received: from unknown (HELO localhost) ([10.255.16.69])
-	by orsmga001.jf.intel.com with ESMTP; 22 Dec 2010 09:09:23 -0800
-Message-Id: <950779d3e39cde4800472e1f8cb91eecdc85ab1d.1293037679.git.josh@linux.intel.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by mx1.pokylinux.org (Postfix) with ESMTP id B30C34C810AF
+	for <poky@yoctoproject.org>; Wed, 22 Dec 2010 12:39:30 -0600 (CST)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	oBMIcppJ008682; Wed, 22 Dec 2010 18:38:51 GMT
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id S1HfTHqkfHlW; Wed, 22 Dec 2010 18:38:51 +0000 (GMT)
+Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	oBMIclsl008657
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Wed, 22 Dec 2010 18:38:49 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Joshua Lock <josh@linux.intel.com>
 In-Reply-To: <cover.1293037679.git.josh@linux.intel.com>
 References: <cover.1293037679.git.josh@linux.intel.com>
-From: Joshua Lock <josh@linux.intel.com>
-Old-Date: Wed, 22 Dec 2010 17:03:44 +0000
-Date: Wed, 22 Dec 2010 17:09:17 +0000
-To: poky@yoctoproject.org
-CC: 
-Subject: [PATCH 1/1] bitbake/depexp: fix early exit
+Date: Wed, 22 Dec 2010 18:36:56 +0000
+Message-ID: <1293043016.3578.41.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/1] Fix depexp UI
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,30 +35,22 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 22 Dec 2010 17:09:24 -0000
+X-List-Received-Date: Wed, 22 Dec 2010 18:39:36 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Stupdi typo/thinko from me had depexp exiting once recipes had parsed
-as I'd used a return the while loop where I'd meant a continue...
+On Wed, 2010-12-22 at 17:08 +0000, Joshua Lock wrote:
+> I'd introduced a silly bug into depexp, this changeset fixes it...
+> 
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>   Branch: josh/master
+>   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=josh/master
+> 
+> Thanks,
+>     Joshua Lock <josh@linux.intel.com>
 
-Signed-off-by: Joshua Lock <josh@linux.intel.com>
----
- bitbake/lib/bb/ui/depexp.py |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+Merged to master, thanks.
 
-diff --git a/bitbake/lib/bb/ui/depexp.py b/bitbake/lib/bb/ui/depexp.py
-index 6fd18d1..155a892 100644
---- a/bitbake/lib/bb/ui/depexp.py
-+++ b/bitbake/lib/bb/ui/depexp.py
-@@ -225,7 +225,7 @@ def init(server, eventHandler):
-                     print(("\nParsing finished. %d cached, %d parsed, %d skipped, %d masked, %d errors."
-                         % ( event.cached, event.parsed, event.skipped, event.masked, event.errors)))
-                     pbar.hide()
--                    return
-+                    continue
-                 gtk.gdk.threads_enter()
-                 pbar.update(x, y)
-                 gtk.gdk.threads_leave()
--- 
-1.7.3.3
+Richard
 
 
