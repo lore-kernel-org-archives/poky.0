@@ -1,41 +1,22 @@
-Return-Path: <fransmeulenbroeks@gmail.com>
-Received: from mail-iw0-f176.google.com (mail-iw0-f176.google.com
-	[209.85.214.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 78A494C80050
-	for <poky@yoctoproject.org>; Wed, 22 Dec 2010 15:19:28 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by iwn2 with SMTP id 2so6391235iwn.35
-	for <poky@yoctoproject.org>; Wed, 22 Dec 2010 13:19:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:received:received:in-reply-to
-	:references:date:message-id:subject:from:to:content-type
-	:content-transfer-encoding;
-	bh=D70CzEMedr17AMlN08iXqOUv251czgtlz0pCmIqmxXo=;
-	b=VrP8Krb8houLEOS3vVC2iRMlkDDqX5PVJR9Zqa0CLuSkbrbo5+SzZnWdi3TRKFW3kt
-	9RnzsCYWdP49bGu8bKPGIfkMPemcjgr0QoreWIg0dqxGeNX4Is6EBV65w9eiqXoDqMsJ
-	JpJmI/qvK/q7YRVKkzD3pHESVrvmEnwKAW/L0=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:content-type:content-transfer-encoding;
-	b=h7k5oLfMvisThvKun4wOXtRKU8AaJ47058RxLVkeN1XXQ3ufrjQeIhyY6pUy08PTpc
-	8B8/5iPdUGzo3nqQlnmT8n+eDpsUGgmUnyWiL8I6jwyh/jePvtsVP8qvUJhHUF5hXmar
-	LY72/54r1M9/EqGyIQuyRF21s/Yx9f9EkHyKo=
-MIME-Version: 1.0
-Received: by 10.231.31.1 with SMTP id w1mr7457755ibc.7.1293052766450; Wed, 22
-	Dec 2010 13:19:26 -0800 (PST)
-Received: by 10.231.200.140 with HTTP; Wed, 22 Dec 2010 13:19:26 -0800 (PST)
-In-Reply-To: <1293050270.3578.172.camel@rex>
-References: <70D74F2C-4429-4294-9668-2D17B8A31943@dominion.thruhere.net>
-	<1293029368.25087.7644.camel@rex>
-	<ED7C4989-D54D-4C12-AD6A-2135EB1258AE@dominion.thruhere.net>
-	<1293050270.3578.172.camel@rex>
-Date: Wed, 22 Dec 2010 22:19:26 +0100
-Message-ID: <AANLkTik3+BCqhe_M8VqST-U8mxtXPiDF6eo_cbWLf-qm@mail.gmail.com>
-From: Frans Meulenbroeks <fransmeulenbroeks@gmail.com>
-To: Richard Purdie <richard.purdie@linuxfoundation.org>, poky@yoctoproject.org
-Subject: Re: RDEPENDS = "foo" in core layer
+Return-Path: <bruce.ashfield@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 06F324C80050;
+	Wed, 22 Dec 2010 15:34:51 -0600 (CST)
+Received: from localhost.localdomain (yow-bashfiel-d2.ottawa.windriver.com
+	[128.224.146.167])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oBMLXiBh017213;
+	Wed, 22 Dec 2010 13:33:46 -0800 (PST)
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+To: rpurdie@linux.intel.com
+Date: Wed, 22 Dec 2010 16:35:25 -0500
+Message-Id: <ceaade8ad95d1ea5f54fdfe7262a3f218576a7a0.1293053653.git.bruce.ashfield@windriver.com>
+X-Mailer: git-send-email 1.7.0.4
+In-Reply-To: <cover.1293053653.git.bruce.ashfield@windriver.com>
+References: <cover.1293053653.git.bruce.ashfield@windriver.com>
+In-Reply-To: <cover.1293053653.git.bruce.ashfield@windriver.com>
+References: <cover.1293053653.git.bruce.ashfield@windriver.com>
+Cc: yocto@yoctoproject.org, poky@yoctoproject.org, saul.wold@intel.com
+Subject: [PATCH 1/1] linux-yocto: add dropped qemuppc configuration
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -47,48 +28,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 22 Dec 2010 21:19:28 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Wed, 22 Dec 2010 21:34:52 -0000
 
-2010/12/22 Richard Purdie <richard.purdie@linuxfoundation.org>:
-> On Wed, 2010-12-22 at 16:04 +0100, Koen Kooi wrote:
->> Op 22 dec 2010, om 15:49 heeft Richard Purdie het volgende geschreven:
->>
->> > On Wed, 2010-12-22 at 14:49 +0100, Koen Kooi wrote:
->> >> The core layer has tons of RDEPENDS =3D "foo", which should actually =
-be
->> >> RDEPENDS_${PN}. What's the policy on those?
->> >
->> > They should be fixed. Patches very welcome...
->>
->> A quick sed gives me:
->>
->> =A076 files changed, 77 insertions(+), 77 deletions(-)
->>
->> Do you want that as a single patch and if not, how do you want to have
->> it split and are PR bumps needed?
->
-> One patch is fine. One tricky part is that this is a change in behaviour
-> as an RDEPENDS is applied to every RDEPENDS_XXX, not just XXX=3D${PN} and
-> that means we really should bump PR :/.
->
-> Is there also a similar problem with RRECOMMENDS?
->
-> Cheers,
->
-> Richard
->
+The _ to - mass change mangled a config file name, which was
+dropped from the update. This adds the fixed file back to the
+meta branch of the kernel.
 
-Yes.
+Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
+---
+ .../conf/distro/include/poky-default-revisions.inc |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
-This was discussed on the oe mailing list in oct
-See http://thread.gmane.org/gmane.comp.handhelds.openembedded/37858/focus=
-=3D37903
-Martin Jansa did a lot of  work on this.
-If you read the thread you'll see that there is a case in which the
-_${PN} should not be added.
-Not checked if this specific exception is also present in poky.
+diff --git a/meta/conf/distro/include/poky-default-revisions.inc b/meta/conf/distro/include/poky-default-revisions.inc
+index 9605336..03e788b 100644
+--- a/meta/conf/distro/include/poky-default-revisions.inc
++++ b/meta/conf/distro/include/poky-default-revisions.inc
+@@ -106,7 +106,7 @@ SRCREV_machine_pn-linux-yocto_atom-pc = "f6454fa1af4340832f8943f0b3d8e9f2de11b1b
+ SRCREV_machine_pn-linux-yocto_routerstationpro = "f0d79e2ae0cbb3924c57655b8c7d6a1276c9fc05"
+ SRCREV_machine_pn-linux-yocto_mpc8315e-rdb = "a0243e84c1cca7fb625ae4bd76274882ccbe4333"
+ SRCREV_machine_pn-linux-yocto_beagleboard = "f6454fa1af4340832f8943f0b3d8e9f2de11b1b1"
+-SRCREV_meta_pn-linux-yocto ?= "7ca94548e68a72e57715d65d6d8f723582aafa59"
++SRCREV_meta_pn-linux-yocto ?= "5955ebea1f0d2fbd67a66ed138ce2b3363adf72a"
+ SRCREV_pn-linux-libc-headers-yocto ??= "f6454fa1af4340832f8943f0b3d8e9f2de11b1b1"
+ SRCREV_pn-matchbox-config-gtk ??= "2081"
+ SRCREV_pn-matchbox-desktop-sato ??= "76"
+-- 
+1.7.0.4
 
-Frans
 
