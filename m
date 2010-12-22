@@ -1,21 +1,24 @@
 Return-Path: <dvhart@linux.intel.com>
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id F0B4B4C808B0
-	for <poky@yoctoproject.org>; Tue, 21 Dec 2010 18:10:35 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 21 Dec 2010 16:10:35 -0800
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4B7424C80050
+	for <poky@yoctoproject.org>; Tue, 21 Dec 2010 18:28:04 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 21 Dec 2010 16:28:03 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,210,1291622400"; d="scan'208";a="689517081"
-Received: from unknown (HELO localhost) ([10.255.14.74])
-	by orsmga001.jf.intel.com with ESMTP; 21 Dec 2010 16:10:35 -0800
+X-IronPort-AV: E=Sophos;i="4.60,210,1291622400"; d="scan'208";a="586012160"
+Received: from unknown (HELO [10.255.14.74]) ([10.255.14.74])
+	by orsmga002.jf.intel.com with ESMTP; 21 Dec 2010 16:28:03 -0800
+Message-ID: <4D114617.6060202@linux.intel.com>
+Date: Tue, 21 Dec 2010 16:28:07 -0800
 From: Darren Hart <dvhart@linux.intel.com>
-To: poky@yoctoproject.org
-Date: Tue, 21 Dec 2010 16:10:36 -0800
-Message-Id: <eb2ad2a67369e5e92d2aa4d6e700feaca7c393d5.1292976450.git.dvhart@linux.intel.com>
-X-Mailer: git-send-email 1.7.1
-In-Reply-To: <cover.1292976450.git.dvhart@linux.intel.com>
-References: <cover.1292976450.git.dvhart@linux.intel.com>
-Subject: [PATCH 1/1] send-pull-request: allow users to select git-send-email or sendmail
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
+MIME-Version: 1.0
+To: Khem Raj <raj.khem@gmail.com>
+References: <1292924367-19873-1-git-send-email-raj.khem@gmail.com>
+In-Reply-To: <1292924367-19873-1-git-send-email-raj.khem@gmail.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH] scripts/send-pull-request: Use git send-mail instead of sendmail
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,128 +30,95 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 22 Dec 2010 00:10:36 -0000
+X-List-Received-Date: Wed, 22 Dec 2010 00:28:04 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Some users find it easier to use their git sendmail setup over a local
-MTA to deliver mail with the send-pull-request script. If you would
-like to do this, please read the git-send-email man page and set
-the relevant entries in your git config. In particular, be sure to
-set sendemail.from to avoid being asked each time.
+On 12/21/2010 01:39 AM, Khem Raj wrote:
+> * usually git send-mail is setup by people using git
+>    so use git send-mail to post patches for pull requests
+>    There is how to setup git send-email
+>    see section "Set up git"
+>    http://www.openembedded.org/index.php/How_to_submit_a_patch_to_OpenEmbedded
 
-Reported-by: Khem Raj <raj.khem@gmail.com>
-CC: Bruce Ashfield <bruce.ashfield@windriver.com>
-Signed-off-by: Darren Hart <dvhart@linux.intel.com>
----
- scripts/send-pull-request |   69 ++++++++++++++++++++++++++++++++------------
- 1 files changed, 50 insertions(+), 19 deletions(-)
+Hi Khem,
 
-diff --git a/scripts/send-pull-request b/scripts/send-pull-request
-index 03a78f9..9872c0d 100755
---- a/scripts/send-pull-request
-+++ b/scripts/send-pull-request
-@@ -1,6 +1,11 @@
- #!/bin/bash
- AUTO=0
- 
-+# Check env for any default settings, command line options will override these.
-+if [ -z "$PULL_MTA" ]; then
-+    PULL_MTA="sendmail"
-+fi
-+
- usage()
- {
- cat <<EOM
-@@ -8,6 +13,7 @@ Usage: $(basename $0) [-h] [-a] [[-t email]...] -p pull-dir
-   -t email     Explicitly add email to the recipients
-   -a           Automatically harvest recipients from "*-by: email" lines
-                in the patches in the pull-dir
-+  -g           Use git-send-email to send mail instead of sendmail
-   -p pull-dir  Directory containing summary and patch files
- EOM
- }
-@@ -35,11 +41,14 @@ harvest_recipients()
- 
- 
- # Parse and verify arguments
--while getopts "ahp:t:" OPT; do
-+while getopts "aghp:t:" OPT; do
-     case $OPT in
-         a)
-             AUTO=1
-             ;;
-+        g)
-+            PULL_MTA="git"
-+            ;;
-         h)
-             usage
-             exit 0
-@@ -111,25 +120,47 @@ read cont
- 
- if [ "$cont" == "y" ] || [ "$cont" == "Y" ]; then
-     ERROR=0
--    for PATCH in $PDIR/*patch; do
--        # Insert To and CC headers via formail to keep them separate and
--        # appending them to the sendmail command as -- $TO $CC has proven
--        # to be an exercise in futility.
--        # 
--        # Use tail to remove the email envelope from git or formail as
--        # msmtp (sendmail) would choke on them.
--        #
--        # Modify the patch date for sequential delivery, but retain the
--        # original date as "Old-Date".
--        DATE=$(date +"%a, %d %b %Y %k:%M:%S %z")
--        cat $PATCH | formail -I "To: $TO" -I "CC: $CC" -i "Date: $DATE" | tail -n +2 | sendmail -t
--        if [ $? -eq 1 ]; then
--            ERROR=1
--        fi
--    done
-+    case "$PULL_MTA" in
-+        git)
-+            export IFS=$','
-+            GIT_TO=$(for R in $TO; do echo -n "--to='$R' "; done)
-+            GIT_CC=$(for R in $CC; do echo -n "--cc='$R' "; done)
-+            unset IFS
-+            for PATCH in $PDIR/*patch; do
-+                # We harvest the emails manually, so force git not to.
-+                eval "git send-email $GIT_TO $GIT_CC --no-chain-reply-to --suppress-cc=all $PATCH"
-+                if [ $? -eq 1 ]; then
-+                    ERROR=1
-+                fi
-+            done
-+            ;;
-+        sendmail)
-+            for PATCH in $PDIR/*patch; do
-+                # Insert To and CC headers via formail to keep them separate and
-+                # appending them to the sendmail command as -- $TO $CC has
-+                # proven to be an exercise in futility.
-+                #
-+                # Use tail to remove the email envelope from git or formail as
-+                # msmtp (sendmail) would choke on them.
-+                #
-+                # Modify the patch date for sequential delivery, but retain the
-+                # original date as "Old-Date".
-+                DATE=$(date +"%a, %d %b %Y %k:%M:%S %z")
-+                cat $PATCH | formail -I "To: $TO" -I "CC: $CC" -i "Date: $DATE" | tail -n +2 | sendmail -t
-+                if [ $? -eq 1 ]; then
-+                    ERROR=1
-+                fi
-+            done
-+            ;;
-+        *)
-+            echo "ERROR: unknown MTA: $PULL_MTA"
-+            usage
-+            exit 1
-+            ;;
-+    esac
-+
-     if [ $ERROR -eq 1 ]; then
--        echo "ERROR: sendmail failed to send one or more messages. Check your"
--        echo "       sendmail log for details."
-+        echo "ERROR: Failed to send one or more messages. Check your MTA log for details."
-     fi
- else
-     echo "Send aborted."
+I've added an option to use git-send-email in a recent patch sent as a 
+pull request (using git-send-email). I had to change it from below in a 
+few ways - I'll comment on them here for context:
+
+>
+> Signed-off-by: Khem Raj<raj.khem@gmail.com>
+> ---
+>   scripts/send-pull-request |   19 ++++++++-----------
+>   1 files changed, 8 insertions(+), 11 deletions(-)
+>
+> diff --git a/scripts/send-pull-request b/scripts/send-pull-request
+> index 0576a5d..2f0b90d 100755
+> --- a/scripts/send-pull-request
+> +++ b/scripts/send-pull-request
+> @@ -12,8 +12,8 @@ Usage: $(basename $0) [-h] [-a] [[-t email]...] -p pull-dir
+>   EOM
+>   }
+>
+> -# Collect To and CC addresses from the patch files if they exist
+> -# $1: Which header to add the recipients to, "TO" or "CC"
+> +# Collect To, From and CC addresses from the patch files if they exist
+> +# $1: Which header to add the recipients to, "TO", "FROM" or "CC"
+
+We really shouldn't have to read FROM here, just use sendemail.from from 
+your git config.
+
+>   # $2: The regex to match and strip from the line with email addresses
+>   harvest_recipients()
+>   {
+> @@ -27,6 +27,8 @@ harvest_recipients()
+>                   if [ -z "$TO" ]; then TO=$EMAIL; else TO="$TO,$EMAIL"; fi
+>               elif [ "$TO_CC" == "CC" ]&&  [ "${CC/$EMAIL/}" == "$CC" ]&&  [ -n "$EMAIL" ]; then
+>                   if [ -z "$CC" ]; then CC=$EMAIL; else CC="$CC,$EMAIL"; fi
+> +            elif [ "$TO_CC" == "FROM" ]&&  [ "${FROM/$EMAIL/}" == "$FROM" ]&&  [ -n "$EMAIL" ]; then
+> +                if [ -z "$FROM" ]; then FROM=$EMAIL; fi
+>               fi
+>           done
+>       done
+> @@ -85,6 +87,7 @@ done
+>   # etc. (*-by) will be added to CC.
+>   if [ $AUTO -eq 1 ]; then
+>       harvest_recipients TO "^[Tt][Oo]: *"
+> +    harvest_recipients FROM "^[Ff][rR][oO][mM]: *"
+>       harvest_recipients CC "^[Cc][Cc]: *"
+>       harvest_recipients CC "^.*-[Bb][Yy]: *"
+>   fi
+> @@ -112,20 +115,14 @@ read cont
+>   if [ "$cont" == "y" ] || [ "$cont" == "Y" ]; then
+>       ERROR=0
+>       for PATCH in $PDIR/*patch; do
+> -        # Insert To and CC headers via formail to keep them separate and
+> -        # appending them to the sendmail command as -- $TO $CC has proven
+> -        # to be an exercise in futility.
+> -        #
+> -        # Use tail to remove the email envelope from git or formail as
+> -        # msmtp (sendmail) would choke on them.
+> -        cat $PATCH | formail -I "To: $TO" -I "CC: $CC" | tail -n +2 | sendmail -t
+> +        # Insert To and CC headers
+> +	git send-email --to="$TO" --cc="$CC" --from="$FROM" --confirm=auto $PATCH
+
+git-send-email doesn't accept a comma separated list of address on the 
+--to and --cc lines. This was something I ran into last time I tried to 
+use git-send-email and had forgotten about. The problem is separating 
+them into individual arguments as something like "$TO_LIST" is 
+interpreted as a single argument (even with multiple --to arguments in 
+it). Turns out, "eval" allows you to do this. I took that approach in 
+the patch I sent.
+
+Using --from in this command through an error for me. I setup my git 
+config to have sendemail.from specified, and send-email will just use 
+that instead of prompting every time.
+
+Please have a look at the patch in the new pull request and let us know 
+if it meets your needs.
+
 -- 
-1.7.1
-
+Darren Hart
+Yocto Linux Kernel
 
