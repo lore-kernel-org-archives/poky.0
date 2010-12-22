@@ -1,30 +1,40 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 786534C81110
-	for <poky@yoctoproject.org>; Wed, 22 Dec 2010 14:38:36 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	oBMKdvPV012727; Wed, 22 Dec 2010 20:39:58 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id ZM1kYshbf3I8; Wed, 22 Dec 2010 20:39:57 +0000 (GMT)
-Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	oBMKdfft012702
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Wed, 22 Dec 2010 20:39:51 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Koen Kooi <koen@dominion.thruhere.net>
-In-Reply-To: <ED7C4989-D54D-4C12-AD6A-2135EB1258AE@dominion.thruhere.net>
+Return-Path: <fransmeulenbroeks@gmail.com>
+Received: from mail-iw0-f176.google.com (mail-iw0-f176.google.com
+	[209.85.214.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 78A494C80050
+	for <poky@yoctoproject.org>; Wed, 22 Dec 2010 15:19:28 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by iwn2 with SMTP id 2so6391235iwn.35
+	for <poky@yoctoproject.org>; Wed, 22 Dec 2010 13:19:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:received:received:in-reply-to
+	:references:date:message-id:subject:from:to:content-type
+	:content-transfer-encoding;
+	bh=D70CzEMedr17AMlN08iXqOUv251czgtlz0pCmIqmxXo=;
+	b=VrP8Krb8houLEOS3vVC2iRMlkDDqX5PVJR9Zqa0CLuSkbrbo5+SzZnWdi3TRKFW3kt
+	9RnzsCYWdP49bGu8bKPGIfkMPemcjgr0QoreWIg0dqxGeNX4Is6EBV65w9eiqXoDqMsJ
+	JpJmI/qvK/q7YRVKkzD3pHESVrvmEnwKAW/L0=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:content-type:content-transfer-encoding;
+	b=h7k5oLfMvisThvKun4wOXtRKU8AaJ47058RxLVkeN1XXQ3ufrjQeIhyY6pUy08PTpc
+	8B8/5iPdUGzo3nqQlnmT8n+eDpsUGgmUnyWiL8I6jwyh/jePvtsVP8qvUJhHUF5hXmar
+	LY72/54r1M9/EqGyIQuyRF21s/Yx9f9EkHyKo=
+MIME-Version: 1.0
+Received: by 10.231.31.1 with SMTP id w1mr7457755ibc.7.1293052766450; Wed, 22
+	Dec 2010 13:19:26 -0800 (PST)
+Received: by 10.231.200.140 with HTTP; Wed, 22 Dec 2010 13:19:26 -0800 (PST)
+In-Reply-To: <1293050270.3578.172.camel@rex>
 References: <70D74F2C-4429-4294-9668-2D17B8A31943@dominion.thruhere.net>
 	<1293029368.25087.7644.camel@rex>
 	<ED7C4989-D54D-4C12-AD6A-2135EB1258AE@dominion.thruhere.net>
-Date: Wed, 22 Dec 2010 20:37:50 +0000
-Message-ID: <1293050270.3578.172.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Cc: poky@yoctoproject.org
+	<1293050270.3578.172.camel@rex>
+Date: Wed, 22 Dec 2010 22:19:26 +0100
+Message-ID: <AANLkTik3+BCqhe_M8VqST-U8mxtXPiDF6eo_cbWLf-qm@mail.gmail.com>
+From: Frans Meulenbroeks <fransmeulenbroeks@gmail.com>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>, poky@yoctoproject.org
 Subject: Re: RDEPENDS = "foo" in core layer
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -37,35 +47,48 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 22 Dec 2010 20:38:36 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 22 Dec 2010 21:19:28 -0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 2010-12-22 at 16:04 +0100, Koen Kooi wrote:
-> Op 22 dec 2010, om 15:49 heeft Richard Purdie het volgende geschreven:
-> 
-> > On Wed, 2010-12-22 at 14:49 +0100, Koen Kooi wrote:
-> >> The core layer has tons of RDEPENDS = "foo", which should actually be
-> >> RDEPENDS_${PN}. What's the policy on those?
-> > 
-> > They should be fixed. Patches very welcome...
-> 
-> A quick sed gives me:
-> 
->  76 files changed, 77 insertions(+), 77 deletions(-)
-> 
-> Do you want that as a single patch and if not, how do you want to have
-> it split and are PR bumps needed?
+2010/12/22 Richard Purdie <richard.purdie@linuxfoundation.org>:
+> On Wed, 2010-12-22 at 16:04 +0100, Koen Kooi wrote:
+>> Op 22 dec 2010, om 15:49 heeft Richard Purdie het volgende geschreven:
+>>
+>> > On Wed, 2010-12-22 at 14:49 +0100, Koen Kooi wrote:
+>> >> The core layer has tons of RDEPENDS =3D "foo", which should actually =
+be
+>> >> RDEPENDS_${PN}. What's the policy on those?
+>> >
+>> > They should be fixed. Patches very welcome...
+>>
+>> A quick sed gives me:
+>>
+>> =A076 files changed, 77 insertions(+), 77 deletions(-)
+>>
+>> Do you want that as a single patch and if not, how do you want to have
+>> it split and are PR bumps needed?
+>
+> One patch is fine. One tricky part is that this is a change in behaviour
+> as an RDEPENDS is applied to every RDEPENDS_XXX, not just XXX=3D${PN} and
+> that means we really should bump PR :/.
+>
+> Is there also a similar problem with RRECOMMENDS?
+>
+> Cheers,
+>
+> Richard
+>
 
-One patch is fine. One tricky part is that this is a change in behaviour
-as an RDEPENDS is applied to every RDEPENDS_XXX, not just XXX=${PN} and
-that means we really should bump PR :/.
+Yes.
 
-Is there also a similar problem with RRECOMMENDS?
+This was discussed on the oe mailing list in oct
+See http://thread.gmane.org/gmane.comp.handhelds.openembedded/37858/focus=
+=3D37903
+Martin Jansa did a lot of  work on this.
+If you read the thread you'll see that there is a case in which the
+_${PN} should not be added.
+Not checked if this specific exception is also present in poky.
 
-Cheers,
-
-Richard
-
-
+Frans
 
