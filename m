@@ -1,29 +1,29 @@
 Return-Path: <richard.purdie@linuxfoundation.org>
 Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D35DE4C80039
-	for <poky@yoctoproject.org>; Wed, 22 Dec 2010 08:48:47 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5ECAD4C80FAC
+	for <poky@yoctoproject.org>; Wed, 22 Dec 2010 08:50:00 -0600 (CST)
 Received: from localhost (dan.rpsys.net [127.0.0.1])
 	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	oBMEo9Lr000366; Wed, 22 Dec 2010 14:50:09 GMT
+	oBMEpMOE000398; Wed, 22 Dec 2010 14:51:22 GMT
 X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
 Received: from dan.rpsys.net ([127.0.0.1])
 	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id QZnEon-ls+Cd; Wed, 22 Dec 2010 14:50:09 +0000 (GMT)
+	with LMTP id lIoiS0qDHe2f; Wed, 22 Dec 2010 14:51:22 +0000 (GMT)
 Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
 	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	oBMEo4pU000349
+	oBMEpI6e000392
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Wed, 22 Dec 2010 14:50:07 GMT
+	Wed, 22 Dec 2010 14:51:20 GMT
 From: Richard Purdie <richard.purdie@linuxfoundation.org>
 To: Koen Kooi <koen@dominion.thruhere.net>
-In-Reply-To: <C40A274E-BE70-4CE5-87D3-81F65CAF51AA@dominion.thruhere.net>
-References: <C40A274E-BE70-4CE5-87D3-81F65CAF51AA@dominion.thruhere.net>
-Date: Wed, 22 Dec 2010 14:48:14 +0000
-Message-ID: <1293029294.25087.7640.camel@rex>
+In-Reply-To: <70D74F2C-4429-4294-9668-2D17B8A31943@dominion.thruhere.net>
+References: <70D74F2C-4429-4294-9668-2D17B8A31943@dominion.thruhere.net>
+Date: Wed, 22 Dec 2010 14:49:28 +0000
+Message-ID: <1293029368.25087.7644.camel@rex>
 Mime-Version: 1.0
 X-Mailer: Evolution 2.28.3 
 Cc: poky@yoctoproject.org
-Subject: Re: Replacement for fakeroot do_install()?
+Subject: Re: RDEPENDS = "foo" in core layer
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,33 +35,18 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 22 Dec 2010 14:48:48 -0000
+X-List-Received-Date: Wed, 22 Dec 2010 14:50:00 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On Wed, 2010-12-22 at 14:48 +0100, Koen Kooi wrote:
-> What's is the pseudo way to do fakeroot do_install()? I have a number
-> of OE recipes that still use fakeroot and I would like to get rid of
-> that in the OE layer for yocto.
+On Wed, 2010-12-22 at 14:49 +0100, Koen Kooi wrote:
+> The core layer has tons of RDEPENDS = "foo", which should actually be
+> RDEPENDS_${PN}. What's the policy on those?
 
-All do_install's within poky now run under fakeroot (at least in the
-target case).
-
-fakeroot do_install () still works (fakeroot is a flag you can add to
-any function), likewise:
-
-do_install[fakeroot] = "1"
-
-which means the same thing. The only downside to doing things this way
-is it would apply to native recipes too and it doesn't make sense to use
-fakeroot for native recipes (not least how would you then build
-fakeroot/pseudo?).
-
-So the simple answer is probably to drop the do_install references.
+They should be fixed. Patches very welcome...
 
 Cheers,
 
 Richard
-
 
 
