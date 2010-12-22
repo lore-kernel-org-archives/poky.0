@@ -1,20 +1,21 @@
 Return-Path: <jessica.zhang@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 8CF494C811F4
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E06804C811F0
 	for <poky@yoctoproject.org>; Mon,  3 Jan 2011 17:47:48 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 03 Jan 2011 15:47:47 -0800
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 03 Jan 2011 15:47:47 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,268,1291622400"; d="scan'208";a="589553066"
+X-IronPort-AV: E=Sophos;i="4.60,268,1291622400"; d="scan'208";a="693216387"
 Received: from jzhang-desktop.jf.intel.com (HELO localhost) ([10.7.201.52])
-	by orsmga002.jf.intel.com with ESMTP; 03 Jan 2011 15:47:47 -0800
-Message-Id: <3e6f4341170515518908e76678481540aa866abb.1294099429.git.jessica.zhang@intel.com>
+	by orsmga001.jf.intel.com with ESMTP; 03 Jan 2011 15:47:47 -0800
+Message-Id: <460d35625757fd106fbb43fdb6acddec422410a2.1294099429.git.jessica.zhang@intel.com>
 In-Reply-To: <cover.1294099429.git.jessica.zhang@intel.com>
 References: <cover.1294099429.git.jessica.zhang@intel.com>
 From: Liping Ke <liping.ke@intel.com>
+Date: Thu, 23 Dec 2010 07:37:02 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 06/59] Change sdk version in configuration file to 0.9+snapshot
+Subject: [PATCH 16/59] Remove redundant prompts
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,30 +27,72 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-Date: Mon, 03 Jan 2011 23:47:48 -0000
-X-Original-Date: Fri, 17 Dec 2010 02:15:07 +0800
-X-List-Received-Date: Mon, 03 Jan 2011 23:47:48 -0000
-
-Change sdk version in configuration files for testing
+X-List-Received-Date: Mon, 03 Jan 2011 23:47:49 -0000
 
 Signed-off-by: Liping Ke <liping.ke@intel.com>
 ---
- scripts/adt-installer/yocto_installer.conf |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ scripts/adt-installer/yocto_installer |   21 +++++++++++++++------
+ 1 files changed, 15 insertions(+), 6 deletions(-)
 
-diff --git a/scripts/adt-installer/yocto_installer.conf b/scripts/adt-installer/yocto_installer.conf
-index 78bd392..da2449a 100644
---- a/scripts/adt-installer/yocto_installer.conf
-+++ b/scripts/adt-installer/yocto_installer.conf
-@@ -1,7 +1,7 @@
- # Target ROOTFS Download site Configuration, normally it will be
- # in the same repository with those ipks.
- YOCTOADT_ROOTFS_LOC="http://llu-piketon.sh.intel.com/rootfs"
--YOCTOADT_VERSION="0.9-post"
-+YOCTOADT_VERSION="0.9+snapshot"
+diff --git a/scripts/adt-installer/yocto_installer b/scripts/adt-installer/yocto_installer
+index 2038ecd..0e35576 100755
+--- a/scripts/adt-installer/yocto_installer
++++ b/scripts/adt-installer/yocto_installer
+@@ -167,14 +167,25 @@ fi
  
- #Host Area
- YOCTOADT_TARGETS="powerpc mips arm x86 x86_64"
+ confirm_download()
+ {
++
++#avoid repeated reminding
++if [ "$override_oldfile" == 1 ]; then
++  return $pre_result
++else
++  override_oldfile=1
++fi
++
+ while true; do
+-  echo_info "[ADT_INST] File [ $1 ] to be downloaded already exists."
+-  echo_info "[ADT_INST] Do you want to continue downloading? If yes, old file will be removed. Please enter Y/N:"
++  echo_info "[ADT_INST] Files [$1] already exists. If you continue downloading, old files will be overrided."
++  echo_info "[ADT_INST] Further prompts will not be given if there're more existing files to be downloaded."
++  echo_info "[ADT_INST] Do you want to continue downloading? Please enter Y/N:"
+   read YOCTOADT_INSTALL
+   YOCTOADT_INSTALL=`tr '[a-z]' '[A-Z]'<<<"$YOCTOADT_INSTALL"`
+   if [ "$YOCTOADT_INSTALL" == "Y" ]; then
++    pre_result=0
+     return 0
+   elif [ "$YOCTOADT_INSTALL" == "N" ]; then
++    pre_result=1
+     return 1
+   fi
+ done
+@@ -234,7 +245,7 @@ download_images()
+     select_sysroot=`eval echo $select_sysroot_var`
+ 
+     echo_info "\n############################################################################"
+-    echo_info "# Please confirm below installation configurations from yocto_installer.conf"
++    echo_info "# To be downloaded rootfs image details defined in yocto_installer.conf"
+     echo_info "############################################################################"
+     echo_info "# Target architecture:\t\t$1"
+     echo_info "# Root_fs images:\t\t$select_rootfs"
+@@ -242,9 +253,6 @@ download_images()
+     echo_info "# Target sysroot dir:\t\t$select_sysroot"
+     echo_info "############################################################################\n"
+ 
+-    confirm_install
+-
+-
+     get_qemu_image $1 $select_rootfs
+   fi
+ }
+@@ -305,6 +313,7 @@ if [ ! -d "$LOCAL_DOWNLOAD" ]; then
+ fi
+ 
+ #downloading required qemu images/rootfs
++override_oldfile=0
+ for arch_type in $YOCTOADT_SUPPORTED_TARGETS; do
+   download_images $arch_type
+ done
 -- 
 1.7.0.4
 
