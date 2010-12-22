@@ -1,24 +1,26 @@
 Return-Path: <Jingdong.Lu@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 957AC4C808B0
-	for <poky@yoctoproject.org>; Wed, 22 Dec 2010 03:44:49 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 663714C8110E
+	for <poky@yoctoproject.org>; Wed, 22 Dec 2010 03:44:51 -0600 (CST)
 Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oBM9inAm021699
-	for <poky@yoctoproject.org>; Wed, 22 Dec 2010 01:44:49 -0800 (PST)
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oBM9ioJ4021707
+	for <poky@yoctoproject.org>; Wed, 22 Dec 2010 01:44:50 -0800 (PST)
 Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
 	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Wed, 22 Dec 2010 01:44:48 -0800
+	Wed, 22 Dec 2010 01:44:50 -0800
 Received: from localhost ([128.224.162.176]) by ala-mail06.corp.ad.wrs.com
 	with Microsoft SMTPSVC(6.0.3790.1830); 
-	Wed, 22 Dec 2010 01:44:48 -0800
-Message-Id: <cover.1293011017.git.jingdong.lu@windriver.com>
+	Wed, 22 Dec 2010 01:44:50 -0800
+Message-Id: <8e704bc11ebdcac0f38da3d75372b87e5fd896f0.1293011017.git.jingdong.lu@windriver.com>
+In-Reply-To: <cover.1293011017.git.jingdong.lu@windriver.com>
+References: <cover.1293011017.git.jingdong.lu@windriver.com>
 From: Jingdong Lu <jingdong.lu@windriver.com>
-Old-Date: Wed, 22 Dec 2010 17:43:37 +0800
-Date: Wed, 22 Dec 2010 17:46:22 +0800
+Old-Date: Thu, 16 Dec 2010 15:14:06 +0800
+Date: Wed, 22 Dec 2010 17:46:25 +0800
 To: poky@yoctoproject.org
-X-OriginalArrivalTime: 22 Dec 2010 09:44:49.0051 (UTC)
-	FILETIME=[DFC786B0:01CBA1BC]
-Subject: [PATCH 0/3] Fix some failures of LSB test.
+X-OriginalArrivalTime: 22 Dec 2010 09:44:50.0864 (UTC)
+	FILETIME=[E0DC2B00:01CBA1BC]
+Subject: [PATCH 1/3] perl: Add GDBM_File into perl extension
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,27 +32,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 22 Dec 2010 09:44:49 -0000
+X-List-Received-Date: Wed, 22 Dec 2010 09:44:51 -0000
 
+Add GDBM_File into perl extension in config.sh in order to fix failure of lsb-perl-test.
 
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: jingdonglu/distro
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=jingdonglu/distro
-
-Thanks,
-    Jingdong Lu <jingdong.lu@windriver.com>
+Signed-off-by: Jingdong Lu <jingdong.lu@windriver.com>
 ---
+ meta/recipes-devtools/perl/perl-5.8.8/config.sh |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
-
-Jingdong Lu (3):
-  perl: Add GDBM_File into perl extension
-  gcc: Add "--enable-clocale=gnu" option explicitly
-  mailx: Add mailx
-
- meta/recipes-devtools/gcc/gcc-configure-common.inc |    2 +-
- meta/recipes-devtools/perl/perl-5.8.8/config.sh    |    2 +-
- meta/recipes-extended/mailx/mailx_12.4.bb          |   23 ++++++++++++++++++++
- 3 files changed, 25 insertions(+), 2 deletions(-)
- create mode 100644 meta/recipes-extended/mailx/mailx_12.4.bb
+diff --git a/meta/recipes-devtools/perl/perl-5.8.8/config.sh b/meta/recipes-devtools/perl/perl-5.8.8/config.sh
+index 3d4c193..49d5ab7 100644
+--- a/meta/recipes-devtools/perl/perl-5.8.8/config.sh
++++ b/meta/recipes-devtools/perl/perl-5.8.8/config.sh
+@@ -522,7 +522,7 @@ endservent_r_proto='0'
+ eunicefix=':'
+ exe_ext=''
+ expr='expr'
+-extensions='attrs B ByteLoader Cwd Data/Dumper Devel/DProf Devel/Peek Devel/PPPort Digest/MD5 Encode Fcntl File/Glob Filter/Util/Call I18N/Langinfo IO IPC/SysV List/Util MIME/Base64 Opcode PerlIO/encoding PerlIO/scalar PerlIO/via POSIX re SDBM_File Socket Storable Sys/Hostname Sys/Syslog threads Time/HiRes Unicode/Normalize XS/APItest XS/Typemap threads/shared Errno'
++extensions='attrs B ByteLoader Cwd Data/Dumper Devel/DProf Devel/Peek Devel/PPPort Digest/MD5 Encode Fcntl File/Glob Filter/Util/Call I18N/Langinfo IO IPC/SysV List/Util MIME/Base64 Opcode PerlIO/encoding PerlIO/scalar PerlIO/via POSIX re GDBM_File SDBM_File Socket Storable Sys/Hostname Sys/Syslog threads Time/HiRes Unicode/Normalize XS/APItest XS/Typemap threads/shared Errno'
+ extras=''
+ fflushNULL='define'
+ fflushall='undef'
+-- 
+1.7.0.4
 
 
