@@ -1,31 +1,25 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2FA714C808B0
-	for <poky@yoctoproject.org>; Wed, 22 Dec 2010 09:24:47 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id DBDD21660537; Wed, 22 Dec 2010 08:24:46 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=ham version=3.3.1
-Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 71B1A16602E4;
-	Wed, 22 Dec 2010 08:24:46 -0700 (MST)
-Message-ID: <4D12183E.9010105@mlbassoc.com>
-Date: Wed, 22 Dec 2010 08:24:46 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
+Return-Path: <saul.wold@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 769A04C808B0
+	for <poky@yoctoproject.org>; Wed, 22 Dec 2010 10:46:46 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 22 Dec 2010 08:46:06 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,214,1291622400"; d="scan'208";a="870954633"
+Received: from unknown (HELO [10.255.13.79]) ([10.255.13.79])
+	by fmsmga001.fm.intel.com with ESMTP; 22 Dec 2010 08:46:06 -0800
+Message-ID: <4D122B4D.9070204@intel.com>
+Date: Wed, 22 Dec 2010 08:46:05 -0800
+From: Saul Wold <saul.wold@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
 MIME-Version: 1.0
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-References: <4D10CB88.4040308@mlbassoc.com>
-	<4D10D857.8080906@intel.com>		<4D10F862.5040302@mlbassoc.com>	<1292966869.25087.6574.camel@rex>
-	<4D112B68.10303@mlbassoc.com> <4D12108B.2040503@mlbassoc.com>
-In-Reply-To: <4D12108B.2040503@mlbassoc.com>
+To: Mei Lei <lei.mei@intel.com>
+References: <cover.1293023813.git.lei.mei@intel.com>
+In-Reply-To: <cover.1293023813.git.lei.mei@intel.com>
 Cc: poky@yoctoproject.org
-Subject: Re: Write-protect $DL_DIR
+Subject: Re: [PATCH 0/3]distrodata.bbcalss: To get more precise upstream version for pkg report system
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,62 +31,55 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 22 Dec 2010 15:24:47 -0000
+X-List-Received-Date: Wed, 22 Dec 2010 16:46:46 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 12/22/2010 07:51 AM, Gary Thomas wrote:
-> On 12/21/2010 03:34 PM, Gary Thomas wrote:
-> ... snip
->>
->> I've tried your changes and they solve my problem well, thanks.
->>
+On 12/22/2010 05:22 AM, Mei Lei wrote:
+> There are some changes to get more recipes upstream version and to generate some necessary data for pkg report system.
 >
-> I have had a problem with this (after more testing). Originally,
-> I had DL_DIR="/work/misc/Poky/sources/", using it somewhat like
-> a mirror. With your changes yesterday, I added these lines to
-> my distro.conf:
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>    Branch: lmei3/pkg-report-system
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=lmei3/pkg-report-system
 >
-> # Provide pre-staged sources
-> PREMIRRORS_append = "\
-> bzr://.*/.* file:///work/misc/Poky/sources/ \n \
-> cvs://.*/.* file:///work/misc/Poky/sources/ \n \
-> git://.*/.* file:///work/misc/Poky/sources/ \n \
-> hg://.*/.* file:///work/misc/Poky/sources/ \n \
-> osc://.*/.* file:///work/misc/Poky/sources/ \n \
-> p4://.*/.* file:///work/misc/Poky/sources/ \n \
-> svk://.*/.* file:///work/misc/Poky/sources/ \n \
-> svn://.*/.* file:///work/misc/Poky/sources/ \n"
+> Thanks,
+>      Mei Lei<lei.mei@intel.com>
+> ---
 >
-> MIRRORS_append = "\
-> ftp://.*/.* file:///work/misc/Poky/sources/ \n \
-> http://.*/.* file:///work/misc/Poky/sources/ \n \
-> https://.*/.* file:///work/misc/Poky/sources/ \n"
+Lei:
+
+There are various issues with these patches please see my comments below
+
 >
-> require conf/distro/include/my-fixed-revisions.inc
-> require conf/distro/poky.conf
+> Mei Lei (3):
+>    distrodata.bbclass: Change for package report system
+Not sure why you needed to add a logpath2 as you are using the same 
+LOG_DIR var as logpath. Are you intending to create a separate directory.
+
+Is there a reason you need to have each package into in separate files? 
+Can your tool not read 1 larger flat file then we can just use 1 output 
+format for the spreadsheet
+
+>    base.bbclass: Add inherit information for checkpkg task
+We don't want to inherit the distrodata  by default, you can add this to 
+your local.conf
+
+>    bitbake.conf: Change the GNU_MIRROR to get more precise result
 >
-> I also disabled DL_DIR in local.conf, falling back to using
-> "downloads" in my build tree (/work/local/new_p60).
+Not sure how this gives a more precise result, gnu and pub/gnu are the 
+same location, one is linked to the other.
+
+Sau!
+
+>   meta/classes/base.bbclass       |    4 +-
+>   meta/classes/distrodata.bbclass |   44 +++++++++++++++++++++++++++++++-------
+>   meta/conf/bitbake.conf          |    2 +-
+>   3 files changed, 39 insertions(+), 11 deletions(-)
 >
-> As you can see, my distro uses Poky as its base, just overriding
-> and/or adding some features for our environment.
->
-> With this setup, the build for gconf-dbus_svn fails in the
-> unpack stage, with this error:
-> NOTE: Unpacking /work/local/new_p60/downloads/trunk_developer.imendio.com_.svn.gconf-dbus_705_.tar.gz to
-> /work/local/new_p60/tmp/work/armv7a-poky-linux-gnueabi/gconf-dbus-2.16.0+svnr705-r0/
-> tar: /work/local/new_p60/downloads/trunk_developer.imendio.com_.svn.gconf-dbus_705_.tar.gz: Cannot open: No such file or directory
->
-> Did I set this up incorrectly?
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 >
 
-Note: it also fails if I only use the pure poky.conf
-(not touching PREMIRRORS or MIRRORS in my distro.conf)
-
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
 
