@@ -1,23 +1,21 @@
-Return-Path: <koen@dominion.thruhere.net>
-Received: from mail-ww0-f42.google.com (mail-ww0-f42.google.com [74.125.82.42])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 1CCCA4C80FAC
-	for <poky@yoctoproject.org>; Wed, 22 Dec 2010 07:49:35 -0600 (CST)
-Received: by wwi17 with SMTP id 17so5160610wwi.5
-	for <poky@yoctoproject.org>; Wed, 22 Dec 2010 05:49:29 -0800 (PST)
-Received: by 10.216.18.76 with SMTP id k54mr10228638wek.61.1293025769059;
-	Wed, 22 Dec 2010 05:49:29 -0800 (PST)
-Received: from [172.20.0.255] (ip545070eb.adsl-surfen.hetnet.nl
-	[84.80.112.235])
-	by mx.google.com with ESMTPS id o19sm3132756wee.26.2010.12.22.05.49.28
-	(version=TLSv1/SSLv3 cipher=RC4-MD5);
-	Wed, 22 Dec 2010 05:49:28 -0800 (PST)
-From: Koen Kooi <koen@dominion.thruhere.net>
-Date: Wed, 22 Dec 2010 14:49:27 +0100
-Message-Id: <70D74F2C-4429-4294-9668-2D17B8A31943@dominion.thruhere.net>
+Return-Path: <josh@openedhand.com>
+Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
+	by mx1.pokylinux.org (Postfix) with ESMTP id ABAE64C80039
+	for <poky@yoctoproject.org>; Wed, 22 Dec 2010 08:02:54 -0600 (CST)
+Received: from [10.250.128.97] (unknown [158.43.2.102])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by pug.o-hand.com (Postfix) with ESMTP id 5EFDD12EC1CD
+	for <poky@yoctoproject.org>; Wed, 22 Dec 2010 08:41:53 -0600 (CST)
+From: Joshua Lock <josh@openedhand.com>
 To: poky@yoctoproject.org
-Mime-Version: 1.0 (Apple Message framework v1082)
-X-Mailer: Apple Mail (2.1082)
-Subject: RDEPENDS = "foo" in core layer
+In-Reply-To: <C40A274E-BE70-4CE5-87D3-81F65CAF51AA@dominion.thruhere.net>
+References: <C40A274E-BE70-4CE5-87D3-81F65CAF51AA@dominion.thruhere.net>
+Date: Wed, 22 Dec 2010 14:02:46 +0000
+Message-ID: <1293026566.13942.7.camel@scimitar>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.1 (2.32.1-1.fc14) 
+Subject: Re: Replacement for fakeroot do_install()?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,16 +27,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 22 Dec 2010 13:49:37 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Wed, 22 Dec 2010 14:02:54 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Hi,
+On Wed, 2010-12-22 at 14:48 +0100, Koen Kooi wrote:
+> Hi,
+> 
+> What's is the pseudo way to do fakeroot do_install()? I have a number
+> of OE recipes that still use fakeroot and I would like to get rid of
+> that in the OE layer for yocto.
 
-The core layer has tons of RDEPENDS =3D "foo", which should actually be =
-RDEPENDS_${PN}. What's the policy on those?
+fakeroot is a flag which tells the runqueue to load appropriate
+environment variables for running the task under a fakeroot like
+program, and as such it's still perfectly valid whether you're using
+fakeroot or pseudo.
 
-regards,
+tl;dr
 
-Koen=
+fakeroot do_install() is the pseudo way too
+
+Cheers,
+Joshua
+-- 
+Joshua Lock
+        Intel Open Source Technology Centre
+
 
