@@ -1,22 +1,22 @@
 Return-Path: <bruce.ashfield@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 094044C80050;
-	Wed, 22 Dec 2010 00:24:15 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id BCACD4C810CE;
+	Wed, 22 Dec 2010 00:25:15 -0600 (CST)
 Received: from localhost.localdomain (yow-bashfiel-d2.ottawa.windriver.com
 	[128.224.146.167])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oBM6OALP016700;
-	Tue, 21 Dec 2010 22:24:11 -0800 (PST)
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oBM6OALQ016700;
+	Tue, 21 Dec 2010 22:24:12 -0800 (PST)
 From: Bruce Ashfield <bruce.ashfield@windriver.com>
 To: rpurdie@linux.intel.com
-Date: Wed, 22 Dec 2010 01:25:47 -0500
-Message-Id: <5cf648ba09a93705141633f50c345a55d25d517f.1292998230.git.bruce.ashfield@windriver.com>
+Date: Wed, 22 Dec 2010 01:25:48 -0500
+Message-Id: <45bf86a4bfbc23b6971839dcaf1697274a872905.1292998230.git.bruce.ashfield@windriver.com>
 X-Mailer: git-send-email 1.7.0.4
 In-Reply-To: <cover.1292998230.git.bruce.ashfield@windriver.com>
 References: <cover.1292998230.git.bruce.ashfield@windriver.com>
 In-Reply-To: <cover.1292998230.git.bruce.ashfield@windriver.com>
 References: <cover.1292998230.git.bruce.ashfield@windriver.com>
 Cc: yocto@yoctoproject.org, poky@yoctoproject.org, saul.wold@intel.com
-Subject: [PATCH 1/3] linux-yocto-stable: fix qemux86 branch name
+Subject: [PATCH 2/3] qemu: match kernel headers to preferred kernel
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,34 +28,54 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 22 Dec 2010 06:24:16 -0000
+X-List-Received-Date: Wed, 22 Dec 2010 06:25:15 -0000
 
-The mapping of qemu to kernel branch name for the stable
-kernel had a small leak from the devel kernel. Nothing
-broke since qemux86 prefers the 2.6.37 kernel and this was
-hidden.
-
-This fixes the mapping for anyone who does want a 2.6.34 based
-qemux86 kernel.
+As the yocto-kernel advances, the libc headers must also
+advance. This commit fixes the SRC_URI and SRCPV to work
+properly with the latest linux-yocto kernel. It also switches
+the qemu* targets to prefer this libc recipe.
 
 Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
 ---
- .../recipes-kernel/linux/linux-yocto-stable_git.bb |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ meta/conf/machine/include/qemu.inc                 |    2 +-
+ .../linux-libc-headers-yocto_git.bb                |   10 ++++------
+ 2 files changed, 5 insertions(+), 7 deletions(-)
 
-diff --git a/meta/recipes-kernel/linux/linux-yocto-stable_git.bb b/meta/recipes-kernel/linux/linux-yocto-stable_git.bb
-index 85b67f4..2f6eb2d 100644
---- a/meta/recipes-kernel/linux/linux-yocto-stable_git.bb
-+++ b/meta/recipes-kernel/linux/linux-yocto-stable_git.bb
-@@ -1,7 +1,7 @@
- inherit kernel
- require linux-yocto.inc
+diff --git a/meta/conf/machine/include/qemu.inc b/meta/conf/machine/include/qemu.inc
+index 502e24f..d762d01 100644
+--- a/meta/conf/machine/include/qemu.inc
++++ b/meta/conf/machine/include/qemu.inc
+@@ -16,6 +16,6 @@ RDEPENDS_kernel-base = ""
  
--KMACHINE_qemux86  = "common_pc/base"
-+KMACHINE_qemux86  = "common_pc"
- KMACHINE_qemux86-64  = "common_pc_64"
- KMACHINE_qemuppc  = "qemu_ppc32"
- KMACHINE_qemumips = "mti_malta32_be"
+ # Use a common kernel recipe for all QEMU machines
+ PREFERRED_PROVIDER_virtual/kernel = "linux-yocto"
+-#PREFERRED_PROVIDER_linux-libc-headers ?= "linux-libc-headers-yocto"
++PREFERRED_PROVIDER_linux-libc-headers ?= "linux-libc-headers-yocto"
+ 
+ EXTRA_IMAGEDEPENDS += "qemu-native qemu-helper-native"
+diff --git a/meta/recipes-kernel/linux-libc-headers/linux-libc-headers-yocto_git.bb b/meta/recipes-kernel/linux-libc-headers/linux-libc-headers-yocto_git.bb
+index 0515233..762b6a8 100644
+--- a/meta/recipes-kernel/linux-libc-headers/linux-libc-headers-yocto_git.bb
++++ b/meta/recipes-kernel/linux-libc-headers/linux-libc-headers-yocto_git.bb
+@@ -6,14 +6,12 @@ B = "${S}"
+ INHIBIT_DEFAULT_DEPS = "1"
+ DEPENDS += "unifdef-native"
+ PROVIDES = "linux-libc-headers"
+-PV = "2.6.34+git-${SRCPV}"
+-PR = "r1"
+-
+-SRC_URI = "git://git.pokylinux.org/linux-2.6-windriver.git;fullclone=1"
++PV = "2.6.37+git-${SRCPV}"
++PR = "r2"
+ 
+ SRCREV_FORMAT = "meta_machine"
+-SRC_URI = "git://git.pokylinux.org/linux-2.6-windriver.git;protocol=git;fullclone=1;branch=${KBRANCH};name=machine \
+-           git://git.pokylinux.org/linux-2.6-windriver.git;protocol=git;noclone=1;branch=wrs_meta;name=meta"
++SRC_URI = "git://git.pokylinux.org/linux-yocto-2.6.37;protocol=git;fullclone=1;branch=${KBRANCH};name=machine \
++           git://git.pokylinux.org/linux-yocto-2.6.37;protocol=git;noclone=1;branch=meta;name=meta"
+ 
+ set_arch() {
+ 	case ${TARGET_ARCH} in
 -- 
 1.7.0.4
 
