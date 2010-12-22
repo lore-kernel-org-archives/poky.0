@@ -1,22 +1,22 @@
 Return-Path: <jessica.zhang@intel.com>
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 108444C811AA
-	for <poky@yoctoproject.org>; Mon,  3 Jan 2011 17:47:51 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 07B0B4C811EC
+	for <poky@yoctoproject.org>; Mon,  3 Jan 2011 17:47:52 -0600 (CST)
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 03 Jan 2011 15:47:47 -0800
+	by orsmga102.jf.intel.com with ESMTP; 03 Jan 2011 15:47:48 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,268,1291622400"; d="scan'208";a="589553075"
+X-IronPort-AV: E=Sophos;i="4.60,268,1291622400"; d="scan'208";a="589553088"
 Received: from jzhang-desktop.jf.intel.com (HELO localhost) ([10.7.201.52])
-	by orsmga002.jf.intel.com with ESMTP; 03 Jan 2011 15:47:47 -0800
-Message-Id: <24f25d5662bdd918a6df8426632cb81f2ad0142a.1294099429.git.jessica.zhang@intel.com>
+	by orsmga002.jf.intel.com with ESMTP; 03 Jan 2011 15:47:48 -0800
+Message-Id: <59d97b473a1f0cb65e3faee26b755eadae3abd30.1294099430.git.jessica.zhang@intel.com>
 In-Reply-To: <cover.1294099429.git.jessica.zhang@intel.com>
 References: <cover.1294099429.git.jessica.zhang@intel.com>
 From: Liping Ke <liping.ke@intel.com>
-Date: Thu, 23 Dec 2010 07:50:52 +0800
+Date: Wed, 22 Dec 2010 08:54:43 +0800
 To: poky@yoctoproject.org
 CC: 
 X-Mailman-Approved-At: Mon, 03 Jan 2011 18:04:14 -0600
-Subject: [PATCH 17/59] Move installer scripts to the decided folders
+Subject: [PATCH 39/59] Add opkg source tarball for testing.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,71 +28,18 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 03 Jan 2011 23:47:54 -0000
-
-We finally decided to move installer scripts under meta/recipe-devtools/
+X-List-Received-Date: Mon, 03 Jan 2011 23:47:55 -0000
 
 Signed-off-by: Liping Ke <liping.ke@intel.com>
 ---
- .../adt-installer/opkg/conf/opkg-sdk-i586.conf     |    0
- .../adt-installer/opkg/conf/opkg-sdk-x86_64.conf   |    0
- .../adt-installer/scripts/data_define              |    0
- .../adt-installer/scripts/extract_rootfs           |    0
- .../recipes-devtools}/adt-installer/scripts/util   |    0
- .../adt-installer/scripts/yocto_installer_internal |    0
- .../adt-installer/yocto_installer                  |    0
- .../adt-installer/yocto_installer.conf             |    0
- scripts/adt-installer/opkg/build/opkg-0.1.8.tar.gz |  Bin 437009 -> 0 bytes
- 9 files changed, 0 insertions(+), 0 deletions(-)
- rename {scripts => meta/recipes-devtools}/adt-installer/opkg/conf/opkg-sdk-i586.conf (100%)
- rename {scripts => meta/recipes-devtools}/adt-installer/opkg/conf/opkg-sdk-x86_64.conf (100%)
- rename {scripts => meta/recipes-devtools}/adt-installer/scripts/data_define (100%)
- rename {scripts => meta/recipes-devtools}/adt-installer/scripts/extract_rootfs (100%)
- rename {scripts => meta/recipes-devtools}/adt-installer/scripts/util (100%)
- rename {scripts => meta/recipes-devtools}/adt-installer/scripts/yocto_installer_internal (100%)
- rename {scripts => meta/recipes-devtools}/adt-installer/yocto_installer (100%)
- rename {scripts => meta/recipes-devtools}/adt-installer/yocto_installer.conf (100%)
- delete mode 100644 scripts/adt-installer/opkg/build/opkg-0.1.8.tar.gz
+ scripts/adt-installer/opkg/build/opkg-0.1.8.tar.gz |  Bin 0 -> 437009 bytes
+ 1 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 scripts/adt-installer/opkg/build/opkg-0.1.8.tar.gz
 
-diff --git a/scripts/adt-installer/opkg/conf/opkg-sdk-i586.conf b/meta/recipes-devtools/adt-installer/opkg/conf/opkg-sdk-i586.conf
-similarity index 100%
-rename from scripts/adt-installer/opkg/conf/opkg-sdk-i586.conf
-rename to meta/recipes-devtools/adt-installer/opkg/conf/opkg-sdk-i586.conf
-diff --git a/scripts/adt-installer/opkg/conf/opkg-sdk-x86_64.conf b/meta/recipes-devtools/adt-installer/opkg/conf/opkg-sdk-x86_64.conf
-similarity index 100%
-rename from scripts/adt-installer/opkg/conf/opkg-sdk-x86_64.conf
-rename to meta/recipes-devtools/adt-installer/opkg/conf/opkg-sdk-x86_64.conf
-diff --git a/scripts/adt-installer/scripts/data_define b/meta/recipes-devtools/adt-installer/scripts/data_define
-similarity index 100%
-rename from scripts/adt-installer/scripts/data_define
-rename to meta/recipes-devtools/adt-installer/scripts/data_define
-diff --git a/scripts/adt-installer/scripts/extract_rootfs b/meta/recipes-devtools/adt-installer/scripts/extract_rootfs
-similarity index 100%
-rename from scripts/adt-installer/scripts/extract_rootfs
-rename to meta/recipes-devtools/adt-installer/scripts/extract_rootfs
-diff --git a/scripts/adt-installer/scripts/util b/meta/recipes-devtools/adt-installer/scripts/util
-similarity index 100%
-rename from scripts/adt-installer/scripts/util
-rename to meta/recipes-devtools/adt-installer/scripts/util
-diff --git a/scripts/adt-installer/scripts/yocto_installer_internal b/meta/recipes-devtools/adt-installer/scripts/yocto_installer_internal
-similarity index 100%
-rename from scripts/adt-installer/scripts/yocto_installer_internal
-rename to meta/recipes-devtools/adt-installer/scripts/yocto_installer_internal
-diff --git a/scripts/adt-installer/yocto_installer b/meta/recipes-devtools/adt-installer/yocto_installer
-similarity index 100%
-rename from scripts/adt-installer/yocto_installer
-rename to meta/recipes-devtools/adt-installer/yocto_installer
-diff --git a/scripts/adt-installer/yocto_installer.conf b/meta/recipes-devtools/adt-installer/yocto_installer.conf
-similarity index 100%
-rename from scripts/adt-installer/yocto_installer.conf
-rename to meta/recipes-devtools/adt-installer/yocto_installer.conf
 diff --git a/scripts/adt-installer/opkg/build/opkg-0.1.8.tar.gz b/scripts/adt-installer/opkg/build/opkg-0.1.8.tar.gz
-deleted file mode 100644
-index eb16094bd564ac07a78ff00de86174036f241372..0000000000000000000000000000000000000000
+new file mode 100644
+index 0000000000000000000000000000000000000000..eb16094bd564ac07a78ff00de86174036f241372
 GIT binary patch
-literal 0
-HcmV?d00001
-
 literal 437009
 zcmV(pK=8jGiwFShzky2v1ME9%cj88}^L6wqIt&xA!^8MFnF+a(F}B(8@B&Ue2RpKm
 z8l!6=5k2f-C*I$FtEyWskjInV&4)eba*jdjuCA`Gs;*bJ-R1pVb*I*-y{o_at3EsM
@@ -8489,6 +8436,9 @@ zczA3X&U;MFP}K_@3`pt@mz|UkN9ki(8uIIGDT2E&4O2&h&5)H!?aP8_3S|dLj}WJp
 z<lhNZQ5w!l#>=sTi30SwN8@@Kri4kSTAeldu04arh2V=PEqCIkL3Cr>%1st*k9(i-
 zxy6@<Q_f0}@HE>>WmWYuRc8*zH3+Xew^<DE!N}#|&%>XGKbe32fA=%5=>T{h0A($w
 AZvX%Q
+
+literal 0
+HcmV?d00001
 
 -- 
 1.7.0.4
