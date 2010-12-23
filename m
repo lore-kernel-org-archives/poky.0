@@ -1,21 +1,21 @@
 Return-Path: <sgw@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B6B404C81215
-	for <poky@yoctoproject.org>; Thu, 23 Dec 2010 08:27:22 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 23 Dec 2010 06:27:22 -0800
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8A4D54C81224
+	for <poky@yoctoproject.org>; Thu, 23 Dec 2010 08:27:23 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 23 Dec 2010 06:27:23 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,219,1291622400"; d="scan'208";a="586663238"
+X-IronPort-AV: E=Sophos;i="4.60,219,1291622400"; d="scan'208";a="871314140"
 Received: from unknown (HELO localhost) ([10.255.14.90])
-	by orsmga002.jf.intel.com with ESMTP; 23 Dec 2010 06:27:22 -0800
-Message-Id: <bcd65de885e7bf5038d9ae4bebd60c5af0903071.1293114004.git.sgw@linux.intel.com>
+	by fmsmga001.fm.intel.com with ESMTP; 23 Dec 2010 06:27:23 -0800
+Message-Id: <8d8e598b97912beda2260ac9e95852bc3cd7918a.1293114004.git.sgw@linux.intel.com>
 In-Reply-To: <cover.1293114003.git.sgw@linux.intel.com>
 References: <cover.1293114003.git.sgw@linux.intel.com>
 From: Saul Wold <sgw@linux.intel.com>
-Old-Date: Wed, 22 Dec 2010 22:30:12 -0800
-Date: Thu, 23 Dec 2010  6:27:21 -0800
+Old-Date: Wed, 22 Dec 2010 22:30:42 -0800
+Date: Thu, 23 Dec 2010  6:27:22 -0800
 To: poky@yoctoproject.org
-Subject: [PATCH 24/28] gdb: Add LIC_FILE_CHKSUMS
+Subject: [PATCH 25/28] qemu-helper: Add LIC_FILE_CHKSUMS
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,28 +27,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 23 Dec 2010 14:27:22 -0000
+X-List-Received-Date: Thu, 23 Dec 2010 14:27:23 -0000
 
 Signed-off-by: Saul Wold <sgw@linux.intel.com>
 ---
- meta/recipes-devtools/gdb/gdb-common.inc |    4 ++++
- 1 files changed, 4 insertions(+), 0 deletions(-)
+ .../qemu/qemu-helper-native_1.0.bb                 |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
 
-diff --git a/meta/recipes-devtools/gdb/gdb-common.inc b/meta/recipes-devtools/gdb/gdb-common.inc
-index 16b653e..84e36ba 100644
---- a/meta/recipes-devtools/gdb/gdb-common.inc
-+++ b/meta/recipes-devtools/gdb/gdb-common.inc
-@@ -5,6 +5,10 @@ SECTION = "devel"
- PRIORITY = "optional"
- DEPENDS = "ncurses readline elfutils"
+diff --git a/meta/recipes-devtools/qemu/qemu-helper-native_1.0.bb b/meta/recipes-devtools/qemu/qemu-helper-native_1.0.bb
+index 19fb6f4..7b15dfe 100644
+--- a/meta/recipes-devtools/qemu/qemu-helper-native_1.0.bb
++++ b/meta/recipes-devtools/qemu/qemu-helper-native_1.0.bb
+@@ -3,6 +3,8 @@ LICENSE = "GPLv2"
+ RDEPENDS = "qemu-native"
+ PR = "r0"
  
-+LIC_FILES_CHKSUM = "file://COPYING;md5=59530bdf33659b29e73d4adb9f9f6552 \
-+		file://COPYING.LIB;md5=9f604d8a4f8e74f4f5140845a21b6674 \
-+		file://COPYING3;md5=d32239bcb673463ab874e80d47fae504 \
-+		file://COPYING3.LIB;md5=6a6a8e020838b23406c81b19c1d46df6"
- inherit autotools
++LIC_FILES_CHKSUM = "file://${WORKDIR}/tunctl.c;endline=4;md5="
++
+ FILESPATH = "${FILE_DIRNAME}/qemu-helper"
  
- SRC_URI = "${GNU_MIRROR}/gdb/gdb-${PV}.tar.gz \
+ SRC_URI = "file://tunctl.c"
 -- 
 1.7.2.3
 
