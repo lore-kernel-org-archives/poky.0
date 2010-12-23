@@ -1,21 +1,19 @@
 Return-Path: <sgw@linux.intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 1F8944C80039
-	for <poky@yoctoproject.org>; Thu, 23 Dec 2010 09:07:42 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 23 Dec 2010 07:07:34 -0800
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id DAE334C8115C
+	for <poky@yoctoproject.org>; Thu, 23 Dec 2010 09:07:57 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 23 Dec 2010 07:07:33 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,219,1291622400"; d="scan'208";a="365835411"
+X-IronPort-AV: E=Sophos;i="4.60,219,1291622400"; d="scan'208";a="690200814"
 Received: from unknown (HELO localhost) ([10.255.14.90])
-	by azsmga001.ch.intel.com with ESMTP; 23 Dec 2010 07:07:34 -0800
-Message-Id: <7c4ca83b47b99b52b2a25577b444a6b0435faf43.1293116649.git.sgw@linux.intel.com>
-In-Reply-To: <cover.1293116649.git.sgw@linux.intel.com>
-References: <cover.1293116649.git.sgw@linux.intel.com>
+	by orsmga001.jf.intel.com with ESMTP; 23 Dec 2010 07:07:33 -0800
+Message-Id: <cover.1293116649.git.sgw@linux.intel.com>
 From: Saul Wold <sgw@linux.intel.com>
-Old-Date: Thu, 23 Dec 2010 07:02:00 -0800
-Date: Thu, 23 Dec 2010  7:07:33 -0800
+Old-Date: Thu, 23 Dec 2010 07:04:09 -0800
+Date: Thu, 23 Dec 2010  7:07:12 -0800
 To: poky@yoctoproject.org
-Subject: [PATCH 1/4] cross-localedef: add LIC_FILES_CHKCSUM
+Subject: [PATCH 0/4] Additional recipe fixes for LIC_FILES_CHKSUM
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,31 +25,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 23 Dec 2010 15:07:42 -0000
+X-List-Received-Date: Thu, 23 Dec 2010 15:07:58 -0000
 
-Signed-off-by: Saul Wold <sgw@linux.intel.com>
+More recipes missing LIC_FILES_CHKSUM and a fix to apr-util
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: distro/master
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=distro/master
+
+Thanks,
+    Saul Wold <sgw@linux.intel.com>
 ---
- .../eglibc/cross-localedef-native_2.12.bb          |    7 +++++++
- 1 files changed, 7 insertions(+), 0 deletions(-)
 
-diff --git a/meta/recipes-core/eglibc/cross-localedef-native_2.12.bb b/meta/recipes-core/eglibc/cross-localedef-native_2.12.bb
-index e2247dc..096c082 100644
---- a/meta/recipes-core/eglibc/cross-localedef-native_2.12.bb
-+++ b/meta/recipes-core/eglibc/cross-localedef-native_2.12.bb
-@@ -4,6 +4,13 @@ SECTION = "libs"
- PRIORITY = "required"
- LICENSE = "LGPL"
- 
-+LIC_DIR = "${WORKDIR}/${EGLIBC_BRANCH}/libc"
-+LIC_FILES_CHKSUM = "file://${LIC_DIR}/LICENSES;md5=07a394b26e0902b9ffdec03765209770 \
-+      file://${LIC_DIR}/COPYING;md5=393a5ca445f6965873eca0259a17f833 \
-+      file://${LIC_DIR}/posix/rxspencer/COPYRIGHT;md5=dc5485bb394a13b2332ec1c785f5d83a \
-+      file://${LIC_DIR}/COPYING.LIB;md5=bbb461211a33b134d42ed5ee802b37ff "
-+
-+
- inherit native
- inherit autotools
- 
+
+Saul Wold (4):
+  cross-localedef: add LIC_FILES_CHKCSUM
+  qemu-helper: add LIC_FILES_CHKSUM
+  unifdef: add LIC_FILES_CHKSUM
+  apr-util: add --without-odbc to EXTRA_OECONF
+
+ .../eglibc/cross-localedef-native_2.12.bb          |    7 +++++++
+ .../qemu/qemu-helper-native_1.0.bb                 |    2 +-
+ .../unifdef/unifdef-native_2.6.18+git.bb           |    2 +-
+ meta/recipes-support/apr/apr-util_1.3.4.bb         |    3 ++-
+ 4 files changed, 11 insertions(+), 3 deletions(-)
+
 -- 
 1.7.2.3
 
