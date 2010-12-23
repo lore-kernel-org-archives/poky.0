@@ -1,21 +1,21 @@
 Return-Path: <sgw@linux.intel.com>
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2F9D34C811EC
+	by mx1.pokylinux.org (Postfix) with ESMTP id D124B4C81110
 	for <poky@yoctoproject.org>; Thu, 23 Dec 2010 08:27:19 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
 	by fmsmga102.fm.intel.com with ESMTP; 23 Dec 2010 06:27:19 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,219,1291622400"; d="scan'208";a="871314117"
+X-IronPort-AV: E=Sophos;i="4.60,219,1291622400"; d="scan'208";a="639786570"
 Received: from unknown (HELO localhost) ([10.255.14.90])
-	by fmsmga001.fm.intel.com with ESMTP; 23 Dec 2010 06:27:18 -0800
-Message-Id: <396d64365cc434501a32d780c0b1aadd0964a605.1293114004.git.sgw@linux.intel.com>
+	by fmsmga002.fm.intel.com with ESMTP; 23 Dec 2010 06:27:19 -0800
+Message-Id: <385d08e4622c98aaa9814fd3b7fa0c4e80552b4e.1293114004.git.sgw@linux.intel.com>
 In-Reply-To: <cover.1293114003.git.sgw@linux.intel.com>
 References: <cover.1293114003.git.sgw@linux.intel.com>
 From: Saul Wold <sgw@linux.intel.com>
-Old-Date: Wed, 22 Dec 2010 17:32:40 -0800
-Date: Thu, 23 Dec 2010  6:27:18 -0800
+Old-Date: Wed, 22 Dec 2010 17:33:40 -0800
+Date: Thu, 23 Dec 2010  6:27:19 -0800
 To: poky@yoctoproject.org
-Subject: [PATCH 20/28] python: Add LIC_FILES_CHKSUM
+Subject: [PATCH 21/28] unifdef Add LIC_FILES_CHKSUM
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,25 +27,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 23 Dec 2010 14:27:19 -0000
+X-List-Received-Date: Thu, 23 Dec 2010 14:27:20 -0000
 
 Signed-off-by: Saul Wold <sgw@linux.intel.com>
 ---
- .../recipes-devtools/python/python-native_2.6.6.bb |    1 +
- 1 files changed, 1 insertions(+), 0 deletions(-)
+ .../unifdef/unifdef-native_2.6.18+git.bb           |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
 
-diff --git a/meta/recipes-devtools/python/python-native_2.6.6.bb b/meta/recipes-devtools/python/python-native_2.6.6.bb
-index 148dc58..2ad10c9 100644
---- a/meta/recipes-devtools/python/python-native_2.6.6.bb
-+++ b/meta/recipes-devtools/python/python-native_2.6.6.bb
-@@ -2,6 +2,7 @@ require python.inc
- DEPENDS = "openssl-native bzip2-full-native zlib-native readline-native sqlite3-native"
- PR = "${INC_PR}.0"
+diff --git a/meta/recipes-devtools/unifdef/unifdef-native_2.6.18+git.bb b/meta/recipes-devtools/unifdef/unifdef-native_2.6.18+git.bb
+index d879782..d8719a2 100644
+--- a/meta/recipes-devtools/unifdef/unifdef-native_2.6.18+git.bb
++++ b/meta/recipes-devtools/unifdef/unifdef-native_2.6.18+git.bb
+@@ -2,6 +2,8 @@ DESCRIPTION = "Kernel header preprocessor"
+ SECTION = "devel"
+ LICENSE = "GPL"
  
-+LIC_FILES_CHKSUM = "file://LICENSE;md5=38fdd546420fab09ac6bd3d8a1c83eb6"
++LIC_FILES_CHKSUM = "file://${WORKDIR}/unifdef.c;endline=32;md5="
++
+ SRC_URI = "file://unifdef.c"
  
- SRC_URI = "http://www.python.org/ftp/python/${PV}/Python-${PV}.tar.bz2 \
-            file://04-default-is-optimized.patch \
+ inherit native
 -- 
 1.7.2.3
 
