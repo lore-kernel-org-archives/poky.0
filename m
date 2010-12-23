@@ -1,34 +1,24 @@
-Return-Path: <kevin.tian@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 37FA24C8115C
-	for <poky@pokylinux.org>; Thu, 23 Dec 2010 00:12:22 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 22 Dec 2010 22:12:21 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,218,1291622400"; d="scan'208";a="586542390"
-Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
-	by orsmga002.jf.intel.com with ESMTP; 22 Dec 2010 22:12:21 -0800
-Received: from pgsmsx509.gar.corp.intel.com (172.30.13.17) by
-	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Thu, 23 Dec 2010 14:11:29 +0800
-Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
-	PGSMSX509.gar.corp.intel.com (172.30.13.17) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Thu, 23 Dec 2010 14:11:28 +0800
-Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
-	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
-	Thu, 23 Dec 2010 14:11:19 +0800
-From: "Tian, Kevin" <kevin.tian@intel.com>
-To: "poky@pokylinux.org" <poky@pokylinux.org>
-Date: Thu, 23 Dec 2010 14:11:17 +0800
-Thread-Topic: about ${KERNEL_CC} and ${CC}
-Thread-Index: AcuiaDYEUpex73H/RAGdQPE5mwgrTQ==
-Message-ID: <625BA99ED14B2D499DC4E29D8138F1504D5F6A48BD@shsmsx502.ccr.corp.intel.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
-MIME-Version: 1.0
-Subject: about ${KERNEL_CC} and ${CC}
+Return-Path: <Jingdong.Lu@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5E4614C81067
+	for <poky@yoctoproject.org>; Thu, 23 Dec 2010 01:34:15 -0600 (CST)
+Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oBN7YEZh010387
+	for <poky@yoctoproject.org>; Wed, 22 Dec 2010 23:34:14 -0800 (PST)
+Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
+	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Wed, 22 Dec 2010 23:34:13 -0800
+Received: from localhost ([128.224.162.176]) by ala-mail06.corp.ad.wrs.com
+	with Microsoft SMTPSVC(6.0.3790.1830); 
+	Wed, 22 Dec 2010 23:34:12 -0800
+Message-Id: <cover.1293089352.git.jingdong.lu@windriver.com>
+From: Jingdong Lu <jingdong.lu@windriver.com>
+Old-Date: Thu, 23 Dec 2010 15:29:12 +0800
+Date: Thu, 23 Dec 2010 15:35:49 +0800
+To: poky@yoctoproject.org
+X-OriginalArrivalTime: 23 Dec 2010 07:34:13.0785 (UTC)
+	FILETIME=[CC029090:01CBA273]
+Subject: [PATCH 0/3] Fix some failures of LSB test.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,54 +30,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 23 Dec 2010 06:12:22 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Thu, 23 Dec 2010 07:34:15 -0000
 
-I'm a bit confused why a specific ${KERNEL_CC} is introduced instead of
-reusing ${CC}, especially when two are defined differently:
+Saul/RP,
+I added SUMMARY and modified PREFIX option for mailx.
 
-<kernel.bbclass>
-KERNEL_CC =3D "${CCACHE}${HOST_PREFIX}gcc${KERNEL_CCSUFFIX} ${HOST_CC_KERNE=
-L_ARCH}"
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: jingdonglu/distro
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=jingdonglu/distro
 
-<bitbake.conf>
-export CC =3D "${CCACHE}${HOST_PREFIX}gcc ${HOST_CC_ARCH}${TOOLCHAIN_OPTION=
-S}"
-TOOLCHAIN_OPTIONS =3D " --sysroot=3D${STAGING_DIR_TARGET}"
+Thanks,
+    Jingdong Lu <jingdong.lu@windriver.com>
+---
 
-I'm not sure whether kernel build requires "--sysroot" option, but it looks=
- that it works well
-so far even without that option (why?)
 
-However this causes one issue under sstate, if the whole toolchain is insta=
-lled from sstate
-packages which are built from another machine. In such case the default pat=
-h (decided at
-compilation time) of gcc also points to the path on another machine, which =
-is missing in
-current machine doing build. Perf compilation is:
+Jingdong Lu (3):
+  perl: Add GDBM_File into perl extension
+  gcc: Add "--enable-clocale=gnu" option explicitly
+  mailx: Add mailx
 
-do_compile_perf() {
-        oe_runmake -C ${S}/tools/perf CC=3D"${KERNEL_CC}" LD=3D"${KERNEL_LD=
-}" prefix=3D${prefix}
-}
+ meta/recipes-devtools/gcc/gcc-configure-common.inc |    2 +-
+ meta/recipes-devtools/perl/perl-5.8.8/config.sh    |    2 +-
+ meta/recipes-extended/mailx/mailx_12.4.bb          |   22 ++++++++++++++++++++
+ 3 files changed, 24 insertions(+), 2 deletions(-)
+ create mode 100644 meta/recipes-extended/mailx/mailx_12.4.bb
 
-Without an explicit "--sysroot" options, perf compilation is broken due to =
-failing to check some=20
-header files like gnu/libc-version.h. I can workaround it by:
-
-do_compile_perf() {
-        oe_runmake -C ${S}/tools/perf CC=3D"${CC}" LD=3D"${LD}" AR=3D"${AR}=
-" prefix=3D${prefix}
-}
-
-Before going with that fix, I'd like to understand the difference between {=
-KERNEL_CC} and
-${CC} first, e.g. another option Is to simply attach TOOLCHAIN_OPTIONS to K=
-ERNEL_CC..
-
-Thanks
-Kevin
 
