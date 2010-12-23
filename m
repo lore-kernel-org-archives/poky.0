@@ -1,34 +1,23 @@
-Return-Path: <jiajun.xu@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E5A1B4C80039
-	for <poky@pokylinux.org>; Thu, 23 Dec 2010 09:19:50 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 23 Dec 2010 07:19:46 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,219,1291622400"; d="scan'208";a="690205208"
-Received: from pgsmsx601.gar.corp.intel.com ([10.221.43.69])
-	by orsmga001.jf.intel.com with ESMTP; 23 Dec 2010 07:19:46 -0800
-Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
-	pgsmsx601.gar.corp.intel.com (10.221.43.69) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Thu, 23 Dec 2010 23:19:44 +0800
-Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
-	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
-	Thu, 23 Dec 2010 23:19:43 +0800
-From: "Xu, Jiajun" <jiajun.xu@intel.com>
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-Date: Thu, 23 Dec 2010 23:19:42 +0800
-Thread-Topic: Another sanity test tweak
-Thread-Index: AcuimKcVGeZAYGQnR72C1frk8C0uCgAG2A/A
-Message-ID: <D5AB6E638E5A3E4B8F4406B113A5A19A319A542A@shsmsx501.ccr.corp.intel.com>
-References: <1293105324.1588.708.camel@rex>
-In-Reply-To: <1293105324.1588.708.camel@rex>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
-MIME-Version: 1.0
-Cc: poky <poky@pokylinux.org>
-Subject: Re: Another sanity test tweak
+Return-Path: <koen@dominion.thruhere.net>
+Received: from mail-ww0-f68.google.com (mail-ww0-f68.google.com [74.125.82.68])
+	by mx1.pokylinux.org (Postfix) with ESMTP id A9CAF4C80FD4
+	for <poky@yoctoproject.org>; Thu, 23 Dec 2010 09:22:04 -0600 (CST)
+Received: by wwj40 with SMTP id 40so2406337wwj.11
+	for <poky@yoctoproject.org>; Thu, 23 Dec 2010 07:22:03 -0800 (PST)
+Received: by 10.216.205.213 with SMTP id j63mr11806446weo.60.1293117723021;
+	Thu, 23 Dec 2010 07:22:03 -0800 (PST)
+Received: from [172.20.0.255] (ip545070eb.adsl-surfen.hetnet.nl
+	[84.80.112.235])
+	by mx.google.com with ESMTPS id n3sm3800229wer.30.2010.12.23.07.22.02
+	(version=TLSv1/SSLv3 cipher=RC4-MD5);
+	Thu, 23 Dec 2010 07:22:02 -0800 (PST)
+From: Koen Kooi <koen@dominion.thruhere.net>
+Date: Thu, 23 Dec 2010 16:22:00 +0100
+Message-Id: <9CDD7A28-36BB-4970-B802-B4398C8B8BB7@dominion.thruhere.net>
+To: poky@yoctoproject.org
+Mime-Version: 1.0 (Apple Message framework v1082)
+X-Mailer: Apple Mail (2.1082)
+Subject: Build breakage on master
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,74 +29,75 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 23 Dec 2010 15:19:51 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-List-Received-Date: Thu, 23 Dec 2010 15:22:05 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
 
-PiBIaSBKaWFqdW4sDQo+IA0KPiBBbG9uZyB3aXRoIGJ1Z3MgNjExIGFuZCA2MTIsIEkgYWxzbyBu
-b3RpY2VkIG1lc3NhZ2VzIGluIHRoZSBxZW11IGxvZ3MNCj4gYWJvdXQgdGhlIHFlbXUgcHJvY2Vz
-cyBiZWluZyBwcmVzZW50IHdoZW4gaXQgdmVyeSBjbGVhcmx5IHdhc24ndC4NCj4gVGhlc2UgYXJl
-IGR1ZSB0bw0KPiBUZXN0X0NoZWNrX1FlbXVfVVAoKSBub3QgZnVuY3Rpb25pbmcgY29ycmVjdGx5
-Lg0KPiANCj4gTG9va2luZyBhdCB0aGUgb3V0cHV0IG9mIHBzIC1lZiB3aGVuIHJ1bm5pbmcgdGhl
-IHNjcmlwdCwgSSBzZWUgdGhpbmdzDQo+IGxpa2U6DQo+IA0KPiByaWNoYXJkICAgNjU4MiAgMTg0
-NSAgMCAxMTozMiBwdHMvOCAgICAwMDowMDowMCAvYmluL3NoDQo+IC9ycGhvbWUvcG9reS9zY3Jp
-cHRzL2JpdGJha2UgcG9reS1pbWFnZS1zYXRvIC1jIHFlbXVpbWFnZXRlc3Rfc3RhbmRhbG9uZQ0K
-PiByaWNoYXJkICAgNjU4OCAgNjU4MiA3MiAxMTozMiBwdHMvOCAgICAwMDowMDoxNSBweXRob24N
-Cj4gL3JwaG9tZS9wb2t5L2JpdGJha2UvYmluLy9iaXRiYWtlIHBva3ktaW1hZ2Utc2F0byAtYw0K
-PiBxZW11aW1hZ2V0ZXN0X3N0YW5kYWxvbmUgcmljaGFyZCAgIDY1OTggIDY1ODggIDAgMTE6MzIg
-cHRzLzggICAgMDA6MDA6MDANCj4gcHl0aG9uIC9ycGhvbWUvcG9reS9iaXRiYWtlL2Jpbi8vYml0
-YmFrZSBwb2t5LWltYWdlLXNhdG8gLWMNCj4gcWVtdWltYWdldGVzdF9zdGFuZGFsb25lIHJpY2hh
-cmQgICA2NjAxICA2NTk4ICAwIDExOjMyIHB0cy84ICAgIDAwOjAwOjAwDQo+IHNoIC1jIC9ycGhv
-bWUvcG9reS9zY3JpcHRzL3FlbXVpbWFnZS10ZXN0cy9zYW5pdHkvYm9vdCB8IHRlZSAtYQ0KPiAv
-bWVkaWEvZGF0YTEvYnVpbGRzL3Bva3kyL3RtcC9sb2cvcWVtdWltYWdldGVzdHMvc2FuaXR5L2xv
-Z19ib290LjIwMTAxIDINCj4gMjMxMTMyMjYgcmljaGFyZCAgIDY2MDIgIDY2MDEgIDAgMTE6MzIg
-cHRzLzggICAgMDA6MDA6MDAgL2Jpbi9iYXNoDQo+IC9ycGhvbWUvcG9reS9zY3JpcHRzL3FlbXVp
-bWFnZS10ZXN0cy9zYW5pdHkvYm9vdCByaWNoYXJkICAgNjYwMyAgNjYwMSAgMA0KPiAxMTozMiBw
-dHMvOCAgICAwMDowMDowMCB0ZWUgLWENCj4gL21lZGlhL2RhdGExL2J1aWxkcy9wb2t5Mi90bXAv
-bG9nL3FlbXVpbWFnZXRlc3RzL3Nhbml0eS9sb2dfYm9vdC4yMDEwMSAyDQo+IDIzMTEzMjI2DQo+
-IA0KPiB3aGljaCBpcyB3aHkgaXQgdGhpbmtzIHFlbXUgaXMgcnVubmluZy4gSSdkIGxpa2UgdG8g
-cHJvcG9zZSBzb21ldGhpbmcNCj4gbGlrZToNCj4gDQo+IGRpZmYgLS1naXQgYS9zY3JpcHRzL3Fl
-bXVpbWFnZS10ZXN0bGliIGIvc2NyaXB0cy9xZW11aW1hZ2UtdGVzdGxpYiBpbmRleA0KPiBjMmMz
-OTRkLi4yYjE4NjgzIDEwMDY0NCAtLS0gYS9zY3JpcHRzL3FlbXVpbWFnZS10ZXN0bGliICsrKw0K
-PiBiL3NjcmlwdHMvcWVtdWltYWdlLXRlc3RsaWIgQEAgLTIwNCw3ICsyMDQsNyBAQCBUZXN0X0tp
-bGxfUWVtdSgpDQo+ICAjIGZ1bmN0aW9uIHRvIGNoZWNrIGlmIHRoZXJlIGlzIGFueSBxZW11IHBy
-b2Nlc3MgVGVzdF9DaGVja19RZW11X1VQKCkgew0KPiAtICAgICAgIGxvY2FsIGNvdW50PWBwcyAt
-ZWYgfCBncmVwIC1jIHFlbXVgDQo+ICsgICAgICAgbG9jYWwgY291bnQ9YHBzIC1lbyBjb21tYW5k
-IHwgY3V0IC1kICIgIiAtZiAxIHwgZ3JlcCAtYw0KPiArIFwoXnFlbXVcfC4qL3FlbXVcKWANCj4g
-ICAgICAgICBpZiBbICR7Y291bnR9IC1sdCAyIF07IHRoZW4NCj4gICAgICAgICAgICAgICAgIFRl
-c3RfSW5mbyAiVGhlcmUgaXMgbm8gUWVtdSBwcm9jZXNzIg0KPiAgICAgICAgICAgICAgICAgcmV0
-dXJuIDENCj4gd2hpY2ggc2hvdWxkIGVuc3VyZSBhIHFlbXUgY29tbWFuZCBpcyBydW5uaW5nIHJh
-dGhlciB0aGFuIGFueSBjb21tYW5kDQo+IHdoaWNoIGhhcHBlbnMgdG8gaGF2ZSAicWVtdSIgaW4g
-aXRzIHBhdGguIEknbSBzdGlsbCB0ZXN0aW5nIHRoZSBhYm92ZQ0KPiB0byBzZWUgaWYgaXQgd29y
-a3Mgd2VsbC4NCj4gDQoNCkkgdGVzdGVkIGFib3ZlIGNvZGUgYW5kIGl0IHdvcmtzIGNvcnJlY3Rs
-eSBvbiBteSBtYWNoaW5lLiBPbmUgdGhpbmcgbmVlZHMgbW9kaWZpY2F0aW9uIGlzIHRoZSBjb3Vu
-dCB2YWx1ZSB3ZSBjaGVjay4NCg0KDQpkaWZmIC0tZ2l0IGEvc2NyaXB0cy9xZW11aW1hZ2UtdGVz
-dGxpYiBiL3NjcmlwdHMvcWVtdWltYWdlLXRlc3RsaWINCmluZGV4IDYwOGM2ZjAuLjY4NDkyOWEg
-MTAwNjQ0DQotLS0gYS9zY3JpcHRzL3FlbXVpbWFnZS10ZXN0bGliDQorKysgYi9zY3JpcHRzL3Fl
-bXVpbWFnZS10ZXN0bGliDQpAQCAtMjA0LDEyICsyMDQsMTIgQEAgVGVzdF9LaWxsX1FlbXUoKQ0K
-ICMgZnVuY3Rpb24gdG8gY2hlY2sgaWYgdGhlcmUgaXMgYW55IHFlbXUgcHJvY2Vzcw0KIFRlc3Rf
-Q2hlY2tfUWVtdV9VUCgpDQogew0KLSAgICAgICBsb2NhbCBjb3VudD1gcHMgLWVmIHwgZ3JlcCAt
-YyBxZW11YA0KLSAgICAgICBpZiBbICR7Y291bnR9IC1sdCAyIF07IHRoZW4NCisgICAgICAgbG9j
-YWwgY291bnQ9YHBzIC1lbyBjb21tYW5kIHwgY3V0IC1kIiAiIC1mIDEgfCBncmVwIC1jICdcKF5x
-ZW11XHwuKi9xZW11XCknYA0KKyAgICAgICBpZiBbICR7Y291bnR9IC1uZSAxIF07IHRoZW4NCiAg
-ICAgICAgICAgICAgICBUZXN0X0luZm8gIlRoZXJlIGlzIG5vIFFlbXUgcHJvY2VzcyINCiAgICAg
-ICAgICAgICAgICByZXR1cm4gMQ0KICAgICAgICBlbHNlDQotICAgICAgICAgICAgICAgVGVzdF9J
-bmZvICJUaGVyZSBpcyBhdCBsZWFzdCBRZW11IHByb2Nlc3MgcnVubmluZyINCisgICAgICAgICAg
-ICAgICBUZXN0X0luZm8gIlRoZXJlIGlzIGF0IGxlYXN0IG9uZSBRZW11IHByb2Nlc3MgcnVubmlu
-ZyINCiAgICAgICAgICAgICAgICByZXR1cm4gMA0KICAgICAgICBmaQ0KIH0NCg0KPiBBbHNvLCB3
-YWl0aW5nIDEyMCBzZWNvbmRzIGZvciB0aGUgcWVtdSBuZXR3b3JrIHRvIGJlIHVwIGlzIGZpbmUu
-IEZvcg0KPiB0aGUgYWN0dWFsIHByb2Nlc3MgdG8gYmUgcnVubmluZyBJJ2Qgc3VnZ2VzdCB3ZSBq
-dXN0IHdhaXQgMTAgc2Vjb25kcw0KPiBtYXhpbXVtIGFzIGlmIGl0IGV2ZXIgdGFrZXMgbG9uZ2Vy
-IHRoYW4gdGhhdCwgd2UgaGF2ZSBhIHByb2JsZW0uIEknZCBwcm9wb3NlIHRoZSBmb2xsb3dpbmcg
-Y2hhbmdlOg0KPiANCj4gQEAgLTM4Myw5ICszODMsNyBAQCBUZXN0X0NyZWF0ZV9RZW11KCkNCj4g
-ICAgICAgICAjIEdldCB0aGUgcGlkIG9mIHRoZSB4dGVybSBwcm9jZXNzb3IsIHdoaWNoIHdpbGwg
-YmUgdXNlZCBpbg0KPiAgICAgICAgIFRlc3RfS2lsbF9RZW11IFBJRD0kIQ0KPiAtICAgICAgIHNs
-ZWVwIDUNCj4gLQ0KPiAtICAgICAgIHdoaWxlIFsgJHt1cF90aW1lfSAtbHQgJHt0aW1lb3V0fSBd
-DQo+ICsgICAgICAgd2hpbGUgWyAke3VwX3RpbWV9IC1sdCAxMCBdDQo+ICAgICAgICAgZG8NCj4g
-ICAgICAgICAgICAgICAgIFRlc3RfQ2hlY2tfUWVtdV9VUA0KPiAgICAgICAgICAgICAgICAgaWYg
-WyAkPyAtbmUgMCBdOyB0aGVuDQo+IEFyZSB5b3Ugb2sgd2l0aCB0aGVzZSBjaGFuZ2VzPw0KPiAN
-Cg0KQWdyZWUuIFdlIGRvbuKAmXQnIG5lZWQgdG8gd2FpdCBzdWNoIGEgbG9uZyB0aW1lIGZvciBx
-ZW11IHVwLg0KDQo+IENoZWVycywNCj4gDQo+IFJpY2hhcmQNCj4NCg0KQmVzdCBSZWdhcmRzLA0K
-SmlhanVuDQoNCg==
+Hi,
+
+I wanted to try a build from scratch to test my RDEPENDS patch, but even =
+without that it quickly halts with:
+
+ERROR: Logfile of failure stored in: =
+/OE/tentacle/build/tmp-angstrom_2010_x/work/armv7a-angstrom-linux-gnueabi/=
+binutils-cross-2.20.1-r3/temp/log.do_configure.21368Log data follows:
+| =
+/OE/tentacle/build/tmp-angstrom_2010_x/work/armv7a-angstrom-linux-gnueabi/=
+binutils-cross-2.20.1-r3/temp/run.do_configure.21368: line 183: =
+gnu-configize: command not found| FATAL: Failed to run gnu-configize
+
+I tripple checked and I don't have any classes or files relating to =
+binutils, gnu-config or autotools overlayered, does anyone else see this =
+issue?
+
+bitbake gnu-config-native results in:
+
+ERROR: Task failed: ('function do_configure failed', =
+'/OE/tentacle/build/tmp-angstrom_2010_x/work/x86_64-linux/bzip2-native-1.0=
+.6-r3/temp/log.do_configure.21957')
+ERROR: Logfile of failure stored in: =
+/OE/tentacle/build/tmp-angstrom_2010_x/work/x86_64-linux/bzip2-native-1.0.=
+6-r3/temp/log.do_configure.21957
+Log data follows:
+| cp: cannot stat =
+`/OE/tentacle/build/tmp-angstrom_2010_x/sysroots/x86_64-linux/usr/share/au=
+tomake*/install-sh': No such file or directory
+
+and
+
+ERROR: Task failed: ('function do_configure failed', =
+'/OE/tentacle/build/tmp-angstrom_2010_x/work/x86_64-linux/icu-native-3.6-r=
+6/temp/log.do_configure.22007')
+ERROR: Logfile of failure stored in: =
+/OE/tentacle/build/tmp-angstrom_2010_x/work/x86_64-linux/icu-native-3.6-r6=
+/temp/log.do_configure.22007
+Log data follows:
+| Remember to add `AC_PROG_LIBTOOL' to `configure.in'.
+| Using `AC_PROG_RANLIB' is rendered obsolete by `AC_PROG_LIBTOOL'
+| You should add the contents of `/usr/share/aclocal/libtool.m4' to =
+`aclocal.m4'.
+| =
+/OE/tentacle/build/tmp-angstrom_2010_x/work/x86_64-linux/icu-native-3.6-r6=
+/temp/run.do_configure.22007: line 154: gnu-configize: command not found
+
+
+I'm at:
+
+commit ab83f5f266ee7f66d14e3711ec84907750ea7e91
+Author: Joshua Lock <josh@linux.intel.com>
+Date:   Wed Dec 22 17:03:44 2010 +0000
+
+    bitbake/depexp: fix early exit
+   =20
+    Stupdi typo/thinko from me had depexp exiting once recipes had =
+parsed
+    as I'd used a return the while loop where I'd meant a continue...
+   =20
+    Signed-off-by: Joshua Lock <josh@linux.intel.com>
+
+
+
+regards,
+
+Koen=
 
