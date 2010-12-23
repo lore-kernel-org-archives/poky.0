@@ -1,20 +1,34 @@
 Return-Path: <jiajun.xu@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 889D44C80039
-	for <poky@yoctoproject.org>; Thu, 23 Dec 2010 09:13:35 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 23 Dec 2010 07:13:20 -0800
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E5A1B4C80039
+	for <poky@pokylinux.org>; Thu, 23 Dec 2010 09:19:50 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 23 Dec 2010 07:19:46 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,219,1291622400"; d="scan'208";a="586677732"
-Received: from unknown (HELO localhost) ([10.239.48.201])
-	by orsmga002.jf.intel.com with ESMTP; 23 Dec 2010 07:13:18 -0800
-Message-Id: <cover.1293117709.git.jiajun.xu@intel.com>
-From: Jiajun Xu <jiajun.xu@intel.com>
-Old-Date: Thu, 23 Dec 2010 23:21:49 +0800
-Date: Thu, 23 Dec 2010 23:26:18 +0800
-To: poky@yoctoproject.org
-CC: 
-Subject: [PATCH 0/1] qemuimage-testlib: Add check for existence of image and correctness of ip address
+X-IronPort-AV: E=Sophos;i="4.60,219,1291622400"; d="scan'208";a="690205208"
+Received: from pgsmsx601.gar.corp.intel.com ([10.221.43.69])
+	by orsmga001.jf.intel.com with ESMTP; 23 Dec 2010 07:19:46 -0800
+Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
+	pgsmsx601.gar.corp.intel.com (10.221.43.69) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Thu, 23 Dec 2010 23:19:44 +0800
+Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
+	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
+	Thu, 23 Dec 2010 23:19:43 +0800
+From: "Xu, Jiajun" <jiajun.xu@intel.com>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+Date: Thu, 23 Dec 2010 23:19:42 +0800
+Thread-Topic: Another sanity test tweak
+Thread-Index: AcuimKcVGeZAYGQnR72C1frk8C0uCgAG2A/A
+Message-ID: <D5AB6E638E5A3E4B8F4406B113A5A19A319A542A@shsmsx501.ccr.corp.intel.com>
+References: <1293105324.1588.708.camel@rex>
+In-Reply-To: <1293105324.1588.708.camel@rex>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
+MIME-Version: 1.0
+Cc: poky <poky@pokylinux.org>
+Subject: Re: Another sanity test tweak
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,26 +40,74 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 23 Dec 2010 15:13:35 -0000
+X-List-Received-Date: Thu, 23 Dec 2010 15:19:51 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Fixes [BUGID #612, #611]
-
-We need to check the existence of to-be tested image in sanity test. Meanwhile, we should check the ip address to make sure it is valid.
-
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: jxu49/master
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=jxu49/master
-
-Thanks,
-    Jiajun Xu <jiajun.xu@intel.com>
----
-
-
-Jiajun Xu (1):
-  qemuimage-testlib: Add check for existence of image and correctness
-    of ip address
-
- scripts/qemuimage-testlib |   23 +++++++++++++++++++++++
- 1 files changed, 23 insertions(+), 0 deletions(-)
-
+PiBIaSBKaWFqdW4sDQo+IA0KPiBBbG9uZyB3aXRoIGJ1Z3MgNjExIGFuZCA2MTIsIEkgYWxzbyBu
+b3RpY2VkIG1lc3NhZ2VzIGluIHRoZSBxZW11IGxvZ3MNCj4gYWJvdXQgdGhlIHFlbXUgcHJvY2Vz
+cyBiZWluZyBwcmVzZW50IHdoZW4gaXQgdmVyeSBjbGVhcmx5IHdhc24ndC4NCj4gVGhlc2UgYXJl
+IGR1ZSB0bw0KPiBUZXN0X0NoZWNrX1FlbXVfVVAoKSBub3QgZnVuY3Rpb25pbmcgY29ycmVjdGx5
+Lg0KPiANCj4gTG9va2luZyBhdCB0aGUgb3V0cHV0IG9mIHBzIC1lZiB3aGVuIHJ1bm5pbmcgdGhl
+IHNjcmlwdCwgSSBzZWUgdGhpbmdzDQo+IGxpa2U6DQo+IA0KPiByaWNoYXJkICAgNjU4MiAgMTg0
+NSAgMCAxMTozMiBwdHMvOCAgICAwMDowMDowMCAvYmluL3NoDQo+IC9ycGhvbWUvcG9reS9zY3Jp
+cHRzL2JpdGJha2UgcG9reS1pbWFnZS1zYXRvIC1jIHFlbXVpbWFnZXRlc3Rfc3RhbmRhbG9uZQ0K
+PiByaWNoYXJkICAgNjU4OCAgNjU4MiA3MiAxMTozMiBwdHMvOCAgICAwMDowMDoxNSBweXRob24N
+Cj4gL3JwaG9tZS9wb2t5L2JpdGJha2UvYmluLy9iaXRiYWtlIHBva3ktaW1hZ2Utc2F0byAtYw0K
+PiBxZW11aW1hZ2V0ZXN0X3N0YW5kYWxvbmUgcmljaGFyZCAgIDY1OTggIDY1ODggIDAgMTE6MzIg
+cHRzLzggICAgMDA6MDA6MDANCj4gcHl0aG9uIC9ycGhvbWUvcG9reS9iaXRiYWtlL2Jpbi8vYml0
+YmFrZSBwb2t5LWltYWdlLXNhdG8gLWMNCj4gcWVtdWltYWdldGVzdF9zdGFuZGFsb25lIHJpY2hh
+cmQgICA2NjAxICA2NTk4ICAwIDExOjMyIHB0cy84ICAgIDAwOjAwOjAwDQo+IHNoIC1jIC9ycGhv
+bWUvcG9reS9zY3JpcHRzL3FlbXVpbWFnZS10ZXN0cy9zYW5pdHkvYm9vdCB8IHRlZSAtYQ0KPiAv
+bWVkaWEvZGF0YTEvYnVpbGRzL3Bva3kyL3RtcC9sb2cvcWVtdWltYWdldGVzdHMvc2FuaXR5L2xv
+Z19ib290LjIwMTAxIDINCj4gMjMxMTMyMjYgcmljaGFyZCAgIDY2MDIgIDY2MDEgIDAgMTE6MzIg
+cHRzLzggICAgMDA6MDA6MDAgL2Jpbi9iYXNoDQo+IC9ycGhvbWUvcG9reS9zY3JpcHRzL3FlbXVp
+bWFnZS10ZXN0cy9zYW5pdHkvYm9vdCByaWNoYXJkICAgNjYwMyAgNjYwMSAgMA0KPiAxMTozMiBw
+dHMvOCAgICAwMDowMDowMCB0ZWUgLWENCj4gL21lZGlhL2RhdGExL2J1aWxkcy9wb2t5Mi90bXAv
+bG9nL3FlbXVpbWFnZXRlc3RzL3Nhbml0eS9sb2dfYm9vdC4yMDEwMSAyDQo+IDIzMTEzMjI2DQo+
+IA0KPiB3aGljaCBpcyB3aHkgaXQgdGhpbmtzIHFlbXUgaXMgcnVubmluZy4gSSdkIGxpa2UgdG8g
+cHJvcG9zZSBzb21ldGhpbmcNCj4gbGlrZToNCj4gDQo+IGRpZmYgLS1naXQgYS9zY3JpcHRzL3Fl
+bXVpbWFnZS10ZXN0bGliIGIvc2NyaXB0cy9xZW11aW1hZ2UtdGVzdGxpYiBpbmRleA0KPiBjMmMz
+OTRkLi4yYjE4NjgzIDEwMDY0NCAtLS0gYS9zY3JpcHRzL3FlbXVpbWFnZS10ZXN0bGliICsrKw0K
+PiBiL3NjcmlwdHMvcWVtdWltYWdlLXRlc3RsaWIgQEAgLTIwNCw3ICsyMDQsNyBAQCBUZXN0X0tp
+bGxfUWVtdSgpDQo+ICAjIGZ1bmN0aW9uIHRvIGNoZWNrIGlmIHRoZXJlIGlzIGFueSBxZW11IHBy
+b2Nlc3MgVGVzdF9DaGVja19RZW11X1VQKCkgew0KPiAtICAgICAgIGxvY2FsIGNvdW50PWBwcyAt
+ZWYgfCBncmVwIC1jIHFlbXVgDQo+ICsgICAgICAgbG9jYWwgY291bnQ9YHBzIC1lbyBjb21tYW5k
+IHwgY3V0IC1kICIgIiAtZiAxIHwgZ3JlcCAtYw0KPiArIFwoXnFlbXVcfC4qL3FlbXVcKWANCj4g
+ICAgICAgICBpZiBbICR7Y291bnR9IC1sdCAyIF07IHRoZW4NCj4gICAgICAgICAgICAgICAgIFRl
+c3RfSW5mbyAiVGhlcmUgaXMgbm8gUWVtdSBwcm9jZXNzIg0KPiAgICAgICAgICAgICAgICAgcmV0
+dXJuIDENCj4gd2hpY2ggc2hvdWxkIGVuc3VyZSBhIHFlbXUgY29tbWFuZCBpcyBydW5uaW5nIHJh
+dGhlciB0aGFuIGFueSBjb21tYW5kDQo+IHdoaWNoIGhhcHBlbnMgdG8gaGF2ZSAicWVtdSIgaW4g
+aXRzIHBhdGguIEknbSBzdGlsbCB0ZXN0aW5nIHRoZSBhYm92ZQ0KPiB0byBzZWUgaWYgaXQgd29y
+a3Mgd2VsbC4NCj4gDQoNCkkgdGVzdGVkIGFib3ZlIGNvZGUgYW5kIGl0IHdvcmtzIGNvcnJlY3Rs
+eSBvbiBteSBtYWNoaW5lLiBPbmUgdGhpbmcgbmVlZHMgbW9kaWZpY2F0aW9uIGlzIHRoZSBjb3Vu
+dCB2YWx1ZSB3ZSBjaGVjay4NCg0KDQpkaWZmIC0tZ2l0IGEvc2NyaXB0cy9xZW11aW1hZ2UtdGVz
+dGxpYiBiL3NjcmlwdHMvcWVtdWltYWdlLXRlc3RsaWINCmluZGV4IDYwOGM2ZjAuLjY4NDkyOWEg
+MTAwNjQ0DQotLS0gYS9zY3JpcHRzL3FlbXVpbWFnZS10ZXN0bGliDQorKysgYi9zY3JpcHRzL3Fl
+bXVpbWFnZS10ZXN0bGliDQpAQCAtMjA0LDEyICsyMDQsMTIgQEAgVGVzdF9LaWxsX1FlbXUoKQ0K
+ICMgZnVuY3Rpb24gdG8gY2hlY2sgaWYgdGhlcmUgaXMgYW55IHFlbXUgcHJvY2Vzcw0KIFRlc3Rf
+Q2hlY2tfUWVtdV9VUCgpDQogew0KLSAgICAgICBsb2NhbCBjb3VudD1gcHMgLWVmIHwgZ3JlcCAt
+YyBxZW11YA0KLSAgICAgICBpZiBbICR7Y291bnR9IC1sdCAyIF07IHRoZW4NCisgICAgICAgbG9j
+YWwgY291bnQ9YHBzIC1lbyBjb21tYW5kIHwgY3V0IC1kIiAiIC1mIDEgfCBncmVwIC1jICdcKF5x
+ZW11XHwuKi9xZW11XCknYA0KKyAgICAgICBpZiBbICR7Y291bnR9IC1uZSAxIF07IHRoZW4NCiAg
+ICAgICAgICAgICAgICBUZXN0X0luZm8gIlRoZXJlIGlzIG5vIFFlbXUgcHJvY2VzcyINCiAgICAg
+ICAgICAgICAgICByZXR1cm4gMQ0KICAgICAgICBlbHNlDQotICAgICAgICAgICAgICAgVGVzdF9J
+bmZvICJUaGVyZSBpcyBhdCBsZWFzdCBRZW11IHByb2Nlc3MgcnVubmluZyINCisgICAgICAgICAg
+ICAgICBUZXN0X0luZm8gIlRoZXJlIGlzIGF0IGxlYXN0IG9uZSBRZW11IHByb2Nlc3MgcnVubmlu
+ZyINCiAgICAgICAgICAgICAgICByZXR1cm4gMA0KICAgICAgICBmaQ0KIH0NCg0KPiBBbHNvLCB3
+YWl0aW5nIDEyMCBzZWNvbmRzIGZvciB0aGUgcWVtdSBuZXR3b3JrIHRvIGJlIHVwIGlzIGZpbmUu
+IEZvcg0KPiB0aGUgYWN0dWFsIHByb2Nlc3MgdG8gYmUgcnVubmluZyBJJ2Qgc3VnZ2VzdCB3ZSBq
+dXN0IHdhaXQgMTAgc2Vjb25kcw0KPiBtYXhpbXVtIGFzIGlmIGl0IGV2ZXIgdGFrZXMgbG9uZ2Vy
+IHRoYW4gdGhhdCwgd2UgaGF2ZSBhIHByb2JsZW0uIEknZCBwcm9wb3NlIHRoZSBmb2xsb3dpbmcg
+Y2hhbmdlOg0KPiANCj4gQEAgLTM4Myw5ICszODMsNyBAQCBUZXN0X0NyZWF0ZV9RZW11KCkNCj4g
+ICAgICAgICAjIEdldCB0aGUgcGlkIG9mIHRoZSB4dGVybSBwcm9jZXNzb3IsIHdoaWNoIHdpbGwg
+YmUgdXNlZCBpbg0KPiAgICAgICAgIFRlc3RfS2lsbF9RZW11IFBJRD0kIQ0KPiAtICAgICAgIHNs
+ZWVwIDUNCj4gLQ0KPiAtICAgICAgIHdoaWxlIFsgJHt1cF90aW1lfSAtbHQgJHt0aW1lb3V0fSBd
+DQo+ICsgICAgICAgd2hpbGUgWyAke3VwX3RpbWV9IC1sdCAxMCBdDQo+ICAgICAgICAgZG8NCj4g
+ICAgICAgICAgICAgICAgIFRlc3RfQ2hlY2tfUWVtdV9VUA0KPiAgICAgICAgICAgICAgICAgaWYg
+WyAkPyAtbmUgMCBdOyB0aGVuDQo+IEFyZSB5b3Ugb2sgd2l0aCB0aGVzZSBjaGFuZ2VzPw0KPiAN
+Cg0KQWdyZWUuIFdlIGRvbuKAmXQnIG5lZWQgdG8gd2FpdCBzdWNoIGEgbG9uZyB0aW1lIGZvciBx
+ZW11IHVwLg0KDQo+IENoZWVycywNCj4gDQo+IFJpY2hhcmQNCj4NCg0KQmVzdCBSZWdhcmRzLA0K
+SmlhanVuDQoNCg==
 
