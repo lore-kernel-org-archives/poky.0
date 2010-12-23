@@ -1,29 +1,34 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 549CA4C810F1
-	for <poky@yoctoproject.org>; Thu, 23 Dec 2010 11:48:10 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	oBNHnX7E022944; Thu, 23 Dec 2010 17:49:33 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id cWVzzmqBnibl; Thu, 23 Dec 2010 17:49:32 +0000 (GMT)
-Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	oBNHnSQo022929
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Thu, 23 Dec 2010 17:49:30 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Koen Kooi <koen@dominion.thruhere.net>
-In-Reply-To: <9CDD7A28-36BB-4970-B802-B4398C8B8BB7@dominion.thruhere.net>
-References: <9CDD7A28-36BB-4970-B802-B4398C8B8BB7@dominion.thruhere.net>
-Date: Thu, 23 Dec 2010 17:47:55 +0000
-Message-ID: <1293126475.17519.135.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Cc: poky@yoctoproject.org
-Subject: Re: Build breakage on master
+Return-Path: <aalonso00@gmail.com>
+Received: from mail-bw0-f48.google.com (mail-bw0-f48.google.com
+	[209.85.214.48])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 3D9424C80039
+	for <poky@yoctoproject.org>; Thu, 23 Dec 2010 12:27:38 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by bwz8 with SMTP id 8so6745910bwz.35
+	for <poky@yoctoproject.org>; Thu, 23 Dec 2010 10:27:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:received:received:date:message-id
+	:subject:from:to:content-type;
+	bh=s0jleyfIvjkQyWzAfLgjisTjSsfviojVbN00D0cvqUc=;
+	b=xuptWXP+hz4Ds7nIixIV/Z41V3d7pN80sAcv1UB6zUOCFHPG2vcfwh2Qc4y+RwmFUO
+	7tfX4n4AJsCQtOKS4APErL5WPnEir4xtG8Sctu7kGIs5g4NcDigdrpKXsLYR+tPthBLP
+	+HGzmsCpgbWC9BHTlpxFexifV+WCFC0pKV+o0=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:date:message-id:subject:from:to:content-type;
+	b=uuhvjI77Kwf7R9xDcOfPLIvn8MBoWDMteDIwSh76HWcJl/VetWmCa6hW7svyxmM6fo
+	n61S8POTn8AmWbp85yV+VSIC0mgIlYtIRZv+zhxNjL+JGDHs0JyllTYApBlcL5HA+/aU
+	CPR58rnu5Q00bW2BXJjDeqp5BK8v0ThKf1Xdg=
+MIME-Version: 1.0
+Received: by 10.204.67.140 with SMTP id r12mr7478178bki.147.1293128856325;
+	Thu, 23 Dec 2010 10:27:36 -0800 (PST)
+Received: by 10.204.3.210 with HTTP; Thu, 23 Dec 2010 10:27:36 -0800 (PST)
+Date: Thu, 23 Dec 2010 12:27:36 -0600
+Message-ID: <AANLkTim9iax+7aW3tmBUtmCdjtgAr0nT5U0nhwi+j2Ay@mail.gmail.com>
+From: Adrian Alonso <aalonso00@gmail.com>
+To: poky@yoctoproject.org
+Subject: pseudo native build fails on Fedora 14
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,45 +40,40 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 23 Dec 2010 17:48:10 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 23 Dec 2010 18:27:38 -0000
+Content-Type: multipart/alternative; boundary=001636c5b2bb214e390498180654
 
-On Thu, 2010-12-23 at 16:22 +0100, Koen Kooi wrote:
-> I wanted to try a build from scratch to test my RDEPENDS patch, but even without that it quickly halts with:
-> 
-> ERROR: Logfile of failure stored in: /OE/tentacle/build/tmp-angstrom_2010_x/work/armv7a-angstrom-linux-gnueabi/binutils-cross-2.20.1-r3/temp/log.do_configure.21368Log data follows:
-> | /OE/tentacle/build/tmp-angstrom_2010_x/work/armv7a-angstrom-linux-gnueabi/binutils-cross-2.20.1-r3/temp/run.do_configure.21368: line 183: gnu-configize: command not found| FATAL: Failed to run gnu-configize
-> 
-> I tripple checked and I don't have any classes or files relating to binutils, gnu-config or autotools overlayered, does anyone else see this issue?
-> 
-> bitbake gnu-config-native results in:
-> 
-> ERROR: Task failed: ('function do_configure failed', '/OE/tentacle/build/tmp-angstrom_2010_x/work/x86_64-linux/bzip2-native-1.0.6-r3/temp/log.do_configure.21957')
-> ERROR: Logfile of failure stored in: /OE/tentacle/build/tmp-angstrom_2010_x/work/x86_64-linux/bzip2-native-1.0.6-r3/temp/log.do_configure.21957
-> Log data follows:
-> | cp: cannot stat `/OE/tentacle/build/tmp-angstrom_2010_x/sysroots/x86_64-linux/usr/share/automake*/install-sh': No such file or directory
-> 
-> and
-> 
-> ERROR: Task failed: ('function do_configure failed', '/OE/tentacle/build/tmp-angstrom_2010_x/work/x86_64-linux/icu-native-3.6-r6/temp/log.do_configure.22007')
-> ERROR: Logfile of failure stored in: /OE/tentacle/build/tmp-angstrom_2010_x/work/x86_64-linux/icu-native-3.6-r6/temp/log.do_configure.22007
-> Log data follows:
-> | Remember to add `AC_PROG_LIBTOOL' to `configure.in'.
-> | Using `AC_PROG_RANLIB' is rendered obsolete by `AC_PROG_LIBTOOL'
-> | You should add the contents of `/usr/share/aclocal/libtool.m4' to `aclocal.m4'.
-> | /OE/tentacle/build/tmp-angstrom_2010_x/work/x86_64-linux/icu-native-3.6-r6/temp/run.do_configure.22007: line 154: gnu-configize: command not found
-> 
+--001636c5b2bb214e390498180654
+Content-Type: text/plain; charset=ISO-8859-1
 
-Talking with Koen offlist, this wasn't a build from scratch as sstate
-info was present. I believe this issue is resolved now although why the
-sstate was causing issues wasn't 100% clear. Angstrom and Poky distro
-configs were out of sync with some core sstate variables which might
-have been part of the problem and/or some of the recent sstate
-improvements.
+I start a build from scratch and pseudo-native fails to build
+at link stage:
 
-Cheers,
+...
+/usr/bin/ld: skipping incompatible
+/usr/lib/gcc/x86_64-redhat-linux/4.5.1/libgcc_s.so when searching for
+-lgcc_s
+| /usr/bin/ld: cannot find -lgcc_s
+| collect2: ld returned 1 exit status
+....
 
-Richard
+Full log at [http://pastebin.com/aP27aJ3X]
 
+Any advice to fix it?
 
+-- 
+Saludos
+Adrian Alonso
+http://aalonso.wordpress.com
+
+--001636c5b2bb214e390498180654
+Content-Type: text/html; charset=ISO-8859-1
+
+I start a build from scratch and pseudo-native fails to build<div>at link stage:</div><div><br></div><div>...</div><div><div>/usr/bin/ld: skipping incompatible /usr/lib/gcc/x86_64-redhat-linux/4.5.1/libgcc_s.so when searching for -lgcc_s</div>
+
+<div>| /usr/bin/ld: cannot find -lgcc_s</div><div>| collect2: ld returned 1 exit status</div>....</div><div><br></div><div>Full log at [<a href="http://pastebin.com/aP27aJ3X">http://pastebin.com/aP27aJ3X</a>]</div><div><br>
+</div><div>Any advice to fix it?</div><div><br>-- <br>Saludos<br>Adrian Alonso<br><a href="http://aalonso.wordpress.com" target="_blank">http://aalonso.wordpress.com</a><br>
+<br>
+</div>
+
+--001636c5b2bb214e390498180654--
