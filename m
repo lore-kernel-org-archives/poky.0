@@ -1,20 +1,22 @@
 Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A47174C81081
-	for <poky@yoctoproject.org>; Thu, 23 Dec 2010 07:55:44 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 23 Dec 2010 05:55:44 -0800
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 465374C81081
+	for <poky@yoctoproject.org>; Thu, 23 Dec 2010 07:55:47 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 23 Dec 2010 05:55:46 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,219,1291622400"; d="scan'208";a="690179104"
+X-IronPort-AV: E=Sophos;i="4.60,219,1291622400"; d="scan'208";a="639774008"
 Received: from unknown (HELO helios) ([10.255.16.56])
-	by orsmga001.jf.intel.com with SMTP; 23 Dec 2010 05:55:42 -0800
-Received: by helios (sSMTP sendmail emulation); Thu, 23 Dec 2010 13:55:42 +0000
-Message-Id: <cover.1293112192.git.paul.eggleton@linux.intel.com>
+	by fmsmga002.fm.intel.com with SMTP; 23 Dec 2010 05:55:45 -0800
+Received: by helios (sSMTP sendmail emulation); Thu, 23 Dec 2010 13:55:45 +0000
+Message-Id: <9a98042f6dd67391f88344a55db8496aede12bf5.1293112192.git.paul.eggleton@linux.intel.com>
+In-Reply-To: <cover.1293112192.git.paul.eggleton@linux.intel.com>
+References: <cover.1293112192.git.paul.eggleton@linux.intel.com>
 From: Paul Eggleton <paul.eggleton@linux.intel.com>
-Old-Date: Thu, 23 Dec 2010 13:49:52 +0000
-Date: Thu, 23 Dec 2010 13:55:42 +0000
+Old-Date: Thu, 23 Dec 2010 13:04:02 +0000
+Date: Thu, 23 Dec 2010 13:55:45 +0000
 To: poky@yoctoproject.org,scott.m.rifenbark@intel.com
-Subject: [PATCH 0/2] Minor documentation fixes
+Subject: [PATCH 1/2] documentation/bsp-guide/bsp.xml: fix typo in variable name
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,26 +28,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 23 Dec 2010 13:55:45 -0000
+X-List-Received-Date: Thu, 23 Dec 2010 13:55:47 -0000
 
-Some minor documentation fixes. Please review for wording and formatting.
+FILESEXTRAPATH -> FILESEXTRAPATHS
 
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: paule/doc-fixes
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=paule/doc-fixes
-
-Thanks,
-    Paul Eggleton <paul.eggleton@linux.intel.com>
+Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
 ---
+ documentation/bsp-guide/bsp.xml |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
-
-Paul Eggleton (2):
-  documentation/bsp-guide/bsp.xml: fix typo in variable name
-  documentation/poky-ref-manual: expand discussion of PR and INC_PR
-
- documentation/bsp-guide/bsp.xml                 |    2 +-
- documentation/poky-ref-manual/extendpoky.xml    |   17 +++++++++++------
- documentation/poky-ref-manual/ref-variables.xml |    8 ++++++--
- 3 files changed, 18 insertions(+), 9 deletions(-)
+diff --git a/documentation/bsp-guide/bsp.xml b/documentation/bsp-guide/bsp.xml
+index f5fd217..7013974 100644
+--- a/documentation/bsp-guide/bsp.xml
++++ b/documentation/bsp-guide/bsp.xml
+@@ -481,7 +481,7 @@ meta-Emenlow/recipes-Emenlow/image-creator/image-creator-native_0.1.bb
+                 This allows the BSP layer to do whatever it might want to do to customize the original recipe.
+             </para>
+             <para>
+-                If your recipe needs to reference extra files it can use the FILESEXTRAPATH variable
++                If your recipe needs to reference extra files it can use the FILESEXTRAPATHS variable
+                 to specify their location. 
+                 The example below shows extra files contained in a folder called ${PN} (the package name).
+             </para>
+-- 
+1.7.1
 
 
