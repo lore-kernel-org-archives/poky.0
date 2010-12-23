@@ -1,30 +1,19 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9A43C4C81110
-	for <poky@yoctoproject.org>; Thu, 23 Dec 2010 08:09:19 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	oBNEAflF015050; Thu, 23 Dec 2010 14:10:42 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id r1fPGcJZh4WZ; Thu, 23 Dec 2010 14:10:41 +0000 (GMT)
-Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	oBNEAX9e015035
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Thu, 23 Dec 2010 14:10:35 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Koen Kooi <koen@dominion.thruhere.net>
-In-Reply-To: <1293111933-5071-1-git-send-email-koen@openembedded.org>
-References: <1293050270.3578.172.camel@rex>
-	<1293111933-5071-1-git-send-email-koen@openembedded.org>
-Date: Thu, 23 Dec 2010 14:09:00 +0000
-Message-ID: <1293113340.1588.860.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Cc: poky@yoctoproject.org
-Subject: Re: [RFC][PATCH] RDEPENDS, RRECOMMENDS -> RDPEPENDS_${PN}, RRECOMMENDS_${PN}
+Return-Path: <sgw@linux.intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 22B8F4C80FD4
+	for <poky@yoctoproject.org>; Thu, 23 Dec 2010 08:26:39 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 23 Dec 2010 06:26:38 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,219,1291622400"; d="scan'208";a="365818251"
+Received: from unknown (HELO localhost) ([10.255.14.90])
+	by azsmga001.ch.intel.com with ESMTP; 23 Dec 2010 06:26:37 -0800
+Message-Id: <cover.1293114003.git.sgw@linux.intel.com>
+From: Saul Wold <sgw@linux.intel.com>
+Old-Date: Thu, 23 Dec 2010 06:20:03 -0800
+Date: Thu, 23 Dec 2010  6:26:36 -0800
+To: poky@yoctoproject.org
+Subject: [PATCH 00/28] Consolidated Pull & Enable LIC_FILES_CHKSUM as Error
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,325 +25,230 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 23 Dec 2010 14:09:20 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 23 Dec 2010 14:26:39 -0000
 
-On Thu, 2010-12-23 at 14:45 +0100, Koen Kooi wrote:
-> From: Koen Kooi <koen@dominion.thruhere.net>
-> 
-> For these recipes the depencies listed in RDEPENDS and RRECOMMENDS only apply to ${PN}
+This request has more of worlds building across all acrhes
+and enable the LIC_FILES_CHKSUM check as an ERROR
 
-Patch looks good overall. I spotted a few things as I read through it:
+This also has the meta-emenlow reorg first step, next step will 
+be to move it to meta-intel
 
-> diff --git a/meta-demoapps/recipes-connectivity/openswan/openswan_2.4.7.bb b/meta-demoapps/recipes-connectivity/openswan/openswan_2.4.7.bb
-> index 022f709..2283336 100644
-> --- a/meta-demoapps/recipes-connectivity/openswan/openswan_2.4.7.bb
-> +++ b/meta-demoapps/recipes-connectivity/openswan/openswan_2.4.7.bb
-> @@ -5,9 +5,9 @@ Linux operating system."
->  HOMEPAGE = "http://www.openswan.org"
->  LICENSE = "GPLv2"
->  DEPENDS = "gmp flex-native"
-> -RRECOMMENDS = "kernel-module-ipsec"
-> +RRECOMMENDS_${PN} = "kernel-module-ipsec"
->  RDEPENDS_nylon = "perl"
+Sau!
 
-This should probably become:
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: distro/stage
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=distro/stage
 
-RDEPENDS_${PN}_append_nylon = "perl"
+Thanks,
+    Saul Wold <sgw@linux.intel.com>
+---
 
-> diff --git a/meta-demoapps/recipes-gnome/abiword/abiword_2.5.2.bb b/meta-demoapps/recipes-gnome/abiword/abiword_2.5.2.bb
-> index 566d0fa..b879064 100644
-> --- a/meta-demoapps/recipes-gnome/abiword/abiword_2.5.2.bb
-> +++ b/meta-demoapps/recipes-gnome/abiword/abiword_2.5.2.bb
-> @@ -1,5 +1,5 @@
->  require abiword-2.5.inc
->  
-> -PR = "r1"
-> +PR = "r2"
->  
->  RCONFLICTS = "abiword-embedded"
 
-RCONFLICTS_${PN} = "abiword-embedded"
+Bruce Ashfield (4):
+  linux-yocto-stable: fix qemux86 branch name
+  qemu: match kernel headers to preferred kernel
+  linux-yocto: update to 2.6.37-rc6
+  linux-yocto: add dropped qemuppc configuration
 
-> diff --git a/meta/recipes-connectivity/avahi/avahi.inc b/meta/recipes-connectivity/avahi/avahi.inc
-> index b266ea4..5c3b4dd 100644
-> --- a/meta/recipes-connectivity/avahi/avahi.inc
-> +++ b/meta/recipes-connectivity/avahi/avahi.inc
-> @@ -16,7 +16,7 @@ PRIORITY = "optional"
->  LICENSE = "GPLv2+ & LGPLv2.1+"
->  
->  DEPENDS = "expat libcap libdaemon dbus glib-2.0 gtk+ libglade"
-> -RRECOMMENDS = "libnss-mdns"
-> +RRECOMMENDS_${PN} = "libnss-mdns"
->  RRECOMMENDS_avahi-daemon = "libnss-mdns"
+Darren Hart (1):
+  send-pull-request: allow users to select git-send-email or sendmail
 
-Hmm, which bit of avahi needs this? This looks a little odd...
+Saul Wold (19):
+  insane.bbclass: make LIC_FILES_CHKSUM failures report errors
+  apr: add configure for NODELAY to mips-common
+  connman: Update to 0.64 to solve build issue with .37 kernel headers
+  db: add LIC_FILES_CHKSUM
+  xf86-input-vmmouse: add COMPATIBLE_HOST set to x86*
+  perl: Add LIC_FILES_CHKSUM to native recipe
+  python-pygobject: remove older install of generate-constants and add
+    BBCLASSEXTEND
+  guilt: add LIC_FILES_CHKSUM
+  desktop-file-utils: Add LIC_FILES_CHKSUM
+  icon-naming-utils: Add LIC_FILES_CHKSUM
+  python: Add LIC_FILES_CHKSUM
+  unifdef Add LIC_FILES_CHKSUM
+  tzcode: Add LIC_FILES_CHKSUM
+  bootst-jam:  Add LIC_FILES_CHKSUM
+  gdb: Add LIC_FILE_CHKSUMS
+  qemu-helper: Add LIC_FILE_CHKSUMS
+  gtk: Add LIC_FILES_CHKSUM
+  xserver-xf86: Add LIC_FILES_CHKSUM
+  linux-yocto: Add LIC_FILES_CHKSUM
 
- 
-> diff --git a/meta/recipes-connectivity/gsm/gsmd.inc b/meta/recipes-connectivity/gsm/gsmd.inc
-> index 9818188..385c40e 100644
-> --- a/meta/recipes-connectivity/gsm/gsmd.inc
-> +++ b/meta/recipes-connectivity/gsm/gsmd.inc
-> @@ -19,7 +19,7 @@ SRC_URI = "svn://svn.openmoko.org/trunk/src/target;module=gsm;proto=http \
->  S = "${WORKDIR}/gsm"
->  
->  inherit autotools pkgconfig update-rc.d
-> -# handle update-rc.d RDEPENDS manually, we don't need it on
-> +# handle update-rc.d RDEPENDS_${PN} manually, we don't need it on
->  # anything but gsmd
->  RDEPENDS_append = ""
+Tom Zanussi (1):
+  meta-emenlow: update to the new BSP layout
 
-This looks like some kind of bug waiting to be fixed...
+Zhai Edwin (3):
+  matchbox-keyboard: Make as singleton
+  matchbox-stroke: Make as singleton
+  qemu: Add some checks before enabling KVM
 
- 
-> diff --git a/meta/recipes-core/glibc/glibc.inc b/meta/recipes-core/glibc/glibc.inc
-> index ecaf593..e2b681f 100644
-> --- a/meta/recipes-core/glibc/glibc.inc
-> +++ b/meta/recipes-core/glibc/glibc.inc
-> @@ -13,7 +13,7 @@ DEPENDS = "virtual/${TARGET_PREFIX}gcc-intermediate linux-libc-headers"
->  RDEPENDS_${PN}-dev = "linux-libc-headers-dev"
->  #this leads to circular deps, so lets not add it yet
->  #RDEPENDS_ldd += " bash"
-> -#RDEPENDS += "${@['','libgcc']['nptl' in '${GLIBC_ADDONS}']}"
-> +#RDEPENDS_${PN} += "${@['','libgcc']['nptl' in '${GLIBC_ADDONS}']}"
->  PROVIDES = "virtual/libc virtual/${TARGET_PREFIX}libc-for-gcc"
->  PROVIDES += "virtual/libintl virtual/libiconv"
->  
-> diff --git a/meta/recipes-core/glibc/glibc_2.10.1.bb b/meta/recipes-core/glibc/glibc_2.10.1.bb
-> index 364a0e5..6c683ec 100644
-> --- a/meta/recipes-core/glibc/glibc_2.10.1.bb
-> +++ b/meta/recipes-core/glibc/glibc_2.10.1.bb
-> @@ -5,7 +5,7 @@ ARM_INSTRUCTION_SET = "arm"
->  PACKAGES_DYNAMIC = "libc6*"
->  RPROVIDES_${PN}-dev = "libc6-dev virtual-libc-dev"
->  
-> -PR = "r6"
-> +PR = "r7"
->  
->  # the -isystem in bitbake.conf screws up glibc do_stage
->  BUILD_CPPFLAGS = "-I${STAGING_INCDIR_NATIVE}"
+ meta-emenlow/README                                |   78 ++++++++++++++++++++
+ meta-emenlow/conf/layer.conf                       |    4 +-
+ meta-emenlow/conf/machine/emenlow.conf             |    3 +
+ .../formfactor/formfactor/emenlow/machconfig       |    0
+ .../formfactor/formfactor_0.0.bbappend             |    0
+ .../libdrm-poulsbo-2.3.0/libdrm-poulsbo.patch      |    0
+ .../libdrm-poulsbo/libdrm-poulsbo_2.3.0.bb         |    0
+ .../libva-0.31.0/033_g45_add_rgba_subpic.patch     |    0
+ .../034_g45_fix_return_for_unimpl.patch            |    0
+ .../035_g45_add_yv12_image_format.patch            |    0
+ .../libva-0.31.0/036_g45_add_vaGetImage.patch      |    0
+ .../libva-0.31.0/037_g45_add_vaPutImage.patch      |    0
+ .../038_g45_vaPutSurface_cliprects.patch           |    0
+ .../libva-0.31.0/102_attribute_visibility.patch    |    0
+ .../libva/libva-0.31.0/103_fix_vainfo_deps.patch   |    0
+ .../104_fix_libva_pkgconfig_deps.patch             |    0
+ .../105_dont_search_LIBGL_DRIVERS_PATH.patch       |    0
+ .../libva/libva-0.31.0/108_drivers_path.patch      |    0
+ .../libva-0.31.0/203_fix_fglrx_detection.patch     |    0
+ .../libva-0.31.0/204_check_ATIFGLEXTENSION.patch   |    0
+ .../libva/libva-0.31.0/300_sds_version.patch       |    0
+ .../libva/libva-0.31.0/301_vdpau_mpeg4.patch       |    0
+ .../320_move_vaPutSurface_flags_def.patch          |    0
+ .../libva/libva-0.31.0/321_libva_glx.base.patch    |    0
+ .../libva/libva-0.31.0/322_libva_glx.patch         |    0
+ .../libva/libva-0.31.0/390_compat.base.patch       |    0
+ .../libva/libva-0.31.0/391_compat.patch            |    0
+ .../libva/libva-0.31.0/392_compat.dso.patch        |    0
+ .../libva/libva-0.31.0/libdrm-poulsbo.patch        |    0
+ .../libva/libva_0.31.0.bb                          |    0
+ .../psb-firmware/psb-firmware_0.30.bb              |    0
+ .../psb-kernel-source-4.42.0/build.patch           |    0
+ .../psb-kernel-source/psb-kernel-source_4.42.0.bb  |    0
+ .../xorg-xserver/files/crosscompile.patch          |    0
+ .../files/fix_open_max_preprocessor_error.patch    |    0
+ .../xorg-xserver/files/libdrm-poulsbo.patch        |    0
+ .../xorg-xserver/files/macro_tweak.patch           |    0
+ .../xorg-xserver/files/nodolt.patch                |    0
+ .../xorg-xserver/xserver-psb_1.7.99.2.bb           |    0
+ .../xserver-xf86-config/emenlow/xorg.conf          |    0
+ .../xorg-xserver/xserver-xf86-config_0.1.bbappend  |    0
+ .../xpsb-glx/xpsb-glx-0.18/cross-compile.patch     |    0
+ .../xpsb-glx/xpsb-glx-0.18/libdrmname.patch        |    0
+ .../xpsb-glx/xpsb-glx-0.18/native-matypes.patch    |    0
+ .../xpsb-glx/xpsb-glx_0.18.bb                      |    0
+ .../01_disable_lid_timer.patch                     |    0
+ .../xserver-xorg-video-psb-0.32.1/dri-h.patch      |    0
+ .../libdrm-poulsbo.patch                           |    0
+ .../xserver-xorg-video-psb-0.32.1/psb_mixed.patch  |    0
+ .../psb_xvtempfix.patch                            |    0
+ .../xserver-xorg-video-psb-0.32.1/stubs.patch      |    0
+ .../xserver-xorg-video-psb-0.32.1/visibility.patch |    0
+ .../xorg-x11-drv-psb-0.31.0-ignoreacpi.patch       |    0
+ .../xorg-x11-drv-psb-0.31.0-xserver17.patch        |    0
+ .../xserver-xorg-video-psb-0.31.0-assert.patch     |    0
+ ...rver-xorg-video-psb-0.31.0-comment_unused.patch |    0
+ .../xserver-xorg-video-psb-0.31.0-greedy.patch     |    0
+ .../xserver-xorg-video-psb-0.31.0-loader.patch     |    0
+ .../xserver-xorg-video-psb_0.32.1.bb               |    0
+ .../linux/linux-2.6.33.2/defconfig                 |    0
+ .../linux/linux-yocto-stable_git.bbappend          |    0
+ .../linux/linux_2.6.33.2.bbappend                  |    0
+ meta/classes/insane.bbclass                        |    8 +-
+ .../conf/distro/include/poky-default-revisions.inc |   27 +++----
+ meta/conf/machine/include/qemu.inc                 |    2 +-
+ .../connman/{connman-0.63 => connman-0.64}/connman |    0
+ .../{connman-0.63 => connman-0.64}/dbusperms.patch |    0
+ .../fix-shutdown-ap-disconnect.patch               |    0
+ .../connman/{connman_0.63.bb => connman_0.64.bb}   |    4 +-
+ .../desktop-file-utils-native_0.15.bb              |    3 +-
+ meta/recipes-devtools/gdb/gdb-common.inc           |    4 +
+ meta/recipes-devtools/guilt/guilt-native_0.33.bb   |    6 +-
+ .../icon-naming-utils-native_0.8.7.bb              |    2 +
+ meta/recipes-devtools/perl/perl-native_5.8.8.bb    |    3 +
+ .../recipes-devtools/python/python-native_2.6.6.bb |    1 +
+ .../python/python-pygobject-native_2.27.0.bb       |   15 ----
+ .../python/python-pygobject_2.27.0.bb              |    2 +
+ .../qemu/qemu-helper-native_1.0.bb                 |    2 +
+ .../unifdef/unifdef-native_2.6.18+git.bb           |    2 +
+ .../recipes-extended/tzcode/tzcode-native_2009r.bb |    2 +
+ meta/recipes-gnome/gtk+/gtk+.inc                   |    2 +
+ .../xorg-driver/xf86-input-vmmouse_12.6.10.bb      |    2 +
+ .../xorg-xserver/xserver-xf86-common.inc           |    2 +
+ .../linux-libc-headers-yocto_git.bb                |   10 +--
+ .../recipes-kernel/linux/linux-yocto-stable_git.bb |    2 +-
+ meta/recipes-kernel/linux/linux-yocto.inc          |    2 +
+ .../matchbox-keyboard/files/single-instance.patch  |   22 ++++++
+ .../matchbox-keyboard/matchbox-keyboard_svn.bb     |    1 +
+ .../matchbox-stroke/files/single-instance.patch    |   19 +++++
+ .../matchbox-stroke/matchbox-stroke_svn.bb         |    1 +
+ meta/recipes-support/boost/boost-jam-native.inc    |    2 +
+ meta/recipes-support/db/db_4.2.52.bb               |    2 +
+ meta/site/mips-common                              |    3 +
+ scripts/poky-qemu                                  |   25 ++++++-
+ scripts/send-pull-request                          |   69 +++++++++++++-----
+ 95 files changed, 262 insertions(+), 70 deletions(-)
+ create mode 100644 meta-emenlow/README
+ create mode 100644 meta-emenlow/binary/.gitignore
+ rename meta-emenlow/{recipes => recipes-bsp}/formfactor/formfactor/emenlow/machconfig (100%)
+ rename meta-emenlow/{recipes => recipes-bsp}/formfactor/formfactor_0.0.bbappend (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/libdrm-poulsbo/libdrm-poulsbo-2.3.0/libdrm-poulsbo.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/libdrm-poulsbo/libdrm-poulsbo_2.3.0.bb (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/libva/libva-0.31.0/033_g45_add_rgba_subpic.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/libva/libva-0.31.0/034_g45_fix_return_for_unimpl.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/libva/libva-0.31.0/035_g45_add_yv12_image_format.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/libva/libva-0.31.0/036_g45_add_vaGetImage.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/libva/libva-0.31.0/037_g45_add_vaPutImage.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/libva/libva-0.31.0/038_g45_vaPutSurface_cliprects.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/libva/libva-0.31.0/102_attribute_visibility.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/libva/libva-0.31.0/103_fix_vainfo_deps.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/libva/libva-0.31.0/104_fix_libva_pkgconfig_deps.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/libva/libva-0.31.0/105_dont_search_LIBGL_DRIVERS_PATH.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/libva/libva-0.31.0/108_drivers_path.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/libva/libva-0.31.0/203_fix_fglrx_detection.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/libva/libva-0.31.0/204_check_ATIFGLEXTENSION.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/libva/libva-0.31.0/300_sds_version.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/libva/libva-0.31.0/301_vdpau_mpeg4.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/libva/libva-0.31.0/320_move_vaPutSurface_flags_def.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/libva/libva-0.31.0/321_libva_glx.base.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/libva/libva-0.31.0/322_libva_glx.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/libva/libva-0.31.0/390_compat.base.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/libva/libva-0.31.0/391_compat.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/libva/libva-0.31.0/392_compat.dso.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/libva/libva-0.31.0/libdrm-poulsbo.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/libva/libva_0.31.0.bb (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/psb-firmware/psb-firmware_0.30.bb (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/psb-kernel-source/psb-kernel-source-4.42.0/build.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/psb-kernel-source/psb-kernel-source_4.42.0.bb (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/xorg-xserver/files/crosscompile.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/xorg-xserver/files/fix_open_max_preprocessor_error.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/xorg-xserver/files/libdrm-poulsbo.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/xorg-xserver/files/macro_tweak.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/xorg-xserver/files/nodolt.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/xorg-xserver/xserver-psb_1.7.99.2.bb (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/xorg-xserver/xserver-xf86-config/emenlow/xorg.conf (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/xorg-xserver/xserver-xf86-config_0.1.bbappend (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/xpsb-glx/xpsb-glx-0.18/cross-compile.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/xpsb-glx/xpsb-glx-0.18/libdrmname.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/xpsb-glx/xpsb-glx-0.18/native-matypes.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/xpsb-glx/xpsb-glx_0.18.bb (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/xserver-xorg-video-psb/xserver-xorg-video-psb-0.32.1/01_disable_lid_timer.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/xserver-xorg-video-psb/xserver-xorg-video-psb-0.32.1/dri-h.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/xserver-xorg-video-psb/xserver-xorg-video-psb-0.32.1/libdrm-poulsbo.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/xserver-xorg-video-psb/xserver-xorg-video-psb-0.32.1/psb_mixed.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/xserver-xorg-video-psb/xserver-xorg-video-psb-0.32.1/psb_xvtempfix.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/xserver-xorg-video-psb/xserver-xorg-video-psb-0.32.1/stubs.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/xserver-xorg-video-psb/xserver-xorg-video-psb-0.32.1/visibility.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/xserver-xorg-video-psb/xserver-xorg-video-psb-0.32.1/xorg-x11-drv-psb-0.31.0-ignoreacpi.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/xserver-xorg-video-psb/xserver-xorg-video-psb-0.32.1/xorg-x11-drv-psb-0.31.0-xserver17.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/xserver-xorg-video-psb/xserver-xorg-video-psb-0.32.1/xserver-xorg-video-psb-0.31.0-assert.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/xserver-xorg-video-psb/xserver-xorg-video-psb-0.32.1/xserver-xorg-video-psb-0.31.0-comment_unused.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/xserver-xorg-video-psb/xserver-xorg-video-psb-0.32.1/xserver-xorg-video-psb-0.31.0-greedy.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/xserver-xorg-video-psb/xserver-xorg-video-psb-0.32.1/xserver-xorg-video-psb-0.31.0-loader.patch (100%)
+ rename meta-emenlow/{recipes => recipes-graphics}/xserver-xorg-video-psb/xserver-xorg-video-psb_0.32.1.bb (100%)
+ rename meta-emenlow/{recipes => recipes-kernel}/linux/linux-2.6.33.2/defconfig (100%)
+ rename meta-emenlow/{recipes => recipes-kernel}/linux/linux-yocto-stable_git.bbappend (100%)
+ rename meta-emenlow/{recipes => recipes-kernel}/linux/linux_2.6.33.2.bbappend (100%)
+ rename meta/recipes-connectivity/connman/{connman-0.63 => connman-0.64}/connman (100%)
+ rename meta/recipes-connectivity/connman/{connman-0.63 => connman-0.64}/dbusperms.patch (100%)
+ rename meta/recipes-connectivity/connman/{connman-0.63 => connman-0.64}/fix-shutdown-ap-disconnect.patch (100%)
+ rename meta/recipes-connectivity/connman/{connman_0.63.bb => connman_0.64.bb} (80%)
+ delete mode 100644 meta/recipes-devtools/python/python-pygobject-native_2.27.0.bb
+ create mode 100644 meta/recipes-sato/matchbox-keyboard/files/single-instance.patch
+ create mode 100644 meta/recipes-sato/matchbox-stroke/files/single-instance.patch
 
-Lets drop the PR bump for a change in the comments :)
-
-> diff --git a/meta/recipes-core/meta/external-python-tarball.bb b/meta/recipes-core/meta/external-python-tarball.bb
-> index 494b21c..464c457 100644
-> --- a/meta/recipes-core/meta/external-python-tarball.bb
-> +++ b/meta/recipes-core/meta/external-python-tarball.bb
-> @@ -4,6 +4,8 @@ DEPENDS = "opkg-native opkg-utils-native virtual/fakeroot-native sed-native"
->  
->  inherit meta
->  
-> +PR = "r1"
-> +
->  SDK_DIR = "${WORKDIR}/sdk"
->  SDK_OUTPUT = "${SDK_DIR}/image"
->  SDK_DEPLOY = "${TMPDIR}/deploy/sdk"
-> @@ -33,7 +35,7 @@ TOOLCHAIN_HOST_TASK ?= "\
->  
->  TOOLCHAIN_OUTPUTNAME ?= "python-nativesdk-standalone-${SDKMACHINE}"
->  
-> -RDEPENDS = "${TOOLCHAIN_HOST_TASK}"
-> +RDEPENDS_${PN} = "${TOOLCHAIN_HOST_TASK}"
->  
->  EXCLUDE_FROM_WORLD = "1"
-
-Since PACKAGES = "" in this case, I think the RDEPENDS here is valid.
-
-> diff --git a/meta/recipes-core/meta/meta-toolchain.bb b/meta/recipes-core/meta/meta-toolchain.bb
-> index 40f8d7e..5eb2ae3 100644
-> --- a/meta/recipes-core/meta/meta-toolchain.bb
-> +++ b/meta/recipes-core/meta/meta-toolchain.bb
-> @@ -17,7 +17,7 @@ TOOLCHAIN_HOST_TASK ?= "task-sdk-host task-cross-canadian-${TRANSLATED_TARGET_AR
->  TOOLCHAIN_TARGET_TASK ?= "task-poky-standalone-sdk-target task-poky-standalone-sdk-target-dbg"
->  TOOLCHAIN_OUTPUTNAME ?= "${SDK_NAME}-toolchain-${DISTRO_VERSION}"
->  
-> -RDEPENDS = "${TOOLCHAIN_TARGET_TASK} ${TOOLCHAIN_HOST_TASK}"
-> +RDEPENDS_${PN} = "${TOOLCHAIN_TARGET_TASK} ${TOOLCHAIN_HOST_TASK}"
->  
->  EXCLUDE_FROM_WORLD = "1"
-
-and here.
-
- 
-> diff --git a/meta/recipes-core/tasks/task-base.bb b/meta/recipes-core/tasks/task-base.bb
-> index d613bb2..4f8c8d8 100644
-> --- a/meta/recipes-core/tasks/task-base.bb
-> +++ b/meta/recipes-core/tasks/task-base.bb
-> @@ -2,7 +2,7 @@ DESCRIPTION = "Merge machine and distro options to create a basic machine task/p
->  LICENSE = "MIT"
->  LIC_FILES_CHKSUM = "file://${POKYBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58 \
->                      file://${POKYBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
-> -PR = "r69"
-> +PR = "r70"
->  
->  inherit task
->  
-> @@ -72,8 +72,8 @@ PCMCIA_MANAGER ?= "${@base_contains('MACHINE_FEATURES', 'kernel26','pcmciautils'
->  #
->  # those ones can be set in machine config to supply packages needed to get machine booting
->  #
-> -MACHINE_ESSENTIAL_EXTRA_RDEPENDS ?= ""
-> -MACHINE_ESSENTIAL_EXTRA_RRECOMMENDS ?= ""
-> +MACHINE_ESSENTIAL_EXTRA_RDEPENDS_${PN} ?= ""
-> +MACHINE_ESSENTIAL_EXTRA_RRECOMMENDS_${PN} ?= ""
-
-This isn't necessary...
-
->  #
->  # task-base contain stuff needed for base system (machine related)
-> diff --git a/meta/recipes-core/tasks/task-poky-boot.bb b/meta/recipes-core/tasks/task-poky-boot.bb
-> index e9c8e8a..3f8bc59 100644
-> --- a/meta/recipes-core/tasks/task-poky-boot.bb
-> +++ b/meta/recipes-core/tasks/task-poky-boot.bb
-> @@ -9,13 +9,13 @@ LIC_FILES_CHKSUM = "file://${POKYBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3
->  PACKAGE_ARCH = "${MACHINE_ARCH}"
->  DEPENDS = "virtual/kernel"
->  ALLOW_EMPTY = "1"
-> -PR = "r7"
-> +PR = "r8"
->  
->  #
->  # Set by the machine configuration with packages essential for device bootup
->  #
-> -MACHINE_ESSENTIAL_EXTRA_RDEPENDS ?= ""
-> -MACHINE_ESSENTIAL_EXTRA_RRECOMMENDS ?= ""
-> +MACHINE_ESSENTIAL_EXTRA_RDEPENDS_${PN} ?= ""
-> +MACHINE_ESSENTIAL_EXTRA_RRECOMMENDS_${PN} ?= ""
->  
->  RDEPENDS_task-poky-boot = "\
->      base-files \
-
-likewise
-
-> diff --git a/meta/recipes-devtools/e2fsprogs/e2fsprogs_1.41.12.bb b/meta/recipes-devtools/e2fsprogs/e2fsprogs_1.41.12.bb
-> index 3f9195a..ffe6dce 100644
-> --- a/meta/recipes-devtools/e2fsprogs/e2fsprogs_1.41.12.bb
-> +++ b/meta/recipes-devtools/e2fsprogs/e2fsprogs_1.41.12.bb
-> @@ -1,6 +1,6 @@
->  require e2fsprogs.inc
->  
-> -PR = "r19"
-> +PR = "r20"
->  
->  SRC_URI += "file://quotefix.patch;patch=1 \
->              file://acinclude.m4"
-> @@ -34,7 +34,7 @@ do_install () {
->  }
->  
->  # blkid used to be part of e2fsprogs but is useful outside, add it
-> -# as an RDEPENDS so that anything relying on it being in e2fsprogs
-> +# as an RDEPENDS_${PN} so that anything relying on it being in e2fsprogs
->  # still works
->  RDEPENDS_e2fsprogs = "e2fsprogs-blkid e2fsprogs-badblocks"
-
-no PR bump needed.
-
- 
-> diff --git a/meta/recipes-devtools/opkg-utils/opkg-utils_svn.bb b/meta/recipes-devtools/opkg-utils/opkg-utils_svn.bb
-> index 087d254..2c19b39 100644
-> --- a/meta/recipes-devtools/opkg-utils/opkg-utils_svn.bb
-> +++ b/meta/recipes-devtools/opkg-utils/opkg-utils_svn.bb
-> @@ -5,10 +5,10 @@ PRIORITY = "optional"
->  LICENSE = "GPLv2+"
->  LIC_FILES_CHKSUM = "file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f \
->                      file://opkg.py;beginline=1;endline=18;md5=15917491ad6bf7acc666ca5f7cc1e083"
-> -RDEPENDS = "python"
-> +RDEPENDS_${PN} = "python"
->  RDEPENDS_virtclass-native = ""
-
-Need to change this to:
-
-RDEPENDS_${PN}_virtclass-native = ""
-
-> diff --git a/meta/recipes-devtools/unfs-server/unfs-server_2.2beta47.bb b/meta/recipes-devtools/unfs-server/unfs-server_2.2beta47.bb
-> index 89313d6..50ba339 100644
-> --- a/meta/recipes-devtools/unfs-server/unfs-server_2.2beta47.bb
-> +++ b/meta/recipes-devtools/unfs-server/unfs-server_2.2beta47.bb
-> @@ -3,10 +3,10 @@ SECTION = "console/network"
->  LICENSE = "GPLv2+"
->  LIC_FILES_CHKSUM = "file://COPYING;md5=8ca43cbc842c2336e835926c2166c28b"
->  
-> -RDEPENDS = "pseudo"
-> +RDEPENDS_${PN} = "pseudo"
->  RDEPENDS_virtclass-native = "pseudo-native"
->  RDEPENDS_virtclass-nativesdk = "pseudo-nativesdk"
-
-Need to add ${PN} to the virtclass versions.
-
-> diff --git a/meta/recipes-devtools/update-alternatives/update-alternatives-dpkg_1.13.22.bb b/meta/recipes-devtools/update-alternatives/update-alternatives-dpkg_1.13.22.bb
-> index 5d38d5d..9943aa8 100644
-> --- a/meta/recipes-devtools/update-alternatives/update-alternatives-dpkg_1.13.22.bb
-> +++ b/meta/recipes-devtools/update-alternatives/update-alternatives-dpkg_1.13.22.bb
-> @@ -1,7 +1,9 @@
->  require update-alternatives-dpkg.inc
->  
-> +PR = "r1"
-> +
->  PROVIDES += "virtual/update-alternatives"
->  RPROVIDES_${PN} += "update-alternatives"
-> -EXTRA_RDEPENDS = "perl dpkg"
-> +EXTRA_RDEPENDS_${PN} = "perl dpkg"
->  EXTRA_RDEPENDS_virtclass-native = ""
->  RDEPENDS_${PN} += "${EXTRA_RDEPENDS}"
-
-No change needed here :)
-
-> diff --git a/meta/recipes-gnome/gtk+/gtk+.inc b/meta/recipes-gnome/gtk+/gtk+.inc
-> index c34283e..ac7795e 100644
-> --- a/meta/recipes-gnome/gtk+/gtk+.inc
-> +++ b/meta/recipes-gnome/gtk+/gtk+.inc
-> @@ -35,7 +35,7 @@ FILES_${PN}-dbg += " \
->  	${libdir}/gtk-2.0/${LIBV}/engines/.debug/* \
->  	${libdir}/gtk-2.0/${LIBV}/printbackends/.debug/*"
->  
-> -BASE_RRECOMMENDS = "ttf-dejavu-sans"
-> +BASE_RRECOMMENDS_${PN} = "ttf-dejavu-sans"
->  BASE_RRECOMMENDS_angstrom = "ttf-dejavu-sans gdk-pixbuf-loader-png gdk-pixbuf-loader-jpeg gdk-pixbuf-loader-gif gdk-pixbuf-loader-xpm"
->  BASE_RRECOMMENDS_poky = "gdk-pixbuf-loader-png gdk-pixbuf-loader-jpeg gdk-pixbuf-loader-gif gdk-pixbuf-loader-xpm shared-mime-info"
->  BASE_RRECOMMENDS_moblin = "gdk-pixbuf-loader-png gdk-pixbuf-loader-jpeg gdk-pixbuf-loader-gif gdk-pixbuf-loader-xpm shared-mime-info"
-
-Need to add ${PN} into these. We should really consider changing the
-default here...
-
-> diff --git a/meta/recipes-graphics/xorg-font/font-alias_1.0.3.bb b/meta/recipes-graphics/xorg-font/font-alias_1.0.3.bb
-> index f3b3716..7a2ddb6 100644
-> --- a/meta/recipes-graphics/xorg-font/font-alias_1.0.3.bb
-> +++ b/meta/recipes-graphics/xorg-font/font-alias_1.0.3.bb
-> @@ -10,11 +10,11 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=bf0158b89be493d523d69d9f29265038 \
->                      file://100dpi/fonts.alias;md5=85bebd6ca213aa656c301a72eb4397cb"
->  
->  DEPENDS = "virtual/xserver font-util"
-> -RDEPENDS = "encodings font-util"
-> +RDEPENDS_${PN} = "encodings font-util"
->  RDEPENDS_virtclass-native = "font-util"
-
-another virtclass to add ${PN} into.
-
- 
->  PE = "1"
-> -PR = "${INC_PR}.0"
-> +PR = "${INC_PR}.1"
->  
->  SRC_URI[md5sum] = "6d25f64796fef34b53b439c2e9efa562"
->  SRC_URI[sha256sum] = "8b453b2aae1cfa8090009ca037037b8c5e333550651d5a158b7264ce1d472c9a"
-> diff --git a/meta/recipes-graphics/xorg-font/font-util_1.2.0.bb b/meta/recipes-graphics/xorg-font/font-util_1.2.0.bb
-> index 972e9e3..14ba51a 100644
-> --- a/meta/recipes-graphics/xorg-font/font-util_1.2.0.bb
-> +++ b/meta/recipes-graphics/xorg-font/font-util_1.2.0.bb
-> @@ -12,10 +12,10 @@ PACKAGE_ARCH = "${BASE_PACKAGE_ARCH}"
->  
->  DEPENDS = "encodings util-macros"
->  DEPENDS_virtclass-native = "util-macros-native"
-> -RDEPENDS = "mkfontdir mkfontscale encodings"
-> +RDEPENDS_${PN} = "mkfontdir mkfontscale encodings"
->  RDEPENDS_virtclass-native = "mkfontdir-native mkfontscale-native"
-
-and here
-
-Cheers,
-
-Richard
-
+-- 
+1.7.2.3
 
 
