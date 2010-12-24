@@ -1,21 +1,21 @@
 Return-Path: <jessica.zhang@intel.com>
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2E2054C811F8
+	by mx1.pokylinux.org (Postfix) with ESMTP id AE9E94C811FD
 	for <poky@yoctoproject.org>; Mon,  3 Jan 2011 17:47:49 -0600 (CST)
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
 	by orsmga101.jf.intel.com with ESMTP; 03 Jan 2011 15:47:47 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,268,1291622400"; d="scan'208";a="693216390"
+X-IronPort-AV: E=Sophos;i="4.60,268,1291622400"; d="scan'208";a="693216392"
 Received: from jzhang-desktop.jf.intel.com (HELO localhost) ([10.7.201.52])
 	by orsmga001.jf.intel.com with ESMTP; 03 Jan 2011 15:47:47 -0800
-Message-Id: <4aee752ae7ccca872a72cd6fbeee4fda366a01f9.1294099430.git.jessica.zhang@intel.com>
+Message-Id: <b5b3a6fe60216a1b6ab9541a70c35131487f750a.1294099430.git.jessica.zhang@intel.com>
 In-Reply-To: <cover.1294099429.git.jessica.zhang@intel.com>
 References: <cover.1294099429.git.jessica.zhang@intel.com>
 From: Liping Ke <liping.ke@intel.com>
-Date: Fri, 24 Dec 2010 05:47:52 +0800
+Date: Sat, 25 Dec 2010 05:12:16 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 19/59] Add installer scripts tarball generating bb file
+Subject: [PATCH 22/59] Removde Debug options from installer script
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,76 +31,19 @@ X-List-Received-Date: Mon, 03 Jan 2011 23:47:49 -0000
 
 Signed-off-by: Liping Ke <liping.ke@intel.com>
 ---
- .../installer/adt-installer_1.0.bb                 |   60 ++++++++++++++++++++
- 1 files changed, 60 insertions(+), 0 deletions(-)
- create mode 100644 meta/recipes-devtools/installer/adt-installer_1.0.bb
+ .../installer/adt-installer/yocto_installer        |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
-diff --git a/meta/recipes-devtools/installer/adt-installer_1.0.bb b/meta/recipes-devtools/installer/adt-installer_1.0.bb
-new file mode 100644
-index 0000000..fa10be3
---- /dev/null
-+++ b/meta/recipes-devtools/installer/adt-installer_1.0.bb
-@@ -0,0 +1,60 @@
-+DESCRIPTION = "Meta package for creating sdk installer tarball"
-+LIC_FILES_CHKSUM = "file://${POKYBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58 \
-+                    file://${POKYBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
-+LICENSE = "MIT"
-+
-+ALLOW_EMPTY = "1"
-+
-+PACKAGES = ""
-+PACKAGE_ARCH = "all"
-+
-+PR = "r0"
-+
-+ADT_DEPLOY = "${TMPDIR}/deploy/sdk/"
-+ADT_DIR = "${WORKDIR}/adt-installer/"
-+
-+S = "${WORKDIR}"
-+
-+inherit deploy
-+
-+SRC_URI = "http://opkg.googlecode.com/files/opkg-0.1.8.tar.gz \
-+           file://yocto_installer \
-+           file://scripts/yocto_installer_internal \
-+           file://scripts/util \
-+           file://scripts/data_define \
-+           file://scripts/extract_rootfs \
-+           file://yocto_installer.conf \
-+           file://opkg/conf/opkg-sdk-x86_64.conf \
-+           file://opkg/conf/opkg-sdk-i586.conf \
-+	  "
-+SRC_URI[md5sum] = "5e888dd46a252cc22686b732fbe486b3"
-+SRC_URI[sha256sum] = "ded8f16f55a641672fe1344842998def5f5163d7ebbd5d58ab15c54b04927660"
-+
-+fakeroot do_deploy () {
-+	mkdir -p ${ADT_DEPLOY}
-+	rm -f ${ADT_DEPLOY}/adt-installer.tar.bz2
-+	rm -rf ${ADT_DIR}
-+	mkdir -p ${ADT_DIR}
-+	mkdir -p ${WORKDIR}/opkg/conf
-+	mkdir -p ${WORKDIR}/opkg/build
-+	mkdir -p ${WORKDIR}/scripts
-+	mkdir -p ${WORKDIR}/build
-+	cp -r ${WORKDIR}/opkg ${ADT_DIR}/
-+	cp -r ${WORKDIR}/opkg-0.1.8 ${ADT_DIR}/opkg/build
-+	cp -r ${WORKDIR}/scripts ${ADT_DIR}/
-+	cp yocto_installer ${ADT_DIR}
-+	cp yocto_installer.conf ${ADT_DIR}
-+	tar cfj ${WORKDIR}/adt_installer.tar.bz2 adt-installer
-+	cp adt_installer.tar.bz2 ${ADT_DEPLOY}
-+}
-+
-+do_patch[noexec] = "1"
-+do_configure[noexec] = "1"
-+do_compile[noexec] = "1"
-+do_package[noexec] = "1"
-+do_package_write[noexec] = "1"
-+do_package_write_ipk[noexec] = "1"
-+do_package_write_rpm[noexec] = "1"
-+do_package_write_deb[noexec] = "1"
-+
-+addtask deploy before do_populate_sysroot after do_install
+diff --git a/meta/recipes-devtools/installer/adt-installer/yocto_installer b/meta/recipes-devtools/installer/adt-installer/yocto_installer
+index fc08245..d15d2f7 100755
+--- a/meta/recipes-devtools/installer/adt-installer/yocto_installer
++++ b/meta/recipes-devtools/installer/adt-installer/yocto_installer
+@@ -1,4 +1,4 @@
+-#!/bin/bash -x
++#!/bin/bash
+ # Yocto ADT Installer
+ #
+ # Copyright (C) 2010 Intel Corp.
 -- 
 1.7.0.4
 
