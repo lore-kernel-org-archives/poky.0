@@ -1,20 +1,20 @@
 Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 4A8744C810C0
-	for <poky@yoctoproject.org>; Thu, 30 Dec 2010 11:25:19 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 30 Dec 2010 09:25:08 -0800
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4C2034C811E0
+	for <poky@yoctoproject.org>; Thu, 30 Dec 2010 11:26:01 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 30 Dec 2010 09:25:30 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,250,1291622400"; d="scan'208";a="873078282"
-Received: from unknown (HELO localhost) ([143.183.140.52])
-	by fmsmga001.fm.intel.com with ESMTP; 30 Dec 2010 09:25:08 -0800
-Message-Id: <f17bca27bf2df5d8dc0b09124127421ef68b420a.1293729977.git.nitin.a.kamble@intel.com>
+X-IronPort-AV: E=Sophos;i="4.60,250,1291622400"; d="scan'208";a="641841629"
+Received: from mukti.sc.intel.com (HELO localhost) ([143.183.140.52])
+	by fmsmga002.fm.intel.com with ESMTP; 30 Dec 2010 09:25:30 -0800
+Message-Id: <b3a0851c7987f82e97bc45fa1f6b57e17ccf9052.1293729977.git.nitin.a.kamble@intel.com>
 In-Reply-To: <cover.1293729977.git.nitin.a.kamble@intel.com>
 References: <cover.1293729977.git.nitin.a.kamble@intel.com>
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Date: Sun, 26 Dec 2010 17:26:28 -0800
+Date: Sun, 26 Dec 2010 18:09:40 -0800
 To: poky@yoctoproject.org
-Subject: [PATCH 1/5] distro-tracking: update recently updated recipes
+Subject: [PATCH 3/5] byacc: upgrade recipe from 20100610 to 20101127
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,59 +26,42 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 30 Dec 2010 17:25:19 -0000
+X-List-Received-Date: Thu, 30 Dec 2010 17:26:01 -0000
 
 Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
 ---
- .../conf/distro/include/distro_tracking_fields.inc |   14 +++++++-------
- 1 files changed, 7 insertions(+), 7 deletions(-)
+ meta/recipes-extended/byacc/byacc_20100610.bb |    7 -------
+ meta/recipes-extended/byacc/byacc_20101127.bb |    7 +++++++
+ 2 files changed, 7 insertions(+), 7 deletions(-)
+ delete mode 100644 meta/recipes-extended/byacc/byacc_20100610.bb
+ create mode 100644 meta/recipes-extended/byacc/byacc_20101127.bb
 
-diff --git a/meta/conf/distro/include/distro_tracking_fields.inc b/meta/conf/distro/include/distro_tracking_fields.inc
-index 7a88447..727910a 100644
---- a/meta/conf/distro/include/distro_tracking_fields.inc
-+++ b/meta/conf/distro/include/distro_tracking_fields.inc
-@@ -15,8 +15,8 @@ RECIPE_LATEST_VERIONS_pn-gccmakedep = "check"
- RECIPE_MAINTAINER_pn-gccmakedep = "Dexuan Cui <dexuan.cui@intel.com>"
- DISTRO_PN_ALIAS_pn-gccmakedep = "Mandriva=gccmakedep Ubuntu=xutils-dev"
- 
--RECIPE_STATUS_pn-git = "green"
--RECIPE_LATEST_VERIONS_pn-git = "1.7.3.2"
-+RECIPE_STATUS_pn-git = "red"
-+RECIPE_LATEST_VERIONS_pn-git = "1.7.3.4"
- RECIPE_MAINTAINER_pn-git = "Nitin A Kamble <nitin.a.kamble@intel.com>"
- 
- RECIPE_STATUS_pn-gtk-theme-torturer = "red"
-@@ -2677,7 +2677,7 @@ RECIPE_STATUS_pn-prelink="red"
- RECIPE_LATEST_VERSION_pn-prelink="1.0+git0+0x909470ee441237563d6236c505cb2d02ddc48704"
- RECIPE_MAINTAINER_pn-prelink = "Nitin A Kamble <nitin.a.kamble@intel.com>"
- 
--RECIPE_STATUS_pn-python-dbus="green" 
-+RECIPE_STATUS_pn-python-dbus="red" 
- RECIPE_LATEST_VERSION_pn-python-dbus="0.83.1"
- RECIPE_MAINTAINER_pn-python-dbus = "Nitin A Kamble <nitin.a.kamble@intel.com>"
- DISTRO_PN_ALIAS_pn-python-dbus = "Ubuntu=python-dbus Debian=python-dbus Mandriva=python-dbus"
-@@ -2715,8 +2715,8 @@ RECIPE_LATEST_VERSION_pn-python-scons="2.0.1"
- DISTRO_PN_ALIAS_pn-python-scons = "Fedora=scons OpenSuSE=scons Ubuntu=scons Mandriva=scons Debian=scons"
- RECIPE_MAINTAINER_pn-python-scons = "Nitin A Kamble <nitin.a.kamble@intel.com>"
- 
--RECIPE_STATUS_pn-python="green"
--RECIPE_LATEST_VERSION_pn-python="2.6.6"
-+RECIPE_STATUS_pn-python="red"
-+RECIPE_LATEST_VERSION_pn-python="2.7.1"
- RECIPE_NO_OF_PATCHES_pn-python="8"
- RECIPE_LATEST_RELEASE_DATE_pn-python="2010/03/18"
- RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-python="5 months"
-@@ -2752,8 +2752,8 @@ RECIPE_LATEST_VERSION_pn-libmpc="0.8.2"
- RECIPE_MAINTAINER_pn-libmpc = "Nitin A Kamble <nitin.a.kamble@intel.com>"
- DISTRO_PN_ALIAS_pn-libmpc = "Fedora=libmpc OpenSuse=libmpc2"
- 
--RECIPE_STATUS_pn-byacc="green" 
--RECIPE_LATEST_VERSION_pn-byacc="20100610"
-+RECIPE_STATUS_pn-byacc="red" 
-+RECIPE_LATEST_VERSION_pn-byacc="20101127"
- RECIPE_MAINTAINER_pn-byacc = "Nitin A Kamble <nitin.a.kamble@intel.com>"
- 
- RECIPE_STATUS_pn-libconvert-asn1-perl="red" # 0.22 version does not build, so created a recipe for version 0.21
+diff --git a/meta/recipes-extended/byacc/byacc_20100610.bb b/meta/recipes-extended/byacc/byacc_20100610.bb
+deleted file mode 100644
+index f02a11b..0000000
+--- a/meta/recipes-extended/byacc/byacc_20100610.bb
++++ /dev/null
+@@ -1,7 +0,0 @@
+-PR = "r0"
+-LICENSE="other-BSD"
+-LIC_FILES_CHKSUM = "file://package/debian/copyright;md5=4dc4c30f840a7203fb6edf20b3db849e"
+-require byacc.inc
+-
+-SRC_URI[md5sum] = "3063667be3bfcd844bdac9afd560954b"
+-SRC_URI[sha256sum] = "02bcfb9262127fe23abe2c42f02de12c3ea51a9fffc9fb82ffa3bda7289d72c1"
+diff --git a/meta/recipes-extended/byacc/byacc_20101127.bb b/meta/recipes-extended/byacc/byacc_20101127.bb
+new file mode 100644
+index 0000000..b6b7b70
+--- /dev/null
++++ b/meta/recipes-extended/byacc/byacc_20101127.bb
+@@ -0,0 +1,7 @@
++PR = "r0"
++LICENSE="other-BSD"
++LIC_FILES_CHKSUM = "file://package/debian/copyright;md5=4dc4c30f840a7203fb6edf20b3db849e"
++require byacc.inc
++
++SRC_URI[md5sum] = "5931a27e43102dc868745bf4dce91fb4"
++SRC_URI[sha256sum] = "c172c7ed2ee2130510d4d6e134bcac791b217e4883051137690613ac011aca47"
 -- 
 1.7.2.3
 
