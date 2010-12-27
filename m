@@ -1,23 +1,20 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 28E944C810A8;
-	Mon, 27 Dec 2010 01:29:10 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 26 Dec 2010 23:29:09 -0800
+Return-Path: <ke.yu@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D4D5A4C810A8
+	for <poky@yoctoproject.org>; Mon, 27 Dec 2010 07:50:06 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 27 Dec 2010 05:50:06 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,234,1291622400"; d="scan'208";a="640677472"
-Received: from unknown (HELO [10.255.13.220]) ([10.255.13.220])
-	by fmsmga002.fm.intel.com with ESMTP; 26 Dec 2010 23:28:57 -0800
-Message-ID: <4D184024.5060305@intel.com>
-Date: Sun, 26 Dec 2010 23:28:36 -0800
-From: Saul Wold <saul.wold@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
-MIME-Version: 1.0
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>, 
-	Yocto Project Discussion <yocto@yoctoproject.org>
-Subject: Nightly Killed in preference to Nightly milestone
+X-IronPort-AV: E=Sophos;i="4.60,234,1291622400"; d="scan'208";a="587518236"
+Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
+	by orsmga002.jf.intel.com with ESMTP; 27 Dec 2010 05:50:05 -0800
+Message-Id: <cover.1293457442.git.ke.yu@intel.com>
+From: Yu Ke <ke.yu@intel.com>
+Old-Date: Mon, 27 Dec 2010 21:44:02 +0800
+Date: Mon, 27 Dec 2010 21:57:02 +0800
+To: poky@yoctoproject.org
+CC: 
+Subject: [PATCH 0/8] RFC: break fetcher src rev deadlock
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,19 +26,120 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 27 Dec 2010 07:29:10 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 27 Dec 2010 13:50:07 -0000
+
+    Current fetcher has annoying "SRCREVINACTION" deadlock,
+    which occurs when SRCREV=${AUTOREV}=@bb.fetch.get_srcrev():
+    get_srcrev()->setup_localpath()->srcrev_internal_helper()
+    ->evaluate SRCREV->get_srcrev()
+
+    Current fetcher resolve the deadlock by introducing a
+    "SRCREVINACTION" condition check. Althoguh it works, it is
+    indeed not clean.
+
+    This patch use Richard's idea to break the deadlock: break
+    the dependency among SRCREV and get_srcrev(), i.e. assign
+    a specific keyword "AUTOINC" to AUTOREV. when Fetcher meet
+    this keyword, it will check and set the latest revision to
+    urldata.revision. get_srcrev later can use the urldata.revision
+    for value evaluation(SRCPV etc). In this case, SRCREV no longer
+    depends on get_srcrev, and there is not deadlock anymore.
+
+    In implementation side, several things are done:
+    a) set the revision in FetchData:__init__, so that
+       urldata.revision is ready when get_srcrev() need it
+    b) init fetch method specific data in Fetch:supports, so that
+       Fetch.latest_revision() can be conducted when FetchData:
+       __init__ need it to achieve a)
+    c) some recpies still use ${SRCREV} in PV, which is not corect
+       logically, and will cause error in current implementation.
+       so replace the SRCREV with SRCPV for those recpies
+
+	in test side, some basic tests are conducted:
+    - fetch the source of world packages from scratch (empty DL_DIR)
+    - bitbake poky-image-sato for qemux86 from sratch (empty DL_DIR)
+
+     more testing is ongoing, this RFC is just for early patch review
+     and comments are warmly welcome.
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: kyu3/srcrev-cleanup
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kyu3/srcrev-cleanup
+
+Thanks,
+    Yu Ke <ke.yu@intel.com>
+---
 
 
-Folks,
+Yu Ke (8):
+  Fetch: fix support-srcrev typo
+  git.py: move git specific url data initialization earlier
+  svn.py: move svn specific url data initialization earlier
+  hg.py: move hg specific url data initialization earlier
+  bzr.py: move bzr specific url data initialization earlier
+  recpies: use SRCPV instead of SRCREV for PV
+  Fetcher: break the "SRCREVINACTION" deadlock
+  Fetcher: only set __BB_DONT_CACHE when SRCREV = "${AUTOREV}"
 
-It seems the night is still auto running, I killed it to allow for the 
-milestone version of nightly to run (split across 2 machines instead).
+ bitbake/lib/bb/fetch/__init__.py                   |   56 ++++++++------------
+ bitbake/lib/bb/fetch/bzr.py                        |   22 ++++----
+ bitbake/lib/bb/fetch/git.py                        |   25 +++++----
+ bitbake/lib/bb/fetch/hg.py                         |   25 +++++----
+ bitbake/lib/bb/fetch/repo.py                       |    2 +-
+ bitbake/lib/bb/fetch/svn.py                        |   25 +++++----
+ .../recipes-connectivity/opensync/libsync_svn.bb   |    2 +-
+ .../matchbox-themes-extra_svn.bb                   |    2 +-
+ meta/conf/bitbake.conf                             |    2 +-
+ .../eee-acpi-scripts/eee-acpi-scripts_git.bb       |    2 +-
+ meta/recipes-bsp/uboot/u-boot-omap3_git.bb         |    2 +-
+ meta/recipes-bsp/x-load/x-load_git.bb              |    2 +-
+ meta/recipes-bsp/zaurusd/zaurusd_svn.bb            |    2 +-
+ meta/recipes-connectivity/gsm/gsmd.inc             |    2 +-
+ meta/recipes-connectivity/gypsy/gypsy_svn.bb       |    2 +-
+ meta/recipes-core/dbus-wait/dbus-wait_svn.bb       |    2 +-
+ meta/recipes-core/psplash/psplash_svn.bb           |    2 +-
+ meta/recipes-devtools/opkg-utils/opkg-utils_svn.bb |    2 +-
+ meta/recipes-devtools/opkg/opkg_svn.bb             |    2 +-
+ meta/recipes-devtools/tcf-agent/tcf-agent_svn.bb   |    2 +-
+ meta/recipes-devtools/ubootchart/ubootchart_svn.bb |    2 +-
+ meta/recipes-gnome/gnome/gconf-dbus_svn.bb         |    2 +-
+ .../gnome/gobject-introspection_git.bb             |    2 +-
+ meta/recipes-gnome/gtkhtml2/gtkhtml2_svn.bb        |    2 +-
+ meta/recipes-graphics/drm/libdrm_git.bb            |    2 +-
+ meta/recipes-graphics/fstests/fstests_svn.bb       |    2 +-
+ meta/recipes-graphics/libfakekey/libfakekey_svn.bb |    2 +-
+ .../libmatchbox/libmatchbox_svn.bb                 |    2 +-
+ .../matchbox-wm-2/matchbox-wm-2_svn.bb             |    2 +-
+ .../matchbox-wm/matchbox-wm_svn.bb                 |    2 +-
+ meta/recipes-graphics/xcb/libxcb_git.bb            |    2 +-
+ meta/recipes-graphics/xcb/xcb-proto_git.bb         |    2 +-
+ .../xvideo-tests/xvideo-tests_svn.bb               |    2 +-
+ .../linux-firmware/linux-firmware_git.bb           |    2 +-
+ meta/recipes-kernel/linux/linux-omap2_git.bb       |    2 +-
+ meta/recipes-kernel/linux/linux-omap3-pm_git.bb    |    2 +-
+ meta/recipes-kernel/linux/linux-omap3_git.bb       |    2 +-
+ meta/recipes-kernel/oprofile/oprofileui-svn.inc    |    2 +-
+ meta/recipes-sato/gaku/gaku_svn.bb                 |    2 +-
+ .../gtk-engines/gtk-sato-engine_svn.bb             |    2 +-
+ meta/recipes-sato/libowl/libowl_svn.bb             |    2 +-
+ .../matchbox-config-gtk/matchbox-config-gtk_svn.bb |    2 +-
+ .../matchbox-desktop-sato_svn.bb                   |    2 +-
+ .../matchbox-desktop/matchbox-desktop_svn.bb       |    2 +-
+ .../matchbox-keyboard/matchbox-keyboard_svn.bb     |    2 +-
+ .../matchbox-panel-2/matchbox-panel-2_svn.bb       |    2 +-
+ .../matchbox-stroke/matchbox-stroke_svn.bb         |    2 +-
+ .../matchbox-terminal/matchbox-terminal_svn.bb     |    2 +-
+ .../matchbox-theme-sato-2_svn.bb                   |    2 +-
+ .../matchbox-theme-sato/matchbox-theme-sato_svn.bb |    2 +-
+ .../recipes-sato/owl-video-widget/libowl-av_svn.bb |    2 +-
+ .../recipes-sato/owl-video-widget/owl-video_svn.bb |    2 +-
+ meta/recipes-sato/puzzles/oh-puzzles_svn.bb        |    2 +-
+ meta/recipes-sato/screenshot/screenshot_svn.bb     |    2 +-
+ .../settings-daemon/settings-daemon_svn.bb         |    2 +-
+ meta/recipes-sato/web/web-webkit_svn.bb            |    2 +-
+ meta/recipes-sato/web/web_svn.bb                   |    2 +-
+ meta/recipes-sato/webkit/webkit-gtk_svn.bb         |    2 +-
+ meta/recipes-support/libgdbus/libgdbus_git.bb      |    2 +-
+ 59 files changed, 131 insertions(+), 130 deletions(-)
 
-This Incremental build is looking good, we have had some minor tweaks 
-due the the LIC_FILES_CHKSUM code being enabled as ERROR level, so watch 
-those commit requests for making sure that data is correct.
-
-Sau!
 
