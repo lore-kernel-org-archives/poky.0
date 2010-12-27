@@ -1,20 +1,22 @@
 Return-Path: <ke.yu@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D4D5A4C810A8
-	for <poky@yoctoproject.org>; Mon, 27 Dec 2010 07:50:06 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 27 Dec 2010 05:50:06 -0800
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 3E03E4C810A8
+	for <poky@yoctoproject.org>; Mon, 27 Dec 2010 07:50:28 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 27 Dec 2010 05:50:27 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,234,1291622400"; d="scan'208";a="587518236"
-Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
-	by orsmga002.jf.intel.com with ESMTP; 27 Dec 2010 05:50:05 -0800
-Message-Id: <cover.1293457442.git.ke.yu@intel.com>
+X-IronPort-AV: E=Sophos;i="4.60,234,1291622400"; d="scan'208";a="640752556"
+Received: from unknown (HELO localhost) ([10.238.153.102])
+	by fmsmga002.fm.intel.com with ESMTP; 27 Dec 2010 05:50:27 -0800
+Message-Id: <5a8e3594c349e232fd5f5c95dff884e09f3b02dd.1293457442.git.ke.yu@intel.com>
+In-Reply-To: <cover.1293457442.git.ke.yu@intel.com>
+References: <cover.1293457442.git.ke.yu@intel.com>
 From: Yu Ke <ke.yu@intel.com>
-Old-Date: Mon, 27 Dec 2010 21:44:02 +0800
-Date: Mon, 27 Dec 2010 21:57:02 +0800
+Old-Date: Sun, 26 Dec 2010 10:35:14 +0800
+Date: Mon, 27 Dec 2010 21:57:04 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 0/8] RFC: break fetcher src rev deadlock
+Subject: [PATCH 1/8] Fetch: fix support-srcrev typo
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,120 +28,114 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 27 Dec 2010 13:50:07 -0000
+X-List-Received-Date: Mon, 27 Dec 2010 13:50:28 -0000
 
-    Current fetcher has annoying "SRCREVINACTION" deadlock,
-    which occurs when SRCREV=${AUTOREV}=@bb.fetch.get_srcrev():
-    get_srcrev()->setup_localpath()->srcrev_internal_helper()
-    ->evaluate SRCREV->get_srcrev()
+Fix the typo of suppports_srcrev -> supports_srcrev.
+no functional change, just make spell correct
 
-    Current fetcher resolve the deadlock by introducing a
-    "SRCREVINACTION" condition check. Althoguh it works, it is
-    indeed not clean.
-
-    This patch use Richard's idea to break the deadlock: break
-    the dependency among SRCREV and get_srcrev(), i.e. assign
-    a specific keyword "AUTOINC" to AUTOREV. when Fetcher meet
-    this keyword, it will check and set the latest revision to
-    urldata.revision. get_srcrev later can use the urldata.revision
-    for value evaluation(SRCPV etc). In this case, SRCREV no longer
-    depends on get_srcrev, and there is not deadlock anymore.
-
-    In implementation side, several things are done:
-    a) set the revision in FetchData:__init__, so that
-       urldata.revision is ready when get_srcrev() need it
-    b) init fetch method specific data in Fetch:supports, so that
-       Fetch.latest_revision() can be conducted when FetchData:
-       __init__ need it to achieve a)
-    c) some recpies still use ${SRCREV} in PV, which is not corect
-       logically, and will cause error in current implementation.
-       so replace the SRCREV with SRCPV for those recpies
-
-	in test side, some basic tests are conducted:
-    - fetch the source of world packages from scratch (empty DL_DIR)
-    - bitbake poky-image-sato for qemux86 from sratch (empty DL_DIR)
-
-     more testing is ongoing, this RFC is just for early patch review
-     and comments are warmly welcome.
-
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: kyu3/srcrev-cleanup
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kyu3/srcrev-cleanup
-
-Thanks,
-    Yu Ke <ke.yu@intel.com>
+Signed-off-by: Yu Ke <ke.yu@intel.com>
 ---
+ bitbake/lib/bb/fetch/__init__.py |    6 +++---
+ bitbake/lib/bb/fetch/bzr.py      |    2 +-
+ bitbake/lib/bb/fetch/git.py      |    2 +-
+ bitbake/lib/bb/fetch/hg.py       |    2 +-
+ bitbake/lib/bb/fetch/repo.py     |    2 +-
+ bitbake/lib/bb/fetch/svn.py      |    2 +-
+ 6 files changed, 8 insertions(+), 8 deletions(-)
 
-
-Yu Ke (8):
-  Fetch: fix support-srcrev typo
-  git.py: move git specific url data initialization earlier
-  svn.py: move svn specific url data initialization earlier
-  hg.py: move hg specific url data initialization earlier
-  bzr.py: move bzr specific url data initialization earlier
-  recpies: use SRCPV instead of SRCREV for PV
-  Fetcher: break the "SRCREVINACTION" deadlock
-  Fetcher: only set __BB_DONT_CACHE when SRCREV = "${AUTOREV}"
-
- bitbake/lib/bb/fetch/__init__.py                   |   56 ++++++++------------
- bitbake/lib/bb/fetch/bzr.py                        |   22 ++++----
- bitbake/lib/bb/fetch/git.py                        |   25 +++++----
- bitbake/lib/bb/fetch/hg.py                         |   25 +++++----
- bitbake/lib/bb/fetch/repo.py                       |    2 +-
- bitbake/lib/bb/fetch/svn.py                        |   25 +++++----
- .../recipes-connectivity/opensync/libsync_svn.bb   |    2 +-
- .../matchbox-themes-extra_svn.bb                   |    2 +-
- meta/conf/bitbake.conf                             |    2 +-
- .../eee-acpi-scripts/eee-acpi-scripts_git.bb       |    2 +-
- meta/recipes-bsp/uboot/u-boot-omap3_git.bb         |    2 +-
- meta/recipes-bsp/x-load/x-load_git.bb              |    2 +-
- meta/recipes-bsp/zaurusd/zaurusd_svn.bb            |    2 +-
- meta/recipes-connectivity/gsm/gsmd.inc             |    2 +-
- meta/recipes-connectivity/gypsy/gypsy_svn.bb       |    2 +-
- meta/recipes-core/dbus-wait/dbus-wait_svn.bb       |    2 +-
- meta/recipes-core/psplash/psplash_svn.bb           |    2 +-
- meta/recipes-devtools/opkg-utils/opkg-utils_svn.bb |    2 +-
- meta/recipes-devtools/opkg/opkg_svn.bb             |    2 +-
- meta/recipes-devtools/tcf-agent/tcf-agent_svn.bb   |    2 +-
- meta/recipes-devtools/ubootchart/ubootchart_svn.bb |    2 +-
- meta/recipes-gnome/gnome/gconf-dbus_svn.bb         |    2 +-
- .../gnome/gobject-introspection_git.bb             |    2 +-
- meta/recipes-gnome/gtkhtml2/gtkhtml2_svn.bb        |    2 +-
- meta/recipes-graphics/drm/libdrm_git.bb            |    2 +-
- meta/recipes-graphics/fstests/fstests_svn.bb       |    2 +-
- meta/recipes-graphics/libfakekey/libfakekey_svn.bb |    2 +-
- .../libmatchbox/libmatchbox_svn.bb                 |    2 +-
- .../matchbox-wm-2/matchbox-wm-2_svn.bb             |    2 +-
- .../matchbox-wm/matchbox-wm_svn.bb                 |    2 +-
- meta/recipes-graphics/xcb/libxcb_git.bb            |    2 +-
- meta/recipes-graphics/xcb/xcb-proto_git.bb         |    2 +-
- .../xvideo-tests/xvideo-tests_svn.bb               |    2 +-
- .../linux-firmware/linux-firmware_git.bb           |    2 +-
- meta/recipes-kernel/linux/linux-omap2_git.bb       |    2 +-
- meta/recipes-kernel/linux/linux-omap3-pm_git.bb    |    2 +-
- meta/recipes-kernel/linux/linux-omap3_git.bb       |    2 +-
- meta/recipes-kernel/oprofile/oprofileui-svn.inc    |    2 +-
- meta/recipes-sato/gaku/gaku_svn.bb                 |    2 +-
- .../gtk-engines/gtk-sato-engine_svn.bb             |    2 +-
- meta/recipes-sato/libowl/libowl_svn.bb             |    2 +-
- .../matchbox-config-gtk/matchbox-config-gtk_svn.bb |    2 +-
- .../matchbox-desktop-sato_svn.bb                   |    2 +-
- .../matchbox-desktop/matchbox-desktop_svn.bb       |    2 +-
- .../matchbox-keyboard/matchbox-keyboard_svn.bb     |    2 +-
- .../matchbox-panel-2/matchbox-panel-2_svn.bb       |    2 +-
- .../matchbox-stroke/matchbox-stroke_svn.bb         |    2 +-
- .../matchbox-terminal/matchbox-terminal_svn.bb     |    2 +-
- .../matchbox-theme-sato-2_svn.bb                   |    2 +-
- .../matchbox-theme-sato/matchbox-theme-sato_svn.bb |    2 +-
- .../recipes-sato/owl-video-widget/libowl-av_svn.bb |    2 +-
- .../recipes-sato/owl-video-widget/owl-video_svn.bb |    2 +-
- meta/recipes-sato/puzzles/oh-puzzles_svn.bb        |    2 +-
- meta/recipes-sato/screenshot/screenshot_svn.bb     |    2 +-
- .../settings-daemon/settings-daemon_svn.bb         |    2 +-
- meta/recipes-sato/web/web-webkit_svn.bb            |    2 +-
- meta/recipes-sato/web/web_svn.bb                   |    2 +-
- meta/recipes-sato/webkit/webkit-gtk_svn.bb         |    2 +-
- meta/recipes-support/libgdbus/libgdbus_git.bb      |    2 +-
- 59 files changed, 131 insertions(+), 130 deletions(-)
+diff --git a/bitbake/lib/bb/fetch/__init__.py b/bitbake/lib/bb/fetch/__init__.py
+index 364bdff..d4a5fa3 100644
+--- a/bitbake/lib/bb/fetch/__init__.py
++++ b/bitbake/lib/bb/fetch/__init__.py
+@@ -388,11 +388,11 @@ def get_srcrev(d):
+ 
+     scms = []
+ 
+-    # Only call setup_localpath on URIs which suppports_srcrev()
++    # Only call setup_localpath on URIs which supports_srcrev()
+     urldata = init(bb.data.getVar('SRC_URI', d, 1).split(), d, False)
+     for u in urldata:
+         ud = urldata[u]
+-        if ud.method.suppports_srcrev():
++        if ud.method.supports_srcrev():
+             if not ud.setup:
+                 ud.setup_localpath(d)
+             scms.append(u)
+@@ -625,7 +625,7 @@ class Fetch(object):
+         """
+         return False
+ 
+-    def suppports_srcrev(self):
++    def supports_srcrev(self):
+         """
+         The fetcher supports auto source revisions (SRCREV)
+         """
+diff --git a/bitbake/lib/bb/fetch/bzr.py b/bitbake/lib/bb/fetch/bzr.py
+index 813d7d8..2f73adf 100644
+--- a/bitbake/lib/bb/fetch/bzr.py
++++ b/bitbake/lib/bb/fetch/bzr.py
+@@ -117,7 +117,7 @@ class Bzr(Fetch):
+                 pass
+             raise t, v, tb
+ 
+-    def suppports_srcrev(self):
++    def supports_srcrev(self):
+         return True
+ 
+     def _revision_key(self, url, ud, d):
+diff --git a/bitbake/lib/bb/fetch/git.py b/bitbake/lib/bb/fetch/git.py
+index 9bd447f..a8ec104 100644
+--- a/bitbake/lib/bb/fetch/git.py
++++ b/bitbake/lib/bb/fetch/git.py
+@@ -191,7 +191,7 @@ class Git(Fetch):
+         os.chdir(ud.clonedir)
+         bb.utils.prunedir(codir)
+ 
+-    def suppports_srcrev(self):
++    def supports_srcrev(self):
+         return True
+ 
+     def _contains_ref(self, tag, d):
+diff --git a/bitbake/lib/bb/fetch/hg.py b/bitbake/lib/bb/fetch/hg.py
+index efb3b5c..6dd75cb 100644
+--- a/bitbake/lib/bb/fetch/hg.py
++++ b/bitbake/lib/bb/fetch/hg.py
+@@ -152,7 +152,7 @@ class Hg(Fetch):
+                 pass
+             raise t, v, tb
+ 
+-    def suppports_srcrev(self):
++    def supports_srcrev(self):
+         return True
+ 
+     def _latest_revision(self, url, ud, d):
+diff --git a/bitbake/lib/bb/fetch/repo.py b/bitbake/lib/bb/fetch/repo.py
+index 883310b..e76fadf 100644
+--- a/bitbake/lib/bb/fetch/repo.py
++++ b/bitbake/lib/bb/fetch/repo.py
+@@ -95,7 +95,7 @@ class Repo(Fetch):
+         # Create a cache
+         runfetchcmd("tar --exclude=.repo --exclude=.git -czf %s %s" % (ud.localpath, os.path.join(".", "*") ), d)
+ 
+-    def suppports_srcrev(self):
++    def supports_srcrev(self):
+         return False
+ 
+     def _build_revision(self, url, ud, d):
+diff --git a/bitbake/lib/bb/fetch/svn.py b/bitbake/lib/bb/fetch/svn.py
+index 375e8df..42058f5 100644
+--- a/bitbake/lib/bb/fetch/svn.py
++++ b/bitbake/lib/bb/fetch/svn.py
+@@ -166,7 +166,7 @@ class Svn(Fetch):
+                 pass
+             raise t, v, tb
+ 
+-    def suppports_srcrev(self):
++    def supports_srcrev(self):
+         return True
+ 
+     def _revision_key(self, url, ud, d):
+-- 
+1.7.0.4
 
 
