@@ -1,22 +1,22 @@
 Return-Path: <ke.yu@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 10E024C810A8
-	for <poky@yoctoproject.org>; Mon, 27 Dec 2010 07:50:33 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 27 Dec 2010 05:50:32 -0800
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 94C0D4C811E6
+	for <poky@yoctoproject.org>; Mon, 27 Dec 2010 07:51:14 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 27 Dec 2010 05:51:14 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,234,1291622400"; d="scan'208";a="587518343"
-Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
-	by orsmga002.jf.intel.com with ESMTP; 27 Dec 2010 05:50:32 -0800
-Message-Id: <4b894a5aa0f9a670aa858db4cdd35dc15069bbfe.1293457442.git.ke.yu@intel.com>
+X-IronPort-AV: E=Sophos;i="4.60,234,1291622400"; d="scan'208";a="872175082"
+Received: from unknown (HELO localhost) ([10.238.153.102])
+	by fmsmga001.fm.intel.com with ESMTP; 27 Dec 2010 05:51:13 -0800
+Message-Id: <b14ab9be01256ca16a515284b9782b602a98a6b0.1293457442.git.ke.yu@intel.com>
 In-Reply-To: <cover.1293457442.git.ke.yu@intel.com>
 References: <cover.1293457442.git.ke.yu@intel.com>
 From: Yu Ke <ke.yu@intel.com>
-Old-Date: Mon, 27 Dec 2010 10:35:19 +0800
-Date: Mon, 27 Dec 2010 21:57:28 +0800
+Old-Date: Mon, 27 Dec 2010 10:48:34 +0800
+Date: Mon, 27 Dec 2010 21:57:30 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 4/8] hg.py: move hg specific url data initialization earlier
+Subject: [PATCH 5/8] bzr.py: move bzr specific url data initialization earlier
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,51 +28,52 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 27 Dec 2010 13:50:33 -0000
+X-List-Received-Date: Mon, 27 Dec 2010 13:51:14 -0000
 
-move the url data init earlier, so that Hg.latest_revision()
-can work before Hg.localpath()
+move the url data init earlier, so that Bzr.latest_revision()
+can work before Bzr.localpath()
 
 This change allow FetchData:__init__ to set FetchData.revison by
-calling Hg.latest_revision()
+Bzr.latest_revision()
 
 Signed-off-by: Yu Ke <ke.yu@intel.com>
 ---
- bitbake/lib/bb/fetch/hg.py |   13 +++++++++++--
- 1 files changed, 11 insertions(+), 2 deletions(-)
+ bitbake/lib/bb/fetch/bzr.py |   14 +++++++++++---
+ 1 files changed, 11 insertions(+), 3 deletions(-)
 
-diff --git a/bitbake/lib/bb/fetch/hg.py b/bitbake/lib/bb/fetch/hg.py
-index 6dd75cb..85d640d 100644
---- a/bitbake/lib/bb/fetch/hg.py
-+++ b/bitbake/lib/bb/fetch/hg.py
-@@ -39,9 +39,17 @@ class Hg(Fetch):
-         """
-         Check to see if a given url can be fetched with mercurial.
-         """
--        return ud.type in ['hg']
-+        if ud.type in ['hg']:
+diff --git a/bitbake/lib/bb/fetch/bzr.py b/bitbake/lib/bb/fetch/bzr.py
+index 2f73adf..b29bbce 100644
+--- a/bitbake/lib/bb/fetch/bzr.py
++++ b/bitbake/lib/bb/fetch/bzr.py
+@@ -33,10 +33,17 @@ from bb.fetch import runfetchcmd
+ 
+ class Bzr(Fetch):
+     def supports(self, url, ud, d):
+-        return ud.type in ['bzr']
+-
+-    def localpath (self, url, ud, d):
++        if ud.type in ['bzr']:
 +            self.urldata_init(ud, d)
 +            return True
 +        else:
 +            return False
  
--    def localpath(self, url, ud, d):
 +    def urldata_init(self, ud, d):
 +        """
-+        init hg specific variable within url data
-+        so that the hg method like latest_revision() can work
++        init bzr specific variable within url data
++        so that the  method like latest_revision() can work
 +        """
-         if not "module" in ud.parm:
-             raise MissingParameterError("hg method needs a 'module' parameter")
+         # Create paths to bzr checkouts
+         relpath = ud.path
+         if relpath.startswith('/'):
+@@ -44,6 +51,7 @@ class Bzr(Fetch):
+             relpath = relpath[1:]
+         ud.pkgdir = os.path.join(data.expand('${BZRDIR}', d), ud.host, relpath)
  
-@@ -55,6 +63,7 @@ class Hg(Fetch):
-         ud.pkgdir = os.path.join(data.expand('${HGDIR}', d), ud.host, relpath)
-         ud.moddir = os.path.join(ud.pkgdir, ud.module)
- 
-+    def localpath(self, url, ud, d):
-         if 'rev' in ud.parm:
-             ud.revision = ud.parm['rev']
-         else:
++    def localpath (self, url, ud, d):
+         revision = Fetch.srcrev_internal_helper(ud, d)
+         if revision is True:
+             ud.revision = self.latest_revision(url, ud, d)
 -- 
 1.7.0.4
 
