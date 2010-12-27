@@ -1,22 +1,22 @@
 Return-Path: <ke.yu@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 27FF74C8110B
-	for <poky@yoctoproject.org>; Mon, 27 Dec 2010 07:50:30 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 27 Dec 2010 05:50:29 -0800
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 6E5B44C810A8
+	for <poky@yoctoproject.org>; Mon, 27 Dec 2010 07:50:31 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 27 Dec 2010 05:50:31 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,234,1291622400"; d="scan'208";a="366898867"
+X-IronPort-AV: E=Sophos;i="4.60,234,1291622400"; d="scan'208";a="691068112"
 Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
-	by azsmga001.ch.intel.com with ESMTP; 27 Dec 2010 05:50:28 -0800
-Message-Id: <c9580df3dfe41b22e6cee32ac7c228197fcecd01.1293457442.git.ke.yu@intel.com>
+	by orsmga001.jf.intel.com with ESMTP; 27 Dec 2010 05:50:30 -0800
+Message-Id: <bf2145f89ea34fb8762e2a3fe91252a89072c93d.1293457442.git.ke.yu@intel.com>
 In-Reply-To: <cover.1293457442.git.ke.yu@intel.com>
 References: <cover.1293457442.git.ke.yu@intel.com>
 From: Yu Ke <ke.yu@intel.com>
-Old-Date: Mon, 27 Dec 2010 09:50:25 +0800
-Date: Mon, 27 Dec 2010 21:57:25 +0800
+Old-Date: Mon, 27 Dec 2010 10:07:04 +0800
+Date: Mon, 27 Dec 2010 21:57:27 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 2/8] git.py: move git specific url data initialization earlier
+Subject: [PATCH 3/8] svn.py: move svn specific url data initialization earlier
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,64 +28,51 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 27 Dec 2010 13:50:30 -0000
+X-List-Received-Date: Mon, 27 Dec 2010 13:50:31 -0000
 
-move the url data init earlier, so that Git.latest_revision()
-can work before Git.localpath()
+move the url data init earlier, so that Svn.latest_revision()
+can work before Svn.localpath()
 
 This change allow FetchData:__init__ to set FetchData.revison by
-Git.latest_revision()
+Svn.latest_revision()
 
 Signed-off-by: Yu Ke <ke.yu@intel.com>
 ---
- bitbake/lib/bb/fetch/git.py |   19 ++++++++++++++-----
- 1 files changed, 14 insertions(+), 5 deletions(-)
+ bitbake/lib/bb/fetch/svn.py |   13 +++++++++++--
+ 1 files changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/bitbake/lib/bb/fetch/git.py b/bitbake/lib/bb/fetch/git.py
-index a8ec104..df582a3 100644
---- a/bitbake/lib/bb/fetch/git.py
-+++ b/bitbake/lib/bb/fetch/git.py
-@@ -38,10 +38,17 @@ class Git(Fetch):
+diff --git a/bitbake/lib/bb/fetch/svn.py b/bitbake/lib/bb/fetch/svn.py
+index 42058f5..4e97a30 100644
+--- a/bitbake/lib/bb/fetch/svn.py
++++ b/bitbake/lib/bb/fetch/svn.py
+@@ -38,9 +38,17 @@ class Svn(Fetch):
          """
-         Check to see if a given url can be fetched with git.
+         Check to see if a given url can be fetched with svn.
          """
--        return ud.type in ['git']
--
--    def localpath(self, url, ud, d):
-+        if ud.type in ['git']:
+-        return ud.type in ['svn']
++        if ud.type in ['svn']:
 +            self.urldata_init(ud, d)
 +            return True
 +        else:
 +            return False
  
+-    def localpath(self, url, ud, d):
 +    def urldata_init(self, ud, d):
 +        """
-+        init git specific variable within url data
-+        so that the git method like latest_revision() can work
++        init svn specific variable within url data
++        so that the method like latest_revision() can work
 +        """
-         if 'protocol' in ud.parm:
-             ud.proto = ud.parm['protocol']
-         elif not ud.host:
-@@ -55,6 +62,10 @@ class Git(Fetch):
-         ud.mirrortarball = 'git_%s.tar.gz' % (gitsrcname)
-         ud.clonedir = os.path.join(data.expand('${GITDIR}', d), gitsrcname)
+         if not "module" in ud.parm:
+             raise MissingParameterError("svn method needs a 'module' parameter")
  
-+        ud.basecmd = data.getVar("FETCHCMD_git", d, True) or "git"
-+
+@@ -54,6 +62,7 @@ class Svn(Fetch):
+         ud.pkgdir = os.path.join(data.expand('${SVNDIR}', d), ud.host, relpath)
+         ud.moddir = os.path.join(ud.pkgdir, ud.module)
+ 
 +    def localpath(self, url, ud, d):
-+
-         tag = Fetch.srcrev_internal_helper(ud, d)
-         if tag is True:
-             ud.tag = self.latest_revision(url, ud, d)
-@@ -77,8 +88,6 @@ class Git(Fetch):
-         else:
-             ud.localfile = data.expand('git_%s%s_%s.tar.gz' % (ud.host, subdirpath.replace('/', '.'), ud.tag), d)
- 
--        ud.basecmd = data.getVar("FETCHCMD_git", d, True) or "git"
--
-         if 'noclone' in ud.parm:
-             ud.localfile = None
-             return None
+         if 'rev' in ud.parm:
+             ud.date = ""
+             ud.revision = ud.parm['rev']
 -- 
 1.7.0.4
 
