@@ -1,38 +1,22 @@
-Return-Path: <kevin.tian@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 76FF94C80050
-	for <poky@pokylinux.org>; Mon, 27 Dec 2010 21:24:59 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 27 Dec 2010 19:24:58 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,237,1291622400"; d="scan'208";a="691227585"
-Received: from pgsmsx603.gar.corp.intel.com ([10.221.43.87])
-	by orsmga001.jf.intel.com with ESMTP; 27 Dec 2010 19:24:58 -0800
-Received: from pgsmsx509.gar.corp.intel.com (172.30.13.17) by
-	pgsmsx603.gar.corp.intel.com (10.221.43.87) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Tue, 28 Dec 2010 11:24:53 +0800
-Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
-	PGSMSX509.gar.corp.intel.com (172.30.13.17) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Tue, 28 Dec 2010 11:24:52 +0800
-Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
-	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
-	Tue, 28 Dec 2010 11:24:51 +0800
-From: "Tian, Kevin" <kevin.tian@intel.com>
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-Date: Tue, 28 Dec 2010 11:24:48 +0800
-Thread-Topic: [poky] --with-gxx-include-dir and sysroot
-Thread-Index: AcujeC7vLPJ2FqwSRn2bA/8ItThJHQB2iecA
-Message-ID: <625BA99ED14B2D499DC4E29D8138F1504D64C30AAB@shsmsx502.ccr.corp.intel.com>
-References: <625BA99ED14B2D499DC4E29D8138F1504D5F72D6C3@shsmsx502.ccr.corp.intel.com>
-	<1293201465.17519.1428.camel@rex>
-In-Reply-To: <1293201465.17519.1428.camel@rex>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
-MIME-Version: 1.0
-Cc: "poky@pokylinux.org" <poky@pokylinux.org>
-Subject: Re: --with-gxx-include-dir and sysroot
+Return-Path: <bruce.ashfield@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D87884C81069;
+	Tue, 28 Dec 2010 00:49:12 -0600 (CST)
+Received: from localhost.localdomain (yow-bashfiel-d2.ottawa.windriver.com
+	[128.224.146.167])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oBS6lMMU010673;
+	Mon, 27 Dec 2010 22:47:23 -0800 (PST)
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+To: rpurdie@linux.intel.com
+Date: Tue, 28 Dec 2010 01:49:13 -0500
+Message-Id: <71a55c0b1221170e5a9b72933e5b0db894afa946.1293518497.git.bruce.ashfield@windriver.com>
+X-Mailer: git-send-email 1.7.0.4
+In-Reply-To: <cover.1293518497.git.bruce.ashfield@windriver.com>
+References: <cover.1293518497.git.bruce.ashfield@windriver.com>
+In-Reply-To: <cover.1293518497.git.bruce.ashfield@windriver.com>
+References: <cover.1293518497.git.bruce.ashfield@windriver.com>
+Cc: yocto@yoctoproject.org, poky@yoctoproject.org, saul.wold@intel.com
+Subject: [PATCH 1/2] yocto-kernel: fix kmachine to deal with overrides
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,103 +28,46 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 28 Dec 2010 03:24:59 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-List-Received-Date: Tue, 28 Dec 2010 06:49:13 -0000
 
-PkZyb206IFJpY2hhcmQgUHVyZGllIFttYWlsdG86cmljaGFyZC5wdXJkaWVAbGludXhmb3VuZGF0
-aW9uLm9yZ10NCj5TZW50OiBGcmlkYXksIERlY2VtYmVyIDI0LCAyMDEwIDEwOjM4IFBNDQo+DQo+
-T24gRnJpLCAyMDEwLTEyLTI0IGF0IDE1OjM0ICswODAwLCBUaWFuLCBLZXZpbiB3cm90ZToNCj4+
-IEkgZ290IGEgY29uZnVzaW9uIGFib3V0IHRoZSByZWxhdGlvbnNoaXAgYmV0d2VlbiAiLS13aXRo
-LWd4eC1pbmNsdWRlLWRpciIgYW5kIHN5c3Jvb3QsDQo+PiBhbmQgY29uc2VxdWVudGx5IHdvdWxk
-IGxpa2UgdG8gZGlzY3VzcyBvbmUgaXNzdWUgaXQgY2F1c2VzLg0KPj4NCj4+IEdDQyBpbnN0YWxs
-YXRpb24gbWFudWFsIGlzIG5vdCB2ZXJ5IGNsZWFyIGFib3V0IGhvdyBjKysgaGVhZGVyIGZpbGVz
-IGFyZSBzZWFyY2hlZCB3aGVuDQo+PiB0aGVyZSdzIG5vICItLXdpdGgtZ3h4LWluY2x1ZGUtZGly
-IiBidXQgd2l0aCAiLS1zeXNyb290IjoNCj4+DQo+PiAtLXdpdGgtZ3h4LWluY2x1ZGUtZGlyPWRp
-cm5hbWUNCj4+ICAgICBTcGVjaWZ5IHRoZSBpbnN0YWxsYXRpb24gZGlyZWN0b3J5IGZvciBHKysg
-aGVhZGVyIGZpbGVzLiBUaGUgZGVmYXVsdCBkZXBlbmRzIG9uDQo+PiBvdGhlciBjb25maWd1cmF0
-aW9uIG9wdGlvbnMsIGFuZCBkaWZmZXJzIGJldHdlZW4gY3Jvc3MgYW5kIG5hdGl2ZSBjb25maWd1
-cmF0aW9ucy4NCj4+DQo+PiBNeSBhc3N1bXB0aW9uIGlzIHRoYXQgJHtzeXNyb290fS91c3IvaW5j
-bHVkZS9jKysgd2lsbCBiZSBzZWFyY2hlZCB3aGljaCBpcyB3aHkgc3lzcm9vdA0KPj4gb3B0aW9u
-IGlzIHRoZXJlLg0KPg0KPlRoaXMgaXMgYSBiYWQgYXNzdW1wdGlvbiBJJ20gYWZyYWlkLiBJIGhh
-ZCB0byBnbyBhbmQgdGFrZSBhIGxvb2sgYXQgdGhlDQo+Y29kZSB0byBkZXRlcm1pbmUgdGhpcyB0
-aG91Z2guDQoNCnRoYXQncyB3aHkgSSdtIHNlbmRpbmcgdGhpcyBtYWlsIHRvIG1ha2UgaXQgY2xl
-YXIuIDotKQ0KDQo+DQo+PiBIb3dldmVyIGN1cnJlbnRseSBQb2t5IGFsd2F5cyBzcGVjaWZpZXMg
-Ii0td2l0aC1neHgtaW5jbHVkZS1kaXIiIGV4cGxpY2l0bHk6DQo+Pg0KPj4gZ2NjLWNvbmZpZ3Vy
-ZS1jcm9zcy5pbmM6DQo+PiAgLS13aXRoLWd4eC1pbmNsdWRlLWRpcj0ke1NUQUdJTkdfRElSX1RB
-UkdFVH0vJHt0YXJnZXRfaW5jbHVkZWRpcn0vYysrIFwNCj4+IC0td2l0aC1zeXNyb290PSR7U1RB
-R0lOR19ESVJfVEFSR0VUfSBcDQo+Pg0KPj4gZ2NjLWNvbmZpZ3VyZS1ydW50aW1lLmluYzoNCj4+
-IC0td2l0aC1neHgtaW5jbHVkZS1kaXI9JHtpbmNsdWRlZGlyfS9jKysvIFwNCj4+IC0td2l0aC1z
-eXNyb290PSR7U1RBR0lOR19ESVJfVEFSR0VUfSBcDQo+Pg0KPj4gZ2NjLWNvbmZpZ3VyZS1zZGsu
-aW5jOg0KPj4NCj4tLXdpdGgtZ3h4LWluY2x1ZGUtZGlyPSR7U0RLUEFUSH0vc3lzcm9vdHMvJHtU
-QVJHRVRfU1lTfSR7dGFyZ2V0X2luY2x1ZGVkaXJ9L2MrKw0KPlwNCj4+IC0td2l0aC1zeXNyb290
-PSR7U0RLUEFUSH0vc3lzcm9vdHMvJHtUQVJHRVRfU1lTfSBcDQo+Pg0KPj4gZ2NjLWNvbmZpZ3Vy
-ZS10YXJnZXQuaW5jOg0KPj4gLS13aXRoLWd4eC1pbmNsdWRlLWRpcj0ke2luY2x1ZGVkaXJ9L2Mr
-Ky8iDQo+Pg0KPj4gZm9yIGNyb3NzL3NkaywgdGhlcmUncyBubyBkaWZmZXJlbmNlIGZyb20gbm90
-IHVzaW5nIG9wdGlvbiBpZiBteSBhc3N1bXB0aW9uIGlzIGNvcnJlY3QuDQo+PiBUaGUgb25seSBt
-ZWFuaW5nZnVsIG9uZSBpcyBwZXJoYXBzIHJ1bnRpbWUuDQo+Pg0KPj4gSSBjaGVja2VkIE9FIHNp
-ZGUsIHRoZXkgZG9uJ3QgaGF2ZSBnY2MtcnVudGltZSAod2h5Pz8/KSwgYW5kIG9ubHkgYWRkIHRo
-ZSBvcHRpb24gZm9yDQo+PiB0aGUgdGFyZ2V0IGdjYyAoLS13aXRoLWd4eC1pbmNsdWRlLWRpcj0k
-e2luY2x1ZGVkaXJ9L2MrKy97QklOVn0pIHdoaWNoIG1ha2VzIHNlbnNlDQo+PiBzaW5jZSB1c2lu
-ZyBCSU5WIGlzIGRpZmZlcmVudCBmcm9tIG5vcm1hbCBjb252ZW50aW9uLg0KPg0KPldoaWxzdCBP
-RSBkb2Vzbid0IHVzZSB0aGlzLCBpZiB5b3UgcmVhZCB0aGUgY29uZmlndXJlIGNvZGUgZm9yIHRo
-aXMNCj5vcHRpb24geW91J2xsIHNlZSB0aGF0IGl0IGdldHMgc2V0IHRvIGEgZGVmYXVsdCBhbnl3
-YXkgc28gbm90IHNwZWNpZnlpbmcNCj5pdCBkb2Vzbid0IGNoYW5nZSBtdWNoLiBJbiBwb2t5IHdl
-IGRyb3BwZWQgdGhlIEJJTlYgcGFydCBvZiB0aGUgcGF0aA0KPndoaWNoIEkgYmVsaWV2ZSBpcyBw
-YXJ0IG9mIHRoZSBkZWZhdWx0Lg0KDQp5ZXMsIHNvIGZhciB0aGF0IGRlZmF1bHQgaGFzIG5vdGhp
-bmcgdG8gZG8gd2l0aCB0aGUgc3lzcm9vdCBvcHRpb24uIEkgbWFkZSBhbiBleHBlcmltZW50DQpq
-dXN0IG5vdy4gVGhlIGRlZmF1bHQgcGF0aCBlbmRzIHVwIHBvaW50aW5nIHRvOiANCg0KJHtTVEFH
-SU5HX0RJUl9OQVRJVkV9L3Vzci8ke1RBUkdFVF9TWVN9L2luY2x1ZGUvYysrLyR7QklOVn0NCg0K
-d2hpY2ggaXMgYmFzZWQgb24gJHtsaWJkaXJ9LiANCg0KU28gYXMgeW91IHNhaWQsIHRoaXMgZG9l
-c24ndCBjaGFuZ2UgYW55dGhpbmcgaW4gdGhpcyBwb2ludC4NCg0KQlRXIGlzIHRoZXJlIGFueSBv
-dGhlciBpbXBhY3Qgb2YgdGhpcyBkaWZmZXJlbmNlIGJldHdlZW4gT0UgYW5kIFBva3k/IEkgbWVh
-biBpbnN0YWxsaW5nDQp0byBuYXRpdmUvc2RrIHN5c3Jvb3QoT0UpIGFuZCB0byB0YXJnZXQgc3lz
-cm9vdCAocG9reSkuLi4NCg0KPg0KPj4gU28gbXkgcXVlc3Rpb24gaXMgd2hldGhlciBpdCdzIG5l
-Y2Vzc2FyeSB0byBleHBsaWNpdGx5IHNldCB0aGlzIG9wdGlvbiBpbiBQb2t5LCB1cG9uIHdoaWNo
-DQo+PiB3ZSBjYW4gdGhlbiB0YWxrIGFib3V0IHRoZSBpc3N1ZSBJJ20gc2VlaW5nIGFuZCB0aGUg
-c29sdXRpb24uDQo+DQo+TG9va2luZyBhdCB0aGUgY29kZSBJIGRvbid0IHRoaW5rIGl0IHdpbGwg
-YWN0dWFsbHkgbWFrZSBhbnkgZGlmZmVyZW5jZQ0KPndoZXRoZXIgd2Ugc2V0IGl0IG9yIG5vdC4N
-Cg0KWWVwDQoNCj4NCj4+IFRoZSBtYWpvciBwcm9ibGVtIHdpdGggaGFyZGNvZGVkICJ3aXRoLWd4
-eC1pbmNsdWRlLWRpciIgaXMgdGhhdCBpdCBtYWtlcyB0aGUgdG9vbGNoYWluDQo+PiBwcm9ibGVt
-YXRpYyB3aGVuIHVzaW5nIGluIGEgc2VwYXJhdGUgYnVpbGQgZW52aXJvbm1lbnQsIGJlY2F1c2Ug
-dGhhdCBoYXJkIGNvZGUgcGF0aA0KPj4gbWF5IGJlIG1pc3NpbmcgaW4gdGhlIG5ldyBlbnZpcm9u
-bWVudC4gSXQncyBub3QgcmVsb2NhdGFibGUuDQo+Pg0KPj4gUHJldmlvdXMgU0RLIG11bHRpLXN5
-c3Jvb3Qgc3VwcG9ydCBpcyBvbmUgZXhhbXBsZS4NCj4+DQo+PiBTbyBkb2VzIHNzdGF0ZSwgd2hl
-biB5b3UgbmVlZCB0byBidWlsZCBzb21lIG5ldyBDKysgcGFja2FnZXMgaW4gdGhlIDJuZCBidWls
-ZCBkaXINCj4+IHdoaWxlIHVzaW5nIHRvb2xjaGFpbiBidWlsdCBmcm9tIGFub3RoZXIgZGlyLiBJ
-IG9ic2VydmVkIHRoaXMgd2hlbiByZXVzaW5nIGEgc2V0IG9mDQo+PiBzc3RhdGUgcGFja2FnZXMg
-b2YgYSBtaW5pbWFsIGltYWdlLCBhbmQgdGhlbiBzdGFydGVkIGJ1aWxkaW5nIGEgc2F0byBpbWFn
-ZSBhbmQgdGhlbg0KPj4gZW5jb3VudGVyZWQgbGlicHJveHkgZXJyb3IgZHVlIHRvIGZhaWxpbmcg
-dG8gZmluZCBjc3RkaW8uDQo+Pg0KPj4gTWFjaGluZSBzcGVjaWZpYyBzeXNyb290IGFsc28gaGFz
-IHRoaXMgcHJvYmxlbSwgYmVjYXVzZSB3ZSBlbmQgdXAgdG8gdXNlIHRoZSB0b29sY2hhaW4NCj4+
-IGJ1aWx0IGZvciB0aGUgMXN0IG1hY2hpbmUgdG8gYnVpbGQgcmVjaXBlcyBmb3IgdGhlIDJuZCBt
-YWNoaW5lLiBJdCB3aWxsIGJlIGdlbmVyYWxseQ0KPj4gd29ya2VkIGFyb3VuZCBiZWNhdXNlIGJv
-dGggc3lzcm9vdHMgZXhpc3QgYW5kIGNhbiBiZSBib3RoIGFjY2Vzc2VkLCBidXQgaXQncyBzdGls
-bA0KPj4gYSBwb3RlbnRpYWwgaXNzdWUuDQo+Pg0KPj4gVGhlIHdvcmthcm91bmQgaW4gbXkgc3N0
-YXRlIGNhc2UgaXMgYSBiaXQgdWdseS4gSSBoYXZlIHRvIHVzZSAiLUkiIGluIENYWEZMQUdTIGlu
-DQo+PiBiaXRiYWtlLmNvbmY6DQo+Pg0KPj4gLUkke1NUQUdJTkdfRElSX1RBUkdFVH0vJHt0YXJn
-ZXRfaW5jbHVkZWRpcn0vYysrDQo+PiAtSSR7U1RBR0lOR19ESVJfVEFSR0VUfS8ke3RhcmdldF9p
-bmNsdWRlZGlyfS9jKysvYmFja3dhcmQNCj4+IC1JJHtTVEFHSU5HX0RJUl9UQVJHRVR9LyR7dGFy
-Z2V0X2luY2x1ZGVkaXJ9L2MrKy8ke1RBUkdFVF9TWVN9DQo+Pg0KPj4gSWYgIndpdGgtZ3h4LWlu
-Y2x1ZGUtZGlyIiBjYW4gYmUgcmVtb3ZlZCwgd2UgZG9uJ3QgbmVlZCBkbyBhbnl0aGluZyBoZXJl
-Lg0KPg0KPkkgcmVhbGx5IGRvbid0IHRoaW5rIGl0cyB0aGlzIHNpbXBsZS4NCj4NCj5Mb29raW5n
-IGF0IHRoZSBnY2MgY29kZSwgSSBwcm9wb3NlIHdlIHBhdGNoIGNwcGRlZmF1bHQuYyBzbyBpbnN0
-ZWFkIG9mDQo+DQo+R1BMVVNQTFVTX0lOQ0xVREVfRElSICJHKysiLCAxLCAxLCAwLCAwDQo+DQo+
-aXMgc2F5cw0KPg0KPkdQTFVTUExVU19JTkNMVURFX0RJUiAiRysrIiwgMSwgMSwgMSwgMA0KPg0K
-PmFuZCB0aGVuIHdlIG9ubHkgZXZlciBzcGVjaWZ5Og0KPg0KPi0td2l0aC1neHgtaW5jbHVkZS1k
-aXI9JHtpbmNsdWRlZGlyfS9jKysvIHRvIGJ1aWxkIHRoZSBjb21waWxlci4NCj4NCj5TaW5jZSB3
-ZSBzZXQgYWx3YXlzIHNldCAtLXN5c3Jvb3QgZm9yIHRoZSBjb21waWxlciBjb3JyZWN0bHksIHRo
-aXMNCj5zaG91bGQgdGhlbiBmaXggYWxsIHRoZSBwcm9ibGVtcyBpbiBhIGNsZWFuIGFuZCBzaW1w
-bGUgd2F5Lg0KPg0KPldoeT8gQ2hhbmdpbmcgdGhlIDAgLT4gMSBhYm92ZSB3aWxsIGNhdXNlIGMr
-KyB0byBhZGQgdGhlIHN5c3Jvb3QgdG8NCj5HUExVU1BMVVNfSU5DTFVERV9ESVIgYW5kIGluIHR1
-cm4gdGhpcyBtZWFucyBpdCBzaG91bGQgc3RhcnQgdG8gYmVoYXZlDQo+c2FuZWx5Lg0KPg0KPkkg
-ZG9uJ3QgbGlrZSBwYXRjaGluZyBnY2MgbGlrZSB0aGlzIGJ1dCBpbiB0aGlzIGNhc2UgSSBiZWxp
-ZXZlIHRoZQ0KPnN0YW5kYXJkIHNldHRpbmdzIGFyZSBqdXN0IHBsYWluIHdyb25nIGFuZCB3aXRo
-IHRoYXQgc2ltcGxlIGNoYW5nZSwNCj50aGluZ3Mgd2lsbCBqdXN0IHdvcmsgYXMgdGhleSBzaG91
-bGQuLi4NCj4NCj5PZiBjb3Vyc2UgSSd2ZSBub3QgdGVzdGVkIHRoaXMgc28gSSdkIGFwcHJlY2lh
-dGUgZmVlZGJhY2sgYnV0IEkgdGhpbmsgaXQNCj53aWxsIHNvbHZlIHRoZSBwcm9ibGVtIGluIHRo
-ZSBzaW1wbGVzdCB3YXkgOikNCj4NCg0KVGhhdCdzIGEgZ29vZCBhbmQgc2ltcGxlIGlkZWEhIEkn
-bGwgdHJ5IGl0LCBidXQgdGhlIHRlc3QgbWF5IHRha2UgdGltZS4uLiA6LSkNCg0KVGhhbmtzDQpL
-ZXZpbg0KDQo=
+BSPs are built from a particular branch of the kernel repository
+which is specfied via the mapping of MACHINE to KMACHINE. Unless
+a global branch is being forced (like libc headers), KMACHINE
+is an override on a per machine basis.
+
+Because KMACHINE is typically override we must first try the
+most specific variant KMACHINE_<machine> and if that is undefined
+look for a fallack default. This allows any combination of
+variables to work (and at the time the anonymous python
+executes) safely and get us a properly defined branch for the
+fetcher and build.
+
+Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
+---
+ meta/classes/kernel-yocto.bbclass |    7 +++++--
+ 1 files changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/meta/classes/kernel-yocto.bbclass b/meta/classes/kernel-yocto.bbclass
+index f541878..7ebe5d6 100644
+--- a/meta/classes/kernel-yocto.bbclass
++++ b/meta/classes/kernel-yocto.bbclass
+@@ -29,10 +29,13 @@ python __anonymous () {
+         # The branch for a build is:
+         #    yocto/<kernel type>/${KMACHINE} or
+         #    yocto/<kernel type>/${KMACHINE}/base
+-        bb.data.setVar("KBRANCH", bb.data.expand("${KMACHINE}",d), d)
++        mach = bb.data.getVar("KMACHINE_" + bb.data.expand("${MACHINE}",d), d, 1)
++        if mach == None:
++             mach = bb.data.getVar("KMACHINE", d, 1)
++
++        bb.data.setVar("KBRANCH", mach, d)
+         bb.data.setVar("KMETA", "meta", d)
+ 
+-        mach = bb.data.getVar("KMACHINE", d, 1)
+         # drop the "/base" if it was on the KMACHINE
+         kmachine = mach.replace('/base','')
+         # drop everything but the last segment
+-- 
+1.7.0.4
+
 
