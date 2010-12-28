@@ -1,22 +1,18 @@
 Return-Path: <bruce.ashfield@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D87884C81069;
-	Tue, 28 Dec 2010 00:49:12 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 01FEF4C81069;
+	Tue, 28 Dec 2010 00:49:13 -0600 (CST)
 Received: from localhost.localdomain (yow-bashfiel-d2.ottawa.windriver.com
 	[128.224.146.167])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oBS6lMMU010673;
-	Mon, 27 Dec 2010 22:47:23 -0800 (PST)
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oBS6lMMT010673;
+	Mon, 27 Dec 2010 22:47:22 -0800 (PST)
 From: Bruce Ashfield <bruce.ashfield@windriver.com>
 To: rpurdie@linux.intel.com
-Date: Tue, 28 Dec 2010 01:49:13 -0500
-Message-Id: <71a55c0b1221170e5a9b72933e5b0db894afa946.1293518497.git.bruce.ashfield@windriver.com>
+Date: Tue, 28 Dec 2010 01:49:12 -0500
+Message-Id: <cover.1293518497.git.bruce.ashfield@windriver.com>
 X-Mailer: git-send-email 1.7.0.4
-In-Reply-To: <cover.1293518497.git.bruce.ashfield@windriver.com>
-References: <cover.1293518497.git.bruce.ashfield@windriver.com>
-In-Reply-To: <cover.1293518497.git.bruce.ashfield@windriver.com>
-References: <cover.1293518497.git.bruce.ashfield@windriver.com>
 Cc: yocto@yoctoproject.org, poky@yoctoproject.org, saul.wold@intel.com
-Subject: [PATCH 1/2] yocto-kernel: fix kmachine to deal with overrides
+Subject: [PATCH 0/2] linux-yocto: 2.6.37-rc7 & bsp branch fixups
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,46 +24,40 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 28 Dec 2010 06:49:13 -0000
+X-List-Received-Date: Tue, 28 Dec 2010 06:49:14 -0000
 
-BSPs are built from a particular branch of the kernel repository
-which is specfied via the mapping of MACHINE to KMACHINE. Unless
-a global branch is being forced (like libc headers), KMACHINE
-is an override on a per machine basis.
+The first patch of this pull request updates the BSP branches
+to 2.6.37-rc7 (all qemu targets have been built and booted).
 
-Because KMACHINE is typically override we must first try the
-most specific variant KMACHINE_<machine> and if that is undefined
-look for a fallack default. This allows any combination of
-variables to work (and at the time the anonymous python
-executes) safely and get us a properly defined branch for the
-fetcher and build.
+The second patch is an update to the handling of KMACHINE as it
+maps to the branch that we should be building for a BSP. During
+some investigation around the igep0020 and building it on top of
+the beagle board branches, the kernel branch was coming through
+processing as UNDEFINED. This lead to errors. I tracked it down
+to the non-override variable being used in the python processing.
+Patch 2/2 updates the processing to check overrrides and then
+fall back. With this, I was able to build an igep0020 on top of
+the 2.6.37-rc7 beagle board kernel branches.
 
-Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
+Cheers,
+
+Bruce
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: zedd/kernel
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/kernel
+
+Thanks,
+    Bruce Ashfield <bruce.ashfield@windriver.com>
 ---
- meta/classes/kernel-yocto.bbclass |    7 +++++--
- 1 files changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/meta/classes/kernel-yocto.bbclass b/meta/classes/kernel-yocto.bbclass
-index f541878..7ebe5d6 100644
---- a/meta/classes/kernel-yocto.bbclass
-+++ b/meta/classes/kernel-yocto.bbclass
-@@ -29,10 +29,13 @@ python __anonymous () {
-         # The branch for a build is:
-         #    yocto/<kernel type>/${KMACHINE} or
-         #    yocto/<kernel type>/${KMACHINE}/base
--        bb.data.setVar("KBRANCH", bb.data.expand("${KMACHINE}",d), d)
-+        mach = bb.data.getVar("KMACHINE_" + bb.data.expand("${MACHINE}",d), d, 1)
-+        if mach == None:
-+             mach = bb.data.getVar("KMACHINE", d, 1)
-+
-+        bb.data.setVar("KBRANCH", mach, d)
-         bb.data.setVar("KMETA", "meta", d)
- 
--        mach = bb.data.getVar("KMACHINE", d, 1)
-         # drop the "/base" if it was on the KMACHINE
-         kmachine = mach.replace('/base','')
-         # drop everything but the last segment
--- 
-1.7.0.4
+
+Bruce Ashfield (2):
+  yocto-kernel: fix kmachine to deal with overrides
+  yocto/meta: update to 2.6.37-rc7
+
+ meta/classes/kernel-yocto.bbclass                  |    7 +++++--
+ .../conf/distro/include/poky-default-revisions.inc |   20 ++++++++++----------
+ 2 files changed, 15 insertions(+), 12 deletions(-)
 
 
