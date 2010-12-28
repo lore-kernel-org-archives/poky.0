@@ -1,18 +1,17 @@
 Return-Path: <kevin.tian@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 1B2EC4C81122
-	for <poky@pokylinux.org>; Mon, 27 Dec 2010 19:08:56 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 27 Dec 2010 17:08:55 -0800
-Message-Id: <0d30dc$kj5oko@orsmga001.jf.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8A9A84C810B6
+	for <poky@pokylinux.org>; Mon, 27 Dec 2010 19:10:39 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 27 Dec 2010 17:10:39 -0800
+Message-Id: <c6d829$pvsona@fmsmga001.fm.intel.com>
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,237,1291622400"; d="scan'208";a="691200667"
-Received: from poky-desktop-ktian1.sh.intel.com (HELO localhost)
-	([10.239.36.131])
-	by orsmga001.jf.intel.com with ESMTP; 27 Dec 2010 17:08:55 -0800
+X-IronPort-AV: E=Sophos;i="4.60,237,1291622400"; d="scan'208";a="872309489"
+Received: from unknown (HELO localhost) ([10.239.36.131])
+	by fmsmga001.fm.intel.com with ESMTP; 27 Dec 2010 17:10:38 -0800
 From: Kevin Tian <kevin.tian@intel.com>
 Old-Date: Tue, 28 Dec 2010 08:51:37 +0800
-Date: Tue, 28 Dec 2010  8:52:12 +0800
+Date: Tue, 28 Dec 2010  8:53:16 +0800
 To: poky@pokylinux.org
 Subject: [PATCH 0/1] fix SRC_URI for acl
 X-BeenThere: poky@yoctoproject.org
@@ -26,7 +25,7 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 28 Dec 2010 01:08:56 -0000
+X-List-Received-Date: Tue, 28 Dec 2010 01:10:39 -0000
 
 Pull URL: git://git.pokylinux.org/poky-contrib.git
   Branch: tk/distro
