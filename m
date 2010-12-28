@@ -1,21 +1,21 @@
-Return-Path: <tom.zanussi@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 95E274C811E6
-	for <poky@yoctoproject.org>; Tue, 28 Dec 2010 10:46:15 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 28 Dec 2010 08:46:02 -0800
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5F81D4C8106A
+	for <poky@yoctoproject.org>; Tue, 28 Dec 2010 13:41:35 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 28 Dec 2010 11:41:35 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,239,1291622400"; d="scan'208";a="367332061"
-Received: from unknown (HELO localhost) ([10.255.13.217])
-	by azsmga001.ch.intel.com with ESMTP; 28 Dec 2010 08:46:01 -0800
-Message-Id: <c364ccadf9cb18bb017cffc198aa991f733834e8.1293522033.git.tom.zanussi@intel.com>
-In-Reply-To: <cover.1293522033.git.tom.zanussi@intel.com>
-References: <cover.1293522033.git.tom.zanussi@intel.com>
-From: Tom Zanussi <tom.zanussi@intel.com>
-Old-Date: Tue, 28 Dec 2010 01:04:11 -0600
-Date: Tue, 28 Dec 2010 10:45:56 -0600
-To: poky@yoctoproject.org
-Subject: [PATCH 4/4] bblayers.conf.sample: remove meta-emenlow
+X-IronPort-AV: E=Sophos;i="4.60,240,1291622400"; d="scan'208";a="872532615"
+Received: from unknown (HELO [10.255.13.220]) ([10.255.13.220])
+	by fmsmga001.fm.intel.com with ESMTP; 28 Dec 2010 11:41:34 -0800
+Message-ID: <4D1A3D6C.4000508@linux.intel.com>
+Date: Tue, 28 Dec 2010 11:41:32 -0800
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
+MIME-Version: 1.0
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: New live image missing rootfs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,34 +27,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 28 Dec 2010 16:46:15 -0000
+X-List-Received-Date: Tue, 28 Dec 2010 19:41:35 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-meta-emenlow has been moved to the meta-intel repo, so it shouldn't be
-added as a default layer by bblayers.conf.  Users who want to build
-the meta-emenlow layer can just add it to bblayers.conf as they would
-any other layer e.g.
+I'm working on a preempt-rt layer, currently in my contrib branch:
 
-BBLAYERS = " \
-  /home/trz/yocto/meta \
-  /home/trz/yocto/meta-intel/meta-emenlow \
-  "
+http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dvhart/meta-rt
 
-Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
----
- meta/conf/bblayers.conf.sample |    1 -
- 1 files changed, 0 insertions(+), 1 deletions(-)
+It builds and boots for qemux86-64 and creates a similarly sized image 
+for atom-pc, but when I build the -live image, the resulting image is 
+8.5 MB instead of the expected 81 MB. Mounting the 8.5 MB image shows it 
+to be missing the root filesystem.
 
-diff --git a/meta/conf/bblayers.conf.sample b/meta/conf/bblayers.conf.sample
-index 3c7b6e6..27e2906 100644
---- a/meta/conf/bblayers.conf.sample
-+++ b/meta/conf/bblayers.conf.sample
-@@ -5,5 +5,4 @@ LCONF_VERSION = "3"
- BBFILES ?= ""
- BBLAYERS = " \
-   ##POKYBASE##/meta \
--  ##POKYBASE##/meta-emenlow \
-   "
+$ ls poky-image-minimal-rt
+initrd  ldlinux.sys  syslinux.cfg  vmlinuz
+
+I followed the same process I used to create the live image recipes in 
+the meta-demo layer. Can anyone explain why this recipe wouldn't 
+complete the assembly - and not issue any obvious complaints to the console?
+
+
+Thanks,
+
 -- 
-1.7.0.4
-
+Darren Hart
+Yocto Linux Kernel
 
