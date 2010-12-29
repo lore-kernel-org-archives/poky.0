@@ -1,21 +1,25 @@
-Return-Path: <tom.zanussi@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C33EB4C8118C
-	for <poky@yoctoproject.org>; Wed, 29 Dec 2010 09:41:20 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 29 Dec 2010 07:40:50 -0800
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 758BF4C80BD4
+	for <poky@yoctoproject.org>; Wed, 29 Dec 2010 10:19:09 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 29 Dec 2010 08:19:08 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,245,1291622400"; d="scan'208";a="872757005"
-Received: from unknown (HELO [10.255.13.209]) ([10.255.13.209])
-	by fmsmga001.fm.intel.com with ESMTP; 29 Dec 2010 07:40:49 -0800
-From: Tom Zanussi <tom.zanussi@intel.com>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Date: Wed, 29 Dec 2010 09:40:03 -0600
-Message-ID: <1293637203.12997.5.camel@elmorro>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Cc: "Wold, Saul" <saul.wold@intel.com>
-Subject: [PATCH] bblayers.conf.sample: remove meta-emenlow, v2
+X-IronPort-AV: E=Sophos;i="4.60,245,1291622400"; d="scan'208";a="367710557"
+Received: from unknown (HELO [10.255.13.220]) ([10.255.13.220])
+	by azsmga001.ch.intel.com with ESMTP; 29 Dec 2010 08:19:08 -0800
+Message-ID: <4D1B5F7E.8070907@linux.intel.com>
+Date: Wed, 29 Dec 2010 08:19:10 -0800
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
+MIME-Version: 1.0
+To: Koen Kooi <koen@dominion.thruhere.net>
+References: <4D1A8103.2030501@linux.intel.com>
+	<A1C71709-8C15-4B14-941E-965112512C5A@dominion.thruhere.net>
+In-Reply-To: <A1C71709-8C15-4B14-941E-965112512C5A@dominion.thruhere.net>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: Library paths for Makefile based recipes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,47 +31,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 29 Dec 2010 15:41:20 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Wed, 29 Dec 2010 16:19:09 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-meta-emenlow has been moved to the meta-intel repo, so it shouldn't be
-added as a default layer by bblayers.conf.  Users who want to build
-the meta-emenlow layer can just add it to bblayers.conf as they would
-any other layer e.g.
+On 12/29/2010 01:18 AM, Koen Kooi wrote:
+>
+> Op 29 dec 2010, om 01:29 heeft Darren Hart het volgende geschreven:
+>
+>> I'm working on packaging kernelshark ("make gui" for the trace-cmd recipe
+>> basically). It fails trying to link to -lgtk-x11-2.0. I have added gtk+
+>> as a DEPENDS and the library does exist in the sysroots. I have also added
+>> "inherit pkgconfig" as the project Makefile uses it extensively.
+>
+> 'inherit pkgconfig' only does DEPENDS_prepend = "pkgconfig-native "
 
-BBLAYERS = " \
-  /home/trz/yocto/meta \
-  /home/trz/yocto/meta-intel/meta-emenlow \
-  "
+Right, but omitting it could result in the package being built using the 
+host pkg-config, which shouldn't be a build dependency.
 
-v2 changes:
 
-Update LCONF_VERSION as noted by Saul.
-
-Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
----
- meta/conf/bblayers.conf.sample |    3 +--
- 1 files changed, 1 insertions(+), 2 deletions(-)
-
-diff --git a/meta/conf/bblayers.conf.sample b/meta/conf/bblayers.conf.sample
-index 3c7b6e6..b2f37c0 100644
---- a/meta/conf/bblayers.conf.sample
-+++ b/meta/conf/bblayers.conf.sample
-@@ -1,9 +1,8 @@
- # LAYER_CONF_VERSION is increased each time build/conf/bblayers.conf
- # changes incompatibly
--LCONF_VERSION = "3"
-+LCONF_VERSION = "4"
- 
- BBFILES ?= ""
- BBLAYERS = " \
-   ##POKYBASE##/meta \
--  ##POKYBASE##/meta-emenlow \
-   "
 -- 
-1.7.0.4
-
-
-
+Darren Hart
+Yocto Linux Kernel
 
