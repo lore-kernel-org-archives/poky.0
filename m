@@ -1,21 +1,21 @@
 Return-Path: <jessica.zhang@intel.com>
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id EB3384C8121E
+	by mx1.pokylinux.org (Postfix) with ESMTP id ED19A4C81256
 	for <poky@yoctoproject.org>; Mon,  3 Jan 2011 17:47:55 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
 	by orsmga102.jf.intel.com with ESMTP; 03 Jan 2011 15:47:48 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,268,1291622400"; d="scan'208";a="589553101"
+X-IronPort-AV: E=Sophos;i="4.60,268,1291622400"; d="scan'208";a="693216409"
 Received: from jzhang-desktop.jf.intel.com (HELO localhost) ([10.7.201.52])
-	by orsmga002.jf.intel.com with ESMTP; 03 Jan 2011 15:47:48 -0800
-Message-Id: <56cc00df689ff2d3ed5902972cfdb9b1bac222ae.1294099430.git.jessica.zhang@intel.com>
+	by orsmga001.jf.intel.com with ESMTP; 03 Jan 2011 15:47:48 -0800
+Message-Id: <35ee22889f1d62357a021c96f9dbc948e6eb15c5.1294099430.git.jessica.zhang@intel.com>
 In-Reply-To: <cover.1294099429.git.jessica.zhang@intel.com>
 References: <cover.1294099429.git.jessica.zhang@intel.com>
 From: Liping Ke <liping.ke@intel.com>
-Date: Thu, 30 Dec 2010 02:58:27 +0800
+Date: Thu, 30 Dec 2010 03:33:40 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 57/59] Fix several defects: sdk_version, relative path
+Subject: [PATCH 58/59] Adjust the code according to installation configuration file changes.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,84 +29,99 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Mon, 03 Jan 2011 23:47:56 -0000
 
-This patch fix several bugs, including opkg file chksum number changing
-problem, sdk_version automatically generating now, and we should
-cd to ${WORKDIR} before do_deploy
+Now no "Y" marks represent whether to install the target or not,
+the corresponding code needs to be changed too.
 
 Signed-off-by: Liping Ke <liping.ke@intel.com>
 ---
- .../installer/adt-installer/adt_installer.conf     |    1 -
- .../installer/adt-installer_1.0.bb                 |   29 ++++++++++---------
- 2 files changed, 15 insertions(+), 15 deletions(-)
+ .../adt-installer/scripts/adt_installer_internal   |   71 +++++++++-----------
+ 1 files changed, 33 insertions(+), 38 deletions(-)
 
-diff --git a/meta/recipes-devtools/installer/adt-installer/adt_installer.conf b/meta/recipes-devtools/installer/adt-installer/adt_installer.conf
-index 5dc9261..4b9213c 100644
---- a/meta/recipes-devtools/installer/adt-installer/adt_installer.conf
-+++ b/meta/recipes-devtools/installer/adt-installer/adt_installer.conf
-@@ -1,7 +1,6 @@
- # Your yocto distro repository, this should include IPKG based packages and root filesystem files where the installation is based on
+diff --git a/meta/recipes-devtools/installer/adt-installer/scripts/adt_installer_internal b/meta/recipes-devtools/installer/adt-installer/scripts/adt_installer_internal
+index e1b9e01..13e89e6 100755
+--- a/meta/recipes-devtools/installer/adt-installer/scripts/adt_installer_internal
++++ b/meta/recipes-devtools/installer/adt-installer/scripts/adt_installer_internal
+@@ -148,47 +148,42 @@ echo_info "\nSuccessfully installed selected native ADT!"
+ install_target()
+ {
  
- YOCTOADT_IPKG_REPO="http://llu-piketon.sh.intel.com/rootfs"
--YOCTOADT_VERSION="0.9+snapshot"
- 
- # The following are for system wide setup
- # Target architectures that you want to setup host cross dev environment for
-diff --git a/meta/recipes-devtools/installer/adt-installer_1.0.bb b/meta/recipes-devtools/installer/adt-installer_1.0.bb
-index 975dfa9..d8d87b7 100644
---- a/meta/recipes-devtools/installer/adt-installer_1.0.bb
-+++ b/meta/recipes-devtools/installer/adt-installer_1.0.bb
-@@ -12,36 +12,37 @@ PR = "r0"
- 
- ADT_DEPLOY = "${TMPDIR}/deploy/sdk/"
- ADT_DIR = "${WORKDIR}/adt-installer/"
+-select_target_var="\$YOCTOADT_TARGET_$1"
+-select_target=`eval echo $select_target_var`
 -
--S = "${WORKDIR}"
-+YOCTOADT_VERSION = "${SDK_VERSION}"
+-if [ "$select_target" == "Y" ]; then
+-
+-  # rootfs extraction directory
+-  target_sysroot_var="\$YOCTOADT_TARGET_SYSROOT_LOC_$1"
+-  target_sysroot=`eval echo $target_sysroot_var`
+-
+-  target_sysroot_image_var="\$YOCTOADT_TARGET_SYSROOT_IMAGE_$1"
+-  target_sysroot_image=`eval echo $target_sysroot_image_var`
+-  if [ "$target_sysroot" == "" ]; then
+-     echo_info "[ADT_INST] Error: YOCTOADT_TARGET_SYSROOT__LOC_$1 selection is empty, failed to create target sysroot!"
+-     return 1
+-  elif [ "$target_sysroot_image" == "" ]; then
+-     echo_info "[ADT_INST] Error: YOCTOADT_TARGET_SYSROOT_IMAGE_$1 selection is empty, failed to create target sysroot!"
+-     return 1
+-  else
+-    echo_info "Installing target sysroot for arch: $1, rootfs type: $target_sysroot_image, location: $target_sysroot"
+-
+-    sysroot_image_name="poky-image-$target_sysroot_image-qemu$1.tar.bz2"
++# rootfs extraction directory
++target_sysroot_var="\$YOCTOADT_TARGET_SYSROOT_LOC_$1"
++target_sysroot=`eval echo $target_sysroot_var`
++
++if [ "$target_sysroot" == "" ]; then
++  return 0
++fi
++
++target_sysroot_image_var="\$YOCTOADT_TARGET_SYSROOT_IMAGE_$1"
++target_sysroot_image=`eval echo $target_sysroot_image_var`
++if [ "$target_sysroot_image" == "" ]; then
++  echo_info "[ADT_INST] Error: YOCTOADT_TARGET_SYSROOT_IMAGE_$1 selection is empty, failed to create target sysroot!"
++  return 1
++fi
++
++echo_info "Installing target sysroot for arch: $1, rootfs type: $target_sysroot_image, location: $target_sysroot"
++
++sysroot_image_name="poky-image-$target_sysroot_image-qemu$1.tar.bz2"
+     #echo_info "Extracting rootfs: $sysroot_image_name, using pseudo..."
  
- inherit deploy
+-    scripts/extract_rootfs $sysroot_image_name $target_sysroot $POKY_NATIVE_SYSROOT $user_inst_type
+-    check_result
+-
+-    echo_info "Updating environment script with target sysroot location."
+-    if [ "$1" == "x86"  ]; then
+-      env_filename=`ls $INSTALL_FOLDER/environment-setup-i586*`
+-    else
+-      env_filename=`ls $INSTALL_FOLDER/environment-setup-$1*`
+-    fi
+-    if [ ! -z "$env_filename" ]; then
+-      sudo sed -i -e "s%##SDKTARGETSYSROOT##%$target_sysroot%g" $env_filename
+-    else
+-      echo_info "[ADT_INST] Error: Failed to find environment script for arch: $1"
+-      return 1 
+-    fi
+-
+-  fi
++scripts/extract_rootfs $sysroot_image_name $target_sysroot $POKY_NATIVE_SYSROOT $user_inst_type
++check_result
++
++echo_info "Updating environment script with target sysroot location."
++if [ "$1" == "x86"  ]; then
++  env_filename=`ls $INSTALL_FOLDER/environment-setup-i586*`
++else
++  env_filename=`ls $INSTALL_FOLDER/environment-setup-$1*`
+ fi
++if [ ! -z "$env_filename" ]; then
++  sudo sed -i -e "s%##SDKTARGETSYSROOT##%$target_sysroot%g" $env_filename
++else
++  echo_info "[ADT_INST] Error: Failed to find environment script for arch: $1"
++  return 1 
++fi
++
  
- SRC_URI = "http://opkg.googlecode.com/files/opkg-0.1.8.tar.gz \
--           file://yocto_installer \
--           file://scripts/yocto_installer_internal \
-+           file://adt_installer \
-+           file://scripts/adt_installer_internal \
-            file://scripts/util \
-            file://scripts/data_define \
-            file://scripts/extract_rootfs \
--           file://yocto_installer.conf \
-+           file://adt_installer.conf \
-            file://opkg/conf/opkg-sdk-x86_64.conf \
-            file://opkg/conf/opkg-sdk-i586.conf \
- 	  "
--SRC_URI[md5sum] = "5e888dd46a252cc22686b732fbe486b3"
--SRC_URI[sha256sum] = "ded8f16f55a641672fe1344842998def5f5163d7ebbd5d58ab15c54b04927660"
-+SRC_URI[md5sum] = "c714ce0e4863bf1315e3b6913ffe3299"
-+SRC_URI[sha256sum] = "ff94bf30bd662d49c4b5057e3a0818d062731adaa555d59abd677ec32a3c1c60"
- 
- fakeroot do_deploy () {
-+	cd ${WORKDIR}
- 	mkdir -p ${ADT_DEPLOY}
- 	rm -f ${ADT_DEPLOY}/adt-installer.tar.bz2
- 	rm -rf ${ADT_DIR}
- 	mkdir -p ${ADT_DIR}/opkg/build
--	cp -r ${WORKDIR}/opkg ${ADT_DIR}/
--	cp -r ${WORKDIR}/opkg-0.1.8 ${ADT_DIR}/opkg/build
--	cp -r ${WORKDIR}/scripts ${ADT_DIR}/
--	cp yocto_installer ${ADT_DIR}
--	cp yocto_installer.conf ${ADT_DIR}
--	tar cfj ${WORKDIR}/adt_installer.tar.bz2 adt-installer
--	cp adt_installer.tar.bz2 ${ADT_DEPLOY}
-+	cp -r opkg ${ADT_DIR}/
-+	cp -r opkg-0.1.8 ${ADT_DIR}/opkg/build/
-+	cp -r scripts ${ADT_DIR}/
-+	cp adt_installer ${ADT_DIR}
-+	cp adt_installer.conf ${ADT_DIR}
-+	echo 'YOCTOADT_VERSION=${SDK_VERSION}' >> ${ADT_DIR}/adt_installer.conf
-+	tar cfj adt_installer.tar.bz2 adt-installer
-+	cp ${WORKDIR}/adt_installer.tar.bz2 ${ADT_DEPLOY}
  }
  
- do_patch[noexec] = "1"
 -- 
 1.7.0.4
 
