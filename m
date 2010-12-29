@@ -1,25 +1,25 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E5C874C80FA4
-	for <poky@yoctoproject.org>; Wed, 29 Dec 2010 00:47:55 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 28 Dec 2010 22:47:55 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,243,1291622400"; d="scan'208";a="691571110"
-Received: from unknown (HELO [10.255.13.215]) ([10.255.13.215])
-	by orsmga001.jf.intel.com with ESMTP; 28 Dec 2010 22:47:55 -0800
-Message-ID: <4D1AD99A.4020006@intel.com>
-Date: Tue, 28 Dec 2010 22:47:54 -0800
-From: Saul Wold <saul.wold@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
-MIME-Version: 1.0
+Return-Path: <Jingdong.Lu@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5C9634C80BD8
+	for <poky@yoctoproject.org>; Wed, 29 Dec 2010 02:43:57 -0600 (CST)
+Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oBT8huQY026063
+	for <poky@yoctoproject.org>; Wed, 29 Dec 2010 00:43:56 -0800 (PST)
+Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
+	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Wed, 29 Dec 2010 00:43:55 -0800
+Received: from localhost ([128.224.162.176]) by ala-mail06.corp.ad.wrs.com
+	with Microsoft SMTPSVC(6.0.3790.1830); 
+	Wed, 29 Dec 2010 00:43:54 -0800
+Message-Id: <cover.1293612044.git.jingdong.lu@windriver.com>
+From: Jingdong Lu <jingdong.lu@windriver.com>
+Old-Date: Wed, 29 Dec 2010 16:40:44 +0800
+Date: Wed, 29 Dec 2010 16:45:17 +0800
 To: poky@yoctoproject.org
-References: <cover.1293522033.git.tom.zanussi@intel.com>
-	<c364ccadf9cb18bb017cffc198aa991f733834e8.1293522033.git.tom.zanussi@intel.com>
-In-Reply-To: <c364ccadf9cb18bb017cffc198aa991f733834e8.1293522033.git.tom.zanussi@intel.com>
-Subject: Re: [PATCH 4/4] bblayers.conf.sample: remove meta-emenlow
+CC: 
+X-OriginalArrivalTime: 29 Dec 2010 08:43:55.0744 (UTC)
+	FILETIME=[87215E00:01CBA734]
+Subject: [PATCH 0/1] Add source package names into task-poky-lsb.bb
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,43 +31,23 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 29 Dec 2010 06:47:56 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 29 Dec 2010 08:43:57 -0000
 
-On 12/28/2010 08:45 AM, Tom Zanussi wrote:
-> meta-emenlow has been moved to the meta-intel repo, so it shouldn't be
-> added as a default layer by bblayers.conf.  Users who want to build
-> the meta-emenlow layer can just add it to bblayers.conf as they would
-> any other layer e.g.
->
-> BBLAYERS = " \
->    /home/trz/yocto/meta \
->    /home/trz/yocto/meta-intel/meta-emenlow \
->    "
->
-> Signed-off-by: Tom Zanussi<tom.zanussi@intel.com>
-> ---
->   meta/conf/bblayers.conf.sample |    1 -
->   1 files changed, 0 insertions(+), 1 deletions(-)
->
-> diff --git a/meta/conf/bblayers.conf.sample b/meta/conf/bblayers.conf.sample
-> index 3c7b6e6..27e2906 100644
-> --- a/meta/conf/bblayers.conf.sample
-> +++ b/meta/conf/bblayers.conf.sample
-> @@ -5,5 +5,4 @@ LCONF_VERSION = "3"
->   BBFILES ?= ""
->   BBLAYERS = " \
->     ##POKYBASE##/meta \
-> -  ##POKYBASE##/meta-emenlow \
->     "
-Tom,
+In order to setup LSB test environment and run LSB, we should add some source packages into task-poky-lsb.bb.
 
-When you make a change like this, you need to increment the 
-LCONF_VERSION by one to force people to review their bblayers.conf file.
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: jingdonglu/distro
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=jingdonglu/distro
 
-Please update and send a v2 of the patch
+Thanks,
+    Jingdong Lu <jingdong.lu@windriver.com>
+---
 
-Sau!
+
+Jingdong Lu (1):
+  task-poky-lsb: add relevant packages into task-poky-lsb
+
+ meta/recipes-extended/tasks/task-poky-lsb.bb |  979 +++++++++++++++++++++++++-
+ 1 files changed, 977 insertions(+), 2 deletions(-)
 
 
