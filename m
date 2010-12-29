@@ -1,26 +1,20 @@
-Return-Path: <koen@dominion.thruhere.net>
-Received: from mail-ww0-f42.google.com (mail-ww0-f42.google.com [74.125.82.42])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 216834C80050
-	for <poky@yoctoproject.org>; Wed, 29 Dec 2010 03:18:59 -0600 (CST)
-Received: by wwi17 with SMTP id 17so10341113wwi.5
-	for <poky@yoctoproject.org>; Wed, 29 Dec 2010 01:18:59 -0800 (PST)
-Received: by 10.227.154.204 with SMTP id p12mr8589885wbw.6.1293614339203;
-	Wed, 29 Dec 2010 01:18:59 -0800 (PST)
-Received: from [172.20.1.5] (ip545070eb.adsl-surfen.hetnet.nl [84.80.112.235])
-	by mx.google.com with ESMTPS id
-	q18sm9935222wbe.17.2010.12.29.01.18.57
-	(version=TLSv1/SSLv3 cipher=RC4-MD5);
-	Wed, 29 Dec 2010 01:18:57 -0800 (PST)
-Mime-Version: 1.0 (Apple Message framework v1082)
-From: Koen Kooi <koen@dominion.thruhere.net>
-In-Reply-To: <4D1A8103.2030501@linux.intel.com>
-Date: Wed, 29 Dec 2010 10:18:56 +0100
-Message-Id: <A1C71709-8C15-4B14-941E-965112512C5A@dominion.thruhere.net>
-References: <4D1A8103.2030501@linux.intel.com>
-To: Darren Hart <dvhart@linux.intel.com>
-X-Mailer: Apple Mail (2.1082)
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: Library paths for Makefile based recipes
+Return-Path: <ke.yu@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 22CE84C80050
+	for <poky@yoctoproject.org>; Wed, 29 Dec 2010 03:47:19 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 29 Dec 2010 01:47:18 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,244,1291622400"; d="scan'208";a="588023763"
+Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
+	by orsmga002.jf.intel.com with ESMTP; 29 Dec 2010 01:47:17 -0800
+Message-Id: <cover.1293616099.git.ke.yu@intel.com>
+From: Yu Ke <ke.yu@intel.com>
+Old-Date: Wed, 29 Dec 2010 17:48:19 +0800
+Date: Wed, 29 Dec 2010 17:54:33 +0800
+To: poky@yoctoproject.org
+CC: 
+Subject: [PATCH 0/1] check if lockfile is writable (bug 606 patch V2)
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,21 +26,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 29 Dec 2010 09:19:00 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 29 Dec 2010 09:47:19 -0000
+
+I've sent a patch for bug 606 before, which add sanity check for $DL_DIR.
+
+After digging more, the root cause is hidden in bb.utils.lockfile(), so it
+is more general to add check there. hence comes out the V2 patch for bug606.
+please discard my V1 patch.
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: kyu3/bug606-v2
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kyu3/bug606-v2
+
+Thanks,
+    Yu Ke <ke.yu@intel.com>
+---
 
 
-Op 29 dec 2010, om 01:29 heeft Darren Hart het volgende geschreven:
+Yu Ke (1):
+  bb.utils: check if lock file is writable, to fix bug 606
 
-> I'm working on packaging kernelshark ("make gui" for the trace-cmd recipe
-> basically). It fails trying to link to -lgtk-x11-2.0. I have added gtk+
-> as a DEPENDS and the library does exist in the sysroots. I have also added
-> "inherit pkgconfig" as the project Makefile uses it extensively.
+ bitbake/lib/bb/utils.py |    4 ++++
+ 1 files changed, 4 insertions(+), 0 deletions(-)
 
-'inherit pkgconfig' only does DEPENDS_prepend = "pkgconfig-native "
-
-regards,
-
-Koen
 
