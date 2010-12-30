@@ -1,22 +1,25 @@
-Return-Path: <bruce.ashfield@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7CD554C81003;
-	Thu, 30 Dec 2010 15:32:21 -0600 (CST)
-Received: from localhost.localdomain (yow-bashfiel-d2.ottawa.windriver.com
-	[128.224.146.167])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id oBULTm49028192;
-	Thu, 30 Dec 2010 13:29:49 -0800 (PST)
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-To: rpurdie@linux.intel.com
-Date: Thu, 30 Dec 2010 16:31:45 -0500
-Message-Id: <16136aebf866852afdab8617ca6ae208161d3e25.1293744156.git.bruce.ashfield@windriver.com>
-X-Mailer: git-send-email 1.7.0.4
-In-Reply-To: <cover.1293744156.git.bruce.ashfield@windriver.com>
-References: <cover.1293744156.git.bruce.ashfield@windriver.com>
-In-Reply-To: <cover.1293744156.git.bruce.ashfield@windriver.com>
-References: <cover.1293744156.git.bruce.ashfield@windriver.com>
-Cc: yocto@yoctoproject.org, poky@yoctoproject.org, saul.wold@intel.com
-Subject: [PATCH 1/1] linux-yocto: update to 2.6.37-rc8
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id B09A84C80BD4
+	for <poky@yoctoproject.org>; Thu, 30 Dec 2010 16:29:59 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 30 Dec 2010 14:29:59 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,251,1291622400"; d="scan'208";a="873146273"
+Received: from unknown (HELO [10.255.13.238]) ([10.255.13.238])
+	by fmsmga001.fm.intel.com with ESMTP; 30 Dec 2010 14:29:59 -0800
+Message-ID: <4D1D07E7.7010000@linux.intel.com>
+Date: Thu, 30 Dec 2010 14:29:59 -0800
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
+MIME-Version: 1.0
+To: Bruce Ashfield <bruce.ashfield@gmail.com>
+References: <cover.1293731824.git.dvhart@linux.intel.com>	<a01f0a62cfa9dfd7d3c9809f9cb439100a9eb61d.1293731824.git.dvhart@linux.intel.com>
+	<AANLkTi=HVSpVxnx9QbU++mRMMW=csPz13PyT+vVX28b7@mail.gmail.com>
+In-Reply-To: <AANLkTi=HVSpVxnx9QbU++mRMMW=csPz13PyT+vVX28b7@mail.gmail.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 1/3] trace-cmd: fix cross-compilation
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,51 +31,90 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 30 Dec 2010 21:32:21 -0000
+X-List-Received-Date: Thu, 30 Dec 2010 22:30:00 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Updating the board SRCREVs to 2.6.37-rc8.
+On 12/30/2010 01:02 PM, Bruce Ashfield wrote:
+> On Tue, Dec 28, 2010 at 8:17 PM, Darren Hart<dvhart@linux.intel.com>  wrote:
+>> The trace-cmd Makefile forces certain variables, such as CC and AR.
+>> It was using the host gcc and loader, fix it to use the poky-built
+>> cross-compiler and linker.
+>>
+>> inherit pkgconfig to ensure we don't use the host pkg-config.
+>>
+>> Remove unecessary variables from the oemake commands, such as ARCH
+>> and LD which aren't used by the Makefile.
+>>
+>> Signed-off-by: Darren Hart<dvhart@linux.intel.com>
+>> CC: Tom Zanussi<tom.zanussi@intel.com>
+>
+> I actually hacked up the original of this one .. ;)
 
-Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
----
- .../conf/distro/include/poky-default-revisions.inc |   24 ++++++++++----------
- 1 files changed, 12 insertions(+), 12 deletions(-)
+Right, sorry, forgot to check git blame on this one.
 
-diff --git a/meta/conf/distro/include/poky-default-revisions.inc b/meta/conf/distro/include/poky-default-revisions.inc
-index 36448cc..46bd938 100644
---- a/meta/conf/distro/include/poky-default-revisions.inc
-+++ b/meta/conf/distro/include/poky-default-revisions.inc
-@@ -95,18 +95,18 @@ SRCREV_machine_pn-linux-yocto-stable_mpc8315e-rdb ?= "986e6eb66c26007cee7916d5d1
- SRCREV_machine_pn-linux-yocto-stable_beagleboard ?= "0431115c9d720fee5bb105f6a7411efb4f851d26"
- SRCREV_meta_pn-linux-yocto-stable ?= "50ccd2b3213b6a1bacb3f898c035119802dac420"
- # development SRCREVs
--SRCREV_machine_pn-linux-yocto_qemuarm = "7bf177ac4ad275e38da20814b9feb5a9dce2e90d"
--SRCREV_machine_pn-linux-yocto_qemumips = "8ed75362664355b89e8063a07b25f79c02711e8b"
--SRCREV_machine_pn-linux-yocto_qemuppc = "3b4193f7d11c257472ad357555645a329c8e2a9e"
--SRCREV_machine_pn-linux-yocto_qemux86 = "4cadabcdf0ef14c30bd3f18846d72d0da745c57f"
--SRCREV_machine_pn-linux-yocto_qemux86-64 = "4cadabcdf0ef14c30bd3f18846d72d0da745c57f"
--SRCREV_machine_pn-linux-yocto_emenlow = "4cadabcdf0ef14c30bd3f18846d72d0da745c57f"
--SRCREV_machine_pn-linux-yocto_atom-pc = "4cadabcdf0ef14c30bd3f18846d72d0da745c57f"
--SRCREV_machine_pn-linux-yocto_routerstationpro = "145fe6d49a4056adf2d0df6719e63ed860d26547"
--SRCREV_machine_pn-linux-yocto_mpc8315e-rdb = "2629db6f8595d227758dc635c9e5c091930c4762"
--SRCREV_machine_pn-linux-yocto_beagleboard = "4cadabcdf0ef14c30bd3f18846d72d0da745c57f"
--SRCREV_meta_pn-linux-yocto ?= "5955ebea1f0d2fbd67a66ed138ce2b3363adf72a"
--SRCREV_pn-linux-libc-headers-yocto ??= "f6454fa1af4340832f8943f0b3d8e9f2de11b1b1"
-+SRCREV_machine_pn-linux-yocto_qemuarm = "605b1b1e0c68e9f78a7fb33aa219327153a4a890"
-+SRCREV_machine_pn-linux-yocto_qemumips = "0f05ab306ac79684a3352f28db91dfb903c67410"
-+SRCREV_machine_pn-linux-yocto_qemuppc = "d7f2a74cf32e9d6e26e66699d1422096437d3d0e"
-+SRCREV_machine_pn-linux-yocto_qemux86 = "6635864790ac23db856147fcbc4e8ebbfd30a0ba"
-+SRCREV_machine_pn-linux-yocto_qemux86-64 = "6635864790ac23db856147fcbc4e8ebbfd30a0ba"
-+SRCREV_machine_pn-linux-yocto_emenlow = "6635864790ac23db856147fcbc4e8ebbfd30a0ba"
-+SRCREV_machine_pn-linux-yocto_atom-pc = "6635864790ac23db856147fcbc4e8ebbfd30a0ba"
-+SRCREV_machine_pn-linux-yocto_routerstationpro = "cc1d802228803e0ebf27f3d3772de3620159d195"
-+SRCREV_machine_pn-linux-yocto_mpc8315e-rdb = "be26676bf67b0c4b5f36b57fe9e46f8bfd2a67c9"
-+SRCREV_machine_pn-linux-yocto_beagleboard = "6635864790ac23db856147fcbc4e8ebbfd30a0ba"
-+SRCREV_meta_pn-linux-yocto ?= "6635864790ac23db856147fcbc4e8ebbfd30a0ba"
-+SRCREV_pn-linux-libc-headers-yocto ??= "6635864790ac23db856147fcbc4e8ebbfd30a0ba"
- SRCREV_pn-matchbox-config-gtk ??= "2081"
- SRCREV_pn-matchbox-desktop-sato ??= "76"
- SRCREV_pn-matchbox-desktop ??= "2096"
+>
+>
+>> ---
+>>   meta/recipes-kernel/trace-cmd/trace-cmd_git.bb |   12 +++++-------
+>>   1 files changed, 5 insertions(+), 7 deletions(-)
+>>
+>> diff --git a/meta/recipes-kernel/trace-cmd/trace-cmd_git.bb b/meta/recipes-kernel/trace-cmd/trace-cmd_git.bb
+>> index e375afc..a7eca5f 100644
+>> --- a/meta/recipes-kernel/trace-cmd/trace-cmd_git.bb
+>> +++ b/meta/recipes-kernel/trace-cmd/trace-cmd_git.bb
+>> @@ -2,18 +2,16 @@ DESCRIPTION = "User interface to Ftrace"
+>>   LICENSE = "GPL"
+>>   LIC_FILES_CHKSUM = "file://COPYING;md5=751419260aa954499f7abaabaa882bbe"
+>>
+>> -PR = r1
+>> +PR = r2
+>>   PV = "1.0.4+git${SRCPV}"
+>>
+>> +inherit pkgconfig
+>> +
+>>   SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/rostedt/trace-cmd.git;protocol=git"
+>>   S = "${WORKDIR}/git"
+>>
+>> -
+>> -do_compile() {
+>> -       oe_runmake ARCH="${ARCH}" CC="${CC}" LD="${LD}" prefix=${prefix}
+>> -}
+>> +EXTRA_OEMAKE = "'CC=${CC}' 'AR=${AR}' 'prefix=${prefix}'"
+>
+> So we've determined that we don't need ARCH anymore ? At one point
+> this did. Or is it coming from the pkgconfig inheritance now ?
+
+Good question. My understanding of setting these variables here was to 
+override whatever the Makefile was using. This makefile doesn't use ARCH 
+at all. Am I missing something about how this is used?
+
+--
+Darren
+
+>
+> Bruce
+>
+>>
+>>   do_install() {
+>> -       oe_runmake ARCH="${ARCH}" CC="${CC}" LD="${LD}" \
+>> -                   prefix=${prefix} DESTDIR=${D} install
+>> +       oe_runmake CC="${CC}" AR="${AR}" prefix="${prefix}" DESTDIR="${D}" install
+>>   }
+>> --
+>> 1.7.1
+>>
+>> _______________________________________________
+>> poky mailing list
+>> poky@yoctoproject.org
+>> https://lists.yoctoproject.org/listinfo/poky
+>>
+>
+>
+>
+
+
 -- 
-1.7.0.4
-
+Darren Hart
+Yocto Linux Kernel
 
