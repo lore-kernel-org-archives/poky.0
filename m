@@ -1,30 +1,29 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 569484C80FFE
-	for <poky@yoctoproject.org>; Thu, 30 Dec 2010 04:13:27 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	oBUAEvTl002387; Thu, 30 Dec 2010 10:14:57 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id sR31EWoTS9AW; Thu, 30 Dec 2010 10:14:57 +0000 (GMT)
-Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	oBUAErj0002383
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Thu, 30 Dec 2010 10:14:55 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Koen Kooi <koen@dominion.thruhere.net>
-In-Reply-To: <0AA1E123-3984-442B-986C-6B4C8B0C3021@dominion.thruhere.net>
+Return-Path: <koen@dominion.thruhere.net>
+Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
+	[74.125.82.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 3C83D4C80FFE
+	for <poky@yoctoproject.org>; Thu, 30 Dec 2010 04:20:23 -0600 (CST)
+Received: by wye20 with SMTP id 20so11422948wye.35
+	for <poky@yoctoproject.org>; Thu, 30 Dec 2010 02:20:22 -0800 (PST)
+Received: by 10.216.46.193 with SMTP id r43mr19343985web.20.1293704422029;
+	Thu, 30 Dec 2010 02:20:22 -0800 (PST)
+Received: from [172.20.1.5] (ip545070eb.adsl-surfen.hetnet.nl [84.80.112.235])
+	by mx.google.com with ESMTPS id
+	t11sm7020565wes.17.2010.12.30.02.20.21
+	(version=TLSv1/SSLv3 cipher=RC4-MD5);
+	Thu, 30 Dec 2010 02:20:21 -0800 (PST)
+Mime-Version: 1.0 (Apple Message framework v1082)
+From: Koen Kooi <koen@dominion.thruhere.net>
+In-Reply-To: <1293703995.17519.9987.camel@rex>
+Date: Thu, 30 Dec 2010 11:20:20 +0100
+Message-Id: <A60F6ED5-CFFB-480B-A589-FFE91CB4F315@dominion.thruhere.net>
 References: <1293050270.3578.172.camel@rex>
 	<1293111933-5071-1-git-send-email-koen@openembedded.org>
 	<1293113340.1588.860.camel@rex>
 	<0AA1E123-3984-442B-986C-6B4C8B0C3021@dominion.thruhere.net>
-Date: Thu, 30 Dec 2010 10:13:15 +0000
-Message-ID: <1293703995.17519.9987.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
+	<1293703995.17519.9987.camel@rex>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+X-Mailer: Apple Mail (2.1082)
 Cc: poky@yoctoproject.org
 Subject: Re: [RFC][PATCH] RDEPENDS, RRECOMMENDS -> RDPEPENDS_${PN}, RRECOMMENDS_${PN}
 X-BeenThere: poky@yoctoproject.org
@@ -38,96 +37,41 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 30 Dec 2010 10:13:27 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 30 Dec 2010 10:20:23 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 2010-12-23 at 15:34 +0100, Koen Kooi wrote:
-> Op 23 dec 2010, om 15:09 heeft Richard Purdie het volgende geschreven:
-> 
-> > On Thu, 2010-12-23 at 14:45 +0100, Koen Kooi wrote:
-> >> diff --git a/meta/recipes-connectivity/avahi/avahi.inc b/meta/recipes-connectivity/avahi/avahi.inc
-> >> index b266ea4..5c3b4dd 100644
-> >> --- a/meta/recipes-connectivity/avahi/avahi.inc
-> >> +++ b/meta/recipes-connectivity/avahi/avahi.inc
-> >> @@ -16,7 +16,7 @@ PRIORITY = "optional"
-> >> LICENSE = "GPLv2+ & LGPLv2.1+"
-> >> 
-> >> DEPENDS = "expat libcap libdaemon dbus glib-2.0 gtk+ libglade"
-> >> -RRECOMMENDS = "libnss-mdns"
-> >> +RRECOMMENDS_${PN} = "libnss-mdns"
-> >> RRECOMMENDS_avahi-daemon = "libnss-mdns"
-> > 
-> > Hmm, which bit of avahi needs this? This looks a little odd...
-> 
-> It's an nss plugin, I install it so ssh can resolve .local addresses, not sure if avahi actually needs it. Any suggestions?
 
-I've left the patch as is for now, I think this is perhaps correct as it
-ensures the name resolution is available for both the client lib and the
-daemon.
+Op 30 dec 2010, om 11:13 heeft Richard Purdie het volgende geschreven:
+>>>> -BASE_RRECOMMENDS =3D "ttf-dejavu-sans"
+>>>> +BASE_RRECOMMENDS_${PN} =3D "ttf-dejavu-sans"
+>>>> BASE_RRECOMMENDS_angstrom =3D "ttf-dejavu-sans =
+gdk-pixbuf-loader-png gdk-pixbuf-loader-jpeg gdk-pixbuf-loader-gif =
+gdk-pixbuf-loader-xpm"
+>>>> BASE_RRECOMMENDS_poky =3D "gdk-pixbuf-loader-png =
+gdk-pixbuf-loader-jpeg gdk-pixbuf-loader-gif gdk-pixbuf-loader-xpm =
+shared-mime-info"
+>>>> BASE_RRECOMMENDS_moblin =3D "gdk-pixbuf-loader-png =
+gdk-pixbuf-loader-jpeg gdk-pixbuf-loader-gif gdk-pixbuf-loader-xpm =
+shared-mime-info"
+>>>=20
+>>> Need to add ${PN} into these. We should really consider changing the
+>>> default here...
+>>=20
+>> fixed the PN part, not the default setting
+>=20
+> It raises the horrible question about what the default should be I =
+guess
+> (again) :/.
 
-> > diff --git a/meta/recipes-connectivity/gsm/gsmd.inc b/meta/recipes-connectivity/gsm/gsmd.inc
-> >> index 9818188..385c40e 100644
-> >> --- a/meta/recipes-connectivity/gsm/gsmd.inc
-> >> +++ b/meta/recipes-connectivity/gsm/gsmd.inc
-> >> @@ -19,7 +19,7 @@ SRC_URI = "svn://svn.openmoko.org/trunk/src/target;module=gsm;proto=http \
-> >> S = "${WORKDIR}/gsm"
-> >> 
-> >> inherit autotools pkgconfig update-rc.d
-> >> -# handle update-rc.d RDEPENDS manually, we don't need it on
-> >> +# handle update-rc.d RDEPENDS_${PN} manually, we don't need it on
-> >> # anything but gsmd
-> >> RDEPENDS_append = ""
-> > 
-> > This looks like some kind of bug waiting to be fixed...
-> 
-> Not sure what you want me to do here :)
+This is a leftover for the familiar-angstrom split. My opinion was that =
+doing 'opkg install gtk-app'[1] resulted in a working app, but other =
+people like Phil Blundel disagreed and wanted the default to be broken. =
+As you see, poky and moblin share my opininion :)
 
-I pushed a separate fix for gsmd andupdate-rc.d.
+regards,
 
-> >> diff --git a/meta/recipes-devtools/unfs-server/unfs-server_2.2beta47.bb b/meta/recipes-devtools/unfs-server/unfs-server_2.2beta47.bb
-> >> index 89313d6..50ba339 100644
-> >> --- a/meta/recipes-devtools/unfs-server/unfs-server_2.2beta47.bb
-> >> +++ b/meta/recipes-devtools/unfs-server/unfs-server_2.2beta47.bb
-> >> @@ -3,10 +3,10 @@ SECTION = "console/network"
-> >> LICENSE = "GPLv2+"
-> >> LIC_FILES_CHKSUM = "file://COPYING;md5=8ca43cbc842c2336e835926c2166c28b"
-> >> 
-> >> -RDEPENDS = "pseudo"
-> >> +RDEPENDS_${PN} = "pseudo"
-> >> RDEPENDS_virtclass-native = "pseudo-native"
-> >> RDEPENDS_virtclass-nativesdk = "pseudo-nativesdk"
-> > 
-> > Need to add ${PN} to the virtclass versions.
-> 
-> fixed, and that recipe seems to violate the OE versioning policy, which I didn't fix.
+Koen
 
-Hmm, it does, yes. I've fixed this.
-
-> >> diff --git a/meta/recipes-gnome/gtk+/gtk+.inc b/meta/recipes-gnome/gtk+/gtk+.inc
-> >> index c34283e..ac7795e 100644
-> >> --- a/meta/recipes-gnome/gtk+/gtk+.inc
-> >> +++ b/meta/recipes-gnome/gtk+/gtk+.inc
-> >> @@ -35,7 +35,7 @@ FILES_${PN}-dbg += " \
-> >> 	${libdir}/gtk-2.0/${LIBV}/engines/.debug/* \
-> >> 	${libdir}/gtk-2.0/${LIBV}/printbackends/.debug/*"
-> >> 
-> >> -BASE_RRECOMMENDS = "ttf-dejavu-sans"
-> >> +BASE_RRECOMMENDS_${PN} = "ttf-dejavu-sans"
-> >> BASE_RRECOMMENDS_angstrom = "ttf-dejavu-sans gdk-pixbuf-loader-png gdk-pixbuf-loader-jpeg gdk-pixbuf-loader-gif gdk-pixbuf-loader-xpm"
-> >> BASE_RRECOMMENDS_poky = "gdk-pixbuf-loader-png gdk-pixbuf-loader-jpeg gdk-pixbuf-loader-gif gdk-pixbuf-loader-xpm shared-mime-info"
-> >> BASE_RRECOMMENDS_moblin = "gdk-pixbuf-loader-png gdk-pixbuf-loader-jpeg gdk-pixbuf-loader-gif gdk-pixbuf-loader-xpm shared-mime-info"
-> > 
-> > Need to add ${PN} into these. We should really consider changing the
-> > default here...
-> 
-> fixed the PN part, not the default setting
-
-It raises the horrible question about what the default should be I guess
-(again) :/.
-
-Cheers,
-
-Richard
-
+[1] 'ipkg install' at that point :)=
 
