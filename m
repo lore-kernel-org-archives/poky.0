@@ -1,20 +1,18 @@
 Return-Path: <dvhart@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 597354C811E0
-	for <poky@yoctoproject.org>; Thu, 30 Dec 2010 12:02:00 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 30 Dec 2010 10:02:00 -0800
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2AFF34C80BD4
+	for <poky@yoctoproject.org>; Thu, 30 Dec 2010 12:02:03 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 30 Dec 2010 10:01:57 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,251,1291622400"; d="scan'208";a="588420433"
+X-IronPort-AV: E=Sophos;i="4.60,251,1291622400"; d="scan'208";a="873088781"
 Received: from unknown (HELO localhost) ([10.255.13.238])
-	by orsmga002.jf.intel.com with ESMTP; 30 Dec 2010 10:01:59 -0800
-Message-Id: <46ff85bda463e94c40f5bd682ee97fab8baf0cbf.1293731824.git.dvhart@linux.intel.com>
-In-Reply-To: <cover.1293731824.git.dvhart@linux.intel.com>
-References: <cover.1293731824.git.dvhart@linux.intel.com>
+	by fmsmga001.fm.intel.com with ESMTP; 30 Dec 2010 10:01:57 -0800
+Message-Id: <cover.1293731824.git.dvhart@linux.intel.com>
 From: Darren Hart <dvhart@linux.intel.com>
-Date: Tue, 28 Dec 2010 17:10:22 -0800
+Date: Thu, 30 Dec 2010 09:57:04 -0800
 To: poky@yoctoproject.org
-Subject: [PATCH 3/3] kernelshark: add ftrace gui viewer
+Subject: [PATCH 0/3] tracing: trace-cmd fixes and new kernelshark recipe
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,49 +24,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 30 Dec 2010 18:02:00 -0000
+X-List-Received-Date: Thu, 30 Dec 2010 18:02:03 -0000
 
-The trace-cmd source includes a graphical trace viewer, but we
-don't want to make the trace-cmd recipe depend on gtk+. This
-patch adds a second recipe in the meta/recipes-kernel/trace-cmd
-directory which uses the trace-cmd SRCREV and RDEPENDS on trace-cmd
-to ensure compatibility.
+This series fixes some issues with the existing trace-cmd recipe and adds
+a new recipe for kernelshark. The latter catches a bug in glib-2.0 which
+is also addressed in this series with a patch from Open Embedded.
 
-Signed-off-by: Darren Hart <dvhart@linux.intel.com>
-CC: Tom Zanussi <tom.zanussi@intel.com>
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: dvhart/tracing
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dvhart/tracing
+
+Thanks,
+    Darren Hart <dvhart@linux.intel.com>
 ---
- meta/recipes-kernel/trace-cmd/kernelshark_git.bb |   21 +++++++++++++++++++++
- 1 files changed, 21 insertions(+), 0 deletions(-)
- create mode 100644 meta/recipes-kernel/trace-cmd/kernelshark_git.bb
 
-diff --git a/meta/recipes-kernel/trace-cmd/kernelshark_git.bb b/meta/recipes-kernel/trace-cmd/kernelshark_git.bb
-new file mode 100644
-index 0000000..d2913c9
---- /dev/null
-+++ b/meta/recipes-kernel/trace-cmd/kernelshark_git.bb
-@@ -0,0 +1,21 @@
-+DESCRIPTION = "Graphical trace viewer for Ftrace"
-+LICENSE = "GPL"
-+LIC_FILES_CHKSUM = "file://COPYING;md5=751419260aa954499f7abaabaa882bbe"
-+
-+PR = r0
-+PV = "1.0.4+git${SRCPV}"
-+
-+DEPENDS = "gtk+"
-+RDEPENDS = "trace-cmd"
-+
-+inherit pkgconfig
-+
-+SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/rostedt/trace-cmd.git;protocol=git"
-+SRCREV = "${SRCREV_pn-trace-cmd}"
-+S = "${WORKDIR}/git"
-+
-+EXTRA_OEMAKE = "'CC=${CC}' 'AR=${AR}' 'prefix=${prefix}' gui"
-+
-+do_install() {
-+	oe_runmake CC="${CC}" AR="${AR}" prefix="${prefix}" DESTDIR="${D}" install_gui
-+}
--- 
-1.7.1
+
+Darren Hart (3):
+  trace-cmd: fix cross-compilation
+  glib-2.0: fix g_once_init_enter compile failure
+  kernelshark: add ftrace gui viewer
+
+ .../glib-2.0-2.27.3/g_once_init_enter.patch        |   13 ++++++++++++
+ meta/recipes-core/glib-2.0/glib-2.0_2.27.3.bb      |    6 +++-
+ meta/recipes-kernel/trace-cmd/kernelshark_git.bb   |   21 ++++++++++++++++++++
+ meta/recipes-kernel/trace-cmd/trace-cmd_git.bb     |   12 ++++------
+ 4 files changed, 43 insertions(+), 9 deletions(-)
+ create mode 100644 meta/recipes-core/glib-2.0/glib-2.0-2.27.3/g_once_init_enter.patch
+ create mode 100644 meta/recipes-kernel/trace-cmd/kernelshark_git.bb
 
 
