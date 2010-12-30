@@ -1,37 +1,24 @@
-Return-Path: <kevin.tian@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7DB844C80FFE
-	for <poky@pokylinux.org>; Wed, 29 Dec 2010 18:19:13 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 29 Dec 2010 16:18:42 -0800
+Return-Path: <ke.yu@intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 876784C80FFE
+	for <poky@yoctoproject.org>; Wed, 29 Dec 2010 20:13:10 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 29 Dec 2010 18:12:09 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,246,1291622400"; d="scan'208";a="641592165"
-Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
-	by fmsmga002.fm.intel.com with ESMTP; 29 Dec 2010 16:18:41 -0800
-Received: from pgsmsx509.gar.corp.intel.com (172.30.13.17) by
-	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Thu, 30 Dec 2010 08:17:44 +0800
-Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
-	PGSMSX509.gar.corp.intel.com (172.30.13.17) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Thu, 30 Dec 2010 08:17:43 +0800
-Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
-	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
-	Thu, 30 Dec 2010 08:17:43 +0800
-From: "Tian, Kevin" <kevin.tian@intel.com>
-To: "Wold, Saul" <saul.wold@intel.com>
-Date: Thu, 30 Dec 2010 08:17:39 +0800
-Thread-Topic: [poky] [PATCH 0/1] fix SRC_URI for acl
-Thread-Index: AcunlnArA+sp0UReS2qhdpB2U96brgAIEgFg
-Message-ID: <625BA99ED14B2D499DC4E29D8138F1504D64C311A4@shsmsx502.ccr.corp.intel.com>
-References: <0d30dc$kj5oeh@orsmga001.jf.intel.com> <4D1B9905.1030405@intel.com>
-In-Reply-To: <4D1B9905.1030405@intel.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
+X-IronPort-AV: E=Sophos;i="4.60,247,1291622400"; d="scan'208";a="367895839"
+Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
+	by azsmga001.ch.intel.com with ESMTP; 29 Dec 2010 18:12:08 -0800
+Date: Thu, 30 Dec 2010 10:19:31 +0800
+From: Yu Ke <ke.yu@intel.com>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+Message-ID: <20101230021931.GE20780@kyu3-hedt>
+References: <cover.1293616099.git.ke.yu@intel.com> <4D1B7784.6080604@intel.com>
+	<1293654413.17519.9146.camel@rex>
 MIME-Version: 1.0
-Cc: "poky@pokylinux.org" <poky@pokylinux.org>
-Subject: Re: [PATCH 0/1] fix SRC_URI for acl
+In-Reply-To: <1293654413.17519.9146.camel@rex>
+User-Agent: Mutt/1.5.20 (2009-06-14)
+Cc: poky@yoctoproject.org, Saul Wold <saul.wold@intel.com>
+Subject: Re: [PATCH 0/1] check if lockfile is writable (bug 606 patch V2)
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,50 +30,50 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 30 Dec 2010 00:19:13 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Thu, 30 Dec 2010 02:13:10 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
->From: Wold, Saul
->Sent: Thursday, December 30, 2010 4:25 AM
->
->On 12/27/2010 04:50 PM, Kevin Tian wrote:
->> Pull URL: git://git.pokylinux.org/poky-contrib.git
->>    Branch: tk/laverne
->>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=3Dtk/la=
-verne
->>
->> Thanks,
->>      Kevin Tian<kevin.tian@intel.com>
->> ---
->>
->>
->> Kevin Tian (1):
->>    acl: use correct Savannah download link
->>
->>   meta/recipes-support/attr/acl.inc       |    2 +-
->>   meta/recipes-support/attr/acl_2.2.49.bb |    2 +-
->>   2 files changed, 2 insertions(+), 2 deletions(-)
->>
->> _______________________________________________
->> poky mailing list
->> poky@yoctoproject.org
->> https://lists.yoctoproject.org/listinfo/poky
->>
->Merged into Maste
->
+On Dec 29, 20:26, Richard Purdie wrote:
+> On Wed, 2010-12-29 at 10:01 -0800, Saul Wold wrote:
+> > I still wonder about this.  If the DL_DIR is read-only, since it is a 
+> > shared environment (as example), when a fetch occurs, it may be for 
+> > different reasons.
+> > 
+> > A couple of examples are:
+> > 1) an upstream fetch was missed (world build, but different hardware)
+> > 2) a developer changed the version information
+> > 
+> > In cases like this we really do want to do the fetch, so how can we 
+> > handle that issue correctly, and not just fail and force the user to 
+> > re-download all the packages (which may not be possible).
+> > 
+> > One option I can think of is to add a "WRITABLE_DL_DIR" (losy name but 
+> > you get the idea) or something like that which if the DL_DIR is 
+> > read-only could be written to for the lock file and ultimately the fetch 
+> > of the missing upstream package.
+> 
+> DL_DIR *must* be writeable. We don't support the use case where it is
+> not. We handle readonly directory sources as part of the mirror
+> handling. It might be not a lot is written to DL_DIR, that is just fine.
 
-Could you also merge into Laverne which is what this issue was originally r=
-eported?
-I sent two separate patches for both master and Laverne but didn't mark it =
-clearly
-in the title. At least this one is for Laverne:
+Yes, so this patch does not intended to support read-only DL_DIR, it just provides more verbal information to use instead of silently hang, so that user can know what is wrong and fix it accordingly.
 
->>    Branch: tk/laverne
->>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=3Dtk/la=
-verne
+Regards
+Ke
 
-Thanks
-Kevin
+> 
+> I therefore agree with Ke's patch which errors if the directory is
+> writeable.
+> 
+> Cheers,
+> 
+> Richard
+> 
+> 
+> 
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
