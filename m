@@ -1,26 +1,20 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 4E5C94C80BD4
-	for <poky@yoctoproject.org>; Fri, 31 Dec 2010 02:02:35 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 31 Dec 2010 00:02:34 -0800
+Return-Path: <jiajun.xu@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 27E374C8110E
+	for <poky@yoctoproject.org>; Fri, 31 Dec 2010 02:03:35 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 31 Dec 2010 00:03:34 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,254,1291622400"; d="scan'208";a="642052806"
-Received: from unknown (HELO [10.255.13.218]) ([10.255.13.218])
-	by fmsmga002.fm.intel.com with ESMTP; 31 Dec 2010 00:02:34 -0800
-Message-ID: <4D1D8DF2.8050000@intel.com>
-Date: Fri, 31 Dec 2010 00:01:54 -0800
-From: Saul Wold <saul.wold@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
-MIME-Version: 1.0
-To: Darren Hart <dvhart@linux.intel.com>
-References: <cover.1293731824.git.dvhart@linux.intel.com>
-	<46ff85bda463e94c40f5bd682ee97fab8baf0cbf.1293731824.git.dvhart@linux.intel.com>
-In-Reply-To: <46ff85bda463e94c40f5bd682ee97fab8baf0cbf.1293731824.git.dvhart@linux.intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 3/3] kernelshark: add ftrace gui viewer
+X-IronPort-AV: E=Sophos;i="4.60,254,1291622400"; d="scan'208";a="588595542"
+Received: from unknown (HELO localhost) ([10.239.48.201])
+	by orsmga002.jf.intel.com with ESMTP; 31 Dec 2010 00:03:34 -0800
+Message-Id: <cover.1293783098.git.jiajun.xu@intel.com>
+From: Jiajun Xu <jiajun.xu@intel.com>
+Old-Date: Fri, 31 Dec 2010 16:11:38 +0800
+Date: Fri, 31 Dec 2010 16:16:46 +0800
+To: poky@yoctoproject.org
+CC: 
+Subject: [PATCH 0/4] qemuimagetest: Add several cases for sanity test
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,52 +26,61 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 31 Dec 2010 08:02:35 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 31 Dec 2010 08:03:35 -0000
 
-On 12/28/2010 05:10 PM, Darren Hart wrote:
-> The trace-cmd source includes a graphical trace viewer, but we
-> don't want to make the trace-cmd recipe depend on gtk+. This
-> patch adds a second recipe in the meta/recipes-kernel/trace-cmd
-> directory which uses the trace-cmd SRCREV and RDEPENDS on trace-cmd
-> to ensure compatibility.
->
-> Signed-off-by: Darren Hart<dvhart@linux.intel.com>
-> CC: Tom Zanussi<tom.zanussi@intel.com>
-> ---
->   meta/recipes-kernel/trace-cmd/kernelshark_git.bb |   21 +++++++++++++++++++++
->   1 files changed, 21 insertions(+), 0 deletions(-)
->   create mode 100644 meta/recipes-kernel/trace-cmd/kernelshark_git.bb
->
-> diff --git a/meta/recipes-kernel/trace-cmd/kernelshark_git.bb b/meta/recipes-kernel/trace-cmd/kernelshark_git.bb
-> new file mode 100644
-> index 0000000..d2913c9
-> --- /dev/null
-> +++ b/meta/recipes-kernel/trace-cmd/kernelshark_git.bb
-> @@ -0,0 +1,21 @@
-> +DESCRIPTION = "Graphical trace viewer for Ftrace"
-> +LICENSE = "GPL"
-Can you be more specific to the version of GPL?
+There are 5 cases added for sanity test. These cases covers 
+basic function check for connman, compiler, zypper and rpm in 
+target.
 
-> +LIC_FILES_CHKSUM = "file://COPYING;md5=751419260aa954499f7abaabaa882bbe"
-> +
-> +PR = r0
-> +PV = "1.0.4+git${SRCPV}"
-> +
-> +DEPENDS = "gtk+"
-> +RDEPENDS = "trace-cmd"
-> +
-> +inherit pkgconfig
-> +
-> +SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/rostedt/trace-cmd.git;protocol=git"
-> +SRCREV = "${SRCREV_pn-trace-cmd}"
-> +S = "${WORKDIR}/git"
-> +
-> +EXTRA_OEMAKE = "'CC=${CC}' 'AR=${AR}' 'prefix=${prefix}' gui"
-> +
-> +do_install() {
-> +	oe_runmake CC="${CC}" AR="${AR}" prefix="${prefix}" DESTDIR="${D}" install_gui
-> +}
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: jxu49/master
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=jxu49/master
+
+Thanks,
+    Jiajun Xu <jiajun.xu@intel.com>
+---
+
+
+Jiajun Xu (4):
+  qemuimagetest: Add basic function check for zypper command
+  qemuimagetest: Add basic function check for rpm command
+  qemuimagetest: Add basic function check for gcc/g++/make command in
+    target
+  qemuimagetest: Add basic function check for connman
+
+ scripts/qemuimage-tests/sanity/compiler            |   52 ++++++++
+ scripts/qemuimage-tests/sanity/connman             |   52 ++++++++
+ scripts/qemuimage-tests/sanity/rpm_query           |   52 ++++++++
+ scripts/qemuimage-tests/sanity/zypper_help         |   52 ++++++++
+ scripts/qemuimage-tests/sanity/zypper_search       |   52 ++++++++
+ .../scenario/qemuarm/poky-image-lsb                |    4 +
+ .../scenario/qemuarm/poky-image-sato               |    4 +
+ .../scenario/qemuarm/poky-image-sdk                |    5 +
+ .../scenario/qemumips/poky-image-lsb               |    4 +
+ .../scenario/qemumips/poky-image-sato              |    4 +
+ .../scenario/qemumips/poky-image-sdk               |    5 +
+ .../scenario/qemuppc/poky-image-lsb                |    4 +
+ .../scenario/qemuppc/poky-image-sato               |    4 +
+ .../scenario/qemuppc/poky-image-sdk                |    5 +
+ .../scenario/qemux86-64/poky-image-lsb             |    4 +
+ .../scenario/qemux86-64/poky-image-sato            |    4 +
+ .../scenario/qemux86-64/poky-image-sdk             |    5 +
+ .../scenario/qemux86/poky-image-lsb                |    4 +
+ .../scenario/qemux86/poky-image-sato               |    4 +
+ .../scenario/qemux86/poky-image-sdk                |    5 +
+ scripts/qemuimage-tests/tools/compiler_test.sh     |  137 ++++++++++++++++++++
+ scripts/qemuimage-tests/tools/connman_test.sh      |   55 ++++++++
+ scripts/qemuimage-tests/tools/rpm_test.sh          |   45 +++++++
+ scripts/qemuimage-tests/tools/zypper_test.sh       |   45 +++++++
+ 24 files changed, 607 insertions(+), 0 deletions(-)
+ create mode 100755 scripts/qemuimage-tests/sanity/compiler
+ create mode 100755 scripts/qemuimage-tests/sanity/connman
+ create mode 100755 scripts/qemuimage-tests/sanity/rpm_query
+ create mode 100755 scripts/qemuimage-tests/sanity/zypper_help
+ create mode 100755 scripts/qemuimage-tests/sanity/zypper_search
+ create mode 100644 scripts/qemuimage-tests/tools/compiler_test.sh
+ create mode 100644 scripts/qemuimage-tests/tools/connman_test.sh
+ create mode 100644 scripts/qemuimage-tests/tools/rpm_test.sh
+ create mode 100644 scripts/qemuimage-tests/tools/zypper_test.sh
 
 
