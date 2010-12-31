@@ -1,21 +1,21 @@
 Return-Path: <dvhart@linux.intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id AFAB74C811E5
-	for <poky@yoctoproject.org>; Thu, 30 Dec 2010 18:40:41 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 30 Dec 2010 16:40:41 -0800
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id BAB4B4C8110E
+	for <poky@yoctoproject.org>; Thu, 30 Dec 2010 18:40:42 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 30 Dec 2010 16:40:42 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,252,1291622400"; d="scan'208";a="368273106"
+X-IronPort-AV: E=Sophos;i="4.60,252,1291622400"; d="scan'208";a="588501075"
 Received: from unknown (HELO localhost) ([10.255.13.230])
-	by azsmga001.ch.intel.com with ESMTP; 30 Dec 2010 16:40:41 -0800
-Message-Id: <880cd3fa1f61cef2f5e24122d476af871d6101aa.1293755504.git.dvhart@linux.intel.com>
+	by orsmga002.jf.intel.com with ESMTP; 30 Dec 2010 16:40:42 -0800
+Message-Id: <671f1222499169324580abe6b35db81649399dd1.1293755504.git.dvhart@linux.intel.com>
 In-Reply-To: <cover.1293755504.git.dvhart@linux.intel.com>
 References: <cover.1293755504.git.dvhart@linux.intel.com>
 From: Darren Hart <dvhart@linux.intel.com>
-Old-Date: Mon, 20 Dec 2010 15:05:33 -0800
-Date: Thu, 30 Dec 2010 16:40:40 -0800
+Old-Date: Fri, 17 Dec 2010 16:05:25 -0800
+Date: Thu, 30 Dec 2010 16:40:41 -0800
 To: poky@yoctoproject.org
-Subject: [PATCH 3/5] meta-rt/poky-image-*rt: Add initial PREEMPT_RT image recipes
+Subject: [PATCH 4/5] machine/qemu: Allow for users to override the preferred kernel version
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,83 +27,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 31 Dec 2010 00:40:41 -0000
+X-List-Received-Date: Fri, 31 Dec 2010 00:40:42 -0000
 
-Add poky-image-minimal-rt* image recipes. They are based on the minimal recipe
-and add rt-tests for basic evaluation of a board with a PREEMPT_RT kernel.
+The linux-yocto-rt kernel has been boot tested on qemux86-64. Unlock the
+preferred provider for virtual/kernel so it can be selected and used.
 
 Signed-off-by: Darren Hart <dvhart@linux.intel.com>
-Cc: Tom Zanussi <tom.zanussi@intel.com>
-Cc: Bruce Ashfield <bruce.ashfield@windriver.com>
 ---
- meta-rt/images/poky-image-minimal-rt-directdisk.bb |   15 +++++++++++++++
- meta-rt/images/poky-image-minimal-rt-live.bb       |   15 +++++++++++++++
- meta-rt/images/poky-image-minimal-rt.bb            |   12 ++++++++++++
- 3 files changed, 42 insertions(+), 0 deletions(-)
- create mode 100644 meta-rt/images/poky-image-minimal-rt-directdisk.bb
- create mode 100644 meta-rt/images/poky-image-minimal-rt-live.bb
- create mode 100644 meta-rt/images/poky-image-minimal-rt.bb
+ meta/conf/machine/include/qemu.inc |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
-diff --git a/meta-rt/images/poky-image-minimal-rt-directdisk.bb b/meta-rt/images/poky-image-minimal-rt-directdisk.bb
-new file mode 100644
-index 0000000..b68fe56
---- /dev/null
-+++ b/meta-rt/images/poky-image-minimal-rt-directdisk.bb
-@@ -0,0 +1,15 @@
-+#
-+# Copyright (C) 2010 Intel Corporation.
-+#
-+
-+require recipes-core/images/poky-image-directdisk.inc
-+
-+DESCRIPTION = "Bootable Minimal Real-Time Direct Disk Image"
-+
-+ROOTFS = "${DEPLOY_DIR_IMAGE}/poky-image-minimal-rt-${MACHINE}.ext3"
-+
-+LICENSE = "MIT"
-+
-+do_bootdirectdisk[depends] += "poky-image-minimal-rt:do_rootfs"
-+
-+
-diff --git a/meta-rt/images/poky-image-minimal-rt-live.bb b/meta-rt/images/poky-image-minimal-rt-live.bb
-new file mode 100644
-index 0000000..988c270
---- /dev/null
-+++ b/meta-rt/images/poky-image-minimal-rt-live.bb
-@@ -0,0 +1,15 @@
-+#
-+# Copyright (C) 2010 Intel Corporation.
-+#
-+
-+DESCRIPTION = "Bootable Live Minimal Real-Time Linux Image"
-+
-+require recipes-core/images/poky-image-live.inc
-+
-+LABELS += "boot install"
-+
-+ROOTFS = "${DEPLOY_DIR_IMAGE}/poky-image-rt-${MACHINE}.ext3"
-+
-+LICENSE = "MIT"
-+
-+do_bootimg[depends] += "poky-image-minimal-rt:do_rootfs"
-diff --git a/meta-rt/images/poky-image-minimal-rt.bb b/meta-rt/images/poky-image-minimal-rt.bb
-new file mode 100644
-index 0000000..6f5700c
---- /dev/null
-+++ b/meta-rt/images/poky-image-minimal-rt.bb
-@@ -0,0 +1,12 @@
-+#
-+# Copyright (C) 2010 Intel Corporation.
-+#
-+
-+DESCRIPTION = "Minimal Real-Time Linux Image"
-+DEPENDS = "linux-yocto-rt"
-+
-+require recipes-core/images/poky-image-minimal.bb
-+
-+IMAGE_INSTALL += "rt-tests"
-+
-+LICENSE = "MIT"
+diff --git a/meta/conf/machine/include/qemu.inc b/meta/conf/machine/include/qemu.inc
+index d762d01..225906b 100644
+--- a/meta/conf/machine/include/qemu.inc
++++ b/meta/conf/machine/include/qemu.inc
+@@ -15,7 +15,7 @@ IMAGE_ROOTFS_SIZE_ext3 ?= "280000"
+ RDEPENDS_kernel-base = ""
+ 
+ # Use a common kernel recipe for all QEMU machines
+-PREFERRED_PROVIDER_virtual/kernel = "linux-yocto"
++PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
+ PREFERRED_PROVIDER_linux-libc-headers ?= "linux-libc-headers-yocto"
+ 
+ EXTRA_IMAGEDEPENDS += "qemu-native qemu-helper-native"
 -- 
 1.7.1
 
