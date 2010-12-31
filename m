@@ -1,20 +1,19 @@
 Return-Path: <kevin.tian@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 836AC4C80050
-	for <poky@pokylinux.org>; Thu, 30 Dec 2010 23:44:56 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 30 Dec 2010 21:44:55 -0800
-Message-Id: <b9dded$hh9bqm@orsmga002.jf.intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8395F4C8110E
+	for <poky@pokylinux.org>; Thu, 30 Dec 2010 23:46:07 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 30 Dec 2010 21:45:37 -0800
+Message-Id: <c6d829$q0ouqo@fmsmga001.fm.intel.com>
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,253,1291622400"; d="scan'208";a="588558168"
-Received: from poky-desktop-ktian1.sh.intel.com (HELO localhost)
-	([10.239.36.131])
-	by orsmga002.jf.intel.com with ESMTP; 30 Dec 2010 21:44:55 -0800
+X-IronPort-AV: E=Sophos;i="4.60,253,1291622400"; d="scan'208";a="873233244"
+Received: from unknown (HELO localhost) ([10.239.36.131])
+	by fmsmga001.fm.intel.com with ESMTP; 30 Dec 2010 21:45:36 -0800
 From: Kevin Tian <kevin.tian@intel.com>
-Old-Date: Fri, 31 Dec 2010 13:20:33 +0800
-Date: Fri, 31 Dec 2010 13:28:01 +0800
+Old-Date: Thu, 30 Dec 2010 12:36:50 +0800
+Date: Fri, 31 Dec 2010 13:28:02 +0800
 To: poky@pokylinux.org
-Subject: [PATCH 0/1] make c++ include path relative to --sysroot
+Subject: [PATCH 1/1] gcc-4.5.1: make c++ include path relative to "--sysroot"
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,33 +25,21 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 31 Dec 2010 05:44:56 -0000
+X-List-Received-Date: Fri, 31 Dec 2010 05:46:07 -0000
 
-with this fix, now gcc installed from sstate packages can find c++ standard header
-files correctly in the new build directory, e.g when building libproxy. There's
-still one remaining issue in meta-toolchain part, that a complex c++ project 
-compilation still fails being unable to find <algorithm>, if meta-toolchain is
-installed in a location different from the default assumption.
+So far c++ include path is not relative to "--sysroot", which brings
+trouble if we want to use the toolchain in a new environment where
+the original build directory generating that toolchain is not
+available. It's firstly exposed in multiple SDK sysroots support, and
+then in the case when sstate packages are used, where c++ standard
+headers are missing because gcc tries to search original build dir.
 
-Having said that, this patch doesn't break normal usage w/o causing regression.
-I verified Sato build for qemuarm/qemuppc, and Lianhao helped verify qemumips 
-and corresonding normal meta-toolchain usage. So it'd be good to get it merged
-earlier to remove one more road blocker for sstate.
+This patch makes c++ include path now relative to "--sysroot", and
+then once "--sysroot" is assigned correctly in new environment, c++
+include paths can be searched as expected.
 
-Thanks to RP for suggesting the solution here.
-
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: tk/cplusplus
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=tk/cplusplus
-
-Thanks,
-    Kevin Tian <kevin.tian@intel.com>
+Signed-off-by: Kevin Tian <kevin.tian@intel.com>
 ---
-
-
-Kevin Tian (1):
-  gcc-4.5.1: make c++ include path relative to "--sysroot"
-
  meta/recipes-devtools/gcc/gcc-4.5.1.inc            |    1 +
  .../GPLUSPLUS_INCLUDE_DIR_with_sysroot.patch       |   33 ++++++++++++++++++++
  meta/recipes-devtools/gcc/gcc-configure-cross.inc  |    2 +-
@@ -68,5 +55,179 @@ Kevin Tian (1):
  meta/recipes-devtools/gcc/gcc_4.5.1.bb             |    2 +-
  13 files changed, 45 insertions(+), 11 deletions(-)
  create mode 100644 meta/recipes-devtools/gcc/gcc-4.5.1/GPLUSPLUS_INCLUDE_DIR_with_sysroot.patch
+
+diff --git a/meta/recipes-devtools/gcc/gcc-4.5.1.inc b/meta/recipes-devtools/gcc/gcc-4.5.1.inc
+index 3edc4d4..1786d8a 100644
+--- a/meta/recipes-devtools/gcc/gcc-4.5.1.inc
++++ b/meta/recipes-devtools/gcc/gcc-4.5.1.inc
+@@ -54,6 +54,7 @@ SRC_URI = "${GNU_MIRROR}/gcc/gcc-${PV}/gcc-${PV}.tar.bz2 \
+ 	   file://optional_libstdc.patch \
+ 	   file://disable_relax_pic_calls_flag.patch \
+ 	   file://gcc-poison-parameters.patch \
++	   file://GPLUSPLUS_INCLUDE_DIR_with_sysroot.patch \
+ 	  "
+ 	
+ SRC_URI_append_sh3  = " file://sh3-installfix-fixheaders.patch;patch=1 "
+diff --git a/meta/recipes-devtools/gcc/gcc-4.5.1/GPLUSPLUS_INCLUDE_DIR_with_sysroot.patch b/meta/recipes-devtools/gcc/gcc-4.5.1/GPLUSPLUS_INCLUDE_DIR_with_sysroot.patch
+new file mode 100644
+index 0000000..9ae01c3
+--- /dev/null
++++ b/meta/recipes-devtools/gcc/gcc-4.5.1/GPLUSPLUS_INCLUDE_DIR_with_sysroot.patch
+@@ -0,0 +1,33 @@
++# by default c++ include directories are not relative to "--sysroot"
++# which brings one trouble when using the toolchain in an environment
++# where the build directory generating that toolchain doesn't exist,
++# e.g. in sstate, machine specific sysroot and relocatable SDK
++# toolchain. This patch now enables c++ include paths under sysroot.
++# This way it's enough as long as "--sysroot" is correctly enabled
++# in the new environment.
++#
++# Signed-off-by Kevin Tian <kevin.tian@intel.com>, 2010-12-30
++
++diff --git a/gcc/cppdefault.c b/gcc/cppdefault.c
++index 5024f48..9b47d1c 100644
++--- a/gcc/cppdefault.c
+++++ b/gcc/cppdefault.c
++@@ -48,15 +48,15 @@ const struct default_include cpp_include_defaults[]
++ = {
++ #ifdef GPLUSPLUS_INCLUDE_DIR
++     /* Pick up GNU C++ generic include files.  */
++-    { GPLUSPLUS_INCLUDE_DIR, "G++", 1, 1, 0, 0 },
+++    { GPLUSPLUS_INCLUDE_DIR, "G++", 1, 1, 1, 0 },
++ #endif
++ #ifdef GPLUSPLUS_TOOL_INCLUDE_DIR
++     /* Pick up GNU C++ target-dependent include files.  */
++-    { GPLUSPLUS_TOOL_INCLUDE_DIR, "G++", 1, 1, 0, 1 },
+++    { GPLUSPLUS_TOOL_INCLUDE_DIR, "G++", 1, 1, 1, 1 },
++ #endif
++ #ifdef GPLUSPLUS_BACKWARD_INCLUDE_DIR
++     /* Pick up GNU C++ backward and deprecated include files.  */
++-    { GPLUSPLUS_BACKWARD_INCLUDE_DIR, "G++", 1, 1, 0, 0 },
+++    { GPLUSPLUS_BACKWARD_INCLUDE_DIR, "G++", 1, 1, 1, 0 },
++ #endif
++ #ifdef LOCAL_INCLUDE_DIR
++     /* /usr/local/include comes before the fixincluded header files.  */
+diff --git a/meta/recipes-devtools/gcc/gcc-configure-cross.inc b/meta/recipes-devtools/gcc/gcc-configure-cross.inc
+index 3da92e2..04a8685 100644
+--- a/meta/recipes-devtools/gcc/gcc-configure-cross.inc
++++ b/meta/recipes-devtools/gcc/gcc-configure-cross.inc
+@@ -5,7 +5,7 @@ USE_NLS = '${@base_conditional( "TARGET_OS", "linux-uclibc", "no", "", d )}'
+ EXTRA_OECONF += " --enable-poison-system-directories "
+ 
+ EXTRA_OECONF_PATHS = "--with-local-prefix=${STAGING_DIR_TARGET}${target_exec_prefix} \
+-		      --with-gxx-include-dir=${STAGING_DIR_TARGET}/${target_includedir}/c++ \
++		      --with-gxx-include-dir=${target_includedir}/c++ \
+                       --with-sysroot=${STAGING_DIR_TARGET} \
+                       --with-build-sysroot=${STAGING_DIR_TARGET}"
+ 
+diff --git a/meta/recipes-devtools/gcc/gcc-configure-sdk.inc b/meta/recipes-devtools/gcc/gcc-configure-sdk.inc
+index 0eb33ad..756e74e 100644
+--- a/meta/recipes-devtools/gcc/gcc-configure-sdk.inc
++++ b/meta/recipes-devtools/gcc/gcc-configure-sdk.inc
+@@ -5,7 +5,7 @@ USE_NLS = '${@base_conditional( "TARGET_OS", "linux-uclibc", "no", "", d )}'
+ USE_NLS = '${@base_conditional( "TARGET_OS", "linux-uclibcgnueabi", "no", "", d )}'
+ 
+ EXTRA_OECONF_PATHS = "--with-local-prefix=${SDKPATH}/sysroots/${TARGET_SYS}${target_exec_prefix} \
+-                      --with-gxx-include-dir=${SDKPATH}/sysroots/${TARGET_SYS}${target_includedir}/c++ \
++                      --with-gxx-include-dir=${target_includedir}/c++ \
+                       --with-build-time-tools=${STAGING_DIR_NATIVE}${prefix_native}/${TARGET_SYS}/bin \
+                       --with-sysroot=${SDKPATH}/sysroots/${TARGET_SYS} \
+                       --with-build-sysroot=${STAGING_DIR_TARGET}"
+diff --git a/meta/recipes-devtools/gcc/gcc-cross-canadian_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-cross-canadian_4.5.1.bb
+index 98e239d..37c64fb 100644
+--- a/meta/recipes-devtools/gcc/gcc-cross-canadian_4.5.1.bb
++++ b/meta/recipes-devtools/gcc/gcc-cross-canadian_4.5.1.bb
+@@ -5,7 +5,7 @@ require gcc-cross-canadian.inc
+ require gcc-configure-sdk.inc
+ require gcc-package-sdk.inc
+ 
+-PR = "r1"
++PR = "r2"
+ 
+ DEPENDS += "gmp-nativesdk mpfr-nativesdk libmpc-nativesdk elfutils-nativesdk"
+ RDEPENDS_${PN} += "mpfr-nativesdk libmpc-nativesdk elfutils-nativesdk"
+diff --git a/meta/recipes-devtools/gcc/gcc-cross-initial_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-cross-initial_4.5.1.bb
+index e3aea8b..a121782 100644
+--- a/meta/recipes-devtools/gcc/gcc-cross-initial_4.5.1.bb
++++ b/meta/recipes-devtools/gcc/gcc-cross-initial_4.5.1.bb
+@@ -1,5 +1,5 @@
+ require gcc-cross_${PV}.bb
+ require gcc-cross-initial.inc
+ 
+-PR = "r0"
++PR = "r1"
+ 
+diff --git a/meta/recipes-devtools/gcc/gcc-cross-intermediate_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-cross-intermediate_4.5.1.bb
+index 4cabe0e..7aaa5b0 100644
+--- a/meta/recipes-devtools/gcc/gcc-cross-intermediate_4.5.1.bb
++++ b/meta/recipes-devtools/gcc/gcc-cross-intermediate_4.5.1.bb
+@@ -1,4 +1,4 @@
+ require gcc-cross_${PV}.bb
+ require gcc-cross-intermediate.inc
+-PR = "r0"
++PR = "r1"
+ 
+diff --git a/meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb
+index 445869d..b7e4328 100644
+--- a/meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb
++++ b/meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb
+@@ -1,4 +1,4 @@
+-PR = "r0"
++PR = "r1"
+ 
+ require gcc-${PV}.inc
+ require gcc-cross4.inc
+diff --git a/meta/recipes-devtools/gcc/gcc-crosssdk-initial_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-crosssdk-initial_4.5.1.bb
+index 22cb490..0fc5faa 100644
+--- a/meta/recipes-devtools/gcc/gcc-crosssdk-initial_4.5.1.bb
++++ b/meta/recipes-devtools/gcc/gcc-crosssdk-initial_4.5.1.bb
+@@ -1,4 +1,4 @@
+ require gcc-cross-initial_${PV}.bb
+ require gcc-crosssdk-initial.inc
+ 
+-PR = "r0"
++PR = "r1"
+diff --git a/meta/recipes-devtools/gcc/gcc-crosssdk-intermediate_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-crosssdk-intermediate_4.5.1.bb
+index ba42ca0..4260c35 100644
+--- a/meta/recipes-devtools/gcc/gcc-crosssdk-intermediate_4.5.1.bb
++++ b/meta/recipes-devtools/gcc/gcc-crosssdk-intermediate_4.5.1.bb
+@@ -1,4 +1,4 @@
+ require gcc-cross-intermediate_${PV}.bb
+ require gcc-crosssdk-intermediate.inc
+ 
+-PR = "r0"
++PR = "r1"
+diff --git a/meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb
+index 6f0a540..a23a662 100644
+--- a/meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb
++++ b/meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb
+@@ -1,4 +1,4 @@
+ require gcc-cross_${PV}.bb
+ require gcc-crosssdk.inc
+ 
+-PR = "r0"
++PR = "r1"
+diff --git a/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb
+index 4d2302d..ca22e8b 100644
+--- a/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb
++++ b/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb
+@@ -1,4 +1,4 @@
+-PR = "r0"
++PR = "r1"
+ 
+ require gcc-${PV}.inc
+ require gcc-configure-runtime.inc
+diff --git a/meta/recipes-devtools/gcc/gcc_4.5.1.bb b/meta/recipes-devtools/gcc/gcc_4.5.1.bb
+index 81c1fa9..a21772f 100644
+--- a/meta/recipes-devtools/gcc/gcc_4.5.1.bb
++++ b/meta/recipes-devtools/gcc/gcc_4.5.1.bb
+@@ -1,4 +1,4 @@
+-PR = "r0"
++PR = "r1"
+ require gcc-${PV}.inc
+ require gcc-configure-target.inc
+ require gcc-package-target.inc
+-- 
+1.6.0.4
 
 
