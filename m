@@ -1,25 +1,25 @@
-Return-Path: <saul.wold@intel.com>
+Return-Path: <sgw@linux.intel.com>
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D679A4C80BD4
-	for <poky@yoctoproject.org>; Fri, 31 Dec 2010 02:05:27 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 31 Dec 2010 00:05:27 -0800
+	by mx1.pokylinux.org (Postfix) with ESMTP id 18E2A4C80BD4
+	for <poky@yoctoproject.org>; Fri, 31 Dec 2010 02:51:02 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 31 Dec 2010 00:51:01 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,254,1291622400"; d="scan'208";a="873267051"
+X-IronPort-AV: E=Sophos;i="4.60,254,1291622400"; d="scan'208";a="642061640"
 Received: from unknown (HELO [10.255.13.218]) ([10.255.13.218])
-	by fmsmga001.fm.intel.com with ESMTP; 31 Dec 2010 00:05:27 -0800
-Message-ID: <4D1D8EC7.40504@intel.com>
-Date: Fri, 31 Dec 2010 00:05:27 -0800
-From: Saul Wold <saul.wold@intel.com>
+	by fmsmga002.fm.intel.com with ESMTP; 31 Dec 2010 00:51:01 -0800
+Message-ID: <4D1D9974.7090409@linux.intel.com>
+Date: Fri, 31 Dec 2010 00:51:00 -0800
+From: Saul Wold <sgw@linux.intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
 	Thunderbird/3.0.5
 MIME-Version: 1.0
-To: poky@yoctoproject.org
-References: <cover.1293731824.git.dvhart@linux.intel.com>
-	<cccbddda394ceb12ef99db5561216535ccca4abd.1293731824.git.dvhart@linux.intel.com>
-In-Reply-To: <cccbddda394ceb12ef99db5561216535ccca4abd.1293731824.git.dvhart@linux.intel.com>
-Subject: Re: [PATCH 2/3] glib-2.0: fix g_once_init_enter compile failure
+To: Nitin A Kamble <nitin.a.kamble@intel.com>
+References: <cover.1293729977.git.nitin.a.kamble@intel.com>
+In-Reply-To: <cover.1293729977.git.nitin.a.kamble@intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/5] perl and other devel/toolchain recipe upgrades
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,69 +31,192 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 31 Dec 2010 08:05:28 -0000
+X-List-Received-Date: Fri, 31 Dec 2010 08:51:02 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 12/29/2010 10:10 AM, Darren Hart wrote:
-> Kernelshark trips over a compile bug in glib-2.0 addressed by Open Embedded
-> back in the 2.22 timeframe. It appears to still be present in 2.27.
+On 12/30/2010 09:26 AM, Nitin A Kamble wrote:
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>    Branch: nitin/perl-5.12.2
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=nitin/perl-5.12.2
 >
-> http://www.mail-archive.com/openembedded-devel@lists.openembedded.org/msg00529.html
->
-Can you add this attribution as well as Signed-off-by in the header of 
-the patch file directly, this will help understand with out having to 
-dig into the git info.
-
-Thanks
-
-   Sau!
-
-> Signed-off-by: Darren Hart<dvhart@linux.intel.com>
-> CC: Tom Zanussi<tom.zanussi@intel.com>
+> Thanks,
+>      Nitin A Kamble<nitin.a.kamble@intel.com>
 > ---
->   .../glib-2.0-2.27.3/g_once_init_enter.patch        |   13 +++++++++++++
->   meta/recipes-core/glib-2.0/glib-2.0_2.27.3.bb      |    6 ++++--
->   2 files changed, 17 insertions(+), 2 deletions(-)
->   create mode 100644 meta/recipes-core/glib-2.0/glib-2.0-2.27.3/g_once_init_enter.patch
 >
-> diff --git a/meta/recipes-core/glib-2.0/glib-2.0-2.27.3/g_once_init_enter.patch b/meta/recipes-core/glib-2.0/glib-2.0-2.27.3/g_once_init_enter.patch
-> new file mode 100644
-> index 0000000..1c4ce50
-> --- /dev/null
-> +++ b/meta/recipes-core/glib-2.0/glib-2.0-2.27.3/g_once_init_enter.patch
-> @@ -0,0 +1,13 @@
-> +Index: glib-2.27.3/glib/gthread.h
-> +===================================================================
-> +--- glib-2.27.3.orig/glib/gthread.h
-> ++++ glib-2.27.3/glib/gthread.h
-> +@@ -344,7 +344,7 @@ void                    g_once_init_leav
-> + G_INLINE_FUNC gboolean
-> + g_once_init_enter (volatile gsize *value_location)
-> + {
-> +-  if G_LIKELY ((gpointer) g_atomic_pointer_get (value_location) != NULL)
-> ++  if G_LIKELY ((gpointer) g_atomic_pointer_get ((volatile gpointer *)value_location) != NULL)
-> +     return FALSE;
-> +   else
-> +     return g_once_init_enter_impl (value_location);
-> diff --git a/meta/recipes-core/glib-2.0/glib-2.0_2.27.3.bb b/meta/recipes-core/glib-2.0/glib-2.0_2.27.3.bb
-> index 30e208a..a9ff3ec 100644
-> --- a/meta/recipes-core/glib-2.0/glib-2.0_2.27.3.bb
-> +++ b/meta/recipes-core/glib-2.0/glib-2.0_2.27.3.bb
-> @@ -1,10 +1,12 @@
->   require glib.inc
 >
-> -PR = "r0"
-> +PR = "r1"
+> Nitin A Kamble (5):
+>    distro-tracking: update recently updated recipes
+>    git: upgrade from 1.7.3.2 to 1.7.3.4
+>    byacc: upgrade recipe from 20100610 to 20101127
+>    python-dbus: upgrade from 0.83.1 to 0.83.2
+>    perl, perl-native: upgrade from 5.8.8 to 5.12.2
+Nitin, in the perl/rdepends_perl, did you miss RDEPENDS_ in front of 
+some of the names?
+
+Also, you mentioned a fakeroot patch of somekind, is that something from 
+the debian? I did not find it in either versions.
+
+Sau!
+
 >
->   SRC_URI = "http://ftp.gnome.org/pub/GNOME/sources/glib/2.27/glib-${PV}.tar.bz2 \
->              file://configure-libtool.patch \
-> -           file://60_wait-longer-for-threads-to-die.patch"
-> +           file://60_wait-longer-for-threads-to-die.patch \
-> +           file://g_once_init_enter.patch \
-> +          "
+>   .../conf/distro/include/distro_tracking_fields.inc |   14 +-
+>   .../git/{git_1.7.3.2.bb =>  git_1.7.3.4.bb}         |    4 +-
+>   .../perl/files/letgcc-find-errno.patch             |   14 +-
+>   .../perl/files/perl-5.8.8-gcc-4.2.patch            |   13 -
+>   .../perl/perl-5.12.2/09_fix_installperl.patch      |   19 +
+>   .../perl/perl-5.12.2/Makefile.SH.patch             |  288 +++++
+>   .../{perl-5.8.8 =>  perl-5.12.2}/Makefile.patch     |   20 +-
+>   .../asm-pageh-fix.patch                            |    6 +-
+>   .../perl/{perl-5.8.8 =>  perl-5.12.2}/config.sh     |  322 ++++---
+>   .../recipes-devtools/perl/perl-5.12.2/config.sh-32 |   38 +
+>   .../{perl-5.8.8 =>  perl-5.12.2}/config.sh-32-be    |    0
+>   .../{perl-5.8.8 =>  perl-5.12.2}/config.sh-32-le    |    0
+>   .../recipes-devtools/perl/perl-5.12.2/config.sh-64 |   38 +
+>   .../{perl-5.8.8 =>  perl-5.12.2}/config.sh-64-be    |    0
+>   .../{perl-5.8.8 =>  perl-5.12.2}/config.sh-64-le    |    0
+>   .../perl/perl-5.12.2/cross-generate_uudmap.patch   |   13 +
+>   .../perl/perl-5.12.2/debian/arm_optim.diff         |   32 +
+>   .../debian/arm_thread_stress_timeout.diff          |   23 +
+>   .../perl/perl-5.12.2/debian/cpan_config_path.diff  |   22 +
+>   .../perl-5.12.2/debian/cpan_definstalldirs.diff    |   35 +
+>   .../perl-5.12.2/debian/cpanplus_config_path.diff   |   43 +
+>   .../debian/cpanplus_definstalldirs.diff            |   52 +
+>   .../perl/perl-5.12.2/debian/db_file_ver.diff       |   32 +
+>   .../perl-5.12.2/debian/deprecate-with-apt.diff     |   59 +
+>   .../debian/devel-ppport-ia64-optim.diff            |   32 +
+>   .../perl-5.12.2/debian/disable-zlib-bundling.diff  |   29 +
+>   .../perl/perl-5.12.2/debian/doc_info.diff          |   34 +
+>   .../perl/perl-5.12.2/debian/enc2xs_inc.diff        |   49 +
+>   .../perl/perl-5.12.2/debian/errno_ver.diff         |   32 +
+>   .../debian/extutils_hacks.diff}                    |  199 +++-
+>   .../perl/perl-5.12.2/debian/fakeroot.diff          |   43 +
+>   .../perl-5.12.2/debian/fixes/autodie-flock.diff    |   98 ++
+>   .../debian/fixes/concat-stack-corruption.diff      |   37 +
+>   .../debian/fixes/cpanplus-without-home.diff        |   30 +
+>   .../perl-5.12.2/debian/fixes/h2ph-gcc-4.5.diff     |  106 ++
+>   .../perl-5.12.2/debian/fixes/hurd-ccflags.diff     |   26 +
+>   .../perl-5.12.2/debian/fixes/lc-numeric-docs.diff  |   95 ++
+>   .../debian/fixes/lc-numeric-sprintf.diff           |   29 +
+>   .../perl-5.12.2/debian/fixes/net_smtp_docs.diff    |   23 +
+>   .../perl/perl-5.12.2/debian/fixes/processPL.diff   |   43 +
+>   .../perl/perl-5.12.2/debian/instmodsh_doc.diff     |   26 +
+>   .../perl/perl-5.12.2/debian/ld_run_path.diff       |   23 +
+>   .../perl-5.12.2/debian/libnet_config_path.diff     |   35 +
+>   .../perl-5.12.2/debian/m68k_thread_stress.diff     |   43 +
+>   .../debian/mod_paths.diff}                         |   67 +-
+>   .../debian/module_build_man_extensions.diff        |   31 +
+>   .../perl/perl-5.12.2/debian/perlivp.diff           |   38 +
+>   .../perl/perl-5.12.2/debian/prune_libs.diff        |   36 +
+>   .../debian/squelch-locale-warnings.diff            |   53 +
+>   .../{perl-5.8.8 =>  perl-5.12.2}/generate-sh.patch  |    0
+>   .../{perl-5.8.8 =>  perl-5.12.2}/installperl.patch  |   10 +-
+>   .../native-nopacklist.patch                        |   36 +-
+>   .../native-perlinc.patch                           |    4 +-
+>   .../{perl-5.8.8 =>  perl-5.12.2}/native-ssp.patch   |    0
+>   .../perl-configpm-switch.patch                     |    0
+>   .../{perl-5.8.8 =>  perl-5.12.2}/perl-configure.sh  |    4 +-
+>   .../perl-dynloader.patch                           |    4 +-
+>   .../perl-enable-gdbm.patch                         |    0
+>   .../perl-moreconfig.patch                          |    0
+>   .../perl/perl-5.8.8/09_fix_installperl.patch       |   32 -
+>   .../perl/perl-5.8.8/54_debian_perldoc-r.patch      |   16 -
+>   .../perl-5.8.8/58_debian_cpan_config_path.patch    |   14 -
+>   .../perl-5.8.8/60_debian_libnet_config_path.patch  |   16 -
+>   .../perl-5.8.8/62_debian_cpan_definstalldirs.patch |   16 -
+>   .../perl/perl-5.8.8/64_debian_enc2xs_inc.patch     |   28 -
+>   .../perl/perl-5.8.8/Makefile.SH.patch              |  253 -----
+>   meta/recipes-devtools/perl/perl-5.8.8/config.sh-32 |   58 -
+>   meta/recipes-devtools/perl/perl-5.8.8/config.sh-64 |   58 -
+>   .../perl/perl-5.8.8/makedepend-dash.patch          |   13 -
+>   .../perl/perl-5.8.8/native-no-gdbminc.patch        |   18 -
+>   ...{perl-native_5.8.8.bb =>  perl-native_5.12.2.bb} |   20 +-
+>   .../recipes-devtools/perl/perl-rdepends_5.12.2.inc |  211 ++++
+>   meta/recipes-devtools/perl/perl-rdepends_5.8.8.inc | 1145 --------------------
+>   .../perl/perl-rprovides_5.12.2.inc                 |    1 +
+>   meta/recipes-devtools/perl/perl_5.12.2.bb          |  282 +++++
+>   meta/recipes-devtools/perl/perl_5.8.8.bb           |  225 ----
+>   ...python-dbus_0.83.1.bb =>  python-dbus_0.83.2.bb} |    6 +-
+>   meta/recipes-extended/byacc/byacc_20100610.bb      |    7 -
+>   meta/recipes-extended/byacc/byacc_20101127.bb      |    7 +
+>   79 files changed, 2616 insertions(+), 2212 deletions(-)
+>   rename meta/recipes-devtools/git/{git_1.7.3.2.bb =>  git_1.7.3.4.bb} (59%)
+>   delete mode 100644 meta/recipes-devtools/perl/files/perl-5.8.8-gcc-4.2.patch
+>   create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/09_fix_installperl.patch
+>   create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/Makefile.SH.patch
+>   rename meta/recipes-devtools/perl/{perl-5.8.8 =>  perl-5.12.2}/Makefile.patch (81%)
+>   rename meta/recipes-devtools/perl/{perl-5.8.8 =>  perl-5.12.2}/asm-pageh-fix.patch (72%)
+>   rename meta/recipes-devtools/perl/{perl-5.8.8 =>  perl-5.12.2}/config.sh (66%)
+>   create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/config.sh-32
+>   rename meta/recipes-devtools/perl/{perl-5.8.8 =>  perl-5.12.2}/config.sh-32-be (100%)
+>   rename meta/recipes-devtools/perl/{perl-5.8.8 =>  perl-5.12.2}/config.sh-32-le (100%)
+>   create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/config.sh-64
+>   rename meta/recipes-devtools/perl/{perl-5.8.8 =>  perl-5.12.2}/config.sh-64-be (100%)
+>   rename meta/recipes-devtools/perl/{perl-5.8.8 =>  perl-5.12.2}/config.sh-64-le (100%)
+>   create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/cross-generate_uudmap.patch
+>   create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/arm_optim.diff
+>   create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/arm_thread_stress_timeout.diff
+>   create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/cpan_config_path.diff
+>   create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/cpan_definstalldirs.diff
+>   create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/cpanplus_config_path.diff
+>   create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/cpanplus_definstalldirs.diff
+>   create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/db_file_ver.diff
+>   create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/deprecate-with-apt.diff
+>   create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/devel-ppport-ia64-optim.diff
+>   create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/disable-zlib-bundling.diff
+>   create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/doc_info.diff
+>   create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/enc2xs_inc.diff
+>   create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/errno_ver.diff
+>   rename meta/recipes-devtools/perl/{perl-5.8.8/52_debian_extutils_hacks.patch =>  perl-5.12.2/debian/extutils_hacks.diff} (55%)
+>   create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/fakeroot.diff
+>   create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/autodie-flock.diff
+>   create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/concat-stack-corruption.diff
+>   create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/cpanplus-without-home.diff
+>   create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/h2ph-gcc-4.5.diff
+>   create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/hurd-ccflags.diff
+>   create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/lc-numeric-docs.diff
+>   create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/lc-numeric-sprintf.diff
+>   create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/net_smtp_docs.diff
+>   create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/processPL.diff
+>   create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/instmodsh_doc.diff
+>   create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/ld_run_path.diff
+>   create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/libnet_config_path.diff
+>   create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/m68k_thread_stress.diff
+>   rename meta/recipes-devtools/perl/{perl-5.8.8/53_debian_mod_paths.patch =>  perl-5.12.2/debian/mod_paths.diff} (59%)
+>   create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/module_build_man_extensions.diff
+>   create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/perlivp.diff
+>   create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/prune_libs.diff
+>   create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/squelch-locale-warnings.diff
+>   rename meta/recipes-devtools/perl/{perl-5.8.8 =>  perl-5.12.2}/generate-sh.patch (100%)
+>   rename meta/recipes-devtools/perl/{perl-5.8.8 =>  perl-5.12.2}/installperl.patch (57%)
+>   rename meta/recipes-devtools/perl/{perl-5.8.8 =>  perl-5.12.2}/native-nopacklist.patch (76%)
+>   rename meta/recipes-devtools/perl/{perl-5.8.8 =>  perl-5.12.2}/native-perlinc.patch (80%)
+>   rename meta/recipes-devtools/perl/{perl-5.8.8 =>  perl-5.12.2}/native-ssp.patch (100%)
+>   rename meta/recipes-devtools/perl/{perl-5.8.8 =>  perl-5.12.2}/perl-configpm-switch.patch (100%)
+>   rename meta/recipes-devtools/perl/{perl-5.8.8 =>  perl-5.12.2}/perl-configure.sh (94%)
+>   rename meta/recipes-devtools/perl/{perl-5.8.8 =>  perl-5.12.2}/perl-dynloader.patch (87%)
+>   rename meta/recipes-devtools/perl/{perl-5.8.8 =>  perl-5.12.2}/perl-enable-gdbm.patch (100%)
+>   rename meta/recipes-devtools/perl/{perl-5.8.8 =>  perl-5.12.2}/perl-moreconfig.patch (100%)
+>   delete mode 100644 meta/recipes-devtools/perl/perl-5.8.8/09_fix_installperl.patch
+>   delete mode 100644 meta/recipes-devtools/perl/perl-5.8.8/54_debian_perldoc-r.patch
+>   delete mode 100644 meta/recipes-devtools/perl/perl-5.8.8/58_debian_cpan_config_path.patch
+>   delete mode 100644 meta/recipes-devtools/perl/perl-5.8.8/60_debian_libnet_config_path.patch
+>   delete mode 100644 meta/recipes-devtools/perl/perl-5.8.8/62_debian_cpan_definstalldirs.patch
+>   delete mode 100644 meta/recipes-devtools/perl/perl-5.8.8/64_debian_enc2xs_inc.patch
+>   delete mode 100644 meta/recipes-devtools/perl/perl-5.8.8/Makefile.SH.patch
+>   delete mode 100644 meta/recipes-devtools/perl/perl-5.8.8/config.sh-32
+>   delete mode 100644 meta/recipes-devtools/perl/perl-5.8.8/config.sh-64
+>   delete mode 100644 meta/recipes-devtools/perl/perl-5.8.8/makedepend-dash.patch
+>   delete mode 100644 meta/recipes-devtools/perl/perl-5.8.8/native-no-gdbminc.patch
+>   rename meta/recipes-devtools/perl/{perl-native_5.8.8.bb =>  perl-native_5.12.2.bb} (81%)
+>   create mode 100644 meta/recipes-devtools/perl/perl-rdepends_5.12.2.inc
+>   delete mode 100644 meta/recipes-devtools/perl/perl-rdepends_5.8.8.inc
+>   create mode 100644 meta/recipes-devtools/perl/perl-rprovides_5.12.2.inc
+>   create mode 100644 meta/recipes-devtools/perl/perl_5.12.2.bb
+>   delete mode 100644 meta/recipes-devtools/perl/perl_5.8.8.bb
+>   rename meta/recipes-devtools/python/{python-dbus_0.83.1.bb =>  python-dbus_0.83.2.bb} (82%)
+>   delete mode 100644 meta/recipes-extended/byacc/byacc_20100610.bb
+>   create mode 100644 meta/recipes-extended/byacc/byacc_20101127.bb
 >
->   SRC_URI[md5sum] = "d3e976ff92b55b6064a0eb3110f36158"
->   SRC_URI[sha256sum] = "c44177b635e88639361eb1daf7aaa33315a00aaf46db5accf2f11920c7ff1919"
 
 
