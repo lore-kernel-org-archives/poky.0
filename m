@@ -1,21 +1,21 @@
 Return-Path: <dvhart@linux.intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D7F984C811E4
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 0818C4C811E5
 	for <poky@yoctoproject.org>; Thu, 30 Dec 2010 18:40:40 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 30 Dec 2010 16:40:40 -0800
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 30 Dec 2010 16:40:40 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,252,1291622400"; d="scan'208";a="368273097"
+X-IronPort-AV: E=Sophos;i="4.60,252,1291622400"; d="scan'208";a="641958315"
 Received: from unknown (HELO localhost) ([10.255.13.230])
-	by azsmga001.ch.intel.com with ESMTP; 30 Dec 2010 16:40:39 -0800
-Message-Id: <9dabe73efd37528bfce6391bb3b3985789dd2193.1293755504.git.dvhart@linux.intel.com>
+	by fmsmga002.fm.intel.com with ESMTP; 30 Dec 2010 16:40:40 -0800
+Message-Id: <3149d2d87e94c94f5a2e0ba2e2c3ba6864558a0f.1293755504.git.dvhart@linux.intel.com>
 In-Reply-To: <cover.1293755504.git.dvhart@linux.intel.com>
 References: <cover.1293755504.git.dvhart@linux.intel.com>
 From: Darren Hart <dvhart@linux.intel.com>
-Old-Date: Mon, 20 Dec 2010 15:02:40 -0800
-Date: Thu, 30 Dec 2010 16:40:39 -0800
+Old-Date: Mon, 20 Dec 2010 15:03:40 -0800
+Date: Thu, 30 Dec 2010 16:40:40 -0800
 To: poky@yoctoproject.org
-Subject: [PATCH 1/5] meta-rt: Initial PREEMPT_RT layer and kernel recipes
+Subject: [PATCH 2/5] meta-rt/rt-tests: add the PREEMPT_RT rt-tests testsuite and recipes-tests directory
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,92 +29,45 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Fri, 31 Dec 2010 00:40:41 -0000
 
-Add a real-time layer to build the linux-yocto preempt_rt kernel type for
-qemux86-64. Additional machines to follow.
+The rt-tests test-suite is a collection of tests meant to measure the latency
+and determinism of the Linux PREEMPT_RT kernel.
 
 Signed-off-by: Darren Hart <dvhart@linux.intel.com>
 Cc: Tom Zanussi <tom.zanussi@intel.com>
 Cc: Bruce Ashfield <bruce.ashfield@windriver.com>
 ---
- meta-rt/conf/layer.conf                            |   22 +++++++++++
- meta-rt/recipes-kernel/linux-yocto-rt_stablegit.bb |   39 ++++++++++++++++++++
- 2 files changed, 61 insertions(+), 0 deletions(-)
- create mode 100644 meta-rt/conf/layer.conf
- create mode 100644 meta-rt/recipes-kernel/linux-yocto-rt_stablegit.bb
+ meta-rt/recipes-tests/rt-tests_git.bb |   22 ++++++++++++++++++++++
+ 1 files changed, 22 insertions(+), 0 deletions(-)
+ create mode 100644 meta-rt/recipes-tests/rt-tests_git.bb
 
-diff --git a/meta-rt/conf/layer.conf b/meta-rt/conf/layer.conf
+diff --git a/meta-rt/recipes-tests/rt-tests_git.bb b/meta-rt/recipes-tests/rt-tests_git.bb
 new file mode 100644
-index 0000000..dbf4a32
+index 0000000..35af022
 --- /dev/null
-+++ b/meta-rt/conf/layer.conf
++++ b/meta-rt/recipes-tests/rt-tests_git.bb
 @@ -0,0 +1,22 @@
-+# Default to first disk/first partition
-+RSP_ROOT ?= "sda1"
-+
-+# We have a conf and classes directory, add to BBPATH
-+BBPATH := "${BBPATH}:${LAYERDIR}"
-+
-+# We have an images and various recipe-* directories, add to BBFILES
-+BBFILES := "${BBFILES} ${LAYERDIR}/images/*.bb ${LAYERDIR}/images/*.bbappend ${LAYERDIR}/recipes-*/*.bb ${LAYERDIR}/recipes-*/*.bbappend"
-+	
-+BBFILE_COLLECTIONS += "rt"
-+BBFILE_PATTERN_rt := "^${LAYERDIR}/"
-+BBFILE_PRIORITY_rt = "8"
-+
-+# This layer builds images using a PREEMPT_RT kernel. Override any machine
-+# specified kernel providers and leave it up to the kernel recipe to 
-+# determine COMPATIBLE_MACHINE.
-+PREFERRED_PROVIDER_virtual/kernel = "linux-yocto-rt"
-+
-+# preempt_rt SRCREVs, one for meta, one per machine
-+SRCREV_meta_pn-linux-yocto-rt ?= "50ccd2b3213b6a1bacb3f898c035119802dac420"
-+SRCREV_machine_pn-linux-yocto-rt_qemux86-64 ?= "f49444f06875894389e640bcda6c3f6ceb1f0c3e"
-+
-diff --git a/meta-rt/recipes-kernel/linux-yocto-rt_stablegit.bb b/meta-rt/recipes-kernel/linux-yocto-rt_stablegit.bb
-new file mode 100644
-index 0000000..361b680
---- /dev/null
-+++ b/meta-rt/recipes-kernel/linux-yocto-rt_stablegit.bb
-@@ -0,0 +1,39 @@
-+inherit kernel
-+require recipes-kernel/linux/linux-yocto.inc
-+
-+KMACHINE_qemux86-64  = "common_pc_64"
-+
-+LINUX_VERSION ?= "2.6.34"
-+LINUX_KERNEL_TYPE = "preempt_rt"
-+LINUX_VERSION_EXTENSION ?= "-yocto-${LINUX_KERNEL_TYPE_EXTENSION}"
-+
++DESCRIPTION = "Real-Time preemption testcases"
++HOMEPAGE = "https://rt.wiki.kernel.org/index.php/Cyclictest"
++SECTION = "tests"
++DEPENDS = "linux-libc-headers eglibc"
++LICENSE = "GPLv2 & GPLv2+"
++LIC_FILES_CHKSUM = "file://COPYING;md5=751419260aa954499f7abaabaa882bbe \
++                    file://src/cyclictest/cyclictest.c;beginline=7;endline=9;md5=ce162fe491d19d2ec67dff6dbc938d50 \
++                    file://src/pi_tests/pi_stress.c;beginline=6;endline=19;md5=bd426a634a43ec612e9fbf125dfcc949"
++SRCREV = ${AUTOREV}
++PV = "git${SRCPV}"
 +PR = "r0"
-+PV = "${LINUX_VERSION}+git${SRCPV}"
-+SRCREV_FORMAT = "meta_machine"
 +
-+COMPATIBLE_MACHINE = "(qemux86-64)"
++SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/clrkwllms/rt-tests.git;protocol=git"
 +
-+# this performs a fixup on the SRCREV for new/undefined BSPs
-+python __anonymous () {
-+    import bb, re, string
++S = "${WORKDIR}/git"
 +
-+    rev = bb.data.getVar("SRCREV_machine", d, 1)
-+    if rev == "standard":
-+        bb.data.setVar("SRCREV_machine", "${SRCREV_meta}", d)
++CFLAGS += "-I${S}/src/include -D_GNU_SOURCE -Wall -Wno-nonnull"
 +
-+    kerntype = string.replace(bb.data.expand("${LINUX_KERNEL_TYPE}", d), "_", "-")
-+    bb.data.setVar("LINUX_KERNEL_TYPE_EXTENSION", kerntype, d)
++do_install() {
++        oe_runmake install DESTDIR=${D} SBINDIR=${sbindir} MANDIR=${mandir} \
++                           INCLUDEDIR=${includedir}
 +}
-+
-+SRC_URI = "git://git.pokylinux.org/linux-2.6-windriver.git;protocol=git;fullclone=1;branch=${KBRANCH};name=machine \
-+           git://git.pokylinux.org/linux-2.6-windriver.git;protocol=git;noclone=1;branch=wrs_meta;name=meta"
-+
-+# Functionality flags
-+KERNEL_REVISION_CHECKING ?= "t"
-+KERNEL_FEATURES=features/netfilter
-+
-+# extra tasks
-+addtask kernel_link_vmlinux after do_compile before do_install
-+addtask validate_branches before do_patch after do_kernel_checkout
-+
-+require recipes-kernel/linux/linux-tools.inc
 -- 
 1.7.1
 
