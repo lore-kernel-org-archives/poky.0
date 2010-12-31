@@ -1,26 +1,41 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C24044C80050
-	for <poky@yoctoproject.org>; Fri, 31 Dec 2010 12:40:19 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 31 Dec 2010 10:39:49 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,255,1291622400"; d="scan'208";a="873404182"
-Received: from unknown (HELO [10.255.13.219]) ([10.255.13.219])
-	by fmsmga001.fm.intel.com with ESMTP; 31 Dec 2010 10:39:33 -0800
-Message-ID: <4D1E2366.8010108@linux.intel.com>
-Date: Fri, 31 Dec 2010 10:39:34 -0800
-From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
+Return-Path: <bruce.ashfield@gmail.com>
+Received: from mail-iy0-f176.google.com (mail-iy0-f176.google.com
+	[209.85.210.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 700C54C80050;
+	Fri, 31 Dec 2010 13:33:12 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by iyb26 with SMTP id 26so12693668iyb.35
+	for <multiple recipients>; Fri, 31 Dec 2010 11:33:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:received:received:in-reply-to
+	:references:date:message-id:subject:from:to:cc:content-type
+	:content-transfer-encoding;
+	bh=/EQZKNsVX8rY0V4nAbXGAcsLK3/mmZKote8i5KGoRZk=;
+	b=APitkChrxB64Zd/cEjlJ/OSQnHk/QZ6XT6yb1+08Ncu4kbAeFV+qahz1bTMZ38LNmU
+	ToeoDGw+/EoDsSUySKV7FRgLikdaYAzCo3lUVfBEAOhBbWXz1CXW6ApLq013E9SOQIyl
+	yHznJH5ZjHK/ykZRIIGIThfVeVv7gXoHpk72A=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:cc:content-type:content-transfer-encoding;
+	b=IG+PF7VLNAjxMajsTj2zcU43By2r7ywAVtj0voSSq2S0gPiDDaB+XZjxgpqhfP9DlB
+	zmHndQ1E6JeldxgJHilYSbFgbIxIDQJ7s7j2dfQeJbvs8j7lBUK5gzXgeNmceHGRnAAz
+	+UFJ/L/L/q0N3A/cyrzpg8K4dxeJyxUY66Rzo=
 MIME-Version: 1.0
+Received: by 10.231.35.75 with SMTP id o11mr1562773ibd.12.1293823992147; Fri,
+	31 Dec 2010 11:33:12 -0800 (PST)
+Received: by 10.231.156.136 with HTTP; Fri, 31 Dec 2010 11:33:12 -0800 (PST)
+In-Reply-To: <AANLkTikJ-L6x9k=LbgO5OQp7x9ozt71R_e2iZxiqrc=9@mail.gmail.com>
+References: <cover.1293744156.git.bruce.ashfield@windriver.com>
+	<4D1E0FED.4080305@intel.com>
+	<AANLkTikJ-L6x9k=LbgO5OQp7x9ozt71R_e2iZxiqrc=9@mail.gmail.com>
+Date: Fri, 31 Dec 2010 14:33:12 -0500
+Message-ID: <AANLkTi=rBYVQhhs6ktg8jWHu-R5axM1oeEy8+XThHRxv@mail.gmail.com>
+From: Bruce Ashfield <bruce.ashfield@gmail.com>
 To: Saul Wold <saul.wold@intel.com>
-References: <cover.1293731824.git.dvhart@linux.intel.com>
-	<46ff85bda463e94c40f5bd682ee97fab8baf0cbf.1293731824.git.dvhart@linux.intel.com>
-	<4D1D8DF2.8050000@intel.com>
-In-Reply-To: <4D1D8DF2.8050000@intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 3/3] kernelshark: add ftrace gui viewer
+Cc: yocto@yoctoproject.org, poky@yoctoproject.org
+Subject: Re: [PATCH 0/1] linux-yocto: update to 2.6.37-rc8
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,66 +47,85 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 31 Dec 2010 18:40:20 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 31 Dec 2010 19:33:12 -0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
 
-On 12/31/2010 12:01 AM, Saul Wold wrote:
-> On 12/28/2010 05:10 PM, Darren Hart wrote:
->> The trace-cmd source includes a graphical trace viewer, but we
->> don't want to make the trace-cmd recipe depend on gtk+. This
->> patch adds a second recipe in the meta/recipes-kernel/trace-cmd
->> directory which uses the trace-cmd SRCREV and RDEPENDS on trace-cmd
->> to ensure compatibility.
->>
->> Signed-off-by: Darren Hart<dvhart@linux.intel.com>
->> CC: Tom Zanussi<tom.zanussi@intel.com>
->> ---
->> meta/recipes-kernel/trace-cmd/kernelshark_git.bb | 21
->> +++++++++++++++++++++
->> 1 files changed, 21 insertions(+), 0 deletions(-)
->> create mode 100644 meta/recipes-kernel/trace-cmd/kernelshark_git.bb
->>
->> diff --git a/meta/recipes-kernel/trace-cmd/kernelshark_git.bb
->> b/meta/recipes-kernel/trace-cmd/kernelshark_git.bb
->> new file mode 100644
->> index 0000000..d2913c9
->> --- /dev/null
->> +++ b/meta/recipes-kernel/trace-cmd/kernelshark_git.bb
->> @@ -0,0 +1,21 @@
->> +DESCRIPTION = "Graphical trace viewer for Ftrace"
->> +LICENSE = "GPL"
-> Can you be more specific to the version of GPL?
+On Fri, Dec 31, 2010 at 12:51 PM, Bruce Ashfield
+<bruce.ashfield@gmail.com> wrote:
+> On Fri, Dec 31, 2010 at 12:16 PM, Saul Wold <saul.wold@intel.com> wrote:
+>> On 12/30/2010 01:31 PM, Bruce Ashfield wrote:
+>>>
+>>> Nothing fancy here, just updating to track 2.6.37-rc8. Compile tested
+>>> for all arches.
+>>>
+>> Maybe not fancy, but it's breaking the build! =A0Checkout the distro-tes=
+ting
+>> autobuild from last night, I am backing this out of distro/master for no=
+w.
+>
+> Interesting. I built all boards on this already. No worries, I'll revisit
+> this next week.
 
-Right, will fix and resend - for both ftrace and kernelshark.
+Turns out this was trivial. My scripts got the devel and stable kernel
+tangled up and the meta branch has a the wrong SRCREV which chains
+to the error the builders are seeing.
+
+I'll send a new patch shortly for this and -stable.
+
+Cheers,
+
+Bruce
 
 >
->> +LIC_FILES_CHKSUM = "file://COPYING;md5=751419260aa954499f7abaabaa882bbe"
->> +
->> +PR = r0
->> +PV = "1.0.4+git${SRCPV}"
->> +
->> +DEPENDS = "gtk+"
->> +RDEPENDS = "trace-cmd"
->> +
->> +inherit pkgconfig
->> +
->> +SRC_URI =
->> "git://git.kernel.org/pub/scm/linux/kernel/git/rostedt/trace-cmd.git;protocol=git"
+> Bruce
+>
 >>
->> +SRCREV = "${SRCREV_pn-trace-cmd}"
->> +S = "${WORKDIR}/git"
->> +
->> +EXTRA_OEMAKE = "'CC=${CC}' 'AR=${AR}' 'prefix=${prefix}' gui"
->> +
->> +do_install() {
->> + oe_runmake CC="${CC}" AR="${AR}" prefix="${prefix}" DESTDIR="${D}"
->> install_gui
->> +}
+>> Sau!
+>>
+>>> Cheers,
+>>>
+>>> Bruce
+>>>
+>>> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>>> =A0 Branch: zedd/kernel
+>>> =A0 Browse:
+>>> http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=3Dzedd/kernel
+>>>
+>>> Thanks,
+>>> =A0 =A0 Bruce Ashfield<bruce.ashfield@windriver.com>
+>>> ---
+>>>
+>>>
+>>> Bruce Ashfield (1):
+>>> =A0 linux-yocto: update to 2.6.37-rc8
+>>>
+>>> =A0.../conf/distro/include/poky-default-revisions.inc | =A0 24
+>>> ++++++++++----------
+>>> =A01 files changed, 12 insertions(+), 12 deletions(-)
+>>>
+>>> _______________________________________________
+>>> poky mailing list
+>>> poky@yoctoproject.org
+>>> https://lists.yoctoproject.org/listinfo/poky
+>>>
+>>
+>> _______________________________________________
+>> poky mailing list
+>> poky@yoctoproject.org
+>> https://lists.yoctoproject.org/listinfo/poky
+>>
+>
+>
+>
+> --
+> "Thou shalt not follow the NULL pointer, for chaos and madness await
+> thee at its end"
 >
 
 
--- 
-Darren Hart
-Yocto Linux Kernel
+
+--=20
+"Thou shalt not follow the NULL pointer, for chaos and madness await
+thee at its end"
 
