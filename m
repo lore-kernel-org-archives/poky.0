@@ -1,21 +1,21 @@
 Return-Path: <dvhart@linux.intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0818C4C811E5
-	for <poky@yoctoproject.org>; Thu, 30 Dec 2010 18:40:40 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 30 Dec 2010 16:40:40 -0800
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id AFAB74C811E5
+	for <poky@yoctoproject.org>; Thu, 30 Dec 2010 18:40:41 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 30 Dec 2010 16:40:41 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,252,1291622400"; d="scan'208";a="641958315"
+X-IronPort-AV: E=Sophos;i="4.60,252,1291622400"; d="scan'208";a="368273106"
 Received: from unknown (HELO localhost) ([10.255.13.230])
-	by fmsmga002.fm.intel.com with ESMTP; 30 Dec 2010 16:40:40 -0800
-Message-Id: <3149d2d87e94c94f5a2e0ba2e2c3ba6864558a0f.1293755504.git.dvhart@linux.intel.com>
+	by azsmga001.ch.intel.com with ESMTP; 30 Dec 2010 16:40:41 -0800
+Message-Id: <880cd3fa1f61cef2f5e24122d476af871d6101aa.1293755504.git.dvhart@linux.intel.com>
 In-Reply-To: <cover.1293755504.git.dvhart@linux.intel.com>
 References: <cover.1293755504.git.dvhart@linux.intel.com>
 From: Darren Hart <dvhart@linux.intel.com>
-Old-Date: Mon, 20 Dec 2010 15:03:40 -0800
+Old-Date: Mon, 20 Dec 2010 15:05:33 -0800
 Date: Thu, 30 Dec 2010 16:40:40 -0800
 To: poky@yoctoproject.org
-Subject: [PATCH 2/5] meta-rt/rt-tests: add the PREEMPT_RT rt-tests testsuite and recipes-tests directory
+Subject: [PATCH 3/5] meta-rt/poky-image-*rt: Add initial PREEMPT_RT image recipes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,45 +29,81 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Fri, 31 Dec 2010 00:40:41 -0000
 
-The rt-tests test-suite is a collection of tests meant to measure the latency
-and determinism of the Linux PREEMPT_RT kernel.
+Add poky-image-minimal-rt* image recipes. They are based on the minimal recipe
+and add rt-tests for basic evaluation of a board with a PREEMPT_RT kernel.
 
 Signed-off-by: Darren Hart <dvhart@linux.intel.com>
 Cc: Tom Zanussi <tom.zanussi@intel.com>
 Cc: Bruce Ashfield <bruce.ashfield@windriver.com>
 ---
- meta-rt/recipes-tests/rt-tests_git.bb |   22 ++++++++++++++++++++++
- 1 files changed, 22 insertions(+), 0 deletions(-)
- create mode 100644 meta-rt/recipes-tests/rt-tests_git.bb
+ meta-rt/images/poky-image-minimal-rt-directdisk.bb |   15 +++++++++++++++
+ meta-rt/images/poky-image-minimal-rt-live.bb       |   15 +++++++++++++++
+ meta-rt/images/poky-image-minimal-rt.bb            |   12 ++++++++++++
+ 3 files changed, 42 insertions(+), 0 deletions(-)
+ create mode 100644 meta-rt/images/poky-image-minimal-rt-directdisk.bb
+ create mode 100644 meta-rt/images/poky-image-minimal-rt-live.bb
+ create mode 100644 meta-rt/images/poky-image-minimal-rt.bb
 
-diff --git a/meta-rt/recipes-tests/rt-tests_git.bb b/meta-rt/recipes-tests/rt-tests_git.bb
+diff --git a/meta-rt/images/poky-image-minimal-rt-directdisk.bb b/meta-rt/images/poky-image-minimal-rt-directdisk.bb
 new file mode 100644
-index 0000000..35af022
+index 0000000..b68fe56
 --- /dev/null
-+++ b/meta-rt/recipes-tests/rt-tests_git.bb
-@@ -0,0 +1,22 @@
-+DESCRIPTION = "Real-Time preemption testcases"
-+HOMEPAGE = "https://rt.wiki.kernel.org/index.php/Cyclictest"
-+SECTION = "tests"
-+DEPENDS = "linux-libc-headers eglibc"
-+LICENSE = "GPLv2 & GPLv2+"
-+LIC_FILES_CHKSUM = "file://COPYING;md5=751419260aa954499f7abaabaa882bbe \
-+                    file://src/cyclictest/cyclictest.c;beginline=7;endline=9;md5=ce162fe491d19d2ec67dff6dbc938d50 \
-+                    file://src/pi_tests/pi_stress.c;beginline=6;endline=19;md5=bd426a634a43ec612e9fbf125dfcc949"
-+SRCREV = ${AUTOREV}
-+PV = "git${SRCPV}"
-+PR = "r0"
++++ b/meta-rt/images/poky-image-minimal-rt-directdisk.bb
+@@ -0,0 +1,15 @@
++#
++# Copyright (C) 2010 Intel Corporation.
++#
 +
-+SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/clrkwllms/rt-tests.git;protocol=git"
++require recipes-core/images/poky-image-directdisk.inc
 +
-+S = "${WORKDIR}/git"
++DESCRIPTION = "Bootable Minimal Real-Time Direct Disk Image"
 +
-+CFLAGS += "-I${S}/src/include -D_GNU_SOURCE -Wall -Wno-nonnull"
++ROOTFS = "${DEPLOY_DIR_IMAGE}/poky-image-minimal-rt-${MACHINE}.ext3"
 +
-+do_install() {
-+        oe_runmake install DESTDIR=${D} SBINDIR=${sbindir} MANDIR=${mandir} \
-+                           INCLUDEDIR=${includedir}
-+}
++LICENSE = "MIT"
++
++do_bootdirectdisk[depends] += "poky-image-minimal-rt:do_rootfs"
++
++
+diff --git a/meta-rt/images/poky-image-minimal-rt-live.bb b/meta-rt/images/poky-image-minimal-rt-live.bb
+new file mode 100644
+index 0000000..988c270
+--- /dev/null
++++ b/meta-rt/images/poky-image-minimal-rt-live.bb
+@@ -0,0 +1,15 @@
++#
++# Copyright (C) 2010 Intel Corporation.
++#
++
++DESCRIPTION = "Bootable Live Minimal Real-Time Linux Image"
++
++require recipes-core/images/poky-image-live.inc
++
++LABELS += "boot install"
++
++ROOTFS = "${DEPLOY_DIR_IMAGE}/poky-image-rt-${MACHINE}.ext3"
++
++LICENSE = "MIT"
++
++do_bootimg[depends] += "poky-image-minimal-rt:do_rootfs"
+diff --git a/meta-rt/images/poky-image-minimal-rt.bb b/meta-rt/images/poky-image-minimal-rt.bb
+new file mode 100644
+index 0000000..6f5700c
+--- /dev/null
++++ b/meta-rt/images/poky-image-minimal-rt.bb
+@@ -0,0 +1,12 @@
++#
++# Copyright (C) 2010 Intel Corporation.
++#
++
++DESCRIPTION = "Minimal Real-Time Linux Image"
++DEPENDS = "linux-yocto-rt"
++
++require recipes-core/images/poky-image-minimal.bb
++
++IMAGE_INSTALL += "rt-tests"
++
++LICENSE = "MIT"
 -- 
 1.7.1
 
