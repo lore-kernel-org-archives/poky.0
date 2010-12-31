@@ -1,19 +1,42 @@
-Return-Path: <kevin.tian@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 8395F4C8110E
-	for <poky@pokylinux.org>; Thu, 30 Dec 2010 23:46:07 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 30 Dec 2010 21:45:37 -0800
-Message-Id: <c6d829$q0ouqo@fmsmga001.fm.intel.com>
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,253,1291622400"; d="scan'208";a="873233244"
-Received: from unknown (HELO localhost) ([10.239.36.131])
-	by fmsmga001.fm.intel.com with ESMTP; 30 Dec 2010 21:45:36 -0800
-From: Kevin Tian <kevin.tian@intel.com>
-Old-Date: Thu, 30 Dec 2010 12:36:50 +0800
-Date: Fri, 31 Dec 2010 13:28:02 +0800
-To: poky@pokylinux.org
-Subject: [PATCH 1/1] gcc-4.5.1: make c++ include path relative to "--sysroot"
+Return-Path: <bruce.ashfield@gmail.com>
+Received: from mail-iw0-f176.google.com (mail-iw0-f176.google.com
+	[209.85.214.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4103D4C80BD4
+	for <poky@yoctoproject.org>; Fri, 31 Dec 2010 00:08:08 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by iwn2 with SMTP id 2so13356653iwn.35
+	for <poky@yoctoproject.org>; Thu, 30 Dec 2010 22:08:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:received:received:in-reply-to
+	:references:date:message-id:subject:from:to:cc:content-type
+	:content-transfer-encoding;
+	bh=TpvIi1V/2d6cjyZ530v0HFlz6+ZKLEXr6moxeer6CJk=;
+	b=LizpD9XRDY3rkwl9BWeMXyf1crT8JBDRo0xeQVepFatT54BWGOHuc3iGP0t01wVkVo
+	C1BhWsUpqnNdtVG2psCOPdiLfCAtyTnFrPnNsBED598RhneqqwxkPUunSAgfNK4UCJpC
+	IFhyMKjhzHlTrVesI8WcluNjhclCpJQlJce40=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:cc:content-type:content-transfer-encoding;
+	b=IkQ5Nm1WBP5bQ75d12Ew10PmeqqX+q49CdnnbtVePsGJvlnwLS/92jn0Kt41YLJz6U
+	VEmVNLAuyIrkHvuBA34PD788bXiInPu3jFQavNT6eXk4IxJiwRIXMQs/njHzUuTO1fo2
+	ycL73X5IPuGFd/8R50NdN2Ux7apWw1dL7/WDw=
+MIME-Version: 1.0
+Received: by 10.231.13.137 with SMTP id c9mr16966288iba.37.1293775687933; Thu,
+	30 Dec 2010 22:08:07 -0800 (PST)
+Received: by 10.231.156.136 with HTTP; Thu, 30 Dec 2010 22:08:07 -0800 (PST)
+In-Reply-To: <4D1D07E7.7010000@linux.intel.com>
+References: <cover.1293731824.git.dvhart@linux.intel.com>
+	<a01f0a62cfa9dfd7d3c9809f9cb439100a9eb61d.1293731824.git.dvhart@linux.intel.com>
+	<AANLkTi=HVSpVxnx9QbU++mRMMW=csPz13PyT+vVX28b7@mail.gmail.com>
+	<4D1D07E7.7010000@linux.intel.com>
+Date: Fri, 31 Dec 2010 01:08:07 -0500
+Message-ID: <AANLkTi=Vb-Dp_FgSg45n2FjwbRYN7UfjQSgjGFadrn-s@mail.gmail.com>
+From: Bruce Ashfield <bruce.ashfield@gmail.com>
+To: Darren Hart <dvhart@linux.intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 1/3] trace-cmd: fix cross-compilation
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -25,209 +48,133 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 31 Dec 2010 05:46:07 -0000
+X-List-Received-Date: Fri, 31 Dec 2010 06:08:08 -0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
 
-So far c++ include path is not relative to "--sysroot", which brings
-trouble if we want to use the toolchain in a new environment where
-the original build directory generating that toolchain is not
-available. It's firstly exposed in multiple SDK sysroots support, and
-then in the case when sstate packages are used, where c++ standard
-headers are missing because gcc tries to search original build dir.
+On Thu, Dec 30, 2010 at 5:29 PM, Darren Hart <dvhart@linux.intel.com> wrote=
+:
+> On 12/30/2010 01:02 PM, Bruce Ashfield wrote:
+>>
+>> On Tue, Dec 28, 2010 at 8:17 PM, Darren Hart<dvhart@linux.intel.com>
+>> =A0wrote:
+>>>
+>>> The trace-cmd Makefile forces certain variables, such as CC and AR.
+>>> It was using the host gcc and loader, fix it to use the poky-built
+>>> cross-compiler and linker.
+>>>
+>>> inherit pkgconfig to ensure we don't use the host pkg-config.
+>>>
+>>> Remove unecessary variables from the oemake commands, such as ARCH
+>>> and LD which aren't used by the Makefile.
+>>>
+>>> Signed-off-by: Darren Hart<dvhart@linux.intel.com>
+>>> CC: Tom Zanussi<tom.zanussi@intel.com>
+>>
+>> I actually hacked up the original of this one .. ;)
+>
+> Right, sorry, forgot to check git blame on this one.
 
-This patch makes c++ include path now relative to "--sysroot", and
-then once "--sysroot" is assigned correctly in new environment, c++
-include paths can be searched as expected.
+Probably wouldn't have helped, in the recipe re-org it looks like my blame
+was dropped :)
 
-Signed-off-by: Kevin Tian <kevin.tian@intel.com>
----
- meta/recipes-devtools/gcc/gcc-4.5.1.inc            |    1 +
- .../GPLUSPLUS_INCLUDE_DIR_with_sysroot.patch       |   33 ++++++++++++++++++++
- meta/recipes-devtools/gcc/gcc-configure-cross.inc  |    2 +-
- meta/recipes-devtools/gcc/gcc-configure-sdk.inc    |    2 +-
- .../gcc/gcc-cross-canadian_4.5.1.bb                |    2 +-
- .../gcc/gcc-cross-initial_4.5.1.bb                 |    2 +-
- .../gcc/gcc-cross-intermediate_4.5.1.bb            |    2 +-
- meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb       |    2 +-
- .../gcc/gcc-crosssdk-initial_4.5.1.bb              |    2 +-
- .../gcc/gcc-crosssdk-intermediate_4.5.1.bb         |    2 +-
- meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb    |    2 +-
- meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb     |    2 +-
- meta/recipes-devtools/gcc/gcc_4.5.1.bb             |    2 +-
- 13 files changed, 45 insertions(+), 11 deletions(-)
- create mode 100644 meta/recipes-devtools/gcc/gcc-4.5.1/GPLUSPLUS_INCLUDE_DIR_with_sysroot.patch
+>
+>>
+>>
+>>> ---
+>>> =A0meta/recipes-kernel/trace-cmd/trace-cmd_git.bb | =A0 12 +++++-------
+>>> =A01 files changed, 5 insertions(+), 7 deletions(-)
+>>>
+>>> diff --git a/meta/recipes-kernel/trace-cmd/trace-cmd_git.bb
+>>> b/meta/recipes-kernel/trace-cmd/trace-cmd_git.bb
+>>> index e375afc..a7eca5f 100644
+>>> --- a/meta/recipes-kernel/trace-cmd/trace-cmd_git.bb
+>>> +++ b/meta/recipes-kernel/trace-cmd/trace-cmd_git.bb
+>>> @@ -2,18 +2,16 @@ DESCRIPTION =3D "User interface to Ftrace"
+>>> =A0LICENSE =3D "GPL"
+>>> =A0LIC_FILES_CHKSUM =3D "file://COPYING;md5=3D751419260aa954499f7abaaba=
+a882bbe"
+>>>
+>>> -PR =3D r1
+>>> +PR =3D r2
+>>> =A0PV =3D "1.0.4+git${SRCPV}"
+>>>
+>>> +inherit pkgconfig
+>>> +
+>>> =A0SRC_URI =3D
+>>> "git://git.kernel.org/pub/scm/linux/kernel/git/rostedt/trace-cmd.git;pr=
+otocol=3Dgit"
+>>> =A0S =3D "${WORKDIR}/git"
+>>>
+>>> -
+>>> -do_compile() {
+>>> - =A0 =A0 =A0 oe_runmake ARCH=3D"${ARCH}" CC=3D"${CC}" LD=3D"${LD}" pre=
+fix=3D${prefix}
+>>> -}
+>>> +EXTRA_OEMAKE =3D "'CC=3D${CC}' 'AR=3D${AR}' 'prefix=3D${prefix}'"
+>>
+>> So we've determined that we don't need ARCH anymore ? At one point
+>> this did. Or is it coming from the pkgconfig inheritance now ?
+>
+> Good question. My understanding of setting these variables here was to
+> override whatever the Makefile was using. This makefile doesn't use ARCH =
+at
 
-diff --git a/meta/recipes-devtools/gcc/gcc-4.5.1.inc b/meta/recipes-devtools/gcc/gcc-4.5.1.inc
-index 3edc4d4..1786d8a 100644
---- a/meta/recipes-devtools/gcc/gcc-4.5.1.inc
-+++ b/meta/recipes-devtools/gcc/gcc-4.5.1.inc
-@@ -54,6 +54,7 @@ SRC_URI = "${GNU_MIRROR}/gcc/gcc-${PV}/gcc-${PV}.tar.bz2 \
- 	   file://optional_libstdc.patch \
- 	   file://disable_relax_pic_calls_flag.patch \
- 	   file://gcc-poison-parameters.patch \
-+	   file://GPLUSPLUS_INCLUDE_DIR_with_sysroot.patch \
- 	  "
- 	
- SRC_URI_append_sh3  = " file://sh3-installfix-fixheaders.patch;patch=1 "
-diff --git a/meta/recipes-devtools/gcc/gcc-4.5.1/GPLUSPLUS_INCLUDE_DIR_with_sysroot.patch b/meta/recipes-devtools/gcc/gcc-4.5.1/GPLUSPLUS_INCLUDE_DIR_with_sysroot.patch
-new file mode 100644
-index 0000000..9ae01c3
---- /dev/null
-+++ b/meta/recipes-devtools/gcc/gcc-4.5.1/GPLUSPLUS_INCLUDE_DIR_with_sysroot.patch
-@@ -0,0 +1,33 @@
-+# by default c++ include directories are not relative to "--sysroot"
-+# which brings one trouble when using the toolchain in an environment
-+# where the build directory generating that toolchain doesn't exist,
-+# e.g. in sstate, machine specific sysroot and relocatable SDK
-+# toolchain. This patch now enables c++ include paths under sysroot.
-+# This way it's enough as long as "--sysroot" is correctly enabled
-+# in the new environment.
-+#
-+# Signed-off-by Kevin Tian <kevin.tian@intel.com>, 2010-12-30
-+
-+diff --git a/gcc/cppdefault.c b/gcc/cppdefault.c
-+index 5024f48..9b47d1c 100644
-+--- a/gcc/cppdefault.c
-++++ b/gcc/cppdefault.c
-+@@ -48,15 +48,15 @@ const struct default_include cpp_include_defaults[]
-+ = {
-+ #ifdef GPLUSPLUS_INCLUDE_DIR
-+     /* Pick up GNU C++ generic include files.  */
-+-    { GPLUSPLUS_INCLUDE_DIR, "G++", 1, 1, 0, 0 },
-++    { GPLUSPLUS_INCLUDE_DIR, "G++", 1, 1, 1, 0 },
-+ #endif
-+ #ifdef GPLUSPLUS_TOOL_INCLUDE_DIR
-+     /* Pick up GNU C++ target-dependent include files.  */
-+-    { GPLUSPLUS_TOOL_INCLUDE_DIR, "G++", 1, 1, 0, 1 },
-++    { GPLUSPLUS_TOOL_INCLUDE_DIR, "G++", 1, 1, 1, 1 },
-+ #endif
-+ #ifdef GPLUSPLUS_BACKWARD_INCLUDE_DIR
-+     /* Pick up GNU C++ backward and deprecated include files.  */
-+-    { GPLUSPLUS_BACKWARD_INCLUDE_DIR, "G++", 1, 1, 0, 0 },
-++    { GPLUSPLUS_BACKWARD_INCLUDE_DIR, "G++", 1, 1, 1, 0 },
-+ #endif
-+ #ifdef LOCAL_INCLUDE_DIR
-+     /* /usr/local/include comes before the fixincluded header files.  */
-diff --git a/meta/recipes-devtools/gcc/gcc-configure-cross.inc b/meta/recipes-devtools/gcc/gcc-configure-cross.inc
-index 3da92e2..04a8685 100644
---- a/meta/recipes-devtools/gcc/gcc-configure-cross.inc
-+++ b/meta/recipes-devtools/gcc/gcc-configure-cross.inc
-@@ -5,7 +5,7 @@ USE_NLS = '${@base_conditional( "TARGET_OS", "linux-uclibc", "no", "", d )}'
- EXTRA_OECONF += " --enable-poison-system-directories "
- 
- EXTRA_OECONF_PATHS = "--with-local-prefix=${STAGING_DIR_TARGET}${target_exec_prefix} \
--		      --with-gxx-include-dir=${STAGING_DIR_TARGET}/${target_includedir}/c++ \
-+		      --with-gxx-include-dir=${target_includedir}/c++ \
-                       --with-sysroot=${STAGING_DIR_TARGET} \
-                       --with-build-sysroot=${STAGING_DIR_TARGET}"
- 
-diff --git a/meta/recipes-devtools/gcc/gcc-configure-sdk.inc b/meta/recipes-devtools/gcc/gcc-configure-sdk.inc
-index 0eb33ad..756e74e 100644
---- a/meta/recipes-devtools/gcc/gcc-configure-sdk.inc
-+++ b/meta/recipes-devtools/gcc/gcc-configure-sdk.inc
-@@ -5,7 +5,7 @@ USE_NLS = '${@base_conditional( "TARGET_OS", "linux-uclibc", "no", "", d )}'
- USE_NLS = '${@base_conditional( "TARGET_OS", "linux-uclibcgnueabi", "no", "", d )}'
- 
- EXTRA_OECONF_PATHS = "--with-local-prefix=${SDKPATH}/sysroots/${TARGET_SYS}${target_exec_prefix} \
--                      --with-gxx-include-dir=${SDKPATH}/sysroots/${TARGET_SYS}${target_includedir}/c++ \
-+                      --with-gxx-include-dir=${target_includedir}/c++ \
-                       --with-build-time-tools=${STAGING_DIR_NATIVE}${prefix_native}/${TARGET_SYS}/bin \
-                       --with-sysroot=${SDKPATH}/sysroots/${TARGET_SYS} \
-                       --with-build-sysroot=${STAGING_DIR_TARGET}"
-diff --git a/meta/recipes-devtools/gcc/gcc-cross-canadian_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-cross-canadian_4.5.1.bb
-index 98e239d..37c64fb 100644
---- a/meta/recipes-devtools/gcc/gcc-cross-canadian_4.5.1.bb
-+++ b/meta/recipes-devtools/gcc/gcc-cross-canadian_4.5.1.bb
-@@ -5,7 +5,7 @@ require gcc-cross-canadian.inc
- require gcc-configure-sdk.inc
- require gcc-package-sdk.inc
- 
--PR = "r1"
-+PR = "r2"
- 
- DEPENDS += "gmp-nativesdk mpfr-nativesdk libmpc-nativesdk elfutils-nativesdk"
- RDEPENDS_${PN} += "mpfr-nativesdk libmpc-nativesdk elfutils-nativesdk"
-diff --git a/meta/recipes-devtools/gcc/gcc-cross-initial_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-cross-initial_4.5.1.bb
-index e3aea8b..a121782 100644
---- a/meta/recipes-devtools/gcc/gcc-cross-initial_4.5.1.bb
-+++ b/meta/recipes-devtools/gcc/gcc-cross-initial_4.5.1.bb
-@@ -1,5 +1,5 @@
- require gcc-cross_${PV}.bb
- require gcc-cross-initial.inc
- 
--PR = "r0"
-+PR = "r1"
- 
-diff --git a/meta/recipes-devtools/gcc/gcc-cross-intermediate_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-cross-intermediate_4.5.1.bb
-index 4cabe0e..7aaa5b0 100644
---- a/meta/recipes-devtools/gcc/gcc-cross-intermediate_4.5.1.bb
-+++ b/meta/recipes-devtools/gcc/gcc-cross-intermediate_4.5.1.bb
-@@ -1,4 +1,4 @@
- require gcc-cross_${PV}.bb
- require gcc-cross-intermediate.inc
--PR = "r0"
-+PR = "r1"
- 
-diff --git a/meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb
-index 445869d..b7e4328 100644
---- a/meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb
-+++ b/meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb
-@@ -1,4 +1,4 @@
--PR = "r0"
-+PR = "r1"
- 
- require gcc-${PV}.inc
- require gcc-cross4.inc
-diff --git a/meta/recipes-devtools/gcc/gcc-crosssdk-initial_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-crosssdk-initial_4.5.1.bb
-index 22cb490..0fc5faa 100644
---- a/meta/recipes-devtools/gcc/gcc-crosssdk-initial_4.5.1.bb
-+++ b/meta/recipes-devtools/gcc/gcc-crosssdk-initial_4.5.1.bb
-@@ -1,4 +1,4 @@
- require gcc-cross-initial_${PV}.bb
- require gcc-crosssdk-initial.inc
- 
--PR = "r0"
-+PR = "r1"
-diff --git a/meta/recipes-devtools/gcc/gcc-crosssdk-intermediate_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-crosssdk-intermediate_4.5.1.bb
-index ba42ca0..4260c35 100644
---- a/meta/recipes-devtools/gcc/gcc-crosssdk-intermediate_4.5.1.bb
-+++ b/meta/recipes-devtools/gcc/gcc-crosssdk-intermediate_4.5.1.bb
-@@ -1,4 +1,4 @@
- require gcc-cross-intermediate_${PV}.bb
- require gcc-crosssdk-intermediate.inc
- 
--PR = "r0"
-+PR = "r1"
-diff --git a/meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb
-index 6f0a540..a23a662 100644
---- a/meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb
-+++ b/meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb
-@@ -1,4 +1,4 @@
- require gcc-cross_${PV}.bb
- require gcc-crosssdk.inc
- 
--PR = "r0"
-+PR = "r1"
-diff --git a/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb
-index 4d2302d..ca22e8b 100644
---- a/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb
-+++ b/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb
-@@ -1,4 +1,4 @@
--PR = "r0"
-+PR = "r1"
- 
- require gcc-${PV}.inc
- require gcc-configure-runtime.inc
-diff --git a/meta/recipes-devtools/gcc/gcc_4.5.1.bb b/meta/recipes-devtools/gcc/gcc_4.5.1.bb
-index 81c1fa9..a21772f 100644
---- a/meta/recipes-devtools/gcc/gcc_4.5.1.bb
-+++ b/meta/recipes-devtools/gcc/gcc_4.5.1.bb
-@@ -1,4 +1,4 @@
--PR = "r0"
-+PR = "r1"
- require gcc-${PV}.inc
- require gcc-configure-target.inc
- require gcc-package-target.inc
--- 
-1.6.0.4
+They were initially imported from a non-bitbake build of the tool, so there
+very well could have been differences introduced simply by the history. But
+yes, they were passed to override the defaults of the trace-cmd Makefile
+and prevent the defaults from being used.
 
+At one point, there were arch specific switches in the build to adapt to a
+different userspace on a per-arch basis. But those changes were circa
+March 2010 and they never were picked up.
+
+> all. Am I missing something about how this is used?
+
+It doesn't look like it, I was more noticing that you dropped ARCH, and
+was just looking to see if there were more details than just the commit
+message.
+
+Cheers,
+
+Bruce
+
+>
+> --
+> Darren
+>
+>>
+>> Bruce
+>>
+>>>
+>>> =A0do_install() {
+>>> - =A0 =A0 =A0 oe_runmake ARCH=3D"${ARCH}" CC=3D"${CC}" LD=3D"${LD}" \
+>>> - =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 prefix=3D${prefix} DESTDIR=3D${D}=
+ install
+>>> + =A0 =A0 =A0 oe_runmake CC=3D"${CC}" AR=3D"${AR}" prefix=3D"${prefix}"
+>>> DESTDIR=3D"${D}" install
+>>> =A0}
+>>> --
+>>> 1.7.1
+>>>
+>>> _______________________________________________
+>>> poky mailing list
+>>> poky@yoctoproject.org
+>>> https://lists.yoctoproject.org/listinfo/poky
+>>>
+>>
+>>
+>>
+>
+>
+> --
+> Darren Hart
+> Yocto Linux Kernel
+>
+
+
+
+--=20
+"Thou shalt not follow the NULL pointer, for chaos and madness await
+thee at its end"
 
