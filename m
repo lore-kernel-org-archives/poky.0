@@ -1,21 +1,25 @@
-Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 054D34C811A8
-	for <poky@yoctoproject.org>; Thu, 30 Dec 2010 11:25:32 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 30 Dec 2010 09:25:32 -0800
+Return-Path: <qing.he@intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5EB6B4C810DA
+	for <poky@yoctoproject.org>; Thu, 30 Dec 2010 21:22:48 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 30 Dec 2010 19:21:49 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,250,1291622400"; d="scan'208";a="692030433"
-Received: from mukti.sc.intel.com (HELO localhost) ([143.183.140.52])
-	by orsmga001.jf.intel.com with ESMTP; 30 Dec 2010 09:25:32 -0800
-Message-Id: <74469811e92c59b33860f55eec718e01b08a8c97.1293729977.git.nitin.a.kamble@intel.com>
-In-Reply-To: <cover.1293729977.git.nitin.a.kamble@intel.com>
-References: <cover.1293729977.git.nitin.a.kamble@intel.com>
-From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Date: Wed, 22 Dec 2010 09:26:07 -0800
+X-IronPort-AV: E=Sophos;i="4.60,253,1291622400"; d="scan'208";a="368308216"
+Received: from qhe2-db.sh.intel.com ([10.239.13.38])
+	by azsmga001.ch.intel.com with ESMTP; 30 Dec 2010 19:21:46 -0800
+Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
+	(envelope-from <qing.he@intel.com>)
+	id 1PYVTQ-0001gk-FQ; Fri, 31 Dec 2010 11:16:12 +0800
+Message-Id: <488b3d7b5edd46bbcc5927a39e2cf0140f87094d.1293765141.git.qing.he@intel.com>
+In-Reply-To: <cover.1293765141.git.qing.he@intel.com>
+References: <cover.1293765141.git.qing.he@intel.com>
+From: Qing He <qing.he@intel.com>
+Old-Date: Thu, 30 Dec 2010 16:54:28 +0800
+Date: Fri, 31 Dec 2010 11:16:12 +0800
 To: poky@yoctoproject.org
 X-Mailman-Approved-At: Fri, 31 Dec 2010 11:18:31 -0600
-Subject: [PATCH 5/5] perl, perl-native: upgrade from 5.8.8 to 5.12.2
+Subject: [PATCH 4/6] ncurses: upgrade to version 5.7
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,6173 +31,5340 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 30 Dec 2010 17:25:35 -0000
+X-List-Received-Date: Fri, 31 Dec 2010 03:22:49 -0000
 
-Deleted these patches as they are part of the upstream code now.
-    deleted:    files/perl-5.8.8-gcc-4.2.patch
-    deleted:    perl-5.12.2/makedepend-dash.patch
-    deleted:    perl-5.12.2/native-no-gdbminc.patch
-    deleted:    perl-5.12.2/54_debian_perldoc-r.patch
+from 5.4
 
-And rebased these patches to the newer source code
-    modified:   files/letgcc-find-errno.patch
-    modified:   perl-5.12.2/Makefile.patch
-    modified:   perl-5.12.2/asm-pageh-fix.patch
-    modified:   perl-5.12.2/native-nopacklist.patch
-    modified:   perl-5.12.2/native-perlinc.patch
-    modified:   perl-5.12.2/Makefile.SH.patch
-    modified:   perl-5.12.2/installperl.patch
-    modified:   perl-5.12.2/perl-dynloader.patch
-    modified:   perl-5.12.2/09_fix_installperl.patch
+Largely based on the recipe from OpenEmbedded project
 
-get patches from debian perl ver 5.12.2-2
-   the fakeroot.diff patch from debian is conflicting with our
-   Makefile.SH.patch, hence disabling the fakeroot patch
-
-use newly created config files
-   Created with current milestone branch on qemu machines
-      modified:   config.sh
-      modified:   config.sh-32
-      modified:   config.sh-64
-
-get some changes from oe's perl 5.10.1 recipe
-   fix the Makefile.SH.patch use miniperl instead of perl
-   import a OE 5.10.1 patch: uudmap_cross
-
-fix install issues
-   add /usr in the destdir, so that perl gets installed in
-   /usr/bin/perl and not in /bin/perl
-
-   link /usr/lib/perl to /usr/lib/perl5 so that operations with
-   /usr/lib/perl path in them keep on working.
-
-Fix/Improve perl packaging
-   avoid perl-module-module-* kind of packages
-   recreate perl-rdepends_5.12.2.inc file with new set of packages
-   import from oe perl-rprovide_5.12.2.inc
-   combine all unicore perl scripts in one package
-   simplify perl-lib
-   reduce no of perl recipe packages greatly.
-
-Add zlib to depedancy
-
-fix buildtime host contamination
-
-Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
+Signed-off-by: Qing He <qing.he@intel.com>
 ---
- .../perl/files/letgcc-find-errno.patch             |   14 +-
- .../perl/files/perl-5.8.8-gcc-4.2.patch            |   13 -
- .../perl/perl-5.12.2/09_fix_installperl.patch      |   19 +
- .../perl/perl-5.12.2/Makefile.SH.patch             |  288 +++++
- .../{perl-5.8.8 => perl-5.12.2}/Makefile.patch     |   20 +-
- .../asm-pageh-fix.patch                            |    6 +-
- .../perl/{perl-5.8.8 => perl-5.12.2}/config.sh     |  322 ++++---
- .../recipes-devtools/perl/perl-5.12.2/config.sh-32 |   38 +
- .../{perl-5.8.8 => perl-5.12.2}/config.sh-32-be    |    0
- .../{perl-5.8.8 => perl-5.12.2}/config.sh-32-le    |    0
- .../recipes-devtools/perl/perl-5.12.2/config.sh-64 |   38 +
- .../{perl-5.8.8 => perl-5.12.2}/config.sh-64-be    |    0
- .../{perl-5.8.8 => perl-5.12.2}/config.sh-64-le    |    0
- .../perl/perl-5.12.2/cross-generate_uudmap.patch   |   13 +
- .../perl/perl-5.12.2/debian/arm_optim.diff         |   32 +
- .../debian/arm_thread_stress_timeout.diff          |   23 +
- .../perl/perl-5.12.2/debian/cpan_config_path.diff  |   22 +
- .../perl-5.12.2/debian/cpan_definstalldirs.diff    |   35 +
- .../perl-5.12.2/debian/cpanplus_config_path.diff   |   43 +
- .../debian/cpanplus_definstalldirs.diff            |   52 +
- .../perl/perl-5.12.2/debian/db_file_ver.diff       |   32 +
- .../perl-5.12.2/debian/deprecate-with-apt.diff     |   59 +
- .../debian/devel-ppport-ia64-optim.diff            |   32 +
- .../perl-5.12.2/debian/disable-zlib-bundling.diff  |   29 +
- .../perl/perl-5.12.2/debian/doc_info.diff          |   34 +
- .../perl/perl-5.12.2/debian/enc2xs_inc.diff        |   49 +
- .../perl/perl-5.12.2/debian/errno_ver.diff         |   32 +
- .../debian/extutils_hacks.diff}                    |  199 +++-
- .../perl/perl-5.12.2/debian/fakeroot.diff          |   43 +
- .../perl-5.12.2/debian/fixes/autodie-flock.diff    |   98 ++
- .../debian/fixes/concat-stack-corruption.diff      |   37 +
- .../debian/fixes/cpanplus-without-home.diff        |   30 +
- .../perl-5.12.2/debian/fixes/h2ph-gcc-4.5.diff     |  106 ++
- .../perl-5.12.2/debian/fixes/hurd-ccflags.diff     |   26 +
- .../perl-5.12.2/debian/fixes/lc-numeric-docs.diff  |   95 ++
- .../debian/fixes/lc-numeric-sprintf.diff           |   29 +
- .../perl-5.12.2/debian/fixes/net_smtp_docs.diff    |   23 +
- .../perl/perl-5.12.2/debian/fixes/processPL.diff   |   43 +
- .../perl/perl-5.12.2/debian/instmodsh_doc.diff     |   26 +
- .../perl/perl-5.12.2/debian/ld_run_path.diff       |   23 +
- .../perl-5.12.2/debian/libnet_config_path.diff     |   35 +
- .../perl-5.12.2/debian/m68k_thread_stress.diff     |   43 +
- .../debian/mod_paths.diff}                         |   67 +-
- .../debian/module_build_man_extensions.diff        |   31 +
- .../perl/perl-5.12.2/debian/perlivp.diff           |   38 +
- .../perl/perl-5.12.2/debian/prune_libs.diff        |   36 +
- .../debian/squelch-locale-warnings.diff            |   53 +
- .../{perl-5.8.8 => perl-5.12.2}/generate-sh.patch  |    0
- .../{perl-5.8.8 => perl-5.12.2}/installperl.patch  |   10 +-
- .../native-nopacklist.patch                        |   36 +-
- .../native-perlinc.patch                           |    4 +-
- .../{perl-5.8.8 => perl-5.12.2}/native-ssp.patch   |    0
- .../perl-configpm-switch.patch                     |    0
- .../{perl-5.8.8 => perl-5.12.2}/perl-configure.sh  |    4 +-
- .../perl-dynloader.patch                           |    4 +-
- .../perl-enable-gdbm.patch                         |    0
- .../perl-moreconfig.patch                          |    0
- .../perl/perl-5.8.8/09_fix_installperl.patch       |   32 -
- .../perl/perl-5.8.8/54_debian_perldoc-r.patch      |   16 -
- .../perl-5.8.8/58_debian_cpan_config_path.patch    |   14 -
- .../perl-5.8.8/60_debian_libnet_config_path.patch  |   16 -
- .../perl-5.8.8/62_debian_cpan_definstalldirs.patch |   16 -
- .../perl/perl-5.8.8/64_debian_enc2xs_inc.patch     |   28 -
- .../perl/perl-5.8.8/Makefile.SH.patch              |  253 -----
- meta/recipes-devtools/perl/perl-5.8.8/config.sh-32 |   58 -
- meta/recipes-devtools/perl/perl-5.8.8/config.sh-64 |   58 -
- .../perl/perl-5.8.8/makedepend-dash.patch          |   13 -
- .../perl/perl-5.8.8/native-no-gdbminc.patch        |   18 -
- ...{perl-native_5.8.8.bb => perl-native_5.12.2.bb} |   20 +-
- .../recipes-devtools/perl/perl-rdepends_5.12.2.inc |  211 ++++
- meta/recipes-devtools/perl/perl-rdepends_5.8.8.inc | 1145 --------------------
- .../perl/perl-rprovides_5.12.2.inc                 |    1 +
- meta/recipes-devtools/perl/perl_5.12.2.bb          |  282 +++++
- meta/recipes-devtools/perl/perl_5.8.8.bb           |  225 ----
- 74 files changed, 2597 insertions(+), 2193 deletions(-)
- delete mode 100644 meta/recipes-devtools/perl/files/perl-5.8.8-gcc-4.2.patch
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/09_fix_installperl.patch
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/Makefile.SH.patch
- rename meta/recipes-devtools/perl/{perl-5.8.8 => perl-5.12.2}/Makefile.patch (81%)
- rename meta/recipes-devtools/perl/{perl-5.8.8 => perl-5.12.2}/asm-pageh-fix.patch (72%)
- rename meta/recipes-devtools/perl/{perl-5.8.8 => perl-5.12.2}/config.sh (66%)
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/config.sh-32
- rename meta/recipes-devtools/perl/{perl-5.8.8 => perl-5.12.2}/config.sh-32-be (100%)
- rename meta/recipes-devtools/perl/{perl-5.8.8 => perl-5.12.2}/config.sh-32-le (100%)
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/config.sh-64
- rename meta/recipes-devtools/perl/{perl-5.8.8 => perl-5.12.2}/config.sh-64-be (100%)
- rename meta/recipes-devtools/perl/{perl-5.8.8 => perl-5.12.2}/config.sh-64-le (100%)
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/cross-generate_uudmap.patch
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/arm_optim.diff
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/arm_thread_stress_timeout.diff
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/cpan_config_path.diff
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/cpan_definstalldirs.diff
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/cpanplus_config_path.diff
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/cpanplus_definstalldirs.diff
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/db_file_ver.diff
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/deprecate-with-apt.diff
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/devel-ppport-ia64-optim.diff
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/disable-zlib-bundling.diff
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/doc_info.diff
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/enc2xs_inc.diff
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/errno_ver.diff
- rename meta/recipes-devtools/perl/{perl-5.8.8/52_debian_extutils_hacks.patch => perl-5.12.2/debian/extutils_hacks.diff} (55%)
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/fakeroot.diff
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/autodie-flock.diff
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/concat-stack-corruption.diff
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/cpanplus-without-home.diff
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/h2ph-gcc-4.5.diff
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/hurd-ccflags.diff
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/lc-numeric-docs.diff
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/lc-numeric-sprintf.diff
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/net_smtp_docs.diff
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/processPL.diff
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/instmodsh_doc.diff
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/ld_run_path.diff
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/libnet_config_path.diff
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/m68k_thread_stress.diff
- rename meta/recipes-devtools/perl/{perl-5.8.8/53_debian_mod_paths.patch => perl-5.12.2/debian/mod_paths.diff} (59%)
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/module_build_man_extensions.diff
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/perlivp.diff
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/prune_libs.diff
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/debian/squelch-locale-warnings.diff
- rename meta/recipes-devtools/perl/{perl-5.8.8 => perl-5.12.2}/generate-sh.patch (100%)
- rename meta/recipes-devtools/perl/{perl-5.8.8 => perl-5.12.2}/installperl.patch (57%)
- rename meta/recipes-devtools/perl/{perl-5.8.8 => perl-5.12.2}/native-nopacklist.patch (76%)
- rename meta/recipes-devtools/perl/{perl-5.8.8 => perl-5.12.2}/native-perlinc.patch (80%)
- rename meta/recipes-devtools/perl/{perl-5.8.8 => perl-5.12.2}/native-ssp.patch (100%)
- rename meta/recipes-devtools/perl/{perl-5.8.8 => perl-5.12.2}/perl-configpm-switch.patch (100%)
- rename meta/recipes-devtools/perl/{perl-5.8.8 => perl-5.12.2}/perl-configure.sh (94%)
- rename meta/recipes-devtools/perl/{perl-5.8.8 => perl-5.12.2}/perl-dynloader.patch (87%)
- rename meta/recipes-devtools/perl/{perl-5.8.8 => perl-5.12.2}/perl-enable-gdbm.patch (100%)
- rename meta/recipes-devtools/perl/{perl-5.8.8 => perl-5.12.2}/perl-moreconfig.patch (100%)
- delete mode 100644 meta/recipes-devtools/perl/perl-5.8.8/09_fix_installperl.patch
- delete mode 100644 meta/recipes-devtools/perl/perl-5.8.8/54_debian_perldoc-r.patch
- delete mode 100644 meta/recipes-devtools/perl/perl-5.8.8/58_debian_cpan_config_path.patch
- delete mode 100644 meta/recipes-devtools/perl/perl-5.8.8/60_debian_libnet_config_path.patch
- delete mode 100644 meta/recipes-devtools/perl/perl-5.8.8/62_debian_cpan_definstalldirs.patch
- delete mode 100644 meta/recipes-devtools/perl/perl-5.8.8/64_debian_enc2xs_inc.patch
- delete mode 100644 meta/recipes-devtools/perl/perl-5.8.8/Makefile.SH.patch
- delete mode 100644 meta/recipes-devtools/perl/perl-5.8.8/config.sh-32
- delete mode 100644 meta/recipes-devtools/perl/perl-5.8.8/config.sh-64
- delete mode 100644 meta/recipes-devtools/perl/perl-5.8.8/makedepend-dash.patch
- delete mode 100644 meta/recipes-devtools/perl/perl-5.8.8/native-no-gdbminc.patch
- rename meta/recipes-devtools/perl/{perl-native_5.8.8.bb => perl-native_5.12.2.bb} (81%)
- create mode 100644 meta/recipes-devtools/perl/perl-rdepends_5.12.2.inc
- delete mode 100644 meta/recipes-devtools/perl/perl-rdepends_5.8.8.inc
- create mode 100644 meta/recipes-devtools/perl/perl-rprovides_5.12.2.inc
- create mode 100644 meta/recipes-devtools/perl/perl_5.12.2.bb
- delete mode 100644 meta/recipes-devtools/perl/perl_5.8.8.bb
+ meta/recipes-core/ncurses/ncurses-5.7/config.cache |    4 +
+ .../ncurses/ncurses-5.7/tic-hang.patch             |   25 +
+ .../ncurses/ncurses/makefile_tweak.patch           |   89 -
+ meta/recipes-core/ncurses/ncurses/visibility.patch | 4904 --------------------
+ meta/recipes-core/ncurses/ncurses_5.4.bb           |   11 -
+ meta/recipes-core/ncurses/ncurses_5.7.bb           |  242 +
+ 6 files changed, 271 insertions(+), 5004 deletions(-)
+ create mode 100644 meta/recipes-core/ncurses/ncurses-5.7/config.cache
+ create mode 100644 meta/recipes-core/ncurses/ncurses-5.7/tic-hang.patch
+ delete mode 100644 meta/recipes-core/ncurses/ncurses/makefile_tweak.patch
+ delete mode 100644 meta/recipes-core/ncurses/ncurses/visibility.patch
+ delete mode 100644 meta/recipes-core/ncurses/ncurses_5.4.bb
+ create mode 100644 meta/recipes-core/ncurses/ncurses_5.7.bb
 
-diff --git a/meta/recipes-devtools/perl/files/letgcc-find-errno.patch b/meta/recipes-devtools/perl/files/letgcc-find-errno.patch
-index 24722ee..47f972d 100644
---- a/meta/recipes-devtools/perl/files/letgcc-find-errno.patch
-+++ b/meta/recipes-devtools/perl/files/letgcc-find-errno.patch
-@@ -8,10 +8,12 @@ external toolchain since perl will search in ${STAGING_INCDIR} for
- errno.h (when using gcc) and that isn't where it's located - its
- wherever the external toolchain keeps it's headers.
- 
----- perl-5.8.8/ext/Errno/Errno_pm.PL	2007/04/30 14:10:10	1.1
--+++ perl-5.8.8/ext/Errno/Errno_pm.PL	2007/04/30 14:21:35
--@@ -11,8 +11,18 @@
-- open OUT, ">Errno.pm" or die "Cannot open Errno.pm: $!";
-+Index: perl-5.12.2/ext/Errno/Errno_pm.PL
-+===================================================================
-+--- perl-5.12.2.orig/ext/Errno/Errno_pm.PL
-++++ perl-5.12.2/ext/Errno/Errno_pm.PL
-+@@ -17,8 +17,18 @@ unlink "Errno.tmp" if -f "Errno.tmp";
-+ open OUT, ">Errno.tmp" or die "Cannot open Errno.tmp: $!";
-  select OUT;
-  my $file;
- -my @files = get_files();
-@@ -31,12 +33,12 @@ wherever the external toolchain keeps it's headers.
-      # MinGW complains "warning: #pragma system_header ignored outside include
-      # file" if the header files are processed individually, so include them
-      # all in .c file and process that instead.
--@@ -44,7 +54,7 @@
-+@@ -53,7 +63,7 @@ sub process_file {
-          chomp($file = `cygpath -w "$file"`);
-      }
-  
- -    return unless defined $file and -f $file;
- +#    return unless defined $file and -f $file;
-- #   warn "Processing $file\n";
-+ #    warn "Processing $file\n";
-  
-      local *FH;
-diff --git a/meta/recipes-devtools/perl/files/perl-5.8.8-gcc-4.2.patch b/meta/recipes-devtools/perl/files/perl-5.8.8-gcc-4.2.patch
-deleted file mode 100644
-index 653a475..0000000
---- a/meta/recipes-devtools/perl/files/perl-5.8.8-gcc-4.2.patch
-+++ /dev/null
-@@ -1,13 +0,0 @@
--See http://bugs.openembedded.net/show_bug.cgi?id=2168
--Fix for gcc 4.2
--
----- perl-5.8.8/makedepend.SH.ark	2006-11-01 16:32:05.000000000 +0100
--+++ perl-5.8.8/makedepend.SH	2006-11-01 16:32:15.000000000 +0100
--@@ -167,6 +167,7 @@
--             -e '/^#.*<builtin>/d' \
--             -e '/^#.*<built-in>/d' \
--             -e '/^#.*<command line>/d' \
--+            -e '/^#.*<command-line>/d' \
-- 	    -e '/^#.*"-"/d' \
-- 	    -e '/: file path prefix .* never used$/d' \
-- 	    -e 's#\.[0-9][0-9]*\.c#'"$file.c#" \
-diff --git a/meta/recipes-devtools/perl/perl-5.12.2/09_fix_installperl.patch b/meta/recipes-devtools/perl/perl-5.12.2/09_fix_installperl.patch
+diff --git a/meta/recipes-core/ncurses/ncurses-5.7/config.cache b/meta/recipes-core/ncurses/ncurses-5.7/config.cache
 new file mode 100644
-index 0000000..6f2531b
+index 0000000..6a9217d
 --- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/09_fix_installperl.patch
-@@ -0,0 +1,19 @@
-+Correctly identify arch-specific modules in ext/ where the .pm files
-+are under lib.
-+
-+Ensure that POSIX/SigAction is kept with the rest of the POSIX module
-+under archlib.
-+
-+Index: perl-5.12.2/installperl
-+===================================================================
-+--- perl-5.12.2.orig/installperl
-++++ perl-5.12.2/installperl
-+@@ -750,7 +750,7 @@ sub installlib {
-+     }
-+ 
-+     if (-f $_) {
-+-	if (/\.(?:al|ix)$/ && !($dir =~ m[^auto/(.*)$])) {
-++	if (/\.(?:al|ix)$/ && !($dir =~ m[^auto/(.*)$] && $archpms{$1})) {
-+ 	    $installlib = $installprivlib;
-+ 	    #We're installing *.al and *.ix files into $installprivlib,
-+ 	    #but we have to delete old *.al and *.ix files from the 5.000
-diff --git a/meta/recipes-devtools/perl/perl-5.12.2/Makefile.SH.patch b/meta/recipes-devtools/perl/perl-5.12.2/Makefile.SH.patch
-new file mode 100644
-index 0000000..103fe97
---- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/Makefile.SH.patch
-@@ -0,0 +1,288 @@
-+Index: perl-5.12.2/Makefile.SH
-+===================================================================
-+--- perl-5.12.2.orig/Makefile.SH
-++++ perl-5.12.2/Makefile.SH
-+@@ -50,12 +50,12 @@ case "$useshrplib" in
-+ true)
-+ 	# Prefix all runs of 'miniperl' and 'perl' with
-+ 	# $ldlibpth so that ./perl finds *this* shared libperl.
-+-	case "$LD_LIBRARY_PATH" in
-+-	'')
-+-		ldlibpth="LD_LIBRARY_PATH=`pwd`";;
-+-	*)
-+-		ldlibpth="LD_LIBRARY_PATH=`pwd`:${LD_LIBRARY_PATH}";;
-+-	esac
-++#	case "$LD_LIBRARY_PATH" in
-++#	'')
-++#		ldlibpth="LD_LIBRARY_PATH=`pwd`";;
-++#	*)
-++#		ldlibpth="LD_LIBRARY_PATH=`pwd`:${LD_LIBRARY_PATH}";;
-++#	esac
-+ 
-+ 	pldlflags="$cccdlflags"
-+ 	static_ldflags=''
-+@@ -133,7 +133,8 @@ true)
-+ 	        ldlibpth=''
-+ 	        ;;
-+ 	    *)
-+-		eval "ldlibpth=\"$ldlibpthname=`pwd`:\$$ldlibpthname\""
-++# We compile in the library path in OE from cross-compile, so lets not do this
-++#		eval "ldlibpth=\"$ldlibpthname=`pwd`:\$$ldlibpthname\""
-+ 		;;
-+ 	    esac
-+ 	    # Strip off any trailing :'s
-+@@ -154,18 +155,7 @@ true)
-+ 	    # INSTALL file, under "Building a shared perl library".
-+ 	    # If there is no pre-existing $libperl, we don't need
-+ 	    # to do anything further.
-+-	    if test -f $archlib/CORE/$libperl; then
-+-		rm -f preload
-+-		cat <<'EOT' > preload
-+-#! /bin/sh
-+-lib=$1
-+-shift
-+-test -r $lib && export LD_PRELOAD="$lib $LD_PRELOAD"
-+-exec "$@"
-+-EOT
-+-		chmod 755 preload
-+-		ldlibpth="$ldlibpth `pwd`/preload `pwd`/$libperl"
-+-	    fi
-++	    echo linux libraries overwritten by cross-compile patches
-+ 	    ;;
-+ 	os390)	test -f /bin/env && ldlibpth="/bin/env $ldlibpth"
-+ 		;;
-+@@ -553,9 +543,19 @@ splintfiles = $(c1)
-+ .c.s:
-+ 	$(CCCMDSRC) -S $*.c
-+ 
-+-all: $(FIRSTMAKEFILE) $(MINIPERL_EXE) miniperl $(generated_pods) $(private) $(unidatafiles) $(public) $(dynamic_ext) $(nonxs_ext) extras.make
-+-	@echo " ";
-+-	@echo "	Everything is up to date. Type '$(MAKE) test' to run test suite."
-++#all: $(FIRSTMAKEFILE) $(MINIPERL_EXE) miniperl $(generated_pods) $(private) $(unidatafiles) $(public) $(dynamic_ext) $(nonxs_ext) extras.make
-++#	@echo " ";
-++#	@echo "	Everything is up to date. Type '$(MAKE) test' to run test suite."
-++
-++all: $(FIRSTMAKEFILE) $(MINIPERL_EXE) miniperl $(unidatafiles)
-++
-++more: $(generated_pods) $(private) $(public)
-++
-++more2: $(dynamic_ext)
-++
-++more3: $(nonxs_ext)
-++
-++more4: extras.make
-+ 
-+ .PHONY: all translators utilities
-+ 
-+@@ -563,16 +563,16 @@ all: $(FIRSTMAKEFILE) $(MINIPERL_EXE) mi
-+ # by make_patchnum.pl.
-+ git_version.h: lib/Config_git.pl
-+ 
-+-lib/Config_git.pl: $(MINIPERL_EXE) make_patchnum.pl
-++lib/Config_git.pl: make_patchnum.pl
-+ 	$(MINIPERL) make_patchnum.pl
-+ 
-+ # make sure that we recompile perl.c if the git version changes
-+ perl$(OBJ_EXT): git_version.h
-+ 
-+-translators:	$(MINIPERL_EXE) $(CONFIGPM) $(dynamic_ext) FORCE
-++translators:	$(CONFIGPM) $(dynamic_ext) FORCE
-+ 	@echo " "; echo "	Making x2p stuff"; cd x2p; $(LDLIBPTH) $(MAKE) all
-+ 
-+-utilities:	$(MINIPERL_EXE) $(CONFIGPM) $(plextract) FORCE
-++utilities:	$(CONFIGPM) $(plextract) FORCE
-+ 	@echo " "; echo "	Making utilities"; cd utils; $(LDLIBPTH) $(MAKE) all
-+ 
-+ 
-+@@ -747,7 +747,7 @@ $(LIBPERL): $& $(obj) $(DYNALOADER) $(LI
-+ 	true)
-+ 		$spitshell >>$Makefile <<'!NO!SUBS!'
-+ 	rm -f $@
-+-	$(LD) -o $@ $(SHRPLDFLAGS) $(obj) $(DYNALOADER) $(libs)
-++	$(LD) -o $@ $(SHRPLDFLAGS) $(obj) $(DYNALOADER) $(libs) -Wl,-soname,libperl.so.5
-+ !NO!SUBS!
-+ 		case "$osname" in
-+ 		aix)
-+@@ -788,7 +788,9 @@ $(MINIPERL_EXE): $& miniperlmain$(OBJ_EX
-+ 	$(CC) -o $(MINIPERL_EXE) $(CLDFLAGS) \
-+ 	    $(mini_obj) \
-+ 	    miniperlmain$(OBJ_EXT) opmini$(OBJ_EXT) perlmini$(OBJ_EXT) $(libs)
-+-	$(LDLIBPTH) $(RUN) ./miniperl$(HOST_EXE_EXT) -w -Ilib -MExporter -e '<?>' || $(MAKE) minitest
-++	mv -f miniperl miniperl-target
-++	ln -s hostperl miniperl
-++#	$(LDLIBPTH) $(RUN) ./miniperl$(HOST_EXE_EXT) -w -Ilib -MExporter -e '<?>' || $(MAKE) minitest
-+ !NO!SUBS!
-+ 		;;
-+ 	next4*)
-+@@ -796,7 +798,9 @@ $(MINIPERL_EXE): $& miniperlmain$(OBJ_EX
-+ $(MINIPERL_EXE): $& miniperlmain$(OBJ_EXT) $(mini_obj) perlmini$(OBJ_EXT) opmini$(OBJ_EXT)
-+ 	$(CC) -o $(MINIPERL_EXE) $(mini_obj) \
-+ 	    miniperlmain$(OBJ_EXT) opmini$(OBJ_EXT) perlmini$(OBJ_EXT) $(libs)
-+-	$(LDLIBPTH) $(RUN) ./miniperl$(HOST_EXE_EXT) -w -Ilib -MExporter -e '<?>' || $(MAKE) minitest
-++	mv -f miniperl miniperl-target
-++	ln -s hostperl miniperl
-++#	$(LDLIBPTH) $(RUN) ./miniperl$(HOST_EXE_EXT) -w -Ilib -MExporter -e '<?>' || $(MAKE) minitest
-+ !NO!SUBS!
-+ 		;;
-+ 	darwin*)
-+@@ -818,7 +822,9 @@ $(MINIPERL_EXE): $& miniperlmain$(OBJ_EX
-+ 	$(CC) $(CLDFLAGS) $(NAMESPACEFLAGS) -o $(MINIPERL_EXE) \
-+ 	    $(mini_obj) \
-+ 	    miniperlmain$(OBJ_EXT) opmini$(OBJ_EXT) perlmini$(OBJ_EXT) $(libs)
-+-	$(LDLIBPTH) $(RUN) ./miniperl$(HOST_EXE_EXT) -w -Ilib -MExporter -e '<?>' || $(MAKE) minitest
-++	mv -f miniperl miniperl-target
-++	ln -s hostperl miniperl
-++#	$(LDLIBPTH) $(RUN) ./miniperl$(HOST_EXE_EXT) -w -Ilib -MExporter -e '<?>' || $(MAKE) minitest
-+ !NO!SUBS!
-+ 		;;
-+ 	*)
-+@@ -828,7 +834,10 @@ $(MINIPERL_EXE): $& miniperlmain$(OBJ_EX
-+ 	$(LDLIBPTH) $(CC) $(CLDFLAGS) -o $(MINIPERL_EXE) \
-+ 	    $(mini_obj) \
-+ 	    miniperlmain$(OBJ_EXT) opmini$(OBJ_EXT) perlmini$(OBJ_EXT) $(libs)
-+-	$(LDLIBPTH) $(RUN) ./miniperl$(HOST_EXE_EXT) -w -Ilib -MExporter -e '<?>' || $(MAKE) minitest
-++
-++	mv -f miniperl miniperl-target
-++	ln -s hostperl miniperl
-++#	$(LDLIBPTH) $(RUN) ./miniperl$(HOST_EXE_EXT) -w -Ilib -MExporter -e '<?>' || $(MAKE) minitest
-+ !NO!SUBS!
-+ 		;;
-+ 	esac
-+@@ -950,7 +959,7 @@ case "${osname}" in
-+ catamount)
-+ $spitshell >>$Makefile <<!GROK!THIS!
-+ .PHONY: makeppport
-+-makeppport: \$(MINIPERL_EXE) \$(CONFIGPM)
-++makeppport: \$(CONFIGPM)
-+ 	-@for f in Makefile.PL PPPort_pm.PL PPPort_xs.PL ppport_h.PL; do \
-+ 	(cd ext/Devel-PPPort && `pwd`/run.sh ../../$(MINIPERL_EXE) -I../../lib \$\$f); \
-+ 	done
-+@@ -960,7 +969,7 @@ makeppport: \$(MINIPERL_EXE) \$(CONFIGPM
-+ *)
-+ $spitshell >>$Makefile <<'!NO!SUBS!'
-+ .PHONY: makeppport
-+-makeppport: $(MINIPERL_EXE) $(CONFIGPM) $(nonxs_ext)
-++makeppport: $(CONFIGPM) $(nonxs_ext)
-+ 	$(MINIPERL) $(Icwd) mkppport
-+ 
-+ !NO!SUBS!
-+@@ -970,30 +979,30 @@ esac
-+ $spitshell >>$Makefile <<'!NO!SUBS!'
-+ 
-+ .PHONY: preplibrary
-+-preplibrary: $(MINIPERL_EXE) $(CONFIGPM) lib/re.pm $(PREPLIBRARY_LIBPERL)
-++preplibrary: $(CONFIGPM) lib/re.pm $(PREPLIBRARY_LIBPERL)
-+ 
-+ $(CONFIGPM_FROM_CONFIG_SH): $(CONFIGPOD)
-+ 
-+-$(CONFIGPOD): config.sh $(MINIPERL_EXE) configpm Porting/Glossary lib/Config_git.pl
-++$(CONFIGPOD): config.sh configpm Porting/Glossary lib/Config_git.pl
-+ 	$(MINIPERL) configpm
-+ 
-+-lib/ExtUtils/Miniperl.pm: miniperlmain.c $(MINIPERL_EXE) minimod.pl $(CONFIGPM)
-++lib/ExtUtils/Miniperl.pm: miniperlmain.c minimod.pl $(CONFIGPM)
-+ 	$(MINIPERL) minimod.pl > lib/ExtUtils/Miniperl.pm
-+ 
-+ lib/re.pm: ext/re/re.pm
-+ 	@-rm -f $@
-+ 	cp ext/re/re.pm lib/re.pm
-+ 
-+-$(plextract):	$(MINIPERL_EXE) $(CONFIGPM) x2p/s2p $(dynamic_ext)
-++$(plextract):	$(CONFIGPM) x2p/s2p $(dynamic_ext)
-+ 	@-rm -f $@
-+ 	$(MINIPERL) $@.PL
-+ 
-+-x2p/s2p: $(MINIPERL_EXE) $(CONFIGPM) $(dynamic_ext) x2p/s2p.PL
-++x2p/s2p: $(CONFIGPM) $(dynamic_ext) x2p/s2p.PL
-+ 	cd x2p; $(LDLIBPTH) $(MAKE) s2p
-+ 
-+ unidatafiles $(unidatafiles) pod/perluniprops.pod: uni.data
-+ 
-+-uni.data: $(MINIPERL_EXE) $(CONFIGPM) lib/unicore/mktables $(nonxs_ext)
-++uni.data: $(CONFIGPM) lib/unicore/mktables $(nonxs_ext)
-+ 	$(MINIPERL) $(Icwd) lib/unicore/mktables -C lib/unicore -P pod -maketest -makelist -p
-+ #	Commented out so always runs, mktables looks at far more files than we
-+ #	can in this makefile to decide if needs to run or not
-+@@ -1002,21 +1011,21 @@ uni.data: $(MINIPERL_EXE) $(CONFIGPM) li
-+ # $(PERL_EXE) and ext because buildtoc uses Text::Wrap uses re
-+ # But also this ensures that all extensions are built before we try to scan
-+ # them, which picks up Devel::PPPort's documentation.
-+-pod/perltoc.pod: $(perltoc_pod_prereqs)  $(PERL_EXE) $(ext) pod/buildtoc
-+-	$(RUN_PERL) -f -Ilib pod/buildtoc --build-toc -q
-++pod/perltoc.pod: $(perltoc_pod_prereqs) $(ext) pod/buildtoc
-++	$(MINIPERL) -f -Ilib pod/buildtoc --build-toc -q
-+ 
-+ pod/perlapi.pod: pod/perlintern.pod
-+ 
-+-pod/perlintern.pod: $(MINIPERL_EXE) autodoc.pl embed.fnc
-++pod/perlintern.pod: autodoc.pl embed.fnc
-+ 	$(MINIPERL) autodoc.pl
-+ 
-+-pod/perlmodlib.pod: $(MINIPERL_EXE) pod/perlmodlib.PL MANIFEST
-++pod/perlmodlib.pod: pod/perlmodlib.PL MANIFEST
-+ 	$(MINIPERL) $(Icwd) pod/perlmodlib.PL -q
-+ 
-+ pod/perldelta.pod: pod/perl5122delta.pod
-+ 	$(LNS) perl5122delta.pod pod/perldelta.pod
-+ 
-+-extra.pods: $(MINIPERL_EXE)
-++extra.pods:
-+ 	-@test ! -f extra.pods || rm -f `cat extra.pods`
-+ 	-@rm -f extra.pods
-+ 	-@for x in `grep -l '^=[a-z]' README.* | grep -v README.vms` ; do \
-+@@ -1059,11 +1068,7 @@ no-install:
-+ INSTALL_DEPENDENCE = all
-+ 
-+ install.perl:	$(INSTALL_DEPENDENCE) installperl
-+-	$(RUN_PERL) installperl --destdir=$(DESTDIR) $(INSTALLFLAGS) $(STRIPFLAGS)
-+-	-@test ! -s extras.lst || $(MAKE) extras.install
-+-
-+-install.man:	all installman
-+-	$(RUN_PERL) installman --destdir=$(DESTDIR) $(INSTALLFLAGS)
-++	./hostperl -Ifake_config_library -Ilib -MConfig installperl --destdir=$(DESTDIR) $(INSTALLFLAGS) $(STRIPFLAGS)
-+ 
-+ # XXX Experimental. Hardwired values, but useful for testing.
-+ # Eventually Configure could ask for some of these values.
-+@@ -1160,16 +1165,16 @@ manicheck:	FORCE
-+ #
-+ # DynaLoader may be needed for extensions that use Makefile.PL.
-+ 
-+-$(DYNALOADER):	$(MINIPERL_EXE) preplibrary FORCE $(nonxs_ext)
-++$(DYNALOADER):	preplibrary FORCE $(nonxs_ext)
-+ 	$(MINIPERL) make_ext.pl $@ MAKE=$(MAKE) LIBPERL_A=$(LIBPERL) LINKTYPE=static $(STATIC_LDFLAGS)
-+ 
-+-d_dummy $(dynamic_ext):	$(MINIPERL_EXE) preplibrary makeppport $(DYNALOADER) FORCE $(PERLEXPORT)
-++d_dummy $(dynamic_ext):	preplibrary makeppport $(DYNALOADER) FORCE $(PERLEXPORT)
-+ 	$(MINIPERL) make_ext.pl $@ MAKE=$(MAKE) LIBPERL_A=$(LIBPERL) LINKTYPE=dynamic
-+ 
-+-s_dummy $(static_ext):	$(MINIPERL_EXE) preplibrary makeppport $(DYNALOADER) FORCE
-++s_dummy $(static_ext):	preplibrary makeppport $(DYNALOADER) FORCE
-+ 	$(MINIPERL) make_ext.pl $@ MAKE=$(MAKE) LIBPERL_A=$(LIBPERL) LINKTYPE=static $(STATIC_LDFLAGS)
-+ 
-+-n_dummy $(nonxs_ext):	$(MINIPERL_EXE) preplibrary FORCE
-++n_dummy $(nonxs_ext):	preplibrary FORCE
-+ 	$(MINIPERL) make_ext.pl $@ MAKE=$(MAKE) LIBPERL_A=$(LIBPERL)
-+ !NO!SUBS!
-+ 
-+@@ -1367,10 +1372,10 @@ _test:
-+ 
-+ test_prep_pre: preplibrary utilities $(nonxs_ext)
-+ 
-+-test_prep: test_prep_pre $(MINIPERL_EXE) $(unidatafiles) $(PERL_EXE) $(dynamic_ext) $(TEST_PERL_DLL) runtests
-++test_prep: test_prep_pre $(unidatafiles) $(PERL_EXE) $(dynamic_ext) $(TEST_PERL_DLL) runtests
-+ 	cd t && (rm -f $(PERL_EXE); $(LNS) ../$(PERL_EXE) $(PERL_EXE))
-+ 
-+-test_prep_reonly: $(MINIPERL_EXE) $(PERL_EXE) $(dynamic_ext_re) $(TEST_PERL_DLL)
-++test_prep_reonly: $(PERL_EXE) $(dynamic_ext_re) $(TEST_PERL_DLL)
-+ 	$(MINIPERL) make_ext.pl $(dynamic_ext_re) MAKE=$(MAKE) LIBPERL_A=$(LIBPERL) LINKTYPE=dynamic
-+ 	cd t && (rm -f $(PERL_EXE); $(LNS) ../$(PERL_EXE) $(PERL_EXE))
-+ 
-+@@ -1461,7 +1466,7 @@ minitest.prep:
-+ 
-+ # Can't depend on lib/Config.pm because that might be where miniperl
-+ # is crashing.
-+-minitest: $(MINIPERL_EXE) lib/re.pm minitest.prep
-++minitest: lib/re.pm minitest.prep
-+ 	- cd t && (rm -f $(PERL_EXE); $(LNS) ../$(MINIPERL_EXE) $(PERL_EXE)) \
-+ 		&& $(RUN_PERL) TEST -minitest base/*.t comp/*.t cmd/*.t run/*.t io/*.t re/*.t op/*.t uni/*.t </dev/tty
-+ 
-diff --git a/meta/recipes-devtools/perl/perl-5.8.8/Makefile.patch b/meta/recipes-devtools/perl/perl-5.12.2/Makefile.patch
-similarity index 81%
-rename from meta/recipes-devtools/perl/perl-5.8.8/Makefile.patch
-rename to meta/recipes-devtools/perl/perl-5.12.2/Makefile.patch
-index ed494b3..e7226ff 100644
---- a/meta/recipes-devtools/perl/perl-5.8.8/Makefile.patch
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/Makefile.patch
-@@ -1,10 +1,10 @@
--Index: perl-5.8.8/Cross/Makefile
-+Index: perl-5.12.2/Cross/Makefile
- ===================================================================
----- perl-5.8.8.orig/Cross/Makefile	2004-01-12 21:44:01.000000000 +0100
--+++ perl-5.8.8/Cross/Makefile	2007-08-15 00:15:18.000000000 +0200
-+--- perl-5.12.2.orig/Cross/Makefile
-++++ perl-5.12.2/Cross/Makefile
- @@ -2,7 +2,8 @@
-  #
-- ## $Id: Makefile,v 1.7 2004/01/12 15:41:02 red Exp red $
-+ ## $Id: Makefile,v 1.5 2003/12/12 00:48:19 red Exp red $
-  
- -export TOPDIR=${shell pwd}
- +override TOPDIR=${shell pwd}
-@@ -12,7 +12,7 @@ Index: perl-5.8.8/Cross/Makefile
-  include $(TOPDIR)/config
-  export CFLAGS
-  export SYS=$(ARCH)-$(OS)
--@@ -12,7 +13,7 @@
-+@@ -12,7 +13,7 @@ export OPTIMIZATION = -O2
-  
-  export CC = $(CROSS)gcc
-  export CXX = $(CROSS)g++
-@@ -21,7 +21,7 @@ Index: perl-5.8.8/Cross/Makefile
-  export STRIP = $(CROSS)strip
-  export AR = $(CROSS)ar
-  export RANLIB = $(CROSS)ranlib
--@@ -34,21 +35,6 @@
-+@@ -34,17 +35,6 @@ CFLAGS+=$(FULL_OPTIMIZATION)
-  all:
-  	@echo Please read the README file before doing anything else.
-  
-@@ -36,17 +36,13 @@ Index: perl-5.8.8/Cross/Makefile
- -		sed -e 's/XXSTRIPXX/$(SYS)/' installperl-patched > installperl; \
- -		touch CROSS_PATCHED ; fi
- -
---dry_patch:
---	cd .. ;	patch --dry-run -p1 < Cross/Makefile.SH.patch; \
---		patch --dry-run -p1 < Cross/installperl.patch; \
---
-  perl:
-  	@echo Perl cross-build directory is $(TOPDIR)
-  	@echo Target arch is $(SYS)
--@@ -58,11 +44,11 @@
-+@@ -54,11 +44,11 @@ perl:
-  	$(TOPDIR)/generate_config_sh config.sh-$(SYS) > $(TOPDIR)/../config.sh
-  	cd $(TOPDIR)/.. ; ./Configure -S ; make depend ; make ; make more
-- 	cd $(TOPDIR)/.. ; mkdir -p fake_config_library ; cp lib/Config.pm fake_config_library
-+ 	cd $(TOPDIR)/.. ; mkdir -p fake_config_library ; cp lib/Config.pm lib/Config_heavy.pl fake_config_library
- -	cd $(TOPDIR)/.. ; $(MAKE) more2 "PERLRUN=/usr/bin/perl -I$(TOPDIR)/../fake_config_library -MConfig"
- -	cd $(TOPDIR)/.. ; $(MAKE) more3 "PERLRUN=/usr/bin/perl -I$(TOPDIR)/../fake_config_library -MConfig"
- -	cd $(TOPDIR)/.. ; $(MAKE) more4 "PERLRUN=/usr/bin/perl -I$(TOPDIR)/../fake_config_library -MConfig"
-diff --git a/meta/recipes-devtools/perl/perl-5.8.8/asm-pageh-fix.patch b/meta/recipes-devtools/perl/perl-5.12.2/asm-pageh-fix.patch
-similarity index 72%
-rename from meta/recipes-devtools/perl/perl-5.8.8/asm-pageh-fix.patch
-rename to meta/recipes-devtools/perl/perl-5.12.2/asm-pageh-fix.patch
-index 41f3b1d..c972108 100644
---- a/meta/recipes-devtools/perl/perl-5.8.8/asm-pageh-fix.patch
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/asm-pageh-fix.patch
-@@ -3,10 +3,10 @@ has been definied in unistd.h since glibc 2.1. Some recent version of linux
- libc headers removed the asm/page.h resulting in failures here for some
- people.
- 
--Index: perl-5.8.8/ext/IPC/SysV/SysV.xs
-+Index: perl-5.12.2/cpan/IPC-SysV/SysV.xs
- ===================================================================
----- perl-5.8.8.orig/ext/IPC/SysV/SysV.xs	2001-07-01 04:46:07.000000000 +1000
--+++ perl-5.8.8/ext/IPC/SysV/SysV.xs	2007-07-06 11:40:21.000000000 +1000
-+--- perl-5.12.2.orig/cpan/IPC-SysV/SysV.xs	2001-07-01 04:46:07.000000000 +1000
-++++ perl-5.12.2/cpan/IPC-SysV/SysV.xs	2001-07-01 04:46:07.000000000 +1000
- @@ -3,9 +3,6 @@
-  #include "XSUB.h"
-  
-diff --git a/meta/recipes-devtools/perl/perl-5.8.8/config.sh b/meta/recipes-devtools/perl/perl-5.12.2/config.sh
-similarity index 66%
-rename from meta/recipes-devtools/perl/perl-5.8.8/config.sh
-rename to meta/recipes-devtools/perl/perl-5.12.2/config.sh
-index 3d4c193..e33b4ba 100644
---- a/meta/recipes-devtools/perl/perl-5.8.8/config.sh
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/config.sh
-@@ -8,9 +8,42 @@
- 
- # Package name      : perl5
- # Source directory  : .
--# Configuration time: Thu Apr  5 19:20:23 EST 2007
-+# Configuration time: Thu Dec 23 03:57:51 UTC 2010
- # Configured by     : Open Embedded
--# Target system     : linux birgitte 2.6.21-rc5 #63 tue mar 27 14:41:54 est 2007 i686 gnulinux 
-+# Target system     : linux qemux86 2.6.37-rc5-yocto-standard+ #1 preempt mon dec 20 14:21:27 pst 2010 i686 gnulinux 
-+
-+: Configure command line arguments.
-+config_arg0='Configure'
-+config_args='-des -Doptimize=-O2 -Dmyhostname=localhost -Dperladmin=root@localhost -Dcc=gcc -Dcf_by=Open Embedded -Dinstallprefix=@DESTDIR@ -Dprefix=/usr -Dvendorprefix=/usr -Dsiteprefix=/usr -Dotherlibdirs=/usr/lib/perl5/5.12.2 -Duseshrplib -Dusethreads -Duseithreads -Duselargefiles -Ud_dosuid -Dd_semctl_semun -Ui_db -Ui_ndbm -Ui_gdbm -Di_shadow -Di_syslog -Dman3ext=3pm -Duseperlio -Dinstallusrbinperl -Ubincompat5005 -Uversiononly -Dpager=/usr/bin/less -isr'
-+config_argc=28
-+config_arg1='-des'
-+config_arg2='-Doptimize=-O2'
-+config_arg3='-Dmyhostname=localhost'
-+config_arg4='-Dperladmin=root@localhost'
-+config_arg5='-Dcc=gcc'
-+config_arg6='-Dcf_by=Open Embedded'
-+config_arg7='-Dinstallprefix=@DESTDIR@'
-+config_arg8='-Dprefix=/usr'
-+config_arg9='-Dvendorprefix=/usr'
-+config_arg10='-Dsiteprefix=/usr'
-+config_arg11='-Dotherlibdirs=/usr/lib/perl5/5.12.2'
-+config_arg12='-Duseshrplib'
-+config_arg13='-Dusethreads'
-+config_arg14='-Duseithreads'
-+config_arg15='-Duselargefiles'
-+config_arg16='-Ud_dosuid'
-+config_arg17='-Dd_semctl_semun'
-+config_arg18='-Ui_db'
-+config_arg19='-Ui_ndbm'
-+config_arg20='-Ui_gdbm'
-+config_arg21='-Di_shadow'
-+config_arg22='-Di_syslog'
-+config_arg23='-Dman3ext=3pm'
-+config_arg24='-Duseperlio'
-+config_arg25='-Dinstallusrbinperl'
-+config_arg26='-Ubincompat5005'
-+config_arg27='-Uversiononly'
-+config_arg28='-Dpager=/usr/bin/less -isr'
- 
- Author=''
- Date='$Date'
-@@ -18,7 +51,6 @@ Header=''
- Id='$Id'
- Locker=''
- Log='$Log'
--Mcc='Mcc'
- RCSfile='$RCSfile'
- Revision='$Revision'
- Source=''
-@@ -32,11 +64,11 @@ ansi2knr=''
- aphostname=''
- api_revision='5'
- api_subversion='0'
--api_version='8'
--api_versionstring='5.8.0'
-+api_version='12'
-+api_versionstring='5.12.0'
- ar='ar'
--archlib='/usr/lib/perl/5.8'
--archlibexp='/usr/lib/perl/5.8'
-+archlib='/usr/lib/perl5/5.12.2/@ARCH@-thread-multi'
-+archlibexp='/usr/lib/perl5/5.12.2/@ARCH@-thread-multi'
- archname64=''
- archname='@ARCH@-thread-multi'
- archobjs=''
-@@ -45,6 +77,7 @@ awk='awk'
- baserev='5.0'
- bash=''
- bin='/usr/bin'
-+bin_ELF='define'
- binexp='/usr/bin'
- bison='bison'
- byacc='byacc'
-@@ -53,12 +86,15 @@ castflags='0'
- cat='cat'
- cc='gcc'
- cccdlflags='-fPIC'
--ccdlflags='-Wl,-E'
-+ccdlflags='-Wl,-E -Wl,-rpath,/usr/lib/perl5/5.12.2/@ARCH@-thread-multi/CORE'
-+ccflags='-D_REENTRANT -D_GNU_SOURCE -fno-strict-aliasing -pipe -fstack-protector -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64'
-+ccflags_uselargefiles='-D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64'
- ccname='gcc'
-+ccsymbols=''
- ccversion=''
- cf_by='Open Embedded'
- cf_email='Open Embedded@localhost.localdomain'
--cf_time='Thu Apr  5 23:06:39 EST 2007'
-+charbits='8'
- charsize='1'
- chgrp=''
- chmod='chmod'
-@@ -71,6 +107,8 @@ cp='cp'
- cpio=''
- cpp='cpp'
- cpp_stuff='42'
-+cppccsymbols=''
-+cppflags='-D_REENTRANT -D_GNU_SOURCE -fno-strict-aliasing -pipe -fstack-protector'
- cpplast='-'
- cppminus='-'
- cpprun='gcc -E'
-@@ -100,25 +138,30 @@ d_accessx='undef'
- d_aintl='undef'
- d_alarm='define'
- d_archlib='define'
-+d_asctime64='undef'
- d_asctime_r='define'
- d_atolf='undef'
- d_atoll='define'
-+d_attribute_deprecated='define'
- d_attribute_format='define'
- d_attribute_malloc='define'
- d_attribute_nonnull='define'
- d_attribute_noreturn='define'
- d_attribute_pure='define'
- d_attribute_unused='define'
--d_attribute_warn_unused_result='undef'
-+d_attribute_warn_unused_result='define'
- d_bcmp='define'
- d_bcopy='define'
- d_bsd='undef'
- d_bsdgetpgrp='undef'
- d_bsdsetpgrp='undef'
-+d_builtin_choose_expr='define'
-+d_builtin_expect='define'
- d_bzero='define'
-+d_c99_variadic_macros='define'
- d_casti32='undef'
- d_castneg='define'
--d_charvspr='define'
-+d_charvspr='undef'
- d_chown='define'
- d_chroot='define'
- d_chsize='undef'
-@@ -128,15 +171,20 @@ d_closedir='define'
- d_cmsghdr_s='define'
- d_const='define'
- d_copysignl='define'
-+d_cplusplus='undef'
- d_crypt='define'
- d_crypt_r='define'
- d_csh='undef'
-+d_ctermid='define'
- d_ctermid_r='undef'
-+d_ctime64='undef'
- d_ctime_r='define'
- d_cuserid='define'
- d_dbl_dig='define'
- d_dbminitproto='undef'
-+d_difftime64='undef'
- d_difftime='define'
-+d_dir_dd_fd='undef'
- d_dirfd='define'
- d_dirnamlen='undef'
- d_dlerror='define'
-@@ -146,7 +194,7 @@ d_dosuid='undef'
- d_drand48_r='define'
- d_drand48proto='define'
- d_dup2='define'
--d_eaccess='undef'
-+d_eaccess='define'
- d_endgrent='define'
- d_endgrent_r='undef'
- d_endhent='define'
-@@ -161,7 +209,7 @@ d_endsent='define'
- d_endservent_r='undef'
- d_eofnblk='define'
- d_eunice='undef'
--d_faststdio='undef'
-+d_faststdio='define'
- d_fchdir='define'
- d_fchmod='define'
- d_fchown='define'
-@@ -193,6 +241,9 @@ d_fsync='define'
- d_ftello='define'
- d_ftime='undef'
- d_futimes='define'
-+d_gdbm_ndbm_h_uses_prototypes='undef'
-+d_gdbmndbm_h_uses_prototypes='undef'
-+d_getaddrinfo='define'
- d_getcwd='define'
- d_getespwnam='undef'
- d_getfsstat='undef'
-@@ -214,6 +265,7 @@ d_getlogin='define'
- d_getlogin_r='define'
- d_getmnt='undef'
- d_getmntent='define'
-+d_getnameinfo='define'
- d_getnbyaddr='define'
- d_getnbyname='define'
- d_getnent='define'
-@@ -247,16 +299,20 @@ d_getservbyport_r='define'
- d_getservent_r='define'
- d_getservprotos='define'
- d_getspnam='define'
--d_getspnam_r='undef'
-+d_getspnam_r='define'
- d_gettimeod='define'
-+d_gmtime64='undef'
- d_gmtime_r='define'
- d_gnulibc='define'
- d_grpasswd='define'
- d_hasmntopt='define'
- d_htonl='define'
- d_ilogbl='define'
-+d_inc_version_list='undef'
- d_index='undef'
- d_inetaton='define'
-+d_inetntop='define'
-+d_inetpton='define'
- d_int64_t='define'
- d_isascii='define'
- d_isfinite='undef'
-@@ -268,7 +324,9 @@ d_lchown='define'
- d_ldbl_dig='define'
- d_libm_lib_version='define'
- d_link='define'
-+d_localtime64='undef'
- d_localtime_r='define'
-+d_localtime_r_needs_tzset='define'
- d_locconv='define'
- d_lockf='define'
- d_longdbl='define'
-@@ -290,7 +348,8 @@ d_mkdir='define'
- d_mkdtemp='define'
- d_mkfifo='define'
- d_mkstemp='define'
--d_mkstemps='undef'
-+d_mkstemps='define'
-+d_mktime64='undef'
- d_mktime='define'
- d_mmap='define'
- d_modfl='define'
-@@ -311,6 +370,8 @@ d_msgsnd='define'
- d_msync='define'
- d_munmap='define'
- d_mymalloc='undef'
-+d_ndbm='undef'
-+d_ndbm_h_uses_prototypes='undef'
- d_nice='define'
- d_nl_langinfo='define'
- d_nv_zero_is_allbits_zero='define'
-@@ -327,6 +388,7 @@ d_pipe='define'
- d_poll='define'
- d_portable='define'
- d_procselfexe='define'
-+d_pseudofork='undef'
- d_pthread_atfork='define'
- d_pthread_attr_setscope='define'
- d_pthread_yield='define'
-@@ -406,8 +468,11 @@ d_shmctl='define'
- d_shmdt='define'
- d_shmget='define'
- d_sigaction='define'
-+d_signbit='define'
- d_sigprocmask='define'
- d_sigsetjmp='define'
-+d_sitearch='define'
-+d_snprintf='define'
- d_sockatmark='define'
- d_sockatmarkproto='define'
- d_socket='define'
-@@ -425,12 +490,12 @@ d_statfs_f_flags='undef'
- d_statfs_s='define'
- d_statvfs='define'
- d_stdio_cnt_lval='undef'
--d_stdio_ptr_lval='undef'
-+d_stdio_ptr_lval='define'
- d_stdio_ptr_lval_nochange_cnt='undef'
--d_stdio_ptr_lval_sets_cnt='undef'
-+d_stdio_ptr_lval_sets_cnt='define'
- d_stdio_stream_array='undef'
--d_stdiobase='undef'
--d_stdstdio='undef'
-+d_stdiobase='define'
-+d_stdstdio='define'
- d_strchr='define'
- d_strcoll='define'
- d_strctcpy='define'
-@@ -462,6 +527,7 @@ d_tcsetpgrp='define'
- d_telldir='define'
- d_telldirproto='define'
- d_time='define'
-+d_timegm='define'
- d_times='define'
- d_tm_tm_gmtoff='define'
- d_tm_tm_zone='define'
-@@ -488,6 +554,7 @@ d_voidsig='define'
- d_voidtty=''
- d_volatile='define'
- d_vprintf='define'
-+d_vsnprintf='define'
- d_wait4='define'
- d_waitpid='define'
- d_wcstombs='define'
-@@ -507,7 +574,8 @@ dlsrc='dl_dlopen.xs'
- doublesize='8'
- drand01='drand48()'
- drand48_r_proto='REENTRANT_PROTO_I_ST'
--dynamic_ext='attrs B ByteLoader Cwd Data/Dumper Devel/DProf Devel/Peek Devel/PPPort Digest/MD5 Encode Fcntl File/Glob Filter/Util/Call I18N/Langinfo IO IPC/SysV List/Util MIME/Base64 Opcode PerlIO/encoding PerlIO/scalar PerlIO/via POSIX re GDBM_File SDBM_File Socket Storable Sys/Hostname Sys/Syslog threads Time/HiRes Unicode/Normalize XS/APItest XS/Typemap threads/shared'
-+dtrace=''
-+dynamic_ext='B Compress/Raw/Bzip2 Compress/Raw/Zlib Cwd Data/Dumper Devel/DProf Devel/PPPort Devel/Peek Digest/MD5 Digest/SHA Encode Fcntl File/Glob Filter/Util/Call Hash/Util Hash/Util/FieldHash I18N/Langinfo IO IPC/SysV List/Util MIME/Base64 Math/BigInt/FastCalc Opcode POSIX PerlIO/encoding PerlIO/scalar PerlIO/via SDBM_File Socket Storable Sys/Hostname Sys/Syslog Text/Soundex Time/HiRes Time/Piece Unicode/Normalize XS/APItest XS/APItest/KeywordRPN XS/Typemap attributes mro re threads threads/shared'
- eagain='EAGAIN'
- ebcdic='undef'
- echo='echo'
-@@ -522,7 +590,8 @@ endservent_r_proto='0'
- eunicefix=':'
- exe_ext=''
- expr='expr'
--extensions='attrs B ByteLoader Cwd Data/Dumper Devel/DProf Devel/Peek Devel/PPPort Digest/MD5 Encode Fcntl File/Glob Filter/Util/Call I18N/Langinfo IO IPC/SysV List/Util MIME/Base64 Opcode PerlIO/encoding PerlIO/scalar PerlIO/via POSIX re SDBM_File Socket Storable Sys/Hostname Sys/Syslog threads Time/HiRes Unicode/Normalize XS/APItest XS/Typemap threads/shared Errno'
-+extensions='B Compress/Raw/Bzip2 Compress/Raw/Zlib Cwd Data/Dumper Devel/DProf Devel/PPPort Devel/Peek Digest/MD5 Digest/SHA Encode Fcntl File/Glob Filter/Util/Call Hash/Util Hash/Util/FieldHash I18N/Langinfo IO IPC/SysV List/Util MIME/Base64 Math/BigInt/FastCalc Opcode POSIX PerlIO/encoding PerlIO/scalar PerlIO/via SDBM_File Socket Storable Sys/Hostname Sys/Syslog Text/Soundex Time/HiRes Time/Piece Unicode/Normalize XS/APItest XS/APItest/KeywordRPN XS/Typemap attributes mro re threads threads/shared Archive/Extract Archive/Tar Attribute/Handlers AutoLoader B/Debug B/Deparse B/Lint CGI CPAN CPANPLUS CPANPLUS/Dist/Build Class/ISA Devel/SelfStubber Digest Errno ExtUtils/CBuilder ExtUtils/Command ExtUtils/Constant ExtUtils/Install ExtUtils/MakeMaker ExtUtils/Manifest ExtUtils/ParseXS File/Fetch File/Path File/Temp FileCache Filter/Simple Getopt/Long I18N/LangTags IO/Compress IO/Zlib IPC/Cmd IPC/Open2 IPC/Open3 Locale/Codes Locale/Maketext Locale/Maketext/Simple Log/Message Log/Message/Simple Math/BigInt Math/BigRat Math/Complex Memoize Module/Build Module/CoreList Module/Load Module/Load/Conditional Module/Loaded Module/Pluggable NEXT Net/Ping Object/Accessor Package/Constants Params/Check Parse/CPAN/Meta PerlIO/via/QuotedPrint Pod/Escapes Pod/LaTeX Pod/Parser Pod/Perldoc Pod/Plainer Pod/Simple Safe SelfLoader Shell Switch Term/ANSIColor Term/Cap Term/UI Test Test/Harness Test/Simple Text/Balanced Text/ParseWords Text/Tabs Thread/Queue Thread/Semaphore Tie/File Tie/Memoize Tie/RefHash Time/Local Unicode/Collate XSLoader autodie autouse base bignum constant encoding/warnings if lib libnet parent podlators'
-+extern_C='extern'
- extras=''
- fflushNULL='define'
- fflushall='undef'
-@@ -534,10 +603,11 @@ fpostype='fpos_t'
- freetype='void'
- from=':'
- full_ar='/usr/bin/ar'
--full_csh='/bin/csh'
-+full_csh='csh'
- full_sed='/bin/sed'
- gccansipedantic=''
- gccosandvers=''
-+gccversion='4.5.1'
- getgrent_r_proto='REENTRANT_PROTO_I_SBWR'
- getgrgid_r_proto='REENTRANT_PROTO_I_TSBWR'
- getgrnam_r_proto='REENTRANT_PROTO_I_CSBWR'
-@@ -557,12 +627,14 @@ getpwuid_r_proto='REENTRANT_PROTO_I_TSBWR'
- getservbyname_r_proto='REENTRANT_PROTO_I_CCSBWR'
- getservbyport_r_proto='REENTRANT_PROTO_I_ICSBWR'
- getservent_r_proto='REENTRANT_PROTO_I_SBWR'
-+getspnam_r_proto='REENTRANT_PROTO_I_CSBWR'
- gidsign='1'
- gidsize='4'
- gidtype='gid_t'
- glibpth='/usr/shlib  /lib /usr/lib /usr/lib/386 /lib/386 /usr/ccs/lib /usr/ucblib /usr/local/lib '
- gmake='gmake'
- gmtime_r_proto='REENTRANT_PROTO_S_TS'
-+gnulibc_version='2.12.1'
- grep='grep'
- groupcat='cat /etc/group'
- groupstype='gid_t'
-@@ -580,8 +652,9 @@ i16type='short'
- i32size='4'
- i64size='8'
- i8size='1'
--i8type='char'
-+i8type='signed char'
- i_arpainet='define'
-+i_assert='define'
- i_bsdioctl=''
- i_crypt='define'
- i_db='undef'
-@@ -593,7 +666,9 @@ i_fcntl='undef'
- i_float='define'
- i_fp='undef'
- i_fp_class='undef'
--i_gdbm='define'
-+i_gdbm='undef'
-+i_gdbm_ndbm='undef'
-+i_gdbmndbm='undef'
- i_grp='define'
- i_ieeefp='undef'
- i_inttypes='define'
-@@ -603,6 +678,7 @@ i_limits='define'
- i_locale='define'
- i_machcthr='undef'
- i_malloc='define'
-+i_mallocmalloc='undef'
- i_math='define'
- i_memory='undef'
- i_mntent='define'
-@@ -637,6 +713,7 @@ i_sysmode='undef'
- i_sysmount='define'
- i_sysndir='undef'
- i_sysparam='define'
-+i_syspoll='define'
- i_sysresrc='define'
- i_syssecrt='undef'
- i_sysselct='define'
-@@ -668,49 +745,58 @@ inc_version_list=' '
- inc_version_list_init='0'
- incpath=''
- inews=''
--installarchlib='@LIBDIR@/perl/5.8'
--installbin='@BINDIR@'
-+initialinstalllocation='/usr/bin'
-+installarchlib='@DESTDIR@/lib/perl5/5.12.2/@ARCH@-thread-multi'
-+installbin='@DESTDIR@/bin'
- installhtml1dir=''
- installhtml3dir=''
--installman1dir='@MANDIR@/man1'
--installman3dir='@MANDIR@/man3'
--installprefix='@PREFIX@'
--installprefixexp='@PREFIX@/usr'
--installprivlib='@DATADIR@/perl/5.8'
--installscript='@BINDIR@'
--installsitearch='@PREFIX@/local/lib/perl/5.8.8'
--installsitebin='@PREFIX@/local/bin'
-+installman1dir=''
-+installman3dir=''
-+installprefix='@DESTDIR@'
-+installprefixexp='@DESTDIR@'
-+installprivlib='@DESTDIR@/lib/perl5/5.12.2'
-+installscript='@DESTDIR@/bin'
-+installsitearch='@DESTDIR@/lib/perl5/site_perl/5.12.2/@ARCH@-thread-multi'
-+installsitebin='@DESTDIR@/bin'
- installsitehtml1dir=''
- installsitehtml3dir=''
--installsitelib='@PREFIX@/local/share/perl/5.8.8'
--installsiteman1dir='@PREFIX@/local/man/man1'
--installsiteman3dir='@PREFIX@/local/man/man3'
--installsitescript='@PREFIX@/local/bin'
-+installsitelib='@DESTDIR@/lib/perl5/site_perl/5.12.2'
-+installsiteman1dir=''
-+installsiteman3dir=''
-+installsitescript='@DESTDIR@/bin'
- installstyle='lib/perl5'
- installusrbinperl='define'
--installvendorarch='@LIBDIR@/perl5'
--installvendorbin='@BINDIR@'
-+installvendorarch='@DESTDIR@/lib/perl5/vendor_perl/5.12.2/@ARCH@-thread-multi'
-+installvendorbin='@DESTDIR@/bin'
- installvendorhtml1dir=''
- installvendorhtml3dir=''
--installvendorlib='@DATADIR@/perl5'
--installvendorman1dir='@MANDIR@/man1'
--installvendorman3dir='@MANDIR@/man3'
--installvendorscript='@BINDIR@'
-+installvendorlib='@DESTDIR@/lib/perl5/vendor_perl/5.12.2'
-+installvendorman1dir=''
-+installvendorman3dir=''
-+installvendorscript='@DESTDIR@/bin'
- intsize='4'
- issymlink='test -h'
- ivdformat='"ld"'
- ivtype='long'
--known_extensions='attrs B ByteLoader Cwd Data/Dumper DB_File Devel/DProf Devel/Peek Devel/PPPort Digest/MD5 Encode Fcntl File/Glob Filter/Util/Call GDBM_File I18N/Langinfo IO IPC/SysV List/Util MIME/Base64 NDBM_File ODBM_File Opcode PerlIO/encoding PerlIO/scalar PerlIO/via POSIX re SDBM_File Socket Storable Sys/Hostname Sys/Syslog Thread threads Time/HiRes Unicode/Normalize XS/APItest XS/Typemap threads/shared'
-+known_extensions='B Compress/Raw/Bzip2 Compress/Raw/Zlib Cwd DB_File Data/Dumper Devel/DProf Devel/PPPort Devel/Peek Digest/MD5 Digest/SHA Encode Fcntl File/Glob Filter/Util/Call GDBM_File Hash/Util Hash/Util/FieldHash I18N/Langinfo IO IPC/SysV List/Util MIME/Base64 Math/BigInt/FastCalc NDBM_File ODBM_File Opcode POSIX PerlIO/encoding PerlIO/scalar PerlIO/via SDBM_File Socket Storable Sys/Hostname Sys/Syslog Text/Soundex Time/HiRes Time/Piece Unicode/Normalize VMS/DCLsym VMS/Stdio Win32 Win32API/File Win32CORE XS/APItest XS/APItest/KeywordRPN XS/Typemap attributes mro re threads threads/shared '
- ksh=''
- ld='gcc'
--lddlflags='-shared -L/usr/local/lib'
--ldflags=' -L/usr/local/lib'
-+lddlflags='-shared -O2 -fstack-protector'
-+ldflags=' -fstack-protector'
- ldflags_uselargefiles=''
- ldlibpthname='LD_LIBRARY_PATH'
- less='less'
- lib_ext='.a'
-+libc='/lib/libc-2.12.1.so'
- libperl='libperl.so'
--libpth='/usr/local/lib /lib /usr/lib'
-+libpth='/lib /usr/lib'
-+libs='-lnsl -lgdbm -ldb -ldl -lm -lcrypt -lutil -lpthread -lc'
-+libsdirs=' /usr/lib'
-+libsfiles=' libnsl.so libgdbm.so libdb.so libdl.so libm.so libcrypt.so libutil.so libpthread.so libc.so'
-+libsfound=' /usr/lib/libnsl.so /usr/lib/libgdbm.so /usr/lib/libdb.so /usr/lib/libdl.so /usr/lib/libm.so /usr/lib/libcrypt.so /usr/lib/libutil.so /usr/lib/libpthread.so /usr/lib/libc.so'
-+libspath=' /lib /usr/lib'
-+libswanted='sfio socket inet nsl nm ndbm gdbm dbm db malloc dl dld ld sun m crypt sec util pthread c cposix posix ucb BSD gdbm_compat'
-+libswanted_uselargefiles=''
- line=''
- lint=''
- lkflags=''
-@@ -725,6 +811,10 @@ lpr=''
- ls='ls'
- lseeksize='8'
- lseektype='off_t'
-+mad='undef'
-+madlyh=''
-+madlyobj=''
-+madlysrc=''
- mail=''
- mailx=''
- make='make'
-@@ -732,12 +822,12 @@ make_set_make='#'
- mallocobj=''
- mallocsrc=''
- malloctype='void *'
--man1dir='/usr/share/man/man1'
--man1direxp='/usr/share/man/man1'
--man1ext='1'
--man3dir='/usr/share/man/man3'
--man3direxp='/usr/share/man/man3'
--man3ext='3pm'
-+man1dir=' '
-+man1direxp=''
-+man1ext='0'
-+man3dir=' '
-+man3direxp=''
-+man3ext='0'
- mips_type=''
- mistrustnm=''
- mkdir='mkdir'
-@@ -750,19 +840,18 @@ myarchname='@ARCH@'
- mydomain='.localdomain'
- myhostname='localhost'
- n='-n'
--need_va_copy='undef'
- netdb_hlen_type='size_t'
--netdb_host_type='const void *'
- netdb_name_type='const char *'
- netdb_net_type='in_addr_t'
- nm='nm'
- nm_opt=''
- nm_so_opt='--dynamic'
--nonxs_ext='Errno'
-+nonxs_ext='Archive/Extract Archive/Tar Attribute/Handlers AutoLoader B/Debug B/Deparse B/Lint CGI CPAN CPANPLUS CPANPLUS/Dist/Build Class/ISA Devel/SelfStubber Digest Errno ExtUtils/CBuilder ExtUtils/Command ExtUtils/Constant ExtUtils/Install ExtUtils/MakeMaker ExtUtils/Manifest ExtUtils/ParseXS File/Fetch File/Path File/Temp FileCache Filter/Simple Getopt/Long I18N/LangTags IO/Compress IO/Zlib IPC/Cmd IPC/Open2 IPC/Open3 Locale/Codes Locale/Maketext Locale/Maketext/Simple Log/Message Log/Message/Simple Math/BigInt Math/BigRat Math/Complex Memoize Module/Build Module/CoreList Module/Load Module/Load/Conditional Module/Loaded Module/Pluggable NEXT Net/Ping Object/Accessor Package/Constants Params/Check Parse/CPAN/Meta PerlIO/via/QuotedPrint Pod/Escapes Pod/LaTeX Pod/Parser Pod/Perldoc Pod/Plainer Pod/Simple Safe SelfLoader Shell Switch Term/ANSIColor Term/Cap Term/UI Test Test/Harness Test/Simple Text/Balanced Text/ParseWords Text/Tabs Thread/Queue Thread/Semaphore Tie/File Tie/Memoize Tie/RefHash Time/Local Unicode/Collate XSLoader autodie autouse base bignum constant encoding/warnings if lib libnet parent podlators'
- nroff='nroff'
- nvEUformat='"E"'
- nvFUformat='"F"'
- nvGUformat='"G"'
-+nv_overflows_integers_at='256.0*256.0*256.0*256.0*256.0*256.0*2.0*2.0*2.0*2.0*2.0'
- nveformat='"e"'
- nvfformat='"f"'
- nvgformat='"g"'
-@@ -774,18 +863,19 @@ old_pthread_create_joinable=''
- optimize='-O2'
- orderlib='false'
- osname='linux'
--otherlibdirs=' '
-+osvers='2.6.37-rc5-yocto-standard+'
-+otherlibdirs='/usr/lib/perl5/5.12.2'
- package='perl5'
- pager='/usr/bin/less -isr'
- passcat='cat /etc/passwd'
--patchlevel='8'
-+patchlevel='12'
- path_sep=':'
--perl5='hostperl'
-+perl5='/usr/bin/perl'
- perl=''
- perl_patchlevel=''
- perladmin='root@localhost'
- perllibs='-lnsl -ldl -lm -lcrypt -lutil -lpthread -lc'
--perlpath='hostperl'
-+perlpath='/usr/bin/perl'
- pg='pg'
- phostname=''
- pidtype='pid_t'
-@@ -794,8 +884,8 @@ pmake=''
- pr=''
- prefix='/usr'
- prefixexp='/usr'
--privlib='/usr/share/perl/5.8'
--privlibexp='/usr/share/perl/5.8'
-+privlib='/usr/lib/perl5/5.12.2'
-+privlibexp='/usr/lib/perl5/5.12.2'
- procselfexe='"/proc/self/exe"'
- prototype='define'
- randbits='48'
-@@ -808,6 +898,7 @@ readdir64_r_proto='REENTRANT_PROTO_I_TSR'
- readdir_r_proto='REENTRANT_PROTO_I_TSR'
- revision='5'
- rm='rm'
-+rm_try='/bin/rm -f try try a.out .out try.[cho] try..o core core.try* try.core*'
- rmail=''
- run=''
- runnm='false'
-@@ -840,31 +931,31 @@ shortsize='2'
- shrpenv=''
- shsharp='true'
- sig_count='65'
-+sig_name='ZERO HUP INT QUIT ILL TRAP ABRT BUS FPE KILL USR1 SEGV USR2 PIPE ALRM TERM STKFLT CHLD CONT STOP TSTP TTIN TTOU URG XCPU XFSZ VTALRM PROF WINCH IO PWR SYS NUM32 NUM33 RTMIN NUM35 NUM36 NUM37 NUM38 NUM39 NUM40 NUM41 NUM42 NUM43 NUM44 NUM45 NUM46 NUM47 NUM48 NUM49 NUM50 NUM51 NUM52 NUM53 NUM54 NUM55 NUM56 NUM57 NUM58 NUM59 NUM60 NUM61 NUM62 NUM63 RTMAX IOT CLD POLL UNUSED '
-+sig_name_init='"ZERO", "HUP", "INT", "QUIT", "ILL", "TRAP", "ABRT", "BUS", "FPE", "KILL", "USR1", "SEGV", "USR2", "PIPE", "ALRM", "TERM", "STKFLT", "CHLD", "CONT", "STOP", "TSTP", "TTIN", "TTOU", "URG", "XCPU", "XFSZ", "VTALRM", "PROF", "WINCH", "IO", "PWR", "SYS", "NUM32", "NUM33", "RTMIN", "NUM35", "NUM36", "NUM37", "NUM38", "NUM39", "NUM40", "NUM41", "NUM42", "NUM43", "NUM44", "NUM45", "NUM46", "NUM47", "NUM48", "NUM49", "NUM50", "NUM51", "NUM52", "NUM53", "NUM54", "NUM55", "NUM56", "NUM57", "NUM58", "NUM59", "NUM60", "NUM61", "NUM62", "NUM63", "RTMAX", "IOT", "CLD", "POLL", "UNUSED", 0'
- sig_num='0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 6 17 29 31 '
- sig_num_init='0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 6, 17, 29, 31, 0'
- sig_size='69'
--sig_name='ZERO HUP INT QUIT ILL TRAP ABRT BUS FPE KILL USR1 SEGV USR2 PIPE ALRM TERM STKFLT CHLD CONT STOP TSTP TTIN TTOU URG XCPU XFSZ VTALRM PROF WINCH IO PWR SYS NUM32 NUM33 RTMIN NUM35 NUM36 NUM37 NUM38 NUM39 NUM40 NUM41 NUM42 NUM43 NUM44 NUM45 NUM46 NUM47 NUM48 NUM49 NUM50 NUM51 NUM52 NUM53 NUM54 NUM55 NUM56 NUM57 NUM58 NUM59 NUM60 NUM61 NUM62 NUM63 RTMAX IOT CLD POLL UNUSED '
--sig_name_init='"ZERO", "HUP", "INT", "QUIT", "ILL", "TRAP", "ABRT", "BUS", "FPE", "KILL", "USR1", "SEGV", "USR2", "PIPE", "ALRM", "TERM", "STKFLT", "CHLD", "CONT", "STOP", "TSTP", "TTIN", "TTOU", "URG", "XCPU", "XFSZ", "VTALRM", "PROF", "WINCH", "IO", "PWR", "SYS", "NUM32", "NUM33", "RTMIN", "NUM35", "NUM36", "NUM37", "NUM38", "NUM39", "NUM40", "NUM41", "NUM42", "NUM43", "NUM44", "NUM45", "NUM46", "NUM47", "NUM48", "NUM49", "NUM50", "NUM51", "NUM52", "NUM53", "NUM54", "NUM55", "NUM56", "NUM57", "NUM58", "NUM59", "NUM60", "NUM61", "NUM62", "NUM63", "RTMAX", "IOT", "CLD", "POLL", "UNUSED", 0'
- signal_t='void'
--sitearch='/usr/local/lib/perl/5.8.8'
--sitearchexp='/usr/local/lib/perl/5.8.8'
--sitebin='/usr/local/bin'
--sitebinexp='/usr/local/bin'
-+sitearch='/usr/lib/perl5/site_perl/5.12.2/@ARCH@-thread-multi'
-+sitearchexp='/usr/lib/perl5/site_perl/5.12.2/@ARCH@-thread-multi'
-+sitebin='/usr/bin'
-+sitebinexp='/usr/bin'
- sitehtml1dir=''
- sitehtml1direxp=''
- sitehtml3dir=''
- sitehtml3direxp=''
--sitelib='/usr/local/share/perl/5.8.8'
--sitelib_stem=''
--sitelibexp='/usr/local/share/perl/5.8.8'
--siteman1dir='/usr/local/man/man1'
--siteman1direxp='/usr/local/man/man1'
--siteman3dir='/usr/local/man/man3'
--siteman3direxp='/usr/local/man/man3'
--siteprefix='/usr/local'
--siteprefixexp='/usr/local'
--sitescript='/usr/local/bin'
--sitescriptexp='/usr/local/bin'
-+sitelib='/usr/lib/perl5/site_perl/5.12.2'
-+sitelib_stem='/usr/lib/perl5/site_perl'
-+sitelibexp='/usr/lib/perl5/site_perl/5.12.2'
-+siteman1dir=''
-+siteman1direxp=''
-+siteman3dir=''
-+siteman3direxp=''
-+siteprefix='/usr'
-+siteprefixexp='/usr'
-+sitescript='/usr/bin'
-+sitescriptexp='/usr/bin'
- sizetype='size_t'
- sleep=''
- smail=''
-@@ -892,7 +983,7 @@ stdio_stream_array=''
- strerror_r_proto='REENTRANT_PROTO_B_IBW'
- strings='/usr/include/string.h'
- submit=''
--subversion='8'
-+subversion='2'
- sysman='/usr/share/man/man1'
- tail=''
- tar=''
-@@ -922,8 +1013,10 @@ uname='uname'
- uniq='uniq'
- use5005threads='undef'
- usecrosscompile='undef'
-+usedevel='undef'
- usedl='define'
--usefaststdio='define'
-+usedtrace='undef'
-+usefaststdio='undef'
- useithreads='define'
- uselargefiles='define'
- uselongdouble='undef'
-@@ -936,6 +1029,7 @@ useopcode='true'
- useperlio='define'
- useposix='true'
- usereentrant='undef'
-+userelocatableinc='undef'
- usesfio='false'
- useshrplib='true'
- usesitecustomize='undef'
-@@ -950,27 +1044,28 @@ uvoformat='"lo"'
- uvtype='unsigned long'
- uvuformat='"lu"'
- uvxformat='"lx"'
--vendorarch='/usr/lib/perl5'
--vendorarchexp='/usr/lib/perl5'
-+vaproto='define'
-+vendorarch='/usr/lib/perl5/vendor_perl/5.12.2/@ARCH@-thread-multi'
-+vendorarchexp='/usr/lib/perl5/vendor_perl/5.12.2/@ARCH@-thread-multi'
- vendorbin='/usr/bin'
- vendorbinexp='/usr/bin'
- vendorhtml1dir=' '
- vendorhtml1direxp=''
- vendorhtml3dir=' '
- vendorhtml3direxp=''
--vendorlib='/usr/share/perl5'
--vendorlib_stem=''
--vendorlibexp='/usr/share/perl5'
--vendorman1dir='/usr/share/man/man1'
--vendorman1direxp='/usr/share/man/man1'
--vendorman3dir='/usr/share/man/man3'
--vendorman3direxp='/usr/share/man/man3'
-+vendorlib='/usr/lib/perl5/vendor_perl/5.12.2'
-+vendorlib_stem='/usr/lib/perl5/vendor_perl'
-+vendorlibexp='/usr/lib/perl5/vendor_perl/5.12.2'
-+vendorman1dir=' '
-+vendorman1direxp=''
-+vendorman3dir=' '
-+vendorman3direxp=''
- vendorprefix='/usr'
- vendorprefixexp='/usr'
- vendorscript='/usr/bin'
- vendorscriptexp='/usr/bin'
--version='5.8.8'
--version_patchlevel_string='version 8 subversion 8'
-+version='5.12.2'
-+version_patchlevel_string='version 12 subversion 2'
- versiononly='undef'
- vi=''
- voidflags='15'
-@@ -979,42 +1074,13 @@ yacc='yacc'
- yaccflags=''
- zcat=''
- zip='zip'
--# Configure command line arguments.
--config_arg0='Configure'
--config_args='-des -Doptimize=-O2 -Dmyhostname=localhost -Dperladmin=root@localhost -Dcc=gcc -Dcf_by=Open Embedded -Dprefix=/usr -Dvendorprefix=/usr -Dsiteprefix=/usr -Dotherlibdirs=/usr/lib/perl5/5.8.8 -Duseshrplib -Dusethreads -Duseithreads -Duselargefiles -Ud_dosuid -Dd_semctl_semun -Ui_db -Ui_ndbm -Di_gdbm -Di_shadow -Di_syslog -Dman3ext=3pm -Duseperlio -Dinstallusrbinperl -Ubincompat5005 -Uversiononly -Dpager=/usr/bin/less -isr'
--config_argc=27
--config_arg1='-des'
--config_arg2='-Doptimize=-O2'
--config_arg3='-Dmyhostname=localhost'
--config_arg4='-Dperladmin=root@localhost'
--config_arg5='-Dcc=gcc'
--config_arg6='-Dcf_by=Open Embedded'
--config_arg7='-Dprefix=/usr'
--config_arg8='-Dvendorprefix=/usr'
--config_arg9='-Dsiteprefix=/usr'
--config_arg10='-Dotherlibdirs=/usr/lib/perl5/5.8.8'
--config_arg11='-Duseshrplib'
--config_arg12='-Dusethreads'
--config_arg13='-Duseithreads'
--config_arg14='-Duselargefiles'
--config_arg15='-Ud_dosuid'
--config_arg16='-Dd_semctl_semun'
--config_arg17='-Ui_db'
--config_arg18='-Ui_ndbm'
--config_arg19='-Di_gdbm'
--config_arg20='-Di_shadow'
--config_arg21='-Di_syslog'
--config_arg22='-Dman3ext=3pm'
--config_arg23='-Duseperlio'
--config_arg24='-Dinstallusrbinperl'
--config_arg25='-Ubincompat5005'
--config_arg26='-Uversiononly'
--config_arg27='-Dpager=/usr/bin/less -isr'
- PERL_REVISION=5
--PERL_VERSION=8
--PERL_SUBVERSION=8
-+PERL_VERSION=12
-+PERL_SUBVERSION=2
- PERL_API_REVISION=5
--PERL_API_VERSION=8
-+PERL_API_VERSION=12
- PERL_API_SUBVERSION=0
--PERL_PATCHLEVEL=
-+PERL_PATCHLEVEL=''
- PERL_CONFIG_SH=true
-+: Variables propagated from previous config.sh file.
-+libdb_needs_pthread='N'
-diff --git a/meta/recipes-devtools/perl/perl-5.12.2/config.sh-32 b/meta/recipes-devtools/perl/perl-5.12.2/config.sh-32
-new file mode 100644
-index 0000000..7259a0c
---- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/config.sh-32
-@@ -0,0 +1,38 @@
-+alignbytes='4'
-+cf_time='Thu Dec 23 03:57:51 UTC 2010'
-+cppsymbols='_FILE_OFFSET_BITS=64 _GNU_SOURCE=1 _LARGEFILE64_SOURCE=1 _LARGEFILE_SOURCE=1 _POSIX_C_SOURCE=200809L _POSIX_SOURCE=1 _REENTRANT=1 _XOPEN_SOURCE=700 _XOPEN_SOURCE_EXTENDED=1 __BIGGEST_ALIGNMENT__=16 __CHAR16_TYPE__=short\ unsigned\ int __CHAR32_TYPE__=unsigned\ int __CHAR_BIT__=8 __DBL_DENORM_MIN__=((double)4.94065645841246544177e-324L) __DBL_DIG__=15 __DBL_EPSILON__=((double)2.22044604925031308085e-16L) __DBL_HAS_DENORM__=1 __DBL_HAS_INFINITY__=1 __DBL_HAS_QUIET_NAN__=1 __DBL_MANT_DIG__=53 __DBL_MAX_10_EXP__=308 __DBL_MAX_EXP__=1024 __DBL_MAX__=((double)1.79769313486231570815e+308L) __DBL_MIN_10_EXP__=(-307) __DBL_MIN_EXP__=(-1021) __DBL_MIN__=((double)2.22507385850720138309e-308L) __DEC128_EPSILON__=1E-33DL __DEC128_MANT_DIG__=34 __DEC128_MAX_EXP__=6145 __DEC128_MAX__=9.999999999999999999999999999999999E6144DL __DEC128_MIN_EXP__=(-6142) __DEC128_MIN__=1E-6143DL __DEC128_SUBNORMAL_MIN__=0.000000000000000000000000000000001E-6143DL __DEC32_EPSILON__=1E-6DF __DEC32_MANT_DIG__=7 __DEC32_MAX_EXP__=97 __DEC32_MAX__=9.999999E96DF __DEC32_MIN_EXP__=(-94) __DEC32_MIN__=1E-95DF __DEC32_SUBNORMAL_MIN__=0.000001E-95DF __DEC64_EPSILON__=1E-15DD __DEC64_MANT_DIG__=16 __DEC64_MAX_EXP__=385 __DEC64_MAX__=9.999999999999999E384DD __DEC64_MIN_EXP__=(-382) __DEC64_MIN__=1E-383DD __DEC64_SUBNORMAL_MIN__=0.000000000000001E-383DD __DECIMAL_BID_FORMAT__=1 __DECIMAL_DIG__=21 __DEC_EVAL_METHOD__=2 __ELF__=1 __FINITE_MATH_ONLY__=0 __FLT_DENORM_MIN__=1.40129846432481707092e-45F __FLT_DIG__=6 __FLT_EPSILON__=1.19209289550781250000e-7F __FLT_EVAL_METHOD__=2 __FLT_HAS_DENORM__=1 __FLT_HAS_INFINITY__=1 __FLT_HAS_QUIET_NAN__=1 __FLT_MANT_DIG__=24 __FLT_MAX_10_EXP__=38 __FLT_MAX_EXP__=128 __FLT_MAX__=3.40282346638528859812e+38F __FLT_MIN_10_EXP__=(-37) __FLT_MIN_EXP__=(-125) __FLT_MIN__=1.17549435082228750797e-38F __FLT_RADIX__=2 __GCC_HAVE_SYNC_COMPARE_AND_SWAP_1=1 __GCC_HAVE_SYNC_COMPARE_AND_SWAP_2=1 __GCC_HAVE_SYNC_COMPARE_AND_SWAP_4=1 __GCC_HAVE_SYNC_COMPARE_AND_SWAP_8=1 __GLIBC_MINOR__=12 __GLIBC__=2 __GNUC_GNU_INLINE__=1 __GNUC_MINOR__=5 __GNUC_PATCHLEVEL__=1 __GNUC__=4 __GNU_LIBRARY__=6 __GXX_ABI_VERSION=1002 __INT16_C(c)=c __INT16_MAX__=32767 __INT16_TYPE__=short\ int __INT32_C(c)=c __INT32_MAX__=2147483647 __INT32_TYPE__=int __INT64_C(c)=cLL __INT64_MAX__=9223372036854775807LL __INT64_TYPE__=long\ long\ int __INT8_C(c)=c __INT8_MAX__=127 __INT8_TYPE__=signed\ char __INTMAX_C(c)=cLL __INTMAX_MAX__=9223372036854775807LL __INTMAX_TYPE__=long\ long\ int __INTPTR_MAX__=2147483647 __INTPTR_TYPE__=int __INT_FAST16_MAX__=2147483647 __INT_FAST16_TYPE__=int __INT_FAST32_MAX__=2147483647 __INT_FAST32_TYPE__=int __INT_FAST64_MAX__=9223372036854775807LL __INT_FAST64_TYPE__=long\ long\ int __INT_FAST8_MAX__=127 __INT_FAST8_TYPE__=signed\ char __INT_LEAST16_MAX__=32767 __INT_LEAST16_TYPE__=short\ int __INT_LEAST32_MAX__=2147483647 __INT_LEAST32_TYPE__=int __INT_LEAST64_MAX__=9223372036854775807LL __INT_LEAST64_TYPE__=long\ long\ int __INT_LEAST8_MAX__=127 __INT_LEAST8_TYPE__=signed\ char __INT_MAX__=2147483647 __LDBL_DENORM_MIN__=3.64519953188247460253e-4951L __LDBL_DIG__=18 __LDBL_EPSILON__=1.08420217248550443401e-19L __LDBL_HAS_DENORM__=1 __LDBL_HAS_INFINITY__=1 __LDBL_HAS_QUIET_NAN__=1 __LDBL_MANT_DIG__=64 __LDBL_MAX_10_EXP__=4932 __LDBL_MAX_EXP__=16384 __LDBL_MAX__=1.18973149535723176502e+4932L __LDBL_MIN_10_EXP__=(-4931) __LDBL_MIN_EXP__=(-16381) __LDBL_MIN__=3.36210314311209350626e-4932L __LONG_LONG_MAX__=9223372036854775807LL __LONG_MAX__=2147483647L __PRAGMA_REDEFINE_EXTNAME=1 __PTRDIFF_MAX__=2147483647 __PTRDIFF_TYPE__=int __REGISTER_PREFIX__= __SCHAR_MAX__=127 __SHRT_MAX__=32767 __SIG_ATOMIC_MAX__=2147483647 __SIG_ATOMIC_MIN__=(-2147483647\ -\ 1) __SIG_ATOMIC_TYPE__=int __SIZEOF_DOUBLE__=8 __SIZEOF_FLOAT__=4 __SIZEOF_INT__=4 __SIZEOF_LONG_DOUBLE__=12 __SIZEOF_LONG_LONG__=8 __SIZEOF_LONG__=4 __SIZEOF_POINTER__=4 __SIZEOF_PTRDIFF_T__=4 __SIZEOF_SHORT__=2 __SIZEOF_SIZE_T__=4 __SIZEOF_WCHAR_T__=4 __SIZEOF_WINT_T__=4 __SIZE_MAX__=4294967295U __SIZE_TYPE__=unsigned\ int __STDC_HOSTED__=1 __STDC__=1 __UINT16_C(c)=c __UINT16_MAX__=65535 __UINT16_TYPE__=short\ unsigned\ int __UINT32_C(c)=cU __UINT32_MAX__=4294967295U __UINT32_TYPE__=unsigned\ int __UINT64_C(c)=cULL __UINT64_MAX__=18446744073709551615ULL __UINT64_TYPE__=long\ long\ unsigned\ int __UINT8_C(c)=c __UINT8_MAX__=255 __UINT8_TYPE__=unsigned\ char __UINTMAX_C(c)=cULL __UINTMAX_MAX__=18446744073709551615ULL __UINTMAX_TYPE__=long\ long\ unsigned\ int __UINTPTR_MAX__=4294967295U __UINTPTR_TYPE__=unsigned\ int __UINT_FAST16_MAX__=4294967295U __UINT_FAST16_TYPE__=unsigned\ int __UINT_FAST32_MAX__=4294967295U __UINT_FAST32_TYPE__=unsigned\ int __UINT_FAST64_MAX__=18446744073709551615ULL __UINT_FAST64_TYPE__=long\ long\ unsigned\ int __UINT_FAST8_MAX__=255 __UINT_FAST8_TYPE__=unsigned\ char __UINT_LEAST16_MAX__=65535 __UINT_LEAST16_TYPE__=short\ unsigned\ int __UINT_LEAST32_MAX__=4294967295U __UINT_LEAST32_TYPE__=unsigned\ int __UINT_LEAST64_MAX__=18446744073709551615ULL __UINT_LEAST64_TYPE__=long\ long\ unsigned\ int __UINT_LEAST8_MAX__=255 __UINT_LEAST8_TYPE__=unsigned\ char __USER_LABEL_PREFIX__= __USE_BSD=1 __USE_FILE_OFFSET64=1 __USE_GNU=1 __USE_LARGEFILE64=1 __USE_LARGEFILE=1 __USE_MISC=1 __USE_POSIX199309=1 __USE_POSIX199506=1 __USE_POSIX2=1 __USE_POSIX=1 __USE_REENTRANT=1 __USE_SVID=1 __USE_UNIX98=1 __USE_XOPEN=1 __USE_XOPEN_EXTENDED=1 __VERSION__="4.5.1" __WCHAR_MAX__=2147483647L __WCHAR_MIN__=(-2147483647L\ -\ 1) __WCHAR_TYPE__=long\ int __WINT_MAX__=4294967295U __WINT_MIN__=0U __WINT_TYPE__=unsigned\ int __gnu_linux__=1 __i386=1 __i386__=1 __i586=1 __i586__=1 __linux=1 __linux__=1 __pentium=1 __pentium__=1 __tune_i586__=1 __tune_pentium__=1 __unix=1 __unix__=1 i386=1 linux=1 unix=1'
-+d_nv_preserves_uv='define'
-+d_printf_format_null='define'
-+d_u32align='undef'
-+gidformat='"lu"'
-+i32type='long'
-+i64type='long long'
-+ivsize='4'
-+longdblsize='12'
-+longsize='4'
-+myuname='linux qemux86 2.6.37-rc5-yocto-standard+ #1 preempt mon dec 20 14:21:27 pst 2010 i686 gnulinux '
-+need_va_copy='undef'
-+netdb_host_type='const void *'
-+nv_preserves_uv_bits='32'
-+ptrsize='4'
-+quadkind='3'
-+quadtype='long long'
-+sGMTIME_max='2147483647'
-+sGMTIME_min='-2147483648'
-+sLOCALTIME_max='2147483647'
-+sLOCALTIME_min='-2147483648'
-+sPRIXU64='"LX"'
-+sPRId64='"Ld"'
-+sPRIi64='"Li"'
-+sPRIo64='"Lo"'
-+sPRIu64='"Lu"'
-+sPRIx64='"Lx"'
-+selectminbits='32'
-+sizesize='4'
-+u32type='unsigned long'
-+u64type='unsigned long long'
-+uidformat='"lu"'
-+uquadtype='unsigned long long'
-+use64bitall='undef'
-+use64bitint='undef'
-+uvsize='4'
-diff --git a/meta/recipes-devtools/perl/perl-5.8.8/config.sh-32-be b/meta/recipes-devtools/perl/perl-5.12.2/config.sh-32-be
-similarity index 100%
-rename from meta/recipes-devtools/perl/perl-5.8.8/config.sh-32-be
-rename to meta/recipes-devtools/perl/perl-5.12.2/config.sh-32-be
-diff --git a/meta/recipes-devtools/perl/perl-5.8.8/config.sh-32-le b/meta/recipes-devtools/perl/perl-5.12.2/config.sh-32-le
-similarity index 100%
-rename from meta/recipes-devtools/perl/perl-5.8.8/config.sh-32-le
-rename to meta/recipes-devtools/perl/perl-5.12.2/config.sh-32-le
-diff --git a/meta/recipes-devtools/perl/perl-5.12.2/config.sh-64 b/meta/recipes-devtools/perl/perl-5.12.2/config.sh-64
-new file mode 100644
-index 0000000..6929d3a
---- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/config.sh-64
-@@ -0,0 +1,38 @@
-+alignbytes='8'
-+cf_time='Thu Dec 23 02:06:42 UTC 2010'
-+cppsymbols='_FILE_OFFSET_BITS=64 _GNU_SOURCE=1 _LARGEFILE64_SOURCE=1 _LARGEFILE_SOURCE=1 _LP64=1 _POSIX_C_SOURCE=200809L _POSIX_SOURCE=1 _REENTRANT=1 _XOPEN_SOURCE=700 _XOPEN_SOURCE_EXTENDED=1 __BIGGEST_ALIGNMENT__=16 __CHAR16_TYPE__=short\ unsigned\ int __CHAR32_TYPE__=unsigned\ int __CHAR_BIT__=8 __DBL_DENORM_MIN__=((double)4.94065645841246544177e-324L) __DBL_DIG__=15 __DBL_EPSILON__=((double)2.22044604925031308085e-16L) __DBL_HAS_DENORM__=1 __DBL_HAS_INFINITY__=1 __DBL_HAS_QUIET_NAN__=1 __DBL_MANT_DIG__=53 __DBL_MAX_10_EXP__=308 __DBL_MAX_EXP__=1024 __DBL_MAX__=((double)1.79769313486231570815e+308L) __DBL_MIN_10_EXP__=(-307) __DBL_MIN_EXP__=(-1021) __DBL_MIN__=((double)2.22507385850720138309e-308L) __DEC128_EPSILON__=1E-33DL __DEC128_MANT_DIG__=34 __DEC128_MAX_EXP__=6145 __DEC128_MAX__=9.999999999999999999999999999999999E6144DL __DEC128_MIN_EXP__=(-6142) __DEC128_MIN__=1E-6143DL __DEC128_SUBNORMAL_MIN__=0.000000000000000000000000000000001E-6143DL __DEC32_EPSILON__=1E-6DF __DEC32_MANT_DIG__=7 __DEC32_MAX_EXP__=97 __DEC32_MAX__=9.999999E96DF __DEC32_MIN_EXP__=(-94) __DEC32_MIN__=1E-95DF __DEC32_SUBNORMAL_MIN__=0.000001E-95DF __DEC64_EPSILON__=1E-15DD __DEC64_MANT_DIG__=16 __DEC64_MAX_EXP__=385 __DEC64_MAX__=9.999999999999999E384DD __DEC64_MIN_EXP__=(-382) __DEC64_MIN__=1E-383DD __DEC64_SUBNORMAL_MIN__=0.000000000000001E-383DD __DECIMAL_BID_FORMAT__=1 __DECIMAL_DIG__=21 __DEC_EVAL_METHOD__=2 __ELF__=1 __FINITE_MATH_ONLY__=0 __FLT_DENORM_MIN__=1.40129846432481707092e-45F __FLT_DIG__=6 __FLT_EPSILON__=1.19209289550781250000e-7F __FLT_EVAL_METHOD__=0 __FLT_HAS_DENORM__=1 __FLT_HAS_INFINITY__=1 __FLT_HAS_QUIET_NAN__=1 __FLT_MANT_DIG__=24 __FLT_MAX_10_EXP__=38 __FLT_MAX_EXP__=128 __FLT_MAX__=3.40282346638528859812e+38F __FLT_MIN_10_EXP__=(-37) __FLT_MIN_EXP__=(-125) __FLT_MIN__=1.17549435082228750797e-38F __FLT_RADIX__=2 __GCC_HAVE_DWARF2_CFI_ASM=1 __GCC_HAVE_SYNC_COMPARE_AND_SWAP_1=1 __GCC_HAVE_SYNC_COMPARE_AND_SWAP_2=1 __GCC_HAVE_SYNC_COMPARE_AND_SWAP_4=1 __GCC_HAVE_SYNC_COMPARE_AND_SWAP_8=1 __GLIBC_MINOR__=12 __GLIBC__=2 __GNUC_GNU_INLINE__=1 __GNUC_MINOR__=5 __GNUC_PATCHLEVEL__=1 __GNUC__=4 __GNU_LIBRARY__=6 __GXX_ABI_VERSION=1002 __INT16_C(c)=c __INT16_MAX__=32767 __INT16_TYPE__=short\ int __INT32_C(c)=c __INT32_MAX__=2147483647 __INT32_TYPE__=int __INT64_C(c)=cL __INT64_MAX__=9223372036854775807L __INT64_TYPE__=long\ int __INT8_C(c)=c __INT8_MAX__=127 __INT8_TYPE__=signed\ char __INTMAX_C(c)=cL __INTMAX_MAX__=9223372036854775807L __INTMAX_TYPE__=long\ int __INTPTR_MAX__=9223372036854775807L __INTPTR_TYPE__=long\ int __INT_FAST16_MAX__=9223372036854775807L __INT_FAST16_TYPE__=long\ int __INT_FAST32_MAX__=9223372036854775807L __INT_FAST32_TYPE__=long\ int __INT_FAST64_MAX__=9223372036854775807L __INT_FAST64_TYPE__=long\ int __INT_FAST8_MAX__=127 __INT_FAST8_TYPE__=signed\ char __INT_LEAST16_MAX__=32767 __INT_LEAST16_TYPE__=short\ int __INT_LEAST32_MAX__=2147483647 __INT_LEAST32_TYPE__=int __INT_LEAST64_MAX__=9223372036854775807L __INT_LEAST64_TYPE__=long\ int __INT_LEAST8_MAX__=127 __INT_LEAST8_TYPE__=signed\ char __INT_MAX__=2147483647 __LDBL_DENORM_MIN__=3.64519953188247460253e-4951L __LDBL_DIG__=18 __LDBL_EPSILON__=1.08420217248550443401e-19L __LDBL_HAS_DENORM__=1 __LDBL_HAS_INFINITY__=1 __LDBL_HAS_QUIET_NAN__=1 __LDBL_MANT_DIG__=64 __LDBL_MAX_10_EXP__=4932 __LDBL_MAX_EXP__=16384 __LDBL_MAX__=1.18973149535723176502e+4932L __LDBL_MIN_10_EXP__=(-4931) __LDBL_MIN_EXP__=(-16381) __LDBL_MIN__=3.36210314311209350626e-4932L __LONG_LONG_MAX__=9223372036854775807LL __LONG_MAX__=9223372036854775807L __LP64__=1 __MMX__=1 __PRAGMA_REDEFINE_EXTNAME=1 __PTRDIFF_MAX__=9223372036854775807L __PTRDIFF_TYPE__=long\ int __REGISTER_PREFIX__= __SCHAR_MAX__=127 __SHRT_MAX__=32767 __SIG_ATOMIC_MAX__=2147483647 __SIG_ATOMIC_MIN__=(-2147483647\ -\ 1) __SIG_ATOMIC_TYPE__=int __SIZEOF_DOUBLE__=8 __SIZEOF_FLOAT__=4 __SIZEOF_INT__=4 __SIZEOF_LONG_DOUBLE__=16 __SIZEOF_LONG_LONG__=8 __SIZEOF_LONG__=8 __SIZEOF_POINTER__=8 __SIZEOF_PTRDIFF_T__=8 __SIZEOF_SHORT__=2 __SIZEOF_SIZE_T__=8 __SIZEOF_WCHAR_T__=4 __SIZEOF_WINT_T__=4 __SIZE_MAX__=18446744073709551615UL __SIZE_TYPE__=long\ unsigned\ int __SSE2_MATH__=1 __SSE2__=1 __SSE_MATH__=1 __SSE__=1 __STDC_HOSTED__=1 __STDC__=1 __UINT16_C(c)=c __UINT16_MAX__=65535 __UINT16_TYPE__=short\ unsigned\ int __UINT32_C(c)=cU __UINT32_MAX__=4294967295U __UINT32_TYPE__=unsigned\ int __UINT64_C(c)=cUL __UINT64_MAX__=18446744073709551615UL __UINT64_TYPE__=long\ unsigned\ int __UINT8_C(c)=c __UINT8_MAX__=255 __UINT8_TYPE__=unsigned\ char __UINTMAX_C(c)=cUL __UINTMAX_MAX__=18446744073709551615UL __UINTMAX_TYPE__=long\ unsigned\ int __UINTPTR_MAX__=18446744073709551615UL __UINTPTR_TYPE__=long\ unsigned\ int __UINT_FAST16_MAX__=18446744073709551615UL __UINT_FAST16_TYPE__=long\ unsigned\ int __UINT_FAST32_MAX__=18446744073709551615UL __UINT_FAST32_TYPE__=long\ unsigned\ int __UINT_FAST64_MAX__=18446744073709551615UL __UINT_FAST64_TYPE__=long\ unsigned\ int __UINT_FAST8_MAX__=255 __UINT_FAST8_TYPE__=unsigned\ char __UINT_LEAST16_MAX__=65535 __UINT_LEAST16_TYPE__=short\ unsigned\ int __UINT_LEAST32_MAX__=4294967295U __UINT_LEAST32_TYPE__=unsigned\ int __UINT_LEAST64_MAX__=18446744073709551615UL __UINT_LEAST64_TYPE__=long\ unsigned\ int __UINT_LEAST8_MAX__=255 __UINT_LEAST8_TYPE__=unsigned\ char __USER_LABEL_PREFIX__= __USE_BSD=1 __USE_FILE_OFFSET64=1 __USE_GNU=1 __USE_LARGEFILE64=1 __USE_LARGEFILE=1 __USE_MISC=1 __USE_POSIX199309=1 __USE_POSIX199506=1 __USE_POSIX2=1 __USE_POSIX=1 __USE_REENTRANT=1 __USE_SVID=1 __USE_UNIX98=1 __USE_XOPEN=1 __USE_XOPEN_EXTENDED=1 __VERSION__="4.5.1" __WCHAR_MAX__=2147483647 __WCHAR_MIN__=(-2147483647\ -\ 1) __WCHAR_TYPE__=int __WINT_MAX__=4294967295U __WINT_MIN__=0U __WINT_TYPE__=unsigned\ int __amd64=1 __amd64__=1 __gnu_linux__=1 __k8=1 __k8__=1 __linux=1 __linux__=1 __unix=1 __unix__=1 __x86_64=1 __x86_64__=1 linux=1 unix=1'
-+d_nv_preserves_uv='undef'
-+d_printf_format_null='undef'
-+d_u32align='define'
-+gidformat='"u"'
-+i32type='int'
-+i64type='long'
-+ivsize='8'
-+longdblsize='16'
-+longsize='8'
-+myuname='linux qemux86-64 2.6.37-rc5-yocto-standard+ #1 smp preempt mon dec 20 17:19:50 pst 2010 x86_64 gnulinux '
-+need_va_copy='define'
-+netdb_host_type='char *'
-+nv_preserves_uv_bits='53'
-+ptrsize='8'
-+quadkind='2'
-+quadtype='long'
-+sGMTIME_max='67768036191676799'
-+sGMTIME_min='-62167219200'
-+sLOCALTIME_max='67768036191676799'
-+sLOCALTIME_min='-62167219200'
-+sPRIXU64='"lX"'
-+sPRId64='"ld"'
-+sPRIi64='"li"'
-+sPRIo64='"lo"'
-+sPRIu64='"lu"'
-+sPRIx64='"lx"'
-+selectminbits='64'
-+sizesize='8'
-+u32type='unsigned int'
-+u64type='unsigned long'
-+uidformat='"u"'
-+uquadtype='unsigned long'
-+use64bitall='define'
-+use64bitint='define'
-+uvsize='8'
-diff --git a/meta/recipes-devtools/perl/perl-5.8.8/config.sh-64-be b/meta/recipes-devtools/perl/perl-5.12.2/config.sh-64-be
-similarity index 100%
-rename from meta/recipes-devtools/perl/perl-5.8.8/config.sh-64-be
-rename to meta/recipes-devtools/perl/perl-5.12.2/config.sh-64-be
-diff --git a/meta/recipes-devtools/perl/perl-5.8.8/config.sh-64-le b/meta/recipes-devtools/perl/perl-5.12.2/config.sh-64-le
-similarity index 100%
-rename from meta/recipes-devtools/perl/perl-5.8.8/config.sh-64-le
-rename to meta/recipes-devtools/perl/perl-5.12.2/config.sh-64-le
-diff --git a/meta/recipes-devtools/perl/perl-5.12.2/cross-generate_uudmap.patch b/meta/recipes-devtools/perl/perl-5.12.2/cross-generate_uudmap.patch
-new file mode 100644
-index 0000000..f6218c1
---- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/cross-generate_uudmap.patch
-@@ -0,0 +1,13 @@
-+Index: perl-5.10.1/Makefile.SH
-+===================================================================
-+--- perl-5.10.1.orig/Makefile.SH	2010-02-12 19:06:17.000000000 +0300
-++++ perl-5.10.1/Makefile.SH	2010-02-12 19:10:13.000000000 +0300
-+@@ -596,7 +596,7 @@
-+ 	\$(RUN) ./generate_uudmap\$(HOST_EXE_EXT) >uudmap.h
-+ 
-+ generate_uudmap\$(HOST_EXE_EXT): generate_uudmap\$(OBJ_EXT)
-+-	\$(CC) -o generate_uudmap\$(EXE_EXT) \$(LDFLAGS) generate_uudmap\$(OBJ_EXT) \$(libs)
-++	\$(BUILD_CC) -o generate_uudmap\$(EXE_EXT) generate_uudmap.c
-+ 
-+ !GROK!THIS!
-+ $spitshell >>$Makefile <<'!NO!SUBS!'
-diff --git a/meta/recipes-devtools/perl/perl-5.12.2/debian/arm_optim.diff b/meta/recipes-devtools/perl/perl-5.12.2/debian/arm_optim.diff
-new file mode 100644
-index 0000000..383df6b
---- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/debian/arm_optim.diff
-@@ -0,0 +1,32 @@
-+From: Niko Tyni <ntyni@debian.org>
-+Description: Downgrade the optimization of sv.c on arm due to a gcc-4.4 bug
-+Bug-Debian: http://bugs.debian.org/580334
-+
-+Regression from gcc-4.3, not reported yet.
-+
-+ perl -e '"-2" =~ /(.+)/; @foo=(); push @foo, $_ for $1..undef; print @foo ? "ok\n" : "not ok\n"'
-+
-+
-+---
-+ cflags.SH |    6 +++++-
-+ 1 files changed, 5 insertions(+), 1 deletions(-)
-+
-+diff --git a/cflags.SH b/cflags.SH
-+index a5d71b9..6914ba6 100755
-+--- a/cflags.SH
-++++ b/cflags.SH
-+@@ -312,7 +312,11 @@ for file do
-+     regexec) ;;
-+     run) ;;
-+     scope) ;;
-+-    sv) ;;
-++    sv)
-++	case $archname in
-++	arm-*|armeb-*)
-++	    optimize=-O0;;
-++	esac;;
-+     taint) ;;
-+     toke) ;;
-+     universal) ;;
-+-- 
-+tg: (c823880..) debian/arm_optim (depends on: upstream)
-diff --git a/meta/recipes-devtools/perl/perl-5.12.2/debian/arm_thread_stress_timeout.diff b/meta/recipes-devtools/perl/perl-5.12.2/debian/arm_thread_stress_timeout.diff
-new file mode 100644
-index 0000000..34b8a2c
---- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/debian/arm_thread_stress_timeout.diff
-@@ -0,0 +1,23 @@
-+Subject: Raise the timeout of ext/threads/shared/t/stress.t to accommodate slower build hosts
-+Bug-Debian: http://bugs.debian.org/501970
-+
-+
-+---
-+ dist/threads-shared/t/stress.t |    2 +-
-+ 1 files changed, 1 insertions(+), 1 deletions(-)
-+
-+diff --git a/dist/threads-shared/t/stress.t b/dist/threads-shared/t/stress.t
-+index adfd1ed..652a3e6 100755
-+--- a/dist/threads-shared/t/stress.t
-++++ b/dist/threads-shared/t/stress.t
-+@@ -34,7 +34,7 @@ use threads::shared;
-+ {
-+     my $cnt = 50;
-+ 
-+-    my $TIMEOUT = 60;
-++    my $TIMEOUT = 150;
-+ 
-+     my $mutex = 1;
-+     share($mutex);
-+-- 
-+tg: (c823880..) debian/arm_thread_stress_timeout (depends on: upstream)
-diff --git a/meta/recipes-devtools/perl/perl-5.12.2/debian/cpan_config_path.diff b/meta/recipes-devtools/perl/perl-5.12.2/debian/cpan_config_path.diff
-new file mode 100644
-index 0000000..799d15e
---- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/debian/cpan_config_path.diff
-@@ -0,0 +1,22 @@
-+Subject: Set location of CPAN::Config to /etc/perl as /usr may not be writable.
-+
-+
-+---
-+ cpan/CPAN/lib/CPAN/HandleConfig.pm |    2 +-
-+ 1 files changed, 1 insertions(+), 1 deletions(-)
-+
-+diff --git a/cpan/CPAN/lib/CPAN/HandleConfig.pm b/cpan/CPAN/lib/CPAN/HandleConfig.pm
-+index 76cd81e..65a3b27 100644
-+--- a/cpan/CPAN/lib/CPAN/HandleConfig.pm
-++++ b/cpan/CPAN/lib/CPAN/HandleConfig.pm
-+@@ -543,7 +543,7 @@ sub load {
-+         $configpm = $INC{"CPAN/MyConfig.pm"};
-+         $redo++;
-+     } else {
-+-        my($path_to_cpan) = File::Basename::dirname($INC{"CPAN.pm"});
-++        my($path_to_cpan) = '/etc/perl';
-+         my($configpmdir) = File::Spec->catdir($path_to_cpan,"CPAN");
-+         my($configpmtest) = File::Spec->catfile($configpmdir,"Config.pm");
-+         my $inc_key;
-+-- 
-+tg: (c823880..) debian/cpan_config_path (depends on: upstream)
-diff --git a/meta/recipes-devtools/perl/perl-5.12.2/debian/cpan_definstalldirs.diff b/meta/recipes-devtools/perl/perl-5.12.2/debian/cpan_definstalldirs.diff
-new file mode 100644
-index 0000000..f64af15
---- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/debian/cpan_definstalldirs.diff
-@@ -0,0 +1,35 @@
-+Subject: Provide a sensible INSTALLDIRS default for modules installed from CPAN.
-+
-+Some modules which are included in core set INSTALLDIRS => 'perl'
-+explicitly in Makefile.PL or Build.PL.  This makes sense for the normal @INC
-+ordering, but not ours.
-+
-+
-+---
-+ cpan/CPAN/lib/CPAN/FirstTime.pm |    4 ++--
-+ 1 files changed, 2 insertions(+), 2 deletions(-)
-+
-+diff --git a/cpan/CPAN/lib/CPAN/FirstTime.pm b/cpan/CPAN/lib/CPAN/FirstTime.pm
-+index 53ffbf1..53976ff 100644
-+--- a/cpan/CPAN/lib/CPAN/FirstTime.pm
-++++ b/cpan/CPAN/lib/CPAN/FirstTime.pm
-+@@ -947,7 +947,7 @@ sub init {
-+     my_prompt_loop(prefer_installer => 'MB', $matcher, 'MB|EUMM|RAND');
-+ 
-+     if (!$matcher or 'makepl_arg make_arg' =~ /$matcher/) {
-+-        my_dflt_prompt(makepl_arg => "", $matcher);
-++        my_dflt_prompt(makepl_arg => "INSTALLDIRS=site", $matcher);
-+         my_dflt_prompt(make_arg => "", $matcher);
-+         if ( $CPAN::Config->{makepl_arg} =~ /LIBS=|INC=/ ) {
-+             $CPAN::Frontend->mywarn( 
-+@@ -969,7 +969,7 @@ sub init {
-+     my_dflt_prompt(make_install_arg => $CPAN::Config->{make_arg} || "",
-+                    $matcher);
-+ 
-+-    my_dflt_prompt(mbuildpl_arg => "", $matcher);
-++    my_dflt_prompt(mbuildpl_arg => "--installdirs site", $matcher);
-+     my_dflt_prompt(mbuild_arg => "", $matcher);
-+ 
-+     if (exists $CPAN::HandleConfig::keys{mbuild_install_build_command}
-+-- 
-+tg: (c823880..) debian/cpan_definstalldirs (depends on: upstream)
-diff --git a/meta/recipes-devtools/perl/perl-5.12.2/debian/cpanplus_config_path.diff b/meta/recipes-devtools/perl/perl-5.12.2/debian/cpanplus_config_path.diff
-new file mode 100644
-index 0000000..6956218
---- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/debian/cpanplus_config_path.diff
-@@ -0,0 +1,43 @@
-+From: Niko Tyni <ntyni@debian.org>
-+Subject: Save local versions of CPANPLUS::Config::System into /etc/perl.
-+    
-+This is a configuration file and needs to go in /etc by policy.
-+Besides, /usr may not even be writable.
-+    
-+This mirrors the Debian setup of CPAN.pm in debian/cpan_config_path.
-+
-+See #533707.
-+
-+---
-+ cpan/CPANPLUS/lib/CPANPLUS/Configure.pm           |    1 +
-+ cpan/CPANPLUS/lib/CPANPLUS/Internals/Constants.pm |    3 +++
-+ 2 files changed, 4 insertions(+), 0 deletions(-)
-+
-+diff --git a/cpan/CPANPLUS/lib/CPANPLUS/Configure.pm b/cpan/CPANPLUS/lib/CPANPLUS/Configure.pm
-+index baac91d..a3794de 100644
-+--- a/cpan/CPANPLUS/lib/CPANPLUS/Configure.pm
-++++ b/cpan/CPANPLUS/lib/CPANPLUS/Configure.pm
-+@@ -276,6 +276,7 @@ Saves the configuration to the package name you provided.
-+ If this package is not C<CPANPLUS::Config::System>, it will
-+ be saved in your C<.cpanplus> directory, otherwise it will
-+ be attempted to be saved in the system wide directory.
-++(On Debian systems, this system wide directory is /etc/perl.)
-+ 
-+ If no argument is provided, it will default to your personal
-+ config.
-+diff --git a/cpan/CPANPLUS/lib/CPANPLUS/Internals/Constants.pm b/cpan/CPANPLUS/lib/CPANPLUS/Internals/Constants.pm
-+index 1a38200..6ee0d82 100644
-+--- a/cpan/CPANPLUS/lib/CPANPLUS/Internals/Constants.pm
-++++ b/cpan/CPANPLUS/lib/CPANPLUS/Internals/Constants.pm
-+@@ -199,6 +199,9 @@ use constant CONFIG_USER_FILE    => sub {
-+                                     ) . '.pm';
-+                                 };
-+ use constant CONFIG_SYSTEM_FILE  => sub {
-++                                    # Debian-specific shortcut
-++                                    return '/etc/perl/CPANPLUS/Config/System.pm';
-++                                    
-+                                     require CPANPLUS::Internals;
-+                                     require File::Basename;
-+                                     my $dir = File::Basename::dirname(
-+-- 
-+tg: (c823880..) debian/cpanplus_config_path (depends on: upstream)
-diff --git a/meta/recipes-devtools/perl/perl-5.12.2/debian/cpanplus_definstalldirs.diff b/meta/recipes-devtools/perl/perl-5.12.2/debian/cpanplus_definstalldirs.diff
-new file mode 100644
-index 0000000..3a1e209
---- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/debian/cpanplus_definstalldirs.diff
-@@ -0,0 +1,52 @@
-+From: Niko Tyni <ntyni@debian.org>
-+Subject: Configure CPANPLUS to use the site directories by default.
-+Closes: 533707
-+    
-+The core modules usually default to INSTALLDIRS=perl (ExtUtils::MakeMaker)
-+or installdirs=core (Module::Build), so we need to explicitly ask for
-+the site destination to get upgraded versions into /usr/local.
-+
-+See also the sister patch, debian/cpan_definstalldirs .
-+
-+---
-+ cpan/CPANPLUS/lib/CPANPLUS/Config/System.pm |   30 +++++++++++++++++++++++++++
-+ 1 files changed, 30 insertions(+), 0 deletions(-)
-+
-+diff --git a/cpan/CPANPLUS/lib/CPANPLUS/Config/System.pm b/cpan/CPANPLUS/lib/CPANPLUS/Config/System.pm
-+new file mode 100644
-+index 0000000..5e6e11e
-+--- /dev/null
-++++ b/cpan/CPANPLUS/lib/CPANPLUS/Config/System.pm
-+@@ -0,0 +1,30 @@
-++### minimal pod, so you can find it with perldoc -l, etc
-++=pod
-++
-++=head1 NAME
-++
-++CPANPLUS::Config::System
-++
-++=head1 DESCRIPTION
-++
-++This is a CPANPLUS configuration file that sets appropriate default
-++settings on Debian systems.
-++
-++The only preconfigured settings are C<makemakerflags> (set to
-++C<INSTALLDIRS=site>) and C<buildflags> (set to C<--installdirs site>).
-++
-++These settings will not have any effect if
-++C</etc/perl/CPANPLUS/Config/System.pm> is present.
-++
-++=cut
-++
-++
-++package CPANPLUS::Config::System;
-++
-++sub setup {
-++    my $conf = shift;
-++    $conf->set_conf( makemakerflags => 'INSTALLDIRS=site' );    
-++    $conf->set_conf( buildflags => '--installdirs site' );    
-++}
-++
-++1;
-+-- 
-+tg: (c823880..) debian/cpanplus_definstalldirs (depends on: upstream)
-diff --git a/meta/recipes-devtools/perl/perl-5.12.2/debian/db_file_ver.diff b/meta/recipes-devtools/perl/perl-5.12.2/debian/db_file_ver.diff
-new file mode 100644
-index 0000000..8d0e61b
---- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/debian/db_file_ver.diff
-@@ -0,0 +1,32 @@
-+Subject: Remove overly restrictive DB_File version check.
-+Bug-Debian: http://bugs.debian.org/340047
-+
-+Package dependencies ensure the correct library is linked at run-time.
-+
-+
-+---
-+ cpan/DB_File/version.c |    2 ++
-+ 1 files changed, 2 insertions(+), 0 deletions(-)
-+
-+diff --git a/cpan/DB_File/version.c b/cpan/DB_File/version.c
-+index 47158d3..67ccdff 100644
-+--- a/cpan/DB_File/version.c
-++++ b/cpan/DB_File/version.c
-+@@ -48,6 +48,7 @@ __getBerkeleyDBInfo()
-+ 
-+     (void)db_version(&Major, &Minor, &Patch) ;
-+ 
-++#ifndef DEBIAN
-+     /* Check that the versions of db.h and libdb.a are the same */
-+     if (Major != DB_VERSION_MAJOR || Minor != DB_VERSION_MINOR )
-+ 		/* || Patch != DB_VERSION_PATCH) */
-+@@ -55,6 +56,7 @@ __getBerkeleyDBInfo()
-+ 	croak("\nDB_File was build with libdb version %d.%d.%d,\nbut you are attempting to run it with libdb version %d.%d.%d\n",
-+ 		DB_VERSION_MAJOR, DB_VERSION_MINOR, DB_VERSION_PATCH, 
-+ 		Major, Minor, Patch) ;
-++#endif /* DEBIAN */
-+     
-+     /* check that libdb is recent enough  -- we need 2.3.4 or greater */
-+     if (Major == 2 && (Minor < 3 || (Minor ==  3 && Patch < 4)))
-+-- 
-+tg: (c823880..) debian/db_file_ver (depends on: upstream)
-diff --git a/meta/recipes-devtools/perl/perl-5.12.2/debian/deprecate-with-apt.diff b/meta/recipes-devtools/perl/perl-5.12.2/debian/deprecate-with-apt.diff
-new file mode 100644
-index 0000000..a515035
---- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/debian/deprecate-with-apt.diff
-@@ -0,0 +1,59 @@
-+From: Niko Tyni <ntyni@debian.org>
-+Subject: Point users to Debian packages of deprecated core modules
-+Bug-Debian: http://bugs.debian.org/580034
-+
-+Class::ISA, Switch, Pod::Plainer, and (partially) Shell were
-+deprecated from the Perl core in 5.12.0.
-+
-+To get a clean transition, perl-modules is going to recommend the separate
-+Debian packages of these for one release cycle so that they will be
-+pulled in by default on upgrades.
-+
-+However, on systems configured to ignore recommendations the deprecation
-+warnings will still be useful, so modify them slightly to point to the
-+separate packages instead.
-+
-+---
-+ lib/deprecate.pm |   18 +++++++++++++++++-
-+ 1 files changed, 17 insertions(+), 1 deletions(-)
-+
-+diff --git a/lib/deprecate.pm b/lib/deprecate.pm
-+index 7b92e0b..9db7330 100644
-+--- a/lib/deprecate.pm
-++++ b/lib/deprecate.pm
-+@@ -7,6 +7,16 @@ our $VERSION = 0.01;
-+ our %Config;
-+ unless (%Config) { require Config; *Config = \%Config::Config; }
-+ 
-++# Debian-specific change: recommend the separate Debian packages of
-++# deprecated modules where available
-++
-++my %DEBIAN_PACKAGES = (
-++    "Class::ISA"	=> "libclass-isa-perl",
-++    "Pod::Plainer"	=> "libpod-plainer-perl",
-++    "Switch"		=> "libswitch-perl",
-++    "Shell"		=> "libshell-perl",
-++);
-++
-+ sub import {
-+     my ($package, $file, $line) = caller;
-+     my $expect_leaf = "$package.pm";
-+@@ -44,9 +54,15 @@ EOM
-+ 	    if (defined $callers_bitmask
-+             	&& (vec($callers_bitmask, $warnings::Offsets{deprecated}, 1)
-+ 		    || vec($callers_bitmask, $warnings::Offsets{all}, 1))) {
-+-		warn <<"EOM";
-++		if (my $deb = $DEBIAN_PACKAGES{$package}) {
-++		    warn <<"EOM";
-++$package will be removed from the Perl core distribution in the next major release. Please install the separate $deb package. It is being used at $call_file, line $call_line.
-++EOM
-++		} else {
-++		    warn <<"EOM";
-+ $package will be removed from the Perl core distribution in the next major release. Please install it from CPAN. It is being used at $call_file, line $call_line.
-+ EOM
-++		}
-+ 	    }
-+ 	    return;
-+ 	}
-+-- 
-+tg: (c823880..) debian/deprecate-with-apt (depends on: upstream)
-diff --git a/meta/recipes-devtools/perl/perl-5.12.2/debian/devel-ppport-ia64-optim.diff b/meta/recipes-devtools/perl/perl-5.12.2/debian/devel-ppport-ia64-optim.diff
-new file mode 100644
-index 0000000..9e4d9cf
---- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/debian/devel-ppport-ia64-optim.diff
-@@ -0,0 +1,32 @@
-+From: Niko Tyni <ntyni@debian.org>
-+Subject: Work around an ICE on ia64
-+Closes: 548943
-+
-+Temporarily work around an internal compiler error in Devel::PPPort
-+on ia64+gcc-4.3.
-+
-+
-+---
-+ cpan/Devel-PPPort/Makefile.PL |    7 +++++++
-+ 1 files changed, 7 insertions(+), 0 deletions(-)
-+
-+diff --git a/cpan/Devel-PPPort/Makefile.PL b/cpan/Devel-PPPort/Makefile.PL
-+index 67eebc1..f1ef7a2 100644
-+--- a/cpan/Devel-PPPort/Makefile.PL
-++++ b/cpan/Devel-PPPort/Makefile.PL
-+@@ -75,6 +75,13 @@ sub configure
-+     push @moreopts, INSTALLDIRS => ($] >= 5.007003 ? 'perl' : 'site');
-+   }
-+ 
-++
-++  # temporary Debian hack, see http://bugs.debian.org/548943
-++  require Config;
-++  if ($Config::Config{archname} =~ /^ia64/) {
-++    push @moreopts, OPTIMIZE => '-g -O0';
-++  }
-++
-+   if ($opt{'apicheck'}) {
-+     $PL_FILES{'apicheck_c.PL'} = 'apicheck.c';
-+     push @C_FILES, qw{ apicheck.c };
-+-- 
-+tg: (c823880..) debian/devel-ppport-ia64-optim (depends on: upstream)
-diff --git a/meta/recipes-devtools/perl/perl-5.12.2/debian/disable-zlib-bundling.diff b/meta/recipes-devtools/perl/perl-5.12.2/debian/disable-zlib-bundling.diff
-new file mode 100644
-index 0000000..f540067
---- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/debian/disable-zlib-bundling.diff
-@@ -0,0 +1,29 @@
-+From: Niko Tyni <ntyni@debian.org>
-+Subject: Disable zlib bundling in Compress::Raw::Zlib
-+
-+Compress::Raw::Zlib statically links its bundled version of zlib
-+by default, but we use the system library instead.
-+
-+---
-+ cpan/Compress-Raw-Zlib/config.in |    6 +++---
-+ 1 files changed, 3 insertions(+), 3 deletions(-)
-+
-+diff --git a/cpan/Compress-Raw-Zlib/config.in b/cpan/Compress-Raw-Zlib/config.in
-+index c56cc03..2c6659b 100644
-+--- a/cpan/Compress-Raw-Zlib/config.in
-++++ b/cpan/Compress-Raw-Zlib/config.in
-+@@ -16,9 +16,9 @@
-+ #    Setting the Gzip OS Code
-+ #
-+ 
-+-BUILD_ZLIB      = True
-+-INCLUDE         = ./zlib-src
-+-LIB             = ./zlib-src
-++BUILD_ZLIB      = False
-++INCLUDE         = /usr/include
-++LIB             = /usr/lib
-+ 
-+ OLD_ZLIB        = False
-+ GZIP_OS_CODE    = AUTO_DETECT
-+-- 
-+tg: (c823880..) debian/disable-zlib-bundling (depends on: upstream)
-diff --git a/meta/recipes-devtools/perl/perl-5.12.2/debian/doc_info.diff b/meta/recipes-devtools/perl/perl-5.12.2/debian/doc_info.diff
-new file mode 100644
-index 0000000..ec7eba9
---- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/debian/doc_info.diff
-@@ -0,0 +1,34 @@
-+Subject: Replace generic man(1) instructions with Debian-specific information.
-+
-+Indicate that the user needs to install the perl-doc package.
-+
-+
-+---
-+ pod/perl.pod |   12 ++++++++++--
-+ 1 files changed, 10 insertions(+), 2 deletions(-)
-+
-+diff --git a/pod/perl.pod b/pod/perl.pod
-+index e48e526..3b0bbf6 100644
-+--- a/pod/perl.pod
-++++ b/pod/perl.pod
-+@@ -241,8 +241,16 @@ For ease of access, the Perl manual has been split up into several sections.
-+     perlwin32		Perl notes for Windows
-+ 
-+ 
-+-On a Unix-like system, these documentation files will usually also be
-+-available as manpages for use with the F<man> program.
-++On Debian systems, you need to install the B<perl-doc> package which
-++contains the majority of the standard Perl documentation and the
-++F<perldoc> program.
-++
-++Extensive additional documentation for Perl modules is available, both
-++those distributed with Perl and third-party modules which are packaged
-++or locally installed.
-++
-++You should be able to view Perl's documentation with your man(1)
-++program or perldoc(1).
-+ 
-+ In general, if something strange has gone wrong with your program and you're
-+ not sure where you should look for help, try the B<-w> switch first.  It will
-+-- 
-+tg: (c823880..) debian/doc_info (depends on: upstream)
-diff --git a/meta/recipes-devtools/perl/perl-5.12.2/debian/enc2xs_inc.diff b/meta/recipes-devtools/perl/perl-5.12.2/debian/enc2xs_inc.diff
-new file mode 100644
-index 0000000..227dc10
---- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/debian/enc2xs_inc.diff
-@@ -0,0 +1,49 @@
-+Subject: Tweak enc2xs to follow symlinks and ignore missing @INC directories.
-+Bug-Debian: http://bugs.debian.org/290336
-+
-+- ignore missing directories,
-+- follow symlinks (/usr/share/perl/5.8 -> 5.8.4).
-+
-+
-+---
-+ cpan/Encode/bin/enc2xs |    8 ++++----
-+ 1 files changed, 4 insertions(+), 4 deletions(-)
-+
-+diff --git a/cpan/Encode/bin/enc2xs b/cpan/Encode/bin/enc2xs
-+index 773c0a0..049ecf9 100644
-+--- a/cpan/Encode/bin/enc2xs
-++++ b/cpan/Encode/bin/enc2xs
-+@@ -924,11 +924,11 @@ use vars qw(
-+ sub find_e2x{
-+     eval { require File::Find; };
-+     my (@inc, %e2x_dir);
-+-    for my $inc (@INC){
-++    for my $inc (grep -d, @INC){
-+     push @inc, $inc unless $inc eq '.'; #skip current dir
-+     }
-+     File::Find::find(
-+-         sub {
-++         { wanted => sub {
-+          my ($dev,$ino,$mode,$nlink,$uid,$gid,$rdev,$size,
-+              $atime,$mtime,$ctime,$blksize,$blocks)
-+              = lstat($_) or return;
-+@@ -938,7 +938,7 @@ sub find_e2x{
-+              $e2x_dir{$File::Find::dir} ||= $mtime;
-+          }
-+          return;
-+-         }, @inc);
-++         }, follow => 1}, @inc);
-+     warn join("\n", keys %e2x_dir), "\n";
-+     for my $d (sort {$e2x_dir{$a} <=> $e2x_dir{$b}} keys %e2x_dir){
-+     $_E2X = $d;
-+@@ -1005,7 +1005,7 @@ sub make_configlocal_pm {
-+ 	    $LocalMod{$enc} ||= $mod;
-+ 	}
-+     };
-+-    File::Find::find({wanted => $wanted}, @INC);
-++    File::Find::find({wanted => $wanted, follow => 1}, grep -d, @INC);
-+     $_ModLines = "";
-+     for my $enc ( sort keys %LocalMod ) {
-+         $_ModLines .=
-+-- 
-+tg: (c823880..) debian/enc2xs_inc (depends on: upstream)
-diff --git a/meta/recipes-devtools/perl/perl-5.12.2/debian/errno_ver.diff b/meta/recipes-devtools/perl/perl-5.12.2/debian/errno_ver.diff
-new file mode 100644
-index 0000000..f437008
---- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/debian/errno_ver.diff
-@@ -0,0 +1,32 @@
-+Subject: Remove Errno version check due to upgrade problems with long-running processes.
-+Bug-Debian: http://bugs.debian.org/343351
-+
-+Remove version check which can cause problems for long running
-+processes embedding perl when upgrading to a newer version,
-+compatible, but built on a different machine.
-+
-+
-+---
-+ ext/Errno/Errno_pm.PL |    5 -----
-+ 1 files changed, 0 insertions(+), 5 deletions(-)
-+
-+diff --git a/ext/Errno/Errno_pm.PL b/ext/Errno/Errno_pm.PL
-+index 124b8fc..b554cd4 100644
-+--- a/ext/Errno/Errno_pm.PL
-++++ b/ext/Errno/Errno_pm.PL
-+@@ -341,13 +341,8 @@ EOF
-+ package Errno;
-+ our (\@EXPORT_OK,\%EXPORT_TAGS,\@ISA,\$VERSION,\%errno,\$AUTOLOAD);
-+ use Exporter ();
-+-use Config;
-+ use strict;
-+ 
-+-"\$Config{'archname'}-\$Config{'osvers'}" eq
-+-"$Config{'archname'}-$Config{'osvers'}" or
-+-	die "Errno architecture ($Config{'archname'}-$Config{'osvers'}) does not match executable architecture (\$Config{'archname'}-\$Config{'osvers'})";
-+-
-+ \$VERSION = "$VERSION";
-+ \$VERSION = eval \$VERSION;
-+ \@ISA = qw(Exporter);
-+-- 
-+tg: (c823880..) debian/errno_ver (depends on: upstream)
-diff --git a/meta/recipes-devtools/perl/perl-5.8.8/52_debian_extutils_hacks.patch b/meta/recipes-devtools/perl/perl-5.12.2/debian/extutils_hacks.diff
-similarity index 55%
-rename from meta/recipes-devtools/perl/perl-5.8.8/52_debian_extutils_hacks.patch
-rename to meta/recipes-devtools/perl/perl-5.12.2/debian/extutils_hacks.diff
-index 8a964f9..9134cac 100644
---- a/meta/recipes-devtools/perl/perl-5.8.8/52_debian_extutils_hacks.patch
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/debian/extutils_hacks.diff
-@@ -1,4 +1,4 @@
--Various debian-specific ExtUtils changes:
-+Subject: Various debian-specific ExtUtils changes
- 
-  * Respect umask during installation, and set as appropriate for each of
-    perl, vendor and site (policy requires group writable site dirs).
-@@ -11,38 +11,23 @@ Various debian-specific ExtUtils changes:
- 
-  * Set location of libperl.a to /usr/lib.
-  * Note that libperl-dev package is required for embedded linking.
-+ * Change install target dependencies to facilitate parallel makes.
- 
--diff -Naur --exclude=debian perl-5.8.8.orig/lib/ExtUtils/Embed.pm perl-5.8.8/lib/ExtUtils/Embed.pm
----- perl-5.8.8.orig/lib/ExtUtils/Embed.pm	2004-08-03 20:41:49.000000000 +1000
--+++ perl-5.8.8/lib/ExtUtils/Embed.pm	2006-02-05 10:42:11.000000000 +1100
--@@ -300,6 +300,9 @@
-- Typically, an application B<Makefile> will invoke ExtUtils::Embed
-- functions while building your application.  
-- 
--+Note that on Debian systems the B<libperl-dev> package is required for
--+compiling applications which embed an interpreter.
--+
-- =head1 @EXPORT
-- 
-- ExtUtils::Embed exports the following functions:
--diff -Naur --exclude=debian perl-5.8.8.orig/lib/ExtUtils/Install.pm perl-5.8.8/lib/ExtUtils/Install.pm
----- perl-5.8.8.orig/lib/ExtUtils/Install.pm	2005-10-21 22:00:01.000000000 +1000
--+++ perl-5.8.8/lib/ExtUtils/Install.pm	2006-02-05 10:42:11.000000000 +1100
--@@ -173,8 +173,8 @@
-- 		if (-f $targetfile){
-- 		    forceunlink($targetfile) unless $nonono;
-- 		} else {
---		    mkpath($targetdir,0,0755) unless $nonono;
---		    print "mkpath($targetdir,0,0755)\n" if $verbose>1;
--+		    mkpath($targetdir) unless $nonono;
--+		    print "mkpath($targetdir)\n" if $verbose>1;
-- 		}
-- 		copy($sourcefile, $targetfile) unless $nonono;
-- 		print "Installing $targetfile\n";
--diff -Naur --exclude=debian perl-5.8.8.orig/lib/ExtUtils/MM_Any.pm perl-5.8.8/lib/ExtUtils/MM_Any.pm
----- perl-5.8.8.orig/lib/ExtUtils/MM_Any.pm	2005-04-13 17:49:53.000000000 +1000
--+++ perl-5.8.8/lib/ExtUtils/MM_Any.pm	2006-02-05 11:17:52.000000000 +1100
--@@ -645,8 +645,6 @@
-+
-+---
-+ cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Any.pm  |   12 +++---
-+ cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm |   44 +++++-----------------
-+ cpan/ExtUtils-MakeMaker/t/INST.t                |    4 +--
-+ cpan/ExtUtils-MakeMaker/t/INST_PREFIX.t         |   10 +++---
-+ dist/ExtUtils-Install/lib/ExtUtils/Install.pm   |   18 +++++-----
-+ lib/ExtUtils/Embed.pm                           |    3 ++
-+ 6 files changed, 34 insertions(+), 57 deletions(-)
-+
-+diff --git a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Any.pm b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Any.pm
-+index 4905aeb..a80ac20 100644
-+--- a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Any.pm
-++++ b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Any.pm
-+@@ -701,8 +701,6 @@ all POD files in MAN1PODS and MAN3PODS.
-  sub manifypods_target {
-      my($self) = shift;
-  
-@@ -51,7 +36,7 @@ diff -Naur --exclude=debian perl-5.8.8.orig/lib/ExtUtils/MM_Any.pm perl-5.8.8/li
-      my $dependencies  = '';
-  
-      # populate manXpods & dependencies:
--@@ -666,7 +664,7 @@
-+@@ -718,7 +716,7 @@ END
-      foreach my $section (qw(1 3)) {
-          my $pods = $self->{"MAN${section}PODS"};
-          push @man_cmds, $self->split_command(<<CMD, %$pods);
-@@ -60,7 +45,7 @@ diff -Naur --exclude=debian perl-5.8.8.orig/lib/ExtUtils/MM_Any.pm perl-5.8.8/li
-  CMD
-      }
-  
--@@ -1080,9 +1078,11 @@
-+@@ -1428,9 +1426,11 @@ sub init_INSTALL_from_PREFIX {
-          $self->{SITEPREFIX}   ||= $sprefix;
-          $self->{VENDORPREFIX} ||= $vprefix;
-  
-@@ -75,13 +60,14 @@ diff -Naur --exclude=debian perl-5.8.8.orig/lib/ExtUtils/MM_Any.pm perl-5.8.8/li
-      }
-  
-      my $arch    = $Config{archname};
--diff -Naur --exclude=debian perl-5.8.8.orig/lib/ExtUtils/MM_Unix.pm perl-5.8.8/lib/ExtUtils/MM_Unix.pm
----- perl-5.8.8.orig/lib/ExtUtils/MM_Unix.pm	2005-05-21 19:42:56.000000000 +1000
--+++ perl-5.8.8/lib/ExtUtils/MM_Unix.pm	2006-02-05 17:40:19.000000000 +1100
--@@ -2054,9 +2054,7 @@
-+diff --git a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
-+index 239d6df..940de38 100644
-+--- a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
-++++ b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
-+@@ -2046,9 +2046,7 @@ doc__install : doc_site_install
-  	$(NOECHO) $(ECHO) INSTALLDIRS not defined, defaulting to INSTALLDIRS=site
-  
-- pure_perl_install ::
-+ pure_perl_install :: all
- -	$(NOECHO) $(MOD_INSTALL) \
- -		read }.$self->catfile('$(PERL_ARCHLIB)','auto','$(FULLEXT)','.packlist').q{ \
- -		write }.$self->catfile('$(DESTINSTALLARCHLIB)','auto','$(FULLEXT)','.packlist').q{ \
-@@ -89,19 +75,19 @@ diff -Naur --exclude=debian perl-5.8.8.orig/lib/ExtUtils/MM_Unix.pm perl-5.8.8/l
-  		$(INST_LIB) $(DESTINSTALLPRIVLIB) \
-  		$(INST_ARCHLIB) $(DESTINSTALLARCHLIB) \
-  		$(INST_BIN) $(DESTINSTALLBIN) \
--@@ -2068,7 +2066,7 @@
-+@@ -2060,7 +2058,7 @@ pure_perl_install :: all
-  
-  
-- pure_site_install ::
-+ pure_site_install :: all
- -	$(NOECHO) $(MOD_INSTALL) \
- +	$(NOECHO) umask 02; $(MOD_INSTALL) \
-  		read }.$self->catfile('$(SITEARCHEXP)','auto','$(FULLEXT)','.packlist').q{ \
-  		write }.$self->catfile('$(DESTINSTALLSITEARCH)','auto','$(FULLEXT)','.packlist').q{ \
-  		$(INST_LIB) $(DESTINSTALLSITELIB) \
--@@ -2081,9 +2079,7 @@
-+@@ -2073,9 +2071,7 @@ pure_site_install :: all
-  		}.$self->catdir('$(PERL_ARCHLIB)','auto','$(FULLEXT)').q{
-  
-- pure_vendor_install ::
-+ pure_vendor_install :: all
- -	$(NOECHO) $(MOD_INSTALL) \
- -		read }.$self->catfile('$(VENDORARCHEXP)','auto','$(FULLEXT)','.packlist').q{ \
- -		write }.$self->catfile('$(DESTINSTALLVENDORARCH)','auto','$(FULLEXT)','.packlist').q{ \
-@@ -109,10 +95,10 @@ diff -Naur --exclude=debian perl-5.8.8.orig/lib/ExtUtils/MM_Unix.pm perl-5.8.8/l
-  		$(INST_LIB) $(DESTINSTALLVENDORLIB) \
-  		$(INST_ARCHLIB) $(DESTINSTALLVENDORARCH) \
-  		$(INST_BIN) $(DESTINSTALLVENDORBIN) \
--@@ -2092,37 +2088,19 @@
-+@@ -2084,37 +2080,19 @@ pure_vendor_install :: all
-  		$(INST_MAN3DIR) $(DESTINSTALLVENDORMAN3DIR)
-  
-- doc_perl_install ::
-+ doc_perl_install :: all
- -	$(NOECHO) $(ECHO) Appending installation info to $(DESTINSTALLARCHLIB)/perllocal.pod
- -	-$(NOECHO) $(MKPATH) $(DESTINSTALLARCHLIB)
- -	-$(NOECHO) $(DOC_INSTALL) \
-@@ -123,7 +109,7 @@ diff -Naur --exclude=debian perl-5.8.8.orig/lib/ExtUtils/MM_Unix.pm perl-5.8.8/l
- -		EXE_FILES "$(EXE_FILES)" \
- -		>> }.$self->catfile('$(DESTINSTALLARCHLIB)','perllocal.pod').q{
-  
-- doc_site_install ::
-+ doc_site_install :: all
- -	$(NOECHO) $(ECHO) Appending installation info to $(DESTINSTALLARCHLIB)/perllocal.pod
- -	-$(NOECHO) $(MKPATH) $(DESTINSTALLARCHLIB)
- -	-$(NOECHO) $(DOC_INSTALL) \
-@@ -138,7 +124,7 @@ diff -Naur --exclude=debian perl-5.8.8.orig/lib/ExtUtils/MM_Unix.pm perl-5.8.8/l
- -		>> }.$self->catfile('$(DESTINSTALLARCHLIB)','perllocal.pod').q{
- +		>> }.$self->catfile('$(DESTINSTALLSITEARCH)','perllocal.pod').q{
-  
-- doc_vendor_install ::
-+ doc_vendor_install :: all
- -	$(NOECHO) $(ECHO) Appending installation info to $(DESTINSTALLARCHLIB)/perllocal.pod
- -	-$(NOECHO) $(MKPATH) $(DESTINSTALLARCHLIB)
- -	-$(NOECHO) $(DOC_INSTALL) \
-@@ -151,7 +137,7 @@ diff -Naur --exclude=debian perl-5.8.8.orig/lib/ExtUtils/MM_Unix.pm perl-5.8.8/l
-  
-  };
-  
--@@ -2131,13 +2109,12 @@
-+@@ -2123,13 +2101,12 @@ uninstall :: uninstall_from_$(INSTALLDIRS)dirs
-  	$(NOECHO) $(NOOP)
-  
-  uninstall_from_perldirs ::
-@@ -166,7 +152,7 @@ diff -Naur --exclude=debian perl-5.8.8.orig/lib/ExtUtils/MM_Unix.pm perl-5.8.8/l
-  };
-  
-      join("",@m);
--@@ -2415,7 +2392,7 @@
-+@@ -2402,7 +2379,7 @@ MAP_PRELIBS   = $Config{perllibs} $Config{cryptlib}
-  	($lperl = $libperl) =~ s/\$\(A\)/$self->{LIB_EXT}/;
-      }
-      unless ($libperl && -f $lperl) { # Ilya's code...
-@@ -175,20 +161,21 @@ diff -Naur --exclude=debian perl-5.8.8.orig/lib/ExtUtils/MM_Unix.pm perl-5.8.8/l
-  	$dir = "$self->{PERL_ARCHLIB}/.." if $self->{UNINSTALLED_PERL};
-  	$libperl ||= "libperl$self->{LIB_EXT}";
-  	$libperl   = "$dir/$libperl";
--@@ -3007,8 +2984,7 @@
-+@@ -2998,8 +2975,7 @@ sub prefixify {
-      print STDERR "  prefixify $var => $path\n" if $Verbose >= 2;
-      print STDERR "    from $sprefix to $rprefix\n" if $Verbose >= 2;
-  
---    if( $self->{ARGS}{PREFIX} && $self->file_name_is_absolute($path) && 
-+-    if( $self->{ARGS}{PREFIX} &&
- -        $path !~ s{^\Q$sprefix\E\b}{$rprefix}s ) 
- +    if( $path !~ s{^\Q$sprefix\E\b}{$rprefix}s && $self->{ARGS}{PREFIX} )
-      {
-  
-          print STDERR "    cannot prefix, using default.\n" if $Verbose >= 2;
--diff -Naur --exclude=debian perl-5.8.8.orig/lib/ExtUtils/t/INST.t perl-5.8.8/lib/ExtUtils/t/INST.t
----- perl-5.8.8.orig/lib/ExtUtils/t/INST.t	2005-10-21 19:12:39.000000000 +1000
--+++ perl-5.8.8/lib/ExtUtils/t/INST.t	2006-02-05 17:48:56.000000000 +1100
--@@ -65,9 +65,7 @@
-+diff --git a/cpan/ExtUtils-MakeMaker/t/INST.t b/cpan/ExtUtils-MakeMaker/t/INST.t
-+index 8a140eb..cf1410e 100755
-+--- a/cpan/ExtUtils-MakeMaker/t/INST.t
-++++ b/cpan/ExtUtils-MakeMaker/t/INST.t
-+@@ -59,9 +59,7 @@ isa_ok( $mm, 'ExtUtils::MakeMaker' );
-  is( $mm->{NAME}, 'Big::Dummy',  'NAME' );
-  is( $mm->{VERSION}, 0.01,            'VERSION' );
-  
-@@ -199,10 +186,11 @@ diff -Naur --exclude=debian perl-5.8.8.orig/lib/ExtUtils/t/INST.t perl-5.8.8/lib
-  
-  is( !!$mm->{PERL_CORE}, !!$ENV{PERL_CORE}, 'PERL_CORE' );
-  
--diff -Naur --exclude=debian perl-5.8.8.orig/lib/ExtUtils/t/INST_PREFIX.t perl-5.8.8/lib/ExtUtils/t/INST_PREFIX.t
----- perl-5.8.8.orig/lib/ExtUtils/t/INST_PREFIX.t	2005-10-21 22:00:19.000000000 +1000
--+++ perl-5.8.8/lib/ExtUtils/t/INST_PREFIX.t	2006-02-05 17:48:06.000000000 +1100
--@@ -16,7 +16,7 @@
-+diff --git a/cpan/ExtUtils-MakeMaker/t/INST_PREFIX.t b/cpan/ExtUtils-MakeMaker/t/INST_PREFIX.t
-+index 8bb9db8..316546d 100755
-+--- a/cpan/ExtUtils-MakeMaker/t/INST_PREFIX.t
-++++ b/cpan/ExtUtils-MakeMaker/t/INST_PREFIX.t
-+@@ -10,7 +10,7 @@ BEGIN {
-  }
-  
-  use strict;
-@@ -211,7 +199,7 @@ diff -Naur --exclude=debian perl-5.8.8.orig/lib/ExtUtils/t/INST_PREFIX.t perl-5.
-  use MakeMaker::Test::Utils;
-  use MakeMaker::Test::Setup::BFD;
-  use ExtUtils::MakeMaker;
--@@ -62,16 +62,16 @@
-+@@ -56,16 +56,16 @@ like( $stdout->read, qr{
-                          Writing\ $Makefile\ for\ Big::Dummy\n
-  }x );
-  
-@@ -232,3 +220,94 @@ diff -Naur --exclude=debian perl-5.8.8.orig/lib/ExtUtils/t/INST_PREFIX.t perl-5.
-  
-  
-  my $PREFIX = File::Spec->catdir('foo', 'bar');
-+diff --git a/dist/ExtUtils-Install/lib/ExtUtils/Install.pm b/dist/ExtUtils-Install/lib/ExtUtils/Install.pm
-+index da58365..d6d5c11 100644
-+--- a/dist/ExtUtils-Install/lib/ExtUtils/Install.pm
-++++ b/dist/ExtUtils-Install/lib/ExtUtils/Install.pm
-+@@ -468,7 +468,7 @@ sub _can_write_dir {
-+ 
-+ =pod
-+ 
-+-=item _mkpath($dir,$show,$mode,$verbose,$dry_run)
-++=item _mkpath($dir,$show,$verbose,$dry_run)
-+ 
-+ Wrapper around File::Path::mkpath() to handle errors.
-+ 
-+@@ -485,13 +485,13 @@ writable.
-+ =cut
-+ 
-+ sub _mkpath {
-+-    my ($dir,$show,$mode,$verbose,$dry_run)=@_;
-++    my ($dir,$show,$verbose,$dry_run)=@_;
-+     if ( $verbose && $verbose > 1 && ! -d $dir) {
-+         $show= 1;
-+-        printf "mkpath(%s,%d,%#o)\n", $dir, $show, $mode;
-++        printf "mkpath(%s,%d)\n", $dir, $show;
-+     }
-+     if (!$dry_run) {
-+-        if ( ! eval { File::Path::mkpath($dir,$show,$mode); 1 } ) {
-++        if ( ! eval { File::Path::mkpath($dir,$show); 1 } ) {
-+             _choke("Can't create '$dir'","$@");
-+         }
-+ 
-+@@ -796,7 +796,7 @@ sub install { #XXX OS-SPECIFIC
-+         _chdir($cwd);
-+     }
-+     foreach my $targetdir (sort keys %check_dirs) {
-+-        _mkpath( $targetdir, 0, 0755, $verbose, $dry_run );
-++        _mkpath( $targetdir, 0, $verbose, $dry_run );
-+     }
-+     foreach my $found (@found_files) {
-+         my ($diff, $ffd, $origfile, $mode, $size, $atime, $mtime,
-+@@ -810,7 +810,7 @@ sub install { #XXX OS-SPECIFIC
-+                     $targetfile= _unlink_or_rename( $targetfile, 'tryhard', 'install' )
-+                         unless $dry_run;
-+                 } elsif ( ! -d $targetdir ) {
-+-                    _mkpath( $targetdir, 0, 0755, $verbose, $dry_run );
-++                    _mkpath( $targetdir, 0, $verbose, $dry_run );
-+                 }
-+                 print "Installing $targetfile\n";
-+ 
-+@@ -850,7 +850,7 @@ sub install { #XXX OS-SPECIFIC
-+ 
-+     if ($pack{'write'}) {
-+         $dir = install_rooted_dir(dirname($pack{'write'}));
-+-        _mkpath( $dir, 0, 0755, $verbose, $dry_run );
-++        _mkpath( $dir, 0, $verbose, $dry_run );
-+         print "Writing $pack{'write'}\n" if $verbose;
-+         $packlist->write(install_rooted_file($pack{'write'})) unless $dry_run;
-+     }
-+@@ -1190,7 +1190,7 @@ be prepended as a directory to each installed file (and directory).
-+ sub pm_to_blib {
-+     my($fromto,$autodir,$pm_filter) = @_;
-+ 
-+-    _mkpath($autodir,0,0755);
-++    _mkpath($autodir,0);
-+     while(my($from, $to) = each %$fromto) {
-+         if( -f $to && -s $from == -s $to && -M $to < -M $from ) {
-+             print "Skip $to (unchanged)\n";
-+@@ -1213,7 +1213,7 @@ sub pm_to_blib {
-+             # we wont try hard here. its too likely to mess things up.
-+             forceunlink($to);
-+         } else {
-+-            _mkpath(dirname($to),0,0755);
-++            _mkpath(dirname($to),0);
-+         }
-+         if ($need_filtering) {
-+             run_filter($pm_filter, $from, $to);
-+diff --git a/lib/ExtUtils/Embed.pm b/lib/ExtUtils/Embed.pm
-+index 24ae909..12d421d 100644
-+--- a/lib/ExtUtils/Embed.pm
-++++ b/lib/ExtUtils/Embed.pm
-+@@ -305,6 +305,9 @@ and extensions in your C/C++ applications.
-+ Typically, an application B<Makefile> will invoke ExtUtils::Embed
-+ functions while building your application.  
-+ 
-++Note that on Debian systems the B<libperl-dev> package is required for
-++compiling applications which embed an interpreter.
-++
-+ =head1 @EXPORT
-+ 
-+ ExtUtils::Embed exports the following functions:
-+-- 
-+tg: (c823880..) debian/extutils_hacks (depends on: upstream)
-diff --git a/meta/recipes-devtools/perl/perl-5.12.2/debian/fakeroot.diff b/meta/recipes-devtools/perl/perl-5.12.2/debian/fakeroot.diff
-new file mode 100644
-index 0000000..e3430ce
---- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/debian/fakeroot.diff
-@@ -0,0 +1,43 @@
-+Subject: Postpone LD_LIBRARY_PATH evaluation to the binary targets.
-+
-+Modify the setting of LD_LIBRARY_PATH to append pre-existing values at the
-+time the rule is evaluated rather than when the Makefile is created.
-+
-+This is required when building packages with dpkg-buildpackage and fakeroot,
-+since fakeroot (which now sets LD_LIBRARY_PATH) is not used for the "build"
-+rule where the Makefile is created, but is for the clean/binary* targets.
-+
-+
-+---
-+ Makefile.SH |    9 ++-------
-+ 1 files changed, 2 insertions(+), 7 deletions(-)
-+
-+diff --git a/Makefile.SH b/Makefile.SH
-+index c039938..15184d8 100755
-+--- a/Makefile.SH
-++++ b/Makefile.SH
-+@@ -50,12 +50,7 @@ case "$useshrplib" in
-+ true)
-+ 	# Prefix all runs of 'miniperl' and 'perl' with
-+ 	# $ldlibpth so that ./perl finds *this* shared libperl.
-+-	case "$LD_LIBRARY_PATH" in
-+-	'')
-+-		ldlibpth="LD_LIBRARY_PATH=`pwd`";;
-+-	*)
-+-		ldlibpth="LD_LIBRARY_PATH=`pwd`:${LD_LIBRARY_PATH}";;
-+-	esac
-++	ldlibpth=LD_LIBRARY_PATH=`pwd`'$${LD_LIBRARY_PATH:+:}$$LD_LIBRARY_PATH'
-+ 
-+ 	pldlflags="$cccdlflags"
-+ 	static_ldflags=''
-+@@ -126,7 +121,7 @@ true)
-+ 	    ;;
-+ 	esac
-+ 	case "$ldlibpthname" in
-+-	'') ;;
-++	''|LD_LIBRARY_PATH) ;;
-+ 	*)
-+ 	    case "$osname" in
-+ 	    os2)
-+-- 
-+tg: (c823880..) debian/fakeroot (depends on: upstream)
-diff --git a/meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/autodie-flock.diff b/meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/autodie-flock.diff
-new file mode 100644
-index 0000000..f8908ac
---- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/autodie-flock.diff
-@@ -0,0 +1,98 @@
-+From: Niko Tyni <ntyni@debian.org>
-+Subject: Allow for flock returning EAGAIN instead of EWOULDBLOCK on linux/parisc
-+Bug-Debian: http://bugs.debian.org/543731
-+Origin: upstream, http://github.com/pfenwick/autodie/commit/037738e11a6097734b0e1dabdd77b92e5fe35219
-+
-+
-+---
-+ cpan/autodie/lib/Fatal.pm |   14 +++++++++++++-
-+ cpan/autodie/t/flock.t    |   12 ++++++++++--
-+ 2 files changed, 23 insertions(+), 3 deletions(-)
-+
-+diff --git a/cpan/autodie/lib/Fatal.pm b/cpan/autodie/lib/Fatal.pm
-+old mode 100644
-+new mode 100755
-+index 18e71ed..c17a257
-+--- a/cpan/autodie/lib/Fatal.pm
-++++ b/cpan/autodie/lib/Fatal.pm
-+@@ -5,6 +5,7 @@ use Carp;
-+ use strict;
-+ use warnings;
-+ use Tie::RefHash;   # To cache subroutine refs
-++use Config;
-+ 
-+ use constant PERL510     => ( $] >= 5.010 );
-+ 
-+@@ -52,6 +53,10 @@ our %_EWOULDBLOCK = (
-+     MSWin32 => 33,
-+ );
-+ 
-++# the linux parisc port has separate EAGAIN and EWOULDBLOCK,
-++# and the kernel returns EAGAIN
-++my $try_EAGAIN = ($^O eq 'linux' and $Config{archname} =~ /hppa|parisc/) ? 1 : 0;
-++
-+ # We have some tags that can be passed in for use with import.
-+ # These are all assumed to be CORE::
-+ 
-+@@ -720,6 +725,11 @@ sub _one_invocation {
-+         my $EWOULDBLOCK = eval { POSIX::EWOULDBLOCK(); }
-+                           || $_EWOULDBLOCK{$^O}
-+                           || _autocroak("Internal error - can't overload flock - EWOULDBLOCK not defined on this system.");
-++        my $EAGAIN = $EWOULDBLOCK;
-++        if ($try_EAGAIN) {
-++            $EAGAIN = eval { POSIX::EAGAIN(); }
-++                          || _autocroak("Internal error - can't overload flock - EAGAIN not defined on this system.");
-++        }
-+ 
-+         require Fcntl;      # For Fcntl::LOCK_NB
-+ 
-+@@ -735,7 +745,9 @@ sub _one_invocation {
-+             # If we failed, but we're using LOCK_NB and
-+             # returned EWOULDBLOCK, it's not a real error.
-+ 
-+-            if (\$_[1] & Fcntl::LOCK_NB() and \$! == $EWOULDBLOCK ) {
-++            if (\$_[1] & Fcntl::LOCK_NB() and
-++                (\$! == $EWOULDBLOCK or
-++                ($try_EAGAIN and \$! == $EAGAIN ))) {
-+                 return \$retval;
-+             }
-+ 
-+diff --git a/cpan/autodie/t/flock.t b/cpan/autodie/t/flock.t
-+index a7550ba..6421a56 100755
-+--- a/cpan/autodie/t/flock.t
-++++ b/cpan/autodie/t/flock.t
-+@@ -2,7 +2,8 @@
-+ use strict;
-+ use Test::More;
-+ use Fcntl qw(:flock);
-+-use POSIX qw(EWOULDBLOCK);
-++use POSIX qw(EWOULDBLOCK EAGAIN);
-++use Config;
-+ 
-+ require Fatal;
-+ 
-+@@ -10,6 +11,9 @@ my $EWOULDBLOCK = eval { EWOULDBLOCK() }
-+                   || $Fatal::_EWOULDBLOCK{$^O}
-+                   || plan skip_all => "EWOULDBLOCK not defined on this system";
-+ 
-++my $try_EAGAIN = ($^O eq 'linux' and $Config{archname} =~ /hppa|parisc/) ? 1 : 0;
-++my $EAGAIN = eval { EAGAIN() };
-++
-+ my ($self_fh, $self_fh2);
-+ 
-+ eval {
-+@@ -55,7 +59,11 @@ eval {
-+     $return = flock($self_fh2, LOCK_EX | LOCK_NB);
-+ };
-+ 
-+-is($!+0, $EWOULDBLOCK, "Double-flocking should be EWOULDBLOCK");
-++if (!$try_EAGAIN) {
-++    is($!+0, $EWOULDBLOCK, "Double-flocking should be EWOULDBLOCK");
-++} else {
-++    ok($!+0 == $EWOULDBLOCK || $!+0 == $EAGAIN, "Double-flocking should be EWOULDBLOCK or EAGAIN");
-++}
-+ ok(!$return, "flocking a file twice should fail");
-+ is($@, "", "Non-blocking flock should not fail on EWOULDBLOCK");
-+ 
-+-- 
-+tg: (c823880..) fixes/autodie-flock (depends on: upstream)
-diff --git a/meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/concat-stack-corruption.diff b/meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/concat-stack-corruption.diff
-new file mode 100644
-index 0000000..6feb840
---- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/concat-stack-corruption.diff
-@@ -0,0 +1,37 @@
-+From: Niko Tyni <ntyni@debian.org>
-+Subject: Fix stack pointer corruption in pp_concat() with 'use encoding'
-+Bug-Debian: http://bugs.debian.org/596105
-+Bug: http://rt.perl.org/rt3/Ticket/Display.html?id=78674
-+Origin: upstream, http://perl5.git.perl.org/perl.git/commit/e3393f51d48d8b790e26324eb0336fac9689fa46
-+
-+If the stack is reallocated during pp_concat() and 'use encoding' in
-+effect, the stack pointer gets corrupted, causing memory allocation bugs
-+and the like.
-+
-+---
-+ pp_hot.c |    3 +++
-+ 1 files changed, 3 insertions(+), 0 deletions(-)
-+
-+diff --git a/pp_hot.c b/pp_hot.c
-+index 3371e88..e9cccf3 100644
-+--- a/pp_hot.c
-++++ b/pp_hot.c
-+@@ -271,6 +271,8 @@ PP(pp_concat)
-+ 	rbyte = !DO_UTF8(right);
-+     }
-+     if (lbyte != rbyte) {
-++	/* sv_utf8_upgrade_nomg() may reallocate the stack */
-++	PUTBACK;
-+ 	if (lbyte)
-+ 	    sv_utf8_upgrade_nomg(TARG);
-+ 	else {
-+@@ -279,6 +281,7 @@ PP(pp_concat)
-+ 	    sv_utf8_upgrade_nomg(right);
-+ 	    rpv = SvPV_const(right, rlen);
-+ 	}
-++	SPAGAIN;
-+     }
-+     sv_catpvn_nomg(TARG, rpv, rlen);
-+ 
-+-- 
-+tg: (c823880..) fixes/concat-stack-corruption (depends on: upstream)
-diff --git a/meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/cpanplus-without-home.diff b/meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/cpanplus-without-home.diff
-new file mode 100644
-index 0000000..5f85894
---- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/cpanplus-without-home.diff
-@@ -0,0 +1,30 @@
-+From: Niko Tyni <ntyni@debian.org>
-+Subject: Fix CPANPLUS test failures when HOME doesn't exist
-+Bug: http://rt.cpan.org/Public/Bug/Display.html?id=52988
-+Bug-Debian: http://bugs.debian.org/577011
-+Origin: upstream
-+
-+The Debian autobuilders are configured with a non-existing $ENV{HOME},
-+triggering a bug in CPANPLUS that causes test failures.
-+
-+Fix from CPANPLUS-0.9001.
-+
-+---
-+ cpan/CPANPLUS/lib/CPANPLUS/Internals/Utils.pm |    2 +-
-+ 1 files changed, 1 insertions(+), 1 deletions(-)
-+
-+diff --git a/cpan/CPANPLUS/lib/CPANPLUS/Internals/Utils.pm b/cpan/CPANPLUS/lib/CPANPLUS/Internals/Utils.pm
-+index 27d2abc..8475c36 100644
-+--- a/cpan/CPANPLUS/lib/CPANPLUS/Internals/Utils.pm
-++++ b/cpan/CPANPLUS/lib/CPANPLUS/Internals/Utils.pm
-+@@ -5,7 +5,7 @@ use strict;
-+ use CPANPLUS::Error;
-+ use CPANPLUS::Internals::Constants;
-+ 
-+-use Cwd qw[chdir];
-++use Cwd                         qw[chdir cwd];
-+ use File::Copy;
-+ use Params::Check               qw[check];
-+ use Module::Load::Conditional   qw[can_load];
-+-- 
-+tg: (c823880..) fixes/cpanplus-without-home (depends on: upstream)
-diff --git a/meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/h2ph-gcc-4.5.diff b/meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/h2ph-gcc-4.5.diff
-new file mode 100644
-index 0000000..c2baf2f
---- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/h2ph-gcc-4.5.diff
-@@ -0,0 +1,106 @@
-+Author: Robin Barker <rmbarker@cpan.org>
-+Subject: h2ph fix for gcc 4.5
-+Bug-Debian: http://bugs.debian.org/599933
-+Origin: upstream, http://perl5.git.perl.org/perl.git/commit/8d66b3f930dc6d88b524d103e304308ae73a46e7 
-+
-+Fix h2ph and test. Needed to build with GCC 4.5.
-+
-+
-+---
-+ lib/h2ph.t    |   12 ++++++++++--
-+ utils/h2ph.PL |   28 +++++++++++++++++++++++-----
-+ 2 files changed, 33 insertions(+), 7 deletions(-)
-+
-+diff --git a/lib/h2ph.t b/lib/h2ph.t
-+index 27dd7b9..8d62d46 100755
-+--- a/lib/h2ph.t
-++++ b/lib/h2ph.t
-+@@ -18,7 +18,7 @@ if (!(-e $extracted_program)) {
-+     exit 0;
-+ }
-+ 
-+-plan(4);
-++plan(5);
-+ 
-+ # quickly compare two text files
-+ sub txt_compare {
-+@@ -41,8 +41,16 @@ $result = runperl( progfile => 'lib/h2ph.pht',
-+                    stderr => 1 );
-+ like( $result, qr/syntax OK$/, "output compiles");
-+ 
-++$result = runperl( progfile => '_h2ph_pre.ph',
-++                   switches => ['-c'],
-++                   stderr => 1 );
-++like( $result, qr/syntax OK$/, "preamble compiles");
-++
-+ $result = runperl( switches => ["-w"], 
-+-                   prog => '$SIG{__WARN__} = sub { die $_[0] }; require q(lib/h2ph.pht);');
-++                   stderr => 1,
-++                   prog => <<'PROG' );
-++$SIG{__WARN__} = sub { die $_[0] }; require q(lib/h2ph.pht);
-++PROG
-+ is( $result, '', "output free of warnings" );
-+ 
-+ # cleanup
-+diff --git a/utils/h2ph.PL b/utils/h2ph.PL
-+index 8f56db4..1255807 100644
-+--- a/utils/h2ph.PL
-++++ b/utils/h2ph.PL
-+@@ -401,7 +401,10 @@ if ($opt_e && (scalar(keys %bad_file) > 0)) {
-+ exit $Exit;
-+ 
-+ sub expr {
-+-    $new = '"(assembly code)"' and return if /\b__asm__\b/; # freak out.
-++    if (/\b__asm__\b/) {	# freak out
-++	$new = '"(assembly code)"';
-++	return
-++    }
-+     my $joined_args;
-+     if(keys(%curargs)) {
-+ 	$joined_args = join('|', keys(%curargs));
-+@@ -770,7 +773,7 @@ sub inc_dirs
-+ sub build_preamble_if_necessary
-+ {
-+     # Increment $VERSION every time this function is modified:
-+-    my $VERSION     = 2;
-++    my $VERSION     = 3;
-+     my $preamble    = "$Dest_dir/_h2ph_pre.ph";
-+ 
-+     # Can we skip building the preamble file?
-+@@ -798,7 +801,16 @@ sub build_preamble_if_necessary
-+ 		# parenthesized value:  d=(v)
-+ 		$define{$_} = $1;
-+ 	    }
-+-	    if ($define{$_} =~ /^([+-]?(\d+)?\.\d+([eE][+-]?\d+)?)[FL]?$/) {
-++	    if (/^(\w+)\((\w)\)$/) {
-++		my($macro, $arg) = ($1, $2);
-++		my $def = $define{$_};
-++		$def =~ s/$arg/\$\{$arg\}/g;
-++		print PREAMBLE <<DEFINE;
-++unless (defined &$macro) { sub $macro(\$) { my (\$$arg) = \@_; \"$def\" } }
-++
-++DEFINE
-++	    } elsif
-++		($define{$_} =~ /^([+-]?(\d+)?\.\d+([eE][+-]?\d+)?)[FL]?$/) {
-+ 		# float:
-+ 		print PREAMBLE
-+ 		    "unless (defined &$_) { sub $_() { $1 } }\n\n";
-+@@ -807,8 +819,14 @@ sub build_preamble_if_necessary
-+ 		print PREAMBLE
-+ 		    "unless (defined &$_) { sub $_() { $1 } }\n\n";
-+ 	    } elsif ($define{$_} =~ /^\w+$/) {
-+-		print PREAMBLE
-+-		    "unless (defined &$_) { sub $_() { &$define{$_} } }\n\n";
-++		my $def = $define{$_};
-++		if ($isatype{$def}) {
-++		  print PREAMBLE
-++		    "unless (defined &$_) { sub $_() { \"$def\" } }\n\n";
-++		} else {
-++		  print PREAMBLE
-++		    "unless (defined &$_) { sub $_() { &$def } }\n\n";
-++	        }
-+ 	    } else {
-+ 		print PREAMBLE
-+ 		    "unless (defined &$_) { sub $_() { \"",
-+-- 
-+tg: (c823880..) fixes/h2ph-gcc-4.5 (depends on: upstream)
-diff --git a/meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/hurd-ccflags.diff b/meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/hurd-ccflags.diff
-new file mode 100644
-index 0000000..b9ea677
---- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/hurd-ccflags.diff
-@@ -0,0 +1,26 @@
-+Author: Samuel Thibault <sthibault@debian.org>
-+Subject: Make hints/gnu.sh append to $ccflags rather than overriding them
-+Bug-Debian: http://bugs.debian.org/587901
-+
-+Don't override possible extra $ccflags values given to Configure
-+on GNU/Hurd.
-+
-+---
-+ hints/gnu.sh |    2 +-
-+ 1 files changed, 1 insertions(+), 1 deletions(-)
-+
-+diff --git a/hints/gnu.sh b/hints/gnu.sh
-+index 2cfce54..c1ba2db 100644
-+--- a/hints/gnu.sh
-++++ b/hints/gnu.sh
-+@@ -19,7 +19,7 @@ lddlflags='-shared'
-+ ccdlflags='-Wl,-E'
-+ 
-+ # Debian bug #258618
-+-ccflags='-D_GNU_SOURCE'
-++ccflags="-D_GNU_SOURCE $ccflags"
-+ 
-+ # The following routines are only available as stubs in GNU libc.
-+ # XXX remove this once metaconf detects the GNU libc stubs.
-+-- 
-+tg: (c823880..) fixes/hurd-ccflags (depends on: upstream)
-diff --git a/meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/lc-numeric-docs.diff b/meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/lc-numeric-docs.diff
-new file mode 100644
-index 0000000..bb5c0e8
---- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/lc-numeric-docs.diff
-@@ -0,0 +1,95 @@
-+From: Niko Tyni <ntyni@debian.org>
-+Subject: LC_NUMERIC documentation fixes
-+Bug-Debian: http://bugs.debian.org/379329
-+Bug: http://rt.perl.org/rt3/Ticket/Display.html?id=78452
-+Origin: upstream, http://perl5.git.perl.org/perl.git/commit/903eb63f7d8d47a38971a8e9af7201b9927882cf
-+
-+LC_NUMERIC documentation updates fixing two errors:
-+
-+    - the early parts of perllocale.pod still say printf() uses LC_NUMERIC
-+      with just 'use locale' when actually a POSIX::setlocale() call is
-+      also needed
-+    
-+    - format() hasn't used LC_NUMERIC unconditionally since 5.005_03
-+      (commit 097ee67dff1c60f201bc09435bc6eaeeafcd8123).
-+
-+Test cases from the upstream commit dropped for the sake of simplicity.
-+
-+---
-+ pod/perlform.pod   |   20 ++++++++------------
-+ pod/perllocale.pod |   15 ++++++---------
-+ 2 files changed, 14 insertions(+), 21 deletions(-)
-+
-+diff --git a/pod/perlform.pod b/pod/perlform.pod
-+index 3cfa1b7..df0f0a1 100644
-+--- a/pod/perlform.pod
-++++ b/pod/perlform.pod
-+@@ -166,9 +166,9 @@ token on the first line.  If an expression evaluates to a number with a
-+ decimal part, and if the corresponding picture specifies that the decimal
-+ part should appear in the output (that is, any picture except multiple "#"
-+ characters B<without> an embedded "."), the character used for the decimal
-+-point is B<always> determined by the current LC_NUMERIC locale.  This
-+-means that, if, for example, the run-time environment happens to specify a
-+-German locale, "," will be used instead of the default ".".  See
-++point is determined by the current LC_NUMERIC locale if C<use locale> is in
-++effect.  This means that, if, for example, the run-time environment happens
-++to specify a German locale, "," will be used instead of the default ".".  See
-+ L<perllocale> and L<"WARNINGS"> for more information.
-+ 
-+ 
-+@@ -442,15 +442,11 @@ Lexical variables (declared with "my") are not visible within a
-+ format unless the format is declared within the scope of the lexical
-+ variable.  (They weren't visible at all before version 5.001.)
-+ 
-+-Formats are the only part of Perl that unconditionally use information
-+-from a program's locale; if a program's environment specifies an
-+-LC_NUMERIC locale, it is always used to specify the decimal point
-+-character in formatted output.  Perl ignores all other aspects of locale
-+-handling unless the C<use locale> pragma is in effect.  Formatted output
-+-cannot be controlled by C<use locale> because the pragma is tied to the
-+-block structure of the program, and, for historical reasons, formats
-+-exist outside that block structure.  See L<perllocale> for further
-+-discussion of locale handling.
-++If a program's environment specifies an LC_NUMERIC locale and C<use
-++locale> is in effect when the format is declared, the locale is used
-++to specify the decimal point character in formatted output.  Formatted
-++output cannot be controlled by C<use locale> at the time when write()
-++is called. See L<perllocale> for further discussion of locale handling.
-+ 
-+ Within strings that are to be displayed in a fixed length text field,
-+ each control character is substituted by a space. (But remember the
-+diff --git a/pod/perllocale.pod b/pod/perllocale.pod
-+index 0dbabe7..0bec423 100644
-+--- a/pod/perllocale.pod
-++++ b/pod/perllocale.pod
-+@@ -115,8 +115,7 @@ ucfirst(), and lcfirst()) use C<LC_CTYPE>
-+ 
-+ =item *
-+ 
-+-B<The formatting functions> (printf(), sprintf() and write()) use
-+-C<LC_NUMERIC>
-++B<Format declarations> (format()) use C<LC_NUMERIC>
-+ 
-+ =item *
-+ 
-+@@ -967,13 +966,11 @@ system's implementation of the locale system than by Perl.
-+ 
-+ =head2 write() and LC_NUMERIC
-+ 
-+-Formats are the only part of Perl that unconditionally use information
-+-from a program's locale; if a program's environment specifies an
-+-LC_NUMERIC locale, it is always used to specify the decimal point
-+-character in formatted output.  Formatted output cannot be controlled by
-+-C<use locale> because the pragma is tied to the block structure of the
-+-program, and, for historical reasons, formats exist outside that block
-+-structure.
-++If a program's environment specifies an LC_NUMERIC locale and C<use
-++locale> is in effect when the format is declared, the locale is used
-++to specify the decimal point character in formatted output.  Formatted
-++output cannot be controlled by C<use locale> at the time when write()
-++is called.
-+ 
-+ =head2 Freely available locale definitions
-+ 
-+-- 
-+tg: (c823880..) fixes/lc-numeric-docs (depends on: upstream)
-diff --git a/meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/lc-numeric-sprintf.diff b/meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/lc-numeric-sprintf.diff
-new file mode 100644
-index 0000000..6a39820
---- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/lc-numeric-sprintf.diff
-@@ -0,0 +1,29 @@
-+From: Niko Tyni <ntyni@debian.org>
-+Subject: Fix sprintf not to ignore LC_NUMERIC with constants
-+Bug-Debian: http://bugs.debian.org/601549
-+Bug: http://rt.perl.org/rt3/Ticket/Display.html?id=78632
-+Origin: upstream, http://perl5.git.perl.org/perl.git/commit/b3fd61496ebc585b1115807e3195f17714662a09
-+
-+Don't fold constants in sprintf() if locales are used
-+    
-+An upstream regression in 5.10.1 made sprintf() ignore LC_NUMERIC for
-+numeric constants.
-+
-+---
-+ op.c |    1 +
-+ 1 files changed, 1 insertions(+), 0 deletions(-)
-+
-+diff --git a/op.c b/op.c
-+index e94f158..3c6badb 100644
-+--- a/op.c
-++++ b/op.c
-+@@ -2503,6 +2503,7 @@ S_fold_constants(pTHX_ register OP *o)
-+     case OP_SLE:
-+     case OP_SGE:
-+     case OP_SCMP:
-++    case OP_SPRINTF:
-+ 	/* XXX what about the numeric ops? */
-+ 	if (PL_hints & HINT_LOCALE)
-+ 	    goto nope;
-+-- 
-+tg: (c823880..) fixes/lc-numeric-sprintf (depends on: upstream)
-diff --git a/meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/net_smtp_docs.diff b/meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/net_smtp_docs.diff
-new file mode 100644
-index 0000000..6dc9712
---- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/net_smtp_docs.diff
-@@ -0,0 +1,23 @@
-+Subject: Document the Net::SMTP 'Port' option
-+Bug-Debian: http://bugs.debian.org/100195
-+Bug: http://rt.cpan.org/Public/Bug/Display.html?id=36038
-+
-+
-+---
-+ cpan/libnet/Net/SMTP.pm |    1 +
-+ 1 files changed, 1 insertions(+), 0 deletions(-)
-+
-+diff --git a/cpan/libnet/Net/SMTP.pm b/cpan/libnet/Net/SMTP.pm
-+index a28496d..07b2498 100644
-+--- a/cpan/libnet/Net/SMTP.pm
-++++ b/cpan/libnet/Net/SMTP.pm
-+@@ -625,6 +625,7 @@ Net::SMTP will attempt to extract the address from the value passed.
-+ 
-+ B<Debug> - Enable debugging information
-+ 
-++B<Port> - Select a port on the remote host to connect to (default is 25)
-+ 
-+ Example:
-+ 
-+-- 
-+tg: (c823880..) fixes/net_smtp_docs (depends on: upstream)
-diff --git a/meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/processPL.diff b/meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/processPL.diff
-new file mode 100644
-index 0000000..5a444e3
---- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/debian/fixes/processPL.diff
-@@ -0,0 +1,43 @@
-+Subject: Always use PERLRUNINST when building perl modules.
-+Bug-Debian: http://bugs.debian.org/357264
-+Bug: http://rt.cpan.org/Public/Bug/Display.html?id=17224
-+
-+Revert part of upstream change 24524 to always use PERLRUNINST when
-+building perl modules:  Some PDL demos expect blib to be implicitly
-+searched.
-+
-+
-+---
-+ cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm |    5 +----
-+ 1 files changed, 1 insertions(+), 4 deletions(-)
-+
-+diff --git a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
-+index 239d6df..294d266 100644
-+--- a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
-++++ b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
-+@@ -3043,14 +3043,11 @@ sub processPL {
-+ 	    # pm_to_blib depends on then it can't depend on pm_to_blib
-+ 	    # else we have a dependency loop.
-+ 	    my $pm_dep;
-+-	    my $perlrun;
-+ 	    if( defined $self->{PM}{$target} ) {
-+ 		$pm_dep  = '';
-+-		$perlrun = 'PERLRUN';
-+ 	    }
-+ 	    else {
-+ 		$pm_dep  = 'pm_to_blib';
-+-		$perlrun = 'PERLRUNINST';
-+ 	    }
-+ 
-+             $m .= <<MAKE_FRAG;
-+@@ -3059,7 +3056,7 @@ all :: $target
-+ 	\$(NOECHO) \$(NOOP)
-+ 
-+ $target :: $plfile $pm_dep
-+-	\$($perlrun) $plfile $target
-++	\$(PERLRUNINST) $plfile $target
-+ MAKE_FRAG
-+ 
-+ 	}
-+-- 
-+tg: (c823880..) fixes/processPL (depends on: upstream)
-diff --git a/meta/recipes-devtools/perl/perl-5.12.2/debian/instmodsh_doc.diff b/meta/recipes-devtools/perl/perl-5.12.2/debian/instmodsh_doc.diff
-new file mode 100644
-index 0000000..5670863
---- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/debian/instmodsh_doc.diff
-@@ -0,0 +1,26 @@
-+Subject: Debian policy doesn't install .packlist files for core or vendor.
-+
-+
-+---
-+ cpan/ExtUtils-MakeMaker/bin/instmodsh |    4 +++-
-+ 1 files changed, 3 insertions(+), 1 deletions(-)
-+
-+diff --git a/cpan/ExtUtils-MakeMaker/bin/instmodsh b/cpan/ExtUtils-MakeMaker/bin/instmodsh
-+index 5874aa6..6a2f03e 100644
-+--- a/cpan/ExtUtils-MakeMaker/bin/instmodsh
-++++ b/cpan/ExtUtils-MakeMaker/bin/instmodsh
-+@@ -18,9 +18,11 @@ instmodsh - A shell to examine installed modules
-+ 
-+ =head1 DESCRIPTION
-+ 
-+-A little interface to ExtUtils::Installed to examine installed modules,
-++A little interface to ExtUtils::Installed to examine locally* installed modules,
-+ validate your packlists and even create a tarball from an installed module.
-+ 
-++*On Debian system, B<core> and B<vendor> modules are managed by C<dpkg>.
-++
-+ =head1 SEE ALSO
-+ 
-+ ExtUtils::Installed
-+-- 
-+tg: (c823880..) debian/instmodsh_doc (depends on: upstream)
-diff --git a/meta/recipes-devtools/perl/perl-5.12.2/debian/ld_run_path.diff b/meta/recipes-devtools/perl/perl-5.12.2/debian/ld_run_path.diff
-new file mode 100644
-index 0000000..ffcfab9
---- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/debian/ld_run_path.diff
-@@ -0,0 +1,23 @@
-+Subject: Remove standard libs from LD_RUN_PATH as per Debian policy.
-+
-+
-+---
-+ .../ExtUtils-MakeMaker/lib/ExtUtils/Liblist/Kid.pm |    3 +++
-+ 1 files changed, 3 insertions(+), 0 deletions(-)
-+
-+diff --git a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/Liblist/Kid.pm b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/Liblist/Kid.pm
-+index b807e97..6c955d7 100644
-+--- a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/Liblist/Kid.pm
-++++ b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/Liblist/Kid.pm
-+@@ -53,6 +53,9 @@ sub _unix_os2_ext {
-+     my($pwd) = cwd(); # from Cwd.pm
-+     my($found) = 0;
-+ 
-++    # Debian-specific: don't use LD_RUN_PATH for standard dirs
-++    $ld_run_path_seen{$_}++ for qw(/lib /usr/lib /usr/X11R6/lib);
-++
-+     foreach my $thislib (split ' ', $potential_libs) {
-+ 
-+ 	# Handle possible linker path arguments.
-+-- 
-+tg: (c823880..) debian/ld_run_path (depends on: upstream)
-diff --git a/meta/recipes-devtools/perl/perl-5.12.2/debian/libnet_config_path.diff b/meta/recipes-devtools/perl/perl-5.12.2/debian/libnet_config_path.diff
-new file mode 100644
-index 0000000..41bca97
---- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/debian/libnet_config_path.diff
-@@ -0,0 +1,35 @@
-+Subject: Set location of libnet.cfg to /etc/perl/Net as /usr may not be writable.
-+
-+
-+---
-+ cpan/libnet/Net/Config.pm |    7 +++----
-+ 1 files changed, 3 insertions(+), 4 deletions(-)
-+
-+diff --git a/cpan/libnet/Net/Config.pm b/cpan/libnet/Net/Config.pm
-+index db51c1f..8404593 100644
-+--- a/cpan/libnet/Net/Config.pm
-++++ b/cpan/libnet/Net/Config.pm
-+@@ -57,9 +57,8 @@ my %nc = (
-+ }
-+ TRY_INTERNET_CONFIG
-+ 
-+-my $file = __FILE__;
-++my $file = '/etc/perl/Net/libnet.cfg';
-+ my $ref;
-+-$file =~ s/Config.pm/libnet.cfg/;
-+ if (-f $file) {
-+   $ref = eval { local $SIG{__DIE__}; do $file };
-+   if (ref($ref) eq 'HASH') {
-+@@ -132,8 +131,8 @@ Net::Config - Local configuration data for libnet
-+ C<Net::Config> holds configuration data for the modules in the libnet
-+ distribution. During installation you will be asked for these values.
-+ 
-+-The configuration data is held globally in a file in the perl installation
-+-tree, but a user may override any of these values by providing their own. This
-++The configuration data is held globally in C</etc/perl/Net/libnet.cfg>,
-++but a user may override any of these values by providing their own. This
-+ can be done by having a C<.libnetrc> file in their home directory. This file
-+ should return a reference to a HASH containing the keys described below.
-+ For example
-+-- 
-+tg: (c823880..) debian/libnet_config_path (depends on: upstream)
-diff --git a/meta/recipes-devtools/perl/perl-5.12.2/debian/m68k_thread_stress.diff b/meta/recipes-devtools/perl/perl-5.12.2/debian/m68k_thread_stress.diff
-new file mode 100644
-index 0000000..cda6089
---- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/debian/m68k_thread_stress.diff
-@@ -0,0 +1,43 @@
-+Subject: Disable some threads tests on m68k for now due to missing TLS.
-+Closes: #495826, #517938
-+
-+
-+---
-+ dist/threads-shared/t/stress.t    |    4 ++++
-+ dist/threads-shared/t/waithires.t |    6 ++++++
-+ 2 files changed, 10 insertions(+), 0 deletions(-)
-+
-+diff --git a/dist/threads-shared/t/stress.t b/dist/threads-shared/t/stress.t
-+index adfd1ed..8573f1a 100755
-+--- a/dist/threads-shared/t/stress.t
-++++ b/dist/threads-shared/t/stress.t
-+@@ -11,6 +11,10 @@ BEGIN {
-+         print("1..0 # SKIP Broken under HP-UX 10.20\n");
-+         exit(0);
-+     }
-++    if ($^O eq 'linux' && $Config{archname} =~ /^m68k/) {
-++        print("1..0 # Skip: no TLS on m68k yet <http://bugs.debian.org/495826>\n");
-++        exit(0);
-++    }
-+ }
-+ 
-+ use ExtUtils::testlib;
-+diff --git a/dist/threads-shared/t/waithires.t b/dist/threads-shared/t/waithires.t
-+index e3a1086..633374e 100755
-+--- a/dist/threads-shared/t/waithires.t
-++++ b/dist/threads-shared/t/waithires.t
-+@@ -16,6 +16,12 @@ BEGIN {
-+     if (! eval 'use Time::HiRes "time"; 1') {
-+         Test::skip_all('Time::HiRes not available');
-+     }
-++
-++    if ($^O eq 'linux' && $Config{archname} =~ /^m68k/) {
-++        print("1..0 # Skip: no TLS on m68k yet <http://bugs.debian.org/495826>\n");
-++        exit(0);
-++    }
-++
-+ }
-+ 
-+ use ExtUtils::testlib;
-+-- 
-+tg: (c823880..) debian/m68k_thread_stress (depends on: upstream)
-diff --git a/meta/recipes-devtools/perl/perl-5.8.8/53_debian_mod_paths.patch b/meta/recipes-devtools/perl/perl-5.12.2/debian/mod_paths.diff
-similarity index 59%
-rename from meta/recipes-devtools/perl/perl-5.8.8/53_debian_mod_paths.patch
-rename to meta/recipes-devtools/perl/perl-5.12.2/debian/mod_paths.diff
-index df74bc5..bfa4721 100644
---- a/meta/recipes-devtools/perl/perl-5.8.8/53_debian_mod_paths.patch
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/debian/mod_paths.diff
-@@ -1,4 +1,6 @@
--Tweak @INC so that the ordering is:
-+Subject: Tweak @INC ordering for Debian
-+
-+Our order is:
- 
-     etc (for config files)
-     site (5.8.1)
-@@ -11,49 +13,36 @@ The rationale being that an admin (via site), or module packager
- (vendor) can chose to shadow core modules when there is a newer
- version than is included in core.
- 
--diff -Naur --exclude=debian perl-5.8.8.orig/perl.c perl-5.8.8/perl.c
----- perl-5.8.8.orig/perl.c	2006-01-31 23:34:47.000000000 +1100
--+++ perl-5.8.8/perl.c	2006-02-02 23:36:38.000000000 +1100
--@@ -4776,9 +4776,14 @@
--     incpush(APPLLIB_EXP, TRUE, TRUE, TRUE);
-+
-+---
-+ perl.c |   58 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-+ 1 files changed, 58 insertions(+), 0 deletions(-)
-+
-+diff --git a/perl.c b/perl.c
-+index 05cea40..023d6a0 100644
-+--- a/perl.c
-++++ b/perl.c
-+@@ -4125,6 +4125,11 @@ S_init_perllib(pTHX)
-+ 		      INCPUSH_ADD_SUB_DIRS|INCPUSH_CAN_RELOCATE);
-  #endif
-  
--+#if 1
-++#ifdef DEBIAN
- +    /* for configuration where /usr is mounted ro (CPAN::Config, Net::Config) */
--+    incpush("/etc/perl", FALSE, FALSE, FALSE);
--+#else
-- #ifdef ARCHLIB_EXP
--     incpush(ARCHLIB_EXP, FALSE, FALSE, TRUE);
-- #endif
-++    S_incpush_use_sep(aTHX_ STR_WITH_LEN("/etc/perl"), 0x0);
- +#endif
-- #ifdef MACOS_TRADITIONAL
--     {
-- 	Stat_t tmpstatbuf;
--@@ -4803,11 +4808,13 @@
-- #ifndef PRIVLIB_EXP
-- #  define PRIVLIB_EXP "/usr/local/lib/perl5:/usr/local/lib/perl"
-- #endif
--+#if 0
-- #if defined(WIN32)
--     incpush(PRIVLIB_EXP, TRUE, FALSE, TRUE);
-- #else
--     incpush(PRIVLIB_EXP, FALSE, FALSE, TRUE);
-- #endif
--+#endif
-- 
-++
-  #ifdef SITEARCH_EXP
-      /* sitearch is always relative to sitelib on Windows for
--@@ -4850,6 +4857,61 @@
--     incpush(PERL_VENDORLIB_STEM, FALSE, TRUE, TRUE);
-+      * DLL-based path intuition to work correctly */
-+@@ -4242,6 +4247,59 @@ S_init_perllib(pTHX)
-+ 		      INCPUSH_ADD_OLD_VERS|INCPUSH_CAN_RELOCATE);
-  #endif
-  
--+#if 1
--+    incpush(ARCHLIB_EXP, FALSE, FALSE, TRUE);
--+    incpush(PRIVLIB_EXP, FALSE, FALSE, TRUE);
--+
-++#ifdef DEBIAN
- +    /* Non-versioned site directory for local modules and for
- +       compatability with the previous packages' site dirs */
--+    incpush("/usr/local/lib/site_perl", TRUE, FALSE, FALSE);
-++    S_incpush_use_sep(aTHX_ STR_WITH_LEN("/usr/local/lib/site_perl"),
-++		      INCPUSH_ADD_SUB_DIRS);
- +
- +#ifdef PERL_INC_VERSION_LIST
- +    {
-@@ -88,14 +77,14 @@ diff -Naur --exclude=debian perl-5.8.8.orig/perl.c perl-5.8.8/perl.c
- +	    {
- +		strcpy(arch_vers, *p);
- +		if (PerlLIO_stat(sitearch, &s) >= 0 && S_ISDIR(s.st_mode))
--+		    incpush(sitearch, FALSE, FALSE, FALSE);
-++		    S_incpush_use_sep(aTHX_ sitearch, strlen(sitearch), 0x0);
- +	    }
- +
- +	    if (lib_vers)
- +	    {
- +		strcpy(lib_vers, *p);
- +		if (PerlLIO_stat(sitelib, &s) >= 0 && S_ISDIR(s.st_mode))
--+		    incpush(sitelib, FALSE, FALSE, FALSE);
-++		    S_incpush_use_sep(aTHX_ sitelib, strlen(sitelib), 0x0);
- +	    }
- +	}
- +    }
-@@ -103,5 +92,7 @@ diff -Naur --exclude=debian perl-5.8.8.orig/perl.c perl-5.8.8/perl.c
- +#endif
- +
-  #ifdef PERL_OTHERLIBDIRS
--     incpush(PERL_OTHERLIBDIRS, TRUE, TRUE, TRUE);
-- #endif
-+     S_incpush_use_sep(aTHX_ STR_WITH_LEN(PERL_OTHERLIBDIRS),
-+ 		      INCPUSH_ADD_OLD_VERS|INCPUSH_ADD_ARCHONLY_SUB_DIRS
-+-- 
-+tg: (c823880..) debian/mod_paths (depends on: upstream)
-diff --git a/meta/recipes-devtools/perl/perl-5.12.2/debian/module_build_man_extensions.diff b/meta/recipes-devtools/perl/perl-5.12.2/debian/module_build_man_extensions.diff
-new file mode 100644
-index 0000000..320a90d
---- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/debian/module_build_man_extensions.diff
-@@ -0,0 +1,31 @@
-+Subject: Adjust Module::Build manual page extensions for the Debian Perl policy
-+Bug-Debian: http://bugs.debian.org/479460
-+
-+---
-+ cpan/Module-Build/lib/Module/Build/Base.pm |    4 ++--
-+ 1 files changed, 2 insertions(+), 2 deletions(-)
-+
-+diff --git a/cpan/Module-Build/lib/Module/Build/Base.pm b/cpan/Module-Build/lib/Module/Build/Base.pm
-+index 5bd8ec7..b4e606a 100644
-+--- a/cpan/Module-Build/lib/Module/Build/Base.pm
-++++ b/cpan/Module-Build/lib/Module/Build/Base.pm
-+@@ -3071,7 +3071,7 @@ sub manify_bin_pods {
-+   foreach my $file (keys %$files) {
-+     # Pod::Simple based parsers only support one document per instance.
-+     # This is expected to change in a future version (Pod::Simple > 3.03).
-+-    my $parser  = Pod::Man->new( section => 1 ); # binaries go in section 1
-++    my $parser  = Pod::Man->new( section => '1p' ); # binaries go in section 1p
-+     my $manpage = $self->man1page_name( $file ) . '.' .
-+ 	          $self->config( 'man1ext' );
-+     my $outfile = File::Spec->catfile($mandir, $manpage);
-+@@ -3096,7 +3096,7 @@ sub manify_lib_pods {
-+   while (my ($file, $relfile) = each %$files) {
-+     # Pod::Simple based parsers only support one document per instance.
-+     # This is expected to change in a future version (Pod::Simple > 3.03).
-+-    my $parser  = Pod::Man->new( section => 3 ); # libraries go in section 3
-++    my $parser  = Pod::Man->new( section => '3pm' ); # libraries go in section 3pm
-+     my $manpage = $self->man3page_name( $relfile ) . '.' .
-+ 	          $self->config( 'man3ext' );
-+     my $outfile = File::Spec->catfile( $mandir, $manpage);
-+-- 
-+tg: (c823880..) debian/module_build_man_extensions (depends on: upstream)
-diff --git a/meta/recipes-devtools/perl/perl-5.12.2/debian/perlivp.diff b/meta/recipes-devtools/perl/perl-5.12.2/debian/perlivp.diff
-new file mode 100644
-index 0000000..c63c1e8
---- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/debian/perlivp.diff
-@@ -0,0 +1,38 @@
-+From: Niko Tyni <ntyni@debian.org>
-+Subject: Make perlivp skip include directories in /usr/local
-+Closes: 510895
-+
-+On Sat, Jan 10, 2009 at 12:37:18AM +1100, Brendan O'Dea wrote:
-+> On Wed, Jan 7, 2009 at 12:21 AM, Niko Tyni <ntyni@debian.org> wrote:
-+
-+> > We could create the directories in a postinst script, but I'm not sure
-+> > I see the point. They will be created automatically when installing
-+> > CPAN modules.
-+>
-+> The directories are intentionally not created, as this way they are
-+> excluded from the search path at start-up, saving a bunch of wasted
-+> stats at use/require time in the common case that the user has not
-+> installed any local packages.  As Niko points out, they will be
-+> created as required.
-+
-+
-+Signed-off-by: Niko Tyni <ntyni@debian.org>
-+
-+---
-+ utils/perlivp.PL |    1 +
-+ 1 files changed, 1 insertions(+), 0 deletions(-)
-+
-+diff --git a/utils/perlivp.PL b/utils/perlivp.PL
-+index 9783261..156146f 100644
-+--- a/utils/perlivp.PL
-++++ b/utils/perlivp.PL
-+@@ -142,6 +142,7 @@ my $INC_total = 0;
-+ my $INC_there = 0;
-+ foreach (@INC) {
-+     next if $_ eq '.'; # skip -d test here
-++    next if m|/usr/local|; # not shipped on Debian
-+     if ($^O eq 'MacOS') {
-+         next if $_ eq ':'; # skip -d test here
-+         next if $_ eq 'Dev:Pseudo:'; # why is this in @INC?
-+-- 
-+tg: (c823880..) debian/perlivp (depends on: upstream)
-diff --git a/meta/recipes-devtools/perl/perl-5.12.2/debian/prune_libs.diff b/meta/recipes-devtools/perl/perl-5.12.2/debian/prune_libs.diff
-new file mode 100644
-index 0000000..4d73717
---- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/debian/prune_libs.diff
-@@ -0,0 +1,36 @@
-+Subject: Prune the list of libraries wanted to what we actually need.
-+Bug-Debian: http://bugs.debian.org/128355
-+
-+We want to keep the dependencies on perl-base as small as possible,
-+and some of the original list may be present on buildds (see Bug#128355).
-+
-+
-+---
-+ Configure |    5 ++---
-+ 1 files changed, 2 insertions(+), 3 deletions(-)
-+
-+diff --git a/Configure b/Configure
-+index 3a8732b..6013c86 100755
-+--- a/Configure
-++++ b/Configure
-+@@ -1363,8 +1363,7 @@ libswanted_uselargefiles=''
-+ : set usesocks on the Configure command line to enable socks.
-+ : List of libraries we want.
-+ : If anyone needs extra -lxxx, put those in a hint file.
-+-libswanted="sfio socket bind inet nsl nm ndbm gdbm dbm db malloc dl dld ld sun"
-+-libswanted="$libswanted m crypt sec util c cposix posix ucb bsd BSD"
-++libswanted='gdbm gdbm_compat db dl m c crypt'
-+ : We probably want to search /usr/shlib before most other libraries.
-+ : This is only used by the lib/ExtUtils/MakeMaker.pm routine extliblist.
-+ glibpth=`echo " $glibpth " | sed -e 's! /usr/shlib ! !'`
-+@@ -22179,7 +22178,7 @@ sunos*X4*)
-+     ;;
-+ *) case "$usedl" in
-+     $define|true|[yY]*)
-+-	    set X `echo " $libs " | sed -e 's@ -lndbm @ @' -e 's@ -lgdbm @ @' -e 's@ -lgdbm_compat @ @' -e 's@ -ldbm @ @' -e 's@ -ldb @ @'` 
-++	    set X `echo " $libs " | sed -e 's@ -lgdbm @ @' -e 's@ -lgdbm_compat @ @' -e 's@ -ldb @ @'` 
-+ 	    shift
-+ 	    perllibs="$*"
-+ 	    ;;
-+-- 
-+tg: (c823880..) debian/prune_libs (depends on: upstream)
-diff --git a/meta/recipes-devtools/perl/perl-5.12.2/debian/squelch-locale-warnings.diff b/meta/recipes-devtools/perl/perl-5.12.2/debian/squelch-locale-warnings.diff
-new file mode 100644
-index 0000000..091dec4
---- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/debian/squelch-locale-warnings.diff
-@@ -0,0 +1,53 @@
-+From: Niko Tyni <ntyni@debian.org>
-+Subject: Squelch locale warnings in Debian package maintainer scripts
-+Bug-Debian: http://bugs.debian.org/508764
-+
-+The system locales are rather frequently out of sync with the C library
-+during package upgrades, causing a huge amount of useless Perl locale
-+warnings. Squelch them when running package maintainer scripts, detected
-+by the DPKG_RUNNING_VERSION environment variable.
-+
-+Any real locale problem will show up after the system upgrade too, and
-+the warning will be triggered normally again at that point.
-+
-+---
-+ locale.c           |    4 ++++
-+ pod/perllocale.pod |    8 ++++++++
-+ 2 files changed, 12 insertions(+), 0 deletions(-)
-+
-+diff --git a/locale.c b/locale.c
-+index 16ccce8..2592b3c 100644
-+--- a/locale.c
-++++ b/locale.c
-+@@ -359,6 +359,10 @@ Perl_init_i18nl10n(pTHX_ int printwarn)
-+ 	char *p;
-+ 	const bool locwarn = (printwarn > 1 ||
-+ 			(printwarn &&
-++
-++			 /* Debian specific change - see http://bugs.debian.org/508764 */
-++			 (!PerlEnv_getenv("DPKG_RUNNING_VERSION")) &&
-++
-+ 			 (!(p = PerlEnv_getenv("PERL_BADLANG")) || atoi(p))));
-+ 
-+ 	if (locwarn) {
-+diff --git a/pod/perllocale.pod b/pod/perllocale.pod
-+index 0dbabe7..60b7bab 100644
-+--- a/pod/perllocale.pod
-++++ b/pod/perllocale.pod
-+@@ -844,6 +844,14 @@ B<NOTE>: PERL_BADLANG only gives you a way to hide the warning message.
-+ The message tells about some problem in your system's locale support,
-+ and you should investigate what the problem is.
-+ 
-++=item DPKG_RUNNING_VERSION
-++
-++On Debian systems, if the DPKG_RUNNING_VERSION environment variable is
-++set (to any value), the locale failure warnings will be suppressed just
-++like with a zero PERL_BADLANG setting. This is done to avoid floods
-++of spurious warnings during system upgrades.
-++See L<http://bugs.debian.org/508764>.
-++
-+ =back
-+ 
-+ The following environment variables are not specific to Perl: They are
-+-- 
-+tg: (c823880..) debian/squelch-locale-warnings (depends on: upstream)
-diff --git a/meta/recipes-devtools/perl/perl-5.8.8/generate-sh.patch b/meta/recipes-devtools/perl/perl-5.12.2/generate-sh.patch
-similarity index 100%
-rename from meta/recipes-devtools/perl/perl-5.8.8/generate-sh.patch
-rename to meta/recipes-devtools/perl/perl-5.12.2/generate-sh.patch
-diff --git a/meta/recipes-devtools/perl/perl-5.8.8/installperl.patch b/meta/recipes-devtools/perl/perl-5.12.2/installperl.patch
-similarity index 57%
-rename from meta/recipes-devtools/perl/perl-5.8.8/installperl.patch
-rename to meta/recipes-devtools/perl/perl-5.12.2/installperl.patch
-index ff52bc3..d20961c 100644
---- a/meta/recipes-devtools/perl/perl-5.8.8/installperl.patch
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/installperl.patch
-@@ -1,7 +1,7 @@
--Index: perl-5.8.8/installperl
-+Index: perl-5.12.2/installperl
- ===================================================================
----- perl-5.8.8.orig/installperl	2007-06-14 12:36:23.000000000 +1000
--+++ perl-5.8.8/installperl	2007-06-14 12:38:39.000000000 +1000
-+--- perl-5.12.2.orig/installperl
-++++ perl-5.12.2/installperl
- @@ -3,8 +3,8 @@
-  BEGIN {
-      require 5.004;
-@@ -10,6 +10,6 @@ Index: perl-5.8.8/installperl
- -    $ENV{PERL5LIB} = 'lib';
- +#    @INC = 'lib';
- +#    $ENV{PERL5LIB} = 'lib';
-- }
-  
-- use strict;
-+     # This needs to be at BEGIN time, before any use of Config
-+     require './install_lib.pl';
-diff --git a/meta/recipes-devtools/perl/perl-5.8.8/native-nopacklist.patch b/meta/recipes-devtools/perl/perl-5.12.2/native-nopacklist.patch
-similarity index 76%
-rename from meta/recipes-devtools/perl/perl-5.8.8/native-nopacklist.patch
-rename to meta/recipes-devtools/perl/perl-5.12.2/native-nopacklist.patch
-index a0ba269..92b02d4 100644
---- a/meta/recipes-devtools/perl/perl-5.8.8/native-nopacklist.patch
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/native-nopacklist.patch
-@@ -1,34 +1,31 @@
- Part of 52_debian_extutils_hacks.patch just to exclude the installation of .packlist files
- 
--diff -Naur --exclude=debian perl-5.8.8.orig/lib/ExtUtils/MM_Unix.pm perl-5.8.8/lib/ExtUtils/MM_Unix.pm
----- perl-5.8.8.orig/lib/ExtUtils/MM_Unix.pm	2005-05-21 19:42:56.000000000 +1000
--+++ perl-5.8.8/lib/ExtUtils/MM_Unix.pm	2006-02-05 17:40:19.000000000 +1100
--@@ -2054,9 +2054,7 @@
-- 	$(NOECHO) $(ECHO) INSTALLDIRS not defined, defaulting to INSTALLDIRS=site
-+Index: perl-5.12.2/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
-+===================================================================
-+--- perl-5.12.2.orig/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
-++++ perl-5.12.2/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
-+@@ -2047,8 +2047,6 @@ doc__install : doc_site_install
-  
-- pure_perl_install ::
---	$(NOECHO) $(MOD_INSTALL) \
-+ pure_perl_install :: all
-+ 	$(NOECHO) $(MOD_INSTALL) \
- -		read }.$self->catfile('$(PERL_ARCHLIB)','auto','$(FULLEXT)','.packlist').q{ \
- -		write }.$self->catfile('$(DESTINSTALLARCHLIB)','auto','$(FULLEXT)','.packlist').q{ \
--+	$(NOECHO) $(MOD_INSTALL) \
-  		$(INST_LIB) $(DESTINSTALLPRIVLIB) \
-  		$(INST_ARCHLIB) $(DESTINSTALLARCHLIB) \
-  		$(INST_BIN) $(DESTINSTALLBIN) \
--@@ -2081,9 +2079,7 @@
-- 		}.$self->catdir('$(PERL_ARCHLIB)','auto','$(FULLEXT)').q{
-+@@ -2074,8 +2072,6 @@ pure_site_install :: all
-  
-- pure_vendor_install ::
---	$(NOECHO) $(MOD_INSTALL) \
-+ pure_vendor_install :: all
-+ 	$(NOECHO) $(MOD_INSTALL) \
- -		read }.$self->catfile('$(VENDORARCHEXP)','auto','$(FULLEXT)','.packlist').q{ \
- -		write }.$self->catfile('$(DESTINSTALLVENDORARCH)','auto','$(FULLEXT)','.packlist').q{ \
--+	$(NOECHO) $(MOD_INSTALL) \
-  		$(INST_LIB) $(DESTINSTALLVENDORLIB) \
-  		$(INST_ARCHLIB) $(DESTINSTALLVENDORARCH) \
-  		$(INST_BIN) $(DESTINSTALLVENDORBIN) \
--@@ -2092,37 +2088,19 @@
-+@@ -2084,37 +2080,19 @@ pure_vendor_install :: all
-  		$(INST_MAN3DIR) $(DESTINSTALLVENDORMAN3DIR)
-  
-- doc_perl_install ::
-+ doc_perl_install :: all
- -	$(NOECHO) $(ECHO) Appending installation info to $(DESTINSTALLARCHLIB)/perllocal.pod
- -	-$(NOECHO) $(MKPATH) $(DESTINSTALLARCHLIB)
- -	-$(NOECHO) $(DOC_INSTALL) \
-@@ -39,13 +36,12 @@ diff -Naur --exclude=debian perl-5.8.8.orig/lib/ExtUtils/MM_Unix.pm perl-5.8.8/l
- -		EXE_FILES "$(EXE_FILES)" \
- -		>> }.$self->catfile('$(DESTINSTALLARCHLIB)','perllocal.pod').q{
-  
-- doc_site_install ::
-+ doc_site_install :: all
- -	$(NOECHO) $(ECHO) Appending installation info to $(DESTINSTALLARCHLIB)/perllocal.pod
- -	-$(NOECHO) $(MKPATH) $(DESTINSTALLARCHLIB)
---	-$(NOECHO) $(DOC_INSTALL) \
- +	$(NOECHO) $(ECHO) Appending installation info to $(DESTINSTALLSITEARCH)/perllocal.pod
- +	-$(NOECHO) $(MKPATH) $(DESTINSTALLSITEARCH)
--+	-$(NOECHO) $(DOC_INSTALL) \
-+ 	-$(NOECHO) $(DOC_INSTALL) \
-  		"Module" "$(NAME)" \
-  		"installed into" "$(INSTALLSITELIB)" \
-  		LINKTYPE "$(LINKTYPE)" \
-@@ -54,7 +50,7 @@ diff -Naur --exclude=debian perl-5.8.8.orig/lib/ExtUtils/MM_Unix.pm perl-5.8.8/l
- -		>> }.$self->catfile('$(DESTINSTALLARCHLIB)','perllocal.pod').q{
- +		>> }.$self->catfile('$(DESTINSTALLSITEARCH)','perllocal.pod').q{
-  
-- doc_vendor_install ::
-+ doc_vendor_install :: all
- -	$(NOECHO) $(ECHO) Appending installation info to $(DESTINSTALLARCHLIB)/perllocal.pod
- -	-$(NOECHO) $(MKPATH) $(DESTINSTALLARCHLIB)
- -	-$(NOECHO) $(DOC_INSTALL) \
-@@ -67,7 +63,7 @@ diff -Naur --exclude=debian perl-5.8.8.orig/lib/ExtUtils/MM_Unix.pm perl-5.8.8/l
-  
-  };
-  
--@@ -2131,13 +2109,12 @@
-+@@ -2123,13 +2101,12 @@ uninstall :: uninstall_from_$(INSTALLDIR
-  	$(NOECHO) $(NOOP)
-  
-  uninstall_from_perldirs ::
-diff --git a/meta/recipes-devtools/perl/perl-5.8.8/native-perlinc.patch b/meta/recipes-devtools/perl/perl-5.12.2/native-perlinc.patch
-similarity index 80%
-rename from meta/recipes-devtools/perl/perl-5.8.8/native-perlinc.patch
-rename to meta/recipes-devtools/perl/perl-5.12.2/native-perlinc.patch
-index 6dc4b95..bf145ba 100644
---- a/meta/recipes-devtools/perl/perl-5.8.8/native-perlinc.patch
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/native-perlinc.patch
-@@ -1,7 +1,7 @@
- Index: perl-5.8.8/lib/ExtUtils/MM_Unix.pm
- ===================================================================
----- perl-5.8.8.orig/lib/ExtUtils/MM_Unix.pm	2008-10-31 22:01:35.000000000 +0000
--+++ perl-5.8.8/lib/ExtUtils/MM_Unix.pm	2008-11-08 16:01:12.000000000 +0000
-+--- perl-5.12.2.orig/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm	2008-10-31 22:01:35.000000000 +0000
-++++ perl-5.12.2/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm	2008-10-31 22:01:35.000000000 +0000
- @@ -1597,6 +1597,19 @@
-  	$self->{PERL_LIB}     ||= $Config{privlibexp};
-  	$self->{PERL_ARCHLIB} ||= $Config{archlibexp};
-diff --git a/meta/recipes-devtools/perl/perl-5.8.8/native-ssp.patch b/meta/recipes-devtools/perl/perl-5.12.2/native-ssp.patch
-similarity index 100%
-rename from meta/recipes-devtools/perl/perl-5.8.8/native-ssp.patch
-rename to meta/recipes-devtools/perl/perl-5.12.2/native-ssp.patch
-diff --git a/meta/recipes-devtools/perl/perl-5.8.8/perl-configpm-switch.patch b/meta/recipes-devtools/perl/perl-5.12.2/perl-configpm-switch.patch
-similarity index 100%
-rename from meta/recipes-devtools/perl/perl-5.8.8/perl-configpm-switch.patch
-rename to meta/recipes-devtools/perl/perl-5.12.2/perl-configpm-switch.patch
-diff --git a/meta/recipes-devtools/perl/perl-5.8.8/perl-configure.sh b/meta/recipes-devtools/perl/perl-5.12.2/perl-configure.sh
-similarity index 94%
-rename from meta/recipes-devtools/perl/perl-5.8.8/perl-configure.sh
-rename to meta/recipes-devtools/perl/perl-5.12.2/perl-configure.sh
-index 9800394..c29e966 100755
---- a/meta/recipes-devtools/perl/perl-5.8.8/perl-configure.sh
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/perl-configure.sh
-@@ -1,4 +1,4 @@
--ls#! /bin/sh
++++ b/meta/recipes-core/ncurses/ncurses-5.7/config.cache
+@@ -0,0 +1,4 @@
 +#! /bin/sh
- 
- #
- # Generate the common perl configuration
-@@ -15,7 +15,7 @@ echo sh Configure -des \
-         -Dprefix=/usr \
-         -Dvendorprefix=/usr \
-         -Dsiteprefix=/usr \
--        -Dotherlibdirs=/usr/lib/perl5/5.8.8 \
-+        -Dotherlibdirs=/usr/lib/perl5/5.12.2 \
-         -Duseshrplib \
-         -Dusethreads \
-         -Duseithreads \
-diff --git a/meta/recipes-devtools/perl/perl-5.8.8/perl-dynloader.patch b/meta/recipes-devtools/perl/perl-5.12.2/perl-dynloader.patch
-similarity index 87%
-rename from meta/recipes-devtools/perl/perl-5.8.8/perl-dynloader.patch
-rename to meta/recipes-devtools/perl/perl-5.12.2/perl-dynloader.patch
-index e2dc774..061a823 100644
---- a/meta/recipes-devtools/perl/perl-5.8.8/perl-dynloader.patch
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/perl-dynloader.patch
-@@ -3,8 +3,8 @@ loading to be changed via an environment variable. This is to allow
- us to load .so's from the host system while building for the target
- system.
- 
----- perl-5.8.8/ext/DynaLoader/XSLoader_pm.PL	2007/04/20 09:03:08	1.1
--+++ perl-5.8.8/ext/DynaLoader/XSLoader_pm.PL	2007/04/20 09:41:28
-+--- perl-5.12.2/dist/XSLoader/XSLoader_pm.PL	2007/04/20 09:03:08	1.1
-++++ perl-5.12.2/dist/XSLoader/XSLoader_pm.PL	2007/04/20 09:03:08
- @@ -65,6 +65,15 @@
-  print OUT <<'EOT';
-      my $modpname = join('/',@modparts);
-diff --git a/meta/recipes-devtools/perl/perl-5.8.8/perl-enable-gdbm.patch b/meta/recipes-devtools/perl/perl-5.12.2/perl-enable-gdbm.patch
-similarity index 100%
-rename from meta/recipes-devtools/perl/perl-5.8.8/perl-enable-gdbm.patch
-rename to meta/recipes-devtools/perl/perl-5.12.2/perl-enable-gdbm.patch
-diff --git a/meta/recipes-devtools/perl/perl-5.8.8/perl-moreconfig.patch b/meta/recipes-devtools/perl/perl-5.12.2/perl-moreconfig.patch
-similarity index 100%
-rename from meta/recipes-devtools/perl/perl-5.8.8/perl-moreconfig.patch
-rename to meta/recipes-devtools/perl/perl-5.12.2/perl-moreconfig.patch
-diff --git a/meta/recipes-devtools/perl/perl-5.8.8/09_fix_installperl.patch b/meta/recipes-devtools/perl/perl-5.8.8/09_fix_installperl.patch
++
++cf_cv_func_nanosleep=yes
++cf_cv_func_mkstemp=yes
+diff --git a/meta/recipes-core/ncurses/ncurses-5.7/tic-hang.patch b/meta/recipes-core/ncurses/ncurses-5.7/tic-hang.patch
+new file mode 100644
+index 0000000..1678b88
+--- /dev/null
++++ b/meta/recipes-core/ncurses/ncurses-5.7/tic-hang.patch
+@@ -0,0 +1,25 @@
++'tic' of some linux distributions (e.g. fedora 11) hang in an infinite
++loop when processing the original file.
++
++Index: ncurses-5.7/misc/terminfo.src
++===================================================================
++--- ncurses-5.7.orig/misc/terminfo.src
+++++ ncurses-5.7/misc/terminfo.src
++@@ -3706,12 +3706,11 @@ konsole-xf3x|KDE console window with key
++ # The value for kbs reflects local customization rather than the settings used
++ # for XFree86 xterm.
++ konsole-xf4x|KDE console window with keyboard for XFree86 4.x xterm,
++-	kend=\EOF, khome=\EOH, use=konsole+pcfkeys,
++-	use=konsole-vt100,
++-# Konsole does not implement shifted cursor-keys.
++-konsole+pcfkeys|konsole subset of xterm+pcfkeys,
++-	kLFT@, kRIT@, kcbt=\E[Z, kind@, kri@, kDN@, kUP@, use=xterm+pcc2,
++-	use=xterm+pcf0,
+++	kend=\EOF, kf1=\EOP, kf13=\EO2P, kf14=\EO2Q, kf15=\EO2R,
+++	kf16=\EO2S, kf17=\E[15;2~, kf18=\E[17;2~, kf19=\E[18;2~,
+++	kf2=\EOQ, kf20=\E[19;2~, kf21=\E[20;2~, kf22=\E[21;2~,
+++	kf23=\E[23;2~, kf24=\E[24;2~, kf3=\EOR, kf4=\EOS,
+++	khome=\EOH, use=konsole-vt100,
++ # KDE's "vt100" keyboard has no relationship to any terminal that DEC made, but
++ # it is still useful for deriving the other entries.
++ konsole-vt100|KDE console window with vt100 (sic) keyboard,
+diff --git a/meta/recipes-core/ncurses/ncurses/makefile_tweak.patch b/meta/recipes-core/ncurses/ncurses/makefile_tweak.patch
 deleted file mode 100644
-index f550537..0000000
---- a/meta/recipes-devtools/perl/perl-5.8.8/09_fix_installperl.patch
+index 480855b..0000000
+--- a/meta/recipes-core/ncurses/ncurses/makefile_tweak.patch
 +++ /dev/null
-@@ -1,32 +0,0 @@
--Correctly identify arch-specific modules in ext/ where the .pm files
--are under lib.
+@@ -1,89 +0,0 @@
+-Libtool 2.2.2 needs to be able to use top_builddir. Automake usually exports 
+-this but ncurses doesn't use automake.
 -
--Ensure that POSIX/SigAction is kept with the rest of the POSIX module
--under archlib.
+-RP 14/4/08
 -
--diff --exclude=debian -Naur perl-5.8.8.orig/installperl perl-5.8.8/installperl
----- perl-5.8.8.orig/installperl	2006-01-29 02:35:28.000000000 +1100
--+++ perl-5.8.8/installperl	2006-05-31 22:54:41.000000000 +1000
--@@ -156,11 +156,8 @@
--     if ("$File::Find::dir/$_" =~ m{^ext\b(.*)/([^/]+)\.pm$}) {
-- 	my($path, $modname) = ($1,$2);
+-Index: ncurses-5.4/ncurses/Makefile.in
+-===================================================================
+---- ncurses-5.4.orig/ncurses/Makefile.in	2008-04-14 12:22:34.000000000 +0100
+-+++ ncurses-5.4/ncurses/Makefile.in	2008-04-14 12:22:53.000000000 +0100
+-@@ -57,6 +57,7 @@
+- MODEL		= @DFT_LWR_MODEL@
+- DESTDIR		= @DESTDIR@
+- top_srcdir	= @top_srcdir@
+-+top_builddir	= @top_srcdir@
+- srcdir		= @srcdir@
+- prefix		= @prefix@
+- exec_prefix	= @exec_prefix@
+-Index: ncurses-5.4/form/Makefile.in
+-===================================================================
+---- ncurses-5.4.orig/form/Makefile.in	2008-04-14 12:30:35.000000000 +0100
+-+++ ncurses-5.4/form/Makefile.in	2008-04-14 12:30:59.000000000 +0100
+-@@ -51,6 +51,7 @@
+- MODEL		= @DFT_LWR_MODEL@
+- DESTDIR		= @DESTDIR@
+- srcdir		= @srcdir@
+-+top_builddir	= @top_srcdir@
+- prefix		= @prefix@
+- exec_prefix	= @exec_prefix@
+- bindir		= @bindir@
+-Index: ncurses-5.4/menu/Makefile.in
+-===================================================================
+---- ncurses-5.4.orig/menu/Makefile.in	2008-04-14 12:29:00.000000000 +0100
+-+++ ncurses-5.4/menu/Makefile.in	2008-04-14 12:29:13.000000000 +0100
+-@@ -51,6 +51,7 @@
+- MODEL		= @DFT_LWR_MODEL@
+- DESTDIR		= @DESTDIR@
+- srcdir		= @srcdir@
+-+top_builddir	= @top_srcdir@
+- prefix		= @prefix@
+- exec_prefix	= @exec_prefix@
+- bindir		= @bindir@
+-Index: ncurses-5.4/panel/Makefile.in
+-===================================================================
+---- ncurses-5.4.orig/panel/Makefile.in	2008-04-14 12:27:40.000000000 +0100
+-+++ ncurses-5.4/panel/Makefile.in	2008-04-14 12:27:59.000000000 +0100
+-@@ -51,6 +51,7 @@
+- MODEL		= @DFT_LWR_MODEL@
+- DESTDIR		= @DESTDIR@
+- srcdir		= @srcdir@
+-+top_builddir	= @top_srcdir@
+- prefix		= @prefix@
+- exec_prefix	= @exec_prefix@
+- bindir		= @bindir@
+-Index: ncurses-5.4/progs/Makefile.in
+-===================================================================
+---- ncurses-5.4.orig/progs/Makefile.in	2008-04-14 12:24:37.000000000 +0100
+-+++ ncurses-5.4/progs/Makefile.in	2008-04-14 12:25:06.000000000 +0100
+-@@ -54,6 +54,7 @@
+- MODEL		= ../@DFT_OBJ_SUBDIR@
+- DESTDIR		= @DESTDIR@
+- srcdir		= @srcdir@
+-+top_builddir	= @top_srcdir@
+- prefix		= @prefix@
+- exec_prefix	= @exec_prefix@
+- bindir		= @bindir@
+-Index: ncurses-5.4/tack/Makefile.in
+-===================================================================
+---- ncurses-5.4.orig/tack/Makefile.in	2008-04-14 12:26:05.000000000 +0100
+-+++ ncurses-5.4/tack/Makefile.in	2008-04-14 12:26:26.000000000 +0100
+-@@ -22,6 +22,7 @@
+- MODEL		= ../@DFT_OBJ_SUBDIR@
+- DESTDIR		= @DESTDIR@
+- srcdir		= @srcdir@
+-+top_builddir    = @top_srcdir@
+- prefix		= @prefix@
+- exec_prefix	= @exec_prefix@
+- bindir		= @bindir@
+-Index: ncurses-5.4/test/Makefile.in
+-===================================================================
+---- ncurses-5.4.orig/test/Makefile.in	2008-04-14 12:32:37.000000000 +0100
+-+++ ncurses-5.4/test/Makefile.in	2008-04-14 12:32:56.000000000 +0100
+-@@ -43,6 +43,7 @@
 - 
---	# strip trailing component first
---	$path =~ s{/[^/]*$}{};
---
---	# strip optional "/lib";
---	$path =~ s{/lib\b}{};
--+	# strip to optional "/lib", or remove trailing component
--+	$path =~ s{.*/lib\b}{} or $path =~ s{/[^/]*$}{};
-- 
-- 	# strip any leading /
-- 	$path =~ s{^/}{};
--@@ -851,7 +848,7 @@
--     }
-- 
--     if (-f $_) {
---	if (/\.(?:al|ix)$/ && !($dir =~ m[^auto/(.*)$] && $archpms{$1})) {
--+	if (/\.(?:al|ix)$/ && !($dir =~ m[^auto/(.*)$])) {
-- 	    $installlib = $installprivlib;
-- 	    #We're installing *.al and *.ix files into $installprivlib,
-- 	    #but we have to delete old *.al and *.ix files from the 5.000
-diff --git a/meta/recipes-devtools/perl/perl-5.8.8/54_debian_perldoc-r.patch b/meta/recipes-devtools/perl/perl-5.8.8/54_debian_perldoc-r.patch
+- MODEL		= ../@DFT_OBJ_SUBDIR@
+- srcdir		= @srcdir@
+-+top_builddir	= @top_srcdir@
+- prefix		= @prefix@
+- exec_prefix	= @exec_prefix@
+- libdir		= @libdir@
+diff --git a/meta/recipes-core/ncurses/ncurses/visibility.patch b/meta/recipes-core/ncurses/ncurses/visibility.patch
 deleted file mode 100644
-index 432cd85..0000000
---- a/meta/recipes-devtools/perl/perl-5.8.8/54_debian_perldoc-r.patch
+index 29cac5f..0000000
+--- a/meta/recipes-core/ncurses/ncurses/visibility.patch
 +++ /dev/null
-@@ -1,16 +0,0 @@
--In a Debian installation, not all directories in @INC need exist (the
--site directories for example are created on demand).
+@@ -1,4904 +0,0 @@
 -
--Suggested by Joey Hess <joeyh@debian.org>.
+-#
+-# Patch managed by http://www.holgerschurig.de/patcher.html
+-#
 -
--diff -Naur --exclude=debian perl-5.8.8.orig/lib/Pod/Perldoc.pm perl-5.8.8/lib/Pod/Perldoc.pm
----- perl-5.8.8.orig/lib/Pod/Perldoc.pm	2004-12-29 23:15:33.000000000 +1100
--+++ perl-5.8.8/lib/Pod/Perldoc.pm	2006-02-02 23:38:49.000000000 +1100
--@@ -1533,6 +1533,7 @@
--     $self->{'target'} = (splitdir $s)[-1];  # XXX: why not use File::Basename?
--     for ($i=0; $i<@dirs; $i++) {
-- 	$dir = $dirs[$i];
--+	next unless -d $dir; # some dirs in @INC are optional
-- 	($dir = VMS::Filespec::unixpath($dir)) =~ s!/\z!! if IS_VMS;
-- 	if (       (! $self->opt_m && ( $ret = $self->check_file($dir,"$s.pod")))
-- 		or ( $ret = $self->check_file($dir,"$s.pm"))
-diff --git a/meta/recipes-devtools/perl/perl-5.8.8/58_debian_cpan_config_path.patch b/meta/recipes-devtools/perl/perl-5.8.8/58_debian_cpan_config_path.patch
-deleted file mode 100644
-index b38c70c..0000000
---- a/meta/recipes-devtools/perl/perl-5.8.8/58_debian_cpan_config_path.patch
-+++ /dev/null
-@@ -1,14 +0,0 @@
--Set location of CPAN::Config to /etc/perl as /usr may not be writable.
--
--diff -Naur --exclude=debian perl-5.8.8.orig/lib/CPAN.pm perl-5.8.8/lib/CPAN.pm
----- perl-5.8.8.orig/lib/CPAN.pm	2006-02-01 01:11:22.000000000 +1100
--+++ perl-5.8.8/lib/CPAN.pm	2006-02-02 23:49:26.000000000 +1100
--@@ -1246,7 +1246,7 @@
-- 	$configpm = $INC{"CPAN/MyConfig.pm"};
-- 	$redo++;
--     } else {
---	my($path_to_cpan) = File::Basename::dirname($INC{"CPAN.pm"});
--+	my($path_to_cpan) = '/etc/perl';
-- 	my($configpmdir) = File::Spec->catdir($path_to_cpan,"CPAN");
-- 	my($configpmtest) = File::Spec->catfile($configpmdir,"Config.pm");
-- 	if (-d $configpmdir or File::Path::mkpath($configpmdir)) {
-diff --git a/meta/recipes-devtools/perl/perl-5.8.8/60_debian_libnet_config_path.patch b/meta/recipes-devtools/perl/perl-5.8.8/60_debian_libnet_config_path.patch
-deleted file mode 100644
-index 7842ce1..0000000
---- a/meta/recipes-devtools/perl/perl-5.8.8/60_debian_libnet_config_path.patch
-+++ /dev/null
-@@ -1,16 +0,0 @@
--Set location of libnet.cfg to /etc/perl/Net as /usr may not be writable.
--
--diff -Naur --exclude=debian perl-5.8.8.orig/lib/Net/Config.pm perl-5.8.8/lib/Net/Config.pm
----- perl-5.8.8.orig/lib/Net/Config.pm	2002-03-01 01:04:31.000000000 +1100
--+++ perl-5.8.8/lib/Net/Config.pm	2006-02-03 00:00:55.000000000 +1100
--@@ -57,9 +57,8 @@
-- }
-- TRY_INTERNET_CONFIG
+---- ncurses-5.4/ncurses/Makefile.in~visibility.patch
+-+++ ncurses-5.4/ncurses/Makefile.in
+-@@ -107,7 +107,7 @@
+- CFLAGS_NORMAL	= $(CCFLAGS)
+- CFLAGS_DEBUG	= $(CCFLAGS) @CC_G_OPT@ -DTRACE
+- CFLAGS_PROFILE	= $(CCFLAGS) -pg
+--CFLAGS_SHARED	= $(CCFLAGS) @CC_SHARED_OPTS@
+-+CFLAGS_SHARED	= $(CCFLAGS) @CC_SHARED_OPTS@ @LIBOPTS@
 - 
---my $file = __FILE__;
--+my $file = '/etc/perl/Net/libnet.cfg';
-- my $ref;
---$file =~ s/Config.pm/libnet.cfg/;
-- if ( -f $file ) {
--     $ref = eval { local $SIG{__DIE__}; do $file };
--     if (ref($ref) eq 'HASH') {
-diff --git a/meta/recipes-devtools/perl/perl-5.8.8/62_debian_cpan_definstalldirs.patch b/meta/recipes-devtools/perl/perl-5.8.8/62_debian_cpan_definstalldirs.patch
-deleted file mode 100644
-index 682061d..0000000
---- a/meta/recipes-devtools/perl/perl-5.8.8/62_debian_cpan_definstalldirs.patch
-+++ /dev/null
-@@ -1,16 +0,0 @@
--Some modules which are included in core set INSTALLDIRS => 'perl'
--explicitly in Makefile.PL.  This makes sense for the normal @INC
--ordering, but not ours.  Provide a sensible default.
--
--diff -Naur --exclude=debian perl-5.8.8.orig/lib/CPAN/FirstTime.pm perl-5.8.8/lib/CPAN/FirstTime.pm
----- perl-5.8.8.orig/lib/CPAN/FirstTime.pm	2006-01-31 08:08:57.000000000 +1100
--+++ perl-5.8.8/lib/CPAN/FirstTime.pm	2006-02-03 00:05:24.000000000 +1100
--@@ -358,7 +358,7 @@
+- CFLAGS_DEFAULT	= $(CFLAGS_@DFT_UPR_MODEL@)
 - 
+---- ncurses-5.4/panel/Makefile.in~visibility.patch
+-+++ ncurses-5.4/panel/Makefile.in
+-@@ -88,7 +88,7 @@
+- CFLAGS_NORMAL	= $(CCFLAGS)
+- CFLAGS_DEBUG	= $(CCFLAGS) @CC_G_OPT@ -DTRACE
+- CFLAGS_PROFILE	= $(CCFLAGS) -pg
+--CFLAGS_SHARED	= $(CCFLAGS) @CC_SHARED_OPTS@
+-+CFLAGS_SHARED	= $(CCFLAGS) @CC_SHARED_OPTS@ @LIBOPTS@
+- 
+- CFLAGS_DEFAULT	= $(CFLAGS_@DFT_UPR_MODEL@)
+- 
+---- ncurses-5.4/menu/Makefile.in~visibility.patch
+-+++ ncurses-5.4/menu/Makefile.in
+-@@ -87,7 +87,7 @@
+- CFLAGS_NORMAL	= $(CCFLAGS)
+- CFLAGS_DEBUG	= $(CCFLAGS) @CC_G_OPT@ -DTRACE
+- CFLAGS_PROFILE	= $(CCFLAGS) -pg
+--CFLAGS_SHARED	= $(CCFLAGS) @CC_SHARED_OPTS@
+-+CFLAGS_SHARED	= $(CCFLAGS) @CC_SHARED_OPTS@ @LIBOPTS@
+- 
+- CFLAGS_DEFAULT	= $(CFLAGS_@DFT_UPR_MODEL@)
+- 
+---- ncurses-5.4/c++/Makefile.in~visibility.patch
+-+++ ncurses-5.4/c++/Makefile.in
+-@@ -80,7 +80,7 @@
+- CFLAGS_NORMAL	= $(CCFLAGS)
+- CFLAGS_DEBUG	= $(CCFLAGS) @CXX_G_OPT@ -DTRACE
+- CFLAGS_PROFILE	= $(CCFLAGS) -pg
+--CFLAGS_SHARED	= $(CCFLAGS) @CC_SHARED_OPTS@
+-+CFLAGS_SHARED	= $(CCFLAGS) @CC_SHARED_OPTS@ @LIBOPTS@
+- 
+- CFLAGS_DEFAULT	= $(CFLAGS_@DFT_UPR_MODEL@)
+- 
+---- ncurses-5.4/form/Makefile.in~visibility.patch
+-+++ ncurses-5.4/form/Makefile.in
+-@@ -88,7 +88,7 @@
+- CFLAGS_NORMAL	= $(CCFLAGS)
+- CFLAGS_DEBUG	= $(CCFLAGS) @CC_G_OPT@ -DTRACE
+- CFLAGS_PROFILE	= $(CCFLAGS) -pg
+--CFLAGS_SHARED	= $(CCFLAGS) @CC_SHARED_OPTS@
+-+CFLAGS_SHARED	= $(CCFLAGS) @CC_SHARED_OPTS@ @LIBOPTS@
+- 
+- CFLAGS_DEFAULT	= $(CFLAGS_@DFT_UPR_MODEL@)
+- 
+---- ncurses-5.4/configure.in~visibility.patch
+-+++ ncurses-5.4/configure.in
+-@@ -34,17 +34,20 @@
+- dnl See http://invisible-island.net/autoconf/ for additional information.
+- dnl
+- dnl ---------------------------------------------------------------------------
+--AC_PREREQ(2.13.20020210)
+-+AC_PREREQ(2.59)
+- AC_REVISION($Revision: 1.312 $)
+--AC_INIT(ncurses/base/lib_initscr.c)
+-+AC_INIT
+-+AC_CONFIG_SRCDIR([ncurses/base/lib_initscr.c])
+- AC_CONFIG_HEADER(include/ncurses_cfg.h:include/ncurses_cfg.hin)
+- 
+-+m4_include([m4/templates.m4])
+-+
+- CF_SUBST_NCURSES_VERSION
+- 
+- CF_WITH_REL_VERSION(NCURSES)
+- CF_WITH_ABI_VERSION
+- 
+--CF_CHECK_CACHE([AC_CANONICAL_SYSTEM])
+-+CF_CHECK_CACHE([AC_CANONICAL_TARGET([])])
+- AC_ARG_WITH(system-type,
+- [  --with-system-type=XXX  test: override derived host system-type],
+- [AC_MSG_WARN(overriding system type to $withval)
+-@@ -100,7 +103,7 @@
+- CF_GXX_VERSION
+- case $GXX_VERSION in
+- 1*|2.[[0-6]]*)
+--	GXX=""; CXX=""; ac_cv_prog_gxx=no
+-+	GXX=""; CXX=""; ac_cv_cxx_compiler_gnu=no
+- 	cf_cxx_library=no
+- 	AC_MSG_WARN(templates do not work)
+- 	;;
+-@@ -176,7 +179,6 @@
+- AC_SUBST(DESTDIR)
+- 
+- ###############################################################################
+--CF_HELP_MESSAGE(Build-Tools Needed to Compile Temporary Applications for Cross-compiling:)
+- # If we're cross-compiling, allow the user to override the tools and their
+- # options.  The configure script is oriented toward identifying the host
+- # compiler, etc., but we need a build compiler to generate parts of the source.
+-@@ -213,7 +215,6 @@
+- AC_SUBST(BUILD_EXEEXT)
+- 
+- ###############################################################################
+--CF_HELP_MESSAGE(Options to Specify the Libraries Built/Used:)
+- 
+- ### Options to allow the user to specify the set of libraries which are used.
+- ### Use "--without-normal --with-shared" to allow the default model to be
+-@@ -343,11 +344,11 @@
+- 
+- AC_MSG_CHECKING(for default loader flags)
+- case $DFT_LWR_MODEL in
+--libtool) LD_MODEL=''   ;;
+-+libtool) LD_MODEL=''; LIBOPTS="-DNCURSES_DLL" ;;
+- normal)  LD_MODEL=''   ;;
+- debug)   LD_MODEL=$CC_G_OPT ;;
+- profile) LD_MODEL='-pg';;
+--shared)  LD_MODEL=''   ;;
+-+shared)  LD_MODEL=''; LIBOPTS="-DNCURSES_DLL"   ;;
+- esac
+- AC_SUBST(LD_MODEL)dnl		the type of link (e.g., -g or -pg)
+- AC_MSG_RESULT($LD_MODEL)
+-@@ -363,14 +364,14 @@
+- if test "$CC_SHARED_OPTS" = "unknown"; then
+- 	for model in $cf_list_models; do
+- 		if test "$model" = "shared"; then
+--			AC_ERROR(Shared libraries are not supported in this version)
+-+			AC_MSG_ERROR([Shared libraries are not supported in this version])
+- 		fi
+- 	done
+- fi
+- 
+--###############################################################################
+--CF_HELP_MESSAGE(Fine-Tuning Your Configuration:)
+-+AC_SUBST(LIBOPTS)
+- 
+-+###############################################################################
+- ###	use option --disable-overwrite to leave out the link to -lcurses
+- AC_MSG_CHECKING(if you wish to install ncurses overwriting curses)
+- AC_ARG_ENABLE(overwrite,
+-@@ -450,7 +451,7 @@
+- AC_ARG_ENABLE(big-core,
+- 	[  --disable-big-core      assume machine has little memory],
+- 	[with_big_core=$enableval],
+--	[AC_TRY_RUN([
+-+	[AC_RUN_IFELSE([AC_LANG_SOURCE([[
+- #include <stdlib.h>
+- #include <string.h>
+- int main() {
+-@@ -459,10 +460,7 @@
+- 	if (s != 0)
+- 		s[0] = s[n-1] = 0;
+- 	exit(s == 0);
+--}],
+--	[with_big_core=yes],
+--	[with_big_core=no],
+--	[with_big_core=no])])
+-+}]])],[with_big_core=yes],[with_big_core=no],[with_big_core=no])])
+- AC_MSG_RESULT($with_big_core)
+- test "$with_big_core" = "yes" && AC_DEFINE(HAVE_BIG_CORE)
+- 
+-@@ -477,7 +475,7 @@
+- if test "$with_termcap" != "yes" ; then
+- 	if test "$use_database" = no ; then
+- 		if test -z "$with_fallback" ; then
+--			AC_ERROR(You have disabled the database w/o specifying fallbacks)
+-+			AC_MSG_ERROR([You have disabled the database w/o specifying fallbacks])
+- 		fi
+- 	fi
+- 	AC_DEFINE(PURE_TERMINFO)
+-@@ -614,10 +612,10 @@
+- test "$with_rcs_ids" = yes && AC_DEFINE(USE_RCS_IDS)
+- 
+- ###############################################################################
+-+
+- CF_MAN_PAGES([ captoinfo clear infocmp infotocap tic toe tput ])
+- 
+- ###############################################################################
+--CF_HELP_MESSAGE(Extensions:)
+- 
+- ### Note that some functions (such as const) are normally disabled anyway.
+- AC_MSG_CHECKING(if you want to build with function extensions)
+-@@ -683,7 +681,6 @@
+- 
+- ###############################################################################
+- # These options are relatively safe to experiment with.
+--CF_HELP_MESSAGE(Development Code:)
+- AC_MSG_CHECKING(if you want all development code)
+- AC_ARG_WITH(develop,
+- 	[  --with-develop          enable all development options],
+-@@ -719,7 +716,6 @@
+- 
+- ###############################################################################
+- # These are just experimental, probably should not be in a package:
+--CF_HELP_MESSAGE(Experimental Code:)
+- 
+- AC_MSG_CHECKING(if you do not want to assume colors are white-on-black)
+- AC_ARG_ENABLE(assumed-color,
+-@@ -828,7 +824,6 @@
+- AC_SUBST(TERMINFO_CAPS)
+- 
+- ###############################################################################
+--CF_HELP_MESSAGE(Testing/development Options:)
+- 
+- ###	use option --disable-echo to suppress full display compiling commands
+- AC_MSG_CHECKING(if you want to display full commands during build)
+-@@ -931,7 +926,7 @@
+- AC_SUBST(MATH_LIB)
+- 
+- ###	Checks for header files.
+--AC_STDC_HEADERS
+-+AC_HEADER_STDC([])
+- AC_HEADER_DIRENT
+- AC_HEADER_TIME
+- CF_REGEX
+-@@ -965,7 +960,7 @@
+- CF_SYS_TIME_SELECT
+- 
+- ###	checks for compiler characteristics
+--AC_LANG_C
+-+AC_LANG([C])
+- AC_C_CONST
+- AC_C_INLINE
+- test "$ac_cv_c_inline" != no && AC_DEFINE(CC_HAS_INLINE_FUNCS)
+-@@ -1040,7 +1035,7 @@
+- 
+- # Check for C++ compiler characteristics (and ensure that it's there!)
+- if test -n "$CXX" ; then
+--	AC_LANG_CPLUSPLUS
+-+	AC_LANG([C++])
+- 	CF_STDCPP_LIBRARY
+- 
+- 	case $GXX_VERSION in
+-@@ -1135,7 +1130,6 @@
+- fi
+- AC_SUBST(USE_CXX_BOOL)
+- 
+--CF_HELP_MESSAGE(Ada95 Binding Options:)
+- 
+- dnl Check for availability of GNU Ada Translator (GNAT).
+- dnl At the moment we support no other Ada95 compiler.
+-@@ -1309,15 +1303,16 @@
+- 
+- ################################################################################
+- test "$use_database" = yes && SUB_MAKEFILES="$SUB_MAKEFILES misc/run_tic.sh:misc/run_tic.in"
+--AC_OUTPUT( \
+-+AC_CONFIG_FILES([\
+- 	include/MKterm.h.awk \
+- 	include/curses.head:include/curses.h.in \
+- 	include/termcap.h \
+- 	include/unctrl.h \
+- 	$SUB_MAKEFILES \
+--	Makefile,[
+-+	Makefile])
+-+AC_CONFIG_COMMANDS([default],[
+- CF_LIB_RULES
+--],[
+-+],[[
+- ### Special initialization commands, used to pass information from the
+- ### configuration-run into config.status
+- 
+-@@ -1348,5 +1343,6 @@
+- host="$host"
+- target="$target"
+- 
+--],cat)dnl
+-+]])
+-+AC_OUTPUT
+- ${MAKE-make} preinstall
+---- ncurses-5.4/include/ncurses_dll.h~visibility.patch
+-+++ ncurses-5.4/include/ncurses_dll.h
+-@@ -7,8 +7,8 @@
+- /* but this structure may be useful at some point for an MSVC build */
+- /* so, for now unconditionally define the important flags           */
+- /* "the right way" for proper static and dll+auto-import behavior   */
+--#undef NCURSES_DLL
+--#define NCURSES_STATIC
+-+//#undef NCURSES_DLL
+-+//#define NCURSES_STATIC
+- 
+- #if defined(__CYGWIN__)
+- #  if defined(NCURSES_DLL)
+-@@ -32,12 +32,20 @@
+- #  endif
+- #  define NCURSES_API __cdecl
+- #  define NCURSES_EXPORT(type) NCURSES_IMPEXP type NCURSES_API
+--#  define NCURSES_EXPORT_VAR(type) NCURSES_IMPEXP type
+-+#  define NCURSES_EXPORT_VAR(var) var NCURSES_IMPEXP
+- #endif
+- 
+- /* Take care of non-cygwin platforms */
+- #if !defined(NCURSES_IMPEXP)
+--#  define NCURSES_IMPEXP /* nothing */
+-+#  if defined(GCC_HASCLASSVISIBILITY)
+-+#    if defined(NCURSES_DLL)
+-+#      define NCURSES_IMPEXP __attribute__ ((visibility("default")))
+-+#    else
+-+#      define NCURSES_IMPEXP /* nothing */
+-+#    endif
+-+#  else
+-+#    define NCURSES_IMPEXP /* nothing */
+-+#  endif
+- #endif
+- #if !defined(NCURSES_API)
+- #  define NCURSES_API /* nothing */
+-@@ -46,7 +54,7 @@
+- #  define NCURSES_EXPORT(type) NCURSES_IMPEXP type NCURSES_API
+- #endif
+- #if !defined(NCURSES_EXPORT_VAR)
+--#  define NCURSES_EXPORT_VAR(type) NCURSES_IMPEXP type
+-+#  define NCURSES_EXPORT_VAR(var) var NCURSES_IMPEXP
+- #endif
+- 
+- #endif /* NCURSES_DLL_H_incl */
+---- ncurses-5.4/form/fty_alnum.c~visibility.patch
+-+++ ncurses-5.4/form/fty_alnum.c
+-@@ -132,6 +132,6 @@
+-   NULL
 - };
 - 
---    $default = $CPAN::Config->{makepl_arg} || "";
--+    $default = $CPAN::Config->{makepl_arg} || "INSTALLDIRS=site";
--     $CPAN::Config->{makepl_arg} =
-- 	prompt("Parameters for the 'perl Makefile.PL' command?
-- Typical frequently used settings:
-diff --git a/meta/recipes-devtools/perl/perl-5.8.8/64_debian_enc2xs_inc.patch b/meta/recipes-devtools/perl/perl-5.8.8/64_debian_enc2xs_inc.patch
-deleted file mode 100644
-index c207a93..0000000
---- a/meta/recipes-devtools/perl/perl-5.8.8/64_debian_enc2xs_inc.patch
-+++ /dev/null
-@@ -1,28 +0,0 @@
--Tweak enc2xs to handle Debian @INC:  ignore missing directories,
--follow symlinks (/usr/share/perl/5.8 -> 5.8.4).
--
--diff -Naur --exclude=debian perl-5.8.8.orig/ext/Encode/bin/enc2xs perl-5.8.8/ext/Encode/bin/enc2xs
----- perl-5.8.8.orig/ext/Encode/bin/enc2xs	2004-09-03 01:53:51.000000000 +1000
--+++ perl-5.8.8/ext/Encode/bin/enc2xs	2006-02-03 00:21:32.000000000 +1100
--@@ -909,10 +909,11 @@
--     eval { require File::Find; };
--     my (@inc, %e2x_dir);
--     for my $inc (@INC){
--+	next unless -d $inc; # skip non-existent directories
-- 	push @inc, $inc unless $inc eq '.'; #skip current dir
--     }
--     File::Find::find(
---	     sub {
--+	     { wanted => sub {
-- 		 my ($dev,$ino,$mode,$nlink,$uid,$gid,$rdev,$size,
-- 		     $atime,$mtime,$ctime,$blksize,$blocks)
-- 		     = lstat($_) or return;
--@@ -922,7 +923,7 @@
-- 		     $e2x_dir{$File::Find::dir} ||= $mtime;
-- 		 }
-- 		 return;
---	     }, @inc);
--+	     }, follow => 1}, @inc);
--     warn join("\n", keys %e2x_dir), "\n";
--     for my $d (sort {$e2x_dir{$a} <=> $e2x_dir{$b}} keys %e2x_dir){
-- 	$_E2X = $d;
-diff --git a/meta/recipes-devtools/perl/perl-5.8.8/Makefile.SH.patch b/meta/recipes-devtools/perl/perl-5.8.8/Makefile.SH.patch
-deleted file mode 100644
-index ab9c4b7..0000000
---- a/meta/recipes-devtools/perl/perl-5.8.8/Makefile.SH.patch
-+++ /dev/null
-@@ -1,253 +0,0 @@
--Index: perl-5.8.8/Makefile.SH
--===================================================================
----- perl-5.8.8.orig/Makefile.SH	2006-01-24 23:49:44.000000000 +1100
--+++ perl-5.8.8/Makefile.SH	2007-06-14 13:29:37.000000000 +1000
--@@ -43,12 +43,12 @@
-- true)
-- 	# Prefix all runs of 'miniperl' and 'perl' with
-- 	# $ldlibpth so that ./perl finds *this* shared libperl.
---	case "$LD_LIBRARY_PATH" in
---	'')
---		ldlibpth="LD_LIBRARY_PATH=`pwd`";;
---	*)
---		ldlibpth="LD_LIBRARY_PATH=`pwd`:${LD_LIBRARY_PATH}";;
---	esac
--+#	case "$LD_LIBRARY_PATH" in
--+#	'')
--+#		ldlibpth="LD_LIBRARY_PATH=`pwd`";;
--+#	*)
--+#		ldlibpth="LD_LIBRARY_PATH=`pwd`:${LD_LIBRARY_PATH}";;
--+#	esac
+--NCURSES_EXPORT_VAR(FIELDTYPE*) TYPE_ALNUM = &typeALNUM;
+-+FIELDTYPE* NCURSES_EXPORT_VAR(TYPE_ALNUM) = &typeALNUM;
 - 
-- 	pldlflags="$cccdlflags"
-- 	static_target='static_pic'
--@@ -108,7 +108,8 @@
-- 	        ldlibpth=''
-- 	        ;;
-- 	    *)
---		eval "ldlibpth=\"$ldlibpthname=`pwd`:\$$ldlibpthname\""
--+# We compile in the library path in OE from cross-compile, so lets not do this
--+#		eval "ldlibpth=\"$ldlibpthname=`pwd`:\$$ldlibpthname\""
-- 		;;
-- 	    esac
-- 	    # Strip off any trailing :'s
--@@ -129,18 +130,7 @@
-- 	    # INSTALL file, under "Building a shared perl library".
-- 	    # If there is no pre-existing $libperl, we don't need
-- 	    # to do anything further.
---	    if test -f $archlib/CORE/$libperl; then
---		rm -f preload
---		cat <<'EOT' > preload
---#! /bin/sh
---lib=$1
---shift
---test -r $lib && export LD_PRELOAD="$lib $LD_PRELOAD"
---exec "$@"
---EOT
---		chmod 755 preload
---		ldlibpth="$ldlibpth `pwd`/preload `pwd`/$libperl"
---	    fi
--+	    echo linux libraries overwritten by cross-compile patches
-- 	    ;;
-- 	os390)	test -f /bin/env && ldlibpth="/bin/env $ldlibpth"
-- 		;;
--@@ -401,9 +391,19 @@
-- .c.s:
-- 	$(CCCMDSRC) -S $*.c
+- /* fty_alnum.c ends here */
+---- ncurses-5.4/form/fty_alpha.c~visibility.patch
+-+++ ncurses-5.4/form/fty_alpha.c
+-@@ -133,6 +133,6 @@
+-   NULL
+- };
 - 
---all: $(FIRSTMAKEFILE) miniperl$(EXE_EXT) extra.pods $(private) $(unidatafiles) $(public) $(dynamic_ext) $(nonxs_ext) extras.make
---	@echo " ";
---	@echo "	Everything is up to date. Type '$(MAKE) test' to run test suite."
--+#all: $(FIRSTMAKEFILE) miniperl$(EXE_EXT) extra.pods $(private) $(unidatafiles) $(public) $(dynamic_ext) $(nonxs_ext) extras.make
--+#	@echo " ";
--+#	@echo "	Everything is up to date. Type '$(MAKE) test' to run test suite."
+--NCURSES_EXPORT_VAR(FIELDTYPE*) TYPE_ALPHA = &typeALPHA;
+-+FIELDTYPE* NCURSES_EXPORT_VAR(TYPE_ALPHA) = &typeALPHA;
+- 
+- /* fty_alpha.c ends here */
+---- ncurses-5.4/form/fld_newftyp.c~visibility.patch
+-+++ ncurses-5.4/form/fld_newftyp.c
+-@@ -48,7 +48,7 @@
+-   NULL                 /* enumerate previous function                 */
+- };
+- 
+--NCURSES_EXPORT_VAR(const FIELDTYPE*) _nc_Default_FieldType = &default_fieldtype;
+-+const FIELDTYPE* NCURSES_EXPORT_VAR(_nc_Default_FieldType) = &default_fieldtype;
+- 
+- /*---------------------------------------------------------------------------
+- |   Facility      :  libnform  
+---- ncurses-5.4/form/form.h~visibility.patch
+-+++ ncurses-5.4/form/form.h
+-@@ -248,24 +248,24 @@
+- 	/*************************
+- 	*  standard field types  *
+- 	*************************/
+--extern NCURSES_EXPORT_VAR(FIELDTYPE *) TYPE_ALPHA;
+--extern NCURSES_EXPORT_VAR(FIELDTYPE *) TYPE_ALNUM;
+--extern NCURSES_EXPORT_VAR(FIELDTYPE *) TYPE_ENUM;
+--extern NCURSES_EXPORT_VAR(FIELDTYPE *) TYPE_INTEGER;
+--extern NCURSES_EXPORT_VAR(FIELDTYPE *) TYPE_NUMERIC;
+--extern NCURSES_EXPORT_VAR(FIELDTYPE *) TYPE_REGEXP;
+-+extern FIELDTYPE * NCURSES_EXPORT_VAR(TYPE_ALPHA);
+-+extern FIELDTYPE * NCURSES_EXPORT_VAR(TYPE_ALNUM);
+-+extern FIELDTYPE * NCURSES_EXPORT_VAR(TYPE_ENUM);
+-+extern FIELDTYPE * NCURSES_EXPORT_VAR(TYPE_INTEGER);
+-+extern FIELDTYPE * NCURSES_EXPORT_VAR(TYPE_NUMERIC);
+-+extern FIELDTYPE * NCURSES_EXPORT_VAR(TYPE_REGEXP);
+- 
+-         /************************************
+- 	*  built-in additional field types  *
+-         *  They are not defined in SVr4     *
+- 	************************************/
+--extern NCURSES_EXPORT_VAR(FIELDTYPE *) TYPE_IPV4;      /* Internet IP Version 4 address */
+-+extern FIELDTYPE * NCURSES_EXPORT_VAR(TYPE_IPV4);      /* Internet IP Version 4 address */
+- 
+-         /*********************** 
+-         *   Default objects    *
+-         ***********************/ 
+--extern NCURSES_EXPORT_VAR(FORM *)	_nc_Default_Form;
+--extern NCURSES_EXPORT_VAR(FIELD *)	_nc_Default_Field;
+-+extern FORM * NCURSES_EXPORT_VAR(_nc_Default_Form);
+-+extern FIELD * NCURSES_EXPORT_VAR(_nc_Default_Field);
+- 
+- 
+- 	/***********************
+---- ncurses-5.4/form/fty_int.c~visibility.patch
+-+++ ncurses-5.4/form/fty_int.c
+-@@ -155,6 +155,6 @@
+-   NULL
+- };
+- 
+--NCURSES_EXPORT_VAR(FIELDTYPE*) TYPE_INTEGER = &typeINTEGER;
+-+FIELDTYPE* NCURSES_EXPORT_VAR(TYPE_INTEGER) = &typeINTEGER;
+- 
+- /* fty_int.c ends here */
+---- ncurses-5.4/form/fty_num.c~visibility.patch
+-+++ ncurses-5.4/form/fty_num.c
+-@@ -190,6 +190,6 @@
+-   NULL
+- };
+- 
+--NCURSES_EXPORT_VAR(FIELDTYPE*) TYPE_NUMERIC = &typeNUMERIC;
+-+FIELDTYPE* NCURSES_EXPORT_VAR(TYPE_NUMERIC) = &typeNUMERIC;
+- 
+- /* fty_num.c ends here */
+---- ncurses-5.4/form/fty_regex.c~visibility.patch
+-+++ ncurses-5.4/form/fty_regex.c
+-@@ -252,6 +252,6 @@
+-   NULL
+- };
+- 
+--NCURSES_EXPORT_VAR(FIELDTYPE*) TYPE_REGEXP = &typeREGEXP;
+-+FIELDTYPE* NCURSES_EXPORT_VAR(TYPE_REGEXP) = &typeREGEXP;
+- 
+- /* fty_regex.c ends here */
+---- ncurses-5.4/form/frm_def.c~visibility.patch
+-+++ ncurses-5.4/form/frm_def.c
+-@@ -60,7 +60,7 @@
+-   NULL                                  /* fieldterm  */
+- };
+- 
+--NCURSES_EXPORT_VAR(FORM *) _nc_Default_Form = &default_form;
+-+FORM * NCURSES_EXPORT_VAR(_nc_Default_Form) = &default_form;
+- 
+- /*---------------------------------------------------------------------------
+- |   Facility      :  libnform  
+---- ncurses-5.4/form/fld_def.c~visibility.patch
+-+++ ncurses-5.4/form/fld_def.c
+-@@ -63,7 +63,7 @@
+-   (char *)0                /* usrptr */
+- };
+- 
+--NCURSES_EXPORT_VAR(FIELD *) _nc_Default_Field = &default_field;
+-+FIELD * NCURSES_EXPORT_VAR(_nc_Default_Field) = &default_field;
+- 
+- /*---------------------------------------------------------------------------
+- |   Facility      :  libnform  
+---- ncurses-5.4/form/fty_enum.c~visibility.patch
+-+++ ncurses-5.4/form/fty_enum.c
+-@@ -290,6 +290,6 @@
+-   Previous_Enum
+- };
+- 
+--NCURSES_EXPORT_VAR(FIELDTYPE*) TYPE_ENUM = &typeENUM;
+-+FIELDTYPE* NCURSES_EXPORT_VAR(TYPE_ENUM) = &typeENUM;
+- 
+- /* fty_enum.c ends here */
+---- ncurses-5.4/form/fty_ipv4.c~visibility.patch
+-+++ ncurses-5.4/form/fty_ipv4.c
+-@@ -76,6 +76,6 @@
+-   NULL
+- };
+- 
+--NCURSES_EXPORT_VAR(FIELDTYPE*) TYPE_IPV4 = &typeIPV4;
+-+FIELDTYPE* NCURSES_EXPORT_VAR(TYPE_IPV4) = &typeIPV4;
+- 
+- /* fty_ipv4.c ends here */
+---- ncurses-5.4/form/form.priv.h~visibility.patch
+-+++ ncurses-5.4/form/form.priv.h
+-@@ -112,7 +112,7 @@
+- #define C_BLANK ' '
+- #define is_blank(c) ((c)==C_BLANK)
+- 
+--extern NCURSES_EXPORT_VAR(const FIELDTYPE *) _nc_Default_FieldType;
+-+extern const FIELDTYPE * NCURSES_EXPORT_VAR(_nc_Default_FieldType);
+- 
+- extern NCURSES_EXPORT(TypeArgument *) _nc_Make_Argument (const FIELDTYPE*,va_list*,int*);
+- extern NCURSES_EXPORT(TypeArgument *) _nc_Copy_Argument (const FIELDTYPE*,const TypeArgument*, int*);
+---- ncurses-5.4/include/tic.h~visibility.patch
+-+++ ncurses-5.4/include/tic.h
+-@@ -117,7 +117,7 @@
+- #define DEBUG(n, a)	/*nothing*/
+- #endif
+- 
+--extern NCURSES_EXPORT_VAR(unsigned) _nc_tracing;
+-+extern unsigned NCURSES_EXPORT_VAR(_nc_tracing);
+- extern NCURSES_EXPORT(void) _nc_tracef (char *, ...) GCC_PRINTFLIKE(1,2);
+- extern NCURSES_EXPORT(const char *) _nc_visbuf (const char *);
+- extern NCURSES_EXPORT(const char *) _nc_visbuf2 (int, const char *);
+-@@ -151,7 +151,7 @@
+- 	char	*tk_valstring;	/* value of capability (if a string) */
+- };
+- 
+--extern NCURSES_EXPORT_VAR(struct token)	_nc_curr_token;
+-+extern struct token NCURSES_EXPORT_VAR(_nc_curr_token);
+- 
+- 	/*
+- 	 * List of keynames with their corresponding code.
+-@@ -161,7 +161,7 @@
+- 	int code;
+- };
+- 
+--extern NCURSES_EXPORT_VAR(const struct kn) _nc_key_names[];
+-+extern const struct kn NCURSES_EXPORT_VAR(_nc_key_names[]);
+- 
+- 	/*
+- 	 * Offsets to string capabilities, with the corresponding functionkey
+-@@ -179,7 +179,7 @@
+- 
+- #else
+- 
+--extern NCURSES_EXPORT_VAR(struct tinfo_fkeys) _nc_tinfo_fkeys[];
+-+extern struct tinfo_fkeys NCURSES_EXPORT_VAR(_nc_tinfo_fkeys[]);
+- 
+- #endif
+- 
+-@@ -204,11 +204,11 @@
+- 	const char	*source;
+- };
+- 
+--extern NCURSES_EXPORT_VAR(const struct name_table_entry * const) _nc_info_hash_table[];
+--extern NCURSES_EXPORT_VAR(const struct name_table_entry * const) _nc_cap_hash_table[];
+-+extern const struct name_table_entry * const NCURSES_EXPORT_VAR(_nc_info_hash_table[]);
+-+extern const struct name_table_entry * const NCURSES_EXPORT_VAR(_nc_cap_hash_table[]);
+- 
+--extern NCURSES_EXPORT_VAR(const struct alias) _nc_capalias_table[];
+--extern NCURSES_EXPORT_VAR(const struct alias) _nc_infoalias_table[];
+-+extern const struct alias NCURSES_EXPORT_VAR(_nc_capalias_table[]);
+-+extern const struct alias NCURSES_EXPORT_VAR(_nc_infoalias_table[]);
+- 
+- extern NCURSES_EXPORT(const struct name_table_entry *) _nc_get_table (bool);
+- extern NCURSES_EXPORT(const struct name_table_entry * const *) _nc_get_hash_table (bool);
+-@@ -255,13 +255,13 @@
+- extern NCURSES_EXPORT(void) _nc_panic_mode (char);
+- extern NCURSES_EXPORT(void) _nc_push_token (int);
+- extern NCURSES_EXPORT(void) _nc_reset_input (FILE *, char *);
+--extern NCURSES_EXPORT_VAR(int) _nc_curr_col;
+--extern NCURSES_EXPORT_VAR(int) _nc_curr_line;
+--extern NCURSES_EXPORT_VAR(int) _nc_syntax;
+--extern NCURSES_EXPORT_VAR(long) _nc_comment_end;
+--extern NCURSES_EXPORT_VAR(long) _nc_comment_start;
+--extern NCURSES_EXPORT_VAR(long) _nc_curr_file_pos;
+--extern NCURSES_EXPORT_VAR(long) _nc_start_line;
+-+extern int NCURSES_EXPORT_VAR(_nc_curr_col);
+-+extern int NCURSES_EXPORT_VAR(_nc_curr_line);
+-+extern int NCURSES_EXPORT_VAR(_nc_syntax);
+-+extern long NCURSES_EXPORT_VAR(_nc_comment_end);
+-+extern long NCURSES_EXPORT_VAR(_nc_comment_start);
+-+extern long NCURSES_EXPORT_VAR(_nc_curr_file_pos);
+-+extern long NCURSES_EXPORT_VAR(_nc_start_line);
+- #define SYN_TERMINFO	0
+- #define SYN_TERMCAP	1
+- 
+-@@ -272,7 +272,7 @@
+- extern NCURSES_EXPORT(void) _nc_syserr_abort (const char *const,...) GCC_PRINTFLIKE(1,2) GCC_NORETURN;
+- extern NCURSES_EXPORT(void) _nc_err_abort (const char *const,...) GCC_PRINTFLIKE(1,2) GCC_NORETURN;
+- extern NCURSES_EXPORT(void) _nc_warning (const char *const,...) GCC_PRINTFLIKE(1,2);
+--extern NCURSES_EXPORT_VAR(bool) _nc_suppress_warnings;
+-+extern bool NCURSES_EXPORT_VAR(_nc_suppress_warnings);
+- 
+- /* comp_expand.c: expand string into readable form */
+- extern NCURSES_EXPORT(char *) _nc_tic_expand (const char *, bool, int);
+-@@ -287,12 +287,12 @@
+- /* lib_tparm.c */
+- #define NUM_PARM 9
+- 
+--extern NCURSES_EXPORT_VAR(int) _nc_tparm_err;
+-+extern int NCURSES_EXPORT_VAR(_nc_tparm_err);
+- 
+- extern NCURSES_EXPORT(int) _nc_tparm_analyze(const char *string, char *p_is_s[NUM_PARM], int *popcount);
+- 
+- /* lib_tputs.c */
+--extern NCURSES_EXPORT_VAR(int) _nc_nulls_sent;		/* Add one for every null sent */
+-+extern int NCURSES_EXPORT_VAR(_nc_nulls_sent);		/* Add one for every null sent */
+- 
+- /* comp_main.c: compiler main */
+- extern const char * _nc_progname;
+---- ncurses-5.4/include/MKterm.h.awk.in~visibility.patch
+-+++ ncurses-5.4/include/MKterm.h.awk.in
+-@@ -228,9 +228,9 @@
+- 			print  "    char *      _termname;      /* used for termname() */"
+- 			print  "} TERMINAL;"
+- 			print  ""
+--			print  "extern NCURSES_EXPORT_VAR(TERMINAL *) cur_term;"
+-+			print  "extern TERMINAL * NCURSES_EXPORT_VAR(cur_term);"
+- 			print  ""
+--			print  "#if BROKEN_LINKER"
+-+			print  "#if defined(BROKEN_LINKER)"
+- 			print  "#define boolnames  _nc_boolnames()"
+- 			print  "#define boolcodes  _nc_boolcodes()"
+- 			print  "#define boolfnames _nc_boolfnames()"
+-@@ -253,15 +253,15 @@
+- 			print  ""
+- 			print  "#else"
+- 			print  ""
+--			print  "extern NCURSES_EXPORT_VAR(NCURSES_CONST char * const ) boolnames[];"
+--			print  "extern NCURSES_EXPORT_VAR(NCURSES_CONST char * const ) boolcodes[];"
+--			print  "extern NCURSES_EXPORT_VAR(NCURSES_CONST char * const ) boolfnames[];"
+--			print  "extern NCURSES_EXPORT_VAR(NCURSES_CONST char * const ) numnames[];"
+--			print  "extern NCURSES_EXPORT_VAR(NCURSES_CONST char * const ) numcodes[];"
+--			print  "extern NCURSES_EXPORT_VAR(NCURSES_CONST char * const ) numfnames[];"
+--			print  "extern NCURSES_EXPORT_VAR(NCURSES_CONST char * const ) strnames[];"
+--			print  "extern NCURSES_EXPORT_VAR(NCURSES_CONST char * const ) strcodes[];"
+--			print  "extern NCURSES_EXPORT_VAR(NCURSES_CONST char * const ) strfnames[];"
+-+			print  "extern NCURSES_CONST char * const  NCURSES_EXPORT_VAR(boolnames[]);"
+-+			print  "extern NCURSES_CONST char * const  NCURSES_EXPORT_VAR(boolcodes[]);"
+-+			print  "extern NCURSES_CONST char * const  NCURSES_EXPORT_VAR(boolfnames[]);"
+-+			print  "extern NCURSES_CONST char * const  NCURSES_EXPORT_VAR(numnames[]);"
+-+			print  "extern NCURSES_CONST char * const  NCURSES_EXPORT_VAR(numcodes[]);"
+-+			print  "extern NCURSES_CONST char * const  NCURSES_EXPORT_VAR(numfnames[]);"
+-+			print  "extern NCURSES_CONST char * const  NCURSES_EXPORT_VAR(strnames[]);"
+-+			print  "extern NCURSES_CONST char * const  NCURSES_EXPORT_VAR(strcodes[]);"
+-+			print  "extern NCURSES_CONST char * const  NCURSES_EXPORT_VAR(strfnames[]);"
+- 			print  ""
+- 			print  "#endif"
+- 			print  ""
+-@@ -287,7 +287,7 @@
+- 			print  "#if !defined(__NCURSES_H)"
+- 			print  "extern NCURSES_EXPORT(char *) tigetstr (NCURSES_CONST char *);"
+- 			print  "extern NCURSES_EXPORT(char *) tparm (NCURSES_CONST char *, ...);"
+--			print  "extern NCURSES_EXPORT_VAR(char) ttytype[];"
+-+			print  "extern char NCURSES_EXPORT_VAR(ttytype[]);"
+- 			print  "extern NCURSES_EXPORT(int) putp (const char *);"
+- 			print  "extern NCURSES_EXPORT(int) tigetflag (NCURSES_CONST char *);"
+- 			print  "extern NCURSES_EXPORT(int) tigetnum (NCURSES_CONST char *);"
+---- ncurses-5.4/include/termcap.h.in~visibility.patch
+-+++ ncurses-5.4/include/termcap.h.in
+-@@ -54,10 +54,10 @@
+- #undef  NCURSES_OSPEED 
+- #define NCURSES_OSPEED @NCURSES_OSPEED@ 
+- 
+--extern NCURSES_EXPORT_VAR(char) PC;
+--extern NCURSES_EXPORT_VAR(char *) UP;
+--extern NCURSES_EXPORT_VAR(char *) BC;
+--extern NCURSES_EXPORT_VAR(NCURSES_OSPEED) ospeed; 
+-+extern char NCURSES_EXPORT_VAR(PC);
+-+extern char * NCURSES_EXPORT_VAR(UP);
+-+extern char * NCURSES_EXPORT_VAR(BC);
+-+extern NCURSES_OSPEED NCURSES_EXPORT_VAR(ospeed); 
+- 
+- #if !defined(NCURSES_TERM_H_incl)
+- extern NCURSES_EXPORT(char *) tgetstr (NCURSES_CONST char *, char **);
+---- ncurses-5.4/include/term_entry.h~visibility.patch
+-+++ ncurses-5.4/include/term_entry.h
+-@@ -90,8 +90,8 @@
+- #define ExtNumname(tp,i,names)  EXT_NAMES(tp, i, NUMCOUNT, (i - (tp->num_Numbers - tp->ext_Numbers)) + tp->ext_Booleans, names)
+- #define ExtStrname(tp,i,names)  EXT_NAMES(tp, i, STRCOUNT, (i - (tp->num_Strings - tp->ext_Strings)) + (tp->ext_Numbers + tp->ext_Booleans), names)
+- 
+--extern NCURSES_EXPORT_VAR(ENTRY *) _nc_head;
+--extern NCURSES_EXPORT_VAR(ENTRY *) _nc_tail;
+-+extern ENTRY * NCURSES_EXPORT_VAR(_nc_head);
+-+extern ENTRY * NCURSES_EXPORT_VAR(_nc_tail);
+- #define for_entry_list(qp)	for (qp = _nc_head; qp; qp = qp->next)
+- 
+- #define MAX_LINE	132
+-@@ -135,8 +135,8 @@
+- 
+- /* parse_entry.c: entry-parsing code */
+- #if NCURSES_XNAMES
+--extern NCURSES_EXPORT_VAR(bool) _nc_user_definable;
+--extern NCURSES_EXPORT_VAR(bool) _nc_disable_period;
+-+extern bool NCURSES_EXPORT_VAR(_nc_user_definable);
+-+extern bool NCURSES_EXPORT_VAR(_nc_disable_period);
+- #endif
+- extern NCURSES_EXPORT(int) _nc_parse_entry (ENTRY *, int, bool);
+- extern NCURSES_EXPORT(int) _nc_capcmp (const char *, const char *);
+---- ncurses-5.4/include/curses.h.in~visibility.patch
+-+++ ncurses-5.4/include/curses.h.in
+-@@ -171,8 +171,8 @@
+- #define WA_VERTICAL	A_VERTICAL
+- 
+- /* colors */
+--extern NCURSES_EXPORT_VAR(int) COLORS;
+--extern NCURSES_EXPORT_VAR(int) COLOR_PAIRS;
+-+extern int NCURSES_EXPORT_VAR(COLORS);
+-+extern int NCURSES_EXPORT_VAR(COLOR_PAIRS);
+- 
+- #define COLOR_BLACK	0
+- #define COLOR_RED	1
+-@@ -186,10 +186,10 @@
+- /* line graphics */
+- 
+- #if @BROKEN_LINKER@
+--extern NCURSES_EXPORT_VAR(chtype*) _nc_acs_map(void);
+-+extern chtype* NCURSES_EXPORT_VAR(_nc_acs_map)(void);
+- #define acs_map (_nc_acs_map())
+- #else
+--extern NCURSES_EXPORT_VAR(chtype) acs_map[];
+-+extern chtype NCURSES_EXPORT_VAR(acs_map[]);
+- #endif
+- 
+- #define NCURSES_ACS(c)	(acs_map[(unsigned char)c])
+-@@ -369,20 +369,20 @@
+- #endif
+- };
+- 
+--extern NCURSES_EXPORT_VAR(WINDOW *)   stdscr;
+--extern NCURSES_EXPORT_VAR(WINDOW *)   curscr;
+--extern NCURSES_EXPORT_VAR(WINDOW *)   newscr;
+-+extern WINDOW * NCURSES_EXPORT_VAR(stdscr);
+-+extern WINDOW * NCURSES_EXPORT_VAR(curscr);
+-+extern WINDOW * NCURSES_EXPORT_VAR(newscr);
+- 
+--extern NCURSES_EXPORT_VAR(int)	LINES;
+--extern NCURSES_EXPORT_VAR(int)	COLS;
+--extern NCURSES_EXPORT_VAR(int)	TABSIZE;
+-+extern int NCURSES_EXPORT_VAR(LINES);
+-+extern int NCURSES_EXPORT_VAR(COLS);
+-+extern int NCURSES_EXPORT_VAR(TABSIZE);
+- 
+- /*
+-  * This global was an undocumented feature under AIX curses.
+-  */
+--extern NCURSES_EXPORT_VAR(int) ESCDELAY;	/* ESC expire time in milliseconds */
+-+extern int NCURSES_EXPORT_VAR(ESCDELAY);	/* ESC expire time in milliseconds */
+- 
+--extern NCURSES_EXPORT_VAR(char) ttytype[];	/* needed for backward compatibility */
+-+extern char NCURSES_EXPORT_VAR(ttytype[]);	/* needed for backward compatibility */
+- 
+- /*
+-  * These functions are extensions - not in XSI Curses.
+---- ncurses-5.4/include/curses.tail~visibility.patch
+-+++ ncurses-5.4/include/curses.tail
+-@@ -110,7 +110,7 @@
+- #define TRACE_MAXIMUM	((1 << TRACE_SHIFT) - 1) /* maximum trace level */
+- 
+- #if defined(TRACE) || defined(NCURSES_TEST)
+--extern NCURSES_EXPORT_VAR(int) _nc_optimize_enable;		/* enable optimizations */
+-+extern int NCURSES_EXPORT_VAR(_nc_optimize_enable);		/* enable optimizations */
+- #ifdef _XOPEN_SOURCE_EXTENDED
+- extern NCURSES_EXPORT(const char *) _nc_viswbuf(const wchar_t *);
+- #endif
+---- ncurses-5.4/include/curses.wide~visibility.patch
+-+++ ncurses-5.4/include/curses.wide
+-@@ -3,7 +3,7 @@
+- 
+- /* $Id: curses.wide,v 1.28 2004/01/03 20:35:14 tom Exp $ */
+- 
+--extern NCURSES_EXPORT_VAR(cchar_t *) _nc_wacs;
+-+extern cchar_t * NCURSES_EXPORT_VAR(_nc_wacs);
+- 
+- #define NCURSES_WACS(c)	(&_nc_wacs[(unsigned char)c])
+- 
+---- ncurses-5.4/menu/menu.priv.h~visibility.patch
+-+++ ncurses-5.4/menu/menu.priv.h
+-@@ -49,8 +49,8 @@
+- /* Backspace code */
+- #define BS (8)
+- 
+--extern NCURSES_EXPORT_VAR(ITEM) _nc_Default_Item;
+--extern NCURSES_EXPORT_VAR(MENU) _nc_Default_Menu;
+-+extern ITEM NCURSES_EXPORT_VAR(_nc_Default_Item);
+-+extern MENU NCURSES_EXPORT_VAR(_nc_Default_Menu);
+- 
+- /* Normalize item to default if none was given */
+- #define Normalize_Item( item ) ((item)=(item)?(item):&_nc_Default_Item)
+---- ncurses-5.4/menu/m_global.c~visibility.patch
+-+++ ncurses-5.4/menu/m_global.c
+-@@ -41,7 +41,7 @@
+- 
+- static char mark[] = "-";
+- 
+--NCURSES_EXPORT_VAR(MENU) _nc_Default_Menu = {
+-+MENU NCURSES_EXPORT_VAR(_nc_Default_Menu) = {
+-   16,				  /* Nr. of chars high */
+-   1,				  /* Nr. of chars wide */
+-   16,				  /* Nr. of items high */
+-@@ -80,7 +80,7 @@
+-   0			          /* status */	    
+- };
+- 
+--NCURSES_EXPORT_VAR(ITEM) _nc_Default_Item = {
+-+ITEM NCURSES_EXPORT_VAR(_nc_Default_Item) = {
+-   { (char *)0, 0 },		  /* name */
+-   { (char *)0, 0 },		  /* description */
+-   (MENU *)0,		          /* Pointer to parent menu */
+---- ncurses-5.4/ncurses/tty/lib_mvcur.c~visibility.patch
+-+++ ncurses-5.4/ncurses/tty/lib_mvcur.c
+-@@ -937,7 +937,7 @@
+- }
+- 
+- #if defined(TRACE) || defined(NCURSES_TEST)
+--NCURSES_EXPORT_VAR(int) _nc_optimize_enable = OPTIMIZE_ALL;
+-+int NCURSES_EXPORT_VAR(_nc_optimize_enable) = OPTIMIZE_ALL;
+- #endif
+- 
+- #if defined(MAIN) || defined(NCURSES_TEST)
+-@@ -950,7 +950,7 @@
+- #include <tic.h>
+- #include <dump_entry.h>
+- 
+--NCURSES_EXPORT_VAR(const char *) _nc_progname = "mvcur";
+-+const char * NCURSES_EXPORT_VAR(_nc_progname) = "mvcur";
+- 
+- static unsigned long xmits;
+- 
+---- ncurses-5.4/ncurses/tty/hardscroll.c~visibility.patch
+-+++ ncurses-5.4/ncurses/tty/hardscroll.c
+-@@ -151,8 +151,7 @@
+- 
+- # undef screen_lines
+- # define screen_lines MAXLINES
+--NCURSES_EXPORT_VAR(int)
+--oldnums[MAXLINES];
+-+int NCURSES_EXPORT_VAR(oldnums[MAXLINES]);
+- # define OLDNUM(n)	oldnums[n]
+- # define _tracef	printf
+- # undef TR
+-@@ -163,8 +162,7 @@
+- /* OLDNUM(n) indicates which line will be shifted to the position n.
+-    if OLDNUM(n) == _NEWINDEX, then the line n in new, not shifted from
+-    somewhere. */
+--NCURSES_EXPORT_VAR(int *)
+--_nc_oldnums = 0;
+-+int * NCURSES_EXPORT_VAR(_nc_oldnums) = 0;
+- 
+- # if USE_HASHMAP
+-      static int oldnums_allocated = 0;
+---- ncurses-5.4/ncurses/base/lib_getch.c~visibility.patch
+-+++ ncurses-5.4/ncurses/base/lib_getch.c
+-@@ -44,8 +44,7 @@
+- 
+- #include <fifo_defs.h>
+- 
+--NCURSES_EXPORT_VAR(int)
+--ESCDELAY = 1000;		/* max interval betw. chars in funkeys, in millisecs */
+-+int NCURSES_EXPORT_VAR(ESCDELAY) = 1000;		/* max interval betw. chars in funkeys, in millisecs */
+- 
+- #ifdef NCURSES_WGETCH_EVENTS
+- #define TWAIT_MASK 7
+---- ncurses-5.4/ncurses/base/lib_slk.c~visibility.patch
+-+++ ncurses-5.4/ncurses/base/lib_slk.c
+-@@ -47,8 +47,7 @@
+-  * We'd like to move these into the screen context structure, but cannot,
+-  * because slk_init() is called before initscr()/newterm().
+-  */
+--NCURSES_EXPORT_VAR(int)
+--_nc_slk_format = 0;		/* one more than format specified in slk_init() */
+-+int NCURSES_EXPORT_VAR(_nc_slk_format) = 0;		/* one more than format specified in slk_init() */
+- 
+- /*
+-  * Paint the info line for the PC style SLK emulation.
+---- ncurses-5.4/ncurses/base/lib_color.c~visibility.patch
+-+++ ncurses-5.4/ncurses/base/lib_color.c
+-@@ -48,8 +48,8 @@
+-  * historical reasons.  So we assign them in start_color() and also in
+-  * set_term()'s screen-switching logic.
+-  */
+--NCURSES_EXPORT_VAR(int) COLOR_PAIRS = 0;
+--NCURSES_EXPORT_VAR(int) COLORS = 0;
+-+int NCURSES_EXPORT_VAR(COLOR_PAIRS) = 0;
+-+int NCURSES_EXPORT_VAR(COLORS) = 0;
+- 
+- #define DATA(r,g,b) {r,g,b, 0,0,0, 0}
+- 
+---- ncurses-5.4/ncurses/tinfo/lib_termcap.c~visibility.patch
+-+++ ncurses-5.4/ncurses/tinfo/lib_termcap.c
+-@@ -50,8 +50,8 @@
+- #define L_BRACK   '['
+- #define SHIFT_OUT 017		/* ^N */
+- 
+--NCURSES_EXPORT_VAR(char *) UP = 0;
+--NCURSES_EXPORT_VAR(char *) BC = 0;
+-+char * NCURSES_EXPORT_VAR(UP) = 0;
+-+char * NCURSES_EXPORT_VAR(BC) = 0;
+- 
+- static char *fix_me = 0;
+- 
+---- ncurses-5.4/ncurses/tinfo/lib_cur_term.c~visibility.patch
+-+++ ncurses-5.4/ncurses/tinfo/lib_cur_term.c
+-@@ -42,7 +42,7 @@
+- 
+- MODULE_ID("$Id: lib_cur_term.c,v 1.13 2003/12/27 18:21:30 tom Exp $")
+- 
+--NCURSES_EXPORT_VAR(TERMINAL *) cur_term = 0;
+-+TERMINAL * NCURSES_EXPORT_VAR(cur_term) = 0;
+- 
+- NCURSES_EXPORT(TERMINAL *)
+- set_curterm(TERMINAL * termp)
+---- ncurses-5.4/ncurses/tinfo/lib_setup.c~visibility.patch
+-+++ ncurses-5.4/ncurses/tinfo/lib_setup.c
+-@@ -91,10 +91,10 @@
+- # endif
+- #endif
+- 
+--NCURSES_EXPORT_VAR(char) ttytype[NAMESIZE] = "";
+--NCURSES_EXPORT_VAR(int) LINES = 0;
+--NCURSES_EXPORT_VAR(int) COLS = 0;
+--NCURSES_EXPORT_VAR(int) TABSIZE = 0;
+-+char NCURSES_EXPORT_VAR(ttytype[NAMESIZE]) = "";
+-+int NCURSES_EXPORT_VAR(LINES) = 0;
+-+int NCURSES_EXPORT_VAR(COLS) = 0;
+-+int NCURSES_EXPORT_VAR(TABSIZE) = 0;
+- 
+- static int _use_env = TRUE;
+- 
+---- ncurses-5.4/ncurses/tinfo/MKnames.awk~visibility.patch
+-+++ ncurses-5.4/ncurses/tinfo/MKnames.awk
+-@@ -10,7 +10,7 @@
+- 			print  "#include <term.h>"		> "namehdr"
+- 			print  "#define DCL(it) static IT data##it[]" > "namehdr"
+- 			print  "#else"				> "namehdr"
+--			print  "#define DCL(it) NCURSES_EXPORT_VAR(IT) it[]"	> "namehdr"
+-+			print  "#define DCL(it) IT NCURSES_EXPORT_VAR(it[])"	> "namehdr"
+- 			print  "#endif"				> "namehdr"
+- 			print  ""				> "namehdr"
+- 			print  "/*"				> "boolnames"
+---- ncurses-5.4/ncurses/tinfo/lib_tparm.c~visibility.patch
+-+++ ncurses-5.4/ncurses/tinfo/lib_tparm.c
+-@@ -115,7 +115,7 @@
+-     bool num_type;
+- } stack_frame;
+- 
+--NCURSES_EXPORT_VAR(int) _nc_tparm_err = 0;
+-+int NCURSES_EXPORT_VAR(_nc_tparm_err) = 0;
+- 
+- static stack_frame stack[STACKSIZE];
+- static int stack_ptr;
+---- ncurses-5.4/ncurses/tinfo/lib_tputs.c~visibility.patch
+-+++ ncurses-5.4/ncurses/tinfo/lib_tputs.c
+-@@ -47,10 +47,10 @@
+- 
+- MODULE_ID("$Id: lib_tputs.c,v 1.62 2003/08/23 21:39:20 tom Exp $")
+- 
+--NCURSES_EXPORT_VAR(char) PC = 0;		/* used by termcap library */
+--NCURSES_EXPORT_VAR(NCURSES_OSPEED) ospeed = 0;	/* used by termcap library */
+-+char NCURSES_EXPORT_VAR(PC) = 0;		/* used by termcap library */
+-+NCURSES_OSPEED NCURSES_EXPORT_VAR(ospeed) = 0;	/* used by termcap library */
+- 
+--NCURSES_EXPORT_VAR(int) _nc_nulls_sent = 0;	/* used by 'tack' program */
+-+int NCURSES_EXPORT_VAR(_nc_nulls_sent) = 0;	/* used by 'tack' program */
+- 
+- static int (*my_outch) (int c) = _nc_outch;
+- 
+---- ncurses-5.4/ncurses/tinfo/comp_error.c~visibility.patch
+-+++ ncurses-5.4/ncurses/tinfo/comp_error.c
+-@@ -42,9 +42,9 @@
+- 
+- MODULE_ID("$Id: comp_error.c,v 1.25 2002/09/07 20:05:07 tom Exp $")
+- 
+--NCURSES_EXPORT_VAR(bool) _nc_suppress_warnings = FALSE;
+--NCURSES_EXPORT_VAR(int) _nc_curr_line = 0; /* current line # in input */
+--NCURSES_EXPORT_VAR(int) _nc_curr_col = 0; /* current column # in input */
+-+bool NCURSES_EXPORT_VAR(_nc_suppress_warnings) = FALSE;
+-+int NCURSES_EXPORT_VAR(_nc_curr_line) = 0; /* current line # in input */
+-+int NCURSES_EXPORT_VAR(_nc_curr_col) = 0; /* current column # in input */
+- 
+- static const char *sourcename;
+- static char *termtype;
+---- ncurses-5.4/ncurses/tinfo/free_ttype.c~visibility.patch
+-+++ ncurses-5.4/ncurses/tinfo/free_ttype.c
+-@@ -92,7 +92,7 @@
+- }
+- 
+- #if NCURSES_XNAMES
+--NCURSES_EXPORT_VAR(bool) _nc_user_definable = TRUE;
+-+bool NCURSES_EXPORT_VAR(_nc_user_definable) = TRUE;
+- 
+- NCURSES_EXPORT(int)
+- use_extended_names(bool flag)
+---- ncurses-5.4/ncurses/tinfo/comp_parse.c~visibility.patch
+-+++ ncurses-5.4/ncurses/tinfo/comp_parse.c
+-@@ -78,8 +78,8 @@
+-  *	   _nc_head                _nc_tail
+-  */
+- 
+--NCURSES_EXPORT_VAR(ENTRY *) _nc_head = 0;
+--NCURSES_EXPORT_VAR(ENTRY *) _nc_tail = 0;
+-+ENTRY * NCURSES_EXPORT_VAR(_nc_head) = 0;
+-+ENTRY * NCURSES_EXPORT_VAR(_nc_tail) = 0;
+- 
+- static void
+- enqueue(ENTRY * ep)
+---- ncurses-5.4/ncurses/tinfo/comp_scan.c~visibility.patch
+-+++ ncurses-5.4/ncurses/tinfo/comp_scan.c
+-@@ -60,19 +60,13 @@
+- 
+- #define iswhite(ch)	(ch == ' '  ||  ch == '\t')
+- 
+--NCURSES_EXPORT_VAR(int)
+--_nc_syntax = 0;			/* termcap or terminfo? */
+--NCURSES_EXPORT_VAR(long)
+--_nc_curr_file_pos = 0;		/* file offset of current line */
+--NCURSES_EXPORT_VAR(long)
+--_nc_comment_start = 0;		/* start of comment range before name */
+--NCURSES_EXPORT_VAR(long)
+--_nc_comment_end = 0;		/* end of comment range before name */
+--NCURSES_EXPORT_VAR(long)
+--_nc_start_line = 0;		/* start line of current entry */
+-+int NCURSES_EXPORT_VAR(_nc_syntax) = 0;			/* termcap or terminfo? */
+-+long NCURSES_EXPORT_VAR(_nc_curr_file_pos) = 0;		/* file offset of current line */
+-+long NCURSES_EXPORT_VAR(_nc_comment_start) = 0;		/* start of comment range before name */
+-+long NCURSES_EXPORT_VAR(_nc_comment_end) = 0;		/* end of comment range before name */
+-+long NCURSES_EXPORT_VAR(_nc_start_line) = 0;		/* start line of current entry */
+- 
+--NCURSES_EXPORT_VAR(struct token)
+--_nc_curr_token =
+-+struct token NCURSES_EXPORT_VAR(_nc_curr_token) =
+- {
+-     0, 0, 0
+- };
+-@@ -90,8 +84,7 @@
+- static char *pushname;
+- 
+- #if NCURSES_EXT_FUNCS
+--NCURSES_EXPORT_VAR(bool)
+--_nc_disable_period = FALSE;	/* used by tic -a option */
+-+bool NCURSES_EXPORT_VAR(_nc_disable_period) = FALSE;	/* used by tic -a option */
+- #endif
+- 
+- static bool end_of_stream(void);
+---- ncurses-5.4/ncurses/tinfo/lib_acs.c~visibility.patch
+-+++ ncurses-5.4/ncurses/tinfo/lib_acs.c
+-@@ -37,8 +37,7 @@
+- MODULE_ID("$Id: lib_acs.c,v 1.25 2002/12/28 16:26:46 tom Exp $")
+- 
+- #if BROKEN_LINKER
+--NCURSES_EXPORT_VAR(chtype *)
+--_nc_acs_map(void)
+-+chtype * NCURSES_EXPORT_VAR(_nc_acs_map)(void)
+- {
+-     static chtype *the_map = 0;
+-     if (the_map == 0)
+-@@ -46,7 +45,7 @@
+-     return the_map;
+- }
+- #else
+--NCURSES_EXPORT_VAR(chtype) acs_map[ACS_LEN] =
+-+chtype NCURSES_EXPORT_VAR(acs_map[ACS_LEN]) =
+- {
+-     0
+- };
+---- ncurses-5.4/ncurses/tinfo/lib_data.c~visibility.patch
+-+++ ncurses-5.4/ncurses/tinfo/lib_data.c
+-@@ -46,14 +46,11 @@
+-  * OS/2's native linker complains if we don't initialize public data when
+-  * constructing a dll (reported by J.J.G.Ripoll).
+-  */
+--NCURSES_EXPORT_VAR(WINDOW *)
+--stdscr = 0;
+--NCURSES_EXPORT_VAR(WINDOW *)
+--curscr = 0;
+--NCURSES_EXPORT_VAR(WINDOW *)
+--newscr = 0;
+-+WINDOW * NCURSES_EXPORT_VAR(stdscr) = 0;
+-+WINDOW * NCURSES_EXPORT_VAR(curscr) = 0;
+-+WINDOW * NCURSES_EXPORT_VAR(newscr) = 0;
+- 
+--NCURSES_EXPORT_VAR(SCREEN *) _nc_screen_chain = 0;
+-+SCREEN * NCURSES_EXPORT_VAR(_nc_screen_chain) = 0;
+- 
+- /*
+-  * The variable 'SP' will be defined as a function on systems that cannot link
+-@@ -87,5 +84,5 @@
+- }
+- 
+- #else
+--NCURSES_EXPORT_VAR(SCREEN *) SP = NULL;		/* Some linkers require initialized data... */
+-+SCREEN * NCURSES_EXPORT_VAR(SP) = NULL;		/* Some linkers require initialized data... */
+- #endif
+---- ncurses-5.4/ncurses/trace/lib_trace.c~visibility.patch
+-+++ ncurses-5.4/ncurses/trace/lib_trace.c
+-@@ -42,11 +42,11 @@
+- 
+- MODULE_ID("$Id: lib_trace.c,v 1.53 2003/11/23 00:39:30 tom Exp $")
+- 
+--NCURSES_EXPORT_VAR(unsigned) _nc_tracing = 0;	/* always define this */
+-+unsigned NCURSES_EXPORT_VAR(_nc_tracing) = 0;	/* always define this */
+- 
+- #ifdef TRACE
+--NCURSES_EXPORT_VAR(const char *) _nc_tputs_trace = "";
+--NCURSES_EXPORT_VAR(long) _nc_outchars = 0;
+-+const char * NCURSES_EXPORT_VAR(_nc_tputs_trace) = "";
+-+long NCURSES_EXPORT_VAR(_nc_outchars) = 0;
+- 
+- static FILE *tracefp = 0;	/* default to writing to stderr */
+- 
+---- ncurses-5.4/ncurses/curses.priv.h~visibility.patch
+-+++ ncurses-5.4/ncurses/curses.priv.h
+-@@ -498,7 +498,7 @@
+- #endif
+- };
+- 
+--extern NCURSES_EXPORT_VAR(SCREEN *) _nc_screen_chain;
+-+extern SCREEN * NCURSES_EXPORT_VAR(_nc_screen_chain);
+- 
+- #if NCURSES_NOMACROS
+- #include <nomacros.h>
+-@@ -752,9 +752,9 @@
+- extern NCURSES_EXPORT(int)              _nc_retrace_int (int);
+- extern NCURSES_EXPORT(unsigned)         _nc_retrace_unsigned (unsigned);
+- extern NCURSES_EXPORT(void)             _nc_fifo_dump (void);
+--extern NCURSES_EXPORT_VAR(const char *) _nc_tputs_trace;
+--extern NCURSES_EXPORT_VAR(long)         _nc_outchars;
+--extern NCURSES_EXPORT_VAR(unsigned)     _nc_tracing;
+-+extern const char * NCURSES_EXPORT_VAR(_nc_tputs_trace);
+-+extern long NCURSES_EXPORT_VAR(_nc_outchars);
+-+extern unsigned NCURSES_EXPORT_VAR(_nc_tracing);
+- 
+- #if USE_WIDEC_SUPPORT
+- extern NCURSES_EXPORT(const char *) _nc_viswbuf2 (int, const wchar_t *);
+-@@ -1055,7 +1055,7 @@
+- #endif
+- 
+- /* scroll indices */
+--extern NCURSES_EXPORT_VAR(int *) _nc_oldnums;
+-+extern int * NCURSES_EXPORT_VAR(_nc_oldnums);
+- 
+- #define USE_SETBUF_0 0
+- 
+-@@ -1074,7 +1074,7 @@
+- extern NCURSES_EXPORT(void) _nc_set_screen (SCREEN *);
+- #else
+- /* current screen is private data; avoid possible linking conflicts too */
+--extern NCURSES_EXPORT_VAR(SCREEN *) SP;
+-+extern SCREEN * NCURSES_EXPORT_VAR(SP);
+- #define _nc_alloc_screen() ((SP = typeCalloc(SCREEN, 1)) != 0)
+- #define _nc_set_screen(sp) SP = sp
+- #endif
+-@@ -1087,7 +1087,7 @@
+- #define screen_lines	SP->_lines
+- #define screen_columns	SP->_columns
+- 
+--extern NCURSES_EXPORT_VAR(int) _nc_slk_format;  /* != 0 if slk_init() called */
+-+extern int NCURSES_EXPORT_VAR(_nc_slk_format);  /* != 0 if slk_init() called */
+- extern NCURSES_EXPORT(int) _nc_slk_initialize (WINDOW *, int);
+- 
+- /*
+---- /dev/null
+-+++ ncurses-5.4/m4/cf.m4
+-@@ -0,0 +1,3703 @@
+-+dnl***************************************************************************
+-+dnl Copyright (c) 1998-2003,2004 Free Software Foundation, Inc.              *
+-+dnl                                                                          *
+-+dnl Permission is hereby granted, free of charge, to any person obtaining a  *
+-+dnl copy of this software and associated documentation files (the            *
+-+dnl "Software"), to deal in the Software without restriction, including      *
+-+dnl without limitation the rights to use, copy, modify, merge, publish,      *
+-+dnl distribute, distribute with modifications, sublicense, and/or sell       *
+-+dnl copies of the Software, and to permit persons to whom the Software is    *
+-+dnl furnished to do so, subject to the following conditions:                 *
+-+dnl                                                                          *
+-+dnl The above copyright notice and this permission notice shall be included  *
+-+dnl in all copies or substantial portions of the Software.                   *
+-+dnl                                                                          *
+-+dnl THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS  *
+-+dnl OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF               *
+-+dnl MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.   *
+-+dnl IN NO EVENT SHALL THE ABOVE COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,   *
+-+dnl DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR    *
+-+dnl OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR    *
+-+dnl THE USE OR OTHER DEALINGS IN THE SOFTWARE.                               *
+-+dnl                                                                          *
+-+dnl Except as contained in this notice, the name(s) of the above copyright   *
+-+dnl holders shall not be used in advertising or otherwise to promote the     *
+-+dnl sale, use or other dealings in this Software without prior written       *
+-+dnl authorization.                                                           *
+-+dnl***************************************************************************
+-+dnl
+-+dnl Author: Thomas E. Dickey 1995-2003
+-+dnl
+-+dnl $Id: aclocal.m4,v 1.333 2004/01/30 20:59:56 tom Exp $
+-+dnl Macros used in NCURSES auto-configuration script.
+-+dnl
+-+dnl See http://invisible-island.net/autoconf/ for additional information.
+-+dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_ADA_INCLUDE_DIRS version: 4 updated: 2002/12/01 00:12:15
+-+dnl -------------------
+-+dnl Construct the list of include-options for the C programs in the Ada95
+-+dnl binding.
+-+AC_DEFUN([CF_ADA_INCLUDE_DIRS],
+-+[
+-+ACPPFLAGS="-I. -I../../include $ACPPFLAGS"
+-+if test "$srcdir" != "."; then
+-+	ACPPFLAGS="-I\$(srcdir)/../../include $ACPPFLAGS"
+-+fi
+-+if test "$GCC" != yes; then
+-+	ACPPFLAGS="$ACPPFLAGS -I\$(includedir)"
+-+elif test "$includedir" != "/usr/include"; then
+-+	if test "$includedir" = '${prefix}/include' ; then
+-+		if test $prefix != /usr ; then
+-+			ACPPFLAGS="$ACPPFLAGS -I\$(includedir)"
+-+		fi
+-+	else
+-+		ACPPFLAGS="$ACPPFLAGS -I\$(includedir)"
+-+	fi
+-+fi
+-+AC_SUBST(ACPPFLAGS)
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_ADD_CFLAGS version: 5 updated: 2002/12/01 00:12:15
+-+dnl -------------
+-+dnl Copy non-preprocessor flags to $CFLAGS, preprocessor flags to $CPPFLAGS
+-+dnl The second parameter if given makes this macro verbose.
+-+AC_DEFUN([CF_ADD_CFLAGS],
+-+[
+-+cf_new_cflags=
+-+cf_new_cppflags=
+-+for cf_add_cflags in $1
+-+do
+-+	case $cf_add_cflags in #(vi
+-+	-undef|-nostdinc*|-I*|-D*|-U*|-E|-P|-C) #(vi
+-+		case "$CPPFLAGS" in
+-+		*$cf_add_cflags) #(vi
+-+			;;
+-+		*) #(vi
+-+			cf_new_cppflags="$cf_new_cppflags $cf_add_cflags"
+-+			;;
+-+		esac
+-+		;;
+-+	*)
+-+		cf_new_cflags="$cf_new_cflags $cf_add_cflags"
+-+		;;
+-+	esac
+-+done
 -+
--+all: $(FIRSTMAKEFILE) miniperl$(EXE_EXT) $(unidatafiles)
+-+if test -n "$cf_new_cflags" ; then
+-+	ifelse($2,,,[CF_VERBOSE(add to \$CFLAGS $cf_new_cflags)])
+-+	CFLAGS="$CFLAGS $cf_new_cflags"
+-+fi
 -+
--+more: extra.pods $(private) $(public)
+-+if test -n "$cf_new_cppflags" ; then
+-+	ifelse($2,,,[CF_VERBOSE(add to \$CPPFLAGS $cf_new_cppflags)])
+-+	CPPFLAGS="$cf_new_cppflags $CPPFLAGS"
+-+fi
 -+
--+more2: $(dynamic_ext)
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_ANSI_CC_CHECK version: 9 updated: 2001/12/30 17:53:34
+-+dnl ----------------
+-+dnl This is adapted from the macros 'fp_PROG_CC_STDC' and 'fp_C_PROTOTYPES'
+-+dnl in the sharutils 4.2 distribution.
+-+AC_DEFUN([CF_ANSI_CC_CHECK],
+-+[
+-+AC_CACHE_CHECK(for ${CC-cc} option to accept ANSI C, cf_cv_ansi_cc,[
+-+cf_cv_ansi_cc=no
+-+cf_save_CFLAGS="$CFLAGS"
+-+cf_save_CPPFLAGS="$CPPFLAGS"
+-+# Don't try gcc -ansi; that turns off useful extensions and
+-+# breaks some systems' header files.
+-+# AIX			-qlanglvl=ansi
+-+# Ultrix and OSF/1	-std1
+-+# HP-UX			-Aa -D_HPUX_SOURCE
+-+# SVR4			-Xc
+-+# UnixWare 1.2		(cannot use -Xc, since ANSI/POSIX clashes)
+-+for cf_arg in "-DCC_HAS_PROTOS" \
+-+	"" \
+-+	-qlanglvl=ansi \
+-+	-std1 \
+-+	-Ae \
+-+	"-Aa -D_HPUX_SOURCE" \
+-+	-Xc
+-+do
+-+	CF_ADD_CFLAGS($cf_arg)
+-+	AC_TRY_COMPILE(
+-+[
+-+#ifndef CC_HAS_PROTOS
+-+#if !defined(__STDC__) || (__STDC__ != 1)
+-+choke me
+-+#endif
+-+#endif
+-+],[
+-+	int test (int i, double x);
+-+	struct s1 {int (*f) (int a);};
+-+	struct s2 {int (*f) (double a);};],
+-+	[cf_cv_ansi_cc="$cf_arg"; break])
+-+done
+-+CFLAGS="$cf_save_CFLAGS"
+-+CPPFLAGS="$cf_save_CPPFLAGS"
+-+])
 -+
--+more3: $(nonxs_ext)
+-+if test "$cf_cv_ansi_cc" != "no"; then
+-+if test ".$cf_cv_ansi_cc" != ".-DCC_HAS_PROTOS"; then
+-+	CF_ADD_CFLAGS($cf_cv_ansi_cc)
+-+else
+-+	AC_DEFINE(CC_HAS_PROTOS)
+-+fi
+-+fi
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_ANSI_CC_REQD version: 3 updated: 1997/09/06 13:40:44
+-+dnl ---------------
+-+dnl For programs that must use an ANSI compiler, obtain compiler options that
+-+dnl will make it recognize prototypes.  We'll do preprocessor checks in other
+-+dnl macros, since tools such as unproto can fake prototypes, but only part of
+-+dnl the preprocessor.
+-+AC_DEFUN([CF_ANSI_CC_REQD],
+-+[AC_REQUIRE([CF_ANSI_CC_CHECK])
+-+if test "$cf_cv_ansi_cc" = "no"; then
+-+	AC_ERROR(
+-+[Your compiler does not appear to recognize prototypes.
+-+You have the following choices:
+-+	a. adjust your compiler options
+-+	b. get an up-to-date compiler
+-+	c. use a wrapper such as unproto])
+-+fi
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_BOOL_DECL version: 8 updated: 2004/01/30 15:51:18
+-+dnl ------------
+-+dnl Test if 'bool' is a builtin type in the configured C++ compiler.  Some
+-+dnl older compilers (e.g., gcc 2.5.8) don't support 'bool' directly; gcc
+-+dnl 2.6.3 does, in anticipation of the ANSI C++ standard.
+-+dnl
+-+dnl Treat the configuration-variable specially here, since we're directly
+-+dnl substituting its value (i.e., 1/0).
+-+dnl
+-+dnl $1 is the shell variable to store the result in, if not $cv_cv_builtin_bool
+-+AC_DEFUN([CF_BOOL_DECL],
+-+[
+-+AC_MSG_CHECKING(if we should include stdbool.h)
 -+
--+more4: extras.make
-- 
-- .PHONY: all compile translators utilities
-- 
--@@ -413,10 +413,10 @@
-- 	cd x2p; $(MAKE) compile;
-- 	cd pod; $(MAKE) compile;
-- 
---translators:	miniperl$(EXE_EXT) $(CONFIGPM) FORCE
--+translators:	$(CONFIGPM) FORCE
-- 	@echo " "; echo "	Making x2p stuff"; cd x2p; $(LDLIBPTH) $(MAKE) all
-- 
---utilities:	miniperl$(EXE_EXT) $(CONFIGPM) $(plextract) lib/lib.pm FORCE
--+utilities:	$(CONFIGPM) $(plextract) lib/lib.pm FORCE
-- 	@echo " "; echo "	Making utilities"; cd utils; $(LDLIBPTH) $(MAKE) all
-- 
-- 
--@@ -550,7 +550,7 @@
-- 	case "$useshrplib" in
-- 	true)
-- 		$spitshell >>Makefile <<'!NO!SUBS!'
---	$(LD) -o $@ $(SHRPLDFLAGS) perl$(OBJ_EXT) $(obj) $(libs)
--+	$(LD) -o $@ $(SHRPLDFLAGS) perl$(OBJ_EXT) $(obj) $(libs) -Wl,-soname,libperl.so.5
-- !NO!SUBS!
-- 		case "$osname" in
-- 		aix)
--@@ -591,7 +591,9 @@
-- 	$(CC) -o miniperl $(CLDFLAGS) \
-- 	    `echo $(obj) | sed 's/ op$(OBJ_EXT) / /'` \
-- 	    miniperlmain$(OBJ_EXT) opmini$(OBJ_EXT) perl$(OBJ_EXT) $(libs)
---	$(LDLIBPTH) ./miniperl -w -Ilib -MExporter -e '<?>' || $(MAKE) minitest
--+	mv -f miniperl miniperl-target
--+	ln -s hostperl miniperl
--+#	$(LDLIBPTH) ./miniperl -w -Ilib -MExporter -e '<?>' || $(MAKE) minitest
-- !NO!SUBS!
-- 		;;
-- 	next4*)
--@@ -599,7 +601,9 @@
-- miniperl: $& miniperlmain$(OBJ_EXT) $(LIBPERL) opmini$(OBJ_EXT)
-- 	$(CC) -o miniperl `echo $(obj) | sed 's/ op$(OBJ_EXT) / /'` \
-- 	    miniperlmain$(OBJ_EXT) opmini$(OBJ_EXT) perl$(OBJ_EXT) $(libs)
---	$(LDLIBPTH) ./miniperl -w -Ilib -MExporter -e '<?>' || $(MAKE) minitest
--+	mv -f miniperl miniperl-target
--+	ln -s hostperl miniperl
--+#	$(LDLIBPTH) ./miniperl -w -Ilib -MExporter -e '<?>' || $(MAKE) minitest
-- !NO!SUBS!
-- 		;;
-- 	darwin*)
--@@ -620,7 +624,9 @@
-- 	-@rm -f miniperl.xok
-- 	$(CC) $(CLDFLAGS) $(NAMESPACEFLAGS) -o miniperl \
-- 	    miniperlmain$(OBJ_EXT) opmini$(OBJ_EXT) $(LLIBPERL) $(libs)
---	$(LDLIBPTH) ./miniperl -w -Ilib -MExporter -e '<?>' || $(MAKE) minitest
--+	mv -f miniperl miniperl-target
--+	ln -s hostperl miniperl
--+#	$(LDLIBPTH) ./miniperl -w -Ilib -MExporter -e '<?>' || $(MAKE) minitest
-- !NO!SUBS!
-- 		;;
-- 	*)
--@@ -629,7 +635,9 @@
-- 	-@rm -f miniperl.xok
-- 	$(LDLIBPTH) $(CC) $(CLDFLAGS) -o miniperl \
-- 	    miniperlmain$(OBJ_EXT) opmini$(OBJ_EXT) $(LLIBPERL) $(libs)
---	$(LDLIBPTH) ./miniperl -w -Ilib -MExporter -e '<?>' || $(MAKE) minitest
--+	mv -f miniperl miniperl-target
--+	ln -s hostperl miniperl
--+#	$(LDLIBPTH) ./miniperl -w -Ilib -MExporter -e '<?>' || $(MAKE) minitest
-- !NO!SUBS!
-- 		;;
-- 	esac
--@@ -766,7 +774,7 @@
-- # We need to autosplit in two steps because VOS can't handle so many args
-- #
-- .PHONY: preplibrary
---preplibrary: miniperl$(EXE_EXT) $(CONFIGPM) lib/lib.pm $(PREPLIBRARY_LIBPERL)
--+preplibrary: $(CONFIGPM) lib/lib.pm $(PREPLIBRARY_LIBPERL)
-- 	@sh ./makedir lib/auto
-- 	@echo "	AutoSplitting perl library"
-- 	$(LDLIBPTH) ./miniperl -Ilib -e 'use AutoSplit; \
--@@ -775,35 +783,35 @@
-- 		autosplit_lib_modules(@ARGV)' lib/*/*.pm
-- 	$(MAKE) lib/re.pm
-- 
---lib/Config.pod: config.sh miniperl$(EXE_EXT) configpm Porting/Glossary
--+lib/Config.pod: config.sh configpm Porting/Glossary
-- 	$(LDLIBPTH) ./miniperl -Ilib configpm --heavy=lib/Config_heavy.pl lib/Config.pm
-- 
-- $(CONFIGPM): lib/Config.pod
-- 
---lib/ExtUtils/Miniperl.pm: miniperlmain.c miniperl$(EXE_EXT) minimod.pl $(CONFIGPM)
--+lib/ExtUtils/Miniperl.pm: miniperlmain.c minimod.pl $(CONFIGPM)
-- 	$(LDLIBPTH) ./miniperl minimod.pl > lib/ExtUtils/Miniperl.pm
-- 
-- lib/re.pm: ext/re/re.pm
-- 	cp ext/re/re.pm lib/re.pm
-- 
---$(plextract):	miniperl$(EXE_EXT) $(CONFIGPM) x2p/s2p
--+$(plextract):	$(CONFIGPM) x2p/s2p
-- 	@-rm -f $@
-- 	$(LDLIBPTH) ./miniperl -I`pwd`/lib $@.PL
-- 
---x2p/s2p: miniperl$(EXE_EXT) $(CONFIGPM) x2p/s2p.PL
--+x2p/s2p: $(CONFIGPM) x2p/s2p.PL
-- 	cd x2p; $(LDLIBPTH) $(MAKE) s2p
-- 
---lib/lib.pm:	miniperl$(EXE_EXT) $(CONFIGPM)
--+lib/lib.pm:	$(CONFIGPM)
-- 	@-rm -f $@
-- 	$(LDLIBPTH) ./miniperl -Ilib lib/lib_pm.PL
-- 
-- unidatafiles $(unidatafiles): uni.data
-- 
---uni.data: miniperl$(EXE_EXT) $(CONFIGPM) lib/unicore/mktables
--+uni.data: $(CONFIGPM) lib/unicore/mktables
-- 	cd lib/unicore && $(LDLIBPTH) ../../miniperl -I../../lib mktables -w
-- 	touch uni.data
-- 
---extra.pods: miniperl$(EXE_EXT)
--+extra.pods:
-- 	-@test -f extra.pods && rm -f `cat extra.pods`
-- 	-@rm -f extra.pods
-- 	-@for x in `grep -l '^=[a-z]' README.* | grep -v README.vms` ; do \
--@@ -850,18 +858,7 @@
-- INSTALL_DEPENDENCE = all
-- 
-- install.perl:	$(INSTALL_DEPENDENCE) installperl
---	if [ -n "$(COMPILE)" ]; \
---	then \
---		cd utils; $(MAKE) compile; \
---		cd ../x2p; $(MAKE) compile; \
---		cd ../pod; $(MAKE) compile; \
---	else :; \
---	fi
---	$(LDLIBPTH) ./perl installperl --destdir=$(DESTDIR) $(INSTALLFLAGS) $(STRIPFLAGS)
---	$(MAKE) extras.install
---
---install.man:	all installman
---	$(LDLIBPTH) ./perl installman --destdir=$(DESTDIR) $(INSTALLFLAGS)
--+	./hostperl -Ifake_config_library -Ilib -MConfig installperl --destdir=$(DESTDIR) $(INSTALLFLAGS) $(STRIPFLAGS)
-- 
-- # XXX Experimental. Hardwired values, but useful for testing.
-- # Eventually Configure could ask for some of these values.
--@@ -978,16 +975,16 @@
-- #
-- # DynaLoader may be needed for extensions that use Makefile.PL.
-- 
---$(DYNALOADER):	miniperl$(EXE_EXT) preplibrary FORCE
--+$(DYNALOADER):	preplibrary FORCE
-- 	@$(LDLIBPTH) sh ext/util/make_ext $(STATIC) $@ MAKE=$(MAKE) LIBPERL_A=$(LIBPERL)
-- 
---d_dummy $(dynamic_ext):	miniperl$(EXE_EXT) preplibrary $(DYNALOADER) FORCE
--+d_dummy $(dynamic_ext):	preplibrary $(DYNALOADER) FORCE
-- 	@$(LDLIBPTH) sh ext/util/make_ext dynamic $@ MAKE=$(MAKE) LIBPERL_A=$(LIBPERL)
-- 
---s_dummy $(static_ext):	miniperl$(EXE_EXT) preplibrary $(DYNALOADER) FORCE
--+s_dummy $(static_ext):	preplibrary $(DYNALOADER) FORCE
-- 	@$(LDLIBPTH) sh ext/util/make_ext $(STATIC) $@ MAKE=$(MAKE) LIBPERL_A=$(LIBPERL)
-- 
---n_dummy $(nonxs_ext):	miniperl$(EXE_EXT) preplibrary $(DYNALOADER) FORCE
--+n_dummy $(nonxs_ext):	preplibrary $(DYNALOADER) FORCE
-- 	@$(LDLIBPTH) sh ext/util/make_ext nonxs $@ MAKE=$(MAKE) LIBPERL_A=$(LIBPERL)
-- 
-- .PHONY: clean _tidy _mopup _cleaner1 _cleaner2 \
--@@ -1125,7 +1122,7 @@
-- 
-- test_prep_pre: preplibrary utilities $(nonxs_ext)
-- 
---test_prep: test_prep_pre miniperl$(EXE_EXT) $(unidatafiles) perl$(EXE_EXT) $(dynamic_ext) $(TEST_PERL_DLL)
--+test_prep: test_prep_pre $(unidatafiles) perl$(EXE_EXT) $(dynamic_ext) $(TEST_PERL_DLL)
-- 	PERL=./perl $(MAKE) _test_prep
-- 
-- _test_tty:
--@@ -1238,7 +1235,7 @@
-- 
-- # Can't depend on lib/Config.pm because that might be where miniperl
-- # is crashing.
---minitest: miniperl$(EXE_EXT) lib/re.pm minitest.prep
--+minitest: lib/re.pm minitest.prep
-- 	- cd t && (rm -f perl$(EXE_EXT); $(LNS) ../miniperl$(EXE_EXT) perl$(EXE_EXT)) \
-- 		&& $(LDLIBPTH) ./perl TEST -minitest base/*.t comp/*.t cmd/*.t run/*.t io/*.t op/*.t uni/*.t </dev/tty
-- 
-diff --git a/meta/recipes-devtools/perl/perl-5.8.8/config.sh-32 b/meta/recipes-devtools/perl/perl-5.8.8/config.sh-32
+-+AC_CACHE_VAL(cf_cv_header_stdbool_h,[
+-+	AC_TRY_COMPILE([],[bool foo = false],
+-+		[cf_cv_header_stdbool_h=0],
+-+		[AC_TRY_COMPILE([
+-+#ifndef __BEOS__
+-+#include <stdbool.h>
+-+#endif
+-+],[bool foo = false],
+-+			[cf_cv_header_stdbool_h=1],
+-+			[cf_cv_header_stdbool_h=0])])])
+-+
+-+if test "$cf_cv_header_stdbool_h" = 1
+-+then	AC_MSG_RESULT(yes)
+-+else	AC_MSG_RESULT(no)
+-+fi
+-+
+-+AC_MSG_CHECKING([for builtin bool type])
+-+
+-+AC_CACHE_VAL(ifelse($1,,cf_cv_builtin_bool,[$1]),[
+-+	AC_TRY_COMPILE([
+-+#include <stdio.h>
+-+#include <sys/types.h>
+-+],[bool x = false],
+-+		[ifelse($1,,cf_cv_builtin_bool,[$1])=1],
+-+		[ifelse($1,,cf_cv_builtin_bool,[$1])=0])
+-+	])
+-+
+-+if test "$ifelse($1,,cf_cv_builtin_bool,[$1])" = 1
+-+then	AC_MSG_RESULT(yes)
+-+else	AC_MSG_RESULT(no)
+-+fi
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_BOOL_SIZE version: 10 updated: 2002/02/23 20:38:31
+-+dnl ------------
+-+dnl Test for the size of 'bool' in the configured C++ compiler (e.g., a type).
+-+dnl Don't bother looking for bool.h, since it's been deprecated.
+-+dnl
+-+dnl If the current compiler is C rather than C++, we get the bool definition
+-+dnl from <stdbool.h>.
+-+AC_DEFUN([CF_BOOL_SIZE],
+-+[
+-+AC_MSG_CHECKING([for size of bool])
+-+AC_CACHE_VAL(cf_cv_type_of_bool,[
+-+	rm -f cf_test.out
+-+	AC_TRY_RUN([
+-+#include <stdlib.h>
+-+#include <stdio.h>
+-+
+-+#if defined(__cplusplus)
+-+
+-+#ifdef HAVE_GXX_BUILTIN_H
+-+#include <g++/builtin.h>
+-+#elif HAVE_GPP_BUILTIN_H
+-+#include <gpp/builtin.h>
+-+#elif HAVE_BUILTIN_H
+-+#include <builtin.h>
+-+#endif
+-+
+-+#else
+-+
+-+#if $cf_cv_header_stdbool_h
+-+#include <stdbool.h>
+-+#endif
+-+
+-+#endif
+-+
+-+main()
+-+{
+-+	FILE *fp = fopen("cf_test.out", "w");
+-+	if (fp != 0) {
+-+		bool x = true;
+-+		if ((bool)(-x) >= 0)
+-+			fputs("unsigned ", fp);
+-+		if (sizeof(x) == sizeof(int))       fputs("int",  fp);
+-+		else if (sizeof(x) == sizeof(char)) fputs("char", fp);
+-+		else if (sizeof(x) == sizeof(short))fputs("short",fp);
+-+		else if (sizeof(x) == sizeof(long)) fputs("long", fp);
+-+		fclose(fp);
+-+	}
+-+	exit(0);
+-+}
+-+		],
+-+		[cf_cv_type_of_bool=`cat cf_test.out`
+-+		 if test -z "$cf_cv_type_of_bool"; then
+-+		   cf_cv_type_of_bool=unknown
+-+		 fi],
+-+		[cf_cv_type_of_bool=unknown],
+-+		[cf_cv_type_of_bool=unknown])
+-+	])
+-+	rm -f cf_test.out
+-+AC_MSG_RESULT($cf_cv_type_of_bool)
+-+if test "$cf_cv_type_of_bool" = unknown ; then
+-+	case .$NCURSES_BOOL in #(vi
+-+	.auto|.) NCURSES_BOOL=unsigned;;
+-+	esac
+-+	AC_MSG_WARN(Assuming $NCURSES_BOOL for type of bool)
+-+	cf_cv_type_of_bool=$NCURSES_BOOL
+-+fi
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_CFG_DEFAULTS version: 6 updated: 2003/07/12 15:15:19
+-+dnl ---------------
+-+dnl Determine the default configuration into which we'll install ncurses.  This
+-+dnl can be overridden by the user's command-line options.  There's two items to
+-+dnl look for:
+-+dnl	1. the prefix (e.g., /usr)
+-+dnl	2. the header files (e.g., /usr/include/ncurses)
+-+dnl We'll look for a previous installation of ncurses and use the same defaults.
+-+dnl
+-+dnl We don't use AC_PREFIX_DEFAULT, because it gets evaluated too soon, and
+-+dnl we don't use AC_PREFIX_PROGRAM, because we cannot distinguish ncurses's
+-+dnl programs from a vendor's.
+-+AC_DEFUN([CF_CFG_DEFAULTS],
+-+[
+-+AC_MSG_CHECKING(for prefix)
+-+if test "x$prefix" = "xNONE" ; then
+-+	case "$cf_cv_system_name" in
+-+		# non-vendor systems don't have a conflict
+-+	openbsd*|netbsd*|freebsd*|linux*|cygwin*|k*bsd*-gnu)
+-+		prefix=/usr
+-+		;;
+-+	*)	prefix=$ac_default_prefix
+-+		;;
+-+	esac
+-+fi
+-+AC_MSG_RESULT($prefix)
+-+
+-+if test "x$prefix" = "xNONE" ; then
+-+AC_MSG_CHECKING(for default include-directory)
+-+test -n "$verbose" && echo 1>&AC_FD_MSG
+-+for cf_symbol in \
+-+	$includedir \
+-+	$includedir/ncurses \
+-+	$prefix/include \
+-+	$prefix/include/ncurses \
+-+	/usr/local/include \
+-+	/usr/local/include/ncurses \
+-+	/usr/include \
+-+	/usr/include/ncurses
+-+do
+-+	cf_dir=`eval echo $cf_symbol`
+-+	if test -f $cf_dir/curses.h ; then
+-+	if ( fgrep NCURSES_VERSION $cf_dir/curses.h 2>&1 >/dev/null ) ; then
+-+		includedir="$cf_symbol"
+-+		test -n "$verbose"  && echo $ac_n "	found " 1>&AC_FD_MSG
+-+		break
+-+	fi
+-+	fi
+-+	test -n "$verbose"  && echo "	tested $cf_dir" 1>&AC_FD_MSG
+-+done
+-+AC_MSG_RESULT($includedir)
+-+fi
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_CGETENT version: 3 updated: 2000/08/12 23:18:52
+-+dnl ----------
+-+dnl Check if the terminal-capability database functions are available.  If not,
+-+dnl ncurses has a much-reduced version.
+-+AC_DEFUN([CF_CGETENT],[
+-+AC_MSG_CHECKING(for terminal-capability database functions)
+-+AC_CACHE_VAL(cf_cv_cgetent,[
+-+AC_TRY_LINK([
+-+#include <stdlib.h>],[
+-+	char temp[128];
+-+	char *buf = temp;
+-+	char *db_array = temp;
+-+	cgetent(&buf, /* int *, */ &db_array, "vt100");
+-+	cgetcap(buf, "tc", '=');
+-+	cgetmatch(buf, "tc");
+-+	],
+-+	[cf_cv_cgetent=yes],
+-+	[cf_cv_cgetent=no])
+-+])
+-+AC_MSG_RESULT($cf_cv_cgetent)
+-+test "$cf_cv_cgetent" = yes && AC_DEFINE(HAVE_BSD_CGETENT)
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_CHECK_CACHE version: 9 updated: 2004/01/30 15:59:13
+-+dnl --------------
+-+dnl Check if we're accidentally using a cache from a different machine.
+-+dnl Derive the system name, as a check for reusing the autoconf cache.
+-+dnl
+-+dnl If we've packaged config.guess and config.sub, run that (since it does a
+-+dnl better job than uname).  Normally we'll use AC_CANONICAL_HOST, but allow
+-+dnl an extra parameter that we may override, e.g., for AC_CANONICAL_SYSTEM
+-+dnl which is useful in cross-compiles.
+-+dnl
+-+dnl Note: we would use $ac_config_sub, but that is one of the places where
+-+dnl autoconf 2.5x broke compatibility with autoconf 2.13
+-+AC_DEFUN([CF_CHECK_CACHE],
+-+[
+-+if test -f $srcdir/config.guess ; then
+-+	ifelse([$1],,[AC_CANONICAL_HOST],[$1])
+-+	system_name="$host_os"
+-+else
+-+	system_name="`(uname -s -r) 2>/dev/null`"
+-+	if test -z "$system_name" ; then
+-+		system_name="`(hostname) 2>/dev/null`"
+-+	fi
+-+fi
+-+test -n "$system_name" && AC_DEFINE_UNQUOTED(SYSTEM_NAME,"$system_name")
+-+AC_CACHE_VAL(cf_cv_system_name,[cf_cv_system_name="$system_name"])
+-+
+-+test -z "$system_name" && system_name="$cf_cv_system_name"
+-+test -n "$cf_cv_system_name" && AC_MSG_RESULT(Configuring for $cf_cv_system_name)
+-+
+-+if test ".$system_name" != ".$cf_cv_system_name" ; then
+-+	AC_MSG_RESULT(Cached system name ($system_name) does not agree with actual ($cf_cv_system_name))
+-+	AC_ERROR("Please remove config.cache and try again.")
+-+fi
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_CHECK_ERRNO version: 9 updated: 2001/12/30 18:03:23
+-+dnl --------------
+-+dnl Check for data that is usually declared in <stdio.h> or <errno.h>, e.g.,
+-+dnl the 'errno' variable.  Define a DECL_xxx symbol if we must declare it
+-+dnl ourselves.
+-+dnl
+-+dnl $1 = the name to check
+-+AC_DEFUN([CF_CHECK_ERRNO],
+-+[
+-+AC_CACHE_CHECK(if external $1 is declared, cf_cv_dcl_$1,[
+-+    AC_TRY_COMPILE([
+-+#ifdef HAVE_STDLIB_H
+-+#include <stdlib.h>
+-+#endif
+-+#include <stdio.h>
+-+#include <sys/types.h>
+-+#include <errno.h> ],
+-+    [long x = (long) $1],
+-+    [cf_cv_dcl_$1=yes],
+-+    [cf_cv_dcl_$1=no])
+-+])
+-+
+-+if test "$cf_cv_dcl_$1" = no ; then
+-+    CF_UPPER(cf_result,decl_$1)
+-+    AC_DEFINE_UNQUOTED($cf_result)
+-+fi
+-+
+-+# It's possible (for near-UNIX clones) that the data doesn't exist
+-+CF_CHECK_EXTERN_DATA($1,int)
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_CHECK_EXTERN_DATA version: 3 updated: 2001/12/30 18:03:23
+-+dnl --------------------
+-+dnl Check for existence of external data in the current set of libraries.  If
+-+dnl we can modify it, it's real enough.
+-+dnl $1 = the name to check
+-+dnl $2 = its type
+-+AC_DEFUN([CF_CHECK_EXTERN_DATA],
+-+[
+-+AC_CACHE_CHECK(if external $1 exists, cf_cv_have_$1,[
+-+    AC_TRY_LINK([
+-+#undef $1
+-+extern $2 $1;
+-+],
+-+    [$1 = 2],
+-+    [cf_cv_have_$1=yes],
+-+    [cf_cv_have_$1=no])
+-+])
+-+
+-+if test "$cf_cv_have_$1" = yes ; then
+-+    CF_UPPER(cf_result,have_$1)
+-+    AC_DEFINE_UNQUOTED($cf_result)
+-+fi
+-+
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_CPP_PARAM_INIT version: 4 updated: 2001/04/07 22:31:18
+-+dnl -----------------
+-+dnl Check if the C++ compiler accepts duplicate parameter initialization.  This
+-+dnl is a late feature for the standard and is not in some recent compilers
+-+dnl (1999/9/11).
+-+AC_DEFUN([CF_CPP_PARAM_INIT],
+-+[
+-+if test -n "$CXX"; then
+-+AC_CACHE_CHECK(if $CXX accepts parameter initialization,cf_cv_cpp_param_init,[
+-+	AC_LANG_SAVE
+-+	AC_LANG_CPLUSPLUS
+-+	AC_TRY_RUN([
+-+class TEST {
+-+private:
+-+	int value;
+-+public:
+-+	TEST(int x = 1);
+-+	~TEST();
+-+};
+-+
+-+TEST::TEST(int x = 1)	// some compilers do not like second initializer
+-+{
+-+	value = x;
+-+}
+-+void main() { }
+-+],
+-+	[cf_cv_cpp_param_init=yes],
+-+	[cf_cv_cpp_param_init=no],
+-+	[cf_cv_cpp_param_init=unknown])
+-+	AC_LANG_RESTORE
+-+])
+-+fi
+-+test "$cf_cv_cpp_param_init" = yes && AC_DEFINE(CPP_HAS_PARAM_INIT)
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_CPP_VSCAN_FUNC version: 5 updated: 2001/12/02 01:39:28
+-+dnl -----------------
+-+dnl Check if the g++ compiler supports vscan function (not a standard feature).
+-+AC_DEFUN([CF_CPP_VSCAN_FUNC],
+-+[
+-+if test -n "$CXX"; then
+-+
+-+AC_LANG_SAVE
+-+AC_LANG_CPLUSPLUS
+-+AC_CHECK_HEADERS(strstream.h)
+-+
+-+AC_CACHE_CHECK(if $CXX supports vscan function,cf_cv_cpp_vscan_func,[
+-+	for cf_vscan_func in strstream strstream_cast stdio
+-+	do
+-+	case $cf_vscan_func in #(vi
+-+	stdio)		cf_vscan_defs=USE_STDIO_VSCAN ;; #(vi
+-+	strstream)	cf_vscan_defs=USE_STRSTREAM_VSCAN ;;
+-+	strstream_cast)	cf_vscan_defs=USE_STRSTREAM_VSCAN_CAST ;;
+-+	esac
+-+	AC_TRY_LINK([
+-+#include <stdio.h>
+-+#include <stdarg.h>
+-+#define $cf_vscan_defs 1
+-+#if defined(USE_STDIO_VSCAN)
+-+#elif defined(HAVE_STRSTREAM_H) && defined(USE_STRSTREAM_VSCAN)
+-+#include <strstream.h>
+-+#endif
+-+
+-+int scanw(const char* fmt, ...)
+-+{
+-+    int result = -1;
+-+    char buf[BUFSIZ];
+-+
+-+    va_list args;
+-+    va_start(args, fmt);
+-+#if defined(USE_STDIO_VSCAN)
+-+    if (::vsscanf(buf, fmt, args) != -1)
+-+	result = 0;
+-+#elif defined(USE_STRSTREAM_VSCAN)
+-+    strstreambuf ss(buf, sizeof(buf));
+-+    if (ss.vscan(fmt, args) != -1)
+-+	result = 0;
+-+#elif defined(USE_STRSTREAM_VSCAN_CAST)
+-+    strstreambuf ss(buf, sizeof(buf));
+-+    if (ss.vscan(fmt, (_IO_va_list)args) != -1)
+-+	result = 0;
+-+#else
+-+#error case $cf_vscan_func failed
+-+#endif
+-+    va_end(args);
+-+    return result;
+-+}
+-+],[int tmp, foo = scanw("%d", &tmp)],
+-+	[cf_cv_cpp_vscan_func=$cf_vscan_func; break],
+-+	[cf_cv_cpp_vscan_func=no])
+-+	test "$cf_cv_cpp_vscan_func" != no && break
+-+	done
+-+])
+-+
+-+AC_LANG_RESTORE
+-+fi
+-+
+-+case $cf_cv_cpp_vscan_func in #(vi
+-+stdio) #(vi
+-+	AC_DEFINE(CPP_HAS_VSCAN_FUNC)
+-+	AC_DEFINE(USE_STDIO_VSCAN)
+-+	;;
+-+strstream)
+-+	AC_DEFINE(CPP_HAS_VSCAN_FUNC)
+-+	AC_DEFINE(USE_STRSTREAM_VSCAN)
+-+	;;
+-+strstream_cast)
+-+	AC_DEFINE(CPP_HAS_VSCAN_FUNC)
+-+	AC_DEFINE(USE_STRSTREAM_VSCAN_CAST)
+-+	;;
+-+esac
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_DIRNAME version: 4 updated: 2002/12/21 19:25:52
+-+dnl ----------
+-+dnl "dirname" is not portable, so we fake it with a shell script.
+-+AC_DEFUN([CF_DIRNAME],[$1=`echo $2 | sed -e 's%/[[^/]]*$%%'`])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_DIRS_TO_MAKE version: 3 updated: 2002/02/23 20:38:31
+-+dnl ---------------
+-+AC_DEFUN([CF_DIRS_TO_MAKE],
+-+[
+-+DIRS_TO_MAKE="lib"
+-+for cf_item in $cf_list_models
+-+do
+-+	CF_OBJ_SUBDIR($cf_item,cf_subdir)
+-+	for cf_item2 in $DIRS_TO_MAKE
+-+	do
+-+		test $cf_item2 = $cf_subdir && break
+-+	done
+-+	test ".$cf_item2" != ".$cf_subdir" && DIRS_TO_MAKE="$DIRS_TO_MAKE $cf_subdir"
+-+done
+-+for cf_dir in $DIRS_TO_MAKE
+-+do
+-+	test ! -d $cf_dir && mkdir $cf_dir
+-+done
+-+AC_SUBST(DIRS_TO_MAKE)
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_ERRNO version: 5 updated: 1997/11/30 12:44:39
+-+dnl --------
+-+dnl Check if 'errno' is declared in <errno.h>
+-+AC_DEFUN([CF_ERRNO],
+-+[
+-+CF_CHECK_ERRNO(errno)
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_ETIP_DEFINES version: 3 updated: 2003/03/22 19:13:43
+-+dnl ---------------
+-+dnl Test for conflicting definitions of exception in gcc 2.8.0, etc., between
+-+dnl math.h and builtin.h, only for ncurses
+-+AC_DEFUN([CF_ETIP_DEFINES],
+-+[
+-+AC_MSG_CHECKING(for special defines needed for etip.h)
+-+cf_save_CXXFLAGS="$CXXFLAGS"
+-+cf_result="none"
+-+for cf_math in "" MATH_H
+-+do
+-+for cf_excp in "" MATH_EXCEPTION
+-+do
+-+	CXXFLAGS="$cf_save_CXXFLAGS -I${srcdir}/c++ -I${srcdir}/menu -I${srcdir}/include"
+-+	test -n "$cf_math" && CXXFLAGS="$CXXFLAGS -DETIP_NEEDS_${cf_math}"
+-+	test -n "$cf_excp" && CXXFLAGS="$CXXFLAGS -DETIP_NEEDS_${cf_excp}"
+-+AC_TRY_COMPILE([
+-+#include <etip.h.in>
+-+],[],[
+-+	test -n "$cf_math" && AC_DEFINE_UNQUOTED(ETIP_NEEDS_${cf_math})
+-+	test -n "$cf_excp" && AC_DEFINE_UNQUOTED(ETIP_NEEDS_${cf_excp})
+-+	cf_result="$cf_math $cf_excp"
+-+	break
+-+],[])
+-+done
+-+done
+-+AC_MSG_RESULT($cf_result)
+-+CXXFLAGS="$cf_save_CXXFLAGS"
+-+])
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_FUNC_MEMMOVE version: 5 updated: 2000/08/12 23:18:52
+-+dnl ---------------
+-+dnl Check for memmove, or a bcopy that can handle overlapping copy.  If neither
+-+dnl is found, add our own version of memmove to the list of objects.
+-+AC_DEFUN([CF_FUNC_MEMMOVE],
+-+[
+-+AC_CHECK_FUNC(memmove,,[
+-+AC_CHECK_FUNC(bcopy,[
+-+	AC_CACHE_CHECK(if bcopy does overlapping moves,cf_cv_good_bcopy,[
+-+		AC_TRY_RUN([
+-+int main() {
+-+	static char data[] = "abcdefghijklmnopqrstuwwxyz";
+-+	char temp[40];
+-+	bcopy(data, temp, sizeof(data));
+-+	bcopy(temp+10, temp, 15);
+-+	bcopy(temp+5, temp+15, 10);
+-+	exit (strcmp(temp, "klmnopqrstuwwxypqrstuwwxyz"));
+-+}
+-+		],
+-+		[cf_cv_good_bcopy=yes],
+-+		[cf_cv_good_bcopy=no],
+-+		[cf_cv_good_bcopy=unknown])
+-+		])
+-+	],[cf_cv_good_bcopy=no])
+-+	if test "$cf_cv_good_bcopy" = yes ; then
+-+		AC_DEFINE(USE_OK_BCOPY)
+-+	else
+-+		AC_DEFINE(USE_MY_MEMMOVE)
+-+	fi
+-+])])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_FUNC_POLL version: 2 updated: 2000/02/06 01:38:04
+-+dnl ------------
+-+dnl See if the poll function really works.  Some platforms have poll(), but
+-+dnl it does not work for terminals or files.
+-+AC_DEFUN([CF_FUNC_POLL],[
+-+AC_CACHE_CHECK(if poll really works,cf_cv_working_poll,[
+-+AC_TRY_RUN([
+-+#include <stdio.h>
+-+#ifdef HAVE_POLL_H
+-+#include <poll.h>
+-+#else
+-+#include <sys/poll.h>
+-+#endif
+-+int main() {
+-+	struct pollfd myfds;
+-+	int ret;
+-+
+-+	myfds.fd = 0;
+-+	myfds.events = POLLIN;
+-+
+-+	ret = poll(&myfds, 1, 100);
+-+	exit(ret != 0);
+-+}],
+-+	[cf_cv_working_poll=yes],
+-+	[cf_cv_working_poll=no],
+-+	[cf_cv_working_poll=unknown])])
+-+test "$cf_cv_working_poll" = "yes" && AC_DEFINE(HAVE_WORKING_POLL)
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_FUNC_TERMIOS version: 2 updated: 2000/07/22 23:37:24
+-+dnl ---------------
+-+dnl Some old/broken variations define tcgetattr() only as a macro in
+-+dnl termio(s).h
+-+AC_DEFUN([CF_FUNC_TERMIOS],[
+-+AC_REQUIRE([CF_STRUCT_TERMIOS])
+-+AC_CACHE_CHECK(for tcgetattr, cf_cv_have_tcgetattr,[
+-+AC_TRY_LINK([
+-+#include <sys/types.h>
+-+#ifdef HAVE_UNISTD_H
+-+#include <unistd.h>
+-+#endif
+-+#ifdef HAVE_TERMIOS_H
+-+#include <termios.h>
+-+#define TTY struct termios
+-+#else
+-+#ifdef HAVE_TERMIO_H
+-+#include <termio.h>
+-+#define TTY struct termio
+-+#endif
+-+#endif
+-+],[
+-+TTY foo;
+-+tcgetattr(1, &foo);],
+-+[cf_cv_have_tcgetattr=yes],
+-+[cf_cv_have_tcgetattr=no])])
+-+test "$cf_cv_have_tcgetattr" = yes && AC_DEFINE(HAVE_TCGETATTR)
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_FUNC_VSSCANF version: 3 updated: 2001/12/19 00:50:10
+-+dnl ---------------
+-+dnl Check for vsscanf() function, which is in c9x but generally not in earlier
+-+dnl versions of C.  It is in the GNU C library, and can often be simulated by
+-+dnl other functions.
+-+AC_DEFUN([CF_FUNC_VSSCANF],
+-+[
+-+AC_CACHE_CHECK(for vsscanf function or workaround,cf_cv_func_vsscanf,[
+-+AC_TRY_LINK([
+-+#include <stdarg.h>
+-+#include <stdio.h>],[
+-+	va_list ap;
+-+	vsscanf("from", "%d", ap)],[cf_cv_func_vsscanf=vsscanf],[
+-+AC_TRY_LINK([
+-+#include <stdarg.h>
+-+#include <stdio.h>],[
+-+    FILE strbuf;
+-+    char *str = "from";
+-+
+-+    strbuf._flag = _IOREAD;
+-+    strbuf._ptr = strbuf._base = (unsigned char *) str;
+-+    strbuf._cnt = strlen(str);
+-+    strbuf._file = _NFILE;
+-+    return (vfscanf(&strbuf, "%d", ap))],[cf_cv_func_vsscanf=vfscanf],[
+-+AC_TRY_LINK([
+-+#include <stdarg.h>
+-+#include <stdio.h>],[
+-+    FILE strbuf;
+-+    char *str = "from";
+-+
+-+    strbuf._flag = _IOREAD;
+-+    strbuf._ptr = strbuf._base = (unsigned char *) str;
+-+    strbuf._cnt = strlen(str);
+-+    strbuf._file = _NFILE;
+-+    return (_doscan(&strbuf, "%d", ap))],[cf_cv_func_vsscanf=_doscan],[
+-+cf_cv_func_vsscanf=no])])])])
+-+
+-+case $cf_cv_func_vsscanf in #(vi
+-+vsscanf) AC_DEFINE(HAVE_VSSCANF);; #(vi
+-+vfscanf) AC_DEFINE(HAVE_VFSCANF);; #(vi
+-+_doscan) AC_DEFINE(HAVE__DOSCAN);;
+-+esac
+-+
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_GCC_ATTRIBUTES version: 9 updated: 2002/12/21 19:25:52
+-+dnl -----------------
+-+dnl Test for availability of useful gcc __attribute__ directives to quiet
+-+dnl compiler warnings.  Though useful, not all are supported -- and contrary
+-+dnl to documentation, unrecognized directives cause older compilers to barf.
+-+AC_DEFUN([CF_GCC_ATTRIBUTES],
+-+[
+-+if test "$GCC" = yes
+-+then
+-+cat > conftest.i <<EOF
+-+#ifndef GCC_PRINTF
+-+#define GCC_PRINTF 0
+-+#endif
+-+#ifndef GCC_SCANF
+-+#define GCC_SCANF 0
+-+#endif
+-+#ifndef GCC_NORETURN
+-+#define GCC_NORETURN /* nothing */
+-+#endif
+-+#ifndef GCC_UNUSED
+-+#define GCC_UNUSED /* nothing */
+-+#endif
+-+EOF
+-+if test "$GCC" = yes
+-+then
+-+	AC_CHECKING([for $CC __attribute__ directives])
+-+cat > conftest.$ac_ext <<EOF
+-+#line __oline__ "configure"
+-+#include "confdefs.h"
+-+#include "conftest.h"
+-+#include "conftest.i"
+-+#if	GCC_PRINTF
+-+#define GCC_PRINTFLIKE(fmt,var) __attribute__((format(printf,fmt,var)))
+-+#else
+-+#define GCC_PRINTFLIKE(fmt,var) /*nothing*/
+-+#endif
+-+#if	GCC_SCANF
+-+#define GCC_SCANFLIKE(fmt,var)  __attribute__((format(scanf,fmt,var)))
+-+#else
+-+#define GCC_SCANFLIKE(fmt,var)  /*nothing*/
+-+#endif
+-+extern void wow(char *,...) GCC_SCANFLIKE(1,2);
+-+extern void oops(char *,...) GCC_PRINTFLIKE(1,2) GCC_NORETURN;
+-+extern void foo(void) GCC_NORETURN;
+-+int main(int argc GCC_UNUSED, char *argv[[]] GCC_UNUSED) { return 0; }
+-+EOF
+-+	for cf_attribute in scanf printf unused noreturn
+-+	do
+-+		CF_UPPER(CF_ATTRIBUTE,$cf_attribute)
+-+		cf_directive="__attribute__(($cf_attribute))"
+-+		echo "checking for $CC $cf_directive" 1>&AC_FD_CC
+-+		case $cf_attribute in
+-+		scanf|printf)
+-+		cat >conftest.h <<EOF
+-+#define GCC_$CF_ATTRIBUTE 1
+-+EOF
+-+			;;
+-+		*)
+-+		cat >conftest.h <<EOF
+-+#define GCC_$CF_ATTRIBUTE $cf_directive
+-+EOF
+-+			;;
+-+		esac
+-+		if AC_TRY_EVAL(ac_compile); then
+-+			test -n "$verbose" && AC_MSG_RESULT(... $cf_attribute)
+-+			cat conftest.h >>confdefs.h
+-+		fi
+-+	done
+-+else
+-+	fgrep define conftest.i >>confdefs.h
+-+fi
+-+rm -rf conftest*
+-+fi
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_GCC_VERSION version: 3 updated: 2003/09/06 19:16:57
+-+dnl --------------
+-+dnl Find version of gcc
+-+AC_DEFUN([CF_GCC_VERSION],[
+-+AC_REQUIRE([AC_PROG_CC])
+-+GCC_VERSION=none
+-+if test "$GCC" = yes ; then
+-+	AC_MSG_CHECKING(version of $CC)
+-+	GCC_VERSION="`${CC} --version|sed -e '2,$d' -e 's/^[[^0-9.]]*//' -e 's/[[^0-9.]].*//'`"
+-+	test -z "$GCC_VERSION" && GCC_VERSION=unknown
+-+	AC_MSG_RESULT($GCC_VERSION)
+-+fi
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_GCC_WARNINGS version: 15 updated: 2003/07/05 18:42:30
+-+dnl ---------------
+-+dnl Check if the compiler supports useful warning options.  There's a few that
+-+dnl we don't use, simply because they're too noisy:
+-+dnl
+-+dnl	-Wconversion (useful in older versions of gcc, but not in gcc 2.7.x)
+-+dnl	-Wredundant-decls (system headers make this too noisy)
+-+dnl	-Wtraditional (combines too many unrelated messages, only a few useful)
+-+dnl	-Wwrite-strings (too noisy, but should review occasionally).  This
+-+dnl		is enabled for ncurses using "--enable-const".
+-+dnl	-pedantic
+-+dnl
+-+AC_DEFUN([CF_GCC_WARNINGS],
+-+[
+-+AC_REQUIRE([CF_GCC_VERSION])
+-+if test "$GCC" = yes
+-+then
+-+	cat > conftest.$ac_ext <<EOF
+-+#line __oline__ "configure"
+-+int main(int argc, char *argv[[]]) { return (argv[[argc-1]] == 0) ; }
+-+EOF
+-+	AC_CHECKING([for $CC warning options])
+-+	cf_save_CFLAGS="$CFLAGS"
+-+	EXTRA_CFLAGS="-W -Wall"
+-+	cf_warn_CONST=""
+-+	test "$with_ext_const" = yes && cf_warn_CONST="Wwrite-strings"
+-+	for cf_opt in \
+-+		Wbad-function-cast \
+-+		Wcast-align \
+-+		Wcast-qual \
+-+		Winline \
+-+		Wmissing-declarations \
+-+		Wmissing-prototypes \
+-+		Wnested-externs \
+-+		Wpointer-arith \
+-+		Wshadow \
+-+		Wstrict-prototypes \
+-+		Wundef $cf_warn_CONST
+-+	do
+-+		CFLAGS="$cf_save_CFLAGS $EXTRA_CFLAGS -$cf_opt"
+-+		if AC_TRY_EVAL(ac_compile); then
+-+			test -n "$verbose" && AC_MSG_RESULT(... -$cf_opt)
+-+			case $cf_opt in #(vi
+-+			Wcast-qual) #(vi
+-+				CPPFLAGS="$CPPFLAGS -DXTSTRINGDEFINES"
+-+				;;
+-+			Winline) #(vi
+-+				case $GCC_VERSION in
+-+				3.3*)
+-+					CF_VERBOSE(feature is broken in gcc $GCC_VERSION)
+-+					continue;;
+-+				esac
+-+				;;
+-+			esac
+-+			EXTRA_CFLAGS="$EXTRA_CFLAGS -$cf_opt"
+-+		fi
+-+	done
+-+	rm -f conftest*
+-+	CFLAGS="$cf_save_CFLAGS"
+-+fi
+-+AC_SUBST(EXTRA_CFLAGS)
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_GNAT_TRY_RUN version: 2 updated: 1998/07/19 00:25:18
+-+dnl ---------------
+-+dnl Verify that a test program compiles and runs with GNAT
+-+dnl $cf_ada_make is set to the program that compiles/links
+-+AC_DEFUN([CF_GNAT_TRY_RUN],
+-+[
+-+rm -f conftest*
+-+cat >>conftest.ads <<CF_EOF
+-+$1
+-+CF_EOF
+-+cat >>conftest.adb <<CF_EOF
+-+$2
+-+CF_EOF
+-+if ( $cf_ada_make conftest 1>&AC_FD_CC 2>&1 ) ; then
+-+   if ( ./conftest 1>&AC_FD_CC 2>&1 ) ; then
+-+ifelse($3,,      :,[      $3])
+-+ifelse($4,,,[   else
+-+      $4])
+-+   fi
+-+ifelse($4,,,[else
+-+   $4])
+-+fi
+-+rm -f conftest*
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_GNAT_VERSION version: 11 updated: 2003/09/06 19:42:09
+-+dnl ---------------
+-+dnl Verify version of GNAT.
+-+AC_DEFUN([CF_GNAT_VERSION],
+-+[
+-+AC_MSG_CHECKING(for gnat version)
+-+cf_gnat_version=`${cf_ada_make-gnatmake} -v 2>&1 | grep '[[0-9]].[[0-9]][[0-9]]*' |\
+-+  sed -e '2,$d' -e 's/[[^0-9 \.]]//g' -e 's/^[[ ]]*//' -e 's/ .*//'`
+-+AC_MSG_RESULT($cf_gnat_version)
+-+
+-+case $cf_gnat_version in
+-+  3.1[[1-9]]*|3.[[2-9]]*|[[4-9]].*)
+-+    cf_cv_prog_gnat_correct=yes
+-+    ;;
+-+  *) echo Unsupported GNAT version $cf_gnat_version. Required is 3.11 or better. Disabling Ada95 binding.
+-+     cf_cv_prog_gnat_correct=no
+-+     ;;
+-+esac
+-+case $cf_gnat_version in
+-+  3.[[1-9]]*|[[4-9]].*)
+-+      cf_compile_generics=generics
+-+      cf_generic_objects="\$(GENOBJS)"
+-+      ;;
+-+  *)  cf_compile_generics=
+-+      cf_generic_objects=
+-+      ;;
+-+esac
+-+])
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_GNU_SOURCE version: 3 updated: 2000/10/29 23:30:53
+-+dnl -------------
+-+dnl Check if we must define _GNU_SOURCE to get a reasonable value for
+-+dnl _XOPEN_SOURCE, upon which many POSIX definitions depend.  This is a defect
+-+dnl (or misfeature) of glibc2, which breaks portability of many applications,
+-+dnl since it is interwoven with GNU extensions.
+-+dnl
+-+dnl Well, yes we could work around it...
+-+AC_DEFUN([CF_GNU_SOURCE],
+-+[
+-+AC_CACHE_CHECK(if we must define _GNU_SOURCE,cf_cv_gnu_source,[
+-+AC_TRY_COMPILE([#include <sys/types.h>],[
+-+#ifndef _XOPEN_SOURCE
+-+make an error
+-+#endif],
+-+	[cf_cv_gnu_source=no],
+-+	[cf_save="$CPPFLAGS"
+-+	 CPPFLAGS="$CPPFLAGS -D_GNU_SOURCE"
+-+	 AC_TRY_COMPILE([#include <sys/types.h>],[
+-+#ifdef _XOPEN_SOURCE
+-+make an error
+-+#endif],
+-+	[cf_cv_gnu_source=no],
+-+	[cf_cv_gnu_source=yes])
+-+	CPPFLAGS="$cf_save"
+-+	])
+-+])
+-+test "$cf_cv_gnu_source" = yes && CPPFLAGS="$CPPFLAGS -D_GNU_SOURCE"
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_GPP_LIBRARY version: 8 updated: 2003/02/02 01:41:46
+-+dnl --------------
+-+dnl If we're trying to use g++, test if libg++ is installed (a rather common
+-+dnl problem :-).  If we have the compiler but no library, we'll be able to
+-+dnl configure, but won't be able to build the c++ demo program.
+-+AC_DEFUN([CF_GPP_LIBRARY],
+-+[
+-+cf_cxx_library=unknown
+-+case $cf_cv_system_name in #(vi
+-+os2*) #(vi
+-+	cf_gpp_libname=gpp
+-+	;;
+-+*)
+-+	cf_gpp_libname=g++
+-+	;;
+-+esac
+-+if test "$GXX" = yes; then
+-+	AC_MSG_CHECKING([for lib$cf_gpp_libname])
+-+	cf_save="$LIBS"
+-+	LIBS="$LIBS -l$cf_gpp_libname"
+-+	AC_TRY_LINK([
+-+#include <$cf_gpp_libname/builtin.h>
+-+	],
+-+	[two_arg_error_handler_t foo2 = lib_error_handler],
+-+	[cf_cxx_library=yes
+-+	 CXXLIBS="$CXXLIBS -l$cf_gpp_libname"
+-+	 if test "$cf_gpp_libname" = cpp ; then
+-+	    AC_DEFINE(HAVE_GPP_BUILTIN_H)
+-+	 else
+-+	    AC_DEFINE(HAVE_GXX_BUILTIN_H)
+-+	 fi],
+-+	[AC_TRY_LINK([
+-+#include <builtin.h>
+-+	],
+-+	[two_arg_error_handler_t foo2 = lib_error_handler],
+-+	[cf_cxx_library=yes
+-+	 CXXLIBS="$CXXLIBS -l$cf_gpp_libname"
+-+	 AC_DEFINE(HAVE_BUILTIN_H)],
+-+	[cf_cxx_library=no])])
+-+	LIBS="$cf_save"
+-+	AC_MSG_RESULT($cf_cxx_library)
+-+fi
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_GXX_VERSION version: 3 updated: 2003/09/06 19:16:21
+-+dnl --------------
+-+dnl Check for version of g++
+-+AC_DEFUN([CF_GXX_VERSION],[
+-+AC_REQUIRE([AC_PROG_CPP])
+-+GXX_VERSION=none
+-+if test "$GXX" = yes; then
+-+	AC_MSG_CHECKING(version of g++)
+-+	GXX_VERSION="`${CXX-g++} --version|sed -e '2,$d'`"
+-+	AC_MSG_RESULT($GXX_VERSION)
+-+fi
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_INCLUDE_DIRS version: 4 updated: 2002/12/01 00:12:15
+-+dnl ---------------
+-+dnl Construct the list of include-options according to whether we're building
+-+dnl in the source directory or using '--srcdir=DIR' option.  If we're building
+-+dnl with gcc, don't append the includedir if it happens to be /usr/include,
+-+dnl since that usually breaks gcc's shadow-includes.
+-+AC_DEFUN([CF_INCLUDE_DIRS],
+-+[
+-+CPPFLAGS="-I. -I../include $CPPFLAGS"
+-+if test "$srcdir" != "."; then
+-+	CPPFLAGS="-I\$(srcdir)/../include $CPPFLAGS"
+-+fi
+-+if test "$GCC" != yes; then
+-+	CPPFLAGS="$CPPFLAGS -I\$(includedir)"
+-+elif test "$includedir" != "/usr/include"; then
+-+	if test "$includedir" = '${prefix}/include' ; then
+-+		if test $prefix != /usr ; then
+-+			CPPFLAGS="$CPPFLAGS -I\$(includedir)"
+-+		fi
+-+	else
+-+		CPPFLAGS="$CPPFLAGS -I\$(includedir)"
+-+	fi
+-+fi
+-+AC_SUBST(CPPFLAGS)
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_ISASCII version: 3 updated: 2000/08/12 23:18:52
+-+dnl ----------
+-+dnl Check if we have either a function or macro for 'isascii()'.
+-+AC_DEFUN([CF_ISASCII],
+-+[
+-+AC_MSG_CHECKING(for isascii)
+-+AC_CACHE_VAL(cf_cv_have_isascii,[
+-+	AC_TRY_LINK([#include <ctype.h>],[int x = isascii(' ')],
+-+	[cf_cv_have_isascii=yes],
+-+	[cf_cv_have_isascii=no])
+-+])dnl
+-+AC_MSG_RESULT($cf_cv_have_isascii)
+-+test "$cf_cv_have_isascii" = yes && AC_DEFINE(HAVE_ISASCII)
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_LIBUTF8 version: 2 updated: 2002/01/19 22:51:32
+-+dnl ----------
+-+dnl Check for libutf8
+-+AC_DEFUN([CF_LIBUTF8],
+-+[
+-+AC_CACHE_CHECK(for putwc in libutf8,cf_cv_libutf8,[
+-+	cf_save_LIBS="$LIBS"
+-+	LIBS="-lutf8 $LIBS"
+-+AC_TRY_LINK([
+-+#include <libutf8.h>],[putwc(0,0);],
+-+	[cf_cv_libutf8=yes],
+-+	[cf_cv_libutf8=no])
+-+	LIBS="$cf_save_LIBS"
+-+])
+-+
+-+if test "$cf_cv_libutf8" = yes ; then
+-+	AC_DEFINE(HAVE_LIBUTF8_H)
+-+	LIBS="-lutf8 $LIBS"
+-+fi
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_LIB_PREFIX version: 7 updated: 2001/01/12 01:23:48
+-+dnl -------------
+-+dnl Compute the library-prefix for the given host system
+-+dnl $1 = variable to set
+-+AC_DEFUN([CF_LIB_PREFIX],
+-+[
+-+	case $cf_cv_system_name in
+-+	OS/2*)	LIB_PREFIX=''     ;;
+-+	os2*)	LIB_PREFIX=''     ;;
+-+	*)	LIB_PREFIX='lib'  ;;
+-+	esac
+-+ifelse($1,,,[$1=$LIB_PREFIX])
+-+	AC_SUBST(LIB_PREFIX)
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_LIB_RULES version: 30 updated: 2004/01/10 15:50:50
+-+dnl ------------
+-+dnl Append definitions and rules for the given models to the subdirectory
+-+dnl Makefiles, and the recursion rule for the top-level Makefile.  If the
+-+dnl subdirectory is a library-source directory, modify the LIBRARIES list in
+-+dnl the corresponding makefile to list the models that we'll generate.
+-+dnl
+-+dnl For shared libraries, make a list of symbolic links to construct when
+-+dnl generating each library.  The convention used for Linux is the simplest
+-+dnl one:
+-+dnl	lib<name>.so	->
+-+dnl	lib<name>.so.<major>	->
+-+dnl	lib<name>.so.<maj>.<minor>
+-+AC_DEFUN([CF_LIB_RULES],
+-+[
+-+CF_LIB_PREFIX(cf_prefix)
+-+AC_REQUIRE([CF_SUBST_NCURSES_VERSION])
+-+for cf_dir in $SRC_SUBDIRS
+-+do
+-+	if test -f $srcdir/$cf_dir/modules; then
+-+
+-+		IMPORT_LIB=
+-+		SHARED_LIB=
+-+		LIBS_TO_MAKE=
+-+		for cf_item in $CF_LIST_MODELS
+-+		do
+-+			CF_LIB_SUFFIX($cf_item,cf_suffix)
+-+			if test $cf_item = shared ; then
+-+			if test "$cf_cv_do_symlinks" = yes ; then
+-+				case "$cf_cv_shlib_version" in #(vi
+-+				rel) #(vi
+-+					case "$cf_cv_system_name" in #(vi
+-+					darwin*) cf_suffix='.$(REL_VERSION)'"$cf_suffix" ;; #(vi
+-+					*) cf_suffix="$cf_suffix"'.$(REL_VERSION)' ;;
+-+					esac
+-+					;;
+-+				abi)
+-+					case "$cf_cv_system_name" in #(vi
+-+					darwin*) cf_suffix='.$(ABI_VERSION)'"$cf_suffix" ;; #(vi
+-+					*) cf_suffix="$cf_suffix"'.$(ABI_VERSION)' ;;
+-+					esac
+-+					;;
+-+				esac
+-+			fi
+-+			# cygwin needs import library, and has unique naming convention
+-+			# use autodetected ${cf_prefix} for import lib and static lib, but
+-+			# use 'cyg' prefix for shared lib.
+-+			if test $cf_cv_shlib_version = cygdll ; then
+-+				SHARED_LIB="../lib/cyg${cf_dir}\$(ABI_VERSION).dll"
+-+				IMPORT_LIB="../lib/${cf_prefix}${cf_dir}.dll.a"
+-+				LIBS_TO_MAKE="$LIBS_TO_MAKE \$(SHARED_LIB) \$(IMPORT_LIB)"
+-+				continue
+-+			fi
+-+			fi
+-+			LIBS_TO_MAKE="$LIBS_TO_MAKE ../lib/${cf_prefix}${cf_dir}${cf_suffix}"
+-+		done
+-+
+-+		if test $cf_dir = ncurses ; then
+-+			cf_subsets="$LIB_SUBSETS"
+-+			cf_termlib=`echo "$cf_subsets" |sed -e 's/ .*$//'`
+-+			if test "$cf_termlib" != "$cf_subsets" ; then
+-+				cf_item=`echo $LIBS_TO_MAKE |sed -e s%$LIB_NAME%$TINFO_NAME%g`
+-+				LIBS_TO_MAKE="$cf_item $LIBS_TO_MAKE"
+-+			fi
+-+		else
+-+			cf_subsets=`echo "$LIB_SUBSETS" | sed -e 's/^termlib.* //'`
+-+		fi
+-+
+-+		sed -e "s%@LIBS_TO_MAKE@%$LIBS_TO_MAKE%" \
+-+		    -e "s%@IMPORT_LIB@%$IMPORT_LIB%" \
+-+		    -e "s%@SHARED_LIB@%$SHARED_LIB%" \
+-+			$cf_dir/Makefile >$cf_dir/Makefile.out
+-+		mv $cf_dir/Makefile.out $cf_dir/Makefile
+-+
+-+		$AWK -f $srcdir/mk-0th.awk \
+-+			libname="${cf_dir}${LIB_SUFFIX}" subsets="$LIB_SUBSETS" \
+-+			$srcdir/$cf_dir/modules >>$cf_dir/Makefile
+-+
+-+		for cf_subset in $cf_subsets
+-+		do
+-+			cf_subdirs=
+-+			for cf_item in $CF_LIST_MODELS
+-+			do
+-+			echo "Appending rules for ${cf_item} model (${cf_dir}: ${cf_subset})"
+-+			CF_UPPER(CF_ITEM,$cf_item)
+-+			CF_LIB_SUFFIX($cf_item,cf_suffix)
+-+			CF_OBJ_SUBDIR($cf_item,cf_subdir)
+-+
+-+			# These dependencies really are for development, not
+-+			# builds, but they are useful in porting, too.
+-+			cf_depend="../include/ncurses_cfg.h"
+-+			if test "$srcdir" = "."; then
+-+				cf_reldir="."
+-+			else
+-+				cf_reldir="\$(srcdir)"
+-+			fi
+-+
+-+			if test -f $srcdir/$cf_dir/$cf_dir.priv.h; then
+-+				cf_depend="$cf_depend $cf_reldir/$cf_dir.priv.h"
+-+			elif test -f $srcdir/$cf_dir/curses.priv.h; then
+-+				cf_depend="$cf_depend $cf_reldir/curses.priv.h"
+-+			fi
+-+
+-+			$AWK -f $srcdir/mk-1st.awk \
+-+				name=$cf_dir \
+-+				traces=$LIB_TRACING \
+-+				MODEL=$CF_ITEM \
+-+				model=$cf_subdir \
+-+				prefix=$cf_prefix \
+-+				suffix=$cf_suffix \
+-+				subset=$cf_subset \
+-+				ShlibVer=$cf_cv_shlib_version \
+-+				ShlibVerInfix=$cf_cv_shlib_version_infix \
+-+				DoLinks=$cf_cv_do_symlinks \
+-+				rmSoLocs=$cf_cv_rm_so_locs \
+-+				ldconfig="$LDCONFIG" \
+-+				overwrite=$WITH_OVERWRITE \
+-+				depend="$cf_depend" \
+-+				host="$host" \
+-+				$srcdir/$cf_dir/modules >>$cf_dir/Makefile
+-+			for cf_subdir2 in $cf_subdirs lib
+-+			do
+-+				test $cf_subdir = $cf_subdir2 && break
+-+			done
+-+			test "${cf_subset}.${cf_subdir2}" != "${cf_subset}.${cf_subdir}" && \
+-+			$AWK -f $srcdir/mk-2nd.awk \
+-+				name=$cf_dir \
+-+				traces=$LIB_TRACING \
+-+				MODEL=$CF_ITEM \
+-+				model=$cf_subdir \
+-+				subset=$cf_subset \
+-+				srcdir=$srcdir \
+-+				echo=$WITH_ECHO \
+-+				$srcdir/$cf_dir/modules >>$cf_dir/Makefile
+-+			cf_subdirs="$cf_subdirs $cf_subdir"
+-+			done
+-+		done
+-+	fi
+-+
+-+	echo '	cd '$cf_dir' && $(MAKE) $(CF_MFLAGS) [$]@' >>Makefile
+-+done
+-+
+-+for cf_dir in $SRC_SUBDIRS
+-+do
+-+	if test -f $cf_dir/Makefile ; then
+-+		case "$cf_dir" in
+-+		Ada95) #(vi
+-+			echo 'libs \' >> Makefile
+-+			echo 'install.libs \' >> Makefile
+-+			echo 'uninstall.libs ::' >> Makefile
+-+			echo '	cd '$cf_dir' && $(MAKE) $(CF_MFLAGS) [$]@' >> Makefile
+-+			;;
+-+		esac
+-+	fi
+-+
+-+	if test -f $srcdir/$cf_dir/modules; then
+-+		echo >> Makefile
+-+		if test -f $srcdir/$cf_dir/headers; then
+-+cat >> Makefile <<CF_EOF
+-+install.includes \\
+-+uninstall.includes \\
+-+CF_EOF
+-+		fi
+-+if test "$cf_dir" != "c++" ; then
+-+echo 'lint \' >> Makefile
+-+fi
+-+cat >> Makefile <<CF_EOF
+-+libs \\
+-+lintlib \\
+-+install.libs \\
+-+uninstall.libs \\
+-+install.$cf_dir \\
+-+uninstall.$cf_dir ::
+-+	cd $cf_dir && \$(MAKE) \$(CF_MFLAGS) \[$]@
+-+CF_EOF
+-+	elif test -f $srcdir/$cf_dir/headers; then
+-+cat >> Makefile <<CF_EOF
+-+
+-+libs \\
+-+install.libs \\
+-+uninstall.libs \\
+-+install.includes \\
+-+uninstall.includes ::
+-+	cd $cf_dir && \$(MAKE) \$(CF_MFLAGS) \[$]@
+-+CF_EOF
+-+fi
+-+done
+-+
+-+cat >> Makefile <<CF_EOF
+-+
+-+install.data \\
+-+uninstall.data ::
+-+$MAKE_TERMINFO	cd misc && \$(MAKE) \$(CF_MFLAGS) \[$]@
+-+
+-+install.man \\
+-+uninstall.man ::
+-+	cd man && \$(MAKE) \$(CF_MFLAGS) \[$]@
+-+
+-+distclean ::
+-+	rm -f config.cache config.log config.status Makefile include/ncurses_cfg.h
+-+	rm -f headers.sh headers.sed
+-+	rm -rf \$(DIRS_TO_MAKE)
+-+CF_EOF
+-+
+-+# Special case: tack's manpage lives in its own directory.
+-+if test -d tack ; then
+-+if test -f $srcdir/$tack.h; then
+-+cat >> Makefile <<CF_EOF
+-+
+-+install.man \\
+-+uninstall.man ::
+-+	cd tack && \$(MAKE) \$(CF_MFLAGS) \[$]@
+-+CF_EOF
+-+fi
+-+fi
+-+
+-+dnl If we're installing into a subdirectory of /usr/include, etc., we should
+-+dnl prepend the subdirectory's name to the "#include" paths.  It won't hurt
+-+dnl anything, and will make it more standardized.  It's awkward to decide this
+-+dnl at configuration because of quoting, so we'll simply make all headers
+-+dnl installed via a script that can do the right thing.
+-+
+-+rm -f headers.sed headers.sh
+-+
+-+dnl ( generating this script makes the makefiles a little tidier :-)
+-+echo creating headers.sh
+-+cat >headers.sh <<CF_EOF
+-+#! /bin/sh
+-+# This shell script is generated by the 'configure' script.  It is invoked in a
+-+# subdirectory of the build tree.  It generates a sed-script in the parent
+-+# directory that is used to adjust includes for header files that reside in a
+-+# subdirectory of /usr/include, etc.
+-+PRG=""
+-+while test \[$]# != 3
+-+do
+-+PRG="\$PRG \[$]1"; shift
+-+done
+-+DST=\[$]1
+-+REF=\[$]2
+-+SRC=\[$]3
+-+TMPSRC=\${TMPDIR-/tmp}/\`basename \$SRC\`\$\$
+-+TMPSED=\${TMPDIR-/tmp}/headers.sed\$\$
+-+echo installing \$SRC in \$DST
+-+CF_EOF
+-+if test $WITH_CURSES_H = yes; then
+-+	cat >>headers.sh <<CF_EOF
+-+case \$DST in
+-+/*/include/*)
+-+	END=\`basename \$DST\`
+-+	for i in \`cat \$REF/../*/headers |fgrep -v "#"\`
+-+	do
+-+		NAME=\`basename \$i\`
+-+		echo "s/<\$NAME>/<\$END\/\$NAME>/" >> \$TMPSED
+-+	done
+-+	;;
+-+*)
+-+	echo "" >> \$TMPSED
+-+	;;
+-+esac
+-+CF_EOF
+-+else
+-+	cat >>headers.sh <<CF_EOF
+-+case \$DST in
+-+/*/include/*)
+-+	END=\`basename \$DST\`
+-+	for i in \`cat \$REF/../*/headers |fgrep -v "#"\`
+-+	do
+-+		NAME=\`basename \$i\`
+-+		if test "\$NAME" = "curses.h"
+-+		then
+-+			echo "s/<curses.h>/<ncurses.h>/" >> \$TMPSED
+-+			NAME=ncurses.h
+-+		fi
+-+		echo "s/<\$NAME>/<\$END\/\$NAME>/" >> \$TMPSED
+-+	done
+-+	;;
+-+*)
+-+	echo "s/<curses.h>/<ncurses.h>/" >> \$TMPSED
+-+	;;
+-+esac
+-+CF_EOF
+-+fi
+-+cat >>headers.sh <<CF_EOF
+-+rm -f \$TMPSRC
+-+sed -f \$TMPSED \$SRC > \$TMPSRC
+-+NAME=\`basename \$SRC\`
+-+CF_EOF
+-+if test $WITH_CURSES_H != yes; then
+-+	cat >>headers.sh <<CF_EOF
+-+test "\$NAME" = "curses.h" && NAME=ncurses.h
+-+CF_EOF
+-+fi
+-+cat >>headers.sh <<CF_EOF
+-+# Just in case someone gzip'd manpages, remove the conflicting copy.
+-+test -f \$DST/\$NAME.gz && rm -f \$DST/\$NAME.gz
+-+
+-+eval \$PRG \$TMPSRC \$DST/\$NAME
+-+rm -f \$TMPSRC \$TMPSED
+-+CF_EOF
+-+
+-+chmod 0755 headers.sh
+-+
+-+for cf_dir in $SRC_SUBDIRS
+-+do
+-+	if test -f $srcdir/$cf_dir/headers; then
+-+	cat >>$cf_dir/Makefile <<CF_EOF
+-+\$(DESTDIR)\$(includedir) :
+-+	sh \$(srcdir)/../mkinstalldirs \[$]@
+-+
+-+install \\
+-+install.libs \\
+-+install.includes :: \$(AUTO_SRC) \$(DESTDIR)\$(includedir) \\
+-+CF_EOF
+-+		j=""
+-+		for i in `cat $srcdir/$cf_dir/headers |fgrep -v "#"`
+-+		do
+-+			test -n "$j" && echo "		$j \\" >>$cf_dir/Makefile
+-+			j=$i
+-+		done
+-+		echo "		$j" >>$cf_dir/Makefile
+-+		for i in `cat $srcdir/$cf_dir/headers |fgrep -v "#"`
+-+		do
+-+			echo "	@ (cd \$(DESTDIR)\$(includedir) && rm -f `basename $i`) ; ../headers.sh \$(INSTALL_DATA) \$(DESTDIR)\$(includedir) \$(srcdir) $i" >>$cf_dir/Makefile
+-+			test $i = curses.h && test $WITH_CURSES_H = yes && echo "	@ (cd \$(DESTDIR)\$(includedir) && rm -f ncurses.h && \$(LN_S) curses.h ncurses.h)" >>$cf_dir/Makefile
+-+		done
+-+
+-+	cat >>$cf_dir/Makefile <<CF_EOF
+-+
+-+uninstall \\
+-+uninstall.libs \\
+-+uninstall.includes ::
+-+CF_EOF
+-+		for i in `cat $srcdir/$cf_dir/headers |fgrep -v "#"`
+-+		do
+-+			i=`basename $i`
+-+			echo "	-@ (cd \$(DESTDIR)\$(includedir) && rm -f $i)" >>$cf_dir/Makefile
+-+			test $i = curses.h && echo "	-@ (cd \$(DESTDIR)\$(includedir) && rm -f ncurses.h)" >>$cf_dir/Makefile
+-+		done
+-+	fi
+-+
+-+	if test -f $srcdir/$cf_dir/modules; then
+-+		if test "$cf_dir" != "c++" ; then
+-+			cat >>$cf_dir/Makefile <<"CF_EOF"
+-+depend : $(AUTO_SRC)
+-+	makedepend -- $(CPPFLAGS) -- $(C_SRC)
+-+
+-+# DO NOT DELETE THIS LINE -- make depend depends on it.
+-+CF_EOF
+-+		fi
+-+	fi
+-+done
+-+
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_LIB_SUFFIX version: 13 updated: 2003/11/01 16:09:07
+-+dnl -------------
+-+dnl Compute the library file-suffix from the given model name
+-+dnl $1 = model name
+-+dnl $2 = variable to set
+-+dnl The variable $LIB_SUFFIX, if set, prepends the variable to set.
+-+AC_DEFUN([CF_LIB_SUFFIX],
+-+[
+-+	AC_REQUIRE([CF_SUBST_NCURSES_VERSION])
+-+	case $1 in
+-+	libtool) $2='.la'  ;;
+-+	normal)  $2='.a'   ;;
+-+	debug)   $2='_g.a' ;;
+-+	profile) $2='_p.a' ;;
+-+	shared)
+-+		case $cf_cv_system_name in
+-+		cygwin*) $2='.dll' ;;
+-+		darwin*) $2='.dylib' ;;
+-+		hpux*)
+-+			case $target in
+-+			ia64*)	$2='.so' ;;
+-+			*)	$2='.sl' ;;
+-+			esac
+-+			;;
+-+		*)	$2='.so'  ;;
+-+		esac
+-+	esac
+-+	test -n "$LIB_SUFFIX" && $2="${LIB_SUFFIX}[$]{$2}"
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_LIB_TYPE version: 4 updated: 2000/10/20 22:57:49
+-+dnl -----------
+-+dnl Compute the string to append to -library from the given model name
+-+dnl $1 = model name
+-+dnl $2 = variable to set
+-+dnl The variable $LIB_SUFFIX, if set, prepends the variable to set.
+-+AC_DEFUN([CF_LIB_TYPE],
+-+[
+-+	case $1 in
+-+	libtool) $2=''   ;;
+-+	normal)  $2=''   ;;
+-+	debug)   $2='_g' ;;
+-+	profile) $2='_p' ;;
+-+	shared)  $2=''   ;;
+-+	esac
+-+	test -n "$LIB_SUFFIX" && $2="${LIB_SUFFIX}[$]{$2}"
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_LINK_DATAONLY version: 6 updated: 2003/02/02 01:41:46
+-+dnl ----------------
+-+dnl Some systems have a non-ANSI linker that doesn't pull in modules that have
+-+dnl only data (i.e., no functions), for example NeXT.  On those systems we'll
+-+dnl have to provide wrappers for global tables to ensure they're linked
+-+dnl properly.
+-+AC_DEFUN([CF_LINK_DATAONLY],
+-+[
+-+AC_MSG_CHECKING([if data-only library module links])
+-+AC_CACHE_VAL(cf_cv_link_dataonly,[
+-+	rm -f conftest.a
+-+	cat >conftest.$ac_ext <<EOF
+-+#line __oline__ "configure"
+-+int	testdata[[3]] = { 123, 456, 789 };
+-+EOF
+-+	if AC_TRY_EVAL(ac_compile) ; then
+-+		mv conftest.o data.o && \
+-+		( $AR $AR_OPTS conftest.a data.o ) 2>&AC_FD_CC 1>/dev/null
+-+	fi
+-+	rm -f conftest.$ac_ext data.o
+-+	cat >conftest.$ac_ext <<EOF
+-+#line __oline__ "configure"
+-+int	testfunc()
+-+{
+-+#if defined(NeXT)
+-+	exit(1);	/* I'm told this linker is broken */
+-+#else
+-+	extern int testdata[[3]];
+-+	return testdata[[0]] == 123
+-+	   &&  testdata[[1]] == 456
+-+	   &&  testdata[[2]] == 789;
+-+#endif
+-+}
+-+EOF
+-+	if AC_TRY_EVAL(ac_compile); then
+-+		mv conftest.o func.o && \
+-+		( $AR $AR_OPTS conftest.a func.o ) 2>&AC_FD_CC 1>/dev/null
+-+	fi
+-+	rm -f conftest.$ac_ext func.o
+-+	( eval $RANLIB conftest.a ) 2>&AC_FD_CC >/dev/null
+-+	cf_saveLIBS="$LIBS"
+-+	LIBS="conftest.a $LIBS"
+-+	AC_TRY_RUN([
+-+	int main()
+-+	{
+-+		extern int testfunc();
+-+		exit (!testfunc());
+-+	}
+-+	],
+-+	[cf_cv_link_dataonly=yes],
+-+	[cf_cv_link_dataonly=no],
+-+	[cf_cv_link_dataonly=unknown])
+-+	LIBS="$cf_saveLIBS"
+-+	])
+-+AC_MSG_RESULT($cf_cv_link_dataonly)
+-+
+-+if test "$cf_cv_link_dataonly" = no ; then
+-+	AC_DEFINE(BROKEN_LINKER)
+-+	BROKEN_LINKER=1
+-+fi
+-+
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_LINK_FUNCS version: 5 updated: 2003/02/02 01:41:46
+-+dnl -------------
+-+dnl Most Unix systems have both link and symlink, a few don't have symlink.
+-+dnl A few non-Unix systems implement symlink, but not link.
+-+dnl A few non-systems implement neither (or have nonfunctional versions).
+-+AC_DEFUN([CF_LINK_FUNCS],
+-+[
+-+AC_CHECK_FUNCS( \
+-+	remove \
+-+	unlink )
+-+
+-+if test "$cross_compiling" = yes ; then
+-+	AC_CHECK_FUNCS( \
+-+		link \
+-+		symlink )
+-+else
+-+	AC_CACHE_CHECK(if link/symlink functions work,cf_cv_link_funcs,[
+-+		cf_cv_link_funcs=
+-+		for cf_func in link symlink ; do
+-+			AC_TRY_RUN([
+-+#include <sys/types.h>
+-+#include <sys/stat.h>
+-+#ifdef HAVE_UNISTD_H
+-+#include <unistd.h>
+-+#endif
+-+int main()
+-+{
+-+	int fail = 0;
+-+	char *src = "config.log";
+-+	char *dst = "conftest.chk";
+-+	struct stat src_sb;
+-+	struct stat dst_sb;
+-+
+-+	stat(src, &src_sb);
+-+	fail = ($cf_func("config.log", "conftest.chk") < 0)
+-+	    || (stat(dst, &dst_sb) < 0)
+-+	    || (dst_sb.st_mtime != src_sb.st_mtime);
+-+#ifdef HAVE_UNLINK
+-+	unlink(dst);
+-+#else
+-+	remove(dst);
+-+#endif
+-+	exit (fail);
+-+}
+-+			],[
+-+			cf_cv_link_funcs="$cf_cv_link_funcs $cf_func"
+-+			eval 'ac_cv_func_'$cf_func'=yes'],[
+-+			eval 'ac_cv_func_'$cf_func'=no'],[
+-+			eval 'ac_cv_func_'$cf_func'=error'])
+-+		done
+-+		test -z "$cf_cv_link_funcs" && cf_cv_link_funcs=no
+-+	])
+-+	test "$ac_cv_func_link"    = yes && AC_DEFINE(HAVE_LINK)
+-+	test "$ac_cv_func_symlink" = yes && AC_DEFINE(HAVE_SYMLINK)
+-+fi
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_MAKEFLAGS version: 9 updated: 2001/12/30 18:17:27
+-+dnl ------------
+-+dnl Some 'make' programs support $(MAKEFLAGS), some $(MFLAGS), to pass 'make'
+-+dnl options to lower-levels.  It's very useful for "make -n" -- if we have it.
+-+dnl (GNU 'make' does both, something POSIX 'make', which happens to make the
+-+dnl $(MAKEFLAGS) variable incompatible because it adds the assignments :-)
+-+AC_DEFUN([CF_MAKEFLAGS],
+-+[
+-+AC_CACHE_CHECK(for makeflags variable, cf_cv_makeflags,[
+-+	cf_cv_makeflags=''
+-+	for cf_option in '-$(MAKEFLAGS)' '$(MFLAGS)'
+-+	do
+-+		cat >cf_makeflags.tmp <<CF_EOF
+-+SHELL = /bin/sh
+-+all :
+-+	@ echo '.$cf_option'
+-+CF_EOF
+-+		cf_result=`${MAKE-make} -k -f cf_makeflags.tmp 2>/dev/null`
+-+		case "$cf_result" in
+-+		.*k)
+-+			cf_result=`${MAKE-make} -k -f cf_makeflags.tmp CC=cc 2>/dev/null`
+-+			case "$cf_result" in
+-+			.*CC=*)	cf_cv_makeflags=
+-+				;;
+-+			*)	cf_cv_makeflags=$cf_option
+-+				;;
+-+			esac
+-+			break
+-+			;;
+-+		*)	echo no match "$cf_result"
+-+			;;
+-+		esac
+-+	done
+-+	rm -f cf_makeflags.tmp
+-+])
+-+
+-+AC_SUBST(cf_cv_makeflags)
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_MAKE_TAGS version: 2 updated: 2000/10/04 09:18:40
+-+dnl ------------
+-+dnl Generate tags/TAGS targets for makefiles.  Do not generate TAGS if we have
+-+dnl a monocase filesystem.
+-+AC_DEFUN([CF_MAKE_TAGS],[
+-+AC_REQUIRE([CF_MIXEDCASE_FILENAMES])
+-+AC_CHECK_PROG(MAKE_LOWER_TAGS, ctags, yes, no)
+-+
+-+if test "$cf_cv_mixedcase" = yes ; then
+-+	AC_CHECK_PROG(MAKE_UPPER_TAGS, etags, yes, no)
+-+else
+-+	MAKE_UPPER_TAGS=no
+-+fi
+-+
+-+if test "$MAKE_UPPER_TAGS" = yes ; then
+-+	MAKE_UPPER_TAGS=
+-+else
+-+	MAKE_UPPER_TAGS="#"
+-+fi
+-+AC_SUBST(MAKE_UPPER_TAGS)
+-+
+-+if test "$MAKE_LOWER_TAGS" = yes ; then
+-+	MAKE_LOWER_TAGS=
+-+else
+-+	MAKE_LOWER_TAGS="#"
+-+fi
+-+AC_SUBST(MAKE_LOWER_TAGS)
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_MANPAGE_FORMAT version: 7 updated: 2003/12/20 19:30:34
+-+dnl -----------------
+-+dnl Option to allow user to override automatic configuration of manpage format.
+-+dnl There are several special cases:
+-+dnl
+-+dnl	gzip - man checks for, can display gzip'd files
+-+dnl	compress - man checks for, can display compressed files
+-+dnl	BSDI - files in the cat-directories are suffixed ".0"
+-+dnl	formatted - installer should format (put files in cat-directory)
+-+dnl	catonly - installer should only format, e.g., for a turnkey system.
+-+dnl
+-+dnl There are other configurations which this macro does not test, e.g., HPUX's
+-+dnl compressed manpages (but uncompressed manpages are fine, and HPUX's naming
+-+dnl convention would not match our use).
+-+AC_DEFUN([CF_MANPAGE_FORMAT],
+-+[
+-+AC_REQUIRE([CF_PATHSEP])
+-+AC_MSG_CHECKING(format of man-pages)
+-+
+-+AC_ARG_WITH(manpage-format,
+-+	[  --with-manpage-format   specify manpage-format: gzip/compress/BSDI/normal and
+-+                          optionally formatted/catonly, e.g., gzip,formatted],
+-+	[MANPAGE_FORMAT=$withval],
+-+	[MANPAGE_FORMAT=unknown])
+-+
+-+test -z "$MANPAGE_FORMAT" && MANPAGE_FORMAT=unknown
+-+MANPAGE_FORMAT=`echo "$MANPAGE_FORMAT" | sed -e 's/,/ /g'`
+-+
+-+cf_unknown=
+-+
+-+case $MANPAGE_FORMAT in
+-+unknown)
+-+  if test -z "$MANPATH" ; then
+-+    MANPATH="/usr/man:/usr/share/man"
+-+  fi
+-+
+-+  # look for the 'date' man-page (it's most likely to be installed!)
+-+  MANPAGE_FORMAT=
+-+  cf_preform=no
+-+  cf_catonly=yes
+-+  cf_example=date
+-+
+-+  IFS="${IFS= 	}"; ac_save_ifs="$IFS"; IFS="${IFS}${PATHSEP}"
+-+  for cf_dir in $MANPATH; do
+-+    test -z "$cf_dir" && cf_dir=/usr/man
+-+    for cf_name in $cf_dir/man*/$cf_example.[[01]]* $cf_dir/cat*/$cf_example.[[01]]* $cf_dir/man*/$cf_example $cf_dir/cat*/$cf_example
+-+    do
+-+      cf_test=`echo $cf_name | sed -e 's/*//'`
+-+      if test "x$cf_test" = "x$cf_name" ; then
+-+
+-+	case "$cf_name" in
+-+	*.gz) MANPAGE_FORMAT="$MANPAGE_FORMAT gzip";;
+-+	*.Z)  MANPAGE_FORMAT="$MANPAGE_FORMAT compress";;
+-+	*.0)	MANPAGE_FORMAT="$MANPAGE_FORMAT BSDI";;
+-+	*)    MANPAGE_FORMAT="$MANPAGE_FORMAT normal";;
+-+	esac
+-+
+-+	case "$cf_name" in
+-+	$cf_dir/man*)
+-+	  cf_catonly=no
+-+	  ;;
+-+	$cf_dir/cat*)
+-+	  cf_preform=yes
+-+	  ;;
+-+	esac
+-+	break
+-+      fi
+-+
+-+      # if we found a match in either man* or cat*, stop looking
+-+      if test -n "$MANPAGE_FORMAT" ; then
+-+	cf_found=no
+-+	test "$cf_preform" = yes && MANPAGE_FORMAT="$MANPAGE_FORMAT formatted"
+-+	test "$cf_catonly" = yes && MANPAGE_FORMAT="$MANPAGE_FORMAT catonly"
+-+	case "$cf_name" in
+-+	$cf_dir/cat*)
+-+	  cf_found=yes
+-+	  ;;
+-+	esac
+-+	test $cf_found=yes && break
+-+      fi
+-+    done
+-+    # only check the first directory in $MANPATH where we find manpages
+-+    if test -n "$MANPAGE_FORMAT" ; then
+-+       break
+-+    fi
+-+  done
+-+  # if we did not find the example, just assume it is normal
+-+  test -z "$MANPAGE_FORMAT" && MANPAGE_FORMAT=normal
+-+  IFS="$ac_save_ifs"
+-+  ;;
+-+*)
+-+  for cf_option in $MANPAGE_FORMAT; do
+-+     case $cf_option in #(vi
+-+     gzip|compress|BSDI|normal|formatted|catonly)
+-+       ;;
+-+     *)
+-+       cf_unknown="$cf_unknown $cf_option"
+-+       ;;
+-+     esac
+-+  done
+-+  ;;
+-+esac
+-+
+-+AC_MSG_RESULT($MANPAGE_FORMAT)
+-+if test -n "$cf_unknown" ; then
+-+  AC_MSG_WARN(Unexpected manpage-format $cf_unknown)
+-+fi
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_MANPAGE_RENAMES version: 6 updated: 2002/01/19 22:51:32
+-+dnl ------------------
+-+dnl The Debian people have their own naming convention for manpages.  This
+-+dnl option lets us override the name of the file containing renaming, or
+-+dnl disable it altogether.
+-+AC_DEFUN([CF_MANPAGE_RENAMES],
+-+[
+-+AC_MSG_CHECKING(for manpage renaming)
+-+
+-+AC_ARG_WITH(manpage-renames,
+-+	[  --with-manpage-renames  specify manpage-renaming],
+-+	[MANPAGE_RENAMES=$withval],
+-+	[MANPAGE_RENAMES=yes])
+-+
+-+case ".$MANPAGE_RENAMES" in #(vi
+-+.no) #(vi
+-+  ;;
+-+.|.yes)
+-+  # Debian 'man' program?
+-+  if test -f /etc/debian_version ; then
+-+    MANPAGE_RENAMES=`cd $srcdir && pwd`/man/man_db.renames
+-+  else
+-+    MANPAGE_RENAMES=no
+-+  fi
+-+  ;;
+-+esac
+-+
+-+if test "$MANPAGE_RENAMES" != no ; then
+-+  if test -f $srcdir/man/$MANPAGE_RENAMES ; then
+-+    MANPAGE_RENAMES=`cd $srcdir/man && pwd`/$MANPAGE_RENAMES
+-+  elif test ! -f $MANPAGE_RENAMES ; then
+-+    AC_MSG_ERROR(not a filename: $MANPAGE_RENAMES)
+-+  fi
+-+
+-+  test ! -d man && mkdir man
+-+
+-+  # Construct a sed-script to perform renaming within man-pages
+-+  if test -n "$MANPAGE_RENAMES" ; then
+-+    test ! -d man && mkdir man
+-+    sh $srcdir/man/make_sed.sh $MANPAGE_RENAMES >man/edit_man.sed
+-+  fi
+-+fi
+-+
+-+AC_MSG_RESULT($MANPAGE_RENAMES)
+-+AC_SUBST(MANPAGE_RENAMES)
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_MANPAGE_SYMLINKS version: 4 updated: 2003/12/13 18:01:58
+-+dnl -------------------
+-+dnl Some people expect each tool to make all aliases for manpages in the
+-+dnl man-directory.  This accommodates the older, less-capable implementations
+-+dnl of 'man', and is optional.
+-+AC_DEFUN([CF_MANPAGE_SYMLINKS],
+-+[
+-+AC_MSG_CHECKING(if manpage aliases will be installed)
+-+
+-+AC_ARG_WITH(manpage-aliases,
+-+	[  --with-manpage-aliases  specify manpage-aliases using .so],
+-+	[MANPAGE_ALIASES=$withval],
+-+	[MANPAGE_ALIASES=yes])
+-+
+-+AC_MSG_RESULT($MANPAGE_ALIASES)
+-+
+-+if test "$LN_S" = "ln -s"; then
+-+	cf_use_symlinks=yes
+-+else
+-+	cf_use_symlinks=no
+-+fi
+-+
+-+MANPAGE_SYMLINKS=no
+-+if test "$MANPAGE_ALIASES" = yes ; then
+-+AC_MSG_CHECKING(if manpage symlinks should be used)
+-+
+-+AC_ARG_WITH(manpage-symlinks,
+-+	[  --with-manpage-symlinks specify manpage-aliases using symlinks],
+-+	[MANPAGE_SYMLINKS=$withval],
+-+	[MANPAGE_SYMLINKS=$cf_use_symlinks])
+-+
+-+if test "$$cf_use_symlinks" = no; then
+-+if test "$MANPAGE_SYMLINKS" = yes ; then
+-+	AC_MSG_WARN(cannot make symlinks, will use .so files)
+-+	MANPAGE_SYMLINKS=no
+-+fi
+-+fi
+-+
+-+AC_MSG_RESULT($MANPAGE_SYMLINKS)
+-+fi
+-+
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_MANPAGE_TBL version: 3 updated: 2002/01/19 22:51:32
+-+dnl --------------
+-+dnl This option causes manpages to be run through tbl(1) to generate tables
+-+dnl correctly.
+-+AC_DEFUN([CF_MANPAGE_TBL],
+-+[
+-+AC_MSG_CHECKING(for manpage tbl)
+-+
+-+AC_ARG_WITH(manpage-tbl,
+-+	[  --with-manpage-tbl      specify manpage processing with tbl],
+-+	[MANPAGE_TBL=$withval],
+-+	[MANPAGE_TBL=no])
+-+
+-+AC_MSG_RESULT($MANPAGE_TBL)
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_MAN_PAGES version: 27 updated: 2003/12/20 20:39:45
+-+dnl ------------
+-+dnl Try to determine if the man-pages on the system are compressed, and if
+-+dnl so, what format is used.  Use this information to construct a script that
+-+dnl will install man-pages.
+-+AC_DEFUN([CF_MAN_PAGES],
+-+[
+-+CF_MANPAGE_FORMAT
+-+CF_MANPAGE_RENAMES
+-+CF_MANPAGE_SYMLINKS
+-+CF_MANPAGE_TBL
+-+
+-+  if test "$prefix" = "NONE" ; then
+-+     cf_prefix="$ac_default_prefix"
+-+  else
+-+     cf_prefix="$prefix"
+-+  fi
+-+
+-+  case "$MANPAGE_FORMAT" in # (vi
+-+  *catonly*) # (vi
+-+    cf_format=yes
+-+    cf_inboth=no
+-+    ;;
+-+  *formatted*) # (vi
+-+    cf_format=yes
+-+    cf_inboth=yes
+-+    ;;
+-+  *)
+-+    cf_format=no
+-+    cf_inboth=no
+-+    ;;
+-+  esac
+-+
+-+test ! -d man && mkdir man
+-+
+-+cf_so_strip=
+-+cf_compress=
+-+case "$MANPAGE_FORMAT" in #(vi
+-+*compress*) #(vi
+-+	cf_so_strip="Z"
+-+	cf_compress=compress
+-+  ;;
+-+*gzip*) #(vi
+-+	cf_so_strip="gz"
+-+	cf_compress=gzip
+-+  ;;
+-+esac
+-+
+-+cf_edit_man=man/edit_man.sh
+-+
+-+cat >$cf_edit_man <<CF_EOF
+-+#! /bin/sh
+-+# this script is generated by the configure-script CF_MAN_PAGES macro.
+-+prefix="$cf_prefix"
+-+datadir="$datadir"
+-+NCURSES_OSPEED="$NCURSES_OSPEED"
+-+TERMINFO="$TERMINFO"
+-+MKDIRS="sh `cd $srcdir && pwd`/mkinstalldirs"
+-+INSTALL="$INSTALL"
+-+INSTALL_DATA="$INSTALL_DATA"
+-+transform="$program_transform_name"
+-+
+-+TMP=\${TMPDIR-/tmp}/man\$\$
+-+trap "rm -f \$TMP" 0 1 2 5 15
+-+
+-+form=\[$]1
+-+shift || exit 1
+-+
+-+verb=\[$]1
+-+shift || exit 1
+-+
+-+mandir=\[$]1
+-+shift || exit 1
+-+
+-+srcdir=\[$]1
+-+shift || exit 1
+-+
+-+if test "\$form" = normal ; then
+-+	if test "$cf_format" = yes ; then
+-+	if test "$cf_inboth" = no ; then
+-+		sh \[$]0 format \$verb \$mandir \$srcdir \[$]*
+-+		exit $?
+-+	fi
+-+	fi
+-+	cf_subdir=\$mandir/man
+-+	cf_tables=$MANPAGE_TBL
+-+else
+-+	cf_subdir=\$mandir/cat
+-+	cf_tables=yes
+-+fi
+-+
+-+# process the list of source-files
+-+for i in \[$]* ; do
+-+case \$i in #(vi
+-+*.orig|*.rej) ;; #(vi
+-+*.[[0-9]]*)
+-+	section=\`expr "\$i" : '.*\\.\\([[0-9]]\\)[[xm]]*'\`;
+-+	if test \$verb = installing ; then
+-+	if test ! -d \$cf_subdir\${section} ; then
+-+		\$MKDIRS \$cf_subdir\$section
+-+	fi
+-+	fi
+-+	aliases=
+-+	source=\`basename \$i\`
+-+	inalias=\$source
+-+	test ! -f \$inalias && inalias="\$srcdir/\$inalias"
+-+	if test ! -f \$inalias ; then
+-+		echo .. skipped \$source
+-+		continue
+-+	fi
+-+CF_EOF
+-+
+-+if test "$MANPAGE_ALIASES" != no ; then
+-+cat >>$cf_edit_man <<CF_EOF
+-+	aliases=\`sed -f \$srcdir/manlinks.sed \$inalias | sort -u\`
+-+CF_EOF
+-+fi
+-+
+-+if test "$MANPAGE_RENAMES" = no ; then
+-+cat >>$cf_edit_man <<CF_EOF
+-+	# perform program transformations for section 1 man pages
+-+	if test \$section = 1 ; then
+-+		target=\$cf_subdir\${section}/\`echo \$source|sed "\${transform}"\`
+-+	else
+-+		target=\$cf_subdir\${section}/\$source
+-+	fi
+-+CF_EOF
+-+else
+-+cat >>$cf_edit_man <<CF_EOF
+-+	target=\`grep "^\$source" $MANPAGE_RENAMES | $AWK '{print \[$]2}'\`
+-+	if test -z "\$target" ; then
+-+		echo '? missing rename for '\$source
+-+		target="\$source"
+-+	fi
+-+	target="\$cf_subdir\${section}/\${target}"
+-+CF_EOF
+-+fi
+-+
+-+	# replace variables in man page
+-+	ifelse($1,,,[
+-+	for cf_name in $1
+-+	do
+-+cat >>$cf_edit_man <<CF_EOF
+-+	prog_$cf_name=\`echo $cf_name|sed "\${transform}"\`
+-+CF_EOF
+-+	done
+-+	])
+-+cat >>$cf_edit_man <<CF_EOF
+-+	sed	-e "s,@DATADIR@,\$datadir," \\
+-+		-e "s,@TERMINFO@,\$TERMINFO," \\
+-+		-e "s,@NCURSES_OSPEED@,\$NCURSES_OSPEED," \\
+-+CF_EOF
+-+
+-+	ifelse($1,,,[
+-+	for cf_name in $1
+-+	do
+-+		cf_NAME=`echo "$cf_name" | sed y%abcdefghijklmnopqrstuvwxyz./-%ABCDEFGHIJKLMNOPQRSTUVWXYZ___%`
+-+cat >>$cf_edit_man <<CF_EOF
+-+		-e "s,@$cf_NAME@,\$prog_$cf_name," \\
+-+CF_EOF
+-+	done
+-+	])
+-+
+-+if test -f $MANPAGE_RENAMES ; then
+-+cat >>$cf_edit_man <<CF_EOF
+-+		< \$i | sed -f $srcdir/edit_man.sed >\$TMP
+-+CF_EOF
+-+else
+-+cat >>$cf_edit_man <<CF_EOF
+-+		< \$i >\$TMP
+-+CF_EOF
+-+fi
+-+
+-+cat >>$cf_edit_man <<CF_EOF
+-+if test \$cf_tables = yes ; then
+-+	tbl \$TMP >\$TMP.out
+-+	mv \$TMP.out \$TMP
+-+fi
+-+CF_EOF
+-+
+-+if test $with_curses_h != yes ; then
+-+cat >>$cf_edit_man <<CF_EOF
+-+	sed -e "/\#[    ]*include/s,curses.h,ncurses.h," < \$TMP >\$TMP.out
+-+	mv \$TMP.out \$TMP
+-+CF_EOF
+-+fi
+-+
+-+cat >>$cf_edit_man <<CF_EOF
+-+	if test \$form = format ; then
+-+		nroff -man \$TMP >\$TMP.out
+-+		mv \$TMP.out \$TMP
+-+	fi
+-+CF_EOF
+-+
+-+if test -n "$cf_compress" ; then
+-+cat >>$cf_edit_man <<CF_EOF
+-+	if test \$verb = installing ; then
+-+	if ( $cf_compress -f \$TMP )
+-+	then
+-+		mv \$TMP.$cf_so_strip \$TMP
+-+	fi
+-+	fi
+-+	target="\$target.$cf_so_strip"
+-+CF_EOF
+-+fi
+-+
+-+case "$MANPAGE_FORMAT" in #(vi
+-+*BSDI*)
+-+cat >>$cf_edit_man <<CF_EOF
+-+	if test \$form = format ; then
+-+		# BSDI installs only .0 suffixes in the cat directories
+-+		target="\`echo \$target|sed -e 's/\.[[1-9]]\+[[a-z]]*/.0/'\`"
+-+	fi
+-+CF_EOF
+-+  ;;
+-+esac
+-+
+-+cat >>$cf_edit_man <<CF_EOF
+-+	suffix=\`basename \$target | sed -e 's%^[[^.]]*%%'\`
+-+	if test \$verb = installing ; then
+-+		echo \$verb \$target
+-+		\$INSTALL_DATA \$TMP \$target
+-+		test -n "\$aliases" && (
+-+			cd \$cf_subdir\${section} && (
+-+				source=\`echo \$target |sed -e 's%^.*/\([[^/]][[^/]]*/[[^/]][[^/]]*$\)%\1%'\`
+-+				test -n "$cf_so_strip" && source=\`echo \$source |sed -e 's%\.$cf_so_strip\$%%'\`
+-+				target=\`basename \$target\`
+-+				for cf_alias in \$aliases
+-+				do
+-+					if test \$section = 1 ; then
+-+						cf_alias=\`echo \$cf_alias|sed "\${transform}"\`
+-+					fi
+-+
+-+					if test "$MANPAGE_SYMLINKS" = yes ; then
+-+						if test -f \$cf_alias\${suffix} ; then
+-+							if ( cmp -s \$target \$cf_alias\${suffix} )
+-+							then
+-+								continue
+-+							fi
+-+						fi
+-+						echo .. \$verb alias \$cf_alias\${suffix}
+-+						rm -f \$cf_alias\${suffix}
+-+						$LN_S \$target \$cf_alias\${suffix}
+-+					elif test "\$target" != "\$cf_alias\${suffix}" ; then
+-+						echo ".so \$source" >\$TMP
+-+CF_EOF
+-+if test -n "$cf_compress" ; then
+-+cat >>$cf_edit_man <<CF_EOF
+-+						if test -n "$cf_so_strip" ; then
+-+							$cf_compress -f \$TMP
+-+							mv \$TMP.$cf_so_strip \$TMP
+-+						fi
+-+CF_EOF
+-+fi
+-+cat >>$cf_edit_man <<CF_EOF
+-+						echo .. \$verb alias \$cf_alias\${suffix}
+-+						rm -f \$cf_alias\${suffix}
+-+						\$INSTALL_DATA \$TMP \$cf_alias\${suffix}
+-+					fi
+-+				done
+-+			)
+-+		)
+-+	elif test \$verb = removing ; then
+-+		echo \$verb \$target
+-+		rm -f \$target
+-+		test -n "\$aliases" && (
+-+			cd \$cf_subdir\${section} && (
+-+				for cf_alias in \$aliases
+-+				do
+-+					if test \$section = 1 ; then
+-+						cf_alias=\`echo \$cf_alias|sed "\${transform}"\`
+-+					fi
+-+
+-+					echo .. \$verb alias \$cf_alias\${suffix}
+-+					rm -f \$cf_alias\${suffix}
+-+				done
+-+			)
+-+		)
+-+	else
+-+#		echo ".hy 0"
+-+		cat \$TMP
+-+	fi
+-+	;;
+-+esac
+-+done
+-+
+-+if test $cf_inboth = yes ; then
+-+if test \$form != format ; then
+-+	sh \[$]0 format \$verb \$mandir \$srcdir \[$]*
+-+fi
+-+fi
+-+
+-+exit 0
+-+CF_EOF
+-+chmod 755 $cf_edit_man
+-+
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_MATH_LIB version: 5 updated: 2000/05/28 01:39:10
+-+dnl -----------
+-+dnl Checks for libraries.  At least one UNIX system, Apple Macintosh
+-+dnl Rhapsody 5.5, does not have -lm.  We cannot use the simpler
+-+dnl AC_CHECK_LIB(m,sin), because that fails for C++.
+-+AC_DEFUN([CF_MATH_LIB],
+-+[
+-+AC_CACHE_CHECK(if -lm needed for math functions,
+-+	cf_cv_need_libm,[
+-+	AC_TRY_LINK([
+-+	#include <stdio.h>
+-+	#include <math.h>
+-+	],
+-+	[double x = rand(); printf("result = %g\n", ]ifelse($2,,sin(x),$2)[)],
+-+	[cf_cv_need_libm=no],
+-+	[cf_cv_need_libm=yes])])
+-+if test "$cf_cv_need_libm" = yes
+-+then
+-+ifelse($1,,[
+-+	LIBS="$LIBS -lm"
+-+],[$1=-lm])
+-+fi
+-+])
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_MIXEDCASE_FILENAMES version: 3 updated: 2003/09/20 17:07:55
+-+dnl ----------------------
+-+dnl Check if the file-system supports mixed-case filenames.  If we're able to
+-+dnl create a lowercase name and see it as uppercase, it doesn't support that.
+-+AC_DEFUN([CF_MIXEDCASE_FILENAMES],
+-+[
+-+AC_CACHE_CHECK(if filesystem supports mixed-case filenames,cf_cv_mixedcase,[
+-+if test "$cross_compiling" = yes ; then
+-+	case $target_alias in #(vi
+-+	*-os2-emx*|*-msdosdjgpp*|*-cygwin*|*-mingw32*|*-uwin*) #(vi
+-+		cf_cv_mixedcase=no
+-+		;;
+-+	*)
+-+		cf_cv_mixedcase=yes
+-+		;;
+-+	esac
+-+else
+-+	rm -f conftest CONFTEST
+-+	echo test >conftest
+-+	if test -f CONFTEST ; then
+-+		cf_cv_mixedcase=no
+-+	else
+-+		cf_cv_mixedcase=yes
+-+	fi
+-+	rm -f conftest CONFTEST
+-+fi
+-+])
+-+test "$cf_cv_mixedcase" = yes && AC_DEFINE(MIXEDCASE_FILENAMES)
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_MKSTEMP version: 3 updated: 2001/11/08 20:59:59
+-+dnl ----------
+-+dnl Check for a working mkstemp.  This creates two files, checks that they are
+-+dnl successfully created and distinct (AmigaOS apparently fails on the last).
+-+AC_DEFUN([CF_MKSTEMP],[
+-+AC_CACHE_CHECK(for working mkstemp, cf_cv_func_mkstemp,[
+-+rm -f conftest*
+-+AC_TRY_RUN([
+-+#include <sys/types.h>
+-+#include <stdlib.h>
+-+#include <stdio.h>
+-+#include <string.h>
+-+#include <sys/stat.h>
+-+int main()
+-+{
+-+	char *tmpl = "conftestXXXXXX";
+-+	char name[2][80];
+-+	int n;
+-+	int result = 0;
+-+	int fd;
+-+	struct stat sb;
+-+
+-+	umask(077);
+-+	for (n = 0; n < 2; ++n) {
+-+		strcpy(name[n], tmpl);
+-+		if ((fd = mkstemp(name[n])) >= 0) {
+-+			if (!strcmp(name[n], tmpl)
+-+			 || stat(name[n], &sb) != 0
+-+			 || (sb.st_mode & S_IFMT) != S_IFREG
+-+			 || (sb.st_mode & 077) != 0) {
+-+				result = 1;
+-+			}
+-+			close(fd);
+-+		}
+-+	}
+-+	if (result == 0
+-+	 && !strcmp(name[0], name[1]))
+-+		result = 1;
+-+	exit(result);
+-+}
+-+],[cf_cv_func_mkstemp=yes
+-+],[cf_cv_func_mkstemp=no
+-+],[AC_CHECK_FUNC(mkstemp)
+-+])
+-+])
+-+if test "$cf_cv_func_mkstemp" = yes ; then
+-+	AC_DEFINE(HAVE_MKSTEMP)
+-+fi
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_NUMBER_SYNTAX version: 1 updated: 2003/09/20 18:12:49
+-+dnl ----------------
+-+dnl Check if the given variable is a number.  If not, report an error.
+-+dnl $1 is the variable
+-+dnl $2 is the message
+-+AC_DEFUN([CF_NUMBER_SYNTAX],[
+-+if test -n "$1" ; then
+-+  case $1 in #(vi
+-+  [[0-9]]*) #(vi
+-+ 	;;
+-+  *)
+-+	AC_MSG_ERROR($2 is not a number: $1)
+-+ 	;;
+-+  esac
+-+else
+-+  AC_MSG_ERROR($2 value is empty)
+-+fi
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_OBJ_SUBDIR version: 4 updated: 2002/02/23 20:38:31
+-+dnl -------------
+-+dnl Compute the object-directory name from the given model name
+-+AC_DEFUN([CF_OBJ_SUBDIR],
+-+[
+-+	case $1 in
+-+	libtool) $2='obj_lo'  ;;
+-+	normal)  $2='objects' ;;
+-+	debug)   $2='obj_g' ;;
+-+	profile) $2='obj_p' ;;
+-+	shared)
+-+		case $cf_cv_system_name in #(vi
+-+		cygwin) #(vi
+-+			$2='objects' ;;
+-+		*)
+-+			$2='obj_s' ;;
+-+		esac
+-+	esac
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_PATHSEP version: 3 updated: 2001/01/12 01:23:53
+-+dnl ----------
+-+dnl Provide a value for the $PATH and similar separator
+-+AC_DEFUN([CF_PATHSEP],
+-+[
+-+	case $cf_cv_system_name in
+-+	os2*)	PATHSEP=';'  ;;
+-+	*)	PATHSEP=':'  ;;
+-+	esac
+-+ifelse($1,,,[$1=$PATHSEP])
+-+	AC_SUBST(PATHSEP)
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_PATH_SYNTAX version: 9 updated: 2002/09/17 23:03:38
+-+dnl --------------
+-+dnl Check the argument to see that it looks like a pathname.  Rewrite it if it
+-+dnl begins with one of the prefix/exec_prefix variables, and then again if the
+-+dnl result begins with 'NONE'.  This is necessary to work around autoconf's
+-+dnl delayed evaluation of those symbols.
+-+AC_DEFUN([CF_PATH_SYNTAX],[
+-+case ".[$]$1" in #(vi
+-+.\[$]\(*\)*|.\'*\'*) #(vi
+-+  ;;
+-+..|./*|.\\*) #(vi
+-+  ;;
+-+.[[a-zA-Z]]:[[\\/]]*) #(vi OS/2 EMX
+-+  ;;
+-+.\[$]{*prefix}*) #(vi
+-+  eval $1="[$]$1"
+-+  case ".[$]$1" in #(vi
+-+  .NONE/*)
+-+    $1=`echo [$]$1 | sed -e s%NONE%$ac_default_prefix%`
+-+    ;;
+-+  esac
+-+  ;; #(vi
+-+.NONE/*)
+-+  $1=`echo [$]$1 | sed -e s%NONE%$ac_default_prefix%`
+-+  ;;
+-+*)
+-+  ifelse($2,,[AC_ERROR([expected a pathname, not \"[$]$1\"])],$2)
+-+  ;;
+-+esac
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_PREDEFINE version: 1 updated: 2003/07/26 17:53:56
+-+dnl ------------
+-+dnl Add definitions to CPPFLAGS to ensure they're predefined for all compiles.
+-+dnl
+-+dnl $1 = symbol to test
+-+dnl $2 = value (if any) to use for a predefinition
+-+AC_DEFUN([CF_PREDEFINE],
+-+[
+-+AC_MSG_CHECKING(if we must define $1)
+-+AC_TRY_COMPILE([#include <sys/types.h>
+-+],[
+-+#ifndef $1
+-+make an error
+-+#endif],[cf_result=no],[cf_result=yes])
+-+AC_MSG_RESULT($cf_result)
+-+
+-+if test "$cf_result" = yes ; then
+-+	CPPFLAGS="$CPPFLAGS ifelse($2,,-D$1,[-D$1=$2])"
+-+elif test "x$2" != "x" ; then
+-+	AC_MSG_CHECKING(checking for compatible value versus $2)
+-+	AC_TRY_COMPILE([#include <sys/types.h>
+-+],[
+-+#if $1-$2 < 0
+-+make an error
+-+#endif],[cf_result=yes],[cf_result=no])
+-+	AC_MSG_RESULT($cf_result)
+-+	if test "$cf_result" = no ; then
+-+		# perhaps we can override it - try...
+-+		CPPFLAGS="$CPPFLAGS -D$1=$2"
+-+	fi
+-+fi
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_PROG_EXT version: 10 updated: 2004/01/03 19:28:18
+-+dnl -----------
+-+dnl Compute $PROG_EXT, used for non-Unix ports, such as OS/2 EMX.
+-+AC_DEFUN([CF_PROG_EXT],
+-+[
+-+AC_REQUIRE([CF_CHECK_CACHE])
+-+case $cf_cv_system_name in
+-+os2*)
+-+    CFLAGS="$CFLAGS -Zmt"
+-+    CPPFLAGS="$CPPFLAGS -D__ST_MT_ERRNO__"
+-+    CXXFLAGS="$CXXFLAGS -Zmt"
+-+    # autoconf's macro sets -Zexe and suffix both, which conflict:w
+-+    LDFLAGS="$LDFLAGS -Zmt -Zcrtdll"
+-+    ac_cv_exeext=.exe
+-+    ;;
+-+esac
+-+
+-+AC_EXEEXT
+-+AC_OBJEXT
+-+
+-+PROG_EXT="$EXEEXT"
+-+AC_SUBST(PROG_EXT)
+-+test -n "$PROG_EXT" && AC_DEFINE_UNQUOTED(PROG_EXT,"$PROG_EXT")
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_PROG_INSTALL version: 5 updated: 2002/12/21 22:46:07
+-+dnl ---------------
+-+dnl Force $INSTALL to be an absolute-path.  Otherwise, edit_man.sh and the
+-+dnl misc/tabset install won't work properly.  Usually this happens only when
+-+dnl using the fallback mkinstalldirs script
+-+AC_DEFUN([CF_PROG_INSTALL],
+-+[AC_PROG_INSTALL
+-+case $INSTALL in
+-+/*)
+-+  ;;
+-+*)
+-+  CF_DIRNAME(cf_dir,$INSTALL)
+-+  test -z "$cf_dir" && cf_dir=.
+-+  INSTALL=`cd $cf_dir && pwd`/`echo $INSTALL | sed -e 's%^.*/%%'`
+-+  ;;
+-+esac
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_PROG_LDCONFIG version: 1 updated: 2003/09/20 17:07:55
+-+dnl ----------------
+-+dnl Check for ldconfig, needed to fixup shared libraries that would be built
+-+dnl and then used in the install.
+-+AC_DEFUN([CF_PROG_LDCONFIG],[
+-+if test "$cross_compiling" = yes ; then
+-+  LDCONFIG=:
+-+else
+-+case "$cf_cv_system_name" in #(vi
+-+freebsd*) #(vi
+-+  test -z "$LDCONFIG" && LDCONFIG="/sbin/ldconfig -R"
+-+  ;;
+-+*) LDPATH=$PATH:/sbin:/usr/sbin
+-+  AC_PATH_PROG(LDCONFIG,ldconfig,,$LDPATH)
+-+  ;;
+-+esac
+-+fi
+-+AC_SUBST(LDCONFIG)
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_REGEX version: 3 updated: 1997/11/01 14:26:01
+-+dnl --------
+-+dnl Attempt to determine if we've got one of the flavors of regular-expression
+-+dnl code that we can support.
+-+AC_DEFUN([CF_REGEX],
+-+[
+-+AC_MSG_CHECKING([for regular-expression headers])
+-+AC_CACHE_VAL(cf_cv_regex,[
+-+AC_TRY_LINK([#include <sys/types.h>
+-+#include <regex.h>],[
+-+	regex_t *p;
+-+	int x = regcomp(p, "", 0);
+-+	int y = regexec(p, "", 0, 0, 0);
+-+	regfree(p);
+-+	],[cf_cv_regex="regex.h"],[
+-+	AC_TRY_LINK([#include <regexp.h>],[
+-+		char *p = compile("", "", "", 0);
+-+		int x = step("", "");
+-+	],[cf_cv_regex="regexp.h"],[
+-+		cf_save_LIBS="$LIBS"
+-+		LIBS="-lgen $LIBS"
+-+		AC_TRY_LINK([#include <regexpr.h>],[
+-+			char *p = compile("", "", "");
+-+			int x = step("", "");
+-+		],[cf_cv_regex="regexpr.h"],[LIBS="$cf_save_LIBS"])])])
+-+])
+-+AC_MSG_RESULT($cf_cv_regex)
+-+case $cf_cv_regex in
+-+	regex.h)   AC_DEFINE(HAVE_REGEX_H_FUNCS) ;;
+-+	regexp.h)  AC_DEFINE(HAVE_REGEXP_H_FUNCS) ;;
+-+	regexpr.h) AC_DEFINE(HAVE_REGEXPR_H_FUNCS) ;;
+-+esac
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_SHARED_OPTS version: 30 updated: 2003/12/27 20:48:07
+-+dnl --------------
+-+dnl Attempt to determine the appropriate CC/LD options for creating a shared
+-+dnl library.
+-+dnl
+-+dnl Note: $(LOCAL_LDFLAGS) is used to link executables that will run within the
+-+dnl build-tree, i.e., by making use of the libraries that are compiled in ../lib
+-+dnl We avoid compiling-in a ../lib path for the shared library since that can
+-+dnl lead to unexpected results at runtime.
+-+dnl $(LOCAL_LDFLAGS2) has the same intention but assumes that the shared libraries
+-+dnl are compiled in ../../lib
+-+dnl
+-+dnl The variable 'cf_cv_do_symlinks' is used to control whether we configure
+-+dnl to install symbolic links to the rel/abi versions of shared libraries.
+-+dnl
+-+dnl The variable 'cf_cv_shlib_version' controls whether we use the rel or abi
+-+dnl version when making symbolic links.
+-+dnl
+-+dnl The variable 'cf_cv_shlib_version_infix' controls whether shared library
+-+dnl version numbers are infix (ex: libncurses.<ver>.dylib) or postfix
+-+dnl (ex: libncurses.so.<ver>).
+-+dnl
+-+dnl Some loaders leave 'so_locations' lying around.  It's nice to clean up.
+-+AC_DEFUN([CF_SHARED_OPTS],
+-+[
+-+	AC_REQUIRE([CF_SUBST_NCURSES_VERSION])
+-+	LOCAL_LDFLAGS=
+-+	LOCAL_LDFLAGS2=
+-+	LD_SHARED_OPTS=
+-+	INSTALL_LIB="-m 644"
+-+
+-+	cf_cv_do_symlinks=no
+-+
+-+	AC_MSG_CHECKING(if release/abi version should be used for shared libs)
+-+	AC_ARG_WITH(shlib-version,
+-+	[  --with-shlib-version=X  Specify rel or abi version for shared libs],
+-+	[test -z "$withval" && withval=auto
+-+	case $withval in #(vi
+-+	yes) #(vi
+-+		cf_cv_shlib_version=auto
+-+		;;
+-+	rel|abi|auto|no) #(vi
+-+		cf_cv_shlib_version=$withval
+-+		;;
+-+	*)
+-+		AC_ERROR([option value must be one of: rel, abi, auto or no])
+-+		;;
+-+	esac
+-+	],[cf_cv_shlib_version=auto])
+-+	AC_MSG_RESULT($cf_cv_shlib_version)
+-+
+-+	cf_cv_rm_so_locs=no
+-+
+-+	# Some less-capable ports of gcc support only -fpic
+-+	CC_SHARED_OPTS=
+-+	if test "$GCC" = yes
+-+	then
+-+		AC_MSG_CHECKING(which $CC option to use)
+-+		cf_save_CFLAGS="$CFLAGS"
+-+		for CC_SHARED_OPTS in -fPIC -fpic ''
+-+		do
+-+			CFLAGS="$cf_save_CFLAGS $CC_SHARED_OPTS"
+-+			AC_TRY_COMPILE([#include <stdio.h>],[int x = 1],[break],[])
+-+		done
+-+		AC_MSG_RESULT($CC_SHARED_OPTS)
+-+		CFLAGS="$cf_save_CFLAGS"
+-+	fi
+-+
+-+	cf_cv_shlib_version_infix=no
+-+
+-+	case $cf_cv_system_name in
+-+	beos*)
+-+		MK_SHARED_LIB='$(CC) -o $[@] -Xlinker -soname=`basename $[@]` -nostart -e 0'
+-+		;;
+-+	cygwin*)
+-+		CC_SHARED_OPTS=
+-+		MK_SHARED_LIB='$(CC) -shared -Wl,--out-implib=$(IMPORT_LIB) -Wl,--export-all-symbols -o $(SHARED_LIB)'
+-+		cf_cv_shlib_version=cygdll
+-+		cf_cv_shlib_version_infix=cygdll
+-+		;;
+-+	darwin*)
+-+		EXTRA_CFLAGS="-no-cpp-precomp"
+-+		CC_SHARED_OPTS="-dynamic"
+-+		MK_SHARED_LIB='$(CC) -dynamiclib -install_name $(DESTDIR)$(libdir)/`basename $[@]` -compatibility_version $(ABI_VERSION) -current_version $(ABI_VERSION) -o $[@]'
+-+		test "$cf_cv_shlib_version" = auto && cf_cv_shlib_version=abi
+-+		cf_cv_shlib_version_infix=yes
+-+		;;
+-+	hpux*)
+-+		# (tested with gcc 2.7.2 -- I don't have c89)
+-+		if test "$GCC" = yes; then
+-+			LD_SHARED_OPTS='-Xlinker +b -Xlinker $(libdir)'
+-+		else
+-+			CC_SHARED_OPTS='+Z'
+-+			LD_SHARED_OPTS='-Wl,+b,$(libdir)'
+-+		fi
+-+		MK_SHARED_LIB='$(LD) +b $(libdir) -b -o $[@]'
+-+		# HP-UX shared libraries must be executable, and should be
+-+		# readonly to exploit a quirk in the memory manager.
+-+		INSTALL_LIB="-m 555"
+-+		;;
+-+	irix*)
+-+		if test "$cf_cv_ld_rpath" = yes ; then
+-+			cf_ld_rpath_opt="-Wl,-rpath,"
+-+			EXTRA_LDFLAGS="-Wl,-rpath,\$(libdir) $EXTRA_LDFLAGS"
+-+		fi
+-+		# tested with IRIX 5.2 and 'cc'.
+-+		if test "$GCC" != yes; then
+-+			CC_SHARED_OPTS='-KPIC'
+-+		fi
+-+		MK_SHARED_LIB='$(LD) -shared -rdata_shared -soname `basename $[@]` -o $[@]'
+-+		cf_cv_rm_so_locs=yes
+-+		;;
+-+	linux*|gnu*|k*bsd*-gnu)
+-+		if test "$DFT_LWR_MODEL" = "shared" ; then
+-+			LOCAL_LDFLAGS="-Wl,-rpath,`pwd`/lib"
+-+			LOCAL_LDFLAGS2="$LOCAL_LDFLAGS"
+-+		fi
+-+		if test "$cf_cv_ld_rpath" = yes ; then
+-+			cf_ld_rpath_opt="-Wl,-rpath,"
+-+			EXTRA_LDFLAGS="$LOCAL_LDFLAGS $EXTRA_LDFLAGS"
+-+		fi
+-+		test "$cf_cv_shlib_version" = auto && cf_cv_shlib_version=rel
+-+		MK_SHARED_LIB='$(CC) -shared -Wl,-soname,`basename $[@] .$(REL_VERSION)`.$(ABI_VERSION),-stats,-lc -o $[@]'
+-+		;;
+-+	openbsd2*)
+-+		CC_SHARED_OPTS="$CC_SHARED_OPTS -DPIC"
+-+		MK_SHARED_LIB='$(LD) -Bshareable -soname,`basename $[@].$(ABI_VERSION)` -o $[@]'
+-+		;;
+-+	freebsd[[45]]*)
+-+		CC_SHARED_OPTS="$CC_SHARED_OPTS -DPIC"
+-+		MK_SHARED_LIB='$(LD) -Bshareable -soname=`basename $[@]` -o $[@]'
+-+		test "$cf_cv_shlib_version" = auto && cf_cv_shlib_version=rel
+-+
+-+# This doesn't work - I keep getting spurious references to needing
+-+# libncurses.so.5.3 when ldd says it's resolved.  LOCAL_LDFLAGS2 seems to be
+-+# no longer used anyway.  And the rpath logic isn't relative - so I have to
+-+# add the local and install lib-directories:
+-+#
+-+#		if test "$DFT_LWR_MODEL" = "shared" && test "$cf_cv_ld_rpath" = yes ; then
+-+#			LOCAL_LDFLAGS="-rpath `pwd`/lib"
+-+#			LOCAL_LDFLAGS2="-rpath \$(libdir) $LOCAL_LDFLAGS"
+-+#			cf_ld_rpath_opt="-rpath "
+-+#			EXTRA_LDFLAGS="$LOCAL_LDFLAGS $EXTRA_LDFLAGS"
+-+#		fi
+-+		;;
+-+	openbsd*|freebsd*)
+-+		CC_SHARED_OPTS="$CC_SHARED_OPTS -DPIC"
+-+		MK_SHARED_LIB='$(LD) -Bshareable -o $[@]'
+-+		test "$cf_cv_shlib_version" = auto && cf_cv_shlib_version=rel
+-+		;;
+-+	netbsd*)
+-+		CC_SHARED_OPTS="$CC_SHARED_OPTS -DPIC"
+-+		test "$cf_cv_ld_rpath" = yes && cf_ld_rpath_opt="-Wl,-rpath,"
+-+		if test "$DFT_LWR_MODEL" = "shared" && test "$cf_cv_ld_rpath" = yes ; then
+-+			LOCAL_LDFLAGS="-Wl,-rpath,`pwd`/lib"
+-+			LOCAL_LDFLAGS2="$LOCAL_LDFLAGS"
+-+			EXTRA_LDFLAGS="-Wl,-rpath,\$(libdir) $EXTRA_LDFLAGS"
+-+			MK_SHARED_LIB='$(CC) -shared -Wl,-soname,`basename $[@] .$(REL_VERSION)`.$(ABI_VERSION) -o $[@]'
+-+			if test "$cf_cv_shlib_version" = auto; then
+-+			if test ! -f /usr/libexec/ld.elf_so; then
+-+				cf_cv_shlib_version=rel
+-+			fi
+-+			fi
+-+		else
+-+			MK_SHARED_LIB='$(LD) -Bshareable -o $[@]'
+-+		fi
+-+		;;
+-+	osf*|mls+*)
+-+		# tested with OSF/1 V3.2 and 'cc'
+-+		# tested with OSF/1 V3.2 and gcc 2.6.3 (but the c++ demo didn't
+-+		# link with shared libs).
+-+		MK_SHARED_LIB='$(LD) -set_version $(REL_VERSION):$(ABI_VERSION) -expect_unresolved "*" -shared -soname `basename $[@]`'
+-+		case $host_os in
+-+		osf4*)
+-+			MK_SHARED_LIB="${MK_SHARED_LIB} -msym"
+-+			;;
+-+		esac
+-+		MK_SHARED_LIB="${MK_SHARED_LIB}"' -o $[@]'
+-+		if test "$DFT_LWR_MODEL" = "shared" ; then
+-+			LOCAL_LDFLAGS="-Wl,-rpath,`pwd`/lib"
+-+			LOCAL_LDFLAGS2="$LOCAL_LDFLAGS"
+-+		fi
+-+		if test "$cf_cv_ld_rpath" = yes ; then
+-+			cf_ld_rpath_opt="-rpath"
+-+			# EXTRA_LDFLAGS="$LOCAL_LDFLAGS $EXTRA_LDFLAGS"
+-+		fi
+-+		cf_cv_rm_so_locs=yes
+-+		;;
+-+	sco3.2v5*)  # (also uw2* and UW7) hops 13-Apr-98
+-+		# tested with osr5.0.5
+-+		if test "$GCC" != yes; then
+-+			CC_SHARED_OPTS='-belf -KPIC'
+-+		fi
+-+		MK_SHARED_LIB='$(LD) -dy -G -h `basename $[@] .$(REL_VERSION)`.$(ABI_VERSION) -o [$]@'
+-+		if test "$cf_cv_ld_rpath" = yes ; then
+-+			# only way is to set LD_RUN_PATH but no switch for it
+-+			RUN_PATH=$libdir
+-+		fi
+-+		test "$cf_cv_shlib_version" = auto && cf_cv_shlib_version=rel
+-+		LINK_PROGS='LD_RUN_PATH=$(libdir)'
+-+		LINK_TESTS='Pwd=`pwd`;LD_RUN_PATH=`dirname $${Pwd}`/lib'
+-+		;;
+-+	sunos4*)
+-+		# tested with SunOS 4.1.1 and gcc 2.7.0
+-+		if test "$GCC" != yes; then
+-+			CC_SHARED_OPTS='-KPIC'
+-+		fi
+-+		MK_SHARED_LIB='$(LD) -assert pure-text -o $[@]'
+-+		test "$cf_cv_shlib_version" = auto && cf_cv_shlib_version=rel
+-+		;;
+-+	solaris2*)
+-+		# tested with SunOS 5.5.1 (solaris 2.5.1) and gcc 2.7.2
+-+		if test "$GCC" != yes; then
+-+			CC_SHARED_OPTS='-KPIC'
+-+		fi
+-+		MK_SHARED_LIB='$(LD) -dy -G -h `basename $[@] .$(REL_VERSION)`.$(ABI_VERSION) -o $[@]'
+-+		if test "$DFT_LWR_MODEL" = "shared" ; then
+-+			LOCAL_LDFLAGS="-R `pwd`/lib:\$(libdir)"
+-+			LOCAL_LDFLAGS2="$LOCAL_LDFLAGS"
+-+		fi
+-+		if test "$cf_cv_ld_rpath" = yes ; then
+-+			cf_ld_rpath_opt="-R"
+-+			EXTRA_LDFLAGS="$LOCAL_LDFLAGS $EXTRA_LDFLAGS"
+-+		fi
+-+		test "$cf_cv_shlib_version" = auto && cf_cv_shlib_version=rel
+-+		;;
+-+	sysv5uw7*|unix_sv*)
+-+		# tested with UnixWare 7.1.0 (gcc 2.95.2 and cc)
+-+		if test "$GCC" != yes; then
+-+			CC_SHARED_OPTS='-KPIC'
+-+		fi
+-+		MK_SHARED_LIB='$(LD) -d y -G -o [$]@'
+-+		;;
+-+	*)
+-+		CC_SHARED_OPTS='unknown'
+-+		MK_SHARED_LIB='echo unknown'
+-+		;;
+-+	esac
+-+
+-+	# This works if the last tokens in $MK_SHARED_LIB are the -o target.
+-+	case "$cf_cv_shlib_version" in #(vi
+-+	rel|abi)
+-+		case "$MK_SHARED_LIB" in #(vi
+-+		*'-o $[@]')
+-+			test "$cf_cv_do_symlinks" = no && cf_cv_do_symlinks=yes
+-+			;;
+-+		*)
+-+			AC_MSG_WARN(ignored --with-shlib-version)
+-+			;;
+-+		esac
+-+		;;
+-+	esac
+-+
+-+	if test -n "$cf_ld_rpath_opt" ; then
+-+		AC_MSG_CHECKING(if we need a space after rpath option)
+-+		cf_save_LIBS="$LIBS"
+-+		LIBS="$LIBS ${cf_ld_rpath_opt}$libdir"
+-+		AC_TRY_LINK(, , cf_rpath_space=no, cf_rpath_space=yes)
+-+		LIBS="$cf_save_LIBS"
+-+		AC_MSG_RESULT($cf_rpath_space)
+-+		test "$cf_rpath_space" = yes && cf_ld_rpath_opt="$cf_ld_rpath_opt "
+-+		MK_SHARED_LIB="$MK_SHARED_LIB $cf_ld_rpath_opt\$(libdir)"
+-+	fi
+-+
+-+	AC_SUBST(CC_SHARED_OPTS)
+-+	AC_SUBST(LD_SHARED_OPTS)
+-+	AC_SUBST(MK_SHARED_LIB)
+-+	AC_SUBST(LINK_PROGS)
+-+	AC_SUBST(LINK_TESTS)
+-+	AC_SUBST(EXTRA_LDFLAGS)
+-+	AC_SUBST(LOCAL_LDFLAGS)
+-+	AC_SUBST(LOCAL_LDFLAGS2)
+-+	AC_SUBST(INSTALL_LIB)
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_SIZECHANGE version: 8 updated: 2000/11/04 12:22:16
+-+dnl -------------
+-+dnl Check for definitions & structures needed for window size-changing
+-+dnl FIXME: check that this works with "snake" (HP-UX 10.x)
+-+AC_DEFUN([CF_SIZECHANGE],
+-+[
+-+AC_REQUIRE([CF_STRUCT_TERMIOS])
+-+AC_CACHE_CHECK(declaration of size-change, cf_cv_sizechange,[
+-+    cf_cv_sizechange=unknown
+-+    cf_save_CPPFLAGS="$CPPFLAGS"
+-+
+-+for cf_opts in "" "NEED_PTEM_H"
+-+do
+-+
+-+    CPPFLAGS="$cf_save_CPPFLAGS"
+-+    test -n "$cf_opts" && CPPFLAGS="$CPPFLAGS -D$cf_opts"
+-+    AC_TRY_COMPILE([#include <sys/types.h>
+-+#ifdef HAVE_TERMIOS_H
+-+#include <termios.h>
+-+#else
+-+#ifdef HAVE_TERMIO_H
+-+#include <termio.h>
+-+#endif
+-+#endif
+-+#ifdef NEED_PTEM_H
+-+/* This is a workaround for SCO:  they neglected to define struct winsize in
+-+ * termios.h -- it's only in termio.h and ptem.h
+-+ */
+-+#include        <sys/stream.h>
+-+#include        <sys/ptem.h>
+-+#endif
+-+#if !defined(sun) || !defined(HAVE_TERMIOS_H)
+-+#include <sys/ioctl.h>
+-+#endif
+-+],[
+-+#ifdef TIOCGSIZE
+-+	struct ttysize win;	/* FIXME: what system is this? */
+-+	int y = win.ts_lines;
+-+	int x = win.ts_cols;
+-+#else
+-+#ifdef TIOCGWINSZ
+-+	struct winsize win;
+-+	int y = win.ws_row;
+-+	int x = win.ws_col;
+-+#else
+-+	no TIOCGSIZE or TIOCGWINSZ
+-+#endif /* TIOCGWINSZ */
+-+#endif /* TIOCGSIZE */
+-+	],
+-+	[cf_cv_sizechange=yes],
+-+	[cf_cv_sizechange=no])
+-+
+-+	CPPFLAGS="$cf_save_CPPFLAGS"
+-+	if test "$cf_cv_sizechange" = yes ; then
+-+		echo "size-change succeeded ($cf_opts)" >&AC_FD_CC
+-+		test -n "$cf_opts" && cf_cv_sizechange="$cf_opts"
+-+		break
+-+	fi
+-+done
+-+])
+-+if test "$cf_cv_sizechange" != no ; then
+-+	AC_DEFINE(HAVE_SIZECHANGE)
+-+	case $cf_cv_sizechange in #(vi
+-+	NEED*)
+-+		AC_DEFINE_UNQUOTED($cf_cv_sizechange )
+-+		;;
+-+	esac
+-+fi
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_SRC_MODULES version: 15 updated: 2004/01/10 16:05:16
+-+dnl --------------
+-+dnl For each parameter, test if the source-directory exists, and if it contains
+-+dnl a 'modules' file.  If so, add to the list $cf_cv_src_modules which we'll
+-+dnl use in CF_LIB_RULES.
+-+dnl
+-+dnl This uses the configured value to make the lists SRC_SUBDIRS and
+-+dnl SUB_MAKEFILES which are used in the makefile-generation scheme.
+-+AC_DEFUN([CF_SRC_MODULES],
+-+[
+-+AC_MSG_CHECKING(for src modules)
+-+
+-+# dependencies and linker-arguments for test-programs
+-+TEST_DEPS="${LIB_DIR}/${LIB_PREFIX}${LIB_NAME}${DFT_DEP_SUFFIX} $TEST_DEPS"
+-+if test "$DFT_LWR_MODEL" = "libtool"; then
+-+	TEST_ARGS="${TEST_DEPS}"
+-+else
+-+	TEST_ARGS="-l${LIB_NAME}${DFT_ARG_SUFFIX} $TEST_ARGS"
+-+fi
+-+
+-+# dependencies and linker-arguments for utility-programs
+-+test "$with_termlib" != yes && PROG_ARGS="$TEST_ARGS"
+-+
+-+cf_cv_src_modules=
+-+for cf_dir in $1
+-+do
+-+	if test -f $srcdir/$cf_dir/modules; then
+-+
+-+		# We may/may not have tack in the distribution, though the
+-+		# makefile is.
+-+		if test $cf_dir = tack ; then
+-+			if test ! -f $srcdir/${cf_dir}/${cf_dir}.h; then
+-+				continue
+-+			fi
+-+		fi
+-+
+-+		if test -z "$cf_cv_src_modules"; then
+-+			cf_cv_src_modules=$cf_dir
+-+		else
+-+			cf_cv_src_modules="$cf_cv_src_modules $cf_dir"
+-+		fi
+-+
+-+		# Make the ncurses_cfg.h file record the library interface files as
+-+		# well.  These are header files that are the same name as their
+-+		# directory.  Ncurses is the only library that does not follow
+-+		# that pattern.
+-+		if test $cf_dir = tack ; then
+-+			continue
+-+		elif test -f $srcdir/${cf_dir}/${cf_dir}.h; then
+-+			CF_UPPER(cf_have_include,$cf_dir)
+-+			AC_DEFINE_UNQUOTED(HAVE_${cf_have_include}_H)
+-+			AC_DEFINE_UNQUOTED(HAVE_LIB${cf_have_include})
+-+			TEST_DEPS="${LIB_DIR}/${LIB_PREFIX}${cf_dir}${DFT_DEP_SUFFIX} $TEST_DEPS"
+-+			if test "$DFT_LWR_MODEL" = "libtool"; then
+-+				TEST_ARGS="${TEST_DEPS}"
+-+			else
+-+				TEST_ARGS="-l${cf_dir}${DFT_ARG_SUFFIX} $TEST_ARGS"
+-+			fi
+-+		fi
+-+	fi
+-+done
+-+AC_MSG_RESULT($cf_cv_src_modules)
+-+TEST_ARGS="-L${LIB_DIR} $TEST_ARGS"
+-+AC_SUBST(TEST_DEPS)
+-+AC_SUBST(TEST_ARGS)
+-+
+-+PROG_ARGS="-L${LIB_DIR} $PROG_ARGS"
+-+AC_SUBST(PROG_ARGS)
+-+
+-+SRC_SUBDIRS="man include"
+-+for cf_dir in $cf_cv_src_modules
+-+do
+-+	SRC_SUBDIRS="$SRC_SUBDIRS $cf_dir"
+-+done
+-+SRC_SUBDIRS="$SRC_SUBDIRS test"
+-+test -z "$MAKE_TERMINFO" && SRC_SUBDIRS="$SRC_SUBDIRS misc"
+-+test "$cf_with_cxx_binding" != no && SRC_SUBDIRS="$SRC_SUBDIRS c++"
+-+
+-+ADA_SUBDIRS=
+-+if test "$cf_cv_prog_gnat_correct" = yes && test -f $srcdir/Ada95/Makefile.in; then
+-+   SRC_SUBDIRS="$SRC_SUBDIRS Ada95"
+-+   ADA_SUBDIRS="gen src samples"
+-+fi
+-+
+-+SUB_MAKEFILES=
+-+for cf_dir in $SRC_SUBDIRS
+-+do
+-+	SUB_MAKEFILES="$SUB_MAKEFILES $cf_dir/Makefile"
+-+done
+-+
+-+if test -n "$ADA_SUBDIRS"; then
+-+   for cf_dir in $ADA_SUBDIRS
+-+   do
+-+      SUB_MAKEFILES="$SUB_MAKEFILES Ada95/$cf_dir/Makefile"
+-+   done
+-+   AC_SUBST(ADA_SUBDIRS)
+-+fi
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_STDCPP_LIBRARY version: 5 updated: 2000/08/12 23:18:52
+-+dnl -----------------
+-+dnl Check for -lstdc++, which is GNU's standard C++ library.
+-+AC_DEFUN([CF_STDCPP_LIBRARY],
+-+[
+-+if test -n "$GXX" ; then
+-+case $cf_cv_system_name in #(vi
+-+os2*) #(vi
+-+	cf_stdcpp_libname=stdcpp
+-+	;;
+-+*)
+-+	cf_stdcpp_libname=stdc++
+-+	;;
+-+esac
+-+AC_CACHE_CHECK(for library $cf_stdcpp_libname,cf_cv_libstdcpp,[
+-+	cf_save="$LIBS"
+-+	LIBS="$LIBS -l$cf_stdcpp_libname"
+-+AC_TRY_LINK([
+-+#include <strstream.h>],[
+-+char buf[80];
+-+strstreambuf foo(buf, sizeof(buf))
+-+],
+-+	[cf_cv_libstdcpp=yes],
+-+	[cf_cv_libstdcpp=no])
+-+	LIBS="$cf_save"
+-+])
+-+test "$cf_cv_libstdcpp" = yes && CXXLIBS="$CXXLIBS -l$cf_stdcpp_libname"
+-+fi
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_STRIP_G_OPT version: 3 updated: 2002/12/21 19:25:52
+-+dnl --------------
+-+dnl	Remove "-g" option from the compiler options
+-+AC_DEFUN([CF_STRIP_G_OPT],
+-+[$1=`echo ${$1} | sed -e 's%-g %%' -e 's%-g$%%'`])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_STRUCT_SIGACTION version: 3 updated: 2000/08/12 23:18:52
+-+dnl -------------------
+-+dnl Check if we need _POSIX_SOURCE defined to use struct sigaction.  We'll only
+-+dnl do this if we've found the sigaction function.
+-+dnl
+-+dnl If needed, define SVR4_ACTION.
+-+AC_DEFUN([CF_STRUCT_SIGACTION],[
+-+if test "$ac_cv_func_sigaction" = yes; then
+-+AC_MSG_CHECKING(whether sigaction needs _POSIX_SOURCE)
+-+AC_TRY_COMPILE([
+-+#include <sys/types.h>
+-+#include <signal.h>],
+-+	[struct sigaction act],
+-+	[sigact_bad=no],
+-+	[
+-+AC_TRY_COMPILE([
+-+#define _POSIX_SOURCE
+-+#include <sys/types.h>
+-+#include <signal.h>],
+-+	[struct sigaction act],
+-+	[sigact_bad=yes
+-+	 AC_DEFINE(SVR4_ACTION)],
+-+	 [sigact_bad=unknown])])
+-+AC_MSG_RESULT($sigact_bad)
+-+fi
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_STRUCT_TERMIOS version: 5 updated: 2000/11/04 12:22:46
+-+dnl -----------------
+-+dnl Some machines require _POSIX_SOURCE to completely define struct termios.
+-+dnl If so, define SVR4_TERMIO
+-+AC_DEFUN([CF_STRUCT_TERMIOS],[
+-+AC_CHECK_HEADERS( \
+-+termio.h \
+-+termios.h \
+-+unistd.h \
+-+)
+-+if test "$ISC" = yes ; then
+-+	AC_CHECK_HEADERS( sys/termio.h )
+-+fi
+-+if test "$ac_cv_header_termios_h" = yes ; then
+-+	case "$CFLAGS $CPPFLAGS" in
+-+	*-D_POSIX_SOURCE*)
+-+		termios_bad=dunno ;;
+-+	*)	termios_bad=maybe ;;
+-+	esac
+-+	if test "$termios_bad" = maybe ; then
+-+	AC_MSG_CHECKING(whether termios.h needs _POSIX_SOURCE)
+-+	AC_TRY_COMPILE([#include <termios.h>],
+-+		[struct termios foo; int x = foo.c_iflag],
+-+		termios_bad=no, [
+-+		AC_TRY_COMPILE([
+-+#define _POSIX_SOURCE
+-+#include <termios.h>],
+-+			[struct termios foo; int x = foo.c_iflag],
+-+			termios_bad=unknown,
+-+			termios_bad=yes AC_DEFINE(SVR4_TERMIO))
+-+			])
+-+	AC_MSG_RESULT($termios_bad)
+-+	fi
+-+fi
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_SUBST version: 2 updated: 1997/09/06 23:41:28
+-+dnl --------
+-+dnl	Shorthand macro for substituting things that the user may override
+-+dnl	with an environment variable.
+-+dnl
+-+dnl	$1 = long/descriptive name
+-+dnl	$2 = environment variable
+-+dnl	$3 = default value
+-+AC_DEFUN([CF_SUBST],
+-+[AC_CACHE_VAL(cf_cv_subst_$2,[
+-+AC_MSG_CHECKING(for $1 (symbol $2))
+-+test -z "[$]$2" && $2=$3
+-+AC_MSG_RESULT([$]$2)
+-+AC_SUBST($2)
+-+cf_cv_subst_$2=[$]$2])
+-+$2=${cf_cv_subst_$2}
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_SUBST_NCURSES_VERSION version: 7 updated: 2003/06/07 16:22:51
+-+dnl ------------------------
+-+dnl Get the version-number for use in shared-library naming, etc.
+-+AC_DEFUN([CF_SUBST_NCURSES_VERSION],
+-+[
+-+NCURSES_MAJOR="`egrep '^NCURSES_MAJOR[[ 	]]*=' $srcdir/dist.mk | sed -e 's/^[[^0-9]]*//'`"
+-+NCURSES_MINOR="`egrep '^NCURSES_MINOR[[ 	]]*=' $srcdir/dist.mk | sed -e 's/^[[^0-9]]*//'`"
+-+NCURSES_PATCH="`egrep '^NCURSES_PATCH[[ 	]]*=' $srcdir/dist.mk | sed -e 's/^[[^0-9]]*//'`"
+-+cf_cv_abi_version=${NCURSES_MAJOR}
+-+cf_cv_rel_version=${NCURSES_MAJOR}.${NCURSES_MINOR}
+-+dnl Show the computed version, for logging
+-+cf_cv_timestamp=`date`
+-+AC_MSG_RESULT(Configuring NCURSES $cf_cv_rel_version ABI $cf_cv_abi_version ($cf_cv_timestamp))
+-+dnl We need these values in the generated headers
+-+AC_SUBST(NCURSES_MAJOR)
+-+AC_SUBST(NCURSES_MINOR)
+-+AC_SUBST(NCURSES_PATCH)
+-+dnl We need these values in the generated makefiles
+-+AC_SUBST(cf_cv_rel_version)
+-+AC_SUBST(cf_cv_abi_version)
+-+AC_SUBST(cf_cv_builtin_bool)
+-+AC_SUBST(cf_cv_header_stdbool_h)
+-+AC_SUBST(cf_cv_type_of_bool)dnl
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_SYS_TIME_SELECT version: 4 updated: 2000/10/04 09:18:40
+-+dnl ------------------
+-+dnl Check if we can include <sys/time.h> with <sys/select.h>; this breaks on
+-+dnl older SCO configurations.
+-+AC_DEFUN([CF_SYS_TIME_SELECT],
+-+[
+-+AC_MSG_CHECKING(if sys/time.h works with sys/select.h)
+-+AC_CACHE_VAL(cf_cv_sys_time_select,[
+-+AC_TRY_COMPILE([
+-+#include <sys/types.h>
+-+#ifdef HAVE_SYS_TIME_H
+-+#include <sys/time.h>
+-+#endif
+-+#ifdef HAVE_SYS_SELECT_H
+-+#include <sys/select.h>
+-+#endif
+-+],[],[cf_cv_sys_time_select=yes],
+-+     [cf_cv_sys_time_select=no])
+-+     ])
+-+AC_MSG_RESULT($cf_cv_sys_time_select)
+-+test "$cf_cv_sys_time_select" = yes && AC_DEFINE(HAVE_SYS_TIME_SELECT)
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_TYPEOF_CHTYPE version: 4 updated: 2000/10/04 09:18:40
+-+dnl ----------------
+-+dnl Determine the type we should use for chtype (and attr_t, which is treated
+-+dnl as the same thing).  We want around 32 bits, so on most machines want a
+-+dnl long, but on newer 64-bit machines, probably want an int.  If we're using
+-+dnl wide characters, we have to have a type compatible with that, as well.
+-+AC_DEFUN([CF_TYPEOF_CHTYPE],
+-+[
+-+AC_REQUIRE([CF_UNSIGNED_LITERALS])
+-+AC_MSG_CHECKING([for type of chtype])
+-+AC_CACHE_VAL(cf_cv_typeof_chtype,[
+-+		AC_TRY_RUN([
+-+#ifdef USE_WIDEC_SUPPORT
+-+#include <stddef.h>	/* we want wchar_t */
+-+#define WANT_BITS 39
+-+#else
+-+#define WANT_BITS 31
+-+#endif
+-+#include <stdio.h>
+-+int main()
+-+{
+-+	FILE *fp = fopen("cf_test.out", "w");
+-+	if (fp != 0) {
+-+		char *result = "long";
+-+#ifdef USE_WIDEC_SUPPORT
+-+		/*
+-+		 * If wchar_t is smaller than a long, it must be an int or a
+-+		 * short.  We prefer not to use a short anyway.
+-+		 */
+-+		if (sizeof(unsigned long) > sizeof(wchar_t))
+-+			result = "int";
+-+#endif
+-+		if (sizeof(unsigned long) > sizeof(unsigned int)) {
+-+			int n;
+-+			unsigned int x;
+-+			for (n = 0; n < WANT_BITS; n++) {
+-+				unsigned int y = (x >> n);
+-+				if (y != 1 || x == 0) {
+-+					x = 0;
+-+					break;
+-+				}
+-+			}
+-+			/*
+-+			 * If x is nonzero, an int is big enough for the bits
+-+			 * that we want.
+-+			 */
+-+			result = (x != 0) ? "int" : "long";
+-+		}
+-+		fputs(result, fp);
+-+		fclose(fp);
+-+	}
+-+	exit(0);
+-+}
+-+		],
+-+		[cf_cv_typeof_chtype=`cat cf_test.out`],
+-+		[cf_cv_typeof_chtype=long],
+-+		[cf_cv_typeof_chtype=long])
+-+		rm -f cf_test.out
+-+	])
+-+AC_MSG_RESULT($cf_cv_typeof_chtype)
+-+
+-+AC_SUBST(cf_cv_typeof_chtype)
+-+AC_DEFINE_UNQUOTED(TYPEOF_CHTYPE,$cf_cv_typeof_chtype)
+-+
+-+cf_cv_1UL="1"
+-+test "$cf_cv_unsigned_literals" = yes && cf_cv_1UL="${cf_cv_1UL}U"
+-+test "$cf_cv_typeof_chtype"    = long && cf_cv_1UL="${cf_cv_1UL}L"
+-+AC_SUBST(cf_cv_1UL)
+-+
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_TYPE_SIGACTION version: 3 updated: 2000/08/12 23:18:52
+-+dnl -----------------
+-+dnl
+-+AC_DEFUN([CF_TYPE_SIGACTION],
+-+[
+-+AC_MSG_CHECKING([for type sigaction_t])
+-+AC_CACHE_VAL(cf_cv_type_sigaction,[
+-+	AC_TRY_COMPILE([
+-+#include <signal.h>],
+-+		[sigaction_t x],
+-+		[cf_cv_type_sigaction=yes],
+-+		[cf_cv_type_sigaction=no])])
+-+AC_MSG_RESULT($cf_cv_type_sigaction)
+-+test "$cf_cv_type_sigaction" = yes && AC_DEFINE(HAVE_TYPE_SIGACTION)
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_UNSIGNED_LITERALS version: 2 updated: 1998/02/07 22:10:16
+-+dnl --------------------
+-+dnl Test if the compiler supports 'U' and 'L' suffixes.  Only old compilers
+-+dnl won't, but they're still there.
+-+AC_DEFUN([CF_UNSIGNED_LITERALS],
+-+[
+-+AC_MSG_CHECKING([if unsigned literals are legal])
+-+AC_CACHE_VAL(cf_cv_unsigned_literals,[
+-+	AC_TRY_COMPILE([],[long x = 1L + 1UL + 1U + 1],
+-+		[cf_cv_unsigned_literals=yes],
+-+		[cf_cv_unsigned_literals=no])
+-+	])
+-+AC_MSG_RESULT($cf_cv_unsigned_literals)
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_UPPER version: 5 updated: 2001/01/29 23:40:59
+-+dnl --------
+-+dnl Make an uppercase version of a variable
+-+dnl $1=uppercase($2)
+-+AC_DEFUN([CF_UPPER],
+-+[
+-+$1=`echo "$2" | sed y%abcdefghijklmnopqrstuvwxyz./-%ABCDEFGHIJKLMNOPQRSTUVWXYZ___%`
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_VERBOSE version: 2 updated: 1997/09/05 10:45:14
+-+dnl ----------
+-+dnl Use AC_VERBOSE w/o the warnings
+-+AC_DEFUN([CF_VERBOSE],
+-+[test -n "$verbose" && echo "	$1" 1>&AC_FD_MSG
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_WCHAR_TYPE version: 2 updated: 2004/01/17 19:18:20
+-+dnl -------------
+-+dnl Check if type wide-character type $1 is declared, and if so, which header
+-+dnl file is needed.  The second parameter is used to set a shell variable when
+-+dnl the type is not found.  The first parameter sets a shell variable for the
+-+dnl opposite sense.
+-+AC_DEFUN([CF_WCHAR_TYPE],
+-+[
+-+# This is needed on Tru64 5.0 to declare $1
+-+AC_CACHE_CHECK(if we must include wchar.h to declare $1,cf_cv_$1,[
+-+AC_TRY_COMPILE([
+-+#include <stdlib.h>
+-+#include <stdarg.h>
+-+#include <stdio.h>
+-+#ifdef HAVE_LIBUTF8_H
+-+#include <libutf8.h>
+-+#endif],
+-+	[$1 state],
+-+	[cf_cv_$1=no],
+-+	[AC_TRY_COMPILE([
+-+#include <stdlib.h>
+-+#include <stdarg.h>
+-+#include <stdio.h>
+-+#include <wchar.h>
+-+#ifdef HAVE_LIBUTF8_H
+-+#include <libutf8.h>
+-+#endif],
+-+	[$1 value],
+-+	[cf_cv_$1=yes],
+-+	[cf_cv_$1=unknown])])])
+-+
+-+if test "$cf_cv_$1" = yes ; then
+-+	AC_DEFINE(NEED_WCHAR_H)
+-+	NEED_WCHAR_H=1
+-+fi
+-+
+-+ifelse($2,,,[
+-+# if we do not find $1 in either place, use substitution to provide a fallback.
+-+if test "$cf_cv_$1" = unknown ; then
+-+	$2=1
+-+fi
+-+])
+-+ifelse($3,,,[
+-+# if we find $1 in either place, use substitution to provide a fallback.
+-+if test "$cf_cv_$1" != unknown ; then
+-+	$3=1
+-+fi
+-+])
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_WITH_ABI_VERSION version: 1 updated: 2003/09/20 18:12:49
+-+dnl -------------------
+-+dnl Allow library's ABI to be overridden.  Generally this happens when a
+-+dnl packager has incremented the ABI past that used in the original package,
+-+dnl and wishes to keep doing this.
+-+dnl
+-+dnl $1 is the package name, if any, to derive a corresponding {package}_ABI
+-+dnl symbol.
+-+AC_DEFUN([CF_WITH_ABI_VERSION],[
+-+test -z "$cf_cv_abi_version" && cf_cv_abi_version=0
+-+AC_ARG_WITH(abi-version,
+-+[  --with-abi-version=XXX  override derived ABI version],
+-+[AC_MSG_WARN(overriding ABI version $cf_cv_abi_version to $withval)
+-+ cf_cv_abi_version=$withval])
+-+ CF_NUMBER_SYNTAX($cf_cv_abi_version,ABI version)
+-+ifelse($1,,,[
+-+$1_ABI=$cf_cv_abi_version
+-+])
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_WITH_DBMALLOC version: 2 updated: 2002/12/29 21:11:45
+-+dnl ----------------
+-+dnl Configure-option for dbmalloc
+-+AC_DEFUN([CF_WITH_DBMALLOC],[
+-+AC_MSG_CHECKING(if you want to link with dbmalloc for testing)
+-+AC_ARG_WITH(dbmalloc,
+-+	[  --with-dbmalloc         test: use Conor Cahill's dbmalloc library],
+-+	[with_dbmalloc=$withval],
+-+	[with_dbmalloc=no])
+-+AC_MSG_RESULT($with_dbmalloc)
+-+if test $with_dbmalloc = yes ; then
+-+	AC_CHECK_LIB(dbmalloc,debug_malloc)
+-+fi
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_WITH_DMALLOC version: 2 updated: 2002/12/29 21:11:45
+-+dnl ---------------
+-+dnl Configure-option for dmalloc
+-+AC_DEFUN([CF_WITH_DMALLOC],[
+-+AC_MSG_CHECKING(if you want to link with dmalloc for testing)
+-+AC_ARG_WITH(dmalloc,
+-+	[  --with-dmalloc          test: use Gray Watson's dmalloc library],
+-+	[with_dmalloc=$withval],
+-+	[with_dmalloc=no])
+-+AC_MSG_RESULT($with_dmalloc)
+-+if test $with_dmalloc = yes ; then
+-+	AC_CHECK_LIB(dmalloc,dmalloc_debug)
+-+fi
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_WITH_LIBTOOL version: 9 updated: 2004/01/16 14:55:37
+-+dnl ---------------
+-+dnl Provide a configure option to incorporate libtool.  Define several useful
+-+dnl symbols for the makefile rules.
+-+dnl
+-+dnl The reference to AC_PROG_LIBTOOL does not normally work, since it uses
+-+dnl macros from libtool.m4 which is in the aclocal directory of automake.
+-+dnl Following is a simple script which turns on the AC_PROG_LIBTOOL macro.
+-+dnl But that still does not work properly since the macro is expanded outside
+-+dnl the CF_WITH_LIBTOOL macro:
+-+dnl
+-+dnl	#!/bin/sh
+-+dnl	ACLOCAL=`aclocal --print-ac-dir`
+-+dnl	if test -z "$ACLOCAL" ; then
+-+dnl		echo cannot find aclocal directory
+-+dnl		exit 1
+-+dnl	elif test ! -f $ACLOCAL/libtool.m4 ; then
+-+dnl		echo cannot find libtool.m4 file
+-+dnl		exit 1
+-+dnl	fi
+-+dnl	
+-+dnl	LOCAL=aclocal.m4
+-+dnl	ORIG=aclocal.m4.orig
+-+dnl	
+-+dnl	trap "mv $ORIG $LOCAL" 0 1 2 5 15
+-+dnl	rm -f $ORIG
+-+dnl	mv $LOCAL $ORIG
+-+dnl	
+-+dnl	# sed the LIBTOOL= assignment to omit the current directory?
+-+dnl	sed -e 's/^LIBTOOL=.*/LIBTOOL=${LIBTOOL-libtool}/' $ACLOCAL/libtool.m4 >>$LOCAL
+-+dnl	cat $ORIG >>$LOCAL
+-+dnl	
+-+dnl	autoconf-257 $*
+-+dnl
+-+AC_DEFUN([CF_WITH_LIBTOOL],
+-+[
+-+ifdef([AC_PROG_LIBTOOL],,[
+-+LIBTOOL=
+-+])
+-+# common library maintenance symbols that are convenient for libtool scripts:
+-+LIB_CREATE='$(AR) -cr'
+-+LIB_OBJECT='$(OBJECTS)'
+-+LIB_SUFFIX=.a
+-+LIB_PREP="$RANLIB"
+-+
+-+# symbols used to prop libtool up to enable it to determine what it should be
+-+# doing:
+-+LIB_CLEAN=
+-+LIB_COMPILE=
+-+LIB_LINK=
+-+LIB_INSTALL=
+-+LIB_UNINSTALL=
+-+
+-+AC_MSG_CHECKING(if you want to build libraries with libtool)
+-+AC_ARG_WITH(libtool,
+-+	[  --with-libtool          generate libraries with libtool],
+-+	[with_libtool=$withval],
+-+	[with_libtool=no])
+-+AC_MSG_RESULT($with_libtool)
+-+if test "$with_libtool" != "no"; then
+-+ifdef([AC_PROG_LIBTOOL],[
+-+	# missing_content_AC_PROG_LIBTOOL{{
+-+	AC_PROG_LIBTOOL
+-+	# missing_content_AC_PROG_LIBTOOL}}
+-+],[
+-+ 	if test "$with_libtool" != "yes" ; then
+-+		CF_PATH_SYNTAX(with_libtool)
+-+		LIBTOOL=$with_libtool
+-+	else
+-+ 		AC_PATH_PROG(LIBTOOL,libtool)
+-+ 	fi
+-+ 	if test -z "$LIBTOOL" ; then
+-+ 		AC_MSG_ERROR(Cannot find libtool)
+-+ 	fi
+-+])dnl
+-+	LIB_CREATE='$(LIBTOOL) --mode=link $(CC) -rpath $(DESTDIR)$(libdir) -version-info `cut -f1 $(srcdir)/VERSION` -o'
+-+	LIB_OBJECT='$(OBJECTS:.o=.lo)'
+-+	LIB_SUFFIX=.la
+-+	LIB_CLEAN='$(LIBTOOL) --mode=clean'
+-+	LIB_COMPILE='$(LIBTOOL) --mode=compile'
+-+	LIB_LINK='$(LIBTOOL) --mode=link'
+-+	LIB_INSTALL='$(LIBTOOL) --mode=install'
+-+	LIB_UNINSTALL='$(LIBTOOL) --mode=uninstall'
+-+	LIB_PREP=:
+-+
+-+	# Show the version of libtool
+-+	AC_MSG_CHECKING(version of libtool)
+-+
+-+	# Save the version in a cache variable - this is not entirely a good
+-+	# thing, but the version string from libtool is very ugly, and for
+-+	# bug reports it might be useful to have the original string.
+-+	cf_cv_libtool_version=`$LIBTOOL --version 2>&1 | sed -e '2,$d' -e 's/([[^)]]*)//g' -e 's/^[[^1-9]]*//' -e 's/[[^0-9.]].*//'`
+-+	AC_MSG_RESULT($cf_cv_libtool_version)
+-+	if test -z "$cf_cv_libtool_version" ; then
+-+		AC_MSG_ERROR(This is not libtool)
+-+	fi
+-+
+-+	# special hack to add --tag option for C++ compiler
+-+	case $cf_cv_libtool_version in
+-+	1.[[5-9]]*|[[2-9]]*)
+-+		LIBTOOL_CXX="$LIBTOOL --tag=CXX"
+-+		;;
+-+	*)
+-+		LIBTOOL_CXX="$LIBTOOL"
+-+		;;
+-+	esac
+-+else
+-+	LIBTOOL=""
+-+	LIBTOOL_CXX=""
+-+fi
+-+
+-+test -z "$LIBTOOL" && ECHO_LT=
+-+
+-+AC_SUBST(LIBTOOL)
+-+AC_SUBST(LIBTOOL_CXX)
+-+
+-+AC_SUBST(LIB_CREATE)
+-+AC_SUBST(LIB_OBJECT)
+-+AC_SUBST(LIB_SUFFIX)
+-+AC_SUBST(LIB_PREP)
+-+
+-+AC_SUBST(LIB_CLEAN)
+-+AC_SUBST(LIB_COMPILE)
+-+AC_SUBST(LIB_LINK)
+-+AC_SUBST(LIB_INSTALL)
+-+AC_SUBST(LIB_UNINSTALL)
+-+
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_WITH_PATH version: 6 updated: 1998/10/11 00:40:17
+-+dnl ------------
+-+dnl Wrapper for AC_ARG_WITH to ensure that user supplies a pathname, not just
+-+dnl defaulting to yes/no.
+-+dnl
+-+dnl $1 = option name
+-+dnl $2 = help-text
+-+dnl $3 = environment variable to set
+-+dnl $4 = default value, shown in the help-message, must be a constant
+-+dnl $5 = default value, if it's an expression & cannot be in the help-message
+-+dnl
+-+AC_DEFUN([CF_WITH_PATH],
+-+[AC_ARG_WITH($1,[$2 ](default: ifelse($4,,empty,$4)),,
+-+ifelse($4,,[withval="${$3}"],[withval="${$3-ifelse($5,,$4,$5)}"]))dnl
+-+CF_PATH_SYNTAX(withval)
+-+eval $3="$withval"
+-+AC_SUBST($3)dnl
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_WITH_PATHLIST version: 5 updated: 2001/12/10 01:28:30
+-+dnl ----------------
+-+dnl Process an option specifying a list of colon-separated paths.
+-+dnl
+-+dnl $1 = option name
+-+dnl $2 = help-text
+-+dnl $3 = environment variable to set
+-+dnl $4 = default value, shown in the help-message, must be a constant
+-+dnl $5 = default value, if it's an expression & cannot be in the help-message
+-+dnl $6 = flag to tell if we want to define or substitute
+-+dnl
+-+AC_DEFUN([CF_WITH_PATHLIST],[
+-+AC_REQUIRE([CF_PATHSEP])
+-+AC_ARG_WITH($1,[$2 ](default: ifelse($4,,empty,$4)),,
+-+ifelse($4,,[withval=${$3}],[withval=${$3-ifelse($5,,$4,$5)}]))dnl
+-+
+-+IFS="${IFS= 	}"; ac_save_ifs="$IFS"; IFS="${PATHSEP}"
+-+cf_dst_path=
+-+for cf_src_path in $withval
+-+do
+-+  CF_PATH_SYNTAX(cf_src_path)
+-+  test -n "$cf_dst_path" && cf_dst_path="${cf_dst_path}:"
+-+  cf_dst_path="${cf_dst_path}${cf_src_path}"
+-+done
+-+IFS="$ac_save_ifs"
+-+
+-+ifelse($6,define,[
+-+# Strip single quotes from the value, e.g., when it was supplied as a literal
+-+# for $4 or $5.
+-+case $cf_dst_path in #(vi
+-+\'*)
+-+  cf_dst_path=`echo $cf_dst_path |sed -e s/\'// -e s/\'\$//`
+-+  ;;
+-+esac
+-+cf_dst_path=`echo "$cf_dst_path" | sed -e 's/\\\\/\\\\\\\\/g'`
+-+])
+-+
+-+eval '$3="$cf_dst_path"'
+-+AC_SUBST($3)dnl
+-+
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_WITH_REL_VERSION version: 1 updated: 2003/09/20 18:12:49
+-+dnl -------------------
+-+dnl Allow library's release-version to be overridden.  Generally this happens when a
+-+dnl packager has incremented the release-version past that used in the original package,
+-+dnl and wishes to keep doing this.
+-+dnl
+-+dnl $1 is the package name, if any, to derive corresponding {package}_MAJOR
+-+dnl and {package}_MINOR symbols
+-+dnl symbol.
+-+AC_DEFUN([CF_WITH_REL_VERSION],[
+-+test -z "$cf_cv_rel_version" && cf_cv_rel_version=0.0
+-+AC_ARG_WITH(rel-version,
+-+[  --with-rel-version=XXX  override derived release version],
+-+[AC_MSG_WARN(overriding release version $cf_cv_rel_version to $withval)
+-+ cf_cv_rel_version=$withval])
+-+ifelse($1,,[
+-+ CF_NUMBER_SYNTAX($cf_cv_rel_version,Release version)
+-+],[
+-+ $1_MAJOR=`echo "$cf_cv_rel_version" | sed -e 's/\..*//'`
+-+ $1_MINOR=`echo "$cf_cv_rel_version" | sed -e 's/^[[^.]]*//' -e 's/^\.//' -e 's/\..*//'`
+-+ CF_NUMBER_SYNTAX([$]$1_MAJOR,Release major-version)
+-+ CF_NUMBER_SYNTAX([$]$1_MINOR,Release minor-version)
+-+])
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_WITH_SYSMOUSE version: 2 updated: 2003/03/22 19:13:43
+-+dnl ----------------
+-+dnl If we can compile with sysmouse, make it available unless it is not wanted.
+-+AC_DEFUN([CF_WITH_SYSMOUSE],[
+-+# not everyone has "test -c"
+-+if test -c /dev/sysmouse 2>/dev/null ; then
+-+AC_MSG_CHECKING(if you want to use sysmouse)
+-+AC_ARG_WITH(sysmouse,
+-+	[  --with-sysmouse         use sysmouse (FreeBSD console)],
+-+	[cf_with_sysmouse=$withval],
+-+	[cf_with_sysmouse=maybe])
+-+	if test "$cf_with_sysmouse" != no ; then
+-+	AC_TRY_COMPILE([
+-+#include <osreldate.h>
+-+#if (__FreeBSD_version >= 400017)
+-+#include <sys/consio.h>
+-+#include <sys/fbio.h>
+-+#else
+-+#include <machine/console.h>
+-+#endif
+-+],[
+-+	struct mouse_info the_mouse;
+-+	ioctl(0, CONS_MOUSECTL, &the_mouse);
+-+],[cf_with_sysmouse=yes],[cf_with_sysmouse=no])
+-+	fi
+-+AC_MSG_RESULT($cf_with_sysmouse)
+-+test "$cf_with_sysmouse" = yes && AC_DEFINE(USE_SYSMOUSE)
+-+fi
+-+])dnl
+-+dnl ---------------------------------------------------------------------------
+-+dnl CF_XOPEN_SOURCE version: 11 updated: 2004/01/26 20:58:41
+-+dnl ---------------
+-+dnl Try to get _XOPEN_SOURCE defined properly that we can use POSIX functions,
+-+dnl or adapt to the vendor's definitions to get equivalent functionality.
+-+AC_DEFUN([CF_XOPEN_SOURCE],[
+-+case $host_os in #(vi
+-+freebsd*) #(vi
+-+	CPPFLAGS="$CPPFLAGS -D_BSD_TYPES -D__BSD_VISIBLE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600"
+-+	;;
+-+hpux*) #(vi
+-+	CPPFLAGS="$CPPFLAGS -D_HPUX_SOURCE"
+-+	;;
+-+irix6.*) #(vi
+-+	CPPFLAGS="$CPPFLAGS -D_SGI_SOURCE"
+-+	;;
+-+linux*) #(vi
+-+	CF_GNU_SOURCE
+-+	;;
+-+mirbsd*) #(vi
+-+	# setting _XOPEN_SOURCE or _POSIX_SOURCE breaks <arpa/inet.h>
+-+	;;
+-+netbsd*) #(vi
+-+	# setting _XOPEN_SOURCE breaks IPv6 for lynx on NetBSD 1.6, breaks xterm, is not needed for ncursesw
+-+	;;
+-+openbsd*) #(vi
+-+	# setting _XOPEN_SOURCE breaks xterm on OpenBSD 2.8, is not needed for ncursesw
+-+	;;
+-+osf[[45]]*) #(vi
+-+	CPPFLAGS="$CPPFLAGS -D_OSF_SOURCE"
+-+	;;
+-+sco*) #(vi
+-+	# setting _XOPEN_SOURCE breaks Lynx on SCO Unix / OpenServer
+-+	;;
+-+solaris*) #(vi
+-+	CPPFLAGS="$CPPFLAGS -D__EXTENSIONS__"
+-+	;;
+-+*)
+-+	AC_CACHE_CHECK(if we should define _XOPEN_SOURCE,cf_cv_xopen_source,[
+-+	AC_TRY_COMPILE([#include <sys/types.h>],[
+-+#ifndef _XOPEN_SOURCE
+-+make an error
+-+#endif],
+-+	[cf_cv_xopen_source=no],
+-+	[cf_save="$CPPFLAGS"
+-+	 CPPFLAGS="$CPPFLAGS -D_XOPEN_SOURCE=500"
+-+	 AC_TRY_COMPILE([#include <sys/types.h>],[
+-+#ifdef _XOPEN_SOURCE
+-+make an error
+-+#endif],
+-+	[cf_cv_xopen_source=no],
+-+	[cf_cv_xopen_source=yes])
+-+	CPPFLAGS="$cf_save"
+-+	])
+-+])
+-+test "$cf_cv_xopen_source" = yes && CPPFLAGS="$CPPFLAGS -D_XOPEN_SOURCE=500"
+-+
+-+	# FreeBSD 5.x headers demand this...
+-+	AC_CACHE_CHECK(if we should define _POSIX_C_SOURCE,cf_cv_xopen_source,[
+-+	AC_TRY_COMPILE([#include <sys/types.h>],[
+-+#ifndef _POSIX_C_SOURCE
+-+make an error
+-+#endif],
+-+	[cf_cv_xopen_source=no],
+-+	[cf_save="$CPPFLAGS"
+-+	 CPPFLAGS="$CPPFLAGS -D_POSIX_C_SOURCE"
+-+	 AC_TRY_COMPILE([#include <sys/types.h>],[
+-+#ifdef _POSIX_C_SOURCE
+-+make an error
+-+#endif],
+-+	[cf_cv_xopen_source=no],
+-+	[cf_cv_xopen_source=yes])
+-+	CPPFLAGS="$cf_save"
+-+	])
+-+])
+-+test "$cf_cv_xopen_source" = yes && CPPFLAGS="$CPPFLAGS -D_POSIX_C_SOURCE"
+-+	;;
+-+esac
+-+])
+---- /dev/null
+-+++ ncurses-5.4/m4/templates.m4
+-@@ -0,0 +1,78 @@
+-+AH_TEMPLATE([BROKEN_LINKER], [too lazy to enter descriptions])
+-+AH_TEMPLATE([BSD_TPUTS], [too lazy to enter descriptions])
+-+AH_TEMPLATE([CC_HAS_INLINE_FUNCS], [too lazy to enter descriptions])
+-+AH_TEMPLATE([CC_HAS_PROTOS], [too lazy to enter descriptions])
+-+AH_TEMPLATE([CPP_HAS_PARAM_INIT], [too lazy to enter descriptions])
+-+AH_TEMPLATE([CPP_HAS_VSCAN_FUNC], [too lazy to enter descriptions])
+-+AH_TEMPLATE([HAVE_BIG_CORE], [too lazy to enter descriptions])
+-+AH_TEMPLATE([HAVE_BSD_CGETENT], [too lazy to enter descriptions])
+-+AH_TEMPLATE([HAVE_BUILTIN_H], [too lazy to enter descriptions])
+-+AH_TEMPLATE([HAVE_CURSES_VERSION], [too lazy to enter descriptions])
+-+AH_TEMPLATE([HAVE_GETTIMEOFDAY], [too lazy to enter descriptions])
+-+AH_TEMPLATE([HAVE_GPP_BUILTIN_H], [too lazy to enter descriptions])
+-+AH_TEMPLATE([HAVE_GXX_BUILTIN_H], [too lazy to enter descriptions])
+-+AH_TEMPLATE([HAVE_HAS_KEY], [too lazy to enter descriptions])
+-+AH_TEMPLATE([HAVE_ISASCII], [too lazy to enter descriptions])
+-+AH_TEMPLATE([HAVE_LIBGPM], [too lazy to enter descriptions])
+-+AH_TEMPLATE([HAVE_LIBUTF8_H], [too lazy to enter descriptions])
+-+AH_TEMPLATE([HAVE_MKSTEMP], [too lazy to enter descriptions])
+-+AH_TEMPLATE([HAVE_NC_ALLOC_H], [too lazy to enter descriptions])
+-+AH_TEMPLATE([HAVE_REGEXPR_H_FUNCS], [too lazy to enter descriptions])
+-+AH_TEMPLATE([HAVE_REGEXP_H_FUNCS], [too lazy to enter descriptions])
+-+AH_TEMPLATE([HAVE_REGEX_H_FUNCS], [too lazy to enter descriptions])
+-+AH_TEMPLATE([HAVE_RESIZETERM], [too lazy to enter descriptions])
+-+AH_TEMPLATE([HAVE_RESIZE_TERM], [too lazy to enter descriptions])
+-+AH_TEMPLATE([HAVE_SIZECHANGE], [too lazy to enter descriptions])
+-+AH_TEMPLATE([HAVE_SLK_COLOR], [too lazy to enter descriptions])
+-+AH_TEMPLATE([HAVE_SYS_TIME_SELECT], [too lazy to enter descriptions])
+-+AH_TEMPLATE([HAVE_TCGETATTR], [too lazy to enter descriptions])
+-+AH_TEMPLATE([HAVE_TYPE_SIGACTION], [too lazy to enter descriptions])
+-+AH_TEMPLATE([HAVE_USE_DEFAULT_COLORS], [too lazy to enter descriptions])
+-+AH_TEMPLATE([HAVE_VFSCANF], [too lazy to enter descriptions])
+-+AH_TEMPLATE([HAVE_VSSCANF], [too lazy to enter descriptions])
+-+AH_TEMPLATE([HAVE_WORKING_POLL], [too lazy to enter descriptions])
+-+AH_TEMPLATE([HAVE_WRESIZE], [too lazy to enter descriptions])
+-+AH_TEMPLATE([HAVE__DOSCAN], [too lazy to enter descriptions])
+-+AH_TEMPLATE([MIXEDCASE_FILENAMES], [too lazy to enter descriptions])
+-+AH_TEMPLATE([NCURSES_EXPANDED], [too lazy to enter descriptions])
+-+AH_TEMPLATE([NCURSES_EXT_FUNCS], [too lazy to enter descriptions])
+-+AH_TEMPLATE([NCURSES_NOMACROS], [too lazy to enter descriptions])
+-+AH_TEMPLATE([NCURSES_NO_PADDING], [too lazy to enter descriptions])
+-+AH_TEMPLATE([NCURSES_PATHSEP], [too lazy to enter descriptions])
+-+AH_TEMPLATE([NCURSES_VERSION_STRING], [too lazy to enter descriptions])
+-+AH_TEMPLATE([NDEBUG], [too lazy to enter descriptions])
+-+AH_TEMPLATE([NEED_WCHAR_H], [too lazy to enter descriptions])
+-+AH_TEMPLATE([NO_LEAKS], [too lazy to enter descriptions])
+-+AH_TEMPLATE([PROG_EXT], [too lazy to enter descriptions])
+-+AH_TEMPLATE([PURE_TERMINFO], [too lazy to enter descriptions])
+-+AH_TEMPLATE([SVR4_ACTION], [too lazy to enter descriptions])
+-+AH_TEMPLATE([SVR4_TERMIO], [too lazy to enter descriptions])
+-+AH_TEMPLATE([SYSTEM_NAME], [too lazy to enter descriptions])
+-+AH_TEMPLATE([TERMINFO], [too lazy to enter descriptions])
+-+AH_TEMPLATE([TERMINFO_DIRS], [too lazy to enter descriptions])
+-+AH_TEMPLATE([TERMPATH], [too lazy to enter descriptions])
+-+AH_TEMPLATE([TYPEOF_CHTYPE], [too lazy to enter descriptions])
+-+AH_TEMPLATE([USE_ASSUMED_COLOR], [too lazy to enter descriptions])
+-+AH_TEMPLATE([USE_COLORFGBG], [too lazy to enter descriptions])
+-+AH_TEMPLATE([USE_DATABASE], [too lazy to enter descriptions])
+-+AH_TEMPLATE([USE_GETCAP], [too lazy to enter descriptions])
+-+AH_TEMPLATE([USE_GETCAP_CACHE], [too lazy to enter descriptions])
+-+AH_TEMPLATE([USE_HARD_TABS], [too lazy to enter descriptions])
+-+AH_TEMPLATE([USE_HASHMAP], [too lazy to enter descriptions])
+-+AH_TEMPLATE([USE_HOME_TERMINFO], [too lazy to enter descriptions])
+-+AH_TEMPLATE([USE_LINKS], [too lazy to enter descriptions])
+-+AH_TEMPLATE([USE_MY_MEMMOVE], [too lazy to enter descriptions])
+-+AH_TEMPLATE([USE_OK_BCOPY], [too lazy to enter descriptions])
+-+AH_TEMPLATE([USE_RCS_IDS], [too lazy to enter descriptions])
+-+AH_TEMPLATE([USE_ROOT_ENVIRON], [too lazy to enter descriptions])
+-+AH_TEMPLATE([USE_SAFE_SPRINTF], [too lazy to enter descriptions])
+-+AH_TEMPLATE([USE_SCROLL_HINTS], [too lazy to enter descriptions])
+-+AH_TEMPLATE([USE_SIGWINCH], [too lazy to enter descriptions])
+-+AH_TEMPLATE([USE_STDIO_VSCAN], [too lazy to enter descriptions])
+-+AH_TEMPLATE([USE_STRSTREAM_VSCAN], [too lazy to enter descriptions])
+-+AH_TEMPLATE([USE_STRSTREAM_VSCAN_CAST], [too lazy to enter descriptions])
+-+AH_TEMPLATE([USE_SYMLINKS], [too lazy to enter descriptions])
+-+AH_TEMPLATE([USE_SYSMOUSE], [too lazy to enter descriptions])
+-+AH_TEMPLATE([USE_TERMCAP], [too lazy to enter descriptions])
+-+AH_TEMPLATE([USE_WIDEC_SUPPORT], [too lazy to enter descriptions])
+-+AH_TEMPLATE([USE_XMC_SUPPORT], [too lazy to enter descriptions])
+diff --git a/meta/recipes-core/ncurses/ncurses_5.4.bb b/meta/recipes-core/ncurses/ncurses_5.4.bb
 deleted file mode 100644
-index e22d71d..0000000
---- a/meta/recipes-devtools/perl/perl-5.8.8/config.sh-32
+index 60e07fd..0000000
+--- a/meta/recipes-core/ncurses/ncurses_5.4.bb
 +++ /dev/null
-@@ -1,58 +0,0 @@
--alignbytes='4'
--ccflags='-D_REENTRANT -D_GNU_SOURCE -DTHREADS_HAVE_PIDS -fno-strict-aliasing -pipe -I/usr/local/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64'
--ccflags_uselargefiles='-D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64'
--yaccflags=''
--ccsymbols='__GNUC_PATCHLEVEL__=5'
--cppccsymbols='__GNUC__=3 __GNUC_MINOR__=3'
--cppccsymbols='__GNUC__=3 __GNUC_MINOR__=3'
--cppflags='-D_REENTRANT -D_GNU_SOURCE -DTHREADS_HAVE_PIDS -fno-strict-aliasing -pipe -I/usr/local/include'
--cppsymbols='__ELF__=1 _FILE_OFFSET_BITS=64 __GLIBC__=2 __GLIBC_MINOR__=3 __GNU_LIBRARY__=6 _GNU_SOURCE=1 i386=1 __i386=1 __i386__=1 __i486=1 __i486__=1 _LARGEFILE64_SOURCE=1 _LARGEFILE_SOURCE=1 linux=1 __linux=1 __linux__=1 _POSIX_C_SOURCE=199506L _POSIX_SOURCE=1 _REENTRANT=1 __STDC__=1 unix=1 __unix=1 __unix__=1 __USE_BSD=1 __USE_FILE_OFFSET64=1 __USE_GNU=1 __USE_LARGEFILE=1 __USE_LARGEFILE64=1 __USE_MISC=1 __USE_POSIX=1 __USE_POSIX199309=1 __USE_POSIX199506=1 __USE_POSIX2=1 __USE_REENTRANT=1 __USE_SVID=1 __USE_UNIX98=1 __USE_XOPEN=1 __USE_XOPEN_EXTENDED=1 _XOPEN_SOURCE=600 _XOPEN_SOURCE_EXTENDED=1'
--d_nv_preserves_uv='define'
--d_u32align='undef'
--gccversion='3.3.5 (Debian 1:3.3.5-13)'
--getspnam_r_proto='0'
--gidformat='"lu"'
--gnulibc_version='2.3.2'
--i32type='long'
--i64type='long long'
--ivsize='4'
--gnulibc_version='2.3.2'
--libc='/lib/libc-2.3.2.so'
--libsfiles=' libnsl.so libdl.so libm.so libcrypt.so libutil.so libpthread.so libc.so'
--libsfound=' /usr/lib/libnsl.so /usr/lib/libdl.so /usr/lib/libm.so /usr/lib/libcrypt.so /usr/lib/libutil.so /usr/lib/libpthread.so /usr/lib/libc.so'
--ignore_versioned_solibs='y'
--libs='-lnsl -ldl -lm -lcrypt -lutil -lpthread -lc'
--libsdirs=' /usr/lib'
--libsfiles=' libnsl.so libdl.so libm.so libcrypt.so libutil.so libpthread.so libc.so'
--libsfound=' /usr/lib/libnsl.so /usr/lib/libdl.so /usr/lib/libm.so /usr/lib/libcrypt.so /usr/lib/libutil.so /usr/lib/libpthread.so /usr/lib/libc.so'
--libspath=' /usr/local/lib /lib /usr/lib'
--libswanted='sfio socket inet nsl nm ndbm gdbm dbm db malloc dl dld ld sun m crypt sec util pthread c cposix posix ucb BSD'
--libswanted_uselargefiles=''
--perllibs='-lnsl -ldl -lm -lcrypt -lutil -lpthread -lc'
--libsfiles=' libnsl.so libdl.so libm.so libcrypt.so libutil.so libpthread.so libc.so'
--libsfound=' /usr/lib/libnsl.so /usr/lib/libdl.so /usr/lib/libm.so /usr/lib/libcrypt.so /usr/lib/libutil.so /usr/lib/libpthread.so /usr/lib/libc.so'
--longdblsize='12'
--longlongsize='8'
--longsize='4'
--myuname='linux birgitte 2.6.21-rc5 #63 tue mar 27 14:41:54 est 2007 i686 gnulinux '
--nv_preserves_uv_bits='32'
--osvers='2.6.21-rc5'
--ptrsize='4'
--quadkind='3'
--quadtype='long long'
--uquadtype='unsigned long long'
--sPRIXU64='"LX"'
--sPRId64='"Ld"'
--sPRIi64='"Li"'
--sPRIo64='"Lo"'
--sPRIu64='"Lu"'
--sPRIx64='"Lx"'
--selectminbits='32'
--sizesize='4'
--u32type='unsigned long'
--u64type='unsigned long long'
--uidformat='"lu"'
--uquadtype='unsigned long long'
--use64bitall='undef'
--use64bitint='undef'
--uvsize='4'
-diff --git a/meta/recipes-devtools/perl/perl-5.8.8/config.sh-64 b/meta/recipes-devtools/perl/perl-5.8.8/config.sh-64
-deleted file mode 100644
-index 6e58fa7..0000000
---- a/meta/recipes-devtools/perl/perl-5.8.8/config.sh-64
-+++ /dev/null
-@@ -1,58 +0,0 @@
--alignbytes='8'
--ccflags='-D_REENTRANT -D_GNU_SOURCE -DTHREADS_HAVE_PIDS -fno-strict-aliasing -pipe -Wdeclaration-after-statement -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64'
--ccflags_uselargefiles='-D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64'
--yaccflags=''
--ccsymbols=''
--cppccsymbols=''
--cppccsymbols=''
--cppflags='-D_REENTRANT -D_GNU_SOURCE -DTHREADS_HAVE_PIDS -fno-strict-aliasing -pipe -Wdeclaration-after-statement'
--cppsymbols='__amd64=1 __amd64__=1 __ELF__=1 _FILE_OFFSET_BITS=64 __GLIBC__=2 __GLIBC_MINOR__=4 __GNUC__=4 __GNUC_MINOR__=1 __GNU_LIBRARY__=6 _GNU_SOURCE=1 _LARGEFILE64_SOURCE=1 _LARGEFILE_SOURCE=1 linux=1 __linux=1 __linux__=1 _LP64=1 __LP64__=1 _POSIX_C_SOURCE=199506L _POSIX_SOURCE=1 _REENTRANT=1 __STDC__=1 unix=1 __unix=1 __unix__=1 __USE_BSD=1 __USE_FILE_OFFSET64=1 __USE_GNU=1 __USE_LARGEFILE=1 __USE_LARGEFILE64=1 __USE_MISC=1 __USE_POSIX=1 __USE_POSIX199309=1 __USE_POSIX199506=1 __USE_POSIX2=1 __USE_REENTRANT=1 __USE_SVID=1 __USE_UNIX98=1 __USE_XOPEN=1 __USE_XOPEN_EXTENDED=1 __x86_64=1 __x86_64__=1 _XOPEN_SOURCE=600 _XOPEN_SOURCE_EXTENDED=1'
--d_nv_preserves_uv='undef'
--d_u32align='define'
--gccversion='4.1.2 20060928 (prerelease) (Ubuntu 4.1.1-13ubuntu5)'
--getspnam_r_proto='REENTRANT_PROTO_I_CSBWR'
--gidformat='"u"'
--gnulibc_version='2.4'
--i32type='int'
--i64type='long'
--ivsize='8'
--gnulibc_version='2.4'
--libc='/lib/libc-2.4.so'
--libsfiles=' libnsl.so libdb.so libdl.so libm.so libcrypt.so libutil.so libpthread.so libc.so'
--libsfound=' /usr/lib/libnsl.so /usr/lib/libdb.so /usr/lib/libdl.so /usr/lib/libm.so /usr/lib/libcrypt.so /usr/lib/libutil.so /usr/lib/libpthread.so /usr/lib/libc.so'
--ignore_versioned_solibs='y'
--libs='-lnsl -ldb -ldl -lm -lcrypt -lutil -lpthread -lc'
--libsdirs=' /usr/lib'
--libsfiles=' libnsl.so libdb.so libdl.so libm.so libcrypt.so libutil.so libpthread.so libc.so'
--libsfound=' /usr/lib/libnsl.so /usr/lib/libdb.so /usr/lib/libdl.so /usr/lib/libm.so /usr/lib/libcrypt.so /usr/lib/libutil.so /usr/lib/libpthread.so /usr/lib/libc.so'
--libspath=' /usr/local/lib /lib /usr/lib'
--libswanted='sfio socket inet nsl nm ndbm gdbm dbm db malloc dl dld ld sun m crypt sec util pthread c cposix posix ucb BSD'
--libswanted_uselargefiles=''
--perllibs='-lnsl -ldl -lm -lcrypt -lutil -lpthread -lc'
--libsfiles=' libnsl.so libdb.so libdl.so libm.so libcrypt.so libutil.so libpthread.so libc.so'
--libsfound=' /usr/lib/libnsl.so /usr/lib/libdb.so /usr/lib/libdl.so /usr/lib/libm.so /usr/lib/libcrypt.so /usr/lib/libutil.so /usr/lib/libpthread.so /usr/lib/libc.so'
--longdblsize='16'
--longlongsize='8'
--longsize='8'
--myuname='linux nynaeve 2.6.20.4 #29 smp thu mar 29 15:35:30 est 2007 x86_64 gnulinux '
--nv_preserves_uv_bits='53'
--osvers='2.6.20.4'
--ptrsize='8'
--quadkind='2'
--quadtype='long'
--uquadtype='unsigned long'
--sPRIXU64='"lX"'
--sPRId64='"ld"'
--sPRIi64='"li"'
--sPRIo64='"lo"'
--sPRIu64='"lu"'
--sPRIx64='"lx"'
--selectminbits='64'
--sizesize='8'
--u32type='unsigned int'
--u64type='unsigned long'
--uidformat='"u"'
--uquadtype='unsigned long'
--use64bitall='define'
--use64bitint='define'
--uvsize='8'
-diff --git a/meta/recipes-devtools/perl/perl-5.8.8/makedepend-dash.patch b/meta/recipes-devtools/perl/perl-5.8.8/makedepend-dash.patch
-deleted file mode 100644
-index 1f15474..0000000
---- a/meta/recipes-devtools/perl/perl-5.8.8/makedepend-dash.patch
-+++ /dev/null
-@@ -1,13 +0,0 @@
--Index: perl-5.8.8/makedepend.SH
--===================================================================
----- perl-5.8.8.orig/makedepend.SH	2007-05-24 12:06:52.000000000 +1000
--+++ perl-5.8.8/makedepend.SH	2007-05-24 12:27:33.000000000 +1000
--@@ -128,7 +128,7 @@
--     *.y) filebase=`basename $file .y` ;;
--     esac
--     case "$file" in
---    */*) finc="-I`echo $file | sed 's#/[^/]*$##`" ;;
--+    */*) finc="-I`echo $file | sed 's#/[^/]*$##'`" ;;
--     *)   finc= ;;
--     esac
--     $echo "Finding dependencies for $filebase$_o."
-diff --git a/meta/recipes-devtools/perl/perl-5.8.8/native-no-gdbminc.patch b/meta/recipes-devtools/perl/perl-5.8.8/native-no-gdbminc.patch
-deleted file mode 100644
-index f00fa2c..0000000
---- a/meta/recipes-devtools/perl/perl-5.8.8/native-no-gdbminc.patch
-+++ /dev/null
-@@ -1,18 +0,0 @@
--If you have a /usr/include/gdbm/ndbm.h host on the header then the configure
--script adds -I/usr/include/gdbm to the ccflags even though gdbm support is
--disabled. Prevent perl from doing this so we don't get cross compile badness
--errors while building perl.
--
----- perl-5.8.8/Configure	2007/05/06 23:42:18	1.1
--+++ perl-5.8.8/Configure	2007/05/06 23:42:48
--@@ -20033,8 +20033,8 @@
--     # ndbm.h header in /usr/include/gdbm/ndbm.h.
--     if $test -f /usr/include/gdbm/ndbm.h; then
-- 	echo '<gdbm/ndbm.h> found.'
---        ccflags="$ccflags -I/usr/include/gdbm"
---        cppflags="$cppflags -I/usr/include/gdbm"
--+#        ccflags="$ccflags -I/usr/include/gdbm"
--+#        cppflags="$cppflags -I/usr/include/gdbm"
--         t_ndbm=$define
--     fi
--     ;;
-diff --git a/meta/recipes-devtools/perl/perl-native_5.8.8.bb b/meta/recipes-devtools/perl/perl-native_5.12.2.bb
-similarity index 81%
-rename from meta/recipes-devtools/perl/perl-native_5.8.8.bb
-rename to meta/recipes-devtools/perl/perl-native_5.12.2.bb
-index 6321525..bd6a344 100644
---- a/meta/recipes-devtools/perl/perl-native_5.8.8.bb
-+++ b/meta/recipes-devtools/perl/perl-native_5.12.2.bb
-@@ -2,21 +2,19 @@ DESCRIPTION = "Perl is a popular scripting language."
- HOMEPAGE = "http://www.perl.org/"
- SECTION = "libs"
- LICENSE = "Artistic|GPL"
-+LIC_FILES_CHKSUM = "file://Copying;md5=2b4c6ffbcfcbdee469f02565f253d81a \
-+		    file://Artistic;md5=f921793d03cc6d63ec4b15e9be8fd3f8"
- DEPENDS = "virtual/db-native gdbm-native"
+@@ -1,11 +0,0 @@
 -PR = "r14"
-+PR = "r0"
- 
- SRC_URI = "http://ftp.funet.fi/pub/CPAN/src/perl-${PV}.tar.gz \
--           file://perl-5.8.8-gcc-4.2.patch;patch=1 \
-            file://Configure-multilib.patch;patch=1 \
-            file://perl-configpm-switch.patch;patch=1 \
-            file://native-nopacklist.patch;patch=1 \
--           file://native-no-gdbminc.patch;patch=1 \
--           file://native-perlinc.patch;patch=1 \
--           file://makedepend-dash.patch;patch=1 \
--           file://asm-pageh-fix.patch;patch=1"
-+           file://native-perlinc.patch;patch=1"
- 
--SRC_URI[md5sum] = "b8c118d4360846829beb30b02a6b91a7"
--SRC_URI[sha256sum] = "e15d499321e003d12ed183601e37ee7ba5f64b278d1de30149ce01bd4a3f234d"
-+SRC_URI[md5sum] = "af2df531d46b77fdf0d97eecb03eddb2"
-+SRC_URI[sha256sum] = "cf888340021d5a2d1238bbd9b8b55aaf420a848d46e4d317cb8567f86ceb1022"
- 
- S = "${WORKDIR}/perl-${PV}"
- 
-@@ -65,13 +63,15 @@ do_install () {
- 	# We need a hostperl link for building perl
- 	ln -sf perl${PV} ${D}${bindir}/hostperl
- 
-+        ln -sf ${D}${libdir}/perl ${D}${libdir}/perl5
-+
- 	install -d ${D}${libdir}/perl/${PV}/CORE \
- 	           ${D}${datadir}/perl/${PV}/ExtUtils
- 
- 	# Save native config 
- 	install config.sh ${D}${libdir}/perl
- 	install lib/Config.pm ${D}${libdir}/perl/${PV}/
--	install lib/ExtUtils/typemap ${D}${datadir}/perl/${PV}/ExtUtils/
-+	install lib/ExtUtils/typemap ${D}${libdir}/perl/${PV}/ExtUtils/
- 
- 	# perl shared library headers
- 	for i in av.h embed.h gv.h keywords.h op.h perlio.h pp.h regexp.h \
-@@ -80,7 +80,7 @@ do_install () {
- 	         hv.h malloc_ctl.h pad.h perlsdio.h proto.h scope.h utf8.h \
- 	         cop.h fakesdio.h INTERN.h mg.h patchlevel.h perlsfio.h \
- 	         reentr.h sv.h utfebcdic.h cv.h fakethr.h intrpvar.h \
--	         nostdio.h perlapi.h perlvars.h reentr.inc thrdvar.h util.h \
-+	         nostdio.h perlapi.h perlvars.h util.h \
- 	         dosish.h form.h iperlsys.h opcode.h perl.h perly.h regcomp.h \
- 	         thread.h warnings.h; do
- 		install $i ${D}${libdir}/perl/${PV}/CORE
-diff --git a/meta/recipes-devtools/perl/perl-rdepends_5.12.2.inc b/meta/recipes-devtools/perl/perl-rdepends_5.12.2.inc
-new file mode 100644
-index 0000000..e6ca802
---- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-rdepends_5.12.2.inc
-@@ -0,0 +1,211 @@
-+# To create/update the perl-rdepends_${PV}.inc use this piece of ugly script (modified for your arch/paths etc):
-+
-+#[nitin@buildbox packages-split]$ pwd
-+#/home/nitin/build/build3/tmp/work/i586-poky-linux/perl-5.8.8-r21/packages-split
-+#/home/nitin/poky.git/build/tmp/work/x86_64-poky-linux/perl-5.12.2-r0/packages-split
-+
-+#egrep -r "use|require" perl-module-* | grep ";" | egrep "\.pm:require | \.pm:use" | sed "s-/.*\.pm: *- += -g" | sed "s/[\"\']//g" | sed "s/;.*/\"/g" | sed "s/require */\"perl-module-/g" | sed "s/CPANPLUS::.*/cpanplus/g" | sed "s/CPAN::.*/cpan/g" | tr [:upper:] [:lower:] | sed "s/::/-/g" | grep -v perl-module-5 | sed "s/ [^+\"].*//g" | grep -v "\\$" | sed "s/_/-/g" | sed "s/\.pl\"$/\"/" | grep -v "\-vms\-" | sort -u > /tmp/1
-+#find . -type f | sed "s-\./--" | sed "s-/.*--" | sort -u > /tmp/2
-+#cat /tmp/1 | cut -f3 -d" " | sed "s/[\"\']//g" | sort -u > /tmp/3
-+## these dependancies do not exist
-+#diff -u /tmp/2 /tmp/3 | grep ^+perl-module
-+
-+
-+# Some additional dependencies that the above doesn't manage to figure out
-+RDEPENDS_perl-module-math-bigint += "perl-module-math-bigint-calc "
-+RDEPENDS_perl-module-math-bigint-calc += "perl-module-integer "
-+
-+# Depends list
-+# copy contents of /tmp/1 in this file
-+perl-module-archive-tar += "perl-module-exporter"
-+perl-module-archive-tar-file += "perl-module-archive-tar"
-+perl-module-attributes += "perl-module-xsloader"
-+perl-module-b += "perl-module-exporter"
-+perl-module-b-debug += "perl-module-b"
-+perl-module-bignum += "perl-module-bigint"
-+perl-module-bigrat += "perl-module-bigint"
-+perl-module-bigrat += "perl-module-exporter"
-+perl-module-carp += "perl-module-exporter"
-+perl-module-cgi-util += "perl-module-exporter"
-+perl-module-class-struct += "perl-module-exporter"
-+perl-module-compress-raw-bzip2 += "perl-module-exporter"
-+perl-module-compress-raw-zlib += "perl-module-exporter"
-+perl-module-compress-zlib += "perl-module-exporter"
-+perl-module-config-extensions += "perl-module-exporter"
-+perl-module-cpanplus += "perl-module-base"
-+perl-module-cpanplus += "perl-module-cpanplus
-+perl-module-cpanplus += "perl-module-exporter"
-+perl-module-cpanplus += "perl-module-tie-hash"
-+perl-module-data-dumper += "perl-module-exporter"
-+perl-module-data-dumper += "perl-module-overload"
-+perl-module-devel-peek += "perl-module-exporter"
-+perl-module-devel-selfstubber += "perl-module-selfloader"
-+perl-module-digest-md5 += "perl-module-exporter"
-+perl-module-digest-sha += "perl-module-dynaloader"
-+perl-module-digest-sha += "perl-module-exporter"
-+perl-module-dynaloader += "perl-module-autoloader"
-+perl-module-encode += "perl-module-encode-config"
-+perl-module-encode += "perl-module-exporter"
-+perl-module-encode-cjkconstants += "perl-module-exporter"
-+perl-module-encode-encoder += "perl-module-exporter"
-+perl-module-encode-encoding += "perl-module-encode"
-+perl-module-encode-unicode += "perl-module-encode"
-+perl-module-english += "perl-module-exporter"
-+perl-module-exporter-heavy += "perl-module-exporter"
-+perl-module-extutils-command += "perl-module-exporter"
-+perl-module-extutils-command-mm += "perl-module-exporter"
-+perl-module-extutils-constant-proxysubs += "perl-module-extutils-constant-xs"
-+perl-module-extutils-constant-xs += "perl-module-extutils-constant-base"
-+perl-module-extutils-embed += "perl-module-exporter"
-+perl-module-extutils-embed += "perl-module-filehandle"
-+perl-module-extutils-liblist += "perl-module-extutils-liblist-kid"
-+perl-module-extutils-makemaker += "perl-module-exporter"
-+perl-module-extutils-makemaker += "perl-module-extutils-mm"
-+perl-module-extutils-makemaker += "perl-module-extutils-my"
-+perl-module-extutils-manifest += "perl-module-exporter"
-+perl-module-extutils-miniperl += "perl-module-exporter"
-+perl-module-extutils-mkbootstrap += "perl-module-exporter"
-+perl-module-extutils-mm += "perl-module-extutils-liblist"
-+perl-module-extutils-mm += "perl-module-extutils-makemaker"
-+perl-module-extutils-mm-aix += "perl-module-extutils-mm-unix"
-+perl-module-extutils-mm-beos += "perl-module-extutils-mm-any"
-+perl-module-extutils-mm-beos += "perl-module-extutils-mm-unix"
-+perl-module-extutils-mm-cygwin += "perl-module-extutils-mm-unix"
-+perl-module-extutils-mm-cygwin += "perl-module-extutils-mm-win32"
-+perl-module-extutils-mm-dos += "perl-module-extutils-mm-any"
-+perl-module-extutils-mm-dos += "perl-module-extutils-mm-unix"
-+perl-module-extutils-mm-nw5 += "perl-module-extutils-mm-win32"
-+perl-module-extutils-mm-os2 += "perl-module-extutils-mm-any"
-+perl-module-extutils-mm-os2 += "perl-module-extutils-mm-unix"
-+perl-module-extutils-mm-qnx += "perl-module-extutils-mm-unix"
-+perl-module-extutils-mm-unix += "perl-module-extutils-mm-any"
-+perl-module-extutils-mm-uwin += "perl-module-extutils-mm-unix"
-+perl-module-extutils-mm-vms += "perl-module-exporter"
-+perl-module-extutils-mm-vms += "perl-module-extutils-mm-any"
-+perl-module-extutils-mm-vms += "perl-module-extutils-mm-unix"
-+perl-module-extutils-mm-vos += "perl-module-extutils-mm-unix"
-+perl-module-extutils-mm-win32 += "perl-module-extutils-mm-any"
-+perl-module-extutils-mm-win32 += "perl-module-extutils-mm-unix"
-+perl-module-extutils-mm-win95 += "perl-module-extutils-mm-win32"
-+perl-module-extutils-my += "perl-module-extutils-mm"
-+perl-module-extutils-parsexs += "perl-module-exporter"
-+perl-module-fcntl += "perl-module-exporter"
-+perl-module-file-basename += "perl-module-exporter"
-+perl-module-file-compare += "perl-module-exporter"
-+perl-module-file-copy += "perl-module-exporter"
-+perl-module-file-find += "perl-module-cwd"
-+perl-module-file-find += "perl-module-exporter"
-+perl-module-file-find += "perl-module-file-basename"
-+perl-module-file-find += "perl-module-file-spec"
-+perl-module-file-spec-cygwin += "perl-module-file-spec-unix"
-+perl-module-file-spec-epoc += "perl-module-file-spec-unix"
-+perl-module-file-spec-functions += "perl-module-exporter"
-+perl-module-file-spec-mac += "perl-module-file-spec-unix"
-+perl-module-file-spec-os2 += "perl-module-file-spec-unix"
-+perl-module-file-spec-vms += "perl-module-file-spec-unix"
-+perl-module-file-spec-win32 += "perl-module-file-spec-unix"
-+perl-module-file-temp += "perl-module-symbol
-+perl-module-filehandle += "perl-module-io-file"
-+perl-module-filter-util-call += "perl-module-dynaloader"
-+perl-module-filter-util-call += "perl-module-exporter"
-+perl-module-findbin += "perl-module-exporter"
-+perl-module-getopt-std += "perl-module-exporter"
-+perl-module-hash-util += "perl-module-dynaloader"
-+perl-module-hash-util += "perl-module-exporter"
-+perl-module-hash-util-fieldhash += "perl-module-exporter"
-+perl-module-i18n-collate += "perl-module-exporter"
-+perl-module-i18n-langinfo += "perl-module-dynaloader"
-+perl-module-i18n-langinfo += "perl-module-exporter"
-+perl-module-i18n-langtags += "perl-module-exporter"
-+perl-module-inc-latest += "perl-module-inc-latest-private"
-+perl-module-io-compress-base-common += "perl-module-exporter"
-+perl-module-io-compress-bzip2 += "perl-module-exporter "
-+perl-module-io-compress-deflate += "perl-module-exporter "
-+perl-module-io-compress-gzip += "perl-module-exporter "
-+perl-module-io-compress-gzip-constants += "perl-module-exporter"
-+perl-module-io-compress-rawdeflate += "perl-module-exporter "
-+perl-module-io-compress-zip += "perl-module-exporter "
-+perl-module-io-compress-zip-constants += "perl-module-exporter"
-+perl-module-io-compress-zlib-constants += "perl-module-exporter"
-+perl-module-io-file += "perl-module-exporter"
-+perl-module-io-handle += "perl-module-exporter"
-+perl-module-io-seekable += "perl-module-exporter"
-+perl-module-io-select += "perl-module-exporter"
-+perl-module-io-socket += "perl-module-io-socket-inet"
-+perl-module-io-socket += "perl-module-io-socket-unix
-+perl-module-io-uncompress-anyinflate += "perl-module-exporter "
-+perl-module-io-uncompress-anyuncompress += "perl-module-exporter "
-+perl-module-io-uncompress-bunzip2 += "perl-module-exporter "
-+perl-module-io-uncompress-gunzip += "perl-module-exporter "
-+perl-module-io-uncompress-inflate += "perl-module-exporter "
-+perl-module-io-uncompress-rawinflate += "perl-module-exporter "
-+perl-module-io-uncompress-unzip += "perl-module-exporter "
-+perl-module-ipc-cmd += "perl-module-carp"
-+perl-module-ipc-open2 += "perl-module-exporter"
-+perl-module-ipc-open2 += "perl-module-ipc-open3"
-+perl-module-ipc-open3 += "perl-module-exporter"
-+perl-module-ipc-sysv += "perl-module-exporter"
-+perl-module-list-util += "perl-module-exporter"
-+perl-module-list-util-pp += "perl-module-exporter"
-+perl-module-locale-constants += "perl-module-exporter"
-+perl-module-locale-country += "perl-module-exporter"
-+perl-module-locale-currency += "perl-module-exporter"
-+perl-module-locale-language += "perl-module-exporter"
-+perl-module-locale-script += "perl-module-exporter"
-+perl-module-math-bigfloat += "perl-module-exporter"
-+perl-module-math-complex += "perl-module-exporter"
-+perl-module-math-trig += "perl-module-exporter"
-+perl-module-mime-base64 += "perl-module-exporter"
-+perl-module-mime-base64 += "perl-module-xsloader"
-+perl-module-mime-quotedprint += "perl-module-exporter"
-+perl-module-mro += "perl-module-xsloader"
-+perl-module-net-cmd += "perl-module-exporter"
-+perl-module-net-config += "perl-module-exporter"
-+perl-module-net-domain += "perl-module-exporter"
-+perl-module-net-ftp-a += "perl-module-net-ftp-dataconn"
-+perl-module-net-ftp-e += "perl-module-net-ftp-i"
-+perl-module-net-ftp-i += "perl-module-net-ftp-dataconn"
-+perl-module-net-ftp-l += "perl-module-net-ftp-i"
-+perl-module-net-ping += "perl-module-exporter"
-+perl-module-net-time += "perl-module-exporter"
-+perl-module-object-accessor += "perl-module-overload"
-+perl-module-pod-escapes += "perl-module-exporter"
-+perl-module-pod-functions += "perl-module-exporter"
-+perl-module-pod-html += "perl-module-exporter"
-+perl-module-pod-latex += "perl-module-pod-parseutils"
-+perl-module-pod-simple-transcodesmart += "perl-module-encode"
-+perl-module-pod-usage += "perl-module-pod-select"
-+perl-module-posix += "perl-module-exporter"
-+perl-module-safe += "perl-module-utf8"
-+perl-module-scalar-util += "perl-module-exporter"
-+perl-module-scalar-util += "perl-module-list-util"
-+perl-module-scalar-util-pp += "perl-module-exporter"
-+perl-module-sdbm-file += "perl-module-tie-hash"
-+perl-module-search-dict += "perl-module-exporter"
-+perl-module-socket += "perl-module-exporter"
-+perl-module-storable += "perl-module-carp"
-+perl-module-storable += "perl-module-dynaloader"
-+perl-module-storable += "perl-module-exporter"
-+perl-module-symbol += "perl-module-exporter"
-+perl-module-sys-hostname += "perl-module-autoloader"
-+perl-module-sys-hostname += "perl-module-exporter"
-+perl-module-term-complete += "perl-module-exporter"
-+perl-module-test += "perl-module-exporter"
-+perl-module-test-builder-module += "perl-module-exporter"
-+perl-module-test-builder-tester-color += "perl-module-test-builder-tester"
-+perl-module-text-abbrev += "perl-module-exporter"
-+perl-module-text-tabs += "perl-module-exporter"
-+perl-module-text-wrap += "perl-module-exporter"
-+perl-module-thread += "perl-module-exporter"
-+perl-module-threads += "perl-module-config"
-+perl-module-threads += "perl-module-xsloader"
-+perl-module-time-hires += "perl-module-dynaloader"
-+perl-module-time-hires += "perl-module-exporter"
-+perl-module-time-local += "perl-module-exporter"
-+perl-module-time-piece += "perl-module-dynaloader"
-+perl-module-time-piece += "perl-module-exporter"
-+perl-module-unicode-normalize += "perl-module-dynaloader"
-+perl-module-unicode-normalize += "perl-module-exporter"
-+perl-module-unicode-ucd += "perl-module-exporter"
-+perl-module-universal += "perl-module-exporter"
-+perl-module-warnings-register += "perl-module-warnings"
-diff --git a/meta/recipes-devtools/perl/perl-rdepends_5.8.8.inc b/meta/recipes-devtools/perl/perl-rdepends_5.8.8.inc
-deleted file mode 100644
-index 1ce5ad0..0000000
---- a/meta/recipes-devtools/perl/perl-rdepends_5.8.8.inc
-+++ /dev/null
-@@ -1,1145 +0,0 @@
--# To create/update the perl-rdepends_${PV}.inc use this piece of ugly script (modified for your arch/paths etc):
--# daka@DaKa2:/home/slug/slugos/tmp/work/perl-5.8.7-r14/install$ egrep -r "use|require" * | grep ";$" | egrep ".pm:use |.pm:require " | grep -v v5.6.0 | grep -v 5.00 | grep -v \$module | sed -e "s, \+, ,g" | cut -f1,2 -d" " | sed -e "s,;, ,g" | sed -e "s,(), ,g" | sed -e "s,::,-,g" | sort | uniq | tr [:upper:] [:lower:] | sed -e "s,/[^ ]\+ , += \"perl-module-,g" | sed -e "s, \?$, \",g" | sed -e "s,_,-,g" | sed -e "s,^,RDEPENDS_,g" | sed -e "s,armeb-linux,\$\{TARGET_ARCH\}-\$\{TARGET_OS\},g" | egrep -v "perl-module-5|perl-module-tk|perl-module-mac-internetconfig|perl-module-ndbm-file|perl-module-html-treebuilder|perl-module-lwp-simple|perl-module-vms-filespec|perl-module-fcgi|perl-module-vms-stdio|perl-module-mac-buildtools" > /home/slug/openembedded/packages/perl/rdepends.tmp
 -
--# Some additional dependencies that the above doesn't manage to figure out
--RDEPENDS_perl-module-math-bigint += "perl-module-math-bigint-calc "
--RDEPENDS_perl-module-math-bigint-calc += "perl-module-integer "
+-SRC_URI = "${GNU_MIRROR}/ncurses/ncurses-${PV}.tar.gz \
+-           file://makefile_tweak.patch;patch=1 \
+-           file://visibility.patch;patch=1"
 -
--# Depends list
--RDEPENDS_perl-misc += "perl-module-exporter "
--RDEPENDS_perl-misc += "perl-module-strict "
--RDEPENDS_perl-misc += "perl-module-warnings "
--RDEPENDS_perl-module-attribute-handlers-demo-demo += "perl-module-attribute-handlers "
--RDEPENDS_perl-module-attribute-handlers-demo-descriptions += "perl-module-attribute-handlers "
--RDEPENDS_perl-module-attribute-handlers-demo-myclass += "perl-module-base "
--RDEPENDS_perl-module-attribute-handlers += "perl-module-carp "
--RDEPENDS_perl-module-attribute-handlers += "perl-module-warnings "
--RDEPENDS_perl-module-attributes += "perl-module-strict "
--RDEPENDS_perl-module-attrs += "perl-module-xsloader "
--RDEPENDS_perl-module-autoloader += "perl-module-strict "
--RDEPENDS_perl-module-autosplit += "perl-module-carp "
--RDEPENDS_perl-module-autosplit += "perl-module-config "
--RDEPENDS_perl-module-autosplit += "perl-module-exporter "
--RDEPENDS_perl-module-autosplit += "perl-module-file-basename "
--RDEPENDS_perl-module-autosplit += "perl-module-file-path "
--RDEPENDS_perl-module-autosplit += "perl-module-file-spec-functions "
--RDEPENDS_perl-module-autosplit += "perl-module-strict "
--RDEPENDS_perl-module-base += "perl-module-strict "
--RDEPENDS_perl-module-base += "perl-module-vars "
--RDEPENDS_perl-module-b-asmdata += "perl-module-exporter "
--RDEPENDS_perl-module-b-assembler += "perl-module-b "
--RDEPENDS_perl-module-b-assembler += "perl-module-b-asmdata "
--RDEPENDS_perl-module-b-assembler += "perl-module-config "
--RDEPENDS_perl-module-b-assembler += "perl-module-exporter "
--RDEPENDS_perl-module-b-assembler += "perl-module-strict "
--RDEPENDS_perl-module-b-bblock += "perl-module-b-concise "
--RDEPENDS_perl-module-b-bblock += "perl-module-exporter "
--RDEPENDS_perl-module-b-bblock += "perl-module-strict "
--RDEPENDS_perl-module-b-bytecode += "perl-module-b-asmdata "
--RDEPENDS_perl-module-b-bytecode += "perl-module-b-assembler "
--RDEPENDS_perl-module-b-bytecode += "perl-module-config "
--RDEPENDS_perl-module-b-bytecode += "perl-module-strict "
--RDEPENDS_perl-module-b-cc += "perl-module-b-bblock "
--RDEPENDS_perl-module-b-cc += "perl-module-b-stackobj "
--RDEPENDS_perl-module-b-cc += "perl-module-config "
--RDEPENDS_perl-module-b-cc += "perl-module-strict "
--RDEPENDS_perl-module-b-c += "perl-module-b "
--RDEPENDS_perl-module-b-c += "perl-module-base "
--RDEPENDS_perl-module-b-c += "perl-module-b-asmdata "
--RDEPENDS_perl-module-b-c += "perl-module-carp "
--RDEPENDS_perl-module-b-c += "perl-module-config "
--RDEPENDS_perl-module-b-c += "perl-module-exporter "
--RDEPENDS_perl-module-b-c += "perl-module-filehandle "
--RDEPENDS_perl-module-b-c += "perl-module-strict "
--RDEPENDS_perl-module-b-debug += "perl-module-b-asmdata "
--RDEPENDS_perl-module-b-debug += "perl-module-strict "
--RDEPENDS_perl-module-b-deparse += "perl-module-bytes "
--RDEPENDS_perl-module-b-deparse += "perl-module-carp "
--RDEPENDS_perl-module-b-deparse += "perl-module-integer "
--RDEPENDS_perl-module-b-deparse += "perl-module-re "
--RDEPENDS_perl-module-b-deparse += "perl-module-strict "
--RDEPENDS_perl-module-b-deparse += "perl-module-utf8 "
--RDEPENDS_perl-module-b-deparse += "perl-module-warnings "
--RDEPENDS_perl-module-b-deparse += "perl-module-warnings "
--RDEPENDS_perl-module-b-deparse += "perl-module-vars "
--RDEPENDS_perl-module-b-disassembler += "perl-module-b "
--RDEPENDS_perl-module-b-disassembler += "perl-module-b-asmdata "
--RDEPENDS_perl-module-b-disassembler += "perl-module-carp "
--RDEPENDS_perl-module-b-disassembler += "perl-module-config "
--RDEPENDS_perl-module-b-disassembler += "perl-module-exporter "
--RDEPENDS_perl-module-b-disassembler += "perl-module-filehandle "
--RDEPENDS_perl-module-b-disassembler += "perl-module-strict "
--RDEPENDS_perl-module-benchmark += "perl-module-carp "
--RDEPENDS_perl-module-benchmark += "perl-module-exporter "
--RDEPENDS_perl-module-benchmark += "perl-module-strict "
--RDEPENDS_perl-module-bigint += "perl-module-exporter "
--RDEPENDS_perl-module-bigint += "perl-module-overload "
--RDEPENDS_perl-module-bigint += "perl-module-strict "
--RDEPENDS_perl-module-bignum += "perl-module-exporter "
--RDEPENDS_perl-module-bignum += "perl-module-strict "
--RDEPENDS_perl-module-bigrat += "perl-module-exporter "
--RDEPENDS_perl-module-bigrat += "perl-module-strict "
--RDEPENDS_perl-module-blib += "perl-module-cwd "
--RDEPENDS_perl-module-blib += "perl-module-file-spec "
--RDEPENDS_perl-module-blib += "perl-module-vars "
--RDEPENDS_perl-module-b-lint += "perl-module-strict "
--RDEPENDS_perl-module-b-showlex += "perl-module-b "
--RDEPENDS_perl-module-b-showlex += "perl-module-b-concise "
--RDEPENDS_perl-module-b-showlex += "perl-module-b-terse "
--RDEPENDS_perl-module-b-showlex += "perl-module-strict "
--RDEPENDS_perl-module-b-stackobj += "perl-module-b "
--RDEPENDS_perl-module-b-stackobj += "perl-module-carp "
--RDEPENDS_perl-module-b-stackobj += "perl-module-exporter "
--RDEPENDS_perl-module-b-stackobj += "perl-module-strict "
--RDEPENDS_perl-module-b-terse += "perl-module-b "
--RDEPENDS_perl-module-b-terse += "perl-module-b-asmdata "
--RDEPENDS_perl-module-b-terse += "perl-module-b-concise "
--RDEPENDS_perl-module-b-terse += "perl-module-carp "
--RDEPENDS_perl-module-b-terse += "perl-module-strict "
--RDEPENDS_perl-module-b += "perl-module-exporter "
--RDEPENDS_perl-module-b += "perl-module-strict "
--RDEPENDS_perl-module-b += "perl-module-xsloader "
--RDEPENDS_perl-module-b-xref += "perl-module-config "
--RDEPENDS_perl-module-b-xref += "perl-module-strict "
--RDEPENDS_perl-module-byteloader += "perl-module-xsloader "
--RDEPENDS_perl-module-carp-heavy += "perl-module-carp "
--RDEPENDS_perl-module-carp += "perl-module-exporter "
--RDEPENDS_perl-module-cgi-apache += "perl-module-cgi "
--RDEPENDS_perl-module-cgi-carp += "perl-module-exporter "
--RDEPENDS_perl-module-cgi-carp += "perl-module-file-spec "
--RDEPENDS_perl-module-cgi-cookie += "perl-module-cgi-util "
--RDEPENDS_perl-module-cgi-fast += "perl-module-cgi "
--RDEPENDS_perl-module-cgi-fast += "perl-module-vars "
--RDEPENDS_perl-module-cgi-pretty += "perl-module-cgi "
--RDEPENDS_perl-module-cgi-pretty += "perl-module-strict "
--RDEPENDS_perl-module-cgi-push += "perl-module-cgi "
--RDEPENDS_perl-module-cgi-push += "perl-module-cgi-util "
--RDEPENDS_perl-module-cgi-switch += "perl-module-cgi "
--RDEPENDS_perl-module-cgi += "perl-module-carp "
--RDEPENDS_perl-module-cgi += "perl-module-cgi-util "
--RDEPENDS_perl-module-cgi += "perl-module-constant "
--RDEPENDS_perl-module-cgi-util += "perl-module-exporter "
--RDEPENDS_perl-module-cgi-util += "perl-module-strict "
--RDEPENDS_perl-module-cgi-util += "perl-module-vars "
--RDEPENDS_perl-module-charnames += "perl-module-carp "
--RDEPENDS_perl-module-charnames += "perl-module-file-spec "
--RDEPENDS_perl-module-charnames += "perl-module-strict "
--RDEPENDS_perl-module-charnames += "perl-module-warnings "
--RDEPENDS_perl-module-class-isa += "perl-module-strict "
--RDEPENDS_perl-module-class-isa += "perl-module-vars "
--RDEPENDS_perl-module-class-struct += "perl-module-exporter "
--RDEPENDS_perl-module-class-struct += "perl-module-carp "
--RDEPENDS_perl-module-class-struct += "perl-module-strict "
--RDEPENDS_perl-module-class-struct += "perl-module-warnings-register "
--RDEPENDS_perl-module-config += "perl-module-strict "
--RDEPENDS_perl-module-constant += "perl-module-strict "
--RDEPENDS_perl-module-constant += "perl-module-warnings-register "
--RDEPENDS_perl-module-cpan-firsttime += "perl-module-extutils-makemaker "
--RDEPENDS_perl-module-cpan-firsttime += "perl-module-file-basename "
--RDEPENDS_perl-module-cpan-firsttime += "perl-module-filehandle "
--RDEPENDS_perl-module-cpan-firsttime += "perl-module-file-path "
--RDEPENDS_perl-module-cpan-firsttime += "perl-module-file-spec "
--RDEPENDS_perl-module-cpan-firsttime += "perl-module-strict "
--RDEPENDS_perl-module-cpan-firsttime += "perl-module-vars "
--RDEPENDS_perl-module-cpan-nox += "perl-module-base "
--RDEPENDS_perl-module-cpan-nox += "perl-module-cpan "
--RDEPENDS_perl-module-cpan-nox += "perl-module-strict "
--RDEPENDS_perl-module-cpan-nox += "perl-module-vars "
--RDEPENDS_perl-module-cpan += "perl-module-carp "
--RDEPENDS_perl-module-cpan += "perl-module-config "
--RDEPENDS_perl-module-cpan += "perl-module-cwd "
--RDEPENDS_perl-module-cpan += "perl-module-dirhandle "
--RDEPENDS_perl-module-cpan += "perl-module-exporter "
--RDEPENDS_perl-module-cpan += "perl-module-extutils-makemaker "
--RDEPENDS_perl-module-cpan += "perl-module-extutils-makemaker "
--RDEPENDS_perl-module-cpan += "perl-module-file-basename "
--RDEPENDS_perl-module-cpan += "perl-module-file-copy "
--RDEPENDS_perl-module-cpan += "perl-module-file-find "
--RDEPENDS_perl-module-cpan += "perl-module-filehandle "
--RDEPENDS_perl-module-cpan += "perl-module-file-path "
--RDEPENDS_perl-module-cpan += "perl-module-file-spec "
--RDEPENDS_perl-module-cpan += "perl-module-overload "
--RDEPENDS_perl-module-cpan += "perl-module-safe "
--RDEPENDS_perl-module-cpan += "perl-module-strict "
--RDEPENDS_perl-module-cpan += "perl-module-sys-hostname "
--RDEPENDS_perl-module-cpan += "perl-module-text-parsewords "
--RDEPENDS_perl-module-cpan += "perl-module-text-wrap "
--RDEPENDS_perl-module-cpan += "perl-module-vars "
--RDEPENDS_perl-module-cwd += "perl-module-exporter "
--RDEPENDS_perl-module-cwd += "perl-module-strict "
--RDEPENDS_perl-module-cwd += "perl-module-vars "
--RDEPENDS_perl-module-data-dumper += "perl-module-exporter "
--RDEPENDS_perl-module-data-dumper += "perl-module-overload "
--RDEPENDS_perl-module-data-dumper += "perl-module-carp "
--RDEPENDS_perl-module-dbm-filter-compress += "perl-module-carp "
--RDEPENDS_perl-module-dbm-filter-compress += "perl-module-strict "
--RDEPENDS_perl-module-dbm-filter-compress += "perl-module-warnings "
--RDEPENDS_perl-module-dbm-filter-encode += "perl-module-carp "
--RDEPENDS_perl-module-dbm-filter-encode += "perl-module-strict "
--RDEPENDS_perl-module-dbm-filter-encode += "perl-module-warnings "
--RDEPENDS_perl-module-dbm-filter-int32 += "perl-module-strict "
--RDEPENDS_perl-module-dbm-filter-int32 += "perl-module-warnings "
--RDEPENDS_perl-module-dbm-filter-null += "perl-module-strict "
--RDEPENDS_perl-module-dbm-filter-null += "perl-module-warnings "
--RDEPENDS_perl-module-dbm-filter += "perl-module-carp "
--RDEPENDS_perl-module-dbm-filter += "perl-module-strict "
--RDEPENDS_perl-module-dbm-filter += "perl-module-warnings "
--RDEPENDS_perl-module-dbm-filter-utf8 += "perl-module-carp "
--RDEPENDS_perl-module-dbm-filter-utf8 += "perl-module-strict "
--RDEPENDS_perl-module-dbm-filter-utf8 += "perl-module-warnings "
--RDEPENDS_perl-module-devel-dprof += "perl-module-xsloader "
--RDEPENDS_perl-module-devel-peek += "perl-module-exporter "
--RDEPENDS_perl-module-devel-peek += "perl-module-xsloader "
--RDEPENDS_perl-module-devel-ppport += "perl-module-dynaloader "
--RDEPENDS_perl-module-devel-ppport += "perl-module-strict "
--RDEPENDS_perl-module-devel-ppport += "perl-module-vars "
--RDEPENDS_perl-module-devel-selfstubber += "perl-module-selfloader "
--RDEPENDS_perl-module-devel-selfstubber += "perl-module-file-spec "
--RDEPENDS_perl-module-diagnostics += "perl-module-carp "
--RDEPENDS_perl-module-diagnostics += "perl-module-config "
--RDEPENDS_perl-module-diagnostics += "perl-module-strict "
--RDEPENDS_perl-module-digest-base += "perl-module-strict "
--RDEPENDS_perl-module-digest-base += "perl-module-vars "
--RDEPENDS_perl-module-digest-file += "perl-module-carp "
--RDEPENDS_perl-module-digest-file += "perl-module-digest "
--RDEPENDS_perl-module-digest-file += "perl-module-exporter "
--RDEPENDS_perl-module-digest-file += "perl-module-strict "
--RDEPENDS_perl-module-digest-file += "perl-module-vars "
--RDEPENDS_perl-module-digest-md5 += "perl-module-dynaloader "
--RDEPENDS_perl-module-digest-md5 += "perl-module-exporter "
--RDEPENDS_perl-module-digest-md5 += "perl-module-strict "
--RDEPENDS_perl-module-digest-md5 += "perl-module-vars "
--RDEPENDS_perl-module-digest += "perl-module-strict "
--RDEPENDS_perl-module-digest += "perl-module-vars "
--RDEPENDS_perl-module-dirhandle += "perl-module-carp "
--RDEPENDS_perl-module-dirhandle += "perl-module-symbol "
--RDEPENDS_perl-module-dumpvalue += "perl-module-strict "
--RDEPENDS_perl-module-dynaloader += "perl-module-autoloader "
--RDEPENDS_perl-module-dynaloader += "perl-module-config "
--RDEPENDS_perl-module-dynaloader += "perl-module-vars "
--RDEPENDS_perl-module-encode-alias += "perl-module-base "
--RDEPENDS_perl-module-encode-alias += "perl-module-encode "
--RDEPENDS_perl-module-encode-alias += "perl-module-strict "
--RDEPENDS_perl-module-encode-byte += "perl-module-encode "
--RDEPENDS_perl-module-encode-byte += "perl-module-xsloader "
--RDEPENDS_perl-module-encode-cjkconstants += "perl-module-exporter "
--RDEPENDS_perl-module-encode-cjkconstants += "perl-module-carp "
--RDEPENDS_perl-module-encode-cjkconstants += "perl-module-strict "
--RDEPENDS_perl-module-encode-cn-hz += "perl-module-base "
--RDEPENDS_perl-module-encode-cn-hz += "perl-module-encode "
--RDEPENDS_perl-module-encode-cn-hz += "perl-module-strict "
--RDEPENDS_perl-module-encode-cn-hz += "perl-module-vars "
--RDEPENDS_perl-module-encode-cn += "perl-module-encode "
--RDEPENDS_perl-module-encode-cn += "perl-module-encode-cn-hz "
--RDEPENDS_perl-module-encode-cn += "perl-module-xsloader "
--RDEPENDS_perl-module-encode-config += "perl-module-strict "
--RDEPENDS_perl-module-encode-ebcdic += "perl-module-encode "
--RDEPENDS_perl-module-encode-ebcdic += "perl-module-xsloader "
--RDEPENDS_perl-module-encode-encoder += "perl-module-exporter "
--RDEPENDS_perl-module-encode-encoder += "perl-module-carp "
--RDEPENDS_perl-module-encode-encoder += "perl-module-encode "
--RDEPENDS_perl-module-encode-encoder += "perl-module-strict "
--RDEPENDS_perl-module-encode-encoder += "perl-module-warnings "
--RDEPENDS_perl-module-encode-encoding += "perl-module-encode "
--RDEPENDS_perl-module-encode-encoding += "perl-module-strict "
--RDEPENDS_perl-module-encode-guess += "perl-module-base "
--RDEPENDS_perl-module-encode-guess += "perl-module-encode "
--RDEPENDS_perl-module-encode-guess += "perl-module-strict "
--RDEPENDS_perl-module-encode-jp-h2z += "perl-module-encode-cjkconstants "
--RDEPENDS_perl-module-encode-jp-h2z += "perl-module-strict "
--RDEPENDS_perl-module-encode-jp-jis7 += "perl-module-base "
--RDEPENDS_perl-module-encode-jp-jis7 += "perl-module-encode "
--RDEPENDS_perl-module-encode-jp-jis7 += "perl-module-encode-cjkconstants "
--RDEPENDS_perl-module-encode-jp-jis7 += "perl-module-strict "
--RDEPENDS_perl-module-encode-jp += "perl-module-encode "
--RDEPENDS_perl-module-encode-jp += "perl-module-encode-jp-jis7 "
--RDEPENDS_perl-module-encode-jp += "perl-module-xsloader "
--RDEPENDS_perl-module-encode-kr-2022-kr += "perl-module-base "
--RDEPENDS_perl-module-encode-kr-2022-kr += "perl-module-encode "
--RDEPENDS_perl-module-encode-kr-2022-kr += "perl-module-encode-cjkconstants "
--RDEPENDS_perl-module-encode-kr-2022-kr += "perl-module-strict "
--RDEPENDS_perl-module-encode-kr += "perl-module-encode "
--RDEPENDS_perl-module-encode-kr += "perl-module-encode-kr-2022-kr "
--RDEPENDS_perl-module-encode-kr += "perl-module-xsloader "
--RDEPENDS_perl-module-encode-mime-header += "perl-module-base "
--RDEPENDS_perl-module-encode-mime-header += "perl-module-carp "
--RDEPENDS_perl-module-encode-mime-header += "perl-module-constant "
--RDEPENDS_perl-module-encode-mime-header += "perl-module-encode "
--RDEPENDS_perl-module-encode-mime-header += "perl-module-mime-base64 "
--RDEPENDS_perl-module-encode-mime-header += "perl-module-strict "
--RDEPENDS_perl-module-encode-symbol += "perl-module-encode "
--RDEPENDS_perl-module-encode-symbol += "perl-module-xsloader "
--RDEPENDS_perl-module-encode-tw += "perl-module-encode "
--RDEPENDS_perl-module-encode-tw += "perl-module-xsloader "
--RDEPENDS_perl-module-encode-unicode += "perl-module-encode "
--RDEPENDS_perl-module-encode-unicode += "perl-module-base "
--RDEPENDS_perl-module-encode-unicode += "perl-module-strict "
--RDEPENDS_perl-module-encode-unicode += "perl-module-warnings "
--RDEPENDS_perl-module-encode-unicode += "perl-module-xsloader "
--RDEPENDS_perl-module-encode-unicode-utf7 += "perl-module-base "
--RDEPENDS_perl-module-encode-unicode-utf7 += "perl-module-encode "
--RDEPENDS_perl-module-encode-unicode-utf7 += "perl-module-mime-base64 "
--RDEPENDS_perl-module-encode-unicode-utf7 += "perl-module-strict "
--RDEPENDS_perl-module-encode += "perl-module-encode-config "
--RDEPENDS_perl-module-encode += "perl-module-exporter "
--RDEPENDS_perl-module-encode += "perl-module-base "
--RDEPENDS_perl-module-encode += "perl-module-encode-alias "
--RDEPENDS_perl-module-encode += "perl-module-strict "
--RDEPENDS_perl-module-encode += "perl-module-xsloader "
--RDEPENDS_perl-module-encoding += "perl-module-encode "
--RDEPENDS_perl-module-encoding += "perl-module-strict "
--RDEPENDS_perl-module-english += "perl-module-exporter "
--RDEPENDS_perl-module-env += "perl-module-config "
--RDEPENDS_perl-module-env += "perl-module-tie-array "
--RDEPENDS_perl-module-errno += "perl-module-config "
--RDEPENDS_perl-module-errno += "perl-module-exporter "
--RDEPENDS_perl-module-errno += "perl-module-strict "
--RDEPENDS_perl-module-exporter-heavy += "perl-module-exporter "
--RDEPENDS_perl-module-exporter-heavy += "perl-module-strict "
--RDEPENDS_perl-module-extutils-command-mm += "perl-module-exporter "
--RDEPENDS_perl-module-extutils-command-mm += "perl-module-strict "
--RDEPENDS_perl-module-extutils-command-mm += "perl-module-vars "
--RDEPENDS_perl-module-extutils-command += "perl-module-exporter "
--RDEPENDS_perl-module-extutils-command += "perl-module-carp "
--RDEPENDS_perl-module-extutils-command += "perl-module-file-basename "
--RDEPENDS_perl-module-extutils-command += "perl-module-file-compare "
--RDEPENDS_perl-module-extutils-command += "perl-module-file-copy "
--RDEPENDS_perl-module-extutils-command += "perl-module-file-path "
--RDEPENDS_perl-module-extutils-command += "perl-module-strict "
--RDEPENDS_perl-module-extutils-command += "perl-module-vars "
--RDEPENDS_perl-module-extutils-constant-base += "perl-module-carp "
--RDEPENDS_perl-module-extutils-constant-base += "perl-module-extutils-constant-utils "
--RDEPENDS_perl-module-extutils-constant-base += "perl-module-strict "
--RDEPENDS_perl-module-extutils-constant-base += "perl-module-text-wrap "
--RDEPENDS_perl-module-extutils-constant-base += "perl-module-vars "
--RDEPENDS_perl-module-extutils-constant += "perl-module-carp "
--RDEPENDS_perl-module-extutils-constant += "perl-module-exporter "
--RDEPENDS_perl-module-extutils-constant += "perl-module-extutils-constant-utils "
--RDEPENDS_perl-module-extutils-constant += "perl-module-extutils-constant-xs "
--RDEPENDS_perl-module-extutils-constant += "perl-module-strict "
--RDEPENDS_perl-module-extutils-constant += "perl-module-vars "
--RDEPENDS_perl-module-extutils-constant-utils += "perl-module-carp "
--RDEPENDS_perl-module-extutils-constant-utils += "perl-module-strict "
--RDEPENDS_perl-module-extutils-constant-utils += "perl-module-vars "
--RDEPENDS_perl-module-extutils-constant-xs += "perl-module-extutils-constant-base "
--RDEPENDS_perl-module-extutils-constant-xs += "perl-module-carp "
--RDEPENDS_perl-module-extutils-constant-xs += "perl-module-extutils-constant "
--RDEPENDS_perl-module-extutils-constant-xs += "perl-module-extutils-constant-utils "
--RDEPENDS_perl-module-extutils-constant-xs += "perl-module-strict "
--RDEPENDS_perl-module-extutils-constant-xs += "perl-module-vars "
--RDEPENDS_perl-module-extutils-embed += "perl-module-exporter "
--RDEPENDS_perl-module-extutils-embed += "perl-module-filehandle "
--RDEPENDS_perl-module-extutils-embed += "perl-module-config "
--RDEPENDS_perl-module-extutils-embed += "perl-module-file-spec "
--RDEPENDS_perl-module-extutils-embed += "perl-module-getopt-std "
--RDEPENDS_perl-module-extutils-embed += "perl-module-strict "
--RDEPENDS_perl-module-extutils-installed += "perl-module-carp "
--RDEPENDS_perl-module-extutils-installed += "perl-module-config "
--RDEPENDS_perl-module-extutils-installed += "perl-module-extutils-makemaker "
--RDEPENDS_perl-module-extutils-installed += "perl-module-extutils-packlist "
--RDEPENDS_perl-module-extutils-installed += "perl-module-file-basename "
--RDEPENDS_perl-module-extutils-installed += "perl-module-file-find "
--RDEPENDS_perl-module-extutils-installed += "perl-module-file-spec "
--RDEPENDS_perl-module-extutils-installed += "perl-module-strict "
--RDEPENDS_perl-module-extutils-installed += "perl-module-vars "
--RDEPENDS_perl-module-extutils-install += "perl-module-carp "
--RDEPENDS_perl-module-extutils-install += "perl-module-config "
--RDEPENDS_perl-module-extutils-install += "perl-module-exporter "
--RDEPENDS_perl-module-extutils-install += "perl-module-file-spec "
--RDEPENDS_perl-module-extutils-install += "perl-module-vars "
--RDEPENDS_perl-module-extutils-liblist-kid += "perl-module-config "
--RDEPENDS_perl-module-extutils-liblist-kid += "perl-module-cwd "
--RDEPENDS_perl-module-extutils-liblist-kid += "perl-module-file-basename "
--RDEPENDS_perl-module-extutils-liblist-kid += "perl-module-file-spec "
--RDEPENDS_perl-module-extutils-liblist-kid += "perl-module-strict "
--RDEPENDS_perl-module-extutils-liblist-kid += "perl-module-vars "
--RDEPENDS_perl-module-extutils-liblist += "perl-module-extutils-liblist-kid "
--RDEPENDS_perl-module-extutils-liblist += "perl-module-file-spec "
--RDEPENDS_perl-module-extutils-liblist += "perl-module-vars "
--RDEPENDS_perl-module-extutils-makemaker-bytes += "perl-module-vars "
--RDEPENDS_perl-module-extutils-makemaker += "perl-module-exporter "
--RDEPENDS_perl-module-extutils-makemaker += "perl-module-carp "
--RDEPENDS_perl-module-extutils-makemaker += "perl-module-config "
--RDEPENDS_perl-module-extutils-makemaker += "perl-module-file-path "
--RDEPENDS_perl-module-extutils-makemaker += "perl-module-strict "
--RDEPENDS_perl-module-extutils-makemaker-vmsish += "perl-module-vmsish "
--RDEPENDS_perl-module-extutils-makemaker-vmsish += "perl-module-vars "
--RDEPENDS_perl-module-extutils-manifest += "perl-module-exporter "
--RDEPENDS_perl-module-extutils-manifest += "perl-module-carp "
--RDEPENDS_perl-module-extutils-manifest += "perl-module-config "
--RDEPENDS_perl-module-extutils-manifest += "perl-module-file-copy "
--RDEPENDS_perl-module-extutils-manifest += "perl-module-file-find "
--RDEPENDS_perl-module-extutils-manifest += "perl-module-file-spec "
--RDEPENDS_perl-module-extutils-manifest += "perl-module-strict "
--RDEPENDS_perl-module-extutils-miniperl += "perl-module-exporter "
--RDEPENDS_perl-module-extutils-mkbootstrap += "perl-module-config "
--RDEPENDS_perl-module-extutils-mkbootstrap += "perl-module-exporter "
--RDEPENDS_perl-module-extutils-mksymlists += "perl-module-carp "
--RDEPENDS_perl-module-extutils-mksymlists += "perl-module-config "
--RDEPENDS_perl-module-extutils-mksymlists += "perl-module-exporter "
--RDEPENDS_perl-module-extutils-mksymlists += "perl-module-strict "
--RDEPENDS_perl-module-extutils-mksymlists += "perl-module-vars "
--RDEPENDS_perl-module-extutils-mm-any += "perl-module-config "
--RDEPENDS_perl-module-extutils-mm-any += "perl-module-file-spec "
--RDEPENDS_perl-module-extutils-mm-any += "perl-module-strict "
--RDEPENDS_perl-module-extutils-mm-any += "perl-module-vars "
--RDEPENDS_perl-module-extutils-mm-beos += "perl-module-extutils-mm-any "
--RDEPENDS_perl-module-extutils-mm-beos += "perl-module-extutils-mm-unix "
--RDEPENDS_perl-module-extutils-mm-beos += "perl-module-config "
--RDEPENDS_perl-module-extutils-mm-beos += "perl-module-file-spec "
--RDEPENDS_perl-module-extutils-mm-beos += "perl-module-vars "
--RDEPENDS_perl-module-extutils-mm-cygwin += "perl-module-extutils-mm-any "
--RDEPENDS_perl-module-extutils-mm-cygwin += "perl-module-extutils-mm-unix "
--RDEPENDS_perl-module-extutils-mm-cygwin += "perl-module-config "
--RDEPENDS_perl-module-extutils-mm-cygwin += "perl-module-file-spec "
--RDEPENDS_perl-module-extutils-mm-cygwin += "perl-module-strict "
--RDEPENDS_perl-module-extutils-mm-cygwin += "perl-module-vars "
--RDEPENDS_perl-module-extutils-mm-dos += "perl-module-extutils-mm-any "
--RDEPENDS_perl-module-extutils-mm-dos += "perl-module-extutils-mm-unix "
--RDEPENDS_perl-module-extutils-mm-dos += "perl-module-strict "
--RDEPENDS_perl-module-extutils-mm-dos += "perl-module-vars "
--RDEPENDS_perl-module-extutils-mm-macos += "perl-module-exporter "
--RDEPENDS_perl-module-extutils-mm-macos += "perl-module-extutils-mm-any "
--RDEPENDS_perl-module-extutils-mm-macos += "perl-module-extutils-mm-unix "
--RDEPENDS_perl-module-extutils-mm-macos += "perl-module-config "
--RDEPENDS_perl-module-extutils-mm-macos += "perl-module-cwd "
--RDEPENDS_perl-module-extutils-mm-macos += "perl-module-extutils-makemaker "
--RDEPENDS_perl-module-extutils-mm-macos += "perl-module-file-basename "
--RDEPENDS_perl-module-extutils-mm-macos += "perl-module-vars "
--RDEPENDS_perl-module-extutils-mm-nw5 += "perl-module-extutils-mm-win32 "
--RDEPENDS_perl-module-extutils-mm-nw5 += "perl-module-config "
--RDEPENDS_perl-module-extutils-mm-nw5 += "perl-module-extutils-makemaker "
--RDEPENDS_perl-module-extutils-mm-nw5 += "perl-module-file-basename "
--RDEPENDS_perl-module-extutils-mm-nw5 += "perl-module-strict "
--RDEPENDS_perl-module-extutils-mm-nw5 += "perl-module-vars "
--RDEPENDS_perl-module-extutils-mm-os2 += "perl-module-extutils-mm-any "
--RDEPENDS_perl-module-extutils-mm-os2 += "perl-module-extutils-mm-unix "
--RDEPENDS_perl-module-extutils-mm-os2 += "perl-module-extutils-makemaker "
--RDEPENDS_perl-module-extutils-mm-os2 += "perl-module-file-spec "
--RDEPENDS_perl-module-extutils-mm-os2 += "perl-module-strict "
--RDEPENDS_perl-module-extutils-mm-os2 += "perl-module-vars "
--RDEPENDS_perl-module-extutils-mm-unix += "perl-module-extutils-mm-any "
--RDEPENDS_perl-module-extutils-mm-unix += "perl-module-carp "
--RDEPENDS_perl-module-extutils-mm-unix += "perl-module-config "
--RDEPENDS_perl-module-extutils-mm-unix += "perl-module-dirhandle "
--RDEPENDS_perl-module-extutils-mm-unix += "perl-module-exporter "
--RDEPENDS_perl-module-extutils-mm-unix += "perl-module-extutils-makemaker "
--RDEPENDS_perl-module-extutils-mm-unix += "perl-module-file-basename "
--RDEPENDS_perl-module-extutils-mm-unix += "perl-module-strict "
--RDEPENDS_perl-module-extutils-mm += "perl-module-extutils-liblist "
--RDEPENDS_perl-module-extutils-mm += "perl-module-extutils-makemaker "
--RDEPENDS_perl-module-extutils-mm += "perl-module-config "
--RDEPENDS_perl-module-extutils-mm += "perl-module-strict "
--RDEPENDS_perl-module-extutils-mm += "perl-module-vars "
--RDEPENDS_perl-module-extutils-mm-uwin += "perl-module-extutils-mm-unix "
--RDEPENDS_perl-module-extutils-mm-uwin += "perl-module-strict "
--RDEPENDS_perl-module-extutils-mm-uwin += "perl-module-vars "
--RDEPENDS_perl-module-extutils-mm-win32 += "perl-module-extutils-mm-any "
--RDEPENDS_perl-module-extutils-mm-win32 += "perl-module-extutils-mm-unix "
--RDEPENDS_perl-module-extutils-mm-win32 += "perl-module-config "
--RDEPENDS_perl-module-extutils-mm-win32 += "perl-module-extutils-makemaker "
--RDEPENDS_perl-module-extutils-mm-win32 += "perl-module-file-basename "
--RDEPENDS_perl-module-extutils-mm-win32 += "perl-module-file-spec "
--RDEPENDS_perl-module-extutils-mm-win32 += "perl-module-strict "
--RDEPENDS_perl-module-extutils-mm-win32 += "perl-module-vars "
--RDEPENDS_perl-module-extutils-mm-win95 += "perl-module-extutils-mm-win32 "
--RDEPENDS_perl-module-extutils-mm-win95 += "perl-module-config "
--RDEPENDS_perl-module-extutils-mm-win95 += "perl-module-vars "
--RDEPENDS_perl-module-extutils-mm-vms += "perl-module-exporter "
--RDEPENDS_perl-module-extutils-mm-vms += "perl-module-extutils-mm-any "
--RDEPENDS_perl-module-extutils-mm-vms += "perl-module-extutils-mm-unix "
--RDEPENDS_perl-module-extutils-mm-vms += "perl-module-config "
--RDEPENDS_perl-module-extutils-mm-vms += "perl-module-extutils-makemaker "
--RDEPENDS_perl-module-extutils-mm-vms += "perl-module-file-basename "
--RDEPENDS_perl-module-extutils-mm-vms += "perl-module-strict "
--RDEPENDS_perl-module-extutils-mm-vms += "perl-module-vars "
--RDEPENDS_perl-module-extutils-my += "perl-module-extutils-mm "
--RDEPENDS_perl-module-extutils-my += "perl-module-strict "
--RDEPENDS_perl-module-extutils-my += "perl-module-vars "
--RDEPENDS_perl-module-extutils-packlist += "perl-module-carp "
--RDEPENDS_perl-module-extutils-packlist += "perl-module-strict "
--RDEPENDS_perl-module-extutils-packlist += "perl-module-vars "
--RDEPENDS_perl-module-extutils-testlib += "perl-module-cwd "
--RDEPENDS_perl-module-extutils-testlib += "perl-module-file-spec "
--RDEPENDS_perl-module-extutils-testlib += "perl-module-lib "
--RDEPENDS_perl-module-fatal += "perl-module-carp "
--RDEPENDS_perl-module-fatal += "perl-module-strict "
--RDEPENDS_perl-module-fcntl += "perl-module-exporter "
--RDEPENDS_perl-module-fcntl += "perl-module-xsloader "
--RDEPENDS_perl-module-fields += "perl-module-strict "
--RDEPENDS_perl-module-fields += "perl-module-vars "
--RDEPENDS_perl-module-file-basename += "perl-module-exporter "
--RDEPENDS_perl-module-file-basename += "perl-module-warnings "
--RDEPENDS_perl-module-filecache += "perl-module-base "
--RDEPENDS_perl-module-filecache += "perl-module-carp "
--RDEPENDS_perl-module-filecache += "perl-module-config "
--RDEPENDS_perl-module-filecache += "perl-module-strict "
--RDEPENDS_perl-module-filecache += "perl-module-vars "
--RDEPENDS_perl-module-file-checktree += "perl-module-cwd "
--RDEPENDS_perl-module-file-checktree += "perl-module-exporter "
--RDEPENDS_perl-module-file-checktree += "perl-module-file-spec "
--RDEPENDS_perl-module-file-checktree += "perl-module-strict "
--RDEPENDS_perl-module-file-checktree += "perl-module-warnings "
--RDEPENDS_perl-module-file-compare += "perl-module-exporter "
--RDEPENDS_perl-module-file-compare += "perl-module-carp "
--RDEPENDS_perl-module-file-compare += "perl-module-strict "
--RDEPENDS_perl-module-file-compare += "perl-module-warnings "
--RDEPENDS_perl-module-file-copy += "perl-module-exporter "
--RDEPENDS_perl-module-file-copy += "perl-module-carp "
--RDEPENDS_perl-module-file-copy += "perl-module-config "
--RDEPENDS_perl-module-file-copy += "perl-module-file-spec "
--RDEPENDS_perl-module-file-copy += "perl-module-strict "
--RDEPENDS_perl-module-file-copy += "perl-module-warnings "
--RDEPENDS_perl-module-file-dosglob += "perl-module-strict "
--RDEPENDS_perl-module-file-dosglob += "perl-module-warnings "
--RDEPENDS_perl-module-file-find += "perl-module-cwd "
--RDEPENDS_perl-module-file-find += "perl-module-exporter "
--RDEPENDS_perl-module-file-find += "perl-module-file-basename "
--RDEPENDS_perl-module-file-find += "perl-module-file-spec "
--RDEPENDS_perl-module-file-find += "perl-module-strict "
--RDEPENDS_perl-module-file-find += "perl-module-warnings "
--RDEPENDS_perl-module-file-find += "perl-module-warnings-register "
--RDEPENDS_perl-module-file-glob += "perl-module-strict "
--RDEPENDS_perl-module-file-glob += "perl-module-xsloader "
--RDEPENDS_perl-module-filehandle += "perl-module-io-file "
--RDEPENDS_perl-module-filehandle += "perl-module-strict "
--RDEPENDS_perl-module-file-path += "perl-module-carp "
--RDEPENDS_perl-module-file-path += "perl-module-exporter "
--RDEPENDS_perl-module-file-path += "perl-module-file-basename "
--RDEPENDS_perl-module-file-path += "perl-module-strict "
--RDEPENDS_perl-module-file-path += "perl-module-warnings "
--RDEPENDS_perl-module-file-spec-cygwin += "perl-module-file-spec-unix "
--RDEPENDS_perl-module-file-spec-cygwin += "perl-module-strict "
--RDEPENDS_perl-module-file-spec-cygwin += "perl-module-vars "
--RDEPENDS_perl-module-file-spec-epoc += "perl-module-file-spec-unix "
--RDEPENDS_perl-module-file-spec-epoc += "perl-module-strict "
--RDEPENDS_perl-module-file-spec-epoc += "perl-module-vars "
--RDEPENDS_perl-module-file-spec-functions += "perl-module-exporter "
--RDEPENDS_perl-module-file-spec-functions += "perl-module-file-spec "
--RDEPENDS_perl-module-file-spec-functions += "perl-module-strict "
--RDEPENDS_perl-module-file-spec-functions += "perl-module-vars "
--RDEPENDS_perl-module-file-spec-mac += "perl-module-file-spec-unix "
--RDEPENDS_perl-module-file-spec-mac += "perl-module-strict "
--RDEPENDS_perl-module-file-spec-mac += "perl-module-vars "
--RDEPENDS_perl-module-file-spec-os2 += "perl-module-file-spec-unix "
--RDEPENDS_perl-module-file-spec-os2 += "perl-module-strict "
--RDEPENDS_perl-module-file-spec-os2 += "perl-module-vars "
--RDEPENDS_perl-module-file-spec-unix += "perl-module-strict "
--RDEPENDS_perl-module-file-spec-unix += "perl-module-vars "
--RDEPENDS_perl-module-file-spec += "perl-module-strict "
--RDEPENDS_perl-module-file-spec += "perl-module-vars "
--RDEPENDS_perl-module-file-spec-win32 += "perl-module-file-spec-unix "
--RDEPENDS_perl-module-file-spec-win32 += "perl-module-strict "
--RDEPENDS_perl-module-file-spec-win32 += "perl-module-vars "
--RDEPENDS_perl-module-file-spec-vms += "perl-module-file-spec-unix "
--RDEPENDS_perl-module-file-spec-vms += "perl-module-file-basename "
--RDEPENDS_perl-module-file-spec-vms += "perl-module-strict "
--RDEPENDS_perl-module-file-spec-vms += "perl-module-vars "
--RDEPENDS_perl-module-file-stat += "perl-module-class-struct "
--RDEPENDS_perl-module-file-stat += "perl-module-strict "
--RDEPENDS_perl-module-file-stat += "perl-module-warnings "
--RDEPENDS_perl-module-file-stat += "perl-module-vars "
--RDEPENDS_perl-module-file-temp += "perl-module-base "
--RDEPENDS_perl-module-file-temp += "perl-module-carp "
--RDEPENDS_perl-module-file-temp += "perl-module-constant "
--RDEPENDS_perl-module-file-temp += "perl-module-errno "
--RDEPENDS_perl-module-file-temp += "perl-module-fcntl "
--RDEPENDS_perl-module-file-temp += "perl-module-file-path "
--RDEPENDS_perl-module-file-temp += "perl-module-file-spec "
--RDEPENDS_perl-module-file-temp += "perl-module-overload "
--RDEPENDS_perl-module-file-temp += "perl-module-strict "
--RDEPENDS_perl-module-file-temp += "perl-module-vars "
--RDEPENDS_perl-module-filter-simple += "perl-module-carp "
--RDEPENDS_perl-module-filter-simple += "perl-module-filter-util-call "
--RDEPENDS_perl-module-filter-simple += "perl-module-text-balanced "
--RDEPENDS_perl-module-filter-simple += "perl-module-vars "
--RDEPENDS_perl-module-filter-util-call += "perl-module-dynaloader "
--RDEPENDS_perl-module-filter-util-call += "perl-module-exporter "
--RDEPENDS_perl-module-filter-util-call += "perl-module-carp "
--RDEPENDS_perl-module-filter-util-call += "perl-module-strict "
--RDEPENDS_perl-module-filter-util-call += "perl-module-warnings "
--RDEPENDS_perl-module-filter-util-call += "perl-module-vars "
--RDEPENDS_perl-module-findbin += "perl-module-exporter "
--RDEPENDS_perl-module-findbin += "perl-module-carp "
--RDEPENDS_perl-module-findbin += "perl-module-config "
--RDEPENDS_perl-module-findbin += "perl-module-cwd "
--RDEPENDS_perl-module-findbin += "perl-module-file-basename "
--RDEPENDS_perl-module-findbin += "perl-module-file-spec "
--RDEPENDS_perl-module-getopt-long += "perl-module-constant "
--RDEPENDS_perl-module-getopt-long += "perl-module-exporter "
--RDEPENDS_perl-module-getopt-long += "perl-module-strict "
--RDEPENDS_perl-module-getopt-long += "perl-module-vars "
--RDEPENDS_perl-module-getopt-std += "perl-module-exporter "
--RDEPENDS_perl-module-hash-util += "perl-module-exporter "
--RDEPENDS_perl-module-hash-util += "perl-module-carp "
--RDEPENDS_perl-module-hash-util += "perl-module-strict "
--RDEPENDS_perl-module-i18n-collate += "perl-module-exporter "
--RDEPENDS_perl-module-i18n-collate += "perl-module-posix "
--RDEPENDS_perl-module-i18n-collate += "perl-module-strict "
--RDEPENDS_perl-module-i18n-collate += "perl-module-warnings-register "
--RDEPENDS_perl-module-i18n-langinfo += "perl-module-dynaloader "
--RDEPENDS_perl-module-i18n-langinfo += "perl-module-exporter "
--RDEPENDS_perl-module-i18n-langinfo += "perl-module-autoloader "
--RDEPENDS_perl-module-i18n-langinfo += "perl-module-carp "
--RDEPENDS_perl-module-i18n-langinfo += "perl-module-strict "
--RDEPENDS_perl-module-i18n-langinfo += "perl-module-warnings "
--RDEPENDS_perl-module-i18n-langtags-detect += "perl-module-i18n-langtags "
--RDEPENDS_perl-module-i18n-langtags-detect += "perl-module-strict "
--RDEPENDS_perl-module-i18n-langtags-list += "perl-module-strict "
--RDEPENDS_perl-module-i18n-langtags-list += "perl-module-vars "
--RDEPENDS_perl-module-i18n-langtags += "perl-module-exporter "
--RDEPENDS_perl-module-i18n-langtags += "perl-module-strict "
--RDEPENDS_perl-module-i18n-langtags += "perl-module-vars "
--RDEPENDS_perl-module-io-dir += "perl-module-carp "
--RDEPENDS_perl-module-io-dir += "perl-module-exporter "
--RDEPENDS_perl-module-io-dir += "perl-module-file-spec "
--RDEPENDS_perl-module-io-dir += "perl-module-file-stat "
--RDEPENDS_perl-module-io-dir += "perl-module-io-file "
--RDEPENDS_perl-module-io-dir += "perl-module-strict "
--RDEPENDS_perl-module-io-dir += "perl-module-symbol "
--RDEPENDS_perl-module-io-dir += "perl-module-tie-hash "
--RDEPENDS_perl-module-io-file += "perl-module-exporter "
--RDEPENDS_perl-module-io-file += "perl-module-carp "
--RDEPENDS_perl-module-io-file += "perl-module-file-spec "
--RDEPENDS_perl-module-io-file += "perl-module-io-seekable "
--RDEPENDS_perl-module-io-file += "perl-module-selectsaver "
--RDEPENDS_perl-module-io-file += "perl-module-strict "
--RDEPENDS_perl-module-io-file += "perl-module-symbol "
--RDEPENDS_perl-module-io-handle += "perl-module-exporter "
--RDEPENDS_perl-module-io-handle += "perl-module-carp "
--RDEPENDS_perl-module-io-handle += "perl-module-selectsaver "
--RDEPENDS_perl-module-io-handle += "perl-module-strict "
--RDEPENDS_perl-module-io-handle += "perl-module-symbol "
--RDEPENDS_perl-module-io-pipe += "perl-module-carp "
--RDEPENDS_perl-module-io-pipe += "perl-module-io-handle "
--RDEPENDS_perl-module-io-pipe += "perl-module-strict "
--RDEPENDS_perl-module-io-pipe += "perl-module-symbol "
--RDEPENDS_perl-module-io-poll += "perl-module-exporter "
--RDEPENDS_perl-module-io-poll += "perl-module-io-handle "
--RDEPENDS_perl-module-io-poll += "perl-module-strict "
--RDEPENDS_perl-module-io-seekable += "perl-module-exporter "
--RDEPENDS_perl-module-io-seekable += "perl-module-carp "
--RDEPENDS_perl-module-io-seekable += "perl-module-fcntl "
--RDEPENDS_perl-module-io-seekable += "perl-module-io-handle "
--RDEPENDS_perl-module-io-seekable += "perl-module-strict "
--RDEPENDS_perl-module-io-select += "perl-module-exporter "
--RDEPENDS_perl-module-io-select += "perl-module-strict "
--RDEPENDS_perl-module-io-select += "perl-module-warnings-register "
--RDEPENDS_perl-module-io-select += "perl-module-vars "
--RDEPENDS_perl-module-io-socket-inet += "perl-module-carp "
--RDEPENDS_perl-module-io-socket-inet += "perl-module-errno "
--RDEPENDS_perl-module-io-socket-inet += "perl-module-exporter "
--RDEPENDS_perl-module-io-socket-inet += "perl-module-io-socket "
--RDEPENDS_perl-module-io-socket-inet += "perl-module-socket "
--RDEPENDS_perl-module-io-socket-inet += "perl-module-strict "
--RDEPENDS_perl-module-io-socket-unix += "perl-module-carp "
--RDEPENDS_perl-module-io-socket-unix += "perl-module-io-socket "
--RDEPENDS_perl-module-io-socket-unix += "perl-module-socket "
--RDEPENDS_perl-module-io-socket-unix += "perl-module-strict "
--RDEPENDS_perl-module-io-socket += "perl-module-io-socket-inet "
--RDEPENDS_perl-module-io-socket += "perl-module-io-socket-unix "
--RDEPENDS_perl-module-io-socket += "perl-module-carp "
--RDEPENDS_perl-module-io-socket += "perl-module-errno "
--RDEPENDS_perl-module-io-socket += "perl-module-exporter "
--RDEPENDS_perl-module-io-socket += "perl-module-io-handle "
--RDEPENDS_perl-module-io-socket += "perl-module-socket "
--RDEPENDS_perl-module-io-socket += "perl-module-strict "
--RDEPENDS_perl-module-io += "perl-module-carp "
--RDEPENDS_perl-module-io += "perl-module-strict "
--RDEPENDS_perl-module-io += "perl-module-warnings "
--RDEPENDS_perl-module-io += "perl-module-xsloader "
--RDEPENDS_perl-module-ipc-msg += "perl-module-carp "
--RDEPENDS_perl-module-ipc-msg += "perl-module-ipc-sysv "
--RDEPENDS_perl-module-ipc-msg += "perl-module-strict "
--RDEPENDS_perl-module-ipc-msg += "perl-module-vars "
--RDEPENDS_perl-module-ipc-open2 += "perl-module-exporter "
--RDEPENDS_perl-module-ipc-open2 += "perl-module-ipc-open3 "
--RDEPENDS_perl-module-ipc-open2 += "perl-module-strict "
--RDEPENDS_perl-module-ipc-open3 += "perl-module-exporter "
--RDEPENDS_perl-module-ipc-open3 += "perl-module-carp "
--RDEPENDS_perl-module-ipc-open3 += "perl-module-strict "
--RDEPENDS_perl-module-ipc-open3 += "perl-module-symbol "
--RDEPENDS_perl-module-ipc-semaphore += "perl-module-carp "
--RDEPENDS_perl-module-ipc-semaphore += "perl-module-strict "
--RDEPENDS_perl-module-ipc-semaphore += "perl-module-vars "
--RDEPENDS_perl-module-ipc-sysv += "perl-module-exporter "
--RDEPENDS_perl-module-ipc-sysv += "perl-module-carp "
--RDEPENDS_perl-module-ipc-sysv += "perl-module-config "
--RDEPENDS_perl-module-ipc-sysv += "perl-module-strict "
--RDEPENDS_perl-module-ipc-sysv += "perl-module-vars "
--RDEPENDS_perl-module-lib += "perl-module-config "
--RDEPENDS_perl-module-lib += "perl-module-strict "
--RDEPENDS_perl-module-list-util += "perl-module-exporter "
--RDEPENDS_perl-module-list-util += "perl-module-vars "
--RDEPENDS_perl-module-locale-constants += "perl-module-exporter "
--RDEPENDS_perl-module-locale-constants += "perl-module-constant "
--RDEPENDS_perl-module-locale-constants += "perl-module-strict "
--RDEPENDS_perl-module-locale-constants += "perl-module-vars "
--RDEPENDS_perl-module-locale-country += "perl-module-exporter "
--RDEPENDS_perl-module-locale-country += "perl-module-carp "
--RDEPENDS_perl-module-locale-country += "perl-module-locale-constants "
--RDEPENDS_perl-module-locale-country += "perl-module-strict "
--RDEPENDS_perl-module-locale-country += "perl-module-vars "
--RDEPENDS_perl-module-locale-currency += "perl-module-exporter "
--RDEPENDS_perl-module-locale-currency += "perl-module-strict "
--RDEPENDS_perl-module-locale-currency += "perl-module-vars "
--RDEPENDS_perl-module-locale-language += "perl-module-exporter "
--RDEPENDS_perl-module-locale-language += "perl-module-strict "
--RDEPENDS_perl-module-locale-language += "perl-module-vars "
--RDEPENDS_perl-module-locale-maketext-gutsloader += "perl-module-strict "
--RDEPENDS_perl-module-locale-maketext-guts += "perl-module-strict "
--RDEPENDS_perl-module-locale-maketext-guts += "perl-module-utf8 "
--RDEPENDS_perl-module-locale-maketext-guts += "perl-module-vars "
--RDEPENDS_perl-module-locale-maketext += "perl-module-carp "
--RDEPENDS_perl-module-locale-maketext += "perl-module-i18n-langtags "
--RDEPENDS_perl-module-locale-maketext += "perl-module-locale-maketext-gutsloader "
--RDEPENDS_perl-module-locale-maketext += "perl-module-strict "
--RDEPENDS_perl-module-locale-script += "perl-module-exporter "
--RDEPENDS_perl-module-locale-script += "perl-module-carp "
--RDEPENDS_perl-module-locale-script += "perl-module-locale-constants "
--RDEPENDS_perl-module-locale-script += "perl-module-strict "
--RDEPENDS_perl-module-locale-script += "perl-module-vars "
--RDEPENDS_perl-module-math-bigfloat-trace += "perl-module-exporter "
--RDEPENDS_perl-module-math-bigfloat-trace += "perl-module-math-bigfloat "
--RDEPENDS_perl-module-math-bigfloat-trace += "perl-module-strict "
--RDEPENDS_perl-module-math-bigfloat += "perl-module-exporter "
--RDEPENDS_perl-module-math-bigfloat += "perl-module-strict "
--RDEPENDS_perl-module-math-bigint-calcemu += "perl-module-strict "
--RDEPENDS_perl-module-math-bigint-calcemu += "perl-module-vars "
--RDEPENDS_perl-module-math-bigint-calc += "perl-module-strict "
--RDEPENDS_perl-module-math-bigint-calc += "perl-module-vars "
--RDEPENDS_perl-module-math-bigint-trace += "perl-module-exporter "
--RDEPENDS_perl-module-math-bigint-trace += "perl-module-math-bigint "
--RDEPENDS_perl-module-math-bigint-trace += "perl-module-strict "
--RDEPENDS_perl-module-math-bigint += "perl-module-strict "
--RDEPENDS_perl-module-math-bigrat += "perl-module-math-bigfloat "
--RDEPENDS_perl-module-math-bigrat += "perl-module-strict "
--RDEPENDS_perl-module-math-complex += "perl-module-exporter "
--RDEPENDS_perl-module-math-complex += "perl-module-strict "
--RDEPENDS_perl-module-math-trig += "perl-module-exporter "
--RDEPENDS_perl-module-math-trig += "perl-module-math-complex "
--RDEPENDS_perl-module-math-trig += "perl-module-strict "
--RDEPENDS_perl-module-memoize-anydbm-file += "perl-module-vars "
--RDEPENDS_perl-module-memoize-expirefile += "perl-module-carp "
--RDEPENDS_perl-module-memoize-expire += "perl-module-carp "
--RDEPENDS_perl-module-memoize-sdbm-file += "perl-module-sdbm-file "
--RDEPENDS_perl-module-memoize-storable += "perl-module-storable "
--RDEPENDS_perl-module-memoize += "perl-module-carp "
--RDEPENDS_perl-module-memoize += "perl-module-exporter "
--RDEPENDS_perl-module-memoize += "perl-module-strict "
--RDEPENDS_perl-module-memoize += "perl-module-vars "
--RDEPENDS_perl-module-mime-base64 += "perl-module-dynaloader "
--RDEPENDS_perl-module-mime-base64 += "perl-module-exporter "
--RDEPENDS_perl-module-mime-base64 += "perl-module-strict "
--RDEPENDS_perl-module-mime-base64 += "perl-module-vars "
--RDEPENDS_perl-module-mime-quotedprint += "perl-module-exporter "
--RDEPENDS_perl-module-mime-quotedprint += "perl-module-strict "
--RDEPENDS_perl-module-mime-quotedprint += "perl-module-vars "
--RDEPENDS_perl-module-net-cmd += "perl-module-exporter "
--RDEPENDS_perl-module-net-cmd += "perl-module-carp "
--RDEPENDS_perl-module-net-cmd += "perl-module-strict "
--RDEPENDS_perl-module-net-cmd += "perl-module-symbol "
--RDEPENDS_perl-module-net-cmd += "perl-module-vars "
--RDEPENDS_perl-module-net-config += "perl-module-exporter "
--RDEPENDS_perl-module-net-config += "perl-module-socket "
--RDEPENDS_perl-module-net-config += "perl-module-strict "
--RDEPENDS_perl-module-net-config += "perl-module-vars "
--RDEPENDS_perl-module-net-domain += "perl-module-exporter "
--RDEPENDS_perl-module-net-domain += "perl-module-carp "
--RDEPENDS_perl-module-net-domain += "perl-module-net-config "
--RDEPENDS_perl-module-net-domain += "perl-module-strict "
--RDEPENDS_perl-module-net-domain += "perl-module-vars "
--RDEPENDS_perl-module-net-ftp-a += "perl-module-net-ftp-dataconn "
--RDEPENDS_perl-module-net-ftp-a += "perl-module-carp "
--RDEPENDS_perl-module-net-ftp-a += "perl-module-strict "
--RDEPENDS_perl-module-net-ftp-a += "perl-module-vars "
--RDEPENDS_perl-module-net-ftp-dataconn += "perl-module-carp "
--RDEPENDS_perl-module-net-ftp-dataconn += "perl-module-errno "
--RDEPENDS_perl-module-net-ftp-dataconn += "perl-module-net-cmd "
--RDEPENDS_perl-module-net-ftp-dataconn += "perl-module-vars "
--RDEPENDS_perl-module-net-ftp-e += "perl-module-net-ftp-i "
--RDEPENDS_perl-module-net-ftp-i += "perl-module-net-ftp-dataconn "
--RDEPENDS_perl-module-net-ftp-i += "perl-module-carp "
--RDEPENDS_perl-module-net-ftp-i += "perl-module-vars "
--RDEPENDS_perl-module-net-ftp-l += "perl-module-net-ftp-i "
--RDEPENDS_perl-module-net-ftp += "perl-module-carp "
--RDEPENDS_perl-module-net-ftp += "perl-module-fcntl "
--RDEPENDS_perl-module-net-ftp += "perl-module-io-socket "
--RDEPENDS_perl-module-net-ftp += "perl-module-net-cmd "
--RDEPENDS_perl-module-net-ftp += "perl-module-net-config "
--RDEPENDS_perl-module-net-ftp += "perl-module-socket "
--RDEPENDS_perl-module-net-ftp += "perl-module-strict "
--RDEPENDS_perl-module-net-ftp += "perl-module-time-local "
--RDEPENDS_perl-module-net-ftp += "perl-module-vars "
--RDEPENDS_perl-module-net-hostent += "perl-module-class-struct "
--RDEPENDS_perl-module-net-hostent += "perl-module-strict "
--RDEPENDS_perl-module-net-hostent += "perl-module-vars "
--RDEPENDS_perl-module-net-netent += "perl-module-class-struct "
--RDEPENDS_perl-module-net-netent += "perl-module-strict "
--RDEPENDS_perl-module-net-netent += "perl-module-vars "
--RDEPENDS_perl-module-net-netrc += "perl-module-carp "
--RDEPENDS_perl-module-net-netrc += "perl-module-filehandle "
--RDEPENDS_perl-module-net-netrc += "perl-module-strict "
--RDEPENDS_perl-module-net-netrc += "perl-module-vars "
--RDEPENDS_perl-module-net-nntp += "perl-module-carp "
--RDEPENDS_perl-module-net-nntp += "perl-module-io-socket "
--RDEPENDS_perl-module-net-nntp += "perl-module-net-cmd "
--RDEPENDS_perl-module-net-nntp += "perl-module-net-config "
--RDEPENDS_perl-module-net-nntp += "perl-module-strict "
--RDEPENDS_perl-module-net-nntp += "perl-module-time-local "
--RDEPENDS_perl-module-net-nntp += "perl-module-vars "
--RDEPENDS_perl-module-net-ping += "perl-module-exporter "
--RDEPENDS_perl-module-net-ping += "perl-module-carp "
--RDEPENDS_perl-module-net-ping += "perl-module-constant "
--RDEPENDS_perl-module-net-ping += "perl-module-fcntl "
--RDEPENDS_perl-module-net-ping += "perl-module-filehandle "
--RDEPENDS_perl-module-net-ping += "perl-module-posix "
--RDEPENDS_perl-module-net-ping += "perl-module-strict "
--RDEPENDS_perl-module-net-pop3 += "perl-module-carp "
--RDEPENDS_perl-module-net-pop3 += "perl-module-io-socket "
--RDEPENDS_perl-module-net-pop3 += "perl-module-net-cmd "
--RDEPENDS_perl-module-net-pop3 += "perl-module-net-config "
--RDEPENDS_perl-module-net-pop3 += "perl-module-strict "
--RDEPENDS_perl-module-net-pop3 += "perl-module-vars "
--RDEPENDS_perl-module-net-protoent += "perl-module-class-struct "
--RDEPENDS_perl-module-net-protoent += "perl-module-strict "
--RDEPENDS_perl-module-net-protoent += "perl-module-vars "
--RDEPENDS_perl-module-net-servent += "perl-module-class-struct "
--RDEPENDS_perl-module-net-servent += "perl-module-strict "
--RDEPENDS_perl-module-net-servent += "perl-module-vars "
--RDEPENDS_perl-module-net-smtp += "perl-module-carp "
--RDEPENDS_perl-module-net-smtp += "perl-module-io-socket "
--RDEPENDS_perl-module-net-smtp += "perl-module-net-cmd "
--RDEPENDS_perl-module-net-smtp += "perl-module-net-config "
--RDEPENDS_perl-module-net-smtp += "perl-module-socket "
--RDEPENDS_perl-module-net-smtp += "perl-module-strict "
--RDEPENDS_perl-module-net-smtp += "perl-module-vars "
--RDEPENDS_perl-module-net-time += "perl-module-exporter "
--RDEPENDS_perl-module-net-time += "perl-module-carp "
--RDEPENDS_perl-module-net-time += "perl-module-io-select "
--RDEPENDS_perl-module-net-time += "perl-module-io-socket "
--RDEPENDS_perl-module-net-time += "perl-module-net-config "
--RDEPENDS_perl-module-net-time += "perl-module-strict "
--RDEPENDS_perl-module-net-time += "perl-module-vars "
--RDEPENDS_perl-module-next += "perl-module-carp "
--RDEPENDS_perl-module-next += "perl-module-strict "
--RDEPENDS_perl-module-opcode += "perl-module-carp "
--RDEPENDS_perl-module-opcode += "perl-module-exporter "
--RDEPENDS_perl-module-opcode += "perl-module-strict "
--RDEPENDS_perl-module-opcode += "perl-module-subs "
--RDEPENDS_perl-module-opcode += "perl-module-xsloader "
--RDEPENDS_perl-module-open += "perl-module-carp "
--RDEPENDS_perl-module-open += "perl-module-warnings "
--RDEPENDS_perl-module-ops += "perl-module-opcode "
--RDEPENDS_perl-module-o += "perl-module-b "
--RDEPENDS_perl-module-o += "perl-module-carp "
--RDEPENDS_perl-module-overload += "perl-module-warnings-register "
--RDEPENDS_perl-module-perlio-encoding += "perl-module-strict "
--RDEPENDS_perl-module-perlio-encoding += "perl-module-xsloader "
--RDEPENDS_perl-module-perlio-scalar += "perl-module-xsloader "
--RDEPENDS_perl-module-perlio-via-quotedprint += "perl-module-strict "
--RDEPENDS_perl-module-perlio-via += "perl-module-xsloader "
--RDEPENDS_perl-module-pod-checker += "perl-module-carp "
--RDEPENDS_perl-module-pod-checker += "perl-module-exporter "
--RDEPENDS_perl-module-pod-checker += "perl-module-pod-parser "
--RDEPENDS_perl-module-pod-checker += "perl-module-strict "
--RDEPENDS_perl-module-pod-checker += "perl-module-vars "
--RDEPENDS_perl-module-pod-find += "perl-module-carp "
--RDEPENDS_perl-module-pod-find += "perl-module-cwd "
--RDEPENDS_perl-module-pod-find += "perl-module-exporter "
--RDEPENDS_perl-module-pod-find += "perl-module-file-find "
--RDEPENDS_perl-module-pod-find += "perl-module-file-spec "
--RDEPENDS_perl-module-pod-find += "perl-module-strict "
--RDEPENDS_perl-module-pod-find += "perl-module-vars "
--RDEPENDS_perl-module-pod-functions += "perl-module-exporter "
--RDEPENDS_perl-module-pod-functions += "perl-module-strict "
--RDEPENDS_perl-module-pod-html += "perl-module-exporter "
--RDEPENDS_perl-module-pod-html += "perl-module-carp "
--RDEPENDS_perl-module-pod-html += "perl-module-config "
--RDEPENDS_perl-module-pod-html += "perl-module-cwd "
--RDEPENDS_perl-module-pod-html += "perl-module-file-spec "
--RDEPENDS_perl-module-pod-html += "perl-module-file-spec-unix "
--RDEPENDS_perl-module-pod-html += "perl-module-getopt-long "
--RDEPENDS_perl-module-pod-html += "perl-module-strict "
--RDEPENDS_perl-module-pod-html += "perl-module-vars "
--RDEPENDS_perl-module-pod-inputobjects += "perl-module-strict "
--RDEPENDS_perl-module-pod-inputobjects += "perl-module-vars "
--RDEPENDS_perl-module-pod-latex += "perl-module-pod-parseutils "
--RDEPENDS_perl-module-pod-latex += "perl-module-base "
--RDEPENDS_perl-module-pod-latex += "perl-module-carp "
--RDEPENDS_perl-module-pod-latex += "perl-module-strict "
--RDEPENDS_perl-module-pod-latex += "perl-module-vars "
--RDEPENDS_perl-module-pod-man += "perl-module-carp "
--RDEPENDS_perl-module-pod-man += "perl-module-pod-parselink "
--RDEPENDS_perl-module-pod-man += "perl-module-pod-parser "
--RDEPENDS_perl-module-pod-man += "perl-module-strict "
--RDEPENDS_perl-module-pod-man += "perl-module-subs "
--RDEPENDS_perl-module-pod-man += "perl-module-vars "
--RDEPENDS_perl-module-pod-parselink += "perl-module-exporter "
--RDEPENDS_perl-module-pod-parselink += "perl-module-strict "
--RDEPENDS_perl-module-pod-parselink += "perl-module-vars "
--RDEPENDS_perl-module-pod-parser += "perl-module-carp "
--RDEPENDS_perl-module-pod-parser += "perl-module-exporter "
--RDEPENDS_perl-module-pod-parser += "perl-module-pod-inputobjects "
--RDEPENDS_perl-module-pod-parser += "perl-module-strict "
--RDEPENDS_perl-module-pod-parser += "perl-module-vars "
--RDEPENDS_perl-module-pod-parseutils += "perl-module-carp "
--RDEPENDS_perl-module-pod-parseutils += "perl-module-vars "
--RDEPENDS_perl-module-pod-perldoc-baseto += "perl-module-strict "
--RDEPENDS_perl-module-pod-perldoc-baseto += "perl-module-warnings "
--RDEPENDS_perl-module-pod-perldoc-getoptsoo += "perl-module-strict "
--RDEPENDS_perl-module-pod-perldoc-tochecker += "perl-module-strict "
--RDEPENDS_perl-module-pod-perldoc-tochecker += "perl-module-warnings "
--RDEPENDS_perl-module-pod-perldoc-tochecker += "perl-module-vars "
--RDEPENDS_perl-module-pod-perldoc-toman += "perl-module-base "
--RDEPENDS_perl-module-pod-perldoc-toman += "perl-module-file-spec-functions "
--RDEPENDS_perl-module-pod-perldoc-toman += "perl-module-strict "
--RDEPENDS_perl-module-pod-perldoc-toman += "perl-module-warnings "
--RDEPENDS_perl-module-pod-perldoc-tonroff += "perl-module-base "
--RDEPENDS_perl-module-pod-perldoc-tonroff += "perl-module-pod-man "
--RDEPENDS_perl-module-pod-perldoc-tonroff += "perl-module-strict "
--RDEPENDS_perl-module-pod-perldoc-tonroff += "perl-module-warnings "
--RDEPENDS_perl-module-pod-perldoc-topod += "perl-module-base "
--RDEPENDS_perl-module-pod-perldoc-topod += "perl-module-strict "
--RDEPENDS_perl-module-pod-perldoc-topod += "perl-module-warnings "
--RDEPENDS_perl-module-pod-perldoc-tortf += "perl-module-base "
--RDEPENDS_perl-module-pod-perldoc-tortf += "perl-module-strict "
--RDEPENDS_perl-module-pod-perldoc-tortf += "perl-module-warnings "
--RDEPENDS_perl-module-pod-perldoc-tortf += "perl-module-vars "
--RDEPENDS_perl-module-pod-perldoc-totext += "perl-module-base "
--RDEPENDS_perl-module-pod-perldoc-totext += "perl-module-pod-text "
--RDEPENDS_perl-module-pod-perldoc-totext += "perl-module-strict "
--RDEPENDS_perl-module-pod-perldoc-totext += "perl-module-warnings "
--RDEPENDS_perl-module-pod-perldoc-totk += "perl-module-base "
--RDEPENDS_perl-module-pod-perldoc-totk += "perl-module-file-spec-functions "
--RDEPENDS_perl-module-pod-perldoc-totk += "perl-module-pod-perldoc "
--RDEPENDS_perl-module-pod-perldoc-totk += "perl-module-strict "
--RDEPENDS_perl-module-pod-perldoc-totk += "perl-module-warnings "
--RDEPENDS_perl-module-pod-perldoc-toxml += "perl-module-base "
--RDEPENDS_perl-module-pod-perldoc-toxml += "perl-module-strict "
--RDEPENDS_perl-module-pod-perldoc-toxml += "perl-module-warnings "
--RDEPENDS_perl-module-pod-perldoc-toxml += "perl-module-vars "
--RDEPENDS_perl-module-pod-perldoc += "perl-module-config "
--RDEPENDS_perl-module-pod-perldoc += "perl-module-file-spec-functions "
--RDEPENDS_perl-module-pod-perldoc += "perl-module-strict "
--RDEPENDS_perl-module-pod-perldoc += "perl-module-warnings "
--RDEPENDS_perl-module-pod-plainer += "perl-module-pod-parser "
--RDEPENDS_perl-module-pod-plainer += "perl-module-strict "
--RDEPENDS_perl-module-pod-plaintext += "perl-module-carp "
--RDEPENDS_perl-module-pod-plaintext += "perl-module-pod-select "
--RDEPENDS_perl-module-pod-plaintext += "perl-module-strict "
--RDEPENDS_perl-module-pod-plaintext += "perl-module-vars "
--RDEPENDS_perl-module-pod-select += "perl-module-carp "
--RDEPENDS_perl-module-pod-select += "perl-module-pod-parser "
--RDEPENDS_perl-module-pod-select += "perl-module-strict "
--RDEPENDS_perl-module-pod-select += "perl-module-vars "
--RDEPENDS_perl-module-pod-text-color += "perl-module-pod-text "
--RDEPENDS_perl-module-pod-text-color += "perl-module-strict "
--RDEPENDS_perl-module-pod-text-color += "perl-module-term-ansicolor "
--RDEPENDS_perl-module-pod-text-color += "perl-module-vars "
--RDEPENDS_perl-module-pod-text-overstrike += "perl-module-pod-text "
--RDEPENDS_perl-module-pod-text-overstrike += "perl-module-strict "
--RDEPENDS_perl-module-pod-text-overstrike += "perl-module-vars "
--RDEPENDS_perl-module-pod-text-termcap += "perl-module-pod-text "
--RDEPENDS_perl-module-pod-text-termcap += "perl-module-posix "
--RDEPENDS_perl-module-pod-text-termcap += "perl-module-strict "
--RDEPENDS_perl-module-pod-text-termcap += "perl-module-term-cap "
--RDEPENDS_perl-module-pod-text-termcap += "perl-module-vars "
--RDEPENDS_perl-module-pod-text += "perl-module-carp "
--RDEPENDS_perl-module-pod-text += "perl-module-exporter "
--RDEPENDS_perl-module-pod-text += "perl-module-pod-parselink "
--RDEPENDS_perl-module-pod-text += "perl-module-pod-select "
--RDEPENDS_perl-module-pod-text += "perl-module-strict "
--RDEPENDS_perl-module-pod-text += "perl-module-vars "
--RDEPENDS_perl-module-pod-usage += "perl-module-carp "
--RDEPENDS_perl-module-pod-usage += "perl-module-config "
--RDEPENDS_perl-module-pod-usage += "perl-module-exporter "
--RDEPENDS_perl-module-pod-usage += "perl-module-file-spec "
--RDEPENDS_perl-module-pod-usage += "perl-module-strict "
--RDEPENDS_perl-module-pod-usage += "perl-module-vars "
--RDEPENDS_perl-module-posix += "perl-module-exporter "
--RDEPENDS_perl-module-posix += "perl-module-autoloader "
--RDEPENDS_perl-module-posix += "perl-module-autoloader "
--RDEPENDS_perl-module-posix += "perl-module-xsloader "
--RDEPENDS_perl-module-safe += "perl-module-carp "
--RDEPENDS_perl-module-safe += "perl-module-carp-heavy "
--RDEPENDS_perl-module-safe += "perl-module-strict "
--RDEPENDS_perl-module-scalar-util += "perl-module-exporter "
--RDEPENDS_perl-module-sdbm-file += "perl-module-tie-hash "
--RDEPENDS_perl-module-sdbm-file += "perl-module-strict "
--RDEPENDS_perl-module-sdbm-file += "perl-module-warnings "
--RDEPENDS_perl-module-sdbm-file += "perl-module-xsloader "
--RDEPENDS_perl-module-search-dict += "perl-module-exporter "
--RDEPENDS_perl-module-search-dict += "perl-module-strict "
--RDEPENDS_perl-module-selectsaver += "perl-module-carp "
--RDEPENDS_perl-module-selectsaver += "perl-module-symbol "
--RDEPENDS_perl-module-selfloader += "perl-module-exporter "
--RDEPENDS_perl-module-shell += "perl-module-file-spec-functions "
--RDEPENDS_perl-module-shell += "perl-module-strict "
--RDEPENDS_perl-module-shell += "perl-module-warnings "
--RDEPENDS_perl-module-sigtrap += "perl-module-carp "
--RDEPENDS_perl-module-socket += "perl-module-exporter "
--RDEPENDS_perl-module-socket += "perl-module-carp "
--RDEPENDS_perl-module-socket += "perl-module-warnings-register "
--RDEPENDS_perl-module-socket += "perl-module-xsloader "
--RDEPENDS_perl-module-sort += "perl-module-strict "
--RDEPENDS_perl-module-storable += "perl-module-carp "
--RDEPENDS_perl-module-storable += "perl-module-dynaloader "
--RDEPENDS_perl-module-storable += "perl-module-exporter "
--RDEPENDS_perl-module-storable += "perl-module-autoloader "
--RDEPENDS_perl-module-storable += "perl-module-vars "
--RDEPENDS_perl-module-switch += "perl-module-carp "
--RDEPENDS_perl-module-switch += "perl-module-filter-util-call "
--RDEPENDS_perl-module-switch += "perl-module-strict "
--RDEPENDS_perl-module-switch += "perl-module-text-balanced "
--RDEPENDS_perl-module-switch += "perl-module-vars "
--RDEPENDS_perl-module-symbol += "perl-module-exporter "
--RDEPENDS_perl-module-sys-hostname += "perl-module-autoloader "
--RDEPENDS_perl-module-sys-hostname += "perl-module-exporter "
--RDEPENDS_perl-module-sys-hostname += "perl-module-carp "
--RDEPENDS_perl-module-sys-hostname += "perl-module-strict "
--RDEPENDS_perl-module-sys-syslog += "perl-module-dynaloader "
--RDEPENDS_perl-module-sys-syslog += "perl-module-exporter "
--RDEPENDS_perl-module-sys-syslog += "perl-module-carp "
--RDEPENDS_perl-module-sys-syslog += "perl-module-socket "
--RDEPENDS_perl-module-sys-syslog += "perl-module-strict "
--RDEPENDS_perl-module-sys-syslog += "perl-module-sys-hostname "
--RDEPENDS_perl-module-term-ansicolor += "perl-module-exporter "
--RDEPENDS_perl-module-term-ansicolor += "perl-module-strict "
--RDEPENDS_perl-module-term-cap += "perl-module-strict "
--RDEPENDS_perl-module-term-cap += "perl-module-vars "
--RDEPENDS_perl-module-term-complete += "perl-module-exporter "
--RDEPENDS_perl-module-term-complete += "perl-module-strict "
--RDEPENDS_perl-module-term-readline += "perl-module-strict "
--RDEPENDS_perl-module-test-builder += "perl-module-strict "
--RDEPENDS_perl-module-test-builder += "perl-module-vars "
--RDEPENDS_perl-module-test-harness-assert += "perl-module-exporter "
--RDEPENDS_perl-module-test-harness-assert += "perl-module-strict "
--RDEPENDS_perl-module-test-harness-assert += "perl-module-vars "
--RDEPENDS_perl-module-test-harness-iterator += "perl-module-strict "
--RDEPENDS_perl-module-test-harness-iterator += "perl-module-vars "
--RDEPENDS_perl-module-test-harness-point += "perl-module-strict "
--RDEPENDS_perl-module-test-harness-point += "perl-module-vars "
--RDEPENDS_perl-module-test-harness-straps += "perl-module-config "
--RDEPENDS_perl-module-test-harness-straps += "perl-module-strict "
--RDEPENDS_perl-module-test-harness-straps += "perl-module-test-harness-assert "
--RDEPENDS_perl-module-test-harness-straps += "perl-module-test-harness-iterator "
--RDEPENDS_perl-module-test-harness-straps += "perl-module-test-harness-point "
--RDEPENDS_perl-module-test-harness-straps += "perl-module-vars "
--RDEPENDS_perl-module-test-harness += "perl-module-benchmark "
--RDEPENDS_perl-module-test-harness += "perl-module-config "
--RDEPENDS_perl-module-test-harness += "perl-module-exporter "
--RDEPENDS_perl-module-test-harness += "perl-module-strict "
--RDEPENDS_perl-module-test-harness += "perl-module-test-harness-assert "
--RDEPENDS_perl-module-test-harness += "perl-module-test-harness-straps "
--RDEPENDS_perl-module-test-more += "perl-module-exporter "
--RDEPENDS_perl-module-test-more += "perl-module-strict "
--RDEPENDS_perl-module-test-more += "perl-module-test-builder "
--RDEPENDS_perl-module-test-more += "perl-module-vars "
--RDEPENDS_perl-module-test-simple += "perl-module-strict "
--RDEPENDS_perl-module-test-simple += "perl-module-test-builder "
--RDEPENDS_perl-module-test-simple += "perl-module-vars "
--RDEPENDS_perl-module-test += "perl-module-exporter "
--RDEPENDS_perl-module-test += "perl-module-carp "
--RDEPENDS_perl-module-test += "perl-module-strict "
--RDEPENDS_perl-module-text-abbrev += "perl-module-exporter "
--RDEPENDS_perl-module-text-balanced += "perl-module-exporter "
--RDEPENDS_perl-module-text-balanced += "perl-module-overload "
--RDEPENDS_perl-module-text-balanced += "perl-module-selfloader "
--RDEPENDS_perl-module-text-balanced += "perl-module-strict "
--RDEPENDS_perl-module-text-balanced += "perl-module-vars "
--RDEPENDS_perl-module-text-parsewords += "perl-module-exporter "
--RDEPENDS_perl-module-text-parsewords += "perl-module-vars "
--RDEPENDS_perl-module-text-soundex += "perl-module-exporter "
--RDEPENDS_perl-module-text-tabs += "perl-module-exporter "
--RDEPENDS_perl-module-text-tabs += "perl-module-strict "
--RDEPENDS_perl-module-text-tabs += "perl-module-vars "
--RDEPENDS_perl-module-text-wrap += "perl-module-exporter "
--RDEPENDS_perl-module-text-wrap += "perl-module-strict "
--RDEPENDS_perl-module-text-wrap += "perl-module-text-tabs "
--RDEPENDS_perl-module-thread-queue += "perl-module-strict "
--RDEPENDS_perl-module-thread-queue += "perl-module-threads-shared "
--RDEPENDS_perl-module-thread-semaphore += "perl-module-threads-shared "
--RDEPENDS_perl-module-threads-shared += "perl-module-strict "
--RDEPENDS_perl-module-threads-shared += "perl-module-warnings "
--RDEPENDS_perl-module-threads += "perl-module-dynaloader "
--RDEPENDS_perl-module-threads += "perl-module-exporter "
--RDEPENDS_perl-module-threads += "perl-module-config "
--RDEPENDS_perl-module-threads += "perl-module-strict "
--RDEPENDS_perl-module-threads += "perl-module-warnings "
--RDEPENDS_perl-module-thread += "perl-module-exporter "
--RDEPENDS_perl-module-thread += "perl-module-strict "
--RDEPENDS_perl-module-thread += "perl-module-xsloader "
--RDEPENDS_perl-module-tie-array += "perl-module-carp "
--RDEPENDS_perl-module-tie-array += "perl-module-strict "
--RDEPENDS_perl-module-tie-array += "perl-module-vars "
--RDEPENDS_perl-module-tie-file += "perl-module-carp "
--RDEPENDS_perl-module-tie-file += "perl-module-fcntl "
--RDEPENDS_perl-module-tie-file += "perl-module-posix "
--RDEPENDS_perl-module-tie-file += "perl-module-strict "
--RDEPENDS_perl-module-tie-handle += "perl-module-carp "
--RDEPENDS_perl-module-tie-handle += "perl-module-warnings-register "
--RDEPENDS_perl-module-tie-hash += "perl-module-carp "
--RDEPENDS_perl-module-tie-hash += "perl-module-warnings-register "
--RDEPENDS_perl-module-tie-memoize += "perl-module-strict "
--RDEPENDS_perl-module-tie-memoize += "perl-module-tie-hash "
--RDEPENDS_perl-module-tie-refhash += "perl-module-strict "
--RDEPENDS_perl-module-tie-refhash += "perl-module-tie-hash "
--RDEPENDS_perl-module-tie-refhash += "perl-module-vars "
--RDEPENDS_perl-module-tie-scalar += "perl-module-carp "
--RDEPENDS_perl-module-tie-scalar += "perl-module-warnings-register "
--RDEPENDS_perl-module-tie-substrhash += "perl-module-carp "
--RDEPENDS_perl-module-time-gmtime += "perl-module-strict "
--RDEPENDS_perl-module-time-gmtime += "perl-module-time-tm "
--RDEPENDS_perl-module-time-gmtime += "perl-module-vars "
--RDEPENDS_perl-module-time-hires += "perl-module-dynaloader "
--RDEPENDS_perl-module-time-hires += "perl-module-exporter "
--RDEPENDS_perl-module-time-hires += "perl-module-strict "
--RDEPENDS_perl-module-time-hires += "perl-module-vars "
--RDEPENDS_perl-module-time-localtime += "perl-module-strict "
--RDEPENDS_perl-module-time-localtime += "perl-module-time-tm "
--RDEPENDS_perl-module-time-localtime += "perl-module-vars "
--RDEPENDS_perl-module-time-local += "perl-module-exporter "
--RDEPENDS_perl-module-time-local += "perl-module-carp "
--RDEPENDS_perl-module-time-local += "perl-module-config "
--RDEPENDS_perl-module-time-local += "perl-module-integer "
--RDEPENDS_perl-module-time-local += "perl-module-strict "
--RDEPENDS_perl-module-time-local += "perl-module-vars "
--RDEPENDS_perl-module-time-tm += "perl-module-class-struct "
--RDEPENDS_perl-module-time-tm += "perl-module-strict "
--RDEPENDS_perl-module-unicode-collate += "perl-module-carp "
--RDEPENDS_perl-module-unicode-collate += "perl-module-constant "
--RDEPENDS_perl-module-unicode-collate += "perl-module-file-spec "
--RDEPENDS_perl-module-unicode-collate += "perl-module-strict "
--RDEPENDS_perl-module-unicode-collate += "perl-module-warnings "
--RDEPENDS_perl-module-unicode-normalize += "perl-module-dynaloader "
--RDEPENDS_perl-module-unicode-normalize += "perl-module-exporter "
--RDEPENDS_perl-module-unicode-normalize += "perl-module-carp "
--RDEPENDS_perl-module-unicode-normalize += "perl-module-constant "
--RDEPENDS_perl-module-unicode-normalize += "perl-module-strict "
--RDEPENDS_perl-module-unicode-normalize += "perl-module-warnings "
--RDEPENDS_perl-module-unicode-ucd += "perl-module-exporter "
--RDEPENDS_perl-module-unicode-ucd += "perl-module-carp "
--RDEPENDS_perl-module-unicode-ucd += "perl-module-storable "
--RDEPENDS_perl-module-unicode-ucd += "perl-module-strict "
--RDEPENDS_perl-module-unicode-ucd += "perl-module-warnings "
--RDEPENDS_perl-module-universal += "perl-module-exporter "
--RDEPENDS_perl-module-user-grent += "perl-module-class-struct "
--RDEPENDS_perl-module-user-grent += "perl-module-strict "
--RDEPENDS_perl-module-user-grent += "perl-module-vars "
--RDEPENDS_perl-module-user-pwent += "perl-module-carp "
--RDEPENDS_perl-module-user-pwent += "perl-module-class-struct "
--RDEPENDS_perl-module-user-pwent += "perl-module-config "
--RDEPENDS_perl-module-user-pwent += "perl-module-strict "
--RDEPENDS_perl-module-user-pwent += "perl-module-warnings "
--RDEPENDS_perl-module-user-pwent += "perl-module-vars "
--RDEPENDS_perl-module-warnings-register += "perl-module-warnings "
--RDEPENDS_perl-module-warnings += "perl-module-carp "
--RDEPENDS_perl-module-vars += "perl-module-strict "
--RDEPENDS_perl-module-vars += "perl-module-warnings-register "
--RDEPENDS_perl-module-xs-apitest += "perl-module-base "
--RDEPENDS_perl-module-xs-apitest += "perl-module-carp "
--RDEPENDS_perl-module-xs-apitest += "perl-module-strict "
--RDEPENDS_perl-module-xs-apitest += "perl-module-warnings "
--RDEPENDS_perl-module-xs-typemap += "perl-module-base "
--RDEPENDS_perl-module-xs-typemap += "perl-module-vars "
-diff --git a/meta/recipes-devtools/perl/perl-rprovides_5.12.2.inc b/meta/recipes-devtools/perl/perl-rprovides_5.12.2.inc
+-SRC_URI[md5sum] = "069c8880072060373290a4fefff43520"
+-SRC_URI[sha256sum] = "5abce063cf431790f4e6a801a96c7eea0b33a41ecd0970f6312f52575c083b36"
+-S = "${WORKDIR}/ncurses-${PV}"
+-
+-require ncurses.inc
+diff --git a/meta/recipes-core/ncurses/ncurses_5.7.bb b/meta/recipes-core/ncurses/ncurses_5.7.bb
 new file mode 100644
-index 0000000..9a648db
+index 0000000..485dd20
 --- /dev/null
-+++ b/meta/recipes-devtools/perl/perl-rprovides_5.12.2.inc
-@@ -0,0 +1 @@
-+RPROVIDES_perl-module-module-build += "libmodule-build-perl"
-diff --git a/meta/recipes-devtools/perl/perl_5.12.2.bb b/meta/recipes-devtools/perl/perl_5.12.2.bb
-new file mode 100644
-index 0000000..a7c6e31
---- /dev/null
-+++ b/meta/recipes-devtools/perl/perl_5.12.2.bb
-@@ -0,0 +1,282 @@
-+DESCRIPTION = "Perl is a popular scripting language."
-+HOMEPAGE = "http://www.perl.org/"
-+SECTION = "devel"
-+LICENSE = "Artistic|GPL"
-+LIC_FILES_CHKSUM = "file://Copying;md5=2b4c6ffbcfcbdee469f02565f253d81a \
-+		    file://Artistic;md5=f921793d03cc6d63ec4b15e9be8fd3f8"
-+PRIORITY = "optional"
-+# We need gnugrep (for -I)
-+DEPENDS = "virtual/db perl-native grep-native"
-+DEPENDS += "gdbm zlib"
++++ b/meta/recipes-core/ncurses/ncurses_5.7.bb
+@@ -0,0 +1,242 @@
++DESCRIPTION = "Ncurses library"
++HOMEPAGE = "http://www.gnu.org/software/ncurses/ncurses.html"
++LICENSE = "MIT"
++LIC_FILES_CHKSUM = "file://ncurses/base/version.c;beginline=1;endline=27;md5=cf3c7ab00720a1b83391f49ea9956277"
++SECTION = "libs"
++PATCHDATE = "20100501"
++PKGV = "${PV}+${PATCHDATE}"
 +PR = "r0"
 +
-+# 5.10.1 has Module::Build built-in
-+PROVIDES += "libmodule-build-perl"
++DEPENDS = "ncurses-native unifdef-native"
++DEPENDS_virtclass-native = "unifdef-native"
 +
-+# Major part of version
-+#PVM = "5.12"
++inherit autotools binconfig
 +
-+SRC_URI = "ftp://ftp.funet.fi/pub/CPAN/src/perl-${PV}.tar.gz \
-+        file://Makefile.patch;patch=1 \
-+        file://Makefile.SH.patch;patch=1 \
-+        file://installperl.patch;patch=1 \
-+        file://perl-dynloader.patch;patch=1 \
-+        file://perl-moreconfig.patch;patch=1 \
-+        file://letgcc-find-errno.patch;patch=1 \
-+        file://generate-sh.patch;patch=1 \
-+        file://09_fix_installperl.patch;patch=1 \
-+        file://native-perlinc.patch \
-+        file://perl-enable-gdbm.patch \
-+        file://cross-generate_uudmap.patch \
-+        file://debian/arm_thread_stress_timeout.diff \
-+        file://debian/cpan_config_path.diff \
-+        file://debian/cpan_definstalldirs.diff \
-+        file://debian/db_file_ver.diff \
-+        file://debian/doc_info.diff \
-+        file://debian/enc2xs_inc.diff \
-+        file://debian/errno_ver.diff \
-+        file://debian/extutils_hacks.diff \
-+#        file://debian/fakeroot.diff \
-+        file://debian/instmodsh_doc.diff \
-+        file://debian/ld_run_path.diff \
-+        file://debian/libnet_config_path.diff \
-+        file://debian/m68k_thread_stress.diff \
-+        file://debian/mod_paths.diff \
-+        file://debian/module_build_man_extensions.diff \
-+        file://debian/prune_libs.diff \
-+        file://debian/fixes/net_smtp_docs.diff \
-+        file://debian/fixes/processPL.diff \
-+        file://debian/perlivp.diff \
-+        file://debian/disable-zlib-bundling.diff \
-+        file://debian/cpanplus_definstalldirs.diff \
-+        file://debian/cpanplus_config_path.diff \
-+        file://debian/fixes/autodie-flock.diff \
-+        file://debian/devel-ppport-ia64-optim.diff \
-+        file://debian/fixes/cpanplus-without-home.diff \
-+        file://debian/arm_optim.diff \
-+        file://debian/deprecate-with-apt.diff \
-+        file://debian/fixes/hurd-ccflags.diff \
-+        file://debian/squelch-locale-warnings.diff \
-+        file://debian/fixes/lc-numeric-docs.diff \
-+        file://debian/fixes/lc-numeric-sprintf.diff \
-+        file://debian/fixes/concat-stack-corruption.diff \
-+        file://debian/fixes/h2ph-gcc-4.5.diff \
-+        file://config.sh \
-+        file://config.sh-32 \
-+        file://config.sh-32-le \
-+        file://config.sh-32-be \
-+        file://config.sh-64 \
-+        file://config.sh-64-le \
-+        file://config.sh-64-be"
++SRC_URI = "${GNU_MIRROR}/ncurses/ncurses-${PV}.tar.gz;name=tarball \
++        ftp://invisible-island.net/ncurses/5.7/ncurses-5.7-20100424-patch.sh.bz2;apply=yes;name=p20100424sh \
++\
++        ftp://invisible-island.net/ncurses/5.7/ncurses-5.7-${PATCHDATE}.patch.gz;name=p20100501 \
++        file://tic-hang.patch \
++        file://config.cache \
++"
 +
-+SRC_URI[md5sum] = "af2df531d46b77fdf0d97eecb03eddb2"
-+SRC_URI[sha256sum] = "cf888340021d5a2d1238bbd9b8b55aaf420a848d46e4d317cb8567f86ceb1022"
++SRC_URI[tarball.md5sum] = "cce05daf61a64501ef6cd8da1f727ec6"
++SRC_URI[tarball.sha256sum] = "0a9bdea5c7de8ded5c9327ed642915f2cc380753f12d4ad120ef7da3ea3498f4"
++SRC_URI[p20100424sh.md5sum] = "3a5f76613f0f7ec3e0e73b835bc24864"
++SRC_URI[p20100424sh.sha256sum] = "1e9d70d2d1fe1fea471868832c52f1b9cc6065132102e49e2a3755f2f4f5be53"
++SRC_URI[p20100501.md5sum] = "6518cfa5d45e9069a1e042468161448b"
++SRC_URI[p20100501.sha256sum] = "a97ccc30e4bd6fbb89564f3058db0fe84bd35cfefee831556c500793b477abde"
 +
-+inherit siteinfo
++PARALLEL_MAKE = ""
++EXTRA_AUTORECONF = "-I m4"
++CONFIG_SITE =+ "${WORKDIR}/config.cache"
 +
-+# Where to find the native perl
-+HOSTPERL = "${STAGING_BINDIR_NATIVE}/perl${PV}"
++# Whether to enable separate widec libraries; must be 'true' or 'false'
++#
++# TODO: remove this variable when widec is supported in every setup?
++ENABLE_WIDEC = "true"
 +
-+# Where to find .so files - use the -native versions not those from the target build
-+export PERLHOSTLIB = "${STAGING_LIBDIR_NATIVE}/perl/${PV}/"
++# _GNU_SOURCE is required for widec stuff and is detected automatically
++# for target objects.  But it must be set manually for native and sdk
++# builds.
++BUILD_CPPFLAGS += "-D_GNU_SOURCE"
 +
-+# LDFLAGS for shared libraries
-+export LDDLFLAGS = "${LDFLAGS} -shared"
-+
-+# We're almost Debian, aren't we?
-+CFLAGS += "-DDEBIAN"
-+
-+do_nolargefile() {
-+	sed -i -e "s,\(uselargefiles=\)'define',\1'undef',g" \
-+		-e "s,\(d_readdir64_r=\)'define',\1'undef',g" \
-+		-e "s,\(readdir64_r_proto=\)'\w+',\1'0',g" \
-+		-e "/ccflags_uselargefiles/d" \
-+		-e "s/-Duselargefiles//" \
-+		-e "s/-D_FILE_OFFSET_BITS=64//" \
-+		-e "s/-D_LARGEFILE_SOURCE//" \
-+		${S}/Cross/config.sh-${TARGET_ARCH}-${TARGET_OS}
-+}
-+
++# Override the function from the autotools class; ncurses requires a
++# patched autoconf213 to generate the configure script. This autoconf
++# is not available so that the shipped script will be used.
 +do_configure() {
-+        # Make hostperl in build directory be the native perl
-+        ln -sf ${HOSTPERL} hostperl
++        # check does not work with cross-compiling and is generally
++        # broken because it requires stdin to be pollable (which is
++        # not the case for /dev/null redirections)
++        export cf_cv_working_poll=yes
 +
-+        # Do our work in the cross subdir
-+        cd Cross
++        for i in \
++        'narrowc' \
++        'widec   --enable-widec --without-progs'; do
++                set -- $i
++                mkdir -p $1
++                cd $1
++                shift
 +
-+        # Generate configuration
-+        rm -f config.sh-${TARGET_ARCH}-${TARGET_OS}
-+        for i in ${WORKDIR}/config.sh \
-+                 ${WORKDIR}/config.sh-${@siteinfo_get_bits(d)} \
-+                 ${WORKDIR}/config.sh-${@siteinfo_get_bits(d)}-${@siteinfo_get_endianess(d)}; do
-+            cat $i >> config.sh-${TARGET_ARCH}-${TARGET_OS}
++                oe_runconf \
++                        --disable-static \
++                        --without-debug \
++                        --without-ada \
++                        --without-gpm \
++                        --enable-hard-tabs \
++                        --enable-xmc-glitch \
++                        --enable-colorfgbg \
++                        --with-termpath='${sysconfdir}/termcap:${datadir}/misc/termcap' \
++                        --with-terminfo-dirs='${sysconfdir}/terminfo:${datadir}/terminfo' \
++                        --with-shared \
++                        --disable-big-core \
++                        --program-prefix= \
++                        --with-ticlib \
++                        --with-termlib=tinfo \
++                        --enable-sigwinch \
++                        --enable-pc-files \
++                        --disable-rpath-hack \
++                        "$@"
++                cd ..
 +        done
-+
-+        # Fixups for uclibc
-+        if [ "${TARGET_OS}" = "linux-uclibc" -o "${TARGET_OS}" = "linux-uclibceabi" ]; then
-+                sed -i -e "s,\(d_crypt_r=\)'define',\1'undef',g" \
-+                       -e "s,\(d_futimes=\)'define',\1'undef',g" \
-+                       -e "s,\(crypt_r_proto=\)'\w+',\1'0',g" \
-+                       -e "s,\(d_getnetbyname_r=\)'define',\1'undef',g" \
-+                       -e "s,\(getnetbyname_r_proto=\)'\w+',\1'0',g" \
-+                       -e "s,\(d_getnetbyaddr_r=\)'define',\1'undef',g" \
-+                       -e "s,\(getnetbyaddr_r_proto=\)'\w+',\1'0',g" \
-+                       -e "s,\(d_getnetent_r=\)'define',\1'undef',g" \
-+                       -e "s,\(getnetent_r_proto=\)'\w+',\1'0',g" \
-+                       -e "s,\(d_sockatmark=\)'define',\1'undef',g" \
-+                       -e "s,\(d_sockatmarkproto=\)'\w+',\1'0',g" \
-+                    config.sh-${TARGET_ARCH}-${TARGET_OS}
-+        fi
-+
-+	${@base_contains('DISTRO_FEATURES', 'largefile', '', 'do_nolargefile', d)}
-+
-+        # Update some paths in the configuration
-+        sed -i -e 's,@DESTDIR@,${prefix},g' \
-+               -e 's,@ARCH@-thread-multi,,g' \
-+               -e 's,@ARCH@,${TARGET_ARCH}-${TARGET_OS},g' \
-+               -e "s%/usr/include%${STAGING_INCDIR}%g" \
-+	       -e 's,/usr/,${exec_prefix}/,g' \
-+	       -e 's,/perl5,/perl,g' \
-+            config.sh-${TARGET_ARCH}-${TARGET_OS}
-+
-+        if test "${MACHINE}" != "native"; then
-+            # These are strewn all over the source tree
-+            for foo in `grep -I -m1 \/usr\/include\/.*\\.h ${WORKDIR}/* -r | cut -f 1 -d ":"` ; do
-+                echo Fixing: $foo
-+                sed -e "s%/usr/include/%${STAGING_INCDIR}/%g" -i $foo
-+            done
-+        fi
-+
-+        rm -f config
-+        echo "ARCH = ${TARGET_ARCH}" > config
-+        echo "OS = ${TARGET_OS}" >> config
 +}
 +
 +do_compile() {
-+        if test "${MACHINE}" != "native"; then
-+            sed -i -e 's|/usr/include|${STAGING_INCDIR}|g' ext/Errno/Errno_pm.PL
-+            sed -i -e 's|/usr/include|${STAGING_INCDIR}|g' cpan/Compress-Raw-Zlib/config.in
-+            sed -i -e 's|/usr/lib|${STAGING_LIBDIR}|g' cpan/Compress-Raw-Zlib/config.in
++        oe_runmake -C narrowc libs
++        oe_runmake -C narrowc/progs
 +
-+        fi
-+        cd Cross
-+        oe_runmake perl LD="${CCLD}"
++        ! ${ENABLE_WIDEC} || \
++            oe_runmake -C widec libs
 +}
++
++# set of expected differences between narrowc and widec header
++#
++# TODO: the NCURSES_CH_T difference can cause real problems :(
++_unifdef_cleanup = " \
++  -e '\!/\* \$Id: curses.wide,v!,\!/\* \$Id: curses.tail,v!d' \
++  -e '/^#define NCURSES_CH_T /d' \
++  -e '/^#include <wchar.h>/d' \
++  -e '\!^/\* .* \*/!d' \
++"
++
++do_test[dirs] = "${S}"
++do_test() {
++        ${ENABLE_WIDEC} || return 0
++
++        # make sure that the narrow and widec header are compatible
++        # and differ only in minor details.
++        unifdef -k narrowc/include/curses.h | \
++            sed ${_unifdef_cleanup} > curses-narrowc.h
++        unifdef -k widec/include/curses.h | \
++            sed ${_unifdef_cleanup} > curses-widec.h
++
++        diff curses-narrowc.h curses-widec.h
++}
++
++_install_opts = "\
++  DESTDIR='${D}' \
++  PKG_CONFIG_LIBDIR='${libdir}/pkgconfig' \
++  install.libs install.includes install.man \
++"
 +
 +do_install() {
-+	oe_runmake install DESTDIR=${D}
-+        # Add perl pointing at current version
-+        ln -sf perl${PV} ${D}${bindir}/perl
++        # Order of installation is important; widec installs a 'curses.h'
++        # header with more definitions and must be installed last hence.
++        # Compatibility of these headers will be checked in 'do_test()'.
++        oe_runmake -C narrowc ${_install_opts} \
++                install.data install.progs
 +
-+        ln -sf ${D}/${libdir}/perl ${D}/${libdir}/perl5
++        ! ${ENABLE_WIDEC} || \
++            oe_runmake -C widec ${_install_opts}
 +
-+        # Remove unwanted file
-+        rm -f ${D}/${libdir}/perl/${PV}/.packlist
 +
-+        # Fix up shared library
-+        mv ${D}/${libdir}/perl/${PV}/CORE/libperl.so ${D}/${libdir}/libperl.so.${PV}
-+        ln -sf libperl.so.${PV} ${D}/${libdir}/libperl.so.5
++        cd narrowc
 +
-+        # target config, used by cpan.bbclass to extract version information
-+        install config.sh ${D}${libdir}/perl/
++        # include some basic terminfo files
++        # stolen ;) from gentoo and modified a bit
++        for x in ansi console dumb linux rxvt screen sun vt{52,100,102,200,220} xterm-color xterm-xfree86
++        do
++                local termfile="$(find "${D}${datadir}/terminfo/" -name "${x}" 2>/dev/null)"
++                local basedir="$(basename $(dirname "${termfile}"))"
 +
-+        ln -s ${D}${libdir}/perl/${PV}/Config_heavy.pl ${D}${libdir}/perl/${PV}/Config_heavy-target.pl
++                if [ -n "${termfile}" ]
++                then
++                        install -d ${D}${sysconfdir}/terminfo/${basedir}
++                        mv ${termfile} ${D}${sysconfdir}/terminfo/${basedir}/
++                        ln -s /etc/terminfo/${basedir}/${x} \
++                                ${D}${datadir}/terminfo/${basedir}/${x}
++                fi
++        done
++        # i think we can use xterm-color as default xterm
++        if [ -e ${D}${sysconfdir}/terminfo/x/xterm-color ]
++        then
++                ln -sf xterm-color ${D}${sysconfdir}/terminfo/x/xterm
++        fi
 +
++        if [ "${PN}" = "ncurses" ]; then
++                mv ${D}${bindir}/clear ${D}${bindir}/clear.${PN}
++                mv ${D}${bindir}/reset ${D}${bindir}/reset.${PN}
++        fi
++
++
++        # create linker scripts for libcurses.so and libncurses to
++        # link against -ltinfo when needed. Some builds might break
++        # else when '-Wl,--no-copy-dt-needed-entries' has been set in
++        # linker flags.
++        for i in libncurses libncursesw; do
++		f=${D}${libdir}/$i.so
++                test -h $f || continue
++                rm -f $f
++                echo '/* GNU ld script */'  >$f
++                echo "INPUT($i.so.5 AS_NEEDED(-ltinfo))" >>$f
++        done
++
++        # create libtermcap.so linker script for backward compatibility
++        f=${D}${libdir}/libtermcap.so
++        echo '/* GNU ld script */' >$f
++        echo 'INPUT(AS_NEEDED(-ltinfo))' >>$f
 +}
 +
-+PACKAGE_PREPROCESS_FUNCS += "perl_package_preprocess"
++python populate_packages_prepend () {
++        libdir = bb.data.expand("${libdir}", d)
++        pnbase = bb.data.expand("${PN}-lib%s", d)
++        do_split_packages(d, libdir, '^lib(.*)\.so\..*', pnbase, 'ncurses %s library', prepend=True, extra_depends = '', allow_links=True)
++}
 +
-+perl_package_preprocess () {
-+        # Fix up installed configuration
-+        if test "${MACHINE}" != "native"; then
-+            sed -i -e "s,${D},,g" \
-+                   -e "s,-isystem${STAGING_INCDIR} ,,g" \
-+                   -e "s,${STAGING_LIBDIR},${libdir},g" \
-+                   -e "s,${STAGING_BINDIR},${bindir},g" \
-+                   -e "s,${STAGING_INCDIR},${includedir},g" \
-+                   -e "s,${STAGING_BINDIR_NATIVE}/,,g" \
-+                ${PKGD}${bindir}/h2xs \
-+                ${PKGD}${bindir}/h2ph \
-+                ${PKGD}${libdir}/perl/${PV}/pod/*.pod \
-+                ${PKGD}${libdir}/perl/${PV}/cacheout.pl \
-+                ${PKGD}${libdir}/perl/${PV}/FileCache.pm \
-+                ${PKGD}${libdir}/perl/config.sh \
-+                ${PKGD}${libdir}/perl/${PV}/Config.pm \
-+                ${PKGD}${libdir}/perl/${PV}/Config_heavy.pl \
-+                ${PKGD}${libdir}/perl/${PV}/CORE/perl.h \
-+                ${PKGD}${libdir}/perl/${PV}/CORE/pp.h
++
++pkg_postinst_ncurses-tools () {
++        if [ "${PN}" = "ncurses" ]; then
++                update-alternatives --install ${bindir}/clear clear clear.${PN} 100
++                update-alternatives --install ${bindir}/reset reset reset.${PN} 100
 +        fi
 +}
 +
-+PACKAGES = "perl-dbg perl perl-misc perl-dev perl-pod perl-doc perl-lib \
-+            perl-module-cpan perl-module-cpanplus perl-module-unicore"
-+FILES_${PN} = "${bindir}/perl ${bindir}/perl${PV}"
-+FILES_${PN}-dev = "${libdir}/perl/${PV}/CORE"
-+FILES_${PN}-lib = "${libdir}/libperl.so* \
-+                   ${libdir}/perl5 \
-+                   ${libdir}/perl/config.sh \
-+                   ${libdir}/perl/${PV}/Config_heavy.pl \
-+                   ${libdir}/perl/${PV}/Config_heavy-target.pl"
-+FILES_${PN}-pod = "${libdir}/perl/${PV}/pod \
-+		   ${libdir}/perl/${PV}/*.pod \
-+                   ${libdir}/perl/${PV}/*/*.pod \
-+                   ${libdir}/perl/${PV}/*/*/*.pod "
-+FILES_perl-misc = "${bindir}/*"
-+FILES_${PN}-dbg += "${libdir}/perl/${PV}/auto/*/.debug \
-+                    ${libdir}/perl/${PV}/auto/*/*/.debug \
-+                    ${libdir}/perl/${PV}/auto/*/*/*/.debug \
-+                    ${libdir}/perl/${PV}/CORE/.debug \
-+                    ${libdir}/perl/${PV}/*/.debug \
-+                    ${libdir}/perl/${PV}/*/*/.debug \
-+                    ${libdir}/perl/${PV}/*/*/*/.debug "
-+FILES_${PN}-doc = "${libdir}/perl/${PV}/*/*.txt \
-+                   ${libdir}/perl/${PV}/*/*/*.txt \
-+                   ${libdir}/perl/${PV}/B/assemble \
-+                   ${libdir}/perl/${PV}/B/cc_harness \
-+                   ${libdir}/perl/${PV}/B/disassemble \
-+                   ${libdir}/perl/${PV}/B/makeliblinks \
-+                   ${libdir}/perl/${PV}/CGI/eg \
-+                   ${libdir}/perl/${PV}/CPAN/PAUSE2003.pub \
-+                   ${libdir}/perl/${PV}/CPAN/SIGNATURE \
-+		   ${libdir}/perl/${PV}/CPANPLUS/Shell/Default/Plugins/HOWTO.pod \
-+                   ${libdir}/perl/${PV}/Encode/encode.h \
-+                   ${libdir}/perl/${PV}/ExtUtils/MANIFEST.SKIP \
-+                   ${libdir}/perl/${PV}/ExtUtils/NOTES \
-+                   ${libdir}/perl/${PV}/ExtUtils/PATCHING \
-+                   ${libdir}/perl/${PV}/ExtUtils/typemap \
-+                   ${libdir}/perl/${PV}/ExtUtils/xsubpp \
-+		   ${libdir}/perl/${PV}/ExtUtils/Changes_EU-Install \
-+                   ${libdir}/perl/${PV}/Net/*.eg \
-+                   ${libdir}/perl/${PV}/unicore/mktables \
-+                   ${libdir}/perl/${PV}/unicore/mktables.lst \
-+                   ${libdir}/perl/${PV}/unicore/version "
-+
-+FILES_perl-module-cpan += "${libdir}/perl/${PV}/CPAN \
-+                           ${libdir}/perl/${PV}/CPAN.pm"
-+FILES_perl-module-cpanplus += "${libdir}/perl/${PV}/CPANPLUS \
-+                               ${libdir}/perl/${PV}/CPANPLUS.pm"
-+FILES_perl-module-unicore += "${libdir}/perl/${PV}/unicore"
-+
-+# Create a perl-modules package recommending all the other perl
-+# packages (actually the non modules packages and not created too)
-+ALLOW_EMPTY_perl-modules = "1"
-+PACKAGES_append = " perl-modules "
-+RRECOMMENDS_perl-modules = "${@bb.data.getVar('PACKAGES', d, 1).replace('perl-modules ', '').replace('perl-dbg ', '').replace('perl-misc ', '').replace('perl-dev ', '').replace('perl-pod ', '').replace('perl-doc ', '')}"
-+
-+python populate_packages_prepend () {
-+        libdir = bb.data.expand('${libdir}/perl/${PV}', d)
-+        do_split_packages(d, libdir, 'auto/(Encode/.[^/]*)/.*', 'perl-module-%s', 'perl module %s', recursive=True, allow_dirs=False, match_path=True, prepend=False)
-+        do_split_packages(d, libdir, 'auto/([^/]*)/.*', 'perl-module-%s', 'perl module %s', recursive=True, allow_dirs=False, match_path=True, prepend=False)
-+        do_split_packages(d, libdir, 'Module/([^\/]*).*', 'perl-module-%s', 'perl module %s', recursive=True, allow_dirs=False, match_path=True, prepend=False)
-+        do_split_packages(d, libdir, '(^(?!(CPAN\/|CPANPLUS\/|Module\/|unicore\/|auto\/)[^\/]).*)\.(pm|pl|e2x)', 'perl-module-%s', 'perl module %s', recursive=True, allow_dirs=False, match_path=True, prepend=False)
++pkg_prerm_ncurses-tools () {
++        if [ "${PN}" = "ncurses" ]; then
++                update-alternatives --remove clear clear.${PN}
++                update-alternatives --remove reset reset.${PN}
++        fi
 +}
 +
-+PACKAGES_DYNAMIC = "perl-module-*"
++BBCLASSEXTEND = "native nativesdk"
 +
-+RPROVIDES_perl-lib = "perl-lib"
++PACKAGES += " \
++  ${PN}-tools \
++  ${PN}-terminfo \
++  ${PN}-terminfo-base \
++"
 +
-+require perl-rdepends_${PV}.inc
-+require perl-rprovides.inc
-+require perl-rprovides_${PV}.inc
++FILES_${PN} = "\
++  ${bindir}/tput \
++  ${bindir}/tset \
++  ${bindir}/ncurses5-config \
++  ${bindir}/ncursesw5-config \
++  ${datadir}/tabset \
++"
 +
-+PARALLEL_MAKE = ""
-diff --git a/meta/recipes-devtools/perl/perl_5.8.8.bb b/meta/recipes-devtools/perl/perl_5.8.8.bb
-deleted file mode 100644
-index 2515b6e..0000000
---- a/meta/recipes-devtools/perl/perl_5.8.8.bb
-+++ /dev/null
-@@ -1,225 +0,0 @@
--DESCRIPTION = "Perl is a popular scripting language."
--HOMEPAGE = "http://www.perl.org/"
--SECTION = "devel"
--LICENSE = "Artistic|GPL"
--LIC_FILES_CHKSUM = "file://Copying;md5=2b4c6ffbcfcbdee469f02565f253d81a \
--		    file://Artistic;md5=f921793d03cc6d63ec4b15e9be8fd3f8"
--PRIORITY = "optional"
--# We need gnugrep (for -I)
--DEPENDS = "virtual/db perl-native grep-native"
--DEPENDS += "gdbm"
--PR = "r21"
--
--# Major part of version
--PVM = "5.8"
--
--SRC_URI = "ftp://ftp.funet.fi/pub/CPAN/src/perl-${PV}.tar.gz \
--        file://Makefile.patch;patch=1 \
--        file://Makefile.SH.patch;patch=1 \
--        file://makedepend-dash.patch;patch=1 \
--        file://installperl.patch;patch=1 \
--        file://perl-dynloader.patch;patch=1 \
--        file://perl-moreconfig.patch;patch=1 \
--        file://letgcc-find-errno.patch;patch=1 \
--        file://generate-sh.patch;patch=1 \
--        file://perl-5.8.8-gcc-4.2.patch;patch=1 \
--        file://09_fix_installperl.patch;patch=1 \
--        file://52_debian_extutils_hacks.patch;patch=1 \
--        file://53_debian_mod_paths.patch;patch=1 \
--        file://54_debian_perldoc-r.patch;patch=1 \
--        file://58_debian_cpan_config_path.patch;patch=1 \
--        file://60_debian_libnet_config_path.patch;patch=1 \
--        file://62_debian_cpan_definstalldirs.patch;patch=1 \
--        file://64_debian_enc2xs_inc.patch;patch=1 \
--        file://asm-pageh-fix.patch;patch=1 \
--        file://native-perlinc.patch;patch=1 \
--	file://perl-enable-gdbm.patch;patch=1 \
--        file://config.sh \
--        file://config.sh-32 \
--        file://config.sh-32-le \
--        file://config.sh-32-be \
--        file://config.sh-64 \
--        file://config.sh-64-le \
--        file://config.sh-64-be"
--
--SRC_URI[md5sum] = "b8c118d4360846829beb30b02a6b91a7"
--SRC_URI[sha256sum] = "e15d499321e003d12ed183601e37ee7ba5f64b278d1de30149ce01bd4a3f234d"
--
--inherit siteinfo
--
--# Where to find the native perl
--HOSTPERL = "${STAGING_BINDIR_NATIVE}/perl${PV}"
--
--# Where to find .so files - use the -native versions not those from the target build
--export PERLHOSTLIB = "${STAGING_LIBDIR_NATIVE}/perl/${PV}/"
--
--do_configure() {
--        # Make hostperl in build directory be the native perl
--        ln -s ${HOSTPERL} hostperl
--
--        # Do our work in the cross subdir
--        cd Cross
--
--        # Generate configuration
--        rm -f config.sh-${TARGET_ARCH}-${TARGET_OS}
--        for i in ${WORKDIR}/config.sh \
--                 ${WORKDIR}/config.sh-${@siteinfo_get_bits(d)} \
--                 ${WORKDIR}/config.sh-${@siteinfo_get_bits(d)}-${@siteinfo_get_endianess(d)}; do
--            cat $i >> config.sh-${TARGET_ARCH}-${TARGET_OS}
--        done
--
--        # Fixups for uclibc
--        if [ "${TARGET_OS}" = "linux-uclibc" -o "${TARGET_OS}" = "linux-uclibcgnueabi" ]; then
--                sed -i -e "s,\(d_crypt_r=\)'define',\1'undef',g" \
--                       -e "s,\(crypt_r_proto=\)'\w+',\1'0',g" \
--                       -e "s,\(d_getnetbyname_r=\)'define',\1'undef',g" \
--                       -e "s,\(getnetbyname_r_proto=\)'\w+',\1'0',g" \
--                       -e "s,\(d_getnetbyaddr_r=\)'define',\1'undef',g" \
--                       -e "s,\(getnetbyaddr_r_proto=\)'\w+',\1'0',g" \
--                       -e "s,\(d_getnetent_r=\)'define',\1'undef',g" \
--                       -e "s,\(getnetent_r_proto=\)'\w+',\1'0',g" \
--                       -e "s,\(d_sockatmark=\)'define',\1'undef',g" \
--                       -e "s,\(d_sockatmarkproto=\)'\w+',\1'0',g" \
--                    config.sh-${TARGET_ARCH}-${TARGET_OS}
--        fi
--
--        # Update some paths in the configuration
--        sed -i -e 's,@LIBDIR@,${libdir},g' \
--               -e 's,@BINDIR@,${bindir},g' \
--               -e 's,@MANDIR@,${mandir},g' \
--               -e 's,@PREFIX@,${prefix},g' \
--               -e 's,@DATADIR@,${datadir},g' \
--               -e 's,@ARCH@,${TARGET_ARCH}-${TARGET_OS},g' \
--               -e "s%/usr/include/%${STAGING_INCDIR}/%g" \
--	       -e 's,/usr/,${exec_prefix}/,g' \
--            config.sh-${TARGET_ARCH}-${TARGET_OS}
--
--
--         # These are strewn all over the source tree
--        for foo in `grep -I -m1 \/usr\/include\/.*\\.h ${WORKDIR}/* -r | cut -f 1 -d ":"` ; do
--            echo Fixing: $foo
--            sed -e "s%/usr/include/%${STAGING_INCDIR}/%g" -i $foo
--        done
--
--        rm -f config
--        echo "ARCH = ${TARGET_ARCH}" > config
--        echo "OS = ${TARGET_OS}" >> config
--}
--
--do_compile() {
--        if test "${MACHINE}" != "native"; then
--            sed -i -e 's|/usr/include|${STAGING_INCDIR}|g' ext/Errno/Errno_pm.PL
--        fi
--        cd Cross
--        oe_runmake perl LD="${TARGET_SYS}-gcc"
--}
--
--do_install() {
--	oe_runmake 'DESTDIR=${D}' install
--
--        # Add perl pointing at current version
--        ln -sf perl${PV} ${D}${bindir}/perl
--
--        # Fix up versioned directories
--        mv ${D}/${libdir}/perl/${PVM} ${D}/${libdir}/perl/${PV}
--        mv ${D}/${datadir}/perl/${PVM} ${D}/${datadir}/perl/${PV}
--        ln -sf ${PV} ${D}/${libdir}/perl/${PVM}
--        ln -sf ${PV} ${D}/${datadir}/perl/${PVM}
--
--        # Remove unwanted file
--        rm -f ${D}/${libdir}/perl/${PV}/.packlist
--
--        # Fix up shared library
--        mv -f ${D}/${libdir}/perl/${PV}/CORE/libperl.so ${D}/${libdir}/libperl.so.${PV}
--        ln -sf libperl.so.${PV} ${D}/${libdir}/libperl.so.5
--
--        # target config, used by cpan.bbclass to extract version information
--        install config.sh ${D}${libdir}/perl/
--
--        install -d ${D}${datadir}/perl/${PV}/ExtUtils
--	install lib/ExtUtils/typemap ${D}${datadir}/perl/${PV}/ExtUtils/
--	
--	ln -s Config_heavy.pl ${D}${libdir}/perl/${PV}/Config_heavy-target.pl
--}
--
--PACKAGE_PREPROCESS_FUNCS += "perl_package_preprocess"
--
--perl_package_preprocess () {
--        # Fix up installed configuration
--        sed -i -e "s,${D},,g" \
--                   -e "s,-isystem${STAGING_INCDIR} ,,g" \
--                   -e "s,${STAGING_LIBDIR},${libdir},g" \
--                   -e "s,${STAGING_BINDIR},${bindir},g" \
--                   -e "s,${STAGING_INCDIR},${includedir},g" \
--                   -e "s,${STAGING_BINDIR_NATIVE}/,,g" \
--                ${PKGD}${bindir}/h2xs \
--                ${PKGD}${bindir}/h2ph \
--                ${PKGD}${datadir}/perl/${PV}/pod/*.pod \
--                ${PKGD}${datadir}/perl/${PV}/cacheout.pl \
--                ${PKGD}${datadir}/perl/${PV}/FileCache.pm \
--                ${PKGD}${libdir}/perl/config.sh \
--                ${PKGD}${libdir}/perl/${PV}/Config.pm \
--                ${PKGD}${libdir}/perl/${PV}/Config_heavy.pl \
--                ${PKGD}${libdir}/perl/${PV}/CORE/perl.h \
--                ${PKGD}${libdir}/perl/${PV}/CORE/pp.h
--}
--
--PACKAGES = "perl-dbg perl perl-misc perl-lib perl-dev perl-pod perl-doc"
--FILES_${PN} = "${bindir}/perl ${bindir}/perl${PV}"
--FILES_${PN}-lib = "${libdir}/libperl.so* ${libdir}/perl/${PVM} ${datadir}/perl/${PVM}"
--FILES_${PN}-dev = "${libdir}/perl/${PV}/CORE"
--FILES_${PN}-pod = "${datadir}/perl/${PV}/pod \
--                   ${datadir}/perl/${PV}/*/*.pod \
--                   ${datadir}/perl/${PV}/*/*/*.pod \
--                   ${libdir}/perl/${PV}/*.pod"
--FILES_perl-misc = "${bindir}/*"
--FILES_${PN}-dbg += "${libdir}/perl/${PV}/auto/*/.debug \
--                    ${libdir}/perl/${PV}/auto/*/*/.debug \
--                    ${libdir}/perl/${PV}/auto/*/*/*/.debug \
--                    ${datadir}/perl/${PV}/auto/*/.debug \
--                    ${datadir}/perl/${PV}/auto/*/*/.debug \
--                    ${datadir}/perl/${PV}/auto/*/*/*/.debug \
--                    ${libdir}/perl/${PV}/CORE/.debug"
--FILES_${PN}-doc = "${datadir}/perl/${PV}/*/*.txt \
--                   ${datadir}/perl/${PV}/*/*/*.txt \
--                   ${datadir}/perl/${PV}/Net/*.eg \
--                   ${datadir}/perl/${PV}/CGI/eg \
--                   ${datadir}/perl/${PV}/ExtUtils/PATCHING \
--                   ${datadir}/perl/${PV}/ExtUtils/NOTES \
--                   ${datadir}/perl/${PV}/ExtUtils/typemap \
--                   ${datadir}/perl/${PV}/ExtUtils/MANIFEST.SKIP \
--                   ${datadir}/perl/${PV}/CPAN/SIGNATURE \
--                   ${datadir}/perl/${PV}/CPAN/PAUSE2003.pub \
--                   ${datadir}/perl/${PV}/B/assemble \
--                   ${datadir}/perl/${PV}/B/makeliblinks \
--                   ${datadir}/perl/${PV}/B/disassemble \
--                   ${datadir}/perl/${PV}/B/cc_harness \
--                   ${datadir}/perl/${PV}/ExtUtils/xsubpp \
--                   ${datadir}/perl/${PV}/Encode/encode.h \
--                   ${datadir}/perl/${PV}/unicore/mktables \
--                   ${datadir}/perl/${PV}/unicore/mktables.lst \
--                   ${datadir}/perl/${PV}/unicore/version"
--
--RPROVIDES_perl-lib = "perl-lib"
--
--# Create a perl-modules package recommending all the other perl
--# packages (actually the non modules packages and not created too)
--ALLOW_EMPTY_perl-modules = "1"
--PACKAGES_append = " perl-modules "
--RRECOMMENDS_perl-modules = "${@bb.data.getVar('PACKAGES', d, 1).replace('perl-modules ', '').replace('perl-dbg ', '').replace('perl-misc ', '').replace('perl-dev ', '').replace('perl-pod ', '').replace('perl-doc ', '')}"
--
--python populate_packages_prepend () {
--        libdir = bb.data.expand('${libdir}/perl/${PV}', d)
--        do_split_packages(d, libdir, 'auto/(.*)(?!\.debug)/', 'perl-module-%s', 'perl module %s', recursive=True, allow_dirs=False, match_path=True)
--        do_split_packages(d, libdir, '(.*)\.(pm|pl|e2x)', 'perl-module-%s', 'perl module %s', recursive=True, allow_dirs=False, match_path=True)
--        datadir = bb.data.expand('${datadir}/perl/${PV}', d)
--        do_split_packages(d, datadir, 'auto/(.*)(?!\.debug)/', 'perl-module-%s', 'perl module %s', recursive=True, allow_dirs=False, match_path=True)
--        do_split_packages(d, datadir, '(.*)\.(pm|pl|e2x)', 'perl-module-%s', 'perl module %s', recursive=True, allow_dirs=False, match_path=True)
--}
--
--PACKAGES_DYNAMIC = "perl-module-*"
--
--require perl-rdepends_${PV}.inc
--require perl-rprovides.inc
--
--PARALLEL_MAKE = ""
++# This keeps only tput/tset in ncurses
++# clear/reset are in already busybox
++FILES_${PN}-tools = "\
++  ${bindir}/tic \
++  ${bindir}/toe \
++  ${bindir}/infotocap \
++  ${bindir}/captoinfo \
++  ${bindir}/infocmp \
++  ${bindir}/clear.${PN} \
++  ${bindir}/reset.${PN} \
++  ${bindir}/tack \
++  ${bindir}/tabs \
++"
++# 'reset' is a symlink to 'tset' which is in the 'ncurses' package
++RDEPENDS_${PN}-tools = "${PN}"
++
++FILES_${PN}-terminfo = "\
++  ${datadir}/terminfo \
++"
++
++FILES_${PN}-terminfo-base = "\
++  ${sysconfdir}/terminfo \
++"
++
++RSUGGESTS_${PN}-libtinfo = "${PN}-terminfo"
++RRECOMMENDS_${PN}-libtinfo = "${PN}-terminfo-base"
 -- 
-1.7.2.3
+1.7.0
 
 
