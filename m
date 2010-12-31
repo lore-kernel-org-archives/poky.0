@@ -1,21 +1,24 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 342D94C811E5
-	for <poky@yoctoproject.org>; Thu, 30 Dec 2010 18:40:43 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 30 Dec 2010 16:40:43 -0800
+Return-Path: <qing.he@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 0660F4C80050
+	for <poky@yoctoproject.org>; Thu, 30 Dec 2010 21:21:45 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 30 Dec 2010 19:21:45 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,252,1291622400"; d="scan'208";a="588501078"
-Received: from unknown (HELO localhost) ([10.255.13.230])
-	by orsmga002.jf.intel.com with ESMTP; 30 Dec 2010 16:40:42 -0800
-Message-Id: <c4fb725dd3fa36a3b43cf1b584f2112a553a8bff.1293755504.git.dvhart@linux.intel.com>
-In-Reply-To: <cover.1293755504.git.dvhart@linux.intel.com>
-References: <cover.1293755504.git.dvhart@linux.intel.com>
-From: Darren Hart <dvhart@linux.intel.com>
-Old-Date: Tue, 28 Dec 2010 09:23:29 -0800
-Date: Thu, 30 Dec 2010 16:40:42 -0800
+X-IronPort-AV: E=Sophos;i="4.60,253,1291622400"; d="scan'208";a="873204928"
+Received: from qhe2-db.sh.intel.com ([10.239.13.38])
+	by fmsmga001.fm.intel.com with ESMTP; 30 Dec 2010 19:21:45 -0800
+Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
+	(envelope-from <qing.he@intel.com>)
+	id 1PYVTQ-0001gr-G5; Fri, 31 Dec 2010 11:16:12 +0800
+Message-Id: <50026ee392818241df44f847fca14e985cdd5797.1293765141.git.qing.he@intel.com>
+In-Reply-To: <cover.1293765141.git.qing.he@intel.com>
+References: <cover.1293765141.git.qing.he@intel.com>
+From: Qing He <qing.he@intel.com>
+Old-Date: Fri, 31 Dec 2010 09:55:31 +0800
+Date: Fri, 31 Dec 2010 11:16:12 +0800
 To: poky@yoctoproject.org
-Subject: [PATCH 5/5] meta-rt: atom-pc support
+Subject: [PATCH 5/6] augeas: upgrade to version 0.7.4
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,54 +30,43 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 31 Dec 2010 00:40:43 -0000
+X-List-Received-Date: Fri, 31 Dec 2010 03:21:46 -0000
 
-Add support for the atom-pc machine to the meta-rt layer.  This patch depends on
-the corresponding support for the linux-2.6-windriver git repository, sent
-previously to this list.
+from 0.7.3
 
-[PATCH 0/1] linux-2.6-windriver: add atom-pc preempt_rt support
-
-Signed-off-by: Darren Hart <dvhart@linux.intel.com>
-CC: Tom Zanussi <tom.zanussi@intel.com>
-CC: Bruce Ashfield <bruce.ashfield@windriver.com>
+Signed-off-by: Qing He <qing.he@intel.com>
 ---
- meta-rt/conf/layer.conf                            |    1 +
- meta-rt/recipes-kernel/linux-yocto-rt_stablegit.bb |    3 ++-
- 2 files changed, 3 insertions(+), 1 deletions(-)
+ meta/recipes-extended/augeas/augeas_0.7.3.bb |    6 ------
+ meta/recipes-extended/augeas/augeas_0.7.4.bb |    6 ++++++
+ 2 files changed, 6 insertions(+), 6 deletions(-)
+ delete mode 100644 meta/recipes-extended/augeas/augeas_0.7.3.bb
+ create mode 100644 meta/recipes-extended/augeas/augeas_0.7.4.bb
 
-diff --git a/meta-rt/conf/layer.conf b/meta-rt/conf/layer.conf
-index dbf4a32..b033054 100644
---- a/meta-rt/conf/layer.conf
-+++ b/meta-rt/conf/layer.conf
-@@ -19,4 +19,5 @@ PREFERRED_PROVIDER_virtual/kernel = "linux-yocto-rt"
- # preempt_rt SRCREVs, one for meta, one per machine
- SRCREV_meta_pn-linux-yocto-rt ?= "50ccd2b3213b6a1bacb3f898c035119802dac420"
- SRCREV_machine_pn-linux-yocto-rt_qemux86-64 ?= "f49444f06875894389e640bcda6c3f6ceb1f0c3e"
-+SRCREV_machine_pn-linux-yocto-rt_atom-pc ?= "6b8ac43a084fc5903335edf74c951b3f532f4e78"
- 
-diff --git a/meta-rt/recipes-kernel/linux-yocto-rt_stablegit.bb b/meta-rt/recipes-kernel/linux-yocto-rt_stablegit.bb
-index 361b680..547f8fe 100644
---- a/meta-rt/recipes-kernel/linux-yocto-rt_stablegit.bb
-+++ b/meta-rt/recipes-kernel/linux-yocto-rt_stablegit.bb
-@@ -2,6 +2,7 @@ inherit kernel
- require recipes-kernel/linux/linux-yocto.inc
- 
- KMACHINE_qemux86-64  = "common_pc_64"
-+KMACHINE_atom-pc  = "atom-pc"
- 
- LINUX_VERSION ?= "2.6.34"
- LINUX_KERNEL_TYPE = "preempt_rt"
-@@ -11,7 +12,7 @@ PR = "r0"
- PV = "${LINUX_VERSION}+git${SRCPV}"
- SRCREV_FORMAT = "meta_machine"
- 
--COMPATIBLE_MACHINE = "(qemux86-64)"
-+COMPATIBLE_MACHINE = "(qemux86-64|atom-pc)"
- 
- # this performs a fixup on the SRCREV for new/undefined BSPs
- python __anonymous () {
+diff --git a/meta/recipes-extended/augeas/augeas_0.7.3.bb b/meta/recipes-extended/augeas/augeas_0.7.3.bb
+deleted file mode 100644
+index 2549f6c..0000000
+--- a/meta/recipes-extended/augeas/augeas_0.7.3.bb
++++ /dev/null
+@@ -1,6 +0,0 @@
+-require augeas.inc
+-
+-PR = "r0"
+-
+-SRC_URI[md5sum] = "d907943fc21c2d1db5dc8d97ec02a9e5"
+-SRC_URI[sha256sum] = "10be72446699fdcaad66e800bd83a74b4af4da40348eaca04effd8677c11514a"
+diff --git a/meta/recipes-extended/augeas/augeas_0.7.4.bb b/meta/recipes-extended/augeas/augeas_0.7.4.bb
+new file mode 100644
+index 0000000..eada58f
+--- /dev/null
++++ b/meta/recipes-extended/augeas/augeas_0.7.4.bb
+@@ -0,0 +1,6 @@
++require augeas.inc
++
++PR = "r0"
++
++SRC_URI[md5sum] = "e3ddce5305a15bdb876ef7feec9214d1"
++SRC_URI[sha256sum] = "02ba7b4f1d0796dff6ea5f8cc5f4949e4ba30b7fa2f36a0c8a5079f9975060d1"
 -- 
-1.7.1
+1.7.0
 
 
