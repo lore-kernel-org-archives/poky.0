@@ -1,44 +1,39 @@
 Return-Path: <bruce.ashfield@gmail.com>
-Received: from mail-iy0-f176.google.com (mail-iy0-f176.google.com
-	[209.85.210.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D74ED4C80FBE
-	for <poky@yoctoproject.org>; Fri, 31 Dec 2010 00:11:42 -0600 (CST)
+Received: from mail-iw0-f176.google.com (mail-iw0-f176.google.com
+	[209.85.214.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id B58FE4C80BD4
+	for <poky@yoctoproject.org>; Fri, 31 Dec 2010 00:15:15 -0600 (CST)
 Authentication-Results: mx1.pokylinux.org; dkim=pass
 	(1024-bit key; insecure key) header.i=@gmail.com;
 	x-dkim-adsp=none (insecure policy)
-Received: by iyb26 with SMTP id 26so12212707iyb.35
-	for <poky@yoctoproject.org>; Thu, 30 Dec 2010 22:11:42 -0800 (PST)
+Received: by iwn2 with SMTP id 2so13360676iwn.35
+	for <poky@yoctoproject.org>; Thu, 30 Dec 2010 22:15:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
 	h=domainkey-signature:mime-version:received:received:in-reply-to
 	:references:date:message-id:subject:from:to:cc:content-type
 	:content-transfer-encoding;
-	bh=lOiIj8shIB3tl4JDUvU5D0jSFca414Jw8Kp0rYz3eS0=;
-	b=xfpdWucUDmg/13LkSLzAJk0+T5I0o/KI3vdyzV11ElkyzQkHQeppVqvwNTg4Hr+M0/
-	Old750uZRzUnIZhXGL4jT0rHVvm2H+Bc8pRpWlWrwGGvXHDHn1w2Ung3YmcyyW4v1Vay
-	VFftkuFrD5zpm31bQu+WHkgVaysPhIwh7MPp4=
+	bh=32W8a4Sdj5W6uHecPssxyeKkp0MFq8MA593rN2vTvJs=;
+	b=KP6RKo/MRt4GTPKm/uJZ/z3dQPrswdrDUbZhBnxLSh5w1Jp1OOpTNY9fdleYmJmsTA
+	5U9pElArAhxuByaKygBt0EaZ67L9wvxFWUeep7C0yqnumh6JvVRkIGdu6/B6SEfk9ZVS
+	a429fwMOJuvnWvWTZgBliMSjjGCNKCLZFJ/f4=
 DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
 	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
 	:cc:content-type:content-transfer-encoding;
-	b=Cff7DVNOIgyLzZ9cK9bBIbuTzXEgBEYcxQBzUXFCQ6ts1DdIy7dyfkOpsfQns+p21k
-	jCKvhq/e3noIwFj1DdZK9p8fdnu54QAKcsgIuVf5MsXogs9w08VnmWV+Da5WqgbMQx4b
-	YuGN03APvLohnXQIQKi4CkyAGKAbBrFjaUB6E=
+	b=QoSnfqQ7eoBr4BwFrzNRusTgtJyKZRfxr1Tx6OhevgrJhWR1TgAu8sP8fmYx/O4rGq
+	zuZ5ereI8YJaLHyF4QbJ6Og6DLyQj1Mx+so9wEY5IQCOHLYjN3IRRnpeHftNKmfrK/4i
+	arw5OWaWkN7p8W4VXjHhWqeOSJav3ZF2V9sK8=
 MIME-Version: 1.0
-Received: by 10.231.199.10 with SMTP id eq10mr16897229ibb.112.1293775902594;
-	Thu, 30 Dec 2010 22:11:42 -0800 (PST)
-Received: by 10.231.156.136 with HTTP; Thu, 30 Dec 2010 22:11:42 -0800 (PST)
-In-Reply-To: <4D1D0857.5090006@linux.intel.com>
-References: <4D1A8103.2030501@linux.intel.com>
-	<625BA99ED14B2D499DC4E29D8138F1504D64C30DB7@shsmsx502.ccr.corp.intel.com>
-	<4D1A86E3.1070007@linux.intel.com>
-	<AANLkTi=EfFUs-fi6veKCdvi0XeDT+veP7eNx6YVEKauF@mail.gmail.com>
-	<AANLkTinJuvie9iAhSeB=O+PWmB2Yr0X1HYy4+EG8LVme@mail.gmail.com>
-	<4D1D0857.5090006@linux.intel.com>
-Date: Fri, 31 Dec 2010 01:11:42 -0500
-Message-ID: <AANLkTikckBMvtvG6shrO-RNcnaVXsfuu48QjrP4Osbzs@mail.gmail.com>
+Received: by 10.231.207.84 with SMTP id fx20mr16893831ibb.62.1293776115415;
+	Thu, 30 Dec 2010 22:15:15 -0800 (PST)
+Received: by 10.231.156.136 with HTTP; Thu, 30 Dec 2010 22:15:15 -0800 (PST)
+In-Reply-To: <cover.1293755504.git.dvhart@linux.intel.com>
+References: <cover.1293755504.git.dvhart@linux.intel.com>
+Date: Fri, 31 Dec 2010 01:15:15 -0500
+Message-ID: <AANLkTim9yeaCcBCmQsdxEZC6Kh0MiVC59V+qjOKYdKUj@mail.gmail.com>
 From: Bruce Ashfield <bruce.ashfield@gmail.com>
 To: Darren Hart <dvhart@linux.intel.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: Library paths for Makefile based recipes
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/5] meta-rt: create a real-time layer
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -50,134 +45,90 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 31 Dec 2010 06:11:43 -0000
+X-List-Received-Date: Fri, 31 Dec 2010 06:15:16 -0000
 Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Dec 30, 2010 at 5:31 PM, Darren Hart <dvhart@linux.intel.com> wrote=
+On Thu, Dec 30, 2010 at 7:40 PM, Darren Hart <dvhart@linux.intel.com> wrote=
 :
-> On 12/30/2010 01:10 PM, Bruce Ashfield wrote:
->>
->> On Thu, Dec 30, 2010 at 4:08 PM, Bruce Ashfield
->> <bruce.ashfield@gmail.com> =A0wrote:
->>>
->>> On Tue, Dec 28, 2010 at 7:54 PM, Darren Hart<dvhart@linux.intel.com>
->>> =A0wrote:
->>>>
->>>> On 12/28/2010 04:43 PM, Tian, Kevin wrote:
->>>>>>
->>>>>> From: Darren Hart
->>>>>> Sent: Wednesday, December 29, 2010 8:30 AM
->>>>>>
->>>>>> I'm working on packaging kernelshark ("make gui" for the trace-cmd
->>>>>> recipe
->>>>>> basically). It fails trying to link to -lgtk-x11-2.0. I have added
->>>>>> gtk+
->>>>>> as a DEPENDS and the library does exist in the sysroots. I have also
->>>>>> added
->>>>>> "inherit pkgconfig" as the project Makefile uses it extensively.
->>>>>>
->>>>>> gcc trace-view-main.o trace-view.o trace-view-store.o trace-filter.o
->>>>>> trace-compat.o
->>>>>> trace-hash.o libtracecmd.a -rdynamic -o trace-view -pthread
->>>>>> -lgtk-x11-2.0
->>>>>> -lgdk-x11-2.0
->>>>>> -latk-1.0 -lgio-2.0 -lpangoft2-1.0 -lgdk_pixbuf-2.0 -lpangocairo-1.0
->>>>>> -lcairo -lpango-1.0
->>>>>> -lfreetype -lfontconfig -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -l=
-rt
->>>>>> -lglib-2.0 =A0 -L.
->>>>>> -ltracecmd -ldl
->>>>>> | /usr/bin/ld: cannot find -lgtk-x11-2.0
->>>>>
->>>>> it looks that native gcc/binutils are used here, instead of the cross
->>>>> one.
->>>>> Or else gcc
->>>>> should have a target prefix like i568-poky-linux-gcc, and ld should
->>>>> come
->>>>> from your
->>>>> native sysroot...
->>>>
->>>>
->>>> Yes, I noticed this too. Turns out the Makefile was forcing CC=3Dgcc.
->>>>
->>>>
->>>>>
->>>>>> | collect2: ld returned 1 exit status
->>>>>> | make[1]: *** [trace-view] Error 1
->>>>>> | make[1]: *** Waiting for unfinished jobs....
->>>>>> | make: *** [gui] Error 2
->>>>>> | FATAL: oe_runmake failed
->>>>>> | ERROR: Task failed: ('function do_compile failed',
->>>>>>
->>>>>>
->>>>>> '/vol/1/dvhart/poky.git/build/tmp/work/core2-poky-linux/kernelshark-=
-1.0.4+git0+0d2522
->>>>>> 24626bd6926324f023a65f20c165232891-r0/temp/log.do_compile.12830')
->>>>>> NOTE: package
->>>>>> kernelshark-1.0.4+git0+0d252224626bd6926324f023a65f20c165232891-r0:
->>>>>> task
->>>>>> do_compile: Failed
->>>>>> ERROR: Task 8
->>>>>>
->>>>>>
->>>>>> (/home/dvhart/data/poky.git/meta/recipes-kernel/trace-cmd/kernelshar=
-k_git.bb,
->>>>>> do_compile) failed with 1
->>>>>> ERROR:
->>>>>>
->>>>>> '/home/dvhart/data/poky.git/meta/recipes-kernel/trace-cmd/kernelshar=
-k_git.bb'
->>>>>> failed
->>>>>>
->>>>>> Without the "gui" target, trace-cmd doesn't link against anything
->>>>>> outside
->>>>>> of
->>>>>> libc and ld, so the original recipe doesn't run into this.
->>>>>
->>>>> given earlier confusion, I'm worried whether original trace-cmd does
->>>>> work
->>>>> as expected,
->>>>> e.g. whether it runs on a non-x86 target?
->>>>
->>>>
->>>> I'm confident it does not. I'll be sending a fix for that along with m=
-y
->>>> kernelshark recipe.
->>>
->>> Something smells wrong here, must have been an update to trace-cmd,
->>> I ran trace-cmd on all architectures when doing the initial work. So I'=
-m
->>> quite confident that it did :)
->>
->> Hit send too soon. A quick check shows that we were carrying a patch
->> that modified trace-cmd a bit, which might explain how it was working
->> on all archs previously.
+> Add a real-time layer to build the linux-yocto preempt_rt kernel type for
+> specific machines. It also adds the rt-tests test suite. This series
+> adds qemux86-64 support (build and boot tested) as well as atom-pc, which
+> builds and creates the ext3 image, but the live image is missing the root=
+fs
+> for some reason.
 >
-> Where is this patch? Is it one we need to re-apply or send to Steven?
+> Rather than continue to sit on these, I thought I'd get them out there wh=
+ile
+> I continue to try and sort out the atom-pc issue.
 
-It was just one that made CROSS_COMPILE work for all major architectures,
-but it looks to be somewhat tied to the toolchain (and some toolchain
-wrappers).
+Good plan. For my part, I've been factoring out more common parts
+of the yocto kernel recipes, but we shouldn't be holding on those
+at all. Once approved and in tree, I can actually test the factoring
+on these before sending it for review, since there's nothing wrong with
+having the duplication briefly.
 
-If you already had plans to address this with the more bare-bones yocto/pok=
-y
-gcc toolchain, it is probably best to pursue that. If you run into
-trouble, I can
-track them down. But I did double check, and I've got logs of trace-cmd, be=
-ing
-run on several non-x86 architectures (which is what caught my eye initially=
-, we
-can come up with something different here).
+That being said, I'm only ack'ing the series for now (and particularly
+the kernel parts), since I won't be back to the office full time until
+Tuesday next week to take a better look at these.
 
 Cheers,
 
 Bruce
 
 >
-> --
-> Darren Hart
-> Yocto Linux Kernel
+> There has been much discussion surrounding where real-time support should=
+ be
+> in the repositories. Most recently we discussed including it as part of t=
+he
+> main poky repository. I think this makes the most sense as the rt kernels=
+ are
+> built from the same kernel repositories as the other linux-yocto kernels.
+>
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+> =A0Branch: dvhart/meta-rt
+> =A0Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=3Ddvhart=
+/meta-rt
+>
+> Thanks,
+> =A0 =A0Darren Hart <dvhart@linux.intel.com>
+> ---
+>
+>
+> Darren Hart (5):
+> =A0meta-rt: Initial PREEMPT_RT layer and kernel recipes
+> =A0meta-rt/rt-tests: add the PREEMPT_RT rt-tests testsuite and
+> =A0 =A0recipes-tests directory
+> =A0meta-rt/poky-image-*rt: Add initial PREEMPT_RT image recipes
+> =A0machine/qemu: Allow for users to override the preferred kernel
+> =A0 =A0version
+> =A0meta-rt: atom-pc support
+>
+> =A0meta-rt/conf/layer.conf =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
+=A0 =A0 =A0| =A0 23 +++++++++++
+> =A0meta-rt/images/poky-image-minimal-rt-directdisk.bb | =A0 15 +++++++
+> =A0meta-rt/images/poky-image-minimal-rt-live.bb =A0 =A0 =A0 | =A0 15 ++++=
++++
+> =A0meta-rt/images/poky-image-minimal-rt.bb =A0 =A0 =A0 =A0 =A0 =A0| =A0 1=
+2 ++++++
+> =A0meta-rt/recipes-kernel/linux-yocto-rt_stablegit.bb | =A0 40 ++++++++++=
+++++++++++
+> =A0meta-rt/recipes-tests/rt-tests_git.bb =A0 =A0 =A0 =A0 =A0 =A0 =A0| =A0=
+ 22 +++++++++++
+> =A0meta/conf/machine/include/qemu.inc =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 | =
+=A0 =A02 +-
+> =A07 files changed, 128 insertions(+), 1 deletions(-)
+> =A0create mode 100644 meta-rt/conf/layer.conf
+> =A0create mode 100644 meta-rt/images/poky-image-minimal-rt-directdisk.bb
+> =A0create mode 100644 meta-rt/images/poky-image-minimal-rt-live.bb
+> =A0create mode 100644 meta-rt/images/poky-image-minimal-rt.bb
+> =A0create mode 100644 meta-rt/recipes-kernel/linux-yocto-rt_stablegit.bb
+> =A0create mode 100644 meta-rt/recipes-tests/rt-tests_git.bb
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 >
 
 
