@@ -1,39 +1,25 @@
-Return-Path: <bruce.ashfield@gmail.com>
-Received: from mail-iw0-f176.google.com (mail-iw0-f176.google.com
-	[209.85.214.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B58FE4C80BD4
-	for <poky@yoctoproject.org>; Fri, 31 Dec 2010 00:15:15 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by iwn2 with SMTP id 2so13360676iwn.35
-	for <poky@yoctoproject.org>; Thu, 30 Dec 2010 22:15:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:received:received:in-reply-to
-	:references:date:message-id:subject:from:to:cc:content-type
-	:content-transfer-encoding;
-	bh=32W8a4Sdj5W6uHecPssxyeKkp0MFq8MA593rN2vTvJs=;
-	b=KP6RKo/MRt4GTPKm/uJZ/z3dQPrswdrDUbZhBnxLSh5w1Jp1OOpTNY9fdleYmJmsTA
-	5U9pElArAhxuByaKygBt0EaZ67L9wvxFWUeep7C0yqnumh6JvVRkIGdu6/B6SEfk9ZVS
-	a429fwMOJuvnWvWTZgBliMSjjGCNKCLZFJ/f4=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type:content-transfer-encoding;
-	b=QoSnfqQ7eoBr4BwFrzNRusTgtJyKZRfxr1Tx6OhevgrJhWR1TgAu8sP8fmYx/O4rGq
-	zuZ5ereI8YJaLHyF4QbJ6Og6DLyQj1Mx+so9wEY5IQCOHLYjN3IRRnpeHftNKmfrK/4i
-	arw5OWaWkN7p8W4VXjHhWqeOSJav3ZF2V9sK8=
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C0D4F4C80050
+	for <poky@yoctoproject.org>; Fri, 31 Dec 2010 01:41:18 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 30 Dec 2010 23:41:18 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,254,1291622400"; d="scan'208";a="873258613"
+Received: from unknown (HELO [10.255.13.230]) ([10.255.13.230])
+	by fmsmga001.fm.intel.com with ESMTP; 30 Dec 2010 23:41:18 -0800
+Message-ID: <4D1D890E.1010205@linux.intel.com>
+Date: Thu, 30 Dec 2010 23:41:02 -0800
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
 MIME-Version: 1.0
-Received: by 10.231.207.84 with SMTP id fx20mr16893831ibb.62.1293776115415;
-	Thu, 30 Dec 2010 22:15:15 -0800 (PST)
-Received: by 10.231.156.136 with HTTP; Thu, 30 Dec 2010 22:15:15 -0800 (PST)
-In-Reply-To: <cover.1293755504.git.dvhart@linux.intel.com>
-References: <cover.1293755504.git.dvhart@linux.intel.com>
-Date: Fri, 31 Dec 2010 01:15:15 -0500
-Message-ID: <AANLkTim9yeaCcBCmQsdxEZC6Kh0MiVC59V+qjOKYdKUj@mail.gmail.com>
-From: Bruce Ashfield <bruce.ashfield@gmail.com>
-To: Darren Hart <dvhart@linux.intel.com>
+To: Bruce Ashfield <bruce.ashfield@gmail.com>
+References: <cover.1293731824.git.dvhart@linux.intel.com>	<a01f0a62cfa9dfd7d3c9809f9cb439100a9eb61d.1293731824.git.dvhart@linux.intel.com>	<AANLkTi=HVSpVxnx9QbU++mRMMW=csPz13PyT+vVX28b7@mail.gmail.com>	<4D1D07E7.7010000@linux.intel.com>
+	<AANLkTi=Vb-Dp_FgSg45n2FjwbRYN7UfjQSgjGFadrn-s@mail.gmail.com>
+In-Reply-To: <AANLkTi=Vb-Dp_FgSg45n2FjwbRYN7UfjQSgjGFadrn-s@mail.gmail.com>
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/5] meta-rt: create a real-time layer
+Subject: Re: [PATCH 1/3] trace-cmd: fix cross-compilation
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -45,95 +31,94 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 31 Dec 2010 06:15:16 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Fri, 31 Dec 2010 07:41:19 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Dec 30, 2010 at 7:40 PM, Darren Hart <dvhart@linux.intel.com> wrote=
-:
-> Add a real-time layer to build the linux-yocto preempt_rt kernel type for
-> specific machines. It also adds the rt-tests test suite. This series
-> adds qemux86-64 support (build and boot tested) as well as atom-pc, which
-> builds and creates the ext3 image, but the live image is missing the root=
-fs
-> for some reason.
+On 12/30/2010 10:08 PM, Bruce Ashfield wrote:
+> On Thu, Dec 30, 2010 at 5:29 PM, Darren Hart<dvhart@linux.intel.com>  wrote:
+>> On 12/30/2010 01:02 PM, Bruce Ashfield wrote:
+>>>
+>>> On Tue, Dec 28, 2010 at 8:17 PM, Darren Hart<dvhart@linux.intel.com>
+>>>   wrote:
+>>>>
+>>>> The trace-cmd Makefile forces certain variables, such as CC and AR.
+>>>> It was using the host gcc and loader, fix it to use the poky-built
+>>>> cross-compiler and linker.
+>>>>
+>>>> inherit pkgconfig to ensure we don't use the host pkg-config.
+>>>>
+>>>> Remove unecessary variables from the oemake commands, such as ARCH
+>>>> and LD which aren't used by the Makefile.
+>>>>
+>>>> Signed-off-by: Darren Hart<dvhart@linux.intel.com>
+>>>> CC: Tom Zanussi<tom.zanussi@intel.com>
+>>>
+>>> I actually hacked up the original of this one .. ;)
+>>
+>> Right, sorry, forgot to check git blame on this one.
 >
-> Rather than continue to sit on these, I thought I'd get them out there wh=
-ile
-> I continue to try and sort out the atom-pc issue.
+> Probably wouldn't have helped, in the recipe re-org it looks like my blame
+> was dropped :)
+>
+>>
+>>>
+>>>
+>>>> ---
+>>>>   meta/recipes-kernel/trace-cmd/trace-cmd_git.bb |   12 +++++-------
+>>>>   1 files changed, 5 insertions(+), 7 deletions(-)
+>>>>
+>>>> diff --git a/meta/recipes-kernel/trace-cmd/trace-cmd_git.bb
+>>>> b/meta/recipes-kernel/trace-cmd/trace-cmd_git.bb
+>>>> index e375afc..a7eca5f 100644
+>>>> --- a/meta/recipes-kernel/trace-cmd/trace-cmd_git.bb
+>>>> +++ b/meta/recipes-kernel/trace-cmd/trace-cmd_git.bb
+>>>> @@ -2,18 +2,16 @@ DESCRIPTION = "User interface to Ftrace"
+>>>>   LICENSE = "GPL"
+>>>>   LIC_FILES_CHKSUM = "file://COPYING;md5=751419260aa954499f7abaabaa882bbe"
+>>>>
+>>>> -PR = r1
+>>>> +PR = r2
+>>>>   PV = "1.0.4+git${SRCPV}"
+>>>>
+>>>> +inherit pkgconfig
+>>>> +
+>>>>   SRC_URI =
+>>>> "git://git.kernel.org/pub/scm/linux/kernel/git/rostedt/trace-cmd.git;protocol=git"
+>>>>   S = "${WORKDIR}/git"
+>>>>
+>>>> -
+>>>> -do_compile() {
+>>>> -       oe_runmake ARCH="${ARCH}" CC="${CC}" LD="${LD}" prefix=${prefix}
+>>>> -}
+>>>> +EXTRA_OEMAKE = "'CC=${CC}' 'AR=${AR}' 'prefix=${prefix}'"
+>>>
+>>> So we've determined that we don't need ARCH anymore ? At one point
+>>> this did. Or is it coming from the pkgconfig inheritance now ?
+>>
+>> Good question. My understanding of setting these variables here was to
+>> override whatever the Makefile was using. This makefile doesn't use ARCH at
+>
+> They were initially imported from a non-bitbake build of the tool, so there
+> very well could have been differences introduced simply by the history. But
+> yes, they were passed to override the defaults of the trace-cmd Makefile
+> and prevent the defaults from being used.
+>
+> At one point, there were arch specific switches in the build to adapt to a
+> different userspace on a per-arch basis. But those changes were circa
+> March 2010 and they never were picked up.
+>
+>> all. Am I missing something about how this is used?
+>
+> It doesn't look like it, I was more noticing that you dropped ARCH, and
+> was just looking to see if there were more details than just the commit
+> message.
 
-Good plan. For my part, I've been factoring out more common parts
-of the yocto kernel recipes, but we shouldn't be holding on those
-at all. Once approved and in tree, I can actually test the factoring
-on these before sending it for review, since there's nothing wrong with
-having the duplication briefly.
+Nope, looks like trace-cmd's Makefile has just changed some.
 
-That being said, I'm only ack'ing the series for now (and particularly
-the kernel parts), since I won't be back to the office full time until
-Tuesday next week to take a better look at these.
+Are you OK with these patches then?
 
-Cheers,
-
-Bruce
-
->
-> There has been much discussion surrounding where real-time support should=
- be
-> in the repositories. Most recently we discussed including it as part of t=
-he
-> main poky repository. I think this makes the most sense as the rt kernels=
- are
-> built from the same kernel repositories as the other linux-yocto kernels.
->
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
-> =A0Branch: dvhart/meta-rt
-> =A0Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=3Ddvhart=
-/meta-rt
->
-> Thanks,
-> =A0 =A0Darren Hart <dvhart@linux.intel.com>
-> ---
->
->
-> Darren Hart (5):
-> =A0meta-rt: Initial PREEMPT_RT layer and kernel recipes
-> =A0meta-rt/rt-tests: add the PREEMPT_RT rt-tests testsuite and
-> =A0 =A0recipes-tests directory
-> =A0meta-rt/poky-image-*rt: Add initial PREEMPT_RT image recipes
-> =A0machine/qemu: Allow for users to override the preferred kernel
-> =A0 =A0version
-> =A0meta-rt: atom-pc support
->
-> =A0meta-rt/conf/layer.conf =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
-=A0 =A0 =A0| =A0 23 +++++++++++
-> =A0meta-rt/images/poky-image-minimal-rt-directdisk.bb | =A0 15 +++++++
-> =A0meta-rt/images/poky-image-minimal-rt-live.bb =A0 =A0 =A0 | =A0 15 ++++=
-+++
-> =A0meta-rt/images/poky-image-minimal-rt.bb =A0 =A0 =A0 =A0 =A0 =A0| =A0 1=
-2 ++++++
-> =A0meta-rt/recipes-kernel/linux-yocto-rt_stablegit.bb | =A0 40 ++++++++++=
-++++++++++
-> =A0meta-rt/recipes-tests/rt-tests_git.bb =A0 =A0 =A0 =A0 =A0 =A0 =A0| =A0=
- 22 +++++++++++
-> =A0meta/conf/machine/include/qemu.inc =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 | =
-=A0 =A02 +-
-> =A07 files changed, 128 insertions(+), 1 deletions(-)
-> =A0create mode 100644 meta-rt/conf/layer.conf
-> =A0create mode 100644 meta-rt/images/poky-image-minimal-rt-directdisk.bb
-> =A0create mode 100644 meta-rt/images/poky-image-minimal-rt-live.bb
-> =A0create mode 100644 meta-rt/images/poky-image-minimal-rt.bb
-> =A0create mode 100644 meta-rt/recipes-kernel/linux-yocto-rt_stablegit.bb
-> =A0create mode 100644 meta-rt/recipes-tests/rt-tests_git.bb
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
-
-
-
---=20
-"Thou shalt not follow the NULL pointer, for chaos and madness await
-thee at its end"
+-- 
+Darren Hart
+Yocto Linux Kernel
 
