@@ -1,22 +1,25 @@
-Return-Path: <jiajun.xu@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 92EF74C81110
-	for <poky@yoctoproject.org>; Fri, 31 Dec 2010 02:03:52 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 31 Dec 2010 00:03:51 -0800
+Return-Path: <saul.wold@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D679A4C80BD4
+	for <poky@yoctoproject.org>; Fri, 31 Dec 2010 02:05:27 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 31 Dec 2010 00:05:27 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,254,1291622400"; d="scan'208";a="368387897"
-Received: from unknown (HELO localhost) ([10.239.48.201])
-	by azsmga001.ch.intel.com with ESMTP; 31 Dec 2010 00:03:35 -0800
-Message-Id: <c0a94487501ea578b7e67f3ecd663488eca41cae.1293783098.git.jiajun.xu@intel.com>
-In-Reply-To: <cover.1293783098.git.jiajun.xu@intel.com>
-References: <cover.1293783098.git.jiajun.xu@intel.com>
-From: Jiajun Xu <jiajun.xu@intel.com>
-Old-Date: Wed, 29 Dec 2010 13:57:04 +0800
-Date: Fri, 31 Dec 2010 16:16:47 +0800
+X-IronPort-AV: E=Sophos;i="4.60,254,1291622400"; d="scan'208";a="873267051"
+Received: from unknown (HELO [10.255.13.218]) ([10.255.13.218])
+	by fmsmga001.fm.intel.com with ESMTP; 31 Dec 2010 00:05:27 -0800
+Message-ID: <4D1D8EC7.40504@intel.com>
+Date: Fri, 31 Dec 2010 00:05:27 -0800
+From: Saul Wold <saul.wold@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
+MIME-Version: 1.0
 To: poky@yoctoproject.org
-CC: 
-Subject: [PATCH 1/4] qemuimagetest: Add basic function check for zypper command
+References: <cover.1293731824.git.dvhart@linux.intel.com>
+	<cccbddda394ceb12ef99db5561216535ccca4abd.1293731824.git.dvhart@linux.intel.com>
+In-Reply-To: <cccbddda394ceb12ef99db5561216535ccca4abd.1293731824.git.dvhart@linux.intel.com>
+Subject: Re: [PATCH 2/3] glib-2.0: fix g_once_init_enter compile failure
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,353 +31,69 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 31 Dec 2010 08:03:53 -0000
+X-List-Received-Date: Fri, 31 Dec 2010 08:05:28 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Add two cases for zypper sanity test.
+On 12/29/2010 10:10 AM, Darren Hart wrote:
+> Kernelshark trips over a compile bug in glib-2.0 addressed by Open Embedded
+> back in the 2.22 timeframe. It appears to still be present in 2.27.
+>
+> http://www.mail-archive.com/openembedded-devel@lists.openembedded.org/msg00529.html
+>
+Can you add this attribution as well as Signed-off-by in the header of 
+the patch file directly, this will help understand with out having to 
+dig into the git info.
 
-Signed-off-by Jiajun Xu <jiajun.xu@intel.com>
----
- scripts/qemuimage-tests/sanity/zypper_help         |   52 ++++++++++++++++++++
- scripts/qemuimage-tests/sanity/zypper_search       |   52 ++++++++++++++++++++
- .../scenario/qemuarm/poky-image-lsb                |    2 +
- .../scenario/qemuarm/poky-image-sato               |    2 +
- .../scenario/qemuarm/poky-image-sdk                |    2 +
- .../scenario/qemumips/poky-image-lsb               |    2 +
- .../scenario/qemumips/poky-image-sato              |    2 +
- .../scenario/qemumips/poky-image-sdk               |    2 +
- .../scenario/qemuppc/poky-image-lsb                |    2 +
- .../scenario/qemuppc/poky-image-sato               |    2 +
- .../scenario/qemuppc/poky-image-sdk                |    2 +
- .../scenario/qemux86-64/poky-image-lsb             |    2 +
- .../scenario/qemux86-64/poky-image-sato            |    2 +
- .../scenario/qemux86-64/poky-image-sdk             |    2 +
- .../scenario/qemux86/poky-image-lsb                |    2 +
- .../scenario/qemux86/poky-image-sato               |    2 +
- .../scenario/qemux86/poky-image-sdk                |    2 +
- scripts/qemuimage-tests/tools/zypper_test.sh       |   45 +++++++++++++++++
- 18 files changed, 179 insertions(+), 0 deletions(-)
- create mode 100755 scripts/qemuimage-tests/sanity/zypper_help
- create mode 100755 scripts/qemuimage-tests/sanity/zypper_search
- create mode 100644 scripts/qemuimage-tests/tools/zypper_test.sh
+Thanks
 
-diff --git a/scripts/qemuimage-tests/sanity/zypper_help b/scripts/qemuimage-tests/sanity/zypper_help
-new file mode 100755
-index 0000000..e052501
---- /dev/null
-+++ b/scripts/qemuimage-tests/sanity/zypper_help
-@@ -0,0 +1,52 @@
-+#!/bin/bash
-+# Zypper Check Test Case for Sanity Test
-+# The case boot up the Qemu target with `poky-qemu qemuxxx`.
-+# Then check if zypper command can work in target.
-+#
-+# Author: Jiajun Xu <jiajun.xu@intel.com>
-+#
-+# This file is licensed under the GNU General Public License,
-+# Version 2.
-+#
-+
-+. $POKYBASE/scripts/qemuimage-testlib
-+
-+TIMEOUT=360
-+RET=1
-+
-+# Start qemu and check its network
-+Test_Create_Qemu ${TIMEOUT}
-+
-+# If qemu network is up, check ssh service in qemu
-+if [ $? -eq 0 ]; then
-+	Test_Info "Begin to Test SSH Service in Qemu"
-+	Test_SSH_UP ${TARGET_IPADDR} ${TIMEOUT}
-+	RET=$?
-+else
-+	RET=1
-+fi
-+
-+# Check if zypper help can work in target
-+if [ $RET -eq 0 -a -f $TOOLS/zypper_test.sh ]; then
-+	# Copy zypper_test.sh into target
-+	Test_Target_Pre ${TARGET_IPADDR} $TOOLS/zypper_test.sh
-+	if [ $? -eq 0 ]; then
-+		# Run zypper_test.sh to check if zypper help can work in target
-+		Test_SSH ${TARGET_IPADDR} "sh $TARGET_TEST_DIR/zypper_test.sh help"
-+		RET=$?
-+	else
-+		RET=1
-+	fi
-+fi
-+
-+if [ ${RET} -eq 0 ]; then
-+	Test_Info "zypper help Test PASS"
-+	Test_Kill_Qemu
-+	Test_Print_Result "zypper_help" 0
-+	exit 0
-+else
-+	Test_Info "zypper help FAIL, Pls. check above error log"
-+	Test_Kill_Qemu
-+	Test_Print_Result "zypper_help" 1
-+	exit 1
-+fi
-diff --git a/scripts/qemuimage-tests/sanity/zypper_search b/scripts/qemuimage-tests/sanity/zypper_search
-new file mode 100755
-index 0000000..b756db8
---- /dev/null
-+++ b/scripts/qemuimage-tests/sanity/zypper_search
-@@ -0,0 +1,52 @@
-+#!/bin/bash
-+# Zypper Check Test Case for Sanity Test
-+# The case boot up the Qemu target with `poky-qemu qemuxxx`.
-+# Then check if zypper command can work in target.
-+#
-+# Author: Jiajun Xu <jiajun.xu@intel.com>
-+#
-+# This file is licensed under the GNU General Public License,
-+# Version 2.
-+#
-+
-+. $POKYBASE/scripts/qemuimage-testlib
-+
-+TIMEOUT=360
-+RET=1
-+
-+# Start qemu and check its network
-+Test_Create_Qemu ${TIMEOUT}
-+
-+# If qemu network is up, check ssh service in qemu
-+if [ $? -eq 0 ]; then
-+	Test_Info "Begin to Test SSH Service in Qemu"
-+	Test_SSH_UP ${TARGET_IPADDR} ${TIMEOUT}
-+	RET=$?
-+else
-+	RET=1
-+fi
-+
-+# Check if zypper search can work in target
-+if [ $RET -eq 0 -a -f $TOOLS/zypper_test.sh ]; then
-+	# Copy zypper_test.sh into target
-+	Test_Target_Pre ${TARGET_IPADDR} $TOOLS/zypper_test.sh
-+	if [ $? -eq 0 ]; then
-+		# Run zypper_test.sh to check if zypper search can work in target
-+		Test_SSH ${TARGET_IPADDR} "sh $TARGET_TEST_DIR/zypper_test.sh search avahi"
-+		RET=$?
-+	else
-+		RET=1
-+	fi
-+fi
-+
-+if [ ${RET} -eq 0 ]; then
-+	Test_Info "zypper search package avahi Test PASS"
-+	Test_Kill_Qemu
-+	Test_Print_Result "zypper_search" 0
-+	exit 0
-+else
-+	Test_Info "zypper search package avahi FAIL, Pls. check above error log"
-+	Test_Kill_Qemu
-+	Test_Print_Result "zypper_search" 1
-+	exit 1
-+fi
-diff --git a/scripts/qemuimage-tests/scenario/qemuarm/poky-image-lsb b/scripts/qemuimage-tests/scenario/qemuarm/poky-image-lsb
-index b8e9847..9ec452b 100644
---- a/scripts/qemuimage-tests/scenario/qemuarm/poky-image-lsb
-+++ b/scripts/qemuimage-tests/scenario/qemuarm/poky-image-lsb
-@@ -3,3 +3,5 @@ sanity ssh
- sanity scp
- sanity dmesg
- sanity shutdown
-+sanity zypper_help
-+sanity zypper_search
-diff --git a/scripts/qemuimage-tests/scenario/qemuarm/poky-image-sato b/scripts/qemuimage-tests/scenario/qemuarm/poky-image-sato
-index b8e9847..9ec452b 100644
---- a/scripts/qemuimage-tests/scenario/qemuarm/poky-image-sato
-+++ b/scripts/qemuimage-tests/scenario/qemuarm/poky-image-sato
-@@ -3,3 +3,5 @@ sanity ssh
- sanity scp
- sanity dmesg
- sanity shutdown
-+sanity zypper_help
-+sanity zypper_search
-diff --git a/scripts/qemuimage-tests/scenario/qemuarm/poky-image-sdk b/scripts/qemuimage-tests/scenario/qemuarm/poky-image-sdk
-index b8e9847..9ec452b 100644
---- a/scripts/qemuimage-tests/scenario/qemuarm/poky-image-sdk
-+++ b/scripts/qemuimage-tests/scenario/qemuarm/poky-image-sdk
-@@ -3,3 +3,5 @@ sanity ssh
- sanity scp
- sanity dmesg
- sanity shutdown
-+sanity zypper_help
-+sanity zypper_search
-diff --git a/scripts/qemuimage-tests/scenario/qemumips/poky-image-lsb b/scripts/qemuimage-tests/scenario/qemumips/poky-image-lsb
-index b8e9847..9ec452b 100644
---- a/scripts/qemuimage-tests/scenario/qemumips/poky-image-lsb
-+++ b/scripts/qemuimage-tests/scenario/qemumips/poky-image-lsb
-@@ -3,3 +3,5 @@ sanity ssh
- sanity scp
- sanity dmesg
- sanity shutdown
-+sanity zypper_help
-+sanity zypper_search
-diff --git a/scripts/qemuimage-tests/scenario/qemumips/poky-image-sato b/scripts/qemuimage-tests/scenario/qemumips/poky-image-sato
-index b8e9847..9ec452b 100644
---- a/scripts/qemuimage-tests/scenario/qemumips/poky-image-sato
-+++ b/scripts/qemuimage-tests/scenario/qemumips/poky-image-sato
-@@ -3,3 +3,5 @@ sanity ssh
- sanity scp
- sanity dmesg
- sanity shutdown
-+sanity zypper_help
-+sanity zypper_search
-diff --git a/scripts/qemuimage-tests/scenario/qemumips/poky-image-sdk b/scripts/qemuimage-tests/scenario/qemumips/poky-image-sdk
-index b8e9847..9ec452b 100644
---- a/scripts/qemuimage-tests/scenario/qemumips/poky-image-sdk
-+++ b/scripts/qemuimage-tests/scenario/qemumips/poky-image-sdk
-@@ -3,3 +3,5 @@ sanity ssh
- sanity scp
- sanity dmesg
- sanity shutdown
-+sanity zypper_help
-+sanity zypper_search
-diff --git a/scripts/qemuimage-tests/scenario/qemuppc/poky-image-lsb b/scripts/qemuimage-tests/scenario/qemuppc/poky-image-lsb
-index b8e9847..9ec452b 100644
---- a/scripts/qemuimage-tests/scenario/qemuppc/poky-image-lsb
-+++ b/scripts/qemuimage-tests/scenario/qemuppc/poky-image-lsb
-@@ -3,3 +3,5 @@ sanity ssh
- sanity scp
- sanity dmesg
- sanity shutdown
-+sanity zypper_help
-+sanity zypper_search
-diff --git a/scripts/qemuimage-tests/scenario/qemuppc/poky-image-sato b/scripts/qemuimage-tests/scenario/qemuppc/poky-image-sato
-index b8e9847..9ec452b 100644
---- a/scripts/qemuimage-tests/scenario/qemuppc/poky-image-sato
-+++ b/scripts/qemuimage-tests/scenario/qemuppc/poky-image-sato
-@@ -3,3 +3,5 @@ sanity ssh
- sanity scp
- sanity dmesg
- sanity shutdown
-+sanity zypper_help
-+sanity zypper_search
-diff --git a/scripts/qemuimage-tests/scenario/qemuppc/poky-image-sdk b/scripts/qemuimage-tests/scenario/qemuppc/poky-image-sdk
-index b8e9847..9ec452b 100644
---- a/scripts/qemuimage-tests/scenario/qemuppc/poky-image-sdk
-+++ b/scripts/qemuimage-tests/scenario/qemuppc/poky-image-sdk
-@@ -3,3 +3,5 @@ sanity ssh
- sanity scp
- sanity dmesg
- sanity shutdown
-+sanity zypper_help
-+sanity zypper_search
-diff --git a/scripts/qemuimage-tests/scenario/qemux86-64/poky-image-lsb b/scripts/qemuimage-tests/scenario/qemux86-64/poky-image-lsb
-index b8e9847..9ec452b 100644
---- a/scripts/qemuimage-tests/scenario/qemux86-64/poky-image-lsb
-+++ b/scripts/qemuimage-tests/scenario/qemux86-64/poky-image-lsb
-@@ -3,3 +3,5 @@ sanity ssh
- sanity scp
- sanity dmesg
- sanity shutdown
-+sanity zypper_help
-+sanity zypper_search
-diff --git a/scripts/qemuimage-tests/scenario/qemux86-64/poky-image-sato b/scripts/qemuimage-tests/scenario/qemux86-64/poky-image-sato
-index b8e9847..9ec452b 100644
---- a/scripts/qemuimage-tests/scenario/qemux86-64/poky-image-sato
-+++ b/scripts/qemuimage-tests/scenario/qemux86-64/poky-image-sato
-@@ -3,3 +3,5 @@ sanity ssh
- sanity scp
- sanity dmesg
- sanity shutdown
-+sanity zypper_help
-+sanity zypper_search
-diff --git a/scripts/qemuimage-tests/scenario/qemux86-64/poky-image-sdk b/scripts/qemuimage-tests/scenario/qemux86-64/poky-image-sdk
-index b8e9847..9ec452b 100644
---- a/scripts/qemuimage-tests/scenario/qemux86-64/poky-image-sdk
-+++ b/scripts/qemuimage-tests/scenario/qemux86-64/poky-image-sdk
-@@ -3,3 +3,5 @@ sanity ssh
- sanity scp
- sanity dmesg
- sanity shutdown
-+sanity zypper_help
-+sanity zypper_search
-diff --git a/scripts/qemuimage-tests/scenario/qemux86/poky-image-lsb b/scripts/qemuimage-tests/scenario/qemux86/poky-image-lsb
-index b8e9847..9ec452b 100644
---- a/scripts/qemuimage-tests/scenario/qemux86/poky-image-lsb
-+++ b/scripts/qemuimage-tests/scenario/qemux86/poky-image-lsb
-@@ -3,3 +3,5 @@ sanity ssh
- sanity scp
- sanity dmesg
- sanity shutdown
-+sanity zypper_help
-+sanity zypper_search
-diff --git a/scripts/qemuimage-tests/scenario/qemux86/poky-image-sato b/scripts/qemuimage-tests/scenario/qemux86/poky-image-sato
-index b8e9847..9ec452b 100644
---- a/scripts/qemuimage-tests/scenario/qemux86/poky-image-sato
-+++ b/scripts/qemuimage-tests/scenario/qemux86/poky-image-sato
-@@ -3,3 +3,5 @@ sanity ssh
- sanity scp
- sanity dmesg
- sanity shutdown
-+sanity zypper_help
-+sanity zypper_search
-diff --git a/scripts/qemuimage-tests/scenario/qemux86/poky-image-sdk b/scripts/qemuimage-tests/scenario/qemux86/poky-image-sdk
-index b8e9847..9ec452b 100644
---- a/scripts/qemuimage-tests/scenario/qemux86/poky-image-sdk
-+++ b/scripts/qemuimage-tests/scenario/qemux86/poky-image-sdk
-@@ -3,3 +3,5 @@ sanity ssh
- sanity scp
- sanity dmesg
- sanity shutdown
-+sanity zypper_help
-+sanity zypper_search
-diff --git a/scripts/qemuimage-tests/tools/zypper_test.sh b/scripts/qemuimage-tests/tools/zypper_test.sh
-new file mode 100644
-index 0000000..5e8e7aa
---- /dev/null
-+++ b/scripts/qemuimage-tests/tools/zypper_test.sh
-@@ -0,0 +1,45 @@
-+#!/bin/bash
-+# zypper test script running in target
-+#
-+# Author: Jiajun Xu <jiajun.xu@intel.com>
-+#
-+# This file is licensed under the GNU General Public License,
-+# Version 2.
-+#
-+
-+Target_Info()
-+{
-+	echo -e "\tTARGET: $*"
-+}
-+
-+Target_Err()
-+{
-+	echo -e "\tTARGET: zypper command has issue when running, Pls. check the error log"
-+	echo -e "\tTARGET: ##### Error Log #####"
-+	$1
-+	echo -e "\tTARGET: #####    End    #####"
-+}
-+
-+which zypper
-+if [ $? -ne 0 ]; then
-+	Target_Info "No zypper command found"
-+	exit 1
-+fi
-+
-+if [ zypper > /dev/null 2>&1 ]; then
-+	Target_Info "zypper command run without problem"
-+else
-+	Target_Err zypper
-+	exit 1
-+fi
-+
-+# run zypper with specific command parsed to zypper_test.sh
-+zypper $* > /dev/null 2>&1
-+
-+if [ $? -eq 0 ]; then
-+	Target_Info "zypper $* work without problem"
-+	exit 0
-+else
-+	Target_Err zypper $*
-+	exit 1
-+fi
--- 
-1.7.1
+   Sau!
+
+> Signed-off-by: Darren Hart<dvhart@linux.intel.com>
+> CC: Tom Zanussi<tom.zanussi@intel.com>
+> ---
+>   .../glib-2.0-2.27.3/g_once_init_enter.patch        |   13 +++++++++++++
+>   meta/recipes-core/glib-2.0/glib-2.0_2.27.3.bb      |    6 ++++--
+>   2 files changed, 17 insertions(+), 2 deletions(-)
+>   create mode 100644 meta/recipes-core/glib-2.0/glib-2.0-2.27.3/g_once_init_enter.patch
+>
+> diff --git a/meta/recipes-core/glib-2.0/glib-2.0-2.27.3/g_once_init_enter.patch b/meta/recipes-core/glib-2.0/glib-2.0-2.27.3/g_once_init_enter.patch
+> new file mode 100644
+> index 0000000..1c4ce50
+> --- /dev/null
+> +++ b/meta/recipes-core/glib-2.0/glib-2.0-2.27.3/g_once_init_enter.patch
+> @@ -0,0 +1,13 @@
+> +Index: glib-2.27.3/glib/gthread.h
+> +===================================================================
+> +--- glib-2.27.3.orig/glib/gthread.h
+> ++++ glib-2.27.3/glib/gthread.h
+> +@@ -344,7 +344,7 @@ void                    g_once_init_leav
+> + G_INLINE_FUNC gboolean
+> + g_once_init_enter (volatile gsize *value_location)
+> + {
+> +-  if G_LIKELY ((gpointer) g_atomic_pointer_get (value_location) != NULL)
+> ++  if G_LIKELY ((gpointer) g_atomic_pointer_get ((volatile gpointer *)value_location) != NULL)
+> +     return FALSE;
+> +   else
+> +     return g_once_init_enter_impl (value_location);
+> diff --git a/meta/recipes-core/glib-2.0/glib-2.0_2.27.3.bb b/meta/recipes-core/glib-2.0/glib-2.0_2.27.3.bb
+> index 30e208a..a9ff3ec 100644
+> --- a/meta/recipes-core/glib-2.0/glib-2.0_2.27.3.bb
+> +++ b/meta/recipes-core/glib-2.0/glib-2.0_2.27.3.bb
+> @@ -1,10 +1,12 @@
+>   require glib.inc
+>
+> -PR = "r0"
+> +PR = "r1"
+>
+>   SRC_URI = "http://ftp.gnome.org/pub/GNOME/sources/glib/2.27/glib-${PV}.tar.bz2 \
+>              file://configure-libtool.patch \
+> -           file://60_wait-longer-for-threads-to-die.patch"
+> +           file://60_wait-longer-for-threads-to-die.patch \
+> +           file://g_once_init_enter.patch \
+> +          "
+>
+>   SRC_URI[md5sum] = "d3e976ff92b55b6064a0eb3110f36158"
+>   SRC_URI[sha256sum] = "c44177b635e88639361eb1daf7aaa33315a00aaf46db5accf2f11920c7ff1919"
 
 
