@@ -1,25 +1,26 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C0D4F4C80050
-	for <poky@yoctoproject.org>; Fri, 31 Dec 2010 01:41:18 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 30 Dec 2010 23:41:18 -0800
+Return-Path: <saul.wold@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4E5C94C80BD4
+	for <poky@yoctoproject.org>; Fri, 31 Dec 2010 02:02:35 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 31 Dec 2010 00:02:34 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,254,1291622400"; d="scan'208";a="873258613"
-Received: from unknown (HELO [10.255.13.230]) ([10.255.13.230])
-	by fmsmga001.fm.intel.com with ESMTP; 30 Dec 2010 23:41:18 -0800
-Message-ID: <4D1D890E.1010205@linux.intel.com>
-Date: Thu, 30 Dec 2010 23:41:02 -0800
-From: Darren Hart <dvhart@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="4.60,254,1291622400"; d="scan'208";a="642052806"
+Received: from unknown (HELO [10.255.13.218]) ([10.255.13.218])
+	by fmsmga002.fm.intel.com with ESMTP; 31 Dec 2010 00:02:34 -0800
+Message-ID: <4D1D8DF2.8050000@intel.com>
+Date: Fri, 31 Dec 2010 00:01:54 -0800
+From: Saul Wold <saul.wold@intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
 MIME-Version: 1.0
-To: Bruce Ashfield <bruce.ashfield@gmail.com>
-References: <cover.1293731824.git.dvhart@linux.intel.com>	<a01f0a62cfa9dfd7d3c9809f9cb439100a9eb61d.1293731824.git.dvhart@linux.intel.com>	<AANLkTi=HVSpVxnx9QbU++mRMMW=csPz13PyT+vVX28b7@mail.gmail.com>	<4D1D07E7.7010000@linux.intel.com>
-	<AANLkTi=Vb-Dp_FgSg45n2FjwbRYN7UfjQSgjGFadrn-s@mail.gmail.com>
-In-Reply-To: <AANLkTi=Vb-Dp_FgSg45n2FjwbRYN7UfjQSgjGFadrn-s@mail.gmail.com>
+To: Darren Hart <dvhart@linux.intel.com>
+References: <cover.1293731824.git.dvhart@linux.intel.com>
+	<46ff85bda463e94c40f5bd682ee97fab8baf0cbf.1293731824.git.dvhart@linux.intel.com>
+In-Reply-To: <46ff85bda463e94c40f5bd682ee97fab8baf0cbf.1293731824.git.dvhart@linux.intel.com>
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 1/3] trace-cmd: fix cross-compilation
+Subject: Re: [PATCH 3/3] kernelshark: add ftrace gui viewer
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,94 +32,52 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 31 Dec 2010 07:41:19 -0000
+X-List-Received-Date: Fri, 31 Dec 2010 08:02:35 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 12/30/2010 10:08 PM, Bruce Ashfield wrote:
-> On Thu, Dec 30, 2010 at 5:29 PM, Darren Hart<dvhart@linux.intel.com>  wrote:
->> On 12/30/2010 01:02 PM, Bruce Ashfield wrote:
->>>
->>> On Tue, Dec 28, 2010 at 8:17 PM, Darren Hart<dvhart@linux.intel.com>
->>>   wrote:
->>>>
->>>> The trace-cmd Makefile forces certain variables, such as CC and AR.
->>>> It was using the host gcc and loader, fix it to use the poky-built
->>>> cross-compiler and linker.
->>>>
->>>> inherit pkgconfig to ensure we don't use the host pkg-config.
->>>>
->>>> Remove unecessary variables from the oemake commands, such as ARCH
->>>> and LD which aren't used by the Makefile.
->>>>
->>>> Signed-off-by: Darren Hart<dvhart@linux.intel.com>
->>>> CC: Tom Zanussi<tom.zanussi@intel.com>
->>>
->>> I actually hacked up the original of this one .. ;)
->>
->> Right, sorry, forgot to check git blame on this one.
+On 12/28/2010 05:10 PM, Darren Hart wrote:
+> The trace-cmd source includes a graphical trace viewer, but we
+> don't want to make the trace-cmd recipe depend on gtk+. This
+> patch adds a second recipe in the meta/recipes-kernel/trace-cmd
+> directory which uses the trace-cmd SRCREV and RDEPENDS on trace-cmd
+> to ensure compatibility.
 >
-> Probably wouldn't have helped, in the recipe re-org it looks like my blame
-> was dropped :)
+> Signed-off-by: Darren Hart<dvhart@linux.intel.com>
+> CC: Tom Zanussi<tom.zanussi@intel.com>
+> ---
+>   meta/recipes-kernel/trace-cmd/kernelshark_git.bb |   21 +++++++++++++++++++++
+>   1 files changed, 21 insertions(+), 0 deletions(-)
+>   create mode 100644 meta/recipes-kernel/trace-cmd/kernelshark_git.bb
 >
->>
->>>
->>>
->>>> ---
->>>>   meta/recipes-kernel/trace-cmd/trace-cmd_git.bb |   12 +++++-------
->>>>   1 files changed, 5 insertions(+), 7 deletions(-)
->>>>
->>>> diff --git a/meta/recipes-kernel/trace-cmd/trace-cmd_git.bb
->>>> b/meta/recipes-kernel/trace-cmd/trace-cmd_git.bb
->>>> index e375afc..a7eca5f 100644
->>>> --- a/meta/recipes-kernel/trace-cmd/trace-cmd_git.bb
->>>> +++ b/meta/recipes-kernel/trace-cmd/trace-cmd_git.bb
->>>> @@ -2,18 +2,16 @@ DESCRIPTION = "User interface to Ftrace"
->>>>   LICENSE = "GPL"
->>>>   LIC_FILES_CHKSUM = "file://COPYING;md5=751419260aa954499f7abaabaa882bbe"
->>>>
->>>> -PR = r1
->>>> +PR = r2
->>>>   PV = "1.0.4+git${SRCPV}"
->>>>
->>>> +inherit pkgconfig
->>>> +
->>>>   SRC_URI =
->>>> "git://git.kernel.org/pub/scm/linux/kernel/git/rostedt/trace-cmd.git;protocol=git"
->>>>   S = "${WORKDIR}/git"
->>>>
->>>> -
->>>> -do_compile() {
->>>> -       oe_runmake ARCH="${ARCH}" CC="${CC}" LD="${LD}" prefix=${prefix}
->>>> -}
->>>> +EXTRA_OEMAKE = "'CC=${CC}' 'AR=${AR}' 'prefix=${prefix}'"
->>>
->>> So we've determined that we don't need ARCH anymore ? At one point
->>> this did. Or is it coming from the pkgconfig inheritance now ?
->>
->> Good question. My understanding of setting these variables here was to
->> override whatever the Makefile was using. This makefile doesn't use ARCH at
->
-> They were initially imported from a non-bitbake build of the tool, so there
-> very well could have been differences introduced simply by the history. But
-> yes, they were passed to override the defaults of the trace-cmd Makefile
-> and prevent the defaults from being used.
->
-> At one point, there were arch specific switches in the build to adapt to a
-> different userspace on a per-arch basis. But those changes were circa
-> March 2010 and they never were picked up.
->
->> all. Am I missing something about how this is used?
->
-> It doesn't look like it, I was more noticing that you dropped ARCH, and
-> was just looking to see if there were more details than just the commit
-> message.
+> diff --git a/meta/recipes-kernel/trace-cmd/kernelshark_git.bb b/meta/recipes-kernel/trace-cmd/kernelshark_git.bb
+> new file mode 100644
+> index 0000000..d2913c9
+> --- /dev/null
+> +++ b/meta/recipes-kernel/trace-cmd/kernelshark_git.bb
+> @@ -0,0 +1,21 @@
+> +DESCRIPTION = "Graphical trace viewer for Ftrace"
+> +LICENSE = "GPL"
+Can you be more specific to the version of GPL?
 
-Nope, looks like trace-cmd's Makefile has just changed some.
+> +LIC_FILES_CHKSUM = "file://COPYING;md5=751419260aa954499f7abaabaa882bbe"
+> +
+> +PR = r0
+> +PV = "1.0.4+git${SRCPV}"
+> +
+> +DEPENDS = "gtk+"
+> +RDEPENDS = "trace-cmd"
+> +
+> +inherit pkgconfig
+> +
+> +SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/rostedt/trace-cmd.git;protocol=git"
+> +SRCREV = "${SRCREV_pn-trace-cmd}"
+> +S = "${WORKDIR}/git"
+> +
+> +EXTRA_OEMAKE = "'CC=${CC}' 'AR=${AR}' 'prefix=${prefix}' gui"
+> +
+> +do_install() {
+> +	oe_runmake CC="${CC}" AR="${AR}" prefix="${prefix}" DESTDIR="${D}" install_gui
+> +}
 
-Are you OK with these patches then?
-
--- 
-Darren Hart
-Yocto Linux Kernel
 
