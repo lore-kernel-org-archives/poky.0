@@ -1,21 +1,20 @@
 Return-Path: <jessica.zhang@intel.com>
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id AE9E94C811FD
+	by mx1.pokylinux.org (Postfix) with ESMTP id EEA724C811FD
 	for <poky@yoctoproject.org>; Mon,  3 Jan 2011 17:47:49 -0600 (CST)
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 03 Jan 2011 15:47:47 -0800
+	by orsmga101.jf.intel.com with ESMTP; 03 Jan 2011 15:47:48 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,268,1291622400"; d="scan'208";a="693216392"
+X-IronPort-AV: E=Sophos;i="4.60,268,1291622400"; d="scan'208";a="693216397"
 Received: from jzhang-desktop.jf.intel.com (HELO localhost) ([10.7.201.52])
-	by orsmga001.jf.intel.com with ESMTP; 03 Jan 2011 15:47:47 -0800
-Message-Id: <b5b3a6fe60216a1b6ab9541a70c35131487f750a.1294099430.git.jessica.zhang@intel.com>
+	by orsmga001.jf.intel.com with ESMTP; 03 Jan 2011 15:47:48 -0800
+Message-Id: <6ba87ef63669f647ceb795f951eebfad431a8abd.1294099430.git.jessica.zhang@intel.com>
 In-Reply-To: <cover.1294099429.git.jessica.zhang@intel.com>
 References: <cover.1294099429.git.jessica.zhang@intel.com>
 From: Liping Ke <liping.ke@intel.com>
-Date: Sat, 25 Dec 2010 05:12:16 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 22/59] Removde Debug options from installer script
+Subject: [PATCH 33/59] Change qemu kernel downloading output info to be noverbose
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,23 +26,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 03 Jan 2011 23:47:49 -0000
+Date: Mon, 03 Jan 2011 23:47:50 -0000
+X-Original-Date: Fri, 17 Dec 2010 02:23:34 +0800
+X-List-Received-Date: Mon, 03 Jan 2011 23:47:50 -0000
+
+Since this image is small, no need to output downloading percentage.
 
 Signed-off-by: Liping Ke <liping.ke@intel.com>
 ---
- .../installer/adt-installer/yocto_installer        |    2 +-
+ scripts/adt-installer/yocto_installer |    2 +-
  1 files changed, 1 insertions(+), 1 deletions(-)
 
-diff --git a/meta/recipes-devtools/installer/adt-installer/yocto_installer b/meta/recipes-devtools/installer/adt-installer/yocto_installer
-index fc08245..d15d2f7 100755
---- a/meta/recipes-devtools/installer/adt-installer/yocto_installer
-+++ b/meta/recipes-devtools/installer/adt-installer/yocto_installer
-@@ -1,4 +1,4 @@
--#!/bin/bash -x
-+#!/bin/bash
- # Yocto ADT Installer
- #
- # Copyright (C) 2010 Intel Corp.
+diff --git a/scripts/adt-installer/yocto_installer b/scripts/adt-installer/yocto_installer
+index 39e57fd..b97d70d 100755
+--- a/scripts/adt-installer/yocto_installer
++++ b/scripts/adt-installer/yocto_installer
+@@ -167,7 +167,7 @@ get_qemu_image()
+   fi
+ 
+   echo_info "[ADT_INST] Downloading qemu kernel binary: $qemu_kernel"
+-  wget "$YOCTOADT_ROOTFS_LOC/$qemu_kernel" -P $LOCAL_DOWNLOAD 2>&1 | tee -a "$YOCTOADT_INSTALL_LOG_FILE" 
++  wget "$YOCTOADT_ROOTFS_LOC/$qemu_kernel" -P $LOCAL_DOWNLOAD -nv 2>&1 | tee -a "$YOCTOADT_INSTALL_LOG_FILE" 
+   check_result
+   
+   for image_type in $select_rootfs; do
 -- 
 1.7.0.4
 
