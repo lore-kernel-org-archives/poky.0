@@ -1,28 +1,23 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 46D064C8109B
-	for <poky@yoctoproject.org>; Mon,  3 Jan 2011 13:05:26 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p03J6vt5001403; Mon, 3 Jan 2011 19:06:57 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id tStHS5jc-ThM; Mon,  3 Jan 2011 19:06:57 +0000 (GMT)
-Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p03J6nCF001370
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Mon, 3 Jan 2011 19:06:52 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 82A3B4C81118
+	for <poky@yoctoproject.org>; Mon,  3 Jan 2011 13:06:45 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 03 Jan 2011 11:06:45 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,267,1291622400"; d="scan'208";a="693146031"
+Received: from doubt.jf.intel.com (HELO [10.7.199.57]) ([10.7.199.57])
+	by orsmga001.jf.intel.com with ESMTP; 03 Jan 2011 11:06:45 -0800
+Message-ID: <4D221E48.8080301@linux.intel.com>
+Date: Mon, 03 Jan 2011 11:06:48 -0800
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
+MIME-Version: 1.0
 To: Darren Hart <dvhart@linux.intel.com>
-In-Reply-To: <208c2ab8458c67e1b5bc1e22f7c277f1c6d7cd01.1294076797.git.dvhart@linux.intel.com>
 References: <cover.1294076797.git.dvhart@linux.intel.com>
 	<208c2ab8458c67e1b5bc1e22f7c277f1c6d7cd01.1294076797.git.dvhart@linux.intel.com>
-Date: Mon, 03 Jan 2011 19:04:55 +0000
-Message-ID: <1294081495.17519.20236.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
+In-Reply-To: <208c2ab8458c67e1b5bc1e22f7c277f1c6d7cd01.1294076797.git.dvhart@linux.intel.com>
 Cc: poky@yoctoproject.org
 Subject: Re: [PATCH 4/4] kernelshark: add ftrace gui viewer
 X-BeenThere: poky@yoctoproject.org
@@ -36,12 +31,25 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 03 Jan 2011 19:05:26 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Mon, 03 Jan 2011 19:06:45 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Tue, 2010-12-28 at 17:10 -0800, Darren Hart wrote:
-> trace-cmd/kernelshark_git.bb b/meta/recipes-kernel/trace-cmd/kernelshark_git.bb
+On 12/28/2010 05:10 PM, Darren Hart wrote:
+> The trace-cmd source includes a graphical trace viewer, but we
+> don't want to make the trace-cmd recipe depend on gtk+. This
+> patch adds a second recipe in the meta/recipes-kernel/trace-cmd
+> directory which uses the trace-cmd SRCREV and RDEPENDS on trace-cmd
+> to ensure compatibility.
+>
+> Signed-off-by: Darren Hart<dvhart@linux.intel.com>
+> CC: Tom Zanussi<tom.zanussi@intel.com>
+> ---
+>   meta/recipes-kernel/trace-cmd/kernelshark_git.bb |   22 ++++++++++++++++++++++
+>   1 files changed, 22 insertions(+), 0 deletions(-)
+>   create mode 100644 meta/recipes-kernel/trace-cmd/kernelshark_git.bb
+>
+> diff --git a/meta/recipes-kernel/trace-cmd/kernelshark_git.bb b/meta/recipes-kernel/trace-cmd/kernelshark_git.bb
 > new file mode 100644
 > index 0000000..781f983
 > --- /dev/null
@@ -51,39 +59,12 @@ On Tue, 2010-12-28 at 17:10 -0800, Darren Hart wrote:
 > +LICENSE = "GPLv2"
 > +LIC_FILES_CHKSUM = "file://COPYING;md5=751419260aa954499f7abaabaa882bbe \
 > +                    file://kernelshark.c;beginline=6;endline=8;md5=2c22c965a649ddd7973d7913c5634a5e"
-> +
-> +PR = r0
-> +PV = "1.0.4+git${SRCPV}"
-> +
-> +DEPENDS = "gtk+"
-> +RDEPENDS = "trace-cmd"
 
-This should be RDEPENDS_${PN} I suspect. We need to be clear about which
-package has the runtime dependency.
+This should have been kernel-shark.c. A failed thermal cleaning of the 
+previous build resulted in my not catching it. I have fixed this in my 
+contrib branch, but won't resend the patch series unless requested.
 
-> +inherit pkgconfig
-> +
-> +SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/rostedt/trace-cmd.git;protocol=git"
-> +SRCREV = "${SRCREV_pn-trace-cmd}"
-
-I'd suggest declaring that alongside the trace-cmd SRCREV definition,
-something like:
-
-TRACECMDREV ?= "xxx"
-SRCREV_pn-trace-cmd ?= "${TRACECMDREV}"
-SRCREV_pn-kernelshark ?= "${TRACECMDREV}"
-
-> +S = "${WORKDIR}/git"
-> +
-> +EXTRA_OEMAKE = "'CC=${CC}' 'AR=${AR}' 'prefix=${prefix}' gui"
-> +
-> +do_install() {
-> +	oe_runmake CC="${CC}" AR="${AR}" prefix="${prefix}" DESTDIR="${D}" install_gui
-> +}
-
-Cheers,
-
-Richard
-
+-- 
+Darren Hart
 
 
