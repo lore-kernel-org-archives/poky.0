@@ -1,27 +1,30 @@
-Return-Path: <koen@dominion.thruhere.net>
-Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 739904C8086F
-	for <poky@yoctoproject.org>; Mon,  3 Jan 2011 13:31:27 -0600 (CST)
-Received: by wwb31 with SMTP id 31so16644091wwb.11
-	for <poky@yoctoproject.org>; Mon, 03 Jan 2011 11:31:26 -0800 (PST)
-Received: by 10.216.50.72 with SMTP id y50mr24390197web.28.1294083086427;
-	Mon, 03 Jan 2011 11:31:26 -0800 (PST)
-Received: from [172.20.1.5] (ip545070eb.adsl-surfen.hetnet.nl [84.80.112.235])
-	by mx.google.com with ESMTPS id
-	c54sm5035961wer.30.2011.01.03.11.31.25
-	(version=TLSv1/SSLv3 cipher=RC4-MD5);
-	Mon, 03 Jan 2011 11:31:25 -0800 (PST)
-Mime-Version: 1.0 (Apple Message framework v1082)
-From: Koen Kooi <koen@dominion.thruhere.net>
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 9DC894C8086F
+	for <poky@yoctoproject.org>; Mon,  3 Jan 2011 13:36:32 -0600 (CST)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p03Jc5N0005093; Mon, 3 Jan 2011 19:38:05 GMT
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id QT2TcfCIyxpf; Mon,  3 Jan 2011 19:38:05 +0000 (GMT)
+Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p03Jc1M2005051
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Mon, 3 Jan 2011 19:38:03 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Darren Hart <dvhart@linux.intel.com>
 In-Reply-To: <4D22221F.2070608@linux.intel.com>
-Date: Mon, 3 Jan 2011 20:31:24 +0100
-Message-Id: <6F9AC167-5323-4797-B00A-AA748A9CD990@dominion.thruhere.net>
-References: <cover.1294076797.git.dvhart@linux.intel.com>	
+References: <cover.1294076797.git.dvhart@linux.intel.com>
 	<208c2ab8458c67e1b5bc1e22f7c277f1c6d7cd01.1294076797.git.dvhart@linux.intel.com>
-	<1294081495.17519.20236.camel@rex>
-	<4D22221F.2070608@linux.intel.com>
-To: poky@yoctoproject.org
-X-Mailer: Apple Mail (2.1082)
+	<1294081495.17519.20236.camel@rex> <4D22221F.2070608@linux.intel.com>
+Date: Mon, 03 Jan 2011 19:36:06 +0000
+Message-ID: <1294083366.17519.20276.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+Cc: poky@yoctoproject.org
 Subject: Re: [PATCH 4/4] kernelshark: add ftrace gui viewer
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -34,34 +37,79 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 03 Jan 2011 19:31:28 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Mon, 03 Jan 2011 19:36:33 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-
-Op 3 jan 2011, om 20:23 heeft Darren Hart het volgende geschreven:
-
+On Mon, 2011-01-03 at 11:23 -0800, Darren Hart wrote:
 > On 01/03/2011 11:04 AM, Richard Purdie wrote:
->> On Tue, 2010-12-28 at 17:10 -0800, Darren Hart wrote:
->>>=20
->>> +DEPENDS =3D "gtk+"
->>> +RDEPENDS =3D "trace-cmd"
->>=20
->> This should be RDEPENDS_${PN} I suspect. We need to be clear about =
-which
->> package has the runtime dependency.
->=20
+> > On Tue, 2010-12-28 at 17:10 -0800, Darren Hart wrote:
+> >> trace-cmd/kernelshark_git.bb b/meta/recipes-kernel/trace-cmd/kernelshark_git.bb
+> >> new file mode 100644
+> >> index 0000000..781f983
+> >> --- /dev/null
+> >> +++ b/meta/recipes-kernel/trace-cmd/kernelshark_git.bb
+> >> @@ -0,0 +1,22 @@
+> >> +DESCRIPTION = "Graphical trace viewer for Ftrace"
+> >> +LICENSE = "GPLv2"
+> >> +LIC_FILES_CHKSUM = "file://COPYING;md5=751419260aa954499f7abaabaa882bbe \
+> >> +                    file://kernelshark.c;beginline=6;endline=8;md5=2c22c965a649ddd7973d7913c5634a5e"
+> >> +
+> >> +PR = r0
+> >> +PV = "1.0.4+git${SRCPV}"
+> >> +
+> >> +DEPENDS = "gtk+"
+> >> +RDEPENDS = "trace-cmd"
+> >
+> > This should be RDEPENDS_${PN} I suspect. We need to be clear about which
+> > package has the runtime dependency.
+> 
 > Hi Richard, thanks for the review.
->=20
-> I'm missing something about how these variables are used I guess. I =
-had thought that being assigned inside the kernelshark_git.bb recipe =
-would have been sufficient to make it clear it applied to kernelshark. =
-How does this bleed over into other recipes?
+> 
+> I'm missing something about how these variables are used I guess. I had 
+> thought that being assigned inside the kernelshark_git.bb recipe would 
+> have been sufficient to make it clear it applied to kernelshark. How 
+> does this bleed over into other recipes?
 
-It bleeds over into the -dev, -dbg and any other packages the recipes =
-generates.
+Other packages (.rpm/ipk), not recipes.
 
-regards,
+RDEPENDS = "XXX" means apply this RDEPENDS to every package the
+kernelshark recipe generates. This as standard would be:
 
-Koen=
+kernelshark
+kernelshark-dbg
+kernelshark-dev
+kernelshark-doc
+
+and it clearly doesn't apply for the last three, only the first (in
+general principle, the kernelshark recipe probably doesn't generate a
+-doc at all but you get the idea).
+
+
+
+> >> +inherit pkgconfig
+> >> +
+> >> +SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/rostedt/trace-cmd.git;protocol=git"
+> >> +SRCREV = "${SRCREV_pn-trace-cmd}"
+> >
+> > I'd suggest declaring that alongside the trace-cmd SRCREV definition,
+> > something like:
+> >
+> > TRACECMDREV ?= "xxx"
+> > SRCREV_pn-trace-cmd ?= "${TRACECMDREV}"
+> > SRCREV_pn-kernelshark ?= "${TRACECMDREV}"
+> 
+> If I do this, I think a trace-cmd.inc would be the right way to go. 
+> Having kernelshark specific bits in the base trace-cmd recipe seems 
+> backwards to me: kernelshark builds on trace-cmd, so it makes sense to 
+> me for the extension to made in the kernelshark recipe.
+
+I meant in the common .inc file in the distro directiory where all the
+other SRCREVs are set.
+
+Cheers,
+
+Richard
+
+
 
