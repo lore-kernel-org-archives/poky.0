@@ -1,25 +1,27 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C792F4C8086F
-	for <poky@yoctoproject.org>; Mon,  3 Jan 2011 13:23:08 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 03 Jan 2011 11:23:08 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,268,1291622400"; d="scan'208";a="693151457"
-Received: from doubt.jf.intel.com (HELO [10.7.199.57]) ([10.7.199.57])
-	by orsmga001.jf.intel.com with ESMTP; 03 Jan 2011 11:23:07 -0800
-Message-ID: <4D22221F.2070608@linux.intel.com>
-Date: Mon, 03 Jan 2011 11:23:11 -0800
-From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
-MIME-Version: 1.0
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
+Return-Path: <koen@dominion.thruhere.net>
+Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 739904C8086F
+	for <poky@yoctoproject.org>; Mon,  3 Jan 2011 13:31:27 -0600 (CST)
+Received: by wwb31 with SMTP id 31so16644091wwb.11
+	for <poky@yoctoproject.org>; Mon, 03 Jan 2011 11:31:26 -0800 (PST)
+Received: by 10.216.50.72 with SMTP id y50mr24390197web.28.1294083086427;
+	Mon, 03 Jan 2011 11:31:26 -0800 (PST)
+Received: from [172.20.1.5] (ip545070eb.adsl-surfen.hetnet.nl [84.80.112.235])
+	by mx.google.com with ESMTPS id
+	c54sm5035961wer.30.2011.01.03.11.31.25
+	(version=TLSv1/SSLv3 cipher=RC4-MD5);
+	Mon, 03 Jan 2011 11:31:25 -0800 (PST)
+Mime-Version: 1.0 (Apple Message framework v1082)
+From: Koen Kooi <koen@dominion.thruhere.net>
+In-Reply-To: <4D22221F.2070608@linux.intel.com>
+Date: Mon, 3 Jan 2011 20:31:24 +0100
+Message-Id: <6F9AC167-5323-4797-B00A-AA748A9CD990@dominion.thruhere.net>
 References: <cover.1294076797.git.dvhart@linux.intel.com>	
 	<208c2ab8458c67e1b5bc1e22f7c277f1c6d7cd01.1294076797.git.dvhart@linux.intel.com>
 	<1294081495.17519.20236.camel@rex>
-In-Reply-To: <1294081495.17519.20236.camel@rex>
-Cc: poky@yoctoproject.org
+	<4D22221F.2070608@linux.intel.com>
+To: poky@yoctoproject.org
+X-Mailer: Apple Mail (2.1082)
 Subject: Re: [PATCH 4/4] kernelshark: add ftrace gui viewer
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -32,58 +34,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 03 Jan 2011 19:23:09 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 03 Jan 2011 19:31:28 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
 
-On 01/03/2011 11:04 AM, Richard Purdie wrote:
-> On Tue, 2010-12-28 at 17:10 -0800, Darren Hart wrote:
->> trace-cmd/kernelshark_git.bb b/meta/recipes-kernel/trace-cmd/kernelshark_git.bb
->> new file mode 100644
->> index 0000000..781f983
->> --- /dev/null
->> +++ b/meta/recipes-kernel/trace-cmd/kernelshark_git.bb
->> @@ -0,0 +1,22 @@
->> +DESCRIPTION = "Graphical trace viewer for Ftrace"
->> +LICENSE = "GPLv2"
->> +LIC_FILES_CHKSUM = "file://COPYING;md5=751419260aa954499f7abaabaa882bbe \
->> +                    file://kernelshark.c;beginline=6;endline=8;md5=2c22c965a649ddd7973d7913c5634a5e"
->> +
->> +PR = r0
->> +PV = "1.0.4+git${SRCPV}"
->> +
->> +DEPENDS = "gtk+"
->> +RDEPENDS = "trace-cmd"
->
-> This should be RDEPENDS_${PN} I suspect. We need to be clear about which
-> package has the runtime dependency.
 
-Hi Richard, thanks for the review.
+Op 3 jan 2011, om 20:23 heeft Darren Hart het volgende geschreven:
 
-I'm missing something about how these variables are used I guess. I had 
-thought that being assigned inside the kernelshark_git.bb recipe would 
-have been sufficient to make it clear it applied to kernelshark. How 
-does this bleed over into other recipes?
+> On 01/03/2011 11:04 AM, Richard Purdie wrote:
+>> On Tue, 2010-12-28 at 17:10 -0800, Darren Hart wrote:
+>>>=20
+>>> +DEPENDS =3D "gtk+"
+>>> +RDEPENDS =3D "trace-cmd"
+>>=20
+>> This should be RDEPENDS_${PN} I suspect. We need to be clear about =
+which
+>> package has the runtime dependency.
+>=20
+> Hi Richard, thanks for the review.
+>=20
+> I'm missing something about how these variables are used I guess. I =
+had thought that being assigned inside the kernelshark_git.bb recipe =
+would have been sufficient to make it clear it applied to kernelshark. =
+How does this bleed over into other recipes?
 
->
->> +inherit pkgconfig
->> +
->> +SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/rostedt/trace-cmd.git;protocol=git"
->> +SRCREV = "${SRCREV_pn-trace-cmd}"
->
-> I'd suggest declaring that alongside the trace-cmd SRCREV definition,
-> something like:
->
-> TRACECMDREV ?= "xxx"
-> SRCREV_pn-trace-cmd ?= "${TRACECMDREV}"
-> SRCREV_pn-kernelshark ?= "${TRACECMDREV}"
+It bleeds over into the -dev, -dbg and any other packages the recipes =
+generates.
 
-If I do this, I think a trace-cmd.inc would be the right way to go. 
-Having kernelshark specific bits in the base trace-cmd recipe seems 
-backwards to me: kernelshark builds on trace-cmd, so it makes sense to 
-me for the extension to made in the kernelshark recipe.
+regards,
 
--- 
-Darren Hart
-Yocto Linux Kernel
+Koen=
 
