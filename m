@@ -1,25 +1,25 @@
 Return-Path: <saul.wold@intel.com>
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 49D1C4C80039
-	for <poky@yoctoproject.org>; Mon,  3 Jan 2011 19:25:33 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id EC82A4C8086F;
+	Mon,  3 Jan 2011 19:26:02 -0600 (CST)
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 03 Jan 2011 17:25:32 -0800
+	by fmsmga101.fm.intel.com with ESMTP; 03 Jan 2011 17:26:02 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,269,1291622400"; d="scan'208";a="643025747"
+X-IronPort-AV: E=Sophos;i="4.60,269,1291622400"; d="scan'208";a="643025810"
 Received: from unknown (HELO [10.255.14.6]) ([10.255.14.6])
-	by fmsmga002.fm.intel.com with ESMTP; 03 Jan 2011 17:25:32 -0800
-Message-ID: <4D22770C.5010102@intel.com>
-Date: Mon, 03 Jan 2011 17:25:32 -0800
+	by fmsmga002.fm.intel.com with ESMTP; 03 Jan 2011 17:26:02 -0800
+Message-ID: <4D22772A.6070301@intel.com>
+Date: Mon, 03 Jan 2011 17:26:02 -0800
 From: Saul Wold <saul.wold@intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
 	Thunderbird/3.0.5
 MIME-Version: 1.0
-To: Qing He <qing.he@intel.com>
-References: <cover.1293765141.git.qing.he@intel.com>
-In-Reply-To: <cover.1293765141.git.qing.he@intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/6] recipe upgrades, Qing He, 12/31/2010
+To: Bruce Ashfield <bruce.ashfield@windriver.com>
+References: <cover.1293824283.git.bruce.ashfield@windriver.com>
+In-Reply-To: <cover.1293824283.git.bruce.ashfield@windriver.com>
+Cc: yocto@yoctoproject.org, poky@yoctoproject.org
+Subject: Re: [PATCH 0/1] linux-yocto: update to 2.6.37-rc8 v2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,69 +31,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 04 Jan 2011 01:25:33 -0000
+X-List-Received-Date: Tue, 04 Jan 2011 01:26:03 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 12/30/2010 07:16 PM, Qing He wrote:
+On 12/31/2010 12:06 PM, Bruce Ashfield wrote:
+> Saul,
+>
+> Here's the updated 2.6.37-rc8 pull request. The meta branch commit
+> is now the correct 2.6.37 variant, and worked for my build testing
+> here.
+>
+> Cheers,
+>
+> Bruce
+>
 > Pull URL: git://git.pokylinux.org/poky-contrib.git
->    Branch: qhe/distro
->    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=qhe/distro
+>    Branch: zedd/kernel
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/kernel
 >
 > Thanks,
->      Qing He
+>      Bruce Ashfield<bruce.ashfield@windriver.com>
 > ---
 >
 >
-> Qing He (6):
->    parted: upgrade to version 2.3
->    libtasn1: upgrade to version 2.9
->    gnutls: upgrade to version 2.10.4
->    ncurses: upgrade to version 5.7
->    augeas: upgrade to version 0.7.4
->    lzo: upgrade to version 2.04
+> Bruce Ashfield (1):
+>    linux-yocto: update to 2.6.37-rc8
 >
->   meta/recipes-core/ncurses/ncurses-5.7/config.cache |    4 +
->   .../ncurses/ncurses-5.7/tic-hang.patch             |   25 +
->   .../ncurses/ncurses/makefile_tweak.patch           |   89 -
->   meta/recipes-core/ncurses/ncurses/visibility.patch | 4904 --------------------
->   meta/recipes-core/ncurses/ncurses_5.4.bb           |   11 -
->   meta/recipes-core/ncurses/ncurses_5.7.bb           |  242 +
->   meta/recipes-extended/augeas/augeas_0.7.3.bb       |    6 -
->   meta/recipes-extended/augeas/augeas_0.7.4.bb       |    6 +
->   .../{parted-1.9.0 =>  parted-2.3}/no_check.patch    |    0
->   .../{parted-1.9.0 =>  parted-2.3}/syscalls.patch    |    0
->   .../parted/{parted_1.9.0.bb =>  parted_2.3.bb}      |   12 +-
->   .../configure-fix.patch                            |    0
->   .../gnutls-openssl.patch                           |    0
->   .../gnutls-texinfo-euro.patch                      |    0
->   .../gnutls/{gnutls_2.8.6.bb =>  gnutls_2.10.4.bb}   |    4 +-
->   .../gnutls/{libtasn1_2.8.bb =>  libtasn1_2.9.bb}    |    4 +-
->   meta/recipes-support/lzo/lzo-2.03/autofoo.patch    |   17 -
->   .../lzo/{lzo-2.03 =>  lzo-2.04}/acinclude.m4        |    0
->   meta/recipes-support/lzo/lzo-2.04/autoconf.patch   |   19 +
->   .../lzo/{lzo_2.03.bb =>  lzo_2.04.bb}               |    9 +-
->   20 files changed, 311 insertions(+), 5041 deletions(-)
->   create mode 100644 meta/recipes-core/ncurses/ncurses-5.7/config.cache
->   create mode 100644 meta/recipes-core/ncurses/ncurses-5.7/tic-hang.patch
->   delete mode 100644 meta/recipes-core/ncurses/ncurses/makefile_tweak.patch
->   delete mode 100644 meta/recipes-core/ncurses/ncurses/visibility.patch
->   delete mode 100644 meta/recipes-core/ncurses/ncurses_5.4.bb
->   create mode 100644 meta/recipes-core/ncurses/ncurses_5.7.bb
->   delete mode 100644 meta/recipes-extended/augeas/augeas_0.7.3.bb
->   create mode 100644 meta/recipes-extended/augeas/augeas_0.7.4.bb
->   rename meta/recipes-extended/parted/{parted-1.9.0 =>  parted-2.3}/no_check.patch (100%)
->   rename meta/recipes-extended/parted/{parted-1.9.0 =>  parted-2.3}/syscalls.patch (100%)
->   rename meta/recipes-extended/parted/{parted_1.9.0.bb =>  parted_2.3.bb} (54%)
->   rename meta/recipes-support/gnutls/{gnutls-2.8.6 =>  gnutls-2.10.4}/configure-fix.patch (100%)
->   rename meta/recipes-support/gnutls/{gnutls-2.8.6 =>  gnutls-2.10.4}/gnutls-openssl.patch (100%)
->   rename meta/recipes-support/gnutls/{gnutls-2.8.6 =>  gnutls-2.10.4}/gnutls-texinfo-euro.patch (100%)
->   rename meta/recipes-support/gnutls/{gnutls_2.8.6.bb =>  gnutls_2.10.4.bb} (53%)
->   rename meta/recipes-support/gnutls/{libtasn1_2.8.bb =>  libtasn1_2.9.bb} (81%)
->   delete mode 100644 meta/recipes-support/lzo/lzo-2.03/autofoo.patch
->   rename meta/recipes-support/lzo/{lzo-2.03 =>  lzo-2.04}/acinclude.m4 (100%)
->   create mode 100644 meta/recipes-support/lzo/lzo-2.04/autoconf.patch
->   rename meta/recipes-support/lzo/{lzo_2.03.bb =>  lzo_2.04.bb} (72%)
+>   .../conf/distro/include/poky-default-revisions.inc |   22 ++++++++++----------
+>   1 files changed, 11 insertions(+), 11 deletions(-)
 >
 > _______________________________________________
 > poky mailing list
@@ -101,6 +67,7 @@ On 12/30/2010 07:16 PM, Qing He wrote:
 > https://lists.yoctoproject.org/listinfo/poky
 >
 Pulled into Master
+
 
 Thanks
     Sau!
