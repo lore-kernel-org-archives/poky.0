@@ -1,25 +1,25 @@
 Return-Path: <saul.wold@intel.com>
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id ECE014C8086F
-	for <poky@pokylinux.org>; Mon,  3 Jan 2011 19:17:16 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id E05424C810DD
+	for <poky@yoctoproject.org>; Mon,  3 Jan 2011 19:19:01 -0600 (CST)
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 03 Jan 2011 17:17:16 -0800
+	by orsmga102.jf.intel.com with ESMTP; 03 Jan 2011 17:19:01 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,269,1291622400"; d="scan'208";a="693238097"
+X-IronPort-AV: E=Sophos;i="4.60,269,1291622400"; d="scan'208";a="693238489"
 Received: from unknown (HELO [10.255.14.6]) ([10.255.14.6])
-	by orsmga001.jf.intel.com with ESMTP; 03 Jan 2011 17:17:16 -0800
-Message-ID: <4D22751B.1090101@intel.com>
-Date: Mon, 03 Jan 2011 17:17:15 -0800
+	by orsmga001.jf.intel.com with ESMTP; 03 Jan 2011 17:19:01 -0800
+Message-ID: <4D227584.8090406@intel.com>
+Date: Mon, 03 Jan 2011 17:19:00 -0800
 From: Saul Wold <saul.wold@intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
 	Thunderbird/3.0.5
 MIME-Version: 1.0
-To: Kevin Tian <kevin.tian@intel.com>
-References: <b9dded$hh9bqm@orsmga002.jf.intel.com>
-In-Reply-To: <b9dded$hh9bqm@orsmga002.jf.intel.com>
-Cc: poky@pokylinux.org
-Subject: Re: [PATCH 0/1] make c++ include path relative to --sysroot
+To: Jiajun Xu <jiajun.xu@intel.com>
+References: <cover.1293783098.git.jiajun.xu@intel.com>
+In-Reply-To: <cover.1293783098.git.jiajun.xu@intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/4] qemuimagetest: Add several cases for sanity test
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,51 +31,65 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 04 Jan 2011 01:17:17 -0000
+X-List-Received-Date: Tue, 04 Jan 2011 01:19:02 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 12/30/2010 09:28 PM, Kevin Tian wrote:
-> with this fix, now gcc installed from sstate packages can find c++ standard header
-> files correctly in the new build directory, e.g when building libproxy. There's
-> still one remaining issue in meta-toolchain part, that a complex c++ project
-> compilation still fails being unable to find<algorithm>, if meta-toolchain is
-> installed in a location different from the default assumption.
->
-> Having said that, this patch doesn't break normal usage w/o causing regression.
-> I verified Sato build for qemuarm/qemuppc, and Lianhao helped verify qemumips
-> and corresonding normal meta-toolchain usage. So it'd be good to get it merged
-> earlier to remove one more road blocker for sstate.
->
-> Thanks to RP for suggesting the solution here.
+On 12/31/2010 12:16 AM, Jiajun Xu wrote:
+> There are 5 cases added for sanity test. These cases covers
+> basic function check for connman, compiler, zypper and rpm in
+> target.
 >
 > Pull URL: git://git.pokylinux.org/poky-contrib.git
->    Branch: tk/cplusplus
->    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=tk/cplusplus
+>    Branch: jxu49/master
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=jxu49/master
 >
 > Thanks,
->      Kevin Tian<kevin.tian@intel.com>
+>      Jiajun Xu<jiajun.xu@intel.com>
 > ---
 >
 >
-> Kevin Tian (1):
->    gcc-4.5.1: make c++ include path relative to "--sysroot"
+> Jiajun Xu (4):
+>    qemuimagetest: Add basic function check for zypper command
+>    qemuimagetest: Add basic function check for rpm command
+>    qemuimagetest: Add basic function check for gcc/g++/make command in
+>      target
+>    qemuimagetest: Add basic function check for connman
 >
->   meta/recipes-devtools/gcc/gcc-4.5.1.inc            |    1 +
->   .../GPLUSPLUS_INCLUDE_DIR_with_sysroot.patch       |   33 ++++++++++++++++++++
->   meta/recipes-devtools/gcc/gcc-configure-cross.inc  |    2 +-
->   meta/recipes-devtools/gcc/gcc-configure-sdk.inc    |    2 +-
->   .../gcc/gcc-cross-canadian_4.5.1.bb                |    2 +-
->   .../gcc/gcc-cross-initial_4.5.1.bb                 |    2 +-
->   .../gcc/gcc-cross-intermediate_4.5.1.bb            |    2 +-
->   meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb       |    2 +-
->   .../gcc/gcc-crosssdk-initial_4.5.1.bb              |    2 +-
->   .../gcc/gcc-crosssdk-intermediate_4.5.1.bb         |    2 +-
->   meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb    |    2 +-
->   meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb     |    2 +-
->   meta/recipes-devtools/gcc/gcc_4.5.1.bb             |    2 +-
->   13 files changed, 45 insertions(+), 11 deletions(-)
->   create mode 100644 meta/recipes-devtools/gcc/gcc-4.5.1/GPLUSPLUS_INCLUDE_DIR_with_sysroot.patch
+>   scripts/qemuimage-tests/sanity/compiler            |   52 ++++++++
+>   scripts/qemuimage-tests/sanity/connman             |   52 ++++++++
+>   scripts/qemuimage-tests/sanity/rpm_query           |   52 ++++++++
+>   scripts/qemuimage-tests/sanity/zypper_help         |   52 ++++++++
+>   scripts/qemuimage-tests/sanity/zypper_search       |   52 ++++++++
+>   .../scenario/qemuarm/poky-image-lsb                |    4 +
+>   .../scenario/qemuarm/poky-image-sato               |    4 +
+>   .../scenario/qemuarm/poky-image-sdk                |    5 +
+>   .../scenario/qemumips/poky-image-lsb               |    4 +
+>   .../scenario/qemumips/poky-image-sato              |    4 +
+>   .../scenario/qemumips/poky-image-sdk               |    5 +
+>   .../scenario/qemuppc/poky-image-lsb                |    4 +
+>   .../scenario/qemuppc/poky-image-sato               |    4 +
+>   .../scenario/qemuppc/poky-image-sdk                |    5 +
+>   .../scenario/qemux86-64/poky-image-lsb             |    4 +
+>   .../scenario/qemux86-64/poky-image-sato            |    4 +
+>   .../scenario/qemux86-64/poky-image-sdk             |    5 +
+>   .../scenario/qemux86/poky-image-lsb                |    4 +
+>   .../scenario/qemux86/poky-image-sato               |    4 +
+>   .../scenario/qemux86/poky-image-sdk                |    5 +
+>   scripts/qemuimage-tests/tools/compiler_test.sh     |  137 ++++++++++++++++++++
+>   scripts/qemuimage-tests/tools/connman_test.sh      |   55 ++++++++
+>   scripts/qemuimage-tests/tools/rpm_test.sh          |   45 +++++++
+>   scripts/qemuimage-tests/tools/zypper_test.sh       |   45 +++++++
+>   24 files changed, 607 insertions(+), 0 deletions(-)
+>   create mode 100755 scripts/qemuimage-tests/sanity/compiler
+>   create mode 100755 scripts/qemuimage-tests/sanity/connman
+>   create mode 100755 scripts/qemuimage-tests/sanity/rpm_query
+>   create mode 100755 scripts/qemuimage-tests/sanity/zypper_help
+>   create mode 100755 scripts/qemuimage-tests/sanity/zypper_search
+>   create mode 100644 scripts/qemuimage-tests/tools/compiler_test.sh
+>   create mode 100644 scripts/qemuimage-tests/tools/connman_test.sh
+>   create mode 100644 scripts/qemuimage-tests/tools/rpm_test.sh
+>   create mode 100644 scripts/qemuimage-tests/tools/zypper_test.sh
 >
 > _______________________________________________
 > poky mailing list
@@ -85,6 +99,6 @@ On 12/30/2010 09:28 PM, Kevin Tian wrote:
 Pulled into Master
 
   Thanks
-    Sau!
+     Sau!
 
 
