@@ -1,30 +1,39 @@
-Return-Path: <Bruce.Ashfield@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 64EB94C80039
-	for <poky@yoctoproject.org>; Tue,  4 Jan 2011 14:51:32 -0600 (CST)
-Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p04KpU63014345;
-	Tue, 4 Jan 2011 12:51:30 -0800 (PST)
-Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
-	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Tue, 4 Jan 2011 12:51:30 -0800
-Received: from windriver.com ([128.224.146.67]) by ala-mail06.corp.ad.wrs.com
-	with Microsoft SMTPSVC(6.0.3790.1830); 
-	Tue, 4 Jan 2011 12:51:30 -0800
-Received: by windriver.com (Postfix, from userid 8026)
-	id 7F59B7CE8D5; Tue,  4 Jan 2011 15:51:29 -0500 (EST)
-Date: Tue, 4 Jan 2011 15:51:29 -0500
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-To: Darren Hart <dvhart@linux.intel.com>
-Message-ID: <20110104205126.GA25385@windriver.com>
-References: <4D225AB1.7010404@linux.intel.com>
+Return-Path: <bruce.ashfield@gmail.com>
+Received: from mail-iw0-f176.google.com (mail-iw0-f176.google.com
+	[209.85.214.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id BA0104C80039
+	for <poky@yoctoproject.org>; Tue,  4 Jan 2011 15:03:45 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by iwn2 with SMTP id 2so16993229iwn.35
+	for <poky@yoctoproject.org>; Tue, 04 Jan 2011 13:03:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:received:received:in-reply-to
+	:references:date:message-id:subject:from:to:cc:content-type
+	:content-transfer-encoding;
+	bh=WH26b6LzCwtlqDBaYoV2M2uo40//VNlQ/xSekhduKEE=;
+	b=kl/idphaWKXrj0EYwO47CPXCBNKW5x7PCOHzLnSNMQ5xZ0RnLZw52nmjfWCl9SIdBq
+	tXlL2Fzi4QEe31j4dWVAoZodXFZFKQHaTT4PW4DuhZevL+/g4qxzXftNJb1Yojm4NS6i
+	tsyHF23Cx1xnSaRanNFDF2/Ana8JDcvyxdN5U=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:cc:content-type:content-transfer-encoding;
+	b=xVLmWnD7fkrPdMPsCURDHaBIzc7iOyaByRwKcIFMavYobT4mb+kaJ3oaNhPhyGAU/2
+	nYvvepp1MXucUZ0kthujYWKGLkv4uI0IwIgEna+xp0+qBwcWnbFtvILt1fQJaCbrulW/
+	PgxCQAHL8gv6jQ5bKnPt8nO23HVjo+teasKxg=
 MIME-Version: 1.0
-In-Reply-To: <4D225AB1.7010404@linux.intel.com>
-User-Agent: Mutt/1.5.20 (2009-06-14)
-X-OriginalArrivalTime: 04 Jan 2011 20:51:30.0294 (UTC)
-	FILETIME=[29BF9160:01CBAC51]
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH] linux-yocto-2.6.37: Add debugfs and ftrace features to standard ktype meta-data
+Received: by 10.231.35.131 with SMTP id p3mr21967515ibd.87.1294175025174; Tue,
+	04 Jan 2011 13:03:45 -0800 (PST)
+Received: by 10.231.156.136 with HTTP; Tue, 4 Jan 2011 13:03:45 -0800 (PST)
+In-Reply-To: <cover.1293749684.git.dvhart@linux.intel.com>
+References: <cover.1293749684.git.dvhart@linux.intel.com>
+Date: Tue, 4 Jan 2011 16:03:45 -0500
+Message-ID: <AANLkTinkHL_a9nG4NiSQpoHGOprxrWoYKqUSeynwuxmv@mail.gmail.com>
+From: Bruce Ashfield <bruce.ashfield@gmail.com>
+To: Darren Hart <dvhart@linux.intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/1] linux-2.6-windriver: add atom-pc preempt_rt support
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,94 +45,54 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 04 Jan 2011 20:51:32 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-List-Received-Date: Tue, 04 Jan 2011 21:03:46 -0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
 
-In message: [PATCH] linux-yocto-2.6.37: Add debugfs and ftrace features to standard ktype meta-data
-on 03/01/2011 Darren Hart wrote:
+On Thu, Dec 30, 2010 at 5:54 PM, Darren Hart <dvhart@linux.intel.com> wrote=
+:
+> In addition to the patch against the wrs_meta branch to follow, this tree
+> also needs the atom-pc-preempt_rt to be created:
+>
+> $ git checkout -b atom-pc-preempt_rt common_pc-preempt_rt
 
-> ftrace provides low impact tracing facilities and should be made
-> available on the main kernel - as opposed to a debug or tracing
-> kernel which often add enough overhead to mask subtle bugs.
+I'm going to sit on this one for another day (or so), there are 20 or
+30 commits missing from the preempt_rt branch that I'm merging
+shortly. After that, we can create the branches and merge this along
+with the stability changes.
 
-I had similar changes to this queued up in preparation for 
-feature merging into 2.6.37, but I've grabbed this instead
-since it is standalone and tested. I've got it here and
-will push it out tomorrow after some other minor things are
-done.
+But the changes look good. No concerns from me.
 
 Cheers,
 
 Bruce
 
-> 
-> These features are available on the 2.6.34 yocto kernel.
-> 
-> Boot and trace-cmd tested on qemux86-64.
-> 
-> Signed-off-by: Darren Hart <darren@dvhart.com>
-> CC: Bruce Ashfield <bruce.ashfield@windriver.com>
-> CC: Tom Zanussi <tom.zanussi@intel.com>
+>
+> Thanks,
+> =A0 =A0Darren Hart <dvhart@linux.intel.com>
 > ---
->  meta/cfg/kernel-cache/features/debugfs/debugfs.cfg |    1 +
->  meta/cfg/kernel-cache/features/debugfs/debugfs.scc |    1 +
->  meta/cfg/kernel-cache/features/ftrace/ftrace.cfg   |    2 ++
->  meta/cfg/kernel-cache/features/ftrace/ftrace.scc   |    1 +
->  meta/cfg/kernel-cache/ktypes/standard/standard.scc |    4 ++++
->  5 files changed, 9 insertions(+), 0 deletions(-)
->  create mode 100644 meta/cfg/kernel-cache/features/debugfs/debugfs.cfg
->  create mode 100644 meta/cfg/kernel-cache/features/debugfs/debugfs.scc
->  create mode 100644 meta/cfg/kernel-cache/features/ftrace/ftrace.cfg
->  create mode 100644 meta/cfg/kernel-cache/features/ftrace/ftrace.scc
-> 
-> diff --git a/meta/cfg/kernel-cache/features/debugfs/debugfs.cfg b/meta/cfg/kernel-cache/features/debugfs/debugfs.cfg
-> new file mode 100644
-> index 0000000..39c2d26
-> --- /dev/null
-> +++ b/meta/cfg/kernel-cache/features/debugfs/debugfs.cfg
-> @@ -0,0 +1 @@
-> +CONFIG_DEBUG_FS=y
-> diff --git a/meta/cfg/kernel-cache/features/debugfs/debugfs.scc b/meta/cfg/kernel-cache/features/debugfs/debugfs.scc
-> new file mode 100644
-> index 0000000..8f84947
-> --- /dev/null
-> +++ b/meta/cfg/kernel-cache/features/debugfs/debugfs.scc
-> @@ -0,0 +1 @@
-> +kconf non-hardware debugfs.cfg
-> diff --git a/meta/cfg/kernel-cache/features/ftrace/ftrace.cfg b/meta/cfg/kernel-cache/features/ftrace/ftrace.cfg
-> new file mode 100644
-> index 0000000..bab800c
-> --- /dev/null
-> +++ b/meta/cfg/kernel-cache/features/ftrace/ftrace.cfg
-> @@ -0,0 +1,2 @@
-> +CONFIG_FUNCTION_TRACER=y
-> +CONFIG_FUNCTION_GRAPH_TRACER=y
-> diff --git a/meta/cfg/kernel-cache/features/ftrace/ftrace.scc b/meta/cfg/kernel-cache/features/ftrace/ftrace.scc
-> new file mode 100644
-> index 0000000..c92e30f
-> --- /dev/null
-> +++ b/meta/cfg/kernel-cache/features/ftrace/ftrace.scc
-> @@ -0,0 +1 @@
-> +kconf non-hardware ftrace.cfg
-> diff --git a/meta/cfg/kernel-cache/ktypes/standard/standard.scc b/meta/cfg/kernel-cache/ktypes/standard/standard.scc
-> index 9fa6c1e..8212465 100644
-> --- a/meta/cfg/kernel-cache/ktypes/standard/standard.scc
-> +++ b/meta/cfg/kernel-cache/ktypes/standard/standard.scc
-> @@ -33,6 +33,10 @@ tag powerpc
->  
->  include features/hrt/hrt.scc
->  
-> +include features/debugfs/debugfs.scc
-> +
-> +include features/ftrace/ftrace.scc
-> +
->  include patches/wrs_patches.scc
->  
->  # #include features/ieee_float/ieee_float.scc
-> -- 
-> 1.7.1
-> -- 
-> Darren Hart
-> Yocto Linux Kernel
+>
+>
+> Darren Hart (1):
+> =A0linux-2.6-windriver: atom-pc-preempt_rt meta-data
+>
+> =A0.../bsp/atom-pc/atom-pc-preempt_rt.scc =A0 =A0 =A0 =A0 =A0 =A0 | =A0 =
+=A07 +++++++
+> =A01 files changed, 7 insertions(+), 0 deletions(-)
+> =A0create mode 100644 wrs/cfg/kernel-cache/bsp/atom-pc/atom-pc-preempt_rt=
+.scc
+> =A0create mode 100644 wrs/patches/atom_pc-preempt_rt/series
+> =A0create mode 100644 wrs/patches/atom_pc-preempt_rt/status
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
+
+
+
+--=20
+"Thou shalt not follow the NULL pointer, for chaos and madness await
+thee at its end"
 
