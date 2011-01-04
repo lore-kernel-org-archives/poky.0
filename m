@@ -1,24 +1,27 @@
-Return-Path: <koen@dominion.thruhere.net>
-Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
-	[74.125.82.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 8CE7C4C80B70
-	for <poky@yoctoproject.org>; Tue,  4 Jan 2011 02:14:51 -0600 (CST)
-Received: by wye20 with SMTP id 20so14937949wye.35
-	for <poky@yoctoproject.org>; Tue, 04 Jan 2011 00:14:50 -0800 (PST)
-Received: by 10.216.178.138 with SMTP id f10mr4426087wem.98.1294128890495;
-	Tue, 04 Jan 2011 00:14:50 -0800 (PST)
-Received: from [172.20.1.5] (ip545070eb.adsl-surfen.hetnet.nl [84.80.112.235])
-	by mx.google.com with ESMTPS id
-	b30sm10346741wen.1.2011.01.04.00.14.49
-	(version=TLSv1/SSLv3 cipher=RC4-MD5);
-	Tue, 04 Jan 2011 00:14:49 -0800 (PST)
-From: Koen Kooi <koen@dominion.thruhere.net>
-Date: Tue, 4 Jan 2011 09:14:48 +0100
-Message-Id: <C3C119F5-9718-4FAD-B52D-51229140AAD0@dominion.thruhere.net>
-To: poky@yoctoproject.org
-Mime-Version: 1.0 (Apple Message framework v1082)
-X-Mailer: Apple Mail (2.1082)
-Subject: [RFC] put PACKAGE_EXTRA_ARCHS in tune files, not machines files, just like OE does
+Return-Path: <qing.he@intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 1CB644C80B70
+	for <poky@yoctoproject.org>; Tue,  4 Jan 2011 02:40:31 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 04 Jan 2011 00:40:30 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,271,1291622400"; d="scan'208";a="369754491"
+Received: from qhe2-db.sh.intel.com ([10.239.13.38])
+	by azsmga001.ch.intel.com with ESMTP; 04 Jan 2011 00:40:18 -0800
+Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
+	(envelope-from <qing.he@intel.com>)
+	id 1Pa2Lp-0002Mn-8C; Tue, 04 Jan 2011 16:34:41 +0800
+Date: Tue, 4 Jan 2011 16:34:41 +0800
+From: Qing He <qing.he@intel.com>
+To: Saul Wold <sgw@linux.intel.com>
+Message-ID: <20110104083441.GA16835@qhe2-db>
+References: <cover.1293765141.git.qing.he@intel.com>
+	<4D1DA77C.8060300@linux.intel.com>
+MIME-Version: 1.0
+In-Reply-To: <4D1DA77C.8060300@linux.intel.com>
+User-Agent: Mutt/1.5.20 (2009-06-14)
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH 0/6] recipe upgrades, Qing He, 12/31/2010
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,26 +33,43 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 04 Jan 2011 08:14:52 -0000
+X-List-Received-Date: Tue, 04 Jan 2011 08:40:31 -0000
 Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
 
-Hi,
+On Fri, 2010-12-31 at 17:50 +0800, Saul Wold wrote:
+> On 12/30/2010 07:16 PM, Qing He wrote:
+> > Pull URL: git://git.pokylinux.org/poky-contrib.git
+> >    Branch: qhe/distro
+> >    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=qhe/distro
+> >
+> > Thanks,
+> >      Qing He
+> > ---
+> >
+> >
+> > Qing He (6):
+> >    parted: upgrade to version 2.3
+> >    libtasn1: upgrade to version 2.9
+> >    gnutls: upgrade to version 2.10.4
+> >    ncurses: upgrade to version 5.7
+> >    augeas: upgrade to version 0.7.4
+> >    lzo: upgrade to version 2.04
+> >
+> Qing,
+> 
+> What kind of testing did you do?  I saw LIC_FILES_CHKSUM failures in lzo 
+> and ncurses!
+> 
+> Please verify these and resubmit.
 
-I spent this mornings pre-coffee time debugging a strange problem in =
-do_rootfs which turned out to be pretty simple (after coffee, that is): =
-yocto puts PACKAGE_EXTRA_ARCHS in the machine.confs instead of the tune =
-files.
+Saul,
 
-This would solve the massive duplication in the machine files and help =
-to avoid the "do_rootfs complains about missing packages that *are* =
-present" type of problems. FWIW, OE has does this years ago and it has =
-worked out quite well.
+Thank you for the fix.
+The screen flushed too quick and I missed the error message.
+Btw, I observed an error, but the build process didn't halt, is that
+considered some kind of bug?
 
-I do find it funny that various bugs in yocto give a deja-vu feeling of =
-having them solved before :)
-
-regards,
-
-Koen=
+Thanks,
+Qing
 
