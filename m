@@ -1,21 +1,19 @@
-Return-Path: <dvhart@linux.intel.com>
+Return-Path: <jessica.zhang@intel.com>
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 8C14B4C80039
-	for <poky@yoctoproject.org>; Mon,  3 Jan 2011 17:24:34 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 03 Jan 2011 15:24:29 -0800
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4D2B54C80039
+	for <poky@yoctoproject.org>; Mon,  3 Jan 2011 17:47:47 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 03 Jan 2011 15:47:46 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,268,1291622400"; d="scan'208";a="693211366"
-Received: from doubt.jf.intel.com (HELO [10.7.199.57]) ([10.7.199.57])
-	by orsmga001.jf.intel.com with ESMTP; 03 Jan 2011 15:24:29 -0800
-Message-ID: <4D225AB1.7010404@linux.intel.com>
-Date: Mon, 03 Jan 2011 15:24:33 -0800
-From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
-MIME-Version: 1.0
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: [PATCH] linux-yocto-2.6.37: Add debugfs and ftrace features to standard ktype meta-data
+X-IronPort-AV: E=Sophos;i="4.60,268,1291622400"; d="scan'208";a="589553060"
+Received: from jzhang-desktop.jf.intel.com (HELO localhost) ([10.7.201.52])
+	by orsmga002.jf.intel.com with ESMTP; 03 Jan 2011 15:47:46 -0800
+Message-Id: <cover.1294099429.git.jessica.zhang@intel.com>
+From: Jessica Zhang <jessica.zhang@intel.com>
+Date: Mon, 3 Jan 2011 16:03:49 -0800
+To: poky@yoctoproject.org
+CC: 
+Subject: [PATCH 00/59] Consolidate adt-installer pull request
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,80 +25,97 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 03 Jan 2011 23:24:34 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 03 Jan 2011 23:47:47 -0000
 
-ftrace provides low impact tracing facilities and should be made
-available on the main kernel - as opposed to a debug or tracing
-kernel which often add enough overhead to mask subtle bugs.
+This is the consolidated pull request that contains all the changes for adt_installer work, including the bitbake recipe file for creating the installer tar file under /tmp/deploy/sdk, after untar, run the adt-installer to install adt cross-toolchain and target sysroots.
 
-These features are available on the 2.6.34 yocto kernel.
 
-Boot and trace-cmd tested on qemux86-64.
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: jzhang/adt-installer
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=jzhang/adt-installer
 
-Signed-off-by: Darren Hart <darren@dvhart.com>
-CC: Bruce Ashfield <bruce.ashfield@windriver.com>
-CC: Tom Zanussi <tom.zanussi@intel.com>
+Thanks,
+    Jessica Zhang <jessica.zhang@intel.com>
 ---
- meta/cfg/kernel-cache/features/debugfs/debugfs.cfg |    1 +
- meta/cfg/kernel-cache/features/debugfs/debugfs.scc |    1 +
- meta/cfg/kernel-cache/features/ftrace/ftrace.cfg   |    2 ++
- meta/cfg/kernel-cache/features/ftrace/ftrace.scc   |    1 +
- meta/cfg/kernel-cache/ktypes/standard/standard.scc |    4 ++++
- 5 files changed, 9 insertions(+), 0 deletions(-)
- create mode 100644 meta/cfg/kernel-cache/features/debugfs/debugfs.cfg
- create mode 100644 meta/cfg/kernel-cache/features/debugfs/debugfs.scc
- create mode 100644 meta/cfg/kernel-cache/features/ftrace/ftrace.cfg
- create mode 100644 meta/cfg/kernel-cache/features/ftrace/ftrace.scc
 
-diff --git a/meta/cfg/kernel-cache/features/debugfs/debugfs.cfg b/meta/cfg/kernel-cache/features/debugfs/debugfs.cfg
-new file mode 100644
-index 0000000..39c2d26
---- /dev/null
-+++ b/meta/cfg/kernel-cache/features/debugfs/debugfs.cfg
-@@ -0,0 +1 @@
-+CONFIG_DEBUG_FS=y
-diff --git a/meta/cfg/kernel-cache/features/debugfs/debugfs.scc b/meta/cfg/kernel-cache/features/debugfs/debugfs.scc
-new file mode 100644
-index 0000000..8f84947
---- /dev/null
-+++ b/meta/cfg/kernel-cache/features/debugfs/debugfs.scc
-@@ -0,0 +1 @@
-+kconf non-hardware debugfs.cfg
-diff --git a/meta/cfg/kernel-cache/features/ftrace/ftrace.cfg b/meta/cfg/kernel-cache/features/ftrace/ftrace.cfg
-new file mode 100644
-index 0000000..bab800c
---- /dev/null
-+++ b/meta/cfg/kernel-cache/features/ftrace/ftrace.cfg
-@@ -0,0 +1,2 @@
-+CONFIG_FUNCTION_TRACER=y
-+CONFIG_FUNCTION_GRAPH_TRACER=y
-diff --git a/meta/cfg/kernel-cache/features/ftrace/ftrace.scc b/meta/cfg/kernel-cache/features/ftrace/ftrace.scc
-new file mode 100644
-index 0000000..c92e30f
---- /dev/null
-+++ b/meta/cfg/kernel-cache/features/ftrace/ftrace.scc
-@@ -0,0 +1 @@
-+kconf non-hardware ftrace.cfg
-diff --git a/meta/cfg/kernel-cache/ktypes/standard/standard.scc b/meta/cfg/kernel-cache/ktypes/standard/standard.scc
-index 9fa6c1e..8212465 100644
---- a/meta/cfg/kernel-cache/ktypes/standard/standard.scc
-+++ b/meta/cfg/kernel-cache/ktypes/standard/standard.scc
-@@ -33,6 +33,10 @@ tag powerpc
- 
- include features/hrt/hrt.scc
- 
-+include features/debugfs/debugfs.scc
-+
-+include features/ftrace/ftrace.scc
-+
- include patches/wrs_patches.scc
- 
- # #include features/ieee_float/ieee_float.scc
--- 
-1.7.1
--- 
-Darren Hart
-Yocto Linux Kernel
+
+Jessica Zhang (9):
+  Correct messages, fix bug for parsing YOCTOADT_TARGET_ARCH variable
+    correctly
+  more messages cleanup, fix issues: 1) download all the specified
+    rootfs fiels, 2) add check for yocto_installer_internal, 3) error
+    out when sysroot image file or sysroot location are empty
+  Clean messaging, prompt consolidation and bug fixes
+  Correct messages, fix bug for parsing YOCTOADT_TARGET_ARCH variable
+    correctly
+  more messages cleanup, fix issues: 1) download all the specified
+    rootfs fiels, 2) add check for yocto_installer_internal, 3) error
+    out when sysroot image file or sysroot location are empty
+  Clean messaging, prompt consolidation and bug fixes
+  change file names, more clean up of messaging, add comments and
+    simplify config file entries, change code support new config file
+  missing files for change file names, more clean up of messaging, add
+    comments and simplify config file entries, change code support new
+    config file
+  Move version info to the beginning of conf file and fix a minor typo
+    in adt_installer.conf
+
+Liping Ke (50):
+  Add initial yocto adt installer script
+  New version of installer script
+  Redirect downloading information to both screen and log file
+  Change sdk version in configuration file to 0.9+snapshot
+  Change qemu kernel downloading output info to be noverbose
+  Make bar viewing for showing download progress instead of dot view
+  Update user configuration file for testing
+  If qemu file already exists, user can choose download new or keep the
+    old
+  Modify folders per Josh's suggestion
+  sudo is controlled in smaller granularity.
+  Add opkg source tarball for testing.
+  Add split include script file
+  Remove the param passing for readability
+  Remove redundant prompts
+  Move installer scripts to the decided folders
+  Add new folder under installer for conforming bb file path
+    conventions
+  Add installer scripts tarball generating bb file
+  Add just installer scripts code according to bb file logic
+  Make Silent installation as another option for avoiding bothering
+    users.
+  Removde Debug options from installer script
+  Remove unneccessary folder creation in do_deploy
+  Store pseudo database in target rootfs
+  Link ld.so.cache file into the host filesystem
+  Add initial yocto adt installer script
+  New version of installer script
+  Redirect downloading information to both screen and log file
+  Change sdk version in configuration file to 0.9+snapshot
+  Change qemu kernel downloading output info to be noverbose
+  Make bar viewing for showing download progress instead of dot view
+  Update user configuration file for testing
+  If qemu file already exists, user can choose download new or keep the
+    old
+  Modify folders per Josh's suggestion
+  sudo is controlled in smaller granularity.
+  Add opkg source tarball for testing.
+  Add split include script file
+  Remove the param passing for readability
+  Remove redundant prompts
+  Move installer scripts to the decided folders
+  Add new folder under installer for conforming bb file path
+    conventions
+  Add installer scripts tarball generating bb file
+  Add just installer scripts code according to bb file logic
+  Make Silent installation as another option for avoiding bothering
+    users.
+  Removde Debug options from installer script
+  Remove unneccessary folder creation in do_deploy
+  Store pseudo database in target rootfs
+  Link ld.so.cache file into the host filesystem
+  Remove old unused renamed files
+  Remove unused rename file
+  Fix several defects: sdk_version, relative path
+  Adjust the code according to installation configuration file changes.
+
 
