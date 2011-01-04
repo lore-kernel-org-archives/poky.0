@@ -1,25 +1,25 @@
 Return-Path: <saul.wold@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E05424C810DD
-	for <poky@yoctoproject.org>; Mon,  3 Jan 2011 19:19:01 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 03 Jan 2011 17:19:01 -0800
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 31C4C4C80039
+	for <poky@yoctoproject.org>; Mon,  3 Jan 2011 19:20:53 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 03 Jan 2011 17:20:52 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,269,1291622400"; d="scan'208";a="693238489"
+X-IronPort-AV: E=Sophos;i="4.60,269,1291622400"; d="scan'208";a="369641178"
 Received: from unknown (HELO [10.255.14.6]) ([10.255.14.6])
-	by orsmga001.jf.intel.com with ESMTP; 03 Jan 2011 17:19:01 -0800
-Message-ID: <4D227584.8090406@intel.com>
-Date: Mon, 03 Jan 2011 17:19:00 -0800
+	by azsmga001.ch.intel.com with ESMTP; 03 Jan 2011 17:20:52 -0800
+Message-ID: <4D2275F4.9030702@intel.com>
+Date: Mon, 03 Jan 2011 17:20:52 -0800
 From: Saul Wold <saul.wold@intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
 	Thunderbird/3.0.5
 MIME-Version: 1.0
-To: Jiajun Xu <jiajun.xu@intel.com>
-References: <cover.1293783098.git.jiajun.xu@intel.com>
-In-Reply-To: <cover.1293783098.git.jiajun.xu@intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/4] qemuimagetest: Add several cases for sanity test
+To: Tom Zanussi <tom.zanussi@intel.com>
+References: <1293637203.12997.5.camel@elmorro>
+In-Reply-To: <1293637203.12997.5.camel@elmorro>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH] bblayers.conf.sample: remove meta-emenlow, v2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,74 +31,57 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 04 Jan 2011 01:19:02 -0000
+X-List-Received-Date: Tue, 04 Jan 2011 01:20:53 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 12/31/2010 12:16 AM, Jiajun Xu wrote:
-> There are 5 cases added for sanity test. These cases covers
-> basic function check for connman, compiler, zypper and rpm in
-> target.
+On 12/29/2010 07:40 AM, Tom Zanussi wrote:
+> meta-emenlow has been moved to the meta-intel repo, so it shouldn't be
+> added as a default layer by bblayers.conf.  Users who want to build
+> the meta-emenlow layer can just add it to bblayers.conf as they would
+> any other layer e.g.
 >
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->    Branch: jxu49/master
->    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=jxu49/master
->
-> Thanks,
->      Jiajun Xu<jiajun.xu@intel.com>
-> ---
->
->
-> Jiajun Xu (4):
->    qemuimagetest: Add basic function check for zypper command
->    qemuimagetest: Add basic function check for rpm command
->    qemuimagetest: Add basic function check for gcc/g++/make command in
->      target
->    qemuimagetest: Add basic function check for connman
->
->   scripts/qemuimage-tests/sanity/compiler            |   52 ++++++++
->   scripts/qemuimage-tests/sanity/connman             |   52 ++++++++
->   scripts/qemuimage-tests/sanity/rpm_query           |   52 ++++++++
->   scripts/qemuimage-tests/sanity/zypper_help         |   52 ++++++++
->   scripts/qemuimage-tests/sanity/zypper_search       |   52 ++++++++
->   .../scenario/qemuarm/poky-image-lsb                |    4 +
->   .../scenario/qemuarm/poky-image-sato               |    4 +
->   .../scenario/qemuarm/poky-image-sdk                |    5 +
->   .../scenario/qemumips/poky-image-lsb               |    4 +
->   .../scenario/qemumips/poky-image-sato              |    4 +
->   .../scenario/qemumips/poky-image-sdk               |    5 +
->   .../scenario/qemuppc/poky-image-lsb                |    4 +
->   .../scenario/qemuppc/poky-image-sato               |    4 +
->   .../scenario/qemuppc/poky-image-sdk                |    5 +
->   .../scenario/qemux86-64/poky-image-lsb             |    4 +
->   .../scenario/qemux86-64/poky-image-sato            |    4 +
->   .../scenario/qemux86-64/poky-image-sdk             |    5 +
->   .../scenario/qemux86/poky-image-lsb                |    4 +
->   .../scenario/qemux86/poky-image-sato               |    4 +
->   .../scenario/qemux86/poky-image-sdk                |    5 +
->   scripts/qemuimage-tests/tools/compiler_test.sh     |  137 ++++++++++++++++++++
->   scripts/qemuimage-tests/tools/connman_test.sh      |   55 ++++++++
->   scripts/qemuimage-tests/tools/rpm_test.sh          |   45 +++++++
->   scripts/qemuimage-tests/tools/zypper_test.sh       |   45 +++++++
->   24 files changed, 607 insertions(+), 0 deletions(-)
->   create mode 100755 scripts/qemuimage-tests/sanity/compiler
->   create mode 100755 scripts/qemuimage-tests/sanity/connman
->   create mode 100755 scripts/qemuimage-tests/sanity/rpm_query
->   create mode 100755 scripts/qemuimage-tests/sanity/zypper_help
->   create mode 100755 scripts/qemuimage-tests/sanity/zypper_search
->   create mode 100644 scripts/qemuimage-tests/tools/compiler_test.sh
->   create mode 100644 scripts/qemuimage-tests/tools/connman_test.sh
->   create mode 100644 scripts/qemuimage-tests/tools/rpm_test.sh
->   create mode 100644 scripts/qemuimage-tests/tools/zypper_test.sh
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
-Pulled into Master
+Tom,
 
-  Thanks
-     Sau!
+I am holding pulling this into master and pulling the emenlow stuff from
+master, until I have had a chance to coordinate it with Beth, this will 
+change the autobuilder and we need to make the adjustments to either 
+pull the meta-intel or fix it appropriately.
+
+I have not forgot about these changes.
+
+
+Sau!
+
+
+> BBLAYERS = " \
+>    /home/trz/yocto/meta \
+>    /home/trz/yocto/meta-intel/meta-emenlow \
+>    "
+>
+> v2 changes:
+>
+> Update LCONF_VERSION as noted by Saul.
+>
+> Signed-off-by: Tom Zanussi<tom.zanussi@intel.com>
+> ---
+>   meta/conf/bblayers.conf.sample |    3 +--
+>   1 files changed, 1 insertions(+), 2 deletions(-)
+>
+> diff --git a/meta/conf/bblayers.conf.sample b/meta/conf/bblayers.conf.sample
+> index 3c7b6e6..b2f37c0 100644
+> --- a/meta/conf/bblayers.conf.sample
+> +++ b/meta/conf/bblayers.conf.sample
+> @@ -1,9 +1,8 @@
+>   # LAYER_CONF_VERSION is increased each time build/conf/bblayers.conf
+>   # changes incompatibly
+> -LCONF_VERSION = "3"
+> +LCONF_VERSION = "4"
+>
+>   BBFILES ?= ""
+>   BBLAYERS = " \
+>     ##POKYBASE##/meta \
+> -  ##POKYBASE##/meta-emenlow \
+>     "
 
 
