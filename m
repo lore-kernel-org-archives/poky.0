@@ -1,25 +1,32 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 6213C4C811AA;
-	Mon,  3 Jan 2011 19:26:31 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 03 Jan 2011 17:26:31 -0800
+Return-Path: <nitin.a.kamble@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 1EC404C80050
+	for <poky@yoctoproject.org>; Mon,  3 Jan 2011 20:07:51 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 03 Jan 2011 18:07:50 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,269,1291622400"; d="scan'208";a="643025934"
-Received: from unknown (HELO [10.255.14.6]) ([10.255.14.6])
-	by fmsmga002.fm.intel.com with ESMTP; 03 Jan 2011 17:26:30 -0800
-Message-ID: <4D227746.5020805@intel.com>
-Date: Mon, 03 Jan 2011 17:26:30 -0800
-From: Saul Wold <saul.wold@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
+X-IronPort-AV: E=Sophos;i="4.60,269,1291622400"; d="scan'208";a="693249030"
+Received: from orsmsx603.amr.corp.intel.com ([10.22.226.49])
+	by orsmga001.jf.intel.com with ESMTP; 03 Jan 2011 18:07:50 -0800
+Received: from orsmsx504.amr.corp.intel.com ([10.22.226.207]) by
+	orsmsx603.amr.corp.intel.com ([10.22.226.49]) with mapi; Mon, 3 Jan 2011
+	18:07:50 -0800
+From: "Kamble, Nitin A" <nitin.a.kamble@intel.com>
+To: Saul Wold <sgw@linux.intel.com>
+Date: Mon, 3 Jan 2011 18:07:48 -0800
+Thread-Topic: [poky] [PATCH 0/5] perl and other devel/toolchain recipe upgrades
+Thread-Index: Acuox9qY+xcbdnq0RPm8u9yemGMWYgC65wbQ
+Message-ID: <9DA5872FEF993D41B7173F58FCF6BE9405385E1E@orsmsx504.amr.corp.intel.com>
+References: <cover.1293729977.git.nitin.a.kamble@intel.com>
+	<4D1D9974.7090409@linux.intel.com>
+In-Reply-To: <4D1D9974.7090409@linux.intel.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
 MIME-Version: 1.0
-To: Bruce Ashfield <bruce.ashfield@windriver.com>
-References: <cover.1294034587.git.bruce.ashfield@windriver.com>
-In-Reply-To: <cover.1294034587.git.bruce.ashfield@windriver.com>
-Cc: yocto@yoctoproject.org, poky@yoctoproject.org
-Subject: Re: [PATCH 0/1] linux-yocto/stable: update to 2.6.34.x -longterm
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH 0/5] perl and other devel/toolchain recipe upgrades
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,63 +38,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 04 Jan 2011 01:26:31 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 04 Jan 2011 02:07:51 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On 01/02/2011 10:11 PM, Bruce Ashfield wrote:
-> Richard/Saul,
->
-> Paul Gortmaker maintains the upstream 2.6.34.x -longerm tree. The
-> yocto stable kernel tracks this tree and incorporates those nominated
-> changes. We are picking up lots of bug fixes and security updates
-> to the -stable tree with this change.
->
-> This commit updates the BSP SRCREVs to the latest 2.6.34.x
-> merge and picks up 260 -stable commits for each BSP.
->
-> Tom: the meta-emenlow layer should be updated with the new SRCREV.
-> I updated the master version, and simply tossed any changes to the
-> drivers modified by the emenlow. So taking a quick look at the merge
-> might be a good idea as well. I did my own build tests here and
-> everything looked sane.
->
-> Darren: I had to resolve a merge in the -rt branches, and preferred
-> the -rt implementation of the files in question. I used your patches
-> that are out for review and confirmed that qemux86-64-preempt_rt builds with
-> the updated kernel.
->
-> I built all the -stable boards, and everything looks sane, so this
-> one should be good to go.
->
-> Cheers,
->
-> Bruce
->
->
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->    Branch: zedd/stable
->    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/stable
->
-> Thanks,
->      Bruce Ashfield<bruce.ashfield@windriver.com>
-> ---
->
->
-> Bruce Ashfield (1):
->    linux-yocto/stable: update SRCREVs for 2.6.34.x -stable update
->
->   .../conf/distro/include/poky-default-revisions.inc |   20 ++++++++++----------
->   1 files changed, 10 insertions(+), 10 deletions(-)
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
-Pulled into Master
+> >    perl, perl-native: upgrade from 5.8.8 to 5.12.2
+> Nitin, in the perl/rdepends_perl, did you miss RDEPENDS_ in front of
+> some of the names?
 
-Thanks
-    Sau!
+Saul,=20
+  Good catch, Yes all the assignments need RDEPENDS_ in front. I will fix t=
+his and send an update.
+
+>=20
+> Also, you mentioned a fakeroot patch of somekind, is that something
+> from
+> the debian? I did not find it in either versions.
+
+
+  The fakeroot patch is at location: meta/recipes-devtools/perl/perl-5.12.2=
+/debian/fakeroot.patch
+And it was conflicting with the Makefile.SH.patch patch.
+
+Thanks,
+Nitin
+
+>=20
+> Sau!
+
+
+
 
 
