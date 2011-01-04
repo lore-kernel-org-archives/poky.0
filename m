@@ -1,27 +1,25 @@
-Return-Path: <qing.he@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 1CB644C80B70
-	for <poky@yoctoproject.org>; Tue,  4 Jan 2011 02:40:31 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 04 Jan 2011 00:40:30 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,271,1291622400"; d="scan'208";a="369754491"
-Received: from qhe2-db.sh.intel.com ([10.239.13.38])
-	by azsmga001.ch.intel.com with ESMTP; 04 Jan 2011 00:40:18 -0800
-Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
-	(envelope-from <qing.he@intel.com>)
-	id 1Pa2Lp-0002Mn-8C; Tue, 04 Jan 2011 16:34:41 +0800
-Date: Tue, 4 Jan 2011 16:34:41 +0800
-From: Qing He <qing.he@intel.com>
-To: Saul Wold <sgw@linux.intel.com>
-Message-ID: <20110104083441.GA16835@qhe2-db>
-References: <cover.1293765141.git.qing.he@intel.com>
-	<4D1DA77C.8060300@linux.intel.com>
-MIME-Version: 1.0
-In-Reply-To: <4D1DA77C.8060300@linux.intel.com>
-User-Agent: Mutt/1.5.20 (2009-06-14)
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 0/6] recipe upgrades, Qing He, 12/31/2010
+Return-Path: <koen@dominion.thruhere.net>
+Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C9FD24C8086F
+	for <poky@yoctoproject.org>; Tue,  4 Jan 2011 03:12:56 -0600 (CST)
+Received: by wwb31 with SMTP id 31so17227729wwb.11
+	for <poky@yoctoproject.org>; Tue, 04 Jan 2011 01:12:56 -0800 (PST)
+Received: by 10.227.172.137 with SMTP id l9mr12521039wbz.196.1294132375922;
+	Tue, 04 Jan 2011 01:12:55 -0800 (PST)
+Received: from [172.20.1.5] (ip545070eb.adsl-surfen.hetnet.nl [84.80.112.235])
+	by mx.google.com with ESMTPS id
+	m10sm14860002wbc.4.2011.01.04.01.12.54
+	(version=TLSv1/SSLv3 cipher=RC4-MD5);
+	Tue, 04 Jan 2011 01:12:54 -0800 (PST)
+Mime-Version: 1.0 (Apple Message framework v1082)
+From: Koen Kooi <koen@dominion.thruhere.net>
+In-Reply-To: <C3C119F5-9718-4FAD-B52D-51229140AAD0@dominion.thruhere.net>
+Date: Tue, 4 Jan 2011 10:12:52 +0100
+Message-Id: <1A34D924-4ABD-44E5-A605-A4A37009CAA1@dominion.thruhere.net>
+References: <C3C119F5-9718-4FAD-B52D-51229140AAD0@dominion.thruhere.net>
+To: poky@yoctoproject.org
+X-Mailer: Apple Mail (2.1082)
+Subject: Re: [RFC] put PACKAGE_EXTRA_ARCHS in tune files, not machines files, just like OE does
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,43 +31,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 04 Jan 2011 08:40:31 -0000
+X-List-Received-Date: Tue, 04 Jan 2011 09:12:57 -0000
 Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 2010-12-31 at 17:50 +0800, Saul Wold wrote:
-> On 12/30/2010 07:16 PM, Qing He wrote:
-> > Pull URL: git://git.pokylinux.org/poky-contrib.git
-> >    Branch: qhe/distro
-> >    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=qhe/distro
-> >
-> > Thanks,
-> >      Qing He
-> > ---
-> >
-> >
-> > Qing He (6):
-> >    parted: upgrade to version 2.3
-> >    libtasn1: upgrade to version 2.9
-> >    gnutls: upgrade to version 2.10.4
-> >    ncurses: upgrade to version 5.7
-> >    augeas: upgrade to version 0.7.4
-> >    lzo: upgrade to version 2.04
-> >
-> Qing,
-> 
-> What kind of testing did you do?  I saw LIC_FILES_CHKSUM failures in lzo 
-> and ncurses!
-> 
-> Please verify these and resubmit.
 
-Saul,
+Op 4 jan 2011, om 09:14 heeft Koen Kooi het volgende geschreven:
 
-Thank you for the fix.
-The screen flushed too quick and I missed the error message.
-Btw, I observed an error, but the build process didn't halt, is that
-considered some kind of bug?
+> Hi,
+>=20
+> I spent this mornings pre-coffee time debugging a strange problem in =
+do_rootfs which turned out to be pretty simple (after coffee, that is): =
+yocto puts PACKAGE_EXTRA_ARCHS in the machine.confs instead of the tune =
+files.
+>=20
+> This would solve the massive duplication in the machine files and help =
+to avoid the "do_rootfs complains about missing packages that *are* =
+present" type of problems. FWIW, OE has does this years ago and it has =
+worked out quite well.
+>=20
+> I do find it funny that various bugs in yocto give a deja-vu feeling =
+of having them solved before :)
 
-Thanks,
-Qing
+This is how the patch would look like: =
+http://cgit.openembedded.org/cgit.cgi/openembedded/commit/?id=3Da1825f04c3=
+b8b98a66ae402e99fd40ff2be59c82=
 
