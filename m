@@ -1,25 +1,25 @@
 Return-Path: <saul.wold@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 31C4C4C80039
-	for <poky@yoctoproject.org>; Mon,  3 Jan 2011 19:20:53 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 03 Jan 2011 17:20:52 -0800
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 49D1C4C80039
+	for <poky@yoctoproject.org>; Mon,  3 Jan 2011 19:25:33 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 03 Jan 2011 17:25:32 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,269,1291622400"; d="scan'208";a="369641178"
+X-IronPort-AV: E=Sophos;i="4.60,269,1291622400"; d="scan'208";a="643025747"
 Received: from unknown (HELO [10.255.14.6]) ([10.255.14.6])
-	by azsmga001.ch.intel.com with ESMTP; 03 Jan 2011 17:20:52 -0800
-Message-ID: <4D2275F4.9030702@intel.com>
-Date: Mon, 03 Jan 2011 17:20:52 -0800
+	by fmsmga002.fm.intel.com with ESMTP; 03 Jan 2011 17:25:32 -0800
+Message-ID: <4D22770C.5010102@intel.com>
+Date: Mon, 03 Jan 2011 17:25:32 -0800
 From: Saul Wold <saul.wold@intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
 	Thunderbird/3.0.5
 MIME-Version: 1.0
-To: Tom Zanussi <tom.zanussi@intel.com>
-References: <1293637203.12997.5.camel@elmorro>
-In-Reply-To: <1293637203.12997.5.camel@elmorro>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH] bblayers.conf.sample: remove meta-emenlow, v2
+To: Qing He <qing.he@intel.com>
+References: <cover.1293765141.git.qing.he@intel.com>
+In-Reply-To: <cover.1293765141.git.qing.he@intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/6] recipe upgrades, Qing He, 12/31/2010
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,57 +31,78 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 04 Jan 2011 01:20:53 -0000
+X-List-Received-Date: Tue, 04 Jan 2011 01:25:33 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 12/29/2010 07:40 AM, Tom Zanussi wrote:
-> meta-emenlow has been moved to the meta-intel repo, so it shouldn't be
-> added as a default layer by bblayers.conf.  Users who want to build
-> the meta-emenlow layer can just add it to bblayers.conf as they would
-> any other layer e.g.
+On 12/30/2010 07:16 PM, Qing He wrote:
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>    Branch: qhe/distro
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=qhe/distro
 >
-Tom,
-
-I am holding pulling this into master and pulling the emenlow stuff from
-master, until I have had a chance to coordinate it with Beth, this will 
-change the autobuilder and we need to make the adjustments to either 
-pull the meta-intel or fix it appropriately.
-
-I have not forgot about these changes.
-
-
-Sau!
-
-
-> BBLAYERS = " \
->    /home/trz/yocto/meta \
->    /home/trz/yocto/meta-intel/meta-emenlow \
->    "
->
-> v2 changes:
->
-> Update LCONF_VERSION as noted by Saul.
->
-> Signed-off-by: Tom Zanussi<tom.zanussi@intel.com>
+> Thanks,
+>      Qing He
 > ---
->   meta/conf/bblayers.conf.sample |    3 +--
->   1 files changed, 1 insertions(+), 2 deletions(-)
 >
-> diff --git a/meta/conf/bblayers.conf.sample b/meta/conf/bblayers.conf.sample
-> index 3c7b6e6..b2f37c0 100644
-> --- a/meta/conf/bblayers.conf.sample
-> +++ b/meta/conf/bblayers.conf.sample
-> @@ -1,9 +1,8 @@
->   # LAYER_CONF_VERSION is increased each time build/conf/bblayers.conf
->   # changes incompatibly
-> -LCONF_VERSION = "3"
-> +LCONF_VERSION = "4"
 >
->   BBFILES ?= ""
->   BBLAYERS = " \
->     ##POKYBASE##/meta \
-> -  ##POKYBASE##/meta-emenlow \
->     "
+> Qing He (6):
+>    parted: upgrade to version 2.3
+>    libtasn1: upgrade to version 2.9
+>    gnutls: upgrade to version 2.10.4
+>    ncurses: upgrade to version 5.7
+>    augeas: upgrade to version 0.7.4
+>    lzo: upgrade to version 2.04
+>
+>   meta/recipes-core/ncurses/ncurses-5.7/config.cache |    4 +
+>   .../ncurses/ncurses-5.7/tic-hang.patch             |   25 +
+>   .../ncurses/ncurses/makefile_tweak.patch           |   89 -
+>   meta/recipes-core/ncurses/ncurses/visibility.patch | 4904 --------------------
+>   meta/recipes-core/ncurses/ncurses_5.4.bb           |   11 -
+>   meta/recipes-core/ncurses/ncurses_5.7.bb           |  242 +
+>   meta/recipes-extended/augeas/augeas_0.7.3.bb       |    6 -
+>   meta/recipes-extended/augeas/augeas_0.7.4.bb       |    6 +
+>   .../{parted-1.9.0 =>  parted-2.3}/no_check.patch    |    0
+>   .../{parted-1.9.0 =>  parted-2.3}/syscalls.patch    |    0
+>   .../parted/{parted_1.9.0.bb =>  parted_2.3.bb}      |   12 +-
+>   .../configure-fix.patch                            |    0
+>   .../gnutls-openssl.patch                           |    0
+>   .../gnutls-texinfo-euro.patch                      |    0
+>   .../gnutls/{gnutls_2.8.6.bb =>  gnutls_2.10.4.bb}   |    4 +-
+>   .../gnutls/{libtasn1_2.8.bb =>  libtasn1_2.9.bb}    |    4 +-
+>   meta/recipes-support/lzo/lzo-2.03/autofoo.patch    |   17 -
+>   .../lzo/{lzo-2.03 =>  lzo-2.04}/acinclude.m4        |    0
+>   meta/recipes-support/lzo/lzo-2.04/autoconf.patch   |   19 +
+>   .../lzo/{lzo_2.03.bb =>  lzo_2.04.bb}               |    9 +-
+>   20 files changed, 311 insertions(+), 5041 deletions(-)
+>   create mode 100644 meta/recipes-core/ncurses/ncurses-5.7/config.cache
+>   create mode 100644 meta/recipes-core/ncurses/ncurses-5.7/tic-hang.patch
+>   delete mode 100644 meta/recipes-core/ncurses/ncurses/makefile_tweak.patch
+>   delete mode 100644 meta/recipes-core/ncurses/ncurses/visibility.patch
+>   delete mode 100644 meta/recipes-core/ncurses/ncurses_5.4.bb
+>   create mode 100644 meta/recipes-core/ncurses/ncurses_5.7.bb
+>   delete mode 100644 meta/recipes-extended/augeas/augeas_0.7.3.bb
+>   create mode 100644 meta/recipes-extended/augeas/augeas_0.7.4.bb
+>   rename meta/recipes-extended/parted/{parted-1.9.0 =>  parted-2.3}/no_check.patch (100%)
+>   rename meta/recipes-extended/parted/{parted-1.9.0 =>  parted-2.3}/syscalls.patch (100%)
+>   rename meta/recipes-extended/parted/{parted_1.9.0.bb =>  parted_2.3.bb} (54%)
+>   rename meta/recipes-support/gnutls/{gnutls-2.8.6 =>  gnutls-2.10.4}/configure-fix.patch (100%)
+>   rename meta/recipes-support/gnutls/{gnutls-2.8.6 =>  gnutls-2.10.4}/gnutls-openssl.patch (100%)
+>   rename meta/recipes-support/gnutls/{gnutls-2.8.6 =>  gnutls-2.10.4}/gnutls-texinfo-euro.patch (100%)
+>   rename meta/recipes-support/gnutls/{gnutls_2.8.6.bb =>  gnutls_2.10.4.bb} (53%)
+>   rename meta/recipes-support/gnutls/{libtasn1_2.8.bb =>  libtasn1_2.9.bb} (81%)
+>   delete mode 100644 meta/recipes-support/lzo/lzo-2.03/autofoo.patch
+>   rename meta/recipes-support/lzo/{lzo-2.03 =>  lzo-2.04}/acinclude.m4 (100%)
+>   create mode 100644 meta/recipes-support/lzo/lzo-2.04/autoconf.patch
+>   rename meta/recipes-support/lzo/{lzo_2.03.bb =>  lzo_2.04.bb} (72%)
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
+Pulled into Master
+
+Thanks
+    Sau!
 
 
