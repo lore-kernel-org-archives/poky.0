@@ -1,39 +1,24 @@
-Return-Path: <bruce.ashfield@gmail.com>
-Received: from mail-iw0-f176.google.com (mail-iw0-f176.google.com
-	[209.85.214.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id BA0104C80039
-	for <poky@yoctoproject.org>; Tue,  4 Jan 2011 15:03:45 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by iwn2 with SMTP id 2so16993229iwn.35
-	for <poky@yoctoproject.org>; Tue, 04 Jan 2011 13:03:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:received:received:in-reply-to
-	:references:date:message-id:subject:from:to:cc:content-type
-	:content-transfer-encoding;
-	bh=WH26b6LzCwtlqDBaYoV2M2uo40//VNlQ/xSekhduKEE=;
-	b=kl/idphaWKXrj0EYwO47CPXCBNKW5x7PCOHzLnSNMQ5xZ0RnLZw52nmjfWCl9SIdBq
-	tXlL2Fzi4QEe31j4dWVAoZodXFZFKQHaTT4PW4DuhZevL+/g4qxzXftNJb1Yojm4NS6i
-	tsyHF23Cx1xnSaRanNFDF2/Ana8JDcvyxdN5U=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type:content-transfer-encoding;
-	b=xVLmWnD7fkrPdMPsCURDHaBIzc7iOyaByRwKcIFMavYobT4mb+kaJ3oaNhPhyGAU/2
-	nYvvepp1MXucUZ0kthujYWKGLkv4uI0IwIgEna+xp0+qBwcWnbFtvILt1fQJaCbrulW/
-	PgxCQAHL8gv6jQ5bKnPt8nO23HVjo+teasKxg=
+Return-Path: <ke.yu@intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id BE3B34C8086F
+	for <poky@yoctoproject.org>; Tue,  4 Jan 2011 19:52:15 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 04 Jan 2011 17:52:15 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,275,1291622400"; d="scan'208";a="370168319"
+Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
+	by azsmga001.ch.intel.com with ESMTP; 04 Jan 2011 17:52:14 -0800
+Date: Wed, 5 Jan 2011 10:00:39 +0800
+From: Yu Ke <ke.yu@intel.com>
+To: Saul Wold <sgw@linux.intel.com>
+Message-ID: <20110105020039.GF20780@kyu3-hedt>
+References: <cover.1294140740.git.ke.yu@intel.com>
+	<4D237A44.3080804@linux.intel.com>
 MIME-Version: 1.0
-Received: by 10.231.35.131 with SMTP id p3mr21967515ibd.87.1294175025174; Tue,
-	04 Jan 2011 13:03:45 -0800 (PST)
-Received: by 10.231.156.136 with HTTP; Tue, 4 Jan 2011 13:03:45 -0800 (PST)
-In-Reply-To: <cover.1293749684.git.dvhart@linux.intel.com>
-References: <cover.1293749684.git.dvhart@linux.intel.com>
-Date: Tue, 4 Jan 2011 16:03:45 -0500
-Message-ID: <AANLkTinkHL_a9nG4NiSQpoHGOprxrWoYKqUSeynwuxmv@mail.gmail.com>
-From: Bruce Ashfield <bruce.ashfield@gmail.com>
-To: Darren Hart <dvhart@linux.intel.com>
+In-Reply-To: <4D237A44.3080804@linux.intel.com>
+User-Agent: Mutt/1.5.20 (2009-06-14)
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/1] linux-2.6-windriver: add atom-pc preempt_rt support
+Subject: Re: [PATCH 0/1] Fix random kernel unpack failure
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -45,54 +30,55 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 04 Jan 2011 21:03:46 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Wed, 05 Jan 2011 01:52:16 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Thu, Dec 30, 2010 at 5:54 PM, Darren Hart <dvhart@linux.intel.com> wrote=
-:
-> In addition to the patch against the wrs_meta branch to follow, this tree
-> also needs the atom-pc-preempt_rt to be created:
->
-> $ git checkout -b atom-pc-preempt_rt common_pc-preempt_rt
+On Jan 04, 11:51, Saul Wold wrote:
+> On 01/04/2011 03:36 AM, Yu Ke wrote:
+> >autobuilder recently is blocked by random unpack failure of linux-libc-headers-yocto
+> >and linux-yocto. this patch fix this issue. the patch description has the detailed
+> >root cause and fix.
+> >
+> >Pull URL: git://git.pokylinux.org/poky-contrib.git
+> >   Branch: kyu3/kernel-unpack-fix
+> >   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kyu3/kernel-unpack-fix
+> >
+> >Thanks,
+> >     Yu Ke<ke.yu@intel.com>
+> >---
+> >
+> >
+> >Yu Ke (1):
+> >   base.bbclass: add lock file for do_unpack task
+> >
+> >  meta/classes/base.bbclass |    4 ++++
+> >  1 files changed, 4 insertions(+), 0 deletions(-)
+> >
+> >_______________________________________________
+> >poky mailing list
+> >poky@yoctoproject.org
+> >https://lists.yoctoproject.org/listinfo/poky
+> >
+> 
+> Ke,
+> 
+> This has been pulled into master as a workaround for the existing
+> issue, please ensure that this issue gets addressed properly once
+> the fetch work is completed to a point that this can be done.
+> 
+> Thanks
+>   Sau!
 
-I'm going to sit on this one for another day (or so), there are 20 or
-30 commits missing from the preempt_rt branch that I'm merging
-shortly. After that, we can create the branches and merge this along
-with the stability changes.
+Yes, with the new fetcher, do_fetch will not create the tar ball for git repo, instead, do_unpack will directly checkout the code from the git repo, thus there will be no race condition and the lock can be safely removed.
 
-But the changes look good. No concerns from me.
+I will take care of it in the new fetcher.
 
-Cheers,
+Regards
+Ke
 
-Bruce
-
->
-> Thanks,
-> =A0 =A0Darren Hart <dvhart@linux.intel.com>
-> ---
->
->
-> Darren Hart (1):
-> =A0linux-2.6-windriver: atom-pc-preempt_rt meta-data
->
-> =A0.../bsp/atom-pc/atom-pc-preempt_rt.scc =A0 =A0 =A0 =A0 =A0 =A0 | =A0 =
-=A07 +++++++
-> =A01 files changed, 7 insertions(+), 0 deletions(-)
-> =A0create mode 100644 wrs/cfg/kernel-cache/bsp/atom-pc/atom-pc-preempt_rt=
-.scc
-> =A0create mode 100644 wrs/patches/atom_pc-preempt_rt/series
-> =A0create mode 100644 wrs/patches/atom_pc-preempt_rt/status
->
 > _______________________________________________
 > poky mailing list
 > poky@yoctoproject.org
 > https://lists.yoctoproject.org/listinfo/poky
->
-
-
-
---=20
-"Thou shalt not follow the NULL pointer, for chaos and madness await
-thee at its end"
 
