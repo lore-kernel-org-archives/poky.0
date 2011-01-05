@@ -1,21 +1,21 @@
 Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id AFAAE4C811EB
-	for <poky@yoctoproject.org>; Wed,  5 Jan 2011 15:38:00 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 05 Jan 2011 13:37:49 -0800
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 9F3504C811ED
+	for <poky@yoctoproject.org>; Wed,  5 Jan 2011 15:38:30 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 05 Jan 2011 13:38:30 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,279,1291622400"; d="scan'208";a="693948581"
-Received: from nbuild1.sc.intel.com (HELO localhost) ([172.25.110.36])
-	by orsmga001.jf.intel.com with ESMTP; 05 Jan 2011 13:37:28 -0800
-Message-Id: <cf95de955c05e9933ba67a977257bae8bcc622e8.1294237909.git.nitin.a.kamble@intel.com>
+X-IronPort-AV: E=Sophos;i="4.60,279,1291622400"; d="scan'208";a="874789899"
+Received: from unknown (HELO localhost) ([172.25.110.36])
+	by fmsmga001.fm.intel.com with ESMTP; 05 Jan 2011 13:38:30 -0800
+Message-Id: <e1bff00f5298f74f146c7ec902f3c6db0e36b43b.1294237909.git.nitin.a.kamble@intel.com>
 In-Reply-To: <cover.1294237909.git.nitin.a.kamble@intel.com>
 References: <cover.1294237909.git.nitin.a.kamble@intel.com>
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Old-Date: Mon, 27 Dec 2010 06:10:19 -0800
-Date: Wed, 05 Jan 2011  7:07:27 -0800
+Old-Date: Wed, 5 Jan 2011 10:03:27 -0800
+Date: Wed, 05 Jan 2011  7:07:48 -0800
 To: poky@yoctoproject.org
-Subject: [PATCH 4/8] python-dbus: upgrade from 0.83.1 to 0.83.2
+Subject: [PATCH 7/8] cpan.bbclass: add a new parameter EXTRA_PERLFLAGS
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,37 +27,45 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 05 Jan 2011 21:38:00 -0000
+X-List-Received-Date: Wed, 05 Jan 2011 21:38:30 -0000
+
+We use host perl while building target perl modules. When some of the
+prebuilt perl modules such as scalar::util are used in the build process
+directly or indirectly, perl needs to load the arch specific .so library
+file. If perl can not find the .so library files, then perl
+tries to use the target pm files which ends up in circular perl module
+depedancy causing build time perl invocation to fail.
+
+Adding this new parameter viz EXTRA_PERLFLAGS to cpan.bbclass allows perl
+module recipes to specify the location of such host .so files for hostperl,
+so that build time invocation of perl does not fail.
 
 Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
 ---
- ...python-dbus_0.83.1.bb => python-dbus_0.83.2.bb} |    6 +++---
- 1 files changed, 3 insertions(+), 3 deletions(-)
- rename meta/recipes-devtools/python/{python-dbus_0.83.1.bb => python-dbus_0.83.2.bb} (82%)
+ meta/classes/cpan.bbclass |    3 ++-
+ 1 files changed, 2 insertions(+), 1 deletions(-)
 
-diff --git a/meta/recipes-devtools/python/python-dbus_0.83.1.bb b/meta/recipes-devtools/python/python-dbus_0.83.2.bb
-similarity index 82%
-rename from meta/recipes-devtools/python/python-dbus_0.83.1.bb
-rename to meta/recipes-devtools/python/python-dbus_0.83.2.bb
-index fcf638d..323dae5 100644
---- a/meta/recipes-devtools/python/python-dbus_0.83.1.bb
-+++ b/meta/recipes-devtools/python/python-dbus_0.83.2.bb
-@@ -4,12 +4,12 @@ HOMEPAGE = "http://www.freedesktop.org/Software/dbus"
- LICENSE = "MIT"
- LIC_FILES_CHKSUM = "file://COPYING;md5=f5612614133e9a2f2dad527d97554670"
- DEPENDS = "expat dbus dbus-glib virtual/libintl python-pyrex-native"
--PR = "ml1"
-+PR = "r0"
+diff --git a/meta/classes/cpan.bbclass b/meta/classes/cpan.bbclass
+index 05f2374..1cfd022 100644
+--- a/meta/classes/cpan.bbclass
++++ b/meta/classes/cpan.bbclass
+@@ -4,6 +4,7 @@
+ inherit cpan-base
  
- SRC_URI = "http://dbus.freedesktop.org/releases/dbus-python/dbus-python-${PV}.tar.gz"
+ EXTRA_CPANFLAGS ?= ""
++EXTRA_PERLFLAGS ?= ""
  
--SRC_URI[md5sum] = "5fdf3970aa0c00020289de7ba8f3be18"
--SRC_URI[sha256sum] = "ce283806f1af4f2322e183a276528a880b503c74972932bd09f06bdb7fcc1b99"
-+SRC_URI[md5sum] = "4ebcaa905bdcb4132b915196b0a3691b"
-+SRC_URI[sha256sum] = "883729c98f40790021e3be0f7028ae863ee1c4a7b922a5578c1342592adfff64"
- S = "${WORKDIR}/dbus-python-${PV}"
+ # Env var which tells perl if it should use host (no) or target (yes) settings
+ export PERLCONFIGTARGET = "${@is_target(d)}"
+@@ -15,7 +16,7 @@ export PERL_ARCHLIB = "${STAGING_LIBDIR}/perl/${@get_perl_version(d)}"
  
- inherit distutils-base autotools pkgconfig
+ cpan_do_configure () {
+ 	export PERL5LIB="${PERL_ARCHLIB}"
+-	yes '' | perl Makefile.PL ${EXTRA_CPANFLAGS}
++	yes '' | perl ${EXTRA_PERLFLAGS} Makefile.PL ${EXTRA_CPANFLAGS}
+ 	if [ "${BUILD_SYS}" != "${HOST_SYS}" ]; then
+ 		. ${STAGING_LIBDIR}/perl/config.sh
+ 		# Use find since there can be a Makefile generated for each Makefile.PL
 -- 
 1.7.2.2
 
