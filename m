@@ -1,21 +1,21 @@
 Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B40C14C811EB
-	for <poky@yoctoproject.org>; Wed,  5 Jan 2011 15:37:49 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 05 Jan 2011 13:37:49 -0800
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id AFAAE4C811EB
+	for <poky@yoctoproject.org>; Wed,  5 Jan 2011 15:38:00 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 05 Jan 2011 13:37:49 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,279,1291622400"; d="scan'208";a="643819621"
-Received: from unknown (HELO localhost) ([172.25.110.36])
-	by fmsmga002.fm.intel.com with ESMTP; 05 Jan 2011 13:37:49 -0800
-Message-Id: <cdc029d39dc999a893e3d4c97e6b30fcbe060c39.1294237909.git.nitin.a.kamble@intel.com>
+X-IronPort-AV: E=Sophos;i="4.60,279,1291622400"; d="scan'208";a="693948581"
+Received: from nbuild1.sc.intel.com (HELO localhost) ([172.25.110.36])
+	by orsmga001.jf.intel.com with ESMTP; 05 Jan 2011 13:37:28 -0800
+Message-Id: <cf95de955c05e9933ba67a977257bae8bcc622e8.1294237909.git.nitin.a.kamble@intel.com>
 In-Reply-To: <cover.1294237909.git.nitin.a.kamble@intel.com>
 References: <cover.1294237909.git.nitin.a.kamble@intel.com>
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Old-Date: Thu, 30 Dec 2010 12:27:54 -0800
+Old-Date: Mon, 27 Dec 2010 06:10:19 -0800
 Date: Wed, 05 Jan 2011  7:07:27 -0800
 To: poky@yoctoproject.org
-Subject: [PATCH 6/8] cpan.bbclass: use LIBDIR instead of DATADIR
+Subject: [PATCH 4/8] python-dbus: upgrade from 0.83.1 to 0.83.2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,71 +27,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 05 Jan 2011 21:37:49 -0000
-
-perl 5.12.2 does not use /usr/share/perl path, and all that stuff goes
-in /usr/lib/perl. This commit fixes cpan class which depends on
-/usr/share/perl.
-
-cpan.base/build.bbclass: change /usr/lib/perl5 to /usr/lib/perl
+X-List-Received-Date: Wed, 05 Jan 2011 21:38:00 -0000
 
 Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
 ---
- meta/classes/cpan-base.bbclass  |    4 ++--
- meta/classes/cpan.bbclass       |    2 +-
- meta/classes/cpan_build.bbclass |    4 ++--
- 3 files changed, 5 insertions(+), 5 deletions(-)
+ ...python-dbus_0.83.1.bb => python-dbus_0.83.2.bb} |    6 +++---
+ 1 files changed, 3 insertions(+), 3 deletions(-)
+ rename meta/recipes-devtools/python/{python-dbus_0.83.1.bb => python-dbus_0.83.2.bb} (82%)
 
-diff --git a/meta/classes/cpan-base.bbclass b/meta/classes/cpan-base.bbclass
-index 1d13ff3..6cd2aa3 100644
---- a/meta/classes/cpan-base.bbclass
-+++ b/meta/classes/cpan-base.bbclass
-@@ -2,7 +2,7 @@
- # cpan-base providers various perl related information needed for building
- # cpan modules
- #
--FILES_${PN} += "${libdir}/perl5 ${datadir}/perl5"
-+FILES_${PN} += "${libdir}/perl ${datadir}/perl"
+diff --git a/meta/recipes-devtools/python/python-dbus_0.83.1.bb b/meta/recipes-devtools/python/python-dbus_0.83.2.bb
+similarity index 82%
+rename from meta/recipes-devtools/python/python-dbus_0.83.1.bb
+rename to meta/recipes-devtools/python/python-dbus_0.83.2.bb
+index fcf638d..323dae5 100644
+--- a/meta/recipes-devtools/python/python-dbus_0.83.1.bb
++++ b/meta/recipes-devtools/python/python-dbus_0.83.2.bb
+@@ -4,12 +4,12 @@ HOMEPAGE = "http://www.freedesktop.org/Software/dbus"
+ LICENSE = "MIT"
+ LIC_FILES_CHKSUM = "file://COPYING;md5=f5612614133e9a2f2dad527d97554670"
+ DEPENDS = "expat dbus dbus-glib virtual/libintl python-pyrex-native"
+-PR = "ml1"
++PR = "r0"
  
- DEPENDS  += "${@["perl", "perl-native"][(bb.data.inherits_class('native', d))]}"
- RDEPENDS  += "${@["perl", ""][(bb.data.inherits_class('native', d))]}"
-@@ -27,7 +27,7 @@ def get_perl_version(d):
- # Determine where the library directories are
- def perl_get_libdirs(d):
- 	libdir = bb.data.getVar('libdir', d, 1)
--	libdirs = libdir + '/perl5'
-+	libdirs = libdir + '/perl'
- 	return libdirs
+ SRC_URI = "http://dbus.freedesktop.org/releases/dbus-python/dbus-python-${PV}.tar.gz"
  
- def is_target(d):
-diff --git a/meta/classes/cpan.bbclass b/meta/classes/cpan.bbclass
-index 513f0b3..05f2374 100644
---- a/meta/classes/cpan.bbclass
-+++ b/meta/classes/cpan.bbclass
-@@ -10,7 +10,7 @@ export PERLCONFIGTARGET = "${@is_target(d)}"
+-SRC_URI[md5sum] = "5fdf3970aa0c00020289de7ba8f3be18"
+-SRC_URI[sha256sum] = "ce283806f1af4f2322e183a276528a880b503c74972932bd09f06bdb7fcc1b99"
++SRC_URI[md5sum] = "4ebcaa905bdcb4132b915196b0a3691b"
++SRC_URI[sha256sum] = "883729c98f40790021e3be0f7028ae863ee1c4a7b922a5578c1342592adfff64"
+ S = "${WORKDIR}/dbus-python-${PV}"
  
- # Env var which tells perl where the perl include files are
- export PERL_INC = "${STAGING_LIBDIR}/perl/${@get_perl_version(d)}/CORE"
--export PERL_LIB = "${STAGING_DATADIR}/perl/${@get_perl_version(d)}"
-+export PERL_LIB = "${STAGING_LIBDIR}/perl/${@get_perl_version(d)}"
- export PERL_ARCHLIB = "${STAGING_LIBDIR}/perl/${@get_perl_version(d)}"
- 
- cpan_do_configure () {
-diff --git a/meta/classes/cpan_build.bbclass b/meta/classes/cpan_build.bbclass
-index dd8d543..cc503a4 100644
---- a/meta/classes/cpan_build.bbclass
-+++ b/meta/classes/cpan_build.bbclass
-@@ -26,8 +26,8 @@ cpan_build_do_configure () {
- 
- 			perl Build.PL --installdirs vendor \
- 				--destdir ${D} \
--				--install_path lib="${datadir}/perl5" \
--				--install_path arch="${libdir}/perl5" \
-+				--install_path lib="${datadir}/perl" \
-+				--install_path arch="${libdir}/perl" \
- 				--install_path script=${bindir} \
- 				--install_path bin=${bindir} \
- 				--install_path bindoc=${mandir}/man1 \
+ inherit distutils-base autotools pkgconfig
 -- 
 1.7.2.2
 
