@@ -1,20 +1,22 @@
 Return-Path: <dexuan.cui@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C16994C80BD4
-	for <poky@yoctoproject.org>; Wed,  5 Jan 2011 07:05:55 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 05 Jan 2011 05:05:55 -0800
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 548B64C811E7
+	for <poky@yoctoproject.org>; Wed,  5 Jan 2011 07:06:01 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 05 Jan 2011 05:06:01 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,278,1291622400"; d="scan'208";a="874651517"
+X-IronPort-AV: E=Sophos;i="4.60,278,1291622400"; d="scan'208";a="590091917"
 Received: from dcui-desktop.sh.intel.com (HELO localhost) ([10.239.13.108])
-	by fmsmga001.fm.intel.com with ESMTP; 05 Jan 2011 05:05:55 -0800
-Message-Id: <cover.1294232460.git.dexuan.cui@intel.com>
+	by orsmga002.jf.intel.com with ESMTP; 05 Jan 2011 05:06:00 -0800
+Message-Id: <5f8c9128568c59ff21bb082160f9f642891539e1.1294232460.git.dexuan.cui@intel.com>
+In-Reply-To: <cover.1294232460.git.dexuan.cui@intel.com>
+References: <cover.1294232460.git.dexuan.cui@intel.com>
 From: Dexuan Cui <dexuan.cui@intel.com>
-Old-Date: Wed, 5 Jan 2011 21:01:00 +0800
-Date: Wed, 05 Jan 2011 21:05:18 +0800
+Old-Date: Wed, 5 Jan 2011 20:12:45 +0800
+Date: Wed, 05 Jan 2011 21:05:44 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 00/12] upgrade for x11 libs
+Subject: [PATCH 04/12] compositeproto: upgrade from 0.4 to 0.4.2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,59 +28,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 05 Jan 2011 13:05:56 -0000
+X-List-Received-Date: Wed, 05 Jan 2011 13:06:01 -0000
 
-I tested it (sato, sdk) on qemux86, qemumips with incremental and full builds.
-
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: dcui/master
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dcui/master
-
-Thanks,
-    Dexuan Cui <dexuan.cui@intel.com>
+Signed-off-by: Dexuan Cui <dexuan.cui@intel.com>
 ---
-
-
-Dexuan Cui (12):
-  renderproto: upgrade from 0.11 to the latest version 0.11.1
-  inputproto: upgrade from 2.0 to 2.0.1
-  xproto: upgrade from 7.0.19 to 7.0.20
-  compositeproto: upgrade from 0.4 to 0.4.2
-  resourceproto: upgrade from 1.1.0 to 1.1.1
-  scrnsaverproto: upgrade from 1.2.0 to 1.2.1
-  pixman: upgrade from 0.20.0 to 0.21.2
-  libdmx: upgrade from 1.1.0 to 1.1.1
-  libxxf86misc: upgrade from 1.0.2 to 1.0.3
-  librsvg: upgrade from 2.32.0 to 2.32.1
-  preferred-xorg-versions.inc: updated for lastest package updates
-  distro_tracking_fields.inc: update for lastest package updates
-
- .../conf/distro/include/distro_tracking_fields.inc |   96 +++++++++++---------
- .../distro/include/preferred-xorg-versions.inc     |   28 +++---
- .../doc_Makefile.patch                             |    0
- .../{librsvg_2.32.0.bb => librsvg_2.32.1.bb}       |    7 +-
- .../xorg-lib/{libdmx_1.1.0.bb => libdmx_1.1.1.bb}  |    8 +-
- ...libxxf86misc_1.0.2.bb => libxxf86misc_1.0.3.bb} |    5 +-
- .../{pixman_0.20.0.bb => pixman_0.21.2.bb}         |    7 +-
- ...mpositeproto_0.4.bb => compositeproto_0.4.2.bb} |    7 +-
- .../{inputproto_2.0.bb => inputproto_2.0.1.bb}     |    7 +-
- .../{renderproto_0.11.bb => renderproto_0.11.1.bb} |    9 +-
- ...sourceproto_1.1.0.bb => resourceproto_1.1.1.bb} |    8 +-
- ...saverproto_1.2.0.bb => scrnsaverproto_1.2.1.bb} |    9 ++-
- .../{xproto_7.0.19.bb => xproto_7.0.20.bb}         |    7 +-
- 13 files changed, 110 insertions(+), 88 deletions(-)
- rename meta/recipes-gnome/librsvg/{librsvg-2.32.0 => librsvg-2.32.1}/doc_Makefile.patch (100%)
- rename meta/recipes-gnome/librsvg/{librsvg_2.32.0.bb => librsvg_2.32.1.bb} (90%)
- rename meta/recipes-graphics/xorg-lib/{libdmx_1.1.0.bb => libdmx_1.1.1.bb} (66%)
- rename meta/recipes-graphics/xorg-lib/{libxxf86misc_1.0.2.bb => libxxf86misc_1.0.3.bb} (66%)
- rename meta/recipes-graphics/xorg-lib/{pixman_0.20.0.bb => pixman_0.21.2.bb} (79%)
+ ...mpositeproto_0.4.bb => compositeproto_0.4.2.bb} |    7 +++++--
+ 1 files changed, 5 insertions(+), 2 deletions(-)
  rename meta/recipes-graphics/xorg-proto/{compositeproto_0.4.bb => compositeproto_0.4.2.bb} (62%)
- rename meta/recipes-graphics/xorg-proto/{inputproto_2.0.bb => inputproto_2.0.1.bb} (65%)
- rename meta/recipes-graphics/xorg-proto/{renderproto_0.11.bb => renderproto_0.11.1.bb} (60%)
- rename meta/recipes-graphics/xorg-proto/{resourceproto_1.1.0.bb => resourceproto_1.1.1.bb} (50%)
- rename meta/recipes-graphics/xorg-proto/{scrnsaverproto_1.2.0.bb => scrnsaverproto_1.2.1.bb} (53%)
- rename meta/recipes-graphics/xorg-proto/{xproto_7.0.19.bb => xproto_7.0.20.bb} (59%)
 
+diff --git a/meta/recipes-graphics/xorg-proto/compositeproto_0.4.bb b/meta/recipes-graphics/xorg-proto/compositeproto_0.4.2.bb
+similarity index 62%
+rename from meta/recipes-graphics/xorg-proto/compositeproto_0.4.bb
+rename to meta/recipes-graphics/xorg-proto/compositeproto_0.4.2.bb
+index 37bbe31..8f1e9e6 100644
+--- a/meta/recipes-graphics/xorg-proto/compositeproto_0.4.bb
++++ b/meta/recipes-graphics/xorg-proto/compositeproto_0.4.2.bb
+@@ -5,7 +5,10 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=f8cdfa47489609f305b91521f3a8803f \
+                     file://composite.h;endline=43;md5=11420a347713de702a1fe60949085464"
+ 
+ CONFLICTS = "compositeext"
++
++PR = "r0"
+ PE = "1"
+ 
+-SRC_URI[md5sum] = "6281344d656d4e0c8e9db4918efe3d1d"
+-SRC_URI[sha256sum] = "6013d1ca63b2b7540f6f99977090812b899852acfbd9df123b5ebaa911e30003"
++SRC_URI[md5sum] = "98482f65ba1e74a08bf5b056a4031ef0"
++SRC_URI[sha256sum] = "049359f0be0b2b984a8149c966dd04e8c58e6eade2a4a309cf1126635ccd0cfc"
++
 -- 
 1.7.2
 
