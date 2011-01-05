@@ -1,21 +1,30 @@
-Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id CAB144C811F0
-	for <poky@yoctoproject.org>; Wed,  5 Jan 2011 15:38:30 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 05 Jan 2011 13:38:30 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,279,1291622400"; d="scan'208";a="590234786"
-Received: from nbuild1.sc.intel.com (HELO localhost) ([172.25.110.36])
-	by orsmga002.jf.intel.com with ESMTP; 05 Jan 2011 13:38:30 -0800
-Message-Id: <01330677e0d535827cc2a3d1324ad8928f77abd6.1294237909.git.nitin.a.kamble@intel.com>
-In-Reply-To: <cover.1294237909.git.nitin.a.kamble@intel.com>
-References: <cover.1294237909.git.nitin.a.kamble@intel.com>
-From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Old-Date: Wed, 5 Jan 2011 10:14:18 -0800
-Date: Wed, 05 Jan 2011  7:08:28 -0800
+Return-Path: <scott.a.garman@intel.com>
+Received: from masterfoo.zenlinux.com (li38-254.members.linode.com
+	[207.192.74.254])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 303ED4C8106A
+	for <poky@yoctoproject.org>; Wed,  5 Jan 2011 15:44:41 -0600 (CST)
+Received: from localhost (c-76-105-143-140.hsd1.or.comcast.net
+	[76.105.143.140])
+	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
+	(No client certificate requested)
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id D8FE930532
+	for <poky@yoctoproject.org>; Wed,  5 Jan 2011 16:44:36 -0500 (EST)
+Message-Id: <b8591c49a8c62e84634c96c33e24a345ca6e62c1.1294250102.git.scott.a.garman@intel.com>
+In-Reply-To: <cover.1294250102.git.scott.a.garman@intel.com>
+References: <cover.1294250102.git.scott.a.garman@intel.com>
+From: Scott Garman <scott.a.garman@intel.com>
+Old-Date: Thu, 16 Dec 2010 21:17:31 -0800
+Date: Wed, 05 Jan 2011 13:44:33 -0800
 To: poky@yoctoproject.org
-Subject: [PATCH 8/8] libxml-simple-perl: fix build failure with perl 5.12.2
+CC: 
+X-MasterFoo-MailScanner-Information: Please contact the ISP for more
+	information
+X-MailScanner-ID: D8FE930532.EFEEC
+X-MasterFoo-MailScanner: Found to be clean
+X-MasterFoo-MailScanner-SpamCheck: not spam
+X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
+X-Spam-Status: No
+Subject: [PATCH 1/8] pax-utils: upgrade to version 2.2.2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,38 +36,72 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 05 Jan 2011 21:38:31 -0000
+X-List-Received-Date: Wed, 05 Jan 2011 21:44:41 -0000
 
-for hostperl needing to load .so files (for module scalar::util) the host/native
-perl library path is placed 1st in the @INC with the -I parameter to perl.
-  Otherwise hostperl gives error can not load module scalar::util.
+* Upgrade to latest upstream release
+* Minor cosmetic recipe changes
 
-Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
+Signed-off-by: Scott Garman <scott.a.garman@intel.com>
 ---
- .../perl/libxml-simple-perl_2.18.bb                |    4 +++-
- 1 files changed, 3 insertions(+), 1 deletions(-)
+ meta/recipes-devtools/pax-utils/pax-utils_0.2.1.bb |   19 ------------------
+ meta/recipes-devtools/pax-utils/pax-utils_0.2.2.bb |   21 ++++++++++++++++++++
+ 2 files changed, 21 insertions(+), 19 deletions(-)
+ delete mode 100644 meta/recipes-devtools/pax-utils/pax-utils_0.2.1.bb
+ create mode 100644 meta/recipes-devtools/pax-utils/pax-utils_0.2.2.bb
 
-diff --git a/meta/recipes-devtools/perl/libxml-simple-perl_2.18.bb b/meta/recipes-devtools/perl/libxml-simple-perl_2.18.bb
-index 136e117..ca57776 100644
---- a/meta/recipes-devtools/perl/libxml-simple-perl_2.18.bb
-+++ b/meta/recipes-devtools/perl/libxml-simple-perl_2.18.bb
-@@ -2,7 +2,7 @@ SECTION = "libs"
- LICENSE = "Artistic"
- LIC_FILES_CHKSUM = "file://README;beginline=70;md5=94aa5d46682b411a53a5494cfb22640e"
- DEPENDS += "libxml-parser-perl"
+diff --git a/meta/recipes-devtools/pax-utils/pax-utils_0.2.1.bb b/meta/recipes-devtools/pax-utils/pax-utils_0.2.1.bb
+deleted file mode 100644
+index f19934c..0000000
+--- a/meta/recipes-devtools/pax-utils/pax-utils_0.2.1.bb
++++ /dev/null
+@@ -1,19 +0,0 @@
+-SUMMARY = "Security-focused ELF files checking tool"
+-DESCRIPTION = "This is a small set of various PaX aware and related utilities for ELF binaries. It can check ELF \
+-binary files and running processes for issues that might be relevant when using ELF binaries along with PaX, \
+-such as non-PIC code or executable stack and heap."
+-HOMEPAGE    = "http://www.gentoo.org/proj/en/hardened/pax-utils.xml"
+-LICENSE     = "GPLv2+"
+-LIC_FILES_CHKSUM = "file://COPYING;md5=eb723b61539feef013de476e68b5c50a"
+-SRC_URI     = "http://gentoo.osuosl.org/distfiles/pax-utils-${PV}.tar.bz2"
+-
+-SRC_URI[md5sum] = "2bf53234580e02294453a40c864f5871"
+-SRC_URI[sha256sum] = "6a5beefb686e425eb6829bc716d2b32b64c2e854287c212c9853bc2beb705c3a"
+-
 -PR = "r0"
-+PR = "r1"
- 
- SRC_URI = "http://www.cpan.org/modules/by-module/XML/XML-Simple-${PV}.tar.gz"
- 
-@@ -11,4 +11,6 @@ SRC_URI[sha256sum] = "a54967c188cda3e20f496c83be4de3f1740eeaa83c0380712ecd969ad8
- 
- S = "${WORKDIR}/XML-Simple-${PV}"
- 
-+EXTRA_PERLFLAGS = "-I ${STAGING_LIBDIR_NATIVE}/perl/${@get_perl_version(d)}"
+-
+-do_install() {
+-    oe_runmake PREFIX=${D}${prefix} DESTDIR=${D} install
+-}
+-
+-BBCLASSEXTEND = "native"
+diff --git a/meta/recipes-devtools/pax-utils/pax-utils_0.2.2.bb b/meta/recipes-devtools/pax-utils/pax-utils_0.2.2.bb
+new file mode 100644
+index 0000000..6bb33e7
+--- /dev/null
++++ b/meta/recipes-devtools/pax-utils/pax-utils_0.2.2.bb
+@@ -0,0 +1,21 @@
++SUMMARY = "Security-focused ELF files checking tool"
++DESCRIPTION = "This is a small set of various PaX aware and related \
++utilities for ELF binaries. It can check ELF binary files and running \
++processes for issues that might be relevant when using ELF binaries \
++along with PaX, such as non-PIC code or executable stack and heap."
++HOMEPAGE = "http://www.gentoo.org/proj/en/hardened/pax-utils.xml"
++LICENSE = "GPLv2+"
++LIC_FILES_CHKSUM = "file://COPYING;md5=eb723b61539feef013de476e68b5c50a"
 +
- inherit cpan
++SRC_URI = "http://gentoo.osuosl.org/distfiles/pax-utils-${PV}.tar.bz2"
++
++SRC_URI[md5sum] = "93a2e993ec7a83627c39ddf92988e191"
++SRC_URI[sha256sum] = "eac86abe7871ee12452d221c1e7c21acb9ba78ba2cba1daa587d3c93c77acd07"
++
++PR = "r0"
++
++do_install() {
++    oe_runmake PREFIX=${D}${prefix} DESTDIR=${D} install
++}
++
++BBCLASSEXTEND = "native"
 -- 
-1.7.2.2
+1.7.1
 
 
