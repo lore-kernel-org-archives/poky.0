@@ -1,22 +1,22 @@
 Return-Path: <dexuan.cui@intel.com>
 Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E2EDB4C811F8
+	by mx1.pokylinux.org (Postfix) with ESMTP id E86B04C811FB
 	for <poky@yoctoproject.org>; Wed,  5 Jan 2011 07:07:57 -0600 (CST)
 Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 05 Jan 2011 05:05:59 -0800
+	by azsmga102.ch.intel.com with ESMTP; 05 Jan 2011 05:06:02 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,278,1291622400"; d="scan'208";a="370354701"
+X-IronPort-AV: E=Sophos;i="4.60,278,1291622400"; d="scan'208";a="370354719"
 Received: from dcui-desktop.sh.intel.com (HELO localhost) ([10.239.13.108])
-	by azsmga001.ch.intel.com with ESMTP; 05 Jan 2011 05:05:58 -0800
-Message-Id: <3e162a15842c319b27fa82eed09ce4e3d63f54db.1294232460.git.dexuan.cui@intel.com>
+	by azsmga001.ch.intel.com with ESMTP; 05 Jan 2011 05:06:01 -0800
+Message-Id: <7281ba46ddb4a395070e122b80f8367cdd79f35c.1294232460.git.dexuan.cui@intel.com>
 In-Reply-To: <cover.1294232460.git.dexuan.cui@intel.com>
 References: <cover.1294232460.git.dexuan.cui@intel.com>
 From: Dexuan Cui <dexuan.cui@intel.com>
-Old-Date: Wed, 5 Jan 2011 20:12:10 +0800
-Date: Wed, 05 Jan 2011 21:05:42 +0800
+Old-Date: Wed, 5 Jan 2011 20:13:29 +0800
+Date: Wed, 05 Jan 2011 21:05:45 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 03/12] xproto: upgrade from 7.0.19 to 7.0.20
+Subject: [PATCH 05/12] resourceproto: upgrade from 1.1.0 to 1.1.1
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,32 +32,30 @@ X-List-Received-Date: Wed, 05 Jan 2011 13:07:58 -0000
 
 Signed-off-by: Dexuan Cui <dexuan.cui@intel.com>
 ---
- .../{xproto_7.0.19.bb => xproto_7.0.20.bb}         |    7 ++++---
- 1 files changed, 4 insertions(+), 3 deletions(-)
- rename meta/recipes-graphics/xorg-proto/{xproto_7.0.19.bb => xproto_7.0.20.bb} (59%)
+ ...sourceproto_1.1.0.bb => resourceproto_1.1.1.bb} |    8 +++++---
+ 1 files changed, 5 insertions(+), 3 deletions(-)
+ rename meta/recipes-graphics/xorg-proto/{resourceproto_1.1.0.bb => resourceproto_1.1.1.bb} (50%)
 
-diff --git a/meta/recipes-graphics/xorg-proto/xproto_7.0.19.bb b/meta/recipes-graphics/xorg-proto/xproto_7.0.20.bb
-similarity index 59%
-rename from meta/recipes-graphics/xorg-proto/xproto_7.0.19.bb
-rename to meta/recipes-graphics/xorg-proto/xproto_7.0.20.bb
-index 1e968c5..0586742 100644
---- a/meta/recipes-graphics/xorg-proto/xproto_7.0.19.bb
-+++ b/meta/recipes-graphics/xorg-proto/xproto_7.0.20.bb
-@@ -3,11 +3,12 @@ require xorg-proto-common.inc
- LICENSE = "MIT & MIT-style"
- LIC_FILES_CHKSUM = "file://COPYING;md5=70c104816b85de375ba1fc09199d0e69"
+diff --git a/meta/recipes-graphics/xorg-proto/resourceproto_1.1.0.bb b/meta/recipes-graphics/xorg-proto/resourceproto_1.1.1.bb
+similarity index 50%
+rename from meta/recipes-graphics/xorg-proto/resourceproto_1.1.0.bb
+rename to meta/recipes-graphics/xorg-proto/resourceproto_1.1.1.bb
+index 23afed7..8cc0607 100644
+--- a/meta/recipes-graphics/xorg-proto/resourceproto_1.1.0.bb
++++ b/meta/recipes-graphics/xorg-proto/resourceproto_1.1.1.bb
+@@ -4,8 +4,10 @@ LICENSE = "MIT"
+ LIC_FILES_CHKSUM = "file://COPYING;md5=e01e66e4b317088cf869bc98e6af4fb6"
  
+ CONFLICTS = "resourceext"
 -PR = "r1"
++
 +PR = "r0"
  PE = "1"
  
- EXTRA_OECONF_append = "--enable-specs=no"
- BBCLASSEXTEND = "native nativesdk"
- 
--SRC_URI[md5sum] = "700f8663c23713c2a81a6038a7d358f0"
--SRC_URI[sha256sum] = "47b14f6da8c57a726ef1cfa5964a4a6cf9505bc6d78f69d3ae89f4b19956fc2a"
-+SRC_URI[md5sum] = "65633168e5315c19defb4652cd3d83c1"
-+SRC_URI[sha256sum] = "3fe87fe47d9b795e60ba3715d71f90f9929d57e9048f1d2a6ebb558e5aee9e2a"
+-SRC_URI[md5sum] = "84795594b3ebd2ee2570cf93340d152c"
+-SRC_URI[sha256sum] = "408d9ab067e4141d1bb844d2d0d7d26ad177567384190c32a913131cf549b36b"
++SRC_URI[md5sum] = "8ff0525ae7502b48597b78d00bc22284"
++SRC_URI[sha256sum] = "8579818e99aa881c00c04eb5f96fcbeec463816ca8e3cda9d3d25562f7a4b8c6"
 +
 -- 
 1.7.2
