@@ -1,27 +1,29 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id CC59E4C80BD4
-	for <poky@pokylinux.org>; Thu,  6 Jan 2011 16:56:43 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p06MwLu1021866 for <poky@pokylinux.org>; Thu, 6 Jan 2011 22:58:22 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id WRmFsk+HS+HS for <poky@pokylinux.org>;
-	Thu,  6 Jan 2011 22:58:21 +0000 (GMT)
-Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p06MwGdF021855
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT)
-	for <poky@pokylinux.org>; Thu, 6 Jan 2011 22:58:18 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: poky <poky@pokylinux.org>
-Date: Thu, 06 Jan 2011 22:56:10 +0000
-Message-ID: <1294354570.17519.25325.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Subject: RFC/RFT Checksums as part of stamp files
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 59CA54C80BD4
+	for <poky@pokylinux.org>; Thu,  6 Jan 2011 17:04:08 -0600 (CST)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id C14761660170; Thu,  6 Jan 2011 16:04:07 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.1
+Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 1CB611660166;
+	Thu,  6 Jan 2011 16:04:07 -0700 (MST)
+Message-ID: <4D264A67.9020901@mlbassoc.com>
+Date: Thu, 06 Jan 2011 16:04:07 -0700
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
+MIME-Version: 1.0
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+References: <1294354570.17519.25325.camel@rex>
+In-Reply-To: <1294354570.17519.25325.camel@rex>
+Cc: poky <poky@pokylinux.org>
+Subject: Re: RFC/RFT Checksums as part of stamp files
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,60 +35,33 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 06 Jan 2011 22:56:44 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Thu, 06 Jan 2011 23:04:08 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-We've been working on checksums and sstate for a while, one of the
-pieces we've not put in place so far is using the checksums in the stamp
-files.
+On 01/06/2011 03:56 PM, Richard Purdie wrote:
+> We've been working on checksums and sstate for a while, one of the
+> pieces we've not put in place so far is using the checksums in the stamp
+> files.
+    ... snip
+> My proposal for dealing with this will be to start having the packaging
+> backend take ownership of PE and PR fields. These should be auto
+> incremented when the build changes. That in itself is easy enough if you
+> have one build area, the tricky bit is where you have multiple build
+> sources feeding into a common packages repo like Angstrom.
+>
+> For this we're going to need some kind of network service that takes a
+> version and provides the PE/PR values back, incrementing them each time
+> it sees a new version/checksum.
 
-What this would mean in English is the end of PR bumps since when you
-change the recipe, the checksums of the appropriate tasks change and
-everything automatically rebuilds that changed.
+How would this play with non-core packages/recipes, e.g. the ones that
+are only in my local trees?
 
-It also means if you change something in the core packaging, everything
-should repackage and so on.
+Also, how could this work in a no-network-available environment?
 
-The final key to enabling this is this commit:
-
-http://git.pokylinux.org/cgit.cgi/poky-contrib/commit/?h=rpurdie/bitbake-wip&id=b82259b901cae11b0e5715a92a580c9432af52cc
-
-This hasn't been merged to master yet but we should discuss when this
-change could/should be merged and under what criteria.
-
-I've only just started testing full builds with the change myself so
-keep that in mind. I'd appreciate testing but the change is still very
-new and likely has bugs to iron out.
-
-I'm also aware that this idea isn't going to be universally liked,
-particularly I can guess that Koen is going to have concerns about this
-and Angstrom since the lack of PR bumps means package feeds could start
-to suffer.
-
-My proposal for dealing with this will be to start having the packaging
-backend take ownership of PE and PR fields. These should be auto
-incremented when the build changes. That in itself is easy enough if you
-have one build area, the tricky bit is where you have multiple build
-sources feeding into a common packages repo like Angstrom.
-
-For this we're going to need some kind of network service that takes a
-version and provides the PE/PR values back, incrementing them each time
-it sees a new version/checksum.
-
-This would solve one of Koen's major complaints about PR bumps in
-general once and for all but there is some effort needed to implement
-something that could provide this service.
-
-Also, on the plus side, we could also now make image generation a
-"stamp" task with a stamp that will only change when the image inputs
-change. That would change a users expectations in some regard so again
-needs discussion.
-
-Cheers,
-
-Richard
-
-
-
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
