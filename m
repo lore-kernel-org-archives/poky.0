@@ -1,25 +1,30 @@
-Return-Path: <ke.yu@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5A8754C80B70
-	for <poky@yoctoproject.org>; Thu,  6 Jan 2011 04:58:24 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 06 Jan 2011 02:58:23 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,282,1291622400"; d="scan'208";a="694144834"
-Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
-	by orsmga001.jf.intel.com with ESMTP; 06 Jan 2011 02:58:22 -0800
-Date: Thu, 6 Jan 2011 19:07:02 +0800
-From: Yu Ke <ke.yu@intel.com>
-To: Frans Meulenbroeks <fransmeulenbroeks@gmail.com>
-Message-ID: <20110106110702.GD20168@kyu3-hedt>
-References: <D094D4EC-55AF-4B52-A011-60EDCD5A46A6@dominion.thruhere.net>
-	<4D20B2B2.3090602@mlbassoc.com> <20110106071418.GB20168@kyu3-hedt>
-	<AANLkTinkHGD33rsrJUXBxdva2S_hQXniN=nXFsoU5rMu@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <AANLkTinkHGD33rsrJUXBxdva2S_hQXniN=nXFsoU5rMu@mail.gmail.com>
-User-Agent: Mutt/1.5.20 (2009-06-14)
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by mx1.pokylinux.org (Postfix) with ESMTP id BF7274C80B70
+	for <poky@yoctoproject.org>; Thu,  6 Jan 2011 05:03:19 -0600 (CST)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p06B4tBS026257; Thu, 6 Jan 2011 11:04:56 GMT
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id Tc5mqK8uDXYp; Thu,  6 Jan 2011 11:04:55 +0000 (GMT)
+Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p06B4q3m026230
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Thu, 6 Jan 2011 11:04:54 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Yu Ke <ke.yu@intel.com>
+In-Reply-To: <c9580df3dfe41b22e6cee32ac7c228197fcecd01.1293457442.git.ke.yu@intel.com>
+References: <cover.1293457442.git.ke.yu@intel.com>
+	<c9580df3dfe41b22e6cee32ac7c228197fcecd01.1293457442.git.ke.yu@intel.com>
+Date: Thu, 06 Jan 2011 11:02:48 +0000
+Message-ID: <1294311768.17519.24188.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
 Cc: poky@yoctoproject.org
-Subject: Re: PREMIRRORS in yocto, do they actually work?
+Subject: Re: [PATCH 2/8] git.py: move git specific url data initialization earlier
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,82 +36,64 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 06 Jan 2011 10:58:24 -0000
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Thu, 06 Jan 2011 11:03:20 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-On Jan 06, 08:39, Frans Meulenbroeks wrote:
-> 2011/1/6 Yu Ke <ke.yu@intel.com>:
-> > On Jan 02, 10:15, Gary Thomas wrote:
-> >> On 01/02/2011 10:08 AM, Koen Kooi wrote:
-> >> >Hi,
-> >> >
-> >> >I would like to have the fetchter try my PREMIRROS first before trying to fetch from git. In OE I have the following in a bbclass:
-> >> >
-> >> >PREMIRRORS_append () {
-> >> >git://.*/.* http://www.angstrom-distribution.org/unstable/sources/
-> >> >}
-> >> >
-> >> >When used in OE that works, but in yocto it doesn't. So I tried to do it poky style in a .inc:
-> >> >
-> >> >PREMIRRORS_append = "\
-> >> >git://.*/.*   http:/www.angstrom-distribution.org/sources/ \n"
-> >> >
-> >> >Which also doesn't work since it doesn't try to fetch from there, but it does mention "http:/www.angstrom-distribution.org/sources/" in the fetch error message when git read-tree fails.
-> >> >
-> >> >So my question: how do I make it work in yocto like it works in OE?
-> >>
-> >> I too have been struggling with this as I'd like to have
-> >> a local repository to hold the current source set.  Sadly,
-> >> as you've observed, it doesn't work, at least not as expected.
-> >
-> > I've tried to use file:///some/dir as PREMIRROR, and found it does has issue. The main reason is that the local.py fetcher does not do real copy in go() method. Although it make sense in normal fetch case, it does cause trouble in try_mirror() case.
-> >
-> > I don't have simple idea to address this issue yet and I will take care of it in the coming fetcher change. As a quick workaround, could you try this approach: use http://local/some/dir as PREMIRROR? e.g. if you use /opt/source as mirror, you can add to meta/conf/distro/poky.conf:
-> > PREMIRRORS_append = "\
-> > git://.*/.*   http://local/opt/source/ \n \
-> > svn://.*/.*   http://local/opt/source/ \n \
-> > ...
-> > "
-> >
-> > in this case, wget.py fetcher will be used, and it works fine in try_mirror() case. Also the /opt/source can be read-only.
-> >
-> > Regards
-> > Ke
+On Mon, 2010-12-27 at 21:57 +0800, Yu Ke wrote:
+> move the url data init earlier, so that Git.latest_revision()
+> can work before Git.localpath()
 > 
-> Thanks for the info Ke.
-> One additional question on this topic.
-> is it also possible to block fetching from the original source?
-> I'm looking for an easy, automated way to verify that all sources for
-> our products are indeed on our public server (to verify GPL
-> compliance).
-
-sorry taht I am not aware of such way, maybe other people has ideas.
-
-If it is for one time verification, probably you can try the following patch. But I am not sure if it is desirable for upstream checked in.
-
-Regards
-Ke
-
-diff --git a/bitbake/lib/bb/fetch/__init__.py b/bitbake/lib/bb/fetch/__init__.py
-index 67e5add..eb053e1 100644
---- a/bitbake/lib/bb/fetch/__init__.py
-+++ b/bitbake/lib/bb/fetch/__init__.py
-@@ -286,6 +286,8 @@ def go(d, urls = None):
-         if m.forcefetch(u, ud, d) or not localpath:
-             # Next try fetching from the original uri, u
-             try:
-+                if bb.data.getVar("BB_FETCH_MIRROR_ONLY", d, True) == "1":
-+                    raise FetchError("Only allow to fetch from mirror")
-                 m.go(u, ud, d)
-                 localpath = ud.localpath
-             except FetchError:
-
+> This change allow FetchData:__init__ to set FetchData.revison by
+> Git.latest_revision()
 > 
-> Frans
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+> Signed-off-by: Yu Ke <ke.yu@intel.com>
+> ---
+>  bitbake/lib/bb/fetch/git.py |   19 ++++++++++++++-----
+>  1 files changed, 14 insertions(+), 5 deletions(-)
+> 
+> diff --git a/bitbake/lib/bb/fetch/git.py b/bitbake/lib/bb/fetch/git.py
+> index a8ec104..df582a3 100644
+> --- a/bitbake/lib/bb/fetch/git.py
+> +++ b/bitbake/lib/bb/fetch/git.py
+> @@ -38,10 +38,17 @@ class Git(Fetch):
+>          """
+>          Check to see if a given url can be fetched with git.
+>          """
+> -        return ud.type in ['git']
+> -
+> -    def localpath(self, url, ud, d):
+> +        if ud.type in ['git']:
+> +            self.urldata_init(ud, d)
+> +            return True
+> +        else:
+> +            return False
+>  
+> +    def urldata_init(self, ud, d):
+> +        """
+> +        init git specific variable within url data
+> +        so that the git method like latest_revision() can work
+> +        """
+>          if 'protocol' in ud.parm:
+
+I like the idea of having a urldata_init method but I don't like the way
+you're calling it from supports(). Each methods need to do one thing
+clearly and well.
+
+Your patch does help clean things up and this is good but I'd just
+suggest you call urldata_init() from the fetcher __init__.py code
+alongside any supports() calls for now. This way, the supports() method
+remains 'clean'. You can make it so you only call the urldata_init()
+method if its present.
+
+Ultimately, what needs to happen in the fetcher is to split the
+mechanics of fetching out from the actual urldata object. The code has
+been heading in that direction but python class usage isn't one of my
+better skills and I need to spend time I'm struggling to find working
+out what needs to happen there :(.
+
+Cheers,
+
+Richard
+
 
