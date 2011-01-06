@@ -1,29 +1,27 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 375254C80BD4
-	for <poky@pokylinux.org>; Thu,  6 Jan 2011 17:23:11 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p06NOlZH022527; Thu, 6 Jan 2011 23:24:47 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id L7V5K9MzQygr; Thu,  6 Jan 2011 23:24:46 +0000 (GMT)
-Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p06NOgRT022513
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Thu, 6 Jan 2011 23:24:44 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Gary Thomas <gary@mlbassoc.com>
-In-Reply-To: <4D264A67.9020901@mlbassoc.com>
-References: <1294354570.17519.25325.camel@rex> <4D264A67.9020901@mlbassoc.com>
-Date: Thu, 06 Jan 2011 23:22:36 +0000
-Message-ID: <1294356156.17519.25382.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Cc: poky <poky@pokylinux.org>
-Subject: Re: RFC/RFT Checksums as part of stamp files
+Return-Path: <scott.a.garman@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 669D64C80BD4
+	for <poky@yoctoproject.org>; Thu,  6 Jan 2011 17:38:02 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 06 Jan 2011 15:38:01 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,285,1291622400"; d="scan'208";a="590634150"
+Received: from rrsmsx603.amr.corp.intel.com ([10.31.0.57])
+	by orsmga002.jf.intel.com with ESMTP; 06 Jan 2011 15:38:01 -0800
+Received: from [10.7.199.157] (10.7.199.157) by rrsmsx603.amr.corp.intel.com
+	(10.31.0.57) with Microsoft SMTP Server (TLS) id 8.2.254.0;
+	Thu, 6 Jan 2011 16:38:01 -0700
+Message-ID: <4D265300.2000906@intel.com>
+Date: Thu, 6 Jan 2011 15:40:48 -0800
+From: Scott Garman <scott.a.garman@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc14
+	Lightning/1.0b3pre Thunderbird/3.1.7
+MIME-Version: 1.0
+To: <poky@yoctoproject.org>
+References: <4D25DE22.4000004@mlbassoc.com>
+In-Reply-To: <4D25DE22.4000004@mlbassoc.com>
+Subject: Re: ^C during build broken?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,52 +33,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 06 Jan 2011 23:23:11 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Thu, 06 Jan 2011 23:38:02 -0000
+Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Thu, 2011-01-06 at 16:04 -0700, Gary Thomas wrote:
-> On 01/06/2011 03:56 PM, Richard Purdie wrote:
-> > We've been working on checksums and sstate for a while, one of the
-> > pieces we've not put in place so far is using the checksums in the stamp
-> > files.
->     ... snip
-> > My proposal for dealing with this will be to start having the packaging
-> > backend take ownership of PE and PR fields. These should be auto
-> > incremented when the build changes. That in itself is easy enough if you
-> > have one build area, the tricky bit is where you have multiple build
-> > sources feeding into a common packages repo like Angstrom.
-> >
-> > For this we're going to need some kind of network service that takes a
-> > version and provides the PE/PR values back, incrementing them each time
-> > it sees a new version/checksum.
-> 
-> How would this play with non-core packages/recipes, e.g. the ones that
-> are only in my local trees?
+On 01/06/2011 07:22 AM, Gary Thomas wrote:
+> As of today's master (9b5c770cbda8cfc4c108d94bd0ff5c0af3d0b64b),
+> if I type ^C during the build, it just keeps merrily going on...
 >
-> Also, how could this work in a no-network-available environment?
+>     --NOTE: package readline-native-6.1-r0: task do_configure: Started
+>     ^C
+>     Keyboard Interrupt, closing down...
+>
+>     Waiting for 1 active tasks to finish:
+>     0: readline-native-6.1-r0 do_configure (pid 25173)
+>     NOTE: package perl-native-5.8.8-r14: task do_compile: Succeeded
+>     NOTE: Running task 444 of 468 (ID: 110, /tmp/poky-amltd/meta/recipes-devtools/perl/perl-native_5.8.8.bb, do_install)
+>     NOTE: Running task 444 of 468 (ID: 110, /tmp/poky-amltd/meta/recipes-devtools/perl/perl-native_5.8.8.bb, do_install)
+>     Waiting for 2 active tasks to finish:
+>     0: readline-native-6.1-r0 do_configure (pid 25173)
+>     1: perl-native-5.8.8-r14 do_install (pid 27401)
+>     NOTE: package perl-native-5.8.8-r14: task do_install: Started
+>
+> Huh?  It _was_ waiting for 1 task to finish, but then it fired
+> off more!  I let it run for a while and it just kept going and going...
 
-Keep in mind this server solution is only needed where you are feeding
-the output of multiple build machines into one package feed and need to
-synchronise them with respect to versions. This is something you'd have
-to explicitly setup (just like the package feed itself).
+I am also seeing this.
 
-If you are feeding to a package feed its assumed you have some kind of
-connectivity to it and that it can presumably host the synchronisation
-solution.
+Scott
 
-Local recipes would work just the same as core ones, they all behave the
-same way.
-
-Yocto itself has no plans to host actual package feeds, we are likely to
-end up with some kind of public sstate cache but that doesn't need any
-synchronisation.
-
-Cheers,
-
-Richard
-
-
-
-
+-- 
+Scott Garman
+Embedded Linux Distro Engineer - Yocto Project
 
