@@ -1,31 +1,42 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 442C44C8086F
-	for <poky@yoctoproject.org>; Thu,  6 Jan 2011 05:56:41 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p06BwHlt028520; Thu, 6 Jan 2011 11:58:17 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id iq2hQJwM6FrR; Thu,  6 Jan 2011 11:58:17 +0000 (GMT)
-Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p06BwDoL028511
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Thu, 6 Jan 2011 11:58:16 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
+Return-Path: <fransmeulenbroeks@gmail.com>
+Received: from mail-iw0-f176.google.com (mail-iw0-f176.google.com
+	[209.85.214.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id B85E84C8086F
+	for <poky@yoctoproject.org>; Thu,  6 Jan 2011 06:08:52 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by iwn2 with SMTP id 2so18632434iwn.35
+	for <poky@yoctoproject.org>; Thu, 06 Jan 2011 04:08:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:received:received:in-reply-to
+	:references:date:message-id:subject:from:to:cc:content-type
+	:content-transfer-encoding;
+	bh=jYBoISmeiklK6Ta4gJVtrAiQ7PzmMDEzseqDut2bADM=;
+	b=n7R4eUOUj7kp4D2Wjvk0vL3IxP5ViAxDy4HXxnMIilw6C1artMC3o3Rn1aoAdKDATG
+	h4Y6Za9a7Yfp39T2Y3MbilDAlSvUlJr8Q/lBkzMKpdyt9CBL5BZNbkTlx/sq5TIru8gG
+	tyfzqrB0dbZfAnwvibeZK8LhQjFJP03xXEons=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:cc:content-type:content-transfer-encoding;
+	b=cBp0jmGkKNQt5oRWL92kjK0xmv1ZYQ2CgCIbqcsSm0BDBV5jFdXm4nEYDxbDdpzkfX
+	4cix8d25tyh8HI/oyaCnjlJjEgybAtkpcCirssAus7ue5bhavA82mrOGx5bsZUmF4yi+
+	LIW5I6HNJxDB5/yN762k2fPI0dRGagA6uCzS4=
+MIME-Version: 1.0
+Received: by 10.231.10.76 with SMTP id o12mr8377509ibo.144.1294315732262; Thu,
+	06 Jan 2011 04:08:52 -0800 (PST)
+Received: by 10.231.38.11 with HTTP; Thu, 6 Jan 2011 04:08:52 -0800 (PST)
+In-Reply-To: <20110106110702.GD20168@kyu3-hedt>
+References: <D094D4EC-55AF-4B52-A011-60EDCD5A46A6@dominion.thruhere.net>
+	<4D20B2B2.3090602@mlbassoc.com> <20110106071418.GB20168@kyu3-hedt>
+	<AANLkTinkHGD33rsrJUXBxdva2S_hQXniN=nXFsoU5rMu@mail.gmail.com>
+	<20110106110702.GD20168@kyu3-hedt>
+Date: Thu, 6 Jan 2011 13:08:52 +0100
+Message-ID: <AANLkTimWFZpYchZEJdkymLpHEJKMa=X+cAiTZyE+Siqg@mail.gmail.com>
+From: Frans Meulenbroeks <fransmeulenbroeks@gmail.com>
 To: Yu Ke <ke.yu@intel.com>
-In-Reply-To: <1294311995.17519.24194.camel@rex>
-References: <cover.1293457442.git.ke.yu@intel.com>
-	<0222a4a459b310da4e6ae4737a1639a4b5bf128d.1293457442.git.ke.yu@intel.com>
-	<1294311995.17519.24194.camel@rex>
-Date: Thu, 06 Jan 2011 11:56:09 +0000
-Message-ID: <1294314969.17519.24283.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 7/8] Fetcher: break the "SRCREVINACTION" deadlock
+Subject: Re: PREMIRRORS in yocto, do they actually work?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,77 +48,98 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 06 Jan 2011 11:56:41 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 06 Jan 2011 12:08:53 -0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 2011-01-06 at 11:06 +0000, Richard Purdie wrote:
-> On Mon, 2010-12-27 at 21:58 +0800, Yu Ke wrote:
-> > Current fetcher has annoying "SRCREVINACTION" deadlock,
-> > which occurs when SRCREV=${AUTOREV}=@bb.fetch.get_srcrev():
-> > get_srcrev()->setup_localpath()->srcrev_internal_helper()
-> > ->evaluate SRCREV->get_srcrev()
-> > 
-> > current fetcher resolve the deadlock by introducing a
-> > "SRCREVINACTION" condition check. Althoguh it works, it is
-> > indeed not clean.
-> > 
-> > This patch use antoehr idea to break the deadlock: break
-> > the dependency among SRCREV and get_srcrev(), i.e. assign
-> > a specific keyword "AUTOINC" to AUTOREV. when Fetcher meet
-> > this keyword, it will check and set the latest revision to
-> > urldata.revision. get_srcrev later can use the urldata.revision
-> > for value evaluation(SRCPV etc). In this case, SRCREV no longer
-> > depends on get_srcrev, and there is not deadlock anymore.
-> > 
-> > In implementation side, several things are done:
-> > a) set the revision in FetchData:__init__, so that
-> >    urldata.revision is ready when get_srcrev() need it
-> > b) init fetch method specific data in Fetch:supports, so that
-> >    Fetch.latest_revision() can be conducted when FetchData:
-> >    __init__ need it to achieve a)
-> 
-> I do think we need to make this change. 
-> 
-> Since we're not doing this in a fetcher "version 2" currently there is
-> the backwards compatibility question though. What does this code do if
-> the bitbake.conf change isn't made? Can we detect the old situation and
-> error at least? This change is going to need a little discussion on the
-> bitbake-dev list...
-> 
-> The answer may be that we need to start a fetch2 codebase to carry on
-> with this kind of cleanup.
+2011/1/6 Yu Ke <ke.yu@intel.com>:
+> On Jan 06, 08:39, Frans Meulenbroeks wrote:
+>> 2011/1/6 Yu Ke <ke.yu@intel.com>:
+>> > On Jan 02, 10:15, Gary Thomas wrote:
+>> >> On 01/02/2011 10:08 AM, Koen Kooi wrote:
+>> >> >Hi,
+>> >> >
+>> >> >I would like to have the fetchter try my PREMIRROS first before tryi=
+ng to fetch from git. In OE I have the following in a bbclass:
+>> >> >
+>> >> >PREMIRRORS_append () {
+>> >> >git://.*/.* http://www.angstrom-distribution.org/unstable/sources/
+>> >> >}
+>> >> >
+>> >> >When used in OE that works, but in yocto it doesn't. So I tried to d=
+o it poky style in a .inc:
+>> >> >
+>> >> >PREMIRRORS_append =3D "\
+>> >> >git://.*/.* =A0 http:/www.angstrom-distribution.org/sources/ \n"
+>> >> >
+>> >> >Which also doesn't work since it doesn't try to fetch from there, bu=
+t it does mention "http:/www.angstrom-distribution.org/sources/" in the fet=
+ch error message when git read-tree fails.
+>> >> >
+>> >> >So my question: how do I make it work in yocto like it works in OE?
+>> >>
+>> >> I too have been struggling with this as I'd like to have
+>> >> a local repository to hold the current source set. =A0Sadly,
+>> >> as you've observed, it doesn't work, at least not as expected.
+>> >
+>> > I've tried to use file:///some/dir as PREMIRROR, and found it does has=
+ issue. The main reason is that the local.py fetcher does not do real copy =
+in go() method. Although it make sense in normal fetch case, it does cause =
+trouble in try_mirror() case.
+>> >
+>> > I don't have simple idea to address this issue yet and I will take car=
+e of it in the coming fetcher change. As a quick workaround, could you try =
+this approach: use http://local/some/dir as PREMIRROR? e.g. if you use /opt=
+/source as mirror, you can add to meta/conf/distro/poky.conf:
+>> > PREMIRRORS_append =3D "\
+>> > git://.*/.* =A0 http://local/opt/source/ \n \
+>> > svn://.*/.* =A0 http://local/opt/source/ \n \
+>> > ...
+>> > "
+>> >
+>> > in this case, wget.py fetcher will be used, and it works fine in try_m=
+irror() case. Also the /opt/source can be read-only.
+>> >
+>> > Regards
+>> > Ke
+>>
+>> Thanks for the info Ke.
+>> One additional question on this topic.
+>> is it also possible to block fetching from the original source?
+>> I'm looking for an easy, automated way to verify that all sources for
+>> our products are indeed on our public server (to verify GPL
+>> compliance).
+>
+> sorry taht I am not aware of such way, maybe other people has ideas.
+>
+> If it is for one time verification, probably you can try the following pa=
+tch. But I am not sure if it is desirable for upstream checked in.
+>
+> Regards
+> Ke
+>
+> diff --git a/bitbake/lib/bb/fetch/__init__.py b/bitbake/lib/bb/fetch/__in=
+it__.py
+> index 67e5add..eb053e1 100644
+> --- a/bitbake/lib/bb/fetch/__init__.py
+> +++ b/bitbake/lib/bb/fetch/__init__.py
+> @@ -286,6 +286,8 @@ def go(d, urls =3D None):
+> =A0 =A0 =A0 =A0 if m.forcefetch(u, ud, d) or not localpath:
+> =A0 =A0 =A0 =A0 =A0 =A0 # Next try fetching from the original uri, u
+> =A0 =A0 =A0 =A0 =A0 =A0 try:
+> + =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0if bb.data.getVar("BB_FETCH_MIRROR_ONLY"=
+, d, True) =3D=3D "1":
+> + =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0raise FetchError("Only allow to =
+fetch from mirror")
+> =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 m.go(u, ud, d)
+> =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 localpath =3D ud.localpath
+> =A0 =A0 =A0 =A0 =A0 =A0 except FetchError:
+>
 
-I've given this further thought and lets go with the original plan,
-create a fetch2 and then go and really clean it up.
+that looks like a nice patch to me.
+Richard, how do you feel about such a patch ?
 
-We therefore need to copy the fetch directory to fetch2, then start
-applying patches against fetch2. We can update poky to use bb.fetch2
-instead of bb.fetch. This should also give OE a way to transition too.
+I can always of course do this in a local patch.
 
-I made a quick grep over bitbake itself and there are some fetch
-references we'll need to resolve to switch between the two fetch
-modules:
-
-lib/bb/cooker.py:        bb.fetch.persistent_database_connection = {}
-lib/bb/cooker.py:        bb.fetch.persistent_database_connection = {}
-
-The above two references no longer do anything as the
-persistent_database code was removed in bitbake upstream and for now
-poky has followed that although I would like to revisit it.
-
-lib/bb/parse/parse_py/BBHandler.py:import bb.fetch, bb.build, bb.utils
-
-I doubt BBHandler still needs this reference
-
-lib/bb/cooker.py:            bb.fetch.fetcher_init(self.configuration.data)
-lib/bb/command.py:        if bb.fetch.fetcher_compare_revisions(command.cooker.configuration.data):
-
-These two are important and we'll need to have a way to switch between
-the fetchers for these.
-
-Cheers,
-
-Richard
-
+Thanks! Frans
 
