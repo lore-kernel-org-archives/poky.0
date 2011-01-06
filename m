@@ -1,26 +1,25 @@
 Return-Path: <sgw@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id CC0A14C80BD4
-	for <poky@yoctoproject.org>; Thu,  6 Jan 2011 10:50:46 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 06 Jan 2011 08:50:46 -0800
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id DA8BE4C80BCF
+	for <poky@yoctoproject.org>; Thu,  6 Jan 2011 10:59:39 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 06 Jan 2011 08:59:39 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,284,1291622400"; d="scan'208";a="590512081"
+X-IronPort-AV: E=Sophos;i="4.60,284,1291622400"; d="scan'208";a="694244575"
 Received: from unknown (HELO [10.255.14.7]) ([10.255.14.7])
-	by orsmga002.jf.intel.com with ESMTP; 06 Jan 2011 08:50:46 -0800
-Message-ID: <4D25F2E5.50700@linux.intel.com>
-Date: Thu, 06 Jan 2011 08:50:45 -0800
+	by orsmga001.jf.intel.com with ESMTP; 06 Jan 2011 08:59:38 -0800
+Message-ID: <4D25F4FA.9060401@linux.intel.com>
+Date: Thu, 06 Jan 2011 08:59:38 -0800
 From: Saul Wold <sgw@linux.intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
 	Thunderbird/3.0.5
 MIME-Version: 1.0
-To: "Kamble, Nitin A" <nitin.a.kamble@intel.com>
-References: <cover.1294237909.git.nitin.a.kamble@intel.com>	<973479329b1beba63c53ffde7229202d794a6c75.1294237909.git.nitin.a.kamble@intel.com>	<4D2570DA.1090409@intel.com>
-	<9DA5872FEF993D41B7173F58FCF6BE94053F30D7@orsmsx504.amr.corp.intel.com>
-In-Reply-To: <9DA5872FEF993D41B7173F58FCF6BE94053F30D7@orsmsx504.amr.corp.intel.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 5/8] perl, perl-native: upgrade from 5.8.8 to 5.12.2
+To: Dexuan Cui <dexuan.cui@intel.com>
+References: <cover.1294232460.git.dexuan.cui@intel.com>
+In-Reply-To: <cover.1294232460.git.dexuan.cui@intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 00/12] upgrade for x11 libs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,67 +31,66 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 06 Jan 2011 16:50:47 -0000
+X-List-Received-Date: Thu, 06 Jan 2011 16:59:40 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 01/06/2011 08:47 AM, Kamble, Nitin A wrote:
->>
->> Nitin,
->>
->> I am not sure how you tested this, but I got a couple of different
->> failure modes when build this from scratch.  You can see the scratch
->> failure on the autobuilder in distro-testing.
->>
->> Thanks
->>
->>     Sau!
+On 01/05/2011 05:05 AM, Dexuan Cui wrote:
+> I tested it (sato, sdk) on qemux86, qemumips with incremental and full builds.
 >
-> Saul,
->    It is building fine for me. And I am not doing anything special. Which perl branch did you pull in for testing. This branch has the latest code. http://git.pokylinux.org/cgit/cgit.cgi/poky-contrib/log/?h=nitin/perl-5.12.2_rebased_to_master
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>    Branch: dcui/master
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dcui/master
 >
-> Also I did not see autobuilder failure from perl.
->
-The failure is as follows:
-
-NOTE: package perl-5.12.2-r0: task do_populate_sysroot: Started
-NOTE: QA checking staging
-ERROR: Error executing python function in 'sstate_task_postfunc'
-Traceback (most recent call last):
-   File "/vol/1/sgw/poky/bitbake/lib/bb/utils.py", line 351, in better_exec
-     exec(code, _context, context)
-   File "sstate_task_postfunc", line 10, in <module>
-   File "sstate_task_postfunc", line 4, in sstate_task_postfunc
-   File "sstate.bbclass", line 41, in sstate_install
-   File "/vol/1/sgw/poky/meta/lib/oe/path.py", line 85, in copytree
-     raise Error, errors
-Error: 
-[('/vol/1/sgw/builds/arm/tmp/work/armv5te-poky-linux-gnueabi/perl-5.12.2-r0/sysroot-destdir///vol/1/sgw/builds/arm/tmp/sysroots/armv5te-poky-linux-gnueabi/usr/lib/perl5', 
-'/vol/1/sgw/builds/arm/tmp/sysroots/armv5te-poky-linux-gnueabi/usr/lib/perl5', 
-"[Errno 21] Is a directory: 
-'/vol/1/sgw/builds/arm/tmp/sysroots/armv5te-poky-linux-gnueabi/usr/lib/perl5'")]
-
-ERROR: There was an error when executing a python function in: 
-sstate_task_postfunc
-ERROR: Exception:<class 'oe.path.Error'> 
-Message:[('/vol/1/sgw/builds/arm/tmp/work/armv5te-poky-linux-gnueabi/perl-5.12.2-r0/sysroot-destdir///vol/1/sgw/builds/arm/tmp/sysroots/armv5te-poky-linux-gnueabi/usr/lib/perl5', 
-'/vol/1/sgw/builds/arm/tmp/sysroots/armv5te-poky-linux-gnueabi/usr/lib/perl5', 
-"[Errno 21] Is a directory: 
-'/vol/1/sgw/builds/arm/tmp/sysroots/armv5te-poky-linux-gnueabi/usr/lib/perl5'")]
-ERROR: The stack trace of python calls that resulted in this 
-exception/failure was:
-ERROR:   File "sstate_task_postfunc", line 10, in <module>
-ERROR:
-ERROR:   File "sstate_task_postfunc", line 4, in sstate_task_postfunc
-
 > Thanks,
-> Nitin
+>      Dexuan Cui<dexuan.cui@intel.com>
+> ---
 >
 >
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+> Dexuan Cui (12):
+>    renderproto: upgrade from 0.11 to the latest version 0.11.1
+>    inputproto: upgrade from 2.0 to 2.0.1
+>    xproto: upgrade from 7.0.19 to 7.0.20
+>    compositeproto: upgrade from 0.4 to 0.4.2
+>    resourceproto: upgrade from 1.1.0 to 1.1.1
+>    scrnsaverproto: upgrade from 1.2.0 to 1.2.1
+>    pixman: upgrade from 0.20.0 to 0.21.2
+>    libdmx: upgrade from 1.1.0 to 1.1.1
+>    libxxf86misc: upgrade from 1.0.2 to 1.0.3
+>    librsvg: upgrade from 2.32.0 to 2.32.1
+>    preferred-xorg-versions.inc: updated for lastest package updates
+>    distro_tracking_fields.inc: update for lastest package updates
 >
+>   .../conf/distro/include/distro_tracking_fields.inc |   96 +++++++++++---------
+>   .../distro/include/preferred-xorg-versions.inc     |   28 +++---
+>   .../doc_Makefile.patch                             |    0
+>   .../{librsvg_2.32.0.bb =>  librsvg_2.32.1.bb}       |    7 +-
+>   .../xorg-lib/{libdmx_1.1.0.bb =>  libdmx_1.1.1.bb}  |    8 +-
+>   ...libxxf86misc_1.0.2.bb =>  libxxf86misc_1.0.3.bb} |    5 +-
+>   .../{pixman_0.20.0.bb =>  pixman_0.21.2.bb}         |    7 +-
+>   ...mpositeproto_0.4.bb =>  compositeproto_0.4.2.bb} |    7 +-
+>   .../{inputproto_2.0.bb =>  inputproto_2.0.1.bb}     |    7 +-
+>   .../{renderproto_0.11.bb =>  renderproto_0.11.1.bb} |    9 +-
+>   ...sourceproto_1.1.0.bb =>  resourceproto_1.1.1.bb} |    8 +-
+>   ...saverproto_1.2.0.bb =>  scrnsaverproto_1.2.1.bb} |    9 ++-
+>   .../{xproto_7.0.19.bb =>  xproto_7.0.20.bb}         |    7 +-
+>   13 files changed, 110 insertions(+), 88 deletions(-)
+>   rename meta/recipes-gnome/librsvg/{librsvg-2.32.0 =>  librsvg-2.32.1}/doc_Makefile.patch (100%)
+>   rename meta/recipes-gnome/librsvg/{librsvg_2.32.0.bb =>  librsvg_2.32.1.bb} (90%)
+>   rename meta/recipes-graphics/xorg-lib/{libdmx_1.1.0.bb =>  libdmx_1.1.1.bb} (66%)
+>   rename meta/recipes-graphics/xorg-lib/{libxxf86misc_1.0.2.bb =>  libxxf86misc_1.0.3.bb} (66%)
+>   rename meta/recipes-graphics/xorg-lib/{pixman_0.20.0.bb =>  pixman_0.21.2.bb} (79%)
+>   rename meta/recipes-graphics/xorg-proto/{compositeproto_0.4.bb =>  compositeproto_0.4.2.bb} (62%)
+>   rename meta/recipes-graphics/xorg-proto/{inputproto_2.0.bb =>  inputproto_2.0.1.bb} (65%)
+>   rename meta/recipes-graphics/xorg-proto/{renderproto_0.11.bb =>  renderproto_0.11.1.bb} (60%)
+>   rename meta/recipes-graphics/xorg-proto/{resourceproto_1.1.0.bb =>  resourceproto_1.1.1.bb} (50%)
+>   rename meta/recipes-graphics/xorg-proto/{scrnsaverproto_1.2.0.bb =>  scrnsaverproto_1.2.1.bb} (53%)
+>   rename meta/recipes-graphics/xorg-proto/{xproto_7.0.19.bb =>  xproto_7.0.20.bb} (59%)
+>
+Pulled into Master
+
+Thanks for these and fixing the LIC_FILES Issues
+
+Sau!
 
 
