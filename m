@@ -1,42 +1,25 @@
-Return-Path: <fransmeulenbroeks@gmail.com>
-Received: from mail-iw0-f176.google.com (mail-iw0-f176.google.com
-	[209.85.214.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B85E84C8086F
-	for <poky@yoctoproject.org>; Thu,  6 Jan 2011 06:08:52 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by iwn2 with SMTP id 2so18632434iwn.35
-	for <poky@yoctoproject.org>; Thu, 06 Jan 2011 04:08:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:received:received:in-reply-to
-	:references:date:message-id:subject:from:to:cc:content-type
-	:content-transfer-encoding;
-	bh=jYBoISmeiklK6Ta4gJVtrAiQ7PzmMDEzseqDut2bADM=;
-	b=n7R4eUOUj7kp4D2Wjvk0vL3IxP5ViAxDy4HXxnMIilw6C1artMC3o3Rn1aoAdKDATG
-	h4Y6Za9a7Yfp39T2Y3MbilDAlSvUlJr8Q/lBkzMKpdyt9CBL5BZNbkTlx/sq5TIru8gG
-	tyfzqrB0dbZfAnwvibeZK8LhQjFJP03xXEons=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type:content-transfer-encoding;
-	b=cBp0jmGkKNQt5oRWL92kjK0xmv1ZYQ2CgCIbqcsSm0BDBV5jFdXm4nEYDxbDdpzkfX
-	4cix8d25tyh8HI/oyaCnjlJjEgybAtkpcCirssAus7ue5bhavA82mrOGx5bsZUmF4yi+
-	LIW5I6HNJxDB5/yN762k2fPI0dRGagA6uCzS4=
+Return-Path: <ke.yu@intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 95B654C8086F
+	for <poky@yoctoproject.org>; Thu,  6 Jan 2011 06:25:58 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 06 Jan 2011 04:25:58 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,282,1291622400"; d="scan'208";a="370889273"
+Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
+	by azsmga001.ch.intel.com with ESMTP; 06 Jan 2011 04:25:56 -0800
+Date: Thu, 6 Jan 2011 20:34:37 +0800
+From: Yu Ke <ke.yu@intel.com>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+Message-ID: <20110106123437.GE20168@kyu3-hedt>
+References: <cover.1293457442.git.ke.yu@intel.com>
+	<c9580df3dfe41b22e6cee32ac7c228197fcecd01.1293457442.git.ke.yu@intel.com>
+	<1294311768.17519.24188.camel@rex>
 MIME-Version: 1.0
-Received: by 10.231.10.76 with SMTP id o12mr8377509ibo.144.1294315732262; Thu,
-	06 Jan 2011 04:08:52 -0800 (PST)
-Received: by 10.231.38.11 with HTTP; Thu, 6 Jan 2011 04:08:52 -0800 (PST)
-In-Reply-To: <20110106110702.GD20168@kyu3-hedt>
-References: <D094D4EC-55AF-4B52-A011-60EDCD5A46A6@dominion.thruhere.net>
-	<4D20B2B2.3090602@mlbassoc.com> <20110106071418.GB20168@kyu3-hedt>
-	<AANLkTinkHGD33rsrJUXBxdva2S_hQXniN=nXFsoU5rMu@mail.gmail.com>
-	<20110106110702.GD20168@kyu3-hedt>
-Date: Thu, 6 Jan 2011 13:08:52 +0100
-Message-ID: <AANLkTimWFZpYchZEJdkymLpHEJKMa=X+cAiTZyE+Siqg@mail.gmail.com>
-From: Frans Meulenbroeks <fransmeulenbroeks@gmail.com>
-To: Yu Ke <ke.yu@intel.com>
+In-Reply-To: <1294311768.17519.24188.camel@rex>
+User-Agent: Mutt/1.5.20 (2009-06-14)
 Cc: poky@yoctoproject.org
-Subject: Re: PREMIRRORS in yocto, do they actually work?
+Subject: Re: [PATCH 2/8] git.py: move git specific url data initialization earlier
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -48,98 +31,75 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 06 Jan 2011 12:08:53 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Thu, 06 Jan 2011 12:25:58 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-2011/1/6 Yu Ke <ke.yu@intel.com>:
-> On Jan 06, 08:39, Frans Meulenbroeks wrote:
->> 2011/1/6 Yu Ke <ke.yu@intel.com>:
->> > On Jan 02, 10:15, Gary Thomas wrote:
->> >> On 01/02/2011 10:08 AM, Koen Kooi wrote:
->> >> >Hi,
->> >> >
->> >> >I would like to have the fetchter try my PREMIRROS first before tryi=
-ng to fetch from git. In OE I have the following in a bbclass:
->> >> >
->> >> >PREMIRRORS_append () {
->> >> >git://.*/.* http://www.angstrom-distribution.org/unstable/sources/
->> >> >}
->> >> >
->> >> >When used in OE that works, but in yocto it doesn't. So I tried to d=
-o it poky style in a .inc:
->> >> >
->> >> >PREMIRRORS_append =3D "\
->> >> >git://.*/.* =A0 http:/www.angstrom-distribution.org/sources/ \n"
->> >> >
->> >> >Which also doesn't work since it doesn't try to fetch from there, bu=
-t it does mention "http:/www.angstrom-distribution.org/sources/" in the fet=
-ch error message when git read-tree fails.
->> >> >
->> >> >So my question: how do I make it work in yocto like it works in OE?
->> >>
->> >> I too have been struggling with this as I'd like to have
->> >> a local repository to hold the current source set. =A0Sadly,
->> >> as you've observed, it doesn't work, at least not as expected.
->> >
->> > I've tried to use file:///some/dir as PREMIRROR, and found it does has=
- issue. The main reason is that the local.py fetcher does not do real copy =
-in go() method. Although it make sense in normal fetch case, it does cause =
-trouble in try_mirror() case.
->> >
->> > I don't have simple idea to address this issue yet and I will take car=
-e of it in the coming fetcher change. As a quick workaround, could you try =
-this approach: use http://local/some/dir as PREMIRROR? e.g. if you use /opt=
-/source as mirror, you can add to meta/conf/distro/poky.conf:
->> > PREMIRRORS_append =3D "\
->> > git://.*/.* =A0 http://local/opt/source/ \n \
->> > svn://.*/.* =A0 http://local/opt/source/ \n \
->> > ...
->> > "
->> >
->> > in this case, wget.py fetcher will be used, and it works fine in try_m=
-irror() case. Also the /opt/source can be read-only.
->> >
->> > Regards
->> > Ke
->>
->> Thanks for the info Ke.
->> One additional question on this topic.
->> is it also possible to block fetching from the original source?
->> I'm looking for an easy, automated way to verify that all sources for
->> our products are indeed on our public server (to verify GPL
->> compliance).
->
-> sorry taht I am not aware of such way, maybe other people has ideas.
->
-> If it is for one time verification, probably you can try the following pa=
-tch. But I am not sure if it is desirable for upstream checked in.
->
-> Regards
-> Ke
->
-> diff --git a/bitbake/lib/bb/fetch/__init__.py b/bitbake/lib/bb/fetch/__in=
-it__.py
-> index 67e5add..eb053e1 100644
-> --- a/bitbake/lib/bb/fetch/__init__.py
-> +++ b/bitbake/lib/bb/fetch/__init__.py
-> @@ -286,6 +286,8 @@ def go(d, urls =3D None):
-> =A0 =A0 =A0 =A0 if m.forcefetch(u, ud, d) or not localpath:
-> =A0 =A0 =A0 =A0 =A0 =A0 # Next try fetching from the original uri, u
-> =A0 =A0 =A0 =A0 =A0 =A0 try:
-> + =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0if bb.data.getVar("BB_FETCH_MIRROR_ONLY"=
-, d, True) =3D=3D "1":
-> + =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0raise FetchError("Only allow to =
-fetch from mirror")
-> =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 m.go(u, ud, d)
-> =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 localpath =3D ud.localpath
-> =A0 =A0 =A0 =A0 =A0 =A0 except FetchError:
->
+On Jan 06, 11:02, Richard Purdie wrote:
+> On Mon, 2010-12-27 at 21:57 +0800, Yu Ke wrote:
+> > move the url data init earlier, so that Git.latest_revision()
+> > can work before Git.localpath()
+> > 
+> > This change allow FetchData:__init__ to set FetchData.revison by
+> > Git.latest_revision()
+> > 
+> > Signed-off-by: Yu Ke <ke.yu@intel.com>
+> > ---
+> >  bitbake/lib/bb/fetch/git.py |   19 ++++++++++++++-----
+> >  1 files changed, 14 insertions(+), 5 deletions(-)
+> > 
+> > diff --git a/bitbake/lib/bb/fetch/git.py b/bitbake/lib/bb/fetch/git.py
+> > index a8ec104..df582a3 100644
+> > --- a/bitbake/lib/bb/fetch/git.py
+> > +++ b/bitbake/lib/bb/fetch/git.py
+> > @@ -38,10 +38,17 @@ class Git(Fetch):
+> >          """
+> >          Check to see if a given url can be fetched with git.
+> >          """
+> > -        return ud.type in ['git']
+> > -
+> > -    def localpath(self, url, ud, d):
+> > +        if ud.type in ['git']:
+> > +            self.urldata_init(ud, d)
+> > +            return True
+> > +        else:
+> > +            return False
+> >  
+> > +    def urldata_init(self, ud, d):
+> > +        """
+> > +        init git specific variable within url data
+> > +        so that the git method like latest_revision() can work
+> > +        """
+> >          if 'protocol' in ud.parm:
+> 
+> I like the idea of having a urldata_init method but I don't like the way
+> you're calling it from supports(). Each methods need to do one thing
+> clearly and well.
+> 
+> Your patch does help clean things up and this is good but I'd just
+> suggest you call urldata_init() from the fetcher __init__.py code
+> alongside any supports() calls for now. This way, the supports() method
+> remains 'clean'. You can make it so you only call the urldata_init()
+> method if its present.
 
-that looks like a nice patch to me.
-Richard, how do you feel about such a patch ?
+Yes, calling from supports() is not good. I will revise it to calling seperately from FetchData:__init__()
 
-I can always of course do this in a local patch.
+Regards
+Ke
 
-Thanks! Frans
+> 
+> Ultimately, what needs to happen in the fetcher is to split the
+> mechanics of fetching out from the actual urldata object. The code has
+> been heading in that direction but python class usage isn't one of my
+> better skills and I need to spend time I'm struggling to find working
+> out what needs to happen there :(.
+> 
+> Cheers,
+> 
+> Richard
+> 
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
