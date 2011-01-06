@@ -1,26 +1,37 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 748694C80BCF
-	for <poky@lists.pokylinux.org>; Thu,  6 Jan 2011 09:22:13 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 20CD21660177; Thu,  6 Jan 2011 08:22:12 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.1
-Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
-	by mail.chez-thomas.org (Postfix) with ESMTP id CEFC81660170;
-	Thu,  6 Jan 2011 08:22:10 -0700 (MST)
-Message-ID: <4D25DE22.4000004@mlbassoc.com>
-Date: Thu, 06 Jan 2011 08:22:10 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
+Return-Path: <nitin.a.kamble@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id EDE064C80BD4
+	for <poky@yoctoproject.org>; Thu,  6 Jan 2011 10:47:45 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 06 Jan 2011 08:47:45 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,284,1291622400"; d="scan'208";a="875072573"
+Received: from orsmsx602.amr.corp.intel.com ([10.22.226.211])
+	by fmsmga001.fm.intel.com with ESMTP; 06 Jan 2011 08:47:45 -0800
+Received: from orsmsx605.amr.corp.intel.com (10.22.226.10) by
+	orsmsx602.amr.corp.intel.com (10.22.226.211) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Thu, 6 Jan 2011 08:47:45 -0800
+Received: from orsmsx504.amr.corp.intel.com ([10.22.226.207]) by
+	orsmsx605.amr.corp.intel.com ([10.22.226.10]) with mapi; Thu, 6 Jan 2011
+	08:47:44 -0800
+From: "Kamble, Nitin A" <nitin.a.kamble@intel.com>
+To: "Wold, Saul" <saul.wold@intel.com>
+Date: Thu, 6 Jan 2011 08:47:43 -0800
+Thread-Topic: [poky] [PATCH 5/8] perl, perl-native: upgrade from 5.8.8 to
+	5.12.2
+Thread-Index: AcutdGfPOD5QLsj0S1qJT03bartIwQATJ9Ug
+Message-ID: <9DA5872FEF993D41B7173F58FCF6BE94053F30D7@orsmsx504.amr.corp.intel.com>
+References: <cover.1294237909.git.nitin.a.kamble@intel.com>
+	<973479329b1beba63c53ffde7229202d794a6c75.1294237909.git.nitin.a.kamble@intel.com>
+	<4D2570DA.1090409@intel.com>
+In-Reply-To: <4D2570DA.1090409@intel.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
 MIME-Version: 1.0
-To: Poky <poky@lists.pokylinux.org>
-Subject: ^C during build broken?
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH 5/8] perl, perl-native: upgrade from 5.8.8 to 5.12.2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,32 +43,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 06 Jan 2011 15:22:13 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 06 Jan 2011 16:47:46 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-As of today's master (9b5c770cbda8cfc4c108d94bd0ff5c0af3d0b64b),
-if I type ^C during the build, it just keeps merrily going on...
+>=20
+> Nitin,
+>=20
+> I am not sure how you tested this, but I got a couple of different
+> failure modes when build this from scratch.  You can see the scratch
+> failure on the autobuilder in distro-testing.
+>=20
+> Thanks
+>=20
+>    Sau!
 
-   --NOTE: package readline-native-6.1-r0: task do_configure: Started
-   ^C
-   Keyboard Interrupt, closing down...
+Saul,
+  It is building fine for me. And I am not doing anything special. Which pe=
+rl branch did you pull in for testing. This branch has the latest code. htt=
+p://git.pokylinux.org/cgit/cgit.cgi/poky-contrib/log/?h=3Dnitin/perl-5.12.2=
+_rebased_to_master
 
-   Waiting for 1 active tasks to finish:
-   0: readline-native-6.1-r0 do_configure (pid 25173)
-   NOTE: package perl-native-5.8.8-r14: task do_compile: Succeeded
-   NOTE: Running task 444 of 468 (ID: 110, /tmp/poky-amltd/meta/recipes-devtools/perl/perl-native_5.8.8.bb, do_install)
-   NOTE: Running task 444 of 468 (ID: 110, /tmp/poky-amltd/meta/recipes-devtools/perl/perl-native_5.8.8.bb, do_install)
-   Waiting for 2 active tasks to finish:
-   0: readline-native-6.1-r0 do_configure (pid 25173)
-   1: perl-native-5.8.8-r14 do_install (pid 27401)
-   NOTE: package perl-native-5.8.8-r14: task do_install: Started
+Also I did not see autobuilder failure from perl.
 
-Huh?  It _was_ waiting for 1 task to finish, but then it fired
-off more!  I let it run for a while and it just kept going and going...
+Thanks,
+Nitin
 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+
 
