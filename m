@@ -1,35 +1,40 @@
-Return-Path: <liping.ke@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2B44C4C8106A
-	for <poky@yoctoproject.org>; Wed,  5 Jan 2011 19:19:57 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 05 Jan 2011 17:19:56 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,280,1291622400"; d="scan'208";a="590300805"
-Received: from pgsmsx603.gar.corp.intel.com ([10.221.43.87])
-	by orsmga002.jf.intel.com with ESMTP; 05 Jan 2011 17:19:55 -0800
-Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
-	pgsmsx603.gar.corp.intel.com (10.221.43.87) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Thu, 6 Jan 2011 09:19:04 +0800
-Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
-	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi; Thu, 6 Jan 2011
-	09:19:03 +0800
-From: "Ke, Liping" <liping.ke@intel.com>
-To: Saul Wold <sgw@linux.intel.com>, "Zhang, Jessica" <jessica.zhang@intel.com>
-Date: Thu, 6 Jan 2011 09:19:02 +0800
-Thread-Topic: [poky] [PATCH 0/1] single patch for new adt-installer feature
-Thread-Index: AcutJJgiSk6QfMY9QtqIEM5qulIKIgAGnR8g
-Message-ID: <789F9655DD1B8F43B48D77C5D3065973315F093F@shsmsx501.ccr.corp.intel.com>
-References: <cover.1294126930.git.jessica.zhang@intel.com>
-	<4D24EB02.7000807@linux.intel.com>
-In-Reply-To: <4D24EB02.7000807@linux.intel.com>
-Accept-Language: zh-CN, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: zh-CN, en-US
+Return-Path: <bruce.ashfield@gmail.com>
+Received: from mail-iw0-f176.google.com (mail-iw0-f176.google.com
+	[209.85.214.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 522C14C80B70
+	for <poky@yoctoproject.org>; Wed,  5 Jan 2011 19:47:53 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by iwn2 with SMTP id 2so18256059iwn.35
+	for <poky@yoctoproject.org>; Wed, 05 Jan 2011 17:47:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:received:received:in-reply-to
+	:references:date:message-id:subject:from:to:cc:content-type
+	:content-transfer-encoding;
+	bh=k6wDZMhU51vVMedrPPBLSKoQ11LIYGlwKrs9HZUXmDE=;
+	b=RzkYLKrTMTWMikrh4zD6xbm9Fif9del0N+Tue8gI6W60/nepuirC+S/7gBK9rb9zvw
+	ttW8YH5dYUeHNHfx417O3WdMaXP4wxtQlIHblrIBZxZVz9bbWXVRE+3FFKUiS3iXHuHO
+	AKl5aLSAX9AJG26hGRXaoZID/mxqC7gxs80LY=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:cc:content-type:content-transfer-encoding;
+	b=flig3fvpWUvyCmJYsGzCaQ5KfHn2mZeselsZIWucqCk6FqsasHymrupbXBn5wNk/3d
+	5J5bpuNdn4NSJlI+v/ueECgulWV/a+ODG+unQPPykGWiXBDH5B2EaEFlaltdA7ktIVJ8
+	tKCSx7q1mo7aH0TVU33px1QrUnmfULgmp8siY=
 MIME-Version: 1.0
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 0/1] single patch for new adt-installer feature
+Received: by 10.231.199.10 with SMTP id eq10mr23592080ibb.112.1294278472066;
+	Wed, 05 Jan 2011 17:47:52 -0800 (PST)
+Received: by 10.231.156.136 with HTTP; Wed, 5 Jan 2011 17:47:52 -0800 (PST)
+In-Reply-To: <21fafc889e81411735de7d04ffe504e5cff4830d.1294275316.git.dvhart@linux.intel.com>
+References: <cover.1294275316.git.dvhart@linux.intel.com>
+	<21fafc889e81411735de7d04ffe504e5cff4830d.1294275316.git.dvhart@linux.intel.com>
+Date: Wed, 5 Jan 2011 20:47:52 -0500
+Message-ID: <AANLkTik8VAyki6Bi1obmh-QHVL-EGjHft6oC1_v5jXNj@mail.gmail.com>
+From: Bruce Ashfield <bruce.ashfield@gmail.com>
+To: Darren Hart <dvhart@linux.intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 1/1] rootfs_rpm: fix rootfs generation rm error
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,51 +46,57 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 06 Jan 2011 01:19:57 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
+X-List-Received-Date: Thu, 06 Jan 2011 01:47:53 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: quoted-printable
 
-Hi, Saul
+On Wed, Jan 5, 2011 at 7:57 PM, Darren Hart <dvhart@linux.intel.com> wrote:
+> During a poky-image-minimal build I ran into the following error:
+> rm: cannot remove `/vol/1/dvhart/poky.git/build/tmp/work/atom-pc-poky-lin=
+ux/poky-image-minimal-initramfs-1.0-r0/rootfs/install': Is a directory
+>
+> This is caused by a missing -r (recursive) argument to rm. This patch
+> adds that to the rm command of rootfs_rpm.bbclass.
 
-Thanks for your review!
+Thanks Darren. Beat me to it!
+
+Looks good to me, definitely fixed my problems earlier.
+
+Bruce
+
+>
+> Signed-off-by: Darren Hart <dvhart@linux.intel.com>
+> CC: Bruce Ashfield <bruce.ashfield@windriver.com>
+> ---
+> =A0meta/classes/rootfs_rpm.bbclass | =A0 =A02 +-
+> =A01 files changed, 1 insertions(+), 1 deletions(-)
+>
+> diff --git a/meta/classes/rootfs_rpm.bbclass b/meta/classes/rootfs_rpm.bb=
+class
+> index 2f7d691..8646eec 100644
+> --- a/meta/classes/rootfs_rpm.bbclass
+> +++ b/meta/classes/rootfs_rpm.bbclass
+> @@ -206,7 +206,7 @@ EOF
+> =A0 =A0 =A0 =A0mv ${IMAGE_ROOTFS}/install/*.manifest ${T}/
+>
+> =A0 =A0 =A0 =A0# Remove all remaining resolver files
+> - =A0 =A0 =A0 rm -f ${IMAGE_ROOTFS}/install
+> + =A0 =A0 =A0 rm -rf ${IMAGE_ROOTFS}/install
+>
+> =A0 =A0 =A0 =A0log_check rootfs
+>
+> --
+> 1.7.1
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
 
 
-> Liping,
->=20
-> I notice that you have GPLv2 Headers in the scripts, but the .bb file
-> refers to a MIT and the Poky main license, you should probably change
-> these scripts to point use MIT Headers and copyright should be 2010-
-> 2011.
->=20
-I will correct the license information when resend pull request.
 
-> You should not be exposing internal intel host information in the .conf
-> files, maybe you can use the autobuilder repos instead of an internal
-> on
-> since outside people will use this code also.
->=20
-Yes, this is only for internal testing since the infrastructure for install=
-er
-(should be in autobuilder for external access?) is not ready. The correct
-address will given after the repo is setup.
-
-> I am not sure I like the idea of /opt/poky being hardcoded, will this
-> be
-> addressed in the future?  I think that /opt/poky is still hard-coded in
-> some of the tools, but I hope this will be changing in the future, so
-> more of a heads up.
-
-Yes, if the /opt/poky problem is fixed in the future, surely we'll update i=
-t.
-But I guess it will not be ready in 1.0 release. So I will keep an eye on t=
-his.
-Once modified, I will change it accordingly.
-
-So, I will resend the patch after our external repo is setup.
-
-Thanks a lot for your help!
-criping
->=20
-> Sau!
+--=20
+"Thou shalt not follow the NULL pointer, for chaos and madness await
+thee at its end"
 
