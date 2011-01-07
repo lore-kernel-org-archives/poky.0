@@ -1,25 +1,39 @@
-Return-Path: <edwin.zhai@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 58C764C80B70
-	for <poky@yoctoproject.org>; Thu,  6 Jan 2011 18:50:54 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 06 Jan 2011 16:50:53 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,285,1291622400"; d="scan'208";a="875226613"
-Received: from shxpwgzhai1a.ccr.corp.intel.com (HELO [10.239.48.130])
-	([10.239.48.130])
-	by fmsmga001.fm.intel.com with ESMTP; 06 Jan 2011 16:50:51 -0800
-Message-ID: <4D266450.8010407@intel.com>
-Date: Fri, 07 Jan 2011 08:54:40 +0800
-From: "Zhai, Edwin" <edwin.zhai@intel.com>
-User-Agent: Thunderbird 2.0.0.17 (Windows/20080914)
+Return-Path: <bruce.ashfield@gmail.com>
+Received: from mail-iy0-f172.google.com (mail-iy0-f172.google.com
+	[209.85.210.172])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E879B4C80B70
+	for <poky@lists.pokylinux.org>; Thu,  6 Jan 2011 21:06:12 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by iyi42 with SMTP id 42so15929359iyi.3
+	for <poky@lists.pokylinux.org>; Thu, 06 Jan 2011 19:06:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:received:received:in-reply-to
+	:references:date:message-id:subject:from:to:cc:content-type
+	:content-transfer-encoding;
+	bh=p7R1SDB60y36NkJD7+UjzzHvXMIvuEfWgTPFPmVae5Y=;
+	b=GueD2G5ycU2zziI22G8FW+SoPeZDNSlJISyPbVILbYyj45glr+axMllC9vG2Z3ipU6
+	W3NcNBOE1dlniN6tFgfGIlgyOHu456/rT6CyswqnzylQYIAt8dFFOu/N4G2VS1QO8b08
+	P+qUo/UDNr7Svtzb8p5rQ/ddhK+37leBz1oUU=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:cc:content-type:content-transfer-encoding;
+	b=G6OybgVaZv/xRv/I6bAvxPvqbccP2wsSa4TQfV3r4m56LN/XBJkH3l6CqcIDfHkm2f
+	lu5ODe2P0ZIKjII6S/8hXR+OPqOlAD3cyDvZCFYMmjwIDPInmMxAcfGoM6keU6fDAoNg
+	0XsFB/xpnyggqR71VDrsQIeYPaaui0Om4jO/Q=
 MIME-Version: 1.0
-To: Saul Wold <sgw@linux.intel.com>
-References: <cover.1294148490.git.edwin.zhai@intel.com>	<377902145104994aab4b69c1239a6a907f946c7c.1294148490.git.edwin.zhai@intel.com>
-	<4D237B27.6040701@linux.intel.com>
-In-Reply-To: <4D237B27.6040701@linux.intel.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 2/7] apr: Update to 1.4.2
+Received: by 10.231.13.137 with SMTP id c9mr24970774iba.37.1294369572348; Thu,
+	06 Jan 2011 19:06:12 -0800 (PST)
+Received: by 10.231.156.136 with HTTP; Thu, 6 Jan 2011 19:06:12 -0800 (PST)
+In-Reply-To: <4D26588E.7070701@mlbassoc.com>
+References: <4D26588E.7070701@mlbassoc.com>
+Date: Thu, 6 Jan 2011 22:06:12 -0500
+Message-ID: <AANLkTikFj5SROL4Thc3Aj8VK6oLudeVz=2vSRiJ8jOM9@mail.gmail.com>
+From: Bruce Ashfield <bruce.ashfield@gmail.com>
+To: Gary Thomas <gary@mlbassoc.com>
+Cc: Poky <poky@lists.pokylinux.org>
+Subject: Re: SRCREV_FORMAT breaks my builds
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,167 +45,78 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Jan 2011 00:50:54 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 07 Jan 2011 03:06:13 -0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
 
-
-
-Saul Wold wrote:
-> On 01/04/2011 05:50 AM, Zhai Edwin wrote:
->   
->> Add buildconf_fix.patch of removing new libtool detection method to avoid config
->> failure.  Handled build/libtool.m4&  apr_rules.mk after configure to take place
->> of "top_builddir" by "apr_builddir", as these files would be reused by apr-util.
->>
->>     
-> Edwin,
+On Thu, Jan 6, 2011 at 7:04 PM, Gary Thomas <gary@mlbassoc.com> wrote:
+> My system builds on the Poky meta layer (only), plus my
+> target layers. =A0As of an update today, I now get errors
+> parsing any package (in meta) which uses SRCREV_FORMAT.
 >
-> Is there a reason that this change can not be implemented as a patch?
->   
-
-We need something run after configure, so patch doesn't work.
-> I note that buildconf script already does make a libtool.m4 fixup 
-> similar to what you are doing.
->   
-
-Yes, it's done before configure. It copy $ltfile to libtool.m4, then 
-substitute "top_builddir", so patch doesn't work here too.
-
-The headache is this handled file got overwritten after autoconf, and 
-restored to "top_builddir" again:( So I have to substitute it again.
-I'm not sure if this overwriting in autoconf is right(apr-1.3.5 doesn't 
-do it). I will further check it.
-
-> I also notice that there is both a top_blddir and top_builddir, I wonder 
-> if the top_blddir should really be patched to be top_builddir?
->   
-
-I saw this also, and believed that it should be a harmless bug in upstream.
-> Please investigate this further and re-submit this change.
+> The error (bitback tracebacks) is attached.
 >
-> Sau!
+> I see these recipes with SRCREV_FORMAT:
+> =A0./meta/recipes-kernel/linux/linux-yocto-stable_git.bb:SRCREV_FORMAT =
+=3D
+> "meta_machine"
+> =A0./meta/recipes-kernel/linux/linux-yocto_git.bb:SRCREV_FORMAT =3D
+> "meta_machine"
+> =A0./meta/recipes-kernel/linux-libc-headers/linux-libc-headers-yocto_git.=
+bb:SRCREV_FORMAT
+> =3D "meta_machine"
 >
->   
->> Signed-off-by: Zhai Edwin<edwin.zhai@intel.com>
->> ---
->>   meta/recipes-support/apr/apr/buildconf_fix.patch   |   25 ++++++++++++++++++++
->>   meta/recipes-support/apr/apr/cleanup.patch         |    9 +++----
->>   .../apr/{apr_1.3.3.bb =>  apr_1.4.2.bb}             |   23 ++++++++++++++----
->>   3 files changed, 47 insertions(+), 10 deletions(-)
->>   create mode 100644 meta/recipes-support/apr/apr/buildconf_fix.patch
->>   rename meta/recipes-support/apr/{apr_1.3.3.bb =>  apr_1.4.2.bb} (60%)
->>
->> diff --git a/meta/recipes-support/apr/apr/buildconf_fix.patch b/meta/recipes-support/apr/apr/buildconf_fix.patch
->> new file mode 100644
->> index 0000000..641340b
->> --- /dev/null
->> +++ b/meta/recipes-support/apr/apr/buildconf_fix.patch
->> @@ -0,0 +1,25 @@
->> +Remove the new libtool detection method to avoid config failure. Poky's libtool
->> +has different format for "aclocaldir", and there is no elegant parsing method,
->> +so fall back to old detection.
->> +
->> +Signed-off-by: Zhai Edwin<edwin.zhai@intel.com>
->> +
->> +Index: apr-1.4.2/buildconf
->> +===================================================================
->> +--- apr-1.4.2.orig/buildconf	2009-11-13 06:19:49.000000000 +0800
->> ++++ apr-1.4.2/buildconf	2010-11-29 14:39:19.000000000 +0800
->> +@@ -50,14 +50,6 @@
->> +
->> + if [ -f libtool.m4 ]; then
->> +    ltfile=`pwd`/libtool.m4
->> +-elif grep all_pkgmacro_files $libtoolize>  /dev/null; then
->> +-    # libtool 2.x
->> +-   aclocal_dir=`sed -n '/^aclocaldir=/{s/.*=//;p;q;}'<  $libtoolize`
->> +-   ltfiles=`sed -n '/^all_pkgmacro_files=/{s/.*=//;;s/"//;p;q;}'<  $libtoolize`
->> +-   for f in $ltfiles; do
->> +-       test -f "$aclocal_dir/$f"&&  cp "$aclocal_dir/$f" build
->> +-   done
->> +-   ltfile=$aclocal_dir/libtool.m4
->> + else
->> +    ltfindcmd="`sed -n \"/=[^\\\`]/p;/libtool_m4=/{s/.*=/echo /p;q;}\" \
->> +<  $libtoolize`"
->> diff --git a/meta/recipes-support/apr/apr/cleanup.patch b/meta/recipes-support/apr/apr/cleanup.patch
->> index fd74826..47f1c42 100644
->> --- a/meta/recipes-support/apr/apr/cleanup.patch
->> +++ b/meta/recipes-support/apr/apr/cleanup.patch
->> @@ -1,7 +1,7 @@
->> -Index: apr-1.3.3/build/buildcheck.sh
->> +Index: apr-1.4.2/build/buildcheck.sh
->>   ===================================================================
->> ---- apr-1.3.3.orig/build/buildcheck.sh	2009-01-15 13:32:33.000000000 +0000
->> -+++ apr-1.3.3/build/buildcheck.sh	2009-01-15 13:33:06.000000000 +0000
->> +--- apr-1.4.2.orig/build/buildcheck.sh	2009-11-13 08:27:16.000000000 +0800
->> ++++ apr-1.4.2/build/buildcheck.sh	2010-11-26 15:44:00.000000000 +0800
->>   @@ -32,35 +32,4 @@
->>    echo "buildconf: autoconf version $ac_version (ok)"
->>    fi
->> @@ -12,7 +12,7 @@ Index: apr-1.3.3/build/buildcheck.sh
->>   -# output is multiline from 1.5 onwards
->>   -
->>   -# Require libtool 1.4 or newer
->> --libtool=`build/PrintPath glibtool libtool libtool15 libtool14`
->> +-libtool=`build/PrintPath glibtool1 glibtool libtool libtool15 libtool14`
->>   -lt_pversion=`$libtool --version 2>/dev/null|sed -e 's/([^)]*)//g;s/^[^0-9]*//;s/[- ].*//g;q'`
->>   -if test -z "$lt_pversion"; then
->>   -echo "buildconf: libtool not found."
->> @@ -39,4 +39,3 @@ Index: apr-1.3.3/build/buildcheck.sh
->>   -
->>   -exit 1
->>   +exit 0
->> -\ No newline at end of file
->> diff --git a/meta/recipes-support/apr/apr_1.3.3.bb b/meta/recipes-support/apr/apr_1.4.2.bb
->> similarity index 60%
->> rename from meta/recipes-support/apr/apr_1.3.3.bb
->> rename to meta/recipes-support/apr/apr_1.4.2.bb
->> index 26cc01f..fe983eb 100644
->> --- a/meta/recipes-support/apr/apr_1.3.3.bb
->> +++ b/meta/recipes-support/apr/apr_1.4.2.bb
->> @@ -1,16 +1,21 @@
->>   DESCRIPTION = "Apache Portable Runtime (APR) library"
->> +HOMEPAGE = "http://apr.apache.org/"
->>   SECTION = "libs"
->> +
->>   LICENSE = "Apache License, Version 2.0"
->> -LIC_FILES_CHKSUM = "file://LICENSE;md5=0c35ff3c4c83b89d2f076e315caac28b"
->> -PR = "r5"
->> +LIC_FILES_CHKSUM = "file://LICENSE;md5=0c35ff3c4c83b89d2f076e315caac28b \
->> +                    file://include/apr_lib.h;endline=17;md5=ee42fa7575dc40580a9e01c1b75fae96"
->> +
->> +PR = "r0"
->>
->>   SRC_URI = "${APACHE_MIRROR}/apr/${P}.tar.bz2 \
->>              file://configure_fixes.patch;patch=1 \
->>   	   file://cleanup.patch;patch=1 \
->> -           file://configfix.patch;patch=1"
->> +           file://configfix.patch;patch=1 \
->> +           file://buildconf_fix.patch;patch=1"
->>
->> -SRC_URI[md5sum] = "2090c21dee4f0eb1512604127dcd158f"
->> -SRC_URI[sha256sum] = "d95f3b78366c86317043304864bb08cb836312c87ea7d142a4c02154e7e0dd37"
->> +SRC_URI[md5sum] = "4b00e8f70c067893d075577962656b35"
->> +SRC_URI[sha256sum] = "2017ca700694d09d2b0b21dd7c4d195e43a48735aac88526160c6195ee8f5391"
->>
->>   inherit autotools lib_package binconfig
->>
->> @@ -21,6 +26,14 @@ do_configure_prepend() {
->>   	./buildconf
->>   }
->>
->> +#for some reason, build/libtool.m4 handled by buildconf still be overwritten
->> +#when autoconf, so handle it again.
->> +do_configure_append() {
->> +	cd ${S}
->> +	sed -i -e 's/LIBTOOL=\(.*\)top_build/LIBTOOL=\1apr_build/' build/libtool.m4
->> +	sed -i -e 's/LIBTOOL=\(.*\)top_build/LIBTOOL=\1apr_build/' build/apr_rules.mk
->> +}
->> +
->>   SYSROOT_PREPROCESS_FUNCS += "apr_sysroot_preprocess"
->>
->>   apr_sysroot_preprocess () {
->>     
+> This error happens because I have my own machine(s) which
+> are not listed in poky-default-revisions.inc, such as:
+> =A0SRCREV_machine_pn-linux-yocto-stable_beagleboard ?=3D
+> "0431115c9d720fee5bb105f6a7411efb4f851d26"
+> adding such an entry for my machine into my distribution
+> files does work past the problem.
+
+Interesting. I've suffered my fair share of SRCREV pain, but this time I
+haven't touched anything in days, and a quick look didn't show me
+any suspect commits. But from the traces, it is does look to me to be
+another case of the fetcher going out and attempting to validate the
+branches in the SRC_URI of the yocto kernel.
+
+Did you try bisecting a bit to narrow down on the offending commit ?
+I'm not seeing it myself, but if I reproduce it here, I'll try locate what'=
+s
+up. There has been fetching work ongoing, but it doesn't appear to be
+the cause here.
+
+I may be able to drop a sane default in the recipes that will keep
+this working, but until I reproduce it, I can't run effective experiments.
+It should simply be pointing at the fallback branches and going merrily
+along in the build
+
+I'll continue to try and reproduce this here.
+
+Bruce
+
 >
->   
+> Since I have my own machines and linux recipes, the linux-yocto
+> ones are not needed and indeed cause pain. =A0How can I ignore
+> them (since I want to use the poky meta layer untouched)?
+>
+> Thanks
+>
+> --
+> ------------------------------------------------------------
+> Gary Thomas =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 | =A0Consulting for the
+> MLB Associates =A0 =A0 =A0 =A0 =A0 =A0 =A0| =A0 =A0Embedded world
+> ------------------------------------------------------------
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
+>
+
+
+
+--=20
+"Thou shalt not follow the NULL pointer, for chaos and madness await
+thee at its end"
 
