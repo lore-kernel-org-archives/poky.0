@@ -1,42 +1,37 @@
-Return-Path: <bruce.ashfield@gmail.com>
-Received: from mail-iw0-f172.google.com (mail-iw0-f172.google.com
-	[209.85.214.172])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A37B84C80B70
-	for <poky@lists.pokylinux.org>; Thu,  6 Jan 2011 21:26:41 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by iwn40 with SMTP id 40so16923537iwn.3
-	for <poky@lists.pokylinux.org>; Thu, 06 Jan 2011 19:26:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:received:received:in-reply-to
-	:references:date:message-id:subject:from:to:cc:content-type
-	:content-transfer-encoding;
-	bh=S7ERKMfbx5P3/Yk8yX8w66g3783pYhuEP9E/bSt36IY=;
-	b=XnHwhn1JX93kqb9Itwq5GGrNdVwCbEHjWSf7XLWlYxlzsBsH8axJ7IdoTteNsmnj1a
-	/OTeRxG+3H3wq/t7hyogu1rGuqeA2M+uT2STEy+MPivCkfMmNp4N8LA0F7EVH8c9HYTk
-	RNmuv70DmBlcWyPlV967nq/WUmLNxvWZwhI+c=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type:content-transfer-encoding;
-	b=enLt5C9k+gkkPOmERDp5heJR4rtKpsjNeG8pkWRnqj7JuGTWroj4v9VbnwCOLrvyJ8
-	0sbOnaBeyJ2fb9PZHqGK4BdmW97MeZUc+HxDkjTZWVup0CKooLkW6ZCxkOETfSelLzei
-	2LORHEIk5VQkZBlT3ntH9HP1JLizXyTVoXChk=
+Return-Path: <kevin.tian@intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 325AB4C810AF
+	for <poky@pokylinux.org>; Thu,  6 Jan 2011 22:50:56 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 06 Jan 2011 20:50:54 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,287,1291622400"; d="scan'208";a="371302959"
+Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
+	by azsmga001.ch.intel.com with ESMTP; 06 Jan 2011 20:50:53 -0800
+Received: from pgsmsx509.gar.corp.intel.com (172.30.13.17) by
+	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Fri, 7 Jan 2011 12:50:02 +0800
+Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
+	PGSMSX509.gar.corp.intel.com (172.30.13.17) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Fri, 7 Jan 2011 12:50:02 +0800
+Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
+	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi; Fri, 7 Jan 2011
+	12:50:01 +0800
+From: "Tian, Kevin" <kevin.tian@intel.com>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>, poky
+	<poky@pokylinux.org>
+Date: Fri, 7 Jan 2011 12:49:58 +0800
+Thread-Topic: [poky] RFC/RFT Checksums as part of stamp files
+Thread-Index: Acut9RfbPhMNVOBmQ5CO/HeduOJjRQAL04CQ
+Message-ID: <625BA99ED14B2D499DC4E29D8138F1504D786EE679@shsmsx502.ccr.corp.intel.com>
+References: <1294354570.17519.25325.camel@rex>
+In-Reply-To: <1294354570.17519.25325.camel@rex>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
 MIME-Version: 1.0
-Received: by 10.231.15.133 with SMTP id k5mr24408788iba.187.1294370801409;
-	Thu, 06 Jan 2011 19:26:41 -0800 (PST)
-Received: by 10.231.156.136 with HTTP; Thu, 6 Jan 2011 19:26:41 -0800 (PST)
-In-Reply-To: <AANLkTinAz2JynsoSYXZB6sTJUg2hJa8Apa_gNaKsdHfi@mail.gmail.com>
-References: <4D26588E.7070701@mlbassoc.com>
-	<AANLkTikFj5SROL4Thc3Aj8VK6oLudeVz=2vSRiJ8jOM9@mail.gmail.com>
-	<AANLkTinAz2JynsoSYXZB6sTJUg2hJa8Apa_gNaKsdHfi@mail.gmail.com>
-Date: Thu, 6 Jan 2011 22:26:41 -0500
-Message-ID: <AANLkTinp0GooZu6e5uHCaTey=42qUe-NF9FN6qvVTwO3@mail.gmail.com>
-From: Bruce Ashfield <bruce.ashfield@gmail.com>
-To: Gary Thomas <gary@mlbassoc.com>
-Cc: Poky <poky@lists.pokylinux.org>, "Purdie,
-	Richard" <richard.purdie@intel.com>
-Subject: Re: SRCREV_FORMAT breaks my builds
+Subject: Re: RFC/RFT Checksums as part of stamp files
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -48,125 +43,74 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Jan 2011 03:26:41 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Fri, 07 Jan 2011 04:50:56 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jan 6, 2011 at 10:10 PM, Bruce Ashfield
-<bruce.ashfield@gmail.com> wrote:
-> On Thu, Jan 6, 2011 at 10:06 PM, Bruce Ashfield
-> <bruce.ashfield@gmail.com> wrote:
->> On Thu, Jan 6, 2011 at 7:04 PM, Gary Thomas <gary@mlbassoc.com> wrote:
->>> My system builds on the Poky meta layer (only), plus my
->>> target layers. =A0As of an update today, I now get errors
->>> parsing any package (in meta) which uses SRCREV_FORMAT.
->>>
->>> The error (bitback tracebacks) is attached.
->>>
->>> I see these recipes with SRCREV_FORMAT:
->>> =A0./meta/recipes-kernel/linux/linux-yocto-stable_git.bb:SRCREV_FORMAT =
-=3D
->>> "meta_machine"
->>> =A0./meta/recipes-kernel/linux/linux-yocto_git.bb:SRCREV_FORMAT =3D
->>> "meta_machine"
->>> =A0./meta/recipes-kernel/linux-libc-headers/linux-libc-headers-yocto_gi=
-t.bb:SRCREV_FORMAT
->>> =3D "meta_machine"
->>>
->>> This error happens because I have my own machine(s) which
->>> are not listed in poky-default-revisions.inc, such as:
->>> =A0SRCREV_machine_pn-linux-yocto-stable_beagleboard ?=3D
->>> "0431115c9d720fee5bb105f6a7411efb4f851d26"
->>> adding such an entry for my machine into my distribution
->>> files does work past the problem.
->>
->> Interesting. I've suffered my fair share of SRCREV pain, but this time I
->> haven't touched anything in days, and a quick look didn't show me
->> any suspect commits. But from the traces, it is does look to me to be
->> another case of the fetcher going out and attempting to validate the
->> branches in the SRC_URI of the yocto kernel.
->>
->> Did you try bisecting a bit to narrow down on the offending commit ?
->> I'm not seeing it myself, but if I reproduce it here, I'll try locate wh=
-at's
->> up. There has been fetching work ongoing, but it doesn't appear to be
->> the cause here.
->>
->> I may be able to drop a sane default in the recipes that will keep
->> this working, but until I reproduce it, I can't run effective experiment=
-s.
->> It should simply be pointing at the fallback branches and going merrily
->> along in the build
->>
->> I'll continue to try and reproduce this here.
+>From: Richard Purdie
+>Sent: Friday, January 07, 2011 6:56 AM
 >
-> And sure enough, I immediately saw this after hitting send. I'm having
-> a look at this now.
+>We've been working on checksums and sstate for a while, one of the
+>pieces we've not put in place so far is using the checksums in the stamp
+>files.
+>
+>What this would mean in English is the end of PR bumps since when you
+>change the recipe, the checksums of the appropriate tasks change and
+>everything automatically rebuilds that changed.
+>
+>It also means if you change something in the core packaging, everything
+>should repackage and so on.
+>
+>The final key to enabling this is this commit:
+>
+>http://git.pokylinux.org/cgit.cgi/poky-contrib/commit/?h=3Drpurdie/bitbake=
+-wip&id=3Db82259
+>b901cae11b0e5715a92a580c9432af52cc
+>
+>This hasn't been merged to master yet but we should discuss when this
+>change could/should be merged and under what criteria.
+>
+>I've only just started testing full builds with the change myself so
+>keep that in mind. I'd appreciate testing but the change is still very
+>new and likely has bugs to iron out.
 
-My first thought on this was "It must be the recent SRCPV changes", and
-sure enough, removing SRCPV from the PV of the offending recipes clears
-out the errors. Whacking SRCREV with any value in the recipes themselves
-also fixes things up, I'm going to do some test builds to see if that is th=
-e
-solution since the later processing should do the right thing with the spec=
-ific
-SRCREV overrides.
-
-I'm not seeing why this is being triggered though, it could be a combinatio=
-n
-of several things .. or I'm just over looking something obvious. I'm more o=
-f
-a kernel guy than a bitbake hacker at this point.
-
-Not much help yet, but providing some extra data.
-
-Cheers,
-
-Bruce
+I can help test it out too.
 
 >
-> Bruce
+>I'm also aware that this idea isn't going to be universally liked,
+>particularly I can guess that Koen is going to have concerns about this
+>and Angstrom since the lack of PR bumps means package feeds could start
+>to suffer.
+
+worthy of a config option? We may need see from real use whether this will
+trigger many unnecessary rebuilds and how much impact to people's daily
+work. Basically the incremental builds will be much more heavier than befor=
+e,
+though this in concept is more correct...
+
 >
->>
->> Bruce
->>
->>>
->>> Since I have my own machines and linux recipes, the linux-yocto
->>> ones are not needed and indeed cause pain. =A0How can I ignore
->>> them (since I want to use the poky meta layer untouched)?
->>>
->>> Thanks
->>>
->>> --
->>> ------------------------------------------------------------
->>> Gary Thomas =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 | =A0Consulting for the
->>> MLB Associates =A0 =A0 =A0 =A0 =A0 =A0 =A0| =A0 =A0Embedded world
->>> ------------------------------------------------------------
->>>
->>> _______________________________________________
->>> poky mailing list
->>> poky@yoctoproject.org
->>> https://lists.yoctoproject.org/listinfo/poky
->>>
->>>
->>
->>
->>
->> --
->> "Thou shalt not follow the NULL pointer, for chaos and madness await
->> thee at its end"
->>
+>My proposal for dealing with this will be to start having the packaging
+>backend take ownership of PE and PR fields. These should be auto
+>incremented when the build changes. That in itself is easy enough if you
+>have one build area, the tricky bit is where you have multiple build
+>sources feeding into a common packages repo like Angstrom.
 >
+>For this we're going to need some kind of network service that takes a
+>version and provides the PE/PR values back, incrementing them each time
+>it sees a new version/checksum.
 >
+>This would solve one of Koen's major complaints about PR bumps in
+>general once and for all but there is some effort needed to implement
+>something that could provide this service.
 >
-> --
-> "Thou shalt not follow the NULL pointer, for chaos and madness await
-> thee at its end"
+>Also, on the plus side, we could also now make image generation a
+>"stamp" task with a stamp that will only change when the image inputs
+>change. That would change a users expectations in some regard so again
+>needs discussion.
 >
 
 
-
---=20
-"Thou shalt not follow the NULL pointer, for chaos and madness await
-thee at its end"
+Thanks
+Kevin
 
