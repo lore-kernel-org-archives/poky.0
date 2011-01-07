@@ -1,30 +1,29 @@
 Return-Path: <richard.purdie@linuxfoundation.org>
 Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0F2444C810AF
-	for <poky@pokylinux.org>; Fri,  7 Jan 2011 05:09:11 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 1A9CB4C810AF
+	for <poky@pokylinux.org>; Fri,  7 Jan 2011 05:12:55 -0600 (CST)
 Received: from localhost (dan.rpsys.net [127.0.0.1])
 	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p07BAmvc008097; Fri, 7 Jan 2011 11:10:48 GMT
+	p07BEVBQ008227; Fri, 7 Jan 2011 11:14:31 GMT
 X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
 Received: from dan.rpsys.net ([127.0.0.1])
 	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id VhmNafWW2IRx; Fri,  7 Jan 2011 11:10:48 +0000 (GMT)
+	with LMTP id bUZKB7bdrGjr; Fri,  7 Jan 2011 11:14:31 +0000 (GMT)
 Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
 	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p07BAjFh008093
+	p07BERoh008204
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Fri, 7 Jan 2011 11:10:47 GMT
+	Fri, 7 Jan 2011 11:14:29 GMT
 From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: "Tian, Kevin" <kevin.tian@intel.com>
-In-Reply-To: <625BA99ED14B2D499DC4E29D8138F1504D786EE679@shsmsx502.ccr.corp.intel.com>
-References: <1294354570.17519.25325.camel@rex>
-	<625BA99ED14B2D499DC4E29D8138F1504D786EE679@shsmsx502.ccr.corp.intel.com>
-Date: Fri, 07 Jan 2011 11:08:38 +0000
-Message-ID: <1294398518.17519.26801.camel@rex>
+To: Kevin Tian <kevin.tian@intel.com>
+In-Reply-To: <b7da2f$q2nuje@fmsmga001.fm.intel.com>
+References: <b7da2f$q2nuje@fmsmga001.fm.intel.com>
+Date: Fri, 07 Jan 2011 11:12:20 +0000
+Message-ID: <1294398740.17519.26811.camel@rex>
 Mime-Version: 1.0
 X-Mailer: Evolution 2.28.3 
-Cc: poky <poky@pokylinux.org>
-Subject: Re: RFC/RFT Checksums as part of stamp files
+Cc: poky@pokylinux.org
+Subject: Re: [PATCH 0/2] sstate relocation fixes - v2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,35 +35,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Jan 2011 11:09:12 -0000
+X-List-Received-Date: Fri, 07 Jan 2011 11:12:56 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On Fri, 2011-01-07 at 12:49 +0800, Tian, Kevin wrote:
-> >I'm also aware that this idea isn't going to be universally liked,
-> >particularly I can guess that Koen is going to have concerns about this
-> >and Angstrom since the lack of PR bumps means package feeds could start
-> >to suffer.
+On Fri, 2011-01-07 at 14:27 +0800, Kevin Tian wrote:
+> this is basically an update to v1 about flex-native and bison-native, by
+> moving the wrapper creation to do_install
 > 
-> worthy of a config option? We may need see from real use whether this will
-> trigger many unnecessary rebuilds and how much impact to people's daily
-> work. Basically the incremental builds will be much more heavier than before,
-> though this in concept is more correct...
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>   Branch: tk/master
+>   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=tk/master
+> 
+> Thanks,
+>     Kevin Tian <kevin.tian@intel.com>
+> ---
+> 
+> 
+> Kevin Tian (2):
+>   flex-native: create a wrapper script for sstate installation
+>   bison-native: create a wrapper script for sstate installation
+> 
+>  meta/recipes-devtools/bison/bison_2.4.3.bb |    8 +++++++-
+>  meta/recipes-devtools/flex/flex.inc        |    3 +++
+>  meta/recipes-devtools/flex/flex_2.5.35.bb  |    2 +-
+>  3 files changed, 11 insertions(+), 2 deletions(-)
 
-They are potentially heavier, yes.
-
-With this and other factors in mind, I've merged a new signature
-generator class into poky with this as the only added feature. Now with
-poky's master branch you can add:
-
-BB_SIGNATURE_HANDLER = "basichash"
-
-to local.conf to enable this functionality (the default is "basic").
-
-At some point we are likely to decide to change the default in
-bitbake.conf but this makes it easier for people to test.
-
-For reference, my test builds completed successfully.
+Merged into master although there were three changes there (I agreed
+with the perl one too and thought we'd merged it already but it would
+seem not).
 
 Cheers,
 
