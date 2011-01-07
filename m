@@ -1,26 +1,22 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C95FC4C80B70
-	for <poky@lists.pokylinux.org>; Thu,  6 Jan 2011 18:04:32 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id E7CD01660177; Thu,  6 Jan 2011 17:04:31 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.1
-Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 870C81660173;
-	Thu,  6 Jan 2011 17:04:30 -0700 (MST)
-Message-ID: <4D26588E.7070701@mlbassoc.com>
-Date: Thu, 06 Jan 2011 17:04:30 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
-MIME-Version: 1.0
-To: Poky <poky@lists.pokylinux.org>
-Subject: SRCREV_FORMAT breaks my builds
+Return-Path: <scott.m.rifenbark@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 033074C810AF
+	for <poky@yoctoproject.org>; Thu,  6 Jan 2011 18:32:32 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 06 Jan 2011 16:32:32 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,285,1291622400"; d="scan'208";a="590650612"
+Received: from scottrif-desktop.jf.intel.com (HELO localhost) ([10.7.201.148])
+	by orsmga002.jf.intel.com with ESMTP; 06 Jan 2011 16:32:32 -0800
+Message-Id: <bcb58492430f1497293493207d10cb26c8d0514e.1294359880.git.scott.m.rifenbark@intel.com>
+In-Reply-To: <cover.1294359880.git.scott.m.rifenbark@intel.com>
+References: <cover.1294359880.git.scott.m.rifenbark@intel.com>
+From: Scott Rifenbark <scott.m.rifenbark@intel.com>
+Old-Date: Thu, 6 Jan 2011 12:55:42 -0800
+Date: Thu, 06 Jan 2011 16:31:35 -0800
+To: poky@yoctoproject.org
+CC: 
+Subject: [PATCH 2/2] documentation/yocto-project-qs/yocto-project-qs.xml: Corrections to Using Pre-Built Binaries and QEMU section.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,229 +28,66 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Jan 2011 00:04:33 -0000
-X-Groupsio-MsgNum: 2117
-Content-Type: multipart/mixed; boundary="------------020709070906050101080907"
+X-List-Received-Date: Fri, 07 Jan 2011 00:32:33 -0000
 
---------------020709070906050101080907
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+Made several small changes:
 
-My system builds on the Poky meta layer (only), plus my
-target layers.  As of an update today, I now get errors
-parsing any package (in meta) which uses SRCREV_FORMAT.
+ - Added a period to three-bullet list for consistency
+ - grammar fix to sentence
+ - Added clarification for getting stuff from qemu URL
+ - Fixed the forms for the image and the file system image
 
-The error (bitback tracebacks) is attached.
+Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
+---
+ .../yocto-project-qs/yocto-project-qs.xml          |   15 +++++++++++----
+ 1 files changed, 11 insertions(+), 4 deletions(-)
 
-I see these recipes with SRCREV_FORMAT:
-   ./meta/recipes-kernel/linux/linux-yocto-stable_git.bb:SRCREV_FORMAT = "meta_machine"
-   ./meta/recipes-kernel/linux/linux-yocto_git.bb:SRCREV_FORMAT = "meta_machine"
-   ./meta/recipes-kernel/linux-libc-headers/linux-libc-headers-yocto_git.bb:SRCREV_FORMAT = "meta_machine"
-
-This error happens because I have my own machine(s) which
-are not listed in poky-default-revisions.inc, such as:
-   SRCREV_machine_pn-linux-yocto-stable_beagleboard ?= "0431115c9d720fee5bb105f6a7411efb4f851d26"
-adding such an entry for my machine into my distribution
-files does work past the problem.
-
-Since I have my own machines and linux recipes, the linux-yocto
-ones are not needed and indeed cause pain.  How can I ignore
-them (since I want to use the poky meta layer untouched)?
-
-Thanks
-
+diff --git a/documentation/yocto-project-qs/yocto-project-qs.xml b/documentation/yocto-project-qs/yocto-project-qs.xml
+index 1c45cde..ca2794b 100644
+--- a/documentation/yocto-project-qs/yocto-project-qs.xml
++++ b/documentation/yocto-project-qs/yocto-project-qs.xml
+@@ -302,7 +302,7 @@
+          <itemizedlist>
+              <listitem>
+                  <para>
+-                     Install the standalone Yocto toolchain tarball
++                     Install the standalone Yocto toolchain tarball.
+                  </para>
+              </listitem>
+              <listitem>
+@@ -319,7 +319,7 @@
+          </itemizedlist>
+ 
+          <para>
+-             You can download the pre-built toolchain which includes the poky-qemu script and support files from <ulink url='http://yoctoproject.org/downloads/yocto-0.9/toolchain/'></ulink>.  These are available for i586 (32-bit) and x86_64 (64 bit) host machines, targeting each of the 5 supported target architectures. The tarballs are self contained and install into /opt/poky.
++             You can download the pre-built toolchain, which includes the poky-qemu script and support files, from <ulink url='http://yoctoproject.org/downloads/yocto-0.9/toolchain/'></ulink>.  These are available for i586 (32-bit) and x86_64 (64 bit) host machines, targeting each of the five supported target architectures. The tarballs are self contained and install into <filename>/opt/poky</filename>.
+              Use these commands to install the toolchain tarball (taking the 64 bit host, 32 bit i586 target as an example):
+          </para>
+ 
+@@ -331,13 +331,20 @@
+          </para>
+ 
+          <para>
+-             You can download the pre-built Linux kernel and the file image system from <ulink url='http://yoctoproject.org/downloads/yocto-0.9/'></ulink>.  
++             You can download the pre-built Linux kernel and the file image system suitable for 
++             running in the emulator QEMU from 
++             <ulink url='http://yoctoproject.org/downloads/yocto-0.9/qemu'></ulink>.
++             Be sure to use the kernel and file image system that matches the architecture you want 
++             to simulate.
++         </para>
++       
++         <para>  
+              The kernel and file image system have the following forms, respectively:
+          </para>
+ 
+           <literallayout class='monospaced'>
+      *zImage*qemu*.bin
+-     poky-image-*-qemu*.ext2.bz2
++     yocto-image-*-qemu*.ext3.bz2
+           </literallayout>
+ 
+          <para>
 -- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+1.7.0.4
 
---------------020709070906050101080907
-Content-Type: text/plain;
- name="out"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
- filename="out"
 
-Pseudo has not been built, building this first before the main build
-Loading cache...done.
-Loaded 687 entries from dependency cache.
-Parsing recipes...ERROR: Error evaluating '${@bb.fetch.get_srcrev(d)}'
-Traceback (most recent call last):
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 117, in expandWithRefs
-    s = __expand_python_regexp__.sub(varparse.python_sub, s)
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 76, in python_sub
-    value = utils.better_eval(codeobj, DataContext(self.d))
-  File "/tmp/poky-mlb/bitbake/lib/bb/utils.py", line 400, in better_eval
-    return eval(source, _context, locals)
-  File "SRCPV", line 1, in <module>
-  File "/tmp/poky-mlb/bitbake/lib/bb/fetch/__init__.py", line 389, in get_srcrev
-    ud.setup_localpath(d)
-  File "/tmp/poky-mlb/bitbake/lib/bb/fetch/__init__.py", line 572, in setup_localpath
-    self.localpath = self.method.localpath(self.url, self, d)
-  File "/tmp/poky-mlb/bitbake/lib/bb/fetch/git.py", line 59, in localpath
-    tag = Fetch.srcrev_internal_helper(ud, d)
-  File "/tmp/poky-mlb/bitbake/lib/bb/fetch/__init__.py", line 701, in srcrev_internal_helper
-    raise InvalidSRCREV("Please set SRCREV to a valid value")
-InvalidSRCREV: Please set SRCREV to a valid value
-
-ERROR: Error evaluating '${LINUX_VERSION}+git${SRCPV}'
-Traceback (most recent call last):
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 116, in expandWithRefs
-    s = __expand_var_regexp__.sub(varparse.var_sub, s)
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 60, in var_sub
-    var = self.d.getVar(key, 1)
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 260, in getVar
-    return self.expand(value, var)
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 132, in expand
-    return self.expandWithRefs(s, varname).value
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 117, in expandWithRefs
-    s = __expand_python_regexp__.sub(varparse.python_sub, s)
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 76, in python_sub
-    value = utils.better_eval(codeobj, DataContext(self.d))
-  File "/tmp/poky-mlb/bitbake/lib/bb/utils.py", line 400, in better_eval
-    return eval(source, _context, locals)
-  File "SRCPV", line 1, in <module>
-  File "/tmp/poky-mlb/bitbake/lib/bb/fetch/__init__.py", line 389, in get_srcrev
-    ud.setup_localpath(d)
-  File "/tmp/poky-mlb/bitbake/lib/bb/fetch/__init__.py", line 572, in setup_localpath
-    self.localpath = self.method.localpath(self.url, self, d)
-  File "/tmp/poky-mlb/bitbake/lib/bb/fetch/git.py", line 59, in localpath
-    tag = Fetch.srcrev_internal_helper(ud, d)
-  File "/tmp/poky-mlb/bitbake/lib/bb/fetch/__init__.py", line 701, in srcrev_internal_helper
-    raise InvalidSRCREV("Please set SRCREV to a valid value")
-InvalidSRCREV: Please set SRCREV to a valid value
-
-ERROR: Error evaluating 'sstate-${PN}-${MULTIMACH_ARCH}${TARGET_VENDOR}-${TARGET_OS}-${PV}-${PR}-${SSTATE_PKGARCH}-${SSTATE_VERSION}-'
-Traceback (most recent call last):
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 116, in expandWithRefs
-    s = __expand_var_regexp__.sub(varparse.var_sub, s)
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 60, in var_sub
-    var = self.d.getVar(key, 1)
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 260, in getVar
-    return self.expand(value, var)
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 132, in expand
-    return self.expandWithRefs(s, varname).value
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 116, in expandWithRefs
-    s = __expand_var_regexp__.sub(varparse.var_sub, s)
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 60, in var_sub
-    var = self.d.getVar(key, 1)
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 260, in getVar
-    return self.expand(value, var)
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 132, in expand
-    return self.expandWithRefs(s, varname).value
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 117, in expandWithRefs
-    s = __expand_python_regexp__.sub(varparse.python_sub, s)
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 76, in python_sub
-    value = utils.better_eval(codeobj, DataContext(self.d))
-  File "/tmp/poky-mlb/bitbake/lib/bb/utils.py", line 400, in better_eval
-    return eval(source, _context, locals)
-  File "SRCPV", line 1, in <module>
-  File "/tmp/poky-mlb/bitbake/lib/bb/fetch/__init__.py", line 389, in get_srcrev
-    ud.setup_localpath(d)
-  File "/tmp/poky-mlb/bitbake/lib/bb/fetch/__init__.py", line 572, in setup_localpath
-    self.localpath = self.method.localpath(self.url, self, d)
-  File "/tmp/poky-mlb/bitbake/lib/bb/fetch/git.py", line 59, in localpath
-    tag = Fetch.srcrev_internal_helper(ud, d)
-  File "/tmp/poky-mlb/bitbake/lib/bb/fetch/__init__.py", line 701, in srcrev_internal_helper
-    raise InvalidSRCREV("Please set SRCREV to a valid value")
-InvalidSRCREV: Please set SRCREV to a valid value
-
-ERROR: Error evaluating '${SSTATE_PKGSPEC}${BB_TASKHASH}'
-Traceback (most recent call last):
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 116, in expandWithRefs
-    s = __expand_var_regexp__.sub(varparse.var_sub, s)
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 60, in var_sub
-    var = self.d.getVar(key, 1)
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 260, in getVar
-    return self.expand(value, var)
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 132, in expand
-    return self.expandWithRefs(s, varname).value
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 116, in expandWithRefs
-    s = __expand_var_regexp__.sub(varparse.var_sub, s)
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 60, in var_sub
-    var = self.d.getVar(key, 1)
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 260, in getVar
-    return self.expand(value, var)
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 132, in expand
-    return self.expandWithRefs(s, varname).value
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 116, in expandWithRefs
-    s = __expand_var_regexp__.sub(varparse.var_sub, s)
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 60, in var_sub
-    var = self.d.getVar(key, 1)
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 260, in getVar
-    return self.expand(value, var)
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 132, in expand
-    return self.expandWithRefs(s, varname).value
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 117, in expandWithRefs
-    s = __expand_python_regexp__.sub(varparse.python_sub, s)
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 76, in python_sub
-    value = utils.better_eval(codeobj, DataContext(self.d))
-  File "/tmp/poky-mlb/bitbake/lib/bb/utils.py", line 400, in better_eval
-    return eval(source, _context, locals)
-  File "SRCPV", line 1, in <module>
-  File "/tmp/poky-mlb/bitbake/lib/bb/fetch/__init__.py", line 389, in get_srcrev
-    ud.setup_localpath(d)
-  File "/tmp/poky-mlb/bitbake/lib/bb/fetch/__init__.py", line 572, in setup_localpath
-    self.localpath = self.method.localpath(self.url, self, d)
-  File "/tmp/poky-mlb/bitbake/lib/bb/fetch/git.py", line 59, in localpath
-    tag = Fetch.srcrev_internal_helper(ud, d)
-  File "/tmp/poky-mlb/bitbake/lib/bb/fetch/__init__.py", line 701, in srcrev_internal_helper
-    raise InvalidSRCREV("Please set SRCREV to a valid value")
-InvalidSRCREV: Please set SRCREV to a valid value
-
-ERROR: Error evaluating '${SSTATE_PKGNAME}'
-Traceback (most recent call last):
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 116, in expandWithRefs
-    s = __expand_var_regexp__.sub(varparse.var_sub, s)
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 60, in var_sub
-    var = self.d.getVar(key, 1)
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 260, in getVar
-    return self.expand(value, var)
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 132, in expand
-    return self.expandWithRefs(s, varname).value
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 116, in expandWithRefs
-    s = __expand_var_regexp__.sub(varparse.var_sub, s)
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 60, in var_sub
-    var = self.d.getVar(key, 1)
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 260, in getVar
-    return self.expand(value, var)
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 132, in expand
-    return self.expandWithRefs(s, varname).value
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 116, in expandWithRefs
-    s = __expand_var_regexp__.sub(varparse.var_sub, s)
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 60, in var_sub
-    var = self.d.getVar(key, 1)
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 260, in getVar
-    return self.expand(value, var)
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 132, in expand
-    return self.expandWithRefs(s, varname).value
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 116, in expandWithRefs
-    s = __expand_var_regexp__.sub(varparse.var_sub, s)
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 60, in var_sub
-    var = self.d.getVar(key, 1)
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 260, in getVar
-    return self.expand(value, var)
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 132, in expand
-    return self.expandWithRefs(s, varname).value
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 117, in expandWithRefs
-    s = __expand_python_regexp__.sub(varparse.python_sub, s)
-  File "/tmp/poky-mlb/bitbake/lib/bb/data_smart.py", line 76, in python_sub
-    value = utils.better_eval(codeobj, DataContext(self.d))
-  File "/tmp/poky-mlb/bitbake/lib/bb/utils.py", line 400, in better_eval
-    return eval(source, _context, locals)
-  File "SRCPV", line 1, in <module>
-  File "/tmp/poky-mlb/bitbake/lib/bb/fetch/__init__.py", line 389, in get_srcrev
-    ud.setup_localpath(d)
-  File "/tmp/poky-mlb/bitbake/lib/bb/fetch/__init__.py", line 572, in setup_localpath
-    self.localpath = self.method.localpath(self.url, self, d)
-  File "/tmp/poky-mlb/bitbake/lib/bb/fetch/git.py", line 59, in localpath
-    tag = Fetch.srcrev_internal_helper(ud, d)
-  File "/tmp/poky-mlb/bitbake/lib/bb/fetch/__init__.py", line 701, in srcrev_internal_helper
-    raise InvalidSRCREV("Please set SRCREV to a valid value")
-InvalidSRCREV: Please set SRCREV to a valid value
-
-ERROR: Error parsing /tmp/poky-mlb/meta/recipes-kernel/linux/linux-yocto-stable_git.bb: Please set SRCREV to a valid value
-ERROR: Command execution failed: Exited with 1
-
---------------020709070906050101080907--
