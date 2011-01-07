@@ -1,24 +1,19 @@
-Return-Path: <lianhao.lu@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id CE96F4C811BE
-	for <poky@yoctoproject.org>; Fri,  7 Jan 2011 00:28:29 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 06 Jan 2011 22:27:59 -0800
+Return-Path: <kevin.tian@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id EB1894C810B6
+	for <poky@pokylinux.org>; Fri,  7 Jan 2011 00:45:46 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 06 Jan 2011 22:45:46 -0800
+Message-Id: <b7da2f$q2nuje@fmsmga001.fm.intel.com>
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,287,1291622400"; d="scan'208";a="644380545"
-Received: from llu-piketon.sh.intel.com ([10.239.36.141])
-	by fmsmga002.fm.intel.com with ESMTP; 06 Jan 2011 22:27:59 -0800
-Received: from lulianhao by llu-piketon.sh.intel.com with local (Exim 4.71)
-	(envelope-from <lianhao.lu@intel.com>)
-	id 1Pb5pg-0003W1-3n; Fri, 07 Jan 2011 14:29:52 +0800
-Message-Id: <37a6c2de5b89889fc7ae364854675c647437e45a.1294381578.git.lianhao.lu@intel.com>
-In-Reply-To: <cover.1294381578.git.lianhao.lu@intel.com>
-References: <cover.1294381578.git.lianhao.lu@intel.com>
-From: Lianhao Lu <lianhao.lu@intel.com>
-Old-Date: Fri, 7 Jan 2011 14:17:10 +0800
-Date: Fri, 07 Jan 2011 14:29:52 +0800
-To: poky@yoctoproject.org
-Subject: [PATCH 1/1] bitbake/data.py: corrected the output for shell syntax.
+X-IronPort-AV: E=Sophos;i="4.60,288,1291622400"; d="scan'208";a="875297395"
+Received: from unknown (HELO localhost) ([10.239.36.19])
+	by fmsmga001.fm.intel.com with ESMTP; 06 Jan 2011 22:45:45 -0800
+From: Kevin Tian <kevin.tian@intel.com>
+Old-Date: Fri, 7 Jan 2011 14:26:48 +0800
+Date: Fri, 07 Jan 2011 14:27:47 +0800
+To: poky@pokylinux.org
+Subject: [PATCH 0/2] sstate relocation fixes - v2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,43 +25,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Jan 2011 06:28:30 -0000
+X-List-Received-Date: Fri, 07 Jan 2011 06:45:47 -0000
 
-[BUGID# 645], modify the emit_var()
-1. Added "#" to the beginning of each line if the comment contains
-multiple lines.
+this is basically an update to v1 about flex-native and bison-native, by
+moving the wrapper creation to do_install
 
-2. Added "\" to the end of each line if the shell variable value
-contains multiple lines.
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: tk/master
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=tk/master
 
-Signed-off-by: Lianhao Lu <lianhao.lu@intel.com>
+Thanks,
+    Kevin Tian <kevin.tian@intel.com>
 ---
- bitbake/lib/bb/data.py |    4 +++-
- 1 files changed, 3 insertions(+), 1 deletions(-)
 
-diff --git a/bitbake/lib/bb/data.py b/bitbake/lib/bb/data.py
-index 6ec522a..53ce7d6 100644
---- a/bitbake/lib/bb/data.py
-+++ b/bitbake/lib/bb/data.py
-@@ -192,7 +192,8 @@ def emit_var(var, o=sys.__stdout__, d = init(), all=False):
-         return 0
- 
-     if all:
--        o.write('# %s=%s\n' % (var, oval))
-+        commentVal = re.sub('\n', '\n#', str(oval))
-+        o.write('# %s=%s\n' % (var, commentVal))
- 
-     if (var.find("-") != -1 or var.find(".") != -1 or var.find('{') != -1 or var.find('}') != -1 or var.find('+') != -1) and not all:
-         return 0
-@@ -219,6 +220,7 @@ def emit_var(var, o=sys.__stdout__, d = init(), all=False):
-     # if we're going to output this within doublequotes,
-     # to a shell, we need to escape the quotes in the var
-     alter = re.sub('"', '\\"', val.strip())
-+    alter = re.sub('\n', ' \\\n', alter)
-     o.write('%s="%s"\n' % (varExpanded, alter))
-     return 0
- 
--- 
-1.7.0.4
+
+Kevin Tian (2):
+  flex-native: create a wrapper script for sstate installation
+  bison-native: create a wrapper script for sstate installation
+
+ meta/recipes-devtools/bison/bison_2.4.3.bb |    8 +++++++-
+ meta/recipes-devtools/flex/flex.inc        |    3 +++
+ meta/recipes-devtools/flex/flex_2.5.35.bb  |    2 +-
+ 3 files changed, 11 insertions(+), 2 deletions(-)
 
 
