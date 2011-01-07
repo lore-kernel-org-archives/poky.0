@@ -1,45 +1,22 @@
-Return-Path: <kergoth@gmail.com>
-Received: from mail-wy0-f172.google.com (mail-wy0-f172.google.com
-	[74.125.82.172])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 143F04C80B70
-	for <poky@lists.pokylinux.org>; Fri,  7 Jan 2011 08:47:58 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by wyf23 with SMTP id 23so18155232wyf.3
-	for <poky@lists.pokylinux.org>; Fri, 07 Jan 2011 06:47:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:received:mime-version:sender:received
-	:in-reply-to:references:from:date:x-google-sender-auth:message-id
-	:subject:to:cc:content-type;
-	bh=ObsVYW72gw9hhVlTMYyK7HaqD4A7p7htg0TlU7r/vaQ=;
-	b=uy70jcSQSpbHdm3A1iL8WLR4RixmNTa2rqrCIBLoxggriMKnzEhX6gRpl2JsasiyUs
-	LBfKeVtjQflOENrl+Q4w9r6KmzVdVpWWWsj7wf5irh/ShuWp3Wy/uid6dLtuHySeF/vw
-	HZPVpi6tzrAgAnABnVpT4gC1SpKvfJmgInJ6g=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:sender:in-reply-to:references:from:date
-	:x-google-sender-auth:message-id:subject:to:cc:content-type;
-	b=GXDx0sJ4a5vifNPrdQx9v4NBbxpeBFtETNx3YkHCvVMJP2K/3xAIiX0m2upR5heLso
-	rSSjkOLSnyO9FEQnRib7APZ/jCeIOtOC7XBuaHxAGMuZOEzKNpR/vffA+piLlRt2NMM1
-	YiLmsXmaLVY13gYH9+VV2aqAp7iszjE/B8epc=
-Received: by 10.216.150.134 with SMTP id z6mr25512517wej.27.1294411460599;
-	Fri, 07 Jan 2011 06:44:20 -0800 (PST)
-MIME-Version: 1.0
-Sender: kergoth@gmail.com
-Received: by 10.216.67.67 with HTTP; Fri, 7 Jan 2011 06:44:00 -0800 (PST)
-In-Reply-To: <1294405139.17519.27035.camel@rex>
-References: <4D26588E.7070701@mlbassoc.com>
-	<AANLkTikFj5SROL4Thc3Aj8VK6oLudeVz=2vSRiJ8jOM9@mail.gmail.com>
-	<AANLkTinAz2JynsoSYXZB6sTJUg2hJa8Apa_gNaKsdHfi@mail.gmail.com>
-	<AANLkTinp0GooZu6e5uHCaTey=42qUe-NF9FN6qvVTwO3@mail.gmail.com>
-	<1294405139.17519.27035.camel@rex>
-From: Chris Larson <clarson@kergoth.com>
-Date: Fri, 7 Jan 2011 07:44:00 -0700
-X-Google-Sender-Auth: ZU6QoE0J6f7AacgzUfGpcRnB8bM
-Message-ID: <AANLkTikNW+Nq0dyF0j5nS8dCetcxLgd6W4mQ=QUEwc26@mail.gmail.com>
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-Cc: Poky <poky@lists.pokylinux.org>
-Subject: Re: SRCREV_FORMAT breaks my builds
+Return-Path: <koen@dominion.thruhere.net>
+Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
+	[74.125.82.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id F333E4C80B70
+	for <poky@yoctoproject.org>; Fri,  7 Jan 2011 10:44:40 -0600 (CST)
+Received: by wye20 with SMTP id 20so18565848wye.35
+	for <poky@yoctoproject.org>; Fri, 07 Jan 2011 08:44:36 -0800 (PST)
+Received: by 10.227.143.194 with SMTP id w2mr15728119wbu.44.1294418169070;
+	Fri, 07 Jan 2011 08:36:09 -0800 (PST)
+Received: from localhost (ip545070eb.adsl-surfen.hetnet.nl [84.80.112.235])
+	by mx.google.com with ESMTPS id o33sm12514384wej.13.2011.01.07.08.36.08
+	(version=TLSv1/SSLv3 cipher=RC4-MD5);
+	Fri, 07 Jan 2011 08:36:08 -0800 (PST)
+From: Koen Kooi <koen@dominion.thruhere.net>
+To: poky@yoctoproject.org
+Date: Fri,  7 Jan 2011 17:36:04 +0100
+Message-Id: <1294418164-5124-1-git-send-email-koen@openembedded.org>
+X-Mailer: git-send-email 1.7.0
+Subject: [PATCH] wpa-supplicant 0.7: fix GNU HASH QA issue
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -51,29 +28,46 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Jan 2011 14:47:59 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Fri, 07 Jan 2011 16:44:41 -0000
 
-On Fri, Jan 7, 2011 at 5:58 AM, Richard Purdie
-<richard.purdie@linuxfoundation.org> wrote:
-> The error is caused by our recent updates to bitbake from bitbake
-> upstream. The behaviour of skipped tasks changed in the cache changes in
-> that variable expansion was still attempted for variables from skipped
-> recipes.
->
-> I've added this fix:
->
-> http://git.pokylinux.org/cgit.cgi/poky/commit/?id=847b717862a518746bc5e457f40760e3bd36f1db
->
->
-> which seems to fix the problem here for me.
+From: Koen Kooi <koen@dominion.thruhere.net>
 
-Well spotted, thanks.  I'll go ahead and apply to upstream master as
-well, unless you'd like to do so.
+The recipe was unsetting LDFLAGS, resulting in:
+
+NOTE: QA Issue: No GNU_HASH in the elf binary: '/OE/tentacle/build/tmp-angstrom_2010_x/work/armv7a-angstrom-linux-gnueabi/wpa-supplicant-0.7.3-r0/packages-split/wpa-supplicant/usr/sbin/wpa_supplicant'
+
+Signed-off-by: Koen Kooi <koen@dominion.thruhere.net>
+---
+ .../wpa-supplicant/wpa-supplicant-0.7.inc          |    2 +-
+ .../wpa-supplicant/wpa-supplicant_0.7.3.bb         |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.inc b/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.inc
+index 78ce914..6eda3b1 100644
+--- a/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.inc
++++ b/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.inc
+@@ -29,7 +29,7 @@ do_configure () {
+ 
+ export EXTRA_CFLAGS = "${CFLAGS}"
+ do_compile () {
+-	unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS
++	unset CFLAGS CPPFLAGS CXXFLAGS
+ 	oe_runmake
+ }
+ 
+diff --git a/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant_0.7.3.bb b/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant_0.7.3.bb
+index 2d7729c..e4ae019 100644
+--- a/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant_0.7.3.bb
++++ b/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant_0.7.3.bb
+@@ -1,6 +1,6 @@
+ require wpa-supplicant-0.7.inc
+ 
+-PR = "r0"
++PR = "r1"
+ 
+ SRC_URI[md5sum] = "f516f191384a9a546e3f5145c08addda"
+ SRC_URI[sha256sum] = "d0cd50caa85346ccc376dcda5ed3c258eef19a93b3cade39d25760118ad59443"
 -- 
-Christopher Larson
-clarson at kergoth dot com
-Founder - BitBake, OpenEmbedded, OpenZaurus
-Maintainer - Tslib
-Senior Software Engineer, Mentor Graphics
+1.6.6.1
+
 
