@@ -1,25 +1,26 @@
-Return-Path: <ke.yu@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5D9624C80B70
-	for <poky@yoctoproject.org>; Fri,  7 Jan 2011 01:46:21 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 06 Jan 2011 23:46:20 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,288,1291622400"; d="scan'208";a="371346061"
-Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
-	by azsmga001.ch.intel.com with ESMTP; 06 Jan 2011 23:46:19 -0800
-Date: Fri, 7 Jan 2011 15:55:08 +0800
-From: Yu Ke <ke.yu@intel.com>
-To: Gary Thomas <gary@mlbassoc.com>
-Message-ID: <20110107075508.GG20168@kyu3-hedt>
-References: <D094D4EC-55AF-4B52-A011-60EDCD5A46A6@dominion.thruhere.net>
-	<4D20B2B2.3090602@mlbassoc.com> <20110106071418.GB20168@kyu3-hedt>
-	<4D25DA71.2030101@mlbassoc.com>
-MIME-Version: 1.0
-In-Reply-To: <4D25DA71.2030101@mlbassoc.com>
-User-Agent: Mutt/1.5.20 (2009-06-14)
-Cc: poky@yoctoproject.org
-Subject: Re: PREMIRRORS in yocto, do they actually work?
+Return-Path: <koen@dominion.thruhere.net>
+Received: from mail-ww0-f51.google.com (mail-ww0-f51.google.com [74.125.82.51])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 445344C810AF
+	for <poky@pokylinux.org>; Fri,  7 Jan 2011 02:37:49 -0600 (CST)
+Received: by wwe15 with SMTP id 15so16950689wwe.8
+	for <poky@pokylinux.org>; Fri, 07 Jan 2011 00:37:48 -0800 (PST)
+Received: by 10.216.48.6 with SMTP id u6mr1440231web.77.1294389467866;
+	Fri, 07 Jan 2011 00:37:47 -0800 (PST)
+Received: from [172.20.1.5] (ip545070eb.adsl-surfen.hetnet.nl [84.80.112.235])
+	by mx.google.com with ESMTPS id
+	f52sm12251074wes.35.2011.01.07.00.37.46
+	(version=TLSv1/SSLv3 cipher=RC4-MD5);
+	Fri, 07 Jan 2011 00:37:46 -0800 (PST)
+Mime-Version: 1.0 (Apple Message framework v1082)
+From: Koen Kooi <koen@dominion.thruhere.net>
+In-Reply-To: <1294354570.17519.25325.camel@rex>
+Date: Fri, 7 Jan 2011 09:37:45 +0100
+Message-Id: <DBA49951-F753-42CB-BDEE-1A3B98896465@dominion.thruhere.net>
+References: <1294354570.17519.25325.camel@rex>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+X-Mailer: Apple Mail (2.1082)
+Cc: poky <poky@pokylinux.org>
+Subject: Re: RFC/RFT Checksums as part of stamp files
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,105 +32,68 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Jan 2011 07:46:21 -0000
+X-List-Received-Date: Fri, 07 Jan 2011 08:37:50 -0000
 Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Jan 06, 08:06, Gary Thomas wrote:
-> On 01/06/2011 12:14 AM, Yu Ke wrote:
-> >On Jan 02, 10:15, Gary Thomas wrote:
-> >>On 01/02/2011 10:08 AM, Koen Kooi wrote:
-> >>>Hi,
-> >>>
-> >>>I would like to have the fetchter try my PREMIRROS first before trying to fetch from git. In OE I have the following in a bbclass:
-> >>>
-> >>>PREMIRRORS_append () {
-> >>>git://.*/.* http://www.angstrom-distribution.org/unstable/sources/
-> >>>}
-> >>>
-> >>>When used in OE that works, but in yocto it doesn't. So I tried to do it poky style in a .inc:
-> >>>
-> >>>PREMIRRORS_append = "\
-> >>>git://.*/.*   http:/www.angstrom-distribution.org/sources/ \n"
-> >>>
-> >>>Which also doesn't work since it doesn't try to fetch from there, but it does mention "http:/www.angstrom-distribution.org/sources/" in the fetch error message when git read-tree fails.
-> >>>
-> >>>So my question: how do I make it work in yocto like it works in OE?
-> >>
-> >>I too have been struggling with this as I'd like to have
-> >>a local repository to hold the current source set.  Sadly,
-> >>as you've observed, it doesn't work, at least not as expected.
-> >
-> >I've tried to use file:///some/dir as PREMIRROR, and found it does has issue. The main reason is that the local.py fetcher does not do real copy in go() method. Although it make sense in normal fetch case, it does cause trouble in try_mirror() case.
-> >
-> >I don't have simple idea to address this issue yet and I will take care of it in the coming fetcher change. As a quick workaround, could you try this approach: use http://local/some/dir as PREMIRROR? e.g. if you use /opt/source as mirror, you can add to meta/conf/distro/poky.conf:
-> >PREMIRRORS_append = "\
-> >git://.*/.*   http://local/opt/source/ \n \
-> >svn://.*/.*   http://local/opt/source/ \n \
-> >...
-> >"
-> >
-> >in this case, wget.py fetcher will be used, and it works fine in try_mirror() case. Also the /opt/source can be read-only.
-> 
-> Per my example, I set both PREMIRRORS and MIRRORS to use these paths.
-> 
-> This _works_ (in that it doesn't fail), but it doesn't always
-> seem to use my local MIRROR copy.  After an abreviated build from
-> scratch, I found that these files _were_ copied from my local
-> MIRROR:
->   automake-1.11.1.tar.bz2
->   m4-1.4.15.tar.gz
->   autoconf-2.65.tar.bz2
->   libtool-2.4.tar.gz
->   ncurses-5.4.tar.gz
->   gdbm-1.8.3.tar.gz
->   gzip-1.4.tar.gz
->   readline-6.1.tar.gz
->   gmp-5.0.1.tar.bz2
->   bison-2.4.3.tar.gz
->   gettext-0.17.tar.gz
->   binutils-2.20.1.tar.bz2
-> 
-> but these were [re]fetched over the network from their original
-> sources (my MIRROR does have local copies):
->   db-4.2.52.tar.gz
->   expat-2.0.1.tar.gz
->   flex-2.5.35.tar.bz2
->   perl-5.8.8.tar.gz
->   quilt-0.48.tar.gz
->   zlib-1.2.5.tar.bz2
->   mpc-0.8.2.tar.gz
->   pkg-config-0.25.tar.gz
->   mpfr-3.0.0.tar.bz2
->   elfutils-0.148.tar.bz2
->   tcl8.5.9-src.tar.gz
->   config_cvs.sv.gnu.org__20080123.tar.gz
->   curl-7.21.2.tar.bz2
->   linux-2.6.36.tar.bz2
->   git-1.7.3.2.tar.bz2
->   sqlite-3.7.3.tar.gz
->   openssl-0.9.8p.tar.gz
->   git_github.com.wrpseudo.pseudo.git_c9792c7acdb1cac90549ff08db12a8bf0c53cdcf.tar.gz
-> 
-> Not quite what I was hoping for.  I don't mind getting a
-> [temporary] copy of the files into ${BUILD}/downloads, but
-> I really need to find a way to avoid ever going to the internet
-> if the file is already available (which I plan to guarantee
-> for my customers)
 
-yes, It is unexpected. After digging more, I find meta/classes/mirrors.bbclass also provide some internet mirror, and bitbake may use them for fetching from internet. So could you remove those mirrors and have a quick try? This somehow does not explain why bitbake ignore PREMIRROR, so there must be wrong somewhere else. I am still looking. Will send out if there is more finding.
+Op 6 jan 2011, om 23:56 heeft Richard Purdie het volgende geschreven:
 
-Regares
-Ke
+> We've been working on checksums and sstate for a while, one of the
+> pieces we've not put in place so far is using the checksums in the =
+stamp
+> files.
+>=20
+> What this would mean in English is the end of PR bumps since when you
+> change the recipe, the checksums of the appropriate tasks change and
+> everything automatically rebuilds that changed.
+>=20
+> It also means if you change something in the core packaging, =
+everything
+> should repackage and so on.
+>=20
+> The final key to enabling this is this commit:
+>=20
+> =
+http://git.pokylinux.org/cgit.cgi/poky-contrib/commit/?h=3Drpurdie/bitbake=
+-wip&id=3Db82259b901cae11b0e5715a92a580c9432af52cc
+>=20
+> This hasn't been merged to master yet but we should discuss when this
+> change could/should be merged and under what criteria.
+>=20
+> I've only just started testing full builds with the change myself so
+> keep that in mind. I'd appreciate testing but the change is still very
+> new and likely has bugs to iron out.
+>=20
+> I'm also aware that this idea isn't going to be universally liked,
+> particularly I can guess that Koen is going to have concerns about =
+this
+> and Angstrom since the lack of PR bumps means package feeds could =
+start
+> to suffer.
 
-> 
-> -- 
-> ------------------------------------------------------------
-> Gary Thomas                 |  Consulting for the
-> MLB Associates              |    Embedded world
-> ------------------------------------------------------------
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+You saved me from writing a lengthy email about that :)=20
+
+> My proposal for dealing with this will be to start having the =
+packaging
+> backend take ownership of PE and PR fields. These should be auto
+> incremented when the build changes. That in itself is easy enough if =
+you
+> have one build area, the tricky bit is where you have multiple build
+> sources feeding into a common packages repo like Angstrom.
+>=20
+> For this we're going to need some kind of network service that takes a
+> version and provides the PE/PR values back, incrementing them each =
+time
+> it sees a new version/checksum.
+
+As a simpler short term solution, can the build "master" write the info =
+to disk (e.g. sqlite) so we can put it in a layer and build "slaves" =
+would just read that back? That we we only need a variable to either =
+read (slaves) or write (master) to that file. It also involves as little =
+as possible network access, since it sits in the metadata git.
+
+regards,
+
+Koen=
 
