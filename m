@@ -1,20 +1,22 @@
 Return-Path: <dongxiao.xu@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 03B3B4C8108C
-	for <poky@yoctoproject.org>; Sat,  8 Jan 2011 09:40:48 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 08 Jan 2011 07:40:48 -0800
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2D5864C8108C
+	for <poky@yoctoproject.org>; Sat,  8 Jan 2011 09:41:11 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 08 Jan 2011 07:41:10 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,293,1291622400"; d="scan'208";a="591103770"
+X-IronPort-AV: E=Sophos;i="4.60,293,1291622400"; d="scan'208";a="694852465"
 Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.32])
-	by orsmga002.jf.intel.com with ESMTP; 08 Jan 2011 07:40:47 -0800
-Message-Id: <cover.1294501386.git.dongxiao.xu@intel.com>
+	by orsmga001.jf.intel.com with ESMTP; 08 Jan 2011 07:41:10 -0800
+Message-Id: <7798495f49f90ea669f2f396aacf3c5844f0dbed.1294501386.git.dongxiao.xu@intel.com>
+In-Reply-To: <cover.1294501386.git.dongxiao.xu@intel.com>
+References: <cover.1294501386.git.dongxiao.xu@intel.com>
 From: Dongxiao Xu <dongxiao.xu@intel.com>
-Old-Date: Sat, 8 Jan 2011 23:43:06 +0800
-Date: Sat, 08 Jan 2011 23:52:41 +0800
+Old-Date: Sat, 8 Jan 2011 08:30:51 +0800
+Date: Sat, 08 Jan 2011 23:53:04 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 0/3][RFC v2] Machine specific sysroot implementation
+Subject: [PATCH 2/3] bitbake: Introduce stamp-extra-info into build stamp file
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,54 +28,53 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 08 Jan 2011 15:40:49 -0000
+X-List-Received-Date: Sat, 08 Jan 2011 15:41:11 -0000
 
-Hi Richard,
+For certain tasks, we need additional information in build stamp file
+except the task name and file name. stamp-extra-info is introduced as
+an flag adding to the end of stamp file name.
 
-This RFC is the second version of machine specific sysroot implementation.
-Please help to review.
+We also implement a blacklist, in which extra stamp information will
+not be added.
 
-I tested the patchset with a full build of poky-image-sdk and meta-toolchain-sdk for both qemuppc and mpc8315e-rdb machines that are powerpc architecture.
-
-Changes from v1:
-1) Re-implementation the mechanism adding ${MACHINE} into stamp file based on the latest bitbake. Also this can avoid adding unnecessary ${MACHINE} information for native/nativesdk/crosssdk/cross-canadian task stamps.
-2) Change staging directories layout. Use relative path in sysroot-destdir for target recipes.
-3) gcc-cross-intermediate will populate files into two sysroots. The modification in v1 patchset is incorrect. This version uses two sstate input/output dirs to handle it.
-
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: dxu4/mach_sysroot_v2
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dxu4/mach_sysroot_v2
-
-Thanks,
-    Dongxiao Xu <dongxiao.xu@intel.com>
+Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
 ---
+ bitbake/lib/bb/siggen.py |   14 +++++++++++++-
+ 1 files changed, 13 insertions(+), 1 deletions(-)
 
-
-Dongxiao Xu (3):
-  staging: Use relative path in sysroot-destdir for target recipes
-  bitbake: Introduce stamp-extra-info into build stamp file
-  bitbake: machine specific sysroots implementation
-
- bitbake/lib/bb/siggen.py                           |   14 +++++++++-
- meta/classes/binconfig.bbclass                     |    6 ++--
- meta/classes/cross-canadian.bbclass                |    3 +-
- meta/classes/cross.bbclass                         |    5 +++
- meta/classes/kernel.bbclass                        |    2 +-
- meta/classes/native.bbclass                        |    2 +
- meta/classes/nativesdk.bbclass                     |    6 +++-
- meta/classes/package.bbclass                       |    1 +
- meta/classes/siteconfig.bbclass                    |   11 ++++---
- meta/classes/sstate.bbclass                        |    6 +++-
- meta/classes/staging.bbclass                       |   28 ++++++++++---------
- meta/classes/toolchain-scripts.bbclass             |    4 +-
- meta/conf/bitbake.conf                             |   11 ++++---
- meta/recipes-connectivity/gupnp/gupnp_0.14.0.bb    |    4 +-
- .../gcc/gcc-cross-intermediate.inc                 |    3 ++
- meta/recipes-devtools/libtool/libtool-cross_2.4.bb |    4 +-
- .../libtool/libtool-nativesdk_2.4.bb               |    4 +-
- meta/recipes-devtools/libtool/libtool_2.4.bb       |    6 ++--
- meta/recipes-gnome/gtk+/gtk+.inc                   |    4 +-
- meta/recipes-support/apr/apr_1.3.3.bb              |    2 +-
- 20 files changed, 79 insertions(+), 47 deletions(-)
+diff --git a/bitbake/lib/bb/siggen.py b/bitbake/lib/bb/siggen.py
+index 4dc09b3..6c5a227 100644
+--- a/bitbake/lib/bb/siggen.py
++++ b/bitbake/lib/bb/siggen.py
+@@ -43,7 +43,17 @@ class SignatureGenerator(object):
+         return
+ 
+     def stampfile(self, stampbase, file_name, taskname):
+-        return "%s.%s" % (stampbase, taskname)
++        stamp_extra_info = (self.data.getVarFlag(taskname, 'stamp-extra-info', True) or self.data.getVar('BB_STAMP_EXTRA', True) or "")
++
++        if self.stampblacklist:
++            self.sbl = re.compile(self.stampblacklist)
++        else:
++            self.sbl = None
++
++        if self.sbl and self.sbl.search(file_name):
++            return "%s.%s" % (stampbase, taskname)
++
++        return ("%s.%s.%s" % (stampbase, taskname, stamp_extra_info)).rstrip('.')
+ 
+ class SignatureGeneratorBasic(SignatureGenerator):
+     """
+@@ -59,6 +69,8 @@ class SignatureGeneratorBasic(SignatureGenerator):
+         self.lookupcache = {}
+         self.basewhitelist = (data.getVar("BB_HASHBASE_WHITELIST", True) or "").split()
+         self.taskwhitelist = data.getVar("BB_HASHTASK_WHITELIST", True) or None
++        self.stampblacklist = data.getVar("BB_STAMPTASK_BLACKLIST", True) or None
++        self.data = data
+ 
+         if self.taskwhitelist:
+             self.twl = re.compile(self.taskwhitelist)
+-- 
+1.6.3.3
 
 
