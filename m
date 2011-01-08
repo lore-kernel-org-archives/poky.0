@@ -1,22 +1,22 @@
 Return-Path: <dongxiao.xu@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 405754C8110D
-	for <poky@yoctoproject.org>; Sat,  8 Jan 2011 09:41:12 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 08 Jan 2011 07:41:12 -0800
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id F3B054C811CF
+	for <poky@yoctoproject.org>; Sat,  8 Jan 2011 09:41:39 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 08 Jan 2011 07:41:09 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,293,1291622400"; d="scan'208";a="591103815"
+X-IronPort-AV: E=Sophos;i="4.60,293,1291622400"; d="scan'208";a="644810723"
 Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.32])
-	by orsmga002.jf.intel.com with ESMTP; 08 Jan 2011 07:41:11 -0800
-Message-Id: <db6f6391181f8d0da656ace3bebe2b63723296a2.1294501386.git.dongxiao.xu@intel.com>
+	by fmsmga002.fm.intel.com with ESMTP; 08 Jan 2011 07:41:09 -0800
+Message-Id: <9d5bd4ed2be4b664dac2ccde0e48b78203358521.1294501386.git.dongxiao.xu@intel.com>
 In-Reply-To: <cover.1294501386.git.dongxiao.xu@intel.com>
 References: <cover.1294501386.git.dongxiao.xu@intel.com>
 From: Dongxiao Xu <dongxiao.xu@intel.com>
-Old-Date: Sat, 8 Jan 2011 23:36:41 +0800
-Date: Sat, 08 Jan 2011 23:53:05 +0800
+Old-Date: Sat, 8 Jan 2011 08:26:10 +0800
+Date: Sat, 08 Jan 2011 23:52:43 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 3/3] bitbake: machine specific sysroots implementation
+Subject: [PATCH 1/3] staging: Use relative path in sysroot-destdir for target recipes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,214 +28,279 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 08 Jan 2011 15:41:12 -0000
+X-List-Received-Date: Sat, 08 Jan 2011 15:41:40 -0000
 
-This commit changes the sysroots path to be machine specific.
-
-Changes includes:
-
-1) STAGING_DIR_TARGET and STRAGING_DIR_HOST points to machine specific
-paths.
-
-2) task stamp files. Adding ${MACHINE} info into stamp files for
-do_populate_sysroots and do_package tasks. Add a BB_STAMPTASK_BLACKLIST
-to keep native, nativesdk, crosssdk, and cross-canadian stamp unchanged.
-
-3) siteconfig path. Separate the site config path for different machines
-to avoid one machine adopting the cache file of another machine.
-
-4) sstate stamp file. Add machine name to sstate stamp file since some
-prebuild result could not be shared after sysroots are implemented as
-machine spedific. Keep native, nativesdk, crosssdk, and cross-canadian
-unchanged.
-
-5) toolchain scripts. Change the environment path to point to machine
-specific sysroots in toolchain scripts bbclass.
+Original we used absolute path in sysroot-destdir for both native and
+target recipes. This commit changes target recipes to use relative path
+which is same as the image directory.
 
 Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
 ---
- meta/classes/cross-canadian.bbclass    |    1 -
- meta/classes/cross.bbclass             |    5 +++++
- meta/classes/nativesdk.bbclass         |    2 ++
- meta/classes/package.bbclass           |    1 +
- meta/classes/siteconfig.bbclass        |    6 +++---
- meta/classes/sstate.bbclass            |    6 ++++--
- meta/classes/staging.bbclass           |    1 +
- meta/classes/toolchain-scripts.bbclass |    4 ++--
- meta/conf/bitbake.conf                 |   11 ++++++-----
- 9 files changed, 24 insertions(+), 13 deletions(-)
+ meta/classes/binconfig.bbclass                     |    6 ++--
+ meta/classes/cross-canadian.bbclass                |    2 +
+ meta/classes/kernel.bbclass                        |    2 +-
+ meta/classes/native.bbclass                        |    2 +
+ meta/classes/nativesdk.bbclass                     |    4 +-
+ meta/classes/siteconfig.bbclass                    |    5 ++-
+ meta/classes/staging.bbclass                       |   27 ++++++++++---------
+ meta/recipes-connectivity/gupnp/gupnp_0.14.0.bb    |    4 +-
+ .../gcc/gcc-cross-intermediate.inc                 |    3 ++
+ meta/recipes-devtools/libtool/libtool-cross_2.4.bb |    4 +-
+ .../libtool/libtool-nativesdk_2.4.bb               |    4 +-
+ meta/recipes-devtools/libtool/libtool_2.4.bb       |    6 ++--
+ meta/recipes-gnome/gtk+/gtk+.inc                   |    4 +-
+ meta/recipes-support/apr/apr_1.3.3.bb              |    2 +-
+ 14 files changed, 42 insertions(+), 33 deletions(-)
 
+diff --git a/meta/classes/binconfig.bbclass b/meta/classes/binconfig.bbclass
+index 73ca4d6..7c12bd3 100644
+--- a/meta/classes/binconfig.bbclass
++++ b/meta/classes/binconfig.bbclass
+@@ -47,8 +47,8 @@ SYSROOT_PREPROCESS_FUNCS += "binconfig_sysroot_preprocess"
+ binconfig_sysroot_preprocess () {
+ 	for config in `find ${S} -name '${BINCONFIG_GLOB}'`; do
+ 		configname=`basename $config`
+-		install -d ${SYSROOT_DESTDIR}${STAGING_BINDIR_CROSS}
+-		cat $config | sed ${@get_binconfig_mangle(d)} > ${SYSROOT_DESTDIR}${STAGING_BINDIR_CROSS}/$configname
+-		chmod u+x ${SYSROOT_DESTDIR}${STAGING_BINDIR_CROSS}/$configname
++		install -d ${SYSROOT_DESTDIR}${bindir}/crossscripts
++		cat $config | sed ${@get_binconfig_mangle(d)} > ${SYSROOT_DESTDIR}${bindir}/crossscripts/$configname
++		chmod u+x ${SYSROOT_DESTDIR}${bindir}/crossscripts/$configname
+ 	done
+ }
 diff --git a/meta/classes/cross-canadian.bbclass b/meta/classes/cross-canadian.bbclass
-index 9897105..5b36533 100644
+index 3f3a24d..9897105 100644
 --- a/meta/classes/cross-canadian.bbclass
 +++ b/meta/classes/cross-canadian.bbclass
-@@ -30,7 +30,6 @@ MULTIMACH_TARGET_SYS = "${MULTIMACH_ARCH}${HOST_VENDOR}-${HOST_OS}"
- INHIBIT_DEFAULT_DEPS = "1"
+@@ -71,6 +71,8 @@ base_sbindir = "${bindir}"
+ libdir = "${exec_prefix}/lib/${OLD_MULTIMACH_ARCH}${TARGET_VENDOR}-${TARGET_OS}"
+ libexecdir = "${exec_prefix}/libexec/${OLD_MULTIMACH_ARCH}${TARGET_VENDOR}-${TARGET_OS}"
  
- STAGING_DIR_HOST = "${STAGING_DIR}/${HOST_SYS}-nativesdk"
--STAGING_DIR_TARGET = "${STAGING_DIR}/${OLD_PACKAGE_ARCH}${TARGET_VENDOR}-${TARGET_OS}"
- 
- TOOLCHAIN_OPTIONS = " --sysroot=${STAGING_DIR}/${HOST_ARCH}-nativesdk${HOST_VENDOR}-${HOST_OS}"
- 
-diff --git a/meta/classes/cross.bbclass b/meta/classes/cross.bbclass
-index 7c20be0..085ce21 100644
---- a/meta/classes/cross.bbclass
-+++ b/meta/classes/cross.bbclass
-@@ -20,6 +20,11 @@ HOST_OS = "${BUILD_OS}"
- HOST_PREFIX = "${BUILD_PREFIX}"
- HOST_CC_ARCH = "${BUILD_CC_ARCH}"
- 
-+STAGING_DIR_HOST = "${STAGING_DIR}/${BASEPKG_HOST_SYS}"
++do_populate_sysroot[sstate-outputdirs] = "${STAGING_DIR_HOST}/${base_prefix}"
 +
-+export PKG_CONFIG_DIR = "${STAGING_DIR}/${BASE_PACKAGE_ARCH}${TARGET_VENDOR}-${TARGET_OS}${libdir}/pkgconfig"
-+export PKG_CONFIG_SYSROOT_DIR = "${STAGING_DIR}/${BASE_PACKAGE_ARCH}${TARGET_VENDOR}-${TARGET_OS}"
-+
- CPPFLAGS = "${BUILD_CPPFLAGS}"
- CFLAGS = "${BUILD_CFLAGS}"
- CXXFLAGS = "${BUILD_CFLAGS}"
-diff --git a/meta/classes/nativesdk.bbclass b/meta/classes/nativesdk.bbclass
-index 7ed5ca5..6b689c4 100644
---- a/meta/classes/nativesdk.bbclass
-+++ b/meta/classes/nativesdk.bbclass
-@@ -19,6 +19,8 @@ python () {
- 
- #STAGING_DIR_HOST = "${STAGING_DIR}/${HOST_SYS}-nativesdk"
- #STAGING_DIR_TARGET = "${STAGING_DIR}/${BASEPKG_TARGET_SYS}-nativesdk"
-+STAGING_DIR_HOST = "${STAGING_DIR}/${BASEPKG_HOST_SYS}"
-+STAGING_DIR_TARGET = "${STAGING_DIR}/${BASEPKG_TARGET_SYS}"
- 
- HOST_ARCH = "${SDK_ARCH}"
- HOST_VENDOR = "${SDK_VENDOR}"
-diff --git a/meta/classes/package.bbclass b/meta/classes/package.bbclass
-index d39c694..7e901ec 100644
---- a/meta/classes/package.bbclass
-+++ b/meta/classes/package.bbclass
-@@ -1091,6 +1091,7 @@ do_package[sstate-plaindirs] = "${PKGD} ${PKGDEST}"
- do_package[sstate-inputdirs] = "${PKGDESTWORK} ${SHLIBSWORKDIR}"
- do_package[sstate-outputdirs] = "${PKGDATA_DIR} ${SHLIBSDIR}"
- do_package[sstate-lockfile] = "${PACKAGELOCK}"
-+do_package[stamp-extra-info] = "${MACHINE}"
- do_package_setscene[dirs] = "${STAGING_DIR}"
- 
- python do_package_setscene () {
-diff --git a/meta/classes/siteconfig.bbclass b/meta/classes/siteconfig.bbclass
-index e7cc9ae..c037bb5 100644
---- a/meta/classes/siteconfig.bbclass
-+++ b/meta/classes/siteconfig.bbclass
-@@ -11,10 +11,10 @@ python siteconfig_do_siteconfig () {
+ FILES_${PN} = "${prefix}"
+ FILES_${PN}-dbg += "${prefix}/.debug \
+                     ${prefix}/bin/.debug \
+diff --git a/meta/classes/kernel.bbclass b/meta/classes/kernel.bbclass
+index 86a1923..c8303ae 100644
+--- a/meta/classes/kernel.bbclass
++++ b/meta/classes/kernel.bbclass
+@@ -185,7 +185,7 @@ kernel_do_install() {
  }
  
- siteconfig_do_siteconfig_gencache () {
--	mkdir -p ${WORKDIR}/site_config
-+	mkdir -p ${WORKDIR}/site_config_${MACHINE}
- 	gen-site-config ${FILE_DIRNAME}/site_config \
--		>${WORKDIR}/site_config/configure.ac
--	cd ${WORKDIR}/site_config
-+		>${WORKDIR}/site_config_${MACHINE}/configure.ac
-+	cd ${WORKDIR}/site_config_${MACHINE}
- 	autoconf
-         CONFIG_SITE="" ./configure ${CONFIGUREOPTS} --cache-file ${PN}_cache
+ sysroot_stage_all_append() {
+-	sysroot_stage_dir ${D}/kernel ${SYSROOT_DESTDIR}${STAGING_KERNEL_DIR}
++	sysroot_stage_dir ${D}/kernel ${SYSROOT_DESTDIR}/kernel
+ }
+ 
+ 
+diff --git a/meta/classes/native.bbclass b/meta/classes/native.bbclass
+index 3ca9d62..4355db2 100644
+--- a/meta/classes/native.bbclass
++++ b/meta/classes/native.bbclass
+@@ -63,6 +63,8 @@ exec_prefix = "${STAGING_DIR_NATIVE}${prefix_native}"
+ # Since we actually install these into situ there is no staging prefix
+ STAGING_DIR_HOST = ""
+ STAGING_DIR_TARGET = ""
++do_populate_sysroot[sstate-outputdirs] = "${STAGING_DIR_NATIVE}"
++
+ SHLIBSDIR = "${STAGING_DIR_NATIVE}/shlibs"
+ PKG_CONFIG_DIR = "${libdir}/pkgconfig"
+ 
+diff --git a/meta/classes/nativesdk.bbclass b/meta/classes/nativesdk.bbclass
+index 154bd82..7ed5ca5 100644
+--- a/meta/classes/nativesdk.bbclass
++++ b/meta/classes/nativesdk.bbclass
+@@ -43,6 +43,8 @@ base_prefix = "${SDKPATHNATIVE}"
+ prefix = "${SDKPATHNATIVE}${prefix_nativesdk}"
+ exec_prefix = "${SDKPATHNATIVE}${prefix_nativesdk}"
+ 
++do_populate_sysroot[sstate-outputdirs] = "${STAGING_DIR_HOST}/${base_prefix}"
++
+ FILES_${PN} += "${prefix}"
+ FILES_${PN}-dbg += "${prefix}/.debug \
+                     ${prefix}/bin/.debug \
+@@ -78,5 +80,3 @@ python __anonymous () {
+     bb.data.setVar("PROVIDES", provides, d)
+     bb.data.setVar("OVERRIDES", bb.data.getVar("OVERRIDES", d, False) + ":virtclass-nativesdk", d)
+ }
+-
+-
+diff --git a/meta/classes/siteconfig.bbclass b/meta/classes/siteconfig.bbclass
+index 37d910e..e7cc9ae 100644
+--- a/meta/classes/siteconfig.bbclass
++++ b/meta/classes/siteconfig.bbclass
+@@ -20,8 +20,9 @@ siteconfig_do_siteconfig_gencache () {
  	sed -n -e "/ac_cv_c_bigendian/p" -e "/ac_cv_sizeof_/p" \
-diff --git a/meta/classes/sstate.bbclass b/meta/classes/sstate.bbclass
-index b6e6c92..1a9805a 100644
---- a/meta/classes/sstate.bbclass
-+++ b/meta/classes/sstate.bbclass
-@@ -5,7 +5,7 @@ SSTATE_MANFILEBASE = "${SSTATE_MANIFESTS}/manifest-${SSTATE_PKGARCH}-"
- SSTATE_MANFILEPREFIX = "${SSTATE_MANFILEBASE}${PN}"
+ 		-e "/ac_cv_type_/p" -e "/ac_cv_header_/p" -e "/ac_cv_func_/p" \
+ 		< ${PN}_cache > ${PN}_config
+-	mkdir -p ${SYSROOT_DESTDIR}${SITECONFIG_SYSROOTCACHE}
+-	cp ${PN}_config ${SYSROOT_DESTDIR}${SITECONFIG_SYSROOTCACHE}
++	mkdir -p ${SYSROOT_DESTDIR}${datadir}/${TARGET_SYS}_config_site.d
++	cp ${PN}_config ${SYSROOT_DESTDIR}${datadir}/${TARGET_SYS}_config_site.d
++
+ }
  
- 
--SSTATE_PKGARCH    = "${MULTIMACH_ARCH}"
-+SSTATE_PKGARCH    = "${MULTIMACH_ARCH}_${MACHINE}"
- SSTATE_PKGSPEC    = "sstate-${PN}-${MULTIMACH_ARCH}${TARGET_VENDOR}-${TARGET_OS}-${PV}-${PR}-${SSTATE_PKGARCH}-${SSTATE_VERSION}-"
- SSTATE_PKGNAME    = "${SSTATE_PKGSPEC}${BB_TASKHASH}"
- SSTATE_PKG        = "${SSTATE_DIR}/${SSTATE_PKGNAME}"
-@@ -17,7 +17,9 @@ BB_HASHFILENAME = "${SSTATE_PKGNAME}"
- python () {
-     if bb.data.inherits_class('native', d):
-         bb.data.setVar('SSTATE_PKGARCH', bb.data.getVar('BUILD_ARCH', d), d)
--    elif bb.data.inherits_class('cross', d) or bb.data.inherits_class('crosssdk', d):
-+    elif bb.data.inherits_class('cross', d):
-+        bb.data.setVar('SSTATE_PKGARCH', bb.data.expand("${BUILD_ARCH}_${BASE_PACKAGE_ARCH}_${MACHINE}", d), d)
-+    elif bb.data.inherits_class('crosssdk', d):
-         bb.data.setVar('SSTATE_PKGARCH', bb.data.expand("${BUILD_ARCH}_${BASE_PACKAGE_ARCH}", d), d)
-     elif bb.data.inherits_class('nativesdk', d):
-         bb.data.setVar('SSTATE_PKGARCH', bb.data.expand("${SDK_ARCH}", d), d)
+ do_populate_sysroot[sstate-interceptfuncs] += "do_siteconfig "
 diff --git a/meta/classes/staging.bbclass b/meta/classes/staging.bbclass
-index 3a48d27..a72935d 100644
+index 8432565..3a48d27 100644
 --- a/meta/classes/staging.bbclass
 +++ b/meta/classes/staging.bbclass
-@@ -106,6 +106,7 @@ SSTATETASKS += "do_populate_sysroot"
+@@ -45,25 +45,25 @@ sysroot_stage_dirs() {
+ 	from="$1"
+ 	to="$2"
+ 
+-	sysroot_stage_dir $from${includedir} $to${STAGING_INCDIR}
++	sysroot_stage_dir $from${includedir} $to${includedir}
+ 	if [ "${BUILD_SYS}" = "${HOST_SYS}" ]; then
+-		sysroot_stage_dir $from${bindir} $to${STAGING_DIR_HOST}${bindir}
+-		sysroot_stage_dir $from${sbindir} $to${STAGING_DIR_HOST}${sbindir}
+-		sysroot_stage_dir $from${base_bindir} $to${STAGING_DIR_HOST}${base_bindir}
+-		sysroot_stage_dir $from${base_sbindir} $to${STAGING_DIR_HOST}${base_sbindir}
+-		sysroot_stage_dir $from${libexecdir} $to${STAGING_DIR_HOST}${libexecdir}
+-		sysroot_stage_dir $from${sysconfdir} $to${STAGING_DIR_HOST}${sysconfdir}
+-		sysroot_stage_dir $from${localstatedir} $to${STAGING_DIR_HOST}${localstatedir}
++		sysroot_stage_dir $from${bindir} $to${bindir}
++		sysroot_stage_dir $from${sbindir} $to${sbindir}
++		sysroot_stage_dir $from${base_bindir} $to${base_bindir}
++		sysroot_stage_dir $from${base_sbindir} $to${base_sbindir}
++		sysroot_stage_dir $from${libexecdir} $to${libexecdir}
++		sysroot_stage_dir $from${sysconfdir} $to${sysconfdir}
++		sysroot_stage_dir $from${localstatedir} $to${localstatedir}
+ 	fi
+ 	if [ -d $from${libdir} ]
+ 	then
+-		sysroot_stage_libdir $from/${libdir} $to${STAGING_LIBDIR}
++		sysroot_stage_libdir $from/${libdir} $to${libdir}
+ 	fi
+ 	if [ -d $from${base_libdir} ]
+ 	then
+-		sysroot_stage_libdir $from${base_libdir} $to${STAGING_DIR_HOST}${base_libdir}
++		sysroot_stage_libdir $from${base_libdir} $to${base_libdir}
+ 	fi
+-	sysroot_stage_dir $from${datadir} $to${STAGING_DATADIR}
++	sysroot_stage_dir $from${datadir} $to${datadir}
+ }
+ 
+ sysroot_stage_all() {
+@@ -76,6 +76,7 @@ do_populate_sysroot[dirs] = "${STAGING_DIR_TARGET}/${bindir} ${STAGING_DIR_TARGE
+ 			     ${STAGING_INCDIR_NATIVE} \
+ 			     ${STAGING_DATADIR} \
+                              ${SYSROOT_DESTDIR}${STAGING_DIR_TARGET} \
++                             ${SYSROOT_DESTDIR}${base_prefix} \
+ 			     ${S} ${B}"
+ 
+ # Could be compile but populate_sysroot and do_install shouldn't run at the same time
+@@ -103,8 +104,8 @@ python do_populate_sysroot () {
+ 
+ SSTATETASKS += "do_populate_sysroot"
  do_populate_sysroot[sstate-name] = "populate-sysroot"
- do_populate_sysroot[sstate-inputdirs] = "${SYSROOT_DESTDIR}/${base_prefix}"
- do_populate_sysroot[sstate-outputdirs] = "${STAGING_DIR_HOST}"
-+do_populate_sysroot[stamp-extra-info] = "${MACHINE}"
+-do_populate_sysroot[sstate-inputdirs] = "${SYSROOT_DESTDIR}/${STAGING_DIR}"
+-do_populate_sysroot[sstate-outputdirs] = "${TMPDIR}/sysroots"
++do_populate_sysroot[sstate-inputdirs] = "${SYSROOT_DESTDIR}/${base_prefix}"
++do_populate_sysroot[sstate-outputdirs] = "${STAGING_DIR_HOST}"
  
  python do_populate_sysroot_setscene () {
  	sstate_setscene(d)
-diff --git a/meta/classes/toolchain-scripts.bbclass b/meta/classes/toolchain-scripts.bbclass
-index a5b2bd1..462f3d8 100644
---- a/meta/classes/toolchain-scripts.bbclass
-+++ b/meta/classes/toolchain-scripts.bbclass
-@@ -49,8 +49,8 @@ toolchain_create_tree_env_script () {
- 	echo 'export TARGET_PREFIX=${TARGET_PREFIX}' >> $script
- 	echo 'export CONFIGURE_FLAGS="--target=${TARGET_SYS} --host=${TARGET_SYS} --build=${BUILD_SYS}"' >> $script
- 	if [ "${TARGET_OS}" = "darwin8" ]; then
--		echo 'export TARGET_CFLAGS="-I${STAGING_DIR}${TARGET_SYS}${includedir}"' >> $script
--		echo 'export TARGET_LDFLAGS="-L${STAGING_DIR}${TARGET_SYS}${libdir}"' >> $script
-+		echo 'export TARGET_CFLAGS="-I${STAGING_DIR}${MACHINE}${includedir}"' >> $script
-+		echo 'export TARGET_LDFLAGS="-L${STAGING_DIR}${MACHINE}${libdir}"' >> $script
- 		# Workaround darwin toolchain sysroot path problems
- 		cd ${SDK_OUTPUT}${SDKTARGETSYSROOT}/usr
- 		ln -s /usr/local local
-diff --git a/meta/conf/bitbake.conf b/meta/conf/bitbake.conf
-index 30fcc79..cf9182b 100644
---- a/meta/conf/bitbake.conf
-+++ b/meta/conf/bitbake.conf
-@@ -276,7 +276,7 @@ STAGING_DATADIR_NATIVE = "${STAGING_DIR_NATIVE}${datadir_native}"
+diff --git a/meta/recipes-connectivity/gupnp/gupnp_0.14.0.bb b/meta/recipes-connectivity/gupnp/gupnp_0.14.0.bb
+index 9beb46e..da9fc92 100644
+--- a/meta/recipes-connectivity/gupnp/gupnp_0.14.0.bb
++++ b/meta/recipes-connectivity/gupnp/gupnp_0.14.0.bb
+@@ -23,7 +23,7 @@ FILES_${PN}-dev += "${bindir}/gupnp-binding-tool"
+ SYSROOT_PREPROCESS_FUNCS += "gupnp_sysroot_preprocess"
  
- # This should really be MULTIMACH_HOST_SYS but that breaks "all" and machine 
- # specific packages - hack around it for now.
--STAGING_DIR_HOST = "${STAGING_DIR}/${BASEPKG_HOST_SYS}"
-+STAGING_DIR_HOST = "${STAGING_DIR}/${MACHINE}"
- STAGING_BINDIR = "${STAGING_DIR_HOST}${bindir}"
- STAGING_LIBDIR = "${STAGING_DIR_HOST}${libdir}"
- STAGING_INCDIR = "${STAGING_DIR_HOST}${includedir}"
-@@ -288,7 +288,7 @@ STAGING_PYDIR = "${STAGING_DIR}/lib/python2.4"
+ gupnp_sysroot_preprocess () {
+-	install -d ${SYSROOT_DESTDIR}${STAGING_BINDIR_CROSS}/
+-	install -m 755 ${D}${bindir}/gupnp-binding-tool ${SYSROOT_DESTDIR}${STAGING_BINDIR_CROSS}/
++	install -d ${SYSROOT_DESTDIR}${bindir}/crossscripts/
++	install -m 755 ${D}${bindir}/gupnp-binding-tool ${SYSROOT_DESTDIR}${bindir}/crossscripts/
+ }
  
- # This should really be MULTIMACH_TARGET_SYS but that breaks "all" and machine 
- # specific packages - hack around it for now.
--STAGING_DIR_TARGET = "${STAGING_DIR}/${BASEPKG_TARGET_SYS}"
-+STAGING_DIR_TARGET = "${STAGING_DIR}/${MACHINE}"
+diff --git a/meta/recipes-devtools/gcc/gcc-cross-intermediate.inc b/meta/recipes-devtools/gcc/gcc-cross-intermediate.inc
+index 72a4241..22bef73 100644
+--- a/meta/recipes-devtools/gcc/gcc-cross-intermediate.inc
++++ b/meta/recipes-devtools/gcc/gcc-cross-intermediate.inc
+@@ -17,6 +17,9 @@ EXTRA_OECONF = "--with-local-prefix=${STAGING_DIR_TARGET}${target_prefix} \
+ 		${EXTRA_OECONF_INTERMEDIATE} \
+ 		${@get_gcc_fpu_setting(bb, d)}"
  
- # Setting DEPLOY_DIR outside of TMPDIR is helpful, when you are using
- # packaged staging and/or multimachine.
-@@ -311,7 +311,7 @@ SDKPATHNATIVE = "${SDKPATH}/sysroots/${SDK_SYS}"
- ##################################################################
++do_populate_sysroot[sstate-inputdirs] = "${SYSROOT_DESTDIR}/${STAGING_DIR_HOST} ${SYSROOT_DESTDIR}/${STAGING_DIR_TARGET}"
++do_populate_sysroot[sstate-outputdirs] = "${STAGING_DIR_HOST} ${STAGING_DIR_TARGET}"
++
+ do_compile () {
+     oe_runmake
+ }
+diff --git a/meta/recipes-devtools/libtool/libtool-cross_2.4.bb b/meta/recipes-devtools/libtool/libtool-cross_2.4.bb
+index 6ea96a5..09a8693 100644
+--- a/meta/recipes-devtools/libtool/libtool-cross_2.4.bb
++++ b/meta/recipes-devtools/libtool/libtool-cross_2.4.bb
+@@ -29,6 +29,6 @@ do_install () {
+ SYSROOT_PREPROCESS_FUNCS += "libtoolcross_sysroot_preprocess"
  
- OLDEST_KERNEL = "2.4.0"
--STAGING_KERNEL_DIR = "${STAGING_DIR}/${MULTIMACH_TARGET_SYS}/kernel"
-+STAGING_KERNEL_DIR = "${STAGING_DIR}/${MACHINE}/kernel"
+ libtoolcross_sysroot_preprocess () {
+-	install -d ${SYSROOT_DESTDIR}${STAGING_BINDIR_CROSS}/
+-	install -m 755 ${D}${bindir}/${HOST_SYS}-libtool ${SYSROOT_DESTDIR}${STAGING_BINDIR_CROSS}/${HOST_SYS}-libtool
++	install -d ${SYSROOT_DESTDIR}${bindir}/crossscripts
++	install -m 755 ${D}${bindir}/${HOST_SYS}-libtool ${SYSROOT_DESTDIR}${bindir}/crossscripts/${HOST_SYS}-libtool
+ }
+diff --git a/meta/recipes-devtools/libtool/libtool-nativesdk_2.4.bb b/meta/recipes-devtools/libtool/libtool-nativesdk_2.4.bb
+index c9f24a9..c17023a 100644
+--- a/meta/recipes-devtools/libtool/libtool-nativesdk_2.4.bb
++++ b/meta/recipes-devtools/libtool/libtool-nativesdk_2.4.bb
+@@ -22,6 +22,6 @@ do_install () {
+ SYSROOT_PREPROCESS_FUNCS += "libtoolnativesdk_sysroot_preprocess"
  
- ##################################################################
- # Specific image creation and rootfs population info.
-@@ -595,10 +595,10 @@ SLOT = "0"
+ libtoolnativesdk_sysroot_preprocess () {
+-	install -d ${SYSROOT_DESTDIR}${STAGING_BINDIR_CROSS}/
+-	install -m 755 ${D}${bindir}/${HOST_SYS}-libtool ${SYSROOT_DESTDIR}${STAGING_BINDIR_CROSS}/${HOST_SYS}-libtool
++	install -d ${SYSROOT_DESTDIR}${bindir}/crossscripts/
++	install -m 755 ${D}${bindir}/${HOST_SYS}-libtool ${SYSROOT_DESTDIR}${bindir}/crossscripts/${HOST_SYS}-libtool
+ }
+diff --git a/meta/recipes-devtools/libtool/libtool_2.4.bb b/meta/recipes-devtools/libtool/libtool_2.4.bb
+index b5ec33e..3f73732 100644
+--- a/meta/recipes-devtools/libtool/libtool_2.4.bb
++++ b/meta/recipes-devtools/libtool/libtool_2.4.bb
+@@ -26,9 +26,9 @@ SYSROOT_PREPROCESS_FUNCS += "libtool_sysroot_preprocess"
  
- # Other
+ libtool_sysroot_preprocess () {
+ 	if [ "${PN}" == "libtool" ]; then
+-		rm -rf ${SYSROOT_DESTDIR}${STAGING_DIR_TARGET}${bindir}/*
+-		rm -rf ${SYSROOT_DESTDIR}${STAGING_DIR_TARGET}${datadir}/aclocal/*
+-		rm -rf ${SYSROOT_DESTDIR}${STAGING_DIR_TARGET}${datadir}/libtool/config/*
++		rm -rf ${SYSROOT_DESTDIR}${bindir}/*
++		rm -rf ${SYSROOT_DESTDIR}${datadir}/aclocal/*
++		rm -rf ${SYSROOT_DESTDIR}${datadir}/libtool/config/*
+ 	fi
+ }
  
--export PKG_CONFIG_DIR = "${STAGING_DIR}/${BASE_PACKAGE_ARCH}${TARGET_VENDOR}-${TARGET_OS}${libdir}/pkgconfig"
-+export PKG_CONFIG_DIR = "${STAGING_DIR}/${MACHINE}/${libdir}/pkgconfig"
- export PKG_CONFIG_PATH = "${PKG_CONFIG_DIR}:${STAGING_DATADIR}/pkgconfig"
- export PKG_CONFIG_LIBDIR = "${PKG_CONFIG_DIR}"
--export PKG_CONFIG_SYSROOT_DIR = "${STAGING_DIR}/${BASE_PACKAGE_ARCH}${TARGET_VENDOR}-${TARGET_OS}"
-+export PKG_CONFIG_SYSROOT_DIR = "${STAGING_DIR}/${MACHINE}"
- export PKG_CONFIG_DISABLE_UNINSTALLED = "yes"
+diff --git a/meta/recipes-gnome/gtk+/gtk+.inc b/meta/recipes-gnome/gtk+/gtk+.inc
+index 425a21e..bd6fb19 100644
+--- a/meta/recipes-gnome/gtk+/gtk+.inc
++++ b/meta/recipes-gnome/gtk+/gtk+.inc
+@@ -64,8 +64,8 @@ SYSROOT_PREPROCESS_FUNCS += "gtk_sysroot_preprocess"
  
- export QMAKE_MKSPEC_PATH = "${STAGING_DATADIR_NATIVE}/qmake"
-@@ -731,3 +731,4 @@ BB_SIGNATURE_HANDLER ?= "basic"
- BB_HASHTASK_WHITELIST ?= "(.*-cross$|.*-native$|.*-cross-initial$|.*-cross-intermediate$|^virtual:native:.*|^virtual:nativesdk:.*)"
- BB_HASHBASE_WHITELIST ?= "TMPDIR FILE PATH PWD BB_TASKHASH BBPATH DL_DIR SSTATE_DIR THISDIR FILESEXTRAPATHS FILE_DIRNAME HOME LOGNAME SHELL TERM USER"
+ gtk_sysroot_preprocess () {
+ 	if [ -e ${D}${bindir}/gtk-builder-convert ]; then
+-		install -d ${SYSROOT_DESTDIR}${STAGING_BINDIR_CROSS}/
+-		install -m 755 ${D}${bindir}/gtk-builder-convert ${SYSROOT_DESTDIR}${STAGING_BINDIR_CROSS}/
++		install -d ${SYSROOT_DESTDIR}${bindir}/crossscripts/
++		install -m 755 ${D}${bindir}/gtk-builder-convert ${SYSROOT_DESTDIR}${bindir}/crossscripts/
+ 	fi
+ }
  
-+BB_STAMPTASK_BLACKLIST ?= "(.*-native_*|.*-nativesdk_*|^virtual:native:*|^virtual:nativesdk:*|.*-crosssdk_*|.*-cross-canadian-*)"
+diff --git a/meta/recipes-support/apr/apr_1.3.3.bb b/meta/recipes-support/apr/apr_1.3.3.bb
+index 26cc01f..fabaae4 100644
+--- a/meta/recipes-support/apr/apr_1.3.3.bb
++++ b/meta/recipes-support/apr/apr_1.3.3.bb
+@@ -24,7 +24,7 @@ do_configure_prepend() {
+ SYSROOT_PREPROCESS_FUNCS += "apr_sysroot_preprocess"
+ 
+ apr_sysroot_preprocess () {
+-	d=${SYSROOT_DESTDIR}${STAGING_DIR_TARGET}${datadir}/apr
++	d=${SYSROOT_DESTDIR}${datadir}/apr
+ 	install -d $d/
+ 	cp ${S}/build/apr_rules.mk $d/
+ 	sed -i s,apr_builddir=.*,apr_builddir=,g $d/apr_rules.mk
 -- 
 1.6.3.3
 
