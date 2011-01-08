@@ -1,24 +1,20 @@
-Return-Path: <koen@dominion.thruhere.net>
-Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
-	[74.125.82.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B13BF4C8086E
-	for <poky@yoctoproject.org>; Sat,  8 Jan 2011 04:17:57 -0600 (CST)
-Received: by wye20 with SMTP id 20so19184836wye.35
-	for <poky@yoctoproject.org>; Sat, 08 Jan 2011 02:17:56 -0800 (PST)
-Received: by 10.227.151.145 with SMTP id c17mr426504wbw.139.1294481875260;
-	Sat, 08 Jan 2011 02:17:55 -0800 (PST)
-Received: from localhost (ip545070eb.adsl-surfen.hetnet.nl [84.80.112.235])
-	by mx.google.com with ESMTPS id e12sm12901000wer.12.2011.01.08.02.17.54
-	(version=TLSv1/SSLv3 cipher=RC4-MD5);
-	Sat, 08 Jan 2011 02:17:54 -0800 (PST)
-From: Koen Kooi <koen@dominion.thruhere.net>
+Return-Path: <dongxiao.xu@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 03B3B4C8108C
+	for <poky@yoctoproject.org>; Sat,  8 Jan 2011 09:40:48 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 08 Jan 2011 07:40:48 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,293,1291622400"; d="scan'208";a="591103770"
+Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.32])
+	by orsmga002.jf.intel.com with ESMTP; 08 Jan 2011 07:40:47 -0800
+Message-Id: <cover.1294501386.git.dongxiao.xu@intel.com>
+From: Dongxiao Xu <dongxiao.xu@intel.com>
+Old-Date: Sat, 8 Jan 2011 23:43:06 +0800
+Date: Sat, 08 Jan 2011 23:52:41 +0800
 To: poky@yoctoproject.org
-Date: Sat,  8 Jan 2011 11:17:50 +0100
-Message-Id: <1294481870-3110-1-git-send-email-koen@openembedded.org>
-X-Mailer: git-send-email 1.7.0
-In-Reply-To: <1294418164-5124-1-git-send-email-koen@openembedded.org>
-References: <1294418164-5124-1-git-send-email-koen@openembedded.org>
-Subject: [PATCH] wpa-supplicant 0.7.3: fix dbus service activation
+CC: 
+Subject: [PATCH 0/3][RFC v2] Machine specific sysroot implementation
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,43 +26,54 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 08 Jan 2011 10:17:58 -0000
+X-List-Received-Date: Sat, 08 Jan 2011 15:40:49 -0000
 
-From: Koen Kooi <koen@dominion.thruhere.net>
+Hi Richard,
 
-Signed-off-by: Koen Kooi <koen@dominion.thruhere.net>
+This RFC is the second version of machine specific sysroot implementation.
+Please help to review.
+
+I tested the patchset with a full build of poky-image-sdk and meta-toolchain-sdk for both qemuppc and mpc8315e-rdb machines that are powerpc architecture.
+
+Changes from v1:
+1) Re-implementation the mechanism adding ${MACHINE} into stamp file based on the latest bitbake. Also this can avoid adding unnecessary ${MACHINE} information for native/nativesdk/crosssdk/cross-canadian task stamps.
+2) Change staging directories layout. Use relative path in sysroot-destdir for target recipes.
+3) gcc-cross-intermediate will populate files into two sysroots. The modification in v1 patchset is incorrect. This version uses two sstate input/output dirs to handle it.
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: dxu4/mach_sysroot_v2
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dxu4/mach_sysroot_v2
+
+Thanks,
+    Dongxiao Xu <dongxiao.xu@intel.com>
 ---
- .../wpa-supplicant/wpa-supplicant-0.7.inc          |    3 +++
- .../wpa-supplicant/wpa-supplicant_0.7.3.bb         |    2 +-
- 2 files changed, 4 insertions(+), 1 deletions(-)
 
-diff --git a/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.inc b/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.inc
-index 6eda3b1..c91af45 100644
---- a/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.inc
-+++ b/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.inc
-@@ -56,6 +56,9 @@ do_install () {
- 
- 	install -d ${D}/${sysconfdir}/dbus-1/system.d
- 	install -m 644 ${S}/dbus/dbus-wpa_supplicant.conf ${D}/${sysconfdir}/dbus-1/system.d
-+	install -d ${D}/${datadir}/dbus-1/system-services
-+	sed -i -e s:${base_sbindir}:${sbindir}:g ${S}/dbus/*.service
-+	install -m 644 ${S}/dbus/*.service ${D}/${datadir}/dbus-1/system-services
- 
- 	install -d ${D}/etc/default/volatiles
- 	install -m 0644 ${WORKDIR}/99_wpa_supplicant ${D}/etc/default/volatiles
-diff --git a/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant_0.7.3.bb b/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant_0.7.3.bb
-index e4ae019..2dca594 100644
---- a/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant_0.7.3.bb
-+++ b/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant_0.7.3.bb
-@@ -1,6 +1,6 @@
- require wpa-supplicant-0.7.inc
- 
--PR = "r1"
-+PR = "r2"
- 
- SRC_URI[md5sum] = "f516f191384a9a546e3f5145c08addda"
- SRC_URI[sha256sum] = "d0cd50caa85346ccc376dcda5ed3c258eef19a93b3cade39d25760118ad59443"
--- 
-1.6.6.1
+
+Dongxiao Xu (3):
+  staging: Use relative path in sysroot-destdir for target recipes
+  bitbake: Introduce stamp-extra-info into build stamp file
+  bitbake: machine specific sysroots implementation
+
+ bitbake/lib/bb/siggen.py                           |   14 +++++++++-
+ meta/classes/binconfig.bbclass                     |    6 ++--
+ meta/classes/cross-canadian.bbclass                |    3 +-
+ meta/classes/cross.bbclass                         |    5 +++
+ meta/classes/kernel.bbclass                        |    2 +-
+ meta/classes/native.bbclass                        |    2 +
+ meta/classes/nativesdk.bbclass                     |    6 +++-
+ meta/classes/package.bbclass                       |    1 +
+ meta/classes/siteconfig.bbclass                    |   11 ++++---
+ meta/classes/sstate.bbclass                        |    6 +++-
+ meta/classes/staging.bbclass                       |   28 ++++++++++---------
+ meta/classes/toolchain-scripts.bbclass             |    4 +-
+ meta/conf/bitbake.conf                             |   11 ++++---
+ meta/recipes-connectivity/gupnp/gupnp_0.14.0.bb    |    4 +-
+ .../gcc/gcc-cross-intermediate.inc                 |    3 ++
+ meta/recipes-devtools/libtool/libtool-cross_2.4.bb |    4 +-
+ .../libtool/libtool-nativesdk_2.4.bb               |    4 +-
+ meta/recipes-devtools/libtool/libtool_2.4.bb       |    6 ++--
+ meta/recipes-gnome/gtk+/gtk+.inc                   |    4 +-
+ meta/recipes-support/apr/apr_1.3.3.bb              |    2 +-
+ 20 files changed, 79 insertions(+), 47 deletions(-)
 
 
