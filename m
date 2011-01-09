@@ -1,22 +1,22 @@
 Return-Path: <ke.yu@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 92CA74C811C1
-	for <poky@yoctoproject.org>; Sun,  9 Jan 2011 05:40:59 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 09 Jan 2011 03:40:58 -0800
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 9C7024C8108C
+	for <poky@yoctoproject.org>; Sun,  9 Jan 2011 05:41:00 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 09 Jan 2011 03:41:00 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,295,1291622400"; d="scan'208";a="644945471"
+X-IronPort-AV: E=Sophos;i="4.60,295,1291622400"; d="scan'208";a="694997804"
 Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
-	by fmsmga002.fm.intel.com with ESMTP; 09 Jan 2011 03:40:57 -0800
-Message-Id: <ebc1dff5024077224410cbf9022a767a88ce32fa.1294571866.git.ke.yu@intel.com>
+	by orsmga001.jf.intel.com with ESMTP; 09 Jan 2011 03:40:59 -0800
+Message-Id: <fa9f4edd6cad016e3974120231fe9dbce55d71ca.1294571866.git.ke.yu@intel.com>
 In-Reply-To: <cover.1294571866.git.ke.yu@intel.com>
 References: <cover.1294571866.git.ke.yu@intel.com>
 From: Yu Ke <ke.yu@intel.com>
-Old-Date: Sat, 8 Jan 2011 16:40:18 +0800
-Date: Sun, 09 Jan 2011 19:49:49 +0800
+Old-Date: Mon, 27 Dec 2010 09:50:25 +0800
+Date: Sun, 09 Jan 2011 19:50:11 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 2/8] bb.fetch2: add urldata_init call for Fetch class
+Subject: [PATCH 3/8] bb.fetch2.git.py: add git urldata_init
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,33 +28,54 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 09 Jan 2011 11:40:59 -0000
+X-List-Received-Date: Sun, 09 Jan 2011 11:41:00 -0000
 
-FetchData has some fetch method specific data, and only fetch method knows how
-to initialize it. originally it is mostly initialized in Fetch.localpath().
-But now there is requirement to call Fetch.latest_revision() before
-Fetch.localpath(), thus require another earlier place for initialization. so
-urldata_init is introduced for this purpose. it will be called in FetchData:__init__
-and make all the Fetch functions useable after that.
+move the git specific urldata init from localpath to urldata_init
+so that it can be called early
 
 Signed-off-by: Yu Ke <ke.yu@intel.com>
 ---
- bitbake/lib/bb/fetch2/__init__.py |    2 ++
- 1 files changed, 2 insertions(+), 0 deletions(-)
+ bitbake/lib/bb/fetch2/git.py |   13 +++++++++----
+ 1 files changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/bitbake/lib/bb/fetch2/__init__.py b/bitbake/lib/bb/fetch2/__init__.py
-index 3a209d3..52c8d97 100644
---- a/bitbake/lib/bb/fetch2/__init__.py
-+++ b/bitbake/lib/bb/fetch2/__init__.py
-@@ -543,6 +543,8 @@ class FetchData(object):
-         for m in methods:
-             if m.supports(url, self, d):
-                 self.method = m
-+                if hasattr(m,"urldata_init"):
-+                    m.urldata_init(self, d)
-                 return
-         raise NoMethodError("Missing implementation for url %s" % url)
+diff --git a/bitbake/lib/bb/fetch2/git.py b/bitbake/lib/bb/fetch2/git.py
+index e8ad3b4..58ed1f4 100644
+--- a/bitbake/lib/bb/fetch2/git.py
++++ b/bitbake/lib/bb/fetch2/git.py
+@@ -41,8 +41,11 @@ class Git(Fetch):
+         """
+         return ud.type in ['git']
  
+-    def localpath(self, url, ud, d):
+-
++    def urldata_init(self, ud, d):
++        """
++        init git specific variable within url data
++        so that the git method like latest_revision() can work
++        """
+         if 'protocol' in ud.parm:
+             ud.proto = ud.parm['protocol']
+         elif not ud.host:
+@@ -56,6 +59,10 @@ class Git(Fetch):
+         ud.mirrortarball = 'git_%s.tar.gz' % (gitsrcname)
+         ud.clonedir = os.path.join(data.expand('${GITDIR}', d), gitsrcname)
+ 
++        ud.basecmd = data.getVar("FETCHCMD_git", d, True) or "git"
++
++    def localpath(self, url, ud, d):
++
+         tag = Fetch.srcrev_internal_helper(ud, d)
+         if tag is True:
+             ud.tag = self.latest_revision(url, ud, d)
+@@ -78,8 +85,6 @@ class Git(Fetch):
+         else:
+             ud.localfile = data.expand('git_%s%s_%s.tar.gz' % (ud.host, subdirpath.replace('/', '.'), ud.tag), d)
+ 
+-        ud.basecmd = data.getVar("FETCHCMD_git", d, True) or "git"
+-
+         if 'noclone' in ud.parm:
+             ud.localfile = None
+             return None
 -- 
 1.7.0.4
 
