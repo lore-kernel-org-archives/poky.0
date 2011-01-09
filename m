@@ -1,22 +1,30 @@
-Return-Path: <ke.yu@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 8604B4C811F3
-	for <poky@yoctoproject.org>; Sun,  9 Jan 2011 05:41:08 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 09 Jan 2011 03:41:08 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,295,1291622400"; d="scan'208";a="694997822"
-Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
-	by orsmga001.jf.intel.com with ESMTP; 09 Jan 2011 03:41:07 -0800
-Message-Id: <5dc86fafe3227653f652bb61e8ad49f875b3e20d.1294571866.git.ke.yu@intel.com>
-In-Reply-To: <cover.1294571866.git.ke.yu@intel.com>
-References: <cover.1294571866.git.ke.yu@intel.com>
-From: Yu Ke <ke.yu@intel.com>
-Old-Date: Mon, 27 Dec 2010 16:20:34 +0800
-Date: Sun, 09 Jan 2011 19:50:19 +0800
-To: poky@yoctoproject.org
-CC: 
-Subject: [PATCH 8/8] Fetcher: only set __BB_DONT_CACHE when SRCREV = "${AUTOREV}"
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 0139B4C8108C
+	for <poky@yoctoproject.org>; Sun,  9 Jan 2011 16:41:57 -0600 (CST)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p09MhZTG000730; Sun, 9 Jan 2011 22:43:36 GMT
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id dwGg2GuxOQRB; Sun,  9 Jan 2011 22:43:35 +0000 (GMT)
+Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p09MhTiF000727
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Sun, 9 Jan 2011 22:43:32 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Dongxiao Xu <dongxiao.xu@intel.com>
+In-Reply-To: <7798495f49f90ea669f2f396aacf3c5844f0dbed.1294501386.git.dongxiao.xu@intel.com>
+References: <cover.1294501386.git.dongxiao.xu@intel.com>
+	<7798495f49f90ea669f2f396aacf3c5844f0dbed.1294501386.git.dongxiao.xu@intel.com>
+Date: Sun, 09 Jan 2011 22:41:13 +0000
+Message-ID: <1294612873.17519.33969.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 2/3] bitbake: Introduce stamp-extra-info into build stamp file
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,42 +36,72 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 09 Jan 2011 11:41:08 -0000
+X-List-Received-Date: Sun, 09 Jan 2011 22:41:58 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-we should cache SRCREV whenever possible, the only exception is
-when SREREV is auto rev. so change the logic to only set __BB_DONT_CACHE
-at SRCREV = "${AUTOREV}" case
+On Sat, 2011-01-08 at 23:53 +0800, Dongxiao Xu wrote:
+> For certain tasks, we need additional information in build stamp file
+> except the task name and file name. stamp-extra-info is introduced as
+> an flag adding to the end of stamp file name.
+> 
+> We also implement a blacklist, in which extra stamp information will
+> not be added.
 
-Signed-off-by: Yu Ke <ke.yu@intel.com>
----
- bitbake/lib/bb/fetch2/__init__.py |    6 +++---
- 1 files changed, 3 insertions(+), 3 deletions(-)
+To be honest I much preferred the original version of this patch. The
+problem with this approach is that the data dictionary you're storing in
+the siggen code is just the global config data dict. This means that if
+any recipe customises BB_STAMP_EXTRA or the stamp-extra-into flag, those
+changes will not be seen by this code. This is why your original of
+extracting the flag at parse time and caching it was better.
 
-diff --git a/bitbake/lib/bb/fetch2/__init__.py b/bitbake/lib/bb/fetch2/__init__.py
-index 44189ee..fd489a1 100644
---- a/bitbake/lib/bb/fetch2/__init__.py
-+++ b/bitbake/lib/bb/fetch2/__init__.py
-@@ -356,6 +356,9 @@ def localpaths(d):
-     return local
- 
- def get_autorev(d):
-+    #  only not cache src rev in autorev case
-+    if bb.data.getVar('BB_SRCREV_POLICY', d, True) != "cache":
-+        bb.data.setVar('__BB_DONT_CACHE', '1', d)
-     return "AUTOINC"
- 
- def get_srcrev(d):
-@@ -382,9 +385,6 @@ def get_srcrev(d):
-         logger.error("SRCREV was used yet no valid SCM was found in SRC_URI")
-         raise ParameterError
- 
--    if bb.data.getVar('BB_SRCREV_POLICY', d, True) != "cache":
--        bb.data.setVar('__BB_DONT_CACHE', '1', d)
--
-     if len(scms) == 1:
-         return urldata[scms[0]].method.sortable_revision(scms[0], urldata[scms[0]], d)
- 
--- 
-1.7.0.4
+I appreciate the code in those areas has changed but the original patch
+should translate relatively easily.
+
+Also note that re.compile is expensive so you'd do that at init time,
+not for each stampfile.
+
+Cheers,
+
+Richard
+
+> Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
+> ---
+>  bitbake/lib/bb/siggen.py |   14 +++++++++++++-
+>  1 files changed, 13 insertions(+), 1 deletions(-)
+> 
+> diff --git a/bitbake/lib/bb/siggen.py b/bitbake/lib/bb/siggen.py
+> index 4dc09b3..6c5a227 100644
+> --- a/bitbake/lib/bb/siggen.py
+> +++ b/bitbake/lib/bb/siggen.py
+> @@ -43,7 +43,17 @@ class SignatureGenerator(object):
+>          return
+>  
+>      def stampfile(self, stampbase, file_name, taskname):
+> -        return "%s.%s" % (stampbase, taskname)
+> +        stamp_extra_info = (self.data.getVarFlag(taskname, 'stamp-extra-info', True) or self.data.getVar('BB_STAMP_EXTRA', True) or "")
+> +
+> +        if self.stampblacklist:
+> +            self.sbl = re.compile(self.stampblacklist)
+> +        else:
+> +            self.sbl = None
+> +
+> +        if self.sbl and self.sbl.search(file_name):
+> +            return "%s.%s" % (stampbase, taskname)
+> +
+> +        return ("%s.%s.%s" % (stampbase, taskname, stamp_extra_info)).rstrip('.')
+>  
+>  class SignatureGeneratorBasic(SignatureGenerator):
+>      """
+> @@ -59,6 +69,8 @@ class SignatureGeneratorBasic(SignatureGenerator):
+>          self.lookupcache = {}
+>          self.basewhitelist = (data.getVar("BB_HASHBASE_WHITELIST", True) or "").split()
+>          self.taskwhitelist = data.getVar("BB_HASHTASK_WHITELIST", True) or None
+> +        self.stampblacklist = data.getVar("BB_STAMPTASK_BLACKLIST", True) or None
+> +        self.data = data
+>  
+>          if self.taskwhitelist:
+>              self.twl = re.compile(self.taskwhitelist)
+
 
 
