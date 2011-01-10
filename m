@@ -1,32 +1,29 @@
 Return-Path: <richard.purdie@linuxfoundation.org>
 Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 45EE34C80050
-	for <poky@yoctoproject.org>; Mon, 10 Jan 2011 14:19:51 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4BFD34C80050
+	for <poky@yoctoproject.org>; Mon, 10 Jan 2011 14:30:12 -0600 (CST)
 Received: from localhost (dan.rpsys.net [127.0.0.1])
 	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0AKLVQe010324; Mon, 10 Jan 2011 20:21:31 GMT
+	p0AKVnig010914; Mon, 10 Jan 2011 20:31:50 GMT
 X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
 Received: from dan.rpsys.net ([127.0.0.1])
 	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id UYpIcIxkp0cw; Mon, 10 Jan 2011 20:21:31 +0000 (GMT)
+	with LMTP id KG-OtE1Q0tKA; Mon, 10 Jan 2011 20:31:49 +0000 (GMT)
 Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
 	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0AKLPYT010313
+	p0AKVh3e010886
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Mon, 10 Jan 2011 20:21:27 GMT
+	Mon, 10 Jan 2011 20:31:45 GMT
 From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Joshua Lock <josh@openedhand.com>
-In-Reply-To: <1294677815.1492.811.camel@rex>
-References: <cover.1294469496.git.ke.yu@intel.com>
-	<caa56bdbc2294f3da1ccec752e1ba9e3e452f241.1294469496.git.ke.yu@intel.com>
-	<1294654419.2451.3.camel@scimitar>  <1294659774.1492.186.camel@rex>
-	<1294677815.1492.811.camel@rex>
-Date: Mon, 10 Jan 2011 20:19:35 +0000
-Message-ID: <1294690775.1492.1258.camel@rex>
+To: Yu Ke <ke.yu@intel.com>
+In-Reply-To: <cover.1294571866.git.ke.yu@intel.com>
+References: <cover.1294571866.git.ke.yu@intel.com>
+Date: Mon, 10 Jan 2011 20:29:53 +0000
+Message-ID: <1294691393.1492.1292.camel@rex>
 Mime-Version: 1.0
 X-Mailer: Evolution 2.28.3 
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 3/7] bb: add bb.fetcher as dynamic fetch module instance for fetch/fetch2
+Subject: Re: [PATCH 0/8] bb.fetch2: SRCREV logic enhancement V2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,100 +35,62 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 10 Jan 2011 20:19:52 -0000
+X-List-Received-Date: Mon, 10 Jan 2011 20:30:14 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On Mon, 2011-01-10 at 16:43 +0000, Richard Purdie wrote:
-> On Mon, 2011-01-10 at 11:42 +0000, Richard Purdie wrote:
-> > On Mon, 2011-01-10 at 10:13 +0000, Joshua Lock wrote:
-> > > On Sat, 2011-01-08 at 15:15 +0800, Yu Ke wrote:
-> > > > +import bb
-> > > > +from bb import fetch, fetch2
-> > > > +
-> > > > +# switch between fetch and fetch2
-> > > > +instance = bb.fetch
-> > > > +__version__ = "1"
-> > > > +
-> > > > +#instance = bb.fetch2
-> > > > +#__version__ = "2"
-> > > 
-> > > I'm not very happy with this, it doesn't feel right. Can we not add some
-> > > runtime determination of which module to use (a variable in
-> > > bitbake.conf?) and then use some dynamic Python magic to add it to the
-> > > imported modules list?
-> > > 
-> > > A quick Google makes me thing we could do something more dynamic with
-> > > the __import__() function.
-> > 
-> > Agreed, I was also thinking about this but wanted to come up with a
-> > suggestion about how to better handle it. There is some interesting info
-> > in this webpage:
-> > 
-> > http://stackoverflow.com/questions/1096216/override-namespace-in-python
-> > 
-> > This example in particular looks useful:
-> > 
-> > def weirdimport(fullpath):
-> >   global project
-> > 
-> >   import os
-> >   import sys
-> >   sys.path.append(os.path.dirname(fullpath))
-> >   try:
-> >       project = __import__(os.path.basename(fullpath))
-> >       sys.modules['project'] = project
-> >   finally:
-> >       del sys.path[-1]
-> > 
-> > Although we shouldn't need to manipulate sys.path in our case.
-> > 
-> > As Joshua mentions, overriding the __import__ builtin should also work
-> > and might avoid some ordering issues we'd have with the above.
-> 
-> I did come up with this code inserted at the start of bin/bitbake:
-> 
-> origimport = __builtins__.__import__
-> def bbimport(name, *args, **kwargs):
->     newname = name
->     if name.find("bb.fetch") != -1:
->         newname = name.replace("bb.fetch", "bb.fetch2")
->     ret = origimport(newname, *args, **kwargs)
->     if name != newname:
->         sys.modules[name] = sys.modules[newname]
->         if name == "bb.fetch":
->             bb.fetch = sys.modules[newname]
->     return ret
-> if os.environ.get('BBFETCH2'):
->     __builtins__.__import__ = bbimport
-> 
-> which is pretty ugly :(. The big advantage of this is that it does
-> redirect any bb.fetch calls into bb.fetch2 calls, even within the
-> bb.fetch2 codebase.
-> 
-> I'm working through some other ideas as time permits.
+Hi Ke,
 
-If we assume bb.fetch2 will not make calls to bb.fetch we can simplify
-this to:
+On Sun, 2011-01-09 at 19:48 +0800, Yu Ke wrote:
+> This is the V2 patch for the SRCREV logic enhancement.
+> 
+> there are several changes compared with the V1:
+> - rebase it to bb.fetch2 code, and all code are applied to bb.fetch2 instead of bb.fetch
+> - call urldata_init in FetchData:__init__ according to Richard's suggestion.
+> 
+> this patch has been tested with
+> - fetch world packages with DISTRO = "poky-bleeding", empty ${DL_DIR},
+>   and null PREMIRROR, MIRROR
+> 
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>   Branch: kyu3/srcrev-v2
+>   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kyu3/srcrev-v2
+> 
+> Thanks,
+>     Yu Ke <ke.yu@intel.com>
+> ---
+> 
+> 
+> Yu Ke (8):
+>   meta: replace bb.fetch with bb.fetcher.instance
+>   bb.fetch2: add urldata_init call for Fetch class
+>   bb.fetch2.git.py: add git urldata_init
+>   bb.fetch2.svn.py: add urldata_init
+>   bb.fetch2.hg: add hg urldata_init
+>   bb.fetch2.bzr: add bzr urldata_init
+>   Fetcher: break the "SRCREVINACTION" deadlock
+>   Fetcher: only set __BB_DONT_CACHE when SRCREV = "${AUTOREV}"
+> 
+>  bitbake/lib/bb/fetch/__init__.py  |    3 ++
+>  bitbake/lib/bb/fetch2/__init__.py |   42 +++++++++++++-----------------------
+>  bitbake/lib/bb/fetch2/bzr.py      |   13 ++++-------
+>  bitbake/lib/bb/fetch2/git.py      |   17 +++++++--------
+>  bitbake/lib/bb/fetch2/hg.py       |   24 +++++++++-----------
+>  bitbake/lib/bb/fetch2/svn.py      |   16 ++++++--------
+>  meta/conf/bitbake.conf            |    4 +-
+>  meta/lib/oe/patch.py              |    6 ++--
+>  8 files changed, 54 insertions(+), 71 deletions(-)
 
-if os.environ.get("BBFETCH2"):
-    from bb import fetch2 as fetch
-    sys.modules['bb.fetch'] = sys.modules['bb.fetch2']
+To keep this work moving, I've altered some of the initial patches a
+bit, as per my comments elsewhere in the thread. I've then merged the
+mid section of the patches into master.
 
-so from the environment you can trigger the new fetcher code. For Poky,
-I've added something to hardcode that behaviour since I don't want it to
-break.
-
-I've pushed this both into Poky and bitbake upstream so we're in sync
-and can move forward on improving the fetcher code :).
+The only patch left which I've not merged is the last one, 'Fetcher:
+only set __BB_DONT_CACHE when SRCREV = "${AUTOREV}"' which I'll comment
+on separately.
 
 Cheers,
 
 Richard
-
-
-
-
-
 
 
