@@ -1,37 +1,22 @@
-Return-Path: <dongxiao.xu@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 12E5D4C8108C
-	for <poky@yoctoproject.org>; Mon, 10 Jan 2011 02:44:19 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 10 Jan 2011 00:44:19 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,299,1291622400"; d="scan'208";a="372261619"
-Received: from pgsmsx603.gar.corp.intel.com ([10.221.43.87])
-	by azsmga001.ch.intel.com with ESMTP; 10 Jan 2011 00:44:18 -0800
-Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
-	pgsmsx603.gar.corp.intel.com (10.221.43.87) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Mon, 10 Jan 2011 16:44:17 +0800
-Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
-	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
-	Mon, 10 Jan 2011 16:44:16 +0800
-From: "Xu, Dongxiao" <dongxiao.xu@intel.com>
-To: "Xu, Dongxiao" <dongxiao.xu@intel.com>, Richard Purdie
-	<richard.purdie@linuxfoundation.org>
-Date: Mon, 10 Jan 2011 16:44:15 +0800
-Thread-Topic: [poky] [PATCH 2/3] bitbake: Introduce stamp-extra-info into
-	build stamp file
-Thread-Index: AcuwTmyV4ZH4buL8QBu2hcp406ukWwAHwzuAAA009gA=
-Message-ID: <D5AB6E638E5A3E4B8F4406B113A5A19A31B079C4@shsmsx501.ccr.corp.intel.com>
-References: <cover.1294501386.git.dongxiao.xu@intel.com>
-	<7798495f49f90ea669f2f396aacf3c5844f0dbed.1294501386.git.dongxiao.xu@intel.com>
-	<1294612873.17519.33969.camel@rex> 
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
-MIME-Version: 1.0
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 2/3] bitbake: Introduce stamp-extra-info into build stamp file
+Return-Path: <josh@openedhand.com>
+Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 07DC34C810CE
+	for <poky@yoctoproject.org>; Mon, 10 Jan 2011 04:13:48 -0600 (CST)
+Received: from [192.168.0.7] (5ad4d7b0.bb.sky.com [90.212.215.176])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by pug.o-hand.com (Postfix) with ESMTP id 3181412EC32F
+	for <poky@yoctoproject.org>; Mon, 10 Jan 2011 04:53:51 -0600 (CST)
+From: Joshua Lock <josh@openedhand.com>
+To: poky@yoctoproject.org
+In-Reply-To: <caa56bdbc2294f3da1ccec752e1ba9e3e452f241.1294469496.git.ke.yu@intel.com>
+References: <cover.1294469496.git.ke.yu@intel.com>
+	<caa56bdbc2294f3da1ccec752e1ba9e3e452f241.1294469496.git.ke.yu@intel.com>
+Date: Mon, 10 Jan 2011 10:13:39 +0000
+Message-ID: <1294654419.2451.3.camel@scimitar>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.1 (2.32.1-1.fc14) 
+Subject: Re: [PATCH 3/7] bb: add bb.fetcher as dynamic fetch module instance for fetch/fetch2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,108 +28,66 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 10 Jan 2011 08:44:20 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Mon, 10 Jan 2011 10:13:48 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Xu, Dongxiao wrote:
-> Richard Purdie wrote:
->> On Sat, 2011-01-08 at 23:53 +0800, Dongxiao Xu wrote:
->>> For certain tasks, we need additional information in build stamp
->>> file except the task name and file name. stamp-extra-info is
->>> introduced as an flag adding to the end of stamp file name.
->>>=20
->>> We also implement a blacklist, in which extra stamp information will
->>> not be added.
->>=20
->> To be honest I much preferred the original version of this patch. The
->> problem with this approach is that the data dictionary you're storing
->> in the siggen code is just the global config data dict. This means
->> that if any recipe customises BB_STAMP_EXTRA or the stamp-extra-into
->> flag, those changes will not be seen by this code. This is why your
->> original of extracting the flag at parse time and caching it was
->> better.
->=20
-> Hi Richard,
->=20
-> I used the new method to handle stamp in bitbake because I could not
-> avoid adding extra info for native stamps with previous
-> implementation. =20
->=20
-> I noticed an strange issue with the previous code that, if I set:
->=20
-> do_populate_sysroot[stamp-extra-info] =3D "${MACHINE}" in
-> staging.bbclass.=20
->=20
-> and set:
->=20
-> do_populate_sysroot[stamp-extra-info] =3D "" in native.bbclass.
->=20
-> The above code will not work. For native recipes, what stored in the
-> data cache was tagged with the "${MACHINE}" info.=20
->=20
-> Is it because the cache data parsing is handled before the inherit of
-> native bbclass?=20
+On Sat, 2011-01-08 at 15:15 +0800, Yu Ke wrote:
+> bb.fetcher is introduced to swtich between bb.fetch and bb.fetch2.
+> all bb.fetch/bb.fetch2 referrence can be replaced with bb.fetcher.instance,
+> so that we can cleanly switch between bb.fetch and bb.fetch2
+> 
+> Signed-off-by: Yu Ke <ke.yu@intel.com>
+> ---
+>  bitbake/lib/bb/fetcher.py |   26 ++++++++++++++++++++++++++
+>  1 files changed, 26 insertions(+), 0 deletions(-)
+>  create mode 100644 bitbake/lib/bb/fetcher.py
+> 
+> diff --git a/bitbake/lib/bb/fetcher.py b/bitbake/lib/bb/fetcher.py
+> new file mode 100644
+> index 0000000..3818d78
+> --- /dev/null
+> +++ b/bitbake/lib/bb/fetcher.py
+> @@ -0,0 +1,26 @@
+> +#!/usr/bin/env python
+> +# ex:ts=4:sw=4:sts=4:et
+> +# -*- tab-width: 4; c-basic-offset: 4; indent-tabs-mode: nil -*-
+> +#
+> +# This program is free software; you can redistribute it and/or modify
+> +# it under the terms of the GNU General Public License version 2 as
+> +# published by the Free Software Foundation.
+> +#
+> +# This program is distributed in the hope that it will be useful,
+> +# but WITHOUT ANY WARRANTY; without even the implied warranty of
+> +# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> +# GNU General Public License for more details.
+> +#
+> +# You should have received a copy of the GNU General Public License along
+> +# with this program; if not, write to the Free Software Foundation, Inc.,
+> +# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+> +
+> +import bb
+> +from bb import fetch, fetch2
+> +
+> +# switch between fetch and fetch2
+> +instance = bb.fetch
+> +__version__ = "1"
+> +
+> +#instance = bb.fetch2
+> +#__version__ = "2"
 
-Hi Richard,
+I'm not very happy with this, it doesn't feel right. Can we not add some
+runtime determination of which module to use (a variable in
+bitbake.conf?) and then use some dynamic Python magic to add it to the
+imported modules list?
 
-It seems that the above issue I met before disappeared when translated the =
-original stamp extra info logic against latest bitbake.=20
-I will send out a v3 patchset after the test is passed.
-
-Thanks,
-Dongxiao
-
->=20
-> Thanks,
-> Dongxiao
->=20
->>=20
->> I appreciate the code in those areas has changed but the original
->> patch should translate relatively easily.
->>=20
->> Also note that re.compile is expensive so you'd do that at init
->> time, not for each stampfile.=20
->>=20
->> Cheers,
->>=20
->> Richard
->>=20
->>> Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
->>> ---
->>>  bitbake/lib/bb/siggen.py |   14 +++++++++++++-
->>>  1 files changed, 13 insertions(+), 1 deletions(-)
->>>=20
->>> diff --git a/bitbake/lib/bb/siggen.py b/bitbake/lib/bb/siggen.py
->>> index 4dc09b3..6c5a227 100644 --- a/bitbake/lib/bb/siggen.py
->>> +++ b/bitbake/lib/bb/siggen.py
->>> @@ -43,7 +43,17 @@ class SignatureGenerator(object):          return
->>>=20
->>>      def stampfile(self, stampbase, file_name, taskname):
->>> -        return "%s.%s" % (stampbase, taskname)
->>> +        stamp_extra_info =3D (self.data.getVarFlag(taskname,
->>> + 'stamp-extra-info', True) or self.data.getVar('BB_STAMP_EXTRA', +
->>> True) or "") + +        if self.stampblacklist:
->>> +            self.sbl =3D re.compile(self.stampblacklist) +
->>> else: +            self.sbl =3D None
->>> +
->>> +        if self.sbl and self.sbl.search(file_name):
->>> +            return "%s.%s" % (stampbase, taskname) +
->>> +        return ("%s.%s.%s" % (stampbase, taskname,
->>> + stamp_extra_info)).rstrip('.')
->>>=20
->>>  class SignatureGeneratorBasic(SignatureGenerator):      """
->>> @@ -59,6 +69,8 @@ class SignatureGeneratorBasic(SignatureGenerator):
->>>          self.lookupcache =3D {}
->>>          self.basewhitelist =3D (data.getVar("BB_HASHBASE_WHITELIST",
->>>          True) or "").split() self.taskwhitelist =3D
->>> data.getVar("BB_HASHTASK_WHITELIST",
->>> True) or None
->>> +        self.stampblacklist =3D data.getVar("BB_STAMPTASK_BLACKLIST",
->>> True) or None +        self.data =3D data
->>>=20
->>>          if self.taskwhitelist:
->>>              self.twl =3D re.compile(self.taskwhitelist)
+A quick Google makes me thing we could do something more dynamic with
+the __import__() function.
+ 
+Cheers,
+Joshua
+-- 
+Joshua Lock
+        Intel Open Source Technology Centre
 
 
