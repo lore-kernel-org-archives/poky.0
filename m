@@ -1,21 +1,29 @@
-Return-Path: <josh@openedhand.com>
-Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
-	by mx1.pokylinux.org (Postfix) with ESMTP id F3E904C80050
-	for <poky@yoctoproject.org>; Mon, 10 Jan 2011 12:13:22 -0600 (CST)
-Received: from [192.168.0.7] (5ad4d7b0.bb.sky.com [90.212.215.176])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by pug.o-hand.com (Postfix) with ESMTP id 66C6D12EC118
-	for <poky@yoctoproject.org>; Mon, 10 Jan 2011 12:53:27 -0600 (CST)
-From: Joshua Lock <josh@openedhand.com>
-To: poky@yoctoproject.org
-In-Reply-To: <1292872200.2466.58.camel@scimitar>
-References: <1292872200.2466.58.camel@scimitar>
-Date: Mon, 10 Jan 2011 18:13:15 +0000
-Message-ID: <1294683195.2451.12.camel@scimitar>
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 43FD84C80050
+	for <poky@yoctoproject.org>; Mon, 10 Jan 2011 12:19:29 -0600 (CST)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p0AILAVv005771; Mon, 10 Jan 2011 18:21:10 GMT
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id HAKdI2BKsN3w; Mon, 10 Jan 2011 18:21:10 +0000 (GMT)
+Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p0AIL64O005748
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Mon, 10 Jan 2011 18:21:08 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Koen Kooi <koen@dominion.thruhere.net>
+In-Reply-To: <1294562493-7423-1-git-send-email-koen@openembedded.org>
+References: <1294562493-7423-1-git-send-email-koen@openembedded.org>
+Date: Mon, 10 Jan 2011 18:19:16 +0000
+Message-ID: <1294683556.1492.1012.camel@rex>
 Mime-Version: 1.0
-X-Mailer: Evolution 2.32.1 (2.32.1-1.fc14) 
-Subject: Re: Poky Laverne point release
+X-Mailer: Evolution 2.28.3 
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH] machines: move PACKAGE_EXTRA_ARCHS to tune files
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,44 +35,20 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 10 Jan 2011 18:13:23 -0000
+X-List-Received-Date: Mon, 10 Jan 2011 18:19:29 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On Mon, 2010-12-20 at 19:10 +0000, Joshua Lock wrote:
-> Hi all,
+On Sun, 2011-01-09 at 09:41 +0100, Koen Kooi wrote:
+> From: Koen Kooi <koen@dominion.thruhere.net>
 > 
-> I've a branch on poky-contrib (josh/laverne) which fixes the Makefiles
-> in several recipes such that I can do builds of all our targets on
-> Fedora 14 with it's new, stricter, make version (3.82).
+> This gets us closer to making including tune-<arch>.inc "just work".
+> Moving the TARGET_ARCH definitions is something for a follup patch.
 > 
-> This makes me think it's time to start pulling together a Laverne point
-> release but we don't really have a handle on what these should include.
-> 
-> For the Green point release I cooked I just went through commits since
-> the release and did sniff testing, but I think we can do better.
-> Plus I started to do that for Laverne but there's been some almost 900
-> commits since then... 
-> 
-> So, to the point of this message, I'm looking for people to nominate
-> fixes for the Laverne branch. Even better if you share a git hash.
-> 
-> To start the ball rolling I'm going to suggest:
-> * Make 3.82 fixes
-> * Qemu script enhancements/fixes
-> * Bitbake fetcher fixes
-> 
-> 
-> And you? What fixes would you suggest?
+> Signed-off-by: Koen Kooi <koen@dominion.thruhere.net>
 
-<gentle nudge for feedback>
+Merged into master, thanks!
 
-I guess we don't have many users of Laverne?
-
-Cheers,
-Joshua
--- 
-Joshua Lock
-        Intel Open Source Technology Centre
+Richard
 
 
