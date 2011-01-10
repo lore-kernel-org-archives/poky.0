@@ -1,30 +1,26 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0139B4C8108C
-	for <poky@yoctoproject.org>; Sun,  9 Jan 2011 16:41:57 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p09MhZTG000730; Sun, 9 Jan 2011 22:43:36 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id dwGg2GuxOQRB; Sun,  9 Jan 2011 22:43:35 +0000 (GMT)
-Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p09MhTiF000727
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Sun, 9 Jan 2011 22:43:32 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Dongxiao Xu <dongxiao.xu@intel.com>
-In-Reply-To: <7798495f49f90ea669f2f396aacf3c5844f0dbed.1294501386.git.dongxiao.xu@intel.com>
-References: <cover.1294501386.git.dongxiao.xu@intel.com>
-	<7798495f49f90ea669f2f396aacf3c5844f0dbed.1294501386.git.dongxiao.xu@intel.com>
-Date: Sun, 09 Jan 2011 22:41:13 +0000
-Message-ID: <1294612873.17519.33969.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 2/3] bitbake: Introduce stamp-extra-info into build stamp file
+Return-Path: <edwin.zhai@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C70E44C8108C
+	for <poky@yoctoproject.org>; Sun,  9 Jan 2011 18:50:49 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 09 Jan 2011 16:50:49 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,297,1291622400"; d="scan'208";a="645059917"
+Received: from shxpwgzhai1a.ccr.corp.intel.com (HELO [10.239.48.130])
+	([10.239.48.130])
+	by fmsmga002.fm.intel.com with ESMTP; 09 Jan 2011 16:50:48 -0800
+Message-ID: <4D2A57D5.9010404@intel.com>
+Date: Mon, 10 Jan 2011 08:50:29 +0800
+From: "Zhai, Edwin" <edwin.zhai@intel.com>
+User-Agent: Thunderbird 2.0.0.17 (Windows/20080914)
+MIME-Version: 1.0
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+References: <cover.1294148490.git.edwin.zhai@intel.com>	<377902145104994aab4b69c1239a6a907f946c7c.1294148490.git.edwin.zhai@intel.com>	<4D237B27.6040701@linux.intel.com>
+	<4D266450.8010407@intel.com>	<4D26E6C9.70606@intel.com>
+	<1294397926.17519.26779.camel@rex>
+In-Reply-To: <1294397926.17519.26779.camel@rex>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH 2/7] apr: Update to 1.4.2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,72 +32,44 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 09 Jan 2011 22:41:58 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Mon, 10 Jan 2011 00:50:50 -0000
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Sat, 2011-01-08 at 23:53 +0800, Dongxiao Xu wrote:
-> For certain tasks, we need additional information in build stamp file
-> except the task name and file name. stamp-extra-info is introduced as
-> an flag adding to the end of stamp file name.
-> 
-> We also implement a blacklist, in which extra stamp information will
-> not be added.
-
-To be honest I much preferred the original version of this patch. The
-problem with this approach is that the data dictionary you're storing in
-the siggen code is just the global config data dict. This means that if
-any recipe customises BB_STAMP_EXTRA or the stamp-extra-into flag, those
-changes will not be seen by this code. This is why your original of
-extracting the flag at parse time and caching it was better.
-
-I appreciate the code in those areas has changed but the original patch
-should translate relatively easily.
-
-Also note that re.compile is expensive so you'd do that at init time,
-not for each stampfile.
-
-Cheers,
-
-Richard
-
-> Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
-> ---
->  bitbake/lib/bb/siggen.py |   14 +++++++++++++-
->  1 files changed, 13 insertions(+), 1 deletions(-)
-> 
-> diff --git a/bitbake/lib/bb/siggen.py b/bitbake/lib/bb/siggen.py
-> index 4dc09b3..6c5a227 100644
-> --- a/bitbake/lib/bb/siggen.py
-> +++ b/bitbake/lib/bb/siggen.py
-> @@ -43,7 +43,17 @@ class SignatureGenerator(object):
->          return
->  
->      def stampfile(self, stampbase, file_name, taskname):
-> -        return "%s.%s" % (stampbase, taskname)
-> +        stamp_extra_info = (self.data.getVarFlag(taskname, 'stamp-extra-info', True) or self.data.getVar('BB_STAMP_EXTRA', True) or "")
-> +
-> +        if self.stampblacklist:
-> +            self.sbl = re.compile(self.stampblacklist)
-> +        else:
-> +            self.sbl = None
-> +
-> +        if self.sbl and self.sbl.search(file_name):
-> +            return "%s.%s" % (stampbase, taskname)
-> +
-> +        return ("%s.%s.%s" % (stampbase, taskname, stamp_extra_info)).rstrip('.')
->  
->  class SignatureGeneratorBasic(SignatureGenerator):
->      """
-> @@ -59,6 +69,8 @@ class SignatureGeneratorBasic(SignatureGenerator):
->          self.lookupcache = {}
->          self.basewhitelist = (data.getVar("BB_HASHBASE_WHITELIST", True) or "").split()
->          self.taskwhitelist = data.getVar("BB_HASHTASK_WHITELIST", True) or None
-> +        self.stampblacklist = data.getVar("BB_STAMPTASK_BLACKLIST", True) or None
-> +        self.data = data
->  
->          if self.taskwhitelist:
->              self.twl = re.compile(self.taskwhitelist)
 
 
+Richard Purdie wrote:
+> On Fri, 2011-01-07 at 18:11 +0800, Zhai, Edwin wrote:
+>   
+>> I have compared the autoconf process between apr-1.3 and 1.4, but found 
+>> no clue of why build/libtool.m4 got overwritten only on apr-1.4.
+>> Attached log files, and hope some autotools expert can help.
+>>
+>> Following only occur in 1.4 log
+>> libtoolize: copying file `build/libtool.m4'
+>> libtoolize: copying file `build/ltoptions.m4'
+>>     
+>
+> This is what happens when libtool decides the version of libtool.m4
+> isn't right and replaces it with the system shared copy of that m4 file.
+> It usually does this when it finds the system copy is newer if I recally
+> correctly so this is the opposite way around to what I'd expect :/.
+>   
+
+RP,
+Thanks for your info. If it's opposite, we have to change it back in 
+configure_append, right?
+Is there any other cases like this? One preparing script changes 
+libtool.m4, then autoconf replaces it again.
+
+Thanks,
+edwin
+
+
+
+> Cheers,
+>
+> Richard
+>
+>   
 
