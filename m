@@ -1,17 +1,17 @@
 Return-Path: <ke.yu@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id CE2874C811AA
-	for <poky@yoctoproject.org>; Mon, 10 Jan 2011 17:57:06 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 10 Jan 2011 15:57:06 -0800
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 3BB264C811AA
+	for <poky@yoctoproject.org>; Mon, 10 Jan 2011 18:04:10 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 10 Jan 2011 16:04:09 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,303,1291622400"; d="scan'208";a="876228475"
+X-IronPort-AV: E=Sophos;i="4.60,303,1291622400"; d="scan'208";a="695444701"
 Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
-	by fmsmga001.fm.intel.com with ESMTP; 10 Jan 2011 15:57:05 -0800
-Date: Tue, 11 Jan 2011 08:06:32 +0800
+	by orsmga001.jf.intel.com with ESMTP; 10 Jan 2011 16:04:08 -0800
+Date: Tue, 11 Jan 2011 08:13:36 +0800
 From: Yu Ke <ke.yu@intel.com>
 To: Richard Purdie <richard.purdie@linuxfoundation.org>
-Message-ID: <20110111000632.GB18577@kyu3-hedt>
+Message-ID: <20110111001336.GC18577@kyu3-hedt>
 References: <cover.1294469496.git.ke.yu@intel.com>
 	<caa56bdbc2294f3da1ccec752e1ba9e3e452f241.1294469496.git.ke.yu@intel.com>
 	<1294654419.2451.3.camel@scimitar> <1294659774.1492.186.camel@rex>
@@ -32,7 +32,7 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 10 Jan 2011 23:57:07 -0000
+X-List-Received-Date: Tue, 11 Jan 2011 00:04:10 -0000
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
@@ -112,6 +112,12 @@ On Jan 10, 20:19, Richard Purdie wrote:
 > if os.environ.get("BBFETCH2"):
 >     from bb import fetch2 as fetch
 >     sys.modules['bb.fetch'] = sys.modules['bb.fetch2']
+
+BTW, a quick question. with sys.modules['bb.fetch'] = sys.modules['bb.fetch2'], will the future "import bb.fetch" override the bb.fetch in namespeace ? I assume not, but just want to double confirm. I know that "import <module>" will not be executed if the <module> is already imported. So does python use sys.modules[<module>] to decide if it is already imported?
+
+Regards
+Ke
+
 > 
 > so from the environment you can trigger the new fetcher code. For Poky,
 > I've added something to hardcode that behaviour since I don't want it to
@@ -119,12 +125,6 @@ On Jan 10, 20:19, Richard Purdie wrote:
 > 
 > I've pushed this both into Poky and bitbake upstream so we're in sync
 > and can move forward on improving the fetcher code :).
-
-Thanks Josh and Richard. I did think about the dynamic switch by bb config variable, but did not find a good implementation. Richard's approach looks simple and clean. A good learning on the python powerful dynamicness for me.
-
-Regards
-Ke
-
 > 
 > Cheers,
 > 
