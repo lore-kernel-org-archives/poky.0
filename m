@@ -1,34 +1,25 @@
-Return-Path: <kevin.tian@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 279D14C80050
-	for <poky@pokylinux.org>; Tue, 11 Jan 2011 05:21:20 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 11 Jan 2011 03:21:19 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,306,1291622400"; d="scan'208";a="876377062"
-Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
-	by fmsmga001.fm.intel.com with ESMTP; 11 Jan 2011 03:21:19 -0800
-Received: from pgsmsx509.gar.corp.intel.com (172.30.13.17) by
-	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Tue, 11 Jan 2011 19:20:34 +0800
-Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
-	PGSMSX509.gar.corp.intel.com (172.30.13.17) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Tue, 11 Jan 2011 19:20:34 +0800
-Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
-	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
-	Tue, 11 Jan 2011 19:20:33 +0800
-From: "Tian, Kevin" <kevin.tian@intel.com>
-To: "poky@pokylinux.org" <poky@pokylinux.org>
-Date: Tue, 11 Jan 2011 19:20:30 +0800
-Thread-Topic: update about sstate relocation issue
-Thread-Index: AcuxgY5v184hs2q2TdaD+NWdsY/pLQ==
-Message-ID: <625BA99ED14B2D499DC4E29D8138F1504D7895DBFC@shsmsx502.ccr.corp.intel.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
-MIME-Version: 1.0
-Subject: update about sstate relocation issue
+Return-Path: <josh@openedhand.com>
+Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 434B14C8085F
+	for <poky@yoctoproject.org>; Tue, 11 Jan 2011 05:54:59 -0600 (CST)
+Received: from [192.168.1.88] (unknown [83.217.123.106])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by pug.o-hand.com (Postfix) with ESMTP id 372BE12EC118;
+	Tue, 11 Jan 2011 06:35:05 -0600 (CST)
+From: Joshua Lock <josh@openedhand.com>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+In-Reply-To: <1294690775.1492.1258.camel@rex>
+References: <cover.1294469496.git.ke.yu@intel.com>
+	<caa56bdbc2294f3da1ccec752e1ba9e3e452f241.1294469496.git.ke.yu@intel.com>
+	<1294654419.2451.3.camel@scimitar>  <1294659774.1492.186.camel@rex>
+	<1294677815.1492.811.camel@rex>  <1294690775.1492.1258.camel@rex>
+Date: Tue, 11 Jan 2011 11:54:49 +0000
+Message-ID: <1294746889.2516.0.camel@scimitar>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.1 (2.32.1-1.fc14) 
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 3/7] bb: add bb.fetcher as dynamic fetch module instance for fetch/fetch2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,52 +31,112 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 11 Jan 2011 11:21:21 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Tue, 11 Jan 2011 11:54:59 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Recently we found some relocation issues when use sstate packages in a new
-build environment where the original staging path generating those sstate
-packages is missing. This is a typical scenario on using sstate, e.g. by de=
-livering
-prebuilt sstate packages to your customers, or create a mirror in a group d=
-ev
-environment.=20
+On Mon, 2011-01-10 at 20:19 +0000, Richard Purdie wrote:
+> On Mon, 2011-01-10 at 16:43 +0000, Richard Purdie wrote:
+> > On Mon, 2011-01-10 at 11:42 +0000, Richard Purdie wrote:
+> > > On Mon, 2011-01-10 at 10:13 +0000, Joshua Lock wrote:
+> > > > On Sat, 2011-01-08 at 15:15 +0800, Yu Ke wrote:
+> > > > > +import bb
+> > > > > +from bb import fetch, fetch2
+> > > > > +
+> > > > > +# switch between fetch and fetch2
+> > > > > +instance = bb.fetch
+> > > > > +__version__ = "1"
+> > > > > +
+> > > > > +#instance = bb.fetch2
+> > > > > +#__version__ = "2"
+> > > > 
+> > > > I'm not very happy with this, it doesn't feel right. Can we not add some
+> > > > runtime determination of which module to use (a variable in
+> > > > bitbake.conf?) and then use some dynamic Python magic to add it to the
+> > > > imported modules list?
+> > > > 
+> > > > A quick Google makes me thing we could do something more dynamic with
+> > > > the __import__() function.
+> > > 
+> > > Agreed, I was also thinking about this but wanted to come up with a
+> > > suggestion about how to better handle it. There is some interesting info
+> > > in this webpage:
+> > > 
+> > > http://stackoverflow.com/questions/1096216/override-namespace-in-python
+> > > 
+> > > This example in particular looks useful:
+> > > 
+> > > def weirdimport(fullpath):
+> > >   global project
+> > > 
+> > >   import os
+> > >   import sys
+> > >   sys.path.append(os.path.dirname(fullpath))
+> > >   try:
+> > >       project = __import__(os.path.basename(fullpath))
+> > >       sys.modules['project'] = project
+> > >   finally:
+> > >       del sys.path[-1]
+> > > 
+> > > Although we shouldn't need to manipulate sys.path in our case.
+> > > 
+> > > As Joshua mentions, overriding the __import__ builtin should also work
+> > > and might avoid some ordering issues we'd have with the above.
+> > 
+> > I did come up with this code inserted at the start of bin/bitbake:
+> > 
+> > origimport = __builtins__.__import__
+> > def bbimport(name, *args, **kwargs):
+> >     newname = name
+> >     if name.find("bb.fetch") != -1:
+> >         newname = name.replace("bb.fetch", "bb.fetch2")
+> >     ret = origimport(newname, *args, **kwargs)
+> >     if name != newname:
+> >         sys.modules[name] = sys.modules[newname]
+> >         if name == "bb.fetch":
+> >             bb.fetch = sys.modules[newname]
+> >     return ret
+> > if os.environ.get('BBFETCH2'):
+> >     __builtins__.__import__ = bbimport
+> > 
+> > which is pretty ugly :(. The big advantage of this is that it does
+> > redirect any bb.fetch calls into bb.fetch2 calls, even within the
+> > bb.fetch2 codebase.
+> > 
+> > I'm working through some other ideas as time permits.
+> 
+> If we assume bb.fetch2 will not make calls to bb.fetch we can simplify
+> this to:
+> 
+> if os.environ.get("BBFETCH2"):
+>     from bb import fetch2 as fetch
+>     sys.modules['bb.fetch'] = sys.modules['bb.fetch2']
 
-Now I want to say this issue has been basically solved with recent fixes on=
-:
+Lovely, this is almost exactly what I had envisaged :-)
 
-	perl-native,	bison-native, flex-native: encode original staging path in bi=
-nary
-	perl, binutils: use its own ${CC} without --sysroot option
-	gcc: c++ include path is not relative to --sysroot option
-	kernel tool: use ${KERNEL_CC} instead of ${CC}
+Cheers,
+Joshua
 
-I verified below scenario with above fixes:
+> 
+> so from the environment you can trigger the new fetcher code. For Poky,
+> I've added something to hardcode that behaviour since I don't want it to
+> break.
+> 
+> I've pushed this both into Poky and bitbake upstream so we're in sync
+> and can move forward on improving the fetcher code :).
+> 
+> Cheers,
+> 
+> Richard
+> 
+> 
+> 
+> 
+> 
+> 
 
-	a) build a sato image in BUILD1
-	b) copy below sstate packages from BUILD1 to SSTATE_NATIVE:
-		*i686*
-		*libtool-cross*
-		*eglibc*
-		*linux-libc-headers*
-		*gcc-runtime"
-	c) rename BUILD1 to BUILD1.bak
-	d) create a new BUILD2, with SSTATE_MIRROR pointing to SSTATE_NATIVE dir
-	e) build poky image in BUILD2
+-- 
+Joshua Lock
+        Intel Open Source Technology Centre
 
-Because the relocation issues are normally related to native packages, so a=
-bove
-test ensures the 2nd BUILD2 reusing all the native packages generated from =
-BUILD1,
-while building all target recipes from scratch. BUILD1 is renamed to ensure=
- the
-false reference is caught.
-
-All of above have been in the master. So I think it's time for a wider test=
- on sstate now. :-)
-
-Thanks
-Kevin
 
