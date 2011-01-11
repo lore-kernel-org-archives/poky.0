@@ -1,43 +1,20 @@
-Return-Path: <bruce.ashfield@gmail.com>
-Received: from mail-iy0-f176.google.com (mail-iy0-f176.google.com
-	[209.85.210.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2F69E4C80050;
-	Mon, 10 Jan 2011 22:54:43 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by iyb26 with SMTP id 26so21758505iyb.35
-	for <multiple recipients>; Mon, 10 Jan 2011 20:54:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:received:received:in-reply-to
-	:references:date:message-id:subject:from:to:cc:content-type
-	:content-transfer-encoding;
-	bh=895hPF/15hSAFSoRvDh1CyY3dxdVwyZmxu79uU4RRko=;
-	b=EwFbpQNS0V2TrCZVQIAslx6Nv93JHvEzgHsdSs0r+Xm8uuZVza7F/Y7UaaSyo1qP87
-	ZGJNkcSOetAI2x6BGjuGILD8PBUXxarnaN/g1gE/Q0psHrBBGYR2S6/NgsKNmmChfmhs
-	wf5G0V3jpkB2io2KEuMgoxkTNmISO3aoO7SFw=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type:content-transfer-encoding;
-	b=BCfngNgC1IBJX92pxbXsQjmBHRBrfZRsNTOtPwzVEReGNzlfaY05tDsfuDcNENxMNZ
-	YoThQkAZsb7xw0z15RGzOF1o/VBbuT9b46f8MtFb3caJ04BU+TNlac0npNX/6CH/I123
-	Uy1tbktLTDn4U7t/OZnEInT3IovKeFtEQp3E0=
-MIME-Version: 1.0
-Received: by 10.231.207.84 with SMTP id fx20mr29430765ibb.62.1294721681065;
-	Mon, 10 Jan 2011 20:54:41 -0800 (PST)
-Received: by 10.231.156.136 with HTTP; Mon, 10 Jan 2011 20:54:41 -0800 (PST)
-In-Reply-To: <1865303E0DED764181A9D882DEF65FB685AFA1B319@shsmsx502.ccr.corp.intel.com>
-References: <cover.1294680187.git.bruce.ashfield@windriver.com>
-	<38d72bcb177222eba77eb3d7c483d55cbfb7f2e8.1294680187.git.bruce.ashfield@windriver.com>
-	<1865303E0DED764181A9D882DEF65FB685AFA1B319@shsmsx502.ccr.corp.intel.com>
-Date: Mon, 10 Jan 2011 23:54:41 -0500
-Message-ID: <AANLkTikSSGjwH61YgsAQQ3qAQzgaq+RBzdC2r_=A5K9S@mail.gmail.com>
-From: Bruce Ashfield <bruce.ashfield@gmail.com>
-To: "Cui, Dexuan" <dexuan.cui@intel.com>
-Cc: "yocto@yoctoproject.org" <yocto@yoctoproject.org>,
-	"poky@yoctoproject.org" <poky@yoctoproject.org>, "Wold,
-	Saul" <saul.wold@intel.com>
-Subject: Re: [PATCH 4/5] kern-tools: create generic variables for platform/board/kernel
+Return-Path: <dongxiao.xu@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 765EB4C81110
+	for <poky@yoctoproject.org>; Tue, 11 Jan 2011 00:06:04 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 10 Jan 2011 22:06:04 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,305,1291622400"; d="scan'208";a="876311852"
+Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.32])
+	by fmsmga001.fm.intel.com with ESMTP; 10 Jan 2011 22:06:03 -0800
+Message-Id: <cover.1294726280.git.dongxiao.xu@intel.com>
+From: Dongxiao Xu <dongxiao.xu@intel.com>
+Old-Date: Tue, 11 Jan 2011 14:11:20 +0800
+Date: Tue, 11 Jan 2011 14:18:32 +0800
+To: poky@yoctoproject.org
+CC: 
+Subject: [PATCH 0/3][RFC] Machine specific sysroot implementation
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -49,94 +26,60 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 11 Jan 2011 04:54:43 -0000
-Content-Type: text/plain; charset=GB2312
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Tue, 11 Jan 2011 06:06:04 -0000
 
-2011/1/10 Cui, Dexuan <dexuan.cui@intel.com>:
-> hmmm, looks this commit was not tested?
+Hi Richard,
 
-It was definitely tested. Built for every board. Feel free to revert as
-required.
+This RFC is the third version of machine specific sysroot implementation.
+Please help to review.
 
-Bruce
+Testings could pass for qemuppc and mpc8315d-rdb. 
 
->
-> With poky.git's latest 4b055ed, "bitbake  kern-tools-native -c fetch" fai=
-ls because in http://git.pokylinux.org/cgit/cgit.cgi/wr-kernel-tools/, the =
-latest commit is still a494ddaf1c9151af8af8050e8427c9958440ec4c.
->
-> Thanks,
-> -- Dexuan
->
-> -----Original Message-----
-> From: poky-bounces@yoctoproject.org [mailto:poky-bounces@yoctoproject.org=
-] On Behalf Of Bruce Ashfield
-> Sent: 2011=C4=EA1=D4=C211=C8=D5 1:31
-> To: rpurdie@linux.intel.com
-> Cc: yocto@yoctoproject.org; poky@yoctoproject.org; Wold, Saul
-> Subject: [poky] [PATCH 4/5] kern-tools: create generic variables for plat=
-form/board/kernel
->
-> Update the SRCREV to pickup changes to update the use of
-> WRS_* to be K* to provide more generic names for the
-> platform/board/kernel configuration options.
->
-> Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
-> ---
->  .../conf/distro/include/poky-default-revisions.inc |    4 ++--
->  1 files changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/meta/conf/distro/include/poky-default-revisions.inc b/meta/c=
-onf/distro/include/poky-default-revisions.inc
-> index fc20ce4..65681cc 100644
-> --- a/meta/conf/distro/include/poky-default-revisions.inc
-> +++ b/meta/conf/distro/include/poky-default-revisions.inc
-> @@ -57,7 +57,7 @@ SRCREV_pn-gypsy ??=3D "147"
->  SRCREV_pn-inputproto ??=3D "7203036522ba9d4b224d282d6afc2d0b947711ee"
->  SRCREV_pn-inputproto-native ??=3D "7203036522ba9d4b224d282d6afc2d0b94771=
-1ee"
->  SRCREV_pn-inputproto-nativesdk ??=3D "7203036522ba9d4b224d282d6afc2d0b94=
-7711ee"
-> -SRCREV_pn-kern-tools-native ??=3D "a494ddaf1c9151af8af8050e8427c9958440e=
-c4c"
-> +SRCREV_pn-kern-tools-native ??=3D "f553af044615ba75c2b4b7ef1f382e6f75087=
-213"
->  SRCREV_pn-libdrm ??=3D "3f3c5be6f908272199ccf53f108b1124bfe0a00e"
->  SRCREV_pn-libfakekey ??=3D "2031"
->  SRCREV_pn-libgdbus ??=3D "aeab6e3c0185b271ca343b439470491b99cc587f"
-> @@ -105,7 +105,7 @@ SRCREV_machine_pn-linux-yocto_atom-pc =3D "6635864790=
-ac23db856147fcbc4e8ebbfd30a0b
->  SRCREV_machine_pn-linux-yocto_routerstationpro =3D "cc1d802228803e0ebf27=
-f3d3772de3620159d195"
->  SRCREV_machine_pn-linux-yocto_mpc8315e-rdb =3D "be26676bf67b0c4b5f36b57f=
-e9e46f8bfd2a67c9"
->  SRCREV_machine_pn-linux-yocto_beagleboard =3D "6635864790ac23db856147fcb=
-c4e8ebbfd30a0ba"
-> -SRCREV_meta_pn-linux-yocto ?=3D "653fa2338c46a3f940eadf42e1f95019ef43f64=
-a"
-> +SRCREV_meta_pn-linux-yocto ?=3D "7102097a25c7658e0f4d4dc71844e0ff6c446b2=
-5"
->  SRCREV_pn-linux-libc-headers-yocto ??=3D "6635864790ac23db856147fcbc4e8e=
-bbfd30a0ba"
->  SRCREV_pn-matchbox-config-gtk ??=3D "2081"
->  SRCREV_pn-matchbox-desktop-sato ??=3D "76"
-> --
-> 1.7.0.4
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
+However if modify emenlow architecture to be "core2" and test builds for atom-pc and emenlow, it failed due to an libtool sysroot issue, which is stated in another email. But I think we can have a review of the patchset first.
+
+After the libtool sysroot support is enabled, I will test again for atom-pc and emenlow.
+
+Changes from v2:
+1) Use the v1 approach to add ${MACHINE} into stamp file, and rebase the patch against latest bitbake which did a merge with upstream. This also can avoid adding unnecessary ${MACHINE} information for native/nativesdk/crosssdk/cross-canadian task stamps.
+
+RFC URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: dxu4/mach_sysroot_v3
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dxu4/mach_sysroot_v3
+
+Thanks,
+    Dongxiao Xu <dongxiao.xu@intel.com>
+---
 
 
+Dongxiao Xu (3):
+  staging: Use relative path in sysroot-destdir for target recipes
+  bitbake: Introduce stamp-extra-info into build stamp file
+  bitbake: machine specific sysroots implementation
 
---=20
-"Thou shalt not follow the NULL pointer, for chaos and madness await
-thee at its end"
+ bitbake/lib/bb/build.py                            |   10 ++-----
+ bitbake/lib/bb/cache.py                            |   19 ++++++++++++-
+ bitbake/lib/bb/runqueue.py                         |   12 ++++----
+ bitbake/lib/bb/siggen.py                           |   20 ++++++++++++-
+ meta/classes/binconfig.bbclass                     |    6 ++--
+ meta/classes/cross-canadian.bbclass                |    5 +++-
+ meta/classes/cross.bbclass                         |    5 +++
+ meta/classes/crosssdk.bbclass                      |    2 +
+ meta/classes/kernel.bbclass                        |    2 +-
+ meta/classes/native.bbclass                        |    4 +++
+ meta/classes/nativesdk.bbclass                     |    7 ++++-
+ meta/classes/package.bbclass                       |    1 +
+ meta/classes/siteconfig.bbclass                    |   11 ++++---
+ meta/classes/sstate.bbclass                        |    6 +++-
+ meta/classes/staging.bbclass                       |   28 ++++++++++---------
+ meta/classes/toolchain-scripts.bbclass             |    4 +-
+ meta/conf/bitbake.conf                             |   11 ++++---
+ meta/recipes-connectivity/gupnp/gupnp_0.14.0.bb    |    4 +-
+ .../gcc/gcc-cross-intermediate.inc                 |    3 ++
+ meta/recipes-devtools/libtool/libtool-cross_2.4.bb |    4 +-
+ .../libtool/libtool-nativesdk_2.4.bb               |    4 +-
+ meta/recipes-devtools/libtool/libtool_2.4.bb       |    6 ++--
+ meta/recipes-gnome/gtk+/gtk+.inc                   |    4 +-
+ meta/recipes-support/apr/apr_1.3.3.bb              |    2 +-
+ 24 files changed, 119 insertions(+), 61 deletions(-)
+
 
