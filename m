@@ -1,22 +1,22 @@
 Return-Path: <josh@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E33C14C81122
-	for <poky@yoctoproject.org>; Tue, 11 Jan 2011 08:33:59 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 11 Jan 2011 06:33:59 -0800
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 0B9A74C811EC
+	for <poky@yoctoproject.org>; Tue, 11 Jan 2011 08:34:12 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 11 Jan 2011 06:34:12 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,307,1291622400"; d="scan'208";a="591851877"
+X-IronPort-AV: E=Sophos;i="4.60,307,1291622400"; d="scan'208";a="695640117"
 Received: from unknown (HELO localhost) ([10.255.16.112])
-	by orsmga002.jf.intel.com with ESMTP; 11 Jan 2011 06:33:58 -0800
-Message-Id: <769f05e856db28c5d04bbe8fa4e3becbb84cdabc.1294756107.git.josh@linux.intel.com>
+	by orsmga001.jf.intel.com with ESMTP; 11 Jan 2011 06:34:12 -0800
+Message-Id: <887e562a7fab6b2a81a03b454b587041ead0e731.1294756107.git.josh@linux.intel.com>
 In-Reply-To: <cover.1294756107.git.josh@linux.intel.com>
 References: <cover.1294756107.git.josh@linux.intel.com>
 From: Joshua Lock <josh@linux.intel.com>
-Old-Date: Mon, 10 Jan 2011 14:37:03 +0000
-Date: Tue, 11 Jan 2011 14:33:53 +0000
+Old-Date: Tue, 11 Jan 2011 14:23:24 +0000
+Date: Tue, 11 Jan 2011 14:34:06 +0000
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 2/4] bitbake/goggle: closing the progress dialog kills the UI
+Subject: [PATCH 4/4] bitbake/goggle: don't drop events
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,29 +28,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 11 Jan 2011 14:34:00 -0000
+X-List-Received-Date: Tue, 11 Jan 2011 14:34:13 -0000
 
-It's unlikely that someone wants to close the progress dialog
-yet leave the UI (and BitBake process) running, so hook up
-the progress dialogs delete-event to exit gtk.
+We had a logic inversion that meant we where dropping quite a
+significant number of events on the floor.... Fixed!
 
 Signed-off-by: Joshua Lock <josh@linux.intel.com>
 ---
- bitbake/lib/bb/ui/goggle.py |    1 +
- 1 files changed, 1 insertions(+), 0 deletions(-)
+ bitbake/lib/bb/ui/goggle.py |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
 diff --git a/bitbake/lib/bb/ui/goggle.py b/bitbake/lib/bb/ui/goggle.py
-index 3c6a014..1905c0c 100644
+index 1905c0c..ec5a38d 100644
 --- a/bitbake/lib/bb/ui/goggle.py
 +++ b/bitbake/lib/bb/ui/goggle.py
-@@ -70,6 +70,7 @@ def main (server, eventHandler):
-     window = MainWindow ()
-     window.show_all ()
-     pbar = ProgressBar(window)
-+    pbar.connect("delete-event", gtk.main_quit)
+@@ -32,8 +32,8 @@ def event_handle_idle_func (eventHandler, build, pbar):
+     # Consume as many messages as we can in the time available to us
+     event = eventHandler.getEvent()
+     while event:
+-        event = eventHandler.getEvent()
+         build.handle_event (event, pbar)
++        event = eventHandler.getEvent()
  
-     # Create the object for the current build
-     running_build = RunningBuild ()
+     return True
+ 
 -- 
 1.7.3.4
 
