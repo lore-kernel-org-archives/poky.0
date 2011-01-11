@@ -1,22 +1,18 @@
-Return-Path: <josh@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 71E614C811EC
-	for <poky@yoctoproject.org>; Tue, 11 Jan 2011 08:34:13 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 11 Jan 2011 06:34:06 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,307,1291622400"; d="scan'208";a="876422668"
-Received: from unknown (HELO localhost) ([10.255.16.112])
-	by fmsmga001.fm.intel.com with ESMTP; 11 Jan 2011 06:34:05 -0800
-Message-Id: <2bf24b2f222baaf7ac4fa56399df1e313834aefc.1294756107.git.josh@linux.intel.com>
-In-Reply-To: <cover.1294756107.git.josh@linux.intel.com>
-References: <cover.1294756107.git.josh@linux.intel.com>
-From: Joshua Lock <josh@linux.intel.com>
-Old-Date: Mon, 10 Jan 2011 14:45:07 +0000
-Date: Tue, 11 Jan 2011 14:33:59 +0000
-To: poky@yoctoproject.org
-CC: 
-Subject: [PATCH 3/4] bitbake/depexp: closing progress dialog kills gui
+Return-Path: <bruce.ashfield@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D83B34C81021;
+	Tue, 11 Jan 2011 12:48:23 -0600 (CST)
+Received: from localhost.localdomain (yow-bashfiel-d2.ottawa.windriver.com
+	[128.224.146.167])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p0BImLGS017089;
+	Tue, 11 Jan 2011 10:48:21 -0800 (PST)
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+To: rpurdie@linux.intel.com
+Date: Tue, 11 Jan 2011 13:50:39 -0500
+Message-Id: <cover.1294771756.git.bruce.ashfield@windriver.com>
+X-Mailer: git-send-email 1.7.0.4
+Cc: yocto@yoctoproject.org, poky@yoctoproject.org, saul.wold@intel.com
+Subject: [PATCH 0/1] linux-yocto: add routerstation pro and mpc8315e-rdb support
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,29 +24,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 11 Jan 2011 14:34:13 -0000
+X-List-Received-Date: Tue, 11 Jan 2011 18:48:24 -0000
 
-It seems safe to assume a user hitting the close button
-on the dialog wants to kill the whole UI.
+Just repeating the patch header here, since it is self explanitory:  
+    
+The routerstation pro and mpc8315e-rdb have been validated
+on 2.6.37 so we can switch their preference to linux-yocto
+and update the machine compatibility to add them to the support
+list.
 
-Signed-off-by: Joshua Lock <josh@linux.intel.com>
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: zedd/kernel
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/kernel
+
+Thanks,
+    Bruce Ashfield <bruce.ashfield@windriver.com>
 ---
- bitbake/lib/bb/ui/depexp.py |    1 +
- 1 files changed, 1 insertions(+), 0 deletions(-)
 
-diff --git a/bitbake/lib/bb/ui/depexp.py b/bitbake/lib/bb/ui/depexp.py
-index 13bf9ac..3dbd5e0 100644
---- a/bitbake/lib/bb/ui/depexp.py
-+++ b/bitbake/lib/bb/ui/depexp.py
-@@ -218,6 +218,7 @@ def main(server, eventHandler):
-     gtk.gdk.threads_enter()
-     dep = DepExplorer()
-     pbar = ProgressBar(dep)
-+    pbar.connect("delete-event", gtk.main_quit)
-     gtk.gdk.threads_leave()
- 
-     progress_total = 0
--- 
-1.7.3.4
+
+Bruce Ashfield (1):
+  linux-yocto: add routerstation pro and mpc8315e-rdb support
+
+ .../conf/distro/include/poky-default-revisions.inc |    2 +-
+ meta/conf/machine/mpc8315e-rdb.conf                |    4 ++--
+ meta/conf/machine/routerstationpro.conf            |    4 ++--
+ meta/recipes-kernel/linux/linux-yocto_git.bb       |    2 +-
+ 4 files changed, 6 insertions(+), 6 deletions(-)
 
 
