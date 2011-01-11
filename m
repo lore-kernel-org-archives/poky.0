@@ -1,22 +1,19 @@
-Return-Path: <bruce.ashfield@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9692C4C81021;
-	Tue, 11 Jan 2011 12:48:24 -0600 (CST)
-Received: from localhost.localdomain (yow-bashfiel-d2.ottawa.windriver.com
-	[128.224.146.167])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p0BImLGT017089;
-	Tue, 11 Jan 2011 10:48:22 -0800 (PST)
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-To: rpurdie@linux.intel.com
-Date: Tue, 11 Jan 2011 13:50:40 -0500
-Message-Id: <df1840b9f8c971f2cceb4d12561861fd13d5d316.1294771756.git.bruce.ashfield@windriver.com>
-X-Mailer: git-send-email 1.7.0.4
-In-Reply-To: <cover.1294771756.git.bruce.ashfield@windriver.com>
-References: <cover.1294771756.git.bruce.ashfield@windriver.com>
-In-Reply-To: <cover.1294771756.git.bruce.ashfield@windriver.com>
-References: <cover.1294771756.git.bruce.ashfield@windriver.com>
-Cc: yocto@yoctoproject.org, poky@yoctoproject.org, saul.wold@intel.com
-Subject: [PATCH 1/1] linux-yocto: add routerstation pro and mpc8315e-rdb support
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 6DD514C81021
+	for <poky@yoctoproject.org>; Tue, 11 Jan 2011 15:23:36 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 11 Jan 2011 13:23:35 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,308,1291622400"; d="scan'208";a="876562774"
+Received: from unknown (HELO localhost) ([10.255.14.80])
+	by fmsmga001.fm.intel.com with ESMTP; 11 Jan 2011 13:23:36 -0800
+From: Darren Hart <dvhart@linux.intel.com>
+To: poky@yoctoproject.org
+Date: Tue, 11 Jan 2011 13:23:28 -0800
+Message-Id: <1294781008-28927-1-git-send-email-dvhart@linux.intel.com>
+X-Mailer: git-send-email 1.7.1
+Subject: [PATCH] trace-cmd: Bump SRCREV and recipe PV and PR values.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,75 +25,78 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 11 Jan 2011 18:48:24 -0000
+X-List-Received-Date: Tue, 11 Jan 2011 21:23:36 -0000
 
-The routerstation pro and mpc8315e-rdb have been validated
-on 2.6.37 so we can switch their preference to linux-yocto
-and update the machine compatibility to add them to the support
-list.
+Upgrade to 6c696cec3f264a9399241b6e648f58bc97117d49 which
+includes fixes to the Makefile to allow for user override of
+CC and AR via the environment as well as python SWIG wrapper
+fixes.
 
-Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: dvhart/tracing
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dvhart/tracing
+
+Signed-off-by: Darren Hart <dvhart@linux.intel.com>
+CC: Bruce Ashfield <bruce.ashfield@windriver.com>
+CC: Tom Zanussi <tom.zanussi@intel.com>
 ---
  .../conf/distro/include/poky-default-revisions.inc |    2 +-
- meta/conf/machine/mpc8315e-rdb.conf                |    4 ++--
- meta/conf/machine/routerstationpro.conf            |    4 ++--
- meta/recipes-kernel/linux/linux-yocto_git.bb       |    2 +-
- 4 files changed, 6 insertions(+), 6 deletions(-)
+ meta/recipes-kernel/trace-cmd/kernelshark_git.bb   |    2 +-
+ meta/recipes-kernel/trace-cmd/trace-cmd_git.bb     |    8 ++++----
+ 3 files changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/meta/conf/distro/include/poky-default-revisions.inc b/meta/conf/distro/include/poky-default-revisions.inc
-index e094109..4ce6be1 100644
+index e094109..a41ca39 100644
 --- a/meta/conf/distro/include/poky-default-revisions.inc
 +++ b/meta/conf/distro/include/poky-default-revisions.inc
-@@ -102,7 +102,7 @@ SRCREV_machine_pn-linux-yocto_qemux86 ?= "a9d833fda90e2f1257888a97e092135610b5f2
- SRCREV_machine_pn-linux-yocto_qemux86-64 ?= "a9d833fda90e2f1257888a97e092135610b5f259"
- SRCREV_machine_pn-linux-yocto_emenlow ?= "a9d833fda90e2f1257888a97e092135610b5f259"
- SRCREV_machine_pn-linux-yocto_atom-pc ?= "a9d833fda90e2f1257888a97e092135610b5f259"
--SRCREV_machine_pn-linux-yocto_routerstationpro ?= "9d24b148fc23a2c8fab0a6add18500453b375d54"
-+SRCREV_machine_pn-linux-yocto_routerstationpro ?= "219a5f9dc6e5beced36184e141f80b2df61ae32f"
- SRCREV_machine_pn-linux-yocto_mpc8315e-rdb ?= "3f01b98238c2ff7913ce9f68f9db5ae9538717bc"
- SRCREV_machine_pn-linux-yocto_beagleboard ?= "a9d833fda90e2f1257888a97e092135610b5f259"
- SRCREV_meta_pn-linux-yocto ?= "7102097a25c7658e0f4d4dc71844e0ff6c446b25"
-diff --git a/meta/conf/machine/mpc8315e-rdb.conf b/meta/conf/machine/mpc8315e-rdb.conf
-index 919a95d..e3f9d23 100644
---- a/meta/conf/machine/mpc8315e-rdb.conf
-+++ b/meta/conf/machine/mpc8315e-rdb.conf
-@@ -12,5 +12,5 @@ SERIAL_CONSOLE = "115200 ttyS0"
+@@ -167,7 +167,7 @@ SRCREV_pn-swabber-native ??= "a0792390c5d6d5a5bade7ab155c80eef3f30fa52"
+ SRCREV_pn-sysprof ??= "38a6af1f0a45e528fd2842983da71e0f23c70d6a"
+ SRCREV_pn-table ??= "4b267533ce16656cba4104fc39dc12709c1bdddf"
+ SRCREV_pn-tasks ??= "ea52d46d691c5fce4473ea4e24a35411381f3a65"
+-TRACECMDREV ?= "0d252224626bd6926324f023a65f20c165232891"
++TRACECMDREV ?= "6c696cec3f264a9399241b6e648f58bc97117d49"
+ SRCREV_pn-trace-cmd ??= ${TRACECMDREV}
+ SRCREV_pn-kernelshark ??= ${TRACECMDREV}
+ SRCREV_pn-tidy ??= "e25416e1293e1074bfa6727c80527dcff5b1f3cb"
+diff --git a/meta/recipes-kernel/trace-cmd/kernelshark_git.bb b/meta/recipes-kernel/trace-cmd/kernelshark_git.bb
+index ddf7c1e..bfe7d99 100644
+--- a/meta/recipes-kernel/trace-cmd/kernelshark_git.bb
++++ b/meta/recipes-kernel/trace-cmd/kernelshark_git.bb
+@@ -4,7 +4,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=751419260aa954499f7abaabaa882bbe \
+                     file://kernel-shark.c;beginline=6;endline=8;md5=2c22c965a649ddd7973d7913c5634a5e"
  
- MACHINE_FEATURES = "kernel26 keyboard pci ext2 ext3 serial"
+ PR = r0
+-PV = "1.0.4+git${SRCPV}"
++PV = "1.0.5+git${SRCPV}"
  
--PREFERRED_PROVIDER_virtual/kernel = "linux-yocto-stable"
--#PREFERRED_PROVIDER_linux-libc-headers ?= "linux-libc-headers-yocto"
-+PREFERRED_PROVIDER_virtual/kernel = "linux-yocto"
-+PREFERRED_PROVIDER_linux-libc-headers ?= "linux-libc-headers-yocto"
-diff --git a/meta/conf/machine/routerstationpro.conf b/meta/conf/machine/routerstationpro.conf
-index 4f1bbbb..9e5036d 100644
---- a/meta/conf/machine/routerstationpro.conf
-+++ b/meta/conf/machine/routerstationpro.conf
-@@ -12,8 +12,8 @@ MACHINE_FEATURES = "kernel26 screen keyboard pci usbhost ext2 ext3 \
- KERNEL_IMAGETYPE = "vmlinux"
- KERNEL_ALT_IMAGETYPE = "vmlinux.bin"
+ DEPENDS = "gtk+"
+ RDEPENDS_${PN} = "trace-cmd"
+diff --git a/meta/recipes-kernel/trace-cmd/trace-cmd_git.bb b/meta/recipes-kernel/trace-cmd/trace-cmd_git.bb
+index bc03b0c..8fe62d4 100644
+--- a/meta/recipes-kernel/trace-cmd/trace-cmd_git.bb
++++ b/meta/recipes-kernel/trace-cmd/trace-cmd_git.bb
+@@ -3,16 +3,16 @@ LICENSE = "GPLv2"
+ LIC_FILES_CHKSUM = "file://COPYING;md5=751419260aa954499f7abaabaa882bbe \
+                     file://trace-cmd.c;beginline=6;endline=8;md5=2c22c965a649ddd7973d7913c5634a5e"
  
--PREFERRED_PROVIDER_virtual/kernel = "linux-yocto-stable"
--#PREFERRED_PROVIDER_linux-libc-headers ?= "linux-libc-headers-yocto"
-+PREFERRED_PROVIDER_virtual/kernel = "linux-yocto"
-+PREFERRED_PROVIDER_linux-libc-headers ?= "linux-libc-headers-yocto"
+-PR = r2
+-PV = "1.0.4+git${SRCPV}"
++PR = r0
++PV = "1.0.5+git${SRCPV}"
  
- SERIAL_CONSOLE = "115200 ttyS0"
+ inherit pkgconfig
  
-diff --git a/meta/recipes-kernel/linux/linux-yocto_git.bb b/meta/recipes-kernel/linux/linux-yocto_git.bb
-index 06836f7..21023da 100644
---- a/meta/recipes-kernel/linux/linux-yocto_git.bb
-+++ b/meta/recipes-kernel/linux/linux-yocto_git.bb
-@@ -20,7 +20,7 @@ SRCREV_FORMAT = "meta_machine"
- SRC_URI = "git://git.pokylinux.org/linux-yocto-2.6.37;protocol=git;fullclone=1;branch=${KBRANCH};name=machine \
-            git://git.pokylinux.org/linux-yocto-2.6.37;protocol=git;noclone=1;branch=meta;name=meta"
+ SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/rostedt/trace-cmd.git;protocol=git"
+ S = "${WORKDIR}/git"
  
--COMPATIBLE_MACHINE = "(qemuarm|qemux86|qemuppc|qemumips|qemux86-64)"
-+COMPATIBLE_MACHINE = "(qemuarm|qemux86|qemuppc|qemumips|qemux86-64|mpc8315e-rdb|routerstationpro)"
+-EXTRA_OEMAKE = "'CC=${CC}' 'AR=${AR}' 'prefix=${prefix}'"
++EXTRA_OEMAKE = "'prefix=${prefix}'"
  
- # Functionality flags
- KERNEL_REVISION_CHECKING ?= "t"
+ do_install() {
+-	oe_runmake CC="${CC}" AR="${AR}" prefix="${prefix}" DESTDIR="${D}" install
++	oe_runmake prefix="${prefix}" DESTDIR="${D}" install
+ }
 -- 
-1.7.0.4
+1.7.1
 
 
