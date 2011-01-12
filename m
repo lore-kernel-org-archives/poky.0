@@ -1,19 +1,20 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 487D84C81021
-	for <poky@yoctoproject.org>; Tue, 11 Jan 2011 17:38:47 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 11 Jan 2011 15:38:46 -0800
+Return-Path: <edwin.zhai@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E816F4C81021
+	for <poky@yoctoproject.org>; Tue, 11 Jan 2011 19:41:47 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 11 Jan 2011 17:41:47 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,309,1291622400"; d="scan'208";a="373166922"
-Received: from unknown (HELO localhost) ([10.255.14.80])
-	by azsmga001.ch.intel.com with ESMTP; 11 Jan 2011 15:38:46 -0800
-From: Darren Hart <dvhart@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="4.60,310,1291622400"; d="scan'208";a="592045747"
+Received: from gw-vmm.sh.intel.com (HELO localhost) ([10.239.48.31])
+	by orsmga002.jf.intel.com with ESMTP; 11 Jan 2011 17:41:47 -0800
+Message-Id: <cover.1294796468.git.edwin.zhai@intel.com>
+From: Zhai Edwin <edwin.zhai@intel.com>
+Old-Date: Wed, 12 Jan 2011 09:41:08 +0800
+Date: Wed, 12 Jan 2011  9:46:36 +0800
 To: poky@yoctoproject.org
-Date: Tue, 11 Jan 2011 15:38:19 -0800
-Message-Id: <1294789099-32160-1-git-send-email-dvhart@linux.intel.com>
-X-Mailer: git-send-email 1.7.1
-Subject: [PATCH] bbvars.py: add a script to look for undocumented variables
+CC: 
+Subject: [PATCH 0/5] UX and base: gtk+ and apr upgrade, edwin, Jan12, 2011
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -25,234 +26,86 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 11 Jan 2011 23:38:47 -0000
+X-List-Received-Date: Wed, 12 Jan 2011 01:41:48 -0000
 
-bbvars.py will compare recipes in meta directories with documentation files
-and report on variables that don't appear to be documented. It reports the
-number of times a variable is used as well as any doctags present in the
-documentation config file.
+Saul,
+This is 2nd time of pull request for apr. I'd like to use current solution, and
+revisit in future if needed. What's your opinion? Also upgrade gtk+, and
+separated gdk-pixbuf as stand-alone recipe.
 
-The output of this is intended to aid in determining where documentation may
-be lacking, but it is not perfect, and does generate some false positives. An
-experienced eye and careful attention to count and doctag should be applied to
-the results.
-
-$ ./bbvars.py -d ../../documentation/poky-ref-manual/poky-ref-manual.html -m ../../meta -t ../../meta/conf/documentation.conf -T  | head -n 10
-Found 1413 undocumented bb variables (out of 1578):
-VARIABLE                              COUNT DOCTAG
-===================================================
-BUILD_ARCH                            4     The name of the building architecture. E.g. i686.
-BUILD_CC_ARCH                         2     FIXME
-BUILD_PREFIX                          4     FIXME
-BUILD_SYS                             13    FIXME
-BUILD_VENDOR                          2     FIXME
-CACHE                                 1     The directory holding the cache of the metadata.
-COMPATIBLE_HOST                       19    A regular expression which matches the HOST_SYS names supported by the package/file. Failure to match will cause the file to be skipped by the parser.
+Pls. help to review.
+Thanks,
+edwin
 
 Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: dvhart/scripts
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dvhart/scripts
+  Branch: gzhai/upgrade01
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=gzhai/upgrade01
 
-Signed-off-by: Darren Hart <dvhart@linux.intel.com>
-CC: Richard Purdie <richard.purdie@linuxfoundation.org>
+Thanks,
+    Zhai Edwin <edwin.zhai@intel.com>
 ---
- scripts/contrib/bbvars.py |  186 +++++++++++++++++++++++++++++++++++++++++++++
- 1 files changed, 186 insertions(+), 0 deletions(-)
- create mode 100755 scripts/contrib/bbvars.py
 
-diff --git a/scripts/contrib/bbvars.py b/scripts/contrib/bbvars.py
-new file mode 100755
-index 0000000..0896d64
---- /dev/null
-+++ b/scripts/contrib/bbvars.py
-@@ -0,0 +1,186 @@
-+#!/usr/bin/env python
-+
-+# This program is free software; you can redistribute it and/or modify
-+# it under the terms of the GNU General Public License as published by
-+# the Free Software Foundation; either version 2 of the License, or
-+# (at your option) any later version.
-+#
-+# This program is distributed in the hope that it will be useful,
-+# but WITHOUT ANY WARRANTY; without even the implied warranty of
-+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-+# GNU General Public License for more details.
-+#
-+# You should have received a copy of the GNU General Public License
-+# along with this program; if not, write to the Free Software
-+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-+#
-+# Copyright (C) Darren Hart <dvhart@linux.intel.com>, 2010
-+
-+
-+import sys
-+import getopt
-+import os
-+import os.path
-+import re
-+
-+def usage():
-+    print 'Usage: %s -d FILENAME [-d FILENAME]* -m METADIR [-m MATADIR]*' % os.path.basename(sys.argv[0])
-+    print '  -d FILENAME         documentation file to search'
-+    print '  -h, --help          display this help and exit'
-+    print '  -m METADIR          meta directory to search for recipes'
-+    print '  -t FILENAME         documentation config file (for doc tags)'
-+    print '  -T                  Only display variables with doc tags (requires -t)'
-+
-+def recipe_bbvars(recipe):
-+    ''' Return a unique set of every bbvar encountered in the recipe '''
-+    prog = re.compile("[A-Z_]+")
-+    vset = set()
-+    try:
-+        r = open(recipe)
-+    except IOError as (errno, strerror):
-+        print 'WARNING: Failed to open recipe ', recipe
-+        print strerror
-+
-+    for line in r:
-+        # Strip any comments from the line
-+        line = line.rsplit('#')[0]
-+        vset = vset.union(set(prog.findall(line)))
-+    r.close()
-+
-+    bbvars = {}
-+    for v in vset:
-+        bbvars[v] = 1
-+
-+    return bbvars
-+
-+def collect_bbvars(metadir):
-+    ''' Walk the metadir and collect the bbvars from each recipe found '''
-+    bbvars = {}
-+    for root,dirs,files in os.walk(metadir):
-+        for name in files:
-+            if name.find(".bb") >= 0:
-+                for key in recipe_bbvars(os.path.join(root,name)).iterkeys():
-+                    if bbvars.has_key(key):
-+                        bbvars[key] = bbvars[key] + 1
-+                    else:
-+                        bbvars[key] = 1
-+    return bbvars
-+
-+def bbvar_is_documented(var, docfiles):
-+    prog = re.compile(".*($|[^A-Z_])%s([^A-Z_]|$)" % (var))
-+    for doc in docfiles:
-+        try:
-+            f = open(doc)
-+        except IOError as (errno, strerror):
-+            print 'WARNING: Failed to open doc ', doc
-+            print strerror
-+        for line in f:
-+            if prog.match(line):
-+                return True
-+        f.close()
-+    return False
-+
-+def bbvar_doctag(var, docconf):
-+    prog = re.compile('^%s\[doc\] *= *"(.*)"' % (var))
-+    if docconf == "":
-+        return "?"
-+
-+    try:
-+        f = open(docconf)
-+    except IOError as (errno, strerror):
-+        return strerror
-+
-+    for line in f:
-+        m = prog.search(line)
-+        if m:
-+            return m.group(1)
-+
-+    f.close()
-+    return ""
-+
-+def main():
-+    docfiles = []
-+    metadirs = []
-+    bbvars = {}
-+    undocumented = []
-+    docconf = ""
-+    onlydoctags = False
-+
-+    # Collect and validate input
-+    try:
-+        opts, args = getopt.getopt(sys.argv[1:], "d:hm:t:T", ["help"])
-+    except getopt.GetoptError, err:
-+        print '%s' % str(err)
-+        usage()
-+        sys.exit(2)
-+
-+    for o, a in opts:
-+        if o in ('-h', '--help'):
-+            usage()
-+            sys.exit(0)
-+        elif o == '-d':
-+            if os.path.isfile(a):
-+                docfiles.append(a)
-+            else:
-+                print 'ERROR: documentation file %s is not a regular file' % (a)
-+                sys.exit(3)
-+        elif o == '-m':
-+            if os.path.isdir(a):
-+                metadirs.append(a)
-+            else:
-+                print 'ERROR: meta directory %s is not a directory' % (a)
-+                sys.exit(4)
-+        elif o == "-t":
-+            if os.path.isfile(a):
-+                docconf = a
-+        elif o == "-T":
-+            onlydoctags = True
-+        else:
-+            assert False, "unhandled option"
-+
-+    if len(docfiles) == 0:
-+        print 'ERROR: no docfile specified'
-+        usage()
-+        sys.exit(5)
-+
-+    if len(metadirs) == 0:
-+        print 'ERROR: no metadir specified'
-+        usage()
-+        sys.exit(6)
-+
-+    if onlydoctags and docconf == "":
-+        print 'ERROR: no docconf specified'
-+        usage()
-+        sys.exit(7)
-+
-+    # Collect all the variable names from the recipes in the metadirs
-+    for m in metadirs:
-+        for key,cnt in collect_bbvars(m).iteritems():
-+            if bbvars.has_key(key):
-+                bbvars[key] = bbvars[key] + cnt
-+            else:
-+                bbvars[key] = cnt
-+
-+    # Check each var for documentation
-+    varlen = 0
-+    for v in bbvars.iterkeys():
-+        if len(v) > varlen:
-+            varlen = len(v)
-+        if not bbvar_is_documented(v, docfiles):
-+            undocumented.append(v)
-+    undocumented.sort()
-+    varlen = varlen + 1
-+
-+    # Report all undocumented variables
-+    print 'Found %d undocumented bb variables (out of %d):' % (len(undocumented), len(bbvars))
-+    header = '%s%s%s' % (str("VARIABLE").ljust(varlen), str("COUNT").ljust(6), str("DOCTAG").ljust(7))
-+    print header
-+    print str("").ljust(len(header), '=')
-+    for v in undocumented:
-+        doctag = bbvar_doctag(v, docconf)
-+        if not onlydoctags or not doctag == "":
-+            print '%s%s%s' % (v.ljust(varlen), str(bbvars[v]).ljust(6), doctag)
-+
-+
-+if __name__ == "__main__":
-+    main()
--- 
-1.7.1
+
+Zhai Edwin (5):
+  gtk+: Update to 2.23.2
+  gdk-pixbuf: Add 2.22.1 as new recipe
+  eds-dbus: Do not disable old API after upgrading gtk+
+  apr: Update to 1.4.2
+  apr-util: Update to 1.3.10
+
+ meta/classes/gtk-icon-cache.bbclass                |    2 +-
+ .../gdk-pixbuf-2.22.1/configure_fix.patch          |   19 ++
+ .../gdk-pixbuf-2.22.1}/hardcoded_libtool.patch     |   20 +-
+ .../gdk-pixbuf/gdk-pixbuf-native_2.22.1.bb         |   13 ++
+ meta/recipes-gnome/gdk-pixbuf/gdk-pixbuf.inc       |   30 +++
+ meta/recipes-gnome/gdk-pixbuf/gdk-pixbuf_2.22.1.bb |   35 +++
+ meta/recipes-gnome/gnome/metacity_2.30.3.bb        |    2 +-
+ .../gtk+/gdk-pixbuf-csource-native_2.12.7.bb       |   37 ----
+ .../gdk-pixbuf-csource/reduce-dependencies.patch   |  221 --------------------
+ .../gtk+-2.20.1/disable-gio-png-sniff-test.diff    |   97 ---------
+ meta/recipes-gnome/gtk+/gtk+-2.20.1/no-demos.patch |   10 -
+ ...Duplicate-the-exec-string-returned-by-gtk.patch |    0
+ .../cellrenderer-cairo.patch                       |    0
+ .../configurefix.patch                             |    0
+ .../{gtk+-2.20.1 => gtk+-2.23.2}/entry-cairo.patch |    0
+ .../hardcoded_libtool.patch                        |   22 +-
+ meta/recipes-gnome/gtk+/gtk+-2.23.2/no-demos.patch |   13 ++
+ .../run-iconcache.patch                            |    0
+ .../{gtk+-2.20.1 => gtk+-2.23.2}/toggle-font.diff  |    0
+ .../{gtk+-2.20.1 => gtk+-2.23.2}/xsettings.patch   |    0
+ meta/recipes-gnome/gtk+/gtk+.inc                   |   16 +--
+ .../gtk+/{gtk+_2.20.1.bb => gtk+_2.23.2.bb}        |   18 +-
+ meta/recipes-gnome/librsvg/librsvg_2.32.1.bb       |    2 +-
+ meta/recipes-graphics/mutter/mutter.inc            |    2 +-
+ meta/recipes-sato/eds/eds-dbus/old-gdk-api.patch   |   17 ++
+ meta/recipes-sato/eds/eds-dbus_git.bb              |    1 +
+ .../apr/{apr-util_1.3.4.bb => apr-util_1.3.10.bb}  |   12 +-
+ meta/recipes-support/apr/apr/buildconf_fix.patch   |   25 +++
+ meta/recipes-support/apr/apr/cleanup.patch         |    9 +-
+ .../apr/{apr_1.3.3.bb => apr_1.4.2.bb}             |   23 ++-
+ 30 files changed, 217 insertions(+), 429 deletions(-)
+ create mode 100644 meta/recipes-gnome/gdk-pixbuf/gdk-pixbuf-2.22.1/configure_fix.patch
+ copy meta/recipes-gnome/{gtk+/gtk+-2.20.1 => gdk-pixbuf/gdk-pixbuf-2.22.1}/hardcoded_libtool.patch (68%)
+ create mode 100644 meta/recipes-gnome/gdk-pixbuf/gdk-pixbuf-native_2.22.1.bb
+ create mode 100644 meta/recipes-gnome/gdk-pixbuf/gdk-pixbuf.inc
+ create mode 100644 meta/recipes-gnome/gdk-pixbuf/gdk-pixbuf_2.22.1.bb
+ delete mode 100644 meta/recipes-gnome/gtk+/gdk-pixbuf-csource-native_2.12.7.bb
+ delete mode 100644 meta/recipes-gnome/gtk+/gdk-pixbuf-csource/reduce-dependencies.patch
+ delete mode 100644 meta/recipes-gnome/gtk+/gtk+-2.20.1/disable-gio-png-sniff-test.diff
+ delete mode 100644 meta/recipes-gnome/gtk+/gtk+-2.20.1/no-demos.patch
+ rename meta/recipes-gnome/gtk+/{gtk+-2.20.1 => gtk+-2.23.2}/0001-bgo-584832-Duplicate-the-exec-string-returned-by-gtk.patch (100%)
+ rename meta/recipes-gnome/gtk+/{gtk+-2.20.1 => gtk+-2.23.2}/cellrenderer-cairo.patch (100%)
+ rename meta/recipes-gnome/gtk+/{gtk+-2.20.1 => gtk+-2.23.2}/configurefix.patch (100%)
+ rename meta/recipes-gnome/gtk+/{gtk+-2.20.1 => gtk+-2.23.2}/entry-cairo.patch (100%)
+ rename meta/recipes-gnome/gtk+/{gtk+-2.20.1 => gtk+-2.23.2}/hardcoded_libtool.patch (66%)
+ create mode 100644 meta/recipes-gnome/gtk+/gtk+-2.23.2/no-demos.patch
+ rename meta/recipes-gnome/gtk+/{gtk+-2.20.1 => gtk+-2.23.2}/run-iconcache.patch (100%)
+ rename meta/recipes-gnome/gtk+/{gtk+-2.20.1 => gtk+-2.23.2}/toggle-font.diff (100%)
+ rename meta/recipes-gnome/gtk+/{gtk+-2.20.1 => gtk+-2.23.2}/xsettings.patch (100%)
+ rename meta/recipes-gnome/gtk+/{gtk+_2.20.1.bb => gtk+_2.23.2.bb} (74%)
+ create mode 100644 meta/recipes-sato/eds/eds-dbus/old-gdk-api.patch
+ rename meta/recipes-support/apr/{apr-util_1.3.4.bb => apr-util_1.3.10.bb} (72%)
+ create mode 100644 meta/recipes-support/apr/apr/buildconf_fix.patch
+ rename meta/recipes-support/apr/{apr_1.3.3.bb => apr_1.4.2.bb} (60%)
 
 
