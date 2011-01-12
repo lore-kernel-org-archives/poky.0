@@ -1,29 +1,29 @@
 Return-Path: <richard.purdie@linuxfoundation.org>
 Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 68CB14C81021
-	for <poky@yoctoproject.org>; Wed, 12 Jan 2011 05:15:59 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 538E14C81021
+	for <poky@yoctoproject.org>; Wed, 12 Jan 2011 05:19:16 -0600 (CST)
 Received: from localhost (dan.rpsys.net [127.0.0.1])
 	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0CBHdPJ025225; Wed, 12 Jan 2011 11:17:39 GMT
+	p0CBKvPE025341; Wed, 12 Jan 2011 11:20:57 GMT
 X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
 Received: from dan.rpsys.net ([127.0.0.1])
 	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id XkJGrg2GxKN2; Wed, 12 Jan 2011 11:17:39 +0000 (GMT)
+	with LMTP id DodQ+7P6+w4o; Wed, 12 Jan 2011 11:20:57 +0000 (GMT)
 Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
 	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0CBHVNb025214
+	p0CBKsID025336
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Wed, 12 Jan 2011 11:17:33 GMT
+	Wed, 12 Jan 2011 11:20:56 GMT
 From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Saul Wold <saul.wold@intel.com>
-In-Reply-To: <4D2D6CDB.3080104@intel.com>
-References: <4D2D6CDB.3080104@intel.com>
-Date: Wed, 12 Jan 2011 11:15:35 +0000
-Message-ID: <1294830935.15313.1951.camel@rex>
+To: Lianhao Lu <lianhao.lu@intel.com>
+In-Reply-To: <cover.1294798118.git.lianhao.lu@intel.com>
+References: <cover.1294798118.git.lianhao.lu@intel.com>
+Date: Wed, 12 Jan 2011 11:18:58 +0000
+Message-ID: <1294831138.15313.1961.camel@rex>
 Mime-Version: 1.0
 X-Mailer: Evolution 2.28.3 
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PULL] Consolidated Pull request
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/1] Bug #651 fixing
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,30 +35,24 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 12 Jan 2011 11:15:59 -0000
+X-List-Received-Date: Wed, 12 Jan 2011 11:19:16 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On Wed, 2011-01-12 at 00:56 -0800, Saul Wold wrote:
-> Richard,
-> 
-> I have built this a number of different ways and check the 
-> meta-toolchain-sdk output, looks good from my side.
-> 
-> Sau!
-> 
+On Wed, 2011-01-12 at 10:11 +0800, Lianhao Lu wrote:
+> Due to the gcc fixing in commit f13cb20, the c++ include dir is not needed to be
+> included in the CXXFLAGS environment variable in the meta-environment files.
 > 
 > Pull URL: git://git.pokylinux.org/poky-contrib.git
->    Branch: distro/master
->    Browse: 
-> http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=distro/master
+>   Branch: llu/bug651
+>   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=llu/bug651
 > 
 > Thanks,
->      Saul Wold <sgw@linux.intel.com>
+>     Lianhao Lu <lianhao.lu@intel.com>
+
 
 Merged into master, thanks.
 
 Richard
-
 
 
