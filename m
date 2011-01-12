@@ -1,25 +1,25 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 985FA4C81021
-	for <poky@yoctoproject.org>; Wed, 12 Jan 2011 15:59:29 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 12 Jan 2011 13:59:29 -0800
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C74364C80039
+	for <poky@yoctoproject.org>; Wed, 12 Jan 2011 17:41:14 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 12 Jan 2011 15:41:14 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,314,1291622400"; d="scan'208";a="876983081"
-Received: from unknown (HELO [10.255.14.15]) ([10.255.14.15])
-	by fmsmga001.fm.intel.com with ESMTP; 12 Jan 2011 13:59:28 -0800
-Message-ID: <4D2E2440.6050202@intel.com>
-Date: Wed, 12 Jan 2011 13:59:28 -0800
-From: Saul Wold <saul.wold@intel.com>
+X-IronPort-AV: E=Sophos;i="4.60,314,1291622400"; d="scan'208";a="373765875"
+Received: from unknown (HELO [10.255.14.60]) ([10.255.14.60])
+	by azsmga001.ch.intel.com with ESMTP; 12 Jan 2011 15:40:40 -0800
+Message-ID: <4D2E3BF7.9060609@linux.intel.com>
+Date: Wed, 12 Jan 2011 15:40:39 -0800
+From: Darren Hart <dvhart@linux.intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
+	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
 MIME-Version: 1.0
-To: Koen Kooi <koen@dominion.thruhere.net>
-References: <1294418164-5124-1-git-send-email-koen@openembedded.org>
-In-Reply-To: <1294418164-5124-1-git-send-email-koen@openembedded.org>
+To: Bruce Ashfield <bruce.ashfield@gmail.com>
+References: <cover.1293749684.git.dvhart@linux.intel.com>
+	<AANLkTimkuShXfmK7e2Buw_HM7-ce4OEzjdrd4poYxXfB@mail.gmail.com>
+In-Reply-To: <AANLkTimkuShXfmK7e2Buw_HM7-ce4OEzjdrd4poYxXfB@mail.gmail.com>
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH] wpa-supplicant 0.7: fix GNU HASH QA issue
+Subject: Re: [PATCH 0/1] linux-2.6-windriver: add atom-pc preempt_rt support (RESEND)
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,52 +31,58 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 12 Jan 2011 21:59:30 -0000
+X-List-Received-Date: Wed, 12 Jan 2011 23:41:15 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 01/07/2011 08:36 AM, Koen Kooi wrote:
-> From: Koen Kooi<koen@dominion.thruhere.net>
+On 01/12/2011 05:45 AM, Bruce Ashfield wrote:
+> On Tue, Jan 11, 2011 at 8:45 PM, Darren Hart<dvhart@linux.intel.com>  wrote:
+>> In addition to the patch against the wrs_meta branch to follow, this tree
+>> also needs the atom-pc-preempt_rt to be created:
 >
-> The recipe was unsetting LDFLAGS, resulting in:
->
-> NOTE: QA Issue: No GNU_HASH in the elf binary: '/OE/tentacle/build/tmp-angstrom_2010_x/work/armv7a-angstrom-linux-gnueabi/wpa-supplicant-0.7.3-r0/packages-split/wpa-supplicant/usr/sbin/wpa_supplicant'
->
-> Signed-off-by: Koen Kooi<koen@dominion.thruhere.net>
-> ---
->   .../wpa-supplicant/wpa-supplicant-0.7.inc          |    2 +-
->   .../wpa-supplicant/wpa-supplicant_0.7.3.bb         |    2 +-
->   2 files changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.inc b/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.inc
-> index 78ce914..6eda3b1 100644
-> --- a/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.inc
-> +++ b/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.inc
-> @@ -29,7 +29,7 @@ do_configure () {
->
->   export EXTRA_CFLAGS = "${CFLAGS}"
->   do_compile () {
-> -	unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS
-> +	unset CFLAGS CPPFLAGS CXXFLAGS
->   	oe_runmake
->   }
->
-> diff --git a/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant_0.7.3.bb b/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant_0.7.3.bb
-> index 2d7729c..e4ae019 100644
-> --- a/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant_0.7.3.bb
-> +++ b/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant_0.7.3.bb
-> @@ -1,6 +1,6 @@
->   require wpa-supplicant-0.7.inc
->
-> -PR = "r0"
-> +PR = "r1"
->
->   SRC_URI[md5sum] = "f516f191384a9a546e3f5145c08addda"
->   SRC_URI[sha256sum] = "d0cd50caa85346ccc376dcda5ed3c258eef19a93b3cade39d25760118ad59443"
-Both your WPA_Aupplicant change are pulled into master
+> So just so I'm clear that I'm not missing anything, this is identical
+> to the first send ? I have it queued here already, so I won't refresh
+> anything if this is indeed the same. (and yes, it does look the same,
+> I just wanted to confirm :)
 
-Thanks for your help
+Yes it is identical - that is why I used RESEND and not V2. I sent it 
+out because I thought you requested that during our IRC discussion 
+during which we each talked past the other at every turn :-)
 
-	Sau!
+--
+Darren
 
+>
+> Bruce
+>
+>>
+>> $ git checkout -b atom-pc-preempt_rt common_pc-preempt_rt
+>>
+>> Thanks,
+>>     Darren Hart<dvhart@linux.intel.com>
+>> ---
+>>
+>>
+>> Darren Hart (1):
+>>   linux-2.6-windriver: atom-pc-preempt_rt meta-data
+>>
+>>   .../bsp/atom-pc/atom-pc-preempt_rt.scc             |    7 +++++++
+>>   1 files changed, 7 insertions(+), 0 deletions(-)
+>>   create mode 100644 wrs/cfg/kernel-cache/bsp/atom-pc/atom-pc-preempt_rt.scc
+>>   create mode 100644 wrs/patches/atom_pc-preempt_rt/series
+>>   create mode 100644 wrs/patches/atom_pc-preempt_rt/status
+>>
+>> _______________________________________________
+>> poky mailing list
+>> poky@yoctoproject.org
+>> https://lists.yoctoproject.org/listinfo/poky
+>>
+>
+>
+>
+
+
+-- 
+Darren Hart
+Yocto Linux Kernel
 
