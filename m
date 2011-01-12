@@ -1,21 +1,29 @@
-Return-Path: <koen@dominion.thruhere.net>
-Received: from mail-ww0-f42.google.com (mail-ww0-f42.google.com [74.125.82.42])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B01774C80BEF
-	for <poky@yoctoproject.org>; Wed, 12 Jan 2011 08:42:59 -0600 (CST)
-Received: by wwi17 with SMTP id 17so4048304wwi.5
-	for <poky@yoctoproject.org>; Wed, 12 Jan 2011 06:42:58 -0800 (PST)
-Received: by 10.227.69.201 with SMTP id a9mr1080491wbj.24.1294843378270;
-	Wed, 12 Jan 2011 06:42:58 -0800 (PST)
-Received: from localhost (ip545070eb.adsl-surfen.hetnet.nl [84.80.112.235])
-	by mx.google.com with ESMTPS id m13sm529610wbz.15.2011.01.12.06.42.50
-	(version=TLSv1/SSLv3 cipher=RC4-MD5);
-	Wed, 12 Jan 2011 06:42:55 -0800 (PST)
-From: Koen Kooi <koen@dominion.thruhere.net>
-To: poky@yoctoproject.org
-Date: Wed, 12 Jan 2011 15:42:46 +0100
-Message-Id: <1294843366-21265-1-git-send-email-koen@dominion.thruhere.net>
-X-Mailer: git-send-email 1.6.6.1
-Subject: [PATCH] kernel bbclass: add 'perf' to kernel-modules blacklist
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 9FF3B4C80BEF
+	for <poky@yoctoproject.org>; Wed, 12 Jan 2011 09:56:09 -0600 (CST)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p0CFvpmn004917; Wed, 12 Jan 2011 15:57:52 GMT
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id 7LGoRZVkuEZV; Wed, 12 Jan 2011 15:57:51 +0000 (GMT)
+Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p0CFvkZf004901
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Wed, 12 Jan 2011 15:57:48 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Koen Kooi <koen@dominion.thruhere.net>
+In-Reply-To: <1294843366-21265-1-git-send-email-koen@dominion.thruhere.net>
+References: <1294843366-21265-1-git-send-email-koen@dominion.thruhere.net>
+Date: Wed, 12 Jan 2011 15:55:49 +0000
+Message-ID: <1294847749.15313.2545.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH] kernel bbclass: add 'perf' to kernel-modules blacklist
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,29 +35,17 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 12 Jan 2011 14:43:00 -0000
+X-List-Received-Date: Wed, 12 Jan 2011 15:56:10 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-This makes 'kernel-modules' installable again when perf isn't enabled in the kernel config
+On Wed, 2011-01-12 at 15:42 +0100, Koen Kooi wrote:
+> This makes 'kernel-modules' installable again when perf isn't enabled in the kernel config
+> 
+> Signed-off-by: Koen Kooi <koen@dominion.thruhere.net>
 
-Signed-off-by: Koen Kooi <koen@dominion.thruhere.net>
----
- meta/classes/kernel.bbclass |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+Applied to master, good catch, thanks.
 
-diff --git a/meta/classes/kernel.bbclass b/meta/classes/kernel.bbclass
-index 86a1923..ef16fc5 100644
---- a/meta/classes/kernel.bbclass
-+++ b/meta/classes/kernel.bbclass
-@@ -441,7 +441,7 @@ python populate_packages_prepend () {
- 	metapkg = "kernel-modules"
- 	bb.data.setVar('ALLOW_EMPTY_' + metapkg, "1", d)
- 	bb.data.setVar('FILES_' + metapkg, "", d)
--	blacklist = [ 'kernel-dev', 'kernel-image', 'kernel-base', 'kernel-vmlinux' ]
-+	blacklist = [ 'kernel-dev', 'kernel-image', 'kernel-base', 'kernel-vmlinux', 'perf' ]
- 	for l in module_deps.values():
- 		for i in l:
- 			pkg = module_pattern % legitimize_package_name(re.match(module_regex, os.path.basename(i)).group(1))
--- 
-1.6.6.1
+Richard
 
 
