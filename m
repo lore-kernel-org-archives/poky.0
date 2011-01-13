@@ -1,24 +1,25 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7EC184C80BCF
-	for <poky@yoctoproject.org>; Wed, 12 Jan 2011 20:56:34 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 12 Jan 2011 18:56:33 -0800
+Return-Path: <saul.wold@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id CC9F04C81069
+	for <poky@yoctoproject.org>; Wed, 12 Jan 2011 23:52:20 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 12 Jan 2011 21:52:20 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,316,1291622400"; d="scan'208";a="696281701"
-Received: from unknown (HELO [10.255.14.60]) ([10.255.14.60])
-	by orsmga001.jf.intel.com with ESMTP; 12 Jan 2011 18:56:33 -0800
-Message-ID: <4D2E69E0.5030402@linux.intel.com>
-Date: Wed, 12 Jan 2011 18:56:32 -0800
-From: Darren Hart <dvhart@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="4.60,316,1291622400"; d="scan'208";a="646469520"
+Received: from unknown (HELO [10.255.14.15]) ([10.255.14.15])
+	by fmsmga002.fm.intel.com with ESMTP; 12 Jan 2011 21:52:20 -0800
+Message-ID: <4D2E9313.4020801@intel.com>
+Date: Wed, 12 Jan 2011 21:52:19 -0800
+From: Saul Wold <saul.wold@intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
 MIME-Version: 1.0
-To: poky@yoctoproject.org
-References: <cover.1293749684.git.dvhart@linux.intel.com>
-	<e5cc85afdfc1e70dfac07f1e77cfa726b678d8a0.1293749684.git.dvhart@linux.intel.com>
-In-Reply-To: <e5cc85afdfc1e70dfac07f1e77cfa726b678d8a0.1293749684.git.dvhart@linux.intel.com>
-Subject: Re: [PATCH 1/1] linux-2.6-windriver: atom-pc-preempt_rt meta-data
+To: Darren Hart <dvhart@linux.intel.com>
+References: <1294789099-32160-1-git-send-email-dvhart@linux.intel.com>
+In-Reply-To: <1294789099-32160-1-git-send-email-dvhart@linux.intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH] bbvars.py: add a script to look for undocumented variables
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,93 +31,239 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 13 Jan 2011 02:56:34 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Thu, 13 Jan 2011 05:52:21 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Whoops, After just confirming that these are the same as the last ones
-sent I came across a problem with them. See below:
-
-On 12/21/2010 09:48 AM, Darren Hart wrote:
-> The following patch adds support for the preempt_rt kernel type
-> for the atom-pc machine. It should be applied to the wrs_meta
-> branch.
-> 
+On 01/11/2011 03:38 PM, Darren Hart wrote:
+> bbvars.py will compare recipes in meta directories with documentation files
+> and report on variables that don't appear to be documented. It reports the
+> number of times a variable is used as well as any doctags present in the
+> documentation config file.
+>
+> The output of this is intended to aid in determining where documentation may
+> be lacking, but it is not perfect, and does generate some false positives. An
+> experienced eye and careful attention to count and doctag should be applied to
+> the results.
+>
+> $ ./bbvars.py -d ../../documentation/poky-ref-manual/poky-ref-manual.html -m ../../meta -t ../../meta/conf/documentation.conf -T  | head -n 10
+> Found 1413 undocumented bb variables (out of 1578):
+> VARIABLE                              COUNT DOCTAG
+> ===================================================
+> BUILD_ARCH                            4     The name of the building architecture. E.g. i686.
+> BUILD_CC_ARCH                         2     FIXME
+> BUILD_PREFIX                          4     FIXME
+> BUILD_SYS                             13    FIXME
+> BUILD_VENDOR                          2     FIXME
+> CACHE                                 1     The directory holding the cache of the metadata.
+> COMPATIBLE_HOST                       19    A regular expression which matches the HOST_SYS names supported by the package/file. Failure to match will cause the file to be skipped by the parser.
+>
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>    Branch: dvhart/scripts
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dvhart/scripts
+>
 > Signed-off-by: Darren Hart<dvhart@linux.intel.com>
-> CC: Bruce Ashfield<bruce.ashfield@windriver.com>
-> CC: Tom Zanussi<tom.zanussi@intel.com>
+> CC: Richard Purdie<richard.purdie@linuxfoundation.org>
 > ---
->   .../bsp/atom-pc/atom-pc-preempt_rt.scc             |    7 +++++++
->   1 files changed, 7 insertions(+), 0 deletions(-)
->   create mode 100644 wrs/cfg/kernel-cache/bsp/atom-pc/atom-pc-preempt_rt.scc
->   create mode 100644 wrs/patches/atom_pc-preempt_rt/series
->   create mode 100644 wrs/patches/atom_pc-preempt_rt/status
-> 
-> diff --git a/wrs/cfg/kernel-cache/bsp/atom-pc/atom-pc-preempt_rt.scc b/wrs/cfg/kernel-cache/bsp/atom-pc/atom-pc-preempt_rt.scc
-> new file mode 100644
-> index 0000000..3e13665
+>   scripts/contrib/bbvars.py |  186 +++++++++++++++++++++++++++++++++++++++++++++
+>   1 files changed, 186 insertions(+), 0 deletions(-)
+>   create mode 100755 scripts/contrib/bbvars.py
+>
+> diff --git a/scripts/contrib/bbvars.py b/scripts/contrib/bbvars.py
+> new file mode 100755
+> index 0000000..0896d64
 > --- /dev/null
-> +++ b/wrs/cfg/kernel-cache/bsp/atom-pc/atom-pc-preempt_rt.scc
-> @@ -0,0 +1,7 @@
-> +define WRS_BOARD atom-pc
-> +define WRS_KERNEL preempt_rt
-> +define WRS_ARCH i386
+> +++ b/scripts/contrib/bbvars.py
+> @@ -0,0 +1,186 @@
+> +#!/usr/bin/env python
 > +
-> +scc_leaf ktypes/preempt_rt atom-pc-preempt_rt
+> +# This program is free software; you can redistribute it and/or modify
+> +# it under the terms of the GNU General Public License as published by
+> +# the Free Software Foundation; either version 2 of the License, or
+> +# (at your option) any later version.
+> +#
+> +# This program is distributed in the hope that it will be useful,
+> +# but WITHOUT ANY WARRANTY; without even the implied warranty of
+> +# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> +# GNU General Public License for more details.
+> +#
+> +# You should have received a copy of the GNU General Public License
+> +# along with this program; if not, write to the Free Software
+> +# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+> +#
+> +# Copyright (C) Darren Hart<dvhart@linux.intel.com>, 2010
+> +
+> +
+> +import sys
+> +import getopt
+> +import os
+> +import os.path
+> +import re
+> +
+> +def usage():
+> +    print 'Usage: %s -d FILENAME [-d FILENAME]* -m METADIR [-m MATADIR]*' % os.path.basename(sys.argv[0])
+> +    print '  -d FILENAME         documentation file to search'
+> +    print '  -h, --help          display this help and exit'
+> +    print '  -m METADIR          meta directory to search for recipes'
+> +    print '  -t FILENAME         documentation config file (for doc tags)'
+> +    print '  -T                  Only display variables with doc tags (requires -t)'
+> +
+> +def recipe_bbvars(recipe):
+> +    ''' Return a unique set of every bbvar encountered in the recipe '''
+> +    prog = re.compile("[A-Z_]+")
+> +    vset = set()
+> +    try:
+> +        r = open(recipe)
+> +    except IOError as (errno, strerror):
+> +        print 'WARNING: Failed to open recipe ', recipe
+> +        print strerror
+> +
+> +    for line in r:
+> +        # Strip any comments from the line
+> +        line = line.rsplit('#')[0]
+> +        vset = vset.union(set(prog.findall(line)))
+> +    r.close()
+> +
+> +    bbvars = {}
+> +    for v in vset:
+> +        bbvars[v] = 1
+> +
+> +    return bbvars
+> +
+> +def collect_bbvars(metadir):
+> +    ''' Walk the metadir and collect the bbvars from each recipe found '''
+> +    bbvars = {}
+> +    for root,dirs,files in os.walk(metadir):
+> +        for name in files:
+> +            if name.find(".bb")>= 0:
+> +                for key in recipe_bbvars(os.path.join(root,name)).iterkeys():
+> +                    if bbvars.has_key(key):
+> +                        bbvars[key] = bbvars[key] + 1
+> +                    else:
+> +                        bbvars[key] = 1
+> +    return bbvars
+> +
+> +def bbvar_is_documented(var, docfiles):
+> +    prog = re.compile(".*($|[^A-Z_])%s([^A-Z_]|$)" % (var))
+> +    for doc in docfiles:
+> +        try:
+> +            f = open(doc)
+> +        except IOError as (errno, strerror):
+> +            print 'WARNING: Failed to open doc ', doc
+> +            print strerror
+> +        for line in f:
+> +            if prog.match(line):
+> +                return True
+> +        f.close()
+> +    return False
+> +
+> +def bbvar_doctag(var, docconf):
+> +    prog = re.compile('^%s\[doc\] *= *"(.*)"' % (var))
+> +    if docconf == "":
+> +        return "?"
+> +
+> +    try:
+> +        f = open(docconf)
+> +    except IOError as (errno, strerror):
+> +        return strerror
+> +
+> +    for line in f:
+> +        m = prog.search(line)
+> +        if m:
+> +            return m.group(1)
+> +
+> +    f.close()
+> +    return ""
+> +
+> +def main():
+> +    docfiles = []
+> +    metadirs = []
+> +    bbvars = {}
+> +    undocumented = []
+> +    docconf = ""
+> +    onlydoctags = False
+> +
+> +    # Collect and validate input
+> +    try:
+> +        opts, args = getopt.getopt(sys.argv[1:], "d:hm:t:T", ["help"])
+> +    except getopt.GetoptError, err:
+> +        print '%s' % str(err)
+> +        usage()
+> +        sys.exit(2)
+> +
+> +    for o, a in opts:
+> +        if o in ('-h', '--help'):
+> +            usage()
+> +            sys.exit(0)
+> +        elif o == '-d':
+> +            if os.path.isfile(a):
+> +                docfiles.append(a)
+> +            else:
+> +                print 'ERROR: documentation file %s is not a regular file' % (a)
+> +                sys.exit(3)
+> +        elif o == '-m':
+> +            if os.path.isdir(a):
+> +                metadirs.append(a)
+> +            else:
+> +                print 'ERROR: meta directory %s is not a directory' % (a)
+> +                sys.exit(4)
+> +        elif o == "-t":
+> +            if os.path.isfile(a):
+> +                docconf = a
+> +        elif o == "-T":
+> +            onlydoctags = True
+> +        else:
+> +            assert False, "unhandled option"
+> +
+> +    if len(docfiles) == 0:
+> +        print 'ERROR: no docfile specified'
+> +        usage()
+> +        sys.exit(5)
+> +
+> +    if len(metadirs) == 0:
+> +        print 'ERROR: no metadir specified'
+> +        usage()
+> +        sys.exit(6)
+> +
+> +    if onlydoctags and docconf == "":
+> +        print 'ERROR: no docconf specified'
+> +        usage()
+> +        sys.exit(7)
+> +
+> +    # Collect all the variable names from the recipes in the metadirs
+> +    for m in metadirs:
+> +        for key,cnt in collect_bbvars(m).iteritems():
+> +            if bbvars.has_key(key):
+> +                bbvars[key] = bbvars[key] + cnt
+> +            else:
+> +                bbvars[key] = cnt
+> +
+> +    # Check each var for documentation
+> +    varlen = 0
+> +    for v in bbvars.iterkeys():
+> +        if len(v)>  varlen:
+> +            varlen = len(v)
+> +        if not bbvar_is_documented(v, docfiles):
+> +            undocumented.append(v)
+> +    undocumented.sort()
+> +    varlen = varlen + 1
+> +
+> +    # Report all undocumented variables
+> +    print 'Found %d undocumented bb variables (out of %d):' % (len(undocumented), len(bbvars))
+> +    header = '%s%s%s' % (str("VARIABLE").ljust(varlen), str("COUNT").ljust(6), str("DOCTAG").ljust(7))
+> +    print header
+> +    print str("").ljust(len(header), '=')
+> +    for v in undocumented:
+> +        doctag = bbvar_doctag(v, docconf)
+> +        if not onlydoctags or not doctag == "":
+> +            print '%s%s%s' % (v.ljust(varlen), str(bbvars[v]).ljust(6), doctag)
+> +
+> +
+> +if __name__ == "__main__":
+> +    main()
+Pulled into Master
 
-This is incorrect, it should be:
+Thanks
+	Sau!
 
-+scc_leaf bsp/common_pc/common_pc-preempt_rt atom-pc-preempt_rt
-
-The previous patch resulted in a bad .config for the rt kernels, one that
-wouldn't boot on the live image for the atom-pc - likely due to things like
-CONFIG_IDE and CONFIG_SCSI not being present (among _a lot_ of other basic
-stuff)! The correct patch follows, sorry for the confusion. 
-
--- 
-Darren Hart
-Yocto Linux Kernel
-
-
-
-From 76829ed36013a24d6de8085ff5e15aaadf6de21a Mon Sep 17 00:00:00 2001
-From: Darren Hart <dvhart@linux.intel.com>
-Date: Tue, 21 Dec 2010 09:48:26 -0800
-Subject: [PATCH] linux-2.6-windriver: atom-pc-preempt_rt meta-data
-
-The following patch adds support for the preempt_rt kernel type
-for the atom-pc machine. It should be applied to the wrs_meta
-branch.
-
-Signed-off-by: Darren Hart <dvhart@linux.intel.com>
-CC: Bruce Ashfield <bruce.ashfield@windriver.com>
-CC: Tom Zanussi <tom.zanussi@intel.com>
----
- .../bsp/atom-pc/atom-pc-preempt_rt.scc             |    7 +++++++
- 1 files changed, 7 insertions(+), 0 deletions(-)
- create mode 100644 wrs/cfg/kernel-cache/bsp/atom-pc/atom-pc-preempt_rt.scc
- create mode 100644 wrs/patches/atom_pc-preempt_rt/series
- create mode 100644 wrs/patches/atom_pc-preempt_rt/status
-
-diff --git a/wrs/cfg/kernel-cache/bsp/atom-pc/atom-pc-preempt_rt.scc b/wrs/cfg/kernel-cache/bsp/atom-pc/atom-pc-preempt_rt.scc
-new file mode 100644
-index 0000000..169207c
---- /dev/null
-+++ b/wrs/cfg/kernel-cache/bsp/atom-pc/atom-pc-preempt_rt.scc
-@@ -0,0 +1,7 @@
-+define WRS_BOARD atom-pc
-+define WRS_KERNEL preempt_rt
-+define WRS_ARCH i386
-+
-+scc_leaf bsp/common_pc/common_pc-preempt_rt atom-pc-preempt_rt
-+
-+include bsp/atom-pc/atom-pc.scc
-diff --git a/wrs/patches/atom_pc-preempt_rt/series b/wrs/patches/atom_pc-preempt_rt/series
-new file mode 100644
-index 0000000..e69de29
-diff --git a/wrs/patches/atom_pc-preempt_rt/status b/wrs/patches/atom_pc-preempt_rt/status
-new file mode 100644
-index 0000000..e69de29
--- 
-1.7.1
 
