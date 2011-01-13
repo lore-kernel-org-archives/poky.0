@@ -1,22 +1,24 @@
-Return-Path: <jiajun.xu@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 4963A4C810AF
-	for <poky@yoctoproject.org>; Wed, 12 Jan 2011 19:36:38 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 12 Jan 2011 17:36:37 -0800
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 7EC184C80BCF
+	for <poky@yoctoproject.org>; Wed, 12 Jan 2011 20:56:34 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 12 Jan 2011 18:56:33 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,315,1291622400"; d="scan'208";a="646403837"
-Received: from unknown (HELO localhost) ([10.239.48.201])
-	by fmsmga002.fm.intel.com with ESMTP; 12 Jan 2011 17:36:37 -0800
-Message-Id: <b003b26ef3fc687b4e243773c8336f289b3abb65.1294883271.git.jiajun.xu@intel.com>
-In-Reply-To: <cover.1294883271.git.jiajun.xu@intel.com>
-References: <cover.1294883271.git.jiajun.xu@intel.com>
-From: Jiajun Xu <jiajun.xu@intel.com>
-Old-Date: Thu, 13 Jan 2011 09:46:14 +0800
-Date: Thu, 13 Jan 2011  9:50:08 +0800
+X-IronPort-AV: E=Sophos;i="4.60,316,1291622400"; d="scan'208";a="696281701"
+Received: from unknown (HELO [10.255.14.60]) ([10.255.14.60])
+	by orsmga001.jf.intel.com with ESMTP; 12 Jan 2011 18:56:33 -0800
+Message-ID: <4D2E69E0.5030402@linux.intel.com>
+Date: Wed, 12 Jan 2011 18:56:32 -0800
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
+MIME-Version: 1.0
 To: poky@yoctoproject.org
-CC: 
-Subject: [PATCH 1/1] qemuimagetest: Use the same image in sanity testing to fix the timeout issue on autobuilder
+References: <cover.1293749684.git.dvhart@linux.intel.com>
+	<e5cc85afdfc1e70dfac07f1e77cfa726b678d8a0.1293749684.git.dvhart@linux.intel.com>
+In-Reply-To: <e5cc85afdfc1e70dfac07f1e77cfa726b678d8a0.1293749684.git.dvhart@linux.intel.com>
+Subject: Re: [PATCH 1/1] linux-2.6-windriver: atom-pc-preempt_rt meta-data
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,491 +30,93 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 13 Jan 2011 01:36:38 -0000
+X-List-Received-Date: Thu, 13 Jan 2011 02:56:34 -0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
 
-Fixes [BUGID #595]
+Whoops, After just confirming that these are the same as the last ones
+sent I came across a problem with them. See below:
 
-Because of the QEMU booting slowness issue(see bug #646 and #618), autobuilder
-may suffer a timeout issue when running sanity test. We introduce variable
-SHARE_IMAGE here to fix the issue. It is by default set to 1. Poky will copy
-latest built-out image and keep using it in sanity testing. If it is set to 0,
-latest built-out image will be copied and tested for each case, which will take
-much time.
+On 12/21/2010 09:48 AM, Darren Hart wrote:
+> The following patch adds support for the preempt_rt kernel type
+> for the atom-pc machine. It should be applied to the wrs_meta
+> branch.
+> 
+> Signed-off-by: Darren Hart<dvhart@linux.intel.com>
+> CC: Bruce Ashfield<bruce.ashfield@windriver.com>
+> CC: Tom Zanussi<tom.zanussi@intel.com>
+> ---
+>   .../bsp/atom-pc/atom-pc-preempt_rt.scc             |    7 +++++++
+>   1 files changed, 7 insertions(+), 0 deletions(-)
+>   create mode 100644 wrs/cfg/kernel-cache/bsp/atom-pc/atom-pc-preempt_rt.scc
+>   create mode 100644 wrs/patches/atom_pc-preempt_rt/series
+>   create mode 100644 wrs/patches/atom_pc-preempt_rt/status
+> 
+> diff --git a/wrs/cfg/kernel-cache/bsp/atom-pc/atom-pc-preempt_rt.scc b/wrs/cfg/kernel-cache/bsp/atom-pc/atom-pc-preempt_rt.scc
+> new file mode 100644
+> index 0000000..3e13665
+> --- /dev/null
+> +++ b/wrs/cfg/kernel-cache/bsp/atom-pc/atom-pc-preempt_rt.scc
+> @@ -0,0 +1,7 @@
+> +define WRS_BOARD atom-pc
+> +define WRS_KERNEL preempt_rt
+> +define WRS_ARCH i386
+> +
+> +scc_leaf ktypes/preempt_rt atom-pc-preempt_rt
 
-Signed-off-by Jiajun Xu <jiajun.xu@intel.com>
+This is incorrect, it should be:
+
++scc_leaf bsp/common_pc/common_pc-preempt_rt atom-pc-preempt_rt
+
+The previous patch resulted in a bad .config for the rt kernels, one that
+wouldn't boot on the live image for the atom-pc - likely due to things like
+CONFIG_IDE and CONFIG_SCSI not being present (among _a lot_ of other basic
+stuff)! The correct patch follows, sorry for the confusion. 
+
+-- 
+Darren Hart
+Yocto Linux Kernel
+
+
+
+From 76829ed36013a24d6de8085ff5e15aaadf6de21a Mon Sep 17 00:00:00 2001
+From: Darren Hart <dvhart@linux.intel.com>
+Date: Tue, 21 Dec 2010 09:48:26 -0800
+Subject: [PATCH] linux-2.6-windriver: atom-pc-preempt_rt meta-data
+
+The following patch adds support for the preempt_rt kernel type
+for the atom-pc machine. It should be applied to the wrs_meta
+branch.
+
+Signed-off-by: Darren Hart <dvhart@linux.intel.com>
+CC: Bruce Ashfield <bruce.ashfield@windriver.com>
+CC: Tom Zanussi <tom.zanussi@intel.com>
 ---
- meta/classes/imagetest-qemu.bbclass                |   22 +++++++++++++++++--
- meta/conf/local.conf.sample                        |    8 +++++++
- scripts/qemuimage-testlib                          |    7 ++++++
- scripts/qemuimage-tests/sanity/compiler            |    2 +-
- scripts/qemuimage-tests/sanity/connman             |    2 +-
- scripts/qemuimage-tests/sanity/dmesg               |    2 +-
- scripts/qemuimage-tests/sanity/rpm_query           |    2 +-
- scripts/qemuimage-tests/sanity/scp                 |    2 +-
- scripts/qemuimage-tests/sanity/shutdown            |    7 +++++-
- scripts/qemuimage-tests/sanity/ssh                 |    2 +-
- scripts/qemuimage-tests/sanity/zypper_help         |    2 +-
- scripts/qemuimage-tests/sanity/zypper_search       |    2 +-
- .../scenario/qemuarm/poky-image-lsb                |    2 +-
- .../scenario/qemuarm/poky-image-sato               |    2 +-
- .../scenario/qemuarm/poky-image-sdk                |    2 +-
- .../scenario/qemumips/poky-image-lsb               |    2 +-
- .../scenario/qemumips/poky-image-sato              |    2 +-
- .../scenario/qemumips/poky-image-sdk               |    2 +-
- .../scenario/qemuppc/poky-image-lsb                |    2 +-
- .../scenario/qemuppc/poky-image-sato               |    2 +-
- .../scenario/qemuppc/poky-image-sdk                |    2 +-
- .../scenario/qemux86-64/poky-image-lsb             |    2 +-
- .../scenario/qemux86-64/poky-image-sato            |    2 +-
- .../scenario/qemux86-64/poky-image-sdk             |    2 +-
- .../scenario/qemux86/poky-image-lsb                |    2 +-
- .../scenario/qemux86/poky-image-sato               |    2 +-
- .../scenario/qemux86/poky-image-sdk                |    2 +-
- 27 files changed, 63 insertions(+), 27 deletions(-)
+ .../bsp/atom-pc/atom-pc-preempt_rt.scc             |    7 +++++++
+ 1 files changed, 7 insertions(+), 0 deletions(-)
+ create mode 100644 wrs/cfg/kernel-cache/bsp/atom-pc/atom-pc-preempt_rt.scc
+ create mode 100644 wrs/patches/atom_pc-preempt_rt/series
+ create mode 100644 wrs/patches/atom_pc-preempt_rt/status
 
-diff --git a/meta/classes/imagetest-qemu.bbclass b/meta/classes/imagetest-qemu.bbclass
-index bcae10d..28bb218 100644
---- a/meta/classes/imagetest-qemu.bbclass
-+++ b/meta/classes/imagetest-qemu.bbclass
-@@ -5,6 +5,7 @@ TEST_LOG ?= "${LOG_DIR}/qemuimagetests"
- TEST_RESULT ?= "${TEST_DIR}/result"
- TEST_TMP ?= "${TEST_DIR}/tmp"
- TEST_SCEN ?= "sanity"
-+SHARE_IMAGE ?= "1"
- 
- python do_qemuimagetest() {
-     qemuimagetest_main(d)
-@@ -37,7 +38,7 @@ def qemuimagetest_main(d):
-     """funtion to run each case under scenario"""
-     def runtest(scen, case, fulltestpath):
-         resultpath = bb.data.getVar('TEST_RESULT', d, 1)
--        testpath = bb.data.getVar('TEST_DIR', d, 1)
-+        tmppath = bb.data.getVar('TEST_TMP', d, 1)
- 
-         """initialize log file for testcase"""
-         logpath = bb.data.getVar('TEST_LOG', d, 1)
-@@ -45,10 +46,9 @@ def qemuimagetest_main(d):
-         caselog = os.path.join(logpath, "%s/log_%s.%s" % (scen, case, bb.data.getVar('DATETIME', d, 1)))
-         os.system("touch %s" % caselog)
-         
--
-         """export TEST_TMP, TEST_RESULT, DEPLOY_DIR and QEMUARCH"""
-         os.environ["PATH"] = bb.data.getVar("PATH", d, True)
--        os.environ["TEST_TMP"] = testpath
-+        os.environ["TEST_TMP"] = tmppath
-         os.environ["TEST_RESULT"] = resultpath
-         os.environ["DEPLOY_DIR"] = bb.data.getVar("DEPLOY_DIR", d, True)
-         os.environ["QEMUARCH"] = machine
-@@ -56,6 +56,7 @@ def qemuimagetest_main(d):
-         os.environ["DISPLAY"] = bb.data.getVar("DISPLAY", d, True)
-         os.environ["POKYBASE"] = bb.data.getVar("POKYBASE", d, True)
-         os.environ["TOPDIR"] = bb.data.getVar("TOPDIR", d, True)
-+        os.environ["SHARE_IMAGE"] = bb.data.getVar("SHARE_IMAGE", d, True)
- 
-         """run Test Case"""
-         bb.note("Run %s test in scenario %s" % (case, scen))
-@@ -97,6 +98,18 @@ def qemuimagetest_main(d):
-                        list.append((item, casefile, fulltestcase))
-         return list
- 
-+    """Clean tmp folder for testing"""
-+    def clean_tmp():
-+        tmppath = bb.data.getVar('TEST_TMP', d, 1)
+diff --git a/wrs/cfg/kernel-cache/bsp/atom-pc/atom-pc-preempt_rt.scc b/wrs/cfg/kernel-cache/bsp/atom-pc/atom-pc-preempt_rt.scc
+new file mode 100644
+index 0000000..169207c
+--- /dev/null
++++ b/wrs/cfg/kernel-cache/bsp/atom-pc/atom-pc-preempt_rt.scc
+@@ -0,0 +1,7 @@
++define WRS_BOARD atom-pc
++define WRS_KERNEL preempt_rt
++define WRS_ARCH i386
 +
-+        if os.path.isdir(tmppath):
-+            for f in os.listdir(tmppath):
-+                tmpfile = os.path.join(tmppath, f)
-+                os.remove(tmpfile)
++scc_leaf bsp/common_pc/common_pc-preempt_rt atom-pc-preempt_rt
 +
-+    """Before running testing, clean temp folder first"""
-+    clean_tmp()
-+
-     """check testcase folder and create test log folder"""
-     testpath = bb.data.getVar('TEST_DIR', d, 1)
-     bb.utils.mkdirhier(testpath)
-@@ -150,6 +163,9 @@ def qemuimagetest_main(d):
-             bb.note(line)
-     f.close()
- 
-+    """Clean temp files for testing"""
-+    clean_tmp()
-+
-     if ret != 0:
-         raise bb.build.FuncFailed("Some testcases fail, pls. check test result and test log!!!")
- 
-diff --git a/meta/conf/local.conf.sample b/meta/conf/local.conf.sample
-index 9c58e6b..cb0e548 100644
---- a/meta/conf/local.conf.sample
-+++ b/meta/conf/local.conf.sample
-@@ -156,6 +156,14 @@ ENABLE_BINARY_LOCALE_GENERATION = "1"
- # list them like following.
- #TEST_SCEN = "sanity bat sanity:boot"
- 
-+#Because of the QEMU booting slowness issue(see bug #646 and #618), autobuilder
-+#may suffer a timeout issue when running sanity test. We introduce variable
-+#SHARE_IMAGE here to fix the issue. It is by default set to 1. Poky will copy
-+#latest built-out image and keep using it in sanity testing. If it is set to 0,
-+#latest built-out image will be copied and tested for each case, which will take
-+#much time.
-+#SHARE_IMAGE = "1"
-+
- # Set GLIBC_GENERATE_LOCALES to the locales you wish to generate should you not
- # wish to perform the time-consuming step of generating all LIBC locales.
- # NOTE: If removing en_US.UTF-8 you will also need to uncomment, and set
-diff --git a/scripts/qemuimage-testlib b/scripts/qemuimage-testlib
-index e2c2d24..b9afcf5 100644
---- a/scripts/qemuimage-testlib
-+++ b/scripts/qemuimage-testlib
-@@ -383,9 +383,16 @@ Test_Create_Qemu()
- 	TEST_ROOTFS_IMAGE="${TEST_TMP}/${QEMUTARGET}-${QEMUARCH}-test.ext3"
- 	
- 	CP=`which cp`
-+
-+	# When SHARE_IMAGE is set, we use the existing image under tmp folder
- 	if [ -e "$TEST_ROOTFS_IMAGE" ]; then
-+		if [ ${SHARE_IMAGE} -eq 1 ]; then
-+			ROOTFS_IMAGE="$TEST_ROOTFS_IMAGE"
-+			TEST_ROOTFS_IMAGE="${TEST_TMP}/${QEMUTARGET}-${QEMUARCH}-shared-test.ext3"
-+		fi
- 		rm -rf $TEST_ROOTFS_IMAGE
- 	fi
-+
- 	$CP $ROOTFS_IMAGE $TEST_ROOTFS_IMAGE
- 
- 	if [ $? -ne 0 ]; then
-diff --git a/scripts/qemuimage-tests/sanity/compiler b/scripts/qemuimage-tests/sanity/compiler
-index 0290540..d3168a9 100755
---- a/scripts/qemuimage-tests/sanity/compiler
-+++ b/scripts/qemuimage-tests/sanity/compiler
-@@ -11,7 +11,7 @@
- 
- . $POKYBASE/scripts/qemuimage-testlib
- 
--TIMEOUT=360
-+TIMEOUT=200
- RET=1
- 
- # Start qemu and check its network
-diff --git a/scripts/qemuimage-tests/sanity/connman b/scripts/qemuimage-tests/sanity/connman
-index 8c5b7c5..6e19b81 100755
---- a/scripts/qemuimage-tests/sanity/connman
-+++ b/scripts/qemuimage-tests/sanity/connman
-@@ -11,7 +11,7 @@
- 
- . $POKYBASE/scripts/qemuimage-testlib
- 
--TIMEOUT=360
-+TIMEOUT=200
- RET=1
- 
- # Start qemu and check its network
-diff --git a/scripts/qemuimage-tests/sanity/dmesg b/scripts/qemuimage-tests/sanity/dmesg
-index 36813dc..d98d7af 100755
---- a/scripts/qemuimage-tests/sanity/dmesg
-+++ b/scripts/qemuimage-tests/sanity/dmesg
-@@ -11,7 +11,7 @@
- 
- . $POKYBASE/scripts/qemuimage-testlib
- 
--TIMEOUT=360
-+TIMEOUT=200
- RET=1
- 
- # Start qemu and check its network
-diff --git a/scripts/qemuimage-tests/sanity/rpm_query b/scripts/qemuimage-tests/sanity/rpm_query
-index 9962115..7663901 100755
---- a/scripts/qemuimage-tests/sanity/rpm_query
-+++ b/scripts/qemuimage-tests/sanity/rpm_query
-@@ -11,7 +11,7 @@
- 
- . $POKYBASE/scripts/qemuimage-testlib
- 
--TIMEOUT=360
-+TIMEOUT=200
- RET=1
- 
- # Start qemu and check its network
-diff --git a/scripts/qemuimage-tests/sanity/scp b/scripts/qemuimage-tests/sanity/scp
-index ce3489d..ca19857 100755
---- a/scripts/qemuimage-tests/sanity/scp
-+++ b/scripts/qemuimage-tests/sanity/scp
-@@ -11,7 +11,7 @@
- 
- . $POKYBASE/scripts/qemuimage-testlib
- 
--TIMEOUT=360
-+TIMEOUT=200
- RET=1
- SPID=0
- i=0
-diff --git a/scripts/qemuimage-tests/sanity/shutdown b/scripts/qemuimage-tests/sanity/shutdown
-index e36b4a9..dde03c9 100755
---- a/scripts/qemuimage-tests/sanity/shutdown
-+++ b/scripts/qemuimage-tests/sanity/shutdown
-@@ -13,7 +13,12 @@
- 
- . $POKYBASE/scripts/qemuimage-testlib
- 
--TIMEOUT=360
-+if [ $SHARE_IMAGE -eq 0 ]; then
-+	TIMEOUT=200
-+elif [ $SHARE_IMAGE -eq 1 ]; then
-+	TIMEOUT=500
-+fi
-+
- RET=1
- i=0
- 
-diff --git a/scripts/qemuimage-tests/sanity/ssh b/scripts/qemuimage-tests/sanity/ssh
-index 084530a..e0ade72 100755
---- a/scripts/qemuimage-tests/sanity/ssh
-+++ b/scripts/qemuimage-tests/sanity/ssh
-@@ -11,7 +11,7 @@
- 
- . $POKYBASE/scripts/qemuimage-testlib
- 
--TIMEOUT=360
-+TIMEOUT=200
- RET=1
- 
- # Start qemu and check its network
-diff --git a/scripts/qemuimage-tests/sanity/zypper_help b/scripts/qemuimage-tests/sanity/zypper_help
-index e052501..48e121c 100755
---- a/scripts/qemuimage-tests/sanity/zypper_help
-+++ b/scripts/qemuimage-tests/sanity/zypper_help
-@@ -11,7 +11,7 @@
- 
- . $POKYBASE/scripts/qemuimage-testlib
- 
--TIMEOUT=360
-+TIMEOUT=200
- RET=1
- 
- # Start qemu and check its network
-diff --git a/scripts/qemuimage-tests/sanity/zypper_search b/scripts/qemuimage-tests/sanity/zypper_search
-index b756db8..9ae69eb 100755
---- a/scripts/qemuimage-tests/sanity/zypper_search
-+++ b/scripts/qemuimage-tests/sanity/zypper_search
-@@ -11,7 +11,7 @@
- 
- . $POKYBASE/scripts/qemuimage-testlib
- 
--TIMEOUT=360
-+TIMEOUT=200
- RET=1
- 
- # Start qemu and check its network
-diff --git a/scripts/qemuimage-tests/scenario/qemuarm/poky-image-lsb b/scripts/qemuimage-tests/scenario/qemuarm/poky-image-lsb
-index 32d2bd1..0eb1926 100644
---- a/scripts/qemuimage-tests/scenario/qemuarm/poky-image-lsb
-+++ b/scripts/qemuimage-tests/scenario/qemuarm/poky-image-lsb
-@@ -1,8 +1,8 @@
-+sanity shutdown
- sanity boot
- sanity ssh
- sanity scp
- sanity dmesg
--sanity shutdown
- sanity zypper_help
- sanity zypper_search
- sanity rpm_query
-diff --git a/scripts/qemuimage-tests/scenario/qemuarm/poky-image-sato b/scripts/qemuimage-tests/scenario/qemuarm/poky-image-sato
-index 7b949a8..b60a89a 100644
---- a/scripts/qemuimage-tests/scenario/qemuarm/poky-image-sato
-+++ b/scripts/qemuimage-tests/scenario/qemuarm/poky-image-sato
-@@ -1,8 +1,8 @@
-+sanity shutdown
- sanity boot
- sanity ssh
- sanity scp
- sanity dmesg
--sanity shutdown
- sanity zypper_help
- sanity zypper_search
- sanity rpm_query
-diff --git a/scripts/qemuimage-tests/scenario/qemuarm/poky-image-sdk b/scripts/qemuimage-tests/scenario/qemuarm/poky-image-sdk
-index 3a8b129..53c9ad5 100644
---- a/scripts/qemuimage-tests/scenario/qemuarm/poky-image-sdk
-+++ b/scripts/qemuimage-tests/scenario/qemuarm/poky-image-sdk
-@@ -1,8 +1,8 @@
-+sanity shutdown
- sanity boot
- sanity ssh
- sanity scp
- sanity dmesg
--sanity shutdown
- sanity zypper_help
- sanity zypper_search
- sanity rpm_query
-diff --git a/scripts/qemuimage-tests/scenario/qemumips/poky-image-lsb b/scripts/qemuimage-tests/scenario/qemumips/poky-image-lsb
-index 32d2bd1..0eb1926 100644
---- a/scripts/qemuimage-tests/scenario/qemumips/poky-image-lsb
-+++ b/scripts/qemuimage-tests/scenario/qemumips/poky-image-lsb
-@@ -1,8 +1,8 @@
-+sanity shutdown
- sanity boot
- sanity ssh
- sanity scp
- sanity dmesg
--sanity shutdown
- sanity zypper_help
- sanity zypper_search
- sanity rpm_query
-diff --git a/scripts/qemuimage-tests/scenario/qemumips/poky-image-sato b/scripts/qemuimage-tests/scenario/qemumips/poky-image-sato
-index 7b949a8..b60a89a 100644
---- a/scripts/qemuimage-tests/scenario/qemumips/poky-image-sato
-+++ b/scripts/qemuimage-tests/scenario/qemumips/poky-image-sato
-@@ -1,8 +1,8 @@
-+sanity shutdown
- sanity boot
- sanity ssh
- sanity scp
- sanity dmesg
--sanity shutdown
- sanity zypper_help
- sanity zypper_search
- sanity rpm_query
-diff --git a/scripts/qemuimage-tests/scenario/qemumips/poky-image-sdk b/scripts/qemuimage-tests/scenario/qemumips/poky-image-sdk
-index 3a8b129..53c9ad5 100644
---- a/scripts/qemuimage-tests/scenario/qemumips/poky-image-sdk
-+++ b/scripts/qemuimage-tests/scenario/qemumips/poky-image-sdk
-@@ -1,8 +1,8 @@
-+sanity shutdown
- sanity boot
- sanity ssh
- sanity scp
- sanity dmesg
--sanity shutdown
- sanity zypper_help
- sanity zypper_search
- sanity rpm_query
-diff --git a/scripts/qemuimage-tests/scenario/qemuppc/poky-image-lsb b/scripts/qemuimage-tests/scenario/qemuppc/poky-image-lsb
-index 32d2bd1..0eb1926 100644
---- a/scripts/qemuimage-tests/scenario/qemuppc/poky-image-lsb
-+++ b/scripts/qemuimage-tests/scenario/qemuppc/poky-image-lsb
-@@ -1,8 +1,8 @@
-+sanity shutdown
- sanity boot
- sanity ssh
- sanity scp
- sanity dmesg
--sanity shutdown
- sanity zypper_help
- sanity zypper_search
- sanity rpm_query
-diff --git a/scripts/qemuimage-tests/scenario/qemuppc/poky-image-sato b/scripts/qemuimage-tests/scenario/qemuppc/poky-image-sato
-index 7b949a8..b60a89a 100644
---- a/scripts/qemuimage-tests/scenario/qemuppc/poky-image-sato
-+++ b/scripts/qemuimage-tests/scenario/qemuppc/poky-image-sato
-@@ -1,8 +1,8 @@
-+sanity shutdown
- sanity boot
- sanity ssh
- sanity scp
- sanity dmesg
--sanity shutdown
- sanity zypper_help
- sanity zypper_search
- sanity rpm_query
-diff --git a/scripts/qemuimage-tests/scenario/qemuppc/poky-image-sdk b/scripts/qemuimage-tests/scenario/qemuppc/poky-image-sdk
-index 3a8b129..53c9ad5 100644
---- a/scripts/qemuimage-tests/scenario/qemuppc/poky-image-sdk
-+++ b/scripts/qemuimage-tests/scenario/qemuppc/poky-image-sdk
-@@ -1,8 +1,8 @@
-+sanity shutdown
- sanity boot
- sanity ssh
- sanity scp
- sanity dmesg
--sanity shutdown
- sanity zypper_help
- sanity zypper_search
- sanity rpm_query
-diff --git a/scripts/qemuimage-tests/scenario/qemux86-64/poky-image-lsb b/scripts/qemuimage-tests/scenario/qemux86-64/poky-image-lsb
-index 32d2bd1..0eb1926 100644
---- a/scripts/qemuimage-tests/scenario/qemux86-64/poky-image-lsb
-+++ b/scripts/qemuimage-tests/scenario/qemux86-64/poky-image-lsb
-@@ -1,8 +1,8 @@
-+sanity shutdown
- sanity boot
- sanity ssh
- sanity scp
- sanity dmesg
--sanity shutdown
- sanity zypper_help
- sanity zypper_search
- sanity rpm_query
-diff --git a/scripts/qemuimage-tests/scenario/qemux86-64/poky-image-sato b/scripts/qemuimage-tests/scenario/qemux86-64/poky-image-sato
-index 7b949a8..b60a89a 100644
---- a/scripts/qemuimage-tests/scenario/qemux86-64/poky-image-sato
-+++ b/scripts/qemuimage-tests/scenario/qemux86-64/poky-image-sato
-@@ -1,8 +1,8 @@
-+sanity shutdown
- sanity boot
- sanity ssh
- sanity scp
- sanity dmesg
--sanity shutdown
- sanity zypper_help
- sanity zypper_search
- sanity rpm_query
-diff --git a/scripts/qemuimage-tests/scenario/qemux86-64/poky-image-sdk b/scripts/qemuimage-tests/scenario/qemux86-64/poky-image-sdk
-index 3a8b129..53c9ad5 100644
---- a/scripts/qemuimage-tests/scenario/qemux86-64/poky-image-sdk
-+++ b/scripts/qemuimage-tests/scenario/qemux86-64/poky-image-sdk
-@@ -1,8 +1,8 @@
-+sanity shutdown
- sanity boot
- sanity ssh
- sanity scp
- sanity dmesg
--sanity shutdown
- sanity zypper_help
- sanity zypper_search
- sanity rpm_query
-diff --git a/scripts/qemuimage-tests/scenario/qemux86/poky-image-lsb b/scripts/qemuimage-tests/scenario/qemux86/poky-image-lsb
-index 32d2bd1..0eb1926 100644
---- a/scripts/qemuimage-tests/scenario/qemux86/poky-image-lsb
-+++ b/scripts/qemuimage-tests/scenario/qemux86/poky-image-lsb
-@@ -1,8 +1,8 @@
-+sanity shutdown
- sanity boot
- sanity ssh
- sanity scp
- sanity dmesg
--sanity shutdown
- sanity zypper_help
- sanity zypper_search
- sanity rpm_query
-diff --git a/scripts/qemuimage-tests/scenario/qemux86/poky-image-sato b/scripts/qemuimage-tests/scenario/qemux86/poky-image-sato
-index 7b949a8..b60a89a 100644
---- a/scripts/qemuimage-tests/scenario/qemux86/poky-image-sato
-+++ b/scripts/qemuimage-tests/scenario/qemux86/poky-image-sato
-@@ -1,8 +1,8 @@
-+sanity shutdown
- sanity boot
- sanity ssh
- sanity scp
- sanity dmesg
--sanity shutdown
- sanity zypper_help
- sanity zypper_search
- sanity rpm_query
-diff --git a/scripts/qemuimage-tests/scenario/qemux86/poky-image-sdk b/scripts/qemuimage-tests/scenario/qemux86/poky-image-sdk
-index 3a8b129..53c9ad5 100644
---- a/scripts/qemuimage-tests/scenario/qemux86/poky-image-sdk
-+++ b/scripts/qemuimage-tests/scenario/qemux86/poky-image-sdk
-@@ -1,8 +1,8 @@
-+sanity shutdown
- sanity boot
- sanity ssh
- sanity scp
- sanity dmesg
--sanity shutdown
- sanity zypper_help
- sanity zypper_search
- sanity rpm_query
++include bsp/atom-pc/atom-pc.scc
+diff --git a/wrs/patches/atom_pc-preempt_rt/series b/wrs/patches/atom_pc-preempt_rt/series
+new file mode 100644
+index 0000000..e69de29
+diff --git a/wrs/patches/atom_pc-preempt_rt/status b/wrs/patches/atom_pc-preempt_rt/status
+new file mode 100644
+index 0000000..e69de29
 -- 
 1.7.1
-
 
