@@ -1,21 +1,21 @@
 Return-Path: <tom.zanussi@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A30B14C80039
-	for <poky@yoctoproject.org>; Fri, 14 Jan 2011 00:55:32 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 13 Jan 2011 22:55:27 -0800
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 6B9C94C80039
+	for <poky@yoctoproject.org>; Fri, 14 Jan 2011 01:01:06 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 13 Jan 2011 23:01:06 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,321,1291622400"; d="scan'208";a="592906747"
+X-IronPort-AV: E=Sophos;i="4.60,321,1291622400"; d="scan'208";a="877415106"
 Received: from unknown (HELO [10.255.14.43]) ([10.255.14.43])
-	by orsmga002.jf.intel.com with ESMTP; 13 Jan 2011 22:55:05 -0800
+	by fmsmga001.fm.intel.com with ESMTP; 13 Jan 2011 23:00:05 -0800
 From: Tom Zanussi <tom.zanussi@intel.com>
-To: "Wold, Saul" <saul.wold@intel.com>
-In-Reply-To: <4D2FE367.4030204@intel.com>
+To: Darren Hart <dvhart@linux.intel.com>
+In-Reply-To: <4D2F7062.9090507@linux.intel.com>
 References: <cover.1294944942.git.tom.zanussi@intel.com>
 	<53e1c664d18e7cbc04b76e7df1041fa615d84716.1294944942.git.tom.zanussi@intel.com>
-	<4D2FE367.4030204@intel.com>
-Date: Fri, 14 Jan 2011 00:55:02 -0600
-Message-ID: <1294988102.28996.19.camel@elmorro>
+	<4D2F7062.9090507@linux.intel.com>
+Date: Fri, 14 Jan 2011 01:00:03 -0600
+Message-ID: <1294988403.28996.21.camel@elmorro>
 Mime-Version: 1.0
 X-Mailer: Evolution 2.28.3 
 Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
@@ -31,11 +31,11 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 14 Jan 2011 06:55:32 -0000
+X-List-Received-Date: Fri, 14 Jan 2011 07:01:06 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On Thu, 2011-01-13 at 21:47 -0800, Wold, Saul wrote:
+On Thu, 2011-01-13 at 13:36 -0800, Darren Hart wrote:
 > On 01/13/2011 11:55 AM, Tom Zanussi wrote:
 > > Add systemtap, a general-purpose script-directed dynamic tracing and
 > > performance analysis tool for Linux.
@@ -83,61 +83,22 @@ On Thu, 2011-01-13 at 21:47 -0800, Wold, Saul wrote:
 > > +LIC_FILES_CHKSUM = "file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f"
 > > +
 > > +DEPENDS = "elfutils"
-> > +
-> > +PR = r0
-> > +PV = "1.4+git${SRCPV}"
-> > +
-> > +SRC_URI = "git://sources.redhat.com/git/systemtap.git;protocol=git \
-> > +          "
-> > +
-> > +EXTRA_OECONF = "--prefix=${D} --with-libelf=${STAGING_DIR_TARGET} --without-rpm \
-> > +	     ac_cv_file__usr_include_nss=no \
-> > +	     ac_cv_file__usr_include_nss3=no \
-> > +	     ac_cv_file__usr_include_nspr=no \
-> > +	     ac_cv_file__usr_include_nspr4=no \
-> > +	     ac_cv_file__usr_include_avahi_client=no \
-> > +	     ac_cv_file__usr_include_avahi_common=no "
-> > +
-> > +SRC_URI[md5sum]    = "cb202866ed704c44a876d041f788bdee"
-> > +SRC_URI[sha256sum] = "8ffe35caec0d937bd23fd78a3a8d94b58907cc0de0330b35e38f9f764815c459"
-> > +
-> > +COMPATIBLE_MACHINE = "(qemux86|qemux86-64|qemuppc|emenlow|crownbay|atom-pc|n450)"
-> > +
-> Tom,
 > 
-> Will this work for PPC hardware also such as the beagleboard?  I am just 
-> looking at the COMPATIBLE_MACHINE list and wondering.
+> I remember (from a couple years ago) systemtap being very dependent on 
+> the elfutils version. Do we need to have a way to indicate a specific 
+> version - or minimum version - so that systemtap doesn't suddenly break 
+> without a helpful warning?
 > 
 
-I only included the machines I was able to test directly (or were close
-enough to what I tested).
+Yeah, if it's that fragile, we probably want to lock down a known good
+version...
 
-I did test qemuarm, and while a simple helloworld script worked, the
-other ones didn't, so I concluded that arm systemtap support was broken,
-and probably wouldn't work on real arm hardware either, so I didn't
-include any as compatible machines.  There was a single consistent
-compile error with the other scripts on qemuarm, so it's probably a
-simple fix, but who knows - it's something to look into and submit
-patches to systemtap if/when we want to get that working...
+> Otherwise, looks good to me.
+> 
 
-qemuppc worked fine, but that's all I have wrt that arch, so included
-only that.
+Thanks for reviewing it!
 
 Tom
-
-> Recently Richard suggested that we could use regular expressions here 
-> and negate the incompatible machine.
-> 
-> The more I think about this, we may need to extend this to work for 
-> generalized arches, not just machines.  I will work on writing an RFC 
-> for this.
-> 
-> Sau!
-> 
-> > +S = "${WORKDIR}/git"
-> > +
-> > +inherit autotools
-> 
 
 
 
