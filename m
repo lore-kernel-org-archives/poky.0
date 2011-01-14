@@ -1,20 +1,28 @@
-Return-Path: <josh@openedhand.com>
-Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 397C74C80039
-	for <poky@yoctoproject.org>; Fri, 14 Jan 2011 06:34:58 -0600 (CST)
-Received: from [192.168.1.88] (unknown [83.217.123.106])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by pug.o-hand.com (Postfix) with ESMTP id A07D212EC27F
-	for <poky@yoctoproject.org>; Fri, 14 Jan 2011 07:15:10 -0600 (CST)
-From: Joshua Lock <josh@openedhand.com>
-To: poky@yoctoproject.org
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 0DE654C80FBE
+	for <poky@yoctoproject.org>; Fri, 14 Jan 2011 09:52:11 -0600 (CST)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p0EFruqR011405; Fri, 14 Jan 2011 15:53:56 GMT
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id Hgr4AJLXZlzN; Fri, 14 Jan 2011 15:53:56 +0000 (GMT)
+Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p0EFrmlL011392
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Fri, 14 Jan 2011 15:53:50 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Koen Kooi <koen@dominion.thruhere.net>
 In-Reply-To: <1295007038-1119-1-git-send-email-koen@dominion.thruhere.net>
 References: <1295007038-1119-1-git-send-email-koen@dominion.thruhere.net>
-Date: Fri, 14 Jan 2011 12:34:45 +0000
-Message-ID: <1295008485.2509.11.camel@scimitar>
+Date: Fri, 14 Jan 2011 15:51:51 +0000
+Message-ID: <1295020311.14388.6289.camel@rex>
 Mime-Version: 1.0
-X-Mailer: Evolution 2.32.1 (2.32.1-1.fc14) 
+X-Mailer: Evolution 2.28.3 
+Cc: poky@yoctoproject.org
 Subject: Re: [PATCH] external-python-tarball: add LIC_FILES_CHKSUM
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -27,17 +35,12 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 14 Jan 2011 12:34:58 -0000
+X-List-Received-Date: Fri, 14 Jan 2011 15:52:12 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-Good catch!
-
 On Fri, 2011-01-14 at 13:10 +0100, Koen Kooi wrote:
 > Signed-off-by: Koen Kooi <koen@dominion.thruhere.net>
-
-Acked-by: Joshua Lock <josh@linux.intel.com>
-
 > ---
 >  meta/recipes-core/meta/external-python-tarball.bb |    3 +++
 >  1 files changed, 3 insertions(+), 0 deletions(-)
@@ -56,8 +59,9 @@ Acked-by: Joshua Lock <josh@linux.intel.com>
 >  
 >  inherit meta
 
--- 
-Joshua Lock
-        Intel Open Source Technology Centre
+Merged into master, thanks!
+
+Richard
+
 
 
