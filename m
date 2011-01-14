@@ -1,22 +1,21 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9479A4C80039
-	for <poky@yoctoproject.org>; Fri, 14 Jan 2011 01:27:01 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 13 Jan 2011 23:27:01 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,321,1291622400"; d="scan'208";a="696770513"
-Received: from unknown (HELO [10.255.14.72]) ([10.255.14.72])
-	by orsmga001.jf.intel.com with ESMTP; 13 Jan 2011 23:26:57 -0800
-Message-ID: <4D2FFAB8.4000506@linux.intel.com>
-Date: Thu, 13 Jan 2011 23:26:48 -0800
-From: Saul Wold <sgw@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
-MIME-Version: 1.0
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Stability of Master (not looking good)
+Return-Path: <koen@dominion.thruhere.net>
+Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
+	by mx1.pokylinux.org (Postfix) with ESMTP id F2D334C80039
+	for <poky@yoctoproject.org>; Fri, 14 Jan 2011 06:10:53 -0600 (CST)
+Received: by wwb31 with SMTP id 31so2973690wwb.11
+	for <poky@yoctoproject.org>; Fri, 14 Jan 2011 04:10:53 -0800 (PST)
+Received: by 10.227.128.21 with SMTP id i21mr633496wbs.136.1295007051943;
+	Fri, 14 Jan 2011 04:10:51 -0800 (PST)
+Received: from localhost (ip545070eb.adsl-surfen.hetnet.nl [84.80.112.235])
+	by mx.google.com with ESMTPS id m50sm622984wek.8.2011.01.14.04.10.50
+	(version=TLSv1/SSLv3 cipher=RC4-MD5);
+	Fri, 14 Jan 2011 04:10:50 -0800 (PST)
+From: Koen Kooi <koen@dominion.thruhere.net>
+To: poky@yoctoproject.org
+Date: Fri, 14 Jan 2011 13:10:38 +0100
+Message-Id: <1295007038-1119-1-git-send-email-koen@dominion.thruhere.net>
+X-Mailer: git-send-email 1.6.6.1
+Subject: [PATCH] external-python-tarball: add LIC_FILES_CHKSUM
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,37 +27,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 14 Jan 2011 07:27:01 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 14 Jan 2011 12:10:54 -0000
 
+Signed-off-by: Koen Kooi <koen@dominion.thruhere.net>
+---
+ meta/recipes-core/meta/external-python-tarball.bb |    3 +++
+ 1 files changed, 3 insertions(+), 0 deletions(-)
 
-Folks,
-
-Based on what I am seeing on both local builds and on the autobuilder, I 
-have to recommend that we stop making changes to master until we can 
-stabilize it.
-
-We need to start getting the builds green so that we can know where we 
-are going into the final days of M3 and have a build that works.
-
-We are getting closer, but there are definitely still some problem 
-areas, as example, the distro-testing which has very little change 
-failed to build eglibc.
-
-So, I recommend that we only make changes that directly address the 
-failures we currently have until we can resolve the failures and then 
-work to ensure that any new items pulled into master are well tested!
-
-I know this will slow things down, but we need to get stability happening.
-
-Thoughts?
-
+diff --git a/meta/recipes-core/meta/external-python-tarball.bb b/meta/recipes-core/meta/external-python-tarball.bb
+index 494b21c..eef93fd 100644
+--- a/meta/recipes-core/meta/external-python-tarball.bb
++++ b/meta/recipes-core/meta/external-python-tarball.bb
+@@ -1,5 +1,8 @@
+ DESCRIPTION = "Meta package for building a standalone python tarball"
+ LICENSE = "MIT"
++LIC_FILES_CHKSUM = "file://${POKYBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58 \
++                    file://${POKYBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
++
+ DEPENDS = "opkg-native opkg-utils-native virtual/fakeroot-native sed-native"
+ 
+ inherit meta
 -- 
-     Sau!
-
-Saul Wold
-Yocto Component Wrangler @ Intel
-Yocto Project / Poky Build System
+1.6.6.1
 
 
