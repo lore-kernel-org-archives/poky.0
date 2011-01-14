@@ -1,18 +1,25 @@
-Return-Path: <bruce.ashfield@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 22FFA4C811DD;
-	Thu, 13 Jan 2011 23:48:29 -0600 (CST)
-Received: from localhost.localdomain (yow-bashfiel-d2.ottawa.windriver.com
-	[128.224.146.167])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p0E5mFar006084;
-	Thu, 13 Jan 2011 21:48:15 -0800 (PST)
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-To: rpurdie@linux.intel.com
-Date: Fri, 14 Jan 2011 00:50:37 -0500
-Message-Id: <cover.1294984024.git.bruce.ashfield@windriver.com>
-X-Mailer: git-send-email 1.7.0.4
-Cc: poky@yoctoproject.org, yocto@yoctoproject.org, saul.wold@intel.com
-Subject: [PATCH 0/2] linux-yocto: add atom-pc-rt and systemtap
+Return-Path: <tom.zanussi@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id A30B14C80039
+	for <poky@yoctoproject.org>; Fri, 14 Jan 2011 00:55:32 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 13 Jan 2011 22:55:27 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,321,1291622400"; d="scan'208";a="592906747"
+Received: from unknown (HELO [10.255.14.43]) ([10.255.14.43])
+	by orsmga002.jf.intel.com with ESMTP; 13 Jan 2011 22:55:05 -0800
+From: Tom Zanussi <tom.zanussi@intel.com>
+To: "Wold, Saul" <saul.wold@intel.com>
+In-Reply-To: <4D2FE367.4030204@intel.com>
+References: <cover.1294944942.git.tom.zanussi@intel.com>
+	<53e1c664d18e7cbc04b76e7df1041fa615d84716.1294944942.git.tom.zanussi@intel.com>
+	<4D2FE367.4030204@intel.com>
+Date: Fri, 14 Jan 2011 00:55:02 -0600
+Message-ID: <1294988102.28996.19.camel@elmorro>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH 1/1] systemtap: new package
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -24,31 +31,113 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 14 Jan 2011 05:48:39 -0000
+X-List-Received-Date: Fri, 14 Jan 2011 06:55:32 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Richard/Saul,
+On Thu, 2011-01-13 at 21:47 -0800, Wold, Saul wrote:
+> On 01/13/2011 11:55 AM, Tom Zanussi wrote:
+> > Add systemtap, a general-purpose script-directed dynamic tracing and
+> > performance analysis tool for Linux.
+> >
+> > Signed-off-by: Tom Zanussi<tom.zanussi@intel.com>
+> > ---
+> >   .../conf/distro/include/poky-default-revisions.inc |    1 +
+> >   meta/recipes-core/tasks/task-poky-tools.bb         |    1 +
+> >   meta/recipes-kernel/systemtap/systemtap_git.bb     |   28 ++++++++++++++++++++
+> >   3 files changed, 30 insertions(+), 0 deletions(-)
+> >   create mode 100644 meta/recipes-kernel/systemtap/systemtap_git.bb
+> >
+> > diff --git a/meta/conf/distro/include/poky-default-revisions.inc b/meta/conf/distro/include/poky-default-revisions.inc
+> > index 6b98091..c07e2c7 100644
+> > --- a/meta/conf/distro/include/poky-default-revisions.inc
+> > +++ b/meta/conf/distro/include/poky-default-revisions.inc
+> > @@ -165,6 +165,7 @@ SRCREV_pn-screenshot ??= "292"
+> >   SRCREV_pn-settings-daemon ??= "2059"
+> >   SRCREV_pn-swabber-native ??= "a0792390c5d6d5a5bade7ab155c80eef3f30fa52"
+> >   SRCREV_pn-sysprof ??= "38a6af1f0a45e528fd2842983da71e0f23c70d6a"
+> > +SRCREV_pn-systemtap ??= "4ab3a1863bf4f472acae7a809bf2b38d91658aa8"
+> >   SRCREV_pn-table ??= "4b267533ce16656cba4104fc39dc12709c1bdddf"
+> >   SRCREV_pn-tasks ??= "ea52d46d691c5fce4473ea4e24a35411381f3a65"
+> >   TRACECMDREV ?= "6c696cec3f264a9399241b6e648f58bc97117d49"
+> > diff --git a/meta/recipes-core/tasks/task-poky-tools.bb b/meta/recipes-core/tasks/task-poky-tools.bb
+> > index 60a95f9..c23a3fe 100644
+> > --- a/meta/recipes-core/tasks/task-poky-tools.bb
+> > +++ b/meta/recipes-core/tasks/task-poky-tools.bb
+> > @@ -51,6 +51,7 @@ RRECOMMENDS_task-poky-tools-profile = "\
+> >       kernel-module-oprofile \
+> >       blktrace \
+> >       sysprof \
+> > +    systemtap \
+> >       "
+> >
+> >   #    exmap-console
+> > diff --git a/meta/recipes-kernel/systemtap/systemtap_git.bb b/meta/recipes-kernel/systemtap/systemtap_git.bb
+> > new file mode 100644
+> > index 0000000..f28c946
+> > --- /dev/null
+> > +++ b/meta/recipes-kernel/systemtap/systemtap_git.bb
+> > @@ -0,0 +1,28 @@
+> > +DESCRIPTION = "SystemTap - script-directed dynamic tracing and performance analysis tool for Linux"
+> > +LICENSE = "GPLv2"
+> > +LIC_FILES_CHKSUM = "file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f"
+> > +
+> > +DEPENDS = "elfutils"
+> > +
+> > +PR = r0
+> > +PV = "1.4+git${SRCPV}"
+> > +
+> > +SRC_URI = "git://sources.redhat.com/git/systemtap.git;protocol=git \
+> > +          "
+> > +
+> > +EXTRA_OECONF = "--prefix=${D} --with-libelf=${STAGING_DIR_TARGET} --without-rpm \
+> > +	     ac_cv_file__usr_include_nss=no \
+> > +	     ac_cv_file__usr_include_nss3=no \
+> > +	     ac_cv_file__usr_include_nspr=no \
+> > +	     ac_cv_file__usr_include_nspr4=no \
+> > +	     ac_cv_file__usr_include_avahi_client=no \
+> > +	     ac_cv_file__usr_include_avahi_common=no "
+> > +
+> > +SRC_URI[md5sum]    = "cb202866ed704c44a876d041f788bdee"
+> > +SRC_URI[sha256sum] = "8ffe35caec0d937bd23fd78a3a8d94b58907cc0de0330b35e38f9f764815c459"
+> > +
+> > +COMPATIBLE_MACHINE = "(qemux86|qemux86-64|qemuppc|emenlow|crownbay|atom-pc|n450)"
+> > +
+> Tom,
+> 
+> Will this work for PPC hardware also such as the beagleboard?  I am just 
+> looking at the COMPATIBLE_MACHINE list and wondering.
+> 
 
-Here are the updated SRCREVs for Darren's recent atom-pc-rt work
-and Tom's systemtap configs.
+I only included the machines I was able to test directly (or were close
+enough to what I tested).
 
-Cheers,
+I did test qemuarm, and while a simple helloworld script worked, the
+other ones didn't, so I concluded that arm systemtap support was broken,
+and probably wouldn't work on real arm hardware either, so I didn't
+include any as compatible machines.  There was a single consistent
+compile error with the other scripts on qemuarm, so it's probably a
+simple fix, but who knows - it's something to look into and submit
+patches to systemtap if/when we want to get that working...
 
-Bruce
+qemuppc worked fine, but that's all I have wrt that arch, so included
+only that.
 
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: zedd/kernel
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/kernel
+Tom
 
-Thanks,
-    Bruce Ashfield <bruce.ashfield@windriver.com>
----
+> Recently Richard suggested that we could use regular expressions here 
+> and negate the incompatible machine.
+> 
+> The more I think about this, we may need to extend this to work for 
+> generalized arches, not just machines.  I will work on writing an RFC 
+> for this.
+> 
+> Sau!
+> 
+> > +S = "${WORKDIR}/git"
+> > +
+> > +inherit autotools
+> 
 
-
-Bruce Ashfield (2):
-  linux-yocto: add systemtap config to -stable and -dev kernels
-  linux-yocto-stable: add atom-pc preempt_rt support
-
- .../conf/distro/include/poky-default-revisions.inc |    4 ++--
- 1 files changed, 2 insertions(+), 2 deletions(-)
 
 
