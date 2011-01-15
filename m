@@ -1,39 +1,24 @@
-Return-Path: <bruce.ashfield@gmail.com>
-Received: from mail-iw0-f176.google.com (mail-iw0-f176.google.com
-	[209.85.214.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 522464C80039
-	for <poky@yoctoproject.org>; Fri, 14 Jan 2011 21:56:06 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by iwn2 with SMTP id 2so3532066iwn.35
-	for <poky@yoctoproject.org>; Fri, 14 Jan 2011 19:56:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:in-reply-to:references:date
-	:message-id:subject:from:to:cc:content-type
-	:content-transfer-encoding;
-	bh=y6ZE6Ct7gvXIDvYcjYy9+bhqYX6hia53XXSOlU3/AzI=;
-	b=CyA3KaPnUClWBsfxYZQnsDqjQKJPtveceWfsMTElq3b7ymtD8++4XX0HMHjkSHUxxu
-	WQAvu7E8AgcxE0hXSrOETuyyNBrVqIP/Izb3OINZU5spDGOt62483pO3fr6iZqLBdBcX
-	YBOMjmsnb7B1oK3iilhK+JWi7GTNoKEszhlYY=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type:content-transfer-encoding;
-	b=lSzh3k6OWDiPFrgemBTWBCq5zd6evV/ex4QzbAoxAr4CKPCBMcZaIrYtq27ohdUyXW
-	WCgLgjfGdMcwb0fjtrVRwFe1V1zD6l7leUb0ghFDBdLGxnCz1Dm8WbHMmiVrhDk7+aNP
-	fFsQRSAJvoE9S0xBR+316pVL29u+c1iudTHuM=
+Return-Path: <saul.wold@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8C8134C8109B
+	for <poky@yoctoproject.org>; Fri, 14 Jan 2011 22:14:49 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 14 Jan 2011 20:14:49 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,325,1291622400"; d="scan'208";a="877653530"
+Received: from unknown (HELO [10.255.14.72]) ([10.255.14.72])
+	by fmsmga001.fm.intel.com with ESMTP; 14 Jan 2011 20:14:43 -0800
+Message-ID: <4D311F2F.8000104@intel.com>
+Date: Fri, 14 Jan 2011 20:14:39 -0800
+From: Saul Wold <saul.wold@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
 MIME-Version: 1.0
-Received: by 10.231.207.84 with SMTP id fx20mr1521065ibb.62.1295063765610;
-	Fri, 14 Jan 2011 19:56:05 -0800 (PST)
-Received: by 10.231.156.136 with HTTP; Fri, 14 Jan 2011 19:56:05 -0800 (PST)
-In-Reply-To: <1295063026.31259.14.camel@elmorro>
-References: <cover.1295044979.git.tom.zanussi@intel.com>
-	<AANLkTinm8D1ctw7d-dZ96njKxPO-dY0VA=cqwPkJkAT2@mail.gmail.com>
-	<1295063026.31259.14.camel@elmorro>
-Date: Fri, 14 Jan 2011 22:56:05 -0500
-Message-ID: <AANLkTim3ES1fWfpbkvUrQ-ynHFedKCL0T8RmkAwEsB5a@mail.gmail.com>
-From: Bruce Ashfield <bruce.ashfield@gmail.com>
-To: Tom Zanussi <tom.zanussi@intel.com>
+To: Bruce Ashfield <bruce.ashfield@gmail.com>
+References: <cover.1295044979.git.tom.zanussi@intel.com>	<AANLkTinm8D1ctw7d-dZ96njKxPO-dY0VA=cqwPkJkAT2@mail.gmail.com>	<1295063026.31259.14.camel@elmorro>
+	<AANLkTim3ES1fWfpbkvUrQ-ynHFedKCL0T8RmkAwEsB5a@mail.gmail.com>
+In-Reply-To: <AANLkTim3ES1fWfpbkvUrQ-ynHFedKCL0T8RmkAwEsB5a@mail.gmail.com>
 Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: [PATCH 0/1] linux-yocto: temporary NO_LIBPERL fix for perf
 X-BeenThere: poky@yoctoproject.org
@@ -47,96 +32,96 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 15 Jan 2011 03:56:06 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Sat, 15 Jan 2011 04:14:49 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Jan 14, 2011 at 10:43 PM, Tom Zanussi <tom.zanussi@intel.com> wrote=
-:
-> On Fri, 2011-01-14 at 18:46 -0800, Bruce Ashfield wrote:
->> On Fri, Jan 14, 2011 at 5:49 PM, Tom Zanussi <tom.zanussi@intel.com> wro=
-te:
->> > I'm not familiar enough with the perf recipe to come up with a proper
->> > fix for the problem yet, but this patch at least removes the build
->> > error that recently started happening with the linux-yocto perf
->> > compile.
->> >
->> > I'll send a patch re-instating the code it removes once I've
->> > understood the perf recipe and root-caused the problem. =A0In any case=
-,
->> > it doesn't remove any functionality that was there before - NO_LIBPERL
->> > was always the case, but the code that made that happen just started
->> > blowing up for some reason.
+On 01/14/2011 07:56 PM, Bruce Ashfield wrote:
+> On Fri, Jan 14, 2011 at 10:43 PM, Tom Zanussi<tom.zanussi@intel.com>  wrote:
+>> On Fri, 2011-01-14 at 18:46 -0800, Bruce Ashfield wrote:
+>>> On Fri, Jan 14, 2011 at 5:49 PM, Tom Zanussi<tom.zanussi@intel.com>  wrote:
+>>>> I'm not familiar enough with the perf recipe to come up with a proper
+>>>> fix for the problem yet, but this patch at least removes the build
+>>>> error that recently started happening with the linux-yocto perf
+>>>> compile.
+>>>>
+>>>> I'll send a patch re-instating the code it removes once I've
+>>>> understood the perf recipe and root-caused the problem.  In any case,
+>>>> it doesn't remove any functionality that was there before - NO_LIBPERL
+>>>> was always the case, but the code that made that happen just started
+>>>> blowing up for some reason.
+>>>
+>>>
+>>> Thanks Tom! I was going to offer to merge this into the kernel
+>>> tree itself, since having external patches to the repo isn't something
+>>> we typically do. But in this case, the patch is temporary so I'm going
+>>> to just ack it, and stay out of the way.
+>>>
+>>
+>> Hi Bruce,
+>>
+>> The funny thing is that my first inclination and preference was to just
+>> submit the kernel patch, and I was about to do that anyway after having
+>> initial trouble getting it to apply this way...  Anyway, I decided at
+>> least this way if you weren't around to apply it to the kernel tree,
+>> Saul was waiting for it and it would be applied regardless - next time
+>> I'll just do it the easy way ;-)
+>
+> Agreed.  We think alike on this one. Hedging your bets on the one
+> step process of Saul pulling it into master without me needing to
+> be in the middle was good, but given the choice, I'd chose the merge
+> to the kernel branches as well.
+>
+The question still remains, is the root cause of this issue after the 
+perl update, so Nitin is still looking into this.
+
+Thanks for working the patch out so quickly, there are still a couple of 
+issues with Master, but it's looking alot better right now!
+
+Sau!
+
+> Cheers,
+>
+> Bruce
+>
+>>
+>> Tom
+>>
+>>> Cheers,
+>>>
+>>> Bruce
+>>>
+>>>>
+>>>> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>>>>   Branch: tzanussi/perf-no-libperl-fix
+>>>>   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=tzanussi/perf-no-libperl-fix
+>>>>
+>>>> Thanks,
+>>>>     Tom Zanussi<tom.zanussi@intel.com>
+>>>> ---
+>>>>
+>>>>
+>>>> Tom Zanussi (1):
+>>>>   linux-yocto: hard-code NO_LIBPERL/NO_LIBPYTHON
+>>>>
+>>>>   .../linux-yocto/tools-perf-no-scripting.patch      |   49 ++++++++++++++++++++
+>>>>   meta/recipes-kernel/linux/linux-yocto_git.bb       |    5 +-
+>>>>   2 files changed, 52 insertions(+), 2 deletions(-)
+>>>>   create mode 100644 meta/recipes-kernel/linux/linux-yocto/tools-perf-no-scripting.patch
+>>>>
+>>>> _______________________________________________
+>>>> poky mailing list
+>>>> poky@yoctoproject.org
+>>>> https://lists.yoctoproject.org/listinfo/poky
+>>>>
+>>>
+>>>
+>>>
 >>
 >>
->> Thanks Tom! I was going to offer to merge this into the kernel
->> tree itself, since having external patches to the repo isn't something
->> we typically do. But in this case, the patch is temporary so I'm going
->> to just ack it, and stay out of the way.
 >>
 >
-> Hi Bruce,
->
-> The funny thing is that my first inclination and preference was to just
-> submit the kernel patch, and I was about to do that anyway after having
-> initial trouble getting it to apply this way... =A0Anyway, I decided at
-> least this way if you weren't around to apply it to the kernel tree,
-> Saul was waiting for it and it would be applied regardless - next time
-> I'll just do it the easy way ;-)
-
-Agreed.  We think alike on this one. Hedging your bets on the one
-step process of Saul pulling it into master without me needing to
-be in the middle was good, but given the choice, I'd chose the merge
-to the kernel branches as well.
-
-Cheers,
-
-Bruce
-
->
-> Tom
->
->> Cheers,
->>
->> Bruce
->>
->> >
->> > Pull URL: git://git.pokylinux.org/poky-contrib.git
->> > =A0Branch: tzanussi/perf-no-libperl-fix
->> > =A0Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=3Dtza=
-nussi/perf-no-libperl-fix
->> >
->> > Thanks,
->> > =A0 =A0Tom Zanussi <tom.zanussi@intel.com>
->> > ---
->> >
->> >
->> > Tom Zanussi (1):
->> > =A0linux-yocto: hard-code NO_LIBPERL/NO_LIBPYTHON
->> >
->> > =A0.../linux-yocto/tools-perf-no-scripting.patch =A0 =A0 =A0| =A0 49 +=
-+++++++++++++++++++
->> > =A0meta/recipes-kernel/linux/linux-yocto_git.bb =A0 =A0 =A0 | =A0 =A05=
- +-
->> > =A02 files changed, 52 insertions(+), 2 deletions(-)
->> > =A0create mode 100644 meta/recipes-kernel/linux/linux-yocto/tools-perf=
--no-scripting.patch
->> >
->> > _______________________________________________
->> > poky mailing list
->> > poky@yoctoproject.org
->> > https://lists.yoctoproject.org/listinfo/poky
->> >
->>
->>
->>
->
 >
 >
 
-
-
---=20
-"Thou shalt not follow the NULL pointer, for chaos and madness await
-thee at its end"
 
