@@ -1,22 +1,22 @@
 Return-Path: <ke.yu@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D4A6D4C811F6
-	for <poky@yoctoproject.org>; Sun, 16 Jan 2011 06:15:06 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 16 Jan 2011 04:15:06 -0800
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 3BDD54C811F0
+	for <poky@yoctoproject.org>; Sun, 16 Jan 2011 06:15:08 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 16 Jan 2011 04:15:07 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,329,1291622400"; d="scan'208";a="877893649"
+X-IronPort-AV: E=Sophos;i="4.60,329,1291622400"; d="scan'208";a="647456206"
 Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
-	by fmsmga001.fm.intel.com with ESMTP; 16 Jan 2011 04:15:06 -0800
-Message-Id: <5d1c7f39c47ab875a36e8f56989b290a398a71f5.1295179186.git.ke.yu@intel.com>
+	by fmsmga002.fm.intel.com with ESMTP; 16 Jan 2011 04:15:07 -0800
+Message-Id: <13ceb795453bcf764ddf37be6da4132f575c253b.1295179186.git.ke.yu@intel.com>
 In-Reply-To: <cover.1295179186.git.ke.yu@intel.com>
 References: <cover.1295179186.git.ke.yu@intel.com>
 From: Yu Ke <ke.yu@intel.com>
-Old-Date: Fri, 14 Jan 2011 12:14:11 +0800
-Date: Sun, 16 Jan 2011 20:19:41 +0800
+Old-Date: Fri, 14 Jan 2011 12:18:50 +0800
+Date: Sun, 16 Jan 2011 20:19:43 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 08/19] xf86-input-keyboard: upgrade to 1.5.0
+Subject: [PATCH 09/19] xkbcomp: upgrade to 1.2.0
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,64 +28,78 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 16 Jan 2011 12:15:07 -0000
+X-List-Received-Date: Sun, 16 Jan 2011 12:15:08 -0000
 
-- update license checksum due to commit "Sun's copyrights now belong to Oracle". the license type is unchanged.
+- also pick one patch from upstream to fix the cross compiling error during the do_configure. it can be safely removed in the next upgrade.
 
 Signed-off-by: Yu Ke <ke.yu@intel.com>
 ---
- .../distro/include/preferred-xorg-versions.inc     |    2 +-
- .../xorg-driver/xf86-input-keyboard_1.4.0.bb       |   10 ----------
- .../xorg-driver/xf86-input-keyboard_1.5.0.bb       |   10 ++++++++++
- 3 files changed, 11 insertions(+), 11 deletions(-)
- delete mode 100644 meta/recipes-graphics/xorg-driver/xf86-input-keyboard_1.4.0.bb
- create mode 100644 meta/recipes-graphics/xorg-driver/xf86-input-keyboard_1.5.0.bb
+ .../xorg-app/xkbcomp/cross-compile-fix.patch       |   35 ++++++++++++++++++++
+ .../{xkbcomp_1.1.1.bb => xkbcomp_1.2.0.bb}         |    6 ++-
+ 2 files changed, 39 insertions(+), 2 deletions(-)
+ create mode 100644 meta/recipes-graphics/xorg-app/xkbcomp/cross-compile-fix.patch
+ rename meta/recipes-graphics/xorg-app/{xkbcomp_1.1.1.bb => xkbcomp_1.2.0.bb} (61%)
 
-diff --git a/meta/conf/distro/include/preferred-xorg-versions.inc b/meta/conf/distro/include/preferred-xorg-versions.inc
-index e3cba65..a093653 100644
---- a/meta/conf/distro/include/preferred-xorg-versions.inc
-+++ b/meta/conf/distro/include/preferred-xorg-versions.inc
-@@ -144,7 +144,7 @@ PREFERRED_VERSION_libxcb-nativesdk ?= "1.7"
- PREFERRED_VERSION_libpciaccess ?= "0.12.0"
- PREFERRED_VERSION_xf86-input-evdev ?= "2.5.0"
- PREFERRED_VERSION_xf86-input-mouse ?= "1.6.0"
--PREFERRED_VERSION_xf86-input-keyboard ?= "1.4.0"
-+PREFERRED_VERSION_xf86-input-keyboard ?= "1.5.0"
- PREFERRED_VERSION_xf86-input-synaptics ?= "1.2.1"
- PREFERRED_VERSION_xf86-video-intel ?= "2.13.0"
- 
-diff --git a/meta/recipes-graphics/xorg-driver/xf86-input-keyboard_1.4.0.bb b/meta/recipes-graphics/xorg-driver/xf86-input-keyboard_1.4.0.bb
-deleted file mode 100644
-index f5e51e0..0000000
---- a/meta/recipes-graphics/xorg-driver/xf86-input-keyboard_1.4.0.bb
-+++ /dev/null
-@@ -1,10 +0,0 @@
--require xf86-input-common.inc
--
--DESCRIPTION = "X.Org X server -- keyboard input driver"
--
--LIC_FILES_CHKSUM = "file://COPYING;md5=eae2c98cbb8c60401893ff9313ff3826"
--
--PR = "r1"
--
--SRC_URI[md5sum] = "fd17158ffeacecc8cc670604460cb98b"
--SRC_URI[sha256sum] = "842d36cfca68ddab4f2c562c73bfd43ba76de2d490d60034f0c5dd524aa6d6a5"
-diff --git a/meta/recipes-graphics/xorg-driver/xf86-input-keyboard_1.5.0.bb b/meta/recipes-graphics/xorg-driver/xf86-input-keyboard_1.5.0.bb
+diff --git a/meta/recipes-graphics/xorg-app/xkbcomp/cross-compile-fix.patch b/meta/recipes-graphics/xorg-app/xkbcomp/cross-compile-fix.patch
 new file mode 100644
-index 0000000..d3b58b3
+index 0000000..ca65345
 --- /dev/null
-+++ b/meta/recipes-graphics/xorg-driver/xf86-input-keyboard_1.5.0.bb
-@@ -0,0 +1,10 @@
-+require xf86-input-common.inc
++++ b/meta/recipes-graphics/xorg-app/xkbcomp/cross-compile-fix.patch
+@@ -0,0 +1,35 @@
++commit cc55d8f5ab021861308b071aab9c03016be15187
++Author: Gaetan Nadon <memsize@videotron.ca>
++Date:   Sun Oct 31 20:35:24 2010 -0400
 +
-+DESCRIPTION = "X.Org X server -- keyboard input driver"
++    config: replace AC_CHECK_FILE with test -f as it fails to cross-compile
++    
++    Testing for the presence of xkbparse.c is legitimate as this is a build
++    file, but the Autoconf macro assumes it is testing on the host system
++    and fails.
++    
++    Tested-by: Abdoulaye Walsimou Gaye <awg@embtoolkit.org>
++    Signed-off-by: Gaetan Nadon <memsize@videotron.ca>
 +
-+LIC_FILES_CHKSUM = "file://COPYING;md5=ea2099d24ac9e316a6d4b9f20b3d4e10"
++diff --git a/configure.ac b/configure.ac
++index c69230b..8e6bd6e 100644
++--- a/configure.ac
+++++ b/configure.ac
++@@ -34,11 +34,14 @@ XORG_DEFAULT_OPTIONS
++ 
++ AM_CONFIG_HEADER(config.h)
++ 
+++# If both the C file and YACC are missing, the package cannot be build.
++ AC_PROG_YACC
++ AC_PATH_PROG([YACC_INST], $YACC)
++-AC_CHECK_FILE([$srcdir/xkbparse.c], [],
++-              [test -z "$YACC_INST" && AC_MSG_ERROR([yacc not found - unable to compile xkbparse.y])])
++-
+++if test ! -f "$srcdir/xkbparse.c"; then
+++   if test -z "$YACC_INST"; then
+++      AC_MSG_ERROR([yacc not found - unable to compile xkbparse.y])
+++   fi
+++fi
++ 
++ AC_CHECK_FUNCS([strdup strcasecmp])
++ 
+diff --git a/meta/recipes-graphics/xorg-app/xkbcomp_1.1.1.bb b/meta/recipes-graphics/xorg-app/xkbcomp_1.2.0.bb
+similarity index 61%
+rename from meta/recipes-graphics/xorg-app/xkbcomp_1.1.1.bb
+rename to meta/recipes-graphics/xorg-app/xkbcomp_1.2.0.bb
+index bd40e42..b8592fa 100644
+--- a/meta/recipes-graphics/xorg-app/xkbcomp_1.1.1.bb
++++ b/meta/recipes-graphics/xorg-app/xkbcomp_1.2.0.bb
+@@ -8,7 +8,9 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=08436e4f4476964e2e2dd7e7e41e076a"
+ 
+ DEPENDS += "libxkbfile"
+ 
++SRC_URI += "file://cross-compile-fix.patch"
 +
-+PR = "r0"
-+
-+SRC_URI[md5sum] = "b74d7162db5ce7899c17927c6cfa9522"
-+SRC_URI[sha256sum] = "2303510e905465ebee91f22cdd75706a15afb108258bc220c7500f213de19cb0"
+ BBCLASSEXTEND = "native"
+ 
+-SRC_URI[md5sum] = "38c387bacdc01038c8ac280588792bcf"
+-SRC_URI[sha256sum] = "9775bcfd43d9ffa41e2865e5b2c933f419bf983d7a529b3103656c76fd82e663"
++SRC_URI[md5sum] = "0f55995cd8da9b2d88553e1a2e17cd0a"
++SRC_URI[sha256sum] = "2c64aa414755e764ca548ae5c93e95f7b5bbd5e01bca16bf226fd32bfae77ea4"
 -- 
 1.7.0.4
 
