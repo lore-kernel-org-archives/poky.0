@@ -1,22 +1,22 @@
 Return-Path: <ke.yu@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 497FA4C810EE
-	for <poky@yoctoproject.org>; Sun, 16 Jan 2011 06:15:00 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 16 Jan 2011 04:15:00 -0800
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 441604C811F0
+	for <poky@yoctoproject.org>; Sun, 16 Jan 2011 06:15:02 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 16 Jan 2011 04:15:01 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,329,1291622400"; d="scan'208";a="647456160"
+X-IronPort-AV: E=Sophos;i="4.60,329,1291622400"; d="scan'208";a="375291441"
 Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
-	by fmsmga002.fm.intel.com with ESMTP; 16 Jan 2011 04:14:59 -0800
-Message-Id: <5b25a8b9ae894260d46530ee18d7d818e797618b.1295179186.git.ke.yu@intel.com>
+	by azsmga001.ch.intel.com with ESMTP; 16 Jan 2011 04:15:01 -0800
+Message-Id: <bd4d06e0bec06d9ae41d4394717c66330c39d860.1295179186.git.ke.yu@intel.com>
 In-Reply-To: <cover.1295179186.git.ke.yu@intel.com>
 References: <cover.1295179186.git.ke.yu@intel.com>
 From: Yu Ke <ke.yu@intel.com>
-Old-Date: Fri, 14 Jan 2011 11:21:23 +0800
-Date: Sun, 16 Jan 2011 20:19:35 +0800
+Old-Date: Fri, 14 Jan 2011 11:32:59 +0800
+Date: Sun, 16 Jan 2011 20:19:37 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 04/19] bigreqsproto: upgrade to 1.1.1
+Subject: [PATCH 05/19] xprop: upgrade to 1.2.0
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,55 +28,70 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 16 Jan 2011 12:15:00 -0000
+X-List-Received-Date: Sun, 16 Jan 2011 12:15:02 -0000
+
+- LICENSE_CHECKSUM changed due to the commit "COPYING: replace stub with copyright notices". this commit add more accurate license info, and the license type is still MIT-X.
 
 Signed-off-by: Yu Ke <ke.yu@intel.com>
 ---
- .../distro/include/preferred-xorg-versions.inc     |    6 +++---
- ...bigreqsproto_1.1.0.bb => bigreqsproto_1.1.1.bb} |    6 +++---
- 2 files changed, 6 insertions(+), 6 deletions(-)
- rename meta/recipes-graphics/xorg-proto/{bigreqsproto_1.1.0.bb => bigreqsproto_1.1.1.bb} (59%)
+ .../distro/include/preferred-xorg-versions.inc     |    2 +-
+ meta/recipes-graphics/xorg-app/xprop_1.1.0.bb      |   13 -------------
+ meta/recipes-graphics/xorg-app/xprop_1.2.0.bb      |   13 +++++++++++++
+ 3 files changed, 14 insertions(+), 14 deletions(-)
+ delete mode 100644 meta/recipes-graphics/xorg-app/xprop_1.1.0.bb
+ create mode 100644 meta/recipes-graphics/xorg-app/xprop_1.2.0.bb
 
 diff --git a/meta/conf/distro/include/preferred-xorg-versions.inc b/meta/conf/distro/include/preferred-xorg-versions.inc
-index ce6f9cf..a716281 100644
+index a716281..f0dd923 100644
 --- a/meta/conf/distro/include/preferred-xorg-versions.inc
 +++ b/meta/conf/distro/include/preferred-xorg-versions.inc
-@@ -3,9 +3,9 @@
- #
- 
- PREFERRED_VERSION_applewmproto ?= "1.4.1"
--PREFERRED_VERSION_bigreqsproto ?= "1.1.0"
--PREFERRED_VERSION_bigreqsproto-native ?= "1.1.0"
--PREFERRED_VERSION_bigreqsproto-nativesdk ?= "1.1.0"
-+PREFERRED_VERSION_bigreqsproto ?= "1.1.1"
-+PREFERRED_VERSION_bigreqsproto-native ?= "1.1.1"
-+PREFERRED_VERSION_bigreqsproto-nativesdk ?= "1.1.1"
- PREFERRED_VERSION_compositeproto ?= "0.4.2"
- PREFERRED_VERSION_damageproto ?= "1.2.1"
- PREFERRED_VERSION_dmxproto ?= "2.3"
-diff --git a/meta/recipes-graphics/xorg-proto/bigreqsproto_1.1.0.bb b/meta/recipes-graphics/xorg-proto/bigreqsproto_1.1.1.bb
-similarity index 59%
-rename from meta/recipes-graphics/xorg-proto/bigreqsproto_1.1.0.bb
-rename to meta/recipes-graphics/xorg-proto/bigreqsproto_1.1.1.bb
-index 894c141..57d74ae 100644
---- a/meta/recipes-graphics/xorg-proto/bigreqsproto_1.1.0.bb
-+++ b/meta/recipes-graphics/xorg-proto/bigreqsproto_1.1.1.bb
-@@ -1,6 +1,6 @@
- require xorg-proto-common.inc
- 
--PR = "r2"
+@@ -121,7 +121,7 @@ PREFERRED_VERSION_xinit ?= "1.3.0"
+ PREFERRED_VERSION_xineramaproto ?= "1.2"
+ PREFERRED_VERSION_xmodmap ?= "1.0.5"
+ PREFERRED_VERSION_xorg-cf-files ?= "1.0.3"
+-PREFERRED_VERSION_xprop ?= "1.1.0"
++PREFERRED_VERSION_xprop ?= "1.2.0"
+ PREFERRED_VERSION_xproto ?= "7.0.20"
+ PREFERRED_VERSION_xproto-native ?= "7.0.20"
+ PREFERRED_VERSION_xproto-nativesdk ?= "7.0.20"
+diff --git a/meta/recipes-graphics/xorg-app/xprop_1.1.0.bb b/meta/recipes-graphics/xorg-app/xprop_1.1.0.bb
+deleted file mode 100644
+index cfa02dd..0000000
+--- a/meta/recipes-graphics/xorg-app/xprop_1.1.0.bb
++++ /dev/null
+@@ -1,13 +0,0 @@
+-require xorg-app-common.inc
+-
+-DESCRIPTION = "utility to display window and font properties of an X server"
+-
+-LIC_FILES_CHKSUM = "file://COPYING;md5=4641deddaa80fe7ca88e944e1fd94a94"
+-
+-DEPENDS += " libxmu virtual/libx11"
+-
+-PR = "r0"
+-PE = "1"
+-
+-SRC_URI[md5sum] = "f0bacbd30f0dd1c1e9ccafe97687b7a4"
+-SRC_URI[sha256sum] = "cc8e07901574895f113baffda19272c54545879e02012314527ebbf2dcc66226"
+diff --git a/meta/recipes-graphics/xorg-app/xprop_1.2.0.bb b/meta/recipes-graphics/xorg-app/xprop_1.2.0.bb
+new file mode 100644
+index 0000000..4d35636
+--- /dev/null
++++ b/meta/recipes-graphics/xorg-app/xprop_1.2.0.bb
+@@ -0,0 +1,13 @@
++require xorg-app-common.inc
++
++DESCRIPTION = "utility to display window and font properties of an X server"
++
++LIC_FILES_CHKSUM = "file://COPYING;md5=e226ab8db88ac0bc0391673be40c9f91"
++
++DEPENDS += " libxmu virtual/libx11"
++
 +PR = "r0"
- PE = "1"
- 
- DEPENDS += "gettext"
-@@ -11,5 +11,5 @@ BBCLASSEXTEND = "native nativesdk"
- 
- LIC_FILES_CHKSUM = "file://COPYING;md5=b12715630da6f268d0d3712ee1a504f4"
- 
--SRC_URI[md5sum] = "d30c5dbf19ca6dffcd9788227ecff8c5"
--SRC_URI[sha256sum] = "4864e12d3c5a99b0a9ee4704822455299345e6c65b23c688a4e4bf11481107bd"
-+SRC_URI[md5sum] = "6f6c24436c2b3ab235eb14a85b9aaacf"
-+SRC_URI[sha256sum] = "1c3b85872b58d215e8fbfdc7c36bb397d10053324a5df8722227d35254fff09a"
++PE = "1"
++
++SRC_URI[md5sum] = "e6d0673a1e1e469f0a6220a6868fb94b"
++SRC_URI[sha256sum] = "53508c082b03dbbfd68489cb21392023f3e62ca9c921e1fb39b92ad10fbe6b9c"
 -- 
 1.7.0.4
 
