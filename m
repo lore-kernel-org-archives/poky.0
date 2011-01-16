@@ -1,22 +1,22 @@
 Return-Path: <ke.yu@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B48394C811F8
-	for <poky@yoctoproject.org>; Sun, 16 Jan 2011 06:15:18 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 16 Jan 2011 04:15:18 -0800
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 90CD44C811F9
+	for <poky@yoctoproject.org>; Sun, 16 Jan 2011 06:15:15 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 16 Jan 2011 04:15:15 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,329,1291622400"; d="scan'208";a="877893683"
+X-IronPort-AV: E=Sophos;i="4.60,329,1291622400"; d="scan'208";a="697350688"
 Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
-	by fmsmga001.fm.intel.com with ESMTP; 16 Jan 2011 04:15:18 -0800
-Message-Id: <f7c231a439d14d3d4b998d544b185d8821279873.1295179186.git.ke.yu@intel.com>
+	by orsmga001.jf.intel.com with ESMTP; 16 Jan 2011 04:15:14 -0800
+Message-Id: <00f2e30334bea10df277a86dd398296ae3acb3cf.1295179186.git.ke.yu@intel.com>
 In-Reply-To: <cover.1295179186.git.ke.yu@intel.com>
 References: <cover.1295179186.git.ke.yu@intel.com>
 From: Yu Ke <ke.yu@intel.com>
-Old-Date: Fri, 14 Jan 2011 16:39:59 +0800
-Date: Sun, 16 Jan 2011 20:19:54 +0800
+Old-Date: Fri, 14 Jan 2011 16:22:13 +0800
+Date: Sun, 16 Jan 2011 20:19:50 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 16/19] mesa: upgrade to mesa 7.10
+Subject: [PATCH 14/19] xf86-video-intel: upgrade to 2.14.0
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,49 +28,42 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 16 Jan 2011 12:15:18 -0000
-
-- add SRC_URI checksum
-- remove the DEFAULT_PREFERENCE for atom_pc, since mesa 7.10 has dependency on GPLv3 talloc. the latest non-GPLv3 one is mesa 7.8.2, atom_pc can use that vesion.
+X-List-Received-Date: Sun, 16 Jan 2011 12:15:20 -0000
 
 Signed-off-by: Yu Ke <ke.yu@intel.com>
 ---
- .../mesa/{mesa-dri_7.9.bb => mesa-dri_7.10.bb}     |   10 +++++-----
- 1 files changed, 5 insertions(+), 5 deletions(-)
- rename meta/recipes-graphics/mesa/{mesa-dri_7.9.bb => mesa-dri_7.10.bb} (83%)
+ .../distro/include/preferred-xorg-versions.inc     |    2 +-
+ ...-intel_2.13.0.bb => xf86-video-intel_2.14.0.bb} |    4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+ rename meta/recipes-graphics/xorg-driver/{xf86-video-intel_2.13.0.bb => xf86-video-intel_2.14.0.bb} (72%)
 
-diff --git a/meta/recipes-graphics/mesa/mesa-dri_7.9.bb b/meta/recipes-graphics/mesa/mesa-dri_7.10.bb
-similarity index 83%
-rename from meta/recipes-graphics/mesa/mesa-dri_7.9.bb
-rename to meta/recipes-graphics/mesa/mesa-dri_7.10.bb
-index 313b655..3031e4b 100644
---- a/meta/recipes-graphics/mesa/mesa-dri_7.9.bb
-+++ b/meta/recipes-graphics/mesa/mesa-dri_7.10.bb
-@@ -6,19 +6,19 @@ PROTO_DEPS = "xf86driproto glproto dri2proto"
- LIB_DEPS = "libdrm virtual/libx11 libxext libxxf86vm libxdamage libxfixes expat \
-             libxml2-native talloc"
+diff --git a/meta/conf/distro/include/preferred-xorg-versions.inc b/meta/conf/distro/include/preferred-xorg-versions.inc
+index 6bdfa9c..4d4a475 100644
+--- a/meta/conf/distro/include/preferred-xorg-versions.inc
++++ b/meta/conf/distro/include/preferred-xorg-versions.inc
+@@ -146,6 +146,6 @@ PREFERRED_VERSION_xf86-input-evdev ?= "2.6.0"
+ PREFERRED_VERSION_xf86-input-mouse ?= "1.6.0"
+ PREFERRED_VERSION_xf86-input-keyboard ?= "1.5.0"
+ PREFERRED_VERSION_xf86-input-synaptics ?= "1.3.0"
+-PREFERRED_VERSION_xf86-video-intel ?= "2.13.0"
++PREFERRED_VERSION_xf86-video-intel ?= "2.14.0"
  
--DEPENDS = "${PROTO_DEPS}  ${LIB_DEPS} mesa-dri-glsl-native"
-+DEPENDS = "${PROTO_DEPS}  ${LIB_DEPS}"
  
--PR = "r1"
-+PR = "r0"
+diff --git a/meta/recipes-graphics/xorg-driver/xf86-video-intel_2.13.0.bb b/meta/recipes-graphics/xorg-driver/xf86-video-intel_2.14.0.bb
+similarity index 72%
+rename from meta/recipes-graphics/xorg-driver/xf86-video-intel_2.13.0.bb
+rename to meta/recipes-graphics/xorg-driver/xf86-video-intel_2.14.0.bb
+index 6f0c81c..54dc11b 100644
+--- a/meta/recipes-graphics/xorg-driver/xf86-video-intel_2.13.0.bb
++++ b/meta/recipes-graphics/xorg-driver/xf86-video-intel_2.14.0.bb
+@@ -11,5 +11,5 @@ DEPENDS += "virtual/libx11 libxvmc drm xf86driproto glproto \
  
- SRC_URI = "ftp://ftp.freedesktop.org/pub/mesa/${PV}/MesaLib-${PV}.tar.bz2 \
-            file://crossfix.patch"
+ COMPATIBLE_HOST = '(i.86|x86_64).*-linux'
  
-+SRC_URI[md5sum] = "33fb94eccc02cbb4d8d1365615e38e46"
-+SRC_URI[sha256sum] = "bcf28f43f39c28da271c0f5857fb32898d4ade3e035e80a0ceece1c2df6e0aca"
-+
- # most of our targets do not have DRI so will use mesa-xlib
- DEFAULT_PREFERENCE = "-1"
- 
--# Atom PCs have DRI support so use mesa-dri by default
--DEFAULT_PREFERENCE_atom-pc = "1"
--
- LEAD_SONAME = "libGL.so.1"
- 
- EXTRA_OECONF += "--with-driver=dri --disable-egl --disable-gallium"
+-SRC_URI[md5sum] = "de2f8a5836d90c71f3175dcd46d03ec0"
+-SRC_URI[sha256sum] = "d8b2fae8d0c4ae372994cb7df8de8aa995b8e89b1bc5766c53ea0751752fc887"
++SRC_URI[md5sum] = "05f187582aeabda57fcd6f2782cfbf8e"
++SRC_URI[sha256sum] = "e18c37a579a960516e69de5c6f74750ca02208c0e41cf763ae5630c84db507df"
 -- 
 1.7.0.4
 
