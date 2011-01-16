@@ -1,20 +1,22 @@
 Return-Path: <ke.yu@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 005764C8086E
-	for <poky@yoctoproject.org>; Sun, 16 Jan 2011 06:14:56 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 16 Jan 2011 04:14:54 -0800
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id BB7B44C810EE
+	for <poky@yoctoproject.org>; Sun, 16 Jan 2011 06:14:57 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 16 Jan 2011 04:14:57 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,329,1291622400"; d="scan'208";a="375291419"
+X-IronPort-AV: E=Sophos;i="4.60,329,1291622400"; d="scan'208";a="593465315"
 Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
-	by azsmga001.ch.intel.com with ESMTP; 16 Jan 2011 04:14:53 -0800
-Message-Id: <cover.1295179186.git.ke.yu@intel.com>
+	by orsmga002.jf.intel.com with ESMTP; 16 Jan 2011 04:14:56 -0800
+Message-Id: <8e2e1ec525739af9f230e74b8283ed281f27a1aa.1295179186.git.ke.yu@intel.com>
+In-Reply-To: <cover.1295179186.git.ke.yu@intel.com>
+References: <cover.1295179186.git.ke.yu@intel.com>
 From: Yu Ke <ke.yu@intel.com>
-Old-Date: Sun, 16 Jan 2011 19:59:46 +0800
-Date: Sun, 16 Jan 2011 20:19:29 +0800
+Old-Date: Thu, 13 Jan 2011 15:37:33 +0800
+Date: Sun, 16 Jan 2011 20:19:32 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 00/19] graphics recipes upgrade
+Subject: [PATCH 02/19] mkfontdir: upgrade to 1.0.6
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,100 +30,37 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Sun, 16 Jan 2011 12:14:57 -0000
 
-this patch series upgrade the graphics recpies. with this upgrade, the graphics recpies are aligned with
-- the latest X11 release: X11R7.6 (http://www.x.org/releases/X11R7.6)
-- the latest Intel 2010Q4 graphics package (http://intellinuxgraphics.org/2010Q4.html)
-
-One note on the mesa3d lib:  both latest mesa 7.10 and old mesa 7.8.2 are provided. mesa 7.10 has dependency on GPLv3 lib (talloc), so it is only used when there is required functionality that mesa 7.8.2 can not provid, for example, SNB graphics support.  mesa 7.8.2 has no GPLv3 depdency, so it can be used in normal case. there is activity ongoing in upstream to remove the talloc depdency, we will monitor and adopt it once it is done.
-
-for the root-less X support, there still some issue with the configuration, so the related patch will be sent later.
-
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: kyu3/x-upgrade
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kyu3/x-upgrade
-
-Thanks,
-    Yu Ke <ke.yu@intel.com>
+Signed-off-by: Yu Ke <ke.yu@intel.com>
 ---
-
-
-Yu Ke (19):
-  xhost: upgrade to 1.0.4
-  mkfontdir: upgrade to 1.0.6
-  xinit: upgrade to 1.3.0
-  bigreqsproto: upgrade to 1.1.1
-  xprop: upgrade to 1.2.0
-  mkfontscale: upgrade to 1.0.8
-  xdpyinfo: upgrade to 1.2.0
-  xf86-input-keyboard: upgrade to 1.5.0
-  xkbcomp: upgrade to 1.2.0
-  xf86-input-evdev: upgrade to 2.6.0
-  xf86-input-synaptics: upgrade to 1.3.0
-  libdrm: upgrade to 2.4.23
-  xwininfo: upgrade to 1.1.1
-  xf86-video-intel: upgrade to 2.14.0
-  cairo: upgrade to 1.10.2
-  mesa: upgrade to mesa 7.10
-  mesa-glsl: add mesa glsl 7.8.2
-  mesa: add mesa 7.8.2
-  xserver-xf86-dri-lite: upgrade to 1.9.3
-
- .../distro/include/preferred-xorg-versions.inc     |   30 +++++-----
- .../cairo/{cairo_1.10.0.bb => cairo_1.10.2.bb}     |    6 +-
- .../installtests.patch                             |    0
- .../drm/{libdrm_2.4.22.bb => libdrm_2.4.23.bb}     |    4 +-
- meta/recipes-graphics/mesa/mesa-common.inc         |    4 +-
- .../mesa/mesa-dri-glsl-native_7.8.2.bb             |   27 +++++++++
- .../mesa/mesa-dri-glsl-native_7.9.bb               |   25 --------
- .../mesa/{mesa-dri_7.9.bb => mesa-dri_7.10.bb}     |   10 ++--
- meta/recipes-graphics/mesa/mesa-dri_7.8.2.bb       |   59 ++++++++++++++++++++
- .../{mkfontdir_1.0.5.bb => mkfontdir_1.0.6.bb}     |    6 +-
- .../recipes-graphics/xorg-app/mkfontscale_1.0.7.bb |   12 ----
- .../recipes-graphics/xorg-app/mkfontscale_1.0.8.bb |   12 ++++
- .../{xdpyinfo_1.1.0.bb => xdpyinfo_1.2.0.bb}       |    6 +-
- meta/recipes-graphics/xorg-app/xhost_1.0.3.bb      |   10 ---
- meta/recipes-graphics/xorg-app/xhost_1.0.4.bb      |   10 +++
- .../xorg-app/{xinit_1.2.1.bb => xinit_1.3.0.bb}    |    4 +-
- .../xorg-app/xkbcomp/cross-compile-fix.patch       |   35 ++++++++++++
- .../{xkbcomp_1.1.1.bb => xkbcomp_1.2.0.bb}         |    6 +-
- meta/recipes-graphics/xorg-app/xprop_1.1.0.bb      |   13 ----
- meta/recipes-graphics/xorg-app/xprop_1.2.0.bb      |   13 ++++
- .../{xwininfo_1.1.0.bb => xwininfo_1.1.1.bb}       |    4 +-
- ...ut-evdev_2.5.0.bb => xf86-input-evdev_2.6.0.bb} |    4 +-
- .../xorg-driver/xf86-input-keyboard_1.4.0.bb       |   10 ---
- .../xorg-driver/xf86-input-keyboard_1.5.0.bb       |   10 +++
- .../xorg-driver/xf86-input-synaptics_1.2.1.bb      |   10 ---
- .../xorg-driver/xf86-input-synaptics_1.3.0.bb      |   16 +++++
- ...-intel_2.13.0.bb => xf86-video-intel_2.14.0.bb} |    4 +-
- ...bigreqsproto_1.1.0.bb => bigreqsproto_1.1.1.bb} |    6 +-
- ...ite_1.9.2.bb => xserver-xf86-dri-lite_1.9.3.bb} |    4 +-
- 29 files changed, 232 insertions(+), 128 deletions(-)
- rename meta/recipes-graphics/cairo/{cairo_1.10.0.bb => cairo_1.10.2.bb} (90%)
- rename meta/recipes-graphics/drm/{libdrm-2.4.22 => libdrm-2.4.23}/installtests.patch (100%)
- rename meta/recipes-graphics/drm/{libdrm_2.4.22.bb => libdrm_2.4.23.bb} (54%)
- create mode 100644 meta/recipes-graphics/mesa/mesa-dri-glsl-native_7.8.2.bb
- delete mode 100644 meta/recipes-graphics/mesa/mesa-dri-glsl-native_7.9.bb
- rename meta/recipes-graphics/mesa/{mesa-dri_7.9.bb => mesa-dri_7.10.bb} (83%)
- create mode 100644 meta/recipes-graphics/mesa/mesa-dri_7.8.2.bb
+ .../{mkfontdir_1.0.5.bb => mkfontdir_1.0.6.bb}     |    6 +++---
+ 1 files changed, 3 insertions(+), 3 deletions(-)
  rename meta/recipes-graphics/xorg-app/{mkfontdir_1.0.5.bb => mkfontdir_1.0.6.bb} (62%)
- delete mode 100644 meta/recipes-graphics/xorg-app/mkfontscale_1.0.7.bb
- create mode 100644 meta/recipes-graphics/xorg-app/mkfontscale_1.0.8.bb
- rename meta/recipes-graphics/xorg-app/{xdpyinfo_1.1.0.bb => xdpyinfo_1.2.0.bb} (56%)
- delete mode 100644 meta/recipes-graphics/xorg-app/xhost_1.0.3.bb
- create mode 100644 meta/recipes-graphics/xorg-app/xhost_1.0.4.bb
- rename meta/recipes-graphics/xorg-app/{xinit_1.2.1.bb => xinit_1.3.0.bb} (59%)
- create mode 100644 meta/recipes-graphics/xorg-app/xkbcomp/cross-compile-fix.patch
- rename meta/recipes-graphics/xorg-app/{xkbcomp_1.1.1.bb => xkbcomp_1.2.0.bb} (61%)
- delete mode 100644 meta/recipes-graphics/xorg-app/xprop_1.1.0.bb
- create mode 100644 meta/recipes-graphics/xorg-app/xprop_1.2.0.bb
- rename meta/recipes-graphics/xorg-app/{xwininfo_1.1.0.bb => xwininfo_1.1.1.bb} (58%)
- rename meta/recipes-graphics/xorg-driver/{xf86-input-evdev_2.5.0.bb => xf86-input-evdev_2.6.0.bb} (54%)
- delete mode 100644 meta/recipes-graphics/xorg-driver/xf86-input-keyboard_1.4.0.bb
- create mode 100644 meta/recipes-graphics/xorg-driver/xf86-input-keyboard_1.5.0.bb
- delete mode 100644 meta/recipes-graphics/xorg-driver/xf86-input-synaptics_1.2.1.bb
- create mode 100644 meta/recipes-graphics/xorg-driver/xf86-input-synaptics_1.3.0.bb
- rename meta/recipes-graphics/xorg-driver/{xf86-video-intel_2.13.0.bb => xf86-video-intel_2.14.0.bb} (72%)
- rename meta/recipes-graphics/xorg-proto/{bigreqsproto_1.1.0.bb => bigreqsproto_1.1.1.bb} (59%)
- rename meta/recipes-graphics/xorg-xserver/{xserver-xf86-dri-lite_1.9.2.bb => xserver-xf86-dri-lite_1.9.3.bb} (75%)
+
+diff --git a/meta/recipes-graphics/xorg-app/mkfontdir_1.0.5.bb b/meta/recipes-graphics/xorg-app/mkfontdir_1.0.6.bb
+similarity index 62%
+rename from meta/recipes-graphics/xorg-app/mkfontdir_1.0.5.bb
+rename to meta/recipes-graphics/xorg-app/mkfontdir_1.0.6.bb
+index aebc11d..9b843fc 100644
+--- a/meta/recipes-graphics/xorg-app/mkfontdir_1.0.5.bb
++++ b/meta/recipes-graphics/xorg-app/mkfontdir_1.0.6.bb
+@@ -3,7 +3,7 @@ require xorg-app-common.inc
+ DESCRIPTION = "a program to create an index of X font files in a directory"
+ 
+ PE = "1"
+-PR = "r1"
++PR = "r0"
+ 
+ RDEPENDS_${PN} += "mkfontscale"
+ 
+@@ -11,5 +11,5 @@ BBCLASSEXTEND = "native"
+ 
+ LIC_FILES_CHKSUM = "file://COPYING;md5=b4fcf2b90cadbfc15009b9e124dc3a3f"
+ 
+-SRC_URI[md5sum] = "9365ac66d19186eaf030482d312fca06"
+-SRC_URI[sha256sum] = "a534650cff503619f9101577d816cde283da993bc039273477bd8dfbd01a2d0b"
++SRC_URI[md5sum] = "dc342dd8858416254bb5f71a9ddce589"
++SRC_URI[sha256sum] = "55d56c6310f8d2268cb8978e838d01d27c7d70e30282c373c5a935ab3fb8c859"
+-- 
+1.7.0.4
 
 
