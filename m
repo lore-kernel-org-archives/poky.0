@@ -1,21 +1,21 @@
 Return-Path: <nitin.a.kamble@intel.com>
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A8D524C811F9
+	by mx1.pokylinux.org (Postfix) with ESMTP id DA3254C811FE
 	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 16:45:54 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 17 Jan 2011 14:45:52 -0800
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 17 Jan 2011 14:45:53 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,335,1291622400"; d="scan'208";a="697744909"
+X-IronPort-AV: E=Sophos;i="4.60,335,1291622400"; d="scan'208";a="593832488"
 Received: from nbuild2.sc.intel.com (HELO localhost) ([172.25.110.37])
-	by orsmga001.jf.intel.com with ESMTP; 17 Jan 2011 14:45:52 -0800
-Message-Id: <e449751c97118383cb93ae22b5fe649da88bc5e8.1295304080.git.nitin.a.kamble@intel.com>
+	by orsmga002.jf.intel.com with ESMTP; 17 Jan 2011 14:45:53 -0800
+Message-Id: <1dfa6e07d6b2b6692442c9f5445419a348f3d360.1295304080.git.nitin.a.kamble@intel.com>
 In-Reply-To: <cover.1295304080.git.nitin.a.kamble@intel.com>
 References: <cover.1295304080.git.nitin.a.kamble@intel.com>
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Old-Date: Mon, 17 Jan 2011 13:58:19 -0800
-Date: Mon, 17 Jan 2011 14:45:52 -0800
+Old-Date: Tue, 11 Jan 2011 09:48:49 -0800
+Date: Mon, 17 Jan 2011 14:45:53 -0800
 To: poky@yoctoproject.org
-Subject: [PATCH 02/12] sat-solver: fix the build failure caused by gcc dso linkcing change
+Subject: [PATCH 11/12] matchbox-stroke: : fix build issue with gcc dso linking change
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,76 +27,79 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 17 Jan 2011 22:45:54 -0000
+X-List-Received-Date: Mon, 17 Jan 2011 22:45:55 -0000
 
-The libraries for linking are not determined automatically now. All
-the needed libraries must be specified explicitly.
-
-This patch fixes the issue for missing librpmmisc library in the linker
-script.
+All the libraries needs to be specified explicitely with the new gcc dso
+linking change patch. This was causing build errors for this
+recipe. Specifying the libxrender library explicitely for
+linking to work without errors.
 
 Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
 ---
- .../sat-solver/dso_linking_change_build_fix.patch  |   31 ++++++++++++++++++++
- meta/recipes-extended/sat-solver/sat-solver_git.bb |    5 ++-
- 2 files changed, 34 insertions(+), 2 deletions(-)
- create mode 100644 meta/recipes-extended/sat-solver/sat-solver/dso_linking_change_build_fix.patch
+ .../files/dso_linking_change_build_fix.patch       |   36 ++++++++++++++++++++
+ .../matchbox-stroke/matchbox-stroke_svn.bb         |    4 ++-
+ 2 files changed, 39 insertions(+), 1 deletions(-)
+ create mode 100644 meta/recipes-sato/matchbox-stroke/files/dso_linking_change_build_fix.patch
 
-diff --git a/meta/recipes-extended/sat-solver/sat-solver/dso_linking_change_build_fix.patch b/meta/recipes-extended/sat-solver/sat-solver/dso_linking_change_build_fix.patch
+diff --git a/meta/recipes-sato/matchbox-stroke/files/dso_linking_change_build_fix.patch b/meta/recipes-sato/matchbox-stroke/files/dso_linking_change_build_fix.patch
 new file mode 100644
-index 0000000..7aeee29
+index 0000000..dd45341
 --- /dev/null
-+++ b/meta/recipes-extended/sat-solver/sat-solver/dso_linking_change_build_fix.patch
-@@ -0,0 +1,31 @@
-+After adding dso patch to gcc, the linking of libraries has to be explicit.
-+Following error caused by dso patch is fixed for this patch.
++++ b/meta/recipes-sato/matchbox-stroke/files/dso_linking_change_build_fix.patch
+@@ -0,0 +1,36 @@
++after gcc linking has changed, all the libraries must be explicitely specified 
++This patch avoids these linking errors:
 +
-+| make[2]: Entering directory `/disk0/pokybuild/build1/tmp/work/i586-poky-linux/sat-solver-0.0-git0+aa799f7bae0ec055e0e527203635001bb7346dbc-r1/git'^M
-+| Linking C executable findfileconflicts^M
-+| cd /disk0/pokybuild/build1/tmp/work/i586-poky-linux/sat-solver-0.0-git0+aa799f7bae0ec055e0e527203635001bb7346dbc-r1/git/tools && /disk0/pokybuild/build1/tmp/sysroots/x86_64-linux/usr/bin/cmake -E cmake_link_script CMakeFiles/findfileconflicts.dir/link.txt --verbose=1^M
-+| /disk0/pokybuild/build1/tmp/sysroots/x86_64-linux/usr/bin/i586-poky-linux/i586-poky-linux-gcc  -march=i586  --sysroot=/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux  -Werror -Wall  -Wl,-O1 -Wl,--hash-style=gnu -Wl,--as-needed CMakeFiles/findfileconflicts.dir/findfileconflicts.o  -o findfileconflicts -rdynamic ../ext/libsatsolverext.a ../src/libsatsolver.a -lrpmio -lrpmdb^M
-+| /disk0/pokybuild/build1/tmp/sysroots/x86_64-linux/usr/libexec/i586-poky-linux/gcc/i586-poky-linux/4.5.1/ld: [: invalid DSO for symbol `db_env_create_rpmdb@@LIBRPMMISC_0' definition^M
-+| /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/librpmmisc-5.0.so: could not read symbols: Bad value^M
++| make[1]: Entering directory `/disk0/pokybuild/build1/tmp/work/i586-poky-linux/matchbox-stroke-0.0+svnr1820-r0/matchbox-stroke'^M
++| Making all in src^M
++| make[2]: Entering directory `/disk0/pokybuild/build1/tmp/work/i586-poky-linux/matchbox-stroke-0.0+svnr1820-r0/matchbox-stroke/src'^M
++| ccache i586-poky-linux-gcc -march=i586 --sysroot=/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux  -fexpensive-optimizations -fomit-frame-pointer -frename-registers -O2 -ggdb -feliminate-unused-debug-types  -Wl,-O1 -Wl,--hash-style=gnu -Wl,--as-needed -o matchbox-stroke matchbox-stroke.o matchbox-stroke-ui.o matchbox-stroke-recog.o matchbox-stroke-mode.o matchbox-stroke-action.o config-parser.o util-hash.o util.o -lXft -lX11 -lXtst -lfakekey   -lexpat -lm^M
++| /disk0/pokybuild/build1/tmp/sysroots/x86_64-linux/usr/libexec/i586-poky-linux/gcc/i586-poky-linux/4.5.1/ld: u: invalid DSO for symbol `XRenderFindVisualFormat' definition^M
++| /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libXrender.so.1: could not read symbols: Bad value^M
 +| collect2: ld returned 1 exit status^M
-+| make[2]: *** [tools/findfileconflicts] Error 1^M
++| make[2]: *** [matchbox-stroke] Error 1
 +
 +Nitin A Kamble <nitin.a.kamble@intel.com>
 +Date: 2011/01/11
 +
 +
-+Index: git/CMakeLists.txt
++Index: matchbox-stroke/configure.ac
 +===================================================================
-+--- git.orig/CMakeLists.txt
-++++ git/CMakeLists.txt
-+@@ -63,6 +63,10 @@ FIND_LIBRARY(RPMIO_LIBRARY NAMES rpmio)
-+ IF ( RPMIO_LIBRARY )
-+ SET( RPMDB_LIBRARY ${RPMIO_LIBRARY} ${RPMDB_LIBRARY} )
-+ ENDIF ( RPMIO_LIBRARY )
-++FIND_LIBRARY(RPMMISC_LIBRARY NAMES rpmmisc)
-++IF ( RPMMISC_LIBRARY )
-++SET( RPMDB_LIBRARY ${RPMMISC_LIBRARY} ${RPMDB_LIBRARY} )
-++ENDIF ( RPMMISC_LIBRARY )
-+ IF ( FEDORA )
-+ FIND_LIBRARY(DB_LIBRARY NAMES db)
-+ IF ( DB_LIBRARY )
-diff --git a/meta/recipes-extended/sat-solver/sat-solver_git.bb b/meta/recipes-extended/sat-solver/sat-solver_git.bb
-index db368b1..2e5f151 100644
---- a/meta/recipes-extended/sat-solver/sat-solver_git.bb
-+++ b/meta/recipes-extended/sat-solver/sat-solver_git.bb
-@@ -7,11 +7,12 @@ LIC_FILES_CHKSUM = "file://LICENSE.BSD;md5=62272bd11c97396d4aaf1c41bc11f7d8"
- DEPENDS = "libcheck rpm zlib expat"
++--- matchbox-stroke.orig/configure.ac
+++++ matchbox-stroke/configure.ac
++@@ -38,7 +38,7 @@ AC_ARG_WITH(expat-lib,         
++ 	   expat_lib=$withval, expat_lib=yes)
++ 
++ 
++-PKG_CHECK_MODULES(MBSTROKE, xft libfakekey,,
+++PKG_CHECK_MODULES(MBSTROKE, xft libfakekey xrender,,
++ 	         AC_MSG_ERROR([*** Required Librarys not found ***]))
++ 
++ dnl ------ Expat ------------------------------------------------------------
++@@ -160,4 +160,4 @@ echo "
++         compiler:               ${CC} 
++ 
++         Building with Debug:    ${enable_debug}
++-"
++\ No newline at end of file
+++"
+diff --git a/meta/recipes-sato/matchbox-stroke/matchbox-stroke_svn.bb b/meta/recipes-sato/matchbox-stroke/matchbox-stroke_svn.bb
+index 5021d88..de675c2 100644
+--- a/meta/recipes-sato/matchbox-stroke/matchbox-stroke_svn.bb
++++ b/meta/recipes-sato/matchbox-stroke/matchbox-stroke_svn.bb
+@@ -8,10 +8,12 @@ LIC_FILES_CHKSUM = "file://src/matchbox-stroke.h;endline=12;md5=8ed5c5bbec2321fb
+ DEPENDS = "libfakekey expat libxft"
+ SECTION = "x11/wm"
+ PV = "0.0+svnr${SRCPV}"
++PR = "r1"
  
- PV = "0.0-git${SRCPV}"
--PR = "r1"
-+PR = "r2"
+ SRC_URI = "svn://svn.o-hand.com/repos/matchbox/trunk;module=${PN};proto=http \
+            file://single-instance.patch;patch=1 \
+-           file://configure_fix.patch;patch=1;maxrev=1819 "
++           file://configure_fix.patch;patch=1;maxrev=1819 \
++           file://dso_linking_change_build_fix.patch "
  
- SRC_URI = "git://gitorious.org/opensuse/sat-solver.git;protocol=git \
-            file://cmake.patch \
--           file://rpm5.patch"
-+           file://rpm5.patch \
-+           file://dso_linking_change_build_fix.patch"
- 
- S = "${WORKDIR}/git"
+ S = "${WORKDIR}/${PN}"
  
 -- 
 1.7.3.4
