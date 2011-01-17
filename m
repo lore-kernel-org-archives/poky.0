@@ -1,22 +1,22 @@
 Return-Path: <bruce.ashfield@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 617244C811D2;
-	Mon, 17 Jan 2011 15:55:04 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5CFC14C80039;
+	Mon, 17 Jan 2011 15:55:05 -0600 (CST)
 Received: from localhost.localdomain (yow-bashfiel-d2.ottawa.windriver.com
 	[128.224.146.167])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p0HLt0dH017296;
-	Mon, 17 Jan 2011 13:55:02 -0800 (PST)
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p0HLt0dI017296;
+	Mon, 17 Jan 2011 13:55:03 -0800 (PST)
 From: Bruce Ashfield <bruce.ashfield@windriver.com>
 To: rpurdie@linux.intel.com
-Date: Mon, 17 Jan 2011 16:57:31 -0500
-Message-Id: <133fad4800b7ff1a40a2d7fcae1cfd94b714ac6f.1295300980.git.bruce.ashfield@windriver.com>
+Date: Mon, 17 Jan 2011 16:57:32 -0500
+Message-Id: <27824445d4554453cdb460e7e05eb121c6182fb4.1295300980.git.bruce.ashfield@windriver.com>
 X-Mailer: git-send-email 1.7.0.4
 In-Reply-To: <cover.1295300980.git.bruce.ashfield@windriver.com>
 References: <cover.1295300980.git.bruce.ashfield@windriver.com>
 In-Reply-To: <cover.1295300980.git.bruce.ashfield@windriver.com>
 References: <cover.1295300980.git.bruce.ashfield@windriver.com>
 Cc: yocto@yoctoproject.org, poky@yoctoproject.org, saul.wold@intel.com
-Subject: [PATCH 2/3] linux-yocto: streamline new BSP creation
+Subject: [PATCH 3/3] linux-yocto: update validate_branches to detected invalid commit IDs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,59 +28,67 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 17 Jan 2011 21:55:04 -0000
+X-List-Received-Date: Mon, 17 Jan 2011 21:55:05 -0000
 
-By setting BOOTSTRAP to the branch that should be used for a
-currently undefined BSP a build can be completed and an
-environment for streamlining the BSP created.
-
-With the appropriate machine.conf, and a defconfig any MACHINE
-can be built against and inherit the configuration of the
-standard yocto kernel.
+The previous implementation of invalid commit ID checks would
+error early when a bad object was detected. Rather than changing
+to set +e for the entire routine, we'll capture the output and
+do an explicit check for a bad object and throw a useful error
+message when it is detected.
 
 Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
 ---
- meta/classes/kernel-yocto.bbclass |   11 ++++++++---
- 1 files changed, 8 insertions(+), 3 deletions(-)
+ meta/classes/kernel-yocto.bbclass |   26 +++++++++++++-------------
+ 1 files changed, 13 insertions(+), 13 deletions(-)
 
 diff --git a/meta/classes/kernel-yocto.bbclass b/meta/classes/kernel-yocto.bbclass
-index df2a8a4..88dcf32 100644
+index 88dcf32..32d2e20 100644
 --- a/meta/classes/kernel-yocto.bbclass
 +++ b/meta/classes/kernel-yocto.bbclass
-@@ -24,7 +24,7 @@ python __anonymous () {
-             bb.data.setVar("KMACHINE", "${MACHINE}", d)
-             # track the global configuration on a bootstrapped BSP
-             bb.data.setVar("SRCREV_machine", "${SRCREV_meta}", d)
--            bb.data.setVar("BOOTSTRAP", "t", d)
-+            bb.data.setVar("BOOTSTRAP", bb.data.expand("${MACHINE}",d) + "-standard", d)
-     else:
-         # The branch for a build is:
-         #    yocto/<kernel type>/${KMACHINE} or
-@@ -44,10 +44,10 @@ python __anonymous () {
-         bb.data.setVar('KMACHINE_' + bb.data.expand("${MACHINE}",d), kmachine, d)
- 
-         if mach == "UNDEFINED":
--            bb.data.setVar("KBRANCH", "yocto/standard/base", d)
-             bb.data.setVar('KMACHINE_' + bb.data.expand("${MACHINE}",d), bb.data.expand("${MACHINE}",d), d)
-+            bb.data.setVar("KBRANCH", "yocto/standard/base", d)
-             bb.data.setVar("SRCREV_machine", "standard", d)
--            bb.data.setVar("BOOTSTRAP", "t", d)
-+            bb.data.setVar("BOOTSTRAP", "yocto/standard/" + bb.data.expand("${MACHINE}",d), d)
- }
- 
- do_patch() {
-@@ -57,6 +57,11 @@ do_patch() {
+@@ -161,30 +161,30 @@ do_validate_branches() {
+ 	current=`git branch |grep \*|sed 's/^\* //'`
+ 	if [ -n "$target_branch_head" ] && [ "$branch_head" != "$target_branch_head" ]; then
+ 		if [ -n "${KERNEL_REVISION_CHECKING}" ]; then
+-			git show ${target_branch_head} > /dev/null 2>&1
+-			if [ $? -eq 0 ]; then
+-				echo "Forcing branch $current to ${target_branch_head}"
+-				git branch -m $current $current-orig
+-				git checkout -b $current ${target_branch_head}
+-			else
++			ref=`git show ${target_meta_head} 2>&1 | head -n1 || true`
++			if [ "$ref" = "fatal: bad object ${target_meta_head}" ]; then
+ 				echo "ERROR ${target_branch_head} is not a valid commit ID."
+ 				echo "The kernel source tree may be out of sync"
+ 				exit 1
+-			fi	       
++			else
++				echo "Forcing branch $current to ${target_branch_head}"
++				git branch -m $current $current-orig
++				git checkout -b $current ${target_branch_head}
++			fi
+ 		fi
  	fi
  
- 	kbranch=${KBRANCH}
-+	if [ -n "${BOOTSTRAP}" ]; then
-+           # switch from a generic to a specific branch
-+           kbranch=${BOOTSTRAP}
-+	fi
-+
- 
- 	# simply ensures that a branch of the right name has been created
- 	createme ${ARCH} ${kbranch} ${defconfig}
+ 	if [ "$meta_head" != "$target_meta_head" ]; then
+ 		if [ -n "${KERNEL_REVISION_CHECKING}" ]; then
+-			git show ${target_meta_head} > /dev/null 2>&1
+-			if [ $? -eq 0 ]; then
+-				echo "Forcing branch meta to ${target_meta_head}"
+-				git branch -m ${KMETA} ${KMETA}-orig
+-				git checkout -b ${KMETA} ${target_meta_head}
+-			else
++			ref=`git show ${target_meta_head} 2>&1 | head -n1 || true`
++			if [ "$ref" = "fatal: bad object ${target_meta_head}" ]; then
+ 				echo "ERROR ${target_meta_head} is not a valid commit ID"
+ 				echo "The kernel source tree may be out of sync"
+ 				exit 1
++			else
++				echo "Forcing branch meta to ${target_meta_head}"
++				git branch -m ${KMETA} ${KMETA}-orig
++				git checkout -b ${KMETA} ${target_meta_head}
+ 			fi	   
+ 		fi
+ 	fi
 -- 
 1.7.0.4
 
