@@ -1,30 +1,18 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E07B34C80BEF
-	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 16:11:11 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0HMCxd9009643; Mon, 17 Jan 2011 22:12:59 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id ULpSbP+6qQQ2; Mon, 17 Jan 2011 22:12:59 +0000 (GMT)
-Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0HMCskM009639
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Mon, 17 Jan 2011 22:12:56 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Dongxiao Xu <dongxiao.xu@intel.com>
-In-Reply-To: <5016bc80c8904246650a7a0ab6770ec4c42b2002.1295042140.git.dongxiao.xu@intel.com>
-References: <cover.1295042138.git.dongxiao.xu@intel.com>
-	<5016bc80c8904246650a7a0ab6770ec4c42b2002.1295042140.git.dongxiao.xu@intel.com>
-Date: Mon, 17 Jan 2011 22:10:57 +0000
-Message-ID: <1295302257.14388.15777.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 2/5] staging: relocate *.la paths in destination dirs
+Return-Path: <yanok@emcraft.com>
+Received: from ocean.emcraft.com (ocean.emcraft.com [213.221.7.182])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 13CD54C80BEF
+	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 16:36:24 -0600 (CST)
+Received: from localhost ([127.0.0.1] helo=mefesto.yanok.lan)
+	by ocean.emcraft.com with esmtp (Exim 4.69)
+	(envelope-from <yanok@emcraft.com>)
+	id 1PexgU-0007yf-Qg; Tue, 18 Jan 2011 01:36:22 +0300
+From: Ilya Yanok <yanok@emcraft.com>
+To: poky@yoctoproject.org
+Date: Tue, 18 Jan 2011 01:36:17 +0300
+Message-Id: <1295303777-20599-1-git-send-email-yanok@emcraft.com>
+X-Mailer: git-send-email 1.7.2.3
+Cc: Ilya Yanok <yanok@emcraft.com>
+Subject: [PATCH] openssl: drop the valgrind patch that introduce a security hole
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,21 +24,54 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 17 Jan 2011 22:11:12 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 17 Jan 2011 22:36:25 -0000
 
-On Sat, 2011-01-15 at 06:14 +0800, Dongxiao Xu wrote:
-> Keep the la files in source directories unchanged,
-> and do relocation in destination directories (sysroot-destdir).
-> 
-> Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
+debian/valgrind.patch is the 'famous' Debian OpenSSL patch responsible
+for everyone using Debian and derivatives changing their keys. All keys
+generated with the patched OpenSSL are compromised so at very least we
+have to drop this patch for good.
 
-This is a standalone change and makes sense so I've merged this one into
-master.
+Signed-off-by: Ilya Yanok <yanok@emcraft.com>
+---
+ .../openssl/openssl-0.9.8p/debian/valgrind.patch   |   15 ---------------
+ .../recipes-connectivity/openssl/openssl_0.9.8p.bb |    1 -
+ 2 files changed, 0 insertions(+), 16 deletions(-)
+ delete mode 100644 meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/valgrind.patch
 
-Cheers,
-
-Richard
+diff --git a/meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/valgrind.patch b/meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/valgrind.patch
+deleted file mode 100644
+index e9f86ea..0000000
+--- a/meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/valgrind.patch
++++ /dev/null
+@@ -1,15 +0,0 @@
+-Index: openssl-0.9.8k/crypto/rand/md_rand.c
+-===================================================================
+---- openssl-0.9.8k.orig/crypto/rand/md_rand.c	2008-09-16 13:50:05.000000000 +0200
+-+++ openssl-0.9.8k/crypto/rand/md_rand.c	2009-07-19 11:36:05.000000000 +0200
+-@@ -477,8 +477,10 @@
+- 		MD_Update(&m,local_md,MD_DIGEST_LENGTH);
+- 		MD_Update(&m,(unsigned char *)&(md_c[0]),sizeof(md_c));
+- #ifndef PURIFY
+-+#if 0 /* Don't add uninitialised data. */
+- 		MD_Update(&m,buf,j); /* purify complains */
+- #endif
+-+#endif
+- 		k=(st_idx+MD_DIGEST_LENGTH/2)-st_num;
+- 		if (k > 0)
+- 			{
+diff --git a/meta/recipes-connectivity/openssl/openssl_0.9.8p.bb b/meta/recipes-connectivity/openssl/openssl_0.9.8p.bb
+index 3ae6bf4..283b82a 100644
+--- a/meta/recipes-connectivity/openssl/openssl_0.9.8p.bb
++++ b/meta/recipes-connectivity/openssl/openssl_0.9.8p.bb
+@@ -13,7 +13,6 @@ SRC_URI += "file://debian/ca.patch \
+             file://debian/no-symbolic.patch \
+             file://debian/pic.patch \
+             file://debian/pkg-config.patch \
+-            file://debian/valgrind.patch \
+             file://debian/rc4-amd64.patch \
+             file://debian/rehash-crt.patch \
+             file://debian/rehash_pod.patch \
+-- 
+1.7.2.3
 
 
