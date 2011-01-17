@@ -1,42 +1,41 @@
 Return-Path: <aalonso00@gmail.com>
-Received: from mail-gy0-f176.google.com (mail-gy0-f176.google.com
-	[209.85.160.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 141B64C81212
-	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 14:24:15 -0600 (CST)
+Received: from mail-gw0-f48.google.com (mail-gw0-f48.google.com [74.125.83.48])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 6E7674C81218
+	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 14:24:17 -0600 (CST)
 Authentication-Results: mx1.pokylinux.org; dkim=pass
 	(1024-bit key; insecure key) header.i=@gmail.com;
 	x-dkim-adsp=none (insecure policy)
-Received: by gyf1 with SMTP id 1so2384497gyf.35
-	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 12:24:14 -0800 (PST)
+Received: by mail-gw0-f48.google.com with SMTP id 15so1914215gwj.35
+	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 12:24:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
 	h=domainkey-signature:sender:from:to:cc:subject:date:message-id
 	:x-mailer:in-reply-to:references;
-	bh=tk7Kug/Xy5+6J33wMAhEs0uRMwm/dhtSMhaG6fzmTfY=;
-	b=IBu1EiDqL69ePtc1CoZjC17d2VmF+7VTRqmdbs7fPl9ZOiFHcVCQzut8NF25RjjCyI
-	LwOHqnwrFLahCCaD3bQJGIkI2mOmWfHr5BKdLJpPyeK2BLreIsh2GcCZHRmLObdopfmg
-	XXopOCYHEOxrwNQhn07OpwstLk8pjHnl1A7X8=
+	bh=xIz5/FLdgCOUHe3IcwOcuU0pqJeiVPZGH7chvjLPZ8k=;
+	b=K3TwyXOWMdUBtHa4TJS61dm8tQERRBd6e4lzwuDd23gKT7UrOYO0rtLvjI/YT07By6
+	P7mKpRpc7oMSeblN9hADYxAmtj3f2RrSbeFuQDWuFN+oXHRhRjaA0YZd3xa+3OQ+1Scu
+	Zedo60//Sf2G+ufdypjix2QDhw0P4iDqjLjOo=
 DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
 	h=sender:from:to:cc:subject:date:message-id:x-mailer:in-reply-to
 	:references;
-	b=MmYiWJZ6O/UWJHOaGRhGnqx+c38T7B9FuLrbSZPwOntBlRCk1aJ1e3l35Pf+EozWYc
-	EpyD9g/fHoWFq/TG/RWfCPjWues5LMP/lyFbIgRJhC5uY2Dvnc/8+Pdp9KDrbC8U25Iy
-	Rjfq24+erhyTYCTUN9EGm5XL5QC6INOzdEH9U=
-Received: by 10.100.250.4 with SMTP id x4mr2784356anh.164.1295295854810;
-	Mon, 17 Jan 2011 12:24:14 -0800 (PST)
+	b=jsEdCQ+hAO6f2GcVoa8S/35l54rMLFYxfBt6BLoIuM9arTOzOvPHx66Y+M/DmB/jx2
+	ZJJZ4oOodFNE2hIdAMgp4cYRDuNNsIm8qA6vvf9lPHBYCtjffBLDGRg7FI0E+AU7dTJk
+	oSwy4pIVdIMg8ijXE3VugzrOgaQr4RwMbLRGs=
+Received: by 10.90.103.9 with SMTP id a9mr5041696agc.165.1295295857320;
+	Mon, 17 Jan 2011 12:24:17 -0800 (PST)
 Received: from localhost.localdomain ([201.153.229.4])
-	by mx.google.com with ESMTPS id c30sm5898586anc.0.2011.01.17.12.24.12
+	by mx.google.com with ESMTPS id c30sm5898586anc.0.2011.01.17.12.24.14
 	(version=TLSv1/SSLv3 cipher=RC4-MD5);
-	Mon, 17 Jan 2011 12:24:14 -0800 (PST)
+	Mon, 17 Jan 2011 12:24:16 -0800 (PST)
 Sender: Adrian Alonso <aalonso00@gmail.com>
 From: Adrian Alonso <aalonso@secretlab.ca>
 To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Date: Mon, 17 Jan 2011 14:29:31 -0600
-Message-Id: <1295296178-18590-18-git-send-email-aalonso@secretlab.ca>
+Date: Mon, 17 Jan 2011 14:29:32 -0600
+Message-Id: <1295296178-18590-19-git-send-email-aalonso@secretlab.ca>
 X-Mailer: git-send-email 1.7.3.4
 In-Reply-To: <1295296178-18590-1-git-send-email-aalonso@secretlab.ca>
 References: <1295296178-18590-1-git-send-email-aalonso@secretlab.ca>
 Cc: Adrian Alonso <aalonso@secretlab.ca>
-Subject: [PATCH 18/25] u-boot-xilinx: add license files checksum
+Subject: [PATCH 19/25] tune-ppc405: append ppc440 in PACKAGE_EXTRA_ARCHS
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -48,30 +47,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 17 Jan 2011 20:24:15 -0000
+X-List-Received-Date: Mon, 17 Jan 2011 20:24:17 -0000
 
-* Add LICENSE_FILES_CHKSUM information
-* Bump PR
+* Append ppc440 in PACKAGE_EXTRA_ARCHS
+* Support gnueabi toolchain for pcc440 and ppc405 archs
+  (Xilinx PowerPC targets)
 
 Signed-off-by: Adrian Alonso <aalonso@secretlab.ca>
 ---
- recipes-bsp/uboot/u-boot-xilinx_git.bb |    3 ++-
- 1 files changed, 2 insertions(+), 1 deletions(-)
+ conf/machine/include/tune-ppc405.inc |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
-diff --git a/recipes-bsp/uboot/u-boot-xilinx_git.bb b/recipes-bsp/uboot/u-boot-xilinx_git.bb
-index afea5f0..86e798a 100644
---- a/recipes-bsp/uboot/u-boot-xilinx_git.bb
-+++ b/recipes-bsp/uboot/u-boot-xilinx_git.bb
-@@ -1,7 +1,8 @@
- require recipes-bsp/uboot/u-boot.inc
--PR = "r6"
-+PR = "r7"
- THISDIR := "${@os.path.dirname(bb.data.getVar('FILE', d, True))}"
- FILESPATH =. "${@base_set_filespath(["${THISDIR}/files"], d)}:"
-+LIC_FILES_CHKSUM = "file://COPYING;md5=4c6cde5df68eff615d36789dc18edd3b"
- 
- BRANCH="master"
- TAG="e094f2479ea339d7f48b6826f06f0be4984d9a98"
+diff --git a/conf/machine/include/tune-ppc405.inc b/conf/machine/include/tune-ppc405.inc
+index e5edd68..53332c9 100644
+--- a/conf/machine/include/tune-ppc405.inc
++++ b/conf/machine/include/tune-ppc405.inc
+@@ -3,4 +3,4 @@ TARGET_FPU   ?=  "soft"
+ TARGET_CC_ARCH = "-mcpu=405"
+ BASE_PACKAGE_ARCH = "ppc405"
+ FEED_ARCH = "ppc405"
+-PACKAGE_EXTRA_ARCHS += "ppc405"
++PACKAGE_EXTRA_ARCHS += "ppc405 ppc440"
 -- 
 1.7.3.4
 
