@@ -1,22 +1,34 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id F246C4C8109B
-	for <poky@yoctoproject.org>; Sun, 16 Jan 2011 19:31:33 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 16 Jan 2011 17:31:33 -0800
+Return-Path: <lei.mei@intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8FCAA4C810D2
+	for <poky@yoctoproject.org>; Sun, 16 Jan 2011 21:19:26 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 16 Jan 2011 19:19:25 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,331,1291622400"; d="scan'208";a="593562811"
-Received: from unknown (HELO [10.255.14.85]) ([10.255.14.85])
-	by orsmga002.jf.intel.com with ESMTP; 16 Jan 2011 17:31:30 -0800
-Message-ID: <4D339BF0.5080607@intel.com>
-Date: Sun, 16 Jan 2011 17:31:28 -0800
-From: Saul Wold <saul.wold@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
+X-IronPort-AV: E=Sophos;i="4.60,332,1291622400"; d="scan'208";a="375455637"
+Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
+	by azsmga001.ch.intel.com with ESMTP; 16 Jan 2011 19:19:25 -0800
+Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
+	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Mon, 17 Jan 2011 11:19:04 +0800
+Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
+	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
+	Mon, 17 Jan 2011 11:19:03 +0800
+From: "Mei, Lei" <lei.mei@intel.com>
+To: "Mei, Lei" <lei.mei@intel.com>, "poky@yoctoproject.org"
+	<poky@yoctoproject.org>, "Wold, Saul" <saul.wold@intel.com>
+Date: Mon, 17 Jan 2011 11:19:01 +0800
+Thread-Topic: [poky] [PATCH 0/1]psplash_svn.bb: change the boot logo
+Thread-Index: Acu1hRFAYshIuSdlQ/augDnqw5kxFQAb+Y4w
+Message-ID: <749B9D3DBF0F054390025D9EAFF47F2231B515D4@shsmsx501.ccr.corp.intel.com>
+References: <cover.1295185803.git.lei.mei@intel.com>
+In-Reply-To: <cover.1295185803.git.lei.mei@intel.com>
+Accept-Language: zh-CN, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: zh-CN, en-US
 MIME-Version: 1.0
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: libxml-parser-perl failure
+Subject: Re: [PATCH 0/1]psplash_svn.bb: change the boot logo
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,35 +40,51 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 17 Jan 2011 01:31:34 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 17 Jan 2011 03:19:26 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
+Hi Saul,
 
-Nitin, Richard:
+	Please don't merge this patch, the color of logo didn't match the backgrou=
+nd, I didn't find this problem because I use vnc to test it before, I will =
+send a new patch for this.
 
-I was looking into the libxml failure today, and found a couple of 
-different items that have changed in the newer version.  First is the 
-addition of an arch_check function in the Extuils/MM_Any.pm and used
-MakeMaker.pm. This check seems to use the archlib, which is set to 
-${STAGING_LIBDIR}/perl/${PV} by poky, but expects the final directory to 
-be the ARCH, which is why we get 5.12.2 for the Arch!
+Thanks
+Lei=20
 
-Why do we set archlib to the ${PV} instead of ${PV}/${target}
-
-
-The next issue that I saw had to do with Errno.pm and another 
-architecture check, this time the errors:
-
-  ERROR from evaluation of 
-/vol/1/sgw/builds/ppc/tmp/work/ppc603e-poky-linux/libxml-parser-perl-2.36-r0/XML-Parser-2.36/Expat/Makefile.PL: 
-Errno architecture (x86_64-linux-thread-multi-2.6.34.7-56.fc13.x86_64) 
-does not match executable architecture 
-(powerpc-linux-2.6.37-rc5-yocto-standard+) at 
-/vol/1/sgw/builds/ppc/tmp/sysroots/x86_64-linux/usr/lib/perl/5.12.2/Errno.pm 
-line 11.
-
-This looks like another check that will need some work
-
-Sau!
+>-----Original Message-----
+>From: poky-bounces@yoctoproject.org [mailto:poky-bounces@yoctoproject.org]
+>On Behalf Of Mei Lei
+>Sent: Sunday, January 16, 2011 9:56 PM
+>To: poky@yoctoproject.org
+>Subject: [poky] [PATCH 0/1]psplash_svn.bb: change the boot logo
+>
+>Change the boot logo from poky to yocto
+>
+>Pull URL: git://git.pokylinux.org/poky-contrib.git
+>  Branch: lmei3/changebootlogo
+>  Browse:
+>http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=3Dlmei3/changebootlo=
+go
+>
+>Thanks,
+>    Mei Lei <lei.mei@intel.com>
+>---
+>
+>
+>Mei Lei (1):
+>  psplash_svn.bb: Change poky boot logo to yocto logo
+>
+> meta/recipes-core/psplash/files/psplash-poky-img.h | 1013
+>++++++++++++++++++++
+> meta/recipes-core/psplash/psplash_svn.bb           |    9 +-
+> 2 files changed, 1020 insertions(+), 2 deletions(-)
+> create mode 100644 meta/recipes-core/psplash/files/psplash-poky-img.h
+>
+>_______________________________________________
+>poky mailing list
+>poky@yoctoproject.org
+>https://lists.yoctoproject.org/listinfo/poky
 
