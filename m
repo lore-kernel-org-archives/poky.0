@@ -1,27 +1,29 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7519F4C811D2
-	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 02:35:32 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 17 Jan 2011 00:35:32 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,332,1291622400"; d="scan'208";a="647662307"
-Received: from unknown (HELO [10.255.14.85]) ([10.255.14.85])
-	by fmsmga002.fm.intel.com with ESMTP; 17 Jan 2011 00:35:32 -0800
-Message-ID: <4D33FF53.2090103@intel.com>
-Date: Mon, 17 Jan 2011 00:35:31 -0800
-From: Saul Wold <saul.wold@intel.com>
+Return-Path: <Yi.Zhao@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 38A584C811D2
+	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 02:47:33 -0600 (CST)
+Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p0H8lULr008922;
+	Mon, 17 Jan 2011 00:47:30 -0800 (PST)
+Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
+	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Mon, 17 Jan 2011 00:47:30 -0800
+Received: from [128.224.163.188] ([128.224.163.188]) by
+	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Mon, 17 Jan 2011 00:47:30 -0800
+Message-ID: <4D3401CA.3060600@windriver.com>
+Date: Mon, 17 Jan 2011 16:46:02 +0800
+From: Zhao Yi <yi.zhao@windriver.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
+	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
 MIME-Version: 1.0
-To: Mark Hatle <mark.hatle@windriver.com>
-References: <4D2FD707.4080509@windriver.com>
-	<4D30A632.707@intel.com>	<4D30A67B.2070004@windriver.com>
-	<4D30BD51.7030305@windriver.com>
-In-Reply-To: <4D30BD51.7030305@windriver.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/1] pseudo: Update to the latest upstream version
+To: Saul Wold <saul.wold@intel.com>
+References: <4D33F57D.2030009@intel.com>
+In-Reply-To: <4D33F57D.2030009@intel.com>
+X-OriginalArrivalTime: 17 Jan 2011 08:47:30.0324 (UTC)
+	FILETIME=[2CE0ED40:01CBB623]
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: QemuARM Boot Failure
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,100 +35,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 17 Jan 2011 08:35:32 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 17 Jan 2011 08:47:33 -0000
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 01/14/2011 01:17 PM, Mark Hatle wrote:
-> A potential solution to this problem has been pushed to the poky-contrib
-> mhatle/pseudo tree.
+Hi Saul,
+
+I tested the recent build images from the autobuilder.
+The build images from both 2011011-1 and 20110112-1 can not boot. With 
+the build image from 20110110-1, it can boot.
+
+于 2011年01月17日 15:53, Saul Wold 写道:
 >
-> If anyone is interested in trying this, I'd appreciate it.  I've so far not been
-> able to reproduce the original problem locally, but based on the symptoms I
-> believe we've got a likely fix in place.
+> Bruce,
 >
-Mark,
-
-I have this patch in a distro/master right now, it fixes the original 
-problem, but I am seeing another problem with the poky-image-sdk target 
-where I am getting a load of permission denied during the tar of the 
-do_populate_sdk task.
-
-Maybe this need to be added to the pseudo.
-
-Sau!
-
-> --Mark
+> Did you test the latest systemtap update on ARM? I am just curious 
+> based on the current failure that we are having with qemuarm. If so, 
+> against what revision of master? This might help us narrow down the 
+> issue.
 >
-> On 1/14/11 1:39 PM, Mark Hatle wrote:
->> On 1/14/11 1:38 PM, Saul Wold wrote:
->>> On 01/13/2011 08:54 PM, Mark Hatle wrote:
->>>> Update pseudo to the latest version to resolve a number of optimization defects.
->>>>
->>>> The problems were present on both 64-bit and 32-bit systems, but generally only
->>>> caused issues on 32-bit hosts.
->>>>
->>>> Note: once you upgrade you need to be sure to clean out pseudo.  In order to do
->>>> this ../bitbake/bin/bitbake -c cleanall pseudo-native
->>>>
->>>> Followed by ../bitbake/bin/bitbake pseudo-native
->>>>
->>>> Otherwise you can end up in a wierd situation where the old pseudo is being
->>>> used to build the new one.
->>>>
->>>>
->>>> Pull URL: git://git.pokylinux.org/poky-contrib.git
->>>>     Branch: mhatle/pseudo
->>>>     Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=mhatle/pseudo
->>>>
->>>> Thanks,
->>>>       Mark Hatle<mark.hatle@windriver.com>
->>>> ---
->>>>
->>>>
->>>> Mark Hatle (1):
->>>>     pseudo: Update to the latest upstream version
->>>>
->>>>    .../conf/distro/include/poky-default-revisions.inc |    2 +-
->>>>    .../895fa7e359e8026a608fba052c2994e42901e45f.patch |  235 --------------------
->>>>    meta/recipes-devtools/pseudo/pseudo_git.bb         |    2 +-
->>>>    3 files changed, 2 insertions(+), 237 deletions(-)
->>>>    delete mode 100644
->>>> meta/recipes-devtools/pseudo/pseudo/895fa7e359e8026a608fba052c2994e42901e45f.patch
->>>>
->>> Mark,
->>>
->>> I did not pull this because of a failure seen on the autobuilder, the
->>> failure was in eglibc-initial trying to compile.
->>>
->>> The error was:
->>>
->>> arm-poky-linux-gnueabi-gcc: error trying to exec 'cc1': execvp: No such
->>> file or directory
->>
->> pseudo does capture execvp.  So it's possible something is going wrong there.
->> I'm investigating...
->>
->> --Mark
->>
->>> I know that this seems strange for pseudo to cause, but I removed the
->>> psuedo change and this problem went away.  It could be a build timing
->>> issue or an install location issue.
->>>
->>> Check the autobuilder log at:
->>> http://autobuilder.pokylinux.org:8010/builders/distro-testing/builds/44/steps/shell_1/logs/stdio
->>>
->>> Unfortunately because I rebuild distro-testing the individual logs are
->>> gone.  Let me know if we need to rebuild with the error for further
->>> diagnoses.
->>>
->>> Thanks
->>>      Sau!
->>
->> _______________________________________________
->> poky mailing list
->> poky@yoctoproject.org
->> https://lists.yoctoproject.org/listinfo/poky
+>
+> I tried both the systemtap version and the older version and both 
+> failed. The last known good qemuarm was 2 weeks ago, there have been a 
+> number of kernel updates in that time along with a loads of userspace 
+> changes, but no qemu updates since the first of the year. I am not 
+> sure about the userspace changes yet, need to review them more deeply.
+>
+> I will be tied up tomorrow, but will try bisecting tomorrow evening if 
+> there is no update before then.
+>
+> Thanks
+> Sau!
 >
 > _______________________________________________
 > poky mailing list
