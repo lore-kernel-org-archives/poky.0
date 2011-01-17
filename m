@@ -1,32 +1,26 @@
-Return-Path: <mark.hatle@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 4CCF74C80FA4
-	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 11:06:42 -0600 (CST)
-Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p0HH6fHL028014;
-	Mon, 17 Jan 2011 09:06:41 -0800 (PST)
-Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
-	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Mon, 17 Jan 2011 09:06:41 -0800
-Received: from Macintosh-5.local ([172.25.36.226]) by
-	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Mon, 17 Jan 2011 09:06:41 -0800
-Message-ID: <4D347720.5090102@windriver.com>
-Date: Mon, 17 Jan 2011 11:06:40 -0600
-From: Mark Hatle <mark.hatle@windriver.com>
-Organization: Wind River Systems
-User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
-	rv:1.9.2.13) Gecko/20101207 Thunderbird/3.1.7
-MIME-Version: 1.0
-To: Saul Wold <saul.wold@intel.com>
-References: <4D2FD707.4080509@windriver.com>
-	<4D30A632.707@intel.com>	<4D30A67B.2070004@windriver.com>
-	<4D30BD51.7030305@windriver.com> <4D33FF53.2090103@intel.com>
-In-Reply-To: <4D33FF53.2090103@intel.com>
-X-OriginalArrivalTime: 17 Jan 2011 17:06:41.0155 (UTC)
-	FILETIME=[E8F70D30:01CBB668]
+Return-Path: <koen@dominion.thruhere.net>
+Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 438054C80FA4
+	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 11:19:39 -0600 (CST)
+Received: by wwb31 with SMTP id 31so5767388wwb.11
+	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 09:19:16 -0800 (PST)
+Received: by 10.227.143.75 with SMTP id t11mr4394229wbu.87.1295284502978;
+	Mon, 17 Jan 2011 09:15:02 -0800 (PST)
+Received: from [172.20.1.5] (ip545070eb.adsl-surfen.hetnet.nl [84.80.112.235])
+	by mx.google.com with ESMTPS id
+	o19sm2492833wee.26.2011.01.17.09.15.00
+	(version=TLSv1/SSLv3 cipher=RC4-MD5);
+	Mon, 17 Jan 2011 09:15:00 -0800 (PST)
+Mime-Version: 1.0 (Apple Message framework v1082)
+From: Koen Kooi <koen@dominion.thruhere.net>
+In-Reply-To: <cover.1295282922.git.paul.eggleton@linux.intel.com>
+Date: Mon, 17 Jan 2011 18:14:59 +0100
+Message-Id: <70F8AFBB-708E-44C2-8C07-BA394242B311@dominion.thruhere.net>
+References: <cover.1295282922.git.paul.eggleton@linux.intel.com>
+To: Paul Eggleton <paul.eggleton@linux.intel.com>
+X-Mailer: Apple Mail (2.1082)
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/1] pseudo: Update to the latest upstream version
+Subject: Re: [PATCH 0/8] Add meta-toolchain-qte from OE
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,117 +32,125 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 17 Jan 2011 17:06:42 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 17 Jan 2011 17:20:14 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
 
-On 1/17/11 2:35 AM, Saul Wold wrote:
-> On 01/14/2011 01:17 PM, Mark Hatle wrote:
->> A potential solution to this problem has been pushed to the poky-contrib
->> mhatle/pseudo tree.
->>
->> If anyone is interested in trying this, I'd appreciate it.  I've so far not been
->> able to reproduce the original problem locally, but based on the symptoms I
->> believe we've got a likely fix in place.
->>
-> Mark,
-> 
-> I have this patch in a distro/master right now, it fixes the original 
-> problem, but I am seeing another problem with the poky-image-sdk target 
-> where I am getting a load of permission denied during the tar of the 
-> do_populate_sdk task.
 
-If it's taring "target" files, then yes, it looks like it's not being properly
-run under pseudo control and that will need to be updated.  [or there is another
-defect we're unaware of].
+Op 17 jan 2011, om 17:54 heeft Paul Eggleton het volgende geschreven:
 
-What are the steps to reproduce the issue and I'll see what I can do here.
+> These patches make the necessary changes to add meta-toolchain-qte =
+from
+> OpenEmbedded (and make it build successfully). Amongst other things =
+this=20
+> required some tweaking of avahi to avoid dependency of avahi-dev /=20
+> avahi-utils on gtk+, which in turn required the addition of a flag to=20=
 
-I'll pass along that the exec problem seems to be correct to the pseudo maintainer.
+> control automatic RRECOMMENDS_ generation in package.bbclass.
 
---Mark
+FWIW, there's a more comprehensive integration for qt 4.6.3 and qt 4.7.1 =
+available at http://cgit.openembedded.org/cgit.cgi/meta-openembedded/ . =
+It's far from perfect, but it has the following advantages:
 
-> Maybe this need to be added to the pseudo.
-> 
-> Sau!
-> 
->> --Mark
->>
->> On 1/14/11 1:39 PM, Mark Hatle wrote:
->>> On 1/14/11 1:38 PM, Saul Wold wrote:
->>>> On 01/13/2011 08:54 PM, Mark Hatle wrote:
->>>>> Update pseudo to the latest version to resolve a number of optimization defects.
->>>>>
->>>>> The problems were present on both 64-bit and 32-bit systems, but generally only
->>>>> caused issues on 32-bit hosts.
->>>>>
->>>>> Note: once you upgrade you need to be sure to clean out pseudo.  In order to do
->>>>> this ../bitbake/bin/bitbake -c cleanall pseudo-native
->>>>>
->>>>> Followed by ../bitbake/bin/bitbake pseudo-native
->>>>>
->>>>> Otherwise you can end up in a wierd situation where the old pseudo is being
->>>>> used to build the new one.
->>>>>
->>>>>
->>>>> Pull URL: git://git.pokylinux.org/poky-contrib.git
->>>>>     Branch: mhatle/pseudo
->>>>>     Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=mhatle/pseudo
->>>>>
->>>>> Thanks,
->>>>>       Mark Hatle<mark.hatle@windriver.com>
->>>>> ---
->>>>>
->>>>>
->>>>> Mark Hatle (1):
->>>>>     pseudo: Update to the latest upstream version
->>>>>
->>>>>    .../conf/distro/include/poky-default-revisions.inc |    2 +-
->>>>>    .../895fa7e359e8026a608fba052c2994e42901e45f.patch |  235 --------------------
->>>>>    meta/recipes-devtools/pseudo/pseudo_git.bb         |    2 +-
->>>>>    3 files changed, 2 insertions(+), 237 deletions(-)
->>>>>    delete mode 100644
->>>>> meta/recipes-devtools/pseudo/pseudo/895fa7e359e8026a608fba052c2994e42901e45f.patch
->>>>>
->>>> Mark,
->>>>
->>>> I did not pull this because of a failure seen on the autobuilder, the
->>>> failure was in eglibc-initial trying to compile.
->>>>
->>>> The error was:
->>>>
->>>> arm-poky-linux-gnueabi-gcc: error trying to exec 'cc1': execvp: No such
->>>> file or directory
->>>
->>> pseudo does capture execvp.  So it's possible something is going wrong there.
->>> I'm investigating...
->>>
->>> --Mark
->>>
->>>> I know that this seems strange for pseudo to cause, but I removed the
->>>> psuedo change and this problem went away.  It could be a build timing
->>>> issue or an install location issue.
->>>>
->>>> Check the autobuilder log at:
->>>> http://autobuilder.pokylinux.org:8010/builders/distro-testing/builds/44/steps/shell_1/logs/stdio
->>>>
->>>> Unfortunately because I rebuild distro-testing the individual logs are
->>>> gone.  Let me know if we need to rebuild with the error for further
->>>> diagnoses.
->>>>
->>>> Thanks
->>>>      Sau!
->>>
->>> _______________________________________________
->>> poky mailing list
->>> poky@yoctoproject.org
->>> https://lists.yoctoproject.org/listinfo/poky
->>
->> _______________________________________________
->> poky mailing list
->> poky@yoctoproject.org
->> https://lists.yoctoproject.org/listinfo/poky
->>
-> 
+1) Working toolchain for usage on the target. For beagleboard.org =
+workshops we hand people a beagle + sd card and that's all they need to =
+create and QT apps.
+2) Switching qt/e to qt/x11 is a matter of inheriting classes (recipe =
+builds) or sourcing a different file (target toolchain)
+3) full set of plugins. Some buildtime is traded to enable a "full" set =
+of qt plugins people can optionally install. This saves =
+customers^H^H^H^H users from a few hours of rebuilding just to get mysql =
+bindings.
+
+It would be nice to get the feature rich QT stuff from OE into yocto =
+instead of something that lacks features. With my TI hat on: I have =
+customers using the mysql bindings. With my Koen hat on: I use the =
+postgres bindings :)
+
+That being said, I like the poky qt-tools integration of qmake a bit =
+better, but I haven't found the time to integrate the mkspecs feature =
+into that yet.
+
+regards,
+
+Koen
+
+>=20
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>  Branch: paule/qt-fixes2
+>  Browse: =
+http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=3Dpaule/qt-fixes2
+>=20
+> Thanks,
+>    Paul Eggleton <paul.eggleton@linux.intel.com>
+> ---
+>=20
+>=20
+> Paul Eggleton (8):
+>  Add directfb 1.4.6 from OpenEmbedded
+>  qt4: add qt4-embedded 4.6.3 from OpenEmbedded
+>  glib-2.0: extend to nativesdk
+>  dbus: extend to nativesdk
+>  Add qt4-tools-nativesdk 4.6.3 based on qt4-tools-sdk from
+>    OpenEmbedded
+>  package.bbclass: add nodeprrecs flag to RRECOMMENDS_pkgname
+>  avahi: prevent unnecessary runtime dependency on gtk+
+>  Add meta-toolchain-qte and dependent tasks from OpenEmbedded
+>=20
+> meta/classes/package.bbclass                       |    2 +
+> meta/classes/qt4e.bbclass                          |   17 +++
+> meta/recipes-connectivity/avahi/avahi.inc          |    9 ++-
+> meta/recipes-connectivity/avahi/avahi_0.6.28.bb    |    2 +-
+> meta/recipes-core/dbus/dbus.inc                    |    3 +-
+> meta/recipes-core/glib-2.0/glib-2.0_2.27.5.bb      |    2 +-
+> meta/recipes-core/glib-2.0/glib.inc                |    1 +
+> .../directfb/directfb-1.4.6/mkdfiff.patch          |   24 ++++
+> meta/recipes-graphics/directfb/directfb.inc        |   71 ++++++++++++
+> meta/recipes-graphics/directfb/directfb_1.4.6.bb   |   29 +++++
+> .../directfb-1.2.x-fix-pkgconfig-cflags.patch      |   47 ++++++++
+> .../directfb/files/dont-use-linux-config.patch     |   12 ++
+> meta/recipes-qt/meta/meta-toolchain-qte.bb         |   32 ++++++
+> .../recipes-qt/qt4/files/compile.test-lflags.patch |   13 +++
+> meta/recipes-qt/qt4/files/configure-lflags.patch   |   13 +++
+> meta/recipes-qt/qt4/files/configure-paths.patch    |   21 ++++
+> meta/recipes-qt/qt4/files/qmake-exists-check.patch |   18 +++
+> .../qt4/files/qthelp-lib-qtclucene.patch           |   86 =
++++++++++++++++
+> meta/recipes-qt/qt4/qt4-embedded-4.6.3/qte.sh      |    7 ++
+> meta/recipes-qt/qt4/qt4-embedded.inc               |   53 +++++++++
+> meta/recipes-qt/qt4/qt4-embedded_4.6.3.bb          |    6 +
+> meta/recipes-qt/qt4/qt4-tools-nativesdk_4.6.3.bb   |  112 =
+++++++++++++++++++++
+> meta/recipes-qt/tasks/task-qte-toolchain-host.bb   |    7 ++
+> meta/recipes-qt/tasks/task-qte-toolchain-target.bb |   39 +++++++
+> 24 files changed, 622 insertions(+), 4 deletions(-)
+> create mode 100644 meta/classes/qt4e.bbclass
+> create mode 100644 =
+meta/recipes-graphics/directfb/directfb-1.4.6/mkdfiff.patch
+> create mode 100644 meta/recipes-graphics/directfb/directfb.inc
+> create mode 100644 meta/recipes-graphics/directfb/directfb_1.4.6.bb
+> create mode 100644 =
+meta/recipes-graphics/directfb/files/directfb-1.2.x-fix-pkgconfig-cflags.p=
+atch
+> create mode 100644 =
+meta/recipes-graphics/directfb/files/dont-use-linux-config.patch
+> create mode 100644 meta/recipes-qt/meta/meta-toolchain-qte.bb
+> create mode 100644 meta/recipes-qt/qt4/files/compile.test-lflags.patch
+> create mode 100644 meta/recipes-qt/qt4/files/configure-lflags.patch
+> create mode 100644 meta/recipes-qt/qt4/files/configure-paths.patch
+> create mode 100644 meta/recipes-qt/qt4/files/qmake-exists-check.patch
+> create mode 100644 =
+meta/recipes-qt/qt4/files/qthelp-lib-qtclucene.patch
+> create mode 100644 meta/recipes-qt/qt4/qt4-embedded-4.6.3/qte.sh
+> create mode 100644 meta/recipes-qt/qt4/qt4-embedded.inc
+> create mode 100644 meta/recipes-qt/qt4/qt4-embedded_4.6.3.bb
+> create mode 100644 meta/recipes-qt/qt4/qt4-tools-nativesdk_4.6.3.bb
+> create mode 100644 meta/recipes-qt/tasks/task-qte-toolchain-host.bb
+> create mode 100644 meta/recipes-qt/tasks/task-qte-toolchain-target.bb
+>=20
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
 
