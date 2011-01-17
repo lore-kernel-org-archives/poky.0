@@ -1,21 +1,21 @@
 Return-Path: <nitin.a.kamble@intel.com>
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 117F64C80FA4
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5368D4C80FA4
 	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 16:45:54 -0600 (CST)
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
 	by orsmga102.jf.intel.com with ESMTP; 17 Jan 2011 14:45:52 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,335,1291622400"; d="scan'208";a="593832477"
+X-IronPort-AV: E=Sophos;i="4.60,335,1291622400"; d="scan'208";a="593832466"
 Received: from nbuild2.sc.intel.com (HELO localhost) ([172.25.110.37])
 	by orsmga002.jf.intel.com with ESMTP; 17 Jan 2011 14:45:52 -0800
-Message-Id: <cde2dcdb822b4397751c3758ce7b6e5dd9354c66.1295304080.git.nitin.a.kamble@intel.com>
+Message-Id: <04d9a76ff4252acafdcec3f91f64d23506b89c3f.1295304080.git.nitin.a.kamble@intel.com>
 In-Reply-To: <cover.1295304080.git.nitin.a.kamble@intel.com>
 References: <cover.1295304080.git.nitin.a.kamble@intel.com>
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Old-Date: Tue, 11 Jan 2011 07:22:37 -0800
-Date: Mon, 17 Jan 2011 14:45:52 -0800
+Old-Date: Thu, 6 Jan 2011 10:13:05 -0800
+Date: Mon, 17 Jan 2011 14:45:51 -0800
 To: poky@yoctoproject.org
-Subject: [PATCH 06/12] matchbox-desktop: fix build issue with gcc dso linking change
+Subject: [PATCH 01/12] gcc_4.5.1: add DSO linking change patch
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,85 +29,192 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Mon, 17 Jan 2011 22:45:54 -0000
 
-All the libraries needs to be specified explicitely with the new gcc dso
-linking change patch. This was causing build errors for this
-recipe. Specifying the libX11 library explicitely for linking to
-work without errors.
+This patch changes gcc's (ld's) linking behavior. It passes
+--no-add-needed flag to ld. Because of it ld does not try to find
+related libraries for linking, causing link failures. And these
+link failures can be fixed by specifying the library to be linked
+explicitely on the gcc command line.
 
 Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
 ---
- .../files/dso_linking_change_build_fix.patch       |   26 ++++++++++++++++++++
- .../matchbox-desktop/matchbox-desktop_2.0.bb       |    5 ++-
- .../matchbox-desktop/matchbox-desktop_svn.bb       |    5 ++-
- 3 files changed, 32 insertions(+), 4 deletions(-)
- create mode 100644 meta/recipes-sato/matchbox-desktop/files/dso_linking_change_build_fix.patch
+ meta/recipes-devtools/gcc/gcc-4.5.1.inc            |    1 +
+ .../gcc/gcc-4.5.1/fedora/gcc45-no-add-needed.patch |   52 ++++++++++++++++++++
+ .../gcc/gcc-cross-canadian_4.5.1.bb                |    2 +-
+ .../gcc/gcc-cross-initial_4.5.1.bb                 |    2 +-
+ .../gcc/gcc-cross-intermediate_4.5.1.bb            |    2 +-
+ meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb       |    2 +-
+ .../gcc/gcc-crosssdk-initial_4.5.1.bb              |    2 +-
+ .../gcc/gcc-crosssdk-intermediate_4.5.1.bb         |    2 +-
+ meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb    |    2 +-
+ meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb     |    2 +-
+ meta/recipes-devtools/gcc/gcc_4.5.1.bb             |    2 +-
+ 11 files changed, 62 insertions(+), 9 deletions(-)
+ create mode 100644 meta/recipes-devtools/gcc/gcc-4.5.1/fedora/gcc45-no-add-needed.patch
 
-diff --git a/meta/recipes-sato/matchbox-desktop/files/dso_linking_change_build_fix.patch b/meta/recipes-sato/matchbox-desktop/files/dso_linking_change_build_fix.patch
+diff --git a/meta/recipes-devtools/gcc/gcc-4.5.1.inc b/meta/recipes-devtools/gcc/gcc-4.5.1.inc
+index 1786d8a..6c600c1 100644
+--- a/meta/recipes-devtools/gcc/gcc-4.5.1.inc
++++ b/meta/recipes-devtools/gcc/gcc-4.5.1.inc
+@@ -30,6 +30,7 @@ SRC_URI = "${GNU_MIRROR}/gcc/gcc-${PV}/gcc-${PV}.tar.bz2 \
+            file://fedora/gcc43-rh341221.patch;striplevel=0 \
+            file://fedora/gcc43-java-debug-iface-type.patch;striplevel=0 \
+            file://fedora/gcc43-i386-libgomp.patch;striplevel=0 \
++           file://fedora/gcc45-no-add-needed.patch;striplevel=0 \
+            file://103-uclibc-conf-noupstream.patch  \
+            file://200-uclibc-locale.patch  \
+            file://203-uclibc-locale-no__x.patch;striplevel=1 \
+diff --git a/meta/recipes-devtools/gcc/gcc-4.5.1/fedora/gcc45-no-add-needed.patch b/meta/recipes-devtools/gcc/gcc-4.5.1/fedora/gcc45-no-add-needed.patch
 new file mode 100644
-index 0000000..54f3670
+index 0000000..23704d3
 --- /dev/null
-+++ b/meta/recipes-sato/matchbox-desktop/files/dso_linking_change_build_fix.patch
-@@ -0,0 +1,26 @@
-+after gcc linking has changed, all the libraries must be explicitely specified to for linking. 
-+This patch avoids this linking error:
++++ b/meta/recipes-devtools/gcc/gcc-4.5.1/fedora/gcc45-no-add-needed.patch
+@@ -0,0 +1,52 @@
++2010-02-08  Roland McGrath  <roland@redhat.com>
 +
-+| make[2]: Entering directory `/disk0/pokybuild/build1/tmp/work/i586-poky-linux/matchbox-desktop-2.0+svnr2096-r0/matchbox-desktop-2/src'^M
-+| ccache i586-poky-linux-gcc -march=i586 --sysroot=/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux -Wall -fexpensive-optimizations -fomit-frame-pointer -frename-registers -O2 -ggdb -feliminate-unused-debug-types  -Wl,-O1 -Wl,--hash-style=gnu -Wl,--as-needed -o matchbox-desktop main.o taku-category-bar.o desktop.o ../libtaku/libtaku.a -pthread -lgtk-x11-2.0 -lgdk-x11-2.0 -latk-1.0 -lgio-2.0 -lpangoft2-1.0 -lgdk_pixbuf-2.0 -lpangocairo-1.0 -lcairo -lpango-1.0 -lfreetype -lfontconfig -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -lrt -lglib-2.0   -ldbus-1 -lpthread -lrt   -lstartup-notification-1   ../libtaku/libinotify.a^M
-+| /disk0/pokybuild/build1/tmp/sysroots/x86_64-linux/usr/libexec/i586-poky-linux/gcc/i586-poky-linux/4.5.1/ld: F^A: invalid DSO for symbol `XFree' definition^M
-+| /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libX11.so.6: could not read symbols: Bad value^M
-+| collect2: ld returned 1 exit status^M
-+| make[2]: *** [matchbox-desktop] Error 1
++	* config/rs6000/sysv4.h (LINK_EH_SPEC): Pass --no-add-needed to the
++	linker.
++	* config/linux.h (LINK_EH_SPEC): Likewise.
++	* config/alpha/elf.h (LINK_EH_SPEC): Likewise.
++	* config/ia64/linux.h (LINK_EH_SPEC): Likewise.
 +
-+Nitin A Kamble <nitin.a.kamble@intel.com>
-+Date: 2011/01/11
-+
-+Index: matchbox-desktop-2/configure.ac
-+===================================================================
-+--- matchbox-desktop-2.orig/configure.ac
-++++ matchbox-desktop-2/configure.ac
-+@@ -14,7 +14,7 @@ if test x$inotify_support = xyes; then
-+         AC_DEFINE(WITH_INOTIFY, [1], [If inotify is enabled])
-+ fi
++--- gcc/config/alpha/elf.h.~1~
+++++ gcc/config/alpha/elf.h
++@@ -421,7 +421,7 @@ extern int alpha_this_gpdisp_sequence_nu
++    I imagine that other systems will catch up.  In the meantime, it
++    doesn't harm to make sure that the data exists to be used later.  */
++ #if defined(HAVE_LD_EH_FRAME_HDR)
++-#define LINK_EH_SPEC "%{!static:--eh-frame-hdr} "
+++#define LINK_EH_SPEC "--no-add-needed %{!static:--eh-frame-hdr} "
++ #endif
 + 
-+-PKG_CHECK_MODULES(GTK, gtk+-2.0)
-++PKG_CHECK_MODULES(GTK, [gtk+-2.0 x11])
++ /* A C statement (sans semicolon) to output to the stdio stream STREAM
++--- gcc/config/ia64/linux.h.~1~
+++++ gcc/config/ia64/linux.h
++@@ -58,7 +58,7 @@ do {						\
++    Signalize that because we have fde-glibc, we don't need all C shared libs
++    linked against -lgcc_s.  */
++ #undef LINK_EH_SPEC
++-#define LINK_EH_SPEC ""
+++#define LINK_EH_SPEC "--no-add-needed "
 + 
-+ AC_ARG_ENABLE(startup_notification,
-+         AC_HELP_STRING([--disable-startup-notification], [disable startup notification support]),
-diff --git a/meta/recipes-sato/matchbox-desktop/matchbox-desktop_2.0.bb b/meta/recipes-sato/matchbox-desktop/matchbox-desktop_2.0.bb
-index 83d4d0b..2943e4d 100644
---- a/meta/recipes-sato/matchbox-desktop/matchbox-desktop_2.0.bb
-+++ b/meta/recipes-sato/matchbox-desktop/matchbox-desktop_2.0.bb
-@@ -2,9 +2,10 @@ DESCRIPTION = "Matchbox Window Manager Desktop"
- LICENSE = "GPL"
- DEPENDS = "gtk+ startup-notification"
- SECTION = "x11/wm"
++ #define MD_UNWIND_SUPPORT "config/ia64/linux-unwind.h"
++ 
++--- gcc/config/linux.h.~1~
+++++ gcc/config/linux.h
++@@ -89,7 +89,7 @@ see the files COPYING3 and COPYING.RUNTI
++     } while (0)
++ 
++ #if defined(HAVE_LD_EH_FRAME_HDR)
++-#define LINK_EH_SPEC "%{!static:--eh-frame-hdr} "
+++#define LINK_EH_SPEC "--no-add-needed %{!static:--eh-frame-hdr} "
++ #endif
++ 
++ /* Define this so we can compile MS code for use with WINE.  */
++--- gcc/config/rs6000/sysv4.h.~1~
+++++ gcc/config/rs6000/sysv4.h
++@@ -917,7 +917,7 @@ SVR4_ASM_SPEC \
++   %{!dynamic-linker:-dynamic-linker " LINUX_DYNAMIC_LINKER "}}}"
++ 
++ #if defined(HAVE_LD_EH_FRAME_HDR)
++-# define LINK_EH_SPEC "%{!static:--eh-frame-hdr} "
+++# define LINK_EH_SPEC "--no-add-needed %{!static:--eh-frame-hdr} "
++ #endif
++ 
++ #define CPP_OS_LINUX_SPEC "-D__unix__ -D__gnu_linux__ -D__linux__ \
+diff --git a/meta/recipes-devtools/gcc/gcc-cross-canadian_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-cross-canadian_4.5.1.bb
+index 37c64fb..3eea4bc 100644
+--- a/meta/recipes-devtools/gcc/gcc-cross-canadian_4.5.1.bb
++++ b/meta/recipes-devtools/gcc/gcc-cross-canadian_4.5.1.bb
+@@ -5,7 +5,7 @@ require gcc-cross-canadian.inc
+ require gcc-configure-sdk.inc
+ require gcc-package-sdk.inc
+ 
+-PR = "r2"
++PR = "r3"
+ 
+ DEPENDS += "gmp-nativesdk mpfr-nativesdk libmpc-nativesdk elfutils-nativesdk"
+ RDEPENDS_${PN} += "mpfr-nativesdk libmpc-nativesdk elfutils-nativesdk"
+diff --git a/meta/recipes-devtools/gcc/gcc-cross-initial_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-cross-initial_4.5.1.bb
+index a121782..b2c257d 100644
+--- a/meta/recipes-devtools/gcc/gcc-cross-initial_4.5.1.bb
++++ b/meta/recipes-devtools/gcc/gcc-cross-initial_4.5.1.bb
+@@ -1,5 +1,5 @@
+ require gcc-cross_${PV}.bb
+ require gcc-cross-initial.inc
+ 
 -PR = "r1"
 +PR = "r2"
  
--SRC_URI = "http://projects.o-hand.com/matchbox/sources/matchbox-desktop/2.0/matchbox-desktop-${PV}.tar.bz2"
-+SRC_URI = "http://projects.o-hand.com/matchbox/sources/matchbox-desktop/2.0/matchbox-desktop-${PV}.tar.bz2 \
-+	file://dso_linking_change_build_fix.patch"
+diff --git a/meta/recipes-devtools/gcc/gcc-cross-intermediate_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-cross-intermediate_4.5.1.bb
+index 7aaa5b0..10681da 100644
+--- a/meta/recipes-devtools/gcc/gcc-cross-intermediate_4.5.1.bb
++++ b/meta/recipes-devtools/gcc/gcc-cross-intermediate_4.5.1.bb
+@@ -1,4 +1,4 @@
+ require gcc-cross_${PV}.bb
+ require gcc-cross-intermediate.inc
+-PR = "r1"
++PR = "r2"
  
- EXTRA_OECONF = "--enable-startup-notification"
+diff --git a/meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb
+index b7e4328..399cdf9 100644
+--- a/meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb
++++ b/meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb
+@@ -1,4 +1,4 @@
+-PR = "r1"
++PR = "r2"
  
-diff --git a/meta/recipes-sato/matchbox-desktop/matchbox-desktop_svn.bb b/meta/recipes-sato/matchbox-desktop/matchbox-desktop_svn.bb
-index f5aadfd..85325f0 100644
---- a/meta/recipes-sato/matchbox-desktop/matchbox-desktop_svn.bb
-+++ b/meta/recipes-sato/matchbox-desktop/matchbox-desktop_svn.bb
-@@ -11,9 +11,10 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f \
- DEPENDS = "gtk+ startup-notification dbus"
- SECTION = "x11/wm"
- PV = "2.0+svnr${SRCPV}"
--PR = "r0"
-+PR = "r1"
+ require gcc-${PV}.inc
+ require gcc-cross4.inc
+diff --git a/meta/recipes-devtools/gcc/gcc-crosssdk-initial_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-crosssdk-initial_4.5.1.bb
+index 0fc5faa..240caf5 100644
+--- a/meta/recipes-devtools/gcc/gcc-crosssdk-initial_4.5.1.bb
++++ b/meta/recipes-devtools/gcc/gcc-crosssdk-initial_4.5.1.bb
+@@ -1,4 +1,4 @@
+ require gcc-cross-initial_${PV}.bb
+ require gcc-crosssdk-initial.inc
  
--SRC_URI = "svn://svn.o-hand.com/repos/matchbox/trunk;module=${PN}-2;proto=http"
-+SRC_URI = "svn://svn.o-hand.com/repos/matchbox/trunk;module=${PN}-2;proto=http \
-+           file://dso_build_fix.patch"
+-PR = "r1"
++PR = "r2"
+diff --git a/meta/recipes-devtools/gcc/gcc-crosssdk-intermediate_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-crosssdk-intermediate_4.5.1.bb
+index 4260c35..a6653dd 100644
+--- a/meta/recipes-devtools/gcc/gcc-crosssdk-intermediate_4.5.1.bb
++++ b/meta/recipes-devtools/gcc/gcc-crosssdk-intermediate_4.5.1.bb
+@@ -1,4 +1,4 @@
+ require gcc-cross-intermediate_${PV}.bb
+ require gcc-crosssdk-intermediate.inc
  
- EXTRA_OECONF = "--enable-startup-notification --with-dbus"
+-PR = "r1"
++PR = "r2"
+diff --git a/meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb
+index a23a662..129e8d3 100644
+--- a/meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb
++++ b/meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb
+@@ -1,4 +1,4 @@
+ require gcc-cross_${PV}.bb
+ require gcc-crosssdk.inc
  
+-PR = "r1"
++PR = "r2"
+diff --git a/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb
+index ca22e8b..093f9bf 100644
+--- a/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb
++++ b/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb
+@@ -1,4 +1,4 @@
+-PR = "r1"
++PR = "r2"
+ 
+ require gcc-${PV}.inc
+ require gcc-configure-runtime.inc
+diff --git a/meta/recipes-devtools/gcc/gcc_4.5.1.bb b/meta/recipes-devtools/gcc/gcc_4.5.1.bb
+index a21772f..919d4b0 100644
+--- a/meta/recipes-devtools/gcc/gcc_4.5.1.bb
++++ b/meta/recipes-devtools/gcc/gcc_4.5.1.bb
+@@ -1,4 +1,4 @@
+-PR = "r1"
++PR = "r2"
+ require gcc-${PV}.inc
+ require gcc-configure-target.inc
+ require gcc-package-target.inc
 -- 
 1.7.3.4
 
