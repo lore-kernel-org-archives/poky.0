@@ -1,29 +1,23 @@
-Return-Path: <koen@dominion.thruhere.net>
-Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
-	[74.125.82.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id DFD234C80FA4
-	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 10:52:23 -0600 (CST)
-Received: by wye20 with SMTP id 20so5468408wye.35
-	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 08:52:17 -0800 (PST)
-Received: by 10.227.177.10 with SMTP id bg10mr3984833wbb.148.1295283087846;
-	Mon, 17 Jan 2011 08:51:27 -0800 (PST)
-Received: from [172.20.1.5] (ip545070eb.adsl-surfen.hetnet.nl [84.80.112.235])
-	by mx.google.com with ESMTPS id
-	q18sm3474148wbe.11.2011.01.17.08.51.27
-	(version=TLSv1/SSLv3 cipher=RC4-MD5);
-	Mon, 17 Jan 2011 08:51:27 -0800 (PST)
-Mime-Version: 1.0 (Apple Message framework v1082)
-From: Koen Kooi <koen@dominion.thruhere.net>
-In-Reply-To: <1295279606-19767-4-git-send-email-koen@dominion.thruhere.net>
-Date: Mon, 17 Jan 2011 17:51:25 +0100
-Message-Id: <D08BBBDB-D305-4A2D-B8FF-8561C8376A69@dominion.thruhere.net>
-References: <1295279606-19767-1-git-send-email-koen@dominion.thruhere.net>
-	<1295279606-19767-2-git-send-email-koen@dominion.thruhere.net>
-	<1295279606-19767-3-git-send-email-koen@dominion.thruhere.net>
-	<1295279606-19767-4-git-send-email-koen@dominion.thruhere.net>
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E79014C81065
+	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 10:54:21 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 17 Jan 2011 08:54:21 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,333,1291622400"; d="scan'208";a="647809139"
+Received: from unknown (HELO helios) ([10.255.16.105])
+	by fmsmga002.fm.intel.com with SMTP; 17 Jan 2011 08:54:20 -0800
+Received: by helios (sSMTP sendmail emulation); Mon, 17 Jan 2011 16:54:13 +0000
+Message-Id: <dba62f183edc00325e93c1d2d8014825a792e046.1295282922.git.paul.eggleton@linux.intel.com>
+In-Reply-To: <cover.1295282922.git.paul.eggleton@linux.intel.com>
+References: <cover.1295282922.git.paul.eggleton@linux.intel.com>
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
+Old-Date: Thu, 13 Jan 2011 15:04:35 +0000
+Date: Mon, 17 Jan 2011 16:54:13 +0000
 To: poky@yoctoproject.org
-X-Mailer: Apple Mail (2.1082)
-Subject: Re: [PATCH 4/5] setuptools bbclass: import from OE
+CC: 
+Subject: [PATCH 2/8] qt4: add qt4-embedded 4.6.3 from OpenEmbedded
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,37 +29,232 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 17 Jan 2011 16:52:24 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Mon, 17 Jan 2011 16:54:22 -0000
 
-After talking to Richard I've squashed this into patch #2
+Changes from the OE version:
+* Change include order in the .bb file so that embedded takes precedence
+* X11 and Embedded Qt were merged into the same source file in 4.6.x:
+ * Add -embedded configure option to select embedded version
+ * Fix SRC_URI and S for source archive name change
+* Correct LICENSE
+* Add hack-out-pg_config.patch
+* Add mips-relocate.patch
+* Remove obsolete patches
 
-Op 17 jan 2011, om 16:53 heeft Koen Kooi het volgende geschreven:
+Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
+---
+ meta/classes/qt4e.bbclass                          |   17 ++++
+ .../qt4/files/qthelp-lib-qtclucene.patch           |   86 ++++++++++++++++++++
+ meta/recipes-qt/qt4/qt4-embedded-4.6.3/qte.sh      |    7 ++
+ meta/recipes-qt/qt4/qt4-embedded.inc               |   53 ++++++++++++
+ meta/recipes-qt/qt4/qt4-embedded_4.6.3.bb          |    6 ++
+ 5 files changed, 169 insertions(+), 0 deletions(-)
+ create mode 100644 meta/classes/qt4e.bbclass
+ create mode 100644 meta/recipes-qt/qt4/files/qthelp-lib-qtclucene.patch
+ create mode 100644 meta/recipes-qt/qt4/qt4-embedded-4.6.3/qte.sh
+ create mode 100644 meta/recipes-qt/qt4/qt4-embedded.inc
+ create mode 100644 meta/recipes-qt/qt4/qt4-embedded_4.6.3.bb
 
-> Signed-off-by: Koen Kooi <koen@dominion.thruhere.net>
-> ---
-> meta/classes/setuptools.bbclass |    8 ++++++++
-> 1 files changed, 8 insertions(+), 0 deletions(-)
-> create mode 100644 meta/classes/setuptools.bbclass
->=20
-> diff --git a/meta/classes/setuptools.bbclass =
-b/meta/classes/setuptools.bbclass
-> new file mode 100644
-> index 0000000..ced9509
-> --- /dev/null
-> +++ b/meta/classes/setuptools.bbclass
-> @@ -0,0 +1,8 @@
-> +inherit distutils
-> +
-> +DEPENDS +=3D "python-setuptools-native"
-> +
-> +DISTUTILS_INSTALL_ARGS =3D "--root=3D${D} \
-> +    --single-version-externally-managed \
-> +    --prefix=3D${prefix} \
-> +    --install-data=3D${datadir}"
-> --=20
-> 1.6.6.1
->=20
+diff --git a/meta/classes/qt4e.bbclass b/meta/classes/qt4e.bbclass
+new file mode 100644
+index 0000000..303b79b
+--- /dev/null
++++ b/meta/classes/qt4e.bbclass
+@@ -0,0 +1,17 @@
++DEPENDS_prepend = "${@["qt4-embedded ", ""][(bb.data.getVar('PN', d, 1)[:12] == 'qt4-embedded')]}"
++inherit qmake2
++
++QT_DIR_NAME = "qtopia"
++QT_LIBINFIX = "E"
++# override variables set by qmake-base to compile Qt/Embedded apps
++#
++export QMAKESPEC = "${STAGING_DATADIR}/${QT_DIR_NAME}/mkspecs/${TARGET_OS}-oe-g++"
++export OE_QMAKE_INCDIR_QT = "${STAGING_INCDIR}/${QT_DIR_NAME}"
++export OE_QMAKE_LIBDIR_QT = "${STAGING_LIBDIR}"
++export OE_QMAKE_LIBS_QT = "qt"
++export OE_QMAKE_LIBS_X11 = ""
++export OE_QMAKE_EXTRA_MODULES = "network"
++EXTRA_QMAKEVARS_PRE += " QT_LIBINFIX=${QT_LIBINFIX} "
++
++# Qt4 uses atomic instructions not supported in thumb mode
++ARM_INSTRUCTION_SET = "arm"
+diff --git a/meta/recipes-qt/qt4/files/qthelp-lib-qtclucene.patch b/meta/recipes-qt/qt4/files/qthelp-lib-qtclucene.patch
+new file mode 100644
+index 0000000..1d250d8
+--- /dev/null
++++ b/meta/recipes-qt/qt4/files/qthelp-lib-qtclucene.patch
+@@ -0,0 +1,86 @@
++qt-embedded: fix linker error in do_compile
++
++This patch ensures that we link to libQtCLucene where required (i.e. when 
++linking to libQtHelp) avoiding a linker error.
++
++Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
++
++Index: qt-everywhere-opensource-src-4.6.3/demos/qtdemo/qtdemo.pro
++===================================================================
++--- qt-everywhere-opensource-src-4.6.3.orig/demos/qtdemo/qtdemo.pro	2011-01-11 16:06:47.382828004 +0000
+++++ qt-everywhere-opensource-src-4.6.3/demos/qtdemo/qtdemo.pro	2011-01-11 16:10:06.906828001 +0000
++@@ -76,3 +76,10 @@
++ sources.files = $$SOURCES $$HEADERS $$FORMS $$RESOURCES qtdemo.pro images xml *.ico *.icns *.rc *.plist
++ sources.path = $$[QT_INSTALL_DEMOS]/qtdemo
++ 
+++qclucene = QtCLucene$${QT_LIBINFIX}
+++if(!debug_and_release|build_pass):CONFIG(debug, debug|release) {
+++    mac:qclucene = $${qclucene}_debug
+++    win32:qclucene = $${qclucene}d
+++}
+++linux-lsb-g++:LIBS_PRIVATE += --lsb-shared-libs=$$qclucene
+++LIBS_PRIVATE += -l$$qclucene
++Index: qt-everywhere-opensource-src-4.6.3/examples/help/contextsensitivehelp/contextsensitivehelp.pro
++===================================================================
++--- qt-everywhere-opensource-src-4.6.3.orig/examples/help/contextsensitivehelp/contextsensitivehelp.pro	2011-01-11 16:05:56.598828002 +0000
+++++ qt-everywhere-opensource-src-4.6.3/examples/help/contextsensitivehelp/contextsensitivehelp.pro	2011-01-11 16:09:57.762828002 +0000
++@@ -18,3 +18,11 @@
++ INSTALLS += target sources
++ 
++ symbian: include($$QT_SOURCE_TREE/examples/symbianpkgrules.pri)
+++
+++qclucene = QtCLucene$${QT_LIBINFIX}
+++if(!debug_and_release|build_pass):CONFIG(debug, debug|release) {
+++    mac:qclucene = $${qclucene}_debug
+++    win32:qclucene = $${qclucene}d
+++}
+++linux-lsb-g++:LIBS_PRIVATE += --lsb-shared-libs=$$qclucene
+++LIBS_PRIVATE += -l$$qclucene
++Index: qt-everywhere-opensource-src-4.6.3/tools/assistant/tools/assistant/assistant.pro
++===================================================================
++--- qt-everywhere-opensource-src-4.6.3.orig/tools/assistant/tools/assistant/assistant.pro	2011-01-11 14:56:50.902828001 +0000
+++++ qt-everywhere-opensource-src-4.6.3/tools/assistant/tools/assistant/assistant.pro	2011-01-11 16:09:39.914828003 +0000
++@@ -85,3 +85,11 @@
++         DEFINES += USE_STATIC_SQLITE_PLUGIN
++     }
++ }
+++
+++qclucene = QtCLucene$${QT_LIBINFIX}
+++if(!debug_and_release|build_pass):CONFIG(debug, debug|release) {
+++    mac:qclucene = $${qclucene}_debug
+++    win32:qclucene = $${qclucene}d
+++}
+++linux-lsb-g++:LIBS_PRIVATE += --lsb-shared-libs=$$qclucene
+++LIBS_PRIVATE += -l$$qclucene
++Index: qt-everywhere-opensource-src-4.6.3/tools/assistant/tools/qcollectiongenerator/qcollectiongenerator.pro
++===================================================================
++--- qt-everywhere-opensource-src-4.6.3.orig/tools/assistant/tools/qcollectiongenerator/qcollectiongenerator.pro	2011-01-11 14:56:50.918828002 +0000
+++++ qt-everywhere-opensource-src-4.6.3/tools/assistant/tools/qcollectiongenerator/qcollectiongenerator.pro	2011-01-11 16:09:44.538828001 +0000
++@@ -12,3 +12,11 @@
++            main.cpp
++ 
++ HEADERS += ../shared/helpgenerator.h
+++
+++qclucene = QtCLucene$${QT_LIBINFIX}
+++if(!debug_and_release|build_pass):CONFIG(debug, debug|release) {
+++    mac:qclucene = $${qclucene}_debug
+++    win32:qclucene = $${qclucene}d
+++}
+++linux-lsb-g++:LIBS_PRIVATE += --lsb-shared-libs=$$qclucene
+++LIBS_PRIVATE += -l$$qclucene
++Index: qt-everywhere-opensource-src-4.6.3/tools/assistant/tools/qhelpgenerator/qhelpgenerator.pro
++===================================================================
++--- qt-everywhere-opensource-src-4.6.3.orig/tools/assistant/tools/qhelpgenerator/qhelpgenerator.pro	2011-01-11 14:56:50.930828002 +0000
+++++ qt-everywhere-opensource-src-4.6.3/tools/assistant/tools/qhelpgenerator/qhelpgenerator.pro	2011-01-11 16:09:50.274828003 +0000
++@@ -12,3 +12,11 @@
++            main.cpp
++ 
++ HEADERS += ../shared/helpgenerator.h
+++
+++qclucene = QtCLucene$${QT_LIBINFIX}
+++if(!debug_and_release|build_pass):CONFIG(debug, debug|release) {
+++    mac:qclucene = $${qclucene}_debug
+++    win32:qclucene = $${qclucene}d
+++}
+++linux-lsb-g++:LIBS_PRIVATE += --lsb-shared-libs=$$qclucene
+++LIBS_PRIVATE += -l$$qclucene
+diff --git a/meta/recipes-qt/qt4/qt4-embedded-4.6.3/qte.sh b/meta/recipes-qt/qt4/qt4-embedded-4.6.3/qte.sh
+new file mode 100644
+index 0000000..21d6ecb
+--- /dev/null
++++ b/meta/recipes-qt/qt4/qt4-embedded-4.6.3/qte.sh
+@@ -0,0 +1,7 @@
++#!/bin/sh
++
++if [ -e /dev/input/touchscreen0 ]
++then
++    QWS_MOUSE_PROTO=Tslib:/dev/input/touchscreen0
++    export QWS_MOUSE_PROTO
++fi
+diff --git a/meta/recipes-qt/qt4/qt4-embedded.inc b/meta/recipes-qt/qt4/qt4-embedded.inc
+new file mode 100644
+index 0000000..2978059
+--- /dev/null
++++ b/meta/recipes-qt/qt4/qt4-embedded.inc
+@@ -0,0 +1,53 @@
++SUMMARY = "Qt is a versatile cross-platform application framework -- this is the embedded version."
++SECTION = "libs"
++LICENSE = "LGPLv2.1 | GPLv3"
++PRIORITY = "optional"
++HOMEPAGE = "http://www.trolltech.com"
++DEPENDS += "directfb tslib"
++INC_PR = "r26"
++
++QT_BASE_NAME ?= "qt4-embedded"
++QT_BASE_LIB  ?= "libqt-embedded"
++QT_DIR_NAME = "qtopia"
++QT_LIBINFIX = "E"
++
++SRC_URI = "http://get.qt.nokia.com/qt/source/qt-everywhere-opensource-src-${PV}.tar.gz \
++           file://0001-cross-compile.patch \
++           file://0002-fix-resinit-declaration.patch \
++           file://0004-no-qmake.patch \
++           file://0006-freetype-host-includes.patch \
++           file://0008-qt-lib-infix.patch \
++           file://0009-support-2bpp.patch \
++           file://fix-config-tests.patch \
++           file://hack-out-pg_config.patch \
++           file://mips-relocate.patch \
++           file://qthelp-lib-qtclucene.patch \
++           file://g++.conf \
++           file://linux.conf \
++           "
++
++# Set necessary variables in the profile
++SRC_URI += "file://qte.sh"
++
++S = "${WORKDIR}/qt-everywhere-opensource-src-${PV}"
++
++QT_CONFIG_FLAGS += " \
++    -embedded \
++    -qtlibinfix ${QT_LIBINFIX} \
++    -plugin-gfx-transformed -plugin-gfx-qvfb -plugin-gfx-vnc -plugin-gfx-directfb \
++    -plugin-mouse-tslib -qt-mouse-pc -qt-mouse-qvfb -qt-mouse-linuxinput \
++    -qt-kbd-tty \
++    -DQT_KEYPAD_NAVIGATION \
++    "
++
++require qt4.inc
++
++do_install_append() {
++    install -d ${D}${sysconfdir}/profile.d/
++    install -m 0755 ${WORKDIR}/qte.sh ${D}${sysconfdir}/profile.d/
++}
++
++FILES_${PN} += " ${sysconfdir}/profile.d/qte.sh"
++
++inherit qt4e
++
+diff --git a/meta/recipes-qt/qt4/qt4-embedded_4.6.3.bb b/meta/recipes-qt/qt4/qt4-embedded_4.6.3.bb
+new file mode 100644
+index 0000000..3d35016
+--- /dev/null
++++ b/meta/recipes-qt/qt4/qt4-embedded_4.6.3.bb
+@@ -0,0 +1,6 @@
++PR = "${INC_PR}.1"
++
++QT_CONFIG_FLAGS_append_armv6 = " -no-neon "
++
++require qt-${PV}.inc
++require qt4-embedded.inc
+-- 
+1.7.1
 
 
