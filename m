@@ -1,21 +1,21 @@
 Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0547C4C80BEF
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 0A9244C80FA4
 	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 16:45:52 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 17 Jan 2011 14:45:52 -0800
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 17 Jan 2011 14:45:52 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,335,1291622400"; d="scan'208";a="647924961"
+X-IronPort-AV: E=Sophos;i="4.60,335,1291622400"; d="scan'208";a="375845258"
 Received: from nbuild2.sc.intel.com (HELO localhost) ([172.25.110.37])
-	by fmsmga002.fm.intel.com with ESMTP; 17 Jan 2011 14:45:52 -0800
-Message-Id: <aaa7b99c3e1c19f93ba98fec4fca8c8397a0d502.1295304080.git.nitin.a.kamble@intel.com>
+	by azsmga001.ch.intel.com with ESMTP; 17 Jan 2011 14:45:52 -0800
+Message-Id: <6006fdd1f81c20b71dcb3d8c85eec1c4ef629eda.1295304080.git.nitin.a.kamble@intel.com>
 In-Reply-To: <cover.1295304080.git.nitin.a.kamble@intel.com>
 References: <cover.1295304080.git.nitin.a.kamble@intel.com>
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Old-Date: Tue, 11 Jan 2011 03:49:06 -0800
+Old-Date: Mon, 17 Jan 2011 14:01:54 -0800
 Date: Mon, 17 Jan 2011 14:45:52 -0800
 To: poky@yoctoproject.org
-Subject: [PATCH 04/12] oprofileui: fix the build failure after gcc dso change
+Subject: [PATCH 03/12] libmusicbrainz: fix the build failure caused by gcc dso linkcing change
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,64 +29,72 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Mon, 17 Jan 2011 22:45:53 -0000
 
-With a change in gcc all the libraries needs to be specified explicitely
-for linking. That breaks compile for this package as libm is not
-explicitely specified. This commit fixes that linking  issue.
+The libraries for linking are not determined automatically now. All
+the needed libraries must be specified explicitly.
+
+This patch fixes the issue for missing libpthread library in the linker
+script.
 
 Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
 ---
- meta/recipes-kernel/oprofile/oprofileui-svn.inc    |    5 ++-
- .../oprofileui/dso_linking_change_build_fix.patch  |   25 ++++++++++++++++++++
- 2 files changed, 28 insertions(+), 2 deletions(-)
- create mode 100644 meta/recipes-kernel/oprofile/oprofileui/dso_linking_change_build_fix.patch
+ .../dso_linking_change_build_fix.patch             |   29 ++++++++++++++++++++
+ .../musicbrainz/libmusicbrainz_3.0.3.bb            |    5 ++-
+ 2 files changed, 32 insertions(+), 2 deletions(-)
+ create mode 100644 meta/recipes-multimedia/musicbrainz/libmusicbrainz-3.0.3/dso_linking_change_build_fix.patch
 
-diff --git a/meta/recipes-kernel/oprofile/oprofileui-svn.inc b/meta/recipes-kernel/oprofile/oprofileui-svn.inc
-index 0e7e794..5d40914 100644
---- a/meta/recipes-kernel/oprofile/oprofileui-svn.inc
-+++ b/meta/recipes-kernel/oprofile/oprofileui-svn.inc
-@@ -1,8 +1,9 @@
- require oprofileui.inc
+diff --git a/meta/recipes-multimedia/musicbrainz/libmusicbrainz-3.0.3/dso_linking_change_build_fix.patch b/meta/recipes-multimedia/musicbrainz/libmusicbrainz-3.0.3/dso_linking_change_build_fix.patch
+new file mode 100644
+index 0000000..5f0cce2
+--- /dev/null
++++ b/meta/recipes-multimedia/musicbrainz/libmusicbrainz-3.0.3/dso_linking_change_build_fix.patch
+@@ -0,0 +1,29 @@
++dso build fix:
++With a dso patch for gcc, which prevents automatic linking of unspecified libraries, 
++this recipe fails to compile with this error:
++
++| Linking CXX executable cdlookup^M
++| cd /disk0/pokybuild/build1/tmp/work/i586-poky-linux/libmusicbrainz-3.0.3-r0/libmusicbrainz-3.0.3/examples && /disk0/pokybuild/build1/tmp/sysroots/x86_64-linux/usr/bin/cmake -E cmake_link_script CMakeFiles/cdlookup.dir/link.txt --verbose=1^M
++| /disk0/pokybuild/build1/tmp/sysroots/x86_64-linux/usr/bin/i586-poky-linux/i586-poky-linux-g++   -march=i586  --sysroot=/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux  -fpermissive  -Wl,-O1 -Wl,--as-needed CMakeFiles/cdlookup.dir/cdlookup.cpp.o  -o cdlookup -rdynamic ../src/libmusicbrainz3.so.6.3.0 -lneon -Wl,-rpath,/disk0/pokybuild/build1/tmp/work/i586-poky-linux/libmusicbrainz-3.0.3-r0/libmusicbrainz-3.0.3/src^M
++| /disk0/pokybuild/build1/tmp/sysroots/x86_64-linux/usr/libexec/i586-poky-linux/gcc/i586-poky-linux/4.5.1/ld: ~I: invalid DSO for symbol `pthread_cancel@@GLIBC_2.0' definition^M
++| /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/lib/libpthread.so.0: could not read symbols: Bad value^M
++| collect2: ld returned 1 exit status^M
++| make[2]: *** [examples/cdlookup] Error 1^M
++| make[2]: Leaving directory `/disk0/pokybuild/build1/tmp/work/i586-poky-linux/libmusicbrainz-3.0.3-r0/libmusicbrainz-3.0.3'
++
++fixing the issue by making linking of libpthread explicit.
++
++Nitin A Kamble <nitin.a.kamble@intel.com>
++Date: 2011/01/10
++
++Index: libmusicbrainz-3.0.3/examples/CMakeLists.txt
++===================================================================
++--- libmusicbrainz-3.0.3.orig/examples/CMakeLists.txt
+++++ libmusicbrainz-3.0.3/examples/CMakeLists.txt
++@@ -1,5 +1,5 @@
++ INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/../include)
++-LINK_LIBRARIES(musicbrainz3 ${NEON_LIBRARIES})
+++LINK_LIBRARIES(musicbrainz3 ${NEON_LIBRARIES} pthread)
++ ADD_EXECUTABLE(cdlookup cdlookup.cpp)
++ ADD_EXECUTABLE(findartist findartist.cpp)
++ ADD_EXECUTABLE(findtrack findtrack.cpp)
+diff --git a/meta/recipes-multimedia/musicbrainz/libmusicbrainz_3.0.3.bb b/meta/recipes-multimedia/musicbrainz/libmusicbrainz_3.0.3.bb
+index 080c1bf..bd3c213 100644
+--- a/meta/recipes-multimedia/musicbrainz/libmusicbrainz_3.0.3.bb
++++ b/meta/recipes-multimedia/musicbrainz/libmusicbrainz_3.0.3.bb
+@@ -6,10 +6,11 @@ LIC_FILES_CHKSUM = "file://COPYING.txt;md5=fbc093901857fcd118f065f900982c24 \
+                     file://include/musicbrainz3/includes.h;beginline=1;endline=21;md5=9ab2846573f560cea7561da472803a72"
+ DEPENDS = "expat neon"
  
- PV = "0.0+svnr${SRCPV}"
 -PR = "r0"
 +PR = "r1"
  
- S = "${WORKDIR}/trunk"
- 
--SRC_URI = "svn://svn.o-hand.com/repos/oprofileui;module=trunk;proto=http"
-+SRC_URI = "svn://svn.o-hand.com/repos/oprofileui;module=trunk;proto=http \
+ SRC_URI = "http://ftp.musicbrainz.org/pub/musicbrainz/${PN}-${PV}.tar.gz \
+-           file://fix_build_issue_for_gcc_4.5.0.patch"
++           file://fix_build_issue_for_gcc_4.5.0.patch \
 +           file://dso_linking_change_build_fix.patch "
-diff --git a/meta/recipes-kernel/oprofile/oprofileui/dso_linking_change_build_fix.patch b/meta/recipes-kernel/oprofile/oprofileui/dso_linking_change_build_fix.patch
-new file mode 100644
-index 0000000..4b44c69
---- /dev/null
-+++ b/meta/recipes-kernel/oprofile/oprofileui/dso_linking_change_build_fix.patch
-@@ -0,0 +1,25 @@
-+With dso linking change in gcc, all the libraries are needed to be explicitely specified to linker now. It breaks this package in following way. The libm library needs to be specified explicitely.
-+
-+| make[2]: Entering directory `/disk0/pokybuild/build1/tmp/work/i586-poky-linux/oprofileui-0.0+svnr197-r0/trunk/src'^M
-+| ccache i586-poky-linux-gcc -march=i586 --sysroot=/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux -Wall -g -std=gnu99 -DPKG_DATA_DIR=\""/usr/share/oprofileui"\"  -fexpensive-optimizations -fomit-frame-pointer -frename-registers -O2 -ggdb -feliminate-unused-debug-types  -Wl,-O1 -Wl,--hash-style=gnu -Wl,--as-needed -o oprofile-viewer main.o client.o archive.o archive_window.o archive_save_window.o view.o report.o parser.o image.o symbol.o module.o symbol_instance.o module_instance.o callee_symbol_instance.o caller_symbol_instance.o state-util.o -pthread -lglade-2.0 -lgtk-x11-2.0 -lgdk-x11-2.0 -latk-1.0 -lgio-2.0 -lpangoft2-1.0 -lgdk_pixbuf-2.0 -lpangocairo-1.0 -lcairo -lpango-1.0 -lfreetype -lfontconfig -lxml2 -lgnomevfs-2 -lgmodule-2.0 -lgconf-2 -ldbus-glib-1 -ldbus-1 -lpthread -lgobject-2.0 -lgthread-2.0 -lrt -lglib-2.0   -pthread -lavahi-ui -lgtk-x11-2.0 -lavahi-common -lavahi-client -lavahi-glib -lgdk-x11-2.0 -latk-1.0 -lgio-2.0 -lpangoft2-1.0 -lgdk_pixbuf-2.0 -lpangocairo-1.0 -lcairo -lpango-1.0 -lfreetype -lfontconfig -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -lrt -lglib-2.0   ../protocol/libop.a^M
-+| /disk0/pokybuild/build1/tmp/sysroots/x86_64-linux/usr/libexec/i586-poky-linux/gcc/i586-poky-linux/4.5.1/ld: ^X^B: invalid DSO for symbol `log@@GLIBC_2.0' definition^M
-+| /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/lib/libm.so.6: could not read symbols: Bad value^M
-+| collect2: ld returned 1 exit status^M
-+| make[2]: *** [oprofile-viewer] Error 1^M
-+
-+Nitin A Kamble <nitin.a.kamble@intel.com>
-+Date: 2011/01/11
-+
-+Index: trunk/src/Makefile.am
-+===================================================================
-+--- trunk.orig/src/Makefile.am
-++++ trunk/src/Makefile.am
-+@@ -56,7 +56,7 @@ oprofile_viewer_SOURCES = \
-+ 
-+ oprofile_viewer_LDFLAGS = 
-+ 
-+-oprofile_viewer_LDADD = $(OPROFILEUI_LIBS) $(AVAHI_LIBS) $(top_builddir)/protocol/libop.a
-++oprofile_viewer_LDADD = $(OPROFILEUI_LIBS) -lm $(AVAHI_LIBS) $(top_builddir)/protocol/libop.a
-+ 
-+ testparser_SOURCES = \
-+ 	parser.c \
+ 
+ SRC_URI[md5sum] = "f4824d0a75bdeeef1e45cc88de7bb58a"
+ SRC_URI[sha256sum] = "7fd459a9fd05be9faec60a9a21caa9a1e9fda03147d58d8c7c95f33582a738c5"
 -- 
 1.7.3.4
 
