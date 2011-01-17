@@ -1,23 +1,26 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7EAE54C81210
-	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 10:54:37 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 17 Jan 2011 08:54:37 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,333,1291622400"; d="scan'208";a="697652738"
-Received: from unknown (HELO helios) ([10.255.16.105])
-	by orsmga001.jf.intel.com with SMTP; 17 Jan 2011 08:54:34 -0800
-Received: by helios (sSMTP sendmail emulation); Mon, 17 Jan 2011 16:54:27 +0000
-Message-Id: <836cf03d707c8f72e07838b2a4268e9efd7aeaba.1295282922.git.paul.eggleton@linux.intel.com>
-In-Reply-To: <cover.1295282922.git.paul.eggleton@linux.intel.com>
-References: <cover.1295282922.git.paul.eggleton@linux.intel.com>
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-Old-Date: Fri, 14 Jan 2011 15:36:23 +0000
-Date: Mon, 17 Jan 2011 16:54:27 +0000
-To: poky@yoctoproject.org
-CC: 
-Subject: [PATCH 8/8] Add meta-toolchain-qte and dependent tasks from OpenEmbedded
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 25C3B4C81065
+	for <poky@lists.pokylinux.org>; Mon, 17 Jan 2011 10:59:46 -0600 (CST)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id AB4CB166030D; Mon, 17 Jan 2011 09:59:45 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.1
+Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 1317516602EC;
+	Mon, 17 Jan 2011 09:59:45 -0700 (MST)
+Message-ID: <4D347581.9020201@mlbassoc.com>
+Date: Mon, 17 Jan 2011 09:59:45 -0700
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
+MIME-Version: 1.0
+To: Poky <poky@lists.pokylinux.org>
+Subject: WiFi setup
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,132 +32,76 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 17 Jan 2011 16:54:37 -0000
+X-List-Received-Date: Mon, 17 Jan 2011 16:59:46 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Differences from OE versions:
+Pardon me if this is not the best place to ask about this, but
+since I'm building using Poky...  Feel free to send me elsewhere
+(with pointers!) if there's a more appropriate list.
 
-task-qte-toolchain-target.bb:
- * Depend on task-poky-standalone-sdk-target instead of task-sdk-bare
- * Add LIC_FILES_CHKSUM
- * Correct libsqlite3-dev dependency for Poky
- * Remove dependency on libts-dev
+I now have a WiFi USB dongle which I think the kernel is happy
+with, at least I get the 'wlan0' device running.  I'm not running
+network manager, I'd like to just get it going "raw" via ifup, etc.
 
-task-qte-toolchain-host.bb
- * Fix for Poky directory structure
- * qt4-tools-sdk -> qt4-tools-nativesdk
+Sadly, when I try it, it doesn't work.  Here's what I see:
 
-meta-toolchain-qte:
- * Fix for Poky directory structure
- * Use ${FAKEROOT} instead of fakeroot
- * Remove angstrom-specific suffix
+   root@cobra3530p60:~# ifup wlan0
+   phy0 -> rt2x00lib_request_firmware: Info - Loading firmware file 'rt73.bin'.
+   rt73usb 2-1.2.4:1.0: firmware: requesting rt73.bin
+   phy0 -> rt2x00lib_request_firmware: Info - Firmware detected - version: 1.7.
+   phy0 -> rt2x00mac_conf_tx: Info - Configured TX queue 0 - CWmin: 3, CWmax: 4, Aifs: 2, TXop: 102.
+   phy0 -> rt2x00mac_conf_tx: Info - Configured TX queue 1 - CWmin: 4, CWmax: 5, Aifs: 2, TXop: 188.
+   phy0 -> rt2x00mac_conf_tx: Info - Configured TX queue 2 - CWmin: 5, CWmax: 10, Aifs: 3, TXop: 0.
+   phy0 -> rt2x00mac_conf_tx: Info - Configured TX queue 3 - CWmin: 5, CWmax: 10, Aifs: 7, TXop: 0.
+   ADDRCONF(NETDEV_UP): wlan0: link is not ready
+   udhcpc (v1.17.3) started
+   Setting IP address 0.0.0.0 on wlan0
+   Sending discover...
+   Read error: Network is down, reopening socket
+   phy0 -> rt2x00mac_conf_tx: Info - Configured TX queue 0 - CWmin: 3, CWmax: 4, Aifs: 2, TXop: 102.
+   phy0 -> rt2x00mac_conf_tx: Info - Configured TX queue 1 - CWmin: 4, CWmax: 5, Aifs: 2, TXop: 188.
+   phy0 -> rt2x00mac_conf_tx: Info - Configured TX queue 2 - CWmin: 5, CWmax: 10, Aifs: 3, TXop: 0.
+   phy0 -> rt2x00mac_conf_tx: Info - Configured TX queue 3 - CWmin: 5, CWmax: 10, Aifs: 7, TXop: 0.
+   Sending discover...
+   Sending discover...
+   No lease, failing
+   root@cobra3530p60:~# phy0 -> rt2x00mac_conf_tx: Info - Configured TX queue 0 - CWmin: 2, CWmax: 3, Aifs: 2, TXop: 47.
+   phy0 -> rt2x00mac_conf_tx: Info - Configured TX queue 1 - CWmin: 3, CWmax: 4, Aifs: 2, TXop: 94.
+   phy0 -> rt2x00mac_conf_tx: Info - Configured TX queue 2 - CWmin: 4, CWmax: 10, Aifs: 3, TXop: 0.
+   phy0 -> rt2x00mac_conf_tx: Info - Configured TX queue 3 - CWmin: 4, CWmax: 10, Aifs: 7, TXop: 0.
 
-Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
----
- meta/recipes-qt/meta/meta-toolchain-qte.bb         |   32 ++++++++++++++++
- meta/recipes-qt/tasks/task-qte-toolchain-host.bb   |    7 ++++
- meta/recipes-qt/tasks/task-qte-toolchain-target.bb |   39 ++++++++++++++++++++
- 3 files changed, 78 insertions(+), 0 deletions(-)
- create mode 100644 meta/recipes-qt/meta/meta-toolchain-qte.bb
- create mode 100644 meta/recipes-qt/tasks/task-qte-toolchain-host.bb
- create mode 100644 meta/recipes-qt/tasks/task-qte-toolchain-target.bb
+   root@cobra3530p60:~# iwconfig wlan0
+   wlan0     IEEE 802.11bg  ESSID:"test adhoc"
+             Mode:Ad-Hoc  Frequency:2.412 GHz  Cell: B6:42:15:B2:E8:91
+             Tx-Power=18 dBm
+             Retry  long limit:7   RTS thr:off   Fragment thr:off
+             Encryption key:935E-27E7-CAB5-DA1B-1D6A-B183-71AE-26E7-7859-1311-D87D-FFB3-7859-1311-D87D-FFB3
+             Power Management:on
 
-diff --git a/meta/recipes-qt/meta/meta-toolchain-qte.bb b/meta/recipes-qt/meta/meta-toolchain-qte.bb
-new file mode 100644
-index 0000000..b29c5cf
---- /dev/null
-+++ b/meta/recipes-qt/meta/meta-toolchain-qte.bb
-@@ -0,0 +1,32 @@
-+# Qt Embedded toolchain
-+PR = "r5"
-+TOOLCHAIN_HOST_TASK = "task-qte-toolchain-host"
-+TOOLCHAIN_TARGET_TASK = "task-qte-toolchain-target"
-+
-+require recipes-core/meta/meta-toolchain.bb
-+SDK_SUFFIX = "toolchain-qte"
-+
-+QT_DIR_NAME = "qtopia"
-+
-+do_populate_sdk_append() {
-+    script="${SDK_OUTPUT}/${SDKPATH}/environment-setup"
-+    touch $script
-+    echo 'export OE_QMAKE_CC=${TARGET_SYS}-gcc' >> $script
-+    echo 'export OE_QMAKE_CXX=${TARGET_SYS}-g++' >> $script
-+    echo 'export OE_QMAKE_LINK=${TARGET_SYS}-g++' >> $script
-+    echo 'export OE_QMAKE_AR=${TARGET_SYS}-ar' >> $script
-+    echo 'export OE_QMAKE_LIBDIR_QT=${SDKPATH}/${TARGET_SYS}/${libdir}' >> $script
-+    echo 'export OE_QMAKE_INCDIR_QT=${SDKPATH}/${TARGET_SYS}/${includedir}/${QT_DIR_NAME}' >> $script
-+    echo 'export OE_QMAKE_MOC=${SDKPATH}/bin/moc4' >> $script
-+    echo 'export OE_QMAKE_UIC=${SDKPATH}/bin/uic4' >> $script
-+    echo 'export OE_QMAKE_UIC3=${SDKPATH}/bin/uic34' >> $script
-+    echo 'export OE_QMAKE_RCC=${SDKPATH}/bin/rcc4' >> $script
-+    echo 'export OE_QMAKE_QDBUSCPP2XML=${SDKPATH}/bin/qdbuscpp2xml4' >> $script
-+    echo 'export OE_QMAKE_QDBUSXML2CPP=${SDKPATH}/bin/qdbusxml2cpp4' >> $script
-+    echo 'export OE_QMAKE_QT_CONFIG=${SDKPATH}/${TARGET_SYS}/${datadir}/${QT_DIR_NAME}/mkspecs/qconfig.pri' >> $script
-+    echo 'export QMAKESPEC=${SDKPATH}/${TARGET_SYS}/${datadir}/${QT_DIR_NAME}/mkspecs/linux-g++' >> $script
-+
-+    # Repack SDK with new environment-setup
-+    cd ${SDK_OUTPUT}
-+    ${FAKEROOT} tar cfj ${SDK_DEPLOY}/${TOOLCHAIN_OUTPUTNAME}.tar.bz2 .       
-+}
-diff --git a/meta/recipes-qt/tasks/task-qte-toolchain-host.bb b/meta/recipes-qt/tasks/task-qte-toolchain-host.bb
-new file mode 100644
-index 0000000..2ab6ccf
---- /dev/null
-+++ b/meta/recipes-qt/tasks/task-qte-toolchain-host.bb
-@@ -0,0 +1,7 @@
-+require recipes-core/tasks/task-sdk-host.bb
-+
-+DESCRIPTION = "Host packages for Qt Embedded SDK"
-+LICENSE = "MIT"
-+ALLOW_EMPTY = "1"
-+
-+RDEPENDS_${PN} += "qt4-tools-nativesdk"
-diff --git a/meta/recipes-qt/tasks/task-qte-toolchain-target.bb b/meta/recipes-qt/tasks/task-qte-toolchain-target.bb
-new file mode 100644
-index 0000000..03e0e54
---- /dev/null
-+++ b/meta/recipes-qt/tasks/task-qte-toolchain-target.bb
-@@ -0,0 +1,39 @@
-+DESCRIPTION = "Target packages for Qt Embedded SDK"
-+LICENSE = "MIT"
-+ALLOW_EMPTY = "1"
-+
-+PR = "r5"
-+
-+LIC_FILES_CHKSUM = "file://${POKYBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58 \
-+                    file://${POKYBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
-+
-+RDEPENDS_${PN} += " \
-+        task-poky-standalone-sdk-target \
-+        qt4-embedded-mkspecs \
-+        libqt-embeddedmultimedia4-dev \
-+        libqt-embeddedphonon4-dev \
-+        libqt-embedded3support4-dev \
-+        libqt-embeddedclucene4-dev \
-+        libqt-embeddedcore4-dev \
-+        libqt-embeddeddbus4-dev \
-+        libqt-embeddeddesignercomponents4-dev \
-+        libqt-embeddeddesigner4-dev \
-+        libqt-embeddeduitools4-dev \
-+        libqt-embeddedgui4-dev \
-+        libqt-embeddedhelp4-dev \
-+        libqt-embeddednetwork4-dev \
-+        libqt-embeddedscript4-dev \
-+        libqt-embeddedscripttools4-dev \
-+        libqt-embeddedsql4-dev \
-+        libqt-embeddedsvg4-dev \
-+        libqt-embeddedtest4-dev \
-+        libqt-embeddedwebkit4-dev \
-+        libqt-embeddedxml4-dev \
-+        libsqlite3-dev \
-+        expat-dev \
-+        "
-+
-+#Qt Declarative is new in 4.7, try to include it like this.
-+#RRECOMMENDS_${PN} += " \
-+#        libqt-embeddeddeclarative4-dev \
-+#        "
+I have the default settings in /etc/network/interfaces for wlan0:
+   # Wireless interfaces
+   iface wlan0 inet dhcp
+           wireless_mode managed
+           wireless_essid any
+           wpa-driver wext
+           wpa-conf /etc/wpa_supplicant.conf
+
+I did not change /etc/wpa_supplicant.conf
+
+I've not found much in the way of documentation on how this works,
+but I think the [first] real problem is that the interface is in
+the wrong mode - Ad Hoc instead of Managed.
+
+Does anyone know what I need to do to get this going (I think I
+know how to set the details of things like my AP SSID and keys),
+I just don't think I'm getting that far.
+
+Thanks for any ideas
+
 -- 
-1.7.1
-
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
