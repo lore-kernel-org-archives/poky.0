@@ -1,29 +1,23 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C63A24C81065
-	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 09:24:31 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0HFQFYq025849; Mon, 17 Jan 2011 15:26:16 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id Lg8fYRK5xia3; Mon, 17 Jan 2011 15:26:15 +0000 (GMT)
-Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0HFQAV4025839
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Mon, 17 Jan 2011 15:26:13 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
+Return-Path: <tom.zanussi@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 3DCA04C811AA
+	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 09:26:25 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 17 Jan 2011 07:26:24 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,333,1291622400"; d="scan'208";a="697627349"
+Received: from unknown (HELO [10.255.14.51]) ([10.255.14.51])
+	by orsmga001.jf.intel.com with ESMTP; 17 Jan 2011 07:26:24 -0800
+From: Tom Zanussi <tom.zanussi@intel.com>
 To: Saul Wold <saul.wold@intel.com>
-In-Reply-To: <4D339BF0.5080607@intel.com>
-References: <4D339BF0.5080607@intel.com>
-Date: Mon, 17 Jan 2011 15:24:14 +0000
-Message-ID: <1295277854.14388.14938.camel@rex>
+In-Reply-To: <4D33F57D.2030009@intel.com>
+References: <4D33F57D.2030009@intel.com>
+Date: Mon, 17 Jan 2011 09:26:21 -0600
+Message-ID: <1295277981.1738.3.camel@elmorro>
 Mime-Version: 1.0
 X-Mailer: Evolution 2.28.3 
 Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: libxml-parser-perl failure
+Subject: Re: QemuARM Boot Failure
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,49 +29,45 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 17 Jan 2011 15:24:32 -0000
+X-List-Received-Date: Mon, 17 Jan 2011 15:26:25 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-Hi,
+On Sun, 2011-01-16 at 23:53 -0800, Saul Wold wrote:
+> Bruce,
+> 
+> Did you test the latest systemtap update on ARM?  I am just curious 
+> based on the current failure that we are having with qemuarm.  If so, 
+> against what revision of master? This might help us narrow down the issue.
+> 
 
-On Sun, 2011-01-16 at 17:31 -0800, Saul Wold wrote:
-> Nitin, Richard:
-> 
-> I was looking into the libxml failure today, and found a couple of 
-> different items that have changed in the newer version.  First is the 
-> addition of an arch_check function in the Extuils/MM_Any.pm and used
-> MakeMaker.pm. This check seems to use the archlib, which is set to 
-> ${STAGING_LIBDIR}/perl/${PV} by poky, but expects the final directory to 
-> be the ARCH, which is why we get 5.12.2 for the Arch!
-> 
-> Why do we set archlib to the ${PV} instead of ${PV}/${target}
-> 
-> 
-> The next issue that I saw had to do with Errno.pm and another 
-> architecture check, this time the errors:
-> 
->   ERROR from evaluation of 
-> /vol/1/sgw/builds/ppc/tmp/work/ppc603e-poky-linux/libxml-parser-perl-2.36-r0/XML-Parser-2.36/Expat/Makefile.PL: 
-> Errno architecture (x86_64-linux-thread-multi-2.6.34.7-56.fc13.x86_64) 
-> does not match executable architecture 
-> (powerpc-linux-2.6.37-rc5-yocto-standard+) at 
-> /vol/1/sgw/builds/ppc/tmp/sysroots/x86_64-linux/usr/lib/perl/5.12.2/Errno.pm 
-> line 11.
-> 
-> This looks like another check that will need some work
+Just one thing - at this point, systemtap doesn't need to be tested on
+arm, since it didn't work and therefore isn't one of the compatible
+machines.
 
-This seemed to be introduced by my change to wrap the perl binary with a
-wrapper script. I've updated the wrapper to append to PERL5LIB rather
-than overwrite it which I think is why these failures were appearing.
-They change the lib search path to pass data around, ugly but we can
-work around it.
+That doesn't explain why qemuarm doesn't boot for - anything
+systemtap-related would be orthogonal.  I was able to boot it though,
+only to find out that systemtap doesn't work on it...
 
-We still need to check the perl binary does work ok with sstate
-relocation after this.
+Tom
 
-Cheers,
+> 
+> I tried both the systemtap version and the older version and both 
+> failed.  The last known good qemuarm was 2 weeks ago, there have been a 
+> number of kernel updates in that time along with a loads of userspace 
+> changes, but no qemu updates since the first of the year.  I am not sure 
+> about the userspace changes yet, need to review them more deeply.
+> 
+> I will be tied up tomorrow, but will try bisecting tomorrow evening if 
+> there is no update before then.
+> 
+> Thanks
+>     Sau!
+> 
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
-Richard
 
 
