@@ -1,40 +1,18 @@
-Return-Path: <bruce.ashfield@gmail.com>
-Received: from mail-iw0-f176.google.com (mail-iw0-f176.google.com
-	[209.85.214.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 4514F4C81065
-	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 15:41:49 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by iwn2 with SMTP id 2so5813448iwn.35
-	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 13:41:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:in-reply-to:references:date
-	:message-id:subject:from:to:cc:content-type
-	:content-transfer-encoding;
-	bh=th4UZ4zl6DbeoV7Z9D3n0FKgsP4a1nvINsKUYj10TFI=;
-	b=LGE+pyaB6+JzlNDNPC3rq3n0tNDPO4yI1Bg50MGNQaGdhqLt/QMhA5vYyKOijVznaT
-	Rau0mAuLxOGSLesLe9QkD/ZL3ansSPfliH/MLhYzBkq2g6WYLY1bSd8+XvF+YwP4Gxd3
-	Zex+tZqYlJWo8+B5RwloAhsfrfCBaohPKUSVM=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type:content-transfer-encoding;
-	b=HGAAj6y0NjgTRsanPbFUkSnfjuIudsDNW6OtEEH46kUGGvL/UtD0S/qn1D5zft8ND0
-	JcFIvZo+2Qm4wTetf9kaetOxbXf0jsR9aEk84IzsJteXDV2AG34WMmLRvHR7FeXXAzRj
-	vA29DV2zjxJSTYKW+Z+mPh0fkMppP51akZsl8=
-MIME-Version: 1.0
-Received: by 10.231.13.137 with SMTP id c9mr4845279iba.37.1295300508972; Mon,
-	17 Jan 2011 13:41:48 -0800 (PST)
-Received: by 10.231.156.136 with HTTP; Mon, 17 Jan 2011 13:41:48 -0800 (PST)
-In-Reply-To: <AANLkTi=ZQnPnSmRPLf3SsiCJOsDcb1dWmSzGPtDTi+G3@mail.gmail.com>
-References: <4D33F57D.2030009@intel.com>
-	<AANLkTi=ZQnPnSmRPLf3SsiCJOsDcb1dWmSzGPtDTi+G3@mail.gmail.com>
-Date: Mon, 17 Jan 2011 16:41:48 -0500
-Message-ID: <AANLkTi=xW1acnvdnSFpx_kpb2gij-pf4svxk2Lu78u79@mail.gmail.com>
-From: Bruce Ashfield <bruce.ashfield@gmail.com>
-To: Saul Wold <saul.wold@intel.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: QemuARM Boot Failure
+Return-Path: <bruce.ashfield@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 83D224C80039;
+	Mon, 17 Jan 2011 15:55:03 -0600 (CST)
+Received: from localhost.localdomain (yow-bashfiel-d2.ottawa.windriver.com
+	[128.224.146.167])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p0HLt0dF017296;
+	Mon, 17 Jan 2011 13:55:01 -0800 (PST)
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+To: rpurdie@linux.intel.com
+Date: Mon, 17 Jan 2011 16:57:29 -0500
+Message-Id: <cover.1295300980.git.bruce.ashfield@windriver.com>
+X-Mailer: git-send-email 1.7.0.4
+Cc: yocto@yoctoproject.org, poky@yoctoproject.org, saul.wold@intel.com
+Subject: [PATCH 0/3] linux-yocto: consolidated pull request
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,76 +24,59 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 17 Jan 2011 21:41:49 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Mon, 17 Jan 2011 21:55:03 -0000
 
-On Mon, Jan 17, 2011 at 12:35 PM, Bruce Ashfield
-<bruce.ashfield@gmail.com> wrote:
-> On Mon, Jan 17, 2011 at 2:53 AM, Saul Wold <saul.wold@intel.com> wrote:
->>
->> Bruce,
->>
->> Did you test the latest systemtap update on ARM? =A0I am just curious ba=
-sed on
->> the current failure that we are having with qemuarm. =A0If so, against w=
-hat
->> revision of master? This might help us narrow down the issue.
->>
->>
->> I tried both the systemtap version and the older version and both failed=
-.
->> =A0The last known good qemuarm was 2 weeks ago, there have been a number=
- of
->> kernel updates in that time along with a loads of userspace changes, but=
- no
->> qemu updates since the first of the year. =A0I am not sure about the use=
-rspace
->> changes yet, need to review them more deeply.
->
-> Problem solved, there were some configuration values being
-> dropped. I'm putting together a fix now.
->
-> root@qemuarm:~# uname -a
-> Linux qemuarm 2.6.37-yocto-standard+ #2 PREEMPT Mon Jan 17 12:35:56
-> EST 2011 armv5tejl GNU/Linux
+Richard/Saul,
 
-pull request just sent.
+This pull request contains three changes on top of the previously
+sent changes that are still pending:
 
-Cheers,
+ linux-yocto: enable arch ARM config settings for KARCH based boards
+ linux-yocto-stable: add atom-pc preempt_rt support
+ linux-yocto: add systemtap config to -stable and -dev kernels
 
-Bruce
+But I wanted to send these anyway, since them sitting on my disk
+here isn't helping anyone.
 
->
->
-> Cheers,
->
-> Bruce
->
->>
->> I will be tied up tomorrow, but will try bisecting tomorrow evening if t=
-here
->> is no update before then.
->>
->> Thanks
->> =A0 Sau!
->>
->> _______________________________________________
->> poky mailing list
->> poky@yoctoproject.org
->> https://lists.yoctoproject.org/listinfo/poky
->>
->
->
->
-> --
-> "Thou shalt not follow the NULL pointer, for chaos and madness await
-> thee at its end"
->
+The first commit: 
+
+linux-yocto: update validate_branches to detected invalid commit IDs
+
+Addresses a problem that Richard ran into when invalid commit IDs
+are used for SRCREVs. I tested this while fixing the ARM boot 
+issues.
+
+The second commit:
+
+linux-yocto: streamline new BSP creation
+
+Is self explanitory, as is the commit message. With this change you
+can throw a previously unknown machine at the yocto kernel and have
+a resonable first effort at booting the board and creating an
+environment for development.
+
+And finally:
+
+linux-yocto: beagleboard enablement
+
+Enables the beagleboard for 2.6.37. The patch itself has the details.
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: zedd/kernel
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/kernel
+
+Thanks,
+    Bruce Ashfield <bruce.ashfield@windriver.com>
+---
 
 
+Bruce Ashfield (3):
+  linux-yocto: beagleboard enablement
+  linux-yocto: streamline new BSP creation
+  linux-yocto: update validate_branches to detected invalid commit IDs
 
---=20
-"Thou shalt not follow the NULL pointer, for chaos and madness await
-thee at its end"
+ meta/classes/kernel-yocto.bbclass  |   37 ++++++++++++++++++++---------------
+ meta/conf/machine/beagleboard.conf |    6 ++--
+ 2 files changed, 24 insertions(+), 19 deletions(-)
+
 
