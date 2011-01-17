@@ -1,26 +1,32 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 25C3B4C81065
-	for <poky@lists.pokylinux.org>; Mon, 17 Jan 2011 10:59:46 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id AB4CB166030D; Mon, 17 Jan 2011 09:59:45 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.1
-Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 1317516602EC;
-	Mon, 17 Jan 2011 09:59:45 -0700 (MST)
-Message-ID: <4D347581.9020201@mlbassoc.com>
-Date: Mon, 17 Jan 2011 09:59:45 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
+Return-Path: <mark.hatle@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4CCF74C80FA4
+	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 11:06:42 -0600 (CST)
+Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p0HH6fHL028014;
+	Mon, 17 Jan 2011 09:06:41 -0800 (PST)
+Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
+	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Mon, 17 Jan 2011 09:06:41 -0800
+Received: from Macintosh-5.local ([172.25.36.226]) by
+	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Mon, 17 Jan 2011 09:06:41 -0800
+Message-ID: <4D347720.5090102@windriver.com>
+Date: Mon, 17 Jan 2011 11:06:40 -0600
+From: Mark Hatle <mark.hatle@windriver.com>
+Organization: Wind River Systems
+User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
+	rv:1.9.2.13) Gecko/20101207 Thunderbird/3.1.7
 MIME-Version: 1.0
-To: Poky <poky@lists.pokylinux.org>
-Subject: WiFi setup
+To: Saul Wold <saul.wold@intel.com>
+References: <4D2FD707.4080509@windriver.com>
+	<4D30A632.707@intel.com>	<4D30A67B.2070004@windriver.com>
+	<4D30BD51.7030305@windriver.com> <4D33FF53.2090103@intel.com>
+In-Reply-To: <4D33FF53.2090103@intel.com>
+X-OriginalArrivalTime: 17 Jan 2011 17:06:41.0155 (UTC)
+	FILETIME=[E8F70D30:01CBB668]
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/1] pseudo: Update to the latest upstream version
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,76 +38,117 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 17 Jan 2011 16:59:46 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Mon, 17 Jan 2011 17:06:42 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 7bit
 
-Pardon me if this is not the best place to ask about this, but
-since I'm building using Poky...  Feel free to send me elsewhere
-(with pointers!) if there's a more appropriate list.
+On 1/17/11 2:35 AM, Saul Wold wrote:
+> On 01/14/2011 01:17 PM, Mark Hatle wrote:
+>> A potential solution to this problem has been pushed to the poky-contrib
+>> mhatle/pseudo tree.
+>>
+>> If anyone is interested in trying this, I'd appreciate it.  I've so far not been
+>> able to reproduce the original problem locally, but based on the symptoms I
+>> believe we've got a likely fix in place.
+>>
+> Mark,
+> 
+> I have this patch in a distro/master right now, it fixes the original 
+> problem, but I am seeing another problem with the poky-image-sdk target 
+> where I am getting a load of permission denied during the tar of the 
+> do_populate_sdk task.
 
-I now have a WiFi USB dongle which I think the kernel is happy
-with, at least I get the 'wlan0' device running.  I'm not running
-network manager, I'd like to just get it going "raw" via ifup, etc.
+If it's taring "target" files, then yes, it looks like it's not being properly
+run under pseudo control and that will need to be updated.  [or there is another
+defect we're unaware of].
 
-Sadly, when I try it, it doesn't work.  Here's what I see:
+What are the steps to reproduce the issue and I'll see what I can do here.
 
-   root@cobra3530p60:~# ifup wlan0
-   phy0 -> rt2x00lib_request_firmware: Info - Loading firmware file 'rt73.bin'.
-   rt73usb 2-1.2.4:1.0: firmware: requesting rt73.bin
-   phy0 -> rt2x00lib_request_firmware: Info - Firmware detected - version: 1.7.
-   phy0 -> rt2x00mac_conf_tx: Info - Configured TX queue 0 - CWmin: 3, CWmax: 4, Aifs: 2, TXop: 102.
-   phy0 -> rt2x00mac_conf_tx: Info - Configured TX queue 1 - CWmin: 4, CWmax: 5, Aifs: 2, TXop: 188.
-   phy0 -> rt2x00mac_conf_tx: Info - Configured TX queue 2 - CWmin: 5, CWmax: 10, Aifs: 3, TXop: 0.
-   phy0 -> rt2x00mac_conf_tx: Info - Configured TX queue 3 - CWmin: 5, CWmax: 10, Aifs: 7, TXop: 0.
-   ADDRCONF(NETDEV_UP): wlan0: link is not ready
-   udhcpc (v1.17.3) started
-   Setting IP address 0.0.0.0 on wlan0
-   Sending discover...
-   Read error: Network is down, reopening socket
-   phy0 -> rt2x00mac_conf_tx: Info - Configured TX queue 0 - CWmin: 3, CWmax: 4, Aifs: 2, TXop: 102.
-   phy0 -> rt2x00mac_conf_tx: Info - Configured TX queue 1 - CWmin: 4, CWmax: 5, Aifs: 2, TXop: 188.
-   phy0 -> rt2x00mac_conf_tx: Info - Configured TX queue 2 - CWmin: 5, CWmax: 10, Aifs: 3, TXop: 0.
-   phy0 -> rt2x00mac_conf_tx: Info - Configured TX queue 3 - CWmin: 5, CWmax: 10, Aifs: 7, TXop: 0.
-   Sending discover...
-   Sending discover...
-   No lease, failing
-   root@cobra3530p60:~# phy0 -> rt2x00mac_conf_tx: Info - Configured TX queue 0 - CWmin: 2, CWmax: 3, Aifs: 2, TXop: 47.
-   phy0 -> rt2x00mac_conf_tx: Info - Configured TX queue 1 - CWmin: 3, CWmax: 4, Aifs: 2, TXop: 94.
-   phy0 -> rt2x00mac_conf_tx: Info - Configured TX queue 2 - CWmin: 4, CWmax: 10, Aifs: 3, TXop: 0.
-   phy0 -> rt2x00mac_conf_tx: Info - Configured TX queue 3 - CWmin: 4, CWmax: 10, Aifs: 7, TXop: 0.
+I'll pass along that the exec problem seems to be correct to the pseudo maintainer.
 
-   root@cobra3530p60:~# iwconfig wlan0
-   wlan0     IEEE 802.11bg  ESSID:"test adhoc"
-             Mode:Ad-Hoc  Frequency:2.412 GHz  Cell: B6:42:15:B2:E8:91
-             Tx-Power=18 dBm
-             Retry  long limit:7   RTS thr:off   Fragment thr:off
-             Encryption key:935E-27E7-CAB5-DA1B-1D6A-B183-71AE-26E7-7859-1311-D87D-FFB3-7859-1311-D87D-FFB3
-             Power Management:on
+--Mark
 
-I have the default settings in /etc/network/interfaces for wlan0:
-   # Wireless interfaces
-   iface wlan0 inet dhcp
-           wireless_mode managed
-           wireless_essid any
-           wpa-driver wext
-           wpa-conf /etc/wpa_supplicant.conf
+> Maybe this need to be added to the pseudo.
+> 
+> Sau!
+> 
+>> --Mark
+>>
+>> On 1/14/11 1:39 PM, Mark Hatle wrote:
+>>> On 1/14/11 1:38 PM, Saul Wold wrote:
+>>>> On 01/13/2011 08:54 PM, Mark Hatle wrote:
+>>>>> Update pseudo to the latest version to resolve a number of optimization defects.
+>>>>>
+>>>>> The problems were present on both 64-bit and 32-bit systems, but generally only
+>>>>> caused issues on 32-bit hosts.
+>>>>>
+>>>>> Note: once you upgrade you need to be sure to clean out pseudo.  In order to do
+>>>>> this ../bitbake/bin/bitbake -c cleanall pseudo-native
+>>>>>
+>>>>> Followed by ../bitbake/bin/bitbake pseudo-native
+>>>>>
+>>>>> Otherwise you can end up in a wierd situation where the old pseudo is being
+>>>>> used to build the new one.
+>>>>>
+>>>>>
+>>>>> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>>>>>     Branch: mhatle/pseudo
+>>>>>     Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=mhatle/pseudo
+>>>>>
+>>>>> Thanks,
+>>>>>       Mark Hatle<mark.hatle@windriver.com>
+>>>>> ---
+>>>>>
+>>>>>
+>>>>> Mark Hatle (1):
+>>>>>     pseudo: Update to the latest upstream version
+>>>>>
+>>>>>    .../conf/distro/include/poky-default-revisions.inc |    2 +-
+>>>>>    .../895fa7e359e8026a608fba052c2994e42901e45f.patch |  235 --------------------
+>>>>>    meta/recipes-devtools/pseudo/pseudo_git.bb         |    2 +-
+>>>>>    3 files changed, 2 insertions(+), 237 deletions(-)
+>>>>>    delete mode 100644
+>>>>> meta/recipes-devtools/pseudo/pseudo/895fa7e359e8026a608fba052c2994e42901e45f.patch
+>>>>>
+>>>> Mark,
+>>>>
+>>>> I did not pull this because of a failure seen on the autobuilder, the
+>>>> failure was in eglibc-initial trying to compile.
+>>>>
+>>>> The error was:
+>>>>
+>>>> arm-poky-linux-gnueabi-gcc: error trying to exec 'cc1': execvp: No such
+>>>> file or directory
+>>>
+>>> pseudo does capture execvp.  So it's possible something is going wrong there.
+>>> I'm investigating...
+>>>
+>>> --Mark
+>>>
+>>>> I know that this seems strange for pseudo to cause, but I removed the
+>>>> psuedo change and this problem went away.  It could be a build timing
+>>>> issue or an install location issue.
+>>>>
+>>>> Check the autobuilder log at:
+>>>> http://autobuilder.pokylinux.org:8010/builders/distro-testing/builds/44/steps/shell_1/logs/stdio
+>>>>
+>>>> Unfortunately because I rebuild distro-testing the individual logs are
+>>>> gone.  Let me know if we need to rebuild with the error for further
+>>>> diagnoses.
+>>>>
+>>>> Thanks
+>>>>      Sau!
+>>>
+>>> _______________________________________________
+>>> poky mailing list
+>>> poky@yoctoproject.org
+>>> https://lists.yoctoproject.org/listinfo/poky
+>>
+>> _______________________________________________
+>> poky mailing list
+>> poky@yoctoproject.org
+>> https://lists.yoctoproject.org/listinfo/poky
+>>
+> 
 
-I did not change /etc/wpa_supplicant.conf
-
-I've not found much in the way of documentation on how this works,
-but I think the [first] real problem is that the interface is in
-the wrong mode - Ad Hoc instead of Managed.
-
-Does anyone know what I need to do to get this going (I think I
-know how to set the details of things like my AP SSID and keys),
-I just don't think I'm getting that far.
-
-Thanks for any ideas
-
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
 
