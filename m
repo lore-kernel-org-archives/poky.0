@@ -1,42 +1,42 @@
 Return-Path: <aalonso00@gmail.com>
-Received: from mail-yw0-f48.google.com (mail-yw0-f48.google.com
-	[209.85.213.48])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 56FCE4C811D2
-	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 14:24:07 -0600 (CST)
+Received: from mail-yi0-f54.google.com (mail-yi0-f54.google.com
+	[209.85.218.54])
+	by mx1.pokylinux.org (Postfix) with ESMTP id AC1864C8120D
+	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 14:24:04 -0600 (CST)
 Authentication-Results: mx1.pokylinux.org; dkim=pass
 	(1024-bit key; insecure key) header.i=@gmail.com;
 	x-dkim-adsp=none (insecure policy)
-Received: by mail-yw0-f48.google.com with SMTP id 7so2084365ywo.35
-	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 12:24:07 -0800 (PST)
+Received: by mail-yi0-f54.google.com with SMTP id 19so2880643yie.13
+	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 12:24:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
 	h=domainkey-signature:sender:from:to:cc:subject:date:message-id
 	:x-mailer:in-reply-to:references;
-	bh=iP6/qvc0DpLcaWe5caxtJERGafxGWkwmFT9qCaTLR/Y=;
-	b=vS8p4i16KGDFravU15q1lheqthcTPEOc5eLWDJQisOG0HATJ0UW+1zVVXNjUYkclKf
-	Z7Py9v5xFie/218d6oGu9GIBcjcsp2V2KqAmyRfMwUGH4WGmml5gdj2PQfF4liMcxkuG
-	DwHDN4jUau1RF2YWeU6ZmhtlokA1qim0m+YXg=
+	bh=yeR+6mY41wcgyZQntzhn14rf7DuySvrdZxzb88D5pws=;
+	b=RUEeHCJzSIOIcPBtYsPr4yW63GKa5PnOVDx0/P2R+tu7ivgHKzAIqf/+RZd9Z9TcbY
+	xemstoXRCo1Q4feyQXJSR+ZK/OtBdNCwOlNQrJNsZJgeN/MXtB9bL75lNExPw27Z1EuV
+	ZFZEuOxZGvz4BI3c/SrB+cGeuqxhwN9Uv0QIU=
 DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
 	h=sender:from:to:cc:subject:date:message-id:x-mailer:in-reply-to
 	:references;
-	b=Ewj0N8g92hqGfSw37phubSMooRSYiFVl96pB8h9h9XTnX2Vlxz6m74Hn35xYzr7LWs
-	NFC5nfpNIF60jCzphnMxVlulfBzntKv3Ilc+QzGfcbIpCPCqd1jCXndHeLE2rQPME3ws
-	3Mw2KMm/ZzZbCA2n59Z+9fDknOKZ2kfe7ZrpI=
-Received: by 10.100.197.2 with SMTP id u2mr2774538anf.98.1295295847157;
-	Mon, 17 Jan 2011 12:24:07 -0800 (PST)
+	b=pSLG5w9/HSQ3wqzQVFSXEwjXGYCQlsgc4d7ZJLaXipVRs3jlFjwSKcr1PnIUpWhKDB
+	7P43pcOwH7v6qi2Pn6lWWXXJTqHTr6lxula30GOPvuojEha+0MyLns7eoT+cmQf7pM2o
+	+52cdX5eMAbNFtOFNHnt+lxeOkbW1Y+mQVFwY=
+Received: by 10.100.135.15 with SMTP id i15mr2781310and.186.1295295844525;
+	Mon, 17 Jan 2011 12:24:04 -0800 (PST)
 Received: from localhost.localdomain ([201.153.229.4])
-	by mx.google.com with ESMTPS id c30sm5898586anc.0.2011.01.17.12.24.04
+	by mx.google.com with ESMTPS id c30sm5898586anc.0.2011.01.17.12.24.02
 	(version=TLSv1/SSLv3 cipher=RC4-MD5);
-	Mon, 17 Jan 2011 12:24:06 -0800 (PST)
+	Mon, 17 Jan 2011 12:24:03 -0800 (PST)
 Sender: Adrian Alonso <aalonso00@gmail.com>
 From: Adrian Alonso <aalonso@secretlab.ca>
 To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Date: Mon, 17 Jan 2011 14:29:28 -0600
-Message-Id: <1295296178-18590-15-git-send-email-aalonso@secretlab.ca>
+Date: Mon, 17 Jan 2011 14:29:27 -0600
+Message-Id: <1295296178-18590-14-git-send-email-aalonso@secretlab.ca>
 X-Mailer: git-send-email 1.7.3.4
 In-Reply-To: <1295296178-18590-1-git-send-email-aalonso@secretlab.ca>
 References: <1295296178-18590-1-git-send-email-aalonso@secretlab.ca>
 Cc: Adrian Alonso <aalonso@secretlab.ca>
-Subject: [PATCH 15/25] linux-xilinx: remove hardcoded include path
+Subject: [PATCH 14/25] linux-xilinx: update kernel version 2.6.37 rc4
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -48,53 +48,74 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 17 Jan 2011 20:24:07 -0000
+X-List-Received-Date: Mon, 17 Jan 2011 20:24:09 -0000
 
-* Remove hardcodded include path
-* Fix inherit xilinx-kernel for sw/hw integration
-* Remove configure prepend function, use default config
-  mechanism
+* Update kernel version 2.6.37 rc4
+* Remove xilinx frame buffer patch, integrated in 2.6.36
 * Bump PR
 
 Signed-off-by: Adrian Alonso <aalonso@secretlab.ca>
 ---
- recipes-kernel/linux/linux-xilinx_git.bb |   10 +++-------
- 1 files changed, 3 insertions(+), 7 deletions(-)
+ .../linux-xilinx/xilinxfb-update-tft-comp.patch    |   28 --------------------
+ recipes-kernel/linux/linux-xilinx_git.bb           |    7 ++---
+ 2 files changed, 3 insertions(+), 32 deletions(-)
+ delete mode 100644 recipes-kernel/linux/linux-xilinx/xilinxfb-update-tft-comp.patch
 
+diff --git a/recipes-kernel/linux/linux-xilinx/xilinxfb-update-tft-comp.patch b/recipes-kernel/linux/linux-xilinx/xilinxfb-update-tft-comp.patch
+deleted file mode 100644
+index ba6c77d..0000000
+--- a/recipes-kernel/linux/linux-xilinx/xilinxfb-update-tft-comp.patch
++++ /dev/null
+@@ -1,28 +0,0 @@
+-From 93d77edd37fccd03b227f259f0e52072eae9ba74 Mon Sep 17 00:00:00 2001
+-From: Adrian Alonso <aalonso00@gmail.com>
+-Date: Thu, 15 Jul 2010 23:16:48 -0500
+-Subject: [PATCH] xilinxfb: update tft comp versions
+-
+-* Add tft display module compatibility for new
+-  hardware modules
+-
+-Signed-off-by: Adrian Alonso <aalonso00@gmail.com>
+----
+- drivers/video/xilinxfb.c |    2 ++
+- 1 files changed, 2 insertions(+), 0 deletions(-)
+-
+-diff --git a/drivers/video/xilinxfb.c b/drivers/video/xilinxfb.c
+-index ed7c8d0..829efaa 100644
+---- a/drivers/video/xilinxfb.c
+-+++ b/drivers/video/xilinxfb.c
+-@@ -484,6 +484,8 @@ static int __devexit xilinxfb_of_remove(struct of_device *op)
+- /* Match table for of_platform binding */
+- static struct of_device_id xilinxfb_of_match[] __devinitdata = {
+-	{ .compatible = "xlnx,xps-tft-1.00.a", },
+-+	{ .compatible = "xlnx,xps-tft-2.00.a", },
+-+	{ .compatible = "xlnx,xps-tft-2.01.a", },
+-	{ .compatible = "xlnx,plb-tft-cntlr-ref-1.00.a", },
+-	{ .compatible = "xlnx,plb-dvi-cntlr-ref-1.00.c", },
+-	{},
+---
+-1.7.1.1
 diff --git a/recipes-kernel/linux/linux-xilinx_git.bb b/recipes-kernel/linux/linux-xilinx_git.bb
-index 0541b3f..47f19b1 100644
+index 9b44e83..0541b3f 100644
 --- a/recipes-kernel/linux/linux-xilinx_git.bb
 +++ b/recipes-kernel/linux/linux-xilinx_git.bb
-@@ -1,4 +1,4 @@
--require ../meta/recipes-kernel/linux/linux.inc
-+require recipes-kernel/linux/linux.inc
+@@ -7,13 +7,12 @@ DEFAULT_PREFERENCE = "-1"
+ DEFAULT_PREFERENCE_virtex4 = "1"
+ DEFAULT_PREFERENCE_virtex5 = "1"
  
- DESCRIPTION = "Linux kernel for Xilinx platforms"
- 
-@@ -9,21 +9,17 @@ DEFAULT_PREFERENCE_virtex5 = "1"
- 
- TAG="xilinx_v2.6.37-rc4"
- PV = "2.6.37.4"
--PR = "r3"
-+PR = "r4"
+-TAG="xilinx_v2.6.35"
+-PV = "2.6.35+git"
+-PR = "r2"
++TAG="xilinx_v2.6.37-rc4"
++PV = "2.6.37.4"
++PR = "r3"
  
  SRCREV = "${TAG}"
  SRC_URI = "git://git.xilinx.com/linux-2.6-xlnx.git;protocol=git \
+-           file://xilinxfb-update-tft-comp.patch \
             file://linux-xilinx-do-not-use-OS-option.patch \
  		   file://defconfig"
  
--inherit kernel xilinx-bsp
-+inherit kernel xilinx-kernel
- 
- TARGET_BOARD = "${@map_target(bb.data.getVar('TARGET_ARCH', d, 1), d)}"
- KERNEL_DEVICETREE_virtex4 = "arch/${ARCH}/boot/dts/virtex${TARGET_BOARD}.dts"
- KERNEL_DEVICETREE_virtex5 = "arch/${ARCH}/boot/dts/virtex${TARGET_BOARD}.dts"
- 
- S = "${WORKDIR}/git"
--
--do_configure_prepend() {
--    install -m 0644 ${WORKDIR}/defconfig ${S}/.config
--}
 -- 
 1.7.3.4
 
