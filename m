@@ -1,27 +1,31 @@
-Return-Path: <koen@dominion.thruhere.net>
-Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
-	[74.125.82.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D841E4C811FD
-	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 09:54:47 -0600 (CST)
-Received: by mail-wy0-f176.google.com with SMTP id 20so5407306wye.35
-	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 07:54:47 -0800 (PST)
-Received: by 10.216.20.141 with SMTP id p13mr2615580wep.102.1295279682128;
-	Mon, 17 Jan 2011 07:54:42 -0800 (PST)
-Received: from localhost (ip545070eb.adsl-surfen.hetnet.nl [84.80.112.235])
-	by mx.google.com with ESMTPS id e12sm2447828wer.36.2011.01.17.07.54.41
-	(version=TLSv1/SSLv3 cipher=RC4-MD5);
-	Mon, 17 Jan 2011 07:54:41 -0800 (PST)
-From: Koen Kooi <koen@dominion.thruhere.net>
-To: poky@yoctoproject.org
-Date: Mon, 17 Jan 2011 16:53:26 +0100
-Message-Id: <1295279606-19767-5-git-send-email-koen@dominion.thruhere.net>
-X-Mailer: git-send-email 1.6.6.1
-In-Reply-To: <1295279606-19767-4-git-send-email-koen@dominion.thruhere.net>
-References: <1295279606-19767-1-git-send-email-koen@dominion.thruhere.net>
-	<1295279606-19767-2-git-send-email-koen@dominion.thruhere.net>
-	<1295279606-19767-3-git-send-email-koen@dominion.thruhere.net>
-	<1295279606-19767-4-git-send-email-koen@dominion.thruhere.net>
-Subject: [PATCH 5/5] python-dir bbclass: use PYTHON_BASEVERSION instead of non-deterministic python code
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D3E994C80FA4
+	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 10:49:32 -0600 (CST)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 7551016602E2; Mon, 17 Jan 2011 09:49:31 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.1
+Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 9F032166030A;
+	Mon, 17 Jan 2011 09:49:30 -0700 (MST)
+Message-ID: <4D34731A.2090304@mlbassoc.com>
+Date: Mon, 17 Jan 2011 09:49:30 -0700
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
+MIME-Version: 1.0
+To: Joshua Lock <josh@openedhand.com>
+References: <4D32E4D2.5030002@mlbassoc.com>	 <1295256226.2321.1.camel@scimitar>
+	<4D343BB7.4050404@mlbassoc.com> <1295269851.6501.2.camel@scimitar>
+	<4D3443FC.5060201@mlbassoc.com>
+In-Reply-To: <4D3443FC.5060201@mlbassoc.com>
+Cc: poky@yoctoproject.org
+Subject: Re: Kernel firmware?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,33 +37,75 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 17 Jan 2011 15:54:48 -0000
+X-List-Received-Date: Mon, 17 Jan 2011 16:49:33 -0000
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-See https://lists.yoctoproject.org/pipermail/poky/2011-January/002320.html for some background info
+On 01/17/2011 06:28 AM, Gary Thomas wrote:
+> On 01/17/2011 06:10 AM, Joshua Lock wrote:
+>> On Mon, 2011-01-17 at 05:53 -0700, Gary Thomas wrote:
+>>> On 01/17/2011 02:23 AM, Joshua Lock wrote:
+>>>> Hi Gary,
+>>>>
+>>>> On Sun, 2011-01-16 at 05:30 -0700, Gary Thomas wrote:
+>>>>> I'm trying to get various USB WiFi dongles working on my
+>>>>> BeagleBoard (or look-alike). Many of these require runtime
+>>>>> downloads of firmware. However, these files don't seem to
+>>>>> be installed in Poky:
+>>>>> phy1 -> rt2x00lib_request_firmware: Info - Loading firmware file 'rt73.bin'.
+>>>>> rt73usb 2-1.2.4:1.0: firmware: requesting rt73.bin
+>>>>> phy1 -> rt2x00lib_request_firmware: Error - Failed to request Firmware.
+>>>>>
+>>>>> Is there some way to enable this?
+>>>>
+>>>> There's a linux-firmware recipe
+>>>> (meta/recipes-kernel/linux-firmware/linux-firmware_git.bb) which you'll
+>>>> have to modify to package the required firmware (at the moment we only
+>>>> package firmware for the Libertas sd8686) and ensure that the packages
+>>>> are included in your images.
+>>>
+>>> I don't see anywhere that linux-firmware-sd8686 is included in
+>>> an image. Am I missing something?
+>>
+>> You need to have something pull in the required linux-firmware, for
+>> example the igep0020 and igep0030 machines add linux-firmware-sd8686 to
+>> the MACHINE_EXTRA_RRECOMMENDS.
+>
+> Thanks. Doing it this way wasn't totally clear from "ensure that the
+> packages are included in your images."
+>
+> It's working now.
 
-Signed-off-by: Koen Kooi <koen@dominion.thruhere.net>
----
- meta/classes/python-dir.bbclass |   11 +----------
- 1 files changed, 1 insertions(+), 10 deletions(-)
+My exuberance was a bit premature.  Indeed, I rebuilt my install
+image, but the firmware package wasn't installed.  On my target,
+I see:
+   root@cobra3530p60:~# opkg list-installed linux*
+   root@cobra3530p60:~# opkg list linux*
+   linux-firmware-rt73 - 0.0+git0+40c0f950be7040614dc45df54e25e54d00e3b73b-r0 - Firmware files for use with Linux kernel
+    Firmware files for use with Linux kernel
+   linux-firmware-sd8686 - 0.0+git0+40c0f950be7040614dc45df54e25e54d00e3b73b-r0 - Firmware files for use with Linux kernel
+    Firmware files for use with Linux kernel
+   linux-libc-headers-dbg - 2.6.36-r0 - Debugging files for linux-libc-headers
+    Debugging files for linux-libc-headers
+   linux-libc-headers-dev - 2.6.36-r0 - Development files for linux-libc-headers
+    Development files for linux-libc-headers
 
-diff --git a/meta/classes/python-dir.bbclass b/meta/classes/python-dir.bbclass
-index 7b0b809..a072a93 100644
---- a/meta/classes/python-dir.bbclass
-+++ b/meta/classes/python-dir.bbclass
-@@ -1,11 +1,2 @@
--def python_dir(d):
--	import os, bb
--	staging_incdir = bb.data.getVar( "STAGING_INCDIR", d, 1 )
--	for majmin in "2.6 2.5 2.4 2.3".split():
--		if os.path.exists( "%s/python%s" % ( staging_incdir, majmin ) ): return "python%s" % majmin
--	if not "python-native" in bb.data.getVar( "DEPENDS", d, 1 ).split():
--		raise Exception("No Python in STAGING_INCDIR. Forgot to build python-native?")
--	return "INVALID"
--
--PYTHON_DIR = "${@python_dir(d)}"
-+PYTHON_DIR = "python${PYTHON_BASEVERSION}"
- PYTHON_SITEPACKAGES_DIR = "${libdir}/${PYTHON_DIR}/site-packages"
+To be clear, all I did was add "linux-firmware-rt73" to MACHINE_EXTRA_RRECOMMENDS
+in my <MACHINE>.conf file, then rebuild the image using:
+    % bitbake poky-image-sato
+This was from a previously built tree, etc.  Did I need to do anything
+else to get the package actually installed at build time?
+
+Note: If I 'opkg install linux-firmware-rt73' on my target, I get
+the correct files.  I'd just like to understand how to make it happen
+in the "image"
+
+Thanks
+
+
 -- 
-1.6.6.1
-
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
