@@ -1,29 +1,21 @@
-Return-Path: <Yi.Zhao@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 38A584C811D2
-	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 02:47:33 -0600 (CST)
-Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p0H8lULr008922;
-	Mon, 17 Jan 2011 00:47:30 -0800 (PST)
-Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
-	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Mon, 17 Jan 2011 00:47:30 -0800
-Received: from [128.224.163.188] ([128.224.163.188]) by
-	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Mon, 17 Jan 2011 00:47:30 -0800
-Message-ID: <4D3401CA.3060600@windriver.com>
-Date: Mon, 17 Jan 2011 16:46:02 +0800
-From: Zhao Yi <yi.zhao@windriver.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
-MIME-Version: 1.0
-To: Saul Wold <saul.wold@intel.com>
-References: <4D33F57D.2030009@intel.com>
-In-Reply-To: <4D33F57D.2030009@intel.com>
-X-OriginalArrivalTime: 17 Jan 2011 08:47:30.0324 (UTC)
-	FILETIME=[2CE0ED40:01CBB623]
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: QemuARM Boot Failure
+Return-Path: <josh@openedhand.com>
+Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8623E4C8109B
+	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 03:23:54 -0600 (CST)
+Received: from [192.168.0.7] (5ad4d7b0.bb.sky.com [90.212.215.176])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by pug.o-hand.com (Postfix) with ESMTP id A8A9212EC207
+	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 04:04:21 -0600 (CST)
+From: Joshua Lock <josh@openedhand.com>
+To: poky@yoctoproject.org
+In-Reply-To: <4D32E4D2.5030002@mlbassoc.com>
+References: <4D32E4D2.5030002@mlbassoc.com>
+Date: Mon, 17 Jan 2011 09:23:46 +0000
+Message-ID: <1295256226.2321.1.camel@scimitar>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.1 (2.32.1-1.fc14) 
+Subject: Re: Kernel firmware?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,42 +27,33 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 17 Jan 2011 08:47:33 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Mon, 17 Jan 2011 09:23:54 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Hi Saul,
+Hi Gary,
 
-I tested the recent build images from the autobuilder.
-The build images from both 2011011-1 and 20110112-1 can not boot. With 
-the build image from 20110110-1, it can boot.
+On Sun, 2011-01-16 at 05:30 -0700, Gary Thomas wrote:
+> I'm trying to get various USB WiFi dongles working on my
+> BeagleBoard (or look-alike).  Many of these require runtime
+> downloads of firmware.  However, these files don't seem to
+> be installed in Poky:
+>    phy1 -> rt2x00lib_request_firmware: Info - Loading firmware file 'rt73.bin'.
+>    rt73usb 2-1.2.4:1.0: firmware: requesting rt73.bin
+>    phy1 -> rt2x00lib_request_firmware: Error - Failed to request Firmware.
+> 
+> Is there some way to enable this?
 
-于 2011年01月17日 15:53, Saul Wold 写道:
->
-> Bruce,
->
-> Did you test the latest systemtap update on ARM? I am just curious 
-> based on the current failure that we are having with qemuarm. If so, 
-> against what revision of master? This might help us narrow down the 
-> issue.
->
->
-> I tried both the systemtap version and the older version and both 
-> failed. The last known good qemuarm was 2 weeks ago, there have been a 
-> number of kernel updates in that time along with a loads of userspace 
-> changes, but no qemu updates since the first of the year. I am not 
-> sure about the userspace changes yet, need to review them more deeply.
->
-> I will be tied up tomorrow, but will try bisecting tomorrow evening if 
-> there is no update before then.
->
-> Thanks
-> Sau!
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
+There's a linux-firmware recipe
+(meta/recipes-kernel/linux-firmware/linux-firmware_git.bb) which you'll
+have to modify to package the required firmware (at the moment we only
+package firmware for the Libertas sd8686) and ensure that the packages
+are included in your images.
+
+Cheers,
+Joshua
+-- 
+Joshua Lock
+        Intel Open Source Technology Centre
 
 
