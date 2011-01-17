@@ -1,23 +1,23 @@
 Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A35464C811FD
-	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 10:54:26 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 17 Jan 2011 08:54:20 -0800
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8585C4C811F9
+	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 10:54:29 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 17 Jan 2011 08:54:29 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,333,1291622400"; d="scan'208";a="697652676"
+X-IronPort-AV: E=Sophos;i="4.60,333,1291622400"; d="scan'208";a="375699885"
 Received: from unknown (HELO helios) ([10.255.16.105])
-	by orsmga001.jf.intel.com with SMTP; 17 Jan 2011 08:54:17 -0800
-Received: by helios (sSMTP sendmail emulation); Mon, 17 Jan 2011 16:54:10 +0000
-Message-Id: <46ca36ce0427d4c2cc04df534f6c56d047329054.1295282922.git.paul.eggleton@linux.intel.com>
+	by azsmga001.ch.intel.com with SMTP; 17 Jan 2011 08:54:27 -0800
+Received: by helios (sSMTP sendmail emulation); Mon, 17 Jan 2011 16:54:20 +0000
+Message-Id: <543109411146e63b22cb7436de61a837cc482ad9.1295282922.git.paul.eggleton@linux.intel.com>
 In-Reply-To: <cover.1295282922.git.paul.eggleton@linux.intel.com>
 References: <cover.1295282922.git.paul.eggleton@linux.intel.com>
 From: Paul Eggleton <paul.eggleton@linux.intel.com>
-Old-Date: Thu, 13 Jan 2011 14:54:34 +0000
-Date: Mon, 17 Jan 2011 16:54:10 +0000
+Old-Date: Fri, 14 Jan 2011 12:02:47 +0000
+Date: Mon, 17 Jan 2011 16:54:20 +0000
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 1/8] Add directfb 1.4.6 from OpenEmbedded
+Subject: [PATCH 5/8] Add qt4-tools-nativesdk 4.6.3 based on qt4-tools-sdk from OpenEmbedded
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,239 +29,234 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 17 Jan 2011 16:54:27 -0000
+X-List-Received-Date: Mon, 17 Jan 2011 16:54:29 -0000
 
-This package has been added in order to be able to build qt4-embedded from
-OE. The only difference from the OE version is the addition of
-LIC_FILES_CHKSUM.
+Differences from OE qt4-tools-sdk 4.6.3:
+
+* Convert to nativesdk and make fixes necessary to build
+* Add LIC_FILES_CHKSUM
 
 Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
 ---
- .../directfb/directfb-1.4.6/mkdfiff.patch          |   24 +++++++
- meta/recipes-graphics/directfb/directfb.inc        |   71 ++++++++++++++++++++
- meta/recipes-graphics/directfb/directfb_1.4.6.bb   |   29 ++++++++
- .../directfb-1.2.x-fix-pkgconfig-cflags.patch      |   47 +++++++++++++
- .../directfb/files/dont-use-linux-config.patch     |   12 +++
- 5 files changed, 183 insertions(+), 0 deletions(-)
- create mode 100644 meta/recipes-graphics/directfb/directfb-1.4.6/mkdfiff.patch
- create mode 100644 meta/recipes-graphics/directfb/directfb.inc
- create mode 100644 meta/recipes-graphics/directfb/directfb_1.4.6.bb
- create mode 100644 meta/recipes-graphics/directfb/files/directfb-1.2.x-fix-pkgconfig-cflags.patch
- create mode 100644 meta/recipes-graphics/directfb/files/dont-use-linux-config.patch
+ .../recipes-qt/qt4/files/compile.test-lflags.patch |   13 +++
+ meta/recipes-qt/qt4/files/configure-lflags.patch   |   13 +++
+ meta/recipes-qt/qt4/files/configure-paths.patch    |   21 ++++
+ meta/recipes-qt/qt4/files/qmake-exists-check.patch |   18 +++
+ meta/recipes-qt/qt4/qt4-tools-nativesdk_4.6.3.bb   |  112 ++++++++++++++++++++
+ 5 files changed, 177 insertions(+), 0 deletions(-)
+ create mode 100644 meta/recipes-qt/qt4/files/compile.test-lflags.patch
+ create mode 100644 meta/recipes-qt/qt4/files/configure-lflags.patch
+ create mode 100644 meta/recipes-qt/qt4/files/configure-paths.patch
+ create mode 100644 meta/recipes-qt/qt4/files/qmake-exists-check.patch
+ create mode 100644 meta/recipes-qt/qt4/qt4-tools-nativesdk_4.6.3.bb
 
-diff --git a/meta/recipes-graphics/directfb/directfb-1.4.6/mkdfiff.patch b/meta/recipes-graphics/directfb/directfb-1.4.6/mkdfiff.patch
+diff --git a/meta/recipes-qt/qt4/files/compile.test-lflags.patch b/meta/recipes-qt/qt4/files/compile.test-lflags.patch
 new file mode 100644
-index 0000000..28bd534
+index 0000000..e4b256b
 --- /dev/null
-+++ b/meta/recipes-graphics/directfb/directfb-1.4.6/mkdfiff.patch
-@@ -0,0 +1,24 @@
-+diff -uNr DirectFB-1.4.6.orig/tools/mkdfiff.c DirectFB-1.4.6/tools/mkdfiff.c
-+--- DirectFB-1.4.6.orig/tools/mkdfiff.c 2010-10-15 10:54:57.000000000 +0200
-++++ DirectFB-1.4.6/tools/mkdfiff.c      2010-10-15 10:54:15.000000000 +0200
-+@@ -50,6 +50,8 @@
-+
-+ #include <dfiff.h>
-+
-++#include <unistd.h>
-++
-+ static DirectFBPixelFormatNames( format_names );
-+
-+ static const char            *filename;
-+diff -uNr DirectFB-1.4.6.orig/tools/mkdgifft.cpp DirectFB-1.4.6/tools/mkdgifft.cpp
-+--- DirectFB-1.4.6.orig/tools/mkdgifft.cpp      2010-10-08 14:02:57.000000000 +0200
-++++ DirectFB-1.4.6/tools/mkdgifft.cpp   2010-10-15 10:56:06.000000000 +0200
-+@@ -40,6 +40,8 @@
-+ #include <errno.h>
-+ #include <stdio.h>
-+ #include <stdlib.h>
-++#include <sys/stat.h>
-++#include <sys/types.h>
-+ #include <unistd.h>
-+ #include <fcntl.h>
-+ #include <sys/mman.h>
-diff --git a/meta/recipes-graphics/directfb/directfb.inc b/meta/recipes-graphics/directfb/directfb.inc
++++ b/meta/recipes-qt/qt4/files/compile.test-lflags.patch
+@@ -0,0 +1,13 @@
++Index: qt-everywhere-opensource-src-4.6.3/config.tests/unix/compile.test
++===================================================================
++--- qt-everywhere-opensource-src-4.6.3.orig/config.tests/unix/compile.test	2010-06-02 06:03:18.000000000 +0400
+++++ qt-everywhere-opensource-src-4.6.3/config.tests/unix/compile.test	2010-10-04 17:35:07.587783460 +0400
++@@ -11,7 +11,7 @@
++ EXE=`basename "$6"`
++ DESCRIPTION=$7
++ shift 7
++-LFLAGS=""
+++LFLAGS="$LDFLAGS"
++ INCLUDEPATH=""
++ CXXFLAGS=""
++ MAC_ARCH_CXXFLAGS=""
+diff --git a/meta/recipes-qt/qt4/files/configure-lflags.patch b/meta/recipes-qt/qt4/files/configure-lflags.patch
 new file mode 100644
-index 0000000..d07d58c
+index 0000000..df19549
 --- /dev/null
-+++ b/meta/recipes-graphics/directfb/directfb.inc
-@@ -0,0 +1,71 @@
-+DESCRIPTION = "DirectFB is a thin library that provides developers \
-+with hardware graphics acceleration, input device handling and \
-+abstraction, an integrated windowing system with support for \
-+translucent windows and multiple display layers on top of the \
-+Linux framebuffer device."
++++ b/meta/recipes-qt/qt4/files/configure-lflags.patch
+@@ -0,0 +1,13 @@
++Index: qtopia-core-opensource-src-4.3.3/configure
++===================================================================
++--- qtopia-core-opensource-src-4.3.3.orig/configure	2008-01-14 08:53:51.000000000 +0000
+++++ qtopia-core-opensource-src-4.3.3/configure	2008-01-14 08:54:07.000000000 +0000
++@@ -447,7 +447,7 @@
++ # initalize variables
++ #-------------------------------------------------------------------------------
++ 
++-SYSTEM_VARIABLES="CC CXX CFLAGS CXXFLAGS LDFLAGS"
+++SYSTEM_VARIABLES="CC CXX CFLAGS CXXFLAGS LDFLAGS LFLAGS"
++ for varname in $SYSTEM_VARIABLES; do
++     cmd=`echo \
++ 'if [ -n "\$'${varname}'" ]; then
+diff --git a/meta/recipes-qt/qt4/files/configure-paths.patch b/meta/recipes-qt/qt4/files/configure-paths.patch
+new file mode 100644
+index 0000000..c9259a1
+--- /dev/null
++++ b/meta/recipes-qt/qt4/files/configure-paths.patch
+@@ -0,0 +1,21 @@
++Index: qt-everywhere-opensource-src-4.6.3/configure
++===================================================================
++--- qt-everywhere-opensource-src-4.6.3.orig/configure	2011-01-10 15:47:37.100607001 +0000
+++++ qt-everywhere-opensource-src-4.6.3/configure	2011-01-10 15:49:14.576606999 +0000
++@@ -7198,11 +7198,11 @@
++ QMAKE_MOC_SRC    = \$\$QT_BUILD_TREE/src/moc
++ 
++ #local paths that cannot be queried from the QT_INSTALL_* properties while building QTDIR
++-QMAKE_MOC        = \$\$QT_BUILD_TREE/bin/moc
++-QMAKE_UIC        = \$\$QT_BUILD_TREE/bin/uic
++-QMAKE_UIC3       = \$\$QT_BUILD_TREE/bin/uic3
++-QMAKE_RCC        = \$\$QT_BUILD_TREE/bin/rcc
++-QMAKE_QDBUSXML2CPP = \$\$QT_BUILD_TREE/bin/qdbusxml2cpp
+++QMAKE_MOC        = \${OE_QMAKE_MOC}
+++QMAKE_UIC        = \${OE_QMAKE_UIC}
+++QMAKE_UIC3       = \${OE_QMAKE_UIC3}
+++QMAKE_RCC        = \${OE_QMAKE_RCC}
+++QMAKE_QDBUSXML2CPP = \${OE_QMAKE_QDBUSXML2CPP}
++ QMAKE_INCDIR_QT  = \$\$QT_BUILD_TREE/include
++ QMAKE_LIBDIR_QT  = \$\$QT_BUILD_TREE/lib
++ 
+diff --git a/meta/recipes-qt/qt4/files/qmake-exists-check.patch b/meta/recipes-qt/qt4/files/qmake-exists-check.patch
+new file mode 100644
+index 0000000..cc73837
+--- /dev/null
++++ b/meta/recipes-qt/qt4/files/qmake-exists-check.patch
+@@ -0,0 +1,18 @@
++qt4-tools-nativesdk: avoid rebuilding qmake
++
++qt4-tools-nativesdk patch to avoids building qmake in configure if it already exists 
++(as it will, since we symlink it in from the native sysroot in do_configure)
++
++Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
++
++--- qt-everywhere-opensource-src-4.6.3.orig/configure	2011-01-10 12:01:56.260607001 +0000
+++++ qt-everywhere-opensource-src-4.6.3/configure	2011-01-10 12:02:20.584607015 +0000
++@@ -4286,7 +4286,7 @@
++ }
++ 
++ # build qmake
++-if true; then ###[ '!' -f "$outpath/bin/qmake" ];
+++if [ '!' -f "$outpath/bin/qmake" ]; then
++     echo "Creating qmake. Please wait..."
++ 
++     OLD_QCONFIG_H=
+diff --git a/meta/recipes-qt/qt4/qt4-tools-nativesdk_4.6.3.bb b/meta/recipes-qt/qt4/qt4-tools-nativesdk_4.6.3.bb
+new file mode 100644
+index 0000000..050bcb2
+--- /dev/null
++++ b/meta/recipes-qt/qt4/qt4-tools-nativesdk_4.6.3.bb
+@@ -0,0 +1,112 @@
++DESCRIPTION = "SDK tools for Qt/[X11|Mac|Embedded] version 4.x"
++DEPENDS = "zlib-nativesdk dbus-nativesdk libx11-nativesdk qt4-tools-native"
 +SECTION = "libs"
-+LICENSE = "LGPL"
-+HOMEPAGE = "http://directfb.org"
-+DEPENDS = "jpeg libpng freetype zlib tslib"
++HOMEPAGE = "http://www.trolltech.com"
++PRIORITY = "optional"
++LICENSE = "LGPLv2.1 GPLv3"
 +
-+SRC_URI = " \
-+    http://www.directfb.org/downloads/Old/DirectFB-${PV}.tar.gz \
-+    file://fix-pkgconfig-cflags.patch \
-+    file://fix-font-missing-char.patch \
-+    file://getpagesize.patch \
-+    file://mkdfiff.patch \
-+    file://dont-use-linux-config.patch \
-+    file://ts_lib_autotools.patch \
-+"
-+S = "${WORKDIR}/DirectFB-${PV}"
++PR = "r1"
 +
-+LDFLAGS_append =" -lts -lm"
++DEFAULT_PREFERENCE = "-1"
++inherit nativesdk qmake2
 +
-+inherit autotools binconfig pkgconfig
++SRC_URI = "ftp://ftp.trolltech.com/qt/source/qt-everywhere-opensource-src-${PV}.tar.gz \
++           file://configure-lflags.patch \
++           file://compile.test-lflags.patch \
++           file://qt-config.patch \
++           file://qmake-exists-check.patch \
++           file://configure-paths.patch \
++           file://g++.conf \
++           file://linux.conf"
 +
-+EXTRA_OECONF = "\
-+  --with-gfxdrivers=none \
-+  --enable-libmpeg3=no \
-+  --enable-freetype=yes \
-+  --enable-sdl=no \
-+  --enable-vnc=no \
-+  --disable-x11 \
-+"
++S = "${WORKDIR}/qt-everywhere-opensource-src-${PV}"
 +
-+do_install() {
-+        oe_runmake 'DESTDIR=${D}' install
++LIC_FILES_CHKSUM = "file://LICENSE.LGPL;md5=fbc093901857fcd118f065f900982c24 \
++                    file://LICENSE.GPL3;md5=babc5b6b77441da277f5c06b2e547720 \
++                    file://LGPL_EXCEPTION.txt;md5=411080a56ff917a5a1aa08c98acae354"
++
++# FIXME: make it work with "${STAGING_BINDIR_NATIVE}/pkg-config --cflags dbus-1"
++EXTRA_OECONF = "-prefix ${prefix} \
++                -qt-libjpeg -qt-gif -system-zlib \
++                -no-libjpeg -no-libpng \
++                -no-accessibility \
++                -no-cups \
++                -no-exceptions  \
++                -no-nas-sound \
++                -no-nis \
++                -verbose -release -fast -static \
++                -platform ${TARGET_OS}-oe-g++ \
++                -xplatform ${TARGET_OS}-oe-g++ \
++                -qt3support \
++                -I${STAGING_DIR_HOST}${SDKPATHNATIVE}/usr/include \
++                -I${STAGING_DIR_HOST}${SDKPATHNATIVE}/usr/include/freetype2 \
++                -I${STAGING_DIR_HOST}${SDKPATHNATIVE}/usr/include/dbus-1.0 \
++                -I${STAGING_DIR_HOST}${SDKPATHNATIVE}/usr/lib/dbus-1.0/include \
++                -I${STAGING_DIR_HOST}${SDKPATHNATIVE}/usr/include/c++ \
++                -I${STAGING_DIR_HOST}${SDKPATHNATIVE}/usr/include/c++/${TARGET_SYS} \
++                -L${STAGING_DIR_HOST}${SDKPATHNATIVE}/lib \
++                -L${STAGING_DIR_HOST}${SDKPATHNATIVE}/usr/lib"
++
++# yank default -e, otherwise we get the following error:
++# moc_qbuffer.cpp: No such file or directory
++EXTRA_OEMAKE = " "
++
++do_configure() {
++    if [ ! -e bin/qmake ]; then
++        ln -sf ${STAGING_BINDIR_NATIVE}/qmake2 bin/qmake
++    fi
++
++    if [ ! -e mkspecs/${TARGET_OS}-oe-g++ ]; then
++        ln -sf linux-g++ mkspecs/${TARGET_OS}-oe-g++
++    fi
++
++    cp ../g++.conf mkspecs/common
++    cp ../linux.conf mkspecs/common
++
++    (echo o; echo yes) | ./configure ${EXTRA_OECONF} || die "Configuring qt failed. EXTRA_OECONF was ${EXTRA_OECONF}"
 +}
 +
-+
-+#PACKAGES_DYNAMIC = "directfb-inputdrivers-*"
-+#
-+#python populate_packages_prepend () {
-+#    import os.path
-+#    inputdrivers_libdir = bb.data.expand('${libdir}/directfb-${RV}/inputdrivers', d)
-+#    do_split_packages(d, inputdrivers_libdir, '*.so$', 'directfb-inputdrivers-%s', 'Directfb plugin for %s')
-+#}
-+
-+# NOTE: monolithic packaging for now, should improve that eventually
-+
-+
-+
-+FILES_${PN}-dbg += "\
-+  ${libdir}/directfb-${RV}/*/*/.debug/*.so \
-+  ${libdir}/directfb-${RV}/*/.debug/*.so \
++TOBUILD = "\
++  src/tools/bootstrap \
++  src/tools/moc \
++  src/corelib \
++  src/sql \
++  src/dbus \
++  src/qt3support \
++  src/xml \
++  src/tools/uic \
++  src/tools/rcc \
++  src/network \
++  src/gui \
++  src/tools/uic3 \
++  tools/linguist/lrelease \
++  tools/linguist/lupdate \
++  tools/qdbus \
 +"
 +
-+FILES_${PN}-dev += "\
-+  ${bindir}/directfb-config \
-+  ${libdir}/directfb-${RV}/systems/*.la \
-+  ${libdir}/directfb-${RV}/inputdrivers/*.la \
-+  ${libdir}/directfb-${RV}/interfaces/*/*.la \
-+  ${libdir}/directfb-${RV}/wm/*.la \
-+"
++do_compile() {
++    for i in ${TOBUILD}; do
++        cd ${S}/$i && oe_runmake CC="${CC}" CXX="${CXX}"
++    done
++}
 +
-+FILES_${PN} += "\
-+  ${libdir}/directfb-${RV}/systems/*.so \
-+  ${libdir}/directfb-${RV}/inputdrivers/*.so \
-+  ${libdir}/directfb-${RV}/interfaces/*/*.so \
-+  ${libdir}/directfb-${RV}/wm/*.so \
-+  ${datadir}/directfb-${PV} \
-+"
-diff --git a/meta/recipes-graphics/directfb/directfb_1.4.6.bb b/meta/recipes-graphics/directfb/directfb_1.4.6.bb
-new file mode 100644
-index 0000000..1233a64
---- /dev/null
-+++ b/meta/recipes-graphics/directfb/directfb_1.4.6.bb
-@@ -0,0 +1,29 @@
-+require directfb.inc
++do_install() {
++    install -d ${D}${bindir}
++    install -m 0755 bin/qmake ${D}${bindir}/qmake2
++    for i in moc uic uic3 rcc lrelease lupdate qdbuscpp2xml qdbusxml2cpp; do
++        install -m 0755 bin/${i} ${D}${bindir}/${i}4
++    done
 +
-+RV = "1.4-5"
-+PR = "r2"
++	(cd ${D}${bindir}; \
++	ln -s qmake2 qmake; \
++	for i in moc uic uic3 rcc lrelease lupdate qdbuscpp2xml qdbusxml2cpp; do \
++		ln -s ${i}4 ${i}; \
++	done)
 +
-+DEPENDS += "sysfsutils"
++	# make a symbolic link to mkspecs for compatibility with Nokia's SDK
++	# and QTCreator
++	(cd ${D}${bindir}/..; ln -s ${TARGET_SYS}/usr/share/qtopia/mkspecs mkspecs;)
++}
 +
-+SRC_URI = " \
-+    http://directfb.org/downloads/Core/DirectFB-1.4/DirectFB-${PV}.tar.gz \
-+    file://directfb-1.2.x-fix-pkgconfig-cflags.patch \
-+    file://mkdfiff.patch \
-+    file://dont-use-linux-config.patch \
-+   "
-+
-+EXTRA_OECONF = "\
-+  --enable-freetype=yes \
-+  --enable-zlib \
-+  --with-gfxdrivers=none \
-+  --disable-sdl \
-+  --disable-vnc \
-+  --disable-x11 \
-+"
-+
-+LEAD_SONAME = "libdirectfb-1.4.so.5"
-+
-+SRC_URI[md5sum] = "dbe1957932f81790742b58b94c1c7b84"
-+SRC_URI[sha256sum] = "b18121e60e9a084ee347037a53a46cfaea1c09505bd99d673c2e65eca285e69b"
-+
-+LIC_FILES_CHKSUM = "file://COPYING;md5=dcf3c825659e82539645da41a7908589"
-diff --git a/meta/recipes-graphics/directfb/files/directfb-1.2.x-fix-pkgconfig-cflags.patch b/meta/recipes-graphics/directfb/files/directfb-1.2.x-fix-pkgconfig-cflags.patch
-new file mode 100644
-index 0000000..745c561
---- /dev/null
-+++ b/meta/recipes-graphics/directfb/files/directfb-1.2.x-fix-pkgconfig-cflags.patch
-@@ -0,0 +1,47 @@
-+Index: DirectFB-1.1.1/directfb-internal.pc.in
-+===================================================================
-+--- DirectFB-1.1.1.orig/directfb-internal.pc.in	2007-08-07 21:43:00.000000000 +0200
-++++ DirectFB-1.1.1/directfb-internal.pc.in	2008-07-17 21:00:47.424654304 +0200
-+@@ -2,10 +2,10 @@
-+ exec_prefix=@exec_prefix@
-+ moduledir=@MODULEDIR@
-+ moduledirname=@MODULEDIRNAME@
-+-includedir=@INTERNALINCLUDEDIR@
-++includedir=@includedir@
-+ 
-+ Name: DirectFB-Internal
-+ Description: Third party module support package for DirectFB.
-+ Version: @VERSION@
-+ Requires: directfb = @VERSION@
-+-Cflags: @DFB_INTERNAL_CFLAGS@ -I@INTERNALINCLUDEDIR@
-++Cflags: @DFB_INTERNAL_CFLAGS@ -I${includedir}/directfb -I${includedir}
-+Index: DirectFB-1.1.1/directfb.pc.in
-+===================================================================
-+--- DirectFB-1.1.1.orig/directfb.pc.in	2007-12-15 16:23:16.000000000 +0100
-++++ DirectFB-1.1.1/directfb.pc.in	2008-07-17 20:59:58.044985193 +0200
-+@@ -9,4 +9,4 @@
-+ Requires: fusion direct
-+ Libs: -L${libdir} -ldirectfb @THREADLIB@ @OSX_LIBS@
-+ Libs.private: -L${libdir} @DYNLIB@ @ZLIB_LIBS@
-+-Cflags: @THREADFLAGS@ -I@INCLUDEDIR@
-++Cflags: @THREADFLAGS@ -I${includedir}/directfb
-+Index: DirectFB-1.1.1/lib/fusion/fusion.pc.in
-+===================================================================
-+--- DirectFB-1.1.1.orig/lib/fusion/fusion.pc.in	2007-08-07 21:43:00.000000000 +0200
-++++ DirectFB-1.1.1/lib/fusion/fusion.pc.in	2008-07-17 20:58:07.051338866 +0200
-+@@ -8,4 +8,4 @@
-+ Version: @VERSION@
-+ Requires: direct
-+ Libs: -L${libdir} -lfusion
-+-Cflags: -I@INCLUDEDIR@
-++Cflags: -I${includedir}/directfb -I${includedir}
-+Index: DirectFB-1.1.1/lib/voodoo/voodoo.pc.in
-+===================================================================
-+--- DirectFB-1.1.1.orig/lib/voodoo/voodoo.pc.in	2007-08-07 21:43:00.000000000 +0200
-++++ DirectFB-1.1.1/lib/voodoo/voodoo.pc.in	2008-07-17 20:58:07.054671842 +0200
-+@@ -8,4 +8,4 @@
-+ Version: @VERSION@
-+ Requires: direct
-+ Libs: -L${libdir} -lvoodoo
-+-Cflags: -I@INCLUDEDIR@
-++Cflags: -I${includedir}/directfb -I${includedir}
-diff --git a/meta/recipes-graphics/directfb/files/dont-use-linux-config.patch b/meta/recipes-graphics/directfb/files/dont-use-linux-config.patch
-new file mode 100644
-index 0000000..f971660
---- /dev/null
-+++ b/meta/recipes-graphics/directfb/files/dont-use-linux-config.patch
-@@ -0,0 +1,12 @@
-+diff -urN DirectFB-1.1.0.orig/lib/direct/ppcasm_memcpy_cachable.S DirectFB-1.1.0/lib/direct/ppcasm_memcpy_cachable.S
-+--- DirectFB-1.1.0.orig/lib/direct/ppcasm_memcpy_cachable.S	2007-08-07 21:43:00.000000000 +0200
-++++ DirectFB-1.1.0/lib/direct/ppcasm_memcpy_cachable.S	2008-06-07 04:14:26.000000000 +0200
-+@@ -34,8 +34,6 @@
-+ 
-+ #define __ASSEMBLY__
-+ 
-+-#include <linux/config.h>
-+-
-+ #if defined(CONFIG_8xx) || defined(CONFIG_403GCX)
-+ #define L1_CACHE_LINE_SIZE       16
-+ #define LG_L1_CACHE_LINE_SIZE     4 
++SRC_URI[md5sum] = "5c69f16d452b0bb3d44bc3c10556c072"
++SRC_URI[sha256sum] = "f4e0ada8d4d516bbb8600a3ee7d9046c9c79e38cd781df9ffc46d8f16acd1768"
 -- 
 1.7.1
 
