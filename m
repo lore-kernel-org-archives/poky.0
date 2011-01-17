@@ -1,42 +1,42 @@
 Return-Path: <aalonso00@gmail.com>
-Received: from mail-gx0-f176.google.com (mail-gx0-f176.google.com
-	[209.85.161.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id CE1B74C8121A
-	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 14:24:31 -0600 (CST)
+Received: from mail-yx0-f176.google.com (mail-yx0-f176.google.com
+	[209.85.213.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id CD78F4C8121C
+	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 14:24:34 -0600 (CST)
 Authentication-Results: mx1.pokylinux.org; dkim=pass
 	(1024-bit key; insecure key) header.i=@gmail.com;
 	x-dkim-adsp=none (insecure policy)
-Received: by mail-gx0-f176.google.com with SMTP id 4so2387299gxk.35
-	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 12:24:31 -0800 (PST)
+Received: by mail-yx0-f176.google.com with SMTP id 8so2387231yxm.35
+	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 12:24:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
 	h=domainkey-signature:sender:from:to:cc:subject:date:message-id
 	:x-mailer:in-reply-to:references;
-	bh=jtl4GgkOhgZcwnD+zYTz+DS8oFsp2AGZJvCYc9gWTCY=;
-	b=rGSUbhJufvOrAhGd9pZbpOmwx/RIR4Px76LDcsEE+CcYW4nIlVNXa/nEe8Bz3Qdfyt
-	f2s62ZY7q0q9b9MUZ1Ng3KueYMMBGD7M/zNMwQlr3oLBIylY+NM2JZGPQ1L23Z9zWmfA
-	ES2IOZm6r4R56HAEIYL70+YC/wjPOb7nyxrxs=
+	bh=AiXVOy0p/4EceNPmSSHJlikbD5V9BBthywKyhl7+kDE=;
+	b=jNV2TJ6Z0juYMOSOzG9gzjl1xDoTkAELldgD8oZmHeFLsssKuGdYfsGipwJxTWd7dE
+	Ocip21bXwCbH/NTBP9GbxhwzdA1Tz1F2SXKmK0Rewn9dboGkkKs0ebwHIIfUC7kgUr/u
+	cj3PmO3xhXABs39ulB/mCaVAL5wlB8XVj4Fro=
 DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
 	h=sender:from:to:cc:subject:date:message-id:x-mailer:in-reply-to
 	:references;
-	b=RMT0ow62cCPSYhQuHj6i3xf+LBkCzkrVayYhigiEC49LdDYoPEaa8nXmzL2RuFlDwA
-	SONC3NSZdlLjL6P64NjVSZBrs7mPid+tgj3H4qbxuqA+TbNsHRuAt9vLKtuzlrYAOp2s
-	iDSPz5UDf20uMfhAuXhZEbdncXh68MQoreuC0=
-Received: by 10.91.103.1 with SMTP id f1mr4986816agm.182.1295295871693;
-	Mon, 17 Jan 2011 12:24:31 -0800 (PST)
+	b=GjLcOwst+PE7cTKrdHY7I/Y7nG8RcCcruO7/+D49DPX1J2leR1CBn6rGBvP4Om1Q4d
+	Bz8GR18DHaB3mtS8D0D57DC1WWRzY/kfa3kMdob0+VryLwx5SbyogIS9uIunifrThR5G
+	69VUE3sULEW4p4pKsLDLI7CmydEd1RF6BcXvU=
+Received: by 10.100.141.13 with SMTP id o13mr2820011and.96.1295295874708;
+	Mon, 17 Jan 2011 12:24:34 -0800 (PST)
 Received: from localhost.localdomain ([201.153.229.4])
-	by mx.google.com with ESMTPS id c30sm5898586anc.0.2011.01.17.12.24.29
+	by mx.google.com with ESMTPS id c30sm5898586anc.0.2011.01.17.12.24.31
 	(version=TLSv1/SSLv3 cipher=RC4-MD5);
-	Mon, 17 Jan 2011 12:24:30 -0800 (PST)
+	Mon, 17 Jan 2011 12:24:33 -0800 (PST)
 Sender: Adrian Alonso <aalonso00@gmail.com>
 From: Adrian Alonso <aalonso@secretlab.ca>
 To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Date: Mon, 17 Jan 2011 14:29:37 -0600
-Message-Id: <1295296178-18590-24-git-send-email-aalonso@secretlab.ca>
+Date: Mon, 17 Jan 2011 14:29:38 -0600
+Message-Id: <1295296178-18590-25-git-send-email-aalonso@secretlab.ca>
 X-Mailer: git-send-email 1.7.3.4
 In-Reply-To: <1295296178-18590-1-git-send-email-aalonso@secretlab.ca>
 References: <1295296178-18590-1-git-send-email-aalonso@secretlab.ca>
 Cc: Adrian Alonso <aalonso@secretlab.ca>
-Subject: [PATCH 24/25] defconfig: virtex5 config for linux 2.6.37.rc4
+Subject: [PATCH 25/25] openssl: powerpc gnueabi toolchain support
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -48,124 +48,62 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 17 Jan 2011 20:24:32 -0000
+X-List-Received-Date: Mon, 17 Jan 2011 20:24:35 -0000
 
-* Update defconfig for linux 2.6.37 rc4
-* Enable xilinx spi driver
+* Add powerpc-gnueabi toolchain configuration support
 
 Signed-off-by: Adrian Alonso <aalonso@secretlab.ca>
 ---
- .../linux/linux-xilinx/virtex5/defconfig           |   45 +++++++++++++++++---
- 1 files changed, 39 insertions(+), 6 deletions(-)
+ ...enssl-linux-gnueabi-powerpc-configuration.patch |   27 ++++++++++++++++++++
+ .../openssl/openssl_0.9.8p.bbappend                |    5 +++
+ 2 files changed, 32 insertions(+), 0 deletions(-)
+ create mode 100644 recipes-connectivity/openssl/openssl-0.9.8p/openssl-linux-gnueabi-powerpc-configuration.patch
+ create mode 100644 recipes-connectivity/openssl/openssl_0.9.8p.bbappend
 
-diff --git a/recipes-kernel/linux/linux-xilinx/virtex5/defconfig b/recipes-kernel/linux/linux-xilinx/virtex5/defconfig
-index 087a530..e873f5e 100644
---- a/recipes-kernel/linux/linux-xilinx/virtex5/defconfig
-+++ b/recipes-kernel/linux/linux-xilinx/virtex5/defconfig
-@@ -24,6 +24,7 @@ CONFIG_PPC_MMU_NOHASH_32=y
- # CONFIG_PPC_MM_SLICES is not set
- CONFIG_NOT_COHERENT_CACHE=y
- CONFIG_PPC32=y
-+CONFIG_32BIT=y
- CONFIG_WORD_SIZE=32
- CONFIG_ARCH_PHYS_ADDR_T_64BIT=y
- CONFIG_MMU=y
-@@ -318,7 +319,7 @@ CONFIG_PPC_4K_PAGES=y
- CONFIG_FORCE_MAX_ZONEORDER=11
- CONFIG_PROC_DEVICETREE=y
- CONFIG_CMDLINE_BOOL=y
--CONFIG_CMDLINE=" debug "
-+CONFIG_CMDLINE=""
- CONFIG_EXTRA_TARGETS="simpleImage.virtex440-ml507 simpleImage.initrd.virtex440-ml507"
- CONFIG_SECCOMP=y
- # CONFIG_COMPRESSED_DEVICE_TREE is not set
-@@ -642,8 +643,21 @@ CONFIG_MTD_PHYSMAP_OF=y
- # UBI - Unsorted block images
- #
- # CONFIG_MTD_UBI is not set
-+CONFIG_DTC=y
-+CONFIG_OF=y
+diff --git a/recipes-connectivity/openssl/openssl-0.9.8p/openssl-linux-gnueabi-powerpc-configuration.patch b/recipes-connectivity/openssl/openssl-0.9.8p/openssl-linux-gnueabi-powerpc-configuration.patch
+new file mode 100644
+index 0000000..5677756
+--- /dev/null
++++ b/recipes-connectivity/openssl/openssl-0.9.8p/openssl-linux-gnueabi-powerpc-configuration.patch
+@@ -0,0 +1,27 @@
++From f5fb652a90e71be1665bebb34622d5d205b5f68d Mon Sep 17 00:00:00 2001
++From: Adrian Alonso <aalonso@secretlab.ca>
++Date: Mon, 3 Jan 2011 15:33:20 -0600
++Subject: [PATCH] openssl: linux-gnueabi-powerpc configuration
 +
-+#
-+# Device Tree and Open Firmware support
-+#
-+CONFIG_PROC_DEVICETREE=y
-+CONFIG_OF_FLATTREE=y
-+CONFIG_OF_DYNAMIC=y
-+CONFIG_OF_ADDRESS=y
-+CONFIG_OF_IRQ=y
- CONFIG_OF_DEVICE=y
- CONFIG_OF_GPIO=y
-+CONFIG_OF_SPI=y
-+CONFIG_OF_MDIO=y
- # CONFIG_PARPORT is not set
- CONFIG_BLK_DEV=y
- # CONFIG_BLK_DEV_FD is not set
-@@ -745,7 +759,7 @@ CONFIG_MII=y
- # CONFIG_KS8851_MLL is not set
- # CONFIG_XILINX_EMAC is not set
- # CONFIG_ATL2 is not set
--# CONFIG_XILINX_EMACLITE is not set
-+CONFIG_XILINX_EMACLITE=y
- CONFIG_NETDEV_1000=y
- # CONFIG_ACENIC is not set
- # CONFIG_DL2K is not set
-@@ -914,7 +928,25 @@ CONFIG_XILINX_HWICAP=y
- # CONFIG_TCG_TPM is not set
- CONFIG_DEVPORT=y
- # CONFIG_I2C is not set
--# CONFIG_SPI is not set
-+CONFIG_SPI=y
-+# CONFIG_SPI_DEBUG is not set
-+CONFIG_SPI_MASTER=y
++* Add linux-gnueabi-powerpc configuration option
 +
-+#
-+# SPI Master Controller Drivers
-+#
-+CONFIG_SPI_BITBANG=y
-+# CONFIG_SPI_GPIO is not set
-+# CONFIG_SPI_PPC4xx is not set
-+# CONFIG_SPI_TOPCLIFF_PCH is not set
-+CONFIG_SPI_XILINX=y
-+# CONFIG_SPI_DESIGNWARE is not set
++Signed-off-by: Adrian Alonso <aalonso@secretlab.ca>
++---
++ Configure |    1 +
++ 1 files changed, 1 insertions(+), 0 deletions(-)
 +
-+#
-+# SPI Protocol Masters
-+#
-+# CONFIG_SPI_SPIDEV is not set
-+# CONFIG_SPI_TLE62X0 is not set
- 
- #
- # PPS support
-@@ -975,6 +1007,7 @@ CONFIG_SSB_POSSIBLE=y
- #
- # CONFIG_AGP is not set
- CONFIG_VGA_ARB=y
-+CONFIG_VGA_ARB_MAX_GPUS=16
- # CONFIG_DRM is not set
- # CONFIG_VGASTATE is not set
- # CONFIG_VIDEO_OUTPUT_CONTROL is not set
-@@ -1046,7 +1079,7 @@ CONFIG_FB_XILINX=y
- #
- CONFIG_DUMMY_CONSOLE=y
- CONFIG_FRAMEBUFFER_CONSOLE=y
--# CONFIG_FRAMEBUFFER_CONSOLE_DETECT_PRIMARY is not set
-+CONFIG_FRAMEBUFFER_CONSOLE_DETECT_PRIMARY=y
- # CONFIG_FRAMEBUFFER_CONSOLE_ROTATION is not set
- CONFIG_FONTS=y
- CONFIG_FONT_8x8=y
-@@ -1060,8 +1093,8 @@ CONFIG_FONT_8x16=y
- # CONFIG_FONT_SUN12x22 is not set
- # CONFIG_FONT_10x18 is not set
- CONFIG_LOGO=y
--# CONFIG_LOGO_LINUX_MONO is not set
--# CONFIG_LOGO_LINUX_VGA16 is not set
-+CONFIG_LOGO_LINUX_MONO=y
-+CONFIG_LOGO_LINUX_VGA16=y
- CONFIG_LOGO_LINUX_CLUT224=y
- # CONFIG_SOUND is not set
- # CONFIG_HID_SUPPORT is not set
--- 
++diff --git a/Configure b/Configure
++index 0428fd2..624e4a5 100755
++--- a/Configure
+++++ b/Configure
++@@ -379,6 +379,7 @@ my %table=(
++ # throw in -D[BL]_ENDIAN, whichever appropriate...
++ "linux-generic32","gcc:-DTERMIO -O3 -fomit-frame-pointer -Wall::-D_REENTRANT::-ldl:BN_LLONG RC4_CHAR RC4_CHUNK DES_INT DES_UNROLL BF_PTR:${no_asm}:dlfcn:linux-shared:-fPIC::.so.\$(SHLIB_MAJOR).\$(SHLIB_MINOR)",
++ "linux-ppc",	"gcc:-DB_ENDIAN -DTERMIO -O3 -Wall::-D_REENTRANT::-ldl:BN_LLONG RC4_CHAR RC4_CHUNK DES_RISC1 DES_UNROLL::linux_ppc32.o::::::::::dlfcn:linux-shared:-fPIC::.so.\$(SHLIB_MAJOR).\$(SHLIB_MINOR)",
+++"linux-gnueabi-powerpc",	"gcc:-DB_ENDIAN -DTERMIO -O3 -Wall::-D_REENTRANT::-ldl:BN_LLONG RC4_CHAR RC4_CHUNK DES_RISC1 DES_UNROLL::linux_ppc32.o::::::::::dlfcn:linux-shared:-fPIC::.so.\$(SHLIB_MAJOR).\$(SHLIB_MINOR)",
++ #### IA-32 targets...
++ "linux-ia32-icc",	"icc:-DL_ENDIAN -DTERMIO -O2 -no_cpprt::-D_REENTRANT::-ldl:BN_LLONG ${x86_gcc_des} ${x86_gcc_opts}:${x86_elf_asm}:dlfcn:linux-shared:-KPIC::.so.\$(SHLIB_MAJOR).\$(SHLIB_MINOR)",
++ "linux-elf",	"gcc:-DL_ENDIAN -DTERMIO -O3 -fomit-frame-pointer -Wall::-D_REENTRANT::-ldl:BN_LLONG ${x86_gcc_des} ${x86_gcc_opts}:${x86_elf_asm}:dlfcn:linux-shared:-fPIC::.so.\$(SHLIB_MAJOR).\$(SHLIB_MINOR)",
++-- 
++1.7.3.4
++
+diff --git a/recipes-connectivity/openssl/openssl_0.9.8p.bbappend b/recipes-connectivity/openssl/openssl_0.9.8p.bbappend
+new file mode 100644
+index 0000000..381f31c
+--- /dev/null
++++ b/recipes-connectivity/openssl/openssl_0.9.8p.bbappend
+@@ -0,0 +1,5 @@
++THISDIR := "${@os.path.dirname(bb.data.getVar('FILE', d, True))}"
++FILESPATH =. "${@base_set_filespath(["${THISDIR}/${PN}"], d)}:"
++
++SRC_URI_append += "file://openssl-linux-gnueabi-powerpc-configuration.patch \
++                  "
+--
 1.7.3.4
-
 
