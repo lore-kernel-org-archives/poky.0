@@ -1,37 +1,40 @@
-Return-Path: <dongxiao.xu@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 8469D4C8085F
-	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 18:46:24 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 17 Jan 2011 16:46:23 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,336,1291622400"; d="scan'208";a="647957788"
-Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
-	by fmsmga002.fm.intel.com with ESMTP; 17 Jan 2011 16:46:23 -0800
-Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
-	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Tue, 18 Jan 2011 08:45:30 +0800
-Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
-	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
-	Tue, 18 Jan 2011 08:45:29 +0800
-From: "Xu, Dongxiao" <dongxiao.xu@intel.com>
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-Date: Tue, 18 Jan 2011 08:45:28 +0800
-Thread-Topic: [poky] [PATCH 1/5] staging: Use relative path in
-	sysroot-destdir for target recipes
-Thread-Index: Acu2l9KR6YtbHbMQQRamiETbx2vy5gADYUXA
-Message-ID: <D5AB6E638E5A3E4B8F4406B113A5A19A31C3DA35@shsmsx501.ccr.corp.intel.com>
-References: <cover.1295042138.git.dongxiao.xu@intel.com>
-	<a84ff52c94c4299e9c6093539ba25bc5df7769e6.1295042140.git.dongxiao.xu@intel.com>
-	<1295304133.14388.15857.camel@rex>
-In-Reply-To: <1295304133.14388.15857.camel@rex>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
+Return-Path: <aalonso00@gmail.com>
+Received: from mail-bw0-f65.google.com (mail-bw0-f65.google.com
+	[209.85.214.65])
+	by mx1.pokylinux.org (Postfix) with ESMTP id DCD2C4C80039
+	for <poky@pokylinux.org>; Mon, 17 Jan 2011 18:59:09 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by bwz4 with SMTP id 4so1004344bwz.8
+	for <poky@pokylinux.org>; Mon, 17 Jan 2011 16:59:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:in-reply-to:references:date
+	:message-id:subject:from:to:cc:content-type;
+	bh=6koxvTInjUiScWZj474xTSwVUDhX32yHvbVpBpx0UbQ=;
+	b=c7Ih50ccDTW00IsGjOjgG6kcr4oy4fh4xTQgnvr00CixCELwNX4rfPUmLGXpjVvYjv
+	iq/u8MUyx9ObOca/xUBfdGoJ1T+eua0juK9XMK40AbZsdMDjdT0Ht5fM1kZH9xoHsh79
+	VKYeQhBHL7JtKbGxltbqXgHVX/fqtLaZxC5uc=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:cc:content-type;
+	b=fayQY5ntl5AWaNk45owl1AbU2n1b6GvsvoLcAKW4JnDBCheFZCv7VCVWM85gewx5mA
+	rEmrGXiVyqD98jeSof0Ztcy9QohdgMLg9MtujeS5lmfwUlYaYBSvIi2yT3iTzmrEKkz/
+	yQUnu/4dp+n2NQDpKSzzjUJ0UIjQvZ7XZ/daA=
 MIME-Version: 1.0
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 1/5] staging: Use relative path in sysroot-destdir for target recipes
+Received: by 10.204.59.140 with SMTP id l12mr2724084bkh.2.1295312345588; Mon,
+	17 Jan 2011 16:59:05 -0800 (PST)
+Received: by 10.204.16.134 with HTTP; Mon, 17 Jan 2011 16:59:05 -0800 (PST)
+In-Reply-To: <loom.20110118T004536-689@post.gmane.org>
+References: <1295296178-18590-1-git-send-email-aalonso@secretlab.ca>
+	<1295296178-18590-3-git-send-email-aalonso@secretlab.ca>
+	<loom.20110118T004536-689@post.gmane.org>
+Date: Mon, 17 Jan 2011 18:59:05 -0600
+Message-ID: <AANLkTimNTDXpOG74pw6SotCqmB=N4nxwLZ+2Y+hjbsCX@mail.gmail.com>
+From: Adrian Alonso <aalonso00@gmail.com>
+To: Ilya Yanok <yanok@emcraft.com>
+Cc: poky@pokylinux.org
+Subject: Re: [PATCH 03/25] gcc: crosssdk unset TARGET_FPU
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,158 +46,113 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 18 Jan 2011 00:46:24 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
+X-List-Received-Date: Tue, 18 Jan 2011 00:59:10 -0000
+Content-Type: multipart/alternative; boundary=001636ed6d013b650d049a14681a
+
+--001636ed6d013b650d049a14681a
+Content-Type: text/plain; charset=ISO-8859-1
+
+Hi Ilya,
+
+I will also look for the proper solution,
+However un-setting TARGET_FPU only affects the target machines
+in meta-xilinx layer bsp, so other Powerpc targets are not been affected
+with this patch.
+
+Regards
+
+On Mon, Jan 17, 2011 at 5:55 PM, Ilya Yanok <yanok@emcraft.com> wrote:
+
+> Hi Adrian,
+>
+> Adrian Alonso <aalonso@...> writes:
+>
+> >
+> > * Configure fails due that --with-float=soft
+> >   flag isn't supportted by powerpc arch
+>
+> That's not true. PowerPC support soft-float (and we actually need this for
+> MPC8308 which has e300c3 core without FPU).
+>
+> For me, configure fails with the same message but that's not because
+> PowerPC
+> lacks support for soft-float but cause gcc-crosssdk recipe passes wrong
+> --target= option to the configure script (for me it's x86_86-pokysdk-linux,
+> I'm
+> building on the x86_64 host).
+>
+> > * Unsetting TARGET_FPU this flag to not try to use
+> >   this flag
+>
+> So please do NOT unset TARGET_FPU, some targets really need it. I'm looking
+> forward to see a correct solution for this issue.
+>
+> Regards, Ilya.
+>
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
+
+
+
+-- 
+Saludos
+Adrian Alonso
+http://aalonso.wordpress.com
+
+--001636ed6d013b650d049a14681a
+Content-Type: text/html; charset=ISO-8859-1
 Content-Transfer-Encoding: quoted-printable
 
-Hi Richard,
+Hi Ilya,<div><br></div><div>I will also look for the proper solution,</div>=
+<div>However un-setting TARGET_FPU only affects the target machines</div><d=
+iv>in meta-xilinx layer bsp, so other Powerpc targets are not been affected=
+</div>
+<div>with this patch.</div><div><br></div><div>Regards<br><br><div class=3D=
+"gmail_quote">On Mon, Jan 17, 2011 at 5:55 PM, Ilya Yanok <span dir=3D"ltr"=
+>&lt;<a href=3D"mailto:yanok@emcraft.com">yanok@emcraft.com</a>&gt;</span> =
+wrote:<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex;">Hi Adrian,<br>
+<div class=3D"im"><br>
+Adrian Alonso &lt;aalonso@...&gt; writes:<br>
+<br>
+&gt;<br>
+&gt; * Configure fails due that --with-float=3Dsoft<br>
+&gt; =A0 flag isn&#39;t supportted by powerpc arch<br>
+<br>
+</div>That&#39;s not true. PowerPC support soft-float (and we actually need=
+ this for<br>
+MPC8308 which has e300c3 core without FPU).<br>
+<br>
+For me, configure fails with the same message but that&#39;s not because Po=
+werPC<br>
+lacks support for soft-float but cause gcc-crosssdk recipe passes wrong<br>
+--target=3D option to the configure script (for me it&#39;s x86_86-pokysdk-=
+linux, I&#39;m<br>
+building on the x86_64 host).<br>
+<div class=3D"im"><br>
+&gt; * Unsetting TARGET_FPU this flag to not try to use<br>
+&gt; =A0 this flag<br>
+<br>
+</div>So please do NOT unset TARGET_FPU, some targets really need it. I&#39=
+;m looking<br>
+forward to see a correct solution for this issue.<br>
+<br>
+Regards, Ilya.<br>
+<br>
+<br>
+_______________________________________________<br>
+poky mailing list<br>
+<a href=3D"mailto:poky@yoctoproject.org">poky@yoctoproject.org</a><br>
+<a href=3D"https://lists.yoctoproject.org/listinfo/poky" target=3D"_blank">=
+https://lists.yoctoproject.org/listinfo/poky</a><br>
+</blockquote></div><br><br clear=3D"all"><br>-- <br>Saludos<br>Adrian Alons=
+o<br><a href=3D"http://aalonso.wordpress.com">http://aalonso.wordpress.com<=
+/a><br><br>
+</div>
 
-Richard Purdie wrote:
-> Hi Dongxaio,
->=20
-> I agree with this patch as you know and I want to merge it but I'm
-> not entirely sure its 100% right yet.=20
->=20
-> On Sat, 2011-01-15 at 06:14 +0800, Dongxiao Xu wrote:
->> diff --git a/meta/classes/staging.bbclass
->> b/meta/classes/staging.bbclass index 8432565..4d2991b 100644
->> --- a/meta/classes/staging.bbclass
->> +++ b/meta/classes/staging.bbclass
->> @@ -45,25 +45,25 @@ sysroot_stage_dirs() {
->>  	from=3D"$1"
->>  	to=3D"$2"
->>=20
->> -	sysroot_stage_dir $from${includedir} $to${STAGING_INCDIR}
->> +	sysroot_stage_dir $from${includedir} $to${includedir}
->>  	if [ "${BUILD_SYS}" =3D "${HOST_SYS}" ]; then
->> -		sysroot_stage_dir $from${bindir} $to${STAGING_DIR_HOST}${bindir}
->> -		sysroot_stage_dir $from${sbindir} $to${STAGING_DIR_HOST}${sbindir}
->> -		sysroot_stage_dir $from${base_bindir}
->> $to${STAGING_DIR_HOST}${base_bindir}=20
->> -		sysroot_stage_dir $from${base_sbindir}
->> $to${STAGING_DIR_HOST}${base_sbindir}=20
->> -		sysroot_stage_dir $from${libexecdir}
->> $to${STAGING_DIR_HOST}${libexecdir}=20
->> -		sysroot_stage_dir $from${sysconfdir}
->> $to${STAGING_DIR_HOST}${sysconfdir}=20
->> -		sysroot_stage_dir $from${localstatedir}
->> $to${STAGING_DIR_HOST}${localstatedir} +		sysroot_stage_dir
->> $from${bindir} $to${bindir} +		sysroot_stage_dir $from${sbindir}
->> $to${sbindir} +		sysroot_stage_dir $from${base_bindir}
->> $to${base_bindir} +		sysroot_stage_dir $from${base_sbindir}
->> $to${base_sbindir} +		sysroot_stage_dir $from${libexecdir}
->> $to${libexecdir} +		sysroot_stage_dir $from${sysconfdir}
->> $to${sysconfdir} +		sysroot_stage_dir $from${localstatedir}
->>  	$to${localstatedir}  	fi if [ -d $from${libdir} ]
->>  	then
->> -		sysroot_stage_libdir $from/${libdir} $to${STAGING_LIBDIR}
->> +		sysroot_stage_libdir $from/${libdir} $to${libdir}  	fi
->>  	if [ -d $from${base_libdir} ]
->>  	then
->> -		sysroot_stage_libdir $from${base_libdir}
->> $to${STAGING_DIR_HOST}${base_libdir} +		sysroot_stage_libdir
->> $from${base_libdir} $to${base_libdir}  	fi -	sysroot_stage_dir
->> $from${datadir} $to${STAGING_DATADIR} +	sysroot_stage_dir
->>  $from${datadir} $to${datadir} }
->>=20
->>  sysroot_stage_all() {
->> @@ -76,6 +76,7 @@ do_populate_sysroot[dirs] =3D
->>  			     "${STAGING_DIR_TARGET}/${bindir} ${STAGING_DIR_TARGE
->>  			     ${STAGING_INCDIR_NATIVE} \ ${STAGING_DATADIR} \
->>                             =20
->> ${SYSROOT_DESTDIR}${STAGING_DIR_TARGET} \ +                        =20
->> ${SYSROOT_DESTDIR}${base_prefix} \  			     ${S} ${B}"=20
->>=20
->>  # Could be compile but populate_sysroot and do_install shouldn't run
->> at the same time @@ -103,8 +104,8 @@ python do_populate_sysroot () {
->>=20
->>  SSTATETASKS +=3D "do_populate_sysroot"
->>  do_populate_sysroot[sstate-name] =3D "populate-sysroot"
->> -do_populate_sysroot[sstate-inputdirs] =3D
->> "${SYSROOT_DESTDIR}/${STAGING_DIR}"=20
->> -do_populate_sysroot[sstate-outputdirs] =3D "${TMPDIR}/sysroots"
->> +do_populate_sysroot[sstate-inputdirs] =3D
->> "${SYSROOT_DESTDIR}/${base_prefix}"
->> +do_populate_sysroot[sstate-outputdirs] =3D "${STAGING_DIR_HOST}/"=20
->=20
->=20
-> The reason why is I'm still not 100% comfortable with the two lines
-> above. They look unbalanced and should really be paired to match such
-> that they'd either be: =20
->=20
-> do_populate_sysroot[sstate-inputdirs] =3D
-> "${SYSROOT_DESTDIR}/${base_prefix}"=20
-> do_populate_sysroot[sstate-outputdirs] =3D
-> "${STAGING_DIR_HOST}/${base_prefix}"=20
->=20
-> or
->=20
-> do_populate_sysroot[sstate-inputdirs] =3D "${SYSROOT_DESTDIR}"
-> do_populate_sysroot[sstate-outputdirs] =3D "${STAGING_DIR_HOST}"
->=20
-> but just looking at code I'm having trouble working out whether
-> either, both or neither of these would work and in which cases.=20
->=20
-> The cross/crosssdk recipes are a mess as they install into two
-> different sysroots. Dexuan is working on some changes to improve that
-> so I'm least worried about those two classes and the patch I just
-> merged for libgcc is going to help. I'm therefore aiming for this to
-> work for the target/native/nativesdk/cross-canadian cases and the
-> cross/crosssdk one is secondary and can be messy for now if needed. =20
->=20
-> I feel most comfortable aiming for the latter of my two options
-> above, does that work assuming we hack cross/crosssdk to do whatever
-> is needed to make them work with it? Can the others then remain
-> unaltered?  =20
-
-
-${base_prefix} has some kinds of values considerring different recipe type.=
- (we do not discuss cross and crosssdk)
-
-Normal target recipe: base_prefix =3D ""
-Native recipes: base_prefix =3D "${STAGING_DIR_NATIVE}"
-Nativesdk recipes: base_prefix =3D "${SDKPATHNATIVE}"
-Cross-canadian recipes: base_prefix =3D "${SDKPATHNATIVE}"
-
-For target recipes, the input and output dirs should be:
-Input: ${SYSROOT_DESTDIR}
-Output: ${STAGING_DIR_HOST}
-
-For native recipes, the input and output dirs should be:
-Input: ${SYSROOT_DESTDIR}/${STAGING_DIR_NATIVE}
-Output: "${STAGING_DIR_NATIVE}"
-
-For nativesdk recipes, the input and output dirs should be:
-Input: ${SYSROOT_DESTDIR}/${SDKPATHNATIVE}
-Output: "${STAGING_DIR_HOST}/${SDKPATHNATIVE}
-
-For cross-canadian recipes, the input and output dirs should be:
-Input: ${SYSROOT_DESTDIR}/${SDKPATHNATIVE}
-Output: "${STAGING_DIR_HOST}/${SDKPATHNATIVE}
-
-It is workable if change to your latter option.
-do_populate_sysroot[sstate-inputdirs] =3D "${SYSROOT_DESTDIR}"
-do_populate_sysroot[sstate-outputdirs] =3D "${STAGING_DIR_HOST}"
-
-In this case we need to specially handle native cases.
-
->=20
-> The other minor thing I'm thinking about is adding a definition of:
->=20
-> bindir_crossscripts =3D "${bindir}/crossscripts"
->=20
-> to bitbake.conf (near the top next to bindir_cross) and using that in
-> the sysroot functions.=20
-
-OK, I will change accordingly.
-
-Thanks,
-Dongxiao
-
->=20
-> Cheers,
->=20
-> Richard
-
-
+--001636ed6d013b650d049a14681a--
