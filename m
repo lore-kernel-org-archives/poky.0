@@ -1,33 +1,20 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 6E5E34C81118
-	for <poky@yoctoproject.org>; Tue, 18 Jan 2011 07:44:46 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 30A1716603ED; Tue, 18 Jan 2011 06:44:46 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.1
-Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 1065A1660432;
-	Tue, 18 Jan 2011 06:44:45 -0700 (MST)
-Message-ID: <4D35994D.6050703@mlbassoc.com>
-Date: Tue, 18 Jan 2011 06:44:45 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
-MIME-Version: 1.0
-To: Joshua Lock <josh@openedhand.com>
-References: <4D32E4D2.5030002@mlbassoc.com>	 <1295256226.2321.1.camel@scimitar>
-	<4D343BB7.4050404@mlbassoc.com>	 <1295269851.6501.2.camel@scimitar>
-	<4D3443FC.5060201@mlbassoc.com>	
-	<4D34731A.2090304@mlbassoc.com> <4D357B4B.30607@mlbassoc.com>
-	<1295356953.2642.16.camel@scimitar>
-In-Reply-To: <1295356953.2642.16.camel@scimitar>
-Cc: poky@yoctoproject.org
-Subject: Re: Kernel firmware?
+Return-Path: <dexuan.cui@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 21CAF4C80BEF
+	for <poky@yoctoproject.org>; Tue, 18 Jan 2011 07:58:11 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 18 Jan 2011 05:58:10 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,339,1291622400"; d="scan'208";a="648196407"
+Received: from dcui-desktop.sh.intel.com (HELO localhost) ([10.239.13.108])
+	by fmsmga002.fm.intel.com with ESMTP; 18 Jan 2011 05:58:10 -0800
+Message-Id: <cover.1295359004.git.dexuan.cui@intel.com>
+From: Dexuan Cui <dexuan.cui@intel.com>
+Old-Date: Tue, 18 Jan 2011 21:56:44 +0800
+Date: Tue, 18 Jan 2011 21:57:37 +0800
+To: poky@yoctoproject.org
+CC: 
+Subject: [RFC: enhance toolchain bootstrap process: v3: 0/7] enhance the toolchain bootstrap process
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,98 +26,80 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 18 Jan 2011 13:44:46 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 18 Jan 2011 13:58:11 -0000
 
-On 01/18/2011 06:22 AM, Joshua Lock wrote:
-> On Tue, 2011-01-18 at 04:36 -0700, Gary Thomas wrote:
->> On 01/17/2011 09:49 AM, Gary Thomas wrote:
->>> On 01/17/2011 06:28 AM, Gary Thomas wrote:
->>>> On 01/17/2011 06:10 AM, Joshua Lock wrote:
->>>>> On Mon, 2011-01-17 at 05:53 -0700, Gary Thomas wrote:
->>>>>> On 01/17/2011 02:23 AM, Joshua Lock wrote:
->>>>>>> Hi Gary,
->>>>>>>
->>>>>>> On Sun, 2011-01-16 at 05:30 -0700, Gary Thomas wrote:
->>>>>>>> I'm trying to get various USB WiFi dongles working on my
->>>>>>>> BeagleBoard (or look-alike). Many of these require runtime
->>>>>>>> downloads of firmware. However, these files don't seem to
->>>>>>>> be installed in Poky:
->>>>>>>> phy1 ->  rt2x00lib_request_firmware: Info - Loading firmware file 'rt73.bin'.
->>>>>>>> rt73usb 2-1.2.4:1.0: firmware: requesting rt73.bin
->>>>>>>> phy1 ->  rt2x00lib_request_firmware: Error - Failed to request Firmware.
->>>>>>>>
->>>>>>>> Is there some way to enable this?
->>>>>>>
->>>>>>> There's a linux-firmware recipe
->>>>>>> (meta/recipes-kernel/linux-firmware/linux-firmware_git.bb) which you'll
->>>>>>> have to modify to package the required firmware (at the moment we only
->>>>>>> package firmware for the Libertas sd8686) and ensure that the packages
->>>>>>> are included in your images.
->>>>>>
->>>>>> I don't see anywhere that linux-firmware-sd8686 is included in
->>>>>> an image. Am I missing something?
->>>>>
->>>>> You need to have something pull in the required linux-firmware, for
->>>>> example the igep0020 and igep0030 machines add linux-firmware-sd8686 to
->>>>> the MACHINE_EXTRA_RRECOMMENDS.
->>>>
->>>> Thanks. Doing it this way wasn't totally clear from "ensure that the
->>>> packages are included in your images."
->>>>
->>>> It's working now.
->>>
->>> My exuberance was a bit premature. Indeed, I rebuilt my install
->>> image, but the firmware package wasn't installed. On my target,
->>> I see:
->>> root@cobra3530p60:~# opkg list-installed linux*
->>> root@cobra3530p60:~# opkg list linux*
->>> linux-firmware-rt73 - 0.0+git0+40c0f950be7040614dc45df54e25e54d00e3b73b-r0 - Firmware files for use with Linux kernel
->>> Firmware files for use with Linux kernel
->>> linux-firmware-sd8686 - 0.0+git0+40c0f950be7040614dc45df54e25e54d00e3b73b-r0 - Firmware files for use with Linux kernel
->>> Firmware files for use with Linux kernel
->>> linux-libc-headers-dbg - 2.6.36-r0 - Debugging files for linux-libc-headers
->>> Debugging files for linux-libc-headers
->>> linux-libc-headers-dev - 2.6.36-r0 - Development files for linux-libc-headers
->>> Development files for linux-libc-headers
->>>
->>> To be clear, all I did was add "linux-firmware-rt73" to MACHINE_EXTRA_RRECOMMENDS
->>> in my<MACHINE>.conf file, then rebuild the image using:
->>> % bitbake poky-image-sato
->>> This was from a previously built tree, etc. Did I need to do anything
->>> else to get the package actually installed at build time?
->>>
->>> Note: If I 'opkg install linux-firmware-rt73' on my target, I get
->>> the correct files. I'd just like to understand how to make it happen
->>> in the "image"
->>
->> I don't see any kernel modules get installed in one of Poky's
->> "supported" platforms either.  I just tried
->>     MACHINE=igep0030 bitbake poky-image-minimal
->> in a clean tree.  No kernel modules:
->>
->> [gthomas@titan igep_test]$ ls tmp/work/igep0030-poky-linux-gnueabi/poky-image-minimal-1.0-r0/rootfs/lib
->> ld-2.12.1.so               libattr.so.1.1.0    libgcc_s.so.1            libnss_dns-2.12.1.so    librt-2.12.1.so
->> ld-linux.so.3              libc-2.12.1.so      libgudev-1.0.so.0        libnss_dns.so.2         librt.so.1
->> libBrokenLocale-2.12.1.so  libc.so.6           libgudev-1.0.so.0.0.1    libnss_files-2.12.1.so  libudev.so.0
->> libBrokenLocale.so.1       libcidn-2.12.1.so   libm-2.12.1.so           libnss_files.so.2       libudev.so.0.9.3
->> libacl.so.1                libcidn.so.1        libm.so.6                libproc-3.2.8.so        libutil-2.12.1.so
->> libacl.so.1.1.0            libcrypt-2.12.1.so  libnsl-2.12.1.so         libpthread-2.12.1.so    libutil.so.1
->> libanl-2.12.1.so           libcrypt.so.1       libnsl.so.1              libpthread.so.0         modules
->> libanl.so.1                libdl-2.12.1.so     libnss_compat-2.12.1.so  libresolv-2.12.1.so     udev
->> libattr.so.1               libdl.so.2          libnss_compat.so.2       libresolv.so.2
->>
->> Am I missing something?  Should I file a bug?
->>
->
-> Yes, please file a bug.
+Hi Richard and all,
 
-Done, bug #660
+The patch set enhances the toolchain bootstrap process by installing a separate sysroot for each step of the process.
+The purpose is to avoid file overwriting in the current global sysroot, namely, to fix Bug 239: http://bugzilla.pokylinux.org/show_bug.cgi?id=239
+
+
+The basic idea is straightforward:
+1) For gcc-cross-initial and -intermediate, by changing MULTIMACH_TARGET_SYS to install the files into new locations;
+2) Fix the build of eglibc-initial, eglibc by using the appropriate compilers, libs, headers;
+3) Also make proper changes for the crosssdk/nativesdk version.
+
+I've split all the changes into small git commits and each commit should be basically self-explanatory. :-)
+
+Please review the commits and comment. Thanks!
+
+Test Results:
+I've tested building poky-image-sdk on various qemu targets: the qemu target can boot fine.
+I'm also testing building meta-toolchain-sdk -- not finished yet, but I think it should be fine because "bitbake gcc-runtime-nativesdk" and "bitbake gcc-cross-canadian-mips" can succeed.
+I'll be doing more tests.
+
+TODO:
+1) changes to gcc-4.3.3 not completely finished (Should we still support gcc-4.3.3 since we have gcc-4.5.1?)
+   However I think I should be able to add the missing changes soon, supposing here 4.3.3 and 4.5.1 have no big difference.
+2) do more tests against glibc rather than eglibc.
+
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: dcui/tcbp-v3
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dcui/tcbp-v3
+
+Thanks,
+    Dexuan Cui <dexuan.cui@intel.com>
+---
+
+
+Dexuan Cui (7):
+  sstate.bbclass: allow each step of toolchain bootstrap processes to
+    do populate_sysroot independently
+  cross.bbclass: make MULTIMACH_TARGET_SYS adjustable for bindir,
+    libdir, libexecdir
+  gcc-cross-initial, gcc-crosssdk-initial: change CROSS_TARGET_SYS_DIR
+    and insall into new locations
+  eglibc-initial, eglibc-initial-nativesdk: install into individual
+    sysroots
+  gcc-cross-intermediate, gcc-crosssdk-intermediate: change
+    CROSS_TARGET_SYS_DIR and insall into new locations
+  cross.bbclass: modify sysroot_stage_all to allow
+    gcc-{cross,crossdk}-intermediate to populate the libgcc_s.so* files
+  eglibc, eglibc-nativesdk: fix the build due to changes to
+    eglibc-initial and gcc-cross-intermediate
+
+ meta/classes/cross.bbclass                         |   17 +++++---
+ meta/classes/sstate.bbclass                        |   24 ------------
+ meta/recipes-core/eglibc/eglibc-initial.inc        |   10 +++++
+ meta/recipes-core/eglibc/eglibc.inc                |    9 ++++
+ meta/recipes-core/eglibc/eglibc_2.12.bb            |    8 +---
+ .../fix_CPPFLAGS_LDFLAGS_FOR_TARGET.patch          |   40 ++++++++++++++++++++
+ meta/recipes-devtools/gcc/gcc-cross-initial.inc    |    2 +
+ .../gcc/gcc-cross-initial_4.3.3.bb                 |    2 +-
+ .../gcc/gcc-cross-initial_4.5.1.bb                 |    2 +-
+ .../gcc/gcc-cross-intermediate.inc                 |   32 ++++++++++++++-
+ .../gcc/gcc-cross-intermediate_4.3.3.bb            |    2 +-
+ .../gcc/gcc-cross-intermediate_4.5.1.bb            |    2 +-
+ .../gcc/gcc-crosssdk-initial_4.3.3.bb              |    2 +-
+ .../gcc/gcc-crosssdk-initial_4.5.1.bb              |    2 +-
+ .../gcc/gcc-crosssdk-intermediate.inc              |    3 +
+ .../gcc/gcc-crosssdk-intermediate_4.3.3.bb         |    2 +-
+ .../gcc/gcc-crosssdk-intermediate_4.5.1.bb         |    2 +-
+ 17 files changed, 113 insertions(+), 48 deletions(-)
+ create mode 100644 meta/recipes-devtools/gcc/gcc-4.5.1/fix_CPPFLAGS_LDFLAGS_FOR_TARGET.patch
 
 -- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+1.7.2
+
 
