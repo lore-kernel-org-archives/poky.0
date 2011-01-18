@@ -1,30 +1,25 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 06DA84C80039
-	for <poky@yoctoproject.org>; Tue, 18 Jan 2011 06:54:15 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0ICttLe006363; Tue, 18 Jan 2011 12:55:56 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id XXJJaiWs+M5S; Tue, 18 Jan 2011 12:55:55 +0000 (GMT)
-Received: from [192.168.1.66] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0ICto0P006357
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Tue, 18 Jan 2011 12:55:52 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Dongxiao Xu <dongxiao.xu@intel.com>
-In-Reply-To: <dab30a6f860cf8ef3b2ed29925e312e7d6749539.1295042140.git.dongxiao.xu@intel.com>
-References: <cover.1295042138.git.dongxiao.xu@intel.com>
-	<dab30a6f860cf8ef3b2ed29925e312e7d6749539.1295042140.git.dongxiao.xu@intel.com>
-Date: Tue, 18 Jan 2011 12:53:51 +0000
-Message-ID: <1295355232.14388.17559.camel@rex>
+Return-Path: <josh@openedhand.com>
+Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
+	by mx1.pokylinux.org (Postfix) with ESMTP id EDB9D4C80039
+	for <poky@yoctoproject.org>; Tue, 18 Jan 2011 07:22:42 -0600 (CST)
+Received: from [192.168.1.88] (unknown [83.217.123.106])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by pug.o-hand.com (Postfix) with ESMTP id 0A76612EC1C7;
+	Tue, 18 Jan 2011 08:03:13 -0600 (CST)
+From: Joshua Lock <josh@openedhand.com>
+To: Gary Thomas <gary@mlbassoc.com>
+In-Reply-To: <4D357B4B.30607@mlbassoc.com>
+References: <4D32E4D2.5030002@mlbassoc.com>
+	<1295256226.2321.1.camel@scimitar>  <4D343BB7.4050404@mlbassoc.com>
+	<1295269851.6501.2.camel@scimitar> <4D3443FC.5060201@mlbassoc.com>
+	<4D34731A.2090304@mlbassoc.com>  <4D357B4B.30607@mlbassoc.com>
+Date: Tue, 18 Jan 2011 13:22:33 +0000
+Message-ID: <1295356953.2642.16.camel@scimitar>
 Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
+X-Mailer: Evolution 2.32.1 (2.32.1-1.fc14) 
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 3/5] bitbake: Introduce stamp-extra-info into build stamp file
+Subject: Re: Kernel firmware?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,183 +31,96 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 18 Jan 2011 12:54:17 -0000
+X-List-Received-Date: Tue, 18 Jan 2011 13:22:43 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On Sat, 2011-01-15 at 06:14 +0800, Dongxiao Xu wrote:
-> For certain tasks, we need additional information in build stamp file
-> except the task name and file name. stamp-extra-info is introduced as
-> an flag adding to the end of stamp file name.
+On Tue, 2011-01-18 at 04:36 -0700, Gary Thomas wrote:
+> On 01/17/2011 09:49 AM, Gary Thomas wrote:
+> > On 01/17/2011 06:28 AM, Gary Thomas wrote:
+> >> On 01/17/2011 06:10 AM, Joshua Lock wrote:
+> >>> On Mon, 2011-01-17 at 05:53 -0700, Gary Thomas wrote:
+> >>>> On 01/17/2011 02:23 AM, Joshua Lock wrote:
+> >>>>> Hi Gary,
+> >>>>>
+> >>>>> On Sun, 2011-01-16 at 05:30 -0700, Gary Thomas wrote:
+> >>>>>> I'm trying to get various USB WiFi dongles working on my
+> >>>>>> BeagleBoard (or look-alike). Many of these require runtime
+> >>>>>> downloads of firmware. However, these files don't seem to
+> >>>>>> be installed in Poky:
+> >>>>>> phy1 -> rt2x00lib_request_firmware: Info - Loading firmware file 'rt73.bin'.
+> >>>>>> rt73usb 2-1.2.4:1.0: firmware: requesting rt73.bin
+> >>>>>> phy1 -> rt2x00lib_request_firmware: Error - Failed to request Firmware.
+> >>>>>>
+> >>>>>> Is there some way to enable this?
+> >>>>>
+> >>>>> There's a linux-firmware recipe
+> >>>>> (meta/recipes-kernel/linux-firmware/linux-firmware_git.bb) which you'll
+> >>>>> have to modify to package the required firmware (at the moment we only
+> >>>>> package firmware for the Libertas sd8686) and ensure that the packages
+> >>>>> are included in your images.
+> >>>>
+> >>>> I don't see anywhere that linux-firmware-sd8686 is included in
+> >>>> an image. Am I missing something?
+> >>>
+> >>> You need to have something pull in the required linux-firmware, for
+> >>> example the igep0020 and igep0030 machines add linux-firmware-sd8686 to
+> >>> the MACHINE_EXTRA_RRECOMMENDS.
+> >>
+> >> Thanks. Doing it this way wasn't totally clear from "ensure that the
+> >> packages are included in your images."
+> >>
+> >> It's working now.
+> >
+> > My exuberance was a bit premature. Indeed, I rebuilt my install
+> > image, but the firmware package wasn't installed. On my target,
+> > I see:
+> > root@cobra3530p60:~# opkg list-installed linux*
+> > root@cobra3530p60:~# opkg list linux*
+> > linux-firmware-rt73 - 0.0+git0+40c0f950be7040614dc45df54e25e54d00e3b73b-r0 - Firmware files for use with Linux kernel
+> > Firmware files for use with Linux kernel
+> > linux-firmware-sd8686 - 0.0+git0+40c0f950be7040614dc45df54e25e54d00e3b73b-r0 - Firmware files for use with Linux kernel
+> > Firmware files for use with Linux kernel
+> > linux-libc-headers-dbg - 2.6.36-r0 - Debugging files for linux-libc-headers
+> > Debugging files for linux-libc-headers
+> > linux-libc-headers-dev - 2.6.36-r0 - Development files for linux-libc-headers
+> > Development files for linux-libc-headers
+> >
+> > To be clear, all I did was add "linux-firmware-rt73" to MACHINE_EXTRA_RRECOMMENDS
+> > in my <MACHINE>.conf file, then rebuild the image using:
+> > % bitbake poky-image-sato
+> > This was from a previously built tree, etc. Did I need to do anything
+> > else to get the package actually installed at build time?
+> >
+> > Note: If I 'opkg install linux-firmware-rt73' on my target, I get
+> > the correct files. I'd just like to understand how to make it happen
+> > in the "image"
 > 
-> Besides, if we need to add common flags for tasks, we can set value for
-> macro BB_STAMP_EXTRA.
+> I don't see any kernel modules get installed in one of Poky's
+> "supported" platforms either.  I just tried
+>    MACHINE=igep0030 bitbake poky-image-minimal
+> in a clean tree.  No kernel modules:
 > 
-> Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
-> ---
->  bitbake/lib/bb/build.py    |   14 +++++---------
->  bitbake/lib/bb/cache.py    |   19 ++++++++++++++++++-
->  bitbake/lib/bb/runqueue.py |   12 ++++++------
->  bitbake/lib/bb/siggen.py   |   20 ++++++++++++++++++--
->  meta/classes/base.bbclass  |    2 +-
->  5 files changed, 48 insertions(+), 19 deletions(-)
+> [gthomas@titan igep_test]$ ls tmp/work/igep0030-poky-linux-gnueabi/poky-image-minimal-1.0-r0/rootfs/lib
+> ld-2.12.1.so               libattr.so.1.1.0    libgcc_s.so.1            libnss_dns-2.12.1.so    librt-2.12.1.so
+> ld-linux.so.3              libc-2.12.1.so      libgudev-1.0.so.0        libnss_dns.so.2         librt.so.1
+> libBrokenLocale-2.12.1.so  libc.so.6           libgudev-1.0.so.0.0.1    libnss_files-2.12.1.so  libudev.so.0
+> libBrokenLocale.so.1       libcidn-2.12.1.so   libm-2.12.1.so           libnss_files.so.2       libudev.so.0.9.3
+> libacl.so.1                libcidn.so.1        libm.so.6                libproc-3.2.8.so        libutil-2.12.1.so
+> libacl.so.1.1.0            libcrypt-2.12.1.so  libnsl-2.12.1.so         libpthread-2.12.1.so    libutil.so.1
+> libanl-2.12.1.so           libcrypt.so.1       libnsl.so.1              libpthread.so.0         modules
+> libanl.so.1                libdl-2.12.1.so     libnss_compat-2.12.1.so  libresolv-2.12.1.so     udev
+> libattr.so.1               libdl.so.2          libnss_compat.so.2       libresolv.so.2
+> 
+> Am I missing something?  Should I file a bug?
+> 
 
-I like what this patch does but I've ended up changing the code to be a
-little different. I'll comment below on what those changes are and why
-I've made them. I've merged the changed code into master and it
-effectively behaves the same as your version for the needs of what we're
-doing.
-
-> diff --git a/bitbake/lib/bb/build.py b/bitbake/lib/bb/build.py
-> index f127796..2175d54 100644
-> --- a/bitbake/lib/bb/build.py
-> +++ b/bitbake/lib/bb/build.py
-> @@ -383,15 +383,11 @@ def stamp_internal(taskname, d, file_name):
->      When called in task context, d will be a data store, file_name will not be set
->      """
->      if file_name:
-> -        stamp = d.stamp[file_name]
-> +        is_dict = False
->      else:
-> -        stamp = d.getVar('STAMP', True)
-> -        file_name = d.getVar('BB_FILENAME', True)
-> +        is_dict = True
->  
-> -    if not stamp:
-> -        return
-> -
-> -    stamp = bb.parse.siggen.stampfile(stamp, file_name, taskname)
-> +    stamp = bb.parse.siggen.stampfile(d, file_name, taskname, is_dict)
-
-I placed the dataCache vs dataDict code here rather than in siggen since
-those differences aren't something that should concern the siggen code
-and this is the correct abstraction point.
-
- 
->      bb.utils.mkdirhier(os.path.dirname(stamp))
->  
-> @@ -420,8 +416,8 @@ def del_stamp(task, d, file_name = None):
->      if os.access(stamp, os.F_OK):
->          os.remove(stamp)
->  
-> -def stampfile(taskname, d):
-> -    return stamp_internal(taskname, d, None)
-> +def stampfile(taskname, d, file_name):
-> +    return stamp_internal(taskname, d, file_name)
-
-Here, we can do stampfile(taskname, d, file_name = None) and then remove
-the need for the base.bbclass change in a similar way to the other stamp
-functions.
-
->  def add_tasks(tasklist, d):
->      task_deps = data.getVar('_task_deps', d)
-> diff --git a/bitbake/lib/bb/cache.py b/bitbake/lib/bb/cache.py
-> index 9a2e2d5..2437d4a 100644
-> --- a/bitbake/lib/bb/cache.py
-> +++ b/bitbake/lib/bb/cache.py
-> @@ -102,6 +104,11 @@ class RecipeInfo(namedtuple('RecipeInfo', recipe_fields)):
->                      for task in tasks)
->  
->      @classmethod
-> +    def stampvar(cls, var, tasks, stamp, metadata):
-> +        return dict((stamp + '.' + task, metadata.getVarFlag(task, var, True))
-> +                    for task in tasks)
-> +
-> +    @classmethod
-
-I found this very confusing. Why do we need to do all these string
-operations joining task to stamp and so on? Why can't we just store a
-list keyed by task?
-
-The point of the class abstractions is to share useful functionality.
-I've changed this to a flaglist method which pulls a set of flags from a
-given list of variables.
-
->      def getvar(cls, var, metadata):
->          return metadata.getVar(var, True) or ''
->  
-> @@ -126,6 +133,7 @@ class RecipeInfo(namedtuple('RecipeInfo', recipe_fields)):
->          if not pn in packages:
->              packages.append(pn)
->  
-> +        stamp = cls.getvar('STAMP', metadata)
->          return RecipeInfo(
->              tasks            = tasks,
->              basetaskhashes   = cls.taskvar('BB_BASEHASH', tasks, metadata),
-> @@ -147,7 +155,9 @@ class RecipeInfo(namedtuple('RecipeInfo', recipe_fields)):
->              defaultpref      = cls.intvar('DEFAULT_PREFERENCE', metadata),
->              broken           = cls.getvar('BROKEN', metadata),
->              not_world        = cls.getvar('EXCLUDE_FROM_WORLD', metadata),
-> -            stamp            = cls.getvar('STAMP', metadata),
-> +            stamp            = stamp,
-> +            stamp_extra      = cls.getvar('BB_STAMP_EXTRA', metadata),
-> +            stamp_extra_info = cls.stampvar('stamp-extra-info', tasks, stamp, metadata),
->              packages_dynamic = cls.listvar('PACKAGES_DYNAMIC', metadata),
->              depends          = cls.depvar('DEPENDS', metadata),
->              provides         = cls.depvar('PROVIDES', metadata),
-
-I've removed BB_STAMP_EXTRA since we don't have a use for it at the
-moment and it was just complicating the code without good reason. If we
-do come up with a usecase we can add it easily enough.
-
-
-> @@ -577,12 +589,17 @@ class CacheData(object):
->          self.bbfile_config_priorities = []
->  
->      def add_from_recipeinfo(self, fn, info):
-> +        tasks = info.tasks
->          self.task_deps[fn] = info.task_deps
->          self.pkg_fn[fn] = info.pn
->          self.pkg_pn[info.pn].append(fn)
->          self.pkg_pepvpr[fn] = (info.pe, info.pv, info.pr)
->          self.pkg_dp[fn] = info.defaultpref
->          self.stamp[fn] = info.stamp
-> +        self.stamp_extra[fn] = info.stamp_extra
-> +
-> +        for task in tasks:
-> +            self.stamp_extra_info[self.stamp[fn] + '.' + task] = info.stamp_extra_info[self.stamp[fn] + '.' + task]
-
-This is needlessly complicated.
- 
-> diff --git a/bitbake/lib/bb/siggen.py b/bitbake/lib/bb/siggen.py
-> index 4dc09b3..48fe6af 100644
-> --- a/bitbake/lib/bb/siggen.py
-> +++ b/bitbake/lib/bb/siggen.py
-> @@ -42,8 +42,24 @@ class SignatureGenerator(object):
->      def set_taskdata(self, hashes, deps):
->          return
->  
-> -    def stampfile(self, stampbase, file_name, taskname):
-> -        return "%s.%s" % (stampbase, taskname)
-> +    def stampfile(self, d, file_name, taskname, is_dict):
-> +        if is_dict:
-> +            stamp = d.getVar('STAMP', True)
-> +            file_name = d.getVar('BB_FILENAME', True)
-> +            extra_info = taskname + '.' + (bb.data.getVarFlag(taskname, 'stamp-extra-info', d) or bb.data.getVar('BB_STAMP_EXTRA', d, True) or "")
-> +            extra_info = bb.data.expand(extra_info, d)
-> +        else:
-> +            stamp = d.stamp[file_name]
-> +            if stamp + "." + taskname in d.stamp_extra_info.keys():
-> +                extra_info = taskname + '.' + (d.stamp_extra_info[stamp + "." + taskname] or d.stamp_extra[file_name] or "")
-> +            else:
-> +                extra_info = taskname + '.' + (d.stamp_extra[file_name] or "")
-> +
-> +        if not stamp:
-> +            return
-> +
-> +        return "%s.%s" % (stamp, extra_info.rstrip('.'))
-> +
-
-Again, I think this is overcomplicated. Also, you changed this version
-of the function but not the one in SignatureGeneratorBasicHash().
-
-I'm hoping I didn't manage to break anything with my changes, let me
-know if I have missed anything though.
+Yes, please file a bug.
 
 Cheers,
-
-Richard
-
- 
+Joshua
+-- 
+Joshua Lock
+        Intel Open Source Technology Centre
 
 
