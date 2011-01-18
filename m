@@ -1,22 +1,22 @@
 Return-Path: <ke.yu@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0F2404C81205
-	for <poky@yoctoproject.org>; Tue, 18 Jan 2011 11:44:01 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 18 Jan 2011 09:44:01 -0800
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id AA7BE4C81205
+	for <poky@yoctoproject.org>; Tue, 18 Jan 2011 11:44:03 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 18 Jan 2011 09:44:03 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,339,1291622400"; d="scan'208";a="594121345"
+X-IronPort-AV: E=Sophos;i="4.60,339,1291622400"; d="scan'208";a="878550027"
 Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
-	by orsmga002.jf.intel.com with ESMTP; 18 Jan 2011 09:44:01 -0800
-Message-Id: <2adf94e7ea75c104a756536b4a0bcc90c0e6ba40.1295371995.git.ke.yu@intel.com>
+	by fmsmga001.fm.intel.com with ESMTP; 18 Jan 2011 09:44:02 -0800
+Message-Id: <8dfcbdd661ed90787b9680ea1bcdae45c4372a67.1295371995.git.ke.yu@intel.com>
 In-Reply-To: <cover.1295371995.git.ke.yu@intel.com>
 References: <cover.1295371995.git.ke.yu@intel.com>
 From: Yu Ke <ke.yu@intel.com>
-Old-Date: Wed, 19 Jan 2011 00:17:39 +0800
-Date: Wed, 19 Jan 2011  1:48:23 +0800
+Old-Date: Wed, 19 Jan 2011 00:22:13 +0800
+Date: Wed, 19 Jan 2011  1:48:25 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 09/11] bb.fetch2: remove the obsolate Fetch.try_mirrors referrence
+Subject: [PATCH 10/11] bb.fetch2: add git unpack
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,34 +28,42 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 18 Jan 2011 17:44:02 -0000
+X-List-Received-Date: Tue, 18 Jan 2011 17:44:03 -0000
 
-Fetch.try_mirrors is no longer exists, so the code is obsolate
+git download will clone git repo to local, and git unpack just do a clone with referrence to the original repo
 
 Signed-off-by: Yu Ke <ke.yu@intel.com>
 ---
- bitbake/lib/bb/fetch2/git.py |    8 --------
- 1 files changed, 0 insertions(+), 8 deletions(-)
+ bitbake/lib/bb/fetch2/git.py |   16 ++++++++++++++++
+ 1 files changed, 16 insertions(+), 0 deletions(-)
 
 diff --git a/bitbake/lib/bb/fetch2/git.py b/bitbake/lib/bb/fetch2/git.py
-index 690bb08..438756a 100644
+index 438756a..bb62a87 100644
 --- a/bitbake/lib/bb/fetch2/git.py
 +++ b/bitbake/lib/bb/fetch2/git.py
-@@ -117,14 +117,6 @@ class Git(Fetch):
+@@ -193,6 +193,22 @@ class Git(Fetch):
+         os.chdir(ud.clonedir)
+         bb.utils.prunedir(codir)
  
-         repofile = os.path.join(data.getVar("DL_DIR", d, 1), ud.mirrortarball)
++    def unpack(self, ud, destdir, d):
++        """ unpack the downloaded src to destdir"""
++        subdir = ud.parm.get("subpath", "")
++        if subdir != "":
++            readpathspec = ":%s" % (subdir)
++        else:
++            readpathspec = ""
++
++        # extract to ${WORKDIR}/git
++        destdir = destdir + "/git/"
++
++        os.chdir(ud.clonedir)
++        runfetchcmd("%s read-tree %s%s" % (ud.basecmd, ud.tag, readpathspec), d)
++        runfetchcmd("%s checkout-index -q -f --prefix=%s -a" % (ud.basecmd, destdir), d)
++        return 1
++
+     def supports_srcrev(self):
+         return True
  
--
--        # If we have no existing clone and no mirror tarball, try and obtain one
--        if not os.path.exists(ud.clonedir) and not os.path.exists(repofile):
--            try:
--                Fetch.try_mirrors(ud.mirrortarball)
--            except:
--                pass
--
-         # If the checkout doesn't exist and the mirror tarball does, extract it
-         if not os.path.exists(ud.clonedir) and os.path.exists(repofile):
-             bb.mkdirhier(ud.clonedir)
 -- 
 1.7.0.4
 
