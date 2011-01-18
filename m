@@ -1,42 +1,29 @@
-Return-Path: <kergoth@gmail.com>
-Received: from mail-ew0-f48.google.com (mail-ew0-f48.google.com
-	[209.85.215.48])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5C9DA4C81065
-	for <poky@yoctoproject.org>; Tue, 18 Jan 2011 11:54:37 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by ewy20 with SMTP id 20so3403574ewy.35
-	for <poky@yoctoproject.org>; Tue, 18 Jan 2011 09:54:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:sender:in-reply-to:references:from
-	:date:x-google-sender-auth:message-id:subject:to:cc:content-type
-	:content-transfer-encoding;
-	bh=SH7lebdfjhwWMOFzPSz5ZyVTWRRCI1uZjsQzrO0oycI=;
-	b=fNgEv1MpXSDnprz18JbEp68kXRjydZpjlJQobh1+VSmo6lZdTwS6czQt0OWvI1mTsg
-	GhfvqxOnFL3Y8HCLrA2zouWDrtsmmqEg17dolVWCNpTWHpb+qhDdZWcHnv+UU2t0oRuF
-	KKqdnWkaU5FGU7gg+meaPDoczIaafHgXCpPN0=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:sender:in-reply-to:references:from:date
-	:x-google-sender-auth:message-id:subject:to:cc:content-type
-	:content-transfer-encoding;
-	b=mblPRcJhWGSQVkqPrE7vRDTxwkbjyEJ4dqJfkGHGW1IKG60UcMqtTlDYgVPLZB9F3z
-	+5Jr1kDvbNvknwgpXG7aPuYIoihPzwn1/T5lDls29I8mAxtBaw1vETt4x8myW0ljs2Oc
-	kxAvAOs70UInyQuZLmQbvlmBQOjUy3pmo5HR0=
-Received: by 10.216.155.75 with SMTP id i53mr1500978wek.27.1295373154037; Tue,
-	18 Jan 2011 09:52:34 -0800 (PST)
-MIME-Version: 1.0
-Sender: kergoth@gmail.com
-Received: by 10.216.254.91 with HTTP; Tue, 18 Jan 2011 09:51:16 -0800 (PST)
-In-Reply-To: <5D53183E-2C2C-4DAC-9ED9-51DA01F33E77@dominion.thruhere.net>
-References: <5D53183E-2C2C-4DAC-9ED9-51DA01F33E77@dominion.thruhere.net>
-From: Chris Larson <clarson@kergoth.com>
-Date: Tue, 18 Jan 2011 10:51:16 -0700
-X-Google-Sender-Auth: cznm6icAtRfmab3w0upxG0I6gQo
-Message-ID: <AANLkTimQe+wMuRZjmQ+y0PAhN7Gby67FH99cMa4AgicS@mail.gmail.com>
-To: Koen Kooi <koen@dominion.thruhere.net>
-Cc: poky@yoctoproject.org
-Subject: Re: install-info creates package clashes for e.g. external python tarball
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E07CA4C81065
+	for <poky@yoctoproject.org>; Tue, 18 Jan 2011 11:58:46 -0600 (CST)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p0II0V0e018378; Tue, 18 Jan 2011 18:00:32 GMT
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id pYxIXkNuvRAX; Tue, 18 Jan 2011 18:00:31 +0000 (GMT)
+Received: from [192.168.1.45] (tim [93.97.173.237]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p0II0IlE018372
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Tue, 18 Jan 2011 18:00:24 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Saul Wold <sgw@linux.intel.com>
+In-Reply-To: <4D35592C.5080609@linux.intel.com>
+References: <4D35592C.5080609@linux.intel.com>
+Date: Tue, 18 Jan 2011 17:58:20 +0000
+Message-ID: <1295373500.14388.18174.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PULL] Consolidated Pull Request 1/17
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -48,39 +35,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 18 Jan 2011 17:54:37 -0000
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Tue, 18 Jan 2011 17:58:47 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-On Tue, Jan 18, 2011 at 12:51 AM, Koen Kooi <koen@dominion.thruhere.net> wr=
-ote:
-> When building external-python-tarball I get:
->
->
-> | =C2=A0* check_data_file_clashes: Package libreadline6 wants to install =
-file /OE/tentacle/build/tmp-angstrom_2010_x/work/armv7a-angstrom-linux-gnue=
-abi/external-python-tarball-1.0-r0/sdk/image/usr/local/angstrom/x86_64/sysr=
-oots/x86_64-angstromsdk-linux/usr/share/info/dir
-> | =C2=A0 =C2=A0 =C2=A0 But that file is already provided by package =C2=
-=A0* eglibc-nativesdk
-> | =C2=A0* opkg_install_cmd: Cannot install package python-nativesdk-core.
->
-> I vaguely recall running into this a few years ago in OE, but I can only =
-find this one: http://cgit.openembedded.org/cgit.cgi/openembedded/commit/?i=
-d=3D7b774a106f6936fd050abb4cbe90a84bd0b67025
->
->
-> Does anyone have an idea on how to fix this in yocto without resorting to=
- --force-overwrite?
+On Tue, 2011-01-18 at 01:11 -0800, Saul Wold wrote:
+> This has been built and test with ARM (found past failure and works 
+> now), bit change set is the Xserver update and changing the logo for 
+> psplash.
+> 
+> There is also an update to pseudo, so if we see any permission issue, 
+> please let me know soonest.
+> 
+> Thanks
+> 	Sau!
+> 
+> 
+> 
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>    Branch: distro/master
+>    Browse: 
+> http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=distro/master
 
-I don't know much about info, but I'd take a wild guess that dir is an
-index of what's available, and that we should create a bbclass that
-adds a postinst to update it on install for packages that add files to
-infodir.  Maybe someone else actually has a clue about info though :)
---=20
-Christopher Larson
-clarson at kergoth dot com
-Founder - BitBake, OpenEmbedded, OpenZaurus
-Maintainer - Tslib
-Senior Software Engineer, Mentor Graphics
+Merged into master apart from Jessica's toolchain rename which needs a
+little more coordination with the autobuilder. I think there are a few
+more renames pending so we'll batch them.
+
+Cheers,
+
+Richard
+
+
 
