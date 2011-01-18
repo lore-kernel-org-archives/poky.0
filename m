@@ -1,21 +1,27 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 788F94C8106A
-	for <poky@yoctoproject.org>; Tue, 18 Jan 2011 09:51:33 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 18 Jan 2011 07:51:33 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,339,1291622400"; d="scan'208";a="878509395"
-Received: from unknown (HELO helios) ([10.255.16.95])
-	by fmsmga001.fm.intel.com with SMTP; 18 Jan 2011 07:51:31 -0800
-Received: by helios (sSMTP sendmail emulation); Tue, 18 Jan 2011 15:51:32 +0000
-Message-Id: <108ce1dec4e2584ddf87cd3d6cd1dedf39de2a8d.1295365703.git.paul.eggleton@linux.intel.com>
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-Old-Date: Tue, 18 Jan 2011 15:31:17 +0000
-Date: Tue, 18 Jan 2011 15:51:32 +0000
-To: poky@yoctoproject.org
-CC: 
-Subject: [PATCH] base.bbclass: fix parse error on recipes with '++' in their name
+Return-Path: <mark.hatle@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 0CFEA4C8106A
+	for <poky@yoctoproject.org>; Tue, 18 Jan 2011 10:19:17 -0600 (CST)
+Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p0IGJHU1000372
+	for <poky@yoctoproject.org>; Tue, 18 Jan 2011 08:19:17 -0800 (PST)
+Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
+	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Tue, 18 Jan 2011 08:19:17 -0800
+Received: from Macintosh-5.local ([172.25.36.226]) by
+	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Tue, 18 Jan 2011 08:19:17 -0800
+Message-ID: <4D35BD84.6010201@windriver.com>
+Date: Tue, 18 Jan 2011 10:19:16 -0600
+From: Mark Hatle <mark.hatle@windriver.com>
+Organization: Wind River Systems
+User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
+	rv:1.9.2.13) Gecko/20101207 Thunderbird/3.1.7
+MIME-Version: 1.0
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+X-OriginalArrivalTime: 18 Jan 2011 16:19:17.0426 (UTC)
+	FILETIME=[74623120:01CBB72B]
+Subject: [PATCH 0/1] Update santiy.bbclass when patch resolution "noop"
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,31 +33,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 18 Jan 2011 15:51:33 -0000
+X-List-Received-Date: Tue, 18 Jan 2011 16:19:18 -0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
 
-Fixes "multiple repeat" or "nothing to repeat" errors when parsing recipes
-with '++' in the file name.
+When the patch resolution is set to 'noop', sanity is still trying to
+verify the TERMCMD.  It shouldn't do that.
 
-Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: mhatle/wrsync
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=mhatle/wrsync
+
+Thanks,
+    Mark Hatle <mark.hatle@windriver.com>
 ---
- meta/classes/base.bbclass |    3 ++-
- 1 files changed, 2 insertions(+), 1 deletions(-)
 
-diff --git a/meta/classes/base.bbclass b/meta/classes/base.bbclass
-index f1ffb45..583f9b7 100644
---- a/meta/classes/base.bbclass
-+++ b/meta/classes/base.bbclass
-@@ -422,7 +422,8 @@ python () {
- 
-     commercial_license = bb.data.getVar('COMMERCIAL_LICENSE', d, 1)
-     import re
--    if commercial_license and re.search(pn, commercial_license):
-+    pnr = pn.replace('+', "\+")
-+    if commercial_license and re.search(pnr, commercial_license):
-         bb.debug(1, "Skipping %s because it's commercially licensed" % pn)
-         raise bb.parse.SkipPackage("because it requires commercial license to ship product")
- 
--- 
-1.7.3.1
 
+Mark Hatle (1):
+  sanity.bbclass: Disable TERMCMD checking with noop patching
+
+ meta/classes/sanity.bbclass |   11 ++++++-----
+ 1 files changed, 6 insertions(+), 5 deletions(-)
+
+--
+1.7.3.4
 
