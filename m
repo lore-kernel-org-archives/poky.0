@@ -1,37 +1,23 @@
-Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 1E8834C80039
-	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 22:17:04 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 17 Jan 2011 20:17:03 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,336,1291622400"; d="scan'208";a="593902816"
-Received: from orsmsx603.amr.corp.intel.com ([10.22.226.49])
-	by orsmga002.jf.intel.com with ESMTP; 17 Jan 2011 20:17:03 -0800
-Received: from orsmsx606.amr.corp.intel.com (10.22.226.128) by
-	orsmsx603.amr.corp.intel.com (10.22.226.49) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Mon, 17 Jan 2011 20:17:03 -0800
-Received: from orsmsx504.amr.corp.intel.com ([10.22.226.207]) by
-	orsmsx606.amr.corp.intel.com ([10.22.226.128]) with mapi;
-	Mon, 17 Jan 2011 20:17:03 -0800
-From: "Kamble, Nitin A" <nitin.a.kamble@intel.com>
-To: Mark Hatle <mark.hatle@windriver.com>
-Date: Mon, 17 Jan 2011 20:16:59 -0800
-Thread-Topic: [poky] [PATCH 12/12] screenshot: fix build issue with gcc dso
-	linking change
-Thread-Index: Acu2wYHZ/m01Ay/VR0qqt/zEyRMthgABNCpQ
-Message-ID: <9DA5872FEF993D41B7173F58FCF6BE94056314A8@orsmsx504.amr.corp.intel.com>
-References: <cover.1295304080.git.nitin.a.kamble@intel.com>
-	<9e69f662636b4cd4f9c21b9e5cddf3054d9a65a0.1295304080.git.nitin.a.kamble@intel.com>
-	<4D350BC3.7030409@windriver.com>
-In-Reply-To: <4D350BC3.7030409@windriver.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
-MIME-Version: 1.0
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 12/12] screenshot: fix build issue with gcc dso linking change
+Return-Path: <koen@dominion.thruhere.net>
+Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 058E14C80BEF
+	for <poky@yoctoproject.org>; Tue, 18 Jan 2011 01:51:11 -0600 (CST)
+Received: by wwb31 with SMTP id 31so6320625wwb.11
+	for <poky@yoctoproject.org>; Mon, 17 Jan 2011 23:51:11 -0800 (PST)
+Received: by 10.216.18.204 with SMTP id l54mr4037832wel.99.1295337071070;
+	Mon, 17 Jan 2011 23:51:11 -0800 (PST)
+Received: from [172.20.1.5] (ip545070eb.adsl-surfen.hetnet.nl [84.80.112.235])
+	by mx.google.com with ESMTPS id
+	b30sm2813108wen.25.2011.01.17.23.51.10
+	(version=TLSv1/SSLv3 cipher=RC4-MD5);
+	Mon, 17 Jan 2011 23:51:10 -0800 (PST)
+From: Koen Kooi <koen@dominion.thruhere.net>
+Date: Tue, 18 Jan 2011 08:51:06 +0100
+Message-Id: <5D53183E-2C2C-4DAC-9ED9-51DA01F33E77@dominion.thruhere.net>
+To: poky@yoctoproject.org
+Mime-Version: 1.0 (Apple Message framework v1082)
+X-Mailer: Apple Mail (2.1082)
+Subject: install-info creates package clashes for e.g. external python tarball
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,27 +29,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 18 Jan 2011 04:17:04 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
+X-List-Received-Date: Tue, 18 Jan 2011 07:51:12 -0000
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: quoted-printable
 
->=20
-> Similar to the last one.  On first look, the GTK_LIBS or libshot.la
-> might be
-> incorrect causing this failure.  If it's been verified that both
-> GTK_LIBS values
-> and the libshot.la match the contents of the library.... and these
-> things are
-> application specific the change is fine.. I'd just like a comment
-> explaining that.
->=20
-> --Mark
+Hi,
 
-Hi mark,
-    Thanks for this review. I will check the .la file for this one also and=
- update the comments.
-Thanks,
-Nitin
+When building external-python-tarball I get:
 
+
+|  * check_data_file_clashes: Package libreadline6 wants to install file =
+/OE/tentacle/build/tmp-angstrom_2010_x/work/armv7a-angstrom-linux-gnueabi/=
+external-python-tarball-1.0-r0/sdk/image/usr/local/angstrom/x86_64/sysroot=
+s/x86_64-angstromsdk-linux/usr/share/info/dir
+|       But that file is already provided by package  * eglibc-nativesdk
+|  * opkg_install_cmd: Cannot install package python-nativesdk-core.
+
+I vaguely recall running into this a few years ago in OE, but I can only =
+find this one: =
+http://cgit.openembedded.org/cgit.cgi/openembedded/commit/?id=3D7b774a106f=
+6936fd050abb4cbe90a84bd0b67025
+
+Does anyone have an idea on how to fix this in yocto without resorting =
+to --force-overwrite?
+
+regards,
+
+Koen=
 
