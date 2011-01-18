@@ -1,22 +1,22 @@
 Return-Path: <dexuan.cui@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id DB7574C80BEF
-	for <poky@yoctoproject.org>; Tue, 18 Jan 2011 07:58:13 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 18 Jan 2011 05:58:13 -0800
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 82FF84C811F6
+	for <poky@yoctoproject.org>; Tue, 18 Jan 2011 07:58:16 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 18 Jan 2011 05:58:16 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,339,1291622400"; d="scan'208";a="697958505"
+X-IronPort-AV: E=Sophos;i="4.60,339,1291622400"; d="scan'208";a="594043982"
 Received: from dcui-desktop.sh.intel.com (HELO localhost) ([10.239.13.108])
-	by orsmga001.jf.intel.com with ESMTP; 18 Jan 2011 05:58:12 -0800
-Message-Id: <fc5f0fb81ed597ea8c3832a1fd2691d8c9870449.1295359004.git.dexuan.cui@intel.com>
+	by orsmga002.jf.intel.com with ESMTP; 18 Jan 2011 05:58:15 -0800
+Message-Id: <b94ee19dabe991329707d583515aff079fd4518f.1295359004.git.dexuan.cui@intel.com>
 In-Reply-To: <cover.1295359004.git.dexuan.cui@intel.com>
 References: <cover.1295359004.git.dexuan.cui@intel.com>
 From: Dexuan Cui <dexuan.cui@intel.com>
-Old-Date: Tue, 18 Jan 2011 10:24:17 +0800
-Date: Tue, 18 Jan 2011 21:57:42 +0800
+Old-Date: Tue, 18 Jan 2011 13:51:25 +0800
+Date: Tue, 18 Jan 2011 21:57:45 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [RFC: enhance toolchain bootstrap process: v3: 2/7] cross.bbclass: make MULTIMACH_TARGET_SYS adjustable for bindir, libdir, libexecdir
+Subject: [RFC: enhance toolchain bootstrap process: v3: 4/7] eglibc-initial, eglibc-initial-nativesdk: install into individual sysroots
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,39 +28,58 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 18 Jan 2011 13:58:14 -0000
+X-List-Received-Date: Tue, 18 Jan 2011 13:58:16 -0000
 
-This will be used by gcc-cross-initial and gcc-cross-intermediate.
+Install sysroot to ${STAGING_DIR_TARGET}/${PN}.
 
 Signed-off-by: Dexuan Cui <dexuan.cui@intel.com>
 ---
- meta/classes/cross.bbclass |    7 ++++---
- 1 files changed, 4 insertions(+), 3 deletions(-)
+ meta/recipes-core/eglibc/eglibc-initial.inc |   10 ++++++++++
+ meta/recipes-core/eglibc/eglibc_2.12.bb     |    2 +-
+ 2 files changed, 11 insertions(+), 1 deletions(-)
 
-diff --git a/meta/classes/cross.bbclass b/meta/classes/cross.bbclass
-index 7c20be0..59d8293 100644
---- a/meta/classes/cross.bbclass
-+++ b/meta/classes/cross.bbclass
-@@ -40,15 +40,16 @@ target_prefix := "${prefix}"
- target_exec_prefix := "${exec_prefix}"
+diff --git a/meta/recipes-core/eglibc/eglibc-initial.inc b/meta/recipes-core/eglibc/eglibc-initial.inc
+index d49ec8a..ea0763e 100644
+--- a/meta/recipes-core/eglibc/eglibc-initial.inc
++++ b/meta/recipes-core/eglibc/eglibc-initial.inc
+@@ -1,5 +1,8 @@
+ require eglibc-common.inc
  
- # Overrides for paths
-+CROSS_TARGET_SYS_DIR = "${MULTIMACH_TARGET_SYS}"
- prefix = "${STAGING_DIR_NATIVE}${prefix_native}"
- base_prefix = "${STAGING_DIR_NATIVE}"
- exec_prefix = "${STAGING_DIR_NATIVE}${prefix_native}"
--bindir = "${exec_prefix}/bin/${MULTIMACH_TARGET_SYS}"
-+bindir = "${exec_prefix}/bin/${CROSS_TARGET_SYS_DIR}"
- sbindir = "${bindir}"
- base_bindir = "${bindir}"
- base_sbindir = "${bindir}"
--libdir = "${exec_prefix}/lib/${MULTIMACH_TARGET_SYS}"
--libexecdir = "${exec_prefix}/libexec/${MULTIMACH_TARGET_SYS}"
-+libdir = "${exec_prefix}/lib/${CROSS_TARGET_SYS_DIR}"
-+libexecdir = "${exec_prefix}/libexec/${CROSS_TARGET_SYS_DIR}"
++STAGING_BINDIR_TOOLCHAIN_prepend = "${STAGING_DIR_NATIVE}${bindir_native}/${HOST_SYS}.gcc-cross-initial:"
++STAGING_BINDIR_TOOLCHAIN_virtclass-nativesdk_prepend = "${STAGING_DIR_NATIVE}${bindir_native}/${HOST_SYS}.gcc-crosssdk-initial:"
++
+ DEPENDS = "linux-libc-headers virtual/${TARGET_PREFIX}gcc-initial"
+ PROVIDES = "virtual/${TARGET_PREFIX}libc-initial"
  
- do_install () {
- 	oe_runmake 'DESTDIR=${D}' install
+@@ -42,8 +45,15 @@ do_install () {
+        install -m 644 csu/crt[1in].o ${D}${libdir}
+        ${CC} -nostdlib -nostartfiles -shared -x c /dev/null \
+                -o ${D}${libdir}/libc.so
++
++       # add links to linux-libc-headers: gcc-{cross,crossdk}-intermediate need this.
++       ln -s ${STAGING_DIR_TARGET}${includedir}/linux  ${D}${includedir}/
++       ln -s ${STAGING_DIR_TARGET}${includedir}/asm  ${D}${includedir}/
++       ln -s ${STAGING_DIR_TARGET}${includedir}/asm-generic  ${D}${includedir}/
+ }
+ 
+ do_siteconfig () {
+ 	:
+ }
++
++do_populate_sysroot[sstate-outputdirs] = "${STAGING_DIR_TARGET}/${PN}"
+diff --git a/meta/recipes-core/eglibc/eglibc_2.12.bb b/meta/recipes-core/eglibc/eglibc_2.12.bb
+index c773af0..97353b7 100644
+--- a/meta/recipes-core/eglibc/eglibc_2.12.bb
++++ b/meta/recipes-core/eglibc/eglibc_2.12.bb
+@@ -2,7 +2,7 @@ require eglibc.inc
+ 
+ DEPENDS += "gperf-native"
+ FILESPATHPKG =. "eglibc-svn:"
+-PR = "r13"
++PR = "r14"
+ 
+ EGLIBC_BRANCH="eglibc-2_12"
+ SRC_URI = "svn://www.eglibc.org/svn/branches/;module=${EGLIBC_BRANCH};proto=http \
 -- 
 1.7.2
 
