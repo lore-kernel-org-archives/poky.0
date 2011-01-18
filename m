@@ -1,22 +1,22 @@
 Return-Path: <ke.yu@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5026B4C811F7
-	for <poky@yoctoproject.org>; Tue, 18 Jan 2011 11:43:57 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 18 Jan 2011 09:43:57 -0800
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 1C5174C81200
+	for <poky@yoctoproject.org>; Tue, 18 Jan 2011 11:43:59 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 18 Jan 2011 09:43:58 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,339,1291622400"; d="scan'208";a="648294474"
+X-IronPort-AV: E=Sophos;i="4.60,339,1291622400"; d="scan'208";a="376274580"
 Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
-	by fmsmga002.fm.intel.com with ESMTP; 18 Jan 2011 09:43:56 -0800
-Message-Id: <41d2948c546147e217c91cace379d1cb16005916.1295371995.git.ke.yu@intel.com>
+	by azsmga001.ch.intel.com with ESMTP; 18 Jan 2011 09:43:58 -0800
+Message-Id: <c024fc6d73b44dbd01faa07e8915d239cf742a63.1295371995.git.ke.yu@intel.com>
 In-Reply-To: <cover.1295371995.git.ke.yu@intel.com>
 References: <cover.1295371995.git.ke.yu@intel.com>
 From: Yu Ke <ke.yu@intel.com>
-Old-Date: Tue, 18 Jan 2011 23:03:53 +0800
-Date: Wed, 19 Jan 2011  1:48:19 +0800
+Old-Date: Tue, 18 Jan 2011 23:17:50 +0800
+Date: Wed, 19 Jan 2011  1:48:20 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 06/11] bb.fetch2: rename "go" with "download" to better reflect its functionality
+Subject: [PATCH 07/11] bbclasee: rename "go" with "download"
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,247 +28,48 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 18 Jan 2011 17:43:57 -0000
+X-List-Received-Date: Tue, 18 Jan 2011 17:43:59 -0000
 
 no functional change
 
 Signed-off-by: Yu Ke <ke.yu@intel.com>
 ---
- bitbake/lib/bb/fetch2/__init__.py |    8 ++++----
- bitbake/lib/bb/fetch2/bzr.py      |    2 +-
- bitbake/lib/bb/fetch2/cvs.py      |    2 +-
- bitbake/lib/bb/fetch2/git.py      |    6 +++---
- bitbake/lib/bb/fetch2/hg.py       |    2 +-
- bitbake/lib/bb/fetch2/local.py    |    2 +-
- bitbake/lib/bb/fetch2/osc.py      |    2 +-
- bitbake/lib/bb/fetch2/perforce.py |    2 +-
- bitbake/lib/bb/fetch2/repo.py     |    2 +-
- bitbake/lib/bb/fetch2/ssh.py      |    2 +-
- bitbake/lib/bb/fetch2/svk.py      |    2 +-
- bitbake/lib/bb/fetch2/svn.py      |    2 +-
- bitbake/lib/bb/fetch2/wget.py     |    4 ++--
- 13 files changed, 19 insertions(+), 19 deletions(-)
+ meta/classes/base.bbclass   |    5 ++++-
+ meta/classes/sstate.bbclass |    5 ++++-
+ 2 files changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/bitbake/lib/bb/fetch2/__init__.py b/bitbake/lib/bb/fetch2/__init__.py
-index ef1a52a..8d0f907 100644
---- a/bitbake/lib/bb/fetch2/__init__.py
-+++ b/bitbake/lib/bb/fetch2/__init__.py
-@@ -268,7 +268,7 @@ def subprocess_setup():
-     # SIGPIPE errors are known issues with gzip/bash
-     signal.signal(signal.SIGPIPE, signal.SIG_DFL)
+diff --git a/meta/classes/base.bbclass b/meta/classes/base.bbclass
+index 23b17f2..d1d60f7 100644
+--- a/meta/classes/base.bbclass
++++ b/meta/classes/base.bbclass
+@@ -135,7 +135,10 @@ python base_do_fetch() {
+ 		raise bb.build.FuncFailed("Malformed URL: %s" % value)
  
--def go(d, urls = None):
-+def download(d, urls = None):
-     """
-     Fetch all urls
-     init must have previously been called
-@@ -298,7 +298,7 @@ def go(d, urls = None):
-         if m.forcefetch(u, ud, d) or not localpath:
-             # Next try fetching from the original uri, u
-             try:
--                m.go(u, ud, d)
-+                m.download(u, ud, d)
-                 localpath = ud.localpath
-             except FetchError:
-                 # Remove any incomplete file
-@@ -504,7 +504,7 @@ def try_mirrors(d, uri, mirrors, check = False, force = False):
-                     if found:
-                         return found
-                 else:
--                    ud.method.go(newuri, ud, ld)
-+                    ud.method.download(newuri, ud, ld)
-                     return ud.localpath
-             except (bb.fetch2.MissingParameterError,
-                     bb.fetch2.FetchError,
-@@ -631,7 +631,7 @@ class Fetch(object):
-         """
-         return False
- 
--    def go(self, url, urldata, d):
-+    def download(self, url, urldata, d):
-         """
-         Fetch urls
-         Assumes localpath was called first
-diff --git a/bitbake/lib/bb/fetch2/bzr.py b/bitbake/lib/bb/fetch2/bzr.py
-index 97b042b..608ecc7 100644
---- a/bitbake/lib/bb/fetch2/bzr.py
-+++ b/bitbake/lib/bb/fetch2/bzr.py
-@@ -79,7 +79,7 @@ class Bzr(Fetch):
- 
-         return bzrcmd
- 
--    def go(self, loc, ud, d):
-+    def download(self, loc, ud, d):
-         """Fetch url"""
- 
-         if os.access(os.path.join(ud.pkgdir, os.path.basename(ud.pkgdir), '.bzr'), os.R_OK):
-diff --git a/bitbake/lib/bb/fetch2/cvs.py b/bitbake/lib/bb/fetch2/cvs.py
-index 1570cab..8e72090 100644
---- a/bitbake/lib/bb/fetch2/cvs.py
-+++ b/bitbake/lib/bb/fetch2/cvs.py
-@@ -72,7 +72,7 @@ class Cvs(Fetch):
-             return True
-         return False
- 
--    def go(self, loc, ud, d):
-+    def download(self, loc, ud, d):
- 
-         method = ud.parm.get('method', 'pserver')
-         localdir = ud.parm.get('localdir', ud.module)
-diff --git a/bitbake/lib/bb/fetch2/git.py b/bitbake/lib/bb/fetch2/git.py
-index e85f1da..c40a19c 100644
---- a/bitbake/lib/bb/fetch2/git.py
-+++ b/bitbake/lib/bb/fetch2/git.py
-@@ -107,7 +107,7 @@ class Git(Fetch):
- 
-         return True
- 
--    def go(self, loc, ud, d):
-+    def download(self, loc, ud, d):
-         """Fetch url"""
- 
-         if ud.user:
-@@ -320,7 +320,7 @@ class Git(Fetch):
- 
-         if not os.path.exists(ud.clonedir):
-             print("no repo")
--            self.go(None, ud, d)
-+            self.download(None, ud, d)
-             if not os.path.exists(ud.clonedir):
-                 logger.error("GIT repository for %s doesn't exist in %s, cannot get sortable buildnumber, using old value", url, ud.clonedir)
-                 return None
-@@ -328,7 +328,7 @@ class Git(Fetch):
- 
-         os.chdir(ud.clonedir)
-         if not self._contains_ref(rev, d):
--            self.go(None, ud, d)
-+            self.download(None, ud, d)
- 
-         output = runfetchcmd("%s rev-list %s -- 2> /dev/null | wc -l" % (ud.basecmd, rev), d, quiet=True)
-         os.chdir(cwd)
-diff --git a/bitbake/lib/bb/fetch2/hg.py b/bitbake/lib/bb/fetch2/hg.py
-index 0ba8433..635ecbf 100644
---- a/bitbake/lib/bb/fetch2/hg.py
-+++ b/bitbake/lib/bb/fetch2/hg.py
-@@ -112,7 +112,7 @@ class Hg(Fetch):
- 
-         return cmd
- 
--    def go(self, loc, ud, d):
-+    def download(self, loc, ud, d):
-         """Fetch url"""
- 
-         logger.debug(2, "Fetch: checking for module directory '" + ud.moddir + "'")
-diff --git a/bitbake/lib/bb/fetch2/local.py b/bitbake/lib/bb/fetch2/local.py
-index bcb30df..89fbdf6 100644
---- a/bitbake/lib/bb/fetch2/local.py
-+++ b/bitbake/lib/bb/fetch2/local.py
-@@ -56,7 +56,7 @@ class Local(Fetch):
-         # We don't set localfile as for this fetcher the file is already local!
-         return newpath
- 
--    def go(self, url, urldata, d):
-+    def download(self, url, urldata, d):
-         """Fetch urls (no-op for Local method)"""
-         # no need to fetch local files, we'll deal with them in place.
-         return 1
-diff --git a/bitbake/lib/bb/fetch2/osc.py b/bitbake/lib/bb/fetch2/osc.py
-index 06ac5a9..619e2f1 100644
---- a/bitbake/lib/bb/fetch2/osc.py
-+++ b/bitbake/lib/bb/fetch2/osc.py
-@@ -79,7 +79,7 @@ class Osc(Fetch):
- 
-         return osccmd
- 
--    def go(self, loc, ud, d):
-+    def download(self, loc, ud, d):
-         """
-         Fetch url
-         """
-diff --git a/bitbake/lib/bb/fetch2/perforce.py b/bitbake/lib/bb/fetch2/perforce.py
-index 18b2781..bda0bb8 100644
---- a/bitbake/lib/bb/fetch2/perforce.py
-+++ b/bitbake/lib/bb/fetch2/perforce.py
-@@ -121,7 +121,7 @@ class Perforce(Fetch):
- 
-         return os.path.join(data.getVar("DL_DIR", d, 1), ud.localfile)
- 
--    def go(self, loc, ud, d):
-+    def download(self, loc, ud, d):
-         """
-         Fetch urls
-         """
-diff --git a/bitbake/lib/bb/fetch2/repo.py b/bitbake/lib/bb/fetch2/repo.py
-index 3330957..510ba46 100644
---- a/bitbake/lib/bb/fetch2/repo.py
-+++ b/bitbake/lib/bb/fetch2/repo.py
-@@ -55,7 +55,7 @@ class Repo(Fetch):
- 
-         return os.path.join(data.getVar("DL_DIR", d, True), ud.localfile)
- 
--    def go(self, loc, ud, d):
-+    def download(self, loc, ud, d):
-         """Fetch url"""
- 
-         if os.access(os.path.join(data.getVar("DL_DIR", d, True), ud.localfile), os.R_OK):
-diff --git a/bitbake/lib/bb/fetch2/ssh.py b/bitbake/lib/bb/fetch2/ssh.py
-index 8b28322..78f55a6 100644
---- a/bitbake/lib/bb/fetch2/ssh.py
-+++ b/bitbake/lib/bb/fetch2/ssh.py
-@@ -74,7 +74,7 @@ class SSH(Fetch):
-         lpath = os.path.join(data.getVar('DL_DIR', d, True), host, os.path.basename(path))
-         return lpath
- 
--    def go(self, url, urldata, d):
-+    def download(self, url, urldata, d):
-         dldir = data.getVar('DL_DIR', d, 1)
- 
-         m = __pattern__.match(url)
-diff --git a/bitbake/lib/bb/fetch2/svk.py b/bitbake/lib/bb/fetch2/svk.py
-index 7990ff2..3bb4c38 100644
---- a/bitbake/lib/bb/fetch2/svk.py
-+++ b/bitbake/lib/bb/fetch2/svk.py
-@@ -57,7 +57,7 @@ class Svk(Fetch):
-     def forcefetch(self, url, ud, d):
-         return ud.date == "now"
- 
--    def go(self, loc, ud, d):
-+    def download(self, loc, ud, d):
-         """Fetch urls"""
- 
-         svkroot = ud.host + ud.path
-diff --git a/bitbake/lib/bb/fetch2/svn.py b/bitbake/lib/bb/fetch2/svn.py
-index 1116795..547c04f 100644
---- a/bitbake/lib/bb/fetch2/svn.py
-+++ b/bitbake/lib/bb/fetch2/svn.py
-@@ -128,7 +128,7 @@ class Svn(Fetch):
- 
-         return svncmd
- 
--    def go(self, loc, ud, d):
-+    def download(self, loc, ud, d):
-         """Fetch url"""
- 
-         logger.debug(2, "Fetch: checking for module directory '" + ud.moddir + "'")
-diff --git a/bitbake/lib/bb/fetch2/wget.py b/bitbake/lib/bb/fetch2/wget.py
-index cf36cca..91cfafb 100644
---- a/bitbake/lib/bb/fetch2/wget.py
-+++ b/bitbake/lib/bb/fetch2/wget.py
-@@ -48,7 +48,7 @@ class Wget(Fetch):
- 
-         return os.path.join(data.getVar("DL_DIR", d, True), ud.localfile)
- 
--    def go(self, uri, ud, d, checkonly = False):
-+    def download(self, uri, ud, d, checkonly = False):
-         """Fetch urls"""
- 
-         def fetch_uri(uri, ud, d):
-@@ -90,4 +90,4 @@ class Wget(Fetch):
- 
- 
-     def checkstatus(self, uri, ud, d):
--        return self.go(uri, ud, d, True)
-+        return self.download(uri, ud, d, True)
+ 	try:
+-		bb.fetch.go(localdata)
++		if bb.fetch.__version__ == "1":
++			bb.fetch.go(localdata)
++		else:
++			bb.fetch.download(localdata)
+ 	except bb.fetch.MissingParameterError:
+ 		(type, value, traceback) = sys.exc_info()
+ 		raise bb.build.FuncFailed("Missing parameters: %s" % value)
+diff --git a/meta/classes/sstate.bbclass b/meta/classes/sstate.bbclass
+index b6e6c92..fa184bc 100644
+--- a/meta/classes/sstate.bbclass
++++ b/meta/classes/sstate.bbclass
+@@ -319,7 +319,10 @@ def pstaging_fetch(sstatepkg, d):
+         # we will build the package
+         try:
+             bb.fetch.init([srcuri], localdata)
+-            bb.fetch.go(localdata, [srcuri])
++            if bb.fetch.__version__ == "1":
++                bb.fetch.go(localdata, [srcuri])
++            else:
++                bb.fetch.download(localdata, [srcuri])
+             # Need to optimise this, if using file:// urls, the fetcher just changes the local path
+             # For now work around by symlinking
+             localpath = bb.data.expand(bb.fetch.localpath(srcuri, localdata), localdata)
 -- 
 1.7.0.4
 
