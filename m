@@ -1,22 +1,42 @@
-Return-Path: <ke.yu@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 22A844C811F6
-	for <poky@yoctoproject.org>; Tue, 18 Jan 2011 11:44:05 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 18 Jan 2011 09:44:04 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,339,1291622400"; d="scan'208";a="648294517"
-Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
-	by fmsmga002.fm.intel.com with ESMTP; 18 Jan 2011 09:44:04 -0800
-Message-Id: <201792e914e01a0c91736dd48c261f6b0ebcec83.1295371995.git.ke.yu@intel.com>
-In-Reply-To: <cover.1295371995.git.ke.yu@intel.com>
-References: <cover.1295371995.git.ke.yu@intel.com>
-From: Yu Ke <ke.yu@intel.com>
-Old-Date: Wed, 19 Jan 2011 00:58:42 +0800
-Date: Wed, 19 Jan 2011  1:48:26 +0800
-To: poky@yoctoproject.org
-CC: 
-Subject: [PATCH 11/11] git.py: remove the source tree tar ball
+Return-Path: <kergoth@gmail.com>
+Received: from mail-ew0-f48.google.com (mail-ew0-f48.google.com
+	[209.85.215.48])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5C9DA4C81065
+	for <poky@yoctoproject.org>; Tue, 18 Jan 2011 11:54:37 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by ewy20 with SMTP id 20so3403574ewy.35
+	for <poky@yoctoproject.org>; Tue, 18 Jan 2011 09:54:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:sender:in-reply-to:references:from
+	:date:x-google-sender-auth:message-id:subject:to:cc:content-type
+	:content-transfer-encoding;
+	bh=SH7lebdfjhwWMOFzPSz5ZyVTWRRCI1uZjsQzrO0oycI=;
+	b=fNgEv1MpXSDnprz18JbEp68kXRjydZpjlJQobh1+VSmo6lZdTwS6czQt0OWvI1mTsg
+	GhfvqxOnFL3Y8HCLrA2zouWDrtsmmqEg17dolVWCNpTWHpb+qhDdZWcHnv+UU2t0oRuF
+	KKqdnWkaU5FGU7gg+meaPDoczIaafHgXCpPN0=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:sender:in-reply-to:references:from:date
+	:x-google-sender-auth:message-id:subject:to:cc:content-type
+	:content-transfer-encoding;
+	b=mblPRcJhWGSQVkqPrE7vRDTxwkbjyEJ4dqJfkGHGW1IKG60UcMqtTlDYgVPLZB9F3z
+	+5Jr1kDvbNvknwgpXG7aPuYIoihPzwn1/T5lDls29I8mAxtBaw1vETt4x8myW0ljs2Oc
+	kxAvAOs70UInyQuZLmQbvlmBQOjUy3pmo5HR0=
+Received: by 10.216.155.75 with SMTP id i53mr1500978wek.27.1295373154037; Tue,
+	18 Jan 2011 09:52:34 -0800 (PST)
+MIME-Version: 1.0
+Sender: kergoth@gmail.com
+Received: by 10.216.254.91 with HTTP; Tue, 18 Jan 2011 09:51:16 -0800 (PST)
+In-Reply-To: <5D53183E-2C2C-4DAC-9ED9-51DA01F33E77@dominion.thruhere.net>
+References: <5D53183E-2C2C-4DAC-9ED9-51DA01F33E77@dominion.thruhere.net>
+From: Chris Larson <clarson@kergoth.com>
+Date: Tue, 18 Jan 2011 10:51:16 -0700
+X-Google-Sender-Auth: cznm6icAtRfmab3w0upxG0I6gQo
+Message-ID: <AANLkTimQe+wMuRZjmQ+y0PAhN7Gby67FH99cMa4AgicS@mail.gmail.com>
+To: Koen Kooi <koen@dominion.thruhere.net>
+Cc: poky@yoctoproject.org
+Subject: Re: install-info creates package clashes for e.g. external python tarball
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,119 +48,39 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 18 Jan 2011 17:44:05 -0000
+X-List-Received-Date: Tue, 18 Jan 2011 17:54:37 -0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-we already create repo tar ball, so no need to create the source tree tar ball
+On Tue, Jan 18, 2011 at 12:51 AM, Koen Kooi <koen@dominion.thruhere.net> wr=
+ote:
+> When building external-python-tarball I get:
+>
+>
+> | =C2=A0* check_data_file_clashes: Package libreadline6 wants to install =
+file /OE/tentacle/build/tmp-angstrom_2010_x/work/armv7a-angstrom-linux-gnue=
+abi/external-python-tarball-1.0-r0/sdk/image/usr/local/angstrom/x86_64/sysr=
+oots/x86_64-angstromsdk-linux/usr/share/info/dir
+> | =C2=A0 =C2=A0 =C2=A0 But that file is already provided by package =C2=
+=A0* eglibc-nativesdk
+> | =C2=A0* opkg_install_cmd: Cannot install package python-nativesdk-core.
+>
+> I vaguely recall running into this a few years ago in OE, but I can only =
+find this one: http://cgit.openembedded.org/cgit.cgi/openembedded/commit/?i=
+d=3D7b774a106f6936fd050abb4cbe90a84bd0b67025
+>
+>
+> Does anyone have an idea on how to fix this in yocto without resorting to=
+ --force-overwrite?
 
-Signed-off-by: Yu Ke <ke.yu@intel.com>
----
- bitbake/lib/bb/fetch2/git.py |   62 +++---------------------------------------
- 1 files changed, 4 insertions(+), 58 deletions(-)
-
-diff --git a/bitbake/lib/bb/fetch2/git.py b/bitbake/lib/bb/fetch2/git.py
-index bb62a87..7bfe178 100644
---- a/bitbake/lib/bb/fetch2/git.py
-+++ b/bitbake/lib/bb/fetch2/git.py
-@@ -61,24 +61,14 @@ class Git(Fetch):
-         ud.clonedir = os.path.join(data.expand('${GITDIR}', d), gitsrcname)
- 
-         ud.basecmd = data.getVar("FETCHCMD_git", d, True) or "git"
-+        ud.repochanged = False
- 
-     def localpath(self, url, ud, d):
-         ud.tag = ud.revision
-         if not ud.tag or ud.tag == "master":
-             ud.tag = self.latest_revision(url, ud, d)
- 
--        subdir = ud.parm.get("subpath", "")
--        if subdir != "":
--            if subdir.endswith("/"):
--                subdir = subdir[:-1]
--            subdirpath = os.path.join(ud.path, subdir);
--        else:
--            subdirpath = ud.path;
--
--        if 'fullclone' in ud.parm:
--            ud.localfile = ud.mirrortarball
--        else:
--            ud.localfile = data.expand('git_%s%s_%s.tar.gz' % (ud.host, subdirpath.replace('/', '.'), ud.tag), d)
-+        ud.localfile = ud.mirrortarball
- 
-         if 'noclone' in ud.parm:
-             ud.localfile = None
-@@ -91,8 +81,6 @@ class Git(Fetch):
-             return True
-         if 'noclone' in ud.parm:
-             return False
--        if os.path.exists(ud.localpath):
--            return False
-         if not self._contains_ref(ud.tag, d):
-             return True
-         return False
-@@ -139,60 +127,18 @@ class Git(Fetch):
-             runfetchcmd("%s fetch --tags %s://%s%s%s" % (ud.basecmd, ud.proto, username, ud.host, ud.path), d)
-             runfetchcmd("%s prune-packed" % ud.basecmd, d)
-             runfetchcmd("%s pack-redundant --all | xargs -r rm" % ud.basecmd, d)
-+            ud.repochanged = True
- 
-     def build_mirror_data(self, url, ud, d):
-         # Generate a mirror tarball if needed
--        coname = '%s' % (ud.tag)
--        codir = os.path.join(ud.clonedir, coname)
-         repofile = os.path.join(data.getVar("DL_DIR", d, 1), ud.mirrortarball)
- 
-         os.chdir(ud.clonedir)
-         mirror_tarballs = data.getVar("BB_GENERATE_MIRROR_TARBALLS", d, True)
--        if mirror_tarballs != "0" or 'fullclone' in ud.parm:
-+        if mirror_tarballs != "0" or 'fullclone' in ud.parm or ud.repochanged:
-             logger.info("Creating tarball of git repository")
-             runfetchcmd("tar -czf %s %s" % (repofile, os.path.join(".", ".git", "*") ), d)
- 
--        if 'fullclone' in ud.parm:
--            return
--
--        if os.path.exists(codir):
--            bb.utils.prunedir(codir)
--
--        subdir = ud.parm.get("subpath", "")
--        if subdir != "":
--            if subdir.endswith("/"):
--                subdirbase = os.path.basename(subdir[:-1])
--            else:
--                subdirbase = os.path.basename(subdir)
--        else:
--            subdirbase = ""
--
--        if subdir != "":
--            readpathspec = ":%s" % (subdir)
--            codir = os.path.join(codir, "git")
--            coprefix = os.path.join(codir, subdirbase, "")
--        else:
--            readpathspec = ""
--            coprefix = os.path.join(codir, "git", "")
--
--        scmdata = ud.parm.get("scmdata", "")
--        if scmdata == "keep":
--            runfetchcmd("%s clone -n %s %s" % (ud.basecmd, ud.clonedir, coprefix), d)
--            os.chdir(coprefix)
--            runfetchcmd("%s checkout -q -f %s%s" % (ud.basecmd, ud.tag, readpathspec), d)
--        else:
--            bb.mkdirhier(codir)
--            os.chdir(ud.clonedir)
--            runfetchcmd("%s read-tree %s%s" % (ud.basecmd, ud.tag, readpathspec), d)
--            runfetchcmd("%s checkout-index -q -f --prefix=%s -a" % (ud.basecmd, coprefix), d)
--
--        os.chdir(codir)
--        logger.info("Creating tarball of git checkout")
--        runfetchcmd("tar -czf %s %s" % (ud.localpath, os.path.join(".", "*") ), d)
--
--        os.chdir(ud.clonedir)
--        bb.utils.prunedir(codir)
--
-     def unpack(self, ud, destdir, d):
-         """ unpack the downloaded src to destdir"""
-         subdir = ud.parm.get("subpath", "")
--- 
-1.7.0.4
-
+I don't know much about info, but I'd take a wild guess that dir is an
+index of what's available, and that we should create a bbclass that
+adds a postinst to update it on install for packages that add files to
+infodir.  Maybe someone else actually has a clue about info though :)
+--=20
+Christopher Larson
+clarson at kergoth dot com
+Founder - BitBake, OpenEmbedded, OpenZaurus
+Maintainer - Tslib
+Senior Software Engineer, Mentor Graphics
 
