@@ -1,27 +1,24 @@
-Return-Path: <koen@dominion.thruhere.net>
-Received: from mail-ew0-f48.google.com (mail-ew0-f48.google.com
-	[209.85.215.48])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C6E004C81065
-	for <poky@yoctoproject.org>; Tue, 18 Jan 2011 12:38:39 -0600 (CST)
-Received: by ewy20 with SMTP id 20so3443556ewy.35
-	for <poky@yoctoproject.org>; Tue, 18 Jan 2011 10:38:39 -0800 (PST)
-Received: by 10.216.154.136 with SMTP id h8mr4770901wek.84.1295374804807;
-	Tue, 18 Jan 2011 10:20:04 -0800 (PST)
-Received: from [172.20.1.5] (ip545070eb.adsl-surfen.hetnet.nl [84.80.112.235])
-	by mx.google.com with ESMTPS id
-	o51sm3143804wes.39.2011.01.18.10.20.04
-	(version=TLSv1/SSLv3 cipher=RC4-MD5);
-	Tue, 18 Jan 2011 10:20:04 -0800 (PST)
-Mime-Version: 1.0 (Apple Message framework v1082)
-From: Koen Kooi <koen@dominion.thruhere.net>
-In-Reply-To: <AANLkTimQe+wMuRZjmQ+y0PAhN7Gby67FH99cMa4AgicS@mail.gmail.com>
-Date: Tue, 18 Jan 2011 19:20:03 +0100
-Message-Id: <A56E829D-33C6-470D-9EAF-DC60198188DA@dominion.thruhere.net>
-References: <5D53183E-2C2C-4DAC-9ED9-51DA01F33E77@dominion.thruhere.net>
-	<AANLkTimQe+wMuRZjmQ+y0PAhN7Gby67FH99cMa4AgicS@mail.gmail.com>
+Return-Path: <sgw@linux.intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D9E534C81065
+	for <poky@yoctoproject.org>; Tue, 18 Jan 2011 14:25:45 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 18 Jan 2011 12:25:45 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,340,1291622400"; d="scan'208";a="648360111"
+Received: from unknown (HELO [10.255.14.114]) ([10.255.14.114])
+	by fmsmga002.fm.intel.com with ESMTP; 18 Jan 2011 12:25:44 -0800
+Message-ID: <4D35F748.4010002@linux.intel.com>
+Date: Tue, 18 Jan 2011 12:25:44 -0800
+From: Saul Wold <sgw@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
+MIME-Version: 1.0
 To: poky@yoctoproject.org
-X-Mailer: Apple Mail (2.1082)
-Subject: Re: install-info creates package clashes for e.g. external python tarball
+References: <cover.1295282922.git.paul.eggleton@linux.intel.com>
+In-Reply-To: <cover.1295282922.git.paul.eggleton@linux.intel.com>
+Subject: Re: [PATCH 0/8] Add meta-toolchain-qte from OE
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,58 +30,97 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 18 Jan 2011 18:38:40 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Tue, 18 Jan 2011 20:25:46 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 01/17/2011 08:54 AM, Paul Eggleton wrote:
+> These patches make the necessary changes to add meta-toolchain-qte from
+> OpenEmbedded (and make it build successfully). Amongst other things this
+> required some tweaking of avahi to avoid dependency of avahi-dev /
+> avahi-utils on gtk+, which in turn required the addition of a flag to
+> control automatic RRECOMMENDS_ generation in package.bbclass.
+>
 
-Op 18 jan 2011, om 18:51 heeft Chris Larson het volgende geschreven:
+Paul,
 
-> On Tue, Jan 18, 2011 at 12:51 AM, Koen Kooi =
-<koen@dominion.thruhere.net> wrote:
->> When building external-python-tarball I get:
->>=20
->>=20
->> |  * check_data_file_clashes: Package libreadline6 wants to install =
-file =
-/OE/tentacle/build/tmp-angstrom_2010_x/work/armv7a-angstrom-linux-gnueabi/=
-external-python-tarball-1.0-r0/sdk/image/usr/local/angstrom/x86_64/sysroot=
-s/x86_64-angstromsdk-linux/usr/share/info/dir
->> |       But that file is already provided by package  * =
-eglibc-nativesdk
->> |  * opkg_install_cmd: Cannot install package python-nativesdk-core.
->>=20
->> I vaguely recall running into this a few years ago in OE, but I can =
-only find this one: =
-http://cgit.openembedded.org/cgit.cgi/openembedded/commit/?id=3D7b774a106f=
-6936fd050abb4cbe90a84bd0b67025
->>=20
->>=20
->> Does anyone have an idea on how to fix this in yocto without =
-resorting to --force-overwrite?
->=20
-> I don't know much about info, but I'd take a wild guess that dir is an
-> index of what's available, and that we should create a bbclass that
-> adds a postinst to update it on install for packages that add files to
-> infodir. =20
+Over all this patch set looks good.
 
-It is. As I never use info, only man, I would very much like to delete =
-it and forget about it. But I'm asking if anyone has a better solution =
-:) e.g.
+One minor nit, for some of the new packages you did not include the 
+SRC_URI checksum information for md5 and sha256, can you please add 
+these and re-submit.
 
-bitbake.conf: PACKAGES =3D+ installinfo-crap ; FILES_installinfo-crap =3D =
-${datadir}/info/dir
+Thanks
+    Sau!
 
-regards,
-
-Koen
-
-> Maybe someone else actually has a clue about info though :)
-> --=20
-> Christopher Larson
-> clarson at kergoth dot com
-> Founder - BitBake, OpenEmbedded, OpenZaurus
-> Maintainer - Tslib
-> Senior Software Engineer, Mentor Graphics
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>    Branch: paule/qt-fixes2
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=paule/qt-fixes2
+>
+> Thanks,
+>      Paul Eggleton<paul.eggleton@linux.intel.com>
+> ---
+>
+>
+> Paul Eggleton (8):
+>    Add directfb 1.4.6 from OpenEmbedded
+>    qt4: add qt4-embedded 4.6.3 from OpenEmbedded
+>    glib-2.0: extend to nativesdk
+>    dbus: extend to nativesdk
+>    Add qt4-tools-nativesdk 4.6.3 based on qt4-tools-sdk from
+>      OpenEmbedded
+>    package.bbclass: add nodeprrecs flag to RRECOMMENDS_pkgname
+>    avahi: prevent unnecessary runtime dependency on gtk+
+>    Add meta-toolchain-qte and dependent tasks from OpenEmbedded
+>
+>   meta/classes/package.bbclass                       |    2 +
+>   meta/classes/qt4e.bbclass                          |   17 +++
+>   meta/recipes-connectivity/avahi/avahi.inc          |    9 ++-
+>   meta/recipes-connectivity/avahi/avahi_0.6.28.bb    |    2 +-
+>   meta/recipes-core/dbus/dbus.inc                    |    3 +-
+>   meta/recipes-core/glib-2.0/glib-2.0_2.27.5.bb      |    2 +-
+>   meta/recipes-core/glib-2.0/glib.inc                |    1 +
+>   .../directfb/directfb-1.4.6/mkdfiff.patch          |   24 ++++
+>   meta/recipes-graphics/directfb/directfb.inc        |   71 ++++++++++++
+>   meta/recipes-graphics/directfb/directfb_1.4.6.bb   |   29 +++++
+>   .../directfb-1.2.x-fix-pkgconfig-cflags.patch      |   47 ++++++++
+>   .../directfb/files/dont-use-linux-config.patch     |   12 ++
+>   meta/recipes-qt/meta/meta-toolchain-qte.bb         |   32 ++++++
+>   .../recipes-qt/qt4/files/compile.test-lflags.patch |   13 +++
+>   meta/recipes-qt/qt4/files/configure-lflags.patch   |   13 +++
+>   meta/recipes-qt/qt4/files/configure-paths.patch    |   21 ++++
+>   meta/recipes-qt/qt4/files/qmake-exists-check.patch |   18 +++
+>   .../qt4/files/qthelp-lib-qtclucene.patch           |   86 +++++++++++++++
+>   meta/recipes-qt/qt4/qt4-embedded-4.6.3/qte.sh      |    7 ++
+>   meta/recipes-qt/qt4/qt4-embedded.inc               |   53 +++++++++
+>   meta/recipes-qt/qt4/qt4-embedded_4.6.3.bb          |    6 +
+>   meta/recipes-qt/qt4/qt4-tools-nativesdk_4.6.3.bb   |  112 ++++++++++++++++++++
+>   meta/recipes-qt/tasks/task-qte-toolchain-host.bb   |    7 ++
+>   meta/recipes-qt/tasks/task-qte-toolchain-target.bb |   39 +++++++
+>   24 files changed, 622 insertions(+), 4 deletions(-)
+>   create mode 100644 meta/classes/qt4e.bbclass
+>   create mode 100644 meta/recipes-graphics/directfb/directfb-1.4.6/mkdfiff.patch
+>   create mode 100644 meta/recipes-graphics/directfb/directfb.inc
+>   create mode 100644 meta/recipes-graphics/directfb/directfb_1.4.6.bb
+>   create mode 100644 meta/recipes-graphics/directfb/files/directfb-1.2.x-fix-pkgconfig-cflags.patch
+>   create mode 100644 meta/recipes-graphics/directfb/files/dont-use-linux-config.patch
+>   create mode 100644 meta/recipes-qt/meta/meta-toolchain-qte.bb
+>   create mode 100644 meta/recipes-qt/qt4/files/compile.test-lflags.patch
+>   create mode 100644 meta/recipes-qt/qt4/files/configure-lflags.patch
+>   create mode 100644 meta/recipes-qt/qt4/files/configure-paths.patch
+>   create mode 100644 meta/recipes-qt/qt4/files/qmake-exists-check.patch
+>   create mode 100644 meta/recipes-qt/qt4/files/qthelp-lib-qtclucene.patch
+>   create mode 100644 meta/recipes-qt/qt4/qt4-embedded-4.6.3/qte.sh
+>   create mode 100644 meta/recipes-qt/qt4/qt4-embedded.inc
+>   create mode 100644 meta/recipes-qt/qt4/qt4-embedded_4.6.3.bb
+>   create mode 100644 meta/recipes-qt/qt4/qt4-tools-nativesdk_4.6.3.bb
+>   create mode 100644 meta/recipes-qt/tasks/task-qte-toolchain-host.bb
+>   create mode 100644 meta/recipes-qt/tasks/task-qte-toolchain-target.bb
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
 
 
