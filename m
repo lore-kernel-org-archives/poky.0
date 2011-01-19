@@ -1,30 +1,22 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 253AA4C8106A
-	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 05:54:11 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0JBtwZO022519; Wed, 19 Jan 2011 11:56:00 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id Ak978CM2d7Ih; Wed, 19 Jan 2011 11:55:58 +0000 (GMT)
-Received: from [192.168.1.45] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0JBtpj5022505
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Wed, 19 Jan 2011 11:55:54 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: "Cui, Dexuan" <dexuan.cui@intel.com>
-In-Reply-To: <1295433738.14388.21241.camel@rex>
-References: <1865303E0DED764181A9D882DEF65FB685BC552DE0@shsmsx502.ccr.corp.intel.com>
-	<1295432030.14388.21148.camel@rex> <1295433738.14388.21241.camel@rex>
-Date: Wed, 19 Jan 2011 11:53:52 +0000
-Message-ID: <1295438032.14388.21459.camel@rex>
+Return-Path: <josh@openedhand.com>
+Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 74B314C8109B
+	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 06:17:55 -0600 (CST)
+Received: from [192.168.1.88] (unknown [83.217.123.106])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by pug.o-hand.com (Postfix) with ESMTP id 3FA0712EC1C7
+	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 06:58:29 -0600 (CST)
+From: Joshua Lock <josh@openedhand.com>
+To: poky@yoctoproject.org
+In-Reply-To: <201101191022.16146.paul.eggleton@linux.intel.com>
+References: <cover.1293112192.git.paul.eggleton@linux.intel.com>
+	<201101191022.16146.paul.eggleton@linux.intel.com>
+Date: Wed, 19 Jan 2011 12:17:44 +0000
+Message-ID: <1295439464.2540.20.camel@scimitar>
 Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: strange libgcc build failure in autobuilder
+X-Mailer: Evolution 2.32.1 (2.32.1-1.fc14) 
+Subject: Re: [PATCH 0/2] Minor documentation fixes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,50 +28,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 19 Jan 2011 11:54:12 -0000
+X-List-Received-Date: Wed, 19 Jan 2011 12:17:55 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On Wed, 2011-01-19 at 10:42 +0000, Richard Purdie wrote:
-> On Wed, 2011-01-19 at 10:13 +0000, Richard Purdie wrote:
-> > On Wed, 2011-01-19 at 17:30 +0800, Cui, Dexuan wrote:
-> > > I saw some libgcc(the new recipe I added days ago) failure that I can't reproduce locally.
-> > > e.g.,  "qemux86 poky-image-sdk failed": http://autobuilder.pokylinux.org:8010/builders/nightly-internal-incremental/builds/16/steps/shell_5/logs/stdio
-> > > 
-> > > libgcc's do_package failed:
-> > > ERROR: Error executing a python function in /builds2/pokybuilds/nightly-internal/build/meta/recipes-devtools/gcc/libgcc_4.5.1.bb:
-> > > IOError: [Errno 2] No such file or directory: '/builds2/pokybuilds/nightly-internal/build/build/tmp/sysroots/i586-poky-linux/shlibs/cairo-perf-utils.list'
-> > > 
-> > > It's odd -- why cario-perf-utils.list is involved...
+On Wed, 2011-01-19 at 10:22 +0000, Paul Eggleton wrote:
+> On Thursday 23 December 2010 13:55:42 Paul Eggleton wrote:
+> > Some minor documentation fixes. Please review for wording and formatting.
 > > 
-> > I've seen these errors before, they happen when one process
-> > moves/deletes files in the shlibs directory while another is accessing
-> > them.
-> > 
-> > In package_do_shlibs there is a lock to guard against it:
-> > 
-> > lf = bb.utils.lockfile(bb.data.expand("${PACKAGELOCK}", d))
-> > 
-> > so its as if something is failing with the lock, or accessing those
-> > files without holding the lock...
+> > Pull URL: git://git.pokylinux.org/poky-contrib.git
+> >   Branch: paule/doc-fixes
+> >   Browse:
+> > http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=paule/doc-fixes
 > 
-> In particular, this build was an incremental, and there were do_setscene
-> calls which were uninstalling sstate data from the sysroots running at
-> the same time libgcc was packaging.
-> 
-> There is a missing lock in setscene's uninstall which probably needs to
-> take PACKAGELOCK. We could really do with some kind of read/write lock
-> here since multiple readers are desirable and its a potential
-> performance bottleneck...
+> Did anyone have a chance to review these?
 
-These issues should all be fixed with these commits:
-
-http://git.pokylinux.org/cgit.cgi/poky/commit/?id=7857834691868b7f48f732ee78d8770f5473ff68
-http://git.pokylinux.org/cgit.cgi/poky/commit/?id=ede381d56b180b384fdad98d445e5430819cfade
-http://git.pokylinux.org/cgit.cgi/poky/commit/?id=542cebbc3282a0b3acb68a5ef0d8c2a61b0ecc38
+These look good to me.
 
 Cheers,
-
-Richard
+Joshua
+-- 
+Joshua Lock
+        Intel Open Source Technology Centre
 
 
