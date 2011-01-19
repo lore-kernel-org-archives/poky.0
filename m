@@ -1,29 +1,38 @@
-Return-Path: <mark.hatle@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 05CD54C80FAD
-	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 14:03:34 -0600 (CST)
-Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p0JK3T5Q023563;
-	Wed, 19 Jan 2011 12:03:29 -0800 (PST)
-Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
-	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Wed, 19 Jan 2011 12:03:29 -0800
-Received: from Macintosh-5.local ([172.25.36.226]) by
-	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Wed, 19 Jan 2011 12:03:29 -0800
-Message-ID: <4D374390.5040500@windriver.com>
-Date: Wed, 19 Jan 2011 14:03:28 -0600
-From: Mark Hatle <mark.hatle@windriver.com>
-Organization: Wind River Systems
-User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
-	rv:1.9.2.13) Gecko/20101207 Thunderbird/3.1.7
+Return-Path: <bruce.ashfield@gmail.com>
+Received: from mail-iy0-f176.google.com (mail-iy0-f176.google.com
+	[209.85.210.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id A53914C810DA
+	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 14:05:32 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by iyb26 with SMTP id 26so1263744iyb.35
+	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 12:05:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:in-reply-to:references:date
+	:message-id:subject:from:to:cc:content-type
+	:content-transfer-encoding;
+	bh=0GLRrWpFN7zgZU1kCSee4dU8cWmjpy5Y1qxEu0i47uA=;
+	b=I9p5mlZQIaGMm15Y51EQ7Jl6hqPepH2eoZegm3Ax/QhOPSzOfVqEtGUnaSDOXBbcM1
+	H6ghEDYk0EgHY9OXQ2zHuBZvlFdLQYlp3jeDCSL9A4Q7xu5YyegUaT4vT2aRQHCXjubN
+	AZhfb/QpfPhm+QTIDYX+zofz1AHvLV2LKyPgM=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:cc:content-type:content-transfer-encoding;
+	b=MaoTJuCGEChFin+qYQtzgbhODqdPl1nmb1T/6P/jcavSGoTcRE/h56W71SEYmiNrp/
+	3Db4JLb+j5GgHCHmBA7fk5M0pMvSVQs/hiN79V1MdCqb8iyBTpJPrlQ4pD/Al/1t3B4+
+	Qw43Q3n4h8bzIi/CvFClZm/LMPy2jsKNiUGKo=
 MIME-Version: 1.0
-To: Koen Kooi <koen@dominion.thruhere.net>
+Received: by 10.231.35.131 with SMTP id p3mr1376130ibd.87.1295467530298; Wed,
+	19 Jan 2011 12:05:30 -0800 (PST)
+Received: by 10.231.156.136 with HTTP; Wed, 19 Jan 2011 12:05:30 -0800 (PST)
+In-Reply-To: <20F0A899-BE2B-4743-B435-7B9C64AD501C@dominion.thruhere.net>
 References: <cover.1295455496.git.paul.eggleton@linux.intel.com>
 	<20F0A899-BE2B-4743-B435-7B9C64AD501C@dominion.thruhere.net>
-In-Reply-To: <20F0A899-BE2B-4743-B435-7B9C64AD501C@dominion.thruhere.net>
-X-OriginalArrivalTime: 19 Jan 2011 20:03:29.0282 (UTC)
-	FILETIME=[F0BA4620:01CBB813]
+Date: Wed, 19 Jan 2011 15:05:30 -0500
+Message-ID: <AANLkTi=TEQ8-7fJBuStsTk9xDC4GhOFD1EgYYpU-RbXJ@mail.gmail.com>
+From: Bruce Ashfield <bruce.ashfield@gmail.com>
+To: Koen Kooi <koen@dominion.thruhere.net>
 Cc: Paul Eggleton <paul.eggleton@linux.intel.com>, poky@yoctoproject.org
 Subject: Re: [PATCH 0/3] util-linux: split out libuuid and libblkid
 X-BeenThere: poky@yoctoproject.org
@@ -37,55 +46,75 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 19 Jan 2011 20:03:35 -0000
+X-List-Received-Date: Wed, 19 Jan 2011 20:05:33 -0000
 Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 
-On 1/19/11 1:51 PM, Koen Kooi wrote:
+On Wed, Jan 19, 2011 at 2:51 PM, Koen Kooi <koen@dominion.thruhere.net> wro=
+te:
 > Tangent: have you considered switching to util-linux-ng?
-> 
+
+Didn't the fork for this end in December ? I recall reading it on lkml befo=
+re
+the holidays. Or maybe I'm thinking about the wrong thing, but if I'm not
+maybe the question is: 'have we considered updating to the unified util-lin=
+ux' ?
+
+Cheers,
+
+Bruce
+
+>
 > Op 19 jan 2011, om 17:55 heeft Paul Eggleton het volgende geschreven:
-> 
->> Split libuuid and libblkid from util-linux into separate runtime packages.
->> Slightly reduces the overall footprint of other packages that depend on these 
+>
+>> Split libuuid and libblkid from util-linux into separate runtime package=
+s.
+>> Slightly reduces the overall footprint of other packages that depend on =
+these
 >> libraries.
-
-The util-linux-ng components are licensed GPLv3, so they could be alternatives,
-but we need a GPLv2 version of the components for some systems.
-
---Mark
-
+>>
 >> Pull URL: git://git.pokylinux.org/poky-contrib.git
->>  Branch: paule/util-linux-libsplit
->>  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=paule/util-linux-libsplit
+>> =A0Branch: paule/util-linux-libsplit
+>> =A0Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=3Dpaule=
+/util-linux-libsplit
 >>
 >> Thanks,
->>    Paul Eggleton <paul.eggleton@linux.intel.com>
+>> =A0 =A0Paul Eggleton <paul.eggleton@linux.intel.com>
 >> ---
 >>
 >>
 >> Paul Eggleton (3):
->>  util-linux: split out libuuid and libblkid into separate packages
->>  gst-plugins-base: add util-linux to DEPENDS
->>  Bump PR on recipes that depend on util-linux
+>> =A0util-linux: split out libuuid and libblkid into separate packages
+>> =A0gst-plugins-base: add util-linux to DEPENDS
+>> =A0Bump PR on recipes that depend on util-linux
 >>
->> .../nfs-utils/nfs-utils_1.2.3.bb                   |    2 +-
->> meta/recipes-core/util-linux/util-linux.inc        |    6 ++++--
->> meta/recipes-core/util-linux/util-linux_2.17.2.bb  |    2 +-
->> .../e2fsprogs/e2fsprogs_1.41.12.bb                 |    2 +-
->> meta/recipes-devtools/mtd/mtd-utils_1.4.1.bb       |    2 +-
->> meta/recipes-graphics/xorg-lib/libsm_1.2.0.bb      |    2 +-
->> .../gstreamer/gst-plugins-base_0.10.31.bb          |    4 ++--
+>> .../nfs-utils/nfs-utils_1.2.3.bb =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 | =
+=A0 =A02 +-
+>> meta/recipes-core/util-linux/util-linux.inc =A0 =A0 =A0 =A0| =A0 =A06 ++=
+++--
+>> meta/recipes-core/util-linux/util-linux_2.17.2.bb =A0| =A0 =A02 +-
+>> .../e2fsprogs/e2fsprogs_1.41.12.bb =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 | =A0=
+ =A02 +-
+>> meta/recipes-devtools/mtd/mtd-utils_1.4.1.bb =A0 =A0 =A0 | =A0 =A02 +-
+>> meta/recipes-graphics/xorg-lib/libsm_1.2.0.bb =A0 =A0 =A0| =A0 =A02 +-
+>> .../gstreamer/gst-plugins-base_0.10.31.bb =A0 =A0 =A0 =A0 =A0| =A0 =A04 =
+++--
 >> 7 files changed, 11 insertions(+), 9 deletions(-)
 >>
 >> _______________________________________________
 >> poky mailing list
 >> poky@yoctoproject.org
 >> https://lists.yoctoproject.org/listinfo/poky
-> 
+>
 > _______________________________________________
 > poky mailing list
 > poky@yoctoproject.org
 > https://lists.yoctoproject.org/listinfo/poky
+>
 
+
+
+--=20
+"Thou shalt not follow the NULL pointer, for chaos and madness await
+thee at its end"
 
