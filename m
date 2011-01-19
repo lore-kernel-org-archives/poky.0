@@ -1,29 +1,21 @@
-Return-Path: <koen@dominion.thruhere.net>
-Received: from mail-ey0-f176.google.com (mail-ey0-f176.google.com
-	[209.85.215.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2AD774C80FAD
-	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 13:17:14 -0600 (CST)
-Received: by eyz10 with SMTP id 10so682946eyz.35
-	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 11:17:14 -0800 (PST)
-Received: by 10.213.29.148 with SMTP id q20mr1545888ebc.73.1295464633173;
-	Wed, 19 Jan 2011 11:17:13 -0800 (PST)
-Received: from [172.20.1.5] (ip545070eb.adsl-surfen.hetnet.nl [84.80.112.235])
-	by mx.google.com with ESMTPS id r5sm1653042eeh.21.2011.01.19.11.17.09
-	(version=TLSv1/SSLv3 cipher=RC4-MD5);
-	Wed, 19 Jan 2011 11:17:10 -0800 (PST)
-Mime-Version: 1.0 (Apple Message framework v1082)
-From: Koen Kooi <koen@dominion.thruhere.net>
-In-Reply-To: <4D372D06.3090703@intel.com>
-Date: Wed, 19 Jan 2011 20:17:08 +0100
-Message-Id: <F90DC8C0-875D-44D7-8908-63AF72504679@dominion.thruhere.net>
-References: <cover.1295410231.git.scott.a.garman@intel.com>
-	<d57e678ab0ed9d20ebb08a5935e3d8d7bdbcfed5.1295410231.git.scott.a.garman@intel.com>
-	<21D8C9BF-2F1A-479C-AF91-D7BE4ED87D44@dominion.thruhere.net>
-	<4D372D06.3090703@intel.com>
-To: Scott Garman <scott.a.garman@intel.com>
-X-Mailer: Apple Mail (2.1082)
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 5/9] insane.bbclass: skip checks on .la installed status
+Return-Path: <nitin.a.kamble@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id BDCC14C80FAD
+	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 13:20:37 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 19 Jan 2011 11:20:37 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,345,1291622400"; d="scan'208";a="648856722"
+Received: from nbuild2.sc.intel.com (HELO localhost) ([172.25.110.37])
+	by fmsmga002.fm.intel.com with ESMTP; 19 Jan 2011 11:20:37 -0800
+Message-Id: <197f271d1e2e82e165774a1c76cc092886cc3588.1295464737.git.nitin.a.kamble@intel.com>
+In-Reply-To: <cover.1295464737.git.nitin.a.kamble@intel.com>
+References: <cover.1295464737.git.nitin.a.kamble@intel.com>
+From: Nitin A Kamble <nitin.a.kamble@intel.com>
+Old-Date: Wed, 19 Jan 2011 09:19:27 -0800
+Date: Wed, 19 Jan 2011 11:20:37 -0800
+To: poky@yoctoproject.org
+Subject: [PATCH 1/1] zypper: fix build issue with gcc dso linking change
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,76 +27,105 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 19 Jan 2011 19:17:15 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Wed, 19 Jan 2011 19:20:38 -0000
 
+All the libraries needs to be specified explicitely with the new gcc dso
+linking change patch. This was causing build errors for this
+recipe. Specifying the libpthread library explicitely for linking to work
+without errors.
 
-Op 19 jan 2011, om 19:27 heeft Scott Garman het volgende geschreven:
+Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
+---
+ .../zypper/dso_linking_change_build_fix.patch      |   58 ++++++++++++++++++++
+ meta/recipes-extended/zypper/zypper_git.bb         |    4 +-
+ 2 files changed, 60 insertions(+), 2 deletions(-)
+ create mode 100644 meta/recipes-extended/zypper/zypper/dso_linking_change_build_fix.patch
 
-> On 01/18/2011 11:19 PM, Koen Kooi wrote:
->> Op 19 jan 2011, om 05:19 heeft Scott Garman het volgende geschreven:
->>=20
->>> Enabling libtool sysroot support triggers these errors but they
->>> are a valid change in behavior.
->>=20
->> Based on the RPATH discussion off-list, should we add a check for =
-RPATH pointing to staging as well? I know RPs patches fix it, but it =
-would be nice to catch if it starts happening again.
->=20
-> By staging I assume you're referring to the sysroot dir? If so, we do =
-have that QA check in insane.bbclass already (see =
-package_qa_check_rpath), and I have been relying on it to detect the =
-problems I was reporting. This patch doesn't alter or remove that.
-
-And indeed it does have that already, time to 'port' that to OE :)
-
->=20
-> If I'm misunderstanding, feel free to correct me.
->=20
-> Scott
->=20
->>>=20
->>> Signed-off-by: Scott Garman<scott.a.garman@intel.com>
->>> ---
->>> meta/classes/insane.bbclass |    5 -----
->>> 1 files changed, 0 insertions(+), 5 deletions(-)
->>>=20
->>> diff --git a/meta/classes/insane.bbclass =
-b/meta/classes/insane.bbclass
->>> index 3ab4c2c..6f06d85 100644
->>> --- a/meta/classes/insane.bbclass
->>> +++ b/meta/classes/insane.bbclass
->>> @@ -427,11 +427,6 @@ def package_qa_check_staged(path,d):
->>>             path =3D os.path.join(root,file)
->>>             if file.endswith(".la"):
->>>                 file_content =3D open(path).read()
->>> -                # Don't check installed status for native/cross =
-packages
->>> -                if not bb.data.inherits_class("native", d) and not =
-bb.data.inherits_class("cross", d):
->>> -                    if installed in file_content:
->>> -                        error_msg =3D "%s failed sanity test =
-(installed) in path %s" % (file,root)
->>> -                        sane =3D package_qa_handle_error(5, =
-error_msg, "staging", path, d)
->>>                 if workdir in file_content:
->>>                     error_msg =3D "%s failed sanity test (workdir) =
-in path %s" % (file,root)
->>>                     sane =3D package_qa_handle_error(8, error_msg, =
-"staging", path, d)
->>> --
->>> 1.7.1
->>>=20
->>> _______________________________________________
->>> poky mailing list
->>> poky@yoctoproject.org
->>> https://lists.yoctoproject.org/listinfo/poky
->>=20
->=20
->=20
-> --=20
-> Scott Garman
-> Embedded Linux Distro Engineer - Yocto Project
+diff --git a/meta/recipes-extended/zypper/zypper/dso_linking_change_build_fix.patch b/meta/recipes-extended/zypper/zypper/dso_linking_change_build_fix.patch
+new file mode 100644
+index 0000000..0da196f
+--- /dev/null
++++ b/meta/recipes-extended/zypper/zypper/dso_linking_change_build_fix.patch
+@@ -0,0 +1,58 @@
++after gcc linking has changed, all the libraries must be explicitely specified 
++This patch avoids these linking errors:
++
++| Linking CXX executable zypp-refresh
++| cd /build_disk/poky_build/build0/tmp/work/i586-poky-linux/zypper-1.4.7-git0+9eb0e248e06c8d20ad054be2439149d9ede37531-r2/git/src && /build_disk/poky_build/build0/tmp/sysroots/x86_64-linux/usr/bin/cmake -E cmake_link_script CMakeFiles/zypp-refresh.dir/link.txt --verbose=1
++| /build_disk/poky_build/build0/tmp/sysroots/x86_64-linux/usr/bin/i586-poky-linux/i586-poky-linux-g++   -march=i586  --sysroot=/build_disk/poky_build/build0/tmp/sysroots/i586-poky-linux  -fpermissive -g -O2 -Wall -Woverloaded-virtual -fstack-protector  -Wl,-O1 -Wl,--hash-style=gnu -Wl,--as-needed CMakeFiles/zypp-refresh.dir/zypp-refresh.cc.o  -o zypp-refresh -rdynamic -lzypp
++| /build_disk/poky_build/build0/tmp/sysroots/x86_64-linux/usr/libexec/i586-poky-linux/gcc/i586-poky-linux/4.5.1/ld: �: invalid DSO for symbol `pthread_cancel@@GLIBC_2.0' definition
++| /build_disk/poky_build/build0/tmp/sysroots/i586-poky-linux/lib/libpthread.so.0: could not read symbols: Bad value
++| collect2: ld returned 1 exit status
++| make[2]: *** [src/zypp-refresh] Error 1
++| make[2]: Leaving directory `/build_disk/poky_build/build0/tmp/work/i586-poky-linux/zypper-1.4.7-git0+9eb0e248e06c8d20ad054be2439149d9ede37531-r2/git'
++| make[1]: *** [src/CMakeFiles/zypp-refresh.dir/all] Error 2
++
++
++| Linking CXX executable zypper
++| cd /build_disk/poky_build/build0/tmp/work/i586-poky-linux/zypper-1.4.7-git0+9eb0e248e06c8d20ad054be2439149d9ede37531-r3/git/src && /build_disk/poky_build/build0/tmp/sysroots/x86_64-linux/usr/bin/cmake -E cmake_link_script CMakeFiles/zypper.dir/link.txt --verbose=1
++| /build_disk/poky_build/build0/tmp/sysroots/x86_64-linux/usr/bin/i586-poky-linux/i586-poky-linux-g++   -march=i586  --sysroot=/build_disk/poky_build/build0/tmp/sysroots/i586-poky-linux  -fpermissive -g -O2 -Wall -Woverloaded-virtual -fstack-protector  -Wl,-O1 -Wl,--hash-style=gnu -Wl,--as-needed CMakeFiles/zypper.dir/main.cc.o  -o zypper -rdynamic libzypper_lib.a -lzypp -lreadline -laugeas -laugeas
++| /build_disk/poky_build/build0/tmp/sysroots/x86_64-linux/usr/libexec/i586-poky-linux/gcc/i586-poky-linux/4.5.1/ld: �: invalid DSO for symbol `pthread_cancel@@GLIBC_2.0' definition
++| /build_disk/poky_build/build0/tmp/sysroots/i586-poky-linux/lib/libpthread.so.0: could not read symbols: Bad value
++| collect2: ld returned 1 exit status
++| make[2]: *** [src/zypper] Error 1
++
++
++| Linking CXX executable zypper
++| cd /build_disk/poky_build/build0/tmp/work/i586-poky-linux/zypper-1.4.7-git0+9eb0e248e06c8d20ad054be2439149d9ede37531-r3/git/src && /build_disk/poky_build/build0/tmp/sysroots/x86_64-linux/usr/bin/cmake -E cmake_link_script CMakeFiles/zypper.dir/link.txt --verbose=1
++| /build_disk/poky_build/build0/tmp/sysroots/x86_64-linux/usr/bin/i586-poky-linux/i586-poky-linux-g++   -march=i586  --sysroot=/build_disk/poky_build/build0/tmp/sysroots/i586-poky-linux  -fpermissive -g -O2 -Wall -Woverloaded-virtual -fstack-protector  -Wl,-O1 -Wl,--hash-style=gnu -Wl,--as-needed CMakeFiles/zypper.dir/main.cc.o  -o zypper -rdynamic libzypper_lib.a -lzypp -lreadline -laugeas -laugeas -lpthread
++| /build_disk/poky_build/build0/tmp/sysroots/x86_64-linux/usr/libexec/i586-poky-linux/gcc/i586-poky-linux/4.5.1/ld: �: invalid DSO for symbol `clock_gettime@@GLIBC_2.2' definition
++| /build_disk/poky_build/build0/tmp/sysroots/i586-poky-linux/lib/librt.so.1: could not read symbols: Bad value
++| collect2: ld returned 1 exit status
++| make[2]: *** [src/zypper] Error 1
++
++
++Nitin A Kamble <nitin.a.kamble@intel.com>
++Date: 2011/01/19
++
++
++Index: git/src/CMakeLists.txt
++===================================================================
++--- git.orig/src/CMakeLists.txt	2010-12-20 00:02:02.000000000 -0800
+++++ git/src/CMakeLists.txt	2011-01-19 09:23:13.432758255 -0800
++@@ -93,7 +93,7 @@
++ TARGET_LINK_LIBRARIES( zypper_lib ${ZYPP_LIBRARY} ${READLINE_LIBRARY} -laugeas ${AUGEAS_LIBRARY} )
++ 
++ ADD_EXECUTABLE( zypper main.cc )
++-TARGET_LINK_LIBRARIES( zypper zypper_lib ${ZYPP_LIBRARY} ${READLINE_LIBRARY} -laugeas ${AUGEAS_LIBRARY} )
+++TARGET_LINK_LIBRARIES( zypper zypper_lib ${ZYPP_LIBRARY} ${READLINE_LIBRARY} -laugeas ${AUGEAS_LIBRARY} pthread rt )
++ 
++ 
++ INSTALL(
++@@ -115,7 +115,7 @@
++ 
++ # zypp-refresh utility
++ ADD_EXECUTABLE( zypp-refresh zypp-refresh.cc )
++-TARGET_LINK_LIBRARIES( zypp-refresh ${ZYPP_LIBRARY} )
+++TARGET_LINK_LIBRARIES( zypp-refresh ${ZYPP_LIBRARY} pthread )
++ INSTALL(
++   TARGETS zypp-refresh
++   RUNTIME DESTINATION ${INSTALL_PREFIX}/sbin
+diff --git a/meta/recipes-extended/zypper/zypper_git.bb b/meta/recipes-extended/zypper/zypper_git.bb
+index c8895e5..b9e2e85 100644
+--- a/meta/recipes-extended/zypper/zypper_git.bb
++++ b/meta/recipes-extended/zypper/zypper_git.bb
+@@ -6,13 +6,13 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=3201406e350b39e05a82e28b5020f413"
+ 
+ DEPENDS  = "libzypp augeas"
+ RRECOMMENDS_${PN} = "procps"
+-PR = "r2"
++PR = "r3"
+ 
+ inherit cmake
+ 
+ SRC_URI = "git://gitorious.org/opensuse/zypper.git;protocol=git \
+            file://cmake.patch \
+-          "
++           file://dso_linking_change_build_fix.patch "
+ S = "${WORKDIR}/git"
+ 
+ PV = "1.4.7-git${SRCPV}"
+-- 
+1.7.3.4
 
 
