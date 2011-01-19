@@ -1,23 +1,25 @@
-Return-Path: <qing.he@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E24F44C8109B
-	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 01:29:00 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 18 Jan 2011 23:28:54 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,343,1291622400"; d="scan'208";a="648579099"
-Received: from qhe2-db.sh.intel.com ([10.239.13.48])
-	by fmsmga002.fm.intel.com with ESMTP; 18 Jan 2011 23:28:31 -0800
-Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
-	(envelope-from <qing.he@intel.com>)
-	id 1PfSNJ-0003rZ-4g; Wed, 19 Jan 2011 15:22:37 +0800
-Message-Id: <cover.1295421399.git.qing.he@intel.com>
-From: Qing He <qing.he@intel.com>
-Old-Date: Wed, 19 Jan 2011 15:16:39 +0800
-Date: Wed, 19 Jan 2011 15:22:37 +0800
+Return-Path: <Jingdong.Lu@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 000194C81065
+	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 02:55:32 -0600 (CST)
+Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p0J8tWLb021391
+	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 00:55:32 -0800 (PST)
+Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
+	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Wed, 19 Jan 2011 00:55:31 -0800
+Received: from localhost ([128.224.162.176]) by ala-mail06.corp.ad.wrs.com
+	with Microsoft SMTPSVC(6.0.3790.1830); 
+	Wed, 19 Jan 2011 00:55:31 -0800
+Message-Id: <cover.1295426481.git.jingdong.lu@windriver.com>
+From: Jingdong Lu <jingdong.lu@windriver.com>
+Old-Date: Wed, 19 Jan 2011 16:41:21 +0800
+Date: Wed, 19 Jan 2011 16:53:54 +0800
 To: poky@yoctoproject.org
-Cc: aleksandr.koltsoff@ebts.fi
-Subject: [PATCH 0/2] improvement for util-linux
+CC: 
+X-OriginalArrivalTime: 19 Jan 2011 08:55:32.0546 (UTC)
+	FILETIME=[A121AA20:01CBB7B6]
+Subject: [PATCH 0/4][PULL] Add "poky-lsb" distro and add lsb features into related recipes.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,27 +31,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 19 Jan 2011 07:29:01 -0000
+X-List-Received-Date: Wed, 19 Jan 2011 08:55:33 -0000
 
-this patch set adjusts the packaging policy of util-linux,
-separating out shared libraries for flexibility, it also fixes
-the dangling symlink exists in the recipe.
+Create poky-lsb-distro to place some config change in order to pass LSB test.
 
 Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: qhe/fix
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=qhe/fix
+  Branch: jingdonglu/distro
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=jingdonglu/distro
 
 Thanks,
-    Qing He
+    Jingdong Lu <jingdong.lu@windriver.com>
 ---
 
 
-Qing He (2):
-  util-linux: separately packaging blkid and uuid
-  util-linux: fix dangling symlinks
+Jingdong Lu (4):
+  qt4: Enable accessibility and sm option for LSB.
+  glib-2.0: Enable debug option for LSB test.
+  libxml2: Enable "--with-docbook --with-debug --with-catalog" for LSB
+    test.
+  poky-lsb: Add poky-lsb.conf as distro of lsb image
 
- meta/recipes-core/util-linux/util-linux.inc       |   27 ++++++++++++++++----
- meta/recipes-core/util-linux/util-linux_2.17.2.bb |    2 +-
- 2 files changed, 22 insertions(+), 7 deletions(-)
+ meta/classes/qmake2.bbclass                   |    1 +
+ meta/conf/distro/poky-lsb.conf                |    6 ++++++
+ meta/recipes-core/glib-2.0/glib-2.0_2.27.5.bb |    2 +-
+ meta/recipes-core/glib-2.0/glib.inc           |    1 +
+ meta/recipes-core/libxml/libxml2.inc          |    1 +
+ meta/recipes-core/libxml/libxml2_2.7.7.bb     |    2 +-
+ meta/recipes-qt/qt4/qt4-x11-free_4.6.3.bb     |    2 +-
+ meta/recipes-qt/qt4/qt4.inc                   |   10 +++++++---
+ 8 files changed, 19 insertions(+), 6 deletions(-)
+ create mode 100644 meta/conf/distro/poky-lsb.conf
 
 
