@@ -1,26 +1,29 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A16744C8106A
-	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 12:21:39 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 19 Jan 2011 10:21:39 -0800
+Return-Path: <scott.a.garman@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 075314C8106A
+	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 12:27:20 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 19 Jan 2011 10:27:20 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,345,1291622400"; d="scan'208";a="878989236"
-Received: from unknown (HELO [10.255.14.114]) ([10.255.14.114])
-	by fmsmga001.fm.intel.com with ESMTP; 19 Jan 2011 10:21:39 -0800
-Message-ID: <4D372BB2.9000503@intel.com>
-Date: Wed, 19 Jan 2011 10:21:38 -0800
-From: Saul Wold <saul.wold@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
+X-IronPort-AV: E=Sophos;i="4.60,345,1291622400"; d="scan'208";a="698481271"
+Received: from rrsmsx603.amr.corp.intel.com ([10.31.0.57])
+	by orsmga001.jf.intel.com with ESMTP; 19 Jan 2011 10:27:20 -0800
+Received: from [10.255.14.119] (10.255.14.119) by rrsmsx603.amr.corp.intel.com
+	(10.31.0.57) with Microsoft SMTP Server (TLS) id 8.2.254.0;
+	Wed, 19 Jan 2011 11:27:20 -0700
+Message-ID: <4D372D06.3090703@intel.com>
+Date: Wed, 19 Jan 2011 10:27:18 -0800
+From: Scott Garman <scott.a.garman@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101208 Thunderbird/3.1.7
 MIME-Version: 1.0
-To: Nitin A Kamble <nitin.a.kamble@intel.com>
-References: <cover.1295400220.git.nitin.a.kamble@intel.com>
-	<fdb315f366138ac08fd05d0b3609e1243a043edf.1295400220.git.nitin.a.kamble@intel.com>
-In-Reply-To: <fdb315f366138ac08fd05d0b3609e1243a043edf.1295400220.git.nitin.a.kamble@intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 1/1] libzypp: fix build issue with gcc dso linking change
+To: Koen Kooi <koen@dominion.thruhere.net>
+References: <cover.1295410231.git.scott.a.garman@intel.com>
+	<d57e678ab0ed9d20ebb08a5935e3d8d7bdbcfed5.1295410231.git.scott.a.garman@intel.com>
+	<21D8C9BF-2F1A-479C-AF91-D7BE4ED87D44@dominion.thruhere.net>
+In-Reply-To: <21D8C9BF-2F1A-479C-AF91-D7BE4ED87D44@dominion.thruhere.net>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH 5/9] insane.bbclass: skip checks on .la installed status
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,113 +35,60 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 19 Jan 2011 18:21:39 -0000
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Wed, 19 Jan 2011 18:27:21 -0000
+Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 01/18/2011 05:26 PM, Nitin A Kamble wrote:
-> All the libraries needs to be specified explicitely with the new gcc dso
-> linking change patch. This was causing build errors for this
-> recipe. Specifying the libX11 libgdk-x11-2.0 and libgdk_pixbuf-2.0 libraries
-> explicitely for linking to work without errors.
+On 01/18/2011 11:19 PM, Koen Kooi wrote:
+> Op 19 jan 2011, om 05:19 heeft Scott Garman het volgende geschreven:
 >
-Nitin,
+>> Enabling libtool sysroot support triggers these errors but they
+>> are a valid change in behavior.
+>
+> Based on the RPATH discussion off-list, should we add a check for RPATH pointing to staging as well? I know RPs patches fix it, but it would be nice to catch if it starts happening again.
 
-This comment does not make any sense for libzypp, I don't think libzypp 
-needs to be linked with libX11, looks like the comment should mention 
-pthreads.
+By staging I assume you're referring to the sysroot dir? If so, we do 
+have that QA check in insane.bbclass already (see 
+package_qa_check_rpath), and I have been relying on it to detect the 
+problems I was reporting. This patch doesn't alter or remove that.
 
-Sau!
+If I'm misunderstanding, feel free to correct me.
+
+Scott
+
+>>
+>> Signed-off-by: Scott Garman<scott.a.garman@intel.com>
+>> ---
+>> meta/classes/insane.bbclass |    5 -----
+>> 1 files changed, 0 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/meta/classes/insane.bbclass b/meta/classes/insane.bbclass
+>> index 3ab4c2c..6f06d85 100644
+>> --- a/meta/classes/insane.bbclass
+>> +++ b/meta/classes/insane.bbclass
+>> @@ -427,11 +427,6 @@ def package_qa_check_staged(path,d):
+>>              path = os.path.join(root,file)
+>>              if file.endswith(".la"):
+>>                  file_content = open(path).read()
+>> -                # Don't check installed status for native/cross packages
+>> -                if not bb.data.inherits_class("native", d) and not bb.data.inherits_class("cross", d):
+>> -                    if installed in file_content:
+>> -                        error_msg = "%s failed sanity test (installed) in path %s" % (file,root)
+>> -                        sane = package_qa_handle_error(5, error_msg, "staging", path, d)
+>>                  if workdir in file_content:
+>>                      error_msg = "%s failed sanity test (workdir) in path %s" % (file,root)
+>>                      sane = package_qa_handle_error(8, error_msg, "staging", path, d)
+>> --
+>> 1.7.1
+>>
+>> _______________________________________________
+>> poky mailing list
+>> poky@yoctoproject.org
+>> https://lists.yoctoproject.org/listinfo/poky
+>
 
 
-> Signed-off-by: Nitin A Kamble<nitin.a.kamble@intel.com>
-> ---
->   .../libzypp/dso_linking_change_build_fix.patch     |   50 ++++++++++++++++++++
->   meta/recipes-extended/libzypp/libzypp_git.bb       |    5 +-
->   2 files changed, 53 insertions(+), 2 deletions(-)
->   create mode 100644 meta/recipes-extended/libzypp/libzypp/dso_linking_change_build_fix.patch
->
-> diff --git a/meta/recipes-extended/libzypp/libzypp/dso_linking_change_build_fix.patch b/meta/recipes-extended/libzypp/libzypp/dso_linking_change_build_fix.patch
-> new file mode 100644
-> index 0000000..496a3ca
-> --- /dev/null
-> +++ b/meta/recipes-extended/libzypp/libzypp/dso_linking_change_build_fix.patch
-> @@ -0,0 +1,50 @@
-> +after gcc linking has changed, all the libraries must be explicitely specified
-> +This patch avoids these linking errors:
-> +
-> +
-> +Linking CXX executable DumpSelectable
-> +cd /build_disk/poky_build/build0/tmp/work/i586-poky-linux/libzypp-0.0-git0+4494797d5b0369365b1af63921de45b197ead64f-r4/git/tools&&  /build_disk/poky_build/build0/tmp/sysroots/x86_64-linux/usr/bin/cmake -E cmake_link_script CMakeFiles/DumpSelectable.dir/link.txt --verbose=1
-> +/build_disk/poky_build/build0/tmp/sysroots/x86_64-linux/usr/bin/i586-poky-linux/i586-poky-linux-g++   -march=i586  --sysroot=/build_disk/poky_build/build0/tmp/sysroots/i586-poky-linux  -fpermissive -fno-strict-aliasing -fPIC -g -Wall -Werror=format-security -Woverloaded-virtual -Wnon-virtual-dtor -Wl,-as-needed  -Wl,-O1 -Wl,--hash-style=gnu -Wl,--as-needed CMakeFiles/DumpSelectable.dir/DumpSelectable.cc.o  -o DumpSelectable -rdynamic ../zypp/libzypp.so.800.1.1 -lboost_program_options-mt -lutil -lrpm -lcurl -lxml2 -lz -Wl,-Bstatic -lsatsolver -lsatsolverext -Wl,-Bdynamic -lexpat -lssl -lcrypto -lboost_signals-mt -ludev -Wl,-rpath,/build_disk/poky_build/build0/tmp/work/i586-poky-linux/libzypp-0.0-git0+4494797d5b0369365b1af63921de45b197ead64f-r4/git/zypp
-> +/build_disk/poky_build/build0/tmp/sysroots/x86_64-linux/usr/libexec/i586-poky-linux/gcc/i586-poky-linux/4.5.1/ld: Ý: invalid DSO for symbol `pthread_cancel@@GLIBC_2.0' definition
-> +/build_disk/poky_build/build0/tmp/sysroots/i586-poky-linux/lib/libpthread.so.0: could not read symbols: Bad value
-> +collect2: ld returned 1 exit status
-> +make[2]: *** [tools/DumpSelectable] Error 1
-> +
-> +
-> +
-> +| Linking CXX executable COW_debug
-> +| cd /build_disk/poky_build/build0/tmp/work/i586-poky-linux/libzypp-0.0-git0+4494797d5b0369365b1af63921de45b197ead64f-r5/git/examples&&  /build_disk/poky_build/build0/tmp/sysroots/x86_64-linux/usr/bin/cmake -E cmake_link_script CMakeFiles/COW_debug.dir/link.txt --verbose=1
-> +| /build_disk/poky_build/build0/tmp/sysroots/x86_64-linux/usr/bin/i586-poky-linux/i586-poky-linux-g++   -march=i586  --sysroot=/build_disk/poky_build/build0/tmp/sysroots/i586-poky-linux  -fpermissive -fno-strict-aliasing -fPIC -g -Wall -Werror=format-security -Woverloaded-virtual -Wnon-virtual-dtor -Wl,-as-needed  -Wl,-O1 -Wl,--hash-style=gnu -Wl,--as-needed CMakeFiles/COW_debug.dir/COW_debug.cc.o  -o COW_debug -rdynamic ../zypp/libzypp.so.800.1.1 -lutil -lrpm -lcurl -lxml2 -lz -Wl,-Bstatic -lsatsolver -lsatsolverext -Wl,-Bdynamic -lexpat -lssl -lcrypto -lboost_signals-mt -ludev -Wl,-rpath,/build_disk/poky_build/build0/tmp/work/i586-poky-linux/libzypp-0.0-git0+4494797d5b0369365b1af63921de45b197ead64f-r5/git/zypp
-> +| /build_disk/poky_build/build0/tmp/sysroots/x86_64-linux/usr/libexec/i586-poky-linux/gcc/i586-poky-linux/4.5.1/ld: �: invalid DSO for symbol `pthread_cancel@@GLIBC_2.0' definition
-> +| /build_disk/poky_build/build0/tmp/sysroots/i586-poky-linux/lib/libpthread.so.0: could not read symbols: Bad value
-> +| collect2: ld returned 1 exit status
-> +| make[2]: *** [examples/COW_debug] Error 1
-> +
-> +
-> +Nitin A Kamble<nitin.a.kamble@intel.com>
-> +Date: 2011/01/18
-> +
-> +Index: git/tools/CMakeLists.txt
-> +===================================================================
-> +--- git.orig/tools/CMakeLists.txt	2010-12-19 23:59:02.000000000 -0800
-> ++++ git/tools/CMakeLists.txt	2011-01-18 17:07:52.132140223 -0800
-> +@@ -13,6 +13,7 @@
-> +   )
-> +   TARGET_LINK_LIBRARIES( ${loop_var}
-> +     zypp
-> ++    pthread
-> +     boost_program_options-mt
-> +   )
-> + ENDFOREACH( loop_var )
-> +Index: git/examples/CMakeLists.txt
-> +===================================================================
-> +--- git.orig/examples/CMakeLists.txt	2010-12-19 23:59:01.000000000 -0800
-> ++++ git/examples/CMakeLists.txt	2011-01-18 17:17:41.760411373 -0800
-> +@@ -8,6 +8,7 @@
-> +   )
-> +   TARGET_LINK_LIBRARIES( ${loop_var}
-> +     zypp
-> ++    pthread
-> +   )
-> + ENDFOREACH( loop_var )
-> +
-> diff --git a/meta/recipes-extended/libzypp/libzypp_git.bb b/meta/recipes-extended/libzypp/libzypp_git.bb
-> index 6918263..7036c64 100644
-> --- a/meta/recipes-extended/libzypp/libzypp_git.bb
-> +++ b/meta/recipes-extended/libzypp/libzypp_git.bb
-> @@ -13,11 +13,12 @@ RDEPENDS_${PN} = "sat-solver"
->
->   S = "${WORKDIR}/git"
->   PV = "0.0-git${SRCPV}"
-> -PR = "r4"
-> +PR = "r5"
->
->   SRC_URI = "git://gitorious.org/opensuse/libzypp.git;protocol=git \
->              file://no-doc.patch \
-> -           file://rpm5.patch"
-> +           file://rpm5.patch \
-> +           file://dso_linking_change_build_fix.patch"
->
->   SRC_URI_append_mips = " file://mips-workaround-gcc-tribool-error.patch"
->
->
->
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
-
+-- 
+Scott Garman
+Embedded Linux Distro Engineer - Yocto Project
 
