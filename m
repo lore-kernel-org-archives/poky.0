@@ -1,31 +1,20 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C84F94C8106A
-	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 15:25:09 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0JLQpsg017600; Wed, 19 Jan 2011 21:26:51 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id NqYEgokOQnxO; Wed, 19 Jan 2011 21:26:51 +0000 (GMT)
-Received: from [192.168.1.45] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0JLQiGB017590
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Wed, 19 Jan 2011 21:26:47 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Mark Hatle <mark.hatle@windriver.com>
-In-Reply-To: <4D374390.5040500@windriver.com>
-References: <cover.1295455496.git.paul.eggleton@linux.intel.com>
-	<20F0A899-BE2B-4743-B435-7B9C64AD501C@dominion.thruhere.net>
-	<4D374390.5040500@windriver.com>
-Date: Wed, 19 Jan 2011 21:24:44 +0000
-Message-ID: <1295472284.14388.23266.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Cc: Paul Eggleton <paul.eggleton@linux.intel.com>, poky@yoctoproject.org
-Subject: Re: [PATCH 0/3] util-linux: split out libuuid and libblkid
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id BB3EC4C8106A
+	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 15:31:00 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 19 Jan 2011 13:30:59 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,345,1291622400"; d="scan'208";a="698542345"
+Received: from unknown (HELO localhost) ([10.255.14.100])
+	by orsmga001.jf.intel.com with ESMTP; 19 Jan 2011 13:30:59 -0800
+Message-Id: <cover.1295472579.git.dvhart@linux.intel.com>
+From: Darren Hart <dvhart@linux.intel.com>
+Old-Date: Wed, 19 Jan 2011 13:29:39 -0800
+Date: Wed, 19 Jan 2011 13:30:51 -0800
+To: poky@yoctoproject.org, jonathan@jonmasters.org,
+	robert.karl.berger@gmail.com
+Subject: [PATCH 0/6] Beagleboard xM support
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,30 +26,58 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 19 Jan 2011 21:25:10 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 19 Jan 2011 21:31:01 -0000
 
-On Wed, 2011-01-19 at 14:03 -0600, Mark Hatle wrote:
-> On 1/19/11 1:51 PM, Koen Kooi wrote:
-> > Tangent: have you considered switching to util-linux-ng?
-> > 
-> > Op 19 jan 2011, om 17:55 heeft Paul Eggleton het volgende geschreven:
-> > 
-> >> Split libuuid and libblkid from util-linux into separate runtime packages.
-> >> Slightly reduces the overall footprint of other packages that depend on these 
-> >> libraries.
-> 
-> The util-linux-ng components are licensed GPLv3, so they could be alternatives,
-> but we need a GPLv2 version of the components for some systems.
+The following patches provide initial support for the Beagleboard. They update
+the x-load and u-boot recipes, modify the beagleboard machine config, and add
+README.hardware documentation for the Beagleboard.
 
-According to the license headers, only lscpu is GPLv3 and since we
-package that separately from everything else and clearly identify its
-license, we are currently using util-linux-ng for this purpose as things
-stand.
+The kernel config still needs to be updated to support the onboard NIC of the
+xM. Graphics and audio have not been tested. With the basic functionality in
+place, hopefully others will be encouraged to participate in fleshing out
+Beagleboard support in Poky.
 
-Cheers,
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: dvhart/beagle
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dvhart/beagle
 
-Richard
+Thanks,
+    Darren Hart <dvhart@linux.intel.com>
+---
+
+
+Darren Hart (6):
+  x-load: us TI upstream repository, update recipes accordingly
+  u-boot: Add a new upstream u-boot recipe
+  beagleboard: add x-load and u-boot depends
+  overo: use the new upstream u-boot recipe
+  u-boot-omap3: remove in favor of upstream u-boot
+  README.hardware: add beagleboard documentation
+
+ README.hardware                                    |   71 +++++++++++++
+ .../conf/distro/include/poky-default-revisions.inc |    3 +-
+ meta/conf/machine/beagleboard.conf                 |    3 +
+ meta/conf/machine/overo.conf                       |    2 +-
+ .../uboot/u-boot-omap3-git/beagleboard/name.patch  |   14 ---
+ meta/recipes-bsp/uboot/u-boot-omap3_git.bb         |   18 ----
+ meta/recipes-bsp/uboot/u-boot.inc                  |    3 +-
+ meta/recipes-bsp/uboot/u-boot_git.bb               |   21 ++++
+ meta/recipes-bsp/x-load/files/signGP.c             |  108 --------------------
+ meta/recipes-bsp/x-load/signgp-native.bb           |   14 ---
+ .../x-load/x-load-git/beagleboard/armv7-a.patch    |   11 --
+ .../x-load/x-load-git/beagleboard/name.patch       |   16 ++--
+ .../x-load/x-load-git/omap3evm/armv7-a.patch       |   11 --
+ .../x-load/x-load-git/overo/armv7-a.patch          |   11 --
+ meta/recipes-bsp/x-load/x-load.inc                 |    5 +-
+ meta/recipes-bsp/x-load/x-load_git.bb              |   19 ++--
+ 16 files changed, 118 insertions(+), 212 deletions(-)
+ delete mode 100644 meta/recipes-bsp/uboot/u-boot-omap3-git/beagleboard/name.patch
+ delete mode 100644 meta/recipes-bsp/uboot/u-boot-omap3_git.bb
+ create mode 100644 meta/recipes-bsp/uboot/u-boot_git.bb
+ delete mode 100644 meta/recipes-bsp/x-load/files/signGP.c
+ delete mode 100644 meta/recipes-bsp/x-load/signgp-native.bb
+ delete mode 100644 meta/recipes-bsp/x-load/x-load-git/beagleboard/armv7-a.patch
+ delete mode 100644 meta/recipes-bsp/x-load/x-load-git/omap3evm/armv7-a.patch
+ delete mode 100644 meta/recipes-bsp/x-load/x-load-git/overo/armv7-a.patch
 
 
