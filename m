@@ -1,31 +1,29 @@
-Return-Path: <dexuan.cui@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9503C4C8109B
-	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 03:31:07 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 19 Jan 2011 01:31:07 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,343,1291622400"; d="scan'208";a="648632147"
-Received: from pgsmsx601.gar.corp.intel.com ([10.221.43.69])
-	by fmsmga002.fm.intel.com with ESMTP; 19 Jan 2011 01:31:06 -0800
-Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
-	pgsmsx601.gar.corp.intel.com (10.221.43.69) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Wed, 19 Jan 2011 17:30:58 +0800
-Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
-	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
-	Wed, 19 Jan 2011 17:30:58 +0800
-From: "Cui, Dexuan" <dexuan.cui@intel.com>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Date: Wed, 19 Jan 2011 17:30:56 +0800
-Thread-Topic: strange libgcc build failure in autobuilder
-Thread-Index: Acu3u5UscklEi5KBRI24YIZFfRvHgA==
-Message-ID: <1865303E0DED764181A9D882DEF65FB685BC552DE0@shsmsx502.ccr.corp.intel.com>
-Accept-Language: zh-CN, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: zh-CN, en-US
-MIME-Version: 1.0
-Subject: strange libgcc build failure in autobuilder
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by mx1.pokylinux.org (Postfix) with ESMTP id BA6824C81065
+	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 04:14:25 -0600 (CST)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p0JAG7cT018512; Wed, 19 Jan 2011 10:16:08 GMT
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id 4WVs240icoHP; Wed, 19 Jan 2011 10:16:07 +0000 (GMT)
+Received: from [192.168.1.45] (tim [93.97.173.237]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p0JAFoj1018505
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Wed, 19 Jan 2011 10:15:58 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: "Cui, Dexuan" <dexuan.cui@intel.com>
+In-Reply-To: <1865303E0DED764181A9D882DEF65FB685BC552DE0@shsmsx502.ccr.corp.intel.com>
+References: <1865303E0DED764181A9D882DEF65FB685BC552DE0@shsmsx502.ccr.corp.intel.com>
+Date: Wed, 19 Jan 2011 10:13:50 +0000
+Message-ID: <1295432030.14388.21148.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: strange libgcc build failure in autobuilder
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,26 +35,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 19 Jan 2011 09:31:07 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Wed, 19 Jan 2011 10:14:26 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-I saw some libgcc(the new recipe I added days ago) failure that I can't rep=
-roduce locally.
-e.g.,  "qemux86 poky-image-sdk failed": http://autobuilder.pokylinux.org:80=
-10/builders/nightly-internal-incremental/builds/16/steps/shell_5/logs/stdio
+On Wed, 2011-01-19 at 17:30 +0800, Cui, Dexuan wrote:
+> I saw some libgcc(the new recipe I added days ago) failure that I can't reproduce locally.
+> e.g.,  "qemux86 poky-image-sdk failed": http://autobuilder.pokylinux.org:8010/builders/nightly-internal-incremental/builds/16/steps/shell_5/logs/stdio
+> 
+> libgcc's do_package failed:
+> ERROR: Error executing a python function in /builds2/pokybuilds/nightly-internal/build/meta/recipes-devtools/gcc/libgcc_4.5.1.bb:
+> IOError: [Errno 2] No such file or directory: '/builds2/pokybuilds/nightly-internal/build/build/tmp/sysroots/i586-poky-linux/shlibs/cairo-perf-utils.list'
+> 
+> It's odd -- why cario-perf-utils.list is involved...
 
-libgcc's do_package failed:
-ERROR: Error executing a python function in /builds2/pokybuilds/nightly-int=
-ernal/build/meta/recipes-devtools/gcc/libgcc_4.5.1.bb:
-IOError: [Errno 2] No such file or directory: '/builds2/pokybuilds/nightly-=
-internal/build/build/tmp/sysroots/i586-poky-linux/shlibs/cairo-perf-utils.l=
-ist'
+I've seen these errors before, they happen when one process
+moves/deletes files in the shlibs directory while another is accessing
+them.
 
-It's odd -- why cario-perf-utils.list is involved...
+In package_do_shlibs there is a lock to guard against it:
 
-Thanks,
--- Dexuan
-=20
+lf = bb.utils.lockfile(bb.data.expand("${PACKAGELOCK}", d))
+
+so its as if something is failing with the lock, or accessing those
+files without holding the lock...
+
+Cheers,
+
+Richard
+
+
 
