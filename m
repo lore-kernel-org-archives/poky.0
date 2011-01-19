@@ -1,27 +1,27 @@
 Return-Path: <Jingdong.Lu@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D57EF4C811F6
-	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 02:55:40 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 719824C811F6
+	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 02:55:43 -0600 (CST)
 Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p0J8te7V021461
-	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 00:55:40 -0800 (PST)
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p0J8thXV021486
+	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 00:55:43 -0800 (PST)
 Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
 	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Wed, 19 Jan 2011 00:55:39 -0800
+	Wed, 19 Jan 2011 00:55:42 -0800
 Received: from localhost ([128.224.162.176]) by ala-mail06.corp.ad.wrs.com
 	with Microsoft SMTPSVC(6.0.3790.1830); 
-	Wed, 19 Jan 2011 00:55:39 -0800
-Message-Id: <681d2a4ae59ed2e7d250ae1c8cde34c79dc911e5.1295426481.git.jingdong.lu@windriver.com>
+	Wed, 19 Jan 2011 00:55:42 -0800
+Message-Id: <120134ecb6d83288fce067f3db6e98f9f1b694f3.1295426481.git.jingdong.lu@windriver.com>
 In-Reply-To: <cover.1295426481.git.jingdong.lu@windriver.com>
 References: <cover.1295426481.git.jingdong.lu@windriver.com>
 From: Jingdong Lu <jingdong.lu@windriver.com>
-Old-Date: Wed, 19 Jan 2011 16:30:00 +0800
-Date: Wed, 19 Jan 2011 16:54:02 +0800
+Old-Date: Wed, 19 Jan 2011 16:39:12 +0800
+Date: Wed, 19 Jan 2011 16:54:05 +0800
 To: poky@yoctoproject.org
 CC: 
-X-OriginalArrivalTime: 19 Jan 2011 08:55:40.0328 (UTC)
-	FILETIME=[A5C51A80:01CBB7B6]
-Subject: [PATCH 3/4] libxml2: Enable "--with-docbook --with-debug --with-catalog" for LSB test.
+X-OriginalArrivalTime: 19 Jan 2011 08:55:42.0906 (UTC)
+	FILETIME=[A74E79A0:01CBB7B6]
+Subject: [PATCH 4/4] poky-lsb: Add poky-lsb.conf as distro of lsb image
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,40 +33,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 19 Jan 2011 08:55:41 -0000
-
-Enable options "--with-doc --with-debug --with-catalog" in order to pass LSB test.
+X-List-Received-Date: Wed, 19 Jan 2011 08:55:43 -0000
 
 Signed-off-by: Jingdong Lu<jingdong.lu@windriver.com>
 ---
- meta/recipes-core/libxml/libxml2.inc      |    1 +
- meta/recipes-core/libxml/libxml2_2.7.7.bb |    2 +-
- 2 files changed, 2 insertions(+), 1 deletions(-)
+ meta/conf/distro/poky-lsb.conf |    6 ++++++
+ 1 files changed, 6 insertions(+), 0 deletions(-)
+ create mode 100644 meta/conf/distro/poky-lsb.conf
 
-diff --git a/meta/recipes-core/libxml/libxml2.inc b/meta/recipes-core/libxml/libxml2.inc
-index 748a7fb..78ee781 100644
---- a/meta/recipes-core/libxml/libxml2.inc
-+++ b/meta/recipes-core/libxml/libxml2.inc
-@@ -21,6 +21,7 @@ inherit autotools pkgconfig binconfig
- 
- EXTRA_OECONF = "--without-python --without-debug --without-legacy --without-catalog --without-docbook --with-c14n"
- EXTRA_OECONF_virtclass-native = "--with-python=${STAGING_BINDIR}/python --without-legacy --with-catalog --without-docbook --with-c14n"
-+EXTRA_OECONF_poky-lsb = "--without-python --with-debug --without-legacy --with-catalog --with-docbook --with-c14n"
- 
- # required for pythong binding
- export HOST_SYS
-diff --git a/meta/recipes-core/libxml/libxml2_2.7.7.bb b/meta/recipes-core/libxml/libxml2_2.7.7.bb
-index 9615a7f..daec3be 100644
---- a/meta/recipes-core/libxml/libxml2_2.7.7.bb
-+++ b/meta/recipes-core/libxml/libxml2_2.7.7.bb
-@@ -1,6 +1,6 @@
- require libxml2.inc
- 
--PR = "r2"
-+PR = "r3"
- 
- SRC_URI[md5sum] = "9abc9959823ca9ff904f1fbcf21df066"
- SRC_URI[sha256sum] = "af5b781418ba4fff556fa43c50086658ea8a2f31909c2b625c2ce913a1d9eb68"
+diff --git a/meta/conf/distro/poky-lsb.conf b/meta/conf/distro/poky-lsb.conf
+new file mode 100644
+index 0000000..86514d3
+--- /dev/null
++++ b/meta/conf/distro/poky-lsb.conf
+@@ -0,0 +1,6 @@
++require conf/distro/poky.conf
++
++DISTRO = "poky-lsb"
++
++DISTRO_FEATURES += "pam"
++PREFERRED_PROVIDER_virtual/libx11 = "libx11"
 -- 
 1.7.0.4
 
