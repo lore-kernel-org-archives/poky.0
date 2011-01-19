@@ -1,22 +1,22 @@
 Return-Path: <edwin.zhai@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E8B954C811F9
-	for <poky@yoctoproject.org>; Tue, 18 Jan 2011 18:41:40 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 18 Jan 2011 16:41:40 -0800
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id DED4D4C81202
+	for <poky@yoctoproject.org>; Tue, 18 Jan 2011 18:41:41 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 18 Jan 2011 16:41:41 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,341,1291622400"; d="scan'208";a="376482189"
+X-IronPort-AV: E=Sophos;i="4.60,341,1291622400"; d="scan'208";a="648454100"
 Received: from gw-vmm.sh.intel.com (HELO localhost) ([10.239.48.31])
-	by azsmga001.ch.intel.com with ESMTP; 18 Jan 2011 16:41:38 -0800
-Message-Id: <a5af917c367a280641443144886f8d90627950f8.1295397702.git.edwin.zhai@intel.com>
+	by fmsmga002.fm.intel.com with ESMTP; 18 Jan 2011 16:41:40 -0800
+Message-Id: <77d8f9436c2f8457388d89b430df21957c8fbadd.1295397702.git.edwin.zhai@intel.com>
 In-Reply-To: <cover.1295397702.git.edwin.zhai@intel.com>
 References: <cover.1295397702.git.edwin.zhai@intel.com>
 From: Zhai Edwin <edwin.zhai@intel.com>
-Old-Date: Wed, 29 Dec 2010 15:11:46 +0800
-Date: Wed, 19 Jan 2011  8:46:09 +0800
+Old-Date: Fri, 14 Jan 2011 15:35:17 +0800
+Date: Wed, 19 Jan 2011  8:46:12 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 5/6] apr-util: Update to 1.3.10
+Subject: [PATCH 6/6] webkit-gtk: upgrade to 1.3.7
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,46 +28,1262 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 19 Jan 2011 00:41:41 -0000
+X-List-Received-Date: Wed, 19 Jan 2011 00:41:42 -0000
+
+Also update some local files from upstream.
 
 Signed-off-by: Zhai Edwin <edwin.zhai@intel.com>
 ---
- .../apr/{apr-util_1.3.4.bb => apr-util_1.3.10.bb}  |   12 ++++++++----
- 1 files changed, 8 insertions(+), 4 deletions(-)
- rename meta/recipes-support/apr/{apr-util_1.3.4.bb => apr-util_1.3.10.bb} (72%)
+ .../conf/distro/include/poky-default-revisions.inc |    2 +-
+ meta/recipes-sato/webkit/files/GNUmakefile.am      |  692 ++------------------
+ meta/recipes-sato/webkit/files/Makefile            |    2 +-
+ meta/recipes-sato/webkit/files/autogen.sh          |    2 +-
+ meta/recipes-sato/webkit/files/configure.ac        |  164 ++++--
+ meta/recipes-sato/webkit/webkit-gtk_svn.bb         |    7 +-
+ 6 files changed, 166 insertions(+), 703 deletions(-)
 
-diff --git a/meta/recipes-support/apr/apr-util_1.3.4.bb b/meta/recipes-support/apr/apr-util_1.3.10.bb
-similarity index 72%
-rename from meta/recipes-support/apr/apr-util_1.3.4.bb
-rename to meta/recipes-support/apr/apr-util_1.3.10.bb
-index cefdfe6..930f757 100644
---- a/meta/recipes-support/apr/apr-util_1.3.4.bb
-+++ b/meta/recipes-support/apr/apr-util_1.3.10.bb
-@@ -1,16 +1,20 @@
- DESCRIPTION = "Apache Portable Runtime (APR) companion library"
-+HOMEPAGE = "http://apr.apache.org/"
- SECTION = "libs"
- DEPENDS = "apr expat gdbm"
+diff --git a/meta/conf/distro/include/poky-default-revisions.inc b/meta/conf/distro/include/poky-default-revisions.inc
+index b2609c5..a93b925 100644
+--- a/meta/conf/distro/include/poky-default-revisions.inc
++++ b/meta/conf/distro/include/poky-default-revisions.inc
+@@ -173,7 +173,7 @@ SRCREV_pn-kernelshark ??= ${TRACECMDREV}
+ SRCREV_pn-tidy ??= "e25416e1293e1074bfa6727c80527dcff5b1f3cb"
+ SRCREV_pn-u-boot-omap3 ??= "f40f6db278f602b55820693634a7256b0b4e4b80"
+ SRCREV_pn-ubootchart ??= "10"
+-SRCREV_pn-webkit-gtk ??= "62027"
++SRCREV_pn-webkit-gtk ??= "72836"
+ SRCREV_pn-web-webkit ??= "130"
+ SRCREV_pn-web ??= "129"
+ SRCREV_pn-xcb-proto ??= "d81ca233e98be8fa59e8c90d262c0516944c5a66"
+diff --git a/meta/recipes-sato/webkit/files/GNUmakefile.am b/meta/recipes-sato/webkit/files/GNUmakefile.am
+index 39817f1..8884fcb 100644
+--- a/meta/recipes-sato/webkit/files/GNUmakefile.am
++++ b/meta/recipes-sato/webkit/files/GNUmakefile.am
+@@ -16,15 +16,11 @@
+ # webcore_sources, gtk port API and WebCoreSupport parts to webkitgtk_sources,
+ # etc... The only exceptions are the global variables. See Global Variables
+ # below.
+-#
+-# Global Variables
+-#
+-# global_cppflags   = CPPFLAGS that apply to JSC, WebCore, and to any
+-#                     specific port
+-# global_cflags     = CFLAGS that apply to JSC, WebCore, and to
+-#                     any specific port
+-# global_cxxflags   = CXXFLAGS that apply to JSC, WebCore, and to any
+-#                     specific port
 +
- LICENSE = "Apache License, Version 2.0"
--LIC_FILES_CHKSUM = "file://LICENSE;md5=519e0a18e03f7c023070568c14b077bb"
--PR = "r7"
-+LIC_FILES_CHKSUM = "file://LICENSE;md5=519e0a18e03f7c023070568c14b077bb \
-+                    file://include/apu_version.h;endline=17;md5=806685a84e71f10c80144c48eb35df42"
++# Global Variables Reference
++# global_cppflags   = CPPFLAGS that apply to all C/C++ files that are built for any project.
++# global_cflags     = CFLAGS that apply to all C files that are built for any project.
++# global_cxxflags   = CXXFLAGS that apply to all C++ files that are bult for any project.
+ 
+ srcdir = @srcdir@
+ VPATH = @srcdir@
+@@ -35,18 +31,13 @@ DISTCHECK_CONFIGURE_FLAGS = \
+ 
+ # Directory for autogenerated sources
+ GENSOURCES := $(top_builddir)/DerivedSources
+-GENSOURCESWEBKITDOM := $(top_builddir)/DerivedSources/webkit
++GENSOURCES_JAVASCRIPTCORE := $(top_builddir)/DerivedSources/JavaScriptCore
++GENSOURCES_WEBCORE := $(top_builddir)/DerivedSources/WebCore
++GENSOURCES_WEBKIT := $(top_builddir)/DerivedSources/webkit
+ GENPROGRAMS := $(top_builddir)/Programs
+-
+-# Script for creating hash tables
+-CREATE_HASH_TABLE = $(srcdir)/JavaScriptCore/create_hash_table
+-
+-# Script for creating regexp tables
+-CREATE_REGEXP_TABLES = $(srcdir)/JavaScriptCore/create_regex_tables
+-
+-# Programs to run the WebKitGtk unit tests
+-GTESTER = gtester
+-GTESTER_REPORT = gtester-report
++GENSOURCES_INSPECTOR := $(GENPROGRAMS)/resources/inspector
++WebCore := $(srcdir)/WebCore
++WebKit := $(srcdir)/WebKit/gtk
+ 
+ # Libraries and support components
+ bin_PROGRAMS :=
+@@ -63,36 +54,27 @@ javascriptcore_cppflags:=
+ javascriptcore_sources :=
+ javascriptcore_built_sources :=
+ javascriptcore_built_nosources :=
+-javascriptcore_dist :=
+ webcore_cppflags :=
+ webcore_sources :=
+ webcore_libadd :=
+ webcore_built_sources :=
+ webcore_built_nosources :=
+-webcore_dist :=
+-webcoregtk_cppflags :=
+ webcoregtk_sources :=
+-IDL_BINDINGS_GDOM :=
+-GDOM_AUTO_CLASSES :=
+-GDOM_FIXED_CLASSES :=
+-GDOM_CLASSES :=
+-GDOM_HEADERS_BUILT :=
+-GDOM_HEADERS_FIXED :=
+-libgdom_h_api :=
+-libgdom_cleanfiles :=
++webcoregtk_cppflags :=
++webkitgtk_built_h_api :=
++webkitgtk_static_h_api :=
+ webkitgtk_h_api :=
+ webkitgtk_sources :=
+ webkitgtk_cppflags :=
++webkitgtk_gdom_built_sources :=
+ webkitgtk_built_sources :=
+ webkitgtk_built_nosources :=
+-webkitgtk_cleanfiles :=
+ global_cppflags :=
+ global_cflags :=
+ global_cxxflags :=
+-corekit_cflags :=
+-corekit_cppflags :=
+ JSCORE_GIRSOURCES :=
+ WEBKIT_GIRSOURCES :=
++FEATURE_DEFINES :=
+ typelibsdir :=
+ typelibs_DATA :=
+ EXTRA_DIST :=
+@@ -101,57 +83,15 @@ CLEANFILES :=
+ DISTCLEANFILES :=
+ MAINTAINERCLEANFILES :=
+ 
+-webcoregtk_cppflags += \
+-	-I$(top_builddir)/DerivedSources/webkit \
+-	-I$(srcdir)/WebCore/bindings \
+-	-I$(srcdir)/WebCore/bindings/gobject
+-
+-# CFLAGS/CXXFLAGS used by WebCore and WebKit
+-#
+-# gtk+.pc already include glib, cairo, freetype and pango CFLAGS
+-# Don't include them for now to reduce the noise when compiling
+-# $(GLIB_CFLAGS) $(CAIRO_CFLAGS) $(PANGO_CFLAGS)  $(FREETYPE_CFLAGS)
+-corekit_cflags += \
+-	-fno-strict-aliasing \
+-	$(COVERAGE_CFLAGS) \
+-	$(ENCHANT_CFLAGS) \
+-	$(GAIL_CFLAGS) \
+-	$(GEOCLUE_CFLAGS) \
+-	$(GLIB_CFLAGS) \
+-	$(GSTREAMER_CFLAGS) \
+-	$(GTK_CFLAGS) \
+-	$(HILDON_CFLAGS) \
+-	$(LIBSOUP_CFLAGS) \
+-	$(LIBXML_CFLAGS) \
+-	$(LIBXSLT_CFLAGS) \
+-	$(SQLITE3_CFLAGS) \
+-	$(UNICODE_CFLAGS) \
+-	$(XT_CFLAGS)
+-
+-# When building webcore/webkit, we want WebCore/config.h and NOT
+-# JavaScriptCore/config.h, hence, it's important that WebCore/ should come first
+-# before JavaScriptCore in the include path.
+-corekit_cppflags += \
+-	$(global_cppflags) \
+-	$(webcore_cppflags) \
+-	$(webcoregtk_cppflags) \
+-	$(javascriptcore_cppflags)
+-
+-# For the Gtk port we want to use XP_UNIX both in X11 and Mac
+-if !TARGET_WIN32
+-corekit_cppflags += -DXP_UNIX
+-endif
+-
+-# Default compiler flags
+-global_cflags += \
++global_cppflags += \
+ 	-Wall -W -Wcast-align -Wchar-subscripts -Wreturn-type \
+ 	-Wformat -Wformat-security -Wno-format-y2k -Wundef \
+ 	-Wmissing-format-attribute -Wpointer-arith -Wwrite-strings \
+ 	-Wno-unused-parameter -Wno-parentheses \
+-	-fno-exceptions
++	-fno-exceptions -DENABLE_GLIB_SUPPORT=1
 +
-+PR = "r0"
  
- SRC_URI = "${APACHE_MIRROR}/apr/${P}.tar.gz \
-            file://configfix.patch;patch=1 \
-            file://configure_fixes.patch;patch=1"
+ global_cxxflags += \
+-	$(global_cflags) \
+ 	$(SYMBOL_VISIBILITY_INLINES) \
+ 	-fno-rtti
  
--SRC_URI[md5sum] = "a10e2ca150ff07f484c724c36142211f"
--SRC_URI[sha256sum] = "3f07ffdb18fb853290c9b83e82cd5cae66b8fbc357bd391e846c0afdd24fed7e"
-+SRC_URI[md5sum] = "82acd25cf3df8c72eba44eaee8b80c19"
-+SRC_URI[sha256sum] = "7c37ac40b2351bfc23000fb6b7b54a67e0872255df315c82eb60c821bcef4b23"
+@@ -159,30 +99,17 @@ global_cxxflags += \
+ # It breaks the build on other platforms, so we use it conditionally
+ if OS_WIN32
+ no_undefined = -no-undefined
+-version_script = -export-symbols-regex "^(webkit_|JS).*"
++version_script = -export-symbols-regex "^(webkit_|k?JS).*"
+ endif
  
- EXTRA_OECONF = "--with-apr=${STAGING_BINDIR_CROSS}/apr-1-config \ 
- 		--without-odbc \
+ if OS_GNU
+ version_script = -Wl,--version-script,$(srcdir)/autotools/symbols.filter
+ endif
+ 
+-# Shared libraries
+-lib_LTLIBRARIES += \
+-	libwebkitgtk-@WEBKITGTK_API_MAJOR_VERSION@.@WEBKITGTK_API_MINOR_VERSION@.la
+-
+ # Convenience libraries
+ noinst_LTLIBRARIES += \
+ 	libJavaScriptCore.la
+ 
+-# JavaScriptCore
+-javascriptcore_cppflags += \
+-	-I$(srcdir)/JavaScriptCore/ForwardingHeaders \
+-	-I$(srcdir)/JavaScriptCore/parser \
+-	-I$(srcdir)/JavaScriptCore/wtf \
+-	-I$(srcdir)/JavaScriptCore/wtf/gtk \
+-	-I$(srcdir)/JavaScriptCore/wtf/gobject \
+-	-I$(top_builddir)/DerivedSources
+-
+ nodist_EXTRA_libJavaScriptCore_la_SOURCES = \
+ 	$(javascriptcore_built_nosources)
+ 
+@@ -215,78 +142,6 @@ libJavaScriptCore_la_CPPFLAGS = \
+ 	$(global_cppflags) \
+ 	$(javascriptcore_cppflags)
+ 
+-# WebKit
+-nodist_EXTRA_libwebkitgtk_@WEBKITGTK_API_MAJOR_VERSION@_@WEBKITGTK_API_MINOR_VERSION@_la_SOURCES = \
+-	$(webcore_built_nosources)
+-
+-nodist_libwebkitgtk_@WEBKITGTK_API_MAJOR_VERSION@_@WEBKITGTK_API_MINOR_VERSION@_la_SOURCES = \
+-	$(webcore_built_sources) \
+-	$(webkitgtk_built_sources)
+-
+-libwebkitgtk_@WEBKITGTK_API_MAJOR_VERSION@_@WEBKITGTK_API_MINOR_VERSION@_ladir = $(prefix)/include/webkit-@WEBKITGTK_API_VERSION@/webkit
+-libwebkitgtk_@WEBKITGTK_API_MAJOR_VERSION@_@WEBKITGTK_API_MINOR_VERSION@_la_HEADERS = \
+-	$(webkitgtk_h_api) \
+-	WebKit/gtk/webkit/webkitenumtypes.h
+-
+-libwebkitgtk_@WEBKITGTK_API_MAJOR_VERSION@_@WEBKITGTK_API_MINOR_VERSION@_la_SOURCES = \
+-	$(webcore_sources) \
+-	$(webcoregtk_sources) \
+-	$(webkitgtk_sources)
+-
+-libwebkitgtk_@WEBKITGTK_API_MAJOR_VERSION@_@WEBKITGTK_API_MINOR_VERSION@_la_CXXFLAGS = \
+-	$(global_cxxflags) \
+-	$(corekit_cflags)
+-
+-libwebkitgtk_@WEBKITGTK_API_MAJOR_VERSION@_@WEBKITGTK_API_MINOR_VERSION@_la_CFLAGS = \
+-	$(global_cflags) \
+-	$(corekit_cflags)
+-
+-libwebkitgtk_@WEBKITGTK_API_MAJOR_VERSION@_@WEBKITGTK_API_MINOR_VERSION@_la_CPPFLAGS = \
+-	$(corekit_cppflags) \
+-	$(webkitgtk_cppflags) \
+-	$(HILDON_CPPFLAGS)
+-
+-libwebkitgtk_@WEBKITGTK_API_MAJOR_VERSION@_@WEBKITGTK_API_MINOR_VERSION@_la_LDFLAGS = \
+-	-version-info @LIBWEBKITGTK_VERSION@ \
+-	$(version_script) \
+-	$(no_undefined)
+-
+-libwebkitgtk_@WEBKITGTK_API_MAJOR_VERSION@_@WEBKITGTK_API_MINOR_VERSION@_la_LIBADD = \
+-	-lpthread \
+-	libJavaScriptCore.la \
+-	libWebCoreJS.la \
+-	libgdom.la \
+-	$(webcore_ldflags) \
+-	$(CAIRO_LIBS) \
+-	$(COVERAGE_LDFLAGS) \
+-	$(ENCHANT_LIBS) \
+-	$(FREETYPE_LIBS) \
+-	$(GAIL_LIBS) \
+-	$(GEOCLUE_LIBS) \
+-	$(GLIB_LIBS) \
+-	$(GSTREAMER_LIBS) \
+-	$(GTK_LIBS) \
+-	$(HILDON_LIBS) \
+-	$(JPEG_LIBS) \
+-	$(LIBSOUP_LIBS) \
+-	$(LIBXML_LIBS) \
+-	$(LIBXSLT_LIBS) \
+-	$(PANGO_LIBS) \
+-	$(PNG_LIBS) \
+-	$(SQLITE3_LIBS) \
+-	$(UNICODE_LIBS) \
+-	$(XT_LIBS)
+-
+-libgdom_ladir = $(prefix)/include/webkit-@WEBKITGTK_API_VERSION@/webkit
+-nodist_libgdom_la_HEADERS = \
+-	$(libgdom_h_api)
+-
+-libgdom_cleanfiles += \
+-	$(top_builddir)/WebKit/gtk/webkit/webkitdomenumtypes.h \
+-	$(top_builddir)/libgdom.la \
+-	$(top_builddir)/stamp-webkitdomenumtypes.h
+-
+-#
+ # Extra checks and flags
+ global_cppflags += \
+ 	-DBUILDING_CAIRO__=1 \
+@@ -308,17 +163,29 @@ global_cppflags += \
+ 	-DUSE_SYSTEM_MALLOC
+ endif
+ 
++if USE_GSTREAMER
++global_cppflags += \
++	-DWTF_USE_GSTREAMER=1
++endif
++
++# ----
++# GTK+ 2.x/3.x support
++# ----
++if GTK_API_VERSION_2
++global_cppflags += \
++	-DGTK_API_VERSION_2=1
++endif
++
+ if !ENABLE_DEBUG
+ global_cppflags += -DNDEBUG
+ global_cflags += $(SYMBOL_VISIBILITY)
+ else
+-webcoregtk_cppflags += \
++global_cppflags += \
+ 	-DG_DISABLE_DEPRECATED \
+ 	-DGDK_PIXBUF_DISABLE_DEPRECATED \
+ 	-DGDK_DISABLE_DEPRECATED \
+ 	-DGTK_DISABLE_DEPRECATED \
+ 	-DPANGO_DISABLE_DEPRECATED
+-
+ # Might be useful in the future
+ #	-DGDK_MULTIHEAD_SAFE \
+ #	-DGTK_MULTIHEAD_SAFE
+@@ -330,454 +197,19 @@ global_cppflags += \
+ 	-DGCC_INSTRUMENT_PROGRAM_FLOW_ARCS
+ endif
+ 
+-webkitgtk_h_api += \
+-	$(srcdir)/WebKit/gtk/webkit/webkit.h \
+-	$(srcdir)/WebKit/gtk/webkit/webkitdefines.h \
+-	$(srcdir)/WebKit/gtk/webkit/webkitdownload.h \
+-	$(srcdir)/WebKit/gtk/webkit/webkiterror.h \
+-	$(srcdir)/WebKit/gtk/webkit/webkithittestresult.h \
+-	$(srcdir)/WebKit/gtk/webkit/webkitnetworkrequest.h \
+-	$(srcdir)/WebKit/gtk/webkit/webkitnetworkresponse.h \
+-	$(srcdir)/WebKit/gtk/webkit/webkitsoupauthdialog.h \
+-	$(srcdir)/WebKit/gtk/webkit/webkitwebbackforwardlist.h \
+-	$(srcdir)/WebKit/gtk/webkit/webkitwebdatasource.h \
+-	$(srcdir)/WebKit/gtk/webkit/webkitwebframe.h \
+-	$(srcdir)/WebKit/gtk/webkit/webkitwebhistoryitem.h \
+-	$(srcdir)/WebKit/gtk/webkit/webkitwebinspector.h \
+-	$(srcdir)/WebKit/gtk/webkit/webkitwebnavigationaction.h \
+-	$(srcdir)/WebKit/gtk/webkit/webkitwebpolicydecision.h \
+-	$(srcdir)/WebKit/gtk/webkit/webkitgeolocationpolicydecision.h \
+-	$(srcdir)/WebKit/gtk/webkit/webkitwebresource.h \
+-	$(srcdir)/WebKit/gtk/webkit/webkitwebsettings.h \
+-	$(srcdir)/WebKit/gtk/webkit/webkitwebwindowfeatures.h \
+-	$(srcdir)/WebKit/gtk/webkit/webkitwebview.h \
+-	$(srcdir)/WebKit/gtk/webkit/webkitwebdatabase.h \
+-	$(srcdir)/WebKit/gtk/webkit/webkitsecurityorigin.h \
+-	$(top_builddir)/WebKit/gtk/webkit/webkitversion.h
+-
+-webkitgtk_built_sources += \
+-	DerivedSources/webkitenumtypes.cpp \
+-	DerivedSources/webkitdomenumtypes.cpp \
+-	DerivedSources/webkitmarshal.cpp \
+-	DerivedSources/webkitmarshal.h \
+-	WebKit/gtk/webkit/webkitenumtypes.h
+-
+-webkitgtk_sources += \
+-	WebKit/gtk/WebCoreSupport/ChromeClientGtk.cpp \
+-	WebKit/gtk/WebCoreSupport/ChromeClientGtk.h \
+-	WebKit/gtk/WebCoreSupport/ContextMenuClientGtk.cpp \
+-	WebKit/gtk/WebCoreSupport/ContextMenuClientGtk.h \
+-	WebKit/gtk/WebCoreSupport/DocumentLoaderGtk.cpp \
+-	WebKit/gtk/WebCoreSupport/DocumentLoaderGtk.h \
+-	WebKit/gtk/WebCoreSupport/DragClientGtk.cpp \
+-	WebKit/gtk/WebCoreSupport/DragClientGtk.h \
+-	WebKit/gtk/WebCoreSupport/EditorClientGtk.cpp \
+-	WebKit/gtk/WebCoreSupport/EditorClientGtk.h \
+-	WebKit/gtk/WebCoreSupport/FrameLoaderClientGtk.cpp \
+-	WebKit/gtk/WebCoreSupport/FrameLoaderClientGtk.h \
+-	WebKit/gtk/WebCoreSupport/InspectorClientGtk.cpp \
+-	WebKit/gtk/WebCoreSupport/InspectorClientGtk.h \
+-	WebKit/gtk/WebCoreSupport/PasteboardHelperGtk.cpp \
+-	WebKit/gtk/WebCoreSupport/PasteboardHelperGtk.h \
+-	WebKit/gtk/webkit/webkitapplicationcache.cpp \
+-	WebKit/gtk/webkit/webkitdownload.cpp \
+-	WebKit/gtk/webkit/webkiterror.cpp \
+-	WebKit/gtk/webkit/webkithittestresult.cpp \
+-	WebKit/gtk/webkit/webkitnetworkrequest.cpp \
+-	WebKit/gtk/webkit/webkitnetworkresponse.cpp \
+-	WebKit/gtk/webkit/webkitprivate.cpp \
+-	WebKit/gtk/webkit/webkitprivate.h \
+-	WebKit/gtk/webkit/webkitsoupauthdialog.c \
+-	WebKit/gtk/webkit/webkitversion.cpp \
+-	WebKit/gtk/webkit/webkitwebbackforwardlist.cpp \
+-	WebKit/gtk/webkit/webkitwebdatasource.cpp \
+-	WebKit/gtk/webkit/webkitwebframe.cpp \
+-	WebKit/gtk/webkit/webkitwebhistoryitem.cpp \
+-	WebKit/gtk/webkit/webkitwebinspector.cpp \
+-	WebKit/gtk/webkit/webkitwebnavigationaction.cpp \
+-	WebKit/gtk/webkit/webkitwebpolicydecision.cpp \
+-	WebKit/gtk/webkit/webkitgeolocationpolicydecision.cpp \
+-	WebKit/gtk/webkit/webkitwebresource.cpp \
+-	WebKit/gtk/webkit/webkitwebdatabase.cpp \
+-	WebKit/gtk/webkit/webkitsecurityorigin.cpp \
+-	WebKit/gtk/webkit/webkitwebsettings.cpp \
+-	WebKit/gtk/webkit/webkitwebview.cpp \
+-	WebKit/gtk/webkit/webkitwebwindowfeatures.cpp \
+-	WebKit/gtk/webkit/webkitworkers.cpp
+-
+-webkitgtk_cppflags += \
+-	-DBUILDING_WEBKIT \
+-	-DPACKAGE_LOCALE_DIR=\"$(localedir)\" \
+-	-DDATA_DIR=\"${datadir}\" \
+-	-I$(srcdir)/WebKit/gtk \
+-	-I$(srcdir)/WebKit/gtk/WebCoreSupport \
+-	-I$(srcdir)/WebKit/gtk/webkit \
+-	-I$(top_builddir)/WebKit/gtk \
+-	-I$(top_builddir)/WebKit/gtk/webkit \
+-	-I$(GENSOURCESWEBKITDOM)
+-
+-webkitgtk_cleanfiles += \
+-	$(top_builddir)/stamp-webkitmarshal.cpp \
+-	$(top_builddir)/stamp-webkitmarshal.h \
+-	$(top_builddir)/stamp-webkitenumtypes.cpp \
+-	$(top_builddir)/stamp-webkitenumtypes.h \
+-	$(top_builddir)/Programs/GtkLauncher \
+-	$(top_builddir)/WebKit/gtk/docs/version.xml \
+-	$(top_builddir)/WebKit/gtk/docs/GNUmakefile \
+-	$(top_builddir)/WebKit/gtk/@WEBKITGTK_PC_NAME@-@WEBKITGTK_API_VERSION@.pc \
+-	$(top_builddir)/WebKit/gtk/webkit/webkitenumtypes.h \
+-	$(top_builddir)/WebKit/gtk/webkit/webkitversion.h
+-
+-pkgconfigdir = $(libdir)/pkgconfig
+-pkgconfig_DATA = WebKit/gtk/@WEBKITGTK_PC_NAME@-@WEBKITGTK_API_VERSION@.pc
+-
+-if ENABLE_INTROSPECTION
+-
+-JSCore-@WEBKITGTK_API_VERSION@.gir: $(builddir)/WebKit/gtk/JSCore-@WEBKITGTK_API_VERSION@.gir
+-	cp $(builddir)/WebKit/gtk/JSCore-@WEBKITGTK_API_VERSION@.gir $(builddir)/
+-
+-JSCORE_GIRSOURCES += JSCore-@WEBKITGTK_API_VERSION@.gir
+-WEBKIT_GIRSOURCES += WebKit-@WEBKITGTK_API_VERSION@.gir
+-
+-$(WEBKIT_GIRSOURCES): $(G_IR_SCANNER) $(JSCORE_GIRSOURCES) libwebkitgtk-@WEBKITGTK_API_MAJOR_VERSION@.@WEBKITGTK_API_MINOR_VERSION@.la
+-	$(AM_V_GEN)$(G_IR_SCANNER) -v --namespace WebKit --nsversion=@WEBKITGTK_API_VERSION@ \
+-	     --include=GObject-2.0 \
+-	     --include=Gtk-@GTK_API_VERSION@ \
+-	     --include=JSCore-@WEBKITGTK_API_VERSION@ \
+-	     --include=Soup-2.4 \
+-	     --library=webkitgtk-@WEBKITGTK_API_VERSION@ \
+-	     --libtool="$(LIBTOOL)" \
+-	     --pkg gobject-2.0 \
+-	     --pkg gtk+-@GTK_API_VERSION@ \
+-	     --pkg libsoup-2.4 \
+-	     --output $@ \
+-	     --add-include-path $(top_srcdir)/WebKit/gtk \
+-	     --add-include-path $(builddir) \
+-	     -I$(top_srcdir)/WebKit/gtk \
+-	     -I$(top_builddir)/WebKit/gtk \
+-	     -I$(top_builddir)/DerivedSources \
+-	     -I$(top_srcdir)/JavaScriptCore/ForwardingHeaders \
+-	     -I$(top_srcdir) \
+-	     $(webkitgtk_h_api) \
+-	     $(libgdom_h_api)
+-
+-girdir = $(datadir)/gir-1.0
+-gir_DATA = $(WEBKIT_GIRSOURCES) $(JSCORE_GIRSOURCES)
+-
+-typelibsdir += $(libdir)/girepository-1.0
+-typelibs_DATA += $(JSCORE_GIRSOURCES:.gir=.typelib) $(WEBKIT_GIRSOURCES:.gir=.typelib)
+-
+-%.typelib: %.gir $(G_IR_COMPILER)
+-	$(AM_V_GEN)$(G_IR_COMPILER) --includedir $(top_srcdir)/WebKit/gtk --includedir $(builddir) $< -o $@
+-
+-CLEANFILES += $(JSCORE_GIRSOURCES) $(WEBKIT_GIRSOURCES) $(typelibs_DATA)
+-
+-endif
+-
+-EXTRA_DIST += $(builddir)/WebKit/gtk/JSCore-@WEBKITGTK_API_VERSION@.gir
+-
+-WEBKIT_MARSHAL = $(GENSOURCES)/webkitmarshal
+-WEBKIT_MARSHAL_LIST = $(top_srcdir)/WebKit/gtk/webkitmarshal.list
+-
+-$(WEBKIT_MARSHAL).cpp: stamp-webkitmarshal.cpp
+-	@true
+-
+-$(WEBKIT_MARSHAL).h: stamp-webkitmarshal.h
+-	@true
+-
+-stamp-webkitmarshal.cpp: $(WEBKIT_MARSHAL_LIST)
+-	$(AM_V_GEN) echo "extern \"C\" {" > $(WEBKIT_MARSHAL).cpp && \
+-	$(GLIB_GENMARSHAL) --prefix=webkit_marshal $(WEBKIT_MARSHAL_LIST) --body >> $(WEBKIT_MARSHAL).cpp && echo '}' >> $(WEBKIT_MARSHAL).cpp && \
+-	echo timestamp > $(@F)
+-
+-stamp-webkitmarshal.h: $(WEBKIT_MARSHAL_LIST)
+-	$(AM_V_GEN)$(GLIB_GENMARSHAL) --prefix=webkit_marshal $(WEBKIT_MARSHAL_LIST) --header > $(WEBKIT_MARSHAL).h && \
+-	echo timestamp > $(@F)
+-
+-WebKit/gtk/webkit/webkitenumtypes.h: stamp-webkitenumtypes.h
+-	@true
+-stamp-webkitenumtypes.h: $(webkitgtk_h_api) GNUmakefile
+-	$(AM_V_GEN)glib-mkenums \
+-			--fhead "#ifndef WEBKIT_ENUM_TYPES_H\n" \
+-			--fhead "#define WEBKIT_ENUM_TYPES_H\n\n" \
+-			--fhead "#include <glib-object.h>\n\n" \
+-			--fhead "#include <webkit/webkitdefines.h>\n\n" \
+-			--fhead "G_BEGIN_DECLS\n\n" \
+-			--ftail "G_END_DECLS\n\n" \
+-			--ftail "#endif\n" \
+-			--fprod "#include <webkit/@basename@>\n\n" \
+-			--eprod "#define WEBKIT_TYPE_@ENUMSHORT@ @enum_name@_get_type()\n\n" \
+-			--eprod "WEBKIT_API GType\n@enum_name@_get_type(void);\n\n" \
+-		$(webkitgtk_h_api) | \
+-		sed 's,web_kit,webkit,' | \
+-		sed 's,WEBKIT_TYPE_KIT,WEBKIT_TYPE,' \
+-		> xgen-gth \
+-	&& (cmp -s xgen-gth WebKit/gtk/webkit/webkitenumtypes.h || cp xgen-gth WebKit/gtk/webkit/webkitenumtypes.h) \
+-	&& rm -f xgen-gth \
+-	&& echo timestamp > $(@F)
+-
+-DerivedSources/webkitenumtypes.cpp: $(webkitgtk_h_api) GNUmakefile
+-	$(AM_V_GEN)glib-mkenums \
+-			--fhead "#include <config.h>\n" \
+-			--fhead "#include <glib-object.h>\n" \
+-			--fhead "#include \"$(top_builddir)/WebKit/gtk/webkit/webkitenumtypes.h\"\n\n" \
+-			--fhead "extern \"C\" {\n\n" \
+-			--fprod "\n/* enumerations from \"@filename@\" */" \
+-			--vhead "static const G@Type@Value _@enum_name@_values[] = {" \
+-			--vprod "    { @VALUENAME@, \"@VALUENAME@\", \"@valuenick@\" }," \
+-			--vtail "    { 0, NULL, NULL }\n};\n\n" \
+-			--vtail "GType @enum_name@_get_type(void)\n{\n" \
+-			--vtail "    static GType type = 0;\n\n" \
+-			--vtail "    if (!type)\n" \
+-			--vtail "        type = g_@type@_register_static(\"@EnumName@\", _@enum_name@_values);\n\n" \
+-			--vtail "    return type;\n}\n\n" \
+-			--ftail "}\n" \
+-		$(webkitgtk_h_api) | \
+-		sed 's,web_kit,webkit,' \
+-		> xgen-gtc \
+-	&& cp xgen-gtc $@ \
+-	&& rm -f xgen-gtc
+-
+-WebKit/gtk/webkit/webkitdomenumtypes.h: stamp-webkitdomenumtypes.h
+-	@true
+-stamp-webkitdomenumtypes.h: $(libgdom_h_api) GNUmakefile
+-	$(AM_V_GEN)glib-mkenums \
+-			--fhead "#ifndef WEBKIT_DOM_ENUM_TYPES_H\n" \
+-			--fhead "#define WEBKIT_DOM_ENUM_TYPES_H\n\n" \
+-			--fhead "#include <glib-object.h>\n\n" \
+-			--fhead "G_BEGIN_DECLS\n\n" \
+-			--ftail "G_END_DECLS\n\n" \
+-			--ftail "#endif\n" \
+-			--fprod "#include <webkit/@basename@>\n\n" \
+-			--eprod "#define WEBKIT_DOM_TYPE_@ENUMSHORT@ @enum_name@_get_type()\n\n" \
+-			--eprod "WEBKIT_API GType\n@enum_name@_get_type(void);n\n" \
+-			$(libgdom_h_api) | \
+-		sed 's,web_kit,webkit_dom,' | \
+-		sed 's,WEBKIT_DOM_TYPE_KIT,WEBKIT_DOM_TYPE,' \
+-		> xgen-cgth \
+-	&& (cmp -s xgen-cgth WebKit/gtk/webkit/webkitdomenumtypes.h || cp xgen-cgth WebKit/gtk/webkit/webkitdomenumtypes.h) \
+-	&& rm -f xgen-cgth \
+-	&& echo timestamp > $(@F)
+-
+-DerivedSources/webkitdomenumtypes.cpp: $(top_builddir)/WebKit/gtk/webkit/webkitdomenumtypes.h $(libgdom_h_api) GNUmakefile
+-	$(AM_V_GEN)glib-mkenums \
+-			--fhead "#include <config.h>\n" \
+-			--fhead "#include <glib-object.h>\n" \
+-			--fhead "#include \"$(top_builddir)/WebKit/gtk/webkit/webkitdomenumtypes.h\"\n\n" \
+-			--fhead "extern \"C\" {\n\n" \
+-			--fprod "\n/* enumerations from \"@filename@\" */" \
+-			--vhead "static const G@Type@Value _@enum_name@_values] = {" \
+-			--vprod "    { @VALUENAME@, \"@VALUENAME@\", \"@valuenick@\" }," \
+-			--vtail "    { 0, NULL, NULL }\n};\n\n" \
+-			--vtail "GType @enum_name@_get_type(void)\n{\n" \
+-			--vtail "    static GType type = 0;\n\n" \
+-			--vtail "    if (!type)\n" \
+-			--vtail "        type = g_@type@_register_static(\"@EnumName@\", _@enum_name@_values);\n\n" \
+-			--vtail "    return type;\n}\n\n" \
+-			--ftail "}\n" \
+-		$(libgdom_h_api) | \
+-		sed 's,web_kit,webkitdom,' \
+-		> xgen-cgtc \
+-	&& cp xgen-cgtc $@ \
+-	&& rm -f xgen-cgtc
+-
+-# Files that will be distributed
+ EXTRA_DIST += \
+-	$(srcdir)/gtk-doc.make \
+-	WebKit/LICENSE \
+-	$(javascriptcore_dist) \
+-	$(webcore_dist) \
+ 	$(srcdir)/autotools/symbols.filter \
+-	$(srcdir)/WebKit/gtk/ChangeLog \
+-	$(srcdir)/WebKit/gtk/NEWS \
+-	$(srcdir)/WebKit/gtk/webkitmarshal.list \
+-	$(srcdir)/WebKit/gtk/docs/GNUmakefile.* \
+-	$(srcdir)/WebKit/gtk/docs/webkitenvironment.xml \
+-	$(srcdir)/WebKit/gtk/docs/webkitgtk-docs.sgml \
+-	$(srcdir)/WebKit/gtk/docs/webkitgtk-sections.txt \
+-	$(srcdir)/WebKit/gtk/docs/version.xml.in \
+-	$(srcdir)/WebKit/gtk/po/* \
+-	$(srcdir)/WebKit/gtk/resources/* \
+-	$(srcdir)/WebKit/gtk/tests/resources/* \
+-	$(srcdir)/WebKit/gtk/tests/test_utils.h
+-
+-# extra resource files
+-resourcesdir = ${datadir}/webkit-@WEBKITGTK_API_VERSION@/resources
+-dist_resources_DATA = \
+-	$(shell ls $(srcdir)/WebKit/gtk/resources/*.html)
+-
+-# END WEBKIT GTK+
++	$(srcdir)/gtk-doc.make \
++	$(srcdir)/WebKit/LICENSE
+ 
+ # Include module makefiles
+ include JavaScriptCore/GNUmakefile.am
+ include WebCore/GNUmakefile.am
++include WebKit/gtk/GNUmakefile.am
++include WebCore/bindings/gobject/GNUmakefile.am
+ include WebKitTools/GNUmakefile.am
+ include WebKit/gtk/po/GNUmakefile.am
+ 
+-# Build unit tests
+-noinst_PROGRAMS += $(TEST_PROGS)
+-
+-webkit_tests_cflags = \
+-	-fno-strict-aliasing \
+-	-I$(srcdir)/JavaScriptCore/ForwardingHeaders \
+-	-I$(srcdir)/WebKit/gtk \
+-	-I$(top_builddir)/WebKit/gtk \
+-	-I$(top_builddir)/DerivedSources \
+-	-I$(top_srcdir)/WebCore/bindings \
+-	-I$(top_srcdir)/WebCore/bindings/gobject \
+-	$(global_cflags) \
+-	$(GLIB_CFLAGS) \
+-	$(GTK_CFLAGS) \
+-	$(LIBSOUP_CFLAGS)
+-
+-webkit_tests_ldadd = \
+-	libwebkitgtk-@WEBKITGTK_API_MAJOR_VERSION@.@WEBKITGTK_API_MINOR_VERSION@.la \
+-	$(GTK_LIBS)	\
+-	$(GLIB_LIBS) \
+-	$(LIBSOUP_LIBS)
+-
+-webkit_tests_ldflags = \
+-	-no-install \
+-	-no-fast-install
+-
+-TEST_PROGS += \
+-	Programs/unittests/testdomdocument \
+-	Programs/unittests/testdomdomwindow \
+-	Programs/unittests/testdomnode \
+-	Programs/unittests/testhttpbackend \
+-	Programs/unittests/testloading \
+-	Programs/unittests/testglobals \
+-	Programs/unittests/testmimehandling \
+-	Programs/unittests/testnetworkrequest \
+-	Programs/unittests/testnetworkresponse \
+-	Programs/unittests/testwebframe \
+-	Programs/unittests/testwebbackforwardlist \
+-	Programs/unittests/testwebhistoryitem \
+-	Programs/unittests/testwindow \
+-	Programs/unittests/testdownload \
+-	Programs/unittests/testatk \
+-	Programs/unittests/testatkroles \
+-	Programs/unittests/testhittestresult \
+-	Programs/unittests/testwebsettings \
+-	Programs/unittests/testwebresource \
+-	Programs/unittests/testwebdatasource \
+-	Programs/unittests/testwebview \
+-	Programs/unittests/testkeyevents \
+-	Programs/unittests/testcopyandpaste
+-
+-# Add additional tests here
+-Programs_unittests_testdomdocument_SOURCES = WebKit/gtk/tests/testdomdocument.c
+-Programs_unittests_testdomdocument_CFLAGS = $(webkit_tests_cflags)
+-Programs_unittests_testdomdocument_LDADD = $(webkit_tests_ldadd)
+-Programs_unittests_testdomdocument_LDFLAGS = $(webkit_tests_ldflags)
+-
+-Programs_unittests_testdomdomwindow_SOURCES = WebKit/gtk/tests/testdomdomwindow.c
+-Programs_unittests_testdomdomwindow_CFLAGS = $(webkit_tests_cflags)
+-Programs_unittests_testdomdomwindow_LDADD = $(webkit_tests_ldadd)
+-Programs_unittests_testdomdomwindow_LDFLAGS = $(webkit_tests_ldflags)
+-
+-Programs_unittests_testdomnode_SOURCES = WebKit/gtk/tests/testdomnode.c
+-Programs_unittests_testdomnode_CFLAGS = $(webkit_tests_cflags)
+-Programs_unittests_testdomnode_LDADD = $(webkit_tests_ldadd)
+-Programs_unittests_testdomnode_LDFLAGS = $(webkit_tests_ldflags)
+-
+-Programs_unittests_testhttpbackend_SOURCES = WebKit/gtk/tests/testhttpbackend.c
+-Programs_unittests_testhttpbackend_CFLAGS = $(webkit_tests_cflags)
+-Programs_unittests_testhttpbackend_LDADD = $(webkit_tests_ldadd)
+-Programs_unittests_testhttpbackend_LDFLAGS = $(webkit_tests_ldflags)
+-
+-Programs_unittests_testglobals_SOURCES = WebKit/gtk/tests/testglobals.c
+-Programs_unittests_testglobals_CFLAGS = $(webkit_tests_cflags)
+-Programs_unittests_testglobals_LDADD = $(webkit_tests_ldadd)
+-Programs_unittests_testglobals_LDFLAGS = $(webkit_tests_ldflags)
+-
+-Programs_unittests_testloading_SOURCES = WebKit/gtk/tests/testloading.c
+-Programs_unittests_testloading_CFLAGS = $(webkit_tests_cflags)
+-Programs_unittests_testloading_LDADD = $(webkit_tests_ldadd)
+-Programs_unittests_testloading_LDFLAGS = $(webkit_tests_ldflags)
+-
+-Programs_unittests_testmimehandling_SOURCES = WebKit/gtk/tests/testmimehandling.c WebKit/gtk/tests/test_utils.c
+-Programs_unittests_testmimehandling_CFLAGS = $(webkit_tests_cflags)
+-Programs_unittests_testmimehandling_LDADD = $(webkit_tests_ldadd)
+-Programs_unittests_testmimehandling_LDFLAGS = $(webkit_tests_ldflags)
+-
+-Programs_unittests_testnetworkrequest_SOURCES = WebKit/gtk/tests/testnetworkrequest.c
+-Programs_unittests_testnetworkrequest_CFLAGS = $(webkit_tests_cflags)
+-Programs_unittests_testnetworkrequest_LDADD = $(webkit_tests_ldadd)
+-Programs_unittests_testnetworkrequest_LDFLAGS = $(webkit_tests_ldflags)
+-
+-Programs_unittests_testnetworkresponse_SOURCES = WebKit/gtk/tests/testnetworkresponse.c
+-Programs_unittests_testnetworkresponse_CFLAGS = $(webkit_tests_cflags)
+-Programs_unittests_testnetworkresponse_LDADD = $(webkit_tests_ldadd)
+-Programs_unittests_testnetworkresponse_LDFLAGS = $(webkit_tests_ldflags)
+-
+-Programs_unittests_testwebframe_SOURCES = WebKit/gtk/tests/testwebframe.c
+-Programs_unittests_testwebframe_CFLAGS = $(webkit_tests_cflags)
+-Programs_unittests_testwebframe_LDADD = $(webkit_tests_ldadd)
+-Programs_unittests_testwebframe_LDFLAGS = $(webkit_tests_ldflags)
+-
+-Programs_unittests_testwebbackforwardlist_SOURCES = WebKit/gtk/tests/testwebbackforwardlist.c
+-Programs_unittests_testwebbackforwardlist_CFLAGS = $(webkit_tests_cflags)
+-Programs_unittests_testwebbackforwardlist_LDADD = $(webkit_tests_ldadd)
+-Programs_unittests_testwebbackforwardlist_LDFLAGS = $(webkit_tests_ldflags)
+-
+-Programs_unittests_testwebhistoryitem_SOURCES = WebKit/gtk/tests/testwebhistoryitem.c
+-Programs_unittests_testwebhistoryitem_CFLAGS = $(webkit_tests_cflags)
+-Programs_unittests_testwebhistoryitem_LDADD = $(webkit_tests_ldadd)
+-Programs_unittests_testwebhistoryitem_LDFLAGS = $(webkit_tests_ldflags)
+-
+-Programs_unittests_testwindow_SOURCES = WebKit/gtk/tests/testwindow.c
+-Programs_unittests_testwindow_CFLAGS = $(webkit_tests_cflags)
+-Programs_unittests_testwindow_LDADD = $(webkit_tests_ldadd)
+-Programs_unittests_testwindow_LDFLAGS = $(webkit_tests_ldflags)
+-
+-Programs_unittests_testdownload_SOURCES = WebKit/gtk/tests/testdownload.c
+-Programs_unittests_testdownload_CFLAGS = $(webkit_tests_cflags)
+-Programs_unittests_testdownload_LDADD = $(webkit_tests_ldadd)
+-Programs_unittests_testdownload_LDFLAGS = $(webkit_tests_ldflags)
+-
+-Programs_unittests_testatk_SOURCES = WebKit/gtk/tests/testatk.c
+-Programs_unittests_testatk_CFLAGS = $(webkit_tests_cflags)
+-Programs_unittests_testatk_LDADD = $(webkit_tests_ldadd)
+-Programs_unittests_testatk_LDFLAGS = $(webkit_tests_ldflags)
+-
+-Programs_unittests_testatkroles_SOURCES = WebKit/gtk/tests/testatkroles.c
+-Programs_unittests_testatkroles_CFLAGS = $(webkit_tests_cflags)
+-Programs_unittests_testatkroles_LDADD = $(webkit_tests_ldadd)
+-Programs_unittests_testatkroles_LDFLAGS = $(webkit_tests_ldflags)
+-
+-Programs_unittests_testwebsettings_SOURCES = WebKit/gtk/tests/testwebsettings.c
+-Programs_unittests_testwebsettings_CFLAGS = $(webkit_tests_cflags)
+-Programs_unittests_testwebsettings_LDADD = $(webkit_tests_ldadd)
+-Programs_unittests_testwebsettings_LDFLAGS = $(webkit_tests_ldflags)
+-
+-Programs_unittests_testwebresource_SOURCES = WebKit/gtk/tests/testwebresource.c
+-Programs_unittests_testwebresource_CFLAGS = $(webkit_tests_cflags)
+-Programs_unittests_testwebresource_LDADD = $(webkit_tests_ldadd)
+-
+-Programs_unittests_testwebdatasource_SOURCES = WebKit/gtk/tests/testwebdatasource.c
+-Programs_unittests_testwebdatasource_CFLAGS = $(webkit_tests_cflags)
+-Programs_unittests_testwebdatasource_LDADD = $(webkit_tests_ldadd)
+-
+-Programs_unittests_testwebview_SOURCES = WebKit/gtk/tests/testwebview.c WebKit/gtk/tests/test_utils.c
+-Programs_unittests_testwebview_CFLAGS = $(webkit_tests_cflags)
+-Programs_unittests_testwebview_LDADD = $(webkit_tests_ldadd)
+-Programs_unittests_testwebview_LDFLAGS = $(webkit_tests_ldflags)
+-
+-Programs_unittests_testhittestresult_SOURCES = WebKit/gtk/tests/testhittestresult.c
+-Programs_unittests_testhittestresult_CFLAGS = $(webkit_tests_cflags)
+-Programs_unittests_testhittestresult_LDADD = $(webkit_tests_ldadd)
+-
+-Programs_unittests_testkeyevents_SOURCES = WebKit/gtk/tests/testkeyevents.c
+-Programs_unittests_testkeyevents_CFLAGS = $(webkit_tests_cflags)
+-Programs_unittests_testkeyevents_LDADD = $(webkit_tests_ldadd)
+-Programs_unittests_testkeyevents_LDFLAGS = $(webkit_tests_ldflags)
+-
+-Programs_unittests_testcopyandpaste_SOURCES = WebKit/gtk/tests/testcopyandpaste.c
+-Programs_unittests_testcopyandpaste_CFLAGS = $(webkit_tests_cflags)
+-Programs_unittests_testcopyandpaste_LDADD = $(webkit_tests_ldadd)
+-Programs_unittests_testcopyandpaste_LDFLAGS = $(webkit_tests_ldflags)
+-
+ # Autogenerated sources
+ BUILT_SOURCES += \
+ 	$(javascriptcore_built_sources) \
+@@ -785,21 +217,17 @@ BUILT_SOURCES += \
+ 	$(webcore_built_sources) \
+ 	$(webcore_built_nosources) \
+ 	$(webkitgtk_built_sources) \
+-	$(webkitgtk_built_nosources) \
+-	$(gdom_built_nosources)
+-
+-# Project-wide clean rules
+-# Files that will be cleaned
+-CLEANFILES += \
+-	$(BUILT_SOURCES) \
+-	$(webkitgtk_cleanfiles) \
+-	$(libgdom_cleanfiles)
++	$(webkitgtk_built_nosources)
+ 
+ DISTCLEANFILES += \
+-	$(CLEANFILES)
++	$(CLEANFILES) \
++	$(builddir)/doltcompile \
++	$(builddir)/doltlibtool
+ 
+ MAINTAINERCLEANFILES += \
+ 	$(CLEANFILES) \
++	$(builddir)/doltcompile \
++	$(builddir)/doltlibtool \
+ 	$(srcdir)/aconfig.h.in \
+ 	$(srcdir)/autotools/config.* \
+ 	$(srcdir)/autotools/compile \
+@@ -814,7 +242,7 @@ MAINTAINERCLEANFILES += \
+ 
+ # Older automake versions (1.7) place Plo files in a different place so we need
+ # to create the output directory manually.
+-all-local: stamp-po
++all-local:
+ 	$(mkdir_p) $(top_builddir)/$(DEPDIR)/DerivedSources
+ 
+ # remove built sources and program directories
+@@ -822,35 +250,5 @@ clean-local:
+ 	-rm -rf $(GENPROGRAMS)
+ 
+ maintainer-clean-local: distclean-local
+-
+ distclean-local:
+ 	-rm -rf $(GENSOURCES) $(GENPROGRAMS)
+-
+-dist-hook:
+-	cp $(srcdir)/WebKit/gtk/NEWS $(distdir)/
+-
+-install-data-local: po-install-data-local
+-
+-installdirs-data-local: po-installdirs-data-local
+-
+-uninstall-local: po-uninstall-local
+-
+-# Run all tests in cwd
+-# FIXME: we should run this under xvfb
+-test: $(TEST_PROGS)
+-	$(GTESTER) --verbose $(TEST_PROGS);
+-
+-# test-report: run tests in cwd and generate report
+-# full-report: run tests in cwd with -m perf and -m slow and generate report
+-# perf-report: run tests in cwd with -m perf and generate report
+-test-report full-report perf-report: $(TEST_PROGS)
+-	@ case $@ in \
+-	  test-report) test_options="-k";; \
+-	  full-report) test_options="-k -m=perf";; \
+-	  perf-report) test_options="-k -m=perf -m=slow";; \
+-	  esac ; \
+-	  $(GTESTER) --verbose $$test_options -o test-report.xml $(TEST_PROGS); \
+-	  $(GTESTER_REPORT) test-report.xml > test-report.html ;
+-
+-.PHONY: test test-report perf-report full-report
+-check-local: test
+diff --git a/meta/recipes-sato/webkit/files/Makefile b/meta/recipes-sato/webkit/files/Makefile
+index 1e50d1d..cdee9da 100644
+--- a/meta/recipes-sato/webkit/files/Makefile
++++ b/meta/recipes-sato/webkit/files/Makefile
+@@ -1,4 +1,4 @@
+-MODULES = JavaScriptCore JavaScriptGlue WebCore WebKit WebKit2 WebKitTools 
++MODULES = JavaScriptCore JavaScriptGlue ANGLE WebCore WebKit WebKit2 WebKitTools 
+ 
+ all:
+ 	@for dir in $(MODULES); do ${MAKE} $@ -C $$dir; exit_status=$$?; \
+diff --git a/meta/recipes-sato/webkit/files/autogen.sh b/meta/recipes-sato/webkit/files/autogen.sh
+index 97beb20..60b163d 100755
+--- a/meta/recipes-sato/webkit/files/autogen.sh
++++ b/meta/recipes-sato/webkit/files/autogen.sh
+@@ -10,7 +10,7 @@ cd $srcdir
+ 
+ GTKDOCIZE_FLAGS="--copy"
+ LIBTOOLIZE_FLAGS="--force --automake"
+-ACLOCAL_FLAGS="-I autotools"
++ACLOCAL_FLAGS="-I autotools $ACLOCAL_FLAGS"
+ AUTOMAKE_FLAGS="--foreign --add-missing"
+ 
+ DIE=0
+diff --git a/meta/recipes-sato/webkit/files/configure.ac b/meta/recipes-sato/webkit/files/configure.ac
+index d4f3e74..bb703b4 100644
+--- a/meta/recipes-sato/webkit/files/configure.ac
++++ b/meta/recipes-sato/webkit/files/configure.ac
+@@ -2,14 +2,14 @@ AC_PREREQ(2.59)
+ 
+ m4_define([webkit_major_version], [1])
+ m4_define([webkit_minor_version], [3])
+-m4_define([webkit_micro_version], [2])
++m4_define([webkit_micro_version], [7])
+ 
+ # This is the version we'll be using as part of our User-Agent string
+ # e.g., AppleWebKit/$(webkit_user_agent_version) ...
+ #
+ # Sourced from WebCore/Configurations/Version.xcconfig
+-m4_define([webkit_user_agent_major_version], [531])
+-m4_define([webkit_user_agent_minor_version], [2])
++m4_define([webkit_user_agent_major_version], [534])
++m4_define([webkit_user_agent_minor_version], [7])
+ 
+ AC_INIT([WebKit],[webkit_major_version.webkit_minor_version.webkit_micro_version],[http://bugs.webkit.org/])
+ 
+@@ -34,8 +34,8 @@ AC_SUBST(WEBKIT_USER_AGENT_MINOR_VERSION)
+ AC_CONFIG_SRCDIR([WebCore/config.h])
+ 
+ dnl # Libtool library version, not to confuse with API version
+-dnl # see http://www.gnu.org/software/libtool/manual/html_node/Libtool-versioning.html#Libtool-versioning
+-LIBWEBKITGTK_VERSION=0:0:0
++dnl # see http://www.gnu.org/software/libtool/manual/html_node/Libtool-versioning.html
++LIBWEBKITGTK_VERSION=4:0:4
+ AC_SUBST([LIBWEBKITGTK_VERSION])
+ 
+ AM_INIT_AUTOMAKE([foreign subdir-objects tar-ustar])
+@@ -82,6 +82,8 @@ WEBKIT_INIT
+ AC_DISABLE_STATIC
+ AC_LIBTOOL_WIN32_DLL
+ AC_PROG_LIBTOOL
++# use dolt to speedup the build
++DOLT
+ 
+ AC_PATH_PROG(FLEX, flex)
+ if test -z "$FLEX"; then
+@@ -165,6 +167,17 @@ if test "$png_ok" != yes; then
+ fi
+ AC_SUBST([PNG_LIBS])
+ 
++
++if test "$os_win32" = "yes"; then
++  WINMM_LIBS=-lwinmm
++  SHLWAPI_LIBS=-lshlwapi
++  OLE32_LIBS=-lole32
++fi
++AC_SUBST([WINMM_LIBS])
++AC_SUBST([SHLWAPI_LIBS])
++AC_SUBST([OLE32_LIBS])
++
++
+ # determine the GTK+ version to use
+ AC_MSG_CHECKING([the GTK+ version to use])
+ AC_ARG_WITH([gtk],
+@@ -186,7 +199,7 @@ case "$with_gtk" in
+           GAIL_PC_NAME=gail
+           GAIL_REQUIRED_VERSION=1.8
+           ;;
+-     3.0) GTK_REQUIRED_VERSION=2.90
++     3.0) GTK_REQUIRED_VERSION=2.91
+           GTK_API_VERSION=3.0
+           WEBKITGTK_API_MAJOR_VERSION=3
+           WEBKITGTK_API_MINOR_VERSION=0
+@@ -258,7 +271,17 @@ ENCHANT_REQUIRED_VERSION=0.22
+ # todo: webcore gtk
+ WEBKIT_CHECK_DEPENDENCIES([glib unicode])
+ 
+-GETTEXT_PACKAGE=$PACKAGE
++# Check if we can use GSettings
++PKG_CHECK_MODULES([GSETTINGS],
++                  [gio-2.0 >= 2.25.0],
++                  [have_gsettings=yes],
++                  [have_gsettings=no])
++if test "$have_gsettings" = "yes"; then
++   AC_DEFINE([HAVE_GSETTINGS], 1, [Whether we can use GSettings])
++   GLIB_GSETTINGS
++fi
++
++GETTEXT_PACKAGE=$PACKAGE-$GTK_API_VERSION
+ AC_SUBST(GETTEXT_PACKAGE)
+ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE",
+                    [The gettext catalog name])
+@@ -430,14 +453,6 @@ AC_ARG_ENABLE(datalist,
+               [],[enable_datalist="yes"])
+ AC_MSG_RESULT([$enable_datalist])
+ 
+-# check whether to enable HTML5 ruby support
+-AC_MSG_CHECKING([whether to enable HTML5 ruby support])
+-AC_ARG_ENABLE(ruby,
+-              AC_HELP_STRING([--enable-ruby],
+-                             [enable HTML5 ruby support [default=yes]]),
+-              [],[enable_ruby="yes"])
+-AC_MSG_RESULT([$enable_ruby])
+-
+ # check whether to enable HTML5 sandbox iframe support
+ AC_MSG_CHECKING([whether to enable HTML5 sandboxed iframe support])
+ AC_ARG_ENABLE(sandbox,
+@@ -526,6 +541,22 @@ AC_ARG_ENABLE(workers,
+               [],[enable_workers="yes"])
+ AC_MSG_RESULT([$enable_workers])
+ 
++# check whether to enable directory upload support
++AC_MSG_CHECKING([whether to enable directory upload support])
++AC_ARG_ENABLE(directory_upload,
++              AC_HELP_STRING([--enable-directory-upload],
++                             [enable support for directory upload [default=no]]),
++              [], [enable_directory_upload="no"])
++AC_MSG_RESULT([$enable_directory_upload])
++
++# check whether to enable HTML5 FileSystem API support
++AC_MSG_CHECKING([whether to enable HTML5 FileSystem API support])
++AC_ARG_ENABLE(file_system,
++              AC_HELP_STRING([--enable-file-system],
++                             [enable support for HTML5 FileSystem API [default=no]]),
++              [], [enable_file_system="no"])
++AC_MSG_RESULT([$enable_file_system])
++
+ # turn off svg features if --disable-svg is requested
+ if test "$enable_svg" = "no"; then
+    enable_svg_animation=no
+@@ -600,8 +631,8 @@ fi
+ AC_MSG_CHECKING([whether to enable Web Sockets support])
+ AC_ARG_ENABLE(web_sockets,
+               AC_HELP_STRING([--enable-web-sockets],
+-                             [enable support for Web Sockets [default=no]]),
+-              [],[enable_web_sockets="no"])
++                             [enable support for Web Sockets [default=yes]]),
++              [],[enable_web_sockets="yes"])
+ AC_MSG_RESULT([$enable_web_sockets])
+ 
+ # check whether to enable Web Timing support
+@@ -612,13 +643,13 @@ AC_ARG_ENABLE(web_timing,
+               [],[enable_web_timing="no"])
+ AC_MSG_RESULT([$enable_web_timing])
+ 
+-# check whether to enable Blob.slice support
+-AC_MSG_CHECKING([whether to enable Blob.slice support])
+-AC_ARG_ENABLE(blob_slice,
+-              AC_HELP_STRING([--enable-blob-slice],
+-                             [enable support for Blob.slice [default=no]]),
+-              [],[enable_blob_slice="no"])
+-AC_MSG_RESULT([$enable_blob_slice])
++# check whether to enable Blob support
++AC_MSG_CHECKING([whether to enable Blob support])
++AC_ARG_ENABLE(blob,
++              AC_HELP_STRING([--enable-blob],
++                             [enable support for Blob [default=no]]),
++              [],[enable_blob="no"])
++AC_MSG_RESULT([$enable_blob])
+ 
+ # check whether to enable Fast Mobile Scrolling support
+ AC_MSG_CHECKING([whether to enable Fast Mobile Scrolling])
+@@ -628,22 +659,6 @@ AC_ARG_ENABLE(fast_mobile_scrolling,
+               [],[enable_fast_mobile_scrolling="no"])
+ AC_MSG_RESULT([$enable_fast_mobile_scrolling])
+ 
+-# check whether to enable FileReader support
+-AC_MSG_CHECKING([whether to enable FileReader support])
+-AC_ARG_ENABLE(file_reader,
+-              AC_HELP_STRING([--enable-file-reader],
+-                             [enable support for FileReader [default=no]]),
+-              [],[enable_file_reader="no"])
+-AC_MSG_RESULT([$enable_file_reader])
+-
+-# check whether to enable FileWriter support
+-AC_MSG_CHECKING([whether to enable FileWriter support])
+-AC_ARG_ENABLE(file_writer,
+-              AC_HELP_STRING([--enable-file-writer],
+-                             [enable support for FileWriter [default=no]]),
+-              [],[enable_file_writer="no"])
+-AC_MSG_RESULT([$enable_file_writer])
+-
+ # check whether to enable code coverage
+ AC_MSG_CHECKING([whether to enable code coverage support])
+ AC_ARG_ENABLE(coverage,
+@@ -667,6 +682,11 @@ AC_ARG_ENABLE([jit],
+               [],[enable_jit="yes"])
+ if test "$enable_jit" = "yes"; then
+     case "$host_cpu" in
++        arm*)
++            AC_DEFINE([ENABLE_JIT], [1], [Define to enable JIT])
++            AC_DEFINE([ENABLE_YARR], [1], [Define to enable YARR])
++            AC_DEFINE([ENABLE_YARR_JIT], [1], [Define to enable YARR JIT])
++        ;;
+         i*86|x86_64)
+             AC_DEFINE([ENABLE_JIT], [1], [Define to enable JIT])
+             AC_DEFINE([ENABLE_YARR], [1], [Define to enable YARR])
+@@ -688,9 +708,36 @@ if test "$enable_jit" = "yes"; then
+             enable_jit="no (CPU '$host_cpu' not supported)"
+         ;;
+     esac
++else
++        AC_DEFINE([ENABLE_JIT], [0], [Define to enable JIT])
+ fi
+ AC_MSG_RESULT([$enable_jit])
+ 
++# Opcode stats
++AC_MSG_CHECKING([whether to enable opcode stats])
++AC_ARG_ENABLE([opcode-stats],
++  [AS_HELP_STRING([--enable-opcode-stats], [Enable Opcode statistics (default: disabled)])],
++  [], [enable_opcode_stats=no])
++AC_MSG_RESULT([$enable_opcode_stats])
++
++if test "$enable_opcode_stats" = "yes"; then
++  if test "$enable_jit" = "yes"; then
++    AC_MSG_ERROR([JIT must be disabled for Opcode stats to work.])
++  fi
++  AC_DEFINE([ENABLE_OPCODE_STATS], [1], [Define to enable Opcode statistics])
++fi
++
++# Link prefetch
++AC_MSG_CHECKING([whether to enable link prefetch support])
++AC_ARG_ENABLE([link-prefetch],
++  [AS_HELP_STRING([--enable-link-prefetch], [Enable Link prefetch support (default: disabled)])],
++  [],[enable_link_prefetch=no])
++AC_MSG_RESULT([$enable_link_prefetch])
++
++if test "$enable_link_prefetch" = "yes"; then 
++  AC_DEFINE([ENABLE_LINK_PREFETCH], [1], [Define to enable link prefetch support])
++fi
++
+ # GObject Introspection
+ AC_MSG_CHECKING([whether to enable GObject introspection support])
+ AC_ARG_ENABLE([introspection],
+@@ -705,7 +752,7 @@ GIRDIR=
+ GIRTYPELIBDIR=
+ 
+ if test "$enable_introspection" = "yes"; then
+-  GOBJECT_INTROSPECTION_REQUIRED=0.6.15
++  GOBJECT_INTROSPECTION_REQUIRED=0.9.5
+   PKG_CHECK_MODULES([INTROSPECTION],[gobject-introspection-1.0 >= $GOBJECT_INTROSPECTION_REQUIRED])
+   
+   G_IR_SCANNER="$($PKG_CONFIG --variable=g_ir_scanner gobject-introspection-1.0)"
+@@ -816,9 +863,13 @@ if test "$enable_video" = "yes"; then
+                      [gstreamer-0.10 >= $GSTREAMER_REQUIRED_VERSION
+                      gstreamer-app-0.10
+                      gstreamer-base-0.10
++                     gstreamer-interfaces-0.10
+                      gstreamer-pbutils-0.10
+                      gstreamer-plugins-base-0.10 >= $GSTREAMER_PLUGINS_BASE_REQUIRED_VERSION
+-                     gstreamer-video-0.10])
++                     gstreamer-video-0.10],
++                     [have_gstreamer=yes],
++                     [have_gstreamer=no])
++
+    AC_SUBST([GSTREAMER_CFLAGS])
+    AC_SUBST([GSTREAMER_LIBS])
+ fi
+@@ -859,18 +910,26 @@ AM_CONDITIONAL([USE_GLIB_UNICODE], [test "$with_unicode_backend" = "glib"])
+ AM_CONDITIONAL([USE_FREETYPE], [test "$with_font_backend" = "freetype"])
+ AM_CONDITIONAL([USE_PANGO], [test "$with_font_backend" = "pango"])
+ 
++# GLib/GIO feature conditionals
++AM_CONDITIONAL([USE_GSETTINGS], [test "$have_gsettings" = "yes"])
++
++# GStreamer feature conditional
++AM_CONDITIONAL([USE_GSTREAMER], [test "$have_gstreamer" = "yes"])
++
+ # WebKit feature conditionals
+ AM_CONDITIONAL([ENABLE_DEBUG],[test "$enable_debug" = "yes"])
+ AM_CONDITIONAL([ENABLE_3D_TRANSFORMS],[test "$enable_3D_transforms" = "yes"])
+-AM_CONDITIONAL([ENABLE_BLOB_SLICE],[test "$enable_blob_slice" = "yes"])
++AM_CONDITIONAL([ENABLE_BLOB],[test "$enable_blob" = "yes"])
+ AM_CONDITIONAL([ENABLE_CHANNEL_MESSAGING],[test "$enable_channel_messaging" = "yes"])
+ AM_CONDITIONAL([ENABLE_JAVASCRIPT_DEBUGGER],[test "$enable_javascript_debugger" = "yes"])
+ AM_CONDITIONAL([ENABLE_OFFLINE_WEB_APPLICATIONS],[test "$enable_offline_web_applications" = "yes"])
++AM_CONDITIONAL([ENABLE_DIRECTORY_UPLOAD],[test "$enable_directory_upload" = "yes"])
+ AM_CONDITIONAL([ENABLE_DOM_STORAGE],[test "$enable_dom_storage" = "yes"])
+ AM_CONDITIONAL([ENABLE_DATABASE],[test "$enable_database" = "yes"])
+ AM_CONDITIONAL([ENABLE_DATALIST],[test "$enable_datalist" = "yes"])
+ AM_CONDITIONAL([ENABLE_EVENTSOURCE],[test "$enable_eventsource" = "yes"])
+ AM_CONDITIONAL([ENABLE_FAST_MOBILE_SCROLLING],[test "$enable_fast_mobile_scrolling" = "yes"])
++AM_CONDITIONAL([ENABLE_FILE_SYSTEM],[test "$enable_file_system" = "yes"])
+ AM_CONDITIONAL([ENABLE_ICONDATABASE],[test "$enable_icon_database" = "yes"])
+ AM_CONDITIONAL([ENABLE_IMAGE_RESIZER],[test "$enable_image_resizer" = "yes"])
+ AM_CONDITIONAL([ENABLE_INDEXED_DATABASE],[test "$enable_indexed_database" = "yes"])
+@@ -879,12 +938,8 @@ AM_CONDITIONAL([ENABLE_XHTMLMP],[test "$enable_xhtmlmp" = "yes"])
+ AM_CONDITIONAL([ENABLE_XPATH],[test "$enable_xpath" = "yes"])
+ AM_CONDITIONAL([ENABLE_XSLT],[test "$enable_xslt" = "yes"])
+ AM_CONDITIONAL([ENABLE_FILTERS],[test "$enable_filters" = "yes"])
+-AM_CONDITIONAL([ENABLE_FILE_READER],[test "$enable_file_reader" = "yes"])
+-AM_CONDITIONAL([ENABLE_FILE_WRITER],[test "$enable_file_writer" = "yes"])
+ AM_CONDITIONAL([ENABLE_GEOLOCATION], [test "$enable_geolocation" = "yes"])
+ AM_CONDITIONAL([ENABLE_MATHML], [test "$enable_mathml" = "yes"])
+-AM_CONDITIONAL([ENABLE_RUBY],[test "$enable_ruby" = "yes"])
+-AM_CONDITIONAL([ENABLE_SANDBOX],[test "$enable_sandbox" = "yes"])
+ AM_CONDITIONAL([ENABLE_VIDEO],[test "$enable_video" = "yes"])
+ AM_CONDITIONAL([ENABLE_NOTIFICATIONS],[test "$enable_notifications" = "yes"])
+ AM_CONDITIONAL([ENABLE_ORIENTATION_EVENTS],[test "$enable_orientation_events" = "yes"])
+@@ -903,6 +958,7 @@ AM_CONDITIONAL([SVG_FLAGS],[test "$svg_flags" = "yes"])
+ AM_CONDITIONAL([HTML_FLAGS],[test "$html_flags" = "yes"])
+ AM_CONDITIONAL([ENABLE_WEB_SOCKETS],[test "$enable_web_sockets" = "yes"])
+ AM_CONDITIONAL([ENABLE_WEB_TIMING],[test "$enable_web_timing" = "yes"])
++AM_CONDITIONAL([ENABLE_OPCODE_STATS],[test "$enable_opcode_stats" = "yes"])
+ 
+ # Gtk conditionals
+ AM_CONDITIONAL([ENABLE_INTROSPECTION],[test "$enable_introspection" = "yes"])
+@@ -918,7 +974,9 @@ WebKit/gtk/docs/version.xml
+ 
+ AC_CONFIG_FILES([
+ WebKit/gtk/${WEBKITGTK_PC_NAME}-${WEBKITGTK_API_VERSION}.pc:WebKit/gtk/webkit.pc.in
+-WebKit/gtk/JSCore-${WEBKITGTK_API_VERSION}.gir:WebKit/gtk/JSCore.gir.in]
++WebKit/gtk/JSCore-${WEBKITGTK_API_VERSION}.gir:WebKit/gtk/JSCore.gir.in
++WebKit/gtk/org.webkitgtk-${WEBKITGTK_API_VERSION}.gschema.xml:WebKit/gtk/org.webkitgtk.gschema.xml.in
++]
+ ,[WEBKITGTK_API_VERSION=$WEBKITGTK_API_VERSION,WEBKITGTK_PC_NAME=$WEBKITGTK_PC_NAME]
+ )
+ 
+@@ -936,12 +994,11 @@ Build configuration:
+  Optimized memory allocator                               : $enable_fast_malloc
+ Features:
+  3D Transforms                                            : $enable_3D_transforms
+- Blob.slice support                                       : $enable_blob_slice
++ Blob support                                             : $enable_blob
++ Directory upload                                         : $enable_directory_upload
+  Fast Mobile Scrolling                                    : $enable_fast_mobile_scrolling
+  JIT compilation                                          : $enable_jit
+  Filters support                                          : $enable_filters
+- FileReader support                                       : $enable_file_reader
+- FileWriter support                                       : $enable_file_writer
+  Geolocation support                                      : $enable_geolocation
+  JavaScript debugger/profiler support                     : $enable_javascript_debugger
+  MathML support                                           : $enable_mathml
+@@ -949,12 +1006,14 @@ Features:
+  HTML5 channel messaging support                          : $enable_channel_messaging
+  HTML5 client-side session and persistent storage support : $enable_dom_storage
+  HTML5 client-side database storage support               : $enable_database
+- HTML5 ruby support                                       : $enable_ruby
++ HTML5 FileSystem API support                             : $enable_file_system
+  HTML5 sandboxed iframe support                           : $enable_sandbox
+  HTML5 server-sent events support                         : $enable_eventsource
+  HTML5 video element support                              : $enable_video
+  Icon database support                                    : $enable_icon_database
+  Image resizer support                                    : $enable_image_resizer
++ Link prefetch support                                    : $enable_link_prefetch
++ Opcode stats                                             : $enable_opcode_stats
+  SharedWorkers support                                    : $enable_shared_workers
+  Speech input support                                     : $enable_input_speech
+  SVG support                                              : $enable_svg
+@@ -970,6 +1029,7 @@ Features:
+  XHTML-MP support                                         : $enable_xhtmlmp
+  XPATH support                                            : $enable_xpath
+  XSLT support                                             : $enable_xslt
++
+ GTK+ configuration:
+  GTK+ version                                             : $with_gtk
+  GDK target                                               : $with_target
+diff --git a/meta/recipes-sato/webkit/webkit-gtk_svn.bb b/meta/recipes-sato/webkit/webkit-gtk_svn.bb
+index 8d4eb35..99652c1 100644
+--- a/meta/recipes-sato/webkit/webkit-gtk_svn.bb
++++ b/meta/recipes-sato/webkit/webkit-gtk_svn.bb
+@@ -12,7 +12,7 @@ DEPENDS_darwin8 = "curl icu libxml2 cairo libxslt libidn gnutls gtk+ gstreamer f
+ 
+ SRCREV_FORMAT = "webcore-rwebkit"
+ 
+-PV = "1.3.2+svnr${SRCPV}"
++PV = "1.3.7+svnr${SRCPV}"
+ PR = "r0"
+ 
+ SRC_URI = "\
+@@ -60,6 +60,11 @@ do_compile_prepend() {
+ 	cd ${S}
+ }
+ 
++do_install_prepend() {
++        cp ${S}/Programs/.libs/jsc ${S}/Programs/jsc-1 || true
++}
++
++
+ PACKAGES =+ "${PN}-webinspector ${PN}launcher-dbg ${PN}launcher libjavascriptcore"
+ FILES_${PN}launcher = "${bindir}/GtkLauncher"
+ FILES_${PN}launcher-dbg = "${bindir}/.debug/GtkLauncher"
 -- 
 1.7.0.4
 
