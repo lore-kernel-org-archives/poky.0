@@ -1,27 +1,31 @@
-Return-Path: <Jingdong.Lu@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 1B7864C8109B
-	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 03:22:35 -0600 (CST)
-Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p0J9MYX0027580
-	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 01:22:34 -0800 (PST)
-Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
-	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Wed, 19 Jan 2011 01:22:34 -0800
-Received: from localhost ([128.224.162.176]) by ala-mail06.corp.ad.wrs.com
-	with Microsoft SMTPSVC(6.0.3790.1830); 
-	Wed, 19 Jan 2011 01:22:34 -0800
-Message-Id: <9957b5272555197b16088bca2524fe217a0a7cde.1295428743.git.jingdong.lu@windriver.com>
-In-Reply-To: <cover.1295428743.git.jingdong.lu@windriver.com>
-References: <cover.1295428743.git.jingdong.lu@windriver.com>
-From: Jingdong Lu <jingdong.lu@windriver.com>
-Old-Date: Wed, 19 Jan 2011 17:11:53 +0800
-Date: Wed, 19 Jan 2011 17:20:57 +0800
-To: poky@yoctoproject.org
-CC: 
-X-OriginalArrivalTime: 19 Jan 2011 09:22:34.0640 (UTC)
-	FILETIME=[67F99100:01CBB7BA]
-Subject: [PATCH 2/2] perl: Add GDBM module for perl
+Return-Path: <dexuan.cui@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 9503C4C8109B
+	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 03:31:07 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 19 Jan 2011 01:31:07 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,343,1291622400"; d="scan'208";a="648632147"
+Received: from pgsmsx601.gar.corp.intel.com ([10.221.43.69])
+	by fmsmga002.fm.intel.com with ESMTP; 19 Jan 2011 01:31:06 -0800
+Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
+	pgsmsx601.gar.corp.intel.com (10.221.43.69) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Wed, 19 Jan 2011 17:30:58 +0800
+Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
+	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
+	Wed, 19 Jan 2011 17:30:58 +0800
+From: "Cui, Dexuan" <dexuan.cui@intel.com>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Date: Wed, 19 Jan 2011 17:30:56 +0800
+Thread-Topic: strange libgcc build failure in autobuilder
+Thread-Index: Acu3u5UscklEi5KBRI24YIZFfRvHgA==
+Message-ID: <1865303E0DED764181A9D882DEF65FB685BC552DE0@shsmsx502.ccr.corp.intel.com>
+Accept-Language: zh-CN, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: zh-CN, en-US
+MIME-Version: 1.0
+Subject: strange libgcc build failure in autobuilder
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,40 +37,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 19 Jan 2011 09:22:35 -0000
+X-List-Received-Date: Wed, 19 Jan 2011 09:31:07 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Add GDBM_File module and add it into perl extension in config.sh in order to fix failure of lsb-perl-test.
+I saw some libgcc(the new recipe I added days ago) failure that I can't rep=
+roduce locally.
+e.g.,  "qemux86 poky-image-sdk failed": http://autobuilder.pokylinux.org:80=
+10/builders/nightly-internal-incremental/builds/16/steps/shell_5/logs/stdio
 
-Signed-off-by: Jingdong Lu <jingdong.lu@windriver.com>
----
- meta/recipes-devtools/perl/perl-5.12.2/config.sh |    4 ++--
- 1 files changed, 2 insertions(+), 2 deletions(-)
+libgcc's do_package failed:
+ERROR: Error executing a python function in /builds2/pokybuilds/nightly-int=
+ernal/build/meta/recipes-devtools/gcc/libgcc_4.5.1.bb:
+IOError: [Errno 2] No such file or directory: '/builds2/pokybuilds/nightly-=
+internal/build/build/tmp/sysroots/i586-poky-linux/shlibs/cairo-perf-utils.l=
+ist'
 
-diff --git a/meta/recipes-devtools/perl/perl-5.12.2/config.sh b/meta/recipes-devtools/perl/perl-5.12.2/config.sh
-index e33b4ba..12d44a8 100644
---- a/meta/recipes-devtools/perl/perl-5.12.2/config.sh
-+++ b/meta/recipes-devtools/perl/perl-5.12.2/config.sh
-@@ -575,7 +575,7 @@ doublesize='8'
- drand01='drand48()'
- drand48_r_proto='REENTRANT_PROTO_I_ST'
- dtrace=''
--dynamic_ext='B Compress/Raw/Bzip2 Compress/Raw/Zlib Cwd Data/Dumper Devel/DProf Devel/PPPort Devel/Peek Digest/MD5 Digest/SHA Encode Fcntl File/Glob Filter/Util/Call Hash/Util Hash/Util/FieldHash I18N/Langinfo IO IPC/SysV List/Util MIME/Base64 Math/BigInt/FastCalc Opcode POSIX PerlIO/encoding PerlIO/scalar PerlIO/via SDBM_File Socket Storable Sys/Hostname Sys/Syslog Text/Soundex Time/HiRes Time/Piece Unicode/Normalize XS/APItest XS/APItest/KeywordRPN XS/Typemap attributes mro re threads threads/shared'
-+dynamic_ext='B Compress/Raw/Bzip2 Compress/Raw/Zlib Cwd Data/Dumper Devel/DProf Devel/PPPort Devel/Peek Digest/MD5 Digest/SHA Encode Fcntl File/Glob Filter/Util/Call Hash/Util Hash/Util/FieldHash I18N/Langinfo IO IPC/SysV List/Util MIME/Base64 Math/BigInt/FastCalc Opcode POSIX PerlIO/encoding PerlIO/scalar PerlIO/via GDBM_File SDBM_File Socket Storable Sys/Hostname Sys/Syslog Text/Soundex Time/HiRes Time/Piece Unicode/Normalize XS/APItest XS/APItest/KeywordRPN XS/Typemap attributes mro re threads threads/shared'
- eagain='EAGAIN'
- ebcdic='undef'
- echo='echo'
-@@ -590,7 +590,7 @@ endservent_r_proto='0'
- eunicefix=':'
- exe_ext=''
- expr='expr'
--extensions='B Compress/Raw/Bzip2 Compress/Raw/Zlib Cwd Data/Dumper Devel/DProf Devel/PPPort Devel/Peek Digest/MD5 Digest/SHA Encode Fcntl File/Glob Filter/Util/Call Hash/Util Hash/Util/FieldHash I18N/Langinfo IO IPC/SysV List/Util MIME/Base64 Math/BigInt/FastCalc Opcode POSIX PerlIO/encoding PerlIO/scalar PerlIO/via SDBM_File Socket Storable Sys/Hostname Sys/Syslog Text/Soundex Time/HiRes Time/Piece Unicode/Normalize XS/APItest XS/APItest/KeywordRPN XS/Typemap attributes mro re threads threads/shared Archive/Extract Archive/Tar Attribute/Handlers AutoLoader B/Debug B/Deparse B/Lint CGI CPAN CPANPLUS CPANPLUS/Dist/Build Class/ISA Devel/SelfStubber Digest Errno ExtUtils/CBuilder ExtUtils/Command ExtUtils/Constant ExtUtils/Install ExtUtils/MakeMaker ExtUtils/Manifest ExtUtils/ParseXS File/Fetch File/Path File/Temp FileCache Filter/Simple Getopt/Long I18N/LangTags IO/Compress IO/Zlib IPC/Cmd IPC/Open2 IPC/Open3 Locale/Codes Locale/Maketext Locale/Maketext/Simple Log/Message Log!
- /Message/Simple Math/BigInt Math/BigRat Math/Complex Memoize Module/Build Module/CoreList Module/Load Module/Load/Conditional Module/Loaded Module/Pluggable NEXT Net/Ping Object/Accessor Package/Constants Params/Check Parse/CPAN/Meta PerlIO/via/QuotedPrint Pod/Escapes Pod/LaTeX Pod/Parser Pod/Perldoc Pod/Plainer Pod/Simple Safe SelfLoader Shell Switch Term/ANSIColor Term/Cap Term/UI Test Test/Harness Test/Simple Text/Balanced Text/ParseWords Text/Tabs Thread/Queue Thread/Semaphore Tie/File Tie/Memoize Tie/RefHash Time/Local Unicode/Collate XSLoader autodie autouse base bignum constant encoding/warnings if lib libnet parent podlators'
-+extensions='B Compress/Raw/Bzip2 Compress/Raw/Zlib Cwd Data/Dumper Devel/DProf Devel/PPPort Devel/Peek Digest/MD5 Digest/SHA Encode Fcntl File/Glob Filter/Util/Call Hash/Util Hash/Util/FieldHash I18N/Langinfo IO IPC/SysV List/Util MIME/Base64 Math/BigInt/FastCalc Opcode POSIX PerlIO/encoding PerlIO/scalar PerlIO/via GDBM_File SDBM_File Socket Storable Sys/Hostname Sys/Syslog Text/Soundex Time/HiRes Time/Piece Unicode/Normalize XS/APItest XS/APItest/KeywordRPN XS/Typemap attributes mro re threads threads/shared Archive/Extract Archive/Tar Attribute/Handlers AutoLoader B/Debug B/Deparse B/Lint CGI CPAN CPANPLUS CPANPLUS/Dist/Build Class/ISA Devel/SelfStubber Digest Errno ExtUtils/CBuilder ExtUtils/Command ExtUtils/Constant ExtUtils/Install ExtUtils/MakeMaker ExtUtils/Manifest ExtUtils/ParseXS File/Fetch File/Path File/Temp FileCache Filter/Simple Getopt/Long I18N/LangTags IO/Compress IO/Zlib IPC/Cmd IPC/Open2 IPC/Open3 Locale/Codes Locale/Maketext Locale/Maketext/Simple Log/M!
- essage Log/Message/Simple Math/BigInt Math/BigRat Math/Complex Memoize Module/Build Module/CoreList Module/Load Module/Load/Conditional Module/Loaded Module/Pluggable NEXT Net/Ping Object/Accessor Package/Constants Params/Check Parse/CPAN/Meta PerlIO/via/QuotedPrint Pod/Escapes Pod/LaTeX Pod/Parser Pod/Perldoc Pod/Plainer Pod/Simple Safe SelfLoader Shell Switch Term/ANSIColor Term/Cap Term/UI Test Test/Harness Test/Simple Text/Balanced Text/ParseWords Text/Tabs Thread/Queue Thread/Semaphore Tie/File Tie/Memoize Tie/RefHash Time/Local Unicode/Collate XSLoader autodie autouse base bignum constant encoding/warnings if lib libnet parent podlators'
- extern_C='extern'
- extras=''
- fflushNULL='define'
--- 
-1.7.0.4
+It's odd -- why cario-perf-utils.list is involved...
 
+Thanks,
+-- Dexuan
+=20
 
