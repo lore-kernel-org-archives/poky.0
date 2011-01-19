@@ -1,26 +1,29 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 826904C80FAD
-	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 13:13:36 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 19 Jan 2011 11:13:36 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,345,1291622400"; d="scan'208";a="879004387"
-Received: from unknown (HELO [10.255.14.114]) ([10.255.14.114])
-	by fmsmga001.fm.intel.com with ESMTP; 19 Jan 2011 11:13:36 -0800
-Message-ID: <4D3737DF.2040906@intel.com>
-Date: Wed, 19 Jan 2011 11:13:35 -0800
-From: Saul Wold <saul.wold@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
-MIME-Version: 1.0
-To: Paul Eggleton <paul.eggleton@linux.intel.com>
-References: <cover.1295455496.git.paul.eggleton@linux.intel.com>
-	<88be364793ae493d048409762c83ca4126e3fecf.1295455496.git.paul.eggleton@linux.intel.com>
-In-Reply-To: <88be364793ae493d048409762c83ca4126e3fecf.1295455496.git.paul.eggleton@linux.intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 1/3] util-linux: split out libuuid and libblkid into	separate packages
+Return-Path: <koen@dominion.thruhere.net>
+Received: from mail-ey0-f176.google.com (mail-ey0-f176.google.com
+	[209.85.215.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2AD774C80FAD
+	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 13:17:14 -0600 (CST)
+Received: by eyz10 with SMTP id 10so682946eyz.35
+	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 11:17:14 -0800 (PST)
+Received: by 10.213.29.148 with SMTP id q20mr1545888ebc.73.1295464633173;
+	Wed, 19 Jan 2011 11:17:13 -0800 (PST)
+Received: from [172.20.1.5] (ip545070eb.adsl-surfen.hetnet.nl [84.80.112.235])
+	by mx.google.com with ESMTPS id r5sm1653042eeh.21.2011.01.19.11.17.09
+	(version=TLSv1/SSLv3 cipher=RC4-MD5);
+	Wed, 19 Jan 2011 11:17:10 -0800 (PST)
+Mime-Version: 1.0 (Apple Message framework v1082)
+From: Koen Kooi <koen@dominion.thruhere.net>
+In-Reply-To: <4D372D06.3090703@intel.com>
+Date: Wed, 19 Jan 2011 20:17:08 +0100
+Message-Id: <F90DC8C0-875D-44D7-8908-63AF72504679@dominion.thruhere.net>
+References: <cover.1295410231.git.scott.a.garman@intel.com>
+	<d57e678ab0ed9d20ebb08a5935e3d8d7bdbcfed5.1295410231.git.scott.a.garman@intel.com>
+	<21D8C9BF-2F1A-479C-AF91-D7BE4ED87D44@dominion.thruhere.net>
+	<4D372D06.3090703@intel.com>
+To: Scott Garman <scott.a.garman@intel.com>
+X-Mailer: Apple Mail (2.1082)
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH 5/9] insane.bbclass: skip checks on .la installed status
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,69 +35,76 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 19 Jan 2011 19:13:36 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
-
-On 01/19/2011 08:55 AM, Paul Eggleton wrote:
-> libuuid and libblkid can exist on their own separately from the rest
-> of util-linux. Slightly reduces the overall footprint of other packages
-> that depend on these libraries.
->
-Is this different than the work that Qing submitted last night?  Are you 
-both addressing the same bug #661?
-
-This fix seems different than his, we need to make sure we are better 
-coordinated
-
-Thanks
-	Sau!
+X-List-Received-Date: Wed, 19 Jan 2011 19:17:15 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
 
 
+Op 19 jan 2011, om 19:27 heeft Scott Garman het volgende geschreven:
 
-> Signed-off-by: Paul Eggleton<paul.eggleton@linux.intel.com>
-> ---
->   meta/recipes-core/util-linux/util-linux.inc       |    6 ++++--
->   meta/recipes-core/util-linux/util-linux_2.17.2.bb |    2 +-
->   2 files changed, 5 insertions(+), 3 deletions(-)
->
-> diff --git a/meta/recipes-core/util-linux/util-linux.inc b/meta/recipes-core/util-linux/util-linux.inc
-> index 53d8463..c3e1ace 100644
-> --- a/meta/recipes-core/util-linux/util-linux.inc
-> +++ b/meta/recipes-core/util-linux/util-linux.inc
-> @@ -27,7 +27,7 @@ SRC_URI = "${KERNELORG_MIRROR}/pub/linux/utils/util-linux-ng/v${MAJOR_VERSION}/u
->              file://make_include \
->              "
->
-> -PACKAGES_prepend = "util-linux-fdisk util-linux-cfdisk util-linux-sfdisk util-linux-swaponoff util-linux-losetup util-linux-umount util-linux-mount util-linux-readprofile "
-> +PACKAGES_prepend = "util-linux-fdisk util-linux-cfdisk util-linux-sfdisk util-linux-swaponoff util-linux-losetup util-linux-umount util-linux-mount util-linux-readprofile util-linux-libuuid util-linux-libblkid "
->
->   PACKAGES_virtclass-native = ""
->
-> @@ -47,9 +47,11 @@ FILES_util-linux-losetup = "/sbin/losetup.${PN}"
->   FILES_util-linux-mount = "/bin/mount.${PN}"
->   FILES_util-linux-umount = "/bin/umount.${PN}"
->   FILES_util-linux-readprofile = "/sbin/readprofile"
-> +FILES_util-linux-libuuid = "/usr/lib/libuuid.so.*"
-> +FILES_util-linux-libblkid = "/usr/lib/libblkid.so.*"
->
->   RRECOMMENDS_${PN} = "util-linux-fdisk util-linux-cfdisk util-linux-sfdisk util-linux-mount util-linux-readprofile "
-> -RDEPENDS_${PN} = "util-linux-umount util-linux-swaponoff util-linux-losetup"
-> +RDEPENDS_${PN} = "util-linux-umount util-linux-swaponoff util-linux-losetup util-linux-libuuid util-linux-libblkid"
->
->   RRECOMMENDS_${PN}_virtclass-native = ""
->   RDEPENDS_${PN}_virtclass-native = ""
-> diff --git a/meta/recipes-core/util-linux/util-linux_2.17.2.bb b/meta/recipes-core/util-linux/util-linux_2.17.2.bb
-> index 9b344d4..662bde0 100644
-> --- a/meta/recipes-core/util-linux/util-linux_2.17.2.bb
-> +++ b/meta/recipes-core/util-linux/util-linux_2.17.2.bb
-> @@ -1,6 +1,6 @@
->   MAJOR_VERSION = "2.17"
->   require util-linux.inc
-> -PR="r1"
-> +PR = "r2"
->
->   SRC_URI += "file://uclibc-compile.patch \
->   	          file://util-linux-ng-replace-siginterrupt.patch"
+> On 01/18/2011 11:19 PM, Koen Kooi wrote:
+>> Op 19 jan 2011, om 05:19 heeft Scott Garman het volgende geschreven:
+>>=20
+>>> Enabling libtool sysroot support triggers these errors but they
+>>> are a valid change in behavior.
+>>=20
+>> Based on the RPATH discussion off-list, should we add a check for =
+RPATH pointing to staging as well? I know RPs patches fix it, but it =
+would be nice to catch if it starts happening again.
+>=20
+> By staging I assume you're referring to the sysroot dir? If so, we do =
+have that QA check in insane.bbclass already (see =
+package_qa_check_rpath), and I have been relying on it to detect the =
+problems I was reporting. This patch doesn't alter or remove that.
+
+And indeed it does have that already, time to 'port' that to OE :)
+
+>=20
+> If I'm misunderstanding, feel free to correct me.
+>=20
+> Scott
+>=20
+>>>=20
+>>> Signed-off-by: Scott Garman<scott.a.garman@intel.com>
+>>> ---
+>>> meta/classes/insane.bbclass |    5 -----
+>>> 1 files changed, 0 insertions(+), 5 deletions(-)
+>>>=20
+>>> diff --git a/meta/classes/insane.bbclass =
+b/meta/classes/insane.bbclass
+>>> index 3ab4c2c..6f06d85 100644
+>>> --- a/meta/classes/insane.bbclass
+>>> +++ b/meta/classes/insane.bbclass
+>>> @@ -427,11 +427,6 @@ def package_qa_check_staged(path,d):
+>>>             path =3D os.path.join(root,file)
+>>>             if file.endswith(".la"):
+>>>                 file_content =3D open(path).read()
+>>> -                # Don't check installed status for native/cross =
+packages
+>>> -                if not bb.data.inherits_class("native", d) and not =
+bb.data.inherits_class("cross", d):
+>>> -                    if installed in file_content:
+>>> -                        error_msg =3D "%s failed sanity test =
+(installed) in path %s" % (file,root)
+>>> -                        sane =3D package_qa_handle_error(5, =
+error_msg, "staging", path, d)
+>>>                 if workdir in file_content:
+>>>                     error_msg =3D "%s failed sanity test (workdir) =
+in path %s" % (file,root)
+>>>                     sane =3D package_qa_handle_error(8, error_msg, =
+"staging", path, d)
+>>> --
+>>> 1.7.1
+>>>=20
+>>> _______________________________________________
+>>> poky mailing list
+>>> poky@yoctoproject.org
+>>> https://lists.yoctoproject.org/listinfo/poky
+>>=20
+>=20
+>=20
+> --=20
+> Scott Garman
+> Embedded Linux Distro Engineer - Yocto Project
 
 
