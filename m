@@ -1,22 +1,22 @@
 Return-Path: <scott.m.rifenbark@intel.com>
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 4001F4C8109B
+	by mx1.pokylinux.org (Postfix) with ESMTP id B5A144C8109B
 	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 13:05:31 -0600 (CST)
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
 	by orsmga102.jf.intel.com with ESMTP; 19 Jan 2011 11:05:30 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,345,1291622400"; d="scan'208";a="698492687"
+X-IronPort-AV: E=Sophos;i="4.60,345,1291622400"; d="scan'208";a="698492688"
 Received: from scott-desktop.jf.intel.com (HELO localhost) ([10.7.201.149])
 	by orsmga001.jf.intel.com with ESMTP; 19 Jan 2011 11:05:30 -0800
-Message-Id: <e846bac334224024d285d391d952a30683524efe.1295462360.git.scott@scott-desktop.(none)>
+Message-Id: <a15b514a329e778a60db1f33f23e8b1ee895fbf9.1295462360.git.scott@scott-desktop.(none)>
 In-Reply-To: <cover.1295462360.git.scott@scott-desktop.(none)>
 References: <cover.1295462360.git.scott@scott-desktop.(none)>
 From: Scott Rifenbark <scott@scott-desktop.(none)>
-Old-Date: Wed, 19 Jan 2011 10:20:11 -0800
+Old-Date: Wed, 19 Jan 2011 10:25:11 -0800
 Date: Wed, 19 Jan 2011 11:05:34 -0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [PATCH 1/2] documentation/yocto-project-qs/yocto-project-qs.xml: General edits to YP QS.
+Subject: [PATCH 2/2] documentation/yocto-project-qs/figures/using-a-pre-built-image.png: Updated figure
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,308 +28,515 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 19 Jan 2011 19:05:31 -0000
+X-List-Received-Date: Wed, 19 Jan 2011 19:05:32 -0000
 
-Revised the manual for better grammar and more technically accurate wordings.
-Worked closely with Scott Garman on the revision.
+Changed the figure so that "File System" is "Filesystem"
 
 Signed-off-by: Scott Rifenbark <scott@scott-desktop.(none)>
 ---
- .../yocto-project-qs/yocto-project-qs.xml          |  187 ++++++++++++++------
- 1 files changed, 133 insertions(+), 54 deletions(-)
+ .../figures/using-a-pre-built-image.png            |  Bin 13228 -> 12733 bytes
+ 1 files changed, 0 insertions(+), 0 deletions(-)
+ mode change 100755 => 100644 documentation/yocto-project-qs/figures/using-a-pre-built-image.png
 
-diff --git a/documentation/yocto-project-qs/yocto-project-qs.xml b/documentation/yocto-project-qs/yocto-project-qs.xml
-index c62ec58..2748a68 100644
---- a/documentation/yocto-project-qs/yocto-project-qs.xml
-+++ b/documentation/yocto-project-qs/yocto-project-qs.xml
-@@ -160,14 +160,14 @@
-      autoconf automake
-             </literallayout>
-  
--       <para>
--            <emphasis>NOTE:</emphasis>  Packages vary in number and name for other Linux distributions.  
-+       <note><para>
-+            Packages vary in number and name for other Linux distributions.  
-             The commands here should work.  We are interested, though, to learn what works for you.
-             You can find more information for package requirements on common Linux distributions 
-             at <ulink url="http://wiki.openembedded.net/index.php/OEandYourDistro"></ulink>.
-             However, you should be careful when using this information as the information applies
-             to old Linux distributions that are known to not work with a current Poky install.
--        </para>
-+        </para></note>
-     </section>
- 
-     <section id='releases'>
-@@ -216,15 +216,16 @@
-          </mediaobject>
- 
-          <para>
--             Use the following commands from a shell on your Debian-based host to build your image.  
--             The build creates an entire Linux system including the Toolchain from the source.
-+             Use the following commands to build your image.  
-+             The build process creates an entire Linux distribution, including the toolchain, from source.
-          </para>
- 
--         <para><emphasis>NOTE:</emphasis>  The build process using Sato currently consumes 
--             50GB of disk space.
--             To allow for variations in the build process and for future package expansion we 
--             recommend 100GB of free disk space.
--         </para>
-+         <note><para>
-+             The build process using Sato currently consumes 
-+             about 50GB of disk space.
-+             To allow for variations in the build process and for future package expansion, we 
-+             recommend having at least 100GB of free disk space.
-+         </para></note>
- 
-          <para>
-              <literallayout class='monospaced'>
-@@ -235,52 +236,56 @@
-          </para>
-          <itemizedlist>
-              <listitem><para>The first two commands extract the Yocto Project files from the 
--             release area and place them into a subdirectory of your current directory 
--             (<command>poky-4.0-build</command> in this example).</para></listitem>
--             <listitem><para>The <command>$ source</command> command creates the directory and places 
--             you there.  
--             The build directory contains all the object files used during the build.   
--             The default build directory is <command>poky-4.0-build</command>.  
--             Note that you can change the target architecture by editing the 
--             <command>&lt;build_directory&gt;/conf/local.conf</command> file. 
--             By default the target architecture is qemux86.</para></listitem>
-+             release tarball and place them into a subdirectory of your current directory.</para></listitem>
-+             <listitem><para>The <command>source</command> command creates the 
-+             <filename>poky-4.0-build</filename> directory and executes the <command>cd</command>
-+             command to make <filename>poky-4.0-build</filename> the working directory.
-+             The resulting build directory contains all the files created during the build.   
-+             By default the target architecture is qemux86.
-+             To change this default, edit the value of the MACHINE variable in the 
-+             <filename>conf/local.conf</filename> file.</para></listitem>
-          </itemizedlist>
-          <para>
--             Now might be a good time to edit the <command>conf/local.conf</command>
--             file.  
--             The defaults should all be fine.  However, you might want to look at the variables
--             BB_NUMBER_THREADS and PARALLEL_MAKE.
-+             Take some time to examine your <filename>conf/local.conf</filename> file.  
-+             The defaults should work fine.  
-+             However, if you have a multi-core CPU you might want to set the variables
-+             BB_NUMBER_THREADS and PARALLEL_MAKE to the number of processor cores on your build machine.
-              By default, these variables are commented out.
-          </para>
-          <para>
--             Continue with the following command to build the OS image for the target, which is 
--             poky-image-sato in this example.
-+             Continue with the following command to build an OS image for the target, which is 
-+             <filename>poky-image-sato</filename> in this example.
-              <literallayout class='monospaced'>
-      $ bitbake poky-image-sato
-              </literallayout>
--             <emphasis>NOTE:</emphasis>  If you are running Fedora 14 or another distribution 
--             with GNU make 3.82 you might have to run the following two 
--             <command>$bitbake</command> commands instead:
--             <literallayout class='monospaced'>
-+             <note><para>
-+                 If you are running Fedora 14 or another distribution 
-+                 that ships with GNU make v3.82 you need to run the following two 
-+                 <command>bitbake</command> commands instead:
-+                 <literallayout class='monospaced'>
-      $ bitbake make-native
-      $ bitbake poky-image-sato
--             </literallayout>
-+                 </literallayout>
-+             </para></note>
-              The final command runs the image:
-              <literallayout class='monospaced'>
-      $ poky-qemu qemux86
-              </literallayout>
--             The build process could take several hours the first time you run it. 
--             Depending on the number of processors and cores, the amount or RAM, the speed of your
--             internet connection and other factors.
--             After the initial build, subsequent builds run much faster.
-+             <note><para>
-+                 Depending on the number of processors and cores, the amount or RAM, the speed of your
-+                 Internet connection and other factors, the build process could take several hours the first
-+                 time you run it.
-+                 Subsequent builds run much faster since parts of the build are cached.
-+             </para></note>
-          </para>
-     </section>
- 
-     <section id='using-pre-built'>
-         <title>Using Pre-Built Binaries and QEMU</title>
-         <para>
--            If hardware, libraries and services are stable you can use a pre-built binary of the image, kernel and toolchain and just run it on the target using the emulator QEMU.  
--            This situation is perfect for developing application software.
-+            If hardware, libraries and services are stable you can get started by using a pre-built binary 
-+            of the image, kernel and toolchain and run it using the emulator QEMU.  
-+            This scenario is useful for developing application software.
-         </para>
- 
-         <para></para>
-@@ -303,25 +308,60 @@
-          <itemizedlist>
-              <listitem>
-                  <para>
--                     Install the standalone Yocto toolchain tarball.
-+                     Install the stand-alone Yocto toolchain tarball.
-                  </para>
-              </listitem>
-              <listitem>
-                  <para>
--                     Download the pre-built kernel that will run on QEMU.  
--                     You need to be sure to get the QEMU image that matches your target machine’s architecture (e.g. x86, ARM, etc.).
-+                     Download the pre-built kernel that will boot with QEMU.  
-+                     You need to be sure to get the QEMU image that matches your target machine’s 
-+                     architecture (e.g. x86, ARM, etc.).
-                  </para>
-              </listitem>
-              <listitem>
-                  <para>
--                     Download and decompress the file image system.
-+                     Download the filesystem image for your target machine's architecture.
-                  </para>
-              </listitem>
-          </itemizedlist>
- 
-          <para>
--             You can download the pre-built toolchain, which includes the poky-qemu script and support files, from <ulink url='http://yoctoproject.org/downloads/yocto-0.9/toolchain/'></ulink>.  These are available for i586 (32-bit) and x86_64 (64 bit) host machines, targeting each of the five supported target architectures. The tarballs are self contained and install into <filename>/opt/poky</filename>.
--             Use these commands to install the toolchain tarball (taking the 64 bit host, 32 bit i586 target as an example):
-+             You can download the pre-built toolchain, which includes the poky-qemu script and 
-+             support files, from <ulink url='http://yoctoproject.org/downloads/yocto-0.9/toolchain/'></ulink>.  
-+             Toolchains are available for 32-bit and 64-bit development systems from the 
-+             <filename>i586</filename> and <filename>x86_64</filename> folders, respectively. 
-+             Each type of development system supports five target architectures.
-+             The tarball files are named such that a string representing the host system appears 
-+             first in the filename and then is immediately followed by a string representing
-+             the target architecture.
-+         </para>
-+
-+         <literallayout class='monospaced'>
-+     yocto-eglibc&lt;<emphasis>host_system</emphasis>&gt;-&lt;<emphasis>arch</emphasis>&gt;-toolchain-sdk-&lt;<emphasis>release</emphasis>&gt;.tar.bz2
-+
-+     Where:
-+         &lt;<emphasis>host_system</emphasis>&gt; is a string representing your development system: 
-+                i586 or x86_64.
-+       
-+         &lt;<emphasis>arch</emphasis>&gt; is a string representing the target architecture: 
-+                i585, x86_64, powerpc, mips, or arm.
-+       
-+         &lt;<emphasis>release</emphasis>&gt; is the version of Yocto Project.
-+         </literallayout>
-+
-+         <para>       
-+             For example, the following toolchain tarball is for a 64-bit development 
-+             host system and a 32-bit target architecture:
-+         </para>
-+
-+         <literallayout class='monospaced'>
-+     yocto-eglibc-x86_64-i586-toolchain-sdk-0.9.tar.bz2
-+         </literallayout>
-+
-+         <para>
-+             The toolchain tarballs are self-contained and should be installed into <filename>/opt/poky</filename>.
-+             The following commands show how you install the toolchain tarball given a 64-bit development host system
-+             and a 32-bit target architecture.
-          </para>
- 
-          <para>
-@@ -332,44 +372,83 @@
-          </para>
- 
-          <para>
--             You can download the pre-built Linux kernel and the file image system suitable for 
-+             You can download the pre-built Linux kernel and the filesystem image suitable for 
-              running in the emulator QEMU from 
-              <ulink url='http://yoctoproject.org/downloads/yocto-0.9/qemu'></ulink>.
--             Be sure to use the kernel and file image system that matches the architecture you want 
-+             Be sure to use the kernel and filesystem image that matches the architecture you want 
-              to simulate.
-          </para>
-        
-          <para>  
--             The kernel and file image system have the following forms, respectively:
-+             Most kernel files have the following form:
-+         </para>
-+
-+         <literallayout class='monospaced'>
-+     *zImage*qemu&lt;<emphasis>arch</emphasis>&gt;*.bin
-+
-+     Where:
-+         &lt;<emphasis>arch</emphasis>&gt; is a string representing the target architecture: 
-+                x86, x86-64, ppc, mips, or arm.
-+         </literallayout>
-+
-+         <para>
-+             The filesystem image has two forms.
-+             One form is an <filename>ext3</filename> filesystem image.
-+             The other form is a tarball of the filesystem and is booted using user-space NFS.
-+             Here are the respective forms:
-          </para>
- 
-           <literallayout class='monospaced'>
--     *zImage*qemu*.bin
--     yocto-image-*-qemu*.ext3.bz2
-+     yocto-image-&lt;<emphasis>profile</emphasis>&gt;-qemu&lt;<emphasis>arch</emphasis>&gt;.rootfs.ext3
-+     yocto-image-&lt;<emphasis>profile</emphasis>&gt;-qemu&lt;<emphasis>arch</emphasis>&gt;.rootfs.tar.bz2
-+
-+     Where:
-+         &lt;<emphasis>profile</emphasis>&gt; is the filesystem image's profile:
-+                   sdk, sato, minimal, or lsb.
-+
-+         &lt;<emphasis>arch</emphasis>&gt; is a string representing the target architecture: 
-+                x86, x86-64, ppc, mips, or arm.
-           </literallayout>
- 
-          <para>
--             You must decompress the file image system using the following command:
-+             The following command form sets up the emulation environment.
-          </para>
- 
-          <literallayout class='monospaced'>
--     $ bzip2 -d
-+     $ source /opt/poky/environment-setup-&lt;<emphasis>arch</emphasis>&gt;-poky-linux 
-+
-+     Where:
-+         &lt;<emphasis>arch</emphasis>&gt; is a string representing the target architecture: 
-+                i586, x86-64, ppc, mips, or arm.
-          </literallayout>
- 
-          <para>
--             You can now start the emulator using these commands (assuming an 32 bit i586 target):
-+              Finally, this command form invokes the QEMU emulator 
-          </para>
- 
-          <literallayout class='monospaced'>
--     $ source /opt/poky/environment-setup-i586-poky-linux 
-      $ poky-qemu &lt;<emphasis>qemuarch</emphasis>&gt; &lt;<emphasis>kernel</emphasis>&gt; &lt;<emphasis>image</emphasis>&gt; &lt;<emphasis>fstype</emphasis>&gt;
-+
-+     Where:
-+         &lt;<emphasis>qemuarch</emphasis>&gt; is a string representing the target architecture: qemux86, qemux86-64, 
-+                    qemuppc, qemumips, or qemuarm.
-+
-+         &lt;<emphasis>kernel</emphasis>&gt;    is the architecture-specific kernel.
-+
-+         &lt;<emphasis>image</emphasis>&gt;     is the .ext3 filesystem image.
-+
-+         &lt;<emphasis>fstype</emphasis>&gt;    is the filesystem type.
-          </literallayout>
-+
-          <para>
--             For example:
-+             Continuing with the example, the following two commands setup the emulation 
-+             environment and launch QEMu.  
-+             The kernel and filesystem are for a 32-bit target architecture.
-          </para>
-+
-          <literallayout class='monospaced'>
--     $ poky-qemu qemuppc zImage-2.6.34-qemuppc-0.9 \
--     yocto-image-minimal-qemuppc-0.9.rootfs.ext3 ext3
-+     $ source /opt/poky/environment-setup-i586-poky-linux 
-+     $ poky-qemu qemui586 zImage-2.6.34-qemux86-0.9 yocto-image-sdk-qemux86-0.9.rootfs.ext3 ext3
-          </literallayout>
-          
-     </section>
+diff --git a/documentation/yocto-project-qs/figures/using-a-pre-built-image.png b/documentation/yocto-project-qs/figures/using-a-pre-built-image.png
+old mode 100755
+new mode 100644
+index 4f4f7d849528552b37d4077fe952d13fb455af14..b03130d123963ffe0a07c523d4772973887b9679
+GIT binary patch
+literal 12733
+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
+Pxj+LeYbn(zScd;Ur$T3+
+
+literal 13228
+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
+J3{|uY{XdpgLhb+n
+
 -- 
 1.7.1
 
