@@ -1,33 +1,23 @@
-Return-Path: <scott.m.rifenbark@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2D0DD4C80FAD
-	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 10:23:04 -0600 (CST)
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8D5AF4C80FAD
+	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 10:55:43 -0600 (CST)
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 19 Jan 2011 08:23:03 -0800
+	by orsmga102.jf.intel.com with ESMTP; 19 Jan 2011 08:55:43 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,345,1291622400"; d="scan'208";a="698435733"
-Received: from orsmsx604.amr.corp.intel.com ([10.22.226.87])
-	by orsmga001.jf.intel.com with ESMTP; 19 Jan 2011 08:23:03 -0800
-Received: from orsmsx504.amr.corp.intel.com ([10.22.226.207]) by
-	orsmsx604.amr.corp.intel.com ([10.250.113.17]) with mapi;
-	Wed, 19 Jan 2011 08:23:03 -0800
-From: "Rifenbark, Scott M" <scott.m.rifenbark@intel.com>
-To: Joshua Lock <josh@openedhand.com>, "poky@yoctoproject.org"
-	<poky@yoctoproject.org>
-Date: Wed, 19 Jan 2011 08:23:03 -0800
-Thread-Topic: [poky] [PATCH 0/2] Minor documentation fixes
-Thread-Index: Acu30vYDmYBiVkZCRUab+keejXFeCAAIiQDg
-Message-ID: <DE8BA75F34A0404282AC5E15F691BC76054F740A@orsmsx504.amr.corp.intel.com>
-References: <cover.1293112192.git.paul.eggleton@linux.intel.com>
-	<201101191022.16146.paul.eggleton@linux.intel.com>
-	<1295439464.2540.20.camel@scimitar>
-In-Reply-To: <1295439464.2540.20.camel@scimitar>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
-MIME-Version: 1.0
-Subject: Re: [PATCH 0/2] Minor documentation fixes
+X-IronPort-AV: E=Sophos;i="4.60,345,1291622400"; d="scan'208";a="698446967"
+Received: from unknown (HELO helios) ([10.255.16.92])
+	by orsmga001.jf.intel.com with SMTP; 19 Jan 2011 08:55:41 -0800
+Received: by helios (sSMTP sendmail emulation); Wed, 19 Jan 2011 16:55:39 +0000
+Message-Id: <88be364793ae493d048409762c83ca4126e3fecf.1295455496.git.paul.eggleton@linux.intel.com>
+In-Reply-To: <cover.1295455496.git.paul.eggleton@linux.intel.com>
+References: <cover.1295455496.git.paul.eggleton@linux.intel.com>
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
+Old-Date: Wed, 19 Jan 2011 16:20:57 +0000
+Date: Wed, 19 Jan 2011 16:55:39 +0000
+To: poky@yoctoproject.org
+CC: 
+Subject: [PATCH 1/3] util-linux: split out libuuid and libblkid into separate packages
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,44 +29,57 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 19 Jan 2011 16:23:04 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Wed, 19 Jan 2011 16:55:43 -0000
 
-These look fine.=20
+libuuid and libblkid can exist on their own separately from the rest
+of util-linux. Slightly reduces the overall footprint of other packages
+that depend on these libraries.
 
-Scott R.
+Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
+---
+ meta/recipes-core/util-linux/util-linux.inc       |    6 ++++--
+ meta/recipes-core/util-linux/util-linux_2.17.2.bb |    2 +-
+ 2 files changed, 5 insertions(+), 3 deletions(-)
 
------Original Message-----
-From: poky-bounces@yoctoproject.org [mailto:poky-bounces@yoctoproject.org] =
-On Behalf Of Joshua Lock
-Sent: Wednesday, January 19, 2011 4:18 AM
-To: poky@yoctoproject.org
-Subject: Re: [poky] [PATCH 0/2] Minor documentation fixes
+diff --git a/meta/recipes-core/util-linux/util-linux.inc b/meta/recipes-core/util-linux/util-linux.inc
+index 53d8463..c3e1ace 100644
+--- a/meta/recipes-core/util-linux/util-linux.inc
++++ b/meta/recipes-core/util-linux/util-linux.inc
+@@ -27,7 +27,7 @@ SRC_URI = "${KERNELORG_MIRROR}/pub/linux/utils/util-linux-ng/v${MAJOR_VERSION}/u
+            file://make_include \
+            "
+ 
+-PACKAGES_prepend = "util-linux-fdisk util-linux-cfdisk util-linux-sfdisk util-linux-swaponoff util-linux-losetup util-linux-umount util-linux-mount util-linux-readprofile "
++PACKAGES_prepend = "util-linux-fdisk util-linux-cfdisk util-linux-sfdisk util-linux-swaponoff util-linux-losetup util-linux-umount util-linux-mount util-linux-readprofile util-linux-libuuid util-linux-libblkid "
+ 
+ PACKAGES_virtclass-native = ""
+ 
+@@ -47,9 +47,11 @@ FILES_util-linux-losetup = "/sbin/losetup.${PN}"
+ FILES_util-linux-mount = "/bin/mount.${PN}"
+ FILES_util-linux-umount = "/bin/umount.${PN}"
+ FILES_util-linux-readprofile = "/sbin/readprofile"
++FILES_util-linux-libuuid = "/usr/lib/libuuid.so.*"
++FILES_util-linux-libblkid = "/usr/lib/libblkid.so.*"
+ 
+ RRECOMMENDS_${PN} = "util-linux-fdisk util-linux-cfdisk util-linux-sfdisk util-linux-mount util-linux-readprofile "
+-RDEPENDS_${PN} = "util-linux-umount util-linux-swaponoff util-linux-losetup"
++RDEPENDS_${PN} = "util-linux-umount util-linux-swaponoff util-linux-losetup util-linux-libuuid util-linux-libblkid"
+ 
+ RRECOMMENDS_${PN}_virtclass-native = ""
+ RDEPENDS_${PN}_virtclass-native = ""
+diff --git a/meta/recipes-core/util-linux/util-linux_2.17.2.bb b/meta/recipes-core/util-linux/util-linux_2.17.2.bb
+index 9b344d4..662bde0 100644
+--- a/meta/recipes-core/util-linux/util-linux_2.17.2.bb
++++ b/meta/recipes-core/util-linux/util-linux_2.17.2.bb
+@@ -1,6 +1,6 @@
+ MAJOR_VERSION = "2.17"
+ require util-linux.inc
+-PR="r1"
++PR = "r2"
+ 
+ SRC_URI += "file://uclibc-compile.patch \
+ 	          file://util-linux-ng-replace-siginterrupt.patch"
+-- 
+1.7.1
 
-On Wed, 2011-01-19 at 10:22 +0000, Paul Eggleton wrote:
-> On Thursday 23 December 2010 13:55:42 Paul Eggleton wrote:
-> > Some minor documentation fixes. Please review for wording and formattin=
-g.
-> >=20
-> > Pull URL: git://git.pokylinux.org/poky-contrib.git
-> >   Branch: paule/doc-fixes
-> >   Browse:
-> > http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=3Dpaule/doc-fixes
->=20
-> Did anyone have a chance to review these?
-
-These look good to me.
-
-Cheers,
-Joshua
---=20
-Joshua Lock
-        Intel Open Source Technology Centre
-
-_______________________________________________
-poky mailing list
-poky@yoctoproject.org
-https://lists.yoctoproject.org/listinfo/poky
 
