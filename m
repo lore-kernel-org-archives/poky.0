@@ -1,21 +1,37 @@
-Return-Path: <jessica.zhang@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id CFF734C8106A
-	for <poky@yoctoproject.org>; Tue, 18 Jan 2011 18:30:46 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 18 Jan 2011 16:30:45 -0800
+Return-Path: <nitin.a.kamble@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 277114C8106A
+	for <poky@yoctoproject.org>; Tue, 18 Jan 2011 18:38:52 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 18 Jan 2011 16:38:51 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,341,1291622400"; d="scan'208";a="594248004"
-Received: from jzhang-desktop.jf.intel.com (HELO localhost) ([10.7.201.52])
-	by orsmga002.jf.intel.com with ESMTP; 18 Jan 2011 16:30:34 -0800
-Message-Id: <395d2cc8fb18d3658c788b8a6f966e54edb0fbf5.1295398248.git.jessica.zhang@intel.com>
-In-Reply-To: <cover.1295398248.git.jessica.zhang@intel.com>
-References: <cover.1295398248.git.jessica.zhang@intel.com>
-From: Jessica Zhang <jessica.zhang@intel.com>
-Date: Mon, 17 Jan 2011 10:25:47 -0800
-To: poky@yoctoproject.org
-CC: 
-Subject: [PATCH 1/1] sanity.bbclass: remove SDK_ARCH check
+X-IronPort-AV: E=Sophos;i="4.60,341,1291622400"; d="scan'208";a="878683697"
+Received: from orsmsx602.amr.corp.intel.com ([10.22.226.211])
+	by fmsmga001.fm.intel.com with ESMTP; 18 Jan 2011 16:38:51 -0800
+Received: from orsmsx606.amr.corp.intel.com (10.22.226.128) by
+	orsmsx602.amr.corp.intel.com (10.22.226.211) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Tue, 18 Jan 2011 16:38:51 -0800
+Received: from orsmsx504.amr.corp.intel.com ([10.22.226.207]) by
+	orsmsx606.amr.corp.intel.com ([10.22.226.128]) with mapi;
+	Tue, 18 Jan 2011 16:38:51 -0800
+From: "Kamble, Nitin A" <nitin.a.kamble@intel.com>
+To: "Kamble, Nitin A" <nitin.a.kamble@intel.com>, Mark Hatle
+	<mark.hatle@windriver.com>
+Date: Tue, 18 Jan 2011 16:38:46 -0800
+Thread-Topic: [poky] [PATCH 12/12] screenshot: fix build issue with gcc dso
+	linking change
+Thread-Index: Acu2wYHZ/m01Ay/VR0qqt/zEyRMthgABNCpQACqkaZA=
+Message-ID: <9DA5872FEF993D41B7173F58FCF6BE94056AA7B3@orsmsx504.amr.corp.intel.com>
+References: <cover.1295304080.git.nitin.a.kamble@intel.com>
+	<9e69f662636b4cd4f9c21b9e5cddf3054d9a65a0.1295304080.git.nitin.a.kamble@intel.com>
+	<4D350BC3.7030409@windriver.com> 
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
+MIME-Version: 1.0
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH 12/12] screenshot: fix build issue with gcc dso linking change
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,30 +43,43 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 19 Jan 2011 00:30:47 -0000
+X-List-Received-Date: Wed, 19 Jan 2011 00:38:52 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-remove sanity check for SDK_ARCH=i686 due to recent fixes in cross toolchain areas, etc. the old issue no longer exists
+Mark,
+  I have created a bug for this libtool issue: http://bugzilla.pokylinux.or=
+g/show_bug.cgi?id=3D664
+Feel free to add more information in the bug.
 
-Signed-off-by: Jessica Zhang <jessica.zhang@intel.com>
----
- meta/classes/sanity.bbclass |    3 ---
- 1 files changed, 0 insertions(+), 3 deletions(-)
+Thanks,
+Nitin
 
-diff --git a/meta/classes/sanity.bbclass b/meta/classes/sanity.bbclass
-index 9d183e3..c66015e 100644
---- a/meta/classes/sanity.bbclass
-+++ b/meta/classes/sanity.bbclass
-@@ -196,9 +196,6 @@ def check_sanity(e):
-     if not oes_bb_conf:
-         messages = messages + 'You do not include OpenEmbeddeds version of conf/bitbake.conf. This means your environment is misconfigured, in particular check BBPATH.\n'
- 
--    if data.getVar('SDK_ARCH', e.data, True) == 'i686':
--        messages = messages + '"Please set SDKMACHINE to i586. It is currently defaulting to the build machine architecture of i686 and this is known to have issues (see local.conf).\n'
--
-     nolibs = data.getVar('NO32LIBS', e.data, True)
-     if not nolibs:
-         lib32path = '/lib'
--- 
-1.7.0.4
+> -----Original Message-----
+> From: Kamble, Nitin A
+> Sent: Monday, January 17, 2011 8:17 PM
+> To: 'Mark Hatle'
+> Cc: poky@yoctoproject.org
+> Subject: RE: [poky] [PATCH 12/12] screenshot: fix build issue with gcc
+> dso linking change
+>=20
+> >
+> > Similar to the last one.  On first look, the GTK_LIBS or libshot.la
+> > might be
+> > incorrect causing this failure.  If it's been verified that both
+> > GTK_LIBS values
+> > and the libshot.la match the contents of the library.... and these
+> > things are
+> > application specific the change is fine.. I'd just like a comment
+> > explaining that.
+> >
+> > --Mark
+>=20
+> Hi mark,
+>     Thanks for this review. I will check the .la file for this one also
+> and update the comments.
+> Thanks,
+> Nitin
 
 
