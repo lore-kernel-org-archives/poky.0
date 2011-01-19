@@ -1,25 +1,23 @@
 Return-Path: <qing.he@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C09584C8109B
-	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 01:28:32 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 18 Jan 2011 23:28:32 -0800
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E24F44C8109B
+	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 01:29:00 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 18 Jan 2011 23:28:54 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,343,1291622400"; d="scan'208";a="376621605"
+X-IronPort-AV: E=Sophos;i="4.60,343,1291622400"; d="scan'208";a="648579099"
 Received: from qhe2-db.sh.intel.com ([10.239.13.48])
-	by azsmga001.ch.intel.com with ESMTP; 18 Jan 2011 23:28:31 -0800
+	by fmsmga002.fm.intel.com with ESMTP; 18 Jan 2011 23:28:31 -0800
 Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
 	(envelope-from <qing.he@intel.com>)
-	id 1PfSNJ-0003rm-A3; Wed, 19 Jan 2011 15:22:37 +0800
-Message-Id: <360d78397f333fe601ac2cee047b9acb944c6458.1295421399.git.qing.he@intel.com>
-In-Reply-To: <cover.1295421399.git.qing.he@intel.com>
-References: <cover.1295421399.git.qing.he@intel.com>
+	id 1PfSNJ-0003rZ-4g; Wed, 19 Jan 2011 15:22:37 +0800
+Message-Id: <cover.1295421399.git.qing.he@intel.com>
 From: Qing He <qing.he@intel.com>
-Old-Date: Wed, 19 Jan 2011 13:30:29 +0800
+Old-Date: Wed, 19 Jan 2011 15:16:39 +0800
 Date: Wed, 19 Jan 2011 15:22:37 +0800
 To: poky@yoctoproject.org
 Cc: aleksandr.koltsoff@ebts.fi
-Subject: [PATCH 2/2] util-linux: fix dangling symlinks
+Subject: [PATCH 0/2] improvement for util-linux
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,58 +29,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 19 Jan 2011 07:28:33 -0000
+X-List-Received-Date: Wed, 19 Jan 2011 07:29:01 -0000
 
-shutdown and swapon should be in $base_sbindir instead of $sbindir
+this patch set adjusts the packaging policy of util-linux,
+separating out shared libraries for flexibility, it also fixes
+the dangling symlink exists in the recipe.
 
-Signed-off-by: Qing He <qing.he@intel.com>
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: qhe/fix
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=qhe/fix
+
+Thanks,
+    Qing He
 ---
- meta/recipes-core/util-linux/util-linux.inc       |   18 +++++++++++++-----
- meta/recipes-core/util-linux/util-linux_2.17.2.bb |    2 +-
- 2 files changed, 14 insertions(+), 6 deletions(-)
 
-diff --git a/meta/recipes-core/util-linux/util-linux.inc b/meta/recipes-core/util-linux/util-linux.inc
-index fe002c0..d55d13a 100644
---- a/meta/recipes-core/util-linux/util-linux.inc
-+++ b/meta/recipes-core/util-linux/util-linux.inc
-@@ -149,11 +149,19 @@ do_install () {
- 	install -d ${D}${sysconfdir}/default/
- 	echo 'MOUNTALL="-t nonfs,nosmbfs,noncpfs"' > ${D}${sysconfdir}/default/mountall
- 
--	ln -sf ${sbindir}/swapon ${D}${sbindir}/swapoff.${PN}
--	ln -sf ${sbindir}/shutdown ${D}${sbindir}/reboot.${PN}
--	ln -sf ${sbindir}/shutdown ${D}${sbindir}/halt.${PN}
--	ln -sf ${sbindir}/shutdown ${D}${sbindir}/fastboot
--	ln -sf ${sbindir}/shutdown ${D}${sbindir}/fasthalt
-+	# note ${PN} in swapon.${PN}, swapon is an alternative link that is
-+	# not guaranteed to provide multiple functions, similar for shutdown
-+	ln -sf swapon.${PN} ${D}${base_sbindir}/swapoff.${PN}
-+	ln -sf shutdown.${PN} ${D}${base_sbindir}/reboot.${PN}
-+	ln -sf shutdown.${PN} ${D}${base_sbindir}/halt.${PN}
-+	ln -sf shutdown.${PN} ${D}${base_sbindir}/fastboot
-+	ln -sf shutdown.${PN} ${D}${base_sbindir}/fasthalt
-+
-+	rm -f ${D}${sbindir}/halt
-+	rm -f ${D}${sbindir}/reboot
-+	rm -f ${D}${sbindir}/fastboot
-+	rm -f ${D}${sbindir}/fasthalt
-+	rm -f ${D}${sbindir}/swapoff
- }
- 
- pkg_postinst_${PN} () {
-diff --git a/meta/recipes-core/util-linux/util-linux_2.17.2.bb b/meta/recipes-core/util-linux/util-linux_2.17.2.bb
-index a287857..ecd0115 100644
---- a/meta/recipes-core/util-linux/util-linux_2.17.2.bb
-+++ b/meta/recipes-core/util-linux/util-linux_2.17.2.bb
-@@ -1,6 +1,6 @@
- MAJOR_VERSION = "2.17"
- require util-linux.inc
--PR="r2"
-+PR="r3"
- 
- SRC_URI += "file://uclibc-compile.patch \
- 	          file://util-linux-ng-replace-siginterrupt.patch"
--- 
-1.7.0
+
+Qing He (2):
+  util-linux: separately packaging blkid and uuid
+  util-linux: fix dangling symlinks
+
+ meta/recipes-core/util-linux/util-linux.inc       |   27 ++++++++++++++++----
+ meta/recipes-core/util-linux/util-linux_2.17.2.bb |    2 +-
+ 2 files changed, 22 insertions(+), 7 deletions(-)
 
 
