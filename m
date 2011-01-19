@@ -1,21 +1,27 @@
-Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9695C4C8109B
-	for <poky@yoctoproject.org>; Tue, 18 Jan 2011 19:26:43 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 18 Jan 2011 17:26:43 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,341,1291622400"; d="scan'208";a="698180241"
-Received: from nbuild2.sc.intel.com (HELO localhost) ([172.25.110.37])
-	by orsmga001.jf.intel.com with ESMTP; 18 Jan 2011 17:26:43 -0800
-Message-Id: <fdb315f366138ac08fd05d0b3609e1243a043edf.1295400220.git.nitin.a.kamble@intel.com>
-In-Reply-To: <cover.1295400220.git.nitin.a.kamble@intel.com>
-References: <cover.1295400220.git.nitin.a.kamble@intel.com>
-From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Old-Date: Tue, 18 Jan 2011 17:21:41 -0800
-Date: Tue, 18 Jan 2011 17:26:42 -0800
+Return-Path: <scott.a.garman@intel.com>
+Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 63DC94C8106A
+	for <poky@yoctoproject.org>; Tue, 18 Jan 2011 22:19:41 -0600 (CST)
+Received: from localhost (c-76-105-143-140.hsd1.or.comcast.net
+	[76.105.143.140])
+	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
+	(No client certificate requested)
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id 62A9E30416
+	for <poky@yoctoproject.org>; Tue, 18 Jan 2011 23:19:36 -0500 (EST)
+Message-Id: <cover.1295410231.git.scott.a.garman@intel.com>
+From: Scott Garman <scott.a.garman@intel.com>
+Old-Date: Tue, 18 Jan 2011 20:10:31 -0800
+Date: Tue, 18 Jan 2011 20:19:29 -0800
 To: poky@yoctoproject.org
-Subject: [PATCH 1/1] libzypp: fix build issue with gcc dso linking change
+CC: 
+X-MasterFoo-MailScanner-Information: Please contact the ISP for more
+	information
+X-MailScanner-ID: 62A9E30416.CAF68
+X-MasterFoo-MailScanner: Found to be clean
+X-MasterFoo-MailScanner-SpamCheck: not spam
+X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
+X-Spam-Status: No
+Subject: [PATCH 0/9] libtool 2.4 sysroot support
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,96 +33,94 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 19 Jan 2011 01:26:43 -0000
+X-List-Received-Date: Wed, 19 Jan 2011 04:19:41 -0000
 
-All the libraries needs to be specified explicitely with the new gcc dso
-linking change patch. This was causing build errors for this
-recipe. Specifying the libX11 libgdk-x11-2.0 and libgdk_pixbuf-2.0 libraries
-explicitely for linking to work without errors.
+Hi Saul,
 
-Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
+This patch series enables sysroot support in libtool, a new feature
+that was added in libtool 2.4. Countless thanks to Khem Raj, who got
+this working in OpenEmbedded recently - just about everything here
+is based on his work, with a couple of additional tweaks courtesy
+of Richard Purdie.
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: sgarman/libtool-sysroot-rebased
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=sgarman/libtool-sysroot-rebased
+
+Thanks,
+    Scott Garman <scott.a.garman@intel.com>
 ---
- .../libzypp/dso_linking_change_build_fix.patch     |   50 ++++++++++++++++++++
- meta/recipes-extended/libzypp/libzypp_git.bb       |    5 +-
- 2 files changed, 53 insertions(+), 2 deletions(-)
- create mode 100644 meta/recipes-extended/libzypp/libzypp/dso_linking_change_build_fix.patch
 
-diff --git a/meta/recipes-extended/libzypp/libzypp/dso_linking_change_build_fix.patch b/meta/recipes-extended/libzypp/libzypp/dso_linking_change_build_fix.patch
-new file mode 100644
-index 0000000..496a3ca
---- /dev/null
-+++ b/meta/recipes-extended/libzypp/libzypp/dso_linking_change_build_fix.patch
-@@ -0,0 +1,50 @@
-+after gcc linking has changed, all the libraries must be explicitely specified 
-+This patch avoids these linking errors:
-+
-+
-+Linking CXX executable DumpSelectable
-+cd /build_disk/poky_build/build0/tmp/work/i586-poky-linux/libzypp-0.0-git0+4494797d5b0369365b1af63921de45b197ead64f-r4/git/tools && /build_disk/poky_build/build0/tmp/sysroots/x86_64-linux/usr/bin/cmake -E cmake_link_script CMakeFiles/DumpSelectable.dir/link.txt --verbose=1
-+/build_disk/poky_build/build0/tmp/sysroots/x86_64-linux/usr/bin/i586-poky-linux/i586-poky-linux-g++   -march=i586  --sysroot=/build_disk/poky_build/build0/tmp/sysroots/i586-poky-linux  -fpermissive -fno-strict-aliasing -fPIC -g -Wall -Werror=format-security -Woverloaded-virtual -Wnon-virtual-dtor -Wl,-as-needed  -Wl,-O1 -Wl,--hash-style=gnu -Wl,--as-needed CMakeFiles/DumpSelectable.dir/DumpSelectable.cc.o  -o DumpSelectable -rdynamic ../zypp/libzypp.so.800.1.1 -lboost_program_options-mt -lutil -lrpm -lcurl -lxml2 -lz -Wl,-Bstatic -lsatsolver -lsatsolverext -Wl,-Bdynamic -lexpat -lssl -lcrypto -lboost_signals-mt -ludev -Wl,-rpath,/build_disk/poky_build/build0/tmp/work/i586-poky-linux/libzypp-0.0-git0+4494797d5b0369365b1af63921de45b197ead64f-r4/git/zypp
-+/build_disk/poky_build/build0/tmp/sysroots/x86_64-linux/usr/libexec/i586-poky-linux/gcc/i586-poky-linux/4.5.1/ld: Ý: invalid DSO for symbol `pthread_cancel@@GLIBC_2.0' definition
-+/build_disk/poky_build/build0/tmp/sysroots/i586-poky-linux/lib/libpthread.so.0: could not read symbols: Bad value
-+collect2: ld returned 1 exit status
-+make[2]: *** [tools/DumpSelectable] Error 1
-+
-+
-+
-+| Linking CXX executable COW_debug
-+| cd /build_disk/poky_build/build0/tmp/work/i586-poky-linux/libzypp-0.0-git0+4494797d5b0369365b1af63921de45b197ead64f-r5/git/examples && /build_disk/poky_build/build0/tmp/sysroots/x86_64-linux/usr/bin/cmake -E cmake_link_script CMakeFiles/COW_debug.dir/link.txt --verbose=1
-+| /build_disk/poky_build/build0/tmp/sysroots/x86_64-linux/usr/bin/i586-poky-linux/i586-poky-linux-g++   -march=i586  --sysroot=/build_disk/poky_build/build0/tmp/sysroots/i586-poky-linux  -fpermissive -fno-strict-aliasing -fPIC -g -Wall -Werror=format-security -Woverloaded-virtual -Wnon-virtual-dtor -Wl,-as-needed  -Wl,-O1 -Wl,--hash-style=gnu -Wl,--as-needed CMakeFiles/COW_debug.dir/COW_debug.cc.o  -o COW_debug -rdynamic ../zypp/libzypp.so.800.1.1 -lutil -lrpm -lcurl -lxml2 -lz -Wl,-Bstatic -lsatsolver -lsatsolverext -Wl,-Bdynamic -lexpat -lssl -lcrypto -lboost_signals-mt -ludev -Wl,-rpath,/build_disk/poky_build/build0/tmp/work/i586-poky-linux/libzypp-0.0-git0+4494797d5b0369365b1af63921de45b197ead64f-r5/git/zypp
-+| /build_disk/poky_build/build0/tmp/sysroots/x86_64-linux/usr/libexec/i586-poky-linux/gcc/i586-poky-linux/4.5.1/ld: �: invalid DSO for symbol `pthread_cancel@@GLIBC_2.0' definition
-+| /build_disk/poky_build/build0/tmp/sysroots/i586-poky-linux/lib/libpthread.so.0: could not read symbols: Bad value
-+| collect2: ld returned 1 exit status
-+| make[2]: *** [examples/COW_debug] Error 1
-+
-+
-+Nitin A Kamble <nitin.a.kamble@intel.com>
-+Date: 2011/01/18
-+
-+Index: git/tools/CMakeLists.txt
-+===================================================================
-+--- git.orig/tools/CMakeLists.txt	2010-12-19 23:59:02.000000000 -0800
-++++ git/tools/CMakeLists.txt	2011-01-18 17:07:52.132140223 -0800
-+@@ -13,6 +13,7 @@
-+   )
-+   TARGET_LINK_LIBRARIES( ${loop_var}
-+     zypp
-++    pthread
-+     boost_program_options-mt
-+   )
-+ ENDFOREACH( loop_var )
-+Index: git/examples/CMakeLists.txt
-+===================================================================
-+--- git.orig/examples/CMakeLists.txt	2010-12-19 23:59:01.000000000 -0800
-++++ git/examples/CMakeLists.txt	2011-01-18 17:17:41.760411373 -0800
-+@@ -8,6 +8,7 @@
-+   )
-+   TARGET_LINK_LIBRARIES( ${loop_var}
-+     zypp
-++    pthread
-+   )
-+ ENDFOREACH( loop_var )
-+ 
-diff --git a/meta/recipes-extended/libzypp/libzypp_git.bb b/meta/recipes-extended/libzypp/libzypp_git.bb
-index 6918263..7036c64 100644
---- a/meta/recipes-extended/libzypp/libzypp_git.bb
-+++ b/meta/recipes-extended/libzypp/libzypp_git.bb
-@@ -13,11 +13,12 @@ RDEPENDS_${PN} = "sat-solver"
- 
- S = "${WORKDIR}/git"
- PV = "0.0-git${SRCPV}"
--PR = "r4"
-+PR = "r5"
- 
- SRC_URI = "git://gitorious.org/opensuse/libzypp.git;protocol=git \
-            file://no-doc.patch \
--           file://rpm5.patch"
-+           file://rpm5.patch \
-+           file://dso_linking_change_build_fix.patch"
- 
- SRC_URI_append_mips = " file://mips-workaround-gcc-tribool-error.patch"
- 
--- 
-1.7.3.4
+
+Scott Garman (9):
+  libtool: changes to enable sysroot support
+  libtool: fix library RPATHs
+  autotools.bbclass: libtool sysroot support changes
+  staging.bbclass, utils.bbclass: remove la mangling code
+  insane.bbclass: skip checks on .la installed status
+  binutils: upgrade to 2.21 and add libtool sysroot support
+  binutils: Fix QA staging errors for target binutils
+  binutils: fix library RPATHs
+  poky-default.inc: bump binutils preferred version to 2.21
+
+ meta/classes/autotools.bbclass                     |   25 +-
+ meta/classes/insane.bbclass                        |    5 -
+ meta/classes/staging.bbclass                       |   14 -
+ meta/classes/utils.bbclass                         |   15 +-
+ meta/conf/distro/include/poky-default.inc          |    2 +-
+ .../binutils-2.20.1/binutils-2.16.1-e300c2c3.patch |   18 -
+ .../binutils-2.20.1/binutils-libtool.patch         |   67 -
+ .../binutils-2.20.1/binutils-mips-pie.patch        |   29 -
+ .../110-arm-eabi-conf.patch                        |    0
+ .../binutils-2.21/binutils-2.19.1-ld-sysroot.patch |   37 +
+ .../binutils-poison.patch                          |    0
+ .../binutils-uclibc-100-uclibc-conf.patch          |    0
+ ...binutils-uclibc-300-001_ld_makefile_patch.patch |    0
+ ...binutils-uclibc-300-006_better_file_error.patch |    0
+ ...ils-uclibc-300-012_check_ldrunpath_length.patch |   19 +-
+ .../binutils-uclibc-gas-needs-libm.patch           |    0
+ .../binutils-x86_64_i386_biarch.patch              |    0
+ .../libiberty_path_fix.patch                       |    0
+ .../binutils-2.21/libtool-2.4-update.patch         |18719 ++++++++++++++++++++
+ .../binutils/binutils-2.21/libtool-rpath-fix.patch |   36 +
+ ...n_2.20.1.bb => binutils-cross-canadian_2.21.bb} |    2 +-
+ ...tils-cross_2.20.1.bb => binutils-cross_2.21.bb} |    1 -
+ ...rosssdk_2.20.1.bb => binutils-crosssdk_2.21.bb} |    2 +-
+ .../{binutils_2.20.1.bb => binutils_2.21.bb}       |   21 +-
+ meta/recipes-devtools/libtool/libtool-cross_2.4.bb |   18 +-
+ .../recipes-devtools/libtool/libtool-native_2.4.bb |   14 +-
+ .../libtool/libtool-nativesdk_2.4.bb               |   10 +-
+ meta/recipes-devtools/libtool/libtool.inc          |   22 +-
+ .../libtool/libtool/cross_compile.patch            |   38 -
+ .../libtool/libtool/fix-final-rpath.patch          |   36 +
+ .../libtool/libtool/rename-with-sysroot.patch      |  824 +
+ .../libtool/libtool/resolve-sysroot.patch          |   40 +
+ .../libtool/libtool/use-sysroot-in-libpath.patch   |   20 +
+ meta/recipes-devtools/libtool/libtool_2.4.bb       |   12 +-
+ 34 files changed, 19789 insertions(+), 257 deletions(-)
+ delete mode 100644 meta/recipes-devtools/binutils/binutils-2.20.1/binutils-2.16.1-e300c2c3.patch
+ delete mode 100644 meta/recipes-devtools/binutils/binutils-2.20.1/binutils-libtool.patch
+ delete mode 100644 meta/recipes-devtools/binutils/binutils-2.20.1/binutils-mips-pie.patch
+ rename meta/recipes-devtools/binutils/{binutils-2.20.1 => binutils-2.21}/110-arm-eabi-conf.patch (100%)
+ create mode 100644 meta/recipes-devtools/binutils/binutils-2.21/binutils-2.19.1-ld-sysroot.patch
+ rename meta/recipes-devtools/binutils/{binutils-2.20.1 => binutils-2.21}/binutils-poison.patch (100%)
+ rename meta/recipes-devtools/binutils/{binutils-2.20.1 => binutils-2.21}/binutils-uclibc-100-uclibc-conf.patch (100%)
+ rename meta/recipes-devtools/binutils/{binutils-2.20.1 => binutils-2.21}/binutils-uclibc-300-001_ld_makefile_patch.patch (100%)
+ rename meta/recipes-devtools/binutils/{binutils-2.20.1 => binutils-2.21}/binutils-uclibc-300-006_better_file_error.patch (100%)
+ rename meta/recipes-devtools/binutils/{binutils-2.20.1 => binutils-2.21}/binutils-uclibc-300-012_check_ldrunpath_length.patch (70%)
+ rename meta/recipes-devtools/binutils/{binutils-2.20.1 => binutils-2.21}/binutils-uclibc-gas-needs-libm.patch (100%)
+ rename meta/recipes-devtools/binutils/{binutils-2.20.1 => binutils-2.21}/binutils-x86_64_i386_biarch.patch (100%)
+ rename meta/recipes-devtools/binutils/{binutils-2.20.1 => binutils-2.21}/libiberty_path_fix.patch (100%)
+ create mode 100644 meta/recipes-devtools/binutils/binutils-2.21/libtool-2.4-update.patch
+ create mode 100644 meta/recipes-devtools/binutils/binutils-2.21/libtool-rpath-fix.patch
+ rename meta/recipes-devtools/binutils/{binutils-cross-canadian_2.20.1.bb => binutils-cross-canadian_2.21.bb} (86%)
+ rename meta/recipes-devtools/binutils/{binutils-cross_2.20.1.bb => binutils-cross_2.21.bb} (98%)
+ rename meta/recipes-devtools/binutils/{binutils-crosssdk_2.20.1.bb => binutils-crosssdk_2.21.bb} (96%)
+ rename meta/recipes-devtools/binutils/{binutils_2.20.1.bb => binutils_2.21.bb} (72%)
+ delete mode 100644 meta/recipes-devtools/libtool/libtool/cross_compile.patch
+ create mode 100644 meta/recipes-devtools/libtool/libtool/fix-final-rpath.patch
+ create mode 100644 meta/recipes-devtools/libtool/libtool/rename-with-sysroot.patch
+ create mode 100644 meta/recipes-devtools/libtool/libtool/resolve-sysroot.patch
+ create mode 100644 meta/recipes-devtools/libtool/libtool/use-sysroot-in-libpath.patch
 
 
