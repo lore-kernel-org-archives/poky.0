@@ -1,43 +1,25 @@
-Return-Path: <aalonso00@gmail.com>
-Received: from mail-bw0-f48.google.com (mail-bw0-f48.google.com
-	[209.85.214.48])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E35BD4C80BD4
-	for <poky@yoctoproject.org>; Thu, 20 Jan 2011 15:41:46 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by bwz8 with SMTP id 8so993907bwz.35
-	for <poky@yoctoproject.org>; Thu, 20 Jan 2011 13:41:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:sender:in-reply-to:references:date
-	:x-google-sender-auth:message-id:subject:from:to:cc:content-type;
-	bh=Pp/98s+ttyVKp5sY8NR7iWB2mzEadZNeJ8SvxLstH/U=;
-	b=JuMYwfkqKH+duJNRxYMNQQjie/bgJhXcrPnY+F53Fp0LVdLUoFRzqAmpeR/H6MtQoL
-	He3d7FzUryMfcSC+I3IS7QQ9OtycQgXytl3hvMWeijP//ljBhvTo0Ef1B1fef17/h6O9
-	JD8JCZhVZW2SNI1DWfAk4i/eC567bGPTOjiOs=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:sender:in-reply-to:references:date
-	:x-google-sender-auth:message-id:subject:from:to:cc:content-type;
-	b=VM1HLUkw8oHeaUMoC602SCBm6dV/iyXM5R30Q12Ey4I7DeJpnzjefj9vbTDaOKRbnx
-	wHVlGxyC52/ocPPtbgvafYEaoMJdtDELYJ/Ivj7koY7dvH7Yfo+8wARH9N9Il6fYCdpm
-	FIJ//oIv85yyEgF+ai4lw3kwNZFKwMC0mQBSc=
+Return-Path: <saul.wold@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C68784C80BD4
+	for <poky@yoctoproject.org>; Thu, 20 Jan 2011 16:49:50 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 20 Jan 2011 14:49:48 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,353,1291622400"; d="scan'208";a="879459139"
+Received: from unknown (HELO [10.255.14.114]) ([10.255.14.114])
+	by fmsmga001.fm.intel.com with ESMTP; 20 Jan 2011 14:49:48 -0800
+Message-ID: <4D38BC0B.7080501@intel.com>
+Date: Thu, 20 Jan 2011 14:49:47 -0800
+From: Saul Wold <saul.wold@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
 MIME-Version: 1.0
-Received: by 10.204.72.137 with SMTP id m9mr1130305bkj.191.1295559682870; Thu,
-	20 Jan 2011 13:41:22 -0800 (PST)
-Sender: aalonso00@gmail.com
-Received: by 10.204.14.199 with HTTP; Thu, 20 Jan 2011 13:41:22 -0800 (PST)
-In-Reply-To: <4D388511.4070500@linux.intel.com>
-References: <1295296178-18590-1-git-send-email-aalonso@secretlab.ca>
-	<1295296178-18590-5-git-send-email-aalonso@secretlab.ca>
-	<4D3884A0.8030602@linux.intel.com>
-	<4D388511.4070500@linux.intel.com>
-Date: Thu, 20 Jan 2011 15:41:22 -0600
-X-Google-Sender-Auth: schbnc_UzfyyxNG7HVxAn5-uQRQ
-Message-ID: <AANLkTikGe04xMe=AmdVJQ2C_ap_uYKupCBmDatY=r_bD@mail.gmail.com>
-From: Adrian Alonso <aalonso@secretlab.ca>
-To: Darren Hart <dvhart@linux.intel.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 05/25] u-boot: disable -Os option not supported by gcc
+To: Zhai Edwin <edwin.zhai@intel.com>
+References: <cover.1295397702.git.edwin.zhai@intel.com>
+In-Reply-To: <cover.1295397702.git.edwin.zhai@intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/6] 2nd pull request: UX, gtk+/apr, Edwin, Jan19, 2011
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -49,102 +31,123 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 20 Jan 2011 21:41:47 -0000
-Content-Type: multipart/alternative; boundary=001636c5abd7aecd4a049a4dfed4
+X-List-Received-Date: Thu, 20 Jan 2011 22:49:51 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
---001636c5abd7aecd4a049a4dfed4
-Content-Type: text/plain; charset=ISO-8859-1
-
-Ok, going to rework patch but keep the optimization level to -O2
-
-Thanks for the suggestion.
-
-On Thu, Jan 20, 2011 at 12:55 PM, Darren Hart <dvhart@linux.intel.com>wrote:
-
-> On 01/20/2011 10:53 AM, Darren Hart wrote:
+On 01/18/2011 04:46 PM, Zhai Edwin wrote:
+> Saul,
+> This is the 2nd pull request for gtk+,gdk-pixbuf,apr. Also added webkit-gtk.
+> Qemu upgrade is under test across all platforms, and will be out soon.
 >
->> On 01/17/2011 12:29 PM, Adrian Alonso wrote:
->>
->>> * Disable -Os optspace option not supported by gcc use insted
->>> -O2
->>> * Bump PR
->>>
->>>
->>
->> I ran into this in the recent u-boot_git.bb recipe I added. Rather than
->> create a patch to the Makefile, I found it simpler to adding OPTFLAGS to
->> the EXTRA_OEMAKE variable in the recipe:
->>
->> EXTRA_OEMAKE = "CROSS_COMPILE=${TARGET_PREFIX} OPTFLAGS=''"
->>
->> This negates the -Os in the Makefile.
->>
+
+
+Edwin,
+
+It was noticed that you updated a little too aggressively!  For the 
+gtk+, webkit, eds-dbus and glib, you moved to the development versions.
+
+In some open source project even releases are stable and odd releases 
+are unstable, so in this case we want to go to the following:
+
+gtk+: 2.22.1
+glib: 2.26.1
+eds-dbus: 2.32
+webkit-gtk 1.2.6
+
+This is something we will need to review more carefully to know for sure 
+which packages are even/odd stable/dev(or unstable) versioning.
+
+I will remind the whole team about this as well.
+
+Sau!
+
+
+> Thanks,
+> edwin
 >
-> In fact, once contrib/dvhart/beagle is merged, you'll get this
-> automatically as you use u-boot.inc. So you should be able to drop this
-> patch.
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>    Branch: gzhai/upgrade01
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=gzhai/upgrade01
+>
+> Thanks,
+>      Zhai Edwin<edwin.zhai@intel.com>
+> ---
 >
 >
-> --
-> Darren Hart
-> Intel Open Source Technology Center
-> Yocto Project - Linux Kernel
+> Zhai Edwin (6):
+>    gtk+: Update to 2.23.2
+>    gdk-pixbuf: Add 2.22.1 as new recipe
+>    eds-dbus: Do not disable old API after upgrading gtk+
+>    apr: Update to 1.4.2
+>    apr-util: Update to 1.3.10
+>    webkit-gtk: upgrade to 1.3.7
+>
+>   meta/classes/gtk-icon-cache.bbclass                |    2 +-
+>   .../conf/distro/include/poky-default-revisions.inc |    2 +-
+>   .../gdk-pixbuf-2.22.1/configure_fix.patch          |   19 +
+>   .../gdk-pixbuf-2.22.1}/hardcoded_libtool.patch     |   20 +-
+>   .../gdk-pixbuf/gdk-pixbuf-native_2.22.1.bb         |   13 +
+>   meta/recipes-gnome/gdk-pixbuf/gdk-pixbuf.inc       |   30 +
+>   meta/recipes-gnome/gdk-pixbuf/gdk-pixbuf_2.22.1.bb |   35 +
+>   meta/recipes-gnome/gnome/metacity_2.30.3.bb        |    2 +-
+>   .../gtk+/gdk-pixbuf-csource-native_2.12.7.bb       |   37 -
+>   .../gdk-pixbuf-csource/reduce-dependencies.patch   |  221 -------
+>   .../gtk+-2.20.1/disable-gio-png-sniff-test.diff    |   97 ---
+>   meta/recipes-gnome/gtk+/gtk+-2.20.1/no-demos.patch |   10 -
+>   ...Duplicate-the-exec-string-returned-by-gtk.patch |    0
+>   .../cellrenderer-cairo.patch                       |    0
+>   .../configurefix.patch                             |    0
+>   .../{gtk+-2.20.1 =>  gtk+-2.23.2}/entry-cairo.patch |    0
+>   .../hardcoded_libtool.patch                        |   22 +-
+>   meta/recipes-gnome/gtk+/gtk+-2.23.2/no-demos.patch |   13 +
+>   .../run-iconcache.patch                            |    0
+>   .../{gtk+-2.20.1 =>  gtk+-2.23.2}/toggle-font.diff  |    0
+>   .../{gtk+-2.20.1 =>  gtk+-2.23.2}/xsettings.patch   |    0
+>   meta/recipes-gnome/gtk+/gtk+.inc                   |   16 +-
+>   .../gtk+/{gtk+_2.20.1.bb =>  gtk+_2.23.2.bb}        |   18 +-
+>   meta/recipes-gnome/librsvg/librsvg_2.32.1.bb       |    2 +-
+>   meta/recipes-graphics/mutter/mutter.inc            |    2 +-
+>   meta/recipes-sato/eds/eds-dbus/old-gdk-api.patch   |   17 +
+>   meta/recipes-sato/eds/eds-dbus_git.bb              |    1 +
+>   meta/recipes-sato/webkit/files/GNUmakefile.am      |  692 ++------------------
+>   meta/recipes-sato/webkit/files/Makefile            |    2 +-
+>   meta/recipes-sato/webkit/files/autogen.sh          |    2 +-
+>   meta/recipes-sato/webkit/files/configure.ac        |  164 ++++--
+>   meta/recipes-sato/webkit/webkit-gtk_svn.bb         |    7 +-
+>   .../apr/{apr-util_1.3.4.bb =>  apr-util_1.3.10.bb}  |   12 +-
+>   meta/recipes-support/apr/apr/buildconf_fix.patch   |   25 +
+>   meta/recipes-support/apr/apr/cleanup.patch         |    9 +-
+>   .../apr/{apr_1.3.3.bb =>  apr_1.4.2.bb}             |   23 +-
+>   36 files changed, 383 insertions(+), 1132 deletions(-)
+>   create mode 100644 meta/recipes-gnome/gdk-pixbuf/gdk-pixbuf-2.22.1/configure_fix.patch
+>   copy meta/recipes-gnome/{gtk+/gtk+-2.20.1 =>  gdk-pixbuf/gdk-pixbuf-2.22.1}/hardcoded_libtool.patch (68%)
+>   create mode 100644 meta/recipes-gnome/gdk-pixbuf/gdk-pixbuf-native_2.22.1.bb
+>   create mode 100644 meta/recipes-gnome/gdk-pixbuf/gdk-pixbuf.inc
+>   create mode 100644 meta/recipes-gnome/gdk-pixbuf/gdk-pixbuf_2.22.1.bb
+>   delete mode 100644 meta/recipes-gnome/gtk+/gdk-pixbuf-csource-native_2.12.7.bb
+>   delete mode 100644 meta/recipes-gnome/gtk+/gdk-pixbuf-csource/reduce-dependencies.patch
+>   delete mode 100644 meta/recipes-gnome/gtk+/gtk+-2.20.1/disable-gio-png-sniff-test.diff
+>   delete mode 100644 meta/recipes-gnome/gtk+/gtk+-2.20.1/no-demos.patch
+>   rename meta/recipes-gnome/gtk+/{gtk+-2.20.1 =>  gtk+-2.23.2}/0001-bgo-584832-Duplicate-the-exec-string-returned-by-gtk.patch (100%)
+>   rename meta/recipes-gnome/gtk+/{gtk+-2.20.1 =>  gtk+-2.23.2}/cellrenderer-cairo.patch (100%)
+>   rename meta/recipes-gnome/gtk+/{gtk+-2.20.1 =>  gtk+-2.23.2}/configurefix.patch (100%)
+>   rename meta/recipes-gnome/gtk+/{gtk+-2.20.1 =>  gtk+-2.23.2}/entry-cairo.patch (100%)
+>   rename meta/recipes-gnome/gtk+/{gtk+-2.20.1 =>  gtk+-2.23.2}/hardcoded_libtool.patch (66%)
+>   create mode 100644 meta/recipes-gnome/gtk+/gtk+-2.23.2/no-demos.patch
+>   rename meta/recipes-gnome/gtk+/{gtk+-2.20.1 =>  gtk+-2.23.2}/run-iconcache.patch (100%)
+>   rename meta/recipes-gnome/gtk+/{gtk+-2.20.1 =>  gtk+-2.23.2}/toggle-font.diff (100%)
+>   rename meta/recipes-gnome/gtk+/{gtk+-2.20.1 =>  gtk+-2.23.2}/xsettings.patch (100%)
+>   rename meta/recipes-gnome/gtk+/{gtk+_2.20.1.bb =>  gtk+_2.23.2.bb} (74%)
+>   create mode 100644 meta/recipes-sato/eds/eds-dbus/old-gdk-api.patch
+>   rename meta/recipes-support/apr/{apr-util_1.3.4.bb =>  apr-util_1.3.10.bb} (72%)
+>   create mode 100644 meta/recipes-support/apr/apr/buildconf_fix.patch
+>   rename meta/recipes-support/apr/{apr_1.3.3.bb =>  apr_1.4.2.bb} (60%)
+>
 > _______________________________________________
 > poky mailing list
 > poky@yoctoproject.org
 > https://lists.yoctoproject.org/listinfo/poky
 >
 
---001636c5abd7aecd4a049a4dfed4
-Content-Type: text/html; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
 
-Ok, going to rework patch but keep the optimization level to -O2<div><br></=
-div><div>Thanks for the suggestion.<br><br><div class=3D"gmail_quote">On Th=
-u, Jan 20, 2011 at 12:55 PM, Darren Hart <span dir=3D"ltr">&lt;<a href=3D"m=
-ailto:dvhart@linux.intel.com">dvhart@linux.intel.com</a>&gt;</span> wrote:<=
-br>
-<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
-x #ccc solid;padding-left:1ex;"><div class=3D"im">On 01/20/2011 10:53 AM, D=
-arren Hart wrote:<br>
-<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
-x #ccc solid;padding-left:1ex">
-On 01/17/2011 12:29 PM, Adrian Alonso wrote:<br>
-<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
-x #ccc solid;padding-left:1ex">
-* Disable -Os optspace option not supported by gcc use insted<br>
--O2<br>
-* Bump PR<br>
-<br>
-</blockquote>
-<br>
-<br>
-I ran into this in the recent <a href=3D"http://u-boot_git.bb" target=3D"_b=
-lank">u-boot_git.bb</a> recipe I added. Rather than<br>
-create a patch to the Makefile, I found it simpler to adding OPTFLAGS to<br=
->
-the EXTRA_OEMAKE variable in the recipe:<br>
-<br>
-EXTRA_OEMAKE =3D &quot;CROSS_COMPILE=3D${TARGET_PREFIX} OPTFLAGS=3D&#39;&#3=
-9;&quot;<br>
-<br>
-This negates the -Os in the Makefile.<br>
-</blockquote>
-<br></div>
-In fact, once contrib/dvhart/beagle is merged, you&#39;ll get this automati=
-cally as you use u-boot.inc. So you should be able to drop this patch.<div>=
-<div></div><div class=3D"h5"><br>
-<br>
--- <br>
-Darren Hart<br>
-Intel Open Source Technology Center<br>
-Yocto Project - Linux Kernel<br>
-_______________________________________________<br>
-poky mailing list<br>
-<a href=3D"mailto:poky@yoctoproject.org" target=3D"_blank">poky@yoctoprojec=
-t.org</a><br>
-<a href=3D"https://lists.yoctoproject.org/listinfo/poky" target=3D"_blank">=
-https://lists.yoctoproject.org/listinfo/poky</a><br>
-</div></div></blockquote></div><br></div>
-
---001636c5abd7aecd4a049a4dfed4--
