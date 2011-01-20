@@ -1,25 +1,20 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id F10634C81118
-	for <poky@yoctoproject.org>; Thu, 20 Jan 2011 04:15:07 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 20 Jan 2011 02:15:06 -0800
+Return-Path: <kevin.tian@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 43EB24C810B6
+	for <poky@pokylinux.org>; Thu, 20 Jan 2011 05:42:02 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 20 Jan 2011 03:42:01 -0800
+Message-Id: <0d30dc$kqbuu6@orsmga001.jf.intel.com>
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,350,1291622400"; d="scan'208";a="649147615"
-Received: from unknown (HELO helios.localnet) ([10.255.16.99])
-	by fmsmga002.fm.intel.com with ESMTP; 20 Jan 2011 02:15:06 -0800
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-Organization: Intel Corporation (UK)
-To: poky@yoctoproject.org
-Date: Thu, 20 Jan 2011 10:15:03 +0000
-User-Agent: KMail/1.13.5 (Linux/2.6.35-24-generic-pae; KDE/4.5.1; i686; ; )
-References: <cover.1295455496.git.paul.eggleton@linux.intel.com>
-	<88be364793ae493d048409762c83ca4126e3fecf.1295455496.git.paul.eggleton@linux.intel.com>
-	<4D3737DF.2040906@intel.com>
-In-Reply-To: <4D3737DF.2040906@intel.com>
-MIME-Version: 1.0
-Message-Id: <201101201015.03665.paul.eggleton@linux.intel.com>
-Subject: Re: [PATCH 1/3] util-linux: split out libuuid and libblkid into	separate packages
+X-IronPort-AV: E=Sophos;i="4.60,350,1291622400"; d="scan'208";a="698743755"
+Received: from poky-desktop-ktian1.sh.intel.com (HELO localhost)
+	([10.239.36.19])
+	by orsmga001.jf.intel.com with ESMTP; 20 Jan 2011 03:42:01 -0800
+From: Kevin Tian <kevin.tian@intel.com>
+Old-Date: Thu, 20 Jan 2011 19:21:36 +0800
+Date: Thu, 20 Jan 2011 19:23:56 +0800
+To: poky@pokylinux.org
+Subject: [PATCH 0/3] sstate fixes: whitelist and bitbake-diffsigs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,40 +26,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 20 Jan 2011 10:15:13 -0000
-Content-Type: Text/Plain;
-  charset="iso-8859-1"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 20 Jan 2011 11:42:02 -0000
 
-On Wednesday 19 January 2011 19:13:35 Saul Wold wrote:
-> On 01/19/2011 08:55 AM, Paul Eggleton wrote:
-> > libuuid and libblkid can exist on their own separately from the rest
-> > of util-linux. Slightly reduces the overall footprint of other packages
-> > that depend on these libraries.
-> 
-> Is this different than the work that Qing submitted last night?  Are you
-> both addressing the same bug #661?
-> 
-> This fix seems different than his, we need to make sure we are better
-> coordinated
+this series include one whitelist fix about USER and USERNAME, which allows sstate packages
+generated from opensuse to be usable on ubuntu. other two fixes about bitbake-diffsigs, for
+better output and correctness
 
-Yes, this is a lesson for me to check bugzilla and pay closer attention 
-patches that are being posted - my apologies. FYI I was responding to a 
-request from Richard on IRC rather than the bug report.
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: tk/master
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=tk/master
 
-Qing's patch is slightly better than mine in that it splits the dev packages 
-out as well; on the other hand it names the packages libuuid and libblkid 
-rather than util-linux-libblkid and util-linux-libuuid. Personally it doesn't 
-bother me, but having the prefix there does at least make it easy to determine 
-the source recipe from the package name.
+Thanks,
+    Kevin Tian <kevin.tian@intel.com>
+---
 
-I think we do also need to bump PR on all packages that depend on these 
-libraries (the other patches from my patchset) so that package dependencies 
-get corrected automatically.
 
-Qing, would you mind integrating these changes into your branch and reposting? 
-(assuming we want the util-linux- package name prefix?)
+Kevin Tian (3):
+  bitbake.conf: add USERNAME to BB_HASHBASE_WHITELIST
+  siggen.py: better print for task hash comparison
+  siggen.py: remove path in 'runtaskdeps'
 
-Cheers,
-Paul
+ bitbake/lib/bb/siggen.py |   27 +++++++++++++++++++--------
+ meta/conf/bitbake.conf   |    2 +-
+ 2 files changed, 20 insertions(+), 9 deletions(-)
+
 
