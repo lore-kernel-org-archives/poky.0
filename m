@@ -1,24 +1,26 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D9B6B4C81065
-	for <poky@yoctoproject.org>; Thu, 20 Jan 2011 09:10:32 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 20 Jan 2011 07:09:28 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,351,1291622400"; d="scan'208";a="594832799"
-Received: from unknown (HELO helios.localnet) ([10.255.16.99])
-	by orsmga002.jf.intel.com with ESMTP; 20 Jan 2011 07:09:28 -0800
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-Organization: Intel Corporation (UK)
-To: poky@yoctoproject.org
-Date: Thu, 20 Jan 2011 15:09:26 +0000
-User-Agent: KMail/1.13.5 (Linux/2.6.35-24-generic-pae; KDE/4.5.1; i686; ; )
-References: <cover.1295282922.git.paul.eggleton@linux.intel.com>
-	<4D35F748.4010002@linux.intel.com>
-In-Reply-To: <4D35F748.4010002@linux.intel.com>
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 366DB4C810B6
+	for <poky@lists.pokylinux.org>; Thu, 20 Jan 2011 09:11:48 -0600 (CST)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id BAEDC16604EA; Thu, 20 Jan 2011 08:11:47 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.1
+Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 507F31660462;
+	Thu, 20 Jan 2011 08:11:47 -0700 (MST)
+Message-ID: <4D3850B3.2030100@mlbassoc.com>
+Date: Thu, 20 Jan 2011 08:11:47 -0700
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
 MIME-Version: 1.0
-Message-Id: <201101201509.26774.paul.eggleton@linux.intel.com>
-Subject: Re: [PATCH 0/8] Add meta-toolchain-qte from OE
+To: Poky <poky@lists.pokylinux.org>
+Subject: What's taking so long??
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,22 +32,40 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 20 Jan 2011 15:10:33 -0000
-Content-Type: Text/Plain;
-  charset="iso-8859-1"
+X-List-Received-Date: Thu, 20 Jan 2011 15:11:48 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Tuesday 18 January 2011 20:25:44 Saul Wold wrote:
-> Over all this patch set looks good.
-> 
-> One minor nit, for some of the new packages you did not include the
-> SRC_URI checksum information for md5 and sha256, can you please add
-> these and re-submit.
+My target platform/distro uses IPK and I have a local kernel
+recipe which is based on the pre linux-yocto recipe that was
+used by Poky.  When I build & package the kernel, I have
+terrible performance - this is new, it used to be just fine.
 
-OK, I will ensure all recipes have those in the next revision. (At the moment 
-I am reworking the patchset to incorporate what Koen has done in meta-
-openembedded.)
+Here's what I mean.  Building for my kernel and timing the
+various steps, e.g.
+   % time bitbake virtual/kernel -c compile
 
-Cheers,
-Paul
+My kernel:
+   compile            1m49s
+   deploy             0m16s
+   populate_sysroot   0m38s
+   package           23m20s
+
+Just to compare, using OTS Poky for BeagleBoard:
+   compile            5m07s
+   deploy             0m36s
+   populate_sysroot   0m29s
+   package            5m02s
+
+That's a five-fold difference in the time to build & package
+the kernel.
+
+What am I doing [wrong?] that makes this so?
+Would it be better if I switched to RPM like the BB is using?
+
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
