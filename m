@@ -1,25 +1,20 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 17CAC4C8109B
-	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 22:21:57 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 19 Jan 2011 20:21:56 -0800
+Return-Path: <ke.yu@intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 9E2174C80FAD
+	for <poky@yoctoproject.org>; Thu, 20 Jan 2011 01:46:03 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 19 Jan 2011 23:46:03 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,348,1291622400"; d="scan'208";a="649054658"
-Received: from unknown (HELO [10.255.14.134]) ([10.255.14.134])
-	by fmsmga002.fm.intel.com with ESMTP; 19 Jan 2011 20:21:56 -0800
-Message-ID: <4D37B85B.4010203@linux.intel.com>
-Date: Wed, 19 Jan 2011 20:21:47 -0800
-From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
-MIME-Version: 1.0
-To: Bruce Ashfield <bruce.ashfield@gmail.com>
-References: <cover.1295472579.git.dvhart@linux.intel.com>
-	<AANLkTinSWeERqMOXuR1ckzz=Ri8k2mwgrW79Y3Wd=OYi@mail.gmail.com>
-In-Reply-To: <AANLkTinSWeERqMOXuR1ckzz=Ri8k2mwgrW79Y3Wd=OYi@mail.gmail.com>
-Cc: poky@yoctoproject.org, robert.karl.berger@gmail.com
-Subject: Re: [PATCH 0/6] Beagleboard xM support
+X-IronPort-AV: E=Sophos;i="4.60,349,1291622400"; d="scan'208";a="377240670"
+Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
+	by azsmga001.ch.intel.com with ESMTP; 19 Jan 2011 23:46:02 -0800
+Message-Id: <cover.1295509738.git.ke.yu@intel.com>
+From: Yu Ke <ke.yu@intel.com>
+Old-Date: Thu, 20 Jan 2011 15:48:58 +0800
+Date: Thu, 20 Jan 2011 15:50:14 +0800
+To: poky@yoctoproject.org
+CC: 
+Subject: [PATCH 0/1] distro tracking data update
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,34 +26,23 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 20 Jan 2011 04:21:57 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 20 Jan 2011 07:46:04 -0000
 
-On 01/19/2011 07:21 PM, Bruce Ashfield wrote:
-> On Wed, Jan 19, 2011 at 4:30 PM, Darren Hart<dvhart@linux.intel.com>  wrote:
->> The following patches provide initial support for the Beagleboard. They update
->> the x-load and u-boot recipes, modify the beagleboard machine config, and add
->> README.hardware documentation for the Beagleboard.
->>
->> The kernel config still needs to be updated to support the onboard NIC of the
->> xM. Graphics and audio have not been tested. With the basic functionality in
->> place, hopefully others will be encouraged to participate in fleshing out
->> Beagleboard support in Poky.
->
-> Darren,
->
-> Looks good. So just so I'm clear, you'll be following up with a kernel
-> config fragment and/or a BSP branch ? Or am I somehow just
-> not seeing it in your series ?
+update the distro tracking data for graphics recipes
 
-Right, I thought it was worth getting this all in now while it was hot 
-and still in sync with master. I'm hoping to get time this week to get 
-the necessary kernel changes for Ethernet support knocked out (should be 
-trivial... but... you know).
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: kyu3/distro-track
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kyu3/distro-track
 
--- 
-Darren Hart
-Intel Open Source Technology Center
-Yocto Project - Linux Kernel
+Thanks,
+    Yu Ke <ke.yu@intel.com>
+---
+
+
+Yu Ke (1):
+  distro tracking: add graphics recipes tracking data
+
+ .../conf/distro/include/distro_tracking_fields.inc |   37 ++++++++++---------
+ 1 files changed, 19 insertions(+), 18 deletions(-)
+
 
