@@ -1,24 +1,24 @@
 Return-Path: <qing.he@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 28BF04C810B6
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 314334C81110
 	for <poky@yoctoproject.org>; Thu, 20 Jan 2011 03:30:27 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 20 Jan 2011 01:30:26 -0800
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 20 Jan 2011 01:30:26 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,350,1291622400"; d="scan'208";a="649138151"
+X-IronPort-AV: E=Sophos;i="4.60,350,1291622400"; d="scan'208";a="594758372"
 Received: from qhe2-db.sh.intel.com ([10.239.13.48])
-	by fmsmga002.fm.intel.com with ESMTP; 20 Jan 2011 01:30:26 -0800
+	by orsmga002.jf.intel.com with ESMTP; 20 Jan 2011 01:30:26 -0800
 Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
 	(envelope-from <qing.he@intel.com>)
-	id 1Pfqko-0001y3-PW; Thu, 20 Jan 2011 17:24:30 +0800
-Message-Id: <20618c1e9a5d02ae185118a51a942eb6285fc5de.1295515302.git.qing.he@intel.com>
+	id 1Pfqko-0001xw-P3; Thu, 20 Jan 2011 17:24:30 +0800
+Message-Id: <d2601d154d4f52788d5f5c3327afed252cf9dd5e.1295515302.git.qing.he@intel.com>
 In-Reply-To: <cover.1295515302.git.qing.he@intel.com>
 References: <cover.1295515302.git.qing.he@intel.com>
 From: Qing He <qing.he@intel.com>
-Old-Date: Thu, 20 Jan 2011 14:03:33 +0800
+Old-Date: Thu, 20 Jan 2011 14:01:08 +0800
 Date: Thu, 20 Jan 2011 17:24:30 +0800
 To: poky@yoctoproject.org
-Subject: [PATCH 3/7] libnfsidmap: upgrade to version 0.24
+Subject: [PATCH 2/7] coreutils: upgrade to version 8.9
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,81 +32,66 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Thu, 20 Jan 2011 09:30:27 -0000
 
-from 0.23
+from 8.5
+
+coreutils now depends on gmp
 
 Signed-off-by: Qing He <qing.he@intel.com>
 ---
- .../conf/distro/include/distro_tracking_fields.inc |    9 +++------
- .../nfs-utils/files/fix-ac-prereq.patch            |   13 +++++++++++++
- .../{libnfsidmap_0.23.bb => libnfsidmap_0.24.bb}   |    8 +++++---
- 3 files changed, 21 insertions(+), 9 deletions(-)
- create mode 100644 meta/recipes-connectivity/nfs-utils/files/fix-ac-prereq.patch
- rename meta/recipes-connectivity/nfs-utils/{libnfsidmap_0.23.bb => libnfsidmap_0.24.bb} (60%)
+ .../conf/distro/include/distro_tracking_fields.inc |    8 +++++---
+ .../{coreutils_8.5.bb => coreutils_8.9.bb}         |    9 +++++----
+ 2 files changed, 10 insertions(+), 7 deletions(-)
+ rename meta/recipes-core/coreutils/{coreutils_8.5.bb => coreutils_8.9.bb} (90%)
 
 diff --git a/meta/conf/distro/include/distro_tracking_fields.inc b/meta/conf/distro/include/distro_tracking_fields.inc
-index be37b76..37f0650 100644
+index 0256ef0..be37b76 100644
 --- a/meta/conf/distro/include/distro_tracking_fields.inc
 +++ b/meta/conf/distro/include/distro_tracking_fields.inc
-@@ -524,14 +524,11 @@ RECIPE_INTEL_SECTION_pn-libevent = "base libs"
- RECIPE_LATEST_RELEASE_DATE_pn-libevent = "06/2010"
+@@ -1022,10 +1022,12 @@ RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-shadow = "2 months"
+ RECIPE_LATEST_RELEASE_DATE_pn-shadow = "07/2009"
+ RECIPE_COMMENTS_pn-formfactor = ""
  
- RECIPE_STATUS_pn-libnfsidmap = "green"
--RECIPE_LAST_UPDATE_pn-libnfsidmap = "Jul 7, 2010"
-+RECIPE_LAST_UPDATE_pn-libnfsidmap = "Jan 20, 2011"
- RECIPE_MAINTAINER_pn-libnfsidmap = "Qing He <qing.he@intel.com>"
--RECIPE_DEPENDENCY_CHECK_pn-libnfsidmap = "done"
--RECIPE_LATEST_VERSION_pn-libnfsidmap = "0.23"
-+RECIPE_LATEST_VERSION_pn-libnfsidmap = "0.24"
- RECIPE_INTEL_SECTION_pn-libnfsidmap = "base libs"
--RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-libnfsidmap = "4 months"
--RECIPE_LATEST_RELEASE_DATE_pn-libnfsidmap = "12/2009"
--RECIPE_COMMENTS_pn-libnfsidmap = ""
-+RECIPE_LATEST_RELEASE_DATE_pn-libnfsidmap = "12/2010"
+-RECIPE_STATUS_pn-coreutils = "red"
+-RECIPE_LAST_UPDATE_pn-coreutils = "Aug 26, 2010"
++RECIPE_STATUS_pn-coreutils = "green"
++RECIPE_LAST_UPDATE_pn-coreutils = "Jan 20, 2011"
+ RECIPE_MAINTAINER_pn-coreutils = "Qing He <qing.he@intel.com>"
+-RECIPE_LATEST_VERSION_pn-coreutils = "8.5"
++RECIPE_INTEL_SECTION_pn-coreutils = "base utils"
++RECIPE_LATEST_VERSION_pn-coreutils = "8.9"
++RECIPE_LATEST_RELEASE_DATE_pn-coreutils = "01/2011"
  
- RECIPE_STATUS_pn-acl = "yellow"   # hacky as attr
- RECIPE_LAST_UPDATE_pn-acl = "Jul 29, 2010"
-diff --git a/meta/recipes-connectivity/nfs-utils/files/fix-ac-prereq.patch b/meta/recipes-connectivity/nfs-utils/files/fix-ac-prereq.patch
-new file mode 100644
-index 0000000..2131520
---- /dev/null
-+++ b/meta/recipes-connectivity/nfs-utils/files/fix-ac-prereq.patch
-@@ -0,0 +1,13 @@
-+diff --git a/configure.in b/configure.in
-+index f5d54fb..c105988 100644
-+--- a/configure.in
-++++ b/configure.in
-+@@ -1,7 +1,7 @@
-+ #                                               -*- Autoconf -*-
-+ # Process this file with autoconf to produce a configure script.
-+ 
-+-AC_PREREQ([2.66])
-++AC_PREREQ([2.65])
-+ AC_INIT([libnfsidmap],[0.24],[linux-nfs@vger.kernel.org])
-+ AC_CONFIG_SRCDIR([nfsidmap.h])
-+ AC_CONFIG_MACRO_DIR([m4])
-diff --git a/meta/recipes-connectivity/nfs-utils/libnfsidmap_0.23.bb b/meta/recipes-connectivity/nfs-utils/libnfsidmap_0.24.bb
-similarity index 60%
-rename from meta/recipes-connectivity/nfs-utils/libnfsidmap_0.23.bb
-rename to meta/recipes-connectivity/nfs-utils/libnfsidmap_0.24.bb
-index 3077ea2..101ecab 100644
---- a/meta/recipes-connectivity/nfs-utils/libnfsidmap_0.23.bb
-+++ b/meta/recipes-connectivity/nfs-utils/libnfsidmap_0.24.bb
-@@ -6,10 +6,12 @@ LICENSE = "BSD"
- LIC_FILES_CHKSUM = "file://COPYING;md5=d9c6a2a0ca6017fda7cd905ed2739b37"
+ RECIPE_STATUS_pn-libuser = "green"
+ RECIPE_LAST_UPDATE_pn-libuser = "Nov 19, 2010"
+diff --git a/meta/recipes-core/coreutils/coreutils_8.5.bb b/meta/recipes-core/coreutils/coreutils_8.9.bb
+similarity index 90%
+rename from meta/recipes-core/coreutils/coreutils_8.5.bb
+rename to meta/recipes-core/coreutils/coreutils_8.9.bb
+index 3944e34..4b9a655 100644
+--- a/meta/recipes-core/coreutils/coreutils_8.5.bb
++++ b/meta/recipes-core/coreutils/coreutils_8.9.bb
+@@ -6,16 +6,17 @@ HOMEPAGE = "http://www.gnu.org/software/coreutils/"
+ BUGTRACKER = "http://debbugs.gnu.org/coreutils"
+ LICENSE = "GPLv3+"
+ LIC_FILES_CHKSUM = "file://COPYING;md5=d32239bcb673463ab874e80d47fae504\
+-                    file://src/ls.c;startline=5;endline=16;md5=bb14ed3c4cda583abc85401304b5cd4e"
++                    file://src/ls.c;startline=5;endline=16;md5=e1a509558876db58fb6667ba140137ad"
  PR = "r0"
+-DEPENDS = "perl-native"
++DEPENDS = "perl-native gmp"
++DEPENDS_virtclass-native = "perl-native gmp-native"
  
--SRC_URI = "http://www.citi.umich.edu/projects/nfsv4/linux/libnfsidmap/${BPN}-${PV}.tar.gz"
-+SRC_URI = "http://www.citi.umich.edu/projects/nfsv4/linux/libnfsidmap/${BPN}-${PV}.tar.gz \
-+           file://fix-ac-prereq.patch \
-+          "
+ inherit autotools gettext
  
--SRC_URI[md5sum] = "28f3ece648c1dc5d25e8d623d55f8bd6"
--SRC_URI[sha256sum] = "69d20cfc6be6bf7ede2a55da687dc6853f2db6c8ef826a0b5e3235e7d46f4051"
-+SRC_URI[md5sum] = "d71a1ee9881d5b5814ff3ec41256937d"
-+SRC_URI[sha256sum] = "59501432e683336d7a290da13767e92afb5b86f42ea4254041225fe218e8dd47"
+ SRC_URI = "http://ftp.gnu.org/gnu/coreutils/${BP}.tar.gz"
  
- inherit autotools
+-SRC_URI[md5sum] = "c1ffe586d001e87d66cd80c4536ee823"
+-SRC_URI[sha256sum] = "dd243e2ac7d0ed203b170ecfb8299643779e7501fec2b45ae1cea8a450fa8ca0"
++SRC_URI[md5sum] = "36909ae68840d73a800120cf74af794a"
++SRC_URI[sha256sum] = "aa991fa4296b22ff929a31a5cb5528bb783c84cdef4503c4ff311cfbeaebf50a"
  
+ # [ gets a special treatment and is not included in this
+ bindir_progs = "base64 basename chcon cksum comm csplit cut dir dircolors dirname du \
 -- 
 1.7.0
 
