@@ -1,33 +1,25 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 72EFF4C81110
-	for <poky@yoctoproject.org>; Thu, 20 Jan 2011 17:24:38 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0KNQMXq009151; Thu, 20 Jan 2011 23:26:23 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id zT4MSVuDB4Qc; Thu, 20 Jan 2011 23:26:22 +0000 (GMT)
-Received: from [192.168.1.45] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0KNQEB5009087
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Thu, 20 Jan 2011 23:26:16 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Wolfgang Denk <wd@denx.de>
-In-Reply-To: <20110120230537.5CF85D301D7@gemini.denx.de>
-References: <1295296178-18590-1-git-send-email-aalonso@secretlab.ca>
-	<1295296178-18590-5-git-send-email-aalonso@secretlab.ca>
-	<4D3884A0.8030602@linux.intel.com>
-	<20110120230537.5CF85D301D7@gemini.denx.de>
-Date: Thu, 20 Jan 2011 23:24:14 +0000
-Message-ID: <1295565854.14388.27977.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Cc: Adrian Alonso <aalonso@secretlab.ca>,
-	"poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 05/25] u-boot: disable -Os option not supported by gcc
+Return-Path: <sgw@linux.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 22FE24C81065
+	for <poky@yoctoproject.org>; Thu, 20 Jan 2011 17:26:03 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 20 Jan 2011 15:26:02 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,354,1291622400"; d="scan'208";a="649427495"
+Received: from unknown (HELO [10.255.14.114]) ([10.255.14.114])
+	by fmsmga002.fm.intel.com with ESMTP; 20 Jan 2011 15:26:02 -0800
+Message-ID: <4D38C48A.2090508@linux.intel.com>
+Date: Thu, 20 Jan 2011 15:26:02 -0800
+From: Saul Wold <sgw@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
+MIME-Version: 1.0
+To: Jiajun Xu <jiajun.xu@intel.com>
+References: <cover.1294883271.git.jiajun.xu@intel.com>
+In-Reply-To: <cover.1294883271.git.jiajun.xu@intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/1] qemuimagetest: Use the same image in sanity testing to fix the timeout issue on autobuilder
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,48 +31,70 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 20 Jan 2011 23:24:38 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Thu, 20 Jan 2011 23:26:03 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Fri, 2011-01-21 at 00:05 +0100, Wolfgang Denk wrote:
-> Dear Darren Hart,
-> 
-> In message <4D3884A0.8030602@linux.intel.com> you wrote:
-> >
-> > I ran into this in the recent u-boot_git.bb recipe I added. Rather than 
-> > create a patch to the Makefile, I found it simpler to adding OPTFLAGS to 
-> > the EXTRA_OEMAKE variable in the recipe:
-> > 
-> > EXTRA_OEMAKE = "CROSS_COMPILE=${TARGET_PREFIX} OPTFLAGS=''"
-> > 
-> > This negates the -Os in the Makefile.
-> 
-> What exactly is the reason that -Os is not supported?
+On 01/12/2011 05:50 PM, Jiajun Xu wrote:
+> Fixes [BUGID #595]
+>
+> Because of the QEMU booting slowness issue(see bug #646 and #618), autobuilder
+> is suffering a timeout issue when running sanity test. We introduce variable
+> SHARE_IMAGE here to fix the issue. It is by default set to 1. Poky will copy
+> latest built-out image and keep using it in sanity testing. If it is set to 0,
+> latest built-out image will be copied and tested for each case, which will take
+> much time.
+>
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>    Branch: jxu49/master
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=jxu49/master
+>
+> Thanks,
+>      Jiajun Xu<jiajun.xu@intel.com>
+> ---
+>
+>
+> Jiajun Xu (1):
+>    qemuimagetest: Use the same image in sanity testing to fix the
+>      timeout issue on autobuilder
+>
+>   meta/classes/imagetest-qemu.bbclass                |   22 +++++++++++++++++--
+>   meta/conf/local.conf.sample                        |    8 +++++++
+>   scripts/qemuimage-testlib                          |    7 ++++++
+>   scripts/qemuimage-tests/sanity/compiler            |    2 +-
+>   scripts/qemuimage-tests/sanity/connman             |    2 +-
+>   scripts/qemuimage-tests/sanity/dmesg               |    2 +-
+>   scripts/qemuimage-tests/sanity/rpm_query           |    2 +-
+>   scripts/qemuimage-tests/sanity/scp                 |    2 +-
+>   scripts/qemuimage-tests/sanity/shutdown            |    7 +++++-
+>   scripts/qemuimage-tests/sanity/ssh                 |    2 +-
+>   scripts/qemuimage-tests/sanity/zypper_help         |    2 +-
+>   scripts/qemuimage-tests/sanity/zypper_search       |    2 +-
+>   .../scenario/qemuarm/poky-image-lsb                |    2 +-
+>   .../scenario/qemuarm/poky-image-sato               |    2 +-
+>   .../scenario/qemuarm/poky-image-sdk                |    2 +-
+>   .../scenario/qemumips/poky-image-lsb               |    2 +-
+>   .../scenario/qemumips/poky-image-sato              |    2 +-
+>   .../scenario/qemumips/poky-image-sdk               |    2 +-
+>   .../scenario/qemuppc/poky-image-lsb                |    2 +-
+>   .../scenario/qemuppc/poky-image-sato               |    2 +-
+>   .../scenario/qemuppc/poky-image-sdk                |    2 +-
+>   .../scenario/qemux86-64/poky-image-lsb             |    2 +-
+>   .../scenario/qemux86-64/poky-image-sato            |    2 +-
+>   .../scenario/qemux86-64/poky-image-sdk             |    2 +-
+>   .../scenario/qemux86/poky-image-lsb                |    2 +-
+>   .../scenario/qemux86/poky-image-sato               |    2 +-
+>   .../scenario/qemux86/poky-image-sdk                |    2 +-
+>   27 files changed, 63 insertions(+), 27 deletions(-)
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
+Merged into Master
 
-Its not so much not supported, its that gcc 4.5 seems to have totally
-broken it and for better or worse, we're on that gcc version. Until we
-have a toolchain where the option works what do we do?
-
-> Note that -Os makes is intentional in U-Boot, and omitting it may
-> cause problems on a number of systems.
-> 
-> -O2 will create significantly larger code which does not fit into
-> flash sectors on some systems; on other systems, the code will not
-> fit any more in the size limitations given by the NAND loader.
-> 
-> In other works, -O2 breaks a number of systems.
-> 
-> I discourage doing this.
-
-Well, its a case of "totally broken" or a risk of size issues on some
-systems so I'm in favour of the latter. I agree the toolchain issues
-need to be resolved and I'm sure they will sooner or later. I have
-noticed upstream gcc don't seem to like the -Os option though and it
-often seems to be the source of problems...
-
-Cheers,
-
-Richard
+Thanks
+	Sau!
 
 
