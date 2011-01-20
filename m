@@ -1,25 +1,33 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id CB9874C81065
-	for <poky@yoctoproject.org>; Thu, 20 Jan 2011 17:22:32 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 20 Jan 2011 15:22:32 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,354,1291622400"; d="scan'208";a="377653530"
-Received: from unknown (HELO [10.255.14.114]) ([10.255.14.114])
-	by azsmga001.ch.intel.com with ESMTP; 20 Jan 2011 15:22:31 -0800
-Message-ID: <4D38C3B7.9080905@intel.com>
-Date: Thu, 20 Jan 2011 15:22:31 -0800
-From: Saul Wold <saul.wold@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
-MIME-Version: 1.0
-To: Qing He <qing.he@intel.com>
-References: <cover.1295421399.git.qing.he@intel.com>
-In-Reply-To: <cover.1295421399.git.qing.he@intel.com>
-Cc: poky@yoctoproject.org, aleksandr.koltsoff@ebts.fi
-Subject: Re: [PATCH 0/2] improvement for util-linux
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 72EFF4C81110
+	for <poky@yoctoproject.org>; Thu, 20 Jan 2011 17:24:38 -0600 (CST)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p0KNQMXq009151; Thu, 20 Jan 2011 23:26:23 GMT
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id zT4MSVuDB4Qc; Thu, 20 Jan 2011 23:26:22 +0000 (GMT)
+Received: from [192.168.1.45] (tim [93.97.173.237]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p0KNQEB5009087
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Thu, 20 Jan 2011 23:26:16 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Wolfgang Denk <wd@denx.de>
+In-Reply-To: <20110120230537.5CF85D301D7@gemini.denx.de>
+References: <1295296178-18590-1-git-send-email-aalonso@secretlab.ca>
+	<1295296178-18590-5-git-send-email-aalonso@secretlab.ca>
+	<4D3884A0.8030602@linux.intel.com>
+	<20110120230537.5CF85D301D7@gemini.denx.de>
+Date: Thu, 20 Jan 2011 23:24:14 +0000
+Message-ID: <1295565854.14388.27977.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+Cc: Adrian Alonso <aalonso@secretlab.ca>,
+	"poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH 05/25] u-boot: disable -Os option not supported by gcc
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,43 +39,48 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 20 Jan 2011 23:22:33 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Thu, 20 Jan 2011 23:24:38 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On 01/18/2011 11:22 PM, Qing He wrote:
-> this patch set adjusts the packaging policy of util-linux,
-> separating out shared libraries for flexibility, it also fixes
-> the dangling symlink exists in the recipe.
->
-Qing,
+On Fri, 2011-01-21 at 00:05 +0100, Wolfgang Denk wrote:
+> Dear Darren Hart,
+> 
+> In message <4D3884A0.8030602@linux.intel.com> you wrote:
+> >
+> > I ran into this in the recent u-boot_git.bb recipe I added. Rather than 
+> > create a patch to the Makefile, I found it simpler to adding OPTFLAGS to 
+> > the EXTRA_OEMAKE variable in the recipe:
+> > 
+> > EXTRA_OEMAKE = "CROSS_COMPILE=${TARGET_PREFIX} OPTFLAGS=''"
+> > 
+> > This negates the -Os in the Makefile.
+> 
+> What exactly is the reason that -Os is not supported?
 
-Please refer to Paul's email about the pacage naming and bumping PR
-in other recipes.
+Its not so much not supported, its that gcc 4.5 seems to have totally
+broken it and for better or worse, we're on that gcc version. Until we
+have a toolchain where the option works what do we do?
 
-Sau!
+> Note that -Os makes is intentional in U-Boot, and omitting it may
+> cause problems on a number of systems.
+> 
+> -O2 will create significantly larger code which does not fit into
+> flash sectors on some systems; on other systems, the code will not
+> fit any more in the size limitations given by the NAND loader.
+> 
+> In other works, -O2 breaks a number of systems.
+> 
+> I discourage doing this.
 
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->    Branch: qhe/fix
->    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=qhe/fix
->
-> Thanks,
->      Qing He
-> ---
->
->
-> Qing He (2):
->    util-linux: separately packaging blkid and uuid
->    util-linux: fix dangling symlinks
->
->   meta/recipes-core/util-linux/util-linux.inc       |   27 ++++++++++++++++----
->   meta/recipes-core/util-linux/util-linux_2.17.2.bb |    2 +-
->   2 files changed, 22 insertions(+), 7 deletions(-)
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
+Well, its a case of "totally broken" or a risk of size issues on some
+systems so I'm in favour of the latter. I agree the toolchain issues
+need to be resolved and I'm sure they will sooner or later. I have
+noticed upstream gcc don't seem to like the -Os option though and it
+often seems to be the source of problems...
+
+Cheers,
+
+Richard
 
 
