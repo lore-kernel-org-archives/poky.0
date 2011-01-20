@@ -1,29 +1,29 @@
 Return-Path: <scott.a.garman@intel.com>
 Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
-	by mx1.pokylinux.org (Postfix) with ESMTP id DD5AE4C8109B
-	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 18:39:12 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id C30374C8112C
+	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 18:39:15 -0600 (CST)
 Received: from localhost (c-76-105-143-140.hsd1.or.comcast.net
 	[76.105.143.140])
 	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
 	(No client certificate requested)
-	by masterfoo.zenlinux.com (Postfix) with ESMTP id 62261304F2
-	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 19:39:08 -0500 (EST)
-Message-Id: <ad31ad2706c1d04e8d7d689f190fec3e83d569a7.1295483757.git.scott.a.garman@intel.com>
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id 7B955304F0
+	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 19:39:11 -0500 (EST)
+Message-Id: <d9616ba0b83abda948f5fd45dbaa44b1c8ad36ac.1295483757.git.scott.a.garman@intel.com>
 In-Reply-To: <cover.1295483757.git.scott.a.garman@intel.com>
 References: <cover.1295483757.git.scott.a.garman@intel.com>
 From: Scott Garman <scott.a.garman@intel.com>
-Old-Date: Tue, 21 Dec 2010 14:17:58 -0800
-Date: Wed, 19 Jan 2011 16:39:01 -0800
+Old-Date: Tue, 18 Jan 2011 19:58:02 -0800
+Date: Wed, 19 Jan 2011 16:39:09 -0800
 To: poky@yoctoproject.org
 CC: 
 X-MasterFoo-MailScanner-Information: Please contact the ISP for more
 	information
-X-MailScanner-ID: 62261304F2.39A34
+X-MailScanner-ID: 7B955304F0.3999E
 X-MasterFoo-MailScanner: Found to be clean
 X-MasterFoo-MailScanner-SpamCheck: not spam
 X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
 X-Spam-Status: No
-Subject: [PATCH 05/12] autotools.bbclass: libtool sysroot support changes
+Subject: [PATCH 06/12] staging.bbclass, utils.bbclass: remove la mangling code
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,76 +35,70 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 20 Jan 2011 00:39:13 -0000
+X-List-Received-Date: Thu, 20 Jan 2011 00:39:15 -0000
 
-We do not do it for native recipes, as the native compiler should
-fall back to a prefix of /usr and not solely depend on the sysroot.
-Otherwise we end up staging everything in the native sysroot before
-we start to build target recipes.
+libtool v2.4 --with-libtool-sysroot eliminates the need for
+la mangling.
 
-Also remove la mangling code, which is no longer necessary.
-
-Commit derived from Khem Raj's OE commits.
+Based on Khem Raj's OE commits.
 
 Signed-off-by: Scott Garman <scott.a.garman@intel.com>
 ---
- meta/classes/autotools.bbclass |   25 +++++++++----------------
- 1 files changed, 9 insertions(+), 16 deletions(-)
+ meta/classes/staging.bbclass |   14 --------------
+ meta/classes/utils.bbclass   |   15 ++-------------
+ 2 files changed, 2 insertions(+), 27 deletions(-)
 
-diff --git a/meta/classes/autotools.bbclass b/meta/classes/autotools.bbclass
-index 324cbff..39f5036 100644
---- a/meta/classes/autotools.bbclass
-+++ b/meta/classes/autotools.bbclass
-@@ -38,6 +38,12 @@ def autotools_set_crosscompiling(d):
- 		return " cross_compiling=yes"
- 	return ""
+diff --git a/meta/classes/staging.bbclass b/meta/classes/staging.bbclass
+index a7f3258..438cf37 100644
+--- a/meta/classes/staging.bbclass
++++ b/meta/classes/staging.bbclass
+@@ -26,20 +26,6 @@ sysroot_stage_libdir() {
+ 	dest="$2"
  
-+def append_libtool_sysroot(d):
-+	# Only supply libtool sysroot option for non-native packages
-+	if not bb.data.inherits_class('native', d):
-+		return '--with-libtool-sysroot=${STAGING_DIR_HOST}'
-+	return ""
-+
- # EXTRA_OECONF_append = "${@autotools_set_crosscompiling(d)}"
- 
- CONFIGUREOPTS = " --build=${BUILD_SYS} \
-@@ -56,14 +62,13 @@ CONFIGUREOPTS = " --build=${BUILD_SYS} \
- 		  --includedir=${includedir} \
- 		  --oldincludedir=${oldincludedir} \
- 		  --infodir=${infodir} \
--		  --mandir=${mandir}"
-+		  --mandir=${mandir} \
-+		  ${@append_libtool_sysroot(d)}"
- 
- oe_runconf () {
- 	if [ -x ${S}/configure ] ; then
- 		cfgcmd="${S}/configure \
--		        ${CONFIGUREOPTS} \
--			${EXTRA_OECONF} \
--		    $@"
-+		${CONFIGUREOPTS} ${EXTRA_OECONF} $@"
- 		oenote "Running $cfgcmd..."
- 		$cfgcmd || oefatal "oe_runconf failed" 
- 	else
-@@ -152,18 +157,6 @@ autotools_do_install() {
- 	oe_runmake 'DESTDIR=${D}' install
- }
- 
--PACKAGE_PREPROCESS_FUNCS += "autotools_prepackage_lamangler"
+ 	sysroot_stage_dir $src $dest
 -
--autotools_prepackage_lamangler () {
--        for i in `find ${PKGD} -name "*.la"` ; do \
--            sed -i -e 's:${STAGING_LIBDIR}:${libdir}:g;' \
--                   -e 's:${D}::g;' \
--                   -e 's:-I${WORKDIR}\S*: :g;' \
--                   -e 's:-L${WORKDIR}\S*: :g;' \
--                   $i
+-	olddir=`pwd`
+-	cd $dest
+-	las=$(find . -name \*.la -type f)
+-	cd $olddir
+-	echo "Found la files: $las"		 
+-	for i in $las
+-	do
+-		sed -e 's/^installed=yes$/installed=no/' \
+-		    -e '/^dependency_libs=/s,${WORKDIR}[[:alnum:]/\._+-]*/\([[:alnum:]\._+-]*\),${STAGING_LIBDIR}/\1,g' \
+-		    -e "/^dependency_libs=/s,\([[:space:]']\)${libdir},\1${STAGING_LIBDIR},g" \
+-		    -e "/^dependency_libs=/s,\([[:space:]']\)${base_libdir},\1${STAGING_DIR_HOST}${base_libdir},g" \
+-		    -i $dest/$i
 -	done
--}
--
- autotools_stage_dir() {
-  	sysroot_stage_dir $1 $2
  }
+ 
+ sysroot_stage_dirs() {
+diff --git a/meta/classes/utils.bbclass b/meta/classes/utils.bbclass
+index 746f46c..4d4b995 100644
+--- a/meta/classes/utils.bbclass
++++ b/meta/classes/utils.bbclass
+@@ -199,19 +199,8 @@ oe_libinstall() {
+ 		__runcmd install -m 0644 $dota $destpath/
+ 	fi
+ 	if [ -f "$dotlai" -a -n "$libtool" ]; then
+-		if test -n "$staging_install"
+-		then
+-			# stop libtool using the final directory name for libraries
+-			# in staging:
+-			__runcmd rm -f $destpath/$libname.la
+-			__runcmd sed -e 's/^installed=yes$/installed=no/' \
+-				     -e '/^dependency_libs=/s,${WORKDIR}[[:alnum:]/\._+-]*/\([[:alnum:]\._+-]*\),${STAGING_LIBDIR}/\1,g' \
+-				     -e "/^dependency_libs=/s,\([[:space:]']\)${libdir},\1${STAGING_LIBDIR},g" \
+-				     $dotlai >$destpath/$libname.la
+-		else
+-			rm -f $destpath/$libname.la
+-			__runcmd install -m 0644 $dotlai $destpath/$libname.la
+-		fi
++		rm -f $destpath/$libname.la
++		__runcmd install -m 0644 $dotlai $destpath/$libname.la
+ 	fi
+ 
+ 	for name in $library_names; do
 -- 
 1.7.1
 
