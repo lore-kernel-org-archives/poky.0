@@ -1,23 +1,39 @@
-Return-Path: <yanok@emcraft.com>
-Received: from ocean.emcraft.com (ocean.emcraft.com [213.221.7.182])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9F3F04C80FAD
-	for <poky@pokylinux.org>; Wed, 19 Jan 2011 20:11:09 -0600 (CST)
-Received: from localhost ([127.0.0.1] helo=[IPv6:::1])
-	by ocean.emcraft.com with esmtp (Exim 4.69)
-	(envelope-from <yanok@emcraft.com>)
-	id 1PfjzO-0008Lt-TU; Thu, 20 Jan 2011 05:11:07 +0300
-Message-ID: <4D3799C1.7000108@emcraft.com>
-Date: Thu, 20 Jan 2011 05:11:13 +0300
-From: Ilya Yanok <yanok@emcraft.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.16) Gecko/20101226 Icedove/3.0.11
+Return-Path: <bruce.ashfield@gmail.com>
+Received: from mail-iw0-f176.google.com (mail-iw0-f176.google.com
+	[209.85.214.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id BD6684C80FAD
+	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 21:21:20 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by iwn2 with SMTP id 2so152100iwn.35
+	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 19:21:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:in-reply-to:references:date
+	:message-id:subject:from:to:cc:content-type
+	:content-transfer-encoding;
+	bh=DxRXdawE+hgt9JhYhfD8nz9jnoK8ih7ezuRIMP0P1U0=;
+	b=tEcQZpDaOEsOzds0jfU1lWQTlZWNr6mQ6GVflqGH6G/OpuV36kWIDCbJg0V7goS7nh
+	yhdpmgC6FLzwr4FTzBzTvfAKHDBhAbuN3mHJykDYxPFXjX7iEu17nWvm6q0zFK6p+2Gb
+	FeBcG3Zk0Rj2jfGKMZ4E0hMmOnv2vkfLw4mmo=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:cc:content-type:content-transfer-encoding;
+	b=T0HVR4PRqzqvkal5BUKt/MfMAqVUfx5OaAT7ZXnnYR4TLYe+2rgmWqePxssB9kkQHb
+	A5hUFc3pvmzbzRIybwpofQlAzgvA/SvUkbLjswjUQxuogENMBzMGgIj19dTR6gReHv07
+	Avfp9TypLplNjdhZd4WKNWyuEpTFvbB5b7wVQ=
 MIME-Version: 1.0
-To: Adrian Alonso <aalonso00@gmail.com>
-References: <1295296178-18590-1-git-send-email-aalonso@secretlab.ca>	<1295296178-18590-3-git-send-email-aalonso@secretlab.ca>	<loom.20110118T004536-689@post.gmane.org>
-	<AANLkTimNTDXpOG74pw6SotCqmB=N4nxwLZ+2Y+hjbsCX@mail.gmail.com>
-In-Reply-To: <AANLkTimNTDXpOG74pw6SotCqmB=N4nxwLZ+2Y+hjbsCX@mail.gmail.com>
-Cc: poky@pokylinux.org
-Subject: Re: [PATCH 03/25] gcc: crosssdk unset TARGET_FPU
+Received: by 10.231.13.137 with SMTP id c9mr1849304iba.37.1295493680477; Wed,
+	19 Jan 2011 19:21:20 -0800 (PST)
+Received: by 10.231.156.136 with HTTP; Wed, 19 Jan 2011 19:21:20 -0800 (PST)
+In-Reply-To: <cover.1295472579.git.dvhart@linux.intel.com>
+References: <cover.1295472579.git.dvhart@linux.intel.com>
+Date: Wed, 19 Jan 2011 22:21:20 -0500
+Message-ID: <AANLkTinSWeERqMOXuR1ckzz=Ri8k2mwgrW79Y3Wd=OYi@mail.gmail.com>
+From: Bruce Ashfield <bruce.ashfield@gmail.com>
+To: Darren Hart <dvhart@linux.intel.com>
+Cc: poky@yoctoproject.org, robert.karl.berger@gmail.com
+Subject: Re: [PATCH 0/6] Beagleboard xM support
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,181 +45,104 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 20 Jan 2011 02:11:10 -0000
-Content-Type: multipart/alternative;
-	boundary="------------030001060305060503000205"
+X-List-Received-Date: Thu, 20 Jan 2011 03:21:21 -0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
 
---------------030001060305060503000205
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+On Wed, Jan 19, 2011 at 4:30 PM, Darren Hart <dvhart@linux.intel.com> wrote=
+:
+> The following patches provide initial support for the Beagleboard. They u=
+pdate
+> the x-load and u-boot recipes, modify the beagleboard machine config, and=
+ add
+> README.hardware documentation for the Beagleboard.
+>
+> The kernel config still needs to be updated to support the onboard NIC of=
+ the
+> xM. Graphics and audio have not been tested. With the basic functionality=
+ in
+> place, hopefully others will be encouraged to participate in fleshing out
+> Beagleboard support in Poky.
 
-Hi Adrian,
+Darren,
 
-I'm sorry, I was wrong in my previous postings.
-I was confused by the gcc-crosssdk recipe name.
-Now I think your solution is perfectly legal, but I still think that 
-comment is misleading:
-it's not powerpc arch that does not sipport --with-float=soft, it's 
-x86_64 (in my case)!
+Looks good. So just so I'm clear, you'll be following up with a kernel
+config fragment and/or a BSP branch ? Or am I somehow just
+not seeing it in your series ?
 
-I think we should just reset TARGET_FPU from crosssdk.bbclass, what do 
-you think about it?
+Cheers,
 
-Regards, Ilya.
+Bruce
 
-On 18.01.2011 03:59, Adrian Alonso wrote:
-> Hi Ilya,
 >
-> I will also look for the proper solution,
-> However un-setting TARGET_FPU only affects the target machines
-> in meta-xilinx layer bsp, so other Powerpc targets are not been affected
-> with this patch.
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+> =A0Branch: dvhart/beagle
+> =A0Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=3Ddvhart=
+/beagle
 >
-> Regards
->
-> On Mon, Jan 17, 2011 at 5:55 PM, Ilya Yanok <yanok@emcraft.com 
-> <mailto:yanok@emcraft.com>> wrote:
->
->     Hi Adrian,
->
->     Adrian Alonso <aalonso@...> writes:
->
->     >
->     > * Configure fails due that --with-float=soft
->     >   flag isn't supportted by powerpc arch
->
->     That's not true. PowerPC support soft-float (and we actually need
->     this for
->     MPC8308 which has e300c3 core without FPU).
->
->     For me, configure fails with the same message but that's not
->     because PowerPC
->     lacks support for soft-float but cause gcc-crosssdk recipe passes
->     wrong
->     --target= option to the configure script (for me it's
->     x86_86-pokysdk-linux, I'm
->     building on the x86_64 host).
->
->     > * Unsetting TARGET_FPU this flag to not try to use
->     >   this flag
->
->     So please do NOT unset TARGET_FPU, some targets really need it.
->     I'm looking
->     forward to see a correct solution for this issue.
->
->     Regards, Ilya.
+> Thanks,
+> =A0 =A0Darren Hart <dvhart@linux.intel.com>
+> ---
 >
 >
->     _______________________________________________
->     poky mailing list
->     poky@yoctoproject.org <mailto:poky@yoctoproject.org>
->     https://lists.yoctoproject.org/listinfo/poky
+> Darren Hart (6):
+> =A0x-load: us TI upstream repository, update recipes accordingly
+> =A0u-boot: Add a new upstream u-boot recipe
+> =A0beagleboard: add x-load and u-boot depends
+> =A0overo: use the new upstream u-boot recipe
+> =A0u-boot-omap3: remove in favor of upstream u-boot
+> =A0README.hardware: add beagleboard documentation
 >
+> =A0README.hardware =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
+=A0 =A0 =A0 =A0 =A0| =A0 71 +++++++++++++
+> =A0.../conf/distro/include/poky-default-revisions.inc | =A0 =A03 +-
+> =A0meta/conf/machine/beagleboard.conf =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 | =
+=A0 =A03 +
+> =A0meta/conf/machine/overo.conf =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
+=A0 | =A0 =A02 +-
+> =A0.../uboot/u-boot-omap3-git/beagleboard/name.patch =A0| =A0 14 ---
+> =A0meta/recipes-bsp/uboot/u-boot-omap3_git.bb =A0 =A0 =A0 =A0 | =A0 18 --=
+--
+> =A0meta/recipes-bsp/uboot/u-boot.inc =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0|=
+ =A0 =A03 +-
+> =A0meta/recipes-bsp/uboot/u-boot_git.bb =A0 =A0 =A0 =A0 =A0 =A0 =A0 | =A0=
+ 21 ++++
+> =A0meta/recipes-bsp/x-load/files/signGP.c =A0 =A0 =A0 =A0 =A0 =A0 | =A010=
+8 --------------------
+> =A0meta/recipes-bsp/x-load/signgp-native.bb =A0 =A0 =A0 =A0 =A0 | =A0 14 =
+---
+> =A0.../x-load/x-load-git/beagleboard/armv7-a.patch =A0 =A0| =A0 11 --
+> =A0.../x-load/x-load-git/beagleboard/name.patch =A0 =A0 =A0 | =A0 16 ++--
+> =A0.../x-load/x-load-git/omap3evm/armv7-a.patch =A0 =A0 =A0 | =A0 11 --
+> =A0.../x-load/x-load-git/overo/armv7-a.patch =A0 =A0 =A0 =A0 =A0| =A0 11 =
+--
+> =A0meta/recipes-bsp/x-load/x-load.inc =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 | =
+=A0 =A05 +-
+> =A0meta/recipes-bsp/x-load/x-load_git.bb =A0 =A0 =A0 =A0 =A0 =A0 =A0| =A0=
+ 19 ++--
+> =A016 files changed, 118 insertions(+), 212 deletions(-)
+> =A0delete mode 100644 meta/recipes-bsp/uboot/u-boot-omap3-git/beagleboard=
+/name.patch
+> =A0delete mode 100644 meta/recipes-bsp/uboot/u-boot-omap3_git.bb
+> =A0create mode 100644 meta/recipes-bsp/uboot/u-boot_git.bb
+> =A0delete mode 100644 meta/recipes-bsp/x-load/files/signGP.c
+> =A0delete mode 100644 meta/recipes-bsp/x-load/signgp-native.bb
+> =A0delete mode 100644 meta/recipes-bsp/x-load/x-load-git/beagleboard/armv=
+7-a.patch
+> =A0delete mode 100644 meta/recipes-bsp/x-load/x-load-git/omap3evm/armv7-a=
+.patch
+> =A0delete mode 100644 meta/recipes-bsp/x-load/x-load-git/overo/armv7-a.pa=
+tch
 >
->
->
-> -- 
-> Saludos
-> Adrian Alonso
-> http://aalonso.wordpress.com
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 >
 
 
---------------030001060305060503000205
-Content-Type: text/html; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-<head>
-  <meta content="text/html; charset=ISO-8859-1"
- http-equiv="Content-Type">
-</head>
-<body bgcolor="#ffffff" text="#000000">
-Hi Adrian,<br>
-<br>
-I'm sorry, I was wrong in my previous postings.<br>
-I was confused by the gcc-crosssdk recipe name.<br>
-Now I think your solution is perfectly legal, but I still think that
-comment is misleading:<br>
-it's not powerpc arch that does not sipport --with-float=soft, it's
-x86_64 (in my case)!<br>
-<br>
-I think we should just reset TARGET_FPU from crosssdk.bbclass, what do
-you think about it?<br>
-<br>
-Regards, Ilya.<br>
-<br>
-On 18.01.2011 03:59, Adrian Alonso wrote:
-<blockquote
- cite="mid:AANLkTimNTDXpOG74pw6SotCqmB=N4nxwLZ+2Y+hjbsCX@mail.gmail.com"
- type="cite">Hi Ilya,
-  <div><br>
-  </div>
-  <div>I will also look for the proper solution,</div>
-  <div>However un-setting TARGET_FPU only affects the target machines</div>
-  <div>in meta-xilinx layer bsp, so other Powerpc targets are not been
-affected</div>
-  <div>with this patch.</div>
-  <div><br>
-  </div>
-  <div>Regards<br>
-  <br>
-  <div class="gmail_quote">On Mon, Jan 17, 2011 at 5:55 PM, Ilya Yanok <span
- dir="ltr">&lt;<a moz-do-not-send="true" href="mailto:yanok@emcraft.com">yanok@emcraft.com</a>&gt;</span>
-wrote:<br>
-  <blockquote class="gmail_quote"
- style="border-left: 1px solid rgb(204, 204, 204); margin: 0pt 0pt 0pt 0.8ex; padding-left: 1ex;">Hi
-Adrian,<br>
-    <div class="im"><br>
-Adrian Alonso <a class="moz-txt-link-rfc2396E" href="mailto:aalonso@...">&lt;aalonso@...&gt;</a> writes:<br>
-    <br>
-&gt;<br>
-&gt; * Configure fails due that --with-float=soft<br>
-&gt; &nbsp; flag isn't supportted by powerpc arch<br>
-    <br>
-    </div>
-That's not true. PowerPC support soft-float (and we actually need this
-for<br>
-MPC8308 which has e300c3 core without FPU).<br>
-    <br>
-For me, configure fails with the same message but that's not because
-PowerPC<br>
-lacks support for soft-float but cause gcc-crosssdk recipe passes wrong<br>
---target= option to the configure script (for me it's
-x86_86-pokysdk-linux, I'm<br>
-building on the x86_64 host).<br>
-    <div class="im"><br>
-&gt; * Unsetting TARGET_FPU this flag to not try to use<br>
-&gt; &nbsp; this flag<br>
-    <br>
-    </div>
-So please do NOT unset TARGET_FPU, some targets really need it. I'm
-looking<br>
-forward to see a correct solution for this issue.<br>
-    <br>
-Regards, Ilya.<br>
-    <br>
-    <br>
-_______________________________________________<br>
-poky mailing list<br>
-    <a moz-do-not-send="true" href="mailto:poky@yoctoproject.org">poky@yoctoproject.org</a><br>
-    <a moz-do-not-send="true"
- href="https://lists.yoctoproject.org/listinfo/poky" target="_blank">https://lists.yoctoproject.org/listinfo/poky</a><br>
-  </blockquote>
-  </div>
-  <br>
-  <br clear="all">
-  <br>
--- <br>
-Saludos<br>
-Adrian Alonso<br>
-  <a moz-do-not-send="true" href="http://aalonso.wordpress.com">http://aalonso.wordpress.com</a><br>
-  <br>
-  </div>
-</blockquote>
-<br>
-</body>
-</html>
+--=20
+"Thou shalt not follow the NULL pointer, for chaos and madness await
+thee at its end"
 
---------------030001060305060503000205--
