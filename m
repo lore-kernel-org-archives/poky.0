@@ -1,29 +1,29 @@
 Return-Path: <scott.a.garman@intel.com>
 Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C30374C8112C
-	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 18:39:15 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 0CDCC4C8112C
+	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 18:39:19 -0600 (CST)
 Received: from localhost (c-76-105-143-140.hsd1.or.comcast.net
 	[76.105.143.140])
 	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
 	(No client certificate requested)
-	by masterfoo.zenlinux.com (Postfix) with ESMTP id 7B955304F0
-	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 19:39:11 -0500 (EST)
-Message-Id: <d9616ba0b83abda948f5fd45dbaa44b1c8ad36ac.1295483757.git.scott.a.garman@intel.com>
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id 4B74C304F3
+	for <poky@yoctoproject.org>; Wed, 19 Jan 2011 19:39:14 -0500 (EST)
+Message-Id: <63b9d6643a1f60233ded9e10c0dc726b3402c566.1295483757.git.scott.a.garman@intel.com>
 In-Reply-To: <cover.1295483757.git.scott.a.garman@intel.com>
 References: <cover.1295483757.git.scott.a.garman@intel.com>
 From: Scott Garman <scott.a.garman@intel.com>
-Old-Date: Tue, 18 Jan 2011 19:58:02 -0800
-Date: Wed, 19 Jan 2011 16:39:09 -0800
+Old-Date: Thu, 6 Jan 2011 08:19:36 -0800
+Date: Wed, 19 Jan 2011 16:39:12 -0800
 To: poky@yoctoproject.org
 CC: 
 X-MasterFoo-MailScanner-Information: Please contact the ISP for more
 	information
-X-MailScanner-ID: 7B955304F0.3999E
+X-MailScanner-ID: 4B74C304F3.BB656
 X-MasterFoo-MailScanner: Found to be clean
 X-MasterFoo-MailScanner-SpamCheck: not spam
 X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
 X-Spam-Status: No
-Subject: [PATCH 06/12] staging.bbclass, utils.bbclass: remove la mangling code
+Subject: [PATCH 07/12] insane.bbclass: skip checks on .la installed status
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,70 +35,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 20 Jan 2011 00:39:15 -0000
+X-List-Received-Date: Thu, 20 Jan 2011 00:39:19 -0000
 
-libtool v2.4 --with-libtool-sysroot eliminates the need for
-la mangling.
-
-Based on Khem Raj's OE commits.
+Enabling libtool sysroot support triggers these errors but they
+are a valid change in behavior.
 
 Signed-off-by: Scott Garman <scott.a.garman@intel.com>
 ---
- meta/classes/staging.bbclass |   14 --------------
- meta/classes/utils.bbclass   |   15 ++-------------
- 2 files changed, 2 insertions(+), 27 deletions(-)
+ meta/classes/insane.bbclass |    5 -----
+ 1 files changed, 0 insertions(+), 5 deletions(-)
 
-diff --git a/meta/classes/staging.bbclass b/meta/classes/staging.bbclass
-index a7f3258..438cf37 100644
---- a/meta/classes/staging.bbclass
-+++ b/meta/classes/staging.bbclass
-@@ -26,20 +26,6 @@ sysroot_stage_libdir() {
- 	dest="$2"
- 
- 	sysroot_stage_dir $src $dest
--
--	olddir=`pwd`
--	cd $dest
--	las=$(find . -name \*.la -type f)
--	cd $olddir
--	echo "Found la files: $las"		 
--	for i in $las
--	do
--		sed -e 's/^installed=yes$/installed=no/' \
--		    -e '/^dependency_libs=/s,${WORKDIR}[[:alnum:]/\._+-]*/\([[:alnum:]\._+-]*\),${STAGING_LIBDIR}/\1,g' \
--		    -e "/^dependency_libs=/s,\([[:space:]']\)${libdir},\1${STAGING_LIBDIR},g" \
--		    -e "/^dependency_libs=/s,\([[:space:]']\)${base_libdir},\1${STAGING_DIR_HOST}${base_libdir},g" \
--		    -i $dest/$i
--	done
- }
- 
- sysroot_stage_dirs() {
-diff --git a/meta/classes/utils.bbclass b/meta/classes/utils.bbclass
-index 746f46c..4d4b995 100644
---- a/meta/classes/utils.bbclass
-+++ b/meta/classes/utils.bbclass
-@@ -199,19 +199,8 @@ oe_libinstall() {
- 		__runcmd install -m 0644 $dota $destpath/
- 	fi
- 	if [ -f "$dotlai" -a -n "$libtool" ]; then
--		if test -n "$staging_install"
--		then
--			# stop libtool using the final directory name for libraries
--			# in staging:
--			__runcmd rm -f $destpath/$libname.la
--			__runcmd sed -e 's/^installed=yes$/installed=no/' \
--				     -e '/^dependency_libs=/s,${WORKDIR}[[:alnum:]/\._+-]*/\([[:alnum:]\._+-]*\),${STAGING_LIBDIR}/\1,g' \
--				     -e "/^dependency_libs=/s,\([[:space:]']\)${libdir},\1${STAGING_LIBDIR},g" \
--				     $dotlai >$destpath/$libname.la
--		else
--			rm -f $destpath/$libname.la
--			__runcmd install -m 0644 $dotlai $destpath/$libname.la
--		fi
-+		rm -f $destpath/$libname.la
-+		__runcmd install -m 0644 $dotlai $destpath/$libname.la
- 	fi
- 
- 	for name in $library_names; do
+diff --git a/meta/classes/insane.bbclass b/meta/classes/insane.bbclass
+index 3ab4c2c..6f06d85 100644
+--- a/meta/classes/insane.bbclass
++++ b/meta/classes/insane.bbclass
+@@ -427,11 +427,6 @@ def package_qa_check_staged(path,d):
+             path = os.path.join(root,file)
+             if file.endswith(".la"):
+                 file_content = open(path).read()
+-                # Don't check installed status for native/cross packages
+-                if not bb.data.inherits_class("native", d) and not bb.data.inherits_class("cross", d):
+-                    if installed in file_content:
+-                        error_msg = "%s failed sanity test (installed) in path %s" % (file,root)
+-                        sane = package_qa_handle_error(5, error_msg, "staging", path, d)
+                 if workdir in file_content:
+                     error_msg = "%s failed sanity test (workdir) in path %s" % (file,root)
+                     sane = package_qa_handle_error(8, error_msg, "staging", path, d)
 -- 
 1.7.1
 
