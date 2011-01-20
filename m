@@ -1,41 +1,25 @@
-Return-Path: <bruce.ashfield@gmail.com>
-Received: from mail-iw0-f176.google.com (mail-iw0-f176.google.com
-	[209.85.214.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E6E454C80039
-	for <poky@yoctoproject.org>; Thu, 20 Jan 2011 12:41:10 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by iwn2 with SMTP id 2so941870iwn.35
-	for <poky@yoctoproject.org>; Thu, 20 Jan 2011 10:41:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:in-reply-to:references:date
-	:message-id:subject:from:to:cc:content-type
-	:content-transfer-encoding;
-	bh=hhb5bqKnofV7h8pMLdZlijQhQsLzOhXmc4xk23WYy4E=;
-	b=nSm3QPvsNc/G0RJfTye5a9A3EoRN2Nz5f0PADaQMbGGTKIP+aagjJmRdewzyNxT6uS
-	Nk101ULHGVhaUSpeIc/2FdUE8AWqJ0ebex6gLbmyM/qIbBctGX5NZ5clm9ELX4YQzzna
-	hu3KrvpK2DHBTpW3bfIC2sX3//euXefJVWyiQ=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type:content-transfer-encoding;
-	b=s+v0tSh35YMI7doSQzfcLpNVnFYWQHgiVH1s4ejxzQjeBEw+SqDHaReNE83kOaxwy1
-	zKnNWV5aTedjMupb+cUKA1jPTJygun0SV/OEBzolykb2mL5XRClDgLmFW42aLERK6X/M
-	YuyHtLoxA18WyAoiHZuR57sSNa2dTFMVNwUVw=
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 61E6D4C80BD4
+	for <poky@yoctoproject.org>; Thu, 20 Jan 2011 12:53:52 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 20 Jan 2011 10:53:51 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,352,1291622400"; d="scan'208";a="698878236"
+Received: from doubt.jf.intel.com (HELO [10.7.199.52]) ([10.7.199.52])
+	by orsmga001.jf.intel.com with ESMTP; 20 Jan 2011 10:53:31 -0800
+Message-ID: <4D3884A0.8030602@linux.intel.com>
+Date: Thu, 20 Jan 2011 10:53:20 -0800
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
 MIME-Version: 1.0
-Received: by 10.231.35.131 with SMTP id p3mr2937238ibd.87.1295548868598; Thu,
-	20 Jan 2011 10:41:08 -0800 (PST)
-Received: by 10.231.156.136 with HTTP; Thu, 20 Jan 2011 10:41:08 -0800 (PST)
-In-Reply-To: <1295548701.12074.247.camel@elmorro>
-References: <1295546428.12074.243.camel@elmorro>
-	<4D387ECF.5040509@linux.intel.com>
-	<1295548701.12074.247.camel@elmorro>
-Date: Thu, 20 Jan 2011 13:41:08 -0500
-Message-ID: <AANLkTin02i+6CJC05g-L9UYG6bdWnLvRBnBHu+UJYCFH@mail.gmail.com>
-From: Bruce Ashfield <bruce.ashfield@gmail.com>
-To: Tom Zanussi <tom.zanussi@intel.com>
+To: Adrian Alonso <aalonso@secretlab.ca>
+References: <1295296178-18590-1-git-send-email-aalonso@secretlab.ca>
+	<1295296178-18590-5-git-send-email-aalonso@secretlab.ca>
+In-Reply-To: <1295296178-18590-5-git-send-email-aalonso@secretlab.ca>
 Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH][2.6.34 KERNEL] wrs_meta: turn on OHCI USB config option
+Subject: Re: [PATCH 05/25] u-boot: disable -Os option not supported by gcc
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -47,85 +31,95 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 20 Jan 2011 18:41:11 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Thu, 20 Jan 2011 18:53:52 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Jan 20, 2011 at 1:38 PM, Tom Zanussi <tom.zanussi@intel.com> wrote:
-> On Thu, 2011-01-20 at 10:28 -0800, Darren Hart wrote:
->> On 01/20/2011 10:00 AM, Tom Zanussi wrote:
->> > Allow crownbay to recognize low-speed devices such as mouse and
->> > keyboard.
->> >
->> > Pull URL: git://git.pokylinux.org/linux-2.6-windriver-contrib.git
->> > =A0 =A0Branch: tzanussi/crownbay-usb-fix
->> > =A0 =A0Browse:
->> > http://git.pokylinux.org/cgit.cgi/linux-2.6-windriver-contrib/log/?h=
-=3Dtzanussi/crownbay-usb-fix
->> >
->> > Please pull...
->> >
->> > Thanks,
->> > =A0 =A0 =A0Tom Zanussi<tom.zanussi@intel.com>
->> >
->> > Signed-off-by: Tom Zanussi<tom.zanussi@intel.com>
->> > ---
->> > =A0 wrs/cfg/kernel-cache/bsp/crownbay/crownbay.cfg | =A0 =A01 +
->> > =A0 1 files changed, 1 insertions(+), 0 deletions(-)
->> >
->> > diff --git a/wrs/cfg/kernel-cache/bsp/crownbay/crownbay.cfg b/wrs/cfg/=
-kernel-cache/bsp/crownbay/crownbay.cfg
->> > index a516dc9..864e1dc 100644
->> > --- a/wrs/cfg/kernel-cache/bsp/crownbay/crownbay.cfg
->> > +++ b/wrs/cfg/kernel-cache/bsp/crownbay/crownbay.cfg
->> > @@ -21,6 +21,7 @@ CONFIG_USB_EHCI_HCD=3Dy
->> > =A0 CONFIG_PCIEPORTBUS=3Dy
->> > =A0 CONFIG_NET=3Dy
->> > =A0 CONFIG_USB_UHCI_HCD=3Dy
->> > +CONFIG_USB_OHCI_HCD=3Dy
->> > =A0 CONFIG_BLK_DEV_SD=3Dy
->> > =A0 CONFIG_CHR_DEV_SG=3Dy
->> > =A0 CONFIG_SOUND=3Dy
->>
->> This seems like the sort of thing we should push to standard. Or do BSPs
->> like the crownbay start from an empty config?
->>
->
-> Yeah, I remember awhile back discussing that we wanted to factor the
-> things in the base configs out into e.g. standard, which of course would
-> still be a good thing to do.
-
-Agreed.
-
->
-> But for now, I went with the existing flow and put it alongside other
-> similar options in that BSP...
-
-Also fine for now, but having a "usb" config that we could just
-include and push out to all BSPs, makes adding a sane set of
-options much easier.
-
-As to pushing it down. Can anyone think of side effects of this
-on boards that don't have the hardware ? i.e. slower boot, devices
-detected in the slower format, or anything like that ? If there
-aren't any side effects, and we agree that increasing the base
-config (which should be as small/lean as possible) size a bit is fine,
-then we can absolutely push it down and at the flick of a switch
-enable all supported BSPs with the functionality.
-
-Cheers,
-
-Bruce
-
->
-> Tom
->
->
+On 01/17/2011 12:29 PM, Adrian Alonso wrote:
+> * Disable -Os optspace option not supported by gcc use insted
+>    -O2
+> * Bump PR
 >
 
 
+I ran into this in the recent u-boot_git.bb recipe I added. Rather than 
+create a patch to the Makefile, I found it simpler to adding OPTFLAGS to 
+the EXTRA_OEMAKE variable in the recipe:
 
---=20
-"Thou shalt not follow the NULL pointer, for chaos and madness await
-thee at its end"
+EXTRA_OEMAKE = "CROSS_COMPILE=${TARGET_PREFIX} OPTFLAGS=''"
+
+This negates the -Os in the Makefile.
+
+--
+Darren
+
+> Signed-off-by: Adrian Alonso<aalonso@secretlab.ca>
+> ---
+>   .../uboot/files/uboot-do-not-use-Os-option.patch   |   30 ++++++++++++++++++++
+>   recipes-bsp/uboot/u-boot-xilinx_git.bb             |    8 ++++-
+>   2 files changed, 36 insertions(+), 2 deletions(-)
+>   create mode 100644 recipes-bsp/uboot/files/uboot-do-not-use-Os-option.patch
+>
+> diff --git a/recipes-bsp/uboot/files/uboot-do-not-use-Os-option.patch b/recipes-bsp/uboot/files/uboot-do-not-use-Os-option.patch
+> new file mode 100644
+> index 0000000..c4153e4
+> --- /dev/null
+> +++ b/recipes-bsp/uboot/files/uboot-do-not-use-Os-option.patch
+> @@ -0,0 +1,30 @@
+> +From 8a4e1e92becc3994907f18919e9ee8b51b0f377a Mon Sep 17 00:00:00 2001
+> +From: Adrian Alonso<aalonso@secretlab.ca>
+> +Date: Mon, 6 Dec 2010 22:59:20 -0600
+> +Subject: [PATCH 1/2] uboot: do not use Os option
+> +
+> +* Fix error: Do not use -Os option if --enable-target-optspace
+> +  is not set.
+> +* Gcc optospace options is disabled for powerpc machines
+> +* Use -O2 optimization level instead
+> +
+> +Signed-off-by: Adrian Alonso<aalonso@secretlab.ca>
+> +---
+> + config.mk |    2 +-
+> + 1 files changed, 1 insertions(+), 1 deletions(-)
+> +
+> +diff --git a/config.mk b/config.mk
+> +index a63e9cd..ba629d1 100644
+> +--- a/config.mk
+> ++++ b/config.mk
+> +@@ -138,7 +138,7 @@ ARFLAGS = crv
+> + endif
+> + RELFLAGS= $(PLATFORM_RELFLAGS)
+> + DBGFLAGS= -g # -DDEBUG
+> +-OPTFLAGS= -Os #-fomit-frame-pointer
+> ++OPTFLAGS= -O2 #-fomit-frame-pointer
+> + ifndef LDSCRIPT
+> + #LDSCRIPT := $(TOPDIR)/board/$(BOARDDIR)/u-boot.lds.debug
+> + ifeq ($(CONFIG_NAND_U_BOOT),y)
+> +--
+> +1.7.2.3
+> diff --git a/recipes-bsp/uboot/u-boot-xilinx_git.bb b/recipes-bsp/uboot/u-boot-xilinx_git.bb
+> index 50d99e3..3b35ae5 100644
+> --- a/recipes-bsp/uboot/u-boot-xilinx_git.bb
+> +++ b/recipes-bsp/uboot/u-boot-xilinx_git.bb
+> @@ -1,9 +1,13 @@
+>   require ../meta/recipes-bsp/uboot/u-boot.inc
+> -PR = "r2"
+> +PR = "r3"
+> +THISDIR := "${@os.path.dirname(bb.data.getVar('FILE', d, True))}"
+> +FILESPATH =. "${@base_set_filespath(["${THISDIR}/files"], d)}:"
+>
+>   BRANCH="master"
+>   TAG="e094f2479ea339d7f48b6826f06f0be4984d9a98"
+> -SRC_URI = "git://git.xilinx.com/u-boot-xlnx.git;branch=${BRANCH};protocol=git"
+> +SRC_URI = "git://git.xilinx.com/u-boot-xlnx.git;branch=${BRANCH};protocol=git \
+> +           file://uboot-do-not-use-Os-option.patch \
+> +          "
+>   SRCREV = "${TAG}"
+>
+>   inherit xilinx-boot
+
+
+-- 
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
