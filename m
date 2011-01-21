@@ -1,25 +1,29 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7F6084C81065
-	for <poky@yoctoproject.org>; Thu, 20 Jan 2011 17:43:32 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 20 Jan 2011 15:43:32 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,354,1291622400"; d="scan'208";a="879475594"
-Received: from unknown (HELO [10.255.14.114]) ([10.255.14.114])
-	by fmsmga001.fm.intel.com with ESMTP; 20 Jan 2011 15:43:32 -0800
-Message-ID: <4D38C8A3.2080705@intel.com>
-Date: Thu, 20 Jan 2011 15:43:31 -0800
-From: Saul Wold <saul.wold@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
-MIME-Version: 1.0
-To: Jingdong Lu <jingdong.lu@windriver.com>
-References: <cover.1295426481.git.jingdong.lu@windriver.com>
-In-Reply-To: <cover.1295426481.git.jingdong.lu@windriver.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by mx1.pokylinux.org (Postfix) with ESMTP id CA9914C80BD4
+	for <poky@yoctoproject.org>; Thu, 20 Jan 2011 18:13:59 -0600 (CST)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p0L0FnrP010868; Fri, 21 Jan 2011 00:15:49 GMT
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id Zo-t1rS8R5+P; Fri, 21 Jan 2011 00:15:48 +0000 (GMT)
+Received: from [192.168.1.45] (tim [93.97.173.237]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p0L0Fhxr010864
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Fri, 21 Jan 2011 00:15:45 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Nitin A Kamble <nitin.a.kamble@intel.com>
+In-Reply-To: <cover.1295304080.git.nitin.a.kamble@intel.com>
+References: <cover.1295304080.git.nitin.a.kamble@intel.com>
+Date: Fri, 21 Jan 2011 00:13:43 +0000
+Message-ID: <1295568823.14388.28132.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/4][PULL] Add "poky-lsb" distro and add lsb features into related recipes.
+Subject: Re: [PATCH 00/12] gcc dso linking change, and related fixes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,56 +35,47 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 20 Jan 2011 23:43:33 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Fri, 21 Jan 2011 00:14:00 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On 01/19/2011 12:53 AM, Jingdong Lu wrote:
-> Create poky-lsb-distro to place some config change in order to pass LSB test.
->
+Hi Nitin,
+
+On Mon, 2011-01-17 at 14:45 -0800, Nitin A Kamble wrote:
+> This commit set, changes the dso linking to avoid automatic linking of 
+> shared libraries. This caused, as expected, linking of few recipes to fail.
+> All these recipes are fixed by specifying the linked libraries explicitely.
+> 
 > Pull URL: git://git.pokylinux.org/poky-contrib.git
->    Branch: jingdonglu/distro
->    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=jingdonglu/distro
->
+>   Branch: nitin/dso_linking_change
+>   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=nitin/dso_linking_change
+> 
 > Thanks,
->      Jingdong Lu<jingdong.lu@windriver.com>
-> ---
->
->
-> Jingdong Lu (4):
->    qt4: Enable accessibility and sm option for LSB.
->    glib-2.0: Enable debug option for LSB test.
->    libxml2: Enable "--with-docbook --with-debug --with-catalog" for LSB
->      test.
->    poky-lsb: Add poky-lsb.conf as distro of lsb image
->
->   meta/classes/qmake2.bbclass                   |    1 +
->   meta/conf/distro/poky-lsb.conf                |    6 ++++++
->   meta/recipes-core/glib-2.0/glib-2.0_2.27.5.bb |    2 +-
->   meta/recipes-core/glib-2.0/glib.inc           |    1 +
->   meta/recipes-core/libxml/libxml2.inc          |    1 +
->   meta/recipes-core/libxml/libxml2_2.7.7.bb     |    2 +-
->   meta/recipes-qt/qt4/qt4-x11-free_4.6.3.bb     |    2 +-
->   meta/recipes-qt/qt4/qt4.inc                   |   10 +++++++---
->   8 files changed, 19 insertions(+), 6 deletions(-)
->   create mode 100644 meta/conf/distro/poky-lsb.conf
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
+>     Nitin A Kamble <nitin.a.kamble@intel.com>
 
-Jingdong,
+We've taken these into master but I'm a bit worried and we have some
+breakage still. Specifically, systemtap failed with a pthread linkage
+failure.
 
-This was pulled into Master, I know that you have some additional 
-packages you want into the lsb image, can you please resend those 
-changes as well.
+I couldn't find systemtap using pthreads anywhere that would cause the
+error so I hit google. I found:
 
-We are going set the autobuilder up to build lsb image with 
-DISTRO=poky-lsb by default.
+http://lists.fedoraproject.org/pipermail/devel/2010-January/129131.html
+http://lists.fedoraproject.org/pipermail/devel/2010-January/129134.html
+
+So I'm wondering if we should disable the gcc patch until Fedora sort
+this out. Could you look into this and see if there are any patches
+fixing this properly out there yet?
+
+It does clearly indicate that adding -lpthread to the makefile for
+systemtap would be wrong. I'm hoping that there weren't any other cases
+like this?
+
+Cheers,
+
+Richard
 
 
-Thanks
-   Sau!
+
+
 
