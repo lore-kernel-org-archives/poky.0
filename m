@@ -1,36 +1,29 @@
-Return-Path: <kevin.tian@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E0BFF4C81065
-	for <poky@yoctoproject.org>; Thu, 20 Jan 2011 19:50:13 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 20 Jan 2011 17:50:13 -0800
+Return-Path: <qing.he@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 06E684C81065
+	for <poky@yoctoproject.org>; Thu, 20 Jan 2011 21:21:26 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 20 Jan 2011 19:21:26 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,354,1291622400"; d="scan'208";a="879509222"
-Received: from pgsmsx601.gar.corp.intel.com ([10.221.43.69])
-	by fmsmga001.fm.intel.com with ESMTP; 20 Jan 2011 17:50:13 -0800
-Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
-	pgsmsx601.gar.corp.intel.com (10.221.43.69) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Fri, 21 Jan 2011 09:50:12 +0800
-Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
-	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
-	Fri, 21 Jan 2011 09:50:11 +0800
-From: "Tian, Kevin" <kevin.tian@intel.com>
-To: "Zhai, Edwin" <edwin.zhai@intel.com>, "Wold, Saul" <saul.wold@intel.com>
-Date: Fri, 21 Jan 2011 09:50:09 +0800
-Thread-Topic: [poky] [PATCH 0/6] 2nd pull request: UX, gtk+/apr, Edwin,
-	Jan19, 2011
-Thread-Index: Acu5CaMsRTi9/Ym7Rh6SZRB6tY+Q7QAAnQhA
-Message-ID: <625BA99ED14B2D499DC4E29D8138F1504D9F1089AB@shsmsx502.ccr.corp.intel.com>
-References: <cover.1295397702.git.edwin.zhai@intel.com>
-	<4D38BC0B.7080501@intel.com> <4D38DFB5.3000907@intel.com>
-In-Reply-To: <4D38DFB5.3000907@intel.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
+X-IronPort-AV: E=Sophos;i="4.60,355,1291622400"; d="scan'208";a="649500352"
+Received: from qhe2-db.sh.intel.com ([10.239.13.48])
+	by fmsmga002.fm.intel.com with ESMTP; 20 Jan 2011 19:21:26 -0800
+Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
+	(envelope-from <qing.he@intel.com>)
+	id 1Pg7TF-0002aW-R9; Fri, 21 Jan 2011 11:15:29 +0800
+Date: Fri, 21 Jan 2011 11:15:29 +0800
+From: Qing He <qing.he@intel.com>
+To: Paul Eggleton <paul.eggleton@linux.intel.com>, saul.wold@intel.com
+Message-ID: <20110121031529.GB9774@qhe2-db>
+References: <cover.1295455496.git.paul.eggleton@linux.intel.com>
+	<88be364793ae493d048409762c83ca4126e3fecf.1295455496.git.paul.eggleton@linux.intel.com>
+	<4D3737DF.2040906@intel.com>
+	<201101201015.03665.paul.eggleton@linux.intel.com>
 MIME-Version: 1.0
+In-Reply-To: <201101201015.03665.paul.eggleton@linux.intel.com>
+User-Agent: Mutt/1.5.20 (2009-06-14)
 Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 0/6] 2nd pull request: UX, gtk+/apr, Edwin, Jan19, 2011
+Subject: Re: [PATCH 1/3] util-linux: split out libuuid and libblkid into	separate packages
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,60 +35,71 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 21 Jan 2011 01:50:14 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-List-Received-Date: Fri, 21 Jan 2011 03:21:27 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-PiBGcm9tOiBaaGFpLCBFZHdpbg0KPiBTZW50OiBGcmlkYXksIEphbnVhcnkgMjEsIDIwMTEgOToy
-MiBBTQ0KPiANCj4gSSBhbSBhbHdheXMgY2hhbGxlbmdlZCBieSB0aGUgdmVyc2lvbiBjaGVja2lu
-ZyBzeXN0ZW0gdGhhdCB3aHkgbm90DQo+IHVwZ3JhZGUgdG8gbGF0ZXN0IHZlcnNpb246KA0KPiBT
-ZWUgbXkgY29tbWVudHMgYmVsb3cgZm9yIHRoZXNlIHBhY2thZ2VzLi4uDQo+IA0KPiBXb2xkLCBT
-YXVsIHdyb3RlOg0KPiA+IE9uIDAxLzE4LzIwMTEgMDQ6NDYgUE0sIFpoYWkgRWR3aW4gd3JvdGU6
-DQo+ID4NCj4gPj4gU2F1bCwNCj4gPj4gVGhpcyBpcyB0aGUgMm5kIHB1bGwgcmVxdWVzdCBmb3Ig
-Z3RrKyxnZGstcGl4YnVmLGFwci4gQWxzbyBhZGRlZCB3ZWJraXQtZ3RrLg0KPiA+PiBRZW11IHVw
-Z3JhZGUgaXMgdW5kZXIgdGVzdCBhY3Jvc3MgYWxsIHBsYXRmb3JtcywgYW5kIHdpbGwgYmUgb3V0
-IHNvb24uDQo+ID4+DQo+ID4+DQo+ID4NCj4gPg0KPiA+IEVkd2luLA0KPiA+DQo+ID4gSXQgd2Fz
-IG5vdGljZWQgdGhhdCB5b3UgdXBkYXRlZCBhIGxpdHRsZSB0b28gYWdncmVzc2l2ZWx5ISAgRm9y
-IHRoZQ0KPiA+IGd0ayssIHdlYmtpdCwgZWRzLWRidXMgYW5kIGdsaWIsIHlvdSBtb3ZlZCB0byB0
-aGUgZGV2ZWxvcG1lbnQgdmVyc2lvbnMuDQoNCkkgdGhpbmsgdGhpcyBpcyBub3QgYSB3aGl0ZS1i
-bGFjayBxdWVzdGlvbi4gR2VuZXJhbGx5IHdlIGNob29zZSBhIHN0YWJsZSB2ZXJzaW9uLg0KSWYg
-dGhlcmUncyBhIHJlYXNvbiBnb2luZyBmb3IgZGV2ZWxvcG1lbnQgdmVyc2lvbiwgZS5nLiBpbXBv
-cnRhbnQgc2VjdXJpdHkgZml4LA0KbmVjZXNzaXR5IHRvIHNob3cgY2FzZSBhIG5ldyBmZWF0dXJl
-LCBldGMuIGl0IHN0aWxsIG1ha2VzIHNlbnNlIHRvIGJlIGFnZ3Jlc3NpdmUuDQoNCldoYXQgd2Ug
-bGFjayBoZXJlIGlzIHRvIGhhdmUgYW4gZXhwbGFuYXRpb24gZm9yIHdoeSBhIHZlcnNpb24gaXMg
-Y2hvc2VuIGZvciB0aGUNCnVwZ3JhZGUgY29tbWl0LiBUaGF0IHdheSBTYXVsL1JQIGNvdWxkIGdl
-dCB0aGUgcmF0aW9uYWxlIGluIHRoZSAxc3QgcGxhY2UsIGFuZA0KaW5zdGVhZCBvZiBhIGRlbGF5
-ZWQgZGlzY3Vzc2lvbiBsaWtlIHRoaXMuDQoNClNvIEknZCBwcm9wb3NlIHBlb3BsZSB0byBzdGFy
-dCBhZGRpbmcgbW9yZSBpbmZvIGluIHRoZSBjb21taXQgbWVzc2FnZSwgZXNwZWNpYWxseQ0Kd2hl
-biB5b3UgY2hvb3NlIGEgdmVyc2lvbiBmb3IgYSBzcGVjaWZpYyByZWFzb24sIGxpa2Ugd2hhdCBF
-ZHdpbiBleHBsYWlucyBiZWxvdy4NCg0KRG9lcyBpdCBtYWtlIHNlbnNlPw0KDQo+ID4NCj4gPiBJ
-biBzb21lIG9wZW4gc291cmNlIHByb2plY3QgZXZlbiByZWxlYXNlcyBhcmUgc3RhYmxlIGFuZCBv
-ZGQgcmVsZWFzZXMNCj4gPiBhcmUgdW5zdGFibGUsIHNvIGluIHRoaXMgY2FzZSB3ZSB3YW50IHRv
-IGdvIHRvIHRoZSBmb2xsb3dpbmc6DQo+ID4NCj4gPiBndGsrOiAyLjIyLjENCj4gPg0KPiANCj4g
-VGhlcmUgaXMgYWxzbyAyLjkwLlggdGhlcmUuIEFuZCBJIHRyZWF0ZWQgaXQgYXMgZGV2ZWxvcG1l
-bnQgYnJhbmNoLCBhbmQNCj4gc3RpY2sgdG8gbG93ZXIgdmVyc2lvbi4NCj4gSSBoYXZlIGNvbXBh
-cmVkIGJldHdlZW4gMi4yMi4xIGFuZCAyLjIzLjIsIGFuZCBmb3VuZCBubyBtdWNoIGRpZmZlcmVu
-Y2UuDQo+IE9uZSBjYXNlIGlzIDIuMjMuMiBzdXBwb3J0IGxpYnRvb2wgMi40LCBidXQgMi4yMi4x
-IGRvZXNuJ3QsIHNvIHdlIG1heQ0KPiBoYXZlIHNvbWUgYXV0b2NvbmYgaXNzdWUgdGhlcmUuIEFu
-eXdheSwgaWYgeW91IHdhbnQgdG8gc3RpY2sgd2l0aCBzdGFibGUNCj4gdmVyc2lvbu+8jCBJIGNh
-biBkb3duZ3JhZGUgaXQgdG8gMi4yMi4xLg0KDQpUaGlzIHdheSBJJ2QgYWdyZWUgd2l0aCAyLjIz
-LjIgc2luY2UgaXQgYWRkcyBhIG5ldyBmZWF0dXJlIGFuZCBiYXNlZCBvbiB5b3VyDQpjb21wYXJp
-c29uIG5vIG11Y2ggb3RoZXIgY2hhbmdlcyB0byBpbmN1ciBpbnN0YWJpbGl0eS4NCg0KPiANCj4g
-PiBnbGliOiAyLjI2LjENCj4gPg0KPiANCj4gRG9uZ3hpYW8gb3duZWQgdGhpcz8NCj4gPiBlZHMt
-ZGJ1czogMi4zMg0KPiA+DQo+IA0KPiANCj4gTXkgcHJldmlvdXMgdXBncmFkZSBpcyAyLjMyLjEu
-IEJ1dCB3aXRoIGFkZGVkIG5zcy9uc3ByLCBpdCdzIHJlamVjdGVkLg0KPiBXb3JraW5nIGlzIGlu
-IHByb2dyZXNzLg0KPiANCj4gPiB3ZWJraXQtZ3RrIDEuMi42DQo+ID4NCj4gDQo+IE91ciBwb2t5
-IHNlZW1zIG5ldmVyIGhhcyBzdGFibGUgcmVsZWFzZSwgYW5kIGFsd2F5cyB1c2UgZGV2ZWxvcG1l
-bnQNCj4gYnJhbmNoLiBNYXliZSB3ZSB3YW50IHNvbWUgbmV3IGZlYXR1cmU/IFJQIGNhbiBjb21t
-ZW50LiBBbm90aGVyIGJlbmVmaXQNCj4gaXMgZGV2ZWxvcG1lbnQgYnJhbmNoIGlzIHVuZGVyIHN2
-biwgc28gd2UgY2FuIHNlbGVjdGl2ZWx5IHBpY2sgc29tZQ0KPiBtb2R1bGVzIGluc3RlYWQgb2Yg
-YmlnIHdob2xlIHJlcG8uIEdpdmVuIGRldmVsb3BtZW50IGJyYW5jaCwgdGhlcmUgaXMgbm8NCj4g
-ZXZlbi9vZGQgZGlmZmVyZW5jZS4NCj4gDQo+IEkgaGF2ZSBhIHBsYW4gdG8gY2hhbmdlIGl0IHRv
-IHN0YWJsZSByZWxlYXNlIHdpdGggdGhlIGNvc3Qgb2YgbG9uZw0KPiBkb3dubG9hZCAmIGNvbXBp
-bGUgdGltZSwgYnV0IEknbSBhZnJhaWQgY2FuJ3QgbWFrZSBpdCBpbiB0aGlzIHJlbGVhc2UgY3lj
-bGUuDQoNCklzIGl0IGZlYXNpYmxlIHRvIHVzZSBkZXZlbG9wbWVudCBicmFuY2ggYnV0IG9ubHkg
-ZmV0Y2ggdGhlIHRhZyBtYXRjaGluZyB0aGUgc3RhYmxlDQpyZWxlYXNlPyBUaGlzIHdheSB5b3Ug
-Z2V0IHRoZSBiZW5lZml0IG9mIHN2biB3aGlsZSBzdGlsbCBzaXRzIGluIHN0YWJsZSB2ZXJzaW9u
-Lg0KDQpUaGFua3MNCktldmluDQo=
+On Thu, 2011-01-20 at 18:15 +0800, Paul Eggleton wrote:
+> On Wednesday 19 January 2011 19:13:35 Saul Wold wrote:
+> > On 01/19/2011 08:55 AM, Paul Eggleton wrote:
+> > > libuuid and libblkid can exist on their own separately from the rest
+> > > of util-linux. Slightly reduces the overall footprint of other packages
+> > > that depend on these libraries.
+> > 
+> > Is this different than the work that Qing submitted last night?  Are you
+> > both addressing the same bug #661?
+> > 
+> > This fix seems different than his, we need to make sure we are better
+> > coordinated
+> 
+> Yes, this is a lesson for me to check bugzilla and pay closer attention 
+> patches that are being posted - my apologies. FYI I was responding to a 
+> request from Richard on IRC rather than the bug report.
+
+It's no big deal, there are lots of messages on the list and it's pretty
+normal to miss some of them. I did not see your discussion on IRC,
+otherwise I would have give you guys updates.
+
+> 
+> Qing's patch is slightly better than mine in that it splits the dev packages 
+> out as well; on the other hand it names the packages libuuid and libblkid 
+> rather than util-linux-libblkid and util-linux-libuuid. Personally it doesn't 
+> bother me, but having the prefix there does at least make it easy to determine 
+> the source recipe from the package name.
+
+Personally I'm OK with both naming, I just happened to use lib* for brevity.
+
+> 
+> I think we do also need to bump PR on all packages that depend on these 
+> libraries (the other patches from my patchset) so that package dependencies 
+> get corrected automatically.
+
+Yes. This is reasonable.
+
+However, I have some concerns on other similar issues. This specific
+problem (bumping PR for dependency changes) was brought out earlier but
+seems quite difficult to maintain the package revisions consistently.
+Every repackaging or major API change (or even some bbclass change) is
+likely to need an adjustment of the packages that depend on it. Given
+that some of these are low level libraries that are widely linked, it's
+not easy to maintain the correctness of PR of impacted packages.
+
+My understanding is that, previously, usually PR is only changed when
+there is explicit modification to the .bb file, those implicit changes
+are largely ignored. Smooth upgrading of the binary packages in the
+target is only a goal that we all want, but is expected to have some
+problems?
+
+> 
+> Qing, would you mind integrating these changes into your branch and reposting? 
+> (assuming we want the util-linux- package name prefix?)
+
+Ok, I'll get the patches updated. Together with the other patches in
+your patch set.
+
+Saul, please also hold the other patch in my patch set regarding
+util-linux dangling link as well, I'll resend it in the new set.
+
+Thanks,
+Qing
 
