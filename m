@@ -1,25 +1,25 @@
 Return-Path: <qing.he@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C3CDF4C810AF
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id CFDC34C811FA
 	for <poky@yoctoproject.org>; Fri, 21 Jan 2011 04:46:06 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 21 Jan 2011 02:46:06 -0800
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 21 Jan 2011 02:46:06 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,357,1291622400"; d="scan'208";a="595141897"
+X-IronPort-AV: E=Sophos;i="4.60,357,1291622400"; d="scan'208";a="377891546"
 Received: from qhe2-db.sh.intel.com ([10.239.13.48])
-	by orsmga002.jf.intel.com with ESMTP; 21 Jan 2011 02:46:05 -0800
+	by azsmga001.ch.intel.com with ESMTP; 21 Jan 2011 02:46:05 -0800
 Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
 	(envelope-from <qing.he@intel.com>)
-	id 1PgEPY-0005ZY-Ne; Fri, 21 Jan 2011 18:40:08 +0800
-Message-Id: <8ccbbfb97e0d5f61b671dcb1492a6bf868d176dc.1295605994.git.qing.he@intel.com>
+	id 1PgEPY-0005Zm-OY; Fri, 21 Jan 2011 18:40:08 +0800
+Message-Id: <fcd1c336ac71559fd5d9e70a38725405a1f8d791.1295605995.git.qing.he@intel.com>
 In-Reply-To: <cover.1295605993.git.qing.he@intel.com>
 References: <cover.1295605993.git.qing.he@intel.com>
-From: Qing He <qing.he@intel.com>
-Old-Date: Fri, 21 Jan 2011 17:54:22 +0800
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
+Old-Date: Thu, 20 Jan 2011 00:55:41 +0800
 Date: Fri, 21 Jan 2011 18:40:08 +0800
 To: poky@yoctoproject.org
 Cc: Paul Eggleton <paul.eggleton@linux.intel.com>, aleksandr.koltsoff@ebts.fi
-Subject: [PATCH 2/5] util-linux: fix dangling symlinks
+Subject: [PATCH 4/5] gst-plugins-base: add util-linux to DEPENDS
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,55 +33,36 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Fri, 21 Jan 2011 10:46:07 -0000
 
-shutdown and swapon should be in $base_sbindir instead of $sbindir
+gst-plugins-base requires libuuid, so add util-linux to DEPENDS.
 
+Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
 Signed-off-by: Qing He <qing.he@intel.com>
 ---
- meta/recipes-core/util-linux/util-linux.inc       |   18 +++++++++++++-----
- meta/recipes-core/util-linux/util-linux_2.17.2.bb |    2 +-
- 2 files changed, 14 insertions(+), 6 deletions(-)
+ .../gstreamer/gst-plugins-base_0.10.31.bb          |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/meta/recipes-core/util-linux/util-linux.inc b/meta/recipes-core/util-linux/util-linux.inc
-index 44f7834..6830392 100644
---- a/meta/recipes-core/util-linux/util-linux.inc
-+++ b/meta/recipes-core/util-linux/util-linux.inc
-@@ -149,11 +149,19 @@ do_install () {
- 	install -d ${D}${sysconfdir}/default/
- 	echo 'MOUNTALL="-t nonfs,nosmbfs,noncpfs"' > ${D}${sysconfdir}/default/mountall
+diff --git a/meta/recipes-multimedia/gstreamer/gst-plugins-base_0.10.31.bb b/meta/recipes-multimedia/gstreamer/gst-plugins-base_0.10.31.bb
+index 77330b6..8bf243e 100644
+--- a/meta/recipes-multimedia/gstreamer/gst-plugins-base_0.10.31.bb
++++ b/meta/recipes-multimedia/gstreamer/gst-plugins-base_0.10.31.bb
+@@ -6,7 +6,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=0636e73ff0215e8d672dc4c32c317bb3 \
+                     file://COPYING.LIB;md5=55ca817ccb7d5b5b66355690e9abc605 \
+                     file://gst/ffmpegcolorspace/utils.c;beginline=1;endline=20;md5=9c83a200b8e597b26ca29df20fc6ecd0"
  
--	ln -sf ${sbindir}/swapon ${D}${sbindir}/swapoff.${PN}
--	ln -sf ${sbindir}/shutdown ${D}${sbindir}/reboot.${PN}
--	ln -sf ${sbindir}/shutdown ${D}${sbindir}/halt.${PN}
--	ln -sf ${sbindir}/shutdown ${D}${sbindir}/fastboot
--	ln -sf ${sbindir}/shutdown ${D}${sbindir}/fasthalt
-+	# note ${PN} in swapon.${PN}, swapon is an alternative link that is
-+	# not guaranteed to provide multiple functions, similar for shutdown
-+	ln -sf swapon.${PN} ${D}${base_sbindir}/swapoff.${PN}
-+	ln -sf shutdown.${PN} ${D}${base_sbindir}/reboot.${PN}
-+	ln -sf shutdown.${PN} ${D}${base_sbindir}/halt.${PN}
-+	ln -sf shutdown.${PN} ${D}${base_sbindir}/fastboot
-+	ln -sf shutdown.${PN} ${D}${base_sbindir}/fasthalt
-+
-+	rm -f ${D}${sbindir}/halt
-+	rm -f ${D}${sbindir}/reboot
-+	rm -f ${D}${sbindir}/fastboot
-+	rm -f ${D}${sbindir}/fasthalt
-+	rm -f ${D}${sbindir}/swapoff
- }
+-DEPENDS += "virtual/libx11 alsa-lib freetype gnome-vfs liboil libogg libvorbis libxv libtheora avahi"
++DEPENDS += "virtual/libx11 alsa-lib freetype gnome-vfs liboil libogg libvorbis libxv libtheora avahi util-linux"
+ RDEPENDS_${PN} += "gnome-vfs-plugin-file gnome-vfs-plugin-http gnome-vfs-plugin-ftp \
+              gnome-vfs-plugin-sftp"
  
- pkg_postinst_${PN} () {
-diff --git a/meta/recipes-core/util-linux/util-linux_2.17.2.bb b/meta/recipes-core/util-linux/util-linux_2.17.2.bb
-index 662bde0..d0b1b41 100644
---- a/meta/recipes-core/util-linux/util-linux_2.17.2.bb
-+++ b/meta/recipes-core/util-linux/util-linux_2.17.2.bb
-@@ -1,6 +1,6 @@
- MAJOR_VERSION = "2.17"
- require util-linux.inc
--PR = "r2"
-+PR = "r3"
+@@ -15,7 +15,7 @@ SRC_URI += " file://gst-plugins-base-tremor.patch"
+ SRC_URI[md5sum] = "9baa0d87e81c88b2477a3554ab629c46"
+ SRC_URI[sha256sum] = "abb006c78222cfb69d31e983268d1d5219e9d4e0da24c6c4cd687968af7a33bd"
  
- SRC_URI += "file://uclibc-compile.patch \
- 	          file://util-linux-ng-replace-siginterrupt.patch"
+-PR = "r0"
++PR = "r1"
+ 
+ inherit gettext
+ 
 -- 
 1.7.0
 
