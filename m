@@ -1,29 +1,23 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id CA9914C80BD4
-	for <poky@yoctoproject.org>; Thu, 20 Jan 2011 18:13:59 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0L0FnrP010868; Fri, 21 Jan 2011 00:15:49 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id Zo-t1rS8R5+P; Fri, 21 Jan 2011 00:15:48 +0000 (GMT)
-Received: from [192.168.1.45] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0L0Fhxr010864
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Fri, 21 Jan 2011 00:15:45 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Nitin A Kamble <nitin.a.kamble@intel.com>
-In-Reply-To: <cover.1295304080.git.nitin.a.kamble@intel.com>
-References: <cover.1295304080.git.nitin.a.kamble@intel.com>
-Date: Fri, 21 Jan 2011 00:13:43 +0000
-Message-ID: <1295568823.14388.28132.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 00/12] gcc dso linking change, and related fixes
+Return-Path: <yanok@emcraft.com>
+Received: from ocean.emcraft.com (ocean.emcraft.com [213.221.7.182])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D54054C81065
+	for <poky@pokylinux.org>; Thu, 20 Jan 2011 18:43:08 -0600 (CST)
+Received: from localhost ([127.0.0.1] helo=[IPv6:::1])
+	by ocean.emcraft.com with esmtp (Exim 4.69)
+	(envelope-from <yanok@emcraft.com>)
+	id 1Pg55i-0002Zk-7J; Fri, 21 Jan 2011 03:43:02 +0300
+Message-ID: <4D38D69D.4000405@emcraft.com>
+Date: Fri, 21 Jan 2011 03:43:09 +0300
+From: Ilya Yanok <yanok@emcraft.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.16) Gecko/20101226 Icedove/3.0.11
+MIME-Version: 1.0
+To: Adrian Alonso <aalonso00@gmail.com>
+References: <1295296178-18590-1-git-send-email-aalonso@secretlab.ca>	<1295296178-18590-3-git-send-email-aalonso@secretlab.ca>	<loom.20110118T004536-689@post.gmane.org>	<AANLkTimNTDXpOG74pw6SotCqmB=N4nxwLZ+2Y+hjbsCX@mail.gmail.com>	<4D3799C1.7000108@emcraft.com>	<4D38725A.9050300@intel.com>
+	<AANLkTi=YtROKq-JQ9MWQDAeAzt_E7tu3XLfi41MBBKm_@mail.gmail.com>
+In-Reply-To: <AANLkTi=YtROKq-JQ9MWQDAeAzt_E7tu3XLfi41MBBKm_@mail.gmail.com>
+Cc: poky@pokylinux.org, Saul Wold <saul.wold@intel.com>
+Subject: Re: [PATCH 03/25] gcc: crosssdk unset TARGET_FPU
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,47 +29,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 21 Jan 2011 00:14:00 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Fri, 21 Jan 2011 00:43:14 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Nitin,
+Hi Adrian, Saul,
 
-On Mon, 2011-01-17 at 14:45 -0800, Nitin A Kamble wrote:
-> This commit set, changes the dso linking to avoid automatic linking of 
-> shared libraries. This caused, as expected, linking of few recipes to fail.
-> All these recipes are fixed by specifying the linked libraries explicitely.
-> 
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->   Branch: nitin/dso_linking_change
->   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=nitin/dso_linking_change
-> 
-> Thanks,
->     Nitin A Kamble <nitin.a.kamble@intel.com>
+On 20.01.2011 20:53, Adrian Alonso wrote:
+> But I'm not sure if un-setting TARGET_FPU on crosssdk.bbclass would 
+> affect
+> other targets.
 
-We've taken these into master but I'm a bit worried and we have some
-breakage still. Specifically, systemtap failed with a pthread linkage
-failure.
+It should not. crosssdk class rewrites all TARGET_* variables except 
+TARGET_FPU which may lead to inconsistent set of TARGET_* variables 
+(like TARGET_ARCH = "x86_64" and TARGET_FPU = "soft"). This in turn 
+confuses some recipes (like gcc).
 
-I couldn't find systemtap using pthreads anywhere that would cause the
-error so I hit google. I found:
+Actually, we need to add the same thing to the nativesdk class (and, 
+probably, native too) for the same reason.
+Note that resetting TARGET_FPU in the nativesdk.bbclass solved the 
+decimal-float issue (which turned to be the problem with eglibc-nativesdk).
 
-http://lists.fedoraproject.org/pipermail/devel/2010-January/129131.html
-http://lists.fedoraproject.org/pipermail/devel/2010-January/129134.html
+I'll post my patch soon, but it still needs more testing.
 
-So I'm wondering if we should disable the gcc patch until Fedora sort
-this out. Could you look into this and see if there are any patches
-fixing this properly out there yet?
-
-It does clearly indicate that adding -lpthread to the makefile for
-systemtap would be wrong. I'm hoping that there weren't any other cases
-like this?
-
-Cheers,
-
-Richard
-
-
-
+Regards, Ilya.
 
 
