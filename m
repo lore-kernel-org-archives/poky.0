@@ -1,25 +1,25 @@
 Return-Path: <qing.he@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id CFDC34C811FA
-	for <poky@yoctoproject.org>; Fri, 21 Jan 2011 04:46:06 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 21 Jan 2011 02:46:06 -0800
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 0AE844C810AF
+	for <poky@yoctoproject.org>; Fri, 21 Jan 2011 04:46:36 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 21 Jan 2011 02:46:26 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,357,1291622400"; d="scan'208";a="377891546"
+X-IronPort-AV: E=Sophos;i="4.60,357,1291622400"; d="scan'208";a="879630012"
 Received: from qhe2-db.sh.intel.com ([10.239.13.48])
-	by azsmga001.ch.intel.com with ESMTP; 21 Jan 2011 02:46:05 -0800
+	by fmsmga001.fm.intel.com with ESMTP; 21 Jan 2011 02:46:05 -0800
 Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
 	(envelope-from <qing.he@intel.com>)
-	id 1PgEPY-0005Zm-OY; Fri, 21 Jan 2011 18:40:08 +0800
-Message-Id: <fcd1c336ac71559fd5d9e70a38725405a1f8d791.1295605995.git.qing.he@intel.com>
+	id 1PgEPY-0005ZR-N6; Fri, 21 Jan 2011 18:40:08 +0800
+Message-Id: <0c0d3126a4628afa087df52956a9678c073d0d94.1295605994.git.qing.he@intel.com>
 In-Reply-To: <cover.1295605993.git.qing.he@intel.com>
 References: <cover.1295605993.git.qing.he@intel.com>
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-Old-Date: Thu, 20 Jan 2011 00:55:41 +0800
+From: Qing He <qing.he@intel.com>
+Old-Date: Wed, 19 Jan 2011 09:44:51 +0800
 Date: Fri, 21 Jan 2011 18:40:08 +0800
 To: poky@yoctoproject.org
 Cc: Paul Eggleton <paul.eggleton@linux.intel.com>, aleksandr.koltsoff@ebts.fi
-Subject: [PATCH 4/5] gst-plugins-base: add util-linux to DEPENDS
+Subject: [PATCH 1/5] util-linux: separately packaging blkid and uuid
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,38 +31,57 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 21 Jan 2011 10:46:07 -0000
+X-List-Received-Date: Fri, 21 Jan 2011 10:46:37 -0000
 
-gst-plugins-base requires libuuid, so add util-linux to DEPENDS.
+To avoid full set of util-linux included by library dependencies.
 
-Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
+Fixes [BUGID #661].
+
 Signed-off-by: Qing He <qing.he@intel.com>
 ---
- .../gstreamer/gst-plugins-base_0.10.31.bb          |    4 ++--
- 1 files changed, 2 insertions(+), 2 deletions(-)
+ meta/recipes-core/util-linux/util-linux.inc       |    9 ++++++++-
+ meta/recipes-core/util-linux/util-linux_2.17.2.bb |    2 +-
+ 2 files changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/meta/recipes-multimedia/gstreamer/gst-plugins-base_0.10.31.bb b/meta/recipes-multimedia/gstreamer/gst-plugins-base_0.10.31.bb
-index 77330b6..8bf243e 100644
---- a/meta/recipes-multimedia/gstreamer/gst-plugins-base_0.10.31.bb
-+++ b/meta/recipes-multimedia/gstreamer/gst-plugins-base_0.10.31.bb
-@@ -6,7 +6,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=0636e73ff0215e8d672dc4c32c317bb3 \
-                     file://COPYING.LIB;md5=55ca817ccb7d5b5b66355690e9abc605 \
-                     file://gst/ffmpegcolorspace/utils.c;beginline=1;endline=20;md5=9c83a200b8e597b26ca29df20fc6ecd0"
+diff --git a/meta/recipes-core/util-linux/util-linux.inc b/meta/recipes-core/util-linux/util-linux.inc
+index 53d8463..44f7834 100644
+--- a/meta/recipes-core/util-linux/util-linux.inc
++++ b/meta/recipes-core/util-linux/util-linux.inc
+@@ -27,7 +27,9 @@ SRC_URI = "${KERNELORG_MIRROR}/pub/linux/utils/util-linux-ng/v${MAJOR_VERSION}/u
+            file://make_include \
+            "
  
--DEPENDS += "virtual/libx11 alsa-lib freetype gnome-vfs liboil libogg libvorbis libxv libtheora avahi"
-+DEPENDS += "virtual/libx11 alsa-lib freetype gnome-vfs liboil libogg libvorbis libxv libtheora avahi util-linux"
- RDEPENDS_${PN} += "gnome-vfs-plugin-file gnome-vfs-plugin-http gnome-vfs-plugin-ftp \
-              gnome-vfs-plugin-sftp"
+-PACKAGES_prepend = "util-linux-fdisk util-linux-cfdisk util-linux-sfdisk util-linux-swaponoff util-linux-losetup util-linux-umount util-linux-mount util-linux-readprofile "
++PACKAGES_prepend = "util-linux-fdisk util-linux-cfdisk util-linux-sfdisk util-linux-swaponoff \
++                    util-linux-losetup util-linux-umount util-linux-mount util-linux-readprofile \
++                    util-linux-libblkid util-linux-libblkid-dev util-linux-libuuid util-linux-libuuid-dev "
  
-@@ -15,7 +15,7 @@ SRC_URI += " file://gst-plugins-base-tremor.patch"
- SRC_URI[md5sum] = "9baa0d87e81c88b2477a3554ab629c46"
- SRC_URI[sha256sum] = "abb006c78222cfb69d31e983268d1d5219e9d4e0da24c6c4cd687968af7a33bd"
+ PACKAGES_virtclass-native = ""
  
--PR = "r0"
-+PR = "r1"
+@@ -48,6 +50,11 @@ FILES_util-linux-mount = "/bin/mount.${PN}"
+ FILES_util-linux-umount = "/bin/umount.${PN}"
+ FILES_util-linux-readprofile = "/sbin/readprofile"
  
- inherit gettext
++FILES_util-linux-libblkid = "/usr/lib/libblkid.so.*"
++FILES_util-linux-libblkid-dev = "/usr/lib/libblkid.so /usr/lib/libblkid.a /usr/lib/libblkid.la /usr/include/blkid"
++FILES_util-linux-libuuid = "/usr/lib/libuuid.so.*"
++FILES_util-linux-libuuid-dev = "/usr/lib/libuuid.so /usr/lib/libuuid.a /usr/lib/libuuid.la /usr/include/uuid"
++
+ RRECOMMENDS_${PN} = "util-linux-fdisk util-linux-cfdisk util-linux-sfdisk util-linux-mount util-linux-readprofile "
+ RDEPENDS_${PN} = "util-linux-umount util-linux-swaponoff util-linux-losetup"
  
+diff --git a/meta/recipes-core/util-linux/util-linux_2.17.2.bb b/meta/recipes-core/util-linux/util-linux_2.17.2.bb
+index 9b344d4..662bde0 100644
+--- a/meta/recipes-core/util-linux/util-linux_2.17.2.bb
++++ b/meta/recipes-core/util-linux/util-linux_2.17.2.bb
+@@ -1,6 +1,6 @@
+ MAJOR_VERSION = "2.17"
+ require util-linux.inc
+-PR="r1"
++PR = "r2"
+ 
+ SRC_URI += "file://uclibc-compile.patch \
+ 	          file://util-linux-ng-replace-siginterrupt.patch"
 -- 
 1.7.0
 
