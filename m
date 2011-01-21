@@ -1,30 +1,19 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 23F5F4C80FAD
-	for <poky@lists.pokylinux.org>; Fri, 21 Jan 2011 10:18:11 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0LGK4A6011013; Fri, 21 Jan 2011 16:20:04 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id dnBBYfwAvost; Fri, 21 Jan 2011 16:20:04 +0000 (GMT)
-Received: from [192.168.1.45] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0LGJebB010941
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Fri, 21 Jan 2011 16:19:43 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Gary Thomas <gary@mlbassoc.com>
-In-Reply-To: <4D399769.1050803@mlbassoc.com>
-References: <4D3850B3.2030100@mlbassoc.com>
-	<1295619024.14388.30678.camel@rex>  <4D399769.1050803@mlbassoc.com>
-Date: Fri, 21 Jan 2011 16:17:37 +0000
-Message-ID: <1295626657.14388.31197.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Cc: Poky <poky@lists.pokylinux.org>
-Subject: Re: What's taking so long??
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id B34FF4C80FAD
+	for <poky@yoctoproject.org>; Fri, 21 Jan 2011 10:37:26 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 21 Jan 2011 08:37:26 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,358,1291622400"; d="scan'208";a="649734929"
+Received: from unknown (HELO localhost) ([10.255.14.122])
+	by fmsmga002.fm.intel.com with ESMTP; 21 Jan 2011 08:37:26 -0800
+Message-Id: <cover.1295627451.git.dvhart@linux.intel.com>
+From: Darren Hart <dvhart@linux.intel.com>
+Old-Date: Fri, 21 Jan 2011 08:30:51 -0800
+Date: Fri, 21 Jan 2011  8:37:23 -0800
+To: poky@yoctoproject.org,bruce.ashfield@windriver.com,tom.zanussi@intel.com
+Subject: [PATCH 0/3] linux-2.6-windriver: Beagleboard revision detection and gpio write-protect mapping
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,48 +25,33 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 21 Jan 2011 16:18:12 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 21 Jan 2011 16:37:27 -0000
 
-On Fri, 2011-01-21 at 07:25 -0700, Gary Thomas wrote:
-> This particular test was isolated, just that one recipe.  I noticed
-> it before when building a complete image, so running it isolated does not
-> seem to make any difference.  There is also nothing else running on my build
-> machine (it's a separate server that is used only for builds)
-> 
-> This is against master as of 2011-01-14 (897530621fabf3c345c302050a5c21e16097a2ba)
-> with my local layers.
-> 
-> What can I look at (alternatively what data can I provide) to help
-> understand this?
+The existing board detection doesn't work for all board types. The GPIO pins are
+mapped differently, particularly the SD card write-protect lines. These patches
+fix a boot hang on the Beagleboard xM due to the xM using a micro SD which
+doesn't have WP lines.
 
-You could try pulling in:
-http://git.pokylinux.org/cgit.cgi/poky/commit/?id=ede381d56b180b384fdad98d445e5430819cfade
-http://git.pokylinux.org/cgit.cgi/poky/commit/?id=7857834691868b7f48f732ee78d8770f5473ff68
-http://git.pokylinux.org/cgit.cgi/poky/commit/?id=fd88588df029604689db9b0e30c55aad68392a5d
+The following patches already exist in mainline and apply without modification
+to the linux-2.6-windriver git tree.
 
-and see if they fix the problem. I'm not sure that they would in a
-single task case but who knows. You could also try adding timings as per
-my previous email, the change to package.bbclass was simply:
+Please merge dvhart/beagleboard-standard with beagleboard-standard.
 
-diff --git a/meta/classes/package.bbclass b/meta/classes/package.bbclass
-index 8e7fa26..8b0cb96 100644
---- a/meta/classes/package.bbclass
-+++ b/meta/classes/package.bbclass
-@@ -1082,6 +1082,7 @@ python package_do_package () {
-                return
- 
-        for f in (bb.data.getVar('PACKAGEFUNCS', d, True) or '').split():
-+               bb.error("Running %s" % f)
-                bb.build.exec_func(f, d)
- }
- do_package[dirs] = "${SHLIBSWORKDIR} ${PKGDESTWORK} ${D}"
+Pull URL: git://git.pokylinux.org/linux-2.6-windriver-contrib.git
+  Branch: dvhart/beagleboard-standard
+  Browse: http://git.pokylinux.org/cgit.cgi/linux-2.6-windriver-contrib/log/?h=dvhart/beagleboard-standard
 
-as I'd like to understand of the 23 minutes, where the time is being spent.
+Thanks,
+    Darren Hart <dvhart@linux.intel.com>
+---
 
-Cheers,
 
-Richard
+Robert Nelson (3):
+  omap: Beagle: revision detection
+  omap: Beagle: only Cx boards use pin 23 for write protect
+  omap: Beagle: no gpio_wp pin connection on xM
+
+ arch/arm/mach-omap2/board-omap3beagle.c |   93 ++++++++++++++++++++++++++++++-
+ 1 files changed, 92 insertions(+), 1 deletions(-)
 
 
