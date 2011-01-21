@@ -1,30 +1,28 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 6BFAB4C81065
-	for <poky@yoctoproject.org>; Fri, 21 Jan 2011 08:15:50 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0LEHfVS005634; Fri, 21 Jan 2011 14:17:41 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id Qc0TCutPT89v; Fri, 21 Jan 2011 14:17:41 +0000 (GMT)
-Received: from [192.168.1.45] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0LEGL3o005553
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Fri, 21 Jan 2011 14:16:22 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Gary Thomas <gary@mlbassoc.com>
-In-Reply-To: <4D386573.5020309@mlbassoc.com>
-References: <4D3850B3.2030100@mlbassoc.com> <1295539103.2487.4.camel@scimitar>
-	<0778F003-B27E-402C-BDE2-D7B3B7CA8CE9@dominion.thruhere.net>
-	<4D386417.2040506@mlbassoc.com>  <4D386573.5020309@mlbassoc.com>
-Date: Fri, 21 Jan 2011 14:14:18 +0000
-Message-ID: <1295619259.14388.30696.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Cc: poky@yoctoproject.org
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id BCA064C81065
+	for <poky@lists.pokylinux.org>; Fri, 21 Jan 2011 08:25:51 -0600 (CST)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 4910416605F0; Fri, 21 Jan 2011 07:25:46 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.1
+Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 3228916605EA;
+	Fri, 21 Jan 2011 07:25:45 -0700 (MST)
+Message-ID: <4D399769.1050803@mlbassoc.com>
+Date: Fri, 21 Jan 2011 07:25:45 -0700
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
+MIME-Version: 1.0
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+References: <4D3850B3.2030100@mlbassoc.com> <1295619024.14388.30678.camel@rex>
+In-Reply-To: <1295619024.14388.30678.camel@rex>
+Cc: Poky <poky@lists.pokylinux.org>
 Subject: Re: What's taking so long??
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -37,85 +35,92 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 21 Jan 2011 14:15:50 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Fri, 21 Jan 2011 14:25:52 -0000
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Thu, 2011-01-20 at 09:40 -0700, Gary Thomas wrote:
-> Note: I got tired of waiting for this (I needed to rebuild
-> anyway) and typed ^C.  I got this dump which I don't understand:
-> 
-> NOTE: Sending SIGTERM to remaining 1 tasks
-> Warning, worker left partial message: <event>(ilogging
-> LogRecord
-> p1
-> (dp2
-> S'taskpid'
-> p3
-> I23606
-> sS'threadName'
-> p4
-> S'MainThread'
-> p5
-> sS'name'
-> p6
-> S'BitBake'
-> p7
-> sS'thread'
-> p8
-> I-1216357584
-> sS'created'
-> p9
-> F1295541481.8053031
-> sS'process'
-> p10
-> I23606
-> sS'processName'
-> p11
-> S'MainProcess'
-> p12
-> sS'args'
-> p13
-> (tsS'module'
-> p14
-> S'__init__'
-> p15
-> sS'filename'
-> p16
-> S'__init__.py'
-> p17
-> sS'levelno'
-> p18
-> I20
-> sS'exc_text'
-> p19
-> NsS'pathname'
-> p20
-> S'/home/local/poky-amltd/bitbake/lib/bb/__init__.py'
-> p21
-> sS'lineno'
-> p22
-> I85
-> sS'msg'
-> p23
-> S'  /kernel/arch/arm/plat-s3c64xx/dev-audio.c'
-> p24
-> sS'exc_info'
-> p25
-> NsS'funcName'
-> p26
-> S'note'
-> p27
-> 
-> What does it mean?  Maybe it helps understand the problem.
+On 01/21/2011 07:10 AM, Richard Purdie wrote:
+> On Thu, 2011-01-20 at 08:11 -0700, Gary Thomas wrote:
+>> My target platform/distro uses IPK and I have a local kernel
+>> recipe which is based on the pre linux-yocto recipe that was
+>> used by Poky.  When I build&  package the kernel, I have
+>> terrible performance - this is new, it used to be just fine.
+>>
+>> Here's what I mean.  Building for my kernel and timing the
+>> various steps, e.g.
+>>     % time bitbake virtual/kernel -c compile
+>>
+>> My kernel:
+>>     compile            1m49s
+>>     deploy             0m16s
+>>     populate_sysroot   0m38s
+>>     package           23m20s
+>>
+>> Just to compare, using OTS Poky for BeagleBoard:
+>>     compile            5m07s
+>>     deploy             0m36s
+>>     populate_sysroot   0m29s
+>>     package            5m02s
+>>
+>> That's a five-fold difference in the time to build&  package
+>> the kernel.
+>
+> This is a serious and worrying number. I just tried a test where I ran:
+>
+> bitbake virtual/kernel -c package | ../predate.sh
+>
+> where predate.sh contains:
+>
+> #!/bin/bash
+> while read line ; do
+>      echo "$(date): ${line}"
+> done
+>
+> and I added a bb.error to the package functions interation loop in
+> package.bbclass.
+>
+> I saw:
+>
+> Fri Jan 21 13:58:00 GMT 2011: NOTE: Running task 667 of 667 (ID: 14, /media/build2/builds/rptest/meta/recipes-kernel/linux/linux-yocto_git.bb, do_package)
+> Fri Jan 21 13:58:00 GMT 2011: NOTE: package linux-yocto-2.6.37+git0+e3895db37bd65ea97e59b70ea936c84b398d3f3e_0+a9d833fda90e2f1257888a97e092135610b5f259-r15: task do_package: Started
+> Fri Jan 21 13:58:00 GMT 2011: ERROR: Running perform_packagecopy
+> Fri Jan 21 13:58:02 GMT 2011: ERROR: Running package_do_split_locales
+> Fri Jan 21 13:58:02 GMT 2011: ERROR: Running populate_packages
+> Fri Jan 21 13:58:02 GMT 2011: WARNING:<string>:5: RuntimeWarning: tmpnam is a potential security risk to your program
+> Fri Jan 21 13:58:02 GMT 2011:
+> Fri Jan 21 13:58:18 GMT 2011: ERROR: Running package_do_filedeps
+> Fri Jan 21 13:59:08 GMT 2011: ERROR: Running package_do_shlibs
+> Fri Jan 21 13:59:10 GMT 2011: ERROR: Running package_do_pkgconfig
+> Fri Jan 21 13:59:10 GMT 2011: ERROR: Running read_shlibdeps
+> Fri Jan 21 13:59:11 GMT 2011: ERROR: Running package_depchains
+> Fri Jan 21 13:59:11 GMT 2011: ERROR: Running emit_pkgdata
+> Fri Jan 21 13:59:11 GMT 2011: ERROR: Running do_package_qa
+> Fri Jan 21 14:00:42 GMT 2011: NOTE: package linux-yocto-2.6.37+git0+e3895db37bd65ea97e59b70ea936c84b398d3f3e_0+a9d833fda90e2f1257888a97e092135610b5f259-r15: task do_package: Succeeded
+> Fri Jan 21 14:00:42 GMT 2011: NOTE: Tasks Summary: Attempted 667 tasks of which 615 didn't need to be rerun and 0 failed.
+>
+> so it did this in 2.6 minutes which doesn't seem unreasonable.
+>
+> Are you seeing the slow package step in current master and when you made
+> the timings above, were they the only task running or were there others
+> active too?
 
-Its the internal representation of what you see as messages on the
-bitbake console (output of a pickled LogRecord). The worker didn't
-complete its queue so there was a partial message, it doesn't help work
-out where the time is being spent sadly.
+This particular test was isolated, just that one recipe.  I noticed
+it before when building a complete image, so running it isolated does not
+seem to make any difference.  There is also nothing else running on my build
+machine (it's a separate server that is used only for builds)
 
-Cheers,
+This is against master as of 2011-01-14 (897530621fabf3c345c302050a5c21e16097a2ba)
+with my local layers.
 
-Richard
+What can I look at (alternatively what data can I provide) to help
+understand this?
 
+Thanks
+
+
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
