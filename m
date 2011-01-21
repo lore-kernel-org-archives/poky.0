@@ -1,23 +1,34 @@
-Return-Path: <edwin.zhai@intel.com>
+Return-Path: <kevin.tian@intel.com>
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 8069C4C81065
-	for <poky@yoctoproject.org>; Thu, 20 Jan 2011 19:22:07 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 20 Jan 2011 17:22:07 -0800
+	by mx1.pokylinux.org (Postfix) with ESMTP id E0BFF4C81065
+	for <poky@yoctoproject.org>; Thu, 20 Jan 2011 19:50:13 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 20 Jan 2011 17:50:13 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,354,1291622400"; d="scan'208";a="649463832"
-Received: from shxpwgzhai1a.ccr.corp.intel.com (HELO [10.239.48.130])
-	([10.239.48.130])
-	by fmsmga002.fm.intel.com with ESMTP; 20 Jan 2011 17:22:06 -0800
-Message-ID: <4D38DFB5.3000907@intel.com>
-Date: Fri, 21 Jan 2011 09:21:57 +0800
-From: "Zhai, Edwin" <edwin.zhai@intel.com>
-User-Agent: Thunderbird 2.0.0.17 (Windows/20080914)
-MIME-Version: 1.0
-To: "Wold, Saul" <saul.wold@intel.com>
+X-IronPort-AV: E=Sophos;i="4.60,354,1291622400"; d="scan'208";a="879509222"
+Received: from pgsmsx601.gar.corp.intel.com ([10.221.43.69])
+	by fmsmga001.fm.intel.com with ESMTP; 20 Jan 2011 17:50:13 -0800
+Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
+	pgsmsx601.gar.corp.intel.com (10.221.43.69) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Fri, 21 Jan 2011 09:50:12 +0800
+Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
+	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
+	Fri, 21 Jan 2011 09:50:11 +0800
+From: "Tian, Kevin" <kevin.tian@intel.com>
+To: "Zhai, Edwin" <edwin.zhai@intel.com>, "Wold, Saul" <saul.wold@intel.com>
+Date: Fri, 21 Jan 2011 09:50:09 +0800
+Thread-Topic: [poky] [PATCH 0/6] 2nd pull request: UX, gtk+/apr, Edwin,
+	Jan19, 2011
+Thread-Index: Acu5CaMsRTi9/Ym7Rh6SZRB6tY+Q7QAAnQhA
+Message-ID: <625BA99ED14B2D499DC4E29D8138F1504D9F1089AB@shsmsx502.ccr.corp.intel.com>
 References: <cover.1295397702.git.edwin.zhai@intel.com>
-	<4D38BC0B.7080501@intel.com>
-In-Reply-To: <4D38BC0B.7080501@intel.com>
+	<4D38BC0B.7080501@intel.com> <4D38DFB5.3000907@intel.com>
+In-Reply-To: <4D38DFB5.3000907@intel.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
+MIME-Version: 1.0
 Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: [PATCH 0/6] 2nd pull request: UX, gtk+/apr, Edwin, Jan19, 2011
 X-BeenThere: poky@yoctoproject.org
@@ -31,160 +42,60 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 21 Jan 2011 01:22:07 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Fri, 21 Jan 2011 01:50:14 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-I am always challenged by the version checking system that why not 
-upgrade to latest version:(
-See my comments below for these packages...
-
-Wold, Saul wrote:
-> On 01/18/2011 04:46 PM, Zhai Edwin wrote:
->   
->> Saul,
->> This is the 2nd pull request for gtk+,gdk-pixbuf,apr. Also added webkit-gtk.
->> Qemu upgrade is under test across all platforms, and will be out soon.
->>
->>     
->
->
-> Edwin,
->
-> It was noticed that you updated a little too aggressively!  For the 
-> gtk+, webkit, eds-dbus and glib, you moved to the development versions.
->
-> In some open source project even releases are stable and odd releases 
-> are unstable, so in this case we want to go to the following:
->
-> gtk+: 2.22.1
->   
-
-There is also 2.90.X there. And I treated it as development branch, and 
-stick to lower version.
-I have compared between 2.22.1 and 2.23.2, and found no much difference. 
-One case is 2.23.2 support libtool 2.4, but 2.22.1 doesn't, so we may 
-have some autoconf issue there. Anyway, if you want to stick with stable 
-version， I can downgrade it to 2.22.1.
-
-> glib: 2.26.1
->   
-
-Dongxiao owned this?
-> eds-dbus: 2.32
->   
-
-
-My previous upgrade is 2.32.1. But with added nss/nspr, it's rejected. 
-Working is in progress.
-
-> webkit-gtk 1.2.6
->   
-
-Our poky seems never has stable release, and always use development 
-branch. Maybe we want some new feature? RP can comment. Another benefit 
-is development branch is under svn, so we can selectively pick some 
-modules instead of big whole repo. Given development branch, there is no 
-even/odd difference.
-
-I have a plan to change it to stable release with the cost of long 
-download & compile time, but I'm afraid can't make it in this release cycle.
-> This is something we will need to review more carefully to know for sure 
-> which packages are even/odd stable/dev(or unstable) versioning.
->
-> I will remind the whole team about this as well.
->
-> Sau!
->
->
->   
->> Thanks,
->> edwin
->>
->> Pull URL: git://git.pokylinux.org/poky-contrib.git
->>    Branch: gzhai/upgrade01
->>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=gzhai/upgrade01
->>
->> Thanks,
->>      Zhai Edwin<edwin.zhai@intel.com>
->> ---
->>
->>
->> Zhai Edwin (6):
->>    gtk+: Update to 2.23.2
->>    gdk-pixbuf: Add 2.22.1 as new recipe
->>    eds-dbus: Do not disable old API after upgrading gtk+
->>    apr: Update to 1.4.2
->>    apr-util: Update to 1.3.10
->>    webkit-gtk: upgrade to 1.3.7
->>
->>   meta/classes/gtk-icon-cache.bbclass                |    2 +-
->>   .../conf/distro/include/poky-default-revisions.inc |    2 +-
->>   .../gdk-pixbuf-2.22.1/configure_fix.patch          |   19 +
->>   .../gdk-pixbuf-2.22.1}/hardcoded_libtool.patch     |   20 +-
->>   .../gdk-pixbuf/gdk-pixbuf-native_2.22.1.bb         |   13 +
->>   meta/recipes-gnome/gdk-pixbuf/gdk-pixbuf.inc       |   30 +
->>   meta/recipes-gnome/gdk-pixbuf/gdk-pixbuf_2.22.1.bb |   35 +
->>   meta/recipes-gnome/gnome/metacity_2.30.3.bb        |    2 +-
->>   .../gtk+/gdk-pixbuf-csource-native_2.12.7.bb       |   37 -
->>   .../gdk-pixbuf-csource/reduce-dependencies.patch   |  221 -------
->>   .../gtk+-2.20.1/disable-gio-png-sniff-test.diff    |   97 ---
->>   meta/recipes-gnome/gtk+/gtk+-2.20.1/no-demos.patch |   10 -
->>   ...Duplicate-the-exec-string-returned-by-gtk.patch |    0
->>   .../cellrenderer-cairo.patch                       |    0
->>   .../configurefix.patch                             |    0
->>   .../{gtk+-2.20.1 =>  gtk+-2.23.2}/entry-cairo.patch |    0
->>   .../hardcoded_libtool.patch                        |   22 +-
->>   meta/recipes-gnome/gtk+/gtk+-2.23.2/no-demos.patch |   13 +
->>   .../run-iconcache.patch                            |    0
->>   .../{gtk+-2.20.1 =>  gtk+-2.23.2}/toggle-font.diff  |    0
->>   .../{gtk+-2.20.1 =>  gtk+-2.23.2}/xsettings.patch   |    0
->>   meta/recipes-gnome/gtk+/gtk+.inc                   |   16 +-
->>   .../gtk+/{gtk+_2.20.1.bb =>  gtk+_2.23.2.bb}        |   18 +-
->>   meta/recipes-gnome/librsvg/librsvg_2.32.1.bb       |    2 +-
->>   meta/recipes-graphics/mutter/mutter.inc            |    2 +-
->>   meta/recipes-sato/eds/eds-dbus/old-gdk-api.patch   |   17 +
->>   meta/recipes-sato/eds/eds-dbus_git.bb              |    1 +
->>   meta/recipes-sato/webkit/files/GNUmakefile.am      |  692 ++------------------
->>   meta/recipes-sato/webkit/files/Makefile            |    2 +-
->>   meta/recipes-sato/webkit/files/autogen.sh          |    2 +-
->>   meta/recipes-sato/webkit/files/configure.ac        |  164 ++++--
->>   meta/recipes-sato/webkit/webkit-gtk_svn.bb         |    7 +-
->>   .../apr/{apr-util_1.3.4.bb =>  apr-util_1.3.10.bb}  |   12 +-
->>   meta/recipes-support/apr/apr/buildconf_fix.patch   |   25 +
->>   meta/recipes-support/apr/apr/cleanup.patch         |    9 +-
->>   .../apr/{apr_1.3.3.bb =>  apr_1.4.2.bb}             |   23 +-
->>   36 files changed, 383 insertions(+), 1132 deletions(-)
->>   create mode 100644 meta/recipes-gnome/gdk-pixbuf/gdk-pixbuf-2.22.1/configure_fix.patch
->>   copy meta/recipes-gnome/{gtk+/gtk+-2.20.1 =>  gdk-pixbuf/gdk-pixbuf-2.22.1}/hardcoded_libtool.patch (68%)
->>   create mode 100644 meta/recipes-gnome/gdk-pixbuf/gdk-pixbuf-native_2.22.1.bb
->>   create mode 100644 meta/recipes-gnome/gdk-pixbuf/gdk-pixbuf.inc
->>   create mode 100644 meta/recipes-gnome/gdk-pixbuf/gdk-pixbuf_2.22.1.bb
->>   delete mode 100644 meta/recipes-gnome/gtk+/gdk-pixbuf-csource-native_2.12.7.bb
->>   delete mode 100644 meta/recipes-gnome/gtk+/gdk-pixbuf-csource/reduce-dependencies.patch
->>   delete mode 100644 meta/recipes-gnome/gtk+/gtk+-2.20.1/disable-gio-png-sniff-test.diff
->>   delete mode 100644 meta/recipes-gnome/gtk+/gtk+-2.20.1/no-demos.patch
->>   rename meta/recipes-gnome/gtk+/{gtk+-2.20.1 =>  gtk+-2.23.2}/0001-bgo-584832-Duplicate-the-exec-string-returned-by-gtk.patch (100%)
->>   rename meta/recipes-gnome/gtk+/{gtk+-2.20.1 =>  gtk+-2.23.2}/cellrenderer-cairo.patch (100%)
->>   rename meta/recipes-gnome/gtk+/{gtk+-2.20.1 =>  gtk+-2.23.2}/configurefix.patch (100%)
->>   rename meta/recipes-gnome/gtk+/{gtk+-2.20.1 =>  gtk+-2.23.2}/entry-cairo.patch (100%)
->>   rename meta/recipes-gnome/gtk+/{gtk+-2.20.1 =>  gtk+-2.23.2}/hardcoded_libtool.patch (66%)
->>   create mode 100644 meta/recipes-gnome/gtk+/gtk+-2.23.2/no-demos.patch
->>   rename meta/recipes-gnome/gtk+/{gtk+-2.20.1 =>  gtk+-2.23.2}/run-iconcache.patch (100%)
->>   rename meta/recipes-gnome/gtk+/{gtk+-2.20.1 =>  gtk+-2.23.2}/toggle-font.diff (100%)
->>   rename meta/recipes-gnome/gtk+/{gtk+-2.20.1 =>  gtk+-2.23.2}/xsettings.patch (100%)
->>   rename meta/recipes-gnome/gtk+/{gtk+_2.20.1.bb =>  gtk+_2.23.2.bb} (74%)
->>   create mode 100644 meta/recipes-sato/eds/eds-dbus/old-gdk-api.patch
->>   rename meta/recipes-support/apr/{apr-util_1.3.4.bb =>  apr-util_1.3.10.bb} (72%)
->>   create mode 100644 meta/recipes-support/apr/apr/buildconf_fix.patch
->>   rename meta/recipes-support/apr/{apr_1.3.3.bb =>  apr_1.4.2.bb} (60%)
->>
->> _______________________________________________
->> poky mailing list
->> poky@yoctoproject.org
->> https://lists.yoctoproject.org/listinfo/poky
->>
->>     
->
->   
+PiBGcm9tOiBaaGFpLCBFZHdpbg0KPiBTZW50OiBGcmlkYXksIEphbnVhcnkgMjEsIDIwMTEgOToy
+MiBBTQ0KPiANCj4gSSBhbSBhbHdheXMgY2hhbGxlbmdlZCBieSB0aGUgdmVyc2lvbiBjaGVja2lu
+ZyBzeXN0ZW0gdGhhdCB3aHkgbm90DQo+IHVwZ3JhZGUgdG8gbGF0ZXN0IHZlcnNpb246KA0KPiBT
+ZWUgbXkgY29tbWVudHMgYmVsb3cgZm9yIHRoZXNlIHBhY2thZ2VzLi4uDQo+IA0KPiBXb2xkLCBT
+YXVsIHdyb3RlOg0KPiA+IE9uIDAxLzE4LzIwMTEgMDQ6NDYgUE0sIFpoYWkgRWR3aW4gd3JvdGU6
+DQo+ID4NCj4gPj4gU2F1bCwNCj4gPj4gVGhpcyBpcyB0aGUgMm5kIHB1bGwgcmVxdWVzdCBmb3Ig
+Z3RrKyxnZGstcGl4YnVmLGFwci4gQWxzbyBhZGRlZCB3ZWJraXQtZ3RrLg0KPiA+PiBRZW11IHVw
+Z3JhZGUgaXMgdW5kZXIgdGVzdCBhY3Jvc3MgYWxsIHBsYXRmb3JtcywgYW5kIHdpbGwgYmUgb3V0
+IHNvb24uDQo+ID4+DQo+ID4+DQo+ID4NCj4gPg0KPiA+IEVkd2luLA0KPiA+DQo+ID4gSXQgd2Fz
+IG5vdGljZWQgdGhhdCB5b3UgdXBkYXRlZCBhIGxpdHRsZSB0b28gYWdncmVzc2l2ZWx5ISAgRm9y
+IHRoZQ0KPiA+IGd0ayssIHdlYmtpdCwgZWRzLWRidXMgYW5kIGdsaWIsIHlvdSBtb3ZlZCB0byB0
+aGUgZGV2ZWxvcG1lbnQgdmVyc2lvbnMuDQoNCkkgdGhpbmsgdGhpcyBpcyBub3QgYSB3aGl0ZS1i
+bGFjayBxdWVzdGlvbi4gR2VuZXJhbGx5IHdlIGNob29zZSBhIHN0YWJsZSB2ZXJzaW9uLg0KSWYg
+dGhlcmUncyBhIHJlYXNvbiBnb2luZyBmb3IgZGV2ZWxvcG1lbnQgdmVyc2lvbiwgZS5nLiBpbXBv
+cnRhbnQgc2VjdXJpdHkgZml4LA0KbmVjZXNzaXR5IHRvIHNob3cgY2FzZSBhIG5ldyBmZWF0dXJl
+LCBldGMuIGl0IHN0aWxsIG1ha2VzIHNlbnNlIHRvIGJlIGFnZ3Jlc3NpdmUuDQoNCldoYXQgd2Ug
+bGFjayBoZXJlIGlzIHRvIGhhdmUgYW4gZXhwbGFuYXRpb24gZm9yIHdoeSBhIHZlcnNpb24gaXMg
+Y2hvc2VuIGZvciB0aGUNCnVwZ3JhZGUgY29tbWl0LiBUaGF0IHdheSBTYXVsL1JQIGNvdWxkIGdl
+dCB0aGUgcmF0aW9uYWxlIGluIHRoZSAxc3QgcGxhY2UsIGFuZA0KaW5zdGVhZCBvZiBhIGRlbGF5
+ZWQgZGlzY3Vzc2lvbiBsaWtlIHRoaXMuDQoNClNvIEknZCBwcm9wb3NlIHBlb3BsZSB0byBzdGFy
+dCBhZGRpbmcgbW9yZSBpbmZvIGluIHRoZSBjb21taXQgbWVzc2FnZSwgZXNwZWNpYWxseQ0Kd2hl
+biB5b3UgY2hvb3NlIGEgdmVyc2lvbiBmb3IgYSBzcGVjaWZpYyByZWFzb24sIGxpa2Ugd2hhdCBF
+ZHdpbiBleHBsYWlucyBiZWxvdy4NCg0KRG9lcyBpdCBtYWtlIHNlbnNlPw0KDQo+ID4NCj4gPiBJ
+biBzb21lIG9wZW4gc291cmNlIHByb2plY3QgZXZlbiByZWxlYXNlcyBhcmUgc3RhYmxlIGFuZCBv
+ZGQgcmVsZWFzZXMNCj4gPiBhcmUgdW5zdGFibGUsIHNvIGluIHRoaXMgY2FzZSB3ZSB3YW50IHRv
+IGdvIHRvIHRoZSBmb2xsb3dpbmc6DQo+ID4NCj4gPiBndGsrOiAyLjIyLjENCj4gPg0KPiANCj4g
+VGhlcmUgaXMgYWxzbyAyLjkwLlggdGhlcmUuIEFuZCBJIHRyZWF0ZWQgaXQgYXMgZGV2ZWxvcG1l
+bnQgYnJhbmNoLCBhbmQNCj4gc3RpY2sgdG8gbG93ZXIgdmVyc2lvbi4NCj4gSSBoYXZlIGNvbXBh
+cmVkIGJldHdlZW4gMi4yMi4xIGFuZCAyLjIzLjIsIGFuZCBmb3VuZCBubyBtdWNoIGRpZmZlcmVu
+Y2UuDQo+IE9uZSBjYXNlIGlzIDIuMjMuMiBzdXBwb3J0IGxpYnRvb2wgMi40LCBidXQgMi4yMi4x
+IGRvZXNuJ3QsIHNvIHdlIG1heQ0KPiBoYXZlIHNvbWUgYXV0b2NvbmYgaXNzdWUgdGhlcmUuIEFu
+eXdheSwgaWYgeW91IHdhbnQgdG8gc3RpY2sgd2l0aCBzdGFibGUNCj4gdmVyc2lvbu+8jCBJIGNh
+biBkb3duZ3JhZGUgaXQgdG8gMi4yMi4xLg0KDQpUaGlzIHdheSBJJ2QgYWdyZWUgd2l0aCAyLjIz
+LjIgc2luY2UgaXQgYWRkcyBhIG5ldyBmZWF0dXJlIGFuZCBiYXNlZCBvbiB5b3VyDQpjb21wYXJp
+c29uIG5vIG11Y2ggb3RoZXIgY2hhbmdlcyB0byBpbmN1ciBpbnN0YWJpbGl0eS4NCg0KPiANCj4g
+PiBnbGliOiAyLjI2LjENCj4gPg0KPiANCj4gRG9uZ3hpYW8gb3duZWQgdGhpcz8NCj4gPiBlZHMt
+ZGJ1czogMi4zMg0KPiA+DQo+IA0KPiANCj4gTXkgcHJldmlvdXMgdXBncmFkZSBpcyAyLjMyLjEu
+IEJ1dCB3aXRoIGFkZGVkIG5zcy9uc3ByLCBpdCdzIHJlamVjdGVkLg0KPiBXb3JraW5nIGlzIGlu
+IHByb2dyZXNzLg0KPiANCj4gPiB3ZWJraXQtZ3RrIDEuMi42DQo+ID4NCj4gDQo+IE91ciBwb2t5
+IHNlZW1zIG5ldmVyIGhhcyBzdGFibGUgcmVsZWFzZSwgYW5kIGFsd2F5cyB1c2UgZGV2ZWxvcG1l
+bnQNCj4gYnJhbmNoLiBNYXliZSB3ZSB3YW50IHNvbWUgbmV3IGZlYXR1cmU/IFJQIGNhbiBjb21t
+ZW50LiBBbm90aGVyIGJlbmVmaXQNCj4gaXMgZGV2ZWxvcG1lbnQgYnJhbmNoIGlzIHVuZGVyIHN2
+biwgc28gd2UgY2FuIHNlbGVjdGl2ZWx5IHBpY2sgc29tZQ0KPiBtb2R1bGVzIGluc3RlYWQgb2Yg
+YmlnIHdob2xlIHJlcG8uIEdpdmVuIGRldmVsb3BtZW50IGJyYW5jaCwgdGhlcmUgaXMgbm8NCj4g
+ZXZlbi9vZGQgZGlmZmVyZW5jZS4NCj4gDQo+IEkgaGF2ZSBhIHBsYW4gdG8gY2hhbmdlIGl0IHRv
+IHN0YWJsZSByZWxlYXNlIHdpdGggdGhlIGNvc3Qgb2YgbG9uZw0KPiBkb3dubG9hZCAmIGNvbXBp
+bGUgdGltZSwgYnV0IEknbSBhZnJhaWQgY2FuJ3QgbWFrZSBpdCBpbiB0aGlzIHJlbGVhc2UgY3lj
+bGUuDQoNCklzIGl0IGZlYXNpYmxlIHRvIHVzZSBkZXZlbG9wbWVudCBicmFuY2ggYnV0IG9ubHkg
+ZmV0Y2ggdGhlIHRhZyBtYXRjaGluZyB0aGUgc3RhYmxlDQpyZWxlYXNlPyBUaGlzIHdheSB5b3Ug
+Z2V0IHRoZSBiZW5lZml0IG9mIHN2biB3aGlsZSBzdGlsbCBzaXRzIGluIHN0YWJsZSB2ZXJzaW9u
+Lg0KDQpUaGFua3MNCktldmluDQo=
 
