@@ -1,27 +1,27 @@
 Return-Path: <Jingdong.Lu@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7A91B4C811B1
-	for <poky@yoctoproject.org>; Fri, 21 Jan 2011 03:40:07 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id A08C94C811B1
+	for <poky@yoctoproject.org>; Fri, 21 Jan 2011 03:40:09 -0600 (CST)
 Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p0L9e7WP007647
-	for <poky@yoctoproject.org>; Fri, 21 Jan 2011 01:40:07 -0800 (PST)
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p0L9e9mf007650
+	for <poky@yoctoproject.org>; Fri, 21 Jan 2011 01:40:09 -0800 (PST)
 Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
 	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Fri, 21 Jan 2011 01:40:06 -0800
+	Fri, 21 Jan 2011 01:40:09 -0800
 Received: from localhost ([128.224.162.176]) by ala-mail06.corp.ad.wrs.com
 	with Microsoft SMTPSVC(6.0.3790.1830); 
-	Fri, 21 Jan 2011 01:40:06 -0800
-Message-Id: <8b84d4ddc27a4c3ad5b82cae3ed85209f14a1749.1295602319.git.jingdong.lu@windriver.com>
+	Fri, 21 Jan 2011 01:40:08 -0800
+Message-Id: <32cd18453f66daeec85290579d5af8c6dd275848.1295602319.git.jingdong.lu@windriver.com>
 In-Reply-To: <cover.1295602319.git.jingdong.lu@windriver.com>
 References: <cover.1295602319.git.jingdong.lu@windriver.com>
 From: Jingdong Lu <jingdong.lu@windriver.com>
-Old-Date: Fri, 21 Jan 2011 17:27:03 +0800
-Date: Fri, 21 Jan 2011 17:38:48 +0800
+Old-Date: Fri, 21 Jan 2011 17:29:32 +0800
+Date: Fri, 21 Jan 2011 17:38:50 +0800
 To: poky@yoctoproject.org
 CC: 
-X-OriginalArrivalTime: 21 Jan 2011 09:40:07.0314 (UTC)
-	FILETIME=[303E5F20:01CBB94F]
-Subject: [PATCH 1/2] base-files: Add to make some directories needed by LSB.
+X-OriginalArrivalTime: 21 Jan 2011 09:40:09.0674 (UTC)
+	FILETIME=[31A67AA0:01CBB94F]
+Subject: [PATCH 2/2] gcc: Add "--enable-clocale=gnu" option explicitly
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,58 +33,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 21 Jan 2011 09:40:07 -0000
+X-List-Received-Date: Fri, 21 Jan 2011 09:40:09 -0000
 
-LSB will check some directories,eg, "/usr/local/" and need to make them for LSB test.
+Add "--enable-clocale=gun" option for gcc configuration explicitly in order to make sure C++ library can use correct locale module.
 
 Signed-off-by: Jingdong Lu <jingdong.lu@windriver.com>
 ---
- meta/recipes-core/base-files/base-files_3.0.14.bb |   18 +++++++++++++++++-
- 1 files changed, 17 insertions(+), 1 deletions(-)
+ meta/recipes-devtools/gcc/gcc-configure-common.inc |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
-diff --git a/meta/recipes-core/base-files/base-files_3.0.14.bb b/meta/recipes-core/base-files/base-files_3.0.14.bb
-index 0557696..2363feb 100644
---- a/meta/recipes-core/base-files/base-files_3.0.14.bb
-+++ b/meta/recipes-core/base-files/base-files_3.0.14.bb
-@@ -2,7 +2,7 @@ SUMMARY = "Miscellaneous files for the base system."
- DESCRIPTION = "The base-files package creates the basic system directory structure and provides a small set of key configuration files for the system."
- SECTION = "base"
- PRIORITY = "required"
--PR = "r65"
-+PR = "r66"
- LICENSE = "GPLv2"
- LIC_FILES_CHKSUM = "file://licenses/GPL-2;md5=94d55d512a9ba36caa9b7df079bae19f"
- SRC_URI = "file://rotation \
-@@ -48,6 +48,12 @@ dirs755 = "/bin /boot /dev ${sysconfdir} ${sysconfdir}/default \
-            /mnt /media /media/card /media/cf /media/net /media/ram \
-            /media/union /media/realroot /media/hdd \
-            /media/mmc1"
-+dirs3755 = "/srv  \
-+            ${prefix}/local ${prefix}/local/bin ${prefix}/local/games \
-+            ${prefix}/local/include ${prefix}/local/lib ${prefix}/local/sbin \
-+            ${prefix}/local/share ${prefix}/local/src"
-+dirs4775 = "/var/mail"
-+
- volatiles = "cache run log lock tmp"
- conffiles = "${sysconfdir}/debian_version ${sysconfdir}/host.conf \
-              ${sysconfdir}/inputrc ${sysconfdir}/issue /${sysconfdir}/issue.net \
-@@ -156,6 +162,16 @@ do_install_append_netbook-pro () {
- 	mkdir -p ${D}/initrd
- }
+diff --git a/meta/recipes-devtools/gcc/gcc-configure-common.inc b/meta/recipes-devtools/gcc/gcc-configure-common.inc
+index 4393777..b212fdc 100644
+--- a/meta/recipes-devtools/gcc/gcc-configure-common.inc
++++ b/meta/recipes-devtools/gcc/gcc-configure-common.inc
+@@ -27,7 +27,7 @@ EXTRA_OECONF_INTERMEDIATE ?= ""
  
-+do_install_append_poky-lsb() {
-+	for d in ${dirs3755}; do
-+                install -m 0755 -d ${D}$d
-+        done
-+
-+	for d in ${dirs4775}; do
-+                install -m 2755 -d ${D}$d
-+        done
-+}
-+
- PACKAGES = "${PN}-doc ${PN} ${PN}-dev ${PN}-dbg"
- FILES_${PN} = "/"
- FILES_${PN}-doc = "${docdir} ${datadir}/common-licenses"
+ GCCMULTILIB = "--disable-multilib"
+ 
+-EXTRA_OECONF = "${@['--enable-clocale=generic', ''][bb.data.getVar('USE_NLS', d, 1) != 'no']} \
++EXTRA_OECONF = "${@['--enable-clocale=generic', ' --enable-clocale=gnu'][bb.data.getVar('USE_NLS', d, 1) != 'no']} \
+                 --with-gnu-ld \
+                 --enable-shared \
+                 --enable-languages=${LANGUAGES} \
 -- 
 1.7.0.4
 
