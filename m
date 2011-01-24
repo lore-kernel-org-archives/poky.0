@@ -1,22 +1,22 @@
 Return-Path: <ke.yu@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 8AC154C81207
-	for <poky@yoctoproject.org>; Mon, 24 Jan 2011 08:29:06 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 24 Jan 2011 06:29:05 -0800
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 7C9E84C8110B
+	for <poky@yoctoproject.org>; Mon, 24 Jan 2011 08:29:09 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 24 Jan 2011 06:29:09 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,370,1291622400"; d="scan'208";a="379088363"
+X-IronPort-AV: E=Sophos;i="4.60,370,1291622400"; d="scan'208";a="595906517"
 Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
-	by azsmga001.ch.intel.com with ESMTP; 24 Jan 2011 06:29:05 -0800
-Message-Id: <7b3299a544053ee68cad6f8d7154161419e771bb.1295879038.git.ke.yu@intel.com>
+	by orsmga002.jf.intel.com with ESMTP; 24 Jan 2011 06:29:08 -0800
+Message-Id: <e79ca7eff7b264de69f86da1e53854da88fa44f6.1295879038.git.ke.yu@intel.com>
 In-Reply-To: <cover.1295879038.git.ke.yu@intel.com>
 References: <cover.1295879038.git.ke.yu@intel.com>
 From: Yu Ke <ke.yu@intel.com>
-Old-Date: Tue, 18 Jan 2011 23:35:30 +0800
-Date: Mon, 24 Jan 2011 22:32:51 +0800
+Old-Date: Wed, 19 Jan 2011 00:22:13 +0800
+Date: Mon, 24 Jan 2011 22:32:54 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [RFC PATCH 08/21] git.py: split download to download() and build_mirror_data()
+Subject: [RFC PATCH 10/21] bb.fetch2: add git unpack
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,67 +28,42 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 24 Jan 2011 14:29:06 -0000
+X-List-Received-Date: Mon, 24 Jan 2011 14:29:09 -0000
 
-the download is to fetch the source from URL, the build_mirror_data is
-to create the mirror tar ball. the original go() method mix them together,
-it is more clean to split them.
+git download will clone git repo to local, and git unpack just do a clone with referrence to the original repo
 
 Signed-off-by: Yu Ke <ke.yu@intel.com>
 ---
- bitbake/lib/bb/fetch2/__init__.py |    4 ++++
- bitbake/lib/bb/fetch2/git.py      |    8 +++++---
- 2 files changed, 9 insertions(+), 3 deletions(-)
+ bitbake/lib/bb/fetch2/git.py |   16 ++++++++++++++++
+ 1 files changed, 16 insertions(+), 0 deletions(-)
 
-diff --git a/bitbake/lib/bb/fetch2/__init__.py b/bitbake/lib/bb/fetch2/__init__.py
-index ca48e57..466b62e 100644
---- a/bitbake/lib/bb/fetch2/__init__.py
-+++ b/bitbake/lib/bb/fetch2/__init__.py
-@@ -299,6 +299,8 @@ def download(d, urls = None):
-             # Next try fetching from the original uri, u
-             try:
-                 m.download(u, ud, d)
-+                if hasattr(m, "build_mirror_data"):
-+                    m.build_mirror_data(u, ud, d)
-                 localpath = ud.localpath
-             except FetchError:
-                 # Remove any incomplete file
-@@ -505,6 +507,8 @@ def try_mirrors(d, uri, mirrors, check = False, force = False):
-                         return found
-                 else:
-                     ud.method.download(newuri, ud, ld)
-+                    if hasattr(ud.method,"build_mirror_data"):
-+                        ud.method.build_mirror_data(newuri, ud, ld)
-                     return ud.localpath
-             except (bb.fetch2.MissingParameterError,
-                     bb.fetch2.FetchError,
 diff --git a/bitbake/lib/bb/fetch2/git.py b/bitbake/lib/bb/fetch2/git.py
-index c40a19c..690bb08 100644
+index 438756a..ca9d925 100644
 --- a/bitbake/lib/bb/fetch2/git.py
 +++ b/bitbake/lib/bb/fetch2/git.py
-@@ -118,9 +118,6 @@ class Git(Fetch):
-         repofile = os.path.join(data.getVar("DL_DIR", d, 1), ud.mirrortarball)
- 
- 
--        coname = '%s' % (ud.tag)
--        codir = os.path.join(ud.clonedir, coname)
--
-         # If we have no existing clone and no mirror tarball, try and obtain one
-         if not os.path.exists(ud.clonedir) and not os.path.exists(repofile):
-             try:
-@@ -151,7 +148,12 @@ class Git(Fetch):
-             runfetchcmd("%s prune-packed" % ud.basecmd, d)
-             runfetchcmd("%s pack-redundant --all | xargs -r rm" % ud.basecmd, d)
- 
-+    def build_mirror_data(self, url, ud, d):
-         # Generate a mirror tarball if needed
-+        coname = '%s' % (ud.tag)
-+        codir = os.path.join(ud.clonedir, coname)
-+        repofile = os.path.join(data.getVar("DL_DIR", d, 1), ud.mirrortarball)
-+
+@@ -193,6 +193,22 @@ class Git(Fetch):
          os.chdir(ud.clonedir)
-         mirror_tarballs = data.getVar("BB_GENERATE_MIRROR_TARBALLS", d, True)
-         if mirror_tarballs != "0" or 'fullclone' in ud.parm:
+         bb.utils.prunedir(codir)
+ 
++    def unpack(self, ud, destdir, d):
++        """ unpack the downloaded src to destdir"""
++        subdir = ud.parm.get("subpath", "")
++        if subdir != "":
++            readpathspec = ":%s" % (subdir)
++        else:
++            readpathspec = ""
++
++		if 'fullclone' in ud.parm:
++			runfetchcmd("cp -pPR %s %s" % (os.path.join(ud.clonedir, ".git"), destdir), d)
++		else:
++			os.chdir(ud.clonedir)
++	        runfetchcmd("%s read-tree %s%s" % (ud.basecmd, ud.tag, readpathspec), d)
++		    runfetchcmd("%s checkout-index -q -f --prefix=%s -a" % (ud.basecmd, os.path.join(destdir,"git/")), d)
++        return True
++
+     def supports_srcrev(self):
+         return True
+ 
 -- 
 1.7.0.4
 
