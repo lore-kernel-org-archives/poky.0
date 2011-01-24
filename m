@@ -1,22 +1,22 @@
 Return-Path: <ke.yu@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 54F464C81226
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 603D14C81220
 	for <poky@yoctoproject.org>; Mon, 24 Jan 2011 08:29:22 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 24 Jan 2011 06:29:21 -0800
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 24 Jan 2011 06:29:22 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,370,1291622400"; d="scan'208";a="379088504"
+X-IronPort-AV: E=Sophos;i="4.60,370,1291622400"; d="scan'208";a="650514061"
 Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
-	by azsmga001.ch.intel.com with ESMTP; 24 Jan 2011 06:29:21 -0800
-Message-Id: <31dec857f452d0e049b2dd64fd12be3574999902.1295879038.git.ke.yu@intel.com>
+	by fmsmga002.fm.intel.com with ESMTP; 24 Jan 2011 06:29:19 -0800
+Message-Id: <c050eaa15c39688f2b7cc6f210967cd982c1aefb.1295879038.git.ke.yu@intel.com>
 In-Reply-To: <cover.1295879038.git.ke.yu@intel.com>
 References: <cover.1295879038.git.ke.yu@intel.com>
 From: Yu Ke <ke.yu@intel.com>
-Old-Date: Mon, 24 Jan 2011 17:20:29 +0800
-Date: Mon, 24 Jan 2011 22:33:07 +0800
+Old-Date: Mon, 24 Jan 2011 17:12:47 +0800
+Date: Mon, 24 Jan 2011 22:33:06 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [RFC PATCH 18/21] bzr.py: add no network access check
+Subject: [RFC PATCH 17/21] hg.py: add no network access check
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,36 +32,37 @@ X-List-Received-Date: Mon, 24 Jan 2011 14:29:22 -0000
 
 Signed-off-by: Yu Ke <ke.yu@intel.com>
 ---
- bitbake/lib/bb/fetch2/bzr.py |    4 ++++
- 1 files changed, 4 insertions(+), 0 deletions(-)
+ bitbake/lib/bb/fetch2/hg.py |    3 +++
+ 1 files changed, 3 insertions(+), 0 deletions(-)
 
-diff --git a/bitbake/lib/bb/fetch2/bzr.py b/bitbake/lib/bb/fetch2/bzr.py
-index 608ecc7..6e1970b 100644
---- a/bitbake/lib/bb/fetch2/bzr.py
-+++ b/bitbake/lib/bb/fetch2/bzr.py
-@@ -85,11 +85,13 @@ class Bzr(Fetch):
-         if os.access(os.path.join(ud.pkgdir, os.path.basename(ud.pkgdir), '.bzr'), os.R_OK):
-             bzrcmd = self._buildbzrcommand(ud, d, "update")
-             logger.debug(1, "BZR Update %s", loc)
-+            bb.fetch2.check_network_access(d, bzrcmd)
-             os.chdir(os.path.join (ud.pkgdir, os.path.basename(ud.path)))
-             runfetchcmd(bzrcmd, d)
+diff --git a/bitbake/lib/bb/fetch2/hg.py b/bitbake/lib/bb/fetch2/hg.py
+index 635ecbf..4ba28c7 100644
+--- a/bitbake/lib/bb/fetch2/hg.py
++++ b/bitbake/lib/bb/fetch2/hg.py
+@@ -123,6 +123,7 @@ class Hg(Fetch):
+             # update sources there
+             os.chdir(ud.moddir)
+             logger.debug(1, "Running %s", updatecmd)
++            bb.fetch2.check_network_access(d, updatecmd)
+             runfetchcmd(updatecmd, d)
+ 
          else:
-             bb.utils.remove(os.path.join(ud.pkgdir, os.path.basename(ud.pkgdir)), True)
-             bzrcmd = self._buildbzrcommand(ud, d, "fetch")
-+            bb.fetch2.check_network_access(d, bzrcmd)
-             logger.debug(1, "BZR Checkout %s", loc)
+@@ -132,6 +133,7 @@ class Hg(Fetch):
              bb.mkdirhier(ud.pkgdir)
              os.chdir(ud.pkgdir)
-@@ -130,6 +132,8 @@ class Bzr(Fetch):
+             logger.debug(1, "Running %s", fetchcmd)
++            bb.fetch2.check_network_access(d, fetchcmd)
+             runfetchcmd(fetchcmd, d)
+ 
+         # Even when we clone (fetch), we still need to update as hg's clone
+@@ -165,6 +167,7 @@ class Hg(Fetch):
          """
-         logger.debug(2, "BZR fetcher hitting network for %s", url)
- 
-+        bb.fetch2.check_network_access(d, self._buildbzrcommand(ud, d, "revno"))
-+
-         output = runfetchcmd(self._buildbzrcommand(ud, d, "revno"), d, True)
- 
+         Compute tip revision for the url
+         """
++        bb.fetch2.check_network_access(d, self._buildhgcommand(ud, d, "info"))
+         output = runfetchcmd(self._buildhgcommand(ud, d, "info"), d)
          return output.strip()
+ 
 -- 
 1.7.0.4
 
