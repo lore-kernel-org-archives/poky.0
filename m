@@ -1,26 +1,29 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id CD38A4C8109B
-	for <poky@lists.pokylinux.org>; Mon, 24 Jan 2011 06:05:18 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 21A7D16603AA; Mon, 24 Jan 2011 05:05:17 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.1
-Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
-	by mail.chez-thomas.org (Postfix) with ESMTP id B7D9A16603A8;
-	Mon, 24 Jan 2011 05:05:16 -0700 (MST)
-Message-ID: <4D3D6AFC.8060300@mlbassoc.com>
-Date: Mon, 24 Jan 2011 05:05:16 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
-MIME-Version: 1.0
-To: Poky <poky@lists.pokylinux.org>
-Subject: Poky on "standard" PC
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D13B74C8109B
+	for <poky@lists.pokylinux.org>; Mon, 24 Jan 2011 06:39:47 -0600 (CST)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p0OCfatt005716; Mon, 24 Jan 2011 12:41:37 GMT
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id kZ705EkYKhDX; Mon, 24 Jan 2011 12:41:36 +0000 (GMT)
+Received: from [192.168.1.45] (tim [93.97.173.237]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p0OCfVAl005699
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Mon, 24 Jan 2011 12:41:34 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Gary Thomas <gary@mlbassoc.com>
+In-Reply-To: <4D3D6AFC.8060300@mlbassoc.com>
+References: <4D3D6AFC.8060300@mlbassoc.com>
+Date: Mon, 24 Jan 2011 12:39:19 +0000
+Message-ID: <1295872759.14388.44775.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+Cc: Poky <poky@lists.pokylinux.org>
+Subject: Re: Poky on "standard" PC
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,34 +35,42 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 24 Jan 2011 12:05:19 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Mon, 24 Jan 2011 12:39:48 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-I wanted to try Poky on a spare laptop, so I went looking
-for an appropriate configuration to build.
+On Mon, 2011-01-24 at 05:05 -0700, Gary Thomas wrote:
+> I wanted to try Poky on a spare laptop, so I went looking
+> for an appropriate configuration to build.
+> 
+>  From 'README.hardware' (last updated 2010-12-16), I read:
+>    Poky Boot CD (bootcdx86)
+>    ========================
+> 
+>    The Poky boot CD iso images are designed as a demonstration of the Poky
+>    environment and to show the versatile image formats Poky can generate. It will
+>    run on Pentium2 or greater PC style computers. The iso image can be
+>    burnt to CD and then booted from.
+> 
+> When I tried it (it's also listed in the default local.conf),
+> I got this error:
+>    Please set TARGET_ARCH directly, or choose a MACHINE or DISTRO that does so.
+>    Please set a valid MACHINE in your local.conf
+> 
+> There seems to be no machine named 'bootcd*' anywhere :-(
+> 
+> What should I be using?
 
- From 'README.hardware' (last updated 2010-12-16), I read:
-   Poky Boot CD (bootcdx86)
-   ========================
+bootcdx86 was superceeded by the -live images. I'd suggest using the
+qemux86 or atom-pc machines and building a -live image, dd that to a usb
+stick and boot that on the laptop. An iso format image is also generated
+that can be placed onto a CD.
 
-   The Poky boot CD iso images are designed as a demonstration of the Poky
-   environment and to show the versatile image formats Poky can generate. It will
-   run on Pentium2 or greater PC style computers. The iso image can be
-   burnt to CD and then booted from.
+We need to remove the bootcdx86 references as they're out of date.
 
-When I tried it (it's also listed in the default local.conf),
-I got this error:
-   Please set TARGET_ARCH directly, or choose a MACHINE or DISTRO that does so.
-   Please set a valid MACHINE in your local.conf
+Cheers,
 
-There seems to be no machine named 'bootcd*' anywhere :-(
+Richard
 
-What should I be using?
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
 
