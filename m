@@ -1,25 +1,34 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 1FCE84C810E3
-	for <poky@yoctoproject.org>; Sun, 23 Jan 2011 23:12:39 -0600 (CST)
+Return-Path: <kevin.tian@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 1D4304C810E3
+	for <poky@pokylinux.org>; Mon, 24 Jan 2011 03:50:51 -0600 (CST)
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 23 Jan 2011 21:12:38 -0800
+	by orsmga101.jf.intel.com with ESMTP; 24 Jan 2011 01:50:45 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,368,1291622400"; d="scan'208";a="595789955"
-Received: from unknown (HELO [10.255.14.118]) ([10.255.14.118])
-	by orsmga002.jf.intel.com with ESMTP; 23 Jan 2011 21:12:38 -0800
-Message-ID: <4D3D0A45.4040009@linux.intel.com>
-Date: Sun, 23 Jan 2011 21:12:37 -0800
-From: Saul Wold <sgw@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
+X-IronPort-AV: E=Sophos;i="4.60,369,1291622400"; d="scan'208";a="595845597"
+Received: from pgsmsx603.gar.corp.intel.com ([10.221.43.87])
+	by orsmga002.jf.intel.com with ESMTP; 24 Jan 2011 01:50:45 -0800
+Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
+	pgsmsx603.gar.corp.intel.com (10.221.43.87) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Mon, 24 Jan 2011 17:50:11 +0800
+Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
+	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
+	Mon, 24 Jan 2011 17:50:10 +0800
+From: "Tian, Kevin" <kevin.tian@intel.com>
+To: "Wold, Saul" <saul.wold@intel.com>
+Date: Mon, 24 Jan 2011 17:50:09 +0800
+Thread-Topic: [poky] [PATCH 0/3] sstate fixes: whitelist and bitbake-diffsigs
+Thread-Index: Acu7go5k5v8WhObLTUu+26o4nMOISAAKW4xg
+Message-ID: <625BA99ED14B2D499DC4E29D8138F1504DB5BB6A1F@shsmsx502.ccr.corp.intel.com>
+References: <0d30dc$kqbuu6@orsmga001.jf.intel.com> <4D3D059D.2050609@intel.com>
+In-Reply-To: <4D3D059D.2050609@intel.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
 MIME-Version: 1.0
-To: Darren Hart <dvhart@linux.intel.com>
-References: <cover.1295472579.git.dvhart@linux.intel.com>
-In-Reply-To: <cover.1295472579.git.dvhart@linux.intel.com>
-Cc: poky@yoctoproject.org, robert.karl.berger@gmail.com
-Subject: Re: [PATCH 0/6] Beagleboard xM support
+Cc: "poky@pokylinux.org" <poky@pokylinux.org>
+Subject: Re: [PATCH 0/3] sstate fixes: whitelist and bitbake-diffsigs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,71 +40,59 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 24 Jan 2011 05:12:39 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 24 Jan 2011 09:50:51 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On 01/19/2011 01:30 PM, Darren Hart wrote:
-> The following patches provide initial support for the Beagleboard. They update
-> the x-load and u-boot recipes, modify the beagleboard machine config, and add
-> README.hardware documentation for the Beagleboard.
->
-> The kernel config still needs to be updated to support the onboard NIC of the
-> xM. Graphics and audio have not been tested. With the basic functionality in
-> place, hopefully others will be encouraged to participate in fleshing out
-> Beagleboard support in Poky.
->
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->    Branch: dvhart/beagle
->    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dvhart/beagle
->
-> Thanks,
->      Darren Hart<dvhart@linux.intel.com>
-> ---
->
->
-> Darren Hart (6):
->    x-load: us TI upstream repository, update recipes accordingly
->    u-boot: Add a new upstream u-boot recipe
->    beagleboard: add x-load and u-boot depends
->    overo: use the new upstream u-boot recipe
->    u-boot-omap3: remove in favor of upstream u-boot
->    README.hardware: add beagleboard documentation
->
->   README.hardware                                    |   71 +++++++++++++
->   .../conf/distro/include/poky-default-revisions.inc |    3 +-
->   meta/conf/machine/beagleboard.conf                 |    3 +
->   meta/conf/machine/overo.conf                       |    2 +-
->   .../uboot/u-boot-omap3-git/beagleboard/name.patch  |   14 ---
->   meta/recipes-bsp/uboot/u-boot-omap3_git.bb         |   18 ----
->   meta/recipes-bsp/uboot/u-boot.inc                  |    3 +-
->   meta/recipes-bsp/uboot/u-boot_git.bb               |   21 ++++
->   meta/recipes-bsp/x-load/files/signGP.c             |  108 --------------------
->   meta/recipes-bsp/x-load/signgp-native.bb           |   14 ---
->   .../x-load/x-load-git/beagleboard/armv7-a.patch    |   11 --
->   .../x-load/x-load-git/beagleboard/name.patch       |   16 ++--
->   .../x-load/x-load-git/omap3evm/armv7-a.patch       |   11 --
->   .../x-load/x-load-git/overo/armv7-a.patch          |   11 --
->   meta/recipes-bsp/x-load/x-load.inc                 |    5 +-
->   meta/recipes-bsp/x-load/x-load_git.bb              |   19 ++--
->   16 files changed, 118 insertions(+), 212 deletions(-)
->   delete mode 100644 meta/recipes-bsp/uboot/u-boot-omap3-git/beagleboard/name.patch
->   delete mode 100644 meta/recipes-bsp/uboot/u-boot-omap3_git.bb
->   create mode 100644 meta/recipes-bsp/uboot/u-boot_git.bb
->   delete mode 100644 meta/recipes-bsp/x-load/files/signGP.c
->   delete mode 100644 meta/recipes-bsp/x-load/signgp-native.bb
->   delete mode 100644 meta/recipes-bsp/x-load/x-load-git/beagleboard/armv7-a.patch
->   delete mode 100644 meta/recipes-bsp/x-load/x-load-git/omap3evm/armv7-a.patch
->   delete mode 100644 meta/recipes-bsp/x-load/x-load-git/overo/armv7-a.patch
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
-Pulled into Master
+> From: Wold, Saul
+> Sent: Monday, January 24, 2011 12:53 PM
+>=20
+> On 01/20/2011 03:23 AM, Kevin Tian wrote:
+> > this series include one whitelist fix about USER and USERNAME, which al=
+lows
+> sstate packages
+> > generated from opensuse to be usable on ubuntu. other two fixes about
+> bitbake-diffsigs, for
+> > better output and correctness
+> >
+> > Pull URL: git://git.pokylinux.org/poky-contrib.git
+> >    Branch: tk/master
+> >    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=3Dtk/m=
+aster
+> >
+> > Thanks,
+> >      Kevin Tian<kevin.tian@intel.com>
+> > ---
+> >
+> >
+> > Kevin Tian (3):
+> >    bitbake.conf: add USERNAME to BB_HASHBASE_WHITELIST
+> >    siggen.py: better print for task hash comparison
+> >    siggen.py: remove path in 'runtaskdeps'
+> This was not pulled into master at this time.
+
+Does it mean that it will be pulled next time, or do you want more work fro=
+m me?
 
 Thanks
-	Sau!
+Kevin
+
+>=20
+> >
+> >   bitbake/lib/bb/siggen.py |   27 +++++++++++++++++++--------
+> >   meta/conf/bitbake.conf   |    2 +-
+> >   2 files changed, 20 insertions(+), 9 deletions(-)
+> >
+> > _______________________________________________
+> > poky mailing list
+> > poky@yoctoproject.org
+> > https://lists.yoctoproject.org/listinfo/poky
+> >
+> Partial Pulled into master.
+>=20
+> Thanks
+> 	Sau!
+>=20
 
 
