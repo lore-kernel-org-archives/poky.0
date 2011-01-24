@@ -1,33 +1,29 @@
 Return-Path: <richard.purdie@linuxfoundation.org>
 Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 208FC4C8109B
-	for <poky@yoctoproject.org>; Mon, 24 Jan 2011 08:37:34 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 1E5F44C8109B
+	for <poky@yoctoproject.org>; Mon, 24 Jan 2011 10:05:46 -0600 (CST)
 Received: from localhost (dan.rpsys.net [127.0.0.1])
 	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0OEdROJ010735; Mon, 24 Jan 2011 14:39:28 GMT
+	p0OG7dZ4016387; Mon, 24 Jan 2011 16:07:39 GMT
 X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
 Received: from dan.rpsys.net ([127.0.0.1])
 	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id T+pVP9cyVdGo; Mon, 24 Jan 2011 14:39:27 +0000 (GMT)
+	with LMTP id TVY4bXv3bCz2; Mon, 24 Jan 2011 16:07:39 +0000 (GMT)
 Received: from [192.168.1.45] (tim [93.97.173.237]) (authenticated bits=0)
 	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0OEdOPX010727
+	p0OG6Imc016257
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Mon, 24 Jan 2011 14:39:26 GMT
+	Mon, 24 Jan 2011 16:06:20 GMT
 From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Koen Kooi <koen@dominion.thruhere.net>
-In-Reply-To: <F70A90DF-1281-4FEE-9F65-0CADAA8E3891@dominion.thruhere.net>
-References: <cover.1295483757.git.scott.a.garman@intel.com>
-	<a171ecc46ea9275b537cbedf6b08c6cbfe1c0fc3.1295483757.git.scott.a.garman@intel.com>
-	<63E3D4C5-50C4-40FB-9463-2E3212369870@dominion.thruhere.net>
-	<1295743879.14388.37255.camel@rex>
-	<F70A90DF-1281-4FEE-9F65-0CADAA8E3891@dominion.thruhere.net>
-Date: Mon, 24 Jan 2011 14:37:11 +0000
-Message-ID: <1295879831.14388.45248.camel@rex>
+To: Dexuan Cui <dexuan.cui@intel.com>
+In-Reply-To: <cover.1295359004.git.dexuan.cui@intel.com>
+References: <cover.1295359004.git.dexuan.cui@intel.com>
+Date: Mon, 24 Jan 2011 16:04:05 +0000
+Message-ID: <1295885045.14388.45539.camel@rex>
 Mime-Version: 1.0
 X-Mailer: Evolution 2.28.3 
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 08/12] binutils: upgrade to 2.21 and add libtool sysroot support
+Subject: Re: [RFC: enhance toolchain bootstrap process: v3: 0/7] enhance the toolchain bootstrap process
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,132 +35,68 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 24 Jan 2011 14:37:35 -0000
+X-List-Received-Date: Mon, 24 Jan 2011 16:05:47 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On Sun, 2011-01-23 at 13:28 +0100, Koen Kooi wrote:
-> Op 23 jan 2011, om 01:51 heeft Richard Purdie het volgende geschreven:
-> > On Sat, 2011-01-22 at 17:52 +0100, Koen Kooi wrote:
-> > 
-> > Firstly, I'm sorry this change caused pain. I was under the impressive
-> > binutils was a little more stable these days but I guess I have that
-> > wrong. Certainly my past few experiences of upgrading it were a lot
-> > better than the bad old days but I guess I was lucky.
-> > 
-> > Requiring Yocto to check some set of other layers and figure out which
-> > versions of a given package they're using isn't going to be particularly
-> > easy to do and it doesn't cover those with private layers either. It
-> > also doesn't help understand whether a given layer can or can't upgrade.
+Hi Dexuan,
+
+On Tue, 2011-01-18 at 21:57 +0800, Dexuan Cui wrote:
+> Hi Richard and all,
 > 
-> Yocto doesn't exist in a vacuum, so completely ignoring other peoples
-> layers isn't good way to proceed.
-
-Which is why nowhere did I suggest this and we're still exchanging
-emails ;-).
-
->  That doesn't mean you need to hand-hold everyone and their dog, but
-> posting "binutils 2.20.x will be gone in 7 days" to the list would
-> help a lot.
-
-What I'd like to do is try and find a way to whereby Yocto can get the
-information it needs, and/or get people using it the information about
-whats changing better. It sounds like getting this on the mailing list
-clearly and waiting a while for feedback would be desired. This part of
-the solution is straightforward and I hope Saul+team are taking
-notes! :) The only question is which components this applies to? All
-versions or just "core" components like binutils/gcc/libtool and then
-for minor version increments or major ones?
-
-At the back of my mind I'm also wondering if we can automate collection
-of "pinned" versions somehow, maybe by standardising on a
-location/naming of .inc file and then scripting something to collect
-data.
-
-What I'm trying to do here is work out what information people need to
-share, then make it as simple as possible for everyone to have access to
-that information as I think this is primarily an information problem.
-
-> In this case the final version of this patchset was posted to the list
-> and without warning or reply it got pushed to master 2 days later. I'm
-> closely following development, but I am not telepathic :)
-
-We need to improve this, we've just got a little eager and the
-development phase is drawing to an end, sorry. I will also warn there
-are a few more invasive patches likely to merge this week to do with the
-toolchain bootstrap process, the bitbake fetchers and machine specific
-sysroots (but not toolchain versions changes).
-
-> > One cornerstone principle of Yocto is to provide a consistent set of
-> > high quality metadata known to build over 4 architectures and pass the
-> > test cases we have.
+> The patch set enhances the toolchain bootstrap process by installing a separate sysroot for each step of the process.
+> The purpose is to avoid file overwriting in the current global sysroot, namely, to fix Bug 239: http://bugzilla.pokylinux.org/show_bug.cgi?id=239
 > 
-> I think you're currently closer to "4 machines covering 4 archs" than
-> "4 archs", since armv7a stops working with the security extension
-> change with certain kernels and other lowlevel asm.
-
-The indication here is that we should perhaps make qemuarm a v7 type
-machine since those are more likely to break than the stabilised older
-versions?
-
-> > Having N and N-1 versions of everything would imply
-> > we'd test the N and the N-1 versions which we don't have the resources
-> > for. I also seriously doubt we'd be able to keep it to N and N-1 since
-> > there would be requests for N-2 which would be needed by some other
-> > user, another would need N-3 and before you know it, we end up with many
-> > versions.
 > 
-> Slippery slope, I know. But "high quality metadata" doesn't mean
-> anything when it suddenly stops working for people. 'Suddenly' being
-> the operative word in this case. And I'm not saying keeping 2 versions
-> of everything, but binutils and gcc would sure be good candidates.
-
-I'd like to try and work out a process for handling this kind of
-problem, its that process question which worries me a lot more tbh.
-
-> > The trouble appears to be people expecting the behaviour of stable
-> > branch whilst also wanting the latest and greatest when its convenient
-> > to them. I know Koen appreciates the differences more than most but a
-> > lot of people don't recognise these are two competing goals.
-> > 
-> > Yocto is going to go through some pretty defined cycles, at times active
-> > development and aggressively moving forward on versions and features, at
-> > other times stabilising and releasing. Directly working off master
-> > during a development window is going to have drawbacks as you're
-> > observing. I can imagine a model where people work off the last stable
-> > release, they then around the stabilisation time period look at updating
-> > to the new "core". If pinned versions disappeared, they'd migrate them
-> > into their layer if the needed them. We could even write tools to handle
-> > that.
+> The basic idea is straightforward:
+> 1) For gcc-cross-initial and -intermediate, by changing MULTIMACH_TARGET_SYS to install the files into new locations;
+> 2) Fix the build of eglibc-initial, eglibc by using the appropriate compilers, libs, headers;
+> 3) Also make proper changes for the crosssdk/nativesdk version.
 > 
-> To make this easier, patches shouldn't mix behaviour changes and
-> upgrades, that makes it real hard to migrate old versions to layers.
-> In this case I got lucky because OE already had the needed patches for
-> 2.20.1, but that won't be the case for everything.
+> I've split all the changes into small git commits and each commit should be basically self-explanatory. :-)
 
-Agreed, I was partially under the impression that we needed binutils as
-updating the older one to the latest libtool was painful but that
-doesn't appear to be the case. We'll separate that out in future.
+I've had a look through this and experimented a little with the code and
+I've some feedback:
 
-As it happens, using binutils 2.21 is needed for the gcc version and
-patches in Poky as there is an issue with dso linking that version
-resolves.
+  sstate.bbclass: allow each step of toolchain bootstrap processes to do populate_sysroot independently
+  cross.bbclass: make MULTIMACH_TARGET_SYS adjustable for bindir, libdir, libexecdir
 
-> > I don't think this is a clear cut issue, I suspect the answer may
-> > involve layer handling tooling we don't currently have to allow
-> > "upgraded" versions to be preserved/restored in layers that need them.
-> > This is definitely a discussion we need to have though.
-> 
-> The easiest way out is to split those 'upgrade' commits into 2, the
-> first adds the new version, the second deletes the old one. They can
-> be spaced a few days apart to allow testing and have an easier way for
-> people to compare behaviour.
+These two are fine.
 
-So we have binutils and gcc as cases where we need this, what others?
+  gcc-cross-initial, gcc-crosssdk-initial: change CROSS_TARGET_SYS_DIR and insall into new locations
+
+This change is ok but its incomplete. Why? If I apply this change and
+try a build, things won't work as it needs bits from later commits. To
+illustrate this and some other details, take a look at:
+
+http://git.pokylinux.org/cgit.cgi/poky-contrib/commit/?h=rpurdie/tt-bootstrap&id=5512f876b103987b74722a7788a1ebe797852bbe
+
+Here I've updated glibc and eglibc to use the new locations so the
+change will allow a build to succeed in its own right. Notice that I've
+simplified the variables quite a bit too.
+
+There is also a subsequent commit on the branch to enable this change
+for gcc-cross-intermediate.
+
+  eglibc-initial, eglibc-initial-nativesdk: install into individual sysroots
+  gcc-cross-intermediate, gcc-crosssdk-intermediate: change CROSS_TARGET_SYS_DIR and insall into new locations
+  cross.bbclass: modify sysroot_stage_all to allow gcc-{cross,crossdk}-intermediate to populate the libgcc_s.so* files
+  eglibc, eglibc-nativesdk: fix the build due to changes to eglibc-initial and gcc-cross-intermediate
+
+These other changes need separating out more cleanly. For example,
+adding a patch to gcc should be a separate commit, the update to use a
+new sysroot directory should probably be one commit so builds work
+before and after it.
+
+I'm also wondering if there isn't a neater way to handle the target
+sysroot problem instead of the prefixes you're using. I'll send an
+update as and when I've experimented a little to determine if this is
+possible.
 
 Cheers,
 
 Richard
+
 
 
 
