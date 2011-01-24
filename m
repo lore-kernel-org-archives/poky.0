@@ -1,29 +1,22 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D13B74C8109B
-	for <poky@lists.pokylinux.org>; Mon, 24 Jan 2011 06:39:47 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0OCfatt005716; Mon, 24 Jan 2011 12:41:37 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id kZ705EkYKhDX; Mon, 24 Jan 2011 12:41:36 +0000 (GMT)
-Received: from [192.168.1.45] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0OCfVAl005699
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Mon, 24 Jan 2011 12:41:34 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Gary Thomas <gary@mlbassoc.com>
-In-Reply-To: <4D3D6AFC.8060300@mlbassoc.com>
-References: <4D3D6AFC.8060300@mlbassoc.com>
-Date: Mon, 24 Jan 2011 12:39:19 +0000
-Message-ID: <1295872759.14388.44775.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Cc: Poky <poky@lists.pokylinux.org>
-Subject: Re: Poky on "standard" PC
+Return-Path: <ke.yu@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 73AEA4C8109B
+	for <poky@yoctoproject.org>; Mon, 24 Jan 2011 08:28:53 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 24 Jan 2011 06:28:53 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,370,1291622400"; d="scan'208";a="880395426"
+Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
+	by fmsmga001.fm.intel.com with ESMTP; 24 Jan 2011 06:28:52 -0800
+Message-Id: <6fc6e545a38acd662fba7949b1ba15961804c808.1295879038.git.ke.yu@intel.com>
+In-Reply-To: <cover.1295879038.git.ke.yu@intel.com>
+References: <cover.1295879038.git.ke.yu@intel.com>
+From: Yu Ke <ke.yu@intel.com>
+Old-Date: Tue, 18 Jan 2011 23:37:26 +0800
+Date: Mon, 24 Jan 2011 22:32:38 +0800
+To: poky@yoctoproject.org
+CC: 
+Subject: [RFC PATCH 01/21] bitbake/fetch2/git: Add backwards compatibility code for branch name handling
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,42 +28,133 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 24 Jan 2011 12:39:48 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 24 Jan 2011 14:28:53 -0000
 
-On Mon, 2011-01-24 at 05:05 -0700, Gary Thomas wrote:
-> I wanted to try Poky on a spare laptop, so I went looking
-> for an appropriate configuration to build.
-> 
->  From 'README.hardware' (last updated 2010-12-16), I read:
->    Poky Boot CD (bootcdx86)
->    ========================
-> 
->    The Poky boot CD iso images are designed as a demonstration of the Poky
->    environment and to show the versatile image formats Poky can generate. It will
->    run on Pentium2 or greater PC style computers. The iso image can be
->    burnt to CD and then booted from.
-> 
-> When I tried it (it's also listed in the default local.conf),
-> I got this error:
->    Please set TARGET_ARCH directly, or choose a MACHINE or DISTRO that does so.
->    Please set a valid MACHINE in your local.conf
-> 
-> There seems to be no machine named 'bootcd*' anywhere :-(
-> 
-> What should I be using?
+this patch has been applied for bitbake/fetch/git, so also apply it for bitbake/fetch/git
 
-bootcdx86 was superceeded by the -live images. I'd suggest using the
-qemux86 or atom-pc machines and building a -live image, dd that to a usb
-stick and boot that on the laptop. An iso format image is also generated
-that can be placed onto a CD.
+Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+---
+ bitbake/lib/bb/fetch2/git.py |   82 ++++++++++++++++++++++++++++++++++++++++-
+ 1 files changed, 80 insertions(+), 2 deletions(-)
 
-We need to remove the bootcdx86 references as they're out of date.
-
-Cheers,
-
-Richard
-
+diff --git a/bitbake/lib/bb/fetch2/git.py b/bitbake/lib/bb/fetch2/git.py
+index c621457..e85f1da 100644
+--- a/bitbake/lib/bb/fetch2/git.py
++++ b/bitbake/lib/bb/fetch2/git.py
+@@ -22,6 +22,7 @@ BitBake 'Fetch' git implementation
+ 
+ import os
+ import bb
++import bb.persist_data
+ from   bb    import data
+ from   bb.fetch2 import Fetch
+ from   bb.fetch2 import runfetchcmd
+@@ -116,6 +117,7 @@ class Git(Fetch):
+ 
+         repofile = os.path.join(data.getVar("DL_DIR", d, 1), ud.mirrortarball)
+ 
++
+         coname = '%s' % (ud.tag)
+         codir = os.path.join(ud.clonedir, coname)
+ 
+@@ -205,11 +207,19 @@ class Git(Fetch):
+         output = runfetchcmd("%s log --pretty=oneline -n 1 %s -- 2> /dev/null | wc -l" % (basecmd, tag), d, quiet=True)
+         return output.split()[0] != "0"
+ 
+-    def _revision_key(self, url, ud, d):
++    def _revision_key(self, url, ud, d, branch=False):
+         """
+         Return a unique key for the url
+         """
+-        return "git:" + ud.host + ud.path.replace('/', '.') + ud.branch
++        key = 'git:' + ud.host + ud.path.replace('/', '.')
++        if branch:
++            return key + ud.branch
++        else:
++            return key
++
++    def generate_revision_key(self, url, ud, d, branch=False):
++        key = self._revision_key(url, ud, d, branch)
++        return "%s-%s" % (key, bb.data.getVar("PN", d, True) or "")
+ 
+     def _latest_revision(self, url, ud, d):
+         """
+@@ -227,6 +237,74 @@ class Git(Fetch):
+             raise bb.fetch2.FetchError("Fetch command %s gave empty output\n" % (cmd))
+         return output.split()[0]
+ 
++    def latest_revision(self, url, ud, d):
++        """
++        Look in the cache for the latest revision, if not present ask the SCM.
++        """
++        persisted = bb.persist_data.persist(d)
++        revs = persisted['BB_URI_HEADREVS']
++
++        key = self.generate_revision_key(url, ud, d, branch=True)
++        rev = revs[key]
++        if rev is None:
++            # Compatibility with old key format, no branch included
++            oldkey = self.generate_revision_key(url, ud, d, branch=False)
++            rev = revs[oldkey]
++            if rev is not None:
++                del revs[oldkey]
++            else:
++                rev = self._latest_revision(url, ud, d)
++            revs[key] = rev
++
++        return str(rev)
++
++    def sortable_revision(self, url, ud, d):
++        """
++
++        """
++        pd = bb.persist_data.persist(d)
++        localcounts = pd['BB_URI_LOCALCOUNT']
++        key = self.generate_revision_key(url, ud, d, branch=True)
++        oldkey = self.generate_revision_key(url, ud, d, branch=False)
++
++        latest_rev = self._build_revision(url, ud, d)
++        last_rev = localcounts[key + '_rev']
++        if last_rev is None:
++            last_rev = localcounts[oldkey + '_rev']
++            if last_rev is not None:
++                del localcounts[oldkey + '_rev']
++                localcounts[key + '_rev'] = last_rev
++
++        uselocalcount = bb.data.getVar("BB_LOCALCOUNT_OVERRIDE", d, True) or False
++        count = None
++        if uselocalcount:
++            count = Fetch.localcount_internal_helper(ud, d)
++        if count is None:
++            count = localcounts[key + '_count']
++        if count is None:
++            count = localcounts[oldkey + '_count']
++            if count is not None:
++                del localcounts[oldkey + '_count']
++                localcounts[key + '_count'] = count
++
++        if last_rev == latest_rev:
++            return str(count + "+" + latest_rev)
++
++        buildindex_provided = hasattr(self, "_sortable_buildindex")
++        if buildindex_provided:
++            count = self._sortable_buildindex(url, ud, d, latest_rev)
++        if count is None:
++            count = "0"
++        elif uselocalcount or buildindex_provided:
++            count = str(count)
++        else:
++            count = str(int(count) + 1)
++
++        localcounts[key + '_rev'] = latest_rev
++        localcounts[key + '_count'] = count
++
++        return str(count + "+" + latest_rev)
++
+     def _build_revision(self, url, ud, d):
+         return ud.tag
+ 
+-- 
+1.7.0.4
 
 
