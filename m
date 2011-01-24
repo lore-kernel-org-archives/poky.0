@@ -1,20 +1,22 @@
 Return-Path: <ke.yu@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id EB7014C811AA
-	for <poky@yoctoproject.org>; Mon, 24 Jan 2011 08:28:56 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 24 Jan 2011 06:28:51 -0800
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 58ECD4C811F7
+	for <poky@yoctoproject.org>; Mon, 24 Jan 2011 08:28:58 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 24 Jan 2011 06:28:57 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,370,1291622400"; d="scan'208";a="595906460"
+X-IronPort-AV: E=Sophos;i="4.60,370,1291622400"; d="scan'208";a="379088251"
 Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
-	by orsmga002.jf.intel.com with ESMTP; 24 Jan 2011 06:28:50 -0800
-Message-Id: <cover.1295879038.git.ke.yu@intel.com>
+	by azsmga001.ch.intel.com with ESMTP; 24 Jan 2011 06:28:57 -0800
+Message-Id: <f5c65edcec7c7d7af267ca947a7a044b277bddda.1295879038.git.ke.yu@intel.com>
+In-Reply-To: <cover.1295879038.git.ke.yu@intel.com>
+References: <cover.1295879038.git.ke.yu@intel.com>
 From: Yu Ke <ke.yu@intel.com>
-Old-Date: Mon, 24 Jan 2011 22:23:58 +0800
-Date: Mon, 24 Jan 2011 22:32:37 +0800
+Old-Date: Tue, 18 Jan 2011 22:08:09 +0800
+Date: Mon, 24 Jan 2011 22:32:42 +0800
 To: poky@yoctoproject.org
 CC: 
-Subject: [RFC PATCH 00/21] fetcher overhaul - api reorg and git optimization V2
+Subject: [RFC PATCH 03/21] bb.fetch2: revise the Fetch.unpack API
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,79 +28,94 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 24 Jan 2011 14:28:57 -0000
+X-List-Received-Date: Mon, 24 Jan 2011 14:28:58 -0000
 
-Hi Richard,
+change the unpack to use the urldata and rootdir parameter
+- urldata is the FetchData instance
+- rootdir is the dir to put the extracted source. the original unpack
+  use current dir (os.getcwd) as destination dir, which is not flexible
+  and error-prone (error will occur if caller not chdir to dest dir)
 
-This is the V2 patch series for the fetcher overhaul phase 2 - new API reorg, and phase 3 - git optimization.
-
-the changes compared with V1 are:
-- fix some typo in api reorg patches, now api reorg patch has pass the test of x86 & arm poky-image-sato with empty DL_DIR
-- add "BB_NO_NETWORK" option support
-
-The overall changes are:
-- Split go() methods into the following steps:
-  i) download() - do whatever transfer is necessary to get the sources locally
-  ii) build_mirror_data() - generate any data that would be needed to construct a source mirror
-  iii) unpack() - takes a directory as an argument of where to place extracted sources
-- Change Poky's fetch task to call a "download" method in the fetcher instead of go().
-- Change Poky's unpack to call an unpack method in the fetchers.
-- Optimise git fetcher for the new layout so for a git checkout, we clone the repository in download(), then unpack just does a clone with references to the original repo.
-- Add a new "BB_NO_NETWORK" option to only perform local fetch
-
-The remaining item for phase 3 are:
-- Add multiple branch/srcrev support for git fetcher
-
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: kyu3/fetcher-api-v2
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kyu3/fetcher-api-v2
-
-Thanks,
-    Yu Ke <ke.yu@intel.com>
+Signed-off-by: Yu Ke <ke.yu@intel.com>
 ---
+ bitbake/lib/bb/fetch2/__init__.py |   33 +++++++++++++++------------------
+ 1 files changed, 15 insertions(+), 18 deletions(-)
 
-
-Yu Ke (21):
-  bitbake/fetch2/git: Add backwards compatibility code for branch name
-    handling
-  bb.fetch2: add unpack method in fetcher
-  bb.fetch2: revise the Fetch.unpack API
-  bb.fetch: add fetch version to distinguish bb.fetch and bb.fetch2
-  base.bbclass: use bb.fetch2 unpack API
-  bb.fetch2: rename "go" with "download" to better reflect its
-    functionality
-  bbclasee: rename "go" with "download"
-  git.py: split download to download() and build_mirror_data()
-  bb.fetch2: remove the obsolate Fetch.try_mirrors referrence
-  bb.fetch2: add git unpack
-  git.py: remove the source tree tar ball
-  bb.fetch2: add "BB_NO_NETWORK" option
-  git.py: add no network access check
-  wget.py: add no network check
-  svn.py: add no network access check
-  cvs.py: add no network access check
-  hg.py: add no network access check
-  bzr.py: add no network access check
-  repo.py: add no network access check
-  osc.py: add no network access check
-  ssh.py: add no network access check
-
- bitbake/lib/bb/fetch/__init__.py  |    2 +
- bitbake/lib/bb/fetch2/__init__.py |  105 ++++++++++++++++++++++-
- bitbake/lib/bb/fetch2/bzr.py      |    6 +-
- bitbake/lib/bb/fetch2/cvs.py      |    4 +-
- bitbake/lib/bb/fetch2/git.py      |  165 ++++++++++++++++++++++--------------
- bitbake/lib/bb/fetch2/hg.py       |    5 +-
- bitbake/lib/bb/fetch2/local.py    |    2 +-
- bitbake/lib/bb/fetch2/osc.py      |    4 +-
- bitbake/lib/bb/fetch2/perforce.py |    2 +-
- bitbake/lib/bb/fetch2/repo.py     |    4 +-
- bitbake/lib/bb/fetch2/ssh.py      |    4 +-
- bitbake/lib/bb/fetch2/svk.py      |    2 +-
- bitbake/lib/bb/fetch2/svn.py      |    6 +-
- bitbake/lib/bb/fetch2/wget.py     |    5 +-
- meta/classes/base.bbclass         |   13 +++-
- meta/classes/sstate.bbclass       |    5 +-
- 16 files changed, 250 insertions(+), 84 deletions(-)
+diff --git a/bitbake/lib/bb/fetch2/__init__.py b/bitbake/lib/bb/fetch2/__init__.py
+index 4b4ac47..c5b5272 100644
+--- a/bitbake/lib/bb/fetch2/__init__.py
++++ b/bitbake/lib/bb/fetch2/__init__.py
+@@ -636,10 +636,9 @@ class Fetch(object):
+         """
+         raise NoMethodError("Missing implementation for url")
+ 
+-    def unpack(file, data, url = None):
++    def unpack(self, urldata, rootdir, data):
+         import subprocess
+-        if not url:
+-            url = "file://%s" % file
++        file = urldata.localpath
+         dots = file.split(".")
+         if dots[-1] in ['gz', 'bz2', 'Z']:
+             efile = os.path.join(bb.data.getVar('WORKDIR', data, 1),os.path.basename('.'.join(dots[0:-1])))
+@@ -662,8 +661,7 @@ class Fetch(object):
+             cmd = 'xz -dc %s > %s' % (file, efile)
+         elif file.endswith('.zip') or file.endswith('.jar'):
+             cmd = 'unzip -q -o'
+-            (type, host, path, user, pswd, parm) = bb.decodeurl(url)
+-            if 'dos' in parm:
++            if 'dos' in urldata.parm:
+                 cmd = '%s -a' % cmd
+             cmd = "%s '%s'" % (cmd, file)
+         elif os.path.isdir(file):
+@@ -674,34 +672,33 @@ class Fetch(object):
+                 destdir = destdir.strip('/')
+                 if len(destdir) < 1:
+                     destdir = "."
+-                elif not os.access("%s/%s" % (os.getcwd(), destdir), os.F_OK):
+-                    os.makedirs("%s/%s" % (os.getcwd(), destdir))
+-            cmd = 'cp -pPR %s %s/%s/' % (file, os.getcwd(), destdir)
++                elif not os.access("%s/%s" % (rootdir, destdir), os.F_OK):
++                    os.makedirs("%s/%s" % (rootdir, destdir))
++            cmd = 'cp -pPR %s %s/%s/' % (file, rootdir, destdir)
+         else:
+-            (type, host, path, user, pswd, parm) = bb.decodeurl(url)
+-            if not 'patch' in parm:
++            if not 'patch' in urldata.parm:
+                 # The "destdir" handling was specifically done for FILESPATH
+                 # items.  So, only do so for file:// entries.
+-                if type == "file" and path.find("/") != -1:
+-                    destdir = path.rsplit("/", 1)[0]
++                if urldata.type == "file" and urldata.path.find("/") != -1:
++                    destdir = urldata.path.rsplit("/", 1)[0]
+                 else:
+                     destdir = "."
+-                bb.mkdirhier("%s/%s" % (os.getcwd(), destdir))
+-                cmd = 'cp %s %s/%s/' % (file, os.getcwd(), destdir)
++                bb.mkdirhier("%s/%s" % (rootdir, destdir))
++                cmd = 'cp %s %s/%s/' % (file, rootdir, destdir)
+ 
+         if not cmd:
+             return True
+ 
+-        dest = os.path.join(os.getcwd(), os.path.basename(file))
++        dest = os.path.join(rootdir, os.path.basename(file))
+         if os.path.exists(dest):
+             if os.path.samefile(file, dest):
+                 return True
+ 
+         # Change to subdir before executing command
+         save_cwd = os.getcwd();
+-        parm = bb.decodeurl(url)[5]
+-        if 'subdir' in parm:
+-            newdir = ("%s/%s" % (os.getcwd(), parm['subdir']))
++        os.chdir(rootdir)
++        if 'subdir' in urldata.parm:
++            newdir = ("%s/%s" % (rootdir, urldata.parm['subdir']))
+             bb.mkdirhier(newdir)
+             os.chdir(newdir)
+ 
+-- 
+1.7.0.4
 
 
