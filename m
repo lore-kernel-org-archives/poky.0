@@ -1,19 +1,19 @@
 Return-Path: <tom.zanussi@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5ABEA4C810E3
-	for <poky@yoctoproject.org>; Sun, 23 Jan 2011 22:23:51 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 23 Jan 2011 20:23:51 -0800
-Message-Id: <1bdc18$jc8002@fmsmga002.fm.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 017BD4C811AB
+	for <poky@yoctoproject.org>; Sun, 23 Jan 2011 22:23:52 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 23 Jan 2011 20:23:52 -0800
+Message-Id: <b7da2f$q7fjoi@fmsmga001.fm.intel.com>
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,368,1291622400"; d="scan'208";a="650379270"
+X-IronPort-AV: E=Sophos;i="4.60,368,1291622400"; d="scan'208";a="880267029"
 Received: from unknown (HELO localhost) ([10.255.14.50])
-	by fmsmga002.fm.intel.com with ESMTP; 23 Jan 2011 20:23:50 -0800
+	by fmsmga001.fm.intel.com with ESMTP; 23 Jan 2011 20:23:51 -0800
 From: Tom Zanussi <tom.zanussi@intel.com>
-Old-Date: Sun, 23 Jan 2011 17:29:44 -0600
-Date: Sun, 23 Jan 2011 22:23:43 -0600
+Old-Date: Thu, 20 Jan 2011 23:38:43 -0600
+Date: Sun, 23 Jan 2011 22:23:45 -0600
 To: poky@yoctoproject.org,bruce.ashfield@windriver.com
-Subject: [PATCH 0/6] upgrade emenlow kernel to 2.6.37
+Subject: [PATCH 1/6] drm: add the base source of the Poulsbo (psb) 2D X11 driver
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -25,41 +25,25 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 24 Jan 2011 04:23:51 -0000
+X-List-Received-Date: Mon, 24 Jan 2011 04:23:53 -0000
 
-This patchset migrates the emenlow linux-yocto-stable (2.6.34) kernel
-branch to linux-yocto(2.6.37).
+The complete source of the base (unpatched) psb-kernel-source Poky
+package, moved into the kernel tree so it can be build as a
+first-class citizen instead of as an external module.  Subsequent
+patches will remove the unnecessary parts.
 
-Please pull...
+The code here is all the code contained in this tarball:
 
-Once pulled, I'll submit a small change to meta-emenlow to use it.
+https://launchpad.net/~gma500/+archive/ppa/+files/psb-kernel-source_4.42.0-0
 
-Pull URL: git://git.pokylinux.org/linux-yocto-2.6.37-contrib
-  Branch: tzanussi/emenlow-2.6.37
-  Browse:
-http://git.pokylinux.org/cgit.cgi/linux-yocto-2.6.37-contrib/log/?h=tzanussi/emenlow-2.6.37
-
-Thanks,
-
-Tom
-
-
-Tom Zanussi (6):
-  drm: add the base source of the Poulsbo (psb) 2D X11 driver
-  drm: remove the package Makefile and replace it with the kernel
-    Makefile
-  drm: apply psb-kernel-source package's build.patch
-  drm: intel_ldvs.c: add missing arg to backlight_device_register()
-    call
-  emenlow: switch to psb
-  drm: Fix psb ioctl assignment
-
- drivers/gpu/Makefile                               |    2 +-
+Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
+---
  drivers/gpu/drm-psb/Config.in                      |   17 +
  drivers/gpu/drm-psb/Doxyfile                       | 1161 +++
  drivers/gpu/drm-psb/GPLv2_License.txt              |  341 +
  drivers/gpu/drm-psb/Kconfig                        |  103 +
- drivers/gpu/drm-psb/Makefile                       |   76 +
+ drivers/gpu/drm-psb/Makefile                       |  367 +
+ drivers/gpu/drm-psb/Makefile.kernel                |   76 +
  drivers/gpu/drm-psb/Module.symvers                 |  339 +
  drivers/gpu/drm-psb/README.drm                     |   25 +
  drivers/gpu/drm-psb/ati_pcigart.c                  |  411 +
@@ -106,8 +90,8 @@ Tom Zanussi (6):
  drivers/gpu/drm-psb/drm_crtc.h                     |  592 ++
  drivers/gpu/drm-psb/drm_dma.c                      |  179 +
  drivers/gpu/drm-psb/drm_drawable.c                 |  192 +
- drivers/gpu/drm-psb/drm_drv.c                      |  697 ++
- drivers/gpu/drm-psb/drm_edid.c                     |  520 +
+ drivers/gpu/drm-psb/drm_drv.c                      |  695 ++
+ drivers/gpu/drm-psb/drm_edid.c                     |  519 +
  drivers/gpu/drm-psb/drm_edid.h                     |  179 +
  drivers/gpu/drm-psb/drm_fb.c                       |  436 +
  drivers/gpu/drm-psb/drm_fence.c                    |  832 ++
@@ -127,7 +111,7 @@ Tom Zanussi (6):
  drivers/gpu/drm-psb/drm_modes.c                    |  560 ++
  drivers/gpu/drm-psb/drm_object.c                   |  294 +
  drivers/gpu/drm-psb/drm_objects.h                  |  721 ++
- drivers/gpu/drm-psb/drm_os_linux.h                 |  140 +
+ drivers/gpu/drm-psb/drm_os_linux.h                 |  146 +
  drivers/gpu/drm-psb/drm_pci.c                      |  177 +
  drivers/gpu/drm-psb/drm_pciids.h                   |  511 +
  drivers/gpu/drm-psb/drm_pciids.txt                 |  490 +
@@ -139,7 +123,7 @@ Tom Zanussi (6):
  drivers/gpu/drm-psb/drm_sman.h                     |  176 +
  drivers/gpu/drm-psb/drm_stub.c                     |  325 +
  drivers/gpu/drm-psb/drm_sysfs.c                    |  211 +
- drivers/gpu/drm-psb/drm_ttm.c                      |  432 +
+ drivers/gpu/drm-psb/drm_ttm.c                      |  430 +
  drivers/gpu/drm-psb/drm_vm.c                       | 1143 +++
  drivers/gpu/drm-psb/drm_vm_nopage_compat.c         |  279 +
  drivers/gpu/drm-psb/i915_buffer.c                  |  286 +
@@ -159,7 +143,7 @@ Tom Zanussi (6):
  drivers/gpu/drm-psb/intel_drv.h                    |   91 +
  drivers/gpu/drm-psb/intel_fb.c                     |  653 ++
  drivers/gpu/drm-psb/intel_i2c.c                    |  190 +
- drivers/gpu/drm-psb/intel_lvds.c                   |  944 ++
+ drivers/gpu/drm-psb/intel_lvds.c                   |  941 ++
  drivers/gpu/drm-psb/intel_lvds.h                   |  174 +
  drivers/gpu/drm-psb/intel_modes.c                  |   60 +
  drivers/gpu/drm-psb/intel_sdvo.c                   | 4043 ++++++++
@@ -169,7 +153,7 @@ Tom Zanussi (6):
  drivers/gpu/drm-psb/psb_detear.c                   |   39 +
  drivers/gpu/drm-psb/psb_detear.h                   |   47 +
  drivers/gpu/drm-psb/psb_drm.h                      |  395 +
- drivers/gpu/drm-psb/psb_drv.c                      | 1032 ++
+ drivers/gpu/drm-psb/psb_drv.c                      | 1030 ++
  drivers/gpu/drm-psb/psb_drv.h                      |  819 ++
  drivers/gpu/drm-psb/psb_fb.c                       | 1351 +++
  drivers/gpu/drm-psb/psb_fence.c                    |  285 +
@@ -190,13 +174,13 @@ Tom Zanussi (6):
  drivers/gpu/drm-psb/psb_setup.c                    |   17 +
  drivers/gpu/drm-psb/psb_sgx.c                      | 1454 +++
  drivers/gpu/drm-psb/psb_xhw.c                      |  629 ++
- drivers/video/Kconfig                              |    2 +-
- 137 files changed, 69124 insertions(+), 2 deletions(-)
+ 136 files changed, 69485 insertions(+), 0 deletions(-)
  create mode 100644 drivers/gpu/drm-psb/Config.in
  create mode 100644 drivers/gpu/drm-psb/Doxyfile
  create mode 100644 drivers/gpu/drm-psb/GPLv2_License.txt
  create mode 100644 drivers/gpu/drm-psb/Kconfig
  create mode 100644 drivers/gpu/drm-psb/Makefile
+ create mode 100644 drivers/gpu/drm-psb/Makefile.kernel
  create mode 100644 drivers/gpu/drm-psb/Module.markers
  create mode 100644 drivers/gpu/drm-psb/Module.symvers
  create mode 100644 drivers/gpu/drm-psb/README.drm
@@ -328,5 +312,7 @@ Tom Zanussi (6):
  create mode 100644 drivers/gpu/drm-psb/psb_setup.c
  create mode 100644 drivers/gpu/drm-psb/psb_sgx.c
  create mode 100644 drivers/gpu/drm-psb/psb_xhw.c
+
+The patch is too big to post here - please see the git repo...
 
 
