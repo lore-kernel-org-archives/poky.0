@@ -1,29 +1,27 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 1E5F44C8109B
-	for <poky@yoctoproject.org>; Mon, 24 Jan 2011 10:05:46 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0OG7dZ4016387; Mon, 24 Jan 2011 16:07:39 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id TVY4bXv3bCz2; Mon, 24 Jan 2011 16:07:39 +0000 (GMT)
-Received: from [192.168.1.45] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0OG6Imc016257
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Mon, 24 Jan 2011 16:06:20 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Dexuan Cui <dexuan.cui@intel.com>
-In-Reply-To: <cover.1295359004.git.dexuan.cui@intel.com>
-References: <cover.1295359004.git.dexuan.cui@intel.com>
-Date: Mon, 24 Jan 2011 16:04:05 +0000
-Message-ID: <1295885045.14388.45539.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Cc: poky@yoctoproject.org
-Subject: Re: [RFC: enhance toolchain bootstrap process: v3: 0/7] enhance the toolchain bootstrap process
+Return-Path: <scott.a.garman@intel.com>
+Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
+	by mx1.pokylinux.org (Postfix) with ESMTP id BF0D64C8109B
+	for <poky@yoctoproject.org>; Mon, 24 Jan 2011 10:33:01 -0600 (CST)
+Received: from localhost (c-76-105-143-140.hsd1.or.comcast.net
+	[76.105.143.140])
+	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
+	(No client certificate requested)
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id 393D12FE9F
+	for <poky@yoctoproject.org>; Mon, 24 Jan 2011 11:32:53 -0500 (EST)
+Message-Id: <cover.1295886689.git.scott.a.garman@intel.com>
+From: Scott Garman <scott.a.garman@intel.com>
+Old-Date: Mon, 24 Jan 2011 08:31:29 -0800
+Date: Mon, 24 Jan 2011  8:32:48 -0800
+To: poky@yoctoproject.org
+CC: 
+X-MasterFoo-MailScanner-Information: Please contact the ISP for more
+	information
+X-MailScanner-ID: 393D12FE9F.090B7
+X-MasterFoo-MailScanner: Found to be clean
+X-MasterFoo-MailScanner-SpamCheck: not spam
+X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
+X-Spam-Status: No
+Subject: [PATCH 0/2] sudo upgrade
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,68 +33,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 24 Jan 2011 16:05:47 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 24 Jan 2011 16:33:01 -0000
 
-Hi Dexuan,
+Hi Saul,
 
-On Tue, 2011-01-18 at 21:57 +0800, Dexuan Cui wrote:
-> Hi Richard and all,
-> 
-> The patch set enhances the toolchain bootstrap process by installing a separate sysroot for each step of the process.
-> The purpose is to avoid file overwriting in the current global sysroot, namely, to fix Bug 239: http://bugzilla.pokylinux.org/show_bug.cgi?id=239
-> 
-> 
-> The basic idea is straightforward:
-> 1) For gcc-cross-initial and -intermediate, by changing MULTIMACH_TARGET_SYS to install the files into new locations;
-> 2) Fix the build of eglibc-initial, eglibc by using the appropriate compilers, libs, headers;
-> 3) Also make proper changes for the crosssdk/nativesdk version.
-> 
-> I've split all the changes into small git commits and each commit should be basically self-explanatory. :-)
+This pull request performs a minor upgrade of the sudo recipe to
+address a security advisory.
 
-I've had a look through this and experimented a little with the code and
-I've some feedback:
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: sgarman/sudo-upgrade
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=sgarman/sudo-upgrade
 
-  sstate.bbclass: allow each step of toolchain bootstrap processes to do populate_sysroot independently
-  cross.bbclass: make MULTIMACH_TARGET_SYS adjustable for bindir, libdir, libexecdir
-
-These two are fine.
-
-  gcc-cross-initial, gcc-crosssdk-initial: change CROSS_TARGET_SYS_DIR and insall into new locations
-
-This change is ok but its incomplete. Why? If I apply this change and
-try a build, things won't work as it needs bits from later commits. To
-illustrate this and some other details, take a look at:
-
-http://git.pokylinux.org/cgit.cgi/poky-contrib/commit/?h=rpurdie/tt-bootstrap&id=5512f876b103987b74722a7788a1ebe797852bbe
-
-Here I've updated glibc and eglibc to use the new locations so the
-change will allow a build to succeed in its own right. Notice that I've
-simplified the variables quite a bit too.
-
-There is also a subsequent commit on the branch to enable this change
-for gcc-cross-intermediate.
-
-  eglibc-initial, eglibc-initial-nativesdk: install into individual sysroots
-  gcc-cross-intermediate, gcc-crosssdk-intermediate: change CROSS_TARGET_SYS_DIR and insall into new locations
-  cross.bbclass: modify sysroot_stage_all to allow gcc-{cross,crossdk}-intermediate to populate the libgcc_s.so* files
-  eglibc, eglibc-nativesdk: fix the build due to changes to eglibc-initial and gcc-cross-intermediate
-
-These other changes need separating out more cleanly. For example,
-adding a patch to gcc should be a separate commit, the update to use a
-new sysroot directory should probably be one commit so builds work
-before and after it.
-
-I'm also wondering if there isn't a neater way to handle the target
-sysroot problem instead of the prefixes you're using. I'll send an
-update as and when I've experimented a little to determine if this is
-possible.
-
-Cheers,
-
-Richard
+Thanks,
+    Scott Garman <scott.a.garman@intel.com>
+---
 
 
+Scott Garman (2):
+  sudo: upgrade to 1.7.4p6
+  distro_tracking_fields: Updated sudo tracking data
+
+ .../conf/distro/include/distro_tracking_fields.inc |    8 ++++----
+ .../sudo/{sudo_1.7.4p4.bb => sudo_1.7.4p6.bb}      |    4 ++--
+ 2 files changed, 6 insertions(+), 6 deletions(-)
+ rename meta/recipes-extended/sudo/{sudo_1.7.4p4.bb => sudo_1.7.4p6.bb} (52%)
 
 
