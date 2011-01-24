@@ -1,22 +1,23 @@
-Return-Path: <bruce.ashfield@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D812B4C811A5;
-	Mon, 24 Jan 2011 15:44:12 -0600 (CST)
-Received: from localhost.localdomain (yow-bashfiel-d2.ottawa.windriver.com
-	[128.224.146.167])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p0OLi33u016947;
-	Mon, 24 Jan 2011 13:44:05 -0800 (PST)
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-To: rpurdie@linux.intel.com
-Date: Mon, 24 Jan 2011 16:46:50 -0500
-Message-Id: <45dd3b21889b37e8d1360ddf74feee96b72a0219.1295905272.git.bruce.ashfield@windriver.com>
-X-Mailer: git-send-email 1.7.0.4
-In-Reply-To: <cover.1295905272.git.bruce.ashfield@windriver.com>
-References: <cover.1295905272.git.bruce.ashfield@windriver.com>
-In-Reply-To: <cover.1295905272.git.bruce.ashfield@windriver.com>
-References: <cover.1295905272.git.bruce.ashfield@windriver.com>
-Cc: yocto@yoctoproject.org, poky@yoctoproject.org, saul.wold@intel.com
-Subject: [PATCH 2/2] linux-yocto: update SRCREVs for emenlow
+Return-Path: <tom.zanussi@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 26C824C8085F
+	for <poky@lists.pokylinux.org>; Mon, 24 Jan 2011 15:53:07 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 24 Jan 2011 13:53:06 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,371,1291622400"; d="scan'208";a="650655519"
+Received: from unknown (HELO [10.255.14.50]) ([10.255.14.50])
+	by fmsmga002.fm.intel.com with ESMTP; 24 Jan 2011 13:53:06 -0800
+From: Tom Zanussi <tom.zanussi@intel.com>
+To: Gary Thomas <gary@mlbassoc.com>
+In-Reply-To: <4D3DF0F8.50704@mlbassoc.com>
+References: <4D3DF0F8.50704@mlbassoc.com>
+Date: Mon, 24 Jan 2011 15:52:58 -0600
+Message-ID: <1295905978.10128.65.camel@elmorro>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+Cc: Poky <poky@lists.pokylinux.org>
+Subject: Re: Build failure
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,36 +29,62 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 24 Jan 2011 21:44:13 -0000
+X-List-Received-Date: Mon, 24 Jan 2011 21:53:07 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-The emenlow has been ported/tested on 2.6.37. Updating the SRCREVs
-to reflect the change.
+On Mon, 2011-01-24 at 13:36 -0800, Gary Thomas wrote:
+> Trying to build poky-image-sato-live:
+>    OE Build Configuration:
+>    BB_VERSION        = "1.11.0"
+>    METADATA_BRANCH   = "master"
+>    METADATA_REVISION = "74783fec56d6ced1a793b36410233472e7daf445"
+>    TARGET_ARCH       = "i586"
+>    TARGET_OS         = "linux"
+>    MACHINE           = "qemux86"
+>    DISTRO            = "poky"
+>    DISTRO_VERSION    = "0.9+snapshot-20110124"
+>    TARGET_FPU        = ""
+> 
+> ERROR: Function 'build_boot_bin' failed (see /home/local/pc_poky/tmp/work/i586-poky-linux/poky-image-sato-live-1.0-r0/temp/log.do_bootimg.10954 for further information)
+> ERROR: '/tmp/poky-amltd2/meta/recipes-sato/images/poky-image-sato-live.bb' failed
+> ERROR: Logfile of failure stored in: /home/local/pc_poky/tmp/work/i586-poky-linux/poky-image-sato-live-1.0-r0/temp/log.do_bootimg.10954
+> Log data follows:
+> | install: cannot stat `/home/local/pc_poky/tmp/sysroots/qemux86-poky-linux/kernel/bzImage': No such file or directory
+> | Function 'build_boot_bin' failed (see /home/local/pc_poky/tmp/work/i586-poky-linux/poky-image-sato-live-1.0-r0/temp/log.do_bootimg.10954 for further information)
+> | ERROR: Function 'build_boot_bin' failed (see /home/local/pc_poky/tmp/work/i586-poky-linux/poky-image-sato-live-1.0-r0/temp/log.do_bootimg.10954 for further information)
+> NOTE: package poky-image-sato-live-1.0-r0: task build_boot_bin: Failed
+> ERROR: Task 9 (/tmp/poky-amltd2/meta/recipes-sato/images/poky-image-sato-live.bb, do_bootimg) failed with exit code '1'
+> 
+> n.b. I tried to access BugZilla to report this, but that
+> failed as well :-(
+> 
 
-Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
----
- .../conf/distro/include/poky-default-revisions.inc |    4 ++--
- 1 files changed, 2 insertions(+), 2 deletions(-)
+The problem is this commit:
 
-diff --git a/meta/conf/distro/include/poky-default-revisions.inc b/meta/conf/distro/include/poky-default-revisions.inc
-index b9602ea..8d98eef 100644
---- a/meta/conf/distro/include/poky-default-revisions.inc
-+++ b/meta/conf/distro/include/poky-default-revisions.inc
-@@ -100,12 +100,12 @@ SRCREV_machine_pn-linux-yocto_qemumips ?= "2b43d84250a582b61397ad5f59a6445ce1258
- SRCREV_machine_pn-linux-yocto_qemuppc ?= "20f182db27f3e6fc6bd55bfc9e24c8c023fbff7f"
- SRCREV_machine_pn-linux-yocto_qemux86 ?= "a9d833fda90e2f1257888a97e092135610b5f259"
- SRCREV_machine_pn-linux-yocto_qemux86-64 ?= "a9d833fda90e2f1257888a97e092135610b5f259"
--SRCREV_machine_pn-linux-yocto_emenlow ?= "a9d833fda90e2f1257888a97e092135610b5f259"
-+SRCREV_machine_pn-linux-yocto_emenlow ?= "c19e556f79f03c8f1e5e84ccd9b5436c2001fcce"
- SRCREV_machine_pn-linux-yocto_atom-pc ?= "a9d833fda90e2f1257888a97e092135610b5f259"
- SRCREV_machine_pn-linux-yocto_routerstationpro ?= "219a5f9dc6e5beced36184e141f80b2df61ae32f"
- SRCREV_machine_pn-linux-yocto_mpc8315e-rdb ?= "3f01b98238c2ff7913ce9f68f9db5ae9538717bc"
- SRCREV_machine_pn-linux-yocto_beagleboard ?= "a9d833fda90e2f1257888a97e092135610b5f259"
--SRCREV_meta_pn-linux-yocto ?= "e3895db37bd65ea97e59b70ea936c84b398d3f3e"
-+SRCREV_meta_pn-linux-yocto ?= "8a49ef6f1a43dabbce34a9ee9a1be08b26fc511c"
- SRCREV_pn-linux-libc-headers-yocto ??= "a9d833fda90e2f1257888a97e092135610b5f259"
- SRCREV_pn-matchbox-config-gtk ??= "2081"
- SRCREV_pn-matchbox-desktop-sato ??= "76"
--- 
-1.7.0.4
+commit bc9d2fbfd4eaad0df5647dd5d07dfb9fcff80ff3
+Author: Dongxiao Xu <dongxiao.xu@intel.com>
+Date:   Tue Jan 18 16:17:58 2011 +0800
+
+    staging: Use relative path in sysroot-destdir for target recipes
+
+Dongxiao is aware of the problem and working on a fix.  In the meantime,
+you could try the fix below from Dongxiao, cut and pasted from IRC, or
+back up to the commit before that...
+
+Hope that helps,
+
+Tom
+
+diff --git a/meta/classes/kernel.bbclass b/meta/classes/kernel.bbclass
+index 9d3b2bb..d1b5398 100644
+--- a/meta/classes/kernel.bbclass
++++ b/meta/classes/kernel.bbclass
+@@ -512,3 +512,5 @@ EXPORT_FUNCTIONS do_deploy
+PACKAGES =+ "perf"
+FILES_perf = "${bindir}/* \
+${libexecdir}"
++
++do_populate_sysroot[sstate-outputdirs] = "${STAGING_DIR}/${MACHINE}${HOST_VENDOR}-${HOST_OS}/"
 
 
