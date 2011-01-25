@@ -1,37 +1,31 @@
 Return-Path: <richard.purdie@linuxfoundation.org>
 Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id BAFD34C81118
-	for <poky@yoctoproject.org>; Tue, 25 Jan 2011 16:50:21 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 7D2C54C811AA
+	for <poky@lists.pokylinux.org>; Tue, 25 Jan 2011 16:51:42 -0600 (CST)
 Received: from localhost (dan.rpsys.net [127.0.0.1])
 	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0PMqAqQ006672; Tue, 25 Jan 2011 22:52:10 GMT
+	p0PMrZkC006703; Tue, 25 Jan 2011 22:53:36 GMT
 X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
 Received: from dan.rpsys.net ([127.0.0.1])
 	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id 79WpRCSG83Nn; Tue, 25 Jan 2011 22:52:10 +0000 (GMT)
+	with LMTP id 4-8-Q4he1Q0l; Tue, 25 Jan 2011 22:53:35 +0000 (GMT)
 Received: from [192.168.1.45] (tim [93.97.173.237]) (authenticated bits=0)
 	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0PMq0Ib006635
+	p0PMrR0J006679
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Tue, 25 Jan 2011 22:52:02 GMT
+	Tue, 25 Jan 2011 22:53:29 GMT
 From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Wolfgang Denk <wd@denx.de>
-In-Reply-To: <20110125090904.21681BB0B9@gemini.denx.de>
-References: <1295296178-18590-1-git-send-email-aalonso@secretlab.ca>
-	<1295296178-18590-5-git-send-email-aalonso@secretlab.ca>
-	<4D3884A0.8030602@linux.intel.com>
-	<20110120230537.5CF85D301D7@gemini.denx.de>
-	<1295565854.14388.27977.camel@rex>
-	<20110122144831.609C3B335@gemini.denx.de>
-	<1295741513.14388.37111.camel@rex>
-	<20110125090904.21681BB0B9@gemini.denx.de>
-Date: Tue, 25 Jan 2011 22:49:43 +0000
-Message-ID: <1295995783.27814.240.camel@rex>
+To: "Tian, Kevin" <kevin.tian@intel.com>
+In-Reply-To: <625BA99ED14B2D499DC4E29D8138F1504DB5BB6AE6@shsmsx502.ccr.corp.intel.com>
+References: <4D3DF0F8.50704@mlbassoc.com>
+	<1295905978.10128.65.camel@elmorro> <4D3E05CA.8080002@mlbassoc.com>
+	<625BA99ED14B2D499DC4E29D8138F1504DB5BB6AE6@shsmsx502.ccr.corp.intel.com>
+Date: Tue, 25 Jan 2011 22:51:10 +0000
+Message-ID: <1295995870.27814.244.camel@rex>
 Mime-Version: 1.0
 X-Mailer: Evolution 2.28.3 
-Cc: Adrian Alonso <aalonso@secretlab.ca>,
-	"poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 05/25] u-boot: disable -Os option not supported by gcc
+Cc: Poky <poky@lists.pokylinux.org>
+Subject: Re: Build failure
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,34 +37,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 25 Jan 2011 22:50:22 -0000
+X-List-Received-Date: Tue, 25 Jan 2011 22:51:42 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On Tue, 2011-01-25 at 10:09 +0100, Wolfgang Denk wrote:
-> In message <1295741513.14388.37111.camel@rex> you wrote:
-> >
-> > > > Its not so much not supported, its that gcc 4.5 seems to have totally
-> > > > broken it and for better or worse, we're on that gcc version. Until we
-> > > > have a toolchain where the option works what do we do?
-> ...
-> > Right, I'm aware that recent versions of gcc have issues sadly :(. I'm
-> > unaware of any resource available to Yocto with the right combination
-> > of time/experience to fix that problem at source at this time though :(.
+On Tue, 2011-01-25 at 08:00 +0800, Tian, Kevin wrote:
+> PR needs to be bumped in this case, which however reminds me one confusing area
+> I didn't think about before.
 > 
-> Do you happen do have a list of GCC bugs that bite us here?  At the
-> moment I am aware of # 44392 and # 45052, but it seems there are fixes
-> available for these two.
+> How do we handle the class changes which are inherited by many recipes? Generally
+> we need bump PRs once the output of a recipe gets changed, but it looks class file
+> is usually ignored.
 > 
-> Are there any others that need fixing?
+> Is there any easy way to have all recipes inheriting same class file bumping their PRs,
+> or has to be done by manual check?
 
-I'm afraid I don't but creating a list (maybe on the wiki) would be a
-good move for this. I know there are some other issues we could do with
-filing bugs upstream for and some we already have.
+This is a problem and its one I'm thinking we address with the sstate
+checksums being part of the stamps ultimately.
 
 Cheers,
 
 Richard
-
 
 
