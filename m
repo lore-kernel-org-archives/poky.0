@@ -1,22 +1,30 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 1D01F4C811AA
-	for <poky@yoctoproject.org>; Tue, 25 Jan 2011 10:30:37 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 25 Jan 2011 08:30:36 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,374,1291622400"; d="scan'208";a="596308063"
-Received: from unknown (HELO [10.255.14.118]) ([10.255.14.118])
-	by orsmga002.jf.intel.com with ESMTP; 25 Jan 2011 08:30:36 -0800
-Message-ID: <4D3EFAAB.6000605@linux.intel.com>
-Date: Tue, 25 Jan 2011 08:30:35 -0800
-From: Saul Wold <sgw@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 19F704C811AA
+	for <poky@lists.pokylinux.org>; Tue, 25 Jan 2011 10:37:10 -0600 (CST)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id A2488166028B; Tue, 25 Jan 2011 09:37:09 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.1
+Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 397DF16601D4;
+	Tue, 25 Jan 2011 09:37:08 -0700 (MST)
+Message-ID: <4D3EFC34.5050503@mlbassoc.com>
+Date: Tue, 25 Jan 2011 09:37:08 -0700
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
 MIME-Version: 1.0
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: [PULL] Consolidated Distro Pull Request
+To: Bruce Ashfield <bruce.ashfield@gmail.com>
+References: <4D3D6AFC.8060300@mlbassoc.com>	<1295872759.14388.44775.camel@rex>	<4D3E0323.2080905@linux.intel.com>	<4D3EBD30.2070708@mlbassoc.com>
+	<AANLkTimCPy=tcgDqqgiT6Lzu7z=KZLvBA9839Y12=Gj8@mail.gmail.com>
+In-Reply-To: <AANLkTimCPy=tcgDqqgiT6Lzu7z=KZLvBA9839Y12=Gj8@mail.gmail.com>
+Cc: Poky <poky@lists.pokylinux.org>
+Subject: Re: Poky on "standard" PC
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,71 +36,118 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 25 Jan 2011 16:30:37 -0000
+X-List-Received-Date: Tue, 25 Jan 2011 16:37:10 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
+On 01/25/2011 06:45 AM, Bruce Ashfield wrote:
+> On Tue, Jan 25, 2011 at 7:08 AM, Gary Thomas<gary@mlbassoc.com>  wrote:
+>> On 01/24/2011 03:54 PM, Darren Hart wrote:
+>>>
+>>> On 01/24/2011 04:39 AM, Richard Purdie wrote:
+>>>>
+>>>> On Mon, 2011-01-24 at 05:05 -0700, Gary Thomas wrote:
+>>>>>
+>>>>> I wanted to try Poky on a spare laptop, so I went looking
+>>>>> for an appropriate configuration to build.
+>>>>>
+>>>>>  From 'README.hardware' (last updated 2010-12-16), I read:
+>>>>> Poky Boot CD (bootcdx86)
+>>>>> ========================
+>>>>>
+>>>>> The Poky boot CD iso images are designed as a demonstration of the Poky
+>>>>> environment and to show the versatile image formats Poky can generate.
+>>>>> It will
+>>>>> run on Pentium2 or greater PC style computers. The iso image can be
+>>>>> burnt to CD and then booted from.
+>>>>>
+>>>>> When I tried it (it's also listed in the default local.conf),
+>>>>> I got this error:
+>>>>> Please set TARGET_ARCH directly, or choose a MACHINE or DISTRO that does
+>>>>> so.
+>>>>> Please set a valid MACHINE in your local.conf
+>>>>>
+>>>>> There seems to be no machine named 'bootcd*' anywhere :-(
+>>>>>
+>>>>> What should I be using?
+>>>>
+>>>> bootcdx86 was superceeded by the -live images. I'd suggest using the
+>>>> qemux86 or atom-pc machines and building a -live image, dd that to a usb
+>>>> stick and boot that on the laptop. An iso format image is also generated
+>>>> that can be placed onto a CD.
+>>>
+>>> It will have to be atom-pc as qemu doesn't provide live images (last I
+>>> checked, a few weeks back).
+>>
+>> Sadly, this doesn't build :-(  Failed in compile_perf, log attached.
+>
+> Hmm. This one was worked around a while ago via:
+>
+> commit d38ad3271829b2d282c973e69edd265ef52174c8
+> Author: Tom Zanussi<tom.zanussi@intel.com>
+> Date:   Fri Jan 14 16:33:05 2011 -0600
+>
+>      linux-yocto: hard-code NO_LIBPERL/NO_LIBPYTHON
+>
+>      ExtUtils::Embed ccopts is getting the host's -I/usr/local/include and
+>      using it to compile perf, which results in a compilation error that
+>      started appearing just recently.
+>
+>      This turns the code that makes use of ExtUtils::Embed off and simply
+>      hard-codes NO_LIBPERL.
+>
+>      It does the same for LIBPYTHON while we're at it, since it probably
+>      suffers from a similar underlying problem and just by chance hasn't
+>      broken anything yet.
+>
+>      This will be re-enabled after I familiarize myself with the perf
+>      recipe and am able to create a proper fix.
+>
+>      Signed-off-by: Tom Zanussi<tom.zanussi@intel.com>
+>
+> :100644 100644 21023da... 7833f65... M
+> meta/recipes-kernel/linux/linux-yocto_git.bb
+>
+> But the issue hadn't been showing up on the -stable .. until now. We can cherry
+> pick this patch and commit to at least temporarily work around it.
+>
+> I would have expected the nightly builds to show this one, since not all
+> supported targets have moved to 2.6.37.
 
-Richard,
+I just updated to the latest master and started from scratch.
+It's still happening :-(
 
-This has a number of important fixes for the -live image and psuedo,
-along with some lsb support infrastructe.
+OE Build Configuration:
+BB_VERSION        = "1.11.0"
+METADATA_BRANCH   = "master"
+METADATA_REVISION = "beb9166b3adf83c5e864afcb56cf9ea24f55a7c3"
+TARGET_ARCH       = "i586"
+TARGET_OS         = "linux"
+MACHINE           = "atom-pc"
+DISTRO            = "poky"
+DISTRO_VERSION    = "0.9+snapshot-20110125"
+TARGET_FPU        = ""
 
+|     CC util/scripting-engines/trace-event-perl.o
+| cc1: warnings being treated as errors
+| cc1: error: include location "/usr/local/include" is unsafe for cross-compilation
+| make: *** [util/scripting-engines/trace-event-perl.o] Error 1
+| make: Leaving directory 
+`/home/local/pc_poky/tmp/work/atom-pc-poky-linux/linux-yocto-stable-2.6.34+git1+e1f85a470934a0cf6abde5d95533e74501822c6b_0+35521a5a70316785a67aca1de1d39a7b84c49ccf-r1/linux/tools/perf'
+| FATAL: oe_runmake failed
+| Function 'do_compile_perf' failed (see 
+/home/local/pc_poky/tmp/work/atom-pc-poky-linux/linux-yocto-stable-2.6.34+git1+e1f85a470934a0cf6abde5d95533e74501822c6b_0+35521a5a70316785a67aca1de1d39a7b84c49ccf-r1/temp/log.do_compile_perf.8191 
+for further information)
+| ERROR: Function 'do_compile_perf' failed (see 
+/home/local/pc_poky/tmp/work/atom-pc-poky-linux/linux-yocto-stable-2.6.34+git1+e1f85a470934a0cf6abde5d95533e74501822c6b_0+35521a5a70316785a67aca1de1d39a7b84c49ccf-r1/temp/log.do_compile_perf.8191 
+for further information)
+NOTE: package linux-yocto-stable-2.6.34+git1+e1f85a470934a0cf6abde5d95533e74501822c6b_0+35521a5a70316785a67aca1de1d39a7b84c49ccf-r1: task do_compile_perf: Failed
 
--- Pull URL: git://git.pokylinux.org/poky-contrib.git
-   Branch: distro/master
-   Browse: 
-http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=distro/master
+Maybe it has something to do with my build host (Fedora-13, x86)?
 
-Thanks,
-     Saul Wold <sgw@linux.intel.com>
----
-
-
-Dongxiao Xu (1):
-   kernel.bbclass: Fix sstate-output directory
-
-Jingdong Lu (4):
-   cups: Add cups
-   liburi-perl: Rename liburi-perl
-   base-files: Add to make some directories needed by LSB.
-   task-poky-lsb: add relevant packages into task-poky-lsb
-
-Mark Hatle (1):
-   pseudo: Revert msg cache changes
-
-  meta/classes/kernel.bbclass                        |    2 +
-  .../conf/distro/include/poky-default-revisions.inc |    2 +-
-  meta/recipes-core/base-files/base-files_3.0.14.bb  |   18 +-
-  .../perl/{liburi-perl_1.56 => liburi-perl_1.56.bb} |    0
-  .../pseudo/pseudo/pseudo-exec-crash.patch          |   20 -
-  meta/recipes-devtools/pseudo/pseudo_git.bb         |    3 +-
-  .../cups/cups-1.4.4/configure.patch                |  117 +++
-  .../cups/cups-1.4.4/skip_tools.patch               |   51 +
-  .../cups/cups-1.4.4/use_echo_only_in_init.patch    |   11 +
-  meta/recipes-extended/cups/cups14.inc              |   86 ++
-  meta/recipes-extended/cups/cups_1.4.4.bb           |   17 +
-  meta/recipes-extended/tasks/task-poky-lsb.bb       |  980 
-+++++++++++++++++++-
-  meta/recipes-kernel/linux/linux-omap3-pm_git.bb    |    2 +-
-  .../recipes-kernel/linux/linux-yocto-stable_git.bb |    2 +-
-  meta/recipes-kernel/linux/linux-yocto_git.bb       |    2 +-
-  15 files changed, 1284 insertions(+), 29 deletions(-)
-  rename meta/recipes-devtools/perl/{liburi-perl_1.56 => 
-liburi-perl_1.56.bb} (100%)
-  delete mode 100644 
-meta/recipes-devtools/pseudo/pseudo/pseudo-exec-crash.patch
-  create mode 100644 meta/recipes-extended/cups/cups-1.4.4/configure.patch
-  create mode 100644 meta/recipes-extended/cups/cups-1.4.4/skip_tools.patch
-  create mode 100644 
-meta/recipes-extended/cups/cups-1.4.4/use_echo_only_in_init.patch
-  create mode 100644 meta/recipes-extended/cups/cups14.inc
-  create mode 100644 meta/recipes-extended/cups/cups_1.4.4.bb
-
-     Sau!
-
-Saul Wold
-Yocto Component Wrangler @ Intel
-Yocto Project / Poky Build System
-
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
