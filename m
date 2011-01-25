@@ -1,35 +1,31 @@
-Return-Path: <kevin.tian@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 8FD564C8106A
-	for <poky@lists.pokylinux.org>; Mon, 24 Jan 2011 18:00:47 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 24 Jan 2011 16:00:47 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,372,1291622400"; d="scan'208";a="880568038"
-Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
-	by fmsmga001.fm.intel.com with ESMTP; 24 Jan 2011 16:00:46 -0800
-Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
-	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Tue, 25 Jan 2011 08:00:45 +0800
-Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
-	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
-	Tue, 25 Jan 2011 08:00:44 +0800
-From: "Tian, Kevin" <kevin.tian@intel.com>
-To: Gary Thomas <gary@mlbassoc.com>, "Zanussi, Tom" <tom.zanussi@intel.com>
-Date: Tue, 25 Jan 2011 08:00:43 +0800
-Thread-Topic: [poky] Build failure
-Thread-Index: Acu8G0+wx3CdlWIPTDOhUBHh/qauvAAByBig
-Message-ID: <625BA99ED14B2D499DC4E29D8138F1504DB5BB6AE6@shsmsx502.ccr.corp.intel.com>
-References: <4D3DF0F8.50704@mlbassoc.com>
-	<1295905978.10128.65.camel@elmorro> <4D3E05CA.8080002@mlbassoc.com>
-In-Reply-To: <4D3E05CA.8080002@mlbassoc.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
-MIME-Version: 1.0
-Cc: Poky <poky@lists.pokylinux.org>
-Subject: Re: Build failure
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 03EB94C8006D
+	for <poky@yoctoproject.org>; Mon, 24 Jan 2011 18:53:36 -0600 (CST)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p0P0tTnb011844; Tue, 25 Jan 2011 00:55:30 GMT
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id 3nA4zimeSk+S; Tue, 25 Jan 2011 00:55:29 +0000 (GMT)
+Received: from [192.168.1.45] (tim [93.97.173.237]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p0P0tOMx011835
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Tue, 25 Jan 2011 00:55:26 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: "Cui, Dexuan" <dexuan.cui@intel.com>
+In-Reply-To: <1865303E0DED764181A9D882DEF65FB685DF60F3EC@shsmsx502.ccr.corp.intel.com>
+References: <cover.1295359004.git.dexuan.cui@intel.com>
+	<1295885045.14388.45539.camel@rex>
+	<1865303E0DED764181A9D882DEF65FB685DF60F3EC@shsmsx502.ccr.corp.intel.com>
+Date: Tue, 25 Jan 2011 00:53:10 +0000
+Message-ID: <1295916790.14388.47147.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [RFC: enhance toolchain bootstrap process: v3: 0/7] enhance the toolchain bootstrap process
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,109 +37,83 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 25 Jan 2011 00:00:47 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Tue, 25 Jan 2011 00:53:37 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-> From: Gary Thomas
-> Sent: Tuesday, January 25, 2011 7:06 AM
->=20
-> On 01/24/2011 02:52 PM, Tom Zanussi wrote:
-> > On Mon, 2011-01-24 at 13:36 -0800, Gary Thomas wrote:
-> >> Trying to build poky-image-sato-live:
-> >>     OE Build Configuration:
-> >>     BB_VERSION        =3D "1.11.0"
-> >>     METADATA_BRANCH   =3D "master"
-> >>     METADATA_REVISION =3D
-> "74783fec56d6ced1a793b36410233472e7daf445"
-> >>     TARGET_ARCH       =3D "i586"
-> >>     TARGET_OS         =3D "linux"
-> >>     MACHINE           =3D "qemux86"
-> >>     DISTRO            =3D "poky"
-> >>     DISTRO_VERSION    =3D "0.9+snapshot-20110124"
-> >>     TARGET_FPU        =3D ""
-> >>
-> >> ERROR: Function 'build_boot_bin' failed (see
-> /home/local/pc_poky/tmp/work/i586-poky-linux/poky-image-sato-live-1.0-r0/=
-te
-> mp/log.do_bootimg.10954 for further information)
-> >> ERROR:
-> '/tmp/poky-amltd2/meta/recipes-sato/images/poky-image-sato-live.bb' faile=
-d
-> >> ERROR: Logfile of failure stored in:
-> /home/local/pc_poky/tmp/work/i586-poky-linux/poky-image-sato-live-1.0-r0/=
-te
-> mp/log.do_bootimg.10954
-> >> Log data follows:
-> >> | install: cannot stat
-> `/home/local/pc_poky/tmp/sysroots/qemux86-poky-linux/kernel/bzImage': No
-> such file or directory
-> >> | Function 'build_boot_bin' failed (see
-> /home/local/pc_poky/tmp/work/i586-poky-linux/poky-image-sato-live-1.0-r0/=
-te
-> mp/log.do_bootimg.10954 for further information)
-> >> | ERROR: Function 'build_boot_bin' failed (see
-> /home/local/pc_poky/tmp/work/i586-poky-linux/poky-image-sato-live-1.0-r0/=
-te
-> mp/log.do_bootimg.10954 for further information)
-> >> NOTE: package poky-image-sato-live-1.0-r0: task build_boot_bin: Failed
-> >> ERROR: Task 9
-> (/tmp/poky-amltd2/meta/recipes-sato/images/poky-image-sato-live.bb,
-> do_bootimg) failed with exit code '1'
-> >>
-> >> n.b. I tried to access BugZilla to report this, but that
-> >> failed as well :-(
-> >>
-> >
-> > The problem is this commit:
-> >
-> > commit bc9d2fbfd4eaad0df5647dd5d07dfb9fcff80ff3
-> > Author: Dongxiao Xu<dongxiao.xu@intel.com>
-> > Date:   Tue Jan 18 16:17:58 2011 +0800
-> >
-> >      staging: Use relative path in sysroot-destdir for target recipes
-> >
-> > Dongxiao is aware of the problem and working on a fix.  In the meantime=
-,
-> > you could try the fix below from Dongxiao, cut and pasted from IRC, or
-> > back up to the commit before that...
-> >
-> > Hope that helps,
-> >
-> > Tom
-> >
-> > diff --git a/meta/classes/kernel.bbclass b/meta/classes/kernel.bbclass
-> > index 9d3b2bb..d1b5398 100644
-> > --- a/meta/classes/kernel.bbclass
-> > +++ b/meta/classes/kernel.bbclass
-> > @@ -512,3 +512,5 @@ EXPORT_FUNCTIONS do_deploy
-> > PACKAGES =3D+ "perf"
-> > FILES_perf =3D "${bindir}/* \
-> > ${libexecdir}"
-> > +
-> > +do_populate_sysroot[sstate-outputdirs] =3D
-> "${STAGING_DIR}/${MACHINE}${HOST_VENDOR}-${HOST_OS}/"
->=20
-> Yes, this helped, but I did have to run 'bitbake virtual/kernel -c clean'
-> before it made any difference.
->=20
-> Thanks
+On Tue, 2011-01-25 at 01:28 +0800, Cui, Dexuan wrote:
+> Richard Purdie wrote:
+> > On Tue, 2011-01-18 at 21:57 +0800, Dexuan Cui wrote:
+> Hi Richard, thanks very much for the review and feedback!
+> BTW: I was just about to send out my "RFC v5" patches and I saw the mail. :-)
+> 
+> During the past days, I've been busy with testing and fixing & updating my patches.
+> The v5 patches are at  http://git.pokylinux.org/cgit/cgit.cgi/poky-contrib/log/?h=dcui/tcbp-v5 (actually it's the same as dcui/tcbp-test currently)
+> The attached v3-to-v5.diff shows the difference from v3 to v5:
+> 
+> 1) fix several typos for  "_prepend_virtclass-nativesdk": previously I used the wrong "_virtclass-nativesdk_prepend"!
+> 
+> 2) in eglibc-initial.inc, now the line is 
+> STAGING_BINDIR_TOOLCHAIN_prepend = "${STAGING_DIR_NATIVE}${bindir_native}/${BASEPKG_HOST_SYS}.gcc-cross-initial:"
+> Previously, I used HOST_SYS rather than BASEPKG_HOST_SYS.  Actually HOST_SYS is not ok because this breaks arm/ppc builds.
+> 
+> 3) similarly,
+> 	in eglibc.inc: 
+> 		STAGING_BINDIR_TOOLCHAIN_prepend: HOST_SYS --> BASEPKG_HOST_SYS
+> 		CPPFLAGS_prepend: TARGET_SYS -> BASEPKG_TARGET_SYS
+> 	in gcc-cross-intermediate.inc:
+> 		GCC_CROSS_INTERMEDIATE_WITH_BUILD_SYSROOT: TARGET_SYS --> BASEPKG_TARGET_SYS
+> 
+> 4)  in eglibc-initial.inc:
+> 	use a "for t in ..." loop to replace the previous 3 statements.
+> 
+> 5) add the code for glibc and glibc-initial similarly.
+> 6) bump PRs accordingly.
+> 
+> I'll send my current test results later.
 
-PR needs to be bumped in this case, which however reminds me one confusing =
-area
-I didn't think about before.
+Sounds good.
 
-How do we handle the class changes which are inherited by many recipes? Gen=
-erally
-we need bump PRs once the output of a recipe gets changed, but it looks cla=
-ss file
-is usually ignored.
+I did a bit of research and experimentation with your remaining changes
+and came up with the hybrid you can see here:
 
-Is there any easy way to have all recipes inheriting same class file bumpin=
-g their PRs,
-or has to be done by manual check?
+http://git.pokylinux.org/cgit.cgi/poky-contrib/commit/?h=rpurdie/tt-bootstrap&id=bba04b790b0454e8bf2de8ea5a9d610e81f0a278
 
-Thanks
-Kevin
+This is actually very similar to what you've done but I made a few
+tweaks to try and improve the way it works.
+
+Firstly instead of overloading the /lib and /usr/lib directories, I just
+created a "bootstrap" sysroot, STAGING_DIR_TCBOOTSTRAP.
+
+eglibc-initial then stages into that sysroot, as per your changes.
+
+I then made gcc-cross-intermediate use this as both the build *and*
+installation sysroot since its files don't conflict with those from
+eglibc-initial.
+
+We can then easily point eglibc to build against the bootstrap sysroot
+using TOOLCHAIN_OPTIONS but install into the target.
+
+Looking back at my patch, the change to make gcc-configure-cross.inc use
+the bootstrap sysroot might not be correct, it should likely use the
+libc from the main sysroot by that point.
+
+The biggest problem I found was the sitecache.bbclass function in eglibc
+as this wanted to run configure to be able to compile things yet we
+don't populate the sysroot at that point so the intermediate compiler
+won't fully work as it can't find a libc. I added a horrendous hack to
+fudge this piece into working. A neater solution would be nice, I'm
+still working on that but I'm not too optimistic.
+
+Could you take a look at these changes and see what you think? There are
+still a few details that need to be ironed out but I think it could
+work.
+
+Cheers,
+
+Richard
+
+
+
+
 
