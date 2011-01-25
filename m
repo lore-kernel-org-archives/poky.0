@@ -1,25 +1,25 @@
 Return-Path: <saul.wold@intel.com>
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id BC81C4C8085F
-	for <poky@yoctoproject.org>; Tue, 25 Jan 2011 11:19:56 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id A799E4C811A5;
+	Tue, 25 Jan 2011 11:21:17 -0600 (CST)
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 25 Jan 2011 09:19:56 -0800
+	by orsmga102.jf.intel.com with ESMTP; 25 Jan 2011 09:21:17 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,375,1291622400"; d="scan'208";a="596327486"
+X-IronPort-AV: E=Sophos;i="4.60,375,1291622400"; d="scan'208";a="596327879"
 Received: from unknown (HELO [10.255.14.118]) ([10.255.14.118])
-	by orsmga002.jf.intel.com with ESMTP; 25 Jan 2011 09:19:56 -0800
-Message-ID: <4D3F063B.7070707@intel.com>
-Date: Tue, 25 Jan 2011 09:19:55 -0800
+	by orsmga002.jf.intel.com with ESMTP; 25 Jan 2011 09:20:58 -0800
+Message-ID: <4D3F067A.2040103@intel.com>
+Date: Tue, 25 Jan 2011 09:20:58 -0800
 From: Saul Wold <saul.wold@intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
 	Thunderbird/3.0.5
 MIME-Version: 1.0
-To: poky@yoctoproject.org
-References: <1295958916.5641.8.camel@scimitar>	<4D3EF134.3030803@linux.intel.com>
-	<1295971229.21832.1.camel@scimitar>
-In-Reply-To: <1295971229.21832.1.camel@scimitar>
-Subject: Re: Please ensure you are using layout variables in recipes
+To: Bruce Ashfield <bruce.ashfield@windriver.com>
+References: <cover.1295970827.git.bruce.ashfield@windriver.com>
+In-Reply-To: <cover.1295970827.git.bruce.ashfield@windriver.com>
+Cc: yocto@yoctoproject.org, poky@yoctoproject.org
+Subject: Re: [PATCH 0/1] perf: hard-code NO_LIBPERL/NO_LIBPYTHO
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,46 +31,44 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 25 Jan 2011 17:19:57 -0000
+X-List-Received-Date: Tue, 25 Jan 2011 17:21:18 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 01/25/2011 08:00 AM, Joshua Lock wrote:
-> On Tue, 2011-01-25 at 07:50 -0800, Darren Hart wrote:
->> On 01/25/2011 04:35 AM, Joshua Lock wrote:
->>> Hi all,
->>>
->>> When creating/editing recipes can we please ensure consistent use of
->>> layout variables, rather than absolute paths.
->>
->> Hi Josh,
->>
->> When I was putting together the mediatomb scripts I remember running
->> into this. We typically have to write custom init scripts, for example,
->> in order to deal with this as well as some other subtleties and
->> assumptions made by the package init author. In these cases, it would be
->> really useful to have a layer skeleton, which also included skeleton
->> recipes, images, etc. All commented, complete with documentation links
->> to aid people through the process. Seeing it all together in final form
->> would go a long way to helping people get it right the first (or maybe
->> the second) time. I've discussed this with Saul as well, maybe something
->> we need to get on the schedule?
+On 01/25/2011 07:59 AM, Bruce Ashfield wrote:
+> We already had this fix in the 2.6.37 kernel (and it is staged
+> temporarily there) so this is the same change for the -stable
+> kernel to fix the perf build error reported by Gary this morning.
 >
-> I was just proposing something similar. Of course all of our metadata
-> should meet the same high standards but it would make sense to have
-> somewhere to point at as the canonical example.
+> I went ahead and merged this to the kernel tree directly, since
+> we may not loop back and do another fix for this on in the -stable
+> kernel.
 >
-> Scheduling time to work providing example definitely gets my backing.
+> Compiled for atom-pc/beagleboard and routerstationpro.
 >
-This is still on my radar, and was partly what I was thinking about this 
-for my talk.  I have been thinking about a Yocto Metadata Philosophy, 
-that shares our update vision (based on some of the recent input) along 
-with layer/recipe implementation and examples. We can add to this init 
-scripts and other examples of commonly modified files.
+Does this mean we can revert the patch in perl and python recipes?
 
 Sau!
 
-> Cheers,
-> Joshua
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>    Branch: zedd/kernel-stable
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/kernel-stable
+>
+> Thanks,
+>      Bruce Ashfield<bruce.ashfield@windriver.com>
+> ---
+>
+>
+> Bruce Ashfield (1):
+>    linux-yocto/stable: perf: hard-code NO_LIBPERL/NO_LIBPYTHO
+>
+>   .../conf/distro/include/poky-default-revisions.inc |   18 +++++++++---------
+>   1 files changed, 9 insertions(+), 9 deletions(-)
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
 
 
