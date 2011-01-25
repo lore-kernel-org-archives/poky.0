@@ -1,23 +1,22 @@
-Return-Path: <josh@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 942DC4C806DA
-	for <poky@yoctoproject.org>; Tue, 25 Jan 2011 10:00:36 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 25 Jan 2011 08:00:36 -0800
+Return-Path: <sgw@linux.intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 1D01F4C811AA
+	for <poky@yoctoproject.org>; Tue, 25 Jan 2011 10:30:37 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 25 Jan 2011 08:30:36 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,374,1291622400"; d="scan'208";a="650958237"
-Received: from unknown (HELO [10.255.16.153]) ([10.255.16.153])
-	by fmsmga002.fm.intel.com with ESMTP; 25 Jan 2011 08:00:35 -0800
-From: Joshua Lock <josh@linux.intel.com>
-To: poky@yoctoproject.org
-In-Reply-To: <4D3EF134.3030803@linux.intel.com>
-References: <1295958916.5641.8.camel@scimitar>
-	<4D3EF134.3030803@linux.intel.com>
-Date: Tue, 25 Jan 2011 16:00:29 +0000
-Message-ID: <1295971229.21832.1.camel@scimitar>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.32.1 (2.32.1-1.fc14) 
-Subject: Re: Please ensure you are using layout variables in recipes
+X-IronPort-AV: E=Sophos;i="4.60,374,1291622400"; d="scan'208";a="596308063"
+Received: from unknown (HELO [10.255.14.118]) ([10.255.14.118])
+	by orsmga002.jf.intel.com with ESMTP; 25 Jan 2011 08:30:36 -0800
+Message-ID: <4D3EFAAB.6000605@linux.intel.com>
+Date: Tue, 25 Jan 2011 08:30:35 -0800
+From: Saul Wold <sgw@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
+MIME-Version: 1.0
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: [PULL] Consolidated Distro Pull Request
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,40 +28,71 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 25 Jan 2011 16:00:36 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Tue, 25 Jan 2011 16:30:37 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Tue, 2011-01-25 at 07:50 -0800, Darren Hart wrote:
-> On 01/25/2011 04:35 AM, Joshua Lock wrote:
-> > Hi all,
-> >
-> > When creating/editing recipes can we please ensure consistent use of
-> > layout variables, rather than absolute paths.
-> 
-> Hi Josh,
-> 
-> When I was putting together the mediatomb scripts I remember running 
-> into this. We typically have to write custom init scripts, for example, 
-> in order to deal with this as well as some other subtleties and 
-> assumptions made by the package init author. In these cases, it would be 
-> really useful to have a layer skeleton, which also included skeleton 
-> recipes, images, etc. All commented, complete with documentation links 
-> to aid people through the process. Seeing it all together in final form 
-> would go a long way to helping people get it right the first (or maybe 
-> the second) time. I've discussed this with Saul as well, maybe something 
-> we need to get on the schedule?
 
-I was just proposing something similar. Of course all of our metadata
-should meet the same high standards but it would make sense to have
-somewhere to point at as the canonical example.
+Richard,
 
-Scheduling time to work providing example definitely gets my backing.
+This has a number of important fixes for the -live image and psuedo,
+along with some lsb support infrastructe.
 
-Cheers,
-Joshua
--- 
-Joshua Lock
-        Intel Open Source Technology Centre
+
+-- Pull URL: git://git.pokylinux.org/poky-contrib.git
+   Branch: distro/master
+   Browse: 
+http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=distro/master
+
+Thanks,
+     Saul Wold <sgw@linux.intel.com>
+---
+
+
+Dongxiao Xu (1):
+   kernel.bbclass: Fix sstate-output directory
+
+Jingdong Lu (4):
+   cups: Add cups
+   liburi-perl: Rename liburi-perl
+   base-files: Add to make some directories needed by LSB.
+   task-poky-lsb: add relevant packages into task-poky-lsb
+
+Mark Hatle (1):
+   pseudo: Revert msg cache changes
+
+  meta/classes/kernel.bbclass                        |    2 +
+  .../conf/distro/include/poky-default-revisions.inc |    2 +-
+  meta/recipes-core/base-files/base-files_3.0.14.bb  |   18 +-
+  .../perl/{liburi-perl_1.56 => liburi-perl_1.56.bb} |    0
+  .../pseudo/pseudo/pseudo-exec-crash.patch          |   20 -
+  meta/recipes-devtools/pseudo/pseudo_git.bb         |    3 +-
+  .../cups/cups-1.4.4/configure.patch                |  117 +++
+  .../cups/cups-1.4.4/skip_tools.patch               |   51 +
+  .../cups/cups-1.4.4/use_echo_only_in_init.patch    |   11 +
+  meta/recipes-extended/cups/cups14.inc              |   86 ++
+  meta/recipes-extended/cups/cups_1.4.4.bb           |   17 +
+  meta/recipes-extended/tasks/task-poky-lsb.bb       |  980 
++++++++++++++++++++-
+  meta/recipes-kernel/linux/linux-omap3-pm_git.bb    |    2 +-
+  .../recipes-kernel/linux/linux-yocto-stable_git.bb |    2 +-
+  meta/recipes-kernel/linux/linux-yocto_git.bb       |    2 +-
+  15 files changed, 1284 insertions(+), 29 deletions(-)
+  rename meta/recipes-devtools/perl/{liburi-perl_1.56 => 
+liburi-perl_1.56.bb} (100%)
+  delete mode 100644 
+meta/recipes-devtools/pseudo/pseudo/pseudo-exec-crash.patch
+  create mode 100644 meta/recipes-extended/cups/cups-1.4.4/configure.patch
+  create mode 100644 meta/recipes-extended/cups/cups-1.4.4/skip_tools.patch
+  create mode 100644 
+meta/recipes-extended/cups/cups-1.4.4/use_echo_only_in_init.patch
+  create mode 100644 meta/recipes-extended/cups/cups14.inc
+  create mode 100644 meta/recipes-extended/cups/cups_1.4.4.bb
+
+     Sau!
+
+Saul Wold
+Yocto Component Wrangler @ Intel
+Yocto Project / Poky Build System
 
 
