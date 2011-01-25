@@ -1,26 +1,38 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2B8824C810E3
-	for <poky@lists.pokylinux.org>; Tue, 25 Jan 2011 14:16:02 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 25 Jan 2011 12:16:01 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,376,1291622400"; d="scan'208";a="880895728"
-Received: from unknown (HELO [10.255.14.118]) ([10.255.14.118])
-	by fmsmga001.fm.intel.com with ESMTP; 25 Jan 2011 12:16:01 -0800
-Message-ID: <4D3F2F80.2040802@intel.com>
-Date: Tue, 25 Jan 2011 12:16:00 -0800
-From: Saul Wold <saul.wold@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
-MIME-Version: 1.0
-To: Gary Thomas <gary@mlbassoc.com>
-References: <4D3D6AFC.8060300@mlbassoc.com>	<1295872759.14388.44775.camel@rex>	<4D3E0323.2080905@linux.intel.com>	<4D3EBD30.2070708@mlbassoc.com>	<AANLkTimCPy=tcgDqqgiT6Lzu7z=KZLvBA9839Y12=Gj8@mail.gmail.com>	<4D3EFC34.5050503@mlbassoc.com>
-	<4D3EFCFA.4060801@windriver.com> <4D3EFE11.9010004@mlbassoc.com>
-In-Reply-To: <4D3EFE11.9010004@mlbassoc.com>
-Cc: Poky <poky@lists.pokylinux.org>
-Subject: Re: Poky on "standard" PC
+Return-Path: <aalonso00@gmail.com>
+Received: from mail-px0-f176.google.com (mail-px0-f176.google.com
+	[209.85.212.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8C0934C806DA
+	for <poky@yoctoproject.org>; Tue, 25 Jan 2011 15:02:31 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by pxi11 with SMTP id 11so1153729pxi.35
+	for <poky@yoctoproject.org>; Tue, 25 Jan 2011 13:02:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:sender:from:to:cc:subject:date:message-id
+	:x-mailer; bh=120N4L0ROo6kqvnnhdq7IAefF78vNP9oDTwzqb1DtX4=;
+	b=a7S6DmgI+eJoXyUVqrKQ9NQe6iQwZleR4kLkYgQ/+U6GxjuNaffZvZ/mSYohOWV5ZY
+	rGlu2r135bBdBovDgb8GdI67MWGLmUBzDcuUjYiwtphRd4eCCJZMWtNhDOlAXAOlMurC
+	eJQKHlhr5P9gbTPTNMhi4rh7qnGcxo5W7qDfo=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=sender:from:to:cc:subject:date:message-id:x-mailer;
+	b=bt1pnm8AXcPrGfYSgMyptst5fXzu3A+Yj7ac6u/rOIB0IGQaZL0wNJDGaCBtkVAoJL
+	DpuYWa3vFnoZvompnTXVNl47NKfOmdrq+wYp1Hs9WM9t3DWSFhnl4N4CsJvBtCJFaP/1
+	+FInpXMcr6xzwXFFLK0LJta1exvQIKYaeidgs=
+Received: by 10.142.179.13 with SMTP id b13mr5850179wff.24.1295989350979;
+	Tue, 25 Jan 2011 13:02:30 -0800 (PST)
+Received: from localhost.localdomain ([189.134.128.129])
+	by mx.google.com with ESMTPS id x18sm19310222wfa.23.2011.01.25.13.02.28
+	(version=TLSv1/SSLv3 cipher=RC4-MD5);
+	Tue, 25 Jan 2011 13:02:30 -0800 (PST)
+Sender: Adrian Alonso <aalonso00@gmail.com>
+From: Adrian Alonso <aalonso@secretlab.ca>
+To: poky@yoctoproject.org
+Date: Tue, 25 Jan 2011 15:09:16 -0600
+Message-Id: <1295989756-7967-1-git-send-email-aalonso@secretlab.ca>
+X-Mailer: git-send-email 1.7.3.4
+Cc: Adrian Alonso <aalonso@secretlab.ca>
+Subject: [PATCH 05/25][v2] u-boot: disable -Os option not supported by gcc
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,147 +44,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 25 Jan 2011 20:16:02 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 25 Jan 2011 21:02:31 -0000
 
-On 01/25/2011 08:45 AM, Gary Thomas wrote:
-> On 01/25/2011 09:40 AM, Bruce Ashfield wrote:
->> On 11-01-25 11:37 AM, Gary Thomas wrote:
->>> On 01/25/2011 06:45 AM, Bruce Ashfield wrote:
->>>> On Tue, Jan 25, 2011 at 7:08 AM, Gary Thomas<gary@mlbassoc.com> wrote:
->>>>> On 01/24/2011 03:54 PM, Darren Hart wrote:
->>>>>>
->>>>>> On 01/24/2011 04:39 AM, Richard Purdie wrote:
->>>>>>>
->>>>>>> On Mon, 2011-01-24 at 05:05 -0700, Gary Thomas wrote:
->>>>>>>>
->>>>>>>> I wanted to try Poky on a spare laptop, so I went looking
->>>>>>>> for an appropriate configuration to build.
->>>>>>>>
->>>>>>>> From 'README.hardware' (last updated 2010-12-16), I read:
->>>>>>>> Poky Boot CD (bootcdx86)
->>>>>>>> ========================
->>>>>>>>
->>>>>>>> The Poky boot CD iso images are designed as a demonstration of the
->>>>>>>> Poky
->>>>>>>> environment and to show the versatile image formats Poky can
->>>>>>>> generate.
->>>>>>>> It will
->>>>>>>> run on Pentium2 or greater PC style computers. The iso image can be
->>>>>>>> burnt to CD and then booted from.
->>>>>>>>
->>>>>>>> When I tried it (it's also listed in the default local.conf),
->>>>>>>> I got this error:
->>>>>>>> Please set TARGET_ARCH directly, or choose a MACHINE or DISTRO
->>>>>>>> that does
->>>>>>>> so.
->>>>>>>> Please set a valid MACHINE in your local.conf
->>>>>>>>
->>>>>>>> There seems to be no machine named 'bootcd*' anywhere :-(
->>>>>>>>
->>>>>>>> What should I be using?
->>>>>>>
->>>>>>> bootcdx86 was superceeded by the -live images. I'd suggest using the
->>>>>>> qemux86 or atom-pc machines and building a -live image, dd that to
->>>>>>> a usb
->>>>>>> stick and boot that on the laptop. An iso format image is also
->>>>>>> generated
->>>>>>> that can be placed onto a CD.
->>>>>>
->>>>>> It will have to be atom-pc as qemu doesn't provide live images
->>>>>> (last I
->>>>>> checked, a few weeks back).
->>>>>
->>>>> Sadly, this doesn't build :-( Failed in compile_perf, log attached.
->>>>
->>>> Hmm. This one was worked around a while ago via:
->>>>
->>>> commit d38ad3271829b2d282c973e69edd265ef52174c8
->>>> Author: Tom Zanussi<tom.zanussi@intel.com>
->>>> Date: Fri Jan 14 16:33:05 2011 -0600
->>>>
->>>> linux-yocto: hard-code NO_LIBPERL/NO_LIBPYTHON
->>>>
->>>> ExtUtils::Embed ccopts is getting the host's -I/usr/local/include and
->>>> using it to compile perf, which results in a compilation error that
->>>> started appearing just recently.
->>>>
->>>> This turns the code that makes use of ExtUtils::Embed off and simply
->>>> hard-codes NO_LIBPERL.
->>>>
->>>> It does the same for LIBPYTHON while we're at it, since it probably
->>>> suffers from a similar underlying problem and just by chance hasn't
->>>> broken anything yet.
->>>>
->>>> This will be re-enabled after I familiarize myself with the perf
->>>> recipe and am able to create a proper fix.
->>>>
->>>> Signed-off-by: Tom Zanussi<tom.zanussi@intel.com>
->>>>
->>>> :100644 100644 21023da... 7833f65... M
->>>> meta/recipes-kernel/linux/linux-yocto_git.bb
->>>>
->>>> But the issue hadn't been showing up on the -stable .. until now. We
->>>> can cherry
->>>> pick this patch and commit to at least temporarily work around it.
->>>>
->>>> I would have expected the nightly builds to show this one, since not
->>>> all
->>>> supported targets have moved to 2.6.37.
->>>
->>> I just updated to the latest master and started from scratch.
->>> It's still happening :-(
->>>
->>> OE Build Configuration:
->>> BB_VERSION = "1.11.0"
->>> METADATA_BRANCH = "master"
->>> METADATA_REVISION = "beb9166b3adf83c5e864afcb56cf9ea24f55a7c3"
->>> TARGET_ARCH = "i586"
->>> TARGET_OS = "linux"
->>> MACHINE = "atom-pc"
->>> DISTRO = "poky"
->>> DISTRO_VERSION = "0.9+snapshot-20110125"
->>> TARGET_FPU = ""
->>>
->>> | CC util/scripting-engines/trace-event-perl.o
->>> | cc1: warnings being treated as errors
->>> | cc1: error: include location "/usr/local/include" is unsafe for
->>> cross-compilation
->>> | make: *** [util/scripting-engines/trace-event-perl.o] Error 1
->>> | make: Leaving directory
->>> `/home/local/pc_poky/tmp/work/atom-pc-poky-linux/linux-yocto-stable-2.6.34+git1+e1f85a470934a0cf6abde5d95533e74501822c6b_0+35521a5a70316785a67aca1de1d39a7b84c49ccf-r1/linux/tools/perf'
->>>
->>>
->>>
->>> | FATAL: oe_runmake failed
->>> | Function 'do_compile_perf' failed (see
->>> /home/local/pc_poky/tmp/work/atom-pc-poky-linux/linux-yocto-stable-2.6.34+git1+e1f85a470934a0cf6abde5d95533e74501822c6b_0+35521a5a70316785a67aca1de1d39a7b84c49ccf-r1/temp/log.do_compile_perf.8191
->>>
->>>
->>> for further information)
->>> | ERROR: Function 'do_compile_perf' failed (see
->>> /home/local/pc_poky/tmp/work/atom-pc-poky-linux/linux-yocto-stable-2.6.34+git1+e1f85a470934a0cf6abde5d95533e74501822c6b_0+35521a5a70316785a67aca1de1d39a7b84c49ccf-r1/temp/log.do_compile_perf.8191
->>>
->>>
->>> for further information)
->>> NOTE: package
->>> linux-yocto-stable-2.6.34+git1+e1f85a470934a0cf6abde5d95533e74501822c6b_0+35521a5a70316785a67aca1de1d39a7b84c49ccf-r1:
->>>
->>> task do_compile_perf: Failed
->>>
->>> Maybe it has something to do with my build host (Fedora-13, x86)?
->>
->> In this case the host is fine. That commit was on the
->> 2.6.37 kernel, and I used your report as a trigger and
->> backported it to 2.6.34. I have a pull request out now,
->> which should fixup the perf compilation issues once
->> merged.
->
-> Thanks, I'll try it with your patch.
->
-This has been patched in master now also.
+* Disable -Os optspace option not supported by gcc
+* v2 use OPTFLAGS variable, remove meke file patch
+* Bump PR
 
-Sau!
+Signed-off-by: Adrian Alonso <aalonso@secretlab.ca>
+---
+ recipes-bsp/uboot/u-boot-xilinx_git.bb |    6 ++++--
+ 1 files changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/recipes-bsp/uboot/u-boot-xilinx_git.bb b/recipes-bsp/uboot/u-boot-xilinx_git.bb
+index 50d99e3..499ce0b 100644
+--- a/recipes-bsp/uboot/u-boot-xilinx_git.bb
++++ b/recipes-bsp/uboot/u-boot-xilinx_git.bb
+@@ -1,9 +1,11 @@
+ require ../meta/recipes-bsp/uboot/u-boot.inc
+-PR = "r2"
++PR = "r3"
+ 
++OPTFLAGS=""
+ BRANCH="master"
+ TAG="e094f2479ea339d7f48b6826f06f0be4984d9a98"
+-SRC_URI = "git://git.xilinx.com/u-boot-xlnx.git;branch=${BRANCH};protocol=git"
++SRC_URI = "git://git.xilinx.com/u-boot-xlnx.git;branch=${BRANCH};protocol=git \
++          "
+ SRCREV = "${TAG}"
+ 
+ inherit xilinx-boot
+-- 
+1.7.3.4
 
 
