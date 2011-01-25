@@ -1,38 +1,32 @@
-Return-Path: <aalonso00@gmail.com>
-Received: from mail-px0-f176.google.com (mail-px0-f176.google.com
-	[209.85.212.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 8C0934C806DA
-	for <poky@yoctoproject.org>; Tue, 25 Jan 2011 15:02:31 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by pxi11 with SMTP id 11so1153729pxi.35
-	for <poky@yoctoproject.org>; Tue, 25 Jan 2011 13:02:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:sender:from:to:cc:subject:date:message-id
-	:x-mailer; bh=120N4L0ROo6kqvnnhdq7IAefF78vNP9oDTwzqb1DtX4=;
-	b=a7S6DmgI+eJoXyUVqrKQ9NQe6iQwZleR4kLkYgQ/+U6GxjuNaffZvZ/mSYohOWV5ZY
-	rGlu2r135bBdBovDgb8GdI67MWGLmUBzDcuUjYiwtphRd4eCCJZMWtNhDOlAXAOlMurC
-	eJQKHlhr5P9gbTPTNMhi4rh7qnGcxo5W7qDfo=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=sender:from:to:cc:subject:date:message-id:x-mailer;
-	b=bt1pnm8AXcPrGfYSgMyptst5fXzu3A+Yj7ac6u/rOIB0IGQaZL0wNJDGaCBtkVAoJL
-	DpuYWa3vFnoZvompnTXVNl47NKfOmdrq+wYp1Hs9WM9t3DWSFhnl4N4CsJvBtCJFaP/1
-	+FInpXMcr6xzwXFFLK0LJta1exvQIKYaeidgs=
-Received: by 10.142.179.13 with SMTP id b13mr5850179wff.24.1295989350979;
-	Tue, 25 Jan 2011 13:02:30 -0800 (PST)
-Received: from localhost.localdomain ([189.134.128.129])
-	by mx.google.com with ESMTPS id x18sm19310222wfa.23.2011.01.25.13.02.28
-	(version=TLSv1/SSLv3 cipher=RC4-MD5);
-	Tue, 25 Jan 2011 13:02:30 -0800 (PST)
-Sender: Adrian Alonso <aalonso00@gmail.com>
-From: Adrian Alonso <aalonso@secretlab.ca>
-To: poky@yoctoproject.org
-Date: Tue, 25 Jan 2011 15:09:16 -0600
-Message-Id: <1295989756-7967-1-git-send-email-aalonso@secretlab.ca>
-X-Mailer: git-send-email 1.7.3.4
-Cc: Adrian Alonso <aalonso@secretlab.ca>
-Subject: [PATCH 05/25][v2] u-boot: disable -Os option not supported by gcc
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C33714C806DA;
+	Tue, 25 Jan 2011 15:35:41 -0600 (CST)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p0PLbaAJ003672; Tue, 25 Jan 2011 21:37:37 GMT
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id KWAATJ7sFdrq; Tue, 25 Jan 2011 21:37:36 +0000 (GMT)
+Received: from [192.168.1.45] (tim [93.97.173.237]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p0PLbUZJ003666
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Tue, 25 Jan 2011 21:37:32 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Koen Kooi <koen@dominion.thruhere.net>
+In-Reply-To: <02A97CA2-9AA6-48B8-B4DC-E4D9E0AD304D@dominion.thruhere.net>
+References: <1295963829.14388.49564.camel@rex>
+	<F4686931-067A-4564-BDD3-073B8F1BB435@dominion.thruhere.net>
+	<7F187B04-9B3D-4D57-9060-D8B710B59A8A@dominion.thruhere.net>
+	<02A97CA2-9AA6-48B8-B4DC-E4D9E0AD304D@dominion.thruhere.net>
+Date: Tue, 25 Jan 2011 21:35:13 +0000
+Message-ID: <1295991313.27814.55.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+Cc: yocto <yocto@yoctoproject.org>, poky <poky@yoctoproject.org>
+Subject: Re: Major feature changes for the next release - merging very soon
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,36 +38,78 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 25 Jan 2011 21:02:31 -0000
+X-List-Received-Date: Tue, 25 Jan 2011 21:35:42 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-* Disable -Os optspace option not supported by gcc
-* v2 use OPTFLAGS variable, remove meke file patch
-* Bump PR
+On Tue, 2011-01-25 at 20:41 +0100, Koen Kooi wrote:
+> Op 25 jan 2011, om 20:18 heeft Koen Kooi het volgende geschreven:
+> > Switchting from usrp-e1xx (armv7a) to beagleboard (also armv7a) and building console-image again:
+> > 
+> > NOTE: package perl-5.12.2-r0: task do_package: Started
+> > ERROR: Function 'perl_package_preprocess' failed (see /OE/tentacle/build/tmp-angstrom_2010_x/work/armv7a-angstrom-linux-gnueabi/perl-5.12.2-r0/temp/log.do_package.28537 for further information)
+> > ERROR: Logfile of failure stored in: /OE/tentacle/build/tmp-angstrom_2010_x/work/armv7a-angstrom-linux-gnueabi/perl-5.12.2-r0/temp/log.do_package.28537
+> > Log data follows:
+> > | cp: cannot stat `/OE/tentacle/build/tmp-angstrom_2010_x/work/armv7a-angstrom-linux-gnueabi/perl-5.12.2-r0/image/*': No such file or directory
+> > | sed: can't read /OE/tentacle/build/tmp-angstrom_2010_x/work/armv7a-angstrom-linux-gnueabi/perl-5.12.2-r0/package/usr/bin/h2xs: No such file or directory
+> > | sed: can't read /OE/tentacle/build/tmp-angstrom_2010_x/work/armv7a-angstrom-linux-gnueabi/perl-5.12.2-r0/package/usr/bin/h2ph: No such file or directory
+> > | sed: can't read /OE/tentacle/build/tmp-angstrom_2010_x/work/armv7a-angstrom-linux-gnueabi/perl-5.12.2-r0/package/usr/lib/perl/5.12.2/pod/*.pod: No such file or directory
+> > | sed: can't read /OE/tentacle/build/tmp-angstrom_2010_x/work/armv7a-angstrom-linux-gnueabi/perl-5.12.2-r0/package/usr/lib/perl/5.12.2/cacheout.pl: No such file or directory
+> > | sed: can't read /OE/tentacle/build/tmp-angstrom_2010_x/work/armv7a-angstrom-linux-gnueabi/perl-5.12.2-r0/package/usr/lib/perl/5.12.2/FileCache.pm: No such file or directory
+> > | sed: can't read /OE/tentacle/build/tmp-angstrom_2010_x/work/armv7a-angstrom-linux-gnueabi/perl-5.12.2-r0/package/usr/lib/perl/config.sh: No such file or directory
+> > | sed: can't read /OE/tentacle/build/tmp-angstrom_2010_x/work/armv7a-angstrom-linux-gnueabi/perl-5.12.2-r0/package/usr/lib/perl/5.12.2/Config.pm: No such file or directory
+> > | sed: can't read /OE/tentacle/build/tmp-angstrom_2010_x/work/armv7a-angstrom-linux-gnueabi/perl-5.12.2-r0/package/usr/lib/perl/5.12.2/Config_heavy.pl: No such file or directory
+> > | sed: can't read /OE/tentacle/build/tmp-angstrom_2010_x/work/armv7a-angstrom-linux-gnueabi/perl-5.12.2-r0/package/usr/lib/perl/5.12.2/CORE/perl.h: No such file or directory
+> > | sed: can't read /OE/tentacle/build/tmp-angstrom_2010_x/work/armv7a-angstrom-linux-gnueabi/perl-5.12.2-r0/package/usr/lib/perl/5.12.2/CORE/pp.h: No such file or directory
+> > | Function 'perl_package_preprocess' failed (see /OE/tentacle/build/tmp-angstrom_2010_x/work/armv7a-angstrom-linux-gnueabi/perl-5.12.2-r0/temp/log.do_package.28537 for further information)
+> > | ERROR: Function 'perl_package_preprocess' failed (see /OE/tentacle/build/tmp-angstrom_2010_x/work/armv7a-angstrom-linux-gnueabi/perl-5.12.2-r0/temp/log.do_package.28537 for further information)
+> 
+> And another one:
+> 
+> NOTE: package pango-1.28.3-r1.0: task do_package: Started
+> ERROR: Error executing a python function in /OE/tentacle/sources/layers/meta-openembedded/recipes-graphics/pango/pango_1.28.3.bb:
+> OSError: [Errno 2] No such file or directory: '/OE/tentacle/build/tmp-angstrom_2010_x/work/armv7a-angstrom-linux-gnueabi/pango-1.28.3-r1.0/package/usr/lib/pango/1.6.0/modules'
+> 
+> ERROR: The stack trace of python calls that resulted in this exception/failure was:
+> ERROR:   File "populate_packages", line 203, in <module>
+> ERROR:
+> ERROR:   File "populate_packages", line 7, in populate_packages
+> ERROR:
+> ERROR:   File "package.bbclass", line 16, in do_split_packages
+> ERROR:
+> ERROR: The code that was being executed was:
+> ERROR:      0199:                       bb.data.setVar('pkg_prerm_%s' % pkg, prerm, d)
+> ERROR:      0200:
+> ERROR:      0201:
+> ERROR:      0202:
+> ERROR:  *** 0203:populate_packages(d)
+> ERROR:      0204:
+> ERROR: (file: 'populate_packages', lineno: 203, function: <module>)
+> ERROR:      0003:       prologue = bb.data.getVar("postinst_prologue", d, 1)
+> ERROR:      0004:
+> ERROR:      0005:       modules_root = bb.data.expand('/usr/lib/pango/1.6.0/modules', d)
+> ERROR:      0006:
+> ERROR:  *** 0007:       do_split_packages(d, modules_root, '^pango-(.*)\.so$', 'pango-module-%s', 'Pango module %s', prologue + 'pango-querymodules > /etc/pango/pango.modules')
+> ERROR:      0008:       import glob, stat, errno, re
+> ERROR:      0009:
+> ERROR:      0010:       workdir = bb.data.getVar('WORKDIR', d, True)
+> ERROR:      0011:       outdir = bb.data.getVar('DEPLOY_DIR', d, True)
+> ERROR: (file: 'populate_packages', lineno: 7, function: populate_packages)
+> ERROR: Function 'populate_packages' failed
+> ERROR: Logfile of failure stored in: /OE/tentacle/build/tmp-angstrom_2010_x/work/armv7a-angstrom-linux-gnueabi/pango-1.28.3-r1.0/temp/log.do_package.27054
+> 
+> It looks like do_install needs to get rerun on those recipes.
 
-Signed-off-by: Adrian Alonso <aalonso@secretlab.ca>
----
- recipes-bsp/uboot/u-boot-xilinx_git.bb |    6 ++++--
- 1 files changed, 4 insertions(+), 2 deletions(-)
+I think these are due to the fact Koen is using rm_work (confirmed by
+Koen over irc). I agree we need to work out a way to handle this, it
+should help anyone trying to find a fix though.
 
-diff --git a/recipes-bsp/uboot/u-boot-xilinx_git.bb b/recipes-bsp/uboot/u-boot-xilinx_git.bb
-index 50d99e3..499ce0b 100644
---- a/recipes-bsp/uboot/u-boot-xilinx_git.bb
-+++ b/recipes-bsp/uboot/u-boot-xilinx_git.bb
-@@ -1,9 +1,11 @@
- require ../meta/recipes-bsp/uboot/u-boot.inc
--PR = "r2"
-+PR = "r3"
- 
-+OPTFLAGS=""
- BRANCH="master"
- TAG="e094f2479ea339d7f48b6826f06f0be4984d9a98"
--SRC_URI = "git://git.xilinx.com/u-boot-xlnx.git;branch=${BRANCH};protocol=git"
-+SRC_URI = "git://git.xilinx.com/u-boot-xlnx.git;branch=${BRANCH};protocol=git \
-+          "
- SRCREV = "${TAG}"
- 
- inherit xilinx-boot
--- 
-1.7.3.4
+It should be easy to reproduce on Poky master switching between emenlow
+and atom-pc.
+
+Cheers,
+
+Richard
+
 
 
