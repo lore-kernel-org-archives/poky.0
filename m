@@ -1,40 +1,27 @@
-Return-Path: <bruce.ashfield@gmail.com>
-Received: from mail-iy0-f172.google.com (mail-iy0-f172.google.com
-	[209.85.210.172])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2BFDB4C806DA
-	for <poky@lists.pokylinux.org>; Tue, 25 Jan 2011 07:45:23 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by iyi42 with SMTP id 42so5346623iyi.3
-	for <poky@lists.pokylinux.org>; Tue, 25 Jan 2011 05:45:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:in-reply-to:references:date
-	:message-id:subject:from:to:cc:content-type
-	:content-transfer-encoding;
-	bh=n54EjpSPrfzm44l35CTTlyPqhIZqfxrVdNC8hOSqN/4=;
-	b=oLK+oimmivkgmi4FBpYxcNTT3OPtL8ByOs4v61qi1M3EZbpf4xxEIQrSwRdrCKlWFO
-	8OF6xTSItiin7DBN27fTaDXo2itWRQQBRL79D++hYQEdJu5fYt6NVYY7VOsYgHZ8VtaP
-	oS3crBIJsT2kCMwXJ4ZKW61b+q+qjZrUvIHfA=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type:content-transfer-encoding;
-	b=lalkxwfUEdxymxGs7CsYGIDgi4OTgik1pVRCemZe8opufPeLPq/hLdMSdHB8X4j8Yy
-	7h5DlEqXHpQcDATB5mKoBuLe7Raig+4/sspItrMJZML6yeB6cbgL3Fyp4k14NKgm5Wo7
-	2RU+lvHwhEdGNmGc+20EjOOHteNoyLuTd/56w=
-MIME-Version: 1.0
-Received: by 10.231.34.9 with SMTP id j9mr6488420ibd.137.1295963117519; Tue,
-	25 Jan 2011 05:45:17 -0800 (PST)
-Received: by 10.231.156.136 with HTTP; Tue, 25 Jan 2011 05:45:17 -0800 (PST)
-In-Reply-To: <4D3EBD30.2070708@mlbassoc.com>
-References: <4D3D6AFC.8060300@mlbassoc.com> <1295872759.14388.44775.camel@rex>
-	<4D3E0323.2080905@linux.intel.com> <4D3EBD30.2070708@mlbassoc.com>
-Date: Tue, 25 Jan 2011 08:45:17 -0500
-Message-ID: <AANLkTimCPy=tcgDqqgiT6Lzu7z=KZLvBA9839Y12=Gj8@mail.gmail.com>
-From: Bruce Ashfield <bruce.ashfield@gmail.com>
-To: Gary Thomas <gary@mlbassoc.com>
-Cc: Poky <poky@lists.pokylinux.org>
-Subject: Re: Poky on "standard" PC
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by mx1.pokylinux.org (Postfix) with ESMTP id B80B34C806DA;
+	Tue, 25 Jan 2011 07:57:37 -0600 (CST)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p0PDxSWn011426; Tue, 25 Jan 2011 13:59:29 GMT
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id Xk+KpjvYYjVt; Tue, 25 Jan 2011 13:59:28 +0000 (GMT)
+Received: from [192.168.1.45] (tim [93.97.173.237]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p0PDxPPA011422
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Tue, 25 Jan 2011 13:59:27 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: poky <poky@yoctoproject.org>
+Date: Tue, 25 Jan 2011 13:57:09 +0000
+Message-ID: <1295963829.14388.49564.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+Cc: yocto <yocto@yoctoproject.org>
+Subject: Major feature changes for the next release - merging very soon
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,108 +33,65 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 25 Jan 2011 13:45:23 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Tue, 25 Jan 2011 13:57:38 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-On Tue, Jan 25, 2011 at 7:08 AM, Gary Thomas <gary@mlbassoc.com> wrote:
-> On 01/24/2011 03:54 PM, Darren Hart wrote:
->>
->> On 01/24/2011 04:39 AM, Richard Purdie wrote:
->>>
->>> On Mon, 2011-01-24 at 05:05 -0700, Gary Thomas wrote:
->>>>
->>>> I wanted to try Poky on a spare laptop, so I went looking
->>>> for an appropriate configuration to build.
->>>>
->>>> From 'README.hardware' (last updated 2010-12-16), I read:
->>>> Poky Boot CD (bootcdx86)
->>>> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D
->>>>
->>>> The Poky boot CD iso images are designed as a demonstration of the Pok=
-y
->>>> environment and to show the versatile image formats Poky can generate.
->>>> It will
->>>> run on Pentium2 or greater PC style computers. The iso image can be
->>>> burnt to CD and then booted from.
->>>>
->>>> When I tried it (it's also listed in the default local.conf),
->>>> I got this error:
->>>> Please set TARGET_ARCH directly, or choose a MACHINE or DISTRO that do=
-es
->>>> so.
->>>> Please set a valid MACHINE in your local.conf
->>>>
->>>> There seems to be no machine named 'bootcd*' anywhere :-(
->>>>
->>>> What should I be using?
->>>
->>> bootcdx86 was superceeded by the -live images. I'd suggest using the
->>> qemux86 or atom-pc machines and building a -live image, dd that to a us=
-b
->>> stick and boot that on the laptop. An iso format image is also generate=
-d
->>> that can be placed onto a CD.
->>
->> It will have to be atom-pc as qemu doesn't provide live images (last I
->> checked, a few weeks back).
->
-> Sadly, this doesn't build :-( =A0Failed in compile_perf, log attached.
+As has been mentioned in other emails we're working on some major
+enhancements for the next release. Several components of these are now
+ready for merging to the master branch. These include:
 
-Hmm. This one was worked around a while ago via:
+* Rework of the compiler bootstrap process
 
-commit d38ad3271829b2d282c973e69edd265ef52174c8
-Author: Tom Zanussi <tom.zanussi@intel.com>
-Date:   Fri Jan 14 16:33:05 2011 -0600
+If you've ever tried to run "bitbake eglibc -c clean;bitbake eglibc" or
+any of the gcc components you'll have run into issues with the compiler
+bootstrap process overwriting files. This also causes problems for
+sstate as it doesn't get on well with two sstate archives providing the
+same file.
 
-    linux-yocto: hard-code NO_LIBPERL/NO_LIBPYTHON
+The changes we have queued split the intermediate components into a
+separate sysroot so no files are overwritten and the whole process is
+less fragile and more robust. Each gcc-cross step (initial, intermediate
+and final) also stage binaries in separate locations.
 
-    ExtUtils::Embed ccopts is getting the host's -I/usr/local/include and
-    using it to compile perf, which results in a compilation error that
-    started appearing just recently.
+* Changes to sysroot structure
 
-    This turns the code that makes use of ExtUtils::Embed off and simply
-    hard-codes NO_LIBPERL.
+We now support creating a sysroot per machine target rather than the
+original multimachine approach we have used. This means packages with an
+"all" architecture can be safely installed into the sysroot and used
+correctly fixing bugs in that area and it also allows machines like
+emenlow which have separate graphics components to build and work
+correctly yet be able to share builds with other machines like atom-pc.
 
-    It does the same for LIBPYTHON while we're at it, since it probably
-    suffers from a similar underlying problem and just by chance hasn't
-    broken anything yet.
+If you change machine and the machine you change to shares a core
+architecture with a previous build, the components from that previous
+build will be used to construct a new sysroot using the sstate prebuilt
+packages.
 
-    This will be re-enabled after I familiarize myself with the perf
-    recipe and am able to create a proper fix.
+The branch I'm planning to merge very soon with these features is:
 
-    Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
+http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=rpurdie/tt-bootstrap
 
-:100644 100644 21023da... 7833f65... M
-meta/recipes-kernel/linux/linux-yocto_git.bb
+There are also some changes in there to fix pseudo issues people have
+been seeing and there are some fetcher changes in there moving us
+towards more reliability in the fetcher.
 
-But the issue hadn't been showing up on the -stable .. until now. We can ch=
-erry
-pick this patch and commit to at least temporarily work around it.
+Due to the nature of the changes, people are going to have to wipe
+tmpdir and rebuild after these changes and anyone trying to use an
+existing build will see an error message. We try hard to avoid requiring
+this but this is a side effect of making significant structural
+improvements like the above. Just to be 100% safe I changed the sstate
+version number too, invalidating previous sstate packages due to the
+structure changes.
 
-I would have expected the nightly builds to show this one, since not all
-supported targets have moved to 2.6.37.
+Since this is a new development there may be a few bumps as we merge
+things, I think these developments are exciting and fix long standing
+problems so please bare with us as we work though any issues!
 
-Bruce
+Cheers,
 
->
-> --
-> ------------------------------------------------------------
-> Gary Thomas =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 | =A0Consulting for the
-> MLB Associates =A0 =A0 =A0 =A0 =A0 =A0 =A0| =A0 =A0Embedded world
-> ------------------------------------------------------------
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
->
+Richard
 
 
 
---=20
-"Thou shalt not follow the NULL pointer, for chaos and madness await
-thee at its end"
 
