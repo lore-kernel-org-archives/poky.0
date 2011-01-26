@@ -1,26 +1,25 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 1912E4C81199
-	for <poky@yoctoproject.org>; Tue, 25 Jan 2011 18:27:06 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 25 Jan 2011 16:27:05 -0800
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 300DC4C806DA
+	for <poky@lists.pokylinux.org>; Tue, 25 Jan 2011 18:30:26 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 25 Jan 2011 16:30:16 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,377,1291622400"; d="scan'208";a="651168664"
-Received: from unknown (HELO [10.255.14.118]) ([10.255.14.118])
-	by fmsmga002.fm.intel.com with ESMTP; 25 Jan 2011 16:27:05 -0800
-Message-ID: <4D3F6A59.2070005@intel.com>
-Date: Tue, 25 Jan 2011 16:27:05 -0800
-From: Saul Wold <saul.wold@intel.com>
+X-IronPort-AV: E=Sophos;i="4.60,377,1291622400"; d="scan'208";a="596465609"
+Received: from unknown (HELO [10.255.14.185]) ([10.255.14.185])
+	by orsmga002.jf.intel.com with ESMTP; 25 Jan 2011 16:30:16 -0800
+Message-ID: <4D3F6B17.60501@linux.intel.com>
+Date: Tue, 25 Jan 2011 16:30:15 -0800
+From: Darren Hart <dvhart@linux.intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
+	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
 MIME-Version: 1.0
-To: "Rifenbark, Scott M" <scott.m.rifenbark@intel.com>
-References: <625BA99ED14B2D499DC4E29D8138F1504DB5BB7093@shsmsx502.ccr.corp.intel.com>
-	<DE8BA75F34A0404282AC5E15F691BC7607C30ABD@orsmsx504.amr.corp.intel.com>
-In-Reply-To: <DE8BA75F34A0404282AC5E15F691BC7607C30ABD@orsmsx504.amr.corp.intel.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: question about the sender of this mailing list
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+References: <4D3D6AFC.8060300@mlbassoc.com>	 <1295872759.14388.44775.camel@rex>
+	<4D3E0323.2080905@linux.intel.com> <1295995942.27814.248.camel@rex>
+In-Reply-To: <1295995942.27814.248.camel@rex>
+Cc: Poky <poky@lists.pokylinux.org>
+Subject: Re: Poky on "standard" PC
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,53 +31,78 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 26 Jan 2011 00:27:06 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Wed, 26 Jan 2011 00:30:29 -0000
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 01/25/2011 04:25 PM, Rifenbark, Scott M wrote:
-> I had some screwed up author and email stuff in a push I did from a new linux box Kevin.
-> My particular problem was I did not have a .gitconfig file on my new box.  So when I did the
-> commits it tried to make up stuff based on my system's name.
+On 01/25/2011 02:52 PM, Richard Purdie wrote:
+> On Mon, 2011-01-24 at 14:54 -0800, Darren Hart wrote:
+>> On 01/24/2011 04:39 AM, Richard Purdie wrote:
+>>> On Mon, 2011-01-24 at 05:05 -0700, Gary Thomas wrote:
+>>>> I wanted to try Poky on a spare laptop, so I went looking
+>>>> for an appropriate configuration to build.
+>>>>
+>>>>    From 'README.hardware' (last updated 2010-12-16), I read:
+>>>>      Poky Boot CD (bootcdx86)
+>>>>      ========================
+>>>>
+>>>>      The Poky boot CD iso images are designed as a demonstration of the Poky
+>>>>      environment and to show the versatile image formats Poky can generate. It will
+>>>>      run on Pentium2 or greater PC style computers. The iso image can be
+>>>>      burnt to CD and then booted from.
+>>>>
+>>>> When I tried it (it's also listed in the default local.conf),
+>>>> I got this error:
+>>>>      Please set TARGET_ARCH directly, or choose a MACHINE or DISTRO that does so.
+>>>>      Please set a valid MACHINE in your local.conf
+>>>>
+>>>> There seems to be no machine named 'bootcd*' anywhere :-(
+>>>>
+>>>> What should I be using?
+>>>
+>>> bootcdx86 was superceeded by the -live images. I'd suggest using the
+>>> qemux86 or atom-pc machines and building a -live image, dd that to a usb
+>>> stick and boot that on the laptop. An iso format image is also generated
+>>> that can be placed onto a CD.
+>>
+>> It will have to be atom-pc as qemu doesn't provide live images (last I
+>> checked, a few weeks back).
 >
-This is a different issue not related to the mailing list.
+> I don't see why the qemu machine wouldn't work for the live image
+> variants, even if we don't build them by default on the autobuilder?
 
-Sau!
+When I run:
+
+$ MACHINE="qemux86" bitbake poky-image-minimal-live
+
+it results it:
+
+ERROR: 
+'/home/dvhart/data/poky.git/meta/recipes-core/images/poky-image-minimal-live.bb' 
+failed
+ERROR: Function 'build_boot_bin' failed (see 
+/vol/1/dvhart/poky.git/build/tmp/work/i586-poky-linux/poky-image-minimal-live-1.0-r0/temp/log.do_bootimg.18423 
+for further information)
+ERROR: Logfile of failure stored in: 
+/vol/1/dvhart/poky.git/build/tmp/work/i586-poky-linux/poky-image-minimal-live-1.0-r0/temp/log.do_bootimg.18423
+Log data follows:
+| install: cannot stat 
+`/vol/1/dvhart/poky.git/build/tmp/sysroots/qemux86-poky-linux/kernel/bzImage': 
+No such file or directory
+| Function 'build_boot_bin' failed (see 
+/vol/1/dvhart/poky.git/build/tmp/work/i586-poky-linux/poky-image-minimal-live-1.0-r0/temp/log.do_bootimg.18423 
+for further information)
+| ERROR: Function 'build_boot_bin' failed (see 
+/vol/1/dvhart/poky.git/build/tmp/work/i586-poky-linux/poky-image-minimal-live-1.0-r0/temp/log.do_bootimg.18423 
+for further information)
+NOTE: package poky-image-minimal-live-1.0-r0: task build_boot_bin: Failed
+ERROR: Task 9 
+(/home/dvhart/data/poky.git/meta/recipes-core/images/poky-image-minimal-live.bb, 
+do_bootimg) failed with exit code '1'
 
 
-> ScottR
->
-> -----Original Message-----
-> From: poky-bounces@yoctoproject.org [mailto:poky-bounces@yoctoproject.org] On Behalf Of Tian, Kevin
-> Sent: Tuesday, January 25, 2011 4:21 PM
-> To: poky@yoctoproject.org
-> Subject: [poky] question about the sender of this mailing list
->
-> Hi, all,
->
-> I just found one weird change today.
->
-> Normally I received mails from this list by:
-> 	Poky-bounces@yoctoproject.org on behalf of someone
->
-> That way in my inbox I can sort the mails by the sender names, which is also the most typical way I see in most projects
->
-> However today I also saw some plain senders:
-> 	Poky-bounces@yoctoproject.org
-> (from Josh, Edwin, Scott...)
->
-> Does anyone know what may be the cause for this?
->
-> Thanks
-> Kevin
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
-
+--
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
