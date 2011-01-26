@@ -1,38 +1,28 @@
-Return-Path: <dongxiao.xu@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E8D924C811AA;
-	Wed, 26 Jan 2011 02:43:36 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 26 Jan 2011 00:43:36 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,379,1291622400"; d="scan'208";a="596569064"
-Received: from pgsmsx601.gar.corp.intel.com ([10.221.43.69])
-	by orsmga002.jf.intel.com with ESMTP; 26 Jan 2011 00:43:35 -0800
-Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
-	pgsmsx601.gar.corp.intel.com (10.221.43.69) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Wed, 26 Jan 2011 16:43:23 +0800
-Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
-	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
-	Wed, 26 Jan 2011 16:43:13 +0800
-From: "Xu, Dongxiao" <dongxiao.xu@intel.com>
-To: Koen Kooi <koen@dominion.thruhere.net>, "poky-bounces@yoctoproject.org"
-	<poky-bounces@yoctoproject.org>
-Date: Wed, 26 Jan 2011 16:43:12 +0800
-Thread-Topic: [poky] [PATCH 1/1] rm_work.bbclass: reserve 'image' folder
-	when	remove WORKDIR
-Thread-Index: Acu9MmYVVeYdbCWdTrmK/sosBab+/wAAI+gQ
-Message-ID: <D5AB6E638E5A3E4B8F4406B113A5A19A31D0CB5E@shsmsx501.ccr.corp.intel.com>
-References: <cover.1296023140.git.dongxiao.xu@intel.com>
-	<4da3cd3c9adebd3279b376a1f7aa2a0353484ecd.1296023140.git.dongxiao.xu@intel.com>
-	<E0264D9A-19E7-4EB3-AED5-EDEB6A4F30E0@dominion.thruhere.net>
-In-Reply-To: <E0264D9A-19E7-4EB3-AED5-EDEB6A4F30E0@dominion.thruhere.net>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
-MIME-Version: 1.0
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 1/1] rm_work.bbclass: reserve 'image' folder when	remove WORKDIR
+Return-Path: <koen@dominion.thruhere.net>
+Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
+	[74.125.82.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id F2EB84C811AA;
+	Wed, 26 Jan 2011 02:48:07 -0600 (CST)
+Received: by wye20 with SMTP id 20so695344wye.35
+	for <multiple recipients>; Wed, 26 Jan 2011 00:48:07 -0800 (PST)
+Received: by 10.227.182.68 with SMTP id cb4mr7065508wbb.218.1296031685477;
+	Wed, 26 Jan 2011 00:48:05 -0800 (PST)
+Received: from [172.20.0.255] (ip545070eb.adsl-surfen.hetnet.nl
+	[84.80.112.235])
+	by mx.google.com with ESMTPS id n1sm7637564weq.31.2011.01.26.00.48.04
+	(version=TLSv1/SSLv3 cipher=RC4-MD5);
+	Wed, 26 Jan 2011 00:48:04 -0800 (PST)
+Mime-Version: 1.0 (Apple Message framework v1082)
+From: Koen Kooi <koen@dominion.thruhere.net>
+In-Reply-To: <5eb33f8529e5b56387f7c51f11e50d3c2b031370.1296008816.git.ke.yu@intel.com>
+Date: Wed, 26 Jan 2011 09:48:03 +0100
+Cc: poky@yoctoproject.org
+Message-Id: <10A1EBA3-1693-4FED-8255-CBF6C7804357@dominion.thruhere.net>
+References: <cover.1296008816.git.ke.yu@intel.com>
+	<5eb33f8529e5b56387f7c51f11e50d3c2b031370.1296008816.git.ke.yu@intel.com>
+To: poky-bounces@yoctoproject.org
+X-Mailer: Apple Mail (2.1082)
+Subject: Re: [PATCH 2/2] xf86-video-omapfb: upgrade to 044617665d6737f4909aab96
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,57 +34,52 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 26 Jan 2011 08:43:38 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
+X-List-Received-Date: Wed, 26 Jan 2011 08:48:08 -0000
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: quoted-printable
 
-Koen Kooi wrote:
-> Op 26 jan 2011, om 07:30 heeft poky-bounces@yoctoproject.org het
-> volgende geschreven:=20
+That revision is buggy, using it disables the framebuffer:
+
+[   34.354583] omapdss DISPC error: timeout waiting for EVSYNC
+[   34.456146] omapdss DISPC error: timeout waiting for EVSYNC
+
+
+Op 26 jan 2011, om 03:29 heeft poky-bounces@yoctoproject.org het =
+volgende geschreven:
+
+> From: Yu Ke <ke.yu@intel.com>
 >=20
->> From: Dongxiao Xu <dongxiao.xu@intel.com>
->>=20
->> After the implementation of per machine sysroot, do_populate_sysroot
->> and do_package need to be re-run if we build two machines of one
->> architecture (in case that sstate prebuilt result could not be reused
->> for certain recipes). But if removing all the WORKDIR contents after
->> the first macine build, the second machine's do_populate_sysroot and
->> do_package will fail due to the missing of "image" directory.
->>=20
->> Thus reserve 'image' folder when doing rm_work.
+> Signed-off-by: Yu Ke <ke.yu@intel.com>
+> ---
+> .../conf/distro/include/poky-default-revisions.inc |    2 +-
+> 1 files changed, 1 insertions(+), 1 deletions(-)
 >=20
-> Wouldn't adding do_install to sstate be a better idea? OE was
-> designed that it wouldn't depend on WORKDIR after building, so this
-> patch is a step in the wrong direction. =20
-
-Hi Koen,
-
-Thanks for your suggestions, however this may not help to solve this issue.
-
-The senario of the above issue is, build one machine firstly, doing rm_work=
-, and then try to build the second machine of the same architecture. Some c=
-ertain recipe's prebuilt result could not be shared between machines.
-
-After the first machine finishes the build, most contents in ${WORKDIR} has=
- been removed by "rm_work". Prebuilt result could not be shared for certain=
- recipes. For those recipes, the second machine finds that most of the reci=
-pe stamp files are already there (do_fetch, do_unpack, do_patch, ...) excep=
-t do_populate_sysroot and do_package, which contains ${MACHINE} tag, thus i=
-t will try to re-run do_populate_sysroot and do_package, which relies on th=
-e existence of "image" directory.
-
-So even we add the do_install in sstate, the above issue could not be solve=
-d because it is triggered when certain recipe's sstate prebuilt result coul=
-d *not* be shared.
-
-Thanks,
-Dongxiao
-
+> diff --git a/meta/conf/distro/include/poky-default-revisions.inc =
+b/meta/conf/distro/include/poky-default-revisions.inc
+> index 8d98eef..a606889 100644
+> --- a/meta/conf/distro/include/poky-default-revisions.inc
+> +++ b/meta/conf/distro/include/poky-default-revisions.inc
+> @@ -182,7 +182,7 @@ SRCREV_pn-xcb-proto ??=3D =
+"d81ca233e98be8fa59e8c90d262c0516944c5a66"
+> SRCREV_pn-xcb-proto-native ??=3D =
+"d81ca233e98be8fa59e8c90d262c0516944c5a66"
+> SRCREV_pn-xf86-video-intel ??=3D =
+"87ea531c5dc5b39809395b277c330854aaaaf019"
+> SRCREV_pn-xf86-video-intel-dri2 ??=3D =
+"3dd7f0f9423bb891bc99cd3b77dc3d57e057a7ef"
+> -SRCREV_pn-xf86-video-omapfb ??=3D =
+"6cff996abcb305460e9fa2c75569b776f099c9d5"
+> +SRCREV_pn-xf86-video-omapfb ??=3D =
+"044617665d6737f4909aab96f91b06261dff05d2"
+> SRCREV_pn-xf86-input-keyboard ??=3D =
+"3e28d68b50d291938734e9684b8296ca864f3892"
+> SRCREV_pn-xf86-input-mouse ??=3D =
+"ea5cfe804e112f320f14ad896c7802d53551d3e6"
+> SRCREV_pn-xf86-input-synaptics ??=3D =
+"934bc0012f948c52aadc8eda912f7728fb7394a2"
+> --=20
+> 1.7.0.4
 >=20
-> regards,
->=20
-> Koen
 > _______________________________________________
 > poky mailing list
 > poky@yoctoproject.org
