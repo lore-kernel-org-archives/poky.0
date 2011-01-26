@@ -1,42 +1,30 @@
-Return-Path: <bruce.ashfield@gmail.com>
-Received: from mail-iw0-f172.google.com (mail-iw0-f172.google.com
-	[209.85.214.172])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 8FFE14C80594
-	for <poky@lists.pokylinux.org>; Wed, 26 Jan 2011 15:22:46 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by iwn40 with SMTP id 40so1371055iwn.3
-	for <poky@lists.pokylinux.org>; Wed, 26 Jan 2011 13:22:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:in-reply-to:references:date
-	:message-id:subject:from:to:cc:content-type
-	:content-transfer-encoding;
-	bh=VFYxwTFUVGFEFRPZTCyXKXdEWhHAq1svHB0wkR/L5Y8=;
-	b=PN69TPqvknVfhlejQ90J7VKB85QyHiTQ/HSrqaKmdTjQ9nDNdCvcrBF+r6DHCptqCn
-	0TQBnG6W0gIRdfj/hq3OtuA2I27xxhmu6Uzid4fvFhOXAlyt938giGoKAqnba+isH5jY
-	Hy3g84RRLkmwKQkE48/MDRKavUX3ctwby6Ock=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type:content-transfer-encoding;
-	b=wpU/xz7deTOzrbUwse5TO/2v0Rlwf+ovVklhdgiqdJJo75kPZMS+ZA6sCGncfmPNGA
-	G7OujFVZoDEbAOH517gbHsqdkt1JbfcFzx6V2aL5maZO7y5De2p4dLhZkJReXA1XtAqY
-	99ihSLHlo1PH0ivHos6W4DONsV8hHDfx/7srM=
-MIME-Version: 1.0
-Received: by 10.231.35.131 with SMTP id p3mr8785798ibd.87.1296076965971; Wed,
-	26 Jan 2011 13:22:45 -0800 (PST)
-Received: by 10.231.156.136 with HTTP; Wed, 26 Jan 2011 13:22:45 -0800 (PST)
-In-Reply-To: <AANLkTi=dEAcr6VsW89fJo+55ud3a5-KabEj+shyj6Ag8@mail.gmail.com>
-References: <4D40251F.5070906@mlbassoc.com> <4D4026AC.1030706@mlbassoc.com>
-	<AANLkTimteGhJd8rRdTYAnZAWP_a54_WuRpQ_P84pns8q@mail.gmail.com>
-	<4D402D0E.9060400@mlbassoc.com>
-	<AANLkTi=dEAcr6VsW89fJo+55ud3a5-KabEj+shyj6Ag8@mail.gmail.com>
-Date: Wed, 26 Jan 2011 16:22:45 -0500
-Message-ID: <AANLkTim7aPP7yUtYSPtF4u1Zne_hzZMCANcmoF6JqsPN@mail.gmail.com>
-From: Bruce Ashfield <bruce.ashfield@gmail.com>
-To: Gary Thomas <gary@mlbassoc.com>
-Cc: Poky <poky@lists.pokylinux.org>
-Subject: Re: No joy on "standard" PC
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 351064C80594
+	for <poky@yoctoproject.org>; Wed, 26 Jan 2011 15:25:29 -0600 (CST)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p0QLRON2026453; Wed, 26 Jan 2011 21:27:25 GMT
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id neF5Kd8wFx25; Wed, 26 Jan 2011 21:27:24 +0000 (GMT)
+Received: from [192.168.1.45] (tim [93.97.173.237]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p0QLRIEE026441
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Wed, 26 Jan 2011 21:27:20 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: "dongxiao.xu" <dongxiao.xu@intel.com>
+In-Reply-To: <4da3cd3c9adebd3279b376a1f7aa2a0353484ecd.1296023140.git.dongxiao.xu@intel.com>
+References: <cover.1296023140.git.dongxiao.xu@intel.com>
+	<4da3cd3c9adebd3279b376a1f7aa2a0353484ecd.1296023140.git.dongxiao.xu@intel.com>
+Date: Wed, 26 Jan 2011 21:24:57 +0000
+Message-ID: <1296077097.27814.4523.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 1/1] rm_work.bbclass: reserve 'image' folder when remove WORKDIR
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -48,96 +36,90 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 26 Jan 2011 21:22:46 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Wed, 26 Jan 2011 21:25:30 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-On Wed, Jan 26, 2011 at 9:24 AM, Bruce Ashfield
-<bruce.ashfield@gmail.com> wrote:
-> On Wed, Jan 26, 2011 at 9:17 AM, Gary Thomas <gary@mlbassoc.com> wrote:
->> On 01/26/2011 06:58 AM, Bruce Ashfield wrote:
->>>
->>> On Wed, Jan 26, 2011 at 8:50 AM, Gary Thomas<gary@mlbassoc.com> =A0wrot=
-e:
->>>>
->>>> On 01/26/2011 06:43 AM, Gary Thomas wrote:
->>>>>
->>>>> I finally got Poky to build for a standard PC (actually atom-pc
->>>>> so I could build a live/bootable image). Sadly, that's all I
->>>>> have is an image as I can't get it to run anywhere :-(
->>>>>
->>>>> * On my laptop (the point of this exercise) which is an older
->>>>> Pentium-III machine, the kernel crashes almost immediately.
->>>>
->>>> Exact same failure on my [newer] AMD/2800 tower.
->>>
->>> I'll start some builds up here and see how things perform around
->>> here. =A0I've largely been building and booting the emulator for
->>> x86 and the non-x86 hardware targets. But this sounds like something
->>> worth taking for a spin.
->>
->> Thanks. =A0FAOD, here's my build setup:
->> =A0OE Build Configuration:
->> =A0BB_VERSION =A0 =A0 =A0 =A0=3D "1.11.0"
->> =A0METADATA_BRANCH =A0 =3D "local_master"
->> =A0METADATA_REVISION =3D "db9b8bc9a34f3f486d6ce948a073a1f042d9dbb7"
->> =A0TARGET_ARCH =A0 =A0 =A0 =3D "i586"
->> =A0TARGET_OS =A0 =A0 =A0 =A0 =3D "linux"
->> =A0MACHINE =A0 =A0 =A0 =A0 =A0 =3D "atom-pc"
->> =A0DISTRO =A0 =A0 =A0 =A0 =A0 =A0=3D "poky"
->> =A0DISTRO_VERSION =A0 =A0=3D "0.9+snapshot-20110126"
->> =A0TARGET_FPU =A0 =A0 =A0 =A0=3D ""
->>
->
-> perfect. This matches what I launched a few minutes ago.
+On Wed, 2011-01-26 at 14:30 +0800, poky-bounces@yoctoproject.org wrote:
+> From: Dongxiao Xu <dongxiao.xu@intel.com>
+> 
+> After the implementation of per machine sysroot, do_populate_sysroot
+> and do_package need to be re-run if we build two machines of one
+> architecture (in case that sstate prebuilt result could not be reused
+> for certain recipes). But if removing all the WORKDIR contents after
+> the first macine build, the second machine's do_populate_sysroot and
+> do_package will fail due to the missing of "image" directory.
+> 
+> Thus reserve 'image' folder when doing rm_work.
 
-This probably won't be all that helpful .. but I built and booted the
-atom-pc in both the minimal and sdk images via a usb stick by
-following the instructions in README.hardware.
+Whilst I understand the intent, this is just putting wallpaper over
+cracks, sooner or later the crack will reappear, possibly worse than
+before.
 
-(this was the 2.6.34 kernel, the 2.6.37 kernel still needs some more option=
-s)
+For example if you run "bitbake xxx -c install -f" for a target xxx
+which has had rm_work run against it, the result will be a nasty error
+in Poky.
 
-This was an old pentium (pentium 4) target I had here, so nothing
-special.
+OE's rm_work.bbclass is a little cleverer than ours and has this:
 
-What was your boot media ? hard disk ?
+addhandler rmwork_stampfixing_eventhandler
+python rmwork_stampfixing_eventhandler() {
+    if bb.event.getName(e) == "StampUpdate":
+        for (fn, task) in e.targets:
+            if task == 'rm_work_all':
+                continue
+            stamp = "%s.do_rm_work" % e.stampPrefix[fn]
+            if os.path.exists(stamp):
+                dir = "%s.*" % e.stampPrefix[fn]
+                bb.note("Removing stamps: " + dir)
+                os.system('rm -f '+ dir)
+}
 
-Bruce
+which is intended to fix my specific example above. It won't fix the new
+corner cases we've introduced with machine specific sysroots though. So
+what do we do to fix this?
 
->
-> Bruce
->
->> Host CPU =3D Fedora-13/x86
->> Building poky-image-sato-live.
->>
->>>>
->>>>>
->>>>> * On my brand new laptop (Core-i3), I couldn't get it to even
->>>>> try...
->>>>>
->>>>> * On a VirtualBox machine, it boots but then sits forever
->>>>> "waiting for removable media"...
->>>>>
->>>>> Oh well, back to my OMAP that at least boots :-(
->>
->> --
->> ------------------------------------------------------------
->> Gary Thomas =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 | =A0Consulting for the
->> MLB Associates =A0 =A0 =A0 =A0 =A0 =A0 =A0| =A0 =A0Embedded world
->> ------------------------------------------------------------
->>
->
->
->
-> --
-> "Thou shalt not follow the NULL pointer, for chaos and madness await
-> thee at its end"
->
+I'm actually tempted to tie together rm_work, sstate and the scenequeue.
+When rm_work wipes out the workdir, it also migrates the stamps into
+_setscene stamps as if the package had been installed by sstate. We'd
+then remove the unpack, fetch, patch and so on stamps just leaving the
+setscene varients. This would mean the above wouldn't be needed and most
+things should "just work".
 
+So to be specific, we'd take stamps like:
 
+xxx-1.4.7-r3.do_compile
+xxx-1.4.7-r3.do_configure
+xxx-1.4.7-r3.do_fetch
+xxx-1.4.7-r3.do_generate_toolchain_file
+xxx-1.4.7-r3.do_install
+xxx-1.4.7-r3.do_package.emenlow
+xxx-1.4.7-r3.do_package_write
+xxx-1.4.7-r3.do_package_write_ipk
+xxx-1.4.7-r3.do_package_write_rpm
+xxx-1.4.7-r3.do_patch
+xxx-1.4.7-r3.do_populate_sysroot.emenlow
+xxx-1.4.7-r3.do_setscene
+xxx-1.4.7-r3.do_unpack
 
---=20
-"Thou shalt not follow the NULL pointer, for chaos and madness await
-thee at its end"
+and end up with:
+
+xxx-1.4.7-r3.do_package_setscene.emenlow
+xxx-1.4.7-r3.do_package_write_ipk_setscene
+xxx-1.4.7-r3.do_package_write_rpm_setscene
+xxx-1.4.7-r3.do_populate_sysroot_setscene.emenlow
+
+Does that sound reasonable?
+
+Then both codepaths use the same underlying code and everything should
+be fine apart from some hardcoded assumptions about stamp filenames
+which we'll probably just have to live with for now. The function will
+need to handle stamps including the taskhash too, e.g.:
+
+xxx-1.4.7-r3.do_unpack.HASHHERE
+
+Cheers,
+
+Richard
+
 
