@@ -1,27 +1,25 @@
 Return-Path: <dvhart@linux.intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9B2F44C81146
-	for <poky@lists.pokylinux.org>; Wed, 26 Jan 2011 13:31:17 -0600 (CST)
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4F39B4C811A5
+	for <poky@yoctoproject.org>; Wed, 26 Jan 2011 13:32:58 -0600 (CST)
 Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 26 Jan 2011 11:31:17 -0800
+	by azsmga101.ch.intel.com with ESMTP; 26 Jan 2011 11:32:57 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,381,1291622400"; d="scan'208";a="380317470"
+X-IronPort-AV: E=Sophos;i="4.60,381,1291622400"; d="scan'208";a="380318373"
 Received: from unknown (HELO [10.255.14.182]) ([10.255.14.182])
-	by azsmga001.ch.intel.com with ESMTP; 26 Jan 2011 11:31:16 -0800
-Message-ID: <4D407679.4040403@linux.intel.com>
-Date: Wed, 26 Jan 2011 11:31:05 -0800
+	by azsmga001.ch.intel.com with ESMTP; 26 Jan 2011 11:32:57 -0800
+Message-ID: <4D4076DE.7060502@linux.intel.com>
+Date: Wed, 26 Jan 2011 11:32:46 -0800
 From: Darren Hart <dvhart@linux.intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
 MIME-Version: 1.0
-To: Gary Thomas <gary@mlbassoc.com>
-References: <4D3D6AFC.8060300@mlbassoc.com>	
-	<1295872759.14388.44775.camel@rex>	<4D3E0323.2080905@linux.intel.com>
-	<1295995942.27814.248.camel@rex> <4D3F6B17.60501@linux.intel.com>
-	<4D3F7AC8.4030102@mlbassoc.com>
-In-Reply-To: <4D3F7AC8.4030102@mlbassoc.com>
-Cc: Poky <poky@lists.pokylinux.org>
-Subject: Re: Poky on "standard" PC
+To: Adrian Alonso <aalonso@secretlab.ca>
+References: <1296063743-4676-1-git-send-email-aalonso@secretlab.ca>	<4D406152.3010009@linux.intel.com>	<4D4067CF.3010505@linux.intel.com>
+	<AANLkTimDkigWN8YWY5Smkg8hio90CFchy3jum8QNtdoU@mail.gmail.com>
+In-Reply-To: <AANLkTimDkigWN8YWY5Smkg8hio90CFchy3jum8QNtdoU@mail.gmail.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 05/25][v3] u-boot: disable -Os option not supported by gcc
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,92 +31,108 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 26 Jan 2011 19:31:17 -0000
+X-List-Received-Date: Wed, 26 Jan 2011 19:32:58 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 01/25/2011 05:37 PM, Gary Thomas wrote:
-> On 01/25/2011 05:30 PM, Darren Hart wrote:
->> On 01/25/2011 02:52 PM, Richard Purdie wrote:
->>> On Mon, 2011-01-24 at 14:54 -0800, Darren Hart wrote:
->>>> On 01/24/2011 04:39 AM, Richard Purdie wrote:
->>>>> On Mon, 2011-01-24 at 05:05 -0700, Gary Thomas wrote:
->>>>>> I wanted to try Poky on a spare laptop, so I went looking
->>>>>> for an appropriate configuration to build.
->>>>>>
->>>>>> From 'README.hardware' (last updated 2010-12-16), I read:
->>>>>> Poky Boot CD (bootcdx86)
->>>>>> ========================
->>>>>>
->>>>>> The Poky boot CD iso images are designed as a demonstration of the
->>>>>> Poky
->>>>>> environment and to show the versatile image formats Poky can
->>>>>> generate. It will
->>>>>> run on Pentium2 or greater PC style computers. The iso image can be
->>>>>> burnt to CD and then booted from.
->>>>>>
->>>>>> When I tried it (it's also listed in the default local.conf),
->>>>>> I got this error:
->>>>>> Please set TARGET_ARCH directly, or choose a MACHINE or DISTRO
->>>>>> that does so.
->>>>>> Please set a valid MACHINE in your local.conf
->>>>>>
->>>>>> There seems to be no machine named 'bootcd*' anywhere :-(
->>>>>>
->>>>>> What should I be using?
->>>>>
->>>>> bootcdx86 was superceeded by the -live images. I'd suggest using the
->>>>> qemux86 or atom-pc machines and building a -live image, dd that to
->>>>> a usb
->>>>> stick and boot that on the laptop. An iso format image is also
->>>>> generated
->>>>> that can be placed onto a CD.
->>>>
->>>> It will have to be atom-pc as qemu doesn't provide live images (last I
->>>> checked, a few weeks back).
->>>
->>> I don't see why the qemu machine wouldn't work for the live image
->>> variants, even if we don't build them by default on the autobuilder?
->>
->> When I run:
->>
->> $ MACHINE="qemux86" bitbake poky-image-minimal-live
->>
->> it results it:
->>
->> ERROR:
->> '/home/dvhart/data/poky.git/meta/recipes-core/images/poky-image-minimal-live.bb'
->> failed
->> ERROR: Function 'build_boot_bin' failed (see
->> /vol/1/dvhart/poky.git/build/tmp/work/i586-poky-linux/poky-image-minimal-live-1.0-r0/temp/log.do_bootimg.18423
->> for further information)
->> ERROR: Logfile of failure stored in:
->> /vol/1/dvhart/poky.git/build/tmp/work/i586-poky-linux/poky-image-minimal-live-1.0-r0/temp/log.do_bootimg.18423
->>
->> Log data follows:
->> | install: cannot stat
->> `/vol/1/dvhart/poky.git/build/tmp/sysroots/qemux86-poky-linux/kernel/bzImage':
->> No such file or directory
->> | Function 'build_boot_bin' failed (see
->> /vol/1/dvhart/poky.git/build/tmp/work/i586-poky-linux/poky-image-minimal-live-1.0-r0/temp/log.do_bootimg.18423
->> for further information)
->> | ERROR: Function 'build_boot_bin' failed (see
->> /vol/1/dvhart/poky.git/build/tmp/work/i586-poky-linux/poky-image-minimal-live-1.0-r0/temp/log.do_bootimg.18423
->> for further information)
->> NOTE: package poky-image-minimal-live-1.0-r0: task build_boot_bin: Failed
->> ERROR: Task 9
->> (/home/dvhart/data/poky.git/meta/recipes-core/images/poky-image-minimal-live.bb,
->> do_bootimg) failed with exit code '1'
->
-> This worked for me. Are you sure your repo is up to date?
-> I think the fix was in
-> commit bc9d2fbfd4eaad0df5647dd5d07dfb9fcff80ff3
-> Author: Dongxiao Xu <dongxiao.xu@intel.com>
-> Date: Tue Jan 18 16:17:58 2011 +0800
+On 01/26/2011 10:55 AM, Adrian Alonso wrote:
+> Yep that's correct all 25 patch's belong to xilinx bsp meta layer;
+> I could define in the meta layer a revision inc file for all the recipes
+> that set a SRCREV version.
 
-I did have the above patch, but refreshing again to master's HEAD and 
-rebuilding seems to have worked. I also purged tmp and sstate, perhaps I 
-had something stuck in there.
+Apologies, I missed that this was a layer. Putting the revisions in a 
+layer default-revisions include isn't a bad idea - it would make merging 
+anything into meta at a later date pretty easy. But there's nothing 
+wrong with it as is.
+
+--
+Darren
+
+>
+> Regards
+>
+> On Wed, Jan 26, 2011 at 12:28 PM, Saul Wold <sgw@linux.intel.com
+> <mailto:sgw@linux.intel.com>> wrote:
+>
+>     On 01/26/2011 10:00 AM, Darren Hart wrote:
+>
+>         On 01/26/2011 09:42 AM, Adrian Alonso wrote:
+>
+>             * Disable -Os optspace option not supported by gcc use
+>             insted -O2
+>             * v2 Remove Make file patch
+>             * v3 use EXTRA_OEMAKE variable, override default OPTFLAGS
+>             settings
+>             in u-boot.inc, Powerpc targets build only with -O1, -O2 optflags
+>             Build failures are related to gcc bugs #44392 and #45052
+>             * Bump PR
+>
+>             Signed-off-by: Adrian Alonso<aalonso@secretlab.ca
+>             <mailto:aalonso@secretlab.ca>>
+>
+>
+>         Looks good for the -Os problem.
+>
+>         Reviewed-by: Darren Hart<dvhart@linux.intel.com
+>         <mailto:dvhart@linux.intel.com>>
+>
+>         I noticed that the SRCREV is defined in this file.
+>         Typically this should be in
+>         meta/conf/distro/include/poky-default-revisions.inc
+>
+>     If I remember this correctly, these are in a layer, so the
+>     default-revision.inc does not get updated.
+>
+>     Sau!
+>
+>
+>         --
+>         Darren
+>
+>
+>             ---
+>             recipes-bsp/uboot/u-boot-xilinx_git.bb
+>             <http://u-boot-xilinx_git.bb> | 6 ++++--
+>             1 files changed, 4 insertions(+), 2 deletions(-)
+>
+>             diff --git a/recipes-bsp/uboot/u-boot-xilinx_git.bb
+>             <http://u-boot-xilinx_git.bb>
+>             b/recipes-bsp/uboot/u-boot-xilinx_git.bb
+>             <http://u-boot-xilinx_git.bb>
+>             index 50d99e3..a373428 100644
+>             --- a/recipes-bsp/uboot/u-boot-xilinx_git.bb
+>             <http://u-boot-xilinx_git.bb>
+>             +++ b/recipes-bsp/uboot/u-boot-xilinx_git.bb
+>             <http://u-boot-xilinx_git.bb>
+>             @@ -1,9 +1,11 @@
+>             require ../meta/recipes-bsp/uboot/u-boot.inc
+>             -PR = "r2"
+>             +PR = "r3"
+>
+>             +EXTRA_OEMAKE = "CROSS_COMPILE=${TARGET_PREFIX} OPTFLAGS='-O2'"
+>             BRANCH="master"
+>             TAG="e094f2479ea339d7f48b6826f06f0be4984d9a98"
+>             -SRC_URI =
+>             "git://git.xilinx.com/u-boot-xlnx.git;branch=${BRANCH};protocol=git
+>             <http://git.xilinx.com/u-boot-xlnx.git;branch=$%7BBRANCH%7D;protocol=git>"
+>             +SRC_URI =
+>             "git://git.xilinx.com/u-boot-xlnx.git;branch=${BRANCH};protocol=git
+>             <http://git.xilinx.com/u-boot-xlnx.git;branch=$%7BBRANCH%7D;protocol=git>
+>             \
+>             + "
+>             SRCREV = "${TAG}"
+>
+>             inherit xilinx-boot
+>
+>
+>
+>
+>     _______________________________________________
+>     poky mailing list
+>     poky@yoctoproject.org <mailto:poky@yoctoproject.org>
+>     https://lists.yoctoproject.org/listinfo/poky
+>
+>
 
 
 -- 
