@@ -1,34 +1,25 @@
-Return-Path: <dongxiao.xu@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D28454C806DA
-	for <poky@yoctoproject.org>; Tue, 25 Jan 2011 20:46:15 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 25 Jan 2011 18:46:15 -0800
+Return-Path: <saul.wold@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 9FBB44C806DA
+	for <poky@yoctoproject.org>; Tue, 25 Jan 2011 20:51:24 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 25 Jan 2011 18:51:24 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,378,1291622400"; d="scan'208";a="596499449"
-Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
-	by orsmga002.jf.intel.com with ESMTP; 25 Jan 2011 18:46:03 -0800
-Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
-	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Wed, 26 Jan 2011 10:45:57 +0800
-Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
-	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
-	Wed, 26 Jan 2011 10:45:56 +0800
-From: "Xu, Dongxiao" <dongxiao.xu@intel.com>
-To: Richard Purdie <richard.purdie@linuxfoundation.org>, poky
-	<poky@yoctoproject.org>
-Date: Wed, 26 Jan 2011 10:45:55 +0800
-Thread-Topic: [poky] Master stability update
-Thread-Index: Acu83FQ8sSO/OXVXTluL/4ShNpLZeQAJWrfw
-Message-ID: <D5AB6E638E5A3E4B8F4406B113A5A19A31D0C878@shsmsx501.ccr.corp.intel.com>
-References: <1295993245.27814.133.camel@rex>
-In-Reply-To: <1295993245.27814.133.camel@rex>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
+X-IronPort-AV: E=Sophos;i="4.60,378,1291622400"; d="scan'208";a="651209815"
+Received: from unknown (HELO [10.255.14.118]) ([10.255.14.118])
+	by fmsmga002.fm.intel.com with ESMTP; 25 Jan 2011 18:51:24 -0800
+Message-ID: <4D3F8C2B.5060506@intel.com>
+Date: Tue, 25 Jan 2011 18:51:23 -0800
+From: Saul Wold <saul.wold@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
 MIME-Version: 1.0
-Subject: Re: Master stability update
+To: Jingdong Lu <jingdong.lu@windriver.com>
+References: <cover.1295601800.git.jingdong.lu@windriver.com>
+In-Reply-To: <cover.1295601800.git.jingdong.lu@windriver.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/4] [PULL] Add some new packages and rename	liburi-perl.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,140 +31,67 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 26 Jan 2011 02:46:16 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Wed, 26 Jan 2011 02:51:24 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Richard Purdie wrote:
-> We merged the features into master. I just want to highlight the
-> status of the following issues:=20
->=20
-> * pseudo problem causing failure of meta-toolchain and corruption of
-> certain file permissions - fixed in master=20
->=20
-> * the -live image issues some people and the autobuilder were seeing
-> - fixed in master=20
->=20
-> * the perf issue for linux-yocto-stable - fixed in master
->=20
-> The following are know issues with master:
->=20
-> * Using rm_work and switching machines to machines of the same
-> "multimachine" architecture breaks.=20
+On 01/21/2011 01:26 AM, Jingdong Lu wrote:
+> Add mailx, cups, msmtp.
+> Rename liburi-perl_1.56 to liburi-perl_1.56.bb
+>
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>    Branch: jingdonglu/distro
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=jingdonglu/distro
+>
+> Thanks,
+>      Jingdong Lu<jingdong.lu@windriver.com>
+> ---
+>
+>
+> Jingdong Lu (4):
+>    mailx: Add mailx
+>    cups: Add cups
+>    msmtp: Add msmtp
+>    liburi-perl: Rename liburi-perl
 
-After sysroot is per machine, we may need to reserve the "image" folder eve=
-n when rm_work, since for the second machine build, do_populate_sysroot and=
- do_package will be re-run to populate files into a different sysroot folde=
-r.=20
+Hi Jingdong,
 
->=20
-> * When switching machines of the same "multimachine" architecture
-> (e.g.=20
-> emenlow to atom-pc), some sstate packages are changing checksums when
-> at first glance they shouldn't (e.g. perl do_install). A quick scan
-> of my sstate directory: =20
+I did not pull mailx, cups or msmtp for various failures and needed to 
+get more history about where these recipes and patches came from.  Did 
+you use OpenEmbedded as a reference for these, if so, you need to credit 
+OE and document where any why the patches are needed for cups.
 
-I also have a look at my local build sstate directories, there are 17 packa=
-ges whose prebuilt result could not shared betweeen atom-pc and emenlow. So=
-me of them may be not a problem since there are ${MACHINE} variables used i=
-n do_install(), some others are strange why do_install will have two differ=
-ent signatures between two different machines.=20
+We also held off from the lsb task, since it contained all of these.
 
-I will spend some time investigating it.
+If you have any questions, let me know.
 
-Thanks,
-Dongxiao
 
->=20
-> $ ls *core2* | sed -e 's#core2-2-.*_#core2-2_#' | sort | uniq -cd |
-> grep -v siginfo=20
->=20
-> yields:
->=20
->       2
->     =20
->     =20
->     =20
->     =20
->     =20
->     =20
->     =20
->     =20
->     =20
->     =20
->     =20
->     =20
->     =20
->     =20
->     =20
->     =20
->     =20
->     =20
->     =20
->     =20
->     =20
->     =20
->     =20
-> sstate-libzypp-core2-poky-linux-0.0-git0+4494797d5b0369365b1af63921de45b1=
-97ead64f-r6-core2-2_deploy-ipk.tgz
-> 2
-> sstate-libzypp-core2-poky-linux-0.0-git0+4494797d5b0369365b1af63921de45b1=
-97ead64f-r6-core2-2_deploy-rpm.tgz
-> 2
-> sstate-libzypp-core2-poky-linux-0.0-git0+4494797d5b0369365b1af63921de45b1=
-97ead64f-r6-core2-2_package.tgz
-> 2
-> sstate-libzypp-core2-poky-linux-0.0-git0+4494797d5b0369365b1af63921de45b1=
-97ead64f-r6-core2-2_populate-sysroot.tgz
-> 2 sstate-netbase-core2-poky-linux-4.44-r0-core2-2_deploy-ipk.tgz 2
-> sstate-netbase-core2-poky-linux-4.44-r0-core2-2_deploy-rpm.tgz 2
-> sstate-netbase-core2-poky-linux-4.44-r0-core2-2_package.tgz 2
-> sstate-netbase-core2-poky-linux-4.44-r0-core2-2_populate-sysroot.tgz
-> 2 sstate-perl-core2-poky-linux-5.12.2-r0-core2-2_deploy-ipk.tgz 2
-> sstate-perl-core2-poky-linux-5.12.2-r0-core2-2_deploy-rpm.tgz 2
-> sstate-perl-core2-poky-linux-5.12.2-r0-core2-2_package.tgz 2
-> sstate-perl-core2-poky-linux-5.12.2-r0-core2-2_populate-sysroot.tgz 2
-> sstate-rpm-core2-poky-linux-5.1.10-r8-core2-2_deploy-ipk.tgz 2
-> sstate-rpm-core2-poky-linux-5.1.10-r8-core2-2_deploy-rpm.tgz 2
-> sstate-rpm-core2-poky-linux-5.1.10-r8-core2-2_package.tgz 2
-> sstate-rpm-core2-poky-linux-5.1.10-r8-core2-2_populate-sysroot.tgz 2
-> sstate-sat-solver-core2-poky-linux-0.0-git0+aa799f7bae0ec055e0e5272036350=
-01bb7346dbc-r2-core2-2_deploy-ipk.tgz
-> 2
-> sstate-sat-solver-core2-poky-linux-0.0-git0+aa799f7bae0ec055e0e5272036350=
-01bb7346dbc-r2-core2-2_deploy-rpm.tgz
-> 2
-> sstate-sat-solver-core2-poky-linux-0.0-git0+aa799f7bae0ec055e0e5272036350=
-01bb7346dbc-r2-core2-2_package.tgz
-> 2
-> sstate-sat-solver-core2-poky-linux-0.0-git0+aa799f7bae0ec055e0e5272036350=
-01bb7346dbc-r2-core2-2_populate-sysroot.tgz
-> 2
-> sstate-zypper-core2-poky-linux-1.4.7-git0+9eb0e248e06c8d20ad054be2439149d=
-9ede37531-r3-core2-2_deploy-ipk.tgz
-> 2
-> sstate-zypper-core2-poky-linux-1.4.7-git0+9eb0e248e06c8d20ad054be2439149d=
-9ede37531-r3-core2-2_deploy-rpm.tgz
-> 2
-> sstate-zypper-core2-poky-linux-1.4.7-git0+9eb0e248e06c8d20ad054be2439149d=
-9ede37531-r3-core2-2_package.tgz
-> 2
-> sstate-zypper-core2-poky-linux-1.4.7-git0+9eb0e248e06c8d20ad054be2439149d=
-9ede37531-r3-core2-2_populate-sysroot.tgz
->=20
-> which isn't too bad but shows there are some issues creeping in there.
-> These need investigating and fixing, there is a strong rpm theme
-> going on there. Also note this was just a minimal image, sato will
-> likely reveal other issues. =20
->=20
-> Cheers,
->=20
-> Richard
->=20
+Sau!
+
+
+>
+>   .../perl/{liburi-perl_1.56 =>  liburi-perl_1.56.bb} |    0
+>   .../cups/cups-1.4.4/configure.patch                |  117 ++++++++++++++++++++
+>   .../cups/cups-1.4.4/skip_tools.patch               |   51 +++++++++
+>   .../cups/cups-1.4.4/use_echo_only_in_init.patch    |   11 ++
+>   meta/recipes-extended/cups/cups14.inc              |   86 ++++++++++++++
+>   meta/recipes-extended/cups/cups_1.4.4.bb           |   17 +++
+>   meta/recipes-extended/mailx/mailx_12.4.bb          |   23 ++++
+>   meta/recipes-extended/msmtp/msmtp_1.4.21.bb        |   31 +++++
+>   8 files changed, 336 insertions(+), 0 deletions(-)
+>   rename meta/recipes-devtools/perl/{liburi-perl_1.56 =>  liburi-perl_1.56.bb} (100%)
+>   create mode 100644 meta/recipes-extended/cups/cups-1.4.4/configure.patch
+>   create mode 100644 meta/recipes-extended/cups/cups-1.4.4/skip_tools.patch
+>   create mode 100644 meta/recipes-extended/cups/cups-1.4.4/use_echo_only_in_init.patch
+>   create mode 100644 meta/recipes-extended/cups/cups14.inc
+>   create mode 100644 meta/recipes-extended/cups/cups_1.4.4.bb
+>   create mode 100644 meta/recipes-extended/mailx/mailx_12.4.bb
+>   create mode 100644 meta/recipes-extended/msmtp/msmtp_1.4.21.bb
+>
 > _______________________________________________
 > poky mailing list
 > poky@yoctoproject.org
 > https://lists.yoctoproject.org/listinfo/poky
+>
 
 
