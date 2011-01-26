@@ -1,30 +1,24 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 351064C80594
-	for <poky@yoctoproject.org>; Wed, 26 Jan 2011 15:25:29 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0QLRON2026453; Wed, 26 Jan 2011 21:27:25 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id neF5Kd8wFx25; Wed, 26 Jan 2011 21:27:24 +0000 (GMT)
-Received: from [192.168.1.45] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0QLRIEE026441
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Wed, 26 Jan 2011 21:27:20 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: "dongxiao.xu" <dongxiao.xu@intel.com>
-In-Reply-To: <4da3cd3c9adebd3279b376a1f7aa2a0353484ecd.1296023140.git.dongxiao.xu@intel.com>
-References: <cover.1296023140.git.dongxiao.xu@intel.com>
-	<4da3cd3c9adebd3279b376a1f7aa2a0353484ecd.1296023140.git.dongxiao.xu@intel.com>
-Date: Wed, 26 Jan 2011 21:24:57 +0000
-Message-ID: <1296077097.27814.4523.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 1/1] rm_work.bbclass: reserve 'image' folder when remove WORKDIR
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 6EBDF4C811A5
+	for <poky@lists.pokylinux.org>; Wed, 26 Jan 2011 15:27:06 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 26 Jan 2011 13:27:05 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,382,1291622400"; d="scan'208";a="881295334"
+Received: from unknown (HELO [10.255.14.182]) ([10.255.14.182])
+	by fmsmga001.fm.intel.com with ESMTP; 26 Jan 2011 13:27:06 -0800
+Message-ID: <4D40919E.6010802@linux.intel.com>
+Date: Wed, 26 Jan 2011 13:26:54 -0800
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
+MIME-Version: 1.0
+To: Gary Thomas <gary@mlbassoc.com>
+References: <4D40251F.5070906@mlbassoc.com>
+In-Reply-To: <4D40251F.5070906@mlbassoc.com>
+Cc: Poky <poky@lists.pokylinux.org>
+Subject: Re: No joy on "standard" PC
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,90 +30,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 26 Jan 2011 21:25:30 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Wed, 26 Jan 2011 21:27:06 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Wed, 2011-01-26 at 14:30 +0800, poky-bounces@yoctoproject.org wrote:
-> From: Dongxiao Xu <dongxiao.xu@intel.com>
-> 
-> After the implementation of per machine sysroot, do_populate_sysroot
-> and do_package need to be re-run if we build two machines of one
-> architecture (in case that sstate prebuilt result could not be reused
-> for certain recipes). But if removing all the WORKDIR contents after
-> the first macine build, the second machine's do_populate_sysroot and
-> do_package will fail due to the missing of "image" directory.
-> 
-> Thus reserve 'image' folder when doing rm_work.
+On 01/26/2011 05:43 AM, Gary Thomas wrote:
+> I finally got Poky to build for a standard PC (actually atom-pc
+> so I could build a live/bootable image). Sadly, that's all I
+> have is an image as I can't get it to run anywhere :-(
+>
+> * On my laptop (the point of this exercise) which is an older
+> Pentium-III machine, the kernel crashes almost immediately.
 
-Whilst I understand the intent, this is just putting wallpaper over
-cracks, sooner or later the crack will reappear, possibly worse than
-before.
+Can you capture the output and provide some details on the hardware?
 
-For example if you run "bitbake xxx -c install -f" for a target xxx
-which has had rm_work run against it, the result will be a nasty error
-in Poky.
+>
+> * On my brand new laptop (Core-i3), I couldn't get it to even
+> try...
 
-OE's rm_work.bbclass is a little cleverer than ours and has this:
+What happened? Some bios are very particular about usb layout, see
+README.hardware under atom-pc. Some (including my netbook) require
+that it be in USB-ZIP format, so you can't just dd the image to
+the stick in some cases (unfortunately).
 
-addhandler rmwork_stampfixing_eventhandler
-python rmwork_stampfixing_eventhandler() {
-    if bb.event.getName(e) == "StampUpdate":
-        for (fn, task) in e.targets:
-            if task == 'rm_work_all':
-                continue
-            stamp = "%s.do_rm_work" % e.stampPrefix[fn]
-            if os.path.exists(stamp):
-                dir = "%s.*" % e.stampPrefix[fn]
-                bb.note("Removing stamps: " + dir)
-                os.system('rm -f '+ dir)
-}
+>
+> * On a VirtualBox machine, it boots but then sits forever
+> "waiting for removable media"...
 
-which is intended to fix my specific example above. It won't fix the new
-corner cases we've introduced with machine specific sysroots though. So
-what do we do to fix this?
+Can you share the messages leading up to this? Is it trying to mount ram0?
 
-I'm actually tempted to tie together rm_work, sstate and the scenequeue.
-When rm_work wipes out the workdir, it also migrates the stamps into
-_setscene stamps as if the package had been installed by sstate. We'd
-then remove the unpack, fetch, patch and so on stamps just leaving the
-setscene varients. This would mean the above wouldn't be needed and most
-things should "just work".
-
-So to be specific, we'd take stamps like:
-
-xxx-1.4.7-r3.do_compile
-xxx-1.4.7-r3.do_configure
-xxx-1.4.7-r3.do_fetch
-xxx-1.4.7-r3.do_generate_toolchain_file
-xxx-1.4.7-r3.do_install
-xxx-1.4.7-r3.do_package.emenlow
-xxx-1.4.7-r3.do_package_write
-xxx-1.4.7-r3.do_package_write_ipk
-xxx-1.4.7-r3.do_package_write_rpm
-xxx-1.4.7-r3.do_patch
-xxx-1.4.7-r3.do_populate_sysroot.emenlow
-xxx-1.4.7-r3.do_setscene
-xxx-1.4.7-r3.do_unpack
-
-and end up with:
-
-xxx-1.4.7-r3.do_package_setscene.emenlow
-xxx-1.4.7-r3.do_package_write_ipk_setscene
-xxx-1.4.7-r3.do_package_write_rpm_setscene
-xxx-1.4.7-r3.do_populate_sysroot_setscene.emenlow
-
-Does that sound reasonable?
-
-Then both codepaths use the same underlying code and everything should
-be fine apart from some hardcoded assumptions about stamp filenames
-which we'll probably just have to live with for now. The function will
-need to handle stamps including the taskhash too, e.g.:
-
-xxx-1.4.7-r3.do_unpack.HASHHERE
-
-Cheers,
-
-Richard
-
+-- 
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
