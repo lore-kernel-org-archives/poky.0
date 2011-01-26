@@ -1,38 +1,31 @@
-Return-Path: <kevin.tian@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 632ED4C811AA
-	for <poky@yoctoproject.org>; Wed, 26 Jan 2011 04:31:13 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 26 Jan 2011 02:31:12 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,379,1291622400"; d="scan'208";a="380083995"
-Received: from pgsmsx603.gar.corp.intel.com ([10.221.43.87])
-	by azsmga001.ch.intel.com with ESMTP; 26 Jan 2011 02:31:11 -0800
-Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
-	pgsmsx603.gar.corp.intel.com (10.221.43.87) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Wed, 26 Jan 2011 18:31:09 +0800
-Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
-	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
-	Wed, 26 Jan 2011 18:31:08 +0800
-From: "Tian, Kevin" <kevin.tian@intel.com>
-To: Richard Purdie <richard.purdie@linuxfoundation.org>, "Xu, Dongxiao"
-	<dongxiao.xu@intel.com>
-Date: Wed, 26 Jan 2011 18:31:00 +0800
-Thread-Topic: [poky] Master stability update
-Thread-Index: Acu9QA95CZKSqmN/QkS/35kXEzgyVAAA8KFw
-Message-ID: <625BA99ED14B2D499DC4E29D8138F1504DB5BB74EC@shsmsx502.ccr.corp.intel.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 93B1D4C811AA
+	for <poky@yoctoproject.org>; Wed, 26 Jan 2011 05:42:37 -0600 (CST)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p0QBiTlG031278; Wed, 26 Jan 2011 11:44:29 GMT
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id CeSexXwsEoh2; Wed, 26 Jan 2011 11:44:29 +0000 (GMT)
+Received: from [192.168.1.45] (tim [93.97.173.237]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p0QBiO6l031258
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Wed, 26 Jan 2011 11:44:26 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Mark Hatle <mark.hatle@windriver.com>
+In-Reply-To: <4D3F9A27.3050409@windriver.com>
 References: <1295993245.27814.133.camel@rex>
 	<D5AB6E638E5A3E4B8F4406B113A5A19A31D0C878@shsmsx501.ccr.corp.intel.com>
 	<625BA99ED14B2D499DC4E29D8138F1504DB5BB71E1@shsmsx502.ccr.corp.intel.com>
 	<625BA99ED14B2D499DC4E29D8138F1504DB5BB7203@shsmsx502.ccr.corp.intel.com>
-	<D5AB6E638E5A3E4B8F4406B113A5A19A31D0C914@shsmsx501.ccr.corp.intel.com>
-	<1296036076.27814.2250.camel@rex>
-In-Reply-To: <1296036076.27814.2250.camel@rex>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
-MIME-Version: 1.0
+	<4D3F9A27.3050409@windriver.com>
+Date: Wed, 26 Jan 2011 11:42:04 +0000
+Message-ID: <1296042124.27814.2557.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
 Cc: poky <poky@yoctoproject.org>
 Subject: Re: Master stability update
 X-BeenThere: poky@yoctoproject.org
@@ -46,119 +39,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 26 Jan 2011 10:31:13 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-List-Received-Date: Wed, 26 Jan 2011 11:42:38 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-PiBGcm9tOiBSaWNoYXJkIFB1cmRpZSBbbWFpbHRvOnJpY2hhcmQucHVyZGllQGxpbnV4Zm91bmRh
-dGlvbi5vcmddDQo+IFNlbnQ6IFdlZG5lc2RheSwgSmFudWFyeSAyNiwgMjAxMSA2OjAxIFBNDQo+
-IA0KPiBPbiBXZWQsIDIwMTEtMDEtMjYgYXQgMTE6NTIgKzA4MDAsIFh1LCBEb25neGlhbyB3cm90
-ZToNCj4gPiBUaWFuLCBLZXZpbiB3cm90ZToNCj4gPiA+PiBGcm9tOiBUaWFuLCBLZXZpbg0KPiA+
-ID4+IFNlbnQ6IFdlZG5lc2RheSwgSmFudWFyeSAyNiwgMjAxMSAxMDo1MiBBTQ0KPiA+ID4+DQo+
-ID4gPj4+IEZyb206IFh1LCBEb25neGlhbw0KPiA+ID4+PiBTZW50OiBXZWRuZXNkYXksIEphbnVh
-cnkgMjYsIDIwMTEgMTA6NDYgQU0NCj4gPiA+Pj4NCj4gPiA+Pj4gUmljaGFyZCBQdXJkaWUgd3Jv
-dGU6DQo+ID4gPj4+PiBXZSBtZXJnZWQgdGhlIGZlYXR1cmVzIGludG8gbWFzdGVyLiBJIGp1c3Qg
-d2FudCB0byBoaWdobGlnaHQgdGhlDQo+ID4gPj4+PiBzdGF0dXMgb2YgdGhlIGZvbGxvd2luZyBp
-c3N1ZXM6DQo+ID4gPj4+Pg0KPiA+ID4+Pj4gKiBwc2V1ZG8gcHJvYmxlbSBjYXVzaW5nIGZhaWx1
-cmUgb2YgbWV0YS10b29sY2hhaW4gYW5kIGNvcnJ1cHRpb24NCj4gPiA+Pj4+IG9mIGNlcnRhaW4g
-ZmlsZSBwZXJtaXNzaW9ucyAtIGZpeGVkIGluIG1hc3Rlcg0KPiA+ID4+Pj4NCj4gPiA+Pj4+ICog
-dGhlIC1saXZlIGltYWdlIGlzc3VlcyBzb21lIHBlb3BsZSBhbmQgdGhlIGF1dG9idWlsZGVyIHdl
-cmUNCj4gPiA+Pj4+IHNlZWluZyAtIGZpeGVkIGluIG1hc3Rlcg0KPiA+ID4+Pj4NCj4gPiA+Pj4+
-ICogdGhlIHBlcmYgaXNzdWUgZm9yIGxpbnV4LXlvY3RvLXN0YWJsZSAtIGZpeGVkIGluIG1hc3Rl
-cg0KPiA+ID4+Pj4NCj4gPiA+Pj4+IFRoZSBmb2xsb3dpbmcgYXJlIGtub3cgaXNzdWVzIHdpdGgg
-bWFzdGVyOg0KPiA+ID4+Pj4NCj4gPiA+Pj4+ICogVXNpbmcgcm1fd29yayBhbmQgc3dpdGNoaW5n
-IG1hY2hpbmVzIHRvIG1hY2hpbmVzIG9mIHRoZSBzYW1lDQo+ID4gPj4+PiAibXVsdGltYWNoaW5l
-IiBhcmNoaXRlY3R1cmUgYnJlYWtzLg0KPiA+ID4+Pg0KPiA+ID4+PiBBZnRlciBzeXNyb290IGlz
-IHBlciBtYWNoaW5lLCB3ZSBtYXkgbmVlZCB0byByZXNlcnZlIHRoZSAiaW1hZ2UiDQo+ID4gPj4+
-IGZvbGRlcg0KPiA+ID4+IGV2ZW4NCj4gPiA+Pj4gd2hlbiBybV93b3JrLCBzaW5jZSBmb3IgdGhl
-IHNlY29uZCBtYWNoaW5lIGJ1aWxkLA0KPiA+ID4+PiBkb19wb3B1bGF0ZV9zeXNyb290IGFuZCBk
-b19wYWNrYWdlIHdpbGwgYmUgcmUtcnVuIHRvIHBvcHVsYXRlIGZpbGVzDQo+ID4gPj4+IGludG8g
-YSBkaWZmZXJlbnQgc3lzcm9vdCBmb2xkZXIuDQo+ID4gPj4+DQo+ID4gPj4+Pg0KPiA+ID4+Pj4g
-KiBXaGVuIHN3aXRjaGluZyBtYWNoaW5lcyBvZiB0aGUgc2FtZSAibXVsdGltYWNoaW5lIiBhcmNo
-aXRlY3R1cmUNCj4gPiA+Pj4+IChlLmcuIGVtZW5sb3cgdG8gYXRvbS1wYyksIHNvbWUgc3N0YXRl
-IHBhY2thZ2VzIGFyZSBjaGFuZ2luZw0KPiA+ID4+Pj4gY2hlY2tzdW1zIHdoZW4gYXQgZmlyc3Qg
-Z2xhbmNlIHRoZXkgc2hvdWxkbid0IChlLmcuIHBlcmwNCj4gPiA+Pj4+IGRvX2luc3RhbGwpLiBB
-IHF1aWNrIHNjYW4gb2YgbXkgc3N0YXRlIGRpcmVjdG9yeToNCj4gPiA+Pj4NCj4gPiA+Pj4gSSBh
-bHNvIGhhdmUgYSBsb29rIGF0IG15IGxvY2FsIGJ1aWxkIHNzdGF0ZSBkaXJlY3RvcmllcywgdGhl
-cmUgYXJlDQo+ID4gPj4+IDE3IHBhY2thZ2VzIHdob3NlIHByZWJ1aWx0IHJlc3VsdCBjb3VsZCBu
-b3Qgc2hhcmVkIGJldHdlZWVuIGF0b20tcGMNCj4gPiA+Pj4gYW5kIGVtZW5sb3cuIFNvbWUNCj4g
-PiA+Pj4gb2YgdGhlbSBtYXkgYmUgbm90IGEgcHJvYmxlbSBzaW5jZSB0aGVyZSBhcmUgJHtNQUNI
-SU5FfSB2YXJpYWJsZXMNCj4gPiA+Pj4gdXNlZCBpbiBkb19pbnN0YWxsKCksIHNvbWUgb3RoZXJz
-IGFyZSBzdHJhbmdlIHdoeSBkb19pbnN0YWxsIHdpbGwNCj4gPiA+Pj4gaGF2ZSB0d28gZGlmZmVy
-ZW50IHNpZ25hdHVyZXMgYmV0d2VlbiB0d28gZGlmZmVyZW50IG1hY2hpbmVzLg0KPiA+ID4+Pg0K
-PiA+ID4+PiBJIHdpbGwgc3BlbmQgc29tZSB0aW1lIGludmVzdGlnYXRpbmcgaXQuDQo+ID4gPj4+
-DQo+ID4gPj4NCj4gPiA+PiBOb3RlIHRoYXQgY2hlY2tzdW0gY2hhbmdlcyBtYXkgbm90IGNvbWUg
-ZnJvbSBkb19pbnN0YWxsIGl0c2VsZiwgd2hpY2gNCj4gPiA+PiBpbmNsdWRpbmcgdGhlIGhhc2gg
-ZnJvbSBvdGhlciB0YXNrcyB0aGF0IGRvX2luc3RhbGwgZGVwZW5kcyBvbi4gVG8NCj4gPiA+PiBj
-YXB0dXJlIHRoZSBsYXR0ZXIgcG9zc2liaWxpdHksIHlvdSBjYW4gc2ltcGx5IHVzZSAiYml0YmFr
-ZSAtUw0KPiA+ID4+IHBva3ktaW1hZ2UtbWluaW1hbCIgd2hpY2ggb25seSBnZW5lcmF0ZXMgLnNp
-Z2luZm8gZm9yIGFsbCB0aGUgdGFza3MNCj4gPiA+PiB3L28gYWN0dWFsbHkgcnVubmluZyB0aGVt
-LiBUaGlzIHdheSB5b3UgY2FuIGNvbXBhcmUgdGhlIGRpZmZlcmVuY2UNCj4gPiA+PiBiZXR3ZWVu
-IGVtZW5sb3cgYW5kIGF0b20tcGMgZWFzaWx5IHRvIHNlZSB3aGF0IGFjdHVhbGx5IGNoYW5nZS4N
-Cj4gPiA+Pg0KPiA+ID4NCj4gPiA+IEFmdGVyIGEgcXVpY2sgY2hlY2ssIEkgZ3Vlc3MgdGhpcyBp
-cyBub3QgYSBwcm9ibGVtLiBmb3IgZXhhbXBsZQ0KPiA+ID4gcGVybC5kb19jb25maWd1cmUgY2hh
-bmdlcyBjaGVja3N1bSBkdWUgdG8gJE1BQ0hJTkUgaW4gZGVwZW5kZW5jeQ0KPiA+ID4gdmFyaWFi
-bGVzIGFzIERvbmd4aWFvIHNhaWQuDQo+ID4gPiBPbmNlIHBlcmwgaXMgbm90IHJldXNhYmxlLCBh
-dCBsZWFzdCB+MTAgcmVjaWVwcyAobGlienlwcCwgbGlidG9vbCwNCj4gPiA+IHJwbSwgLi4uKSBh
-cmUgbm90IHJldXNhYmxlIHRvbyBiZWNhdXNlIHBlcmwgaXMgaW4gdGhlaXIgdGFzaw0KPiA+ID4g
-ZGVwZW5kZW5jeSBjaGFpbi4NCj4gPiA+DQo+ID4gPiBJIGRpZG4ndCBjaGVjayBhbGwgdGhlIGRp
-ZmZlcmVuY2VzIHlldCwgYnV0IG92ZXJhbGwgZmVlbGluZyBpcyB0aGF0DQo+ID4gPiB0aGlzIHNo
-b3VsZCBiZSBPSyBhcyBEb25neGlhbyBtZW50aW9uZWQgdGhlcmUncmUgc2V2ZXJhbCBvYnZpb3Vz
-DQo+ID4gPiBNQUNISU5FIHJlbGF0ZWQgcmVjaXBlcy4gSSdsbCBsZWF2ZSB0byBEb25neGlhbyBm
-b3IgZmluYWwNCj4gPiA+IGNvbmZpcm1hdGlvbi4gOi0pDQo+ID4gPg0KPiA+ID4gVGhhbmtzDQo+
-ID4gPiBLZXZpbg0KPiA+DQo+ID4gVGhhbmtzIEtldmluIGZvciB0aGUgc3VnZ2VzdGlvbiB3aGlj
-aCBjYW4gcXVpY2tseSB0cmFjayBkb3duIHRoZSBpc3N1ZS4NCj4gPg0KPiA+IFdpdGhpbiBteSBw
-b2t5LWltYWdlLXNkayBhbmQgbWV0YS10b29sY2hhaW4tc2RrIGJ1aWxkLCB0aGVyZSBhcmUgdG90
-YWxseSAxNw0KPiByZWNpcGVzIGluIGNvcmUyLXBva3ktbGludXggZm9sZGVyIHdob3NlIHByZWJ1
-aWx0IHJlc3VsdCBjb3VsZCBub3QgYmUgc2hhcmVkDQo+IGJldHdlZW4gdHdvIG1hY2hpbmUgb2Yg
-b25lIGFyY2hpdGVjdHVyZS4NCj4gPg0KPiA+IFRoZXkgYXJlOiBjb25ubWFuLCBrZXhlYy10b29s
-cywgbGlienlwcCwgc2F0LXNvbHZlciwgcnBtLCBwZXJsLA0KPiBtYXRjaGJveC1rZXlib2FyZCwg
-bWF0Y2hib3gtcGFuZWwtMiwgbmV0YmFzZSwgcHVsc2VhdWRpbywgc2NyZWVuc2hvdCwNCj4gdGFz
-ay1wb2t5LXNkaywgdHNsaWIsIHhmODYtaW5wdXQtZXZkZXYsIHhmODYtaW5wdXQta2V5Ym9hcmQs
-IHhmODYtaW5wdXQtbW91c2UsDQo+IHp5cHBlci4NCj4gPg0KPiA+IEkgdXNlZCBiaXRiYWtlLWRp
-ZmZzaWcgdG9vbCB0byBkdW1wIHRoZSBzaWdkYXRhLCBhbmQgcmVzdWx0cyBhcmU6DQo+ID4NCj4g
-PiBDb25ubWFuOiBpdHMgZG9fY29uZmlndXJlIGRlcGVuZHMgb24gaGFsJ3MgZG9fcG9wdWxhdGVf
-c3lzcm9vdCwgd2hpbGUgaGFsDQo+IGlzIGEgcmVjaXBlIG9mIG1hY2hpbmUgc3BlY2lmaWMuDQo+
-ID4gUHVsc2VhdWRpbzogaXRzIGRvX2NvbmZpZ3VyZSBkZXBlbmRzIG9uIGhhbCdzIGRvX3BvcHVs
-YXRlX3N5c3Jvb3QsIHdoaWxlIGhhbA0KPiBpcyBhIHJlY2lwZSBvZiBtYWNoaW5lIHNwZWNpZmlj
-Lg0KPiA+DQo+ID4gS2V4ZWMtdG9vbHM6IGl0cyBkb19jb25maWd1cmUgZGVwZW5kcyBvbiBsaW51
-eC15b2N0by1zdGFibGUncw0KPiBkb19wb3B1bGF0ZV9zeXNyb290LCB3aGljaCBpcyBhIG1hY2hp
-bmUgc3BlY2lmaWMgcmVjaXBlLg0KPiA+DQo+ID4gUGVybDogJHtNQUNISU5FfSBpbiBkb19jb25m
-aWd1cmUuDQo+ID4gUnBtOiBpdHMgZG9fY29uZmlndXJlIGRlcGVuZHMgb24gcGVybCdzIGRvX3Bv
-cHVsYXRlX3N5c3Jvb3QuDQo+ID4gU2F0LXNvbHZlcjogaXRzIGRvX2NvbmZpZ3VyZSBkZXBlbmRz
-IG9uIHJwbSdzIGRvX3BvcHVsYXRlX3N5c3Jvb3QuDQo+ID4gTGlienlwcDogaXRzIGRvX2NvbmZp
-Z3VyZSBkZXBlbmRzIG9uIHNhdC1zb2x2ZXIncyBkb19wb3B1bGF0ZV9zeXNyb290Lg0KPiA+IFp5
-cHBlcjogaXRzIGRvX2NvbmZpZ3VyZSBkZXBlbmRzIG9uIGxpYnp5cHAncyBkb19wb3B1bGF0ZV9z
-eXNyb290DQo+ID4NCj4gPiBNYXRjaGJveC1wYW5lbC0yOiBpdHMgZG9fY29uZmlndXJlIGNvbnRh
-aW5zICIke01BQ0hJTkVfRkVBVFVSRVN9Ig0KPiA+IE1hdGNoYm94LWtleWJvYXJkOiBpdHMgZG9f
-Y29uZmlndXJlIGRlcGVuZHMgb24gbWF0Y2hib3gtcGFuZWwtMidzDQo+IGRvX3BvcHVsYXRlX3N5
-c3Jvb3QuDQo+ID4gU2NyZWVuc2hvdDogaXRzIGRvX2NvbmZpZ3VyZSBkZXBlbmRzIG9uIG1hdGNo
-Ym94LXBhbmVsLTIncw0KPiBkb19wb3B1bGF0ZV9zeXNyb290DQo+ID4gVGFzay1wb2t5LXNkazog
-ZGVwZW5kcyBvbiBtYXRjaGJveC1wYW5lbC0yDQo+ID4NCj4gPiBOZXRiYXNlOiAke01BQ0hJTkV9
-IGluIGRvX2luc3RhbGwuDQo+ID4gVHNsaWI6ICR7TUFDSElORX0gaW4gZG9faW5zdGFsbC4NCj4g
-Pg0KPiA+IFhmODYtaW5wdXQtZXZkZXYsIHhmODYtaW5wdXQta2V5Ym9hcmQsIGFuZCB4Zjg2LWlu
-cHV0LW1vdXNlOiB4b3JnLXhzZXJ2ZXINCj4gZGVwZW5kZW5jeSBkaWZmZXJlbmNlcywgd2hpY2gg
-ZW1lbmxvdyBoYXMgaXRzIG93biB4b3JnLXhzZXJ2ZXIgbGF5ZXIuDQo+ID4NCj4gDQo+IFNvIGZv
-ciBlYWNoIG9mIHRoZXNlIHdlIG5lZWQgdG8gZGVjaWRlIGlmIHJlYnVpbGRpbmcgaXMgYSB2YWxp
-ZCBvcg0KPiBpbnZhbGlkIHRoaW5nIHRvIGRvLg0KPiANCj4gVGhlIG9uZSB0aGF0IGp1bXBzIG91
-dCBhdCBtZSBpcyBwZXJsLiBXaHkgZG9lcyBpdCBuZWVkIE1BQ0hJTkUgaW4NCj4gZG9fY29uZmln
-dXJlIGFuZCBpcyBpdCByZWFsbHkgTUFDSElORSBkZXBlbmRlbnQ/IElmIHlvdSBsb29rIGF0IHRo
-ZQ0KPiBkb19jb25maWd1cmUgY29kZSwgaXRzIGEgcmF0aGVyIHN0cmFuZ2UgY2hlY2sgYWdhaW5z
-dCB0aGUgIm5hdGl2ZSINCj4gbWFjaGluZSB3aGljaCB3ZSBkb24ndCB1c2Uvc3VwcG9ydC4gSSdk
-IGFyZ3VlIHRoYXQgbWFjaGluZSBpcyBlcnJvcg0KPiBwcm9uZSwgcHJvYmxlbWF0aWMgYW5kIHJl
-cGxhY2VkIGJ5IG91ciBuYXRpdmVzZGsgY29kZSBzbyBJJ20gaW4gZmF2b3VyDQo+IG9mIHJlbW92
-aW5nIHRoYXQgY2hlY2suDQo+IA0KPiBTb21lIG9mIHRoZSBvdGhlciBpdGVtcyBhYm92ZSBhcmUg
-dHJpY2tpZXIuIEluIHNvbWUgY2FzZXMgd2Ugc2hvdWxkDQo+IHBlcmhhcHMgYmUgbWFya2luZyB0
-aGVtIGFzIG1hY2hpbmUgc3BlY2lmaWMsIGUuZy4gbWItcGFuZWwtMiA/IGFuZCBtYXliZQ0KPiBh
-bHNvIHdoaXRlbGlzdGluZyBzb21lIGRlcGVuZGVuY2llcyBpZiB3ZSdyZSBzdXJlIHRob3NlIGl0
-ZW1zIGRvbid0DQo+IGNoYW5nZSBpZiB0aGUgZGVwZW5kZW5jeSBjaGFuZ2VzLg0KPiANCj4gVGhl
-IG5pY2UgdGhpbmcgaXMgbm93IHRoYXQgd2UgY2FuIG1ha2Ugc29tZXRoaW5nIGxpa2UgbWItcGFu
-ZWwtMiBtYWNoaW5lDQo+IHNwZWNpZmljIGFuZCBub3QgaGF2ZSB0aGUgd2hvbGUgd29ybGQgY29s
-bGFwc2UgYXMgaXQgd291bGQgaGF2ZSBkb25lDQo+IHByZXZpb3VzbHkgc28gd2UgY2FuIHN0YXJ0
-IHRvIGJlbmVmaXQgZnJvbSB0aGlzIGNoYW5nZSEgOikNCj4gDQoNClllcywgdGhpcyBhdCBsZWFz
-dCBwcm92ZXMgdGhhdCBvdmVyYWxsIG5vdyB3ZSdyZSBpbiBhIGdvb2Qgc3RhdGUgd2l0aCByZWNl
-bnQgY2hhbmdlcy4gOi0pDQoNCllvdXIgc3VnZ2VzdGlvbnMgYXJlIGdvb2QsIGFuZCB3ZSdsbCBj
-b250aW51ZSBsb29rIGludG8gdGhlbSB0byByZWR1Y2UgdGhlIG1hY2hpbmUNCnNwZWNpZmljIGJp
-dHMgYXMgcG9zc2libGUuDQoNClRoYW5rcw0KS2V2aW4NCg==
+On Tue, 2011-01-25 at 21:51 -0600, Mark Hatle wrote:
+> On 1/25/11 9:05 PM, Tian, Kevin wrote:
+> >> From: Tian, Kevin
+> > After a quick check, I guess this is not a problem. for example perl.do_configure
+> > changes checksum due to $MACHINE in dependency variables as Dongxiao said.
+> > Once perl is not reusable, at least ~10 recieps (libzypp, libtool, rpm, ...) are not
+> > reusable too because perl is in their task dependency chain.
+> > 
+> > I didn't check all the differences yet, but overall feeling is that this should be OK
+> > as Dongxiao mentioned there're several obvious MACHINE related recipes. I'll
+> > leave to Dongxiao for final confirmation. :-)
+> 
+> It might be nice (if not a bit dangerous) to be able to say "I want perl version
+> X.Y.Z.  I don't really care about the checksum, as long as the version matches..."
+> 
+> In the case of perl, this is likely to do exactly what we want/need.  In the
+> case of other packages (particularly libraries) this could cause serious problems...
+
+Adding "perl" to BB_HASHTASK_WHITELIST would do exactly what you
+describe so its at least possible although it doesn't cover a version
+specific match which would probably be better as part of DEPENDS
+handling.
+
+Stopping it being machine specific is the first thing that needs fixing
+though (I have a patch I'm testing for that one).
+
+Cheers,
+
+Richard
+
 
