@@ -1,30 +1,31 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 374A44C811BA
-	for <poky@lists.pokylinux.org>; Tue, 25 Jan 2011 16:52:48 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0PMshNa006724; Tue, 25 Jan 2011 22:54:43 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id ZixP-Ef2xZ83; Tue, 25 Jan 2011 22:54:43 +0000 (GMT)
-Received: from [192.168.1.45] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0PMseHk006720
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Tue, 25 Jan 2011 22:54:41 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Darren Hart <dvhart@linux.intel.com>
-In-Reply-To: <4D3E0323.2080905@linux.intel.com>
-References: <4D3D6AFC.8060300@mlbassoc.com>
-	<1295872759.14388.44775.camel@rex> <4D3E0323.2080905@linux.intel.com>
-Date: Tue, 25 Jan 2011 22:52:22 +0000
-Message-ID: <1295995942.27814.248.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Cc: Poky <poky@lists.pokylinux.org>
-Subject: Re: Poky on "standard" PC
+Return-Path: <kevin.tian@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5ACF64C810E3
+	for <poky@yoctoproject.org>; Tue, 25 Jan 2011 18:20:38 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 25 Jan 2011 16:20:37 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,377,1291622400"; d="scan'208";a="880984460"
+Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
+	by fmsmga001.fm.intel.com with ESMTP; 25 Jan 2011 16:20:37 -0800
+Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
+	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Wed, 26 Jan 2011 08:20:37 +0800
+Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
+	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
+	Wed, 26 Jan 2011 08:20:35 +0800
+From: "Tian, Kevin" <kevin.tian@intel.com>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Date: Wed, 26 Jan 2011 08:20:33 +0800
+Thread-Topic: question about the sender of this mailing list
+Thread-Index: Acu87tji2beBJmUGR+2CRwrMmPkygg==
+Message-ID: <625BA99ED14B2D499DC4E29D8138F1504DB5BB7093@shsmsx502.ccr.corp.intel.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
+MIME-Version: 1.0
+Subject: question about the sender of this mailing list
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,51 +37,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 25 Jan 2011 22:52:48 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 26 Jan 2011 00:20:38 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 2011-01-24 at 14:54 -0800, Darren Hart wrote:
-> On 01/24/2011 04:39 AM, Richard Purdie wrote:
-> > On Mon, 2011-01-24 at 05:05 -0700, Gary Thomas wrote:
-> >> I wanted to try Poky on a spare laptop, so I went looking
-> >> for an appropriate configuration to build.
-> >>
-> >>   From 'README.hardware' (last updated 2010-12-16), I read:
-> >>     Poky Boot CD (bootcdx86)
-> >>     ========================
-> >>
-> >>     The Poky boot CD iso images are designed as a demonstration of the Poky
-> >>     environment and to show the versatile image formats Poky can generate. It will
-> >>     run on Pentium2 or greater PC style computers. The iso image can be
-> >>     burnt to CD and then booted from.
-> >>
-> >> When I tried it (it's also listed in the default local.conf),
-> >> I got this error:
-> >>     Please set TARGET_ARCH directly, or choose a MACHINE or DISTRO that does so.
-> >>     Please set a valid MACHINE in your local.conf
-> >>
-> >> There seems to be no machine named 'bootcd*' anywhere :-(
-> >>
-> >> What should I be using?
-> >
-> > bootcdx86 was superceeded by the -live images. I'd suggest using the
-> > qemux86 or atom-pc machines and building a -live image, dd that to a usb
-> > stick and boot that on the laptop. An iso format image is also generated
-> > that can be placed onto a CD.
-> 
-> It will have to be atom-pc as qemu doesn't provide live images (last I 
-> checked, a few weeks back).
+Hi, all,
 
-I don't see why the qemu machine wouldn't work for the live image
-variants, even if we don't build them by default on the autobuilder?
+I just found one weird change today.
 
-atom-pc is fine though...
+Normally I received mails from this list by:
+	Poky-bounces@yoctoproject.org on behalf of someone
 
-Cheers,
+That way in my inbox I can sort the mails by the sender names, which is als=
+o the most typical way I see in most projects
 
-Richard
+However today I also saw some plain senders:
+	Poky-bounces@yoctoproject.org
+(from Josh, Edwin, Scott...)
 
+Does anyone know what may be the cause for this?
 
-
+Thanks
+Kevin
 
