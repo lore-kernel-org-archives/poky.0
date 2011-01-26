@@ -1,41 +1,30 @@
-Return-Path: <bruce.ashfield@gmail.com>
-Received: from mail-iw0-f172.google.com (mail-iw0-f172.google.com
-	[209.85.214.172])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D50654C80BCF
-	for <poky@lists.pokylinux.org>; Wed, 26 Jan 2011 08:24:18 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by iwn40 with SMTP id 40so962660iwn.3
-	for <poky@lists.pokylinux.org>; Wed, 26 Jan 2011 06:24:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:in-reply-to:references:date
-	:message-id:subject:from:to:cc:content-type
-	:content-transfer-encoding;
-	bh=Slck0uxnRB7d9aJbAHEkRvk5dKEGe1doCiK/WgtwIAI=;
-	b=SzXKEGaEN+OVms7sB8UBBTwmj6BzdIYiRYHHM8ckx6Ls3opPQcavVaOdDyFvJ5uWfh
-	KWL1PzH29RxWGZOe6lvqN+4N7wCpJvpMbEGgHWVgbM7+GIkILczzro7UMWJl6SenN7r1
-	M5mPpREH8b+BdWsfa9LdAKOtrwjK7w+mXiYmM=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type:content-transfer-encoding;
-	b=BH7A6hInndF8Pjq1/q8ahr5zByYM2XAShLBoZb8OI4FeCrN/uc2UY9bSsXd9L1/Q7k
-	RpP3VNKqAeBgkwb6HJ37W3+79aDIgz9MeW9pNWlL+KiSsyKj+Z5qElkQCuV+Jn81PLEW
-	76XtMG22/hN22jGegVhgvjMZIEgiAteONDvYY=
+Return-Path: <mark.hatle@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 3246D4C80BCF
+	for <poky@yoctoproject.org>; Wed, 26 Jan 2011 08:32:40 -0600 (CST)
+Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p0QEWdnN009353;
+	Wed, 26 Jan 2011 06:32:39 -0800 (PST)
+Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
+	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Wed, 26 Jan 2011 06:32:39 -0800
+Received: from Macintosh-5.local ([172.25.36.227]) by
+	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Wed, 26 Jan 2011 06:32:37 -0800
+Message-ID: <4D403085.6000708@windriver.com>
+Date: Wed, 26 Jan 2011 08:32:37 -0600
+From: Mark Hatle <mark.hatle@windriver.com>
+Organization: Wind River Systems
+User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
+	rv:1.9.2.13) Gecko/20101207 Thunderbird/3.1.7
 MIME-Version: 1.0
-Received: by 10.231.13.137 with SMTP id c9mr8198395iba.37.1296051858543; Wed,
-	26 Jan 2011 06:24:18 -0800 (PST)
-Received: by 10.231.156.136 with HTTP; Wed, 26 Jan 2011 06:24:18 -0800 (PST)
-In-Reply-To: <4D402D0E.9060400@mlbassoc.com>
-References: <4D40251F.5070906@mlbassoc.com> <4D4026AC.1030706@mlbassoc.com>
-	<AANLkTimteGhJd8rRdTYAnZAWP_a54_WuRpQ_P84pns8q@mail.gmail.com>
-	<4D402D0E.9060400@mlbassoc.com>
-Date: Wed, 26 Jan 2011 09:24:18 -0500
-Message-ID: <AANLkTi=dEAcr6VsW89fJo+55ud3a5-KabEj+shyj6Ag8@mail.gmail.com>
-From: Bruce Ashfield <bruce.ashfield@gmail.com>
-To: Gary Thomas <gary@mlbassoc.com>
-Cc: Poky <poky@lists.pokylinux.org>
-Subject: Re: No joy on "standard" PC
+To: "Lu, Lianhao" <lianhao.lu@intel.com>
+References: <C10D3FB0CD45994C8A51FEC1227CE22F20A83390A3@shsmsx502.ccr.corp.intel.com>
+In-Reply-To: <C10D3FB0CD45994C8A51FEC1227CE22F20A83390A3@shsmsx502.ccr.corp.intel.com>
+X-OriginalArrivalTime: 26 Jan 2011 14:32:38.0980 (UTC)
+	FILETIME=[E1EAD040:01CBBD65]
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: Why rpm install process is not working out of the pseudo context
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -47,72 +36,68 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 26 Jan 2011 14:24:19 -0000
+X-List-Received-Date: Wed, 26 Jan 2011 14:32:40 -0000
 Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
 
-On Wed, Jan 26, 2011 at 9:17 AM, Gary Thomas <gary@mlbassoc.com> wrote:
-> On 01/26/2011 06:58 AM, Bruce Ashfield wrote:
->>
->> On Wed, Jan 26, 2011 at 8:50 AM, Gary Thomas<gary@mlbassoc.com> =A0wrote=
-:
->>>
->>> On 01/26/2011 06:43 AM, Gary Thomas wrote:
->>>>
->>>> I finally got Poky to build for a standard PC (actually atom-pc
->>>> so I could build a live/bootable image). Sadly, that's all I
->>>> have is an image as I can't get it to run anywhere :-(
->>>>
->>>> * On my laptop (the point of this exercise) which is an older
->>>> Pentium-III machine, the kernel crashes almost immediately.
->>>
->>> Exact same failure on my [newer] AMD/2800 tower.
->>
->> I'll start some builds up here and see how things perform around
->> here. =A0I've largely been building and booting the emulator for
->> x86 and the non-x86 hardware targets. But this sounds like something
->> worth taking for a spin.
->
-> Thanks. =A0FAOD, here's my build setup:
-> =A0OE Build Configuration:
-> =A0BB_VERSION =A0 =A0 =A0 =A0=3D "1.11.0"
-> =A0METADATA_BRANCH =A0 =3D "local_master"
-> =A0METADATA_REVISION =3D "db9b8bc9a34f3f486d6ce948a073a1f042d9dbb7"
-> =A0TARGET_ARCH =A0 =A0 =A0 =3D "i586"
-> =A0TARGET_OS =A0 =A0 =A0 =A0 =3D "linux"
-> =A0MACHINE =A0 =A0 =A0 =A0 =A0 =3D "atom-pc"
-> =A0DISTRO =A0 =A0 =A0 =A0 =A0 =A0=3D "poky"
-> =A0DISTRO_VERSION =A0 =A0=3D "0.9+snapshot-20110126"
-> =A0TARGET_FPU =A0 =A0 =A0 =A0=3D ""
->
+On 1/26/11 12:57 AM, Lu, Lianhao wrote:
+> Hi guys,
+> 
+> Does anyone know why the RPM install process should be all executed in the pseudo context? Thank you!
+> 
+> I found that the rpm install process is not working when I manually enter the rpm command in the terminal (without pseudo).
+> 
+> The install process for rpm is:
+> 1. generate db from solved db
+>         ${RPM} -D "_rpmds_sysinfo_path ${SDK_OUTPUT}/${SDKTARGETSYSROOT}/etc/rpm/sysinfo" \
+>                 -D "_dbpath ${SDK_OUTPUT}/${SDKTARGETSYSROOT}/install" -D "`cat ${RPMCONF_TARGET_BASE}.macro`" \
+>                 -D "__dbi_cdb create mp_mmapsize=128Mb mp_size=1Mb nofsync" \
+>                 -U --justdb --noscripts --notriggers --noparentdirs --nolinktos --ignoresize \
+>                 ${SDK_OUTPUT}/${SDKTARGETSYSROOT}/install/install.manifest
+> 
+> 2. pull out a list of what to install
+> 	${RPM} -D "_dbpath ${SDK_OUTPUT}/${SDKTARGETSYSROOT}/install" -qa --yaml \
+>                 | grep -i 'Packageorigin' | cut -d : -f 2 > ${SDK_OUTPUT}/${SDKTARGETSYSROOT}/install/install_solution.manifest
 
-perfect. This matches what I launched a few minutes ago.
+The above two can be run without pseudo.
 
-Bruce
+> 3. actual install
+> 	${RPM} --root ${SDK_OUTPUT}/${SDKTARGETSYSROOT} \
+>                 -D "_rpmds_sysinfo_path ${SDK_OUTPUT}/${SDKTARGETSYSROOT}/etc/rpm/sysinfo" \
+>                 -D "_dbpath ${rpmlibdir}" \
+>                 --noscripts --notriggers --noparentdirs --nolinktos \
+>                 -D "__dbi_cdb create mp_mmapsize=128Mb mp_size=1Mb nofsync private" \
+>                 -Uhv ${SDK_OUTPUT}/${SDKTARGETSYSROOT}/install/install_solution.manifest
 
-> Host CPU =3D Fedora-13/x86
-> Building poky-image-sato-live.
->
->>>
->>>>
->>>> * On my brand new laptop (Core-i3), I couldn't get it to even
->>>> try...
->>>>
->>>> * On a VirtualBox machine, it boots but then sits forever
->>>> "waiting for removable media"...
->>>>
->>>> Oh well, back to my OMAP that at least boots :-(
->
-> --
-> ------------------------------------------------------------
-> Gary Thomas =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 | =A0Consulting for the
-> MLB Associates =A0 =A0 =A0 =A0 =A0 =A0 =A0| =A0 =A0Embedded world
-> ------------------------------------------------------------
->
+The above item DOES require pseudo.  The --root tells RPM to chroot into a
+specific directory before an install begins.  chroot is a command that only root
+(or pseudo) can execute.  This is why pseudo content is required.
 
+> If we put all the 3 steps under pseudo context, it works fine. But if all the 3 steps are out of pseudo context, the step 2) would fail complaining about:
+> rpmdb: configured environment flags incompatible with existing environment
+> error: cannot open Package(0) index using db3 - Invalid argument (22)
+> error: cannot open Package database in /home/lulianhao/poky-build/meta-toolchain/tmp/work/mips-poky-linux/meta-toolchain-sdk-1.0-r1/sdk/image//opt/poky/0.9+snapshot/sysroots/mips-poky-linux/install
 
+I'm surprised the first two fail.  It's possible that something in the berkley
+db setup (unique to RPMs usage) is also attempting to use chroot or a similar
+root only command of some type.
 
---=20
-"Thou shalt not follow the NULL pointer, for chaos and madness await
-thee at its end"
+> If I add -D "__dbi_cdb create mp_mmapsize=128Mb mp_size=1Mb nofsync" options to step 2), it would succeed. But in step 3), nothing actually gets installed though the rpm doesn't report any error in step 3).
+
+The second step should have the same __dbi_cdb as the first step.. If it doesn't
+(or doesn't work) then it looks like you discovered a bug in the original
+implementation.
+
+I can look into this a big today.  (Hopefully this complex mechanism of doing
+dependency resolution can go away with Zypper.. but we're not yet there.)
+
+--Mark
+
+> Best Regards,
+> -Lianhao Lu
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+
 
