@@ -1,28 +1,30 @@
-Return-Path: <koen@dominion.thruhere.net>
-Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
-	[74.125.82.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id F2EB84C811AA;
-	Wed, 26 Jan 2011 02:48:07 -0600 (CST)
-Received: by wye20 with SMTP id 20so695344wye.35
-	for <multiple recipients>; Wed, 26 Jan 2011 00:48:07 -0800 (PST)
-Received: by 10.227.182.68 with SMTP id cb4mr7065508wbb.218.1296031685477;
-	Wed, 26 Jan 2011 00:48:05 -0800 (PST)
-Received: from [172.20.0.255] (ip545070eb.adsl-surfen.hetnet.nl
-	[84.80.112.235])
-	by mx.google.com with ESMTPS id n1sm7637564weq.31.2011.01.26.00.48.04
-	(version=TLSv1/SSLv3 cipher=RC4-MD5);
-	Wed, 26 Jan 2011 00:48:04 -0800 (PST)
-Mime-Version: 1.0 (Apple Message framework v1082)
-From: Koen Kooi <koen@dominion.thruhere.net>
-In-Reply-To: <5eb33f8529e5b56387f7c51f11e50d3c2b031370.1296008816.git.ke.yu@intel.com>
-Date: Wed, 26 Jan 2011 09:48:03 +0100
-Cc: poky@yoctoproject.org
-Message-Id: <10A1EBA3-1693-4FED-8255-CBF6C7804357@dominion.thruhere.net>
-References: <cover.1296008816.git.ke.yu@intel.com>
-	<5eb33f8529e5b56387f7c51f11e50d3c2b031370.1296008816.git.ke.yu@intel.com>
-To: poky-bounces@yoctoproject.org
-X-Mailer: Apple Mail (2.1082)
-Subject: Re: [PATCH 2/2] xf86-video-omapfb: upgrade to 044617665d6737f4909aab96
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4777A4C811AE
+	for <poky@yoctoproject.org>; Wed, 26 Jan 2011 03:24:05 -0600 (CST)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p0Q9Q0gU025186; Wed, 26 Jan 2011 09:26:00 GMT
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id YAtRSTttWvB5; Wed, 26 Jan 2011 09:26:00 +0000 (GMT)
+Received: from [192.168.1.45] (tim [93.97.173.237]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p0Q9PtcD025183
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Wed, 26 Jan 2011 09:25:57 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Saul Wold <saul.wold@intel.com>
+In-Reply-To: <4D3F6A39.8000202@intel.com>
+References: <625BA99ED14B2D499DC4E29D8138F1504DB5BB7093@shsmsx502.ccr.corp.intel.com>
+	<4D3F6A39.8000202@intel.com>
+Date: Wed, 26 Jan 2011 09:23:36 +0000
+Message-ID: <1296033816.27814.2115.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: question about the sender of this mailing list
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,55 +36,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 26 Jan 2011 08:48:08 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Wed, 26 Jan 2011 09:24:05 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-That revision is buggy, using it disables the framebuffer:
+On Tue, 2011-01-25 at 16:26 -0800, Saul Wold wrote:
+> On 01/25/2011 04:20 PM, Tian, Kevin wrote:
+> > Hi, all,
+> >
+> > I just found one weird change today.
+> >
+> > Normally I received mails from this list by:
+> > 	Poky-bounces@yoctoproject.org on behalf of someone
+> >
+> > That way in my inbox I can sort the mails by the sender names, which is also the most typical way I see in most projects
+> >
+> > However today I also saw some plain senders:
+> > 	Poky-bounces@yoctoproject.org
+> > (from Josh, Edwin, Scott...)
+> >
+> > Does anyone know what may be the cause for this?
+>
+> This just started happening, not sure yet why, I am going to talk with 
+> Jon, but he has been trying to get bugzilla backup and running. We know 
+> about this issue.
 
-[   34.354583] omapdss DISPC error: timeout waiting for EVSYNC
-[   34.456146] omapdss DISPC error: timeout waiting for EVSYNC
+I think it was the recent pull request script changes somehow. The
+timing fits...
 
+Cheers,
 
-Op 26 jan 2011, om 03:29 heeft poky-bounces@yoctoproject.org het =
-volgende geschreven:
-
-> From: Yu Ke <ke.yu@intel.com>
->=20
-> Signed-off-by: Yu Ke <ke.yu@intel.com>
-> ---
-> .../conf/distro/include/poky-default-revisions.inc |    2 +-
-> 1 files changed, 1 insertions(+), 1 deletions(-)
->=20
-> diff --git a/meta/conf/distro/include/poky-default-revisions.inc =
-b/meta/conf/distro/include/poky-default-revisions.inc
-> index 8d98eef..a606889 100644
-> --- a/meta/conf/distro/include/poky-default-revisions.inc
-> +++ b/meta/conf/distro/include/poky-default-revisions.inc
-> @@ -182,7 +182,7 @@ SRCREV_pn-xcb-proto ??=3D =
-"d81ca233e98be8fa59e8c90d262c0516944c5a66"
-> SRCREV_pn-xcb-proto-native ??=3D =
-"d81ca233e98be8fa59e8c90d262c0516944c5a66"
-> SRCREV_pn-xf86-video-intel ??=3D =
-"87ea531c5dc5b39809395b277c330854aaaaf019"
-> SRCREV_pn-xf86-video-intel-dri2 ??=3D =
-"3dd7f0f9423bb891bc99cd3b77dc3d57e057a7ef"
-> -SRCREV_pn-xf86-video-omapfb ??=3D =
-"6cff996abcb305460e9fa2c75569b776f099c9d5"
-> +SRCREV_pn-xf86-video-omapfb ??=3D =
-"044617665d6737f4909aab96f91b06261dff05d2"
-> SRCREV_pn-xf86-input-keyboard ??=3D =
-"3e28d68b50d291938734e9684b8296ca864f3892"
-> SRCREV_pn-xf86-input-mouse ??=3D =
-"ea5cfe804e112f320f14ad896c7802d53551d3e6"
-> SRCREV_pn-xf86-input-synaptics ??=3D =
-"934bc0012f948c52aadc8eda912f7728fb7394a2"
-> --=20
-> 1.7.0.4
->=20
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+Richard
 
 
