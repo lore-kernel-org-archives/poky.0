@@ -1,33 +1,28 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 93B1D4C811AA
-	for <poky@yoctoproject.org>; Wed, 26 Jan 2011 05:42:37 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0QBiTlG031278; Wed, 26 Jan 2011 11:44:29 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id CeSexXwsEoh2; Wed, 26 Jan 2011 11:44:29 +0000 (GMT)
-Received: from [192.168.1.45] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0QBiO6l031258
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Wed, 26 Jan 2011 11:44:26 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Mark Hatle <mark.hatle@windriver.com>
-In-Reply-To: <4D3F9A27.3050409@windriver.com>
-References: <1295993245.27814.133.camel@rex>
-	<D5AB6E638E5A3E4B8F4406B113A5A19A31D0C878@shsmsx501.ccr.corp.intel.com>
-	<625BA99ED14B2D499DC4E29D8138F1504DB5BB71E1@shsmsx502.ccr.corp.intel.com>
-	<625BA99ED14B2D499DC4E29D8138F1504DB5BB7203@shsmsx502.ccr.corp.intel.com>
-	<4D3F9A27.3050409@windriver.com>
-Date: Wed, 26 Jan 2011 11:42:04 +0000
-Message-ID: <1296042124.27814.2557.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Cc: poky <poky@yoctoproject.org>
-Subject: Re: Master stability update
+Return-Path: <koen@dominion.thruhere.net>
+Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
+	[74.125.82.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 1888E4C80BCF
+	for <poky@yoctoproject.org>; Wed, 26 Jan 2011 06:50:49 -0600 (CST)
+Received: by wye20 with SMTP id 20so887637wye.35
+	for <poky@yoctoproject.org>; Wed, 26 Jan 2011 04:50:48 -0800 (PST)
+Received: by 10.216.162.84 with SMTP id x62mr341304wek.106.1296046248725;
+	Wed, 26 Jan 2011 04:50:48 -0800 (PST)
+Received: from [172.20.0.255] (ip545070eb.adsl-surfen.hetnet.nl
+	[84.80.112.235])
+	by mx.google.com with ESMTPS id x3sm7769841wes.46.2011.01.26.04.50.47
+	(version=TLSv1/SSLv3 cipher=RC4-MD5);
+	Wed, 26 Jan 2011 04:50:47 -0800 (PST)
+Mime-Version: 1.0 (Apple Message framework v1082)
+From: Koen Kooi <koen@dominion.thruhere.net>
+In-Reply-To: <10A1EBA3-1693-4FED-8255-CBF6C7804357@dominion.thruhere.net>
+Date: Wed, 26 Jan 2011 13:50:46 +0100
+Message-Id: <339D2639-AAF5-4990-813F-53D3B05326A7@dominion.thruhere.net>
+References: <cover.1296008816.git.ke.yu@intel.com>
+	<5eb33f8529e5b56387f7c51f11e50d3c2b031370.1296008816.git.ke.yu@intel.com>
+	<10A1EBA3-1693-4FED-8255-CBF6C7804357@dominion.thruhere.net>
+To: poky <poky@yoctoproject.org>
+X-Mailer: Apple Mail (2.1082)
+Subject: Re: [PATCH 2/2] xf86-video-omapfb: upgrade to 044617665d6737f4909aab96
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,38 +34,90 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 26 Jan 2011 11:42:38 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 26 Jan 2011 12:50:50 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2011-01-25 at 21:51 -0600, Mark Hatle wrote:
-> On 1/25/11 9:05 PM, Tian, Kevin wrote:
-> >> From: Tian, Kevin
-> > After a quick check, I guess this is not a problem. for example perl.do_configure
-> > changes checksum due to $MACHINE in dependency variables as Dongxiao said.
-> > Once perl is not reusable, at least ~10 recieps (libzypp, libtool, rpm, ...) are not
-> > reusable too because perl is in their task dependency chain.
-> > 
-> > I didn't check all the differences yet, but overall feeling is that this should be OK
-> > as Dongxiao mentioned there're several obvious MACHINE related recipes. I'll
-> > leave to Dongxiao for final confirmation. :-)
-> 
-> It might be nice (if not a bit dangerous) to be able to say "I want perl version
-> X.Y.Z.  I don't really care about the checksum, as long as the version matches..."
-> 
-> In the case of perl, this is likely to do exactly what we want/need.  In the
-> case of other packages (particularly libraries) this could cause serious problems...
 
-Adding "perl" to BB_HASHTASK_WHITELIST would do exactly what you
-describe so its at least possible although it doesn't cover a version
-specific match which would probably be better as part of DEPENDS
-handling.
+Op 26 jan 2011, om 09:48 heeft Koen Kooi het volgende geschreven:
 
-Stopping it being machine specific is the first thing that needs fixing
-though (I have a patch I'm testing for that one).
+> That revision is buggy, using it disables the framebuffer:
+>=20
+> [   34.354583] omapdss DISPC error: timeout waiting for EVSYNC
+> [   34.456146] omapdss DISPC error: timeout waiting for EVSYNC
 
-Cheers,
+Since I was already working on this, I'll give a summary of what I found =
+out after debugging this with upstream:
 
-Richard
+* The tv-out gets added last and the driver tries to reconfigure dvi to =
+TV resolutions, which fails, fix: =
+http://dominion.thruhere.net/git/cgit.cgi/xf86-video-omapfb/commit/?h=3Dte=
+st&id=3D05efb061f1945425d214ff6b6050883e6d8633bf
+
+* The new DSS mode breaks XV, so force plain mode: =
+http://dominion.thruhere.net/git/cgit.cgi/xf86-video-omapfb/commit/?id=3Dd=
+28a36bbadc360a9409bf9832f1d4171d7c33dad
+
+* Picture is garbled after switching resolutions, fix: =
+http://dominion.thruhere.net/git/cgit.cgi/xf86-video-omapfb/commit/?h=3Dte=
+st&id=3Dcbae688d7df59938ccb4af534ec2ff75cbbe9221
+
+* Virtual size too big, fix: =
+http://dominion.thruhere.net/git/cgit.cgi/xf86-video-omapfb/commit/?h=3Dte=
+st&id=3D031516123d25a12808ab4e56ea8deda74946cdcd
+
+The problem is that modeswitching isn't working properly in plain mode, =
+so you can either get working modeswitching or working Xv with the above =
+patches.
+
+But looking closer, the SRCREV that's currently there =
+(6cff996abcb305460e9fa2c75569b776f099c9d5) is broken as well.
+
+regards,
+
+Koen
+
+
+> Op 26 jan 2011, om 03:29 heeft poky-bounces@yoctoproject.org het =
+volgende geschreven:
+>=20
+>> From: Yu Ke <ke.yu@intel.com>
+>>=20
+>> Signed-off-by: Yu Ke <ke.yu@intel.com>
+>> ---
+>> .../conf/distro/include/poky-default-revisions.inc |    2 +-
+>> 1 files changed, 1 insertions(+), 1 deletions(-)
+>>=20
+>> diff --git a/meta/conf/distro/include/poky-default-revisions.inc =
+b/meta/conf/distro/include/poky-default-revisions.inc
+>> index 8d98eef..a606889 100644
+>> --- a/meta/conf/distro/include/poky-default-revisions.inc
+>> +++ b/meta/conf/distro/include/poky-default-revisions.inc
+>> @@ -182,7 +182,7 @@ SRCREV_pn-xcb-proto ??=3D =
+"d81ca233e98be8fa59e8c90d262c0516944c5a66"
+>> SRCREV_pn-xcb-proto-native ??=3D =
+"d81ca233e98be8fa59e8c90d262c0516944c5a66"
+>> SRCREV_pn-xf86-video-intel ??=3D =
+"87ea531c5dc5b39809395b277c330854aaaaf019"
+>> SRCREV_pn-xf86-video-intel-dri2 ??=3D =
+"3dd7f0f9423bb891bc99cd3b77dc3d57e057a7ef"
+>> -SRCREV_pn-xf86-video-omapfb ??=3D =
+"6cff996abcb305460e9fa2c75569b776f099c9d5"
+>> +SRCREV_pn-xf86-video-omapfb ??=3D =
+"044617665d6737f4909aab96f91b06261dff05d2"
+>> SRCREV_pn-xf86-input-keyboard ??=3D =
+"3e28d68b50d291938734e9684b8296ca864f3892"
+>> SRCREV_pn-xf86-input-mouse ??=3D =
+"ea5cfe804e112f320f14ad896c7802d53551d3e6"
+>> SRCREV_pn-xf86-input-synaptics ??=3D =
+"934bc0012f948c52aadc8eda912f7728fb7394a2"
+>> --=20
+>> 1.7.0.4
+>>=20
+>> _______________________________________________
+>> poky mailing list
+>> poky@yoctoproject.org
+>> https://lists.yoctoproject.org/listinfo/poky
+>=20
 
 
