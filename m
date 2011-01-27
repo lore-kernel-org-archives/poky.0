@@ -1,22 +1,22 @@
 Return-Path: <josh@openedhand.com>
 Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A45664C81210
-	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 04:46:54 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id AB0D34C81210
+	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 04:47:08 -0600 (CST)
 Received: from [192.168.1.88] (unknown [83.217.123.106])
 	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by pug.o-hand.com (Postfix) with ESMTP id 7676C12EC1CA
-	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 05:27:55 -0600 (CST)
+	by pug.o-hand.com (Postfix) with ESMTP id 6D1C112EC209
+	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 05:28:10 -0600 (CST)
 From: Joshua Lock <josh@openedhand.com>
 To: poky@yoctoproject.org
-In-Reply-To: <26af1eedc02891af494e897816b8c0819d13f4e5.1296095614.git.lianhao.lu@intel.com>
+In-Reply-To: <6e68264b2e391cfa101c8816356f5da3f3edade2.1296095614.git.lianhao.lu@intel.com>
 References: <cover.1296095614.git.lianhao.lu@intel.com>
-	<26af1eedc02891af494e897816b8c0819d13f4e5.1296095614.git.lianhao.lu@intel.com>
-Date: Thu, 27 Jan 2011 10:46:46 +0000
-Message-ID: <1296125206.2711.12.camel@scimitar>
+	<6e68264b2e391cfa101c8816356f5da3f3edade2.1296095614.git.lianhao.lu@intel.com>
+Date: Thu, 27 Jan 2011 10:47:01 +0000
+Message-ID: <1296125221.2711.13.camel@scimitar>
 Mime-Version: 1.0
 X-Mailer: Evolution 2.32.1 (2.32.1-1.fc14) 
-Subject: Re: [PATCH 5/6] package_rpm/populate_sdk_rpm: Added rpm support for populate_sdk task.
+Subject: Re: [PATCH 6/6] meta_toolchain/populate_sdk: Made task populate_sdk more generic.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,279 +28,272 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Jan 2011 10:46:54 -0000
+X-List-Received-Date: Thu, 27 Jan 2011 10:47:08 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
 On Thu, 2011-01-27 at 10:51 +0800, Lianhao Lu wrote:
 > From: Lianhao Lu <lianhao.lu@intel.com>
 > 
-> 1. Added popluate_sdk_rpm.bbclass to add rpm support for populate_sdk
-> task.
+> Make the task populate_sdk more generic to support installing from all
+> ipk, rpm, and deb package format.
 > 
-> 2. Modified the function package_update_index_rpm() &
-> package_generate_rpm_conf in package_rpm.bbclass to generate 2 different
-> configurations for sdk host and sdk target.
+> Also remove the .la files fixing in task populate_sdk code because the
+> libtool 2.4 now supports sysroot.
+
+Could you do this as a separate commit and actually remove the lines of
+code, rather than commenting them out?
+
+
 > 
 > Signed-off-by: Lianhao Lu <lianhao.lu@intel.com>
 > ---
->  meta/classes/package_rpm.bbclass      |   53 +++++++++++--
->  meta/classes/populate_sdk_rpm.bbclass |  138 +++++++++++++++++++++++++++++++++
->  2 files changed, 183 insertions(+), 8 deletions(-)
->  create mode 100644 meta/classes/populate_sdk_rpm.bbclass
+>  meta/classes/populate_sdk.bbclass        |   88 +++++++++++++++++++++++++
+>  meta/classes/populate_sdk_rpm.bbclass    |    6 +-
+>  meta/recipes-core/meta/meta-toolchain.bb |  103 +-----------------------------
+>  3 files changed, 94 insertions(+), 103 deletions(-)
+>  create mode 100644 meta/classes/populate_sdk.bbclass
 > 
-> diff --git a/meta/classes/package_rpm.bbclass b/meta/classes/package_rpm.bbclass
-> index fbe0626..abcb340 100644
-> --- a/meta/classes/package_rpm.bbclass
-> +++ b/meta/classes/package_rpm.bbclass
-> @@ -15,6 +15,8 @@ python package_rpm_install () {
->  	bb.fatal("package_rpm_install not implemented!")
->  }
->  
-> +RPMCONF_TARGET_BASE = "${DEPLOY_DIR_RPM}/solvedb"
-> +RPMCONF_HOST_BASE = "${DEPLOY_DIR_RPM}/solvedb-sdk"
->  #
->  # Update the Packages depsolver db in ${DEPLOY_DIR_RPM}
->  #
-> @@ -26,15 +28,20 @@ package_update_index_rpm () {
->  	fi
->  
->  	packagedirs=""
-> +	packagedirs_sdk=""
->  	for arch in $rpmarchs ; do
->  		sdkarch=`echo $arch | sed -e 's/${HOST_ARCH}/${SDK_ARCH}/'`
-> +		extension="-nativesdk"
-> +		if [ "$sdkarch" = "all" -o "$sdkarch" = "any" -o "$sdkarch" = "noarch" ]; then
-> +		    extension=""
-> +		fi
->  		packagedirs="$packagedirs ${DEPLOY_DIR_RPM}/$arch"
-> -		#packagedirs="$packagedirs ${DEPLOY_DIR_RPM}/$sdkarch-nativesdk"
-> +		packagedirs_sdk="$packagedirs_sdk ${DEPLOY_DIR_RPM}/$sdkarch$extension"
->  	done
->  
->  	#packagedirs="$packagedirs ${DEPLOY_DIR_RPM}/${SDK_ARCH}-${TARGET_ARCH}-canadian"
->  
-> -	cat /dev/null > ${DEPLOY_DIR_RPM}/solvedb.conf
-> +	cat /dev/null > ${RPMCONF_TARGET_BASE}.conf
->  	for pkgdir in $packagedirs; do
->  		if [ -e $pkgdir/ ]; then
->  			echo "Generating solve db for $pkgdir..."
-> @@ -49,7 +56,26 @@ package_update_index_rpm () {
->  				-D "_dbi_tags_3 Packages:Name:Basenames:Providename:Nvra" \
->  				-D "__dbi_cdb create mp_mmapsize=128Mb mp_size=1Mb nofsync" \
->  				$pkgdir/solvedb/manifest
-> -			echo $pkgdir/solvedb >> ${DEPLOY_DIR_RPM}/solvedb.conf
-> +			echo $pkgdir/solvedb >> ${RPMCONF_TARGET_BASE}.conf
-> +		fi
-> +	done
-> +
-> +	cat /dev/null > ${RPMCONF_HOST_BASE}.conf
-> +	for pkgdir in $packagedirs_sdk; do
-> +		if [ -e $pkgdir/ ]; then
-> +			echo "Generating solve db for $pkgdir..."
-> +			rm -rf $pkgdir/solvedb
-> +			mkdir -p $pkgdir/solvedb
-> +			echo "# Dynamically generated solve manifest" >> $pkgdir/solvedb/manifest
-> +			find $pkgdir -maxdepth 1 -type f >> $pkgdir/solvedb/manifest
-> +			${RPM} -i --replacepkgs --replacefiles --oldpackage \
-> +				-D "_dbpath $pkgdir/solvedb" --justdb \
-> +				--noaid --nodeps --noorder --noscripts --notriggers --noparentdirs --nolinktos --stats \
-> +				--ignoresize --nosignature --nodigest \
-> +				-D "_dbi_tags_3 Packages:Name:Basenames:Providename:Nvra" \
-> +				-D "__dbi_cdb create mp_mmapsize=128Mb mp_size=1Mb nofsync" \
-> +				$pkgdir/solvedb/manifest
-> +			echo $pkgdir/solvedb >> ${RPMCONF_HOST_BASE}.conf
->  		fi
->  	done
->  }
-> @@ -59,16 +85,27 @@ package_update_index_rpm () {
->  # generated depsolver db's...
->  #
->  package_generate_rpm_conf () {
-> -	printf "_solve_dbpath " > ${DEPLOY_DIR_RPM}/solvedb.macro
-> +	printf "_solve_dbpath " > ${RPMCONF_TARGET_BASE}.macro
-> +	colon=false
-> +	for each in `cat ${RPMCONF_TARGET_BASE}.conf` ; do
-> +		if [ "$colon" == true ]; then
-> +			printf ":" >> ${RPMCONF_TARGET_BASE}.macro
-> +		fi
-> +		printf "%s" $each >> ${RPMCONF_TARGET_BASE}.macro
-> +		colon=true
-> +	done
-> +	printf "\n" >> ${RPMCONF_TARGET_BASE}.macro
-> +
-> +	printf "_solve_dbpath " > ${RPMCONF_HOST_BASE}.macro
->  	colon=false
-> -	for each in `cat ${DEPLOY_DIR_RPM}/solvedb.conf` ; do
-> +	for each in `cat ${RPMCONF_HOST_BASE}.conf` ; do
->  		if [ "$colon" == true ]; then
-> -			printf ":" >> ${DEPLOY_DIR_RPM}/solvedb.macro
-> +			printf ":" >> ${RPMCONF_HOST_BASE}.macro
->  		fi
-> -		printf "%s" $each >> ${DEPLOY_DIR_RPM}/solvedb.macro
-> +		printf "%s" $each >> ${RPMCONF_HOST_BASE}.macro
->  		colon=true
->  	done
-> -	printf "\n" >> ${DEPLOY_DIR_RPM}/solvedb.macro
-> +	printf "\n" >> ${RPMCONF_HOST_BASE}.macro
->  }
->  
->  python write_specfile () {
-> diff --git a/meta/classes/populate_sdk_rpm.bbclass b/meta/classes/populate_sdk_rpm.bbclass
+> diff --git a/meta/classes/populate_sdk.bbclass b/meta/classes/populate_sdk.bbclass
 > new file mode 100644
-> index 0000000..883e67f
+> index 0000000..02870a6
 > --- /dev/null
-> +++ b/meta/classes/populate_sdk_rpm.bbclass
-> @@ -0,0 +1,138 @@
-> +do_populate_sdk[depends] += "rpm-native:do_populate_sysroot"
-> +do_populate_sdk[recrdeptask] += "do_package_write_rpm"
+> +++ b/meta/classes/populate_sdk.bbclass
+> @@ -0,0 +1,88 @@
+> +inherit meta toolchain-scripts
+> +inherit populate_sdk_${IMAGE_PKGTYPE}
 > +
-> +rpmlibdir = "/var/lib/rpm"
-
-Bonus points if you change this for a layout variable:
-
-${localstatedir}/lib/rpm ?
-
-> +RPMOPTS="--dbpath ${rpmlibdir} --define='_openall_before_chroot 1'"
-> +RPM="rpm ${RPMOPTS}"
+> +SDK_DIR = "${WORKDIR}/sdk"
+> +SDK_OUTPUT = "${SDK_DIR}/image"
+> +SDK_DEPLOY = "${TMPDIR}/deploy/sdk"
 > +
-> +# Resolve package names to filepaths
-> +resolve_package() {
-> +	pkg="$1"
-> +	conffile="$2"
-> +	pkg_name=""
-> +	for solve in `cat ${conffile}`; do
-> +		pkg_name=$(${RPM} -D "_dbpath $solve" -D "_dbi_tags_3 Packages:Name:Basenames:Providename:Nvra" -D "__dbi_cdb create mp_mmapsize=128Mb mp_size=1Mb nofsync" -q --yaml $pkg | grep -i 'Packageorigin' | cut -d : -f 2)
-> +		if [ -n "$pkg_name" ]; then
-> +			break;
-> +		fi
+> +SDKTARGETSYSROOT = "${SDKPATH}/sysroots/${TARGET_SYS}"
+> +
+> +TOOLCHAIN_HOST_TASK ?= "task-sdk-host task-cross-canadian-${TRANSLATED_TARGET_ARCH}"
+> +TOOLCHAIN_TARGET_TASK ?= "task-poky-standalone-sdk-target task-poky-standalone-sdk-target-dbg"
+> +TOOLCHAIN_OUTPUTNAME ?= "${SDK_NAME}-toolchain-${DISTRO_VERSION}"
+> +
+> +RDEPENDS = "${TOOLCHAIN_TARGET_TASK} ${TOOLCHAIN_HOST_TASK}"
+> +DEPENDS = "virtual/fakeroot-native sed-native"
+> +
+> +PID = "${@os.getpid()}"
+> +
+> +EXCLUDE_FROM_WORLD = "1"
+> +
+> +fakeroot do_populate_sdk() {
+> +	rm -rf ${SDK_OUTPUT}
+> +	mkdir -p ${SDK_OUTPUT}
+> +
+> +	populate_sdk_${IMAGE_PKGTYPE}
+> +
+> +	# Don't ship any libGL in the SDK
+> +	rm -rf ${SDK_OUTPUT}/${SDKPATHNATIVE}${libdir_nativesdk}/libGL*
+> +
+> +	# Can copy pstage files here
+> +	# target_pkgs=`cat ${SDK_OUTPUT}/${SDKTARGETSYSROOT}/var/lib/opkg/status | grep Package: | cut -f 2 -d ' '`
+> +
+> +	# Fix or remove broken .la files
+> +	# no longer needed since libtool now support sysroot
+> +	#for i in `find ${SDK_OUTPUT}/${SDKTARGETSYSROOT} -name \*.la`; do
+> +	#	sed -i 	-e "/^dependency_libs=/s,\([[:space:]']\)${base_libdir},\1${SDKTARGETSYSROOT}${base_libdir},g" \
+> +	#		-e "/^dependency_libs=/s,\([[:space:]']\)${libdir},\1${SDKTARGETSYSROOT}${libdir},g" \
+> +	#		-e "/^dependency_libs=/s,\-\([LR]\)${base_libdir},-\1${SDKTARGETSYSROOT}${base_libdir},g" \
+> +	#		-e "/^dependency_libs=/s,\-\([LR]\)${libdir},-\1${SDKTARGETSYSROOT}${libdir},g" \
+> +	#		-e 's/^installed=yes$/installed=no/' $i
+> +	#done
+> +	#rm -f ${SDK_OUTPUT}/${SDKPATHNATIVE}/lib/*.la
+> +	rm -f ${SDK_OUTPUT}/${SDKPATHNATIVE}${libdir_nativesdk}/*.la
+> +
+> +	# Link the ld.so.cache file into the hosts filesystem
+> +	ln -s /etc/ld.so.cache ${SDK_OUTPUT}/${SDKPATHNATIVE}/etc/ld.so.cache
+> +
+> +	# Setup site file for external use
+> +	siteconfig=${SDK_OUTPUT}/${SDKPATH}/site-config-${MULTIMACH_TARGET_SYS}
+> +	touch $siteconfig
+> +	for sitefile in ${CONFIG_SITE} ; do
+> +		cat $sitefile >> $siteconfig
 > +	done
-> +	echo $pkg_name
+> +
+> +	toolchain_create_sdk_env_script
+> +
+> +	# Add version information
+> +	versionfile=${SDK_OUTPUT}/${SDKPATH}/version-${MULTIMACH_TARGET_SYS}
+> +	touch $versionfile
+> +	echo 'Distro: ${DISTRO}' >> $versionfile
+> +	echo 'Distro Version: ${DISTRO_VERSION}' >> $versionfile
+> +	echo 'Metadata Revision: ${METADATA_REVISION}' >> $versionfile
+> +	echo 'Timestamp: ${DATETIME}' >> $versionfile
+> +
+> +	# Package it up
+> +	mkdir -p ${SDK_DEPLOY}
+> +	cd ${SDK_OUTPUT}
+> +	tar --owner=root --group=root -cj --file=${SDK_DEPLOY}/${TOOLCHAIN_OUTPUTNAME}.tar.bz2 .
 > +}
 > +
-> +# populate_sdk_rpm_internal <rootfs> <platform> <confbase> <packages_to_install>
-> +populate_sdk_rpm_internal() {
+> +populate_sdk_log_check() {
 > +
-> +	target_rootfs=$1
-> +	shift
-> +	platform=$1
-> +	shift
-> +	confbase=$1
-> +	shift
-> +	package_to_install=$@
-> +	
-> +	# Setup base system configuration
-> +	mkdir -p ${target_rootfs}/etc/rpm/
-> +	echo "${platform}" >${target_rootfs}/etc/rpm/platform
+> +	lf_path="${WORKDIR}/temp/log.do_populate_sdk.${PID}"
 > +
-> +	# Tell RPM that the "/" directory exist and is available
-> +	mkdir -p ${target_rootfs}/etc/rpm/sysinfo
-> +	echo "/" >${target_rootfs}/etc/rpm/sysinfo/Dirnames
-> +	echo "/bin/sh" >${target_rootfs}/etc/rpm/sysinfo/Providename
-
-${sysconfdir} in here?
-
+> +	echo "log_check: Using $lf_path as logfile"
 > +
-> +	# Setup manifest of packages to install...
-> +	mkdir -p ${target_rootfs}/install
-> +	echo "# Install manifest" > ${target_rootfs}/install/install.manifest
-> +
-> +	if [ ! -z "${package_to_install}" ]; then
-> +		for pkg in ${package_to_install} ; do
-> +			echo "Processing $pkg..."
-> +			pkg_name=$(resolve_package $pkg ${confbase}.conf)
-> +			if [ -z "$pkg_name" ]; then
-> +				echo "Unable to find package $pkg!"
-> +				exit 1
-> +			fi
-> +			echo $pkg_name >> ${target_rootfs}/install/install.manifest
-> +		done
+> +	if test -e "$lf_path"
+> +	then
+> +		populate_sdk_${IMAGE_PKGTYPE}_log_check $lf_path
+> +	else
+> +		echo "Cannot find logfile [$lf_path]"
 > +	fi
-> +
-> +	# Generate an install solution by doing a --justdb install, then recreate it with
-> +	# an actual package install!
-> +	set -e
-> +	${RPM} -D "_rpmds_sysinfo_path ${target_rootfs}/etc/rpm/sysinfo" \
-> +		-D "_dbpath ${target_rootfs}/install" -D "`cat ${confbase}.macro`" \
-> +		-D "__dbi_cdb create mp_mmapsize=128Mb mp_size=1Mb nofsync" \
-> +		-U --justdb --noscripts --notriggers --noparentdirs --nolinktos --ignoresize \
-> +		${target_rootfs}/install/install.manifest
-> +
-> +	# Now that we have a solution, pull out a list of what to install...
-> +	echo "Manifest: ${target_rootfs}/install/install-target.manifest"
-> +	${RPM} -D "_dbpath ${target_rootfs}/install" \
-> +		-D "__dbi_cdb create mp_mmapsize=128Mb mp_size=1Mb nofsync" -qa --yaml \
-> +		| grep -i 'Packageorigin' | cut -d : -f 2 > ${target_rootfs}/install/install_solution.manifest
-> +
-> +	# Attempt install
-> +	${RPM} --root ${target_rootfs} \
-> +		-D "_rpmds_sysinfo_path ${target_rootfs}/etc/rpm/sysinfo" \
-> +		-D "_dbpath ${rpmlibdir}" \
-> +		--noscripts --notriggers --noparentdirs --nolinktos \
-> +		-D "__dbi_cdb create mp_mmapsize=128Mb mp_size=1Mb nofsync private" \
-> +		-Uhv ${target_rootfs}/install/install_solution.manifest
-> +	set +e
-> +
-> +	# remove lock files
-> +	rm -f ${target_rootfs}/__db.*
-> +
-> +	# Move manifests into the directory with the logs
-> +	mv ${target_rootfs}/install/*.manifest ${T}/
-> +
-> +	# Remove all remaining resolver files
-> +	rm -rf ${target_rootfs}/install
+> +	echo "Logfile is clean"
 > +}
 > +
-> +fakeroot populate_sdk_rpm () {
+> +do_populate_sdk[nostamp] = "1"
+> +do_populate_sdk[recrdeptask] = "do_package_write"
+> +addtask populate_sdk before do_build after do_install
+> diff --git a/meta/classes/populate_sdk_rpm.bbclass b/meta/classes/populate_sdk_rpm.bbclass
+> index 883e67f..0e46341 100644
+> --- a/meta/classes/populate_sdk_rpm.bbclass
+> +++ b/meta/classes/populate_sdk_rpm.bbclass
+> @@ -29,7 +29,7 @@ populate_sdk_rpm_internal() {
+>  	confbase=$1
+>  	shift
+>  	package_to_install=$@
+> -	
 > +
-> +	package_update_index_rpm
-> +	package_generate_rpm_conf
+>  	# Setup base system configuration
+>  	mkdir -p ${target_rootfs}/etc/rpm/
+>  	echo "${platform}" >${target_rootfs}/etc/rpm/platform
+> @@ -109,12 +109,12 @@ fakeroot populate_sdk_rpm () {
+>  	install -d ${SDK_OUTPUT}/${SDKPATHNATIVE}${localstatedir_nativesdk}/lib/rpm
+>  	mv ${SDK_OUTPUT}${rpmlibdir}/* ${SDK_OUTPUT}/${SDKPATHNATIVE}${localstatedir_nativesdk}/lib/rpm/
+>  	rm -Rf ${SDK_OUTPUT}/var
+> -	
 > +
-> +	#install target
-> +	populate_sdk_rpm_internal ${SDK_OUTPUT}/${SDKTARGETSYSROOT} \
-> +				${TARGET_ARCH}-linux \
-> +				${RPMCONF_TARGET_BASE} \
-> +				${TOOLCHAIN_TARGET_TASK}
-> +	#install host
-> +	populate_sdk_rpm_internal ${SDK_OUTPUT} \
-> +				"${SDK_ARCH}-nativesdk-linux" \
-> +				${RPMCONF_HOST_BASE} \
-> +				${TOOLCHAIN_HOST_TASK}
-> +
-> +	# move host RPM library data
-> +	install -d ${SDK_OUTPUT}/${SDKPATHNATIVE}${localstatedir_nativesdk}/lib/rpm
-> +	mv ${SDK_OUTPUT}${rpmlibdir}/* ${SDK_OUTPUT}/${SDKPATHNATIVE}${localstatedir_nativesdk}/lib/rpm/
-> +	rm -Rf ${SDK_OUTPUT}/var
-> +	
-> +	install -d ${SDK_OUTPUT}/${SDKPATHNATIVE}/${sysconfdir}
-> +	mv ${SDK_OUTPUT}/etc/* ${SDK_OUTPUT}/${SDKPATHNATIVE}/${sysconfdir}/
-> +	rm -rf ${SDK_OUTPUT}/etc
-> +
-> +	populate_sdk_log_check 
-> +}
-> +
-> +populate_sdk_rpm_log_check() {
-> +
-> +        lf_path="$1"
+>  	install -d ${SDK_OUTPUT}/${SDKPATHNATIVE}/${sysconfdir}
+>  	mv ${SDK_OUTPUT}/etc/* ${SDK_OUTPUT}/${SDKPATHNATIVE}/${sysconfdir}/
+>  	rm -rf ${SDK_OUTPUT}/etc
+>  
+> -	populate_sdk_log_check 
+> +	populate_sdk_log_check
+>  }
 
-Inconsistent indentation here. 
+Whitespace changes here can be squashed into the original patch adding
+this file.
 
+>  
+>  populate_sdk_rpm_log_check() {
+> diff --git a/meta/recipes-core/meta/meta-toolchain.bb b/meta/recipes-core/meta/meta-toolchain.bb
+> index 4aed9c2..feff9ac 100644
+> --- a/meta/recipes-core/meta/meta-toolchain.bb
+> +++ b/meta/recipes-core/meta/meta-toolchain.bb
+> @@ -1,106 +1,9 @@
+>  DESCRIPTION = "Meta package for building a installable toolchain"
+>  LICENSE = "MIT"
+> -DEPENDS = "opkg-native opkg-utils-native virtual/fakeroot-native sed-native"
 > +
-> +	lf_txt="`cat $lf_path`"
-> +	for keyword_die in "Cannot find package" "exit 1" ERR Fail
-> +	do
-> +		if (echo "$lf_txt" | grep -v log_check | grep "$keyword_die") >/dev/null 2>&1
-> +		then
-> +			echo "log_check: There were error messages in the logfile"
-> +			echo -e "log_check: Matched keyword: [$keyword_die]\n"
-> +			echo "$lf_txt" | grep -v log_check | grep -C 5 -i "$keyword_die"
-> +			echo ""
-> +			do_exit=1
-> +		fi
-> +	done
-> +	test "$do_exit" = 1 && exit 1
-> +	true
-> +}
+> +PR = "r1"
+>  
+>  LIC_FILES_CHKSUM = "file://${POKYBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58 \
+>                      file://${POKYBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
+>  
+> -inherit meta toolchain-scripts
+> -
+> -SDK_DIR = "${WORKDIR}/sdk"
+> -SDK_OUTPUT = "${SDK_DIR}/image"
+> -SDK_DEPLOY = "${TMPDIR}/deploy/sdk"
+> -
+> -SDKTARGETSYSROOT = "${SDKPATH}/sysroots/${TARGET_SYS}"
+> -
+> -IPKG_HOST = "opkg-cl -f ${IPKGCONF_SDK} -o ${SDK_OUTPUT} --force-overwrite"
+> -IPKG_TARGET = "opkg-cl -f ${IPKGCONF_TARGET} -o ${SDK_OUTPUT}/${SDKTARGETSYSROOT} --force-overwrite"
+> -
+> -TOOLCHAIN_HOST_TASK ?= "task-sdk-host task-cross-canadian-${TRANSLATED_TARGET_ARCH}"
+> -TOOLCHAIN_TARGET_TASK ?= "task-poky-standalone-sdk-target task-poky-standalone-sdk-target-dbg"
+> -TOOLCHAIN_OUTPUTNAME ?= "${SDK_NAME}-toolchain-${DISTRO_VERSION}"
+> -
+> -RDEPENDS = "${TOOLCHAIN_TARGET_TASK} ${TOOLCHAIN_HOST_TASK}"
+> -
+> -EXCLUDE_FROM_WORLD = "1"
+> -
+> -do_populate_sdk() {
+> -	rm -rf ${SDK_OUTPUT}
+> -	mkdir -p ${SDK_OUTPUT}
+> -	mkdir -p ${SDK_OUTPUT}${localstatedir}/lib/opkg/
+> -	mkdir -p ${SDK_OUTPUT}/${SDKTARGETSYSROOT}${localstatedir}/lib/opkg/
+> -
+> -	rm -f ${IPKGCONF_TARGET}
+> -	touch ${IPKGCONF_TARGET}
+> -	rm -f ${IPKGCONF_SDK}
+> -	touch ${IPKGCONF_SDK}
+> -
+> -	package_update_index_ipk
+> -	package_generate_ipkg_conf
+> -
+> -	for arch in ${PACKAGE_ARCHS}; do
+> -		revipkgarchs="$arch $revipkgarchs"
+> -	done
+> -
+> -	${IPKG_HOST} update
+> -	${IPKG_HOST} install ${TOOLCHAIN_HOST_TASK}
+> -
+> -	${IPKG_TARGET} update
+> -	${IPKG_TARGET} install ${TOOLCHAIN_TARGET_TASK}
+> -
+> -	install -d ${SDK_OUTPUT}/${SDKPATHNATIVE}${localstatedir_nativesdk}/lib/opkg
+> -	mv ${SDK_OUTPUT}/var/lib/opkg/* ${SDK_OUTPUT}/${SDKPATHNATIVE}${localstatedir_nativesdk}/lib/opkg/
+> -	rm -Rf ${SDK_OUTPUT}/var
+> -
+> -	# Don't ship any libGL in the SDK
+> -	rm -rf ${SDK_OUTPUT}/${SDKPATHNATIVE}${libdir_nativesdk}/libGL*
+> -
+> -	install -d ${SDK_OUTPUT}/${SDKTARGETSYSROOT}/${sysconfdir}
+> -	install -m 0644 ${IPKGCONF_TARGET} ${IPKGCONF_SDK} ${SDK_OUTPUT}/${SDKTARGETSYSROOT}/${sysconfdir}/
+> -
+> -	install -d ${SDK_OUTPUT}/${SDKPATHNATIVE}/${sysconfdir}
+> -	install -m 0644 ${IPKGCONF_SDK} ${SDK_OUTPUT}/${SDKPATHNATIVE}/${sysconfdir}/
+> -
+> -	# Can copy pstage files here
+> -	# target_pkgs=`cat ${SDK_OUTPUT}/${SDKTARGETSYSROOT}/var/lib/opkg/status | grep Package: | cut -f 2 -d ' '`
+> -
+> -	# Fix or remove broken .la files
+> -	for i in `find ${SDK_OUTPUT}/${SDKTARGETSYSROOT} -name \*.la`; do
+> -		sed -i 	-e "/^dependency_libs=/s,\([[:space:]']\)${base_libdir},\1${SDKTARGETSYSROOT}${base_libdir},g" \
+> -			-e "/^dependency_libs=/s,\([[:space:]']\)${libdir},\1${SDKTARGETSYSROOT}${libdir},g" \
+> -			-e "/^dependency_libs=/s,\-\([LR]\)${base_libdir},-\1${SDKTARGETSYSROOT}${base_libdir},g" \
+> -			-e "/^dependency_libs=/s,\-\([LR]\)${libdir},-\1${SDKTARGETSYSROOT}${libdir},g" \
+> -			-e 's/^installed=yes$/installed=no/' $i
+> -	done
+> -	#rm -f ${SDK_OUTPUT}/${SDKPATHNATIVE}/lib/*.la
+> -	rm -f ${SDK_OUTPUT}/${SDKPATHNATIVE}${libdir_nativesdk}/*.la
+> -
+> -	# Link the ld.so.cache file into the hosts filesystem
+> -	ln -s /etc/ld.so.cache ${SDK_OUTPUT}/${SDKPATHNATIVE}/etc/ld.so.cache
+> -
+> -	# Setup site file for external use
+> -	siteconfig=${SDK_OUTPUT}/${SDKPATH}/site-config-${MULTIMACH_TARGET_SYS}
+> -	touch $siteconfig
+> -	for sitefile in ${CONFIG_SITE} ; do
+> -		cat $sitefile >> $siteconfig
+> -	done
+> -
+> -	toolchain_create_sdk_env_script
+> -
+> -	# Add version information
+> -	versionfile=${SDK_OUTPUT}/${SDKPATH}/version-${MULTIMACH_TARGET_SYS}
+> -	touch $versionfile
+> -	echo 'Distro: ${DISTRO}' >> $versionfile
+> -	echo 'Distro Version: ${DISTRO_VERSION}' >> $versionfile
+> -	echo 'Metadata Revision: ${METADATA_REVISION}' >> $versionfile
+> -	echo 'Timestamp: ${DATETIME}' >> $versionfile
+> -
+> -	# Package it up
+> -	mkdir -p ${SDK_DEPLOY}
+> -	cd ${SDK_OUTPUT}
+> -	tar --owner=root --group=root -cj --file=${SDK_DEPLOY}/${TOOLCHAIN_OUTPUTNAME}.tar.bz2 .
+> -}
+> -
+> -do_populate_sdk[nostamp] = "1"
+> -do_populate_sdk[recrdeptask] = "do_package_write"
+> -addtask populate_sdk before do_build after do_install
+> +inherit populate_sdk
 
 Cheers,
 Joshua
