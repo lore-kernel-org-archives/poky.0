@@ -1,30 +1,30 @@
 Return-Path: <richard.purdie@linuxfoundation.org>
 Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 6731F4C81210
-	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 05:13:56 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id CE3C94C811F4
+	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 05:24:50 -0600 (CST)
 Received: from localhost (dan.rpsys.net [127.0.0.1])
 	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0RBFpSB026216; Thu, 27 Jan 2011 11:15:51 GMT
+	p0RBQk88026668; Thu, 27 Jan 2011 11:26:46 GMT
 X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
 Received: from dan.rpsys.net ([127.0.0.1])
 	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id Qpip4xuuPxMx; Thu, 27 Jan 2011 11:15:50 +0000 (GMT)
+	with LMTP id TmjYBOynICqj; Thu, 27 Jan 2011 11:26:46 +0000 (GMT)
 Received: from [192.168.1.45] (tim [93.97.173.237]) (authenticated bits=0)
 	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0RBFk0U026203
+	p0RBQc60026649
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Thu, 27 Jan 2011 11:15:48 GMT
+	Thu, 27 Jan 2011 11:26:41 GMT
 From: Richard Purdie <richard.purdie@linuxfoundation.org>
 To: Dongxiao Xu <dongxiao.xu@intel.com>
-In-Reply-To: <7a0a83046957272a5575afafe615a47c57eb5b85.1296115229.git.dongxiao.xu@intel.com>
+In-Reply-To: <ff33a5f7c9fdbc069582bd224809b49b6784fa16.1296115229.git.dongxiao.xu@intel.com>
 References: <cover.1296115229.git.dongxiao.xu@intel.com>
-	<7a0a83046957272a5575afafe615a47c57eb5b85.1296115229.git.dongxiao.xu@intel.com>
-Date: Thu, 27 Jan 2011 11:13:23 +0000
-Message-ID: <1296126803.27814.7071.camel@rex>
+	<ff33a5f7c9fdbc069582bd224809b49b6784fa16.1296115229.git.dongxiao.xu@intel.com>
+Date: Thu, 27 Jan 2011 11:24:12 +0000
+Message-ID: <1296127452.27814.7107.camel@rex>
 Mime-Version: 1.0
 X-Mailer: Evolution 2.28.3 
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 2/3] rm_work.bbclass: handle stamp files while doing rm_work
+Subject: Re: [PATCH 1/3] bitbake: add ${MACHINE} for do_populate_sysroot_setscene and do_package_setscene
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,57 +36,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Jan 2011 11:13:56 -0000
+X-List-Received-Date: Thu, 27 Jan 2011 11:24:51 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
 On Thu, 2011-01-27 at 16:04 +0800, Dongxiao Xu wrote:
-> diff --git a/meta/classes/rm_work.bbclass b/meta/classes/rm_work.bbclass
-> index 260ecb0..a151f4c 100644
-> --- a/meta/classes/rm_work.bbclass
-> +++ b/meta/classes/rm_work.bbclass
-> @@ -26,6 +26,23 @@ do_rm_work () {
->      # Need to add pseudo back or subsqeuent work in this workdir
->      # might fail since setscene may not rerun to recreate it
->      mkdir ${WORKDIR}/pseudo/
-> +
-> +    rm -rf `ls ${STAMP}* | grep -v sigdata | grep -v do_populate_sysroot | grep -v do_package` ${STAMP}.do_package_write
-> +
-> +    for stamp in `ls ${STAMP}* | grep do_package_write_* | grep -v setscene`
-> +    do
-> +        mv $stamp $stamp\_setscene
-> +    done
-> +
-> +    for task in do_populate_sysroot do_package
-> +    do
-> +        if [ -e ${STAMP}.$task ]; then
-> +            mv ${STAMP}.$task ${STAMP}.$task\_setscene
-> +        elif [ -e ${STAMP}.$task.${MACHINE} ]; then
-> +            mv ${STAMP}.$task.${MACHINE} ${STAMP}.$task\_setscene.${MACHINE}
-> +        fi
-> +    done
-> +
->  }
->  addtask rm_work after do_${RMWORK_ORIG_TASK}
+> From: Dongxiao Xu <dongxiao.xu@intel.com>
+> 
+> ${MACHINE} information is also needed to be tagged on stamps for
+> do_populate_sysroot_setscene and do_package_setscene, otherwise if
+> build two machines both from sstate, the second machine's sysroot will
+> not be populated correctly.
+> 
+> Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
 
-This is the right approach, however, if I set BB_SIGNATURE_HANDLER =
-"basichash" it will break since the stamps then look like:
+The _setscene stuff is really an internal implementation issue within
+bitbake. I don't like the idea that the metadata has to get this right
+and I'd prefer it if bitbake always did the right thing. In this case
+that means looking up the extra stamp info against the parent task, not
+the setscene one.
 
-ncurses-5.7-r0.do_populate_sysroot.59a5b1c1ce0a1bab23be44c27ba308a5.qemux86
+I therefore merged:
 
-and also, if we add new tasks to sstate, this code would then need to be
-updated with the new tasknames.
+http://git.pokylinux.org/cgit.cgi/poky/commit/?id=c34913ea5a4f20ce4bca3c68a65e9f64f1e3910c
 
-I ended up writing http://git.pokylinux.org/cgit.cgi/poky/commit/?id=e8e9f56057f3732d2550375a23573ab7231eac22
-which I merged into master to address the problem since its breaking the
-autobuilder and people's builds out there. I'd have thought there would
-be a neater way to do this but I can't find one at the moment. Any
-improvements anyone can see are welcome.
+which should obsolete this patch?
+
+Good catch on finding the problem though!
 
 Cheers,
 
 Richard
-
-
 
 
