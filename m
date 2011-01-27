@@ -1,22 +1,22 @@
 Return-Path: <scott.a.garman@intel.com>
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 766414C81257
+	by mx1.pokylinux.org (Postfix) with ESMTP id 92ACB4C81253
 	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 16:41:30 -0600 (CST)
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
 	by orsmga101.jf.intel.com with ESMTP; 27 Jan 2011 14:41:27 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,387,1291622400"; d="scan'208";a="597164848"
+X-IronPort-AV: E=Sophos;i="4.60,387,1291622400"; d="scan'208";a="597164851"
 Received: from sgarman-ws.jf.intel.com (HELO localhost) ([10.7.199.157])
 	by orsmga002.jf.intel.com with ESMTP; 27 Jan 2011 14:41:14 -0800
-Message-Id: <2d59c34ceb4fb3a9c80bfcce999172ae6c16e663.1296167950.git.scott.a.garman@intel.com>
+Message-Id: <5f4ca24a4a4761cc02e2bc0daa324671bd61c6d9.1296167950.git.scott.a.garman@intel.com>
 In-Reply-To: <cover.1296167950.git.scott.a.garman@intel.com>
 References: <cover.1296167950.git.scott.a.garman@intel.com>
-Old-Date: Mon, 24 Jan 2011 18:50:09 -0800
-Date: Thu, 27 Jan 2011 14:42:08 -0800
+Old-Date: Wed, 26 Jan 2011 13:35:37 -0800
+Date: Thu, 27 Jan 2011 14:42:09 -0800
 To: poky@yoctoproject.org
 CC: 
 From: Scott Garman <scott.a.garman@intel.com>
-Subject: [PATCH 1/9] sgml-common: new recipe v0.6.3
+Subject: [PATCH 6/9] openjade: new recipe v1.3.2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,193 +36,404 @@ Recipe derived from OpenEmbedded.
 
 Signed-off-by: Scott Garman <scott.a.garman@intel.com>
 ---
- .../sgml-common/sgml-common-0.6.3/autohell.patch   |   58 ++++++++++++++++++++
- .../sgml-common/sgml-common-native_0.6.3.bb        |   50 +++++++++++++++++
- .../sgml-common/sgml-common_0.6.3.bb               |   53 ++++++++++++++++++
- 3 files changed, 161 insertions(+), 0 deletions(-)
- create mode 100644 meta/recipes-devtools/sgml-common/sgml-common-0.6.3/autohell.patch
- create mode 100644 meta/recipes-devtools/sgml-common/sgml-common-native_0.6.3.bb
- create mode 100644 meta/recipes-devtools/sgml-common/sgml-common_0.6.3.bb
+ .../openjade/openjade-1.3.2/autoconf.patch         |  173 ++++++++++++++++++++
+ .../openjade/openjade-1.3.2/configure.patch        |   68 ++++++++
+ .../openjade/openjade-1.3.2/makefile.patch         |   34 ++++
+ .../openjade-1.3.2/oj-native-libosp-fix.patch      |   15 ++
+ meta/recipes-devtools/openjade/openjade_1.3.2.bb   |   66 ++++++++
+ 5 files changed, 356 insertions(+), 0 deletions(-)
+ create mode 100644 meta/recipes-devtools/openjade/openjade-1.3.2/autoconf.patch
+ create mode 100644 meta/recipes-devtools/openjade/openjade-1.3.2/configure.patch
+ create mode 100644 meta/recipes-devtools/openjade/openjade-1.3.2/makefile.patch
+ create mode 100644 meta/recipes-devtools/openjade/openjade-1.3.2/oj-native-libosp-fix.patch
+ create mode 100644 meta/recipes-devtools/openjade/openjade_1.3.2.bb
 
-diff --git a/meta/recipes-devtools/sgml-common/sgml-common-0.6.3/autohell.patch b/meta/recipes-devtools/sgml-common/sgml-common-0.6.3/autohell.patch
+diff --git a/meta/recipes-devtools/openjade/openjade-1.3.2/autoconf.patch b/meta/recipes-devtools/openjade/openjade-1.3.2/autoconf.patch
 new file mode 100644
-index 0000000..1366ada
+index 0000000..fe8df5b
 --- /dev/null
-+++ b/meta/recipes-devtools/sgml-common/sgml-common-0.6.3/autohell.patch
-@@ -0,0 +1,58 @@
++++ b/meta/recipes-devtools/openjade/openjade-1.3.2/autoconf.patch
+@@ -0,0 +1,173 @@
 +Patch obtained from OpenEmbedded.
 +
 +Signed-off-by: Scott Garman <scott.a.garman@intel.com>
-+--- sgml-common-0.6.3/bin/Makefile.am~autohell.patch	2001-01-30 15:42:21.000000000 +0100
-++++ sgml-common-0.6.3/bin/Makefile.am	2004-06-17 11:51:11.000000000 +0200
-+@@ -1,6 +1,5 @@
-+ primitive_scripts = sgmlwhich
-+ 
-+-bindir = $(prefix)/bin
-+ bin_SCRIPTS = install-catalog $(primitive_scripts)
-+ 
-+ EXTRA_DIST =  install-catalog.in $(primitive_scripts)
-+--- /dev/null	2003-09-23 19:59:22.000000000 +0200
-++++ sgml-common-0.6.3/bin/sgmlwhich.in	2004-06-17 11:51:11.000000000 +0200
-+@@ -0,0 +1,7 @@
-++#!/bin/sh
-++# Location of the main configuration file for consistency with non-LSB platforms
-++# Send any comments to Eric Bischoff <eric@caldera.de>
-++# This program is under GPL license. See LICENSE file for details.
++-- config/acinclude.m4
+++++ config/acinclude.m4	2002/04/08 23:13:37
++@@ -0,0 +1,61 @@
+++dnl Configure-time switch with default
+++dnl
+++dnl Each switch defines an --enable-FOO and --disable-FOO option in
+++dnl the resulting configure script.
+++dnl
+++dnl Usage:
+++dnl SMR_SWITCH(name, description, default, pos-def, neg-def)
+++dnl
+++dnl where:
+++dnl
+++dnl name        name of switch; generates --enable-name & --disable-name
+++dnl             options
+++dnl description help string is set to this prefixed by "enable" or
+++dnl             "disable", whichever is the non-default value
+++dnl default     either "on" or "off"; specifies default if neither
+++dnl             --enable-name nor --disable-name is specified
+++dnl pos-def     a symbol to AC_DEFINE if switch is on (optional)
+++dnl neg-def     a symbol to AC_DEFINE if switch is off (optional)
+++dnl
+++AC_DEFUN(SMR_SWITCH, [
+++    AC_MSG_CHECKING(whether to enable $2)
+++    AC_ARG_ENABLE(
+++        $1,
+++        ifelse($3, on,
+++            [  --disable-[$1]    disable [$2]],
+++            [  --enable-[$1]     enable [$2]]),
+++        [ if test "$enableval" = yes; then
+++            AC_MSG_RESULT(yes)
+++            ifelse($4, , , AC_DEFINE($4))
+++        else
+++            AC_MSG_RESULT(no)
+++            ifelse($5, , , AC_DEFINE($5))
+++        fi ],
+++        ifelse($3, on,
+++           [ AC_MSG_RESULT(yes)
+++             ifelse($4, , , AC_DEFINE($4)) ],
+++           [ AC_MSG_RESULT(no)
+++            ifelse($5, , , AC_DEFINE($5))]))])
 ++
-++echo "@sysconfdir@/sgml/sgml.conf"
-++# Simple, isn't it? ;-)
-+--- /dev/null	2003-09-23 19:59:22.000000000 +0200
-++++ sgml-common-0.6.3/config/sgml.conf.in	2004-06-17 11:51:11.000000000 +0200
-+@@ -0,0 +1,2 @@
-++SGML_BASE_DIR=@datadir@/sgml
-++SGML_CATALOGS_DIR=@sysconfdir@/sgml
-+--- sgml-common-0.6.3/configure.in~autohell.patch	2001-05-25 18:40:54.000000000 +0200
-++++ sgml-common-0.6.3/configure.in	2004-06-17 11:53:22.000000000 +0200
-+@@ -3,11 +3,6 @@
+++dnl
+++dnl Examine size_t and define SIZE_T_IS_UINT, if size_t is an unsigned int
+++dnl
+++AC_DEFUN(OJ_SIZE_T_IS_UINT,[
+++	AC_REQUIRE([AC_TYPE_SIZE_T])
+++	AC_MSG_CHECKING(whether size_t is unsigned int)
+++	ac_cv_size_t_is_uint=no
+++	AC_LANG_SAVE
+++	AC_LANG_CPLUSPLUS
+++	AC_TRY_COMPILE([#include <unistd.h>
+++
+++                       template<class T> class foo { };
+++
+++                        ], [
+++			foo<size_t> x;
+++			foo<unsigned int> y;
+++			x = y;
+++		],ac_cv_size_t_is_uint=yes)
+++	AC_LANG_RESTORE
+++	AC_MSG_RESULT($ac_cv_size_t_is_uint)
+++	test "$ac_cv_size_t_is_uint" = "yes" && AC_DEFINE(SIZE_T_IS_UINT)
+++])
++Index: openjade-1.3.2/config/acinclude.m4
++===================================================================
++--- openjade-1.3.2.orig/config/acinclude.m4
+++++ openjade-1.3.2/config/acinclude.m4
++@@ -1,3 +1,64 @@
+++dnl Configure-time switch with default
+++dnl
+++dnl Each switch defines an --enable-FOO and --disable-FOO option in
+++dnl the resulting configure script.
+++dnl
+++dnl Usage:
+++dnl SMR_SWITCH(name, description, default, pos-def, neg-def)
+++dnl
+++dnl where:
+++dnl
+++dnl name        name of switch; generates --enable-name & --disable-name
+++dnl             options
+++dnl description help string is set to this prefixed by "enable" or
+++dnl             "disable", whichever is the non-default value
+++dnl default     either "on" or "off"; specifies default if neither
+++dnl             --enable-name nor --disable-name is specified
+++dnl pos-def     a symbol to AC_DEFINE if switch is on (optional)
+++dnl neg-def     a symbol to AC_DEFINE if switch is off (optional)
+++dnl
+++AC_DEFUN(SMR_SWITCH, [
+++    AC_MSG_CHECKING(whether to enable $2)
+++    AC_ARG_ENABLE(
+++        $1,
+++        ifelse($3, on,
+++            [  --disable-[$1]    disable [$2]],
+++            [  --enable-[$1]     enable [$2]]),
+++        [ if test "$enableval" = yes; then
+++            AC_MSG_RESULT(yes)
+++            ifelse($4, , , AC_DEFINE($4))
+++        else
+++            AC_MSG_RESULT(no)
+++            ifelse($5, , , AC_DEFINE($5))
+++        fi ],
+++        ifelse($3, on,
+++           [ AC_MSG_RESULT(yes)
+++             ifelse($4, , , AC_DEFINE($4)) ],
+++           [ AC_MSG_RESULT(no)
+++            ifelse($5, , , AC_DEFINE($5))]))])
+++
+++dnl
+++dnl Examine size_t and define SIZE_T_IS_UINT, if size_t is an unsigned int
+++dnl
+++AC_DEFUN(OJ_SIZE_T_IS_UINT,[
+++	AC_REQUIRE([AC_TYPE_SIZE_T])
+++	AC_MSG_CHECKING(whether size_t is unsigned int)
+++	ac_cv_size_t_is_uint=no
+++	AC_LANG_SAVE
+++	AC_LANG_CPLUSPLUS
+++	AC_TRY_COMPILE([#include <unistd.h>
+++
+++                       template<class T> class foo { };
+++
+++                        ], [
+++			foo<size_t> x;
+++			foo<unsigned int> y;
+++			x = y;
+++		],ac_cv_size_t_is_uint=yes)
+++	AC_LANG_RESTORE
+++	AC_MSG_RESULT($ac_cv_size_t_is_uint)
+++	test "$ac_cv_size_t_is_uint" = "yes" && AC_DEFINE(SIZE_T_IS_UINT)
+++])
++ dnl
++ dnl Examine size_t and define SIZE_T_IS_UINT, if size_t is an unsigned int
++ dnl
++Index: openjade-1.3.2/config/aclocal.m4
++===================================================================
++--- openjade-1.3.2.orig/config/aclocal.m4
+++++ openjade-1.3.2/config/aclocal.m4
++@@ -3352,7 +3352,7 @@ dnl Each switch defines an --enable-FOO
++ dnl the resulting configure script.
++ dnl
++ dnl Usage:
++-dnl smr_SWITCH(name, description, default, pos-def, neg-def)
+++dnl SMR_SWITCH(name, description, default, pos-def, neg-def)
++ dnl
++ dnl where:
++ dnl
++@@ -3365,7 +3365,7 @@ dnl             --enable-name nor --disa
++ dnl pos-def     a symbol to AC_DEFINE if switch is on (optional)
++ dnl neg-def     a symbol to AC_DEFINE if switch is off (optional)
++ dnl
++-AC_DEFUN(smr_SWITCH, [
+++AC_DEFUN(SMR_SWITCH, [
++     AC_MSG_CHECKING(whether to enable $2)
++     AC_ARG_ENABLE(
++         $1,
++Index: openjade-1.3.2/config/configure.in
++===================================================================
++--- openjade-1.3.2.orig/config/configure.in
+++++ openjade-1.3.2/config/configure.in
++@@ -243,8 +243,8 @@ AC_ARG_ENABLE(http,
++ dnl
++ dnl  optional backends
++ dnl
++-smr_SWITCH(mif, support for FrameMaker MIF output, on, JADE_MIF, DUMMY)
++-smr_SWITCH(html, support for HTML+CSS output, on, JADE_HTML, DUMMY)
+++SMR_SWITCH(mif, support for FrameMaker MIF output, on, JADE_MIF, DUMMY)
+++SMR_SWITCH(html, support for HTML+CSS output, on, JADE_HTML, DUMMY)
 + 
-+ AM_INIT_AUTOMAKE(sgml-common, 0.6.3)
 + 
-+-docdir='$(prefix)/doc'
-+-AC_SUBST(docdir)
-+-
-+-dnl Checks for programs.
-+-
-+ dnl Checks for libraries.
-+ 
-+ dnl Checks for header files.
-+@@ -18,6 +13,5 @@
-+ 
-+ AC_OUTPUT(Makefile \
-+           bin/Makefile bin/install-catalog \
-+-          config/Makefile \
-+-          doc/Makefile doc/HTML/Makefile doc/man/Makefile doc/refentry/Makefile \
-++          config/Makefile config/sgml.conf bin/sgmlwhich \
-+           sgml-iso-entities/Makefile xml-iso-entities/Makefile)
-+
-+--- sgml-common-0.6.3/Makefile.am~no-docs	2001-05-25 18:22:01.000000000 +0200
-++++ sgml-common-0.6.3/Makefile.am	2004-06-17 11:49:09.000000000 +0200
-+@@ -1,4 +1,4 @@
-+-SUBDIRS = bin config doc sgml-iso-entities xml-iso-entities
-++SUBDIRS = bin config sgml-iso-entities xml-iso-entities
-+ 
-+ sgmlcodir = $(prefix)/share/sgml
-+ sgmlco_DATA = xml.dcl
-diff --git a/meta/recipes-devtools/sgml-common/sgml-common-native_0.6.3.bb b/meta/recipes-devtools/sgml-common/sgml-common-native_0.6.3.bb
++ dnl 
+diff --git a/meta/recipes-devtools/openjade/openjade-1.3.2/configure.patch b/meta/recipes-devtools/openjade/openjade-1.3.2/configure.patch
 new file mode 100644
-index 0000000..7e9b923
+index 0000000..2dcaa4d
 --- /dev/null
-+++ b/meta/recipes-devtools/sgml-common/sgml-common-native_0.6.3.bb
-@@ -0,0 +1,50 @@
-+SUMMARY = "Base utilities for working with SGML and XML"
-+DESCRIPTION = "The sgml-common package gathers very basic \
-+stuff necessary to work with SGML and XML, such as xml.dcl, \
-+a SGML declaration of XML; iso-entities, a list of the basic \
-+SGML ISO entities; and install-catalog, a script used to \
-+add entries to (or remove entries from) centralized catalogs \
-+whose entries are pointers to SGML open catalogs, \
-+as defined by OASIS."
-+HOMEPAGE = "http://sources.redhat.com/docbook-tools/"
-+LICENSE = "GPLv2"
-+# The COPYING file sgml-common ships with is just a symlink to
-+# /usr/share/automake/COPYING, which means we can't verify it
-+# using our normal means. :( Hash the README file instead as
-+# LIC_FILES_CHKSUM is still required.
-+LIC_FILES_CHKSUM = "file://README;md5=197bd940bf13548ac2198e4f77d3da92"
++++ b/meta/recipes-devtools/openjade/openjade-1.3.2/configure.patch
+@@ -0,0 +1,68 @@
++Patch obtained from OpenEmbedded.
++
++Signed-off-by: Scott Garman <scott.a.garman@intel.com>
++--- /dev/null	2003-09-23 18:19:32.000000000 -0400
+++++ openjade-1.3.2/config/acinclude.m4	2004-01-20 14:39:20.000000000 -0500
++@@ -0,0 +1,62 @@
+++dnl
+++dnl Examine size_t and define SIZE_T_IS_UINT, if size_t is an unsigned int
+++dnl
+++AC_DEFUN(OJ_SIZE_T_IS_UINT,[
+++	AC_REQUIRE([AC_TYPE_SIZE_T])
+++	AC_MSG_CHECKING(whether size_t is unsigned int)
+++	ac_cv_size_t_is_uint=no
+++	AC_LANG_SAVE
+++	AC_LANG_CPLUSPLUS
+++	AC_TRY_COMPILE([#include <unistd.h>
+++
+++                       template<class T> class foo { };
+++
+++                        ], [
+++			foo<size_t> x;
+++			foo<unsigned int> y;
+++			x = y;
+++		],ac_cv_size_t_is_uint=yes)
+++	AC_LANG_RESTORE
+++	AC_MSG_RESULT($ac_cv_size_t_is_uint)
+++	test "$ac_cv_size_t_is_uint" = "yes" && AC_DEFINE(SIZE_T_IS_UINT)
+++])
+++
+++dnl Configure-time switch with default
+++dnl
+++dnl Each switch defines an --enable-FOO and --disable-FOO option in
+++dnl the resulting configure script.
+++dnl
+++dnl Usage:
+++dnl smr_SWITCH(name, description, default, pos-def, neg-def)
+++dnl
+++dnl where:
+++dnl
+++dnl name        name of switch; generates --enable-name & --disable-name
+++dnl             options
+++dnl description help string is set to this prefixed by "enable" or
+++dnl             "disable", whichever is the non-default value
+++dnl default     either "on" or "off"; specifies default if neither
+++dnl             --enable-name nor --disable-name is specified
+++dnl pos-def     a symbol to AC_DEFINE if switch is on (optional)
+++dnl neg-def     a symbol to AC_DEFINE if switch is off (optional)
+++dnl
+++AC_DEFUN(smr_SWITCH, [
+++    AC_MSG_CHECKING(whether to enable $2)
+++    AC_ARG_ENABLE(
+++        $1,
+++        ifelse($3, on,
+++            [  --disable-[$1]    disable [$2]],
+++            [  --enable-[$1]     enable [$2]]),
+++        [ if test "$enableval" = yes; then
+++            AC_MSG_RESULT(yes)
+++            ifelse($4, , , AC_DEFINE($4))
+++        else
+++            AC_MSG_RESULT(no)
+++            ifelse($5, , , AC_DEFINE($5))
+++        fi ],
+++        ifelse($3, on,
+++           [ AC_MSG_RESULT(yes)
+++             ifelse($4, , , AC_DEFINE($4)) ],
+++           [ AC_MSG_RESULT(no)
+++            ifelse($5, , , AC_DEFINE($5))]))])
+++
+diff --git a/meta/recipes-devtools/openjade/openjade-1.3.2/makefile.patch b/meta/recipes-devtools/openjade/openjade-1.3.2/makefile.patch
+new file mode 100644
+index 0000000..ac5c744
+--- /dev/null
++++ b/meta/recipes-devtools/openjade/openjade-1.3.2/makefile.patch
+@@ -0,0 +1,34 @@
++Patch obtained from OpenEmbedded.
++
++Signed-off-by: Scott Garman <scott.a.garman@intel.com>
++Index: openjade-1.3.2/spgrove/Makefile.sub
++===================================================================
++--- openjade-1.3.2.orig/spgrove/Makefile.sub
+++++ openjade-1.3.2/spgrove/Makefile.sub
++@@ -1,8 +1,8 @@
++ LTVERSION=0:1:0
++ LIB=ospgrove
++ INCLUDE=-I$(srcdir)/../grove
++-DEPLIBS=-lm -L$(TOP)/grove -L$(TOP)/grove/.libs \
++-	-L$(TOP)/lib -L$(TOP)/lib/.libs \
+++DEPLIBS=-lm $(TOP)/grove \
+++	$(TOP)/lib \
++ 	$(LIB_THREADS)
++ OBJS=GroveApp.o GroveBuilder.o SdNode.o
++ GENSRCS=grove_inst.cxx
++Index: openjade-1.3.2/style/Makefile.sub
++===================================================================
++--- openjade-1.3.2.orig/style/Makefile.sub
+++++ openjade-1.3.2/style/Makefile.sub
++@@ -1,8 +1,8 @@
++ LTVERSION=0:1:0
++ LIB=ostyle
++-DEPLIBS=-lm -L$(TOP)/grove -L$(TOP)/grove/.libs \
++-  -L$(TOP)/lib -L$(TOP)/lib/.libs \
++-  -L$(TOP)/spgrove -L$(TOP)/spgrove/.libs 
+++DEPLIBS=-lm $(TOP)/grove \
+++  $(TOP)/lib  \
+++  $(TOP)/spgrove
++ OBJS=LangObj.o \
++   Collector.o \
++   DssslApp.o \
+diff --git a/meta/recipes-devtools/openjade/openjade-1.3.2/oj-native-libosp-fix.patch b/meta/recipes-devtools/openjade/openjade-1.3.2/oj-native-libosp-fix.patch
+new file mode 100644
+index 0000000..48e3804
+--- /dev/null
++++ b/meta/recipes-devtools/openjade/openjade-1.3.2/oj-native-libosp-fix.patch
+@@ -0,0 +1,15 @@
++Patch obtained from OpenEmbedded.
++
++Signed-off-by: Scott Garman <scott.a.garman@intel.com>
++Index: openjade-1.3.2/Makefile.prog.in
++===================================================================
++--- openjade-1.3.2.orig/Makefile.prog.in	2007-12-21 14:48:00.000000000 +0100
+++++ openjade-1.3.2/Makefile.prog.in	2007-12-21 14:50:12.000000000 +0100
++@@ -13,6 +13,7 @@
++ ALL_LIBS = $(XLIBS) $(LIBS)
++ Makefile.lt:
++ 	echo 'LT_LIBS='`echo $(ALL_LIBS)|sed 's/\.a/.la/g'` >Makefile.lt
+++	sed -i -e "s|libosp.la|libosp.so|" Makefile.lt
++ 
++ PROG:=$(shell echo "$(PROG)" | sed '@program_transform_name@')
++ 
+diff --git a/meta/recipes-devtools/openjade/openjade_1.3.2.bb b/meta/recipes-devtools/openjade/openjade_1.3.2.bb
+new file mode 100644
+index 0000000..f2ad8ae
+--- /dev/null
++++ b/meta/recipes-devtools/openjade/openjade_1.3.2.bb
+@@ -0,0 +1,66 @@
++SUMMARY = "Tools for working with DSSSL stylesheets for SGML and XML documents"
++DESCRIPTION = "OpenJade is a suite of tools for validating, \
++processing, and applying DSSSL (Document Style Semantics and \
++Specification Language) stylesheets to SGML and XML documents."
++HOMEPAGE = "http://openjade.sourceforge.net"
 +SECTION = "base"
++LICENSE = "BSD"
++LIC_FILES_CHKSUM = "file://COPYING;md5=641ff1e4511f0a87044ad42f87cb1045"
 +
 +PR = "r0"
 +
-+require sgml-common_${PV}.bb
-+inherit native
++DEPENDS = "opensp"
++RDEPENDS_${PN} = "sgml-common"
 +
-+S = "${WORKDIR}/sgml-common-${PV}"
++SRC_URI = "${SOURCEFORGE_MIRROR}/openjade/openjade-${PV}.tar.gz \
++           file://configure.patch \
++           file://autoconf.patch \
++           file://makefile.patch \
++          "
 +
-+SYSROOT_PREPROCESS_FUNCS += "sgml_common_native_mangle"
++SRC_URI[md5sum] = "7df692e3186109cc00db6825b777201e"
++SRC_URI[sha256sum] = "1d2d7996cc94f9b87d0c51cf0e028070ac177c4123ecbfd7ac1cb8d0b7d322d1"
 +
-+do_install_append() {
-+	# install-catalog script contains hard-coded references to
-+	# {sysconfdir}. Change it to ${D}${sysconfdir}.
-+	sed -i -e "s|${sysconfdir}/sgml|${D}${sysconfdir}/sgml|g" ${D}${bindir}/install-catalog
-+
-+	${D}${bindir}/install-catalog \
-+		--add ${D}${sysconfdir}/sgml/sgml-ent.cat \
-+		${D}${datadir}/sgml/sgml-iso-entities-8879.1986/catalog
-+
-+	${D}${bindir}/install-catalog \
-+		--add ${D}${sysconfdir}/sgml/sgml-docbook.cat \
-+		${D}${sysconfdir}/sgml/sgml-ent.cat
-+}
-+
-+sgml_common_native_mangle () {
-+	# Revert back to ${sysconfdir} path in install-catalog
-+	sed -i -e "s|${D}${sysconfdir}/sgml|${sysconfdir}/sgml|g" ${SYSROOT_DESTDIR}${STAGING_BINDIR}/install-catalog
-+	# Change path from ${D}${datadir}/sgml/sgml-iso-entities-8879.1986/catalog to ${datadir}/sgml/sgml-iso-entities-8879.1986/catalog in sgml-ent.cat
-+	sed -i -e "s|${D}${datadir}/sgml/sgml-iso-entities-8879.1986/catalog|${datadir}/sgml/sgml-iso-entities-8879.1986/catalog|g" ${SYSROOT_DESTDIR}${sysconfdir}/sgml/sgml-ent.cat
-+	# Change path from ${D}${sysconfdir}/sgml/sgml-ent.cat|${sysconfdir}/sgml/sgml-ent.cat to ${sysconfdir}/sgml/sgml-ent.cat in sgml-ent.cat
-+	sed -i -e "s|${D}${sysconfdir}/sgml/sgml-ent.cat|${sysconfdir}/sgml/sgml-ent.cat|g" ${SYSROOT_DESTDIR}${sysconfdir}/sgml/sgml-docbook.cat
-+	# Remove ${D} path from catalog file created by install-catalog script
-+	sed -i -e "s|${D}||g" ${SYSROOT_DESTDIR}${sysconfdir}/sgml/catalog
-+}
-diff --git a/meta/recipes-devtools/sgml-common/sgml-common_0.6.3.bb b/meta/recipes-devtools/sgml-common/sgml-common_0.6.3.bb
-new file mode 100644
-index 0000000..78afa39
---- /dev/null
-+++ b/meta/recipes-devtools/sgml-common/sgml-common_0.6.3.bb
-@@ -0,0 +1,53 @@
-+SUMMARY = "Base utilities for working with SGML and XML"
-+DESCRIPTION = "The sgml-common package gathers very basic \
-+stuff necessary to work with SGML and XML, such as xml.dcl, \
-+a SGML declaration of XML; iso-entities, a list of the basic \
-+SGML ISO entities; and install-catalog, a script used to \
-+add entries to (or remove entries from) centralized catalogs \
-+whose entries are pointers to SGML open catalogs, \
-+as defined by OASIS."
-+HOMEPAGE = "http://sources.redhat.com/docbook-tools/"
-+LICENSE = "GPLv2"
-+# The COPYING file sgml-common ships with is just a symlink to
-+# /usr/share/automake/COPYING, which means we can't verify it
-+# using our normal means. :( Hash the README file instead as
-+# LIC_FILES_CHKSUM is still required.
-+LIC_FILES_CHKSUM = "file://README;md5=197bd940bf13548ac2198e4f77d3da92"
-+SECTION = "base"
-+
-+PR = "r0"
-+
-+SRC_URI = "ftp://sources.redhat.com/pub/docbook-tools/new-trials/SOURCES/sgml-common-${PV}.tgz \
-+           file://autohell.patch"
-+
-+SRC_URI[md5sum] = "103c9828f24820df86e55e7862e28974"
-+SRC_URI[sha256sum] = "7dc418c1d361123ffc5e45d61f1b97257940a8eb35d0bfbbc493381cc5b1f959"
++SRC_URI_append_virtclass-native = " file://oj-native-libosp-fix.patch"
 +
 +inherit autotools
 +
-+do_compile_append() {
-+	# install-catalog script contains hardcoded references to /etc/sgml
-+	sed -i -e "s|/etc/sgml|${sysconfdir}/sgml|g" bin/install-catalog
++EXTRA_OECONF = "--enable-spincludedir=${STAGING_INCDIR}/OpenSP \
++                --enable-splibdir=${STAGING_LIBDIR}"
++
++acpaths = "-I ${S}/config"
++
++# Trailing whitespace is important. Otherwise compiler arguments will be messed
++# up, resulting in a fail in do_configure.
++CFLAGS_prepend = "-I${S}/include "
++
++do_configure_append () {
++	cp config/configure.in .
 +}
 +
-+FILES_sgml-common_append = " ${datadir}/sgml"
++do_install_append () {
++	# Refer to http://www.linuxfromscratch.org/blfs/view/stable/pst/openjade.html
++	# for details.
++	install -m 0755 ${S}/jade/.libs/openjade ${D}${bindir}/openjade
++	ln -sf openjade ${D}${bindir}/jade
 +
-+pkg_postinst() {
-+	install-catalog \
-+		--add ${sysconfdir}/sgml/sgml-ent.cat \
-+		${datadir}/sgml/sgml-iso-entities-8879.1986/catalog
++	oe_libinstall -a -so -C style libostyle ${D}${libdir}
++	oe_libinstall -a -so -C spgrove libospgrove ${D}${libdir}
++	oe_libinstall -a -so -C grove libogrove ${D}${libdir}
 +
-+	install-catalog \
-+		--add ${sysconfdir}/sgml/sgml-docbook.cat \
-+		${sysconfdir}/sgml/sgml-ent.cat
++	install -d ${D}${datadir}/sgml/openjade-${PV}
++	install -m 644 dsssl/catalog ${D}${datadir}/sgml/openjade-${PV}
++	install -m 644 dsssl/*.{dtd,dsl,sgm} ${D}${datadir}/sgml/openjade-${PV}
++
++	# The catalog must live in the sysroot and it must be there for
++	# install-catalog to do its thing.
++	install -d ${datadir}/sgml/openjade-${PV}
++	install -m 644 dsssl/catalog ${datadir}/sgml/openjade-${PV}/catalog
++	install-catalog --add ${sysconfdir}/sgml/openjade-${PV}.cat \
++		${datadir}/sgml/openjade-${PV}/catalog
++
++	install-catalog --add ${sysconfdir}/sgml/sgml-docbook.cat \
++		${sysconfdir}/sgml/openjade-${PV}.cat
 +}
 +
-+pkg_postrm() {
-+	install-catalog \
-+		--remove ${sysconfdir}/sgml/sgml-ent.cat \
-+		${datadir}/sgml/sgml-iso-entities-8879.1986/catalog
-+
-+	install-catalog \
-+		--remove ${sysconfdir}/sgml/sgml-docbook.cat \
-+		${sysconfdir}/sgml/sgml-ent.cat
-+}
++BBCLASSEXTEND = "native"
 -- 
 1.7.3.5
 
