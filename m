@@ -1,32 +1,25 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id CED514C8123C
-	for <poky@lists.pokylinux.org>; Thu, 27 Jan 2011 16:23:57 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 2ACF31660510; Thu, 27 Jan 2011 15:23:57 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.1
-Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 0AF2116603EE;
-	Thu, 27 Jan 2011 15:23:56 -0700 (MST)
-Message-ID: <4D41F07B.6060008@mlbassoc.com>
-Date: Thu, 27 Jan 2011 15:23:55 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E421E4C8123C
+	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 16:34:04 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 27 Jan 2011 14:34:04 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,387,1291622400"; d="scan'208";a="597162944"
+Received: from doubt.jf.intel.com (HELO [10.7.199.151]) ([10.7.199.151])
+	by orsmga002.jf.intel.com with ESMTP; 27 Jan 2011 14:34:04 -0800
+Message-ID: <4D41F2D6.4040406@linux.intel.com>
+Date: Thu, 27 Jan 2011 14:33:58 -0800
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
 MIME-Version: 1.0
-To: Darren Hart <dvhart@linux.intel.com>
-References: <4D40251F.5070906@mlbassoc.com>
-	<4D40919E.6010802@linux.intel.com>	<4D409B30.9070000@mlbassoc.com>
-	<4D40B5FA.5000005@linux.intel.com>	<4D40B8A1.2000406@mlbassoc.com>
-	<4D40E6D9.5000709@linux.intel.com> <4D41694B.5070002@mlbassoc.com>
-In-Reply-To: <4D41694B.5070002@mlbassoc.com>
-Cc: Poky <poky@lists.pokylinux.org>
-Subject: Re: No joy on "standard" PC
+To: Wolfgang Denk <wd@denx.de>
+References: <20110127111132.C69A3B335@gemini.denx.de>
+	<20110127114216.744AEB335@gemini.denx.de>
+In-Reply-To: <20110127114216.744AEB335@gemini.denx.de>
+Cc: poky@yoctoproject.org
+Subject: Re: Serial console unusable with poky-image-sdk
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,96 +31,54 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Jan 2011 22:23:58 -0000
+X-List-Received-Date: Thu, 27 Jan 2011 22:34:05 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 01/27/2011 05:47 AM, Gary Thomas wrote:
-> On 01/26/2011 08:30 PM, Darren Hart wrote:
->> On 01/26/2011 04:13 PM, Gary Thomas wrote:
->>> On 01/26/2011 05:02 PM, Darren Hart wrote:
->>>> On 01/26/2011 02:07 PM, Gary Thomas wrote:
->>>>> On 01/26/2011 02:26 PM, Darren Hart wrote:
->>>>>> On 01/26/2011 05:43 AM, Gary Thomas wrote:
->>>>>>> I finally got Poky to build for a standard PC (actually atom-pc
->>>>>>> so I could build a live/bootable image). Sadly, that's all I
->>>>>>> have is an image as I can't get it to run anywhere :-(
->>>>>>>
->>>>>>> * On my laptop (the point of this exercise) which is an older
->>>>>>> Pentium-III machine, the kernel crashes almost immediately.
->>>>>>
->>>>>> Can you capture the output and provide some details on the hardware?
->>>>>
->>>>> Hard to do - I took pictures of the screen with my camera, the results
->>>>> may help, but won't win me a Pulitzer :-)
->>>>>
->>>>> On the AMD/2800+
->>>>> http://www.mlbassoc.com/poky/BootFailures/P1000630.JPG
->>>>> On the old Pentium-III laptop
->>>>> http://www.mlbassoc.com/poky/BootFailures/P1000631.JPG
->>>>
->>>> Failing to mount the root partition either due to missing drivers for
->>>> the block device or the filesystem. You said this was MACHINE=atom-pc
->>>> and poky-image-sato-live? And you're
->>>> booting using the .iso image burned to a CD?
->>>
->>> Correct.
->>>
->>>>
->>>>> http://www.mlbassoc.com/poky/BootFailures/P1000632.JPG
->>>>
->>>> Too late, missed the good bits. I suspect the two above are adequate.
->>>>
->>>>>>
->>>>>>>
->>>>>>> * On my brand new laptop (Core-i3), I couldn't get it to even
->>>>>>> try...
->>>>>>
->>>>>> What happened? Some bios are very particular about usb layout, see
->>>>>> README.hardware under atom-pc. Some (including my netbook) require
->>>>>> that it be in USB-ZIP format, so you can't just dd the image to
->>>>>> the stick in some cases (unfortunately).
->>>>>
->>>>> My boot medium is a CD-RW with the ISO image.
->>>>> Not sure why it didn't want to boot before, but when I just retried
->>>>> it, it hung in yet a different way.
->>>>> http://www.mlbassoc.com/poky/BootFailures/P1000629.JPG
->>>>
->>>> If I'm reading this one correctly, it's failing to boot from the USB
->>>> device and later detects another drive (My Passport) which has
->>>> something other than a standard ext[23]
->>>> filesystem on the first partition.
->>>
->>> Same boot CD as above - I'm not sure what it's up to at this point.
->>
->> Check the .config in the linux-yocto build directory, does it have
->> CONFIG_ISO9660_FS set?
+On 01/27/2011 03:42 AM, Wolfgang Denk wrote:
+> Hi,
 >
-> Nope :-(
-> $ grep ISO9660
-> tmp/work/atom-pc-poky-linux/linux-yocto-stable-2.6.34+git0+e1f85a470934a0cf6abde5d95533e74501822c6b_0+72ca49ab08b8eb475cec82a10049503602325791-r1/linux-atom-pc-standard-build/.config
-> # CONFIG_ISO9660_FS is not set
->
-> I'll try forcing this and rebuild to test.
-
-I've tried this, but I didn't see any change.  Perhaps I didn't
-do it correctly.   Since all I wanted was to update the kernel
-with a different configuration, here are the steps I executed:
-   ... adjust config using makeconfig
-   % rm -f sstate-cache/sstate-linux-yocto-stable-atom-pc*
-   % bitbake virtual/kernel -f -c compile
-   % bitbake poky-image-minimal-live
-
-Any other ideas?
-
+> in message<20110127111132.C69A3B335@gemini.denx.de>  I wrote:
 >>
->> I'll have a look in the morning as well.
->>
+>> it seems that for some time (probably back to laverne-4.0) the serial
+>> console port is basicly unusable in the poky-image-sdk file system.
+>> I tried this in several PPC and ARM configurations, and the behaviours
+>> is pretty much the same: login works fine, but at the shell prompt
+>> only one out of N input characters (N usually between 2 and 10) gets
+>> through to the shell.
+> ...
+>> Is there a way to stop dbus-launch from concurring with a login shell
+>> on the serial console port?
 >
+> This patch appears to be working fine for me:
+>
+>> From: Wolfgang Denk<wd@denx.de>
+>> Subject: Stop dbus-launch from interfering with a serial console
+>
+> Signed-off-by: Wolfgang Denk<wd@denx.de>
+> ---
+>
+> diff --git a/meta/recipes-graphics/x11-common/x11-common/etc/X11/Xsession b/meta/recipes-graphics/x11-common/x11-common/etc/X11/Xsession
+> index a87447a..0b73127 100644
+> --- a/meta/recipes-graphics/x11-common/x11-common/etc/X11/Xsession
+> +++ b/meta/recipes-graphics/x11-common/x11-common/etc/X11/Xsession
+> @@ -2,7 +2,7 @@
+>
+>   if [ -x /usr/bin/dbus-launch ]; then
+>       # As this is the X session script, always start a new DBus session.
+> -    eval `dbus-launch --sh-syntax --exit-with-session`
+> +    eval `dbus-launch --sh-syntax --exit-with-session</dev/null`
+>       echo "D-BUS per-session daemon address is: $DBUS_SESSION_BUS_ADDRESS"
+>   fi
+>
+
+you can also append "console=tty" to the kernel command line and the 
+serial console should work. I've run into this on a couple platforms as 
+well and addressed it this way. This isn't just an X11 issue as I 
+usually boot -minimal images.
 
 -- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
