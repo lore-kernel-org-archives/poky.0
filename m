@@ -1,24 +1,24 @@
 Return-Path: <lianhao.lu@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id AA4504C811D2
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id BDDEF4C811F3
 	for <poky@yoctoproject.org>; Wed, 26 Jan 2011 20:50:44 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 26 Jan 2011 18:50:44 -0800
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 26 Jan 2011 18:50:44 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,383,1291622400"; d="scan'208";a="881378532"
+X-IronPort-AV: E=Sophos;i="4.60,383,1291622400"; d="scan'208";a="380489611"
 Received: from llu-piketon.sh.intel.com ([10.239.36.141])
-	by fmsmga001.fm.intel.com with ESMTP; 26 Jan 2011 18:50:43 -0800
+	by azsmga001.ch.intel.com with ESMTP; 26 Jan 2011 18:50:43 -0800
 Received: from lulianhao by llu-piketon.sh.intel.com with local (Exim 4.71)
 	(envelope-from <lianhao.lu@intel.com>)
-	id 1PiHxM-000797-8j; Thu, 27 Jan 2011 10:51:32 +0800
-Message-Id: <6e68264b2e391cfa101c8816356f5da3f3edade2.1296095614.git.lianhao.lu@intel.com>
+	id 1PiHxL-00078E-Te; Thu, 27 Jan 2011 10:51:32 +0800
+Message-Id: <05b4554fa01169237bf8f55e2b6a5de5e64ab32a.1296095614.git.lianhao.lu@intel.com>
 In-Reply-To: <cover.1296095614.git.lianhao.lu@intel.com>
 References: <cover.1296095614.git.lianhao.lu@intel.com>
-Old-Date: Thu, 27 Jan 2011 10:24:34 +0800
-Date: Thu, 27 Jan 2011 10:51:32 +0800
+Old-Date: Wed, 26 Jan 2011 21:05:28 +0800
+Date: Thu, 27 Jan 2011 10:51:31 +0800
 To: poky@yoctoproject.org
 From: Lianhao Lu <lianhao.lu@intel.com>
-Subject: [PATCH 6/6] meta_toolchain/populate_sdk: Made task populate_sdk more generic.
+Subject: [PATCH 1/6] cross-canadian/apt-native: support for debian package.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,260 +30,45 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Jan 2011 02:50:44 -0000
+X-List-Received-Date: Thu, 27 Jan 2011 02:50:45 -0000
 
 From: Lianhao Lu <lianhao.lu@intel.com>
 
-Make the task populate_sdk more generic to support installing from all
-ipk, rpm, and deb package format.
+1. Set DPKG_ARCH in cross-canadian.bbclass to make debian package to be
+generated with correct architecture.
 
-Also remove the .la files fixing in task populate_sdk code because the
-libtool 2.4 now supports sysroot.
+2. Added licence checksum for apt-native.
 
 Signed-off-by: Lianhao Lu <lianhao.lu@intel.com>
 ---
- meta/classes/populate_sdk.bbclass        |   88 +++++++++++++++++++++++++
- meta/classes/populate_sdk_rpm.bbclass    |    6 +-
- meta/recipes-core/meta/meta-toolchain.bb |  103 +-----------------------------
- 3 files changed, 94 insertions(+), 103 deletions(-)
- create mode 100644 meta/classes/populate_sdk.bbclass
+ meta/classes/cross-canadian.bbclass            |    3 +++
+ meta/recipes-devtools/apt/apt-native_0.7.14.bb |    2 ++
+ 2 files changed, 5 insertions(+), 0 deletions(-)
 
-diff --git a/meta/classes/populate_sdk.bbclass b/meta/classes/populate_sdk.bbclass
-new file mode 100644
-index 0000000..02870a6
---- /dev/null
-+++ b/meta/classes/populate_sdk.bbclass
-@@ -0,0 +1,88 @@
-+inherit meta toolchain-scripts
-+inherit populate_sdk_${IMAGE_PKGTYPE}
-+
-+SDK_DIR = "${WORKDIR}/sdk"
-+SDK_OUTPUT = "${SDK_DIR}/image"
-+SDK_DEPLOY = "${TMPDIR}/deploy/sdk"
-+
-+SDKTARGETSYSROOT = "${SDKPATH}/sysroots/${TARGET_SYS}"
-+
-+TOOLCHAIN_HOST_TASK ?= "task-sdk-host task-cross-canadian-${TRANSLATED_TARGET_ARCH}"
-+TOOLCHAIN_TARGET_TASK ?= "task-poky-standalone-sdk-target task-poky-standalone-sdk-target-dbg"
-+TOOLCHAIN_OUTPUTNAME ?= "${SDK_NAME}-toolchain-${DISTRO_VERSION}"
-+
-+RDEPENDS = "${TOOLCHAIN_TARGET_TASK} ${TOOLCHAIN_HOST_TASK}"
-+DEPENDS = "virtual/fakeroot-native sed-native"
-+
-+PID = "${@os.getpid()}"
-+
-+EXCLUDE_FROM_WORLD = "1"
-+
-+fakeroot do_populate_sdk() {
-+	rm -rf ${SDK_OUTPUT}
-+	mkdir -p ${SDK_OUTPUT}
-+
-+	populate_sdk_${IMAGE_PKGTYPE}
-+
-+	# Don't ship any libGL in the SDK
-+	rm -rf ${SDK_OUTPUT}/${SDKPATHNATIVE}${libdir_nativesdk}/libGL*
-+
-+	# Can copy pstage files here
-+	# target_pkgs=`cat ${SDK_OUTPUT}/${SDKTARGETSYSROOT}/var/lib/opkg/status | grep Package: | cut -f 2 -d ' '`
-+
-+	# Fix or remove broken .la files
-+	# no longer needed since libtool now support sysroot
-+	#for i in `find ${SDK_OUTPUT}/${SDKTARGETSYSROOT} -name \*.la`; do
-+	#	sed -i 	-e "/^dependency_libs=/s,\([[:space:]']\)${base_libdir},\1${SDKTARGETSYSROOT}${base_libdir},g" \
-+	#		-e "/^dependency_libs=/s,\([[:space:]']\)${libdir},\1${SDKTARGETSYSROOT}${libdir},g" \
-+	#		-e "/^dependency_libs=/s,\-\([LR]\)${base_libdir},-\1${SDKTARGETSYSROOT}${base_libdir},g" \
-+	#		-e "/^dependency_libs=/s,\-\([LR]\)${libdir},-\1${SDKTARGETSYSROOT}${libdir},g" \
-+	#		-e 's/^installed=yes$/installed=no/' $i
-+	#done
-+	#rm -f ${SDK_OUTPUT}/${SDKPATHNATIVE}/lib/*.la
-+	rm -f ${SDK_OUTPUT}/${SDKPATHNATIVE}${libdir_nativesdk}/*.la
-+
-+	# Link the ld.so.cache file into the hosts filesystem
-+	ln -s /etc/ld.so.cache ${SDK_OUTPUT}/${SDKPATHNATIVE}/etc/ld.so.cache
-+
-+	# Setup site file for external use
-+	siteconfig=${SDK_OUTPUT}/${SDKPATH}/site-config-${MULTIMACH_TARGET_SYS}
-+	touch $siteconfig
-+	for sitefile in ${CONFIG_SITE} ; do
-+		cat $sitefile >> $siteconfig
-+	done
-+
-+	toolchain_create_sdk_env_script
-+
-+	# Add version information
-+	versionfile=${SDK_OUTPUT}/${SDKPATH}/version-${MULTIMACH_TARGET_SYS}
-+	touch $versionfile
-+	echo 'Distro: ${DISTRO}' >> $versionfile
-+	echo 'Distro Version: ${DISTRO_VERSION}' >> $versionfile
-+	echo 'Metadata Revision: ${METADATA_REVISION}' >> $versionfile
-+	echo 'Timestamp: ${DATETIME}' >> $versionfile
-+
-+	# Package it up
-+	mkdir -p ${SDK_DEPLOY}
-+	cd ${SDK_OUTPUT}
-+	tar --owner=root --group=root -cj --file=${SDK_DEPLOY}/${TOOLCHAIN_OUTPUTNAME}.tar.bz2 .
-+}
-+
-+populate_sdk_log_check() {
-+
-+	lf_path="${WORKDIR}/temp/log.do_populate_sdk.${PID}"
-+
-+	echo "log_check: Using $lf_path as logfile"
-+
-+	if test -e "$lf_path"
-+	then
-+		populate_sdk_${IMAGE_PKGTYPE}_log_check $lf_path
-+	else
-+		echo "Cannot find logfile [$lf_path]"
-+	fi
-+	echo "Logfile is clean"
-+}
-+
-+do_populate_sdk[nostamp] = "1"
-+do_populate_sdk[recrdeptask] = "do_package_write"
-+addtask populate_sdk before do_build after do_install
-diff --git a/meta/classes/populate_sdk_rpm.bbclass b/meta/classes/populate_sdk_rpm.bbclass
-index 883e67f..0e46341 100644
---- a/meta/classes/populate_sdk_rpm.bbclass
-+++ b/meta/classes/populate_sdk_rpm.bbclass
-@@ -29,7 +29,7 @@ populate_sdk_rpm_internal() {
- 	confbase=$1
- 	shift
- 	package_to_install=$@
--	
-+
- 	# Setup base system configuration
- 	mkdir -p ${target_rootfs}/etc/rpm/
- 	echo "${platform}" >${target_rootfs}/etc/rpm/platform
-@@ -109,12 +109,12 @@ fakeroot populate_sdk_rpm () {
- 	install -d ${SDK_OUTPUT}/${SDKPATHNATIVE}${localstatedir_nativesdk}/lib/rpm
- 	mv ${SDK_OUTPUT}${rpmlibdir}/* ${SDK_OUTPUT}/${SDKPATHNATIVE}${localstatedir_nativesdk}/lib/rpm/
- 	rm -Rf ${SDK_OUTPUT}/var
--	
-+
- 	install -d ${SDK_OUTPUT}/${SDKPATHNATIVE}/${sysconfdir}
- 	mv ${SDK_OUTPUT}/etc/* ${SDK_OUTPUT}/${SDKPATHNATIVE}/${sysconfdir}/
- 	rm -rf ${SDK_OUTPUT}/etc
+diff --git a/meta/classes/cross-canadian.bbclass b/meta/classes/cross-canadian.bbclass
+index 993f831..1a045ba 100644
+--- a/meta/classes/cross-canadian.bbclass
++++ b/meta/classes/cross-canadian.bbclass
+@@ -43,6 +43,9 @@ HOST_OS = "${SDK_OS}"
+ HOST_PREFIX = "${SDK_PREFIX}"
+ HOST_CC_ARCH = "${SDK_CC_ARCH}"
  
--	populate_sdk_log_check 
-+	populate_sdk_log_check
- }
- 
- populate_sdk_rpm_log_check() {
-diff --git a/meta/recipes-core/meta/meta-toolchain.bb b/meta/recipes-core/meta/meta-toolchain.bb
-index 4aed9c2..feff9ac 100644
---- a/meta/recipes-core/meta/meta-toolchain.bb
-+++ b/meta/recipes-core/meta/meta-toolchain.bb
-@@ -1,106 +1,9 @@
- DESCRIPTION = "Meta package for building a installable toolchain"
- LICENSE = "MIT"
--DEPENDS = "opkg-native opkg-utils-native virtual/fakeroot-native sed-native"
++#assign DPKG_ARCH
++DPKG_ARCH = "${SDK_ARCH}"
 +
-+PR = "r1"
+ CPPFLAGS = "${BUILDSDK_CPPFLAGS}"
+ CFLAGS = "${BUILDSDK_CFLAGS}"
+ CXXFLAGS = "${BUILDSDK_CFLAGS}"
+diff --git a/meta/recipes-devtools/apt/apt-native_0.7.14.bb b/meta/recipes-devtools/apt/apt-native_0.7.14.bb
+index f77f817..b1bd55b 100644
+--- a/meta/recipes-devtools/apt/apt-native_0.7.14.bb
++++ b/meta/recipes-devtools/apt/apt-native_0.7.14.bb
+@@ -9,3 +9,5 @@ SRC_URI += "file://nodoc.patch \
  
- LIC_FILES_CHKSUM = "file://${POKYBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58 \
-                     file://${POKYBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
- 
--inherit meta toolchain-scripts
--
--SDK_DIR = "${WORKDIR}/sdk"
--SDK_OUTPUT = "${SDK_DIR}/image"
--SDK_DEPLOY = "${TMPDIR}/deploy/sdk"
--
--SDKTARGETSYSROOT = "${SDKPATH}/sysroots/${TARGET_SYS}"
--
--IPKG_HOST = "opkg-cl -f ${IPKGCONF_SDK} -o ${SDK_OUTPUT} --force-overwrite"
--IPKG_TARGET = "opkg-cl -f ${IPKGCONF_TARGET} -o ${SDK_OUTPUT}/${SDKTARGETSYSROOT} --force-overwrite"
--
--TOOLCHAIN_HOST_TASK ?= "task-sdk-host task-cross-canadian-${TRANSLATED_TARGET_ARCH}"
--TOOLCHAIN_TARGET_TASK ?= "task-poky-standalone-sdk-target task-poky-standalone-sdk-target-dbg"
--TOOLCHAIN_OUTPUTNAME ?= "${SDK_NAME}-toolchain-${DISTRO_VERSION}"
--
--RDEPENDS = "${TOOLCHAIN_TARGET_TASK} ${TOOLCHAIN_HOST_TASK}"
--
--EXCLUDE_FROM_WORLD = "1"
--
--do_populate_sdk() {
--	rm -rf ${SDK_OUTPUT}
--	mkdir -p ${SDK_OUTPUT}
--	mkdir -p ${SDK_OUTPUT}${localstatedir}/lib/opkg/
--	mkdir -p ${SDK_OUTPUT}/${SDKTARGETSYSROOT}${localstatedir}/lib/opkg/
--
--	rm -f ${IPKGCONF_TARGET}
--	touch ${IPKGCONF_TARGET}
--	rm -f ${IPKGCONF_SDK}
--	touch ${IPKGCONF_SDK}
--
--	package_update_index_ipk
--	package_generate_ipkg_conf
--
--	for arch in ${PACKAGE_ARCHS}; do
--		revipkgarchs="$arch $revipkgarchs"
--	done
--
--	${IPKG_HOST} update
--	${IPKG_HOST} install ${TOOLCHAIN_HOST_TASK}
--
--	${IPKG_TARGET} update
--	${IPKG_TARGET} install ${TOOLCHAIN_TARGET_TASK}
--
--	install -d ${SDK_OUTPUT}/${SDKPATHNATIVE}${localstatedir_nativesdk}/lib/opkg
--	mv ${SDK_OUTPUT}/var/lib/opkg/* ${SDK_OUTPUT}/${SDKPATHNATIVE}${localstatedir_nativesdk}/lib/opkg/
--	rm -Rf ${SDK_OUTPUT}/var
--
--	# Don't ship any libGL in the SDK
--	rm -rf ${SDK_OUTPUT}/${SDKPATHNATIVE}${libdir_nativesdk}/libGL*
--
--	install -d ${SDK_OUTPUT}/${SDKTARGETSYSROOT}/${sysconfdir}
--	install -m 0644 ${IPKGCONF_TARGET} ${IPKGCONF_SDK} ${SDK_OUTPUT}/${SDKTARGETSYSROOT}/${sysconfdir}/
--
--	install -d ${SDK_OUTPUT}/${SDKPATHNATIVE}/${sysconfdir}
--	install -m 0644 ${IPKGCONF_SDK} ${SDK_OUTPUT}/${SDKPATHNATIVE}/${sysconfdir}/
--
--	# Can copy pstage files here
--	# target_pkgs=`cat ${SDK_OUTPUT}/${SDKTARGETSYSROOT}/var/lib/opkg/status | grep Package: | cut -f 2 -d ' '`
--
--	# Fix or remove broken .la files
--	for i in `find ${SDK_OUTPUT}/${SDKTARGETSYSROOT} -name \*.la`; do
--		sed -i 	-e "/^dependency_libs=/s,\([[:space:]']\)${base_libdir},\1${SDKTARGETSYSROOT}${base_libdir},g" \
--			-e "/^dependency_libs=/s,\([[:space:]']\)${libdir},\1${SDKTARGETSYSROOT}${libdir},g" \
--			-e "/^dependency_libs=/s,\-\([LR]\)${base_libdir},-\1${SDKTARGETSYSROOT}${base_libdir},g" \
--			-e "/^dependency_libs=/s,\-\([LR]\)${libdir},-\1${SDKTARGETSYSROOT}${libdir},g" \
--			-e 's/^installed=yes$/installed=no/' $i
--	done
--	#rm -f ${SDK_OUTPUT}/${SDKPATHNATIVE}/lib/*.la
--	rm -f ${SDK_OUTPUT}/${SDKPATHNATIVE}${libdir_nativesdk}/*.la
--
--	# Link the ld.so.cache file into the hosts filesystem
--	ln -s /etc/ld.so.cache ${SDK_OUTPUT}/${SDKPATHNATIVE}/etc/ld.so.cache
--
--	# Setup site file for external use
--	siteconfig=${SDK_OUTPUT}/${SDKPATH}/site-config-${MULTIMACH_TARGET_SYS}
--	touch $siteconfig
--	for sitefile in ${CONFIG_SITE} ; do
--		cat $sitefile >> $siteconfig
--	done
--
--	toolchain_create_sdk_env_script
--
--	# Add version information
--	versionfile=${SDK_OUTPUT}/${SDKPATH}/version-${MULTIMACH_TARGET_SYS}
--	touch $versionfile
--	echo 'Distro: ${DISTRO}' >> $versionfile
--	echo 'Distro Version: ${DISTRO_VERSION}' >> $versionfile
--	echo 'Metadata Revision: ${METADATA_REVISION}' >> $versionfile
--	echo 'Timestamp: ${DATETIME}' >> $versionfile
--
--	# Package it up
--	mkdir -p ${SDK_DEPLOY}
--	cd ${SDK_OUTPUT}
--	tar --owner=root --group=root -cj --file=${SDK_DEPLOY}/${TOOLCHAIN_OUTPUTNAME}.tar.bz2 .
--}
--
--do_populate_sdk[nostamp] = "1"
--do_populate_sdk[recrdeptask] = "do_package_write"
--addtask populate_sdk before do_build after do_install
-+inherit populate_sdk
+ SRC_URI[md5sum] = "19efa18fb1ef20c58b9b44e94258b814"
+ SRC_URI[sha256sum] = "8fc06effaf8a4e4333308eedcdc6840f1c8056f2e924210f151dfc076bcd4045"
++
++LIC_FILES_CHKSUM = "file://COPYING.GPL;md5=0636e73ff0215e8d672dc4c32c317bb3"
 -- 
 1.7.0.4
 
