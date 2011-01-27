@@ -1,31 +1,26 @@
-Return-Path: <wd@denx.de>
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A37824C81210
-	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 05:42:17 -0600 (CST)
-Received: from frontend1.mail.m-online.net (unknown [192.168.8.180])
-	by mail-out.m-online.net (Postfix) with ESMTP id BB74A1C0F585
-	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 12:42:16 +0100 (CET)
-X-Auth-Info: vVBGtd3mIIBJ0F44yVAf/NA7hKXRWyapSTErSTF2X6Y=
-Received: from diddl.denx.de (host-80-81-18-216.customer.m-online.net
-	[80.81.18.216])
-	by smtp-auth.mnet-online.de (Postfix) with ESMTPA id AE77A1C0009A
-	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 12:42:16 +0100 (CET)
-Received: from gemini.denx.de (unknown [10.0.0.2])
-	by diddl.denx.de (Postfix) with ESMTP id 811DD32105AD
-	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 12:42:16 +0100 (CET)
-Received: from gemini.denx.de (localhost.localdomain [127.0.0.1])
-	by gemini.denx.de (Postfix) with ESMTP id 744AEB335
-	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 12:42:16 +0100 (CET)
-cc: poky@yoctoproject.org
-From: Wolfgang Denk <wd@denx.de>
-MIME-Version: 1.0
-In-reply-to: <20110127111132.C69A3B335@gemini.denx.de>
-References: <20110127111132.C69A3B335@gemini.denx.de>
-Comments: In-reply-to Wolfgang Denk <wd@denx.de>
-	message dated "Thu, 27 Jan 2011 12:11:32 +0100."
-Date: Thu, 27 Jan 2011 12:42:16 +0100
-Message-Id: <20110127114216.744AEB335@gemini.denx.de>
-Subject: Re: Serial console unusable with poky-image-sdk
+Return-Path: <koen@dominion.thruhere.net>
+Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 50FB24C8112C
+	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 06:45:33 -0600 (CST)
+Received: by wwb31 with SMTP id 31so2149348wwb.11
+	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 04:45:32 -0800 (PST)
+Received: by 10.227.143.148 with SMTP id v20mr954391wbu.222.1296132331967;
+	Thu, 27 Jan 2011 04:45:31 -0800 (PST)
+Received: from [172.20.0.255] (ip545070eb.adsl-surfen.hetnet.nl
+	[84.80.112.235])
+	by mx.google.com with ESMTPS id y29sm6651339wbd.22.2011.01.27.04.45.30
+	(version=TLSv1/SSLv3 cipher=RC4-MD5);
+	Thu, 27 Jan 2011 04:45:30 -0800 (PST)
+Mime-Version: 1.0 (Apple Message framework v1082)
+From: Koen Kooi <koen@dominion.thruhere.net>
+In-Reply-To: <1295993245.27814.133.camel@rex>
+Date: Thu, 27 Jan 2011 13:45:29 +0100
+Message-Id: <A75EAA1D-9046-4CD6-B407-65AA43B9F3CC@dominion.thruhere.net>
+References: <1295993245.27814.133.camel@rex>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+X-Mailer: Apple Mail (2.1082)
+Cc: poky <poky@yoctoproject.org>
+Subject: Re: Master stability update
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,56 +32,78 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Jan 2011 11:42:18 -0000
-Content-type: text/plain; charset=ISO-8859-1
-Content-transfer-encoding: 8bit
+X-List-Received-Date: Thu, 27 Jan 2011 12:45:33 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+Op 25 jan 2011, om 23:07 heeft Richard Purdie het volgende geschreven:
+> The following are know issues with master:
+>=20
+> * Using rm_work and switching machines to machines of the same
+> "multimachine" architecture breaks.
+>=20
+> * When switching machines of the same "multimachine" architecture =
+(e.g.
+> emenlow to atom-pc), some sstate packages are changing checksums when =
+at
+> first glance they shouldn't (e.g. perl do_install). A
 
-in message <20110127111132.C69A3B335@gemini.denx.de> I wrote:
-> 
-> it seems that for some time (probably back to laverne-4.0) the serial
-> console port is basicly unusable in the poky-image-sdk file system.
-> I tried this in several PPC and ARM configurations, and the behaviours
-> is pretty much the same: login works fine, but at the shell prompt
-> only one out of N input characters (N usually between 2 and 10) gets
-> through to the shell.
-...
-> Is there a way to stop dbus-launch from concurring with a login shell
-> on the serial console port?
+After the fixes for those 2 went in builds from scratch fail with:
 
-This patch appears to be working fine for me:
+ERROR: Logfile of failure stored in: =
+/OE/tentacle/build/tmp-angstrom_2010_x/work/x86_64-linux/gmp-native-5.0.1-=
+r0/temp/log.do_configure.31887
+Log data follows:
+| automake (GNU automake) 1.9.6
+| Written by Tom Tromey <tromey@redhat.com>.
+|
+| Copyright 2005 Free Software Foundation, Inc.
+| This is free software; see the source for copying conditions.  There =
+is NO
+| warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR =
+PURPOSE.
+| AUTOV is 1.9
+| NOTE: Executing autoreconf --verbose --install --force =
+--exclude=3Dautopoint -I =
+/OE/tentacle/build/tmp-angstrom_2010_x/sysroots/x86_64-linux/usr/share/acl=
+ocal
+| /usr/bin/autoreconf2.50: unrecognized option `--exclude=3Dautopoint'
+| Try `/usr/bin/autoreconf2.50 --help' for more information.
+| FATAL: autoreconf execution failed.
+| Function 'do_configure' failed (see =
+/OE/tentacle/build/tmp-angstrom_2010_x/work/x86_64-linux/gmp-native-5.0.1-=
+r0/temp/log.do_configure.31887 for further information)
+| ERROR: Function 'do_configure' failed (see =
+/OE/tentacle/build/tmp-angstrom_2010_x/work/x86_64-linux/gmp-native-5.0.1-=
+r0/temp/log.do_configure.31887 for further information)
 
->From: Wolfgang Denk <wd@denx.de>
->Subject: Stop dbus-launch from interfering with a serial console
+It wants to use the autoreconf from my host, which doesn't have the =
+`--exclude=3Dautopoint' option since that's something OE patches in. =
+After building autoconf native pseudo is gone!
 
-Signed-off-by: Wolfgang Denk <wd@denx.de>
----
+/OE/tentacle/sources/openembedded/scripts/bitbake: line 38: =
+/OE/tentacle/build/tmp-angstrom_2010_x/sysroots/x86_64-linux/usr/bin/pseud=
+o: No such file or directory
 
-diff --git a/meta/recipes-graphics/x11-common/x11-common/etc/X11/Xsession b/meta/recipes-graphics/x11-common/x11-common/etc/X11/Xsession
-index a87447a..0b73127 100644
---- a/meta/recipes-graphics/x11-common/x11-common/etc/X11/Xsession
-+++ b/meta/recipes-graphics/x11-common/x11-common/etc/X11/Xsession
-@@ -2,7 +2,7 @@
- 
- if [ -x /usr/bin/dbus-launch ]; then
-     # As this is the X session script, always start a new DBus session.
--    eval `dbus-launch --sh-syntax --exit-with-session`
-+    eval `dbus-launch --sh-syntax --exit-with-session </dev/null`
-     echo "D-BUS per-session daemon address is: $DBUS_SESSION_BUS_ADDRESS"
- fi
- 
+After building pseudo-native again:
 
----
+NOTE: package =
+pseudo-native-0.0+git0+bcb42d80c0817da5479ab9c4f2cd8c4727e98ef8-r17: =
+task do_rm_work_all: Started
+NOTE: package =
+pseudo-native-0.0+git0+bcb42d80c0817da5479ab9c4f2cd8c4727e98ef8-r17: =
+task do_rm_work_all: Succeeded
+NOTE: Tasks Summary: Attempted 785 tasks of which 448 didn't need to be =
+rerun and 0 failed.
+koen@dominion:/OE/tentacle$ MACHINE=3Dbeagleboard bitbake console-image
+/OE/tentacle/sources/openembedded/scripts/bitbake: line 38: =
+/OE/tentacle/build/tmp-angstrom_2010_x/sysroots/x86_64-linux/usr/bin/pseud=
+o: No such file or directory
 
-Best regards,
+weird
 
-Wolfgang Denk
+regards,
 
--- 
-DENX Software Engineering GmbH,     MD: Wolfgang Denk & Detlev Zundel
-HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
-Phone: (+49)-8142-66989-10 Fax: (+49)-8142-66989-80 Email: wd@denx.de
-The first thing we do is kill all the lawyers.
-(Shakespeare. II Henry VI, Act IV, scene ii)
+Koen
+
 
