@@ -1,22 +1,22 @@
 Return-Path: <scott.a.garman@intel.com>
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 012794C811FB
-	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 16:41:14 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 81C2A4C811FB
+	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 16:41:15 -0600 (CST)
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
 	by orsmga101.jf.intel.com with ESMTP; 27 Jan 2011 14:41:14 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,387,1291622400"; d="scan'208";a="701449903"
+X-IronPort-AV: E=Sophos;i="4.60,387,1291622400"; d="scan'208";a="701449905"
 Received: from sgarman-ws.jf.intel.com (HELO localhost) ([10.7.199.157])
 	by orsmga001.jf.intel.com with ESMTP; 27 Jan 2011 14:41:14 -0800
-Message-Id: <e7a83f8908ec330d3ef6a9241989e64f277eabbb.1296167950.git.scott.a.garman@intel.com>
+Message-Id: <b60890de6dc63d72ff8afaca460857b583583242.1296167950.git.scott.a.garman@intel.com>
 In-Reply-To: <cover.1296167950.git.scott.a.garman@intel.com>
 References: <cover.1296167950.git.scott.a.garman@intel.com>
-Old-Date: Tue, 25 Jan 2011 15:29:31 -0800
+Old-Date: Wed, 26 Jan 2011 13:49:26 -0800
 Date: Thu, 27 Jan 2011 14:42:09 -0800
 To: poky@yoctoproject.org
 CC: 
 From: Scott Garman <scott.a.garman@intel.com>
-Subject: [PATCH 3/9] docbook-dsssl-stylesheets: new recipe v1.79
+Subject: [PATCH 7/9] docbook-utils: new recipe v0.6.14
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,73 +32,40 @@ X-List-Received-Date: Thu, 27 Jan 2011 22:41:15 -0000
 
 From: Scott Garman <scott.a.garman@intel.com>
 
-Recipe migrated from OpenEmbedded.
+Recipe derived from OpenEmbedded. Converted to use BBCLASSEXTEND.
 
 Signed-off-by: Scott Garman <scott.a.garman@intel.com>
 ---
- .../docbook-dsssl-stylesheets-native_1.79.bb       |   53 ++++++++++++++++++++
- 1 files changed, 53 insertions(+), 0 deletions(-)
- create mode 100644 meta/recipes-devtools/docbook-dsssl-stylesheets/docbook-dsssl-stylesheets-native_1.79.bb
+ .../docbook-utils/docbook-utils_0.6.14.bb          |   20 ++++++++++++++++++++
+ 1 files changed, 20 insertions(+), 0 deletions(-)
+ create mode 100644 meta/recipes-devtools/docbook-utils/docbook-utils_0.6.14.bb
 
-diff --git a/meta/recipes-devtools/docbook-dsssl-stylesheets/docbook-dsssl-stylesheets-native_1.79.bb b/meta/recipes-devtools/docbook-dsssl-stylesheets/docbook-dsssl-stylesheets-native_1.79.bb
+diff --git a/meta/recipes-devtools/docbook-utils/docbook-utils_0.6.14.bb b/meta/recipes-devtools/docbook-utils/docbook-utils_0.6.14.bb
 new file mode 100644
-index 0000000..24c5364
+index 0000000..4b053b1
 --- /dev/null
-+++ b/meta/recipes-devtools/docbook-dsssl-stylesheets/docbook-dsssl-stylesheets-native_1.79.bb
-@@ -0,0 +1,53 @@
-+SUMMARY = "DSSSL stylesheets used to transform SGML and XML DocBook files"
-+DESCRIPTION = "DSSSL stylesheets used to transform SGML and XML DocBook files"
-+HOMEPAGE= "http://docbook.sourceforge.net"
-+# Simple persmissive
-+LICENSE = "DSSSL"
-+LIC_FILES_CHKSUM = "file://README;beginline=41;endline=74;md5=875385159b2ee76ecf56136ae7f542d6"
-+
-+DEPENDS = "sgml-common-native"
++++ b/meta/recipes-devtools/docbook-utils/docbook-utils_0.6.14.bb
+@@ -0,0 +1,20 @@
++SUMMARY = "Utilities for formatting and manipulating DocBook documents"
++DESCRIPTION = "A collection of all the free software tools you need to \
++work on and format DocBook documents."
++HOMEPAGE = "http://sources.redhat.com/docbook-tools/"
++SECTION = "console/utils"
++PRIORITY = "required"
++LICENSE = "GPLv2"
++LIC_FILES_CHKSUM = "file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f"
++DEPENDS = "openjade-native sgmlspl-native docbook-dsssl-stylesheets-native docbook-sgml-dtd-3.1-native"
 +
 +PR = "r0"
 +
-+SRC_URI = "${SOURCEFORGE_MIRROR}/docbook/docbook-dsssl-${PV}.tar.bz2"
++SRC_URI = "ftp://sources.redhat.com/pub/docbook-tools/new-trials/SOURCES/docbook-utils-${PV}.tar.gz"
 +
-+SRC_URI[md5sum] = "bc192d23266b9a664ca0aba4a7794c7c"
-+SRC_URI[sha256sum] = "2f329e120bee9ef42fbdd74ddd60e05e49786c5a7953a0ff4c680ae6bdf0e2bc"
++SRC_URI[md5sum] = "6b41b18c365c01f225bc417cf632d81c"
++SRC_URI[sha256sum] = "48faab8ee8a7605c9342fb7b906e0815e3cee84a489182af38e8f7c0df2e92e9"
 +
-+S = "${WORKDIR}/docbook-dsssl-${PV}"
++inherit autotools
 +
-+inherit native
-+
-+SYSROOT_PREPROCESS_FUNCS += "docbook_dssl_stylesheets_native_mangle"
-+
-+do_install () {
-+	# Refer to http://www.linuxfromscratch.org/blfs/view/stable/pst/docbook-dsssl.html
-+	# for details.
-+	install -d ${D}${bindir}
-+	install -m 0755 bin/collateindex.pl ${D}${bindir}
-+
-+	install -d ${D}${datadir}/sgml/docbook/dsssl-stylesheets-${PV}
-+	install -m 0644 catalog ${D}${datadir}/sgml/docbook/dsssl-stylesheets-${PV}
-+	cp -PpRr common ${D}${datadir}/sgml/docbook/dsssl-stylesheets-${PV}
-+
-+	install-catalog --add ${sysconfdir}/sgml/dsssl-docbook-stylesheets.cat \
-+		${D}${datadir}/sgml/docbook/dsssl-stylesheets-${PV}/catalog
-+
-+	install-catalog --add ${sysconfdir}/sgml/dsssl-docbook-stylesheets.cat \
-+		${D}${datadir}/sgml/docbook/dsssl-stylesheets-${PV}/common/catalog
-+
-+	install-catalog --add ${sysconfdir}/sgml/sgml-docbook.cat \
-+		${sysconfdir}/sgml/dsssl-docbook-stylesheets.cat
-+
-+	# Moving them to image directory so that they get included in the .ipk file 
-+	# generated by new style staging.
-+	install -d ${D}${sysconfdir}/sgml
-+	cp ${sysconfdir}/sgml/dsssl-docbook-stylesheets.cat ${D}${sysconfdir}/sgml/
-+	cp ${sysconfdir}/sgml/sgml-docbook.cat ${D}${sysconfdir}/sgml/
-+	cp ${sysconfdir}/sgml/catalog ${D}${sysconfdir}/sgml/
-+}
-+
-+docbook_dssl_stylesheets_native_mangle () {
-+	# Removing the image directory path ${D} from the .cat file.
-+	sed -i -e "s|${D}||g" ${SYSROOT_DESTDIR}${sysconfdir}/sgml/dsssl-docbook-stylesheets.cat
-+}
++BBCLASSEXTEND = "native"
 -- 
 1.7.3.5
 
