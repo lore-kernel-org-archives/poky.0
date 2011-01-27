@@ -1,22 +1,22 @@
 Return-Path: <dexuan.cui@intel.com>
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 665E24C81262
-	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 17:41:30 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 27 Jan 2011 15:41:30 -0800
+	by mx1.pokylinux.org (Postfix) with ESMTP id C054B4C81250
+	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 17:41:31 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 27 Jan 2011 15:41:31 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,387,1291622400"; d="scan'208";a="701466192"
+X-IronPort-AV: E=Sophos;i="4.60,387,1291622400"; d="scan'208";a="597180223"
 Received: from dcui-desktop.sh.intel.com (HELO localhost) ([10.239.13.108])
-	by orsmga001.jf.intel.com with ESMTP; 27 Jan 2011 15:41:29 -0800
-Message-Id: <9afafed458d3432cd09ec462d917e723997f8bac.1296171289.git.dexuan.cui@intel.com>
+	by orsmga002.jf.intel.com with ESMTP; 27 Jan 2011 15:41:31 -0800
+Message-Id: <db9e0d39dc54e1820b757b99a72815c4f11f9f89.1296171289.git.dexuan.cui@intel.com>
 In-Reply-To: <cover.1296171287.git.dexuan.cui@intel.com>
 References: <cover.1296171287.git.dexuan.cui@intel.com>
-Old-Date: Fri, 28 Jan 2011 00:40:40 +0800
-Date: Fri, 28 Jan 2011  7:40:49 +0800
+Old-Date: Fri, 28 Jan 2011 00:49:38 +0800
+Date: Fri, 28 Jan 2011  7:40:50 +0800
 To: poky@yoctoproject.org
 CC: 
 From: Dexuan Cui <dexuan.cui@intel.com>
-Subject: [Dexuan: Jan 28: PULL 07/16] dmxproto: upgrade from 2.3 to 2.3.1
+Subject: [Dexuan: Jan 28: PULL 08/16] printproto: upgrade from 1.0.4 to 1.0.5
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,35 +28,54 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Jan 2011 23:41:30 -0000
+X-List-Received-Date: Thu, 27 Jan 2011 23:41:31 -0000
 
 From: Dexuan Cui <dexuan.cui@intel.com>
 
 Signed-off-by: Dexuan Cui <dexuan.cui@intel.com>
 ---
- .../{dmxproto_2.3.bb => dmxproto_2.3.1.bb}         |    6 +++---
- 1 files changed, 3 insertions(+), 3 deletions(-)
- rename meta/recipes-graphics/xorg-proto/{dmxproto_2.3.bb => dmxproto_2.3.1.bb} (59%)
+ .../xorg-proto/printproto_1.0.4.bb                 |   12 ------------
+ .../xorg-proto/printproto_1.0.5.bb                 |   12 ++++++++++++
+ 2 files changed, 12 insertions(+), 12 deletions(-)
+ delete mode 100644 meta/recipes-graphics/xorg-proto/printproto_1.0.4.bb
+ create mode 100644 meta/recipes-graphics/xorg-proto/printproto_1.0.5.bb
 
-diff --git a/meta/recipes-graphics/xorg-proto/dmxproto_2.3.bb b/meta/recipes-graphics/xorg-proto/dmxproto_2.3.1.bb
-similarity index 59%
-rename from meta/recipes-graphics/xorg-proto/dmxproto_2.3.bb
-rename to meta/recipes-graphics/xorg-proto/dmxproto_2.3.1.bb
-index da62629..94c81f0 100644
---- a/meta/recipes-graphics/xorg-proto/dmxproto_2.3.bb
-+++ b/meta/recipes-graphics/xorg-proto/dmxproto_2.3.1.bb
-@@ -4,8 +4,8 @@ LICENSE = "MIT"
- LIC_FILES_CHKSUM = "file://COPYING;md5=a3c3499231a8035efd0e004cfbd3b72a \
-                     file://dmxproto.h;endline=32;md5=ab8509955c3dd4c65fac728e1b367bc4"
- 
+diff --git a/meta/recipes-graphics/xorg-proto/printproto_1.0.4.bb b/meta/recipes-graphics/xorg-proto/printproto_1.0.4.bb
+deleted file mode 100644
+index 6f8e205..0000000
+--- a/meta/recipes-graphics/xorg-proto/printproto_1.0.4.bb
++++ /dev/null
+@@ -1,12 +0,0 @@
+-require xorg-proto-common.inc
+-
+-
+-LICENSE = "MIT"
+-LIC_FILES_CHKSUM = "file://COPYING;md5=a2363c155fd3749a8cf436ef56c3070f \
+-                    file://Print.h;beginline=2;endline=59;md5=1a2ee3cbfe3e38e136ff1b8477b51f4a"
+-
 -PR = "r1"
+-PE = "1"
+-
+-SRC_URI[md5sum] = "7321847a60748b4d2f1fa16db4b6ede8"
+-SRC_URI[sha256sum] = "f059a93188e7143dbb6cc55e31ccf81b976776aa3023bfa57f47501fd1bfd3be"
+diff --git a/meta/recipes-graphics/xorg-proto/printproto_1.0.5.bb b/meta/recipes-graphics/xorg-proto/printproto_1.0.5.bb
+new file mode 100644
+index 0000000..28f0e94
+--- /dev/null
++++ b/meta/recipes-graphics/xorg-proto/printproto_1.0.5.bb
+@@ -0,0 +1,12 @@
++require xorg-proto-common.inc
++
++
++LICENSE = "MIT"
++LIC_FILES_CHKSUM = "file://COPYING;md5=658463213f19b48b81f8672d2696069f \
++                    file://Print.h;beginline=2;endline=59;md5=db19e065445b3755c09432864dcd8a9b"
++
 +PR = "r0"
- PE = "1"
- 
--SRC_URI[md5sum] = "880a41720b2937e2660dcdc0d34a8791"
--SRC_URI[sha256sum] = "3a882ca43a1f359e3489468e6c407fd7d56d559f8895cf096a2ec877d6c403b0"
-+SRC_URI[md5sum] = "4ee175bbd44d05c34d43bb129be5098a"
-+SRC_URI[sha256sum] = "e72051e6a3e06b236d19eed56368117b745ca1e1a27bdc50fd51aa375bea6509"
++PE = "1"
++
++SRC_URI[md5sum] = "99d0e25feea2fead7d8325b7000b41c3"
++SRC_URI[sha256sum] = "1298316cf43b987365ab7764d61b022a3d7f180b67b423eed3456862d155911a"
 -- 
 1.7.2
 
