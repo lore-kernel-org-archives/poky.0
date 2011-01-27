@@ -1,20 +1,22 @@
 Return-Path: <scott.a.garman@intel.com>
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C0A644C81246
-	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 16:41:29 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 278944C81257
+	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 16:41:30 -0600 (CST)
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 27 Jan 2011 14:41:26 -0800
+	by orsmga101.jf.intel.com with ESMTP; 27 Jan 2011 14:41:27 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,387,1291622400"; d="scan'208";a="597164847"
+X-IronPort-AV: E=Sophos;i="4.60,387,1291622400"; d="scan'208";a="597164852"
 Received: from sgarman-ws.jf.intel.com (HELO localhost) ([10.7.199.157])
 	by orsmga002.jf.intel.com with ESMTP; 27 Jan 2011 14:41:14 -0800
-Message-Id: <cover.1296167950.git.scott.a.garman@intel.com>
-Old-Date: Thu, 27 Jan 2011 14:39:10 -0800
-Date: Thu, 27 Jan 2011 14:42:08 -0800
+Message-Id: <c57aedd6d801a58a0617de7e03a2cff02d1d9712.1296167950.git.scott.a.garman@intel.com>
+In-Reply-To: <cover.1296167950.git.scott.a.garman@intel.com>
+References: <cover.1296167950.git.scott.a.garman@intel.com>
+Old-Date: Thu, 27 Jan 2011 14:24:58 -0800
+Date: Thu, 27 Jan 2011 14:42:09 -0800
 To: poky@yoctoproject.org
 CC: 
 From: Scott Garman <scott.a.garman@intel.com>
-Subject: [PATCH 0/9] docbook-utils and related recipes
+Subject: [PATCH 8/9] iputils: enable generation of man pages
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,85 +32,48 @@ X-List-Received-Date: Thu, 27 Jan 2011 22:41:30 -0000
 
 From: Scott Garman <scott.a.garman@intel.com>
 
-Richard,
+Enable documentation generation.
 
-This pull request includes several new recipes to allow us to build
-documentation for other packages. The main one is docbook-utils, and
-the other recipes are its dependencies. I've also re-enabled
-documentation generation in the iputils script and verified it works
-correctly.
-
-These recipes are from OpenEmbedded, and some of the source packges
-haven't changed in a long time. As such a couple of the recipes I've
-updated to use modern staging and BBCLASSEXTEND. Please look them over,
-and if things look good I will also submit them back to OE.
-
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: sgarman/docbook-utils
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=sgarman/docbook-utils
-
-Thanks,
-    Scott Garman <scott.a.garman@intel.com>
+Signed-off-by: Scott Garman <scott.a.garman@intel.com>
 ---
+ meta/recipes-extended/iputils/iputils_s20101006.bb |   10 +++++-----
+ 1 files changed, 5 insertions(+), 5 deletions(-)
 
-
-Scott Garman (9):
-  sgml-common: new recipe v0.6.3
-  docbook-sgml-dtd: new recipes - v3.1, v4.1, v4.5
-  docbook-dsssl-stylesheets: new recipe v1.79
-  sgmlspl: new recipe, v1.03ii
-  opensp: new recipe v1.5
-  openjade: new recipe v1.3.2
-  docbook-utils: new recipe v0.6.14
-  iputils: enable generation of man pages
-  distro_tracking_fields.inc: added docbook-utils and dependencies
-
- .../conf/distro/include/distro_tracking_fields.inc |   69 +
- .../docbook-dsssl-stylesheets-native_1.79.bb       |   53 +
- .../docbook-sgml-dtd-3.1-native.bb                 |   23 +
- .../docbook-sgml-dtd-4.1-native.bb                 |   23 +
- .../docbook-sgml-dtd-4.5-native.bb                 |   21 +
- .../docbook-sgml-dtd/docbook-sgml-dtd-native.inc   |   49 +
- .../docbook-utils/docbook-utils_0.6.14.bb          |   20 +
- .../openjade/openjade-1.3.2/autoconf.patch         |  173 ++
- .../openjade/openjade-1.3.2/configure.patch        |   68 +
- .../openjade/openjade-1.3.2/makefile.patch         |   34 +
- .../openjade-1.3.2/oj-native-libosp-fix.patch      |   15 +
- meta/recipes-devtools/openjade/openjade_1.3.2.bb   |   66 +
- .../opensp/opensp/attributevalue.patch             |   62 +
- .../opensp/opensp/fix-docdir.patch                 |   14 +
- meta/recipes-devtools/opensp/opensp/m4.patch       | 1925 ++++++++++++++++++++
- .../opensp/opensp/rangmap-fix.patch                |   15 +
- meta/recipes-devtools/opensp/opensp_1.5.bb         |   27 +
- .../sgml-common/sgml-common-0.6.3/autohell.patch   |   58 +
- .../sgml-common/sgml-common-native_0.6.3.bb        |   50 +
- .../sgml-common/sgml-common_0.6.3.bb               |   53 +
- meta/recipes-devtools/sgmlspl/files/combined.patch |  457 +++++
- .../sgmlspl/sgmlspl-native_1.03ii.bb               |   17 +
- meta/recipes-extended/iputils/iputils_s20101006.bb |   10 +-
- 23 files changed, 3297 insertions(+), 5 deletions(-)
- create mode 100644 meta/recipes-devtools/docbook-dsssl-stylesheets/docbook-dsssl-stylesheets-native_1.79.bb
- create mode 100644 meta/recipes-devtools/docbook-sgml-dtd/docbook-sgml-dtd-3.1-native.bb
- create mode 100644 meta/recipes-devtools/docbook-sgml-dtd/docbook-sgml-dtd-4.1-native.bb
- create mode 100644 meta/recipes-devtools/docbook-sgml-dtd/docbook-sgml-dtd-4.5-native.bb
- create mode 100644 meta/recipes-devtools/docbook-sgml-dtd/docbook-sgml-dtd-native.inc
- create mode 100644 meta/recipes-devtools/docbook-utils/docbook-utils_0.6.14.bb
- create mode 100644 meta/recipes-devtools/openjade/openjade-1.3.2/autoconf.patch
- create mode 100644 meta/recipes-devtools/openjade/openjade-1.3.2/configure.patch
- create mode 100644 meta/recipes-devtools/openjade/openjade-1.3.2/makefile.patch
- create mode 100644 meta/recipes-devtools/openjade/openjade-1.3.2/oj-native-libosp-fix.patch
- create mode 100644 meta/recipes-devtools/openjade/openjade_1.3.2.bb
- create mode 100644 meta/recipes-devtools/opensp/opensp/attributevalue.patch
- create mode 100644 meta/recipes-devtools/opensp/opensp/fix-docdir.patch
- create mode 100644 meta/recipes-devtools/opensp/opensp/m4.patch
- create mode 100644 meta/recipes-devtools/opensp/opensp/rangmap-fix.patch
- create mode 100644 meta/recipes-devtools/opensp/opensp_1.5.bb
- create mode 100644 meta/recipes-devtools/sgml-common/sgml-common-0.6.3/autohell.patch
- create mode 100644 meta/recipes-devtools/sgml-common/sgml-common-native_0.6.3.bb
- create mode 100644 meta/recipes-devtools/sgml-common/sgml-common_0.6.3.bb
- create mode 100644 meta/recipes-devtools/sgmlspl/files/combined.patch
- create mode 100644 meta/recipes-devtools/sgmlspl/sgmlspl-native_1.03ii.bb
-
+diff --git a/meta/recipes-extended/iputils/iputils_s20101006.bb b/meta/recipes-extended/iputils/iputils_s20101006.bb
+index 0a42017..75dde75 100644
+--- a/meta/recipes-extended/iputils/iputils_s20101006.bb
++++ b/meta/recipes-extended/iputils/iputils_s20101006.bb
+@@ -11,7 +11,7 @@ LIC_FILES_CHKSUM = "file://ping.c;beginline=1;endline=35;md5=f9ceb201733e9a6cf8f
+                     file://arping.c;beginline=1;endline=10;md5=ada2a6d06acc90f943bddf40d15e0541 \
+                     file://tftpd.c;beginline=1;endline=32;md5=28834bf8a91a5b8a92755dbee709ef96 "
+ 
+-DEPENDS = "sysfsutils openssl"
++DEPENDS = "sysfsutils openssl docbook-utils-native"
+ 
+ PR = "r0"
+ 
+@@ -30,7 +30,7 @@ SRC_URI[sha256sum] = "fd3af46c80ebb99607c2ca1f2a3608b6fe828e25bbec6e54f2afd25f6d
+ # which is not available in poky
+ 
+ do_compile () {
+-	oe_runmake 'CC=${CC} -D_GNU_SOURCE' VPATH="${STAGING_LIBDIR}" all
++	oe_runmake 'CC=${CC} -D_GNU_SOURCE' VPATH="${STAGING_LIBDIR}" all man
+ }
+ 
+ do_install () {
+@@ -44,9 +44,9 @@ do_install () {
+ 	  install -m 0755 $i ${D}${base_bindir}/
+ 	done
+ 	# Manual pages for things we build packages for
+-#	for i in tracepath.8 traceroute6.8 ping.8 arping.8; do
+-#	  install -m 0644 doc/$i ${D}${mandir}/man8/ || true
+-#	done
++	for i in tracepath.8 traceroute6.8 ping.8 arping.8; do
++	  install -m 0644 doc/$i ${D}${mandir}/man8/ || true
++	done
+ }
+ 
+ # Busybox also provides ping and ping6, so use update-alternatives
 -- 
 1.7.3.5
 
