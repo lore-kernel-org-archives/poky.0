@@ -1,25 +1,26 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5CC344C81146
-	for <poky@yoctoproject.org>; Wed, 26 Jan 2011 18:40:39 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 26 Jan 2011 16:40:38 -0800
+Return-Path: <ke.yu@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 805FF4C81146
+	for <poky@yoctoproject.org>; Wed, 26 Jan 2011 19:57:42 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 26 Jan 2011 17:57:41 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,383,1291622400"; d="scan'208";a="380448305"
-Received: from unknown (HELO [10.255.14.102]) ([10.255.14.102])
-	by azsmga001.ch.intel.com with ESMTP; 26 Jan 2011 16:40:34 -0800
-Message-ID: <4D40BF02.3020806@linux.intel.com>
-Date: Wed, 26 Jan 2011 16:40:34 -0800
-From: Saul Wold <sgw@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
+X-IronPort-AV: E=Sophos;i="4.60,383,1291622400"; d="scan'208";a="881367779"
+Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
+	by fmsmga001.fm.intel.com with ESMTP; 26 Jan 2011 17:57:41 -0800
+Date: Thu, 27 Jan 2011 10:01:12 +0800
+From: Yu Ke <ke.yu@intel.com>
+To: Koen Kooi <koen@dominion.thruhere.net>
+Message-ID: <20110127020112.GB31432@kyu3-hedt>
+References: <cover.1296008816.git.ke.yu@intel.com>
+	<5eb33f8529e5b56387f7c51f11e50d3c2b031370.1296008816.git.ke.yu@intel.com>
+	<10A1EBA3-1693-4FED-8255-CBF6C7804357@dominion.thruhere.net>
+	<339D2639-AAF5-4990-813F-53D3B05326A7@dominion.thruhere.net>
 MIME-Version: 1.0
-To: Wolfgang Denk <wd@denx.de>
-References: <20110126222304.75B03CD1385@gemini.denx.de>
-In-Reply-To: <20110126222304.75B03CD1385@gemini.denx.de>
-Cc: poky@yoctoproject.org
-Subject: Re: Build of meta-toolchain-sdk fails
+In-Reply-To: <339D2639-AAF5-4990-813F-53D3B05326A7@dominion.thruhere.net>
+User-Agent: Mutt/1.5.20 (2009-06-14)
+Cc: poky <poky@yoctoproject.org>
+Subject: Re: [PATCH 2/2] xf86-video-omapfb: upgrade to 044617665d6737f4909aab96
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,54 +32,77 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Jan 2011 00:40:39 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 27 Jan 2011 01:57:42 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 01/26/2011 02:23 PM, Wolfgang Denk wrote:
-> Hi,
->
-> I'm trying to build "meta-toolchain-sdk" for a machine pretty much
-> identical to qemuppc:
->
-> this works fine for commit 4cd1118, but fails for 74783fe like this:
->
-> ...
-> | Configuring libgypsy0.
-> | Configuring libgypsy-dbg.
-> | Configuring task-poky-standalone-sdk-target.
-> | Configuring task-poky-standalone-sdk-target-dbg.
-> | Configuring task-poky-standalone-gmae-sdk-target.
-> | Configuring libtelepathy-dbg.
-> | Configuring task-poky-standalone-gmae-sdk-target-dbg.
-> | Collected errors:
-> |  * satisfy_dependencies_for: Cannot satisfy the following dependencies for task-poky-standalone-gmae-sdk-target:
-> |  *    libstartup-notification-1-0 (>= 0.10) *         xcb-util (>= 0.3.6) *
-> |  * opkg_install_cmd: Cannot install package task-poky-standalone-gmae-sdk-target.
-> | Function 'do_populate_sdk' failed (see /opt/poky/build-soft-float-support-52d1403/tmp/work/ppc603e-poky-linux/meta-toolchain-sdk-1.0-r0/temp/log.do_populate_sdk.17742 for further information)
-> NOTE: package meta-toolchain-sdk-1.0-r0: task do_populate_sdk: Failed
-> ERROR: Task 9 (/home/wd/git/poky/work/meta/recipes-core/meta/meta-toolchain-sdk.bb, do_populate_sdk) failed with exit code '1'
->
->
-> Is this a known problem?
+On Jan 26, 13:50, Koen Kooi wrote:
+> 
+> Op 26 jan 2011, om 09:48 heeft Koen Kooi het volgende geschreven:
+> 
+> > That revision is buggy, using it disables the framebuffer:
+> > 
+> > [   34.354583] omapdss DISPC error: timeout waiting for EVSYNC
+> > [   34.456146] omapdss DISPC error: timeout waiting for EVSYNC
+> 
+> Since I was already working on this, I'll give a summary of what I found out after debugging this with upstream:
+> 
+> * The tv-out gets added last and the driver tries to reconfigure dvi to TV resolutions, which fails, fix: http://dominion.thruhere.net/git/cgit.cgi/xf86-video-omapfb/commit/?h=test&id=05efb061f1945425d214ff6b6050883e6d8633bf
+> 
+> * The new DSS mode breaks XV, so force plain mode: http://dominion.thruhere.net/git/cgit.cgi/xf86-video-omapfb/commit/?id=d28a36bbadc360a9409bf9832f1d4171d7c33dad
+> 
+> * Picture is garbled after switching resolutions, fix: http://dominion.thruhere.net/git/cgit.cgi/xf86-video-omapfb/commit/?h=test&id=cbae688d7df59938ccb4af534ec2ff75cbbe9221
+> 
+> * Virtual size too big, fix: http://dominion.thruhere.net/git/cgit.cgi/xf86-video-omapfb/commit/?h=test&id=031516123d25a12808ab4e56ea8deda74946cdcd
+> 
+> The problem is that modeswitching isn't working properly in plain mode, so you can either get working modeswitching or working Xv with the above patches.
+> 
+> But looking closer, the SRCREV that's currently there (6cff996abcb305460e9fa2c75569b776f099c9d5) is broken as well.
+> 
+> regards,
+> 
+> Koen
 
-Wolfgang,
+Koen, Thanks for the fix. Since I don't have OMAP H/W in hand, so no validation is done yet. This should be improved in the future. Again, thanks for your validatin and quick fix. I will include your fix as patch and resubmit the recpies upgrade.
 
-Was this a scratch build?  I just build
-MACHINE=qemuppc bitbake meta-toolchain-sdk
+Regards
+Ke
 
-and that worked OK, did you do this from an exisiting build?  There was 
-a recent set of changes that require restarting from a clean state.
-
-If you can please try that.
-
-Thanks
-    Sau!
-
->
-> Best regards,
->
-> Wolfgang Denk
->
-
+> 
+> 
+> > Op 26 jan 2011, om 03:29 heeft poky-bounces@yoctoproject.org het volgende geschreven:
+> > 
+> >> From: Yu Ke <ke.yu@intel.com>
+> >> 
+> >> Signed-off-by: Yu Ke <ke.yu@intel.com>
+> >> ---
+> >> .../conf/distro/include/poky-default-revisions.inc |    2 +-
+> >> 1 files changed, 1 insertions(+), 1 deletions(-)
+> >> 
+> >> diff --git a/meta/conf/distro/include/poky-default-revisions.inc b/meta/conf/distro/include/poky-default-revisions.inc
+> >> index 8d98eef..a606889 100644
+> >> --- a/meta/conf/distro/include/poky-default-revisions.inc
+> >> +++ b/meta/conf/distro/include/poky-default-revisions.inc
+> >> @@ -182,7 +182,7 @@ SRCREV_pn-xcb-proto ??= "d81ca233e98be8fa59e8c90d262c0516944c5a66"
+> >> SRCREV_pn-xcb-proto-native ??= "d81ca233e98be8fa59e8c90d262c0516944c5a66"
+> >> SRCREV_pn-xf86-video-intel ??= "87ea531c5dc5b39809395b277c330854aaaaf019"
+> >> SRCREV_pn-xf86-video-intel-dri2 ??= "3dd7f0f9423bb891bc99cd3b77dc3d57e057a7ef"
+> >> -SRCREV_pn-xf86-video-omapfb ??= "6cff996abcb305460e9fa2c75569b776f099c9d5"
+> >> +SRCREV_pn-xf86-video-omapfb ??= "044617665d6737f4909aab96f91b06261dff05d2"
+> >> SRCREV_pn-xf86-input-keyboard ??= "3e28d68b50d291938734e9684b8296ca864f3892"
+> >> SRCREV_pn-xf86-input-mouse ??= "ea5cfe804e112f320f14ad896c7802d53551d3e6"
+> >> SRCREV_pn-xf86-input-synaptics ??= "934bc0012f948c52aadc8eda912f7728fb7394a2"
+> >> -- 
+> >> 1.7.0.4
+> >> 
+> >> _______________________________________________
+> >> poky mailing list
+> >> poky@yoctoproject.org
+> >> https://lists.yoctoproject.org/listinfo/poky
+> > 
+> 
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
