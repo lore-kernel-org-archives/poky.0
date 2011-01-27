@@ -1,24 +1,24 @@
 Return-Path: <lianhao.lu@intel.com>
 Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 145DA4C811F6
+	by mx1.pokylinux.org (Postfix) with ESMTP id 7231D4C81207
 	for <poky@yoctoproject.org>; Wed, 26 Jan 2011 20:50:45 -0600 (CST)
 Received: from azsmga001.ch.intel.com ([10.2.17.19])
 	by azsmga101.ch.intel.com with ESMTP; 26 Jan 2011 18:50:44 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,383,1291622400"; d="scan'208";a="380489612"
+X-IronPort-AV: E=Sophos;i="4.60,383,1291622400"; d="scan'208";a="380489615"
 Received: from llu-piketon.sh.intel.com ([10.239.36.141])
 	by azsmga001.ch.intel.com with ESMTP; 26 Jan 2011 18:50:43 -0800
 Received: from lulianhao by llu-piketon.sh.intel.com with local (Exim 4.71)
 	(envelope-from <lianhao.lu@intel.com>)
-	id 1PiHxM-00078a-4Y; Thu, 27 Jan 2011 10:51:32 +0800
-Message-Id: <f89a1cb853c2c6e5786d238c555900fda264013f.1296095614.git.lianhao.lu@intel.com>
+	id 1PiHxM-00078w-68; Thu, 27 Jan 2011 10:51:32 +0800
+Message-Id: <26af1eedc02891af494e897816b8c0819d13f4e5.1296095614.git.lianhao.lu@intel.com>
 In-Reply-To: <cover.1296095614.git.lianhao.lu@intel.com>
 References: <cover.1296095614.git.lianhao.lu@intel.com>
-Old-Date: Wed, 26 Jan 2011 21:17:27 +0800
+Old-Date: Thu, 27 Jan 2011 10:17:48 +0800
 Date: Thu, 27 Jan 2011 10:51:32 +0800
 To: poky@yoctoproject.org
 From: Lianhao Lu <lianhao.lu@intel.com>
-Subject: [PATCH 3/6] populate_sdk_deb/package_deb: Added deb support for populate_sdk.
+Subject: [PATCH 5/6] package_rpm/populate_sdk_rpm: Added rpm support for populate_sdk task.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,183 +34,249 @@ X-List-Received-Date: Thu, 27 Jan 2011 02:50:45 -0000
 
 From: Lianhao Lu <lianhao.lu@intel.com>
 
-Added populate_sdk_deb.bbclass for populate_sdk task.
+1. Added popluate_sdk_rpm.bbclass to add rpm support for populate_sdk
+task.
 
-Added function package_update_index_deb in package_deb.bbclass to
-generate deb index.
+2. Modified the function package_update_index_rpm() &
+package_generate_rpm_conf in package_rpm.bbclass to generate 2 different
+configurations for sdk host and sdk target.
 
 Signed-off-by: Lianhao Lu <lianhao.lu@intel.com>
 ---
- meta/classes/package_deb.bbclass      |   31 ++++++++
- meta/classes/populate_sdk_deb.bbclass |  129 +++++++++++++++++++++++++++++++++
- 2 files changed, 160 insertions(+), 0 deletions(-)
- create mode 100644 meta/classes/populate_sdk_deb.bbclass
+ meta/classes/package_rpm.bbclass      |   53 +++++++++++--
+ meta/classes/populate_sdk_rpm.bbclass |  138 +++++++++++++++++++++++++++++++++
+ 2 files changed, 183 insertions(+), 8 deletions(-)
+ create mode 100644 meta/classes/populate_sdk_rpm.bbclass
 
-diff --git a/meta/classes/package_deb.bbclass b/meta/classes/package_deb.bbclass
-index 29dcc5c..b1c601e 100644
---- a/meta/classes/package_deb.bbclass
-+++ b/meta/classes/package_deb.bbclass
-@@ -67,6 +67,37 @@ python do_package_deb_install () {
-     os.putenv('PATH', path)
+diff --git a/meta/classes/package_rpm.bbclass b/meta/classes/package_rpm.bbclass
+index fbe0626..abcb340 100644
+--- a/meta/classes/package_rpm.bbclass
++++ b/meta/classes/package_rpm.bbclass
+@@ -15,6 +15,8 @@ python package_rpm_install () {
+ 	bb.fatal("package_rpm_install not implemented!")
  }
  
-+#
-+# Update the Packages index files in ${DEPLOY_DIR_DEB}
-+#
-+package_update_index_deb () {
-+
-+	debarchs=""
-+
-+	if [ ! -z "${DEPLOY_KEEP_PACKAGES}" ]; then
-+		return
-+	fi
-+
-+	for arch in ${PACKAGE_ARCHS}; do
-+		sdkarch=`echo $arch | sed -e 's/${HOST_ARCH}/${SDK_ARCH}/'`
-+		if [ -e ${DEPLOY_DIR_DEB}/$arch ]; then
-+			debarchs="$debarchs $arch"
++RPMCONF_TARGET_BASE = "${DEPLOY_DIR_RPM}/solvedb"
++RPMCONF_HOST_BASE = "${DEPLOY_DIR_RPM}/solvedb-sdk"
+ #
+ # Update the Packages depsolver db in ${DEPLOY_DIR_RPM}
+ #
+@@ -26,15 +28,20 @@ package_update_index_rpm () {
+ 	fi
+ 
+ 	packagedirs=""
++	packagedirs_sdk=""
+ 	for arch in $rpmarchs ; do
+ 		sdkarch=`echo $arch | sed -e 's/${HOST_ARCH}/${SDK_ARCH}/'`
++		extension="-nativesdk"
++		if [ "$sdkarch" = "all" -o "$sdkarch" = "any" -o "$sdkarch" = "noarch" ]; then
++		    extension=""
 +		fi
-+		if [ -e ${DEPLOY_DIR_DEB}/$sdkarch-nativesdk ]; then
-+			debarchs="$debarchs $sdkarch-nativesdk"
+ 		packagedirs="$packagedirs ${DEPLOY_DIR_RPM}/$arch"
+-		#packagedirs="$packagedirs ${DEPLOY_DIR_RPM}/$sdkarch-nativesdk"
++		packagedirs_sdk="$packagedirs_sdk ${DEPLOY_DIR_RPM}/$sdkarch$extension"
+ 	done
+ 
+ 	#packagedirs="$packagedirs ${DEPLOY_DIR_RPM}/${SDK_ARCH}-${TARGET_ARCH}-canadian"
+ 
+-	cat /dev/null > ${DEPLOY_DIR_RPM}/solvedb.conf
++	cat /dev/null > ${RPMCONF_TARGET_BASE}.conf
+ 	for pkgdir in $packagedirs; do
+ 		if [ -e $pkgdir/ ]; then
+ 			echo "Generating solve db for $pkgdir..."
+@@ -49,7 +56,26 @@ package_update_index_rpm () {
+ 				-D "_dbi_tags_3 Packages:Name:Basenames:Providename:Nvra" \
+ 				-D "__dbi_cdb create mp_mmapsize=128Mb mp_size=1Mb nofsync" \
+ 				$pkgdir/solvedb/manifest
+-			echo $pkgdir/solvedb >> ${DEPLOY_DIR_RPM}/solvedb.conf
++			echo $pkgdir/solvedb >> ${RPMCONF_TARGET_BASE}.conf
 +		fi
 +	done
 +
-+	for arch in $debarchs; do
-+		if [ ! -d ${DEPLOY_DIR_DEB}/$arch ]; then
-+			continue;
++	cat /dev/null > ${RPMCONF_HOST_BASE}.conf
++	for pkgdir in $packagedirs_sdk; do
++		if [ -e $pkgdir/ ]; then
++			echo "Generating solve db for $pkgdir..."
++			rm -rf $pkgdir/solvedb
++			mkdir -p $pkgdir/solvedb
++			echo "# Dynamically generated solve manifest" >> $pkgdir/solvedb/manifest
++			find $pkgdir -maxdepth 1 -type f >> $pkgdir/solvedb/manifest
++			${RPM} -i --replacepkgs --replacefiles --oldpackage \
++				-D "_dbpath $pkgdir/solvedb" --justdb \
++				--noaid --nodeps --noorder --noscripts --notriggers --noparentdirs --nolinktos --stats \
++				--ignoresize --nosignature --nodigest \
++				-D "_dbi_tags_3 Packages:Name:Basenames:Providename:Nvra" \
++				-D "__dbi_cdb create mp_mmapsize=128Mb mp_size=1Mb nofsync" \
++				$pkgdir/solvedb/manifest
++			echo $pkgdir/solvedb >> ${RPMCONF_HOST_BASE}.conf
+ 		fi
+ 	done
+ }
+@@ -59,16 +85,27 @@ package_update_index_rpm () {
+ # generated depsolver db's...
+ #
+ package_generate_rpm_conf () {
+-	printf "_solve_dbpath " > ${DEPLOY_DIR_RPM}/solvedb.macro
++	printf "_solve_dbpath " > ${RPMCONF_TARGET_BASE}.macro
++	colon=false
++	for each in `cat ${RPMCONF_TARGET_BASE}.conf` ; do
++		if [ "$colon" == true ]; then
++			printf ":" >> ${RPMCONF_TARGET_BASE}.macro
 +		fi
-+		cd ${DEPLOY_DIR_DEB}/$arch
-+		dpkg-scanpackages . | bzip2 > Packages.bz2
-+		echo "Label: $arch" > Release
++		printf "%s" $each >> ${RPMCONF_TARGET_BASE}.macro
++		colon=true
 +	done
-+}
++	printf "\n" >> ${RPMCONF_TARGET_BASE}.macro
 +
- python do_package_deb () {
-     import re, copy
-     import textwrap
-diff --git a/meta/classes/populate_sdk_deb.bbclass b/meta/classes/populate_sdk_deb.bbclass
++	printf "_solve_dbpath " > ${RPMCONF_HOST_BASE}.macro
+ 	colon=false
+-	for each in `cat ${DEPLOY_DIR_RPM}/solvedb.conf` ; do
++	for each in `cat ${RPMCONF_HOST_BASE}.conf` ; do
+ 		if [ "$colon" == true ]; then
+-			printf ":" >> ${DEPLOY_DIR_RPM}/solvedb.macro
++			printf ":" >> ${RPMCONF_HOST_BASE}.macro
+ 		fi
+-		printf "%s" $each >> ${DEPLOY_DIR_RPM}/solvedb.macro
++		printf "%s" $each >> ${RPMCONF_HOST_BASE}.macro
+ 		colon=true
+ 	done
+-	printf "\n" >> ${DEPLOY_DIR_RPM}/solvedb.macro
++	printf "\n" >> ${RPMCONF_HOST_BASE}.macro
+ }
+ 
+ python write_specfile () {
+diff --git a/meta/classes/populate_sdk_rpm.bbclass b/meta/classes/populate_sdk_rpm.bbclass
 new file mode 100644
-index 0000000..356f409
+index 0000000..883e67f
 --- /dev/null
-+++ b/meta/classes/populate_sdk_deb.bbclass
-@@ -0,0 +1,129 @@
-+do_populate_sdk[depends] += "dpkg-native:do_populate_sysroot apt-native:do_populate_sysroot bzip2-native:do_populate_sysroot"
-+do_populate_sdk[recrdeptask] += "do_package_write_deb"
++++ b/meta/classes/populate_sdk_rpm.bbclass
+@@ -0,0 +1,138 @@
++do_populate_sdk[depends] += "rpm-native:do_populate_sysroot"
++do_populate_sdk[recrdeptask] += "do_package_write_rpm"
 +
-+generate_generate_deb_conf () {
-+	
-+	rootfs=$1
-+	dpkg_arch=$2
-+	shift
-+	shift
++rpmlibdir = "/var/lib/rpm"
++RPMOPTS="--dbpath ${rpmlibdir} --define='_openall_before_chroot 1'"
++RPM="rpm ${RPMOPTS}"
 +
-+	archs=$@
-+
-+	echo "rootfs: $rootfs"
-+	echo "dpkg_arch: $dpkg_arch"
-+	echo "debarchs: $archs"
-+
-+	rm -f ${STAGING_ETCDIR_NATIVE}/apt/sources.list.rev
-+	rm -f ${STAGING_ETCDIR_NATIVE}/apt/preferences
-+	
-+	priority=1
-+	for arch in $archs; do
-+		if [ ! -d ${DEPLOY_DIR_DEB}/$arch ]; then
-+			continue;
++# Resolve package names to filepaths
++resolve_package() {
++	pkg="$1"
++	conffile="$2"
++	pkg_name=""
++	for solve in `cat ${conffile}`; do
++		pkg_name=$(${RPM} -D "_dbpath $solve" -D "_dbi_tags_3 Packages:Name:Basenames:Providename:Nvra" -D "__dbi_cdb create mp_mmapsize=128Mb mp_size=1Mb nofsync" -q --yaml $pkg | grep -i 'Packageorigin' | cut -d : -f 2)
++		if [ -n "$pkg_name" ]; then
++			break;
 +		fi
-+		
-+		echo "deb file:${DEPLOY_DIR_DEB}/$arch/ ./" >> ${STAGING_ETCDIR_NATIVE}/apt/sources.list.rev
-+		(echo "Package: *"
-+		echo "Pin: release l=$arch"
-+		echo "Pin-Priority: $(expr 800 + $priority)"
-+		echo) >> ${STAGING_ETCDIR_NATIVE}/apt/preferences
-+		priority=$(expr $priority + 5)
 +	done
-+
-+	tac ${STAGING_ETCDIR_NATIVE}/apt/sources.list.rev > ${STAGING_ETCDIR_NATIVE}/apt/sources.list
-+
-+	cat "${STAGING_ETCDIR_NATIVE}/apt/apt.conf.sample" \
-+		| sed -e "s#Architecture \".*\";#Architecture \"${dpkg_arch}\";#" \
-+		| sed -e "s:#ROOTFS#:${rootfs}:g" \
-+		> "${STAGING_ETCDIR_NATIVE}/apt/apt-populate-sdk.conf"
-+
-+	export APT_CONFIG="${STAGING_ETCDIR_NATIVE}/apt/apt-populate-sdk.conf"
++	echo $pkg_name
 +}
 +
-+populate_sdk_deb_internal () {
++# populate_sdk_rpm_internal <rootfs> <platform> <confbase> <packages_to_install>
++populate_sdk_rpm_internal() {
 +
 +	target_rootfs=$1
++	shift
++	platform=$1
++	shift
++	confbase=$1
 +	shift
 +	package_to_install=$@
 +	
-+	mkdir -p ${target_rootfs}/var/dpkg/info
-+	mkdir -p ${target_rootfs}/var/dpkg/updates
++	# Setup base system configuration
++	mkdir -p ${target_rootfs}/etc/rpm/
++	echo "${platform}" >${target_rootfs}/etc/rpm/platform
 +
-+	> ${target_rootfs}/var/dpkg/status
-+	> ${target_rootfs}/var/dpkg/available
++	# Tell RPM that the "/" directory exist and is available
++	mkdir -p ${target_rootfs}/etc/rpm/sysinfo
++	echo "/" >${target_rootfs}/etc/rpm/sysinfo/Dirnames
++	echo "/bin/sh" >${target_rootfs}/etc/rpm/sysinfo/Providename
 +
-+	apt-get update
++	# Setup manifest of packages to install...
++	mkdir -p ${target_rootfs}/install
++	echo "# Install manifest" > ${target_rootfs}/install/install.manifest
 +
-+	for i in ${package_to_install}; do
-+		apt-get install $i --force-yes --allow-unauthenticated
-+		if [ $? -ne 0 ]; then
-+			exit 1
-+		fi
-+	done
++	if [ ! -z "${package_to_install}" ]; then
++		for pkg in ${package_to_install} ; do
++			echo "Processing $pkg..."
++			pkg_name=$(resolve_package $pkg ${confbase}.conf)
++			if [ -z "$pkg_name" ]; then
++				echo "Unable to find package $pkg!"
++				exit 1
++			fi
++			echo $pkg_name >> ${target_rootfs}/install/install.manifest
++		done
++	fi
 +
-+	find ${target_rootfs} -name \*.dpkg-new | for i in `cat`; do
-+		mv $i `echo $i | sed -e's,\.dpkg-new$,,'`
-+	done
++	# Generate an install solution by doing a --justdb install, then recreate it with
++	# an actual package install!
++	set -e
++	${RPM} -D "_rpmds_sysinfo_path ${target_rootfs}/etc/rpm/sysinfo" \
++		-D "_dbpath ${target_rootfs}/install" -D "`cat ${confbase}.macro`" \
++		-D "__dbi_cdb create mp_mmapsize=128Mb mp_size=1Mb nofsync" \
++		-U --justdb --noscripts --notriggers --noparentdirs --nolinktos --ignoresize \
++		${target_rootfs}/install/install.manifest
 +
-+	# Mark all packages installed
-+	sed -i -e "s/Status: install ok unpacked/Status: install ok installed/;" ${target_rootfs}/var/dpkg/status
++	# Now that we have a solution, pull out a list of what to install...
++	echo "Manifest: ${target_rootfs}/install/install-target.manifest"
++	${RPM} -D "_dbpath ${target_rootfs}/install" \
++		-D "__dbi_cdb create mp_mmapsize=128Mb mp_size=1Mb nofsync" -qa --yaml \
++		| grep -i 'Packageorigin' | cut -d : -f 2 > ${target_rootfs}/install/install_solution.manifest
 +
++	# Attempt install
++	${RPM} --root ${target_rootfs} \
++		-D "_rpmds_sysinfo_path ${target_rootfs}/etc/rpm/sysinfo" \
++		-D "_dbpath ${rpmlibdir}" \
++		--noscripts --notriggers --noparentdirs --nolinktos \
++		-D "__dbi_cdb create mp_mmapsize=128Mb mp_size=1Mb nofsync private" \
++		-Uhv ${target_rootfs}/install/install_solution.manifest
++	set +e
++
++	# remove lock files
++	rm -f ${target_rootfs}/__db.*
++
++	# Move manifests into the directory with the logs
++	mv ${target_rootfs}/install/*.manifest ${T}/
++
++	# Remove all remaining resolver files
++	rm -rf ${target_rootfs}/install
 +}
 +
-+populate_sdk_post_deb () {
++fakeroot populate_sdk_rpm () {
 +
-+	target_rootfs=$1
++	package_update_index_rpm
++	package_generate_rpm_conf
 +
-+	cp -r ${STAGING_ETCDIR_NATIVE}/apt ${target_rootfs}/etc
-+}
-+
-+fakeroot populate_sdk_deb () {
-+	
-+	package_update_index_deb
-+	
-+	set -x
 +	#install target
-+	generate_generate_deb_conf ${SDK_OUTPUT}/${SDKTARGETSYSROOT} ${DPKG_ARCH} ${PACKAGE_ARCHS}
-+	populate_sdk_deb_internal ${SDK_OUTPUT}/${SDKTARGETSYSROOT} ${TOOLCHAIN_TARGET_TASK}
-+	populate_sdk_post_deb ${SDK_OUTPUT}/${SDKTARGETSYSROOT}
-+
++	populate_sdk_rpm_internal ${SDK_OUTPUT}/${SDKTARGETSYSROOT} \
++				${TARGET_ARCH}-linux \
++				${RPMCONF_TARGET_BASE} \
++				${TOOLCHAIN_TARGET_TASK}
 +	#install host
-+	sdkarchs=""
-+	for arch in ${PACKAGE_ARCHS}; do
-+		sdkarch=`echo $arch | sed -e 's/${HOST_ARCH}/${SDK_ARCH}/'`
-+		if [ -e ${DEPLOY_DIR_DEB}/$sdkarch-nativesdk ]; then
-+			sdkarchs="$sdkarchs $sdkarch-nativesdk"
-+		fi
-+	done
++	populate_sdk_rpm_internal ${SDK_OUTPUT} \
++				"${SDK_ARCH}-nativesdk-linux" \
++				${RPMCONF_HOST_BASE} \
++				${TOOLCHAIN_HOST_TASK}
 +
-+	generate_generate_deb_conf ${SDK_OUTPUT} ${SDK_ARCH} ${sdkarchs}
-+	populate_sdk_deb_internal ${SDK_OUTPUT} ${TOOLCHAIN_HOST_TASK}
-+	populate_sdk_post_deb ${SDK_OUTPUT}/${SDKPATHNATIVE}
++	# move host RPM library data
++	install -d ${SDK_OUTPUT}/${SDKPATHNATIVE}${localstatedir_nativesdk}/lib/rpm
++	mv ${SDK_OUTPUT}${rpmlibdir}/* ${SDK_OUTPUT}/${SDKPATHNATIVE}${localstatedir_nativesdk}/lib/rpm/
++	rm -Rf ${SDK_OUTPUT}/var
 +	
-+	#move remainings
-+	install -d ${SDK_OUTPUT}/${SDKPATHNATIVE}/var/dpkg	
-+	mv ${SDK_OUTPUT}/var/dpkg/* ${SDK_OUTPUT}/${SDKPATHNATIVE}/var/dpkg
-+	rm -rf 	${SDK_OUTPUT}/var
-+	
++	install -d ${SDK_OUTPUT}/${SDKPATHNATIVE}/${sysconfdir}
++	mv ${SDK_OUTPUT}/etc/* ${SDK_OUTPUT}/${SDKPATHNATIVE}/${sysconfdir}/
++	rm -rf ${SDK_OUTPUT}/etc
++
 +	populate_sdk_log_check 
 +}
 +
-+populate_sdk_deb_log_check() {
++populate_sdk_rpm_log_check() {
++
 +        lf_path="$1"
 +
 +	lf_txt="`cat $lf_path`"
-+	for keyword_die in "E:"
-+	do				
++	for keyword_die in "Cannot find package" "exit 1" ERR Fail
++	do
 +		if (echo "$lf_txt" | grep -v log_check | grep "$keyword_die") >/dev/null 2>&1
 +		then
 +			echo "log_check: There were error messages in the logfile"
@@ -220,7 +286,7 @@ index 0000000..356f409
 +			do_exit=1
 +		fi
 +	done
-+	test "$do_exit" = 1 && exit 1						
++	test "$do_exit" = 1 && exit 1
 +	true
 +}
 -- 
