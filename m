@@ -1,22 +1,22 @@
 Return-Path: <dexuan.cui@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 686024C8123C
-	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 17:41:28 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 27 Jan 2011 15:41:27 -0800
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 500884C81258
+	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 17:41:29 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 27 Jan 2011 15:41:28 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,387,1291622400"; d="scan'208";a="651922281"
+X-IronPort-AV: E=Sophos;i="4.60,387,1291622400"; d="scan'208";a="380951407"
 Received: from dcui-desktop.sh.intel.com (HELO localhost) ([10.239.13.108])
-	by fmsmga002.fm.intel.com with ESMTP; 27 Jan 2011 15:41:26 -0800
-Message-Id: <45eed1d7c707fbcd06843d5274f71692c6bf2852.1296171289.git.dexuan.cui@intel.com>
+	by azsmga001.ch.intel.com with ESMTP; 27 Jan 2011 15:41:28 -0800
+Message-Id: <444bda4d5ed4cbefc241d41a99940d37d6785427.1296171289.git.dexuan.cui@intel.com>
 In-Reply-To: <cover.1296171287.git.dexuan.cui@intel.com>
 References: <cover.1296171287.git.dexuan.cui@intel.com>
-Old-Date: Thu, 27 Jan 2011 20:16:11 +0800
-Date: Fri, 28 Jan 2011  7:40:46 +0800
+Old-Date: Fri, 28 Jan 2011 00:30:48 +0800
+Date: Fri, 28 Jan 2011  7:40:47 +0800
 To: poky@yoctoproject.org
 CC: 
 From: Dexuan Cui <dexuan.cui@intel.com>
-Subject: [Dexuan: Jan 28: PULL 05/16] lttng-viewer: upgrade from 0.12.35 to 0.12.36
+Subject: [Dexuan: Jan 28: PULL 06/16] pixman: upgrade from 0.21.2 to 0.21.4
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,39 +28,41 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Jan 2011 23:41:28 -0000
+X-List-Received-Date: Thu, 27 Jan 2011 23:41:29 -0000
 
 From: Dexuan Cui <dexuan.cui@intel.com>
 
 Signed-off-by: Dexuan Cui <dexuan.cui@intel.com>
 ---
- ...g-viewer_0.12.35.bb => lttng-viewer_0.12.36.bb} |    6 +++---
+ .../{pixman_0.21.2.bb => pixman_0.21.4.bb}         |    6 +++---
  1 files changed, 3 insertions(+), 3 deletions(-)
- rename meta/recipes-kernel/lttng/{lttng-viewer_0.12.35.bb => lttng-viewer_0.12.36.bb} (85%)
+ rename meta/recipes-graphics/xorg-lib/{pixman_0.21.2.bb => pixman_0.21.4.bb} (70%)
 
-diff --git a/meta/recipes-kernel/lttng/lttng-viewer_0.12.35.bb b/meta/recipes-kernel/lttng/lttng-viewer_0.12.36.bb
-similarity index 85%
-rename from meta/recipes-kernel/lttng/lttng-viewer_0.12.35.bb
-rename to meta/recipes-kernel/lttng/lttng-viewer_0.12.36.bb
-index 94c6155..e305495 100644
---- a/meta/recipes-kernel/lttng/lttng-viewer_0.12.35.bb
-+++ b/meta/recipes-kernel/lttng/lttng-viewer_0.12.36.bb
-@@ -14,12 +14,12 @@ DEPENDS = "gtk+ pango popt"
+diff --git a/meta/recipes-graphics/xorg-lib/pixman_0.21.2.bb b/meta/recipes-graphics/xorg-lib/pixman_0.21.4.bb
+similarity index 70%
+rename from meta/recipes-graphics/xorg-lib/pixman_0.21.2.bb
+rename to meta/recipes-graphics/xorg-lib/pixman_0.21.4.bb
+index 562ba14..45f6b19 100644
+--- a/meta/recipes-graphics/xorg-lib/pixman_0.21.2.bb
++++ b/meta/recipes-graphics/xorg-lib/pixman_0.21.4.bb
+@@ -3,7 +3,7 @@ DESCRIPTION = "Library for lowlevel pixel operations"
+ require xorg-lib-common.inc
  
- SECTION = "devel"
+ LICENSE = "MIT & MIT-style & Public Domain"
+-LIC_FILES_CHKSUM = "file://COPYING;md5=71e682cc54eaaf251f96a9038423a5c3 \
++LIC_FILES_CHKSUM = "file://COPYING;md5=14096c769ae0cbb5fcb94ec468be11b3 \
+                     file://pixman/pixman-matrix.c;endline=25;md5=ba6e8769bfaaee2c41698755af04c4be \
+                     file://pixman/pixman-arm-neon-asm.h;endline=24;md5=9a9cc1e51abbf1da58f4d9528ec9d49b \
+                     file://pixman/pixman-x64-mmx-emulation.h;beginline=4;endline=9;md5=4e32716f2efaa6c4659222667c339bb8"
+@@ -14,6 +14,6 @@ PR = "r0"
  
--ALTNAME = "lttv-${PV}-20082010"
-+ALTNAME = "lttv-${PV}-18112010"
+ EXTRA_OECONF="--disable-gtk"
  
- SRC_URI = "http://lttng.org/files/packages/${ALTNAME}.tar.gz"
+-SRC_URI[md5sum] = "4bc4cf052635265f7a98ad3e890ae329"
+-SRC_URI[sha256sum] = "7ea3601f6ab411645d73db2f37096f5979425d309784a865444ecfa18614d06d"
++SRC_URI[md5sum] = "ae57f4fa9121ab9895b9789b2e81f1e0"
++SRC_URI[sha256sum] = "7809f8aa7dcd99bc0e3a12eef65266d34e1f2988df4c814e5f747ddceed22ddf"
  
--SRC_URI[md5sum] = "ebcbc4e21184b4b0dcb0611b4977dad8"
--SRC_URI[sha256sum] = "d258b13cd76c37e4f8395c06159986dd45517bef312895ffa59722087a2879e7"
-+SRC_URI[md5sum] = "967f7c9c843a43e2ec2ef9216edabc70"
-+SRC_URI[sha256sum] = "a7d14ae84f9bb123298840922730d3121fa073dc036dccac63083d9686adeacd"
- S = "${WORKDIR}/${ALTNAME}"
- 
- inherit autotools
 -- 
 1.7.2
 
