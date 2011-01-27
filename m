@@ -1,20 +1,30 @@
-Return-Path: <josh@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9BFBD4C81238
-	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 11:12:02 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 27 Jan 2011 09:11:53 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,386,1291622400"; d="scan'208";a="597061020"
-Received: from unknown (HELO localhost) ([10.255.16.153])
-	by orsmga002.jf.intel.com with ESMTP; 27 Jan 2011 09:11:52 -0800
-Message-Id: <cover.1296147101.git.josh@linux.intel.com>
-Old-Date: Thu, 27 Jan 2011 16:51:41 +0000
-Date: Thu, 27 Jan 2011 17:11:47 +0000
-To: poky@yoctoproject.org
-CC: 
-From: Joshua Lock <josh@linux.intel.com>
-Subject: [PATCH 0/1] Fix nativesdk package splitting
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 149F94C811BE
+	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 11:26:36 -0600 (CST)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p0RHSXaa011980; Thu, 27 Jan 2011 17:28:33 GMT
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id gm4zHivVwY6u; Thu, 27 Jan 2011 17:28:32 +0000 (GMT)
+Received: from [192.168.1.45] (tim [93.97.173.237]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p0RHSRaj011969
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Thu, 27 Jan 2011 17:28:29 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Joshua Lock <josh@linux.intel.com>
+In-Reply-To: <1296142594.2711.16.camel@scimitar>
+References: <cover.1296133552.git.josh@linux.intel.com>
+	<1296142137.27814.7848.camel@rex> <1296142594.2711.16.camel@scimitar>
+Date: Thu, 27 Jan 2011 17:26:03 +0000
+Message-ID: <1296149163.27814.8206.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/1] Make external-python-tarball useful again
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,29 +36,45 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Jan 2011 17:12:02 -0000
+X-List-Received-Date: Thu, 27 Jan 2011 17:26:37 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-From: Joshua Lock <josh@linux.intel.com>
+On Thu, 2011-01-27 at 15:36 +0000, Joshua Lock wrote:
+> On Thu, 2011-01-27 at 15:28 +0000, Richard Purdie wrote:
+> > On Thu, 2011-01-27 at 13:09 +0000, Joshua Lock wrote:
+> > > From: Joshua Lock <josh@linux.intel.com>
+> > > 
+> > > The attached patch adds the multiprocessing module to the external Python
+> > > tarball. This is quite useful as we use multiprocessing at recipe parse time
+> > > now.
+> > 
+> > Merged into master, thanks!
+> > 
+> > > This raises two questions:
+> > > 1) Should we do some testing around the use of multiprocessing?
+> > 
+> > In what way?
+> 
+> Sorry, what a vague comment. I meant to suggest an exception around the
+> import and alternative code paths if the module can't be imported. 
+> Or is it safe to assume it exists if you have Python 2.6? - in which
+> case we just need to improve out Python 2.6 tests so that people can't
+> run this code on older versions.
 
-Without this change the external-python-tarball build fails at rootfs
-generation.
+Its safe to assume it exists in standard python 2.6.
 
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: josh/master
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=josh/master
+We therefore just need to improve the python 2.6 checks.
 
-Thanks,
-    Joshua Lock <josh@linux.intel.com>
----
+> > > 2) Who can update a new external-python-tarball to the public download?
+> > 
+> > Beth+me should both have access.
+> 
+> Cool, I'm debugging an issue with package resolution at tarball
+> generation time, but once that works I'll request a build and upload.
 
+Sounds good thanks.
 
-Joshua Lock (1):
-  nativesdk: ensure packages can be split
-
- meta/classes/nativesdk.bbclass |    1 -
- 1 files changed, 0 insertions(+), 1 deletions(-)
-
--- 
-1.7.3.5
+Richard
 
 
