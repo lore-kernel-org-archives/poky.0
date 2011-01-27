@@ -1,25 +1,22 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E421E4C8123C
-	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 16:34:04 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 27 Jan 2011 14:34:04 -0800
+Return-Path: <scott.a.garman@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 012794C811FB
+	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 16:41:14 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 27 Jan 2011 14:41:14 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,387,1291622400"; d="scan'208";a="597162944"
-Received: from doubt.jf.intel.com (HELO [10.7.199.151]) ([10.7.199.151])
-	by orsmga002.jf.intel.com with ESMTP; 27 Jan 2011 14:34:04 -0800
-Message-ID: <4D41F2D6.4040406@linux.intel.com>
-Date: Thu, 27 Jan 2011 14:33:58 -0800
-From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
-MIME-Version: 1.0
-To: Wolfgang Denk <wd@denx.de>
-References: <20110127111132.C69A3B335@gemini.denx.de>
-	<20110127114216.744AEB335@gemini.denx.de>
-In-Reply-To: <20110127114216.744AEB335@gemini.denx.de>
-Cc: poky@yoctoproject.org
-Subject: Re: Serial console unusable with poky-image-sdk
+X-IronPort-AV: E=Sophos;i="4.60,387,1291622400"; d="scan'208";a="701449903"
+Received: from sgarman-ws.jf.intel.com (HELO localhost) ([10.7.199.157])
+	by orsmga001.jf.intel.com with ESMTP; 27 Jan 2011 14:41:14 -0800
+Message-Id: <e7a83f8908ec330d3ef6a9241989e64f277eabbb.1296167950.git.scott.a.garman@intel.com>
+In-Reply-To: <cover.1296167950.git.scott.a.garman@intel.com>
+References: <cover.1296167950.git.scott.a.garman@intel.com>
+Old-Date: Tue, 25 Jan 2011 15:29:31 -0800
+Date: Thu, 27 Jan 2011 14:42:09 -0800
+To: poky@yoctoproject.org
+CC: 
+From: Scott Garman <scott.a.garman@intel.com>
+Subject: [PATCH 3/9] docbook-dsssl-stylesheets: new recipe v1.79
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,54 +28,78 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Jan 2011 22:34:05 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 27 Jan 2011 22:41:15 -0000
 
-On 01/27/2011 03:42 AM, Wolfgang Denk wrote:
-> Hi,
->
-> in message<20110127111132.C69A3B335@gemini.denx.de>  I wrote:
->>
->> it seems that for some time (probably back to laverne-4.0) the serial
->> console port is basicly unusable in the poky-image-sdk file system.
->> I tried this in several PPC and ARM configurations, and the behaviours
->> is pretty much the same: login works fine, but at the shell prompt
->> only one out of N input characters (N usually between 2 and 10) gets
->> through to the shell.
-> ...
->> Is there a way to stop dbus-launch from concurring with a login shell
->> on the serial console port?
->
-> This patch appears to be working fine for me:
->
->> From: Wolfgang Denk<wd@denx.de>
->> Subject: Stop dbus-launch from interfering with a serial console
->
-> Signed-off-by: Wolfgang Denk<wd@denx.de>
-> ---
->
-> diff --git a/meta/recipes-graphics/x11-common/x11-common/etc/X11/Xsession b/meta/recipes-graphics/x11-common/x11-common/etc/X11/Xsession
-> index a87447a..0b73127 100644
-> --- a/meta/recipes-graphics/x11-common/x11-common/etc/X11/Xsession
-> +++ b/meta/recipes-graphics/x11-common/x11-common/etc/X11/Xsession
-> @@ -2,7 +2,7 @@
->
->   if [ -x /usr/bin/dbus-launch ]; then
->       # As this is the X session script, always start a new DBus session.
-> -    eval `dbus-launch --sh-syntax --exit-with-session`
-> +    eval `dbus-launch --sh-syntax --exit-with-session</dev/null`
->       echo "D-BUS per-session daemon address is: $DBUS_SESSION_BUS_ADDRESS"
->   fi
->
+From: Scott Garman <scott.a.garman@intel.com>
 
-you can also append "console=tty" to the kernel command line and the 
-serial console should work. I've run into this on a couple platforms as 
-well and addressed it this way. This isn't just an X11 issue as I 
-usually boot -minimal images.
+Recipe migrated from OpenEmbedded.
 
+Signed-off-by: Scott Garman <scott.a.garman@intel.com>
+---
+ .../docbook-dsssl-stylesheets-native_1.79.bb       |   53 ++++++++++++++++++++
+ 1 files changed, 53 insertions(+), 0 deletions(-)
+ create mode 100644 meta/recipes-devtools/docbook-dsssl-stylesheets/docbook-dsssl-stylesheets-native_1.79.bb
+
+diff --git a/meta/recipes-devtools/docbook-dsssl-stylesheets/docbook-dsssl-stylesheets-native_1.79.bb b/meta/recipes-devtools/docbook-dsssl-stylesheets/docbook-dsssl-stylesheets-native_1.79.bb
+new file mode 100644
+index 0000000..24c5364
+--- /dev/null
++++ b/meta/recipes-devtools/docbook-dsssl-stylesheets/docbook-dsssl-stylesheets-native_1.79.bb
+@@ -0,0 +1,53 @@
++SUMMARY = "DSSSL stylesheets used to transform SGML and XML DocBook files"
++DESCRIPTION = "DSSSL stylesheets used to transform SGML and XML DocBook files"
++HOMEPAGE= "http://docbook.sourceforge.net"
++# Simple persmissive
++LICENSE = "DSSSL"
++LIC_FILES_CHKSUM = "file://README;beginline=41;endline=74;md5=875385159b2ee76ecf56136ae7f542d6"
++
++DEPENDS = "sgml-common-native"
++
++PR = "r0"
++
++SRC_URI = "${SOURCEFORGE_MIRROR}/docbook/docbook-dsssl-${PV}.tar.bz2"
++
++SRC_URI[md5sum] = "bc192d23266b9a664ca0aba4a7794c7c"
++SRC_URI[sha256sum] = "2f329e120bee9ef42fbdd74ddd60e05e49786c5a7953a0ff4c680ae6bdf0e2bc"
++
++S = "${WORKDIR}/docbook-dsssl-${PV}"
++
++inherit native
++
++SYSROOT_PREPROCESS_FUNCS += "docbook_dssl_stylesheets_native_mangle"
++
++do_install () {
++	# Refer to http://www.linuxfromscratch.org/blfs/view/stable/pst/docbook-dsssl.html
++	# for details.
++	install -d ${D}${bindir}
++	install -m 0755 bin/collateindex.pl ${D}${bindir}
++
++	install -d ${D}${datadir}/sgml/docbook/dsssl-stylesheets-${PV}
++	install -m 0644 catalog ${D}${datadir}/sgml/docbook/dsssl-stylesheets-${PV}
++	cp -PpRr common ${D}${datadir}/sgml/docbook/dsssl-stylesheets-${PV}
++
++	install-catalog --add ${sysconfdir}/sgml/dsssl-docbook-stylesheets.cat \
++		${D}${datadir}/sgml/docbook/dsssl-stylesheets-${PV}/catalog
++
++	install-catalog --add ${sysconfdir}/sgml/dsssl-docbook-stylesheets.cat \
++		${D}${datadir}/sgml/docbook/dsssl-stylesheets-${PV}/common/catalog
++
++	install-catalog --add ${sysconfdir}/sgml/sgml-docbook.cat \
++		${sysconfdir}/sgml/dsssl-docbook-stylesheets.cat
++
++	# Moving them to image directory so that they get included in the .ipk file 
++	# generated by new style staging.
++	install -d ${D}${sysconfdir}/sgml
++	cp ${sysconfdir}/sgml/dsssl-docbook-stylesheets.cat ${D}${sysconfdir}/sgml/
++	cp ${sysconfdir}/sgml/sgml-docbook.cat ${D}${sysconfdir}/sgml/
++	cp ${sysconfdir}/sgml/catalog ${D}${sysconfdir}/sgml/
++}
++
++docbook_dssl_stylesheets_native_mangle () {
++	# Removing the image directory path ${D} from the .cat file.
++	sed -i -e "s|${D}||g" ${SYSROOT_DESTDIR}${sysconfdir}/sgml/dsssl-docbook-stylesheets.cat
++}
 -- 
-Darren Hart
-Intel Open Source Technology Center
-Yocto Project - Linux Kernel
+1.7.3.5
+
 
