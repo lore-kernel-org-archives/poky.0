@@ -1,22 +1,20 @@
-Return-Path: <josh@linux.intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 53F194C81226
-	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 07:09:32 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 27 Jan 2011 05:09:31 -0800
+Return-Path: <ke.yu@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 137FA4C8118C
+	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 08:14:45 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 27 Jan 2011 06:14:44 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,386,1291622400"; d="scan'208";a="651718277"
-Received: from unknown (HELO localhost) ([10.255.16.153])
-	by fmsmga002.fm.intel.com with ESMTP; 27 Jan 2011 05:09:15 -0800
-Message-Id: <4eaa489f954bfdf0bd907012c19465c8607ff0e2.1296133552.git.josh@linux.intel.com>
-In-Reply-To: <cover.1296133552.git.josh@linux.intel.com>
-References: <cover.1296133552.git.josh@linux.intel.com>
-Old-Date: Thu, 27 Jan 2011 13:03:33 +0000
-Date: Thu, 27 Jan 2011 13:09:09 +0000
+X-IronPort-AV: E=Sophos;i="4.60,386,1291622400"; d="scan'208";a="701275904"
+Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
+	by orsmga001.jf.intel.com with ESMTP; 27 Jan 2011 06:14:44 -0800
+Message-Id: <cover.1296137142.git.ke.yu@intel.com>
+Old-Date: Thu, 27 Jan 2011 22:05:42 +0800
+Date: Thu, 27 Jan 2011 22:18:11 +0800
 To: poky@yoctoproject.org
 CC: 
-From: Joshua Lock <josh@linux.intel.com>
-Subject: [PATCH 1/1] external-python-tarball: include multiprocessing module
+From: Yu Ke <ke.yu@intel.com>
+Subject: [PATCH 0/3] git fetcher unpack optimization V2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,28 +26,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Jan 2011 13:09:32 -0000
+X-List-Received-Date: Thu, 27 Jan 2011 14:14:45 -0000
 
-From: Joshua Lock <josh@linux.intel.com>
+From: Yu Ke <ke.yu@intel.com>
 
-Signed-off-by: Joshua Lock <josh@linux.intel.com>
+This is the remaining patches of last fetcher patch pull, including
+- optimize git unpack method to use git local clone
+- not to create the source tree mirror tar ball
+
+With Richar and Bruce's comment, this patch is revised accordingly,
+the major chagnes compared with V1 is:
+- use git local clone instead of git repo copy to save disk space
+
+it has been tested with "bitbake poky-image-sato" with empty DL_DIR
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: kyu3/git-unpack-2
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kyu3/git-unpack-2
+
+Thanks,
+    Yu Ke <ke.yu@intel.com>
 ---
- meta/recipes-core/meta/external-python-tarball.bb |    1 +
- 1 files changed, 1 insertions(+), 0 deletions(-)
 
-diff --git a/meta/recipes-core/meta/external-python-tarball.bb b/meta/recipes-core/meta/external-python-tarball.bb
-index eef93fd..746cb9e 100644
---- a/meta/recipes-core/meta/external-python-tarball.bb
-+++ b/meta/recipes-core/meta/external-python-tarball.bb
-@@ -26,6 +26,7 @@ TOOLCHAIN_HOST_TASK ?= "\
-     python-nativesdk-fcntl \
-     python-nativesdk-shell \
-     python-nativesdk-misc \
-+    python-nativesdk-multiprocessing \
-     python-nativesdk-subprocess \
-     python-nativesdk-xmlrpc \
-     python-nativesdk-netclient \
--- 
-1.7.3.5
+
+Yu Ke (3):
+  bb.fetch2: add git unpack
+  kernel-yocto.bbclass: adjust the git dir to fit with git unpack
+  git.py: remove the source tree tar ball
+
+ bitbake/lib/bb/fetch2/git.py      |   66 ++++++++++--------------------------
+ meta/classes/kernel-yocto.bbclass |    4 +-
+ 2 files changed, 21 insertions(+), 49 deletions(-)
 
 
