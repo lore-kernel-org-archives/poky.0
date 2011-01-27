@@ -1,26 +1,40 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 81D654C811D2
-	for <poky@lists.pokylinux.org>; Wed, 26 Jan 2011 21:30:49 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 26 Jan 2011 19:30:49 -0800
+Return-Path: <dongxiao.xu@intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id B61514C8118C
+	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 00:15:50 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 26 Jan 2011 22:15:50 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,383,1291622400"; d="scan'208";a="651592343"
-Received: from unknown (HELO [10.255.14.182]) ([10.255.14.182])
-	by fmsmga002.fm.intel.com with ESMTP; 26 Jan 2011 19:30:49 -0800
-Message-ID: <4D40E6D9.5000709@linux.intel.com>
-Date: Wed, 26 Jan 2011 19:30:33 -0800
-From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
+X-IronPort-AV: E=Sophos;i="4.60,384,1291622400"; d="scan'208";a="380541678"
+Received: from pgsmsx603.gar.corp.intel.com ([10.221.43.87])
+	by azsmga001.ch.intel.com with ESMTP; 26 Jan 2011 22:15:49 -0800
+Received: from pgsmsx509.gar.corp.intel.com (172.30.13.17) by
+	pgsmsx603.gar.corp.intel.com (10.221.43.87) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Thu, 27 Jan 2011 14:15:08 +0800
+Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
+	PGSMSX509.gar.corp.intel.com (172.30.13.17) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Thu, 27 Jan 2011 14:15:08 +0800
+Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
+	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
+	Thu, 27 Jan 2011 14:15:07 +0800
+From: "Xu, Dongxiao" <dongxiao.xu@intel.com>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+Date: Thu, 27 Jan 2011 14:15:06 +0800
+Thread-Topic: [poky] [PATCH 1/1] rm_work.bbclass: reserve 'image' folder
+	when remove WORKDIR
+Thread-Index: Acu9n5CvcJeJud5qQ/G3r6wi0BR5BgARPxrA
+Message-ID: <D5AB6E638E5A3E4B8F4406B113A5A19A31D0CF98@shsmsx501.ccr.corp.intel.com>
+References: <cover.1296023140.git.dongxiao.xu@intel.com>
+	<4da3cd3c9adebd3279b376a1f7aa2a0353484ecd.1296023140.git.dongxiao.xu@intel.com>
+	<1296077097.27814.4523.camel@rex>
+In-Reply-To: <1296077097.27814.4523.camel@rex>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
 MIME-Version: 1.0
-To: Gary Thomas <gary@mlbassoc.com>
-References: <4D40251F.5070906@mlbassoc.com> <4D40919E.6010802@linux.intel.com>
-	<4D409B30.9070000@mlbassoc.com> <4D40B5FA.5000005@linux.intel.com>
-	<4D40B8A1.2000406@mlbassoc.com>
-In-Reply-To: <4D40B8A1.2000406@mlbassoc.com>
-Cc: Poky <poky@lists.pokylinux.org>
-Subject: Re: No joy on "standard" PC
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH 1/1] rm_work.bbclass: reserve 'image' folder when remove WORKDIR
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,73 +46,117 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Jan 2011 03:30:49 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 27 Jan 2011 06:15:51 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On 01/26/2011 04:13 PM, Gary Thomas wrote:
-> On 01/26/2011 05:02 PM, Darren Hart wrote:
->> On 01/26/2011 02:07 PM, Gary Thomas wrote:
->>> On 01/26/2011 02:26 PM, Darren Hart wrote:
->>>> On 01/26/2011 05:43 AM, Gary Thomas wrote:
->>>>> I finally got Poky to build for a standard PC (actually atom-pc
->>>>> so I could build a live/bootable image). Sadly, that's all I
->>>>> have is an image as I can't get it to run anywhere :-(
->>>>>
->>>>> * On my laptop (the point of this exercise) which is an older
->>>>> Pentium-III machine, the kernel crashes almost immediately.
->>>>
->>>> Can you capture the output and provide some details on the hardware?
->>>
->>> Hard to do - I took pictures of the screen with my camera, the results
->>> may help, but won't win me a Pulitzer :-)
->>>
->>> On the AMD/2800+
->>> http://www.mlbassoc.com/poky/BootFailures/P1000630.JPG
->>> On the old Pentium-III laptop
->>> http://www.mlbassoc.com/poky/BootFailures/P1000631.JPG
->>
->> Failing to mount the root partition either due to missing drivers for
->> the block device or the filesystem. You said this was MACHINE=atom-pc
->> and poky-image-sato-live? And you're
->> booting using the .iso image burned to a CD?
->
-> Correct.
->
->>
->>> http://www.mlbassoc.com/poky/BootFailures/P1000632.JPG
->>
->> Too late, missed the good bits. I suspect the two above are adequate.
->>
->>>>
->>>>>
->>>>> * On my brand new laptop (Core-i3), I couldn't get it to even
->>>>> try...
->>>>
->>>> What happened? Some bios are very particular about usb layout, see
->>>> README.hardware under atom-pc. Some (including my netbook) require
->>>> that it be in USB-ZIP format, so you can't just dd the image to
->>>> the stick in some cases (unfortunately).
->>>
->>> My boot medium is a CD-RW with the ISO image.
->>> Not sure why it didn't want to boot before, but when I just retried
->>> it, it hung in yet a different way.
->>> http://www.mlbassoc.com/poky/BootFailures/P1000629.JPG
->>
->> If I'm reading this one correctly, it's failing to boot from the USB
->> device and later detects another drive (My Passport) which has
->> something other than a standard ext[23]
->> filesystem on the first partition.
->
-> Same boot CD as above - I'm not sure what it's up to at this point.
+Richard Purdie wrote:
+> On Wed, 2011-01-26 at 14:30 +0800, poky-bounces@yoctoproject.org
+> wrote:=20
+>> From: Dongxiao Xu <dongxiao.xu@intel.com>
+>>=20
+>> After the implementation of per machine sysroot, do_populate_sysroot
+>> and do_package need to be re-run if we build two machines of one
+>> architecture (in case that sstate prebuilt result could not be reused
+>> for certain recipes). But if removing all the WORKDIR contents after
+>> the first macine build, the second machine's do_populate_sysroot and
+>> do_package will fail due to the missing of "image" directory.
+>>=20
+>> Thus reserve 'image' folder when doing rm_work.
+>=20
+> Whilst I understand the intent, this is just putting wallpaper over
+> cracks, sooner or later the crack will reappear, possibly worse than
+> before. =20
+>=20
+> For example if you run "bitbake xxx -c install -f" for a target xxx
+> which has had rm_work run against it, the result will be a nasty
+> error in Poky. =20
+>=20
+> OE's rm_work.bbclass is a little cleverer than ours and has this:
+>=20
+> addhandler rmwork_stampfixing_eventhandler python
+>     rmwork_stampfixing_eventhandler() { if bb.event.getName(e) =3D=3D
+>         "StampUpdate": for (fn, task) in e.targets:
+>             if task =3D=3D 'rm_work_all':
+>                 continue
+>             stamp =3D "%s.do_rm_work" % e.stampPrefix[fn]
+>             if os.path.exists(stamp):
+>                 dir =3D "%s.*" % e.stampPrefix[fn]
+>                 bb.note("Removing stamps: " + dir)
+>                 os.system('rm -f '+ dir) }
+>=20
+> which is intended to fix my specific example above. It won't fix the
+> new corner cases we've introduced with machine specific sysroots
+> though. So what do we do to fix this? =20
+>=20
+> I'm actually tempted to tie together rm_work, sstate and the
+> scenequeue.=20
+> When rm_work wipes out the workdir, it also migrates the stamps into
+> _setscene stamps as if the package had been installed by sstate. We'd
+> then remove the unpack, fetch, patch and so on stamps just leaving
+> the setscene varients. This would mean the above wouldn't be needed
+> and most things should "just work".   =20
+>=20
+> So to be specific, we'd take stamps like:
+>=20
+> xxx-1.4.7-r3.do_compile
+> xxx-1.4.7-r3.do_configure
+> xxx-1.4.7-r3.do_fetch
+> xxx-1.4.7-r3.do_generate_toolchain_file
+> xxx-1.4.7-r3.do_install
+> xxx-1.4.7-r3.do_package.emenlow
+> xxx-1.4.7-r3.do_package_write
+> xxx-1.4.7-r3.do_package_write_ipk
+> xxx-1.4.7-r3.do_package_write_rpm
+> xxx-1.4.7-r3.do_patch
+> xxx-1.4.7-r3.do_populate_sysroot.emenlow
+> xxx-1.4.7-r3.do_setscene
+> xxx-1.4.7-r3.do_unpack
+>=20
+> and end up with:
+>=20
+> xxx-1.4.7-r3.do_package_setscene.emenlow
+> xxx-1.4.7-r3.do_package_write_ipk_setscene
+> xxx-1.4.7-r3.do_package_write_rpm_setscene
+> xxx-1.4.7-r3.do_populate_sysroot_setscene.emenlow
+>=20
+> Does that sound reasonable?
+>=20
+> Then both codepaths use the same underlying code and everything
+> should be fine apart from some hardcoded assumptions about stamp
+> filenames which we'll probably just have to live with for now. The
+> function will need to handle stamps including the taskhash too, e.g.:
+>=20
+> xxx-1.4.7-r3.do_unpack.HASHHERE
 
-Check the .config in the linux-yocto build directory, does it have
-CONFIG_ISO9660_FS set?
+Hi Richard,=20
 
-I'll have a look in the morning as well.
+I think this way is workable to track down the several rm_work issues.
 
--- 
-Darren Hart
-Intel Open Source Technology Center
-Yocto Project - Linux Kernel
+Could you help to clarify what are "hardcoded assumptions about stamp filen=
+ames"?
+
+Also you mentioned we need to handle the HASH stamp, do you mean we need to=
+ reserve those HASH stamps and they should not be removed while rm_work?
+
+I just wrote a patch that implement the above senario and now is doing test=
+ for it.
+
+Please help to review it to see if I understand your point correctly.
+
+http://git.pokylinux.org/cgit/cgit.cgi/poky-contrib/log/?h=3Ddxu4/distro
+
+There are two patches in the branch, the first one is a fix patch that add =
+"${MACHINE}" tag into stamps of do_populate_sysroot_setscene and do_package=
+_setscene, and the second one is to handle rm_work issue.
+
+Thanks,
+Dongxiao
+
+>=20
+> Cheers,
+>=20
+> Richard
+
 
