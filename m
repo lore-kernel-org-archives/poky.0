@@ -1,30 +1,25 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 19CC84C81146
-	for <poky@lists.pokylinux.org>; Wed, 26 Jan 2011 18:13:23 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id A4C55166032F; Wed, 26 Jan 2011 17:13:23 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.1
-Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
-	by mail.chez-thomas.org (Postfix) with ESMTP id CD1421660311;
-	Wed, 26 Jan 2011 17:13:21 -0700 (MST)
-Message-ID: <4D40B8A1.2000406@mlbassoc.com>
-Date: Wed, 26 Jan 2011 17:13:21 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
+Return-Path: <sgw@linux.intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5CC344C81146
+	for <poky@yoctoproject.org>; Wed, 26 Jan 2011 18:40:39 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 26 Jan 2011 16:40:38 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,383,1291622400"; d="scan'208";a="380448305"
+Received: from unknown (HELO [10.255.14.102]) ([10.255.14.102])
+	by azsmga001.ch.intel.com with ESMTP; 26 Jan 2011 16:40:34 -0800
+Message-ID: <4D40BF02.3020806@linux.intel.com>
+Date: Wed, 26 Jan 2011 16:40:34 -0800
+From: Saul Wold <sgw@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
 MIME-Version: 1.0
-To: Darren Hart <dvhart@linux.intel.com>
-References: <4D40251F.5070906@mlbassoc.com> <4D40919E.6010802@linux.intel.com>
-	<4D409B30.9070000@mlbassoc.com> <4D40B5FA.5000005@linux.intel.com>
-In-Reply-To: <4D40B5FA.5000005@linux.intel.com>
-Cc: Poky <poky@lists.pokylinux.org>
-Subject: Re: No joy on "standard" PC
+To: Wolfgang Denk <wd@denx.de>
+References: <20110126222304.75B03CD1385@gemini.denx.de>
+In-Reply-To: <20110126222304.75B03CD1385@gemini.denx.de>
+Cc: poky@yoctoproject.org
+Subject: Re: Build of meta-toolchain-sdk fails
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,82 +31,54 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Jan 2011 00:13:24 -0000
+X-List-Received-Date: Thu, 27 Jan 2011 00:40:39 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 01/26/2011 05:02 PM, Darren Hart wrote:
-> On 01/26/2011 02:07 PM, Gary Thomas wrote:
->> On 01/26/2011 02:26 PM, Darren Hart wrote:
->>> On 01/26/2011 05:43 AM, Gary Thomas wrote:
->>>> I finally got Poky to build for a standard PC (actually atom-pc
->>>> so I could build a live/bootable image). Sadly, that's all I
->>>> have is an image as I can't get it to run anywhere :-(
->>>>
->>>> * On my laptop (the point of this exercise) which is an older
->>>> Pentium-III machine, the kernel crashes almost immediately.
->>>
->>> Can you capture the output and provide some details on the hardware?
->>
->> Hard to do - I took pictures of the screen with my camera, the results
->> may help, but won't win me a Pulitzer :-)
->>
->> On the AMD/2800+
->> http://www.mlbassoc.com/poky/BootFailures/P1000630.JPG
->> On the old Pentium-III laptop
->> http://www.mlbassoc.com/poky/BootFailures/P1000631.JPG
+On 01/26/2011 02:23 PM, Wolfgang Denk wrote:
+> Hi,
 >
-> Failing to mount the root partition either due to missing drivers for the block device or the filesystem. You said this was MACHINE=atom-pc and poky-image-sato-live? And you're
-> booting using the .iso image burned to a CD?
+> I'm trying to build "meta-toolchain-sdk" for a machine pretty much
+> identical to qemuppc:
+>
+> this works fine for commit 4cd1118, but fails for 74783fe like this:
+>
+> ...
+> | Configuring libgypsy0.
+> | Configuring libgypsy-dbg.
+> | Configuring task-poky-standalone-sdk-target.
+> | Configuring task-poky-standalone-sdk-target-dbg.
+> | Configuring task-poky-standalone-gmae-sdk-target.
+> | Configuring libtelepathy-dbg.
+> | Configuring task-poky-standalone-gmae-sdk-target-dbg.
+> | Collected errors:
+> |  * satisfy_dependencies_for: Cannot satisfy the following dependencies for task-poky-standalone-gmae-sdk-target:
+> |  *    libstartup-notification-1-0 (>= 0.10) *         xcb-util (>= 0.3.6) *
+> |  * opkg_install_cmd: Cannot install package task-poky-standalone-gmae-sdk-target.
+> | Function 'do_populate_sdk' failed (see /opt/poky/build-soft-float-support-52d1403/tmp/work/ppc603e-poky-linux/meta-toolchain-sdk-1.0-r0/temp/log.do_populate_sdk.17742 for further information)
+> NOTE: package meta-toolchain-sdk-1.0-r0: task do_populate_sdk: Failed
+> ERROR: Task 9 (/home/wd/git/poky/work/meta/recipes-core/meta/meta-toolchain-sdk.bb, do_populate_sdk) failed with exit code '1'
+>
+>
+> Is this a known problem?
 
-Correct.
+Wolfgang,
 
->
->> http://www.mlbassoc.com/poky/BootFailures/P1000632.JPG
->
-> Too late, missed the good bits. I suspect the two above are adequate.
->
->>>
->>>>
->>>> * On my brand new laptop (Core-i3), I couldn't get it to even
->>>> try...
->>>
->>> What happened? Some bios are very particular about usb layout, see
->>> README.hardware under atom-pc. Some (including my netbook) require
->>> that it be in USB-ZIP format, so you can't just dd the image to
->>> the stick in some cases (unfortunately).
->>
->> My boot medium is a CD-RW with the ISO image.
->> Not sure why it didn't want to boot before, but when I just retried
->> it, it hung in yet a different way.
->> http://www.mlbassoc.com/poky/BootFailures/P1000629.JPG
->
-> If I'm reading this one correctly, it's failing to boot from the USB device and later detects another drive (My Passport) which has something other than a standard ext[23]
-> filesystem on the first partition.
+Was this a scratch build?  I just build
+MACHINE=qemuppc bitbake meta-toolchain-sdk
 
-Same boot CD as above - I'm not sure what it's up to at this point.
+and that worked OK, did you do this from an exisiting build?  There was 
+a recent set of changes that require restarting from a clean state.
+
+If you can please try that.
+
+Thanks
+    Sau!
 
 >
->>
->>>
->>>>
->>>> * On a VirtualBox machine, it boots but then sits forever
->>>> "waiting for removable media"...
->>>
->>> Can you share the messages leading up to this? Is it trying to mount
->>> ram0?
->>>
->> http://www.mlbassoc.com/poky/BootFailures/poky-hangs.png
->>
+> Best regards,
 >
-> This I haven't tried... hrm...
+> Wolfgang Denk
 >
 
-... all I want is to run Poky on my laptop :-)
-
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
 
