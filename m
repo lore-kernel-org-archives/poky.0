@@ -1,24 +1,22 @@
 Return-Path: <lianhao.lu@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 67DB74C811D2
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 89EEE4C811F3
 	for <poky@yoctoproject.org>; Wed, 26 Jan 2011 20:50:44 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 26 Jan 2011 18:50:43 -0800
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 26 Jan 2011 18:50:44 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,383,1291622400"; d="scan'208";a="881378530"
+X-IronPort-AV: E=Sophos;i="4.60,383,1291622400"; d="scan'208";a="596865389"
 Received: from llu-piketon.sh.intel.com ([10.239.36.141])
-	by fmsmga001.fm.intel.com with ESMTP; 26 Jan 2011 18:50:43 -0800
+	by orsmga002.jf.intel.com with ESMTP; 26 Jan 2011 18:50:43 -0800
 Received: from lulianhao by llu-piketon.sh.intel.com with local (Exim 4.71)
 	(envelope-from <lianhao.lu@intel.com>)
-	id 1PiHxM-00078P-36; Thu, 27 Jan 2011 10:51:32 +0800
-Message-Id: <a08195f68fde4b03ee08cb4f46d26b46293d2a82.1296095614.git.lianhao.lu@intel.com>
-In-Reply-To: <cover.1296095614.git.lianhao.lu@intel.com>
-References: <cover.1296095614.git.lianhao.lu@intel.com>
-Old-Date: Wed, 26 Jan 2011 21:14:09 +0800
-Date: Thu, 27 Jan 2011 10:51:32 +0800
+	id 1PiHxL-000784-PX; Thu, 27 Jan 2011 10:51:31 +0800
+Message-Id: <cover.1296095614.git.lianhao.lu@intel.com>
+Old-Date: Thu, 27 Jan 2011 10:33:34 +0800
+Date: Thu, 27 Jan 2011 10:51:31 +0800
 To: poky@yoctoproject.org
 From: Lianhao Lu <lianhao.lu@intel.com>
-Subject: [PATCH 2/6] classes/populate_sdk_ipk.bbclass: newly created.
+Subject: [PATCH 0/6] Added rpm support in meta-toolchain
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,78 +32,57 @@ X-List-Received-Date: Thu, 27 Jan 2011 02:50:44 -0000
 
 From: Lianhao Lu <lianhao.lu@intel.com>
 
-Added ipk support for populate_sdk task.
+The purpose of this series of patches is to add rpm support in meta-toolchain creation,
+and also to fix bug #227.
 
-Signed-off-by: Lianhao Lu <lianhao.lu@intel.com>
+It makes the task populate_sdk in meta/recipes-core/meta/meta-toolchain.bb more generic
+to support installing packages from ipk, rpm, and deb files in creating meta-toolchain 
+tarball, and move the populate_sdk task out of meta-toolchain.bb recipe into a bbclass.
+
+It added populate_sdk_xxx.bbclass for different package file format.
+
+The meta-toolchain installing process involes 2 set of packages, one is the host sdk 
+set which contains packages of applications(e.g. cross-canadian compilers, qemu, etc.) and 
+relevant run-time libraries, the other is the target sdk set which contains packages of target
+arch's libraries and header files to create a target rootfs for cross compiling purpose.So
+the patches also modifes and/or adds functions in package_deb.bbclass & package_rpm.bbclass 
+to update the package index and to generate different installing configuration files for the 
+tow different sets.
+
+It also fixed a bug in cross-canadian.bbclass to enable the package_deb.bbclass generate correct
+deb package files for cross-canadian recipies.
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: llu/rpm_meta-toolchain
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=llu/rpm_meta-toolchain
+
+Thanks,
+    Lianhao Lu <lianhao.lu@intel.com>
 ---
- meta/classes/populate_sdk_ipk.bbclass |   57 +++++++++++++++++++++++++++++++++
- 1 files changed, 57 insertions(+), 0 deletions(-)
- create mode 100644 meta/classes/populate_sdk_ipk.bbclass
 
-diff --git a/meta/classes/populate_sdk_ipk.bbclass b/meta/classes/populate_sdk_ipk.bbclass
-new file mode 100644
-index 0000000..45b59f0
---- /dev/null
-+++ b/meta/classes/populate_sdk_ipk.bbclass
-@@ -0,0 +1,57 @@
-+do_populate_sdk[depends] += "opkg-native:do_populate_sysroot opkg-utils-native:do_populate_sysroot"
-+do_populate_sdk[recrdeptask] += "do_package_write_ipk"
-+
-+IPKG_HOST = "opkg-cl -f ${IPKGCONF_SDK} -o ${SDK_OUTPUT} --force-overwrite"
-+IPKG_TARGET = "opkg-cl -f ${IPKGCONF_TARGET} -o ${SDK_OUTPUT}/${SDKTARGETSYSROOT} --force-overwrite"
-+
-+fakeroot populate_sdk_ipk() {
-+
-+	mkdir -p ${SDK_OUTPUT}${localstatedir}/lib/opkg/
-+	mkdir -p ${SDK_OUTPUT}/${SDKTARGETSYSROOT}${localstatedir}/lib/opkg/
-+
-+	rm -f ${IPKGCONF_TARGET}
-+	touch ${IPKGCONF_TARGET}
-+	rm -f ${IPKGCONF_SDK}
-+	touch ${IPKGCONF_SDK}
-+
-+	package_update_index_ipk
-+	package_generate_ipkg_conf
-+
-+	${IPKG_HOST} update
-+	${IPKG_HOST} install ${TOOLCHAIN_HOST_TASK}
-+
-+	${IPKG_TARGET} update
-+	${IPKG_TARGET} install ${TOOLCHAIN_TARGET_TASK}
-+
-+	install -d ${SDK_OUTPUT}/${SDKPATHNATIVE}${localstatedir_nativesdk}/lib/opkg
-+	mv ${SDK_OUTPUT}/var/lib/opkg/* ${SDK_OUTPUT}/${SDKPATHNATIVE}${localstatedir_nativesdk}/lib/opkg/
-+	rm -Rf ${SDK_OUTPUT}/var
-+
-+	install -d ${SDK_OUTPUT}/${SDKTARGETSYSROOT}/${sysconfdir}
-+	install -m 0644 ${IPKGCONF_TARGET} ${IPKGCONF_SDK} ${SDK_OUTPUT}/${SDKTARGETSYSROOT}/${sysconfdir}/
-+
-+	install -d ${SDK_OUTPUT}/${SDKPATHNATIVE}/${sysconfdir}
-+	install -m 0644 ${IPKGCONF_SDK} ${SDK_OUTPUT}/${SDKPATHNATIVE}/${sysconfdir}/
-+
-+	populate_sdk_log_check 
-+}
-+
-+populate_sdk_ipk_log_check() {
-+
-+        lf_path="$1"
-+
-+	lf_txt="`cat $lf_path`"
-+	for keyword_die in "exit 1" "Collected errors" ERR Fail
-+	do				
-+		if (echo "$lf_txt" | grep -v log_check | grep "$keyword_die") >/dev/null 2>&1
-+		then
-+			echo "log_check: There were error messages in the logfile"
-+			echo -e "log_check: Matched keyword: [$keyword_die]\n"
-+			echo "$lf_txt" | grep -v log_check | grep -C 5 -i "$keyword_die"
-+			echo ""
-+			do_exit=1				
-+		fi
-+	done
-+	test "$do_exit" = 1 && exit 1
-+	true
-+}
--- 
-1.7.0.4
+
+Lianhao Lu (6):
+  cross-canadian/apt-native: support for debian package.
+  classes/populate_sdk_ipk.bbclass: newly created.
+  populate_sdk_deb/package_deb: Added deb support for populate_sdk.
+  classes/populate_sdk_*: remove blanks.
+  package_rpm/populate_sdk_rpm: Added rpm support for populate_sdk
+    task.
+  meta_toolchain/populate_sdk: Made task populate_sdk more generic.
+
+ meta/classes/cross-canadian.bbclass            |    3 +
+ meta/classes/package_deb.bbclass               |   31 ++++++
+ meta/classes/package_rpm.bbclass               |   53 ++++++++--
+ meta/classes/populate_sdk.bbclass              |   88 +++++++++++++++
+ meta/classes/populate_sdk_deb.bbclass          |  129 ++++++++++++++++++++++
+ meta/classes/populate_sdk_ipk.bbclass          |   57 ++++++++++
+ meta/classes/populate_sdk_rpm.bbclass          |  138 ++++++++++++++++++++++++
+ meta/recipes-core/meta/meta-toolchain.bb       |  103 +-----------------
+ meta/recipes-devtools/apt/apt-native_0.7.14.bb |    2 +
+ 9 files changed, 496 insertions(+), 108 deletions(-)
+ create mode 100644 meta/classes/populate_sdk.bbclass
+ create mode 100644 meta/classes/populate_sdk_deb.bbclass
+ create mode 100644 meta/classes/populate_sdk_ipk.bbclass
+ create mode 100644 meta/classes/populate_sdk_rpm.bbclass
 
 
