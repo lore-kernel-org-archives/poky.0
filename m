@@ -1,21 +1,27 @@
-Return-Path: <josh@openedhand.com>
-Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
-	by mx1.pokylinux.org (Postfix) with ESMTP id F25164C812C2
-	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 09:28:05 -0600 (CST)
-Received: from [192.168.1.88] (unknown [83.217.123.106])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by pug.o-hand.com (Postfix) with ESMTP id 49C0B12EC1CD
-	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 10:09:11 -0600 (CST)
-From: Joshua Lock <josh@openedhand.com>
-To: poky@yoctoproject.org
-In-Reply-To: <74141e6fb3aece291357c79a4d855353b12874b4.1296174472.git.paul.eggleton@linux.intel.com>
+Return-Path: <koen@dominion.thruhere.net>
+Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 104D34C812AC
+	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 09:48:16 -0600 (CST)
+Received: by wwb31 with SMTP id 31so3599835wwb.11
+	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 07:48:15 -0800 (PST)
+Received: by 10.227.69.144 with SMTP id z16mr2864270wbi.77.1296229695484;
+	Fri, 28 Jan 2011 07:48:15 -0800 (PST)
+Received: from [172.20.0.255] (ip545070eb.adsl-surfen.hetnet.nl
+	[84.80.112.235])
+	by mx.google.com with ESMTPS id w25sm1737277wbd.17.2011.01.28.07.48.14
+	(version=TLSv1/SSLv3 cipher=RC4-MD5);
+	Fri, 28 Jan 2011 07:48:14 -0800 (PST)
+Mime-Version: 1.0 (Apple Message framework v1082)
+From: Koen Kooi <koen@dominion.thruhere.net>
+In-Reply-To: <1296228443.2704.25.camel@scimitar>
+Date: Fri, 28 Jan 2011 16:47:28 +0100
+Message-Id: <8B09826E-906B-4744-BF64-C5DCF43F3103@dominion.thruhere.net>
 References: <cover.1296174472.git.paul.eggleton@linux.intel.com>
 	<74141e6fb3aece291357c79a4d855353b12874b4.1296174472.git.paul.eggleton@linux.intel.com>
-Date: Fri, 28 Jan 2011 15:27:23 +0000
-Message-ID: <1296228443.2704.25.camel@scimitar>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.32.1 (2.32.1-1.fc14) 
+	<1296228443.2704.25.camel@scimitar>
+To: Joshua Lock <josh@openedhand.com>
+X-Mailer: Apple Mail (2.1082)
+Cc: poky@yoctoproject.org
 Subject: Re: [PATCH 11/11] qt4: Add meta-toolchain-qte and dependent tasks from OpenEmbedded
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -28,148 +34,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Jan 2011 15:28:06 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 28 Jan 2011 15:48:17 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 2011-01-28 at 00:36 +0000, Paul Eggleton wrote:
-> From: Paul Eggleton <paul.eggleton@linux.intel.com>
-> 
-> Differences from OE versions:
-> 
-> task-qte-toolchain-target.bb:
->  * Depend on task-poky-standalone-sdk-target instead of task-sdk-bare
->  * Add LIC_FILES_CHKSUM
->  * Correct libsqlite3-dev dependency for Poky
->  * Remove dependency on libts-dev
-> 
-> task-qte-toolchain-host.bb
->  * Fix for Poky directory structure
->  * qt4-tools-sdk -> qt4-tools-nativesdk
-> 
-> meta-toolchain-qte:
->  * Fix for Poky directory structure
->  * Use ${FAKEROOT} instead of fakeroot
->  * Remove angstrom-specific suffix
-> 
-> Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
-> ---
->  meta/recipes-qt/meta/meta-toolchain-qte.bb         |   32 ++++++++++++++++
->  meta/recipes-qt/tasks/task-qte-toolchain-host.bb   |    7 ++++
->  meta/recipes-qt/tasks/task-qte-toolchain-target.bb |   39 ++++++++++++++++++++
->  3 files changed, 78 insertions(+), 0 deletions(-)
->  create mode 100644 meta/recipes-qt/meta/meta-toolchain-qte.bb
->  create mode 100644 meta/recipes-qt/tasks/task-qte-toolchain-host.bb
->  create mode 100644 meta/recipes-qt/tasks/task-qte-toolchain-target.bb
-> 
-> diff --git a/meta/recipes-qt/meta/meta-toolchain-qte.bb b/meta/recipes-qt/meta/meta-toolchain-qte.bb
-> new file mode 100644
-> index 0000000..b29c5cf
-> --- /dev/null
-> +++ b/meta/recipes-qt/meta/meta-toolchain-qte.bb
-> @@ -0,0 +1,32 @@
-> +# Qt Embedded toolchain
-> +PR = "r5"
-> +TOOLCHAIN_HOST_TASK = "task-qte-toolchain-host"
-> +TOOLCHAIN_TARGET_TASK = "task-qte-toolchain-target"
-> +
-> +require recipes-core/meta/meta-toolchain.bb
-> +SDK_SUFFIX = "toolchain-qte"
-> +
-> +QT_DIR_NAME = "qtopia"
-> +
-> +do_populate_sdk_append() {
-> +    script="${SDK_OUTPUT}/${SDKPATH}/environment-setup"
-> +    touch $script
-> +    echo 'export OE_QMAKE_CC=${TARGET_SYS}-gcc' >> $script
-> +    echo 'export OE_QMAKE_CXX=${TARGET_SYS}-g++' >> $script
-> +    echo 'export OE_QMAKE_LINK=${TARGET_SYS}-g++' >> $script
-> +    echo 'export OE_QMAKE_AR=${TARGET_SYS}-ar' >> $script
-> +    echo 'export OE_QMAKE_LIBDIR_QT=${SDKPATH}/${TARGET_SYS}/${libdir}' >> $script
-> +    echo 'export OE_QMAKE_INCDIR_QT=${SDKPATH}/${TARGET_SYS}/${includedir}/${QT_DIR_NAME}' >> $script
-> +    echo 'export OE_QMAKE_MOC=${SDKPATH}/bin/moc4' >> $script
-> +    echo 'export OE_QMAKE_UIC=${SDKPATH}/bin/uic4' >> $script
-> +    echo 'export OE_QMAKE_UIC3=${SDKPATH}/bin/uic34' >> $script
-> +    echo 'export OE_QMAKE_RCC=${SDKPATH}/bin/rcc4' >> $script
-> +    echo 'export OE_QMAKE_QDBUSCPP2XML=${SDKPATH}/bin/qdbuscpp2xml4' >> $script
-> +    echo 'export OE_QMAKE_QDBUSXML2CPP=${SDKPATH}/bin/qdbusxml2cpp4' >> $script
-> +    echo 'export OE_QMAKE_QT_CONFIG=${SDKPATH}/${TARGET_SYS}/${datadir}/${QT_DIR_NAME}/mkspecs/qconfig.pri' >> $script
-> +    echo 'export QMAKESPEC=${SDKPATH}/${TARGET_SYS}/${datadir}/${QT_DIR_NAME}/mkspecs/linux-g++' >> $script
-> +
-> +    # Repack SDK with new environment-setup
-> +    cd ${SDK_OUTPUT}
-> +    ${FAKEROOT} tar cfj ${SDK_DEPLOY}/${TOOLCHAIN_OUTPUTNAME}.tar.bz2 . 
 
-We can avoid pseudo overhead here by using some switches to tar, see:
-http://git.pokylinux.org/cgit/cgit.cgi/poky/commit/?id=8ae1f88214acf8f44073f2e499bef59e9433fdfd
+Op 28 jan 2011, om 16:27 heeft Joshua Lock het volgende geschreven:
 
->      
-> +}
-> diff --git a/meta/recipes-qt/tasks/task-qte-toolchain-host.bb b/meta/recipes-qt/tasks/task-qte-toolchain-host.bb
-> new file mode 100644
-> index 0000000..2ab6ccf
-> --- /dev/null
-> +++ b/meta/recipes-qt/tasks/task-qte-toolchain-host.bb
-> @@ -0,0 +1,7 @@
-> +require recipes-core/tasks/task-sdk-host.bb
-> +
-> +DESCRIPTION = "Host packages for Qt Embedded SDK"
-> +LICENSE = "MIT"
-> +ALLOW_EMPTY = "1"
-> +
-> +RDEPENDS_${PN} += "qt4-tools-nativesdk"
-> diff --git a/meta/recipes-qt/tasks/task-qte-toolchain-target.bb b/meta/recipes-qt/tasks/task-qte-toolchain-target.bb
-> new file mode 100644
-> index 0000000..03e0e54
-> --- /dev/null
-> +++ b/meta/recipes-qt/tasks/task-qte-toolchain-target.bb
-> @@ -0,0 +1,39 @@
-> +DESCRIPTION = "Target packages for Qt Embedded SDK"
-> +LICENSE = "MIT"
-> +ALLOW_EMPTY = "1"
-> +
-> +PR = "r5"
-> +
-> +LIC_FILES_CHKSUM = "file://${POKYBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58 \
-> +                    file://${POKYBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
-> +
-> +RDEPENDS_${PN} += " \
-> +        task-poky-standalone-sdk-target \
-> +        qt4-embedded-mkspecs \
-> +        libqt-embeddedmultimedia4-dev \
-> +        libqt-embeddedphonon4-dev \
-> +        libqt-embedded3support4-dev \
-> +        libqt-embeddedclucene4-dev \
-> +        libqt-embeddedcore4-dev \
-> +        libqt-embeddeddbus4-dev \
-> +        libqt-embeddeddesignercomponents4-dev \
-> +        libqt-embeddeddesigner4-dev \
-> +        libqt-embeddeduitools4-dev \
-> +        libqt-embeddedgui4-dev \
-> +        libqt-embeddedhelp4-dev \
-> +        libqt-embeddednetwork4-dev \
-> +        libqt-embeddedscript4-dev \
-> +        libqt-embeddedscripttools4-dev \
-> +        libqt-embeddedsql4-dev \
-> +        libqt-embeddedsvg4-dev \
-> +        libqt-embeddedtest4-dev \
-> +        libqt-embeddedwebkit4-dev \
-> +        libqt-embeddedxml4-dev \
-> +        libsqlite3-dev \
-> +        expat-dev \
-> +        "
-> +
-> +#Qt Declarative is new in 4.7, try to include it like this.
-> +#RRECOMMENDS_${PN} += " \
-> +#        libqt-embeddeddeclarative4-dev \
-> +#        "
+> On Fri, 2011-01-28 at 00:36 +0000, Paul Eggleton wrote:
+>>=20
+>> +#Qt Declarative is new in 4.7, try to include it like this.
+>> +#RRECOMMENDS_${PN} +=3D " \
+>> +#        libqt-embeddeddeclarative4-dev \
+>> +#        "
+>=20
+> We don't want to include this?
 
-We don't want to include this?
+There was a bug in the OE recipes where the declarative stuff was only =
+mentioned in the 4.7.1 recipe, so building meta-toolchain-qte would =
+build both 4.6.x and 4.7.1. I think I fixed that a few weeks back, so it =
+should be safe to include again. Maybe the opengl stuff can go in as =
+well (if it isn't in already).
 
-Cheers,
-Joshua
--- 
-Joshua Lock
-        Intel Open Source Technology Centre
+regards,
 
+Koen=
 
