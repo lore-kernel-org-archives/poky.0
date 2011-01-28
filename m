@@ -1,23 +1,23 @@
 Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7EA264C81285
-	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 18:36:52 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 27 Jan 2011 16:36:52 -0800
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 6B1DD4C81271
+	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 18:36:57 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 27 Jan 2011 16:36:49 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,388,1291622400"; d="scan'208";a="597199445"
+X-IronPort-AV: E=Sophos;i="4.60,388,1291622400"; d="scan'208";a="701485378"
 Received: from unknown (HELO helios) ([10.255.16.167])
-	by orsmga002.jf.intel.com with SMTP; 27 Jan 2011 16:36:50 -0800
-Received: by helios (sSMTP sendmail emulation); Fri, 28 Jan 2011 00:36:52 +0000
-Message-Id: <74141e6fb3aece291357c79a4d855353b12874b4.1296174472.git.paul.eggleton@linux.intel.com>
+	by orsmga001.jf.intel.com with SMTP; 27 Jan 2011 16:36:48 -0800
+Received: by helios (sSMTP sendmail emulation); Fri, 28 Jan 2011 00:36:49 +0000
+Message-Id: <cfa312954287dcde561ead0b3169fec80e6622ad.1296174472.git.paul.eggleton@linux.intel.com>
 In-Reply-To: <cover.1296174472.git.paul.eggleton@linux.intel.com>
 References: <cover.1296174472.git.paul.eggleton@linux.intel.com>
-Old-Date: Fri, 14 Jan 2011 15:36:23 +0000
-Date: Fri, 28 Jan 2011  0:36:52 +0000
+Old-Date: Mon, 17 Jan 2011 15:31:11 +0000
+Date: Fri, 28 Jan 2011  0:36:49 +0000
 To: poky@yoctoproject.org
 CC: 
 From: Paul Eggleton <paul.eggleton@linux.intel.com>
-Subject: [PATCH 11/11] qt4: Add meta-toolchain-qte and dependent tasks from OpenEmbedded
+Subject: [PATCH 10/11] avahi: prevent unnecessary runtime dependency on gtk+
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,133 +29,68 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Jan 2011 00:36:52 -0000
+X-List-Received-Date: Fri, 28 Jan 2011 00:36:57 -0000
 
 From: Paul Eggleton <paul.eggleton@linux.intel.com>
 
-Differences from OE versions:
-
-task-qte-toolchain-target.bb:
- * Depend on task-poky-standalone-sdk-target instead of task-sdk-bare
- * Add LIC_FILES_CHKSUM
- * Correct libsqlite3-dev dependency for Poky
- * Remove dependency on libts-dev
-
-task-qte-toolchain-host.bb
- * Fix for Poky directory structure
- * qt4-tools-sdk -> qt4-tools-nativesdk
-
-meta-toolchain-qte:
- * Fix for Poky directory structure
- * Use ${FAKEROOT} instead of fakeroot
- * Remove angstrom-specific suffix
+* Move avahi-discover-standalone to avahi-ui-utils as it's a GUI tool
+* Split out avahi-ui dev files from avahi-dev to a libavahi-ui-dev package
+  (using the new nodeprrecs flag to avoid automatic RRECOMMENDS calculation
+  for avahi-dev)
 
 Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
 ---
- meta/recipes-qt/meta/meta-toolchain-qte.bb         |   32 ++++++++++++++++
- meta/recipes-qt/tasks/task-qte-toolchain-host.bb   |    7 ++++
- meta/recipes-qt/tasks/task-qte-toolchain-target.bb |   39 ++++++++++++++++++++
- 3 files changed, 78 insertions(+), 0 deletions(-)
- create mode 100644 meta/recipes-qt/meta/meta-toolchain-qte.bb
- create mode 100644 meta/recipes-qt/tasks/task-qte-toolchain-host.bb
- create mode 100644 meta/recipes-qt/tasks/task-qte-toolchain-target.bb
+ meta/recipes-connectivity/avahi/avahi.inc       |    9 ++++++++-
+ meta/recipes-connectivity/avahi/avahi_0.6.28.bb |    2 +-
+ 2 files changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/meta/recipes-qt/meta/meta-toolchain-qte.bb b/meta/recipes-qt/meta/meta-toolchain-qte.bb
-new file mode 100644
-index 0000000..b29c5cf
---- /dev/null
-+++ b/meta/recipes-qt/meta/meta-toolchain-qte.bb
-@@ -0,0 +1,32 @@
-+# Qt Embedded toolchain
-+PR = "r5"
-+TOOLCHAIN_HOST_TASK = "task-qte-toolchain-host"
-+TOOLCHAIN_TARGET_TASK = "task-qte-toolchain-target"
+diff --git a/meta/recipes-connectivity/avahi/avahi.inc b/meta/recipes-connectivity/avahi/avahi.inc
+index 5c3b4dd..9f83d8d 100644
+--- a/meta/recipes-connectivity/avahi/avahi.inc
++++ b/meta/recipes-connectivity/avahi/avahi.inc
+@@ -37,11 +37,14 @@ EXTRA_OECONF = "--with-distro=debian \
+              --disable-python \
+              --disable-doxygen-doc"
+ 
+-PACKAGES =+ "avahi-daemon libavahi-common libavahi-core libavahi-client avahi-dnsconfd libavahi-glib libavahi-gobject avahi-autoipd avahi-utils libavahi-ui avahi-ui-utils"
++PACKAGES =+ "avahi-daemon libavahi-common libavahi-core libavahi-client avahi-dnsconfd libavahi-glib libavahi-gobject avahi-autoipd avahi-ui-utils avahi-utils libavahi-ui libavahi-ui-dev"
+ 
+ FILES_libavahi-common = "${libdir}/libavahi-common.so.*"
+ FILES_libavahi-core = "${libdir}/libavahi-core.so.*"
+ FILES_libavahi-ui = "${libdir}/libavahi-ui.so.*"
++FILES_libavahi-ui-dev = "${libdir}/libavahi-ui.* \
++                         ${includedir}/avahi-ui/* \
++                         ${libdir}/pkgconfig/avahi-ui.pc"
+ FILES_avahi-daemon = "${sbindir}/avahi-daemon \
+                       ${sysconfdir}/avahi/avahi-daemon.conf \
+                       ${sysconfdir}/avahi/hosts \
+@@ -59,9 +62,13 @@ FILES_libavahi-glib = "${libdir}/libavahi-glib.so.*"
+ FILES_libavahi-gobject = "${libdir}/libavahi-gobject.so.*"
+ FILES_avahi-utils = "${bindir}/avahi-*"
+ FILES_avahi-ui-utils = "${bindir}/bssh ${bindir}/bvnc ${bindir}/bshell \
++                        ${bindir}/avahi-discover-standalone \
+                         ${datadir}/applications \
+                         ${datadir}/avahi/interfaces"
+ 
++RRECOMMENDS_avahi-dev = "gettext-dev expat-dev libcap-dev libdaemon-dev dbus-dev glib-2.0-dev update-rc.d-dev"
++RRECOMMENDS_avahi-dev[nodeprrecs] = 1
 +
-+require recipes-core/meta/meta-toolchain.bb
-+SDK_SUFFIX = "toolchain-qte"
-+
-+QT_DIR_NAME = "qtopia"
-+
-+do_populate_sdk_append() {
-+    script="${SDK_OUTPUT}/${SDKPATH}/environment-setup"
-+    touch $script
-+    echo 'export OE_QMAKE_CC=${TARGET_SYS}-gcc' >> $script
-+    echo 'export OE_QMAKE_CXX=${TARGET_SYS}-g++' >> $script
-+    echo 'export OE_QMAKE_LINK=${TARGET_SYS}-g++' >> $script
-+    echo 'export OE_QMAKE_AR=${TARGET_SYS}-ar' >> $script
-+    echo 'export OE_QMAKE_LIBDIR_QT=${SDKPATH}/${TARGET_SYS}/${libdir}' >> $script
-+    echo 'export OE_QMAKE_INCDIR_QT=${SDKPATH}/${TARGET_SYS}/${includedir}/${QT_DIR_NAME}' >> $script
-+    echo 'export OE_QMAKE_MOC=${SDKPATH}/bin/moc4' >> $script
-+    echo 'export OE_QMAKE_UIC=${SDKPATH}/bin/uic4' >> $script
-+    echo 'export OE_QMAKE_UIC3=${SDKPATH}/bin/uic34' >> $script
-+    echo 'export OE_QMAKE_RCC=${SDKPATH}/bin/rcc4' >> $script
-+    echo 'export OE_QMAKE_QDBUSCPP2XML=${SDKPATH}/bin/qdbuscpp2xml4' >> $script
-+    echo 'export OE_QMAKE_QDBUSXML2CPP=${SDKPATH}/bin/qdbusxml2cpp4' >> $script
-+    echo 'export OE_QMAKE_QT_CONFIG=${SDKPATH}/${TARGET_SYS}/${datadir}/${QT_DIR_NAME}/mkspecs/qconfig.pri' >> $script
-+    echo 'export QMAKESPEC=${SDKPATH}/${TARGET_SYS}/${datadir}/${QT_DIR_NAME}/mkspecs/linux-g++' >> $script
-+
-+    # Repack SDK with new environment-setup
-+    cd ${SDK_OUTPUT}
-+    ${FAKEROOT} tar cfj ${SDK_DEPLOY}/${TOOLCHAIN_OUTPUTNAME}.tar.bz2 .       
-+}
-diff --git a/meta/recipes-qt/tasks/task-qte-toolchain-host.bb b/meta/recipes-qt/tasks/task-qte-toolchain-host.bb
-new file mode 100644
-index 0000000..2ab6ccf
---- /dev/null
-+++ b/meta/recipes-qt/tasks/task-qte-toolchain-host.bb
-@@ -0,0 +1,7 @@
-+require recipes-core/tasks/task-sdk-host.bb
-+
-+DESCRIPTION = "Host packages for Qt Embedded SDK"
-+LICENSE = "MIT"
-+ALLOW_EMPTY = "1"
-+
-+RDEPENDS_${PN} += "qt4-tools-nativesdk"
-diff --git a/meta/recipes-qt/tasks/task-qte-toolchain-target.bb b/meta/recipes-qt/tasks/task-qte-toolchain-target.bb
-new file mode 100644
-index 0000000..03e0e54
---- /dev/null
-+++ b/meta/recipes-qt/tasks/task-qte-toolchain-target.bb
-@@ -0,0 +1,39 @@
-+DESCRIPTION = "Target packages for Qt Embedded SDK"
-+LICENSE = "MIT"
-+ALLOW_EMPTY = "1"
-+
-+PR = "r5"
-+
-+LIC_FILES_CHKSUM = "file://${POKYBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58 \
-+                    file://${POKYBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
-+
-+RDEPENDS_${PN} += " \
-+        task-poky-standalone-sdk-target \
-+        qt4-embedded-mkspecs \
-+        libqt-embeddedmultimedia4-dev \
-+        libqt-embeddedphonon4-dev \
-+        libqt-embedded3support4-dev \
-+        libqt-embeddedclucene4-dev \
-+        libqt-embeddedcore4-dev \
-+        libqt-embeddeddbus4-dev \
-+        libqt-embeddeddesignercomponents4-dev \
-+        libqt-embeddeddesigner4-dev \
-+        libqt-embeddeduitools4-dev \
-+        libqt-embeddedgui4-dev \
-+        libqt-embeddedhelp4-dev \
-+        libqt-embeddednetwork4-dev \
-+        libqt-embeddedscript4-dev \
-+        libqt-embeddedscripttools4-dev \
-+        libqt-embeddedsql4-dev \
-+        libqt-embeddedsvg4-dev \
-+        libqt-embeddedtest4-dev \
-+        libqt-embeddedwebkit4-dev \
-+        libqt-embeddedxml4-dev \
-+        libsqlite3-dev \
-+        expat-dev \
-+        "
-+
-+#Qt Declarative is new in 4.7, try to include it like this.
-+#RRECOMMENDS_${PN} += " \
-+#        libqt-embeddeddeclarative4-dev \
-+#        "
+ CONFFILES_avahi-daemon = "${sysconfdir}/avahi/avahi-daemon.conf"
+ 
+ INITSCRIPT_PACKAGES = "avahi-daemon avahi-dnsconfd"
+diff --git a/meta/recipes-connectivity/avahi/avahi_0.6.28.bb b/meta/recipes-connectivity/avahi/avahi_0.6.28.bb
+index fb339e7..6e034b0 100644
+--- a/meta/recipes-connectivity/avahi/avahi_0.6.28.bb
++++ b/meta/recipes-connectivity/avahi/avahi_0.6.28.bb
+@@ -7,7 +7,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=2d5025d4aa3495befef8f17206a5b0a1 \
+                     file://avahi-client/client.h;endline=23;md5=f4ac741a25c4f434039ba3e18c8674cf"
+ 
+ RDEPENDS_avahi-daemon = "sysvinit-pidof"
+-PR = "r1"
++PR = "r2"
+ 
+ EXTRA_OECONF += "--disable-gtk3"
+ 
 -- 
 1.7.1
 
