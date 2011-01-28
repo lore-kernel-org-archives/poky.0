@@ -1,23 +1,23 @@
 Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5301B4C8127D
-	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 18:36:47 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 27 Jan 2011 16:36:46 -0800
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 575354C81288
+	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 18:36:49 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 27 Jan 2011 16:36:49 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,388,1291622400"; d="scan'208";a="380973738"
+X-IronPort-AV: E=Sophos;i="4.60,388,1291622400"; d="scan'208";a="881715127"
 Received: from unknown (HELO helios) ([10.255.16.167])
-	by azsmga001.ch.intel.com with SMTP; 27 Jan 2011 16:36:45 -0800
-Received: by helios (sSMTP sendmail emulation); Fri, 28 Jan 2011 00:36:46 +0000
-Message-Id: <62199bfc0c526afd5a591225601ee0507de8604c.1296174472.git.paul.eggleton@linux.intel.com>
+	by fmsmga001.fm.intel.com with SMTP; 27 Jan 2011 16:36:39 -0800
+Received: by helios (sSMTP sendmail emulation); Fri, 28 Jan 2011 00:36:41 +0000
+Message-Id: <ff0b2d9ee020911fde1af62764822bd9a35fb1bb.1296174472.git.paul.eggleton@linux.intel.com>
 In-Reply-To: <cover.1296174472.git.paul.eggleton@linux.intel.com>
 References: <cover.1296174472.git.paul.eggleton@linux.intel.com>
-Old-Date: Mon, 17 Jan 2011 15:11:15 +0000
-Date: Fri, 28 Jan 2011  0:36:46 +0000
+Old-Date: Fri, 14 Jan 2011 11:07:51 +0000
+Date: Fri, 28 Jan 2011  0:36:41 +0000
 To: poky@yoctoproject.org
 CC: 
 From: Paul Eggleton <paul.eggleton@linux.intel.com>
-Subject: [PATCH 09/11] package.bbclass: add nodeprrecs flag to RRECOMMENDS_pkgname
+Subject: [PATCH 07/11] dbus: extend to nativesdk
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,31 +29,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Jan 2011 00:36:47 -0000
+X-List-Received-Date: Fri, 28 Jan 2011 00:36:49 -0000
 
 From: Paul Eggleton <paul.eggleton@linux.intel.com>
 
-Setting this flag disables the normal additions to RRECOMMENDS for a package
-(useful when splitting dev / dbg packages).
+BBCLASSEXTEND dbus to nativesdk for meta-toolchain-qte, and disable the
+dependency on libsm when building in this context (thus avoiding a number of
+sub-dependencies).
 
 Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
 ---
- meta/classes/package.bbclass |    2 ++
- 1 files changed, 2 insertions(+), 0 deletions(-)
+ meta/recipes-core/dbus/dbus.inc |    3 ++-
+ 1 files changed, 2 insertions(+), 1 deletions(-)
 
-diff --git a/meta/classes/package.bbclass b/meta/classes/package.bbclass
-index 1b950bb..3f17049 100644
---- a/meta/classes/package.bbclass
-+++ b/meta/classes/package.bbclass
-@@ -1041,6 +1041,8 @@ python package_depchains() {
+diff --git a/meta/recipes-core/dbus/dbus.inc b/meta/recipes-core/dbus/dbus.inc
+index beb2072..da77819 100644
+--- a/meta/recipes-core/dbus/dbus.inc
++++ b/meta/recipes-core/dbus/dbus.inc
+@@ -6,6 +6,7 @@ LICENSE = "AFL2.1 | GPLv2+"
+ LIC_FILES_CHKSUM = "file://COPYING;md5=10dded3b58148f3f1fd804b26354af3e \
+                     file://dbus/dbus.h;firstline=6;endline=20;md5=6eea2e0c7750dd8e620dcb1437312fa5"
+ DEPENDS = "expat virtual/libintl virtual/libx11 libsm"
++DEPENDS_virtclass-nativesdk = "expat virtual/libintl virtual/libx11"
  
- 	for suffix in pkgs:
- 		for pkg in pkgs[suffix]:
-+			if bb.data.getVarFlag('RRECOMMENDS_' + pkg, 'nodeprrecs', d):
-+				continue
- 			(base, func) = pkgs[suffix][pkg]
- 			if suffix == "-dev":
- 				pkg_adddeprrecs(pkg, base, suffix, func, depends, d)
+ SRC_URI = "http://dbus.freedesktop.org/releases/dbus/dbus-${PV}.tar.gz \
+            file://tmpdir.patch; \
+@@ -88,4 +89,4 @@ do_install_virtclass-native() {
+ 	# dbus-glib-native and dbus-glib need this xml file
+ 	./bus/dbus-daemon --introspect > ${STAGING_DATADIR_NATIVE}/dbus/dbus-bus-introspect.xml
+ }
+-BBCLASSEXTEND = "native"
++BBCLASSEXTEND = "native nativesdk"
 -- 
 1.7.1
 
