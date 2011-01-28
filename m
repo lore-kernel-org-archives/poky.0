@@ -1,43 +1,22 @@
-Return-Path: <bruce.ashfield@gmail.com>
-Received: from mail-iw0-f172.google.com (mail-iw0-f172.google.com
-	[209.85.214.172])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7A0064C8123F
-	for <poky@lists.pokylinux.org>; Fri, 28 Jan 2011 08:43:38 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by iwn40 with SMTP id 40so3347222iwn.3
-	for <poky@lists.pokylinux.org>; Fri, 28 Jan 2011 06:43:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:in-reply-to:references:date
-	:message-id:subject:from:to:cc:content-type
-	:content-transfer-encoding;
-	bh=m02RjA0r9f9X3wzQ06EWB2sRYjmVDAxBut45jLrxUuk=;
-	b=lDlD6yprrLUj2jawYeeZuEwX6RZkfg6iTrrQAuRIYYQ/V2uOj6TLRyBshseSzMa4X7
-	7LTegNp7cSBB0m9GrJbns29ETUCSoPtwpbTZoD71w+KqH02ToP9P+PEGf05N0hSuLlkl
-	LG6KPFqKehNfQ+ySe182umYxPIV/vPoM1nwYg=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type:content-transfer-encoding;
-	b=ufxxPoGA6IJeljUgh/8DDd5JmHqFvDonx61CXntdqp8nRblhGhvQEcHDDFj34tyK3b
-	7/lcqUv0rg7TiOGwJrvXxyoo3SUwUewNtivPG046VG45i7idfhf7UaLwgNxgJ+5KPrsz
-	JEk4xsjxLipgwhoHEzCqjs9RbLckK7zpmFvFE=
-MIME-Version: 1.0
-Received: by 10.231.34.9 with SMTP id j9mr2689732ibd.137.1296225818073; Fri,
-	28 Jan 2011 06:43:38 -0800 (PST)
-Received: by 10.231.156.136 with HTTP; Fri, 28 Jan 2011 06:43:37 -0800 (PST)
-In-Reply-To: <4D42D32C.20605@mlbassoc.com>
-References: <4D40251F.5070906@mlbassoc.com> <4D40919E.6010802@linux.intel.com>
-	<4D409B30.9070000@mlbassoc.com> <4D40B5FA.5000005@linux.intel.com>
-	<4D40B8A1.2000406@mlbassoc.com> <4D40E6D9.5000709@linux.intel.com>
-	<4D41694B.5070002@mlbassoc.com> <4D41F07B.6060008@mlbassoc.com>
-	<4D42D283.20600@mlbassoc.com> <4D42D32C.20605@mlbassoc.com>
-Date: Fri, 28 Jan 2011 09:43:37 -0500
-Message-ID: <AANLkTimhHmH0LKGnsEKu47gD6tJs4enLtSYuzAt2+Wgv@mail.gmail.com>
-From: Bruce Ashfield <bruce.ashfield@gmail.com>
-To: Gary Thomas <gary@mlbassoc.com>
-Cc: Poky <poky@lists.pokylinux.org>
-Subject: Re: No joy on "standard" PC
+Return-Path: <josh@openedhand.com>
+Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
+	by mx1.pokylinux.org (Postfix) with ESMTP id AFBDB4C80050
+	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 09:27:07 -0600 (CST)
+Received: from [192.168.1.88] (unknown [83.217.123.106])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by pug.o-hand.com (Postfix) with ESMTP id 72D7812EC1CD
+	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 10:08:13 -0600 (CST)
+From: Joshua Lock <josh@openedhand.com>
+To: poky@yoctoproject.org
+In-Reply-To: <2d59c34ceb4fb3a9c80bfcce999172ae6c16e663.1296167950.git.scott.a.garman@intel.com>
+References: <cover.1296167950.git.scott.a.garman@intel.com>
+	<2d59c34ceb4fb3a9c80bfcce999172ae6c16e663.1296167950.git.scott.a.garman@intel.com>
+Date: Fri, 28 Jan 2011 15:26:55 +0000
+Message-ID: <1296228416.2704.17.camel@scimitar>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.1 (2.32.1-1.fc14) 
+Subject: Re: [PATCH 1/9] sgml-common: new recipe v0.6.3
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -49,159 +28,214 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Jan 2011 14:43:38 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Fri, 28 Jan 2011 15:27:08 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-On Fri, Jan 28, 2011 at 9:31 AM, Gary Thomas <gary@mlbassoc.com> wrote:
-> On 01/28/2011 07:28 AM, Gary Thomas wrote:
->>
->> On 01/27/2011 03:23 PM, Gary Thomas wrote:
->>>
->>> On 01/27/2011 05:47 AM, Gary Thomas wrote:
->>>>
->>>> On 01/26/2011 08:30 PM, Darren Hart wrote:
->>>>>
->>>>> On 01/26/2011 04:13 PM, Gary Thomas wrote:
->>>>>>
->>>>>> On 01/26/2011 05:02 PM, Darren Hart wrote:
->>>>>>>
->>>>>>> On 01/26/2011 02:07 PM, Gary Thomas wrote:
->>>>>>>>
->>>>>>>> On 01/26/2011 02:26 PM, Darren Hart wrote:
->>>>>>>>>
->>>>>>>>> On 01/26/2011 05:43 AM, Gary Thomas wrote:
->>>>>>>>>>
->>>>>>>>>> I finally got Poky to build for a standard PC (actually atom-pc
->>>>>>>>>> so I could build a live/bootable image). Sadly, that's all I
->>>>>>>>>> have is an image as I can't get it to run anywhere :-(
->>>>>>>>>>
->>>>>>>>>> * On my laptop (the point of this exercise) which is an older
->>>>>>>>>> Pentium-III machine, the kernel crashes almost immediately.
->>>>>>>>>
->>>>>>>>> Can you capture the output and provide some details on the
->>>>>>>>> hardware?
->>>>>>>>
->>>>>>>> Hard to do - I took pictures of the screen with my camera, the
->>>>>>>> results
->>>>>>>> may help, but won't win me a Pulitzer :-)
->>>>>>>>
->>>>>>>> On the AMD/2800+
->>>>>>>> http://www.mlbassoc.com/poky/BootFailures/P1000630.JPG
->>>>>>>> On the old Pentium-III laptop
->>>>>>>> http://www.mlbassoc.com/poky/BootFailures/P1000631.JPG
->>>>>>>
->>>>>>> Failing to mount the root partition either due to missing drivers f=
-or
->>>>>>> the block device or the filesystem. You said this was MACHINE=3Dato=
-m-pc
->>>>>>> and poky-image-sato-live? And you're
->>>>>>> booting using the .iso image burned to a CD?
->>>>>>
->>>>>> Correct.
->>>>>>
->>>>>>>
->>>>>>>> http://www.mlbassoc.com/poky/BootFailures/P1000632.JPG
->>>>>>>
->>>>>>> Too late, missed the good bits. I suspect the two above are adequat=
-e.
->>>>>>>
->>>>>>>>>
->>>>>>>>>>
->>>>>>>>>> * On my brand new laptop (Core-i3), I couldn't get it to even
->>>>>>>>>> try...
->>>>>>>>>
->>>>>>>>> What happened? Some bios are very particular about usb layout, se=
-e
->>>>>>>>> README.hardware under atom-pc. Some (including my netbook) requir=
-e
->>>>>>>>> that it be in USB-ZIP format, so you can't just dd the image to
->>>>>>>>> the stick in some cases (unfortunately).
->>>>>>>>
->>>>>>>> My boot medium is a CD-RW with the ISO image.
->>>>>>>> Not sure why it didn't want to boot before, but when I just retrie=
-d
->>>>>>>> it, it hung in yet a different way.
->>>>>>>> http://www.mlbassoc.com/poky/BootFailures/P1000629.JPG
->>>>>>>
->>>>>>> If I'm reading this one correctly, it's failing to boot from the US=
-B
->>>>>>> device and later detects another drive (My Passport) which has
->>>>>>> something other than a standard ext[23]
->>>>>>> filesystem on the first partition.
->>>>>>
->>>>>> Same boot CD as above - I'm not sure what it's up to at this point.
->>>>>
->>>>> Check the .config in the linux-yocto build directory, does it have
->>>>> CONFIG_ISO9660_FS set?
->>>>
->>>> Nope :-(
->>>> $ grep ISO9660
->>>>
->>>> tmp/work/atom-pc-poky-linux/linux-yocto-stable-2.6.34+git0+e1f85a47093=
-4a0cf6abde5d95533e74501822c6b_0+72ca49ab08b8eb475cec82a10049503602325791-r1=
-/linux-atom-pc-standard-build/.config
->>>>
->>>>
->>>> # CONFIG_ISO9660_FS is not set
->>>>
->>>> I'll try forcing this and rebuild to test.
->>>
->>> I've tried this, but I didn't see any change. Perhaps I didn't
->>> do it correctly. Since all I wanted was to update the kernel
->>> with a different configuration, here are the steps I executed:
->>> ... adjust config using makeconfig
->>> % rm -f sstate-cache/sstate-linux-yocto-stable-atom-pc*
->>> % bitbake virtual/kernel -f -c compile
->>> % bitbake poky-image-minimal-live
->>>
->>> Any other ideas?
->>
->> Still no joy booting from CD. I did boot the HDD image on
->> multiple systems and it runs just fine. The exact same ISO
->> on those hardware still fails.
->>
->
-> BTW, the kernel config file I used (after running menuconfig)
-> is attached.
->
-> How/what can I diff to send a patch, once I get a working
-> kernel configuration?
+On Thu, 2011-01-27 at 14:42 -0800, Scott Garman wrote:
+> From: Scott Garman <scott.a.garman@intel.com>
+> 
+> Recipe derived from OpenEmbedded.
+> 
+> Signed-off-by: Scott Garman <scott.a.garman@intel.com>
+> ---
+>  .../sgml-common/sgml-common-0.6.3/autohell.patch   |   58 ++++++++++++++++++++
+>  .../sgml-common/sgml-common-native_0.6.3.bb        |   50 +++++++++++++++++
+>  .../sgml-common/sgml-common_0.6.3.bb               |   53 ++++++++++++++++++
+>  3 files changed, 161 insertions(+), 0 deletions(-)
+>  create mode 100644 meta/recipes-devtools/sgml-common/sgml-common-0.6.3/autohell.patch
+>  create mode 100644 meta/recipes-devtools/sgml-common/sgml-common-native_0.6.3.bb
+>  create mode 100644 meta/recipes-devtools/sgml-common/sgml-common_0.6.3.bb
+> 
+> diff --git a/meta/recipes-devtools/sgml-common/sgml-common-0.6.3/autohell.patch b/meta/recipes-devtools/sgml-common/sgml-common-0.6.3/autohell.patch
+> new file mode 100644
+> index 0000000..1366ada
+> --- /dev/null
+> +++ b/meta/recipes-devtools/sgml-common/sgml-common-0.6.3/autohell.patch
+> @@ -0,0 +1,58 @@
+> +Patch obtained from OpenEmbedded.
+> +
+> +Signed-off-by: Scott Garman <scott.a.garman@intel.com>
+> +--- sgml-common-0.6.3/bin/Makefile.am~autohell.patch	2001-01-30 15:42:21.000000000 +0100
+> ++++ sgml-common-0.6.3/bin/Makefile.am	2004-06-17 11:51:11.000000000 +0200
+> +@@ -1,6 +1,5 @@
+> + primitive_scripts = sgmlwhich
+> + 
+> +-bindir = $(prefix)/bin
+> + bin_SCRIPTS = install-catalog $(primitive_scripts)
+> + 
+> + EXTRA_DIST =  install-catalog.in $(primitive_scripts)
+> +--- /dev/null	2003-09-23 19:59:22.000000000 +0200
+> ++++ sgml-common-0.6.3/bin/sgmlwhich.in	2004-06-17 11:51:11.000000000 +0200
+> +@@ -0,0 +1,7 @@
+> ++#!/bin/sh
+> ++# Location of the main configuration file for consistency with non-LSB platforms
+> ++# Send any comments to Eric Bischoff <eric@caldera.de>
+> ++# This program is under GPL license. See LICENSE file for details.
+> ++
+> ++echo "@sysconfdir@/sgml/sgml.conf"
+> ++# Simple, isn't it? ;-)
+> +--- /dev/null	2003-09-23 19:59:22.000000000 +0200
+> ++++ sgml-common-0.6.3/config/sgml.conf.in	2004-06-17 11:51:11.000000000 +0200
+> +@@ -0,0 +1,2 @@
+> ++SGML_BASE_DIR=@datadir@/sgml
+> ++SGML_CATALOGS_DIR=@sysconfdir@/sgml
+> +--- sgml-common-0.6.3/configure.in~autohell.patch	2001-05-25 18:40:54.000000000 +0200
+> ++++ sgml-common-0.6.3/configure.in	2004-06-17 11:53:22.000000000 +0200
+> +@@ -3,11 +3,6 @@
+> + 
+> + AM_INIT_AUTOMAKE(sgml-common, 0.6.3)
+> + 
+> +-docdir='$(prefix)/doc'
+> +-AC_SUBST(docdir)
+> +-
+> +-dnl Checks for programs.
+> +-
+> + dnl Checks for libraries.
+> + 
+> + dnl Checks for header files.
+> +@@ -18,6 +13,5 @@
+> + 
+> + AC_OUTPUT(Makefile \
+> +           bin/Makefile bin/install-catalog \
+> +-          config/Makefile \
+> +-          doc/Makefile doc/HTML/Makefile doc/man/Makefile doc/refentry/Makefile \
+> ++          config/Makefile config/sgml.conf bin/sgmlwhich \
+> +           sgml-iso-entities/Makefile xml-iso-entities/Makefile)
+> +
+> +--- sgml-common-0.6.3/Makefile.am~no-docs	2001-05-25 18:22:01.000000000 +0200
+> ++++ sgml-common-0.6.3/Makefile.am	2004-06-17 11:49:09.000000000 +0200
+> +@@ -1,4 +1,4 @@
+> +-SUBDIRS = bin config doc sgml-iso-entities xml-iso-entities
+> ++SUBDIRS = bin config sgml-iso-entities xml-iso-entities
+> + 
+> + sgmlcodir = $(prefix)/share/sgml
+> + sgmlco_DATA = xml.dcl
+> diff --git a/meta/recipes-devtools/sgml-common/sgml-common-native_0.6.3.bb b/meta/recipes-devtools/sgml-common/sgml-common-native_0.6.3.bb
+> new file mode 100644
+> index 0000000..7e9b923
+> --- /dev/null
+> +++ b/meta/recipes-devtools/sgml-common/sgml-common-native_0.6.3.bb
+> @@ -0,0 +1,50 @@
+> +SUMMARY = "Base utilities for working with SGML and XML"
+> +DESCRIPTION = "The sgml-common package gathers very basic \
+> +stuff necessary to work with SGML and XML, such as xml.dcl, \
+> +a SGML declaration of XML; iso-entities, a list of the basic \
+> +SGML ISO entities; and install-catalog, a script used to \
+> +add entries to (or remove entries from) centralized catalogs \
+> +whose entries are pointers to SGML open catalogs, \
+> +as defined by OASIS."
+> +HOMEPAGE = "http://sources.redhat.com/docbook-tools/"
+> +LICENSE = "GPLv2"
+> +# The COPYING file sgml-common ships with is just a symlink to
+> +# /usr/share/automake/COPYING, which means we can't verify it
+> +# using our normal means. :( Hash the README file instead as
+> +# LIC_FILES_CHKSUM is still required.
+> +LIC_FILES_CHKSUM = "file://README;md5=197bd940bf13548ac2198e4f77d3da92"
 
-The location differs between the 2.6.34 and 2.6.37 kernel (since things
-are being generalized).
+Can we add a patch which replaces the symlink with the actual file and
+hash that. Seems slightly more robust... but only slightly.
 
-You'll find the base configuration for the atom-pc in 2.6.34 in your
-'linux-yocto-stable-2.6.34+git0+e1f85a470934a0cf6abde5d95533e74501822c6b_0+=
-72ca49ab08b8eb475cec82a10049503602325791-r1/linux'
-(that's a mouthful) directory.  On the wrs_meta branch.
+> +SECTION = "base"
+> +
+> +PR = "r0"
+> +
+> +require sgml-common_${PV}.bb
+> +inherit native
+> +
+> +S = "${WORKDIR}/sgml-common-${PV}"
+> +
+> +SYSROOT_PREPROCESS_FUNCS += "sgml_common_native_mangle"
+> +
+> +do_install_append() {
+> +	# install-catalog script contains hard-coded references to
+> +	# {sysconfdir}. Change it to ${D}${sysconfdir}.
+> +	sed -i -e "s|${sysconfdir}/sgml|${D}${sysconfdir}/sgml|g" ${D}${bindir}/install-catalog
+> +
+> +	${D}${bindir}/install-catalog \
+> +		--add ${D}${sysconfdir}/sgml/sgml-ent.cat \
+> +		${D}${datadir}/sgml/sgml-iso-entities-8879.1986/catalog
+> +
+> +	${D}${bindir}/install-catalog \
+> +		--add ${D}${sysconfdir}/sgml/sgml-docbook.cat \
+> +		${D}${sysconfdir}/sgml/sgml-ent.cat
+> +}
+> +
+> +sgml_common_native_mangle () {
+> +	# Revert back to ${sysconfdir} path in install-catalog
+> +	sed -i -e "s|${D}${sysconfdir}/sgml|${sysconfdir}/sgml|g" ${SYSROOT_DESTDIR}${STAGING_BINDIR}/install-catalog
+> +	# Change path from ${D}${datadir}/sgml/sgml-iso-entities-8879.1986/catalog to ${datadir}/sgml/sgml-iso-entities-8879.1986/catalog in sgml-ent.cat
+> +	sed -i -e "s|${D}${datadir}/sgml/sgml-iso-entities-8879.1986/catalog|${datadir}/sgml/sgml-iso-entities-8879.1986/catalog|g" ${SYSROOT_DESTDIR}${sysconfdir}/sgml/sgml-ent.cat
+> +	# Change path from ${D}${sysconfdir}/sgml/sgml-ent.cat|${sysconfdir}/sgml/sgml-ent.cat to ${sysconfdir}/sgml/sgml-ent.cat in sgml-ent.cat
+> +	sed -i -e "s|${D}${sysconfdir}/sgml/sgml-ent.cat|${sysconfdir}/sgml/sgml-ent.cat|g" ${SYSROOT_DESTDIR}${sysconfdir}/sgml/sgml-docbook.cat
+> +	# Remove ${D} path from catalog file created by install-catalog script
+> +	sed -i -e "s|${D}||g" ${SYSROOT_DESTDIR}${sysconfdir}/sgml/catalog
+> +}
+> diff --git a/meta/recipes-devtools/sgml-common/sgml-common_0.6.3.bb b/meta/recipes-devtools/sgml-common/sgml-common_0.6.3.bb
+> new file mode 100644
+> index 0000000..78afa39
+> --- /dev/null
+> +++ b/meta/recipes-devtools/sgml-common/sgml-common_0.6.3.bb
+> @@ -0,0 +1,53 @@
+> +SUMMARY = "Base utilities for working with SGML and XML"
+> +DESCRIPTION = "The sgml-common package gathers very basic \
+> +stuff necessary to work with SGML and XML, such as xml.dcl, \
+> +a SGML declaration of XML; iso-entities, a list of the basic \
+> +SGML ISO entities; and install-catalog, a script used to \
+> +add entries to (or remove entries from) centralized catalogs \
+> +whose entries are pointers to SGML open catalogs, \
+> +as defined by OASIS."
+> +HOMEPAGE = "http://sources.redhat.com/docbook-tools/"
+> +LICENSE = "GPLv2"
+> +# The COPYING file sgml-common ships with is just a symlink to
+> +# /usr/share/automake/COPYING, which means we can't verify it
+> +# using our normal means. :( Hash the README file instead as
+> +# LIC_FILES_CHKSUM is still required.
+> +LIC_FILES_CHKSUM = "file://README;md5=197bd940bf13548ac2198e4f77d3da92"
 
-Then you'll find: wrs/cfg/kernel-cache/bsp/atom-pc/boot-live.cfg
+as above
 
-If you send a diff against that, we can merge and make the change
-permanent (assuming it is suitable for general use).
+> +SECTION = "base"
+> +
+> +PR = "r0"
+> +
+> +SRC_URI = "ftp://sources.redhat.com/pub/docbook-tools/new-trials/SOURCES/sgml-common-${PV}.tgz \
+> +           file://autohell.patch"
+> +
+> +SRC_URI[md5sum] = "103c9828f24820df86e55e7862e28974"
+> +SRC_URI[sha256sum] = "7dc418c1d361123ffc5e45d61f1b97257940a8eb35d0bfbbc493381cc5b1f959"
+> +
+> +inherit autotools
+> +
+> +do_compile_append() {
+> +	# install-catalog script contains hardcoded references to /etc/sgml
+> +	sed -i -e "s|/etc/sgml|${sysconfdir}/sgml|g" bin/install-catalog
+> +}
+> +
+> +FILES_sgml-common_append = " ${datadir}/sgml"
+> +
+> +pkg_postinst() {
+> +	install-catalog \
+> +		--add ${sysconfdir}/sgml/sgml-ent.cat \
+> +		${datadir}/sgml/sgml-iso-entities-8879.1986/catalog
+> +
+> +	install-catalog \
+> +		--add ${sysconfdir}/sgml/sgml-docbook.cat \
+> +		${sysconfdir}/sgml/sgml-ent.cat
+> +}
+> +
+> +pkg_postrm() {
+> +	install-catalog \
+> +		--remove ${sysconfdir}/sgml/sgml-ent.cat \
+> +		${datadir}/sgml/sgml-iso-entities-8879.1986/catalog
+> +
+> +	install-catalog \
+> +		--remove ${sysconfdir}/sgml/sgml-docbook.cat \
+> +		${sysconfdir}/sgml/sgml-ent.cat
+> +}
 
-Cheers,
+-- 
+Joshua Lock
+        Intel Open Source Technology Centre
 
-Bruce
-
->
-> --
-> ------------------------------------------------------------
-> Gary Thomas =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 | =A0Consulting for the
-> MLB Associates =A0 =A0 =A0 =A0 =A0 =A0 =A0| =A0 =A0Embedded world
-> ------------------------------------------------------------
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
->
-
-
-
---=20
-"Thou shalt not follow the NULL pointer, for chaos and madness await
-thee at its end"
 
