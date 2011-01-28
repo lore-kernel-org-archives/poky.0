@@ -1,30 +1,29 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 8DD994C811DE
-	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 11:02:12 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0SH498r030703; Fri, 28 Jan 2011 17:04:09 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id 6EwFK08fdh19; Fri, 28 Jan 2011 17:04:09 +0000 (GMT)
-Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0SH44BA030692
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Fri, 28 Jan 2011 17:04:06 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Lianhao Lu <lianhao.lu@intel.com>
-In-Reply-To: <1eec11d1126152a4ae4930d8df5aedfec1bdf7b7.1296208216.git.lianhao.lu@intel.com>
-References: <cover.1296208216.git.lianhao.lu@intel.com>
-	<1eec11d1126152a4ae4930d8df5aedfec1bdf7b7.1296208216.git.lianhao.lu@intel.com>
-Date: Fri, 28 Jan 2011 17:01:57 +0000
-Message-ID: <1296234117.13501.451.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 060AC4C811DE
+	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 11:16:39 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 28 Jan 2011 09:16:34 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,393,1291622400"; d="scan'208";a="381278564"
+Received: from unknown (HELO [10.255.14.93]) ([10.255.14.93])
+	by azsmga001.ch.intel.com with ESMTP; 28 Jan 2011 09:16:34 -0800
+Message-ID: <4D42F9F1.3020002@linux.intel.com>
+Date: Fri, 28 Jan 2011 09:16:33 -0800
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
+MIME-Version: 1.0
+To: Wolfgang Denk <wd@denx.de>
+References: <20110127111132.C69A3B335@gemini.denx.de>
+	<20110127114216.744AEB335@gemini.denx.de>
+	<4D41F2D6.4040406@linux.intel.com>
+	<20110128070520.31A2BD42A86@gemini.denx.de>
+	<4D42F269.1080005@linux.intel.com>
+	<20110128165100.656AAD42A99@gemini.denx.de>
+In-Reply-To: <20110128165100.656AAD42A99@gemini.denx.de>
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 1/5] cross-canadian.bbclass: Correct deb package arch.
+Subject: Re: Serial console unusable with poky-image-sdk
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,38 +35,59 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Jan 2011 17:02:12 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Fri, 28 Jan 2011 17:16:50 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Fri, 2011-01-28 at 18:01 +0800, Lianhao Lu wrote:
-> From: Lianhao Lu <lianhao.lu@intel.com>
-> 
-> Set DPKG_ARCH to make debian package to be generated with correct
-> architecture.
-> 
-> Signed-off-by: Lianhao Lu <lianhao.lu@intel.com>
-> ---
->  meta/classes/cross-canadian.bbclass |    3 +++
->  1 files changed, 3 insertions(+), 0 deletions(-)
-> 
-> diff --git a/meta/classes/cross-canadian.bbclass b/meta/classes/cross-canadian.bbclass
-> index 993f831..1a045ba 100644
-> --- a/meta/classes/cross-canadian.bbclass
-> +++ b/meta/classes/cross-canadian.bbclass
-> @@ -43,6 +43,9 @@ HOST_OS = "${SDK_OS}"
->  HOST_PREFIX = "${SDK_PREFIX}"
->  HOST_CC_ARCH = "${SDK_CC_ARCH}"
->  
-> +#assign DPKG_ARCH
-> +DPKG_ARCH = "${SDK_ARCH}"
-> +
->  CPPFLAGS = "${BUILDSDK_CPPFLAGS}"
->  CFLAGS = "${BUILDSDK_CFLAGS}"
->  CXXFLAGS = "${BUILDSDK_CFLAGS}"
+On 01/28/2011 08:51 AM, Wolfgang Denk wrote:
+> Dear Darren Hart,
+>
+> In message<4D42F269.1080005@linux.intel.com>  you wrote:
+>>
+>> The serial console would show all the output of the boot process and
+>> then present a getty. It would accept my login and my password, but as
+>> soon as I was logged in, things went weird. Only every Nth character I
+>> typed made it to the console, where N was somewhere between 2 and 30.
+>
+> Indeed. And the reason for this behaviour is that you have two
+> processes reading from the console, so it depends on the scheduling
+> which of hem receives which characters.
+>
+>> I believe this had something to do with the automatic consoles the
+>> kernel will setup based on the console= parameters. By default, the last
+>
+> No, it does not.  You can test it by shutting down X11 (try:
+> "/etc/init.d/xserver-nodm stop"); this will also terminate the
+> dbus-launch process, and your login shell immediately works fine.
+>
+> Or try out the patch I posted.
 
-Merged into master, thanks.
 
-Richard
+I'm not running X11, this is just a poky-image-minimal.
 
+
+>
+>> What I haven't been able to explain yet is why just omitting the getty
+>> from the tty doesn't result in console on the serial port due to the
+>> kernel's automatic console thing. So clearly there are some gaps in my
+>> explanation here, but please try this approach and let me know what your
+>> results are. Based on that, we can dig a bit more and figure out how to
+>> best setup the console= directives on the default images.
+>
+> THere is no problem with the console= settings.  It's two processes
+> reading from a single input stream. This can never work.  Try it ut if
+> you don't believe me.
+
+Agreed on the two processes thing, that's clear. I believe the console= 
+settings impact which processes are started and which read from which 
+console devices.
+
+And again, I can't try your patch, because I'm not running X.
+
+Perhaps we are seeing similar problems caused by different things.
+
+-- 
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
