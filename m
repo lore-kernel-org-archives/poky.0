@@ -1,25 +1,32 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C0A7E4C812B7
-	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 11:25:54 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 28 Jan 2011 09:25:49 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,393,1291622400"; d="scan'208";a="652177985"
-Received: from unknown (HELO helios.localnet) ([10.255.16.173])
-	by fmsmga002.fm.intel.com with ESMTP; 28 Jan 2011 09:25:49 -0800
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-Organization: Intel Corporation (UK)
-To: poky@yoctoproject.org
-Date: Fri, 28 Jan 2011 17:25:49 +0000
-User-Agent: KMail/1.13.5 (Linux/2.6.35-24-generic-pae; KDE/4.5.1; i686; ; )
-References: <cover.1296174472.git.paul.eggleton@linux.intel.com>
-	<93afb5a16a88cd026eea90a6b9af98445fdbdd93.1296174472.git.paul.eggleton@linux.intel.com>
-	<1296228440.2704.24.camel@scimitar>
-In-Reply-To: <1296228440.2704.24.camel@scimitar>
-MIME-Version: 1.0
-Message-Id: <201101281725.50062.paul.eggleton@linux.intel.com>
-Subject: Re: [PATCH 08/11] qt4: Add qt4-tools-nativesdk based on qt4-tools-sdk from OpenEmbedded
+Return-Path: <koen@dominion.thruhere.net>
+Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D17E94C811DE
+	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 11:42:12 -0600 (CST)
+Received: by wwb31 with SMTP id 31so3729044wwb.11
+	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 09:42:11 -0800 (PST)
+Received: by 10.227.201.5 with SMTP id ey5mr2976068wbb.182.1296236530491;
+	Fri, 28 Jan 2011 09:42:10 -0800 (PST)
+Received: from [172.20.0.255] (ip545070eb.adsl-surfen.hetnet.nl
+	[84.80.112.235])
+	by mx.google.com with ESMTPS id y29sm7718084wbd.4.2011.01.28.09.42.09
+	(version=TLSv1/SSLv3 cipher=RC4-MD5);
+	Fri, 28 Jan 2011 09:42:09 -0800 (PST)
+Mime-Version: 1.0 (Apple Message framework v1082)
+From: Koen Kooi <koen@dominion.thruhere.net>
+In-Reply-To: <1296233965.13501.439.camel@rex>
+Date: Fri, 28 Jan 2011 18:42:08 +0100
+Message-Id: <ADB7400B-7EDF-4139-BF8C-9E8C3055E175@dominion.thruhere.net>
+References: <1295993245.27814.133.camel@rex>
+	<A75EAA1D-9046-4CD6-B407-65AA43B9F3CC@dominion.thruhere.net>
+	<1296140767.27814.7777.camel@rex>
+	<95D49026-CF08-4DB9-9749-3C191C737414@dominion.thruhere.net>
+	<1296164726.27814.8752.camel@rex>
+	<B9B61B12-0508-4734-8F9E-96F8DF59081C@dominion.thruhere.net>
+	<1296233965.13501.439.camel@rex>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+X-Mailer: Apple Mail (2.1082)
+Cc: poky <poky@yoctoproject.org>
+Subject: Re: Master stability update
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,28 +38,88 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Jan 2011 17:25:54 -0000
-Content-Type: Text/Plain;
-  charset="iso-8859-1"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 28 Jan 2011 17:42:13 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
 
-On Friday 28 January 2011 15:27:20 Joshua Lock wrote:
-> On Fri, 2011-01-28 at 00:36 +0000, Paul Eggleton wrote:
-> > From: Paul Eggleton <paul.eggleton@linux.intel.com>
-> > 
-> > Differences from OpenEmbedded qt4-tools-sdk:
-> > 
-> > * Convert to nativesdk and make fixes necessary to build
-> 
-> Any reason why this wouldn't be based on the same recipe as
-> qt4-tools-native?
 
-Possibly; it took a few hacks to get the nativesdk recipe to build though and 
-I'm not sure that they are necessary for the native recipe. I think this is 
-something that could be left for a future update unless there are violent 
-objections, in which case I'll have to rework this after I get back from 
-holiday (about 3 weeks time).
+Op 28 jan 2011, om 17:59 heeft Richard Purdie het volgende geschreven:
 
-Cheers,
-Paul
+> On Fri, 2011-01-28 at 08:56 +0100, Koen Kooi wrote:
+>> Op 27 jan 2011, om 22:45 heeft Richard Purdie het volgende =
+geschreven:
+>>=20
+>>> On Thu, 2011-01-27 at 16:35 +0100, Koen Kooi wrote:
+>>>> Op 27 jan 2011, om 16:06 heeft Richard Purdie het volgende =
+geschreven:
+>>>> koen@dominion:/OE/tentacle$ ls =
+/OE/tentacle/build/tmp-angstrom_2010_x/sysroots/x86_64-linux/usr/bin/
+>>>> tclConfig.sh*
+>>>>=20
+>>>> so it removed pretty much everything from the sysroot!
+>>>=20
+>>> Just to update on this, Koen is using distribute_sources which adds =
+a
+>>> do_distribute_sources task. This is why things are working on master =
+but
+>>> not for Koen.
+>>>=20
+>>> That task runs later and causes do_setscene to rerun which cleans =
+out
+>>> the sysroot rather helpfully assuming that all tasks for that recipe
+>>> will rerun which isn't true.
+>>>=20
+>>> This branch has some proposed changes to make this work better:
+>>>=20
+>>> http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=3Drpurdie/misc2
+>>>=20
+>>> and Koen is testing them to see how they work out.
+>>=20
+>> That fixes both the setscene and machine switching issues. Everything =
+works as expected again!
+>=20
+> Those fixes have been merged into master now.
+
+The problem isn't entirely gone yet. What I did
+
+MACHINE=3Dbeagleboard bitbake console-image (worked)
+MACHINE=3Dusrp-e1xx bitbake console-image (worked)
+MACHINE=3Dhawkboard bitbake console-image (broke)
+
+updated metadata
+
+MACHINE=3Domap4430-panda bitbake console-image (broke)
+
+The first breakage was a license checksum failure in libusb-compat, =
+which I have overlayed locally,  I changed that into a bbappend and =
+rebuilt, things went fine. After switching to pandaboard a lot of things =
+broke (pango, atk, kernel, etc), most of them in package_write. It turns =
+out that the license failure was caused by do_unpack getting skipped, so =
+the it couldn't find the LICENSE and COPYING files to checksum.
+
+It seems that during do_configure the stamps don't get reset complete, =
+so no unpack/patch is run. Due to the way the classes are structured, =
+running in an empty dir doesn't cause problems till we encounter custom =
+packaging rules. Does that make sense?
+
+The kernel failure looks like this:
+
+ERROR: Logfile of failure stored in: =
+/OE/tentacle/build/tmp-angstrom_2010_x/work/beagleboard-angstrom-linux-gnu=
+eabi/linux-omap-psp-2.6.32-r99+gitr5fc29e7b2a76a64a739f857858ef0b98294aa15=
+5/temp/log.do_package_write_ipk.18429
+Log data follows:
+| Lockfile destination directory =
+'/OE/tentacle/build/tmp-angstrom_2010_x/work/beagleboard-angstrom-linux-gn=
+ueabi/linux-omap-psp-2.6.32-r99+gitr5fc29e7b2a76a64a739f857858ef0b98294aa1=
+55/packages-split' does not exist
+| ERROR: Lockfile destination directory =
+'/OE/tentacle/build/tmp-angstrom_2010_x/work/beagleboard-angstrom-linux-gn=
+ueabi/linux-omap-psp-2.6.32-r99+gitr5fc29e7b2a76a64a739f857858ef0b98294aa1=
+55/packages-split' does not exist
+
+
+regards,
+
+Koen=
 
