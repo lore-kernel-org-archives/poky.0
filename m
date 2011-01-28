@@ -1,25 +1,38 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D9B074C811FB
-	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 18:03:31 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 27 Jan 2011 16:03:31 -0800
+Return-Path: <kevin.tian@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 06DE24C811FB
+	for <poky@pokylinux.org>; Thu, 27 Jan 2011 18:07:56 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 27 Jan 2011 16:07:56 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,387,1291622400"; d="scan'208";a="597189313"
-Received: from doubt.jf.intel.com (HELO [10.7.199.151]) ([10.7.199.151])
-	by orsmga002.jf.intel.com with ESMTP; 27 Jan 2011 16:03:31 -0800
-Message-ID: <4D4207CD.1000100@linux.intel.com>
-Date: Thu, 27 Jan 2011 16:03:25 -0800
-From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
+X-IronPort-AV: E=Sophos;i="4.60,387,1291622400"; d="scan'208";a="701474933"
+Received: from pgsmsx601.gar.corp.intel.com ([10.221.43.69])
+	by orsmga001.jf.intel.com with ESMTP; 27 Jan 2011 16:07:56 -0800
+Received: from pgsmsx509.gar.corp.intel.com (172.30.13.17) by
+	pgsmsx601.gar.corp.intel.com (10.221.43.69) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Fri, 28 Jan 2011 08:07:49 +0800
+Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
+	PGSMSX509.gar.corp.intel.com (172.30.13.17) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Fri, 28 Jan 2011 08:07:50 +0800
+Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
+	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
+	Fri, 28 Jan 2011 08:07:48 +0800
+From: "Tian, Kevin" <kevin.tian@intel.com>
+To: "Wold, Saul" <saul.wold@intel.com>
+Date: Fri, 28 Jan 2011 08:07:47 +0800
+Thread-Topic: [poky] [PATCH 2/5] cronie: enable multi-user crontab usage and
+	make	cron environment complete
+Thread-Index: Acu+TCOM3E2Ze7qdSqWBibaI2gqwmAAMvFjw
+Message-ID: <625BA99ED14B2D499DC4E29D8138F1504DB5E056FB@shsmsx502.ccr.corp.intel.com>
+References: <b7da2f$q8ksnl@fmsmga001.fm.intel.com> <4D41B2B1.2050206@intel.com>
+In-Reply-To: <4D41B2B1.2050206@intel.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
 MIME-Version: 1.0
-To: Koen Kooi <koen@dominion.thruhere.net>
-References: <4D41FE3A.7080407@linux.intel.com>
-	<599CB0CC-7971-4DA6-813B-58B05B48968B@dominion.thruhere.net>
-In-Reply-To: <599CB0CC-7971-4DA6-813B-58B05B48968B@dominion.thruhere.net>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: quilt-native failing with clean master
+Cc: "poky@pokylinux.org" <poky@pokylinux.org>
+Subject: Re: [PATCH 2/5] cronie: enable multi-user crontab usage and make	cron environment complete
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,31 +44,51 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Jan 2011 00:03:32 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 28 Jan 2011 00:07:57 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On 01/27/2011 03:32 PM, Koen Kooi wrote:
-> Op 28 jan 2011, om 00:22 heeft Darren Hart het volgende geschreven:
->
->> Trying to build poky-image-sato-live for atom-pc out of current master:
->>
->> 	021cf7dabf891316a1e909d3972a5232ca53ec80
->>
->> Results in the following for me:
->>
->> ERROR: Error executing a python function in /home/dvhart/source/poky.git/meta/recipes-devtools/quilt/quilt-native_0.48.bb:
->> NameError: global name 'f' is not defined
->>
->> Is anyone seeing something similar? I've just replaced the memory in this machine after discovering it was bad, I suppose it's possible I have a corrupted python interpreter or something like that.
->
-> could it be this one: http://git.yoctoproject.org/cgit/cgit.cgi/poky/commit/?id=bb7a42ee4e348724060ec3010ad1a904c17d2d25 ?
+> From: Wold, Saul
+> Sent: Friday, January 28, 2011 2:00 AM
+> > +
+> > +pkg_postinst_${PN} () {
+> > +	if [ "x$D" !=3D "x" ] ; then
+> > +		exit 1
+> > +	fi
+> > +
+> > +	# below setting is necessary to allow normal user using crontab
+> > +
+> > +	# add 'crontab' group and setgid for crontab binary
+> > +	grep crontab /etc/group || addgroup crontab
+> > +	chown root:crontab /usr/bin/crontab
+> > +	chmod 2755 /usr/bin/crontab
+> > +
+> > +	# allow 'crontab' group write to /var/spool/cron
+> > +	chown root:crontab /var/spool/cron
+> > +	chmod 770 /var/spool/cron
+> > +
+> > +	chmod 600 /etc/crontab
+> >   }
+> Kevin,
+>=20
+> I am going to hold off pulling this and the at changes.
+>=20
+> Is there a specific reason that you are creating this as a post install
+> operation for the permission management, both this and the at recipes
+> are doing this.  Please remember that adding additional items that run
+> at first boot slow things down.
+>=20
+> Is it possible to run these permission changes at actual install time,
+> instead of on the target.
+>=20
 
-It's fixed in master now - I managed to checkout a clean repo right 
-after the break and right before the fix which RP already got in. Doh.
+I thought about this when baking the patch, and finally went to this way be=
+cause
+there's chown operation and new group needs to be created. This has to be d=
+one
+on the target, as you'll see in other similar recipes like dbus, hal, ...
 
--- 
-Darren Hart
-Intel Open Source Technology Center
-Yocto Project - Linux Kernel
+Thanks
+Kevin
 
