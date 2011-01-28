@@ -1,28 +1,34 @@
-Return-Path: <mark.hatle@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id CFA304C8123F
-	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 23:56:12 -0600 (CST)
-Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p0S5uCOe021003
-	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 21:56:12 -0800 (PST)
-Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
-	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Thu, 27 Jan 2011 21:56:12 -0800
-Received: from msp-mhatle-lx2.wrs.com ([172.25.34.61]) by
-	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Thu, 27 Jan 2011 21:56:12 -0800
-From: Mark Hatle <mark.hatle@windriver.com>
-To: poky@yoctoproject.org
-Date: Thu, 27 Jan 2011 23:52:09 -0600
-Message-Id: <b0f9aa1d8ef4c94aca24a2e03446a36e14f8e09b.1296193803.git.mark.hatle@windriver.com>
-X-Mailer: git-send-email 1.7.3.4
-In-Reply-To: <cover.1296193803.git.mark.hatle@windriver.com>
-References: <cover.1296193803.git.mark.hatle@windriver.com>
-In-Reply-To: <cover.1296193803.git.mark.hatle@windriver.com>
-References: <cover.1296193803.git.mark.hatle@windriver.com>
-X-OriginalArrivalTime: 28 Jan 2011 05:56:12.0172 (UTC)
-	FILETIME=[112AA4C0:01CBBEB0]
-Subject: [PATCH 1/1] poky-image-minimal*: Disable packaging tool by default
+Return-Path: <wd@denx.de>
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 0755B4C81246
+	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 01:05:21 -0600 (CST)
+Received: from frontend1.mail.m-online.net (unknown [192.168.8.180])
+	by mail-out.m-online.net (Postfix) with ESMTP id C96031C0038C;
+	Fri, 28 Jan 2011 08:05:20 +0100 (CET)
+X-Auth-Info: bYDtAi2sfrVBx6vsaH3LOnX0x/9K4FbtWtQ+DdnNYkE=
+Received: from diddl.denx.de (host-80-81-18-216.customer.m-online.net
+	[80.81.18.216])
+	by smtp-auth.mnet-online.de (Postfix) with ESMTPA id 6AB1B1C000A7;
+	Fri, 28 Jan 2011 08:05:20 +0100 (CET)
+Received: from gemini.denx.de (gemini.denx.de [10.0.0.2])
+	by diddl.denx.de (Postfix) with ESMTP id 4EBE332105AD;
+	Fri, 28 Jan 2011 08:05:20 +0100 (CET)
+Received: from gemini.denx.de (localhost.localdomain [127.0.0.1])
+	by gemini.denx.de (Postfix) with ESMTP id 31A2BD42A86;
+	Fri, 28 Jan 2011 08:05:20 +0100 (CET)
+To: Darren Hart <dvhart@linux.intel.com>
+From: Wolfgang Denk <wd@denx.de>
+MIME-Version: 1.0
+In-reply-to: <4D41F2D6.4040406@linux.intel.com>
+References: <20110127111132.C69A3B335@gemini.denx.de>
+	<20110127114216.744AEB335@gemini.denx.de>
+	<4D41F2D6.4040406@linux.intel.com>
+Comments: In-reply-to Darren Hart <dvhart@linux.intel.com>
+	message dated "Thu, 27 Jan 2011 14:33:58 -0800."
+Date: Fri, 28 Jan 2011 08:05:20 +0100
+Message-Id: <20110128070520.31A2BD42A86@gemini.denx.de>
+Cc: poky@yoctoproject.org
+Subject: Re: Serial console unusable with poky-image-sdk
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,61 +40,62 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Jan 2011 05:56:13 -0000
+X-List-Received-Date: Fri, 28 Jan 2011 07:05:22 -0000
+Content-type: text/plain; charset=ISO-8859-1
+Content-transfer-encoding: 8bit
 
-If the packaging database is removed by default, then there is no reason to
-install the packaging tool, it just wastes space.
+Dear Darren Hart,
 
-Signed-off-by: Mark Hatle <mark.hatle@windriver.com>
----
- meta/recipes-core/images/poky-image-minimal-dev.bb |    7 ++++++-
- meta/recipes-core/images/poky-image-minimal.bb     |    6 +++++-
- 2 files changed, 11 insertions(+), 2 deletions(-)
+In message <4D41F2D6.4040406@linux.intel.com> you wrote:
+>
+> >> Is there a way to stop dbus-launch from concurring with a login shell
+> >> on the serial console port?
+> >
+> > This patch appears to be working fine for me:
+> >
+> >> From: Wolfgang Denk<wd@denx.de>
+> >> Subject: Stop dbus-launch from interfering with a serial console
+> >
+> > Signed-off-by: Wolfgang Denk<wd@denx.de>
+> > ---
+> >
+> > diff --git a/meta/recipes-graphics/x11-common/x11-common/etc/X11/Xsession b/meta/recipes-graphics/x11-common/x11-common/etc/X11/Xsession
+> > index a87447a..0b73127 100644
+> > --- a/meta/recipes-graphics/x11-common/x11-common/etc/X11/Xsession
+> > +++ b/meta/recipes-graphics/x11-common/x11-common/etc/X11/Xsession
+> > @@ -2,7 +2,7 @@
+> >
+> >   if [ -x /usr/bin/dbus-launch ]; then
+> >       # As this is the X session script, always start a new DBus session.
+> > -    eval `dbus-launch --sh-syntax --exit-with-session`
+> > +    eval `dbus-launch --sh-syntax --exit-with-session</dev/null`
+> >       echo "D-BUS per-session daemon address is: $DBUS_SESSION_BUS_ADDRESS"
+> >   fi
+> >
+> 
+> you can also append "console=tty" to the kernel command line and the 
+> serial console should work. I've run into this on a couple platforms as 
+> well and addressed it this way. This isn't just an X11 issue as I 
+> usually boot -minimal images.
 
-diff --git a/meta/recipes-core/images/poky-image-minimal-dev.bb b/meta/recipes-core/images/poky-image-minimal-dev.bb
-index c64b657..1aa4874 100644
---- a/meta/recipes-core/images/poky-image-minimal-dev.bb
-+++ b/meta/recipes-core/images/poky-image-minimal-dev.bb
-@@ -1,7 +1,7 @@
- #
- # Copyright (C) 2007 OpenedHand Ltd.
- #
--IMAGE_INSTALL = "task-poky-boot ${ROOTFS_PKGMANAGE}"
-+IMAGE_INSTALL = "task-poky-boot"
- 
- IMAGE_FEATURES += "dev-pkgs"
- 
-@@ -13,3 +13,8 @@ inherit poky-image
- 
- # remove not needed ipkg informations
- ROOTFS_POSTPROCESS_COMMAND += "remove_packaging_data_files ; "
-+
-+# If we've removed the packaging data files, it doesn't make sense to install
-+# the packaging tools, since they won't work anyway...
-+#IMAGE_INSTALL += "${ROOTFS_PKGMANAGE}"
-+
-diff --git a/meta/recipes-core/images/poky-image-minimal.bb b/meta/recipes-core/images/poky-image-minimal.bb
-index 48136ed..93e0055 100644
---- a/meta/recipes-core/images/poky-image-minimal.bb
-+++ b/meta/recipes-core/images/poky-image-minimal.bb
-@@ -1,7 +1,7 @@
- #
- # Copyright (C) 2007 OpenedHand Ltd.
- #
--IMAGE_INSTALL = "task-poky-boot ${ROOTFS_PKGMANAGE}"
-+IMAGE_INSTALL = "task-poky-boot"
- 
- IMAGE_LINGUAS = " "
- 
-@@ -11,3 +11,7 @@ inherit poky-image
- 
- # remove not needed ipkg informations
- ROOTFS_POSTPROCESS_COMMAND += "remove_packaging_data_files ; "
-+
-+# If we've removed the packaging data files, it doesn't make sense to install
-+# the packaging tools, since they won't work anyway...
-+#IMAGE_INSTALL += "${ROOTFS_PKGMANAGE}"
+I think you misunderstand.  It is not that the serial console port is
+not working at all, or that there are any wrong assignments to the
+Linux console device.
+
+The problem is that after logging in both the shell and the
+dbus-launch processes will read from the same device, and it is pur
+chance which of these provesses will read which input character.
+
+The problem is that dbus-launch should not read from the console
+terminal at all, and this is what above patch enforces.
+
+Best regards,
+
+Wolfgang Denk
+
 -- 
-1.7.3.4
-
+DENX Software Engineering GmbH,     MD: Wolfgang Denk & Detlev Zundel
+HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
+Phone: (+49)-8142-66989-10 Fax: (+49)-8142-66989-80 Email: wd@denx.de
+"Engineering without management is art."               - Jeff Johnson
 
