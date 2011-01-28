@@ -1,37 +1,35 @@
-Return-Path: <kevin.tian@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2E14D4C81246
-	for <poky@pokylinux.org>; Thu, 27 Jan 2011 21:42:02 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 27 Jan 2011 19:42:01 -0800
+Return-Path: <lianhao.lu@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8D8D34C811FB
+	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 22:13:44 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 27 Jan 2011 20:13:43 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,390,1291622400"; d="scan'208";a="701533942"
+X-IronPort-AV: E=Sophos;i="4.60,390,1291622400"; d="scan'208";a="881766803"
 Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
-	by orsmga001.jf.intel.com with ESMTP; 27 Jan 2011 19:42:00 -0800
-Received: from pgsmsx509.gar.corp.intel.com (172.30.13.17) by
+	by fmsmga001.fm.intel.com with ESMTP; 27 Jan 2011 20:13:43 -0800
+Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
 	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Fri, 28 Jan 2011 11:40:05 +0800
-Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
-	PGSMSX509.gar.corp.intel.com (172.30.13.17) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Fri, 28 Jan 2011 11:40:04 +0800
+	(TLS) id 8.2.254.0; Fri, 28 Jan 2011 12:13:42 +0800
 Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
-	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
-	Fri, 28 Jan 2011 11:40:03 +0800
-From: "Tian, Kevin" <kevin.tian@intel.com>
-To: "Tian, Kevin" <kevin.tian@intel.com>, "poky@pokylinux.org"
-	<poky@pokylinux.org>
-Date: Fri, 28 Jan 2011 11:40:02 +0800
-Thread-Topic: [PATCH 0/5] a series of patches to address some LTP failures
-Thread-Index: Acu+GV2PrdjZ6bSYSUqgrZj/Vr6fDgAg5GeQ
-Message-ID: <625BA99ED14B2D499DC4E29D8138F1504DB5E0584F@shsmsx502.ccr.corp.intel.com>
-References: <1bdc18$jdga4u@fmsmga002.fm.intel.com>
-In-Reply-To: <1bdc18$jdga4u@fmsmga002.fm.intel.com>
-Accept-Language: en-US
+	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
+	Fri, 28 Jan 2011 12:13:41 +0800
+From: "Lu, Lianhao" <lianhao.lu@intel.com>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+Date: Fri, 28 Jan 2011 12:13:40 +0800
+Thread-Topic: [poky] [PATCH 0/6] Added rpm support in meta-toolchain
+Thread-Index: Acu+biF1HnvUVnDRSKWOCXvHB4vYnwAM3B0Q
+Message-ID: <C10D3FB0CD45994C8A51FEC1227CE22F20A85DA2A3@shsmsx502.ccr.corp.intel.com>
+References: <cover.1296095614.git.lianhao.lu@intel.com>
+	<1296165816.27814.8796.camel@rex>
+In-Reply-To: <1296165816.27814.8796.camel@rex>
+Accept-Language: zh-CN, en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
+acceptlanguage: zh-CN, en-US
 MIME-Version: 1.0
-Subject: Re: [PATCH 0/5] a series of patches to address some LTP failures
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH 0/6] Added rpm support in meta-toolchain
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,68 +41,49 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Jan 2011 03:42:02 -0000
+X-List-Received-Date: Fri, 28 Jan 2011 04:13:44 -0000
 Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Since bugzilla is up again, I've updated my commit messages to include BUGI=
-D, and synced to
-poky-contrib. I don't send new pull request due to simple change though.
-
-Thanks
-Kevin
-
-> -----Original Message-----
-> From: Tian, Kevin
-> Sent: Thursday, January 27, 2011 7:39 PM
-> To: poky@pokylinux.org
-> Cc: Tian, Kevin
-> Subject: [PATCH 0/5] a series of patches to address some LTP failures
->=20
-> From: Kevin Tian <kevin.tian@intel.com>
->=20
-> Because now bugzilla is not usable, no bug number is included in this ser=
-ies.
-> I'll report them later with these commits included for reference.
->=20
-> With this series of fixes, all the LTP failures on Qemux86 target are aud=
-ited
-> which composed ~85% total failures on all platforms.
->=20
-> For detail result, please check https://wiki.yoctoproject.org/wiki/LTP_re=
-sult
->=20
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->   Branch: tk/master
->   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=3Dtk/mast=
-er
->=20
-> Thanks,
->     Kevin Tian <kevin.tian@intel.com>
-> ---
->=20
->=20
-> Kevin Tian (5):
->   base-files: remove ending colon from default $PATH for root user
->   cronie: enable multi-user crontab usage and make cron environment
->     complete
->   bash: use /bin/bash as default shell when bash is included
->   at: allow normal user to use 'at'
->   task-poky-sdk: add 'file' and 'ldd'
->=20
->  meta/recipes-core/base-files/base-files/profile   |    2 +-
->  meta/recipes-core/base-files/base-files_3.0.14.bb |    2 +-
->  meta/recipes-core/tasks/task-poky-sdk.bb          |    4 ++-
->  meta/recipes-extended/at/at_3.1.12.bb             |   29
-> +++++++++++++++---
->  meta/recipes-extended/bash/bash.inc               |    5 +++
->  meta/recipes-extended/bash/bash_3.2.48.bb         |    2 +-
->  meta/recipes-extended/bash/bash_4.1.bb            |    2 +-
->  meta/recipes-extended/cronie/cronie/crontab       |   10 ++++++
->  meta/recipes-extended/cronie/cronie_1.4.6.bb      |   33
-> +++++++++++++++++++-
->  9 files changed, 77 insertions(+), 12 deletions(-)
->  create mode 100644 meta/recipes-extended/cronie/cronie/crontab
-
+SGkgUmljaGFyZCwNCg0KUmljaGFyZCBQdXJkaWUgd3JvdGUgb24gMjAxMS0wMS0yODoNCj4gSGkg
+TGlhbmhhbywNCj4gDQo+IE9uIFRodSwgMjAxMS0wMS0yNyBhdCAxMDo1MSArMDgwMCwgTGlhbmhh
+byBMdSB3cm90ZToNCj4+IEZyb206IExpYW5oYW8gTHUgPGxpYW5oYW8ubHVAaW50ZWwuY29tPg0K
+Pj4gDQo+PiBUaGUgcHVycG9zZSBvZiB0aGlzIHNlcmllcyBvZiBwYXRjaGVzIGlzIHRvIGFkZCBy
+cG0gc3VwcG9ydCBpbg0KPj4gbWV0YS10b29sY2hhaW4gY3JlYXRpb24sIGFuZCBhbHNvIHRvIGZp
+eCBidWcgIzIyNy4NCj4+IA0KPj4gSXQgbWFrZXMgdGhlIHRhc2sgcG9wdWxhdGVfc2RrIGluDQo+
+PiBtZXRhL3JlY2lwZXMtY29yZS9tZXRhL21ldGEtdG9vbGNoYWluLmJiIG1vcmUgZ2VuZXJpYyB0
+byBzdXBwb3J0DQo+PiBpbnN0YWxsaW5nIHBhY2thZ2VzIGZyb20gaXBrLCBycG0sIGFuZCBkZWIg
+ZmlsZXMgaW4gY3JlYXRpbmcNCj4+IG1ldGEtdG9vbGNoYWluDQo+IHRhcmJhbGwsIGFuZCBtb3Zl
+IHRoZSBwb3B1bGF0ZV9zZGsgdGFzayBvdXQgb2YgbWV0YS10b29sY2hhaW4uYmINCj4gcmVjaXBl
+IGludG8gYSBiYmNsYXNzLg0KPj4gDQo+PiBJdCBhZGRlZCBwb3B1bGF0ZV9zZGtfeHh4LmJiY2xh
+c3MgZm9yIGRpZmZlcmVudCBwYWNrYWdlIGZpbGUgZm9ybWF0Lg0KPj4gDQo+PiBUaGUgbWV0YS10
+b29sY2hhaW4gaW5zdGFsbGluZyBwcm9jZXNzIGludm9sZXMgMiBzZXQgb2YgcGFja2FnZXMsIG9u
+ZQ0KPj4gaXMgdGhlIGhvc3Qgc2RrIHNldCB3aGljaCBjb250YWlucyBwYWNrYWdlcyBvZiBhcHBs
+aWNhdGlvbnMoZS5nLg0KPj4gY3Jvc3MtY2FuYWRpYW4gY29tcGlsZXJzLCBxZW11LCBldGMuKSBh
+bmQgcmVsZXZhbnQgcnVuLXRpbWUNCj4+IGxpYnJhcmllcywgdGhlIG90aGVyIGlzIHRoZSB0YXJn
+ZXQgc2RrIHNldCB3aGljaCBjb250YWlucyBwYWNrYWdlcw0KPj4gb2YgdGFyZ2V0IGFyY2gncyBs
+aWJyYXJpZXMgYW5kIGhlYWRlciBmaWxlcyB0byBjcmVhdGUgYSB0YXJnZXQNCj4+IHJvb3RmcyBm
+b3IgY3Jvc3MgY29tcGlsaW5nIHB1cnBvc2UuU28gdGhlIHBhdGNoZXMgYWxzbyBtb2RpZmVzDQo+
+PiBhbmQvb3IgYWRkcyBmdW5jdGlvbnMgaW4gcGFja2FnZV9kZWIuYmJjbGFzcyAmIHBhY2thZ2Vf
+cnBtLmJiY2xhc3MNCj4+IHRvIHVwZGF0ZSB0aGUgcGFja2FnZSBpbmRleA0KPiBhbmQgdG8gZ2Vu
+ZXJhdGUgZGlmZmVyZW50IGluc3RhbGxpbmcgY29uZmlndXJhdGlvbiBmaWxlcyBmb3IgdGhlIHRv
+dw0KPiBkaWZmZXJlbnQgc2V0cy4NCj4+IA0KPj4gSXQgYWxzbyBmaXhlZCBhIGJ1ZyBpbiBjcm9z
+cy1jYW5hZGlhbi5iYmNsYXNzIHRvIGVuYWJsZSB0aGUNCj4+IHBhY2thZ2VfZGViLmJiY2xhc3Mg
+Z2VuZXJhdGUgY29ycmVjdCBkZWIgcGFja2FnZSBmaWxlcyBmb3INCj4+IGNyb3NzLWNhbmFkaWFu
+DQo+IHJlY2lwaWVzLg0KPiANCj4gSXRzIGdyZWF0IHRvIHNlZSB0aGlzIGJ1dCBJIHRoaW5rIHdl
+IG5lZWQgdG8gcmVzdHJ1Y3R1cmUgdGhlIGNvZGUgYQ0KPiBsaXR0bGUgbW9yZSBhZ2dyZXNzaXZl
+bHkgYW5kIGNyZWF0ZSBzb21lIGdlbmVyYWwgZnVuY3Rpb25zIHRvIGNvbXBsZXRlIHRoaXMgcHJv
+cGVybHkuDQo+IA0KPiBXaGF0IEkgbWVhbiBpcyB0aGF0IGJvdGggcm9vdGZzX2lwayBhbmQgcG9w
+dWxhdGVfc2RrX2lwayBzaGFyZSBjb2RlLA0KPiByb290ZnNfZGViIGFuZCBwb3B1bGF0ZV9zZGtf
+ZGViIHNoYXJlIGNvZGUgYW5kIGxpa2V3aXNlIGZvciBycG0uDQo+IA0KPiBXaGF0IHdlIG5lZWQg
+aXMgYSBnZW5lcmljIGZ1bmN0aW9uIHdoZXJlIHdlIHNwZWNpZnkgd2hlcmUgdGhlIHRhcmdldA0K
+PiBkaXJlY3RvcnkgaXMgYW5kIGEgbGlzdCBvZiBwYWNrYWdlcyB3ZSB3YW50IHRvIGluc3RhbGwg
+YWxvbmcgd2l0aCBzb21lDQo+IGFyY2hpdGVjdHVyZSBpbmZvcm1hdGlvbiBhbmQgaXQgdGhlbiBn
+b2VzIGFuZCBkb2VzIGl0LiBUaG9zZSBmdW5jdGlvbnMNCj4gd291bGQgbGlrZSBpbiBwYWNrYWdl
+X3h4eC5iYmNsYXNzLiBXZSBzaG91bGQgZG8gc2ltaWxhciB0aGluZ3Mgd2VsbCBpbg0KPiBvbmUg
+cGxhY2UgcmF0aGVyIHRoYW4gaW4gdHdvIHdpdGggc2xpZ2h0bHkgZGlmZmVyZW50IGltcGxlbWVu
+dGF0aW9ucy4NCj4gDQo+IERvIHlvdSBhZ3JlZT8NCj4gDQpPaywgSSdsbCBtZXJnZSB0aGUgY29t
+bW9uIHBhcnQgYmV0d2VlbiByb290ZnNfWFhYIGFuZCBwb3B1bGF0ZV9zZGtfWFhYIGludG8gcGFj
+a2FnZV9YWFguDQoNCkJlc3QgUmVnYXJkcywNCkxpYW5oYW8NCg0KDQo=
 
