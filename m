@@ -1,30 +1,22 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A5AC04C812AC
-	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 10:56:32 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 23DB616605A0; Fri, 28 Jan 2011 09:56:32 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.1
-Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 1C076166059C;
-	Fri, 28 Jan 2011 09:56:31 -0700 (MST)
-Message-ID: <4D42F53F.1010201@mlbassoc.com>
-Date: Fri, 28 Jan 2011 09:56:31 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
-MIME-Version: 1.0
-To: Wolfgang Denk <wd@denx.de>
-References: <20110127111132.C69A3B335@gemini.denx.de>	<20110127114216.744AEB335@gemini.denx.de>	<4D41F2D6.4040406@linux.intel.com>	<20110128070520.31A2BD42A86@gemini.denx.de>	<4D42F269.1080005@linux.intel.com>
-	<20110128165100.656AAD42A99@gemini.denx.de>
-In-Reply-To: <20110128165100.656AAD42A99@gemini.denx.de>
-Cc: poky@yoctoproject.org
-Subject: Re: Serial console unusable with poky-image-sdk
+Return-Path: <josh@openedhand.com>
+Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2B4674C812AC
+	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 10:59:31 -0600 (CST)
+Received: from [192.168.1.88] (unknown [83.217.123.106])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by pug.o-hand.com (Postfix) with ESMTP id 2960C12EC1CD
+	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 11:40:37 -0600 (CST)
+From: Joshua Lock <josh@openedhand.com>
+To: poky@yoctoproject.org
+In-Reply-To: <17a26b55ed1004cc28d4e2d39da5ca09ee868939.1296171289.git.dexuan.cui@intel.com>
+References: <cover.1296171287.git.dexuan.cui@intel.com>
+	<17a26b55ed1004cc28d4e2d39da5ca09ee868939.1296171289.git.dexuan.cui@intel.com>
+Date: Fri, 28 Jan 2011 16:59:23 +0000
+Message-ID: <1296233963.2704.31.camel@scimitar>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.1 (2.32.1-1.fc14) 
+Subject: Re: [Dexuan: Jan 28: PULL 13/16] xkeyboard-config: upgrade from 2.0 to 2.1
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,81 +28,46 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Jan 2011 16:56:38 -0000
-X-Groupsio-MsgNum: 3065
-Content-Type: multipart/mixed; boundary="------------040002030506040100040208"
-
---------------040002030506040100040208
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Fri, 28 Jan 2011 16:59:31 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On 01/28/2011 09:51 AM, Wolfgang Denk wrote:
-> Dear Darren Hart,
->
-> In message<4D42F269.1080005@linux.intel.com>  you wrote:
->>
->> The serial console would show all the output of the boot process and
->> then present a getty. It would accept my login and my password, but as
->> soon as I was logged in, things went weird. Only every Nth character I
->> typed made it to the console, where N was somewhere between 2 and 30.
->
-> Indeed. And the reason for this behaviour is that you have two
-> processes reading from the console, so it depends on the scheduling
-> which of hem receives which characters.
->
->> I believe this had something to do with the automatic consoles the
->> kernel will setup based on the console= parameters. By default, the last
->
-> No, it does not.  You can test it by shutting down X11 (try:
-> "/etc/init.d/xserver-nodm stop"); this will also terminate the
-> dbus-launch process, and your login shell immediately works fine.
->
-> Or try out the patch I posted.
->
->> What I haven't been able to explain yet is why just omitting the getty
->> from the tty doesn't result in console on the serial port due to the
->> kernel's automatic console thing. So clearly there are some gaps in my
->> explanation here, but please try this approach and let me know what your
->> results are. Based on that, we can dig a bit more and figure out how to
->> best setup the console= directives on the default images.
->
-> THere is no problem with the console= settings.  It's two processes
-> reading from a single input stream. This can never work.  Try it ut if
-> you don't believe me.
+On Fri, 2011-01-28 at 07:40 +0800, Dexuan Cui wrote:
+> From: Dexuan Cui <dexuan.cui@intel.com>
+> 
+> Signed-off-by: Dexuan Cui <dexuan.cui@intel.com>
+> ---
+>  ...board-config_2.0.bb => xkeyboard-config_2.1.bb} |    6 ++----
+>  1 files changed, 2 insertions(+), 4 deletions(-)
+>  rename meta/recipes-graphics/xorg-lib/{xkeyboard-config_2.0.bb => xkeyboard-config_2.1.bb} (76%)
+> 
+> diff --git a/meta/recipes-graphics/xorg-lib/xkeyboard-config_2.0.bb b/meta/recipes-graphics/xorg-lib/xkeyboard-config_2.1.bb
+> similarity index 76%
+> rename from meta/recipes-graphics/xorg-lib/xkeyboard-config_2.0.bb
+> rename to meta/recipes-graphics/xorg-lib/xkeyboard-config_2.1.bb
+> index 358bf84..637f880 100644
+> --- a/meta/recipes-graphics/xorg-lib/xkeyboard-config_2.0.bb
+> +++ b/meta/recipes-graphics/xorg-lib/xkeyboard-config_2.1.bb
+> @@ -7,10 +7,8 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=0e7f21ca7db975c63467d2e7624a12f9"
+>  
+>  SRC_URI = "http://people.freedesktop.org/~svu/xkeyboard-config-${PV}.tar.bz2"
+>  
+> -SRC_URI[md5sum] = "bb8a98ee61cdc4bd835fdfd2b5cee3e6"
+> -SRC_URI[sha256sum] = "175f275f5a041edda41fe0f27e59061d1d9c6615959475e4d68ad773b6a2e376"
+> -SECTION = "x11/libs"
+> -DEPENDS = "intltool xkbcomp-native glib-2.0"
 
-Wolfgang has it spot-on - both the console login and dbus are
-fighting over the console device.
+I assume you didn't mean to delete the DEPENDS and SECTION lines here?
 
-I've been using the equivalent of this patch for months and it
-solves the problem just fine.  (Sorry I didn't report it, it
-wasn't high on my list)
-
+> +SRC_URI[md5sum] = "6ce65480445fb2d9c071ad1f002a7675"
+> +SRC_URI[sha256sum] = "e293aa4b0dd259dbb4f0e7f56fdd95db5047d052c7b3b80922fe5663923a805d"
+>  
+>  PR = "r0"
+>  
+Cheers,
+Joshua
 -- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+Joshua Lock
+        Intel Open Source Technology Centre
 
---------------040002030506040100040208
-Content-Type: text/plain;
- name="no-stdin-for-dbus.patch"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
- filename="no-stdin-for-dbus.patch"
 
-Disconnect console from dbus - otherwise, serial console is unusable
-if X session is running.
-
-diff -ur x11-common.ORIG/etc/X11/Xsession x11-common/etc/X11/Xsession
---- x11-common.ORIG/etc/X11/Xsession	2010-08-06 06:43:51.000000000 -0600
-+++ x11-common/etc/X11/Xsession	2010-07-23 12:12:00.000000000 -0600
-@@ -2,7 +2,7 @@
- 
- if [ -x /usr/bin/dbus-launch ]; then
-     # As this is the X session script, always start a new DBus session.
--    eval `dbus-launch --sh-syntax --exit-with-session`
-+    eval `dbus-launch --sh-syntax --exit-with-session </dev/null`
-     echo "D-BUS per-session daemon address is: $DBUS_SESSION_BUS_ADDRESS"
- fi
-
---------------040002030506040100040208--
