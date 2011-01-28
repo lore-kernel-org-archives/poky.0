@@ -1,37 +1,30 @@
-Return-Path: <dongxiao.xu@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5FAC44C8123F
-	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 01:55:58 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 27 Jan 2011 23:55:58 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,391,1291622400"; d="scan'208";a="652038650"
-Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
-	by fmsmga002.fm.intel.com with ESMTP; 27 Jan 2011 23:55:57 -0800
-Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
-	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Fri, 28 Jan 2011 15:54:06 +0800
-Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
-	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
-	Fri, 28 Jan 2011 15:54:04 +0800
-From: "Xu, Dongxiao" <dongxiao.xu@intel.com>
+Return-Path: <koen@dominion.thruhere.net>
+Received: from mail-ww0-f42.google.com (mail-ww0-f42.google.com [74.125.82.42])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 783664C8123F
+	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 01:56:48 -0600 (CST)
+Received: by wwi17 with SMTP id 17so672841wwi.5
+	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 23:56:47 -0800 (PST)
+Received: by 10.227.146.197 with SMTP id i5mr2263995wbv.42.1296201407013;
+	Thu, 27 Jan 2011 23:56:47 -0800 (PST)
+Received: from [172.20.0.255] (ip545070eb.adsl-surfen.hetnet.nl
+	[84.80.112.235])
+	by mx.google.com with ESMTPS id f27sm1595397wbf.1.2011.01.27.23.56.45
+	(version=TLSv1/SSLv3 cipher=RC4-MD5);
+	Thu, 27 Jan 2011 23:56:46 -0800 (PST)
+Mime-Version: 1.0 (Apple Message framework v1082)
+From: Koen Kooi <koen@dominion.thruhere.net>
+In-Reply-To: <1296164726.27814.8752.camel@rex>
+Date: Fri, 28 Jan 2011 08:56:45 +0100
+Message-Id: <B9B61B12-0508-4734-8F9E-96F8DF59081C@dominion.thruhere.net>
+References: <1295993245.27814.133.camel@rex>
+	<A75EAA1D-9046-4CD6-B407-65AA43B9F3CC@dominion.thruhere.net>
+	<1296140767.27814.7777.camel@rex>
+	<95D49026-CF08-4DB9-9749-3C191C737414@dominion.thruhere.net>
+	<1296164726.27814.8752.camel@rex>
 To: Richard Purdie <richard.purdie@linuxfoundation.org>
-Date: Fri, 28 Jan 2011 15:54:03 +0800
-Thread-Topic: [poky] [PATCH 1/3] bitbake: add ${MACHINE} for
-	do_populate_sysroot_setscene and do_package_setscene
-Thread-Index: Acu+FNcT2qm7/nvkSveQq2lp9w9bAAAq4dXA
-Message-ID: <D5AB6E638E5A3E4B8F4406B113A5A19A31D8EFD4@shsmsx501.ccr.corp.intel.com>
-References: <cover.1296115229.git.dongxiao.xu@intel.com>
-	<ff33a5f7c9fdbc069582bd224809b49b6784fa16.1296115229.git.dongxiao.xu@intel.com>
-	<1296127452.27814.7107.camel@rex>
-In-Reply-To: <1296127452.27814.7107.camel@rex>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
-MIME-Version: 1.0
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 1/3] bitbake: add ${MACHINE} for do_populate_sysroot_setscene and do_package_setscene
+X-Mailer: Apple Mail (2.1082)
+Cc: poky <poky@yoctoproject.org>
+Subject: Re: Master stability update
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,45 +36,59 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Jan 2011 07:55:58 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
+X-List-Received-Date: Fri, 28 Jan 2011 07:56:49 -0000
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: quoted-printable
 
-Richard Purdie wrote:
-> On Thu, 2011-01-27 at 16:04 +0800, Dongxiao Xu wrote:
->> From: Dongxiao Xu <dongxiao.xu@intel.com>
+
+Op 27 jan 2011, om 22:45 heeft Richard Purdie het volgende geschreven:
+
+> On Thu, 2011-01-27 at 16:35 +0100, Koen Kooi wrote:
+>> Op 27 jan 2011, om 16:06 heeft Richard Purdie het volgende =
+geschreven:
 >>=20
->> ${MACHINE} information is also needed to be tagged on stamps for
->> do_populate_sysroot_setscene and do_package_setscene, otherwise if
->> build two machines both from sstate, the second machine's sysroot
->> will not be populated correctly.=20
+>>> On Thu, 2011-01-27 at 13:45 +0100, Koen Kooi wrote:
+>>>> Op 25 jan 2011, om 23:07 heeft Richard Purdie het volgende =
+geschreven:
+>>> It seems that autoconf.bbclass change is having a weird ripple =
+effect
+>>> with the sstate packages. Can you clean sstate and then retry, just =
+to
+>>> try and isolate the issues?
+>>>=20
+>>> I agree having a simple change to autotools.bbclass ripple through
+>>> sstate like that isn't desirable btw, I just want to try and fix one
+>>> issue at a time.
 >>=20
->> Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
+>> I removed tmp, sstate-cache and pseudodone, then did 'bitbake
+>> console-image', which failed at the same point. I looked into
+>> =
+'/OE/tentacle/build/tmp-angstrom_2010_x/sysroots/x86_64-linux/usr/bin/', =
+which had a lot files in it, but no autoconf, so I did 'bitbake =
+autoconf-native', that (re)ran a lot of rm_work tasks.
+>>=20
+>>=20
+>> koen@dominion:/OE/tentacle$ ls =
+/OE/tentacle/build/tmp-angstrom_2010_x/sysroots/x86_64-linux/usr/bin/
+>> tclConfig.sh*
+>>=20
+>> so it removed pretty much everything from the sysroot!
 >=20
-> The _setscene stuff is really an internal implementation issue within
-> bitbake. I don't like the idea that the metadata has to get this
-> right and I'd prefer it if bitbake always did the right thing. In
-> this case that means looking up the extra stamp info against the
-> parent task, not the setscene one.   =20
+> Just to update on this, Koen is using distribute_sources which adds a
+> do_distribute_sources task. This is why things are working on master =
+but
+> not for Koen.
 >=20
-> I therefore merged:
+> That task runs later and causes do_setscene to rerun which cleans out
+> the sysroot rather helpfully assuming that all tasks for that recipe
+> will rerun which isn't true.
 >=20
-> http://git.pokylinux.org/cgit.cgi/poky/commit/?id=3Dc34913ea5a4f20ce4bca3=
-c68a65e9f64f1e3910c
+> This branch has some proposed changes to make this work better:
+>=20
+> http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=3Drpurdie/misc2
+>=20
+> and Koen is testing them to see how they work out.
 
-Yes, this approach is better then specifically handling *_setscene stamp-ex=
-tra-info in meta files. Thanks!
-
--- Dongxiao
-
->=20
-> which should obsolete this patch?
->=20
-> Good catch on finding the problem though!
->=20
-> Cheers,
->=20
-> Richard
-
+That fixes both the setscene and machine switching issues. Everything =
+works as expected again!=
 
