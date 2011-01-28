@@ -1,23 +1,23 @@
-Return-Path: <paul.eggleton@linux.intel.com>
+Return-Path: <sgw@linux.intel.com>
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 6B1DD4C81271
-	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 18:36:57 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 427404C811FB;
+	Thu, 27 Jan 2011 18:41:42 -0600 (CST)
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 27 Jan 2011 16:36:49 -0800
+	by orsmga102.jf.intel.com with ESMTP; 27 Jan 2011 16:41:41 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,388,1291622400"; d="scan'208";a="701485378"
-Received: from unknown (HELO helios) ([10.255.16.167])
-	by orsmga001.jf.intel.com with SMTP; 27 Jan 2011 16:36:48 -0800
-Received: by helios (sSMTP sendmail emulation); Fri, 28 Jan 2011 00:36:49 +0000
-Message-Id: <cfa312954287dcde561ead0b3169fec80e6622ad.1296174472.git.paul.eggleton@linux.intel.com>
-In-Reply-To: <cover.1296174472.git.paul.eggleton@linux.intel.com>
-References: <cover.1296174472.git.paul.eggleton@linux.intel.com>
-Old-Date: Mon, 17 Jan 2011 15:31:11 +0000
-Date: Fri, 28 Jan 2011  0:36:49 +0000
-To: poky@yoctoproject.org
-CC: 
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-Subject: [PATCH 10/11] avahi: prevent unnecessary runtime dependency on gtk+
+X-IronPort-AV: E=Sophos;i="4.60,388,1291622400"; d="scan'208";a="701486829"
+Received: from unknown (HELO [10.255.14.102]) ([10.255.14.102])
+	by orsmga001.jf.intel.com with ESMTP; 27 Jan 2011 16:41:41 -0800
+Message-ID: <4D4210C4.6080306@linux.intel.com>
+Date: Thu, 27 Jan 2011 16:41:40 -0800
+From: Saul Wold <sgw@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
+MIME-Version: 1.0
+To: Yocto Project Discussion <yocto@yoctoproject.org>, 
+	"poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Bugzilla has returned - Bug Triage Plans
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,69 +29,44 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Jan 2011 00:36:57 -0000
+X-List-Received-Date: Fri, 28 Jan 2011 00:41:42 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
 
-* Move avahi-discover-standalone to avahi-ui-utils as it's a GUI tool
-* Split out avahi-ui dev files from avahi-dev to a libavahi-ui-dev package
-  (using the new nodeprrecs flag to avoid automatic RRECOMMENDS calculation
-  for avahi-dev)
+Folks,
 
-Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
----
- meta/recipes-connectivity/avahi/avahi.inc       |    9 ++++++++-
- meta/recipes-connectivity/avahi/avahi_0.6.28.bb |    2 +-
- 2 files changed, 9 insertions(+), 2 deletions(-)
+Apologies for the extended absence of bugzilla.yoctoproject.org, it is 
+back up now and working.
 
-diff --git a/meta/recipes-connectivity/avahi/avahi.inc b/meta/recipes-connectivity/avahi/avahi.inc
-index 5c3b4dd..9f83d8d 100644
---- a/meta/recipes-connectivity/avahi/avahi.inc
-+++ b/meta/recipes-connectivity/avahi/avahi.inc
-@@ -37,11 +37,14 @@ EXTRA_OECONF = "--with-distro=debian \
-              --disable-python \
-              --disable-doxygen-doc"
- 
--PACKAGES =+ "avahi-daemon libavahi-common libavahi-core libavahi-client avahi-dnsconfd libavahi-glib libavahi-gobject avahi-autoipd avahi-utils libavahi-ui avahi-ui-utils"
-+PACKAGES =+ "avahi-daemon libavahi-common libavahi-core libavahi-client avahi-dnsconfd libavahi-glib libavahi-gobject avahi-autoipd avahi-ui-utils avahi-utils libavahi-ui libavahi-ui-dev"
- 
- FILES_libavahi-common = "${libdir}/libavahi-common.so.*"
- FILES_libavahi-core = "${libdir}/libavahi-core.so.*"
- FILES_libavahi-ui = "${libdir}/libavahi-ui.so.*"
-+FILES_libavahi-ui-dev = "${libdir}/libavahi-ui.* \
-+                         ${includedir}/avahi-ui/* \
-+                         ${libdir}/pkgconfig/avahi-ui.pc"
- FILES_avahi-daemon = "${sbindir}/avahi-daemon \
-                       ${sysconfdir}/avahi/avahi-daemon.conf \
-                       ${sysconfdir}/avahi/hosts \
-@@ -59,9 +62,13 @@ FILES_libavahi-glib = "${libdir}/libavahi-glib.so.*"
- FILES_libavahi-gobject = "${libdir}/libavahi-gobject.so.*"
- FILES_avahi-utils = "${bindir}/avahi-*"
- FILES_avahi-ui-utils = "${bindir}/bssh ${bindir}/bvnc ${bindir}/bshell \
-+                        ${bindir}/avahi-discover-standalone \
-                         ${datadir}/applications \
-                         ${datadir}/avahi/interfaces"
- 
-+RRECOMMENDS_avahi-dev = "gettext-dev expat-dev libcap-dev libdaemon-dev dbus-dev glib-2.0-dev update-rc.d-dev"
-+RRECOMMENDS_avahi-dev[nodeprrecs] = 1
-+
- CONFFILES_avahi-daemon = "${sysconfdir}/avahi/avahi-daemon.conf"
- 
- INITSCRIPT_PACKAGES = "avahi-daemon avahi-dnsconfd"
-diff --git a/meta/recipes-connectivity/avahi/avahi_0.6.28.bb b/meta/recipes-connectivity/avahi/avahi_0.6.28.bb
-index fb339e7..6e034b0 100644
---- a/meta/recipes-connectivity/avahi/avahi_0.6.28.bb
-+++ b/meta/recipes-connectivity/avahi/avahi_0.6.28.bb
-@@ -7,7 +7,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=2d5025d4aa3495befef8f17206a5b0a1 \
-                     file://avahi-client/client.h;endline=23;md5=f4ac741a25c4f434039ba3e18c8674cf"
- 
- RDEPENDS_avahi-daemon = "sysvinit-pidof"
--PR = "r1"
-+PR = "r2"
- 
- EXTRA_OECONF += "--disable-gtk3"
- 
+As we head into the next phase of Poky / Yocto Metadata 1.0, we need to 
+have people evaluate the existing bugs and determine if they can be 
+fixed for 1.0 or need to be marked for the next release.
+
+Currently there are 170 open bugs, we need to go through these and 
+ensure that their Importance and Target Milestones are correct.
+
+I will be holding a Bug Triage meeting via the #yocto IRC Channel at two 
+times, in order to accommodate the global nature of the Yocto Project. 
+These will be about :30 to :45 minute meetings.
+
+Tue February 1st @ 17:30 GMT / Tue 09:30 PST / Wed 01:00 China
+Wed February 2st @ 07:00 GMT / Tue 23:00 PST / Wed 15:00 China
+
+Please join the team to discuss any bugs that you have an interest in. I 
+will be the "bug caller" at those times in order to facilitate some 
+semblance of order.
+
+You can also send email or place a bugzilla comment directly for those 
+bugs that are important to you or your project.
+
+Thanks for your support of the Yocto Project
+
 -- 
-1.7.1
+     Sau!
+
+Saul Wold
+Yocto Component Wrangler @ Intel
+Yocto Project / Poky Build System
 
 
