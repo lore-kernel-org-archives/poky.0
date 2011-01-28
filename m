@@ -1,25 +1,25 @@
 Return-Path: <saul.wold@intel.com>
 Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 167B74C81267;
-	Thu, 27 Jan 2011 19:11:49 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 9DE714C81281
+	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 19:12:23 -0600 (CST)
 Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 27 Jan 2011 17:11:49 -0800
+	by azsmga101.ch.intel.com with ESMTP; 27 Jan 2011 17:12:23 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,388,1291622400"; d="scan'208";a="380985772"
+X-IronPort-AV: E=Sophos;i="4.60,388,1291622400"; d="scan'208";a="380986160"
 Received: from unknown (HELO [10.255.14.102]) ([10.255.14.102])
-	by azsmga001.ch.intel.com with ESMTP; 27 Jan 2011 17:11:48 -0800
-Message-ID: <4D4217D3.1060507@intel.com>
-Date: Thu, 27 Jan 2011 17:11:47 -0800
+	by azsmga001.ch.intel.com with ESMTP; 27 Jan 2011 17:12:14 -0800
+Message-ID: <4D4217EE.9020600@intel.com>
+Date: Thu, 27 Jan 2011 17:12:14 -0800
 From: Saul Wold <saul.wold@intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
 	Thunderbird/3.0.5
 MIME-Version: 1.0
-To: Bruce Ashfield <bruce.ashfield@windriver.com>
-References: <cover.1295641280.git.bruce.ashfield@windriver.com>
-In-Reply-To: <cover.1295641280.git.bruce.ashfield@windriver.com>
-Cc: yocto@yoctoproject.org, poky@yoctoproject.org
-Subject: Re: [PATCH 0/1] linux-yocto/stable: update beagleboard part 2
+To: Darren Hart <dvhart@linux.intel.com>
+References: <4D39FB56.8020204@linux.intel.com>
+In-Reply-To: <4D39FB56.8020204@linux.intel.com>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH] send-pull-request: send all patches as the local user
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,36 +31,56 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Jan 2011 01:11:50 -0000
+X-List-Received-Date: Fri, 28 Jan 2011 01:12:23 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 01/21/2011 12:23 PM, Bruce Ashfield wrote:
-> Richard/Saul,
->
-> Just another quick update to pickup a change that gets beagleboard xm
-> networking functional.
+On 01/21/2011 01:32 PM, Darren Hart wrote:
+> Please pull the following patch from poky-contrib/dvhart/git-pull
 >
 > Pull URL: git://git.pokylinux.org/poky-contrib.git
->    Branch: zedd/kernel
->    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/kernel
+>    Branch: dvhart/git-pull
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dvhart/git-pull
 >
 > Thanks,
->      Bruce Ashfield<bruce.ashfield@windriver.com>
+>      Darren Hart<dvhart@linux.intel.com>
+>
+>
+> When using sendmail to send patches, patches would appear to be from the
+> original author as git adds a From: header in the generated patches.  This patch
+> changes this behavior to match that of git-send-email, where the email From:
+> header is that of the current sender (according to sendmail) and a "From:
+> Original Author<email>" line is inserted into the body of the message.
+>
+> Signed-off-by: Darren Hart<dvhart@linux.intel.com>
 > ---
+>   scripts/send-pull-request |    7 ++++++-
+>   1 files changed, 6 insertions(+), 1 deletions(-)
 >
->
-> Bruce Ashfield (1):
->    linux-yocto/stable: update beagleboard SRCREV
->
->   .../conf/distro/include/poky-default-revisions.inc |    2 +-
->   1 files changed, 1 insertions(+), 1 deletions(-)
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
+> diff --git a/scripts/send-pull-request b/scripts/send-pull-request
+> index 9872c0d..af7ce2a 100755
+> --- a/scripts/send-pull-request
+> +++ b/scripts/send-pull-request
+> @@ -140,13 +140,18 @@ if [ "$cont" == "y" ] || [ "$cont" == "Y" ]; then
+>                   # appending them to the sendmail command as -- $TO $CC has
+>                   # proven to be an exercise in futility.
+>                   #
+> +                # Clear the From header, leaving it up to sendmail to insert an
+> +                # appropriate one. Insert the original sender (per git) into the
+> +                # body of the message.
+> +                #
+>                   # Use tail to remove the email envelope from git or formail as
+>                   # msmtp (sendmail) would choke on them.
+>                   #
+>                   # Modify the patch date for sequential delivery, but retain the
+>                   # original date as "Old-Date".
+>                   DATE=$(date +"%a, %d %b %Y %k:%M:%S %z")
+> -                cat $PATCH | formail -I "To: $TO" -I "CC: $CC" -i "Date: $DATE" | tail -n +2 | sendmail -t
+> +                GIT_FROM=$(cat $PATCH | formail -X "From:")
+> +                cat $PATCH | formail -I "To: $TO" -I "CC: $CC" -I "From:" -i "Date: $DATE" | sed "0,/^$/s/^$/\n$GIT_FROM\n/" | tail -n +2 | sendmail -t
+>                   if [ $? -eq 1 ]; then
+>                       ERROR=1
+>                   fi
 Pulled into Master
 
 Thanks
