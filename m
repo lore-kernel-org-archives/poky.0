@@ -1,25 +1,27 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 249CD4C8006D
-	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 12:42:33 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 28 Jan 2011 10:42:32 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,393,1291622400"; d="scan'208";a="381318537"
-Received: from unknown (HELO [10.255.14.108]) ([10.255.14.108])
-	by azsmga001.ch.intel.com with ESMTP; 28 Jan 2011 10:42:32 -0800
-Message-ID: <4D430E17.5010003@intel.com>
-Date: Fri, 28 Jan 2011 10:42:31 -0800
-From: Saul Wold <saul.wold@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
-MIME-Version: 1.0
-To: Scott Garman <scott.a.garman@intel.com>
-References: <cover.1296167950.git.scott.a.garman@intel.com>
-In-Reply-To: <cover.1296167950.git.scott.a.garman@intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/9] docbook-utils and related recipes
+Return-Path: <trini@kernel.crashing.org>
+Received: from fed1rmmtao102.cox.net (fed1rmmtao102.cox.net [68.230.241.44])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 17A654C810E5
+	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 13:28:25 -0600 (CST)
+Received: from fed1rmimpo01.cox.net ([70.169.32.71]) by fed1rmmtao102.cox.net
+	(InterMail vM.8.01.04.00 201-2260-137-20101110) with ESMTP id
+	<20110128192825.LQJV27452.fed1rmmtao102.cox.net@fed1rmimpo01.cox.net>;
+	Fri, 28 Jan 2011 14:28:25 -0500
+Received: from localhost ([68.230.54.74]) by fed1rmimpo01.cox.net with bizsmtp
+	id 17UR1g00K1c4QQc037URry; Fri, 28 Jan 2011 14:28:25 -0500
+X-VR-Score: 0.00
+X-Authority-Analysis: v=1.1 cv=BG8qfcBhb6ysayQw8y3mT4lZCrTQT92KqHQGbTaNafk=
+	c=1 sm=1 a=1wnsU2VTbYgA:10 a=Radsl6Z+G8iJZwukXIp+gw==:17
+	a=9Wbp7B8dAAAA:8
+	a=SUDCPscr1U1aFJE8fWYA:9 a=Q_4I0erR77Ef3whiKL-7FYFGg0AA:4
+	a=QKMRfEvApNQA:10 a=Radsl6Z+G8iJZwukXIp+gw==:117
+X-CM-Score: 0.00
+Authentication-Results: cox.net; none
+From: Tom Rini <tom_rini@mentor.com>
+To: poky@yoctoproject.org
+Date: Fri, 28 Jan 2011 12:28:19 -0700
+Message-Id: <1296242899-7406-1-git-send-email-tom_rini@mentor.com>
+X-Mailer: git-send-email 1.7.0.4
+Subject: [PATCH] poky-{glibc,uclibc}.inc: Add libc-foo OVERRIDES
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,98 +33,46 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Jan 2011 18:42:33 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 28 Jan 2011 19:28:26 -0000
 
-On 01/27/2011 02:42 PM, Scott Garman wrote:
-> From: Scott Garman<scott.a.garman@intel.com>
->
-> Richard,
->
-> This pull request includes several new recipes to allow us to build
-> documentation for other packages. The main one is docbook-utils, and
-> the other recipes are its dependencies. I've also re-enabled
-> documentation generation in the iputils script and verified it works
-> correctly.
->
-> These recipes are from OpenEmbedded, and some of the source packges
-> haven't changed in a long time. As such a couple of the recipes I've
-> updated to use modern staging and BBCLASSEXTEND. Please look them over,
-> and if things look good I will also submit them back to OE.
->
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->    Branch: sgarman/docbook-utils
->    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=sgarman/docbook-utils
->
-> Thanks,
->      Scott Garman<scott.a.garman@intel.com>
-> ---
->
->
-> Scott Garman (9):
->    sgml-common: new recipe v0.6.3
->    docbook-sgml-dtd: new recipes - v3.1, v4.1, v4.5
->    docbook-dsssl-stylesheets: new recipe v1.79
->    sgmlspl: new recipe, v1.03ii
->    opensp: new recipe v1.5
->    openjade: new recipe v1.3.2
->    docbook-utils: new recipe v0.6.14
->    iputils: enable generation of man pages
->    distro_tracking_fields.inc: added docbook-utils and dependencies
->
->   .../conf/distro/include/distro_tracking_fields.inc |   69 +
->   .../docbook-dsssl-stylesheets-native_1.79.bb       |   53 +
->   .../docbook-sgml-dtd-3.1-native.bb                 |   23 +
->   .../docbook-sgml-dtd-4.1-native.bb                 |   23 +
->   .../docbook-sgml-dtd-4.5-native.bb                 |   21 +
->   .../docbook-sgml-dtd/docbook-sgml-dtd-native.inc   |   49 +
->   .../docbook-utils/docbook-utils_0.6.14.bb          |   20 +
->   .../openjade/openjade-1.3.2/autoconf.patch         |  173 ++
->   .../openjade/openjade-1.3.2/configure.patch        |   68 +
->   .../openjade/openjade-1.3.2/makefile.patch         |   34 +
->   .../openjade-1.3.2/oj-native-libosp-fix.patch      |   15 +
->   meta/recipes-devtools/openjade/openjade_1.3.2.bb   |   66 +
->   .../opensp/opensp/attributevalue.patch             |   62 +
->   .../opensp/opensp/fix-docdir.patch                 |   14 +
->   meta/recipes-devtools/opensp/opensp/m4.patch       | 1925 ++++++++++++++++++++
->   .../opensp/opensp/rangmap-fix.patch                |   15 +
->   meta/recipes-devtools/opensp/opensp_1.5.bb         |   27 +
->   .../sgml-common/sgml-common-0.6.3/autohell.patch   |   58 +
->   .../sgml-common/sgml-common-native_0.6.3.bb        |   50 +
->   .../sgml-common/sgml-common_0.6.3.bb               |   53 +
->   meta/recipes-devtools/sgmlspl/files/combined.patch |  457 +++++
->   .../sgmlspl/sgmlspl-native_1.03ii.bb               |   17 +
->   meta/recipes-extended/iputils/iputils_s20101006.bb |   10 +-
->   23 files changed, 3297 insertions(+), 5 deletions(-)
->   create mode 100644 meta/recipes-devtools/docbook-dsssl-stylesheets/docbook-dsssl-stylesheets-native_1.79.bb
->   create mode 100644 meta/recipes-devtools/docbook-sgml-dtd/docbook-sgml-dtd-3.1-native.bb
->   create mode 100644 meta/recipes-devtools/docbook-sgml-dtd/docbook-sgml-dtd-4.1-native.bb
->   create mode 100644 meta/recipes-devtools/docbook-sgml-dtd/docbook-sgml-dtd-4.5-native.bb
->   create mode 100644 meta/recipes-devtools/docbook-sgml-dtd/docbook-sgml-dtd-native.inc
->   create mode 100644 meta/recipes-devtools/docbook-utils/docbook-utils_0.6.14.bb
->   create mode 100644 meta/recipes-devtools/openjade/openjade-1.3.2/autoconf.patch
->   create mode 100644 meta/recipes-devtools/openjade/openjade-1.3.2/configure.patch
->   create mode 100644 meta/recipes-devtools/openjade/openjade-1.3.2/makefile.patch
->   create mode 100644 meta/recipes-devtools/openjade/openjade-1.3.2/oj-native-libosp-fix.patch
->   create mode 100644 meta/recipes-devtools/openjade/openjade_1.3.2.bb
->   create mode 100644 meta/recipes-devtools/opensp/opensp/attributevalue.patch
->   create mode 100644 meta/recipes-devtools/opensp/opensp/fix-docdir.patch
->   create mode 100644 meta/recipes-devtools/opensp/opensp/m4.patch
->   create mode 100644 meta/recipes-devtools/opensp/opensp/rangmap-fix.patch
->   create mode 100644 meta/recipes-devtools/opensp/opensp_1.5.bb
->   create mode 100644 meta/recipes-devtools/sgml-common/sgml-common-0.6.3/autohell.patch
->   create mode 100644 meta/recipes-devtools/sgml-common/sgml-common-native_0.6.3.bb
->   create mode 100644 meta/recipes-devtools/sgml-common/sgml-common_0.6.3.bb
->   create mode 100644 meta/recipes-devtools/sgmlspl/files/combined.patch
->   create mode 100644 meta/recipes-devtools/sgmlspl/sgmlspl-native_1.03ii.bb
->
-Can you address the LIC_FILES_CHKSUM issues, I know we talked about this 
-also.  Can you get a copy of the license from the Upstream and in the 
-case of autotools "providing" one, can you confirm with the upstream 
-author that is their correct license.
+This brings things back in sync with OpenEmbedded and will
+help with recipe porting.
 
-Thanks
-	Sau!
+Signed-off-by: Tom Rini <tom_rini@mentor.com>
+---
+ meta/conf/distro/include/poky-glibc.inc  |    3 +++
+ meta/conf/distro/include/poky-uclibc.inc |    3 +++
+ 2 files changed, 6 insertions(+), 0 deletions(-)
+
+diff --git a/meta/conf/distro/include/poky-glibc.inc b/meta/conf/distro/include/poky-glibc.inc
+index 35c6fc1..4be7122 100644
+--- a/meta/conf/distro/include/poky-glibc.inc
++++ b/meta/conf/distro/include/poky-glibc.inc
+@@ -2,6 +2,9 @@
+ # glibc specific configuration
+ #
+ 
++# Add glibc to the overrides.
++OVERRIDES =. "libc-glibc:"
++
+ #glibc
+ PREFERRED_PROVIDER_virtual/libiconv ?= "glibc"
+ PREFERRED_PROVIDER_virtual/libintl ?= "glibc"
+diff --git a/meta/conf/distro/include/poky-uclibc.inc b/meta/conf/distro/include/poky-uclibc.inc
+index edbcc4a..def9dfe 100644
+--- a/meta/conf/distro/include/poky-uclibc.inc
++++ b/meta/conf/distro/include/poky-uclibc.inc
+@@ -2,6 +2,9 @@
+ # uclibc specific configuration
+ #
+ 
++# Add uclibc overrides to the overrides.
++OVERRIDES =. "libc-uclibc:"
++
+ PREFERRED_PROVIDER_virtual/libc = "uclibc"
+ PREFERRED_PROVIDER_virtual/${TARGET_PREFIX}libc-for-gcc = "uclibc"
+ PREFERRED_PROVIDER_virtual/libiconv ?= "libiconv"
+-- 
+1.7.0.4
 
 
