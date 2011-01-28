@@ -1,25 +1,24 @@
 Return-Path: <saul.wold@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 36CA24C81267
-	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 19:34:02 -0600 (CST)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 3CB744C81260
+	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 19:34:25 -0600 (CST)
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 27 Jan 2011 17:34:01 -0800
+	by fmsmga101.fm.intel.com with ESMTP; 27 Jan 2011 17:34:24 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,388,1291622400"; d="scan'208";a="881729823"
+X-IronPort-AV: E=Sophos;i="4.60,388,1291622400"; d="scan'208";a="881729925"
 Received: from unknown (HELO [10.255.14.102]) ([10.255.14.102])
-	by fmsmga001.fm.intel.com with ESMTP; 27 Jan 2011 17:34:01 -0800
-Message-ID: <4D421D08.8030308@intel.com>
-Date: Thu, 27 Jan 2011 17:34:00 -0800
+	by fmsmga001.fm.intel.com with ESMTP; 27 Jan 2011 17:34:24 -0800
+Message-ID: <4D421D1F.8020401@intel.com>
+Date: Thu, 27 Jan 2011 17:34:23 -0800
 From: Saul Wold <saul.wold@intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
 	Thunderbird/3.0.5
 MIME-Version: 1.0
 To: poky@yoctoproject.org
-References: <cover.1296008816.git.ke.yu@intel.com>
-	<e7938fd0e70645d5005b4ccc08ffe5f4821ee6a2.1296008816.git.ke.yu@intel.com>
-In-Reply-To: <e7938fd0e70645d5005b4ccc08ffe5f4821ee6a2.1296008816.git.ke.yu@intel.com>
-Subject: Re: [PATCH 1/2] iputils: upgrade to s20101006
+References: <849307$bb0a00@azsmga001.ch.intel.com>
+In-Reply-To: <849307$bb0a00@azsmga001.ch.intel.com>
+Subject: Re: [PATCH 1/5] base-files: remove ending colon from default $PATH for root user
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,73 +30,78 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Jan 2011 01:34:02 -0000
+X-List-Received-Date: Fri, 28 Jan 2011 01:34:25 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 01/25/2011 06:29 PM, poky-bounces@yoctoproject.org wrote:
-> From: Yu Ke<ke.yu@intel.com>
+On 01/27/2011 03:38 AM, poky-bounces@yoctoproject.org wrote:
+> From: Kevin Tian<kevin.tian@intel.com>
 >
-> - change the src_uri md5/sha256 checksum
-> - remove the CVE patch, since it is already in upstream
+> now the PATH for root user defined in a problematic way
+>      PATH=$PATH:/usr/local/sbin:/usr/sbin:/sbin:
 >
-> Signed-off-by: Yu Ke<ke.yu@intel.com>
+> from eglibc:
+>      /* Two adjacent colons, or a colon at the beginning or the end
+>         of `PATH' means to search the current directory.  */
+>
+> that means current directory is always searched as the last path,
+> which could generate undesired behavior.
+>
+> One example is found in LTP cron_deny01 test, which always complains
+>      "sh: cron_deny01 not found"
+>
+> cron_deny01 is a shell script which setups the initial test preparation
+> and then invokes itself for real test under a different user:
+>      su $TEST_USER1 -c "$0"
+>
+> 'su' doesn't inherit PATH into the sub-shell, and thus $0 has to
+> be an absolute path to have right script found.
+>
+> ltp appends the path of cron_deny01 to $PATH before running the test:
+>      export PATH="${PATH}:${LTPROOT}/testcases/bin"
+>
+> In ideal way "${LTPROOT}/testcases/bin/cron_deny01" is found and becomes
+> $0, which works well.
+>
+> However due to the ending colon in original PATH:
+>      PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin::${LTPROOT}/testcases/bin
+> $0 becomes 'cron_deny01' w/o leading path which makes sub-shell under 'su'
+> failed to locate cron_deny01.
+>
+> remove ending colon then fixes this problem.
+>
+> Signed-off-by: Kevin Tian<kevin.tian@intel.com>
 > ---
->   .../iputils/files/debian/CVE-2010-2529.diff        |   22 --------------------
->   .../{iputils_s20100418.bb =>  iputils_s20101006.bb} |    5 +--
->   2 files changed, 2 insertions(+), 25 deletions(-)
->   delete mode 100644 meta/recipes-extended/iputils/files/debian/CVE-2010-2529.diff
->   rename meta/recipes-extended/iputils/{iputils_s20100418.bb =>  iputils_s20101006.bb} (94%)
+>   meta/recipes-core/base-files/base-files/profile   |    2 +-
+>   meta/recipes-core/base-files/base-files_3.0.14.bb |    2 +-
+>   2 files changed, 2 insertions(+), 2 deletions(-)
 >
-> diff --git a/meta/recipes-extended/iputils/files/debian/CVE-2010-2529.diff b/meta/recipes-extended/iputils/files/debian/CVE-2010-2529.diff
-> deleted file mode 100644
-> index 98aae0d..0000000
-> --- a/meta/recipes-extended/iputils/files/debian/CVE-2010-2529.diff
-> +++ /dev/null
-> @@ -1,22 +0,0 @@
-> -Index: trunk/ping.c
-> -===================================================================
-> ---- trunk.orig/ping.c	2010-07-23 21:26:53.000000000 -0700
-> -+++ trunk/ping.c	2010-07-23 21:28:27.000000000 -0700
-> -@@ -1059,7 +1059,7 @@
-> - 				i = j;
-> - 			i -= IPOPT_MINOFF;
-> - 			if (i<= 0)
-> --				continue;
-> -+				break;
-> - 			if (i == old_rrlen
-> - 			&&  !strncmp((char *)cp, old_rr, i)
-> - 			&&  !(options&  F_FLOOD)) {
-> -@@ -1096,7 +1096,7 @@
-> - 				i = j;
-> - 			i -= 5;
-> - 			if (i<= 0)
-> --				continue;
-> -+				break;
-> - 			flags = *++cp;
-> - 			printf("\nTS: ");
-> - 			cp++;
-> diff --git a/meta/recipes-extended/iputils/iputils_s20100418.bb b/meta/recipes-extended/iputils/iputils_s20101006.bb
-> similarity index 94%
-> rename from meta/recipes-extended/iputils/iputils_s20100418.bb
-> rename to meta/recipes-extended/iputils/iputils_s20101006.bb
-> index 2b2d76a..0a42017 100644
-> --- a/meta/recipes-extended/iputils/iputils_s20100418.bb
-> +++ b/meta/recipes-extended/iputils/iputils_s20101006.bb
-> @@ -21,11 +21,10 @@ SRC_URI = "http://www.skbuff.net/iputils/${PN}-${PV}.tar.bz2 \
->              file://debian/use_gethostbyname2.diff \
->              file://debian/targets.diff \
->              file://debian/fix-arping-timeouts.diff \
-> -           file://debian/CVE-2010-2529.diff \
->             "
+> diff --git a/meta/recipes-core/base-files/base-files/profile b/meta/recipes-core/base-files/base-files/profile
+> index aa1c20f..e9408d1 100644
+> --- a/meta/recipes-core/base-files/base-files/profile
+> +++ b/meta/recipes-core/base-files/base-files/profile
+> @@ -12,7 +12,7 @@ if [ ! -e /etc/localtime ]; then
+>   fi
 >
-> -SRC_URI[md5sum] = "df6b0062118cdc5c62e3c810f831e976"
-> -SRC_URI[sha256sum] = "d0e8cbe6ce6a484ffb81697425b3b933746882f6f1521ac71c5c88971cee7684"
-> +SRC_URI[md5sum] = "a36c25e9ec17e48be514dc0485e7376c"
-> +SRC_URI[sha256sum] = "fd3af46c80ebb99607c2ca1f2a3608b6fe828e25bbec6e54f2afd25f6ddb6ee7"
->
->   # man is not compiled here, since it requires docbook-utils-native
->   # which is not available in poky
+>   if [ "$HOME" = "/home/root" ]; then
+> -   PATH=$PATH:/usr/local/sbin:/usr/sbin:/sbin:
+> +   PATH=$PATH:/usr/local/sbin:/usr/sbin:/sbin
+>   fi
+>   if [ "$PS1" ]; then
+>   # works for bash and ash (no other shells known to be in use here)
+> diff --git a/meta/recipes-core/base-files/base-files_3.0.14.bb b/meta/recipes-core/base-files/base-files_3.0.14.bb
+> index 2363feb..d2fec72 100644
+> --- a/meta/recipes-core/base-files/base-files_3.0.14.bb
+> +++ b/meta/recipes-core/base-files/base-files_3.0.14.bb
+> @@ -2,7 +2,7 @@ SUMMARY = "Miscellaneous files for the base system."
+>   DESCRIPTION = "The base-files package creates the basic system directory structure and provides a small set of key configuration files for the system."
+>   SECTION = "base"
+>   PRIORITY = "required"
+> -PR = "r66"
+> +PR = "r67"
+>   LICENSE = "GPLv2"
+>   LIC_FILES_CHKSUM = "file://licenses/GPL-2;md5=94d55d512a9ba36caa9b7df079bae19f"
+>   SRC_URI = "file://rotation \
 Pulled into Master
 
 Thanks
