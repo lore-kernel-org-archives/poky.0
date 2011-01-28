@@ -1,29 +1,35 @@
-Return-Path: <koen@dominion.thruhere.net>
-Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 073334C8123C
-	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 11:43:36 -0600 (CST)
-Received: by wwb31 with SMTP id 31so3730484wwb.11
-	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 09:43:36 -0800 (PST)
-Received: by 10.227.144.130 with SMTP id z2mr3034451wbu.69.1296236615839;
-	Fri, 28 Jan 2011 09:43:35 -0800 (PST)
-Received: from [172.20.0.255] (ip545070eb.adsl-surfen.hetnet.nl
-	[84.80.112.235])
-	by mx.google.com with ESMTPS id c54sm9162927wer.6.2011.01.28.09.43.34
-	(version=TLSv1/SSLv3 cipher=RC4-MD5);
-	Fri, 28 Jan 2011 09:43:35 -0800 (PST)
-Mime-Version: 1.0 (Apple Message framework v1082)
-From: Koen Kooi <koen@dominion.thruhere.net>
-In-Reply-To: <201101281721.00110.paul.eggleton@linux.intel.com>
-Date: Fri, 28 Jan 2011 18:43:33 +0100
-Message-Id: <6405F94B-6BFE-4144-BDF8-EC03131A1A04@dominion.thruhere.net>
-References: <cover.1296174472.git.paul.eggleton@linux.intel.com>
-	<1296228443.2704.25.camel@scimitar>
-	<8B09826E-906B-4744-BF64-C5DCF43F3103@dominion.thruhere.net>
-	<201101281721.00110.paul.eggleton@linux.intel.com>
-To: Paul Eggleton <paul.eggleton@linux.intel.com>
-X-Mailer: Apple Mail (2.1082)
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 058C64C811DE
+	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 11:51:48 -0600 (CST)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p0SHriNG000578; Fri, 28 Jan 2011 17:53:44 GMT
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id TDO0fYRu6g-e; Fri, 28 Jan 2011 17:53:44 +0000 (GMT)
+Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p0SHrc4u000573
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Fri, 28 Jan 2011 17:53:40 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Gary Thomas <gary@mlbassoc.com>
+In-Reply-To: <4D42F53F.1010201@mlbassoc.com>
+References: <20110127111132.C69A3B335@gemini.denx.de>
+	<20110127114216.744AEB335@gemini.denx.de>
+	<4D41F2D6.4040406@linux.intel.com>
+	<20110128070520.31A2BD42A86@gemini.denx.de>
+	<4D42F269.1080005@linux.intel.com>
+	<20110128165100.656AAD42A99@gemini.denx.de>
+	<4D42F53F.1010201@mlbassoc.com>
+Date: Fri, 28 Jan 2011 17:51:31 +0000
+Message-ID: <1296237091.13501.603.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 11/11] qt4: Add meta-toolchain-qte and dependent tasks from OpenEmbedded
+Subject: Re: Serial console unusable with poky-image-sdk
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,53 +41,59 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Jan 2011 17:43:38 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Fri, 28 Jan 2011 17:51:49 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
+On Fri, 2011-01-28 at 09:56 -0700, Gary Thomas wrote:
+> On 01/28/2011 09:51 AM, Wolfgang Denk wrote:
+> > Dear Darren Hart,
+> >
+> > In message<4D42F269.1080005@linux.intel.com>  you wrote:
+> >>
+> >> The serial console would show all the output of the boot process and
+> >> then present a getty. It would accept my login and my password, but as
+> >> soon as I was logged in, things went weird. Only every Nth character I
+> >> typed made it to the console, where N was somewhere between 2 and 30.
+> >
+> > Indeed. And the reason for this behaviour is that you have two
+> > processes reading from the console, so it depends on the scheduling
+> > which of hem receives which characters.
+> >
+> >> I believe this had something to do with the automatic consoles the
+> >> kernel will setup based on the console= parameters. By default, the last
+> >
+> > No, it does not.  You can test it by shutting down X11 (try:
+> > "/etc/init.d/xserver-nodm stop"); this will also terminate the
+> > dbus-launch process, and your login shell immediately works fine.
+> >
+> > Or try out the patch I posted.
+> >
+> >> What I haven't been able to explain yet is why just omitting the getty
+> >> from the tty doesn't result in console on the serial port due to the
+> >> kernel's automatic console thing. So clearly there are some gaps in my
+> >> explanation here, but please try this approach and let me know what your
+> >> results are. Based on that, we can dig a bit more and figure out how to
+> >> best setup the console= directives on the default images.
+> >
+> > THere is no problem with the console= settings.  It's two processes
+> > reading from a single input stream. This can never work.  Try it ut if
+> > you don't believe me.
+> 
+> Wolfgang has it spot-on - both the console login and dbus are
+> fighting over the console device.
+> 
+> I've been using the equivalent of this patch for months and it
+> solves the problem just fine.  (Sorry I didn't report it, it
+> wasn't high on my list)
 
-Op 28 jan 2011, om 18:20 heeft Paul Eggleton het volgende geschreven:
+FWIW I've now merged Wolfgang's patch into master.
 
-> On Friday 28 January 2011 15:47:28 Koen Kooi wrote:
->> Op 28 jan 2011, om 16:27 heeft Joshua Lock het volgende geschreven:
->>> On Fri, 2011-01-28 at 00:36 +0000, Paul Eggleton wrote:
->>>> +#Qt Declarative is new in 4.7, try to include it like this.
->>>> +#RRECOMMENDS_${PN} +=3D " \
->>>> +#        libqt-embeddeddeclarative4-dev \
->>>> +#        "
->>>=20
->>> We don't want to include this?
->>=20
->> There was a bug in the OE recipes where the declarative stuff was =
-only
->> mentioned in the 4.7.1 recipe, so building meta-toolchain-qte would =
-build
->> both 4.6.x and 4.7.1. I think I fixed that a few weeks back, so it =
-should
->> be safe to include again.=20
->=20
-> Am testing that as we speak, if it works I'll include it in v3 of this=20=
+If there are issues like this please do tell us about them as its good
+to get them fixed.
 
-> patchset which I will try to post very soon.
->=20
-> BTW Koen I realise that your original reply to my first patchset =
-pointed out=20
-> the virtues of having MySQL and PostgreSQL support in the Qt recipes;=20=
+Cheers,
 
-> unfortunately I've had to cut those out from this patchset as we don't =
-have=20
-> these DBMSs in Poky at the moment and probably won't for the 1.0 =
-timeframe.=20
-> However as you will no doubt want these in meta-openembedded it might =
-be worth=20
-> modifying qt4.inc to make re-enabling these easier in a .bbappend =
-(e.g. by=20
-> splitting out the SQL plugin configure flags to a separate variable). =
-I didn't=20
-> have a chance to make such a change for this patchset but you could =
-submit a=20
-> patch to do so, or I will when I get back from holiday.
+Richard
 
-I'll have a look at that when after this lands in master, enjoy your =
-holiday!=
 
