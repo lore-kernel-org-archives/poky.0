@@ -1,25 +1,25 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id BBBE84C81264;
-	Thu, 27 Jan 2011 19:11:20 -0600 (CST)
+Return-Path: <saul.wold@intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 167B74C81267;
+	Thu, 27 Jan 2011 19:11:49 -0600 (CST)
 Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 27 Jan 2011 17:11:20 -0800
+	by azsmga101.ch.intel.com with ESMTP; 27 Jan 2011 17:11:49 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,388,1291622400"; d="scan'208";a="380985432"
+X-IronPort-AV: E=Sophos;i="4.60,388,1291622400"; d="scan'208";a="380985772"
 Received: from unknown (HELO [10.255.14.102]) ([10.255.14.102])
-	by azsmga001.ch.intel.com with ESMTP; 27 Jan 2011 17:11:16 -0800
-Message-ID: <4D4217B3.9090104@linux.intel.com>
-Date: Thu, 27 Jan 2011 17:11:15 -0800
-From: Saul Wold <sgw@linux.intel.com>
+	by azsmga001.ch.intel.com with ESMTP; 27 Jan 2011 17:11:48 -0800
+Message-ID: <4D4217D3.1060507@intel.com>
+Date: Thu, 27 Jan 2011 17:11:47 -0800
+From: Saul Wold <saul.wold@intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
 	Thunderbird/3.0.5
 MIME-Version: 1.0
 To: Bruce Ashfield <bruce.ashfield@windriver.com>
-References: <cover.1295634098.git.bruce.ashfield@windriver.com>
-In-Reply-To: <cover.1295634098.git.bruce.ashfield@windriver.com>
+References: <cover.1295641280.git.bruce.ashfield@windriver.com>
+In-Reply-To: <cover.1295641280.git.bruce.ashfield@windriver.com>
 Cc: yocto@yoctoproject.org, poky@yoctoproject.org
-Subject: Re: [PATCH 0/2] linux-yocto/stable: beagle and crownbay updates
+Subject: Re: [PATCH 0/1] linux-yocto/stable: update beagleboard part 2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,16 +31,15 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Jan 2011 01:11:21 -0000
+X-List-Received-Date: Fri, 28 Jan 2011 01:11:50 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 01/21/2011 10:23 AM, Bruce Ashfield wrote:
+On 01/21/2011 12:23 PM, Bruce Ashfield wrote:
 > Richard/Saul,
 >
-> Just a couple of SRCREV updates to bring in new kernel configs
-> for the crownbay and some functionality (cherry picked from
-> mainline) for the Beagle.
+> Just another quick update to pickup a change that gets beagleboard xm
+> networking functional.
 >
 > Pull URL: git://git.pokylinux.org/poky-contrib.git
 >    Branch: zedd/kernel
@@ -51,21 +50,20 @@ On 01/21/2011 10:23 AM, Bruce Ashfield wrote:
 > ---
 >
 >
-> Bruce Ashfield (2):
+> Bruce Ashfield (1):
 >    linux-yocto/stable: update beagleboard SRCREV
->    linux-yocto/stable: update crownbay kernel configuration
 >
->   .../conf/distro/include/poky-default-revisions.inc |    4 ++--
->   1 files changed, 2 insertions(+), 2 deletions(-)
+>   .../conf/distro/include/poky-default-revisions.inc |    2 +-
+>   1 files changed, 1 insertions(+), 1 deletions(-)
 >
 > _______________________________________________
 > poky mailing list
 > poky@yoctoproject.org
 > https://lists.yoctoproject.org/listinfo/poky
 >
-
 Pulled into Master
 
 Thanks
 	Sau!
+
 
