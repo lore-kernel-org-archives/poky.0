@@ -1,22 +1,34 @@
-Return-Path: <josh@openedhand.com>
-Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2B4674C812AC
-	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 10:59:31 -0600 (CST)
-Received: from [192.168.1.88] (unknown [83.217.123.106])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by pug.o-hand.com (Postfix) with ESMTP id 2960C12EC1CD
-	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 11:40:37 -0600 (CST)
-From: Joshua Lock <josh@openedhand.com>
-To: poky@yoctoproject.org
-In-Reply-To: <17a26b55ed1004cc28d4e2d39da5ca09ee868939.1296171289.git.dexuan.cui@intel.com>
-References: <cover.1296171287.git.dexuan.cui@intel.com>
-	<17a26b55ed1004cc28d4e2d39da5ca09ee868939.1296171289.git.dexuan.cui@intel.com>
-Date: Fri, 28 Jan 2011 16:59:23 +0000
-Message-ID: <1296233963.2704.31.camel@scimitar>
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C33594C812BD
+	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 10:59:38 -0600 (CST)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p0SH1aSB030550; Fri, 28 Jan 2011 17:01:37 GMT
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id 9SwSz-2YEv5b; Fri, 28 Jan 2011 17:01:36 +0000 (GMT)
+Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p0SH1W7b030537
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Fri, 28 Jan 2011 17:01:34 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Koen Kooi <koen@dominion.thruhere.net>
+In-Reply-To: <B9B61B12-0508-4734-8F9E-96F8DF59081C@dominion.thruhere.net>
+References: <1295993245.27814.133.camel@rex>
+	<A75EAA1D-9046-4CD6-B407-65AA43B9F3CC@dominion.thruhere.net>
+	<1296140767.27814.7777.camel@rex>
+	<95D49026-CF08-4DB9-9749-3C191C737414@dominion.thruhere.net>
+	<1296164726.27814.8752.camel@rex>
+	<B9B61B12-0508-4734-8F9E-96F8DF59081C@dominion.thruhere.net>
+Date: Fri, 28 Jan 2011 16:59:25 +0000
+Message-ID: <1296233965.13501.439.camel@rex>
 Mime-Version: 1.0
-X-Mailer: Evolution 2.32.1 (2.32.1-1.fc14) 
-Subject: Re: [Dexuan: Jan 28: PULL 13/16] xkeyboard-config: upgrade from 2.0 to 2.1
+X-Mailer: Evolution 2.28.3 
+Cc: poky <poky@yoctoproject.org>
+Subject: Re: Master stability update
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,46 +40,40 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Jan 2011 16:59:31 -0000
+X-List-Received-Date: Fri, 28 Jan 2011 16:59:39 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On Fri, 2011-01-28 at 07:40 +0800, Dexuan Cui wrote:
-> From: Dexuan Cui <dexuan.cui@intel.com>
+On Fri, 2011-01-28 at 08:56 +0100, Koen Kooi wrote:
+> Op 27 jan 2011, om 22:45 heeft Richard Purdie het volgende geschreven:
 > 
-> Signed-off-by: Dexuan Cui <dexuan.cui@intel.com>
-> ---
->  ...board-config_2.0.bb => xkeyboard-config_2.1.bb} |    6 ++----
->  1 files changed, 2 insertions(+), 4 deletions(-)
->  rename meta/recipes-graphics/xorg-lib/{xkeyboard-config_2.0.bb => xkeyboard-config_2.1.bb} (76%)
+> > On Thu, 2011-01-27 at 16:35 +0100, Koen Kooi wrote:
+> >> Op 27 jan 2011, om 16:06 heeft Richard Purdie het volgende geschreven:
+> >> koen@dominion:/OE/tentacle$ ls /OE/tentacle/build/tmp-angstrom_2010_x/sysroots/x86_64-linux/usr/bin/
+> >> tclConfig.sh*
+> >> 
+> >> so it removed pretty much everything from the sysroot!
+> > 
+> > Just to update on this, Koen is using distribute_sources which adds a
+> > do_distribute_sources task. This is why things are working on master but
+> > not for Koen.
+> > 
+> > That task runs later and causes do_setscene to rerun which cleans out
+> > the sysroot rather helpfully assuming that all tasks for that recipe
+> > will rerun which isn't true.
+> > 
+> > This branch has some proposed changes to make this work better:
+> > 
+> > http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=rpurdie/misc2
+> > 
+> > and Koen is testing them to see how they work out.
 > 
-> diff --git a/meta/recipes-graphics/xorg-lib/xkeyboard-config_2.0.bb b/meta/recipes-graphics/xorg-lib/xkeyboard-config_2.1.bb
-> similarity index 76%
-> rename from meta/recipes-graphics/xorg-lib/xkeyboard-config_2.0.bb
-> rename to meta/recipes-graphics/xorg-lib/xkeyboard-config_2.1.bb
-> index 358bf84..637f880 100644
-> --- a/meta/recipes-graphics/xorg-lib/xkeyboard-config_2.0.bb
-> +++ b/meta/recipes-graphics/xorg-lib/xkeyboard-config_2.1.bb
-> @@ -7,10 +7,8 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=0e7f21ca7db975c63467d2e7624a12f9"
->  
->  SRC_URI = "http://people.freedesktop.org/~svu/xkeyboard-config-${PV}.tar.bz2"
->  
-> -SRC_URI[md5sum] = "bb8a98ee61cdc4bd835fdfd2b5cee3e6"
-> -SRC_URI[sha256sum] = "175f275f5a041edda41fe0f27e59061d1d9c6615959475e4d68ad773b6a2e376"
-> -SECTION = "x11/libs"
-> -DEPENDS = "intltool xkbcomp-native glib-2.0"
+> That fixes both the setscene and machine switching issues. Everything works as expected again!
 
-I assume you didn't mean to delete the DEPENDS and SECTION lines here?
+Those fixes have been merged into master now.
 
-> +SRC_URI[md5sum] = "6ce65480445fb2d9c071ad1f002a7675"
-> +SRC_URI[sha256sum] = "e293aa4b0dd259dbb4f0e7f56fdd95db5047d052c7b3b80922fe5663923a805d"
->  
->  PR = "r0"
->  
 Cheers,
-Joshua
--- 
-Joshua Lock
-        Intel Open Source Technology Centre
+
+Richard
 
 
