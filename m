@@ -1,22 +1,22 @@
 Return-Path: <josh@openedhand.com>
 Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
-	by mx1.pokylinux.org (Postfix) with ESMTP id AFBDB4C80050
-	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 09:27:07 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id ED79F4C810E5
+	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 09:27:17 -0600 (CST)
 Received: from [192.168.1.88] (unknown [83.217.123.106])
 	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by pug.o-hand.com (Postfix) with ESMTP id 72D7812EC1CD
-	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 10:08:13 -0600 (CST)
+	by pug.o-hand.com (Postfix) with ESMTP id B926412EC2AF
+	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 10:08:23 -0600 (CST)
 From: Joshua Lock <josh@openedhand.com>
 To: poky@yoctoproject.org
-In-Reply-To: <2d59c34ceb4fb3a9c80bfcce999172ae6c16e663.1296167950.git.scott.a.garman@intel.com>
+In-Reply-To: <483d3793c95449c96048cf67c211bae704f5431e.1296167950.git.scott.a.garman@intel.com>
 References: <cover.1296167950.git.scott.a.garman@intel.com>
-	<2d59c34ceb4fb3a9c80bfcce999172ae6c16e663.1296167950.git.scott.a.garman@intel.com>
-Date: Fri, 28 Jan 2011 15:26:55 +0000
-Message-ID: <1296228416.2704.17.camel@scimitar>
+	<483d3793c95449c96048cf67c211bae704f5431e.1296167950.git.scott.a.garman@intel.com>
+Date: Fri, 28 Jan 2011 15:27:00 +0000
+Message-ID: <1296228420.2704.18.camel@scimitar>
 Mime-Version: 1.0
 X-Mailer: Evolution 2.32.1 (2.32.1-1.fc14) 
-Subject: Re: [PATCH 1/9] sgml-common: new recipe v0.6.3
+Subject: Re: [PATCH 2/9] docbook-sgml-dtd: new recipes - v3.1, v4.1, v4.5
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,210 +28,174 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Jan 2011 15:27:08 -0000
+X-List-Received-Date: Fri, 28 Jan 2011 15:27:18 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
 On Thu, 2011-01-27 at 14:42 -0800, Scott Garman wrote:
 > From: Scott Garman <scott.a.garman@intel.com>
 > 
-> Recipe derived from OpenEmbedded.
+> These are recipes for DTDs commonly used when generating
+> documentation for free software. Recipes dervied from the
+> versions in OpenEmbedded.
 > 
 > Signed-off-by: Scott Garman <scott.a.garman@intel.com>
 > ---
->  .../sgml-common/sgml-common-0.6.3/autohell.patch   |   58 ++++++++++++++++++++
->  .../sgml-common/sgml-common-native_0.6.3.bb        |   50 +++++++++++++++++
->  .../sgml-common/sgml-common_0.6.3.bb               |   53 ++++++++++++++++++
->  3 files changed, 161 insertions(+), 0 deletions(-)
->  create mode 100644 meta/recipes-devtools/sgml-common/sgml-common-0.6.3/autohell.patch
->  create mode 100644 meta/recipes-devtools/sgml-common/sgml-common-native_0.6.3.bb
->  create mode 100644 meta/recipes-devtools/sgml-common/sgml-common_0.6.3.bb
+>  .../docbook-sgml-dtd-3.1-native.bb                 |   23 +++++++++
+>  .../docbook-sgml-dtd-4.1-native.bb                 |   23 +++++++++
+>  .../docbook-sgml-dtd-4.5-native.bb                 |   21 ++++++++
+>  .../docbook-sgml-dtd/docbook-sgml-dtd-native.inc   |   49 ++++++++++++++++++++
+>  4 files changed, 116 insertions(+), 0 deletions(-)
+>  create mode 100644 meta/recipes-devtools/docbook-sgml-dtd/docbook-sgml-dtd-3.1-native.bb
+>  create mode 100644 meta/recipes-devtools/docbook-sgml-dtd/docbook-sgml-dtd-4.1-native.bb
+>  create mode 100644 meta/recipes-devtools/docbook-sgml-dtd/docbook-sgml-dtd-4.5-native.bb
+>  create mode 100644 meta/recipes-devtools/docbook-sgml-dtd/docbook-sgml-dtd-native.inc
 > 
-> diff --git a/meta/recipes-devtools/sgml-common/sgml-common-0.6.3/autohell.patch b/meta/recipes-devtools/sgml-common/sgml-common-0.6.3/autohell.patch
+> diff --git a/meta/recipes-devtools/docbook-sgml-dtd/docbook-sgml-dtd-3.1-native.bb b/meta/recipes-devtools/docbook-sgml-dtd/docbook-sgml-dtd-3.1-native.bb
 > new file mode 100644
-> index 0000000..1366ada
+> index 0000000..2446f13
 > --- /dev/null
-> +++ b/meta/recipes-devtools/sgml-common/sgml-common-0.6.3/autohell.patch
-> @@ -0,0 +1,58 @@
-> +Patch obtained from OpenEmbedded.
+> +++ b/meta/recipes-devtools/docbook-sgml-dtd/docbook-sgml-dtd-3.1-native.bb
+> @@ -0,0 +1,23 @@
+> +require docbook-sgml-dtd-native.inc
 > +
-> +Signed-off-by: Scott Garman <scott.a.garman@intel.com>
-> +--- sgml-common-0.6.3/bin/Makefile.am~autohell.patch	2001-01-30 15:42:21.000000000 +0100
-> ++++ sgml-common-0.6.3/bin/Makefile.am	2004-06-17 11:51:11.000000000 +0200
-> +@@ -1,6 +1,5 @@
-> + primitive_scripts = sgmlwhich
-> + 
-> +-bindir = $(prefix)/bin
-> + bin_SCRIPTS = install-catalog $(primitive_scripts)
-> + 
-> + EXTRA_DIST =  install-catalog.in $(primitive_scripts)
-> +--- /dev/null	2003-09-23 19:59:22.000000000 +0200
-> ++++ sgml-common-0.6.3/bin/sgmlwhich.in	2004-06-17 11:51:11.000000000 +0200
-> +@@ -0,0 +1,7 @@
-> ++#!/bin/sh
-> ++# Location of the main configuration file for consistency with non-LSB platforms
-> ++# Send any comments to Eric Bischoff <eric@caldera.de>
-> ++# This program is under GPL license. See LICENSE file for details.
-> ++
-> ++echo "@sysconfdir@/sgml/sgml.conf"
-> ++# Simple, isn't it? ;-)
-> +--- /dev/null	2003-09-23 19:59:22.000000000 +0200
-> ++++ sgml-common-0.6.3/config/sgml.conf.in	2004-06-17 11:51:11.000000000 +0200
-> +@@ -0,0 +1,2 @@
-> ++SGML_BASE_DIR=@datadir@/sgml
-> ++SGML_CATALOGS_DIR=@sysconfdir@/sgml
-> +--- sgml-common-0.6.3/configure.in~autohell.patch	2001-05-25 18:40:54.000000000 +0200
-> ++++ sgml-common-0.6.3/configure.in	2004-06-17 11:53:22.000000000 +0200
-> +@@ -3,11 +3,6 @@
-> + 
-> + AM_INIT_AUTOMAKE(sgml-common, 0.6.3)
-> + 
-> +-docdir='$(prefix)/doc'
-> +-AC_SUBST(docdir)
-> +-
-> +-dnl Checks for programs.
-> +-
-> + dnl Checks for libraries.
-> + 
-> + dnl Checks for header files.
-> +@@ -18,6 +13,5 @@
-> + 
-> + AC_OUTPUT(Makefile \
-> +           bin/Makefile bin/install-catalog \
-> +-          config/Makefile \
-> +-          doc/Makefile doc/HTML/Makefile doc/man/Makefile doc/refentry/Makefile \
-> ++          config/Makefile config/sgml.conf bin/sgmlwhich \
-> +           sgml-iso-entities/Makefile xml-iso-entities/Makefile)
+> +# http://www.docbook.org/specs/docbook-4.5-spec.html#a.notices
+> +LICENSE = "OASIS"
+> +# License information is not distributed with the source archive,
+> +# which means we can't verify it using our normal means. Hash the
+> +# README file instead as LIC_FILES_CHKSUM is still required.
+> +LIC_FILES_CHKSUM = "file://readme.txt;md5=019d287d0349e09ff9e9d57f838e94c9"
 > +
-> +--- sgml-common-0.6.3/Makefile.am~no-docs	2001-05-25 18:22:01.000000000 +0200
-> ++++ sgml-common-0.6.3/Makefile.am	2004-06-17 11:49:09.000000000 +0200
-> +@@ -1,4 +1,4 @@
-> +-SUBDIRS = bin config doc sgml-iso-entities xml-iso-entities
-> ++SUBDIRS = bin config sgml-iso-entities xml-iso-entities
-> + 
-> + sgmlcodir = $(prefix)/share/sgml
-> + sgmlco_DATA = xml.dcl
-> diff --git a/meta/recipes-devtools/sgml-common/sgml-common-native_0.6.3.bb b/meta/recipes-devtools/sgml-common/sgml-common-native_0.6.3.bb
+> +DTD_VERSION = "3.1"
+> +
+> +PR = "${INC_PR}.0"
+> +
+> +SRC_URI = "http://www.docbook.org/sgml/3.1/docbk31.zip"
+> +
+> +SRC_URI[md5sum] = "432749c0c806dbae81c8bcb70da3b5d3"
+> +SRC_URI[sha256sum] = "20261d2771b9a052abfa3d8fab1aa62be05791a010281c566f9073bf0e644538"
+> +
+> +do_compile() {
+> +	# Refer to http://www.linuxfromscratch.org/blfs/view/stable/pst/sgml-dtd-3.html
+> +	# for details.
+> +	sed -i -e '/ISO 8879/d' -e 's|DTDDECL "-//OASIS//DTD DocBook V3.1//EN"|SGMLDECL|g' docbook.cat
+> +}
+> diff --git a/meta/recipes-devtools/docbook-sgml-dtd/docbook-sgml-dtd-4.1-native.bb b/meta/recipes-devtools/docbook-sgml-dtd/docbook-sgml-dtd-4.1-native.bb
 > new file mode 100644
-> index 0000000..7e9b923
+> index 0000000..dad3e70
 > --- /dev/null
-> +++ b/meta/recipes-devtools/sgml-common/sgml-common-native_0.6.3.bb
-> @@ -0,0 +1,50 @@
-> +SUMMARY = "Base utilities for working with SGML and XML"
-> +DESCRIPTION = "The sgml-common package gathers very basic \
-> +stuff necessary to work with SGML and XML, such as xml.dcl, \
-> +a SGML declaration of XML; iso-entities, a list of the basic \
-> +SGML ISO entities; and install-catalog, a script used to \
-> +add entries to (or remove entries from) centralized catalogs \
-> +whose entries are pointers to SGML open catalogs, \
-> +as defined by OASIS."
-> +HOMEPAGE = "http://sources.redhat.com/docbook-tools/"
-> +LICENSE = "GPLv2"
-> +# The COPYING file sgml-common ships with is just a symlink to
-> +# /usr/share/automake/COPYING, which means we can't verify it
-> +# using our normal means. :( Hash the README file instead as
-> +# LIC_FILES_CHKSUM is still required.
-> +LIC_FILES_CHKSUM = "file://README;md5=197bd940bf13548ac2198e4f77d3da92"
-
-Can we add a patch which replaces the symlink with the actual file and
-hash that. Seems slightly more robust... but only slightly.
-
-> +SECTION = "base"
+> +++ b/meta/recipes-devtools/docbook-sgml-dtd/docbook-sgml-dtd-4.1-native.bb
+> @@ -0,0 +1,23 @@
+> +require docbook-sgml-dtd-native.inc
 > +
-> +PR = "r0"
+> +# http://www.docbook.org/specs/docbook-4.5-spec.html#a.notices
+> +LICENSE = "OASIS"
+> +# License information is not distributed with the source archive,
+> +# which means we can't verify it using our normal means. Hash the
+> +# README file instead as LIC_FILES_CHKSUM is still required.
+> +LIC_FILES_CHKSUM = "file://readme.txt;md5=3269fc8f8c89278a9aef96411e28d38a"
+
+Same here, can we patch in the license file and checksum that?
+
 > +
-> +require sgml-common_${PV}.bb
+> +DTD_VERSION = "4.1"
+> +
+> +PR = "${INC_PR}.0"
+> +
+> +SRC_URI = "http://docbook.org/sgml/4.1/docbk41.zip"
+> +
+> +SRC_URI[md5sum] = "489f6ff2a2173eb1e14216c10533ede2"
+> +SRC_URI[sha256sum] = "deaafcf0a3677692e7ad4412c0e41c1db3e9da6cdcdb3dd32b2cc1f9c97d6311"
+> +
+> +do_compile() {
+> +	# Refer to http://www.linuxfromscratch.org/blfs/view/stable/pst/sgml-dtd.html
+> +	# for details.
+> +	sed -i -e '/ISO 8879/d' -e '/gml/d' docbook.cat
+> +}
+> diff --git a/meta/recipes-devtools/docbook-sgml-dtd/docbook-sgml-dtd-4.5-native.bb b/meta/recipes-devtools/docbook-sgml-dtd/docbook-sgml-dtd-4.5-native.bb
+> new file mode 100644
+> index 0000000..c034268
+> --- /dev/null
+> +++ b/meta/recipes-devtools/docbook-sgml-dtd/docbook-sgml-dtd-4.5-native.bb
+> @@ -0,0 +1,21 @@
+> +require docbook-sgml-dtd-native.inc
+> +
+> +# http://www.docbook.org/specs/docbook-4.5-spec.html#a.notices
+> +LICENSE = "OASIS"
+> +# License information is not distributed with the source archive,
+> +# which means we can't verify it using our normal means. Hash the
+> +# README file instead as LIC_FILES_CHKSUM is still required.
+> +LIC_FILES_CHKSUM = "file://README;md5=ccb8cc69fb302e30c165e326ebec0f18"
+
+:-(
+
+> +
+> +DTD_VERSION = "4.5"
+> +
+> +PR = "${INC_PR}.0"
+> +
+> +SRC_URI[md5sum] = "07c581f4bbcba6d3aac85360a19f95f7"
+> +SRC_URI[sha256sum] = "8043e514e80c6c19cb146b5d37937d1305bf3abf9b0097c36df7f70f611cdf43"
+> +
+> +do_compile() {
+> +	# Refer to http://www.linuxfromscratch.org/blfs/view/stable/pst/sgml-dtd.html
+> +	# for details.
+> +	sed -i -e '/ISO 8879/d' -e'/gml/d' docbook.cat
+> +}
+> diff --git a/meta/recipes-devtools/docbook-sgml-dtd/docbook-sgml-dtd-native.inc b/meta/recipes-devtools/docbook-sgml-dtd/docbook-sgml-dtd-native.inc
+> new file mode 100644
+> index 0000000..0843553
+> --- /dev/null
+> +++ b/meta/recipes-devtools/docbook-sgml-dtd/docbook-sgml-dtd-native.inc
+> @@ -0,0 +1,49 @@
+> +# The DTDs of the various versions have to be installed in parallel and
+> +# should not replace each other. The installation step is common for
+> +# all versions and just differs in ${DTD_VERSION} which is set in each
+> +# version recipe.
+> +#
+> +# The DTDs do have some quirks (see LFS documentation).
+> +SUMMARY = "Document type definitions for verification of SGML data files"
+> +DESCRIPTION = "Document type definitions for verification of SGML data \
+> +files against the DocBook rule set"
+> +HOMEPAGE = "http://www.docbook.org/sgml/"
+> +
+> +DEPENDS = "sgml-common-native"
+> +
+> +SRC_URI = "http://www.docbook.org/sgml/${DTD_VERSION}/docbook-${DTD_VERSION}.zip"
+> +
+> +# The .zip file extracts to the current dir
+> +S = "${WORKDIR}"
+> +
+> +INC_PR = "r0"
+> +
+> +SYSROOT_PREPROCESS_FUNCS += "docbook_sgml_dtd_native_mangle"
+> +
 > +inherit native
 > +
-> +S = "${WORKDIR}/sgml-common-${PV}"
-> +
-> +SYSROOT_PREPROCESS_FUNCS += "sgml_common_native_mangle"
-> +
-> +do_install_append() {
-> +	# install-catalog script contains hard-coded references to
-> +	# {sysconfdir}. Change it to ${D}${sysconfdir}.
-> +	sed -i -e "s|${sysconfdir}/sgml|${D}${sysconfdir}/sgml|g" ${D}${bindir}/install-catalog
-> +
-> +	${D}${bindir}/install-catalog \
-> +		--add ${D}${sysconfdir}/sgml/sgml-ent.cat \
-> +		${D}${datadir}/sgml/sgml-iso-entities-8879.1986/catalog
-> +
-> +	${D}${bindir}/install-catalog \
-> +		--add ${D}${sysconfdir}/sgml/sgml-docbook.cat \
-> +		${D}${sysconfdir}/sgml/sgml-ent.cat
-> +}
-> +
-> +sgml_common_native_mangle () {
-> +	# Revert back to ${sysconfdir} path in install-catalog
-> +	sed -i -e "s|${D}${sysconfdir}/sgml|${sysconfdir}/sgml|g" ${SYSROOT_DESTDIR}${STAGING_BINDIR}/install-catalog
-> +	# Change path from ${D}${datadir}/sgml/sgml-iso-entities-8879.1986/catalog to ${datadir}/sgml/sgml-iso-entities-8879.1986/catalog in sgml-ent.cat
-> +	sed -i -e "s|${D}${datadir}/sgml/sgml-iso-entities-8879.1986/catalog|${datadir}/sgml/sgml-iso-entities-8879.1986/catalog|g" ${SYSROOT_DESTDIR}${sysconfdir}/sgml/sgml-ent.cat
-> +	# Change path from ${D}${sysconfdir}/sgml/sgml-ent.cat|${sysconfdir}/sgml/sgml-ent.cat to ${sysconfdir}/sgml/sgml-ent.cat in sgml-ent.cat
-> +	sed -i -e "s|${D}${sysconfdir}/sgml/sgml-ent.cat|${sysconfdir}/sgml/sgml-ent.cat|g" ${SYSROOT_DESTDIR}${sysconfdir}/sgml/sgml-docbook.cat
-> +	# Remove ${D} path from catalog file created by install-catalog script
-> +	sed -i -e "s|${D}||g" ${SYSROOT_DESTDIR}${sysconfdir}/sgml/catalog
-> +}
-> diff --git a/meta/recipes-devtools/sgml-common/sgml-common_0.6.3.bb b/meta/recipes-devtools/sgml-common/sgml-common_0.6.3.bb
-> new file mode 100644
-> index 0000000..78afa39
-> --- /dev/null
-> +++ b/meta/recipes-devtools/sgml-common/sgml-common_0.6.3.bb
-> @@ -0,0 +1,53 @@
-> +SUMMARY = "Base utilities for working with SGML and XML"
-> +DESCRIPTION = "The sgml-common package gathers very basic \
-> +stuff necessary to work with SGML and XML, such as xml.dcl, \
-> +a SGML declaration of XML; iso-entities, a list of the basic \
-> +SGML ISO entities; and install-catalog, a script used to \
-> +add entries to (or remove entries from) centralized catalogs \
-> +whose entries are pointers to SGML open catalogs, \
-> +as defined by OASIS."
-> +HOMEPAGE = "http://sources.redhat.com/docbook-tools/"
-> +LICENSE = "GPLv2"
-> +# The COPYING file sgml-common ships with is just a symlink to
-> +# /usr/share/automake/COPYING, which means we can't verify it
-> +# using our normal means. :( Hash the README file instead as
-> +# LIC_FILES_CHKSUM is still required.
-> +LIC_FILES_CHKSUM = "file://README;md5=197bd940bf13548ac2198e4f77d3da92"
-
-as above
-
-> +SECTION = "base"
-> +
-> +PR = "r0"
-> +
-> +SRC_URI = "ftp://sources.redhat.com/pub/docbook-tools/new-trials/SOURCES/sgml-common-${PV}.tgz \
-> +           file://autohell.patch"
-> +
-> +SRC_URI[md5sum] = "103c9828f24820df86e55e7862e28974"
-> +SRC_URI[sha256sum] = "7dc418c1d361123ffc5e45d61f1b97257940a8eb35d0bfbbc493381cc5b1f959"
-> +
-> +inherit autotools
-> +
-> +do_compile_append() {
-> +	# install-catalog script contains hardcoded references to /etc/sgml
-> +	sed -i -e "s|/etc/sgml|${sysconfdir}/sgml|g" bin/install-catalog
-> +}
-> +
-> +FILES_sgml-common_append = " ${datadir}/sgml"
-> +
-> +pkg_postinst() {
-> +	install-catalog \
-> +		--add ${sysconfdir}/sgml/sgml-ent.cat \
-> +		${datadir}/sgml/sgml-iso-entities-8879.1986/catalog
+> +do_install () {
+> +	# Refer to http://www.linuxfromscratch.org/blfs/view/stable/pst/sgml-dtd.html
+> +	# for details.
+> +	install -d -m 755 ${D}${datadir}/sgml/docbook/sgml-dtd-${DTD_VERSION}
+> +	install docbook.cat ${D}${datadir}/sgml/docbook/sgml-dtd-${DTD_VERSION}/catalog
+> +	cp -PpRr *.dtd *.mod *.dcl ${D}${datadir}/sgml/docbook/sgml-dtd-${DTD_VERSION}
 > +
 > +	install-catalog \
-> +		--add ${sysconfdir}/sgml/sgml-docbook.cat \
-> +		${sysconfdir}/sgml/sgml-ent.cat
+> +		--add ${sysconfdir}/sgml/sgml-docbook-dtd-${DTD_VERSION}.cat \
+> +		${D}${datadir}/sgml/docbook/sgml-dtd-${DTD_VERSION}/catalog
+> +
+> +	install-catalog \
+> +		--add ${sysconfdir}/sgml/sgml-docbook-dtd-${DTD_VERSION}.cat \
+> +		${sysconfdir}/sgml/sgml-docbook.cat
+> +
+> +	# Copy the generated catalog to the image directory for staging.
+> +	install -d ${D}${sysconfdir}/sgml
+> +	cp ${sysconfdir}/sgml/sgml-docbook-dtd-${DTD_VERSION}.cat ${D}${sysconfdir}/sgml/
 > +}
 > +
-> +pkg_postrm() {
-> +	install-catalog \
-> +		--remove ${sysconfdir}/sgml/sgml-ent.cat \
-> +		${datadir}/sgml/sgml-iso-entities-8879.1986/catalog
-> +
-> +	install-catalog \
-> +		--remove ${sysconfdir}/sgml/sgml-docbook.cat \
-> +		${sysconfdir}/sgml/sgml-ent.cat
+> +docbook_sgml_dtd_native_mangle () {
+> +	# Remove the image directory path ${D} from the .cat files.
+> +	sed -i -e "s|${D}||g" ${SYSROOT_DESTDIR}${sysconfdir}/sgml/sgml-docbook.cat || true
+> +	sed -i -e "s|${D}||g" ${SYSROOT_DESTDIR}${sysconfdir}/sgml/sgml-docbook-dtd-${DTD_VERSION}.cat
 > +}
 
 -- 
