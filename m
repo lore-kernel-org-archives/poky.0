@@ -1,28 +1,24 @@
 Return-Path: <mark.hatle@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9B32C4C81295
-	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 23:50:34 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 70E7F4C8123F
+	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 23:56:12 -0600 (CST)
 Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p0S5oYqF020460
-	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 21:50:34 -0800 (PST)
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p0S5uCoI021000
+	for <poky@yoctoproject.org>; Thu, 27 Jan 2011 21:56:12 -0800 (PST)
 Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
 	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Thu, 27 Jan 2011 21:50:34 -0800
+	Thu, 27 Jan 2011 21:56:11 -0800
 Received: from msp-mhatle-lx2.wrs.com ([172.25.34.61]) by
 	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Thu, 27 Jan 2011 21:50:33 -0800
+	Thu, 27 Jan 2011 21:56:11 -0800
 From: Mark Hatle <mark.hatle@windriver.com>
 To: poky@yoctoproject.org
-Date: Thu, 27 Jan 2011 23:46:29 -0600
-Message-Id: <25e2b971033f0831a4ba469c8358af5b4e8d0820.1296193457.git.mark.hatle@windriver.com>
+Date: Thu, 27 Jan 2011 23:52:08 -0600
+Message-Id: <cover.1296193803.git.mark.hatle@windriver.com>
 X-Mailer: git-send-email 1.7.3.4
-In-Reply-To: <cover.1296193457.git.mark.hatle@windriver.com>
-References: <cover.1296193457.git.mark.hatle@windriver.com>
-In-Reply-To: <cover.1296193457.git.mark.hatle@windriver.com>
-References: <cover.1296193457.git.mark.hatle@windriver.com>
-X-OriginalArrivalTime: 28 Jan 2011 05:50:33.0919 (UTC)
-	FILETIME=[478D54F0:01CBBEAF]
-Subject: [PATCH 3/3] rpm: suggested change
+X-OriginalArrivalTime: 28 Jan 2011 05:56:11.0469 (UTC)
+	FILETIME=[10BF5FD0:01CBBEB0]
+Subject: [PATCH 0/1] poky-image-minimal -- disable package tool
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,60 +30,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Jan 2011 05:50:34 -0000
+X-List-Received-Date: Fri, 28 Jan 2011 05:56:12 -0000
 
-From: Qing He <qing.he@intel.com>
+When selecting poky-image-minimal, the package database is removed by
+default.  However the packaging software is still installed, but it won't
+function without the database.  So in order to save space remove the
+package tool from the filesystem image.
 
-Signed-off-by: Qing He <qing.he@intel.com>
-Signed-off-by: Mark Hatle <mark.hatle@windriver.com>
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: mhatle/image
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=mhatle/image
+
+Thanks,
+    Mark Hatle <mark.hatle@windriver.com>
 ---
- .../rpm/rpm/header-include-fix.patch               |   24 ++++++++++++++++++++
- meta/recipes-devtools/rpm/rpm_5.4.0.bb             |    1 +
- 2 files changed, 25 insertions(+), 0 deletions(-)
- create mode 100644 meta/recipes-devtools/rpm/rpm/header-include-fix.patch
 
-diff --git a/meta/recipes-devtools/rpm/rpm/header-include-fix.patch b/meta/recipes-devtools/rpm/rpm/header-include-fix.patch
-new file mode 100644
-index 0000000..92c534e
---- /dev/null
-+++ b/meta/recipes-devtools/rpm/rpm/header-include-fix.patch
-@@ -0,0 +1,24 @@
-+diff --git a/rpmdb/rpmdb.h b/rpmdb/rpmdb.h
-+index 0e1bdd7..8b522bb 100644
-+--- a/rpmdb/rpmdb.h
-++++ b/rpmdb/rpmdb.h
-+@@ -9,6 +9,7 @@
-+ 
-+ #include <assert.h>
-+ #include <mire.h>
-++#include <errno.h>
-+ 
-+ #include <rpmtypes.h>
-+ #include <rpmtag.h>	/* XXX Header typedef */
-+diff --git a/rpmdb/rpmtag.h b/rpmdb/rpmtag.h
-+index 8af6480..2166b4c 100644
-+--- a/rpmdb/rpmtag.h
-++++ b/rpmdb/rpmtag.h
-+@@ -7,6 +7,7 @@
-+ 
-+ #include <rpmiotypes.h>
-+ #include <rpmsw.h>
-++#include <stdint.h>
-+ 
-+ #ifdef __cplusplus
-+ extern "C" {
-diff --git a/meta/recipes-devtools/rpm/rpm_5.4.0.bb b/meta/recipes-devtools/rpm/rpm_5.4.0.bb
-index 541fb60..0f3425f 100644
---- a/meta/recipes-devtools/rpm/rpm_5.4.0.bb
-+++ b/meta/recipes-devtools/rpm/rpm_5.4.0.bb
-@@ -52,6 +52,7 @@ SRC_URI = "http://www.rpm5.org/files/rpm/rpm-5.4/rpm-5.4.0-0.20101229.src.rpm \
- 	   file://perfile_rpmdeps.sh \
- 	   file://rpm-autogen.patch \
- 	   file://rpm-libsql-fix.patch \
-+           file://header-include-fix.patch \
- 	  "
- 
- #           file://hdraddorappend.patch \
+
+Mark Hatle (1):
+  poky-image-minimal*: Disable packaging tool by default
+
+ meta/recipes-core/images/poky-image-minimal-dev.bb |    7 ++++++-
+ meta/recipes-core/images/poky-image-minimal.bb     |    6 +++++-
+ 2 files changed, 11 insertions(+), 2 deletions(-)
+
 -- 
 1.7.3.4
 
