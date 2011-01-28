@@ -1,22 +1,22 @@
 Return-Path: <josh@openedhand.com>
 Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 44F5A4C812BE
-	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 09:27:58 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id F25164C812C2
+	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 09:28:05 -0600 (CST)
 Received: from [192.168.1.88] (unknown [83.217.123.106])
 	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by pug.o-hand.com (Postfix) with ESMTP id 06DE512EC1CD
-	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 10:09:03 -0600 (CST)
+	by pug.o-hand.com (Postfix) with ESMTP id 49C0B12EC1CD
+	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 10:09:11 -0600 (CST)
 From: Joshua Lock <josh@openedhand.com>
 To: poky@yoctoproject.org
-In-Reply-To: <93afb5a16a88cd026eea90a6b9af98445fdbdd93.1296174472.git.paul.eggleton@linux.intel.com>
+In-Reply-To: <74141e6fb3aece291357c79a4d855353b12874b4.1296174472.git.paul.eggleton@linux.intel.com>
 References: <cover.1296174472.git.paul.eggleton@linux.intel.com>
-	<93afb5a16a88cd026eea90a6b9af98445fdbdd93.1296174472.git.paul.eggleton@linux.intel.com>
-Date: Fri, 28 Jan 2011 15:27:20 +0000
-Message-ID: <1296228440.2704.24.camel@scimitar>
+	<74141e6fb3aece291357c79a4d855353b12874b4.1296174472.git.paul.eggleton@linux.intel.com>
+Date: Fri, 28 Jan 2011 15:27:23 +0000
+Message-ID: <1296228443.2704.25.camel@scimitar>
 Mime-Version: 1.0
 X-Mailer: Evolution 2.32.1 (2.32.1-1.fc14) 
-Subject: Re: [PATCH 08/11] qt4: Add qt4-tools-nativesdk based on qt4-tools-sdk from OpenEmbedded
+Subject: Re: [PATCH 11/11] qt4: Add meta-toolchain-qte and dependent tasks from OpenEmbedded
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,275 +28,146 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Jan 2011 15:27:58 -0000
+X-List-Received-Date: Fri, 28 Jan 2011 15:28:06 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
 On Fri, 2011-01-28 at 00:36 +0000, Paul Eggleton wrote:
 > From: Paul Eggleton <paul.eggleton@linux.intel.com>
 > 
-> Differences from OpenEmbedded qt4-tools-sdk:
+> Differences from OE versions:
 > 
-> * Convert to nativesdk and make fixes necessary to build
-
-Any reason why this wouldn't be based on the same recipe as
-qt4-tools-native?
-
-> * Use .inc file in 4.6.3 version
-> * Add LIC_FILES_CHKSUM
-> * Fix LICENSE to match other Qt4 recipes
-> * Use http source URL to match other Qt4 recipes
-> * Whitespace fixes
+> task-qte-toolchain-target.bb:
+>  * Depend on task-poky-standalone-sdk-target instead of task-sdk-bare
+>  * Add LIC_FILES_CHKSUM
+>  * Correct libsqlite3-dev dependency for Poky
+>  * Remove dependency on libts-dev
+> 
+> task-qte-toolchain-host.bb
+>  * Fix for Poky directory structure
+>  * qt4-tools-sdk -> qt4-tools-nativesdk
+> 
+> meta-toolchain-qte:
+>  * Fix for Poky directory structure
+>  * Use ${FAKEROOT} instead of fakeroot
+>  * Remove angstrom-specific suffix
 > 
 > Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
 > ---
->  .../recipes-qt/qt4/files/compile.test-lflags.patch |   13 +++
->  meta/recipes-qt/qt4/files/configure-lflags.patch   |   13 +++
->  meta/recipes-qt/qt4/files/configure-paths.patch    |   21 ++++
->  meta/recipes-qt/qt4/files/qmake-exists-check.patch |   18 +++
->  meta/recipes-qt/qt4/qt4-tools-nativesdk.inc        |  111 ++++++++++++++++++++
->  meta/recipes-qt/qt4/qt4-tools-nativesdk_4.6.3.bb   |    6 +
->  meta/recipes-qt/qt4/qt4-tools-nativesdk_4.7.1.bb   |    6 +
->  7 files changed, 188 insertions(+), 0 deletions(-)
->  create mode 100644 meta/recipes-qt/qt4/files/compile.test-lflags.patch
->  create mode 100644 meta/recipes-qt/qt4/files/configure-lflags.patch
->  create mode 100644 meta/recipes-qt/qt4/files/configure-paths.patch
->  create mode 100644 meta/recipes-qt/qt4/files/qmake-exists-check.patch
->  create mode 100644 meta/recipes-qt/qt4/qt4-tools-nativesdk.inc
->  create mode 100644 meta/recipes-qt/qt4/qt4-tools-nativesdk_4.6.3.bb
->  create mode 100644 meta/recipes-qt/qt4/qt4-tools-nativesdk_4.7.1.bb
+>  meta/recipes-qt/meta/meta-toolchain-qte.bb         |   32 ++++++++++++++++
+>  meta/recipes-qt/tasks/task-qte-toolchain-host.bb   |    7 ++++
+>  meta/recipes-qt/tasks/task-qte-toolchain-target.bb |   39 ++++++++++++++++++++
+>  3 files changed, 78 insertions(+), 0 deletions(-)
+>  create mode 100644 meta/recipes-qt/meta/meta-toolchain-qte.bb
+>  create mode 100644 meta/recipes-qt/tasks/task-qte-toolchain-host.bb
+>  create mode 100644 meta/recipes-qt/tasks/task-qte-toolchain-target.bb
 > 
-> diff --git a/meta/recipes-qt/qt4/files/compile.test-lflags.patch b/meta/recipes-qt/qt4/files/compile.test-lflags.patch
+> diff --git a/meta/recipes-qt/meta/meta-toolchain-qte.bb b/meta/recipes-qt/meta/meta-toolchain-qte.bb
 > new file mode 100644
-> index 0000000..e4b256b
+> index 0000000..b29c5cf
 > --- /dev/null
-> +++ b/meta/recipes-qt/qt4/files/compile.test-lflags.patch
-> @@ -0,0 +1,13 @@
-> +Index: qt-everywhere-opensource-src-4.6.3/config.tests/unix/compile.test
-> +===================================================================
-> +--- qt-everywhere-opensource-src-4.6.3.orig/config.tests/unix/compile.test	2010-06-02 06:03:18.000000000 +0400
-> ++++ qt-everywhere-opensource-src-4.6.3/config.tests/unix/compile.test	2010-10-04 17:35:07.587783460 +0400
-> +@@ -11,7 +11,7 @@
-> + EXE=`basename "$6"`
-> + DESCRIPTION=$7
-> + shift 7
-> +-LFLAGS=""
-> ++LFLAGS="$LDFLAGS"
-> + INCLUDEPATH=""
-> + CXXFLAGS=""
-> + MAC_ARCH_CXXFLAGS=""
-> diff --git a/meta/recipes-qt/qt4/files/configure-lflags.patch b/meta/recipes-qt/qt4/files/configure-lflags.patch
-> new file mode 100644
-> index 0000000..df19549
-> --- /dev/null
-> +++ b/meta/recipes-qt/qt4/files/configure-lflags.patch
-> @@ -0,0 +1,13 @@
-> +Index: qtopia-core-opensource-src-4.3.3/configure
-> +===================================================================
-> +--- qtopia-core-opensource-src-4.3.3.orig/configure	2008-01-14 08:53:51.000000000 +0000
-> ++++ qtopia-core-opensource-src-4.3.3/configure	2008-01-14 08:54:07.000000000 +0000
-> +@@ -447,7 +447,7 @@
-> + # initalize variables
-> + #-------------------------------------------------------------------------------
-> + 
-> +-SYSTEM_VARIABLES="CC CXX CFLAGS CXXFLAGS LDFLAGS"
-> ++SYSTEM_VARIABLES="CC CXX CFLAGS CXXFLAGS LDFLAGS LFLAGS"
-> + for varname in $SYSTEM_VARIABLES; do
-> +     cmd=`echo \
-> + 'if [ -n "\$'${varname}'" ]; then
-> diff --git a/meta/recipes-qt/qt4/files/configure-paths.patch b/meta/recipes-qt/qt4/files/configure-paths.patch
-> new file mode 100644
-> index 0000000..c9259a1
-> --- /dev/null
-> +++ b/meta/recipes-qt/qt4/files/configure-paths.patch
-> @@ -0,0 +1,21 @@
-> +Index: qt-everywhere-opensource-src-4.6.3/configure
-> +===================================================================
-> +--- qt-everywhere-opensource-src-4.6.3.orig/configure	2011-01-10 15:47:37.100607001 +0000
-> ++++ qt-everywhere-opensource-src-4.6.3/configure	2011-01-10 15:49:14.576606999 +0000
-> +@@ -7198,11 +7198,11 @@
-> + QMAKE_MOC_SRC    = \$\$QT_BUILD_TREE/src/moc
-> + 
-> + #local paths that cannot be queried from the QT_INSTALL_* properties while building QTDIR
-> +-QMAKE_MOC        = \$\$QT_BUILD_TREE/bin/moc
-> +-QMAKE_UIC        = \$\$QT_BUILD_TREE/bin/uic
-> +-QMAKE_UIC3       = \$\$QT_BUILD_TREE/bin/uic3
-> +-QMAKE_RCC        = \$\$QT_BUILD_TREE/bin/rcc
-> +-QMAKE_QDBUSXML2CPP = \$\$QT_BUILD_TREE/bin/qdbusxml2cpp
-> ++QMAKE_MOC        = \${OE_QMAKE_MOC}
-> ++QMAKE_UIC        = \${OE_QMAKE_UIC}
-> ++QMAKE_UIC3       = \${OE_QMAKE_UIC3}
-> ++QMAKE_RCC        = \${OE_QMAKE_RCC}
-> ++QMAKE_QDBUSXML2CPP = \${OE_QMAKE_QDBUSXML2CPP}
-> + QMAKE_INCDIR_QT  = \$\$QT_BUILD_TREE/include
-> + QMAKE_LIBDIR_QT  = \$\$QT_BUILD_TREE/lib
-> + 
-> diff --git a/meta/recipes-qt/qt4/files/qmake-exists-check.patch b/meta/recipes-qt/qt4/files/qmake-exists-check.patch
-> new file mode 100644
-> index 0000000..cc73837
-> --- /dev/null
-> +++ b/meta/recipes-qt/qt4/files/qmake-exists-check.patch
-> @@ -0,0 +1,18 @@
-> +qt4-tools-nativesdk: avoid rebuilding qmake
+> +++ b/meta/recipes-qt/meta/meta-toolchain-qte.bb
+> @@ -0,0 +1,32 @@
+> +# Qt Embedded toolchain
+> +PR = "r5"
+> +TOOLCHAIN_HOST_TASK = "task-qte-toolchain-host"
+> +TOOLCHAIN_TARGET_TASK = "task-qte-toolchain-target"
 > +
-> +qt4-tools-nativesdk patch to avoids building qmake in configure if it already exists 
-> +(as it will, since we symlink it in from the native sysroot in do_configure)
+> +require recipes-core/meta/meta-toolchain.bb
+> +SDK_SUFFIX = "toolchain-qte"
 > +
-> +Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
+> +QT_DIR_NAME = "qtopia"
 > +
-> +--- qt-everywhere-opensource-src-4.6.3.orig/configure	2011-01-10 12:01:56.260607001 +0000
-> ++++ qt-everywhere-opensource-src-4.6.3/configure	2011-01-10 12:02:20.584607015 +0000
-> +@@ -4286,7 +4286,7 @@
-> + }
-> + 
-> + # build qmake
-> +-if true; then ###[ '!' -f "$outpath/bin/qmake" ];
-> ++if [ '!' -f "$outpath/bin/qmake" ]; then
-> +     echo "Creating qmake. Please wait..."
-> + 
-> +     OLD_QCONFIG_H=
-> diff --git a/meta/recipes-qt/qt4/qt4-tools-nativesdk.inc b/meta/recipes-qt/qt4/qt4-tools-nativesdk.inc
-> new file mode 100644
-> index 0000000..f273c9f
-> --- /dev/null
-> +++ b/meta/recipes-qt/qt4/qt4-tools-nativesdk.inc
-> @@ -0,0 +1,111 @@
-> +DESCRIPTION = "SDK tools for Qt/[X11|Mac|Embedded] version 4.x"
-> +DEPENDS = "zlib-nativesdk dbus-nativesdk libx11-nativesdk qt4-tools-native"
-> +SECTION = "libs"
-> +HOMEPAGE = "http://qt.nokia.com"
-> +PRIORITY = "optional"
-> +LICENSE = "LGPLv2.1 | GPLv3"
+> +do_populate_sdk_append() {
+> +    script="${SDK_OUTPUT}/${SDKPATH}/environment-setup"
+> +    touch $script
+> +    echo 'export OE_QMAKE_CC=${TARGET_SYS}-gcc' >> $script
+> +    echo 'export OE_QMAKE_CXX=${TARGET_SYS}-g++' >> $script
+> +    echo 'export OE_QMAKE_LINK=${TARGET_SYS}-g++' >> $script
+> +    echo 'export OE_QMAKE_AR=${TARGET_SYS}-ar' >> $script
+> +    echo 'export OE_QMAKE_LIBDIR_QT=${SDKPATH}/${TARGET_SYS}/${libdir}' >> $script
+> +    echo 'export OE_QMAKE_INCDIR_QT=${SDKPATH}/${TARGET_SYS}/${includedir}/${QT_DIR_NAME}' >> $script
+> +    echo 'export OE_QMAKE_MOC=${SDKPATH}/bin/moc4' >> $script
+> +    echo 'export OE_QMAKE_UIC=${SDKPATH}/bin/uic4' >> $script
+> +    echo 'export OE_QMAKE_UIC3=${SDKPATH}/bin/uic34' >> $script
+> +    echo 'export OE_QMAKE_RCC=${SDKPATH}/bin/rcc4' >> $script
+> +    echo 'export OE_QMAKE_QDBUSCPP2XML=${SDKPATH}/bin/qdbuscpp2xml4' >> $script
+> +    echo 'export OE_QMAKE_QDBUSXML2CPP=${SDKPATH}/bin/qdbusxml2cpp4' >> $script
+> +    echo 'export OE_QMAKE_QT_CONFIG=${SDKPATH}/${TARGET_SYS}/${datadir}/${QT_DIR_NAME}/mkspecs/qconfig.pri' >> $script
+> +    echo 'export QMAKESPEC=${SDKPATH}/${TARGET_SYS}/${datadir}/${QT_DIR_NAME}/mkspecs/linux-g++' >> $script
 > +
-> +INC_PR = "r3"
-> +
-> +FILESPATHPKG =. "qt-${PV}:"
-> +inherit nativesdk qmake2
-> +
-> +SRC_URI = "http://get.qt.nokia.com/qt/source/qt-everywhere-opensource-src-${PV}.tar.gz \
-> +           file://configure-lflags.patch \
-> +           file://compile.test-lflags.patch \
-> +           file://qt-config.patch \
-> +           file://qmake-exists-check.patch \
-> +           file://configure-paths.patch \
-> +           file://g++.conf \
-> +           file://linux.conf"
-> +
-> +S = "${WORKDIR}/qt-everywhere-opensource-src-${PV}"
-> +
-> +LIC_FILES_CHKSUM = "file://LICENSE.LGPL;md5=fbc093901857fcd118f065f900982c24 \
-> +                    file://LICENSE.GPL3;md5=babc5b6b77441da277f5c06b2e547720 \
-> +                    file://LGPL_EXCEPTION.txt;md5=411080a56ff917a5a1aa08c98acae354"
-> +
-> +# FIXME: make it work with "${STAGING_BINDIR_NATIVE}/pkg-config --cflags dbus-1"
-> +EXTRA_OECONF = "-prefix ${prefix} \
-> +                -qt-libjpeg -qt-gif -system-zlib \
-> +                -no-libjpeg -no-libpng -no-libmng -no-libtiff \
-> +                -no-accessibility \
-> +                -no-cups \
-> +                -no-exceptions  \
-> +                -no-nas-sound \
-> +                -no-nis -no-openssl \
-> +                -verbose -release -fast -static \
-> +                -platform ${TARGET_OS}-oe-g++ \
-> +                -xplatform ${TARGET_OS}-oe-g++ \
-> +                -embedded -no-freetype -no-glib -no-iconv \
-> +                -qt3support \
-> +                -I${STAGING_DIR_HOST}${SDKPATHNATIVE}/usr/include \
-> +                -I${STAGING_DIR_HOST}${SDKPATHNATIVE}/usr/include/freetype2 \
-> +                -I${STAGING_DIR_HOST}${SDKPATHNATIVE}/usr/include/dbus-1.0 \
-> +                -I${STAGING_DIR_HOST}${SDKPATHNATIVE}/usr/lib/dbus-1.0/include \
-> +                -I${STAGING_DIR_HOST}${SDKPATHNATIVE}/usr/include/c++ \
-> +                -I${STAGING_DIR_HOST}${SDKPATHNATIVE}/usr/include/c++/${TARGET_SYS} \
-> +                -L${STAGING_DIR_HOST}${SDKPATHNATIVE}/lib \
-> +                -L${STAGING_DIR_HOST}${SDKPATHNATIVE}/usr/lib"
-> +
-> +# yank default -e, otherwise we get the following error:
-> +# moc_qbuffer.cpp: No such file or directory
-> +EXTRA_OEMAKE = " "
-> +
-> +do_configure() {
-> +    if [ ! -e bin/qmake ]; then
-> +        ln -sf ${STAGING_BINDIR_NATIVE}/qmake2 bin/qmake
-> +    fi
-> +
-> +    if [ ! -e mkspecs/${TARGET_OS}-oe-g++ ]; then
-> +        ln -sf linux-g++ mkspecs/${TARGET_OS}-oe-g++
-> +    fi
-> +
-> +    cp ../g++.conf mkspecs/common
-> +    cp ../linux.conf mkspecs/common
-> +
-> +    (echo o; echo yes) | ./configure ${EXTRA_OECONF} || die "Configuring qt failed. EXTRA_OECONF was ${EXTRA_OECONF}"
-> +}
-> +
-> +TOBUILD = "\
-> +  src/tools/bootstrap \
-> +  src/tools/moc \
-> +  src/corelib \
-> +  src/sql \
-> +  src/dbus \
-> +  src/qt3support \
-> +  src/xml \
-> +  src/tools/uic \
-> +  src/tools/rcc \
-> +  src/network \
-> +  src/gui \
-> +  src/tools/uic3 \
-> +  tools/linguist/lrelease \
-> +  tools/linguist/lupdate \
-> +  tools/qdbus \
-> +"
-> +
-> +do_compile() {
-> +    for i in ${TOBUILD}; do
-> +        cd ${S}/$i && oe_runmake CC="${CC}" CXX="${CXX}"
-> +    done
-> +}
-> +
-> +do_install() {
-> +    install -d ${D}${bindir}
-> +    install -m 0755 bin/qmake ${D}${bindir}/qmake2
-> +    for i in moc uic uic3 rcc lrelease lupdate qdbuscpp2xml qdbusxml2cpp; do
-> +        install -m 0755 bin/${i} ${D}${bindir}/${i}4
-> +    done
-> +
-> +    (cd ${D}${bindir}; \
-> +    ln -s qmake2 qmake; \
-> +    for i in moc uic uic3 rcc lrelease lupdate qdbuscpp2xml qdbusxml2cpp; do \
-> +        ln -s ${i}4 ${i}; \
-> +    done)
-> +
-> +    # make a symbolic link to mkspecs for compatibility with Nokia's SDK
-> +    # and QTCreator
-> +    (cd ${D}${bindir}/..; ln -s ${TARGET_SYS}/usr/share/qtopia/mkspecs mkspecs;)
-> +}
-> +
-> diff --git a/meta/recipes-qt/qt4/qt4-tools-nativesdk_4.6.3.bb b/meta/recipes-qt/qt4/qt4-tools-nativesdk_4.6.3.bb
-> new file mode 100644
-> index 0000000..d64542b
-> --- /dev/null
-> +++ b/meta/recipes-qt/qt4/qt4-tools-nativesdk_4.6.3.bb
-> @@ -0,0 +1,6 @@
-> +require qt4-tools-nativesdk.inc
-> +
-> +PR = "${INC_PR}.0"
-> +
-> +SRC_URI[md5sum] = "5c69f16d452b0bb3d44bc3c10556c072"
-> +SRC_URI[sha256sum] = "f4e0ada8d4d516bbb8600a3ee7d9046c9c79e38cd781df9ffc46d8f16acd1768"
-> diff --git a/meta/recipes-qt/qt4/qt4-tools-nativesdk_4.7.1.bb b/meta/recipes-qt/qt4/qt4-tools-nativesdk_4.7.1.bb
-> new file mode 100644
-> index 0000000..091a539
-> --- /dev/null
-> +++ b/meta/recipes-qt/qt4/qt4-tools-nativesdk_4.7.1.bb
-> @@ -0,0 +1,6 @@
-> +require qt4-tools-nativesdk.inc
-> +
-> +PR = "${INC_PR}.0"
-> +
-> +SRC_URI[md5sum] = "6f88d96507c84e9fea5bf3a71ebeb6d7"
-> +SRC_URI[sha256sum] = "8cb5277c41f824cfc6dcee0e95e0bf23a9ad2c8d18d245105137481d092b124a"
+> +    # Repack SDK with new environment-setup
+> +    cd ${SDK_OUTPUT}
+> +    ${FAKEROOT} tar cfj ${SDK_DEPLOY}/${TOOLCHAIN_OUTPUTNAME}.tar.bz2 . 
 
+We can avoid pseudo overhead here by using some switches to tar, see:
+http://git.pokylinux.org/cgit/cgit.cgi/poky/commit/?id=8ae1f88214acf8f44073f2e499bef59e9433fdfd
+
+>      
+> +}
+> diff --git a/meta/recipes-qt/tasks/task-qte-toolchain-host.bb b/meta/recipes-qt/tasks/task-qte-toolchain-host.bb
+> new file mode 100644
+> index 0000000..2ab6ccf
+> --- /dev/null
+> +++ b/meta/recipes-qt/tasks/task-qte-toolchain-host.bb
+> @@ -0,0 +1,7 @@
+> +require recipes-core/tasks/task-sdk-host.bb
+> +
+> +DESCRIPTION = "Host packages for Qt Embedded SDK"
+> +LICENSE = "MIT"
+> +ALLOW_EMPTY = "1"
+> +
+> +RDEPENDS_${PN} += "qt4-tools-nativesdk"
+> diff --git a/meta/recipes-qt/tasks/task-qte-toolchain-target.bb b/meta/recipes-qt/tasks/task-qte-toolchain-target.bb
+> new file mode 100644
+> index 0000000..03e0e54
+> --- /dev/null
+> +++ b/meta/recipes-qt/tasks/task-qte-toolchain-target.bb
+> @@ -0,0 +1,39 @@
+> +DESCRIPTION = "Target packages for Qt Embedded SDK"
+> +LICENSE = "MIT"
+> +ALLOW_EMPTY = "1"
+> +
+> +PR = "r5"
+> +
+> +LIC_FILES_CHKSUM = "file://${POKYBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58 \
+> +                    file://${POKYBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
+> +
+> +RDEPENDS_${PN} += " \
+> +        task-poky-standalone-sdk-target \
+> +        qt4-embedded-mkspecs \
+> +        libqt-embeddedmultimedia4-dev \
+> +        libqt-embeddedphonon4-dev \
+> +        libqt-embedded3support4-dev \
+> +        libqt-embeddedclucene4-dev \
+> +        libqt-embeddedcore4-dev \
+> +        libqt-embeddeddbus4-dev \
+> +        libqt-embeddeddesignercomponents4-dev \
+> +        libqt-embeddeddesigner4-dev \
+> +        libqt-embeddeduitools4-dev \
+> +        libqt-embeddedgui4-dev \
+> +        libqt-embeddedhelp4-dev \
+> +        libqt-embeddednetwork4-dev \
+> +        libqt-embeddedscript4-dev \
+> +        libqt-embeddedscripttools4-dev \
+> +        libqt-embeddedsql4-dev \
+> +        libqt-embeddedsvg4-dev \
+> +        libqt-embeddedtest4-dev \
+> +        libqt-embeddedwebkit4-dev \
+> +        libqt-embeddedxml4-dev \
+> +        libsqlite3-dev \
+> +        expat-dev \
+> +        "
+> +
+> +#Qt Declarative is new in 4.7, try to include it like this.
+> +#RRECOMMENDS_${PN} += " \
+> +#        libqt-embeddeddeclarative4-dev \
+> +#        "
+
+We don't want to include this?
+
+Cheers,
+Joshua
 -- 
 Joshua Lock
         Intel Open Source Technology Centre
