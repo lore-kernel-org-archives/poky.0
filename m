@@ -1,22 +1,22 @@
 Return-Path: <scott.a.garman@intel.com>
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2F32B4C811F9
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5F4584C811F9
 	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 19:45:41 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
 	by orsmga102.jf.intel.com with ESMTP; 28 Jan 2011 17:45:39 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,394,1291622400"; d="scan'208";a="597538633"
+X-IronPort-AV: E=Sophos;i="4.60,394,1291622400"; d="scan'208";a="701843328"
 Received: from sgarman-ws.jf.intel.com (HELO localhost) ([10.7.199.157])
-	by orsmga002.jf.intel.com with ESMTP; 28 Jan 2011 17:45:39 -0800
-Message-Id: <a10b25cfaf081613be1120bee01e164ea807f92d.1296265268.git.scott.a.garman@intel.com>
+	by orsmga001.jf.intel.com with ESMTP; 28 Jan 2011 17:45:39 -0800
+Message-Id: <d3e0bceb3dcf4c2ec2e39a93d31af6434dff8465.1296265268.git.scott.a.garman@intel.com>
 In-Reply-To: <cover.1296265268.git.scott.a.garman@intel.com>
 References: <cover.1296265268.git.scott.a.garman@intel.com>
-Old-Date: Thu, 27 Jan 2011 14:24:58 -0800
+Old-Date: Thu, 27 Jan 2011 14:36:02 -0800
 Date: Fri, 28 Jan 2011 17:46:32 -0800
 To: poky@yoctoproject.org
 CC: 
 From: Scott Garman <scott.a.garman@intel.com>
-Subject: [PATCH 8/9] iputils: enable generation of man pages
+Subject: [PATCH 9/9] distro_tracking_fields.inc: added docbook-utils and dependencies
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,48 +32,92 @@ X-List-Received-Date: Sat, 29 Jan 2011 01:45:41 -0000
 
 From: Scott Garman <scott.a.garman@intel.com>
 
-Enable documentation generation.
+These are distro tracking field additions for recipes used for
+creating documentation: sgml-common, docbook-sgml-dtd,
+docbook-dsssl-stylesheet, sgmlspl, opensp, openjade, docbook-utils
 
 Signed-off-by: Scott Garman <scott.a.garman@intel.com>
 ---
- meta/recipes-extended/iputils/iputils_s20101006.bb |   10 +++++-----
- 1 files changed, 5 insertions(+), 5 deletions(-)
+ .../conf/distro/include/distro_tracking_fields.inc |   69 ++++++++++++++++++++
+ 1 files changed, 69 insertions(+), 0 deletions(-)
 
-diff --git a/meta/recipes-extended/iputils/iputils_s20101006.bb b/meta/recipes-extended/iputils/iputils_s20101006.bb
-index 0a42017..75dde75 100644
---- a/meta/recipes-extended/iputils/iputils_s20101006.bb
-+++ b/meta/recipes-extended/iputils/iputils_s20101006.bb
-@@ -11,7 +11,7 @@ LIC_FILES_CHKSUM = "file://ping.c;beginline=1;endline=35;md5=f9ceb201733e9a6cf8f
-                     file://arping.c;beginline=1;endline=10;md5=ada2a6d06acc90f943bddf40d15e0541 \
-                     file://tftpd.c;beginline=1;endline=32;md5=28834bf8a91a5b8a92755dbee709ef96 "
+diff --git a/meta/conf/distro/include/distro_tracking_fields.inc b/meta/conf/distro/include/distro_tracking_fields.inc
+index 9f99e50..59df237 100644
+--- a/meta/conf/distro/include/distro_tracking_fields.inc
++++ b/meta/conf/distro/include/distro_tracking_fields.inc
+@@ -5512,3 +5512,72 @@ RECIPE_LATEST_VERSION_pn-man = "1.6f"
+ RECIPE_LATEST_VERSION_pn-mc = "4.7.5pre1"
+ RECIPE_NO_UPDATE_REASON_pn-bind = "Latest Stable version, 4.7.5pre1 is Alpha/Beta"
  
--DEPENDS = "sysfsutils openssl"
-+DEPENDS = "sysfsutils openssl docbook-utils-native"
- 
- PR = "r0"
- 
-@@ -30,7 +30,7 @@ SRC_URI[sha256sum] = "fd3af46c80ebb99607c2ca1f2a3608b6fe828e25bbec6e54f2afd25f6d
- # which is not available in poky
- 
- do_compile () {
--	oe_runmake 'CC=${CC} -D_GNU_SOURCE' VPATH="${STAGING_LIBDIR}" all
-+	oe_runmake 'CC=${CC} -D_GNU_SOURCE' VPATH="${STAGING_LIBDIR}" all man
- }
- 
- do_install () {
-@@ -44,9 +44,9 @@ do_install () {
- 	  install -m 0755 $i ${D}${base_bindir}/
- 	done
- 	# Manual pages for things we build packages for
--#	for i in tracepath.8 traceroute6.8 ping.8 arping.8; do
--#	  install -m 0644 doc/$i ${D}${mandir}/man8/ || true
--#	done
-+	for i in tracepath.8 traceroute6.8 ping.8 arping.8; do
-+	  install -m 0644 doc/$i ${D}${mandir}/man8/ || true
-+	done
- }
- 
- # Busybox also provides ping and ping6, so use update-alternatives
++RECIPE_STATUS_pn-sgml-common = "green"
++RECIPE_DEPENDENCY_CHECK_pn-sgml-common = "not done"
++RECIPE_LATEST_VERSION_pn-sgml-common = "0.6.3"
++RECIPE_NO_OF_PATCHES_pn-sgml-common = "2"
++RECIPE_LATEST_RELEASE_DATE_pn-sgml-common = "2001/05/25"
++RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-sgml-common = "unknown"
++RECIPE_COMMENTS_pn-sgml-common = ""
++RECIPE_LAST_UPDATE_pn-sgml-common = "Jan 28, 2011"
++RECIPE_MAINTAINER_pn-sgml-common = "Scott Garman <scott.a.garman@intel.com>"
++
++RECIPE_STATUS_pn-docbook-sgml-dtd = "green"
++RECIPE_DEPENDENCY_CHECK_pn-docbook-sgml-dtd = "not done"
++RECIPE_LATEST_VERSION_pn-docbook-sgml-dtd = "4.5"
++RECIPE_NO_OF_PATCHES_pn-docbook-sgml-dtd = "1"
++RECIPE_LATEST_RELEASE_DATE_pn-docbook-sgml-dtd = "2010/05/21"
++RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-docbook-sgml-dtd = "unknown"
++RECIPE_COMMENTS_pn-docbook-sgml-dtd = ""
++RECIPE_LAST_UPDATE_pn-docbook-sgml-dtd = "Jan 28, 2011"
++RECIPE_MAINTAINER_pn-docbook-sgml-dtd = "Scott Garman <scott.a.garman@intel.com>"
++
++RECIPE_STATUS_pn-docbook-dsssl-stylesheet = "green"
++RECIPE_DEPENDENCY_CHECK_pn-docbook-dsssl-stylesheet = "not done"
++RECIPE_LATEST_VERSION_pn-docbook-dsssl-stylesheet = "1.79"
++RECIPE_NO_OF_PATCHES_pn-docbook-dsssl-stylesheet = "0"
++RECIPE_LATEST_RELEASE_DATE_pn-docbook-dsssl-stylesheet = "2008/08/12"
++RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-docbook-dsssl-stylesheet = "unknown"
++RECIPE_COMMENTS_pn-docbook-dsssl-stylesheet = ""
++RECIPE_LAST_UPDATE_pn-docbook-dsssl-stylesheet = "Jan 26, 2011"
++RECIPE_MAINTAINER_pn-docbook-dsssl-stylesheet = "Scott Garman <scott.a.garman@intel.com>"
++
++RECIPE_STATUS_pn-sgmlspl = "green"
++RECIPE_DEPENDENCY_CHECK_pn-sgmlspl = "not done"
++RECIPE_LATEST_VERSION_pn-sgmlspl = "1.03ii"
++RECIPE_NO_OF_PATCHES_pn-sgmlspl = "1"
++RECIPE_LATEST_RELEASE_DATE_pn-sgmlspl = "1995/12/07"
++RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-sgmlspl = "5 days"
++RECIPE_COMMENTS_pn-sgmlspl = ""
++RECIPE_LAST_UPDATE_pn-sgmlspl = "Jan 26, 2011"
++RECIPE_MAINTAINER_pn-sgmlspl = "Scott Garman <scott.a.garman@intel.com>"
++
++RECIPE_STATUS_pn-opensp = "green"
++RECIPE_DEPENDENCY_CHECK_pn-opensp = "not done"
++RECIPE_LATEST_VERSION_pn-opensp = ""
++RECIPE_NO_OF_PATCHES_pn-opensp = "4"
++RECIPE_LATEST_RELEASE_DATE_pn-opensp = "2002/11/24"
++RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-opensp = "2 years"
++RECIPE_COMMENTS_pn-opensp = ""
++RECIPE_LAST_UPDATE_pn-opensp = "Jan 26, 2011"
++RECIPE_MAINTAINER_pn-opensp = "Scott Garman <scott.a.garman@intel.com>"
++
++RECIPE_STATUS_pn-openjade = "green"
++RECIPE_DEPENDENCY_CHECK_pn-openjade = "not done"
++RECIPE_LATEST_VERSION_pn-openjade = "1.3.2"
++RECIPE_NO_OF_PATCHES_pn-openjade = "3"
++RECIPE_LATEST_RELEASE_DATE_pn-openjade = "2002/12/01"
++RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-openjade = "8 months"
++RECIPE_COMMENTS_pn-openjade = ""
++RECIPE_LAST_UPDATE_pn-openjade = "Jan 26, 2011"
++RECIPE_MAINTAINER_pn-openjade = "Scott Garman <scott.a.garman@intel.com>"
++
++RECIPE_STATUS_pn-docbook-utils = "green"
++RECIPE_DEPENDENCY_CHECK_pn-docbook-utils = "not done"
++RECIPE_LATEST_VERSION_pn-docbook-utils = "0.6.14"
++RECIPE_NO_OF_PATCHES_pn-docbook-utils = "0"
++RECIPE_LATEST_RELEASE_DATE_pn-docbook-utils = "2004/02/11"
++RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-docbook-utils = "1 month"
++RECIPE_COMMENTS_pn-docbook-utils = ""
++RECIPE_LAST_UPDATE_pn-docbook-utils = "Jan 26, 2011"
++RECIPE_MAINTAINER_pn-docbook-utils = "Scott Garman <scott.a.garman@intel.com>"
 -- 
 1.7.3.5
 
