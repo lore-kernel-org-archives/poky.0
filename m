@@ -1,22 +1,22 @@
 Return-Path: <scott.a.garman@intel.com>
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C2B564C811AF
+	by mx1.pokylinux.org (Postfix) with ESMTP id CBF884C811F7
 	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 19:45:40 -0600 (CST)
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
 	by orsmga102.jf.intel.com with ESMTP; 28 Jan 2011 17:45:39 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,394,1291622400"; d="scan'208";a="597538630"
+X-IronPort-AV: E=Sophos;i="4.60,394,1291622400"; d="scan'208";a="597538631"
 Received: from sgarman-ws.jf.intel.com (HELO localhost) ([10.7.199.157])
 	by orsmga002.jf.intel.com with ESMTP; 28 Jan 2011 17:45:39 -0800
-Message-Id: <748fe38b54bd6871a91a31775c5aa39a31c154c2.1296265268.git.scott.a.garman@intel.com>
+Message-Id: <7385902ec21d3a17b5af35a0d90930ff9789c597.1296265268.git.scott.a.garman@intel.com>
 In-Reply-To: <cover.1296265268.git.scott.a.garman@intel.com>
 References: <cover.1296265268.git.scott.a.garman@intel.com>
-Old-Date: Tue, 25 Jan 2011 15:40:47 -0800
+Old-Date: Wed, 26 Jan 2011 13:35:37 -0800
 Date: Fri, 28 Jan 2011 17:46:32 -0800
 To: poky@yoctoproject.org
 CC: 
 From: Scott Garman <scott.a.garman@intel.com>
-Subject: [PATCH 4/9] sgmlspl: new recipe, v1.03ii
+Subject: [PATCH 6/9] openjade: new recipe v1.3.2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,498 +36,404 @@ Recipe derived from OpenEmbedded.
 
 Signed-off-by: Scott Garman <scott.a.garman@intel.com>
 ---
- meta/recipes-devtools/sgmlspl/files/combined.patch |  457 ++++++++++++++++++++
- .../sgmlspl/sgmlspl-native_1.03ii.bb               |   17 +
- 2 files changed, 474 insertions(+), 0 deletions(-)
- create mode 100644 meta/recipes-devtools/sgmlspl/files/combined.patch
- create mode 100644 meta/recipes-devtools/sgmlspl/sgmlspl-native_1.03ii.bb
+ .../openjade/openjade-1.3.2/autoconf.patch         |  173 ++++++++++++++++++++
+ .../openjade/openjade-1.3.2/configure.patch        |   68 ++++++++
+ .../openjade/openjade-1.3.2/makefile.patch         |   34 ++++
+ .../openjade-1.3.2/oj-native-libosp-fix.patch      |   15 ++
+ meta/recipes-devtools/openjade/openjade_1.3.2.bb   |   66 ++++++++
+ 5 files changed, 356 insertions(+), 0 deletions(-)
+ create mode 100644 meta/recipes-devtools/openjade/openjade-1.3.2/autoconf.patch
+ create mode 100644 meta/recipes-devtools/openjade/openjade-1.3.2/configure.patch
+ create mode 100644 meta/recipes-devtools/openjade/openjade-1.3.2/makefile.patch
+ create mode 100644 meta/recipes-devtools/openjade/openjade-1.3.2/oj-native-libosp-fix.patch
+ create mode 100644 meta/recipes-devtools/openjade/openjade_1.3.2.bb
 
-diff --git a/meta/recipes-devtools/sgmlspl/files/combined.patch b/meta/recipes-devtools/sgmlspl/files/combined.patch
+diff --git a/meta/recipes-devtools/openjade/openjade-1.3.2/autoconf.patch b/meta/recipes-devtools/openjade/openjade-1.3.2/autoconf.patch
 new file mode 100644
-index 0000000..31536f5
+index 0000000..fe8df5b
 --- /dev/null
-+++ b/meta/recipes-devtools/sgmlspl/files/combined.patch
-@@ -0,0 +1,457 @@
++++ b/meta/recipes-devtools/openjade/openjade-1.3.2/autoconf.patch
+@@ -0,0 +1,173 @@
 +Patch obtained from OpenEmbedded.
 +
 +Signed-off-by: Scott Garman <scott.a.garman@intel.com>
-+--- libsgmls-perl-1.03ii.orig/Makefile
-++++ libsgmls-perl-1.03ii/Makefile
-+@@ -94,5 +94,5 @@
-+ 	mv /tmp/${DIST} SGMLSpm
++-- config/acinclude.m4
+++++ config/acinclude.m4	2002/04/08 23:13:37
++@@ -0,0 +1,61 @@
+++dnl Configure-time switch with default
+++dnl
+++dnl Each switch defines an --enable-FOO and --disable-FOO option in
+++dnl the resulting configure script.
+++dnl
+++dnl Usage:
+++dnl SMR_SWITCH(name, description, default, pos-def, neg-def)
+++dnl
+++dnl where:
+++dnl
+++dnl name        name of switch; generates --enable-name & --disable-name
+++dnl             options
+++dnl description help string is set to this prefixed by "enable" or
+++dnl             "disable", whichever is the non-default value
+++dnl default     either "on" or "off"; specifies default if neither
+++dnl             --enable-name nor --disable-name is specified
+++dnl pos-def     a symbol to AC_DEFINE if switch is on (optional)
+++dnl neg-def     a symbol to AC_DEFINE if switch is off (optional)
+++dnl
+++AC_DEFUN(SMR_SWITCH, [
+++    AC_MSG_CHECKING(whether to enable $2)
+++    AC_ARG_ENABLE(
+++        $1,
+++        ifelse($3, on,
+++            [  --disable-[$1]    disable [$2]],
+++            [  --enable-[$1]     enable [$2]]),
+++        [ if test "$enableval" = yes; then
+++            AC_MSG_RESULT(yes)
+++            ifelse($4, , , AC_DEFINE($4))
+++        else
+++            AC_MSG_RESULT(no)
+++            ifelse($5, , , AC_DEFINE($5))
+++        fi ],
+++        ifelse($3, on,
+++           [ AC_MSG_RESULT(yes)
+++             ifelse($4, , , AC_DEFINE($4)) ],
+++           [ AC_MSG_RESULT(no)
+++            ifelse($5, , , AC_DEFINE($5))]))])
+++
+++dnl
+++dnl Examine size_t and define SIZE_T_IS_UINT, if size_t is an unsigned int
+++dnl
+++AC_DEFUN(OJ_SIZE_T_IS_UINT,[
+++	AC_REQUIRE([AC_TYPE_SIZE_T])
+++	AC_MSG_CHECKING(whether size_t is unsigned int)
+++	ac_cv_size_t_is_uint=no
+++	AC_LANG_SAVE
+++	AC_LANG_CPLUSPLUS
+++	AC_TRY_COMPILE([#include <unistd.h>
+++
+++                       template<class T> class foo { };
+++
+++                        ], [
+++			foo<size_t> x;
+++			foo<unsigned int> y;
+++			x = y;
+++		],ac_cv_size_t_is_uint=yes)
+++	AC_LANG_RESTORE
+++	AC_MSG_RESULT($ac_cv_size_t_is_uint)
+++	test "$ac_cv_size_t_is_uint" = "yes" && AC_DEFINE(SIZE_T_IS_UINT)
+++])
++Index: openjade-1.3.2/config/acinclude.m4
++===================================================================
++--- openjade-1.3.2.orig/config/acinclude.m4
+++++ openjade-1.3.2/config/acinclude.m4
++@@ -1,3 +1,64 @@
+++dnl Configure-time switch with default
+++dnl
+++dnl Each switch defines an --enable-FOO and --disable-FOO option in
+++dnl the resulting configure script.
+++dnl
+++dnl Usage:
+++dnl SMR_SWITCH(name, description, default, pos-def, neg-def)
+++dnl
+++dnl where:
+++dnl
+++dnl name        name of switch; generates --enable-name & --disable-name
+++dnl             options
+++dnl description help string is set to this prefixed by "enable" or
+++dnl             "disable", whichever is the non-default value
+++dnl default     either "on" or "off"; specifies default if neither
+++dnl             --enable-name nor --disable-name is specified
+++dnl pos-def     a symbol to AC_DEFINE if switch is on (optional)
+++dnl neg-def     a symbol to AC_DEFINE if switch is off (optional)
+++dnl
+++AC_DEFUN(SMR_SWITCH, [
+++    AC_MSG_CHECKING(whether to enable $2)
+++    AC_ARG_ENABLE(
+++        $1,
+++        ifelse($3, on,
+++            [  --disable-[$1]    disable [$2]],
+++            [  --enable-[$1]     enable [$2]]),
+++        [ if test "$enableval" = yes; then
+++            AC_MSG_RESULT(yes)
+++            ifelse($4, , , AC_DEFINE($4))
+++        else
+++            AC_MSG_RESULT(no)
+++            ifelse($5, , , AC_DEFINE($5))
+++        fi ],
+++        ifelse($3, on,
+++           [ AC_MSG_RESULT(yes)
+++             ifelse($4, , , AC_DEFINE($4)) ],
+++           [ AC_MSG_RESULT(no)
+++            ifelse($5, , , AC_DEFINE($5))]))])
+++
+++dnl
+++dnl Examine size_t and define SIZE_T_IS_UINT, if size_t is an unsigned int
+++dnl
+++AC_DEFUN(OJ_SIZE_T_IS_UINT,[
+++	AC_REQUIRE([AC_TYPE_SIZE_T])
+++	AC_MSG_CHECKING(whether size_t is unsigned int)
+++	ac_cv_size_t_is_uint=no
+++	AC_LANG_SAVE
+++	AC_LANG_CPLUSPLUS
+++	AC_TRY_COMPILE([#include <unistd.h>
+++
+++                       template<class T> class foo { };
+++
+++                        ], [
+++			foo<size_t> x;
+++			foo<unsigned int> y;
+++			x = y;
+++		],ac_cv_size_t_is_uint=yes)
+++	AC_LANG_RESTORE
+++	AC_MSG_RESULT($ac_cv_size_t_is_uint)
+++	test "$ac_cv_size_t_is_uint" = "yes" && AC_DEFINE(SIZE_T_IS_UINT)
+++])
++ dnl
++ dnl Examine size_t and define SIZE_T_IS_UINT, if size_t is an unsigned int
++ dnl
++Index: openjade-1.3.2/config/aclocal.m4
++===================================================================
++--- openjade-1.3.2.orig/config/aclocal.m4
+++++ openjade-1.3.2/config/aclocal.m4
++@@ -3352,7 +3352,7 @@ dnl Each switch defines an --enable-FOO
++ dnl the resulting configure script.
++ dnl
++ dnl Usage:
++-dnl smr_SWITCH(name, description, default, pos-def, neg-def)
+++dnl SMR_SWITCH(name, description, default, pos-def, neg-def)
++ dnl
++ dnl where:
++ dnl
++@@ -3365,7 +3365,7 @@ dnl             --enable-name nor --disa
++ dnl pos-def     a symbol to AC_DEFINE if switch is on (optional)
++ dnl neg-def     a symbol to AC_DEFINE if switch is off (optional)
++ dnl
++-AC_DEFUN(smr_SWITCH, [
+++AC_DEFUN(SMR_SWITCH, [
++     AC_MSG_CHECKING(whether to enable $2)
++     AC_ARG_ENABLE(
++         $1,
++Index: openjade-1.3.2/config/configure.in
++===================================================================
++--- openjade-1.3.2.orig/config/configure.in
+++++ openjade-1.3.2/config/configure.in
++@@ -243,8 +243,8 @@ AC_ARG_ENABLE(http,
++ dnl
++ dnl  optional backends
++ dnl
++-smr_SWITCH(mif, support for FrameMaker MIF output, on, JADE_MIF, DUMMY)
++-smr_SWITCH(html, support for HTML+CSS output, on, JADE_HTML, DUMMY)
+++SMR_SWITCH(mif, support for FrameMaker MIF output, on, JADE_MIF, DUMMY)
+++SMR_SWITCH(html, support for HTML+CSS output, on, JADE_HTML, DUMMY)
 + 
-+ clean:
-+-	cd DOC; make clean
-++	#cd DOC; make clean
-+ 	rm -f *~ core *.tar *.tar.gz
-+--- libsgmls-perl-1.03ii.orig/Makefile.PL
-++++ libsgmls-perl-1.03ii/Makefile.PL
-+@@ -0,0 +1,17 @@
-++use ExtUtils::MakeMaker;
-++# See lib/ExtUtils/MakeMaker.pm for details of how to influence
-++# the contents of the Makefile that is written.
-++WriteMakefile(
-++      'NAME'	=> 'SGMLS',
-++      'VERSION'	=> '1.03ii',
-++      'PM'	=> { 'SGMLS.pm' => '$(INST_LIBDIR)/SGMLS.pm',
-++		     'Output.pm' => '$(INST_LIBDIR)/SGMLS/Output.pm',
-++		     'Refs.pm' => '$(INST_LIBDIR)/SGMLS/Refs.pm',
-++		     'skel.pl' => '$(INST_LIBDIR)/sgmlspl-specs/skel.pl',
-++		 },
-++      'MAN3PODS'=> { 'SGMLS.pm' => '$(INST_MAN3DIR)/SGMLS.3pm',
-++		     'Output.pm' => '$(INST_MAN3DIR)/SGMLS::Output.3pm',
-++		     'Refs.pm' => '$(INST_MAN3DIR)/SGMLS::Refs.3pm',
-++		 },
-++      'EXE_FILES' => [ 'sgmlspl', ],
-++);
-+--- libsgmls-perl-1.03ii.orig/Output.pm
-++++ libsgmls-perl-1.03ii/Output.pm
-+@@ -5,7 +5,7 @@
-+ @ISA = Exporter;
-+ @EXPORT = qw(output push_output pop_output);
 + 
-+-$version = '$Id: Output.pm,v 1.6 1995/12/05 12:21:51 david Exp $';
-++$version = '$Id: Output.pm,v 1.1 1999/10/26 19:30:45 ardo Exp $';
-+ 
-+ =head1 NAME
-+ 
-+--- libsgmls-perl-1.03ii.orig/Refs.pm
-++++ libsgmls-perl-1.03ii/Refs.pm
-+@@ -2,11 +2,11 @@
-+ 
-+ use Carp;
-+ 
-+-$version = '$Id: Refs.pm,v 1.5 1995/12/03 21:28:36 david Exp $';
-++$version = '$Id: Refs.pm,v 1.1 1999/10/26 19:30:45 ardo Exp $';
-+ 
-+ =head1 NAME
-+ 
-+-SGMLS::Refs
-++SGMLS::Refs - Forward refeence handling
-+ 
-+ =head1 SYNOPSIS
-+ 
-+--- libsgmls-perl-1.03ii.orig/sgmlspl.1
-++++ libsgmls-perl-1.03ii/sgmlspl.1
-+@@ -0,0 +1,47 @@
-++.\" -*- nroff -*-
-++.\" ----------------------------------------------------------------------
-++.TH SGMLSPL 1 "October 26, 1999" "SGMLSPL" "SGMLSPL"
-++.\"
-++.\" ----------------------------------------------------------------------
-++.SH "NAME"
-++sgmlspl \- a simple post-processor for nsgmls
-++.\"
-++.\" ----------------------------------------------------------------------
-++.SH "SYNOPSIS"
-++.B sgmlspl
-++.I "spec file"
-++.\"
-++.\" ----------------------------------------------------------------------
-++.SH "DESCRIPTION"
-++sgmlspl is a sample application to convert SGML documents to other
-++formats by providing a specification file detailing exactly how to
-++handle each element, external data entity, subdocument entity, CDATA
-++string, record end, SDATA string, and processing instruction.
-++
-++To use sgmlspl, prepare a specification file containing regular perl5
-++code. If the SGML document were named doc.sgml, the sgmlspl
-++specification file were named, spec.pl, and the name of the new file
-++were doc.latex, then use the following command in a Unix shell to
-++convert the SGML document:
-++
-++nsgmls doc.sgml | sgmlspl spec.pl > doc.latex
-++
-++sgmlspl will pass any additional arguments on to the specification
-++file, which can then process them in the regular perl5 fashion.
-++.\"
-++.\" ----------------------------------------------------------------------
-++.SH "SEE ALSO"
-++.TP
-++.BR /usr/share/doc/sgmls-doc/sgmlspl/sgmlspl.html
-++sgmlspl documentation in HTML format
-++.TP
-++.BR /usr/share/doc/sgmls-doc/SGMLSpm/sgmls.html
-++SGMLS documentation in HTML format
-++.TP
-++.BR nsgmls (1)
-++.\"
-++.\" ----------------------------------------------------------------------
-++.SH "AUTHOR"
-++Ardo van Rangelrooij <ardo@debian.org>
-++.\"
-++.\" ----------------------------------------------------------------------
-+--- libsgmls-perl-1.03ii.orig/sgmlspl
-++++ libsgmls-perl-1.03ii/sgmlspl
-+@@ -0,0 +1,323 @@
-++#!/usr/bin/perl
-++########################################################################
-++# sgmlspl: a simple SGML postprocesser for the SGMLS and NSGMLS
-++#          parsers (requires SGMLS.pm library).
-++#
-++# Copyright (c) 1995 by David Megginson <dmeggins@aix1.uottawa.ca>
-++#
-++# This program is free software; you can redistribute it and/or modify
-++# it under the terms of the GNU General Public License as published by
-++# the Free Software Foundation; either version 2 of the License, or
-++# (at your option) any later version.
-++#
-++# This program is distributed in the hope that it will be useful,
-++# but WITHOUT ANY WARRANTY; without even the implied warranty of
-++# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-++# GNU General Public License for more details.
-++#
-++# You should have received a copy of the GNU General Public License
-++# along with this program; if not, write to the Free Software
-++# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-++#
-++# $Log: sgmlspl,v $
-++# Revision 1.1  2004/02/23 01:23:07  ardo
-++# Added debian changes for version 1.03ii-27.
-++#
-++# Revision 1.1  2001/04/15 14:42:01  ardo
-++# *** empty log message ***
-++#
-++# Revision 1.8  1995/12/03  21:46:31  david
-++# Eliminated all use of the SGMLS_Event::key method.
-++#
-++# Revision 1.7  1995/11/15  20:22:24  david
-++# Changed "use Output" to "use SGMLS::Output".  Qualified the STDIN
-++# filehandle for the SGMLS object with the main:: package name.
-++#
-++# Revision 1.6  1995/08/12  16:15:14  david
-++# Revised version for 1.01 distribution.
-++#
-++# Revision 1.5  1995/04/27  11:52:25  david
-++# Changed 'print' to 'main::output' for re handler; empty string
-++# translates into an empty sub {} rather than a sub printing an empty
-++# string; instead of evaluating every argument as a perl script, take
-++# only the first as a perl script and the rest as its arguments; allow
-++# empty scripts or scripts which do not end with '1;'; pass the event
-++# itself as the second argument to each handler, after the event data.
-++#
-++# Revision 1.4  1995/04/23  14:44:58  david
-++# Use the Output package.  Fixed the $version variable.
-++#
-++# Revision 1.3  1995/04/22  21:02:49  david
-++# Added some missing 'last SWITCH;' statements in the sgmls function.
-++#
-++# Revision 1.2  1995/04/22  20:58:48  david
-++# Added $SGMLS_PL::version variable and changed SDATA notation from
-++# [SDATA] to |SDATA|.
-++#
-++# Revision 1.1  1995/04/22  14:40:50  david
-++# Initial revision
-++#
-++########################################################################
-++
-++use SGMLS::Output;
-++
-++package SGMLS_PL;
-++use SGMLS;
-++
-++$version = '$Id: sgmlspl,v 1.1 2004/02/23 01:23:07 ardo Exp $';
-++
-++#
-++# Set up handler defaults.
-++#
-++$start_document_handler = sub {};
-++$end_document_handler = sub {};
-++$start_element_handlers = { '' => sub {} };
-++$end_element_handlers = { '' => sub {} };
-++$cdata_handler = sub { main::output($_[0]); };
-++$sdata_handlers = { '' => sub { main::output($_[0]);} };
-++$re_handler = sub { main::output("\n"); };
-++$pi_handler = sub { '' => sub {} };
-++$entity_handlers = { '' => sub {} };
-++$start_subdoc_handlers = { '' => sub {} };
-++$end_subdoc_handlers = { '' => sub {} };
-++$conforming_handler = sub {};
-++
-++#
-++# Main access point: declare handlers for different SGML events.
-++#
-++# Usage: sgml(event, handler);
-++#
-++# The event may be one of the following strings, or a special pattern.
-++# The generic events are as follow:
-++#
-++#   'start'                 The beginning of the document.
-++#   'end'                   The end of the document.
-++#   'start_element'         The beginning of an element.
-++#   'end_element'           The end of an element.
-++#   'cdata'                 Regular character data.
-++#   'sdata'                 Special system-specific data.
-++#   're'                    A record-end.
-++#   'pi'                    A processing instruction.
-++#   'entity'                An external-entity reference.
-++#   'start_subdoc'          The beginning of a subdocument entity.
-++#   'end_subdoc'            The end of a subdocument entity.
-++#   'conforming'            The document is conforming.
-++#
-++# In addition to these generic events, it is possible to handlers
-++# for certain specific, named events, as follow:
-++#
-++#   '<GI>'                  The beginning of element GI.
-++#   '</GI>'                 The end of element GI.
-++#   '[SDATA]'               The system-specific data SDATA.
-++#   '&ENAME;'               A reference to the external entity ENAME.
-++#   '{ENAME}'               The beginning of the subdocument-entity ENAME.
-++#   '{/ENAME}'              The end of the subdocument-entity ENAME.
-++#
-++#
-++# The handler may be a string, which will simply be printed when the
-++# event occurs (this is usually useful only for the specific, named
-++# events), or a reference to an anonymous subroutine, which will
-++# receive two arguments: the event data and the event itself.  For 
-++# example,
-++#
-++#   sgml('<FOO>', "\n\\begin{foo}\n");
-++#
-++# and
-++#
-++#   sgml('<FOO>', sub { output("\n\\begin{foo}\n"); });
-++#
-++# will have identical results.
-++#
-++sub main::sgml {
-++    my ($spec,$handler) = (@_);
-++    if (ref($handler) ne 'CODE') {
-++	$handler =~ s/\\/\\\\/g;
-++	$handler =~ s/'/\\'/g;
-++	if ($handler eq '') {
-++	    $handler = sub {};
-++	} else {
-++	    $handler = eval "sub { main::output('$handler'); };";
-++	}
-++    }
-++  SWITCH: {
-++				# start-document handler
-++      $spec eq 'start' && do {
-++	  $start_document_handler = $handler;
-++	  last SWITCH;
-++      };
-++				# end-document handler
-++      $spec eq 'end' && do {
-++	  $end_document_handler = $handler;
-++	  last SWITCH;
-++      };
-++				# start-element handler
-++      $spec =~ /^<([^\/].*|)>$/ && do {
-++	  $start_element_handlers->{$1} = $handler;
-++	  last SWITCH;
-++      };
-++				# generic start-element handler
-++      $spec eq 'start_element' && do {
-++	  $start_element_handlers->{''} = $handler;
-++	  last SWITCH;
-++      };
-++				# end-element handler
-++      $spec =~ /^<\/(.*)>$/ && do {
-++	  $end_element_handlers->{$1} = $handler;
-++	  last SWITCH;
-++      };
-++				# generic end-element handler
-++      $spec =~ 'end_element' && do {
-++	  $end_element_handlers->{''} = $handler;
-++	  last SWITCH;
-++      };
-++				# cdata handler
-++      $spec eq 'cdata' && do {
-++	  $cdata_handler = $handler;
-++	  last SWITCH;
-++      };
-++				# sdata handler
-++      $spec =~ /^\|(.*)\|$/ && do {
-++	  $sdata_handlers->{$1} = $handler;
-++	  last SWITCH;
-++      };
-++				# generic sdata handler
-++      $spec eq 'sdata' && do {
-++	  $sdata_handlers->{''} = $handler;
-++	  last SWITCH;
-++      };
-++				# record-end handler
-++      $spec eq 're' && do {
-++	  $re_handler = $handler;
-++	  last SWITCH;
-++      };
-++				# processing-instruction handler
-++      $spec eq 'pi' && do {
-++	  $pi_handler = $handler;
-++	  last SWITCH;
-++      };
-++				# entity-reference handler
-++      $spec =~ /^\&(.*);$/ && do {
-++	  $entity_handlers->{$1} = $handler;
-++	  last SWITCH;
-++      };
-++				# generic entity-reference handler
-++      $spec eq 'entity' && do {
-++	  $entity_handlers->{''} = $handler;
-++	  last SWITCH;
-++      };
-++				# start-subdoc handler
-++      $spec =~ /^\{([^\/].*|)\}$/ && do {
-++	  $start_subdoc_handlers->{$1} = $handler;
-++	  last SWITCH;
-++      };
-++				# generic start-subdoc handler
-++      $spec eq 'start_subdoc' && do {
-++	  $start_subdoc_handlers->{''} = $handler;
-++	  last SWITCH;
-++      };
-++				# end-subdoc handler
-++      $spec =~ /^\{\/(.*)\}$/ && do {
-++	  $end_subdoc_handlers->{$1} = $handler;
-++	  last SWITCH;
-++      };
-++				# generic end-subdoc handler
-++      $spec eq 'end_subdoc' && do {
-++	  $end_subdoc_handlers->{''} = $handler;
-++	  last SWITCH;
-++      };
-++				# conforming handler
-++      $spec eq 'conforming' && do {
-++	  $conforming_handler = $handler;
-++	  last SWITCH;
-++      };
-++
-++      die "Bad SGML handler pattern: $spec\n";
-++  }
-++}
-++
-++
-++#
-++# The first argument on the command line is a perl module which will be
-++# read here and evaluated in the 'main' package -- everything else will
-++# be an argument to it.
-++#
-++package main;
-++
-++$ARGV = shift;
-++unless ($ARGV eq '' || do 'sgmlspl-specs/' . $ARGV || do $ARGV) {
-++    if (!-e $ARGV) {
-++	die "FATAL: $ARGV does not exist.\n";
-++    } elsif (!-r $ARGV) {
-++	die "FATAL: $ARGV exists but is read-protected.\n";
-++    } elsif ($@) {
-++	die "FATAL: $@\n";
-++    }
-++}
-++
-++
-++#
-++# Do the actual work, using the SGMLS package.
-++#
-++package SGMLS_PL;
-++
-++$parse = new SGMLS(main::STDIN);	# a new parse object
-++
-++&{$start_document_handler}();	# run the start handler.
-++
-++				# run the appropriate handler for each
-++				# event
-++while ($event = $parse->next_event) {
-++    my $type = $event->type;
-++  SWITCH: {
-++      $type eq 'start_element' && do {
-++	  &{($start_element_handlers->{$event->data->name}||
-++		$start_element_handlers->{''} || sub {})}($event->data,$event);
-++	  last SWITCH;
-++      };
-++      $type eq 'end_element' && do {
-++	  &{($end_element_handlers->{$event->data->name}||
-++		$end_element_handlers->{''} || sub {})}($event->data,$event);
-++	  last SWITCH;
-++      };
-++      $type eq 'cdata' && do {
-++	  &{$cdata_handler}($event->data,$event);
-++	  last SWITCH;
-++      };
-++      $type eq 'sdata' && do {
-++	  &{($sdata_handlers->{$event->data}||
-++	     $sdata_handlers->{''} || sub {})}($event->data,$event);
-++	  last SWITCH;
-++      };
-++      $type eq 're' && do {
-++	  &{$re_handler}($event->data,$event);
-++	  last SWITCH;
-++      };
-++      $type eq 'pi' && do {
-++	  &{$pi_handler}($event->data,$event);
-++	  last SWITCH;
-++      };
-++      $type eq 'entity' && do {
-++	  &{($entity_handlers->{$event->data->name}||
-++	     $entity_handlers->{''} || sub {})}($event->data,$event);
-++	  last SWITCH;
-++      };
-++      $type eq 'start_subdoc' && do {
-++	  &{($start_subdoc_handlers->{$event->data->name}||
-++	     $start_subdoc_handlers->{''} || sub {})}($event->data,$event);
-++	  last SWITCH;
-++      };
-++      $type eq 'end_subdoc' && do {
-++	  &{($end_subdoc_handlers->{$event->data->name}||
-++	     $end_subdoc_handlers->{''} || sub {})}($event->data,$event);
-++	  last SWITCH;
-++      };
-++      $type eq 'conforming' && do {
-++	  &{$conforming_handler}($event->data,$event);
-++	  last SWITCH;
-++      };
-++
-++      die "Unknown SGML event type: $type\n";
-++  }
-++}
-++				
-++&{$end_document_handler}();	# run the end handler
-+--- libsgmls-perl-1.03ii.orig/sgmlspl.pl
-++++ libsgmls-perl-1.03ii/sgmlspl.pl
-+@@ -238,7 +238,7 @@
-+ package main;
-+ 
-+ $ARGV = shift;
-+-unless ($ARGV eq '' || do $ARGV) {
-++unless ($ARGV eq '' || do 'sgmlspl-specs/' . $ARGV || do $ARGV) {
-+     if (!-e $ARGV) {
-+ 	die "FATAL: $ARGV does not exist.\n";
-+     } elsif (!-r $ARGV) {
-+--- libsgmls-perl-1.03ii.orig/SGMLS.pm
-++++ libsgmls-perl-1.03ii/SGMLS.pm
-+@@ -1,7 +1,7 @@
-+ package SGMLS;
-+ use Carp;
-+ 
-+-$version = '$Revision: 1.14 $';
-++$version = '$Revision: 1.1 $';
-+ 
-+ =head1 NAME
-+ 
-diff --git a/meta/recipes-devtools/sgmlspl/sgmlspl-native_1.03ii.bb b/meta/recipes-devtools/sgmlspl/sgmlspl-native_1.03ii.bb
++ dnl 
+diff --git a/meta/recipes-devtools/openjade/openjade-1.3.2/configure.patch b/meta/recipes-devtools/openjade/openjade-1.3.2/configure.patch
 new file mode 100644
-index 0000000..1fab417
+index 0000000..2dcaa4d
 --- /dev/null
-+++ b/meta/recipes-devtools/sgmlspl/sgmlspl-native_1.03ii.bb
-@@ -0,0 +1,17 @@
-+SUMMARY = "A simple post-processor for SGMLS and NSGMLS"
-+DESCRIPTION = "A simple post-processor for SGMLS and NSGMLS"
-+HOMEPAGE = "http://search.cpan.org/src/DMEGG/SGMLSpm-1.03ii/DOC/HTML/SGMLSpm/sgmlspm.html"
-+SECTION = "libs"
-+LICENSE = "GPLv2+"
-+LIC_FILES_CHKSUM = "file://COPYING;md5=18810669f13b87348459e611d31ab760"
++++ b/meta/recipes-devtools/openjade/openjade-1.3.2/configure.patch
+@@ -0,0 +1,68 @@
++Patch obtained from OpenEmbedded.
++
++Signed-off-by: Scott Garman <scott.a.garman@intel.com>
++--- /dev/null	2003-09-23 18:19:32.000000000 -0400
+++++ openjade-1.3.2/config/acinclude.m4	2004-01-20 14:39:20.000000000 -0500
++@@ -0,0 +1,62 @@
+++dnl
+++dnl Examine size_t and define SIZE_T_IS_UINT, if size_t is an unsigned int
+++dnl
+++AC_DEFUN(OJ_SIZE_T_IS_UINT,[
+++	AC_REQUIRE([AC_TYPE_SIZE_T])
+++	AC_MSG_CHECKING(whether size_t is unsigned int)
+++	ac_cv_size_t_is_uint=no
+++	AC_LANG_SAVE
+++	AC_LANG_CPLUSPLUS
+++	AC_TRY_COMPILE([#include <unistd.h>
+++
+++                       template<class T> class foo { };
+++
+++                        ], [
+++			foo<size_t> x;
+++			foo<unsigned int> y;
+++			x = y;
+++		],ac_cv_size_t_is_uint=yes)
+++	AC_LANG_RESTORE
+++	AC_MSG_RESULT($ac_cv_size_t_is_uint)
+++	test "$ac_cv_size_t_is_uint" = "yes" && AC_DEFINE(SIZE_T_IS_UINT)
+++])
+++
+++dnl Configure-time switch with default
+++dnl
+++dnl Each switch defines an --enable-FOO and --disable-FOO option in
+++dnl the resulting configure script.
+++dnl
+++dnl Usage:
+++dnl smr_SWITCH(name, description, default, pos-def, neg-def)
+++dnl
+++dnl where:
+++dnl
+++dnl name        name of switch; generates --enable-name & --disable-name
+++dnl             options
+++dnl description help string is set to this prefixed by "enable" or
+++dnl             "disable", whichever is the non-default value
+++dnl default     either "on" or "off"; specifies default if neither
+++dnl             --enable-name nor --disable-name is specified
+++dnl pos-def     a symbol to AC_DEFINE if switch is on (optional)
+++dnl neg-def     a symbol to AC_DEFINE if switch is off (optional)
+++dnl
+++AC_DEFUN(smr_SWITCH, [
+++    AC_MSG_CHECKING(whether to enable $2)
+++    AC_ARG_ENABLE(
+++        $1,
+++        ifelse($3, on,
+++            [  --disable-[$1]    disable [$2]],
+++            [  --enable-[$1]     enable [$2]]),
+++        [ if test "$enableval" = yes; then
+++            AC_MSG_RESULT(yes)
+++            ifelse($4, , , AC_DEFINE($4))
+++        else
+++            AC_MSG_RESULT(no)
+++            ifelse($5, , , AC_DEFINE($5))
+++        fi ],
+++        ifelse($3, on,
+++           [ AC_MSG_RESULT(yes)
+++             ifelse($4, , , AC_DEFINE($4)) ],
+++           [ AC_MSG_RESULT(no)
+++            ifelse($5, , , AC_DEFINE($5))]))])
+++
+diff --git a/meta/recipes-devtools/openjade/openjade-1.3.2/makefile.patch b/meta/recipes-devtools/openjade/openjade-1.3.2/makefile.patch
+new file mode 100644
+index 0000000..ac5c744
+--- /dev/null
++++ b/meta/recipes-devtools/openjade/openjade-1.3.2/makefile.patch
+@@ -0,0 +1,34 @@
++Patch obtained from OpenEmbedded.
++
++Signed-off-by: Scott Garman <scott.a.garman@intel.com>
++Index: openjade-1.3.2/spgrove/Makefile.sub
++===================================================================
++--- openjade-1.3.2.orig/spgrove/Makefile.sub
+++++ openjade-1.3.2/spgrove/Makefile.sub
++@@ -1,8 +1,8 @@
++ LTVERSION=0:1:0
++ LIB=ospgrove
++ INCLUDE=-I$(srcdir)/../grove
++-DEPLIBS=-lm -L$(TOP)/grove -L$(TOP)/grove/.libs \
++-	-L$(TOP)/lib -L$(TOP)/lib/.libs \
+++DEPLIBS=-lm $(TOP)/grove \
+++	$(TOP)/lib \
++ 	$(LIB_THREADS)
++ OBJS=GroveApp.o GroveBuilder.o SdNode.o
++ GENSRCS=grove_inst.cxx
++Index: openjade-1.3.2/style/Makefile.sub
++===================================================================
++--- openjade-1.3.2.orig/style/Makefile.sub
+++++ openjade-1.3.2/style/Makefile.sub
++@@ -1,8 +1,8 @@
++ LTVERSION=0:1:0
++ LIB=ostyle
++-DEPLIBS=-lm -L$(TOP)/grove -L$(TOP)/grove/.libs \
++-  -L$(TOP)/lib -L$(TOP)/lib/.libs \
++-  -L$(TOP)/spgrove -L$(TOP)/spgrove/.libs 
+++DEPLIBS=-lm $(TOP)/grove \
+++  $(TOP)/lib  \
+++  $(TOP)/spgrove
++ OBJS=LangObj.o \
++   Collector.o \
++   DssslApp.o \
+diff --git a/meta/recipes-devtools/openjade/openjade-1.3.2/oj-native-libosp-fix.patch b/meta/recipes-devtools/openjade/openjade-1.3.2/oj-native-libosp-fix.patch
+new file mode 100644
+index 0000000..48e3804
+--- /dev/null
++++ b/meta/recipes-devtools/openjade/openjade-1.3.2/oj-native-libosp-fix.patch
+@@ -0,0 +1,15 @@
++Patch obtained from OpenEmbedded.
++
++Signed-off-by: Scott Garman <scott.a.garman@intel.com>
++Index: openjade-1.3.2/Makefile.prog.in
++===================================================================
++--- openjade-1.3.2.orig/Makefile.prog.in	2007-12-21 14:48:00.000000000 +0100
+++++ openjade-1.3.2/Makefile.prog.in	2007-12-21 14:50:12.000000000 +0100
++@@ -13,6 +13,7 @@
++ ALL_LIBS = $(XLIBS) $(LIBS)
++ Makefile.lt:
++ 	echo 'LT_LIBS='`echo $(ALL_LIBS)|sed 's/\.a/.la/g'` >Makefile.lt
+++	sed -i -e "s|libosp.la|libosp.so|" Makefile.lt
++ 
++ PROG:=$(shell echo "$(PROG)" | sed '@program_transform_name@')
++ 
+diff --git a/meta/recipes-devtools/openjade/openjade_1.3.2.bb b/meta/recipes-devtools/openjade/openjade_1.3.2.bb
+new file mode 100644
+index 0000000..f2ad8ae
+--- /dev/null
++++ b/meta/recipes-devtools/openjade/openjade_1.3.2.bb
+@@ -0,0 +1,66 @@
++SUMMARY = "Tools for working with DSSSL stylesheets for SGML and XML documents"
++DESCRIPTION = "OpenJade is a suite of tools for validating, \
++processing, and applying DSSSL (Document Style Semantics and \
++Specification Language) stylesheets to SGML and XML documents."
++HOMEPAGE = "http://openjade.sourceforge.net"
++SECTION = "base"
++LICENSE = "BSD"
++LIC_FILES_CHKSUM = "file://COPYING;md5=641ff1e4511f0a87044ad42f87cb1045"
++
 +PR = "r0"
 +
-+SRC_URI = "http://www.cpan.org/authors/id/D/DM/DMEGG/SGMLSpm-${PV}.tar.gz \
-+           file://combined.patch"
++DEPENDS = "opensp"
++RDEPENDS_${PN} = "sgml-common"
 +
-+SRC_URI[md5sum] = "5bcb197fd42e67d51c739b1414d514a7"
-+SRC_URI[sha256sum] = "f06895c0206dada9f9e7f07ecaeb6a3651fd648f4820f49c1f76bfeaec2f2913"
++SRC_URI = "${SOURCEFORGE_MIRROR}/openjade/openjade-${PV}.tar.gz \
++           file://configure.patch \
++           file://autoconf.patch \
++           file://makefile.patch \
++          "
 +
-+S = "${WORKDIR}/SGMLSpm"
++SRC_URI[md5sum] = "7df692e3186109cc00db6825b777201e"
++SRC_URI[sha256sum] = "1d2d7996cc94f9b87d0c51cf0e028070ac177c4123ecbfd7ac1cb8d0b7d322d1"
 +
-+inherit native cpan
++SRC_URI_append_virtclass-native = " file://oj-native-libosp-fix.patch"
++
++inherit autotools
++
++EXTRA_OECONF = "--enable-spincludedir=${STAGING_INCDIR}/OpenSP \
++                --enable-splibdir=${STAGING_LIBDIR}"
++
++acpaths = "-I ${S}/config"
++
++# Trailing whitespace is important. Otherwise compiler arguments will be messed
++# up, resulting in a fail in do_configure.
++CFLAGS_prepend = "-I${S}/include "
++
++do_configure_append () {
++	cp config/configure.in .
++}
++
++do_install_append () {
++	# Refer to http://www.linuxfromscratch.org/blfs/view/stable/pst/openjade.html
++	# for details.
++	install -m 0755 ${S}/jade/.libs/openjade ${D}${bindir}/openjade
++	ln -sf openjade ${D}${bindir}/jade
++
++	oe_libinstall -a -so -C style libostyle ${D}${libdir}
++	oe_libinstall -a -so -C spgrove libospgrove ${D}${libdir}
++	oe_libinstall -a -so -C grove libogrove ${D}${libdir}
++
++	install -d ${D}${datadir}/sgml/openjade-${PV}
++	install -m 644 dsssl/catalog ${D}${datadir}/sgml/openjade-${PV}
++	install -m 644 dsssl/*.{dtd,dsl,sgm} ${D}${datadir}/sgml/openjade-${PV}
++
++	# The catalog must live in the sysroot and it must be there for
++	# install-catalog to do its thing.
++	install -d ${datadir}/sgml/openjade-${PV}
++	install -m 644 dsssl/catalog ${datadir}/sgml/openjade-${PV}/catalog
++	install-catalog --add ${sysconfdir}/sgml/openjade-${PV}.cat \
++		${datadir}/sgml/openjade-${PV}/catalog
++
++	install-catalog --add ${sysconfdir}/sgml/sgml-docbook.cat \
++		${sysconfdir}/sgml/openjade-${PV}.cat
++}
++
++BBCLASSEXTEND = "native"
 -- 
 1.7.3.5
 
