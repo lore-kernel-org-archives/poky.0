@@ -1,24 +1,23 @@
-Return-Path: <scott.a.garman@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 636574C810E5
-	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 18:06:55 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 28 Jan 2011 16:06:54 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,394,1291622400"; d="scan'208";a="701819750"
-Received: from unknown (HELO [10.7.199.79]) ([10.7.199.79])
-	by orsmga001.jf.intel.com with ESMTP; 28 Jan 2011 16:06:54 -0800
-Message-ID: <4D435A0A.5010304@intel.com>
-Date: Fri, 28 Jan 2011 16:06:34 -0800
-From: Scott Garman <scott.a.garman@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
-MIME-Version: 1.0
+Return-Path: <josh@openedhand.com>
+Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4D8FF4C810E5
+	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 18:18:28 -0600 (CST)
+Received: from [192.168.0.7] (5ad5e099.bb.sky.com [90.213.224.153])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by pug.o-hand.com (Postfix) with ESMTP id 342AA12EC1FE
+	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 18:59:35 -0600 (CST)
+From: Joshua Lock <josh@openedhand.com>
 To: poky@yoctoproject.org
-References: <cover.1296167950.git.scott.a.garman@intel.com>	<2d59c34ceb4fb3a9c80bfcce999172ae6c16e663.1296167950.git.scott.a.garman@intel.com>
-	<1296228416.2704.17.camel@scimitar>
-In-Reply-To: <1296228416.2704.17.camel@scimitar>
-Subject: Re: [PATCH 1/9] sgml-common: new recipe v0.6.3
+In-Reply-To: <4D4339A3.30007@intel.com>
+References: <cover.1296167950.git.scott.a.garman@intel.com>
+	<e7a83f8908ec330d3ef6a9241989e64f277eabbb.1296167950.git.scott.a.garman@intel.com>
+	<1296228424.2704.20.camel@scimitar>  <4D4339A3.30007@intel.com>
+Date: Sat, 29 Jan 2011 00:18:20 +0000
+Message-ID: <1296260300.2511.3.camel@scimitar>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.1 (2.32.1-1.fc14) 
+Subject: Re: [PATCH 3/9] docbook-dsssl-stylesheets: new recipe v1.79
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,129 +29,117 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 29 Jan 2011 00:06:55 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Sat, 29 Jan 2011 00:18:28 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On 01/28/2011 07:26 AM, Joshua Lock wrote:
-> On Thu, 2011-01-27 at 14:42 -0800, Scott Garman wrote:
->> From: Scott Garman<scott.a.garman@intel.com>
->>
->> Recipe derived from OpenEmbedded.
->>
->> Signed-off-by: Scott Garman<scott.a.garman@intel.com>
->> ---
->>   .../sgml-common/sgml-common-0.6.3/autohell.patch   |   58 ++++++++++++++++++++
->>   .../sgml-common/sgml-common-native_0.6.3.bb        |   50 +++++++++++++++++
->>   .../sgml-common/sgml-common_0.6.3.bb               |   53 ++++++++++++++++++
->>   3 files changed, 161 insertions(+), 0 deletions(-)
->>   create mode 100644 meta/recipes-devtools/sgml-common/sgml-common-0.6.3/autohell.patch
->>   create mode 100644 meta/recipes-devtools/sgml-common/sgml-common-native_0.6.3.bb
->>   create mode 100644 meta/recipes-devtools/sgml-common/sgml-common_0.6.3.bb
->>
->> diff --git a/meta/recipes-devtools/sgml-common/sgml-common-0.6.3/autohell.patch b/meta/recipes-devtools/sgml-common/sgml-common-0.6.3/autohell.patch
->> new file mode 100644
->> index 0000000..1366ada
->> --- /dev/null
->> +++ b/meta/recipes-devtools/sgml-common/sgml-common-0.6.3/autohell.patch
->> @@ -0,0 +1,58 @@
->> +Patch obtained from OpenEmbedded.
->> +
->> +Signed-off-by: Scott Garman<scott.a.garman@intel.com>
->> +--- sgml-common-0.6.3/bin/Makefile.am~autohell.patch	2001-01-30 15:42:21.000000000 +0100
->> ++++ sgml-common-0.6.3/bin/Makefile.am	2004-06-17 11:51:11.000000000 +0200
->> +@@ -1,6 +1,5 @@
->> + primitive_scripts = sgmlwhich
->> +
->> +-bindir = $(prefix)/bin
->> + bin_SCRIPTS = install-catalog $(primitive_scripts)
->> +
->> + EXTRA_DIST =  install-catalog.in $(primitive_scripts)
->> +--- /dev/null	2003-09-23 19:59:22.000000000 +0200
->> ++++ sgml-common-0.6.3/bin/sgmlwhich.in	2004-06-17 11:51:11.000000000 +0200
->> +@@ -0,0 +1,7 @@
->> ++#!/bin/sh
->> ++# Location of the main configuration file for consistency with non-LSB platforms
->> ++# Send any comments to Eric Bischoff<eric@caldera.de>
->> ++# This program is under GPL license. See LICENSE file for details.
->> ++
->> ++echo "@sysconfdir@/sgml/sgml.conf"
->> ++# Simple, isn't it? ;-)
->> +--- /dev/null	2003-09-23 19:59:22.000000000 +0200
->> ++++ sgml-common-0.6.3/config/sgml.conf.in	2004-06-17 11:51:11.000000000 +0200
->> +@@ -0,0 +1,2 @@
->> ++SGML_BASE_DIR=@datadir@/sgml
->> ++SGML_CATALOGS_DIR=@sysconfdir@/sgml
->> +--- sgml-common-0.6.3/configure.in~autohell.patch	2001-05-25 18:40:54.000000000 +0200
->> ++++ sgml-common-0.6.3/configure.in	2004-06-17 11:53:22.000000000 +0200
->> +@@ -3,11 +3,6 @@
->> +
->> + AM_INIT_AUTOMAKE(sgml-common, 0.6.3)
->> +
->> +-docdir='$(prefix)/doc'
->> +-AC_SUBST(docdir)
->> +-
->> +-dnl Checks for programs.
->> +-
->> + dnl Checks for libraries.
->> +
->> + dnl Checks for header files.
->> +@@ -18,6 +13,5 @@
->> +
->> + AC_OUTPUT(Makefile \
->> +           bin/Makefile bin/install-catalog \
->> +-          config/Makefile \
->> +-          doc/Makefile doc/HTML/Makefile doc/man/Makefile doc/refentry/Makefile \
->> ++          config/Makefile config/sgml.conf bin/sgmlwhich \
->> +           sgml-iso-entities/Makefile xml-iso-entities/Makefile)
->> +
->> +--- sgml-common-0.6.3/Makefile.am~no-docs	2001-05-25 18:22:01.000000000 +0200
->> ++++ sgml-common-0.6.3/Makefile.am	2004-06-17 11:49:09.000000000 +0200
->> +@@ -1,4 +1,4 @@
->> +-SUBDIRS = bin config doc sgml-iso-entities xml-iso-entities
->> ++SUBDIRS = bin config sgml-iso-entities xml-iso-entities
->> +
->> + sgmlcodir = $(prefix)/share/sgml
->> + sgmlco_DATA = xml.dcl
->> diff --git a/meta/recipes-devtools/sgml-common/sgml-common-native_0.6.3.bb b/meta/recipes-devtools/sgml-common/sgml-common-native_0.6.3.bb
->> new file mode 100644
->> index 0000000..7e9b923
->> --- /dev/null
->> +++ b/meta/recipes-devtools/sgml-common/sgml-common-native_0.6.3.bb
->> @@ -0,0 +1,50 @@
->> +SUMMARY = "Base utilities for working with SGML and XML"
->> +DESCRIPTION = "The sgml-common package gathers very basic \
->> +stuff necessary to work with SGML and XML, such as xml.dcl, \
->> +a SGML declaration of XML; iso-entities, a list of the basic \
->> +SGML ISO entities; and install-catalog, a script used to \
->> +add entries to (or remove entries from) centralized catalogs \
->> +whose entries are pointers to SGML open catalogs, \
->> +as defined by OASIS."
->> +HOMEPAGE = "http://sources.redhat.com/docbook-tools/"
->> +LICENSE = "GPLv2"
->> +# The COPYING file sgml-common ships with is just a symlink to
->> +# /usr/share/automake/COPYING, which means we can't verify it
->> +# using our normal means. :( Hash the README file instead as
->> +# LIC_FILES_CHKSUM is still required.
->> +LIC_FILES_CHKSUM = "file://README;md5=197bd940bf13548ac2198e4f77d3da92"
->
-> Can we add a patch which replaces the symlink with the actual file and
-> hash that. Seems slightly more robust... but only slightly.
+On Fri, 2011-01-28 at 13:48 -0800, Scott Garman wrote:
+> On 01/28/2011 07:27 AM, Joshua Lock wrote:
+> > On Thu, 2011-01-27 at 14:42 -0800, Scott Garman wrote:
+> >> From: Scott Garman<scott.a.garman@intel.com>
+> >>
+> >> Recipe migrated from OpenEmbedded.
+> >>
+> >> Signed-off-by: Scott Garman<scott.a.garman@intel.com>
+> >> ---
+> >>   .../docbook-dsssl-stylesheets-native_1.79.bb       |   53 ++++++++++++++++++++
+> >>   1 files changed, 53 insertions(+), 0 deletions(-)
+> >>   create mode 100644 meta/recipes-devtools/docbook-dsssl-stylesheets/docbook-dsssl-stylesheets-native_1.79.bb
+> >>
+> >> diff --git a/meta/recipes-devtools/docbook-dsssl-stylesheets/docbook-dsssl-stylesheets-native_1.79.bb b/meta/recipes-devtools/docbook-dsssl-stylesheets/docbook-dsssl-stylesheets-native_1.79.bb
+> >> new file mode 100644
+> >> index 0000000..24c5364
+> >> --- /dev/null
+> >> +++ b/meta/recipes-devtools/docbook-dsssl-stylesheets/docbook-dsssl-stylesheets-native_1.79.bb
+> >> @@ -0,0 +1,53 @@
+> >> +SUMMARY = "DSSSL stylesheets used to transform SGML and XML DocBook files"
+> >> +DESCRIPTION = "DSSSL stylesheets used to transform SGML and XML DocBook files"
+> >> +HOMEPAGE= "http://docbook.sourceforge.net"
+> >> +# Simple persmissive
+> >> +LICENSE = "DSSSL"
+> >> +LIC_FILES_CHKSUM = "file://README;beginline=41;endline=74;md5=875385159b2ee76ecf56136ae7f542d6"
+> >
+> > Oh no! Same comment as other mails...
+> 
+> Isn't this a different case? In this situation, there is license 
+> information in a section of the README file, which I delineated above.
+> 
+> That seems legitimate, as our intention isn't to require upstream 
+> sources to include a separate license file. Or is it?
 
-That this would also mean that when the recipe is upgraded, once the 
-issue is fixed upstream, we'd end up overwriting the file with our 
-included license file. This would make the license hash verification 
-check break (as in not do its intended job of alerting us to license 
-changes).
+Sorry, yes - that seems legitimate. Clearly my pattern matching was off
+at this point...
 
-So I will include the license file as a patch, but will also clearly 
-comment within the recipe to carefully check for license changes when 
-upgrading the recipe.
+> 
+> >> +
+> >> +DEPENDS = "sgml-common-native"
+> >> +
+> >> +PR = "r0"
+> >> +
+> >> +SRC_URI = "${SOURCEFORGE_MIRROR}/docbook/docbook-dsssl-${PV}.tar.bz2"
+> >> +
+> >> +SRC_URI[md5sum] = "bc192d23266b9a664ca0aba4a7794c7c"
+> >> +SRC_URI[sha256sum] = "2f329e120bee9ef42fbdd74ddd60e05e49786c5a7953a0ff4c680ae6bdf0e2bc"
+> >> +
+> >> +S = "${WORKDIR}/docbook-dsssl-${PV}"
+> >> +
+> >> +inherit native
+> >> +
+> >> +SYSROOT_PREPROCESS_FUNCS += "docbook_dssl_stylesheets_native_mangle"
+> >> +
+> >> +do_install () {
+> >> +	# Refer to http://www.linuxfromscratch.org/blfs/view/stable/pst/docbook-dsssl.html
+> >> +	# for details.
+> >> +	install -d ${D}${bindir}
+> >> +	install -m 0755 bin/collateindex.pl ${D}${bindir}
+> >> +
+> >> +	install -d ${D}${datadir}/sgml/docbook/dsssl-stylesheets-${PV}
+> >> +	install -m 0644 catalog ${D}${datadir}/sgml/docbook/dsssl-stylesheets-${PV}
+> >> +	cp -PpRr common ${D}${datadir}/sgml/docbook/dsssl-stylesheets-${PV}
+> >> +
+> >> +	install-catalog --add ${sysconfdir}/sgml/dsssl-docbook-stylesheets.cat \
+> >> +		${D}${datadir}/sgml/docbook/dsssl-stylesheets-${PV}/catalog
+> >> +
+> >> +	install-catalog --add ${sysconfdir}/sgml/dsssl-docbook-stylesheets.cat \
+> >> +		${D}${datadir}/sgml/docbook/dsssl-stylesheets-${PV}/common/catalog
+> >> +
+> >> +	install-catalog --add ${sysconfdir}/sgml/sgml-docbook.cat \
+> >> +		${sysconfdir}/sgml/dsssl-docbook-stylesheets.cat
+> >> +
+> >> +	# Moving them to image directory so that they get included in the .ipk file
+> >> +	# generated by new style staging.
+> >
+> > Staging isn't ipk files :-) Is this still required?
+> 
+> I'll update the comment, but I think we still want to stage the files. 
+> Otherwise I noticed that -c cleanall will not remove them from the 
+> sysroot. Or is there another way to ensure that?
 
-Scott
+Fixing the comment is fine, thanks.
 
+> 
+> >> +	install -d ${D}${sysconfdir}/sgml
+> >> +	cp ${sysconfdir}/sgml/dsssl-docbook-stylesheets.cat ${D}${sysconfdir}/sgml/
+> >> +	cp ${sysconfdir}/sgml/sgml-docbook.cat ${D}${sysconfdir}/sgml/
+> >> +	cp ${sysconfdir}/sgml/catalog ${D}${sysconfdir}/sgml/
+> >> +}
+> >> +
+> >> +docbook_dssl_stylesheets_native_mangle () {
+> >> +	# Removing the image directory path ${D} from the .cat file.
+> >> +	sed -i -e "s|${D}||g" ${SYSROOT_DESTDIR}${sysconfdir}/sgml/dsssl-docbook-stylesheets.cat
+> >> +}
+> 
+> Thanks for the feedback. I'll definitely respin the patch series to 
+> include a license file where none exists at all, but this email includes 
+> a couple of questions I'd like replies to before I submit it.
+> 
+> Thanks,
+> 
+> Scott
+
+Joshua
 -- 
-Scott Garman
-Embedded Linux Distro Engineer - Yocto Project
-Intel Open Source Technology Center
+Joshua Lock
+        Intel Open Source Technology Centre
+
 
