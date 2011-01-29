@@ -1,23 +1,23 @@
 Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 4F2594C80594
-	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 20:30:12 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 28 Jan 2011 18:30:06 -0800
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 437484C811F4
+	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 20:30:15 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 28 Jan 2011 18:30:14 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,395,1291622400"; d="scan'208";a="597545945"
+X-IronPort-AV: E=Sophos;i="4.60,395,1291622400"; d="scan'208";a="381471897"
 Received: from unknown (HELO helios) ([10.255.16.169])
-	by orsmga002.jf.intel.com with SMTP; 28 Jan 2011 18:30:04 -0800
-Received: by helios (sSMTP sendmail emulation); Sat, 29 Jan 2011 02:30:04 +0000
-Message-Id: <e0a18ddac4a34e53b488b6df8f82713c0d34aa9b.1296267951.git.paul.eggleton@linux.intel.com>
+	by azsmga001.ch.intel.com with SMTP; 28 Jan 2011 18:30:13 -0800
+Received: by helios (sSMTP sendmail emulation); Sat, 29 Jan 2011 02:30:12 +0000
+Message-Id: <70e416b931ba9ee1ca24a967a0410fda65b48bea.1296267951.git.paul.eggleton@linux.intel.com>
 In-Reply-To: <cover.1296267951.git.paul.eggleton@linux.intel.com>
 References: <cover.1296267951.git.paul.eggleton@linux.intel.com>
-Old-Date: Fri, 21 Jan 2011 15:38:29 +0000
-Date: Sat, 29 Jan 2011  2:30:04 +0000
+Old-Date: Fri, 21 Jan 2011 16:15:03 +0000
+Date: Sat, 29 Jan 2011  2:30:12 +0000
 To: poky@yoctoproject.org
 CC: 
 From: Paul Eggleton <paul.eggleton@linux.intel.com>
-Subject: [PATCH 02/12] qt4: Bring in improvements from meta-openembedded
+Subject: [PATCH 05/12] qt4-tools-native: update from OpenEmbedded
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,544 +29,159 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 29 Jan 2011 02:30:12 -0000
+X-List-Received-Date: Sat, 29 Jan 2011 02:30:15 -0000
 
 From: Paul Eggleton <paul.eggleton@linux.intel.com>
 
-Differences from meta-openembedded version:
-* SRC_URI and S now come from qt-${PV}.inc since these are version specific
-* Source checksums are also now in qt-${PV}.inc
-* Remove do_compile as this is handled in qt-${PV}.inc
-* Move contents of do_install_append from qt-${PV}.inc to do_install in
-  qt4.inc as this is the same for 4.6.3 and 4.7.1 and will get in the way of
-  do_install_append in qt-embedded.inc.
-* Don't enable PostgreSQL, MySQL or SQLite 2.x plugins as we don't currently
-  have recipes for these DBMSs in Poky. These can be re-enabled easily when
-  or if we do.
-* Use INC_PR in qt4-x11-free_4.6.3.bb
-* Don't always specify -embedded config option in qt4.inc
-* Don't add qte.sh to SRC_URI in qt-4.6.3.inc (this is embedded-specific)
-
-Differences from what we have currently in Poky (plus the above):
-* Set DESCRIPTION based on embedded/X11
-* Move out arch-specific settings to qt4-arch.inc
-* Add qt4x11.bbclass which can be inherited by application recipes to select
-  the X11 version (this makes more sense once the embedded version is added).
+Differences from OE version:
+* Add source checksums
+* Correct LICENCE and move to .inc file
 * Update HOMEPAGE
+* Don't specify DEFAULT_PREFERENCE
+* Remove S and SRC_URI from 4.7.1 (duplicates of .inc file values)
+* Use http source URL to match other Qt4 recipes
+* Don't add back tools previously disabled in poky
 
-Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
+Differences from current (plus the above):
+* Add Qt 4.7.1 recipe
+* Specify -embedded to remove dependency on X (as we are only building tools)
+* Disable some other options to reduce dependencies
+* Specify -no-freetype / -no-fontconfig in .inc file rather than in .bb
+* Use INC_PR
+* Whitespace fixes
 ---
- meta/classes/qt4x11.bbclass               |    9 +
- meta/recipes-qt/qt4/qt-4.6.3.inc          |   54 +++----
- meta/recipes-qt/qt4/qt4-x11-free.inc      |    9 +-
- meta/recipes-qt/qt4/qt4-x11-free_4.6.3.bb |    7 +-
- meta/recipes-qt/qt4/qt4.inc               |  232 ++++++++++++++---------------
- meta/recipes-qt/qt4/qt4_arch.inc          |   25 +++
- 6 files changed, 179 insertions(+), 157 deletions(-)
- create mode 100644 meta/classes/qt4x11.bbclass
- create mode 100644 meta/recipes-qt/qt4/qt4_arch.inc
+ meta/recipes-qt/qt4/qt4-tools-native.inc      |   44 ++++++++++++++----------
+ meta/recipes-qt/qt4/qt4-tools-native_4.6.3.bb |   12 +++---
+ meta/recipes-qt/qt4/qt4-tools-native_4.7.1.bb |   13 +++++++
+ 3 files changed, 45 insertions(+), 24 deletions(-)
+ create mode 100644 meta/recipes-qt/qt4/qt4-tools-native_4.7.1.bb
 
-diff --git a/meta/classes/qt4x11.bbclass b/meta/classes/qt4x11.bbclass
-new file mode 100644
-index 0000000..abb1d9d
---- /dev/null
-+++ b/meta/classes/qt4x11.bbclass
-@@ -0,0 +1,9 @@
-+DEPENDS_prepend = "${@["qt4-x11-free ", ""][(bb.data.getVar('PN', d, 1)[:12] == 'qt4-x11-free')]}"
-+
-+inherit qmake2
-+
-+QT_DIR_NAME = "qt4"
-+QT_LIBINFIX = ""
-+
-+# Qt4 uses atomic instructions not supported in thumb mode
-+ARM_INSTRUCTION_SET = "arm"
-diff --git a/meta/recipes-qt/qt4/qt-4.6.3.inc b/meta/recipes-qt/qt4/qt-4.6.3.inc
-index 155af66..a41b483 100644
---- a/meta/recipes-qt/qt4/qt-4.6.3.inc
-+++ b/meta/recipes-qt/qt4/qt-4.6.3.inc
-@@ -19,48 +19,38 @@ SRC_URI = "http://get.qt.nokia.com/qt/source/qt-everywhere-opensource-src-${PV}.
-            file://mips-relocate.patch \
-            "
- 
-+SRC_URI[md5sum] = "5c69f16d452b0bb3d44bc3c10556c072"
-+SRC_URI[sha256sum] = "f4e0ada8d4d516bbb8600a3ee7d9046c9c79e38cd781df9ffc46d8f16acd1768"
-+
- S = "${WORKDIR}/qt-everywhere-opensource-src-${PV}"
- 
- do_configure_prepend() {
--	for pro in $(find ${S} -name "*.pro") ; do
--		sed -i 's:$$QT_BUILD_TREE/bin/lrelease:${OE_QMAKE_LRELEASE}:g' $pro
--	done
--
--	sed -i s:SEDME:${S}: ${WORKDIR}/linux.conf
--	sed -i \
--	-e /QMAKE_MOC\ /d \
--	-e /QMAKE_UIC\ /d \
--	-e /QMAKE_UIC3\ /d \
--	-e /QMAKE_RCC\ /d \
--	${S}/configure
-+    for pro in $(find ${S} -name "*.pro") ; do
-+        sed -i 's:$$QT_BUILD_TREE/bin/lrelease:${OE_QMAKE_LRELEASE}:g' $pro
-+    done
-+
-+    sed -i s:SEDME:${S}: ${WORKDIR}/linux.conf
-+    sed -i \
-+    -e /QMAKE_MOC\ /d \
-+    -e /QMAKE_UIC\ /d \
-+    -e /QMAKE_UIC3\ /d \
-+    -e /QMAKE_RCC\ /d \
-+    ${S}/configure
- }
- 
- do_configure_append() {
--	sed -e '/QMAKE_TARGET /d' -e '/TARGET /d' -i ${S}/translations/Makefile
-+    sed -e '/QMAKE_TARGET /d' -e '/TARGET /d' -i ${S}/translations/Makefile
- }
- 
- QT_GLFLAGS ?= ""
--QT_CONFIG_FLAGS += " -no-rpath -qt3support -silent ${QT_GLFLAGS}"
-+QT_CONFIG_FLAGS += " -no-rpath -qt3support -reduce-relocations -silent ${QT_GLFLAGS}"
- 
- do_compile() {
--	# Fixup missing wsegl header in some SGX SDKs
--	if ! [ -e ${STAGING_INCDIR}/wsegl.h ] ; then
--		cp src/3rdparty/powervr/wsegl.h src/plugins/gfxdrivers/powervr/QWSWSEGL/
--	fi
--
--	unset CFLAGS CXXFLAGS
--	oe_runmake ${EXTRA_ENV}
--}
--
--do_install_append() {
--	install -d ${D}${bindir}
--	for i in rcc uic moc ; do
--		install -m 0755 ${S}/bin/$i ${D}${bindir}/
--	done
-+    # Fixup missing wsegl header in some SGX SDKs
-+    if ! [ -e ${STAGING_INCDIR}/wsegl.h ] ; then
-+        cp src/3rdparty/powervr/wsegl.h src/plugins/gfxdrivers/powervr/QWSWSEGL/
-+    fi
- 
--	#Append an E to the qtdemo file
--	if [ -n "${QT_LIBINFIX}" ] ; then
--		mv ${D}${bindir}/qtdemo ${D}${bindir}/qtdemo${QT_LIBINFIX}
--	fi
-+    unset CFLAGS CXXFLAGS
-+    oe_runmake ${EXTRA_ENV}
- }
--
-diff --git a/meta/recipes-qt/qt4/qt4-x11-free.inc b/meta/recipes-qt/qt4/qt4-x11-free.inc
-index 22eef7c..057a129 100644
---- a/meta/recipes-qt/qt4/qt4-x11-free.inc
-+++ b/meta/recipes-qt/qt4/qt4-x11-free.inc
-@@ -1,9 +1,13 @@
- require qt4.inc
- 
-+DESCRIPTION = "Qt is a versatile cross-platform application framework -- this is the X11 version."
-+HOMEPAGE = "http://qt.nokia.com"
- SECTION = "x11/libs"
+diff --git a/meta/recipes-qt/qt4/qt4-tools-native.inc b/meta/recipes-qt/qt4/qt4-tools-native.inc
+index 6dca218..9114e7d 100644
+--- a/meta/recipes-qt/qt4/qt4-tools-native.inc
++++ b/meta/recipes-qt/qt4/qt4-tools-native.inc
+@@ -1,9 +1,16 @@
+ DESCRIPTION = "Native tools for Qt/[X11|Mac|Embedded] version 4.x"
+-DEPENDS = "zlib-native dbus-native libsm-native"
++DEPENDS = "zlib-native dbus-native"
+ SECTION = "libs"
+ HOMEPAGE = "http://qt.nokia.com"
  PRIORITY = "optional"
- DEPENDS += "virtual/libx11 fontconfig libxft libxext libxrender libxrandr libxcursor"
  
-+INC_PR = "r21"
++LICENSE = "LGPLv2.1 | GPLv3"
++LIC_FILES_CHKSUM = "file://LICENSE.LGPL;md5=fbc093901857fcd118f065f900982c24 \
++                    file://LICENSE.GPL3;md5=babc5b6b77441da277f5c06b2e547720 \
++                    file://LGPL_EXCEPTION.txt;md5=411080a56ff917a5a1aa08c98acae354"
 +
- QT_GLFLAGS ?= "-no-opengl"
- QT_GLFLAGS_qemux86 = "-opengl"
- QT_GLFLAGS_emenlow = "-opengl"
-@@ -11,7 +15,6 @@ QT_GLFLAGS_atom-pc = "-opengl"
- QT_CONFIG_FLAGS += "-no-xinerama -no-xkb ${QT_GLFLAGS}"
- QT_BASE_NAME ?= "qt4"
- QT_BASE_LIB  ?= "libqt"
--QT_DIR_NAME = "qt4"
--QT_LIBINFIX = ""
- 
--inherit qmake2
-+inherit qt4x11
++INC_PR = "r11"
 +
-diff --git a/meta/recipes-qt/qt4/qt4-x11-free_4.6.3.bb b/meta/recipes-qt/qt4/qt4-x11-free_4.6.3.bb
-index f13b947..8cf5449 100644
---- a/meta/recipes-qt/qt4/qt4-x11-free_4.6.3.bb
-+++ b/meta/recipes-qt/qt4/qt4-x11-free_4.6.3.bb
-@@ -1,9 +1,6 @@
-+require qt-${PV}.inc
- require qt4-x11-free.inc
--require qt-4.6.3.inc
+ inherit native
  
--PR = "r2"
-+PR = "${INC_PR}.0"
+ SRC_URI = "http://get.qt.nokia.com/qt/source/qt-everywhere-opensource-src-${PV}.tar.gz \
+@@ -16,13 +23,14 @@ EXTRA_OECONF = "-prefix ${prefix} \
+                 -L ${STAGING_LIBDIR_NATIVE} \
+                 -I ${STAGING_INCDIR_NATIVE} \
+                 -qt-libjpeg -qt-gif -system-zlib \
+-                -no-libjpeg -no-libpng \
++                -no-libjpeg -no-libpng -no-libmng -no-libtiff \
+                 -no-accessibility \
+                 -no-cups \
+                 -no-exceptions  \
+                 -no-nas-sound \
+-                -no-nis \
++                -no-nis -no-openssl \
+                 -verbose -release -static \
++                -embedded -no-freetype -no-glib -no-iconv \
+                 -qt3support"
  
- QT_CONFIG_FLAGS += " -xrandr "
--
--SRC_URI[md5sum] = "5c69f16d452b0bb3d44bc3c10556c072"
--SRC_URI[sha256sum] = "f4e0ada8d4d516bbb8600a3ee7d9046c9c79e38cd781df9ffc46d8f16acd1768"
-diff --git a/meta/recipes-qt/qt4/qt4.inc b/meta/recipes-qt/qt4/qt4.inc
-index 3382445..f0957db 100644
---- a/meta/recipes-qt/qt4/qt4.inc
-+++ b/meta/recipes-qt/qt4/qt4.inc
-@@ -1,9 +1,10 @@
--DESCRIPTION = "Qt is a comprehensive cross-platform C++ application framework"
--HOMEPAGE = "http://qt.nokia.com"
-+inherit qmake_base
- 
- DEPENDS += "qt4-tools-native freetype jpeg libpng zlib dbus openssl glib-2.0 gstreamer gst-plugins-base sqlite3"
- 
--inherit qmake_base
-+require qt4_arch.inc
-+QT_ARCH := "${@qt_arch(d)}"
-+QT_ENDIAN = "${@qt_endian(d)}"
- 
- QT_DISTRO_FLAGS ?= "-no-accessibility -no-sm"
- QT_DISTRO_FLAGS_poky-lsb = "-sm"
-@@ -12,7 +13,7 @@ QT_CONFIG_FLAGS += "-release -no-cups -reduce-relocations \
-                     -shared -no-nas-sound -no-nis \
-                     -qt-gif -system-libjpeg -system-libpng -system-zlib \
-                     -no-sql-ibase -no-sql-mysql -no-sql-psql -no-sql-odbc -plugin-sql-sqlite \
--                    -no-pch -dbus -stl -glib -phonon -webkit \
-+                    -no-pch -qdbus -stl -glib -phonon -webkit \
-                     ${QT_DISTRO_FLAGS} "
- 
- EXTRA_OEMAKE = "-e"
-@@ -26,7 +27,7 @@ EXTRA_ENV = 'QMAKE="${STAGING_BINDIR_NATIVE}/qmake2 -after \
- export QT_CONF_PATH="${WORKDIR}/qt.conf"
- 
- # Library packages
--QT_LIB_NAMES = "Qt3Support QtAssistantClient QtCLucene QtCore QtDBus QtDesigner QtDesignerComponents QtGui QtHelp QtNetwork QtOpenGL QtScript QtScriptTools QtSql QtSvg QtTest QtUiTools QtWebKit QtXml QtXmlPatterns phonon QtMultimedia QtOpenVG QtMediaServices"
-+QT_LIB_NAMES = "Qt3Support QtAssistantClient QtCLucene QtCore QtDBus QtDesigner QtDesignerComponents QtGui QtHelp QtNetwork QtOpenGL QtScript QtScriptTools QtSql QtSvg QtTest QtUiTools QtWebKit QtXml QtXmlPatterns phonon QtMultimedia QtOpenVG QtMediaServices QtDeclarative"
- 
- QT_EXTRA_LIBS = "pvrQWSWSEGL"
- 
-@@ -37,7 +38,7 @@ python __anonymous () {
-     dev_packages = []
-     dbg_packages = []
-     for name in bb.data.getVar("QT_LIB_NAMES", d, 1).split():
--        pkg = "${QT_BASE_LIB}" + name.lower().replace("qt", "") + "4"
-+        pkg = "${QT_BASE_LIB}" + name.lower().replace("qt", "").replace("_", "-") + "4"
-         # NOTE: the headers for QtAssistantClient are different
-         incname = name.replace("QtAssistantClient", "QtAssistant")
-         bb.data.setVar("FILES_%s" % pkg, "${libdir}/lib%(name)s${QT_LIBINFIX}.so.*" % locals(), d)
-@@ -55,7 +56,7 @@ python __anonymous () {
-         dbg_packages.append("%s-dbg" % name)
- 
-     for name in bb.data.getVar("QT_EXTRA_LIBS", d, 1).split():
--        pkg = "${QT_BASE_LIB}" + name.lower().replace("qt", "") + "4"
-+        pkg = "${QT_BASE_LIB}" + name.lower().replace("qt", "").replace("_", "-") + "4"
-         bb.data.setVar("FILES_%s" % pkg, "${libdir}/lib%(name)s.so.*" % locals(), d)
-         bb.data.setVar("FILES_%s-dev" % pkg, """${libdir}/lib%(name)s.prl
-                   ${libdir}/lib%(name)s.a
-@@ -91,6 +92,8 @@ OTHER_PACKAGES = "\
-              ${QT_BASE_NAME}-makeqpf \
-              ${QT_BASE_NAME}-mkspecs \
-              ${QT_BASE_NAME}-pixeltool \
-+             ${QT_BASE_NAME}-qmlviewer \
-+             ${QT_BASE_NAME}-xmlpatterns \
-              ${QT_BASE_NAME}-qt3to4"
- 
- PACKAGES += "${LIB_PACKAGES} ${DEV_PACKAGES} ${DBG_PACKAGES} ${OTHER_PACKAGES}"
-@@ -112,6 +115,7 @@ RRECOMMENDS_${QT_BASE_NAME}-fonts = " \
-              ${QT_BASE_NAME}-fonts-qpf"
- 
- FILES_${QT_BASE_NAME}-tools                = "${bindir}/uic* ${bindir}/moc ${bindir}/rcc ${bindir}/qttracereplay ${bindir}/qdoc*"
-+FILES_${QT_BASE_NAME}-tools-dbg            = "${bindir}/.debug/uic* ${bindir}/.debug/moc ${bindir}/.debug/rcc ${bindir}/.debug/qttracereplay ${bindir}/.debug/qdoc*"
- FILES_${QT_BASE_NAME}-assistant            = "${bindir}/*assistant* ${bindir}/qcollectiongenerator ${bindir}/qhelpconverter ${bindir}/qhelpgenerator"
- FILES_${QT_BASE_NAME}-assistant-dbg        = "${bindir}/.debug/*assistant* ${bindir}/.debug/qcollectiongenerator ${bindir}/.debug/qhelpconverter ${bindir}/.debug/qhelpgenerator"
- FILES_${QT_BASE_NAME}-common               = "${bindir}/qtconfig"
-@@ -123,7 +127,7 @@ FILES_${QT_BASE_NAME}-demos-dbg            = "${bindir}/.debug/qtdemo* ${bindir}
- FILES_${QT_BASE_NAME}-designer             = "${bindir}/*designer*"
- FILES_${QT_BASE_NAME}-designer-dbg         = "${bindir}/.debug/*designer*"
- FILES_${QT_BASE_NAME}-examples             = "${bindir}/${QT_DIR_NAME}/examples/*"
--FILES_${QT_BASE_NAME}-examples-dbg         = "${bindir}/${QT_DIR_NAME}/examples/.debug ${bindir}/${QT_DIR_NAME}/examples/*/.debug ${bindir}/${QT_DIR_NAME}/examples/*/*/.debug ${bindir}/${QT_DIR_NAME}/examples/*/*/*/.debug ${bindir}/${QT_DIR_NAME}/examples/*/*/*/*/.debug"
-+FILES_${QT_BASE_NAME}-examples-dbg         = "${bindir}/${QT_DIR_NAME}/examples/.debug ${bindir}/${QT_DIR_NAME}/examples/*/.debug ${bindir}/${QT_DIR_NAME}/examples/*/*/.debug ${bindir}/${QT_DIR_NAME}/examples/*/*/*/.debug ${bindir}/${QT_DIR_NAME}/examples/*/*/*/*/.debug ${bindir}/${QT_DIR_NAME}/examples/declarative/*/*/*/*/*/.debug/* ${bindir}/${QT_DIR_NAME}/examples/declarative/*/*/*/*/.debug/*"
- FILES_${QT_BASE_NAME}-fonts-ttf-vera       = "${libdir}/fonts/Vera*.ttf"
- FILES_${QT_BASE_NAME}-fonts-ttf-dejavu     = "${libdir}/fonts/DejaVu*.ttf"
- FILES_${QT_BASE_NAME}-fonts-pfa            = "${libdir}/fonts/*.pfa"
-@@ -135,91 +139,74 @@ FILES_${QT_BASE_NAME}-pixeltool            = "${bindir}/pixeltool"
- FILES_${QT_BASE_NAME}-pixeltool-dbg        = "${bindir}/.debug/pixeltool"
- FILES_${QT_BASE_NAME}-qt3to4               = "${bindir}/qt3to4 ${datadir}/${QT_DIR_NAME}/q3porting.xml"
- FILES_${QT_BASE_NAME}-qt3to4-dbg           = "${bindir}/.debug/qt3to4"
-+FILES_${QT_BASE_NAME}-qmlviewer            = "${bindir}/qmlviewer"
-+FILES_${QT_BASE_NAME}-qmlviewer-dbg        = "${bindir}/.debug/qmlviewer"
- FILES_${QT_BASE_NAME}-makeqpf              = "${bindir}/makeqpf"
- FILES_${QT_BASE_NAME}-makeqpf-dbg          = "${bindir}/.debug/makeqpf"
- FILES_${QT_BASE_NAME}-mkspecs              = "${datadir}/${QT_DIR_NAME}/mkspecs/*"
-+FILES_${QT_BASE_NAME}-xmlpatterns          = "${bindir}/xmlpatterns*"
-+FILES_${QT_BASE_NAME}-xmlpatterns-dbg      = "${bindir}/.debug/xmlpatterns*"
- 
--ARM_INSTRUCTION_SET = "arm"
--
--set_arch() {
--	case ${TARGET_ARCH} in
--		arm*)     QT_ARCH=arm ;;
--		i*86*)    QT_ARCH=i386 ;;
--		mips*)    QT_ARCH=mips ;;
--		powerpc*) QT_ARCH=powerpc ;;
--		x86_64*)  QT_ARCH=x86_64 ;;
--	esac
--}
+ # yank default -e, otherwise we get the following error:
+@@ -30,7 +38,7 @@ EXTRA_OECONF = "-prefix ${prefix} \
+ EXTRA_OEMAKE = " "
  
  do_configure() {
--	unset QMAKESPEC
--	unset QTDIR
--
--	set_arch
--
--	if [ ! -e bin/qmake ]; then
--		ln -sf ${STAGING_BINDIR_NATIVE}/qmake2 bin/qmake
--	fi
--
--	if [ ! -e mkspecs/${TARGET_OS}-oe-g++ ]; then
--		ln -sf linux-g++ mkspecs/${TARGET_OS}-oe-g++
--	fi
--
--	cp -f ${WORKDIR}/g++.conf ${WORKDIR}/linux.conf mkspecs/common/
--
--	echo "[Paths]"                                 > $QT_CONF_PATH
--	echo "Prefix=${prefix}/"                      >> $QT_CONF_PATH
--	echo "Documentation=${docdir}/${QT_DIR_NAME}" >> $QT_CONF_PATH
--	echo "Headers=${includedir}/${QT_DIR_NAME}"   >> $QT_CONF_PATH
--	echo "Libraries=${libdir}"                    >> $QT_CONF_PATH
--	echo "Binaries=${bindir}"                     >> $QT_CONF_PATH
--	echo "Plugins=${libdir}/${QT_DIR_NAME}/plugins" >> $QT_CONF_PATH
--	echo "Data=${datadir}/${QT_DIR_NAME}"         >> $QT_CONF_PATH
--	echo "Translations=${datadir}/${QT_DIR_NAME}/translations" >> $QT_CONF_PATH
--	echo "Settings=${sysconfdir}/${QT_DIR_NAME}"  >> $QT_CONF_PATH
--	echo "Examples=${bindir}/${QT_DIR_NAME}/examples" >> $QT_CONF_PATH
--	echo "Demos=${bindir}/${QT_DIR_NAME}/demos"   >> $QT_CONF_PATH
--
--	${EXTRA_QMAKE_MUNGE}|| true
--
--	(echo o; echo yes) | ./configure -v \
--			-prefix ${prefix}/ \
--			-bindir ${bindir} \
--			-libdir ${libdir} \
--			-datadir ${datadir}/${QT_DIR_NAME} \
--			-sysconfdir ${sysconfdir}/${QT_DIR_NAME} \
--			-docdir ${docdir}/${QT_DIR_NAME} \
--			-headerdir ${includedir}/${QT_DIR_NAME} \
--			-plugindir ${libdir}/${QT_DIR_NAME}/plugins \
--			-translationdir ${datadir}/${QT_DIR_NAME}/translations \
--			-examplesdir ${bindir}/${QT_DIR_NAME}/examples \
--			-demosdir ${bindir}/${QT_DIR_NAME}/demos \
--			-platform ${TARGET_OS}-oe-g++ \
--			-xplatform ${TARGET_OS}-oe-g++ \
--			-crossarch ${QT_ARCH} \
--			${QT_CONFIG_FLAGS} -no-fast \
--			-L${STAGING_LIBDIR} -I${STAGING_INCDIR} \
--			-I${STAGING_INCDIR}/freetype2
--}
--
--do_compile() {
--	unset CFLAGS CXXFLAGS
--	install -m 0755 ${STAGING_BINDIR_NATIVE}/rcc4 ${S}/bin/rcc
--	install -m 0755 ${STAGING_BINDIR_NATIVE}/moc4 ${S}/bin/moc
--	install -m 0755 ${STAGING_BINDIR_NATIVE}/uic4 ${S}/bin/uic
--
--	oe_runmake ${EXTRA_ENV}
-+    unset QMAKESPEC
-+    unset QTDIR
-+
-+    if [ ! -e bin/qmake ]; then
-+        ln -sf ${STAGING_BINDIR_NATIVE}/qmake2 bin/qmake
-+    fi
-+
-+    if [ ! -e mkspecs/${TARGET_OS}-oe-g++ ]; then
-+        ln -sf linux-g++ mkspecs/${TARGET_OS}-oe-g++
-+    fi
-+
-+    cp -f ${WORKDIR}/g++.conf ${WORKDIR}/linux.conf mkspecs/common/
-+
-+    echo "[Paths]"                                 > $QT_CONF_PATH
-+    echo "Prefix=${prefix}/"                      >> $QT_CONF_PATH
-+    echo "Documentation=${docdir}/${QT_DIR_NAME}" >> $QT_CONF_PATH
-+    echo "Headers=${includedir}/${QT_DIR_NAME}"   >> $QT_CONF_PATH
-+    echo "Libraries=${libdir}"                    >> $QT_CONF_PATH
-+    echo "Binaries=${bindir}"                     >> $QT_CONF_PATH
-+    echo "Plugins=${libdir}/${QT_DIR_NAME}/plugins" >> $QT_CONF_PATH
-+    echo "Data=${datadir}/${QT_DIR_NAME}"         >> $QT_CONF_PATH
-+    echo "Translations=${datadir}/${QT_DIR_NAME}/translations" >> $QT_CONF_PATH
-+    echo "Settings=${sysconfdir}/${QT_DIR_NAME}"  >> $QT_CONF_PATH
-+    echo "Examples=${bindir}/${QT_DIR_NAME}/examples" >> $QT_CONF_PATH
-+    echo "Demos=${bindir}/${QT_DIR_NAME}/demos"   >> $QT_CONF_PATH
-+
-+    ${EXTRA_QMAKE_MUNGE}|| true
-+
-+    (echo o; echo yes) | ./configure -v \
-+            -prefix ${prefix}/ \
-+            -bindir ${bindir} \
-+            -libdir ${libdir} \
-+            -datadir ${datadir}/${QT_DIR_NAME} \
-+            -sysconfdir ${sysconfdir}/${QT_DIR_NAME} \
-+            -docdir ${docdir}/${QT_DIR_NAME} \
-+            -headerdir ${includedir}/${QT_DIR_NAME} \
-+            -plugindir ${libdir}/${QT_DIR_NAME}/plugins \
-+            -translationdir ${datadir}/${QT_DIR_NAME}/translations \
-+            -examplesdir ${bindir}/${QT_DIR_NAME}/examples \
-+            -demosdir ${bindir}/${QT_DIR_NAME}/demos \
-+            -platform ${TARGET_OS}-oe-g++ \
-+            -xplatform ${TARGET_OS}-oe-g++ \
-+            ${QT_ENDIAN} \
-+            -crossarch ${QT_ARCH} \
-+            ${QT_CONFIG_FLAGS} -no-fast \
-+            -L${STAGING_LIBDIR} -I${STAGING_INCDIR} \
-+            -I${STAGING_INCDIR}/freetype2
+-	(echo o; echo yes) | ./configure ${EXTRA_OECONF} || die "Configuring qt failed. EXTRA_OECONF was ${EXTRA_OECONF}"
++   (echo o; echo yes) | ./configure ${EXTRA_OECONF} || die "Configuring qt failed. EXTRA_OECONF was ${EXTRA_OECONF}"
  }
  
- python populate_packages_prepend() {
-         translation_dir = bb.data.expand('${datadir}/${QT_DIR_NAME}/translations/', d)
-         translation_name = bb.data.expand('${QT_BASE_NAME}-translation-%s', d)
-         do_split_packages(d, translation_dir, '^(assistant|designer|linguist|qt|qtconfig|qvfb)_(.*)\.qm$', translation_name, '${PN} translation for %s', extra_depends='' )
--
-+ 
-         phrasebook_dir = bb.data.expand('${datadir}/${QT_DIR_NAME}/phrasebooks/', d)
-         phrasebook_name = bb.data.expand('${QT_BASE_NAME}-phrasebook-%s', d)
-         do_split_packages(d, phrasebook_dir, '^(.*)\.qph$', phrasebook_name, '${PN} phrasebook for %s', extra_depends='' )
--
-+ 
-         # Package all the plugins and their -dbg version and create a meta package
-         import os
-         def qtopia_split(path, name, glob):
-@@ -231,7 +218,7 @@ python populate_packages_prepend() {
-                 if not os.path.exists("%s%s" % (bb.data.expand('${D}',d), plugin_dir)):
-                         bb.note("The path does not exist:", bb.data.expand('${D}', d), plugin_dir)
-                         return
--
-+ 
-                 plugin_name = bb.data.expand('${QT_BASE_NAME}-plugin-%s-%%s' % name, d)
-                 dev_packages = []
-                 dev_hook = lambda file,pkg,b,c,d:dev_packages.append((file,pkg))
-@@ -246,7 +233,7 @@ python populate_packages_prepend() {
-                         bb.data.setVar("DESCRIPTION_%s-dbg" % package, "${PN} %s for %s" % (name, package), d)
+ TOBUILD = "\
+@@ -48,22 +56,22 @@ TOBUILD = "\
+ "
  
-                 bb.data.setVar('PACKAGES', packages, d)
--
-+ 
-         qtopia_split('accessible',    'accessible',    '^libq(.*)\.so$')
-         qtopia_split('codecs',        'codec',         '^libq(.*)\.so$')
-         qtopia_split('decorations',   'decoration',    '^libqdecoration(.*)\.so$')
-@@ -261,44 +248,55 @@ python populate_packages_prepend() {
-         qtopia_split('script',        'script',        '^libqtscript(.*)\.so$')
-         qtopia_split('styles',        'style',         '^libq(.*)\.so$')
-         qtopia_split('phonon_backend','phonon-backend','^libphonon_(.*)\.so$')
-+        qtopia_split('bearer',        'bearer',        '^libq(.*)bearer\.so$')
+ do_compile() {
+-	for i in ${TOBUILD}; do
+-		cd ${S}/$i && oe_runmake CC="${CC}" CXX="${CXX}"
+-	done
++    for i in ${TOBUILD}; do
++        cd ${S}/$i && oe_runmake CC="${CC}" CXX="${CXX}"
++    done
  }
  
  do_install() {
--	oe_runmake install INSTALL_ROOT=${D}
--
--	# These are host binaries, we should only use them in staging
--	rm -rf ${D}/${bindir}/qmake
--
--	# fix pkgconfig, libtool and prl files
--	sed -i -e s#-L${S}/lib##g \
--			-e s#-L${STAGING_LIBDIR}##g \
--			-e 's#STAGING_LIBDIR}#libdir}'#g \
--			-e s#-L${libdir}##g \
--			-e s#'$(OE_QMAKE_LIBS_X11)'#"${OE_QMAKE_LIBS_X11}"#g \
--			-e s#" -Wl,-rpath-link,${S}/lib"##g \
--			-e s#" -Wl,-rpath-link,${libdir}"##g \
--			-e 's#I/usr/include#Iincludedir}#g' \ 
--			-e 's#Iin#I${in#g' \
--			${D}${libdir}/*.la ${D}${libdir}/*.prl ${D}${libdir}/pkgconfig/*.pc
--
--	sed -i -e s#" -Wl,-rpath-link,${S}/lib"##g \
--			${D}${datadir}/${QT_DIR_NAME}/mkspecs/common/linux.conf
--
--	# fix pkgconfig files
--	sed -i -e s#"moc_location=.*$"#"moc_location=${bindir}/moc4"# \
--			-e s#"uic_location=.*$"#"uic_location=${bindir}/uic4"# \
--			${D}${libdir}/pkgconfig/*.pc
--	for name in ${QT_LIB_NAMES}; do
--			sed -i -e /Requires/s#"${name}"#"${name}${QT_LIBINFIX}"#g ${D}${libdir}/pkgconfig/*.pc
+-	install -d ${D}${bindir}/
+-	install -m 0755 bin/qmake ${D}${bindir}/qmake2
+-	for i in moc uic rcc lrelease lupdate; do
+-		install -m 0755 bin/${i} ${D}${bindir}/${i}4
 -	done
 -
--	# QT abuses $includedir to point to its headers, which breaks pkgconfig sysroot, so manually fix it up here:
--	for pc in ${D}${libdir}/pkgconfig/*.pc ; do
--		sed -i -e "s:prefix}include/${QT_BASE_NAME}/$(basename $pc .pc):prefix}/include:" \
--				-e "s,Cflags: ,Cflags: -IP{includedir}/${QT_BASE_NAME}/$(basename $pc .pc) ," \
--				-e 's:IP{:I${:g' $pc
--	done
--
--	install -d ${D}/${libdir}/fonts
--	touch ${D}/${libdir}/fonts/fontdir
-+    oe_runmake install INSTALL_ROOT=${D}
-+
-+    # These are host binaries, we should only use them in staging
-+    rm -rf ${D}/${bindir}/qmake
-+
-+    # fix pkgconfig, libtool and prl files
-+    sed -i -e s#-L${S}/lib##g \
-+           -e s#-L${STAGING_LIBDIR}##g \
-+           -e 's#STAGING_LIBDIR}#libdir}'#g \ 
-+           -e s#-L${libdir}##g \
-+           -e s#'$(OE_QMAKE_LIBS_X11)'#"${OE_QMAKE_LIBS_X11}"#g \
-+           -e s#" -Wl,-rpath-link,${S}/lib"##g \
-+           -e s#" -Wl,-rpath-link,${libdir}"##g \
-+           -e 's#I/usr/include#Iincludedir}#g' \ 
-+           -e 's#Iin#I${in#g' \
-+           ${D}${libdir}/*.la ${D}${libdir}/*.prl ${D}${libdir}/pkgconfig/*.pc
-+
-+    sed -i -e s#" -Wl,-rpath-link,${S}/lib"##g \
-+            ${D}${datadir}/${QT_DIR_NAME}/mkspecs/common/linux.conf
-+
-+    # fix pkgconfig files
-+    sed -i -e s#"moc_location=.*$"#"moc_location=${bindir}/moc4"# \
-+           -e s#"uic_location=.*$"#"uic_location=${bindir}/uic4"# \
-+           ${D}${libdir}/pkgconfig/*.pc
-+    for name in ${QT_LIB_NAMES}; do
-+        sed -i -e /Requires/s#"${name}"#"${name}${QT_LIBINFIX}"#g ${D}${libdir}/pkgconfig/*.pc
+-	install -d ${D}${datadir}/qt4/
+-	cp -PfR mkspecs ${D}${datadir}/qt4/
+-	ln -sf linux-g++ ${D}${datadir}/qt4/mkspecs/${BUILD_OS}-oe-g++
+-	cp -f ${WORKDIR}/g++.conf ${WORKDIR}/linux.conf ${D}${datadir}/qt4/mkspecs/common/
++    install -d ${D}${bindir}/
++    install -m 0755 bin/qmake ${D}${bindir}/qmake2
++    for i in moc uic rcc lrelease lupdate; do
++        install -m 0755 bin/${i} ${D}${bindir}/${i}4
 +    done
-+
-+    # QT abuses $includedir to point to its headers, which breaks pkgconfig sysroot, so manually fix it up here:
-+    for pc in ${D}${libdir}/pkgconfig/*.pc ; do
-+        sed -i -e "s:prefix}include/${QT_BASE_NAME}/$(basename $pc .pc):prefix}/include:" \
-+               -e "s,Cflags: ,Cflags: -IP{includedir}/${QT_BASE_NAME}/$(basename $pc .pc) ," \
-+               -e 's:IP{:I${:g' $pc
-+    done
-+
-+    install -d ${D}/${libdir}/fonts
-+    touch ${D}/${libdir}/fonts/fontdir
-+
-+    install -d ${D}${bindir}
-+    for i in rcc uic moc ; do
-+        install -m 0755 ${S}/bin/$i ${D}${bindir}/
-+    done
-+
-+    #Append an E to the qtdemo file
-+    if [ -n "${QT_LIBINFIX}" ] ; then
-+        mv ${D}${bindir}/qtdemo ${D}${bindir}/qtdemo${QT_LIBINFIX}
-+    fi
++    
++    install -d ${D}${datadir}/qt4/
++    cp -PfR mkspecs ${D}${datadir}/qt4/
++    ln -sf linux-g++ ${D}${datadir}/qt4/mkspecs/${BUILD_OS}-oe-g++
++    cp -f ${WORKDIR}/g++.conf ${WORKDIR}/linux.conf ${D}${datadir}/qt4/mkspecs/common/
+ 
+-	install -m 0644 tools/porting/src/q3porting.xml ${D}${datadir}/qt4/
++    install -m 0644 tools/porting/src/q3porting.xml ${D}${datadir}/qt4/
  }
-diff --git a/meta/recipes-qt/qt4/qt4_arch.inc b/meta/recipes-qt/qt4/qt4_arch.inc
+diff --git a/meta/recipes-qt/qt4/qt4-tools-native_4.6.3.bb b/meta/recipes-qt/qt4/qt4-tools-native_4.6.3.bb
+index ac66eb3..dae8cd1 100644
+--- a/meta/recipes-qt/qt4/qt4-tools-native_4.6.3.bb
++++ b/meta/recipes-qt/qt4/qt4-tools-native_4.6.3.bb
+@@ -1,11 +1,11 @@
+ require qt4-tools-native.inc
+ 
+-LICENSE = "LGPLv2.1 | GPLv3"
+-LIC_FILES_CHKSUM = "file://LICENSE.LGPL;md5=fbc093901857fcd118f065f900982c24 \
+-                    file://LICENSE.GPL3;md5=babc5b6b77441da277f5c06b2e547720 \
+-                    file://LGPL_EXCEPTION.txt;md5=411080a56ff917a5a1aa08c98acae354"
+-PR = "r2"
++PR = "${INC_PR}.0"
+ 
+-EXTRA_OECONF += " -no-fast -silent -no-rpath -no-freetype -no-fontconfig"
++EXTRA_OECONF += " -no-fast -silent -no-rpath"
+ 
+ TOBUILD := "src/tools/bootstrap ${TOBUILD}"
++
++SRC_URI[md5sum] = "5c69f16d452b0bb3d44bc3c10556c072"
++SRC_URI[sha256sum] = "f4e0ada8d4d516bbb8600a3ee7d9046c9c79e38cd781df9ffc46d8f16acd1768"
++
+diff --git a/meta/recipes-qt/qt4/qt4-tools-native_4.7.1.bb b/meta/recipes-qt/qt4/qt4-tools-native_4.7.1.bb
 new file mode 100644
-index 0000000..7f4be63
+index 0000000..e9de510
 --- /dev/null
-+++ b/meta/recipes-qt/qt4/qt4_arch.inc
-@@ -0,0 +1,25 @@
-+inherit siteinfo
++++ b/meta/recipes-qt/qt4/qt4-tools-native_4.7.1.bb
+@@ -0,0 +1,13 @@
++require qt4-tools-native.inc
 +
-+ARM_INSTRUCTION_SET = "arm"
++PR = "${INC_PR}.0"
 +
-+def qt_arch(d):
-+    import bb, re
-+    arch = bb.data.getVar('TARGET_ARCH', d, 1)
-+    if re.match("^i.86$", arch):
-+        arch = "i386"
-+    elif re.match("^arm.*", arch):
-+        arch = "arm"
-+    elif arch == "x86_64":
-+        arch = "x86"
-+    elif arch == "mipsel":
-+        arch = "mips"
-+    return arch
++# Find the g++.conf/linux.conf in the right directory.
++FILESPATHPKG =. "qt-${PV}:"
 +
-+def qt_endian(d):
-+    import bb
-+    if bb.data.getVar('SITEINFO_ENDIANESS', d, True) == "le":
-+        return "-little-endian"
-+    elif bb.data.getVar('SITEINFO_ENDIANESS', d, True) == "be":
-+        return "-big-endian"
-+    else:
-+        assert False
++EXTRA_OECONF += " -no-fast -silent -no-rpath"
++
++TOBUILD := "src/tools/bootstrap ${TOBUILD}"
++
++SRC_URI[md5sum] = "6f88d96507c84e9fea5bf3a71ebeb6d7"
++SRC_URI[sha256sum] = "8cb5277c41f824cfc6dcee0e95e0bf23a9ad2c8d18d245105137481d092b124a"
 -- 
 1.7.1
 
