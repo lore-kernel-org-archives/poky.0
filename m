@@ -1,23 +1,21 @@
 Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id CA20B4C80594
-	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 20:30:04 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 28 Jan 2011 18:30:03 -0800
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 98C004C811AF
+	for <poky@yoctoproject.org>; Fri, 28 Jan 2011 20:30:06 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 28 Jan 2011 18:30:01 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,395,1291622400"; d="scan'208";a="381471813"
+X-IronPort-AV: E=Sophos;i="4.60,395,1291622400"; d="scan'208";a="652317496"
 Received: from unknown (HELO helios) ([10.255.16.169])
-	by azsmga001.ch.intel.com with SMTP; 28 Jan 2011 18:30:02 -0800
-Received: by helios (sSMTP sendmail emulation); Sat, 29 Jan 2011 02:30:01 +0000
-Message-Id: <7eeb1b415c3bc9286c6b13c10848c822365381bd.1296267951.git.paul.eggleton@linux.intel.com>
-In-Reply-To: <cover.1296267951.git.paul.eggleton@linux.intel.com>
-References: <cover.1296267951.git.paul.eggleton@linux.intel.com>
-Old-Date: Thu, 13 Jan 2011 14:54:34 +0000
-Date: Sat, 29 Jan 2011  2:30:01 +0000
+	by fmsmga002.fm.intel.com with SMTP; 28 Jan 2011 18:29:59 -0800
+Received: by helios (sSMTP sendmail emulation); Sat, 29 Jan 2011 02:29:59 +0000
+Message-Id: <cover.1296267951.git.paul.eggleton@linux.intel.com>
+Old-Date: Sat, 29 Jan 2011 02:25:51 +0000
+Date: Sat, 29 Jan 2011  2:29:58 +0000
 To: poky@yoctoproject.org
 CC: 
 From: Paul Eggleton <paul.eggleton@linux.intel.com>
-Subject: [PATCH 01/12] Add directfb 1.4.6 from meta-openembedded
+Subject: [PATCH 00/12] Qt4 updates v3
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,237 +27,124 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 29 Jan 2011 02:30:05 -0000
+X-List-Received-Date: Sat, 29 Jan 2011 02:30:06 -0000
 
 From: Paul Eggleton <paul.eggleton@linux.intel.com>
 
-This package has been added from meta-openembedded in order to be able to
-build qt4-embedded. The only change was to remove do_install() which was
-exactly the same as autotools_do_install().
+These patches bring in the latest version of the Qt4 recipes from
+meta-openembedded, and make some significant general recipe cleanups as
+well. We will now have support for the latest version of Qt (4.7.1) in
+addition to 4.6.3, as well as the embedded (framebuffer-only as opposed
+to requiring X11) flavours of both versions.
 
-Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
+This patchset also contains the necessary changes to add meta-toolchain-qte
+from OpenEmbedded, and make it build successfully within Poky. Amongst other
+things this required some tweaking of avahi to avoid dependency of avahi-dev
+/ avahi-utils on gtk+, which in turn required the addition of a flag to
+control automatic RRECOMMENDS_ generation in package.bbclass.
+
+v3 changes:
+* Fixes directfb do_install, pseudo overhead, and removes commented out 
+  QtDeclarative lines in task-qte-toolchain-target.bb issues found by Joshua 
+  Lock.
+* Adds a patch to improve qtdemo package runtime dependencies, addressing
+  bugs #452 and #492.
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: paule/qt-fixes3
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=paule/qt-fixes3
+
+Thanks,
+    Paul Eggleton <paul.eggleton@linux.intel.com>
 ---
- .../directfb/directfb-1.4.6/mkdfiff.patch          |   24 +++++++
- meta/recipes-graphics/directfb/directfb.inc        |   68 ++++++++++++++++++++
- meta/recipes-graphics/directfb/directfb_1.4.6.bb   |   27 ++++++++
- .../directfb-1.2.x-fix-pkgconfig-cflags.patch      |   47 ++++++++++++++
- .../directfb/files/dont-use-linux-config.patch     |   12 ++++
- 5 files changed, 178 insertions(+), 0 deletions(-)
+
+
+Paul Eggleton (12):
+  Add directfb 1.4.6 from meta-openembedded
+  qt4: Bring in improvements from meta-openembedded
+  qt4: add qt4-embedded 4.6.3 from meta-openembedded
+  qt4: add 4.7.1 version from meta-openembedded
+  qt4-tools-native: update from OpenEmbedded
+  glib-2.0: extend to nativesdk
+  dbus: extend to nativesdk
+  qt4: Add qt4-tools-nativesdk based on qt4-tools-sdk from OpenEmbedded
+  package.bbclass: add nodeprrecs flag to RRECOMMENDS_pkgname
+  avahi: prevent unnecessary runtime dependency on gtk+
+  qt4: Add meta-toolchain-qte and dependent tasks from OpenEmbedded
+  qt4: set RRECOMMENDS correctly for qt4 demos and examples packages
+
+ meta/classes/package.bbclass                       |    2 +
+ meta/classes/qt4e.bbclass                          |   18 ++
+ meta/classes/qt4x11.bbclass                        |    9 +
+ meta/recipes-connectivity/avahi/avahi.inc          |    9 +-
+ meta/recipes-connectivity/avahi/avahi_0.6.28.bb    |    2 +-
+ meta/recipes-core/dbus/dbus.inc                    |    3 +-
+ meta/recipes-core/glib-2.0/glib-2.0_2.27.5.bb      |    2 +-
+ meta/recipes-core/glib-2.0/glib.inc                |    1 +
+ .../directfb/directfb-1.4.6/mkdfiff.patch          |   24 ++
+ meta/recipes-graphics/directfb/directfb.inc        |   68 ++++++
+ meta/recipes-graphics/directfb/directfb_1.4.6.bb   |   27 +++
+ .../directfb-1.2.x-fix-pkgconfig-cflags.patch      |   47 ++++
+ .../directfb/files/dont-use-linux-config.patch     |   12 +
+ meta/recipes-qt/meta/meta-toolchain-qte.bb         |   32 +++
+ .../recipes-qt/qt4/files/compile.test-lflags.patch |   13 +
+ meta/recipes-qt/qt4/files/configure-lflags.patch   |   13 +
+ meta/recipes-qt/qt4/files/configure-paths.patch    |   21 ++
+ meta/recipes-qt/qt4/files/qmake-exists-check.patch |   18 ++
+ meta/recipes-qt/qt4/files/qte.sh                   |    7 +
+ .../qt4/files/qthelp-lib-qtclucene.patch           |   86 +++++++
+ meta/recipes-qt/qt4/qt-4.6.3.inc                   |   54 ++---
+ meta/recipes-qt/qt4/qt-4.7.1.inc                   |   58 +++++
+ .../0001-Added-Openembedded-crossarch-option.patch |   44 ++++
+ meta/recipes-qt/qt4/qt-4.7.1/g++.conf              |   60 +++++
+ .../qt4/qt-4.7.1/hack-out-pg2-4.7.0.patch          |   19 ++
+ meta/recipes-qt/qt4/qt-4.7.1/linux.conf            |   66 ++++++
+ meta/recipes-qt/qt4/qt4-embedded.inc               |   34 +++
+ meta/recipes-qt/qt4/qt4-embedded_4.6.3.bb          |    9 +
+ meta/recipes-qt/qt4/qt4-embedded_4.7.1.bb          |   10 +
+ meta/recipes-qt/qt4/qt4-tools-native.inc           |   44 ++--
+ meta/recipes-qt/qt4/qt4-tools-native_4.6.3.bb      |   12 +-
+ meta/recipes-qt/qt4/qt4-tools-native_4.7.1.bb      |   13 +
+ meta/recipes-qt/qt4/qt4-tools-nativesdk.inc        |  111 +++++++++
+ meta/recipes-qt/qt4/qt4-tools-nativesdk_4.6.3.bb   |    6 +
+ meta/recipes-qt/qt4/qt4-tools-nativesdk_4.7.1.bb   |    6 +
+ meta/recipes-qt/qt4/qt4-x11-free.inc               |    9 +-
+ meta/recipes-qt/qt4/qt4-x11-free_4.6.3.bb          |    7 +-
+ meta/recipes-qt/qt4/qt4-x11-free_4.7.1.bb          |   12 +
+ meta/recipes-qt/qt4/qt4.inc                        |  242 ++++++++++----------
+ meta/recipes-qt/qt4/qt4_arch.inc                   |   25 ++
+ meta/recipes-qt/tasks/task-qte-toolchain-host.bb   |    7 +
+ meta/recipes-qt/tasks/task-qte-toolchain-target.bb |   35 +++
+ 42 files changed, 1112 insertions(+), 185 deletions(-)
+ create mode 100644 meta/classes/qt4e.bbclass
+ create mode 100644 meta/classes/qt4x11.bbclass
  create mode 100644 meta/recipes-graphics/directfb/directfb-1.4.6/mkdfiff.patch
  create mode 100644 meta/recipes-graphics/directfb/directfb.inc
  create mode 100644 meta/recipes-graphics/directfb/directfb_1.4.6.bb
  create mode 100644 meta/recipes-graphics/directfb/files/directfb-1.2.x-fix-pkgconfig-cflags.patch
  create mode 100644 meta/recipes-graphics/directfb/files/dont-use-linux-config.patch
-
-diff --git a/meta/recipes-graphics/directfb/directfb-1.4.6/mkdfiff.patch b/meta/recipes-graphics/directfb/directfb-1.4.6/mkdfiff.patch
-new file mode 100644
-index 0000000..28bd534
---- /dev/null
-+++ b/meta/recipes-graphics/directfb/directfb-1.4.6/mkdfiff.patch
-@@ -0,0 +1,24 @@
-+diff -uNr DirectFB-1.4.6.orig/tools/mkdfiff.c DirectFB-1.4.6/tools/mkdfiff.c
-+--- DirectFB-1.4.6.orig/tools/mkdfiff.c 2010-10-15 10:54:57.000000000 +0200
-++++ DirectFB-1.4.6/tools/mkdfiff.c      2010-10-15 10:54:15.000000000 +0200
-+@@ -50,6 +50,8 @@
-+
-+ #include <dfiff.h>
-+
-++#include <unistd.h>
-++
-+ static DirectFBPixelFormatNames( format_names );
-+
-+ static const char            *filename;
-+diff -uNr DirectFB-1.4.6.orig/tools/mkdgifft.cpp DirectFB-1.4.6/tools/mkdgifft.cpp
-+--- DirectFB-1.4.6.orig/tools/mkdgifft.cpp      2010-10-08 14:02:57.000000000 +0200
-++++ DirectFB-1.4.6/tools/mkdgifft.cpp   2010-10-15 10:56:06.000000000 +0200
-+@@ -40,6 +40,8 @@
-+ #include <errno.h>
-+ #include <stdio.h>
-+ #include <stdlib.h>
-++#include <sys/stat.h>
-++#include <sys/types.h>
-+ #include <unistd.h>
-+ #include <fcntl.h>
-+ #include <sys/mman.h>
-diff --git a/meta/recipes-graphics/directfb/directfb.inc b/meta/recipes-graphics/directfb/directfb.inc
-new file mode 100644
-index 0000000..2fe8b1c
---- /dev/null
-+++ b/meta/recipes-graphics/directfb/directfb.inc
-@@ -0,0 +1,68 @@
-+DESCRIPTION = "DirectFB is a thin library that provides developers \
-+with hardware graphics acceleration, input device handling and \
-+abstraction, an integrated windowing system with support for \
-+translucent windows and multiple display layers on top of the \
-+Linux framebuffer device."
-+SECTION = "libs"
-+LICENSE = "LGPLv2.1"
-+LIC_FILES_CHKSUM = "file://COPYING;md5=dcf3c825659e82539645da41a7908589"
-+
-+HOMEPAGE = "http://directfb.org"
-+DEPENDS = "jpeg libpng freetype zlib tslib"
-+
-+SRC_URI = " \
-+    http://www.directfb.org/downloads/Old/DirectFB-${PV}.tar.gz \
-+    file://fix-pkgconfig-cflags.patch \
-+    file://fix-font-missing-char.patch \
-+    file://getpagesize.patch \
-+    file://mkdfiff.patch \
-+    file://dont-use-linux-config.patch \
-+    file://ts_lib_autotools.patch \
-+"
-+S = "${WORKDIR}/DirectFB-${PV}"
-+
-+LDFLAGS_append =" -lts -lm"
-+
-+inherit autotools binconfig pkgconfig
-+
-+EXTRA_OECONF = "\
-+  --with-gfxdrivers=none \
-+  --enable-libmpeg3=no \
-+  --enable-freetype=yes \
-+  --enable-sdl=no \
-+  --enable-vnc=no \
-+  --disable-x11 \
-+"
-+
-+#PACKAGES_DYNAMIC = "directfb-inputdrivers-*"
-+#
-+#python populate_packages_prepend () {
-+#    import os.path
-+#    inputdrivers_libdir = bb.data.expand('${libdir}/directfb-${RV}/inputdrivers', d)
-+#    do_split_packages(d, inputdrivers_libdir, '*.so$', 'directfb-inputdrivers-%s', 'Directfb plugin for %s')
-+#}
-+
-+# NOTE: monolithic packaging for now, should improve that eventually
-+
-+
-+
-+FILES_${PN}-dbg += "\
-+  ${libdir}/directfb-${RV}/*/*/.debug/*.so \
-+  ${libdir}/directfb-${RV}/*/.debug/*.so \
-+"
-+
-+FILES_${PN}-dev += "\
-+  ${bindir}/directfb-config \
-+  ${libdir}/directfb-${RV}/systems/*.la \
-+  ${libdir}/directfb-${RV}/inputdrivers/*.la \
-+  ${libdir}/directfb-${RV}/interfaces/*/*.la \
-+  ${libdir}/directfb-${RV}/wm/*.la \
-+"
-+
-+FILES_${PN} += "\
-+  ${libdir}/directfb-${RV}/systems/*.so \
-+  ${libdir}/directfb-${RV}/inputdrivers/*.so \
-+  ${libdir}/directfb-${RV}/interfaces/*/*.so \
-+  ${libdir}/directfb-${RV}/wm/*.so \
-+  ${datadir}/directfb-${PV} \
-+"
-diff --git a/meta/recipes-graphics/directfb/directfb_1.4.6.bb b/meta/recipes-graphics/directfb/directfb_1.4.6.bb
-new file mode 100644
-index 0000000..70c0225
---- /dev/null
-+++ b/meta/recipes-graphics/directfb/directfb_1.4.6.bb
-@@ -0,0 +1,27 @@
-+require directfb.inc
-+
-+RV = "1.4-5"
-+PR = "r2"
-+
-+DEPENDS += "sysfsutils"
-+
-+SRC_URI = " \
-+    http://directfb.org/downloads/Core/DirectFB-1.4/DirectFB-${PV}.tar.gz \
-+    file://directfb-1.2.x-fix-pkgconfig-cflags.patch \
-+    file://mkdfiff.patch \
-+    file://dont-use-linux-config.patch \
-+   "
-+
-+EXTRA_OECONF = "\
-+  --enable-freetype=yes \
-+  --enable-zlib \
-+  --with-gfxdrivers=none \
-+  --disable-sdl \
-+  --disable-vnc \
-+  --disable-x11 \
-+"
-+
-+LEAD_SONAME = "libdirectfb-1.4.so.5"
-+
-+SRC_URI[md5sum] = "dbe1957932f81790742b58b94c1c7b84"
-+SRC_URI[sha256sum] = "b18121e60e9a084ee347037a53a46cfaea1c09505bd99d673c2e65eca285e69b"
-diff --git a/meta/recipes-graphics/directfb/files/directfb-1.2.x-fix-pkgconfig-cflags.patch b/meta/recipes-graphics/directfb/files/directfb-1.2.x-fix-pkgconfig-cflags.patch
-new file mode 100644
-index 0000000..745c561
---- /dev/null
-+++ b/meta/recipes-graphics/directfb/files/directfb-1.2.x-fix-pkgconfig-cflags.patch
-@@ -0,0 +1,47 @@
-+Index: DirectFB-1.1.1/directfb-internal.pc.in
-+===================================================================
-+--- DirectFB-1.1.1.orig/directfb-internal.pc.in	2007-08-07 21:43:00.000000000 +0200
-++++ DirectFB-1.1.1/directfb-internal.pc.in	2008-07-17 21:00:47.424654304 +0200
-+@@ -2,10 +2,10 @@
-+ exec_prefix=@exec_prefix@
-+ moduledir=@MODULEDIR@
-+ moduledirname=@MODULEDIRNAME@
-+-includedir=@INTERNALINCLUDEDIR@
-++includedir=@includedir@
-+ 
-+ Name: DirectFB-Internal
-+ Description: Third party module support package for DirectFB.
-+ Version: @VERSION@
-+ Requires: directfb = @VERSION@
-+-Cflags: @DFB_INTERNAL_CFLAGS@ -I@INTERNALINCLUDEDIR@
-++Cflags: @DFB_INTERNAL_CFLAGS@ -I${includedir}/directfb -I${includedir}
-+Index: DirectFB-1.1.1/directfb.pc.in
-+===================================================================
-+--- DirectFB-1.1.1.orig/directfb.pc.in	2007-12-15 16:23:16.000000000 +0100
-++++ DirectFB-1.1.1/directfb.pc.in	2008-07-17 20:59:58.044985193 +0200
-+@@ -9,4 +9,4 @@
-+ Requires: fusion direct
-+ Libs: -L${libdir} -ldirectfb @THREADLIB@ @OSX_LIBS@
-+ Libs.private: -L${libdir} @DYNLIB@ @ZLIB_LIBS@
-+-Cflags: @THREADFLAGS@ -I@INCLUDEDIR@
-++Cflags: @THREADFLAGS@ -I${includedir}/directfb
-+Index: DirectFB-1.1.1/lib/fusion/fusion.pc.in
-+===================================================================
-+--- DirectFB-1.1.1.orig/lib/fusion/fusion.pc.in	2007-08-07 21:43:00.000000000 +0200
-++++ DirectFB-1.1.1/lib/fusion/fusion.pc.in	2008-07-17 20:58:07.051338866 +0200
-+@@ -8,4 +8,4 @@
-+ Version: @VERSION@
-+ Requires: direct
-+ Libs: -L${libdir} -lfusion
-+-Cflags: -I@INCLUDEDIR@
-++Cflags: -I${includedir}/directfb -I${includedir}
-+Index: DirectFB-1.1.1/lib/voodoo/voodoo.pc.in
-+===================================================================
-+--- DirectFB-1.1.1.orig/lib/voodoo/voodoo.pc.in	2007-08-07 21:43:00.000000000 +0200
-++++ DirectFB-1.1.1/lib/voodoo/voodoo.pc.in	2008-07-17 20:58:07.054671842 +0200
-+@@ -8,4 +8,4 @@
-+ Version: @VERSION@
-+ Requires: direct
-+ Libs: -L${libdir} -lvoodoo
-+-Cflags: -I@INCLUDEDIR@
-++Cflags: -I${includedir}/directfb -I${includedir}
-diff --git a/meta/recipes-graphics/directfb/files/dont-use-linux-config.patch b/meta/recipes-graphics/directfb/files/dont-use-linux-config.patch
-new file mode 100644
-index 0000000..f971660
---- /dev/null
-+++ b/meta/recipes-graphics/directfb/files/dont-use-linux-config.patch
-@@ -0,0 +1,12 @@
-+diff -urN DirectFB-1.1.0.orig/lib/direct/ppcasm_memcpy_cachable.S DirectFB-1.1.0/lib/direct/ppcasm_memcpy_cachable.S
-+--- DirectFB-1.1.0.orig/lib/direct/ppcasm_memcpy_cachable.S	2007-08-07 21:43:00.000000000 +0200
-++++ DirectFB-1.1.0/lib/direct/ppcasm_memcpy_cachable.S	2008-06-07 04:14:26.000000000 +0200
-+@@ -34,8 +34,6 @@
-+ 
-+ #define __ASSEMBLY__
-+ 
-+-#include <linux/config.h>
-+-
-+ #if defined(CONFIG_8xx) || defined(CONFIG_403GCX)
-+ #define L1_CACHE_LINE_SIZE       16
-+ #define LG_L1_CACHE_LINE_SIZE     4 
--- 
-1.7.1
+ create mode 100644 meta/recipes-qt/meta/meta-toolchain-qte.bb
+ create mode 100644 meta/recipes-qt/qt4/files/compile.test-lflags.patch
+ create mode 100644 meta/recipes-qt/qt4/files/configure-lflags.patch
+ create mode 100644 meta/recipes-qt/qt4/files/configure-paths.patch
+ create mode 100644 meta/recipes-qt/qt4/files/qmake-exists-check.patch
+ create mode 100644 meta/recipes-qt/qt4/files/qte.sh
+ create mode 100644 meta/recipes-qt/qt4/files/qthelp-lib-qtclucene.patch
+ create mode 100644 meta/recipes-qt/qt4/qt-4.7.1.inc
+ create mode 100644 meta/recipes-qt/qt4/qt-4.7.1/0001-Added-Openembedded-crossarch-option.patch
+ create mode 100644 meta/recipes-qt/qt4/qt-4.7.1/g++.conf
+ create mode 100644 meta/recipes-qt/qt4/qt-4.7.1/hack-out-pg2-4.7.0.patch
+ create mode 100644 meta/recipes-qt/qt4/qt-4.7.1/linux.conf
+ create mode 100644 meta/recipes-qt/qt4/qt4-embedded.inc
+ create mode 100644 meta/recipes-qt/qt4/qt4-embedded_4.6.3.bb
+ create mode 100644 meta/recipes-qt/qt4/qt4-embedded_4.7.1.bb
+ create mode 100644 meta/recipes-qt/qt4/qt4-tools-native_4.7.1.bb
+ create mode 100644 meta/recipes-qt/qt4/qt4-tools-nativesdk.inc
+ create mode 100644 meta/recipes-qt/qt4/qt4-tools-nativesdk_4.6.3.bb
+ create mode 100644 meta/recipes-qt/qt4/qt4-tools-nativesdk_4.7.1.bb
+ create mode 100644 meta/recipes-qt/qt4/qt4-x11-free_4.7.1.bb
+ create mode 100644 meta/recipes-qt/qt4/qt4_arch.inc
+ create mode 100644 meta/recipes-qt/tasks/task-qte-toolchain-host.bb
+ create mode 100644 meta/recipes-qt/tasks/task-qte-toolchain-target.bb
 
 
