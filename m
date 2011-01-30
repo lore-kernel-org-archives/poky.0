@@ -1,26 +1,26 @@
 Return-Path: <saul.wold@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 74F3B4C8006D
-	for <poky@yoctoproject.org>; Sun, 30 Jan 2011 15:06:58 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 30 Jan 2011 13:06:57 -0800
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 859944C8006D
+	for <poky@yoctoproject.org>; Sun, 30 Jan 2011 15:20:19 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 30 Jan 2011 13:20:19 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,401,1291622400"; d="scan'208";a="381873260"
+X-IronPort-AV: E=Sophos;i="4.60,401,1291622400"; d="scan'208";a="652648020"
 Received: from unknown (HELO [10.255.14.130]) ([10.255.14.130])
-	by azsmga001.ch.intel.com with ESMTP; 30 Jan 2011 13:06:56 -0800
-Message-ID: <4D45D2EF.6050706@intel.com>
-Date: Sun, 30 Jan 2011 13:06:55 -0800
+	by fmsmga002.fm.intel.com with ESMTP; 30 Jan 2011 13:20:18 -0800
+Message-ID: <4D45D611.1040606@intel.com>
+Date: Sun, 30 Jan 2011 13:20:17 -0800
 From: Saul Wold <saul.wold@intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
 	Thunderbird/3.0.5
 MIME-Version: 1.0
-To: "Tian, Kevin" <kevin.tian@intel.com>
-References: <cover.1296372804.git.jingdong.lu@windriver.com>	<c37a7d01caf39c6a67574be39932dbe54ce6581c.1296372804.git.jingdong.lu@windriver.com>
-	<625BA99ED14B2D499DC4E29D8138F1504E6294E15B@shsmsx502.ccr.corp.intel.com>
-In-Reply-To: <625BA99ED14B2D499DC4E29D8138F1504E6294E15B@shsmsx502.ccr.corp.intel.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 1/5] gcc: Add "--enable-clocale=gnu" option explicitly
+To: Koen Kooi <koen@dominion.thruhere.net>
+References: <cover.1296372804.git.jingdong.lu@windriver.com>	<a598a01bc519ea080e73605f4ff70b499bcab645.1296372804.git.jingdong.lu@windriver.com>
+	<B32A4CB7-E47B-43F2-A71C-912D5C2D1334@dominion.thruhere.net>
+In-Reply-To: <B32A4CB7-E47B-43F2-A71C-912D5C2D1334@dominion.thruhere.net>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 4/5] cups: add cups 1.4.6
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,53 +32,47 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 30 Jan 2011 21:06:58 -0000
+X-List-Received-Date: Sun, 30 Jan 2011 21:20:19 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 01/30/2011 12:11 AM, Tian, Kevin wrote:
->> From: Jingdong Lu
->> Sent: Sunday, January 30, 2011 3:36 PM
->>
+On 01/30/2011 08:01 AM, Koen Kooi wrote:
+>
+> Op 30 jan 2011, om 08:36 heeft Jingdong Lu het volgende geschreven:
+>
 >> From: Jingdong Lu<jingdong.lu@windriver.com>
 >>
->> Add "--enable-clocale=gun" option for gcc configuration explicitly in order to
->> make sure C++ library can use correct locale module.
->>
->> Signed-off-by: Jingdong Lu<jingdong.lu@windriver.com>
->> ---
->>   meta/recipes-devtools/gcc/gcc-configure-common.inc |    2 +-
->>   1 files changed, 1 insertions(+), 1 deletions(-)
->>
->> diff --git a/meta/recipes-devtools/gcc/gcc-configure-common.inc
->> b/meta/recipes-devtools/gcc/gcc-configure-common.inc
->> index 4393777..b212fdc 100644
->> --- a/meta/recipes-devtools/gcc/gcc-configure-common.inc
->> +++ b/meta/recipes-devtools/gcc/gcc-configure-common.inc
->> @@ -27,7 +27,7 @@ EXTRA_OECONF_INTERMEDIATE ?= ""
->>
->>   GCCMULTILIB = "--disable-multilib"
->>
->> -EXTRA_OECONF = "${@['--enable-clocale=generic',
->> ''][bb.data.getVar('USE_NLS', d, 1) != 'no']} \
->> +EXTRA_OECONF = "${@['--enable-clocale=generic', '
->> --enable-clocale=gnu'][bb.data.getVar('USE_NLS', d, 1) != 'no']} \
->>                   --with-gnu-ld \
->>                   --enable-shared \
->>                   --enable-languages=${LANGUAGES} \
->> --
->> 1.7.0.4
->>
+>> This package has been added from Open Embedded.
+>> Changes from the Open Embedded version:
+>> * Update to version 1.4.6
+>> * Add SUMMARY, LIC_FILES_CHKSUM, checksum of source
+>> * Remove skip_tools.patch
 >
-> PR bump is expected for all gcc recipes affected by this change.
+> The skip_tools patch is needed for cross-compiling, without it it will try to run genstrings and the ppd generator. I cleaned up the cups in meta-oe and that builds cleanly for armv7a now. You can steal the updated skip_tools patch from there.
 >
-Yes, I agree with Kevin on this, also what is the impact to generated 
-binaries?  Does this add any size to compiled binaries?
+Thanks for pointing this out.
+
+Jingdong: can you please respin this one again with the input from Koen. 
+(Thanks).
+
+> I also updated the license to GPLv2 and LGPLv2, but I'm not sure how to add the apple and ssl exception is lists in LICENSE.txt.
+>
+Koen,
+
+Is seems we should also the mention KSC (Kerberos Support Code) since it 
+has it's own copyright and license.  As for the Apple and SSL 
+exceptions, I am not sure they apply in this case since the cups work in 
+this case targets a Linux based operating system, not an Apple one.
+
+Remember this is an engineer's opinion, I am not a Lawyer, nor to I play 
+one on TV!  We can consult the lawyers if needed.
 
 Sau!
 
-> Thanks
-> Kevin
+
+> regards,
+>
+> Koen
 > _______________________________________________
 > poky mailing list
 > poky@yoctoproject.org
