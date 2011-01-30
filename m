@@ -1,29 +1,20 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 4F03A4C8006D
-	for <poky@yoctoproject.org>; Sat, 29 Jan 2011 07:28:25 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0TDUNqn031310; Sat, 29 Jan 2011 13:30:23 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id l85KJz5-pqFp; Sat, 29 Jan 2011 13:30:23 +0000 (GMT)
-Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p0TDUH9f031306
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Sat, 29 Jan 2011 13:30:19 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Lianhao Lu <lianhao.lu@intel.com>
-In-Reply-To: <cover.1296208216.git.lianhao.lu@intel.com>
-References: <cover.1296208216.git.lianhao.lu@intel.com>
-Date: Sat, 29 Jan 2011 13:28:07 +0000
-Message-ID: <1296307687.13501.4152.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/5] [BUG# 227] rpm/deb support for meta-toolchain.
+Return-Path: <dongxiao.xu@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 956034C80050
+	for <poky@yoctoproject.org>; Sat, 29 Jan 2011 18:36:50 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 29 Jan 2011 16:36:50 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,398,1291622400"; d="scan'208";a="702014650"
+Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.32])
+	by orsmga001.jf.intel.com with ESMTP; 29 Jan 2011 16:36:49 -0800
+Message-Id: <cover.1296348480.git.dongxiao.xu@intel.com>
+Old-Date: Sun, 30 Jan 2011 08:48:00 +0800
+Date: Sun, 30 Jan 2011  8:53:31 +0800
+To: poky@yoctoproject.org
+CC: 
+From: Dongxiao Xu <dongxiao.xu@intel.com>
+Subject: [PATCH 0/2][PULL] glib-2.0 stable version and distro tracking update, Dongxiao, 2011/01/30
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,50 +26,46 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 29 Jan 2011 13:28:25 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Sun, 30 Jan 2011 00:36:51 -0000
 
-On Fri, 2011-01-28 at 18:01 +0800, Lianhao Lu wrote:
-> From: Lianhao Lu <lianhao.lu@intel.com>
-> 
-> The purpose of this series of patches is to add rpm/deb support in meta-toolchain creation,
-> and also to fix bug #227.
-> 
-> It makes the task populate_sdk in meta/recipes-core/meta/meta-toolchain.bb more generic
-> to support installing packages from ipk, rpm, and deb files in creating meta-toolchain 
-> tarball, and move the populate_sdk task out of meta-toolchain.bb recipe into a bbclass.
-> 
-> It added populate_sdk_xxx.bbclass for different package file format.
-> 
-> Since there are quite many code duplication between relevant popuplage_sdk_xxx and rootfs_xxx 
-> bbclasses, it also moved the common code into the package_xxx.bbclass, based on RP's suggestion. 
-> The generic function package_install_internal_xxx() may installs a list of packages, based on the
-> information specified by various shell environment variables about where the target directory to
-> be installed to, package architecture information, etc.
-> 
-> It also fixed a bug in cross-canadian.bbclass to enable the package_deb.bbclass generate correct
-> deb package files for cross-canadian recipies.
+From: Dongxiao Xu <dongxiao.xu@intel.com>
 
-These patches are good, if you have time could you:
+Hi Saul,
 
-a) rebase these patches against the merged rpm changes from Mark Hatle 
-   from the rpm update to 5.4
+This pull request introduces the glib-2.0 stable version 2.26.1.
 
-b) Try hard to split out any logical changes you can from the bigger
-patches into specific steps. For example, enhancing the log_check
-function and moving those around could be a separate commit.
+Besides it updates the distro tracking fields and adds the manual check items for those recipes whose upstream version could not be found automatically.
 
-The idea is to make changes in clear logical steps where at all possible
-so anyone reviewing the changes (such as Saul, Mark and myself) can then
-more quickly "see" the changes are correct and also, if there are
-problems, we can bisect the commits to track down which change the
-problem is from.
+Please help to review and pull.
 
-Cheers,
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: dxu4/glib-2.0
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dxu4/glib-2.0
 
-Richard
+Thanks,
+    Dongxiao Xu <dongxiao.xu@intel.com>
+---
 
 
+Dongxiao Xu (2):
+  glib-2.0: Add stable vesion 2.26.1
+  distro_tracking: update distro tracking fields
+
+ .../conf/distro/include/distro_tracking_fields.inc |   23 +++++++--
+ .../60_wait-longer-for-threads-to-die.patch        |    0
+ .../configure-libtool.patch                        |    0
+ .../g_once_init_enter.patch                        |    0
+ .../glib-gettextize-dir.patch                      |    0
+ meta/recipes-core/glib-2.0/glib-2.0_2.26.1.bb      |   16 ++++++
+ meta/recipes-core/glib-2.0/glib-2.0_2.27.5.bb      |    1 +
+ .../libfm/libfm-0.1.14/add_missing.patch           |   50 --------------------
+ meta/recipes-support/libfm/libfm_0.1.14.bb         |    5 +-
+ 9 files changed, 37 insertions(+), 58 deletions(-)
+ rename meta/recipes-core/glib-2.0/{glib-2.0-2.27.5 => glib-2.0}/60_wait-longer-for-threads-to-die.patch (100%)
+ rename meta/recipes-core/glib-2.0/{glib-2.0-2.27.5 => glib-2.0}/configure-libtool.patch (100%)
+ rename meta/recipes-core/glib-2.0/{glib-2.0-2.27.5 => glib-2.0}/g_once_init_enter.patch (100%)
+ rename meta/recipes-core/glib-2.0/{glib-2.0-2.27.5 => glib-2.0}/glib-gettextize-dir.patch (100%)
+ create mode 100644 meta/recipes-core/glib-2.0/glib-2.0_2.26.1.bb
+ delete mode 100644 meta/recipes-support/libfm/libfm-0.1.14/add_missing.patch
 
 
