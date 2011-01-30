@@ -1,27 +1,27 @@
 Return-Path: <Jingdong.Lu@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 941D54C8026D
-	for <poky@yoctoproject.org>; Sun, 30 Jan 2011 01:38:07 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 87D964C811F4
+	for <poky@yoctoproject.org>; Sun, 30 Jan 2011 01:38:09 -0600 (CST)
 Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p0U7c7sB017701
-	for <poky@yoctoproject.org>; Sat, 29 Jan 2011 23:38:07 -0800 (PST)
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p0U7c94g017712
+	for <poky@yoctoproject.org>; Sat, 29 Jan 2011 23:38:09 -0800 (PST)
 Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
 	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Sat, 29 Jan 2011 23:38:06 -0800
+	Sat, 29 Jan 2011 23:38:08 -0800
 Received: from localhost ([128.224.162.176]) by ala-mail06.corp.ad.wrs.com
 	with Microsoft SMTPSVC(6.0.3790.1830); 
-	Sat, 29 Jan 2011 23:38:06 -0800
-Message-Id: <c37a7d01caf39c6a67574be39932dbe54ce6581c.1296372804.git.jingdong.lu@windriver.com>
+	Sat, 29 Jan 2011 23:38:08 -0800
+Message-Id: <cd6ae931687d0d9aaa81c407dfc95291d5ecfb24.1296372804.git.jingdong.lu@windriver.com>
 In-Reply-To: <cover.1296372804.git.jingdong.lu@windriver.com>
 References: <cover.1296372804.git.jingdong.lu@windriver.com>
-Old-Date: Fri, 21 Jan 2011 17:29:32 +0800
-Date: Sun, 30 Jan 2011 15:36:25 +0800
+Old-Date: Sun, 30 Jan 2011 14:44:58 +0800
+Date: Sun, 30 Jan 2011 15:36:27 +0800
 To: poky@yoctoproject.org
 CC: 
 From: Jingdong Lu <jingdong.lu@windriver.com>
-X-OriginalArrivalTime: 30 Jan 2011 07:38:06.0893 (UTC)
-	FILETIME=[A2A685D0:01CBC050]
-Subject: [PATCH 1/5] gcc: Add "--enable-clocale=gnu" option explicitly
+X-OriginalArrivalTime: 30 Jan 2011 07:38:08.0831 (UTC)
+	FILETIME=[A3CE3CF0:01CBC050]
+Subject: [PATCH 2/5] mailx: add mailx 12.4
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,30 +33,54 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 30 Jan 2011 07:38:07 -0000
+X-List-Received-Date: Sun, 30 Jan 2011 07:38:09 -0000
 
 From: Jingdong Lu <jingdong.lu@windriver.com>
 
-Add "--enable-clocale=gun" option for gcc configuration explicitly in order to make sure C++ library can use correct locale module.
+This package has been added from Open Embedded.
+Changes from the Open Embedded version:
+* Update version to 12.4(mailx has been replaced by heirloom-mailx)
+* Add SUMMARY, LIC_FILES_CHKSUM
+* Remove patch(install.patch)
 
 Signed-off-by: Jingdong Lu <jingdong.lu@windriver.com>
 ---
- meta/recipes-devtools/gcc/gcc-configure-common.inc |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ meta/recipes-extended/mailx/mailx_12.4.bb |   26 ++++++++++++++++++++++++++
+ 1 files changed, 26 insertions(+), 0 deletions(-)
+ create mode 100644 meta/recipes-extended/mailx/mailx_12.4.bb
 
-diff --git a/meta/recipes-devtools/gcc/gcc-configure-common.inc b/meta/recipes-devtools/gcc/gcc-configure-common.inc
-index 4393777..b212fdc 100644
---- a/meta/recipes-devtools/gcc/gcc-configure-common.inc
-+++ b/meta/recipes-devtools/gcc/gcc-configure-common.inc
-@@ -27,7 +27,7 @@ EXTRA_OECONF_INTERMEDIATE ?= ""
- 
- GCCMULTILIB = "--disable-multilib"
- 
--EXTRA_OECONF = "${@['--enable-clocale=generic', ''][bb.data.getVar('USE_NLS', d, 1) != 'no']} \
-+EXTRA_OECONF = "${@['--enable-clocale=generic', ' --enable-clocale=gnu'][bb.data.getVar('USE_NLS', d, 1) != 'no']} \
-                 --with-gnu-ld \
-                 --enable-shared \
-                 --enable-languages=${LANGUAGES} \
+diff --git a/meta/recipes-extended/mailx/mailx_12.4.bb b/meta/recipes-extended/mailx/mailx_12.4.bb
+new file mode 100644
+index 0000000..180dbe3
+--- /dev/null
++++ b/meta/recipes-extended/mailx/mailx_12.4.bb
+@@ -0,0 +1,26 @@
++SUMMARY = "mailx is the traditional command-line-mode mail user agent."
++
++DESCRIPTION = "Mailx is derived from Berkeley Mail and is intended provide the \
++functionality of the POSIX mailx command with additional support \
++for MIME, IMAP, POP3, SMTP, and S/MIME."
++
++HOMEPAGE = "http://heirloom.sourceforge.net/mailx.html"
++SECTION = "console/network"
++PRIORITY = "required"
++PR = "r0"
++LICENSE = "GPL"
++LIC_FILES_CHKSUM = "file://COPYING;md5=4202a0a62910cf94f7af8a3436a2a2dd"
++
++SRC_URI = "${DEBIAN_MIRROR}/main/h/heirloom-mailx/heirloom-mailx_${PV}.orig.tar.gz;name=archive \
++           ${DEBIAN_MIRROR}/main/h/heirloom-mailx/heirloom-mailx_${PV}-2.diff.gz;name=patch \
++          "
++SRC_URI[archive.md5sum] = "17b8ff86795a118b199e041b66b7d1aa"
++SRC_URI[archive.sha256sum] = "946d822cbff70df2ecf5b78c8347fdd01fdc5873f7a7cf55932b3e07030fa370"
++SRC_URI[patch.md5sum] = "3233d1a85fcb4dcde689132a1bba7fc9"
++SRC_URI[patch.sha256sum] = "b15fac77973b7d787469e51bbbeae7ddbe922b02a0c23208b9779ce837eba861"
++
++S = "${WORKDIR}/mailx-${PV}"
++
++inherit autotools
++
++CFLAGS_append = " -D_BSD_SOURCE -DDEBIAN -I${S}/EXT"
 -- 
 1.7.0.4
 
