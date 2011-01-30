@@ -1,38 +1,20 @@
 Return-Path: <dexuan.cui@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9D89A4C80050
-	for <poky@yoctoproject.org>; Sat, 29 Jan 2011 20:00:04 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 29 Jan 2011 18:00:04 -0800
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id CB9674C80050
+	for <poky@yoctoproject.org>; Sat, 29 Jan 2011 20:25:21 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 29 Jan 2011 18:25:21 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,398,1291622400"; 
-	d="scan'208,217";a="882359435"
-Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
-	by fmsmga001.fm.intel.com with ESMTP; 29 Jan 2011 18:00:03 -0800
-Received: from pgsmsx509.gar.corp.intel.com (172.30.13.17) by
-	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Sun, 30 Jan 2011 10:00:02 +0800
-Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
-	PGSMSX509.gar.corp.intel.com (172.30.13.17) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Sun, 30 Jan 2011 10:00:02 +0800
-Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
-	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
-	Sun, 30 Jan 2011 10:00:01 +0800
-From: "Cui, Dexuan" <dexuan.cui@intel.com>
-To: "Zhang, Jessica" <jessica.zhang@intel.com>, "poky@yoctoproject.org"
-	<poky@yoctoproject.org>
-Date: Sun, 30 Jan 2011 10:00:00 +0800
-Thread-Topic: [poky]  poky-image-sato-sdk failed at do_rootfs
-Thread-Index: AcvAHa7DEgaiKAszTBSLa/7R7NS9YQAAmF4g
-Message-ID: <1865303E0DED764181A9D882DEF65FB685EBCB6C3C@shsmsx502.ccr.corp.intel.com>
-References: <9AFCD584B0B67B48AE8D8585BE30BA9506BAAFDF@orsmsx504.amr.corp.intel.com>
-In-Reply-To: <9AFCD584B0B67B48AE8D8585BE30BA9506BAAFDF@orsmsx504.amr.corp.intel.com>
-Accept-Language: zh-CN, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: zh-CN, en-US
-MIME-Version: 1.0
-Subject: Re: poky-image-sato-sdk failed at do_rootfs
+X-IronPort-AV: E=Sophos;i="4.60,398,1291622400"; d="scan'208";a="652489510"
+Received: from dcui-desktop.sh.intel.com (HELO localhost) ([10.239.13.108])
+	by fmsmga002.fm.intel.com with ESMTP; 29 Jan 2011 18:25:21 -0800
+Message-Id: <cover.1296354078.git.dexuan.cui@intel.com>
+Old-Date: Sun, 30 Jan 2011 10:21:18 +0800
+Date: Sun, 30 Jan 2011 10:24:36 +0800
+To: poky@yoctoproject.org
+CC: 
+From: Dexuan Cui <dexuan.cui@intel.com>
+Subject: [Dexuan: Jan 30: PULL 0/1] RESEND: upgrade for xkeyboard-config
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,116 +26,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 30 Jan 2011 02:00:04 -0000
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_1865303E0DED764181A9D882DEF65FB685EBCB6C3Cshsmsx502ccrc_"
+X-List-Received-Date: Sun, 30 Jan 2011 02:25:22 -0000
 
---_000_1865303E0DED764181A9D882DEF65FB685EBCB6C3Cshsmsx502ccrc_
-Content-Type: text/plain; charset="gb2312"
-Content-Transfer-Encoding: base64
+From: Dexuan Cui <dexuan.cui@intel.com>
 
-SGkgSmVzc2ljYSwNCkkgZGlkbid0IG1lZXQgd2l0aCB0aGUgc2FtZSBpc3N1ZSAtLSBteSBsYXN0
-LXRpbWUgYnVpbGRpbmcgcG9reS1pbWFnZS1zYXRvLXNkayBvbiBhbGwgdGhlIHFlbXUgdGFyZ2V0
-cyBpcyBKYW4gMjYgYW5kIGl0J3Mgb2suDQoNCkkgbG9va2VkIGF0IHJlY2VudCBuaWdodGx5IGJ1
-aWxkIGxvZ3MganVzdCBub3cgYW5kIGxvb2tzIEkgZGlkbid0IGZpbmQgdGhlIHNpbWlsYXIgRVJS
-T1IsIGJ1dCBtYXN0ZXIgZG9lcyBzZWVtIHVuc3RhYmxlLCBlLmcuLCBtZXRhLXRvb2xjaGFpbi1z
-ZGsgZmFpbGVkIG9uIG1hbnkgcWVtdSB0YXJnZXRzIGJlY2F1c2UgbGludXgtbGliYy1oZWFkZXJz
-IGNhbid0IGJ1aWxkLg0KSSdtIGJ1aWxkaW5nIGxvY2FsbHkgYW5kIHRyeWluZyB0byByZXNsb3Zl
-IHRoZSBpc3N1ZS4uLg0KDQpUaGFua3MsDQotLSBEZXh1YW4NCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fDQpGcm9tOiBwb2t5LWJvdW5jZXNAeW9jdG9wcm9qZWN0Lm9yZyBbbWFpbHRv
-OnBva3ktYm91bmNlc0B5b2N0b3Byb2plY3Qub3JnXSBPbiBCZWhhbGYgT2YgWmhhbmcsIEplc3Np
-Y2ENClNlbnQ6IDIwMTHE6jHUwjMwyNUgOTozMw0KVG86IHBva3lAeW9jdG9wcm9qZWN0Lm9yZw0K
-U3ViamVjdDogW3Bva3ldIHBva3ktaW1hZ2Utc2F0by1zZGsgZmFpbGVkIGF0IGRvX3Jvb3Rmcw0K
-DQpNeSBwb2t5LWltYWdlLXNhdG8tc2RrIGFnYWluc3QgdGhlIGxhdGVzdCBtYXN0ZXIgaXMgY29u
-c2lzdGVudGx5IGZhaWxlZCBhdCBsYXN0IHN0ZXAgb2YgZG9fcm9vdGZzLCBoZXJlJ3MgdGhlIGVy
-cm9yOg0KDQogUHJvY2Vzc2luZyB0YXNrLXBva3ktcXQtZGVtb3MuLi4NCnwgZXJyb3I6IEZhaWxl
-ZCBkZXBlbmRlbmNpZXM6DQp8ICBlZ2xpYmMgPj0gMi4xMiBpcyBuZWVkZWQgYnkgbGlic3RkYysr
-Ni00LjUuMS1yMi5hcm12NXRlDQp8ICBlZ2xpYmMgPj0gMi4xMiBpcyBuZWVkZWQgYnkgbGliZ2Nj
-MS00LjUuMS1yMC5hcm12NXRlDQp8IEZ1bmN0aW9uICdkb19yb290ZnMnIGZhaWxlZCAoc2VlIC9o
-b21lL2p6aGFuZy9tYXN0ZXItYXJtLWJ1aWxkL3RtcC93b3JrL3FlbXVhcm0tcG9reS1saW51eC1n
-bnVlYWJpL3Bva3ktaW1hZ2Utc2F0by1zZGstMS4wLXIwL3RlbXAvbG9nLmRvX3Jvb3Rmcy42MTQy
-IGZvciBmdXJ0aGVyIGluZm9ybWF0aW9uKQ0KfCBFUlJPUjogRnVuY3Rpb24gJ2RvX3Jvb3Rmcycg
-ZmFpbGVkIChzZWUgL2hvbWUvanpoYW5nL21hc3Rlci1hcm0tYnVpbGQvdG1wL3dvcmsvcWVtdWFy
-bS1wb2t5LWxpbnV4LWdudWVhYmkvcG9reS1pbWFnZS1zYXRvLXNkay0xLjAtcjAvdGVtcC9sb2cu
-ZG9fcm9vdGZzLjYxNDIgZm9yIGZ1cnRoZXIgaW5mb3JtYXRpb24pDQpIYXMgYW55Ym9keSBydW4g
-aW50byBzYW1lIGlzc3VlIG9yIGFueSBpZGVhPw0KDQpUaGFua3MsDQpKZXNzaWNhDQo=
+Hi Saul,
+In my previous pull request for xkeyboard-config, I removed the 2 lines
 
---_000_1865303E0DED764181A9D882DEF65FB685EBCB6C3Cshsmsx502ccrc_
-Content-Type: text/html; charset="gb2312"
-Content-Transfer-Encoding: quoted-printable
+SECTION = "x11/libs"
+DEPENDS = "intltool xkbcomp-native glib-2.0"
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<HTML><HEAD>
-<META content=3D"text/html; charset=3Dgb2312" http-equiv=3DContent-Type>
-<META name=3DGENERATOR content=3D"MSHTML 8.00.6001.18999"></HEAD>
-<BODY>
-<DIV dir=3Dltr align=3Dleft><SPAN class=3D437255001-30012011><FONT size=3D2=
- face=3D=CB=CE=CC=E5>Hi=20
-Jessica,</FONT></SPAN></DIV>
-<DIV dir=3Dltr align=3Dleft><SPAN class=3D437255001-30012011><FONT size=3D2=
- face=3D=CB=CE=CC=E5>I=20
-didn't meet with the same issue -- my last-time building=20
-poky-image-sato-sdk&nbsp;on all the qemu targets is Jan 26 and it's=20
-ok.</FONT></SPAN></DIV>
-<DIV dir=3Dltr align=3Dleft><SPAN class=3D437255001-30012011><FONT size=3D2=
-=20
-face=3D=CB=CE=CC=E5></FONT></SPAN>&nbsp;</DIV>
-<DIV dir=3Dltr align=3Dleft><SPAN class=3D437255001-30012011><FONT face=3D=
-=CB=CE=CC=E5><FONT=20
-size=3D2>I looked at recent nightly build logs just now and looks I didn't =
-find=20
-the similar ERROR, but master does seem unstable, e.g., meta-toolchain-sdk=
-=20
-failed&nbsp;on many qemu targets because linux-libc-headers can't=20
-build.</FONT></FONT></SPAN></DIV>
-<DIV dir=3Dltr align=3Dleft><SPAN class=3D437255001-30012011><FONT size=3D2=
- face=3D=CB=CE=CC=E5>I'm=20
-building locally and trying to reslove the issue...</FONT></SPAN></DIV>
-<DIV dir=3Dltr align=3Dleft><SPAN class=3D437255001-30012011><FONT size=3D2=
-=20
-face=3D=CB=CE=CC=E5></FONT></SPAN>&nbsp;</DIV>
-<DIV dir=3Dltr align=3Dleft><SPAN class=3D437255001-30012011><FONT size=3D2=
-=20
-face=3D=CB=CE=CC=E5>Thanks,</FONT></SPAN></DIV>
-<DIV dir=3Dltr align=3Dleft><SPAN class=3D437255001-30012011><FONT size=3D2=
- face=3D=CB=CE=CC=E5>--=20
-Dexuan</FONT></SPAN>
-<HR tabIndex=3D-1>
-<FONT size=3D2 face=3DTahoma><B>From:</B> poky-bounces@yoctoproject.org=20
-[mailto:poky-bounces@yoctoproject.org] <B>On Behalf Of </B>Zhang,=20
-Jessica<BR><B>Sent:</B> 2011=C4=EA1=D4=C230=C8=D5 9:33<BR><B>To:</B>=20
-poky@yoctoproject.org<BR><B>Subject:</B> [poky] poky-image-sato-sdk failed =
-at=20
-do_rootfs<BR></FONT><BR></DIV>
-<DIV></DIV>
-<DIV><FONT size=3D2 face=3DArial><SPAN class=3D100113101-30012011>My=20
-poky-image-sato-sdk against the latest master is consistently failed at las=
-t=20
-step of do_rootfs, here's the error:</SPAN></FONT></DIV>
-<DIV><FONT size=3D2 face=3DArial><SPAN=20
-class=3D100113101-30012011></SPAN></FONT>&nbsp;</DIV>
-<DIV><FONT size=3D2 face=3DArial><SPAN class=3D100113101-30012011>&nbsp;Pro=
-cessing=20
-task-poky-qt-demos...<BR>| error: Failed dependencies:<BR>| &nbsp;eglibc &g=
-t;=3D=20
-2.12 is needed by libstdc++6-4.5.1-r2.armv5te<BR>| &nbsp;eglibc &gt;=3D 2.1=
-2 is=20
-needed by libgcc1-4.5.1-r0.armv5te<BR>| Function 'do_rootfs' failed (see=20
-/home/jzhang/master-arm-build/tmp/work/qemuarm-poky-linux-gnueabi/poky-imag=
-e-sato-sdk-1.0-r0/temp/log.do_rootfs.6142=20
-for further information)<BR>| ERROR: Function 'do_rootfs' failed (see=20
-/home/jzhang/master-arm-build/tmp/work/qemuarm-poky-linux-gnueabi/poky-imag=
-e-sato-sdk-1.0-r0/temp/log.do_rootfs.6142=20
-for further information)<BR></SPAN></FONT></DIV>
-<DIV><FONT size=3D2 face=3DArial><SPAN class=3D100113101-30012011>Has anybo=
-dy run into=20
-same issue or any idea?</SPAN></FONT></DIV>
-<DIV><FONT size=3D2 face=3DArial><SPAN=20
-class=3D100113101-30012011></SPAN></FONT>&nbsp;</DIV>
-<DIV><FONT size=3D2 face=3DArial><SPAN=20
-class=3D100113101-30012011>Thanks,</SPAN></FONT></DIV>
-<DIV><FONT size=3D2 face=3DArial><SPAN=20
-class=3D100113101-30012011>Jessica</DIV></SPAN></FONT></BODY></HTML>
+from the recipe of xkeyboard-config accidently. I don't know why I made
+this mistake -- maybe I was not careful enough when rebasing... Sorry!
 
---_000_1865303E0DED764181A9D882DEF65FB685EBCB6C3Cshsmsx502ccrc_--
+Thank Joshua Lock for pointing this out!
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: dcui/master
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dcui/master
+
+Thanks,
+    Dexuan Cui <dexuan.cui@intel.com>
+---
+
+
+Dexuan Cui (1):
+  xkeyboard-config: upgrade from 2.0 to 2.1
+
+ ...board-config_2.0.bb => xkeyboard-config_2.1.bb} |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+ rename meta/recipes-graphics/xorg-lib/{xkeyboard-config_2.0.bb => xkeyboard-config_2.1.bb} (83%)
+
+-- 
+1.7.2
+
+
