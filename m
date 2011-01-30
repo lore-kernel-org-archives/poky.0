@@ -1,26 +1,24 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id BFFD94C8018D
-	for <poky@yoctoproject.org>; Sun, 30 Jan 2011 14:26:55 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 30 Jan 2011 12:26:55 -0800
+Return-Path: <sgw@linux.intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 21EB04C8018D
+	for <poky@yoctoproject.org>; Sun, 30 Jan 2011 14:40:59 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 30 Jan 2011 12:40:58 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,401,1291622400"; d="scan'208";a="652641510"
+X-IronPort-AV: E=Sophos;i="4.60,401,1291622400"; d="scan'208";a="702180887"
 Received: from unknown (HELO [10.255.14.130]) ([10.255.14.130])
-	by fmsmga002.fm.intel.com with ESMTP; 30 Jan 2011 12:26:52 -0800
-Message-ID: <4D45C98C.7080606@intel.com>
-Date: Sun, 30 Jan 2011 12:26:52 -0800
-From: Saul Wold <saul.wold@intel.com>
+	by orsmga001.jf.intel.com with ESMTP; 30 Jan 2011 12:40:57 -0800
+Message-ID: <4D45CCDA.1030207@linux.intel.com>
+Date: Sun, 30 Jan 2011 12:40:58 -0800
+From: Saul Wold <sgw@linux.intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
 	Thunderbird/3.0.5
 MIME-Version: 1.0
-To: Dongxiao Xu <dongxiao.xu@intel.com>
-References: <cover.1296348480.git.dongxiao.xu@intel.com>
-	<d8ad7efbba5aac7ddb1f9094a60ddc38dc2446e2.1296348480.git.dongxiao.xu@intel.com>
-In-Reply-To: <d8ad7efbba5aac7ddb1f9094a60ddc38dc2446e2.1296348480.git.dongxiao.xu@intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 1/2] glib-2.0: Add stable vesion 2.26.1
+To: poky@yoctoproject.org
+References: <625BA99ED14B2D499DC4E29D8138F1504E6294E189@shsmsx502.ccr.corp.intel.com>
+In-Reply-To: <625BA99ED14B2D499DC4E29D8138F1504E6294E189@shsmsx502.ccr.corp.intel.com>
+Subject: Re: [LTP] Yocto 1.0 M2 assessment -- DONE
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,165 +30,109 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 30 Jan 2011 20:26:56 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Sun, 30 Jan 2011 20:40:59 -0000
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 01/29/2011 04:53 PM, Dongxiao Xu wrote:
-> From: Dongxiao Xu<dongxiao.xu@intel.com>
+On 01/30/2011 01:12 AM, Tian, Kevin wrote:
+> Hi, all,
 >
-> Move patches into a common directory to be shared by both recipes.
+> I'd like to share the current LTP status, that I've basically done the
+> assessment for
 >
-> Remove the libfm patch which is no longer needed. Or else it will
-> have re-definition error along with glib 2.26.1.
+> all the failures except routerstation (2.6.34 kernel has some IPC issues
+> which causes
 >
-This should really be applied as 2 commits, one for glib and a second 
-one for libfm.
+> lots of unexpected failures).
+>
+Kevin,
 
-Can you please remake this as 2 commits.
+Thanks for the excellent assesment, as we move forward, I will consult 
+with you about the contents of the images.  Is there a reason you chose 
+the SDK image over the LSB image?
 
-Thanks
-     Sau!
+As you may have heard, we are working on creating sets of images that 
+will meet various developers.  Soon, there will be an LSB-dev and 
+LSD-sdk set of images that will contain headers/libraries and then 
+headers/libraries and developer tools in LSB.  We might want to consider 
+testing with the lsb-sdk image in the future since it will have some of 
+the missing things that you have tested.
+
+Thoughts?
+
+	Sau!
 
 
-> Signed-off-by: Dongxiao Xu<dongxiao.xu@intel.com>
-> ---
->   .../60_wait-longer-for-threads-to-die.patch        |    0
->   .../configure-libtool.patch                        |    0
->   .../g_once_init_enter.patch                        |    0
->   .../glib-gettextize-dir.patch                      |    0
->   meta/recipes-core/glib-2.0/glib-2.0_2.26.1.bb      |   16 ++++++
->   meta/recipes-core/glib-2.0/glib-2.0_2.27.5.bb      |    1 +
->   .../libfm/libfm-0.1.14/add_missing.patch           |   50 --------------------
->   meta/recipes-support/libfm/libfm_0.1.14.bb         |    5 +-
->   8 files changed, 19 insertions(+), 53 deletions(-)
->   rename meta/recipes-core/glib-2.0/{glib-2.0-2.27.5 =>  glib-2.0}/60_wait-longer-for-threads-to-die.patch (100%)
->   rename meta/recipes-core/glib-2.0/{glib-2.0-2.27.5 =>  glib-2.0}/configure-libtool.patch (100%)
->   rename meta/recipes-core/glib-2.0/{glib-2.0-2.27.5 =>  glib-2.0}/g_once_init_enter.patch (100%)
->   rename meta/recipes-core/glib-2.0/{glib-2.0-2.27.5 =>  glib-2.0}/glib-gettextize-dir.patch (100%)
->   create mode 100644 meta/recipes-core/glib-2.0/glib-2.0_2.26.1.bb
->   delete mode 100644 meta/recipes-support/libfm/libfm-0.1.14/add_missing.patch
+> https://wiki.yoctoproject.org/wiki/LTP_result#Current_Milestone_.281.0.2FM2.29
 >
-> diff --git a/meta/recipes-core/glib-2.0/glib-2.0-2.27.5/60_wait-longer-for-threads-to-die.patch b/meta/recipes-core/glib-2.0/glib-2.0/60_wait-longer-for-threads-to-die.patch
-> similarity index 100%
-> rename from meta/recipes-core/glib-2.0/glib-2.0-2.27.5/60_wait-longer-for-threads-to-die.patch
-> rename to meta/recipes-core/glib-2.0/glib-2.0/60_wait-longer-for-threads-to-die.patch
-> diff --git a/meta/recipes-core/glib-2.0/glib-2.0-2.27.5/configure-libtool.patch b/meta/recipes-core/glib-2.0/glib-2.0/configure-libtool.patch
-> similarity index 100%
-> rename from meta/recipes-core/glib-2.0/glib-2.0-2.27.5/configure-libtool.patch
-> rename to meta/recipes-core/glib-2.0/glib-2.0/configure-libtool.patch
-> diff --git a/meta/recipes-core/glib-2.0/glib-2.0-2.27.5/g_once_init_enter.patch b/meta/recipes-core/glib-2.0/glib-2.0/g_once_init_enter.patch
-> similarity index 100%
-> rename from meta/recipes-core/glib-2.0/glib-2.0-2.27.5/g_once_init_enter.patch
-> rename to meta/recipes-core/glib-2.0/glib-2.0/g_once_init_enter.patch
-> diff --git a/meta/recipes-core/glib-2.0/glib-2.0-2.27.5/glib-gettextize-dir.patch b/meta/recipes-core/glib-2.0/glib-2.0/glib-gettextize-dir.patch
-> similarity index 100%
-> rename from meta/recipes-core/glib-2.0/glib-2.0-2.27.5/glib-gettextize-dir.patch
-> rename to meta/recipes-core/glib-2.0/glib-2.0/glib-gettextize-dir.patch
-> diff --git a/meta/recipes-core/glib-2.0/glib-2.0_2.26.1.bb b/meta/recipes-core/glib-2.0/glib-2.0_2.26.1.bb
-> new file mode 100644
-> index 0000000..eace71a
-> --- /dev/null
-> +++ b/meta/recipes-core/glib-2.0/glib-2.0_2.26.1.bb
-> @@ -0,0 +1,16 @@
-> +require glib.inc
-> +
-> +PE = "1"
-> +PR = "r0"
-> +
-> +SRC_URI = "http://ftp.gnome.org/pub/GNOME/sources/glib/2.26/glib-${PV}.tar.bz2 \
-> +           file://configure-libtool.patch \
-> +           file://60_wait-longer-for-threads-to-die.patch \
-> +           file://g_once_init_enter.patch \
-> +          "
-> +
-> +SRC_URI[md5sum] = "17535accceef55bcb17a74d73f9c2aef"
-> +SRC_URI[sha256sum] = "7a74ff12b6b9dee1f2d0e520b56b68b621920c4f4250bdf23468e515625c28d5"
-> +
-> +SRC_URI_append_virtclass-native = " file://glib-gettextize-dir.patch"
-> +BBCLASSEXTEND = "native"
-> diff --git a/meta/recipes-core/glib-2.0/glib-2.0_2.27.5.bb b/meta/recipes-core/glib-2.0/glib-2.0_2.27.5.bb
-> index b26da7b..92566c1 100644
-> --- a/meta/recipes-core/glib-2.0/glib-2.0_2.27.5.bb
-> +++ b/meta/recipes-core/glib-2.0/glib-2.0_2.27.5.bb
-> @@ -12,4 +12,5 @@ SRC_URI[md5sum] = "b7025b581bf78fcd656117bfc113f21f"
->   SRC_URI[sha256sum] = "aad3038db865b762e01b1dc455ffd601b4083c069018d290e5fdfe1a61d328dc"
+> Total failures are *271* if setting aside routerstation:
 >
->   SRC_URI_append_virtclass-native = " file://glib-gettextize-dir.patch"
-> +DEFAULT_PREFERENCE = "-1"
->   BBCLASSEXTEND = "native"
-> diff --git a/meta/recipes-support/libfm/libfm-0.1.14/add_missing.patch b/meta/recipes-support/libfm/libfm-0.1.14/add_missing.patch
-> deleted file mode 100644
-> index 3739d80..0000000
-> --- a/meta/recipes-support/libfm/libfm-0.1.14/add_missing.patch
-> +++ /dev/null
-> @@ -1,50 +0,0 @@
-> -Add missing definitions and declarations for libfm which are
-> -needed by libfm.
-> -
-> -Signed-off-by: Dongxiao Xu<dongxiao.xu@intel.com>
-> -
-> -diff -ruN libfm-0.1.12-orig/src/gio/fm-app-lookup.h libfm-0.1.12/src/gio/fm-app-lookup.h
-> ---- libfm-0.1.12-orig/src/gio/fm-app-lookup.h	2010-11-17 22:00:48.000000000 +0800
-> -+++ libfm-0.1.12/src/gio/fm-app-lookup.h	2010-11-17 22:01:13.000000000 +0800
-> -@@ -53,6 +53,41 @@
-> - GType fm_app_lookup_get_type(void);
-> - void fm_app_lookup_register(GIOModule *module);
-> -
-> -+#define G_TYPE_DESKTOP_APP_INFO_LOOKUP           (g_desktop_app_info_lookup_get_type ())
-> -+#define G_DESKTOP_APP_INFO_LOOKUP(obj)           (G_TYPE_CHECK_INSTANCE_CAST ((obj), G_TYPE_DESKTOP_APP_INFO_LOOKUP, GDesktopAppInfoLookup))
-> -+#define G_IS_DESKTOP_APP_INFO_LOOKUP(obj)	 (G_TYPE_CHECK_INSTANCE_TYPE ((obj), G_TYPE_DESKTOP_APP_INFO_LOOKUP))
-> -+#define G_DESKTOP_APP_INFO_LOOKUP_GET_IFACE(obj) (G_TYPE_INSTANCE_GET_INTERFACE ((obj), G_TYPE_DESKTOP_APP_INFO_LOOKUP, GDesktopAppInfoLookupIface))
-> -+
-> -+/**
-> -+ * G_DESKTOP_APP_INFO_LOOKUP_EXTENSION_POINT_NAME:
-> -+ *
-> -+ * Extension point for default handler to URI association. See
-> -+ *<link linkend="extending-gio">Extending GIO</link>.
-> -+ */
-> -+#define G_DESKTOP_APP_INFO_LOOKUP_EXTENSION_POINT_NAME "gio-desktop-app-info-lookup"
-> -+
-> -+/**
-> -+ * GDesktopAppInfoLookup:
-> -+ *
-> -+ * Interface that is used by backends to associate default
-> -+ * handlers with URI schemes.
-> -+ */
-> -+typedef struct _GDesktopAppInfoLookup GDesktopAppInfoLookup;
-> -+typedef struct _GDesktopAppInfoLookupIface GDesktopAppInfoLookupIface;
-> -+
-> -+struct _GDesktopAppInfoLookupIface
-> -+{
-> -+  GTypeInterface g_iface;
-> -+
-> -+  GAppInfo * (* get_default_for_uri_scheme) (GDesktopAppInfoLookup *lookup,
-> -+                                             const char            *uri_scheme);
-> -+};
-> -+
-> -+GType     g_desktop_app_info_lookup_get_type                   (void) G_GNUC_CONST;
-> -+
-> -+GAppInfo *g_desktop_app_info_lookup_get_default_for_uri_scheme (GDesktopAppInfoLookup *lookup,
-> -+                                                                const char            *uri_scheme);
-> -+
-> - G_END_DECLS
-> -
-> - #endif /* __FM_APP_LOOKUP_H__ */
-> diff --git a/meta/recipes-support/libfm/libfm_0.1.14.bb b/meta/recipes-support/libfm/libfm_0.1.14.bb
-> index e8e672c..c56ad33 100644
-> --- a/meta/recipes-support/libfm/libfm_0.1.14.bb
-> +++ b/meta/recipes-support/libfm/libfm_0.1.14.bb
-> @@ -10,10 +10,9 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=59530bdf33659b29e73d4adb9f9f6552 \
->   SECTION = "x11/libs"
->   DEPENDS = "gtk+ menu-cache intltool"
+> Out of *271* there are quite some happening on multiple targets. So
+> after removing the
 >
-> -PR = "r1"
-> +PR = "r2"
+> duplicated failures, I managed to audit totally *51* failures, within them:
 >
-> -SRC_URI = "${SOURCEFORGE_MIRROR}/pcmanfm/libfm-${PV}.tar.gz \
-> -           file://add_missing.patch"
-> +SRC_URI = "${SOURCEFORGE_MIRROR}/pcmanfm/libfm-${PV}.tar.gz"
+> - 7 failures are fixed (5 are bug fixes, 2 are fixed in 2.6.37 kernel)
 >
->   SRC_URI[md5sum] = "d55e51dced6bb9ef46665243b079761f"
->   SRC_URI[sha256sum] = "e97bf3f9ed4f33b9f0be73e67d360b89337cccf816361faacd8422722269806b"
+> http://bugzilla.pokylinux.org/show_bug.cgi?id=672 [LTP]PATH contain
+> ending colon for root user
+>
+> http://bugzilla.pokylinux.org/show_bug.cgi?id=673 [LTP]normal user can't
+> use cron
+>
+> http://bugzilla.pokylinux.org/show_bug.cgi?id=674 [LTP]bash is not
+> default /bin/sh in lsb profile
+>
+> http://bugzilla.pokylinux.org/show_bug.cgi?id=675 [LTP]normal user can't
+> use at
+>
+> http://bugzilla.pokylinux.org/show_bug.cgi?id=676 [LTP]no 'file' and
+> 'ldd' in sdk profile
+>
+> - 5 failures are identified as upstream LTP bugs
+>
+> - 3 failures are pending for further solution
+>
+> http://bugzilla.pokylinux.org/show_bug.cgi?id=678 [LTP] fallocate always
+> gets -EFBIG on qemuarm/qemumips
+>
+> - The majority (36) failures are categorized as Not-A-Bug, which mostly
+> comes from
+>
+> the fact that SDK profile doesn’t include necessary packages for test,
+> and then are
+>
+> verified PASS by adding them back with necessary tweaking. There’re also
+> a few
+>
+> coming from lacking of memory/disk resources, which will be avoided in
+> the next test.
+>
+Do you have the list os packages that you had to add?  I do not see a 
+summary of that list.
 
+Again thanks for this great effort, and I look forward to the POSIX 
+evaluation at somepoint in the near future.
+
+Sau!
+
+> Qemux86 is the base target which I spent most time. So for most failure
+> analysis you can look at:
+>
+> https://wiki.yoctoproject.org/wiki/Qemux86-ltp
+>
+> Qemuarm contains 2^nd most fresh analysis, which you may be also interested:
+>
+> https://wiki.yoctoproject.org/wiki/Qemuarm-ltp
+>
+> Thanks
+>
+> Kevin
+>
+>
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
