@@ -1,34 +1,30 @@
-Return-Path: <kevin.tian@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 1FE814C8018D
-	for <poky@yoctoproject.org>; Mon, 31 Jan 2011 02:03:42 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 31 Jan 2011 00:03:41 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,403,1291622400"; d="scan'208";a="652766823"
-Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
-	by fmsmga002.fm.intel.com with ESMTP; 31 Jan 2011 00:03:41 -0800
-Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
-	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Mon, 31 Jan 2011 16:03:38 +0800
-Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
-	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
-	Mon, 31 Jan 2011 16:03:37 +0800
-From: "Tian, Kevin" <kevin.tian@intel.com>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Date: Mon, 31 Jan 2011 16:03:36 +0800
-Thread-Topic: summary about recent do_populate_sdk failures
-Thread-Index: AcvBFwaiDJD1F+KhR7CoJJGWi+F6cAAADosQAAFvXkA=
-Message-ID: <625BA99ED14B2D499DC4E29D8138F1504E6294E38D@shsmsx502.ccr.corp.intel.com>
-References: <625BA99ED14B2D499DC4E29D8138F1504E6294E376@shsmsx502.ccr.corp.intel.com>
-	<625BA99ED14B2D499DC4E29D8138F1504E6294E379@shsmsx502.ccr.corp.intel.com>
-In-Reply-To: <625BA99ED14B2D499DC4E29D8138F1504E6294E379@shsmsx502.ccr.corp.intel.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
-MIME-Version: 1.0
-Subject: Re: summary about recent do_populate_sdk failures
+Return-Path: <koen@dominion.thruhere.net>
+Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
+	[74.125.82.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 76FF04C81001
+	for <poky@yoctoproject.org>; Mon, 31 Jan 2011 02:07:29 -0600 (CST)
+Received: by wye20 with SMTP id 20so5470897wye.35
+	for <poky@yoctoproject.org>; Mon, 31 Jan 2011 00:07:27 -0800 (PST)
+Received: by 10.227.128.82 with SMTP id j18mr5857125wbs.138.1296461247764;
+	Mon, 31 Jan 2011 00:07:27 -0800 (PST)
+Received: from [172.20.0.255] (ip545070eb.adsl-surfen.hetnet.nl
+	[84.80.112.235])
+	by mx.google.com with ESMTPS id w25sm3897658wbd.17.2011.01.31.00.07.26
+	(version=TLSv1/SSLv3 cipher=RC4-MD5);
+	Mon, 31 Jan 2011 00:07:26 -0800 (PST)
+Mime-Version: 1.0 (Apple Message framework v1082)
+From: Koen Kooi <koen@dominion.thruhere.net>
+In-Reply-To: <4D46639A.4000000@intel.com>
+Date: Mon, 31 Jan 2011 09:07:25 +0100
+Message-Id: <7CC1C0E4-A55A-4E6A-8EDE-2A97C572BC48@dominion.thruhere.net>
+References: <cover.1296399890.git.dexuan.cui@intel.com>
+	<2E18009D-3031-4DBD-8185-62182404D5C5@dominion.thruhere.net>
+	<1865303E0DED764181A9D882DEF65FB685EBCB6C41@shsmsx502.ccr.corp.intel.com>
+	<4D46639A.4000000@intel.com>
+To: "Zhai, Edwin" <edwin.zhai@intel.com>
+X-Mailer: Apple Mail (2.1082)
+Cc: poky@yoctoproject.org
+Subject: Re: [Dexuan: Jan 30: gdk-pixbuf: PULL 0/1] gdk-pixbuf: add jpeg into DEPENDS
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,45 +36,61 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 31 Jan 2011 08:03:42 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
+X-List-Received-Date: Mon, 31 Jan 2011 08:07:29 -0000
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: quoted-printable
 
-> From: Tian, Kevin
-> Sent: Monday, January 31, 2011 3:21 PM
+
+Op 31 jan 2011, om 08:24 heeft Zhai, Edwin het volgende geschreven:
+
+> Koen,
 >=20
-> > From: Tian, Kevin
-> > Sent: Monday, January 31, 2011 3:18 PM
-> >
-> > One possible option is to sort the INHERIT list, which ensures we alway=
-s
-> parse
-> > Inherited class files in same order if no content change. We'll test wh=
-ether
-> this
-> > works,
-> > and also hear your comments.
+> The gtk+ on OE is not latest version, that is, gdk-pixbuf is still =
+part of it. I think the function is not clear-cut.
 >=20
-> This doesn't help, since the order really matters to decide which type ro=
-otfs will
-> Use... :-/
+> On poky, gtk+ is latest stable version, where gdk-pxibuf is separated =
+as a stand-alone bb file. Running of gdk-pixbuf-csource need one config =
+file produced by gdk-pixbuf-query-loaders, so native and target =
+packages' installation are different. Target package need postinst to =
+run it when 1st boot, while native package need install_append to run it =
+before populate_sysroot.
 >=20
+> Does it make sense? Is there any way to avoid duplicatation?
 
-We come up another try at:
+I just read up on gdk-pixbuf an noticed it was split out again of gtk+ =
+like you said :) So using BBCLASS_EXTEND in the gdk-pixbuf recipe would =
+seem the way to go.
 
-http://git.pokylinux.org/cgit/cgit.cgi/poky-contrib/commit/?h=3Dtk/tmp
+regards,
 
-regarding to the fact that one bbclass is only parsed once even when it's i=
-nherited
-by multiple files. If original reason to include the 2nd class name is to a=
-void possible
-name confliction, this then won't happen.
+Koen
 
-Not sure whether this will break things. The test is ongoing and at least t=
-he parse
-phase doesn't report errors.
+>=20
+> Thanks,
+> edwin
+>=20
+>=20
+> Cui, Dexuan wrote:
+>>=20
+>> Koen Kooi wrote:
+>> > Op 30 jan 2011, om 16:06 heeft Dexuan Cui het volgende geschreven:
+>> >
+>> >> From: Dexuan Cui <dexuan.cui@intel.com>
+>> >>
+>> >> meta/recipes-gnome/gdk-pixbuf/gdk-pixbuf_2.22.1.bb |    2 ++
+>> >
+>> > OE is using BBCLASS_EXTEND in gtk+ to provide the pixbug loaders,
+>> > doing this in yocto would reduce duplicate functionality a lot.
+>> Hi Koen,
+>> I think you meant in Poky whether we could add BBCLASSEXTEND =3D =
+"native" into  gdk-pixbuf_2.22.1.bb and remove =
+gdk-pixbuf-native_2.22.1.bb.
+>>=20
+>> The two recipes look quite different so I doubt we can do that. Let =
+me Cc the original patch submitter Edwin for the background.
+>>=20
+>> Thanks,
+>> -- Dexuan
+>>=20
 
-Thanks
-Kevin
 
