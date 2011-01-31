@@ -1,26 +1,41 @@
-Return-Path: <koen@dominion.thruhere.net>
-Received: from mail-ww0-f42.google.com (mail-ww0-f42.google.com [74.125.82.42])
-	by mx1.pokylinux.org (Postfix) with ESMTP id EFDF34C8006D
-	for <poky@yoctoproject.org>; Mon, 31 Jan 2011 08:09:01 -0600 (CST)
-Received: by wwi17 with SMTP id 17so3494185wwi.5
-	for <poky@yoctoproject.org>; Mon, 31 Jan 2011 06:09:00 -0800 (PST)
-Received: by 10.216.170.213 with SMTP id p63mr10739009wel.37.1296482940459;
-	Mon, 31 Jan 2011 06:09:00 -0800 (PST)
-Received: from [172.20.0.255] (ip545070eb.adsl-surfen.hetnet.nl
-	[84.80.112.235])
-	by mx.google.com with ESMTPS id r38sm10797283weq.23.2011.01.31.06.08.59
-	(version=TLSv1/SSLv3 cipher=RC4-MD5);
-	Mon, 31 Jan 2011 06:08:59 -0800 (PST)
-Mime-Version: 1.0 (Apple Message framework v1082)
-From: Koen Kooi <koen@dominion.thruhere.net>
-In-Reply-To: <cover.1296267951.git.paul.eggleton@linux.intel.com>
-Date: Mon, 31 Jan 2011 15:08:57 +0100
-Message-Id: <1BE9B2AA-8C19-45AA-AE48-27935DE7862B@dominion.thruhere.net>
-References: <cover.1296267951.git.paul.eggleton@linux.intel.com>
-To: Paul Eggleton <paul.eggleton@linux.intel.com>
-X-Mailer: Apple Mail (2.1082)
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 00/12] Qt4 updates v3
+Return-Path: <bruce.ashfield@gmail.com>
+Received: from mail-iy0-f176.google.com (mail-iy0-f176.google.com
+	[209.85.210.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 1B6AC4C80FA5;
+	Mon, 31 Jan 2011 08:11:24 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by iyb26 with SMTP id 26so5495198iyb.35
+	for <multiple recipients>; Mon, 31 Jan 2011 06:11:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:in-reply-to:references:date
+	:message-id:subject:from:to:cc:content-type
+	:content-transfer-encoding;
+	bh=qXCF/1FHZ7TI5fnxZhk13zQflS6b2kcsQEq1SFaEa4o=;
+	b=OaZW8+loB0B1K1Azdh/euqpjsXIfgQyztzFT15iE52NbA/aDZxyXsCfUQV9eBqTiuL
+	8Q2Vvcrr/UB/aKq3foFxjEm97euSC+ZX5o/3QfZYkE89pmWHA4ChYiIQYlR3J88gRIs1
+	0PI1N7yjB9FDyYZPW89eHOJo1r/0WMQDj4CNM=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:cc:content-type:content-transfer-encoding;
+	b=v4pQTA8DKwY0UYo+evbHhsgZTh/JFTpoYWM5gif9rqdpW7v5lUMG891/HpUG2AAcZ2
+	3t5X55K5PO2ySGribHgEz3R+0466sQ3OEDbBLunxWxF43uXAjS30fsCjvzFS/Tm7HznF
+	dwa/c5mzqYrvha3RYAWDnen1GQFGKo6III558=
+MIME-Version: 1.0
+Received: by 10.231.34.9 with SMTP id j9mr6568751ibd.137.1296483083329; Mon,
+	31 Jan 2011 06:11:23 -0800 (PST)
+Received: by 10.231.156.136 with HTTP; Mon, 31 Jan 2011 06:11:23 -0800 (PST)
+In-Reply-To: <cover.1296261421.git.darren@dvhart.com>
+References: <cover.1296261421.git.darren@dvhart.com>
+Date: Mon, 31 Jan 2011 09:11:23 -0500
+Message-ID: <AANLkTinaZJzTa2O=6bPxYKOc_W+iDCjogTyMxqMNOJVG@mail.gmail.com>
+From: Bruce Ashfield <bruce.ashfield@gmail.com>
+To: poky-bounces@yoctoproject.org
+Cc: Nishanth Menon <nm@ti.com>, Tony Lindgren <tony@atomide.com>,
+	John Rigby <john.rigby@linaro.org>, poky@yoctoproject.org,
+	Koen Kooi <koen@beagleboard.org>
+Subject: Re: [PATCH 0/2] linux-yocto: arm fixes, beagleboard hub and OMAP4 armv7-a +sec extension
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,53 +47,63 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 31 Jan 2011 14:09:02 -0000
-Content-Type: text/plain; charset=us-ascii
+X-List-Received-Date: Mon, 31 Jan 2011 14:11:29 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: quoted-printable
 
+On Fri, Jan 28, 2011 at 7:40 PM,  <poky-bounces@yoctoproject.org> wrote:
+> From: Darren Hart <darren@dvhart.com>
+>
+> Please apply the following patches to the yocto/standard/base branch and =
+rebase
+> at least yocto/standard/beagleboard on base. With these patches in place =
+and
+> the corresponding meta patches to follow, the Beagleboard xM will boot th=
+e
+> linux-yocto kernel.
 
-Op 29 jan 2011, om 03:29 heeft Paul Eggleton het volgende geschreven:
+I'll keep the cc' list on this reply since it has been already started, but
+as the out of band comms indicated we'll try and streamline this in
+the future.
 
-> From: Paul Eggleton <paul.eggleton@linux.intel.com>
->=20
-> These patches bring in the latest version of the Qt4 recipes from
-> meta-openembedded, and make some significant general recipe cleanups =
-as
-> well. We will now have support for the latest version of Qt (4.7.1) in
-> addition to 4.6.3, as well as the embedded (framebuffer-only as =
-opposed
-> to requiring X11) flavours of both versions.
->=20
-> This patchset also contains the necessary changes to add =
-meta-toolchain-qte
-> from OpenEmbedded, and make it build successfully within Poky. Amongst =
-other
-> things this required some tweaking of avahi to avoid dependency of =
-avahi-dev
-> / avahi-utils on gtk+, which in turn required the addition of a flag =
-to
-> control automatic RRECOMMENDS_ generation in package.bbclass.
->=20
-> v3 changes:
-> * Fixes directfb do_install, pseudo overhead, and removes commented =
-out=20
->  QtDeclarative lines in task-qte-toolchain-target.bb issues found by =
-Joshua=20
->  Lock.
-> * Adds a patch to improve qtdemo package runtime dependencies, =
-addressing
->  bugs #452 and #492.
->=20
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->  Branch: paule/qt-fixes3
->  Browse: =
-http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=3Dpaule/qt-fixes3
+These look good, I've pulled them into my tree and am testing them
+along side other updates, they'll be pushed out in the next day or
+so.
 
-I've tested it and it works well enough to merge to master IMO. I've =
-synced this to meta-oe and then put my changes (SQL stuff) on top to =
-make diffing and merging easier.
+Cheers,
 
-regards,
+Bruce
 
-Koen=
+>
+> Pull URL: git://git.pokylinux.org/linux-yocto-2.6.37-contrib.git
+> =A0Branch: dvhart/base
+> =A0Browse: http://git.pokylinux.org/cgit.cgi/linux-yocto-2.6.37-contrib/l=
+og/?h=3Ddvhart/base
+>
+> Thanks,
+> =A0 =A0Darren Hart <darren@dvhart.com>
+> ---
+>
+>
+> John Rigby (1):
+> =A0OMAP4: enable smc instruction in new assembler versions
+>
+> Koen Kooi (1):
+> =A0omap3: beaglexm: fix EHCI power up GPIO dir
+>
+> =A0arch/arm/mach-omap2/Makefile =A0 =A0 =A0 =A0 =A0 =A0| =A0 =A05 +++--
+> =A0arch/arm/mach-omap2/board-omap3beagle.c | =A0 10 ++++++++--
+> =A02 files changed, 11 insertions(+), 4 deletions(-)
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
+
+
+
+--=20
+"Thou shalt not follow the NULL pointer, for chaos and madness await
+thee at its end"
 
