@@ -1,34 +1,31 @@
-Return-Path: <dexuan.cui@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C6BC34C811CA;
-	Mon, 31 Jan 2011 00:44:56 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 30 Jan 2011 22:44:56 -0800
+Return-Path: <kevin.tian@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id B80744C8006D
+	for <poky@yoctoproject.org>; Mon, 31 Jan 2011 01:18:47 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 30 Jan 2011 23:18:47 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,403,1291622400"; d="scan'208";a="652748053"
+X-IronPort-AV: E=Sophos;i="4.60,403,1291622400"; d="scan'208";a="597967569"
 Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
-	by fmsmga002.fm.intel.com with ESMTP; 30 Jan 2011 22:44:50 -0800
+	by orsmga002.jf.intel.com with ESMTP; 30 Jan 2011 23:18:46 -0800
 Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
 	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Mon, 31 Jan 2011 14:43:43 +0800
+	(TLS) id 8.2.254.0; Mon, 31 Jan 2011 15:18:17 +0800
 Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
 	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
-	Mon, 31 Jan 2011 14:43:42 +0800
-From: "Cui, Dexuan" <dexuan.cui@intel.com>
-To: 'Saul Wold' <sgw@linux.intel.com>, Yocto Project Discussion
-	<yocto@yoctoproject.org>, "poky@yoctoproject.org" <poky@yoctoproject.org>
-Date: Mon, 31 Jan 2011 14:43:40 +0800
-Thread-Topic: [yocto] M3 Package Update List
-Thread-Index: Acukxjooru4MdVoBSgS8rAS3g15fegcSUnog
-Message-ID: <1865303E0DED764181A9D882DEF65FB685EBCB6C42@shsmsx502.ccr.corp.intel.com>
-References: <4D16E018.90502@linux.intel.com>
-In-Reply-To: <4D16E018.90502@linux.intel.com>
-Accept-Language: zh-CN, en-US
+	Mon, 31 Jan 2011 15:18:15 +0800
+From: "Tian, Kevin" <kevin.tian@intel.com>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Date: Mon, 31 Jan 2011 15:18:14 +0800
+Thread-Topic: summary about recent do_populate_sdk failures
+Thread-Index: AcvBFwaiDJD1F+KhR7CoJJGWi+F6cA==
+Message-ID: <625BA99ED14B2D499DC4E29D8138F1504E6294E376@shsmsx502.ccr.corp.intel.com>
+Accept-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-acceptlanguage: zh-CN, en-US
+acceptlanguage: en-US
 MIME-Version: 1.0
-Subject: Re: [yocto] M3 Package Update List
+Subject: summary about recent do_populate_sdk failures
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,68 +37,88 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 31 Jan 2011 06:44:57 -0000
+X-List-Received-Date: Mon, 31 Jan 2011 07:18:47 -0000
 Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-Saul Wold wrote:
-> Folks,
->=20
-> Please find attached the list of M3 Recipe Updates, our goal for 1.0
-> M3 release is to complete the update process we started in 0.9 and
-> 1.0 M2. There are about 150 recipes in this list, some people may
-> have more and if there is a need to request help, please let me know.
-> If you plan on helping, please let the current owner know that you
-> will be updating a recipe.
->=20
-> Unless I hear otherwise, I will work to update the "None" maintained
-> list, but I believe some of these are owned by people and the distro
-> tracking information needs to be updated.
->=20
-> Thanks again to the team for the hard work during 0.9 and M2, we will
-> always have updates to do, but they will get easier with our gained
-> experience and expertise.
->=20
-> Happy Holidays and Happy New Year to all.
+Lianhao and I are looking into recent master instability, more specifically=
+ starting
+from reported do_populate_sdk failures. There have been 3 problems revealed=
+:
 
-Hi Saul,
-Here is the update for recipes in the list with me as the owner:
+1) unexpected do_package/do_package_write* rebuild
+2) change PACKAGE_CLASSES causes more do_package rebuilds
+3) do_populate_sdk finally exits due to eglibc not matching expected versio=
+n
 
-There are 18 recipes in total:=20
-1) I have upgraded 14 ones:
-renderproto
-inputproto
-libdmx
-lttng-viewer
-liburcu
-libxxf86misc
-compositeproto
-resourceproto
-xproto
-gnome-doc-utils
-scrnsaverproto
-lttng-ust
-librsvg
-pixman: upgraded from 0.20.0 to 0.21.2 and later downgraded to 0.20.2 since=
- 0.21.x is development release.
+We've root caused 1), and the patch has been sent out:
+http://git.pokylinux.org/cgit/cgit.cgi/poky-contrib/commit/?h=3Dtk/master1&=
+id=3D68ad8ead1a83161afb8c2a65a28dfc205181d80e
 
-2) I decided to not upgrade these 2 ones and upgraded RECIPE_NO_UPDATE_REAS=
-ON:
-libunique: Do not upgrade to version: 2.91.4 because it requires gtk+ >=3D =
-2.90.0 and the stable version of gtk+ used by poky is 2.2x.x
-liberation-fonts:  Do not upgrade to version: 1.06.0.20100721 because befor=
-e doing that, we need adding new native packages like libungif_4.1.3, libsp=
-iro and fontforge first
+We're not sure whether 3) is caused by too many unexpected do_package rebui=
+lds,
+and is now testing whether 3) will disappear with the fix for 1). We'll als=
+o look into
+original failure to see whether real cause of 3) may be hidden with the fix=
+.
 
-3) These 2 ones doesn't need upgrade at present:
-lttng-control: acutally not newer release is available. The script detectin=
-g new release thought 0.88-09242010 are different from 0.88.  Mei Lei has f=
-ixed that.
-tcf-agent: as Lianhao said, the upstream is re-orging the code, so we can o=
-nly wait for now. Previously the script detecting new release simply printe=
-d a useless svn number "998".
+Now the remaining open is about 2). We got the reason, but would like to we=
+lcome
+Comments on an elegant solution.
 
-Thanks,
--- Dexuan=
+The phenomenon is that do_package checksum changes with switching the order
+In PACKAGE_CLASSES, e.g:
+
+From
+PACKAGE_CLASSES =3D "package_rpm package_ipk"
+To
+PACKAGE_CLASSES =3D "package_ipk package_rpm"
+
+This is undesired since the order only matters for final rootfs generation.=
+ The actual
+cause is related to how do_package is generated, which depends on when=20
+package.bbclass is first brought in.
+
+Take package_rpm.bbclass for example, which inherit package.bbclass. Bitbak=
+e
+generates below wrappers implicitly:
+
+Do_package () {
+	bb.build.exec_func('package_rpm_do_package', d)
+}
+
+Package_rpm_do_package() {
+	bb.build.exec_func('package_do_package', d)
+}
+
+Above is implicitly created when bitbake parses class files based on inheri=
+tance tree,
+and once a class file is parsed it's then saved to the cache. When later pa=
+ckage_ipk is
+parsed, bitbake will simply read from the cache for package.bbclass and the=
+n
+do_package remains tying to package_rpm_do_package.
+
+If package_ipk is the 1st in PACKAGE_CLASSES, then do_package becomes:
+
+Do_package () {
+	bb.build.exec_func('package_ipk_do_package', d)
+}
+
+This sure generates different checksum to break sstate installation, but in=
+ reality it's
+just name difference, no actual functional change. We considered to use var=
+deps and=20
+varexcldeps which don't help though since it's the do_package itself change=
+d.
+
+One possible option is to sort the INHERIT list, which ensures we always pa=
+rse
+Inherited class files in same order if no content change. We'll test whethe=
+r this works,
+and also hear your comments.
+
+Thanks
+Kevin
 
