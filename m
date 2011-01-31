@@ -1,41 +1,25 @@
-Return-Path: <bruce.ashfield@gmail.com>
-Received: from mail-iy0-f176.google.com (mail-iy0-f176.google.com
-	[209.85.210.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 1B6AC4C80FA5;
-	Mon, 31 Jan 2011 08:11:24 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by iyb26 with SMTP id 26so5495198iyb.35
-	for <multiple recipients>; Mon, 31 Jan 2011 06:11:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:in-reply-to:references:date
-	:message-id:subject:from:to:cc:content-type
-	:content-transfer-encoding;
-	bh=qXCF/1FHZ7TI5fnxZhk13zQflS6b2kcsQEq1SFaEa4o=;
-	b=OaZW8+loB0B1K1Azdh/euqpjsXIfgQyztzFT15iE52NbA/aDZxyXsCfUQV9eBqTiuL
-	8Q2Vvcrr/UB/aKq3foFxjEm97euSC+ZX5o/3QfZYkE89pmWHA4ChYiIQYlR3J88gRIs1
-	0PI1N7yjB9FDyYZPW89eHOJo1r/0WMQDj4CNM=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type:content-transfer-encoding;
-	b=v4pQTA8DKwY0UYo+evbHhsgZTh/JFTpoYWM5gif9rqdpW7v5lUMG891/HpUG2AAcZ2
-	3t5X55K5PO2ySGribHgEz3R+0466sQ3OEDbBLunxWxF43uXAjS30fsCjvzFS/Tm7HznF
-	dwa/c5mzqYrvha3RYAWDnen1GQFGKo6III558=
+Return-Path: <edwin.zhai@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 498F24C80050
+	for <poky@yoctoproject.org>; Mon, 31 Jan 2011 09:02:56 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 31 Jan 2011 07:02:17 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,404,1291622400"; d="scan'208";a="702389200"
+Received: from shxpwgzhai1a.ccr.corp.intel.com (HELO [10.239.48.130])
+	([10.239.48.130])
+	by orsmga001.jf.intel.com with ESMTP; 31 Jan 2011 07:02:17 -0800
+Message-ID: <4D46CEF9.7000808@intel.com>
+Date: Mon, 31 Jan 2011 23:02:17 +0800
+From: "Zhai, Edwin" <edwin.zhai@intel.com>
+User-Agent: Thunderbird 2.0.0.17 (Windows/20080914)
 MIME-Version: 1.0
-Received: by 10.231.34.9 with SMTP id j9mr6568751ibd.137.1296483083329; Mon,
-	31 Jan 2011 06:11:23 -0800 (PST)
-Received: by 10.231.156.136 with HTTP; Mon, 31 Jan 2011 06:11:23 -0800 (PST)
-In-Reply-To: <cover.1296261421.git.darren@dvhart.com>
-References: <cover.1296261421.git.darren@dvhart.com>
-Date: Mon, 31 Jan 2011 09:11:23 -0500
-Message-ID: <AANLkTinaZJzTa2O=6bPxYKOc_W+iDCjogTyMxqMNOJVG@mail.gmail.com>
-From: Bruce Ashfield <bruce.ashfield@gmail.com>
-To: poky-bounces@yoctoproject.org
-Cc: Nishanth Menon <nm@ti.com>, Tony Lindgren <tony@atomide.com>,
-	John Rigby <john.rigby@linaro.org>, poky@yoctoproject.org,
-	Koen Kooi <koen@beagleboard.org>
-Subject: Re: [PATCH 0/2] linux-yocto: arm fixes, beagleboard hub and OMAP4 armv7-a +sec extension
+To: poky@yoctoproject.org
+References: <cover.1296485859.git.edwin.zhai@intel.com>
+	<d4ed42c98ddae97ccf3fa42843d7a1ecfbab799c.1296485859.git.edwin.zhai@intel.com>
+In-Reply-To: <d4ed42c98ddae97ccf3fa42843d7a1ecfbab799c.1296485859.git.edwin.zhai@intel.com>
+Cc: "Purdie, Richard" <richard.purdie@intel.com>
+Subject: Re: [PATCH 5/6] gdk-pixbuf: Fix the native png load error and	remove duplicated recipe
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -47,63 +31,211 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 31 Jan 2011 14:11:29 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Mon, 31 Jan 2011 15:02:56 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Jan 28, 2011 at 7:40 PM,  <poky-bounces@yoctoproject.org> wrote:
-> From: Darren Hart <darren@dvhart.com>
+Koen,
+I merged gdk-pixbuf & gdk-pixbuf-native, but do_split_packages make 
+gdk-pixbuf-native also provide gdk-pixbuf-loader-xxx then cause multiple 
+providers. Any way to comment it in gdk-pixbuf-native?
+
+RP,
+I saw your patch to resolve the multiple providers from gdk-pixbuf and 
+gtk+, and just was curious why not just remove old gtk+ recipes given no 
+others depend on them. Any other concerns?
+
+Thanks,
+edwin
+
+===========================================================================================================
+NOTE: multiple providers are available for runtime gdk-pixbuf-loader-png 
+(gdk-pixbuf, gdk-pixbuf-native)
+NOTE: consider defining a PREFERRED_PROVIDER entry to match 
+gdk-pixbuf-loader-png
+NOTE: multiple providers are available for runtime 
+gdk-pixbuf-loader-jpeg (gdk-pixbuf, gdk-pixbuf-native)
+NOTE: consider defining a PREFERRED_PROVIDER entry to match 
+gdk-pixbuf-loader-jpeg
+NOTE: multiple providers are available for runtime gdk-pixbuf-loader-gif 
+(gdk-pixbuf, gdk-pixbuf-native)
+NOTE: consider defining a PREFERRED_PROVIDER entry to match 
+gdk-pixbuf-loader-gif
+NOTE: multiple providers are available for runtime gdk-pixbuf-loader-xpm 
+(gdk-pixbuf, gdk-pixbuf-native)
+NOTE: consider defining a PREFERRED_PROVIDER entry to match 
+gdk-pixbuf-loader-xpm
+
+
+poky-bounces@yoctoproject.org wrote:
 >
-> Please apply the following patches to the yocto/standard/base branch and =
-rebase
-> at least yocto/standard/beagleboard on base. With these patches in place =
-and
-> the corresponding meta patches to follow, the Beagleboard xM will boot th=
-e
-> linux-yocto kernel.
-
-I'll keep the cc' list on this reply since it has been already started, but
-as the out of band comms indicated we'll try and streamline this in
-the future.
-
-These look good, I've pulled them into my tree and am testing them
-along side other updates, they'll be pushed out in the next day or
-so.
-
-Cheers,
-
-Bruce
-
+> From: Zhai Edwin <edwin.zhai@intel.com>
 >
-> Pull URL: git://git.pokylinux.org/linux-yocto-2.6.37-contrib.git
-> =A0Branch: dvhart/base
-> =A0Browse: http://git.pokylinux.org/cgit.cgi/linux-yocto-2.6.37-contrib/l=
-og/?h=3Ddvhart/base
+> Native gdk-pixbuf-csource failed to load png file as the 
+> "loaders.cache" was
+> not properly set by gdk-pxibuf-query-loaders when install. This patch 
+> use the
+> wrapper script rather than query-loaders binary as required libtool 
+> library was
+> not installed when do_install_append.
 >
-> Thanks,
-> =A0 =A0Darren Hart <darren@dvhart.com>
+> Also remove dedicated recipe for gdk-pixbuf-native.
+>
+>
+> Signed-off-by: Zhai Edwin <edwin.zhai@intel.com>
 > ---
+>  .../gdk-pixbuf/gdk-pixbuf-native_2.22.1.bb         |   13 -------
+>  meta/recipes-gnome/gdk-pixbuf/gdk-pixbuf.inc       |   30 
+> ----------------
+>  meta/recipes-gnome/gdk-pixbuf/gdk-pixbuf_2.22.1.bb |   36 
+> +++++++++++++++++++-
+>  3 files changed, 35 insertions(+), 44 deletions(-)
+>  delete mode 100644 
+> meta/recipes-gnome/gdk-pixbuf/gdk-pixbuf-native_2.22.1.bb
+>  delete mode 100644 meta/recipes-gnome/gdk-pixbuf/gdk-pixbuf.inc
 >
+> diff --git a/meta/recipes-gnome/gdk-pixbuf/gdk-pixbuf-native_2.22.1.bb 
+> b/meta/recipes-gnome/gdk-pixbuf/gdk-pixbuf-native_2.22.1.bb
 >
-> John Rigby (1):
-> =A0OMAP4: enable smc instruction in new assembler versions
+> deleted file mode 100644
+> index 5fabf45..0000000
+> --- a/meta/recipes-gnome/gdk-pixbuf/gdk-pixbuf-native_2.22.1.bb
+> +++ /dev/null
+> @@ -1,13 +0,0 @@
+> -require gdk-pixbuf.inc
+> -inherit native
+> -
+> -DEPENDS = "libpng-native gettext-native glib-2.0-native jpeg-native"
+> -PR = "r0"
+> -
+> -PACKAGES_DYNAMIC = ""
+> -
+> -do_install_append() {
+> -       
+> GDK_PIXBUF_MODULEDIR=${D}${libdir}/gdk-pixbuf-2.0/2.10.0/loaders 
+> ${D}${bindir}/gdk-pixbuf-query-loaders > 
+> ${D}${libdir}/gdk-pixbuf-2.0/2.10.0/loaders.cache
 >
-> Koen Kooi (1):
-> =A0omap3: beaglexm: fix EHCI power up GPIO dir
+> -       sed -i -e 's#${D}##g' 
+> ${D}${libdir}/gdk-pixbuf-2.0/2.10.0/loaders.cache
+> -       find ${D}${libdir} -name "libpixbufloader-*.la" -exec rm \{\} \;
+> -}
+> diff --git a/meta/recipes-gnome/gdk-pixbuf/gdk-pixbuf.inc 
+> b/meta/recipes-gnome/gdk-pixbuf/gdk-pixbuf.inc
+> deleted file mode 100644
+> index af3383e..0000000
+> --- a/meta/recipes-gnome/gdk-pixbuf/gdk-pixbuf.inc
+> +++ /dev/null
+> @@ -1,30 +0,0 @@
+> -DESCRIPTION = "Image loading library for GTK+"
+> -HOMEPAGE = "http://www.gtk.org/"
+> -BUGTRACKER = "https://bugzilla.gnome.org/"
+> -
+> -LICENSE = "LGPLv2"
+> -LIC_FILES_CHKSUM = 
+> "file://COPYING;md5=3bf50002aefd002f49e7bb854063f7e7 \
+> -                    
+> file://gdk-pixbuf/gdk-pixbuf.h;endline=26;md5=5066b71daefeff678494fffa3040aba9" 
 >
-> =A0arch/arm/mach-omap2/Makefile =A0 =A0 =A0 =A0 =A0 =A0| =A0 =A05 +++--
-> =A0arch/arm/mach-omap2/board-omap3beagle.c | =A0 10 ++++++++--
-> =A02 files changed, 11 insertions(+), 4 deletions(-)
+> -
+> -SECTION = "libs"
+> -PRIORITY = "optional"
+> -
+> -DEPENDS = "libpng gettext glib-2.0"
+> -
+> -SRC_URI = 
+> "http://ftp.acc.umu.se/pub/GNOME/sources/gdk-pixbuf/2.22/gdk-pixbuf-${PV}.tar.gz 
+> \
+> -           file://hardcoded_libtool.patch;patch=1 \
+> -           file://configure_fix.patch;patch=1 \
+> -           "
+> -
+> -SRC_URI[md5sum] = "fcfc854e9aec7dbb2bb3059484d44556"
+> -SRC_URI[sha256sum] = 
+> "bbb57364ffba70d64f5fcfe6eda1d67249b3d58844edb06dc0f94d1ad599b4ec"
+> -
+> -inherit autotools pkgconfig
+> -
+> -LIBV = "2.10.0"
+> -
+> -EXTRA_OECONF = "\
+> -  --without-libtiff \
+> -  --with-libpng \
+> -"
+> -
+> diff --git a/meta/recipes-gnome/gdk-pixbuf/gdk-pixbuf_2.22.1.bb 
+> b/meta/recipes-gnome/gdk-pixbuf/gdk-pixbuf_2.22.1.bb
+> index ae57507..6a40a52 100644
+> --- a/meta/recipes-gnome/gdk-pixbuf/gdk-pixbuf_2.22.1.bb
+> +++ b/meta/recipes-gnome/gdk-pixbuf/gdk-pixbuf_2.22.1.bb
+> @@ -1,7 +1,34 @@
+> -require gdk-pixbuf.inc
+> +DESCRIPTION = "Image loading library for GTK+"
+> +HOMEPAGE = "http://www.gtk.org/"
+> +BUGTRACKER = "https://bugzilla.gnome.org/"
+>  
+> +LICENSE = "LGPLv2"
+> +LIC_FILES_CHKSUM = 
+> "file://COPYING;md5=3bf50002aefd002f49e7bb854063f7e7 \
+> +                    
+> file://gdk-pixbuf/gdk-pixbuf.h;endline=26;md5=5066b71daefeff678494fffa3040aba9" 
+>
+> +
+> +SECTION = "libs"
+> +PRIORITY = "optional"
+> +
+> +DEPENDS = "libpng gettext glib-2.0 jpeg"
+>  PR = "r0"
+>  
+> +SRC_URI = 
+> "http://ftp.acc.umu.se/pub/GNOME/sources/gdk-pixbuf/2.22/gdk-pixbuf-${PV}.tar.gz 
+> \
+> +           file://hardcoded_libtool.patch;patch=1 \
+> +           file://configure_fix.patch;patch=1 \
+> +           "
+> +
+> +SRC_URI[md5sum] = "fcfc854e9aec7dbb2bb3059484d44556"
+> +SRC_URI[sha256sum] = 
+> "bbb57364ffba70d64f5fcfe6eda1d67249b3d58844edb06dc0f94d1ad599b4ec"
+> +
+> +inherit autotools pkgconfig
+> +
+> +LIBV = "2.10.0"
+> +
+> +EXTRA_OECONF = "\
+> +  --without-libtiff \
+> +  --with-libpng \
+> +"
+> +
+>  FILES_${PN} = "${bindir}/gdk-pixbuf-query-loaders \
+>         ${libdir}/lib*.so.*"
+>  
+> @@ -33,3 +60,10 @@ python populate_packages_prepend () {
+>         do_split_packages(d, loaders_root, 
+> '^libpixbufloader-(.*)\.so$', 'gdk-pixbuf-loader-%s', 'GDK pixbuf 
+> loader for %s', postinst_pixbufloader)
+>
+>  }
+>  
+> +do_install_append_virtclass-native() {
+> +#Use wrapper script rather than binary as required libtool library is 
+> not installed now
+> +       
+> GDK_PIXBUF_MODULEDIR=${D}${libdir}/gdk-pixbuf-2.0/2.10.0/loaders 
+> ${S}/gdk-pixbuf/gdk-pixbuf-query-loaders > 
+> ${D}${libdir}/gdk-pixbuf-2.0/2.10.0/loaders.cache
+>
+> +       sed -i -e 's#${D}##g' 
+> ${D}${libdir}/gdk-pixbuf-2.0/2.10.0/loaders.cache
+> +       find ${D}${libdir} -name "libpixbufloader-*.la" -exec rm \{\} \;
+> +}
+> +BBCLASSEXTEND = "native"
+> -- 
+> 1.7.0.4
 >
 > _______________________________________________
 > poky mailing list
 > poky@yoctoproject.org
 > https://lists.yoctoproject.org/listinfo/poky
 >
-
-
-
---=20
-"Thou shalt not follow the NULL pointer, for chaos and madness await
-thee at its end"
 
