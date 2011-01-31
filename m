@@ -1,38 +1,22 @@
-Return-Path: <kevin.tian@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C346C4C8018D
-	for <poky@yoctoproject.org>; Sun, 30 Jan 2011 22:50:55 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 30 Jan 2011 20:50:55 -0800
+Return-Path: <dexuan.cui@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8F12D4C8018D
+	for <poky@yoctoproject.org>; Mon, 31 Jan 2011 00:12:14 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 30 Jan 2011 22:12:14 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,403,1291622400"; d="scan'208";a="702257831"
-Received: from pgsmsx603.gar.corp.intel.com ([10.221.43.87])
-	by orsmga001.jf.intel.com with ESMTP; 30 Jan 2011 20:50:54 -0800
-Received: from pgsmsx509.gar.corp.intel.com (172.30.13.17) by
-	pgsmsx603.gar.corp.intel.com (10.221.43.87) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Mon, 31 Jan 2011 12:49:40 +0800
-Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
-	PGSMSX509.gar.corp.intel.com (172.30.13.17) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Mon, 31 Jan 2011 12:49:40 +0800
-Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
-	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
-	Mon, 31 Jan 2011 12:49:39 +0800
-From: "Tian, Kevin" <kevin.tian@intel.com>
-To: Saul Wold <sgw@linux.intel.com>, "poky@yoctoproject.org"
-	<poky@yoctoproject.org>
-Date: Mon, 31 Jan 2011 12:49:38 +0800
-Thread-Topic: [poky] [LTP] Yocto 1.0 M2 assessment -- DONE
-Thread-Index: AcvAvguN+zzCTK/1Qe2j8bUc/Lrf7gAQmGeg
-Message-ID: <625BA99ED14B2D499DC4E29D8138F1504E6294E30C@shsmsx502.ccr.corp.intel.com>
-References: <625BA99ED14B2D499DC4E29D8138F1504E6294E189@shsmsx502.ccr.corp.intel.com>
-	<4D45CCDA.1030207@linux.intel.com>
-In-Reply-To: <4D45CCDA.1030207@linux.intel.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
-MIME-Version: 1.0
-Subject: Re: [LTP] Yocto 1.0 M2 assessment -- DONE
+X-IronPort-AV: E=Sophos;i="4.60,403,1291622400"; d="scan'208";a="597955986"
+Received: from dcui-desktop.sh.intel.com (HELO localhost) ([10.239.13.108])
+	by orsmga002.jf.intel.com with ESMTP; 30 Jan 2011 22:12:13 -0800
+Message-Id: <b4e07e9bc5e73140a9354abae16e1dc2fac0122c.1296453989.git.dexuan.cui@intel.com>
+In-Reply-To: <cover.1296453989.git.dexuan.cui@intel.com>
+References: <cover.1296453989.git.dexuan.cui@intel.com>
+Old-Date: Mon, 31 Jan 2011 13:35:12 +0800
+Date: Mon, 31 Jan 2011 14:11:28 +0800
+To: poky@yoctoproject.org
+CC: 
+From: Dexuan Cui <dexuan.cui@intel.com>
+Subject: [Dexuan: Jan 31: pixman: PULL 1/2] pixman: downgrade from development release 0.21.4 to stable release 0.20.2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,96 +28,65 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 31 Jan 2011 04:50:56 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Mon, 31 Jan 2011 06:12:14 -0000
 
-> From: Saul Wold
-> Sent: Monday, January 31, 2011 4:41 AM
->=20
-> On 01/30/2011 01:12 AM, Tian, Kevin wrote:
-> > Hi, all,
-> >
-> > I'd like to share the current LTP status, that I've basically done the
-> > assessment for
-> >
-> > all the failures except routerstation (2.6.34 kernel has some IPC issue=
-s
-> > which causes
-> >
-> > lots of unexpected failures).
-> >
-> Kevin,
->=20
-> Thanks for the excellent assesment, as we move forward, I will consult
-> with you about the contents of the images.  Is there a reason you chose
-> the SDK image over the LSB image?
+From: Dexuan Cui <dexuan.cui@intel.com>
 
-I talked with Jiajun before. The major reason using SDK is to reduce the QA=
- effort,
-because LSB image doesn't run on real hardware, and doesn't contain enough
-development tools for openposix test.
+pixman's stable releases have even minor version numbers, e.g., 0.18.x, 0.20.x.
+Odd minor version numbers mean development snapshots that may contain bugs and
+experimental features.
+The next stable release should be 0.22.0.
 
-But regarding to the fact that I still need manually run LSB images to veri=
-fy most
-failures, it's perhaps a good idea to ask QA to use LSB for Qemu LTP test, =
-and
-then use SDK for real-hw LTP and all posix tests. This does add some extra =
-effort
-but that's what we have to do in current stage.
+Signed-off-by: Dexuan Cui <dexuan.cui@intel.com>
+---
+ .../distro/include/preferred-xorg-versions.inc     |    2 +-
+ .../{pixman_0.21.4.bb => pixman_0.20.2.bb}         |    7 ++++---
+ 2 files changed, 5 insertions(+), 4 deletions(-)
+ rename meta/recipes-graphics/xorg-lib/{pixman_0.21.4.bb => pixman_0.20.2.bb} (70%)
 
->=20
-> As you may have heard, we are working on creating sets of images that
-> will meet various developers.  Soon, there will be an LSB-dev and
-> LSD-sdk set of images that will contain headers/libraries and then
-> headers/libraries and developer tools in LSB.  We might want to consider
-> testing with the lsb-sdk image in the future since it will have some of
-> the missing things that you have tested.
->=20
-> Thoughts?
-
-That's great. If this can be ready in M3, we can move to it to save more ti=
-me.
-Also it's better to have LSB running on real-hw which further unifies the e=
-ffort.  :-)
-
-> > - The majority (36) failures are categorized as Not-A-Bug, which mostly
-> > comes from
-> >
-> > the fact that SDK profile doesn't include necessary packages for test,
-> > and then are
-> >
-> > verified PASS by adding them back with necessary tweaking. There're als=
-o
-> > a few
-> >
-> > coming from lacking of memory/disk resources, which will be avoided in
-> > the next test.
-> >
-> Do you have the list os packages that you had to add?  I do not see a
-> summary of that list.
-
-All the packages I have to add are contained in LSB profile already. The on=
-ly
-missing bits, as you said earlier, is the development part and graphics par=
-t.
-
-Of course even with LSB profile there're some errors such as cron/at, which
-have been fixed in earlier bug lists.
-
->=20
-> Again thanks for this great effort, and I look forward to the POSIX
-> evaluation at somepoint in the near future.
->=20
-
-POSIX is a bit lagging behind, because I want to focus on LTP first. So thi=
-s work
-will extend into M4 a bit. But I hope to have a major break before CNY, if =
-there
-may be one reason for the majority of the failures. :-)
-
-Thanks
-Kevin
+diff --git a/meta/conf/distro/include/preferred-xorg-versions.inc b/meta/conf/distro/include/preferred-xorg-versions.inc
+index 52be0aa..3a4bd33 100644
+--- a/meta/conf/distro/include/preferred-xorg-versions.inc
++++ b/meta/conf/distro/include/preferred-xorg-versions.inc
+@@ -82,7 +82,7 @@ PREFERRED_VERSION_libxxf86vm ?= "1.1.1"
+ PREFERRED_VERSION_lndir ?= "1.0.1"
+ PREFERRED_VERSION_makedepend ?= "1.0.3"
+ PREFERRED_VERSION_makedepend-native ?= "1.0.3"
+-PREFERRED_VERSION_pixman ?= "0.21.4"
++PREFERRED_VERSION_pixman ?= "0.20.2"
+ PREFERRED_VERSION_printproto ?= "1.0.5"
+ PREFERRED_VERSION_randrproto ?= "1.3.2"
+ PREFERRED_VERSION_randrproto-nativesdk ?= "1.3.2"
+diff --git a/meta/recipes-graphics/xorg-lib/pixman_0.21.4.bb b/meta/recipes-graphics/xorg-lib/pixman_0.20.2.bb
+similarity index 70%
+rename from meta/recipes-graphics/xorg-lib/pixman_0.21.4.bb
+rename to meta/recipes-graphics/xorg-lib/pixman_0.20.2.bb
+index 45f6b19..dfd883e 100644
+--- a/meta/recipes-graphics/xorg-lib/pixman_0.21.4.bb
++++ b/meta/recipes-graphics/xorg-lib/pixman_0.20.2.bb
+@@ -3,17 +3,18 @@ DESCRIPTION = "Library for lowlevel pixel operations"
+ require xorg-lib-common.inc
+ 
+ LICENSE = "MIT & MIT-style & Public Domain"
+-LIC_FILES_CHKSUM = "file://COPYING;md5=14096c769ae0cbb5fcb94ec468be11b3 \
++LIC_FILES_CHKSUM = "file://COPYING;md5=fea989a44fb012b5e79584972a863d22 \
+                     file://pixman/pixman-matrix.c;endline=25;md5=ba6e8769bfaaee2c41698755af04c4be \
+                     file://pixman/pixman-arm-neon-asm.h;endline=24;md5=9a9cc1e51abbf1da58f4d9528ec9d49b \
+                     file://pixman/pixman-x64-mmx-emulation.h;beginline=4;endline=9;md5=4e32716f2efaa6c4659222667c339bb8"
+ 
+ DEPENDS = "virtual/libx11"
+ 
++PE = "1"
+ PR = "r0"
+ 
+ EXTRA_OECONF="--disable-gtk"
+ 
+-SRC_URI[md5sum] = "ae57f4fa9121ab9895b9789b2e81f1e0"
+-SRC_URI[sha256sum] = "7809f8aa7dcd99bc0e3a12eef65266d34e1f2988df4c814e5f747ddceed22ddf"
++SRC_URI[md5sum] = "7ed10a0f0fde6853613105a99735e7e7"
++SRC_URI[sha256sum] = "30316f269a6b84c32b47545ca7fc428fd16875849fea644dc6910b3f8c33f4a9"
+ 
+-- 
+1.7.2
 
 
