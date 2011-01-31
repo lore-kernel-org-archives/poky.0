@@ -1,23 +1,41 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 374E54C8006D
-	for <poky@yoctoproject.org>; Sun, 30 Jan 2011 21:04:25 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 30 Jan 2011 19:04:24 -0800
+Return-Path: <kevin.tian@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id EA7834C8018D
+	for <poky@yoctoproject.org>; Sun, 30 Jan 2011 22:37:27 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 30 Jan 2011 20:37:26 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,402,1291622400"; d="scan'208";a="652699906"
-Received: from unknown (HELO [10.255.14.122]) ([10.255.14.122])
-	by fmsmga002.fm.intel.com with ESMTP; 30 Jan 2011 19:04:24 -0800
-Message-ID: <4D4626B8.1030209@linux.intel.com>
-Date: Sun, 30 Jan 2011 19:04:24 -0800
-From: Saul Wold <sgw@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
+X-IronPort-AV: E=Sophos;i="4.60,403,1291622400"; d="scan'208";a="702255606"
+Received: from pgsmsx601.gar.corp.intel.com ([10.221.43.69])
+	by orsmga001.jf.intel.com with ESMTP; 30 Jan 2011 20:37:26 -0800
+Received: from pgsmsx509.gar.corp.intel.com (172.30.13.17) by
+	pgsmsx601.gar.corp.intel.com (10.221.43.69) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Mon, 31 Jan 2011 12:36:18 +0800
+Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
+	PGSMSX509.gar.corp.intel.com (172.30.13.17) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Mon, 31 Jan 2011 12:36:19 +0800
+Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
+	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
+	Mon, 31 Jan 2011 12:36:18 +0800
+From: "Tian, Kevin" <kevin.tian@intel.com>
+To: "Wold, Saul" <saul.wold@intel.com>
+Date: Mon, 31 Jan 2011 12:36:17 +0800
+Thread-Topic: [poky] [PATCH 1/5] gcc: Add "--enable-clocale=gnu" option
+	explicitly
+Thread-Index: AcvAwa9ir/4VdfjoTgiyl4j/IRdytgAPmGsg
+Message-ID: <625BA99ED14B2D499DC4E29D8138F1504E6294E305@shsmsx502.ccr.corp.intel.com>
+References: <cover.1296372804.git.jingdong.lu@windriver.com>
+	<c37a7d01caf39c6a67574be39932dbe54ce6581c.1296372804.git.jingdong.lu@windriver.com>
+	<625BA99ED14B2D499DC4E29D8138F1504E6294E15B@shsmsx502.ccr.corp.intel.com>
+	<4D45D2EF.6050706@intel.com>
+In-Reply-To: <4D45D2EF.6050706@intel.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
 MIME-Version: 1.0
-To: "Purdie, Richard" <richard.purdie@intel.com>, 
-	"poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: do_package_ipkg failure during incremental build
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH 1/5] gcc: Add "--enable-clocale=gnu" option explicitly
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,43 +47,62 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 31 Jan 2011 03:04:25 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 31 Jan 2011 04:37:28 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
+> From: Wold, Saul
+> Sent: Monday, January 31, 2011 5:07 AM
+>=20
+> On 01/30/2011 12:11 AM, Tian, Kevin wrote:
+> >> From: Jingdong Lu
+> >> Sent: Sunday, January 30, 2011 3:36 PM
+> >>
+> >> From: Jingdong Lu<jingdong.lu@windriver.com>
+> >>
+> >> Add "--enable-clocale=3Dgun" option for gcc configuration explicitly i=
+n order to
+> >> make sure C++ library can use correct locale module.
+> >>
+> >> Signed-off-by: Jingdong Lu<jingdong.lu@windriver.com>
+> >> ---
+> >>   meta/recipes-devtools/gcc/gcc-configure-common.inc |    2 +-
+> >>   1 files changed, 1 insertions(+), 1 deletions(-)
+> >>
+> >> diff --git a/meta/recipes-devtools/gcc/gcc-configure-common.inc
+> >> b/meta/recipes-devtools/gcc/gcc-configure-common.inc
+> >> index 4393777..b212fdc 100644
+> >> --- a/meta/recipes-devtools/gcc/gcc-configure-common.inc
+> >> +++ b/meta/recipes-devtools/gcc/gcc-configure-common.inc
+> >> @@ -27,7 +27,7 @@ EXTRA_OECONF_INTERMEDIATE ?=3D ""
+> >>
+> >>   GCCMULTILIB =3D "--disable-multilib"
+> >>
+> >> -EXTRA_OECONF =3D "${@['--enable-clocale=3Dgeneric',
+> >> ''][bb.data.getVar('USE_NLS', d, 1) !=3D 'no']} \
+> >> +EXTRA_OECONF =3D "${@['--enable-clocale=3Dgeneric', '
+> >> --enable-clocale=3Dgnu'][bb.data.getVar('USE_NLS', d, 1) !=3D 'no']} \
+> >>                   --with-gnu-ld \
+> >>                   --enable-shared \
+> >>                   --enable-languages=3D${LANGUAGES} \
+> >> --
+> >> 1.7.0.4
+> >>
+> >
+> > PR bump is expected for all gcc recipes affected by this change.
+> >
+> Yes, I agree with Kevin on this, also what is the impact to generated
+> binaries?  Does this add any size to compiled binaries?
+>=20
 
-Richard & Others:
+This actually reminds me one optional task in original 1.0 planning, to pro=
+vide a better
+option level configurability for user's deep customization requirement. Now=
+ similarly
+we need this level of configurability to extend one recipe for different pu=
+rpose...
 
-Seems we have a failure with the incremental build in which 
-package-split file is missing or there is a Lockfile problem.
-
-I have not dug into this yet.
-
-NOTE: package task-poky-standalone-gmae-sdk-target-1.0-r12: task 
-do_package_write_ipk: Started
-ERROR: Lockfile destination directory 
-'/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/task-poky-standalone-gmae-sdk-target-1.0-r12/packages-split' 
-does not exist
-ERROR: Function 'do_package_ipk' failed
-ERROR: Logfile of failure stored in: 
-/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/task-poky-standalone-gmae-sdk-target-1.0-r12/temp/log.do_package_write_ipk.22200
-Log data follows:
-| ERROR: Lockfile destination directory 
-'/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/task-poky-standalone-gmae-sdk-target-1.0-r12/packages-split' 
-does not exist
-| ERROR: Function 'do_package_ipk' failed
-| Lockfile destination directory 
-'/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/task-poky-standalone-gmae-sdk-target-1.0-r12/packages-split' 
-does not exist
-| Function 'do_package_ipk' failed
-NOTE: package task-poky-standalone-gmae-sdk-target-1.0-r12: task 
-do_package_ipk: Failed
-
--- 
-     Sau!
-
-Saul Wold
-Yocto Component Wrangler @ Intel
-Yocto Project / Poky Build System
-
+Thanks
+Kevin
 
