@@ -1,19 +1,30 @@
-Return-Path: <tom.zanussi@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E15D94C810C1
-	for <poky@yoctoproject.org>; Mon, 31 Jan 2011 15:18:39 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 31 Jan 2011 13:18:39 -0800
-Message-Id: <b9dded$hqfh0r@orsmga002.jf.intel.com>
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,405,1291622400"; d="scan'208";a="598197280"
-Received: from unknown (HELO localhost) ([10.255.14.127])
-	by orsmga002.jf.intel.com with ESMTP; 31 Jan 2011 13:18:38 -0800
-Old-Date: Fri, 21 Jan 2011 10:29:41 -0600
-Date: Mon, 31 Jan 2011 15:18:37 -0600
-To: poky@yoctoproject.org
-From: Tom Zanussi <tom.zanussi@intel.com>
-Subject: [PATCH 2/2] sugarbay: enable i915 graphics
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5C3EB4C810C1
+	for <poky@yoctoproject.org>; Mon, 31 Jan 2011 15:37:45 -0600 (CST)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p0VLdji3018835; Mon, 31 Jan 2011 21:39:46 GMT
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id Xku22RgYy2Wc; Mon, 31 Jan 2011 21:39:45 +0000 (GMT)
+Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p0VLdcpA018831
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Mon, 31 Jan 2011 21:39:40 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Lianhao Lu <lianhao.lu@intel.com>
+In-Reply-To: <c00770ba3d5adbda2e1164735e3bde13b4b15362.1296375580.git.lianhao.lu@intel.com>
+References: <cover.1296375580.git.lianhao.lu@intel.com>
+	<c00770ba3d5adbda2e1164735e3bde13b4b15362.1296375580.git.lianhao.lu@intel.com>
+Date: Mon, 31 Jan 2011 21:37:28 +0000
+Message-ID: <1296509848.13501.15224.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 1/8] image/package_xx/rootfs_xx.bbclass: move rootfs_xx_log_check().
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -25,35 +36,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 31 Jan 2011 21:18:40 -0000
+X-List-Received-Date: Mon, 31 Jan 2011 21:37:45 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-From: Tom Zanussi <tom.zanussi@intel.com>
+On Sun, 2011-01-30 at 16:22 +0800, Lianhao Lu wrote:
+> From: Lianhao Lu <lianhao.lu@intel.com>
+> 
+> Move function rootfs_xx_log_check() from rootfs_xx.bbclass to relevant
+> package_xx.bbclass. (Where xx is rpm/ipk/deb).
+> 
+> Signed-off-by: Lianhao Lu <lianhao.lu@intel.com>
+> ---
+>  meta/classes/image.bbclass       |    5 +----
+>  meta/classes/package_deb.bbclass |   20 ++++++++++++++++++++
+>  meta/classes/package_ipk.bbclass |   20 ++++++++++++++++++++
+>  meta/classes/package_rpm.bbclass |   20 ++++++++++++++++++++
+>  meta/classes/rootfs_deb.bbclass  |   20 --------------------
+>  meta/classes/rootfs_ipk.bbclass  |   20 --------------------
+>  meta/classes/rootfs_rpm.bbclass  |   20 --------------------
+>  7 files changed, 61 insertions(+), 64 deletions(-)
 
-Which includes snb support...
+I've merged this to master since it is an improvement, thanks. Given the
+similarity between the functions it would be nice to perhaps just define
+a list of error strings in the package_xxx.bbclass and then have the
+code to search for those strings in a shared core function?
 
-Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
----
- meta/cfg/kernel-cache/bsp/sugarbay/sugarbay.scc |    8 ++++++--
- 1 files changed, 6 insertions(+), 2 deletions(-)
+Cheers,
 
-diff --git a/meta/cfg/kernel-cache/bsp/sugarbay/sugarbay.scc b/meta/cfg/kernel-cache/bsp/sugarbay/sugarbay.scc
-index 716f9e4..86346f6 100644
---- a/meta/cfg/kernel-cache/bsp/sugarbay/sugarbay.scc
-+++ b/meta/cfg/kernel-cache/bsp/sugarbay/sugarbay.scc
-@@ -1,6 +1,10 @@
- kconf hardware sugarbay.cfg
- 
--include features/latencytop/latencytop.scc
--include features/profiling/profiling.scc
-+include features/i915/i915.scc
- include features/serial/8250.scc
-+
- include features/logbuf/size-normal.scc
-+
-+include features/latencytop/latencytop.scc
-+include features/profiling/profiling.scc
-+
--- 
-1.7.0.4
+Richard
 
 
