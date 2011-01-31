@@ -1,20 +1,20 @@
 Return-Path: <kevin.tian@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 26B934C8018D
-	for <poky@pokylinux.org>; Mon, 31 Jan 2011 00:44:14 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 30 Jan 2011 22:44:13 -0800
-Message-Id: <849307$bc9pl9@azsmga001.ch.intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C25064C81175
+	for <poky@pokylinux.org>; Mon, 31 Jan 2011 00:44:38 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 30 Jan 2011 22:44:38 -0800
+Message-Id: <0d30dc$ktnruc@orsmga001.jf.intel.com>
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,403,1291622400"; d="scan'208";a="382002862"
+X-IronPort-AV: E=Sophos;i="4.60,403,1291622400"; d="scan'208";a="702279633"
 Received: from poky-desktop-ktian1.sh.intel.com (HELO localhost)
 	([10.239.36.19])
-	by azsmga001.ch.intel.com with ESMTP; 30 Jan 2011 22:44:12 -0800
-Old-Date: Mon, 31 Jan 2011 14:21:43 +0800
-Date: Mon, 31 Jan 2011 14:25:32 +0800
+	by orsmga001.jf.intel.com with ESMTP; 30 Jan 2011 22:44:14 -0800
+Old-Date: Mon, 31 Jan 2011 14:05:48 +0800
+Date: Mon, 31 Jan 2011 14:25:33 +0800
 To: poky@pokylinux.org
 From: Kevin Tian <kevin.tian@intel.com>
-Subject: [PATCH 0/1] fix unnecessary do_package rebuilds
+Subject: [PATCH 1/1] license.bbclass: don't mark it as 'nostamp'
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,33 +26,54 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 31 Jan 2011 06:44:14 -0000
+X-List-Received-Date: Mon, 31 Jan 2011 06:44:38 -0000
 
 From: Kevin Tian <kevin.tian@intel.com>
 
-This patch should fix recent master instability, that unnecessary do_package
-rebuilds are observed in incremental build. We tested that with this patch
-no undesired rebuild if no any change.
+'nostamp' is normally used for some standalone tasks like clean, checkuri, etc.
+It doesn't make sense to mark do_populate_lic as 'nostamp', which is depended
+by do_package. No stamp file in the build dependency chain implicates that
+do_package needs to be reinvoked and thus further do_package_write* stuff.
 
-There's one another sstate bug related to PACKAGE_CLASSES, which will be 
-discussed in seperate thread.
+This together with another sstate bug fully confused recent master, that people
+keep observing unnecessary do_package rebuilt with or without change. Below is
+a short explanation for two behaviors we observed:
 
-We're still testing whether this fix makes final do_populate_sdk error
-disappearing (or hidden...)
+a) a fresh build, and then bitbake same target w/o any change. User will observe
+one unnecessary rebuild and then later rebuild is fine:
+    [1st rebuild]
+    * do_populate_lic has no stamp, and thus do_package is thought not current
+    * do_package_setscene is then invoked with stamp file created
+    * then later do_package_write*** also are rebuilt
+    [2nd and later rebuild]
+    * do_populate_lic has no stamp, and thus do_package is thought not current
+    * do_package_setscene has stamp file and thus no need to re-execute setscene
+    * thus no further rebuild required
 
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: tk/master1
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=tk/master1
+b) a fresh build, and then adjust order of PACKAGE_CLASSES. There's one bug
+regarding to PACKAGE_CLASSES and do_package_setscene, that only switch the
+order in PACKAGE_CLASSES generates different checksum. In this case user may
+observe up to 3 rebuilds when switching package_rpm/package_ipk back and forth.
 
-Thanks,
-    Kevin Tian <kevin.tian@intel.com>
+Signed-off-by: Lianhao Lu <lianhao.lu@intel.com>
+Signed-off-by: Kevin Tian <kevin.tian@intel.com>
 ---
-
-
-Kevin Tian (1):
-  license.bbclass: don't mark it as 'nostamp'
-
  meta/classes/license.bbclass |    1 -
  1 files changed, 0 insertions(+), 1 deletions(-)
+
+diff --git a/meta/classes/license.bbclass b/meta/classes/license.bbclass
+index ddedd57..2058406 100644
+--- a/meta/classes/license.bbclass
++++ b/meta/classes/license.bbclass
+@@ -11,7 +11,6 @@
+ LICENSE_DIRECTORY ??= "${DEPLOY_DIR_IMAGE}/licenses"
+ 
+ addtask populate_lic after do_patch before do_package 
+-do_populate_lic[nostamp] = "1"
+ python do_populate_lic() {
+     """
+     Populate LICENSE_DIRECTORY with licenses.
+-- 
+1.6.0.4
 
 
