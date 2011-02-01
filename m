@@ -1,21 +1,39 @@
-Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7B85C4C800AA
-	for <poky@yoctoproject.org>; Tue,  1 Feb 2011 16:43:35 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 01 Feb 2011 14:43:34 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,412,1291622400"; d="scan'208";a="702996727"
-Received: from nbuild2.sc.intel.com (HELO localhost) ([172.25.110.37])
-	by orsmga001.jf.intel.com with ESMTP; 01 Feb 2011 14:43:34 -0800
-Message-Id: <e7f5f469c5cb2faf9d8f7b7af61d2e2cea281b08.1296600047.git.nitin.a.kamble@intel.com>
-In-Reply-To: <cover.1296600047.git.nitin.a.kamble@intel.com>
-References: <cover.1296600047.git.nitin.a.kamble@intel.com>
-Old-Date: Tue, 25 Jan 2011 08:43:10 -0800
-Date: Tue, 01 Feb 2011 14:43:34 -0800
-To: poky@yoctoproject.org
-From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Subject: [PATCH 4/6] image-mklibs.bbclass: add the library optimization functionality
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8A5D04C8007E
+	for <poky@yoctoproject.org>; Tue,  1 Feb 2011 17:29:52 -0600 (CST)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p11NVshG009040; Tue, 1 Feb 2011 23:31:54 GMT
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id 3zBPhUG98UfC; Tue,  1 Feb 2011 23:31:54 +0000 (GMT)
+Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p11NVoKG009036
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Tue, 1 Feb 2011 23:31:52 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Wolfgang Denk <wd@denx.de>
+In-Reply-To: <20110201192705.2546DB187@gemini.denx.de>
+References: <9AFCD584B0B67B48AE8D8585BE30BA9506BAAFDF@orsmsx504.amr.corp.intel.com>
+	<1296382406.13501.7899.camel@rex>
+	<625BA99ED14B2D499DC4E29D8138F1504E6294E1D3@shsmsx502.ccr.corp.intel.com>
+	<C10D3FB0CD45994C8A51FEC1227CE22F20F8C32A4B@shsmsx502.ccr.corp.intel.com>
+	<C10D3FB0CD45994C8A51FEC1227CE22F20F8C32C7C@shsmsx502.ccr.corp.intel.com>
+	<1296492009.13501.13668.camel@rex>
+	<9AFCD584B0B67B48AE8D8585BE30BA9506C267B0@orsmsx504.amr.corp.intel.com>
+	<1296561316.13501.18767.camel@rex>
+	<9AFCD584B0B67B48AE8D8585BE30BA950D73A848@orsmsx504.amr.corp.intel.com>
+	<1296567139.13501.19158.camel@rex>
+	<20110201192705.2546DB187@gemini.denx.de>
+Date: Tue, 01 Feb 2011 23:29:39 +0000
+Message-ID: <1296602979.13501.21658.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: poky-image-sato-sdk failed at do_rootfs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,135 +45,44 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Feb 2011 22:43:35 -0000
+X-List-Received-Date: Tue, 01 Feb 2011 23:29:53 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-From: Nitin A Kamble <nitin.a.kamble@intel.com>
+On Tue, 2011-02-01 at 20:27 +0100, Wolfgang Denk wrote:
+> Dear Richard Purdie,
+> 
+> In message <1296567139.13501.19158.camel@rex> you wrote:
+> >
+> > Can you please try a build from scratch. I think most of your .ipk files
+> > look corrupt as there are many eglibc dependencies in there which there
+> > simply shouldn't be. If they were built whilst eglibc was rebuilding
+> > that would explain the problem but it means your build directory is
+> > unstable now :(. If there is a root cause, the above patch isn't it.
+> 
+> I just ran a build of poky-image-sato-sdk for qemuarm from scratch,
+> mainline code, git commit id 4c8f498
+> 
+> Result:
+> 
+> ...
+> | ccache gcc -m32 -pipe -std=gnu99 -Wall -W -Wextra -fPIC -D_LARGEFILE64_SOURCE -D_ATFILE_SOURCE -m32 -DPSEUDO_PREFIX='"/opt/poky/build/mainline-4c8f498/tmp/sysroots/x86_64-linux/usr"' -DPSEUDO_SUFFIX='""' -DPSEUDO_BINDIR='"bin"' -DPSEUDO_LIBDIR='"lib/pseudo/lib"' -DPSEUDO_LOCALSTATEDIR='"var/pseudo"' -DPSEUDO_VERSION='"0.3"' -O2 -g -L/opt/poky/build/mainline-4c8f498/tmp/sysroots/x86_64-linux/usr/lib -I/opt/poky/build/mainline-4c8f498/tmp/sysroots/x86_64-linux/usr/include -Wl,-R/opt/poky/build/mainline-4c8f498/tmp/sysroots/x86_64-linux/usr/lib -shared -o lib/pseudo/lib/libpseudo.so \
+> |       pseudo_client.o pseudo_ipc.o \
+> |       pseudo_wrappers.o pseudo_tables.o pseudo_util.o -ldl
+> | /usr/bin/ld: skipping incompatible /usr/lib/gcc/x86_64-redhat-linux/4.5.1/libgcc_s.so when searching for -lgcc_s
+> | /usr/bin/ld: cannot find -lgcc_s
+> | collect2: ld returned 1 exit status
+> | make: *** [lib/pseudo/lib/libpseudo.so] Error 1
+> | FATAL: oe_runmake failed
+> | Function 'do_compile' failed (see /opt/poky/build/mainline-4c8f498/tmp/work/x86_64-linux/pseudo-native-0.0+git0+bcb42d80c0817da5479ab9c4f2cd8c4727e98ef8-r17/temp/log.do_compile.17807 for further information)
+> NOTE: package pseudo-native-0.0+git0+bcb42d80c0817da5479ab9c4f2cd8c4727e98ef8-r17: task do_compile: Failed
+> ERROR: 'virtual:native:/opt/poky/git/poky/work/meta/recipes-devtools/pseudo/pseudo_git.bb' failed
+> ERROR: Task 7 (virtual:native:/opt/poky/git/poky/work/meta/recipes-devtools/pseudo/pseudo_git.bb, do_compile) failed with exit code '1'
 
-Now by default the mklibs library size optimization for poky-image-minimal is
-enabled.
+Did you leave NO32LIBS set in local.conf as per the default?
 
-If you want to enable the mklibs library size optimization for your image
-then, edit the MKLIBS_OPTIMIZED_IMAGES line in the local.conf like this:
+Cheers,
 
-  MKLIBS_OPTIMIZED_IMAGES ?= "poky-image-minimal your-own-image"
-
-on qemux86 machine this reduced the rootfs size from 7.9MB to 7.2MB.
-That is around 11% image foot print reduction. that image had 38 elf
-executables. Generally the size optimization by mklibs is reversely
-proportional to the number of elf executables in the rootfs. so
-bigger images won't see less optimization, and smaller images will see
-large image size reductions.
-
-Thanks to mark hatle for his help in implementation of this.
-
-Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
----
- meta/classes/image-mklibs.bbclass |   70 +++++++++++++++++++++++++++++++++++++
- meta/conf/local.conf.sample       |   10 +++++-
- 2 files changed, 79 insertions(+), 1 deletions(-)
- create mode 100644 meta/classes/image-mklibs.bbclass
-
-diff --git a/meta/classes/image-mklibs.bbclass b/meta/classes/image-mklibs.bbclass
-new file mode 100644
-index 0000000..8ba3eb4
---- /dev/null
-+++ b/meta/classes/image-mklibs.bbclass
-@@ -0,0 +1,70 @@
-+do_rootfs[depends] += "mklibs-native:do_populate_sysroot"
-+
-+IMAGE_PREPROCESS_COMMAND += "mklibs_optimize_image; "
-+
-+mklibs_optimize_image_doit() {
-+	rm -rf ${WORKDIR}/mklibs
-+	mkdir -p ${WORKDIR}/mklibs/dest
-+	cd ${IMAGE_ROOTFS}
-+	du -bs > ${WORKDIR}/mklibs/du.before.mklibs.txt
-+	for i in `find .`; do file $i; done \
-+		| grep ELF \
-+		| grep "LSB executable" \
-+		| grep "dynamically linked" \
-+		| sed "s/:.*//" \
-+		| sed "s+^\./++" \
-+		> ${WORKDIR}/mklibs/executables.list
-+
-+	case ${TARGET_ARCH} in
-+		powerpc | mips )
-+			dynamic_loader="/lib/ld.so.1"
-+			;;
-+		x86_64)
-+			dynamic_loader="/lib/ld-linux-x86-64.so.2"
-+			;;
-+		i586 )
-+			dynamic_loader="/lib/ld-linux.so.2"
-+			;;
-+		arm )
-+			dynamic_loader="/lib/ld-linux.so.3"
-+			;;
-+		* )
-+			dynamic_loader="/unknown_dynamic_linker"
-+			;;
-+	esac
-+
-+	mklibs -v \
-+		--ldlib ${dynamic_loader} \
-+		--sysroot ${PKG_CONFIG_SYSROOT_DIR} \
-+		--root ${IMAGE_ROOTFS} \
-+		--target `echo ${TARGET_PREFIX} | sed 's/-$//' ` \
-+		-d ${WORKDIR}/mklibs/dest \
-+		`cat ${WORKDIR}/mklibs/executables.list`
-+
-+	cd ${WORKDIR}/mklibs/dest
-+	for i in *
-+	do
-+		cp $i `find ${IMAGE_ROOTFS} -name $i`
-+	done
-+
-+	cd ${IMAGE_ROOTFS}
-+	du -bs > ${WORKDIR}/mklibs/du.after.mklibs.txt
-+
-+	echo rootfs size before mklibs optimization: `cat ${WORKDIR}/mklibs/du.before.mklibs.txt`
-+	echo rootfs size after mklibs optimization: `cat ${WORKDIR}/mklibs/du.after.mklibs.txt`
-+}
-+
-+mklibs_optimize_image() {
-+	for img in ${MKLIBS_OPTIMIZED_IMAGES}
-+	do
-+		if [ "${img}" == "${PN}" ]
-+		then
-+			mklibs_optimize=1
-+			mklibs_optimize_image_doit
-+			break
-+		fi
-+	done
-+}
-+
-+
-+EXPORT_FUNCTIONS mklibs_optimize_image
-diff --git a/meta/conf/local.conf.sample b/meta/conf/local.conf.sample
-index f9953d1..362dbf0 100644
---- a/meta/conf/local.conf.sample
-+++ b/meta/conf/local.conf.sample
-@@ -73,10 +73,18 @@ EXTRA_IMAGE_FEATURES_mx31ads = "tools-testapps debug-tweaks"
- #PACKAGE_CLASSES ?= "package_rpm package_deb package_ipk"
- PACKAGE_CLASSES ?= "package_rpm package_ipk"
- 
-+# mklibs library size optimization is more useful to smaller images, 
-+# and less useful for bigger images. Also mklibs library optimization can break the ABI compatibility, so should not be applied to the images which are tobe
-+# extended or upgraded later.
-+# mklibs librarys size optimization will be enabled just for these images.
-+MKLIBS_OPTIMIZED_IMAGES ?= "poky-image-minimal"
-+
- # A list of additional classes to use when building the system
-+# include 'image-mklibs' to reduce shared library files size for an image
- # include 'image-prelink' in order to prelink the filesystem image
- # include 'image-swab' to perform host system intrusion detection
--USER_CLASSES ?= "image-prelink"
-+# NOTE: if listing mklibs & prelink both, then make sure mklibs is before prelink
-+USER_CLASSES ?= "image-mklibs image-prelink"
- 
- # POKYMODE controls the characteristics of the generated packages/images by
- # telling poky which type of toolchain to use.
--- 
-1.7.3.4
+Richard
 
 
