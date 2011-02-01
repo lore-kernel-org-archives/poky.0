@@ -1,28 +1,27 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7F8FA4C80FA4
-	for <poky@yoctoproject.org>; Mon, 31 Jan 2011 18:28:15 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p110UI53025011
-	for <poky@yoctoproject.org>; Tue, 1 Feb 2011 00:30:18 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id nJO9hv2boyEP for <poky@yoctoproject.org>;
-	Tue,  1 Feb 2011 00:30:18 +0000 (GMT)
-Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p110UBIf025007
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT)
-	for <poky@yoctoproject.org>; Tue, 1 Feb 2011 00:30:12 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: poky <poky@yoctoproject.org>
-Date: Tue, 01 Feb 2011 00:28:00 +0000
-Message-ID: <1296520080.13501.15996.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Subject: Quick hack for profiling tasks
+Return-Path: <saul.wold@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 06C174C80FA4
+	for <poky@pokylinux.org>; Mon, 31 Jan 2011 18:31:44 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 31 Jan 2011 16:31:44 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,406,1291622400"; d="scan'208";a="598253955"
+Received: from unknown (HELO [10.255.14.125]) ([10.255.14.125])
+	by orsmga002.jf.intel.com with ESMTP; 31 Jan 2011 16:31:28 -0800
+Message-ID: <4D47545F.7010809@intel.com>
+Date: Mon, 31 Jan 2011 16:31:27 -0800
+From: Saul Wold <saul.wold@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
+MIME-Version: 1.0
+To: "Tian, Kevin" <kevin.tian@intel.com>
+References: <b7da2f$q8ksnl@fmsmga001.fm.intel.com>
+	<4D41B2B1.2050206@intel.com>	<625BA99ED14B2D499DC4E29D8138F1504DB5E056FB@shsmsx502.ccr.corp.intel.com>	<4D420F02.8050306@intel.com>
+	<625BA99ED14B2D499DC4E29D8138F1504DB5E05758@shsmsx502.ccr.corp.intel.com>
+In-Reply-To: <625BA99ED14B2D499DC4E29D8138F1504DB5E05758@shsmsx502.ccr.corp.intel.com>
+Cc: "poky@pokylinux.org" <poky@pokylinux.org>
+Subject: Re: [PATCH 2/5] cronie: enable multi-user crontab usage and make	cron environment complete
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,72 +33,84 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Feb 2011 00:28:15 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Tue, 01 Feb 2011 00:31:45 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi,
+On 01/27/2011 05:18 PM, Tian, Kevin wrote:
+>> From: Wold, Saul
+>> Sent: Friday, January 28, 2011 8:34 AM
+>>
+>> On 01/27/2011 04:07 PM, Tian, Kevin wrote:
+>>>> From: Wold, Saul
+>>>> Sent: Friday, January 28, 2011 2:00 AM
+>>>>> +
+>>>>> +pkg_postinst_${PN} () {
+>>>>> +	if [ "x$D" != "x" ] ; then
+>>>>> +		exit 1
+>>>>> +	fi
+>>>>> +
+>>>>> +	# below setting is necessary to allow normal user using crontab
+>>>>> +
+>>>>> +	# add 'crontab' group and setgid for crontab binary
+>>>>> +	grep crontab /etc/group || addgroup crontab
+>>>>> +	chown root:crontab /usr/bin/crontab
+>>>>> +	chmod 2755 /usr/bin/crontab
+>>>>> +
+>>>>> +	# allow 'crontab' group write to /var/spool/cron
+>>>>> +	chown root:crontab /var/spool/cron
+>>>>> +	chmod 770 /var/spool/cron
+>>>>> +
+>>>>> +	chmod 600 /etc/crontab
+>>>>>     }
+>>>> Kevin,
+>>>>
+>>>> I am going to hold off pulling this and the at changes.
+>>>>
+>>>> Is there a specific reason that you are creating this as a post install
+>>>> operation for the permission management, both this and the at recipes
+>>>> are doing this.  Please remember that adding additional items that run
+>>>> at first boot slow things down.
+>>>>
+>>>> Is it possible to run these permission changes at actual install time,
+>>>> instead of on the target.
+>>>>
+>>>
+>>> I thought about this when baking the patch, and finally went to this way
+>> because
+>>> there's chown operation and new group needs to be created. This has to be
+>> done
+>>> on the target, as you'll see in other similar recipes like dbus, hal, ...
+>>>
+>> Since this is a similar theme, is there a bbclass or method that could
+>> be written in order to handle adding users/groups to the passwd/group
+>> file during sysroot creation time, prior to packaging?
+>>
+>> Will pseudo handle this correctly?
+>>
+>> Maybe for 1.0 we go this route, but we should think more about this, in
+>> order to create the users and groups we need.
+>
+> Yes, we can think more about it. The less postinst works, the better.
+>
+> But generally speaking, group/permission operations in my observation are
+> quick in the 1st boot. There're other postinst being heavy. :-)
+>
+The more you add to 1st boot that could be done during rootfs creation 
+will always add more time, it's better to do it at rootfs time if possible.
 
-One thing that is bugging me whilst I've been debugging some issues
-we're having with the libc/libgcc package dependency issue is how long
-do_package takes for libc. The question is where does it spend the time?
-Answer, I have no idea.
+Will you be-able to modify this for 1.0 M3?  If not will there be a plan 
+for M4 or 1.1?
 
-I hacked together the patch below to find out. Its ugly and uses the
-boilerplate profiling code from cooker, cut and pasted here to profile
-the actual tasks that run.
-
-I've yet to look at the results but it should allow us to optimise the
-python tasks a bit if we can see where they spend time. I'm hoping this
-lets others look at that too and also it give us some hints as to how we
-might improve the core when turning on profiling in bitbake.
-
-Cheers,
-
-Richard
+Sau!
 
 
-diff --git a/bitbake/lib/bb/build.py b/bitbake/lib/bb/build.py
-index 42d1726..02c0a08 100644
---- a/bitbake/lib/bb/build.py
-+++ b/bitbake/lib/bb/build.py
-@@ -365,7 +365,36 @@ def exec_task(fn, task, d):
-         if d.getVarFlag(task, "quieterrors") is not None:
-             quieterr = True
- 
--        return _exec_task(fn, task, d, quieterr)
-+        profbasename = os.path.basename(fn) + "-" + task
-+        try:
-+            import cProfile as profile
-+        except:
-+            import profile
-+        prof = profile.Profile()
-+
-+        ret = profile.Profile.runcall(prof, _exec_task, fn, task, d, quieterr)
-+
-+        prof.dump_stats("profile-%s.log" % (profbasename))
-+
-+        # Redirect stdout to capture profile information
-+        pout = open('profile-%s.log.processed' % (profbasename), 'w')
-+        so = sys.stdout.fileno()
-+        orig_so = os.dup(sys.stdout.fileno())
-+        os.dup2(pout.fileno(), so)
-+   
-+        import pstats
-+        p = pstats.Stats('profile-%s.log' % (profbasename))
-+        p.sort_stats('time')
-+        p.print_stats()
-+        p.print_callers()
-+        p.sort_stats('cumulative')
-+        p.print_stats()
-+
-+        os.dup2(orig_so, so)
-+        pout.flush()
-+        pout.close()  
-+
-+        return ret
-     except Exception:
-         from traceback import format_exc
-         if not quieterr:
+> Thanks
+> Kevin
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
 
 
