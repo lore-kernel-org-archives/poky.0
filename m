@@ -1,24 +1,24 @@
-Return-Path: <qing.he@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E09DA4C80082
-	for <poky@yoctoproject.org>; Tue,  1 Feb 2011 01:50:04 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 31 Jan 2011 23:50:04 -0800
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C5DF04C80082
+	for <poky@yoctoproject.org>; Tue,  1 Feb 2011 01:53:40 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 31 Jan 2011 23:53:40 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,409,1291622400"; d="scan'208";a="382536780"
-Received: from qhe2-db.sh.intel.com ([10.239.13.48])
-	by azsmga001.ch.intel.com with ESMTP; 31 Jan 2011 23:50:03 -0800
-Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
-	(envelope-from <qing.he@intel.com>)
-	id 1PkAu2-0003TH-V3; Tue, 01 Feb 2011 15:43:55 +0800
-Message-Id: <ceaa9aa5f740565cbd8a1ca305b23f60bb1727f9.1296546158.git.qing.he@intel.com>
-In-Reply-To: <cover.1296546158.git.qing.he@intel.com>
-References: <cover.1296546158.git.qing.he@intel.com>
-Old-Date: Tue, 1 Feb 2011 15:37:54 +0800
-Date: Tue, 01 Feb 2011 15:43:54 +0800
-To: poky@yoctoproject.org
-From: Qing He <qing.he@intel.com>
-Subject: [PATCH 1/1] quilt: fix patch version detection
+X-IronPort-AV: E=Sophos;i="4.60,409,1291622400"; d="scan'208";a="653163731"
+Received: from unknown (HELO [10.255.14.170]) ([10.255.14.170])
+	by fmsmga002.fm.intel.com with ESMTP; 31 Jan 2011 23:53:40 -0800
+Message-ID: <4D47BC03.6010008@linux.intel.com>
+Date: Mon, 31 Jan 2011 23:53:39 -0800
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
+MIME-Version: 1.0
+To: Tom Rini <tom_rini@mentor.com>
+References: <1296248841-8015-1-git-send-email-tom_rini@mentor.com>
+In-Reply-To: <1296248841-8015-1-git-send-email-tom_rini@mentor.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH] perl-native: Update for userelocatableinc and non-shared libperl
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,97 +30,57 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Feb 2011 07:50:05 -0000
+X-List-Received-Date: Tue, 01 Feb 2011 07:53:41 -0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
 
-From: Qing He <qing.he@intel.com>
+On 01/28/2011 01:07 PM, Tom Rini wrote:
+> Rather than using a wrapper switch to using upstreams support for
+> relocation.  While in here, bring in the mangling to use
+> /usr/bin/env perl rather than /full/path/to in order to work
+> in deep directory paths.
+> 
+> Signed-off-by: Tom Rini<tom_rini@mentor.com>
 
-Fixes [BUGID #690]
+perl fails do_compile with this patch, reverting it resolves the problem. The log.do_compile is available here (600k):
 
-Signed-off-by: Qing He <qing.he@intel.com>
----
- meta/recipes-devtools/quilt/quilt-native_0.48.bb   |    2 +-
- meta/recipes-devtools/quilt/quilt.inc              |    3 +-
- .../quilt/quilt/patch-version-detection.patch      |   29 ++++++++++++++++++++
- meta/recipes-devtools/quilt/quilt_0.48.bb          |    2 +-
- 4 files changed, 33 insertions(+), 3 deletions(-)
- create mode 100644 meta/recipes-devtools/quilt/quilt/patch-version-detection.patch
+http://bugzilla.pokylinux.org/show_bug.cgi?id=691
 
-diff --git a/meta/recipes-devtools/quilt/quilt-native_0.48.bb b/meta/recipes-devtools/quilt/quilt-native_0.48.bb
-index a62531e..3cfe395 100644
---- a/meta/recipes-devtools/quilt/quilt-native_0.48.bb
-+++ b/meta/recipes-devtools/quilt/quilt-native_0.48.bb
-@@ -1,7 +1,7 @@
- require quilt.inc
- require quilt-native.inc
+Reads in part:
+
+NOTE: make -e MAKEFLAGS= perl LD=ccache i586-poky-linux-gcc -m32 -march=core2 -msse3 -mtune=generic -mfpmath=sse --sysroot=/vol/1/dvhart/poky-1.git/build/tmp/sysroots/atom-pc
+Perl cross-build directory is /vol/1/dvhart/poky-1.git/build/tmp/work/core2-poky-linux/perl-5.12.2-r0/perl-5.12.2/Cross
+Target arch is i586-linux
+toolchain: ccache i586-poky-linux-gcc -m32 -march=core2 -msse3 -mtune=generic -mfpmath=sse --sysroot=/vol/1/dvhart/poky-1.git/build/tmp/sysroots/atom-pc, ccache i586-poky-linux-g++ -m32 -march=core2 -msse3 -mtune=generic -mfpmath=sse --sysroot=/vol/1/dvhart/poky-1.git/build/tmp/sysroots/atom-pc, ccache i586-poky-linux-gcc -m32 -march=core2 -msse3 -mtune=generic -mfpmath=sse --sysroot=/vol/1/dvhart/poky-1.git/build/tmp/sysroots/atom-pc, i586-poky-linux-strip, i586-poky-linux-ar, i586-poky-linux-ranlib
+Optimizations: -fexpensive-optimizations -fomit-frame-pointer -O2
+/vol/1/dvhart/poky-1.git/build/tmp/work/core2-poky-linux/perl-5.12.2-r0/perl-5.12.2/Cross/generate_config_sh config.sh-i586-linux > /vol/1/dvhart/poky-1.git/build/tmp/work/core2-poky-linux/perl-5.12.2-r0/perl-5.12.2/Cross/../config.sh
+cd /vol/1/dvhart/poky-1.git/build/tmp/work/core2-poky-linux/perl-5.12.2-r0/perl-5.12.2/Cross/.. ; ./Configure -S ; make depend ; make ; make more
  
--PR = "r0"
-+PR = "r1"
+Fetching answers from config.sh...
  
- SRC_URI[md5sum] = "f77adda60039ffa753f3c584a286f12b"
- SRC_URI[sha256sum] = "73fd760d3b5cbf06417576591dc37d67380d189392db9000c21b7cbebee49ffc"
-diff --git a/meta/recipes-devtools/quilt/quilt.inc b/meta/recipes-devtools/quilt/quilt.inc
-index 4542511..e2cfce4 100644
---- a/meta/recipes-devtools/quilt/quilt.inc
-+++ b/meta/recipes-devtools/quilt/quilt.inc
-@@ -6,7 +6,8 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f"
- 
- SRC_URI = "http://download.savannah.gnu.org/releases/quilt/quilt-${PV}.tar.gz \
-         file://install.patch \
--        file://gnu_patch_test_fix.patch"
-+        file://gnu_patch_test_fix.patch \
-+        file://patch-version-detection.patch"
- 
- inherit autotools
- 
-diff --git a/meta/recipes-devtools/quilt/quilt/patch-version-detection.patch b/meta/recipes-devtools/quilt/quilt/patch-version-detection.patch
-new file mode 100644
-index 0000000..878a953
---- /dev/null
-+++ b/meta/recipes-devtools/quilt/quilt/patch-version-detection.patch
-@@ -0,0 +1,29 @@
-+From: Jean Delvare
-+Subject: [Quilt-dev] [PACH] Fix patch version detection</td>
-+Date: Mon, 21 Jun 2010 13:49:50 +0200
-+
-+New versions of GNU patch present themselves as "GNU patch" instead
-+of just "patch".
-+---
-+ configure.ac |    6 +++++-
-+ 1 file changed, 5 insertions(+), 1 deletion(-)
-+
-+--- a/configure.ac
-++++ b/configure.ac
-+@@ -262,7 +262,11 @@ fi
-+ AC_MSG_CHECKING([the version of $PATCH])
-+ if $PATCH --version 2> /dev/null | grep GNU >/dev/null; then
-+   set -- `$PATCH --version 2> /dev/null`
-+-  patch_version=$2
-++  if test x$1 = xGNU ; then
-++    patch_version=$3
-++  else
-++    patch_version=$2
-++  fi
-+   AC_MSG_RESULT($patch_version)
-+   saved_IFS=$IFS; IFS='.'
-+   set -- $patch_version
-+
-+-- 
-+Jean Delvare
-+Suse L3
-diff --git a/meta/recipes-devtools/quilt/quilt_0.48.bb b/meta/recipes-devtools/quilt/quilt_0.48.bb
-index a2a8a5c..6f5e2bc 100644
---- a/meta/recipes-devtools/quilt/quilt_0.48.bb
-+++ b/meta/recipes-devtools/quilt/quilt_0.48.bb
-@@ -2,7 +2,7 @@ require quilt.inc
- LICENSE="GPLv2"
- LIC_FILES_CHKSUM = "file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f"
- RDEPENDS_${PN} += "patch diffstat bzip2 util-linux"
--PR = "r0"
-+PR = "r1"
- SRC_URI += "file://aclocal.patch"
- 
- SRC_URI[md5sum] = "f77adda60039ffa753f3c584a286f12b"
+Doing variable substitutions on .SH files...
+Extracting config.h (with variable substitutions)
+
+...
+
+make[1]: Entering directory `/vol/1/dvhart/poky-1.git/build/tmp/work/core2-poky-linux/perl-5.12.2-r0/perl-5.12.2'
+
+...
+
+*** Module name IN: lib/Cwd.pm
+*** Module name OUT: /vol/1/dvhart/poky-1.git/build/tmp/sysroots/x86_64-linux/usr/lib/perl/5.12.2/Cwd.pm
+Can't undef active subroutine at /vol/1/dvhart/poky-1.git/build/tmp/sysroots/x86_64-linux/usr/lib/perl/5.12.2/Config_heavy.pl line 1343.
+Compilation failed in require at lib/Config.pm line 70.
+Extracting pod2html (with variable substitutions)
+make[1]: *** [pod/pod2html] Error 255
+make[1]: Leaving directory `/vol/1/dvhart/poky-1.git/build/tmp/work/core2-poky-linux/perl-5.12.2-r0/perl-5.12.2'
+make: *** [perl] Error 2
+FATAL: oe_runmake failed
+Function 'do_compile' failed (see /vol/1/dvhart/poky-1.git/build/tmp/work/core2-poky-linux/perl-5.12.2-r0/temp/log.do_compile.30564 for further information)
+ERROR: Function 'do_compile' failed (see /vol/1/dvhart/poky-1.git/build/tmp/work/core2-poky-linux/perl-5.12.2-r0/temp/log.do_compile.30564 for further information)
+
 -- 
-1.7.0
-
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
