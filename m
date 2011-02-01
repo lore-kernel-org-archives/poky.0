@@ -1,27 +1,25 @@
-Return-Path: <saul.wold@intel.com>
+Return-Path: <sgw@linux.intel.com>
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 06C174C80FA4
-	for <poky@pokylinux.org>; Mon, 31 Jan 2011 18:31:44 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id E436F4C80FA4
+	for <poky@pokylinux.org>; Mon, 31 Jan 2011 18:33:49 -0600 (CST)
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 31 Jan 2011 16:31:44 -0800
+	by orsmga101.jf.intel.com with ESMTP; 31 Jan 2011 16:33:49 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,406,1291622400"; d="scan'208";a="598253955"
+X-IronPort-AV: E=Sophos;i="4.60,406,1291622400"; d="scan'208";a="598254727"
 Received: from unknown (HELO [10.255.14.125]) ([10.255.14.125])
-	by orsmga002.jf.intel.com with ESMTP; 31 Jan 2011 16:31:28 -0800
-Message-ID: <4D47545F.7010809@intel.com>
-Date: Mon, 31 Jan 2011 16:31:27 -0800
-From: Saul Wold <saul.wold@intel.com>
+	by orsmga002.jf.intel.com with ESMTP; 31 Jan 2011 16:33:49 -0800
+Message-ID: <4D4754EC.3090001@linux.intel.com>
+Date: Mon, 31 Jan 2011 16:33:48 -0800
+From: Saul Wold <sgw@linux.intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
 	Thunderbird/3.0.5
 MIME-Version: 1.0
-To: "Tian, Kevin" <kevin.tian@intel.com>
-References: <b7da2f$q8ksnl@fmsmga001.fm.intel.com>
-	<4D41B2B1.2050206@intel.com>	<625BA99ED14B2D499DC4E29D8138F1504DB5E056FB@shsmsx502.ccr.corp.intel.com>	<4D420F02.8050306@intel.com>
-	<625BA99ED14B2D499DC4E29D8138F1504DB5E05758@shsmsx502.ccr.corp.intel.com>
-In-Reply-To: <625BA99ED14B2D499DC4E29D8138F1504DB5E05758@shsmsx502.ccr.corp.intel.com>
-Cc: "poky@pokylinux.org" <poky@pokylinux.org>
-Subject: Re: [PATCH 2/5] cronie: enable multi-user crontab usage and make	cron environment complete
+To: poky-bounces@yoctoproject.org
+References: <1bdc18$jdga4u@fmsmga002.fm.intel.com>
+In-Reply-To: <1bdc18$jdga4u@fmsmga002.fm.intel.com>
+Cc: poky@pokylinux.org
+Subject: Re: [PATCH 0/5] a series of patches to address some LTP failures
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,80 +31,56 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Feb 2011 00:31:45 -0000
+X-List-Received-Date: Tue, 01 Feb 2011 00:33:50 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 01/27/2011 05:18 PM, Tian, Kevin wrote:
->> From: Wold, Saul
->> Sent: Friday, January 28, 2011 8:34 AM
->>
->> On 01/27/2011 04:07 PM, Tian, Kevin wrote:
->>>> From: Wold, Saul
->>>> Sent: Friday, January 28, 2011 2:00 AM
->>>>> +
->>>>> +pkg_postinst_${PN} () {
->>>>> +	if [ "x$D" != "x" ] ; then
->>>>> +		exit 1
->>>>> +	fi
->>>>> +
->>>>> +	# below setting is necessary to allow normal user using crontab
->>>>> +
->>>>> +	# add 'crontab' group and setgid for crontab binary
->>>>> +	grep crontab /etc/group || addgroup crontab
->>>>> +	chown root:crontab /usr/bin/crontab
->>>>> +	chmod 2755 /usr/bin/crontab
->>>>> +
->>>>> +	# allow 'crontab' group write to /var/spool/cron
->>>>> +	chown root:crontab /var/spool/cron
->>>>> +	chmod 770 /var/spool/cron
->>>>> +
->>>>> +	chmod 600 /etc/crontab
->>>>>     }
->>>> Kevin,
->>>>
->>>> I am going to hold off pulling this and the at changes.
->>>>
->>>> Is there a specific reason that you are creating this as a post install
->>>> operation for the permission management, both this and the at recipes
->>>> are doing this.  Please remember that adding additional items that run
->>>> at first boot slow things down.
->>>>
->>>> Is it possible to run these permission changes at actual install time,
->>>> instead of on the target.
->>>>
->>>
->>> I thought about this when baking the patch, and finally went to this way
->> because
->>> there's chown operation and new group needs to be created. This has to be
->> done
->>> on the target, as you'll see in other similar recipes like dbus, hal, ...
->>>
->> Since this is a similar theme, is there a bbclass or method that could
->> be written in order to handle adding users/groups to the passwd/group
->> file during sysroot creation time, prior to packaging?
->>
->> Will pseudo handle this correctly?
->>
->> Maybe for 1.0 we go this route, but we should think more about this, in
->> order to create the users and groups we need.
+On 01/27/2011 03:38 AM, poky-bounces@yoctoproject.org wrote:
+> From: Kevin Tian<kevin.tian@intel.com>
 >
-> Yes, we can think more about it. The less postinst works, the better.
+> Because now bugzilla is not usable, no bug number is included in this series.
+> I'll report them later with these commits included for reference.
 >
-> But generally speaking, group/permission operations in my observation are
-> quick in the 1st boot. There're other postinst being heavy. :-)
+> With this series of fixes, all the LTP failures on Qemux86 target are audited
+> which composed ~85% total failures on all platforms.
 >
-The more you add to 1st boot that could be done during rootfs creation 
-will always add more time, it's better to do it at rootfs time if possible.
+> For detail result, please check https://wiki.yoctoproject.org/wiki/LTP_result
+>
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>    Branch: tk/master
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=tk/master
+>
+> Thanks,
+>      Kevin Tian<kevin.tian@intel.com>
+> ---
+>
+>
+> Kevin Tian (5):
+>    base-files: remove ending colon from default $PATH for root user
+>    cronie: enable multi-user crontab usage and make cron environment
+>      complete
+>    bash: use /bin/bash as default shell when bash is included
+>    at: allow normal user to use 'at'
+>    task-poky-sdk: add 'file' and 'ldd'
+>
+Partially pulled to master.
 
-Will you be-able to modify this for 1.0 M3?  If not will there be a plan 
-for M4 or 1.1?
+Cronie and at are still pending bases on the postinst issue
 
 Sau!
 
-
-> Thanks
-> Kevin
+>   meta/recipes-core/base-files/base-files/profile   |    2 +-
+>   meta/recipes-core/base-files/base-files_3.0.14.bb |    2 +-
+>   meta/recipes-core/tasks/task-poky-sdk.bb          |    4 ++-
+>   meta/recipes-extended/at/at_3.1.12.bb             |   29 +++++++++++++++---
+>   meta/recipes-extended/bash/bash.inc               |    5 +++
+>   meta/recipes-extended/bash/bash_3.2.48.bb         |    2 +-
+>   meta/recipes-extended/bash/bash_4.1.bb            |    2 +-
+>   meta/recipes-extended/cronie/cronie/crontab       |   10 ++++++
+>   meta/recipes-extended/cronie/cronie_1.4.6.bb      |   33 +++++++++++++++++++-
+>   9 files changed, 77 insertions(+), 12 deletions(-)
+>   create mode 100644 meta/recipes-extended/cronie/cronie/crontab
+>
 > _______________________________________________
 > poky mailing list
 > poky@yoctoproject.org
