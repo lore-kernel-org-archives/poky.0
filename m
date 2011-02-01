@@ -1,33 +1,18 @@
-Return-Path: <Tom_Rini@mentor.com>
-Received: from relay1.mentorg.com (relay1.mentorg.com [192.94.38.131])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9415B4C800A3
-	for <poky@yoctoproject.org>; Tue,  1 Feb 2011 11:00:23 -0600 (CST)
-Received: from svr-orw-exc-10.mgc.mentorg.com ([147.34.98.58])
-	by relay1.mentorg.com with esmtp 
-	id 1PkJaY-0000cl-T2 from Tom_Rini@mentor.com ;
-	Tue, 01 Feb 2011 09:00:22 -0800
-Received: from na2-mail.mgc.mentorg.com ([134.86.114.213]) by
-	SVR-ORW-EXC-10.mgc.mentorg.com with Microsoft
-	SMTPSVC(6.0.3790.4675); Tue, 1 Feb 2011 09:00:22 -0800
-Received: from [172.30.80.88] ([172.30.80.88]) by na2-mail.mgc.mentorg.com
-	with Microsoft SMTPSVC(6.0.3790.3959); 
-	Tue, 1 Feb 2011 10:00:21 -0700
-Message-ID: <4D483C23.2070203@mentor.com>
-Date: Tue, 01 Feb 2011 10:00:19 -0700
-From: Tom Rini <tom_rini@mentor.com>
-Organization: Mentor Graphics Corporation
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
-MIME-Version: 1.0
-To: "Kamble, Nitin A" <nitin.a.kamble@intel.com>
-References: <1296248841-8015-1-git-send-email-tom_rini@mentor.com>	<4D47BC03.6010008@linux.intel.com>
-	<4D481DD1.9050804@mentor.com> <4D4828EE.5000002@linux.intel.com>
-	<9DA5872FEF993D41B7173F58FCF6BE9411BF170D@orsmsx504.amr.corp.intel.com>
-In-Reply-To: <9DA5872FEF993D41B7173F58FCF6BE9411BF170D@orsmsx504.amr.corp.intel.com>
-X-OriginalArrivalTime: 01 Feb 2011 17:00:21.0773 (UTC)
-	FILETIME=[830833D0:01CBC231]
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH] perl-native: Update for userelocatableinc and non-shared libperl
+Return-Path: <bruce.ashfield@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 1183B4C8007E;
+	Tue,  1 Feb 2011 11:22:06 -0600 (CST)
+Received: from localhost.localdomain (yow-bashfiel-d2.ottawa.windriver.com
+	[128.224.146.167])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p11HM3Aj018181;
+	Tue, 1 Feb 2011 09:22:03 -0800 (PST)
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+To: rpurdie@linux.intel.com
+Date: Tue,  1 Feb 2011 12:25:04 -0500
+Message-Id: <cover.1296580694.git.bruce.ashfield@windriver.com>
+X-Mailer: git-send-email 1.7.0.4
+Cc: yocto@yoctoproject.org, poky@yoctoproject.org, saul.wold@intel.com
+Subject: [PATCH 0/2] linux-yocto: consolidated pull request
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,57 +24,77 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Feb 2011 17:00:24 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 01 Feb 2011 17:22:06 -0000
 
-On 02/01/2011 09:57 AM, Kamble, Nitin A wrote:
->
->
->> -----Original Message-----
->> From: poky-bounces@yoctoproject.org [mailto:poky-
->> bounces@yoctoproject.org] On Behalf Of Darren Hart
->> Sent: Tuesday, February 01, 2011 7:38 AM
->> To: Tom Rini
->> Cc: poky@yoctoproject.org
->> Subject: Re: [poky] [PATCH] perl-native: Update for userelocatableinc
->> and non-shared libperl
->>
->> On 02/01/2011 06:50 AM, Tom Rini wrote:
->>> On 02/01/2011 12:53 AM, Darren Hart wrote:
->>>> On 01/28/2011 01:07 PM, Tom Rini wrote:
->>>>> Rather than using a wrapper switch to using upstreams support for
->>>>> relocation. While in here, bring in the mangling to use
->>>>> /usr/bin/env perl rather than /full/path/to in order to work
->>>>> in deep directory paths.
->>>>>
->>>>> Signed-off-by: Tom Rini<tom_rini@mentor.com>
->>>>
->>>> perl fails do_compile with this patch, reverting it resolves the
->>>> problem. The log.do_compile is available here (600k):
->>>>
->>>> http://bugzilla.pokylinux.org/show_bug.cgi?id=691
->>>
->>> Taken the bug. That'll teach me to short-circuit my testing when
->> double
->>> posting patches...
->>>
->>
->> I'll be happy to test patches to this as well as I am able to easily
->> reproduce it (I expect others can too - but haven't yet heard of
->> someone
->> else hitting the exact same problem).
->>
-> I am able to reproduce this issue too. If needed I will be happy to help fix or test.
+Richard/Saul,
 
-To give everyone a quick update, I've double checked and the way we 
-configure perl 5.10.x (OE) and 5.12.x (poky) are the same, really.  So 
-I'm double checking now which part of the changes are breaking and if 
-perhaps we need to instead of using the relative paths that work in 
-5.10.x using full paths and trusting userelocatableinc to work (and then 
-verifying that it does work).
+I'm addressing a couple of bugs in this pull request.
+
+Bug #685: for the mpc8315e-rdb boot issue. I'm going to revisit
+this one, since changing the entry point shouldn't be making a
+difference to this board's boot (by me looking at th code), but
+it does seem to fix the problem according to the reporter.
+
+Bug #692: kernel configuration audit information
+
+After configuration of the kernel and audit is performed, and
+has been for some time. This updates it to work with the 2.6.37
+kernel and makes the output visible. You now get something like
+this:
+
+------------------------
+NOTE: package linux-yocto-2.6.37+git0+e8b8c1ae44932835f4f79e77180d3ce5e4b1ec99_0+a9d833fda90e2f1257888a97e092135610b5f259-r15: task do_kernel_configcheck: Started
+NOTE: validating kernel configuration
+The following Kconfig files no longer exist in this tree:
+      drivers/ieee1394/Kconfig
+      drivers/media/video/zc0301/Kconfig
+
+This BSP sets 1 invalid/obsolete kernel options.
+These config options are not offered anywhere within this kernel.
+The full list can be found in your workspace at:
+/home/bruce/poky/build/tmp/work/qemux86-poky-linux/linux-yocto-2.6.37+git0+e8b8c1ae44932835f4f79e77180d3ce5e4b1ec99_0+a9d833fda90e2f1257888a97e092135610b5f259-r15/linux/meta/cfg/yocto/standard/common-pc/invalid.cfg
+
+This BSP sets 6 kernel options that are possibly non-hardware related.
+The full list can be found in your workspace at:
+/home/bruce/poky/build/tmp/work/qemux86-poky-linux/linux-yocto-2.6.37+git0+e8b8c1ae44932835f4f79e77180d3ce5e4b1ec99_0+a9d833fda90e2f1257888a97e092135610b5f259-r15/linux/meta/cfg/yocto/standard/common-pc/specified_non_hdw.cfg
+
+WARNING: There were 2 hardware options requested that do not
+         have a corresponding value present in the final ".config" file.
+         This probably means you aren't getting the config you wanted.
+The full list can be found in your workspace at:
+/home/bruce/poky/build/tmp/work/qemux86-poky-linux/linux-yocto-2.6.37+git0+e8b8c1ae44932835f4f79e77180d3ce5e4b1ec99_0+a9d833fda90e2f1257888a97e092135610b5f259-r15/linux/meta/cfg/yocto/standard/common-pc/mismatch.cfg
+
+Waiting a second to make sure you get a chance to see this...
+NOTE: package linux-yocto-2.6.37+git0+e8b8c1ae44932835f4f79e77180d3ce5e4b1ec99_0+a9d833fda90e2f1257888a97e092135610b5f259-r15: task do_kernel_configcheck: Succeeded
+------------------------
+
+This is actually telling us something useful, and actually is showing
+me something that need to be fixed in the Kconfig classification for
+2.6.37 .. so it has already proven to be useful data to expose
+to the user!
+
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: zedd/kernel
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/kernel
+
+Thanks,
+    Bruce Ashfield <bruce.ashfield@windriver.com>
+---
+
+
+Bruce Ashfield (2):
+  mpc8315e-rdb: set UBOOT_ENTRYPOINT
+  linux-yocto: export kernel configuration audit to the console
+
+ meta/classes/kernel-yocto.bbclass                  |   17 +++++++++++------
+ .../conf/distro/include/poky-default-revisions.inc |    4 ++--
+ meta/conf/machine/mpc8315e-rdb.conf                |    3 +++
+ meta/recipes-kernel/linux/linux-yocto.inc          |    1 -
+ meta/recipes-kernel/linux/linux-yocto_git.bb       |    1 +
+ 5 files changed, 17 insertions(+), 9 deletions(-)
 
 -- 
-Tom Rini
-Mentor Graphics Corporation
+1.7.3.4
+
 
