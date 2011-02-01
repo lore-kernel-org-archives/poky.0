@@ -1,21 +1,21 @@
 Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2DF8B4C8006D
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 1DDFA4C800A6
 	for <poky@yoctoproject.org>; Tue,  1 Feb 2011 16:43:35 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 01 Feb 2011 14:43:35 -0800
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 01 Feb 2011 14:43:34 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,412,1291622400"; d="scan'208";a="653468917"
+X-IronPort-AV: E=Sophos;i="4.60,412,1291622400"; d="scan'208";a="598592022"
 Received: from nbuild2.sc.intel.com (HELO localhost) ([172.25.110.37])
-	by fmsmga002.fm.intel.com with ESMTP; 01 Feb 2011 14:43:35 -0800
-Message-Id: <a786b8bfb92f6ce1f23600358406ead745d3fb1c.1296600047.git.nitin.a.kamble@intel.com>
+	by orsmga002.jf.intel.com with ESMTP; 01 Feb 2011 14:43:34 -0800
+Message-Id: <a2830b7978d723ce71793533853f9c2069517ea5.1296600047.git.nitin.a.kamble@intel.com>
 In-Reply-To: <cover.1296600047.git.nitin.a.kamble@intel.com>
 References: <cover.1296600047.git.nitin.a.kamble@intel.com>
-Old-Date: Mon, 31 Jan 2011 15:49:57 -0800
+Old-Date: Mon, 24 Jan 2011 20:35:24 -0800
 Date: Tue, 01 Feb 2011 14:43:34 -0800
 To: poky@yoctoproject.org
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Subject: [PATCH 6/6] distro_Tracking: update as per current devel/toolchain recipes
+Subject: [PATCH 3/6] mklibs-native: new recipe for optimizing size of library files
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,22 +33,64 @@ From: Nitin A Kamble <nitin.a.kamble@intel.com>
 
 Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
 ---
- .../conf/distro/include/distro_tracking_fields.inc |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ .../mklibs/files/ac_init_fix.patch                 |   17 ++++++++++++++
+ .../mklibs/mklibs-native_0.1.31.bb                 |   23 ++++++++++++++++++++
+ 2 files changed, 40 insertions(+), 0 deletions(-)
+ create mode 100644 meta/recipes-devtools/mklibs/files/ac_init_fix.patch
+ create mode 100644 meta/recipes-devtools/mklibs/mklibs-native_0.1.31.bb
 
-diff --git a/meta/conf/distro/include/distro_tracking_fields.inc b/meta/conf/distro/include/distro_tracking_fields.inc
-index 1bdf521..9fb1147 100644
---- a/meta/conf/distro/include/distro_tracking_fields.inc
-+++ b/meta/conf/distro/include/distro_tracking_fields.inc
-@@ -107,7 +107,7 @@ RECIPE_LATEST_VERSION_pn-screen = "check"
- RECIPE_LAST_UPDATE_pn-screen = "Aug 31, 2010"
- RECIPE_MAINTAINER_pn-screen = "Qing He <qing.he@intel.com>"
- 
--RECIPE_STATUS_pn-subversion = "red"
-+RECIPE_STATUS_pn-subversion = "green"
- RECIPE_LATEST_VERSION_pn-subversion = "1.6.15"
- RECIPE_MANUAL_CHECK_DATE_pn-subversion = "Jan 25, 2011" 
- RECIPE_MAINTAINER_pn-subversion = "Nitin A Kamble <nitin.a.kamble@intel.com>"
+diff --git a/meta/recipes-devtools/mklibs/files/ac_init_fix.patch b/meta/recipes-devtools/mklibs/files/ac_init_fix.patch
+new file mode 100644
+index 0000000..7325931
+--- /dev/null
++++ b/meta/recipes-devtools/mklibs/files/ac_init_fix.patch
+@@ -0,0 +1,17 @@
++Get the version of mklibs by simpler means. The MKLIBS_VERSION string in the 
++configure.ac file is replaced with real version string by the 
++do_configure_prepend() function from the recipe .bb file.
++
++Nitin A Kamble <nitin.a.kamble@intel.com>
++Date: 2011/01/24
++
++Index: mklibs/configure.ac
++===================================================================
++--- mklibs.orig/configure.ac	2010-02-21 17:34:56.000000000 -0800
+++++ mklibs/configure.ac	2011-01-24 18:52:19.943242079 -0800
++@@ -1,4 +1,4 @@
++-AC_INIT([mklibs],m4_esyscmd(dpkg-parsechangelog | perl -ne 'print $1 if m/^Version: (.*)$/;'))
+++AC_INIT([mklibs], MKLIBS_VERSION)
++ AM_INIT_AUTOMAKE([foreign no-define])
++ AC_CONFIG_HEADERS([config.h])
++ AM_MAINTAINER_MODE
+diff --git a/meta/recipes-devtools/mklibs/mklibs-native_0.1.31.bb b/meta/recipes-devtools/mklibs/mklibs-native_0.1.31.bb
+new file mode 100644
+index 0000000..2044d12
+--- /dev/null
++++ b/meta/recipes-devtools/mklibs/mklibs-native_0.1.31.bb
+@@ -0,0 +1,23 @@
++DESCRIPTION = "mklibs produces cut-down shared libraries that contain only the routines required by a particular set of executables."
++HOMEPAGE = "https://code.launchpad.net/mklibs"
++SECTION = "devel"
++LICENSE = "GPLv2+"
++LIC_FILES_CHKSUM = "file://debian/copyright;md5=98d31037b13d896e33890738ef01af64"
++DEPENDS = "python-native"
++
++PR = "r0"
++
++SRC_URI = "http://ftp.de.debian.org/debian/pool/main/m/mklibs/${BPN}_${PV}.tar.gz \
++	file://ac_init_fix.patch\
++"
++
++SRC_URI[md5sum] = "f4df0307ccbdf60070e42277513f27ed"
++SRC_URI[sha256sum] = "8f5595621eb09d52871c771861e81b032d10c31d15e5dd61fa7f5a9e5b7de405"
++
++S = "${WORKDIR}/${BPN}"
++
++inherit autotools gettext native
++
++do_configure_prepend() {
++	sed "s+MKLIBS_VERSION+${PV}+" ${S}/configure.ac
++}
 -- 
 1.7.3.4
 
