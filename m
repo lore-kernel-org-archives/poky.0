@@ -1,30 +1,29 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A98FB4C800A6
-	for <poky@yoctoproject.org>; Tue,  1 Feb 2011 11:45:16 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p11HlICL028288; Tue, 1 Feb 2011 17:47:18 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id CN6XH+LyAMPa; Tue,  1 Feb 2011 17:47:18 +0000 (GMT)
-Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p11HlCXb028262
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Tue, 1 Feb 2011 17:47:14 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Paul Eggleton <paul.eggleton@linux.intel.com>
-In-Reply-To: <6184677be0e44d76b634b611287dca567dfdd3bd.1296267951.git.paul.eggleton@linux.intel.com>
+Return-Path: <koen@dominion.thruhere.net>
+Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
+	[74.125.82.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 67F9C4C8006D
+	for <poky@yoctoproject.org>; Tue,  1 Feb 2011 12:02:46 -0600 (CST)
+Received: by wye20 with SMTP id 20so7274560wye.35
+	for <poky@yoctoproject.org>; Tue, 01 Feb 2011 10:02:45 -0800 (PST)
+Received: by 10.216.178.132 with SMTP id f4mr956331wem.62.1296583365488;
+	Tue, 01 Feb 2011 10:02:45 -0800 (PST)
+Received: from [172.20.0.255] (ip545070eb.adsl-surfen.hetnet.nl
+	[84.80.112.235])
+	by mx.google.com with ESMTPS id f52sm11588254wes.35.2011.02.01.10.02.44
+	(version=TLSv1/SSLv3 cipher=RC4-MD5);
+	Tue, 01 Feb 2011 10:02:44 -0800 (PST)
+Mime-Version: 1.0 (Apple Message framework v1082)
+From: Koen Kooi <koen@dominion.thruhere.net>
+In-Reply-To: <1296582252.13501.20225.camel@rex>
+Date: Tue, 1 Feb 2011 19:02:43 +0100
+Message-Id: <17034B22-07DB-4735-BCDF-1995718F7D59@dominion.thruhere.net>
 References: <cover.1296267951.git.paul.eggleton@linux.intel.com>
-	<6184677be0e44d76b634b611287dca567dfdd3bd.1296267951.git.paul.eggleton@linux.intel.com>
-Date: Tue, 01 Feb 2011 17:44:59 +0000
-Message-ID: <1296582299.13501.20230.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 11/12] qt4: Add meta-toolchain-qte and dependent tasks from OpenEmbedded
+	<70e416b931ba9ee1ca24a967a0410fda65b48bea.1296267951.git.paul.eggleton@linux.intel.com>
+	<1296582252.13501.20225.camel@rex>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+X-Mailer: Apple Mail (2.1082)
+Cc: Paul Eggleton <paul.eggleton@linux.intel.com>, poky@yoctoproject.org
+Subject: Re: [PATCH 05/12] qt4-tools-native: update from OpenEmbedded
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,55 +35,50 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Feb 2011 17:45:17 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 01 Feb 2011 18:02:47 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, 2011-01-29 at 02:30 +0000, Paul Eggleton wrote:
 
-> +++ b/meta/recipes-qt/meta/meta-toolchain-qte.bb
-> @@ -0,0 +1,32 @@
-> +# Qt Embedded toolchain
-> +PR = "r5"
-> +TOOLCHAIN_HOST_TASK = "task-qte-toolchain-host"
-> +TOOLCHAIN_TARGET_TASK = "task-qte-toolchain-target"
-> +
-> +require recipes-core/meta/meta-toolchain.bb
-> +SDK_SUFFIX = "toolchain-qte"
-> +
-> +QT_DIR_NAME = "qtopia"
-> +
-> +do_populate_sdk_append() {
-> +    script="${SDK_OUTPUT}/${SDKPATH}/environment-setup"
-> +    touch $script
-> +    echo 'export OE_QMAKE_CC=${TARGET_SYS}-gcc' >> $script
-> +    echo 'export OE_QMAKE_CXX=${TARGET_SYS}-g++' >> $script
-> +    echo 'export OE_QMAKE_LINK=${TARGET_SYS}-g++' >> $script
-> +    echo 'export OE_QMAKE_AR=${TARGET_SYS}-ar' >> $script
-> +    echo 'export OE_QMAKE_LIBDIR_QT=${SDKPATH}/${TARGET_SYS}/${libdir}' >> $script
-> +    echo 'export OE_QMAKE_INCDIR_QT=${SDKPATH}/${TARGET_SYS}/${includedir}/${QT_DIR_NAME}' >> $script
-> +    echo 'export OE_QMAKE_MOC=${SDKPATH}/bin/moc4' >> $script
-> +    echo 'export OE_QMAKE_UIC=${SDKPATH}/bin/uic4' >> $script
-> +    echo 'export OE_QMAKE_UIC3=${SDKPATH}/bin/uic34' >> $script
-> +    echo 'export OE_QMAKE_RCC=${SDKPATH}/bin/rcc4' >> $script
-> +    echo 'export OE_QMAKE_QDBUSCPP2XML=${SDKPATH}/bin/qdbuscpp2xml4' >> $script
-> +    echo 'export OE_QMAKE_QDBUSXML2CPP=${SDKPATH}/bin/qdbusxml2cpp4' >> $script
-> +    echo 'export OE_QMAKE_QT_CONFIG=${SDKPATH}/${TARGET_SYS}/${datadir}/${QT_DIR_NAME}/mkspecs/qconfig.pri' >> $script
-> +    echo 'export QMAKESPEC=${SDKPATH}/${TARGET_SYS}/${datadir}/${QT_DIR_NAME}/mkspecs/linux-g++' >> $script
-> +
-> +    # Repack SDK with new environment-setup
-> +    cd ${SDK_OUTPUT}
-> +    tar --owner=root --group=root -cj --file=${SDK_DEPLOY}/${TOOLCHAIN_OUTPUTNAME}.tar.bz2 .
-> +}
+Op 1 feb 2011, om 18:44 heeft Richard Purdie het volgende geschreven:
 
-This is horrible :)
+> On Sat, 2011-01-29 at 02:30 +0000, Paul Eggleton wrote:
+>> @@ -30,7 +38,7 @@ EXTRA_OECONF =3D "-prefix ${prefix} \
+>> EXTRA_OEMAKE =3D " "
+>>=20
+>> do_configure() {
+>> -	(echo o; echo yes) | ./configure ${EXTRA_OECONF} || die =
+"Configuring qt failed. EXTRA_OECONF was ${EXTRA_OECONF}"
+>> +   (echo o; echo yes) | ./configure ${EXTRA_OECONF} || die =
+"Configuring qt failed. EXTRA_OECONF was ${EXTRA_OECONF}"
+>> }
+>>=20
+>> TOBUILD =3D "\
+>> @@ -48,22 +56,22 @@ TOBUILD =3D "\
+>> "
+>>=20
+>> do_compile() {
+>> -	for i in ${TOBUILD}; do
+>> -		cd ${S}/$i && oe_runmake CC=3D"${CC}" CXX=3D"${CXX}"
+>> -	done
+>> +    for i in ${TOBUILD}; do
+>> +        cd ${S}/$i && oe_runmake CC=3D"${CC}" CXX=3D"${CXX}"
+>> +    done
+>> }
+>=20
+>=20
+> Please don't reindent files when making other changes, it makes it =
+hard
+> to see where the real changes were. I've pulled things but taken out =
+the
+> worst whitespace changes manually this time.
 
-I added this:
+There were huge whitespace differences between the code in OE and the =
+one in yocto, which made diffing really difficult. I ran into this when =
+doing qt in meta-oe. I'll resync that with the current yocto tree when I =
+get some time.
 
-http://git.pokylinux.org/cgit.cgi/poky/commit/?id=19e1f4f672806c8a45847ce5c2adac6da663ff69
+regards,
 
-Cheers,
-
-Richard
-
+Koen=
 
