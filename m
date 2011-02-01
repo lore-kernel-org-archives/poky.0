@@ -1,25 +1,28 @@
-Return-Path: <koen@dominion.thruhere.net>
-Received: from mail-ww0-f42.google.com (mail-ww0-f42.google.com [74.125.82.42])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 8669D4C8007E
-	for <poky@yoctoproject.org>; Tue,  1 Feb 2011 08:34:37 -0600 (CST)
-Received: by wwi17 with SMTP id 17so4777840wwi.5
-	for <poky@yoctoproject.org>; Tue, 01 Feb 2011 06:34:36 -0800 (PST)
-Received: by 10.216.51.130 with SMTP id b2mr7527742wec.42.1296570876336;
-	Tue, 01 Feb 2011 06:34:36 -0800 (PST)
-Received: from [172.20.0.255] (ip545070eb.adsl-surfen.hetnet.nl
-	[84.80.112.235])
-	by mx.google.com with ESMTPS id o33sm11473821wej.13.2011.02.01.06.34.35
-	(version=TLSv1/SSLv3 cipher=RC4-MD5);
-	Tue, 01 Feb 2011 06:34:35 -0800 (PST)
-Mime-Version: 1.0 (Apple Message framework v1082)
-From: Koen Kooi <koen@dominion.thruhere.net>
-In-Reply-To: <912371C7-ACCF-4DA9-A2E7-2F863C72189F@dominion.thruhere.net>
-Date: Tue, 1 Feb 2011 15:34:34 +0100
-Message-Id: <F9AEC290-DD02-4D3C-9649-DE28DCD6DF18@dominion.thruhere.net>
-References: <912371C7-ACCF-4DA9-A2E7-2F863C72189F@dominion.thruhere.net>
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by mx1.pokylinux.org (Postfix) with ESMTP id EFC6D4C8007E
+	for <poky@yoctoproject.org>; Tue,  1 Feb 2011 08:40:25 -0600 (CST)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p11EgTu8020492
+	for <poky@yoctoproject.org>; Tue, 1 Feb 2011 14:42:29 GMT
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id 43U2-iN0dwDv for <poky@yoctoproject.org>;
+	Tue,  1 Feb 2011 14:42:29 +0000 (GMT)
+Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p11EgNpW020484
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT)
+	for <poky@yoctoproject.org>; Tue, 1 Feb 2011 14:42:25 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
 To: poky <poky@yoctoproject.org>
-X-Mailer: Apple Mail (2.1082)
-Subject: Re: Fetcher2 problems break parsing
+Date: Tue, 01 Feb 2011 14:40:09 +0000
+Message-ID: <1296571209.13501.19436.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+Subject: More profiling of do_package data for the kernel
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,112 +34,89 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Feb 2011 14:34:38 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Tue, 01 Feb 2011 14:40:26 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
+For fun I had a look at the profile output for the kernel package task.
+This was the profile to start with (unpatched master):
 
-Op 1 feb 2011, om 14:07 heeft Koen Kooi het volgende geschreven:
+Tue Feb  1 12:24:52 2011    profile-linux-yocto_git.bb-do_package.log
 
-> Hi,
->=20
-> Since a few days I'm getting this on recipes using SRCPV:
->=20
-> Executing: MACHINE=3Dbeagleboard bitbake -b =
-/OE/tentacle/sources/openembedded/meta/recipes-graphics/xorg-lib/libxext_g=
-it.bb -c fetch
-> Pseudo is not present but is required, building this first before the =
-main build
-> Loading cache: 100% =
-|#########################################################################=
-#####################################################| ETA:  00:00:00
-> Loaded 448 entries from dependency cache.
-> NOTE: Angstrom DOES NOT support util-linux because only util-linux-ng =
-is supported                                                             =
-    | ETA:  --:--:--
-> NOTE: Angstrom DOES NOT support gconf-dbus because gconf-dbus has been =
-merged back into main GConf
-> NOTE: Angstrom DOES NOT support gconf-dbus-native because gconf-dbus =
-has been merged back into main GConf
-> ERROR: Error evaluating '${@bb.fetch.get_srcrev(d)}'
-> Traceback (most recent call last):
->  File "/OE/tentacle/sources/bitbake/lib/bb/data_smart.py", line 117, =
-in expandWithRefs
->    s =3D __expand_python_regexp__.sub(varparse.python_sub, s)
->  File "/OE/tentacle/sources/bitbake/lib/bb/data_smart.py", line 76, in =
-python_sub
->    value =3D utils.better_eval(codeobj, DataContext(self.d))
->  File "/OE/tentacle/sources/bitbake/lib/bb/utils.py", line 387, in =
-better_eval
->    return eval(source, _context, locals)
->  File "SRCPV", line 1, in <module>
->  File "/OE/tentacle/sources/bitbake/lib/bb/fetch2/__init__.py", line =
-398, in get_srcrev
->    return urldata[scms[0]].method.sortable_revision(scms[0], =
-urldata[scms[0]], d)
->  File "/OE/tentacle/sources/bitbake/lib/bb/fetch2/__init__.py", line =
-870, in sortable_revision
->    return str(count + "+" + latest_rev)
-> TypeError: unsupported operand type(s) for +: 'NoneType' and 'str'
->=20
-> ERROR: Error evaluating '1.0.99.1+gitr${SRCPV}'
-> Traceback (most recent call last):
->  File "/OE/tentacle/sources/bitbake/lib/bb/data_smart.py", line 116, =
-in expandWithRefs
->    s =3D __expand_var_regexp__.sub(varparse.var_sub, s)
->  File "/OE/tentacle/sources/bitbake/lib/bb/data_smart.py", line 60, in =
-var_sub
->    var =3D self.d.getVar(key, 1)
->  File "/OE/tentacle/sources/bitbake/lib/bb/data_smart.py", line 260, =
-in getVar
->    return self.expand(value, var)
->  File "/OE/tentacle/sources/bitbake/lib/bb/data_smart.py", line 132, =
-in expand
->    return self.expandWithRefs(s, varname).value
->  File "/OE/tentacle/sources/bitbake/lib/bb/data_smart.py", line 117, =
-in expandWithRefs
->    s =3D __expand_python_regexp__.sub(varparse.python_sub, s)
->  File "/OE/tentacle/sources/bitbake/lib/bb/data_smart.py", line 76, in =
-python_sub
->    value =3D utils.better_eval(codeobj, DataContext(self.d))
->  File "/OE/tentacle/sources/bitbake/lib/bb/utils.py", line 387, in =
-better_eval
->    return eval(source, _context, locals)
->  File "SRCPV", line 1, in <module>
->  File "/OE/tentacle/sources/bitbake/lib/bb/fetch2/__init__.py", line =
-398, in get_srcrev
->    return urldata[scms[0]].method.sortable_revision(scms[0], =
-urldata[scms[0]], d)
->  File "/OE/tentacle/sources/bitbake/lib/bb/fetch2/__init__.py", line =
-870, in sortable_revision
->    return str(count + "+" + latest_rev)
-> TypeError: unsupported operand type(s) for +: 'NoneType' and 'str'
->=20
-> This seems to happen when no SRCREV is set, is that the intended =
-behaviour?
+         2112128 function calls (1890268 primitive calls) in 168.598 CPU seconds
 
-RP gave me this patch to try:
+   Ordered by: internal time
 
-koen@dominion:/OE/tentacle/sources/openembedded$ git diff
-diff --git a/bitbake/lib/bb/fetch2/__init__.py =
-b/bitbake/lib/bb/fetch2/__init__.py
-index 9fe4eb2..d62ba81 100644
---- a/bitbake/lib/bb/fetch2/__init__.py
-+++ b/bitbake/lib/bb/fetch2/__init__.py
-@@ -864,7 +864,7 @@ class Fetch(object):
-         if uselocalcount:
-             count =3D Fetch.localcount_internal_helper(ud, d)
-         if count is None:
--            count =3D localcounts[key + '_count']
-+            count =3D localcounts[key + '_count'] or "0"
-=20
-         if last_rev =3D=3D latest_rev:
-             return str(count + "+" + latest_rev)
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+      462   60.430    0.131   60.497    0.131 package_do_filedeps:12(process_deps)
+    56915   49.288    0.001   49.288    0.001 {method 'read' of 'file' objects}
+      235   16.455    0.070   16.455    0.070 {posix.system}
+    55960    7.073    0.000    7.073    0.000 {posix.stat}
+    40782    4.787    0.000    4.787    0.000 {posix.lstat}
+    11128    4.394    0.000    4.394    0.000 {open}
+    16697    4.099    0.000    4.099    0.000 {posix.chmod}
+     4657    3.238    0.001    3.238    0.001 {posix.rename}
+     1237    2.061    0.002    2.473    0.002 insane.bbclass:1(package_qa_hash_style)
+     6408    1.759    0.000    1.759    0.000 {posix.mkdir}
+     1568    1.539    0.001    1.539    0.001 {method 'readline' of 'file' objects}
+     1030    1.471    0.001    1.471    0.001 {posix.popen}
+    15379    1.267    0.000    1.267    0.000 {posix.listdir}
 
+I then blacklisted kernel-modules-* to stop do_filedeps being called for these:
 
-and that seems to work.
+Tue Feb  1 12:27:49 2011    profile-linux-yocto_git.bb-do_package.log
 
-regards,
+         2048167 function calls (1826539 primitive calls) in 97.784 CPU seconds
 
-Koen=
+   Ordered by: internal time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+    56915   51.834    0.001   51.834    0.001 {method 'read' of 'file' objects}
+    55958    6.682    0.000    6.682    0.000 {posix.stat}
+      235    6.068    0.026    6.068    0.026 {posix.system}
+    40782    4.580    0.000    4.580    0.000 {posix.lstat}
+    16697    4.104    0.000    4.104    0.000 {posix.chmod}
+     4657    3.055    0.001    3.055    0.001 {posix.rename}
+    11128    3.035    0.000    3.035    0.000 {open}
+     6406    2.072    0.000    2.072    0.000 {posix.mkdir}
+    15379    2.067    0.000    2.067    0.000 {posix.listdir}
+     1237    2.063    0.002    2.482    0.002 insane.bbclass:1(package_qa_hash_style)
+     1568    1.477    0.001    1.477    0.001 {method 'readline' of 'file' objects}
+     2790    1.013    0.000    1.013    0.000 {method 'execute' of 'sqlite3.Cursor' objects}
+      568    0.887    0.002    0.887    0.002 {posix.popen}
+
+We saved a minute or so time wise.
+
+I the noticed we were spending all the time in the "read" method above
+which actually refers to a shell task we run, which turns out to be
+sstate_create_package(). I rewrote that function in python using
+tarfile:
+
+Tue Feb  1 14:33:08 2011    profile-linux-yocto_git.bb-do_package.log
+
+         3211615 function calls (2992709 primitive calls) in 198.325 CPU seconds
+
+   Ordered by: internal time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+    43571  148.128    0.003  148.128    0.003 {built-in method compress}
+      235    5.784    0.025    5.784    0.025 {posix.system}
+    54869    5.457    0.000    5.457    0.000 {posix.lstat}
+    55941    5.317    0.000    5.317    0.000 {posix.stat}
+    16697    3.967    0.000    3.967    0.000 {posix.chmod}
+    14085    3.044    0.000    3.044    0.000 {open}
+    93916    2.742    0.000    2.742    0.000 {method 'read' of 'file' objects}
+     4657    2.604    0.001    2.604    0.001 {posix.rename}
+    97385    1.909    0.000    1.909    0.000 {method 'write' of 'file' objects}
+     1237    1.509    0.001    1.841    0.001 insane.bbclass:1(package_qa_hash_style)
+    20823    1.397    0.000    1.397    0.000 {posix.listdir}
+     6406    1.225    0.000    1.225    0.000 {posix.mkdir}
+     1568    1.169    0.001    1.169    0.001 {method 'readline' of 'file' objects}
+
+so calling the shell's tar is definitely more efficient!
+
+Cheers,
+
+Richard
+
 
