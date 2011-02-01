@@ -1,30 +1,19 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 8B53C4C8006D
-	for <poky@yoctoproject.org>; Tue,  1 Feb 2011 16:20:07 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p11MM4Oe006898; Tue, 1 Feb 2011 22:22:04 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id PPkxU81p0vWu; Tue,  1 Feb 2011 22:22:04 +0000 (GMT)
-Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p11MLtbC006895
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Tue, 1 Feb 2011 22:21:58 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Gary Thomas <gary@mlbassoc.com>
-In-Reply-To: <4D48546B.4000503@mlbassoc.com>
-References: <9DA5872FEF993D41B7173F58FCF6BE9411BF18B5@orsmsx504.amr.corp.intel.com>
-	<4D48546B.4000503@mlbassoc.com>
-Date: Tue, 01 Feb 2011 22:19:45 +0000
-Message-ID: <1296598785.13501.21345.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: need help with bouncing emails ...
+Return-Path: <nitin.a.kamble@intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id B1F274C800A3
+	for <poky@yoctoproject.org>; Tue,  1 Feb 2011 16:43:34 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 01 Feb 2011 14:43:34 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,412,1291622400"; d="scan'208";a="382913433"
+Received: from nbuild2.sc.intel.com (HELO localhost) ([172.25.110.37])
+	by azsmga001.ch.intel.com with ESMTP; 01 Feb 2011 14:43:34 -0800
+Message-Id: <cover.1296600047.git.nitin.a.kamble@intel.com>
+Old-Date: Tue, 1 Feb 2011 14:40:47 -0800
+Date: Tue, 01 Feb 2011 14:43:33 -0800
+To: poky@yoctoproject.org
+From: Nitin A Kamble <nitin.a.kamble@intel.com>
+Subject: [PATCH 0/6] mklibs library size optimization commits
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,19 +25,45 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Feb 2011 22:20:08 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 01 Feb 2011 22:43:35 -0000
 
-On Tue, 2011-02-01 at 11:43 -0700, Gary Thomas wrote:
-> On 02/01/2011 11:21 AM, Kamble, Nitin A wrote:
-> > _poky@yoctolinux.org_ <mailto:poky@yoctolinux.org>
+From: Nitin A Kamble <nitin.a.kamble@intel.com>
 
-> Is poky@yoctolinux.org equivalent to poky@yoctoproject.org?
+Here are the commits implementing the mklibs library size optimization for 
+images. More information in the commit logs.
 
-Its not. I think Nitin has resolved this now, thanks!
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: nitin/mklibs
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=nitin/mklibs
 
-Richard
+Thanks,
+    Nitin A Kamble <nitin.a.kamble@intel.com>
+---
 
+
+Nitin A Kamble (6):
+  distro_tracking: update latest upstream versions
+  elfutils: add a missing depedancy
+  mklibs-native: new recipe for optimizing size of library files
+  image-mklibs.bbclass: add the library optimization functionality
+  subversion: upgrade from 1.6.13 to 1.6 15
+  distro_Tracking: update as per current devel/toolchain recipes
+
+ meta/classes/image-mklibs.bbclass                  |   70 ++++++++++++++++++++
+ .../conf/distro/include/distro_tracking_fields.inc |   41 ++++++-----
+ meta/conf/local.conf.sample                        |   10 +++-
+ meta/recipes-devtools/elfutils/elfutils_0.148.bb   |    3 +-
+ .../mklibs/files/ac_init_fix.patch                 |   17 +++++
+ .../mklibs/mklibs-native_0.1.31.bb                 |   23 +++++++
+ .../subversion/disable-revision-install.patch      |   24 +++++--
+ .../{subversion_1.6.13.bb => subversion_1.6.15.bb} |    6 +-
+ 8 files changed, 164 insertions(+), 30 deletions(-)
+ create mode 100644 meta/classes/image-mklibs.bbclass
+ create mode 100644 meta/recipes-devtools/mklibs/files/ac_init_fix.patch
+ create mode 100644 meta/recipes-devtools/mklibs/mklibs-native_0.1.31.bb
+ rename meta/recipes-devtools/subversion/{subversion_1.6.13.bb => subversion_1.6.15.bb} (86%)
+
+-- 
+1.7.3.4
 
 
