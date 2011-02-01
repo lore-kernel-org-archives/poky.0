@@ -1,30 +1,43 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 069074C8006D
-	for <poky@yoctoproject.org>; Tue,  1 Feb 2011 16:00:47 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p11M2jxW006112; Tue, 1 Feb 2011 22:02:45 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id JMapTSKEglSf; Tue,  1 Feb 2011 22:02:45 +0000 (GMT)
-Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p11M2d0a006095
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Tue, 1 Feb 2011 22:02:42 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Nitin A Kamble <nitin.a.kamble@intel.com>
-In-Reply-To: <406a52d39863e35b5013c23b886e885d44a83e32.1296560850.git.nitin.a.kamble@intel.com>
-References: <cover.1296560850.git.nitin.a.kamble@intel.com>
-	<406a52d39863e35b5013c23b886e885d44a83e32.1296560850.git.nitin.a.kamble@intel.com>
-Date: Tue, 01 Feb 2011 22:00:28 +0000
-Message-ID: <1296597628.13501.21256.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 2/4] elfutils: add a missing depedancy
+Return-Path: <wd@denx.de>
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 13B224C8006D
+	for <poky@yoctoproject.org>; Tue,  1 Feb 2011 16:08:15 -0600 (CST)
+Received: from frontend1.mail.m-online.net (unknown [192.168.8.180])
+	by mail-out.m-online.net (Postfix) with ESMTP id 6FAE71C01D9F;
+	Tue,  1 Feb 2011 23:08:12 +0100 (CET)
+X-Auth-Info: sxuarwrJ35PzTt8yicqkWdIIaZsscjmjRdqHsJlK1gQ=
+Received: from diddl.denx.de (host-80-81-18-216.customer.m-online.net
+	[80.81.18.216])
+	by smtp-auth.mnet-online.de (Postfix) with ESMTPA id D56131C000F2;
+	Tue,  1 Feb 2011 23:08:12 +0100 (CET)
+Received: from gemini.denx.de (unknown [10.0.0.2])
+	by diddl.denx.de (Postfix) with ESMTP id AFC4A323DEFF;
+	Tue,  1 Feb 2011 23:08:12 +0100 (CET)
+Received: from gemini.denx.de (localhost.localdomain [127.0.0.1])
+	by gemini.denx.de (Postfix) with ESMTP id 86A8CB187;
+	Tue,  1 Feb 2011 23:08:12 +0100 (CET)
+To: Mark Hatle <mark.hatle@windriver.com>
+From: Wolfgang Denk <wd@denx.de>
+MIME-Version: 1.0
+In-reply-to: <4D486662.6020403@windriver.com>
+References: <9AFCD584B0B67B48AE8D8585BE30BA9506BAAFDF@orsmsx504.amr.corp.intel.com>
+	<1296382406.13501.7899.camel@rex>
+	<625BA99ED14B2D499DC4E29D8138F1504E6294E1D3@shsmsx502.ccr.corp.intel.com>
+	<C10D3FB0CD45994C8A51FEC1227CE22F20F8C32A4B@shsmsx502.ccr.corp.intel.com>
+	<C10D3FB0CD45994C8A51FEC1227CE22F20F8C32C7C@shsmsx502.ccr.corp.intel.com>
+	<1296492009.13501.13668.camel@rex>
+	<9AFCD584B0B67B48AE8D8585BE30BA9506C267B0@orsmsx504.amr.corp.intel.com>
+	<1296561316.13501.18767.camel@rex>
+	<9AFCD584B0B67B48AE8D8585BE30BA950D73A848@orsmsx504.amr.corp.intel.com>
+	<1296567139.13501.19158.camel@rex>
+	<20110201192705.2546DB187@gemini.denx.de>
+	<4D486662.6020403@windriver.com>
+Comments: In-reply-to Mark Hatle <mark.hatle@windriver.com>
+	message dated "Tue, 01 Feb 2011 14:00:34 -0600."
+Date: Tue, 01 Feb 2011 23:08:12 +0100
+Message-Id: <20110201220812.86A8CB187@gemini.denx.de>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: poky-image-sato-sdk failed at do_rootfs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,41 +49,65 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Feb 2011 22:00:49 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 01 Feb 2011 22:08:16 -0000
+Content-type: text/plain; charset=ISO-8859-1
+Content-transfer-encoding: 8bit
 
-On Tue, 2011-02-01 at 03:57 -0800, Nitin A Kamble wrote:
-> From: Nitin A Kamble <nitin.a.kamble@intel.com>
+Dear Mark,
+
+In message <4D486662.6020403@windriver.com> you wrote:
+> The failure indicated in your logs comes from building pseudo-native.  This is
+> not related to the previous messages you sent.
 > 
-> while implementing the mklibs optimization, found out that an executable from
-> elfutils package, viz eu-findtextrel is dynamically linked to libbz2.so
-> library. But the poky-image-minimal did not have that library.
->   adding the depedency to the bzip2 to get that library for eu-fundtextrel
-> executable.
+> What is the host system type (Fedora, RHEL, etc), what is your byte size?
+> 32-bit or 64-bit kernel...  any anything else you can give us to reproduce your
+> configuration.
+
+This is a Fedora 14 x86_64 host.
+
+> The error below is fairly obvious.. it tried to build a 32-bit version of the
+> pseudo libraries, this build failed due to a lack of 32-bit libgcc.so installed
+> on your host.
 > 
-> Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
-> ---
->  meta/recipes-devtools/elfutils/elfutils_0.148.bb |    3 ++-
->  1 files changed, 2 insertions(+), 1 deletions(-)
-> 
-> diff --git a/meta/recipes-devtools/elfutils/elfutils_0.148.bb b/meta/recipes-devtools/elfutils/elfutils_0.148.bb
-> index 44b3c52..14060e6 100644
-> --- a/meta/recipes-devtools/elfutils/elfutils_0.148.bb
-> +++ b/meta/recipes-devtools/elfutils/elfutils_0.148.bb
-> @@ -5,8 +5,9 @@ LICENSE = "GPLv2 with exceptions"
->  LIC_FILES_CHKSUM = "file://COPYING;md5=0636e73ff0215e8d672dc4c32c317bb3\
->                      file://EXCEPTION;md5=570adcb0c1218ab57f2249c67d0ce417"
->  DEPENDS = "libtool zlib"
-> +RDEPENDS = "bzip2"
+> If I had to guess you have a 64-bit Fedora or RHEL host, and only partial 32-bit
+> support installed.  Check using rpm or yum if you have the 32-bit libgcc-devel
+> package installed.  (I'd also check for 32-bit glibc-devel).
 
-There should be a package name here, e.g. RDEPENDS_${PN}.
+	$ rpm -qa | grep glibc | sort
+	arm-gp2x-linux-glibc-2.3.6-8.fc14.noarch
+	glibc-2.12.90-21.i686
+	glibc-2.12.90-21.x86_64
+	glibc-common-2.12.90-21.x86_64
+	glibc-devel-2.12.90-21.i686
+	glibc-devel-2.12.90-21.x86_64
+	glibc-headers-2.12.90-21.x86_64
 
-Also, why is the shlibs code not picking up the dependency
-automatically? Is it dlopen'd?
+I am aware that the standard installation of poky-scripts and
+poky-depends is not sufficient on Fedora. Additionally, I installed
+xmlto-tex, glibc-devel.i686, zlib-devel.i686, and chrpath
 
-Cheers,
+This used to satisfy all requirements, at least so far.  It used to
+work before.
 
-Richard
 
+libgcc_s is normally provided by the gcc RPM:
+
+$ rpm -qf /usr/lib/gcc/x86_64-redhat-linux/4.5.1/libgcc_s.so
+gcc-4.5.1-4.fc14.x86_64
+
+But there is no gcc-4.5.1-4.fc14.i686 available for installation in a
+x86_64 environment.
+
+
+
+Best regards,
+
+Wolfgang Denk
+
+-- 
+DENX Software Engineering GmbH,     MD: Wolfgang Denk & Detlev Zundel
+HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
+Phone: (+49)-8142-66989-10 Fax: (+49)-8142-66989-80 Email: wd@denx.de
+The human race has one really effective weapon, and that is laughter.
+                                                         - Mark Twain
 
