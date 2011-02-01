@@ -1,32 +1,22 @@
-Return-Path: <mark.hatle@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 148414C800A9
-	for <poky@yoctoproject.org>; Tue,  1 Feb 2011 09:39:00 -0600 (CST)
-Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p11FcQdY027857;
-	Tue, 1 Feb 2011 07:38:26 -0800 (PST)
-Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
-	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Tue, 1 Feb 2011 07:38:26 -0800
-Received: from Macintosh-5.local ([172.25.36.227]) by
-	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Tue, 1 Feb 2011 07:38:25 -0800
-Message-ID: <4D4828F0.9020203@windriver.com>
-Date: Tue, 01 Feb 2011 09:38:24 -0600
-From: Mark Hatle <mark.hatle@windriver.com>
-Organization: Wind River Systems
-User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
-	rv:1.9.2.13) Gecko/20101207 Thunderbird/3.1.7
-MIME-Version: 1.0
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-References: <1296520080.13501.15996.camel@rex>	
-	<1296520850.13501.16052.camel@rex> <4D476541.7040703@windriver.com>
-	<1296558321.13501.18568.camel@rex>
-In-Reply-To: <1296558321.13501.18568.camel@rex>
-X-OriginalArrivalTime: 01 Feb 2011 15:38:25.0754 (UTC)
-	FILETIME=[10DB3BA0:01CBC226]
-Cc: poky <poky@yoctoproject.org>
-Subject: Re: Quick hack for profiling tasks
+Return-Path: <koen@dominion.thruhere.net>
+Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
+	[74.125.82.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id BF7A64C800A7
+	for <poky@yoctoproject.org>; Tue,  1 Feb 2011 10:03:06 -0600 (CST)
+Received: by wye20 with SMTP id 20so7142834wye.35
+	for <poky@yoctoproject.org>; Tue, 01 Feb 2011 08:03:06 -0800 (PST)
+Received: by 10.216.17.201 with SMTP id j51mr7602232wej.44.1296576184876;
+	Tue, 01 Feb 2011 08:03:04 -0800 (PST)
+Received: from localhost (ip545070eb.adsl-surfen.hetnet.nl [84.80.112.235])
+	by mx.google.com with ESMTPS id t11sm11524074wes.41.2011.02.01.08.03.04
+	(version=TLSv1/SSLv3 cipher=RC4-MD5);
+	Tue, 01 Feb 2011 08:03:04 -0800 (PST)
+From: Koen Kooi <koen@dominion.thruhere.net>
+To: poky@yoctoproject.org
+Date: Tue,  1 Feb 2011 17:00:24 +0100
+Message-Id: <1296576024-11355-1-git-send-email-koen@dominion.thruhere.net>
+X-Mailer: git-send-email 1.6.6.1
+Subject: [PATCH] opkg: Update to svn r596 to fix segfault when upgrading packages
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,169 +28,142 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Feb 2011 15:39:00 -0000
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 01 Feb 2011 16:03:07 -0000
 
-On 2/1/11 5:05 AM, Richard Purdie wrote:
-> On Mon, 2011-01-31 at 19:43 -0600, Mark Hatle wrote:
->> On 1/31/11 6:40 PM, Richard Purdie wrote:
->>> On Tue, 2011-02-01 at 00:28 +0000, Richard Purdie wrote:
+The longlinks patch is upstream and and be removed now
 
-...
+Signed-off-by: Koen Kooi <koen@dominion.thruhere.net>
+---
+ .../conf/distro/include/poky-default-revisions.inc |    2 +-
+ meta/recipes-devtools/opkg/opkg/longlinksfix.patch |   92 --------------------
+ meta/recipes-devtools/opkg/opkg_svn.bb             |    1 -
+ 3 files changed, 1 insertions(+), 94 deletions(-)
+ delete mode 100644 meta/recipes-devtools/opkg/opkg/longlinksfix.patch
 
->>> Mark: Is there a way we could batch up the information rather than go
->>> file by file? I'm going to look at this for other areas to improve too
->>> but thats obviously one worthy of attention.
->>
->> The way the routine works today is via a script call perfile_rpmdeps.sh.  The
->> package.bbclass calls this script twice for each package-split.
->>
->> I.e. if we have base, base-dbg and base-libs, it will run for a total of 6
->> times.  Each pair it is simply passed the path to the packages-split directory.
->>
->> Within the script itself, it is doing a find operation:
->>
->>         find "$@" | process $process_type
->>
->> The output of the file is passed to "process" which is just a wrapper that calls
->> the rpmdeps program with the correct parameters.  We could optimize this a bit
->> by ignoring directories and symlinks.  But we still want to process all of the
->> files in the system.
->>
->> Another optimization (that we do NOT have) that is done by default in RPM, is to
->> only process files that are +x.  We have chosen not to do this as most of our
->> libraries are not set +x.  An alternative is to use 'file' and check the type of
->> each file, however identifying the file type is likely to take longer then
->> simply running the per-file deps commands.  Another possible optimization is
->> only scan certain directories (or the opposite, skip certain directories...) the
->> only issue here is missing files that may be dlopened or loaded via RPATH
->> because they are in a non-standard location.
->>
->> So what I'd recommend is we start by adding "-type f" to the find.  That is
->> likely to help some.
->>
->> Maybe then add a check for either sitting in /lib or /usr/lib _or_ mode is +x?
->> We would likely need to audit the system somehow and tag ELF files that are
->> neither...
-> 
-> I did a little investigating and my brain dump on it follows...
-> 
-> I noticed that rpmdeps doesn't help us with any locale information in
-> the libc case so I tried this patch:
-
-I'm still used to the RPM world where locales are included in the main package
-and "tagged" so they will or won't be included automatically.  I forget they are
-separated out in Poky by default.
-
-So skipping them makes sense to me...
-
-> diff --git a/meta/classes/package.bbclass b/meta/classes/package.bbclass
-> index 856858c..476a84a 100644
-> --- a/meta/classes/package.bbclass
-> +++ b/meta/classes/package.bbclass
-> @@ -607,7 +607,7 @@ python package_do_filedeps() {
->  
->         # Determine dependencies
->         for pkg in packages.split():
-> -               if pkg.endswith('-dbg'):
-> +               if pkg.endswith('-dbg') or pkg.find('-locale-') != -1 or pkg.find('-localedata-') != -1 or pkg.find('-gconv-') != -1  or pkg.find('-charmap-') != -1:
->                         continue
->  
->                 # Process provides
-> 
-> The result was:
-> 
-> Tue Feb  1 10:06:46 2011    profile-eglibc_2.12.bb-do_package.log
-> 
->          8106962 function calls (7768817 primitive calls) in 594.886 CPU seconds
-> 
->    Ordered by: internal time
-> 
->    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
->       403  308.929    0.767  308.929    0.767 {posix.waitpid}
->    134054   72.907    0.001   72.907    0.001 {method 'read' of 'file' objects}
->       828   34.643    0.042   34.795    0.042 package_do_filedeps:12(process_deps)
->       866   29.347    0.034   29.347    0.034 {posix.system}
->    225558   23.459    0.000   23.459    0.000 {posix.stat}
->     85562   18.980    0.000   18.980    0.000 {posix.chmod}
->    171317   17.198    0.000   17.198    0.000 {posix.lstat}
->     55393   14.378    0.000   14.378    0.000 {open}
->     25824   13.719    0.001   13.719    0.001 {posix.rename}
->      2280    5.383    0.002    5.383    0.002 {method 'readlines' of 'file' objects}
->      6403    4.877    0.001    5.762    0.001 insane.bbclass:1(package_qa_hash_style)
->     19214    4.843    0.000    4.843    0.000 {posix.mkdir}
->      2947    3.867    0.001    3.867    0.001 {posix.popen}
-> 
-> So overall we dropped from 878 seconds to 595 seconds and
-> package_do_filedeps:12(process_deps) dropped from 322 to 34 seconds. 
-
-This makes sense.  The locale files don't have any dependencies in them, as far
-as I am aware...  and it is a ton of files to process within glibc...
-
-> FWIW, the waitpid above is from the binary locale generation, not from
-> filedeps and we know that is "slow" in the libc case although the cross
-> locale generation speeds it up a lot. The reason process_deps is showing
-> so badly on the profile is not because that python function is slow (as
-> it usually the case) but because its reading from a pipe which blocks on
-> the output of the rpmdeps process.
-
-Is there a faster mechanism we could use -- or is this actually efficient, but
-not showing it in the trace?
-
-> I did take a look at the perfile_rpmdeps.sh script and rpmdeps itself. I
-> suspect we might be faster if we called "rpmdeps --requires --provides
-> -v" on each file ourselves and handle the prefix the -v option adds to
-> differentiate between the requires and provides. There is a sed
-> operation in the script I didn't 100% understand that we'd need to
-> account for too. Watching cpu usage whilst manually running the script
-> was not encouraging :/.
-
-The sed actually accomplished two things.  The first is removes instances of the
-dependency "rpmlib(...)".  This dependency is added by RPM to track specific rpm
-versioning requirements.  Things such as symlink validation, compression
-methods, etc.  None of these are needed within the Poky environment.
-
-The second thing is does is translates the dependency equations into a Poky
-style equation.
-
-In rpm versioned dependencies are normally like:
-
-foo = 1.2-3
-
-However in Poky the format is different:
-
-foo (= 1.2-3)
-
-So the sed finds these, and simply moves them into parens.
-
-We may be able to move the sed out of the direct loop and make it a single call
-over the full run.  I think this will work, and it's likely more efficient as well.
-
-As for calling rpmdeps with the -v, we can switch that mode if it makes it
-quicker to process the results, it just becomes slightly more complicated to
-process.  With the method I'm using now, all of the dependencies return on a
-single line prefixed by the filename.  If we switch to "-v", then we would
-likely need to do "filename:\ndep1\ndep2\n" etc..  I'm sure we could process
-that in python, but the difficulty wasn't worth it at the time.
-
-> So these findings along with your thoughts should give us some avenues
-> to explore. Do you thing skipping locale packages is ok to do? Maybe
-> kernel modules too?
-
-locales should be fine.  Skipping kernel modules should be fine as well.  I
-don't believe there is any data that is learned from the .ko files.
-
---Mark
-
-> There are also other things to pick off in that profile list such as the
-> 200,000 stat calls (from sstate?), the insane check thats showing up and
-> what all the read calls are doing.
-> 
-> Cheers,
-> 
-> Richard
-> 
-> 
+diff --git a/meta/conf/distro/include/poky-default-revisions.inc b/meta/conf/distro/include/poky-default-revisions.inc
+index 0c3aa9a..ebf313e 100644
+--- a/meta/conf/distro/include/poky-default-revisions.inc
++++ b/meta/conf/distro/include/poky-default-revisions.inc
+@@ -132,7 +132,7 @@ SRCREV_pn-networkmanager ??= "2984"
+ SRCREV_pn-ofono ??= "14544d5996836f628613c2ce544380ee6fc8f514"
+ SRCREV_pn-oh-puzzles ??= "23"
+ SRCREV_pn-ohm ??= "edfe25d49d67884bf004de7ae0724c162bb5e65e"
+-OPKGSRCREV = "590"
++OPKGSRCREV = "596"
+ SRCREV_pn-opkg ??= "${OPKGSRCREV}"
+ SRCREV_pn-opkg-native ??= "${OPKGSRCREV}"
+ SRCREV_pn-opkg-nativesdk ??= "${OPKGSRCREV}"
+diff --git a/meta/recipes-devtools/opkg/opkg/longlinksfix.patch b/meta/recipes-devtools/opkg/opkg/longlinksfix.patch
+deleted file mode 100644
+index 6908392..0000000
+--- a/meta/recipes-devtools/opkg/opkg/longlinksfix.patch
++++ /dev/null
+@@ -1,92 +0,0 @@
+-If a tarball contains a long symlink (over 100 chars) in a longpath (over 100 
+-chars) then the resulting link or path can be truncated to 100 chars.
+-
+-This is due to a bug where if both 'L' and 'K' entries are found in the tarball,
+-only the first one takes affect due to get_header_tar recursively calling itself.
+-To fix this, process longname and linkname at the end of the function rather 
+-than the start after any subcalls have taken place.
+-
+-Richard Purdie
+-22/12/2010
+-
+-Index: trunk/libbb/unarchive.c
+-===================================================================
+---- trunk.orig/libbb/unarchive.c	2010-12-22 18:14:52.575074849 +0000
+-+++ trunk/libbb/unarchive.c	2010-12-22 18:16:01.845103832 +0000
+-@@ -506,23 +506,7 @@
+- 	/* convert to type'ed variables */
+- 	tar_entry = xcalloc(1, sizeof(file_header_t));
+- 
+--#ifdef CONFIG_FEATURE_TAR_GNU_EXTENSIONS
+--        if (longname) {
+--                tar_entry->name = longname;
+--                longname = NULL;
+--        } else
+--#endif
+--        {
+--                tar_entry->name = xstrndup(tar.formated.name, 100);
+- 
+--                if (tar.formated.prefix[0]) {
+--                        char *temp = tar_entry->name;
+--                        char *prefixTemp = xstrndup(tar.formated.prefix, 155);
+--                        tar_entry->name = concat_path_file(prefixTemp, temp);
+--                        free(temp);
+--                        free(prefixTemp);
+--                }
+--        }
+- 
+- 	// tar_entry->name = xstrdup(tar.formated.name);
+- 
+-@@ -535,16 +519,7 @@
+- 	tar_entry->gid   = strtol(tar.formated.gid, NULL, 8);
+- 	tar_entry->size  = strtol(tar.formated.size, NULL, 8);
+- 	tar_entry->mtime = strtol(tar.formated.mtime, NULL, 8);
+--#ifdef CONFIG_FEATURE_TAR_GNU_EXTENSIONS
+--	if (linkname) {
+--		tar_entry->link_name = linkname;
+--		linkname = NULL;
+--	} else
+--#endif
+--	{
+--		tar_entry->link_name = *tar.formated.linkname != '\0' ?
+--			xstrndup(tar.formated.linkname, 100) : NULL;
+--	}
+-+
+- 	tar_entry->device = (strtol(tar.formated.devmajor, NULL, 8) << 8) +
+- 		strtol(tar.formated.devminor, NULL, 8);
+- 
+-@@ -611,6 +586,34 @@
+- 
+- 	}
+- 
+-+
+-+#ifdef CONFIG_FEATURE_TAR_GNU_EXTENSIONS
+-+        if (longname) {
+-+                tar_entry->name = longname;
+-+                longname = NULL;
+-+        } else
+-+#endif
+-+        {
+-+                tar_entry->name = xstrndup(tar.formated.name, 100);
+-+
+-+                if (tar.formated.prefix[0]) {
+-+                        char *temp = tar_entry->name;
+-+                        char *prefixTemp = xstrndup(tar.formated.prefix, 155);
+-+                        tar_entry->name = concat_path_file(prefixTemp, temp);
+-+                        free(temp);
+-+                        free(prefixTemp);
+-+                }
+-+        }
+-+
+-+	if (linkname) {
+-+		tar_entry->link_name = linkname;
+-+		linkname = NULL;
+-+	} else
+-+	{
+-+		tar_entry->link_name = *tar.formated.linkname != '\0' ?
+-+			xstrndup(tar.formated.linkname, 100) : NULL;
+-+	}
+-+
+- 	return(tar_entry);
+- }
+- 
+diff --git a/meta/recipes-devtools/opkg/opkg_svn.bb b/meta/recipes-devtools/opkg/opkg_svn.bb
+index 141e00d..76ec838 100644
+--- a/meta/recipes-devtools/opkg/opkg_svn.bb
++++ b/meta/recipes-devtools/opkg/opkg_svn.bb
+@@ -11,7 +11,6 @@ PACKAGE_ARCH_update-alternatives-cworth = "all"
+ SRC_URI = "svn://opkg.googlecode.com/svn;module=trunk;proto=http \
+            file://add_vercmp.patch \
+            file://headerfix.patch \
+-           file://longlinksfix.patch \
+ "
+ 
+ S = "${WORKDIR}/trunk"
+-- 
+1.6.6.1
 
 
