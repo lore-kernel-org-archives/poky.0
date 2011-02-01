@@ -1,40 +1,42 @@
-Return-Path: <bruce.ashfield@gmail.com>
-Received: from mail-iy0-f176.google.com (mail-iy0-f176.google.com
-	[209.85.210.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 70F2E4C8006D;
-	Tue,  1 Feb 2011 13:09:47 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by iyb26 with SMTP id 26so7011909iyb.35
-	for <multiple recipients>; Tue, 01 Feb 2011 11:09:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:in-reply-to:references:date
-	:message-id:subject:from:to:cc:content-type;
-	bh=aDzbgdaEdsGgR42rEK46vfexxTIi3hWMbG0q/hsCR/o=;
-	b=QNr5VbMRJKRmRZWLIyU+MVSL61fyt6XakW4hH86P4B/1Mri6Fr2Htd9c53RSv33gfM
-	ro0RBcEnteQx0w23XGS4ODbW4rE8CoKMW6zQDyuWZ0VG3o7w/q5y8JDZcLONSYI8Q059
-	MPYgaqUHKyXGzo2d/nbGCbKiPLiMQ4I9b1oAA=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type;
-	b=i9OX4UvX4APcfzPigKHwD5FKAxMo76yl4et6WT5hJcHi7LU3kBgxmCG45vIletREbZ
-	re1KC4WrAZ8Llv8sfk2tlIVQTzVlKeTT1ZwMqeiBfa23ilrQAj6TaJ+QlGvv7wr2on37
-	6oMJVoPvTenmi+PTTtR9AXGoQsuhXUzenQLtI=
+Return-Path: <wd@denx.de>
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5A75D4C8006D
+	for <poky@yoctoproject.org>; Tue,  1 Feb 2011 13:27:07 -0600 (CST)
+Received: from frontend1.mail.m-online.net (frontend1.mail.intern.m-online.net
+	[192.168.8.180])
+	by mail-out.m-online.net (Postfix) with ESMTP id 981D2186DEDC;
+	Tue,  1 Feb 2011 20:27:05 +0100 (CET)
+X-Auth-Info: 5rmB8R6DSWVOXVdIIjEGdHVZimLh2tOaFZuxDrQar58=
+Received: from diddl.denx.de (host-80-81-18-216.customer.m-online.net
+	[80.81.18.216])
+	by smtp-auth.mnet-online.de (Postfix) with ESMTPA id 655E81C000E6;
+	Tue,  1 Feb 2011 20:27:05 +0100 (CET)
+Received: from gemini.denx.de (gemini.denx.de [10.0.0.2])
+	by diddl.denx.de (Postfix) with ESMTP id 46023323DEFF;
+	Tue,  1 Feb 2011 20:27:05 +0100 (CET)
+Received: from gemini.denx.de (localhost.localdomain [127.0.0.1])
+	by gemini.denx.de (Postfix) with ESMTP id 2546DB187;
+	Tue,  1 Feb 2011 20:27:05 +0100 (CET)
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+From: Wolfgang Denk <wd@denx.de>
 MIME-Version: 1.0
-Received: by 10.231.36.133 with SMTP id t5mr8711897ibd.12.1296587386914; Tue,
-	01 Feb 2011 11:09:46 -0800 (PST)
-Received: by 10.231.156.136 with HTTP; Tue, 1 Feb 2011 11:09:46 -0800 (PST)
-In-Reply-To: <4D485554.1030209@linux.intel.com>
-References: <cover.1296580694.git.bruce.ashfield@windriver.com>
-	<368409054248933ffd777fbd600a29670feeaa16.1296580694.git.bruce.ashfield@windriver.com>
-	<4D485554.1030209@linux.intel.com>
-Date: Tue, 1 Feb 2011 14:09:46 -0500
-Message-ID: <AANLkTink7v3PP=N6fXfvMFGzwOJXY-KX10UtfrCkd0Ei@mail.gmail.com>
-From: Bruce Ashfield <bruce.ashfield@gmail.com>
-To: Darren Hart <dvhart@linux.intel.com>
-Cc: yocto@yoctoproject.org, poky@yoctoproject.org, saul.wold@intel.com
-Subject: Re: [PATCH 2/2] linux-yocto: export kernel configuration audit to the console
+In-reply-to: <1296567139.13501.19158.camel@rex>
+References: <9AFCD584B0B67B48AE8D8585BE30BA9506BAAFDF@orsmsx504.amr.corp.intel.com>
+	<1296382406.13501.7899.camel@rex>
+	<625BA99ED14B2D499DC4E29D8138F1504E6294E1D3@shsmsx502.ccr.corp.intel.com>
+	<C10D3FB0CD45994C8A51FEC1227CE22F20F8C32A4B@shsmsx502.ccr.corp.intel.com>
+	<C10D3FB0CD45994C8A51FEC1227CE22F20F8C32C7C@shsmsx502.ccr.corp.intel.com>
+	<1296492009.13501.13668.camel@rex>
+	<9AFCD584B0B67B48AE8D8585BE30BA9506C267B0@orsmsx504.amr.corp.intel.com>
+	<1296561316.13501.18767.camel@rex>
+	<9AFCD584B0B67B48AE8D8585BE30BA950D73A848@orsmsx504.amr.corp.intel.com>
+	<1296567139.13501.19158.camel@rex>
+Comments: In-reply-to Richard Purdie <richard.purdie@linuxfoundation.org>
+	message dated "Tue, 01 Feb 2011 13:32:19 +0000."
+Date: Tue, 01 Feb 2011 20:27:05 +0100
+Message-Id: <20110201192705.2546DB187@gemini.denx.de>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: poky-image-sato-sdk failed at do_rootfs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,56 +48,48 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Feb 2011 19:09:47 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Tue, 01 Feb 2011 19:27:08 -0000
+Content-type: text/plain; charset=ISO-8859-1
+Content-transfer-encoding: 8bit
 
-On Tue, Feb 1, 2011 at 1:47 PM, Darren Hart <dvhart@linux.intel.com> wrote:
-> On 02/01/2011 09:25 AM, Bruce Ashfield wrote:
->>
->> Fixes [BUGID #692]
->>
->> Previously the information dumped by the kernel configuration audit
->> scripts was only placed in log files. This isn't as useful as it
->> could be, since they are rarely checked. This change takes the
->> output from kconf_check and explicitly displays it to the user.
->>
->> Signed-off-by: Bruce Ashfield<bruce.ashfield@windriver.com>
+Dear Richard Purdie,
+
+In message <1296567139.13501.19158.camel@rex> you wrote:
 >
->> diff --git a/meta/conf/distro/include/poky-default-revisions.inc
->> b/meta/conf/distro/include/poky-default-revisions.inc
->> index 0c3aa9a..ac0de6a 100644
->> --- a/meta/conf/distro/include/poky-default-revisions.inc
->> +++ b/meta/conf/distro/include/poky-default-revisions.inc
->
->> -SRCREV_meta_pn-linux-yocto ?= "8a49ef6f1a43dabbce34a9ee9a1be08b26fc511c"
->> +SRCREV_meta_pn-linux-yocto ?= "e8b8c1ae44932835f4f79e77180d3ce5e4b1ec99"
->
-> Was this an intentional change? It wasn't clear to me above which bits
-> necessitated a linux-yocto-2.6.37/meta SRCREV change.
+> Can you please try a build from scratch. I think most of your .ipk files
+> look corrupt as there are many eglibc dependencies in there which there
+> simply shouldn't be. If they were built whilst eglibc was rebuilding
+> that would explain the problem but it means your build directory is
+> unstable now :(. If there is a root cause, the above patch isn't it.
 
-Good catch, and typically that would have been a mistake. That's
-me updating the captured scripts to have the updated kconf_check
-(among others), so it was intentional, but I did for get to mention it
-in the submission email.
+I just ran a build of poky-image-sato-sdk for qemuarm from scratch,
+mainline code, git commit id 4c8f498
 
-Cheers,
+Result:
 
-Bruce
-
->
-> --
-> Darren Hart
-> Intel Open Source Technology Center
-> Yocto Project - Linux Kernel
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
+...
+| ccache gcc -m32 -pipe -std=gnu99 -Wall -W -Wextra -fPIC -D_LARGEFILE64_SOURCE -D_ATFILE_SOURCE -m32 -DPSEUDO_PREFIX='"/opt/poky/build/mainline-4c8f498/tmp/sysroots/x86_64-linux/usr"' -DPSEUDO_SUFFIX='""' -DPSEUDO_BINDIR='"bin"' -DPSEUDO_LIBDIR='"lib/pseudo/lib"' -DPSEUDO_LOCALSTATEDIR='"var/pseudo"' -DPSEUDO_VERSION='"0.3"' -O2 -g -L/opt/poky/build/mainline-4c8f498/tmp/sysroots/x86_64-linux/usr/lib -I/opt/poky/build/mainline-4c8f498/tmp/sysroots/x86_64-linux/usr/include -Wl,-R/opt/poky/build/mainline-4c8f498/tmp/sysroots/x86_64-linux/usr/lib -shared -o lib/pseudo/lib/libpseudo.so \
+|       pseudo_client.o pseudo_ipc.o \
+|       pseudo_wrappers.o pseudo_tables.o pseudo_util.o -ldl
+| /usr/bin/ld: skipping incompatible /usr/lib/gcc/x86_64-redhat-linux/4.5.1/libgcc_s.so when searching for -lgcc_s
+| /usr/bin/ld: cannot find -lgcc_s
+| collect2: ld returned 1 exit status
+| make: *** [lib/pseudo/lib/libpseudo.so] Error 1
+| FATAL: oe_runmake failed
+| Function 'do_compile' failed (see /opt/poky/build/mainline-4c8f498/tmp/work/x86_64-linux/pseudo-native-0.0+git0+bcb42d80c0817da5479ab9c4f2cd8c4727e98ef8-r17/temp/log.do_compile.17807 for further information)
+NOTE: package pseudo-native-0.0+git0+bcb42d80c0817da5479ab9c4f2cd8c4727e98ef8-r17: task do_compile: Failed
+ERROR: 'virtual:native:/opt/poky/git/poky/work/meta/recipes-devtools/pseudo/pseudo_git.bb' failed
+ERROR: Task 7 (virtual:native:/opt/poky/git/poky/work/meta/recipes-devtools/pseudo/pseudo_git.bb, do_compile) failed with exit code '1'
 
 
+
+Best regards,
+
+Wolfgang Denk
 
 -- 
-"Thou shalt not follow the NULL pointer, for chaos and madness await
-thee at its end"
+DENX Software Engineering GmbH,     MD: Wolfgang Denk & Detlev Zundel
+HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
+Phone: (+49)-8142-66989-10 Fax: (+49)-8142-66989-80 Email: wd@denx.de
+Copy from one, it's plagiarism; copy from two, it's research.
 
