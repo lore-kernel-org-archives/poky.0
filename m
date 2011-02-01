@@ -1,22 +1,22 @@
 Return-Path: <nitin.a.kamble@intel.com>
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id CE9BE4C800AA
-	for <poky@yoctoproject.org>; Tue,  1 Feb 2011 12:27:15 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 1BD5C4C800AA
+	for <poky@yoctoproject.org>; Tue,  1 Feb 2011 12:27:16 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
 	by fmsmga101.fm.intel.com with ESMTP; 01 Feb 2011 10:27:15 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,411,1291622400"; d="scan'208";a="653376869"
+X-IronPort-AV: E=Sophos;i="4.60,411,1291622400"; d="scan'208";a="883288831"
 Received: from nbuild1.sc.intel.com (HELO localhost) ([172.25.110.36])
-	by fmsmga002.fm.intel.com with ESMTP; 01 Feb 2011 10:27:15 -0800
-Message-Id: <3195acbbcaacdb719f134ef814c8fbe8d669a819.1296560850.git.nitin.a.kamble@intel.com>
+	by fmsmga001.fm.intel.com with ESMTP; 01 Feb 2011 10:27:15 -0800
+Message-Id: <39ba68a1f9c47df8a0dbe072dbee74bc55edc094.1296560850.git.nitin.a.kamble@intel.com>
 In-Reply-To: <cover.1296560850.git.nitin.a.kamble@intel.com>
 References: <cover.1296560850.git.nitin.a.kamble@intel.com>
-Old-Date: Mon, 24 Jan 2011 20:35:24 -0800
+Old-Date: Tue, 25 Jan 2011 08:43:10 -0800
 Date: Tue, 01 Feb 2011  3:57:22 -0800
 To: poky@yoctoproject.org
 CC: 
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Subject: [PATCH 3/4] mklibs-native: new recipe for optimizing size of library files
+Subject: [PATCH 4/4] image-mklibs.bbclass: add the library optimization functionality
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,66 +32,93 @@ X-List-Received-Date: Tue, 01 Feb 2011 18:27:16 -0000
 
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
 
+Thanks to mark hatle for his help in implementation of this.
+
 Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
 ---
- .../mklibs/files/ac_init_fix.patch                 |   17 ++++++++++++++
- .../mklibs/mklibs-native_0.1.31.bb                 |   23 ++++++++++++++++++++
- 2 files changed, 40 insertions(+), 0 deletions(-)
- create mode 100644 meta/recipes-devtools/mklibs/files/ac_init_fix.patch
- create mode 100644 meta/recipes-devtools/mklibs/mklibs-native_0.1.31.bb
+ meta/classes/image-mklibs.bbclass |   57 +++++++++++++++++++++++++++++++++++++
+ meta/conf/local.conf.sample       |    2 +
+ 2 files changed, 59 insertions(+), 0 deletions(-)
+ create mode 100644 meta/classes/image-mklibs.bbclass
 
-diff --git a/meta/recipes-devtools/mklibs/files/ac_init_fix.patch b/meta/recipes-devtools/mklibs/files/ac_init_fix.patch
+diff --git a/meta/classes/image-mklibs.bbclass b/meta/classes/image-mklibs.bbclass
 new file mode 100644
-index 0000000..7325931
+index 0000000..9fd2bc0
 --- /dev/null
-+++ b/meta/recipes-devtools/mklibs/files/ac_init_fix.patch
-@@ -0,0 +1,17 @@
-+Get the version of mklibs by simpler means. The MKLIBS_VERSION string in the 
-+configure.ac file is replaced with real version string by the 
-+do_configure_prepend() function from the recipe .bb file.
++++ b/meta/classes/image-mklibs.bbclass
+@@ -0,0 +1,57 @@
++do_rootfs[depends] += "mklibs-native:do_populate_sysroot"
 +
-+Nitin A Kamble <nitin.a.kamble@intel.com>
-+Date: 2011/01/24
++IMAGE_PREPROCESS_COMMAND += "mklibs_optimize_image; "
 +
-+Index: mklibs/configure.ac
-+===================================================================
-+--- mklibs.orig/configure.ac	2010-02-21 17:34:56.000000000 -0800
-++++ mklibs/configure.ac	2011-01-24 18:52:19.943242079 -0800
-+@@ -1,4 +1,4 @@
-+-AC_INIT([mklibs],m4_esyscmd(dpkg-parsechangelog | perl -ne 'print $1 if m/^Version: (.*)$/;'))
-++AC_INIT([mklibs], MKLIBS_VERSION)
-+ AM_INIT_AUTOMAKE([foreign no-define])
-+ AC_CONFIG_HEADERS([config.h])
-+ AM_MAINTAINER_MODE
-diff --git a/meta/recipes-devtools/mklibs/mklibs-native_0.1.31.bb b/meta/recipes-devtools/mklibs/mklibs-native_0.1.31.bb
-new file mode 100644
-index 0000000..2044d12
---- /dev/null
-+++ b/meta/recipes-devtools/mklibs/mklibs-native_0.1.31.bb
-@@ -0,0 +1,23 @@
-+DESCRIPTION = "mklibs produces cut-down shared libraries that contain only the routines required by a particular set of executables."
-+HOMEPAGE = "https://code.launchpad.net/mklibs"
-+SECTION = "devel"
-+LICENSE = "GPLv2+"
-+LIC_FILES_CHKSUM = "file://debian/copyright;md5=98d31037b13d896e33890738ef01af64"
-+DEPENDS = "python-native"
++mklibs_optimize_image () {
++	rm -rf ${WORKDIR}/mklibs
++	mkdir -p ${WORKDIR}/mklibs/dest
++	cd ${IMAGE_ROOTFS}
++	du -bs > ${WORKDIR}/mklibs/du.before.mklibs.txt
++	for i in `find .`; do file $i; done \
++		| grep ELF \
++		| grep "LSB executable" \
++		| grep "dynamically linked" \
++		| sed "s/:.*//" \
++		| sed "s+^\./++" \
++		> ${WORKDIR}/mklibs/executables.list
 +
-+PR = "r0"
++	case ${TARGET_ARCH} in
++		powerpc | mips )
++			dynamic_loader="/lib/ld.so.1"
++			;;
++		x86_64)
++			dynamic_loader="/lib/ld-linux-x86-64.so.2"
++			;;
++		i586 )
++			dynamic_loader="/lib/ld-linux.so.2"
++			;;
++		arm )
++			dynamic_loader="/lib/ld-linux.so.3"
++			;;
++		* )
++			dynamic_loader="/unknown_dynamic_linker"
++			;;
++	esac
 +
-+SRC_URI = "http://ftp.de.debian.org/debian/pool/main/m/mklibs/${BPN}_${PV}.tar.gz \
-+	file://ac_init_fix.patch\
-+"
++	mklibs -v \
++		--ldlib ${dynamic_loader} \
++		--sysroot ${PKG_CONFIG_SYSROOT_DIR} \
++		--root ${IMAGE_ROOTFS} \
++		--target `echo ${TARGET_PREFIX} | sed 's/-$//' ` \
++		-d ${WORKDIR}/mklibs/dest \
++		`cat ${WORKDIR}/mklibs/executables.list`
 +
-+SRC_URI[md5sum] = "f4df0307ccbdf60070e42277513f27ed"
-+SRC_URI[sha256sum] = "8f5595621eb09d52871c771861e81b032d10c31d15e5dd61fa7f5a9e5b7de405"
++	cd ${WORKDIR}/mklibs/dest
++	for i in *
++	do
++		cp $i `find ${IMAGE_ROOTFS} -name $i`
++	done
 +
-+S = "${WORKDIR}/${BPN}"
++	cd ${IMAGE_ROOTFS}
++	du -bs > ${WORKDIR}/mklibs/du.after.mklibs.txt
 +
-+inherit autotools gettext native
-+
-+do_configure_prepend() {
-+	sed "s+MKLIBS_VERSION+${PV}+" ${S}/configure.ac
++	echo rootfs size before mklibs optimization: `cat ${WORKDIR}/mklibs/du.before.mklibs.txt`
++	echo rootfs size after mklibs optimization: `cat ${WORKDIR}/mklibs/du.after.mklibs.txt`
 +}
++
++EXPORT_FUNCTIONS mklibs_optimize_image
+diff --git a/meta/conf/local.conf.sample b/meta/conf/local.conf.sample
+index f9953d1..a3667e9 100644
+--- a/meta/conf/local.conf.sample
++++ b/meta/conf/local.conf.sample
+@@ -74,8 +74,10 @@ EXTRA_IMAGE_FEATURES_mx31ads = "tools-testapps debug-tweaks"
+ PACKAGE_CLASSES ?= "package_rpm package_ipk"
+ 
+ # A list of additional classes to use when building the system
++# include 'image-mklibs' to reduce shared library files size for an image
+ # include 'image-prelink' in order to prelink the filesystem image
+ # include 'image-swab' to perform host system intrusion detection
++# NOTE: if listing mklibs & prelink both, then make sure mklibs is before prelink
+ USER_CLASSES ?= "image-prelink"
+ 
+ # POKYMODE controls the characteristics of the generated packages/images by
 -- 
 1.7.2.2
 
