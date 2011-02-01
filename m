@@ -1,27 +1,19 @@
-Return-Path: <Jingdong.Lu@windriver.com>
-Received: from mail.windriver.com (unknown [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5050A4C80093
-	for <poky@yoctoproject.org>; Mon, 31 Jan 2011 20:43:32 -0600 (CST)
-Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p112hCPT005674
-	for <poky@yoctoproject.org>; Mon, 31 Jan 2011 18:43:12 -0800 (PST)
-Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
-	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Mon, 31 Jan 2011 18:43:11 -0800
-Received: from localhost ([128.224.162.176]) by ala-mail06.corp.ad.wrs.com
-	with Microsoft SMTPSVC(6.0.3790.1830); 
-	Mon, 31 Jan 2011 18:43:11 -0800
-Message-Id: <161f8feab98ffdca1f0dd23ba71ee7b34caedf83.1296527961.git.jingdong.lu@windriver.com>
-In-Reply-To: <cover.1296527961.git.jingdong.lu@windriver.com>
-References: <cover.1296527961.git.jingdong.lu@windriver.com>
-Old-Date: Sun, 30 Jan 2011 15:27:44 +0800
-Date: Tue, 01 Feb 2011 10:41:30 +0800
+Return-Path: <tom.zanussi@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 731EA4C80082
+	for <poky@yoctoproject.org>; Mon, 31 Jan 2011 21:34:26 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 31 Jan 2011 19:34:26 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,407,1291622400"; d="scan'208";a="883009158"
+Received: from unknown (HELO localhost) ([10.255.14.127])
+	by fmsmga001.fm.intel.com with ESMTP; 31 Jan 2011 19:34:25 -0800
+Message-Id: <cover.1296531081.git.tom.zanussi@intel.com>
+Old-Date: Mon, 31 Jan 2011 21:31:21 -0600
+Date: Mon, 31 Jan 2011 21:34:24 -0600
 To: poky@yoctoproject.org
-CC: 
-From: Jingdong Lu <jingdong.lu@windriver.com>
-X-OriginalArrivalTime: 01 Feb 2011 02:43:11.0597 (UTC)
-	FILETIME=[C44221D0:01CBC1B9]
-Subject: [PATCH 3/4] libxml2: Enable "--with-legacy" for LSB test.
+From: Tom Zanussi <tom.zanussi@intel.com>
+Subject: [PATCH 0/1] x86_64 compile error fix
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,44 +25,25 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Feb 2011 02:43:32 -0000
+X-List-Received-Date: Tue, 01 Feb 2011 03:34:26 -0000
 
-From: Jingdong Lu <jingdong.lu@windriver.com>
+From: Tom Zanussi <tom.zanussi@intel.com>
 
-Enable "--with-legacy" in order to pass library check of LSB.
+This patch fixes a rpm 5.4.0 error in configure.  Please pull.
 
-Signed-off-by: Jingdong Lu <jingdong.lu@windriver.com>
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: tzanussi/sitefix
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=tzanussi/sitefix
+
+Thanks,
+    Tom Zanussi <tom.zanussi@intel.com>
 ---
- meta/recipes-core/libxml/libxml2.inc      |    2 +-
- meta/recipes-core/libxml/libxml2_2.7.7.bb |    2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/meta/recipes-core/libxml/libxml2.inc b/meta/recipes-core/libxml/libxml2.inc
-index 78ee781..ba6db8f 100644
---- a/meta/recipes-core/libxml/libxml2.inc
-+++ b/meta/recipes-core/libxml/libxml2.inc
-@@ -21,7 +21,7 @@ inherit autotools pkgconfig binconfig
- 
- EXTRA_OECONF = "--without-python --without-debug --without-legacy --without-catalog --without-docbook --with-c14n"
- EXTRA_OECONF_virtclass-native = "--with-python=${STAGING_BINDIR}/python --without-legacy --with-catalog --without-docbook --with-c14n"
--EXTRA_OECONF_poky-lsb = "--without-python --with-debug --without-legacy --with-catalog --with-docbook --with-c14n"
-+EXTRA_OECONF_poky-lsb = "--without-python --with-debug --with-legacy --with-catalog --with-docbook --with-c14n"
- 
- # required for pythong binding
- export HOST_SYS
-diff --git a/meta/recipes-core/libxml/libxml2_2.7.7.bb b/meta/recipes-core/libxml/libxml2_2.7.7.bb
-index daec3be..91f4ceb 100644
---- a/meta/recipes-core/libxml/libxml2_2.7.7.bb
-+++ b/meta/recipes-core/libxml/libxml2_2.7.7.bb
-@@ -1,6 +1,6 @@
- require libxml2.inc
- 
--PR = "r3"
-+PR = "r4"
- 
- SRC_URI[md5sum] = "9abc9959823ca9ff904f1fbcf21df066"
- SRC_URI[sha256sum] = "af5b781418ba4fff556fa43c50086658ea8a2f31909c2b625c2ce913a1d9eb68"
--- 
-1.7.0.4
+
+Tom Zanussi (1):
+  site/x86_x64: add entry to fix x86_64 compile errors
+
+ meta/site/x86_64-linux |    4 ++++
+ 1 files changed, 4 insertions(+), 0 deletions(-)
 
 
