@@ -1,24 +1,30 @@
-Return-Path: <mark.hatle@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 228B74C800A6
-	for <poky@yoctoproject.org>; Tue,  1 Feb 2011 14:37:27 -0600 (CST)
-Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p11KbN2K025526
-	for <poky@yoctoproject.org>; Tue, 1 Feb 2011 12:37:23 -0800 (PST)
-Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
-	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Tue, 1 Feb 2011 12:37:23 -0800
-Received: from msp-mhatle-lx2.wrs.com ([172.25.34.61]) by
-	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Tue, 1 Feb 2011 12:37:22 -0800
-From: Mark Hatle <mark.hatle@windriver.com>
-To: poky@yoctoproject.org
-Date: Tue,  1 Feb 2011 14:33:49 -0600
-Message-Id: <cover.1296592165.git.mark.hatle@windriver.com>
-X-Mailer: git-send-email 1.7.3.4
-X-OriginalArrivalTime: 01 Feb 2011 20:37:23.0109 (UTC)
-	FILETIME=[D45A6550:01CBC24F]
-Subject: [PATCH 0/1] Fix run-time relocation of rpm-native
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 069074C8006D
+	for <poky@yoctoproject.org>; Tue,  1 Feb 2011 16:00:47 -0600 (CST)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p11M2jxW006112; Tue, 1 Feb 2011 22:02:45 GMT
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id JMapTSKEglSf; Tue,  1 Feb 2011 22:02:45 +0000 (GMT)
+Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p11M2d0a006095
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Tue, 1 Feb 2011 22:02:42 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Nitin A Kamble <nitin.a.kamble@intel.com>
+In-Reply-To: <406a52d39863e35b5013c23b886e885d44a83e32.1296560850.git.nitin.a.kamble@intel.com>
+References: <cover.1296560850.git.nitin.a.kamble@intel.com>
+	<406a52d39863e35b5013c23b886e885d44a83e32.1296560850.git.nitin.a.kamble@intel.com>
+Date: Tue, 01 Feb 2011 22:00:28 +0000
+Message-ID: <1296597628.13501.21256.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 2/4] elfutils: add a missing depedancy
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,26 +36,41 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Feb 2011 20:37:27 -0000
+X-List-Received-Date: Tue, 01 Feb 2011 22:00:49 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Fix runtime relocation of rpm-native, bug 668.
+On Tue, 2011-02-01 at 03:57 -0800, Nitin A Kamble wrote:
+> From: Nitin A Kamble <nitin.a.kamble@intel.com>
+> 
+> while implementing the mklibs optimization, found out that an executable from
+> elfutils package, viz eu-findtextrel is dynamically linked to libbz2.so
+> library. But the poky-image-minimal did not have that library.
+>   adding the depedency to the bzip2 to get that library for eu-fundtextrel
+> executable.
+> 
+> Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
+> ---
+>  meta/recipes-devtools/elfutils/elfutils_0.148.bb |    3 ++-
+>  1 files changed, 2 insertions(+), 1 deletions(-)
+> 
+> diff --git a/meta/recipes-devtools/elfutils/elfutils_0.148.bb b/meta/recipes-devtools/elfutils/elfutils_0.148.bb
+> index 44b3c52..14060e6 100644
+> --- a/meta/recipes-devtools/elfutils/elfutils_0.148.bb
+> +++ b/meta/recipes-devtools/elfutils/elfutils_0.148.bb
+> @@ -5,8 +5,9 @@ LICENSE = "GPLv2 with exceptions"
+>  LIC_FILES_CHKSUM = "file://COPYING;md5=0636e73ff0215e8d672dc4c32c317bb3\
+>                      file://EXCEPTION;md5=570adcb0c1218ab57f2249c67d0ce417"
+>  DEPENDS = "libtool zlib"
+> +RDEPENDS = "bzip2"
 
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: mhatle/rpm5
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=mhatle/rpm5
+There should be a package name here, e.g. RDEPENDS_${PN}.
 
-Thanks,
-    Mark Hatle <mark.hatle@windriver.com>
----
+Also, why is the shlibs code not picking up the dependency
+automatically? Is it dlopen'd?
 
+Cheers,
 
-Mark Hatle (1):
-  rpm: Add relocation to rpm-native
-
- meta/recipes-devtools/rpm/rpm_5.4.0.bb    |   28 +++++++++++++++++++++++++++-
- 1 file changed, 27 insertions(+), 1 deletion(-)
-
--- 
-1.7.3.4
+Richard
 
 
