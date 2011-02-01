@@ -1,39 +1,31 @@
-Return-Path: <kevin.tian@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 1A4D04C8007E
-	for <poky@pokylinux.org>; Mon, 31 Jan 2011 19:03:59 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 31 Jan 2011 17:03:58 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,406,1291622400"; d="scan'208";a="382430652"
-Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
-	by azsmga001.ch.intel.com with ESMTP; 31 Jan 2011 17:03:56 -0800
-Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
-	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Tue, 1 Feb 2011 09:03:55 +0800
-Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
-	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi; Tue, 1 Feb 2011
-	09:03:54 +0800
-From: "Tian, Kevin" <kevin.tian@intel.com>
-To: "Wold, Saul" <saul.wold@intel.com>
-Date: Tue, 1 Feb 2011 09:03:49 +0800
-Thread-Topic: [poky] [PATCH 2/5] cronie: enable multi-user crontab usage and
-	make	cron environment complete
-Thread-Index: AcvBp23J77EwfOJZTIKZVvo8Il9HrgABA3Tg
-Message-ID: <625BA99ED14B2D499DC4E29D8138F1504E6294E468@shsmsx502.ccr.corp.intel.com>
-References: <b7da2f$q8ksnl@fmsmga001.fm.intel.com> <4D41B2B1.2050206@intel.com>
-	<625BA99ED14B2D499DC4E29D8138F1504DB5E056FB@shsmsx502.ccr.corp.intel.com>
-	<4D420F02.8050306@intel.com>
-	<625BA99ED14B2D499DC4E29D8138F1504DB5E05758@shsmsx502.ccr.corp.intel.com>
-	<4D47545F.7010809@intel.com>
-In-Reply-To: <4D47545F.7010809@intel.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
+Return-Path: <mark.hatle@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 78B904C8007E
+	for <poky@yoctoproject.org>; Mon, 31 Jan 2011 19:43:33 -0600 (CST)
+Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p111hUw6027313;
+	Mon, 31 Jan 2011 17:43:30 -0800 (PST)
+Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
+	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Mon, 31 Jan 2011 17:43:30 -0800
+Received: from Macintosh-5.local ([172.25.36.227]) by
+	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Mon, 31 Jan 2011 17:43:29 -0800
+Message-ID: <4D476541.7040703@windriver.com>
+Date: Mon, 31 Jan 2011 19:43:29 -0600
+From: Mark Hatle <mark.hatle@windriver.com>
+Organization: Wind River Systems
+User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
+	rv:1.9.2.13) Gecko/20101207 Thunderbird/3.1.7
 MIME-Version: 1.0
-Cc: "poky@pokylinux.org" <poky@pokylinux.org>
-Subject: Re: [PATCH 2/5] cronie: enable multi-user crontab usage and make	cron environment complete
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+References: <1296520080.13501.15996.camel@rex>
+	<1296520850.13501.16052.camel@rex>
+In-Reply-To: <1296520850.13501.16052.camel@rex>
+X-OriginalArrivalTime: 01 Feb 2011 01:43:30.0027 (UTC)
+	FILETIME=[6D79EBB0:01CBC1B1]
+Cc: poky <poky@yoctoproject.org>
+Subject: Re: Quick hack for profiling tasks
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -45,98 +37,92 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Feb 2011 01:03:59 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Tue, 01 Feb 2011 01:43:33 -0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-> From: Wold, Saul
-> Sent: Tuesday, February 01, 2011 8:31 AM
->=20
-> On 01/27/2011 05:18 PM, Tian, Kevin wrote:
-> >> From: Wold, Saul
-> >> Sent: Friday, January 28, 2011 8:34 AM
-> >>
-> >> On 01/27/2011 04:07 PM, Tian, Kevin wrote:
-> >>>> From: Wold, Saul
-> >>>> Sent: Friday, January 28, 2011 2:00 AM
-> >>>>> +
-> >>>>> +pkg_postinst_${PN} () {
-> >>>>> +	if [ "x$D" !=3D "x" ] ; then
-> >>>>> +		exit 1
-> >>>>> +	fi
-> >>>>> +
-> >>>>> +	# below setting is necessary to allow normal user using crontab
-> >>>>> +
-> >>>>> +	# add 'crontab' group and setgid for crontab binary
-> >>>>> +	grep crontab /etc/group || addgroup crontab
-> >>>>> +	chown root:crontab /usr/bin/crontab
-> >>>>> +	chmod 2755 /usr/bin/crontab
-> >>>>> +
-> >>>>> +	# allow 'crontab' group write to /var/spool/cron
-> >>>>> +	chown root:crontab /var/spool/cron
-> >>>>> +	chmod 770 /var/spool/cron
-> >>>>> +
-> >>>>> +	chmod 600 /etc/crontab
-> >>>>>     }
-> >>>> Kevin,
-> >>>>
-> >>>> I am going to hold off pulling this and the at changes.
-> >>>>
-> >>>> Is there a specific reason that you are creating this as a post inst=
-all
-> >>>> operation for the permission management, both this and the at recipe=
-s
-> >>>> are doing this.  Please remember that adding additional items that r=
-un
-> >>>> at first boot slow things down.
-> >>>>
-> >>>> Is it possible to run these permission changes at actual install tim=
-e,
-> >>>> instead of on the target.
-> >>>>
-> >>>
-> >>> I thought about this when baking the patch, and finally went to this =
-way
-> >> because
-> >>> there's chown operation and new group needs to be created. This has t=
-o
-> be
-> >> done
-> >>> on the target, as you'll see in other similar recipes like dbus, hal,=
- ...
-> >>>
-> >> Since this is a similar theme, is there a bbclass or method that could
-> >> be written in order to handle adding users/groups to the passwd/group
-> >> file during sysroot creation time, prior to packaging?
-> >>
-> >> Will pseudo handle this correctly?
-> >>
-> >> Maybe for 1.0 we go this route, but we should think more about this, i=
-n
-> >> order to create the users and groups we need.
-> >
-> > Yes, we can think more about it. The less postinst works, the better.
-> >
-> > But generally speaking, group/permission operations in my observation a=
-re
-> > quick in the 1st boot. There're other postinst being heavy. :-)
-> >
-> The more you add to 1st boot that could be done during rootfs creation
-> will always add more time, it's better to do it at rootfs time if possibl=
-e.
->=20
-> Will you be-able to modify this for 1.0 M3?  If not will there be a plan
-> for M4 or 1.1?
->=20
+On 1/31/11 6:40 PM, Richard Purdie wrote:
+> On Tue, 2011-02-01 at 00:28 +0000, Richard Purdie wrote:
+>> One thing that is bugging me whilst I've been debugging some issues
+>> we're having with the libc/libgcc package dependency issue is how long
+>> do_package takes for libc. The question is where does it spend the time?
+>> Answer, I have no idea.
+>>
+>> I hacked together the patch below to find out. Its ugly and uses the
+>> boilerplate profiling code from cooker, cut and pasted here to profile
+>> the actual tasks that run.
+>>
+>> I've yet to look at the results but it should allow us to optimise the
+>> python tasks a bit if we can see where they spend time. I'm hoping this
+>> lets others look at that too and also it give us some hints as to how we
+>> might improve the core when turning on profiling in bitbake.
+> 
+> For eglibc this worked out as:
+> 
+> Tue Feb  1 00:33:21 2011    profile-eglibc_2.12.bb-do_package.log
+> 
+>          8339733 function calls (8001600 primitive calls) in 877.972 CPU seconds
+> 
+>    Ordered by: internal time
+> 
+>    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+>      3206  321.887    0.100  322.422    0.101 package_do_filedeps:12(process_deps)
+>       403  311.208    0.772  311.208    0.772 {posix.waitpid}
+>    134054   69.860    0.001   69.860    0.001 {method 'read' of 'file' objects}
+>    225554   23.367    0.000   23.367    0.000 {posix.stat}
+>       866   20.279    0.023   20.279    0.023 {posix.system}
+>     85562   19.406    0.000   19.406    0.000 {posix.chmod}
+>    168083   16.691    0.000   16.691    0.000 {posix.lstat}
+>     25824   14.399    0.001   14.399    0.001 {posix.rename}
+>     55391   13.731    0.000   13.731    0.000 {open}
+>      5325    9.019    0.002    9.019    0.002 {posix.popen}
+>      2279    5.490    0.002    5.490    0.002 {method 'readlines' of 'file' objects}
+>      6403    5.187    0.001    6.346    0.001 insane.bbclass:1(package_qa_hash_style)
+>     19214    5.046    0.000    5.046    0.000 {posix.mkdir}
+> 
+> so its spending a third of the time in package_do_filedeps(), a lot of
+> which is in waitpid waiting for the process that was spawned.
+> 
+> Mark: Is there a way we could batch up the information rather than go
+> file by file? I'm going to look at this for other areas to improve too
+> but thats obviously one worthy of attention.
 
-Not for 1.0 M3. I would think 1.1 is better given that this task aims to im=
-prove
-a long-standing issue (but I'll start it in M4 window). So would you accept=
- this
-patch (and also at) first since they are trying to fix functional issues? :=
--)
+The way the routine works today is via a script call perfile_rpmdeps.sh.  The
+package.bbclass calls this script twice for each package-split.
 
-Thanks
-Kevin
+I.e. if we have base, base-dbg and base-libs, it will run for a total of 6
+times.  Each pair it is simply passed the path to the packages-split directory.
+
+Within the script itself, it is doing a find operation:
+
+        find "$@" | process $process_type
+
+The output of the file is passed to "process" which is just a wrapper that calls
+the rpmdeps program with the correct parameters.  We could optimize this a bit
+by ignoring directories and symlinks.  But we still want to process all of the
+files in the system.
+
+Another optimization (that we do NOT have) that is done by default in RPM, is to
+only process files that are +x.  We have chosen not to do this as most of our
+libraries are not set +x.  An alternative is to use 'file' and check the type of
+each file, however identifying the file type is likely to take longer then
+simply running the per-file deps commands.  Another possible optimization is
+only scan certain directories (or the opposite, skip certain directories...) the
+only issue here is missing files that may be dlopened or loaded via RPATH
+because they are in a non-standard location.
+
+So what I'd recommend is we start by adding "-type f" to the find.  That is
+likely to help some.
+
+Maybe then add a check for either sitting in /lib or /usr/lib _or_ mode is +x?
+We would likely need to audit the system somehow and tag ELF files that are
+neither...
+
+--Mark
+
+> Cheers,
+> 
+> Richard
+> 
+
 
