@@ -1,21 +1,21 @@
 Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 345694C800AA
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 7B85C4C800AA
 	for <poky@yoctoproject.org>; Tue,  1 Feb 2011 16:43:35 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 01 Feb 2011 14:43:34 -0800
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 01 Feb 2011 14:43:34 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,412,1291622400"; d="scan'208";a="382913442"
+X-IronPort-AV: E=Sophos;i="4.60,412,1291622400"; d="scan'208";a="702996727"
 Received: from nbuild2.sc.intel.com (HELO localhost) ([172.25.110.37])
-	by azsmga001.ch.intel.com with ESMTP; 01 Feb 2011 14:43:34 -0800
-Message-Id: <6e9e6c426d47191744caf9b2ec5a53c59bbeeb1b.1296600047.git.nitin.a.kamble@intel.com>
+	by orsmga001.jf.intel.com with ESMTP; 01 Feb 2011 14:43:34 -0800
+Message-Id: <e7f5f469c5cb2faf9d8f7b7af61d2e2cea281b08.1296600047.git.nitin.a.kamble@intel.com>
 In-Reply-To: <cover.1296600047.git.nitin.a.kamble@intel.com>
 References: <cover.1296600047.git.nitin.a.kamble@intel.com>
-Old-Date: Mon, 31 Jan 2011 10:15:11 -0800
+Old-Date: Tue, 25 Jan 2011 08:43:10 -0800
 Date: Tue, 01 Feb 2011 14:43:34 -0800
 To: poky@yoctoproject.org
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Subject: [PATCH 5/6] subversion: upgrade from 1.6.13 to 1.6 15
+Subject: [PATCH 4/6] image-mklibs.bbclass: add the library optimization functionality
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,86 +31,130 @@ X-List-Received-Date: Tue, 01 Feb 2011 22:43:35 -0000
 
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
 
-Rebased this patch to the newer code
-	modified:   subversion/disable-revision-install.patch
+Now by default the mklibs library size optimization for poky-image-minimal is
+enabled.
+
+If you want to enable the mklibs library size optimization for your image
+then, edit the MKLIBS_OPTIMIZED_IMAGES line in the local.conf like this:
+
+  MKLIBS_OPTIMIZED_IMAGES ?= "poky-image-minimal your-own-image"
+
+on qemux86 machine this reduced the rootfs size from 7.9MB to 7.2MB.
+That is around 11% image foot print reduction. that image had 38 elf
+executables. Generally the size optimization by mklibs is reversely
+proportional to the number of elf executables in the rootfs. so
+bigger images won't see less optimization, and smaller images will see
+large image size reductions.
+
+Thanks to mark hatle for his help in implementation of this.
 
 Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
 ---
- .../subversion/disable-revision-install.patch      |   24 +++++++++++++++-----
- .../{subversion_1.6.13.bb => subversion_1.6.15.bb} |    6 ++--
- 2 files changed, 21 insertions(+), 9 deletions(-)
- rename meta/recipes-devtools/subversion/{subversion_1.6.13.bb => subversion_1.6.15.bb} (86%)
+ meta/classes/image-mklibs.bbclass |   70 +++++++++++++++++++++++++++++++++++++
+ meta/conf/local.conf.sample       |   10 +++++-
+ 2 files changed, 79 insertions(+), 1 deletions(-)
+ create mode 100644 meta/classes/image-mklibs.bbclass
 
-diff --git a/meta/recipes-devtools/subversion/subversion/disable-revision-install.patch b/meta/recipes-devtools/subversion/subversion/disable-revision-install.patch
-index a1c6065..ad716d0 100644
---- a/meta/recipes-devtools/subversion/subversion/disable-revision-install.patch
-+++ b/meta/recipes-devtools/subversion/subversion/disable-revision-install.patch
-@@ -1,6 +1,8 @@
----- subversion-1.2.0-r0/Makefile.in.old	2005-07-17 22:28:21.898728312 +0200
--+++ subversion-1.2.0-r0/Makefile.in	2005-07-17 22:30:05.361999504 +0200
--@@ -260,7 +260,7 @@
-+Index: subversion-1.6.15/Makefile.in
-+===================================================================
-+--- subversion-1.6.15.orig/Makefile.in	2010-11-17 06:47:23.000000000 -0800
-++++ subversion-1.6.15/Makefile.in	2011-01-31 10:11:07.358779686 -0800
-+@@ -305,7 +305,7 @@
-  clean: external-clean local-clean
-  distclean: external-distclean local-distclean
-  extraclean: external-extraclean local-extraclean
-@@ -9,14 +11,24 @@
-  
-  @INCLUDE_OUTPUTS@
-  
--@@ -320,8 +320,8 @@
-+@@ -363,13 +363,13 @@
-  local-install: @INSTALL_RULES@
-  
-  ### HACK!! Find a better way to do this
- -revision-install:
---	subversion/svnversion/svnversion $(top_srcdir) /repos/svn/trunk > $(DESTDIR)$(includedir)/subversion-1/svn-revision.txt
-+-	test -d $(DESTDIR)$(includedir)/subversion-1 || \
-+-	  $(MKDIR) $(DESTDIR)$(includedir)/subversion-1
-+-	(subversion/svnversion/svnversion $(top_srcdir) ||  \
-+-	 svnversion $(top_srcdir) ||                        \
-+-	 echo "unknown";                                    \
-+-	) > $(DESTDIR)$(includedir)/subversion-1/svn-revision.txt
- +#revision-install:
--+#	subversion/svnversion/svnversion $(top_srcdir) /repos/svn/trunk > $(DESTDIR)$(includedir)/subversion-1/svn-revision.txt
-++#	test -d $(DESTDIR)$(includedir)/subversion-1 || \
-++#	  $(MKDIR) $(DESTDIR)$(includedir)/subversion-1
-++#	(subversion/svnversion/svnversion $(top_srcdir) ||  \
-++#	 svnversion $(top_srcdir) ||                        \
-++#	 echo "unknown";                                    \
-++#	) > $(DESTDIR)$(includedir)/subversion-1/svn-revision.txt
-  
-  install-static: @INSTALL_STATIC_RULES@
-  
-diff --git a/meta/recipes-devtools/subversion/subversion_1.6.13.bb b/meta/recipes-devtools/subversion/subversion_1.6.15.bb
-similarity index 86%
-rename from meta/recipes-devtools/subversion/subversion_1.6.13.bb
-rename to meta/recipes-devtools/subversion/subversion_1.6.15.bb
-index b535f06..de40863 100644
---- a/meta/recipes-devtools/subversion/subversion_1.6.13.bb
-+++ b/meta/recipes-devtools/subversion/subversion_1.6.15.bb
-@@ -5,15 +5,15 @@ RDEPENDS_${PN} = "neon"
- LICENSE = "Apache BSD"
- HOMEPAGE = "http://subversion.tigris.org"
+diff --git a/meta/classes/image-mklibs.bbclass b/meta/classes/image-mklibs.bbclass
+new file mode 100644
+index 0000000..8ba3eb4
+--- /dev/null
++++ b/meta/classes/image-mklibs.bbclass
+@@ -0,0 +1,70 @@
++do_rootfs[depends] += "mklibs-native:do_populate_sysroot"
++
++IMAGE_PREPROCESS_COMMAND += "mklibs_optimize_image; "
++
++mklibs_optimize_image_doit() {
++	rm -rf ${WORKDIR}/mklibs
++	mkdir -p ${WORKDIR}/mklibs/dest
++	cd ${IMAGE_ROOTFS}
++	du -bs > ${WORKDIR}/mklibs/du.before.mklibs.txt
++	for i in `find .`; do file $i; done \
++		| grep ELF \
++		| grep "LSB executable" \
++		| grep "dynamically linked" \
++		| sed "s/:.*//" \
++		| sed "s+^\./++" \
++		> ${WORKDIR}/mklibs/executables.list
++
++	case ${TARGET_ARCH} in
++		powerpc | mips )
++			dynamic_loader="/lib/ld.so.1"
++			;;
++		x86_64)
++			dynamic_loader="/lib/ld-linux-x86-64.so.2"
++			;;
++		i586 )
++			dynamic_loader="/lib/ld-linux.so.2"
++			;;
++		arm )
++			dynamic_loader="/lib/ld-linux.so.3"
++			;;
++		* )
++			dynamic_loader="/unknown_dynamic_linker"
++			;;
++	esac
++
++	mklibs -v \
++		--ldlib ${dynamic_loader} \
++		--sysroot ${PKG_CONFIG_SYSROOT_DIR} \
++		--root ${IMAGE_ROOTFS} \
++		--target `echo ${TARGET_PREFIX} | sed 's/-$//' ` \
++		-d ${WORKDIR}/mklibs/dest \
++		`cat ${WORKDIR}/mklibs/executables.list`
++
++	cd ${WORKDIR}/mklibs/dest
++	for i in *
++	do
++		cp $i `find ${IMAGE_ROOTFS} -name $i`
++	done
++
++	cd ${IMAGE_ROOTFS}
++	du -bs > ${WORKDIR}/mklibs/du.after.mklibs.txt
++
++	echo rootfs size before mklibs optimization: `cat ${WORKDIR}/mklibs/du.before.mklibs.txt`
++	echo rootfs size after mklibs optimization: `cat ${WORKDIR}/mklibs/du.after.mklibs.txt`
++}
++
++mklibs_optimize_image() {
++	for img in ${MKLIBS_OPTIMIZED_IMAGES}
++	do
++		if [ "${img}" == "${PN}" ]
++		then
++			mklibs_optimize=1
++			mklibs_optimize_image_doit
++			break
++		fi
++	done
++}
++
++
++EXPORT_FUNCTIONS mklibs_optimize_image
+diff --git a/meta/conf/local.conf.sample b/meta/conf/local.conf.sample
+index f9953d1..362dbf0 100644
+--- a/meta/conf/local.conf.sample
++++ b/meta/conf/local.conf.sample
+@@ -73,10 +73,18 @@ EXTRA_IMAGE_FEATURES_mx31ads = "tools-testapps debug-tweaks"
+ #PACKAGE_CLASSES ?= "package_rpm package_deb package_ipk"
+ PACKAGE_CLASSES ?= "package_rpm package_ipk"
  
--PR = "r1"
-+PR = "r0"
++# mklibs library size optimization is more useful to smaller images, 
++# and less useful for bigger images. Also mklibs library optimization can break the ABI compatibility, so should not be applied to the images which are tobe
++# extended or upgraded later.
++# mklibs librarys size optimization will be enabled just for these images.
++MKLIBS_OPTIMIZED_IMAGES ?= "poky-image-minimal"
++
+ # A list of additional classes to use when building the system
++# include 'image-mklibs' to reduce shared library files size for an image
+ # include 'image-prelink' in order to prelink the filesystem image
+ # include 'image-swab' to perform host system intrusion detection
+-USER_CLASSES ?= "image-prelink"
++# NOTE: if listing mklibs & prelink both, then make sure mklibs is before prelink
++USER_CLASSES ?= "image-mklibs image-prelink"
  
- SRC_URI = "http://subversion.tigris.org/downloads/${P}.tar.bz2 \
-            file://disable-revision-install.patch;patch=1 \
- 	   file://neon-detection.patch;patch=1 \
- 	   file://libtool2.patch;patch=1"
- 
--SRC_URI[md5sum] = "7ae1c827689f21cf975804005be30aeb"
--SRC_URI[sha256sum] = "3a30327bdb04109f369586196ee4a6993cdab2cfa85c3134549f02c229bf0d15"
-+SRC_URI[md5sum] = "113fca1d9e4aa389d7dc2b210010fa69"
-+SRC_URI[sha256sum] = "b2919d603a5f3c19f42e3265c4b930e2376c43b3969b90ef9c42b2f72d5aaa45"
- 
- LIC_FILES_CHKSUM = "file://COPYING;md5=2a69fef414e2cb907b4544298569300b"
- 
+ # POKYMODE controls the characteristics of the generated packages/images by
+ # telling poky which type of toolchain to use.
 -- 
 1.7.3.4
 
