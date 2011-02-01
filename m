@@ -1,37 +1,25 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 591454C8008C
-	for <poky@yoctoproject.org>; Tue,  1 Feb 2011 07:32:37 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p11DYcPZ017062; Tue, 1 Feb 2011 13:34:38 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id 6hfxd+krfSrc; Tue,  1 Feb 2011 13:34:38 +0000 (GMT)
-Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p11DYWoY017056
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Tue, 1 Feb 2011 13:34:34 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: "Zhang, Jessica" <jessica.zhang@intel.com>
-In-Reply-To: <9AFCD584B0B67B48AE8D8585BE30BA950D73A848@orsmsx504.amr.corp.intel.com>
-References: <9AFCD584B0B67B48AE8D8585BE30BA9506BAAFDF@orsmsx504.amr.corp.intel.com>
-	<1296382406.13501.7899.camel@rex>
-	<625BA99ED14B2D499DC4E29D8138F1504E6294E1D3@shsmsx502.ccr.corp.intel.com>
-	<C10D3FB0CD45994C8A51FEC1227CE22F20F8C32A4B@shsmsx502.ccr.corp.intel.com>
-	<C10D3FB0CD45994C8A51FEC1227CE22F20F8C32C7C@shsmsx502.ccr.corp.intel.com>
-	<1296492009.13501.13668.camel@rex>
-	<9AFCD584B0B67B48AE8D8585BE30BA9506C267B0@orsmsx504.amr.corp.intel.com>
-	<1296561316.13501.18767.camel@rex>
-	<9AFCD584B0B67B48AE8D8585BE30BA950D73A848@orsmsx504.amr.corp.intel.com>
-Date: Tue, 01 Feb 2011 13:32:19 +0000
-Message-ID: <1296567139.13501.19158.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: poky-image-sato-sdk failed at do_rootfs
+Return-Path: <koen@dominion.thruhere.net>
+Received: from mail-ww0-f42.google.com (mail-ww0-f42.google.com [74.125.82.42])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8669D4C8007E
+	for <poky@yoctoproject.org>; Tue,  1 Feb 2011 08:34:37 -0600 (CST)
+Received: by wwi17 with SMTP id 17so4777840wwi.5
+	for <poky@yoctoproject.org>; Tue, 01 Feb 2011 06:34:36 -0800 (PST)
+Received: by 10.216.51.130 with SMTP id b2mr7527742wec.42.1296570876336;
+	Tue, 01 Feb 2011 06:34:36 -0800 (PST)
+Received: from [172.20.0.255] (ip545070eb.adsl-surfen.hetnet.nl
+	[84.80.112.235])
+	by mx.google.com with ESMTPS id o33sm11473821wej.13.2011.02.01.06.34.35
+	(version=TLSv1/SSLv3 cipher=RC4-MD5);
+	Tue, 01 Feb 2011 06:34:35 -0800 (PST)
+Mime-Version: 1.0 (Apple Message framework v1082)
+From: Koen Kooi <koen@dominion.thruhere.net>
+In-Reply-To: <912371C7-ACCF-4DA9-A2E7-2F863C72189F@dominion.thruhere.net>
+Date: Tue, 1 Feb 2011 15:34:34 +0100
+Message-Id: <F9AEC290-DD02-4D3C-9649-DE28DCD6DF18@dominion.thruhere.net>
+References: <912371C7-ACCF-4DA9-A2E7-2F863C72189F@dominion.thruhere.net>
+To: poky <poky@yoctoproject.org>
+X-Mailer: Apple Mail (2.1082)
+Subject: Re: Fetcher2 problems break parsing
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,56 +31,112 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Feb 2011 13:32:37 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-
-On Tue, 2011-02-01 at 05:07 -0800, Zhang, Jessica wrote:
-> Richard Purdie wrote:
-> > Hi Jessica,
-> > 
-> > On Mon, 2011-01-31 at 16:58 -0800, Zhang, Jessica wrote:
-> >> Some update with recent do_package racing condition triggered build
-> >> issues. Today, I've cherry-picked 3 related commits: Kevin's fix for
-> >> rebuild, Richard's fix for change PACKAGE_CLASSES and
-> >> do_package_write* depends on libc do_package and did the following
-> >> test builds: 
-> >> 1. bitbake poky-image-minimal (incremental)
-> >> 2. bitbake poky-image-sato-sdk (incremental)
-> >> 3. switch PACKAGE_CLASSES setting, then bitbake poky-image-minimal
-> >> Everything behaved as desired so far.  Then I did
-> >> 4. bitbake libgcc virtual/libc -c package -f
-> >> 5. bitbake poky-image-minimal and stumbled on the eglibc depencies
-> >> issues again, then Richard suggest me to make the following change:
-> >>
-> http://git.pokylinux.org/cgit.cgi/poky-contrib/commit/?h=jzhang/eglibc_issue
-> >> , which solved my build issues.
-> > 
-> > I've tried locally and I cannot reproduce this problem any more with
-> > master. I'm wondering if there is some kind of caches state problem
-> > within your build which is causing this?
-> 
-> Interesting, any idea how can this happen since I didn't do anything else
-> between the tests
-> 
-> > 
-> > I don't think the above patch I've proposed is correct.
-> 
-> Ok, I'll revert this back and re-run test 4 and 5 today to see what will
-> happen...
-
-Can you please try a build from scratch. I think most of your .ipk files
-look corrupt as there are many eglibc dependencies in there which there
-simply shouldn't be. If they were built whilst eglibc was rebuilding
-that would explain the problem but it means your build directory is
-unstable now :(. If there is a root cause, the above patch isn't it.
-
-Cheers,
-
-Richard
+X-List-Received-Date: Tue, 01 Feb 2011 14:34:38 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
 
 
+Op 1 feb 2011, om 14:07 heeft Koen Kooi het volgende geschreven:
+
+> Hi,
+>=20
+> Since a few days I'm getting this on recipes using SRCPV:
+>=20
+> Executing: MACHINE=3Dbeagleboard bitbake -b =
+/OE/tentacle/sources/openembedded/meta/recipes-graphics/xorg-lib/libxext_g=
+it.bb -c fetch
+> Pseudo is not present but is required, building this first before the =
+main build
+> Loading cache: 100% =
+|#########################################################################=
+#####################################################| ETA:  00:00:00
+> Loaded 448 entries from dependency cache.
+> NOTE: Angstrom DOES NOT support util-linux because only util-linux-ng =
+is supported                                                             =
+    | ETA:  --:--:--
+> NOTE: Angstrom DOES NOT support gconf-dbus because gconf-dbus has been =
+merged back into main GConf
+> NOTE: Angstrom DOES NOT support gconf-dbus-native because gconf-dbus =
+has been merged back into main GConf
+> ERROR: Error evaluating '${@bb.fetch.get_srcrev(d)}'
+> Traceback (most recent call last):
+>  File "/OE/tentacle/sources/bitbake/lib/bb/data_smart.py", line 117, =
+in expandWithRefs
+>    s =3D __expand_python_regexp__.sub(varparse.python_sub, s)
+>  File "/OE/tentacle/sources/bitbake/lib/bb/data_smart.py", line 76, in =
+python_sub
+>    value =3D utils.better_eval(codeobj, DataContext(self.d))
+>  File "/OE/tentacle/sources/bitbake/lib/bb/utils.py", line 387, in =
+better_eval
+>    return eval(source, _context, locals)
+>  File "SRCPV", line 1, in <module>
+>  File "/OE/tentacle/sources/bitbake/lib/bb/fetch2/__init__.py", line =
+398, in get_srcrev
+>    return urldata[scms[0]].method.sortable_revision(scms[0], =
+urldata[scms[0]], d)
+>  File "/OE/tentacle/sources/bitbake/lib/bb/fetch2/__init__.py", line =
+870, in sortable_revision
+>    return str(count + "+" + latest_rev)
+> TypeError: unsupported operand type(s) for +: 'NoneType' and 'str'
+>=20
+> ERROR: Error evaluating '1.0.99.1+gitr${SRCPV}'
+> Traceback (most recent call last):
+>  File "/OE/tentacle/sources/bitbake/lib/bb/data_smart.py", line 116, =
+in expandWithRefs
+>    s =3D __expand_var_regexp__.sub(varparse.var_sub, s)
+>  File "/OE/tentacle/sources/bitbake/lib/bb/data_smart.py", line 60, in =
+var_sub
+>    var =3D self.d.getVar(key, 1)
+>  File "/OE/tentacle/sources/bitbake/lib/bb/data_smart.py", line 260, =
+in getVar
+>    return self.expand(value, var)
+>  File "/OE/tentacle/sources/bitbake/lib/bb/data_smart.py", line 132, =
+in expand
+>    return self.expandWithRefs(s, varname).value
+>  File "/OE/tentacle/sources/bitbake/lib/bb/data_smart.py", line 117, =
+in expandWithRefs
+>    s =3D __expand_python_regexp__.sub(varparse.python_sub, s)
+>  File "/OE/tentacle/sources/bitbake/lib/bb/data_smart.py", line 76, in =
+python_sub
+>    value =3D utils.better_eval(codeobj, DataContext(self.d))
+>  File "/OE/tentacle/sources/bitbake/lib/bb/utils.py", line 387, in =
+better_eval
+>    return eval(source, _context, locals)
+>  File "SRCPV", line 1, in <module>
+>  File "/OE/tentacle/sources/bitbake/lib/bb/fetch2/__init__.py", line =
+398, in get_srcrev
+>    return urldata[scms[0]].method.sortable_revision(scms[0], =
+urldata[scms[0]], d)
+>  File "/OE/tentacle/sources/bitbake/lib/bb/fetch2/__init__.py", line =
+870, in sortable_revision
+>    return str(count + "+" + latest_rev)
+> TypeError: unsupported operand type(s) for +: 'NoneType' and 'str'
+>=20
+> This seems to happen when no SRCREV is set, is that the intended =
+behaviour?
+
+RP gave me this patch to try:
+
+koen@dominion:/OE/tentacle/sources/openembedded$ git diff
+diff --git a/bitbake/lib/bb/fetch2/__init__.py =
+b/bitbake/lib/bb/fetch2/__init__.py
+index 9fe4eb2..d62ba81 100644
+--- a/bitbake/lib/bb/fetch2/__init__.py
++++ b/bitbake/lib/bb/fetch2/__init__.py
+@@ -864,7 +864,7 @@ class Fetch(object):
+         if uselocalcount:
+             count =3D Fetch.localcount_internal_helper(ud, d)
+         if count is None:
+-            count =3D localcounts[key + '_count']
++            count =3D localcounts[key + '_count'] or "0"
+=20
+         if last_rev =3D=3D latest_rev:
+             return str(count + "+" + latest_rev)
 
 
+and that seems to work.
 
+regards,
+
+Koen=
 
