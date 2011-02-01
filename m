@@ -1,23 +1,30 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 8FA2C4C8007E
-	for <poky@yoctoproject.org>; Tue,  1 Feb 2011 11:30:48 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 01 Feb 2011 09:30:48 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,411,1291622400"; d="scan'208";a="382766614"
-Received: from unknown (HELO [10.255.14.170]) ([10.255.14.170])
-	by azsmga001.ch.intel.com with ESMTP; 01 Feb 2011 09:30:48 -0800
-Message-ID: <4D484348.1020501@linux.intel.com>
-Date: Tue, 01 Feb 2011 09:30:48 -0800
-From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
-MIME-Version: 1.0
-References: <cover.1296261421.git.darren@dvhart.com>
-In-Reply-To: <cover.1296261421.git.darren@dvhart.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by mx1.pokylinux.org (Postfix) with ESMTP id EF3094C8007E
+	for <poky@yoctoproject.org>; Tue,  1 Feb 2011 11:44:31 -0600 (CST)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p11HkWcx028233; Tue, 1 Feb 2011 17:46:32 GMT
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id xXiDaOvZ-MvN; Tue,  1 Feb 2011 17:46:32 +0000 (GMT)
+Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p11HkPnM028227
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Tue, 1 Feb 2011 17:46:28 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Paul Eggleton <paul.eggleton@linux.intel.com>
+In-Reply-To: <70e416b931ba9ee1ca24a967a0410fda65b48bea.1296267951.git.paul.eggleton@linux.intel.com>
+References: <cover.1296267951.git.paul.eggleton@linux.intel.com>
+	<70e416b931ba9ee1ca24a967a0410fda65b48bea.1296267951.git.paul.eggleton@linux.intel.com>
+Date: Tue, 01 Feb 2011 17:44:12 +0000
+Message-ID: <1296582252.13501.20225.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/2] linux-yocto: arm fixes, beagleboard hub and OMAP4 armv7-a +sec extension
+Subject: Re: [PATCH 05/12] qt4-tools-native: update from OpenEmbedded
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,52 +36,48 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Feb 2011 17:30:48 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Tue, 01 Feb 2011 17:44:32 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On 01/28/2011 04:40 PM, poky-bounces@yoctoproject.org wrote:
-> From: Darren Hart<darren@dvhart.com>
->
-> Please apply the following patches to the yocto/standard/base branch and rebase
-> at least yocto/standard/beagleboard on base. With these patches in place and
-> the corresponding meta patches to follow, the Beagleboard xM will boot the
-> linux-yocto kernel.
->
-> Pull URL: git://git.pokylinux.org/linux-yocto-2.6.37-contrib.git
->    Branch: dvhart/base
->    Browse: http://git.pokylinux.org/cgit.cgi/linux-yocto-2.6.37-contrib/log/?h=dvhart/base
-
-Bruce, this set has not changed, and is still available in my 
-contrib/dvhart/base branch.
-
---
-Darren
-
->
-> Thanks,
->      Darren Hart<darren@dvhart.com>
-> ---
->
->
-> John Rigby (1):
->    OMAP4: enable smc instruction in new assembler versions
->
-> Koen Kooi (1):
->    omap3: beaglexm: fix EHCI power up GPIO dir
->
->   arch/arm/mach-omap2/Makefile            |    5 +++--
->   arch/arm/mach-omap2/board-omap3beagle.c |   10 ++++++++--
->   2 files changed, 11 insertions(+), 4 deletions(-)
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+On Sat, 2011-01-29 at 02:30 +0000, Paul Eggleton wrote:
+> @@ -30,7 +38,7 @@ EXTRA_OECONF = "-prefix ${prefix} \
+>  EXTRA_OEMAKE = " "
+>  
+>  do_configure() {
+> -	(echo o; echo yes) | ./configure ${EXTRA_OECONF} || die "Configuring qt failed. EXTRA_OECONF was ${EXTRA_OECONF}"
+> +   (echo o; echo yes) | ./configure ${EXTRA_OECONF} || die "Configuring qt failed. EXTRA_OECONF was ${EXTRA_OECONF}"
+>  }
+>  
+>  TOBUILD = "\
+> @@ -48,22 +56,22 @@ TOBUILD = "\
+>  "
+>  
+>  do_compile() {
+> -	for i in ${TOBUILD}; do
+> -		cd ${S}/$i && oe_runmake CC="${CC}" CXX="${CXX}"
+> -	done
+> +    for i in ${TOBUILD}; do
+> +        cd ${S}/$i && oe_runmake CC="${CC}" CXX="${CXX}"
+> +    done
+>  }
 
 
--- 
-Darren Hart
-Intel Open Source Technology Center
-Yocto Project - Linux Kernel
+Please don't reindent files when making other changes, it makes it hard
+to see where the real changes were. I've pulled things but taken out the
+worst whitespace changes manually this time.
+
+Please keep in mind:
+
+shell functions/code use tabs
+python code uses four space indentation
+
+There are a number of new files that merged which don't do this for
+shell functions, we should probably patch those up.
+
+Cheers,
+
+Richard
+
+
 
