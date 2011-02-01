@@ -1,29 +1,25 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 67B6E4C8006D
-	for <poky@yoctoproject.org>; Tue,  1 Feb 2011 12:44:03 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id AA47F1660395; Tue,  1 Feb 2011 11:43:57 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.1
-Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 5DFF91660392;
-	Tue,  1 Feb 2011 11:43:55 -0700 (MST)
-Message-ID: <4D48546B.4000503@mlbassoc.com>
-Date: Tue, 01 Feb 2011 11:43:55 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D04314C8006D;
+	Tue,  1 Feb 2011 12:47:47 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 01 Feb 2011 10:47:47 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,411,1291622400"; d="scan'208";a="883295714"
+Received: from unknown (HELO [10.255.14.170]) ([10.255.14.170])
+	by fmsmga001.fm.intel.com with ESMTP; 01 Feb 2011 10:47:47 -0800
+Message-ID: <4D485554.1030209@linux.intel.com>
+Date: Tue, 01 Feb 2011 10:47:48 -0800
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
 MIME-Version: 1.0
-To: "Kamble, Nitin A" <nitin.a.kamble@intel.com>
-References: <9DA5872FEF993D41B7173F58FCF6BE9411BF18B5@orsmsx504.amr.corp.intel.com>
-In-Reply-To: <9DA5872FEF993D41B7173F58FCF6BE9411BF18B5@orsmsx504.amr.corp.intel.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: need help with bouncing emails ...
+To: Bruce Ashfield <bruce.ashfield@windriver.com>
+References: <cover.1296580694.git.bruce.ashfield@windriver.com>
+	<368409054248933ffd777fbd600a29670feeaa16.1296580694.git.bruce.ashfield@windriver.com>
+In-Reply-To: <368409054248933ffd777fbd600a29670feeaa16.1296580694.git.bruce.ashfield@windriver.com>
+Cc: yocto@yoctoproject.org, poky@yoctoproject.org, saul.wold@intel.com
+Subject: Re: [PATCH 2/2] linux-yocto: export kernel configuration audit to the console
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,57 +31,33 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Feb 2011 18:44:04 -0000
+X-List-Received-Date: Tue, 01 Feb 2011 18:47:48 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 02/01/2011 11:21 AM, Kamble, Nitin A wrote:
-> _____________________________________________
-> *From:* Mail Delivery System [mailto:MAILER-DAEMON@mga09.intel.com]
-> *Sent:* Tuesday, February 01, 2011 10:19 AM
-> *To:* Kamble, Nitin A
-> *Subject:* Undeliverable: [PATCH 1/4] distro_tracking: update latest upstream versions
-> *Delivery has failed to these recipients or distribution lists:*
-> _poky@yoctolinux.org_ <mailto:poky@yoctolinux.org>
-> An error occurred while trying to deliver this message to the recipient's e-mail address. Microsoft Exchange will not try to redeliver this message for you. Please try resending
-> this message, or provide the following diagnostic text to your system administrator.
-> The following organization rejected your message: [216.69.186.201].
-> *Diagnostic information for administrators:*
-> Generating server: mga09.intel.com
-> poky@yoctolinux.org
-> [216.69.186.201] #<[216.69.186.201] #5.0.0 smtp; 5.1.0 - Unknown address error 550-'#5.1.0 Address rejected poky@yoctolinux.org' (delivery attempts: 0)> #SMTP#
-> Original message headers:
-> Received: from orsmga002.jf.intel.com ([10.7.209.21]) by
-> orsmga102.jf.intel.com with ESMTP; 01 Feb 2011 10:19:11 -0800
-> X-ExtLoop1: 1
-> X-IronPort-AV: E=Sophos;i="4.60,411,1291622400";
-> d="scan'208";a="598515791"
-> Received: from nbuild1.sc.intel.com (HELO localhost) ([172.25.110.36])
-> by orsmga002.jf.intel.com with ESMTP; 01 Feb 2011 10:19:11 -0800
-> Message-ID: <f260ac9776a6e9a62c3b8c88e0e2b7ce6c1c2a87.1296560850.git.nitin.a.kamble@intel.com>
-> In-Reply-To: <cover.1296560850.git.nitin.a.kamble@intel.com>
-> References: <cover.1296560850.git.nitin.a.kamble@intel.com>
-> Old-Date: Tue, 25 Jan 2011 15:58:54 -0800
-> Subject: [PATCH 1/4] distro_tracking: update latest upstream versions
-> Date: Tue, 1 Feb 2011 03:49:18 -0800
-> To: <poky@yoctolinux.org>
-> CC:
-> From: Nitin A Kamble <nitin.a.kamble@intel.com>
-> MIME-Version: 1.0
-> Content-Type: text/plain
+On 02/01/2011 09:25 AM, Bruce Ashfield wrote:
+> Fixes [BUGID #692]
 >
+> Previously the information dumped by the kernel configuration audit
+> scripts was only placed in log files. This isn't as useful as it
+> could be, since they are rarely checked. This change takes the
+> output from kconf_check and explicitly displays it to the user.
 >
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+> Signed-off-by: Bruce Ashfield<bruce.ashfield@windriver.com>
 
-Is poky@yoctolinux.org equivalent to poky@yoctoproject.org?
+> diff --git a/meta/conf/distro/include/poky-default-revisions.inc b/meta/conf/distro/include/poky-default-revisions.inc
+> index 0c3aa9a..ac0de6a 100644
+> --- a/meta/conf/distro/include/poky-default-revisions.inc
+> +++ b/meta/conf/distro/include/poky-default-revisions.inc
+
+> -SRCREV_meta_pn-linux-yocto ?= "8a49ef6f1a43dabbce34a9ee9a1be08b26fc511c"
+> +SRCREV_meta_pn-linux-yocto ?= "e8b8c1ae44932835f4f79e77180d3ce5e4b1ec99"
+
+Was this an intentional change? It wasn't clear to me above which bits 
+necessitated a linux-yocto-2.6.37/meta SRCREV change.
 
 -- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
