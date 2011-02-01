@@ -1,30 +1,39 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 069554C8008C
-	for <poky@yoctoproject.org>; Tue,  1 Feb 2011 08:56:11 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p11EwDFb021292; Tue, 1 Feb 2011 14:58:13 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id 7+rN1HXB88Ee; Tue,  1 Feb 2011 14:58:13 +0000 (GMT)
-Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p11EwA57021260
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Tue, 1 Feb 2011 14:58:12 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Qing He <qing.he@intel.com>
-In-Reply-To: <ceaa9aa5f740565cbd8a1ca305b23f60bb1727f9.1296546158.git.qing.he@intel.com>
-References: <cover.1296546158.git.qing.he@intel.com>
-	<ceaa9aa5f740565cbd8a1ca305b23f60bb1727f9.1296546158.git.qing.he@intel.com>
-Date: Tue, 01 Feb 2011 14:55:57 +0000
-Message-ID: <1296572157.13501.19502.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 1/1] quilt: fix patch version detection
+Return-Path: <kergoth@gmail.com>
+Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 618A94C8008C
+	for <poky@yoctoproject.org>; Tue,  1 Feb 2011 09:12:18 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by wwb31 with SMTP id 31so7392129wwb.11
+	for <poky@yoctoproject.org>; Tue, 01 Feb 2011 07:12:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:sender:in-reply-to:references:from
+	:date:x-google-sender-auth:message-id:subject:to:cc:content-type;
+	bh=8bd3PVsruyYSTwYszYWJV2RCmnvVxIvtch5mxoIKe+g=;
+	b=WkWtDwQ6UYi32+DfBHooQtm6IH0FMJQZdPLDm9qQq1XBE9FyKgdgtrmfZzuDtvbilA
+	DU2IBBLoLV1fQRCjxH/GPzFWJWNZDtyJox6ijk+asbpi5zmuBEz+OKicqxj2ndECIHu1
+	4xgcbvZVPuAyUTBL0/RfF02U4dzt79+TJwxAA=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:sender:in-reply-to:references:from:date
+	:x-google-sender-auth:message-id:subject:to:cc:content-type;
+	b=NcV/eCxsNRhrh5GdLYdr6zw2cs6kzJ//jHPov+JIbfvwiSMGzXyBWW1Grud8P/Cmym
+	Mlz6haQxsjtjU3kPL108qye3LtMxUHmJ/50go8cqJ1AMOZN6/Rnlo/uipwkIhiixUo4z
+	LCCi2QhaL5MEyWlTL7gAmfPb9xOPWDSG+uKY4=
+Received: by 10.216.59.193 with SMTP id s43mr757425wec.42.1296573137542; Tue,
+	01 Feb 2011 07:12:17 -0800 (PST)
+MIME-Version: 1.0
+Sender: kergoth@gmail.com
+Received: by 10.216.254.91 with HTTP; Tue, 1 Feb 2011 07:11:57 -0800 (PST)
+In-Reply-To: <1296571209.13501.19436.camel@rex>
+References: <1296571209.13501.19436.camel@rex>
+From: Chris Larson <clarson@kergoth.com>
+Date: Tue, 1 Feb 2011 08:11:57 -0700
+X-Google-Sender-Auth: ZXkpXncD2L81-5l34nTmSOil2iI
+Message-ID: <AANLkTikCwHTBWqO-x+x8Jfhn+4qrzV+2V458Nv1xkiRd@mail.gmail.com>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+Cc: poky <poky@yoctoproject.org>
+Subject: Re: More profiling of do_package data for the kernel
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,17 +45,24 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Feb 2011 14:56:12 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 01 Feb 2011 15:12:18 -0000
+Content-Type: text/plain; charset=UTF-8
 
-On Tue, 2011-02-01 at 15:43 +0800, Qing He wrote:
-> From: Qing He <qing.he@intel.com>
-> 
-> Fixes [BUGID #690]
+On Tue, Feb 1, 2011 at 7:40 AM, Richard Purdie
+<richard.purdie@linuxfoundation.org> wrote:
+> so calling the shell's tar is definitely more efficient!
+>
 
-Merged to master, thanks.
-
-Richard
-
+It is, and I think that's true for most, if not all of the archival
+python modules, unfortunately.  I did a prototype of do_unpack using
+them once, it was not a pretty picture ;)  Easily doubled the overall
+unpack times in a build.  I wonder if a version done as a C/cython
+extension would be much better, and if such a thing already exists..
+hmm...
+-- 
+Christopher Larson
+clarson at kergoth dot com
+Founder - BitBake, OpenEmbedded, OpenZaurus
+Maintainer - Tslib
+Senior Software Engineer, Mentor Graphics
 
