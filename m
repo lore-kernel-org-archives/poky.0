@@ -1,25 +1,28 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E436F4C80FA4
-	for <poky@pokylinux.org>; Mon, 31 Jan 2011 18:33:49 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 31 Jan 2011 16:33:49 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,406,1291622400"; d="scan'208";a="598254727"
-Received: from unknown (HELO [10.255.14.125]) ([10.255.14.125])
-	by orsmga002.jf.intel.com with ESMTP; 31 Jan 2011 16:33:49 -0800
-Message-ID: <4D4754EC.3090001@linux.intel.com>
-Date: Mon, 31 Jan 2011 16:33:48 -0800
-From: Saul Wold <sgw@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
-MIME-Version: 1.0
-To: poky-bounces@yoctoproject.org
-References: <1bdc18$jdga4u@fmsmga002.fm.intel.com>
-In-Reply-To: <1bdc18$jdga4u@fmsmga002.fm.intel.com>
-Cc: poky@pokylinux.org
-Subject: Re: [PATCH 0/5] a series of patches to address some LTP failures
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E81DD4C80FA4
+	for <poky@yoctoproject.org>; Mon, 31 Jan 2011 18:41:09 -0600 (CST)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p110h95A025374; Tue, 1 Feb 2011 00:43:09 GMT
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id 6QaAAbYoUcrz; Tue,  1 Feb 2011 00:43:09 +0000 (GMT)
+Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p110h1TK025370
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Tue, 1 Feb 2011 00:43:03 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: poky <poky@yoctoproject.org>
+In-Reply-To: <1296520080.13501.15996.camel@rex>
+References: <1296520080.13501.15996.camel@rex>
+Date: Tue, 01 Feb 2011 00:40:50 +0000
+Message-ID: <1296520850.13501.16052.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+Subject: Re: Quick hack for profiling tasks
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,60 +34,57 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Feb 2011 00:33:50 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Tue, 01 Feb 2011 00:41:10 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On 01/27/2011 03:38 AM, poky-bounces@yoctoproject.org wrote:
-> From: Kevin Tian<kevin.tian@intel.com>
->
-> Because now bugzilla is not usable, no bug number is included in this series.
-> I'll report them later with these commits included for reference.
->
-> With this series of fixes, all the LTP failures on Qemux86 target are audited
-> which composed ~85% total failures on all platforms.
->
-> For detail result, please check https://wiki.yoctoproject.org/wiki/LTP_result
->
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->    Branch: tk/master
->    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=tk/master
->
-> Thanks,
->      Kevin Tian<kevin.tian@intel.com>
-> ---
->
->
-> Kevin Tian (5):
->    base-files: remove ending colon from default $PATH for root user
->    cronie: enable multi-user crontab usage and make cron environment
->      complete
->    bash: use /bin/bash as default shell when bash is included
->    at: allow normal user to use 'at'
->    task-poky-sdk: add 'file' and 'ldd'
->
-Partially pulled to master.
+On Tue, 2011-02-01 at 00:28 +0000, Richard Purdie wrote:
+> One thing that is bugging me whilst I've been debugging some issues
+> we're having with the libc/libgcc package dependency issue is how long
+> do_package takes for libc. The question is where does it spend the time?
+> Answer, I have no idea.
+> 
+> I hacked together the patch below to find out. Its ugly and uses the
+> boilerplate profiling code from cooker, cut and pasted here to profile
+> the actual tasks that run.
+> 
+> I've yet to look at the results but it should allow us to optimise the
+> python tasks a bit if we can see where they spend time. I'm hoping this
+> lets others look at that too and also it give us some hints as to how we
+> might improve the core when turning on profiling in bitbake.
 
-Cronie and at are still pending bases on the postinst issue
+For eglibc this worked out as:
 
-Sau!
+Tue Feb  1 00:33:21 2011    profile-eglibc_2.12.bb-do_package.log
 
->   meta/recipes-core/base-files/base-files/profile   |    2 +-
->   meta/recipes-core/base-files/base-files_3.0.14.bb |    2 +-
->   meta/recipes-core/tasks/task-poky-sdk.bb          |    4 ++-
->   meta/recipes-extended/at/at_3.1.12.bb             |   29 +++++++++++++++---
->   meta/recipes-extended/bash/bash.inc               |    5 +++
->   meta/recipes-extended/bash/bash_3.2.48.bb         |    2 +-
->   meta/recipes-extended/bash/bash_4.1.bb            |    2 +-
->   meta/recipes-extended/cronie/cronie/crontab       |   10 ++++++
->   meta/recipes-extended/cronie/cronie_1.4.6.bb      |   33 +++++++++++++++++++-
->   9 files changed, 77 insertions(+), 12 deletions(-)
->   create mode 100644 meta/recipes-extended/cronie/cronie/crontab
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
+         8339733 function calls (8001600 primitive calls) in 877.972 CPU seconds
+
+   Ordered by: internal time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+     3206  321.887    0.100  322.422    0.101 package_do_filedeps:12(process_deps)
+      403  311.208    0.772  311.208    0.772 {posix.waitpid}
+   134054   69.860    0.001   69.860    0.001 {method 'read' of 'file' objects}
+   225554   23.367    0.000   23.367    0.000 {posix.stat}
+      866   20.279    0.023   20.279    0.023 {posix.system}
+    85562   19.406    0.000   19.406    0.000 {posix.chmod}
+   168083   16.691    0.000   16.691    0.000 {posix.lstat}
+    25824   14.399    0.001   14.399    0.001 {posix.rename}
+    55391   13.731    0.000   13.731    0.000 {open}
+     5325    9.019    0.002    9.019    0.002 {posix.popen}
+     2279    5.490    0.002    5.490    0.002 {method 'readlines' of 'file' objects}
+     6403    5.187    0.001    6.346    0.001 insane.bbclass:1(package_qa_hash_style)
+    19214    5.046    0.000    5.046    0.000 {posix.mkdir}
+
+so its spending a third of the time in package_do_filedeps(), a lot of
+which is in waitpid waiting for the process that was spawned.
+
+Mark: Is there a way we could batch up the information rather than go
+file by file? I'm going to look at this for other areas to improve too
+but thats obviously one worthy of attention.
+
+Cheers,
+
+Richard
 
 
