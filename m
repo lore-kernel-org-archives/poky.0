@@ -1,28 +1,28 @@
 Return-Path: <mark.hatle@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0CA914C800A8
-	for <poky@yoctoproject.org>; Wed,  2 Feb 2011 12:55:54 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id ACE074C800A9
+	for <poky@yoctoproject.org>; Wed,  2 Feb 2011 12:55:55 -0600 (CST)
 Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p12ItrOR012898
-	for <poky@yoctoproject.org>; Wed, 2 Feb 2011 10:55:53 -0800 (PST)
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p12ItoAd012858
+	for <poky@yoctoproject.org>; Wed, 2 Feb 2011 10:55:50 -0800 (PST)
 Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
 	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Wed, 2 Feb 2011 10:55:53 -0800
+	Wed, 2 Feb 2011 10:55:50 -0800
 Received: from msp-mhatle-lx2.wrs.com ([172.25.34.61]) by
 	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Wed, 2 Feb 2011 10:55:53 -0800
+	Wed, 2 Feb 2011 10:55:49 -0800
 From: Mark Hatle <mark.hatle@windriver.com>
 To: poky@yoctoproject.org
-Date: Wed,  2 Feb 2011 12:52:22 -0600
-Message-Id: <bbfc7a63de022aaca825fb051b944eac796640fc.1296672559.git.mark.hatle@windriver.com>
+Date: Wed,  2 Feb 2011 12:52:20 -0600
+Message-Id: <3a5ef68cb67348ef3e61ea8d527e4c42cd6bf945.1296672559.git.mark.hatle@windriver.com>
 X-Mailer: git-send-email 1.7.3.4
 In-Reply-To: <cover.1296672559.git.mark.hatle@windriver.com>
 References: <cover.1296672559.git.mark.hatle@windriver.com>
 In-Reply-To: <cover.1296672559.git.mark.hatle@windriver.com>
 References: <cover.1296672559.git.mark.hatle@windriver.com>
-X-OriginalArrivalTime: 02 Feb 2011 18:55:53.0182 (UTC)
-	FILETIME=[D0E307E0:01CBC30A]
-Subject: [PATCH 3/3] bitbake.conf & package.bbclass: Use default SUMMARY and DESCRIPTION
+X-OriginalArrivalTime: 02 Feb 2011 18:55:49.0963 (UTC)
+	FILETIME=[CEF7D9B0:01CBC30A]
+Subject: [PATCH 1/3] bitbake.conf: Fix missing NM definition
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,86 +34,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 02 Feb 2011 18:55:54 -0000
+X-List-Received-Date: Wed, 02 Feb 2011 18:55:55 -0000
 
-A new default SUMMARY and DESCRIPTION was defined for any package that
-previously did not contain one.  This value is based on the original
-SUMMARY_${PN} value.
-
-The new default SUMMARY and DESCRIPTION is used as a basis for all of
-the automatic summary and descriptions for the various package splits,
-include ${PN}, ${PN}-dbg, ${PN}-dev, ${PN}-doc, and locales.
-
-A recipe may also override any of the automatic summaries by simply
-specifying the value.
+The definition of NM was missing, causing certain configure calls to revert
+to using the host system's version of NM.  This can cause problems on some
+MIPS based targets, but is theoretically wrong everywhere.
 
 Signed-off-by: Mark Hatle <mark.hatle@windriver.com>
 ---
- meta/classes/package.bbclass |    5 ++++-
- meta/conf/bitbake.conf       |   27 +++++++++++++++++++--------
- 2 files changed, 23 insertions(+), 9 deletions(-)
+ meta/conf/bitbake.conf |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
 
-diff --git a/meta/classes/package.bbclass b/meta/classes/package.bbclass
-index bdc5d93..e64e441 100644
---- a/meta/classes/package.bbclass
-+++ b/meta/classes/package.bbclass
-@@ -289,6 +289,8 @@ python package_do_split_locales() {
- 	if mainpkg.find('-dev'):
- 		mainpkg = mainpkg.replace('-dev', '')
- 
-+	summary = bb.data.getVar('SUMMARY', d, True) or pn
-+	description = bb.data.getVar('DESCRIPTION', d, True) or "" 
- 	for l in locales:
- 		ln = legitimize_package_name(l)
- 		pkg = pn + '-locale-' + ln
-@@ -296,7 +298,8 @@ python package_do_split_locales() {
- 		bb.data.setVar('FILES_' + pkg, os.path.join(datadir, 'locale', l), d)
- 		bb.data.setVar('RDEPENDS_' + pkg, '%s virtual-locale-%s' % (mainpkg, ln), d)
- 		bb.data.setVar('RPROVIDES_' + pkg, '%s-locale %s-translation' % (pn, ln), d)
--		bb.data.setVar('DESCRIPTION_' + pkg, '%s translation for %s' % (l, pn), d)
-+		bb.data.setVar('SUMMARY_' + pkg, '%s - %s translations' % (summary, l), d)
-+		bb.data.setVar('DESCRIPTION_' + pkg, '%s  This package contains language translation files for the %s locale.' % (description, l), d)
- 
- 	bb.data.setVar('PACKAGES', ' '.join(packages), d)
- 
 diff --git a/meta/conf/bitbake.conf b/meta/conf/bitbake.conf
-index 3292a49..668f250 100644
+index b406b09..3292a49 100644
 --- a/meta/conf/bitbake.conf
 +++ b/meta/conf/bitbake.conf
-@@ -166,14 +166,25 @@ BP = "${BPN}-${PV}"
+@@ -403,6 +403,7 @@ export RANLIB = "${HOST_PREFIX}ranlib"
+ export STRIP = "${HOST_PREFIX}strip"
+ export OBJCOPY = "${HOST_PREFIX}objcopy"
+ export OBJDUMP = "${HOST_PREFIX}objdump"
++export NM = "${HOST_PREFIX}nm"
+ PYTHON = "${@sys.executable}"
  
- SECTION = "base"
- PRIORITY = "optional"
--SUMMARY_${PN} ?= "${PN} version ${PV}-${PR}"
--SUMMARY_${PN}-dbg ?= "Debugging files for ${PN}"
--SUMMARY_${PN}-dev ?= "Development files for ${PN}"
--SUMMARY_${PN}-doc ?= "Documentation files for ${PN}"
--DESCRIPTION_${PN} ?= "${SUMMARY_${PN}}"
--DESCRIPTION_${PN}-dbg ?= "${SUMMARY_${PN}-dbg}"
--DESCRIPTION_${PN}-dev ?= "${SUMMARY_${PN}-dev}"
--DESCRIPTION_${PN}-doc ?= "${SUMMARY_${PN}-doc}"
-+SUMMARY ?= "${PN} version ${PV}-${PR}"
-+DESCRIPTION ?= "${SUMMARY}"
-+
-+SUMMARY_${PN} ?= "${SUMMARY}"
-+DESCRIPTION_${PN} ?= "${DESCRIPTION}"
-+
-+SUMMARY_${PN}-dbg ?= "${SUMMARY} - Debugging files"
-+DESCRIPTION_${PN}-dbg ?= "${DESCRIPTION}  \
-+This package contains ELF symbols and related sources for debugging purposes."
-+
-+SUMMARY_${PN}-dev ?= "${SUMMARY} - Development files"
-+DESCRIPTION_${PN}-dev ?= "${DESCRIPTION}  \
-+This package contains symbolic links, static binaries, header files, and \
-+related items necessary for software development."
-+
-+SUMMARY_${PN}-doc ?= "${SUMMARY} - Documentation files"
-+DESCRIPTION_${PN}-doc ?= "${DESCRIPTION}  \
-+This package contains documentation."
-+
- LICENSE = "INVALID"
- MAINTAINER = "Yocto Project Team <poky@yoctoproject.org>"
- HOMEPAGE = "unknown"
+ export BUILD_CC = "${CCACHE}${BUILD_PREFIX}gcc ${BUILD_CC_ARCH}"
+@@ -414,6 +415,7 @@ export BUILD_CCLD = "${BUILD_PREFIX}gcc"
+ export BUILD_AR = "${BUILD_PREFIX}ar"
+ export BUILD_RANLIB = "${BUILD_PREFIX}ranlib"
+ export BUILD_STRIP = "${BUILD_PREFIX}strip"
++export BUILD_NM = "${BUILD_PREFIX}nm"
+ 
+ export MAKE = "make"
+ EXTRA_OEMAKE = "-e MAKEFLAGS="
 -- 
 1.7.3.4
 
