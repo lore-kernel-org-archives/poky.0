@@ -1,30 +1,22 @@
-Return-Path: <mark.hatle@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 3EA904C8008C
-	for <poky@yoctoproject.org>; Tue,  1 Feb 2011 19:24:32 -0600 (CST)
-Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p121OUnv012789;
-	Tue, 1 Feb 2011 17:24:30 -0800 (PST)
-Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
-	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Tue, 1 Feb 2011 17:24:30 -0800
-Received: from Macintosh-5.local ([172.25.36.227]) by
-	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Tue, 1 Feb 2011 17:24:29 -0800
-Message-ID: <4D48B24D.8000201@windriver.com>
-Date: Tue, 01 Feb 2011 19:24:29 -0600
-From: Mark Hatle <mark.hatle@windriver.com>
-Organization: Wind River Systems
-User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
-	rv:1.9.2.13) Gecko/20101207 Thunderbird/3.1.7
+Return-Path: <elizabeth.flanagan@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E22764C8008C;
+	Tue,  1 Feb 2011 19:36:49 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 01 Feb 2011 17:36:49 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,412,1291622400"; d="scan'208";a="598632968"
+Received: from unknown (HELO [10.255.14.138]) ([10.255.14.138])
+	by orsmga002.jf.intel.com with ESMTP; 01 Feb 2011 17:36:26 -0800
+Message-ID: <4D48B519.5050407@intel.com>
+Date: Tue, 01 Feb 2011 17:36:25 -0800
+From: Elizabeth Flanagan <elizabeth.flanagan@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.13) Gecko/20101208 Thunderbird/3.1.7 ThunderBrowse/3.3.4
 MIME-Version: 1.0
-To: "Kamble, Nitin A" <nitin.a.kamble@intel.com>
-References: <9DA5872FEF993D41B7173F58FCF6BE9411BF2012@orsmsx504.amr.corp.intel.com>
-In-Reply-To: <9DA5872FEF993D41B7173F58FCF6BE9411BF2012@orsmsx504.amr.corp.intel.com>
-X-OriginalArrivalTime: 02 Feb 2011 01:24:30.0019 (UTC)
-	FILETIME=[F0644130:01CBC277]
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: 3 versions of elfutils recipes in the poky master tree
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>, 
+	"yocto@yoctoproject.org" <yocto@yoctoproject.org>
+Subject: [Reminder] Upcoming Yocto 1.0 Release Cycle
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,61 +28,53 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 02 Feb 2011 01:24:32 -0000
+X-List-Received-Date: Wed, 02 Feb 2011 01:36:50 -0000
 Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 7bit
 
-On 2/1/11 7:15 PM, Kamble, Nitin A wrote:
-> elfutils_0.148.bb 
-> 
->                 this is the default currently being used.
-> 
->                 LICENSE = "GPLv2 with exceptions"
-> 
->  
-> 
-> elfutils_0.108.bb 
-> 
->                 not being used currently
-> 
->                 does not have LIC_CHKSUM_FILES
-> 
->                 also compile fails
-> 
->                 LICENSE = "OSL & GPLv2"
-> 
->  
-> 
-> elfutils_0.89.bb
-> 
->                 fetch fails
-> 
->                 LICENSE = "OSL"
-> 
+All,
 
-At one time the older versions were required for specific implementations of
-prelink and RPM.  This is no longer true.  I would suggest you remove the older
-versions, and as long as RPM and prelink continue to work (as expected), we're good.
+I wanted to give everyone a heads up as we are coming up to the start of
+the Yocto 1.0 release cycle. If you haven't had time to look at what the
+next 2 months entail, please do so now at:
+https://wiki.yoctoproject.org/wiki/Yocto_Project_v._1.0_Release_Cycle
 
---Mark
+This Friday, February 4th, is our feature freeze date. We should be
+mostly feature complete by then with pull requests made. Please have all
+pull request for new features for 1.0 in by Friday if not earlier. Our
+distro maintainers would appreciate not having a deluge of pull
+requests, so, if possible, please have these in well before Friday
+morning. The initial build of a release candidate will begin Friday @ 5pm.
 
-> 
-> I would like to remove the 0.89 & 0.108 versions of the elfutils. But I am not
-> aware of any reasons why are they are left behind in the tree.
-> 
-> So let me know the fates of these recipes.
-> 
->  
-> 
-> Thanks,
-> 
-> Nitin
-> 
-> 
-> 
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+The first stage of our release cycle will be a 3 week long cycle of
+stabilizing master/bug fixing/QA with release candidate generation
+occurring on February 25th-26th. During this time should also be doing
+regular IRC bug scrubs as we did this morning.
 
+Also, during the next two months I'll be sending out regular emails
+about what should be expected for the coming week.
+
+For the week of Feb 4th-10th:
+
+Feb 4th: Feature Freeze
+	 Initial Yocto Reference Manual is due to QA
+         Weekly Build
+
+Feb 6th: Release Cycle Kickoff
+         Weekly Build finished and delivered for QA
+
+Feb 8th: IRC Bug Scrub (#yocto)
+
+Feb 10th: IRC Bug Scrub (#yocto)
+
+Feb 11th: Weekly Build
+          Release Readiness Review
+
+
+Thanks,
+
+------------------
+Elizabeth Flanagan
+Yocto Project
+Release Engineer
 
