@@ -1,26 +1,25 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 3498F4C800A5
-	for <poky@lists.pokylinux.org>; Wed,  2 Feb 2011 11:24:23 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id C982116603E9; Wed,  2 Feb 2011 10:24:22 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=ham version=3.3.1
-Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 6670A16603E1;
-	Wed,  2 Feb 2011 10:24:22 -0700 (MST)
-Message-ID: <4D499346.4050800@mlbassoc.com>
-Date: Wed, 02 Feb 2011 10:24:22 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5777C4C800A5
+	for <poky@lists.pokylinux.org>; Wed,  2 Feb 2011 11:40:58 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 02 Feb 2011 09:40:57 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,414,1291622400"; d="scan'208";a="883683422"
+Received: from unknown (HELO [10.255.14.170]) ([10.255.14.170])
+	by fmsmga001.fm.intel.com with ESMTP; 02 Feb 2011 09:40:55 -0800
+Message-ID: <4D499729.5010809@linux.intel.com>
+Date: Wed, 02 Feb 2011 09:40:57 -0800
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
 MIME-Version: 1.0
-To: Poky <poky@lists.pokylinux.org>
-Subject: Poky & armv5te
+To: Mark Hatle <mark.hatle@windriver.com>
+References: <4D497242.2000409@mlbassoc.com>	<AANLkTik21AK9-kuM78JU8=GHYmPNCOJobM3_VK1BY+V3@mail.gmail.com>
+	<4D49758C.30109@windriver.com>
+In-Reply-To: <4D49758C.30109@windriver.com>
+Cc: Poky <poky@lists.pokylinux.org>, Chris Larson <clarson@kergoth.com>
+Subject: Re: PR and .bbappend
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,23 +31,39 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 02 Feb 2011 17:24:23 -0000
+X-List-Received-Date: Wed, 02 Feb 2011 17:40:58 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-I'd like to use Poky with my OMAP-L138 which is armv5te
-Sadly today, this just isn't a go because of GCC issues.
-I've tried all the combinations which are in the trees
-(main & contrib) with no luck:
-   * 4.3.3 - fails to build GCC
-   * 4.5.1 - everything builds but kernel crashes
-   * 4.5.2 - fails to build GCC
+On 02/02/2011 07:17 AM, Mark Hatle wrote:
+> On 2/2/11 9:13 AM, Chris Larson wrote:
+>> On Wed, Feb 2, 2011 at 8:03 AM, Gary Thomas<gary@mlbassoc.com>  wrote:
+>>> Should .bbappend files have a PR in them?  If so, must it
+>>> match the one in the main .bb file?
+>>
+>> All metadata in a .bbappend is essentially concatenated to the recipe.
+>>   If you define PR in the .bbappend, it will override the one in the
+>> recipe, which is unlikely what you want, as that loses information.
+>> The better route is to do something like PR .= ".1" in the .bbappend,
+>> and bump that when changing the bbappend file.
+>
+> I was going to suggest the same thing.  A good approach is to append a value to
+> the existing PR.  (I suggest this get added as a best practice in the
+> documentation on bbappend...  I'm not sure who the correct person is to point
+> this out to though.)
 
-Am I totally out of luck?
+That would be Scott R, on CC.
+
+>
+> --Mark
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+
 
 -- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
