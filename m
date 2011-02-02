@@ -1,31 +1,45 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 4FC244C800A4
-	for <poky@yoctoproject.org>; Wed,  2 Feb 2011 08:29:13 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p12EVEcs009873; Wed, 2 Feb 2011 14:31:14 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id LVcuPdw-s2Nu; Wed,  2 Feb 2011 14:31:14 +0000 (GMT)
-Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p12EV97d009868
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Wed, 2 Feb 2011 14:31:11 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Mark Hatle <mark.hatle@windriver.com>
-In-Reply-To: <4D4828F0.9020203@windriver.com>
-References: <1296520080.13501.15996.camel@rex>
-	<1296520850.13501.16052.camel@rex> <4D476541.7040703@windriver.com>
-	<1296558321.13501.18568.camel@rex>  <4D4828F0.9020203@windriver.com>
-Date: Wed, 02 Feb 2011 14:28:56 +0000
-Message-ID: <1296656936.1544.3387.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Cc: poky <poky@yoctoproject.org>
-Subject: Re: Quick hack for profiling tasks
+Return-Path: <mark.hatle@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 6B8364C8008C
+	for <poky@yoctoproject.org>; Wed,  2 Feb 2011 08:57:21 -0600 (CST)
+Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p12EulOI027805;
+	Wed, 2 Feb 2011 06:56:47 -0800 (PST)
+Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
+	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Wed, 2 Feb 2011 06:56:46 -0800
+Received: from Macintosh-5.local ([172.25.36.227]) by
+	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Wed, 2 Feb 2011 06:56:46 -0800
+Message-ID: <4D4970AD.60108@windriver.com>
+Date: Wed, 02 Feb 2011 08:56:45 -0600
+From: Mark Hatle <mark.hatle@windriver.com>
+Organization: Wind River Systems
+User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
+	rv:1.9.2.13) Gecko/20101207 Thunderbird/3.1.7
+MIME-Version: 1.0
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+References: <9AFCD584B0B67B48AE8D8585BE30BA9506BAAFDF@orsmsx504.amr.corp.intel.com>	
+	<1296382406.13501.7899.camel@rex>	
+	<625BA99ED14B2D499DC4E29D8138F1504E6294E1D3@shsmsx502.ccr.corp.intel.com>	
+	<C10D3FB0CD45994C8A51FEC1227CE22F20F8C32A4B@shsmsx502.ccr.corp.intel.com>	
+	<C10D3FB0CD45994C8A51FEC1227CE22F20F8C32C7C@shsmsx502.ccr.corp.intel.com>	
+	<1296492009.13501.13668.camel@rex>	
+	<9AFCD584B0B67B48AE8D8585BE30BA9506C267B0@orsmsx504.amr.corp.intel.com>	
+	<1296561316.13501.18767.camel@rex>	
+	<9AFCD584B0B67B48AE8D8585BE30BA950D73A848@orsmsx504.amr.corp.intel.com>	
+	<1296567139.13501.19158.camel@rex>	
+	<20110201192705.2546DB187@gemini.denx.de>	
+	<1296602979.13501.21658.camel@rex>	
+	<20110202070331.CA6FBEA65FA@gemini.denx.de>	
+	<1296645484.1544.2556.camel@rex>	
+	<20110202113340.2FFCAEA65FA@gemini.denx.de>	
+	<4D4962A5.8060406@windriver.com> <1296655589.1544.3260.camel@rex>
+In-Reply-To: <1296655589.1544.3260.camel@rex>
+X-OriginalArrivalTime: 02 Feb 2011 14:56:46.0622 (UTC)
+	FILETIME=[69ABB3E0:01CBC2E9]
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: poky-image-sato-sdk failed at do_rootfs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,124 +51,62 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 02 Feb 2011 14:29:13 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Wed, 02 Feb 2011 14:57:21 -0000
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Tue, 2011-02-01 at 09:38 -0600, Mark Hatle wrote:
-> I'm still used to the RPM world where locales are included in the main package
-> and "tagged" so they will or won't be included automatically.  I forget they are
-> separated out in Poky by default.
+On 2/2/11 8:06 AM, Richard Purdie wrote:
+> On Wed, 2011-02-02 at 07:56 -0600, Mark Hatle wrote:
+>> On 2/2/11 5:33 AM, Wolfgang Denk wrote:
+>>> Dear Richard Purdie,
+>>>
+>>> In message <1296645484.1544.2556.camel@rex> you wrote:
+>>>>
+>>>>>> Did you leave NO32LIBS set in local.conf as per the default?
+>>>>>
+>>>>> Good point - sorry, I had forgotten about that.  I always comment out
+>>>>> NO32LIBS because when building the SDK I also need this for 32 bit
+>>>>> machines.
+>>>>
+>>>> This option really just controls psuedo-native, it has no effect on the
+>>>
+>>> I see - that was not clear to me from the comment ("Default to not
+>>> build 32 bit libs on 64 bit systems, comment this out if that is
+>>> desired").
+>>>
+>>> When is this option needed, then?  If it was not needed (and is
+>>> broken), should it eventually be removed?
+>>
+>> PSEUDO is similar to fakeroot, it is a LD_PRELOADed library that intercepts
+>> certain calls, and emulates a root user capable environment.
+>>
+>> As such, it MUST be able to intercept both 32-bit and 64-bit function calls,
+>> when both are available on a host.
+>>
+>> So if you have both 32-bit and 64-bit binaries installed on your host, you need
+>> to disable the NO32LIBS, otherwise you could end up with an incomplete faked
+>> root environment.
 > 
-> So skipping them makes sense to me...
+> Since poky builds all its own tools out the box, this isn't something
+> I've ever seen a user get bitten by so far. There are people using say
+> an external 32 bit toolchain on a 64 bit machine who do need this
+> functionality though.
 
-Some further numbers to backup my comments:
+The place where I've seen it (beyond the tools issue above), is when someone
+provides their own version of a common tool, like ls, sed, make, etc..  usually
+to work around a defect in the host system that for whatever reason they can not
+fix by a distro vendor update..  (usually due to lack of permissions to root,
+and a sysadmin who doesn't care about updates because they need their one true
+standard environment...)  ;)
 
-"time bitbake poky-image-sato -k"
+But ya, it used to be very common, but it's become more rare every day.  Usually
+systems these days are either 32-bit or 64-bit...
 
-Before patch:
+--Mark
 
-real 129m40.482s
-user 480m16.520s
-sys 66m9.170s
-
-After patch:
-
-real 117m7.704s
-user 455m40.330s
-sys 55m1.390s
-
-The patch in question:
-
-diff --git a/meta/classes/package.bbclass b/meta/classes/package.bbclass
-index 856858c..fbc1463 100644
---- a/meta/classes/package.bbclass
-+++ b/meta/classes/package.bbclass
-@@ -607,7 +607,7 @@ python package_do_filedeps() {
- 
- 	# Determine dependencies
- 	for pkg in packages.split():
--		if pkg.endswith('-dbg'):
-+		if pkg.endswith('-dbg') or pkg.find('-locale-') != -1 or pkg.find('-localedata-') != -1 or pkg.find('-gconv-') != -1  or pkg.find('-charmap-') != -1 or pkg.startswith('kernel-module-') != -1:
- 			continue
- 
- 		# Process provides
-
-
-So I think this is a sufficient improvement for us to include it unless
-there are any objections from anyone.
-
-> > FWIW, the waitpid above is from the binary locale generation, not from
-> > filedeps and we know that is "slow" in the libc case although the cross
-> > locale generation speeds it up a lot. The reason process_deps is showing
-> > so badly on the profile is not because that python function is slow (as
-> > it usually the case) but because its reading from a pipe which blocks on
-> > the output of the rpmdeps process.
+> Cheers,
 > 
-> Is there a faster mechanism we could use -- or is this actually efficient, but
-> not showing it in the trace?
-
-I was thinking this is ok efficiency wise, it just means the function
-will look to take a long time on the graphs. The result above surprises
-me though as we shrunk the kernel (sys) time by over 10 minutes. This
-could mean we're trashing a lot with context switching using this
-approach. There is no reason we can't log to a file and then read the
-file for processing rather than context switch.
-
-> > I did take a look at the perfile_rpmdeps.sh script and rpmdeps itself. I
-> > suspect we might be faster if we called "rpmdeps --requires --provides
-> > -v" on each file ourselves and handle the prefix the -v option adds to
-> > differentiate between the requires and provides. There is a sed
-> > operation in the script I didn't 100% understand that we'd need to
-> > account for too. Watching cpu usage whilst manually running the script
-> > was not encouraging :/.
+> Richard
 > 
-> The sed actually accomplished two things.  The first is removes instances of the
-> dependency "rpmlib(...)".  This dependency is added by RPM to track specific rpm
-> versioning requirements.  Things such as symlink validation, compression
-> methods, etc.  None of these are needed within the Poky environment.
-
-Ok, this makes sense. We could always just skip these in the python
-processing code.
-
-> The second thing is does is translates the dependency equations into a Poky
-> style equation.
-> 
-> In rpm versioned dependencies are normally like:
-> 
-> foo = 1.2-3
-> 
-> However in Poky the format is different:
-> 
-> foo (= 1.2-3)
-> 
-> So the sed finds these, and simply moves them into parens.
-> 
-> We may be able to move the sed out of the direct loop and make it a single call
-> over the full run.  I think this will work, and it's likely more efficient as well.
-
-Agreed, either we make it a single call, or we can easily adapt the
-python to handle this conversion too.
-
-> As for calling rpmdeps with the -v, we can switch that mode if it makes it
-> quicker to process the results, it just becomes slightly more complicated to
-> process.
-
-My thoughts here are that we could well half the execution time by doing
-everything in one exec call, not two. The additional overhead for
-handling the prefix in python is negligible.
-
->   With the method I'm using now, all of the dependencies return on a
-> single line prefixed by the filename.  If we switch to "-v", then we would
-> likely need to do "filename:\ndep1\ndep2\n" etc..  I'm sure we could process
-> that in python, but the difficulty wasn't worth it at the time.
-
-Fair enough but I think there is something odd going on with that
-function we need to get to the bottom of as it does seem to be eating a
-large amount of time, possibly when it needn't.
-
-Cheers,
-
-Richard
 
 
