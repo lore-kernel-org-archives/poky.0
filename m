@@ -1,24 +1,43 @@
-Return-Path: <tom.zanussi@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 3258B4C8007E
-	for <poky@yoctoproject.org>; Tue,  1 Feb 2011 23:58:58 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 01 Feb 2011 21:58:57 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,413,1291622400"; d="scan'208";a="883491565"
-Received: from unknown (HELO [10.255.14.127]) ([10.255.14.127])
-	by fmsmga001.fm.intel.com with ESMTP; 01 Feb 2011 21:58:57 -0800
-From: Tom Zanussi <tom.zanussi@intel.com>
-To: Bruce Ashfield <bruce.ashfield@gmail.com>
-In-Reply-To: <AANLkTi=nevskgmtJnSm-x7nyCJF5khmpoiYgeXwxgCgD@mail.gmail.com>
-References: <b7da2f$qa3mls@fmsmga001.fm.intel.com>
-	<AANLkTi=nevskgmtJnSm-x7nyCJF5khmpoiYgeXwxgCgD@mail.gmail.com>
-Date: Tue, 01 Feb 2011 23:58:54 -0600
-Message-ID: <1296626334.26842.19.camel@elmorro>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
+Return-Path: <wd@denx.de>
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 3C3CD4C8008C
+	for <poky@yoctoproject.org>; Wed,  2 Feb 2011 01:03:34 -0600 (CST)
+Received: from frontend1.mail.m-online.net (unknown [192.168.8.180])
+	by mail-out.m-online.net (Postfix) with ESMTP id F12011C01D83;
+	Wed,  2 Feb 2011 08:03:32 +0100 (CET)
+X-Auth-Info: GysCF4M8vdMKRwsGhRn0BClyWfvMdLwUNXSKo+lsZTs=
+Received: from diddl.denx.de (host-80-81-18-216.customer.m-online.net
+	[80.81.18.216])
+	by smtp-auth.mnet-online.de (Postfix) with ESMTPA id 31EA01C000E4;
+	Wed,  2 Feb 2011 08:03:32 +0100 (CET)
+Received: from gemini.denx.de (unknown [10.0.0.2])
+	by diddl.denx.de (Postfix) with ESMTP id 04CA030DEC7B;
+	Wed,  2 Feb 2011 08:03:32 +0100 (CET)
+Received: from gemini.denx.de (localhost.localdomain [127.0.0.1])
+	by gemini.denx.de (Postfix) with ESMTP id CA6FBEA65FA;
+	Wed,  2 Feb 2011 08:03:31 +0100 (CET)
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+From: Wolfgang Denk <wd@denx.de>
+MIME-Version: 1.0
+In-reply-to: <1296602979.13501.21658.camel@rex>
+References: <9AFCD584B0B67B48AE8D8585BE30BA9506BAAFDF@orsmsx504.amr.corp.intel.com>
+	<1296382406.13501.7899.camel@rex>
+	<625BA99ED14B2D499DC4E29D8138F1504E6294E1D3@shsmsx502.ccr.corp.intel.com>
+	<C10D3FB0CD45994C8A51FEC1227CE22F20F8C32A4B@shsmsx502.ccr.corp.intel.com>
+	<C10D3FB0CD45994C8A51FEC1227CE22F20F8C32C7C@shsmsx502.ccr.corp.intel.com>
+	<1296492009.13501.13668.camel@rex>
+	<9AFCD584B0B67B48AE8D8585BE30BA9506C267B0@orsmsx504.amr.corp.intel.com>
+	<1296561316.13501.18767.camel@rex>
+	<9AFCD584B0B67B48AE8D8585BE30BA950D73A848@orsmsx504.amr.corp.intel.com>
+	<1296567139.13501.19158.camel@rex>
+	<20110201192705.2546DB187@gemini.denx.de>
+	<1296602979.13501.21658.camel@rex>
+Comments: In-reply-to Richard Purdie <richard.purdie@linuxfoundation.org>
+	message dated "Tue, 01 Feb 2011 23:29:39 +0000."
+Date: Wed, 02 Feb 2011 08:03:31 +0100
+Message-Id: <20110202070331.CA6FBEA65FA@gemini.denx.de>
 Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 0/2] meta-sugarbay: new layer for Sandy Bridge/Cougar Point
+Subject: Re: poky-image-sato-sdk failed at do_rootfs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,99 +49,33 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 02 Feb 2011 05:58:58 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 02 Feb 2011 07:03:34 -0000
+Content-type: text/plain; charset=ISO-8859-1
+Content-transfer-encoding: 8bit
 
-On Tue, 2011-02-01 at 21:52 -0800, Bruce Ashfield wrote:
-> On Mon, Jan 31, 2011 at 11:35 PM, Tom Zanussi <tom.zanussi@intel.com> wrote:
-> > From: Tom Zanussi <tom.zanussi@intel.com>
-> >
-> > This layer provides support for the 'Sugar Bay' platform, which
-> > consists of the Intel Sandy Bridge processor and the Cougar Point PCH.
-> >
-> > It also adds a new meta-intel/common directory for sharing commmon
-> > code between meta-intel BSPs - for now, it's acting as a kind of
-> > 'staging' area for the grub2 and associated live-install changes
-> > needed to install from a live image.
-> 
-> Based on where I just merged support for this your kernel bbappend
-> 
-> +KMACHINE_sugarbay  = "yocto/standard/sugarbay"
-> 
-> will need to be:
-> 
-> +KMACHINE_sugarbay  = "yocto/standard/common-pc-64/sugarbay"
-> 
-> I'll cc you on my SRCREV change so you'll know to make this update.
-> 
+Dear Richard,
 
-Thanks, Bruce.  I'll make the changes then and retest as well...
+In message <1296602979.13501.21658.camel@rex> you wrote:
+>
+> Did you leave NO32LIBS set in local.conf as per the default?
 
-Tom
-
-> Cheers,
-> 
-> Bruce
-> 
-> 
-> >
-> > Thanks,
-> >
-> > Tom
-> >
-> > Pull URL: git://git.pokylinux.org/meta-intel/tzanussi/sugarbay
-> >  Branch: tzanussi/sugarbay
-> >  Browse:
-> > http://git.pokylinux.org/cgit.cgi/meta-intel/log/?h=tzanussi/sugarbay
-> >
-> > Tom Zanussi (2):
-> >  meta-intel: add a /common dir with grub2/live-install changes
-> >  meta-sugarbay: new layer for Sandy Bridge/Cougar Point systems
-> >
-> >  common/recipes-bsp/grub/grub-1.98/40_custom        |    9 +
-> >  .../grub/grub-1.98/grub-install.in.patch           |   13 ++
-> >  .../grub/grub-1.98/uninit-shdr-fix.patch           |   31 ++++
-> >  common/recipes-bsp/grub/grub_1.98.bb               |   45 +++++
-> >  .../initramfs-live-install/init-install.sh         |  188 ++++++++++++++++++++
-> >  .../initramfs-live-install_1.0.bbappend            |    2 +
-> >  meta-sugarbay/COPYING.MIT                          |   17 ++
-> >  meta-sugarbay/README                               |   84 +++++++++
-> >  meta-sugarbay/conf/layer.conf                      |   12 ++
-> >  meta-sugarbay/conf/machine/sugarbay.conf           |   57 ++++++
-> >  .../formfactor/formfactor/sugarbay/machconfig      |    3 +
-> >  .../recipes-bsp/formfactor/formfactor_0.0.bbappend |    3 +
-> >  .../xserver-xf86-config/sugarbay/xorg.conf         |   26 +++
-> >  .../xorg-xserver/xserver-xf86-config_0.1.bbappend  |    3 +
-> >  .../xserver-xf86-dri-lite_1.9.3.bbappend           |    1 +
-> >  .../recipes-kernel/linux/linux-yocto_git.bbappend  |    5 +
-> >  16 files changed, 499 insertions(+), 0 deletions(-)
-> >  create mode 100755 common/recipes-bsp/grub/grub-1.98/40_custom
-> >  create mode 100644 common/recipes-bsp/grub/grub-1.98/grub-install.in.patch
-> >  create mode 100644 common/recipes-bsp/grub/grub-1.98/uninit-shdr-fix.patch
-> >  create mode 100644 common/recipes-bsp/grub/grub_1.98.bb
-> >  create mode 100644 common/recipes-core/initrdscripts/initramfs-live-install/init-install.sh
-> >  create mode 100644 common/recipes-core/initrdscripts/initramfs-live-install_1.0.bbappend
-> >  create mode 100644 meta-sugarbay/COPYING.MIT
-> >  create mode 100644 meta-sugarbay/README
-> >  create mode 100644 meta-sugarbay/binary/.gitignore
-> >  create mode 100644 meta-sugarbay/conf/layer.conf
-> >  create mode 100644 meta-sugarbay/conf/machine/sugarbay.conf
-> >  create mode 100644 meta-sugarbay/recipes-bsp/formfactor/formfactor/sugarbay/machconfig
-> >  create mode 100644 meta-sugarbay/recipes-bsp/formfactor/formfactor_0.0.bbappend
-> >  create mode 100644 meta-sugarbay/recipes-graphics/xorg-xserver/xserver-xf86-config/sugarbay/xorg.conf
-> >  create mode 100644 meta-sugarbay/recipes-graphics/xorg-xserver/xserver-xf86-config_0.1.bbappend
-> >  create mode 100644 meta-sugarbay/recipes-graphics/xorg-xserver/xserver-xf86-dri-lite_1.9.3.bbappend
-> >  create mode 100644 meta-sugarbay/recipes-kernel/linux/linux-yocto_git.bbappend
-> >
-> > _______________________________________________
-> > poky mailing list
-> > poky@yoctoproject.org
-> > https://lists.yoctoproject.org/listinfo/poky
-> >
-> 
-> 
-> 
+Good point - sorry, I had forgotten about that.  I always comment out
+NO32LIBS because when building the SDK I also need this for 32 bit
+machines.
 
 
+Resetting this (i. e. not commenting out NO32LIBS) makeds the build
+pass that stage,  so this is indeed where the problem comes from.
+
+Best regards,
+
+Wolfgang Denk
+
+-- 
+DENX Software Engineering GmbH,     MD: Wolfgang Denk & Detlev Zundel
+HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
+Phone: (+49)-8142-66989-10 Fax: (+49)-8142-66989-80 Email: wd@denx.de
+"More software projects have gone awry for lack of calendar time than
+for all other causes combined."
+                         - Fred Brooks, Jr., _The Mythical Man Month_
 
