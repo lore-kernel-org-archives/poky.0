@@ -1,30 +1,32 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E9A9A4C8008C
-	for <poky@yoctoproject.org>; Tue,  1 Feb 2011 18:10:04 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p120C6tX010215; Wed, 2 Feb 2011 00:12:07 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id temDqN-4UA5H; Wed,  2 Feb 2011 00:12:06 +0000 (GMT)
-Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p120Bxl2010208
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Wed, 2 Feb 2011 00:12:02 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Koen Kooi <koen@dominion.thruhere.net>
-In-Reply-To: <F9AEC290-DD02-4D3C-9649-DE28DCD6DF18@dominion.thruhere.net>
-References: <912371C7-ACCF-4DA9-A2E7-2F863C72189F@dominion.thruhere.net>
-	<F9AEC290-DD02-4D3C-9649-DE28DCD6DF18@dominion.thruhere.net>
-Date: Wed, 02 Feb 2011 00:09:49 +0000
-Message-ID: <1296605389.13501.21821.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Cc: poky <poky@yoctoproject.org>
-Subject: Re: Fetcher2 problems break parsing
+Return-Path: <nitin.a.kamble@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8BB434C8008C
+	for <poky@yoctoproject.org>; Tue,  1 Feb 2011 18:31:20 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 01 Feb 2011 16:31:11 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,412,1291622400"; d="scan'208";a="703025232"
+Received: from orsmsx602.amr.corp.intel.com ([10.22.226.211])
+	by orsmga001.jf.intel.com with ESMTP; 01 Feb 2011 16:31:11 -0800
+Received: from orsmsx504.amr.corp.intel.com ([10.22.226.207]) by
+	orsmsx602.amr.corp.intel.com ([10.22.226.211]) with mapi;
+	Tue, 1 Feb 2011 16:31:11 -0800
+From: "Kamble, Nitin A" <nitin.a.kamble@intel.com>
+To: Gary Thomas <gary@mlbassoc.com>
+Date: Tue, 1 Feb 2011 16:31:09 -0800
+Thread-Topic: [poky] need help with bouncing emails ...
+Thread-Index: AcvCP/6A/OcywYbTScKHR+9vS3YMRgAMHIfw
+Message-ID: <9DA5872FEF993D41B7173F58FCF6BE9411BF1F5A@orsmsx504.amr.corp.intel.com>
+References: <9DA5872FEF993D41B7173F58FCF6BE9411BF18B5@orsmsx504.amr.corp.intel.com>
+	<4D48546B.4000503@mlbassoc.com>
+In-Reply-To: <4D48546B.4000503@mlbassoc.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
+MIME-Version: 1.0
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: need help with bouncing emails ...
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,45 +38,22 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 02 Feb 2011 00:10:05 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 02 Feb 2011 00:31:20 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2011-02-01 at 15:34 +0100, Koen Kooi wrote:
-> Op 1 feb 2011, om 14:07 heeft Koen Kooi het volgende geschreven:
-> 
-> > Hi,
-> > 
-> > Since a few days I'm getting this on recipes using SRCPV:
-> > 
-[...]
-> > 
-> > This seems to happen when no SRCREV is set, is that the intended behaviour?
-> 
-> RP gave me this patch to try:
-> 
-> koen@dominion:/OE/tentacle/sources/openembedded$ git diff
-> diff --git a/bitbake/lib/bb/fetch2/__init__.py b/bitbake/lib/bb/fetch2/__init__.py
-> index 9fe4eb2..d62ba81 100644
-> --- a/bitbake/lib/bb/fetch2/__init__.py
-> +++ b/bitbake/lib/bb/fetch2/__init__.py
-> @@ -864,7 +864,7 @@ class Fetch(object):
->          if uselocalcount:
->              count = Fetch.localcount_internal_helper(ud, d)
->          if count is None:
-> -            count = localcounts[key + '_count']
-> +            count = localcounts[key + '_count'] or "0"
->  
->          if last_rev == latest_rev:
->              return str(count + "+" + latest_rev)
-> 
-> 
-> and that seems to work.
+>=20
+> Is poky@yoctolinux.org equivalent to poky@yoctoproject.org?
+Yes, that was the issue.=20
+Thanks,
+Nitin
 
-Its not intended and this patch has been merged into master.
 
-Cheers,
-
-Richard
-
+>=20
+> --
+> ------------------------------------------------------------
+> Gary Thomas                 |  Consulting for the
+> MLB Associates              |    Embedded world
+> ------------------------------------------------------------
 
