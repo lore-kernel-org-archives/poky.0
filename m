@@ -1,27 +1,27 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 72D074C800A7
-	for <poky@lists.pokylinux.org>; Wed,  2 Feb 2011 12:00:08 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 1C07316603B0; Wed,  2 Feb 2011 11:00:08 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.1
-Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 7087A1660388;
-	Wed,  2 Feb 2011 11:00:07 -0700 (MST)
-Message-ID: <4D499BA7.8060604@mlbassoc.com>
-Date: Wed, 02 Feb 2011 11:00:07 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
-MIME-Version: 1.0
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 6C8284C800A7
+	for <poky@lists.pokylinux.org>; Wed,  2 Feb 2011 12:00:57 -0600 (CST)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p12I2wTV020069; Wed, 2 Feb 2011 18:02:58 GMT
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id LYjJdd6eTIrC; Wed,  2 Feb 2011 18:02:58 +0000 (GMT)
+Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p12I2nSP020064
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Wed, 2 Feb 2011 18:02:52 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
 To: Darren Hart <dvhart@linux.intel.com>
-References: <4D499346.4050800@mlbassoc.com> <4D49976E.5030800@linux.intel.com>
 In-Reply-To: <4D49976E.5030800@linux.intel.com>
+References: <4D499346.4050800@mlbassoc.com> <4D49976E.5030800@linux.intel.com>
+Date: Wed, 02 Feb 2011 18:00:36 +0000
+Message-ID: <1296669636.1544.4238.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
 Cc: Poky <poky@lists.pokylinux.org>
 Subject: Re: Poky & armv5te
 X-BeenThere: poky@yoctoproject.org
@@ -35,39 +35,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 02 Feb 2011 18:00:08 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Wed, 02 Feb 2011 18:00:57 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On 02/02/2011 10:42 AM, Darren Hart wrote:
+On Wed, 2011-02-02 at 09:42 -0800, Darren Hart wrote:
 > On 02/02/2011 09:24 AM, Gary Thomas wrote:
->> I'd like to use Poky with my OMAP-L138 which is armv5te
->> Sadly today, this just isn't a go because of GCC issues.
->> I've tried all the combinations which are in the trees
->> (main & contrib) with no luck:
->> * 4.3.3 - fails to build GCC
->> * 4.5.1 - everything builds but kernel crashes
->> * 4.5.2 - fails to build GCC
->>
->> Am I totally out of luck?
->
-> What are you running into? I've recently backported some changes in support of the Beagleboard (armv7-a) which were necessary to build with 4.5.1 and our 2.21 binutils.
+> > I'd like to use Poky with my OMAP-L138 which is armv5te
+> > Sadly today, this just isn't a go because of GCC issues.
+> > I've tried all the combinations which are in the trees
+> > (main & contrib) with no luck:
+> > * 4.3.3 - fails to build GCC
+> > * 4.5.1 - everything builds but kernel crashes
+> > * 4.5.2 - fails to build GCC
+> >
+> > Am I totally out of luck?
+> 
+> What are you running into? I've recently backported  some changes in 
+> support of the Beagleboard (armv7-a) which were necessary to build with 
+> 4.5.1 and our 2.21 binutils.
 
-As far as 4.5.1 goes, the kernel crashes immediately on bootup.
-I didn't diagnose this much as it seemed to be similar to the
-problem reported 2011-01-31 18:52GMT
-   'Kernel Panics on armv4t with gcc.4.5.1'
-To that end, I tried to use the 4.5.2 patches from Nitin
-which failed to build at all (reported this morning)
+Those wouldn't affect armv5. What puzzles me is that qemuarm is
+effectively an armv5 like system and those do build and boot in qemu.
 
-Do you have a tree with your changes?  I could try my armv5te
-overlay to see what happens.
+When you managed images above for 4.5.1 did you try using a known good
+kernel with our userspace? I'm wondering if we can narrow it to a kernel
+issue?
 
-Thanks
+Cheers,
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+Richard
+
 
