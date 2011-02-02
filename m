@@ -1,22 +1,20 @@
-Return-Path: <elizabeth.flanagan@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E22764C8008C;
-	Tue,  1 Feb 2011 19:36:49 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 01 Feb 2011 17:36:49 -0800
+Return-Path: <scott.m.rifenbark@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id EE3794C800A3
+	for <poky@yoctoproject.org>; Tue,  1 Feb 2011 20:05:40 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 01 Feb 2011 18:05:40 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,412,1291622400"; d="scan'208";a="598632968"
-Received: from unknown (HELO [10.255.14.138]) ([10.255.14.138])
-	by orsmga002.jf.intel.com with ESMTP; 01 Feb 2011 17:36:26 -0800
-Message-ID: <4D48B519.5050407@intel.com>
-Date: Tue, 01 Feb 2011 17:36:25 -0800
-From: Elizabeth Flanagan <elizabeth.flanagan@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.13) Gecko/20101208 Thunderbird/3.1.7 ThunderBrowse/3.3.4
-MIME-Version: 1.0
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>, 
-	"yocto@yoctoproject.org" <yocto@yoctoproject.org>
-Subject: [Reminder] Upcoming Yocto 1.0 Release Cycle
+X-IronPort-AV: E=Sophos;i="4.60,412,1291622400"; d="scan'208";a="703046066"
+Received: from unknown (HELO localhost) ([10.255.14.97])
+	by orsmga001.jf.intel.com with ESMTP; 01 Feb 2011 18:05:40 -0800
+Message-Id: <cover.1296594728.git.scott@scott-desktop.(none)>
+Old-Date: Tue, 1 Feb 2011 15:12:08 -0600
+Date: Tue, 01 Feb 2011 20:05:52 -0600
+To: poky@yoctoproject.org
+CC: 
+From: <scott.m.rifenbark@intel.com>
+Subject: [PATCH 0/1] [DOCS] Fix to the Poky Ref Manual
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,53 +26,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 02 Feb 2011 01:36:50 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 02 Feb 2011 02:05:41 -0000
 
-All,
+From: Scott Rifenbark <scott@scott-desktop.(none)>
 
-I wanted to give everyone a heads up as we are coming up to the start of
-the Yocto 1.0 release cycle. If you haven't had time to look at what the
-next 2 months entail, please do so now at:
-https://wiki.yoctoproject.org/wiki/Yocto_Project_v._1.0_Release_Cycle
+The manual was not building during the make due to a 
+stray </literallayout> command.  I removed it to correct 
+the make operation.
 
-This Friday, February 4th, is our feature freeze date. We should be
-mostly feature complete by then with pull requests made. Please have all
-pull request for new features for 1.0 in by Friday if not earlier. Our
-distro maintainers would appreciate not having a deluge of pull
-requests, so, if possible, please have these in well before Friday
-morning. The initial build of a release candidate will begin Friday @ 5pm.
-
-The first stage of our release cycle will be a 3 week long cycle of
-stabilizing master/bug fixing/QA with release candidate generation
-occurring on February 25th-26th. During this time should also be doing
-regular IRC bug scrubs as we did this morning.
-
-Also, during the next two months I'll be sending out regular emails
-about what should be expected for the coming week.
-
-For the week of Feb 4th-10th:
-
-Feb 4th: Feature Freeze
-	 Initial Yocto Reference Manual is due to QA
-         Weekly Build
-
-Feb 6th: Release Cycle Kickoff
-         Weekly Build finished and delivered for QA
-
-Feb 8th: IRC Bug Scrub (#yocto)
-
-Feb 10th: IRC Bug Scrub (#yocto)
-
-Feb 11th: Weekly Build
-          Release Readiness Review
-
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: srifenbark/docs
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=srifenbark/docs
 
 Thanks,
+     <>
+---
 
-------------------
-Elizabeth Flanagan
-Yocto Project
-Release Engineer
+
+Scott Rifenbark (1):
+  documentation/poky-ref-manual/extendpoky.xml:  Fixed make problem
+
+ documentation/poky-ref-manual/extendpoky.xml |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
 
