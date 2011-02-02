@@ -1,39 +1,39 @@
 Return-Path: <bruce.ashfield@gmail.com>
 Received: from mail-iw0-f176.google.com (mail-iw0-f176.google.com
 	[209.85.214.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B7C694C8007E;
-	Tue,  1 Feb 2011 23:32:25 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id D94434C8007E
+	for <poky@yoctoproject.org>; Tue,  1 Feb 2011 23:50:28 -0600 (CST)
 Authentication-Results: mx1.pokylinux.org; dkim=pass
 	(1024-bit key; insecure key) header.i=@gmail.com;
 	x-dkim-adsp=none (insecure policy)
-Received: by iwn2 with SMTP id 2so8063792iwn.35
-	for <multiple recipients>; Tue, 01 Feb 2011 21:32:25 -0800 (PST)
+Received: by iwn2 with SMTP id 2so8074348iwn.35
+	for <poky@yoctoproject.org>; Tue, 01 Feb 2011 21:50:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
 	h=domainkey-signature:mime-version:in-reply-to:references:date
 	:message-id:subject:from:to:cc:content-type
 	:content-transfer-encoding;
-	bh=dGSYZZNMoA0I1DcolU/aS0JgfAHWvnkEpSNvheB7Rkk=;
-	b=jBfH22W5I3eqZx9EOLU8kLYA9l5xmwWEs6NbPaeUmxYxMK2elIS8CIlqoXkvTWpqBs
-	3+Az5+Xox8t+J3UiPi54tqHrIVXcoDAxsTFsgXEcwMP7vG/n4qB5izBdVSjZMSdm1ZwK
-	e+UsR5DzEgsAjfdjmRAhidPDP0/7fPkTeymH0=
+	bh=HoJ2RmdqGXvOm7wcTdp0PL7ERaC3ZtfYhxEBrMHkwBc=;
+	b=X7gwDpGY0H0k2+mo4lTAKv0h0f1+TjOaf4hj3NMhYkVbTckGcI62VtNaCqU07ZbYmF
+	F+tiQrnlKci2r7dpUJZVjLBQIuErJDtcfvkpfTL/voSGnsoGWOUwUjLdaPFXOHIhEc9P
+	HShyeSn+43HWEnTAqJBg4CJndM+zKVnVewMb8=
 DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
 	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
 	:cc:content-type:content-transfer-encoding;
-	b=Et8rTuTe26iGruEMiUjXUgdKu+6+6lWPUTG5Un7ZjL5TxZMmSqYBdxY8evZgdO5C9i
-	0ZYY7fizwps1SWYvQLAlvdJJnvUU02UJAZiAeAt5RG1N1QIINWO151/A0D+BKF9cuYso
-	OqwKAT8vxP6PbPbYAmoqlyNLHforTxtKdGCW0=
+	b=U1g+qf3au8FTZrwRB4Q08hsqzpE41DuK45tOBptslWDaKa/Nz/fdHHs24hCD4zwJ12
+	NqU8U2IKanlW3TVX/OFT0Hs1Xs+pKRsgmc3e+Q9AD82dhq8y9PuNsyM2/2/4u7sCcY4X
+	i0AOM8qc5E5vekOFdWPNiGo0CY4/YLKa69pGo=
 MIME-Version: 1.0
-Received: by 10.42.229.193 with SMTP id jj1mr10670664icb.188.1296624745133;
-	Tue, 01 Feb 2011 21:32:25 -0800 (PST)
-Received: by 10.231.156.136 with HTTP; Tue, 1 Feb 2011 21:32:25 -0800 (PST)
-In-Reply-To: <cover.1296580065.git.dvhart@linux.intel.com>
-References: <cover.1296580065.git.dvhart@linux.intel.com>
-Date: Wed, 2 Feb 2011 00:32:25 -0500
-Message-ID: <AANLkTikoY=+z+cwrcgzgpbqBybZ57g0cHKn-aONDLs11@mail.gmail.com>
+Received: by 10.231.35.131 with SMTP id p3mr9363425ibd.87.1296625828365; Tue,
+	01 Feb 2011 21:50:28 -0800 (PST)
+Received: by 10.231.156.136 with HTTP; Tue, 1 Feb 2011 21:50:28 -0800 (PST)
+In-Reply-To: <1bdc18$jeo1so@fmsmga002.fm.intel.com>
+References: <1bdc18$jeo1so@fmsmga002.fm.intel.com>
+Date: Wed, 2 Feb 2011 00:50:28 -0500
+Message-ID: <AANLkTi=L2A-C8v6OR1DrLdNDpRsuq3FzOOTPqC=_gJQo@mail.gmail.com>
 From: Bruce Ashfield <bruce.ashfield@gmail.com>
-To: poky-bounces@yoctoproject.org
+To: Tom Zanussi <tom.zanussi@intel.com>
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/3][KERNEL][2.6.37] beagleboard xM build and networking
+Subject: Re: [PATCH 0/2][KERNEL][2.6.37] Add sugarbay BSP
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -45,47 +45,64 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 02 Feb 2011 05:32:26 -0000
+X-List-Received-Date: Wed, 02 Feb 2011 05:50:29 -0000
 Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Feb 1, 2011 at 12:22 PM,  <poky-bounces@yoctoproject.org> wrote:
-> From: Darren Hart <dvhart@linux.intel.com>
+On Mon, Jan 31, 2011 at 4:18 PM, Tom Zanussi <tom.zanussi@intel.com> wrote:
+> From: Tom Zanussi <tom.zanussi@intel.com>
 >
-> Please apply the following patches to the meta branch.
+> The 'Sugar Bay' platform consists of the Intel Sandy Bridge processor,
+> plus the Cougar Point PCH.
+>
+> This is just the kernel BSP infrastructure, the poky layer will follow
+> once I'm back to getting a good build...
+>
+> Please pull the meta branch as well as tzanussi/yocto/standard/sugarbay.
 
-merged and staged. Did some minor re-ordering and amending
-on the commits. I don't like to push changes and then not be
-around, so I'll push this out in the morning.
+Merged.
+
+I modified the meta commit to use KMACHINE/KTYPE/KARCH instead
+of the existing WRS_* (both work, but I'm converting things now), I also
+moved the common-pc-64 branch to be a common-pc-64-base and branched
+the sugarbay from there. Since the suguarbay is currently only configuratio=
+n
+differences from the base BSP, we could have just re-used the branch
+(and still can in the future), but I opted to create a branch for it .. for=
+ now.
+
+Because of the changes to common-pc-64 branching, I'm going to take
+this for a bit of multi-board testing, but should have it out tomorrow.
 
 Cheers,
 
 Bruce
 
 >
-> Pull URL: git://git.pokylinux.org/linux-yocto-2.6.37-contrib.git
-> =A0Branch: dvhart/meta
-> =A0Browse: http://git.pokylinux.org/cgit.cgi/linux-yocto-2.6.37-contrib/l=
-og/?h=3Ddvhart/meta
->
 > Thanks,
-> =A0 =A0Darren Hart <dvhart@linux.intel.com>
-> ---
 >
+> Tom
 >
-> Darren Hart (3):
-> =A0make beagleboard build with march=3Darmv7-a
-> =A0usb-net: add named feature and config fragment
-> =A0beagleboard: add usb-net to beagleboard bsp
+> Pull URL: git://git.pokylinux.org/linux-yocto-2.6.37-contrib
+> =A0Branch: tzanussi/sugarbay-meta
+> =A0Browse:
+> http://git.pokylinux.org/cgit.cgi/linux-yocto-2.6.37-contrib/log/?h=3Dtza=
+nussi/sugarbay-meta
 >
-> =A0.../kernel-cache/bsp/beagleboard/beagleboard.cfg =A0 | =A0 =A07 +++++-
-> =A0.../kernel-cache/bsp/beagleboard/beagleboard.scc =A0 | =A0 =A01 +
-> =A0meta/cfg/kernel-cache/features/usb-net/usb-net.cfg | =A0 22 ++++++++++=
-++++++++++
-> =A0meta/cfg/kernel-cache/features/usb-net/usb-net.scc | =A0 =A01 +
-> =A04 files changed, 30 insertions(+), 1 deletions(-)
-> =A0create mode 100644 meta/cfg/kernel-cache/features/usb-net/usb-net.cfg
-> =A0create mode 100644 meta/cfg/kernel-cache/features/usb-net/usb-net.scc
+> Tom Zanussi (2):
+> =A0sugarbay: create initial BSP infrastructure
+> =A0sugarbay: enable i915 graphics
+>
+> =A0.../bsp/sugarbay/sugarbay-standard.scc =A0 =A0 =A0 =A0 =A0 =A0 | =A0 =
+=A07 ++
+> =A0meta/cfg/kernel-cache/bsp/sugarbay/sugarbay.cfg =A0 =A0| =A0 67 ++++++=
+++++++++++++++
+> =A0meta/cfg/kernel-cache/bsp/sugarbay/sugarbay.scc =A0 =A0| =A0 10 +++
+> =A03 files changed, 84 insertions(+), 0 deletions(-)
+> =A0create mode 100644 meta/cfg/kernel-cache/bsp/sugarbay/sugarbay-standar=
+d.scc
+> =A0create mode 100644 meta/cfg/kernel-cache/bsp/sugarbay/sugarbay.cfg
+> =A0create mode 100644 meta/cfg/kernel-cache/bsp/sugarbay/sugarbay.scc
 >
 > _______________________________________________
 > poky mailing list
