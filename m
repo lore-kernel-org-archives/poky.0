@@ -1,26 +1,22 @@
-Return-Path: <wd@denx.de>
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B9BE44C800A4
-	for <poky@yoctoproject.org>; Wed,  2 Feb 2011 08:05:34 -0600 (CST)
-Received: from frontend1.mail.m-online.net (frontend1.mail.intern.m-online.net
-	[192.168.8.180])
-	by mail-out.m-online.net (Postfix) with ESMTP id A3CEA1824442;
-	Wed,  2 Feb 2011 15:05:32 +0100 (CET)
-X-Auth-Info: ultE621dnAOykBwnAl2eTXcRc19d+NKbome8TMFGYpo=
-Received: from diddl.denx.de (host-80-81-18-216.customer.m-online.net
-	[80.81.18.216])
-	by smtp-auth.mnet-online.de (Postfix) with ESMTPA id 6ABD81C00136;
-	Wed,  2 Feb 2011 15:05:32 +0100 (CET)
-Received: from gemini.denx.de (gemini.denx.de [10.0.0.2])
-	by diddl.denx.de (Postfix) with ESMTP id 4FF183220181;
-	Wed,  2 Feb 2011 15:05:32 +0100 (CET)
-Received: from gemini.denx.de (localhost.localdomain [127.0.0.1])
-	by gemini.denx.de (Postfix) with ESMTP id 30558EA65FA;
-	Wed,  2 Feb 2011 15:05:32 +0100 (CET)
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C06424C800C0
+	for <poky@yoctoproject.org>; Wed,  2 Feb 2011 08:06:53 -0600 (CST)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p12E8rLn009085; Wed, 2 Feb 2011 14:08:53 GMT
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id E7lzwrkvAvY5; Wed,  2 Feb 2011 14:08:53 +0000 (GMT)
+Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p12E8gKE009079
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Wed, 2 Feb 2011 14:08:47 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
 To: Mark Hatle <mark.hatle@windriver.com>
-From: Wolfgang Denk <wd@denx.de>
-MIME-Version: 1.0
-In-reply-to: <4D4962A5.8060406@windriver.com>
+In-Reply-To: <4D4962A5.8060406@windriver.com>
 References: <9AFCD584B0B67B48AE8D8585BE30BA9506BAAFDF@orsmsx504.amr.corp.intel.com>
 	<1296382406.13501.7899.camel@rex>
 	<625BA99ED14B2D499DC4E29D8138F1504E6294E1D3@shsmsx502.ccr.corp.intel.com>
@@ -37,10 +33,10 @@ References: <9AFCD584B0B67B48AE8D8585BE30BA9506BAAFDF@orsmsx504.amr.corp.intel.c
 	<1296645484.1544.2556.camel@rex>
 	<20110202113340.2FFCAEA65FA@gemini.denx.de>
 	<4D4962A5.8060406@windriver.com>
-Comments: In-reply-to Mark Hatle <mark.hatle@windriver.com>
-	message dated "Wed, 02 Feb 2011 07:56:53 -0600."
-Date: Wed, 02 Feb 2011 15:05:32 +0100
-Message-Id: <20110202140532.30558EA65FA@gemini.denx.de>
+Date: Wed, 02 Feb 2011 14:06:29 +0000
+Message-ID: <1296655589.1544.3260.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
 Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: poky-image-sato-sdk failed at do_rootfs
 X-BeenThere: poky@yoctoproject.org
@@ -54,14 +50,24 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 02 Feb 2011 14:05:35 -0000
-Content-type: text/plain; charset=ISO-8859-1
-Content-transfer-encoding: 8bit
+X-List-Received-Date: Wed, 02 Feb 2011 14:06:54 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Dear Mark Hatle,
-
-In message <4D4962A5.8060406@windriver.com> you wrote:
->
+On Wed, 2011-02-02 at 07:56 -0600, Mark Hatle wrote:
+> On 2/2/11 5:33 AM, Wolfgang Denk wrote:
+> > Dear Richard Purdie,
+> > 
+> > In message <1296645484.1544.2556.camel@rex> you wrote:
+> >>
+> >>>> Did you leave NO32LIBS set in local.conf as per the default?
+> >>>
+> >>> Good point - sorry, I had forgotten about that.  I always comment out
+> >>> NO32LIBS because when building the SDK I also need this for 32 bit
+> >>> machines.
+> >>
+> >> This option really just controls psuedo-native, it has no effect on the
+> > 
 > > I see - that was not clear to me from the comment ("Default to not
 > > build 32 bit libs on 64 bit systems, comment this out if that is
 > > desired").
@@ -79,22 +85,13 @@ In message <4D4962A5.8060406@windriver.com> you wrote:
 > to disable the NO32LIBS, otherwise you could end up with an incomplete faked
 > root environment.
 
-I see.  Thanks for the explanation.
+Since poky builds all its own tools out the box, this isn't something
+I've ever seen a user get bitten by so far. There are people using say
+an external 32 bit toolchain on a 64 bit machine who do need this
+functionality though.
 
-well, I do have some 32 bit binaries installed but I doubt any of
-these will be used during a normal build.
+Cheers,
 
-But that means that NO32LIBS is needed sometimes, and the bug I ran
-into should be fixed.
+Richard
 
-Best regards,
-
-Wolfgang Denk
-
--- 
-DENX Software Engineering GmbH,     MD: Wolfgang Denk & Detlev Zundel
-HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
-Phone: (+49)-8142-66989-10 Fax: (+49)-8142-66989-80 Email: wd@denx.de
-To be sure of hitting the target, shoot first and, whatever you  hit,
-call it the target.
 
