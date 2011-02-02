@@ -1,39 +1,29 @@
-Return-Path: <kergoth@gmail.com>
-Received: from mail-ww0-f52.google.com (mail-ww0-f52.google.com [74.125.82.52])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7F8B64C800A5
-	for <poky@lists.pokylinux.org>; Wed,  2 Feb 2011 09:14:30 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by wwd20 with SMTP id 20so60397wwd.33
-	for <poky@lists.pokylinux.org>; Wed, 02 Feb 2011 07:14:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:sender:in-reply-to:references:from
-	:date:x-google-sender-auth:message-id:subject:to:cc:content-type
-	:content-transfer-encoding;
-	bh=Vf96034HtXu33LOmW8A1hOvVXjUWXT8w63h1/6jC/b8=;
-	b=FYROti6ueKnMtK7z0Le0AgMsk6cvbYuVcKXVvhYCk19AdnJC662kGCgt8u23SRRvr1
-	qo6sy6Ur709LeDPpHbG62fjmgztybimUkjHMrLuqY/XZhSgqUyWfypjbtHVE52kjOdYB
-	wMYHlYc4F/dMqqzpSP3qNdCMxehtGBXbJl9uc=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:sender:in-reply-to:references:from:date
-	:x-google-sender-auth:message-id:subject:to:cc:content-type
-	:content-transfer-encoding;
-	b=KOX/6rqE00Cvefq3C4ptlIuMiLr3qwcDDuBJgbEPrEFlDGCKwzFiclUBmKCj9h9i/S
-	Ysk8qV+wX3DxgccsXARfblgtO1eSURMyqwIUt+WRlPvQo/BUcFFS9YbvtN6TiS7/w9WE
-	IEosM/DSeObMLV+gsdeFdZBpahE3+zbpEm4ZI=
-Received: by 10.216.150.134 with SMTP id z6mr8616529wej.27.1296659669328; Wed,
-	02 Feb 2011 07:14:29 -0800 (PST)
+Return-Path: <mark.hatle@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 927EB4C800A8
+	for <poky@lists.pokylinux.org>; Wed,  2 Feb 2011 09:17:36 -0600 (CST)
+Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p12FHYV5001633;
+	Wed, 2 Feb 2011 07:17:34 -0800 (PST)
+Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
+	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Wed, 2 Feb 2011 07:17:34 -0800
+Received: from Macintosh-5.local ([172.25.36.227]) by
+	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Wed, 2 Feb 2011 07:17:33 -0800
+Message-ID: <4D49758C.30109@windriver.com>
+Date: Wed, 02 Feb 2011 09:17:32 -0600
+From: Mark Hatle <mark.hatle@windriver.com>
+Organization: Wind River Systems
+User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
+	rv:1.9.2.13) Gecko/20101207 Thunderbird/3.1.7
 MIME-Version: 1.0
-Sender: kergoth@gmail.com
-Received: by 10.216.254.91 with HTTP; Wed, 2 Feb 2011 07:13:53 -0800 (PST)
-In-Reply-To: <4D497242.2000409@mlbassoc.com>
+To: Chris Larson <clarson@kergoth.com>
 References: <4D497242.2000409@mlbassoc.com>
-From: Chris Larson <clarson@kergoth.com>
-Date: Wed, 2 Feb 2011 08:13:53 -0700
-X-Google-Sender-Auth: Fkh4FIv9DFgU2SeZ_mMAiNuzg5E
-Message-ID: <AANLkTik21AK9-kuM78JU8=GHYmPNCOJobM3_VK1BY+V3@mail.gmail.com>
-To: Gary Thomas <gary@mlbassoc.com>
+	<AANLkTik21AK9-kuM78JU8=GHYmPNCOJobM3_VK1BY+V3@mail.gmail.com>
+In-Reply-To: <AANLkTik21AK9-kuM78JU8=GHYmPNCOJobM3_VK1BY+V3@mail.gmail.com>
+X-OriginalArrivalTime: 02 Feb 2011 15:17:34.0067 (UTC)
+	FILETIME=[5134B430:01CBC2EC]
 Cc: Poky <poky@lists.pokylinux.org>
 Subject: Re: PR and .bbappend
 X-BeenThere: poky@yoctoproject.org
@@ -47,23 +37,25 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 02 Feb 2011 15:14:30 -0000
+X-List-Received-Date: Wed, 02 Feb 2011 15:17:37 -0000
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
 
-On Wed, Feb 2, 2011 at 8:03 AM, Gary Thomas <gary@mlbassoc.com> wrote:
-> Should .bbappend files have a PR in them? =C2=A0If so, must it
-> match the one in the main .bb file?
+On 2/2/11 9:13 AM, Chris Larson wrote:
+> On Wed, Feb 2, 2011 at 8:03 AM, Gary Thomas <gary@mlbassoc.com> wrote:
+>> Should .bbappend files have a PR in them?  If so, must it
+>> match the one in the main .bb file?
+> 
+> All metadata in a .bbappend is essentially concatenated to the recipe.
+>  If you define PR in the .bbappend, it will override the one in the
+> recipe, which is unlikely what you want, as that loses information.
+> The better route is to do something like PR .= ".1" in the .bbappend,
+> and bump that when changing the bbappend file.
 
-All metadata in a .bbappend is essentially concatenated to the recipe.
- If you define PR in the .bbappend, it will override the one in the
-recipe, which is unlikely what you want, as that loses information.
-The better route is to do something like PR .=3D ".1" in the .bbappend,
-and bump that when changing the bbappend file.
---=20
-Christopher Larson
-clarson at kergoth dot com
-Founder - BitBake, OpenEmbedded, OpenZaurus
-Maintainer - Tslib
-Senior Software Engineer, Mentor Graphics
+I was going to suggest the same thing.  A good approach is to append a value to
+the existing PR.  (I suggest this get added as a best practice in the
+documentation on bbappend...  I'm not sure who the correct person is to point
+this out to though.)
+
+--Mark
 
