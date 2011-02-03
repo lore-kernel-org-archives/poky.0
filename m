@@ -1,25 +1,25 @@
 Return-Path: <saul.wold@intel.com>
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 99B0B4C800C0
-	for <poky@yoctoproject.org>; Thu,  3 Feb 2011 13:37:22 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id F24834C800C0;
+	Thu,  3 Feb 2011 13:37:22 -0600 (CST)
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
 	by fmsmga102.fm.intel.com with ESMTP; 03 Feb 2011 11:37:17 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,421,1291622400"; d="scan'208";a="884093411"
+X-IronPort-AV: E=Sophos;i="4.60,421,1291622400"; d="scan'208";a="884093477"
 Received: from unknown (HELO [10.255.14.193]) ([10.255.14.193])
-	by fmsmga001.fm.intel.com with ESMTP; 03 Feb 2011 11:36:56 -0800
-Message-ID: <4D4B03D7.8030109@intel.com>
-Date: Thu, 03 Feb 2011 11:36:55 -0800
+	by fmsmga001.fm.intel.com with ESMTP; 03 Feb 2011 11:37:13 -0800
+Message-ID: <4D4B03E9.2000000@intel.com>
+Date: Thu, 03 Feb 2011 11:37:13 -0800
 From: Saul Wold <saul.wold@intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
 	Thunderbird/3.0.5
 MIME-Version: 1.0
-To: poky@yoctoproject.org
-References: <cover.1296651445.git.josh@linux.intel.com>
-	<bb7a07ffe72759ec884af239aafd948675591c75.1296651445.git.josh@linux.intel.com>
-In-Reply-To: <bb7a07ffe72759ec884af239aafd948675591c75.1296651445.git.josh@linux.intel.com>
-Subject: Re: [PATCH 1/1] gobject-introspection: fix DEPENDS
+To: Bruce Ashfield <bruce.ashfield@windriver.com>
+References: <cover.1296666481.git.bruce.ashfield@windriver.com>
+In-Reply-To: <cover.1296666481.git.bruce.ashfield@windriver.com>
+Cc: yocto@yoctoproject.org, poky@yoctoproject.org
+Subject: Re: [PATCH 0/1] linux-yocto: BSP updates
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,35 +31,54 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Feb 2011 19:37:22 -0000
+X-List-Received-Date: Thu, 03 Feb 2011 19:37:23 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 02/02/2011 04:58 AM, Joshua Lock wrote:
-> From: Joshua Lock<josh@linux.intel.com>
+On 02/02/2011 09:11 AM, Bruce Ashfield wrote:
+> Richard/Saul,
 >
-> We need flex and bison to build gobject-introspection
+> Here's the update for the sugarbay and beagleboard BSPs. To make the sugarbay
+> inhert common-pc-64 generic config/changes/fixes it has been
+> branched in the kernel as yocto/standard/common-pc-64/sugarbar, as
+> a result, we'll bump the common-pc-64 to be yocto/standard/common-pc-64/base.
 >
-> Signed-off-by: Joshua Lock<josh@linux.intel.com>
+> I've built the common-pc-64, sugarbay and beagleboard here. Branch
+> renames and creations have been pushed to the repos.
+>
+> This commit also stages lttng for a single board qemux86, but more
+> will follow by the end of day.
+>
+> cc'ing Tom and Darren, since they both have changes pending on this
+> making it into the tree.
+>
+> cc: Darren Hart<dvhart@linux.intel.com>
+> cc: Tom Zanussi<tom.zanussi@intel.com>
+>
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>    Branch: zedd/bsp
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/bsp
+>
+> Thanks,
+>      Bruce Ashfield<bruce.ashfield@windriver.com>
 > ---
->   .../gnome/gobject-introspection_git.bb             |    2 +-
->   1 files changed, 1 insertions(+), 1 deletions(-)
 >
-> diff --git a/meta/recipes-gnome/gnome/gobject-introspection_git.bb b/meta/recipes-gnome/gnome/gobject-introspection_git.bb
-> index 49c0ed8..17a42a9 100644
-> --- a/meta/recipes-gnome/gnome/gobject-introspection_git.bb
-> +++ b/meta/recipes-gnome/gnome/gobject-introspection_git.bb
-> @@ -14,7 +14,7 @@ PR = "r3"
->   S = "${WORKDIR}/git"
 >
->   DEPENDS = "libffi python-native gobject-introspection-native"
-> -DEPENDS_virtclass-native = "libffi-native python-native"
-> +DEPENDS_virtclass-native = "libffi-native python-native bison-native flex-native"
+> Bruce Ashfield (1):
+>    linux-yocto: BSP updates
 >
->   inherit autotools
+>   .../conf/distro/include/poky-default-revisions.inc |   24 ++++++++++----------
+>   meta/recipes-kernel/linux/linux-yocto_git.bb       |    2 +-
+>   2 files changed, 13 insertions(+), 13 deletions(-)
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 >
 Merged into Master
 
-Sau!
+Thanks
+	Sau!
 
 
