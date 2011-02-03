@@ -1,31 +1,26 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5BF544C8007E
-	for <poky@lists.pokylinux.org>; Wed,  2 Feb 2011 18:21:39 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p130NhNg002102; Thu, 3 Feb 2011 00:23:43 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id lE13gn1Io4CZ; Thu,  3 Feb 2011 00:23:43 +0000 (GMT)
-Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p130NT7Z002090
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Thu, 3 Feb 2011 00:23:33 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Gary Thomas <gary@mlbassoc.com>
-In-Reply-To: <4D49D7FC.20303@mlbassoc.com>
-References: <4D499346.4050800@mlbassoc.com>
-	<4D49976E.5030800@linux.intel.com> <1296669636.1544.4238.camel@rex>
-	<4D49A22F.6030003@mlbassoc.com>  <4D49D7FC.20303@mlbassoc.com>
-Date: Thu, 03 Feb 2011 00:21:15 +0000
-Message-ID: <1296692475.1544.5760.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Cc: Poky <poky@lists.pokylinux.org>
-Subject: Re: Poky & armv5te
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id A9C194C8007E
+	for <poky@yoctoproject.org>; Wed,  2 Feb 2011 20:48:22 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 02 Feb 2011 18:48:22 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,417,1291622400"; d="scan'208";a="383497055"
+Received: from unknown (HELO helios.localnet) ([10.255.16.156])
+	by azsmga001.ch.intel.com with ESMTP; 02 Feb 2011 18:48:20 -0800
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
+Organization: Intel Corporation (UK)
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+Date: Thu, 3 Feb 2011 02:48:17 +0000
+User-Agent: KMail/1.13.5 (Linux/2.6.35-25-generic-pae; KDE/4.6.0; i686; ; )
+References: <cover.1296267951.git.paul.eggleton@linux.intel.com>
+	<6184677be0e44d76b634b611287dca567dfdd3bd.1296267951.git.paul.eggleton@linux.intel.com>
+	<1296582299.13501.20230.camel@rex>
+In-Reply-To: <1296582299.13501.20230.camel@rex>
+MIME-Version: 1.0
+Message-Id: <201102030248.17688.paul.eggleton@linux.intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 11/12] qt4: Add meta-toolchain-qte and dependent tasks from OpenEmbedded
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,54 +32,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Feb 2011 00:21:39 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Thu, 03 Feb 2011 02:48:23 -0000
+Content-Type: Text/Plain;
+  charset="utf-8"
 Content-Transfer-Encoding: 7bit
 
-On Wed, 2011-02-02 at 15:17 -0700, Gary Thomas wrote:
-> On 02/02/2011 11:27 AM, Gary Thomas wrote:
-> > On 02/02/2011 11:00 AM, Richard Purdie wrote:
-> >> On Wed, 2011-02-02 at 09:42 -0800, Darren Hart wrote:
-> >>> On 02/02/2011 09:24 AM, Gary Thomas wrote:
-> >>>> I'd like to use Poky with my OMAP-L138 which is armv5te
-> >>>> Sadly today, this just isn't a go because of GCC issues.
-> >>>> I've tried all the combinations which are in the trees
-> >>>> (main& contrib) with no luck:
-> >>>> * 4.3.3 - fails to build GCC
-> >>>> * 4.5.1 - everything builds but kernel crashes
-> >>>> * 4.5.2 - fails to build GCC
-> >>>>
-> >>>> Am I totally out of luck?
-> >>>
-> >>> What are you running into? I've recently backported some changes in
-> >>> support of the Beagleboard (armv7-a) which were necessary to build with
-> >>> 4.5.1 and our 2.21 binutils.
-> >>
-> >> Those wouldn't affect armv5. What puzzles me is that qemuarm is
-> >> effectively an armv5 like system and those do build and boot in qemu.
-> >>
-> >> When you managed images above for 4.5.1 did you try using a known good
-> >> kernel with our userspace? I'm wondering if we can narrow it to a kernel
-> >> issue?
-> >
-> > Not sure I got that far, but I'll check it out.
+On Tuesday 01 February 2011 17:44:59 you wrote:
+> On Sat, 2011-01-29 at 02:30 +0000, Paul Eggleton wrote:
+> > +    # Repack SDK with new environment-setup
+> > +    cd ${SDK_OUTPUT}
+> > +    tar --owner=root --group=root -cj
+> > --file=${SDK_DEPLOY}/${TOOLCHAIN_OUTPUTNAME}.tar.bz2 . +}
 > 
-> A simple test indicates that the user-space tools built in Poky
-> do run fine on this hardware when built with GCC/4.5.1 and BINUTILS/2.21
-> It's only the kernel that crashes hard with this combo.
+> This is horrible :)
 
-Ok, thats positive in many ways :)
+I agree :)
 
-When you say the kernel crashes hard can you be any more specific about
-where in the process its doing that? Any chance its using -Os anywhere
-in the kernel build and that is causing the problem?
+> I added this:
+> 
+> http://git.pokylinux.org/cgit.cgi/poky/commit/?id=19e1f4f672806c8a45847ce5c
+> 2adac6da663ff69
 
-Cheers,
+Superb, much better. Thanks!
 
-Richard
-
-
-
-
-
+- Paul
 
