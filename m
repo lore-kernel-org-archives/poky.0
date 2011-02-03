@@ -1,28 +1,25 @@
-Return-Path: <mark.hatle@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 67F9E4C800C0
-	for <poky@yoctoproject.org>; Thu,  3 Feb 2011 13:36:13 -0600 (CST)
-Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p13JaDTV005847
-	for <poky@yoctoproject.org>; Thu, 3 Feb 2011 11:36:13 -0800 (PST)
-Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
-	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Thu, 3 Feb 2011 11:36:12 -0800
-Received: from msp-mhatle-lx2.wrs.com ([172.25.34.61]) by
-	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Thu, 3 Feb 2011 11:36:12 -0800
-From: Mark Hatle <mark.hatle@windriver.com>
+Return-Path: <saul.wold@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 99B0B4C800C0
+	for <poky@yoctoproject.org>; Thu,  3 Feb 2011 13:37:22 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 03 Feb 2011 11:37:17 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,421,1291622400"; d="scan'208";a="884093411"
+Received: from unknown (HELO [10.255.14.193]) ([10.255.14.193])
+	by fmsmga001.fm.intel.com with ESMTP; 03 Feb 2011 11:36:56 -0800
+Message-ID: <4D4B03D7.8030109@intel.com>
+Date: Thu, 03 Feb 2011 11:36:55 -0800
+From: Saul Wold <saul.wold@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
+MIME-Version: 1.0
 To: poky@yoctoproject.org
-Date: Thu,  3 Feb 2011 13:32:51 -0600
-Message-Id: <07225e653846e9e3c41bc5db36d4afe04dc24887.1296761455.git.mark.hatle@windriver.com>
-X-Mailer: git-send-email 1.7.3.4
-In-Reply-To: <cover.1296761455.git.mark.hatle@windriver.com>
-References: <cover.1296761455.git.mark.hatle@windriver.com>
-In-Reply-To: <cover.1296761455.git.mark.hatle@windriver.com>
-References: <cover.1296761455.git.mark.hatle@windriver.com>
-X-OriginalArrivalTime: 03 Feb 2011 19:36:12.0804 (UTC)
-	FILETIME=[9D81CC40:01CBC3D9]
-Subject: [PATCH 2/2] Docbook workaround
+References: <cover.1296651445.git.josh@linux.intel.com>
+	<bb7a07ffe72759ec884af239aafd948675591c75.1296651445.git.josh@linux.intel.com>
+In-Reply-To: <bb7a07ffe72759ec884af239aafd948675591c75.1296651445.git.josh@linux.intel.com>
+Subject: Re: [PATCH 1/1] gobject-introspection: fix DEPENDS
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,31 +31,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Feb 2011 19:36:18 -0000
+X-List-Received-Date: Thu, 03 Feb 2011 19:37:22 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 02/02/2011 04:58 AM, Joshua Lock wrote:
+> From: Joshua Lock<josh@linux.intel.com>
+>
+> We need flex and bison to build gobject-introspection
+>
+> Signed-off-by: Joshua Lock<josh@linux.intel.com>
+> ---
+>   .../gnome/gobject-introspection_git.bb             |    2 +-
+>   1 files changed, 1 insertions(+), 1 deletions(-)
+>
+> diff --git a/meta/recipes-gnome/gnome/gobject-introspection_git.bb b/meta/recipes-gnome/gnome/gobject-introspection_git.bb
+> index 49c0ed8..17a42a9 100644
+> --- a/meta/recipes-gnome/gnome/gobject-introspection_git.bb
+> +++ b/meta/recipes-gnome/gnome/gobject-introspection_git.bb
+> @@ -14,7 +14,7 @@ PR = "r3"
+>   S = "${WORKDIR}/git"
+>
+>   DEPENDS = "libffi python-native gobject-introspection-native"
+> -DEPENDS_virtclass-native = "libffi-native python-native"
+> +DEPENDS_virtclass-native = "libffi-native python-native bison-native flex-native"
+>
+>   inherit autotools
+>
+Merged into Master
 
-Signed-off-by: Mark Hatle <mark.hatle@windriver.com>
----
- meta/recipes-devtools/prelink/prelink_git.bb |    5 +++++
- 1 files changed, 5 insertions(+), 0 deletions(-)
-
-diff --git a/meta/recipes-devtools/prelink/prelink_git.bb b/meta/recipes-devtools/prelink/prelink_git.bb
-index 1601443..8620513 100644
---- a/meta/recipes-devtools/prelink/prelink_git.bb
-+++ b/meta/recipes-devtools/prelink/prelink_git.bb
-@@ -27,6 +27,11 @@ BBCLASSEXTEND = "native"
- EXTRA_OECONF = "--disable-selinux --with-pkgversion=${PV}-${PR} \
- 	--with-bugurl=http://bugzilla.pokylinux.org/"
- 
-+do_configure_prepend () {
-+        # Disable documentation!
-+        echo "all:" > ${S}/doc/Makefile.am
-+}
-+
- do_install_append () {
- 	install -d ${D}${sysconfdir}/cron.daily ${D}${sysconfdir}/default
- 	install -m 0644 ${WORKDIR}/prelink.conf ${D}${sysconfdir}/prelink.conf
--- 
-1.7.3.4
+Sau!
 
 
