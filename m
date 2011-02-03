@@ -1,20 +1,22 @@
 Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B3AC44C800A3
-	for <poky@yoctoproject.org>; Thu,  3 Feb 2011 16:45:42 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 03 Feb 2011 14:45:42 -0800
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 20C0D4C800A8
+	for <poky@yoctoproject.org>; Thu,  3 Feb 2011 16:45:43 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 03 Feb 2011 14:45:42 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,422,1291622400"; d="scan'208";a="599290010"
+X-IronPort-AV: E=Sophos;i="4.60,422,1291622400"; d="scan'208";a="383935344"
 Received: from nbuild2.sc.intel.com (HELO localhost) ([172.25.110.37])
-	by orsmga002.jf.intel.com with ESMTP; 03 Feb 2011 14:45:42 -0800
-Message-Id: <cover.1296772940.git.nitin.a.kamble@intel.com>
-Old-Date: Thu, 3 Feb 2011 14:42:20 -0800
+	by azsmga001.ch.intel.com with ESMTP; 03 Feb 2011 14:45:42 -0800
+Message-Id: <3aa8c1ce8d4325a7a9f0dedb23515a06321a8701.1296772940.git.nitin.a.kamble@intel.com>
+In-Reply-To: <cover.1296772940.git.nitin.a.kamble@intel.com>
+References: <cover.1296772940.git.nitin.a.kamble@intel.com>
+Old-Date: Thu, 3 Feb 2011 14:35:51 -0800
 Date: Thu, 03 Feb 2011 14:45:42 -0800
 To: poky@yoctoproject.org
 CC: 
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Subject: [PATCH 0/2] mklibs optimization and mesa-demos dso linking fix
+Subject: [PATCH 2/2] mesa-demos: fix build issue with gcc dso linking change
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,35 +28,68 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Feb 2011 22:45:42 -0000
+X-List-Received-Date: Thu, 03 Feb 2011 22:45:43 -0000
 
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
 
-The mesa-demos recipe's dso linking issue is fixed in 1 commit.
-and the other commit is for adding the mklibs library optimization in poky 
-tree, and enabling it for poky-image-minimal image.
+All the libraries needs to be specified explicitely with the new gcc dso
+linking change patch. This was causing build errors for this
+recipe. Specifying the libpthread library explicitely for linking to work
+without errors.
 
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: nitin/misc
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=nitin/misc
-
-Thanks,
-    Nitin A Kamble <nitin.a.kamble@intel.com>
+Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
 ---
-
-
-Nitin A Kamble (2):
-  image-mklibs.bbclass: add the library optimization functionality
-  mesa-demos: fix build issue with gcc dso linking change
-
- meta/classes/image-mklibs.bbclass                  |   70 ++++++++++++++++++++
- meta/conf/local.conf.sample                        |   10 +++-
- .../mesa-demos/dso_linking_change_build_fix.patch  |   23 +++++++
- meta/recipes-graphics/mesa/mesa-demos_8.0.1.bb     |    5 +-
- 4 files changed, 105 insertions(+), 3 deletions(-)
- create mode 100644 meta/classes/image-mklibs.bbclass
+ .../mesa-demos/dso_linking_change_build_fix.patch  |   23 ++++++++++++++++++++
+ meta/recipes-graphics/mesa/mesa-demos_8.0.1.bb     |    5 ++-
+ 2 files changed, 26 insertions(+), 2 deletions(-)
  create mode 100644 meta/recipes-graphics/mesa/mesa-demos/dso_linking_change_build_fix.patch
 
+diff --git a/meta/recipes-graphics/mesa/mesa-demos/dso_linking_change_build_fix.patch b/meta/recipes-graphics/mesa/mesa-demos/dso_linking_change_build_fix.patch
+new file mode 100644
+index 0000000..aa2faf9
+--- /dev/null
++++ b/meta/recipes-graphics/mesa/mesa-demos/dso_linking_change_build_fix.patch
+@@ -0,0 +1,23 @@
++after gcc linking has changed, all the libraries must be explicitely specified 
++This patch avoids these linking errors:
++
++|   CCLD   xeglgears
++| /build_disk/poky_build/build0/tmp/sysroots/x86_64-linux/usr/libexec/armv5te-poky-linux-gnueabi/gcc/arm-poky-linux-gnueabi/4.5.1/ld: xeglthreads.o: undefined reference to symbol 'pthread_join@@GLIBC_2.4'
++| /build_disk/poky_build/build0/tmp/sysroots/x86_64-linux/usr/libexec/armv5te-poky-linux-gnueabi/gcc/arm-poky-linux-gnueabi/4.5.1/ld: note: 'pthread_join@@GLIBC_2.4' is defined in DSO /build_disk/poky_build/build0/tmp/sysroots/qemuarm/lib/libpthread.so.0 so try adding it to the linker command line
++| /build_disk/poky_build/build0/tmp/sysroots/qemuarm/lib/libpthread.so.0: could not read symbols: Invalid operation
++| collect2: ld returned 1 exit status
++
++
++Nitin A Kamble <nitin.a.kamble@intel.com>
++Date: 2011/02/03
++
++
++Index: mesa-demos-8.0.1/src/egl/opengl/Makefile.am
++===================================================================
++--- mesa-demos-8.0.1.orig/src/egl/opengl/Makefile.am	2010-07-07 10:57:15.000000000 -0700
+++++ mesa-demos-8.0.1/src/egl/opengl/Makefile.am	2011-02-03 14:30:13.928486381 -0800
++@@ -67,3 +67,4 @@
++ 
++ eglgears_x11_LDADD = ../eglut/libeglut_x11.la
++ egltri_x11_LDADD = ../eglut/libeglut_x11.la
+++xeglthreads_LDADD = -lpthread
+diff --git a/meta/recipes-graphics/mesa/mesa-demos_8.0.1.bb b/meta/recipes-graphics/mesa/mesa-demos_8.0.1.bb
+index e3a84be..504a8b7 100644
+--- a/meta/recipes-graphics/mesa/mesa-demos_8.0.1.bb
++++ b/meta/recipes-graphics/mesa/mesa-demos_8.0.1.bb
+@@ -11,9 +11,10 @@ LIC_FILES_CHKSUM = "file://src/xdemos/glxgears.c;beginline=1;endline=20;md5=9142
+ 
+ DEPENDS = "virtual/libx11 virtual/libgl glew"
+ 
+-PR = "r0"
++PR = "r1"
+ 
+-SRC_URI = "ftp://ftp.freedesktop.org/pub/mesa/demos/${PV}/${PN}-${PV}.tar.bz2"
++SRC_URI = "ftp://ftp.freedesktop.org/pub/mesa/demos/${PV}/${PN}-${PV}.tar.bz2 \
++	file://dso_linking_change_build_fix.patch"
+ 
+ inherit autotools pkgconfig
+ 
 -- 
 1.7.3.4
 
