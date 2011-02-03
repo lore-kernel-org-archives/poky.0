@@ -1,26 +1,25 @@
 Return-Path: <saul.wold@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C788E4C800BD
-	for <poky@yoctoproject.org>; Thu,  3 Feb 2011 13:55:17 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 03 Feb 2011 11:55:17 -0800
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 0C2BC4C8008C
+	for <poky@yoctoproject.org>; Thu,  3 Feb 2011 14:00:09 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 03 Feb 2011 12:00:09 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,421,1291622400"; d="scan'208";a="383844692"
+X-IronPort-AV: E=Sophos;i="4.60,421,1291622400"; d="scan'208";a="884099432"
 Received: from unknown (HELO [10.255.14.193]) ([10.255.14.193])
-	by azsmga001.ch.intel.com with ESMTP; 03 Feb 2011 11:55:16 -0800
-Message-ID: <4D4B0824.8090407@intel.com>
-Date: Thu, 03 Feb 2011 11:55:16 -0800
+	by fmsmga001.fm.intel.com with ESMTP; 03 Feb 2011 12:00:09 -0800
+Message-ID: <4D4B0948.7040802@intel.com>
+Date: Thu, 03 Feb 2011 12:00:08 -0800
 From: Saul Wold <saul.wold@intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
 	Thunderbird/3.0.5
 MIME-Version: 1.0
-To: Darren Hart <dvhart@linux.intel.com>
-References: <cover.1296762098.git.dvhart@linux.intel.com>
-	<4b95de17b587caf8e284658df91ef345c829471e.1296762098.git.dvhart@linux.intel.com>
-In-Reply-To: <4b95de17b587caf8e284658df91ef345c829471e.1296762098.git.dvhart@linux.intel.com>
+To: Mark Hatle <mark.hatle@windriver.com>
+References: <cover.1296761455.git.mark.hatle@windriver.com>
+In-Reply-To: <cover.1296761455.git.mark.hatle@windriver.com>
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH] beagleboard: set kernel provider to linux-yocto (2.6.37)
+Subject: Re: [PATCH 0/2] Revised summary & description patch
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,59 +31,43 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Feb 2011 19:55:18 -0000
+X-List-Received-Date: Thu, 03 Feb 2011 20:00:10 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 02/03/2011 11:43 AM, Darren Hart wrote:
-> From: Darren Hart<dvhart@linux.intel.com>
+On 02/03/2011 11:32 AM, Mark Hatle wrote:
+> This is an update pull request for the revised summary&  description
+> patch.  It stop the failure mentioned by Saul in a previous email.
+>
+> The second chunk of the patch is new and includes the workaround I sent
+> earlier today on the prelink documentation issue.  I'm not sure this is
+> really the right patch, but it should unblock people.
 >
 > Pull URL: git://git.pokylinux.org/poky-contrib.git
->    Branch: dvhart/beagle
->    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dvhart/beagle
+>    Branch: mhatle/wrsync
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=mhatle/wrsync
 >
 > Thanks,
->      Darren Hart<dvhart@linux.intel.com>
->
-> Support has been added for basic Beagleboard xM functionality,
-> including networking, to the linux-yocto kernel repository.
-> Tested on the Beagleboard xM.
->
-> Signed-off-by: Darren Hart<dvhart@linux.intel.com>
-> CC: Bruce Ashfield<bruce.ashfield@windriver.com>
+>      Mark Hatle<mark.hatle@windriver.com>
 > ---
->   meta/conf/machine/beagleboard.conf           |    2 +-
->   meta/recipes-kernel/linux/linux-yocto_git.bb |    2 +-
->   2 files changed, 2 insertions(+), 2 deletions(-)
 >
-> diff --git a/meta/conf/machine/beagleboard.conf b/meta/conf/machine/beagleboard.conf
-> index f21638c..04947c0 100644
-> --- a/meta/conf/machine/beagleboard.conf
-> +++ b/meta/conf/machine/beagleboard.conf
-> @@ -24,7 +24,7 @@ EXTRA_IMAGECMD_jffs2 = "-lnp "
->   # Guesswork
->   SERIAL_CONSOLE = "115200 ttyO2"
 >
-> -PREFERRED_PROVIDER_virtual/kernel = "linux-yocto-stable"
-> +PREFERRED_PROVIDER_virtual/kernel = "linux-yocto"
->   PREFERRED_PROVIDER_linux-libc-headers ?= "linux-libc-headers-yocto"
+> Mark Hatle (2):
+>    bitbake.conf&  package.bbclass: Use default SUMMARY and DESCRIPTION
+>    Docbook workaround
 >
->   KERNEL_IMAGETYPE = "uImage"
-> diff --git a/meta/recipes-kernel/linux/linux-yocto_git.bb b/meta/recipes-kernel/linux/linux-yocto_git.bb
-> index 5f126b3..cc52397 100644
-> --- a/meta/recipes-kernel/linux/linux-yocto_git.bb
-> +++ b/meta/recipes-kernel/linux/linux-yocto_git.bb
-> @@ -20,7 +20,7 @@ SRCREV_FORMAT = "meta_machine"
->   SRC_URI = "git://git.pokylinux.org/linux-yocto-2.6.37;protocol=git;nocheckout=1;branch=${KBRANCH},meta;name=machine,meta \
->              file://tools-perf-no-scripting.patch"
+>   meta/classes/package.bbclass                 |    5 +++-
+>   meta/conf/bitbake.conf                       |   30 +++++++++++++++++++-------
+>   meta/recipes-devtools/prelink/prelink_git.bb |    5 ++++
+>   3 files changed, 31 insertions(+), 9 deletions(-)
 >
-> -COMPATIBLE_MACHINE = "(qemuarm|qemux86|qemuppc|qemumips|qemux86-64|mpc8315e-rdb|routerstationpro)"
-> +COMPATIBLE_MACHINE = "(qemuarm|qemux86|qemuppc|qemumips|qemux86-64|mpc8315e-rdb|routerstationpro|beagleboard)"
->
->   # Functionality flags
->   KERNEL_REVISION_CHECKING ?= "t"
-Merged into Master
+Mark,
 
-	Thanks
-		Sau!
+I merged the SUMMARY & DESCRIPTION changes, but held off on the 
+workaround to give Scott G. a chance to fix it properly.
+
+Thanks
+
+Sau!
+
 
