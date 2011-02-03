@@ -1,32 +1,24 @@
-Return-Path: <mark.hatle@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 40D064C800A3
-	for <poky@yoctoproject.org>; Thu,  3 Feb 2011 10:15:13 -0600 (CST)
-Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p13GF67o025010;
-	Thu, 3 Feb 2011 08:15:06 -0800 (PST)
-Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
-	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Thu, 3 Feb 2011 08:15:06 -0800
-Received: from Macintosh-5.local ([172.25.36.227]) by
-	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Thu, 3 Feb 2011 08:15:05 -0800
-Message-ID: <4D4AD488.7070408@windriver.com>
-Date: Thu, 03 Feb 2011 10:15:04 -0600
-From: Mark Hatle <mark.hatle@windriver.com>
-Organization: Wind River Systems
-User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
-	rv:1.9.2.13) Gecko/20101207 Thunderbird/3.1.7
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 142204C800A3
+	for <poky@yoctoproject.org>; Thu,  3 Feb 2011 10:29:08 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 03 Feb 2011 08:29:07 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,420,1291622400"; d="scan'208";a="599163554"
+Received: from doubt.jf.intel.com (HELO [10.7.199.153]) ([10.7.199.153])
+	by orsmga002.jf.intel.com with ESMTP; 03 Feb 2011 08:29:07 -0800
+Message-ID: <4D4AD7D9.60407@linux.intel.com>
+Date: Thu, 03 Feb 2011 08:29:13 -0800
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
 MIME-Version: 1.0
-To: Wolfgang Denk <wd@denx.de>
-References: <20110203141543.0C504D81AE2@gemini.denx.de>
-	<4D4ABA30.4020505@windriver.com>
-	<20110203144518.51D71D81AE2@gemini.denx.de>
-In-Reply-To: <20110203144518.51D71D81AE2@gemini.denx.de>
-X-OriginalArrivalTime: 03 Feb 2011 16:15:05.0961 (UTC)
-	FILETIME=[851BAD90:01CBC3BD]
+To: Akshat Saha <akshat.saha@spectracoretech.com>
+References: <AANLkTikBFCb2kNE2ePDhNZ6+Up3HzuiqLgi9UTiyP0sP@mail.gmail.com>
+In-Reply-To: <AANLkTikBFCb2kNE2ePDhNZ6+Up3HzuiqLgi9UTiyP0sP@mail.gmail.com>
 Cc: poky@yoctoproject.org
-Subject: Re: Build of prelink_git.bb fails
+Subject: Re: Adding Packages
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,63 +30,51 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Feb 2011 16:15:13 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Thu, 03 Feb 2011 16:29:08 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On my Fedora 14 machine, I am now receiving the same error.  So it is something
-that changed overnight, unrelated to the prelinker.
+On 02/03/2011 03:54 AM, Akshat Saha wrote:
+> Hi All,
+>
+> I want to meta/packages/psplash package to my rfs. I
+> compiled poky-image-minimal-live, with the following command
+>
+> $ bitbake poky-image-minimal-live
+>
+> Can any one guide me, how...?
 
-I also attempted to find the fancyheadings.sty, and was unable to find it on my
-host.
+There are a few ways to go about this I'm sure. What I've done is either:
 
-It appears the docbook native patch that went in to fix the integration
-triggered this failure.  The issue is that with a host-tool docbook, we're no
-longer able to build the documentation, so prelink no longer works.
+1) Create a layer with .bbappend for the image
+2) Create your own image recipe
 
-I suspect the issue is in docbook, but I don't know that for sure.  Until then
-the following hack will disable documentation and allow your build to continue:
+For example, the following recipes create a new image,
+poky-image-dvhart (as well as a live version), and add dropbear, 
+trace-cmd, and kernelshark to the list of packages installed.
 
-diff --git a/meta/recipes-devtools/prelink/prelink_git.bb b/meta/recipes-devtool
-index 1601443..8620513 100644
---- a/meta/recipes-devtools/prelink/prelink_git.bb
-+++ b/meta/recipes-devtools/prelink/prelink_git.bb
-@@ -27,6 +27,11 @@ BBCLASSEXTEND = "native"
- EXTRA_OECONF = "--disable-selinux --with-pkgversion=${PV}-${PR} \
-        --with-bugurl=http://bugzilla.pokylinux.org/"
 
-+do_configure_prepend () {
-+        # Disable documentation!
-+        echo "all:" > ${S}/doc/Makefile.am
-+}
-+
- do_install_append () {
-        install -d ${D}${sysconfdir}/cron.daily ${D}${sysconfdir}/default
-        install -m 0644 ${WORKDIR}/prelink.conf ${D}${sysconfdir}/prelink.conf
+$ cat poky-image-dvhart.bb
+#
+# Copyright (C) 2010 Intel Corporation.
+#
+require recipes-core/images/poky-image-minimal.bb
+IMAGE_INSTALL += "dropbear trace-cmd kernelshark"
+LICENSE = "MIT"
 
---Mark
 
-On 2/3/11 8:45 AM, Wolfgang Denk wrote:
-> Dear Mark,
-> 
-> In message <4D4ABA30.4020505@windriver.com> you wrote:
->> Something is wrong with your host system.  Nothing has changed with the prelink
->> integration since late December.
-> 
-> Hm... I was able to complete a build of top of tree two days ago, on
-> the same system.
-> 
-> This is Fedora 14 on a x86_64 box.
-> 
->> The failure seems to indicate a broken latex, tetex and/or tex2pdf installation.
-> 
-> Do you happen to know which package is supposed to provide
-> "fancyheadings.sty" ?  I cannot find this file on any of my Fedora
-> boxen...
-> 
-> Best regards,
-> 
-> Wolfgang Denk
-> 
 
+$ cat poky-image-dvhart-live.bb
+DESCRIPTION = "Bootable Live Image"
+require recipes-core/images/poky-image-live.inc
+LABELS += "boot install"
+ROOTFS = "${DEPLOY_DIR_IMAGE}/poky-image-dvhart-${MACHINE}.ext3"
+LICENSE = "MIT"
+do_bootimg[depends] += "poky-image-dvhart:do_rootfs"
+
+
+-- 
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
