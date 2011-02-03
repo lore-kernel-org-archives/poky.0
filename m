@@ -1,26 +1,20 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5BE194C800A3
-	for <poky@yoctoproject.org>; Wed,  2 Feb 2011 20:59:05 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 02 Feb 2011 18:59:04 -0800
+Return-Path: <scott.a.garman@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id ED4334C8007E
+	for <poky@yoctoproject.org>; Wed,  2 Feb 2011 21:58:21 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 02 Feb 2011 19:58:21 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,417,1291622400"; d="scan'208";a="653929968"
-Received: from unknown (HELO helios.localnet) ([10.255.16.156])
-	by fmsmga002.fm.intel.com with ESMTP; 02 Feb 2011 18:59:02 -0800
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-Organization: Intel Corporation (UK)
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-Date: Thu, 3 Feb 2011 02:58:58 +0000
-User-Agent: KMail/1.13.5 (Linux/2.6.35-25-generic-pae; KDE/4.6.0; i686; ; )
-References: <cover.1296267951.git.paul.eggleton@linux.intel.com>
-	<70e416b931ba9ee1ca24a967a0410fda65b48bea.1296267951.git.paul.eggleton@linux.intel.com>
-	<1296582252.13501.20225.camel@rex>
-In-Reply-To: <1296582252.13501.20225.camel@rex>
-MIME-Version: 1.0
-Message-Id: <201102030258.59288.paul.eggleton@linux.intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 05/12] qt4-tools-native: update from OpenEmbedded
+X-IronPort-AV: E=Sophos;i="4.60,417,1291622400"; d="scan'208";a="703470971"
+Received: from sgarman-ws.jf.intel.com (HELO localhost) ([10.7.199.157])
+	by orsmga001.jf.intel.com with ESMTP; 02 Feb 2011 19:58:21 -0800
+Message-Id: <cover.1296704077.git.scott.a.garman@intel.com>
+Old-Date: Wed, 2 Feb 2011 19:34:37 -0800
+Date: Wed, 02 Feb 2011 19:59:07 -0800
+To: poky@yoctoproject.org
+CC: 
+From: Scott Garman <scott.a.garman@intel.com>
+Subject: [PATCH 0/1] docbook-utils-native fix
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,34 +26,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Feb 2011 02:59:05 -0000
-Content-Type: Text/Plain;
-  charset="utf-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 03 Feb 2011 03:58:22 -0000
 
-On Tuesday 01 February 2011 17:44:12 you wrote:
-> Please don't reindent files when making other changes, it makes it hard
-> to see where the real changes were. I've pulled things but taken out the
-> worst whitespace changes manually this time.
+From: Scott Garman <scott.a.garman@intel.com>
 
-A lot of those changes were brought in from meta-oe, although I admit I added 
-a fair few others. I will endeavour to keep indentation changes (if any) 
-separate in future.
- 
-> Please keep in mind:
-> 
-> shell functions/code use tabs
-> python code uses four space indentation
+Hi Saul,
 
-Is there a particular reason for this? Can we not use four spaces everywhere? 
-I see a wiki document that spells this out [1] however if it's of any 
-consequence, OE's documentation specifies spaces only [2].
+This patch fixes the issues building docbook-utils-native. I'm still working on fixes for docbook-utils and openjade for target installs, but wanted to get you this fix ASAP to resolve the failure on the autobuilder.
 
-Cheers,
-Paul
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: sgarman/docbook-utils-fix
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=sgarman/docbook-utils-fix
 
-[1] 
-https://wiki.pokylinux.org/wiki/Best_Known_Methods_%28BKMs%29_for_Package_Updating#White_Space_Management
+Thanks,
+    Scott Garman <scott.a.garman@intel.com>
+---
 
-[2] http://docs.openembedded.org/usermanual/html/recipes_syntax.html
+
+Scott Garman (1):
+  docbook-utils: fix build errors
+
+ .../docbook-utils/docbook-utils_0.6.14.bb          |   30 ++++++++++++++++++++
+ 1 files changed, 30 insertions(+), 0 deletions(-)
+
+-- 
+1.7.3.5
+
 
