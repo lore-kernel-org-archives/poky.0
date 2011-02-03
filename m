@@ -1,28 +1,32 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9CE134C800BC
-	for <poky@yoctoproject.org>; Thu,  3 Feb 2011 08:43:52 -0600 (CST)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p13EjqPi001179; Thu, 3 Feb 2011 14:45:52 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id yFjvTNfh-Z77; Thu,  3 Feb 2011 14:45:52 +0000 (GMT)
-Received: from [192.168.1.42] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p13EjiPl001167
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Thu, 3 Feb 2011 14:45:46 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
+Return-Path: <wd@denx.de>
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 08EE54C800A3
+	for <poky@yoctoproject.org>; Thu,  3 Feb 2011 08:45:23 -0600 (CST)
+Received: from frontend1.mail.m-online.net (frontend1.mail.intern.m-online.net
+	[192.168.8.180])
+	by mail-out.m-online.net (Postfix) with ESMTP id 5CFAB1824461;
+	Thu,  3 Feb 2011 15:45:18 +0100 (CET)
+X-Auth-Info: FvQDTyKKqDJnvpEObQtjSuQRRhLYKrih+dkygtrWZpQ=
+Received: from diddl.denx.de (host-80-81-18-216.customer.m-online.net
+	[80.81.18.216])
+	by smtp-auth.mnet-online.de (Postfix) with ESMTPA id 8B3951C00167;
+	Thu,  3 Feb 2011 15:45:18 +0100 (CET)
+Received: from gemini.denx.de (gemini.denx.de [10.0.0.2])
+	by diddl.denx.de (Postfix) with ESMTP id 6BF6C323DF56;
+	Thu,  3 Feb 2011 15:45:18 +0100 (CET)
+Received: from gemini.denx.de (localhost.localdomain [127.0.0.1])
+	by gemini.denx.de (Postfix) with ESMTP id 51D71D81AE2;
+	Thu,  3 Feb 2011 15:45:18 +0100 (CET)
 To: Mark Hatle <mark.hatle@windriver.com>
-In-Reply-To: <4D4ABA30.4020505@windriver.com>
+From: Wolfgang Denk <wd@denx.de>
+MIME-Version: 1.0
+In-reply-to: <4D4ABA30.4020505@windriver.com>
 References: <20110203141543.0C504D81AE2@gemini.denx.de>
 	<4D4ABA30.4020505@windriver.com>
-Date: Thu, 03 Feb 2011 14:43:28 +0000
-Message-ID: <1296744208.1544.9277.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
+Comments: In-reply-to Mark Hatle <mark.hatle@windriver.com>
+	message dated "Thu, 03 Feb 2011 08:22:40 -0600."
+Date: Thu, 03 Feb 2011 15:45:18 +0100
+Message-Id: <20110203144518.51D71D81AE2@gemini.denx.de>
 Cc: poky@yoctoproject.org
 Subject: Re: Build of prelink_git.bb fails
 X-BeenThere: poky@yoctoproject.org
@@ -36,25 +40,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Feb 2011 14:43:53 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 03 Feb 2011 14:45:23 -0000
+Content-type: text/plain; charset=ISO-8859-1
+Content-transfer-encoding: 8bit
 
-On Thu, 2011-02-03 at 08:22 -0600, Mark Hatle wrote:
+Dear Mark,
+
+In message <4D4ABA30.4020505@windriver.com> you wrote:
 > Something is wrong with your host system.  Nothing has changed with the prelink
 > integration since late December.
-> 
+
+Hm... I was able to complete a build of top of tree two days ago, on
+the same system.
+
+This is Fedora 14 on a x86_64 box.
+
 > The failure seems to indicate a broken latex, tetex and/or tex2pdf installation.
 
-Nothing changed in prelink but we did add some doc tools of various
-kinds which might have triggered this.
+Do you happen to know which package is supposed to provide
+"fancyheadings.sty" ?  I cannot find this file on any of my Fedora
+boxen...
 
-Wolfgang - can you share a list of other native packages which have been
-built? You can see this by looking for do_populate_sysroot* stamps in
-the tmp/stamps/<native system>/ directory.
+Best regards,
 
-Cheers,
+Wolfgang Denk
 
-Richard
-
+-- 
+DENX Software Engineering GmbH,     MD: Wolfgang Denk & Detlev Zundel
+HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
+Phone: (+49)-8142-66989-10 Fax: (+49)-8142-66989-80 Email: wd@denx.de
+Inside every old person is a young person wondering what happened.
+                              - Terry Pratchett, _Moving Pictures_
 
