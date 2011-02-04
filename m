@@ -1,19 +1,25 @@
-Return-Path: <tom.zanussi@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 592494C800C0
-	for <poky@yoctoproject.org>; Thu,  3 Feb 2011 21:38:25 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 03 Feb 2011 19:38:25 -0800
-Message-Id: <b9dded$hrjbnk@orsmga002.jf.intel.com>
+Return-Path: <saul.wold@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 12E5D4C800A3
+	for <poky@yoctoproject.org>; Thu,  3 Feb 2011 21:47:15 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 03 Feb 2011 19:47:15 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,424,1291622400"; d="scan'208";a="599371514"
-Received: from unknown (HELO localhost) ([10.255.14.151])
-	by orsmga002.jf.intel.com with ESMTP; 03 Feb 2011 19:38:24 -0800
-Old-Date: Thu, 3 Feb 2011 20:09:18 -0600
-Date: Thu, 03 Feb 2011 21:38:22 -0600
-To: poky@yoctoproject.org
-From: Tom Zanussi <tom.zanussi@intel.com>
-Subject: [PATCH 2/2] meta-sugarbay: switch from standard to standard/common-pc-64
+X-IronPort-AV: E=Sophos;i="4.60,424,1291622400"; d="scan'208";a="884232697"
+Received: from unknown (HELO [10.255.14.193]) ([10.255.14.193])
+	by fmsmga001.fm.intel.com with ESMTP; 03 Feb 2011 19:47:04 -0800
+Message-ID: <4D4B76B8.3000100@intel.com>
+Date: Thu, 03 Feb 2011 19:47:04 -0800
+From: Saul Wold <saul.wold@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
+MIME-Version: 1.0
+To: Tom Zanussi <tom.zanussi@intel.com>
+References: <849307$be7ei2@azsmga001.ch.intel.com>
+In-Reply-To: <849307$be7ei2@azsmga001.ch.intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/2] meta-sugarbay updates
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -25,29 +31,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 04 Feb 2011 03:38:25 -0000
+X-List-Received-Date: Fri, 04 Feb 2011 03:47:16 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Tom Zanussi <tom.zanussi@intel.com>
+On 02/03/2011 07:38 PM, Tom Zanussi wrote:
+> From: Tom Zanussi<tom.zanussi@intel.com>
+>
+> Just a couple kernel bookkeeping commits...
+>
+> Pull URL: git://git.pokylinux.org/meta-intel/tzanussi/sugarbay-updates
+>    Branch: tzanussi/sugarbay-updates
+>    Browse:
+> http://git.pokylinux.org/cgit.cgi/meta-intel/log/?h=tzanussi/sugarbay-updates
+>
+> Tom Zanussi (2):
+>    sugarbay: update kernel SRCREVs
+>    meta-sugarbay: switch from standard to standard/common-pc-64
+>
+>   meta-sugarbay/conf/machine/sugarbay.conf           |    4 ++--
+>   .../recipes-kernel/linux/linux-yocto_git.bbappend  |    2 +-
+>   2 files changed, 3 insertions(+), 3 deletions(-)
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
 
-To match the branch in linux-yocto.
+Merged into meta-intel master
 
-Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
----
- .../recipes-kernel/linux/linux-yocto_git.bbappend  |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+Thanks
 
-diff --git a/meta-sugarbay/recipes-kernel/linux/linux-yocto_git.bbappend b/meta-sugarbay/recipes-kernel/linux/linux-yocto_git.bbappend
-index 07fd27b..fe160c0 100644
---- a/meta-sugarbay/recipes-kernel/linux/linux-yocto_git.bbappend
-+++ b/meta-sugarbay/recipes-kernel/linux/linux-yocto_git.bbappend
-@@ -1,5 +1,5 @@
- FILESEXTRAPATHS := "${THISDIR}/${PN}"
- 
- COMPATIBLE_MACHINE_sugarbay = "sugarbay"
--KMACHINE_sugarbay  = "yocto/standard/sugarbay"
-+KMACHINE_sugarbay  = "yocto/standard/common-pc-64/sugarbay"
- 
--- 
-1.7.0.4
+Sau!
 
 
