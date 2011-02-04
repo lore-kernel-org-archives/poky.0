@@ -1,25 +1,26 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 4C5734C80104
-	for <poky@yoctoproject.org>; Fri,  4 Feb 2011 11:33:07 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 04 Feb 2011 09:33:06 -0800
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4B4E34C8010D
+	for <poky@yoctoproject.org>; Fri,  4 Feb 2011 13:04:50 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 04 Feb 2011 11:04:49 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,427,1291622400"; d="scan'208";a="884389214"
-Received: from unknown (HELO [10.255.14.192]) ([10.255.14.192])
-	by fmsmga001.fm.intel.com with ESMTP; 04 Feb 2011 09:33:06 -0800
-Message-ID: <4D4C3852.6090406@linux.intel.com>
-Date: Fri, 04 Feb 2011 09:33:06 -0800
-From: Saul Wold <sgw@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="4.60,427,1291622400"; d="scan'208";a="384310709"
+Received: from unknown (HELO [10.255.14.171]) ([10.255.14.171])
+	by azsmga001.ch.intel.com with ESMTP; 04 Feb 2011 11:04:49 -0800
+Message-ID: <4D4C4DD2.1060204@linux.intel.com>
+Date: Fri, 04 Feb 2011 11:04:50 -0800
+From: Darren Hart <dvhart@linux.intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
+	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
 MIME-Version: 1.0
-To: Wolfgang Denk <wd@denx.de>
-References: <20110204092905.45870D2B4BD@gemini.denx.de>
-In-Reply-To: <20110204092905.45870D2B4BD@gemini.denx.de>
+To: Akshat Saha <akshat.saha@spectracoretech.com>
+References: <AANLkTikBFCb2kNE2ePDhNZ6+Up3HzuiqLgi9UTiyP0sP@mail.gmail.com>
+	<4D4AD7D9.60407@linux.intel.com>
+	<AANLkTikDN5ZBRR0Hv93nZK-CMBO0xdrepbtppvGiVmwT@mail.gmail.com>
+In-Reply-To: <AANLkTikDN5ZBRR0Hv93nZK-CMBO0xdrepbtppvGiVmwT@mail.gmail.com>
 Cc: poky@yoctoproject.org
-Subject: Re: Fixes for bugs with 1.0 M3 target milestones?
+Subject: Re: Adding Packages
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,66 +32,94 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 04 Feb 2011 17:33:07 -0000
+X-List-Received-Date: Fri, 04 Feb 2011 19:04:50 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 02/04/2011 01:29 AM, Wolfgang Denk wrote:
-> Hi,
+On 02/04/2011 02:25 AM, Akshat Saha wrote:
+> Hi Darren,
 >
-> I notice that there are a number of bugs open that are (1) more or
-> less directly visible to the "end user" or "customer" (i. e. not only
-> "build problems" that are mostly visible to engineering) and that (2)
-> are marked with a "1.0 M3" target milestone, for example:
+> Thanks a lot for your help.
+> Till now, I was working with poky-green(3.3.1) but I am shifting to
+> laverne(4.0) now.
+> Will let you know if it works with it also.
 >
-> Bug 154 - libtool has incorrect paths embedded
-> Bug 227 - meta/packages/meta/*toolchain*
-> Bug 336 - [QT] fotowall display abnormal on eMenlow
-> Bug 348 - [QT] fotowall segfaults with "Painter not active"
-> Bug 412 - lttv can't be loaded in GUI mode
-> Bug 443 - zypper encounter segfault when startup with qemuppc
-> Bug 452 - [Qt] qtdemo warning: missing Qt database driver
-> Bug 555 - After untar sdk tarball to /opt/poky, My root folder's user info is changed!
-> Bug 580 - poky-qemu does not make proper use of CROSSPATH (breaking distcc)
-> Bug 603 - [Netbook]Connection preferences did not enable wireless networks
-> Bug 610 - no rootfs and dtb file in qemumpc8315e-rdb milestone build
-> Bug 615 - [multimedia] video player reports error when open video files
-> Bug 616 - [multimedia] No sound from machine when playing audio files
-> Bug 658 - The bottom icons on Applications and All screen are cut-off in qemu.
-> Bug 659 - The gcc/g++ is not built in the poky-image-sdk-routerstationpro-.*
+> Can you also help me how to add patches.
+> I have put he .patch file in files folder of the psplash package
 >
-> [this is just a selection, mostly bugs that are on my own radar, too]
+> and in SRC_URI  Added    file://psplash-poky-img.patch:patch=1 \
+
+That should work provided the directory is named either files of 
+${PN}-{PV}, the latter being preferred.
+
+--
+Darren
+
 >
-> Bugs that affect basic functionality (video player mnot working,
-> audio player not working, fotowall not working) are pretty much of
-> show stoppers; also bugs that impair the general appearance (like the
-> cut-off icons) result in poor first impressions.
 >
-Agreed.
-
-> With the "1.0 M3" target milestone not being too far away I wonder if
-> these bugs will really be fixed until then? Some of these bug reports
-> are actually pretty old...
+> On Thu, Feb 3, 2011 at 9:59 PM, Darren Hart <dvhart@linux.intel.com
+> <mailto:dvhart@linux.intel.com>> wrote:
 >
-Thanks for your input, you are correct 1.0 M3 is right around the corner 
-and a number of these bugs are not even close to being fixed.  We are 
-going to be focusing M4, which is from now until mid-March on bug fixing.
-
-I will be working the IRC channel (#yocto) weekly on a bug scrub, I will 
-take this input and ensure these get marked for M4.  If you have any 
-suggested fixes, please feel free to submit patches.
-
-On that note, if you do submit patches with Bug fixes, please add the 
-following to your commit message:  [BUGID #NNN].  We have a scanner for 
-this format.
-
-
-
-Sau!
-
-> Thanks!
+>     On 02/03/2011 03:54 AM, Akshat Saha wrote:
 >
-> Wolfgang Denk
+>         Hi All,
+>
+>         I want to meta/packages/psplash package to my rfs. I
+>         compiled poky-image-minimal-live, with the following command
+>
+>         $ bitbake poky-image-minimal-live
+>
+>         Can any one guide me, how...?
+>
+>
+>     There are a few ways to go about this I'm sure. What I've done is
+>     either:
+>
+>     1) Create a layer with .bbappend for the image
+>     2) Create your own image recipe
+>
+>     For example, the following recipes create a new image,
+>     poky-image-dvhart (as well as a live version), and add dropbear,
+>     trace-cmd, and kernelshark to the list of packages installed.
+>
+>
+>     $ cat poky-image-dvhart.bb <http://poky-image-dvhart.bb>
+>     #
+>     # Copyright (C) 2010 Intel Corporation.
+>     #
+>     require recipes-core/images/poky-image-minimal.bb
+>     <http://poky-image-minimal.bb>
+>     IMAGE_INSTALL += "dropbear trace-cmd kernelshark"
+>     LICENSE = "MIT"
+>
+>
+>
+>     $ cat poky-image-dvhart-live.bb <http://poky-image-dvhart-live.bb>
+>     DESCRIPTION = "Bootable Live Image"
+>     require recipes-core/images/poky-image-live.inc
+>     LABELS += "boot install"
+>     ROOTFS = "${DEPLOY_DIR_IMAGE}/poky-image-dvhart-${MACHINE}.ext3"
+>     LICENSE = "MIT"
+>     do_bootimg[depends] += "poky-image-dvhart:do_rootfs"
+>
+>
+>     --
+>     Darren Hart
+>     Intel Open Source Technology Center
+>     Yocto Project - Linux Kernel
+>
+>
+>
+>
+> --
+> Thanks and Regards,
+>
+> Akshat Saha
 >
 
+
+-- 
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
