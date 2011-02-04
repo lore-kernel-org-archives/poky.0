@@ -1,22 +1,24 @@
-Return-Path: <scott.a.garman@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C01EA4C800A4
-	for <poky@yoctoproject.org>; Thu,  3 Feb 2011 18:07:14 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 03 Feb 2011 16:07:14 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,423,1291622400"; d="scan'208";a="703864655"
-Received: from miles.jf.intel.com (HELO [10.7.199.51]) ([10.7.199.51])
-	by orsmga001.jf.intel.com with ESMTP; 03 Feb 2011 16:07:14 -0800
-Message-ID: <4D4B4333.4080005@intel.com>
-Date: Thu, 03 Feb 2011 16:07:15 -0800
-From: Scott Garman <scott.a.garman@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
-MIME-Version: 1.0
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Cc: Yocto Project Discussions <yocto@linux.intel.com>
-Subject: Bugs with new documentation recipes.
+Return-Path: <mark.hatle@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 085B74C800A3
+	for <poky@yoctoproject.org>; Thu,  3 Feb 2011 19:03:21 -0600 (CST)
+Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p1413L9T004823
+	for <poky@yoctoproject.org>; Thu, 3 Feb 2011 17:03:21 -0800 (PST)
+Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
+	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Thu, 3 Feb 2011 17:03:20 -0800
+Received: from msp-mhatle-lx2.wrs.com ([172.25.34.61]) by
+	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Thu, 3 Feb 2011 17:03:20 -0800
+From: Mark Hatle <mark.hatle@windriver.com>
+To: poky@yoctoproject.org
+Date: Thu,  3 Feb 2011 19:00:01 -0600
+Message-Id: <cover.1296781161.git.mark.hatle@windriver.com>
+X-Mailer: git-send-email 1.7.3.4
+X-OriginalArrivalTime: 04 Feb 2011 01:03:20.0597 (UTC)
+	FILETIME=[50955450:01CBC407]
+Subject: [PATCH 0/1] pseudo uprev and bug fixes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,40 +30,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 04 Feb 2011 00:07:15 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 04 Feb 2011 01:03:22 -0000
 
-Hello,
+Add pseudo uprev and bug fixes related to pseudo.
 
-Saul is currently reverting a few of my recent commits to master which 
-enabled a number of documentation infrastructure-related recipes 
-(docbook-utils in particular).
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: mhatle/pseudo
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=mhatle/pseudo
 
-This will help to un-break the builds of a few packages - prelink, 
-iputils, and gtk+. However, if you've built the broken version of these 
-recipes you will need to delete the following from your native sysroot:
+Thanks,
+    Mark Hatle <mark.hatle@windriver.com>
+---
 
-rm -rf etc/sgml
-rm -rf usr/share/sgml
 
-And then to clean up your package cache be sure to bitbake -c cleanall on:
+Mark Hatle (1):
+  pseudo: Uprev pseudo and fix a few minor bugs
 
-docbook-utils-native
-openjade-native
-opensp-native
-docbook-dsssl-stylesheets-native
-docbook-sgml-dtd-3.1-native
-sgml-common-native
-
-I apologize for the trouble; I did not test these recipe additions in 
-the right environment (it was on a host system that had many of these 
-utilities installed already, which gave me false positives).
-
-Scott
+ .../conf/distro/include/poky-default-revisions.inc |    2 +-
+ meta/conf/local.conf.sample                        |    9 +++++
+ .../pseudo/pseudo/static_sqlite.patch              |   18 +++++-----
+ meta/recipes-devtools/pseudo/pseudo_git.bb         |   38 +++++++++++++++++---
+ 4 files changed, 52 insertions(+), 15 deletions(-)
 
 -- 
-Scott Garman
-Embedded Linux Distro Engineer - Yocto Project
-Intel Open Source Technology Center
+1.7.3.4
+
 
