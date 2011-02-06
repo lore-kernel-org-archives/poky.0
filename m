@@ -1,34 +1,26 @@
-Return-Path: <wd@denx.de>
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D4F554C800C0;
-	Sat,  5 Feb 2011 08:07:13 -0600 (CST)
-Received: from frontend1.mail.m-online.net (frontend1.mail.intern.m-online.net
-	[192.168.8.180])
-	by mail-out.m-online.net (Postfix) with ESMTP id A419D1853B8B;
-	Sat,  5 Feb 2011 15:07:12 +0100 (CET)
-X-Auth-Info: LXOY75M+CdkpsVmdZIs58KfTFSUkIZ9rlCUi6CPBx3A=
-Received: from diddl.denx.de (host-80-81-18-216.customer.m-online.net
-	[80.81.18.216])
-	by smtp-auth.mnet-online.de (Postfix) with ESMTPA id 6E6CB1C000E9;
-	Sat,  5 Feb 2011 15:07:12 +0100 (CET)
-Received: from gemini.denx.de (gemini.denx.de [10.0.0.2])
-	by diddl.denx.de (Postfix) with ESMTP id 46E4030956E6;
-	Sat,  5 Feb 2011 15:07:12 +0100 (CET)
-Received: from gemini.denx.de (localhost.localdomain [127.0.0.1])
-	by gemini.denx.de (Postfix) with ESMTP id 181EF152161;
-	Sat,  5 Feb 2011 15:07:12 +0100 (CET)
-To: Elizabeth Flanagan <elizabeth.flanagan@intel.com>
-From: Wolfgang Denk <wd@denx.de>
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 99E4E4C80887
+	for <poky@lists.pokylinux.org>; Sun,  6 Feb 2011 11:49:26 -0600 (CST)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 9785216601DC; Sun,  6 Feb 2011 10:49:25 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.1
+Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
+	by mail.chez-thomas.org (Postfix) with ESMTP id E61E116601D7;
+	Sun,  6 Feb 2011 10:49:23 -0700 (MST)
+Message-ID: <4D4EDF23.1010508@mlbassoc.com>
+Date: Sun, 06 Feb 2011 10:49:23 -0700
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
 MIME-Version: 1.0
-In-reply-to: <4D4C9919.6060708@intel.com>
-References: <4D4C9919.6060708@intel.com>
-Comments: In-reply-to Elizabeth Flanagan <elizabeth.flanagan@intel.com>
-	message dated "Fri, 04 Feb 2011 16:26:01 -0800."
-Date: Sat, 05 Feb 2011 15:07:12 +0100
-Message-Id: <20110205140712.181EF152161@gemini.denx.de>
-Cc: "yocto@yoctoproject.org" <yocto@yoctoproject.org>,
-	"poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [Announcement] Laverne 4.0.1 Release
+To: Poky <poky@lists.pokylinux.org>
+Subject: Can't build mtd-utils-native
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,50 +32,104 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 05 Feb 2011 14:07:14 -0000
-Content-type: text/plain; charset=ISO-8859-1
-Content-transfer-encoding: 8bit
+X-List-Received-Date: Sun, 06 Feb 2011 17:49:27 -0000
+X-Groupsio-MsgNum: 3393
+Content-Type: multipart/mixed; boundary="------------020806010509010806040508"
 
-Dear Elizabeth Flanagan,
+--------------020806010509010806040508
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-In message <4D4C9919.6060708@intel.com> you wrote:
-> 
-> We are pleased to announce the first bug-fix release of Poky Laverne,
-> 4.0.1. This release is available at:
-> 
-> http://mirrors.kernel.org/yocto/poky/poky-laverne-4.0.1.tar.bz2
+Using latest master 50387575ecdb05712958ea3c5caf023d6eb753ba
+The recipe for mtd-utils-native fails to build, log attached.
 
-Is this Laverne 4.0.1 or 4.1 ? The git tag is laverne-4.0.1, but the
-7fa2b1c commit message says:
-
-    Laverne 4.1 release: NOTES and CHANGELOG
-    
-    Name: Laverne
-    Version: 4.0.1
-    Built from Revision: fd7a07b3a2153826bedda2ef76b9a33ab2791680
-    Build Date: Jan 26 2011
-    Builder: autobuilder.pokylinux.org
-    
-    Commit of final release notes and changelog for Laverne 4.1
-
-And in d1fd60f I see this:
-
-    Setting Yocto rev number to 4.1: poky.conf
-...
--DISTRO_NAME = "Yocto Linux (Built by Poky 4.0)"
-+DISTRO_NAME = "Yocto Linux (Built by Poky 4.1)"
-
-
-So I'm a bit confused?
-
-Best regards,
-
-Wolfgang Denk
+Any ideas how to fix this?
 
 -- 
-DENX Software Engineering GmbH,     MD: Wolfgang Denk & Detlev Zundel
-HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
-Phone: (+49)-8142-66989-10 Fax: (+49)-8142-66989-80 Email: wd@denx.de
-Some people march to the beat of a different drummer. And some people
-tango!
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
+--------------020806010509010806040508
+Content-Type: text/plain;
+ name="log.do_unpack"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename="log.do_unpack"
+
+Cloning into /tmp/test_poky/tmp/work/i686-linux/mtd-utils-native-1.4.1-r1/git...
+ done.
+ fatal: Not a valid object name v1.4.1
+ Error executing a python function in /tmp/poky-amltd/meta/recipes-devtools/mtd/mtd-utils_1.4.1.bb:
+FetchError: Fetch command export HOME="/home/gthomas"; export GIT_CONFIG="/tmp/test_poky/tmp/sysroots/i686-linux/usr/etc/gitconfig"; export PATH="/tmp/test_poky/tmp/sysroots/i686-linux/usr/bin/i686-linux:/tmp/test_poky/tmp/sysroots/i686-linux/usr/bin:/tmp/test_poky/tmp/sysroots/i686-linux/usr/sbin:/tmp/test_poky/tmp/sysroots/i686-linux/usr/bin:/tmp/test_poky/tmp/sysroots/i686-linux/sbin:/tmp/test_poky/tmp/sysroots/i686-linux//bin:/home/local/poky-amltd/scripts:/home/local/poky-amltd/bitbake/bin/:/opt/amltd/bin:/usr/java/jdk1.6.0_10/bin:/home/gthomas/Android/android-sdk-linux_x86-1.1_r1/tools:/home/gthomas/bin:/usr/lib/qt-3.3/bin:/usr/kerberos/sbin:/usr/kerberos/bin:/usr/lib/ccache:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/tmp/poky-amltd/scripts"; git read-tree v1.4.1 failed with signal 128, output:
+fatal: Not a valid object name v1.4.1
+
+
+ERROR: Error executing a python function in /tmp/poky-amltd/meta/recipes-devtools/mtd/mtd-utils_1.4.1.bb:
+FetchError: Fetch command export HOME="/home/gthomas"; export GIT_CONFIG="/tmp/test_poky/tmp/sysroots/i686-linux/usr/etc/gitconfig"; export PATH="/tmp/test_poky/tmp/sysroots/i686-linux/usr/bin/i686-linux:/tmp/test_poky/tmp/sysroots/i686-linux/usr/bin:/tmp/test_poky/tmp/sysroots/i686-linux/usr/sbin:/tmp/test_poky/tmp/sysroots/i686-linux/usr/bin:/tmp/test_poky/tmp/sysroots/i686-linux/sbin:/tmp/test_poky/tmp/sysroots/i686-linux//bin:/home/local/poky-amltd/scripts:/home/local/poky-amltd/bitbake/bin/:/opt/amltd/bin:/usr/java/jdk1.6.0_10/bin:/home/gthomas/Android/android-sdk-linux_x86-1.1_r1/tools:/home/gthomas/bin:/usr/lib/qt-3.3/bin:/usr/kerberos/sbin:/usr/kerberos/bin:/usr/lib/ccache:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/tmp/poky-amltd/scripts"; git read-tree v1.4.1 failed with signal 128, output:
+fatal: Not a valid object name v1.4.1
+
+
+The stack trace of python calls that resulted in this exception/failure was:
+ERROR: The stack trace of python calls that resulted in this exception/failure was:
+  File "base_do_unpack", line 34, in <module>
+ERROR:   File "base_do_unpack", line 34, in <module>
+
+ERROR: 
+  File "base_do_unpack", line 28, in base_do_unpack
+ERROR:   File "base_do_unpack", line 28, in base_do_unpack
+
+ERROR: 
+  File "/home/local/poky-amltd/bitbake/lib/bb/fetch2/git.py", line 168, in unpack
+ERROR:   File "/home/local/poky-amltd/bitbake/lib/bb/fetch2/git.py", line 168, in unpack
+    runfetchcmd("%s read-tree %s%s" % (ud.basecmd, ud.revisions[ud.names[0]], readpathspec), d)
+ERROR:     runfetchcmd("%s read-tree %s%s" % (ud.basecmd, ud.revisions[ud.names[0]], readpathspec), d)
+
+ERROR: 
+  File "/home/local/poky-amltd/bitbake/lib/bb/fetch2/__init__.py", line 480, in runfetchcmd
+ERROR:   File "/home/local/poky-amltd/bitbake/lib/bb/fetch2/__init__.py", line 480, in runfetchcmd
+    raise FetchError("Fetch command %s failed with signal %s, output:\n%s" % (cmd, signal, output))
+ERROR:     raise FetchError("Fetch command %s failed with signal %s, output:\n%s" % (cmd, signal, output))
+
+ERROR: 
+The code that was being executed was:
+ERROR: The code that was being executed was:
+     0030:		if not ret:
+ERROR:      0030:		if not ret:
+     0031:			raise bb.build.FuncFailed("oe_unpack_file failed with return value %s" % ret)
+ERROR:      0031:			raise bb.build.FuncFailed("oe_unpack_file failed with return value %s" % ret)
+     0032:
+ERROR:      0032:
+     0033:
+ERROR:      0033:
+ *** 0034:base_do_unpack(d)
+ERROR:  *** 0034:base_do_unpack(d)
+     0035:
+ERROR:      0035:
+(file: 'base_do_unpack', lineno: 34, function: <module>)
+ERROR: (file: 'base_do_unpack', lineno: 34, function: <module>)
+     0024:		else:
+ERROR:      0024:		else:
+     0025:			# use bb.fetch2 unpack API
+ERROR:      0025:			# use bb.fetch2 unpack API
+     0026:			ud = urldata[url]
+ERROR:      0026:			ud = urldata[url]
+     0027:			rootdir = bb.data.getVar('WORKDIR', localdata, True)
+ERROR:      0027:			rootdir = bb.data.getVar('WORKDIR', localdata, True)
+ *** 0028:			ret = ud.method.unpack(ud, rootdir, localdata)
+ERROR:  *** 0028:			ret = ud.method.unpack(ud, rootdir, localdata)
+     0029:		bb.utils.unlockfile(lf)
+ERROR:      0029:		bb.utils.unlockfile(lf)
+     0030:		if not ret:
+ERROR:      0030:		if not ret:
+     0031:			raise bb.build.FuncFailed("oe_unpack_file failed with return value %s" % ret)
+ERROR:      0031:			raise bb.build.FuncFailed("oe_unpack_file failed with return value %s" % ret)
+     0032:
+ERROR:      0032:
+(file: 'base_do_unpack', lineno: 28, function: base_do_unpack)
+ERROR: (file: 'base_do_unpack', lineno: 28, function: base_do_unpack)
+Function 'base_do_unpack' failed
+ERROR: Function 'base_do_unpack' failed
+
+--------------020806010509010806040508--
