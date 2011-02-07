@@ -1,22 +1,22 @@
 Return-Path: <scott.a.garman@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0E46E4C80A7A
-	for <poky@yoctoproject.org>; Mon,  7 Feb 2011 17:35:16 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 07 Feb 2011 15:35:16 -0800
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 3137B4C80A7C
+	for <poky@yoctoproject.org>; Mon,  7 Feb 2011 17:35:17 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 07 Feb 2011 15:35:16 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,439,1291622400"; d="scan'208";a="705066001"
+X-IronPort-AV: E=Sophos;i="4.60,439,1291622400"; d="scan'208";a="600353063"
 Received: from sgarman-ws.jf.intel.com (HELO localhost) ([10.7.199.157])
-	by orsmga001.jf.intel.com with ESMTP; 07 Feb 2011 15:35:16 -0800
-Message-Id: <bf9abd212857ef74ab91d51d457a64d8874f4c90.1297121546.git.scott.a.garman@intel.com>
+	by orsmga002.jf.intel.com with ESMTP; 07 Feb 2011 15:35:16 -0800
+Message-Id: <59da530c3beffd70604b77d9e246f5898309f535.1297121546.git.scott.a.garman@intel.com>
 In-Reply-To: <cover.1297121546.git.scott.a.garman@intel.com>
 References: <cover.1297121546.git.scott.a.garman@intel.com>
-Old-Date: Sun, 6 Feb 2011 20:38:50 -0800
+Old-Date: Sun, 6 Feb 2011 20:44:23 -0800
 Date: Mon, 07 Feb 2011 15:36:23 -0800
 To: poky@yoctoproject.org
 CC: 
 From: Scott Garman <scott.a.garman@intel.com>
-Subject: [PATCH 1/6] xorg-cf-files: new recipe v1.0.4
+Subject: [PATCH 4/6] imake: add native support to recipe and update DEPENDS
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,33 +32,42 @@ X-List-Received-Date: Mon, 07 Feb 2011 23:35:17 -0000
 
 From: Scott Garman <scott.a.garman@intel.com>
 
-This package includes configuration files needed for old x11
-imake-based packages - transfig in particular.
+xorg-cf-files includes configuration files used by imake-based
+recipes. Also add native support to the recipe.
 
 Signed-off-by: Scott Garman <scott.a.garman@intel.com>
 ---
- .../xorg-util/xorg-cf-files_1.0.4.bb               |   14 ++++++++++++++
- 1 files changed, 14 insertions(+), 0 deletions(-)
- create mode 100644 meta/recipes-graphics/xorg-util/xorg-cf-files_1.0.4.bb
+ meta/recipes-graphics/xorg-util/imake_1.0.4.bb |   10 +++++-----
+ 1 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/meta/recipes-graphics/xorg-util/xorg-cf-files_1.0.4.bb b/meta/recipes-graphics/xorg-util/xorg-cf-files_1.0.4.bb
-new file mode 100644
-index 0000000..a5de00a
---- /dev/null
-+++ b/meta/recipes-graphics/xorg-util/xorg-cf-files_1.0.4.bb
-@@ -0,0 +1,14 @@
-+require xorg-util-common.inc
-+
-+SUMMARY = "Data files for the imake utility"
-+DESCRIPTION = "Data files for the imake utility"
-+LIC_FILES_CHKSUM = "file://COPYING;md5=0f334a06f2de517e37e86d6757167d88"
-+
-+DEPENDS = "font-util"
-+
-+PR = "r0"
-+
-+SRC_URI[md5sum] = "ff4502b6e31aac90e24ce134090d0e46"
-+SRC_URI[sha256sum] = "8fc8a1224d2a716b1f3f1ca85dfda02387ab215251b8eddd03551eac998c9cb8"
+diff --git a/meta/recipes-graphics/xorg-util/imake_1.0.4.bb b/meta/recipes-graphics/xorg-util/imake_1.0.4.bb
+index 9202317..e313442 100644
+--- a/meta/recipes-graphics/xorg-util/imake_1.0.4.bb
++++ b/meta/recipes-graphics/xorg-util/imake_1.0.4.bb
+@@ -1,20 +1,20 @@
+ require xorg-util-common.inc
+ 
+ SUMMARY = "C preprocessor interface to the make utility"
+-
+ DESCRIPTION = "Imake is used to generate Makefiles from a template, a \
+ set of cpp macro functions, and a per-directory input file called an \
+ Imakefile. This allows machine dependencies (such as compiler options, \
+ alternate command names, and special make rules) to be kept separate \
+ from the descriptions of the various items to be built."
++LIC_FILES_CHKSUM = "file://COPYING;md5=b9c6cfb044c6d0ff899eaafe4c729367"
+ 
+-DEPENDS = "util-macros"
++DEPENDS = "util-macros xproto xorg-cf-files"
+ RDEPENDS_${PN} = "perl xproto"
+ 
+-LIC_FILES_CHKSUM = "file://COPYING;md5=b9c6cfb044c6d0ff899eaafe4c729367"
+-
+-PR = "r1"
++PR = "r2"
+ PE = "1"
+ 
+ SRC_URI[md5sum] = "0fd1e53d94142ddee5340f87de0b9561"
+ SRC_URI[sha256sum] = "68038fa67929c5553044ad7417e1a64cabe954f04213b305dd36a04a61317d31"
 +
 +BBCLASSEXTEND = "native"
 -- 
