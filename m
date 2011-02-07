@@ -1,30 +1,33 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 258D14C800A4
-	for <poky@yoctoproject.org>; Mon,  7 Feb 2011 12:35:08 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id BA39B1660295; Mon,  7 Feb 2011 11:35:07 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.1
-Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
-	by mail.chez-thomas.org (Postfix) with ESMTP id DEE12166016D;
-	Mon,  7 Feb 2011 11:35:06 -0700 (MST)
-Message-ID: <4D503B5A.3040805@mlbassoc.com>
-Date: Mon, 07 Feb 2011 11:35:06 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
+Return-Path: <mark.hatle@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E1FFC4C80097
+	for <poky@lists.pokylinux.org>; Mon,  7 Feb 2011 13:09:41 -0600 (CST)
+Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p17J9ahE018262;
+	Mon, 7 Feb 2011 11:09:36 -0800 (PST)
+Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
+	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Mon, 7 Feb 2011 11:09:36 -0800
+Received: from Macintosh-5.local ([172.25.36.226]) by
+	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Mon, 7 Feb 2011 11:09:36 -0800
+Message-ID: <4D50436F.7060509@windriver.com>
+Date: Mon, 07 Feb 2011 13:09:35 -0600
+From: Mark Hatle <mark.hatle@windriver.com>
+Organization: Wind River Systems
+User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
+	rv:1.9.2.13) Gecko/20101207 Thunderbird/3.1.7
 MIME-Version: 1.0
-To: Darren Hart <dvhart@linux.intel.com>
-References: <AANLkTinobVPqACVbGb5VjmuROL9-74r1E1B1Ux5xXvVo@mail.gmail.com>	<4D4FE267.5080907@mlbassoc.com>	<4D4FEAD4.50200@gmail.com>
-	<4D50388A.4030707@linux.intel.com>
-In-Reply-To: <4D50388A.4030707@linux.intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: chromium browser
+To: Gary Thomas <gary@mlbassoc.com>
+References: <4D500535.3070505@mlbassoc.com>	 <1297094804.1350.16816.camel@rex>
+	<4D501B82.4080505@mlbassoc.com>	 <4D501DFC.6020206@windriver.com>
+	<4D5023D8.7090106@mlbassoc.com> <1297097863.1350.17229.camel@rex>
+	<4D502638.2080106@windriver.com> <4D503284.6020301@mlbassoc.com>
+In-Reply-To: <4D503284.6020301@mlbassoc.com>
+X-OriginalArrivalTime: 07 Feb 2011 19:09:36.0136 (UTC)
+	FILETIME=[8F789880:01CBC6FA]
+Cc: Poky <poky@lists.pokylinux.org>
+Subject: Re: eglibc configurability
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,41 +39,53 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 07 Feb 2011 18:35:08 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Mon, 07 Feb 2011 19:09:47 -0000
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 02/07/2011 11:23 AM, Darren Hart wrote:
-> On 02/07/2011 04:51 AM, embedded.yogesh wrote:
->> On Monday 07 February 2011 05:45 PM, Gary Thomas wrote:
->>> On 02/06/2011 09:52 PM, yogesh lal wrote:
->>>> Hi,
+On 2/7/11 11:57 AM, Gary Thomas wrote:
+> On 02/07/2011 10:04 AM, Mark Hatle wrote:
+>> On 2/7/11 10:57 AM, Richard Purdie wrote:
+>>> On Mon, 2011-02-07 at 09:54 -0700, Gary Thomas wrote:
+>>>> On 02/07/2011 09:29 AM, Mark Hatle wrote:
+>>>>> Could you find the related init script and point me to the contents.  I don't
+>>>>> see any initscripts in the eglibc integration.  The only thing I see is a switch
+>>>>> in the locale generation between on target, on host and via QEMU.  I'm wondering
+>>>>> if maybe this is being triggered?
 >>>>
->>>> I am new to poky, so don't know it will make any sense or not, but
->>>> can we build chromium browser using Poky ?
+>>>> This could be what I'm seeing.  I have ENABLE_BINARY_LOCALE_GENERATION disabled
+>>>> in my local.conf (I had troubles with QEMU-ARM on Fedora in the past and this
+>>>> was the way around it).  It looks like that may be pushing the locale compilation
+>>>> to the target.
 >>>
->>> What's your target architecture? Last I checked, only x86 and ARM
->>> are supported.
+>>> Correct. The locales have to be generated somewhere!
 >>>
->>> It can be done, but it's certainly not for the faint of heart :-)
+>>> You turned them off on the build machine so they run on the target. All
+>>> is functioning as it should.
 >>>
+>>> FWIW, cross locale gen doesn't use qemu now and is a lot faster so
+>>> perhaps you could turn it back on ;-).
 >>
->> I am working on X86 platform. Can you give some initial start up where I
->> have to look ?
->
-> Find and download the Chromium source, then have a look at the Poky Reference Guide for how to create an appropriate recipe, using recipes for projects with similar source layouts
-> as examples.
->
-> http://www.yoctoproject.org/docs/poky-ref-manual/poky-ref-manual.html
+>> Just to be clear, I'm running builds on machines where QEMU is unhappy (and I've
+>> disabled the QEMU check...)  I have locales being generated and they are working
+>> fine in the testing I have done with them.
+>>
+>> This is using eglibc and the default conf file configuration setting.
+> 
+> I enabled ENABLE_BINARY_LOCALE_GENERATION and now the locale
+> generation is being done at build time - hurray :-)  Boot time
+> is much improved.
+> 
+> Now to figure out how to control the ones that are installed.
 
-Probably a lot easier to start with the OpenEmbedded recipe
-since it already works.  The biggest problem is that there
-are a ton of dependencies, so you'll need to bring in those
-recipes as well.
+The value is "IMAGE_LINGUAS".  It defaults to "en-us en-gb".
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+(default is located in meta/conf/distro/poky.conf.. but you should override this
+in your build/conf/local.conf)
+
+--Mark
+
+> Thanks
+> 
+
 
