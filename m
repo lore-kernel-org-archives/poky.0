@@ -1,36 +1,26 @@
-Return-Path: <wd@denx.de>
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 438844C80097;
-	Mon,  7 Feb 2011 13:39:29 -0600 (CST)
-Received: from frontend1.mail.m-online.net (frontend1.mail.intern.m-online.net
-	[192.168.8.180])
-	by mail-out.m-online.net (Postfix) with ESMTP id B3236188B58E;
-	Mon,  7 Feb 2011 20:39:27 +0100 (CET)
-X-Auth-Info: K0BrasIE5nX7IOhyb9QE+a0Dup3Y29bQM3dupOMUnPw=
-Received: from diddl.denx.de (host-80-81-18-216.customer.m-online.net
-	[80.81.18.216])
-	by smtp-auth.mnet-online.de (Postfix) with ESMTPA id EAC1D1C000FF;
-	Mon,  7 Feb 2011 20:39:27 +0100 (CET)
-Received: from gemini.denx.de (gemini.denx.de [10.0.0.2])
-	by diddl.denx.de (Postfix) with ESMTP id CFF003436637;
-	Mon,  7 Feb 2011 20:39:27 +0100 (CET)
-Received: from gemini.denx.de (localhost.localdomain [127.0.0.1])
-	by gemini.denx.de (Postfix) with ESMTP id A8BBC14B4BD5;
-	Mon,  7 Feb 2011 20:39:27 +0100 (CET)
-To: Elizabeth Flanagan <elizabeth.flanagan@intel.com>
-From: Wolfgang Denk <wd@denx.de>
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 3515E4C80A77
+	for <poky@lists.pokylinux.org>; Mon,  7 Feb 2011 15:32:44 -0600 (CST)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 368351660235; Mon,  7 Feb 2011 14:32:43 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.1
+Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 547441660231;
+	Mon,  7 Feb 2011 14:32:42 -0700 (MST)
+Message-ID: <4D5064FA.2040403@mlbassoc.com>
+Date: Mon, 07 Feb 2011 14:32:42 -0700
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
 MIME-Version: 1.0
-In-reply-to: <4D503519.8010706@intel.com>
-References: <4D4C9919.6060708@intel.com>
-	<20110205140712.181EF152161@gemini.denx.de>
-	<4D503519.8010706@intel.com>
-Comments: In-reply-to Elizabeth Flanagan <elizabeth.flanagan@intel.com>
-	message dated "Mon, 07 Feb 2011 10:08:25 -0800."
-Date: Mon, 07 Feb 2011 20:39:27 +0100
-Message-Id: <20110207193927.A8BBC14B4BD5@gemini.denx.de>
-Cc: "yocto@yoctoproject.org" <yocto@yoctoproject.org>,
-	"poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [Announcement] Laverne 4.0.1 Release
+To: Poky <poky@lists.pokylinux.org>
+Subject: DISTRO_FEATURES only extendable?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,30 +32,48 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 07 Feb 2011 19:39:30 -0000
-Content-type: text/plain; charset=ISO-8859-1
-Content-transfer-encoding: 8bit
+X-List-Received-Date: Mon, 07 Feb 2011 21:32:45 -0000
+X-Groupsio-MsgNum: 3423
+Content-Type: multipart/mixed; boundary="------------080203050605000009060108"
 
-Dear Elizabeth,
+--------------080203050605000009060108
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-In message <4D503519.8010706@intel.com> you wrote:
-> 
-> It is indeed 4.0.1, the commits for 7fa2b1c and d1fd60f were incorrect
-> (there was some confusion on my part as to the numbering scheme). These
-> issues were corrected @ 45526f5. Sorry for any confusion.
+I have my own distribution which is an extension of Poky
+(my DISTRO.conf is based on poky.conf via requires)
 
-Understood - thanks!
+Is there some reason that DISTRO_FEATURES is fixed by poky.conf
+and not overridable?  e.g. my systems seldom have WiFi or PCMCIA,
+so it's silly to include that support.
 
-Best regards,
-
-Wolfgang Denk
+Would the attached patch be acceptable to the mainstream?
 
 -- 
-DENX Software Engineering GmbH,     MD: Wolfgang Denk & Detlev Zundel
-HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
-Phone: (+49)-8142-66989-10 Fax: (+49)-8142-66989-80 Email: wd@denx.de
-Winners never talk about glorious victories. That's  because  they're
-the  ones  who  see  what the battlefield looks like afterwards. It's
-only the losers who have glorious victories.
-                                      - Terry Pratchett, _Small Gods_
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
+--------------080203050605000009060108
+Content-Type: text/plain;
+ name="poky-distro.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename="poky-distro.patch"
+
+diff --git a/meta/conf/distro/poky.conf b/meta/conf/distro/poky.conf
+index aeab039..64a2b1d 100644
+--- a/meta/conf/distro/poky.conf
++++ b/meta/conf/distro/poky.conf
+@@ -111,7 +111,7 @@ LIMIT_BUILT_LOCALES ?= "POSIX en_US en_GB"
+ ENABLE_BINARY_LOCALE_GENERATION ?= "1"
+ LOCALE_UTF8_ONLY = "0"
+ 
+-DISTRO_FEATURES = "alsa bluetooth ext2 irda pcmcia usbgadget usbhost wifi nfs zeroconf pci"
++DISTRO_FEATURES ?= "alsa bluetooth ext2 irda pcmcia usbgadget usbhost wifi nfs zeroconf pci"
+ 
+ POKY_EXTRA_RDEPENDS = "task-poky-boot"
+ POKY_EXTRA_RDEPENDS_qemuarm = "qemu-config"
+
+--------------080203050605000009060108--
