@@ -1,33 +1,24 @@
-Return-Path: <embedded.yogesh@gmail.com>
-Received: from mail-fx0-f48.google.com (mail-fx0-f48.google.com
-	[209.85.161.48])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 973FC4C800A6
-	for <poky@yoctoproject.org>; Sun,  6 Feb 2011 22:52:01 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by fxm2 with SMTP id 2so4632622fxm.35
-	for <poky@yoctoproject.org>; Sun, 06 Feb 2011 20:52:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:date:message-id:subject:from:to
-	:content-type; bh=32yvBlUS8EZimC6F2mUw+FF4QOjx+HzRNUogZwmt95Y=;
-	b=oioPR+XsntpeJ7z57T+j1TeGcKs62sQsOviGSXKeez+dF8sGapKJ+utdfuySSUtShj
-	eevslGs4/1Zp/ITMLMWe7cRVZn5lepH39BrzG3yiFPfjPkxWQF+NsrXzOROaTaprluGy
-	1/GFlX4ktTGhxsKp1pt+Fy+WSCb0KiHV1mHV4=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:date:message-id:subject:from:to:content-type;
-	b=D4F6W1VEAyJw++rIhbo8gcMLf+nyWIe1EnTPrZ/rQLN+TQnPMHa3JxK5vDz+sktjYF
-	Iu078+2swHUWkq1NZLtCRyHli/bOoPIYRm9BMTbItCUz5VPb3Vlh9YFf1xTbLlo6W54O
-	bbOI5+yqK9FGAo2JQaSK6qieiKhOElBp8jeRo=
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E0A9D4C800B7
+	for <poky@lists.pokylinux.org>; Mon,  7 Feb 2011 01:00:40 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 06 Feb 2011 23:00:40 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,437,1291622400"; d="scan'208";a="655055523"
+Received: from unknown (HELO [10.255.14.205]) ([10.255.14.205])
+	by fmsmga002.fm.intel.com with ESMTP; 06 Feb 2011 23:00:40 -0800
+Message-ID: <4D4F98A1.9030408@linux.intel.com>
+Date: Sun, 06 Feb 2011 23:00:49 -0800
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
 MIME-Version: 1.0
-Received: by 10.223.87.78 with SMTP id v14mr7840549fal.80.1297054320505; Sun,
-	06 Feb 2011 20:52:00 -0800 (PST)
-Received: by 10.223.87.75 with HTTP; Sun, 6 Feb 2011 20:52:00 -0800 (PST)
-Date: Mon, 7 Feb 2011 10:22:00 +0530
-Message-ID: <AANLkTinobVPqACVbGb5VjmuROL9-74r1E1B1Ux5xXvVo@mail.gmail.com>
-From: yogesh lal <embedded.yogesh@gmail.com>
-To: poky@yoctoproject.org
-Subject: chromium browser
+To: Gary Thomas <gary@mlbassoc.com>
+References: <4D4EDF23.1010508@mlbassoc.com>
+In-Reply-To: <4D4EDF23.1010508@mlbassoc.com>
+Cc: Poky <poky@lists.pokylinux.org>
+Subject: Re: Can't build mtd-utils-native
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,23 +30,52 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 07 Feb 2011 04:52:02 -0000
-Content-Type: multipart/alternative; boundary=20cf3054a2d107347d049ba9fe5b
-
---20cf3054a2d107347d049ba9fe5b
+X-List-Received-Date: Mon, 07 Feb 2011 07:00:41 -0000
 Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
 
-Hi,
+On 02/06/2011 09:49 AM, Gary Thomas wrote:
+> Using latest master 50387575ecdb05712958ea3c5caf023d6eb753ba
+> The recipe for mtd-utils-native fails to build, log attached.
+> 
+> Any ideas how to fix this?
+> 
 
-I am new to poky, so don't know it will make any sense or not, but can we
-build chromium browser using Poky ?
+I hit this earlier... let me dig up the logs...
 
+Feb 03 14:25:35 <dvhart>	RP__, I'll see if I can resolve this, but mtd_utils do_unpack fails with the new fetcher patch - I reverted it and was able to move past it
+Feb 03 14:25:44 <dvhart>	git read-tree v1.4.1 failed with signal 128, output:
+Feb 03 14:25:44 <dvhart>	| fatal: Not a valid object name v1.4.1
+Feb 03 14:30:38 <RP__>	dvhart: Hmm, which patch did you revert to get past it?
+Feb 03 14:30:52 <dvhart>	dfc5faf717ac1f917af398097d5295128548a55d
+Feb 03 14:31:00 <dvhart>	which looking at - doesn't make a lot of sense
+Feb 03 14:31:00 <--	juliefl has quit (Quit: Leaving.)
+Feb 03 14:31:22 <RP__>	dvhart: no :/
+Feb 03 14:32:55 <dvhart>	but the do_unpack log now reports success and the do_patch followed and completed
+Feb 03 14:33:11 *	dvhart kills, cleans, and rebuilds mtd_utils
+...
+Feb 03 15:01:28 <dvhart>	RP__, appears to have been a false alarm :/ sorry about that, can't explain it, but I'm not able to reproduce
 
-Thanks
+So, two things to try.
 
---20cf3054a2d107347d049ba9fe5b
-Content-Type: text/html; charset=ISO-8859-1
+1) do a _full_ clean and try again
+$ bitbake -c cleanall mtd-utils-native
+$ rm -rf downloads/*mtd-utils* downloads/git/*mtd-utils* sstate-cache/*mtd-utils
+$ bitbake mtd-utils-native
 
-Hi,<br><br>I am new to poky, so don&#39;t know it will make any sense or not, but can we build chromium browser using Poky ?<br><br><br>Thanks <br>
+If you are still able to produce it,
 
---20cf3054a2d107347d049ba9fe5b--
+2) try reverting the commit above
+$ git revert dfc5faf717ac1f917af398097d5295128548a55d
+followed by all the commands in step 1) above.
+
+Please let us know how it goes, if we have an elusive fetcher bug, we need all
+the details on it we can get.
+
+Thanks,
+
+-- 
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
+
