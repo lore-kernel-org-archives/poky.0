@@ -1,32 +1,27 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 4DBD04C80878
-	for <poky@lists.pokylinux.org>; Mon,  7 Feb 2011 11:57:26 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 1693F166027C; Mon,  7 Feb 2011 10:57:26 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.1
-Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 71D1A1660252;
-	Mon,  7 Feb 2011 10:57:24 -0700 (MST)
-Message-ID: <4D503284.6020301@mlbassoc.com>
-Date: Mon, 07 Feb 2011 10:57:24 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
+Return-Path: <elizabeth.flanagan@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 6DB544C800A4;
+	Mon,  7 Feb 2011 12:07:13 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 07 Feb 2011 10:07:11 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,438,1291622400"; d="scan'208";a="704955854"
+Received: from eflanlinux.jf.intel.com (HELO [10.7.201.91]) ([10.7.201.91])
+	by orsmga001.jf.intel.com with ESMTP; 07 Feb 2011 10:07:11 -0800
+Message-ID: <4D503519.8010706@intel.com>
+Date: Mon, 07 Feb 2011 10:08:25 -0800
+From: Elizabeth Flanagan <elizabeth.flanagan@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.16) Gecko/20101125 SUSE/3.0.11 Lightning/1.0b1
+	Thunderbird/3.0.11 ThunderBrowse/3.3.3
 MIME-Version: 1.0
-To: Mark Hatle <mark.hatle@windriver.com>
-References: <4D500535.3070505@mlbassoc.com>	 <1297094804.1350.16816.camel@rex>
-	<4D501B82.4080505@mlbassoc.com>	 <4D501DFC.6020206@windriver.com>
-	<4D5023D8.7090106@mlbassoc.com> <1297097863.1350.17229.camel@rex>
-	<4D502638.2080106@windriver.com>
-In-Reply-To: <4D502638.2080106@windriver.com>
-Cc: Poky <poky@lists.pokylinux.org>
-Subject: Re: eglibc configurability
+To: Wolfgang Denk <wd@denx.de>
+References: <4D4C9919.6060708@intel.com>
+	<20110205140712.181EF152161@gemini.denx.de>
+In-Reply-To: <20110205140712.181EF152161@gemini.denx.de>
+Cc: "yocto@yoctoproject.org" <yocto@yoctoproject.org>,
+	"poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [Announcement] Laverne 4.0.1 Release
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,49 +33,60 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 07 Feb 2011 17:57:27 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-List-Received-Date: Mon, 07 Feb 2011 18:07:13 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 7bit
 
-On 02/07/2011 10:04 AM, Mark Hatle wrote:
-> On 2/7/11 10:57 AM, Richard Purdie wrote:
->> On Mon, 2011-02-07 at 09:54 -0700, Gary Thomas wrote:
->>> On 02/07/2011 09:29 AM, Mark Hatle wrote:
->>>> Could you find the related init script and point me to the contents.  I don't
->>>> see any initscripts in the eglibc integration.  The only thing I see is a switch
->>>> in the locale generation between on target, on host and via QEMU.  I'm wondering
->>>> if maybe this is being triggered?
->>>
->>> This could be what I'm seeing.  I have ENABLE_BINARY_LOCALE_GENERATION disabled
->>> in my local.conf (I had troubles with QEMU-ARM on Fedora in the past and this
->>> was the way around it).  It looks like that may be pushing the locale compilation
->>> to the target.
+Wolfgang,
+
+It is indeed 4.0.1, the commits for 7fa2b1c and d1fd60f were incorrect
+(there was some confusion on my part as to the numbering scheme). These
+issues were corrected @ 45526f5. Sorry for any confusion.
+
+Regards,
+
+------------------
+Elizabeth Flanagan
+Yocto Project
+Release Engineer
+
+
+On 02/05/2011 06:07 AM, Wolfgang Denk wrote:
+> Dear Elizabeth Flanagan,
+> 
+> In message <4D4C9919.6060708@intel.com> you wrote:
 >>
->> Correct. The locales have to be generated somewhere!
+>> We are pleased to announce the first bug-fix release of Poky Laverne,
+>> 4.0.1. This release is available at:
 >>
->> You turned them off on the build machine so they run on the target. All
->> is functioning as it should.
->>
->> FWIW, cross locale gen doesn't use qemu now and is a lot faster so
->> perhaps you could turn it back on ;-).
->
-> Just to be clear, I'm running builds on machines where QEMU is unhappy (and I've
-> disabled the QEMU check...)  I have locales being generated and they are working
-> fine in the testing I have done with them.
->
-> This is using eglibc and the default conf file configuration setting.
+>> http://mirrors.kernel.org/yocto/poky/poky-laverne-4.0.1.tar.bz2
+> 
+> Is this Laverne 4.0.1 or 4.1 ? The git tag is laverne-4.0.1, but the
+> 7fa2b1c commit message says:
+> 
+>     Laverne 4.1 release: NOTES and CHANGELOG
+>     
+>     Name: Laverne
+>     Version: 4.0.1
+>     Built from Revision: fd7a07b3a2153826bedda2ef76b9a33ab2791680
+>     Build Date: Jan 26 2011
+>     Builder: autobuilder.pokylinux.org
+>     
+>     Commit of final release notes and changelog for Laverne 4.1
+> 
+> And in d1fd60f I see this:
+> 
+>     Setting Yocto rev number to 4.1: poky.conf
+> ...
+> -DISTRO_NAME = "Yocto Linux (Built by Poky 4.0)"
+> +DISTRO_NAME = "Yocto Linux (Built by Poky 4.1)"
+> 
+> 
+> So I'm a bit confused?
+> 
+> Best regards,
+> 
+> Wolfgang Denk
+> 
 
-I enabled ENABLE_BINARY_LOCALE_GENERATION and now the locale
-generation is being done at build time - hurray :-)  Boot time
-is much improved.
-
-Now to figure out how to control the ones that are installed.
-
-Thanks
-
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
 
