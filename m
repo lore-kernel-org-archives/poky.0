@@ -1,21 +1,26 @@
-Return-Path: <koen@dominion.thruhere.net>
-Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 6CE134C80097
-	for <poky@yoctoproject.org>; Mon,  7 Feb 2011 08:28:34 -0600 (CST)
-Received: by wwb31 with SMTP id 31so5043926wwb.11
-	for <poky@yoctoproject.org>; Mon, 07 Feb 2011 06:28:33 -0800 (PST)
-Received: by 10.227.155.66 with SMTP id r2mr2012416wbw.73.1297088913504;
-	Mon, 07 Feb 2011 06:28:33 -0800 (PST)
-Received: from localhost (ip545070eb.adsl-surfen.hetnet.nl [84.80.112.235])
-	by mx.google.com with ESMTPS id t11sm2184549wes.17.2011.02.07.06.28.32
-	(version=TLSv1/SSLv3 cipher=RC4-MD5);
-	Mon, 07 Feb 2011 06:28:33 -0800 (PST)
-From: Koen Kooi <koen@dominion.thruhere.net>
-To: poky@yoctoproject.org
-Date: Mon,  7 Feb 2011 15:27:27 +0100
-Message-Id: <1297088847-4955-1-git-send-email-koen@dominion.thruhere.net>
-X-Mailer: git-send-email 1.6.6.1
-Subject: [PATCH] [RFH] rpm: catch up with fetcher2
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id CAB114C80097
+	for <poky@lists.pokylinux.org>; Mon,  7 Feb 2011 08:44:07 -0600 (CST)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id A161A16602C4; Mon,  7 Feb 2011 07:44:06 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.1
+Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 8683D16602BA;
+	Mon,  7 Feb 2011 07:44:05 -0700 (MST)
+Message-ID: <4D500535.3070505@mlbassoc.com>
+Date: Mon, 07 Feb 2011 07:44:05 -0700
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
+MIME-Version: 1.0
+To: Poky <poky@lists.pokylinux.org>
+Subject: eglibc configurability
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,62 +32,48 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 07 Feb 2011 14:28:35 -0000
+X-List-Received-Date: Mon, 07 Feb 2011 14:44:08 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-I tried to change this to mimic the base.bbclass changes as much as possible, but I can't get it to work. Can someone with more RPM and fetcher2 experience have a look please?
+I often run small (slow) embedded systems with only a ramdisk
+based file system.  When I use Poky for this, one side effect
+is that some packages need to be "configured" on bootup, which
+in the case of a ramdisk based operation means every time.
 
-Signed-off-by: Koen Kooi <koen@dominion.thruhere.net>
----
- meta/recipes-devtools/rpm/rpm_5.4.0.bb |   22 ++++++++++++----------
- 1 files changed, 12 insertions(+), 10 deletions(-)
+I notice that the eglibc package brings in a couple of these
+which are problematic (mostly in how long they take to run)
+Looking at meta/conf/distro/include/poky-eglibc.inc:
 
-diff --git a/meta/recipes-devtools/rpm/rpm_5.4.0.bb b/meta/recipes-devtools/rpm/rpm_5.4.0.bb
-index e158b80..6c1ce81 100644
---- a/meta/recipes-devtools/rpm/rpm_5.4.0.bb
-+++ b/meta/recipes-devtools/rpm/rpm_5.4.0.bb
-@@ -333,7 +333,7 @@ python base_do_unpack_append() {
- 	import subprocess
- 
- 	for url in src_uri:
--		local = bb.fetch2.localpath(url)
-+		local = bb.fetch2.localpath(url, d)
- 		if local is None:
- 			continue
- 		local = os.path.realpath(local)
-@@ -347,21 +347,23 @@ python base_do_unpack_append() {
- 			newdir = ("%s/%s" % (old_cwd, 'srpm-unpack'))
- 			bb.mkdirhier(newdir)
- 			os.chdir(newdir)
--			ret = subprocess.call(cmd, preexec_fn=subprocess_setup, shell=True)
-+			ret = subprocess.call(cmd, shell=True)
- 			os.chdir(old_cwd)
- 			if ret != 0:
- 				raise bb.build.FuncFailed('Unpack command failed: %s (%s)' % (cmd, ret))
- 
--	srpm_uri = bb.data.getVar('SRPM_UNPACK', localdata, True)
--	if not srpm_uri:
-+	srpm_uri = bb.data.getVar('SRPM_UNPACK', localdata, True).split()
-+	if len(srpm_uri) == 0:
- 		return
- 
--	# Note, not really URI's!  Just a list of files
--	for url in srpm_uri.split():
--		local = os.path.join(bb.data.getVar('WORKDIR', localdata, 1), "srpm-unpack/" + url)
--		ret = oe_unpack_file(local, localdata, 'file://' + url)
--		if not ret:
--			raise bb.build.FuncFailed("oe_unpack_file failed with return value %s" % ret)
-+	rootdir = bb.data.getVar('WORKDIR', localdata, True)
-+	srpm_file_uri = [ "file://srpm-unpack/" + uri for uri in srpm_uri]; 
-+
-+	try:
-+		fetcher = bb.fetch2.Fetch(srpm_file_uri, localdata)
-+		fetcher.unpack(rootdir)
-+	except bb.fetch2.BBFetchException, e:
-+		raise bb.build.FuncFailed(e)
- }
- 
- do_configure() {
+LIBC_DEPENDENCIES = "libsegfault \
+                      eglibc \
+                      eglibc-dbg \
+                      eglibc-dev \
+                      eglibc-utils \
+                      eglibc-thread-db \
+                      eglibc-localedata-i18n \
+                      eglibc-gconv-ibm850 \
+                      eglibc-gconv-cp1252 \
+                      eglibc-gconv-iso8859-1 \
+                      eglibc-gconv-iso8859-15 \
+                      locale-base-en-us \
+                      locale-base-en-gb "
+
+On my OMAP-L138 target, configuring locale-base-* takes
+a long time, upwards of 35 seconds each.
+
+Are multiple locale-base packages really necessary?
+How could I best (in the Poky spirit) limit this?  In the
+minimum, I'd like to only have one locale, saving at least
+35 seconds of boot time.
+
+Ideas?  Comments?
+
+Thanks
+
 -- 
-1.6.6.1
-
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
