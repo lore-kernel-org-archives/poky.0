@@ -1,26 +1,27 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id CAB114C80097
-	for <poky@lists.pokylinux.org>; Mon,  7 Feb 2011 08:44:07 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id A161A16602C4; Mon,  7 Feb 2011 07:44:06 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.1
-Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 8683D16602BA;
-	Mon,  7 Feb 2011 07:44:05 -0700 (MST)
-Message-ID: <4D500535.3070505@mlbassoc.com>
-Date: Mon, 07 Feb 2011 07:44:05 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
-MIME-Version: 1.0
-To: Poky <poky@lists.pokylinux.org>
-Subject: eglibc configurability
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E3F274C80878
+	for <poky@yoctoproject.org>; Mon,  7 Feb 2011 09:40:02 -0600 (CST)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p17Fe27j017886
+	for <poky@yoctoproject.org>; Mon, 7 Feb 2011 15:40:02 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP id 17438-08 for <poky@yoctoproject.org>;
+	Mon,  7 Feb 2011 15:39:58 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p17FdpPs017877
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO)
+	for <poky@yoctoproject.org>; Mon, 7 Feb 2011 15:39:54 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: poky <poky@yoctoproject.org>
+Date: Mon, 07 Feb 2011 15:39:48 +0000
+Message-ID: <1297093188.1350.16599.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Subject: Fetcher Issues
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,48 +33,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 07 Feb 2011 14:44:08 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Mon, 07 Feb 2011 15:40:03 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-I often run small (slow) embedded systems with only a ramdisk
-based file system.  When I use Poky for this, one side effect
-is that some packages need to be "configured" on bootup, which
-in the case of a ramdisk based operation means every time.
+I can only apologise for the disruption with the fetchers at the moment.
+There are some serious bugs floating around and its not the user
+experience I'd like to be presenting to users.
 
-I notice that the eglibc package brings in a couple of these
-which are problematic (mostly in how long they take to run)
-Looking at meta/conf/distro/include/poky-eglibc.inc:
+The reason for the problems is that some corner cases were found in
+wider testing that individual testing didn't show up and when we've
+tried to fix those, the integrity of the whole fetcher has crumbled
+apart :(.
 
-LIBC_DEPENDENCIES = "libsegfault \
-                      eglibc \
-                      eglibc-dbg \
-                      eglibc-dev \
-                      eglibc-utils \
-                      eglibc-thread-db \
-                      eglibc-localedata-i18n \
-                      eglibc-gconv-ibm850 \
-                      eglibc-gconv-cp1252 \
-                      eglibc-gconv-iso8859-1 \
-                      eglibc-gconv-iso8859-15 \
-                      locale-base-en-us \
-                      locale-base-en-gb "
+This reinforces my belief that we need to improve the code in question
+before the next release and I'm continuing to work on that.
 
-On my OMAP-L138 target, configuring locale-base-* takes
-a long time, upwards of 35 seconds each.
+As a result this morning I merged in several further chunks of updates
+and am now busy iterating through resolving the fallout from those
+changes. The code is getting cleaner and more understandable but there
+are so many corner cases and optimisations involved its a complex
+problem to unravel.
 
-Are multiple locale-base packages really necessary?
-How could I best (in the Poky spirit) limit this?  In the
-minimum, I'd like to only have one locale, saving at least
-35 seconds of boot time.
+Thanks for the patience whilst we get this resolved.
 
-Ideas?  Comments?
+Cheers,
 
-Thanks
+Richard
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
 
