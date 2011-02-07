@@ -1,20 +1,22 @@
 Return-Path: <scott.a.garman@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B5A944C80A7A
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id DABF44C80A7C
 	for <poky@yoctoproject.org>; Mon,  7 Feb 2011 17:35:16 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 07 Feb 2011 15:35:16 -0800
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 07 Feb 2011 15:35:16 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,439,1291622400"; d="scan'208";a="705065999"
+X-IronPort-AV: E=Sophos;i="4.60,439,1291622400"; d="scan'208";a="600353062"
 Received: from sgarman-ws.jf.intel.com (HELO localhost) ([10.7.199.157])
-	by orsmga001.jf.intel.com with ESMTP; 07 Feb 2011 15:35:16 -0800
-Message-Id: <cover.1297121546.git.scott.a.garman@intel.com>
-Old-Date: Mon, 7 Feb 2011 15:32:26 -0800
+	by orsmga002.jf.intel.com with ESMTP; 07 Feb 2011 15:35:16 -0800
+Message-Id: <ca33ebdc0731c06f451ece0b7a9694e0e7b5b02a.1297121546.git.scott.a.garman@intel.com>
+In-Reply-To: <cover.1297121546.git.scott.a.garman@intel.com>
+References: <cover.1297121546.git.scott.a.garman@intel.com>
+Old-Date: Sun, 6 Feb 2011 20:42:12 -0800
 Date: Mon, 07 Feb 2011 15:36:23 -0800
 To: poky@yoctoproject.org
 CC: 
 From: Scott Garman <scott.a.garman@intel.com>
-Subject: [PATCH 0/6] transfig recipe and dependencies
+Subject: [PATCH 3/6] libxpm: add native support to recipe
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,43 +32,23 @@ X-List-Received-Date: Mon, 07 Feb 2011 23:35:17 -0000
 
 From: Scott Garman <scott.a.garman@intel.com>
 
-Hi Saul,
+The native recipe is needed by the transfig-native dependency chain.
 
-This patch series adds the transfig recipe to Poky and its
-dependencies. prelink is the first package I've found which
-requires transfig. 
-
-Additionally, these changes will allow us to build other
-packages which use Imake / xmkfms (and old build system
-used commonly by older X11 utilities).
-
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: sgarman/transfig
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=sgarman/transfig
-
-Thanks,
-    Scott Garman <scott.a.garman@intel.com>
+Signed-off-by: Scott Garman <scott.a.garman@intel.com>
 ---
+ meta/recipes-graphics/xorg-lib/libxpm_3.5.9.bb |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
 
-
-Scott Garman (6):
-  xorg-cf-files: new recipe v1.0.4
-  libxext: add native support to recipe
-  libxpm: add native support to recipe
-  imake: add native support to recipe and update DEPENDS
-  transfig: new recipe v3.2.5d
-  prelink: add transfig to DEPENDS
-
- meta/recipes-devtools/prelink/prelink_git.bb       |    2 +-
- .../transfig/transfig-native_3.2.5d.bb             |   40 ++++++++++++++++++++
- meta/recipes-graphics/xorg-lib/libxext_1.2.0.bb    |    2 +-
- meta/recipes-graphics/xorg-lib/libxpm_3.5.9.bb     |    2 +
- meta/recipes-graphics/xorg-util/imake_1.0.4.bb     |   10 ++--
- .../xorg-util/xorg-cf-files_1.0.4.bb               |   14 +++++++
- 6 files changed, 63 insertions(+), 7 deletions(-)
- create mode 100644 meta/recipes-devtools/transfig/transfig-native_3.2.5d.bb
- create mode 100644 meta/recipes-graphics/xorg-util/xorg-cf-files_1.0.4.bb
-
+diff --git a/meta/recipes-graphics/xorg-lib/libxpm_3.5.9.bb b/meta/recipes-graphics/xorg-lib/libxpm_3.5.9.bb
+index 1a548fa..a4b3c0d 100644
+--- a/meta/recipes-graphics/xorg-lib/libxpm_3.5.9.bb
++++ b/meta/recipes-graphics/xorg-lib/libxpm_3.5.9.bb
+@@ -21,3 +21,5 @@ FILES_sxpm = "${bindir}/sxpm"
+ 
+ SRC_URI[md5sum] = "2de3a1b9541f4b3a6f9d84b69d25530e"
+ SRC_URI[sha256sum] = "8add01029cab0598ca86e01a2f7781a636f74b757abe6b50ba61b2a6e2fd621e"
++
++BBCLASSEXTEND = "native"
 -- 
 1.7.4
 
