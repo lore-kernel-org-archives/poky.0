@@ -1,27 +1,30 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E3F274C80878
-	for <poky@yoctoproject.org>; Mon,  7 Feb 2011 09:40:02 -0600 (CST)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p17Fe27j017886
-	for <poky@yoctoproject.org>; Mon, 7 Feb 2011 15:40:02 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP id 17438-08 for <poky@yoctoproject.org>;
-	Mon,  7 Feb 2011 15:39:58 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p17FdpPs017877
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO)
-	for <poky@yoctoproject.org>; Mon, 7 Feb 2011 15:39:54 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: poky <poky@yoctoproject.org>
-Date: Mon, 07 Feb 2011 15:39:48 +0000
-Message-ID: <1297093188.1350.16599.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Subject: Fetcher Issues
+Return-Path: <nitin.a.kamble@intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 879774C80878
+	for <poky@lists.pokylinux.org>; Mon,  7 Feb 2011 09:45:22 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 07 Feb 2011 07:45:20 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,438,1291622400"; d="scan'208";a="385203573"
+Received: from orsmsx604.amr.corp.intel.com ([10.22.226.87])
+	by azsmga001.ch.intel.com with ESMTP; 07 Feb 2011 07:45:19 -0800
+Received: from orsmsx504.amr.corp.intel.com ([10.22.226.207]) by
+	orsmsx604.amr.corp.intel.com ([10.250.113.17]) with mapi;
+	Mon, 7 Feb 2011 07:45:19 -0800
+From: "Kamble, Nitin A" <nitin.a.kamble@intel.com>
+To: Gary Thomas <gary@mlbassoc.com>, Poky <poky@lists.pokylinux.org>
+Date: Mon, 7 Feb 2011 07:45:17 -0800
+Thread-Topic: [poky] eglibc configurability
+Thread-Index: AcvG1XzY2JGrxxzgRNKzGwmXj9uRpgACCXPw
+Message-ID: <9DA5872FEF993D41B7173F58FCF6BE9412060A17@orsmsx504.amr.corp.intel.com>
+References: <4D500535.3070505@mlbassoc.com>
+In-Reply-To: <4D500535.3070505@mlbassoc.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
+MIME-Version: 1.0
+Subject: Re: eglibc configurability
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,32 +36,67 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 07 Feb 2011 15:40:03 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 07 Feb 2011 15:45:23 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-I can only apologise for the disruption with the fetchers at the moment.
-There are some serious bugs floating around and its not the user
-experience I'd like to be presenting to users.
+> -----Original Message-----
+> From: poky-bounces@yoctoproject.org [mailto:poky-
+> bounces@yoctoproject.org] On Behalf Of Gary Thomas
+> Sent: Monday, February 07, 2011 6:44 AM
+> To: Poky
+> Subject: [poky] eglibc configurability
+>=20
+> I often run small (slow) embedded systems with only a ramdisk
+> based file system.  When I use Poky for this, one side effect
+> is that some packages need to be "configured" on bootup, which
+> in the case of a ramdisk based operation means every time.
+>=20
+> I notice that the eglibc package brings in a couple of these
+> which are problematic (mostly in how long they take to run)
+> Looking at meta/conf/distro/include/poky-eglibc.inc:
+>=20
+> LIBC_DEPENDENCIES =3D "libsegfault \
+>                       eglibc \
+>                       eglibc-dbg \
+>                       eglibc-dev \
+>                       eglibc-utils \
+>                       eglibc-thread-db \
+>                       eglibc-localedata-i18n \
+>                       eglibc-gconv-ibm850 \
+>                       eglibc-gconv-cp1252 \
+>                       eglibc-gconv-iso8859-1 \
+>                       eglibc-gconv-iso8859-15 \
+>                       locale-base-en-us \
+>                       locale-base-en-gb "
+>=20
+> On my OMAP-L138 target, configuring locale-base-* takes
+> a long time, upwards of 35 seconds each.
+>=20
+> Are multiple locale-base packages really necessary?
+> How could I best (in the Poky spirit) limit this?  In the
+> minimum, I'd like to only have one locale, saving at least
+> 35 seconds of boot time.
+>=20
+> Ideas?  Comments?
 
-The reason for the problems is that some corner cases were found in
-wider testing that individual testing didn't show up and when we've
-tried to fix those, the integrity of the whole fetcher has crumbled
-apart :(.
+Gary,
+  Look at the LIMIT_BUILT_LOCALES variable in local.conf. I think that woul=
+d give you what are you looking for. Also you can enable the mklibs optimiz=
+ations for such images, which would save image size.
 
-This reinforces my belief that we need to improve the code in question
-before the next release and I'm continuing to work on that.
 
-As a result this morning I merged in several further chunks of updates
-and am now busy iterating through resolving the fallout from those
-changes. The code is getting cleaner and more understandable but there
-are so many corner cases and optimisations involved its a complex
-problem to unravel.
-
-Thanks for the patience whilst we get this resolved.
-
-Cheers,
-
-Richard
-
+>=20
+> Thanks
+>=20
+> --
+> ------------------------------------------------------------
+> Gary Thomas                 |  Consulting for the
+> MLB Associates              |    Embedded world
+> ------------------------------------------------------------
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
