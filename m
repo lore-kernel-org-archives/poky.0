@@ -1,24 +1,23 @@
-Return-Path: <koen@dominion.thruhere.net>
-Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
-	[74.125.82.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7D88C4C800B7
-	for <poky@yoctoproject.org>; Sun,  6 Feb 2011 16:18:45 -0600 (CST)
-Received: by wye20 with SMTP id 20so4148989wye.35
-	for <poky@yoctoproject.org>; Sun, 06 Feb 2011 14:18:44 -0800 (PST)
-Received: by 10.227.145.198 with SMTP id e6mr14924006wbv.151.1297030723311;
-	Sun, 06 Feb 2011 14:18:43 -0800 (PST)
-Received: from [172.20.0.255] (ip545070eb.adsl-surfen.hetnet.nl
-	[84.80.112.235])
-	by mx.google.com with ESMTPS id m6sm1816593wej.10.2011.02.06.14.18.42
-	(version=TLSv1/SSLv3 cipher=RC4-MD5);
-	Sun, 06 Feb 2011 14:18:42 -0800 (PST)
-From: Koen Kooi <koen@dominion.thruhere.net>
-Date: Sun, 6 Feb 2011 23:18:41 +0100
-Message-Id: <CEA5BDC6-13F8-4806-9117-4BF0E62E15CD@dominion.thruhere.net>
-To: poky <poky@yoctoproject.org>
-Mime-Version: 1.0 (Apple Message framework v1082)
-X-Mailer: Apple Mail (2.1082)
-Subject: Fetcher2 git problems
+Return-Path: <sgw@linux.intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 367C94C800A6
+	for <poky@yoctoproject.org>; Sun,  6 Feb 2011 20:17:19 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 06 Feb 2011 18:17:18 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,435,1291622400"; d="scan'208";a="655010499"
+Received: from unknown (HELO [10.255.14.146]) ([10.255.14.146])
+	by fmsmga002.fm.intel.com with ESMTP; 06 Feb 2011 18:17:18 -0800
+Message-ID: <4D4F562D.1090801@linux.intel.com>
+Date: Sun, 06 Feb 2011 18:17:17 -0800
+From: Saul Wold <sgw@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
+MIME-Version: 1.0
+To: "Ashfield, Bruce" <Bruce.Ashfield@windriver.com>, 
+	"poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: lttng-ust failure on QemuPPC
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,78 +29,24 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 06 Feb 2011 22:18:46 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Mon, 07 Feb 2011 02:17:19 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi,
 
-I bugged RP during fosdem about this, but I needed to wait for his =
-patches to get some more usefull error messages:
+Bruce, Darren:
 
-NOTE: package =
-pseudo-native-0.0+git1+bcb42d80c0817da5479ab9c4f2cd8c4727e98ef8-r17: =
-task do_fetch: Started
-ERROR: =
-'virtual:native:/OE/tentacle/sources/openembedded/meta/recipes-devtools/ps=
-eudo/pseudo_git.bb' failed
-ERROR: Function 'Fetch failed: Unable to fetch URL =
-git://github.com/wrpseudo/pseudo.git;protocol=3Dgit from any source.' =
-failed
-ERROR: Logfile of failure stored in: =
-/OE/tentacle/build/tmp-angstrom_2010_x/work/x86_64-linux/pseudo-native-0.0=
-+git1+bcb42d80c0817da5479ab9c4f2cd8c4727e98ef8-r17/temp/log.do_fetch.13627=
+Can you take a look at the failure in the qemuppc build against
+the lttng-ust.
 
-Log data follows:
-| fetch =
-http://www.angstrom-distribution.org/unstable/sources/git2_github.com.wrps=
-eudo.pseudo.git.tar.gz
-| NOTE: fetch =
-http://www.angstrom-distribution.org/unstable/sources/git2_github.com.wrps=
-eudo.pseudo.git.tar.gz
-| Fetcher accessed the network with the command /usr/bin/env wget -t 5 =
--q --passive-ftp -P /OE/downloads =
-'http://www.angstrom-distribution.org/unstable/sources/git2_github.com.wrp=
-seudo.pseudo.git.tar.gz'
-| NOTE: Fetcher accessed the network with the command /usr/bin/env wget =
--t 5 -q --passive-ftp -P /OE/downloads =
-'http://www.angstrom-distribution.org/unstable/sources/git2_github.com.wrp=
-seudo.pseudo.git.tar.gz'
-| fetch =
-http://www.angstrom-distribution.org/unstable/sources/git2_github.com.wrps=
-eudo.pseudo.git.tar.gz
-| NOTE: fetch =
-http://www.angstrom-distribution.org/unstable/sources/git2_github.com.wrps=
-eudo.pseudo.git.tar.gz
-| Fetcher accessed the network with the command /usr/bin/env wget -t 5 =
--q --passive-ftp -P /OE/downloads =
-'http://www.angstrom-distribution.org/unstable/sources/git2_github.com.wrp=
-seudo.pseudo.git.tar.gz'
-| NOTE: Fetcher accessed the network with the command /usr/bin/env wget =
--t 5 -q --passive-ftp -P /OE/downloads =
-'http://www.angstrom-distribution.org/unstable/sources/git2_github.com.wrp=
-seudo.pseudo.git.tar.gz'
-| Fetcher accessed the network with the command git clone --bare =
-github.com/wrpseudo/pseudo.git
-| NOTE: Fetcher accessed the network with the command git clone --bare =
-github.com/wrpseudo/pseudo.git
-| Cloning into bare repository =
-/OE/downloads/git/github.com.wrpseudo.pseudo.git...
-|  Function 'Fetch failed: Unable to fetch URL =
-git://github.com/wrpseudo/pseudo.git;protocol=3Dgit from any source.' =
-failed
-| ERROR: Function 'Fetch failed: Unable to fetch URL =
-git://github.com/wrpseudo/pseudo.git;protocol=3Dgit from any source.' =
-failed
-NOTE: package =
-pseudo-native-0.0+git1+bcb42d80c0817da5479ab9c4f2cd8c4727e98ef8-r17: =
-task Fetch failed: Unable to fetch URL =
-git://github.com/wrpseudo/pseudo.git;protocol=3Dgit from any source.: =
-Failed
+Looks like the definitions for CLOCK_TRACE and CLOCK_TRACE_FREQ are not 
+available for ppc?  Is this a package that should not be built for PPC?
 
-FWIW, github prefers https: uris nowadays for better performance.
+Thanks
+     Sau!
 
-regards,
+Saul Wold
+Yocto Component Wrangler @ Intel
+Yocto Project / Poky Build System
 
-Koen=
 
