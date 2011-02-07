@@ -1,25 +1,29 @@
-Return-Path: <koen@dominion.thruhere.net>
-Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
-	by mx1.pokylinux.org (Postfix) with ESMTP id F39894C800B7
-	for <poky@yoctoproject.org>; Mon,  7 Feb 2011 02:55:49 -0600 (CST)
-Received: by wwb31 with SMTP id 31so4736011wwb.11
-	for <poky@yoctoproject.org>; Mon, 07 Feb 2011 00:55:49 -0800 (PST)
-Received: by 10.227.132.77 with SMTP id a13mr15352030wbt.127.1297068948881;
-	Mon, 07 Feb 2011 00:55:48 -0800 (PST)
-Received: from [172.20.0.255] (ip545070eb.adsl-surfen.hetnet.nl
-	[84.80.112.235])
-	by mx.google.com with ESMTPS id u9sm3126675wbg.6.2011.02.07.00.55.47
-	(version=TLSv1/SSLv3 cipher=RC4-MD5);
-	Mon, 07 Feb 2011 00:55:48 -0800 (PST)
-Mime-Version: 1.0 (Apple Message framework v1082)
-From: Koen Kooi <koen@dominion.thruhere.net>
-In-Reply-To: <CEA5BDC6-13F8-4806-9117-4BF0E62E15CD@dominion.thruhere.net>
-Date: Mon, 7 Feb 2011 09:55:46 +0100
-Message-Id: <171A4E49-D076-4078-B831-2F3D5FF879AA@dominion.thruhere.net>
-References: <CEA5BDC6-13F8-4806-9117-4BF0E62E15CD@dominion.thruhere.net>
-To: poky <poky@yoctoproject.org>
-X-Mailer: Apple Mail (2.1082)
-Subject: Re: Fetcher2 git problems
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 728A14C800A6
+	for <poky@yoctoproject.org>; Mon,  7 Feb 2011 06:16:16 -0600 (CST)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id E050D166028A; Mon,  7 Feb 2011 05:15:35 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.1
+Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 5591F1660285;
+	Mon,  7 Feb 2011 05:15:35 -0700 (MST)
+Message-ID: <4D4FE267.5080907@mlbassoc.com>
+Date: Mon, 07 Feb 2011 05:15:35 -0700
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
+MIME-Version: 1.0
+To: yogesh lal <embedded.yogesh@gmail.com>
+References: <AANLkTinobVPqACVbGb5VjmuROL9-74r1E1B1Ux5xXvVo@mail.gmail.com>
+In-Reply-To: <AANLkTinobVPqACVbGb5VjmuROL9-74r1E1B1Ux5xXvVo@mail.gmail.com>
+Cc: poky@yoctoproject.org
+Subject: Re: chromium browser
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,194 +35,23 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 07 Feb 2011 08:55:50 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Mon, 07 Feb 2011 12:16:18 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-
-Op 6 feb 2011, om 23:18 heeft Koen Kooi het volgende geschreven:
-
+On 02/06/2011 09:52 PM, yogesh lal wrote:
 > Hi,
->=20
-> I bugged RP during fosdem about this, but I needed to wait for his =
-patches to get some more usefull error messages:
->=20
-> NOTE: package =
-pseudo-native-0.0+git1+bcb42d80c0817da5479ab9c4f2cd8c4727e98ef8-r17: =
-task do_fetch: Started
-> ERROR: =
-'virtual:native:/OE/tentacle/sources/openembedded/meta/recipes-devtools/ps=
-eudo/pseudo_git.bb' failed
-> ERROR: Function 'Fetch failed: Unable to fetch URL =
-git://github.com/wrpseudo/pseudo.git;protocol=3Dgit from any source.' =
-failed
-> ERROR: Logfile of failure stored in: =
-/OE/tentacle/build/tmp-angstrom_2010_x/work/x86_64-linux/pseudo-native-0.0=
-+git1+bcb42d80c0817da5479ab9c4f2cd8c4727e98ef8-r17/temp/log.do_fetch.13627=
+>
+> I am new to poky, so don't know it will make any sense or not, but can we build chromium browser using Poky ?
 
-> Log data follows:
-> | fetch =
-http://www.angstrom-distribution.org/unstable/sources/git2_github.com.wrps=
-eudo.pseudo.git.tar.gz
-> | NOTE: fetch =
-http://www.angstrom-distribution.org/unstable/sources/git2_github.com.wrps=
-eudo.pseudo.git.tar.gz
-> | Fetcher accessed the network with the command /usr/bin/env wget -t 5 =
--q --passive-ftp -P /OE/downloads =
-'http://www.angstrom-distribution.org/unstable/sources/git2_github.com.wrp=
-seudo.pseudo.git.tar.gz'
-> | NOTE: Fetcher accessed the network with the command /usr/bin/env =
-wget -t 5 -q --passive-ftp -P /OE/downloads =
-'http://www.angstrom-distribution.org/unstable/sources/git2_github.com.wrp=
-seudo.pseudo.git.tar.gz'
-> | fetch =
-http://www.angstrom-distribution.org/unstable/sources/git2_github.com.wrps=
-eudo.pseudo.git.tar.gz
-> | NOTE: fetch =
-http://www.angstrom-distribution.org/unstable/sources/git2_github.com.wrps=
-eudo.pseudo.git.tar.gz
-> | Fetcher accessed the network with the command /usr/bin/env wget -t 5 =
--q --passive-ftp -P /OE/downloads =
-'http://www.angstrom-distribution.org/unstable/sources/git2_github.com.wrp=
-seudo.pseudo.git.tar.gz'
-> | NOTE: Fetcher accessed the network with the command /usr/bin/env =
-wget -t 5 -q --passive-ftp -P /OE/downloads =
-'http://www.angstrom-distribution.org/unstable/sources/git2_github.com.wrp=
-seudo.pseudo.git.tar.gz'
-> | Fetcher accessed the network with the command git clone --bare =
-github.com/wrpseudo/pseudo.git
-> | NOTE: Fetcher accessed the network with the command git clone --bare =
-github.com/wrpseudo/pseudo.git
-> | Cloning into bare repository =
-/OE/downloads/git/github.com.wrpseudo.pseudo.git...
-> |  Function 'Fetch failed: Unable to fetch URL =
-git://github.com/wrpseudo/pseudo.git;protocol=3Dgit from any source.' =
-failed
-> | ERROR: Function 'Fetch failed: Unable to fetch URL =
-git://github.com/wrpseudo/pseudo.git;protocol=3Dgit from any source.' =
-failed
-> NOTE: package =
-pseudo-native-0.0+git1+bcb42d80c0817da5479ab9c4f2cd8c4727e98ef8-r17: =
-task Fetch failed: Unable to fetch URL =
-git://github.com/wrpseudo/pseudo.git;protocol=3Dgit from any source.: =
-Failed
+What's your target architecture?  Last I checked, only x86 and ARM
+are supported.
 
+It can be done, but it's certainly not for the faint of heart :-)
 
-Some further logs:
-
-| Level 8: Running export HOME=3D"/home/koen"; export =
-GIT_CONFIG=3D"/OE/tentacle/build/tmp-angstrom_2010_x/sysroots/x86_64-linux=
-/usr/etc/gitconfig"; export =
-PATH=3D"/OE/tentacle/build/tmp-angstrom_2010_x/sysroots/x86_64-linux/usr/b=
-in/armv7a-angstrom-linux-gnueabi:/OE/tentacle/build/tmp-angstrom_2010_x/sy=
-sroots/beagleboard/usr/bin/crossscripts:/OE/tentacle/build/tmp-angstrom_20=
-10_x/sysroots/x86_64-linux/usr/sbin:/OE/tentacle/build/tmp-angstrom_2010_x=
-/sysroots/x86_64-linux/usr/bin:/OE/tentacle/build/tmp-angstrom_2010_x/sysr=
-oots/x86_64-linux/sbin:/OE/tentacle/build/tmp-angstrom_2010_x/sysroots/x86=
-_64-linux//bin:/OE/tentacle/sources/openembedded/scripts:/OE/tentacle/sour=
-ces/bitbake/bin:/usr/local/bin:/usr/bin:/bin:/usr/games:/usr/X11/bin:/usr/=
-local/bin:/usr/local/enlightenment/bin:/usr/local/j2re1.4.1/bin:/usr/X11/b=
-in:/usr/local/bin:/usr/local/enlightenment/bin:/usr/local/j2re1.4.1/bin:/O=
-E/tentacle/sources/openembedded/scripts"; git log --pretty=3Doneline -n =
-1 bcb42d80c0817da5479ab9c4f2cd8c4727e98ef8 -- 2> /dev/null | wc -l
-| Fetcher accessed the network with the command git clone --bare =
-git://github.com/wrpseudo/pseudo.git =
-/OE/downloads/git2/github.com.wrpseudo.pseudo.git
-| NOTE: Fetcher accessed the network with the command git clone --bare =
-git://github.com/wrpseudo/pseudo.git =
-/OE/downloads/git2/github.com.wrpseudo.pseudo.git
-| Running export HOME=3D"/home/koen"; export =
-GIT_CONFIG=3D"/OE/tentacle/build/tmp-angstrom_2010_x/sysroots/x86_64-linux=
-/usr/etc/gitconfig"; export =
-PATH=3D"/OE/tentacle/build/tmp-angstrom_2010_x/sysroots/x86_64-linux/usr/b=
-in/armv7a-angstrom-linux-gnueabi:/OE/tentacle/build/tmp-angstrom_2010_x/sy=
-sroots/beagleboard/usr/bin/crossscripts:/OE/tentacle/build/tmp-angstrom_20=
-10_x/sysroots/x86_64-linux/usr/sbin:/OE/tentacle/build/tmp-angstrom_2010_x=
-/sysroots/x86_64-linux/usr/bin:/OE/tentacle/build/tmp-angstrom_2010_x/sysr=
-oots/x86_64-linux/sbin:/OE/tentacle/build/tmp-angstrom_2010_x/sysroots/x86=
-_64-linux//bin:/OE/tentacle/sources/openembedded/scripts:/OE/tentacle/sour=
-ces/bitbake/bin:/usr/local/bin:/usr/bin:/bin:/usr/games:/usr/X11/bin:/usr/=
-local/bin:/usr/local/enlightenment/bin:/usr/local/j2re1.4.1/bin:/usr/X11/b=
-in:/usr/local/bin:/usr/local/enlightenment/bin:/usr/local/j2re1.4.1/bin:/O=
-E/tentacle/sources/openembedded/scripts"; git clone --bare =
-git://github.com/wrpseudo/pseudo.git =
-/OE/downloads/git2/github.com.wrpseudo.pseudo.git
-| Level 8: Running export HOME=3D"/home/koen"; export =
-GIT_CONFIG=3D"/OE/tentacle/build/tmp-angstrom_2010_x/sysroots/x86_64-linux=
-/usr/etc/gitconfig"; export =
-PATH=3D"/OE/tentacle/build/tmp-angstrom_2010_x/sysroots/x86_64-linux/usr/b=
-in/armv7a-angstrom-linux-gnueabi:/OE/tentacle/build/tmp-angstrom_2010_x/sy=
-sroots/beagleboard/usr/bin/crossscripts:/OE/tentacle/build/tmp-angstrom_20=
-10_x/sysroots/x86_64-linux/usr/sbin:/OE/tentacle/build/tmp-angstrom_2010_x=
-/sysroots/x86_64-linux/usr/bin:/OE/tentacle/build/tmp-angstrom_2010_x/sysr=
-oots/x86_64-linux/sbin:/OE/tentacle/build/tmp-angstrom_2010_x/sysroots/x86=
-_64-linux//bin:/OE/tentacle/sources/openembedded/scripts:/OE/tentacle/sour=
-ces/bitbake/bin:/usr/local/bin:/usr/bin:/bin:/usr/games:/usr/X11/bin:/usr/=
-local/bin:/usr/local/enlightenment/bin:/usr/local/j2re1.4.1/bin:/usr/X11/b=
-in:/usr/local/bin:/usr/local/enlightenment/bin:/usr/local/j2re1.4.1/bin:/O=
-E/tentacle/sources/openembedded/scripts"; git clone --bare =
-git://github.com/wrpseudo/pseudo.git =
-/OE/downloads/git2/github.com.wrpseudo.pseudo.git
-| Cloning into bare repository =
-/OE/downloads/git2/github.com.wrpseudo.pseudo.git...
-|  Running export HOME=3D"/home/koen"; export =
-GIT_CONFIG=3D"/OE/tentacle/build/tmp-angstrom_2010_x/sysroots/x86_64-linux=
-/usr/etc/gitconfig"; export =
-PATH=3D"/OE/tentacle/build/tmp-angstrom_2010_x/sysroots/x86_64-linux/usr/b=
-in/armv7a-angstrom-linux-gnueabi:/OE/tentacle/build/tmp-angstrom_2010_x/sy=
-sroots/beagleboard/usr/bin/crossscripts:/OE/tentacle/build/tmp-angstrom_20=
-10_x/sysroots/x86_64-linux/usr/sbin:/OE/tentacle/build/tmp-angstrom_2010_x=
-/sysroots/x86_64-linux/usr/bin:/OE/tentacle/build/tmp-angstrom_2010_x/sysr=
-oots/x86_64-linux/sbin:/OE/tentacle/build/tmp-angstrom_2010_x/sysroots/x86=
-_64-linux//bin:/OE/tentacle/sources/openembedded/scripts:/OE/tentacle/sour=
-ces/bitbake/bin:/usr/local/bin:/usr/bin:/bin:/usr/games:/usr/X11/bin:/usr/=
-local/bin:/usr/local/enlightenment/bin:/usr/local/j2re1.4.1/bin:/usr/X11/b=
-in:/usr/local/bin:/usr/local/enlightenment/bin:/usr/local/j2re1.4.1/bin:/O=
-E/tentacle/sources/openembedded/scripts"; git log --pretty=3Doneline -n =
-1 bcb42d80c0817da5479ab9c4f2cd8c4727e98ef8 -- 2> /dev/null | wc -l
-| Level 8: Running export HOME=3D"/home/koen"; export =
-GIT_CONFIG=3D"/OE/tentacle/build/tmp-angstrom_2010_x/sysroots/x86_64-linux=
-/usr/etc/gitconfig"; export =
-PATH=3D"/OE/tentacle/build/tmp-angstrom_2010_x/sysroots/x86_64-linux/usr/b=
-in/armv7a-angstrom-linux-gnueabi:/OE/tentacle/build/tmp-angstrom_2010_x/sy=
-sroots/beagleboard/usr/bin/crossscripts:/OE/tentacle/build/tmp-angstrom_20=
-10_x/sysroots/x86_64-linux/usr/sbin:/OE/tentacle/build/tmp-angstrom_2010_x=
-/sysroots/x86_64-linux/usr/bin:/OE/tentacle/build/tmp-angstrom_2010_x/sysr=
-oots/x86_64-linux/sbin:/OE/tentacle/build/tmp-angstrom_2010_x/sysroots/x86=
-_64-linux//bin:/OE/tentacle/sources/openembedded/scripts:/OE/tentacle/sour=
-ces/bitbake/bin:/usr/local/bin:/usr/bin:/bin:/usr/games:/usr/X11/bin:/usr/=
-local/bin:/usr/local/enlightenment/bin:/usr/local/j2re1.4.1/bin:/usr/X11/b=
-in:/usr/local/bin:/usr/local/enlightenment/bin:/usr/local/j2re1.4.1/bin:/O=
-E/tentacle/sources/openembedded/scripts"; git log --pretty=3Doneline -n =
-1 bcb42d80c0817da5479ab9c4f2cd8c4727e98ef8 -- 2> /dev/null | wc -l
-| Function 'Fetch failed: Unable to fetch URL =
-git://github.com/wrpseudo/pseudo.git;protocol=3Dgit from any source.' =
-failed
-| ERROR: Function 'Fetch failed: Unable to fetch URL =
-git://github.com/wrpseudo/pseudo.git;protocol=3Dgit from any source.' =
-failed
-NOTE: package =
-pseudo-0.0+git1+bcb42d80c0817da5479ab9c4f2cd8c4727e98ef8-r17: task Fetch =
-failed: Unable to fetch URL =
-git://github.com/wrpseudo/pseudo.git;protocol=3Dgit from any source.: =
-Failed
-
-The bare clone is present:
-
-koen@dominion:/OE/downloads/git2/github.com.wrpseudo.pseudo.git$ ls
-branches/  config  description  HEAD  hooks/  info/  objects/  =
-packed-refs  refs/
-
-and the _contains_ref function:
-
-koen@dominion:/OE/downloads/git2/github.com.wrpseudo.pseudo.git$ git log =
---pretty=3Doneline -n 1 bcb42d80c0817da5479ab9c4f2cd8c4727e98ef8 -- 2> =
-/dev/null | wc -l
-1
-
-So the bug seems to be outside the dowload method, but I get lost at =
-that point.
-
-
-
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
