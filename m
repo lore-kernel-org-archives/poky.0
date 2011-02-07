@@ -1,26 +1,42 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 3515E4C80A77
-	for <poky@lists.pokylinux.org>; Mon,  7 Feb 2011 15:32:44 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 368351660235; Mon,  7 Feb 2011 14:32:43 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.1
-Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 547441660231;
-	Mon,  7 Feb 2011 14:32:42 -0700 (MST)
-Message-ID: <4D5064FA.2040403@mlbassoc.com>
-Date: Mon, 07 Feb 2011 14:32:42 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
+Return-Path: <kergoth@gmail.com>
+Received: from mail-wy0-f172.google.com (mail-wy0-f172.google.com
+	[74.125.82.172])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E589B4C80097
+	for <poky@lists.pokylinux.org>; Mon,  7 Feb 2011 15:42:38 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by wyf23 with SMTP id 23so5315593wyf.3
+	for <poky@lists.pokylinux.org>; Mon, 07 Feb 2011 13:42:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:sender:in-reply-to:references:from
+	:date:x-google-sender-auth:message-id:subject:to:cc:content-type
+	:content-transfer-encoding;
+	bh=2wSYgwEcSZ9UKGKXXvVhW630WTw3DvC6GXchtAIIGb8=;
+	b=fQ+ScDO9hCAwvRdyZZTIKQ6WIUVruAW30LmCwa6jccSz9Bka+z6+KJvTIKqOudMzSl
+	MKEVpnsY7VZRLGQkUZ6hTCNOV4nRbldFQ/LKLlBEh4y9ema1gL8UapBFZcI1S5NuB4VI
+	VCYxaM2/fvQTBhGJSYN4WiNE7+OYUi2K2A7rQ=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:sender:in-reply-to:references:from:date
+	:x-google-sender-auth:message-id:subject:to:cc:content-type
+	:content-transfer-encoding;
+	b=c8sWG1IflyhhJ59MGx/fXKw29hMe8eNvvPR/YxIjM3mh7k9/K4ImwtlZXIiSohjgZJ
+	0cFstMuaIK9WiDpfuTfh6yCcv8g5AIi3z3kXg5DeGDODZ+J0r7sDKa/3+vHoDwbZf417
+	ZLWLwNXeg9FlIlgUpgGOMg8Sw5fu7GryzLEmU=
+Received: by 10.216.169.202 with SMTP id n52mr10478792wel.15.1297114957622;
+	Mon, 07 Feb 2011 13:42:37 -0800 (PST)
 MIME-Version: 1.0
-To: Poky <poky@lists.pokylinux.org>
-Subject: DISTRO_FEATURES only extendable?
+Sender: kergoth@gmail.com
+Received: by 10.216.17.11 with HTTP; Mon, 7 Feb 2011 13:42:17 -0800 (PST)
+In-Reply-To: <4D5064FA.2040403@mlbassoc.com>
+References: <4D5064FA.2040403@mlbassoc.com>
+From: Chris Larson <clarson@kergoth.com>
+Date: Mon, 7 Feb 2011 14:42:17 -0700
+X-Google-Sender-Auth: JIvyEbwX3g1UTDxPNTcVqn0euJg
+Message-ID: <AANLkTi=UauG2fGWXZ+j=x5SuZWjOFfa4yru8oWQStGwA@mail.gmail.com>
+To: Gary Thomas <gary@mlbassoc.com>
+Cc: Poky <poky@lists.pokylinux.org>
+Subject: Re: DISTRO_FEATURES only extendable?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,48 +48,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 07 Feb 2011 21:32:45 -0000
-X-Groupsio-MsgNum: 3423
-Content-Type: multipart/mixed; boundary="------------080203050605000009060108"
+X-List-Received-Date: Mon, 07 Feb 2011 21:42:39 -0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
---------------080203050605000009060108
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+On Mon, Feb 7, 2011 at 2:32 PM, Gary Thomas <gary@mlbassoc.com> wrote:
+> I have my own distribution which is an extension of Poky
+> (my DISTRO.conf is based on poky.conf via requires)
+>
+> Is there some reason that DISTRO_FEATURES is fixed by poky.conf
+> and not overridable? =C2=A0e.g. my systems seldom have WiFi or PCMCIA,
+> so it's silly to include that support.
+>
+> Would the attached patch be acceptable to the mainstream?
 
-I have my own distribution which is an extension of Poky
-(my DISTRO.conf is based on poky.conf via requires)
+Note that there's no reason you can't override it now, just do it
+after the require of poky.conf :)  Of course, using ?=3D makes it easier
+to override it from local.conf without using an override, but they are
+*distro* features after all, its intended to be in the distro's hands.
+--=20
+Christopher Larson
+clarson at kergoth dot com
+Founder - BitBake, OpenEmbedded, OpenZaurus
+Maintainer - Tslib
+Senior Software Engineer, Mentor Graphics
 
-Is there some reason that DISTRO_FEATURES is fixed by poky.conf
-and not overridable?  e.g. my systems seldom have WiFi or PCMCIA,
-so it's silly to include that support.
-
-Would the attached patch be acceptable to the mainstream?
-
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
-
---------------080203050605000009060108
-Content-Type: text/plain;
- name="poky-distro.patch"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
- filename="poky-distro.patch"
-
-diff --git a/meta/conf/distro/poky.conf b/meta/conf/distro/poky.conf
-index aeab039..64a2b1d 100644
---- a/meta/conf/distro/poky.conf
-+++ b/meta/conf/distro/poky.conf
-@@ -111,7 +111,7 @@ LIMIT_BUILT_LOCALES ?= "POSIX en_US en_GB"
- ENABLE_BINARY_LOCALE_GENERATION ?= "1"
- LOCALE_UTF8_ONLY = "0"
- 
--DISTRO_FEATURES = "alsa bluetooth ext2 irda pcmcia usbgadget usbhost wifi nfs zeroconf pci"
-+DISTRO_FEATURES ?= "alsa bluetooth ext2 irda pcmcia usbgadget usbhost wifi nfs zeroconf pci"
- 
- POKY_EXTRA_RDEPENDS = "task-poky-boot"
- POKY_EXTRA_RDEPENDS_qemuarm = "qemu-config"
-
---------------080203050605000009060108--
