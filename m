@@ -1,20 +1,22 @@
 Return-Path: <scott.a.garman@intel.com>
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id F193E4C80332
-	for <poky@yoctoproject.org>; Mon,  7 Feb 2011 19:13:47 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5720C4C80A89
+	for <poky@yoctoproject.org>; Mon,  7 Feb 2011 19:13:48 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
 	by orsmga102.jf.intel.com with ESMTP; 07 Feb 2011 17:13:47 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,439,1291622400"; d="scan'208";a="600378686"
+X-IronPort-AV: E=Sophos;i="4.60,439,1291622400"; d="scan'208";a="705096353"
 Received: from sgarman-ws.jf.intel.com (HELO localhost) ([10.7.199.157])
-	by orsmga002.jf.intel.com with ESMTP; 07 Feb 2011 17:13:47 -0800
-Message-Id: <cover.1297127616.git.scott.a.garman@intel.com>
-Old-Date: Mon, 7 Feb 2011 17:13:36 -0800
+	by orsmga001.jf.intel.com with ESMTP; 07 Feb 2011 17:13:47 -0800
+Message-Id: <bf9abd212857ef74ab91d51d457a64d8874f4c90.1297127616.git.scott.a.garman@intel.com>
+In-Reply-To: <cover.1297127616.git.scott.a.garman@intel.com>
+References: <cover.1297127616.git.scott.a.garman@intel.com>
+Old-Date: Sun, 6 Feb 2011 20:38:50 -0800
 Date: Mon, 07 Feb 2011 17:14:55 -0800
 To: poky@yoctoproject.org
 CC: 
 From: Scott Garman <scott.a.garman@intel.com>
-Subject: [PATCH 0/6] transfig recipe and dependencies, v2
+Subject: [PATCH 1/6] xorg-cf-files: new recipe v1.0.4
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,46 +32,35 @@ X-List-Received-Date: Tue, 08 Feb 2011 01:13:48 -0000
 
 From: Scott Garman <scott.a.garman@intel.com>
 
-Hi Saul,
+This package includes configuration files needed for old x11
+imake-based packages - transfig in particular.
 
-This patch series adds the transfig recipe to Poky and its
-dependencies. prelink is the first package I've found which
-requires transfig. 
-
-Additionally, these changes will allow us to build other
-packages which use Imake / xmkfms (and old build system
-used commonly by older X11 utilities).
-
-Re-spun to fix the prelink dependency on transfig-native,
-and PR bumps where needed for DEPENDS changes.
-
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: sgarman/transfig
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=sgarman/transfig
-
-Thanks,
-    Scott Garman <scott.a.garman@intel.com>
+Signed-off-by: Scott Garman <scott.a.garman@intel.com>
 ---
-
-
-Scott Garman (6):
-  xorg-cf-files: new recipe v1.0.4
-  libxext: add native support to recipe
-  libxpm: add native support to recipe
-  imake: add native support to recipe and update DEPENDS
-  transfig: new recipe v3.2.5d
-  prelink: add transfig-native to DEPENDS
-
- meta/recipes-devtools/prelink/prelink_git.bb       |    4 +-
- .../transfig/transfig-native_3.2.5d.bb             |   40 ++++++++++++++++++++
- meta/recipes-graphics/xorg-lib/libxext_1.2.0.bb    |    2 +-
- meta/recipes-graphics/xorg-lib/libxpm_3.5.9.bb     |    2 +
- meta/recipes-graphics/xorg-util/imake_1.0.4.bb     |   10 ++--
- .../xorg-util/xorg-cf-files_1.0.4.bb               |   14 +++++++
- 6 files changed, 64 insertions(+), 8 deletions(-)
- create mode 100644 meta/recipes-devtools/transfig/transfig-native_3.2.5d.bb
+ .../xorg-util/xorg-cf-files_1.0.4.bb               |   14 ++++++++++++++
+ 1 files changed, 14 insertions(+), 0 deletions(-)
  create mode 100644 meta/recipes-graphics/xorg-util/xorg-cf-files_1.0.4.bb
 
+diff --git a/meta/recipes-graphics/xorg-util/xorg-cf-files_1.0.4.bb b/meta/recipes-graphics/xorg-util/xorg-cf-files_1.0.4.bb
+new file mode 100644
+index 0000000..a5de00a
+--- /dev/null
++++ b/meta/recipes-graphics/xorg-util/xorg-cf-files_1.0.4.bb
+@@ -0,0 +1,14 @@
++require xorg-util-common.inc
++
++SUMMARY = "Data files for the imake utility"
++DESCRIPTION = "Data files for the imake utility"
++LIC_FILES_CHKSUM = "file://COPYING;md5=0f334a06f2de517e37e86d6757167d88"
++
++DEPENDS = "font-util"
++
++PR = "r0"
++
++SRC_URI[md5sum] = "ff4502b6e31aac90e24ce134090d0e46"
++SRC_URI[sha256sum] = "8fc8a1224d2a716b1f3f1ca85dfda02387ab215251b8eddd03551eac998c9cb8"
++
++BBCLASSEXTEND = "native"
 -- 
 1.7.4
 
