@@ -1,23 +1,24 @@
-Return-Path: <elizabeth.flanagan@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0F54E4C800B7
-	for <poky@yoctoproject.org>; Tue,  8 Feb 2011 09:51:53 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 08 Feb 2011 07:51:53 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,442,1291622400"; d="scan'208";a="705366432"
-Received: from unknown (HELO [10.255.14.216]) ([10.255.14.216])
-	by orsmga001.jf.intel.com with ESMTP; 08 Feb 2011 07:51:53 -0800
-Message-ID: <4D516698.1060703@intel.com>
-Date: Tue, 08 Feb 2011 07:51:52 -0800
-From: Elizabeth Flanagan <elizabeth.flanagan@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.13) Gecko/20101208 Thunderbird/3.1.7 ThunderBrowse/3.3.4
-MIME-Version: 1.0
+Return-Path: <mark.hatle@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id BB9814C80053
+	for <poky@yoctoproject.org>; Tue,  8 Feb 2011 10:50:26 -0600 (CST)
+Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p18GoQK1007448
+	for <poky@yoctoproject.org>; Tue, 8 Feb 2011 08:50:26 -0800 (PST)
+Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
+	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Tue, 8 Feb 2011 08:50:25 -0800
+Received: from msp-mhatle-lx2.wrs.com ([172.25.34.61]) by
+	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Tue, 8 Feb 2011 08:50:25 -0800
+From: Mark Hatle <mark.hatle@windriver.com>
 To: poky@yoctoproject.org
-References: <4D514B12.2080301@mlbassoc.com>
-In-Reply-To: <4D514B12.2080301@mlbassoc.com>
-Subject: Re: License warnings
+Date: Tue,  8 Feb 2011 10:47:35 -0600
+Message-Id: <cover.1297183506.git.mark.hatle@windriver.com>
+X-Mailer: git-send-email 1.7.3.4
+X-OriginalArrivalTime: 08 Feb 2011 16:50:25.0816 (UTC)
+	FILETIME=[48B4A180:01CBC7B0]
+Subject: [PATCH 0/2] Fix a couple of minor bugs...
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,37 +30,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 08 Feb 2011 15:51:54 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 08 Feb 2011 16:50:27 -0000
 
-On 02/08/2011 05:54 AM, Gary Thomas wrote:
-> I just noticed some warnings since I updated to master
-> from 2011-02-03 (0fdcc509c534d4e561674be02d26efedf638f7c6)
-> 
-> ---------------- WARNINGS ---------------------------------
-> WARNING: bind: Something went wrong with copying: ISC to /home/local/poky-amltd/meta/files/common-licenses
-> WARNING: This could be either because we do not have a generic for this license or the LICENSE field is incorrect
-> 
-> WARNING: sqlite3: Something went wrong with copying: PD to /home/local/poky-amltd/meta/files/common-licenses
-> WARNING: This could be either because we do not have a generic for this license or the LICENSE field is incorrect
-> 
-> WARNING: db: Something went wrong with copying: Sleepycat to /home/local/poky-amltd/meta/files/common-licenses
-> WARNING: This could be either because we do not have a generic for this license or the LICENSE field is incorrect
-> ---------------- WARNINGS ---------------------------------
-> 
-> Should I be concerned?  Is there something to fix here?
-> 
+The primary change is to the fetcher to enable it to be able to unpack
+SRPMs.
 
-Not really. This is just a warning that the license listed in the recipe
-does not have a generic that it could find to copy over to the license
-wrangling directory. ISC, PD and Sleepycat all wouldn't have generics
-yet, so nothing to worry about.
+The second is a bug fix for something minor that just came in from the mailing
+list.  It's a slight change to an error msg.
 
--b
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: mhatle/fetcher
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=mhatle/fetcher
 
-------------------
-Elizabeth Flanagan
-Yocto Project
-Release Engineer
+Thanks,
+    Mark Hatle <mark.hatle@windriver.com>
+---
+
+
+Mark Hatle (2):
+  fetch2: Add SRPM knowledge
+  insane.bbclass: Fix config.log error message
+
+ bitbake/lib/bb/fetch2/__init__.py      |   62 +++++++++++++++++++------------
+ meta/classes/insane.bbclass            |    2 +-
+ meta/recipes-devtools/rpm/rpm_5.4.0.bb |   52 +-------------------------
+ scripts/rpm2cpio.sh                    |   53 +++++++++++++++++++++++++++
+ 4 files changed, 94 insertions(+), 75 deletions(-)
+ create mode 100755 scripts/rpm2cpio.sh
+
+-- 
+1.7.3.4
+
 
