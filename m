@@ -1,22 +1,22 @@
 Return-Path: <scott.a.garman@intel.com>
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5720C4C80A89
+	by mx1.pokylinux.org (Postfix) with ESMTP id 964284C80A90
 	for <poky@yoctoproject.org>; Mon,  7 Feb 2011 19:13:48 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
 	by orsmga102.jf.intel.com with ESMTP; 07 Feb 2011 17:13:47 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,439,1291622400"; d="scan'208";a="705096353"
+X-IronPort-AV: E=Sophos;i="4.60,439,1291622400"; d="scan'208";a="600378687"
 Received: from sgarman-ws.jf.intel.com (HELO localhost) ([10.7.199.157])
-	by orsmga001.jf.intel.com with ESMTP; 07 Feb 2011 17:13:47 -0800
-Message-Id: <bf9abd212857ef74ab91d51d457a64d8874f4c90.1297127616.git.scott.a.garman@intel.com>
+	by orsmga002.jf.intel.com with ESMTP; 07 Feb 2011 17:13:47 -0800
+Message-Id: <f2bb815a35c5c4e2461e101147dd74cdf7872c37.1297127616.git.scott.a.garman@intel.com>
 In-Reply-To: <cover.1297127616.git.scott.a.garman@intel.com>
 References: <cover.1297127616.git.scott.a.garman@intel.com>
-Old-Date: Sun, 6 Feb 2011 20:38:50 -0800
+Old-Date: Sun, 6 Feb 2011 20:40:33 -0800
 Date: Mon, 07 Feb 2011 17:14:55 -0800
 To: poky@yoctoproject.org
 CC: 
 From: Scott Garman <scott.a.garman@intel.com>
-Subject: [PATCH 1/6] xorg-cf-files: new recipe v1.0.4
+Subject: [PATCH 2/6] libxext: add native support to recipe
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,35 +32,26 @@ X-List-Received-Date: Tue, 08 Feb 2011 01:13:48 -0000
 
 From: Scott Garman <scott.a.garman@intel.com>
 
-This package includes configuration files needed for old x11
-imake-based packages - transfig in particular.
+The native recipe is needed by the transfig-native dependency chain.
 
 Signed-off-by: Scott Garman <scott.a.garman@intel.com>
 ---
- .../xorg-util/xorg-cf-files_1.0.4.bb               |   14 ++++++++++++++
- 1 files changed, 14 insertions(+), 0 deletions(-)
- create mode 100644 meta/recipes-graphics/xorg-util/xorg-cf-files_1.0.4.bb
+ meta/recipes-graphics/xorg-lib/libxext_1.2.0.bb |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
-diff --git a/meta/recipes-graphics/xorg-util/xorg-cf-files_1.0.4.bb b/meta/recipes-graphics/xorg-util/xorg-cf-files_1.0.4.bb
-new file mode 100644
-index 0000000..a5de00a
---- /dev/null
-+++ b/meta/recipes-graphics/xorg-util/xorg-cf-files_1.0.4.bb
-@@ -0,0 +1,14 @@
-+require xorg-util-common.inc
-+
-+SUMMARY = "Data files for the imake utility"
-+DESCRIPTION = "Data files for the imake utility"
-+LIC_FILES_CHKSUM = "file://COPYING;md5=0f334a06f2de517e37e86d6757167d88"
-+
-+DEPENDS = "font-util"
-+
-+PR = "r0"
-+
-+SRC_URI[md5sum] = "ff4502b6e31aac90e24ce134090d0e46"
-+SRC_URI[sha256sum] = "8fc8a1224d2a716b1f3f1ca85dfda02387ab215251b8eddd03551eac998c9cb8"
-+
-+BBCLASSEXTEND = "native"
+diff --git a/meta/recipes-graphics/xorg-lib/libxext_1.2.0.bb b/meta/recipes-graphics/xorg-lib/libxext_1.2.0.bb
+index b907b9f..679bb1a 100644
+--- a/meta/recipes-graphics/xorg-lib/libxext_1.2.0.bb
++++ b/meta/recipes-graphics/xorg-lib/libxext_1.2.0.bb
+@@ -21,7 +21,7 @@ PE = "1"
+ 
+ XORG_PN = "libXext"
+ 
+-BBCLASSEXTEND = "nativesdk"
++BBCLASSEXTEND = "native nativesdk"
+ 
+ SRC_URI[md5sum] = "9bb236ff0193e9fc1c1fb504dd840331"
+ SRC_URI[sha256sum] = "4aed3e211e41c47908c293515580e731c26048f61a1212bf0888d1f456de6ff7"
 -- 
 1.7.4
 
