@@ -1,20 +1,21 @@
-Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 1CBFA4C8009E
-	for <poky@yoctoproject.org>; Tue,  8 Feb 2011 15:26:46 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 08 Feb 2011 13:26:45 -0800
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 743754C8007E
+	for <poky@yoctoproject.org>; Tue,  8 Feb 2011 15:41:10 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 08 Feb 2011 13:41:10 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,443,1291622400"; d="scan'208";a="705502017"
-Received: from nbuild1.sc.intel.com (HELO localhost) ([172.25.110.36])
-	by orsmga001.jf.intel.com with ESMTP; 08 Feb 2011 13:26:46 -0800
-Message-Id: <cover.1297176911.git.nitin.a.kamble@intel.com>
-Old-Date: Tue, 8 Feb 2011 06:55:11 -0800
-Date: Tue, 08 Feb 2011  6:57:04 -0800
-To: poky@yoctoproject.org
-CC: 
-From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Subject: [PATCH 0/1] mklibs library size optimization
+X-IronPort-AV: E=Sophos;i="4.60,443,1291622400"; d="scan'208";a="655767939"
+Received: from unknown (HELO [10.255.14.215]) ([10.255.14.215])
+	by fmsmga002.fm.intel.com with ESMTP; 08 Feb 2011 13:41:10 -0800
+Message-ID: <4D51B86E.7060709@linux.intel.com>
+Date: Tue, 08 Feb 2011 13:41:02 -0800
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
+MIME-Version: 1.0
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: History and intentions of linux.inc ?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,32 +27,39 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 08 Feb 2011 21:26:47 -0000
+X-List-Received-Date: Tue, 08 Feb 2011 21:41:10 -0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
 
-From: Nitin A Kamble <nitin.a.kamble@intel.com>
+I've stumbled over a couple of interesting bits in the existing
+recipes-kernel/linux/linux.inc, for example (but not limited to):
 
-Richard,
-  Here are the image-mklibs.bbclass file with changes as you suggested.
+> do_install_prepend() {
+>         if test -e arch/${ARCH}/boot/Image ; then
+>              ln -f arch/${ARCH}/boot/Image arch/${ARCH}/boot/uImage
+>         fi
+
+On a recent kernel, the above will overwrite a valid uImage with Image,
+resulting in a non-bootable set of files in deploy/images.
+
+> 
+>         if test -e arch/${ARCH}/boot/images/uImage ; then
+>              ln -f arch/${ARCH}/boot/images/uImage arch/${ARCH}/boot/uImage
+>         fi
+
+The arch/arm/boot/images directory does not exist on a current kernel
+(2.6.35-linaro anyway).
 
 
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: nitin/mklibs
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=nitin/mklibs
+Does anyone know the historical significance and/or intent of this code?
+Are there architectures for which this does something sane? After
+reading through linux.inc, I'm inclined to avoid using it for the
+meta-linaro kernel, and then going after it with chainsaw.
 
-Thanks,
-    Nitin A Kamble <nitin.a.kamble@intel.com>
----
-
-
-Nitin A Kamble (1):
-  image-mklibs.bbclass: add the library optimization functionality
-
- meta/classes/image-mklibs.bbclass |   69 +++++++++++++++++++++++++++++++++++++
- meta/conf/local.conf.sample       |   12 ++++++-
- 2 files changed, 80 insertions(+), 1 deletions(-)
- create mode 100644 meta/classes/image-mklibs.bbclass
+Anyone have anything to add before I start cutting?
 
 -- 
-1.7.2.2
-
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
