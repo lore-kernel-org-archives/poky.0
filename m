@@ -1,22 +1,20 @@
 Return-Path: <scott.a.garman@intel.com>
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C853B4C80A7A
-	for <poky@yoctoproject.org>; Mon,  7 Feb 2011 17:35:17 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 9DA474C8032C
+	for <poky@yoctoproject.org>; Mon,  7 Feb 2011 19:03:00 -0600 (CST)
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 07 Feb 2011 15:35:16 -0800
+	by orsmga102.jf.intel.com with ESMTP; 07 Feb 2011 17:03:00 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,439,1291622400"; d="scan'208";a="705066006"
+X-IronPort-AV: E=Sophos;i="4.60,439,1291622400"; d="scan'208";a="705093511"
 Received: from sgarman-ws.jf.intel.com (HELO localhost) ([10.7.199.157])
-	by orsmga001.jf.intel.com with ESMTP; 07 Feb 2011 15:35:16 -0800
-Message-Id: <1847bfd6096482147a2a4681a2f09c4d34dc85f1.1297121546.git.scott.a.garman@intel.com>
-In-Reply-To: <cover.1297121546.git.scott.a.garman@intel.com>
-References: <cover.1297121546.git.scott.a.garman@intel.com>
-Old-Date: Sun, 6 Feb 2011 20:47:37 -0800
-Date: Mon, 07 Feb 2011 15:36:23 -0800
+	by orsmga001.jf.intel.com with ESMTP; 07 Feb 2011 17:03:00 -0800
+Message-Id: <cover.1297126971.git.scott.a.garman@intel.com>
+Old-Date: Mon, 7 Feb 2011 17:02:51 -0800
+Date: Mon, 07 Feb 2011 17:04:07 -0800
 To: poky@yoctoproject.org
 CC: 
 From: Scott Garman <scott.a.garman@intel.com>
-Subject: [PATCH 6/6] prelink: add transfig to DEPENDS
+Subject: [PATCH 0/1] xserver-kdrive DEPENDS fix, v2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,30 +26,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 07 Feb 2011 23:35:18 -0000
+X-List-Received-Date: Tue, 08 Feb 2011 01:03:00 -0000
 
 From: Scott Garman <scott.a.garman@intel.com>
 
-Building prelink's documentaiton requires fig2dev, which is
-provided by transfig.
+Hi Saul,
 
-Signed-off-by: Scott Garman <scott.a.garman@intel.com>
+This patch adds a needed dependency (openssl) to the xserver-kdrive recipes.
+
+Respun to include a PR bump.
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: sgarman/kdrive-fix
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=sgarman/kdrive-fix
+
+Thanks,
+    Scott Garman <scott.a.garman@intel.com>
 ---
- meta/recipes-devtools/prelink/prelink_git.bb |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
 
-diff --git a/meta/recipes-devtools/prelink/prelink_git.bb b/meta/recipes-devtools/prelink/prelink_git.bb
-index 8620513..6f39742 100644
---- a/meta/recipes-devtools/prelink/prelink_git.bb
-+++ b/meta/recipes-devtools/prelink/prelink_git.bb
-@@ -1,6 +1,6 @@
- SECTION = "devel"
- # Need binutils for libiberty.a
--DEPENDS = "elfutils binutils"
-+DEPENDS = "elfutils binutils transfig"
- SUMMARY = "An ELF prelinking utility"
- DESCRIPTION = "The prelink package contains a utility which modifies ELF shared libraries \
- and executables, so that far fewer relocations need to be resolved at \
+
+Scott Garman (1):
+  xserver-kdrive.inc: add openssl to DEPENDS
+
+ .../xorg-xserver/xserver-kdrive.inc                |    2 +-
+ .../xorg-xserver/xserver-kdrive_1.7.99.2.bb        |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
 -- 
 1.7.4
 
