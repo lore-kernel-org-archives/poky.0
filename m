@@ -1,22 +1,22 @@
 Return-Path: <scott.a.garman@intel.com>
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 100074C80A94
+	by mx1.pokylinux.org (Postfix) with ESMTP id 1F4984C80A90
 	for <poky@yoctoproject.org>; Mon,  7 Feb 2011 19:13:49 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
 	by orsmga102.jf.intel.com with ESMTP; 07 Feb 2011 17:13:47 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,439,1291622400"; d="scan'208";a="600378688"
+X-IronPort-AV: E=Sophos;i="4.60,439,1291622400"; d="scan'208";a="705096355"
 Received: from sgarman-ws.jf.intel.com (HELO localhost) ([10.7.199.157])
-	by orsmga002.jf.intel.com with ESMTP; 07 Feb 2011 17:13:47 -0800
-Message-Id: <7fe0e039930159d9be78a1fb4d4e05d6f90916ff.1297127616.git.scott.a.garman@intel.com>
+	by orsmga001.jf.intel.com with ESMTP; 07 Feb 2011 17:13:47 -0800
+Message-Id: <ccda1b5eb191c4620860276857cf7a124932ce0f.1297127616.git.scott.a.garman@intel.com>
 In-Reply-To: <cover.1297127616.git.scott.a.garman@intel.com>
 References: <cover.1297127616.git.scott.a.garman@intel.com>
-Old-Date: Sun, 6 Feb 2011 20:44:23 -0800
+Old-Date: Sun, 6 Feb 2011 20:46:42 -0800
 Date: Mon, 07 Feb 2011 17:14:55 -0800
 To: poky@yoctoproject.org
 CC: 
 From: Scott Garman <scott.a.garman@intel.com>
-Subject: [PATCH 4/6] imake: add native support to recipe and update DEPENDS
+Subject: [PATCH 5/6] transfig: new recipe v3.2.5d
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,44 +32,61 @@ X-List-Received-Date: Tue, 08 Feb 2011 01:13:49 -0000
 
 From: Scott Garman <scott.a.garman@intel.com>
 
-xorg-cf-files includes configuration files used by imake-based
-recipes. Also add native support to the recipe.
+Transfig provides fig2dev, which is used when building
+documentation for many packages.
 
 Signed-off-by: Scott Garman <scott.a.garman@intel.com>
 ---
- meta/recipes-graphics/xorg-util/imake_1.0.4.bb |   10 +++++-----
- 1 files changed, 5 insertions(+), 5 deletions(-)
+ .../transfig/transfig-native_3.2.5d.bb             |   40 ++++++++++++++++++++
+ 1 files changed, 40 insertions(+), 0 deletions(-)
+ create mode 100644 meta/recipes-devtools/transfig/transfig-native_3.2.5d.bb
 
-diff --git a/meta/recipes-graphics/xorg-util/imake_1.0.4.bb b/meta/recipes-graphics/xorg-util/imake_1.0.4.bb
-index 9202317..e313442 100644
---- a/meta/recipes-graphics/xorg-util/imake_1.0.4.bb
-+++ b/meta/recipes-graphics/xorg-util/imake_1.0.4.bb
-@@ -1,20 +1,20 @@
- require xorg-util-common.inc
- 
- SUMMARY = "C preprocessor interface to the make utility"
--
- DESCRIPTION = "Imake is used to generate Makefiles from a template, a \
- set of cpp macro functions, and a per-directory input file called an \
- Imakefile. This allows machine dependencies (such as compiler options, \
- alternate command names, and special make rules) to be kept separate \
- from the descriptions of the various items to be built."
-+LIC_FILES_CHKSUM = "file://COPYING;md5=b9c6cfb044c6d0ff899eaafe4c729367"
- 
--DEPENDS = "util-macros"
-+DEPENDS = "util-macros xproto xorg-cf-files"
- RDEPENDS_${PN} = "perl xproto"
- 
--LIC_FILES_CHKSUM = "file://COPYING;md5=b9c6cfb044c6d0ff899eaafe4c729367"
--
--PR = "r1"
-+PR = "r2"
- PE = "1"
- 
- SRC_URI[md5sum] = "0fd1e53d94142ddee5340f87de0b9561"
- SRC_URI[sha256sum] = "68038fa67929c5553044ad7417e1a64cabe954f04213b305dd36a04a61317d31"
+diff --git a/meta/recipes-devtools/transfig/transfig-native_3.2.5d.bb b/meta/recipes-devtools/transfig/transfig-native_3.2.5d.bb
+new file mode 100644
+index 0000000..62b8023
+--- /dev/null
++++ b/meta/recipes-devtools/transfig/transfig-native_3.2.5d.bb
+@@ -0,0 +1,40 @@
++SUMMARY = "Utilities for converting XFig figure files"
++DESCRIPTION = "This package contains utilities (mainly fig2dev) to \
++handle XFig (Facility for Interactive Generation of figures) files."
++HOMEPAGE = "http://www-epb.lbl.gov/xfig/"
++SECTION = "console/utils"
++PRIORITY = "required"
++LICENSE = "xfig"
++LIC_FILES_CHKSUM = "file://fig2dev/fig2dev.c;endline=16;md5=6bab01e017409cf9ab21d3e953b793f7"
++PR = "r0"
 +
-+BBCLASSEXTEND = "native"
++DEPENDS = "imake-native xorg-cf-files-native zlib-native jpeg-native libpng-native libxpm-native"
++
++SRC_URI = "${SOURCEFORGE_MIRROR}/mcj/transfig.${PV}.tar.gz"
++
++SRC_URI[md5sum] = "f9eac7f265668ecbfda6aaf7581989ad"
++SRC_URI[sha256sum] = "ae81214177fb05f91f6e43b0b42633b6e0024570cbc6591a3858e12100ce8aaa"
++
++S = "${WORKDIR}/transfig.${PV}"
++
++EXTRA_OEMAKE = "-I${S}"
++
++inherit native
++
++do_configure() {
++	xmkmf
++	make Makefiles
++
++	# Fix hardcoded references to host build locations
++	sed -i -e "s|SYSTEMUSRLIBDIR = /usr/lib64|SYSTEMUSRLIBDIR = ${libdir}|g" fig2dev/Makefile
++	sed -i -e "s|SYSTEMUSRINCDIR = /usr/include|SYSTEMUSRINCDIR = ${includedir}|g" fig2dev/Makefile
++	sed -i -e "s|XPMINC = -I/usr/include/X11|XPMINC = -I${includedir}/X11|g" fig2dev/Makefile 
++	sed -i -e "s|/usr/lib64|/usr/lib|g" fig2dev/Makefile || true
++	sed -i -e "s|/usr/lib64|/usr/lib|g" fig2dev/dev/Makefile || true
++	sed -i -e "s|/usr/local/lib|${libdir}|g" fig2dev/Makefile
++	sed -i -e "s|/usr/local/lib|${libdir}|g" fig2dev/dev/Makefile
++}
++
++do_install() {
++	oe_runmake install DESTDIR=${D}
++}
 -- 
 1.7.4
 
