@@ -1,21 +1,21 @@
 Return-Path: <ke.yu@intel.com>
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 07B1A4C800B9
-	for <poky@yoctoproject.org>; Wed,  9 Feb 2011 07:58:46 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 09 Feb 2011 05:58:46 -0800
+	by mx1.pokylinux.org (Postfix) with ESMTP id 6D4474C80104
+	for <poky@yoctoproject.org>; Wed,  9 Feb 2011 07:58:48 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 09 Feb 2011 05:58:48 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,446,1291622400"; d="scan'208";a="885852628"
+X-IronPort-AV: E=Sophos;i="4.60,446,1291622400"; d="scan'208";a="656001378"
 Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
-	by fmsmga001.fm.intel.com with ESMTP; 09 Feb 2011 05:58:46 -0800
+	by fmsmga002.fm.intel.com with ESMTP; 09 Feb 2011 05:58:47 -0800
 From: Yu Ke <ke.yu@intel.com>
 To: poky@yoctoproject.org
-Date: Wed,  9 Feb 2011 22:00:54 +0800
-Message-Id: <706c6eb85054d71967f8fcebd2bdb0bb70e2f1e4.1297258936.git.ke.yu@intel.com>
+Date: Wed,  9 Feb 2011 22:00:56 +0800
+Message-Id: <b11d24286621cca3d77323bd9276d0738f1e6329.1297258936.git.ke.yu@intel.com>
 X-Mailer: git-send-email 1.7.0.4
 In-Reply-To: <cover.1297258935.git.ke.yu@intel.com>
 References: <cover.1297258935.git.ke.yu@intel.com>
-Subject: [PATCH 3/4] mesa-xlib: upgrade to 7.10
+Subject: [PATCH 4/4] talloc: remove talloc recipe
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,48 +27,46 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Feb 2011 13:58:47 -0000
+X-List-Received-Date: Wed, 09 Feb 2011 13:58:48 -0000
 
-- add patch to replace GPLv3 talloc with ralloc
-- add SRC_URI checksum
+mesa no long need talloc, so remove it
 
 Signed-off-by: Yu Ke <ke.yu@intel.com>
 ---
- .../mesa/{mesa-xlib_7.9.bb => mesa-xlib_7.10.bb}   |   11 ++++++++---
- 1 files changed, 8 insertions(+), 3 deletions(-)
- rename meta/recipes-graphics/mesa/{mesa-xlib_7.9.bb => mesa-xlib_7.10.bb} (60%)
+ meta/recipes-support/talloc/talloc_2.0.1.bb |   24 ------------------------
+ 1 files changed, 0 insertions(+), 24 deletions(-)
+ delete mode 100644 meta/recipes-support/talloc/talloc_2.0.1.bb
 
-diff --git a/meta/recipes-graphics/mesa/mesa-xlib_7.9.bb b/meta/recipes-graphics/mesa/mesa-xlib_7.10.bb
-similarity index 60%
-rename from meta/recipes-graphics/mesa/mesa-xlib_7.9.bb
-rename to meta/recipes-graphics/mesa/mesa-xlib_7.10.bb
-index a816e93..5cc719e 100644
---- a/meta/recipes-graphics/mesa/mesa-xlib_7.9.bb
-+++ b/meta/recipes-graphics/mesa/mesa-xlib_7.10.bb
-@@ -1,15 +1,20 @@
- include mesa-common.inc
- 
--SRC_URI = "ftp://ftp.freedesktop.org/pub/mesa/${PV}/MesaLib-${PV}.tar.bz2"
-+SRC_URI = "ftp://ftp.freedesktop.org/pub/mesa/${PV}/MesaLib-${PV}.tar.bz2 \
-+           file://talloc-removal.patch \
-+           "
-+
-+SRC_URI[md5sum] = "33fb94eccc02cbb4d8d1365615e38e46"
-+SRC_URI[sha256sum] = "bcf28f43f39c28da271c0f5857fb32898d4ade3e035e80a0ceece1c2df6e0aca"
- 
- LIC_FILES_CHKSUM = "file://docs/license.html;md5=7a3373c039b6b925c427755a4f779c1d"
- 
- PROTO_DEPS = "xf86driproto glproto"
--LIB_DEPS = "virtual/libx11 libxext libxxf86vm libxdamage libxfixes talloc libxml2-native"
-+LIB_DEPS = "virtual/libx11 libxext libxxf86vm libxdamage libxfixes libxml2-native"
- 
- DEPENDS = "${PROTO_DEPS}  ${LIB_DEPS}"
- 
- PE = "1"
--PR = "r1"
-+PR = "r0"
- 
- EXTRA_OECONF += "--with-driver=xlib"
+diff --git a/meta/recipes-support/talloc/talloc_2.0.1.bb b/meta/recipes-support/talloc/talloc_2.0.1.bb
+deleted file mode 100644
+index dfbaf31..0000000
+--- a/meta/recipes-support/talloc/talloc_2.0.1.bb
++++ /dev/null
+@@ -1,24 +0,0 @@
+-DESCRIPTION = "Hierarchical, reference counted memory pool system with destructors"
+-HOMEPAGE = "http://talloc.samba.org"
+-BUGTRACKER = "https://bugzilla.samba.org/"
+-LICENSE = "LGPLv3+"
+-LIC_FILES_CHKSUM = "file://talloc.c;beginline=8;endline=26;md5=ea9b6ec07a6d8b3e771f0ec75ca3a317"
+-
+-PR = "r0"
+-
+-SRC_URI = "http://samba.org/ftp/${BPN}/${BPN}-${PV}.tar.gz"
+-
+-SRC_URI[md5sum] = "c6e736540145ca58cb3dcb42f91cf57b"
+-SRC_URI[sha256sum] = "5b810527405f29d54f50efd78bf2c89e318f2cd8bed001f22f2a1412fd27c9b4"
+-
+-inherit autotools pkgconfig
+-
+-# autoreconf doesn't work well while reconfiguring included libreplace
+-do_configure () {
+-       gnu-configize
+-       oe_runconf
+-}
+-
+-TARGET_CC_ARCH += "${LDFLAGS}"
+-
+-BBCLASSEXTEND = "native"
 -- 
 1.7.0.4
 
