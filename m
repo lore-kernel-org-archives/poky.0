@@ -1,22 +1,30 @@
-Return-Path: <koen@dominion.thruhere.net>
-Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
-	[74.125.82.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 092884C80053
-	for <poky@yoctoproject.org>; Wed,  9 Feb 2011 04:59:29 -0600 (CST)
-Received: by wye20 with SMTP id 20so26893wye.35
-	for <poky@yoctoproject.org>; Wed, 09 Feb 2011 02:59:29 -0800 (PST)
-Received: by 10.216.81.69 with SMTP id l47mr17128441wee.56.1297249169049;
-	Wed, 09 Feb 2011 02:59:29 -0800 (PST)
-Received: from localhost (ip545070eb.adsl-surfen.hetnet.nl [84.80.112.235])
-	by mx.google.com with ESMTPS id r57sm104699wes.25.2011.02.09.02.59.28
-	(version=TLSv1/SSLv3 cipher=RC4-MD5);
-	Wed, 09 Feb 2011 02:59:28 -0800 (PST)
-From: Koen Kooi <koen@dominion.thruhere.net>
-To: poky@yoctoproject.org
-Date: Wed,  9 Feb 2011 11:58:02 +0100
-Message-Id: <1297249082-25551-1-git-send-email-koen@dominion.thruhere.net>
-X-Mailer: git-send-email 1.6.6.1
-Subject: [PATCH] bitbake.conf: fix SDK_NAME
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2ED7E4C80053
+	for <poky@yoctoproject.org>; Wed,  9 Feb 2011 05:08:17 -0600 (CST)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p19B8CX8031235;
+	Wed, 9 Feb 2011 11:08:12 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 31160-02; Wed,  9 Feb 2011 11:08:08 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p19B86o5031229
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Wed, 9 Feb 2011 11:08:06 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Koen Kooi <koen@dominion.thruhere.net>
+In-Reply-To: <1297247749-16779-1-git-send-email-koen@dominion.thruhere.net>
+References: <1297247749-16779-1-git-send-email-koen@dominion.thruhere.net>
+Date: Wed, 09 Feb 2011 11:08:04 +0000
+Message-ID: <1297249684.1395.6280.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH] binutils-cross-canadian.inc: disable -werror like -cross does
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,36 +36,42 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Feb 2011 10:59:30 -0000
+X-List-Received-Date: Wed, 09 Feb 2011 11:08:17 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-It was using a '/' in a name variable, subtly breaking things like this:
+On Wed, 2011-02-09 at 11:35 +0100, Koen Kooi wrote:
+> The error this works around is:
+> 
+> cc1: warnings being treated as errors
+> gas/config/tc-arm.c: In function 'parse_operands':
+> gas/config/tc-arm.c:1876:27: error: 'firsttype$defined' may be used uninitialized in this function
+> gas/config/tc-arm.c:1876:27: error: 'firsttype$index' may be used uninitialized in this function
+> 
+> Ideally it should get fixed properly, but let's mimic binutils-cross for now
+> 
+> Signed-off-by: Koen Kooi <koen@dominion.thruhere.net>
+> ---
+>  .../binutils/binutils-cross-canadian.inc           |    3 ++-
+>  1 files changed, 2 insertions(+), 1 deletions(-)
+> 
+> diff --git a/meta/recipes-devtools/binutils/binutils-cross-canadian.inc b/meta/recipes-devtools/binutils/binutils-cross-canadian.inc
+> index e042ac7..95e535a 100644
+> --- a/meta/recipes-devtools/binutils/binutils-cross-canadian.inc
+> +++ b/meta/recipes-devtools/binutils/binutils-cross-canadian.inc
+> @@ -6,7 +6,8 @@ BPN = "binutils"
+>  
+>  DEPENDS = "flex-native bison-native virtual/${HOST_PREFIX}gcc-crosssdk virtual/libc-nativesdk zlib-nativesdk gettext-nativesdk"
+>  EXTRA_OECONF = "--with-sysroot=${SDKPATH}/sysroots/${TARGET_SYS} \
+> -                --program-prefix=${TARGET_PREFIX}"
+> +                --program-prefix=${TARGET_PREFIX} \
+> +                --disable-werror"
+>  
+>  do_install () {
+>  	autotools_do_install
 
-populate_sdk.bbclass:
-   mkdir -p ${SDK_DEPLOY}
-   cd ${SDK_OUTPUT}
-   tar --owner=root --group=root -cj --file=${SDK_DEPLOY}/${TOOLCHAIN_OUTPUTNAME}.tar.bz2 .
+Merged to master, thanks.
 
-Tar will error out since SDK_DEPLOY/DISTRO/ doesn't exist. Change the default to be more like the one from poky.conf, without the poky specific POKYLIBC.
-
-Signed-off-by: Koen Kooi <koen@dominion.thruhere.net>
----
- meta/conf/bitbake.conf |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
-
-diff --git a/meta/conf/bitbake.conf b/meta/conf/bitbake.conf
-index 7368097..da50fe5 100644
---- a/meta/conf/bitbake.conf
-+++ b/meta/conf/bitbake.conf
-@@ -321,7 +321,7 @@ DEPLOY_DIR_TOOLS = "${DEPLOY_DIR}/tools"
- 
- PKGDATA_DIR = "${TMPDIR}/pkgdata/${MULTIMACH_TARGET_SYS}"
- 
--SDK_NAME = "${DISTRO}/${TARGET_ARCH}"
-+SDK_NAME = "${DISTRO}-${SDK_ARCH}-${TARGET_ARCH}"
- SDKPATH = "/usr/local/${SDK_NAME}"
- SDKPATHNATIVE = "${SDKPATH}/sysroots/${SDK_SYS}"
- 
--- 
-1.6.6.1
+Richard
 
 
