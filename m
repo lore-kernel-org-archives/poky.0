@@ -1,28 +1,18 @@
-Return-Path: <mark.hatle@windriver.com>
+Return-Path: <bruce.ashfield@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id DC06B4C8009E
-	for <poky@yoctoproject.org>; Tue,  8 Feb 2011 23:54:32 -0600 (CST)
-Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p195sWuc011482
-	for <poky@yoctoproject.org>; Tue, 8 Feb 2011 21:54:32 -0800 (PST)
-Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
-	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Tue, 8 Feb 2011 21:54:32 -0800
-Received: from msp-mhatle-lx2.wrs.com ([172.25.34.61]) by
-	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Tue, 8 Feb 2011 21:54:31 -0800
-From: Mark Hatle <mark.hatle@windriver.com>
-To: poky@yoctoproject.org
-Date: Tue,  8 Feb 2011 23:51:46 -0600
-Message-Id: <043a08305a26d8de1a8848bbafe41e42a8dc3c7a.1297230569.git.mark.hatle@windriver.com>
-X-Mailer: git-send-email 1.7.3.4
-In-Reply-To: <cover.1297230569.git.mark.hatle@windriver.com>
-References: <cover.1297230569.git.mark.hatle@windriver.com>
-In-Reply-To: <cover.1297230569.git.mark.hatle@windriver.com>
-References: <cover.1297230569.git.mark.hatle@windriver.com>
-X-OriginalArrivalTime: 09 Feb 2011 05:54:32.0042 (UTC)
-	FILETIME=[D27104A0:01CBC81D]
-Subject: [PATCH 2/2] Misc hard link fixes
+	by mx1.pokylinux.org (Postfix) with ESMTP id B19014C80053;
+	Wed,  9 Feb 2011 00:19:13 -0600 (CST)
+Received: from localhost.localdomain (yow-bashfiel-d2.ottawa.windriver.com
+	[128.224.146.167])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p196JB5s014751;
+	Tue, 8 Feb 2011 22:19:11 -0800 (PST)
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+To: rpurdie@linux.intel.com
+Date: Wed,  9 Feb 2011 01:22:27 -0500
+Message-Id: <cover.1297232160.git.bruce.ashfield@windriver.com>
+X-Mailer: git-send-email 1.7.0.4
+Cc: yocto@yoctoproject.org, poky@yoctoproject.org, saul.wold@intel.com
+Subject: [PATCH 0/1] linux-yocto/stable: streamline BSP processing
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,96 +24,50 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Feb 2011 05:54:33 -0000
+X-List-Received-Date: Wed, 09 Feb 2011 06:19:14 -0000
 
-I searched the various classes and looked for copies that should attempt to
-preserve hardlinks.  This fixes the majority of this copies by switching to
-using tar as the copy method.  It also has the side effect of preserving sparse
-files.
+Richard/Saul,
 
-Signed-off-by: Mark Hatle <mark.hatle@windriver.com>
+The subject is a bit deceiving, since the 'streamlining' that I've been
+working on for BSP / external board building for a while, actually
+solves a lot of the SRCREV/race conditions that we've been seeing.
+
+With the new fetcher and some factoring of the code, I've been able
+to delete 99% of the anonymous python and simply the processing
+for new BSPs.
+
+To create a BSP against the yocto kernels all one must do is put
+the variable YOCTO_KERNEL_EXTERNAL_BRANCH and indicate the branch
+name that should be used. The tools and processing does the rest.
+
+I built all existing boards, and bootstrapped a BSP against the
+stable and devel yocto kernels while testing this. Everything
+worked well.
+
+Darren: I haven't touched the preempt_rt recipes (yet), but we
+can streamline them as well.
+
+This is the first step in some other refactoring and cleanups for
+easier inclusion of the yocto kernel parts, but we'll let this
+soak first before stacking more changes on top.
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: zedd/kernel
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/kernel
+
+Thanks,
+    Bruce Ashfield <bruce.ashfield@windriver.com>
 ---
- meta/classes/libc-package.bbclass     |   12 ++++++------
- meta/classes/populate_sdk_deb.bbclass |    2 +-
- meta/classes/sourcepkg.bbclass        |    2 +-
- meta/classes/staging.bbclass          |    2 +-
- 4 files changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/meta/classes/libc-package.bbclass b/meta/classes/libc-package.bbclass
-index 733f26b..c9d81f0 100644
---- a/meta/classes/libc-package.bbclass
-+++ b/meta/classes/libc-package.bbclass
-@@ -104,24 +104,24 @@ TMP_LOCALE="/tmp/locale${libdir}/locale"
- do_prep_locale_tree() {
- 	treedir=${WORKDIR}/locale-tree
- 	rm -rf $treedir
--	mkdir -p $treedir/bin $treedir/lib $treedir/${datadir} $treedir/${libdir}/locale
--	cp -pPR ${PKGD}${datadir}/i18n $treedir/${datadir}/i18n
-+	mkdir -p $treedir/${base_bindir} $treedir/${base_libdir} $treedir/${datadir} $treedir/${libdir}/locale
-+	tar -cf - -C ${PKGD}${datadir} -ps i18n | tar -xf - -C $treedir/${datadir}
- 	# unzip to avoid parsing errors
- 	for i in $treedir/${datadir}/i18n/charmaps/*gz; do 
- 		gunzip $i
- 	done
--	cp -pPR ${PKGD}${base_libdir}/* $treedir/lib
-+	tar -cf - -C ${PKGD}${base_libdir} -ps . | tar -xf - -C $treedir/${base_libdir}
- 	if [ -f ${STAGING_DIR_NATIVE}${prefix_native}/lib/libgcc_s.* ]; then
--		cp -pPR ${STAGING_DIR_NATIVE}/${prefix_native}/lib/libgcc_s.* $treedir/lib
-+		tar -cf - -C ${STAGING_DIR_NATIVE}/${prefix_native}/${base_libdir} -ps libgcc_s.* | tar -xf - -C $treedir/${base_libdir}
- 	fi
--	install -m 0755 ${PKGD}${bindir}/localedef $treedir/bin
-+	install -m 0755 ${PKGD}${bindir}/localedef $treedir/${base_bindir}
- }
- 
- do_collect_bins_from_locale_tree() {
- 	treedir=${WORKDIR}/locale-tree
- 
- 	mkdir -p ${PKGD}${libdir}
--	cp -pPR $treedir/${libdir}/locale ${PKGD}${libdir}
-+	tar -cf - -C $treedir/${libdir} -ps locale | tar -xf - -C ${PKGD}${libdir}
- }
- 
- inherit qemu
-diff --git a/meta/classes/populate_sdk_deb.bbclass b/meta/classes/populate_sdk_deb.bbclass
-index d563c28..a5b6384 100644
---- a/meta/classes/populate_sdk_deb.bbclass
-+++ b/meta/classes/populate_sdk_deb.bbclass
-@@ -6,7 +6,7 @@ populate_sdk_post_deb () {
- 
- 	local target_rootfs=$1
- 
--	cp -r ${STAGING_ETCDIR_NATIVE}/apt ${target_rootfs}/etc
-+	tar -cf -C ${STAGING_ETCDIR_NATIVE} -ps apt | tar -xf - -C ${target_rootfs}/etc
- }
- 
- fakeroot populate_sdk_deb () {
-diff --git a/meta/classes/sourcepkg.bbclass b/meta/classes/sourcepkg.bbclass
-index f738553..f12a195 100644
---- a/meta/classes/sourcepkg.bbclass
-+++ b/meta/classes/sourcepkg.bbclass
-@@ -41,7 +41,7 @@ sourcepkg_do_create_orig_tgz(){
- 	echo $src_tree
- 	oenote "Creating .orig.tar.gz in ${DEPLOY_DIR_SRC}/${P}.orig.tar.gz"
- 	tar cvzf ${DEPLOY_DIR_SRC}/${P}.orig.tar.gz --exclude-from temp/exclude-from-file $src_tree
--	cp -pPR $src_tree $src_tree.orig
-+	tar -cf - -C $src_tree -ps . | tar -xf - -C $src_tree.orig
- }
- 
- sourcepkg_do_archive_bb() {
-diff --git a/meta/classes/staging.bbclass b/meta/classes/staging.bbclass
-index a713734..fef6457 100644
---- a/meta/classes/staging.bbclass
-+++ b/meta/classes/staging.bbclass
-@@ -17,7 +17,7 @@ sysroot_stage_dir() {
- 	# However we always want to stage a $src itself, even if it's empty
- 	mkdir -p "$dest"
- 	if [ -d "$src" ]; then
--		cp -fpPR "$src"/* "$dest"
-+		tar -cf - -C "$src" -ps . | tar -xf - -C "$dest"
- 	fi
- }
- 
--- 
-1.7.3.4
+
+Bruce Ashfield (1):
+  linux-yocto: streamline BSP bootstrapping
+
+ meta/classes/kernel-yocto.bbclass                  |   71 +++-----------------
+ .../conf/distro/include/poky-default-revisions.inc |    3 +-
+ .../recipes-kernel/linux/linux-yocto-stable_git.bb |   10 ++--
+ meta/recipes-kernel/linux/linux-yocto.inc          |    4 +-
+ meta/recipes-kernel/linux/linux-yocto_git.bb       |    4 +
+ 5 files changed, 23 insertions(+), 69 deletions(-)
 
 
