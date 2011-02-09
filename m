@@ -1,28 +1,28 @@
 Return-Path: <mark.hatle@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 1FF864C8007E
+	by mx1.pokylinux.org (Postfix) with ESMTP id DC06B4C8009E
 	for <poky@yoctoproject.org>; Tue,  8 Feb 2011 23:54:32 -0600 (CST)
 Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p195sVYe011479
-	for <poky@yoctoproject.org>; Tue, 8 Feb 2011 21:54:31 -0800 (PST)
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p195sWuc011482
+	for <poky@yoctoproject.org>; Tue, 8 Feb 2011 21:54:32 -0800 (PST)
 Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
 	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Tue, 8 Feb 2011 21:54:31 -0800
+	Tue, 8 Feb 2011 21:54:32 -0800
 Received: from msp-mhatle-lx2.wrs.com ([172.25.34.61]) by
 	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
 	Tue, 8 Feb 2011 21:54:31 -0800
 From: Mark Hatle <mark.hatle@windriver.com>
 To: poky@yoctoproject.org
-Date: Tue,  8 Feb 2011 23:51:45 -0600
-Message-Id: <e710a3850b0438d5b092fdfef03a7cf4261e6970.1297230569.git.mark.hatle@windriver.com>
+Date: Tue,  8 Feb 2011 23:51:46 -0600
+Message-Id: <043a08305a26d8de1a8848bbafe41e42a8dc3c7a.1297230569.git.mark.hatle@windriver.com>
 X-Mailer: git-send-email 1.7.3.4
 In-Reply-To: <cover.1297230569.git.mark.hatle@windriver.com>
 References: <cover.1297230569.git.mark.hatle@windriver.com>
 In-Reply-To: <cover.1297230569.git.mark.hatle@windriver.com>
 References: <cover.1297230569.git.mark.hatle@windriver.com>
-X-OriginalArrivalTime: 09 Feb 2011 05:54:31.0448 (UTC)
-	FILETIME=[D2166180:01CBC81D]
-Subject: [PATCH 1/2] package.bbclass: Preserve hard links!
+X-OriginalArrivalTime: 09 Feb 2011 05:54:32.0042 (UTC)
+	FILETIME=[D27104A0:01CBC81D]
+Subject: [PATCH 2/2] Misc hard link fixes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,66 +34,95 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Feb 2011 05:54:32 -0000
+X-List-Received-Date: Wed, 09 Feb 2011 05:54:33 -0000
 
-Hard links were not being preserved in the move from the install image
--> package copy.  Again they were being discarded in the package ->
-packages-split copy as well.
-
-By preserving the hard links we have the potential to save a ton of rootfs
-space.
+I searched the various classes and looked for copies that should attempt to
+preserve hardlinks.  This fixes the majority of this copies by switching to
+using tar as the copy method.  It also has the side effect of preserving sparse
+files.
 
 Signed-off-by: Mark Hatle <mark.hatle@windriver.com>
 ---
- meta/classes/package.bbclass |   18 +++++++++++++++++-
- 1 files changed, 17 insertions(+), 1 deletions(-)
+ meta/classes/libc-package.bbclass     |   12 ++++++------
+ meta/classes/populate_sdk_deb.bbclass |    2 +-
+ meta/classes/sourcepkg.bbclass        |    2 +-
+ meta/classes/staging.bbclass          |    2 +-
+ 4 files changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/meta/classes/package.bbclass b/meta/classes/package.bbclass
-index 8f58ad0..0698f64 100644
---- a/meta/classes/package.bbclass
-+++ b/meta/classes/package.bbclass
-@@ -323,7 +323,8 @@ python perform_packagecopy () {
- 	# Start by package population by taking a copy of the installed 
- 	# files to operate on
- 	os.system('rm -rf %s/*' % (dvar))
--	os.system('cp -pPR %s/* %s/' % (dest, dvar))
-+	# Preserve sparse files and hard links
-+	os.system('tar -cf - -C %s -ps . | tar -xf - -C %s' % (dest, dvar))
+diff --git a/meta/classes/libc-package.bbclass b/meta/classes/libc-package.bbclass
+index 733f26b..c9d81f0 100644
+--- a/meta/classes/libc-package.bbclass
++++ b/meta/classes/libc-package.bbclass
+@@ -104,24 +104,24 @@ TMP_LOCALE="/tmp/locale${libdir}/locale"
+ do_prep_locale_tree() {
+ 	treedir=${WORKDIR}/locale-tree
+ 	rm -rf $treedir
+-	mkdir -p $treedir/bin $treedir/lib $treedir/${datadir} $treedir/${libdir}/locale
+-	cp -pPR ${PKGD}${datadir}/i18n $treedir/${datadir}/i18n
++	mkdir -p $treedir/${base_bindir} $treedir/${base_libdir} $treedir/${datadir} $treedir/${libdir}/locale
++	tar -cf - -C ${PKGD}${datadir} -ps i18n | tar -xf - -C $treedir/${datadir}
+ 	# unzip to avoid parsing errors
+ 	for i in $treedir/${datadir}/i18n/charmaps/*gz; do 
+ 		gunzip $i
+ 	done
+-	cp -pPR ${PKGD}${base_libdir}/* $treedir/lib
++	tar -cf - -C ${PKGD}${base_libdir} -ps . | tar -xf - -C $treedir/${base_libdir}
+ 	if [ -f ${STAGING_DIR_NATIVE}${prefix_native}/lib/libgcc_s.* ]; then
+-		cp -pPR ${STAGING_DIR_NATIVE}/${prefix_native}/lib/libgcc_s.* $treedir/lib
++		tar -cf - -C ${STAGING_DIR_NATIVE}/${prefix_native}/${base_libdir} -ps libgcc_s.* | tar -xf - -C $treedir/${base_libdir}
+ 	fi
+-	install -m 0755 ${PKGD}${bindir}/localedef $treedir/bin
++	install -m 0755 ${PKGD}${bindir}/localedef $treedir/${base_bindir}
  }
  
- python populate_packages () {
-@@ -383,6 +384,7 @@ python populate_packages () {
+ do_collect_bins_from_locale_tree() {
+ 	treedir=${WORKDIR}/locale-tree
  
- 		filesvar = bb.data.getVar('FILES', localdata, True) or ""
- 		files = filesvar.split()
-+		file_links = {}
- 		for file in files:
- 			if os.path.isabs(file):
- 				file = '.' + file
-@@ -406,9 +408,23 @@ python populate_packages () {
- 				bb.mkdirhier(os.path.join(root,file))
- 				os.chmod(os.path.join(root,file), os.stat(file).st_mode)
- 				continue
-+
- 			fpath = os.path.join(root,file)
- 			dpath = os.path.dirname(fpath)
- 			bb.mkdirhier(dpath)
-+
-+			# Check if this is a hardlink to something... if it is
-+			# attempt to preserve the link information, instead of copy.
-+			if not os.path.islink(file):
-+				s = os.stat(file)
-+				if s.st_nlink > 1:
-+					file_reference = "%d_%d" % (s.st_dev, s.st_ino)
-+					if file_reference not in file_links:
-+						# Save the reference for next time...
-+						file_links[file_reference] = fpath
-+					else:
-+						os.link(file_links[file_reference], fpath)
-+						continue
- 			ret = bb.copyfile(file, fpath)
- 			if ret is False or ret == 0:
- 				raise bb.build.FuncFailed("File population failed")
+ 	mkdir -p ${PKGD}${libdir}
+-	cp -pPR $treedir/${libdir}/locale ${PKGD}${libdir}
++	tar -cf - -C $treedir/${libdir} -ps locale | tar -xf - -C ${PKGD}${libdir}
+ }
+ 
+ inherit qemu
+diff --git a/meta/classes/populate_sdk_deb.bbclass b/meta/classes/populate_sdk_deb.bbclass
+index d563c28..a5b6384 100644
+--- a/meta/classes/populate_sdk_deb.bbclass
++++ b/meta/classes/populate_sdk_deb.bbclass
+@@ -6,7 +6,7 @@ populate_sdk_post_deb () {
+ 
+ 	local target_rootfs=$1
+ 
+-	cp -r ${STAGING_ETCDIR_NATIVE}/apt ${target_rootfs}/etc
++	tar -cf -C ${STAGING_ETCDIR_NATIVE} -ps apt | tar -xf - -C ${target_rootfs}/etc
+ }
+ 
+ fakeroot populate_sdk_deb () {
+diff --git a/meta/classes/sourcepkg.bbclass b/meta/classes/sourcepkg.bbclass
+index f738553..f12a195 100644
+--- a/meta/classes/sourcepkg.bbclass
++++ b/meta/classes/sourcepkg.bbclass
+@@ -41,7 +41,7 @@ sourcepkg_do_create_orig_tgz(){
+ 	echo $src_tree
+ 	oenote "Creating .orig.tar.gz in ${DEPLOY_DIR_SRC}/${P}.orig.tar.gz"
+ 	tar cvzf ${DEPLOY_DIR_SRC}/${P}.orig.tar.gz --exclude-from temp/exclude-from-file $src_tree
+-	cp -pPR $src_tree $src_tree.orig
++	tar -cf - -C $src_tree -ps . | tar -xf - -C $src_tree.orig
+ }
+ 
+ sourcepkg_do_archive_bb() {
+diff --git a/meta/classes/staging.bbclass b/meta/classes/staging.bbclass
+index a713734..fef6457 100644
+--- a/meta/classes/staging.bbclass
++++ b/meta/classes/staging.bbclass
+@@ -17,7 +17,7 @@ sysroot_stage_dir() {
+ 	# However we always want to stage a $src itself, even if it's empty
+ 	mkdir -p "$dest"
+ 	if [ -d "$src" ]; then
+-		cp -fpPR "$src"/* "$dest"
++		tar -cf - -C "$src" -ps . | tar -xf - -C "$dest"
+ 	fi
+ }
+ 
 -- 
 1.7.3.4
 
