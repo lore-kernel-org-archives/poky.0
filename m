@@ -1,41 +1,22 @@
-Return-Path: <bruce.ashfield@gmail.com>
-Received: from mail-iy0-f176.google.com (mail-iy0-f176.google.com
-	[209.85.210.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2FBB44C8009E;
-	Wed,  9 Feb 2011 08:00:25 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by iyb26 with SMTP id 26so189728iyb.35
-	for <multiple recipients>; Wed, 09 Feb 2011 06:00:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:in-reply-to:references:date
-	:message-id:subject:from:to:cc:content-type
-	:content-transfer-encoding;
-	bh=hjQBZXDp2H8N+4Yk09SOg+hlgjM/Ufx4flrcmkXFZtg=;
-	b=ER8vHo/IHcBzrGdtmTPZHkjwfDHQhCbAjaXXD9TDlEdCVxWpnJrmUGbOeotaqXOf1p
-	mrOTlFsbPqFBq02evtYlKh2sWS6qOJoNXdDr53essOK4uwSThanJz9Iq3WYiuBDa0x6n
-	KwNhgY64B9zi4hm8Rx7clVyeOcS3/a8wBjEK4=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type:content-transfer-encoding;
-	b=Zg/RYFzS5S4fEsx2YmsrrwdP+w76fExIeTXaWY3tvax67ASShIzNsFs8m87HqL6Oy0
-	koj+/JFQh+lH46wZ5OiA5OtWO4Hinv91ps1IjeC9sR5dy2pMiugZoqXekv7UI26Rem66
-	nbaJOp2OpnqiYWvJffUvxTalxQ2sb2WYgr1KU=
+Return-Path: <sgw@linux.intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 6ED394C800A0
+	for <poky@yoctoproject.org>; Wed,  9 Feb 2011 10:50:27 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 09 Feb 2011 08:50:26 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,446,1291622400"; d="scan'208";a="386402522"
+Received: from unknown (HELO [10.255.14.122]) ([10.255.14.122])
+	by azsmga001.ch.intel.com with ESMTP; 09 Feb 2011 08:50:26 -0800
+Message-ID: <4D52C5D2.4070006@linux.intel.com>
+Date: Wed, 09 Feb 2011 08:50:26 -0800
+From: Saul Wold <sgw@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
 MIME-Version: 1.0
-Received: by 10.42.171.6 with SMTP id h6mr6483334icz.121.1297260024826; Wed,
-	09 Feb 2011 06:00:24 -0800 (PST)
-Received: by 10.231.156.136 with HTTP; Wed, 9 Feb 2011 06:00:24 -0800 (PST)
-In-Reply-To: <1297250056.1395.6333.camel@rex>
-References: <cover.1297232160.git.bruce.ashfield@windriver.com>
-	<eaec388c5c2bfcfde022835e359bd9a8f73e9137.1297232160.git.bruce.ashfield@windriver.com>
-	<1297250056.1395.6333.camel@rex>
-Date: Wed, 9 Feb 2011 09:00:24 -0500
-Message-ID: <AANLkTikGYC0Y4kCcUJfPyEQoj2sYY7TaivGQXJQUm1Q8@mail.gmail.com>
-From: Bruce Ashfield <bruce.ashfield@gmail.com>
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-Cc: yocto@yoctoproject.org, poky@yoctoproject.org, saul.wold@intel.com
-Subject: Re: [PATCH 1/1] linux-yocto: streamline BSP bootstrapping
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: [PULL] Consolidated Pull Request
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -47,106 +28,83 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Feb 2011 14:00:25 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, Feb 9, 2011 at 6:14 AM, Richard Purdie
-<richard.purdie@linuxfoundation.org> wrote:
-> On Wed, 2011-02-09 at 01:22 -0500, Bruce Ashfield wrote:
->> In order to build BSPs that were not already integrated into
->> the upstream linux yocto kernel AND keep the git fetcher happy,
->> some fairly complex anonymous python sections were required.
->>
->> These sections cause problems with variable expansion and SRCREV
->> processing.
->>
->> With the updated git fetcher code, we can streamline the BSP
->> boostrapping process and drop 99% of the anonymous python code.
->>
->> This commit has the following changes to support BSP boot strapping
->> and simplication for existing BSPs.
->>
->> =A0 =A0- KMETA is set per-recipe rather than in python code
->> =A0 =A0- undefined machines are no longer used, but instead common
->> =A0 =A0 =A0branch names are set per-recipe
->> =A0 =A0- fallback machine SRCREVs are present in the default revisions
->> =A0 =A0 =A0file
->> =A0 =A0- A new variable YOCTO_KERNEL_EXTERNAL_BRANCH should be set in
->> =A0 =A0 =A0the local.conf for new BSPs instead of being programatically
->> =A0 =A0 =A0determined in the anonymous python.
->> =A0 =A0- No more explicity KMACHINE variable expansion and manipulation,
->> =A0 =A0 =A0since the tools and build phases no longer require it due
->> =A0 =A0 =A0to the per-recipe fallbacks.
->>
->> Integrated/merged BSPs are unaffected by the changes and have been
->> regression tested.
->>
->> Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
->>
->> diff --git a/meta/conf/distro/include/poky-default-revisions.inc b/meta/=
-conf/distro/include/poky-default-revisions.inc
->> index 9abc4a5..a04fa9e 100644
->> --- a/meta/conf/distro/include/poky-default-revisions.inc
->> +++ b/meta/conf/distro/include/poky-default-revisions.inc
->> @@ -59,7 +59,7 @@ SRCREV_pn-gypsy ??=3D "147"
->> =A0SRCREV_pn-inputproto ??=3D "7203036522ba9d4b224d282d6afc2d0b947711ee"
->> =A0SRCREV_pn-inputproto-native ??=3D "7203036522ba9d4b224d282d6afc2d0b94=
-7711ee"
->> =A0SRCREV_pn-inputproto-nativesdk ??=3D "7203036522ba9d4b224d282d6afc2d0=
-b947711ee"
->> -SRCREV_pn-kern-tools-native ??=3D "fde7ef8fa8043607752563b9b7908f487eb2=
-f7dd"
->> +SRCREV_pn-kern-tools-native ??=3D "4f13a46499261ea181fdc13db5459067df08=
-aca7"
->> =A0SRCREV_pn-libdrm ??=3D "3f3c5be6f908272199ccf53f108b1124bfe0a00e"
->> =A0SRCREV_pn-libfakekey ??=3D "e8c2e412ea4a417afc1f30e32cb7bdc508b1dccc"
->> =A0SRCREV_pn-libgdbus ??=3D "aeab6e3c0185b271ca343b439470491b99cc587f"
->> @@ -110,6 +110,7 @@ SRCREV_machine_pn-linux-yocto_mpc8315e-rdb ?=3D "68f=
-b0b8d73bbb336ffa4a47bc70ec1eab
->> =A0SRCREV_machine_pn-linux-yocto_beagleboard ?=3D "343c06b25b221aa7f7019=
-aee83b2d976041fddce"
->> =A0SRCREV_machine_pn-linux-yocto ?=3D "cb4faf3af527e25feee584f39c3956ca0=
-c9448c8"
->> =A0SRCREV_meta_pn-linux-yocto ?=3D "5a32d7fe3b817868ebb697d2d883d7439036=
-85ae"
->> +SRCREV_machine_pn-linux-yocto ?=3D "cb4faf3af527e25feee584f39c3956ca0c9=
-448c8"
->> =A0SRCREV_pn-linux-libc-headers-yocto ??=3D "343c06b25b221aa7f7019aee83b=
-2d976041fddce"
->> =A0SRCREV_pn-matchbox-config-gtk ??=3D "3ed74dfb7c57be088a5ab36e446c0ccd=
-e9fa1028"
->> =A0SRCREV_pn-matchbox-desktop-sato ??=3D "76"
->> diff --git a/meta/recipes-kernel/linux/linux-yocto-stable_git.bb b/meta/=
-recipes-kernel/linux/linux-yocto-stable_git.bb
->> index d4bee77..3c1e669 100644
->> --- a/meta/recipes-kernel/linux/linux-yocto-stable_git.bb
->> +++ b/meta/recipes-kernel/linux/linux-yocto-stable_git.bb
->
-> I merged this with the exception of the second hunk above since it just
-> adds a duplicate line.
-
-argh. Sorry about that, I was testing with your changes in my
-tree and thought I had rebased them out!
-
-Cheers,
-
-Bruce
-
->
-> Cheers,
->
-> Richard
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
+X-List-Received-Date: Wed, 09 Feb 2011 16:50:27 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
+Richard,
 
---=20
-"Thou shalt not follow the NULL pointer, for chaos and madness await
-thee at its end"
+Here are some a set of batched changes for docs, image-mklibs.bbclass 
+(to enable using mklibs) and the mesa update for removing the Talloc 
+dependency.
+
+Please review and pull.
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+   Branch: distro/master
+   Browse: 
+http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=distro/master
+
+Thanks,
+     Saul Wold <sgw@linux.intel.com>
+---
+
+
+Nitin A Kamble (1):
+   image-mklibs.bbclass: add the library optimization functionality
+
+Saul Wold (1):
+   makedepend: remove # from the beginning of DESCRIPTION lines
+
+Scott Garman (7):
+   xorg-cf-files: new recipe v1.0.4
+   libxext: add native support to recipe
+   libxpm: add native support to recipe
+   imake: add native support to recipe and update DEPENDS
+   transfig: new recipe v3.2.5d
+   prelink: add transfig-native to DEPENDS
+   xserver-kdrive.inc: add openssl to DEPENDS
+
+Yu Ke (4):
+   mesa-dri-7.10: replace GPLv3 talloc with MIT-x licensed ralloc
+   mesa-7.10: set mesa 7.10 as default instead of 7.8.2
+   mesa-xlib: upgrade to 7.10
+   talloc: remove talloc recipe
+
+  meta/classes/image-mklibs.bbclass                  |   69 +
+  .../distro/include/preferred-xorg-versions.inc     |    2 +-
+  meta/conf/local.conf.sample                        |   12 +-
+  meta/recipes-devtools/prelink/prelink_git.bb       |    4 +-
+  .../transfig/transfig-native_3.2.5d.bb             |   40 +
+  .../mesa/files/talloc-removal.patch                |15571 
+++++++++++++++++++++
+  meta/recipes-graphics/mesa/mesa-dri_7.10.bb        |    8 +-
+  meta/recipes-graphics/mesa/mesa-dri_7.8.2.bb       |    5 +-
+  .../mesa/{mesa-xlib_7.9.bb => mesa-xlib_7.10.bb}   |   11 +-
+  meta/recipes-graphics/xorg-lib/libxext_1.2.0.bb    |    2 +-
+  meta/recipes-graphics/xorg-lib/libxpm_3.5.9.bb     |    2 +
+  meta/recipes-graphics/xorg-util/imake_1.0.4.bb     |   10 +-
+  .../recipes-graphics/xorg-util/makedepend_1.0.3.bb |   11 +-
+  .../xorg-util/xorg-cf-files_1.0.4.bb               |   14 +
+  .../xorg-xserver/xserver-kdrive.inc                |    2 +-
+  .../xorg-xserver/xserver-kdrive_1.7.99.2.bb        |    2 +-
+  meta/recipes-support/talloc/talloc_2.0.1.bb        |   24 -
+  17 files changed, 15739 insertions(+), 50 deletions(-)
+  create mode 100644 meta/classes/image-mklibs.bbclass
+  create mode 100644 
+meta/recipes-devtools/transfig/transfig-native_3.2.5d.bb
+  create mode 100644 meta/recipes-graphics/mesa/files/talloc-removal.patch
+  rename meta/recipes-graphics/mesa/{mesa-xlib_7.9.bb => 
+mesa-xlib_7.10.bb} (60%)
+  create mode 100644 meta/recipes-graphics/xorg-util/xorg-cf-files_1.0.4.bb
+  delete mode 100644 meta/recipes-support/talloc/talloc_2.0.1.bb
+
+-- 
+     Sau!
+
+Saul Wold
+Yocto Component Wrangler @ Intel
+Yocto Project / Poky Build System
+
 
