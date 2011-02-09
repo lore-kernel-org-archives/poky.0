@@ -1,22 +1,24 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 6ED394C800A0
-	for <poky@yoctoproject.org>; Wed,  9 Feb 2011 10:50:27 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 09 Feb 2011 08:50:26 -0800
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E94FC4C80053
+	for <poky@pokylinux.org>; Wed,  9 Feb 2011 11:34:13 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 09 Feb 2011 09:34:13 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,446,1291622400"; d="scan'208";a="386402522"
-Received: from unknown (HELO [10.255.14.122]) ([10.255.14.122])
-	by azsmga001.ch.intel.com with ESMTP; 09 Feb 2011 08:50:26 -0800
-Message-ID: <4D52C5D2.4070006@linux.intel.com>
-Date: Wed, 09 Feb 2011 08:50:26 -0800
-From: Saul Wold <sgw@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="4.60,446,1291622400"; d="scan'208";a="656074647"
+Received: from unknown (HELO [10.255.14.215]) ([10.255.14.215])
+	by fmsmga002.fm.intel.com with ESMTP; 09 Feb 2011 09:34:13 -0800
+Message-ID: <4D52D005.7000801@linux.intel.com>
+Date: Wed, 09 Feb 2011 09:33:57 -0800
+From: Darren Hart <dvhart@linux.intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
+	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
 MIME-Version: 1.0
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: [PULL] Consolidated Pull Request
+To: Ilya Yanok <yanok@emcraft.com>
+References: <1297196798-23779-1-git-send-email-yanok@emcraft.com>
+In-Reply-To: <1297196798-23779-1-git-send-email-yanok@emcraft.com>
+Cc: poky@pokylinux.org
+Subject: Re: [PATCH 1/3] linux: add LIC_FILES_CHKSUM
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,83 +30,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Feb 2011 16:50:27 -0000
+X-List-Received-Date: Wed, 09 Feb 2011 17:34:14 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
+On 02/08/2011 12:26 PM, Ilya Yanok wrote:
+> Linux is licensed under GPL so add appropriate LIC_FILES_CHKSUM to
+> linux.inc file.
+>
+> Signed-off-by: Ilya Yanok<yanok@emcraft.com>
+> ---
+>   meta/recipes-kernel/linux/linux.inc |    2 ++
+>   1 files changed, 2 insertions(+), 0 deletions(-)
+>
+> diff --git a/meta/recipes-kernel/linux/linux.inc b/meta/recipes-kernel/linux/linux.inc
+> index 93859bb..c23d90f 100644
+> --- a/meta/recipes-kernel/linux/linux.inc
+> +++ b/meta/recipes-kernel/linux/linux.inc
+> @@ -2,6 +2,8 @@ DESCRIPTION = "Linux Kernel"
+>   SECTION = "kernel"
+>   LICENSE = "GPL"
+>
+> +LIC_FILES_CHKSUM = "file://COPYING;md5=d7810fab7487fb0aad327b76f1be7cd7"
+> +
 
-Richard,
-
-Here are some a set of batched changes for docs, image-mklibs.bbclass 
-(to enable using mklibs) and the mesa update for removing the Talloc 
-dependency.
-
-Please review and pull.
-
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-   Branch: distro/master
-   Browse: 
-http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=distro/master
-
-Thanks,
-     Saul Wold <sgw@linux.intel.com>
----
-
-
-Nitin A Kamble (1):
-   image-mklibs.bbclass: add the library optimization functionality
-
-Saul Wold (1):
-   makedepend: remove # from the beginning of DESCRIPTION lines
-
-Scott Garman (7):
-   xorg-cf-files: new recipe v1.0.4
-   libxext: add native support to recipe
-   libxpm: add native support to recipe
-   imake: add native support to recipe and update DEPENDS
-   transfig: new recipe v3.2.5d
-   prelink: add transfig-native to DEPENDS
-   xserver-kdrive.inc: add openssl to DEPENDS
-
-Yu Ke (4):
-   mesa-dri-7.10: replace GPLv3 talloc with MIT-x licensed ralloc
-   mesa-7.10: set mesa 7.10 as default instead of 7.8.2
-   mesa-xlib: upgrade to 7.10
-   talloc: remove talloc recipe
-
-  meta/classes/image-mklibs.bbclass                  |   69 +
-  .../distro/include/preferred-xorg-versions.inc     |    2 +-
-  meta/conf/local.conf.sample                        |   12 +-
-  meta/recipes-devtools/prelink/prelink_git.bb       |    4 +-
-  .../transfig/transfig-native_3.2.5d.bb             |   40 +
-  .../mesa/files/talloc-removal.patch                |15571 
-++++++++++++++++++++
-  meta/recipes-graphics/mesa/mesa-dri_7.10.bb        |    8 +-
-  meta/recipes-graphics/mesa/mesa-dri_7.8.2.bb       |    5 +-
-  .../mesa/{mesa-xlib_7.9.bb => mesa-xlib_7.10.bb}   |   11 +-
-  meta/recipes-graphics/xorg-lib/libxext_1.2.0.bb    |    2 +-
-  meta/recipes-graphics/xorg-lib/libxpm_3.5.9.bb     |    2 +
-  meta/recipes-graphics/xorg-util/imake_1.0.4.bb     |   10 +-
-  .../recipes-graphics/xorg-util/makedepend_1.0.3.bb |   11 +-
-  .../xorg-util/xorg-cf-files_1.0.4.bb               |   14 +
-  .../xorg-xserver/xserver-kdrive.inc                |    2 +-
-  .../xorg-xserver/xserver-kdrive_1.7.99.2.bb        |    2 +-
-  meta/recipes-support/talloc/talloc_2.0.1.bb        |   24 -
-  17 files changed, 15739 insertions(+), 50 deletions(-)
-  create mode 100644 meta/classes/image-mklibs.bbclass
-  create mode 100644 
-meta/recipes-devtools/transfig/transfig-native_3.2.5d.bb
-  create mode 100644 meta/recipes-graphics/mesa/files/talloc-removal.patch
-  rename meta/recipes-graphics/mesa/{mesa-xlib_7.9.bb => 
-mesa-xlib_7.10.bb} (60%)
-  create mode 100644 meta/recipes-graphics/xorg-util/xorg-cf-files_1.0.4.bb
-  delete mode 100644 meta/recipes-support/talloc/talloc_2.0.1.bb
+This is consistent with other .inc files (such as linux-yocto.inc). I'm 
+fine with it, but wanted to mention that linux.inc is going to be going 
+trough some serious pruning and refactoring in the near future.
 
 -- 
-     Sau!
-
-Saul Wold
-Yocto Component Wrangler @ Intel
-Yocto Project / Poky Build System
-
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
