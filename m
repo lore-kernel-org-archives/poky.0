@@ -1,27 +1,34 @@
-Return-Path: <koen@dominion.thruhere.net>
-Received: from mail-ww0-f41.google.com (mail-ww0-f41.google.com [74.125.82.41])
-	by mx1.pokylinux.org (Postfix) with ESMTP id F2F894C80053
-	for <poky@pokylinux.org>; Wed,  9 Feb 2011 12:15:29 -0600 (CST)
-Received: by wwi18 with SMTP id 18so2113042wwi.2
-	for <poky@pokylinux.org>; Wed, 09 Feb 2011 10:15:29 -0800 (PST)
-Received: by 10.227.133.194 with SMTP id g2mr2919466wbt.154.1297275328962;
-	Wed, 09 Feb 2011 10:15:28 -0800 (PST)
-Received: from [172.20.0.255] (ip545070eb.adsl-surfen.hetnet.nl
-	[84.80.112.235])
-	by mx.google.com with ESMTPS id n1sm339808weq.7.2011.02.09.10.15.28
-	(version=TLSv1/SSLv3 cipher=RC4-MD5);
-	Wed, 09 Feb 2011 10:15:28 -0800 (PST)
-Mime-Version: 1.0 (Apple Message framework v1082)
-From: Koen Kooi <koen@dominion.thruhere.net>
-In-Reply-To: <4D52D210.6070905@linux.intel.com>
-Date: Wed, 9 Feb 2011 19:15:27 +0100
-Message-Id: <B4A7B800-CC7B-439C-9F36-7410D3B6D117@dominion.thruhere.net>
+Return-Path: <wd@denx.de>
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2A1D74C80053
+	for <poky@pokylinux.org>; Wed,  9 Feb 2011 12:27:47 -0600 (CST)
+Received: from frontend1.mail.m-online.net (unknown [192.168.8.180])
+	by mail-out.m-online.net (Postfix) with ESMTP id 4C3111C01DBA;
+	Wed,  9 Feb 2011 19:27:45 +0100 (CET)
+X-Auth-Info: YvC5gaA/U/3VwlDS9vUj3gzaM5WaUb41xLxd/bd1ews=
+Received: from diddl.denx.de (host-80-81-18-216.customer.m-online.net
+	[80.81.18.216])
+	by smtp-auth.mnet-online.de (Postfix) with ESMTPA id D473D1C0016C;
+	Wed,  9 Feb 2011 19:27:44 +0100 (CET)
+Received: from gemini.denx.de (unknown [10.0.0.2])
+	by diddl.denx.de (Postfix) with ESMTP id 2E8DC3436637;
+	Wed,  9 Feb 2011 19:27:44 +0100 (CET)
+Received: from gemini.denx.de (localhost.localdomain [127.0.0.1])
+	by gemini.denx.de (Postfix) with ESMTP id 1B32014B9A38;
+	Wed,  9 Feb 2011 19:27:44 +0100 (CET)
+To: Koen Kooi <koen@dominion.thruhere.net>
+From: Wolfgang Denk <wd@denx.de>
+MIME-Version: 1.0
+In-reply-to: <B4A7B800-CC7B-439C-9F36-7410D3B6D117@dominion.thruhere.net>
 References: <1297196798-23779-1-git-send-email-yanok@emcraft.com>
 	<1297196798-23779-3-git-send-email-yanok@emcraft.com>
 	<4D52D210.6070905@linux.intel.com>
-To: Darren Hart <dvhart@linux.intel.com>
-X-Mailer: Apple Mail (2.1082)
-Cc: poky@pokylinux.org, Ilya Yanok <yanok@emcraft.com>
+	<B4A7B800-CC7B-439C-9F36-7410D3B6D117@dominion.thruhere.net>
+Comments: In-reply-to Koen Kooi <koen@dominion.thruhere.net>
+	message dated "Wed, 09 Feb 2011 19:15:27 +0100."
+Date: Wed, 09 Feb 2011 19:27:44 +0100
+Message-Id: <20110209182744.1B32014B9A38@gemini.denx.de>
+Cc: Ilya Yanok <yanok@emcraft.com>, poky@pokylinux.org
 Subject: Re: [PATCH 3/3] u-boot: compile with -O2 on PowerPC
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -34,50 +41,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Feb 2011 18:15:30 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Wed, 09 Feb 2011 18:27:47 -0000
+Content-type: text/plain; charset=ISO-8859-1
+Content-transfer-encoding: 8bit
 
+Dear Koen Kooi,
 
-Op 9 feb 2011, om 18:42 heeft Darren Hart het volgende geschreven:
+In message <B4A7B800-CC7B-439C-9F36-7410D3B6D117@dominion.thruhere.net> you wrote:
+> 
+> 4.5.3 + linaro patches has similar -Os problems on armv7a at least, fwiw
 
-> On 02/08/2011 12:26 PM, Ilya Yanok wrote:
->> gcc on PowerPC is currently compiled with -Os optimization disabled =
-so
->> we have to use -O2 on PowerPC instead.
->>=20
->> Signed-off-by: Ilya Yanok<yanok@emcraft.com>
->> ---
->>  meta/recipes-bsp/uboot/u-boot.inc |    7 ++++++-
->>  1 files changed, 6 insertions(+), 1 deletions(-)
->>=20
->> diff --git a/meta/recipes-bsp/uboot/u-boot.inc =
-b/meta/recipes-bsp/uboot/u-boot.inc
->> index 6492016..7694c77 100644
->> --- a/meta/recipes-bsp/uboot/u-boot.inc
->> +++ b/meta/recipes-bsp/uboot/u-boot.inc
->> @@ -22,7 +22,12 @@ do_compile () {
->>  	unset CFLAGS
->>  	unset CPPFLAGS
->>  	oe_runmake ${UBOOT_MACHINE}
->> -	oe_runmake all
->> +	# -Os is disabled on PowerPC
->> +	if [ ${TARGET_ARCH} =3D=3D "powerpc" ] ; then
->> +		oe_runmake OPTFLAGS=3D-O2 all
->> +	else
->> +		oe_runmake all
->> +	fi
->=20
->=20
-> This is already disabled in u-boot.inc with the following line:
->=20
-> # GCC 4.5.1 builds unusable binaries using -Os, remove it from =
-OPTFLAGS
-> EXTRA_OEMAKE =3D "CROSS_COMPILE=3D${TARGET_PREFIX} OPTFLAGS=3D''"
->=20
-> Resetting OPTFLAGS to '' removes the -Os from the variable in the =
-Makefile. This isn't just a PowerPC problem, it also manifested on ARM, =
-I believe it is a GCC 4.5.1 issue.
+For reference: we have a list of known compiler issues here:
+http://www.denx.de/wiki/U-Boot/GccBugsAndIssues
 
-4.5.3 + linaro patches has similar -Os problems on armv7a at least, fwiw=
+For some bugs exist patches, but so far these have not been mainlined
+yet (nor do I see all of them in the Yocto or Linaro tool chains).
+
+Best regards,
+
+Wolfgang Denk
+
+-- 
+DENX Software Engineering GmbH,     MD: Wolfgang Denk & Detlev Zundel
+HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
+Phone: (+49)-8142-66989-10 Fax: (+49)-8142-66989-80 Email: wd@denx.de
+It seems intuitively obvious to me, which  means  that  it  might  be
+wrong.                                                 -- Chris Torek
 
