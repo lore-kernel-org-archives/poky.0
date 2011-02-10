@@ -1,21 +1,29 @@
-Return-Path: <jiajun.xu@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C1F634C800AB
-	for <poky@pokylinux.org>; Thu, 10 Feb 2011 08:43:36 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 10 Feb 2011 06:43:36 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,451,1291622400"; d="scan'208";a="386896521"
-Received: from unknown (HELO localhost) ([10.239.48.201])
-	by azsmga001.ch.intel.com with ESMTP; 10 Feb 2011 06:43:35 -0800
-Message-Id: <181b7e9aa9a89ae2536dc03dc85d157e41099f87.1297349671.git.jiajun.xu@intel.com>
-In-Reply-To: <cover.1297349671.git.jiajun.xu@intel.com>
-References: <cover.1297349671.git.jiajun.xu@intel.com>
-Old-Date: Thu, 10 Feb 2011 22:50:14 +0800
-Date: Thu, 10 Feb 2011 22:57:46 +0800
-To: poky@pokylinux.org
-From: Jiajun Xu <jiajun.xu@intel.com>
-Subject: [PATCH 1/1] qemuimagetest: Rename test scenario file from poky-image-sdk to poky-image-sato-sdk
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 493EB4C800AB
+	for <poky@lists.pokylinux.org>; Thu, 10 Feb 2011 08:46:13 -0600 (CST)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id EDE181660264; Thu, 10 Feb 2011 07:46:12 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.1
+Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 4EF0816601A3;
+	Thu, 10 Feb 2011 07:46:12 -0700 (MST)
+Message-ID: <4D53FA34.4000105@mlbassoc.com>
+Date: Thu, 10 Feb 2011 07:46:12 -0700
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
+MIME-Version: 1.0
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+References: <4D533BCA.9000902@mlbassoc.com> <1297301826.20543.1722.camel@rex>
+In-Reply-To: <1297301826.20543.1722.camel@rex>
+Cc: Poky <poky@lists.pokylinux.org>
+Subject: Re: git tarballs gone?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,70 +35,41 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 10 Feb 2011 14:43:37 -0000
+X-List-Received-Date: Thu, 10 Feb 2011 14:46:13 -0000
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Jiajun Xu <jiajun.xu@intel.com>
+On 02/09/2011 06:37 PM, Richard Purdie wrote:
+> On Wed, 2011-02-09 at 18:13 -0700, Gary Thomas wrote:
+>> I just noticed that with the new fetcher, git tarballs are
+>> no longer being created.
+>>     * Is this expected?
+>>     * Can it be [re]enabled?  This is a great help to me so I
+>>       can distribute pre-staged sources to my customers. Tarballs
+>>       are much more convenient than .git repositories.
+>
+> Its expected, just set BB_GENERATE_MIRROR_TARBALLS = "1" in local.conf
+> to generate them if you need them.
+>
+> As standard the average user doesn't need/use/want them and the fetcher
+> no longer needs them so we don't generate them by default any more.
 
-Signed-off-by Jiajun Xu <jiajun.xu@intel.com>
----
- scripts/qemuimage-testlib                          |    6 ++++--
- .../{poky-image-sdk => poky-image-sato-sdk}        |    0
- .../{poky-image-sdk => poky-image-sato-sdk}        |    0
- .../{poky-image-sdk => poky-image-sato-sdk}        |    0
- .../{poky-image-sdk => poky-image-sato-sdk}        |    0
- .../{poky-image-sdk => poky-image-sato-sdk}        |    0
- 6 files changed, 4 insertions(+), 2 deletions(-)
- rename scripts/qemuimage-tests/scenario/qemuarm/{poky-image-sdk => poky-image-sato-sdk} (100%)
- rename scripts/qemuimage-tests/scenario/qemumips/{poky-image-sdk => poky-image-sato-sdk} (100%)
- rename scripts/qemuimage-tests/scenario/qemuppc/{poky-image-sdk => poky-image-sato-sdk} (100%)
- rename scripts/qemuimage-tests/scenario/qemux86-64/{poky-image-sdk => poky-image-sato-sdk} (100%)
- rename scripts/qemuimage-tests/scenario/qemux86/{poky-image-sdk => poky-image-sato-sdk} (100%)
+What would I need to do to get them generated?  Here's what I
+tried (which did not work):
 
-diff --git a/scripts/qemuimage-testlib b/scripts/qemuimage-testlib
-index 823cbfa..720ee8f 100644
---- a/scripts/qemuimage-testlib
-+++ b/scripts/qemuimage-testlib
-@@ -305,7 +305,8 @@ Test_Find_Image()
- 		else
- 			for i in `dir ${where}`
- 			do
--				echo $i | grep -q "${kernel}.*${arch}.*\.${extension}"
-+				# Exclude qemux86-64 when target is qemux86
-+				echo $i | grep "${kernel}.*${arch}.*\.${extension}" | grep -qv "${kernel}.*${arch}-64.*\.${extension}"
- 				if [ $? -eq 0 ]; then
- 					echo ${where}/${i}
- 					return 0
-@@ -323,7 +324,8 @@ Test_Find_Image()
- 		else
- 			for i in `dir ${where}`
- 			do
--				echo $i | grep -q "${target}-${arch}.*\.${extension}"
-+				# Exclude qemux86-64 when target is qemux86
-+				echo $i | grep "${target}-${arch}.*\.${extension}" | grep -qv "${target}-${arch}-64.*\.${extension}"
- 				if [ $? -eq 0 ]; then
- 					echo ${where}/${i}
- 					return 0
-diff --git a/scripts/qemuimage-tests/scenario/qemuarm/poky-image-sdk b/scripts/qemuimage-tests/scenario/qemuarm/poky-image-sato-sdk
-similarity index 100%
-rename from scripts/qemuimage-tests/scenario/qemuarm/poky-image-sdk
-rename to scripts/qemuimage-tests/scenario/qemuarm/poky-image-sato-sdk
-diff --git a/scripts/qemuimage-tests/scenario/qemumips/poky-image-sdk b/scripts/qemuimage-tests/scenario/qemumips/poky-image-sato-sdk
-similarity index 100%
-rename from scripts/qemuimage-tests/scenario/qemumips/poky-image-sdk
-rename to scripts/qemuimage-tests/scenario/qemumips/poky-image-sato-sdk
-diff --git a/scripts/qemuimage-tests/scenario/qemuppc/poky-image-sdk b/scripts/qemuimage-tests/scenario/qemuppc/poky-image-sato-sdk
-similarity index 100%
-rename from scripts/qemuimage-tests/scenario/qemuppc/poky-image-sdk
-rename to scripts/qemuimage-tests/scenario/qemuppc/poky-image-sato-sdk
-diff --git a/scripts/qemuimage-tests/scenario/qemux86-64/poky-image-sdk b/scripts/qemuimage-tests/scenario/qemux86-64/poky-image-sato-sdk
-similarity index 100%
-rename from scripts/qemuimage-tests/scenario/qemux86-64/poky-image-sdk
-rename to scripts/qemuimage-tests/scenario/qemux86-64/poky-image-sato-sdk
-diff --git a/scripts/qemuimage-tests/scenario/qemux86/poky-image-sdk b/scripts/qemuimage-tests/scenario/qemux86/poky-image-sato-sdk
-similarity index 100%
-rename from scripts/qemuimage-tests/scenario/qemux86/poky-image-sdk
-rename to scripts/qemuimage-tests/scenario/qemux86/poky-image-sato-sdk
+* I noticed that my build used git.pokylinux.org.matchbox-terminal, so
+
+... set BB_GENERATE_MIRROR_TARBALLS in local.conf
+% bitbake matchbox-terminal -c clean
+% rm -f sstate-cache/*matchbox-terminal*
+% bitbake matchbox-terminal
+
+It seemed happy to use the stored GIT in downloads/git2/git.pokylinux.org.matchbox-terminal,
+but did not generate a tarball during the process.
+
 -- 
-1.7.1
-
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
