@@ -1,31 +1,19 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2A5164C80053
-	for <poky@yoctoproject.org>; Thu, 10 Feb 2011 11:53:45 -0600 (CST)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1AHrjdq023097;
-	Thu, 10 Feb 2011 17:53:45 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 22465-10; Thu, 10 Feb 2011 17:53:41 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1AHrZkk023091
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Thu, 10 Feb 2011 17:53:38 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Darren Hart <dvhart@linux.intel.com>
-In-Reply-To: <2b62c0d3109b48892d1664778cf52d72ee013096.1297312726.git.dvhart@linux.intel.com>
-References: <cover.1297312726.git.dvhart@linux.intel.com>
-	<2b62c0d3109b48892d1664778cf52d72ee013096.1297312726.git.dvhart@linux.intel.com>
-Date: Thu, 10 Feb 2011 17:53:28 +0000
-Message-ID: <1297360408.20543.5709.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH] xkeyboard-config: make depend on intltool-native
+Return-Path: <sgw@linux.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 968594C8006D
+	for <poky@yoctoproject.org>; Thu, 10 Feb 2011 13:17:05 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 10 Feb 2011 11:17:05 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,451,1291622400"; d="scan'208";a="886321882"
+Received: from unknown (HELO localhost) ([10.255.14.122])
+	by fmsmga001.fm.intel.com with ESMTP; 10 Feb 2011 11:17:05 -0800
+Message-Id: <cover.1297365140.git.sgw@linux.intel.com>
+Old-Date: Thu, 10 Feb 2011 11:12:20 -0800
+Date: Thu, 10 Feb 2011 11:17:04 -0800
+To: poky@yoctoproject.org
+From: Saul Wold <sgw@linux.intel.com>
+Subject: [PATCH 0/1] Create new clean() mechanism inside fetcher2 code
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,29 +25,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 10 Feb 2011 17:53:46 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 10 Feb 2011 19:17:05 -0000
 
-On Wed, 2011-02-09 at 20:39 -0800, Darren Hart wrote:
-> From: Darren Hart <dvhart@linux.intel.com>
-> 
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->   Branch: dvhart/build
->   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dvhart/build
-> 
-> The xkeyboard-config listed intltool as a dependency, when in fact
-> it requires intltool-native in order to complete the do_configure
-> task.
-> 
-> Signed-off-by: Darren Hart <dvhart@linux.intel.com>
-> CC: Saul Wold <sgw@linux.intel.com>
-> ---
->  .../xorg-lib/xkeyboard-config_2.1.bb               |    4 ++--
->  1 files changed, 2 insertions(+), 2 deletions(-)
+From: Saul Wold <sgw@linux.intel.com>
 
-Merged to master, thanks.
+This moves the knowledge about what to clean up from the fetcher2 in to
+each of the fetcher modules.
 
-Richard
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: sgw/fetcher_fixes
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=sgw/fetcher_fixes
+
+Thanks,
+    Saul Wold <sgw@linux.intel.com>
+---
+
+
+Saul Wold (1):
+  fetch2: Correct the clean() mechanism for the fetcher2 code
+
+ bitbake/lib/bb/fetch2/__init__.py |   34 ++++++++++++++++++++++++++++++++++
+ bitbake/lib/bb/fetch2/cvs.py      |   12 ++++++++++++
+ bitbake/lib/bb/fetch2/git.py      |    6 ++++++
+ bitbake/lib/bb/fetch2/local.py    |    4 ++++
+ bitbake/lib/bb/fetch2/svn.py      |    7 +++++++
+ meta/classes/base.bbclass         |   24 +++++++++---------------
+ 6 files changed, 72 insertions(+), 15 deletions(-)
 
 
