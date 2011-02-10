@@ -1,23 +1,29 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 469654C8009E
-	for <poky@yoctoproject.org>; Wed,  9 Feb 2011 19:22:05 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 09 Feb 2011 17:22:04 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,448,1291622400"; d="scan'208";a="386638939"
-Received: from unknown (HELO [10.255.14.122]) ([10.255.14.122])
-	by azsmga001.ch.intel.com with ESMTP; 09 Feb 2011 17:22:04 -0800
-Message-ID: <4D533DBB.8020302@intel.com>
-Date: Wed, 09 Feb 2011 17:22:03 -0800
-From: Saul Wold <saul.wold@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
-MIME-Version: 1.0
-To: poky@yoctoproject.org
-References: <4D533BCA.9000902@mlbassoc.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 107564C80053
+	for <poky@lists.pokylinux.org>; Wed,  9 Feb 2011 19:37:17 -0600 (CST)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1A1bHR5009130;
+	Thu, 10 Feb 2011 01:37:17 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 08703-07; Thu, 10 Feb 2011 01:37:13 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1A1b9dL009124
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Thu, 10 Feb 2011 01:37:09 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Gary Thomas <gary@mlbassoc.com>
 In-Reply-To: <4D533BCA.9000902@mlbassoc.com>
+References: <4D533BCA.9000902@mlbassoc.com>
+Date: Thu, 10 Feb 2011 01:37:06 +0000
+Message-ID: <1297301826.20543.1722.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: Poky <poky@lists.pokylinux.org>
 Subject: Re: git tarballs gone?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -30,25 +36,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 10 Feb 2011 01:22:05 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Thu, 10 Feb 2011 01:37:18 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On 02/09/2011 05:13 PM, Gary Thomas wrote:
+On Wed, 2011-02-09 at 18:13 -0700, Gary Thomas wrote:
 > I just noticed that with the new fetcher, git tarballs are
 > no longer being created.
-> * Is this expected?
-Not expected.
+>    * Is this expected?
+>    * Can it be [re]enabled?  This is a great help to me so I
+>      can distribute pre-staged sources to my customers. Tarballs
+>      are much more convenient than .git repositories.
 
-> * Can it be [re]enabled? This is a great help to me so I
-> can distribute pre-staged sources to my customers. Tarballs
-> are much more convenient than .git repositories.
->
-I will be looking into this shortly.
+Its expected, just set BB_GENERATE_MIRROR_TARBALLS = "1" in local.conf
+to generate them if you need them. 
 
-Sau!
+As standard the average user doesn't need/use/want them and the fetcher
+no longer needs them so we don't generate them by default any more.
 
-> Thanks
->
+Cheers,
+
+Richard
 
 
