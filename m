@@ -1,28 +1,30 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 85BA04C800AB
-	for <poky@lists.pokylinux.org>; Thu, 10 Feb 2011 07:11:52 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 725BB166015C; Thu, 10 Feb 2011 06:11:51 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.1
-Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
-	by mail.chez-thomas.org (Postfix) with ESMTP id D31641660154;
-	Thu, 10 Feb 2011 06:11:50 -0700 (MST)
-Message-ID: <4D53E416.4090200@mlbassoc.com>
-Date: Thu, 10 Feb 2011 06:11:50 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
-MIME-Version: 1.0
-To: Poky <poky@lists.pokylinux.org>
-References: <4D53E3A5.9050801@mlbassoc.com>
-In-Reply-To: <4D53E3A5.9050801@mlbassoc.com>
-Subject: Re: Can't build for BeagleBoard
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2780A4C8007E
+	for <poky@yoctoproject.org>; Thu, 10 Feb 2011 07:19:31 -0600 (CST)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1ADJSnY019897;
+	Thu, 10 Feb 2011 13:19:28 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 19789-02; Thu, 10 Feb 2011 13:19:24 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1ADJJa9019891
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Thu, 10 Feb 2011 13:19:20 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Dexuan Cui <dexuan.cui@intel.com>
+In-Reply-To: <cover.1297321220.git.dexuan.cui@intel.com>
+References: <cover.1297321220.git.dexuan.cui@intel.com>
+Date: Thu, 10 Feb 2011 13:19:14 +0000
+Message-ID: <1297343954.20543.4558.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/1] lttng-ust: fix ppc build
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,27 +36,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 10 Feb 2011 13:11:52 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-List-Received-Date: Thu, 10 Feb 2011 13:19:32 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On 02/10/2011 06:09 AM, Gary Thomas wrote:
-> Using latest master 296866c38e1b88df42d66bdc32cfed2d5212914c
->
-> bitbake poky-image-sato fails with the log http://www.mlbassoc.com/poky/log.do_compile-beagleboard
->
-> You can see this with the simpler case
-> bitbake binutils
->
+On Thu, 2011-02-10 at 15:03 +0800, Dexuan Cui wrote:
+> From: Dexuan Cui <dexuan.cui@intel.com>
+> 
+> Here I introduced a patch from lttng mailing list to fix ppc build:
+> http://lists.casi.polymtl.ca/pipermail/ltt-dev/2011-February/003903.html
+> 
+> The patch looks good and I think it would be in next release.
+> At present, let's add it into SRC_URI.
+> 
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>   Branch: dcui/master
+>   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dcui/master
+> 
+> Thanks,
+>     Dexuan Cui <dexuan.cui@intel.com>
 
-Belay that - I had Nitin's GCC 4.5.2 changes enabled, so this
-error probably only applies there.
+Merged to master, thanks.
 
-Sorry
+Richard
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
 
