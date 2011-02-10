@@ -1,25 +1,24 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id ED39A4C80053
-	for <poky@yoctoproject.org>; Thu, 10 Feb 2011 11:13:11 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 10 Feb 2011 09:13:05 -0800
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 363AD4C80053
+	for <poky@lists.pokylinux.org>; Thu, 10 Feb 2011 11:13:43 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 10 Feb 2011 09:13:42 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,451,1291622400"; d="scan'208";a="886280829"
-Received: from unknown (HELO [10.255.14.122]) ([10.255.14.122])
-	by fmsmga001.fm.intel.com with ESMTP; 10 Feb 2011 09:13:05 -0800
-Message-ID: <4D541CA1.8000500@intel.com>
-Date: Thu, 10 Feb 2011 09:13:05 -0800
-From: Saul Wold <saul.wold@intel.com>
+X-IronPort-AV: E=Sophos;i="4.60,451,1291622400"; d="scan'208";a="706276595"
+Received: from unknown (HELO [10.255.14.120]) ([10.255.14.120])
+	by orsmga001.jf.intel.com with ESMTP; 10 Feb 2011 09:13:42 -0800
+Message-ID: <4D541CAD.1030001@linux.intel.com>
+Date: Thu, 10 Feb 2011 09:13:17 -0800
+From: Darren Hart <dvhart@linux.intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
+	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
 MIME-Version: 1.0
-To: Tom Zanussi <tom.zanussi@intel.com>
-References: <849307$bh0po3@azsmga001.ch.intel.com>
-In-Reply-To: <849307$bh0po3@azsmga001.ch.intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH] put udev trigger fix into meta-intel laverne
+To: Gary Thomas <gary@mlbassoc.com>
+References: <4D53E3A5.9050801@mlbassoc.com> <4D53E416.4090200@mlbassoc.com>
+In-Reply-To: <4D53E416.4090200@mlbassoc.com>
+Cc: Poky <poky@lists.pokylinux.org>
+Subject: Re: Can't build for BeagleBoard
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,45 +30,43 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 10 Feb 2011 17:13:12 -0000
+X-List-Received-Date: Thu, 10 Feb 2011 17:13:43 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 02/10/2011 08:30 AM, Tom Zanussi wrote:
-> From: Tom Zanussi<tom.zanussi@intel.com>
+On 02/10/2011 05:11 AM, Gary Thomas wrote:
+> On 02/10/2011 06:09 AM, Gary Thomas wrote:
+>> Using latest master 296866c38e1b88df42d66bdc32cfed2d5212914c
+>>
+>> bitbake poky-image-sato fails with the log
+>> http://www.mlbassoc.com/poky/log.do_compile-beagleboard
+>>
+>> You can see this with the simpler case
+>> bitbake binutils
+>>
 >
-> We can't do a laverne point release to include the udev trigger fix
-> right now, but we still need it in the laverne BSP, so roll it into
-> the layer instead.
->
-> Please pull into meta-intel laverne.
->
-Pulled into meta-intel
+> Belay that - I had Nitin's GCC 4.5.2 changes enabled, so this
+> error probably only applies there.
 
-Thanks for the quick turn.
+I'm currently booting the poky-image-minimal on the beagleboard in the 
+following configs:
 
-Sau!
+meta w/ linux-yocto
+
+meta w/ linux-yocto-stable
+
+meta
+meta-linaro
+
+There appears to be an issue with the serial driver, changing it to 
+ttyS2 from ttyO2 in beagleboard.conf seems to resolve it for the linaro 
+kernel. I'm looking into correcting the serial bits. The network 
+interface isn't working on the linaro kernel, but it does on the two 
+yocto kernels. I'm working on this as well.
 
 
-> Pull URL: git://git.pokylinux.org/meta-intel.git
->    Branch: tzanussi/apply-udev-trigger-for-laverne-here
->    Browse:
-> http://git.pokylinux.org/cgit.cgi/meta-intel/log/?h=tzanussi/apply-udev-trigger-for-laverne-here
->
-> Tom Zanussi (1):
->    meta-crownbay: apply init-live.sh coldplug udev trigger patch here
->      instead
->
->   ...01-init-live.sh-add-coldplug-udev-trigger.patch |   44 ++++++++++++++++++++
->   .../initrdscripts/initramfs-live-boot_1.0.bbappend |    6 +++
->   2 files changed, 50 insertions(+), 0 deletions(-)
->   create mode 100644 meta-crownbay/recipes-core/initrdscripts/initramfs-live-boot/0001-init-live.sh-add-coldplug-udev-trigger.patch
->   create mode 100644 meta-crownbay/recipes-core/initrdscripts/initramfs-live-boot_1.0.bbappend
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
-
+-- 
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
