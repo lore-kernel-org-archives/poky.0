@@ -1,22 +1,20 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B4E274C80053
-	for <poky@yoctoproject.org>; Wed,  9 Feb 2011 22:30:12 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 09 Feb 2011 20:30:12 -0800
+Return-Path: <dexuan.cui@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D42C84C80053
+	for <poky@yoctoproject.org>; Thu, 10 Feb 2011 01:03:56 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 09 Feb 2011 23:03:56 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,450,1291622400"; d="scan'208";a="601195600"
-Received: from fear.jf.intel.com (HELO localhost) ([10.7.201.75])
-	by orsmga002.jf.intel.com with ESMTP; 09 Feb 2011 20:30:07 -0800
-Message-Id: <2b62c0d3109b48892d1664778cf52d72ee013096.1297312726.git.dvhart@linux.intel.com>
-In-Reply-To: <cover.1297312726.git.dvhart@linux.intel.com>
-References: <cover.1297312726.git.dvhart@linux.intel.com>
-Old-Date: Wed, 9 Feb 2011 20:35:47 -0800
-Date: Wed, 09 Feb 2011 20:39:55 -0800
+X-IronPort-AV: E=Sophos;i="4.60,451,1291622400"; d="scan'208";a="656293577"
+Received: from dcui-desktop.sh.intel.com (HELO localhost) ([10.239.13.108])
+	by fmsmga002.fm.intel.com with ESMTP; 09 Feb 2011 23:03:55 -0800
+Message-Id: <cover.1297321220.git.dexuan.cui@intel.com>
+Old-Date: Thu, 10 Feb 2011 15:00:20 +0800
+Date: Thu, 10 Feb 2011 15:03:00 +0800
 To: poky@yoctoproject.org
-From: Darren Hart <dvhart@linux.intel.com>
-Cc: Darren Hart <dvhart@linux.intel.com>
-Subject: [PATCH] xkeyboard-config: make depend on intltool-native
+CC: 
+From: Dexuan Cui <dexuan.cui@intel.com>
+Subject: [PATCH 0/1] lttng-ust: fix ppc build
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,41 +26,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 10 Feb 2011 04:30:13 -0000
+X-List-Received-Date: Thu, 10 Feb 2011 07:03:57 -0000
 
-From: Darren Hart <dvhart@linux.intel.com>
+From: Dexuan Cui <dexuan.cui@intel.com>
+
+Here I introduced a patch from lttng mailing list to fix ppc build:
+http://lists.casi.polymtl.ca/pipermail/ltt-dev/2011-February/003903.html
+
+The patch looks good and I think it would be in next release.
+At present, let's add it into SRC_URI.
 
 Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: dvhart/build
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dvhart/build
+  Branch: dcui/master
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dcui/master
 
-The xkeyboard-config listed intltool as a dependency, when in fact
-it requires intltool-native in order to complete the do_configure
-task.
-
-Signed-off-by: Darren Hart <dvhart@linux.intel.com>
-CC: Saul Wold <sgw@linux.intel.com>
+Thanks,
+    Dexuan Cui <dexuan.cui@intel.com>
 ---
- .../xorg-lib/xkeyboard-config_2.1.bb               |    4 ++--
- 1 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/meta/recipes-graphics/xorg-lib/xkeyboard-config_2.1.bb b/meta/recipes-graphics/xorg-lib/xkeyboard-config_2.1.bb
-index e0aa799..b077fa3 100644
---- a/meta/recipes-graphics/xorg-lib/xkeyboard-config_2.1.bb
-+++ b/meta/recipes-graphics/xorg-lib/xkeyboard-config_2.1.bb
-@@ -17,9 +17,9 @@ SRC_URI[md5sum] = "6ce65480445fb2d9c071ad1f002a7675"
- SRC_URI[sha256sum] = "e293aa4b0dd259dbb4f0e7f56fdd95db5047d052c7b3b80922fe5663923a805d"
- 
- SECTION = "x11/libs"
--DEPENDS = "intltool xkbcomp-native glib-2.0"
-+DEPENDS = "intltool-native xkbcomp-native glib-2.0"
- 
--PR = "r0"
-+PR = "r1"
- 
- EXTRA_OECONF = "--with-xkb-rules-symlink=xorg"
- 
+
+Dexuan Cui (1):
+  lttng-ust: fix ppc build by removing ppc specific time reading
+    function
+
+ ...remove_ppc_specific_time_reading_function.patch |   85 ++++++++++++++++++++
+ meta/recipes-kernel/lttng/lttng-ust_0.11.bb        |    6 +-
+ 2 files changed, 89 insertions(+), 2 deletions(-)
+ create mode 100644 meta/recipes-kernel/lttng/lttng-ust-0.11/remove_ppc_specific_time_reading_function.patch
+
 -- 
-1.7.0.4
+1.7.2
 
 
