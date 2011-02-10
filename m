@@ -1,22 +1,30 @@
-Return-Path: <dongxiao.xu@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id BC06E4C800BE
-	for <poky@yoctoproject.org>; Fri, 11 Feb 2011 02:52:12 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 11 Feb 2011 00:52:12 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,454,1291622400"; d="scan'208";a="387321600"
-Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.32])
-	by azsmga001.ch.intel.com with ESMTP; 11 Feb 2011 00:52:11 -0800
-Message-Id: <bc033083c0aba73d9f06e22b8028539631d62984.1297415188.git.dongxiao.xu@intel.com>
-In-Reply-To: <cover.1297415188.git.dongxiao.xu@intel.com>
-References: <cover.1297415188.git.dongxiao.xu@intel.com>
-Old-Date: Fri, 11 Feb 2011 17:05:06 +0800
-Date: Fri, 11 Feb 2011 17:11:39 +0800
-To: poky@yoctoproject.org
-CC: 
-From: Dongxiao Xu <dongxiao.xu@intel.com>
-Subject: [PATCH 2/2] dbus: change owner and mode for dbus-daemon-launch-helper in postinst
+Return-Path: <eha@dev.doredevelopment.dk>
+Received: from public.doredevelopment.dk (unknown [77.233.226.4])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 187064C800AB;
+	Fri, 11 Feb 2011 03:59:06 -0600 (CST)
+Received: from localhost (localhost [127.0.0.1])
+	by public.doredevelopment.dk (Postfix) with ESMTP id E471140FF;
+	Fri, 11 Feb 2011 10:59:05 +0100 (CET)
+X-Virus-Scanned: Debian amavisd-new at dev.doredevelopment.dk
+Received: from public.doredevelopment.dk ([127.0.0.1])
+	by localhost (public.doredevelopment.dk [127.0.0.1]) (amavisd-new,
+	port 10024)
+	with ESMTP id JbNj9CmNT3yS; Fri, 11 Feb 2011 10:58:53 +0100 (CET)
+Received: from [192.168.18.32] (eha.doredevelopment.dk [192.168.18.32])
+	by public.doredevelopment.dk (Postfix) with ESMTP id 0E26390F;
+	Fri, 11 Feb 2011 10:58:52 +0100 (CET)
+From: Esben Haabendal <eha@dev.doredevelopment.dk>
+To: Bruce Ashfield <bruce.ashfield@windriver.com>
+In-Reply-To: <a80cd52437e3b3874ea0196d31127f14cf486f2f.1297232632.git.bruce.ashfield@windriver.com>
+References: <cover.1297232632.git.bruce.ashfield@windriver.com>
+	<a80cd52437e3b3874ea0196d31127f14cf486f2f.1297232632.git.bruce.ashfield@windriver.com>
+Organization: =?ISO-8859-1?Q?Dor=E9Development?= ApS
+Date: Thu, 10 Feb 2011 22:06:01 +0100
+Message-ID: <1297371961.3911.1.camel@eha>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.30.3 
+Cc: yocto@yoctoproject.org, poky@yoctoproject.org, saul.wold@intel.com
+Subject: Re: [PATCH 1/3] linux: factor dts/dtc/dtb handling into a specific include
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,49 +36,48 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 Feb 2011 08:52:12 -0000
+X-List-Received-Date: Fri, 11 Feb 2011 09:59:08 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-From: Dongxiao Xu <dongxiao.xu@intel.com>
+On Wed, 2011-02-09 at 01:27 -0500, Bruce Ashfield wrote:
+> diff --git a/meta/recipes-kernel/linux/linux-dtb.inc b/meta/recipes-kernel/linux/linux-dtb.inc
+> new file mode 100644
+> index 0000000..0b27d18
+> --- /dev/null
+> +++ b/meta/recipes-kernel/linux/linux-dtb.inc
+> @@ -0,0 +1,27 @@
+> +# Support for device tree generation
+> +FILES_kernel_devicetree = "/boot/devicetree*"
 
-Add code in dbus postinst to change owner and mode for
-dbus-daemon-launch-helper.
+I guess that should be FILES_kernel-devicetree to actually match the
+package name.
 
-[BUGID #603]
+> +KERNEL_DEVICETREE_FLAGS = "-R 8 -p 0x3000"
+> +
+> +python __anonymous () {
+> +    import bb
+> +
+> +    devicetree = bb.data.getVar("KERNEL_DEVICETREE", d, 1) or ''
+> +    if devicetree:
+> +	depends = bb.data.getVar("DEPENDS", d, 1)
+> +	bb.data.setVar("DEPENDS", "%s dtc-native" % depends, d)
+> +	packages = bb.data.getVar("PACKAGES", d, 1)
+> +	bb.data.setVar("PACKAGES", "%s kernel-devicetree" % packages, d)
+> +}
+> +
+> +do_install_append() {
+> +    if test -n "${KERNEL_DEVICETREE}"; then
+> +	dtc -I dts -O dtb ${KERNEL_DEVICETREE_FLAGS} -o devicetree ${KERNEL_DEVICETREE}
+> +	install -m 0644 devicetree ${D}/boot/devicetree-${KERNEL_VERSION}
+> +	install -d ${DEPLOY_DIR_IMAGE}
+> +	install -m 0644 devicetree ${DEPLOY_DIR_IMAGE}/${KERNEL_IMAGE_BASE_NAME}.dtb
+> +	cd ${DEPLOY_DIR_IMAGE}
+> +	rm -f ${KERNEL_IMAGE_SYMLINK_NAME}.dtb
+> +	ln -sf ${KERNEL_IMAGE_BASE_NAME}.dtb ${KERNEL_IMAGE_SYMLINK_NAME}.dtb
+> +    fi
+> +}
+> +
 
-Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
----
- meta/recipes-core/dbus/dbus.inc      |    4 +++-
- meta/recipes-core/dbus/dbus_1.4.1.bb |    2 +-
- 2 files changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/meta/recipes-core/dbus/dbus.inc b/meta/recipes-core/dbus/dbus.inc
-index da77819..1ef0d8f 100644
---- a/meta/recipes-core/dbus/dbus.inc
-+++ b/meta/recipes-core/dbus/dbus.inc
-@@ -53,7 +53,9 @@ pkg_postinst_dbus() {
- 			--ingroup "$MESSAGEUSER" "$MESSAGEUSER"
- 
- 	grep -q netdev: /etc/group || addgroup netdev
--	chmod u+s /usr/libexec/dbus-daemon-launch-helper
-+
-+	chown root:"$MESSAGEUSER" /usr/libexec/dbus-daemon-launch-helper
-+	chmod 4754 /usr/libexec/dbus-daemon-launch-helper
- 
- 	# add volatile after new user/grp are created
- 	echo "d messagebus messagebus 0755 /var/run/dbus none" > /etc/default/volatiles/99_dbus
-diff --git a/meta/recipes-core/dbus/dbus_1.4.1.bb b/meta/recipes-core/dbus/dbus_1.4.1.bb
-index 7c5627b..f16d9f2 100644
---- a/meta/recipes-core/dbus/dbus_1.4.1.bb
-+++ b/meta/recipes-core/dbus/dbus_1.4.1.bb
-@@ -1,6 +1,6 @@
- include dbus.inc
- 
--PR = "r0"
-+PR = "r1"
- 
- SRC_URI[md5sum] = "99cb057700c0455fb68f8d57902f77ac"
- SRC_URI[sha256sum] = "caa1a0ded2d0f2e95c1d4ec7e3c8bd44834928c5b0ed41a7189963f3593983bd"
--- 
-1.6.3.3
 
 
