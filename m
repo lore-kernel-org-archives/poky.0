@@ -1,31 +1,19 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 137E24C800B5
-	for <poky@lists.pokylinux.org>; Thu, 10 Feb 2011 09:40:41 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id CF0A61660323; Thu, 10 Feb 2011 08:40:40 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.1
-Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 4FE13166031B;
-	Thu, 10 Feb 2011 08:40:39 -0700 (MST)
-Message-ID: <4D5406F7.4020204@mlbassoc.com>
-Date: Thu, 10 Feb 2011 08:40:39 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
-MIME-Version: 1.0
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-References: <4D533BCA.9000902@mlbassoc.com>	 <1297301826.20543.1722.camel@rex>
-	<4D53FA34.4000105@mlbassoc.com>	 <1297350780.20543.5060.camel@rex>
-	<1297352035.20543.5148.camel@rex>
-In-Reply-To: <1297352035.20543.5148.camel@rex>
-Cc: Poky <poky@lists.pokylinux.org>
-Subject: Re: git tarballs gone?
+Return-Path: <tom.zanussi@intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 035DE4C80053
+	for <poky@yoctoproject.org>; Thu, 10 Feb 2011 10:30:48 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 10 Feb 2011 08:30:48 -0800
+Message-Id: <849307$bh0po3@azsmga001.ch.intel.com>
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,451,1291622400"; d="scan'208";a="386950926"
+Received: from unknown (HELO localhost) ([10.255.14.114])
+	by azsmga001.ch.intel.com with ESMTP; 10 Feb 2011 08:30:47 -0800
+Old-Date: Thu, 10 Feb 2011 10:17:24 -0600
+Date: Thu, 10 Feb 2011 10:30:38 -0600
+To: poky@yoctoproject.org
+From: Tom Zanussi <tom.zanussi@intel.com>
+Subject: [PATCH] put udev trigger fix into meta-intel laverne
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,42 +25,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 10 Feb 2011 15:40:41 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 10 Feb 2011 16:30:49 -0000
 
-On 02/10/2011 08:33 AM, Richard Purdie wrote:
-> On Thu, 2011-02-10 at 15:13 +0000, Richard Purdie wrote:
->> On Thu, 2011-02-10 at 07:46 -0700, Gary Thomas wrote:
->>> It seemed happy to use the stored GIT in downloads/git2/git.pokylinux.org.matchbox-terminal,
->>> but did not generate a tarball during the process.
->>
->> That download directory already existed? It only updates the tarball if
->> the repo changes:
->>
->>          os.chdir(ud.clonedir)
->>          mirror_tarballs = data.getVar("BB_GENERATE_MIRROR_TARBALLS", d, True)
->>          if mirror_tarballs != "0" and ud.repochanged:
->>              logger.info("Creating tarball of git repository")
->>              runfetchcmd("tar -czf %s %s" % (repofile, os.path.join(".") ),
->>
->> (from git.py in the fetcher)
->>
->> I guess we could make it do this if the destination file doesn't exist
->> too, I'll add a patch to do that.
->
-> http://git.pokylinux.org/cgit.cgi/poky/commit/?id=59a08262aba2d2b9b8b299a2818fb4cfe13b9909
->
-> It turned out to be a bit more ugly than I'd anticipated but a nice
-> improvement.
+From: Tom Zanussi <tom.zanussi@intel.com>
 
-That did the trick; same experiment generated a tarball.
+We can't do a laverne point release to include the udev trigger fix
+right now, but we still need it in the laverne BSP, so roll it into
+the layer instead.
 
-Thanks for the quick response!
+Please pull into meta-intel laverne.
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+Pull URL: git://git.pokylinux.org/meta-intel.git
+  Branch: tzanussi/apply-udev-trigger-for-laverne-here
+  Browse:
+http://git.pokylinux.org/cgit.cgi/meta-intel/log/?h=tzanussi/apply-udev-trigger-for-laverne-here
+
+Tom Zanussi (1):
+  meta-crownbay: apply init-live.sh coldplug udev trigger patch here
+    instead
+
+ ...01-init-live.sh-add-coldplug-udev-trigger.patch |   44 ++++++++++++++++++++
+ .../initrdscripts/initramfs-live-boot_1.0.bbappend |    6 +++
+ 2 files changed, 50 insertions(+), 0 deletions(-)
+ create mode 100644 meta-crownbay/recipes-core/initrdscripts/initramfs-live-boot/0001-init-live.sh-add-coldplug-udev-trigger.patch
+ create mode 100644 meta-crownbay/recipes-core/initrdscripts/initramfs-live-boot_1.0.bbappend
+
 
