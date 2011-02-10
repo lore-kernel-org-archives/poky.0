@@ -1,36 +1,22 @@
-Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 4A6624C8007E
-	for <poky@yoctoproject.org>; Wed,  9 Feb 2011 21:54:21 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 09 Feb 2011 19:54:20 -0800
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id B4E274C80053
+	for <poky@yoctoproject.org>; Wed,  9 Feb 2011 22:30:12 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 09 Feb 2011 20:30:12 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,450,1291622400"; d="scan'208";a="886093956"
-Received: from orsmsx602.amr.corp.intel.com ([10.22.226.211])
-	by fmsmga001.fm.intel.com with ESMTP; 09 Feb 2011 19:54:20 -0800
-Received: from orsmsx504.amr.corp.intel.com ([10.22.226.207]) by
-	orsmsx602.amr.corp.intel.com ([10.22.226.211]) with mapi;
-	Wed, 9 Feb 2011 19:54:20 -0800
-From: "Kamble, Nitin A" <nitin.a.kamble@intel.com>
-To: "Zhang, Jessica" <jessica.zhang@intel.com>, Gary Thomas <gary@mlbassoc.com>
-Date: Wed, 9 Feb 2011 19:54:20 -0800
-Thread-Topic: [poky] build failures for eglibc_2.12 on FC14.x86_64 machine
-Thread-Index: AcvIrLbQuZzxGR++RD+fm7atUv29+gAALKCgAAQFqZAAAMCVoAADDWxAAAJKoJA=
-Message-ID: <9DA5872FEF993D41B7173F58FCF6BE941217730C@orsmsx504.amr.corp.intel.com>
-References: <9AFCD584B0B67B48AE8D8585BE30BA950DB0AA11@orsmsx504.amr.corp.intel.com>
-	<4D531BCD.9020609@mlbassoc.com>
-	<9AFCD584B0B67B48AE8D8585BE30BA950DB0AA46@orsmsx504.amr.corp.intel.com>
-	<9DA5872FEF993D41B7173F58FCF6BE9412177205@orsmsx504.amr.corp.intel.com>
-	<9DA5872FEF993D41B7173F58FCF6BE9412177249@orsmsx504.amr.corp.intel.com>
-	<9AFCD584B0B67B48AE8D8585BE30BA950DB0AC79@orsmsx504.amr.corp.intel.com>
-In-Reply-To: <9AFCD584B0B67B48AE8D8585BE30BA950DB0AC79@orsmsx504.amr.corp.intel.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
-MIME-Version: 1.0
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: build failures for eglibc_2.12 on FC14.x86_64 machine
+X-IronPort-AV: E=Sophos;i="4.60,450,1291622400"; d="scan'208";a="601195600"
+Received: from fear.jf.intel.com (HELO localhost) ([10.7.201.75])
+	by orsmga002.jf.intel.com with ESMTP; 09 Feb 2011 20:30:07 -0800
+Message-Id: <2b62c0d3109b48892d1664778cf52d72ee013096.1297312726.git.dvhart@linux.intel.com>
+In-Reply-To: <cover.1297312726.git.dvhart@linux.intel.com>
+References: <cover.1297312726.git.dvhart@linux.intel.com>
+Old-Date: Wed, 9 Feb 2011 20:35:47 -0800
+Date: Wed, 09 Feb 2011 20:39:55 -0800
+To: poky@yoctoproject.org
+From: Darren Hart <dvhart@linux.intel.com>
+Cc: Darren Hart <dvhart@linux.intel.com>
+Subject: [PATCH] xkeyboard-config: make depend on intltool-native
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,26 +28,41 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 10 Feb 2011 03:54:21 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Thu, 10 Feb 2011 04:30:13 -0000
 
-> > Also it worked fine on my f14.64 system. So I did not see the issue
-> > with latest master. Nitin
->=20
-> Hmm, anything special you did on your f14.64 machine setup to run
-> bitbake
-> besides those documented in the quick start?
+From: Darren Hart <dvhart@linux.intel.com>
 
-Jessica,
-  This time I did: MACHINE=3Dqemuarm bitbake eglibc-nativesdk
-And it also built fine on f14.64.
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: dvhart/build
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dvhart/build
 
-Nothing special on F14. While installing I generally select all the package=
-s. And then as per the poky manual I also install poky-scripts and poky-dep=
-ends packages.
-Thanks,
-Nitin
+The xkeyboard-config listed intltool as a dependency, when in fact
+it requires intltool-native in order to complete the do_configure
+task.
+
+Signed-off-by: Darren Hart <dvhart@linux.intel.com>
+CC: Saul Wold <sgw@linux.intel.com>
+---
+ .../xorg-lib/xkeyboard-config_2.1.bb               |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/meta/recipes-graphics/xorg-lib/xkeyboard-config_2.1.bb b/meta/recipes-graphics/xorg-lib/xkeyboard-config_2.1.bb
+index e0aa799..b077fa3 100644
+--- a/meta/recipes-graphics/xorg-lib/xkeyboard-config_2.1.bb
++++ b/meta/recipes-graphics/xorg-lib/xkeyboard-config_2.1.bb
+@@ -17,9 +17,9 @@ SRC_URI[md5sum] = "6ce65480445fb2d9c071ad1f002a7675"
+ SRC_URI[sha256sum] = "e293aa4b0dd259dbb4f0e7f56fdd95db5047d052c7b3b80922fe5663923a805d"
+ 
+ SECTION = "x11/libs"
+-DEPENDS = "intltool xkbcomp-native glib-2.0"
++DEPENDS = "intltool-native xkbcomp-native glib-2.0"
+ 
+-PR = "r0"
++PR = "r1"
+ 
+ EXTRA_OECONF = "--with-xkb-rules-symlink=xorg"
+ 
+-- 
+1.7.0.4
 
 
