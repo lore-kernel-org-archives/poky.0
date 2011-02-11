@@ -1,32 +1,32 @@
-Return-Path: <stefan@datenfreihafen.org>
-Received: from sirius.lasnet.de (sirius.lasnet.de [78.47.116.19])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 379504C800AB
-	for <poky@yoctoproject.org>; Fri, 11 Feb 2011 04:07:57 -0600 (CST)
-Received: from [2001:638:602:1183:d951:1b7b:fca1:e19c] (helo=excalibur.local)
-	by sirius.lasnet.de with esmtpsa 
-	(Cipher TLS1.0:RSA_AES_256_CBC_SHA1:32) (Exim 4.69 #1)
-	id 1Pnpur-0003Cb-44 by authid <stefan@sostec.de> with cram_md5
-	for <poky@yoctoproject.org>; Fri, 11 Feb 2011 11:07:55 +0100
-Received: from stefan by excalibur.local with local (Exim 4.72)
-	(envelope-from <stefan@excalibur.local>) id 1Pnpup-00041r-U1
-	for poky@yoctoproject.org; Fri, 11 Feb 2011 11:07:51 +0100
-Date: Fri, 11 Feb 2011 11:07:51 +0100
-From: Stefan Schmidt <stefan@datenfreihafen.org>
-To: poky@yoctoproject.org
-Message-ID: <20110211100751.GF9652@excalibur.local>
-References: <cover.1297415188.git.dongxiao.xu@intel.com>
-	<0a9dc7a03251c1521a2e5baaead56055207ae72f.1297415188.git.dongxiao.xu@intel.com>
-MIME-Version: 1.0
-In-Reply-To: <0a9dc7a03251c1521a2e5baaead56055207ae72f.1297415188.git.dongxiao.xu@intel.com>
-X-Mailer: Mutt http://www.mutt.org/
-X-KeyID: 0xDDF51665
-X-Website: http://www.datenfreihafen.org/
-User-Agent: Mutt/1.5.20 (2009-06-14)
-X-Spam-Checker-Version: SpamAssassin 3.2.5 (2008-06-10) on sirius.lasnet.de
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,NO_RELAYS
-	autolearn=ham version=3.2.5
-Subject: Re: [PATCH 1/2] wpa-supplicant: change dbus interface
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8E3AC4C800AB;
+	Fri, 11 Feb 2011 04:28:09 -0600 (CST)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1BAS3rd031964;
+	Fri, 11 Feb 2011 10:28:03 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 31866-02; Fri, 11 Feb 2011 10:27:59 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1BARtXG031957
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Fri, 11 Feb 2011 10:27:58 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Esben Haabendal <eha@dev.doredevelopment.dk>
+In-Reply-To: <1297371961.3911.1.camel@eha>
+References: <cover.1297232632.git.bruce.ashfield@windriver.com>
+	<a80cd52437e3b3874ea0196d31127f14cf486f2f.1297232632.git.bruce.ashfield@windriver.com>
+	<1297371961.3911.1.camel@eha>
+Date: Fri, 11 Feb 2011 10:27:51 +0000
+Message-ID: <1297420071.20543.9726.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: yocto@yoctoproject.org, poky@yoctoproject.org, saul.wold@intel.com
+Subject: Re: [PATCH 1/3] linux: factor dts/dtc/dtb handling into a specific include
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,48 +38,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 Feb 2011 10:07:58 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-List-Received-Date: Fri, 11 Feb 2011 10:28:10 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Hello.
-
-On Fri, 2011-02-11 at 17:11, Dongxiao Xu wrote:
-> From: Dongxiao Xu <dongxiao.xu@intel.com>
+On Thu, 2011-02-10 at 22:06 +0100, Esben Haabendal wrote:
+> On Wed, 2011-02-09 at 01:27 -0500, Bruce Ashfield wrote:
+> > diff --git a/meta/recipes-kernel/linux/linux-dtb.inc b/meta/recipes-kernel/linux/linux-dtb.inc
+> > new file mode 100644
+> > index 0000000..0b27d18
+> > --- /dev/null
+> > +++ b/meta/recipes-kernel/linux/linux-dtb.inc
+> > @@ -0,0 +1,27 @@
+> > +# Support for device tree generation
+> > +FILES_kernel_devicetree = "/boot/devicetree*"
 > 
->  # Driver interface for FreeBSD net80211 layer (e.g., Atheros driver)
->  #CONFIG_DRIVER_BSD=y
-> @@ -404,4 +405,4 @@ CONFIG_PEERKEY=y
->  #LIBS_c += -lbfd -liberty -lz
->  CONFIG_TLS = gnutls
->  CONFIG_GNUTLS_EXTRA=y
-> -CONFIG_CTRL_IFACE_DBUS=y
-> +CONFIG_CTRL_IFACE_DBUS_NEW=y
+> I guess that should be FILES_kernel-devicetree to actually match the
+> package name.
 
-Any reason not enable both dbus interfaces? They can happily life next to each
-other. Thats how I did it in OE.
+Yes, I've pushed a fix for that, thanks.
 
-> diff --git a/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.inc b/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.inc
-> index 7865b8f..cd62d8f 100644
-> --- a/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.inc
-> +++ b/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.inc
-> @@ -6,7 +6,7 @@ LICENSE = "GPLv2 | BSD"
->  LIC_FILES_CHKSUM = "file://../COPYING;md5=c54ce9345727175ff66d17b67ff51f58 \
->                      file://../README;md5=54cfc88015d3ce83f7156e63c6bb1738 \
->                      file://wpa_supplicant.c;beginline=1;endline=17;md5=acdc5a4b0d6345f21f136eace747260e"
-> -DEPENDS = "gnutls dbus"
-> +DEPENDS = "gnutls dbus libnl"
+Richard
 
-Hmm, does poky onl yhave libnl2 recipes or both libnl and libnl2?
-
-If the later you should depend on libnl2 instead. I'm trying to get rid of these
-libnl mess in OE and getting all packges over to libnl2. Would be great if we
-could share resources here. The iw package for example can also be switched
-easily.
-
-I fear I only have time to send patches to poky after the OE release in march.
-If you want to cherry-pick (if possible) patches that of course fine.
-
-regards
-Stefan Schmidt
 
