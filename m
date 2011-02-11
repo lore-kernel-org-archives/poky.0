@@ -1,24 +1,28 @@
 Return-Path: <mark.hatle@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id EF6144C8006D
-	for <poky@yoctoproject.org>; Fri, 11 Feb 2011 08:58:32 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id A106B4C8006D
+	for <poky@yoctoproject.org>; Fri, 11 Feb 2011 08:58:33 -0600 (CST)
 Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p1BEwWaD016941
-	for <poky@yoctoproject.org>; Fri, 11 Feb 2011 06:58:32 -0800 (PST)
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p1BEwXdn016944
+	for <poky@yoctoproject.org>; Fri, 11 Feb 2011 06:58:33 -0800 (PST)
 Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
 	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Fri, 11 Feb 2011 06:58:31 -0800
+	Fri, 11 Feb 2011 06:58:32 -0800
 Received: from msp-mhatle-lx2.wrs.com ([172.25.34.61]) by
 	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Fri, 11 Feb 2011 06:58:31 -0800
+	Fri, 11 Feb 2011 06:58:32 -0800
 From: Mark Hatle <mark.hatle@windriver.com>
 To: poky@yoctoproject.org
-Date: Fri, 11 Feb 2011 08:55:58 -0600
-Message-Id: <cover.1297435715.git.mark.hatle@windriver.com>
+Date: Fri, 11 Feb 2011 08:55:59 -0600
+Message-Id: <bf556ec4a2a5df87235facd93e31bc8f177f7390.1297435715.git.mark.hatle@windriver.com>
 X-Mailer: git-send-email 1.7.3.4
-X-OriginalArrivalTime: 11 Feb 2011 14:58:32.0138 (UTC)
-	FILETIME=[2647EAA0:01CBC9FC]
-Subject: [PATCH 0/4] Refactor debug info generation
+In-Reply-To: <cover.1297435715.git.mark.hatle@windriver.com>
+References: <cover.1297435715.git.mark.hatle@windriver.com>
+In-Reply-To: <cover.1297435715.git.mark.hatle@windriver.com>
+References: <cover.1297435715.git.mark.hatle@windriver.com>
+X-OriginalArrivalTime: 11 Feb 2011 14:58:32.0685 (UTC)
+	FILETIME=[269B61D0:01CBC9FC]
+Subject: [PATCH 1/4] package.bbclass: Breakout the strip from the populate_packages
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,87 +36,131 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Fri, 11 Feb 2011 14:58:33 -0000
 
-The primary purpose of this patch is to refactor the way the -dbg packages
-and associated files are generated.  In the original code it's being done
-in one operation with the splitting and stripping of the files within the
-populate_packages.  The code was split from there, and then modified in two
-steps to get to the final version.
+Break out the file split/strip from the populate_packages.
 
-The first step implemented the new method where the split occurs and then the
-strip occurs.  This makes it easier to tailor each of them as things change
-in the future.
-
-The second path refactors this to eleminate multiple file walks and file
-identification processing.  The behavior of the system is the same, only
-things are more efficient.
-
-The fourth patch is simply a bug fix to some pre/post actions I found
-while diagnosing and debugging.  This patch is separate from the rest of the
-refactoring and should be merged, even if the others are not.
-
-FYI, I also did timing on this to see how it impacted system performance.
-The times below affect ONLY the do_package [and later] stages, on my specific
-host.  (8 core with a 16/16 build configuration)
-
-Original before these changes:
-real    37m29.035s
-user    41m14.322s
-sys     31m0.006s
-
-After the changes -- using "debian" style debuginfo, i.e. the same output
-as the original style:
-real    36m48.160s
-user    42m17.636s
-sys     31m47.846s
-
-After the changes -- using the new "fedora" style debug info:
-real    38m48.793s
-user    44m9.822s
-sys     37m48.803s
-
-The first two are nearly the same.  Any deviation is likely due to the 
-additional hardlink/symlink processing.
-
-The fedora style introduces additional steps in the process that rewrite
-source code references and duplicate specific source code files into the
--dbg directory for later (easier) debugging.
-
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: mhatle/debuginfo
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=mhatle/debuginfo
-
-Thanks,
-    Mark Hatle <mark.hatle@windriver.com>
+Signed-off-by: Mark Hatle <mark.hatle@windriver.com>
 ---
+ meta/classes/package.bbclass |   58 ++++++++++++++++++++++++++----------------
+ 1 files changed, 36 insertions(+), 22 deletions(-)
 
-
-Mark Hatle (4):
-  package.bbclass: Breakout the strip from the populate_packages
-  Revise stripping and splitting of debug information
-  package.bbclass: Refactor split and strip function
-  recipes: pre/post actions
-
- meta/classes/insane.bbclass                        |    4 +-
- meta/classes/package.bbclass                       |  325 +++++++++++++++++---
- meta/conf/bitbake.conf                             |    7 +-
- meta/conf/local.conf.sample                        |   28 ++
- meta/recipes-bsp/hostap/hostap-conf_1.0.bb         |    4 +-
- meta/recipes-bsp/lrzsz/lrzsz_0.12.20.bb            |    4 +-
- meta/recipes-bsp/orinoco/orinoco-conf_1.0.bb       |    4 +-
- .../libnss-mdns/libnss-mdns_0.10.bb                |    4 +-
- .../ppp-dialin/ppp-dialin_0.1.bb                   |    4 +-
- .../recipes-core/base-passwd/base-passwd_3.5.22.bb |    2 +-
- meta/recipes-core/dropbear/dropbear.inc            |    4 +-
- .../sgml-common/sgml-common_0.6.3.bb               |    4 +-
- meta/recipes-extended/bash/bash.inc                |    2 +-
- meta/recipes-extended/bash/bash_3.2.48.bb          |    2 +-
- meta/recipes-extended/sudo/sudo.inc                |    2 +-
- .../ttf-fonts/liberation-fonts_1.04.bb             |    2 +-
- .../ttf-fonts/liberation-fonts_1.06.bb             |    2 +-
- .../ttf-fonts/ttf-bitstream-vera_1.10.bb           |    2 +-
- .../update-modules/update-modules_1.0.bb           |    2 +-
- 19 files changed, 340 insertions(+), 68 deletions(-)
-
+diff --git a/meta/classes/package.bbclass b/meta/classes/package.bbclass
+index fd29aaa..fa1abf0 100644
+--- a/meta/classes/package.bbclass
++++ b/meta/classes/package.bbclass
+@@ -11,24 +11,27 @@
+ #
+ # b) package_do_split_locales - Split out the locale files, updates FILES and PACKAGES
+ #
+-# c) populate_packages - Split the files in PKGD into separate packages in PKGDEST/<pkgname>
++# c) split_and_strip_files - split the files into runtime and debug and strip them.
++#    Debug files include debug info split, and associated sources that end up in -dbg packages
++#
++# d) populate_packages - Split the files in PKGD into separate packages in PKGDEST/<pkgname>
+ #    Also triggers the binary stripping code to put files in -dbg packages.
+ #
+-# d) package_do_filedeps - Collect perfile run-time dependency metadata
++# e) package_do_filedeps - Collect perfile run-time dependency metadata
+ #    The data is stores in FILER{PROVIDES,DEPENDS}_file_pkg variables with
+ #    a list of affected files in FILER{PROVIDES,DEPENDS}FLIST_pkg
+ #
+-# e) package_do_shlibs - Look at the shared libraries generated and autotmatically add any 
++# f) package_do_shlibs - Look at the shared libraries generated and autotmatically add any 
+ #    depenedencies found. Also stores the package name so anyone else using this library 
+ #    knows which package to depend on.
+ #
+-# f) package_do_pkgconfig - Keep track of which packages need and provide which .pc files
++# g) package_do_pkgconfig - Keep track of which packages need and provide which .pc files
+ #
+-# g) read_shlibdeps - Reads the stored shlibs information into the metadata
++# h) read_shlibdeps - Reads the stored shlibs information into the metadata
+ #
+-# h) package_depchains - Adds automatic dependencies to -dbg and -dev packages
++# i) package_depchains - Adds automatic dependencies to -dbg and -dev packages
+ #
+-# i) emit_pkgdata - saves the packaging data into PKGDATA_DIR for use in later 
++# j) emit_pkgdata - saves the packaging data into PKGDATA_DIR for use in later 
+ #    packaging steps
+ 
+ inherit packagedata
+@@ -163,7 +166,7 @@ python () {
+ }
+ 
+ def runstrip(file, d):
+-    # Function to strip a single file, called from populate_packages below
++    # Function to strip a single file, called from split_and_strip_files below
+     # A working 'file' (one which works on the target architecture)
+     # is necessary for this stuff to work, hence the addition to do_package[depends]
+ 
+@@ -329,16 +332,11 @@ python perform_packagecopy () {
+ 	os.system('tar -cf - -C %s -ps . | tar -xf - -C %s' % (dest, dvar))
+ }
+ 
+-python populate_packages () {
+-	import glob, stat, errno, re
++python split_and_strip_files () {
++	import stat
+ 
+-	workdir = bb.data.getVar('WORKDIR', d, True)
+-	outdir = bb.data.getVar('DEPLOY_DIR', d, True)
+ 	dvar = bb.data.getVar('PKGD', d, True)
+-	packages = bb.data.getVar('PACKAGES', d, True)
+-	pn = bb.data.getVar('PN', d, True)
+ 
+-	bb.mkdirhier(outdir)
+ 	os.chdir(dvar)
+ 
+ 	def isexec(path):
+@@ -348,6 +346,28 @@ python populate_packages () {
+ 			return 0
+ 		return (s[stat.ST_MODE] & stat.S_IEXEC)
+ 
++	# Figure out which packages we want to process
++	if (bb.data.getVar('INHIBIT_PACKAGE_STRIP', d, True) != '1'):
++		for root, dirs, files in os.walk(dvar):
++			for f in files:
++				file = os.path.join(root, f)
++				if not os.path.islink(file) and not os.path.isdir(file) and isexec(file):
++					runstrip(file, d)
++
++}
++
++python populate_packages () {
++	import glob, stat, errno, re
++
++	workdir = bb.data.getVar('WORKDIR', d, True)
++	outdir = bb.data.getVar('DEPLOY_DIR', d, True)
++	dvar = bb.data.getVar('PKGD', d, True)
++	packages = bb.data.getVar('PACKAGES', d, True)
++	pn = bb.data.getVar('PN', d, True)
++
++	bb.mkdirhier(outdir)
++	os.chdir(dvar)
++
+ 	# Sanity check PACKAGES for duplicates - should be moved to 
+ 	# sanity.bbclass once we have the infrastucture
+ 	package_list = []
+@@ -360,13 +380,6 @@ python populate_packages () {
+ 		else:
+ 			package_list.append(pkg)
+ 
+-	if (bb.data.getVar('INHIBIT_PACKAGE_STRIP', d, True) != '1'):
+-		for root, dirs, files in os.walk(dvar):
+-			for f in files:
+-				file = os.path.join(root, f)
+-				if not os.path.islink(file) and not os.path.isdir(file) and isexec(file):
+-					runstrip(file, d)
+-
+ 	pkgdest = bb.data.getVar('PKGDEST', d, True)
+ 	os.system('rm -rf %s' % pkgdest)
+ 
+@@ -1081,6 +1094,7 @@ PACKAGE_PREPROCESS_FUNCS ?= ""
+ PACKAGEFUNCS ?= "perform_packagecopy \
+                 ${PACKAGE_PREPROCESS_FUNCS} \
+ 		package_do_split_locales \
++		split_and_strip_files \
+ 		populate_packages \
+ 		package_do_filedeps \
+ 		package_do_shlibs \
 -- 
 1.7.3.4
 
