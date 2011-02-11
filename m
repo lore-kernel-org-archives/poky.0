@@ -1,23 +1,30 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 8744C4C80053
-	for <poky@yoctoproject.org>; Fri, 11 Feb 2011 16:58:50 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 11 Feb 2011 14:58:49 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,458,1291622400"; d="scan'208";a="387666908"
-Received: from unknown (HELO [10.255.14.135]) ([10.255.14.135])
-	by azsmga001.ch.intel.com with ESMTP; 11 Feb 2011 14:58:49 -0800
-Message-ID: <4D55BF29.90703@linux.intel.com>
-Date: Fri, 11 Feb 2011 14:58:49 -0800
-From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
+Return-Path: <mark.hatle@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 919994C80053
+	for <poky@yoctoproject.org>; Fri, 11 Feb 2011 17:12:05 -0600 (CST)
+Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p1BNC4v0016557;
+	Fri, 11 Feb 2011 15:12:04 -0800 (PST)
+Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
+	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Fri, 11 Feb 2011 15:12:04 -0800
+Received: from Macintosh-5.local ([172.25.36.226]) by
+	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Fri, 11 Feb 2011 15:12:04 -0800
+Message-ID: <4D55C242.6090804@windriver.com>
+Date: Fri, 11 Feb 2011 17:12:02 -0600
+From: Mark Hatle <mark.hatle@windriver.com>
+Organization: Wind River Systems
+User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
+	rv:1.9.2.13) Gecko/20101207 Thunderbird/3.1.7
 MIME-Version: 1.0
-To: Mark Hatle <mark.hatle@windriver.com>
+To: Darren Hart <dvhart@linux.intel.com>
 References: <cover.1297455890.git.mark.hatle@windriver.com>
 	<036ec84d411be6ee4d2bb2bf4c0fd2cb5c811cf7.1297455890.git.mark.hatle@windriver.com>
-In-Reply-To: <036ec84d411be6ee4d2bb2bf4c0fd2cb5c811cf7.1297455890.git.mark.hatle@windriver.com>
+	<4D55BF29.90703@linux.intel.com>
+In-Reply-To: <4D55BF29.90703@linux.intel.com>
+X-OriginalArrivalTime: 11 Feb 2011 23:12:04.0138 (UTC)
+	FILETIME=[186888A0:01CBCA41]
 Cc: poky@yoctoproject.org
 Subject: Re: [PATCH 1/1] busybox: Rework busybox to fix limitations in	initscripts
 X-BeenThere: poky@yoctoproject.org
@@ -31,88 +38,90 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 Feb 2011 22:58:50 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Fri, 11 Feb 2011 23:12:06 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 7bit
 
-On 02/11/2011 12:26 PM, Mark Hatle wrote:
-> A recent busybox change added a "second" initscript to the main busybox
-> package.  This however is not supported by the update-rc.d.bbclass.
-> Instead we split the package so that each initscript gets it's own split.
+On 2/11/11 4:58 PM, Darren Hart wrote:
+> On 02/11/2011 12:26 PM, Mark Hatle wrote:
+>> A recent busybox change added a "second" initscript to the main busybox
+>> package.  This however is not supported by the update-rc.d.bbclass.
+>> Instead we split the package so that each initscript gets it's own split.
+> 
+> Does this address:
+> 
+> http://bugzilla.pokylinux.org/show_bug.cgi?id=706
 
-Does this address:
+Yes this fixes that issue.
 
-http://bugzilla.pokylinux.org/show_bug.cgi?id=706
+--Mark
 
---
-Darren
+> --
+> Darren
+> 
+>> Signed-off-by: Mark Hatle<mark.hatle@windriver.com>
+>> ---
+>>   meta/recipes-core/busybox/busybox.inc |   21 ++++++++++++++-------
+>>   1 files changed, 14 insertions(+), 7 deletions(-)
+>>
+>> diff --git a/meta/recipes-core/busybox/busybox.inc b/meta/recipes-core/busybox/busybox.inc
+>> index 55f056c..9f2d64c 100644
+>> --- a/meta/recipes-core/busybox/busybox.inc
+>> +++ b/meta/recipes-core/busybox/busybox.inc
+>> @@ -12,22 +12,25 @@ SECTION = "base"
+>>   PRIORITY = "required"
+>>
+>>   export EXTRA_CFLAGS = "${CFLAGS}"
+>> -PACKAGES =+ "${PN}-httpd ${PN}-udhcpd"
+>> +PACKAGES =+ "${PN}-httpd ${PN}-udhcpd ${PN}-udhcpc ${PN}-syslog"
+>>
+>>   FILES_${PN}-httpd = "${sysconfdir}/init.d/busybox-httpd /srv/www"
+>> +FILES_${PN}-syslog = "${sysconfdir}/init.d/syslog* ${sysconfdir}/syslog.conf*"
+>>   FILES_${PN}-udhcpd = "${sysconfdir}/init.d/busybox-udhcpd"
+>> +FILES_${PN}-udhcpc = "${sysconfdir}/udhcpc.d ${datadir}/udhcpc ${sysconfdir}/init.d/busybox-udhcpc"
+>>
+>> -FILES_${PN} += "${datadir}/udhcpc"
+>> -FILES_${PN} += "${sysconfdir}/init.d/busybox-udhcpc"
+>> +INITSCRIPT_PACKAGES = "${PN}-httpd ${PN}-syslog ${PN}-udhcpd ${PN}-udhcpc"
+>>
+>> -INITSCRIPT_PACKAGES = "${PN} ${PN}-httpd ${PN}-udhcpd"
+>>   INITSCRIPT_NAME_${PN}-httpd = "busybox-httpd"
+>> +INITSCRIPT_NAME_${PN}-syslog = "syslog"
+>>   INITSCRIPT_NAME_${PN}-udhcpd = "busybox-udhcpd"
+>> -INITSCRIPT_NAME_${PN} = "syslog busybox-udhcpc"
+>> -CONFFILES_${PN} = "${sysconfdir}/syslog.conf.${PN}"
+>> +INITSCRIPT_NAME_${PN}-udhcpc = "busybox-udhcpc"
+>> +CONFFILES_${PN}-syslog = "${sysconfdir}/syslog.conf.${PN}"
+>> +
+>> +RRECOMMENDS_${PN} = "${PN}-syslog ${PN}-udhcpc"
+>>
+>>   # This disables the syslog startup links in slugos (see slugos-init)
+>> -INITSCRIPT_PARAMS_${PN}_slugos = "start 20 ."
+>> +INITSCRIPT_PARAMS_${PN}-syslog_slugos = "start 20 ."
+>>
+>>   inherit cml1 update-rc.d
+>>
+>> @@ -116,7 +119,9 @@ pkg_postinst_${PN} () {
+>>   	
+>>   	# This adds the links, remember that this has to work when building an image too, hence the $D
+>>   	while read link; do case "$link" in /*/*/*) to="../../bin/busybox";; /bin/*) to="busybox";; /*/*) to="../bin/busybox";; esac; bn=`basename $link`; update-alternatives --install $link $bn $to 50; done<$D/etc/busybox.links
+>> +}
+>>
+>> +pkg_postinst_${PN}-syslog () {
+>>   	update-alternatives --install ${sysconfdir}/init.d/syslog syslog-init syslog.${PN} 50
+>>   	update-alternatives --install ${sysconfdir}/syslog.conf syslog-conf syslog.conf.${PN} 50
+>>   }
+>> @@ -150,7 +155,9 @@ pkg_prerm_${PN} () {
+>>   		bn=`basename $link`
+>>   		sh /usr/bin/update-alternatives --remove $bn $to
+>>   	done</etc/busybox.links
+>> +}
+>>
+>> +pkg_prerm_${PN}-syslog () {
+>>   	# remove syslog
+>>   	if test "x$D" = "x"; then
+>>   		if test "$1" = "upgrade" -o "$1" = "remove"; then
+> 
+> 
 
-> Signed-off-by: Mark Hatle<mark.hatle@windriver.com>
-> ---
->   meta/recipes-core/busybox/busybox.inc |   21 ++++++++++++++-------
->   1 files changed, 14 insertions(+), 7 deletions(-)
->
-> diff --git a/meta/recipes-core/busybox/busybox.inc b/meta/recipes-core/busybox/busybox.inc
-> index 55f056c..9f2d64c 100644
-> --- a/meta/recipes-core/busybox/busybox.inc
-> +++ b/meta/recipes-core/busybox/busybox.inc
-> @@ -12,22 +12,25 @@ SECTION = "base"
->   PRIORITY = "required"
->
->   export EXTRA_CFLAGS = "${CFLAGS}"
-> -PACKAGES =+ "${PN}-httpd ${PN}-udhcpd"
-> +PACKAGES =+ "${PN}-httpd ${PN}-udhcpd ${PN}-udhcpc ${PN}-syslog"
->
->   FILES_${PN}-httpd = "${sysconfdir}/init.d/busybox-httpd /srv/www"
-> +FILES_${PN}-syslog = "${sysconfdir}/init.d/syslog* ${sysconfdir}/syslog.conf*"
->   FILES_${PN}-udhcpd = "${sysconfdir}/init.d/busybox-udhcpd"
-> +FILES_${PN}-udhcpc = "${sysconfdir}/udhcpc.d ${datadir}/udhcpc ${sysconfdir}/init.d/busybox-udhcpc"
->
-> -FILES_${PN} += "${datadir}/udhcpc"
-> -FILES_${PN} += "${sysconfdir}/init.d/busybox-udhcpc"
-> +INITSCRIPT_PACKAGES = "${PN}-httpd ${PN}-syslog ${PN}-udhcpd ${PN}-udhcpc"
->
-> -INITSCRIPT_PACKAGES = "${PN} ${PN}-httpd ${PN}-udhcpd"
->   INITSCRIPT_NAME_${PN}-httpd = "busybox-httpd"
-> +INITSCRIPT_NAME_${PN}-syslog = "syslog"
->   INITSCRIPT_NAME_${PN}-udhcpd = "busybox-udhcpd"
-> -INITSCRIPT_NAME_${PN} = "syslog busybox-udhcpc"
-> -CONFFILES_${PN} = "${sysconfdir}/syslog.conf.${PN}"
-> +INITSCRIPT_NAME_${PN}-udhcpc = "busybox-udhcpc"
-> +CONFFILES_${PN}-syslog = "${sysconfdir}/syslog.conf.${PN}"
-> +
-> +RRECOMMENDS_${PN} = "${PN}-syslog ${PN}-udhcpc"
->
->   # This disables the syslog startup links in slugos (see slugos-init)
-> -INITSCRIPT_PARAMS_${PN}_slugos = "start 20 ."
-> +INITSCRIPT_PARAMS_${PN}-syslog_slugos = "start 20 ."
->
->   inherit cml1 update-rc.d
->
-> @@ -116,7 +119,9 @@ pkg_postinst_${PN} () {
->   	
->   	# This adds the links, remember that this has to work when building an image too, hence the $D
->   	while read link; do case "$link" in /*/*/*) to="../../bin/busybox";; /bin/*) to="busybox";; /*/*) to="../bin/busybox";; esac; bn=`basename $link`; update-alternatives --install $link $bn $to 50; done<$D/etc/busybox.links
-> +}
->
-> +pkg_postinst_${PN}-syslog () {
->   	update-alternatives --install ${sysconfdir}/init.d/syslog syslog-init syslog.${PN} 50
->   	update-alternatives --install ${sysconfdir}/syslog.conf syslog-conf syslog.conf.${PN} 50
->   }
-> @@ -150,7 +155,9 @@ pkg_prerm_${PN} () {
->   		bn=`basename $link`
->   		sh /usr/bin/update-alternatives --remove $bn $to
->   	done</etc/busybox.links
-> +}
->
-> +pkg_prerm_${PN}-syslog () {
->   	# remove syslog
->   	if test "x$D" = "x"; then
->   		if test "$1" = "upgrade" -o "$1" = "remove"; then
-
-
--- 
-Darren Hart
-Intel Open Source Technology Center
-Yocto Project - Linux Kernel
 
