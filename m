@@ -1,30 +1,32 @@
-Return-Path: <eha@dev.doredevelopment.dk>
-Received: from public.doredevelopment.dk (unknown [77.233.226.4])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 187064C800AB;
-	Fri, 11 Feb 2011 03:59:06 -0600 (CST)
-Received: from localhost (localhost [127.0.0.1])
-	by public.doredevelopment.dk (Postfix) with ESMTP id E471140FF;
-	Fri, 11 Feb 2011 10:59:05 +0100 (CET)
-X-Virus-Scanned: Debian amavisd-new at dev.doredevelopment.dk
-Received: from public.doredevelopment.dk ([127.0.0.1])
-	by localhost (public.doredevelopment.dk [127.0.0.1]) (amavisd-new,
-	port 10024)
-	with ESMTP id JbNj9CmNT3yS; Fri, 11 Feb 2011 10:58:53 +0100 (CET)
-Received: from [192.168.18.32] (eha.doredevelopment.dk [192.168.18.32])
-	by public.doredevelopment.dk (Postfix) with ESMTP id 0E26390F;
-	Fri, 11 Feb 2011 10:58:52 +0100 (CET)
-From: Esben Haabendal <eha@dev.doredevelopment.dk>
-To: Bruce Ashfield <bruce.ashfield@windriver.com>
-In-Reply-To: <a80cd52437e3b3874ea0196d31127f14cf486f2f.1297232632.git.bruce.ashfield@windriver.com>
-References: <cover.1297232632.git.bruce.ashfield@windriver.com>
-	<a80cd52437e3b3874ea0196d31127f14cf486f2f.1297232632.git.bruce.ashfield@windriver.com>
-Organization: =?ISO-8859-1?Q?Dor=E9Development?= ApS
-Date: Thu, 10 Feb 2011 22:06:01 +0100
-Message-ID: <1297371961.3911.1.camel@eha>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.30.3 
-Cc: yocto@yoctoproject.org, poky@yoctoproject.org, saul.wold@intel.com
-Subject: Re: [PATCH 1/3] linux: factor dts/dtc/dtb handling into a specific include
+Return-Path: <stefan@datenfreihafen.org>
+Received: from sirius.lasnet.de (sirius.lasnet.de [78.47.116.19])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 379504C800AB
+	for <poky@yoctoproject.org>; Fri, 11 Feb 2011 04:07:57 -0600 (CST)
+Received: from [2001:638:602:1183:d951:1b7b:fca1:e19c] (helo=excalibur.local)
+	by sirius.lasnet.de with esmtpsa 
+	(Cipher TLS1.0:RSA_AES_256_CBC_SHA1:32) (Exim 4.69 #1)
+	id 1Pnpur-0003Cb-44 by authid <stefan@sostec.de> with cram_md5
+	for <poky@yoctoproject.org>; Fri, 11 Feb 2011 11:07:55 +0100
+Received: from stefan by excalibur.local with local (Exim 4.72)
+	(envelope-from <stefan@excalibur.local>) id 1Pnpup-00041r-U1
+	for poky@yoctoproject.org; Fri, 11 Feb 2011 11:07:51 +0100
+Date: Fri, 11 Feb 2011 11:07:51 +0100
+From: Stefan Schmidt <stefan@datenfreihafen.org>
+To: poky@yoctoproject.org
+Message-ID: <20110211100751.GF9652@excalibur.local>
+References: <cover.1297415188.git.dongxiao.xu@intel.com>
+	<0a9dc7a03251c1521a2e5baaead56055207ae72f.1297415188.git.dongxiao.xu@intel.com>
+MIME-Version: 1.0
+In-Reply-To: <0a9dc7a03251c1521a2e5baaead56055207ae72f.1297415188.git.dongxiao.xu@intel.com>
+X-Mailer: Mutt http://www.mutt.org/
+X-KeyID: 0xDDF51665
+X-Website: http://www.datenfreihafen.org/
+User-Agent: Mutt/1.5.20 (2009-06-14)
+X-Spam-Checker-Version: SpamAssassin 3.2.5 (2008-06-10) on sirius.lasnet.de
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,NO_RELAYS
+	autolearn=ham version=3.2.5
+Subject: Re: [PATCH 1/2] wpa-supplicant: change dbus interface
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,48 +38,48 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 Feb 2011 09:59:08 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 11 Feb 2011 10:07:58 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Wed, 2011-02-09 at 01:27 -0500, Bruce Ashfield wrote:
-> diff --git a/meta/recipes-kernel/linux/linux-dtb.inc b/meta/recipes-kernel/linux/linux-dtb.inc
-> new file mode 100644
-> index 0000000..0b27d18
-> --- /dev/null
-> +++ b/meta/recipes-kernel/linux/linux-dtb.inc
-> @@ -0,0 +1,27 @@
-> +# Support for device tree generation
-> +FILES_kernel_devicetree = "/boot/devicetree*"
+Hello.
 
-I guess that should be FILES_kernel-devicetree to actually match the
-package name.
+On Fri, 2011-02-11 at 17:11, Dongxiao Xu wrote:
+> From: Dongxiao Xu <dongxiao.xu@intel.com>
+> 
+>  # Driver interface for FreeBSD net80211 layer (e.g., Atheros driver)
+>  #CONFIG_DRIVER_BSD=y
+> @@ -404,4 +405,4 @@ CONFIG_PEERKEY=y
+>  #LIBS_c += -lbfd -liberty -lz
+>  CONFIG_TLS = gnutls
+>  CONFIG_GNUTLS_EXTRA=y
+> -CONFIG_CTRL_IFACE_DBUS=y
+> +CONFIG_CTRL_IFACE_DBUS_NEW=y
 
-> +KERNEL_DEVICETREE_FLAGS = "-R 8 -p 0x3000"
-> +
-> +python __anonymous () {
-> +    import bb
-> +
-> +    devicetree = bb.data.getVar("KERNEL_DEVICETREE", d, 1) or ''
-> +    if devicetree:
-> +	depends = bb.data.getVar("DEPENDS", d, 1)
-> +	bb.data.setVar("DEPENDS", "%s dtc-native" % depends, d)
-> +	packages = bb.data.getVar("PACKAGES", d, 1)
-> +	bb.data.setVar("PACKAGES", "%s kernel-devicetree" % packages, d)
-> +}
-> +
-> +do_install_append() {
-> +    if test -n "${KERNEL_DEVICETREE}"; then
-> +	dtc -I dts -O dtb ${KERNEL_DEVICETREE_FLAGS} -o devicetree ${KERNEL_DEVICETREE}
-> +	install -m 0644 devicetree ${D}/boot/devicetree-${KERNEL_VERSION}
-> +	install -d ${DEPLOY_DIR_IMAGE}
-> +	install -m 0644 devicetree ${DEPLOY_DIR_IMAGE}/${KERNEL_IMAGE_BASE_NAME}.dtb
-> +	cd ${DEPLOY_DIR_IMAGE}
-> +	rm -f ${KERNEL_IMAGE_SYMLINK_NAME}.dtb
-> +	ln -sf ${KERNEL_IMAGE_BASE_NAME}.dtb ${KERNEL_IMAGE_SYMLINK_NAME}.dtb
-> +    fi
-> +}
-> +
+Any reason not enable both dbus interfaces? They can happily life next to each
+other. Thats how I did it in OE.
 
+> diff --git a/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.inc b/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.inc
+> index 7865b8f..cd62d8f 100644
+> --- a/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.inc
+> +++ b/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.inc
+> @@ -6,7 +6,7 @@ LICENSE = "GPLv2 | BSD"
+>  LIC_FILES_CHKSUM = "file://../COPYING;md5=c54ce9345727175ff66d17b67ff51f58 \
+>                      file://../README;md5=54cfc88015d3ce83f7156e63c6bb1738 \
+>                      file://wpa_supplicant.c;beginline=1;endline=17;md5=acdc5a4b0d6345f21f136eace747260e"
+> -DEPENDS = "gnutls dbus"
+> +DEPENDS = "gnutls dbus libnl"
 
+Hmm, does poky onl yhave libnl2 recipes or both libnl and libnl2?
+
+If the later you should depend on libnl2 instead. I'm trying to get rid of these
+libnl mess in OE and getting all packges over to libnl2. Would be great if we
+could share resources here. The iw package for example can also be switched
+easily.
+
+I fear I only have time to send patches to poky after the OE release in march.
+If you want to cherry-pick (if possible) patches that of course fine.
+
+regards
+Stefan Schmidt
 
