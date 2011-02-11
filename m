@@ -1,31 +1,29 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 530884C80053
-	for <poky@lists.pokylinux.org>; Fri, 11 Feb 2011 15:54:54 -0600 (CST)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1BLsnfm007462;
-	Fri, 11 Feb 2011 21:54:49 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 06871-06; Fri, 11 Feb 2011 21:54:45 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1BLsgOK007456
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Fri, 11 Feb 2011 21:54:42 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Gary Thomas <gary@mlbassoc.com>
-In-Reply-To: <4D53FB64.501@mlbassoc.com>
-References: <4D529954.4000505@mlbassoc.com>
-	<1297346602.20543.4738.camel@rex>  <4D53FB64.501@mlbassoc.com>
-Date: Fri, 11 Feb 2011 21:54:36 +0000
-Message-ID: <1297461276.20543.11614.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-X-Virus-Scanned: amavisd-new at rpsys.net
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C125F4C80053
+	for <poky@lists.pokylinux.org>; Fri, 11 Feb 2011 16:26:11 -0600 (CST)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 93FEB16602D2; Fri, 11 Feb 2011 15:26:10 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.1
+Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
+	by mail.chez-thomas.org (Postfix) with ESMTP id D05C41660260;
+	Fri, 11 Feb 2011 15:26:09 -0700 (MST)
+Message-ID: <4D55B781.5040004@mlbassoc.com>
+Date: Fri, 11 Feb 2011 15:26:09 -0700
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
+MIME-Version: 1.0
+To: Tom Zanussi <tom.zanussi@intel.com>
+References: <4D55A061.8040901@mlbassoc.com> <1297461009.3188.4.camel@elmorro>
+In-Reply-To: <1297461009.3188.4.camel@elmorro>
 Cc: Poky <poky@lists.pokylinux.org>
-Subject: Re: Fetch problems with PREMIRRORS
+Subject: Re: Useless syslogd
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,60 +35,41 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 Feb 2011 21:55:00 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Fri, 11 Feb 2011 22:26:12 -0000
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Thu, 2011-02-10 at 07:51 -0700, Gary Thomas wrote:
-> > Try not setting that variable at all, not setting it false. I suspect
-> > there are two issues here:
-> >
-> > a) BB_NO_NETWORK is having an effect but the log messages are being
-> >     swallowed...
-> > b) "false" handling for the variable might not be working properly so
-> >     leave it unset.
-> >
-> > We can fix those things but I'd like to confirm these are the problems
-> > first.
-> 
-> Correct, it does seem to be the case.  When BB_NO_NETWORK="0",
-> the fetcher works properly.  When set to "1", it fails, but
-> no explicit error about why is generated, neither on the console
-> nor in the log.do_fetch file.
-> 
-> I made this small change to check it out:
-> diff --git a/bitbake/lib/bb/fetch2/__init__.py b/bitbake/lib/bb/fetch2/__init__.py
-> index ef9d75f..57c4f20 100644
-> --- a/bitbake/lib/bb/fetch2/__init__.py
-> +++ b/bitbake/lib/bb/fetch2/__init__.py
-> @@ -395,6 +395,7 @@ def check_network_access(d, info = ""):
->       log remote network access, and error if BB_NO_NETWORK is set
->       """
->       if bb.data.getVar("BB_NO_NETWORK", d, True) == "1":
-> +        bb.error("BB_NO_NETWORK is set, but the fetcher code attempted network access with the command %s" % info)
->           raise FetchError("BB_NO_NETWORK is set, but the fetcher code attempted network access with the command %s" % inf
->       else:
->           logger.debug(1, "Fetcher accessed the network with the command %s" % info)
-> 
-> This shows that this _is_ the error case, with the messages making it to
-> the console and log file.  I can see that this exception is being thrown
-> on line 886, but the reason is lost in the exception data & I'm unclear
-> how to retrieve it and present it to the user.
+On 02/11/2011 02:50 PM, Tom Zanussi wrote:
+> On Fri, 2011-02-11 at 12:47 -0800, Gary Thomas wrote:
+>> ... at least out of the box.
+>>
+>> It seems that syslog is configured to store its messages in
+>> a buffer (memory only?) by default:
+>>
+>> $ cat meta/recipes-core/busybox/files/syslog.conf
+>> DESTINATION="buffer"            # log destinations (buffer file remote)
+>>     ...
+>>
+>> This doesn't seem very useful to me.  I know I can override this
+>> in my platform recipes, but I was just wondering what's the
+>> rationale?  Would it not make more sense to chose DESTINATION="file"?
+>> Otherwise, where do the messages go?  How can I see them?
+>>
+>
+> I think 'logread' is hooked up to read from the buffer, but it seems to
+> be broken at the moment...
 
-This should be at least partly addressed with some of the recent commits
-such as:
+Thanks for pointing this out.  It does seem to work (minimal
+test), but I still prefer a file, especially since the buffer
+mode seems to use a circular buffer that could get overwritten.
 
-http://git.pokylinux.org/cgit.cgi/poky/commit/?id=ea70c4362fdb81bc9467975c145c48196c45e3af
+At least I have an easy way to define my own config file.
 
-so the debug logs (with -D) at least show whats happening.
+Thanks
 
-Not perfect but better at least...
-
-Cheers,
-
-Richard
-
-
-
-
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
