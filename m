@@ -1,10 +1,10 @@
 Return-Path: <mark.hatle@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2A7A74C80104
+	by mx1.pokylinux.org (Postfix) with ESMTP id 9D9424C80104
 	for <poky@yoctoproject.org>; Fri, 11 Feb 2011 08:58:35 -0600 (CST)
 Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p1BEwYrk016956
-	for <poky@yoctoproject.org>; Fri, 11 Feb 2011 06:58:34 -0800 (PST)
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p1BEwZgW016959
+	for <poky@yoctoproject.org>; Fri, 11 Feb 2011 06:58:35 -0800 (PST)
 Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
 	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
 	Fri, 11 Feb 2011 06:58:34 -0800
@@ -13,16 +13,16 @@ Received: from msp-mhatle-lx2.wrs.com ([172.25.34.61]) by
 	Fri, 11 Feb 2011 06:58:34 -0800
 From: Mark Hatle <mark.hatle@windriver.com>
 To: poky@yoctoproject.org
-Date: Fri, 11 Feb 2011 08:56:01 -0600
-Message-Id: <8f34271703e3eabb24716f9cb79aa99e7b7f8d6b.1297435715.git.mark.hatle@windriver.com>
+Date: Fri, 11 Feb 2011 08:56:02 -0600
+Message-Id: <09f1eb58e327df0dc775812907aea348b0d113fc.1297435715.git.mark.hatle@windriver.com>
 X-Mailer: git-send-email 1.7.3.4
 In-Reply-To: <cover.1297435715.git.mark.hatle@windriver.com>
 References: <cover.1297435715.git.mark.hatle@windriver.com>
 In-Reply-To: <cover.1297435715.git.mark.hatle@windriver.com>
 References: <cover.1297435715.git.mark.hatle@windriver.com>
-X-OriginalArrivalTime: 11 Feb 2011 14:58:34.0200 (UTC)
-	FILETIME=[27828D80:01CBC9FC]
-Subject: [PATCH 3/4] package.bbclass: Refactor split and strip function
+X-OriginalArrivalTime: 11 Feb 2011 14:58:34.0919 (UTC)
+	FILETIME=[27F04370:01CBC9FC]
+Subject: [PATCH 4/4] recipes: pre/post actions
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,325 +36,277 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Fri, 11 Feb 2011 14:58:35 -0000
 
-Refactor the function to eliminate additional interations/walks of the
-filesystem..
-
-Elimiate multiple runs of the external 'file' command as well.
+A number of the recipes did not properly label their pre and post
+actions, causing the actions to occur in all split packages.  This
+was corrected by defaulting to _${PN} in most cases.
 
 Signed-off-by: Mark Hatle <mark.hatle@windriver.com>
 ---
- meta/classes/package.bbclass |  242 +++++++++++++++++++++++++-----------------
- 1 files changed, 144 insertions(+), 98 deletions(-)
+ meta/recipes-bsp/hostap/hostap-conf_1.0.bb         |    4 ++--
+ meta/recipes-bsp/lrzsz/lrzsz_0.12.20.bb            |    4 ++--
+ meta/recipes-bsp/orinoco/orinoco-conf_1.0.bb       |    4 ++--
+ .../libnss-mdns/libnss-mdns_0.10.bb                |    4 ++--
+ .../ppp-dialin/ppp-dialin_0.1.bb                   |    4 ++--
+ .../recipes-core/base-passwd/base-passwd_3.5.22.bb |    2 +-
+ meta/recipes-core/dropbear/dropbear.inc            |    4 ++--
+ .../sgml-common/sgml-common_0.6.3.bb               |    4 ++--
+ meta/recipes-extended/bash/bash.inc                |    2 +-
+ meta/recipes-extended/bash/bash_3.2.48.bb          |    2 +-
+ meta/recipes-extended/sudo/sudo.inc                |    2 +-
+ .../ttf-fonts/liberation-fonts_1.04.bb             |    2 +-
+ .../ttf-fonts/liberation-fonts_1.06.bb             |    2 +-
+ .../ttf-fonts/ttf-bitstream-vera_1.10.bb           |    2 +-
+ .../update-modules/update-modules_1.0.bb           |    2 +-
+ 15 files changed, 22 insertions(+), 22 deletions(-)
 
-diff --git a/meta/classes/package.bbclass b/meta/classes/package.bbclass
-index 94dbdcc..dd25df1 100644
---- a/meta/classes/package.bbclass
-+++ b/meta/classes/package.bbclass
-@@ -184,7 +184,7 @@ def splitfile(file, debugfile, debugsrcdir, d):
+diff --git a/meta/recipes-bsp/hostap/hostap-conf_1.0.bb b/meta/recipes-bsp/hostap/hostap-conf_1.0.bb
+index fa29470..de72b76 100644
+--- a/meta/recipes-bsp/hostap/hostap-conf_1.0.bb
++++ b/meta/recipes-bsp/hostap/hostap-conf_1.0.bb
+@@ -19,13 +19,13 @@ do_install() {
+ 	install -m 0644 ${WORKDIR}/hostap_cs.modalias ${D}${sysconfdir}/modutils/hostap_cs.conf
+ }
  
-     # We ignore kernel modules, we don't generate debug info files.
-     if file.find("/lib/modules/") != -1 and file.endswith(".ko"):
--	return 0
-+	return 1
+-pkg_postinst () {
++pkg_postinst_${PN} () {
+ 	if [ -n "$D" ]; then
+ 		exit 1
+ 	fi
+ 	update-modules || true
+ }
  
-     newmode = None
-     if not os.access(file, os.W_OK) or os.access(file, os.R_OK):
-@@ -239,9 +239,14 @@ def splitfile2(debugsrcdir, d):
-               #bb.note("rmdir -p %s" % dir)
-               os.system("rmdir -p %s 2>/dev/null" % dir)
+-pkg_postrm () {
++pkg_postrm_${PN} () {
+ 	update-modules || true
+ }
+diff --git a/meta/recipes-bsp/lrzsz/lrzsz_0.12.20.bb b/meta/recipes-bsp/lrzsz/lrzsz_0.12.20.bb
+index 6d08084..4cefdb7 100644
+--- a/meta/recipes-bsp/lrzsz/lrzsz_0.12.20.bb
++++ b/meta/recipes-bsp/lrzsz/lrzsz_0.12.20.bb
+@@ -28,13 +28,13 @@ do_install() {
+ 	install -m 0755 src/lrz src/lsz ${D}${bindir}/
+ }
  
--def runstrip(file, d):
-+def runstrip(file, elftype, d):
-     # Function to strip a single file, called from split_and_strip_files below
-     # A working 'file' (one which works on the target architecture)
-+    #
-+    # The elftype is a bit pattern (explained in split_and_strip_files) to tell
-+    # us what type of file we're processing...
-+    # 4 - executable
-+    # 8 - shared library
+-pkg_postinst() {
++pkg_postinst_${PN}() {
+ 	for util in rz rx rb sz sx sb; do
+ 		update-alternatives --install ${bindir}/$util $util lrz 100
+ 	done
+ }
  
-     import commands, stat
+-pkg_postrm() {
++pkg_postrm_${PN}() {
+ 	for util in rz rx rb sz sx sb; do
+ 		update-alternatives --remove $util ${bindir}/lrz
+ 	done
+diff --git a/meta/recipes-bsp/orinoco/orinoco-conf_1.0.bb b/meta/recipes-bsp/orinoco/orinoco-conf_1.0.bb
+index a24d004..1c25e02 100644
+--- a/meta/recipes-bsp/orinoco/orinoco-conf_1.0.bb
++++ b/meta/recipes-bsp/orinoco/orinoco-conf_1.0.bb
+@@ -15,13 +15,13 @@ do_install() {
+         install -m 0644 ${WORKDIR}/orinoco_cs.conf ${D}${sysconfdir}/modutils/
+ }
  
-@@ -258,16 +263,12 @@ def runstrip(file, d):
-         newmode = origmode | stat.S_IWRITE | stat.S_IREAD
-         os.chmod(file, newmode)
+-pkg_postinst () {
++pkg_postinst_${PN} () {
+ 	if [ -n "$D" ]; then
+ 		exit 1
+ 	fi
+ 	update-modules || true
+ }
  
--    ret, result = commands.getstatusoutput("%sfile '%s'" % (pathprefix, file))
--
--    if ret:
--        bb.error("runstrip: 'file %s' failed" % file)
--        return 0
--
-     extraflags = ""
--    if ".so" in file and "shared" in result:
-+    # .so and shared library
-+    if ".so" in file and elftype & 8:
-         extraflags = "--remove-section=.comment --remove-section=.note --strip-unneeded"
--    elif "shared" in result or "executable" in result:
-+    # shared or executable:
-+    elif elftype & 8 or elftype & 4:
-         extraflags = "--remove-section=.comment --remove-section=.note"
+-pkg_postrm () {
++pkg_postrm_${PN} () {
+ 	update-modules || true
+ }
+diff --git a/meta/recipes-connectivity/libnss-mdns/libnss-mdns_0.10.bb b/meta/recipes-connectivity/libnss-mdns/libnss-mdns_0.10.bb
+index 4c94d2a..b04b20a 100644
+--- a/meta/recipes-connectivity/libnss-mdns/libnss-mdns_0.10.bb
++++ b/meta/recipes-connectivity/libnss-mdns/libnss-mdns_0.10.bb
+@@ -25,14 +25,14 @@ DEBIANNAME_${PN} = "libnss-mdns"
+ EXTRA_OECONF = "--libdir=/lib --disable-lynx --enable-avahi"
  
-     stripcmd = "'%s' %s '%s'" % (strip, extraflags, file)
-@@ -410,109 +411,158 @@ python split_and_strip_files () {
+ # TODO: pattern based configuration update
+-pkg_postinst () {
++pkg_postinst_${PN} () {
+ 	cat /etc/nsswitch.conf | grep "hosts:\s*files dns$" > /dev/null && {
+ 		cat /etc/nsswitch.conf | sed 's/hosts:\s*files dns/& mdns4/' > /tmp/nsswitch.conf
+ 		mv /tmp/nsswitch.conf /etc/nsswitch.conf
+ 	}
+ }
  
- 	os.chdir(dvar)
+-pkg_prerm () {
++pkg_prerm_${PN} () {
+ 	cat /etc/nsswitch.conf | grep "hosts:\s*files dns mdns4$" > /dev/null && {
+ 		cat /etc/nsswitch.conf | sed 's/\(hosts:\s*files dns\) mdns4*/\1/' > /tmp/nsswitch.conf
+ 		mv /tmp/nsswitch.conf /etc/nsswitch.conf
+diff --git a/meta/recipes-connectivity/ppp-dialin/ppp-dialin_0.1.bb b/meta/recipes-connectivity/ppp-dialin/ppp-dialin_0.1.bb
+index aa3684a..f57597d 100644
+--- a/meta/recipes-connectivity/ppp-dialin/ppp-dialin_0.1.bb
++++ b/meta/recipes-connectivity/ppp-dialin/ppp-dialin_0.1.bb
+@@ -20,7 +20,7 @@ do_install() {
  
--	def isexec(path):
--		try:
--			s = os.stat(path)
--		except (os.error, AttributeError):
--			return 0
--		return ((s[stat.ST_MODE] & stat.S_IXUSR) or (s[stat.ST_MODE] & stat.S_IXGRP) or (s[stat.ST_MODE] & stat.S_IXOTH))
--
--	# Return 0 - not elf, 1 - ELF & not stripped, 2 - ELF & stripped
-+	# Return type (bits):
-+	# 0 - not elf
-+	# 1 - ELF
-+	# 2 - stripped
-+	# 4 - executable
-+	# 8 - shared library
- 	def isELF(path):
-+		type = 0
- 		pathprefix = "export PATH=%s; " % bb.data.getVar('PATH', d, True)
- 		ret, result = commands.getstatusoutput("%sfile '%s'" % (pathprefix, path))
+ PACKAGE_ARCH = "all"
  
- 		if ret:
- 			bb.error("split_and_strip_files: 'file %s' failed" % path)
--			return 0
-+			return type
+-pkg_postinst() {
++pkg_postinst_${PN} () {
+ if test "x$D" != "x"; then
+ 	exit 1
+ else
+@@ -28,7 +28,7 @@ else
+ fi
+ }
  
- 		# Not stripped
--		if "ELF" in result and "not stripped" in result:
--			return 1
--
--		# Stripped
- 		if "ELF" in result:
--			return 2
-+			type |= 1
-+			if "not stripped" not in result:
-+				type |= 2
-+			if "executable" in result:
-+				type |= 4
-+			if "shared" in result:
-+				type |= 8
-+		return type
+-pkg_postrm() {
++pkg_postrm_${PN} () {
+ if test "x$D" != "x"; then
+ 	exit 1
+ else
+diff --git a/meta/recipes-core/base-passwd/base-passwd_3.5.22.bb b/meta/recipes-core/base-passwd/base-passwd_3.5.22.bb
+index b826367..aed8491 100644
+--- a/meta/recipes-core/base-passwd/base-passwd_3.5.22.bb
++++ b/meta/recipes-core/base-passwd/base-passwd_3.5.22.bb
+@@ -40,7 +40,7 @@ do_install_append_openmn() {
+ }
  
--		return 0;
  
- 	#
--	# First lets process debug splitting
-+	# First lets figure out all of the files we may have to process ... do this only once!
- 	#
--	if (bb.data.getVar('INHIBIT_PACKAGE_DEBUG_SPLIT', d, True) != '1'):
--		file_links = {}
--
-+	file_list = {}
-+	file_links = {}
-+	if (bb.data.getVar('INHIBIT_PACKAGE_DEBUG_SPLIT', d, True) != '1') and \
-+	   (bb.data.getVar('INHIBIT_PACKAGE_STRIP', d, True) != '1'):
- 		for root, dirs, files in os.walk(dvar):
- 			for f in files:
- 				file = os.path.join(root, f)
--				# Skip debug files, it must be executable, and must be a file (or link)
--				if not (debugappend != "" and file.endswith(debugappend)) and not (debugdir != "" and debugdir in os.path.dirname(file[len(dvar):])) and isexec(file) and os.path.isfile(file):
--					src = file[len(dvar):]
--					dest = debuglibdir + os.path.dirname(src) + debugdir + "/" + os.path.basename(src) + debugappend
--					fpath = dvar + dest
--					# Preserve symlinks in debug area...
--					if os.path.islink(file):
--						target = os.readlink(file)
--						if not os.path.isabs(target):
--							target = os.path.join(os.path.dirname(file), target)
--						if isELF(target):
--							ltarget = os.readlink(file)
--							lpath = os.path.dirname(ltarget)
--							lbase = os.path.basename(ltarget)
--							ftarget = ""
--							if lpath and lpath != ".":
--								ftarget += lpath + debugdir + "/"
--							ftarget += lbase + debugappend
--							bb.mkdirhier(os.path.dirname(fpath))
--							#bb.note("Symlink %s -> %s" % (fpath, ftarget))
--							os.symlink(ftarget, fpath)
--						continue
--
--					# If the file is elf we need to check it for hard links
--					elf_file = isELF(file)
--					if elf_file:
--						# Preserve hard links in debug area...
-+				# Only process files (and symlinks)... Skip files that are obviously debug files
-+				if not (debugappend != "" and file.endswith(debugappend)) and \
-+				   not (debugdir != "" and debugdir in os.path.dirname(file[len(dvar):])) and \
-+				   os.path.isfile(file):
-+					try:
- 						s = os.stat(file)
--						if s.st_nlink > 1:
--							file_reference = "%d_%d" % (s.st_dev, s.st_ino)
--							if file_reference not in file_links:
--								# If this is new, and already stripped we avoid recording it
--								# as we'll be unable to set the hard link later, because it
--								# won't be split/stripped...
--								if elf_file != 2:
--									file_links[file_reference] = fpath
-+					except OSError, (err, strerror):
-+						if err != errno.ENOENT:
-+							raise
-+						# Skip broken symlinks
-+						continue
-+					# Is the item excutable?  Then we need to process it.
-+					if (s[stat.ST_MODE] & stat.S_IXUSR) or \
-+					   (s[stat.ST_MODE] & stat.S_IXGRP) or \
-+					   (s[stat.ST_MODE] & stat.S_IXOTH):
-+						# If it's a symlink, and points to an ELF file, we capture the readlink target
-+						if os.path.islink(file):
-+							target = os.readlink(file)
-+							if not os.path.isabs(target):
-+								ltarget = os.path.join(os.path.dirname(file), target)
- 							else:
--								bb.mkdirhier(os.path.dirname(fpath))
--								#bb.note("Link %s -> %s" % (fpath, file_links[file_reference]))
--								os.link(file_links[file_reference], fpath)
--								continue
-+								ltarget = target
+-pkg_postinst () {
++pkg_postinst_${PN} () {
+ 	set -e
  
--						if elf_file == 2:
--							bb.warn("File '%s' was already stripped, this will prevent future debugging!" % (src))
-+							if isELF(ltarget):
-+								#bb.note("Sym: %s (%d)" % (ltarget, isELF(ltarget)))
-+								file_list[file] = "sym: " + target
- 							continue
-+						# It's a file (or hardlink), not a link
-+						# ...but is it ELF, and is it already stripped?
-+						elf_file = isELF(file)
-+						if elf_file & 1:
-+							# Check if it's a hard link to something else
-+							if s.st_nlink > 1:
-+								file_reference = "%d_%d" % (s.st_dev, s.st_ino)
-+								# Hard link to something else
-+								file_list[file] = "hard: " + file_reference
-+								continue
+ 	if [ ! -e $D${sysconfdir}/passwd ] ; then
+diff --git a/meta/recipes-core/dropbear/dropbear.inc b/meta/recipes-core/dropbear/dropbear.inc
+index dd2f0c5..ab7719c 100644
+--- a/meta/recipes-core/dropbear/dropbear.inc
++++ b/meta/recipes-core/dropbear/dropbear.inc
+@@ -63,12 +63,12 @@ do_install() {
+ 	chmod 755 ${D}${sysconfdir}/init.d/dropbear
+ }
  
--						# Split and Strip
--						bb.mkdirhier(os.path.dirname(fpath))
--						#bb.note("Split %s -> %s" % (file, fpath))
--						splitfile(file, fpath, debugsrcdir, d)
-+							file_list[file] = "ELF: %d" % elf_file
+-pkg_postinst () {
++pkg_postinst_${PN} () {
+ 	update-alternatives --install ${bindir}/scp scp ${sbindir}/dropbearmulti 20
+ 	update-alternatives --install ${bindir}/ssh ssh ${sbindir}/dropbearmulti 20
+ }
  
--		# Process the debugsrcdir if requested...
--		splitfile2(debugsrcdir, d)
+-pkg_postrm_append () {
++pkg_postrm_append_${PN} () {
+   if [ -f "${sysconfdir}/dropbear/dropbear_rsa_host_key" ]; then
+         rm ${sysconfdir}/dropbear/dropbear_rsa_host_key
+   fi
+diff --git a/meta/recipes-devtools/sgml-common/sgml-common_0.6.3.bb b/meta/recipes-devtools/sgml-common/sgml-common_0.6.3.bb
+index 92014a8..63e0acd 100644
+--- a/meta/recipes-devtools/sgml-common/sgml-common_0.6.3.bb
++++ b/meta/recipes-devtools/sgml-common/sgml-common_0.6.3.bb
+@@ -31,7 +31,7 @@ do_compile_append() {
  
--		# The above may have generated dangling symlinks 
--		for root, dirs, files in os.walk(dvar):
--			for f in files:
--				file = os.path.join(root, f)
--				# We ONLY strip dangling links if they're debug generated!
--				if (debugappend != "" and file.endswith(debugappend)) or (debugdir != "" and debugdir in os.path.dirname(file[len(dvar):])):
--					try:
--						s = os.stat(file)
--					except OSError, (err, strerror):
--						if err != errno.ENOENT:
--							raise
--						#bb.note("Remove dangling link %s" % file)
--						os.unlink(file)
-+	#
-+	# First lets process debug splitting
-+	#
-+	if (bb.data.getVar('INHIBIT_PACKAGE_DEBUG_SPLIT', d, True) != '1'):
-+		for file in file_list:
-+			src = file[len(dvar):]
-+			dest = debuglibdir + os.path.dirname(src) + debugdir + "/" + os.path.basename(src) + debugappend
-+			fpath = dvar + dest
-+			# Preserve symlinks in debug area...
-+			if file_list[file].startswith("sym: "):
-+				ltarget = file_list[file][5:]
-+				lpath = os.path.dirname(ltarget)
-+				lbase = os.path.basename(ltarget)
-+				ftarget = ""
-+				if lpath and lpath != ".":
-+					ftarget += lpath + debugdir + "/"
-+				ftarget += lbase + debugappend
-+				bb.mkdirhier(os.path.dirname(fpath))
-+				#bb.note("Symlink %s -> %s" % (fpath, ftarget))
-+				os.symlink(ftarget, fpath)
-+				continue
-+
-+			# Preserve hard links in debug area...
-+			file_reference = ""
-+			if file_list[file].startswith("hard: "):
-+				file_reference = file_list[file][6:]
-+				if file_reference not in file_links:
-+					# If this is a new file, add it as a reference, and
-+					# update it's type, so we can fall through and split
-+					file_list[file] = "ELF: %d" % (isELF(file))
-+				else:
-+					target = file_links[file_reference][len(dvar):]
-+					ftarget = dvar + debuglibdir + os.path.dirname(target) + debugdir + "/" + os.path.basename(target) + debugappend
-+					bb.mkdirhier(os.path.dirname(fpath))
-+					#bb.note("Link %s -> %s" % (fpath, ftarget))
-+					os.link(ftarget, fpath)
-+					continue
+ FILES_sgml-common_append = " ${datadir}/sgml"
  
-+			# It's ELF...
-+			if file_list[file].startswith("ELF: "):
-+				elf_file = int(file_list[file][5:])
-+				if elf_file & 2:
-+					bb.warn("File '%s' was already stripped, this will prevent future debugging!" % (src))
-+					continue
-+
-+				# Split the file...
-+				bb.mkdirhier(os.path.dirname(fpath))
-+				#bb.note("Split %s -> %s" % (file, fpath))
-+				# Only store off the hard link reference if we successfully split!
-+				if splitfile(file, fpath, debugsrcdir, d) == 0 and file_reference != "":
-+					file_links[file_reference] = file
-+
-+		# The above may have generated dangling symlinks, remove them!
-+		# Dangling symlinks are a result of something NOT being split, such as a stripped binary.
-+		# This should be a rare occurance, but we want to clean up anyway.
-+		for file in file_list:
-+			if file_list[file].startswith("sym: "):
-+				src = file[len(dvar):]
-+				dest = debuglibdir + os.path.dirname(src) + debugdir + "/" + os.path.basename(src) + debugappend
-+				fpath = dvar + dest
-+				try:
-+					s = os.stat(fpath)
-+				except OSError, (err, strerror):
-+					if err != errno.ENOENT:
-+						raise
-+					#bb.note("Remove dangling link %s -> %s" % (fpath, os.readlink(fpath)))
-+					os.unlink(fpath)
-+					# This could leave an empty debug directory laying around
-+					# take care of the obvious case...
-+					os.system("rmdir %s 2>/dev/null" % os.path.dirname(fpath))
-+
-+		# Process the debugsrcdir if requested...
-+		# This copies and places the referenced sources for later debugging...
-+		splitfile2(debugsrcdir, d)
- 	#
- 	# End of debug splitting
- 	#
-@@ -521,15 +571,11 @@ python split_and_strip_files () {
- 	# Now lets go back over things and strip them
- 	#
- 	if (bb.data.getVar('INHIBIT_PACKAGE_STRIP', d, True) != '1'):	
--		for root, dirs, files in os.walk(dvar):
--			for f in files:
--				file = os.path.join(root, f)
--				# if not a debugfile, is executable, is a file, and not a symlink
--				if not (debugappend != "" and file.endswith(debugappend)) and not (debugdir != "" and debugdir in os.path.dirname(file[len(dvar):])) and isexec(file) and os.path.isfile(file) and not os.path.islink(file):
--					elf_file = isELF(file)
--					if elf_file and elf_file != 2:
--						#bb.note("Strip %s" % file)
--						runstrip(file, d)
-+		for file in file_list:
-+			if file_list[file].startswith("ELF: "):
-+				elf_file = int(file_list[file][5:])
-+				#bb.note("Strip %s" % file)
-+				runstrip(file, elf_file, d)
- 	#
- 	# End of strip
- 	#
+-pkg_postinst() {
++pkg_postinst_${PN}() {
+ 	install-catalog \
+ 		--add ${sysconfdir}/sgml/sgml-ent.cat \
+ 		${datadir}/sgml/sgml-iso-entities-8879.1986/catalog
+@@ -41,7 +41,7 @@ pkg_postinst() {
+ 		${sysconfdir}/sgml/sgml-ent.cat
+ }
+ 
+-pkg_postrm() {
++pkg_postrm_${PN}() {
+ 	install-catalog \
+ 		--remove ${sysconfdir}/sgml/sgml-ent.cat \
+ 		${datadir}/sgml/sgml-iso-entities-8879.1986/catalog
+diff --git a/meta/recipes-extended/bash/bash.inc b/meta/recipes-extended/bash/bash.inc
+index a87b87f..ecbd75d 100644
+--- a/meta/recipes-extended/bash/bash.inc
++++ b/meta/recipes-extended/bash/bash.inc
+@@ -27,7 +27,7 @@ do_configure () {
+ 	oe_runconf
+ }
+ 
+-pkg_postinst () {
++pkg_postinst_${PN} () {
+ 	touch $D${sysconfdir}/shells
+ 	grep -q "bin/bash" $D${sysconfdir}/shells || echo /bin/bash >> $D${sysconfdir}/shells
+ 	grep -q "bin/sh" $D${sysconfdir}/shells || echo /bin/sh >> $D${sysconfdir}/shells
+diff --git a/meta/recipes-extended/bash/bash_3.2.48.bb b/meta/recipes-extended/bash/bash_3.2.48.bb
+index e5a3e36..0912ad6 100644
+--- a/meta/recipes-extended/bash/bash_3.2.48.bb
++++ b/meta/recipes-extended/bash/bash_3.2.48.bb
+@@ -28,7 +28,7 @@ do_configure () {
+ 	oe_runconf
+ }
+ 
+-pkg_postinst () {
++pkg_postinst_${PN} () {
+ 	touch $D${sysconfdir}/shells
+ 	grep -q "bin/bash" $D${sysconfdir}/shells || echo /bin/bash >> $D${sysconfdir}/shells
+ 	grep -q "bin/sh" $D${sysconfdir}/shells || echo /bin/sh >> $D${sysconfdir}/shells
+diff --git a/meta/recipes-extended/sudo/sudo.inc b/meta/recipes-extended/sudo/sudo.inc
+index 1407bf1..6a04a9c 100644
+--- a/meta/recipes-extended/sudo/sudo.inc
++++ b/meta/recipes-extended/sudo/sudo.inc
+@@ -23,7 +23,7 @@ do_configure_prepend () {
+ 	fi
+ }
+ 
+-pkg_postinst() {
++pkg_postinst_${PN} () {
+ 	if [ "x$D" != "x" ]; then
+ 		exit 1
+ 	fi
+diff --git a/meta/recipes-graphics/ttf-fonts/liberation-fonts_1.04.bb b/meta/recipes-graphics/ttf-fonts/liberation-fonts_1.04.bb
+index 12d9d86..c50d6eb 100644
+--- a/meta/recipes-graphics/ttf-fonts/liberation-fonts_1.04.bb
++++ b/meta/recipes-graphics/ttf-fonts/liberation-fonts_1.04.bb
+@@ -32,7 +32,7 @@ do_install () {
+ 	install -m 0644 License.txt ${D}${datadir}/doc/${PN}/
+ }
+ 
+-pkg_postinst () {
++pkg_postinst_${PN} () {
+ #!/bin/sh
+ fc-cache
+ }
+diff --git a/meta/recipes-graphics/ttf-fonts/liberation-fonts_1.06.bb b/meta/recipes-graphics/ttf-fonts/liberation-fonts_1.06.bb
+index 887536a..f6bf0ce 100644
+--- a/meta/recipes-graphics/ttf-fonts/liberation-fonts_1.06.bb
++++ b/meta/recipes-graphics/ttf-fonts/liberation-fonts_1.06.bb
+@@ -33,7 +33,7 @@ do_install () {
+ 	install -m 0644 License.txt ${D}${datadir}/doc/${PN}/
+ }
+ 
+-pkg_postinst () {
++pkg_postinst_${PN} () {
+ #!/bin/sh
+ fc-cache
+ }
+diff --git a/meta/recipes-graphics/ttf-fonts/ttf-bitstream-vera_1.10.bb b/meta/recipes-graphics/ttf-fonts/ttf-bitstream-vera_1.10.bb
+index b9a75a7..bdeb4c1 100644
+--- a/meta/recipes-graphics/ttf-fonts/ttf-bitstream-vera_1.10.bb
++++ b/meta/recipes-graphics/ttf-fonts/ttf-bitstream-vera_1.10.bb
+@@ -31,7 +31,7 @@ do_install () {
+         done 
+ } 
+ 
+-pkg_postinst () {
++pkg_postinst_${PN} () {
+ #!/bin/sh
+ fc-cache
+ }
+diff --git a/meta/recipes-kernel/update-modules/update-modules_1.0.bb b/meta/recipes-kernel/update-modules/update-modules_1.0.bb
+index a473bb5..a8ebbda 100644
+--- a/meta/recipes-kernel/update-modules/update-modules_1.0.bb
++++ b/meta/recipes-kernel/update-modules/update-modules_1.0.bb
+@@ -10,7 +10,7 @@ PR = "r8"
+ SRC_URI = "file://update-modules \
+            file://COPYING.GPL"
+ 
+-pkg_postinst() {
++pkg_postinst_${PN} () {
+ if [ "x$D" != "x" ]; then
+ 	exit 1
+ fi
 -- 
 1.7.3.4
 
