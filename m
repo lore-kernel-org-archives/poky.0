@@ -1,32 +1,26 @@
-Return-Path: <mark.hatle@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 919994C80053
-	for <poky@yoctoproject.org>; Fri, 11 Feb 2011 17:12:05 -0600 (CST)
-Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p1BNC4v0016557;
-	Fri, 11 Feb 2011 15:12:04 -0800 (PST)
-Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
-	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Fri, 11 Feb 2011 15:12:04 -0800
-Received: from Macintosh-5.local ([172.25.36.226]) by
-	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
-	Fri, 11 Feb 2011 15:12:04 -0800
-Message-ID: <4D55C242.6090804@windriver.com>
-Date: Fri, 11 Feb 2011 17:12:02 -0600
-From: Mark Hatle <mark.hatle@windriver.com>
-Organization: Wind River Systems
-User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
-	rv:1.9.2.13) Gecko/20101207 Thunderbird/3.1.7
+Return-Path: <edwin.zhai@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 1BDA94C8007E
+	for <poky@yoctoproject.org>; Fri, 11 Feb 2011 18:20:19 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 11 Feb 2011 16:20:15 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,459,1291622400"; d="scan'208";a="601913253"
+Received: from shxpwgzhai1a.ccr.corp.intel.com (HELO [10.239.48.130])
+	([10.239.48.130])
+	by orsmga002.jf.intel.com with ESMTP; 11 Feb 2011 16:20:14 -0800
+Message-ID: <4D55D236.8090002@intel.com>
+Date: Sat, 12 Feb 2011 08:20:06 +0800
+From: "Zhai, Edwin" <edwin.zhai@intel.com>
+User-Agent: Thunderbird 2.0.0.17 (Windows/20080914)
 MIME-Version: 1.0
-To: Darren Hart <dvhart@linux.intel.com>
-References: <cover.1297455890.git.mark.hatle@windriver.com>
-	<036ec84d411be6ee4d2bb2bf4c0fd2cb5c811cf7.1297455890.git.mark.hatle@windriver.com>
-	<4D55BF29.90703@linux.intel.com>
-In-Reply-To: <4D55BF29.90703@linux.intel.com>
-X-OriginalArrivalTime: 11 Feb 2011 23:12:04.0138 (UTC)
-	FILETIME=[186888A0:01CBCA41]
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+References: <cover.1297432560.git.edwin.zhai@intel.com>	
+	<1297433374.20543.10587.camel@rex> <4D554AE5.2030402@intel.com>
+	<1297436057.20543.10739.camel@rex>
+In-Reply-To: <1297436057.20543.10739.camel@rex>
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 1/1] busybox: Rework busybox to fix limitations in	initscripts
+Subject: Re: [PATCH 0/1] Fix sstate error
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,90 +32,48 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 Feb 2011 23:12:06 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Sat, 12 Feb 2011 00:20:19 -0000
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 2/11/11 4:58 PM, Darren Hart wrote:
-> On 02/11/2011 12:26 PM, Mark Hatle wrote:
->> A recent busybox change added a "second" initscript to the main busybox
->> package.  This however is not supported by the update-rc.d.bbclass.
->> Instead we split the package so that each initscript gets it's own split.
-> 
-> Does this address:
-> 
-> http://bugzilla.pokylinux.org/show_bug.cgi?id=706
 
-Yes this fixes that issue.
 
---Mark
+Richard Purdie wrote:
+>
+> On Fri, 2011-02-11 at 22:42 +0800, Zhai, Edwin wrote:
+> > Richard Purdie wrote:
+> > > Good question. The import should really always be at the top of 
+> the code
+> > > block in question so I think its a python constraint, not a .bbclass
+> > > one...
+> > >
+> >
+> > Seems in-middle "import" is widely used in other *.py,
+> > See bitbake/lib/bb/fetch/ssh.py,
+> >     def go(self, url, urldata, d):
+> > ..........................
+> >         import commands
+> >         cmd = 'scp -B -r %s %s %s/' % (
+> >             port,
+> >             commands.mkarg(fr),
+> >             commands.mkarg(ldir)
+> >         )
+> >
+> > I found only bb has such limitation:all the "import bb.xxx" are in the
+> > head of function, and adding stuff before it will cause same problem.
+> > Anything special for bb module?
+>
+> Is it just specific to the way we hacked the fetch vs fetch2 switch in?
+>
+> Also, are you saying this problem only happens in parsed python in
+> the .bb and .bbclass files or that it happens in the bitbake code in
+> general?
+>
 
-> --
-> Darren
-> 
->> Signed-off-by: Mark Hatle<mark.hatle@windriver.com>
->> ---
->>   meta/recipes-core/busybox/busybox.inc |   21 ++++++++++++++-------
->>   1 files changed, 14 insertions(+), 7 deletions(-)
->>
->> diff --git a/meta/recipes-core/busybox/busybox.inc b/meta/recipes-core/busybox/busybox.inc
->> index 55f056c..9f2d64c 100644
->> --- a/meta/recipes-core/busybox/busybox.inc
->> +++ b/meta/recipes-core/busybox/busybox.inc
->> @@ -12,22 +12,25 @@ SECTION = "base"
->>   PRIORITY = "required"
->>
->>   export EXTRA_CFLAGS = "${CFLAGS}"
->> -PACKAGES =+ "${PN}-httpd ${PN}-udhcpd"
->> +PACKAGES =+ "${PN}-httpd ${PN}-udhcpd ${PN}-udhcpc ${PN}-syslog"
->>
->>   FILES_${PN}-httpd = "${sysconfdir}/init.d/busybox-httpd /srv/www"
->> +FILES_${PN}-syslog = "${sysconfdir}/init.d/syslog* ${sysconfdir}/syslog.conf*"
->>   FILES_${PN}-udhcpd = "${sysconfdir}/init.d/busybox-udhcpd"
->> +FILES_${PN}-udhcpc = "${sysconfdir}/udhcpc.d ${datadir}/udhcpc ${sysconfdir}/init.d/busybox-udhcpc"
->>
->> -FILES_${PN} += "${datadir}/udhcpc"
->> -FILES_${PN} += "${sysconfdir}/init.d/busybox-udhcpc"
->> +INITSCRIPT_PACKAGES = "${PN}-httpd ${PN}-syslog ${PN}-udhcpd ${PN}-udhcpc"
->>
->> -INITSCRIPT_PACKAGES = "${PN} ${PN}-httpd ${PN}-udhcpd"
->>   INITSCRIPT_NAME_${PN}-httpd = "busybox-httpd"
->> +INITSCRIPT_NAME_${PN}-syslog = "syslog"
->>   INITSCRIPT_NAME_${PN}-udhcpd = "busybox-udhcpd"
->> -INITSCRIPT_NAME_${PN} = "syslog busybox-udhcpc"
->> -CONFFILES_${PN} = "${sysconfdir}/syslog.conf.${PN}"
->> +INITSCRIPT_NAME_${PN}-udhcpc = "busybox-udhcpc"
->> +CONFFILES_${PN}-syslog = "${sysconfdir}/syslog.conf.${PN}"
->> +
->> +RRECOMMENDS_${PN} = "${PN}-syslog ${PN}-udhcpc"
->>
->>   # This disables the syslog startup links in slugos (see slugos-init)
->> -INITSCRIPT_PARAMS_${PN}_slugos = "start 20 ."
->> +INITSCRIPT_PARAMS_${PN}-syslog_slugos = "start 20 ."
->>
->>   inherit cml1 update-rc.d
->>
->> @@ -116,7 +119,9 @@ pkg_postinst_${PN} () {
->>   	
->>   	# This adds the links, remember that this has to work when building an image too, hence the $D
->>   	while read link; do case "$link" in /*/*/*) to="../../bin/busybox";; /bin/*) to="busybox";; /*/*) to="../bin/busybox";; esac; bn=`basename $link`; update-alternatives --install $link $bn $to 50; done<$D/etc/busybox.links
->> +}
->>
->> +pkg_postinst_${PN}-syslog () {
->>   	update-alternatives --install ${sysconfdir}/init.d/syslog syslog-init syslog.${PN} 50
->>   	update-alternatives --install ${sysconfdir}/syslog.conf syslog-conf syslog.conf.${PN} 50
->>   }
->> @@ -150,7 +155,9 @@ pkg_prerm_${PN} () {
->>   		bn=`basename $link`
->>   		sh /usr/bin/update-alternatives --remove $bn $to
->>   	done</etc/busybox.links
->> +}
->>
->> +pkg_prerm_${PN}-syslog () {
->>   	# remove syslog
->>   	if test "x$D" = "x"; then
->>   		if test "$1" = "upgrade" -o "$1" = "remove"; then
-> 
-> 
+Also in bitbake code like bitbake/lib/bb/utils.py.
 
+> Cheers,
+>
+> Richard
+>
 
