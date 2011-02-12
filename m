@@ -1,30 +1,44 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A7DBF4C80053
-	for <poky@yoctoproject.org>; Fri, 11 Feb 2011 21:07:52 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 1FB7F16603AA; Fri, 11 Feb 2011 20:07:52 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=ham version=3.3.1
-Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
-	by mail.chez-thomas.org (Postfix) with ESMTP id BB93E16603A1;
-	Fri, 11 Feb 2011 20:07:50 -0700 (MST)
-Message-ID: <4D55F986.8060707@mlbassoc.com>
-Date: Fri, 11 Feb 2011 20:07:50 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
+Return-Path: <raj.khem@gmail.com>
+Received: from mail-iw0-f176.google.com (mail-iw0-f176.google.com
+	[209.85.214.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 430784C8007E
+	for <poky@yoctoproject.org>; Sat, 12 Feb 2011 00:05:20 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by iwn2 with SMTP id 2so3301316iwn.35
+	for <poky@yoctoproject.org>; Fri, 11 Feb 2011 22:05:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:date:from:to:cc:subject:message-id:references
+	:mime-version:content-type:content-disposition:in-reply-to
+	:user-agent; bh=kQ6SsqSA5kVpVWZMhD2i5OSvL/cinj7fgzX9Z8jNlwQ=;
+	b=ZDxOYlNaw+t4OO9mUx9o0qOCo1cadh4n/kSJBfqr6wdbykDds7S0ZlwY6iy3FLvHyT
+	ncYZcHZ4dbKo+L0Vacvb77bZFps2zbyBfRspB11wOiliHufRvu8Rbc5njS5XNLFkhgY1
+	WoT1kz5aadjDtAmm5Kr0VRaHvMGmdedhCVGy0=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=date:from:to:cc:subject:message-id:references:mime-version
+	:content-type:content-disposition:in-reply-to:user-agent;
+	b=jvGlpTVsBItF54SPIeCfHSS0yDKY5N9DWtZXsPAjwi9HZ2IR7y5a7MdGQM/2o9XW2f
+	fSA6WEMliI9ZSZTn605oKg++oX6WQ/FVVwZomJMtoEOJ3Xvb4nHR9fm2g1hzQ4I792bd
+	rzCEne+LdPwNGOHe61gcS+fgFwCpH/MELFc1E=
+Received: by 10.42.175.67 with SMTP id az3mr1731569icb.414.1297490719718;
+	Fri, 11 Feb 2011 22:05:19 -0800 (PST)
+Received: from gmail.com (99-57-141-118.lightspeed.sntcca.sbcglobal.net
+	[99.57.141.118])
+	by mx.google.com with ESMTPS id u9sm167093ibe.20.2011.02.11.22.05.16
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Fri, 11 Feb 2011 22:05:17 -0800 (PST)
+Date: Fri, 11 Feb 2011 22:05:12 -0800
+From: Khem Raj <raj.khem@gmail.com>
+To: Mark Hatle <mark.hatle@windriver.com>
+Message-ID: <20110212060512.GB3321@gmail.com>
+References: <4D5569A0.7080308@mlbassoc.com> <4D5574D7.3010005@mentor.com>
+	<4D557ED0.4050705@mlbassoc.com> <4D55805C.2020503@windriver.com>
 MIME-Version: 1.0
-To: Darren Hart <dvhart@linux.intel.com>
-References: <cover.1297455890.git.mark.hatle@windriver.com>	<036ec84d411be6ee4d2bb2bf4c0fd2cb5c811cf7.1297455890.git.mark.hatle@windriver.com>
-	<4D55BF29.90703@linux.intel.com>
-In-Reply-To: <4D55BF29.90703@linux.intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 1/1] busybox: Rework busybox to fix limitations in	initscripts
+In-Reply-To: <4D55805C.2020503@windriver.com>
+User-Agent: Mutt/1.5.20 (2009-06-14)
+Cc: poky@yoctoproject.org, Tom Rini <tom_rini@mentor.com>
+Subject: Re: busybox & update-alternatives
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,95 +50,67 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 12 Feb 2011 03:07:53 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Sat, 12 Feb 2011 06:05:20 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 02/11/2011 03:58 PM, Darren Hart wrote:
-> On 02/11/2011 12:26 PM, Mark Hatle wrote:
->> A recent busybox change added a "second" initscript to the main busybox
->> package. This however is not supported by the update-rc.d.bbclass.
->> Instead we split the package so that each initscript gets it's own split.
->
-> Does this address:
->
-> http://bugzilla.pokylinux.org/show_bug.cgi?id=706
+On (11/02/11 12:30), Mark Hatle wrote:
+> On 2/11/11 12:24 PM, Gary Thomas wrote:
+> > On 02/11/2011 10:41 AM, Tom Rini wrote:
+> >> On 02/11/2011 09:53 AM, Gary Thomas wrote:
+> >>> A build for my platform with today's master
+> >>> 49a18f1748d2417958b8e19cdd58c0c79f4fc728
+> >>> shows a new behaviour - many messages like this:
+> >>> update-alternatives: Linking //usr/bin/wc to ../../bin/busybox
+> >>>
+> >>> Questions:
+> >>> * Is this truly new or was it just quiet before?
+> >>> * Can't this be done at image build time? On my little
+> >>> embedded OMAP-L138, it takes nearly 2 minutes to run
+> >>> through this. My root is a ramdisk, so this is a cost
+> >>> I see on _every_ boot.
+> >>> * If it can't be done at build time, can I disable it?
+> >>
+> >> It can be done at build time _except_ for when there's a conflict. I suspect what's going on is that a recent change has introduced a conflict (which is to say, busybox provides
+> >> foo as an alternative and something else also provides it, but isn't registering it as an alternative). If you check the whole boot log (or log.do_rootfs) you can find where the
+> >> conflict is and then do something like http://cgit.openembedded.org/cgit.cgi/openembedded/commit/?id=902b98f32ffd35661e43382f47226f65528ff1b1 (it's a little more complicated if the
+> >> recipe also does BBCLASSEXTEND, since you don't want to do the move for virtclass-foo).
+> > 
+> > Running the postinst script manually, I get this error:
+> > 
+> > + update-rc.d -s syslog busybox-udhcpc defaults
+> > usage: update-rc.d [-n] [-f] [-r <root>] <basename> remove
+> >         update-rc.d [-n] [-r <root>] [-s] <basename> defaults [NN | sNN kNN]
+> >         update-rc.d [-n] [-r <root>] [-s] <basename> start|stop NN runlvl [runlvl] [...] .
+> >                  -n: not really
+> >                  -f: force
+> >                  -v: verbose
+> >                  -r: alternate root path (default is /)
+> >                  -s: invoke start methods if appropriate to current runlevel
+> > 
+> > Looks like update-rc.d is not being called properly.  This
+> > was introduced by
+> >    commit 427472e980cd6254a5e4ef37209b327e15af259b
+> >    Author: Mark Hatle <mark.hatle@windriver.com>
+> >    Date:   Thu Feb 3 19:29:50 2011 -0600
+> > 
+> > Mark, any comments?
+> > 
+> 
+> The error is coming from the INITSCRIPT_NAME_${PN} change.  However, I don't
+> know how to resolve it.  Where there was previously only one init script, there
+> are now two.  So how do we inform bitbake that there are two initscripts to be
+> processed?
 
-Should do - it's exactly the problem I was working with Mark about.
+customize update-rc.d class functionality in recipe
 
->
-> --
-> Darren
->
->> Signed-off-by: Mark Hatle<mark.hatle@windriver.com>
->> ---
->> meta/recipes-core/busybox/busybox.inc | 21 ++++++++++++++-------
->> 1 files changed, 14 insertions(+), 7 deletions(-)
->>
->> diff --git a/meta/recipes-core/busybox/busybox.inc b/meta/recipes-core/busybox/busybox.inc
->> index 55f056c..9f2d64c 100644
->> --- a/meta/recipes-core/busybox/busybox.inc
->> +++ b/meta/recipes-core/busybox/busybox.inc
->> @@ -12,22 +12,25 @@ SECTION = "base"
->> PRIORITY = "required"
->>
->> export EXTRA_CFLAGS = "${CFLAGS}"
->> -PACKAGES =+ "${PN}-httpd ${PN}-udhcpd"
->> +PACKAGES =+ "${PN}-httpd ${PN}-udhcpd ${PN}-udhcpc ${PN}-syslog"
->>
->> FILES_${PN}-httpd = "${sysconfdir}/init.d/busybox-httpd /srv/www"
->> +FILES_${PN}-syslog = "${sysconfdir}/init.d/syslog* ${sysconfdir}/syslog.conf*"
->> FILES_${PN}-udhcpd = "${sysconfdir}/init.d/busybox-udhcpd"
->> +FILES_${PN}-udhcpc = "${sysconfdir}/udhcpc.d ${datadir}/udhcpc ${sysconfdir}/init.d/busybox-udhcpc"
->>
->> -FILES_${PN} += "${datadir}/udhcpc"
->> -FILES_${PN} += "${sysconfdir}/init.d/busybox-udhcpc"
->> +INITSCRIPT_PACKAGES = "${PN}-httpd ${PN}-syslog ${PN}-udhcpd ${PN}-udhcpc"
->>
->> -INITSCRIPT_PACKAGES = "${PN} ${PN}-httpd ${PN}-udhcpd"
->> INITSCRIPT_NAME_${PN}-httpd = "busybox-httpd"
->> +INITSCRIPT_NAME_${PN}-syslog = "syslog"
->> INITSCRIPT_NAME_${PN}-udhcpd = "busybox-udhcpd"
->> -INITSCRIPT_NAME_${PN} = "syslog busybox-udhcpc"
->> -CONFFILES_${PN} = "${sysconfdir}/syslog.conf.${PN}"
->> +INITSCRIPT_NAME_${PN}-udhcpc = "busybox-udhcpc"
->> +CONFFILES_${PN}-syslog = "${sysconfdir}/syslog.conf.${PN}"
->> +
->> +RRECOMMENDS_${PN} = "${PN}-syslog ${PN}-udhcpc"
->>
->> # This disables the syslog startup links in slugos (see slugos-init)
->> -INITSCRIPT_PARAMS_${PN}_slugos = "start 20 ."
->> +INITSCRIPT_PARAMS_${PN}-syslog_slugos = "start 20 ."
->>
->> inherit cml1 update-rc.d
->>
->> @@ -116,7 +119,9 @@ pkg_postinst_${PN} () {
->>
->> # This adds the links, remember that this has to work when building an image too, hence the $D
->> while read link; do case "$link" in /*/*/*) to="../../bin/busybox";; /bin/*) to="busybox";; /*/*) to="../bin/busybox";; esac; bn=`basename $link`; update-alternatives --install
->> $link $bn $to 50; done<$D/etc/busybox.links
->> +}
->>
->> +pkg_postinst_${PN}-syslog () {
->> update-alternatives --install ${sysconfdir}/init.d/syslog syslog-init syslog.${PN} 50
->> update-alternatives --install ${sysconfdir}/syslog.conf syslog-conf syslog.conf.${PN} 50
->> }
->> @@ -150,7 +155,9 @@ pkg_prerm_${PN} () {
->> bn=`basename $link`
->> sh /usr/bin/update-alternatives --remove $bn $to
->> done</etc/busybox.links
->> +}
->>
->> +pkg_prerm_${PN}-syslog () {
->> # remove syslog
->> if test "x$D" = "x"; then
->> if test "$1" = "upgrade" -o "$1" = "remove"; then
->
->
-
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+> 
+> (If specifying more then one initscript is correct in the recipe, then the bug
+> is in a class wherever update-rc.d is called.)
+> 
+> --Mark
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
