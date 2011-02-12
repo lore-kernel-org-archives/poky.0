@@ -1,26 +1,30 @@
-Return-Path: <edwin.zhai@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 1BDA94C8007E
-	for <poky@yoctoproject.org>; Fri, 11 Feb 2011 18:20:19 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 11 Feb 2011 16:20:15 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,459,1291622400"; d="scan'208";a="601913253"
-Received: from shxpwgzhai1a.ccr.corp.intel.com (HELO [10.239.48.130])
-	([10.239.48.130])
-	by orsmga002.jf.intel.com with ESMTP; 11 Feb 2011 16:20:14 -0800
-Message-ID: <4D55D236.8090002@intel.com>
-Date: Sat, 12 Feb 2011 08:20:06 +0800
-From: "Zhai, Edwin" <edwin.zhai@intel.com>
-User-Agent: Thunderbird 2.0.0.17 (Windows/20080914)
-MIME-Version: 1.0
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-References: <cover.1297432560.git.edwin.zhai@intel.com>	
-	<1297433374.20543.10587.camel@rex> <4D554AE5.2030402@intel.com>
-	<1297436057.20543.10739.camel@rex>
-In-Reply-To: <1297436057.20543.10739.camel@rex>
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4349D4C8007E
+	for <poky@yoctoproject.org>; Fri, 11 Feb 2011 18:35:40 -0600 (CST)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1C0ZVHt013788;
+	Sat, 12 Feb 2011 00:35:31 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 13674-02; Sat, 12 Feb 2011 00:35:27 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1C0ZNN2013779
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Sat, 12 Feb 2011 00:35:26 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Mark Hatle <mark.hatle@windriver.com>
+In-Reply-To: <cover.1297455890.git.mark.hatle@windriver.com>
+References: <cover.1297455890.git.mark.hatle@windriver.com>
+Date: Sat, 12 Feb 2011 00:35:20 +0000
+Message-ID: <1297470920.2071.35.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+X-Virus-Scanned: amavisd-new at rpsys.net
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/1] Fix sstate error
+Subject: Re: [PATCH 0/1] Fix the way busybox splits
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,48 +36,25 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 12 Feb 2011 00:20:19 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-List-Received-Date: Sat, 12 Feb 2011 00:35:41 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
+On Fri, 2011-02-11 at 14:26 -0600, Mark Hatle wrote:
+> In order to resolve the issue of more then one initscript per split package,
+> change the way busybox splits.  We have added two additional packages
+> busybox-udhcpc and busybox-syslog.. Both of which are now "recommended"
+> to ensure that if available, they are installed.
+> 
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>   Branch: mhatle/busybox
+>   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=mhatle/busybox
+> 
+> Thanks,
+>     Mark Hatle <mark.hatle@windriver.com>
 
+Merged into master, thanks.
 
-Richard Purdie wrote:
->
-> On Fri, 2011-02-11 at 22:42 +0800, Zhai, Edwin wrote:
-> > Richard Purdie wrote:
-> > > Good question. The import should really always be at the top of 
-> the code
-> > > block in question so I think its a python constraint, not a .bbclass
-> > > one...
-> > >
-> >
-> > Seems in-middle "import" is widely used in other *.py,
-> > See bitbake/lib/bb/fetch/ssh.py,
-> >     def go(self, url, urldata, d):
-> > ..........................
-> >         import commands
-> >         cmd = 'scp -B -r %s %s %s/' % (
-> >             port,
-> >             commands.mkarg(fr),
-> >             commands.mkarg(ldir)
-> >         )
-> >
-> > I found only bb has such limitation:all the "import bb.xxx" are in the
-> > head of function, and adding stuff before it will cause same problem.
-> > Anything special for bb module?
->
-> Is it just specific to the way we hacked the fetch vs fetch2 switch in?
->
-> Also, are you saying this problem only happens in parsed python in
-> the .bb and .bbclass files or that it happens in the bitbake code in
-> general?
->
+Richard
 
-Also in bitbake code like bitbake/lib/bb/utils.py.
-
-> Cheers,
->
-> Richard
->
 
