@@ -1,39 +1,24 @@
-Return-Path: <bruce.ashfield@gmail.com>
-Received: from mail-iw0-f176.google.com (mail-iw0-f176.google.com
-	[209.85.214.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 676A64C808E5
-	for <poky@yoctoproject.org>; Mon, 14 Feb 2011 09:52:46 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by iwn2 with SMTP id 2so5288632iwn.35
-	for <poky@yoctoproject.org>; Mon, 14 Feb 2011 07:52:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:in-reply-to:references:date
-	:message-id:subject:from:to:cc:content-type
-	:content-transfer-encoding;
-	bh=DTjJBzaspAS3ZO4uxseyIrReEVq4IE3bK0Cy9obSZkI=;
-	b=JyyygC1qni4/WztA1QvqLTBagrcUne7/Rej1Dfag69MQAMmLEHHJAetgWHelvKo5+/
-	c9b1/Jb0ejy/3CzGdXxxyxtT9Wy3crBgMDrgie4dHuHnnhYwA+GyVbDQEbAJphOzyazf
-	CKQtikrenQ+XHYMltgBOTAbCzzhib8Suc01+w=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type:content-transfer-encoding;
-	b=ArkxjWTgBcg+kIOYidfgpiQ/+7XLElCJccWEiT49p5+7GjWBixX5DJbSKcoq0B1RCQ
-	2phetIoEt5OjtZUm6b30VVNIFCLwQvPi4RArki1TJfThZOapD1FthvD98kXv5J5Br9Pg
-	DmSblGdhlXK/HWXS3Y/EeuPBskj2qsMpkuJtk=
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 69FCD4C8007E
+	for <poky@lists.pokylinux.org>; Mon, 14 Feb 2011 10:32:08 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 14 Feb 2011 08:32:07 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,469,1291622400"; d="scan'208";a="388538105"
+Received: from unknown (HELO [10.255.14.142]) ([10.255.14.142])
+	by azsmga001.ch.intel.com with ESMTP; 14 Feb 2011 08:32:07 -0800
+Message-ID: <4D59590B.1020601@linux.intel.com>
+Date: Mon, 14 Feb 2011 08:32:11 -0800
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
 MIME-Version: 1.0
-Received: by 10.42.174.7 with SMTP id t7mr5098116icz.340.1297698755723; Mon,
-	14 Feb 2011 07:52:35 -0800 (PST)
-Received: by 10.231.160.79 with HTTP; Mon, 14 Feb 2011 07:52:35 -0800 (PST)
-In-Reply-To: <b9dded$huicuq@orsmga002.jf.intel.com>
-References: <b9dded$huicuq@orsmga002.jf.intel.com>
-Date: Mon, 14 Feb 2011 10:52:35 -0500
-Message-ID: <AANLkTinhzQP26WQ6RC7zyeo3fQDRth0BJ5VctBP1De6Z@mail.gmail.com>
-From: Bruce Ashfield <bruce.ashfield@gmail.com>
-To: Tom Zanussi <tom.zanussi@intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/1][KERNEL][2.6.37] Add jasperforest BSP machine branch
+To: Gary Thomas <gary@mlbassoc.com>
+References: <4D569EC5.6040609@mlbassoc.com>
+In-Reply-To: <4D569EC5.6040609@mlbassoc.com>
+Cc: Poky <poky@lists.pokylinux.org>
+Subject: Re: Booting BeagleBoard
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -45,77 +30,67 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 Feb 2011 15:52:46 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Mon, 14 Feb 2011 16:32:08 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Feb 14, 2011 at 10:46 AM, Tom Zanussi <tom.zanussi@intel.com> wrote=
-:
-> From: Tom Zanussi <tom.zanussi@intel.com>
->
-> 'Jasper Forest' refers to the Intel Xeon C5500/C3500 processors, which
-> combined with the Intel 3420 PCH chipset (Ibex Peak) make up the
-> 'Picket Post' CRB this BSP was developed on.
->
-> This adds the machine branch for the jasperforest BSP.
-
-Aha. This answers my question in my last email (ignore that
-question), this is fine.
-
->
-> While developing it, I ran into problems with the board hanging during
-> boot, which was caused by the lttng commit reverted by this patchset.
-> Thanks to Bruce Ashfield for pointing out the possibly faulty commit.
-
-Good (that we found it), bad that it caused you some pain.
-
->
-> The bad commit also caused the same hang in the sugarbay BSP if I
-> advanced the SRCREV past the lttng commits, so it should also be
-> reverted from the sugarbay branch. =A0I can submit a patch for that too,
-> or it can just be cherry-picked into the sugarbay branch if that's
-> easier (it doesn't affect qemux86-64, which is why I didn't just
-> revert it in common-pc-64 or standard).
-
-I'll revert it everywhere from your confirmation that it was the
-problem. I staged a full revert here, and was waiting to hear if
-it helped you or not .. which I now know it does, consider it
-gone.
-
-Will merge and push this out today.
-
-Cheers,
-
-Bruce
-
->
-> Please pull.
->
-> Thanks,
->
-> Tom
->
-> Pull URL: git://git.pokylinux.org/linux-yocto-2.6.37-contrib
-> =A0Branch: tzanussi/yocto/standard/common-pc-64/jasperforest
-> =A0Browse:
-> http://git.pokylinux.org/cgit.cgi/linux-yocto-2.6.37-contrib/log/?h=3Dtza=
-nussi/yocto/standard/common-pc-64/jasperforest
->
-> Tom Zanussi (1):
-> =A0Revert "nmi-safe-kernel/x86_64-page-fault-nmi-safe"
->
-> =A0arch/x86/mm/fault.c | =A0 =A04 +---
-> =A01 files changed, 1 insertions(+), 3 deletions(-)
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+On 02/12/2011 06:52 AM, Gary Thomas wrote:
+> I have a BeagleBoard C3 (not the new xM). Trying to run the
+> latest Poky ran into some problems:
 >
 
+Thank you for testing with the C3, I only have an xM at my desk, so the 
+extra testing is appreciated.
+
+> * The boot commands in README.hardware are no longer accurate
+> for the 2.6.37 (linux-yocto) kernel. At least you need to
+> use ttyO2 for the serial console.
+
+I am aware of this one and have a patch series I'm working on. There are 
+a couple of gotcha's here. The first, setting up inittab to give a 
+serial console, is easy and addressed by changing SERIAL_CONSOLE, 
+conditionally by kernel. The second is more difficult: u-boot hardcodes 
+the default environment to "console=ttyS2" in omap3-beagle.h. There are 
+a couple ways to address it:
+
+1) conditionally patch u-boot based on the content of SERIAL_CONSOLE
+2) add a boot.scr to the deploy files of u-boot which provides a
+    modified environment.
+3) just update the docs and make people do it manually
+
+I'm working on #1 at the moment, but have been running into various 
+build issues which have been slowing my down. Once this is functional, 
+I'll make my patches available in contrib and would appreciate some 
+testing on the C3 if you can make the time.
 
 
---=20
-"Thou shalt not follow the NULL pointer, for chaos and madness await
-thee at its end"
+> * There is no video? /dev/fb0 is not being created.
+
+
+I haven't investigated this yet, but hope to.
+
+
+> I know that the previous (Angstrom based) 2.6.32 kernel had
+> lots of additions which support video (DSS subsystem) and
+> also camera (ISP). Has this support been ported forward
+> into the Yocto kernel?
+
+
+Angstrom appears to have a high quality and complete BSP for the 
+Beagleboard. At present, poky has basic machine support for booting, 
+serial console, and networking (on the bbxm).
+
+
+>
+> Perhaps I missed some setting?
+>
+
+Nope, we just aren't quite that far along yet, but we are actively 
+working on it.
+
+
+-- 
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
