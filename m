@@ -1,22 +1,22 @@
 Return-Path: <dongxiao.xu@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D4BCA4C8006D
-	for <poky@yoctoproject.org>; Mon, 14 Feb 2011 01:29:37 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 13 Feb 2011 23:29:37 -0800
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id F1DF74C808E7
+	for <poky@yoctoproject.org>; Mon, 14 Feb 2011 01:29:38 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 13 Feb 2011 23:29:38 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,468,1291622400"; d="scan'208";a="602371016"
+X-IronPort-AV: E=Sophos;i="4.60,468,1291622400"; d="scan'208";a="887209018"
 Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.32])
-	by orsmga002.jf.intel.com with ESMTP; 13 Feb 2011 23:29:36 -0800
-Message-Id: <f621a753b199a2600a157c2cd234f2209e6012e8.1297669560.git.dongxiao.xu@intel.com>
+	by fmsmga001.fm.intel.com with ESMTP; 13 Feb 2011 23:29:38 -0800
+Message-Id: <074f9d7f5742fcc50ce0f3aa8da2f9ebc17b389c.1297669560.git.dongxiao.xu@intel.com>
 In-Reply-To: <cover.1297669560.git.dongxiao.xu@intel.com>
 References: <cover.1297669560.git.dongxiao.xu@intel.com>
-Old-Date: Fri, 11 Feb 2011 17:03:55 +0800
-Date: Mon, 14 Feb 2011 15:49:44 +0800
+Old-Date: Fri, 11 Feb 2011 17:05:06 +0800
+Date: Mon, 14 Feb 2011 15:49:45 +0800
 To: poky@yoctoproject.org
 CC: 
 From: Dongxiao Xu <dongxiao.xu@intel.com>
-Subject: [PATCH 1/2] wpa-supplicant: change dbus interface
+Subject: [PATCH 2/2] dbus: change owner and mode for dbus-daemon-launch-helper in postinst
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,68 +28,48 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 Feb 2011 07:29:38 -0000
+X-List-Received-Date: Mon, 14 Feb 2011 07:29:39 -0000
 
 From: Dongxiao Xu <dongxiao.xu@intel.com>
 
-The new interface "fi.w1.wpa_supplicant1" is used in latest connman,
-thus add it in the wpa_supplicant default configuration.
-
-Besides, enable netlink support with libnl 2.0 mode.
+Add code in dbus postinst to change owner and mode for
+dbus-daemon-launch-helper.
 
 [BUGID #603]
 
 Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
 ---
- .../wpa-supplicant-0.7.3/defconfig-gnutls          |    4 +++-
- .../wpa-supplicant/wpa-supplicant-0.7.inc          |    2 +-
- .../wpa-supplicant/wpa-supplicant_0.7.3.bb         |    2 +-
- 3 files changed, 5 insertions(+), 3 deletions(-)
+ meta/recipes-core/dbus/dbus.inc      |    4 +++-
+ meta/recipes-core/dbus/dbus_1.4.1.bb |    2 +-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.3/defconfig-gnutls b/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.3/defconfig-gnutls
-index e325bb8..c679e00 100644
---- a/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.3/defconfig-gnutls
-+++ b/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.3/defconfig-gnutls
-@@ -81,7 +81,8 @@ CONFIG_DRIVER_HOSTAP=y
- CONFIG_DRIVER_WEXT=y
+diff --git a/meta/recipes-core/dbus/dbus.inc b/meta/recipes-core/dbus/dbus.inc
+index da77819..1ef0d8f 100644
+--- a/meta/recipes-core/dbus/dbus.inc
++++ b/meta/recipes-core/dbus/dbus.inc
+@@ -53,7 +53,9 @@ pkg_postinst_dbus() {
+ 			--ingroup "$MESSAGEUSER" "$MESSAGEUSER"
  
- # Driver interface for Linux drivers using the nl80211 kernel interface
--#CONFIG_DRIVER_NL80211=y
-+CONFIG_LIBNL20=y
-+CONFIG_DRIVER_NL80211=y
+ 	grep -q netdev: /etc/group || addgroup netdev
+-	chmod u+s /usr/libexec/dbus-daemon-launch-helper
++
++	chown root:"$MESSAGEUSER" /usr/libexec/dbus-daemon-launch-helper
++	chmod 4754 /usr/libexec/dbus-daemon-launch-helper
  
- # Driver interface for FreeBSD net80211 layer (e.g., Atheros driver)
- #CONFIG_DRIVER_BSD=y
-@@ -405,3 +406,4 @@ CONFIG_PEERKEY=y
- CONFIG_TLS = gnutls
- CONFIG_GNUTLS_EXTRA=y
- CONFIG_CTRL_IFACE_DBUS=y
-+CONFIG_CTRL_IFACE_DBUS_NEW=y
-diff --git a/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.inc b/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.inc
-index 7865b8f..cd62d8f 100644
---- a/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.inc
-+++ b/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.inc
-@@ -6,7 +6,7 @@ LICENSE = "GPLv2 | BSD"
- LIC_FILES_CHKSUM = "file://../COPYING;md5=c54ce9345727175ff66d17b67ff51f58 \
-                     file://../README;md5=54cfc88015d3ce83f7156e63c6bb1738 \
-                     file://wpa_supplicant.c;beginline=1;endline=17;md5=acdc5a4b0d6345f21f136eace747260e"
--DEPENDS = "gnutls dbus"
-+DEPENDS = "gnutls dbus libnl"
- RRECOMMENDS_${PN} = "wpa-supplicant-passphrase wpa-supplicant-cli"
- 
- SRC_URI = "http://hostap.epitest.fi/releases/wpa_supplicant-${PV}.tar.gz \
-diff --git a/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant_0.7.3.bb b/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant_0.7.3.bb
-index 87baf33..03bd937 100644
---- a/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant_0.7.3.bb
-+++ b/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant_0.7.3.bb
+ 	# add volatile after new user/grp are created
+ 	echo "d messagebus messagebus 0755 /var/run/dbus none" > /etc/default/volatiles/99_dbus
+diff --git a/meta/recipes-core/dbus/dbus_1.4.1.bb b/meta/recipes-core/dbus/dbus_1.4.1.bb
+index 7c5627b..f16d9f2 100644
+--- a/meta/recipes-core/dbus/dbus_1.4.1.bb
++++ b/meta/recipes-core/dbus/dbus_1.4.1.bb
 @@ -1,6 +1,6 @@
- require wpa-supplicant-0.7.inc
+ include dbus.inc
  
--PR = "r3"
-+PR = "r4"
+-PR = "r0"
++PR = "r1"
  
- SRC_URI[md5sum] = "f516f191384a9a546e3f5145c08addda"
- SRC_URI[sha256sum] = "d0cd50caa85346ccc376dcda5ed3c258eef19a93b3cade39d25760118ad59443"
+ SRC_URI[md5sum] = "99cb057700c0455fb68f8d57902f77ac"
+ SRC_URI[sha256sum] = "caa1a0ded2d0f2e95c1d4ec7e3c8bd44834928c5b0ed41a7189963f3593983bd"
 -- 
 1.6.3.3
 
