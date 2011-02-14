@@ -1,31 +1,22 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 6A5DC4C80093
-	for <poky@lists.pokylinux.org>; Mon, 14 Feb 2011 11:19:57 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id EDA6116602DA; Mon, 14 Feb 2011 10:19:56 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.1
-Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
-	by mail.chez-thomas.org (Postfix) with ESMTP id CDA8316601BA;
-	Mon, 14 Feb 2011 10:19:55 -0700 (MST)
-Message-ID: <4D59643B.3010408@mlbassoc.com>
-Date: Mon, 14 Feb 2011 10:19:55 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
-MIME-Version: 1.0
-To: Darren Hart <dvhart@linux.intel.com>
-References: <4D55A061.8040901@mlbassoc.com>
-	<1297461009.3188.4.camel@elmorro>	<AANLkTinBo5qKwAPcCP2+MbgZ-CzCoDuO_HT-KB3+AwtK@mail.gmail.com>
-	<4D55B94E.9070700@mlbassoc.com> <4D59608C.4090203@linux.intel.com>
-In-Reply-To: <4D59608C.4090203@linux.intel.com>
-Cc: Poky <poky@lists.pokylinux.org>, Chris Larson <clarson@kergoth.com>
-Subject: Re: Useless syslogd
+Return-Path: <bruce.ashfield@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 26C9E4C80546;
+	Mon, 14 Feb 2011 15:42:22 -0600 (CST)
+Received: from localhost.localdomain (yow-bashfiel-d2.ottawa.windriver.com
+	[128.224.146.167])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p1ELgJTK016342;
+	Mon, 14 Feb 2011 13:42:20 -0800 (PST)
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+To: rpurdie@linux.intel.com
+Date: Mon, 14 Feb 2011 16:42:39 -0500
+Message-Id: <622a74edcdccd3559477cdb2abcc103d819d0e13.1297719595.git.bruce.ashfield@windriver.com>
+X-Mailer: git-send-email 1.7.0.4
+In-Reply-To: <y>
+References: <y>
+In-Reply-To: <cover.1297719595.git.bruce.ashfield@windriver.com>
+References: <cover.1297719595.git.bruce.ashfield@windriver.com>
+Cc: yocto@yoctoproject.org, poky@yoctoproject.org, saul.wold@intel.com
+Subject: [PATCH 1/1] linux-libc-headers-yocto: disable device tree generation
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,61 +28,41 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 Feb 2011 17:19:58 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 14 Feb 2011 21:42:22 -0000
 
-On 02/14/2011 10:04 AM, Darren Hart wrote:
-> On 02/11/2011 02:33 PM, Gary Thomas wrote:
->> On 02/11/2011 03:27 PM, Chris Larson wrote:
->>> On Fri, Feb 11, 2011 at 2:50 PM, Tom Zanussi<tom.zanussi@intel.com>
->>> wrote:
->>>> On Fri, 2011-02-11 at 12:47 -0800, Gary Thomas wrote:
->>>>> ... at least out of the box.
->>>>>
->>>>> It seems that syslog is configured to store its messages in
->>>>> a buffer (memory only?) by default:
->>>>>
->>>>> $ cat meta/recipes-core/busybox/files/syslog.conf
->>>>> DESTINATION="buffer" # log destinations (buffer file remote)
->>>>> ...
->>>>>
->>>>> This doesn't seem very useful to me. I know I can override this
->>>>> in my platform recipes, but I was just wondering what's the
->>>>> rationale? Would it not make more sense to chose DESTINATION="file"?
->>>>> Otherwise, where do the messages go? How can I see them?
->>>>>
->>>>
->>>> I think 'logread' is hooked up to read from the buffer, but it seems to
->>>> be broken at the moment...
->>>
->>> logread is indeed the way to access the circular buffer, though it
->>> does seem like operating against a file would be more consistent -- I
->>> think the original logic was that most of the targeted devices didn't
->>> have a writable area to put the logs, other than flash, if that, but
->>> using tmpfs seems just as good a solution and the logs can be read in
->>> a more traditional fashion..
->>
->> Indeed. I hacked it before(*) so that /var/log could be ramdisk
->> and then rotate the logs to FLASH periodically. Sadly, this
->> isn't supported out of the box (at least busybox's logrotate
->> insists on keeping the rotated files in /var/log), but I think
->> it's the best of both worlds.
->>
->> (*) using an ad-hoc logrotate that could have the rotated files
->> end up in a directory other than /var/log
->>
->
-> I think this is a good idea, but I don't know that anyone will have the time to jump on it right now. May I suggest you open a bug / feature enhancement so we don't lose track of
-> this?
+Fixes [BUGID #719]
 
-Done as two separate bugs
-   Bug 717 - Improve syslog configurability
-   Bug 718 - Allow logrotate to use a different file system from the original logs
+The common routines for handling a git based yocto kernel
+are included from the lib headers recipe to checkout the
+appropriate branch of the kernel for header generation.
 
+linux-yocto.inc includes device tree installation rules
+which typically apply to a kernel user of the include file,
+but do not apply to a simple header generation. The fix is
+to override the DTB variables in this recipe, which disable
+the device tree installation rules.
+
+Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
+---
+ .../linux-libc-headers-yocto_git.bb                |    4 ++++
+ 1 files changed, 4 insertions(+), 0 deletions(-)
+
+diff --git a/meta/recipes-kernel/linux-libc-headers/linux-libc-headers-yocto_git.bb b/meta/recipes-kernel/linux-libc-headers/linux-libc-headers-yocto_git.bb
+index 0d58354..736d60f 100644
+--- a/meta/recipes-kernel/linux-libc-headers/linux-libc-headers-yocto_git.bb
++++ b/meta/recipes-kernel/linux-libc-headers/linux-libc-headers-yocto_git.bb
+@@ -12,6 +12,10 @@ PR = "r2"
+ SRCREV_FORMAT = "meta_machine"
+ SRC_URI = "git://git.pokylinux.org/linux-yocto-2.6.37;protocol=git;nocheckout=1;branch=${KBRANCH},meta;name=machine,meta"
+ 
++# force this to empty to prevent installation failures, we aren't
++# building a device tree as part of kern headers
++KERNEL_DEVICETREE=
++
+ set_arch() {
+ 	case ${TARGET_ARCH} in
+ 		arm*)     ARCH=arm ;;
 -- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+1.7.0.4
+
 
