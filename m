@@ -1,22 +1,22 @@
 Return-Path: <scott.m.rifenbark@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 82AF74C80A50
-	for <poky@yoctoproject.org>; Mon, 14 Feb 2011 17:15:44 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 14 Feb 2011 15:15:43 -0800
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 7865C4C80A59
+	for <poky@yoctoproject.org>; Mon, 14 Feb 2011 17:15:45 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 14 Feb 2011 15:15:45 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,470,1291622400"; d="scan'208";a="388727385"
+X-IronPort-AV: E=Sophos;i="4.60,470,1291622400"; d="scan'208";a="887451027"
 Received: from unknown (HELO localhost) ([10.255.15.30])
-	by azsmga001.ch.intel.com with ESMTP; 14 Feb 2011 15:15:32 -0800
-Message-Id: <721a9340d63245199dc80f4e798f13d3b1fe8d74.1297724957.git.scott.m.rifenbark@intel.com>
+	by fmsmga001.fm.intel.com with ESMTP; 14 Feb 2011 15:15:44 -0800
+Message-Id: <647aaad6fb8b9c22c5287d387cb1fb691a7bd5ee.1297724957.git.scott.m.rifenbark@intel.com>
 In-Reply-To: <cover.1297724957.git.scott.m.rifenbark@intel.com>
 References: <cover.1297724957.git.scott.m.rifenbark@intel.com>
-Old-Date: Tue, 8 Feb 2011 11:24:00 -0600
-Date: Mon, 14 Feb 2011 17:16:07 -0600
+Old-Date: Mon, 14 Feb 2011 17:04:23 -0600
+Date: Mon, 14 Feb 2011 17:16:19 -0600
 To: poky@yoctoproject.org
 CC: 
 From: <scott.m.rifenbark@intel.com>
-Subject: [PATCH 1/6] documentation/kernel-manual/kernel-how-to.xml: [BUGID# 597] Fixed common_pc
+Subject: [PATCH 6/6] documentation/kernel-manual/kernel-how-to.xml: More changes to the creating BSP section.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,64 +28,61 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 Feb 2011 23:15:44 -0000
+X-List-Received-Date: Mon, 14 Feb 2011 23:15:45 -0000
 
 From: Scott Rifenbark <scott.m.rifenbark@intel.com>
 
-[BUGID# 597] - Changed the string "common_pc" to "common-pc".
+These changes implemented Bruce Ashfield's next round of changes to the
+section 4.3.3 example.
 
 Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
 ---
- documentation/kernel-manual/kernel-how-to.xml |   12 ++++++------
- 1 files changed, 6 insertions(+), 6 deletions(-)
+ documentation/kernel-manual/kernel-how-to.xml |   29 ++++++++++++++----------
+ 1 files changed, 17 insertions(+), 12 deletions(-)
 
 diff --git a/documentation/kernel-manual/kernel-how-to.xml b/documentation/kernel-manual/kernel-how-to.xml
-index 6b326b5..6b70e5c 100644
+index 07e4d78..c3c9569 100644
 --- a/documentation/kernel-manual/kernel-how-to.xml
 +++ b/documentation/kernel-manual/kernel-how-to.xml
-@@ -426,7 +426,7 @@ repository.
-                 <literallayout class='monospaced'>
-      # full description of the changes
-      &gt; git whatchanged &lt;kernel type&gt;..&lt;bsp&gt;-&lt;kernel type&gt;
--        &gt; eg: git whatchanged standard..common_pc-standard
-+        &gt; eg: git whatchanged standard..common-pc-standard
- 
-      # summary of the changes
-      &gt; git log --pretty=oneline --abbrev-commit &lt;kernel type&gt;..&lt;bsp&gt;-&lt;kernel type&gt;
-@@ -733,10 +733,10 @@ repository.
- 
-                     <para>
-                         For example, the following command pushes the changes from your local branch
--                        <filename>common_pc-standard</filename> to the remote branch with the same name 
-+                        <filename>common-pc-standard</filename> to the remote branch with the same name 
-                         in the master repository <filename>//git.mycompany.com/pub/git/kernel-2.6.27</filename>.
+@@ -1088,21 +1088,26 @@ That's it. Configure and build.
+                 </para></listitem>
+                 
+                 <listitem><para>
+-                    Point the build at the new kernel git tree.
+-                </para>
++                    In a layer, create a <filename>linux-yocto_git.bbappend</filename> 
++                    file with the following:
++                </para>       
+                 
+                 <para>
+-                    You can do this by commenting out the SRC_URI variable in 
+-                    <filename>meta/recipes-kernel/linux/linux-yocto_git.bb</filename> and using a SRC_URI 
+-                    that points to your new bare git tree.
+-                    You should also be able to do this in <filename>linux-yocto_git.bbappend</filename> in the layer:
                      <literallayout class='monospaced'>
--     &gt; push ssh://git.mycompany.com/pub/git/kernel-2.6.27 common_pc-standard:common_pc-standard
-+     &gt; push ssh://git.mycompany.com/pub/git/kernel-2.6.27 common-pc-standard:common-pc-standard
+-     # To use a staged, on-disk bare clone of a Wind River Kernel, use a variant of the 
+-     # below SRC_URI = "git://///path/to/kernel/default_kernel.git;fullclone=1"
+-     #
+-     SRC_URI = "git://git.pokylinux.org/linux-2.6-windriver.git;protocol=git;fullclone=1;branch=${KBRANCH};name=machine
+-\
+-     git://git.pokylinux.org/linux-2.6-windriver.git;protocol=git;noclone=1;branch=wrs_meta;name=meta"
++     COMPATIBLE_MACHINE = ${MACHINE}
++
++     # It is often nice to have a local clone of the kernel repository, to
++     # allow patches to be staged, branches created, and so forth.  Modify
++     # KSRC to point to your local clone as appropriate.
++
++     # KSRC ?= /path/to/your/bare/clone/yocto-kernel
++
++     # KMACHINE is the branch to be built, or alternateively 
++     # KBRANCH can be directly set.
++
++     # KBRANCH ?= "${KMACHINE}-${LINUX_KERNEL_TYPE}"
++
++     # SRC_URI = "git://${KSRC};nocheckout=1;branch=${KBRANCH},meta;name=machine,meta"
                      </literallayout>
-                     </para>
- 
-@@ -866,9 +866,9 @@ repository.
- 
-                 <para>
-                     The following commands illustrate some of the steps you could use to
--                    import the common_pc-standard kernel into a secondary SCM:
-+                    import the common-pc-standard kernel into a secondary SCM:
-                 <literallayout class='monospaced'>
--     &gt; git checkout common_pc-standard
-+     &gt; git checkout common-pc-standard
-      &gt; cd .. ; echo linux/.git &gt; .cvsignore
-      &gt; cvs import -m "initial import" linux MY_COMPANY start
-                 </literallayout>
-@@ -881,7 +881,7 @@ repository.
-                 <para>
-                     The following commands illustrate how you can condense and merge two BSPs into a second SCM:
-                 <literallayout class='monospaced'>
--     &gt; git checkout common_pc-standard
-+     &gt; git checkout common-pc-standard
-      &gt; git merge cav_ebt5800-standard
-      # resolve any conflicts and commit them
-      &gt; cd .. ; echo linux/.git &gt; .cvsignore
+                 </para>
+                 
 -- 
 1.7.1
 
