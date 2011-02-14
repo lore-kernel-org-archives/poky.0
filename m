@@ -1,22 +1,22 @@
 Return-Path: <scott.m.rifenbark@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 14A694C8090C
-	for <poky@yoctoproject.org>; Mon, 14 Feb 2011 17:15:35 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 14 Feb 2011 15:15:34 -0800
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id B76484C80A1D
+	for <poky@yoctoproject.org>; Mon, 14 Feb 2011 17:15:36 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 14 Feb 2011 15:15:36 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,470,1291622400"; d="scan'208";a="602631146"
+X-IronPort-AV: E=Sophos;i="4.60,470,1291622400"; d="scan'208";a="657644080"
 Received: from unknown (HELO localhost) ([10.255.15.30])
-	by orsmga002.jf.intel.com with ESMTP; 14 Feb 2011 15:15:34 -0800
-Message-Id: <f8c5a63a25f55a6c25420f131553b512eb3f3228.1297724957.git.scott.m.rifenbark@intel.com>
+	by fmsmga002.fm.intel.com with ESMTP; 14 Feb 2011 15:15:36 -0800
+Message-Id: <2a8c4a32be789e4101b24b0d9ea6d8116968fc72.1297724957.git.scott.m.rifenbark@intel.com>
 In-Reply-To: <cover.1297724957.git.scott.m.rifenbark@intel.com>
 References: <cover.1297724957.git.scott.m.rifenbark@intel.com>
-Old-Date: Tue, 8 Feb 2011 12:23:54 -0600
-Date: Mon, 14 Feb 2011 17:16:08 -0600
+Old-Date: Tue, 8 Feb 2011 13:35:45 -0600
+Date: Mon, 14 Feb 2011 17:16:10 -0600
 To: poky@yoctoproject.org
 CC: 
 From: <scott.m.rifenbark@intel.com>
-Subject: [PATCH 2/6] documentation/yocto-project-qs/yocto-project-qs.xml: [BUGID# 631] - Added tip for saving disk space during a build.
+Subject: [PATCH 3/6] documentation/kernel-manual/kernel-how-to.xml: [BUGID# 597] Reversing common-pc-standard
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,41 +28,67 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 Feb 2011 23:15:35 -0000
+X-List-Received-Date: Mon, 14 Feb 2011 23:15:36 -0000
 
 From: Scott Rifenbark <scott.m.rifenbark@intel.com>
 
-[BUGID# 631] - I added a tip in the section where we show a sample build.
-The tip says that you can add 'INHERIT += "rm_work"' to the local.conf file
-to help conserve disk space during a build.
+[BUGID# 597] - After talking with Bruce Ashfield the kernel documentation
+needs to support the 2.6.34 disribution.  So, the 'common-pc-standard'
+strings need to be changed back to 'common_pc-standard'.  This fix restores
+them.
 
 Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
 ---
- .../yocto-project-qs/yocto-project-qs.xml          |   11 +++++++++++
- 1 files changed, 11 insertions(+), 0 deletions(-)
+ documentation/kernel-manual/kernel-how-to.xml |   12 ++++++------
+ 1 files changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/documentation/yocto-project-qs/yocto-project-qs.xml b/documentation/yocto-project-qs/yocto-project-qs.xml
-index 24480bc..56dafe5 100644
---- a/documentation/yocto-project-qs/yocto-project-qs.xml
-+++ b/documentation/yocto-project-qs/yocto-project-qs.xml
-@@ -234,6 +234,17 @@
-      $ source poky-laverne-4.0/poky-init-build-env poky-4.0-build
-              </literallayout>
-          </para>
-+
-+         <tip><para>
-+             To help conserve disk space during builds you can add the following statement
-+             to your <filename>local.conf</filename> file.  
-+             Adding this statement deletes the work directory used for building a package
-+             once the package is built.
-+             <literallayout class='monospaced'>
-+     INHERIT += "rm_work"
-+             </literallayout>
-+         </para></tip>
-+
-          <itemizedlist>
-              <listitem><para>The first two commands extract the Yocto Project files from the 
-              release tarball and place them into a subdirectory of your current directory.</para></listitem>
+diff --git a/documentation/kernel-manual/kernel-how-to.xml b/documentation/kernel-manual/kernel-how-to.xml
+index 6b70e5c..6b326b5 100644
+--- a/documentation/kernel-manual/kernel-how-to.xml
++++ b/documentation/kernel-manual/kernel-how-to.xml
+@@ -426,7 +426,7 @@ repository.
+                 <literallayout class='monospaced'>
+      # full description of the changes
+      &gt; git whatchanged &lt;kernel type&gt;..&lt;bsp&gt;-&lt;kernel type&gt;
+-        &gt; eg: git whatchanged standard..common-pc-standard
++        &gt; eg: git whatchanged standard..common_pc-standard
+ 
+      # summary of the changes
+      &gt; git log --pretty=oneline --abbrev-commit &lt;kernel type&gt;..&lt;bsp&gt;-&lt;kernel type&gt;
+@@ -733,10 +733,10 @@ repository.
+ 
+                     <para>
+                         For example, the following command pushes the changes from your local branch
+-                        <filename>common-pc-standard</filename> to the remote branch with the same name 
++                        <filename>common_pc-standard</filename> to the remote branch with the same name 
+                         in the master repository <filename>//git.mycompany.com/pub/git/kernel-2.6.27</filename>.
+                     <literallayout class='monospaced'>
+-     &gt; push ssh://git.mycompany.com/pub/git/kernel-2.6.27 common-pc-standard:common-pc-standard
++     &gt; push ssh://git.mycompany.com/pub/git/kernel-2.6.27 common_pc-standard:common_pc-standard
+                     </literallayout>
+                     </para>
+ 
+@@ -866,9 +866,9 @@ repository.
+ 
+                 <para>
+                     The following commands illustrate some of the steps you could use to
+-                    import the common-pc-standard kernel into a secondary SCM:
++                    import the common_pc-standard kernel into a secondary SCM:
+                 <literallayout class='monospaced'>
+-     &gt; git checkout common-pc-standard
++     &gt; git checkout common_pc-standard
+      &gt; cd .. ; echo linux/.git &gt; .cvsignore
+      &gt; cvs import -m "initial import" linux MY_COMPANY start
+                 </literallayout>
+@@ -881,7 +881,7 @@ repository.
+                 <para>
+                     The following commands illustrate how you can condense and merge two BSPs into a second SCM:
+                 <literallayout class='monospaced'>
+-     &gt; git checkout common-pc-standard
++     &gt; git checkout common_pc-standard
+      &gt; git merge cav_ebt5800-standard
+      # resolve any conflicts and commit them
+      &gt; cd .. ; echo linux/.git &gt; .cvsignore
 -- 
 1.7.1
 
