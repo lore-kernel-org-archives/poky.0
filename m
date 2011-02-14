@@ -1,37 +1,30 @@
-Return-Path: <stefan@datenfreihafen.org>
-Received: from sirius.lasnet.de (sirius.lasnet.de [78.47.116.19])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E38594C8007E
-	for <poky@yoctoproject.org>; Mon, 14 Feb 2011 02:07:22 -0600 (CST)
-Received: from [2001:638:602:1183:21f:16ff:fe0d:7d41] (helo=excalibur.local)
-	by sirius.lasnet.de with esmtpsa 
-	(Cipher TLS1.0:RSA_AES_256_CBC_SHA1:32) (Exim 4.69 #1)
-	id 1PotSh-0006t9-90 by authid <stefan@sostec.de> with cram_md5;
-	Mon, 14 Feb 2011 09:07:21 +0100
-Received: from stefan by excalibur.local with local (Exim 4.72)
-	(envelope-from <stefan@excalibur.local>)
-	id 1PotSf-00064A-Iw; Mon, 14 Feb 2011 09:07:09 +0100
-Date: Mon, 14 Feb 2011 09:07:09 +0100
-From: Stefan Schmidt <stefan@datenfreihafen.org>
-To: "Xu, Dongxiao" <dongxiao.xu@intel.com>
-Message-ID: <20110214080709.GC14931@excalibur.local>
-References: <cover.1297415188.git.dongxiao.xu@intel.com>
-	<0a9dc7a03251c1521a2e5baaead56055207ae72f.1297415188.git.dongxiao.xu@intel.com>
-	<20110211100751.GF9652@excalibur.local>
-	<D5AB6E638E5A3E4B8F4406B113A5A19A33285081@shsmsx501.ccr.corp.intel.com>
-	<20110214073113.GA14931@excalibur.local>
-	<D5AB6E638E5A3E4B8F4406B113A5A19A3328545A@shsmsx501.ccr.corp.intel.com>
-MIME-Version: 1.0
-In-Reply-To: <D5AB6E638E5A3E4B8F4406B113A5A19A3328545A@shsmsx501.ccr.corp.intel.com>
-X-Mailer: Mutt http://www.mutt.org/
-X-KeyID: 0xDDF51665
-X-Website: http://www.datenfreihafen.org/
-User-Agent: Mutt/1.5.20 (2009-06-14)
-X-Spam-Checker-Version: SpamAssassin 3.2.5 (2008-06-10) on sirius.lasnet.de
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,NO_RELAYS
-	autolearn=ham version=3.2.5
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 1/2] wpa-supplicant: change dbus interface
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D5DA64C8007E
+	for <poky@yoctoproject.org>; Mon, 14 Feb 2011 06:21:34 -0600 (CST)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1ECLWSa009848;
+	Mon, 14 Feb 2011 12:21:32 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 09696-03; Mon, 14 Feb 2011 12:21:28 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1ECLPm8009841
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Mon, 14 Feb 2011 12:21:26 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Dongxiao Xu <dongxiao.xu@intel.com>
+In-Reply-To: <cover.1297669560.git.dongxiao.xu@intel.com>
+References: <cover.1297669560.git.dongxiao.xu@intel.com>
+Date: Mon, 14 Feb 2011 12:21:22 +0000
+Message-ID: <1297686082.4945.13.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH v2 0/2][PULL] Fix Bug 603
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,24 +36,42 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 Feb 2011 08:07:23 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-List-Received-Date: Mon, 14 Feb 2011 12:21:35 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Hello.
-
-On Mon, 2011-02-14 at 15:34, Xu, Dongxiao wrote:
-> Stefan Schmidt wrote:
-> > 
-> > That are the ones that come in mind quickly. The first three are not
-> > in  Poky (at least as afar as I know). For the networkmanager part I
-> > would be interested how you got it working with libnl2.  
+On Mon, 2011-02-14 at 15:49 +0800, Dongxiao Xu wrote:
+> From: Dongxiao Xu <dongxiao.xu@intel.com>
 > 
-> Actually networkmanager has beed deprecated and deleted in poky.
-> Now connman is the default network configuration tool.
+> Hi Saul,
+> 
+> This pull request fixes [BUGID #603], please help to review and pull.
+> 
+> Actually there are two bugs inside:
+> 
+> 1) wpa_supplicant is not launched by default.
+> 2) Even if manually launch wpa_supplicant, wifi interface still couldn't be enabled.
+> 
+> Some points to fix this issue:
+> 
+> 1) Using new dbus interface in wpa_supplicant: "fi.w1.wpa_supplicant1"
+> 2) Enable nl802.11 support in wpa_supplicant.
+> 3) Fix the dbus-daemon-launch-helper permission issue.
+> 
+> Changes from v1:
+> Set both CONFIG_CTRL_IFACE_DBUS and CONFIG_CTRL_IFACE_DBUS_NEW to 'y' in wpa_supplicant's configuration file.
+> 
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>   Branch: dxu4/bugfix
+>   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dxu4/bugfix
+> 
+> Thanks,
+>     Dongxiao Xu <dongxiao.xu@intel.com>
 
-Ah, that explains why you don't have problems with it. :)
+Merged to master.
 
-regards
-Stefan Schmidt
+Thanks,
+
+Richard
+
 
