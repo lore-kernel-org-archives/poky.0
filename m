@@ -1,44 +1,36 @@
-Return-Path: <fransmeulenbroeks@gmail.com>
-Received: from mail-iy0-f172.google.com (unknown [209.85.210.172])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 1E6C04C8006D
-	for <poky@lists.pokylinux.org>; Sun, 13 Feb 2011 12:14:25 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by iym1 with SMTP id 1so4326303iym.3
-	for <poky@lists.pokylinux.org>; Sun, 13 Feb 2011 10:14:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:in-reply-to:references:date
-	:message-id:subject:from:to:cc:content-type
-	:content-transfer-encoding;
-	bh=knV28aIMruzJ1344aRNqiRFkt5u1ypT7YiPyqdVkqYM=;
-	b=aOR5dSOmoyiE90Ne4l80sPf0r9KSorM1al61iiUzF8TBSAf7KWs828bAVmPGeRB+Ng
-	HsOiWRT7QnN24in39OntmnlzngRH/FxgXde0Ni0ZQ3r2hUJPTNpmT8bi+fG0xHkkdnX1
-	gs+oDH79VbSrbLlc/7IdYqYyD8M49Sah0KlR8=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type:content-transfer-encoding;
-	b=KxNFXX/hrhuggRZP82OWPeDvZaux5rfjXPR5QOWFYPnIFIyqtN4I4RApVFJDlAhF9Y
-	D/VRL/efKXx1gkZ74Rq4SYcYsjPGJRZOlhfupnElRienKaqeJCaL8Fex5nFWgaHYmqsO
-	KGQA8wxnyCBo6In91TAIuySUvwUEQUwcXbRM0=
+Return-Path: <dongxiao.xu@intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id B5D094C8007E
+	for <poky@yoctoproject.org>; Sun, 13 Feb 2011 18:56:02 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 13 Feb 2011 16:56:02 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,466,1291622400"; d="scan'208";a="388238901"
+Received: from pgsmsx603.gar.corp.intel.com ([10.221.43.87])
+	by azsmga001.ch.intel.com with ESMTP; 13 Feb 2011 16:56:01 -0800
+Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
+	pgsmsx603.gar.corp.intel.com (10.221.43.87) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Mon, 14 Feb 2011 08:56:00 +0800
+Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
+	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
+	Mon, 14 Feb 2011 08:55:59 +0800
+From: "Xu, Dongxiao" <dongxiao.xu@intel.com>
+To: Stefan Schmidt <stefan@datenfreihafen.org>, "poky@yoctoproject.org"
+	<poky@yoctoproject.org>
+Date: Mon, 14 Feb 2011 08:55:58 +0800
+Thread-Topic: [poky] [PATCH 1/2] wpa-supplicant: change dbus interface
+Thread-Index: AcvJ05mTYj2TaXLXTcS31nPoEHybvQCDKijA
+Message-ID: <D5AB6E638E5A3E4B8F4406B113A5A19A33285081@shsmsx501.ccr.corp.intel.com>
+References: <cover.1297415188.git.dongxiao.xu@intel.com>
+	<0a9dc7a03251c1521a2e5baaead56055207ae72f.1297415188.git.dongxiao.xu@intel.com>
+	<20110211100751.GF9652@excalibur.local>
+In-Reply-To: <20110211100751.GF9652@excalibur.local>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
 MIME-Version: 1.0
-Received: by 10.231.157.211 with SMTP id c19mr2187206ibx.172.1297620844486;
-	Sun, 13 Feb 2011 10:14:04 -0800 (PST)
-Received: by 10.231.30.73 with HTTP; Sun, 13 Feb 2011 10:14:04 -0800 (PST)
-In-Reply-To: <4D57F979.4040002@mlbassoc.com>
-References: <4D569EC5.6040609@mlbassoc.com>
-	<44134B64-2531-4D6A-9C7C-C2FE68D18434@dominion.thruhere.net>
-	<4D57F169.8040705@mlbassoc.com>
-	<59686AEF-1509-4F1B-B722-66D2465E274F@dominion.thruhere.net>
-	<4D57F378.90406@mlbassoc.com>
-	<58A0EE94-D37C-4643-AF5D-13078B549E08@dominion.thruhere.net>
-	<4D57F979.4040002@mlbassoc.com>
-Date: Sun, 13 Feb 2011 19:14:04 +0100
-Message-ID: <AANLkTikp04oEA4EL8tKC2VbDthfBHUgXPhkUMOqX=Zgn@mail.gmail.com>
-From: Frans Meulenbroeks <fransmeulenbroeks@gmail.com>
-To: Gary Thomas <gary@mlbassoc.com>
-Cc: Poky <poky@lists.pokylinux.org>
-Subject: Re: Booting BeagleBoard
+Subject: Re: [PATCH 1/2] wpa-supplicant: change dbus interface
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -50,80 +42,79 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 13 Feb 2011 18:14:25 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Mon, 14 Feb 2011 00:56:03 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-2011/2/13 Gary Thomas <gary@mlbassoc.com>:
-> On 02/13/2011 08:21 AM, Koen Kooi wrote:
->>
->> Op 13 feb 2011, om 16:06 heeft Gary Thomas het volgende geschreven:
->>
->>> On 02/13/2011 08:00 AM, Koen Kooi wrote:
->>>>
->>>> Op 13 feb 2011, om 15:57 heeft Gary Thomas het volgende geschreven:
->>>>
->>>>> On 02/12/2011 08:01 AM, Koen Kooi wrote:
->>>>>>
->>>>>> Op 12 feb 2011, om 15:52 heeft Gary Thomas het volgende geschreven:
->>>>>>
->>>>>>> I have a BeagleBoard C3 (not the new xM). =A0Trying to run the
->>>>>>> latest Poky ran into some problems:
->>>>>>>
->>>>>>> * The boot commands in README.hardware are no longer accurate
->>>>>>> =A0for the 2.6.37 (linux-yocto) kernel. =A0At least you need to
->>>>>>> =A0use ttyO2 for the serial console.
->>>>>>> * There is no video? =A0/dev/fb0 is not being created.
->>>>>>>
->>>>>>> I know that the previous (Angstrom based) 2.6.32 kernel had
->>>>>>> lots of additions which support video (DSS subsystem) and
->>>>>>> also camera (ISP). =A0Has this support been ported forward
->>>>>>> into the Yocto kernel?
->>>>>>
->>>>>> Even better, there is a proper BSP with beagleboard support:
->>>>>> http://gitorious.org/angstrom/angstrom-layers/commits/master
->>>>>
->>>>> How is this used? =A0I tried just adding a pointer to that tree
->>>>> in my conf/bblayers.conf. =A0I also tried moving that tree into
->>>>> my poky sources at the same level as meta-emenlow, etc. =A0Both
->>>>> attempts immediately yielded this error:
->>>>> =A0ERROR: Unable to parse conf/bitbake.conf: Could not include requir=
-ed
->>>>> file conf/machine/include/omap3.inc
->>>>>
->>>>> Perhaps you can give some guidance for how to use this?
->>>>
->>>>
->>>> http://thread.gmane.org/gmane.linux.distributions.angstrom.devel/4698/=
-focus=3D4700
->>>
->>> Obviously this is not what I'm looking for.
->>>
->>> What I had wanted to test was your layering on top of my extant
->>> Poky/Yocto environment. =A0I don't want to start over as I have my
->>> own layers that work just fine with Poky.
->>
->> I obviously misunderstood your request on the angstrom mailinglist on ho=
-w
->> to setup angstrom on top of yocto as a request on how to setup angstrom =
-on
->> top of yocto. I'm sorry that I fail to understand such obvious things. I
->> will from now on stop trying to understand your requests to avoid any
->> confusion and perceived wrongdoing on my part.
->
-> That would be reasonable except that this entire thread was on
-> the Poky mailing list :-) =A0If you look closely, I asked about
-> running the BeagleBoard on the latest Poky/Yocto and you replied
-> with this info about your angstrom layers.
+Hi Stefan,
 
-Gary, you're better off ignoring Koen.
-Apparently he hasn't taken his medicine this morning.
-And, frankly speaking, the reply above is among hismore friendly ones.
-His mission in life seems to be to drive everyone away from OE (unless
-of course you're one of his fan-boys). Guess he tries to pull the same
-trick with poky/yocto.
-Sometimes I really pity Richard, having to deal with someone like Koen..
+Stefan Schmidt wrote:
+> Hello.
+>=20
+> On Fri, 2011-02-11 at 17:11, Dongxiao Xu wrote:
+>> From: Dongxiao Xu <dongxiao.xu@intel.com>
+>>=20
+>>  # Driver interface for FreeBSD net80211 layer (e.g., Atheros driver)
+>> #CONFIG_DRIVER_BSD=3Dy @@ -404,4 +405,4 @@ CONFIG_PEERKEY=3Dy  #LIBS_c +=
+=3D
+>> -lbfd -liberty -lz  CONFIG_TLS =3D gnutls  CONFIG_GNUTLS_EXTRA=3Dy
+>> -CONFIG_CTRL_IFACE_DBUS=3Dy
+>> +CONFIG_CTRL_IFACE_DBUS_NEW=3Dy
+>=20
+> Any reason not enable both dbus interfaces? They can happily life
+> next to each other. Thats how I did it in OE.=20
 
-And remember, have fun!
-Frans
+It is OK for me to enable both options. I will change it in my next pull re=
+quest.
+
+>=20
+>> diff --git
+>> a/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.inc
+>> b/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.inc
+>> index 7865b8f..cd62d8f 100644
+>> --- a/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.inc
+>> +++ b/meta/recipes-connectivity/wpa-supplicant/wpa-supplicant-0.7.inc
+>> @@ -6,7 +6,7 @@ LICENSE =3D "GPLv2 | BSD"
+>>  LIC_FILES_CHKSUM =3D
+>>                    =20
+>>                    =20
+>> "file://../COPYING;md5=3Dc54ce9345727175ff66d17b67ff51f58 \
+>> file://../README;md5=3D54cfc88015d3ce83f7156e63c6bb1738 \
+>> file://wpa_supplicant.c;beginline=3D1;endline=3D17;md5=3Dacdc5a4b0d6345f=
+21f136eace747260e"
+>> -DEPENDS =3D "gnutls dbus" +DEPENDS =3D "gnutls dbus libnl"  =20
+>=20
+> Hmm, does poky onl yhave libnl2 recipes or both libnl and libnl2?
+>=20
+> If the later you should depend on libnl2 instead. I'm trying to get
+> rid of these libnl mess in OE and getting all packges over to libnl2.
+> Would be great if we could share resources here. The iw package for
+> example can also be switched easily.  =20
+
+Currently, Poky only has libnl2, and recipe name is libnl_2.0.bb, thus I ad=
+ded "libnl" as the wpa_supplicant's DEPENDS.
+
+Something intersting that, though APIs are incompatible between libnl and l=
+ibnl2, we didn't see build issues except this wpa_supplicant case when upgr=
+ading libnl from 1.1 to 2.0.=20
+
+Could you list some OE packages which need libnl 1.1 as examples? We can ch=
+eck if we have included them in our current Poky build.
+
+Thanks,
+Dongxiao
+
+>=20
+> I fear I only have time to send patches to poky after the OE release
+> in march.=20
+> If you want to cherry-pick (if possible) patches that of course fine.
+>=20
+> regards
+> Stefan Schmidt
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+
 
