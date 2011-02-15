@@ -1,22 +1,27 @@
-Return-Path: <elizabeth.flanagan@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0D1824C80908;
-	Tue, 15 Feb 2011 16:02:51 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 15 Feb 2011 14:02:51 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,476,1291622400"; d="scan'208";a="602980029"
-Received: from eflanaga-mobl.jf.intel.com (HELO [10.7.198.71]) ([10.7.198.71])
-	by orsmga002.jf.intel.com with ESMTP; 15 Feb 2011 14:02:34 -0800
-Message-ID: <4D5AF7F9.6020300@intel.com>
-Date: Tue, 15 Feb 2011 14:02:33 -0800
-From: Elizabeth Flanagan <elizabeth.flanagan@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.13) Gecko/20101208 Thunderbird/3.1.7 ThunderBrowse/3.3.4
-MIME-Version: 1.0
-To: "yocto@yoctoproject.org" <yocto@yoctoproject.org>, 
-	"poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Yocto IRC Bug days
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id CEF5E4C80908
+	for <poky@pokylinux.org>; Tue, 15 Feb 2011 16:06:03 -0600 (CST)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1FM63Js031101
+	for <poky@pokylinux.org>; Tue, 15 Feb 2011 22:06:03 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP id 30590-08 for <poky@pokylinux.org>;
+	Tue, 15 Feb 2011 22:05:59 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1FM5sOX031095
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO)
+	for <poky@pokylinux.org>; Tue, 15 Feb 2011 22:05:54 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: poky <poky@pokylinux.org>
+Date: Tue, 15 Feb 2011 22:05:50 +0000
+Message-ID: <1297807550.11289.171.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Subject: Further build profiling info
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,45 +33,49 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 Feb 2011 22:02:52 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Tue, 15 Feb 2011 22:06:04 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-Folks,
+I'm sending these notes to the list since they might be useful to others
+and it archives them.
 
-First, thanks for everyone's hard work. We're half way through the master stabilization cycle and the buildouts on the
-autobuilder are looking better and better than two weeks ago. Kudos.
+Timing a build with license.bbclass:
+consisting of 4847 tasks:
 
-As we head into the final stretch of master stabilization, we'll be starting to hold regular irc bug scrubs on #yocto.
-These should be between 30 minutes to an hour.
+real 107m23.857s
+user 376m31.640s
+sys 46m51.020s
 
-We currently have 168 open defects in bugzilla with a gold spin planned for March 19th, about 5 weeks away. We'll be
-holding the following bugdays over the next few weeks to make sure Yocto 1.0 is as defect free as possible.
+Without license.bbclass:
+4409 tasks:
 
-Here is the schedule for the coming weeks.
+real 107m46.881s
+user 369m6.670s
+sys 46m19.890s
 
-Master Stabilization Cycle Bug Days:
-Thursday February 17th @ 07:00 GMT / Thurs 23:00 PST / Fri 18th 15:00 China
-Tuesday February 22nd @ 17:30 GMT / Tue 09:30 PST / Wed 23rd 01:30 China
-Thursday February 24th @ 07:00 GMT / Thurs 24th 23:00 PST / Fri 25th 15:00 China
+Without the setscene task and without license.bbclass:
 
-Release Candidate Validation/Verification Bug Days:
-Tuesday March 1st 22nd @ 17:30 GMT / Tue 09:30 PST / Wed 2nd 01:30 China
-Thursday March 3rd 17th @ 07:00 GMT / Thurs 23:00 PST / Fri 4th 15:00 China
-Tuesday March 8th 22nd @ 17:30 GMT / Tue 09:30 PST / Wed 9th 01:30 China
-Thursday March 10th 17th @ 07:00 GMT / Thurs 23:00 PST / Fri 11th 15:00 China
-Tuesday March 15th 22nd @ 17:30 GMT / Tue 09:30 PST / Wed 16th 01:30 China
-Thursday March 17th 17th @ 07:00 GMT / Thurs 23:00 PST / Fri 18th 15:00 China
+3970 tasks:
 
-Please join the team in fixing defects and getting our bug count lower. I or Saul will be the "bug caller" during these
-sessions.
+real	105m36.940s
+user	364m6.900s
+sys	45m33.950s
 
-You can also send email or place a bugzilla comment directly for those bugs that are important to you or your project.
+which makes sense as setscene is a critical path dependency whilst the
+license checks are not.
 
-Thanks for your support of the Yocto Project.
+So a 120 second reduction for a drop of 439 tasks so a 0.27 second
+overhead per task assuming they were all critical path. Numbers from the
+graph suggested a 0.5 second task overhead so perhaps 50% were critical
+path.
 
-------------------
-Elizabeth Flanagan
-Yocto Project
-Release Engineer
+Interesting numbers and it suggests the situation isn't as bad as the
+graph makes out though.
+
+Cheers,
+
+Richard
+
+
 
