@@ -1,30 +1,31 @@
 Return-Path: <richard.purdie@linuxfoundation.org>
 Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
 	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 33F834C8006D;
-	Tue, 15 Feb 2011 13:26:10 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id B92634C8090C
+	for <poky@yoctoproject.org>; Tue, 15 Feb 2011 13:26:17 -0600 (CST)
 Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1FJQ4gT029283;
-	Tue, 15 Feb 2011 19:26:04 GMT
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1FJQEIn029292;
+	Tue, 15 Feb 2011 19:26:14 GMT
 Received: from tim.rpsys.net ([127.0.0.1])
 	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
 	port 10024) with LMTP
-	id 29007-05; Tue, 15 Feb 2011 19:26:00 +0000 (GMT)
+	id 29074-04; Tue, 15 Feb 2011 19:26:10 +0000 (GMT)
 Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1FJPwsU029277
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1FJQ8Hd029286
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Tue, 15 Feb 2011 19:25:58 GMT
+	Tue, 15 Feb 2011 19:26:08 GMT
 From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Bruce Ashfield <bruce.ashfield@windriver.com>
-In-Reply-To: <cover.1297796707.git.bruce.ashfield@windriver.com>
-References: <cover.1297796707.git.bruce.ashfield@windriver.com>
-Date: Tue, 15 Feb 2011 19:25:55 +0000
-Message-ID: <1297797955.4945.368.camel@rex>
+To: Darren Hart <dvhart@linux.intel.com>
+In-Reply-To: <0646bf8cbd7a19bfc12f4a71506428e3c0780df9.1297724276.git.dvhart@linux.intel.com>
+References: <cover.1297724276.git.dvhart@linux.intel.com>
+	<0646bf8cbd7a19bfc12f4a71506428e3c0780df9.1297724276.git.dvhart@linux.intel.com>
+Date: Tue, 15 Feb 2011 19:26:05 +0000
+Message-ID: <1297797965.4945.369.camel@rex>
 Mime-Version: 1.0
 X-Mailer: Evolution 2.28.3 
 X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: yocto@yoctoproject.org, poky@yoctoproject.org, saul.wold@intel.com
-Subject: Re: [PATCH 0/1] linux-yocto: add jasperforest BSP and fix lttng NMI bug
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH] README.hardware: update the beagleboard serial port documentation
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,26 +37,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 Feb 2011 19:26:10 -0000
+X-List-Received-Date: Tue, 15 Feb 2011 19:26:18 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On Tue, 2011-02-15 at 14:07 -0500, Bruce Ashfield wrote:
-> Richard/Saul,
-> 
-> During the introduction of the jasperforest BSP, a lttng
-> issues was picked up with NMI tracing. The upstream (and
-> our solution) is to revert that commit.
-> 
-> This change updates the meta repo for jasperforest and pushes
-> out the nmi revert to all BSPs.
+On Mon, 2011-02-14 at 14:59 -0800, Darren Hart wrote:
+> From: Darren Hart <dvhart@linux.intel.com>
 > 
 > Pull URL: git://git.pokylinux.org/poky-contrib.git
->   Branch: zedd/jasperforest
->   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/jasperforest
+>   Branch: dvhart/beagle
+>   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dvhart/beagle
 > 
 > Thanks,
->     Bruce Ashfield <bruce.ashfield@windriver.com>
+>     Darren Hart <dvhart@linux.intel.com>
+> 
+> Update the README.hardware beagleboard description to account for the use
+> of the OMAP_SERIAL in recent kernel recipes. Add a note documenting how to
+> use the old 8250 based serial devices for older kernels.
+> 
+> Correct a type.
+> 
+> Correct the boot script name from user.scr to boot.scr.
+> 
+> Signed-off-by: Darren Hart <dvhart@linux.intel.com>
+> CC: Gary Thomas <gary@mlbassoc.com>
 
 Merged to master, thanks.
 
