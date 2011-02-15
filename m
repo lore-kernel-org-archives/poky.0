@@ -1,26 +1,20 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B2F324C80546
-	for <poky@lists.pokylinux.org>; Mon, 14 Feb 2011 17:43:47 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 5BD61166027C; Mon, 14 Feb 2011 16:43:46 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=ham version=3.3.1
-Received: from hermes.chez-thomas.org (hermes_local [192.168.1.101])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 7C6FA16601E2;
-	Mon, 14 Feb 2011 16:43:44 -0700 (MST)
-Message-ID: <4D59BE30.9050802@mlbassoc.com>
-Date: Mon, 14 Feb 2011 16:43:44 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
-MIME-Version: 1.0
-To: Poky <poky@lists.pokylinux.org>
-Subject: Controlling package build ordering
+Return-Path: <dongxiao.xu@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 283194C80872
+	for <poky@yoctoproject.org>; Mon, 14 Feb 2011 18:55:32 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 14 Feb 2011 16:55:31 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,471,1291622400"; d="scan'208";a="602657094"
+Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.32])
+	by orsmga002.jf.intel.com with ESMTP; 14 Feb 2011 16:55:31 -0800
+Message-Id: <cover.1297732450.git.dongxiao.xu@intel.com>
+Old-Date: Tue, 15 Feb 2011 09:14:10 +0800
+Date: Tue, 15 Feb 2011  9:15:41 +0800
+To: poky@yoctoproject.org
+CC: 
+From: Dongxiao Xu <dongxiao.xu@intel.com>
+Subject: [PATCH 0/1][PULL] Fix Bug 623
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,46 +26,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 Feb 2011 23:43:48 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 15 Feb 2011 00:55:32 -0000
 
-I have a modified version of poky-feed-config-opkg which
-actually builds an opkg database (as opposed to the default
-which does not).  I've set it so that my base-feeds.conf
-only contains entries for valid package sets like this:
+From: Dongxiao Xu <dongxiao.xu@intel.com>
 
-            for arch in $ipkgarchs; do
-                # Only export real directories
-                if [ -d "${DEPLOY_DIR}/ipk/${arch}" ]; then
-                        echo "src/gz ${FEEDNAMEPREFIX}-$arch ${FEEDURIPREFIX}/$arch" >> $basefeedconf
-                fi
-            done
+This pull request fixes Bug 623, which changes gypsy repo address.
+Please help to review and pull.
 
-As you can see, only those entries which have some packages
-will be included.
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: dxu4/bugfix
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dxu4/bugfix
 
-The problem I have is _when_ my feed-config-opkg.bb is actually
-built.  If I start from scratch, it gets built pretty early and
-the ipk tree is often quite empty, perhaps only containing
-a single collection.  If I rerun this at the end, say after
-building a complete image, then I get a complete set of entries.
+Thanks,
+    Dongxiao Xu <dongxiao.xu@intel.com>
+---
 
-What I'd like to do is find a way to postpone the building of
-this recipe until very late, hopefully just before the final
-image is built.
 
-Is there any way to fine tune the build and accomplish this?
+Dongxiao Xu (1):
+  gypsy: Change gypsy upstream repo address
 
-Note: if I leave out the test for valid subdirectories it all
-works but then I get errors at runtime complaining about the
-empty collections.  This is what I'd like to avoid.
+ meta/recipes-connectivity/gypsy/gypsy_git.bb |   15 +++++++++++++++
+ meta/recipes-connectivity/gypsy/gypsy_svn.bb |    9 ---------
+ 2 files changed, 15 insertions(+), 9 deletions(-)
+ create mode 100644 meta/recipes-connectivity/gypsy/gypsy_git.bb
+ delete mode 100644 meta/recipes-connectivity/gypsy/gypsy_svn.bb
 
-Thanks for any ideas
-
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
 
