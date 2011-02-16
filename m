@@ -1,22 +1,24 @@
-Return-Path: <dexuan.cui@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 4966E4C80A59
-	for <poky@yoctoproject.org>; Wed, 16 Feb 2011 03:36:16 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 16 Feb 2011 01:36:15 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,479,1291622400"; d="scan'208";a="658192217"
-Received: from dcui-desktop.sh.intel.com (HELO localhost) ([10.239.13.51])
-	by fmsmga002.fm.intel.com with ESMTP; 16 Feb 2011 01:36:11 -0800
-Message-Id: <d0739d8a258c251013abd846b8c7a1c00b7e30ae.1297848777.git.dexuan.cui@intel.com>
-In-Reply-To: <cover.1297848777.git.dexuan.cui@intel.com>
-References: <cover.1297848777.git.dexuan.cui@intel.com>
-Old-Date: Wed, 16 Feb 2011 17:16:39 +0800
-Date: Wed, 16 Feb 2011 17:35:10 +0800
+Return-Path: <mark.hatle@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 21A014C800A3
+	for <poky@yoctoproject.org>; Wed, 16 Feb 2011 09:47:09 -0600 (CST)
+Received: from ALA-MAIL03.corp.ad.wrs.com (ala-mail03 [147.11.57.144])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p1GFl8Hl005834
+	for <poky@yoctoproject.org>; Wed, 16 Feb 2011 07:47:08 -0800 (PST)
+Received: from ala-mail06.corp.ad.wrs.com ([147.11.57.147]) by
+	ALA-MAIL03.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Wed, 16 Feb 2011 07:47:07 -0800
+Received: from msp-mhatle-lx2.wrs.com ([172.25.34.61]) by
+	ala-mail06.corp.ad.wrs.com with Microsoft SMTPSVC(6.0.3790.1830); 
+	Wed, 16 Feb 2011 07:47:07 -0800
+From: Mark Hatle <mark.hatle@windriver.com>
 To: poky@yoctoproject.org
-CC: 
-From: Dexuan Cui <dexuan.cui@intel.com>
-Subject: [PATCH 1/1] mklibs-native: fix the build on Ubuntu 9.04 by defining STT_GNU_IFUNC
+Date: Wed, 16 Feb 2011 09:45:10 -0600
+Message-Id: <cover.1297871058.git.mark.hatle@windriver.com>
+X-Mailer: git-send-email 1.7.3.4
+X-OriginalArrivalTime: 16 Feb 2011 15:47:08.0019 (UTC)
+	FILETIME=[C458CC30:01CBCDF0]
+Subject: [PATCH 0/1] Fix rootfs construction
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,72 +30,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 16 Feb 2011 09:36:16 -0000
+X-List-Received-Date: Wed, 16 Feb 2011 15:47:09 -0000
 
-From: Dexuan Cui <dexuan.cui@intel.com>
+The lttng-viewer package was pulling in the lttng-viewer-dev package.
+This caused a large number of -dev packages to be pulled into the rootfs.
 
-mklibs-native needs elf.h (that is supplied by libc6-dev).
-since STAGING_INCDIR_NATIVE doesn't contain elf.h (we don't have eglibc-native),
-so the host's /usr/include/elf.h is used.
-Unluckily, the libc6-dev in Ubuntu 9.04 is so old that the elf.h doesn't
-define STT_GNU_IFUNC, so we have to define it ourselves.
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: mhatle/lttng
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=mhatle/lttng
 
-Fixes [BUGID #726]
-
-Signed-off-by: Dexuan Cui <dexuan.cui@intel.com>
+Thanks,
+    Mark Hatle <mark.hatle@windriver.com>
 ---
- .../mklibs/files/fix_STT_GNU_IFUNC.patch           |   23 ++++++++++++++++++++
- .../mklibs/mklibs-native_0.1.31.bb                 |    3 +-
- 2 files changed, 25 insertions(+), 1 deletions(-)
- create mode 100644 meta/recipes-devtools/mklibs/files/fix_STT_GNU_IFUNC.patch
 
-diff --git a/meta/recipes-devtools/mklibs/files/fix_STT_GNU_IFUNC.patch b/meta/recipes-devtools/mklibs/files/fix_STT_GNU_IFUNC.patch
-new file mode 100644
-index 0000000..88badde
---- /dev/null
-+++ b/meta/recipes-devtools/mklibs/files/fix_STT_GNU_IFUNC.patch
-@@ -0,0 +1,23 @@
-+The libc6-dev in Ubuntu 9.04 is so old that the elf.h doesn't
-+define STT_GNU_IFUNC, so we have to define it ourselves.
-+-- Dexuan Cui (dexuan.cui@intel.com) Feb 16, 2011.
-+
-+diff --git a/src/mklibs-readelf/main.cpp b/src/mklibs-readelf/main.cpp
-+index 2444c39..56d93f8 100644
-+--- a/src/mklibs-readelf/main.cpp
-++++ b/src/mklibs-readelf/main.cpp
-+@@ -6,6 +6,14 @@
-+ #include <vector>
-+ 
-+ #include <elf.h>
-++/*
-++ * The /usr/include/elf.h in some distributions(like Ubuntu 9.04) doesn't
-++ * define the macro. We need to define it here.
-++ */
-++#ifndef STT_GNU_IFUNC
-++#define STT_GNU_IFUNC   10              /* Symbol is indirect code object */
-++#endif
-++
-+ #include <getopt.h>
-+ 
-+ #include "elf.hpp"
-diff --git a/meta/recipes-devtools/mklibs/mklibs-native_0.1.31.bb b/meta/recipes-devtools/mklibs/mklibs-native_0.1.31.bb
-index 2044d12..7f4afc0 100644
---- a/meta/recipes-devtools/mklibs/mklibs-native_0.1.31.bb
-+++ b/meta/recipes-devtools/mklibs/mklibs-native_0.1.31.bb
-@@ -5,10 +5,11 @@ LICENSE = "GPLv2+"
- LIC_FILES_CHKSUM = "file://debian/copyright;md5=98d31037b13d896e33890738ef01af64"
- DEPENDS = "python-native"
- 
--PR = "r0"
-+PR = "r1"
- 
- SRC_URI = "http://ftp.de.debian.org/debian/pool/main/m/mklibs/${BPN}_${PV}.tar.gz \
- 	file://ac_init_fix.patch\
-+	file://fix_STT_GNU_IFUNC.patch\
- "
- 
- SRC_URI[md5sum] = "f4df0307ccbdf60070e42277513f27ed"
+
+Mark Hatle (1):
+  lttng-viewer: Fix rootfs contruction
+
+ meta/recipes-kernel/lttng/lttng-viewer_0.12.36.bb |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+
 -- 
-1.7.2
+1.7.3.4
 
 
