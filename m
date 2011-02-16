@@ -1,21 +1,19 @@
 Return-Path: <lianhao.lu@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E23224C8007E
-	for <poky@yoctoproject.org>; Tue, 15 Feb 2011 23:30:37 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 15 Feb 2011 21:30:37 -0800
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 386CB4C800B0
+	for <poky@yoctoproject.org>; Tue, 15 Feb 2011 23:30:50 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 15 Feb 2011 21:30:49 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,478,1291622400"; d="scan'208";a="658138637"
+X-IronPort-AV: E=Sophos;i="4.60,478,1291622400"; d="scan'208";a="708338487"
 Received: from llu-piketon.sh.intel.com (HELO localhost) ([10.239.36.141])
-	by fmsmga002.fm.intel.com with ESMTP; 15 Feb 2011 21:30:37 -0800
-Message-Id: <cc86adb2fed6ce8746866cced23ea76a88d56bf5.1297834031.git.lianhao.lu@intel.com>
-In-Reply-To: <cover.1297834031.git.lianhao.lu@intel.com>
-References: <cover.1297834031.git.lianhao.lu@intel.com>
-Old-Date: Tue, 15 Feb 2011 19:13:19 +0800
-Date: Wed, 16 Feb 2011 13:30:16 +0800
+	by orsmga001.jf.intel.com with ESMTP; 15 Feb 2011 21:30:35 -0800
+Message-Id: <cover.1297834031.git.lianhao.lu@intel.com>
+Old-Date: Wed, 16 Feb 2011 13:27:11 +0800
+Date: Wed, 16 Feb 2011 13:30:15 +0800
 To: poky@yoctoproject.org
 From: Lianhao Lu <lianhao.lu@intel.com>
-Subject: [PATCH 1/1] linux-libc-headers-yocto: Added RPROVIDES.
+Subject: [PATCH 0/1] [BUGID #714] install linux-libc-headers
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,42 +25,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 16 Feb 2011 05:30:38 -0000
+X-List-Received-Date: Wed, 16 Feb 2011 05:30:50 -0000
 
 From: Lianhao Lu <lianhao.lu@intel.com>
 
-[BUGID #714] Added RPROVIDES_${PN}-dev and RPROVIDES_${PN}-dbg for
-linux-libc-headers-yocto to provides "linux-libc-headers-dev" and
-"linux-libc-headers-dbg" respectively.
+I resend the previous pull request of bug #714 fixing, also bumped the PR. Please ignore the previous one.
 
-This resolved the dependency issue of libc6-dev depending upon
-linux-libc-headers-dev. Package linux-libc-headers-yocto-dev will be
-installed as linux-libc-headers-dev.
+The kernel headers are not installed in rootfs because it is included in the pacakge of linux-libc-headers-yocto-dev, while other packages like libc6-dev still think its name as linux-libc-headers.
 
-Also bumped the PR.
+So we need to add RPROVIDES to linux-libc-headers-yocto-dev to have it RPROVIDES the linux-libc-headers-dev, so it can be installed as required by libc6-dev.
 
-Signed-off-by: Lianhao Lu <lianhao.lu@intel.com>
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: llu/bug714
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=llu/bug714
+
+Thanks,
+    Lianhao Lu <lianhao.lu@intel.com>
 ---
+
+
+Lianhao Lu (1):
+  linux-libc-headers-yocto: Added RPROVIDES.
+
  .../linux-libc-headers-yocto_git.bb                |    4 +++-
  1 files changed, 3 insertions(+), 1 deletions(-)
-
-diff --git a/meta/recipes-kernel/linux-libc-headers/linux-libc-headers-yocto_git.bb b/meta/recipes-kernel/linux-libc-headers/linux-libc-headers-yocto_git.bb
-index 736d60f..6d56f6e 100644
---- a/meta/recipes-kernel/linux-libc-headers/linux-libc-headers-yocto_git.bb
-+++ b/meta/recipes-kernel/linux-libc-headers/linux-libc-headers-yocto_git.bb
-@@ -6,8 +6,10 @@ B = "${S}"
- INHIBIT_DEFAULT_DEPS = "1"
- DEPENDS += "unifdef-native"
- PROVIDES = "linux-libc-headers"
-+RPROVIDES_${PN}-dev = "linux-libc-headers-dev"
-+RPROVIDES_${PN}-dbg = "linux-libc-headers-dbg"
- PV = "2.6.37+git-${SRCPV}"
--PR = "r2"
-+PR = "r3"
- 
- SRCREV_FORMAT = "meta_machine"
- SRC_URI = "git://git.pokylinux.org/linux-yocto-2.6.37;protocol=git;nocheckout=1;branch=${KBRANCH},meta;name=machine,meta"
--- 
-1.7.0.4
 
 
