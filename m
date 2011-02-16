@@ -1,27 +1,29 @@
 Return-Path: <richard.purdie@linuxfoundation.org>
 Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
 	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id CEF5E4C80908
-	for <poky@pokylinux.org>; Tue, 15 Feb 2011 16:06:03 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 29AB74C8007E
+	for <poky@yoctoproject.org>; Tue, 15 Feb 2011 18:07:38 -0600 (CST)
 Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1FM63Js031101
-	for <poky@pokylinux.org>; Tue, 15 Feb 2011 22:06:03 GMT
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1G07bG6032410
+	for <poky@yoctoproject.org>; Wed, 16 Feb 2011 00:07:37 GMT
 Received: from tim.rpsys.net ([127.0.0.1])
 	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP id 30590-08 for <poky@pokylinux.org>;
-	Tue, 15 Feb 2011 22:05:59 +0000 (GMT)
+	port 10024) with LMTP id 31885-09 for <poky@yoctoproject.org>;
+	Wed, 16 Feb 2011 00:07:33 +0000 (GMT)
 Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1FM5sOX031095
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1G07UWB032404
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO)
-	for <poky@pokylinux.org>; Tue, 15 Feb 2011 22:05:54 GMT
+	for <poky@yoctoproject.org>; Wed, 16 Feb 2011 00:07:33 GMT
 From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: poky <poky@pokylinux.org>
-Date: Tue, 15 Feb 2011 22:05:50 +0000
-Message-ID: <1297807550.11289.171.camel@rex>
+To: poky <poky@yoctoproject.org>
+In-Reply-To: <1297791165.4945.281.camel@rex>
+References: <1297791165.4945.281.camel@rex>
+Date: Wed, 16 Feb 2011 00:07:27 +0000
+Message-ID: <1297814847.11289.179.camel@rex>
 Mime-Version: 1.0
 X-Mailer: Evolution 2.28.3 
 X-Virus-Scanned: amavisd-new at rpsys.net
-Subject: Further build profiling info
+Subject: Re: Build profiling, now in pictures
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,49 +35,53 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 Feb 2011 22:06:04 -0000
+X-List-Received-Date: Wed, 16 Feb 2011 00:07:38 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-I'm sending these notes to the list since they might be useful to others
-and it archives them.
+This is a chart of pseudo-native as of master before the last few
+bitbake commits:
 
-Timing a build with license.bbclass:
-consisting of 4847 tasks:
+http://tim.rpsys.net/bootchart-pseudo1.png
 
-real 107m23.857s
-user 376m31.640s
-sys 46m51.020s
+and after the recent bitbake commits, this is the result:
 
-Without license.bbclass:
-4409 tasks:
+http://tim.rpsys.net/bootchart-pseudo1.png
 
-real 107m46.881s
-user 369m6.670s
-sys 46m19.890s
+Whats interesting in the gradient of the rapid fire tasks at the start
+of the graph. There is now much less "free" space between the tasks and
+task execution and throughput was therefore improved and the gradient
+much sharper.
 
-Without the setscene task and without license.bbclass:
+Looking at the graphs, the new task execution order is suboptimal
+though, mainly as I changed something there that before realising there
+was another problem that was making this hurt more than it should.
 
-3970 tasks:
+I think reverting:
 
-real	105m36.940s
-user	364m6.900s
-sys	45m33.950s
+http://git.pokylinux.org/cgit.cgi/poky/commit/?id=974ea1a190167dcfd831ba1fc5f733e0dc9a6fda
 
-which makes sense as setscene is a critical path dependency whilst the
-license checks are not.
+should help parallelism a little further.
 
-So a 120 second reduction for a drop of 439 tasks so a 0.27 second
-overhead per task assuming they were all critical path. Numbers from the
-graph suggested a 0.5 second task overhead so perhaps 50% were critical
-path.
+I'm running a full build to see what this means in read world numbers.
+It certainly executed all the non-critical path tasks faster with these
+changes. I pulled the graph of the first 1000 tasks and they executed in
+a faster time period, its difficult to say what the effect on the
+overall build will be at this point though.
 
-Interesting numbers and it suggests the situation isn't as bad as the
-graph makes out though.
+Interesting what some numbers can do to point out problems though.
+
+Just for the record, I used a dummy recipe of empty tasks to test how
+fast the execution code was combined with bitbake profiling and some
+suitable tweaks to the looping delays to make it clear when bitbake was
+sleeping and shouldn't be. These changes dropped the test time from 9
+seconds to 5 (where the timing includes bitbake startup and cache
+loading overheads).
 
 Cheers,
 
 Richard
+
 
 
 
