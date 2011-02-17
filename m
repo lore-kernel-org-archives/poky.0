@@ -1,27 +1,29 @@
 Return-Path: <scott.a.garman@intel.com>
 Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 136684C8007E
-	for <poky@yoctoproject.org>; Thu, 17 Feb 2011 17:40:28 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id E382B4C8007E
+	for <poky@yoctoproject.org>; Thu, 17 Feb 2011 17:40:30 -0600 (CST)
 Received: from localhost (c-76-105-143-140.hsd1.or.comcast.net
 	[76.105.143.140])
 	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
 	(No client certificate requested)
-	by masterfoo.zenlinux.com (Postfix) with ESMTP id E0E6330969
-	for <poky@yoctoproject.org>; Thu, 17 Feb 2011 18:40:20 -0500 (EST)
-Message-Id: <cover.1297985951.git.scott.a.garman@intel.com>
-Old-Date: Thu, 17 Feb 2011 15:39:11 -0800
-Date: Thu, 17 Feb 2011 15:40:16 -0800
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id 49D733096A
+	for <poky@yoctoproject.org>; Thu, 17 Feb 2011 18:40:24 -0500 (EST)
+Message-Id: <25c148f8e6b7e9562221437b577b0e1b3670d781.1297985951.git.scott.a.garman@intel.com>
+In-Reply-To: <cover.1297985951.git.scott.a.garman@intel.com>
+References: <cover.1297985951.git.scott.a.garman@intel.com>
+Old-Date: Thu, 17 Feb 2011 13:29:02 -0800
+Date: Thu, 17 Feb 2011 15:40:21 -0800
 To: poky@yoctoproject.org
 CC: 
 From: Scott Garman <scott.a.garman@intel.com>
 X-MasterFoo-MailScanner-Information: Please contact the ISP for more
 	information
-X-MailScanner-ID: E0E6330969.17ACB
+X-MailScanner-ID: 49D733096A.10800
 X-MasterFoo-MailScanner: Found to be clean
 X-MasterFoo-MailScanner-SpamCheck: not spam
 X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
 X-Spam-Status: No
-Subject: [PATCH 0/4] Urgent doc fixes for gtk+
+Subject: [PATCH 1/4] docbook-dsssl-stylesheets-native: add missing files to install
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,47 +35,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 17 Feb 2011 23:40:28 -0000
+X-List-Received-Date: Thu, 17 Feb 2011 23:40:31 -0000
 
 From: Scott Garman <scott.a.garman@intel.com>
 
-Hi Richard/Saul,
-
-This pull request should finally sort out the issues building
-documentation for gtk+.
-
-I was able to reproduce the problem reliably by building
-docbook-utils-native *before* attempting to build gtk+. With
-that known, I have tested this under an openSUSE 11.2 chroot
-and on a 40-core Fedora 13 server, building for qemux86
-and qemuppc. I also did a full poky-image-sato build on the
- 40-way which completed successfully after I disabled
-PARALLEL_MAKE for perl-native.
-
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: sgarman/gtk-doc-fixes
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=sgarman/gtk-doc-fixes
-
-Thanks,
-    Scott Garman <scott.a.garman@intel.com>
+Signed-off-by: Scott Garman <scott.a.garman@intel.com>
 ---
+ .../docbook-dsssl-stylesheets-native_1.79.bb       |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
 
-
-Scott Garman (4):
-  docbook-dsssl-stylesheets-native: add missing files to install
-  openjade-native: Set datadir explicitly
-  docbook-utils-native: set SGML_EXTRA_CATALOGS in jw
-  gtk+: Fix build of documentation
-
- .../docbook-dsssl-stylesheets-native_1.79.bb       |    4 +-
- .../docbook-utils/docbook-utils-native_0.6.14.bb   |    5 ++-
- .../openjade/openjade-native_1.3.2.bb              |    6 +++-
- .../recipes-gnome/gtk+/gtk+-2.22.1/doc-fixes.patch |   33 ++++++++++++++++++++
- meta/recipes-gnome/gtk+/gtk+.inc                   |    5 ++-
- meta/recipes-gnome/gtk+/gtk+_2.12.7.bb             |    2 +-
- meta/recipes-gnome/gtk+/gtk+_2.16.6.bb             |    2 +-
- meta/recipes-gnome/gtk+/gtk+_2.22.1.bb             |    5 ++-
- 8 files changed, 52 insertions(+), 10 deletions(-)
- create mode 100644 meta/recipes-gnome/gtk+/gtk+-2.22.1/doc-fixes.patch
+diff --git a/meta/recipes-devtools/docbook-dsssl-stylesheets/docbook-dsssl-stylesheets-native_1.79.bb b/meta/recipes-devtools/docbook-dsssl-stylesheets/docbook-dsssl-stylesheets-native_1.79.bb
+index 92de638..53e9865 100644
+--- a/meta/recipes-devtools/docbook-dsssl-stylesheets/docbook-dsssl-stylesheets-native_1.79.bb
++++ b/meta/recipes-devtools/docbook-dsssl-stylesheets/docbook-dsssl-stylesheets-native_1.79.bb
+@@ -7,7 +7,7 @@ LIC_FILES_CHKSUM = "file://README;beginline=41;endline=74;md5=875385159b2ee76ecf
+ 
+ DEPENDS = "sgml-common-native"
+ 
+-PR = "r0"
++PR = "r1"
+ 
+ SRC_URI = "${SOURCEFORGE_MIRROR}/docbook/docbook-dsssl-${PV}.tar.bz2"
+ 
+@@ -28,7 +28,7 @@ do_install () {
+ 
+ 	install -d ${D}${datadir}/sgml/docbook/dsssl-stylesheets-${PV}
+ 	install -m 0644 catalog ${D}${datadir}/sgml/docbook/dsssl-stylesheets-${PV}
+-	cp -PpRr common ${D}${datadir}/sgml/docbook/dsssl-stylesheets-${PV}
++	cp -v -R * ${D}${datadir}/sgml/docbook/dsssl-stylesheets-${PV}
+ 
+ 	install-catalog --add ${sysconfdir}/sgml/dsssl-docbook-stylesheets.cat \
+ 		${D}${datadir}/sgml/docbook/dsssl-stylesheets-${PV}/catalog
+-- 
+1.7.1
 
 
