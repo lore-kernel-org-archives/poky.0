@@ -1,38 +1,20 @@
-Return-Path: <raj.khem@gmail.com>
-Received: from mail-fx0-f44.google.com (mail-fx0-f44.google.com
-	[209.85.161.44])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D75B24C800A3
-	for <poky@lists.pokylinux.org>; Wed, 16 Feb 2011 21:30:16 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by fxm9 with SMTP id 9so2352107fxm.3
-	for <poky@lists.pokylinux.org>; Wed, 16 Feb 2011 19:30:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc:content-type:content-transfer-encoding;
-	bh=nQ0lyyJ8XXKR08iKAc6LC5XOwa6VuHcnaYUJuZgWWa4=;
-	b=BT47y/rE+h9VmrAIsjpMQ23YgEXnvVApInX/q8rVOdze6mzMIRWnytw9KsXRaLC1Ji
-	r2n9h4+yQT/2fAbmtvadLmIWj3BivO4EusoWxEZF5Vd4K1w5sNOXGnVqQPwtgRy4aB/Q
-	g0cEcq+7US7Q5fbPhwd7XuNpt+KM86zheE1Js=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc:content-type:content-transfer-encoding;
-	b=A1iy5slwDiJsSiNXoDDMu1ykidALPfv5pl3PCCM8Rto+XQHxvrmdJ6z+cnvJUAa3bO
-	ngxhVBxu2wvnHH+N2mqxLRpQvwlPtEh26f402xCdP5o7MDshygSIrLw92rGVM2yM1rZO
-	XubUtmf/F1FA0I1GrsJCEx3EMJw2VCar8O7Pk=
-Received: by 10.223.53.68 with SMTP id l4mr1739356fag.44.1297913415744; Wed,
-	16 Feb 2011 19:30:15 -0800 (PST)
-MIME-Version: 1.0
-Received: by 10.223.66.22 with HTTP; Wed, 16 Feb 2011 19:29:55 -0800 (PST)
-In-Reply-To: <4D5C81D3.601@mlbassoc.com>
-References: <4D5C81D3.601@mlbassoc.com>
-From: Khem Raj <raj.khem@gmail.com>
-Date: Wed, 16 Feb 2011 19:29:55 -0800
-Message-ID: <AANLkTi=JWGANb5Uevdt+A1Dy_oCZDFFEqX8kh=2uQvUT@mail.gmail.com>
-To: Gary Thomas <gary@mlbassoc.com>
-Cc: Poky <poky@lists.pokylinux.org>
-Subject: Re: Dropbear SSH and empty root password
+Return-Path: <nitin.a.kamble@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id A39EC4C800A8
+	for <poky@yoctoproject.org>; Wed, 16 Feb 2011 23:21:01 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 16 Feb 2011 21:21:01 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.60,484,1291622400"; d="scan'208";a="708811407"
+Received: from nbuild2.sc.intel.com (HELO localhost) ([172.25.110.37])
+	by orsmga001.jf.intel.com with ESMTP; 16 Feb 2011 21:21:01 -0800
+Message-Id: <cover.1297919871.git.nitin.a.kamble@intel.com>
+Old-Date: Wed, 16 Feb 2011 21:17:51 -0800
+Date: Wed, 16 Feb 2011 21:21:00 -0800
+To: poky@yoctoproject.org
+CC: 
+From: Nitin A Kamble <nitin.a.kamble@intel.com>
+Subject: [PATCH 0/1] perl-native parallel build issue fix
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,48 +26,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 17 Feb 2011 03:30:17 -0000
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Thu, 17 Feb 2011 05:21:01 -0000
 
-On Wed, Feb 16, 2011 at 6:02 PM, Gary Thomas <gary@mlbassoc.com> wrote:
-> The default images have no password for root. =C2=A0This used to
-> work fine with the dropbear SSH server, but no longer does.
->
-> I see that the recipe has this line:
-> =C2=A0file://allow-nopw.patch;apply=3Dno
->
-> Any comment on why this was disabled? =C2=A0I think the history
-> of this change was lost in the great packages reshuffle.
+From: Nitin A Kamble <nitin.a.kamble@intel.com>
+
+Richard,
+
+This patch is found to be fixing the parallel build issue found today on 40 way system. Need more testing to confirm fixing. Darren is running a build to 
+verify.
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: nitin/misc
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=nitin/misc
+
+Thanks,
+    Nitin A Kamble <nitin.a.kamble@intel.com>
+---
 
 
-if you see in dropbear.inc a bit below you will see this
+Nitin A Kamble (1):
+  perl-native: fix parallel build
 
-do_configure_prepend() {
-        if [ "x${DISTRO}" !=3D "xfamiliar" -a "${DISTRO_TYPE}" =3D "debug" =
-]; then
-                oenote "WARNING: applying allow-nopw.patch which
-allows password-less logins!"
-                patch -p1 < ${WORKDIR}/allow-nopw.patch
-        fi
-}
+ .../perl/perl-5.12.2/parallel_build_fix.patch      |   18 ++++++++++++++++++
+ meta/recipes-devtools/perl/perl-native_5.12.2.bb   |    3 ++-
+ meta/recipes-devtools/perl/perl_5.12.2.bb          |    3 ++-
+ 3 files changed, 22 insertions(+), 2 deletions(-)
+ create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/parallel_build_fix.patch
 
-so if your distro_type is debug then you will get it applied automatically.
+-- 
+1.7.3.4
 
->
-> Query: if I wanted to restore this behaviour, could I just
-> have a .bbappend file with that line as apply=3Dyes?
->
-> --
-> ------------------------------------------------------------
-> Gary Thomas =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 | =C2=
-=A0Consulting for the
-> MLB Associates =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0| =C2=A0 =
-=C2=A0Embedded world
-> ------------------------------------------------------------
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
 
