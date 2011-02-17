@@ -1,35 +1,38 @@
-Return-Path: <lianhao.lu@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 166F74C800A3
-	for <poky@yoctoproject.org>; Wed, 16 Feb 2011 21:12:56 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 16 Feb 2011 19:12:55 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.60,483,1291622400"; d="scan'208";a="658497427"
-Received: from pgsmsx601.gar.corp.intel.com ([10.221.43.69])
-	by fmsmga002.fm.intel.com with ESMTP; 16 Feb 2011 19:12:54 -0800
-Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
-	pgsmsx601.gar.corp.intel.com (10.221.43.69) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Thu, 17 Feb 2011 11:12:32 +0800
-Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
-	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
-	Thu, 17 Feb 2011 11:12:30 +0800
-From: "Lu, Lianhao" <lianhao.lu@intel.com>
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-Date: Thu, 17 Feb 2011 11:12:28 +0800
-Thread-Topic: [poky] [PATCH 0/3] [Bug#728] corrected environment files content
-Thread-Index: AcvN++f1Vmra2Ju3TMWFKikZA5sQgAAVEE7w
-Message-ID: <C10D3FB0CD45994C8A51FEC1227CE22F213D06EBED@shsmsx502.ccr.corp.intel.com>
-References: <cover.1297848716.git.lianhao.lu@intel.com>
-	<1297875958.11289.290.camel@rex>
-In-Reply-To: <1297875958.11289.290.camel@rex>
-Accept-Language: zh-CN, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: zh-CN, en-US
+Return-Path: <raj.khem@gmail.com>
+Received: from mail-fx0-f44.google.com (mail-fx0-f44.google.com
+	[209.85.161.44])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D75B24C800A3
+	for <poky@lists.pokylinux.org>; Wed, 16 Feb 2011 21:30:16 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by fxm9 with SMTP id 9so2352107fxm.3
+	for <poky@lists.pokylinux.org>; Wed, 16 Feb 2011 19:30:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc:content-type:content-transfer-encoding;
+	bh=nQ0lyyJ8XXKR08iKAc6LC5XOwa6VuHcnaYUJuZgWWa4=;
+	b=BT47y/rE+h9VmrAIsjpMQ23YgEXnvVApInX/q8rVOdze6mzMIRWnytw9KsXRaLC1Ji
+	r2n9h4+yQT/2fAbmtvadLmIWj3BivO4EusoWxEZF5Vd4K1w5sNOXGnVqQPwtgRy4aB/Q
+	g0cEcq+7US7Q5fbPhwd7XuNpt+KM86zheE1Js=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+	:cc:content-type:content-transfer-encoding;
+	b=A1iy5slwDiJsSiNXoDDMu1ykidALPfv5pl3PCCM8Rto+XQHxvrmdJ6z+cnvJUAa3bO
+	ngxhVBxu2wvnHH+N2mqxLRpQvwlPtEh26f402xCdP5o7MDshygSIrLw92rGVM2yM1rZO
+	XubUtmf/F1FA0I1GrsJCEx3EMJw2VCar8O7Pk=
+Received: by 10.223.53.68 with SMTP id l4mr1739356fag.44.1297913415744; Wed,
+	16 Feb 2011 19:30:15 -0800 (PST)
 MIME-Version: 1.0
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 0/3] [Bug#728] corrected environment files content
+Received: by 10.223.66.22 with HTTP; Wed, 16 Feb 2011 19:29:55 -0800 (PST)
+In-Reply-To: <4D5C81D3.601@mlbassoc.com>
+References: <4D5C81D3.601@mlbassoc.com>
+From: Khem Raj <raj.khem@gmail.com>
+Date: Wed, 16 Feb 2011 19:29:55 -0800
+Message-ID: <AANLkTi=JWGANb5Uevdt+A1Dy_oCZDFFEqX8kh=2uQvUT@mail.gmail.com>
+To: Gary Thomas <gary@mlbassoc.com>
+Cc: Poky <poky@lists.pokylinux.org>
+Subject: Re: Dropbear SSH and empty root password
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,29 +44,48 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 17 Feb 2011 03:12:56 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-List-Received-Date: Thu, 17 Feb 2011 03:30:17 -0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-UmljaGFyZCBQdXJkaWUgd3JvdGUgb24gMjAxMS0wMi0xNzoNCj4gT24gV2VkLCAyMDExLTAyLTE2
-IGF0IDE3OjM1ICswODAwLCBMaWFuaGFvIEx1IHdyb3RlOg0KPj4gRnJvbTogTGlhbmhhbyBMdSA8
-bGlhbmhhby5sdUBpbnRlbC5jb20+DQo+PiANCj4+IDEuIEFkZGVkIGxpYnRvb2wgc3lzcm9vdCBy
-ZWxhdGVkIHBhcmFtIHZhbHVlIGludG8gZW52aXJvbm1lbnQgZmlsZXMuIDIuDQo+PiBNb3ZlZCBj
-b21tb24gY29kZSBiZXR3ZWVuIG1ldGEtZW52aXJvbm1lbnQuYmIgYW5kIHBvcHVsYXRlX3Nkay5i
-YmNsYXNzDQo+PiBpbnRvIHRvb2xjaGFpbi1zY3JpcHQuYmJjbGFzcy4gMy4gU2V0IENPTkZJR19T
-SVRFIHRvIHBrZ2NvbmZpZyBzaXRlDQo+PiBmaWxlcyBmb3IgbWV0YS10b29sY2hhaW4uYmIuDQo+
-PiANCj4+IFB1bGwgVVJMOiBnaXQ6Ly9naXQucG9reWxpbnV4Lm9yZy9wb2t5LWNvbnRyaWIuZ2l0
-DQo+PiAgIEJyYW5jaDogbGx1L2J1ZzcyOA0KPj4gICBCcm93c2U6DQo+PiBodHRwOi8vZ2l0LnBv
-a3lsaW51eC5vcmcvY2dpdC5jZ2kvcG9reS1jb250cmliL2xvZy8/aD1sbHUvYnVnNzI4DQo+PiAN
-Cj4+IFRoYW5rcywNCj4+ICAgICBMaWFuaGFvIEx1IDxsaWFuaGFvLmx1QGludGVsLmNvbT4NCj4g
-DQo+IEhpIExpYW5oYW8sDQo+IA0KPiBJdCBsb29rcyBsaWtlIHBhcnQgb2YgdGhlIGZpcnN0IHBh
-dGNoIHNob3VsZCByZWFsbHkgYmUgaW4gdGhlIHNlY29uZCBwYXRjaD8NCg0KSSd2ZSByZS1vcmdl
-ZCB0aGUgcGF0Y2ggYW5kIHJlc2VudCB0aGUgcHVsbCByZXF1ZXN0cy4NCg0KPiBJIGFsc28gZG9u
-J3QgdW5kZXJzdGFuZCB0aGUgdGhpcmQgY2hhbmdlLCBob3cgYXJlIENPTkZJR19TSVRFIGFuZA0K
-PiBwa2djb25maWcgY29ubmVjdGVkPw0KDQpTb3JyeSwgaXQgc2hvdWxkIGJlIGNvbmZpZyBzaXRl
-IGZvciBhdXRvY29uZiwgbm90IHBrZ2NvbmZpZy4gVGhlIG9yaWdpbmFsIGNvbmZpZyBzaXRlIGZp
-bGUgZ2VuZXJhdGVkIGJ5IG1ldGEtdG9vbGNoYWluLmJiIHdhcyBlbXB0eSBiZWNhdXNlIHRoZSBD
-T05GSUdfU0lURSB3YXMgbmV2ZXIgc2V0IGluIGl0LiANCg0KQmVzdCBSZWdhcmRzLA0KTGlhbmhh
-bw0KDQoNCg==
+On Wed, Feb 16, 2011 at 6:02 PM, Gary Thomas <gary@mlbassoc.com> wrote:
+> The default images have no password for root. =C2=A0This used to
+> work fine with the dropbear SSH server, but no longer does.
+>
+> I see that the recipe has this line:
+> =C2=A0file://allow-nopw.patch;apply=3Dno
+>
+> Any comment on why this was disabled? =C2=A0I think the history
+> of this change was lost in the great packages reshuffle.
+
+
+if you see in dropbear.inc a bit below you will see this
+
+do_configure_prepend() {
+        if [ "x${DISTRO}" !=3D "xfamiliar" -a "${DISTRO_TYPE}" =3D "debug" =
+]; then
+                oenote "WARNING: applying allow-nopw.patch which
+allows password-less logins!"
+                patch -p1 < ${WORKDIR}/allow-nopw.patch
+        fi
+}
+
+so if your distro_type is debug then you will get it applied automatically.
+
+>
+> Query: if I wanted to restore this behaviour, could I just
+> have a .bbappend file with that line as apply=3Dyes?
+>
+> --
+> ------------------------------------------------------------
+> Gary Thomas =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 | =C2=
+=A0Consulting for the
+> MLB Associates =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0| =C2=A0 =
+=C2=A0Embedded world
+> ------------------------------------------------------------
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
 
