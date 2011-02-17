@@ -1,25 +1,39 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D70E54C80A50
-	for <poky@yoctoproject.org>; Thu, 17 Feb 2011 12:51:05 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 17 Feb 2011 10:51:05 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,181,1297065600"; d="scan'208";a="603820137"
-Received: from doubt.jf.intel.com (HELO [10.7.199.151]) ([10.7.199.151])
-	by orsmga002.jf.intel.com with ESMTP; 17 Feb 2011 10:51:03 -0800
-Message-ID: <4D5D6E17.7010901@linux.intel.com>
-Date: Thu, 17 Feb 2011 10:51:03 -0800
-From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
+Return-Path: <raj.khem@gmail.com>
+Received: from mail-ey0-f176.google.com (mail-ey0-f176.google.com
+	[209.85.215.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 482834C800A0
+	for <poky@yoctoproject.org>; Thu, 17 Feb 2011 13:44:48 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by eyz10 with SMTP id 10so1533437eyz.35
+	for <poky@yoctoproject.org>; Thu, 17 Feb 2011 11:44:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc:content-type:content-transfer-encoding;
+	bh=urVheJ552xF7cNRMDNahscya9D792VPZTDixfvKgdIk=;
+	b=kVQ3CqFlrIHgztKMXoAH6thtNVUGH2ZSY/pszCceT8JvW50EnGmom2Y8xp4GKhMPd0
+	7IRKWl1Mx7+oAthXveu45N2wlzQagG3nASQlwzKviF/4v9a6mvJToLe/6bIKozWezPlA
+	kIl9Y4blIc7D9InaeIMWRH+2/CuSh3UPU1Nn4=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+	:cc:content-type:content-transfer-encoding;
+	b=GJcDErXOSWch85DRghC5daumHDNicfLeWOUI7TFXCpt+2qiSllv6bKAN2jfy+mWggY
+	5U8/kk/F7a0eMzSAsD5R8pzmxOm/5tzWM07LzfpsSWCJn2woAg5TyAXuH9IJKeW4vN4X
+	U17nM8+QcXRhxwmqqW6F7REg1+UkVlzM+5mUY=
+Received: by 10.223.86.2 with SMTP id q2mr2876307fal.139.1297971886250; Thu,
+	17 Feb 2011 11:44:46 -0800 (PST)
 MIME-Version: 1.0
-To: Nitin A Kamble <nitin.a.kamble@intel.com>
-References: <cover.1297919871.git.nitin.a.kamble@intel.com>
-	<0c61dd51708e758877f50be7cd3e6589118749ad.1297919871.git.nitin.a.kamble@intel.com>
-In-Reply-To: <0c61dd51708e758877f50be7cd3e6589118749ad.1297919871.git.nitin.a.kamble@intel.com>
+Received: by 10.223.66.22 with HTTP; Thu, 17 Feb 2011 11:44:24 -0800 (PST)
+In-Reply-To: <4D5D545B.70400@mentor.com>
+References: <cover.1297930635.git.qing.he@intel.com>
+	<4D5D545B.70400@mentor.com>
+From: Khem Raj <raj.khem@gmail.com>
+Date: Thu, 17 Feb 2011 11:44:24 -0800
+Message-ID: <AANLkTik5Y7okC4xUNna3uuMsk82_9EJabYp0p3N5qS+n@mail.gmail.com>
+To: Tom Rini <tom_rini@mentor.com>
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 1/1] perl-native: fix parallel build
+Subject: Re: [PATCH 0/1] Fix parallel make for openssl
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,99 +45,53 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 17 Feb 2011 18:51:06 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 17 Feb 2011 19:44:48 -0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On 02/16/2011 09:21 PM, Nitin A Kamble wrote:
-> From: Nitin A Kamble<nitin.a.kamble@intel.com>
+On Thu, Feb 17, 2011 at 9:01 AM, Tom Rini <tom_rini@mentor.com> wrote:
+> On 02/17/2011 01:18 AM, Qing He wrote:
+>>
+>> From: Qing He<qing.he@intel.com>
+>>
+>> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>> =C2=A0 Branch: qhe/fix
+>> =C2=A0 Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=3Dq=
+he/fix
+>>
+>> Thanks,
+>> =C2=A0 =C2=A0 Qing He<qing.he@intel.com>
+>> ---
+>>
+>>
+>> Qing He (1):
+>> =C2=A0 openssl: fix parallel make
+>>
+>> =C2=A0.../openssl/openssl-0.9.8p/parallel-make-fix.patch | =C2=A0 18
+>> ++++++++++++++++++
+>> =C2=A0meta/recipes-connectivity/openssl/openssl.inc =C2=A0 =C2=A0 =C2=A0=
+| =C2=A0 =C2=A06 +++---
+>> =C2=A0.../recipes-connectivity/openssl/openssl_0.9.8p.bb | =C2=A0 =C2=A0=
+2 +-
+>> =C2=A03 files changed, 22 insertions(+), 4 deletions(-)
+>> =C2=A0create mode 100644
+>> meta/recipes-connectivity/openssl/openssl-0.9.8p/parallel-make-fix.patch
 >
-> perl native recipe was failing on 40-way system with the parallel build turned
-> on. With this patch the parallel build on 40 way build system is not failing.
->
-> Signed-off-by: Nitin A Kamble<nitin.a.kamble@intel.com>
+> While in there, shouldn't we update to either 0.9.8r or 1.0.0d, for secur=
+ity
+> fixes?
 
-Passed 31 clean/build cycles on the 40-way.
-
-Tested-by: Darren Hart <dvhart@linux.intel.com>
-
-> ---
->   .../perl/perl-5.12.2/parallel_build_fix.patch      |   18 ++++++++++++++++++
->   meta/recipes-devtools/perl/perl-native_5.12.2.bb   |    3 ++-
->   meta/recipes-devtools/perl/perl_5.12.2.bb          |    3 ++-
->   3 files changed, 22 insertions(+), 2 deletions(-)
->   create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/parallel_build_fix.patch
->
-> diff --git a/meta/recipes-devtools/perl/perl-5.12.2/parallel_build_fix.patch b/meta/recipes-devtools/perl/perl-5.12.2/parallel_build_fix.patch
-> new file mode 100644
-> index 0000000..5a05dea
-> --- /dev/null
-> +++ b/meta/recipes-devtools/perl/perl-5.12.2/parallel_build_fix.patch
-> @@ -0,0 +1,18 @@
-> +This patch fixes the parralella make issue on a 40way build system
-> +
-> +Nitin A Kamble<nitin.a.kamble@intel.com>
-> +2011-02-16
-> +
-> +Index: perl-5.12.2/Makefile.SH
-> +===================================================================
-> +--- perl-5.12.2.orig/Makefile.SH	2010-09-06 16:30:32.000000000 -0700
-> ++++ perl-5.12.2/Makefile.SH	2011-02-16 16:21:30.744143773 -0800
-> +@@ -198,6 +198,8 @@
-> + $this_target: uni.data" ;;
-> + 	Text/ParseWords) extra_dep="$extra_dep
-> + $this_target: lib/auto/Scalar/Util.$dlext" ;;
-> ++	POSIX) extra_dep="$extra_dep
-> ++$this_target: lib/auto/Cwd/Cwd.$dlext" ;;
-> +     esac
-> + done
-> +
-> diff --git a/meta/recipes-devtools/perl/perl-native_5.12.2.bb b/meta/recipes-devtools/perl/perl-native_5.12.2.bb
-> index 790eae2..5996494 100644
-> --- a/meta/recipes-devtools/perl/perl-native_5.12.2.bb
-> +++ b/meta/recipes-devtools/perl/perl-native_5.12.2.bb
-> @@ -4,7 +4,7 @@ SECTION = "libs"
->   LICENSE = "Artistic|GPL"
->   LIC_FILES_CHKSUM = "file://Copying;md5=2b4c6ffbcfcbdee469f02565f253d81a \
->   		    file://Artistic;md5=f921793d03cc6d63ec4b15e9be8fd3f8"
-> -PR = "r4"
-> +PR = "r5"
->
->   LIC_FILES_CHKSUM = "file://Copying;md5=2b4c6ffbcfcbdee469f02565f253d81a \
->                       file://Artistic;md5=f921793d03cc6d63ec4b15e9be8fd3f8"
-> @@ -12,6 +12,7 @@ LIC_FILES_CHKSUM = "file://Copying;md5=2b4c6ffbcfcbdee469f02565f253d81a \
->   SRC_URI = "http://ftp.funet.fi/pub/CPAN/src/perl-${PV}.tar.gz \
->              file://Configure-multilib.patch;patch=1 \
->              file://perl-configpm-switch.patch;patch=1 \
-> +           file://parallel_build_fix.patch \
->              file://native-nopacklist.patch;patch=1 \
->              file://native-perlinc.patch;patch=1"
->
-> diff --git a/meta/recipes-devtools/perl/perl_5.12.2.bb b/meta/recipes-devtools/perl/perl_5.12.2.bb
-> index b27e20f..ce99986 100644
-> --- a/meta/recipes-devtools/perl/perl_5.12.2.bb
-> +++ b/meta/recipes-devtools/perl/perl_5.12.2.bb
-> @@ -8,7 +8,7 @@ PRIORITY = "optional"
->   # We need gnugrep (for -I)
->   DEPENDS = "virtual/db perl-native-${PV} grep-native"
->   DEPENDS += "gdbm zlib"
-> -PR = "r0"
-> +PR = "r1"
->
->   # 5.10.1 has Module::Build built-in
->   PROVIDES += "libmodule-build-perl"
-> @@ -18,6 +18,7 @@ PROVIDES += "libmodule-build-perl"
->
->   SRC_URI = "ftp://ftp.funet.fi/pub/CPAN/src/perl-${PV}.tar.gz \
->           file://Makefile.patch;patch=1 \
-> +        file://parallel_build_fix.patch \
->           file://Makefile.SH.patch;patch=1 \
->           file://installperl.patch;patch=1 \
->           file://perl-dynloader.patch;patch=1 \
+1.0.0 is a big jump and you need a proper upgrade path if that matters
+see OE discussions from last year on it.
 
 
--- 
-Darren Hart
-Intel Open Source Technology Center
-Yocto Project - Linux Kernel
+>
+> --
+> Tom Rini
+> Mentor Graphics Corporation
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
 
