@@ -1,29 +1,29 @@
 Return-Path: <scott.a.garman@intel.com>
 Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E382B4C8007E
-	for <poky@yoctoproject.org>; Thu, 17 Feb 2011 17:40:30 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 6DA464C80093
+	for <poky@yoctoproject.org>; Thu, 17 Feb 2011 17:40:32 -0600 (CST)
 Received: from localhost (c-76-105-143-140.hsd1.or.comcast.net
 	[76.105.143.140])
 	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
 	(No client certificate requested)
-	by masterfoo.zenlinux.com (Postfix) with ESMTP id 49D733096A
-	for <poky@yoctoproject.org>; Thu, 17 Feb 2011 18:40:24 -0500 (EST)
-Message-Id: <25c148f8e6b7e9562221437b577b0e1b3670d781.1297985951.git.scott.a.garman@intel.com>
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id A8D4B3096E
+	for <poky@yoctoproject.org>; Thu, 17 Feb 2011 18:40:27 -0500 (EST)
+Message-Id: <8cb92f560c1aff57c17c70ed33f2ccd50f8cdcd5.1297985951.git.scott.a.garman@intel.com>
 In-Reply-To: <cover.1297985951.git.scott.a.garman@intel.com>
 References: <cover.1297985951.git.scott.a.garman@intel.com>
-Old-Date: Thu, 17 Feb 2011 13:29:02 -0800
-Date: Thu, 17 Feb 2011 15:40:21 -0800
+Old-Date: Thu, 17 Feb 2011 13:30:14 -0800
+Date: Thu, 17 Feb 2011 15:40:25 -0800
 To: poky@yoctoproject.org
 CC: 
 From: Scott Garman <scott.a.garman@intel.com>
 X-MasterFoo-MailScanner-Information: Please contact the ISP for more
 	information
-X-MailScanner-ID: 49D733096A.10800
+X-MailScanner-ID: A8D4B3096E.8771F
 X-MasterFoo-MailScanner: Found to be clean
 X-MasterFoo-MailScanner-SpamCheck: not spam
 X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
 X-Spam-Status: No
-Subject: [PATCH 1/4] docbook-dsssl-stylesheets-native: add missing files to install
+Subject: [PATCH 2/4] openjade-native: Set datadir explicitly
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,37 +35,42 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 17 Feb 2011 23:40:31 -0000
+X-List-Received-Date: Thu, 17 Feb 2011 23:40:32 -0000
 
 From: Scott Garman <scott.a.garman@intel.com>
 
+datadir was previously defaulting to usr/share and hence could not
+find openjade's data files.
+
 Signed-off-by: Scott Garman <scott.a.garman@intel.com>
 ---
- .../docbook-dsssl-stylesheets-native_1.79.bb       |    4 ++--
- 1 files changed, 2 insertions(+), 2 deletions(-)
+ .../openjade/openjade-native_1.3.2.bb              |    6 +++++-
+ 1 files changed, 5 insertions(+), 1 deletions(-)
 
-diff --git a/meta/recipes-devtools/docbook-dsssl-stylesheets/docbook-dsssl-stylesheets-native_1.79.bb b/meta/recipes-devtools/docbook-dsssl-stylesheets/docbook-dsssl-stylesheets-native_1.79.bb
-index 92de638..53e9865 100644
---- a/meta/recipes-devtools/docbook-dsssl-stylesheets/docbook-dsssl-stylesheets-native_1.79.bb
-+++ b/meta/recipes-devtools/docbook-dsssl-stylesheets/docbook-dsssl-stylesheets-native_1.79.bb
-@@ -7,7 +7,7 @@ LIC_FILES_CHKSUM = "file://README;beginline=41;endline=74;md5=875385159b2ee76ecf
- 
- DEPENDS = "sgml-common-native"
+diff --git a/meta/recipes-devtools/openjade/openjade-native_1.3.2.bb b/meta/recipes-devtools/openjade/openjade-native_1.3.2.bb
+index f267fc5..3615ec3 100644
+--- a/meta/recipes-devtools/openjade/openjade-native_1.3.2.bb
++++ b/meta/recipes-devtools/openjade/openjade-native_1.3.2.bb
+@@ -7,7 +7,7 @@ SECTION = "base"
+ LICENSE = "BSD"
+ LIC_FILES_CHKSUM = "file://COPYING;md5=641ff1e4511f0a87044ad42f87cb1045"
  
 -PR = "r0"
 +PR = "r1"
  
- SRC_URI = "${SOURCEFORGE_MIRROR}/docbook/docbook-dsssl-${PV}.tar.bz2"
+ DEPENDS = "opensp-native sgml-common-native"
+ RDEPENDS_${PN} = "sgml-common"
+@@ -23,6 +23,10 @@ inherit autotools native
+ EXTRA_OECONF = "--enable-spincludedir=${STAGING_INCDIR}/OpenSP \
+                 --enable-splibdir=${STAGING_LIBDIR}"
  
-@@ -28,7 +28,7 @@ do_install () {
++# We need to set datadir explicitly, but adding it to EXTRA_OECONF
++# results in it being specified twice when configure is run.
++CONFIGUREOPTS := "${@d.getVar('CONFIGUREOPTS', True).replace('--datadir=${datadir}', '--datadir=${STAGING_DATADIR}/sgml/openjade-${PV}')}"
++
+ CFLAGS =+ "-I${S}/include"
  
- 	install -d ${D}${datadir}/sgml/docbook/dsssl-stylesheets-${PV}
- 	install -m 0644 catalog ${D}${datadir}/sgml/docbook/dsssl-stylesheets-${PV}
--	cp -PpRr common ${D}${datadir}/sgml/docbook/dsssl-stylesheets-${PV}
-+	cp -v -R * ${D}${datadir}/sgml/docbook/dsssl-stylesheets-${PV}
- 
- 	install-catalog --add ${sysconfdir}/sgml/dsssl-docbook-stylesheets.cat \
- 		${D}${datadir}/sgml/docbook/dsssl-stylesheets-${PV}/catalog
+ do_install() {
 -- 
 1.7.1
 
