@@ -1,39 +1,32 @@
-Return-Path: <raj.khem@gmail.com>
-Received: from mail-ey0-f176.google.com (mail-ey0-f176.google.com
-	[209.85.215.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 482834C800A0
-	for <poky@yoctoproject.org>; Thu, 17 Feb 2011 13:44:48 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by eyz10 with SMTP id 10so1533437eyz.35
-	for <poky@yoctoproject.org>; Thu, 17 Feb 2011 11:44:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc:content-type:content-transfer-encoding;
-	bh=urVheJ552xF7cNRMDNahscya9D792VPZTDixfvKgdIk=;
-	b=kVQ3CqFlrIHgztKMXoAH6thtNVUGH2ZSY/pszCceT8JvW50EnGmom2Y8xp4GKhMPd0
-	7IRKWl1Mx7+oAthXveu45N2wlzQagG3nASQlwzKviF/4v9a6mvJToLe/6bIKozWezPlA
-	kIl9Y4blIc7D9InaeIMWRH+2/CuSh3UPU1Nn4=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc:content-type:content-transfer-encoding;
-	b=GJcDErXOSWch85DRghC5daumHDNicfLeWOUI7TFXCpt+2qiSllv6bKAN2jfy+mWggY
-	5U8/kk/F7a0eMzSAsD5R8pzmxOm/5tzWM07LzfpsSWCJn2woAg5TyAXuH9IJKeW4vN4X
-	U17nM8+QcXRhxwmqqW6F7REg1+UkVlzM+5mUY=
-Received: by 10.223.86.2 with SMTP id q2mr2876307fal.139.1297971886250; Thu,
-	17 Feb 2011 11:44:46 -0800 (PST)
+Return-Path: <nitin.a.kamble@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id BAF754C800A0
+	for <poky@yoctoproject.org>; Thu, 17 Feb 2011 15:01:39 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 17 Feb 2011 13:01:39 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.62,182,1297065600"; d="scan'208";a="658833786"
+Received: from orsmsx603.amr.corp.intel.com ([10.22.226.49])
+	by fmsmga002.fm.intel.com with ESMTP; 17 Feb 2011 13:01:35 -0800
+Received: from orsmsx605.amr.corp.intel.com (10.22.226.10) by
+	orsmsx603.amr.corp.intel.com (10.22.226.49) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Thu, 17 Feb 2011 13:01:32 -0800
+Received: from orsmsx504.amr.corp.intel.com ([10.22.226.207]) by
+	orsmsx605.amr.corp.intel.com ([10.22.226.10]) with mapi;
+	Thu, 17 Feb 2011 13:01:31 -0800
+From: "Kamble, Nitin A" <nitin.a.kamble@intel.com>
+To: "perl5-porters@perl.org" <perl5-porters@perl.org>, "poky@yoctoproject.org"
+	<poky@yoctoproject.org>
+Date: Thu, 17 Feb 2011 13:01:31 -0800
+Thread-Topic: [Patch] fix for perl parallel build issue
+Thread-Index: AcvO5dpvjTojUWDXRH6F5iaf6BhUbw==
+Message-ID: <9DA5872FEF993D41B7173F58FCF6BE941238E8D6@orsmsx504.amr.corp.intel.com>
+Accept-Language: en-US
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
 MIME-Version: 1.0
-Received: by 10.223.66.22 with HTTP; Thu, 17 Feb 2011 11:44:24 -0800 (PST)
-In-Reply-To: <4D5D545B.70400@mentor.com>
-References: <cover.1297930635.git.qing.he@intel.com>
-	<4D5D545B.70400@mentor.com>
-From: Khem Raj <raj.khem@gmail.com>
-Date: Thu, 17 Feb 2011 11:44:24 -0800
-Message-ID: <AANLkTik5Y7okC4xUNna3uuMsk82_9EJabYp0p3N5qS+n@mail.gmail.com>
-To: Tom Rini <tom_rini@mentor.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/1] Fix parallel make for openssl
+Subject: [Patch] fix for perl parallel build issue
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -45,53 +38,69 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 17 Feb 2011 19:44:48 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Thu, 17 Feb 2011 21:01:40 -0000
+X-Groupsio-MsgNum: 3744
+Content-Language: en-US
+Content-Type: multipart/mixed;
+	boundary="_002_9DA5872FEF993D41B7173F58FCF6BE941238E8D6orsmsx504amrcor_"
+
+--_002_9DA5872FEF993D41B7173F58FCF6BE941238E8D6orsmsx504amrcor_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Feb 17, 2011 at 9:01 AM, Tom Rini <tom_rini@mentor.com> wrote:
-> On 02/17/2011 01:18 AM, Qing He wrote:
->>
->> From: Qing He<qing.he@intel.com>
->>
->> Pull URL: git://git.pokylinux.org/poky-contrib.git
->> =C2=A0 Branch: qhe/fix
->> =C2=A0 Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=3Dq=
-he/fix
->>
->> Thanks,
->> =C2=A0 =C2=A0 Qing He<qing.he@intel.com>
->> ---
->>
->>
->> Qing He (1):
->> =C2=A0 openssl: fix parallel make
->>
->> =C2=A0.../openssl/openssl-0.9.8p/parallel-make-fix.patch | =C2=A0 18
->> ++++++++++++++++++
->> =C2=A0meta/recipes-connectivity/openssl/openssl.inc =C2=A0 =C2=A0 =C2=A0=
-| =C2=A0 =C2=A06 +++---
->> =C2=A0.../recipes-connectivity/openssl/openssl_0.9.8p.bb | =C2=A0 =C2=A0=
-2 +-
->> =C2=A03 files changed, 22 insertions(+), 4 deletions(-)
->> =C2=A0create mode 100644
->> meta/recipes-connectivity/openssl/openssl-0.9.8p/parallel-make-fix.patch
->
-> While in there, shouldn't we update to either 0.9.8r or 1.0.0d, for secur=
-ity
-> fixes?
+   While building perl recipe in our yocto environment, we found that perl=
+=20
+parallel build (make -j 32) on a 40 way system was failing. As the=20
+non-parallel (make -j 1) build was succeeding it was a build dependency iss=
+ue.=20
+Looking  at the errors I came up with the attached patch which fixed the=20
+parallel build.
 
-1.0.0 is a big jump and you need a proper upgrade path if that matters
-see OE discussions from last year on it.
+  This patch was made for perl version 5.12.2, but I see the latest perl gi=
+t=20
+tree can also take this fix.
+ =20
+Signed-Off-By: Nitin A Kamble <nitin.a.kamble@intel.com>
+Index: perl-5.12.2/Makefile.SH
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+--- perl-5.12.2.orig/Makefile.SH	2010-09-06 16:30:32.000000000 -0700
++++ perl-5.12.2/Makefile.SH	2011-02-16 16:21:30.744143773 -0800
+@@ -198,6 +198,8 @@
+ $this_target: uni.data" ;;
+ 	Text/ParseWords) extra_dep=3D"$extra_dep
+ $this_target: lib/auto/Scalar/Util.$dlext" ;;
++	POSIX) extra_dep=3D"$extra_dep
++$this_target: lib/auto/Cwd/Cwd.$dlext" ;;
+     esac
+ done
 
+Thanks,
+Nitin=20
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+Nitin A Kamble <nitin.a.kamble@intel.com>
+Yocto Embedded Linux project http://www.yoctoproject.org
 
->
-> --
-> Tom Rini
-> Mentor Graphics Corporation
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
+--_002_9DA5872FEF993D41B7173F58FCF6BE941238E8D6orsmsx504amrcor_
+Content-Type: application/octet-stream; name="parallel_build_fix.patch"
+Content-Description: parallel_build_fix.patch
+Content-Disposition: attachment; filename="parallel_build_fix.patch";
+	size=581; creation-date="Thu, 17 Feb 2011 12:39:08 GMT";
+	modification-date="Wed, 16 Feb 2011 21:51:56 GMT"
+Content-Transfer-Encoding: base64
 
+VGhpcyBwYXRjaCBmaXhlcyB0aGUgcGFyYWxsZWwgbWFrZSBpc3N1ZSBvbiBhIDQwIHdheSBidWls
+ZCBzeXN0ZW0KCk5pdGluIEEgS2FtYmxlIDxuaXRpbi5hLmthbWJsZUBpbnRlbC5jb20+CjIwMTEt
+MDItMTYKCkluZGV4OiBwZXJsLTUuMTIuMi9NYWtlZmlsZS5TSAo9PT09PT09PT09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09Ci0tLSBwZXJs
+LTUuMTIuMi5vcmlnL01ha2VmaWxlLlNICTIwMTAtMDktMDYgMTY6MzA6MzIuMDAwMDAwMDAwIC0w
+NzAwCisrKyBwZXJsLTUuMTIuMi9NYWtlZmlsZS5TSAkyMDExLTAyLTE2IDE2OjIxOjMwLjc0NDE0
+Mzc3MyAtMDgwMApAQCAtMTk4LDYgKzE5OCw4IEBACiAkdGhpc190YXJnZXQ6IHVuaS5kYXRhIiA7
+OwogCVRleHQvUGFyc2VXb3JkcykgZXh0cmFfZGVwPSIkZXh0cmFfZGVwCiAkdGhpc190YXJnZXQ6
+IGxpYi9hdXRvL1NjYWxhci9VdGlsLiRkbGV4dCIgOzsKKwlQT1NJWCkgZXh0cmFfZGVwPSIkZXh0
+cmFfZGVwCiskdGhpc190YXJnZXQ6IGxpYi9hdXRvL0N3ZC9Dd2QuJGRsZXh0IiA7OwogICAgIGVz
+YWMKIGRvbmUKIAo=
+
+--_002_9DA5872FEF993D41B7173F58FCF6BE941238E8D6orsmsx504amrcor_--
