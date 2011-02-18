@@ -1,22 +1,21 @@
-Return-Path: <scott.m.rifenbark@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B1C5C4C800AF
-	for <poky@yoctoproject.org>; Fri, 18 Feb 2011 10:56:38 -0600 (CST)
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 11BCD4C800A8
+	for <poky@yoctoproject.org>; Fri, 18 Feb 2011 11:53:24 -0600 (CST)
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 18 Feb 2011 08:56:38 -0800
+	by fmsmga102.fm.intel.com with ESMTP; 18 Feb 2011 09:53:21 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,188,1297065600"; d="scan'208";a="888960119"
-Received: from unknown (HELO localhost) ([10.255.12.19])
-	by fmsmga001.fm.intel.com with ESMTP; 18 Feb 2011 08:56:38 -0800
-Message-Id: <fb2c97c8d0108f3813d982405248c6309ba275c6.1298047832.git.scott.m.rifenbark@intel.com>
-In-Reply-To: <cover.1298047832.git.scott.m.rifenbark@intel.com>
-References: <cover.1298047832.git.scott.m.rifenbark@intel.com>
-Old-Date: Thu, 17 Feb 2011 08:07:06 -0600
-Date: Fri, 18 Feb 2011 10:57:16 -0600
-To: poky@yoctoproject.org
-CC: 
-From: <scott.m.rifenbark@intel.com>
-Subject: [PATCH 4/4] documentation/kernel-manual/kernel-how-to.xml: Changes to section 3.4.4 and new 3.4.5
+X-IronPort-AV: E=Sophos;i="4.62,188,1297065600"; d="scan'208";a="888981023"
+Received: from unknown (HELO [10.255.12.60]) ([10.255.12.60])
+	by fmsmga001.fm.intel.com with ESMTP; 18 Feb 2011 09:53:00 -0800
+Message-ID: <4D5EB1FB.9030704@linux.intel.com>
+Date: Fri, 18 Feb 2011 09:52:59 -0800
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
+MIME-Version: 1.0
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Minimal images: kernel config
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,62 +27,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 Feb 2011 16:56:38 -0000
+X-List-Received-Date: Fri, 18 Feb 2011 17:53:24 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Scott Rifenbark <scott.m.rifenbark@intel.com>
+I've been getting more and more questions regarding flash footprint, 
+memory footprint, and boot time. All of these fall under the "minimal 
+image" heading in my head.
 
-I made some updates to the 3.4.4 section according to Bruce Ashfield's
-feedback.  I also added a new section 3.4.5 (Creating a BSP Based on an
-Existing Similar BSP Without a Local Kernel Repository).
+Currently, poky-image-minimal is a simple subset of poky-image-sato. It 
+uses busybox, but is still dynamically linked and uses the same 
+somewhat-generic kernel build. By somewhat-generic I mean we have named 
+features that often cover more drivers than are stricly necessary for a 
+given board (usb-net comes to mind). I'd like to see minimal become a 
+truly minimal image from both the userspace and kernel side point of view.
 
-Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
----
- documentation/kernel-manual/kernel-how-to.xml |   31 +++++++++++++++++++++++++
- 1 files changed, 31 insertions(+), 0 deletions(-)
+Here's my take on this. From userspace this means uclibc and a staticly 
+linked busybox. From the kernel this means a static build (no modules) 
+with nothing more than is required for the board's built-in peripherals 
+to function, with the possible exception of something like usb-storage. 
+I'd like to see a < 10M flash size and a <8M memory footprint.
 
-diff --git a/documentation/kernel-manual/kernel-how-to.xml b/documentation/kernel-manual/kernel-how-to.xml
-index 2742611..abb19f2 100644
---- a/documentation/kernel-manual/kernel-how-to.xml
-+++ b/documentation/kernel-manual/kernel-how-to.xml
-@@ -1198,6 +1198,37 @@ That's it. Configure and build.
-             </para>
-         </section>
- 
-+        <section id='bsp-creating-bsp-without-a-local-kernel-repo'>
-+        <title>Creating a BSP Based on an Existing Similar BSP Without a Local Kernel Repository</title>
-+
-+            <para>
-+                If you are creating a BSP based on an existing similar BSP but you do not have
-+                a local kernel repository, the process is very similar to the process in 
-+                the previous section (<xref linkend='bsp-creating'/>). 
-+            </para>
-+
-+            <para>
-+                Follow the exact same process as described in the previous section with 
-+                these slight modifications:
-+            </para>
-+            <orderedlist>
-+                <listitem><para>Perform Step 1 as is from the previous section.</para></listitem>
-+                <listitem><para>Perform Step 2 as is from the previous section.</para></listitem>
-+                <listitem><para>Perform Step 3 but do not modify the 
-+                    KSRC line in the bbappend file.</para></listitem>
-+                <listitem><para>Edit the <filename>local.conf</filename> so 
-+                    that it contains the following:
-+                    <literallayout class='monospaced'>
-+     YOCTO_KERNEL_EXTERNAL_BRANCH="&lt;your-machine&gt;-standard
-+                    </literallayout></para>
-+                    <para>Adding this statement to the file triggers BSP bootstrapping
-+                    to occur and the correct branches and base configuration to be used.
-+                </para></listitem>
-+                <listitem><para>Perform Step 4 as is from the previous section.</para></listitem>
-+                <listitem><para>Perform Step 5 as is from the previous section.</para></listitem>
-+            </orderedlist>
-+        </section>
-+
- 
- <!--        <section id='bsp-creating-a-new-bsp'>
-             <title>BSP: Creating a New BSP</title>
+Thoughts on this direction?
+
 -- 
-1.7.1
-
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
