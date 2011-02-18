@@ -1,31 +1,26 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9ACFE4C80093
-	for <poky@lists.yoctoproject.org>; Fri, 18 Feb 2011 06:10:34 -0600 (CST)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1ICAVoA010041;
-	Fri, 18 Feb 2011 12:10:31 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 09203-09; Fri, 18 Feb 2011 12:10:19 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1ICAHAf010027
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Fri, 18 Feb 2011 12:10:17 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Koen Kooi <koen@dominion.thruhere.net>
-In-Reply-To: <1298027433.11289.2682.camel@rex>
-References: <AANLkTi==59FW4R15YrsSSR8EHWRgn2Gh9BJ2rUVPMWS+@mail.gmail.com>
-	<1298027433.11289.2682.camel@rex>
-Date: Fri, 18 Feb 2011 12:10:11 +0000
-Message-ID: <1298031011.11289.2759.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@lists.yoctoproject.org
-Subject: Re: Problem with METADATA_* vars
+Return-Path: <scott.a.garman@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4D9774C800A8
+	for <poky@yoctoproject.org>; Fri, 18 Feb 2011 09:34:43 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 18 Feb 2011 07:34:42 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.62,187,1297065600"; d="scan'208";a="709562346"
+Received: from unknown (HELO [10.255.12.30]) ([10.255.12.30])
+	by orsmga001.jf.intel.com with ESMTP; 18 Feb 2011 07:34:42 -0800
+Message-ID: <4D5E9192.20005@intel.com>
+Date: Fri, 18 Feb 2011 07:34:42 -0800
+From: Scott Garman <scott.a.garman@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101208 Thunderbird/3.1.7
+MIME-Version: 1.0
+To: "Ke, Liping" <liping.ke@intel.com>
+References: <cover.1297985951.git.scott.a.garman@intel.com>
+	<c70a4c517b599e6d90b28e6e36dd448f6d8b68df.1297985951.git.scott.a.garman@intel.com>
+	<789F9655DD1B8F43B48D77C5D306597332CC3082@shsmsx501.ccr.corp.intel.com>
+In-Reply-To: <789F9655DD1B8F43B48D77C5D306597332CC3082@shsmsx501.ccr.corp.intel.com>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH 3/4] docbook-utils-native: set SGML_EXTRA_CATALOGS in	jw
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,45 +32,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 Feb 2011 12:10:34 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Fri, 18 Feb 2011 15:34:43 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Fri, 2011-02-18 at 11:10 +0000, Richard Purdie wrote:
-> On Fri, 2011-02-18 at 10:34 +0100, Koen Kooi wrote:
-> > It builds fine when doing 'bitbake angstrom-version', but when doing
-> > 'bitbake console-image', which includes angstrom-version I get:
-> > 
-> > tr: write error: Broken pipe
-> > ERROR: Error evaluating '${@base_detect_branch(d)}'
-> > Traceback (most recent call last):
-> >   File "/OE/tentacle/sources/bitbake/lib/bb/data_smart.py", line 117,
-> > in expandWithRefs
-> >     s = __expand_python_regexp__.sub(varparse.python_sub, s)
-> >   File "/OE/tentacle/sources/bitbake/lib/bb/data_smart.py", line 76,
-> > in python_sub
-> >     value = utils.better_eval(codeobj, DataContext(self.d))
-> >   File "/OE/tentacle/sources/bitbake/lib/bb/utils.py", line 387, in
-> > better_eval
-> >     return eval(source, _context, locals)
-> >   File "METADATA_BRANCH", line 1, in <module>
-> >   File "metadata_scm.bbclass", line 7, in base_detect_branch
-> >   File "metadata_scm.bbclass", line 2, in base_get_metadata_git_branch
-> > IOError: [Errno 4] Interrupted system call
-> 
-> I'm going to guess its:
-> 
-> http://git.pokylinux.org/cgit.cgi/poky/commit/?id=03d40a4a7bd60dcbc21f5a06c0f4f53cb47de0f3
-> 
-> at fault. I'm going to rework that so the handler is only activated at
-> idle sleep time.
+On 02/17/2011 09:35 PM, Ke, Liping wrote:
+> Hi, Scott
+>
+> I continuously meet below compile errors when I bitbake
+> doc-utils-native today. I paste the log in the attachment, could you
+> help to have a look. Thanks a lot for your help!
 
-http://git.pokylinux.org/cgit.cgi/poky/commit/?id=359a4d8bf72867b4d5f3daaf8c4f14a82a810107
+Hi Criping,
 
-should fix this...
+This looks like a problem I had fixed with the docbook-dsssl-stylesheets 
+package. I am going to guess that this was an incremental build as well?
 
-Cheers,
+These commands should clean out most of the suspect docbook-related 
+utilities:
 
-Richard
+bitbake docbook-utils-native -c cleanall
+bitbake openjade-native -c cleanall
+bitbake opensp-native -c cleanall
+bitbake docbook-dsssl-stylesheets-native -c cleanall
 
+Then do a bitbake docbook-utils-native and see if it builds this time.
+
+Let me know how it goes.
+
+Scott
+
+-- 
+Scott Garman
+Embedded Linux Engineer - Yocto Project
+Intel Open Source Technology Center
 
