@@ -1,30 +1,29 @@
-Return-Path: <stefan@datenfreihafen.org>
-Received: from sirius.lasnet.de (sirius.lasnet.de [78.47.116.19])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 069734C80093
-	for <poky@yoctoproject.org>; Fri, 18 Feb 2011 04:01:23 -0600 (CST)
-Received: from [2001:638:602:1183:21f:16ff:fe0d:7d41] (helo=excalibur.local)
-	by sirius.lasnet.de with esmtpsa 
-	(Cipher TLS1.0:RSA_AES_256_CBC_SHA1:32) (Exim 4.69 #1)
-	id 1PqN9L-0001BU-GT by authid <stefan@sostec.de> with cram_md5
-	for <poky@yoctoproject.org>; Fri, 18 Feb 2011 11:01:21 +0100
-Received: from stefan by excalibur.local with local (Exim 4.72)
-	(envelope-from <stefan@excalibur.local>) id 1PqN9J-0000b7-T7
-	for poky@yoctoproject.org; Fri, 18 Feb 2011 11:01:17 +0100
-Date: Fri, 18 Feb 2011 11:01:17 +0100
-From: Stefan Schmidt <stefan@datenfreihafen.org>
-To: poky@yoctoproject.org
-Message-ID: <20110218100117.GY14931@excalibur.local>
-References: <AANLkTi==59FW4R15YrsSSR8EHWRgn2Gh9BJ2rUVPMWS+@mail.gmail.com>
-MIME-Version: 1.0
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 92BA14C8007E
+	for <poky@lists.yoctoproject.org>; Fri, 18 Feb 2011 05:10:52 -0600 (CST)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1IBAmcr008906;
+	Fri, 18 Feb 2011 11:10:48 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 08604-05; Fri, 18 Feb 2011 11:10:44 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1IBAe8F008900
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Fri, 18 Feb 2011 11:10:40 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Koen Kooi <koen@dominion.thruhere.net>
 In-Reply-To: <AANLkTi==59FW4R15YrsSSR8EHWRgn2Gh9BJ2rUVPMWS+@mail.gmail.com>
-X-Mailer: Mutt http://www.mutt.org/
-X-KeyID: 0xDDF51665
-X-Website: http://www.datenfreihafen.org/
-User-Agent: Mutt/1.5.20 (2009-06-14)
-X-Spam-Checker-Version: SpamAssassin 3.2.5 (2008-06-10) on sirius.lasnet.de
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,NO_RELAYS
-	autolearn=ham version=3.2.5
+References: <AANLkTi==59FW4R15YrsSSR8EHWRgn2Gh9BJ2rUVPMWS+@mail.gmail.com>
+Date: Fri, 18 Feb 2011 11:10:32 +0000
+Message-ID: <1298027433.11289.2682.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky@lists.yoctoproject.org
 Subject: Re: Problem with METADATA_* vars
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -37,13 +36,12 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 Feb 2011 10:01:24 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-List-Received-Date: Fri, 18 Feb 2011 11:10:53 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Hello.
-
-On Fri, 2011-02-18 at 10:34, Koen Kooi wrote:
+On Fri, 2011-02-18 at 10:34 +0100, Koen Kooi wrote:
+> Hi,
 > 
 > I have a simple recipe that does:
 > 
@@ -53,7 +51,8 @@ On Fri, 2011-02-18 at 10:34, Koen Kooi wrote:
 > 
 > do_install() {
 >     install -d ${D}${sysconfdir}
->     echo "Angstrom ${DISTRO_VERSION}" > ${D}${sysconfdir}/angstrom-version
+>     echo "Angstrom ${DISTRO_VERSION}" >
+> ${D}${sysconfdir}/angstrom-version
 >     echo "Built from branch: ${METADATA_BRANCH}" >>
 > ${D}${sysconfdir}/angstrom-version
 >     echo "Revision: ${METADATA_REVISION}" >>
@@ -69,11 +68,30 @@ On Fri, 2011-02-18 at 10:34, Koen Kooi wrote:
 > 
 > tr: write error: Broken pipe
 > ERROR: Error evaluating '${@base_detect_branch(d)}'
+> Traceback (most recent call last):
+>   File "/OE/tentacle/sources/bitbake/lib/bb/data_smart.py", line 117,
+> in expandWithRefs
+>     s = __expand_python_regexp__.sub(varparse.python_sub, s)
+>   File "/OE/tentacle/sources/bitbake/lib/bb/data_smart.py", line 76,
+> in python_sub
+>     value = utils.better_eval(codeobj, DataContext(self.d))
+>   File "/OE/tentacle/sources/bitbake/lib/bb/utils.py", line 387, in
+> better_eval
+>     return eval(source, _context, locals)
+>   File "METADATA_BRANCH", line 1, in <module>
+>   File "metadata_scm.bbclass", line 7, in base_detect_branch
+>   File "metadata_scm.bbclass", line 2, in base_get_metadata_git_branch
+> IOError: [Errno 4] Interrupted system call
 
-Hmm, I somehow remeber something like this also in OE. Can you give it a try
-with removing the explicit export in the recipe? Its a bit of guessing as I
-don't have all the details in mind anymore. :)
+I'm going to guess its:
 
-regards
-Stefan Schmidt
+http://git.pokylinux.org/cgit.cgi/poky/commit/?id=03d40a4a7bd60dcbc21f5a06c0f4f53cb47de0f3
+
+at fault. I'm going to rework that so the handler is only activated at
+idle sleep time.
+
+Cheers,
+
+Richard
+
 
