@@ -1,23 +1,23 @@
 Return-Path: <dvhart@linux.intel.com>
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 671FD4C80A1D
-	for <poky@yoctoproject.org>; Fri, 18 Feb 2011 18:36:23 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 18 Feb 2011 16:36:22 -0800
+	by mx1.pokylinux.org (Postfix) with ESMTP id C3EA44C80A49
+	for <poky@yoctoproject.org>; Fri, 18 Feb 2011 18:36:51 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 18 Feb 2011 16:36:51 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,190,1297065600"; d="scan'208";a="604376614"
+X-IronPort-AV: E=Sophos;i="4.62,190,1297065600"; d="scan'208";a="709775600"
 Received: from fear.jf.intel.com (HELO localhost) ([10.7.201.75])
-	by orsmga002.jf.intel.com with ESMTP; 18 Feb 2011 16:36:22 -0800
-Message-Id: <06344e4c7701bb425a6eb45e743b0407010136ee.1298076091.git.dvhart@linux.intel.com>
+	by orsmga001.jf.intel.com with ESMTP; 18 Feb 2011 16:36:22 -0800
+Message-Id: <15dcdef7cdf5d170f06dba9e54aa5344157ef368.1298076091.git.dvhart@linux.intel.com>
 In-Reply-To: <cover.1298076091.git.dvhart@linux.intel.com>
 References: <cover.1298076091.git.dvhart@linux.intel.com>
-Old-Date: Fri, 18 Feb 2011 15:17:21 -0800
+Old-Date: Fri, 18 Feb 2011 15:38:12 -0800
 Date: Fri, 18 Feb 2011 16:46:03 -0800
 To: poky@yoctoproject.org, richard.purdie@linuxfoundation.org,
 	tom.zanussi@intel.com, bruce.ashfield@windriver.com
 From: Darren Hart <dvhart@linux.intel.com>
 Cc: Darren Hart <dvhart@linux.intel.com>
-Subject: [PATCH 1/4] zaurus: remove zaurus linux includes
+Subject: [PATCH 4/4] linux.inc: remove the obsolete linux.inc kernel recipe include
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,125 +29,125 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 19 Feb 2011 00:36:23 -0000
+X-List-Received-Date: Sat, 19 Feb 2011 00:36:52 -0000
 
 From: Darren Hart <dvhart@linux.intel.com>
 
-Zaurus support was removed with:
-
-673abd92f999829bdd67d0273c43570a62123a63
-conf/machine: Drop older machines with no recent updates
-
-which removed both the linux-rp and sharp-flash-header recipes required by the
-zaurus includes removed by this patch.
+linux.inc was used by older kernel recipes which have now been removed from the
+core meta data. I references machines now only defined in meta-extras. The
+configure prepend mangles the kernel .config in non-intuitive ways and the
+install peroforms some odd boot image manipulation that is not used nor required
+by supported machines. The required functionality, such as defconfig setup, has
+already been moved to the kernel bbclass. Remove linux.inc to avoid confusion
+for new kernel recipe authors and clean up the kernel meta data.
 
 Signed-off-by: Darren Hart <dvhart@linux.intel.com>
 ---
- meta/conf/machine/include/zaurus-2.6.inc       |   72 ------------------------
- meta/conf/machine/include/zaurus-clamshell.inc |   15 -----
- 2 files changed, 0 insertions(+), 87 deletions(-)
- delete mode 100644 meta/conf/machine/include/zaurus-2.6.inc
- delete mode 100644 meta/conf/machine/include/zaurus-clamshell.inc
+ meta/recipes-kernel/linux/linux.inc |   95 -----------------------------------
+ 1 files changed, 0 insertions(+), 95 deletions(-)
+ delete mode 100644 meta/recipes-kernel/linux/linux.inc
 
-diff --git a/meta/conf/machine/include/zaurus-2.6.inc b/meta/conf/machine/include/zaurus-2.6.inc
+diff --git a/meta/recipes-kernel/linux/linux.inc b/meta/recipes-kernel/linux/linux.inc
 deleted file mode 100644
-index aec61c7..0000000
---- a/meta/conf/machine/include/zaurus-2.6.inc
+index f0b47da..0000000
+--- a/meta/recipes-kernel/linux/linux.inc
 +++ /dev/null
-@@ -1,72 +0,0 @@
--# Zaurus specific configuration for kernel 2.6
--# Additionally, clamshell specific stuff in zaurus-clamshell.inc
+@@ -1,95 +0,0 @@
+-DESCRIPTION = "Linux Kernel"
+-SECTION = "kernel"
+-LICENSE = "GPLv2"
 -
--TARGET_ARCH = "arm"
--PACKAGE_EXTRA_ARCHS = "armv4 armv4t armv5e armv5te"
--PACKAGE_EXTRA_ARCHS_collie = ""
+-LIC_FILES_CHKSUM = "file://COPYING;md5=d7810fab7487fb0aad327b76f1be7cd7"
 -
--MACHINE_KERNEL_VERSION = "2.6"
+-inherit kernel
+-require linux-dtb.inc
 -
--ERASEBLOCKSIZE = "0x4000"
--ERASEBLOCKSIZE_akita = "0x20000"
+-DEPENDS_append_em-x270 = " mtd-utils "
 -
--EXTRA_IMAGECMD_jffs2 = "--little-endian --eraseblock=${ERASEBLOCKSIZE} --pad --faketime -n" 
--IMAGE_CMD_jffs2 = "mkfs.jffs2 -x lzo --root=${IMAGE_ROOTFS} --output=${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.rootfs.jffs2 ${EXTRA_IMAGECMD}"
--EXTRA_IMAGEDEPENDS += "zaurus-updater"
+-RPSRC = "http://www.rpsys.net/openzaurus/patches/archive"
 -
--SERIAL_CONSOLE = "115200 ttyS0"
--SERIAL_CONSOLE_collie = "115200 ttySA0"
+-# Specify the commandline for your device
 -
--PREFERRED_PROVIDER_virtual/kernel = "linux-rp"
--PREFERRED_PROVIDER_xserver = "xserver-kdrive"
+-#boot from mmc
+-CMDLINE_at91sam9263ek = "mem=64M console=ttyS0,115200 root=/dev/mmcblk0p1 rootfstype=ext2 rootdelay=5"
+-#boot from nfs
+-#CMDLINE_at91sam9263ek = "mem=64M console=ttyS0,115200 root=301 root=/dev/nfs nfsroot=172.20.3.1:/data/at91 ip=172.20.0.5:::255.255.0.0"
 -
--PCMCIA_MANAGER ?= "pcmciautils"
+-do_configure_prepend() {
+-        echo "" > ${S}/.config
 -
--MACHINE_FEATURES = "kernel26 apm alsa pcmcia irda usbgadget keyboard touchscreen screen vfat"
--MACHINE_FEATURES_append_tosa  = " usbhost wifi "
--MACHINE_FEATURES_append_akita = " usbhost "
--MACHINE_FEATURES_append_spitz = " usbhost ext2 "
+-        #
+-        # logo support, if you supply logo_linux_clut224.ppm in SRC_URI, then it's going to be used
+-        #
+-        if [ -e ${WORKDIR}/logo_linux_clut224.ppm ]; then
+-                install -m 0644 ${WORKDIR}/logo_linux_clut224.ppm drivers/video/logo/logo_linux_clut224.ppm
+-                echo "CONFIG_LOGO=y"                    >> ${S}/.config
+-                echo "CONFIG_LOGO_LINUX_CLUT224=y"      >> ${S}/.config
+-        fi
 -
--MACHINE_EXTRA_RDEPENDS = "zaurusd"
--MACHINE_EXTRA_RRECOMMENDS_c7x0   = "kernel-module-snd-soc-corgi kernel-module-pxa2xx-cs kernel-module-pcmcia"
--MACHINE_EXTRA_RRECOMMENDS_akita  = "kernel-module-snd-soc-spitz kernel-module-pxa2xx-cs kernel-module-pcmcia"
--MACHINE_EXTRA_RRECOMMENDS_spitz  = "kernel-module-snd-soc-spitz"
--MACHINE_EXTRA_RRECOMMENDS_poodle = "kernel-module-snd-soc-poodle"
+-        #
+-        # oabi / eabi support
+-        #
+-        if [ "${TARGET_OS}" = "linux-gnueabi" -o  "${TARGET_OS}" = "linux-uclibcgnueabi" ]; then
+-                echo "CONFIG_AEABI=y"                   >> ${S}/.config
+-                echo "# CONFIG_OABI_COMPAT is not set"             >> ${S}/.config
+-        else
+-                echo "# CONFIG_AEABI is not set"        >> ${S}/.config
+-                echo "# CONFIG_OABI_COMPAT is not set"  >> ${S}/.config
+-        fi
 -
--GUI_MACHINE_CLASS = "bigscreen"
--GUI_MACHINE_CLASS_collie = "smallscreen"
--GUI_MACHINE_CLASS_poodle = "smallscreen"
+-        echo "CONFIG_CMDLINE=\"${CMDLINE}\"" >> ${S}/.config
 -
--KERNEL_IMAGE_MAXSIZE = "1294336"
--KERNEL_IMAGE_MAXSIZE_collie = "1048576"
+-        sed -e '/CONFIG_AEABI/d' \
+-            -e '/CONFIG_OABI_COMPAT=/d' \
+-            -e '/CONFIG_CMDLINE=/d' \
+-            -e '/CONFIG_LOGO=/d' \
+-            -e '/CONFIG_LOGO_LINUX_CLUT224=/d' \
+-            < '${WORKDIR}/defconfig' >>'${S}/.config'
 -
--MACHINE_POSTPROCESS_COMMAND = "zaurus_make_installkit"
--
--zaurus_make_installkit () {
--    cd ${DEPLOY_DIR_IMAGE}
--    rm -rf ${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}-installkit/         
--    mkdir ${IMAGE_NAME}-installkit/
--
--    # Get the latest kernel using the zImage-<machine>.bin symlink
--    cp zImage-${MACHINE}.bin ${IMAGE_NAME}-installkit/zImage
--
--    if [ "${MACHINE}" = "spitz" ]; then
--        cp gnu-tar ${IMAGE_NAME}-installkit/
--        cp ${IMAGE_NAME}.rootfs.tar.gz ${IMAGE_NAME}-installkit/hdimage1.tgz
--    else
--        [ -f ${IMAGE_NAME}.rootfs.jffs2 ] && cp ${IMAGE_NAME}.rootfs.jffs2 ${IMAGE_NAME}-installkit/initrd.bin
--    fi
--
--    # All zaurus machines except collie need updater.sh
--    if [ "${MACHINE}" != "collie" ]; then
--        cp updater.sh.${MACHINE} ${IMAGE_NAME}-installkit/updater.sh
--    fi
-- 
--    tar czf ${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}-installkit.tgz ${IMAGE_NAME}-installkit/
--    md5sum ${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}-installkit.tgz > ${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}-installkit.tgz.md5
--    rm -rf ${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}-installkit/     
+-        #
+-        # root-over-nfs-over-usb-eth support. Limited, but should cover some cases.
+-        # Enable this by setting a proper CMDLINE_NFSROOT_USB.
+-        #
+-        if [ ! -z "${CMDLINE_NFSROOT_USB}" ]; then
+-                oenote "Configuring the kernel for root-over-nfs-over-usb-eth with CMDLINE ${CMDLINE_NFSROOT_USB}"
+-                sed -e '/CONFIG_INET/d' \
+-                    -e '/CONFIG_IP_PNP=/d' \
+-                    -e '/CONFIG_USB_GADGET=/d' \
+-                    -e '/CONFIG_USB_GADGET_SELECTED=/d' \
+-                    -e '/CONFIG_USB_ETH=/d' \
+-                    -e '/CONFIG_NFS_FS=/d' \
+-                    -e '/CONFIG_ROOT_NFS=/d' \
+-                    -e '/CONFIG_CMDLINE=/d' \
+-                    -i ${S}/.config
+-                echo "CONFIG_INET=y"                     >> ${S}/.config
+-                echo "CONFIG_IP_PNP=y"                   >> ${S}/.config
+-                echo "CONFIG_USB_GADGET=y"               >> ${S}/.config
+-                echo "CONFIG_USB_GADGET_SELECTED=y"      >> ${S}/.config
+-                echo "CONFIG_USB_ETH=y"                  >> ${S}/.config
+-                echo "CONFIG_NFS_FS=y"                   >> ${S}/.config
+-                echo "CONFIG_ROOT_NFS=y"                 >> ${S}/.config
+-                echo "CONFIG_CMDLINE=\"${CMDLINE_NFSROOT_USB}\"" >> ${S}/.config
+-        fi
+-        yes '' | oe_runmake oldconfig
 -}
 -
--# Don't include kernels in standard images for Zaurus machines
--RDEPENDS_kernel-base = ""
--KERNEL_IMAGETYPE = "zImage"
-diff --git a/meta/conf/machine/include/zaurus-clamshell.inc b/meta/conf/machine/include/zaurus-clamshell.inc
-deleted file mode 100644
-index 4fa9f75..0000000
---- a/meta/conf/machine/include/zaurus-clamshell.inc
-+++ /dev/null
-@@ -1,15 +0,0 @@
--include conf/machine/include/tune-xscale.inc
 -
--EXTRA_IMAGEDEPENDS += "sharp-flash-header-c700"
 -
--IMAGE_CMD_jffs2 = "mkfs.jffs2 --root=${IMAGE_ROOTFS} --faketime -m favourlzo \
--                   --output=${T}/${IMAGE_NAME}.rootfs.jffs2 --pad --little-endian --eraseblock=${ERASEBLOCKSIZE} -n \
--                   && sumtool -i ${T}/${IMAGE_NAME}.rootfs.jffs2 \
--                   -o ${T}/${IMAGE_NAME}.rootfs.jffs2.summary \
--                   --eraseblock=${ERASEBLOCKSIZE} -l -p; \
--                   cat ${STAGING_LIBDIR}/sharp-flash-header/header-c700.bin \
--                   ${T}/${IMAGE_NAME}.rootfs.jffs2 > ${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.rootfs.jffs2; \
--                   rm ${T}/${IMAGE_NAME}.rootfs.jffs2; \
--                   cat ${STAGING_LIBDIR}/sharp-flash-header/header-c700.bin \
--                   ${T}/${IMAGE_NAME}.rootfs.jffs2.summary > ${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.rootfs.summary.jffs2; \
--                   rm ${T}/${IMAGE_NAME}.rootfs.jffs2.summary;"
+-do_install_prepend() {
+-        if [ -f arch/${ARCH}/boot/Image ] && [ ! -f arch/${ARCH}/boot/uImage ]; then
+-             ln -f arch/${ARCH}/boot/Image arch/${ARCH}/boot/uImage
+-        fi
+-
+-        if test -e arch/${ARCH}/boot/images/uImage ; then
+-             ln -f arch/${ARCH}/boot/images/uImage arch/${ARCH}/boot/uImage
+-        fi
+-
+-        if test -e arch/${ARCH}/kernel/vmlinux.lds ; then
+-             ln -f arch/${ARCH}/kernel/vmlinux.lds arch/${ARCH}/boot/vmlinux
+-        fi
+-}
+-
 -- 
 1.7.0.4
 
