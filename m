@@ -1,23 +1,24 @@
 Return-Path: <dvhart@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C3EA44C80A49
-	for <poky@yoctoproject.org>; Fri, 18 Feb 2011 18:36:51 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 18 Feb 2011 16:36:51 -0800
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id ED5814C8090F
+	for <poky@yoctoproject.org>; Fri, 18 Feb 2011 18:51:21 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 18 Feb 2011 16:51:11 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,190,1297065600"; d="scan'208";a="709775600"
-Received: from fear.jf.intel.com (HELO localhost) ([10.7.201.75])
-	by orsmga001.jf.intel.com with ESMTP; 18 Feb 2011 16:36:22 -0800
-Message-Id: <15dcdef7cdf5d170f06dba9e54aa5344157ef368.1298076091.git.dvhart@linux.intel.com>
-In-Reply-To: <cover.1298076091.git.dvhart@linux.intel.com>
-References: <cover.1298076091.git.dvhart@linux.intel.com>
-Old-Date: Fri, 18 Feb 2011 15:38:12 -0800
-Date: Fri, 18 Feb 2011 16:46:03 -0800
-To: poky@yoctoproject.org, richard.purdie@linuxfoundation.org,
-	tom.zanussi@intel.com, bruce.ashfield@windriver.com
+X-IronPort-AV: E=Sophos;i="4.62,190,1297065600"; d="scan'208";a="391061493"
+Received: from unknown (HELO [10.255.12.60]) ([10.255.12.60])
+	by azsmga001.ch.intel.com with ESMTP; 18 Feb 2011 16:51:06 -0800
+Message-ID: <4D5F13FA.3060304@linux.intel.com>
+Date: Fri, 18 Feb 2011 16:51:06 -0800
 From: Darren Hart <dvhart@linux.intel.com>
-Cc: Darren Hart <dvhart@linux.intel.com>
-Subject: [PATCH 4/4] linux.inc: remove the obsolete linux.inc kernel recipe include
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
+MIME-Version: 1.0
+To: Darren Hart <dvhart@linux.intel.com>
+References: <cover.1298076091.git.dvhart@linux.intel.com>
+In-Reply-To: <cover.1298076091.git.dvhart@linux.intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/4] recipes-kernel: follow-up cleanup
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,126 +30,104 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 19 Feb 2011 00:36:52 -0000
+X-List-Received-Date: Sat, 19 Feb 2011 00:51:22 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Darren Hart <dvhart@linux.intel.com>
+On 02/18/2011 04:46 PM, Darren Hart wrote:
+> From: Darren Hart<dvhart@linux.intel.com>
+>
+> The following patches perform some additional cleanup of the kernel metadata.
+> Obsolete kernel recipes are removed. Unused machine config fragments are
+> removed. Finally, linux.inc is removed.
+>
+> This cleans the slate and prepares the way for the next stage of kernel recipe
+> cleanup which will include refactoring the kernel.bbclass and reworking
+> linux-dummy to provide a good current example of how to create a custom linux
+> kernel recipe.
+>
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>    Branch: dvhart/linux
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dvhart/linux
+>
+> Thanks,
+>      Darren Hart<dvhart@linux.intel.com>
+> ---
+>
+>
+> Darren Hart (4):
+>    zaurus: remove zaurus linux includes
+>    linux-2.6.23: remove the linux-2.6.23 recipe
+>    linux-2.6.33.2: remove linux-2.6.33.2 recipe
 
-linux.inc was used by older kernel recipes which have now been removed from the
-core meta data. I references machines now only defined in meta-extras. The
-configure prepend mangles the kernel .config in non-intuitive ways and the
-install peroforms some odd boot image manipulation that is not used nor required
-by supported machines. The required functionality, such as defconfig setup, has
-already been moved to the kernel bbclass. Remove linux.inc to avoid confusion
-for new kernel recipe authors and clean up the kernel meta data.
+These two patches were 250k and 500k and are pending moderator approval, 
+their content can be mostly divined from the "delete mode" lines below.
 
-Signed-off-by: Darren Hart <dvhart@linux.intel.com>
----
- meta/recipes-kernel/linux/linux.inc |   95 -----------------------------------
- 1 files changed, 0 insertions(+), 95 deletions(-)
- delete mode 100644 meta/recipes-kernel/linux/linux.inc
+--
+Darren
 
-diff --git a/meta/recipes-kernel/linux/linux.inc b/meta/recipes-kernel/linux/linux.inc
-deleted file mode 100644
-index f0b47da..0000000
---- a/meta/recipes-kernel/linux/linux.inc
-+++ /dev/null
-@@ -1,95 +0,0 @@
--DESCRIPTION = "Linux Kernel"
--SECTION = "kernel"
--LICENSE = "GPLv2"
--
--LIC_FILES_CHKSUM = "file://COPYING;md5=d7810fab7487fb0aad327b76f1be7cd7"
--
--inherit kernel
--require linux-dtb.inc
--
--DEPENDS_append_em-x270 = " mtd-utils "
--
--RPSRC = "http://www.rpsys.net/openzaurus/patches/archive"
--
--# Specify the commandline for your device
--
--#boot from mmc
--CMDLINE_at91sam9263ek = "mem=64M console=ttyS0,115200 root=/dev/mmcblk0p1 rootfstype=ext2 rootdelay=5"
--#boot from nfs
--#CMDLINE_at91sam9263ek = "mem=64M console=ttyS0,115200 root=301 root=/dev/nfs nfsroot=172.20.3.1:/data/at91 ip=172.20.0.5:::255.255.0.0"
--
--do_configure_prepend() {
--        echo "" > ${S}/.config
--
--        #
--        # logo support, if you supply logo_linux_clut224.ppm in SRC_URI, then it's going to be used
--        #
--        if [ -e ${WORKDIR}/logo_linux_clut224.ppm ]; then
--                install -m 0644 ${WORKDIR}/logo_linux_clut224.ppm drivers/video/logo/logo_linux_clut224.ppm
--                echo "CONFIG_LOGO=y"                    >> ${S}/.config
--                echo "CONFIG_LOGO_LINUX_CLUT224=y"      >> ${S}/.config
--        fi
--
--        #
--        # oabi / eabi support
--        #
--        if [ "${TARGET_OS}" = "linux-gnueabi" -o  "${TARGET_OS}" = "linux-uclibcgnueabi" ]; then
--                echo "CONFIG_AEABI=y"                   >> ${S}/.config
--                echo "# CONFIG_OABI_COMPAT is not set"             >> ${S}/.config
--        else
--                echo "# CONFIG_AEABI is not set"        >> ${S}/.config
--                echo "# CONFIG_OABI_COMPAT is not set"  >> ${S}/.config
--        fi
--
--        echo "CONFIG_CMDLINE=\"${CMDLINE}\"" >> ${S}/.config
--
--        sed -e '/CONFIG_AEABI/d' \
--            -e '/CONFIG_OABI_COMPAT=/d' \
--            -e '/CONFIG_CMDLINE=/d' \
--            -e '/CONFIG_LOGO=/d' \
--            -e '/CONFIG_LOGO_LINUX_CLUT224=/d' \
--            < '${WORKDIR}/defconfig' >>'${S}/.config'
--
--        #
--        # root-over-nfs-over-usb-eth support. Limited, but should cover some cases.
--        # Enable this by setting a proper CMDLINE_NFSROOT_USB.
--        #
--        if [ ! -z "${CMDLINE_NFSROOT_USB}" ]; then
--                oenote "Configuring the kernel for root-over-nfs-over-usb-eth with CMDLINE ${CMDLINE_NFSROOT_USB}"
--                sed -e '/CONFIG_INET/d' \
--                    -e '/CONFIG_IP_PNP=/d' \
--                    -e '/CONFIG_USB_GADGET=/d' \
--                    -e '/CONFIG_USB_GADGET_SELECTED=/d' \
--                    -e '/CONFIG_USB_ETH=/d' \
--                    -e '/CONFIG_NFS_FS=/d' \
--                    -e '/CONFIG_ROOT_NFS=/d' \
--                    -e '/CONFIG_CMDLINE=/d' \
--                    -i ${S}/.config
--                echo "CONFIG_INET=y"                     >> ${S}/.config
--                echo "CONFIG_IP_PNP=y"                   >> ${S}/.config
--                echo "CONFIG_USB_GADGET=y"               >> ${S}/.config
--                echo "CONFIG_USB_GADGET_SELECTED=y"      >> ${S}/.config
--                echo "CONFIG_USB_ETH=y"                  >> ${S}/.config
--                echo "CONFIG_NFS_FS=y"                   >> ${S}/.config
--                echo "CONFIG_ROOT_NFS=y"                 >> ${S}/.config
--                echo "CONFIG_CMDLINE=\"${CMDLINE_NFSROOT_USB}\"" >> ${S}/.config
--        fi
--        yes '' | oe_runmake oldconfig
--}
--
--
--
--do_install_prepend() {
--        if [ -f arch/${ARCH}/boot/Image ] && [ ! -f arch/${ARCH}/boot/uImage ]; then
--             ln -f arch/${ARCH}/boot/Image arch/${ARCH}/boot/uImage
--        fi
--
--        if test -e arch/${ARCH}/boot/images/uImage ; then
--             ln -f arch/${ARCH}/boot/images/uImage arch/${ARCH}/boot/uImage
--        fi
--
--        if test -e arch/${ARCH}/kernel/vmlinux.lds ; then
--             ln -f arch/${ARCH}/kernel/vmlinux.lds arch/${ARCH}/boot/vmlinux
--        fi
--}
--
+>    linux.inc: remove the obsolete linux.inc kernel recipe include
+>
+>   meta/conf/machine/include/zaurus-2.6.inc           |   72 -
+>   meta/conf/machine/include/zaurus-clamshell.inc     |   15 -
+>   ...x-gcc-4.3-false-modulo-optimization.patch.patch |   48 -
+>   .../linux/linux-2.6.23/binutils-buildid-arm.patch  |   16 -
+>   .../linux-2.6.23/cm-x270/0001-cm-x270-base2.patch  | 2851 -----
+>   .../cm-x270/0002-cm-x270-match-type.patch          |   25 -
+>   .../linux-2.6.23/cm-x270/0003-cm-x270-ide.patch    |  186 -
+>   .../linux-2.6.23/cm-x270/0004-cm-x270-it8152.patch |  496 -
+>   .../linux-2.6.23/cm-x270/0005-cm-x270-pcmcia.patch |  228 -
+>   .../linux-2.6.23/cm-x270/0006-ramdisk_load.patch   |   80 -
+>   .../cm-x270/0007-mmcsd_large_cards-r0.patch        |   36 -
+>   .../cm-x270/0008-cm-x270-nand-simplify-name.patch  |   25 -
+>   .../linux/linux-2.6.23/cm-x270/16bpp.patch         |   13 -
+>   .../linux/linux-2.6.23/cm-x270/defconfig           | 1204 --
+>   .../linux/linux-2.6.23/em-x270/defconfig           | 1354 ---
+>   .../em-x270/em-x270-battery-sysfs-fix.patch        |   40 -
+>   .../linux/linux-2.6.23/em-x270/em-x270.patch       |12063 --------------------
+>   .../linux/linux-2.6.33.2/mpc8313erdb/defconfig     | 1780 ---
+>   .../linux/linux-2.6.33.2/qemuarm/defconfig         | 1837 ---
+>   .../linux/linux-2.6.33.2/qemumips/defconfig        | 1825 ---
+>   .../linux/linux-2.6.33.2/qemuppc/defconfig         | 1780 ---
+>   .../linux/linux-2.6.33.2/qemux86/defconfig         | 2160 ----
+>   meta/recipes-kernel/linux/linux.inc                |   95 -
+>   meta/recipes-kernel/linux/linux_2.6.23.bb          |   83 -
+>   meta/recipes-kernel/linux/linux_2.6.33.2.bb        |   15 -
+>   25 files changed, 0 insertions(+), 28327 deletions(-)
+>   delete mode 100644 meta/conf/machine/include/zaurus-2.6.inc
+>   delete mode 100644 meta/conf/machine/include/zaurus-clamshell.inc
+>   delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/1300-fix-gcc-4.3-false-modulo-optimization.patch.patch
+>   delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/binutils-buildid-arm.patch
+>   delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/cm-x270/0001-cm-x270-base2.patch
+>   delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/cm-x270/0002-cm-x270-match-type.patch
+>   delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/cm-x270/0003-cm-x270-ide.patch
+>   delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/cm-x270/0004-cm-x270-it8152.patch
+>   delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/cm-x270/0005-cm-x270-pcmcia.patch
+>   delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/cm-x270/0006-ramdisk_load.patch
+>   delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/cm-x270/0007-mmcsd_large_cards-r0.patch
+>   delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/cm-x270/0008-cm-x270-nand-simplify-name.patch
+>   delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/cm-x270/16bpp.patch
+>   delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/cm-x270/defconfig
+>   delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/em-x270/defconfig
+>   delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/em-x270/em-x270-battery-sysfs-fix.patch
+>   delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/em-x270/em-x270.patch
+>   delete mode 100644 meta/recipes-kernel/linux/linux-2.6.33.2/mpc8313erdb/defconfig
+>   delete mode 100644 meta/recipes-kernel/linux/linux-2.6.33.2/qemuarm/defconfig
+>   delete mode 100644 meta/recipes-kernel/linux/linux-2.6.33.2/qemumips/defconfig
+>   delete mode 100644 meta/recipes-kernel/linux/linux-2.6.33.2/qemuppc/defconfig
+>   delete mode 100644 meta/recipes-kernel/linux/linux-2.6.33.2/qemux86/defconfig
+>   delete mode 100644 meta/recipes-kernel/linux/linux.inc
+>   delete mode 100644 meta/recipes-kernel/linux/linux_2.6.23.bb
+>   delete mode 100644 meta/recipes-kernel/linux/linux_2.6.33.2.bb
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+
+
 -- 
-1.7.0.4
-
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
