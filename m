@@ -1,30 +1,30 @@
 Return-Path: <richard.purdie@linuxfoundation.org>
 Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
 	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 478AB4C80A8A
-	for <poky@yoctoproject.org>; Mon, 21 Feb 2011 11:56:10 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8EDF14C80546
+	for <poky@yoctoproject.org>; Mon, 21 Feb 2011 12:00:35 -0600 (CST)
 Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1LHu8D4019366;
-	Mon, 21 Feb 2011 17:56:09 GMT
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1LI0TCJ019496;
+	Mon, 21 Feb 2011 18:00:29 GMT
 Received: from tim.rpsys.net ([127.0.0.1])
 	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
 	port 10024) with LMTP
-	id 19075-05-2; Mon, 21 Feb 2011 17:56:00 +0000 (GMT)
+	id 19027-09; Mon, 21 Feb 2011 18:00:25 +0000 (GMT)
 Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1LHtkPu019230
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1LI0MJt019485
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Mon, 21 Feb 2011 17:55:46 GMT
+	Mon, 21 Feb 2011 18:00:22 GMT
 From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Nitin A Kamble <nitin.a.kamble@intel.com>
-In-Reply-To: <cover.1298053136.git.nitin.a.kamble@intel.com>
-References: <cover.1298053136.git.nitin.a.kamble@intel.com>
-Date: Mon, 21 Feb 2011 17:55:43 +0000
-Message-ID: <1298310943.11289.3189.camel@rex>
+To: Darren Hart <dvhart@linux.intel.com>
+In-Reply-To: <cover.1298076091.git.dvhart@linux.intel.com>
+References: <cover.1298076091.git.dvhart@linux.intel.com>
+Date: Mon, 21 Feb 2011 18:00:19 +0000
+Message-ID: <1298311219.11289.3190.camel@rex>
 Mime-Version: 1.0
 X-Mailer: Evolution 2.28.3 
 X-Virus-Scanned: amavisd-new at rpsys.net
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/1] avoid absolute pathnames for general utils in libtool scripts
+Subject: Re: [PATCH 0/4] recipes-kernel: follow-up cleanup
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,41 +36,93 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 Feb 2011 17:56:10 -0000
+X-List-Received-Date: Mon, 21 Feb 2011 18:00:36 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On Fri, 2011-02-18 at 10:21 -0800, Nitin A Kamble wrote:
-> From: Nitin A Kamble <nitin.a.kamble@intel.com>
+On Fri, 2011-02-18 at 16:46 -0800, Darren Hart wrote:
+> From: Darren Hart <dvhart@linux.intel.com>
 > 
+> The following patches perform some additional cleanup of the kernel metadata.
+> Obsolete kernel recipes are removed. Unused machine config fragments are
+> removed. Finally, linux.inc is removed.
 > 
-> The builthost specific absolute pathnames were not working on other hosts
-> with the nativesdk libtool package. This commit fixes that.
+> This cleans the slate and prepares the way for the next stage of kernel recipe
+> cleanup which will include refactoring the kernel.bbclass and reworking
+> linux-dummy to provide a good current example of how to create a custom linux
+> kernel recipe.
 > 
 > Pull URL: git://git.pokylinux.org/poky-contrib.git
->   Branch: nitin/misc
->   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=nitin/misc
+>   Branch: dvhart/linux
+>   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dvhart/linux
 > 
 > Thanks,
->     Nitin A Kamble <nitin.a.kamble@intel.com>
+>     Darren Hart <dvhart@linux.intel.com>
 > ---
 > 
 > 
-> Nitin A Kamble (1):
->   libtool: avoid absolute pathnames of general utils
+> Darren Hart (4):
+>   zaurus: remove zaurus linux includes
+>   linux-2.6.23: remove the linux-2.6.23 recipe
+>   linux-2.6.33.2: remove linux-2.6.33.2 recipe
+>   linux.inc: remove the obsolete linux.inc kernel recipe include
 > 
->  meta/recipes-devtools/libtool/libtool-cross_2.4.bb |    2 +-
->  .../recipes-devtools/libtool/libtool-native_2.4.bb |    2 +-
->  .../libtool/libtool-nativesdk_2.4.bb               |    2 +-
->  meta/recipes-devtools/libtool/libtool.inc          |    3 +-
->  .../avoid_absolute_paths_for_general_utils.patch   |   37 ++++++++++++++++++++
->  meta/recipes-devtools/libtool/libtool_2.4.bb       |    2 +-
->  6 files changed, 43 insertions(+), 5 deletions(-)
->  create mode 100644 meta/recipes-devtools/libtool/libtool/avoid_absolute_paths_for_general_utils.patch
+>  meta/conf/machine/include/zaurus-2.6.inc           |   72 -
+>  meta/conf/machine/include/zaurus-clamshell.inc     |   15 -
+>  ...x-gcc-4.3-false-modulo-optimization.patch.patch |   48 -
+>  .../linux/linux-2.6.23/binutils-buildid-arm.patch  |   16 -
+>  .../linux-2.6.23/cm-x270/0001-cm-x270-base2.patch  | 2851 -----
+>  .../cm-x270/0002-cm-x270-match-type.patch          |   25 -
+>  .../linux-2.6.23/cm-x270/0003-cm-x270-ide.patch    |  186 -
+>  .../linux-2.6.23/cm-x270/0004-cm-x270-it8152.patch |  496 -
+>  .../linux-2.6.23/cm-x270/0005-cm-x270-pcmcia.patch |  228 -
+>  .../linux-2.6.23/cm-x270/0006-ramdisk_load.patch   |   80 -
+>  .../cm-x270/0007-mmcsd_large_cards-r0.patch        |   36 -
+>  .../cm-x270/0008-cm-x270-nand-simplify-name.patch  |   25 -
+>  .../linux/linux-2.6.23/cm-x270/16bpp.patch         |   13 -
+>  .../linux/linux-2.6.23/cm-x270/defconfig           | 1204 --
+>  .../linux/linux-2.6.23/em-x270/defconfig           | 1354 ---
+>  .../em-x270/em-x270-battery-sysfs-fix.patch        |   40 -
+>  .../linux/linux-2.6.23/em-x270/em-x270.patch       |12063 --------------------
+>  .../linux/linux-2.6.33.2/mpc8313erdb/defconfig     | 1780 ---
+>  .../linux/linux-2.6.33.2/qemuarm/defconfig         | 1837 ---
+>  .../linux/linux-2.6.33.2/qemumips/defconfig        | 1825 ---
+>  .../linux/linux-2.6.33.2/qemuppc/defconfig         | 1780 ---
+>  .../linux/linux-2.6.33.2/qemux86/defconfig         | 2160 ----
+>  meta/recipes-kernel/linux/linux.inc                |   95 -
+>  meta/recipes-kernel/linux/linux_2.6.23.bb          |   83 -
+>  meta/recipes-kernel/linux/linux_2.6.33.2.bb        |   15 -
+>  25 files changed, 0 insertions(+), 28327 deletions(-)
+>  delete mode 100644 meta/conf/machine/include/zaurus-2.6.inc
+>  delete mode 100644 meta/conf/machine/include/zaurus-clamshell.inc
+>  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/1300-fix-gcc-4.3-false-modulo-optimization.patch.patch
+>  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/binutils-buildid-arm.patch
+>  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/cm-x270/0001-cm-x270-base2.patch
+>  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/cm-x270/0002-cm-x270-match-type.patch
+>  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/cm-x270/0003-cm-x270-ide.patch
+>  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/cm-x270/0004-cm-x270-it8152.patch
+>  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/cm-x270/0005-cm-x270-pcmcia.patch
+>  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/cm-x270/0006-ramdisk_load.patch
+>  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/cm-x270/0007-mmcsd_large_cards-r0.patch
+>  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/cm-x270/0008-cm-x270-nand-simplify-name.patch
+>  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/cm-x270/16bpp.patch
+>  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/cm-x270/defconfig
+>  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/em-x270/defconfig
+>  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/em-x270/em-x270-battery-sysfs-fix.patch
+>  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/em-x270/em-x270.patch
+>  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.33.2/mpc8313erdb/defconfig
+>  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.33.2/qemuarm/defconfig
+>  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.33.2/qemumips/defconfig
+>  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.33.2/qemuppc/defconfig
+>  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.33.2/qemux86/defconfig
+>  delete mode 100644 meta/recipes-kernel/linux/linux.inc
+>  delete mode 100644 meta/recipes-kernel/linux/linux_2.6.23.bb
+>  delete mode 100644 meta/recipes-kernel/linux/linux_2.6.33.2.bb
 
-Merged to master, thanks.
+Merged to master.
+
+Cheers,
 
 Richard
-
 
 
