@@ -1,30 +1,30 @@
 Return-Path: <richard.purdie@linuxfoundation.org>
 Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
 	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B4A0F4C80A7D;
-	Mon, 21 Feb 2011 11:55:31 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 478AB4C80A8A
+	for <poky@yoctoproject.org>; Mon, 21 Feb 2011 11:56:10 -0600 (CST)
 Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1LHtR8N019217;
-	Mon, 21 Feb 2011 17:55:27 GMT
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1LHu8D4019366;
+	Mon, 21 Feb 2011 17:56:09 GMT
 Received: from tim.rpsys.net ([127.0.0.1])
 	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
 	port 10024) with LMTP
-	id 19075-03; Mon, 21 Feb 2011 17:55:23 +0000 (GMT)
+	id 19075-05-2; Mon, 21 Feb 2011 17:56:00 +0000 (GMT)
 Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1LHtKio019206
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1LHtkPu019230
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Mon, 21 Feb 2011 17:55:20 GMT
+	Mon, 21 Feb 2011 17:55:46 GMT
 From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Bruce Ashfield <bruce.ashfield@windriver.com>
-In-Reply-To: <cover.1298047352.git.bruce.ashfield@windriver.com>
-References: <y>  <cover.1298047352.git.bruce.ashfield@windriver.com>
-Date: Mon, 21 Feb 2011 17:55:16 +0000
-Message-ID: <1298310916.11289.3188.camel@rex>
+To: Nitin A Kamble <nitin.a.kamble@intel.com>
+In-Reply-To: <cover.1298053136.git.nitin.a.kamble@intel.com>
+References: <cover.1298053136.git.nitin.a.kamble@intel.com>
+Date: Mon, 21 Feb 2011 17:55:43 +0000
+Message-ID: <1298310943.11289.3189.camel@rex>
 Mime-Version: 1.0
 X-Mailer: Evolution 2.28.3 
 X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: yocto@yoctoproject.org, poky@yoctoproject.org, saul.wold@intel.com
-Subject: Re: [PATCH 0/1] linux-yocto: update to 2.6.37.1
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/1] avoid absolute pathnames for general utils in libtool scripts
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,31 +36,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 Feb 2011 17:55:32 -0000
+X-List-Received-Date: Mon, 21 Feb 2011 17:56:10 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On Fri, 2011-02-18 at 11:44 -0500, Bruce Ashfield wrote:
-> Richard/Saul,
+On Fri, 2011-02-18 at 10:21 -0800, Nitin A Kamble wrote:
+> From: Nitin A Kamble <nitin.a.kamble@intel.com>
 > 
-> 2.6.37.1 dropped yesterday, and I've done the merge and built
-> for all the currently supported core boards. Boots on simulation
-> work as well. Obviously, no issues found during my testing.
+> 
+> The builthost specific absolute pathnames were not working on other hosts
+> with the nativesdk libtool package. This commit fixes that.
 > 
 > Pull URL: git://git.pokylinux.org/poky-contrib.git
->   Branch: zedd/kernel
->   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/kernel
+>   Branch: nitin/misc
+>   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=nitin/misc
 > 
 > Thanks,
->     Bruce Ashfield <bruce.ashfield@windriver.com>
+>     Nitin A Kamble <nitin.a.kamble@intel.com>
 > ---
 > 
 > 
-> Bruce Ashfield (1):
->   linux-yocto: update to 2.6.37.1
+> Nitin A Kamble (1):
+>   libtool: avoid absolute pathnames of general utils
 > 
->  .../conf/distro/include/poky-default-revisions.inc |   24 ++++++++++----------
->  1 files changed, 12 insertions(+), 12 deletions(-)
+>  meta/recipes-devtools/libtool/libtool-cross_2.4.bb |    2 +-
+>  .../recipes-devtools/libtool/libtool-native_2.4.bb |    2 +-
+>  .../libtool/libtool-nativesdk_2.4.bb               |    2 +-
+>  meta/recipes-devtools/libtool/libtool.inc          |    3 +-
+>  .../avoid_absolute_paths_for_general_utils.patch   |   37 ++++++++++++++++++++
+>  meta/recipes-devtools/libtool/libtool_2.4.bb       |    2 +-
+>  6 files changed, 43 insertions(+), 5 deletions(-)
+>  create mode 100644 meta/recipes-devtools/libtool/libtool/avoid_absolute_paths_for_general_utils.patch
 
 Merged to master, thanks.
 
