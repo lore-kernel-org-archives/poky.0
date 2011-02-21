@@ -1,31 +1,27 @@
 Return-Path: <richard.purdie@linuxfoundation.org>
 Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
 	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9ADB24C800B2
-	for <poky@lists.pokylinux.org>; Mon, 21 Feb 2011 17:16:47 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 3064F4C80546
+	for <poky@yoctoproject.org>; Mon, 21 Feb 2011 17:33:38 -0600 (CST)
 Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1LNGkr5021760;
-	Mon, 21 Feb 2011 23:16:46 GMT
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1LNXbsl021909
+	for <poky@yoctoproject.org>; Mon, 21 Feb 2011 23:33:37 GMT
 Received: from tim.rpsys.net ([127.0.0.1])
 	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 21445-06; Mon, 21 Feb 2011 23:16:42 +0000 (GMT)
+	port 10024) with LMTP id 21445-09 for <poky@yoctoproject.org>;
+	Mon, 21 Feb 2011 23:33:33 +0000 (GMT)
 Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1LNGb1V021754
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Mon, 21 Feb 2011 23:16:40 GMT
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1LNXUEO021903
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO)
+	for <poky@yoctoproject.org>; Mon, 21 Feb 2011 23:33:30 GMT
 From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Gary Thomas <gary@mlbassoc.com>
-In-Reply-To: <4D62AF6E.4020304@mlbassoc.com>
-References: <4D628A56.6020002@mlbassoc.com>
-	<1298310097.11289.3185.camel@rex>  <4D62AF6E.4020304@mlbassoc.com>
-Date: Mon, 21 Feb 2011 23:16:34 +0000
-Message-ID: <1298330194.11289.3243.camel@rex>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Date: Mon, 21 Feb 2011 23:33:27 +0000
+Message-ID: <1298331207.11289.3256.camel@rex>
 Mime-Version: 1.0
 X-Mailer: Evolution 2.28.3 
 X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: Poky <poky@lists.pokylinux.org>
-Subject: Re: kernel versions
+Subject: Autobuilder status
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,65 +33,54 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 Feb 2011 23:16:48 -0000
+X-List-Received-Date: Mon, 21 Feb 2011 23:33:38 -0000
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On Mon, 2011-02-21 at 11:31 -0700, Gary Thomas wrote:
-> On 02/21/2011 10:41 AM, Richard Purdie wrote:
-> > On Mon, 2011-02-21 at 08:52 -0700, Gary Thomas wrote:
-> >> I have my own kernel recipes (historical reasons...) which I
-> >> now have 2 versions of.  Some platforms have not yet been
-> >> ported to the latest version and I need to keep using the
-> >> older one for those platforms until the porting is complete.
-> >>
-> >> Sadly, I can't get this to work.
-> >>
-> >> Here's what I have
-> >>     $ tree meta-amltd/packages/linux/
-> >>       meta-amltd/packages/linux/
-> >>       ├── linux-am_2.6.32.bb
-> >>       ├── linux-am_2.6.37.bb
-> >>
-> >>     $ tree meta-cobra3530p60/packages/linux/
-> >>       meta-cobra3530p60/packages/linux/
-> >>       ├── linux-am-2.6.32
-> >>       │   └── cobra3530p60
-> >>       │       ├── cobra3530p60.patch
-> >>       │       └── defconfig
-> >>       ├── linux-am_2.6.32.bbappend
-> >>
-> >> I tried these settings in my machine/cobra3530p60
-> >>     PREFERRED_PROVIDER_virtual/kernel = "linux-am"
-> >>     PREFERRED_VERSION_virtual/kernel = "2.6.32"
-> >>
-> >> However, it still wants to build version 2.6.37
-> >>
-> >> What am I missing?  How can I force it to use the 2.6.32 version
-> >> for this machine?
-> >
-> > PREFERRED_VERSION_linux-am = "2.6.32"
-> 
-> That does seem to work, but only if I put it in the <MACHINE>.conf
-> file, not local.conf.
-> 
-> Why specify it one way (PREFERRED_PROVIDER_virtual/kernel) for the provider
-> (recipe basis) and then a different way (PREFERRED_VERSION_linux-am) for
-> the actual version?
+Hi,
 
-Each recipe has a list of things it provides. This is usually PN but in
-the kernel case each recipe provides "virtual/kernel" so we can group
-them and make a selection with PREFERRED_PROVIDER.
+There appear to be three issues on the autobuilder at present which we
+need to get fixed quickly.
 
-Bitbake first determines the provider. Once it has this it looks up the
-version. It looks this up using PN and not using what could be an
-arbitrary list of items in PROVIDES.
+1) "zypper search avahi" is causing a segfault on some architectures
+with a double free being detected by libc. This seems to be the cause of
+all the runtime sanity test failures.
 
-Summary, you always use PN with PREFERRED_VERSION as that is what makes
-sense in the general case.
+2) The tar issues are fixed but there is an underlying problem with
+error propagation as it appears bitbake was ignoring the sstate
+extraction failure rather than accounting for it in its build task list.
+If extraction fails, that task should not be making the "skip" list but
+it looks like it does. That bug needs fixing too.
 
-It should however work to put this in local.conf unless you're setting
-it with an = and not a ?= somewhere else?
+3) There are a number of dpkg-deb failures on permissions. This looks to
+be pseudo related. Creation of the sstate package and extraction of it
+should be happening under pseudo and the error suggests this is not
+happening.
+
+I think PaulE is looking at 2), 3) is new and unassigned and I'm not
+sure who is looking at 1) but I'd like to confirm someone is.
+
+
+I'm also aware of some other niggling problems:
+
+a) do_rootfs depends on the populate_sysroot tasks for all the RDEPENDS.
+This appears to be to pull in any tools required for the postinstalls
+and dates to changes I made in 2007. This needs revisiting as its crazy
+to populate all the sysroots when just the rpms are needed for image
+generation.
+
+Simply put, a "bitbake poky-image-xxx -c rootfs" should just install the
+package_write_rpm tasks it needs and the populate_sysroot for any tools
+needed. No package data or target populate_sysroot tasks should run.
+
+b) "all" architecture packages seem to be getting reinstalled a lot by
+sstate. Recent changes to the autobuilder should make it clearer when
+this is happening but we should find out why.
+
+
+I'll aim to file bugs on these tomorrow but just wanted to write things
+down whilst there were fresh in my mind. I suspect there may be a bug
+open for 1) above but I'd still appreciate a status update on it.
 
 Cheers,
 
