@@ -1,27 +1,29 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 860BA4C800A6
-	for <poky@lists.pokylinux.org>; Mon, 21 Feb 2011 12:32:19 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id D69891660375; Mon, 21 Feb 2011 11:31:50 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.1
-Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 348B2166036D;
-	Mon, 21 Feb 2011 11:31:10 -0700 (MST)
-Message-ID: <4D62AF6E.4020304@mlbassoc.com>
-Date: Mon, 21 Feb 2011 11:31:10 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
-MIME-Version: 1.0
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-References: <4D628A56.6020002@mlbassoc.com> <1298310097.11289.3185.camel@rex>
-In-Reply-To: <1298310097.11289.3185.camel@rex>
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 9ADB24C800B2
+	for <poky@lists.pokylinux.org>; Mon, 21 Feb 2011 17:16:47 -0600 (CST)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1LNGkr5021760;
+	Mon, 21 Feb 2011 23:16:46 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 21445-06; Mon, 21 Feb 2011 23:16:42 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1LNGb1V021754
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Mon, 21 Feb 2011 23:16:40 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Gary Thomas <gary@mlbassoc.com>
+In-Reply-To: <4D62AF6E.4020304@mlbassoc.com>
+References: <4D628A56.6020002@mlbassoc.com>
+	<1298310097.11289.3185.camel@rex>  <4D62AF6E.4020304@mlbassoc.com>
+Date: Mon, 21 Feb 2011 23:16:34 +0000
+Message-ID: <1298330194.11289.3243.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+X-Virus-Scanned: amavisd-new at rpsys.net
 Cc: Poky <poky@lists.pokylinux.org>
 Subject: Re: kernel versions
 X-BeenThere: poky@yoctoproject.org
@@ -35,54 +37,69 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 Feb 2011 18:32:19 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-List-Received-Date: Mon, 21 Feb 2011 23:16:48 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-On 02/21/2011 10:41 AM, Richard Purdie wrote:
-> On Mon, 2011-02-21 at 08:52 -0700, Gary Thomas wrote:
->> I have my own kernel recipes (historical reasons...) which I
->> now have 2 versions of.  Some platforms have not yet been
->> ported to the latest version and I need to keep using the
->> older one for those platforms until the porting is complete.
->>
->> Sadly, I can't get this to work.
->>
->> Here's what I have
->>     $ tree meta-amltd/packages/linux/
->>       meta-amltd/packages/linux/
->>       ├── linux-am_2.6.32.bb
->>       ├── linux-am_2.6.37.bb
->>
->>     $ tree meta-cobra3530p60/packages/linux/
->>       meta-cobra3530p60/packages/linux/
->>       ├── linux-am-2.6.32
->>       │   └── cobra3530p60
->>       │       ├── cobra3530p60.patch
->>       │       └── defconfig
->>       ├── linux-am_2.6.32.bbappend
->>
->> I tried these settings in my machine/cobra3530p60
->>     PREFERRED_PROVIDER_virtual/kernel = "linux-am"
->>     PREFERRED_VERSION_virtual/kernel = "2.6.32"
->>
->> However, it still wants to build version 2.6.37
->>
->> What am I missing?  How can I force it to use the 2.6.32 version
->> for this machine?
->
-> PREFERRED_VERSION_linux-am = "2.6.32"
+On Mon, 2011-02-21 at 11:31 -0700, Gary Thomas wrote:
+> On 02/21/2011 10:41 AM, Richard Purdie wrote:
+> > On Mon, 2011-02-21 at 08:52 -0700, Gary Thomas wrote:
+> >> I have my own kernel recipes (historical reasons...) which I
+> >> now have 2 versions of.  Some platforms have not yet been
+> >> ported to the latest version and I need to keep using the
+> >> older one for those platforms until the porting is complete.
+> >>
+> >> Sadly, I can't get this to work.
+> >>
+> >> Here's what I have
+> >>     $ tree meta-amltd/packages/linux/
+> >>       meta-amltd/packages/linux/
+> >>       ├── linux-am_2.6.32.bb
+> >>       ├── linux-am_2.6.37.bb
+> >>
+> >>     $ tree meta-cobra3530p60/packages/linux/
+> >>       meta-cobra3530p60/packages/linux/
+> >>       ├── linux-am-2.6.32
+> >>       │   └── cobra3530p60
+> >>       │       ├── cobra3530p60.patch
+> >>       │       └── defconfig
+> >>       ├── linux-am_2.6.32.bbappend
+> >>
+> >> I tried these settings in my machine/cobra3530p60
+> >>     PREFERRED_PROVIDER_virtual/kernel = "linux-am"
+> >>     PREFERRED_VERSION_virtual/kernel = "2.6.32"
+> >>
+> >> However, it still wants to build version 2.6.37
+> >>
+> >> What am I missing?  How can I force it to use the 2.6.32 version
+> >> for this machine?
+> >
+> > PREFERRED_VERSION_linux-am = "2.6.32"
+> 
+> That does seem to work, but only if I put it in the <MACHINE>.conf
+> file, not local.conf.
+> 
+> Why specify it one way (PREFERRED_PROVIDER_virtual/kernel) for the provider
+> (recipe basis) and then a different way (PREFERRED_VERSION_linux-am) for
+> the actual version?
 
-That does seem to work, but only if I put it in the <MACHINE>.conf
-file, not local.conf.
+Each recipe has a list of things it provides. This is usually PN but in
+the kernel case each recipe provides "virtual/kernel" so we can group
+them and make a selection with PREFERRED_PROVIDER.
 
-Why specify it one way (PREFERRED_PROVIDER_virtual/kernel) for the provider
-(recipe basis) and then a different way (PREFERRED_VERSION_linux-am) for
-the actual version?
+Bitbake first determines the provider. Once it has this it looks up the
+version. It looks this up using PN and not using what could be an
+arbitrary list of items in PROVIDES.
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+Summary, you always use PN with PREFERRED_VERSION as that is what makes
+sense in the general case.
+
+It should however work to put this in local.conf unless you're setting
+it with an = and not a ?= somewhere else?
+
+Cheers,
+
+Richard
+
+
 
