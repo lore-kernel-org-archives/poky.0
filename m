@@ -1,30 +1,29 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 8EDF14C80546
-	for <poky@yoctoproject.org>; Mon, 21 Feb 2011 12:00:35 -0600 (CST)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1LI0TCJ019496;
-	Mon, 21 Feb 2011 18:00:29 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 19027-09; Mon, 21 Feb 2011 18:00:25 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1LI0MJt019485
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Mon, 21 Feb 2011 18:00:22 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Darren Hart <dvhart@linux.intel.com>
-In-Reply-To: <cover.1298076091.git.dvhart@linux.intel.com>
-References: <cover.1298076091.git.dvhart@linux.intel.com>
-Date: Mon, 21 Feb 2011 18:00:19 +0000
-Message-ID: <1298311219.11289.3190.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/4] recipes-kernel: follow-up cleanup
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 860BA4C800A6
+	for <poky@lists.pokylinux.org>; Mon, 21 Feb 2011 12:32:19 -0600 (CST)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id D69891660375; Mon, 21 Feb 2011 11:31:50 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.1
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 348B2166036D;
+	Mon, 21 Feb 2011 11:31:10 -0700 (MST)
+Message-ID: <4D62AF6E.4020304@mlbassoc.com>
+Date: Mon, 21 Feb 2011 11:31:10 -0700
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
+MIME-Version: 1.0
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+References: <4D628A56.6020002@mlbassoc.com> <1298310097.11289.3185.camel@rex>
+In-Reply-To: <1298310097.11289.3185.camel@rex>
+Cc: Poky <poky@lists.pokylinux.org>
+Subject: Re: kernel versions
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,93 +35,54 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 Feb 2011 18:00:36 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 21 Feb 2011 18:32:19 -0000
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Fri, 2011-02-18 at 16:46 -0800, Darren Hart wrote:
-> From: Darren Hart <dvhart@linux.intel.com>
-> 
-> The following patches perform some additional cleanup of the kernel metadata.
-> Obsolete kernel recipes are removed. Unused machine config fragments are
-> removed. Finally, linux.inc is removed.
-> 
-> This cleans the slate and prepares the way for the next stage of kernel recipe
-> cleanup which will include refactoring the kernel.bbclass and reworking
-> linux-dummy to provide a good current example of how to create a custom linux
-> kernel recipe.
-> 
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->   Branch: dvhart/linux
->   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dvhart/linux
-> 
-> Thanks,
->     Darren Hart <dvhart@linux.intel.com>
-> ---
-> 
-> 
-> Darren Hart (4):
->   zaurus: remove zaurus linux includes
->   linux-2.6.23: remove the linux-2.6.23 recipe
->   linux-2.6.33.2: remove linux-2.6.33.2 recipe
->   linux.inc: remove the obsolete linux.inc kernel recipe include
-> 
->  meta/conf/machine/include/zaurus-2.6.inc           |   72 -
->  meta/conf/machine/include/zaurus-clamshell.inc     |   15 -
->  ...x-gcc-4.3-false-modulo-optimization.patch.patch |   48 -
->  .../linux/linux-2.6.23/binutils-buildid-arm.patch  |   16 -
->  .../linux-2.6.23/cm-x270/0001-cm-x270-base2.patch  | 2851 -----
->  .../cm-x270/0002-cm-x270-match-type.patch          |   25 -
->  .../linux-2.6.23/cm-x270/0003-cm-x270-ide.patch    |  186 -
->  .../linux-2.6.23/cm-x270/0004-cm-x270-it8152.patch |  496 -
->  .../linux-2.6.23/cm-x270/0005-cm-x270-pcmcia.patch |  228 -
->  .../linux-2.6.23/cm-x270/0006-ramdisk_load.patch   |   80 -
->  .../cm-x270/0007-mmcsd_large_cards-r0.patch        |   36 -
->  .../cm-x270/0008-cm-x270-nand-simplify-name.patch  |   25 -
->  .../linux/linux-2.6.23/cm-x270/16bpp.patch         |   13 -
->  .../linux/linux-2.6.23/cm-x270/defconfig           | 1204 --
->  .../linux/linux-2.6.23/em-x270/defconfig           | 1354 ---
->  .../em-x270/em-x270-battery-sysfs-fix.patch        |   40 -
->  .../linux/linux-2.6.23/em-x270/em-x270.patch       |12063 --------------------
->  .../linux/linux-2.6.33.2/mpc8313erdb/defconfig     | 1780 ---
->  .../linux/linux-2.6.33.2/qemuarm/defconfig         | 1837 ---
->  .../linux/linux-2.6.33.2/qemumips/defconfig        | 1825 ---
->  .../linux/linux-2.6.33.2/qemuppc/defconfig         | 1780 ---
->  .../linux/linux-2.6.33.2/qemux86/defconfig         | 2160 ----
->  meta/recipes-kernel/linux/linux.inc                |   95 -
->  meta/recipes-kernel/linux/linux_2.6.23.bb          |   83 -
->  meta/recipes-kernel/linux/linux_2.6.33.2.bb        |   15 -
->  25 files changed, 0 insertions(+), 28327 deletions(-)
->  delete mode 100644 meta/conf/machine/include/zaurus-2.6.inc
->  delete mode 100644 meta/conf/machine/include/zaurus-clamshell.inc
->  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/1300-fix-gcc-4.3-false-modulo-optimization.patch.patch
->  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/binutils-buildid-arm.patch
->  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/cm-x270/0001-cm-x270-base2.patch
->  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/cm-x270/0002-cm-x270-match-type.patch
->  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/cm-x270/0003-cm-x270-ide.patch
->  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/cm-x270/0004-cm-x270-it8152.patch
->  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/cm-x270/0005-cm-x270-pcmcia.patch
->  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/cm-x270/0006-ramdisk_load.patch
->  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/cm-x270/0007-mmcsd_large_cards-r0.patch
->  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/cm-x270/0008-cm-x270-nand-simplify-name.patch
->  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/cm-x270/16bpp.patch
->  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/cm-x270/defconfig
->  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/em-x270/defconfig
->  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/em-x270/em-x270-battery-sysfs-fix.patch
->  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.23/em-x270/em-x270.patch
->  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.33.2/mpc8313erdb/defconfig
->  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.33.2/qemuarm/defconfig
->  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.33.2/qemumips/defconfig
->  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.33.2/qemuppc/defconfig
->  delete mode 100644 meta/recipes-kernel/linux/linux-2.6.33.2/qemux86/defconfig
->  delete mode 100644 meta/recipes-kernel/linux/linux.inc
->  delete mode 100644 meta/recipes-kernel/linux/linux_2.6.23.bb
->  delete mode 100644 meta/recipes-kernel/linux/linux_2.6.33.2.bb
+On 02/21/2011 10:41 AM, Richard Purdie wrote:
+> On Mon, 2011-02-21 at 08:52 -0700, Gary Thomas wrote:
+>> I have my own kernel recipes (historical reasons...) which I
+>> now have 2 versions of.  Some platforms have not yet been
+>> ported to the latest version and I need to keep using the
+>> older one for those platforms until the porting is complete.
+>>
+>> Sadly, I can't get this to work.
+>>
+>> Here's what I have
+>>     $ tree meta-amltd/packages/linux/
+>>       meta-amltd/packages/linux/
+>>       ├── linux-am_2.6.32.bb
+>>       ├── linux-am_2.6.37.bb
+>>
+>>     $ tree meta-cobra3530p60/packages/linux/
+>>       meta-cobra3530p60/packages/linux/
+>>       ├── linux-am-2.6.32
+>>       │   └── cobra3530p60
+>>       │       ├── cobra3530p60.patch
+>>       │       └── defconfig
+>>       ├── linux-am_2.6.32.bbappend
+>>
+>> I tried these settings in my machine/cobra3530p60
+>>     PREFERRED_PROVIDER_virtual/kernel = "linux-am"
+>>     PREFERRED_VERSION_virtual/kernel = "2.6.32"
+>>
+>> However, it still wants to build version 2.6.37
+>>
+>> What am I missing?  How can I force it to use the 2.6.32 version
+>> for this machine?
+>
+> PREFERRED_VERSION_linux-am = "2.6.32"
 
-Merged to master.
+That does seem to work, but only if I put it in the <MACHINE>.conf
+file, not local.conf.
 
-Cheers,
+Why specify it one way (PREFERRED_PROVIDER_virtual/kernel) for the provider
+(recipe basis) and then a different way (PREFERRED_VERSION_linux-am) for
+the actual version?
 
-Richard
-
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
