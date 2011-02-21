@@ -1,30 +1,30 @@
 Return-Path: <richard.purdie@linuxfoundation.org>
 Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
 	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 8B80F4C800B2
-	for <poky@lists.pokylinux.org>; Mon, 21 Feb 2011 11:41:51 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 82C724C80546
+	for <poky@yoctoproject.org>; Mon, 21 Feb 2011 11:55:00 -0600 (CST)
 Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1LHfp2A018961;
-	Mon, 21 Feb 2011 17:41:51 GMT
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1LHsuGr019175;
+	Mon, 21 Feb 2011 17:54:56 GMT
 Received: from tim.rpsys.net ([127.0.0.1])
 	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
 	port 10024) with LMTP
-	id 18404-09; Mon, 21 Feb 2011 17:41:47 +0000 (GMT)
+	id 19027-03; Mon, 21 Feb 2011 17:54:52 +0000 (GMT)
 Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1LHfew6018955
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1LHsoU3019169
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Mon, 21 Feb 2011 17:41:44 GMT
+	Mon, 21 Feb 2011 17:54:51 GMT
 From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Gary Thomas <gary@mlbassoc.com>
-In-Reply-To: <4D628A56.6020002@mlbassoc.com>
-References: <4D628A56.6020002@mlbassoc.com>
-Date: Mon, 21 Feb 2011 17:41:37 +0000
-Message-ID: <1298310097.11289.3185.camel@rex>
+To: Liping Ke <liping.ke@intel.com>
+In-Reply-To: <cover.1298324963.git.liping.ke@intel.com>
+References: <cover.1298324963.git.liping.ke@intel.com>
+Date: Mon, 21 Feb 2011 17:54:47 +0000
+Message-ID: <1298310887.11289.3186.camel@rex>
 Mime-Version: 1.0
 X-Mailer: Evolution 2.28.3 
 X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: Poky <poky@lists.pokylinux.org>
-Subject: Re: kernel versions
+Cc: Liping Ke <liping.ke@intel.coom>, poky@yoctoproject.org
+Subject: Re: [PATCH 0/1] ADT: Fix script check_result error
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,46 +36,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 Feb 2011 17:41:52 -0000
+X-List-Received-Date: Mon, 21 Feb 2011 17:55:00 -0000
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On Mon, 2011-02-21 at 08:52 -0700, Gary Thomas wrote:
-> I have my own kernel recipes (historical reasons...) which I
-> now have 2 versions of.  Some platforms have not yet been
-> ported to the latest version and I need to keep using the
-> older one for those platforms until the porting is complete.
+On Tue, 2011-02-22 at 05:54 +0800, Liping Ke wrote:
+> From: Liping Ke <liping.ke@intel.com>
 > 
-> Sadly, I can't get this to work.
+> When meeting errors, the return number can't be directly compared with
+> "-1". The correct way is to compare it with 0. If the result is a non-zero
+> number, we meet error. This patch is for fixing [BUGID #742]
 > 
-> Here's what I have
->    $ tree meta-amltd/packages/linux/
->      meta-amltd/packages/linux/
->      ├── linux-am_2.6.32.bb
->      ├── linux-am_2.6.37.bb
 > 
->    $ tree meta-cobra3530p60/packages/linux/
->      meta-cobra3530p60/packages/linux/
->      ├── linux-am-2.6.32
->      │   └── cobra3530p60
->      │       ├── cobra3530p60.patch
->      │       └── defconfig
->      ├── linux-am_2.6.32.bbappend
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>   Branch: lke/adt-fix
+>   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=lke/adt-fix
 > 
-> I tried these settings in my machine/cobra3530p60
->    PREFERRED_PROVIDER_virtual/kernel = "linux-am"
->    PREFERRED_VERSION_virtual/kernel = "2.6.32"
+> Thanks,
+>     Liping Ke <liping.ke@intel.com>
+> ---
 > 
-> However, it still wants to build version 2.6.37
 > 
-> What am I missing?  How can I force it to use the 2.6.32 version
-> for this machine?
+> Liping Ke (1):
+>   ADT: Fix check_result script cond comparison bug
+> 
+>  .../installer/adt-installer/scripts/util           |    8 ++++----
+>  1 files changed, 4 insertions(+), 4 deletions(-)
 
-PREFERRED_VERSION_linux-am = "2.6.32"
-
-?
-
-Cheers,
+Merged to master, thanks.
 
 Richard
 
