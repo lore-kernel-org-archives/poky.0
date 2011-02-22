@@ -1,25 +1,25 @@
 Return-Path: <saul.wold@intel.com>
 Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 3FA994C80517
-	for <poky@yoctoproject.org>; Tue, 22 Feb 2011 09:49:31 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id DE51D4C800C0
+	for <poky@yoctoproject.org>; Tue, 22 Feb 2011 09:51:03 -0600 (CST)
 Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 22 Feb 2011 07:49:29 -0800
+	by azsmga101.ch.intel.com with ESMTP; 22 Feb 2011 07:51:03 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,206,1297065600"; d="scan'208";a="392341800"
+X-IronPort-AV: E=Sophos;i="4.62,206,1297065600"; d="scan'208";a="392342838"
 Received: from unknown (HELO [10.255.12.88]) ([10.255.12.88])
-	by azsmga001.ch.intel.com with ESMTP; 22 Feb 2011 07:49:29 -0800
-Message-ID: <4D63DB09.20101@intel.com>
-Date: Tue, 22 Feb 2011 07:49:29 -0800
+	by azsmga001.ch.intel.com with ESMTP; 22 Feb 2011 07:51:03 -0800
+Message-ID: <4D63DB66.4030401@intel.com>
+Date: Tue, 22 Feb 2011 07:51:02 -0800
 From: Saul Wold <saul.wold@intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
 	Thunderbird/3.0.5
 MIME-Version: 1.0
-To: Scott Garman <scott.a.garman@intel.com>
-References: <cover.1297830466.git.scott.a.garman@intel.com>
-In-Reply-To: <cover.1297830466.git.scott.a.garman@intel.com>
+To: Mark Hatle <mark.hatle@windriver.com>
+References: <cover.1297832946.git.mark.hatle@windriver.com>
+In-Reply-To: <cover.1297832946.git.mark.hatle@windriver.com>
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/5] docbook-utils and friends
+Subject: Re: [PATCH 0/4] Fix the emenlow build failures and add	optimizations
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,53 +31,53 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 Feb 2011 15:49:31 -0000
+X-List-Received-Date: Tue, 22 Feb 2011 15:51:04 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 02/15/2011 08:32 PM, Scott Garman wrote:
-> From: Scott Garman<scott.a.garman@intel.com>
+On 02/15/2011 09:12 PM, Mark Hatle wrote:
+> We patch 1/4 fixes the emenlow build failure without adding any system optimizations.
 >
-> Hi Saul,
+> This rootfs generation takes approx 11m42 on my machine.
 >
-> This pull request includes documentation-related dependencies
-> and fixes so that the iputils recipe (and most likely many others)
-> can build its documentation correctly.
+> Patch 2/4 adds a backport of head of tree RPM "nofsync" change.  This drops the
+> overall rootfs generation time to approx 6m38.
 >
-> I tested it on qemux86 and qemumips, and on a stripped-down
-> openSUSE 11.2 chroot where I even removed documentation-related
-> host utilities that we list in our quick start guide.
+> Patch 3/4 disables default shell debug logging during image creation.
+>
+> Patch 4/4 fixes a problem where the solverdb's could be generated multiple times.
+> We now only generate the solvedb ONCE.  This drops the overall rootfs generation
+> time to 6m16.
 >
 > Pull URL: git://git.pokylinux.org/poky-contrib.git
->    Branch: sgarman/docbook-fixes-final
->    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=sgarman/docbook-fixes-final
+>    Branch: mhatle/emenlow-fix
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=mhatle/emenlow-fix
 >
 > Thanks,
->      Scott Garman<scott.a.garman@intel.com>
+>      Mark Hatle<mark.hatle@windriver.com>
 > ---
 >
 >
-> Scott Garman (5):
->    texinfo: recipe cleanup, add native support
->    sgml-common-native: fix license info and checksum fields
->    docbook-utils-native: new recipe v0.6.14
->    opensp: improve configuration and install steps
->    iputils: enable generation of man pages
+> Mark Hatle (4):
+>    rpm: Add the ability to use the platform file during install
+>    rpm: Avoid fsync when writing files
+>    image.bbclass: Disable shell debug messages
+>    package_rpm: Fix solverdb generation
 >
->   .../docbook-utils/docbook-utils-native_0.6.14.bb   |   48 ++++++++++++++++++++
->   meta/recipes-devtools/opensp/opensp_1.5.bb         |   18 +++++++
->   .../sgml-common/sgml-common-native_0.6.3.bb        |   10 ++---
->   meta/recipes-extended/iputils/iputils_s20101006.bb |   13 ++---
->   meta/recipes-extended/texinfo/texinfo_4.13a.bb     |   26 ++++++-----
->   5 files changed, 90 insertions(+), 25 deletions(-)
->   create mode 100644 meta/recipes-devtools/docbook-utils/docbook-utils-native_0.6.14.bb
+>   meta/classes/image.bbclass                       |    2 +-
+>   meta/classes/package_rpm.bbclass                 |   47 +++++---
+>   meta/classes/populate_sdk_rpm.bbclass            |    7 +-
+>   meta/classes/rootfs_rpm.bbclass                  |    9 +-
+>   meta/recipes-devtools/rpm/rpm/rpm-nofsync.patch  |   34 ++++++
+>   meta/recipes-devtools/rpm/rpm/rpm-platform.patch |  132 ++++++++++++++++++++++
+>   meta/recipes-devtools/rpm/rpm/rpm-showrc.patch   |   23 ++++
+>   meta/recipes-devtools/rpm/rpm_5.4.0.bb           |    9 +-
+>   8 files changed, 234 insertions(+), 29 deletions(-)
+>   create mode 100644 meta/recipes-devtools/rpm/rpm/rpm-nofsync.patch
+>   create mode 100644 meta/recipes-devtools/rpm/rpm/rpm-platform.patch
+>   create mode 100644 meta/recipes-devtools/rpm/rpm/rpm-showrc.patch
 >
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
-Merged into Master
+Pulled into Master
 
 Thanks
 	Sau!
