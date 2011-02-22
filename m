@@ -1,36 +1,26 @@
-Return-Path: <gerard@de-haardt.com>
-Received: from cpsmtpb-ews03.kpnxchange.com (cpsmtpb-ews03.kpnxchange.com
-	[213.75.39.6])
-	by mx1.pokylinux.org (Postfix) with ESMTP id EF1634C800A6
-	for <poky@yoctoproject.org>; Tue, 22 Feb 2011 06:17:42 -0600 (CST)
-Received: from cpbrm-ews16.kpnxchange.com ([10.94.84.147]) by
-	cpsmtpb-ews03.kpnxchange.com with Microsoft SMTPSVC(6.0.3790.4675); 
-	Tue, 22 Feb 2011 13:17:37 +0100
-Received: from CPSMTPM-CMT108.kpnxchange.com ([195.121.3.24]) by
-	cpbrm-ews16.kpnxchange.com with Microsoft SMTPSVC(6.0.3790.4675); 
-	Tue, 22 Feb 2011 13:17:36 +0100
-Received: from mail.de-haardt.com ([86.81.67.223]) by
-	CPSMTPM-CMT108.kpnxchange.com with Microsoft
-	SMTPSVC(7.0.6002.18264); Tue, 22 Feb 2011 13:17:36 +0100
-Received: from [192.168.1.29] ([192.168.1.29])
-	(authenticated user gerard@de-haardt.com) by mail.de-haardt.com
-	(using TLSv1/SSLv3 with cipher AES256-SHA (256 bits));
-	Tue, 22 Feb 2011 13:17:29 +0100
-Message-ID: <4D63A95E.1000900@de-haardt.com>
-Date: Tue, 22 Feb 2011 13:17:34 +0100
-From: Gerard van den Bosch <gerard@de-haardt.com>
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 9DE8C4C80093
+	for <poky@lists.pokylinux.org>; Tue, 22 Feb 2011 07:19:22 -0600 (CST)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id A52FF1660136; Tue, 22 Feb 2011 06:19:04 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.1
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 281F316601C4;
+	Tue, 22 Feb 2011 06:18:24 -0700 (MST)
+Message-ID: <4D63B7A0.8070809@mlbassoc.com>
+Date: Tue, 22 Feb 2011 06:18:24 -0700
+From: Gary Thomas <gary@mlbassoc.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
 MIME-Version: 1.0
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-References: <4D6397F6.4050103@de-haardt.com>	 <1298372880.11289.3263.camel@rex>
-	<4D639C2E.1080704@de-haardt.com> <1298375366.11289.3270.camel@rex>
-In-Reply-To: <1298375366.11289.3270.camel@rex>
-X-OriginalArrivalTime: 22 Feb 2011 12:17:36.0371 (UTC)
-	FILETIME=[7D8A0C30:01CBD28A]
-X-RcptDomain: yoctoproject.org
-Cc: poky@yoctoproject.org
-Subject: Re: poky custom kernel misconfiguration
+To: Poky <poky@lists.pokylinux.org>
+Subject: Impossible to build with BB_NO_NETWORK=1
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,82 +32,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 Feb 2011 12:17:43 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Tue, 22 Feb 2011 13:19:22 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 02/22/2011 12:49 PM, Richard Purdie wrote:
-> On Tue, 2011-02-22 at 12:21 +0100, Gerard van den Bosch wrote:
->> On 02/22/2011 12:08 PM, Richard Purdie wrote:
->>> On Tue, 2011-02-22 at 12:03 +0100, Gerard van den Bosch wrote:
->>>> Hello,
->>>>
->>>> I am trying to build Poky for my hardware platform with a custom kernel.
->>>> But when I build Poky it crashes by not finding a defconfig for kernel
->>>> 2.6.33.2-r2 which isn't the kernel I preferred to build.
->>>>
->>>> This is what I have done:
->>>>
->>>> Copied local.conf.sample to local.conf and changed the following:
->>>> BB_NUMBER_THREADS = "2"
->>>> PARALLEL_MAKE = "-j 2"
->>>> MACHINE ?= "tao3530"
->>>>
->>>> Because this is a new machine I have generated a tao3530.conf by copying
->>>> the beagleboard.conf because this is a similar device.
->>>> I have changed the kernel recipe to:
->>>> PREFERRED_PROVIDER_virtual/kernel = "TAO-PSP"
->>>>
->>>> The kernel I used is normally used in Ångström for this board, but
->>>> because Ångström is also OpenEmbedded based I assumed I could use the
->>>> kernel in Poky also.
->>>>
->>>> In the meta/package/linux directory I made the TAO-PSP-2.6.32 directory.
->>>> In this directory I placed the tar.bz2 of my kernel and the defconfig
->>>> for my hardware platform.
->>>>
->>>> I have generated a bb file containing the following:
->>>>
->>>> SECTION = "kernel"
->>>> DESCRIPTION = "TAO3530 Linux kernel"
->>>> LICENSE = "GPL"
->>>>
->>>> KERNEL_OUTPUT = "arch/${ARCH}/boot/${KERNEL_IMAGETYPE}"
->>>>
->>>> inherit kernel
->>>>
->>>> COMPATIBLE_MACHINE = "tao3530"
->>>>
->>>> PR = "r1"
->>>>
->>>> SRC_URI = "file://TAO-PSP-03000106.tar.bz2 \
->>>>                            file://defconfig"
->>>>
->>>> S = "${WORKDIR}/linux-2.6.32"
->>>>
->>>> Can someone point me out what I did wrong or what I have forgot to
->>>> configure or where to look to find out what I did wrong.
->>> What did you call the .bb file?
->>>
->>> Cheers,
->>>
->>> Richard
->>>
->> Sorry for the reply mistake, I am new to mailinglists.
->>
->> The name of the bb file is: TAO-PSP-2.6.32.bb
-> Try calling it TAO-PSP_2.6.32.bb as "_" is the separator between the
-> name and the version.
->
-> Cheers,
->
-> Richard
->
->
->
-Thanks, it is selecting the right kernel now.
+I get this error immediately.  If I disable BB_NO_NETWORK, the parsing completes
+and no gypsy stuff is ever downloaded.
 
-Regards,
-Gerard
+ERROR: Error parsing /home/local/poky-amltd/meta/recipes-connectivity/gypsy/gypsy_git.bb: Network access disabled through BB_NO_NETWORK but access rquested with command git 
+ls-remote anongit.freedesktop.org/gypsy master (for url None)
+ERROR: Command execution failed: Exited with 1
 
+Is this because of this line in the recipe?
+   PV = "0.8+git${SRCPV}"
+
+Shouldn't one of these lines satisfy:
+   ./meta/conf/distro/include/poky-default-revisions.inc:SRCREV_pn-gypsy ??= "147"
+   ./meta/conf/distro/include/poky-floating-revisions.inc:SRCREV_pn-gypsy ?= "${AUTOREV}"
+or is the ??= causing a problem?
+
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
