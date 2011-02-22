@@ -1,19 +1,25 @@
-Return-Path: <ke.yu@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id F1E9B4C800C0
-	for <poky@yoctoproject.org>; Tue, 22 Feb 2011 09:56:16 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 22 Feb 2011 07:56:16 -0800
+Return-Path: <saul.wold@intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 9F3CE4C800C0
+	for <poky@yoctoproject.org>; Tue, 22 Feb 2011 09:57:51 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 22 Feb 2011 07:57:51 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,207,1297065600"; d="scan'208";a="711776531"
-Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
-	by orsmga001.jf.intel.com with ESMTP; 22 Feb 2011 07:55:57 -0800
-From: Yu Ke <ke.yu@intel.com>
-To: poky@yoctoproject.org
-Date: Wed, 23 Feb 2011 00:00:53 +0800
-Message-Id: <cover.1298390312.git.ke.yu@intel.com>
-X-Mailer: git-send-email 1.7.0.4
-Subject: [PATCH 0/2] rootless x support
+X-IronPort-AV: E=Sophos;i="4.62,207,1297065600"; d="scan'208";a="392347230"
+Received: from unknown (HELO [10.255.12.88]) ([10.255.12.88])
+	by azsmga001.ch.intel.com with ESMTP; 22 Feb 2011 07:57:50 -0800
+Message-ID: <4D63DCFE.1090405@intel.com>
+Date: Tue, 22 Feb 2011 07:57:50 -0800
+From: Saul Wold <saul.wold@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
+MIME-Version: 1.0
+To: Dongxiao Xu <dongxiao.xu@intel.com>
+References: <cover.1297927348.git.dongxiao.xu@intel.com>
+In-Reply-To: <cover.1297927348.git.dongxiao.xu@intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/1][PULL] Fix BUG 472
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -25,48 +31,45 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 Feb 2011 15:56:17 -0000
+X-List-Received-Date: Tue, 22 Feb 2011 15:57:51 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-this patch set add the rootless X support (a.k.a non-root X)
+On 02/16/2011 11:25 PM, Dongxiao Xu wrote:
+> From: Dongxiao Xu<dongxiao.xu@intel.com>
+>
+> This pull request fixes [BUGID #472], please help to review and pull.
+>
+> User may still need to configure network even if all the services are not available currently, for example, setting online/offline mode, etc.
+>
+> Enable the applet pop up menu even if the service status is unavailable.
+>
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>    Branch: dxu4/bugfix
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dxu4/bugfix
+>
+> Thanks,
+>      Dongxiao Xu<dongxiao.xu@intel.com>
+> ---
+>
+>
+> Dongxiao Xu (1):
+>    connman-gnome: Enable config menu popup even services are not
+>      available
+>
+>   .../connman-gnome/applet_menu_popup_fix.patch      |   19 +++++++++++++++++++
+>   .../connman/connman-gnome_0.5.bb                   |    5 +++--
+>   2 files changed, 22 insertions(+), 2 deletions(-)
+>   create mode 100644 meta/recipes-connectivity/connman/connman-gnome/applet_menu_popup_fix.patch
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
+Merged into Master
 
-- What is rootless X
-Rootless X allow X to be runed with non-root user, to gain better security
-Rerence (https://wiki.ubuntu.com/X/Rootless) has more detailed info on this.
-
-- What changes are made to support rootless X
-To support rootless X, whole stack including kernle, graphics driver, x server
-and userspace setting are all required to change. Fortunately, the former three
-already has required changes in upstream, so this patchset only add userspace
-setting to enalbe the rootless X.
-
-- How to enable/disable rootless X
-Not all machine support rootless X currently, because rootless X requires kernel
-mode setting (KMS) in graphics driver and not all graphics driver support KMS,
-so a per-machine config "ROOTLESS_X" is introduced to enable/disable rootless X.
-so far, ROOTLESS_X is set for atom_pc machine, because its graphics driver(intel
-graphics driver) support KMS well.
-
-this patchset has been tested in atom-pc and qemux86 machine poky-image-sato image
-
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: kyu3/nonrootx
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kyu3/nonrootx
-
-Thanks,
-    Yu Ke <ke.yu@intel.com>
----
-
-
-Yu Ke (2):
-  xf86-video-intel: add config option to support rootless X
-  xserver-nodm-init: add rootless-x support
-
- meta/conf/machine/atom-pc.conf                     |    2 +
- .../x11-common/xserver-nodm-init.bb                |   22 +++++++++++++++++++-
- .../x11-common/xserver-nodm-init/Xusername         |    1 +
- .../x11-common/xserver-nodm-init/xserver-nodm      |    4 +++
- .../xorg-driver/xf86-video-intel_2.14.0.bb         |    5 ++++
- 5 files changed, 33 insertions(+), 1 deletions(-)
- create mode 100644 meta/recipes-graphics/x11-common/xserver-nodm-init/Xusername
+Thanks
+	Sau!
 
 
