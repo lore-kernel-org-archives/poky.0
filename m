@@ -1,27 +1,36 @@
-Return-Path: <Bruce.Ashfield@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 4747D4C800A6
-	for <poky@yoctoproject.org>; Mon, 21 Feb 2011 23:49:57 -0600 (CST)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p1M5nrTo020253
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Mon, 21 Feb 2011 21:49:53 -0800 (PST)
-Received: from bruce-ashfields-macbook.local (128.224.20.127) by
-	ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server id
-	14.1.255.0; Mon, 21 Feb 2011 21:49:53 -0800
-Message-ID: <4D634E7E.3080700@windriver.com>
-Date: Tue, 22 Feb 2011 00:49:50 -0500
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
-	rv:1.9.2.14) Gecko/20110207 Thunderbird/3.1.8
+Return-Path: <jiajun.xu@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 060F84C800B2
+	for <poky@yoctoproject.org>; Tue, 22 Feb 2011 01:21:10 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 21 Feb 2011 23:21:10 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.62,206,1297065600"; d="scan'208";a="711596824"
+Received: from pgsmsx601.gar.corp.intel.com ([10.221.43.69])
+	by orsmga001.jf.intel.com with ESMTP; 21 Feb 2011 23:21:06 -0800
+Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
+	pgsmsx601.gar.corp.intel.com (10.221.43.69) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Tue, 22 Feb 2011 15:20:51 +0800
+Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
+	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
+	Tue, 22 Feb 2011 15:20:50 +0800
+From: "Xu, Jiajun" <jiajun.xu@intel.com>
+To: "Yu, Ke" <ke.yu@intel.com>, Richard Purdie
+	<richard.purdie@linuxfoundation.org>
+Date: Tue, 22 Feb 2011 15:20:48 +0800
+Thread-Topic: [poky] Autobuilder status
+Thread-Index: AcvSJxcHqAUasYmuQm2jW4NLSrWGcQAOcqHw
+Message-ID: <D5AB6E638E5A3E4B8F4406B113A5A19A333AD2C0@shsmsx501.ccr.corp.intel.com>
+References: <1298331207.11289.3256.camel@rex>
+	<20110222002618.GA10710@kyu3-hedt>
+In-Reply-To: <20110222002618.GA10710@kyu3-hedt>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
 MIME-Version: 1.0
-To: "Zhai, Edwin" <edwin.zhai@intel.com>
-References: <cover.1298340269.git.edwin.zhai@intel.com>	<31a41b85a0a81f7a6318aaaee1f19333e6497c9a.1298340269.git.edwin.zhai@intel.com>	<AANLkTin8CLU7Ok4C8Gd2i=a52qMyBBaSYGCW-Ch=M2p7@mail.gmail.com>	<4D632F9E.1010404@intel.com>	<AANLkTim56_wFDy8mQu4nSNsz1gDkPrka7OEGqB+-6-9P@mail.gmail.com>
-	<4D634C78.1000508@intel.com>
-In-Reply-To: <4D634C78.1000508@intel.com>
-X-Originating-IP: [128.224.20.127]
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 1/1] qemu: enable audio support
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: Autobuilder status
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,194 +42,74 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 Feb 2011 05:49:57 -0000
-Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 22 Feb 2011 07:21:11 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On 11-02-22 12:41 AM, Zhai, Edwin wrote:
->
->
-> Bruce Ashfield wrote:
->>
->> On Mon, Feb 21, 2011 at 10:38 PM, Zhai, Edwin <edwin.zhai@intel.com>
->> wrote:
->> >
->> >
->> > Bruce Ashfield wrote:
->> >>
->> >> On Mon, Feb 21, 2011 at 9:06 PM, Zhai Edwin <edwin.zhai@intel.com>
->> wrote:
->> >> > From: Zhai Edwin <edwin.zhai@intel.com>
->> >> >
->> >> > On qemux86, export ac97 & es1370 emulated device to guest, and
->> enable
->> >> > host oss&alsa
->> >> > driver. So end user can get sound from qemux86 guest if the sound
->> card
->> >> > driver installed.
->> >>
->> >> I presume that you tested the sound, if you send me the working
->> .config
->> >> (or better a config fragement), I'll update the base configs for
->> the qemu*
->> >> platforms to at least build and make the modules available.
->> >>
->> >
->> > Bruce,
->> > I have tested a ubuntu disk image and heard the sound. What's the
->> simple way
->> > to change the kernel config for test?
->>
->> Aha. Maybe I misunderstood. Did you need to change our qemu target
->> kernel configuration to hear the sound ?
->>
->
-> Yes, I mean qemux86/x86_64 target kernel config, so that target kernel
-> can use emulated sound card device to make some noise on host:)
+> On Feb 21, 23:33, Richard Purdie wrote:
+>> Hi,
+>>=20
+>> There appear to be three issues on the autobuilder at present which
+>> we need to get fixed quickly.
+>>=20
+>> 1) "zypper search avahi" is causing a segfault on some architectures
+>> with a double free being detected by libc. This seems to be the
+>> cause of all the runtime sanity test failures.
+>>=20
+>> 2) The tar issues are fixed but there is an underlying problem with
+>> error propagation as it appears bitbake was ignoring the sstate
+>> extraction failure rather than accounting for it in its build task list.
+>> If extraction fails, that task should not be making the "skip" list
+>> but it looks like it does. That bug needs fixing too.
+>>=20
+>> 3) There are a number of dpkg-deb failures on permissions. This
+>> looks to be pseudo related. Creation of the sstate package and
+>> extraction of it should be happening under pseudo and the error
+>> suggests this is not happening.
+>>=20
+>> I think PaulE is looking at 2), 3) is new and unassigned and I'm not
+>> sure who is looking at 1) but I'd like to confirm someone is.
+>>=20
+>>=20
+>> I'm also aware of some other niggling problems:
+>>=20
+>> a) do_rootfs depends on the populate_sysroot tasks for all the RDEPENDS.
+>> This appears to be to pull in any tools required for the
+>> postinstalls and dates to changes I made in 2007. This needs
+>> revisiting as its crazy to populate all the sysroots when just the
+>> rpms are needed for image generation.
+>>=20
+>> Simply put, a "bitbake poky-image-xxx -c rootfs" should just install
+>> the package_write_rpm tasks it needs and the populate_sysroot for
+>> any tools needed. No package data or target populate_sysroot tasks shoul=
+d run.
+>>=20
+>> b) "all" architecture packages seem to be getting reinstalled a lot
+>> by sstate. Recent changes to the autobuilder should make it clearer
+>> when this is happening but we should find out why.
+>>=20
+>>=20
+>> I'll aim to file bugs on these tomorrow but just wanted to write
+>> things down whilst there were fresh in my mind. I suspect there may
+>> be a bug open for 1) above but I'd still appreciate a status update on i=
+t.
+>=20
+> Yes, Bug 722 is for 1), and Qing is looking at it. He will make a
+> status update on this.
+>=20
 
-I just noticed the bugs that were assigned to me for this,
-I'll update the bugzilla cases with the information on how
-to modify the configuration.
+Several zypper bugs are reported currently, bug 721, bug 722 and bug 749.
 
->
-> I know there is something tricky to change the qemu target config as
-> some internal tools are used. Last time, I hacked to add one extra
-> config file including all changed entries. But forget it now:(
-
-Luckily it isn't all that tricky anymore. If you create any
-file with ".cfg" as the extension that contains a series
-of kernel configuration values and add it to the SRC_URI
-in the same manner as any patch/defconfig, you've done most
-of the work to modifying the kernel configuration.  The contents
-of that .cfg file will be added to the end of the kernel
-configuration and applied to the kernel build.
-
-Those changes can then be sent for merging into the kernel
-repository as default values for the BSP in question.
-
->
-> What's your suggestion for our kernel user to hack the config?
-
-See above. Start with a .cfg file, and then when you are happy
-with the configuration changes, you can either modify the
-'meta' branch directly or simply send the .cfg file to me in a
-pull request and I'll apply it to the meta branch and merge it
-into the repository as the default for the BSP in question.'
-
-If you search the mailing list for email from TomZ about the
-intel BSPs, you'll have some good examples on how to modify the
-meta branch directly (if you are interested).
-
-Let me know if you need more details and I'd be more than
-happy to help out here! In particular if the documentation in
-or kernel/BSP guides isn't sufficient to help here, we should
-definitely improve it.
-
-Cheers,
-
-Bruce
-
->
->> If not, then this is a host side
->> configuration item and we don't need to change the BSP configuration
->> at all to enable sound!
->>
->> Cheers,
->>
->> Bruce
->>
->> >
->> > Thanks,
->> > edwin
->> >
->> >
->> >> Looks good BTW!
->> >>
->> >> Bruce
->> >>
->> >> >
->> >> > [BUGID #488] got fixed.
->> >> >
->> >> > Signed-off-by: Zhai Edwin <edwin.zhai@intel.com>
->> >> > ---
->> >> > meta/recipes-devtools/qemu/qemu.inc | 2 +-
->> >> > scripts/poky-qemu | 7 +++++++
->> >> > 2 files changed, 8 insertions(+), 1 deletions(-)
->> >> >
->> >> > diff --git a/meta/recipes-devtools/qemu/qemu.inc
->> >> > b/meta/recipes-devtools/qemu/qemu.inc
->> >> > index 33c2c71..2c6b114 100644
->> >> > --- a/meta/recipes-devtools/qemu/qemu.inc
->> >> > +++ b/meta/recipes-devtools/qemu/qemu.inc
->> >> > @@ -3,7 +3,7 @@ HOMEPAGE = "http://qemu.org"
->> >> > LICENSE = "GPLv2 & LGPLv2.1"
->> >> > DEPENDS = "zlib"
->> >> >
->> >> > -EXTRA_OECONF =
->> >> >
->> "--target-list=arm-linux-user,arm-softmmu,i386-linux-user,i386-softmmu,x86_64-linux-user,x86_64-softmmu,mips-linux-user,mips-softmmu,ppc-linux-user,ppc-softmmu,mipsel-linux-user
->>
->>
->> >> > --disable-werror --disable-vnc-tls --enable-kvm"
->> >>
->> >> > +EXTRA_OECONF =
->> >> >
->> "--target-list=arm-linux-user,arm-softmmu,i386-linux-user,i386-softmmu,x86_64-linux-user,x86_64-softmmu,mips-linux-user,mips-softmmu,ppc-linux-user,ppc-softmmu,mipsel-linux-user
->>
->>
->> >> > --disable-werror --disable-vnc-tls --enable-kvm
->> --audio-drv-list=oss,alsa
->> >> > --audio-card-list=ac97,es1370"
->> >>
->> >> > #EXTRA_OECONF += "--disable-sdl"
->> >> >
->> >> > inherit autotools
->> >> > diff --git a/scripts/poky-qemu b/scripts/poky-qemu
->> >> > index b19a89d..cb08f27 100755
->> >> > --- a/scripts/poky-qemu
->> >> > +++ b/scripts/poky-qemu
->> >> > @@ -129,6 +129,13 @@ while [ $i -le $# ]; do
->> >> > SCRIPT_QEMU_OPT="$SCRIPT_QEMU_OPT -serial stdio"
->> >> > SCRIPT_KERNEL_OPT="$SCRIPT_KERNEL_OPT console=ttyS0"
->> >> > ;;
->> >> > + "audio")
->> >> > + if [[ "x$MACHINE" == "xqemux86" || "x$MACHINE" ==
->> >> > "xqemux86-64" ]]; then
->> >> > + echo "Enable audio on qemu. Pls. install snd_intel8x0
->> >> > or snd_ens1370 driver in linux guest.";
->> >> > + QEMU_AUDIO_DRV="alsa"
->> >> > + SCRIPT_QEMU_OPT="$SCRIPT_QEMU_OPT -soundhw ac97,es1370"
->> >> > + fi
->> >> > + ;;
->> >> > "kvm")
->> >> > KVM_ENABLED="yes"
->> >> > KVM_CAPABLE=`grep 'vmx\|smx' /proc/cpuinfo`
->> >> > --
->> >> > 1.6.3.3
->> >> >
->> >> > _______________________________________________
->> >> > poky mailing list
->> >> > poky@yoctoproject.org
->> >> > https://lists.yoctoproject.org/listinfo/poky
->> >> >
->> >>
->> >>
->> >>
->> >> --
->> >> "Thou shalt not follow the NULL pointer, for chaos and madness await
->> >> thee at its end"
->> >>
->> >
->>
->>
->>
->> --
->> "Thou shalt not follow the NULL pointer, for chaos and madness await
->> thee at its end"
->>
+> Regards
+> Ke
 > _______________________________________________
 > poky mailing list
 > poky@yoctoproject.org
 > https://lists.yoctoproject.org/listinfo/poky
+
+Best Regards,
+Jiajun
+
 
 
