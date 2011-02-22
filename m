@@ -1,25 +1,25 @@
 Return-Path: <saul.wold@intel.com>
 Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 230194C8006D
-	for <poky@yoctoproject.org>; Tue, 22 Feb 2011 09:48:16 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 3FA994C80517
+	for <poky@yoctoproject.org>; Tue, 22 Feb 2011 09:49:31 -0600 (CST)
 Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 22 Feb 2011 07:48:15 -0800
+	by azsmga101.ch.intel.com with ESMTP; 22 Feb 2011 07:49:29 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,207,1297065600"; d="scan'208";a="392341134"
+X-IronPort-AV: E=Sophos;i="4.62,206,1297065600"; d="scan'208";a="392341800"
 Received: from unknown (HELO [10.255.12.88]) ([10.255.12.88])
-	by azsmga001.ch.intel.com with ESMTP; 22 Feb 2011 07:48:15 -0800
-Message-ID: <4D63DABE.2070502@intel.com>
-Date: Tue, 22 Feb 2011 07:48:14 -0800
+	by azsmga001.ch.intel.com with ESMTP; 22 Feb 2011 07:49:29 -0800
+Message-ID: <4D63DB09.20101@intel.com>
+Date: Tue, 22 Feb 2011 07:49:29 -0800
 From: Saul Wold <saul.wold@intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
 	Thunderbird/3.0.5
 MIME-Version: 1.0
-To: "Lu, Lianhao" <lianhao.lu@intel.com>
-References: <C10D3FB0CD45994C8A51FEC1227CE22F2136C4616A@shsmsx502.ccr.corp.intel.com>
-In-Reply-To: <C10D3FB0CD45994C8A51FEC1227CE22F2136C4616A@shsmsx502.ccr.corp.intel.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: FW: [PATCH 1/1] linux-libc-headers-yocto: Added RPROVIDES.
+To: Scott Garman <scott.a.garman@intel.com>
+References: <cover.1297830466.git.scott.a.garman@intel.com>
+In-Reply-To: <cover.1297830466.git.scott.a.garman@intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/5] docbook-utils and friends
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,51 +31,51 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 Feb 2011 15:48:16 -0000
+X-List-Received-Date: Tue, 22 Feb 2011 15:49:31 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 02/15/2011 06:35 PM, Lu, Lianhao wrote:
-> Looks like I had problems in sending emails to mailing list from my linux box. So I forward this pull request from my outlook.
+On 02/15/2011 08:32 PM, Scott Garman wrote:
+> From: Scott Garman<scott.a.garman@intel.com>
 >
-> Best Regards,
-> Lianhao
+> Hi Saul,
 >
+> This pull request includes documentation-related dependencies
+> and fixes so that the iputils recipe (and most likely many others)
+> can build its documentation correctly.
 >
-> -----Original Message-----
-> From: Lu, Lianhao
-> Sent: Tuesday, February 15, 2011 7:28 PM
-> To: poky@yoctoproject.org
-> Cc: Lu, Lianhao
-> Subject: [PATCH 1/1] linux-libc-headers-yocto: Added RPROVIDES.
+> I tested it on qemux86 and qemumips, and on a stripped-down
+> openSUSE 11.2 chroot where I even removed documentation-related
+> host utilities that we list in our quick start guide.
 >
-> From: Lianhao Lu<lianhao.lu@intel.com>
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>    Branch: sgarman/docbook-fixes-final
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=sgarman/docbook-fixes-final
 >
-> [BUGID #714] Added RPROVIDES_${PN}-dev and RPROVIDES_${PN}-dbg for
-> linux-libc-headers-yocto to provides "linux-libc-headers-dev" and
-> "linux-libc-headers-dbg" respectively.
->
-> This resolved the dependency issue of libc6-dev depending upon
-> linux-libc-headers-dev. Package linux-libc-headers-yocto-dev will be
-> installed as linux-libc-headers-dev.
->
-> Signed-off-by: Lianhao Lu<lianhao.lu@intel.com>
+> Thanks,
+>      Scott Garman<scott.a.garman@intel.com>
 > ---
->   .../linux-libc-headers-yocto_git.bb                |    2 ++
->   1 files changed, 2 insertions(+), 0 deletions(-)
 >
-> diff --git a/meta/recipes-kernel/linux-libc-headers/linux-libc-headers-yocto_git.bb b/meta/recipes-kernel/linux-libc-headers/linux-libc-headers-yocto_git.bb
-> index 0d58354..b0e152d 100644
-> --- a/meta/recipes-kernel/linux-libc-headers/linux-libc-headers-yocto_git.bb
-> +++ b/meta/recipes-kernel/linux-libc-headers/linux-libc-headers-yocto_git.bb
-> @@ -6,6 +6,8 @@ B = "${S}"
->   INHIBIT_DEFAULT_DEPS = "1"
->   DEPENDS += "unifdef-native"
->   PROVIDES = "linux-libc-headers"
-> +RPROVIDES-${PN}-dev = "linux-libc-headers-dev"
-> +RPROVIDES-${PN}-dbg = "linux-libc-headers-dbg"
->   PV = "2.6.37+git-${SRCPV}"
->   PR = "r2"
+>
+> Scott Garman (5):
+>    texinfo: recipe cleanup, add native support
+>    sgml-common-native: fix license info and checksum fields
+>    docbook-utils-native: new recipe v0.6.14
+>    opensp: improve configuration and install steps
+>    iputils: enable generation of man pages
+>
+>   .../docbook-utils/docbook-utils-native_0.6.14.bb   |   48 ++++++++++++++++++++
+>   meta/recipes-devtools/opensp/opensp_1.5.bb         |   18 +++++++
+>   .../sgml-common/sgml-common-native_0.6.3.bb        |   10 ++---
+>   meta/recipes-extended/iputils/iputils_s20101006.bb |   13 ++---
+>   meta/recipes-extended/texinfo/texinfo_4.13a.bb     |   26 ++++++-----
+>   5 files changed, 90 insertions(+), 25 deletions(-)
+>   create mode 100644 meta/recipes-devtools/docbook-utils/docbook-utils-native_0.6.14.bb
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 >
 Merged into Master
 
