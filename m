@@ -1,30 +1,39 @@
-Return-Path: <Tom_Rini@mentor.com>
-Received: from relay1.mentorg.com (relay1.mentorg.com [192.94.38.131])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 737F04C800A6
-	for <poky@yoctoproject.org>; Mon, 21 Feb 2011 20:14:25 -0600 (CST)
-Received: from svr-orw-exc-10.mgc.mentorg.com ([147.34.98.58])
-	by relay1.mentorg.com with esmtp 
-	id 1Prhlh-0000wO-0i from Tom_Rini@mentor.com 
-	for poky@yoctoproject.org; Mon, 21 Feb 2011 18:14:25 -0800
-Received: from na2-mail.mgc.mentorg.com ([134.86.114.213]) by
-	SVR-ORW-EXC-10.mgc.mentorg.com with Microsoft
-	SMTPSVC(6.0.3790.4675); Mon, 21 Feb 2011 18:14:24 -0800
-Received: from [172.30.80.151] ([172.30.80.151]) by na2-mail.mgc.mentorg.com
-	with Microsoft SMTPSVC(6.0.3790.3959); 
-	Mon, 21 Feb 2011 19:14:23 -0700
-Message-ID: <4D631BF6.7040205@mentor.com>
-Date: Mon, 21 Feb 2011 19:14:14 -0700
-From: Tom Rini <tom_rini@mentor.com>
-Organization: Mentor Graphics Corporation
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
+Return-Path: <bruce.ashfield@gmail.com>
+Received: from mail-iw0-f176.google.com (mail-iw0-f176.google.com
+	[209.85.214.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5B3EE4C800A6
+	for <poky@yoctoproject.org>; Mon, 21 Feb 2011 20:27:48 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by iwr19 with SMTP id 19so2289342iwr.35
+	for <poky@yoctoproject.org>; Mon, 21 Feb 2011 18:27:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:in-reply-to:references:date
+	:message-id:subject:from:to:cc:content-type
+	:content-transfer-encoding;
+	bh=Gyz7IEWB7Lg1VA/AllL/Hit72TBOTI3Efozap9GKY3U=;
+	b=cl8griW9jJG8IYdpsI4lDzLx4XIxRcV5CQLlCV52533n9rzBdVMio1oyrcNIflCoK3
+	5EBYcNz7/4mSYTfw691ExHHWDVvGRKldIoPO4Bl/GXz3j7oGzRQqUaMy9Ufb4ijDMYWW
+	hZ9YzfjTE9lMRyl2wqVD69ApnJ0IM8zm16se8=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:cc:content-type:content-transfer-encoding;
+	b=KdPus7lv070y4zSfvZKlGx5T2zgq2jK34FKdK+D1jg55fjHOTtYflC8H5nJyt7LFyY
+	S+Z1DIxnSsyna7+RrC2PIMU6TYZP5quBuV/by0vpDEL/za0sZx8OMhTqkfCb90PWqOfJ
+	fnuy1BjFNqzVOEdyjyy61mXBWf+TkbAXUudqk=
 MIME-Version: 1.0
-To: poky@yoctoproject.org
+Received: by 10.231.39.76 with SMTP id f12mr1585449ibe.126.1298341509874; Mon,
+	21 Feb 2011 18:25:09 -0800 (PST)
+Received: by 10.231.160.79 with HTTP; Mon, 21 Feb 2011 18:25:09 -0800 (PST)
+In-Reply-To: <31a41b85a0a81f7a6318aaaee1f19333e6497c9a.1298340269.git.edwin.zhai@intel.com>
 References: <cover.1298340269.git.edwin.zhai@intel.com>
 	<31a41b85a0a81f7a6318aaaee1f19333e6497c9a.1298340269.git.edwin.zhai@intel.com>
-In-Reply-To: <31a41b85a0a81f7a6318aaaee1f19333e6497c9a.1298340269.git.edwin.zhai@intel.com>
-X-OriginalArrivalTime: 22 Feb 2011 02:14:24.0070 (UTC)
-	FILETIME=[393F2E60:01CBD236]
+Date: Mon, 21 Feb 2011 21:25:09 -0500
+Message-ID: <AANLkTin8CLU7Ok4C8Gd2i=a52qMyBBaSYGCW-Ch=M2p7@mail.gmail.com>
+From: Bruce Ashfield <bruce.ashfield@gmail.com>
+To: Zhai Edwin <edwin.zhai@intel.com>
+Cc: poky@yoctoproject.org
 Subject: Re: [PATCH 1/1] qemu: enable audio support
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -37,24 +46,92 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 Feb 2011 02:14:25 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 22 Feb 2011 02:27:48 -0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
 
-On 02/21/2011 07:06 PM, Zhai Edwin wrote:
-> From: Zhai Edwin<edwin.zhai@intel.com>
+On Mon, Feb 21, 2011 at 9:06 PM, Zhai Edwin <edwin.zhai@intel.com> wrote:
+> From: Zhai Edwin <edwin.zhai@intel.com>
 >
-> On qemux86, export ac97&  es1370 emulated device to guest, and enable host oss&alsa
+> On qemux86, export ac97 & es1370 emulated device to guest, and enable hos=
+t oss&alsa
 > driver. So end user can get sound from qemux86 guest if the sound card
 > driver installed.
 
-Is there a reason to limit this to qemux86/x86_64?  Or are you assuming 
-they won't work on other platforms (I have vague memories of putting an 
-actual es1370 card in a powerpc platform, a long long time ago...)?  Or 
-have you confirmed elsewhere it's not supported outside these platforms? 
-  Thanks!
+I presume that you tested the sound, if you send me the working .config
+(or better a config fragement), I'll update the base configs for the qemu*
+platforms to at least build and make the modules available.
 
--- 
-Tom Rini
-Mentor Graphics Corporation
+Looks good BTW!
+
+Bruce
+
+>
+> [BUGID #488] got fixed.
+>
+> Signed-off-by: Zhai Edwin <edwin.zhai@intel.com>
+> ---
+> =A0meta/recipes-devtools/qemu/qemu.inc | =A0 =A02 +-
+> =A0scripts/poky-qemu =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 | =A0 =A07 +++++=
+++
+> =A02 files changed, 8 insertions(+), 1 deletions(-)
+>
+> diff --git a/meta/recipes-devtools/qemu/qemu.inc b/meta/recipes-devtools/=
+qemu/qemu.inc
+> index 33c2c71..2c6b114 100644
+> --- a/meta/recipes-devtools/qemu/qemu.inc
+> +++ b/meta/recipes-devtools/qemu/qemu.inc
+> @@ -3,7 +3,7 @@ HOMEPAGE =3D "http://qemu.org"
+> =A0LICENSE =3D "GPLv2 & LGPLv2.1"
+> =A0DEPENDS =3D "zlib"
+>
+> -EXTRA_OECONF =3D "--target-list=3Darm-linux-user,arm-softmmu,i386-linux-=
+user,i386-softmmu,x86_64-linux-user,x86_64-softmmu,mips-linux-user,mips-sof=
+tmmu,ppc-linux-user,ppc-softmmu,mipsel-linux-user --disable-werror --disabl=
+e-vnc-tls --enable-kvm"
+> +EXTRA_OECONF =3D "--target-list=3Darm-linux-user,arm-softmmu,i386-linux-=
+user,i386-softmmu,x86_64-linux-user,x86_64-softmmu,mips-linux-user,mips-sof=
+tmmu,ppc-linux-user,ppc-softmmu,mipsel-linux-user --disable-werror --disabl=
+e-vnc-tls --enable-kvm --audio-drv-list=3Doss,alsa --audio-card-list=3Dac97=
+,es1370"
+> =A0#EXTRA_OECONF +=3D "--disable-sdl"
+>
+> =A0inherit autotools
+> diff --git a/scripts/poky-qemu b/scripts/poky-qemu
+> index b19a89d..cb08f27 100755
+> --- a/scripts/poky-qemu
+> +++ b/scripts/poky-qemu
+> @@ -129,6 +129,13 @@ while [ $i -le $# ]; do
+> =A0 =A0 =A0 =A0 =A0 =A0 SCRIPT_QEMU_OPT=3D"$SCRIPT_QEMU_OPT -serial stdio=
+"
+> =A0 =A0 =A0 =A0 =A0 =A0 SCRIPT_KERNEL_OPT=3D"$SCRIPT_KERNEL_OPT console=
+=3DttyS0"
+> =A0 =A0 =A0 =A0 =A0 =A0 ;;
+> + =A0 =A0 =A0 =A0"audio")
+> + =A0 =A0 =A0 =A0 =A0 =A0if [[ "x$MACHINE" =3D=3D "xqemux86" || "x$MACHIN=
+E" =3D=3D "xqemux86-64" ]]; then
+> + =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0echo "Enable audio on qemu. Pls. install=
+ snd_intel8x0 or snd_ens1370 driver in linux guest.";
+> + =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0QEMU_AUDIO_DRV=3D"alsa"
+> + =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0SCRIPT_QEMU_OPT=3D"$SCRIPT_QEMU_OPT -sou=
+ndhw ac97,es1370"
+> + =A0 =A0 =A0 =A0 =A0 =A0fi
+> + =A0 =A0 =A0 =A0 =A0 =A0;;
+> =A0 =A0 =A0 =A0 "kvm")
+> =A0 =A0 =A0 =A0 =A0 =A0 KVM_ENABLED=3D"yes"
+> =A0 =A0 =A0 =A0 =A0 =A0 KVM_CAPABLE=3D`grep 'vmx\|smx' /proc/cpuinfo`
+> --
+> 1.6.3.3
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
+
+
+
+--=20
+"Thou shalt not follow the NULL pointer, for chaos and madness await
+thee at its end"
 
