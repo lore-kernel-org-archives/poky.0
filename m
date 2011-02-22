@@ -1,22 +1,41 @@
-Return-Path: <scott.m.rifenbark@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 1B6344C80A79
-	for <poky@yoctoproject.org>; Tue, 22 Feb 2011 14:59:56 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 22 Feb 2011 12:59:56 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,207,1297065600"; d="scan'208";a="392517273"
-Received: from unknown (HELO localhost) ([10.255.12.90])
-	by azsmga001.ch.intel.com with ESMTP; 22 Feb 2011 12:59:56 -0800
-Message-Id: <ac2a0024efebe7f0cac535d9378afd5c88b35d71.1298408196.git.scott.m.rifenbark@intel.com>
-In-Reply-To: <cover.1298408196.git.scott.m.rifenbark@intel.com>
-References: <cover.1298408196.git.scott.m.rifenbark@intel.com>
-Old-Date: Fri, 18 Feb 2011 12:30:56 -0600
-Date: Tue, 22 Feb 2011 15:00:47 -0600
-To: poky@yoctoproject.org
-CC: 
-From: <scott.m.rifenbark@intel.com>
-Subject: [PATCH 2/2] documentation/poky-ref-manual/faq.xml: [BUGID# 628] - Added new question for Python 2.6 requirement.
+Return-Path: <kergoth@gmail.com>
+Received: from mail-ww0-f51.google.com (mail-ww0-f51.google.com [74.125.82.51])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5D29B4C80517
+	for <poky@lists.yoctoproject.org>; Tue, 22 Feb 2011 16:06:33 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by wwe15 with SMTP id 15so7471323wwe.8
+	for <poky@lists.yoctoproject.org>; Tue, 22 Feb 2011 14:06:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:sender:in-reply-to:references:from
+	:date:x-google-sender-auth:message-id:subject:to:cc:content-type
+	:content-transfer-encoding;
+	bh=hhP/RXHBNxO+JgUSrHe64qhVRLjT3Fvrf9YXBEAiFq4=;
+	b=I9ZEeLmvfVhhNouBzvMSafI+i2+nI7F45wcYdgbz65Pg0aBzFbRyTiO2jCHcpRWObR
+	PdgADwJhzRfhT2pN1R6izwrdIwmafGQJL+pyqlzWRGwtz3Rn6bA1dQA+dtwhhyBS5B5i
+	uS2xnUp7zrHgbuOEH5iZdH5t/jTMmpmtXjvkM=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:sender:in-reply-to:references:from:date
+	:x-google-sender-auth:message-id:subject:to:cc:content-type
+	:content-transfer-encoding;
+	b=XlKDLSkQ2LPVgiiFCl0ORqGGmv/HMIiAGJZPy8qjztyyGJSBzZffd3xMBWyJZFDLtk
+	BYUGComZdW+LKt3/slyV5bwTukE4x4YOtEco5Rr9ZWtlQ/4JLjUbNMD54OzbYTqKxaPi
+	K1ao/dtko6ZUu7ZK895uZRxyKhEJXZ6U0p7qI=
+Received: by 10.216.166.67 with SMTP id f45mr3657230wel.112.1298412392156;
+	Tue, 22 Feb 2011 14:06:32 -0800 (PST)
+MIME-Version: 1.0
+Sender: kergoth@gmail.com
+Received: by 10.216.246.11 with HTTP; Tue, 22 Feb 2011 14:06:12 -0800 (PST)
+In-Reply-To: <AANLkTi==59FW4R15YrsSSR8EHWRgn2Gh9BJ2rUVPMWS+@mail.gmail.com>
+References: <AANLkTi==59FW4R15YrsSSR8EHWRgn2Gh9BJ2rUVPMWS+@mail.gmail.com>
+From: Chris Larson <clarson@kergoth.com>
+Date: Tue, 22 Feb 2011 15:06:12 -0700
+X-Google-Sender-Auth: SqOWJ3hbJUfUKk9A3qNvx4V1zMg
+Message-ID: <AANLkTinEjcR+J67A8CzR+oYSrhSZZK6sjHCcN8iL5TBb@mail.gmail.com>
+To: Koen Kooi <koen@dominion.thruhere.net>
+Cc: poky@lists.yoctoproject.org
+Subject: Re: Problem with METADATA_* vars
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,71 +47,39 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 Feb 2011 20:59:57 -0000
+X-List-Received-Date: Tue, 22 Feb 2011 22:06:33 -0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Scott Rifenbark <scott.m.rifenbark@intel.com>
+On Fri, Feb 18, 2011 at 2:34 AM, Koen Kooi <koen@dominion.thruhere.net> wro=
+te:
+> I have a simple recipe that does:
+>
+> export METADATA_REVISION
+> export METADATA_BRANCH
+> export TARGET_SYS
+>
+> do_install() {
+> =C2=A0=C2=A0=C2=A0 install -d ${D}${sysconfdir}
+> =C2=A0=C2=A0=C2=A0 echo "Angstrom ${DISTRO_VERSION}" > ${D}${sysconfdir}/=
+angstrom-version
+> =C2=A0=C2=A0=C2=A0 echo "Built from branch: ${METADATA_BRANCH}" >>
+> ${D}${sysconfdir}/angstrom-version
+> =C2=A0=C2=A0=C2=A0 echo "Revision: ${METADATA_REVISION}" >>
+> ${D}${sysconfdir}/angstrom-version
+> =C2=A0=C2=A0=C2=A0 echo "Target system: ${TARGET_SYS}" >>
+> ${D}${sysconfdir}/angstrom-version
+>
+> =C2=A0=C2=A0=C2=A0 [..]
+> }
 
-As part of the fix for #628 I added a new question to the FAQ for use
-of Poky when you do not have Python 2.6.
-
-Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
----
- documentation/poky-ref-manual/faq.xml |   41 +++++++++++++++++++++++++++++++++
- 1 files changed, 41 insertions(+), 0 deletions(-)
-
-diff --git a/documentation/poky-ref-manual/faq.xml b/documentation/poky-ref-manual/faq.xml
-index b209fff..7a891b0 100644
---- a/documentation/poky-ref-manual/faq.xml
-+++ b/documentation/poky-ref-manual/faq.xml
-@@ -20,6 +20,47 @@
-             </para>
-         </answer>
-     </qandaentry>
-+
-+
-+
-+
-+
-+    <qandaentry>
-+        <question>
-+            <para>
-+                I only have Python 2.4 or 2.5 but BitBake requires Python 2.6.
-+                Can I still use Poky?
-+            </para>
-+        </question>
-+        <answer>
-+            <para>
-+                You can use a stand-alone tarball to provide Python 2.6.
-+                You can find pre-built 32 and 64-bit versions of Python 2.6 at the following locations:
-+                <itemizedlist>
-+                    <listitem><para><ulink url='http://autobuilder.yoctoproject.org/downloads/miscsupport/python-nativesdk-standalone-i586.tar.bz2'></ulink></para></listitem>
-+                    <listitem><para><ulink url='http://autobuilder.yoctoproject.org/downloads/miscsupport/python-nativesdk-standalone-x86_64.tar.bz2'></ulink></para></listitem>
-+                </itemizedlist>
-+            </para>
-+            <para>
-+                These tarballs are self-contained with all required libraries and should work 
-+                on most Linux systems.  
-+                To use the tarballs extract them into the root 
-+                directory and run the appropriate command:
-+                <literallayout class='monospaced'>
-+     $ export PATH=/opt/poky/sysroots/i586-pokysdk-linux/usr/bin/:$PATH
-+     $ export PATH=/opt/poky/sysroots/x86_64-pokysdk-linux/usr/bin/:$PATH
-+                </literallayout>
-+            </para>
-+            <para>
-+                Once you run the command, BitBake uses Python 2.6.
-+            </para>
-+        </answer>
-+    </qandaentry>
-+
-+
-+
-+
-+
-     <qandaentry>
-         <question>
-             <para>
--- 
-1.7.1
-
+I realize this isn't a fix for the problem you're reporting, but your
+exports are completely unnecessary here.  Your uses of ${} inside a
+shell function are expanded by bitbake, not the shell.
+--=20
+Christopher Larson
+clarson at kergoth dot com
+Founder - BitBake, OpenEmbedded, OpenZaurus
+Maintainer - Tslib
+Senior Software Engineer, Mentor Graphics
 
