@@ -1,19 +1,19 @@
 Return-Path: <tom.zanussi@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 616E34C80A82
-	for <poky@yoctoproject.org>; Tue, 22 Feb 2011 09:13:11 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 22 Feb 2011 07:13:10 -0800
-Message-Id: <1bdc18$jlll03@fmsmga002.fm.intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 43B1F4C800C0
+	for <poky@yoctoproject.org>; Tue, 22 Feb 2011 09:13:12 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 22 Feb 2011 07:13:12 -0800
+Message-Id: <0d30dc$l6p511@orsmga001.jf.intel.com>
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,206,1297065600"; d="scan'208";a="660263941"
+X-IronPort-AV: E=Sophos;i="4.62,206,1297065600"; d="scan'208";a="711758893"
 Received: from unknown (HELO localhost) ([10.255.12.44])
-	by fmsmga002.fm.intel.com with ESMTP; 22 Feb 2011 07:13:10 -0800
-Old-Date: Mon, 17 Jan 2011 10:10:34 -0600
-Date: Tue, 22 Feb 2011  9:13:07 -0600
+	by orsmga001.jf.intel.com with ESMTP; 22 Feb 2011 07:13:11 -0800
+Old-Date: Tue, 25 Jan 2011 19:06:56 -0600
+Date: Tue, 22 Feb 2011  9:13:09 -0600
 To: poky@yoctoproject.org
 From: Tom Zanussi <tom.zanussi@intel.com>
-Subject: [PATCH 1/3] emenlow: switch kernel to linux-yocto
+Subject: [PATCH 2/3] emenlow: update linux-yocto-stable SRCREVs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -25,43 +25,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 Feb 2011 15:13:11 -0000
+X-List-Received-Date: Tue, 22 Feb 2011 15:13:12 -0000
 
 From: Tom Zanussi <tom.zanussi@intel.com>
 
-Make emenlow use the 2.6.37 kernel.
+Update SRCREVS to latest
 
 Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
 ---
- meta-emenlow/conf/machine/emenlow.conf             |    4 ++--
- .../recipes-kernel/linux/linux-yocto_git.bbappend  |    3 +++
- 2 files changed, 5 insertions(+), 2 deletions(-)
- create mode 100644 meta-emenlow/recipes-kernel/linux/linux-yocto_git.bbappend
+ meta-emenlow/conf/machine/emenlow.conf |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/meta-emenlow/conf/machine/emenlow.conf b/meta-emenlow/conf/machine/emenlow.conf
-index 2e20e1c..45adbff 100644
+index 45adbff..60790af 100644
 --- a/meta-emenlow/conf/machine/emenlow.conf
 +++ b/meta-emenlow/conf/machine/emenlow.conf
-@@ -16,8 +16,8 @@ MACHINE_FEATURES = "kernel26 screen keyboard pci usbhost ext2 ext3 x86 \
+@@ -44,5 +44,5 @@ IMAGE_FSTYPES ?= "ext3 cpio.gz"
+ GLIBC_ADDONS = "nptl"
+ GLIBC_EXTRA_OECONF = "--with-tls"
  
- KERNEL_IMAGETYPE = "bzImage"
- 
--PREFERRED_PROVIDER_virtual/kernel = "linux-yocto-stable"
--#PREFERRED_PROVIDER_linux-libc-headers ?= "linux-libc-headers-yocto"
-+PREFERRED_PROVIDER_virtual/kernel = "linux-yocto"
-+PREFERRED_PROVIDER_linux-libc-headers ?= "linux-libc-headers-yocto"
- PREFERRED_PROVIDER_libdrm = "libdrm-poulsbo"
- PREFERRED_PROVIDER_drm = "libdrm-poulsbo"
- PREFERRED_PROVIDER_virtual/libx11 = "libx11-trim"
-diff --git a/meta-emenlow/recipes-kernel/linux/linux-yocto_git.bbappend b/meta-emenlow/recipes-kernel/linux/linux-yocto_git.bbappend
-new file mode 100644
-index 0000000..360c259
---- /dev/null
-+++ b/meta-emenlow/recipes-kernel/linux/linux-yocto_git.bbappend
-@@ -0,0 +1,3 @@
-+FILESEXTRAPATHS := "${THISDIR}/${PN}"
-+COMPATIBLE_MACHINE_emenlow = "emenlow"
-+KMACHINE_emenlow  = "yocto/standard/emenlow"
+-SRCREV_machine_pn-linux-yocto-stable_emenlow = "aae69fdf104b0a9d7b3710f808aac6ab303490f7"
+-SRCREV_meta_pn-linux-yocto-stable_emenlow ?= "d1cd5c80ee97e81e130be8c3de3965b770f320d6"
++SRCREV_machine_pn-linux-yocto-stable_emenlow = "a29743c0a1398798fbc02c0799c8605d91514e14"
++SRCREV_meta_pn-linux-yocto-stable_emenlow ?= "e1f85a470934a0cf6abde5d95533e74501822c6b"
 -- 
 1.7.0.4
 
