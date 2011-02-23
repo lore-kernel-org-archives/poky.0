@@ -1,33 +1,27 @@
-Return-Path: <vsailub4u@gmail.com>
-Received: from mail-px0-f176.google.com (mail-px0-f176.google.com
-	[209.85.212.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 3BCCC4C80335
-	for <poky@yoctoproject.org>; Tue, 22 Feb 2011 22:57:54 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by pxi11 with SMTP id 11so522464pxi.35
-	for <poky@yoctoproject.org>; Tue, 22 Feb 2011 20:57:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:date:message-id:subject:from:to
-	:content-type; bh=BtiZmXnK1c7D3t/6ad/epH3A+K5S8Z+6myKojRFkI5A=;
-	b=x56bKSf2chAqRSjiJ+EF2pPAWTflvAxh5lis2/ROuFbqTNuEokV/5iZ4CdQtYI6Gqo
-	iLZLNveycwckjhGOGJ20erIxEHQgUU2rrwOaDQv1k1qvzZZEMY1TS3RV/MuQ/vYZfEIF
-	ANydU0ntzEi8X2QppicYgicdZJOrIjgzSxzNs=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:date:message-id:subject:from:to:content-type;
-	b=nXtSLK5fftInS0pMuMb0fC21mCMr8N6b+klba0IXYpRc/1SOXqh24tH/AQklxAfWjB
-	XP8ZLAztSsJgTuY2fzWPlVFXCwNbmKQVnAOtmYDvkf2I/gbokPnuGvwY37RYZT7MfuMn
-	veRxxCW7dGKL7ZtiaB+TRkE9LMR8HqKd0lElQ=
-MIME-Version: 1.0
-Received: by 10.142.250.19 with SMTP id x19mr2856485wfh.308.1298437073250;
-	Tue, 22 Feb 2011 20:57:53 -0800 (PST)
-Received: by 10.142.170.3 with HTTP; Tue, 22 Feb 2011 20:57:53 -0800 (PST)
-Date: Wed, 23 Feb 2011 10:27:53 +0530
-Message-ID: <AANLkTin34iXW7Zy7Z4NJfa3Fmv3LSt8y1eYH4UoNWcac@mail.gmail.com>
-From: v sailaja <vsailub4u@gmail.com>
+Return-Path: <scott.a.garman@intel.com>
+Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 812914C80049
+	for <poky@yoctoproject.org>; Wed, 23 Feb 2011 00:23:06 -0600 (CST)
+Received: from localhost (c-76-105-143-140.hsd1.or.comcast.net
+	[76.105.143.140])
+	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
+	(No client certificate requested)
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id E79AF30511
+	for <poky@yoctoproject.org>; Wed, 23 Feb 2011 01:22:58 -0500 (EST)
+Message-Id: <cover.1298441824.git.scott.a.garman@intel.com>
+Old-Date: Tue, 22 Feb 2011 22:17:04 -0800
+Date: Tue, 22 Feb 2011 22:22:53 -0800
 To: poky@yoctoproject.org
-Subject: errors while building the poky
+CC: 
+From: Scott Garman <scott.a.garman@intel.com>
+X-MasterFoo-MailScanner-Information: Please contact the ISP for more
+	information
+X-MailScanner-ID: E79AF30511.B5E3B
+X-MasterFoo-MailScanner: Found to be clean
+X-MasterFoo-MailScanner-SpamCheck: not spam
+X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
+X-Spam-Status: No
+Subject: [PATCH 0/4] SGML catalog generation fixes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,46 +33,41 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 23 Feb 2011 04:57:54 -0000
-Content-Type: multipart/alternative; boundary=001636ed69a583a9ab049cebf0ca
+X-List-Received-Date: Wed, 23 Feb 2011 06:23:06 -0000
 
---001636ed69a583a9ab049cebf0ca
-Content-Type: text/plain; charset=ISO-8859-1
+From: Scott Garman <scott.a.garman@intel.com>
 
-Hi,
+Hi Saul,
 
-I am trying to build the poky image    --  *poky-image-minimal-live.*
-I added the packages  to poky-image-minimal.bb
+This pull request improves the way the SGML catalog files are
+generated in the native sysroot. Richard helped out with the
+addition of SSTATEPOSTINSTFUNCS when we realized there was no
+way to dynamically run a post-install script when doing a build
+from sstate cache.
 
-    * alsa-lib
-     alsa-tools
-     alsa-utils*
+I believe this should fix bug #748.
 
-But i am getting the error like
-
-*./configure: line 4246:syntax error near unexpected token `1.0.0'
-./configure: line 4246: `AM_PATH_ALSA(1.0.0)'*
-
-please help me someone in finding the solution.
-appeciated if anyone helps me.
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: sgarman/sgml-catalog-fixes
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=sgarman/sgml-catalog-fixes
 
 Thanks,
-sai
+    Scott Garman <scott.a.garman@intel.com>
+---
 
---001636ed69a583a9ab049cebf0ca
-Content-Type: text/html; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
 
-Hi,<br><br>I am trying to build the poky image=A0=A0=A0 --=A0 <b>poky-image=
--minimal-live.</b><br>I added the packages=A0 to  <a href=3D"http://poky-im=
-age-minimal.bb" target=3D"_blank">poky-image-minimal.bb</a> <br>=A0=A0=A0=
-=A0=A0 <br>=A0=A0=A0=A0<b> alsa-lib<br>
-=A0=A0=A0=A0 alsa-tools <br>
-=A0=A0=A0=A0 alsa-utils</b><br><br>But i am getting the error like<br><br><=
-b>./configure: line 4246:syntax error near unexpected token `1.0.0&#39;<br>=
-./configure: line 4246: `AM_PATH_ALSA(1.0.0)&#39;</b><br><br>please help me=
- someone in finding the solution.<br>
+Scott Garman (4):
+  sstate.bbclass: add SSTATEPOSTINSTFUNCS
+  docbook-sgml-dtd-native.inc: run install-catalog from
+    SSTATEPOSTINSTFUNCS
+  docbook-dsssl-stylesheets-native: run install-catalog from
+    SSTATEPOSTINSTFUNCS
+  openjade-native: run install-catalog from SSTATEPOSTINSTFUNCS
 
-appeciated if anyone helps me.<br><br>Thanks,<br>sai<br><br>
+ meta/classes/sstate.bbclass                        |    8 +++++
+ .../docbook-dsssl-stylesheets-native_1.79.bb       |   30 ++++++++------------
+ .../docbook-sgml-dtd/docbook-sgml-dtd-native.inc   |   26 ++++++----------
+ .../openjade/openjade-native_1.3.2.bb              |   17 ++++++++---
+ 4 files changed, 42 insertions(+), 39 deletions(-)
 
---001636ed69a583a9ab049cebf0ca--
+
