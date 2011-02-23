@@ -1,21 +1,18 @@
-Return-Path: <ke.yu@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 59F294C80049
-	for <poky@yoctoproject.org>; Tue, 22 Feb 2011 20:09:37 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 22 Feb 2011 18:09:36 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,209,1297065600"; d="scan'208";a="660498653"
-Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
-	by fmsmga002.fm.intel.com with ESMTP; 22 Feb 2011 18:09:36 -0800
-From: Yu Ke <ke.yu@intel.com>
-To: poky@yoctoproject.org
-Date: Wed, 23 Feb 2011 10:14:33 +0800
-Message-Id: <1470e913b8711734d901eae24782b8a27a8c8848.1298426322.git.ke.yu@intel.com>
+Return-Path: <bruce.ashfield@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 35C384C80049;
+	Tue, 22 Feb 2011 20:48:31 -0600 (CST)
+Received: from localhost.localdomain (yow-bashfiel-d2.ottawa.windriver.com
+	[128.224.146.167])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p1N2mSHq010742;
+	Tue, 22 Feb 2011 18:48:29 -0800 (PST)
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+To: rpurdie@linux.intel.com
+Date: Tue, 22 Feb 2011 21:49:27 -0500
+Message-Id: <cover.1298429140.git.bruce.ashfield@windriver.com>
 X-Mailer: git-send-email 1.7.0.4
-In-Reply-To: <cover.1298426322.git.ke.yu@intel.com>
-References: <cover.1298426322.git.ke.yu@intel.com>
-Subject: [PATCH 2/2] xserver-nodm-init: add rootless-x support
+Cc: yocto@yoctoproject.org, poky@yoctoproject.org, saul.wold@intel.com
+Subject: [PATCH 0/1] linux-yocto: enable audio for qemux86 and qemux86-64
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,90 +24,64 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 23 Feb 2011 02:09:37 -0000
+X-List-Received-Date: Wed, 23 Feb 2011 02:48:31 -0000
 
-most rootless X work are already done in the kernel, xserver and
-graphics driver, this patches add the the remaining userspace setting:
+Richard/Saul,
 
-- create /etc/X11/Xusername to set rootless X user
-- add rootless X user to group video, tty to access /dev/tty[0-4]
-  and /dev/dri/card0
-- grant rootless X user access right to /dev/input/*, /var/log
+This Fixes [BUGID #488 #734]
 
-Signed-off-by: Yu Ke <ke.yu@intel.com>
+As discussed, this enables the configuration options for qemu
+audio for x86/x86-64 (limited to this for now). I did build and
+boot testing (but couldn't directly test audio) for the impacted
+qemu boards.
+
+The commit message from the patch tells the rest of the story:
+
+Enable audio for qemux86/qemux86-64 via the following kernel
+configuration options.
+
+  CONFIG_SOUND_OSS_CORE=y
+  CONFIG_SOUND_OSS_CORE_PRECLAIM=y
+  CONFIG_SND_RAWMIDI=m
+  CONFIG_SND_SEQUENCER=y
+  CONFIG_SND_OSSEMUL=y
+  CONFIG_SND_MIXER_OSS=y
+  CONFIG_SND_PCM_OSS=y
+  CONFIG_SND_PCM_OSS_PLUGINS=y
+  CONFIG_SND_SEQUENCER_OSS=y
+  CONFIG_SND_RAWMIDI_SEQ=m
+  CONFIG_SND_AC97_CODEC=m
+  CONFIG_SND_ENS1370=m
+  CONFIG_SND_INTEL8X0=m
+  CONFIG_AC97_BUS=m
+
+The mechanism to trigger these options is in the form of an
+optional kernel feature that is only appended for qemux86
+and qemux86-64, but is contained within the kernel tree.
+
+This allows several things:
+
+  - the options to be available/shared for all boards
+  - the options to be in tree
+  - to not add the options to every board, which unecessarily
+    bloats the default configuration.
+
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: zedd/kernel
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/kernel
+
+Thanks,
+    Bruce Ashfield <bruce.ashfield@windriver.com>
 ---
- .../x11-common/xserver-nodm-init.bb                |   22 +++++++++++++++++++-
- .../x11-common/xserver-nodm-init/Xusername         |    1 +
- .../x11-common/xserver-nodm-init/xserver-nodm      |    4 +++
- 3 files changed, 26 insertions(+), 1 deletions(-)
- create mode 100644 meta/recipes-graphics/x11-common/xserver-nodm-init/Xusername
 
-diff --git a/meta/recipes-graphics/x11-common/xserver-nodm-init.bb b/meta/recipes-graphics/x11-common/xserver-nodm-init.bb
-index 03a6ca3..a93acc9 100644
---- a/meta/recipes-graphics/x11-common/xserver-nodm-init.bb
-+++ b/meta/recipes-graphics/x11-common/xserver-nodm-init.bb
-@@ -3,10 +3,11 @@ LICENSE = "GPLv2"
- LIC_FILES_CHKSUM = "file://COPYING;md5=751419260aa954499f7abaabaa882bbe"
- SECTION = "x11"
- PRIORITY = "optional"
--PR = "r23"
-+PR = "r24"
- RDEPENDS_${PN} = "dbus-wait sudo"
- 
- SRC_URI = "file://xserver-nodm \
-+           file://Xusername \
-            file://gplv2-license.patch"
- 
- S = ${WORKDIR}
-@@ -17,6 +18,25 @@ do_install() {
-     install -d ${D}/etc
-     install -d ${D}/etc/init.d
-     install xserver-nodm ${D}/etc/init.d
-+    if [ "${ROOTLESS_X}" = "1" ] ; then
-+        install -d ${D}/etc/X11
-+        install Xusername ${D}/etc/X11
-+    fi
-+}
-+
-+pkg_postinst_${PN} () {
-+    if [ "x$D" != "x" ] ; then
-+        exit 1
-+    fi
-+
-+    if [ -f /etc/X11/Xusername ]; then
-+        # create the rootless X user, and add user to group tty, video
-+        username=`cat /etc/X11/Xusername`
-+        adduser --disabled-password $username
-+        # FIXME: use addgroup if busybox addgroup is ready
-+        sed -i -e "s/^video:.*/&${username}/g" /etc/group
-+        sed -i -e "s/^tty:.*/&${username}/g" /etc/group
-+    fi
- }
- 
- inherit update-rc.d
-diff --git a/meta/recipes-graphics/x11-common/xserver-nodm-init/Xusername b/meta/recipes-graphics/x11-common/xserver-nodm-init/Xusername
-new file mode 100644
-index 0000000..7060e5e
---- /dev/null
-+++ b/meta/recipes-graphics/x11-common/xserver-nodm-init/Xusername
-@@ -0,0 +1 @@
-+xuser
-diff --git a/meta/recipes-graphics/x11-common/xserver-nodm-init/xserver-nodm b/meta/recipes-graphics/x11-common/xserver-nodm-init/xserver-nodm
-index 69ea949..d8c4ba0 100755
---- a/meta/recipes-graphics/x11-common/xserver-nodm-init/xserver-nodm
-+++ b/meta/recipes-graphics/x11-common/xserver-nodm-init/xserver-nodm
-@@ -30,6 +30,10 @@ case "$1" in
-        echo "Starting Xserver"
-        if [ -f /etc/X11/Xusername ]; then
-            username=`cat /etc/X11/Xusername`
-+           # setting for rootless X
-+           chmod o+w /var/log
-+           chmod g+r /dev/tty[0-3]
-+           chmod o+rw /dev/input/*
-        fi
-        # Using sudo -i here has the nice side effect of making sire
-        # HOME, USER and other previously problematic variables
--- 
-1.7.0.4
+
+Bruce Ashfield (1):
+  linux-yocto: enable audio for selected qemu targets
+
+ meta/classes/kernel-yocto.bbclass                  |    4 +++-
+ .../conf/distro/include/poky-default-revisions.inc |    4 ++--
+ meta/recipes-kernel/linux/linux-yocto_git.bb       |    6 ++++--
+ 3 files changed, 9 insertions(+), 5 deletions(-)
 
 
