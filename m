@@ -1,25 +1,22 @@
-Return-Path: <ke.yu@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5568C4C8090B
-	for <poky@yoctoproject.org>; Tue, 22 Feb 2011 19:18:48 -0600 (CST)
+Return-Path: <lei.mei@intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id BB64B4C80517
+	for <poky@yoctoproject.org>; Tue, 22 Feb 2011 19:34:27 -0600 (CST)
 Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 22 Feb 2011 17:18:47 -0800
+	by azsmga102.ch.intel.com with ESMTP; 22 Feb 2011 17:34:27 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,209,1297065600"; d="scan'208";a="392638720"
-Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
-	by azsmga001.ch.intel.com with ESMTP; 22 Feb 2011 17:18:46 -0800
-Date: Wed, 23 Feb 2011 09:23:43 +0800
-From: Yu Ke <ke.yu@intel.com>
-To: Saul Wold <saul.wold@intel.com>
-Message-ID: <20110223012343.GB2728@kyu3-hedt>
-References: <cover.1298390312.git.ke.yu@intel.com>
-	<3a0ec35ea472b2ae866022ef2d3278afd33d9db8.1298390312.git.ke.yu@intel.com>
-	<4D641A8A.5030802@intel.com>
-MIME-Version: 1.0
-In-Reply-To: <4D641A8A.5030802@intel.com>
-User-Agent: Mutt/1.5.20 (2009-06-14)
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 2/2] xserver-nodm-init: add rootless-x support
+X-IronPort-AV: E=Sophos;i="4.62,209,1297065600"; d="scan'208";a="392643262"
+Received: from daocaoren-desktop.sh.intel.com (HELO localhost)
+	([10.239.47.161])
+	by azsmga001.ch.intel.com with ESMTP; 22 Feb 2011 17:34:26 -0800
+Message-Id: <e11841c20a1b91e95dbcfb11cda2070bb292d788.1298424181.git.lei.mei@intel.com>
+In-Reply-To: <cover.1298424181.git.lei.mei@intel.com>
+References: <cover.1298424181.git.lei.mei@intel.com>
+Old-Date: Wed, 23 Feb 2011 08:59:35 +0800
+To: poky@yoctoproject.org
+CC: 
+From: Mei Lei <lei.mei@intel.com>
+Subject: [PATCH 1/1] distrodata.bbclass: Fix the postfix issue in check_new_ver function
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,106 +28,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 23 Feb 2011 01:18:48 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Date: Wed, 23 Feb 2011 01:34:28 -0000
+X-Original-Date: 三, 23  2月 2011  9:33:40 +0800
+X-List-Received-Date: Wed, 23 Feb 2011 01:34:28 -0000
 
-On Feb 22, 12:20, Saul Wold wrote:
-> On 02/22/2011 08:00 AM, Yu Ke wrote:
-> >most rootless X work are already done in the kernel, xserver and
-> >graphics driver, this patches add the the remaining userspace setting:
-> >
-> >- create /etc/X11/Xusername to set rootless X user
-> >- add rootless X user to group video, tty to access /dev/tty[0-4]
-> >   and /dev/dri/card0
-> >- grant rootless X user access right to /dev/input/*, /var/log
-> >
-> >Signed-off-by: Yu Ke<ke.yu@intel.com>
-> >---
-> >  .../x11-common/xserver-nodm-init.bb                |   22 +++++++++++++++++++-
-> >  .../x11-common/xserver-nodm-init/Xusername         |    1 +
-> >  .../x11-common/xserver-nodm-init/xserver-nodm      |    4 +++
-> >  3 files changed, 26 insertions(+), 1 deletions(-)
-> >  create mode 100644 meta/recipes-graphics/x11-common/xserver-nodm-init/Xusername
-> >
-> >diff --git a/meta/recipes-graphics/x11-common/xserver-nodm-init.bb b/meta/recipes-graphics/x11-common/xserver-nodm-init.bb
-> >index 03a6ca3..4642272 100644
-> >--- a/meta/recipes-graphics/x11-common/xserver-nodm-init.bb
-> >+++ b/meta/recipes-graphics/x11-common/xserver-nodm-init.bb
-> >@@ -3,10 +3,11 @@ LICENSE = "GPLv2"
-> >  LIC_FILES_CHKSUM = "file://COPYING;md5=751419260aa954499f7abaabaa882bbe"
-> >  SECTION = "x11"
-> >  PRIORITY = "optional"
-> >-PR = "r23"
-> >+PR = "r24"
-> >  RDEPENDS_${PN} = "dbus-wait sudo"
-> >
-> >  SRC_URI = "file://xserver-nodm \
-> >+           file://Xusername \
-> >             file://gplv2-license.patch"
-> >
-> >  S = ${WORKDIR}
-> >@@ -17,6 +18,25 @@ do_install() {
-> >      install -d ${D}/etc
-> >      install -d ${D}/etc/init.d
-> >      install xserver-nodm ${D}/etc/init.d
-> >+    if [ "${ROOTLESS_X}" = "1" ] ; then
-> >+        install -d ${D}/etc/X11
-> >+        install Xusername ${D}/etc/X11
-> >+    fi
-> >+}
-> >+
-> >+pkg_postinst_${PN} () {
-> >+    if [ "x$D" != "x" ] ; then
-> >+        exit 1
-> >+    fi
-> >+
-> >+    if [ ! -f /etc/X11/Xusername ]; then
-> Do you really mean to check for the file existing?
-> 
-> >+        # create the rootless X user, and add user to group tty, video
-> >+        username=`cat /etc/X11/Xusername`
-> >+        adduser --disabled-password $username
-> >+        # FIXME: use addgroup if busybox addgroup is ready
-> >+        sed -i -e "s/^video:.*/&${username}/g" /etc/group
-> >+        sed -i -e "s/^tty:.*/&${username}/g" /etc/group
-> >+    fi
-> >  }
-> >
-> >  inherit update-rc.d
-> >diff --git a/meta/recipes-graphics/x11-common/xserver-nodm-init/Xusername b/meta/recipes-graphics/x11-common/xserver-nodm-init/Xusername
-> >new file mode 100644
-> >index 0000000..db9781a
-> >--- /dev/null
-> >+++ b/meta/recipes-graphics/x11-common/xserver-nodm-init/Xusername
-> >@@ -0,0 +1 @@
-> >+yocto
-> Why yocto, maybe xuser would be a more generic username
+From: Mei Lei <lei.mei@intel.com>
 
-Yup, this looks better. I will revise and resubmit the patch
+Change the regular expression when checking upstream version, ignore postfix like "origin" in 3.2.2.orgin, "pre1" in 3.12-pre1, but keep the postfix lik
+e"rc1" in 1.2rc1.
 
-Regards
-Ke
+Signed-off-by: Mei Lei <lei.mei@intel.com>
+---
+ meta/classes/distrodata.bbclass |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
-> 
-> >diff --git a/meta/recipes-graphics/x11-common/xserver-nodm-init/xserver-nodm b/meta/recipes-graphics/x11-common/xserver-nodm-init/xserver-nodm
-> >index 69ea949..d8c4ba0 100755
-> >--- a/meta/recipes-graphics/x11-common/xserver-nodm-init/xserver-nodm
-> >+++ b/meta/recipes-graphics/x11-common/xserver-nodm-init/xserver-nodm
-> >@@ -30,6 +30,10 @@ case "$1" in
-> >         echo "Starting Xserver"
-> >         if [ -f /etc/X11/Xusername ]; then
-> >             username=`cat /etc/X11/Xusername`
-> >+           # setting for rootless X
-> >+           chmod o+w /var/log
-> >+           chmod g+r /dev/tty[0-3]
-> >+           chmod o+rw /dev/input/*
-> >         fi
-> >         # Using sudo -i here has the nice side effect of making sire
-> >         # HOME, USER and other previously problematic variables
-> 
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+diff --git a/meta/classes/distrodata.bbclass b/meta/classes/distrodata.bbclass
+index 049ebf9..831c7a2 100644
+--- a/meta/classes/distrodata.bbclass
++++ b/meta/classes/distrodata.bbclass
+@@ -434,7 +434,7 @@ python do_checkpkg() {
+ 				status = "ErrParseDir"
+ 			else:
+ 				"""newver still contains a full package name string"""
+-				status = re.search("(\d+[.\-_])*[0-9a-zA-Z]+", newver[1]).group()
++				status = re.search("(\d+[\.\-_])*(\d+[0-9a-zA-Z]*)", newver[1]).group()
+ 		elif not len(fhtml):
+ 			status = "ErrHostNoDir"
+ 
+-- 
+1.6.3.3
+
 
