@@ -1,20 +1,19 @@
-Return-Path: <lei.mei@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id AFDDE4C80517
-	for <poky@yoctoproject.org>; Tue, 22 Feb 2011 19:34:37 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 22 Feb 2011 17:34:26 -0800
+Return-Path: <ke.yu@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 01BF44C80049
+	for <poky@yoctoproject.org>; Tue, 22 Feb 2011 20:09:33 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 22 Feb 2011 18:09:33 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,209,1297065600"; d="scan'208";a="660489320"
-Received: from daocaoren-desktop.sh.intel.com (HELO localhost)
-	([10.239.47.161])
-	by fmsmga002.fm.intel.com with ESMTP; 22 Feb 2011 17:34:25 -0800
-Message-Id: <cover.1298424181.git.lei.mei@intel.com>
-Old-Date: Wed, 23 Feb 2011 09:23:01 +0800
+X-IronPort-AV: E=Sophos;i="4.62,209,1297065600"; d="scan'208";a="605542060"
+Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
+	by orsmga002.jf.intel.com with ESMTP; 22 Feb 2011 18:09:33 -0800
+From: Yu Ke <ke.yu@intel.com>
 To: poky@yoctoproject.org
-CC: 
-From: Mei Lei <lei.mei@intel.com>
-Subject: [PATCH 0/1]distrodata.bbclass: Change the regular expression
+Date: Wed, 23 Feb 2011 10:14:30 +0800
+Message-Id: <cover.1298426322.git.ke.yu@intel.com>
+X-Mailer: git-send-email 1.7.0.4
+Subject: [PATCH 0/2] rootless x support v2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,28 +25,51 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-Date: Wed, 23 Feb 2011 01:34:37 -0000
-X-Original-Date: 三, 23  2月 2011  9:33:38 +0800
-X-List-Received-Date: Wed, 23 Feb 2011 01:34:37 -0000
+X-List-Received-Date: Wed, 23 Feb 2011 02:09:34 -0000
 
-From: Mei Lei <lei.mei@intel.com>
+this patch set add the rootless X support (a.k.a non-root X)
 
-This patch fix the postfix issue.
-It will drop the postfix like "origin" or "pre1" in "3.2.2.origin"[recipe:apmd] and "3.12-pre1"[recipe:module-init-tools], but keep "rc1" or "dsf" in "1.2rc1"[recipe:speex] and "2.88dsf"[recipe:sysvinit] etc. This patch resolved 22 recipes' upstream version check issue.
+- What is rootless X
+Rootless X allow X to be runed with non-root user, to gain better security
+Rerence (https://wiki.ubuntu.com/X/Rootless) has more detailed info on this.
+
+- What changes are made to support rootless X
+To support rootless X, whole stack including kernle, graphics driver, x server
+and userspace setting are all required to change. Fortunately, the former three
+already has required changes in upstream, so this patchset only add userspace
+setting to enalbe the rootless X.
+
+- How to enable/disable rootless X
+Not all machine support rootless X currently, because rootless X requires kernel
+mode setting (KMS) in graphics driver and not all graphics driver support KMS,
+so a per-machine config "ROOTLESS_X" is introduced to enable/disable rootless X.
+so far, ROOTLESS_X is set for atom_pc machine, because its graphics driver(intel
+graphics driver) support KMS well.
+
+this patchset has been tested in atom-pc and qemux86 machine poky-image-sato image
+
+changes compare to v1:
+- change the user name from yocto to xuser
 
 Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: lmei3/distrodata.bbclass
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=lmei3/distrodata.bbclass
+  Branch: kyu3/nonrootx
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kyu3/nonrootx
 
 Thanks,
-    Mei Lei <lei.mei@intel.com>
+    Yu Ke <ke.yu@intel.com>
 ---
 
 
-Mei Lei (1):
-  distrodata.bbclass: Fix the postfix issue in check_new_ver function
+Yu Ke (2):
+  xf86-video-intel: add config option to support rootless X
+  xserver-nodm-init: add rootless-x support
 
- meta/classes/distrodata.bbclass |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ meta/conf/machine/atom-pc.conf                     |    2 +
+ .../x11-common/xserver-nodm-init.bb                |   22 +++++++++++++++++++-
+ .../x11-common/xserver-nodm-init/Xusername         |    1 +
+ .../x11-common/xserver-nodm-init/xserver-nodm      |    4 +++
+ .../xorg-driver/xf86-video-intel_2.14.0.bb         |    5 ++++
+ 5 files changed, 33 insertions(+), 1 deletions(-)
+ create mode 100644 meta/recipes-graphics/x11-common/xserver-nodm-init/Xusername
 
 
