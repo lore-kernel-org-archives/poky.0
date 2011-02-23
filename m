@@ -1,26 +1,30 @@
 Return-Path: <gary@mlbassoc.com>
 Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 8E9234C80093
-	for <poky@lists.pokylinux.org>; Wed, 23 Feb 2011 09:20:18 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5FE1E4C808E5
+	for <poky@lists.pokylinux.org>; Wed, 23 Feb 2011 09:20:54 -0600 (CST)
 Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 02B701660128; Wed, 23 Feb 2011 08:20:03 -0700 (MST)
+	id 0B00A166030D; Wed, 23 Feb 2011 08:20:39 -0700 (MST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	hermes.chez-thomas.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
 	autolearn=unavailable version=3.3.1
 Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 75E471660021;
-	Wed, 23 Feb 2011 08:19:12 -0700 (MST)
-Message-ID: <4D652570.1030409@mlbassoc.com>
-Date: Wed, 23 Feb 2011 08:19:12 -0700
+	by mail.chez-thomas.org (Postfix) with ESMTP id ACF1C16602C5;
+	Wed, 23 Feb 2011 08:20:17 -0700 (MST)
+Message-ID: <4D6525B1.6080101@mlbassoc.com>
+Date: Wed, 23 Feb 2011 08:20:17 -0700
 From: Gary Thomas <gary@mlbassoc.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
 	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
 	Thunderbird/3.1.7
 MIME-Version: 1.0
-To: Poky <poky@lists.pokylinux.org>
-Subject: git and BB_NO_NETWORK
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+References: <4D628A56.6020002@mlbassoc.com>	 <1298310097.11289.3185.camel@rex>
+	<4D62AF6E.4020304@mlbassoc.com> <1298330194.11289.3243.camel@rex>
+In-Reply-To: <1298330194.11289.3243.camel@rex>
+Cc: Poky <poky@lists.pokylinux.org>
+Subject: Re: kernel versions
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,48 +36,72 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 23 Feb 2011 15:20:18 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 23 Feb 2011 15:20:54 -0000
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-This is related to bug #752
+On 02/21/2011 04:16 PM, Richard Purdie wrote:
+> On Mon, 2011-02-21 at 11:31 -0700, Gary Thomas wrote:
+>> On 02/21/2011 10:41 AM, Richard Purdie wrote:
+>>> On Mon, 2011-02-21 at 08:52 -0700, Gary Thomas wrote:
+>>>> I have my own kernel recipes (historical reasons...) which I
+>>>> now have 2 versions of.  Some platforms have not yet been
+>>>> ported to the latest version and I need to keep using the
+>>>> older one for those platforms until the porting is complete.
+>>>>
+>>>> Sadly, I can't get this to work.
+>>>>
+>>>> Here's what I have
+>>>>      $ tree meta-amltd/packages/linux/
+>>>>        meta-amltd/packages/linux/
+>>>>        ├── linux-am_2.6.32.bb
+>>>>        ├── linux-am_2.6.37.bb
+>>>>
+>>>>      $ tree meta-cobra3530p60/packages/linux/
+>>>>        meta-cobra3530p60/packages/linux/
+>>>>        ├── linux-am-2.6.32
+>>>>        │   └── cobra3530p60
+>>>>        │       ├── cobra3530p60.patch
+>>>>        │       └── defconfig
+>>>>        ├── linux-am_2.6.32.bbappend
+>>>>
+>>>> I tried these settings in my machine/cobra3530p60
+>>>>      PREFERRED_PROVIDER_virtual/kernel = "linux-am"
+>>>>      PREFERRED_VERSION_virtual/kernel = "2.6.32"
+>>>>
+>>>> However, it still wants to build version 2.6.37
+>>>>
+>>>> What am I missing?  How can I force it to use the 2.6.32 version
+>>>> for this machine?
+>>>
+>>> PREFERRED_VERSION_linux-am = "2.6.32"
+>>
+>> That does seem to work, but only if I put it in the<MACHINE>.conf
+>> file, not local.conf.
+>>
+>> Why specify it one way (PREFERRED_PROVIDER_virtual/kernel) for the provider
+>> (recipe basis) and then a different way (PREFERRED_VERSION_linux-am) for
+>> the actual version?
+>
+> Each recipe has a list of things it provides. This is usually PN but in
+> the kernel case each recipe provides "virtual/kernel" so we can group
+> them and make a selection with PREFERRED_PROVIDER.
+>
+> Bitbake first determines the provider. Once it has this it looks up the
+> version. It looks this up using PN and not using what could be an
+> arbitrary list of items in PROVIDES.
+>
+> Summary, you always use PN with PREFERRED_VERSION as that is what makes
+> sense in the general case.
 
-Richard has made some changes which nearly fixes that bug, except
-for the mtd-utils_1.4.1.bb recipe.  The problem with this recipe
-is that it specifies a git tag, not a fixed revision.  The fetcher
-fails in this case as it has to interrogate the git tree to find
-the tag and that's not allowed because of BB_NO_NETWORK=1
+Understood.  Thanks for the explanation.
 
-I tried to move this to a fixed revision which corresponds to tag v1.4.1
-like this:
+> It should however work to put this in local.conf unless you're setting
+> it with an = and not a ?= somewhere else?
 
-diff --git a/meta/recipes-devtools/mtd/mtd-utils_1.4.1.bb b/meta/recipes-devtools/mtd/mtd-utils_1.4.1.bb
-index 5e6db0e..2c4e276 100644
---- a/meta/recipes-devtools/mtd/mtd-utils_1.4.1.bb
-+++ b/meta/recipes-devtools/mtd/mtd-utils_1.4.1.bb
-@@ -6,11 +6,12 @@ LICENSE = "GPLv2+"
-  LIC_FILES_CHKSUM = "file://COPYING;md5=0636e73ff0215e8d672dc4c32c317bb3 \
-                      file://include/common.h;beginline=1;endline=17;md5=ba05b07912a44ea2bf81ce409380049c"
-
--SRC_URI = "git://git.infradead.org/mtd-utils.git;protocol=git;tag=v${PV} \
-+SRC_URI = "git://git.infradead.org/mtd-utils.git;protocol=git \
-                 file://add-exclusion-to-mkfs-jffs2-git-2.patch;patch=1"
-
-  S = "${WORKDIR}/git/"
-
-+PV = "1.4.1${SRCPV}"
-  PR = "r1"
-
-  EXTRA_OEMAKE = "'CC=${CC}' 'CFLAGS=${CFLAGS} -I${S}/include -DWITHOUT_XATTR' 'BUILDDIR=${S}'"
-
-I also added this to my fixed-revisions.inc
-SRCREV_pn-mtd-utils ??= "3c3674a6e1d3f59554b0ff68ca59be2fd4134e0c"
-
-Finally, I had to move recipes-devtools/mtd/mtd-utils-1.4.1/add-exclusion-to-mkfs-jffs2-git-2.patch
-to recipes-devtools/mtd/mtd-utils or else it could not be found.
-
-Is there an easier way to solve these issues?  Once I understand the whole process, I can
-propose a patch.
+I'm not sure what happened there - this was the real crux of my question
+as earlier I had tried an override with PREFERRED_VERSION_linux-am in
+local.conf and it ignored me.  I can't duplicate that problem now.
 
 -- 
 ------------------------------------------------------------
