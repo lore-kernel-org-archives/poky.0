@@ -1,22 +1,30 @@
-Return-Path: <josh@linux.intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 3A8DC4C80049
-	for <poky@yoctoproject.org>; Wed, 23 Feb 2011 10:36:56 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 23 Feb 2011 08:36:51 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,212,1297065600"; d="scan'208";a="392969447"
-Received: from unknown (HELO localhost) ([10.255.16.217])
-	by azsmga001.ch.intel.com with ESMTP; 23 Feb 2011 08:36:51 -0800
-Message-Id: <a467d8c0db0e398fd7e1a476a29e93e724ee652f.1298478966.git.josh@linux.intel.com>
-In-Reply-To: <cover.1298478966.git.josh@linux.intel.com>
-References: <cover.1298478966.git.josh@linux.intel.com>
-Old-Date: Wed, 23 Feb 2011 11:59:59 +0000
-Date: Wed, 23 Feb 2011 16:36:45 +0000
-To: poky@yoctoproject.org
-CC: 
-From: Joshua Lock <josh@linux.intel.com>
-Subject: [PATCH 1/1] Ensure Bash is used when spawning terminals
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 40EB84C8004D
+	for <poky@lists.pokylinux.org>; Wed, 23 Feb 2011 17:57:26 -0600 (CST)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1NNvLPR020693;
+	Wed, 23 Feb 2011 23:57:21 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 20504-03; Wed, 23 Feb 2011 23:57:15 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1NNvBBL020687
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Wed, 23 Feb 2011 23:57:14 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Gary Thomas <gary@mlbassoc.com>
+In-Reply-To: <4D652570.1030409@mlbassoc.com>
+References: <4D652570.1030409@mlbassoc.com>
+Date: Wed, 23 Feb 2011 23:57:04 +0000
+Message-ID: <1298505424.26736.75.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: Poky <poky@lists.pokylinux.org>
+Subject: Re: git and BB_NO_NETWORK
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,56 +36,60 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 23 Feb 2011 16:36:56 -0000
+X-List-Received-Date: Wed, 23 Feb 2011 23:57:26 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-From: Joshua Lock <josh@linux.intel.com>
+On Wed, 2011-02-23 at 08:19 -0700, Gary Thomas wrote:
+> This is related to bug #752
+> 
+> Richard has made some changes which nearly fixes that bug, except
+> for the mtd-utils_1.4.1.bb recipe.  The problem with this recipe
+> is that it specifies a git tag, not a fixed revision.  The fetcher
+> fails in this case as it has to interrogate the git tree to find
+> the tag and that's not allowed because of BB_NO_NETWORK=1
+> 
+> I tried to move this to a fixed revision which corresponds to tag v1.4.1
+> like this:
+> 
+> diff --git a/meta/recipes-devtools/mtd/mtd-utils_1.4.1.bb b/meta/recipes-devtools/mtd/mtd-utils_1.4.1.bb
+> index 5e6db0e..2c4e276 100644
+> --- a/meta/recipes-devtools/mtd/mtd-utils_1.4.1.bb
+> +++ b/meta/recipes-devtools/mtd/mtd-utils_1.4.1.bb
+> @@ -6,11 +6,12 @@ LICENSE = "GPLv2+"
+>   LIC_FILES_CHKSUM = "file://COPYING;md5=0636e73ff0215e8d672dc4c32c317bb3 \
+>                       file://include/common.h;beginline=1;endline=17;md5=ba05b07912a44ea2bf81ce409380049c"
+> 
+> -SRC_URI = "git://git.infradead.org/mtd-utils.git;protocol=git;tag=v${PV} \
+> +SRC_URI = "git://git.infradead.org/mtd-utils.git;protocol=git \
+>                  file://add-exclusion-to-mkfs-jffs2-git-2.patch;patch=1"
+> 
+>   S = "${WORKDIR}/git/"
+> 
+> +PV = "1.4.1${SRCPV}"
+>   PR = "r1"
+> 
+>   EXTRA_OEMAKE = "'CC=${CC}' 'CFLAGS=${CFLAGS} -I${S}/include -DWITHOUT_XATTR' 'BUILDDIR=${S}'"
+> 
+> I also added this to my fixed-revisions.inc
+> SRCREV_pn-mtd-utils ??= "3c3674a6e1d3f59554b0ff68ca59be2fd4134e0c"
+> 
+> Finally, I had to move recipes-devtools/mtd/mtd-utils-1.4.1/add-exclusion-to-mkfs-jffs2-git-2.patch
+> to recipes-devtools/mtd/mtd-utils or else it could not be found.
+> 
+> Is there an easier way to solve these issues?  Once I understand the whole process, I can
+> propose a patch.
 
-We rely on Bashisms when spawning a terminal so ensure that bash is used
-when using devshell and menuconfig.
+I think these issues were discussed and resolved in the bugzilla?
 
-Fixes [BUGID #119]
+http://bugzilla.pokylinux.org/show_bug.cgi?id=752
 
-Signed-off-by: Joshua Lock <josh@linux.intel.com>
----
- meta/classes/devshell.bbclass |    4 ++--
- meta/classes/kernel.bbclass   |    2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+In future please try and keep the discussions in one place, not both, or
+state on the bugzilla you're moving it to email.
 
-diff --git a/meta/classes/devshell.bbclass b/meta/classes/devshell.bbclass
-index 4fb3e63..5f262f4 100644
---- a/meta/classes/devshell.bbclass
-+++ b/meta/classes/devshell.bbclass
-@@ -9,7 +9,8 @@ devshell_do_devshell() {
- 	export XAUTHORITY='${XAUTHORITY}'
- 	export TERMWINDOWTITLE="Bitbake Developer Shell"
- 	export EXTRA_OEMAKE='${EXTRA_OEMAKE}'
--	${TERMCMD}
-+	export SHELLCMDS="bash"
-+	${TERMCMDRUN}
- 	if [ $? -ne 0 ]; then
- 	    echo "Fatal: '${TERMCMD}' not found. Check TERMCMD variable."
- 	    exit 1
-@@ -17,6 +18,5 @@ devshell_do_devshell() {
- }
- addtask devshell after do_patch
- 
--
- EXPORT_FUNCTIONS do_devshell
- 
-diff --git a/meta/classes/kernel.bbclass b/meta/classes/kernel.bbclass
-index a1b1354..5d9b86a 100644
---- a/meta/classes/kernel.bbclass
-+++ b/meta/classes/kernel.bbclass
-@@ -202,7 +202,7 @@ do_menuconfig() {
-         export DBUS_SESSION_BUS_ADDRESS='${DBUS_SESSION_BUS_ADDRESS}'
-         export XAUTHORITY='${XAUTHORITY}'
- 	export TERMWINDOWTITLE="${PN} Kernel Configuration"
--	export SHELLCMDS="make menuconfig"
-+	export SHELLCMDS="bash make menuconfig"
- 	${TERMCMDRUN}
- 	if [ $? -ne 0 ]; then
- 		echo "Fatal: '${TERMCMD}' not found. Check TERMCMD variable."
--- 
-1.7.4
+Cheers,
+
+Richard
+
 
 
