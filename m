@@ -1,19 +1,20 @@
-Return-Path: <tom.zanussi@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 110054C80872
-	for <poky@yoctoproject.org>; Thu, 24 Feb 2011 10:48:30 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 24 Feb 2011 08:48:30 -0800
-Message-Id: <b9dded$i233fg@orsmga002.jf.intel.com>
+Return-Path: <scott.a.garman@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 91E724C800B1
+	for <poky@yoctoproject.org>; Thu, 24 Feb 2011 12:26:55 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 24 Feb 2011 10:26:54 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,219,1297065600"; d="scan'208";a="606178802"
-Received: from unknown (HELO localhost) ([10.255.12.100])
-	by orsmga002.jf.intel.com with ESMTP; 24 Feb 2011 08:48:08 -0800
-Old-Date: Thu, 24 Feb 2011 10:41:08 -0600
-Date: Thu, 24 Feb 2011 10:48:05 -0600
+X-IronPort-AV: E=Sophos;i="4.62,219,1297065600"; d="scan'208";a="712863980"
+Received: from sgarman-ws.jf.intel.com (HELO localhost) ([10.7.199.157])
+	by orsmga001.jf.intel.com with ESMTP; 24 Feb 2011 10:26:51 -0800
+Message-Id: <cover.1298571891.git.scott.a.garman@intel.com>
+Old-Date: Thu, 24 Feb 2011 10:24:51 -0800
+Date: Thu, 24 Feb 2011 10:27:07 -0800
 To: poky@yoctoproject.org
-From: Tom Zanussi <tom.zanussi@intel.com>
-Subject: [PATCH] meta-intel: bugfix for x32 compile errors
+CC: 
+From: Scott Garman <scott.a.garman@intel.com>
+Subject: [PATCH 0/1] gtk+ doc build fix
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -25,23 +26,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 24 Feb 2011 16:48:31 -0000
+X-List-Received-Date: Thu, 24 Feb 2011 18:26:55 -0000
 
-From: Tom Zanussi <tom.zanussi@intel.com>
+From: Scott Garman <scott.a.garman@intel.com>
 
-Bugfix for bug #711, please pull into meta-intel/master.
+Hi Saul,
 
-Pull URL: git://git.pokylinux.org/meta-intel/tzanussi/bugfix-711
-  Branch: tzanussi/bugfix-711
-  Browse:
-http://git.pokylinux.org/cgit.cgi/meta-intel/log/?h=tzanussi/bugfix-711
+This commit fixes a bug reported by Wolfgang Denk. I was able to
+reproduce it on my Fedora 14 build system and verify this fix works.
 
-Tom Zanussi (1):
-  meta-intel: fix for x86_32 build failures
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: sgarman/gtk-doc-fix
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=sgarman/gtk-doc-fix
 
- .../grub/grub-1.98/gentrigtables-compile-fix.patch |   52 ++++++++++++++++++++
- common/recipes-bsp/grub/grub_1.98.bb               |    5 +-
- 2 files changed, 55 insertions(+), 2 deletions(-)
- create mode 100644 common/recipes-bsp/grub/grub-1.98/gentrigtables-compile-fix.patch
+Thanks,
+    Scott Garman <scott.a.garman@intel.com>
+---
+
+
+Scott Garman (1):
+  gtk+: disable build of faq and tutorial docs
+
+ .../recipes-gnome/gtk+/gtk+-2.22.1/doc-fixes.patch |   44 +++++++-------------
+ meta/recipes-gnome/gtk+/gtk+_2.22.1.bb             |    2 +-
+ 2 files changed, 16 insertions(+), 30 deletions(-)
+
+-- 
+1.7.4
 
 
