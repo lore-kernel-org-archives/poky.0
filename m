@@ -1,20 +1,19 @@
-Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id BB7314C808E5
-	for <poky@yoctoproject.org>; Wed, 23 Feb 2011 22:55:58 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 23 Feb 2011 20:55:58 -0800
+Return-Path: <ke.yu@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2E6FA4C800BD
+	for <poky@yoctoproject.org>; Wed, 23 Feb 2011 23:42:46 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 23 Feb 2011 21:42:45 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,214,1297065600"; d="scan'208";a="393295282"
-Received: from nbuild1.sc.intel.com (HELO localhost) ([172.25.110.36])
-	by azsmga001.ch.intel.com with ESMTP; 23 Feb 2011 20:55:57 -0800
-Message-Id: <cover.1298499949.git.nitin.a.kamble@intel.com>
-Old-Date: Wed, 23 Feb 2011 14:25:49 -0800
-Date: Wed, 23 Feb 2011 14:26:39 -0800
+X-IronPort-AV: E=Sophos;i="4.62,215,1297065600"; d="scan'208";a="605993929"
+Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
+	by orsmga002.jf.intel.com with ESMTP; 23 Feb 2011 21:42:44 -0800
+From: Yu Ke <ke.yu@intel.com>
 To: poky@yoctoproject.org
-CC: 
-From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Subject: [PATCH 0/1] perl parallel build fix
+Date: Thu, 24 Feb 2011 13:47:45 +0800
+Message-Id: <cover.1298526181.git.ke.yu@intel.com>
+X-Mailer: git-send-email 1.7.0.4
+Subject: [PATCH 0/1] meta-sugarbay: add mesa lib in BSP to fix BUG 727
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,36 +25,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 24 Feb 2011 04:55:59 -0000
+X-List-Received-Date: Thu, 24 Feb 2011 05:42:46 -0000
 
-From: Nitin A Kamble <nitin.a.kamble@intel.com>
+mesa lib is required for sugarbuy 3D application, so add it in the BSP config.
+this fix [BUGID #727]
 
+this patch is targeted for BSP git tree: "git://git.pokylinux.org/meta-intel"
+
+CC: Tom Zanussi <tom.zanussi@intel.com>
 
 Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: nitin/misc
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=nitin/misc
+  Branch: kyu3/bug727
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kyu3/bug727
 
 Thanks,
-    Nitin A Kamble <nitin.a.kamble@intel.com>
+    Yu Ke <ke.yu@intel.com>
 ---
 
 
-Nitin A Kamble (1):
-  perl: import parallel build fixes from upstream git tree
+Yu Ke (1):
+  sugarbay.conf: add mesa library to fix BUG 727
 
- .../perl/perl-5.12.2/parallel_build_fix.patch      |   18 -
- .../perl/perl-5.12.2/parallel_build_fix_1.patch    |   25 +
- .../perl/perl-5.12.2/parallel_build_fix_2.patch    |   22 +
- .../perl/perl-5.12.2/parallel_build_fix_3.patch    | 6583 ++++++++++++++++++++
- meta/recipes-devtools/perl/perl-native_5.12.2.bb   |    6 +-
- meta/recipes-devtools/perl/perl_5.12.2.bb          |    6 +-
- 6 files changed, 6638 insertions(+), 22 deletions(-)
- delete mode 100644 meta/recipes-devtools/perl/perl-5.12.2/parallel_build_fix.patch
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/parallel_build_fix_1.patch
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/parallel_build_fix_2.patch
- create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/parallel_build_fix_3.patch
-
--- 
-1.7.2.2
+ meta-sugarbay/conf/machine/sugarbay.conf |    4 +++-
+ 1 files changed, 3 insertions(+), 1 deletions(-)
 
 
