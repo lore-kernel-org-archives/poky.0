@@ -1,26 +1,29 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 3A9B54C800B1
-	for <poky@lists.pokylinux.org>; Thu, 24 Feb 2011 09:15:17 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 79AB216600B4; Thu, 24 Feb 2011 08:15:01 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=ham version=3.3.1
-Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id C5BC91660315;
-	Thu, 24 Feb 2011 08:14:40 -0700 (MST)
-Message-ID: <4D6675E0.2040703@mlbassoc.com>
-Date: Thu, 24 Feb 2011 08:14:40 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
-MIME-Version: 1.0
-To: Poky <poky@lists.pokylinux.org>
-Subject: Is sstate broken
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 239DA4C8004D
+	for <poky@pokylinux.org>; Thu, 24 Feb 2011 09:40:41 -0600 (CST)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1OFef6p029861
+	for <poky@pokylinux.org>; Thu, 24 Feb 2011 15:40:41 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP id 29467-07 for <poky@pokylinux.org>;
+	Thu, 24 Feb 2011 15:40:37 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1OFeXHf029855
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO)
+	for <poky@pokylinux.org>; Thu, 24 Feb 2011 15:40:36 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: poky <poky@pokylinux.org>
+In-Reply-To: <1297889342.11289.302.camel@rex>
+References: <1297807550.11289.171.camel@rex> <1297889342.11289.302.camel@rex>
+Date: Thu, 24 Feb 2011 15:40:30 +0000
+Message-ID: <1298562030.26736.194.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Subject: Re: Further build profiling info
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,52 +35,46 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 24 Feb 2011 15:15:17 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Thu, 24 Feb 2011 15:40:42 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-I tried to run an experiment with SSTATE_MIRRORS on the latest master.
- From what I can tell, this is 100% not working, although I may just
-not have set it up properly.  Here's what I did:
+On Wed, 2011-02-16 at 20:49 +0000, Richard Purdie wrote:
+> We've had some fixes into master which:
+> 
+> * improve the pseudo-native build time (worth 2 minutes)
+> * shorten the rpm rootfs creation times
+> * enabling parallel builds for some packages
+> * Improve the task processing/creation latency (worth 1-2 minutes)
+> 
+> The time for the same build as above is now taking:
+> 
+> real	97m1.204s
+> user	385m24.460s
+> sys	48m30.990s
+> (4848 tasks)
+> 
+> and this is despite adding in some extra documentation generation pieces
+> too (which accounts for the extra user time) so quite a nice
+> improvement. Nice work but I think there is further low hanging fruit to
+> gain a little more time back too! :)
 
-* Build Poky for my platform in /local/xyz_ppc_poky
-* Set up to build exact same machine/config/etc in /local/xyz_test
-   pointing SSTATE_MIRRORS at /local/xyz_ppc_poky/sstate-cache by
-   adding these lines to local.conf (only configuration change)
-     SSTATE_MIRRORS ?= "\
-     file://.* file:///local/xyz_ppc_poky/sstate-cache/"
+I've just run a test of Poky master and we've regressed to:
 
-The end result is that both builds built (from scratch) the same
-set of packages.  There seems to be no reuse of anything from
-the SSTATE_MIRRORS.
+real	106m46.524s
+user	385m28.050s
+sys	47m30.990s
+(4948 tasks)
 
-$ du /local/xyz_ppc_poky/* -s
-20      /local/xyz_ppc_poky/conf
-1456    /local/xyz_ppc_poky/downloads
-4       /local/xyz_ppc_poky/pseudodone
-1010392 /local/xyz_ppc_poky/sstate-cache
-14434076        /local/xyz_ppc_poky/tmp
+At this point I can only think its the extra documentation dependencies
+that have changed things. I'm more than a little disappointed in
+this :(.
 
-$ du -s /local/xyz_test
-20      /local/xyz_test/conf
-1456    /local/xyz_test/downloads
-4       /local/xyz_test/pseudodone
-1010276 /local/xyz_test/sstate-cache
-14425860       /local/xyz_test/ tmp
+Cheers,
 
-The full build log of the second run is at http://www.mlbassoc.com/poky/build_ppc_with_sstate
-Notice the many lines which say that a particular step failed.  I can't see the reason, nor
-can I find any corresponding log file to help me out.  An example is:
-   ERROR: Task 0 (virtual:native:/home/local/poky-amltd/meta/recipes-devtools/pseudo/pseudo_1.0.bb, do_unpack) failed with exit code '1'
+Richard
 
-Am I missing something?  Now that the build with BB_NO_NETWORK is working well,
-this is my last hurdle to making Poky truly useful for my customers.
 
-Thanks
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+
 
