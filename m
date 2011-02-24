@@ -1,29 +1,19 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 239DA4C8004D
-	for <poky@pokylinux.org>; Thu, 24 Feb 2011 09:40:41 -0600 (CST)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1OFef6p029861
-	for <poky@pokylinux.org>; Thu, 24 Feb 2011 15:40:41 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP id 29467-07 for <poky@pokylinux.org>;
-	Thu, 24 Feb 2011 15:40:37 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1OFeXHf029855
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO)
-	for <poky@pokylinux.org>; Thu, 24 Feb 2011 15:40:36 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: poky <poky@pokylinux.org>
-In-Reply-To: <1297889342.11289.302.camel@rex>
-References: <1297807550.11289.171.camel@rex> <1297889342.11289.302.camel@rex>
-Date: Thu, 24 Feb 2011 15:40:30 +0000
-Message-ID: <1298562030.26736.194.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Subject: Re: Further build profiling info
+Return-Path: <tom.zanussi@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8F13B4C800B1
+	for <poky@yoctoproject.org>; Thu, 24 Feb 2011 10:48:10 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 24 Feb 2011 08:48:10 -0800
+Message-Id: <1bdc18$jmfq57@fmsmga002.fm.intel.com>
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.62,219,1297065600"; d="scan'208";a="661121194"
+Received: from unknown (HELO localhost) ([10.255.12.100])
+	by fmsmga002.fm.intel.com with ESMTP; 24 Feb 2011 08:48:09 -0800
+Old-Date: Thu, 24 Feb 2011 01:08:07 -0600
+Date: Thu, 24 Feb 2011 10:48:07 -0600
+To: poky@yoctoproject.org
+From: Tom Zanussi <tom.zanussi@intel.com>
+Subject: [PATCH] meta-intel: fix for x86_32 build failures
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,46 +25,102 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 24 Feb 2011 15:40:42 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 24 Feb 2011 16:48:11 -0000
 
-On Wed, 2011-02-16 at 20:49 +0000, Richard Purdie wrote:
-> We've had some fixes into master which:
-> 
-> * improve the pseudo-native build time (worth 2 minutes)
-> * shorten the rpm rootfs creation times
-> * enabling parallel builds for some packages
-> * Improve the task processing/creation latency (worth 1-2 minutes)
-> 
-> The time for the same build as above is now taking:
-> 
-> real	97m1.204s
-> user	385m24.460s
-> sys	48m30.990s
-> (4848 tasks)
-> 
-> and this is despite adding in some extra documentation generation pieces
-> too (which accounts for the extra user time) so quite a nice
-> improvement. Nice work but I think there is further low hanging fruit to
-> gain a little more time back too! :)
+From: Tom Zanussi <tom.zanussi@intel.com>
 
-I've just run a test of Poky master and we've regressed to:
+Fixes [BUG #711].
 
-real	106m46.524s
-user	385m28.050s
-sys	47m30.990s
-(4948 tasks)
+gentrigtables was being build as a 64-bit binary which wouldn't run on
+the build machine.  grub-mkfont was also causing compile failures, add
+dependency on libfreetype for that.
 
-At this point I can only think its the extra documentation dependencies
-that have changed things. I'm more than a little disappointed in
-this :(.
+Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
+---
+ .../grub/grub-1.98/gentrigtables-compile-fix.patch |   52 ++++++++++++++++++++
+ common/recipes-bsp/grub/grub_1.98.bb               |    5 +-
+ 2 files changed, 55 insertions(+), 2 deletions(-)
+ create mode 100644 common/recipes-bsp/grub/grub-1.98/gentrigtables-compile-fix.patch
 
-Cheers,
-
-Richard
-
-
-
+diff --git a/common/recipes-bsp/grub/grub-1.98/gentrigtables-compile-fix.patch b/common/recipes-bsp/grub/grub-1.98/gentrigtables-compile-fix.patch
+new file mode 100644
+index 0000000..d09ecf5
+--- /dev/null
++++ b/common/recipes-bsp/grub/grub-1.98/gentrigtables-compile-fix.patch
+@@ -0,0 +1,52 @@
++Index: grub-1.98/conf/any-emu.mk
++===================================================================
++--- grub-1.98.orig/conf/any-emu.mk	2011-02-24 00:54:20.825116207 -0600
+++++ grub-1.98/conf/any-emu.mk	2011-02-24 00:55:55.465116194 -0600
++@@ -820,7 +820,7 @@
++ 	./gentrigtables > $@
++ DISTCLEANFILES += trigtables.c
++ gentrigtables: gentrigtables.c
++-	$(CC) -o $@ $^ $(CPPFLAGS) -lm
+++	$(BUILD_CC) -o $@ $^ $(BUILD_CPPFLAGS) -I${top_srcdir}/include -lm
++ DISTCLEANFILES += gentrigtables
++ 
++ # For grub-mkfont.
++Index: grub-1.98/conf/any-emu.rmk
++===================================================================
++--- grub-1.98.orig/conf/any-emu.rmk	2011-02-24 00:54:24.565116208 -0600
+++++ grub-1.98/conf/any-emu.rmk	2011-02-24 00:56:40.665116186 -0600
++@@ -110,7 +110,7 @@
++ 	./gentrigtables > $@
++ DISTCLEANFILES += trigtables.c
++ gentrigtables: gentrigtables.c
++-	$(CC) -o $@ $^ $(CPPFLAGS) -lm
+++	$(BUILD_CC) -o $@ $^ $(BUILD_CPPFLAGS) -I${top_srcdir}/include -lm
++ DISTCLEANFILES += gentrigtables
++ 
++ # For grub-mkfont.
++Index: grub-1.98/conf/common.mk
++===================================================================
++--- grub-1.98.orig/conf/common.mk	2011-02-24 00:54:30.345116207 -0600
+++++ grub-1.98/conf/common.mk	2011-02-24 00:57:08.415116181 -0600
++@@ -11159,7 +11159,7 @@
++ 	./gentrigtables > $@
++ DISTCLEANFILES += trigtables.c
++ gentrigtables: gentrigtables.c
++-	$(CC) -o $@ $^ $(CPPFLAGS) -lm
+++	$(BUILD_CC) -o $@ $^ $(BUILD_CPPFLAGS) -I${top_srcdir}/include -lm
++ DISTCLEANFILES += gentrigtables
++ 
++ pkglib_MODULES += setjmp.mod
++Index: grub-1.98/conf/common.rmk
++===================================================================
++--- grub-1.98.orig/conf/common.rmk	2011-02-24 00:54:34.035116205 -0600
+++++ grub-1.98/conf/common.rmk	2011-02-24 00:57:31.045116179 -0600
++@@ -736,7 +736,7 @@
++ 	./gentrigtables > $@
++ DISTCLEANFILES += trigtables.c
++ gentrigtables: gentrigtables.c
++-	$(CC) -o $@ $^ $(CPPFLAGS) -lm
+++	$(BUILD_CC) -o $@ $^ $(BUILD_CPPFLAGS) -I${top_srcdir}/include -lm
++ DISTCLEANFILES += gentrigtables
++ 
++ pkglib_MODULES += setjmp.mod
+diff --git a/common/recipes-bsp/grub/grub_1.98.bb b/common/recipes-bsp/grub/grub_1.98.bb
+index b9d04fc..0cd3a40 100644
+--- a/common/recipes-bsp/grub/grub_1.98.bb
++++ b/common/recipes-bsp/grub/grub_1.98.bb
+@@ -12,12 +12,13 @@ PRIORITY = "optional"
+ LICENSE = "GPLv2+"
+ LIC_FILES_CHKSUM = "file://COPYING;md5=d32239bcb673463ab874e80d47fae504"
+ 
+-RDEPENDS = "diffutils"
+-PR = "r0"
++RDEPENDS = "diffutils freetype"
++PR = "r1"
+ 
+ SRC_URI = "ftp://alpha.gnu.org/gnu/grub/grub-${PV}.tar.gz \
+           file://uninit-shdr-fix.patch;apply=yes \
+           file://grub-install.in.patch;apply=yes \
++          file://gentrigtables-compile-fix.patch;apply=yes \
+           file://40_custom"
+ 
+ inherit autotools
+-- 
+1.7.0.4
 
 
