@@ -1,27 +1,30 @@
-Return-Path: <scott.a.garman@intel.com>
-Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 3CCE94C80A8C
-	for <poky@yoctoproject.org>; Fri, 25 Feb 2011 17:45:31 -0600 (CST)
-Received: from localhost (c-76-105-143-140.hsd1.or.comcast.net
-	[76.105.143.140])
-	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
-	(No client certificate requested)
-	by masterfoo.zenlinux.com (Postfix) with ESMTP id 259FE30527
-	for <poky@yoctoproject.org>; Fri, 25 Feb 2011 18:45:22 -0500 (EST)
-Message-Id: <cover.1298677440.git.scott.a.garman@intel.com>
-Old-Date: Fri, 25 Feb 2011 15:44:00 -0800
-Date: Fri, 25 Feb 2011 15:45:17 -0800
-To: poky@yoctoproject.org
-CC: 
-From: Scott Garman <scott.a.garman@intel.com>
-X-MasterFoo-MailScanner-Information: Please contact the ISP for more
-	information
-X-MailScanner-ID: 259FE30527.26A4D
-X-MasterFoo-MailScanner: Found to be clean
-X-MasterFoo-MailScanner-SpamCheck: not spam
-X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
-X-Spam-Status: No
-Subject: [PATCH 0/1] linuxdoc-tools-native bugfix
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E9DBB4C8090F
+	for <poky@yoctoproject.org>; Fri, 25 Feb 2011 17:47:42 -0600 (CST)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1PNlceG019466;
+	Fri, 25 Feb 2011 23:47:38 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 19254-04; Fri, 25 Feb 2011 23:47:34 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1PNlWaH019400
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Fri, 25 Feb 2011 23:47:33 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Mark Hatle <mark.hatle@windriver.com>
+In-Reply-To: <cover.1298677071.git.mark.hatle@windriver.com>
+References: <cover.1298677071.git.mark.hatle@windriver.com>
+Date: Fri, 25 Feb 2011 23:47:26 +0000
+Message-ID: <1298677646.26736.1954.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/3] Correct RPM related problems
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,33 +36,41 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 25 Feb 2011 23:45:31 -0000
+X-List-Received-Date: Fri, 25 Feb 2011 23:47:43 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-From: Scott Garman <scott.a.garman@intel.com>
+On Fri, 2011-02-25 at 17:39 -0600, Mark Hatle wrote:
+> Correct 3 rpm related issues.  The first is a defect found when trying to
+> install packages on the target.  Second on the use of prelink by RPM on the target.
+> The third on how the rpm-dbg file was being generated.
+> 
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>   Branch: mhatle/rpm
+>   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=mhatle/rpm
+> 
+> Thanks,
+>     Mark Hatle <mark.hatle@windriver.com>
+> ---
+> 
+> 
+> Mark Hatle (3):
+>   rootfs_rpm: Fix rootfs generation using RPM packages
+>   rpm: Fix rpm usage of prelink on the target
+>   rpm: Fix rpm-dbg package split
+> 
+>  meta/classes/image-prelink.bbclass           |    2 +-
+>  meta/classes/package_rpm.bbclass             |   15 +++++++++------
+>  meta/classes/populate_sdk_rpm.bbclass        |   13 +++++++++++--
+>  meta/classes/rootfs_rpm.bbclass              |    5 +++--
+>  meta/recipes-devtools/prelink/prelink_git.bb |    8 +++++---
+>  meta/recipes-devtools/rpm/rpm_5.4.0.bb       |    7 +++----
+>  6 files changed, 32 insertions(+), 18 deletions(-)
 
-Hi Saul,
+Merged to master, thanks!
 
-This pull request fixes bug #774, which is a do_install error which
-can occur for linuxdoc-tools-native if the host OS has latex or dvips
-installed.
-
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: sgarman/linuxdoc-tools-fix
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=sgarman/linuxdoc-tools-fix
-
-Thanks,
-    Scott Garman <scott.a.garman@intel.com>
----
+Richard
 
 
-Scott Garman (1):
-  linuxdoc-tools-native: disable doc builds requriing latex and dvips
-
- .../linuxdoc-tools-native/disable_dvips_doc.patch  |   29 ++++++++++++++++++++
- .../linuxdoc-tools-native/disable_tex_doc.patch    |   25 +++++++++++++++++
- .../linuxdoc-tools/linuxdoc-tools-native_0.9.66.bb |    6 +++-
- 3 files changed, 58 insertions(+), 2 deletions(-)
- create mode 100644 meta/recipes-devtools/linuxdoc-tools/linuxdoc-tools-native/disable_dvips_doc.patch
- create mode 100644 meta/recipes-devtools/linuxdoc-tools/linuxdoc-tools-native/disable_tex_doc.patch
 
 
