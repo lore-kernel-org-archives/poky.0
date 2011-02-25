@@ -1,25 +1,25 @@
 Return-Path: <saul.wold@intel.com>
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E78294C8090C
-	for <poky@yoctoproject.org>; Fri, 25 Feb 2011 11:30:00 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 049FC4C80A90
+	for <poky@yoctoproject.org>; Fri, 25 Feb 2011 11:30:54 -0600 (CST)
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 25 Feb 2011 09:30:00 -0800
+	by fmsmga102.fm.intel.com with ESMTP; 25 Feb 2011 09:30:54 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,226,1297065600"; d="scan'208";a="661511653"
+X-IronPort-AV: E=Sophos;i="4.62,226,1297065600"; d="scan'208";a="661512022"
 Received: from unknown (HELO [10.255.12.120]) ([10.255.12.120])
-	by fmsmga002.fm.intel.com with ESMTP; 25 Feb 2011 09:30:00 -0800
-Message-ID: <4D67E717.1030406@intel.com>
-Date: Fri, 25 Feb 2011 09:29:59 -0800
+	by fmsmga002.fm.intel.com with ESMTP; 25 Feb 2011 09:30:54 -0800
+Message-ID: <4D67E74E.7030000@intel.com>
+Date: Fri, 25 Feb 2011 09:30:54 -0800
 From: Saul Wold <saul.wold@intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
 	Thunderbird/3.0.5
 MIME-Version: 1.0
-To: scott.m.rifenbark@intel.com
-References: <cover.1298649366.git.scott.m.rifenbark@intel.com>
-In-Reply-To: <cover.1298649366.git.scott.m.rifenbark@intel.com>
+To: Scott Garman <scott.a.garman@intel.com>
+References: <cover.1298592962.git.scott.a.garman@intel.com>
+In-Reply-To: <cover.1298592962.git.scott.a.garman@intel.com>
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/4] [DOCS] Updated Copyright dates
+Subject: Re: [PATCH 0/2] build libuser documentation
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,39 +31,39 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 25 Feb 2011 17:30:01 -0000
+X-List-Received-Date: Fri, 25 Feb 2011 17:30:55 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 02/25/2011 08:02 AM, scott.m.rifenbark@intel.com wrote:
-> From: Scott Rifenbark<scott.m.rifenbark@intel.com>
+On 02/24/2011 05:07 PM, Scott Garman wrote:
+> From: Scott Garman<scott.a.garman@intel.com>
 >
-> Updated the copyright dates for the Quickstart, Poky Reference,
-> Kernel Manual, and BSP Guide.  Note that by adding the copyright
-> dates to the Quickstart [BUGID# 696] was addressed.
+> Hi Saul,
+>
+> This pull request fixes bug #213, allowing the documentation for
+> libuser to be generated.
 >
 > Pull URL: git://git.pokylinux.org/poky-contrib.git
->    Branch: srifenbark/docs
->    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=srifenbark/docs
+>    Branch: sgarman/libuser-fix
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=sgarman/libuser-fix
 >
 > Thanks,
->       <scott.m.rifenbark@intel.com>
+>      Scott Garman<scott.a.garman@intel.com>
 > ---
 >
 >
-> Scott Rifenbark (4):
->    documentation/poky-ref-manual/poky-ref-manual.xml: updated copyright
->      date
->    documentation/bsp-guide/bsp-guide.xml: Updated copyright
->    documentation/kernel-manual/kernel-manual.xml: Updated copyright date
->    documentation/yocto-project-qs/yocto-project-qs.xml: Added Copyright
->      dates
+> Scott Garman (2):
+>    linuxdoc-tools-native: new recipe v0.99.6
+>    libuser: enable documentation
 >
->   documentation/bsp-guide/bsp-guide.xml              |    2 +-
->   documentation/kernel-manual/kernel-manual.xml      |    2 +-
->   documentation/poky-ref-manual/poky-ref-manual.xml  |    2 +-
->   .../yocto-project-qs/yocto-project-qs.xml          |    1 +
->   4 files changed, 4 insertions(+), 3 deletions(-)
+>   .../linuxdoc-tools-native/disable_sgml2rtf.patch   |   49 ++++++++++++++++++++
+>   .../linuxdoc-tools/linuxdoc-tools-native_0.9.66.bb |   21 ++++++++
+>   .../libuser/libuser-0.57.1/disable-sgml-doc.patch  |   18 -------
+>   meta/recipes-extended/libuser/libuser_0.57.1.bb    |    9 ++--
+>   4 files changed, 74 insertions(+), 23 deletions(-)
+>   create mode 100644 meta/recipes-devtools/linuxdoc-tools/linuxdoc-tools-native/disable_sgml2rtf.patch
+>   create mode 100644 meta/recipes-devtools/linuxdoc-tools/linuxdoc-tools-native_0.9.66.bb
+>   delete mode 100644 meta/recipes-extended/libuser/libuser-0.57.1/disable-sgml-doc.patch
 >
 > _______________________________________________
 > poky mailing list
