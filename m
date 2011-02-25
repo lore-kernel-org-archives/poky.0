@@ -1,30 +1,20 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7A6BF4C8090C
-	for <poky@yoctoproject.org>; Fri, 25 Feb 2011 09:39:17 -0600 (CST)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1PFdDHT012660;
-	Fri, 25 Feb 2011 15:39:13 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 12051-10; Fri, 25 Feb 2011 15:39:08 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p1PFd4Pq012654
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Fri, 25 Feb 2011 15:39:05 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Joshua Lock <josh@linux.intel.com>
-In-Reply-To: <cover.1298630947.git.josh@linux.intel.com>
-References: <cover.1298630947.git.josh@linux.intel.com>
-Date: Fri, 25 Feb 2011 15:38:59 +0000
-Message-ID: <1298648339.26736.1174.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/2] Misc fixes
+Return-Path: <scott.m.rifenbark@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 29FD54C8004D
+	for <poky@yoctoproject.org>; Fri, 25 Feb 2011 10:01:26 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 25 Feb 2011 08:01:25 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.62,225,1297065600"; d="scan'208";a="606539651"
+Received: from unknown (HELO localhost) ([10.255.12.90])
+	by orsmga002.jf.intel.com with ESMTP; 25 Feb 2011 08:01:25 -0800
+Message-Id: <cover.1298649366.git.scott.m.rifenbark@intel.com>
+Old-Date: Fri, 25 Feb 2011 09:56:06 -0600
+Date: Fri, 25 Feb 2011 10:02:16 -0600
+To: poky@yoctoproject.org
+CC: 
+From: <scott.m.rifenbark@intel.com>
+Subject: [PATCH 0/4] [DOCS] Updated Copyright dates
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,35 +26,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 25 Feb 2011 15:39:17 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 25 Feb 2011 16:01:26 -0000
 
-On Fri, 2011-02-25 at 10:52 +0000, Joshua Lock wrote:
-> From: Joshua Lock <josh@linux.intel.com>
-> 
-> A couple of minor patches the first to fix a warning when parsing lexically
-> incorrect recipes and the second removes a warning during the standard build.
-> 
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->   Branch: josh/misc
->   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=josh/misc
-> 
-> Thanks,
->     Joshua Lock <josh@linux.intel.com>
-> ---
-> 
-> 
-> Joshua Lock (2):
->   bitbake/codeparser: fix raising of ShellSyntaxError
->   dropbear: add SRC_URI checksums
-> 
->  bitbake/lib/bb/codeparser.py                |    4 ++--
->  meta/recipes-core/dropbear/dropbear_0.52.bb |    3 +++
->  2 files changed, 5 insertions(+), 2 deletions(-)
+From: Scott Rifenbark <scott.m.rifenbark@intel.com>
 
-Merged to master, thanks!
+Updated the copyright dates for the Quickstart, Poky Reference,
+Kernel Manual, and BSP Guide.  Note that by adding the copyright
+dates to the Quickstart [BUGID# 696] was addressed.
 
-Richard
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: srifenbark/docs
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=srifenbark/docs
+
+Thanks,
+     <scott.m.rifenbark@intel.com>
+---
+
+
+Scott Rifenbark (4):
+  documentation/poky-ref-manual/poky-ref-manual.xml: updated copyright
+    date
+  documentation/bsp-guide/bsp-guide.xml: Updated copyright
+  documentation/kernel-manual/kernel-manual.xml: Updated copyright date
+  documentation/yocto-project-qs/yocto-project-qs.xml: Added Copyright
+    dates
+
+ documentation/bsp-guide/bsp-guide.xml              |    2 +-
+ documentation/kernel-manual/kernel-manual.xml      |    2 +-
+ documentation/poky-ref-manual/poky-ref-manual.xml  |    2 +-
+ .../yocto-project-qs/yocto-project-qs.xml          |    1 +
+ 4 files changed, 4 insertions(+), 3 deletions(-)
 
 
