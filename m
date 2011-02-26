@@ -1,41 +1,26 @@
-Return-Path: <bruce.ashfield@gmail.com>
-Received: from mail-iy0-f176.google.com (mail-iy0-f176.google.com
-	[209.85.210.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E70EC4C800A7;
-	Sat, 26 Feb 2011 11:51:17 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by iyj12 with SMTP id 12so2304172iyj.35
-	for <multiple recipients>; Sat, 26 Feb 2011 09:51:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:in-reply-to:references:date
-	:message-id:subject:from:to:cc:content-type
-	:content-transfer-encoding;
-	bh=B1T/CpzubvCKznBbbFWW6XYKCw8blO8n3Ijm2PNjV3c=;
-	b=eQMQhl4GI8ttub7pAB+1vZ/TebDOg8YIn5AkD7GUzz80bK1kq5f0Qjg6rFviC3mdFq
-	1NWrY97hZtiVfGftYA/A4PS2bwrC4TC1ECrwsY7YjKvHjcHyTb4YFFCHs4bAF7XMLWH2
-	DU7Huph77Zxqjvm6lNeklD2G2qfmYC2JxEvZM=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type:content-transfer-encoding;
-	b=ifKe4WpsGo1srmEYfyAAkH8CxUmVMELO1wrxhetzZdZIwwu8wL6MDpTU0GdeelTy0E
-	sV7hxJDx9OsqDv+mNHIIEvBKdxVvPsZFmuBDBFsrrIpD0cBUIYVQJiQxFs0FTQTn+CF1
-	e3yOb2Pc1Dgl51dVyPqghMQX4AdpAm6HUAgMQ=
+Return-Path: <saul.wold@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4C1494C800B8;
+	Sat, 26 Feb 2011 16:45:09 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 26 Feb 2011 14:45:08 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.62,233,1297065600"; d="scan'208";a="606873111"
+Received: from unknown (HELO [10.255.12.138]) ([10.255.12.138])
+	by orsmga002.jf.intel.com with ESMTP; 26 Feb 2011 14:45:08 -0800
+Message-ID: <4D698273.9000909@intel.com>
+Date: Sat, 26 Feb 2011 14:45:07 -0800
+From: Saul Wold <saul.wold@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
 MIME-Version: 1.0
-Received: by 10.231.39.131 with SMTP id g3mr3848869ibe.198.1298742675785; Sat,
-	26 Feb 2011 09:51:15 -0800 (PST)
-Received: by 10.231.160.79 with HTTP; Sat, 26 Feb 2011 09:51:15 -0800 (PST)
-In-Reply-To: <AANLkTimiGKRedrXLJ4DNbMHXUO+t5EyJeTV4MZbyANNB@mail.gmail.com>
+To: Bruce Ashfield <bruce.ashfield@windriver.com>
 References: <cover.1298690997.git.bruce.ashfield@windriver.com>
-	<4D68B227.4090000@linux.intel.com>
-	<AANLkTimiGKRedrXLJ4DNbMHXUO+t5EyJeTV4MZbyANNB@mail.gmail.com>
-Date: Sat, 26 Feb 2011 12:51:15 -0500
-Message-ID: <AANLkTikP_UQhJyqJ8x+_hDm+m-nsuHheRcKiXmEZ+n5y@mail.gmail.com>
-From: Bruce Ashfield <bruce.ashfield@gmail.com>
-To: Saul Wold <sgw@linux.intel.com>
+	<33bfb61a9501397ad7df5bbc12c30d2f92c32dd7.1298690997.git.bruce.ashfield@windriver.com>
+In-Reply-To: <33bfb61a9501397ad7df5bbc12c30d2f92c32dd7.1298690997.git.bruce.ashfield@windriver.com>
 Cc: yocto@yoctoproject.org, poky@yoctoproject.org
-Subject: Re: [yocto] [PATCH 0/1] linux-yocto: add crowbay BSP
+Subject: Re: [yocto] [PATCH 1/1] linux-yocto: add crownbay BSP infrastructure
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -47,85 +32,41 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 26 Feb 2011 17:51:18 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Sat, 26 Feb 2011 22:45:09 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sat, Feb 26, 2011 at 12:31 PM, Bruce Ashfield
-<bruce.ashfield@gmail.com> wrote:
-> On Sat, Feb 26, 2011 at 2:56 AM, Saul Wold <sgw@linux.intel.com> wrote:
->> On 02/25/2011 07:32 PM, Bruce Ashfield wrote:
->>>
->>> Richard/Saul,
->>>
->>> This adds the crownbay BSP infrastructure to the 2.6.37 kernel.
->>> The BSP branch has already been pushed and this adds the config
->>> data.
->>>
->>> TomZ will use this for a baseline and for further testing, so
->>> for now the change is harmless to any existing functionality.
->>>
->> Does this go against the meta-intel or core yocto meta-data?
+On 02/25/2011 07:32 PM, Bruce Ashfield wrote:
+> Updating the meta SRCREV to grab this linux-yocto commit:
 >
-> core yocto, since this part points to the meta data for the BSP
-> configuration that is part of the shared kernel repo. There is a
-> BSP specific part that goes in meta-intel that TomZ will update
-> once he's done more testing.
+>      meta: add crownbay BSP infrastructure
+>
+>      Import the 2.6.34 crownbay infrastructure and update for the
+>      2.6.37 kernel. This also brings in the feature/drm-emgd that
+>      the crownbay requires.
+>
+> Signed-off-by: Bruce Ashfield<bruce.ashfield@windriver.com>
+> ---
+>   .../conf/distro/include/poky-default-revisions.inc |    2 +-
+>   1 files changed, 1 insertions(+), 1 deletions(-)
+>
+> diff --git a/meta/conf/distro/include/poky-default-revisions.inc b/meta/conf/distro/include/poky-default-revisions.inc
+> index 5e9c39f..2f33630 100644
+> --- a/meta/conf/distro/include/poky-default-revisions.inc
+> +++ b/meta/conf/distro/include/poky-default-revisions.inc
+> @@ -108,7 +108,7 @@ SRCREV_machine_pn-linux-yocto_atom-pc ?= "2b412826bbeb4a16abe2ea74f2456ab880c6e3
+>   SRCREV_machine_pn-linux-yocto_routerstationpro ?= "17dedeb17887eb398743b04615302b61bd95ffdd"
+>   SRCREV_machine_pn-linux-yocto_mpc8315e-rdb ?= "6117f19403ccd5c288ce553def432925296a28b7"
+>   SRCREV_machine_pn-linux-yocto_beagleboard ?= "2b412826bbeb4a16abe2ea74f2456ab880c6e3c1"
+> -SRCREV_machine_pn-linux-yocto ?= "2b412826bbeb4a16abe2ea74f2456ab880c6e3c1"
+> +SRCREV_machine_pn-linux-yocto ?= "e2cabadc059ad8d91f7e4a023106620d93abd23a"
+>   SRCREV_meta_pn-linux-yocto ?= "e2737075b79e4fc682e41051cf1c0bc47a47d502"
+>   SRCREV_pn-linux-libc-headers-yocto ??= "2b412826bbeb4a16abe2ea74f2456ab880c6e3c1"
+>   SRCREV_pn-matchbox-config-gtk ??= "3ed74dfb7c57be088a5ab36e446c0ccde9fa1028"
 
-This being said, the BSP itself can still access the meta data by
-setting the SRCREV in its own configuration files.
+Merged into both master and bernard for second build
 
-Bruce
+Thanks
 
->
->>
->> It missed RC1 for core yocto.
->
-> We tried :(
->
-> Bruce
->
->>
->> Sau!
->>
->>> Pull URL: git://git.pokylinux.org/poky-contrib.git
->>> =A0 Branch: zedd/kernel
->>> =A0 Browse:
->>> http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=3Dzedd/kernel
->>>
->>> Thanks,
->>> =A0 =A0 Bruce Ashfield<bruce.ashfield@windriver.com>
->>> ---
->>>
->>>
->>> Bruce Ashfield (1):
->>> =A0 linux-yocto: add crownbay BSP infrastructure
->>>
->>> =A0.../conf/distro/include/poky-default-revisions.inc | =A0 =A02 +-
->>> =A01 files changed, 1 insertions(+), 1 deletions(-)
->>>
->>> _______________________________________________
->>> yocto mailing list
->>> yocto@yoctoproject.org
->>> https://lists.yoctoproject.org/listinfo/yocto
->>>
->>
->> _______________________________________________
->> poky mailing list
->> poky@yoctoproject.org
->> https://lists.yoctoproject.org/listinfo/poky
->>
->
->
->
-> --
-> "Thou shalt not follow the NULL pointer, for chaos and madness await
-> thee at its end"
->
-
-
-
---=20
-"Thou shalt not follow the NULL pointer, for chaos and madness await
-thee at its end"
+Sau!
 
