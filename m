@@ -1,23 +1,23 @@
 Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id CE7B34C80510
-	for <poky@yoctoproject.org>; Mon, 28 Feb 2011 08:38:06 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 28 Feb 2011 06:38:06 -0800
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 106A44C80510
+	for <poky@yoctoproject.org>; Mon, 28 Feb 2011 08:38:09 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 28 Feb 2011 06:38:08 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,239,1297065600"; d="scan'208";a="395066343"
+X-IronPort-AV: E=Sophos;i="4.62,239,1297065600"; d="scan'208";a="891956180"
 Received: from unknown (HELO helios) ([10.255.16.249])
-	by azsmga001.ch.intel.com with SMTP; 28 Feb 2011 06:38:03 -0800
-Received: by helios (sSMTP sendmail emulation); Mon, 28 Feb 2011 14:38:03 +0000
-Message-Id: <897fc47f85fc5c4493675ba35004d40897aca687.1298903625.git.paul.eggleton@linux.intel.com>
+	by fmsmga001.fm.intel.com with SMTP; 28 Feb 2011 06:38:07 -0800
+Received: by helios (sSMTP sendmail emulation); Mon, 28 Feb 2011 14:38:07 +0000
+Message-Id: <0b46ec5fd3f2c19c4654023cd8a7a56c2b202342.1298903625.git.paul.eggleton@linux.intel.com>
 In-Reply-To: <cover.1298903625.git.paul.eggleton@linux.intel.com>
 References: <cover.1298903625.git.paul.eggleton@linux.intel.com>
-Old-Date: Mon, 28 Feb 2011 13:29:15 +0000
-Date: Mon, 28 Feb 2011 14:38:03 +0000
+Old-Date: Mon, 28 Feb 2011 14:28:25 +0000
+Date: Mon, 28 Feb 2011 14:38:07 +0000
 To: poky@yoctoproject.org
 CC: 
 From: Paul Eggleton <paul.eggleton@linux.intel.com>
-Subject: [PATCH 2/3] sstate.bbclass: always delete stamp files in sstate_clean
+Subject: [PATCH 3/3] bitbake/runqueue: show correct task name for setscene task failure
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,47 +29,59 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 28 Feb 2011 14:38:07 -0000
+X-List-Received-Date: Mon, 28 Feb 2011 14:38:09 -0000
 
 From: Paul Eggleton <paul.eggleton@linux.intel.com>
 
-For safety, always delete the stamp files in sstate_clean regardless of
-whether the manifest file exists or not.
+If a setscene task failed previously it was showing an incorrect task
+name in the error line. This patch ensures we show the correct name, also
+including the "_setscene" suffix.
 
 Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
 ---
- meta/classes/sstate.bbclass |   16 +++++++---------
- 1 files changed, 7 insertions(+), 9 deletions(-)
+ bitbake/lib/bb/runqueue.py |   14 +++++++++++---
+ 1 files changed, 11 insertions(+), 3 deletions(-)
 
-diff --git a/meta/classes/sstate.bbclass b/meta/classes/sstate.bbclass
-index 722e3c4..b91c0b0 100644
---- a/meta/classes/sstate.bbclass
-+++ b/meta/classes/sstate.bbclass
-@@ -229,17 +229,15 @@ def sstate_clean(ss, d):
+diff --git a/bitbake/lib/bb/runqueue.py b/bitbake/lib/bb/runqueue.py
+index 172e591..834b9d5 100644
+--- a/bitbake/lib/bb/runqueue.py
++++ b/bitbake/lib/bb/runqueue.py
+@@ -204,9 +204,9 @@ class RunQueueData:
+             ret.extend([nam])
+         return ret
  
-     manifest = bb.data.expand("${SSTATE_MANFILEPREFIX}.%s" % ss['name'], d)
+-    def get_user_idstring(self, task):
++    def get_user_idstring(self, task, task_name_suffix = ""):
+         fn = self.taskData.fn_index[self.runq_fnid[task]]
+-        taskname = self.runq_task[task]
++        taskname = self.runq_task[task] + task_name_suffix
+         return "%s, %s" % (fn, taskname)
  
--    if not os.path.exists(manifest):
--       return
-+    if os.path.exists(manifest):
-+        locks = []
-+        for lock in ss['lockfiles']:
-+            locks.append(bb.utils.lockfile(lock))
+     def get_task_id(self, fnid, taskname):
+@@ -1483,7 +1483,7 @@ class RunQueueExecuteScenequeue(RunQueueExecute):
+     def task_fail(self, task, result):
+         self.stats.taskFailed()
+         index = self.rqdata.runq_setscene[task]
+-        bb.event.fire(runQueueTaskFailed(task, self.stats, result, self), self.cfgData)
++        bb.event.fire(sceneQueueTaskFailed(index, self.stats, result, self), self.cfgData)
+         self.scenequeue_notcovered.add(task)
+         self.scenequeue_updatecounters(task)
  
--    locks = []
--    for lock in ss['lockfiles']:
--        locks.append(bb.utils.lockfile(lock))
-+        sstate_clean_manifest(manifest, d)
+@@ -1616,6 +1616,14 @@ class runQueueTaskFailed(runQueueEvent):
+         runQueueEvent.__init__(self, task, stats, rq)
+         self.exitcode = exitcode
  
--    sstate_clean_manifest(manifest, d)
--
--    for lock in locks:
--        bb.utils.unlockfile(lock)
-+        for lock in locks:
-+            bb.utils.unlockfile(lock)
- 
-     stfile = d.getVar("STAMP", True) + ".do_" + ss['task']
-     oe.path.remove(stfile)
++class sceneQueueTaskFailed(runQueueTaskFailed):
++    """
++    Event notifing a setscene task failed
++    """
++    def __init__(self, task, stats, exitcode, rq):
++        runQueueTaskFailed.__init__(self, task, stats, exitcode, rq)
++        self.taskstring = rq.rqdata.get_user_idstring(task, "_setscene")
++
+ class runQueueTaskCompleted(runQueueEvent):
+     """
+     Event notifing a task completed
 -- 
 1.7.1
 
