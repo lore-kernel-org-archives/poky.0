@@ -1,28 +1,26 @@
 Return-Path: <saul.wold@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0F0E84C800A4
-	for <poky@yoctoproject.org>; Mon, 28 Feb 2011 13:19:16 -0600 (CST)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id A0D8B4C800A4
+	for <poky@yoctoproject.org>; Mon, 28 Feb 2011 13:37:13 -0600 (CST)
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 28 Feb 2011 11:19:15 -0800
+	by fmsmga102.fm.intel.com with ESMTP; 28 Feb 2011 11:37:13 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,242,1297065600"; d="scan'208";a="662260138"
+X-IronPort-AV: E=Sophos;i="4.62,242,1297065600"; d="scan'208";a="662266131"
 Received: from unknown (HELO [10.255.12.96]) ([10.255.12.96])
-	by fmsmga002.fm.intel.com with ESMTP; 28 Feb 2011 11:19:15 -0800
-Message-ID: <4D6BF532.9010308@intel.com>
-Date: Mon, 28 Feb 2011 11:19:14 -0800
+	by fmsmga002.fm.intel.com with ESMTP; 28 Feb 2011 11:37:13 -0800
+Message-ID: <4D6BF968.8090905@intel.com>
+Date: Mon, 28 Feb 2011 11:37:12 -0800
 From: Saul Wold <saul.wold@intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
 	Thunderbird/3.0.5
 MIME-Version: 1.0
-To: Xiaofeng Yan <xiaofeng.yan@windriver.com>
-References: <cover.1298452018.git.jingdong.lu@windriver.com>	<393a65bacbb6f8fe010973192b6e37929ccdaea4.1298452018.git.jingdong.lu@windriver.com>
-	<4D670332.2090308@intel.com> <4D6787F1.3010609@windriver.com>
-	<4D698359.4030208@intel.com> <4D6B6146.20307@windriver.com>
-In-Reply-To: <4D6B6146.20307@windriver.com>
-Cc: Harry Ciao <qingtao.cao@windriver.com>,
-	"poky >> \"poky@yoctoproject.org\"" <poky@yoctoproject.org>
-Subject: Re: [PATCH 2/2] task-poky-lsb: add necessary packages name
+To: Dongxiao Xu <dongxiao.xu@intel.com>
+References: <cover.1298882840.git.dongxiao.xu@intel.com>
+	<eee6a4543ae8ad214bd7512afded93f3d6fff08e.1298882840.git.dongxiao.xu@intel.com>
+In-Reply-To: <eee6a4543ae8ad214bd7512afded93f3d6fff08e.1298882840.git.dongxiao.xu@intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 2/2] ncurses: Change ncurses patch SRC_URI location
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,39 +32,59 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 28 Feb 2011 19:19:16 -0000
-Content-Type: text/plain; charset=ISO-2022-JP
+X-List-Received-Date: Mon, 28 Feb 2011 19:37:13 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 02/28/2011 12:48 AM, Xiaofeng Yan wrote:
-<snip>
->>
-> Hi Saul,
-> 
-> If bugs caused by libqtopengl4 arise When we test lsb-image on non-x86
-> arch, then we will report this bugs on bugzilla and you because we don't
-> ensure whether it is necessary on non-x86 arch. I found there aren't
-> hardware lsb-image(arch x86, x86-64, ppc) in the latest nightly build
-> image. In fact we should test lsb-image on hardware platform, which meet
-> LSB criterion. BTW, If we add other packages like perl, we also use
-> PACKAGE_NAME-modules instead of all packages without deleting
-> unnecessary packages. Ok?
-> 
+On 02/28/2011 12:50 AM, Dongxiao Xu wrote:
+> From: Dongxiao Xu<dongxiao.xu@intel.com>
+>
+> One of ncurses's patch has been removed from its original repo
+> location, use autobuilder cache location instead.
+>
+> Comment out the original patch address instead of removing it
+> since we may still need that address when upgrade the recipe later.
+>
+> This fixes [BUGID #709].
+>
+> Signed-off-by: Dongxiao Xu<dongxiao.xu@intel.com>
+> ---
+>   meta/recipes-core/ncurses/ncurses_5.7.bb |    5 +++--
+>   1 files changed, 3 insertions(+), 2 deletions(-)
+>
+> diff --git a/meta/recipes-core/ncurses/ncurses_5.7.bb b/meta/recipes-core/ncurses/ncurses_5.7.bb
+> index f767495..b01c333 100644
+> --- a/meta/recipes-core/ncurses/ncurses_5.7.bb
+> +++ b/meta/recipes-core/ncurses/ncurses_5.7.bb
+> @@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = "file://ncurses/base/version.c;beginline=1;endline=27;md5=cbc
+>   SECTION = "libs"
+>   PATCHDATE = "20100501"
+>   PKGV = "${PV}+${PATCHDATE}"
+> -PR = "r0"
+> +PR = "r1"
+>
+>   DEPENDS = "ncurses-native"
+>   DEPENDS_virtclass-native = ""
+> @@ -15,7 +15,8 @@ inherit autotools binconfig
+>   SRC_URI = "${GNU_MIRROR}/ncurses/ncurses-${PV}.tar.gz;name=tarball \
+>           ftp://invisible-island.net/ncurses/5.7/ncurses-5.7-20100424-patch.sh.bz2;apply=yes;name=p20100424sh \
+>   \
+> -        ftp://invisible-island.net/ncurses/5.7/ncurses-5.7-${PATCHDATE}.patch.gz;name=p20100501 \
+> +#        ftp://invisible-island.net/ncurses/5.7/ncurses-5.7-${PATCHDATE}.patch.gz;name=p20100501 \
+> +        http://autobuilder.yoctoproject.org/sources/ncurses-5.7-${PATCHDATE}.patch.gz;name=p20100501 \
+A couple of concerns with this, first the "#" in the list will not work 
+with "\", there was a change recently that makes this not work.
 
-I would like to confirm with you about what you are asking for here.  I
-think you want lsb-sdk-live images for the core BSP platforms, is that
-correct?
+We are using the autobuilder because the version of the patch we need is 
+gone correct?  And the 20100424 does not have the fix we need and it's 
+too late to change a core library.
 
-I am not following what you want for perl and -modules packaging, your
-request is not clear. Can you please give me more information on what
-you are asking for.
-
-Thanks
+Please fix the comment line.
 
 Sau!
 
-> Thanks
-> Yan
-> 
+>           file://tic-hang.patch \
+>           file://config.cache \
+>   "
 
 
