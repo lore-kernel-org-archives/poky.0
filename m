@@ -1,22 +1,26 @@
-Return-Path: <scott.a.garman@intel.com>
+Return-Path: <saul.wold@intel.com>
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7C5E14C80592
-	for <poky@yoctoproject.org>; Mon, 28 Feb 2011 15:53:49 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 28 Feb 2011 13:53:48 -0800
+	by mx1.pokylinux.org (Postfix) with ESMTP id AD2F44C800A4
+	for <poky@yoctoproject.org>; Mon, 28 Feb 2011 16:33:56 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 28 Feb 2011 14:33:56 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,242,1297065600"; d="scan'208";a="607432012"
-Received: from sgarman-ws.jf.intel.com (HELO localhost) ([10.7.199.157])
-	by orsmga002.jf.intel.com with ESMTP; 28 Feb 2011 13:53:34 -0800
-Message-Id: <6ef8ce686d71e9828be329b5ad85f4bed60eda0b.1298929971.git.scott.a.garman@intel.com>
-In-Reply-To: <cover.1298929971.git.scott.a.garman@intel.com>
-References: <cover.1298929971.git.scott.a.garman@intel.com>
-Old-Date: Mon, 28 Feb 2011 13:47:14 -0800
-Date: Mon, 28 Feb 2011 13:53:50 -0800
-To: poky@yoctoproject.org
-CC: 
-From: Scott Garman <scott.a.garman@intel.com>
-Subject: [PATCH 1/1] distro_tracking_fields.inc: add transfig and linuxdoc-tools recipes
+X-IronPort-AV: E=Sophos;i="4.62,242,1297065600"; d="scan'208";a="714334712"
+Received: from unknown (HELO [10.255.12.96]) ([10.255.12.96])
+	by orsmga001.jf.intel.com with ESMTP; 28 Feb 2011 14:33:55 -0800
+Message-ID: <4D6C22D3.9080500@intel.com>
+Date: Mon, 28 Feb 2011 14:33:55 -0800
+From: Saul Wold <saul.wold@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
+MIME-Version: 1.0
+To: Mark Hatle <mark.hatle@windriver.com>
+References: <cover.1298922394.git.mark.hatle@windriver.com>
+	<c8fff34ebe8c9e22bc863e54f5db81a5988c89bb.1298922394.git.mark.hatle@windriver.com>
+In-Reply-To: <c8fff34ebe8c9e22bc863e54f5db81a5988c89bb.1298922394.git.mark.hatle@windriver.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 1/1] populate_sdk_rpm.bbclass: Add the necessary solvedb lock
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,44 +32,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 28 Feb 2011 21:53:49 -0000
+X-List-Received-Date: Mon, 28 Feb 2011 22:33:56 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Scott Garman <scott.a.garman@intel.com>
+On 02/28/2011 11:50 AM, Mark Hatle wrote:
+> [BUG #776]
+>
+Gentle reminder, format for bugs is: [BUGID #NNNN]
 
-Signed-off-by: Scott Garman <scott.a.garman@intel.com>
----
- .../conf/distro/include/distro_tracking_fields.inc |   20 ++++++++++++++++++++
- 1 files changed, 20 insertions(+), 0 deletions(-)
+Sau!
 
-diff --git a/meta/conf/distro/include/distro_tracking_fields.inc b/meta/conf/distro/include/distro_tracking_fields.inc
-index 35b56fa..af8a7f3 100644
---- a/meta/conf/distro/include/distro_tracking_fields.inc
-+++ b/meta/conf/distro/include/distro_tracking_fields.inc
-@@ -5598,3 +5598,23 @@ RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-docbook-utils = "1 month"
- RECIPE_COMMENTS_pn-docbook-utils = ""
- RECIPE_LAST_UPDATE_pn-docbook-utils = "Jan 26, 2011"
- RECIPE_MAINTAINER_pn-docbook-utils = "Scott Garman <scott.a.garman@intel.com>"
-+
-+RECIPE_STATUS_pn-transfig = "green"
-+RECIPE_DEPENDENCY_CHECK_pn-transfig = "not done"
-+RECIPE_LATEST_VERSION_pn-transfig = "3.2.5d"
-+RECIPE_NO_OF_PATCHES_pn-transfig = "0"
-+RECIPE_LATEST_RELEASE_DATE_pn-transfig = "2010/07/23"
-+RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-transfig = "1 year"
-+RECIPE_COMMENTS_pn-transfig = ""
-+RECIPE_LAST_UPDATE_pn-transfig = "Feb 9, 2011"
-+RECIPE_MAINTAINER_pn-transfig = "Scott Garman <scott.a.garman@intel.com>"
-+
-+RECIPE_STATUS_pn-linuxdoc-tools = "green"
-+RECIPE_DEPENDENCY_CHECK_pn-linuxdoc-tools = "not done"
-+RECIPE_LATEST_VERSION_pn-linuxdoc-tools = "0.9.66"
-+RECIPE_NO_OF_PATCHES_pn-linuxdoc-tools = "3"
-+RECIPE_LATEST_RELEASE_DATE_pn-linuxdoc-tools = "unknown"
-+RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-linuxdoc-tools = "unknown"
-+RECIPE_COMMENTS_pn-linuxdoc-tools = ""
-+RECIPE_LAST_UPDATE_pn-linuxdoc-tools = "Feb 25, 2011"
-+RECIPE_MAINTAINER_pn-linuxdoc-tools = "Scott Garman <scott.a.garman@intel.com>"
--- 
-1.7.4
+> When using the RPM solve databases, we have to lock our operations
+> to avoid removing it while it's in use.
+>
+> The same lock is shared by the rootfs_rpm.bbclass
+>
+> Signed-off-by: Mark Hatle<mark.hatle@windriver.com>
+> ---
+>   meta/classes/populate_sdk_rpm.bbclass |    1 +
+>   1 files changed, 1 insertions(+), 0 deletions(-)
+>
+> diff --git a/meta/classes/populate_sdk_rpm.bbclass b/meta/classes/populate_sdk_rpm.bbclass
+> index 0afe042..da308c1 100644
+> --- a/meta/classes/populate_sdk_rpm.bbclass
+> +++ b/meta/classes/populate_sdk_rpm.bbclass
+> @@ -5,6 +5,7 @@ rpmlibdir = "/var/lib/rpm"
+>   RPMOPTS="--dbpath ${rpmlibdir} --define='_openall_before_chroot 1'"
+>   RPM="rpm ${RPMOPTS}"
+>
+> +do_populate_sdk[lockfiles] += "${DEPLOY_DIR_RPM}/rpm.lock"
+>
+>   populate_sdk_post_rpm () {
+>
 
 
