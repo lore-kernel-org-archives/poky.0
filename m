@@ -1,23 +1,32 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 106A44C80510
-	for <poky@yoctoproject.org>; Mon, 28 Feb 2011 08:38:09 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 28 Feb 2011 06:38:08 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,239,1297065600"; d="scan'208";a="891956180"
-Received: from unknown (HELO helios) ([10.255.16.249])
-	by fmsmga001.fm.intel.com with SMTP; 28 Feb 2011 06:38:07 -0800
-Received: by helios (sSMTP sendmail emulation); Mon, 28 Feb 2011 14:38:07 +0000
-Message-Id: <0b46ec5fd3f2c19c4654023cd8a7a56c2b202342.1298903625.git.paul.eggleton@linux.intel.com>
-In-Reply-To: <cover.1298903625.git.paul.eggleton@linux.intel.com>
-References: <cover.1298903625.git.paul.eggleton@linux.intel.com>
-Old-Date: Mon, 28 Feb 2011 14:28:25 +0000
-Date: Mon, 28 Feb 2011 14:38:07 +0000
+Return-Path: <gerard@de-haardt.com>
+Received: from cpsmtpb-ews10.kpnxchange.com (cpsmtpb-ews10.kpnxchange.com
+	[213.75.39.15])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 680774C800B1
+	for <poky@yoctoproject.org>; Mon, 28 Feb 2011 08:49:11 -0600 (CST)
+Received: from cpbrm-ews07.kpnxchange.com ([10.94.84.138]) by
+	cpsmtpb-ews10.kpnxchange.com with Microsoft SMTPSVC(6.0.3790.4675); 
+	Mon, 28 Feb 2011 15:49:10 +0100
+Received: from CPSMTPM-cmt107.kpnxchange.com ([195.121.3.23]) by
+	cpbrm-ews07.kpnxchange.com with Microsoft SMTPSVC(6.0.3790.4675); 
+	Mon, 28 Feb 2011 15:49:10 +0100
+Received: from mail.de-haardt.com ([86.81.67.223]) by
+	CPSMTPM-cmt107.kpnxchange.com with Microsoft
+	SMTPSVC(7.0.6002.18264); Mon, 28 Feb 2011 15:49:09 +0100
+Received: from [192.168.1.29] ([192.168.1.29])
+	(authenticated user gerard@de-haardt.com) by mail.de-haardt.com
+	(using TLSv1/SSLv3 with cipher AES256-SHA (256 bits))
+	for poky@yoctoproject.org; Mon, 28 Feb 2011 15:49:07 +0100
+Message-ID: <4D6BB5E7.8060902@de-haardt.com>
+Date: Mon, 28 Feb 2011 15:49:11 +0100
+From: Gerard van den Bosch <gerard@de-haardt.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
+MIME-Version: 1.0
 To: poky@yoctoproject.org
-CC: 
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-Subject: [PATCH 3/3] bitbake/runqueue: show correct task name for setscene task failure
+X-OriginalArrivalTime: 28 Feb 2011 14:49:09.0935 (UTC)
+	FILETIME=[A8344BF0:01CBD756]
+X-RcptDomain: yoctoproject.org
+Subject: recipe gtk program include directories
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,60 +38,48 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 28 Feb 2011 14:38:09 -0000
+X-List-Received-Date: Mon, 28 Feb 2011 14:49:12 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
+Hello,
 
-If a setscene task failed previously it was showing an incorrect task
-name in the error line. This patch ensures we show the correct name, also
-including the "_setscene" suffix.
+I have created a simple program with GTK and now I want to add it as a 
+package in poky.
+Because it is a single C file I have constructed the following recipe:
 
-Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
----
- bitbake/lib/bb/runqueue.py |   14 +++++++++++---
- 1 files changed, 11 insertions(+), 3 deletions(-)
+DESCRIPTION = "Battery indication"
+SECTION = "examples"
+LICENSE = "GPL"
+DEPENDS = "gtk+"
 
-diff --git a/bitbake/lib/bb/runqueue.py b/bitbake/lib/bb/runqueue.py
-index 172e591..834b9d5 100644
---- a/bitbake/lib/bb/runqueue.py
-+++ b/bitbake/lib/bb/runqueue.py
-@@ -204,9 +204,9 @@ class RunQueueData:
-             ret.extend([nam])
-         return ret
- 
--    def get_user_idstring(self, task):
-+    def get_user_idstring(self, task, task_name_suffix = ""):
-         fn = self.taskData.fn_index[self.runq_fnid[task]]
--        taskname = self.runq_task[task]
-+        taskname = self.runq_task[task] + task_name_suffix
-         return "%s, %s" % (fn, taskname)
- 
-     def get_task_id(self, fnid, taskname):
-@@ -1483,7 +1483,7 @@ class RunQueueExecuteScenequeue(RunQueueExecute):
-     def task_fail(self, task, result):
-         self.stats.taskFailed()
-         index = self.rqdata.runq_setscene[task]
--        bb.event.fire(runQueueTaskFailed(task, self.stats, result, self), self.cfgData)
-+        bb.event.fire(sceneQueueTaskFailed(index, self.stats, result, self), self.cfgData)
-         self.scenequeue_notcovered.add(task)
-         self.scenequeue_updatecounters(task)
- 
-@@ -1616,6 +1616,14 @@ class runQueueTaskFailed(runQueueEvent):
-         runQueueEvent.__init__(self, task, stats, rq)
-         self.exitcode = exitcode
- 
-+class sceneQueueTaskFailed(runQueueTaskFailed):
-+    """
-+    Event notifing a setscene task failed
-+    """
-+    def __init__(self, task, stats, exitcode, rq):
-+        runQueueTaskFailed.__init__(self, task, stats, exitcode, rq)
-+        self.taskstring = rq.rqdata.get_user_idstring(task, "_setscene")
-+
- class runQueueTaskCompleted(runQueueEvent):
-     """
-     Event notifing a task completed
--- 
-1.7.1
+SRC_URI = "file://image.c"
+
+S = "${WORKDIR}"
+
+do_compile() {
+     ${CC} image.c -o image
+}
+
+do_install() {
+     install -d ${D}${bindir}
+     install -m 0755 image ${D}${bindir}
+}
+
+Now I have the problem that on my ubuntu computer I normally add 
+`pkg-config --libs --cflags gtk+-2.0` to the gcc compile line to include 
+the right directories.
+
+But I don't understand how to do this in a recipe, can someone point me 
+to an example or explain how this is done?
+
+I already looked at a clutter bb file and the gtk-theme bb file but I 
+can't see where they do this.
+I tried to add CFLAGS += "-Wl,-rpath-link,${STAGING_LIBDIR}" but when I 
+compile it's still missing gtk/gtk.h.
+
+Regards,
+Gerard
+
 
 
