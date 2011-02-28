@@ -1,22 +1,20 @@
 Return-Path: <dongxiao.xu@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B738C4C800B1
-	for <poky@yoctoproject.org>; Mon, 28 Feb 2011 02:30:00 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 28 Feb 2011 00:30:00 -0800
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C50C44C800B1
+	for <poky@yoctoproject.org>; Mon, 28 Feb 2011 02:30:01 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 28 Feb 2011 00:29:58 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,238,1297065600"; d="scan'208";a="607160807"
+X-IronPort-AV: E=Sophos;i="4.62,238,1297065600"; d="scan'208";a="662055377"
 Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.32])
-	by orsmga002.jf.intel.com with ESMTP; 28 Feb 2011 00:29:59 -0800
-Message-Id: <65ecdbffbfe0240fd9458b00e8e2f819e3b46988.1298882840.git.dongxiao.xu@intel.com>
-In-Reply-To: <cover.1298882840.git.dongxiao.xu@intel.com>
-References: <cover.1298882840.git.dongxiao.xu@intel.com>
-Old-Date: Mon, 28 Feb 2011 16:46:18 +0800
-Date: Mon, 28 Feb 2011 16:50:48 +0800
+	by fmsmga002.fm.intel.com with ESMTP; 28 Feb 2011 00:29:58 -0800
+Message-Id: <cover.1298882840.git.dongxiao.xu@intel.com>
+Old-Date: Mon, 28 Feb 2011 16:47:20 +0800
+Date: Mon, 28 Feb 2011 16:50:47 +0800
 To: poky@yoctoproject.org
 CC: 
 From: Dongxiao Xu <dongxiao.xu@intel.com>
-Subject: [PATCH 1/2] attr: Change SRC_URI to a correct location
+Subject: [PATCH 0/2][PULL] Bug fix for 709 and 710
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,46 +26,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 28 Feb 2011 08:30:00 -0000
+X-List-Received-Date: Mon, 28 Feb 2011 08:30:01 -0000
 
 From: Dongxiao Xu <dongxiao.xu@intel.com>
 
-attr has changed its download link, thus change accordingly.
+Hi Richard and Saul,
 
-This fixes [BUGID #710]
+This pull request fixes [BUGID #709] and [BUGID #710], which are SRC_URI
+changes. Please help to review and pull.
 
-Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: dxu4/bugfix
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dxu4/bugfix
+
+Thanks,
+    Dongxiao Xu <dongxiao.xu@intel.com>
 ---
+
+
+Dongxiao Xu (2):
+  attr: Change SRC_URI to a correct location
+  ncurses: Change ncurses patch SRC_URI location
+
+ meta/recipes-core/ncurses/ncurses_5.7.bb |    5 +++--
  meta/recipes-support/attr/attr.inc       |    2 +-
  meta/recipes-support/attr/attr_2.4.44.bb |    2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/meta/recipes-support/attr/attr.inc b/meta/recipes-support/attr/attr.inc
-index 9a8b0f6..e9467d7 100644
---- a/meta/recipes-support/attr/attr.inc
-+++ b/meta/recipes-support/attr/attr.inc
-@@ -9,7 +9,7 @@ LIC_FILES_CHKSUM = "file://doc/COPYING;md5=2d0aa14b3fce4694e4f615e30186335f \
-                     file://attr/attr.c;endline=17;md5=be0403261f0847e5f43ed5b08d19593c \
-                     file://libattr/libattr.c;endline=17;md5=7970f77049f8fa1199fff62a7ab724fb"
- 
--SRC_URI = "http://download.savannah.gnu.org/attr/${BP}.src.tar.gz"
-+SRC_URI = "http://download.savannah.gnu.org/releases/attr/${BP}.src.tar.gz"
- 
- require ea-acl.inc
- 
-diff --git a/meta/recipes-support/attr/attr_2.4.44.bb b/meta/recipes-support/attr/attr_2.4.44.bb
-index 4be27d0..a0945f1 100644
---- a/meta/recipes-support/attr/attr_2.4.44.bb
-+++ b/meta/recipes-support/attr/attr_2.4.44.bb
-@@ -1,6 +1,6 @@
- require attr.inc
- 
--PR = "r2"
-+PR = "r3"
- 
- SRC_URI += "file://memory-leak-in-copy.patch \
-             file://memory-leak2.patch \
--- 
-1.6.3.3
+ 3 files changed, 5 insertions(+), 4 deletions(-)
 
 
