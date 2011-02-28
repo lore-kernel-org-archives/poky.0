@@ -1,20 +1,22 @@
 Return-Path: <dongxiao.xu@intel.com>
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C50C44C800B1
+	by mx1.pokylinux.org (Postfix) with ESMTP id 0628F4C800B1
 	for <poky@yoctoproject.org>; Mon, 28 Feb 2011 02:30:01 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 28 Feb 2011 00:29:58 -0800
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 28 Feb 2011 00:30:01 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,238,1297065600"; d="scan'208";a="662055377"
+X-IronPort-AV: E=Sophos;i="4.62,238,1297065600"; d="scan'208";a="891861597"
 Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.32])
-	by fmsmga002.fm.intel.com with ESMTP; 28 Feb 2011 00:29:58 -0800
-Message-Id: <cover.1298882840.git.dongxiao.xu@intel.com>
-Old-Date: Mon, 28 Feb 2011 16:47:20 +0800
-Date: Mon, 28 Feb 2011 16:50:47 +0800
+	by fmsmga001.fm.intel.com with ESMTP; 28 Feb 2011 00:30:00 -0800
+Message-Id: <eee6a4543ae8ad214bd7512afded93f3d6fff08e.1298882840.git.dongxiao.xu@intel.com>
+In-Reply-To: <cover.1298882840.git.dongxiao.xu@intel.com>
+References: <cover.1298882840.git.dongxiao.xu@intel.com>
+Old-Date: Mon, 28 Feb 2011 16:46:38 +0800
+Date: Mon, 28 Feb 2011 16:50:50 +0800
 To: poky@yoctoproject.org
 CC: 
 From: Dongxiao Xu <dongxiao.xu@intel.com>
-Subject: [PATCH 0/2][PULL] Bug fix for 709 and 710
+Subject: [PATCH 2/2] ncurses: Change ncurses patch SRC_URI location
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,31 +28,47 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 28 Feb 2011 08:30:01 -0000
+X-List-Received-Date: Mon, 28 Feb 2011 08:30:02 -0000
 
 From: Dongxiao Xu <dongxiao.xu@intel.com>
 
-Hi Richard and Saul,
+One of ncurses's patch has been removed from its original repo
+location, use autobuilder cache location instead.
 
-This pull request fixes [BUGID #709] and [BUGID #710], which are SRC_URI
-changes. Please help to review and pull.
+Comment out the original patch address instead of removing it
+since we may still need that address when upgrade the recipe later.
 
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: dxu4/bugfix
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dxu4/bugfix
+This fixes [BUGID #709].
 
-Thanks,
-    Dongxiao Xu <dongxiao.xu@intel.com>
+Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
 ---
-
-
-Dongxiao Xu (2):
-  attr: Change SRC_URI to a correct location
-  ncurses: Change ncurses patch SRC_URI location
-
  meta/recipes-core/ncurses/ncurses_5.7.bb |    5 +++--
- meta/recipes-support/attr/attr.inc       |    2 +-
- meta/recipes-support/attr/attr_2.4.44.bb |    2 +-
- 3 files changed, 5 insertions(+), 4 deletions(-)
+ 1 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/meta/recipes-core/ncurses/ncurses_5.7.bb b/meta/recipes-core/ncurses/ncurses_5.7.bb
+index f767495..b01c333 100644
+--- a/meta/recipes-core/ncurses/ncurses_5.7.bb
++++ b/meta/recipes-core/ncurses/ncurses_5.7.bb
+@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = "file://ncurses/base/version.c;beginline=1;endline=27;md5=cbc
+ SECTION = "libs"
+ PATCHDATE = "20100501"
+ PKGV = "${PV}+${PATCHDATE}"
+-PR = "r0"
++PR = "r1"
+ 
+ DEPENDS = "ncurses-native"
+ DEPENDS_virtclass-native = ""
+@@ -15,7 +15,8 @@ inherit autotools binconfig
+ SRC_URI = "${GNU_MIRROR}/ncurses/ncurses-${PV}.tar.gz;name=tarball \
+         ftp://invisible-island.net/ncurses/5.7/ncurses-5.7-20100424-patch.sh.bz2;apply=yes;name=p20100424sh \
+ \
+-        ftp://invisible-island.net/ncurses/5.7/ncurses-5.7-${PATCHDATE}.patch.gz;name=p20100501 \
++#        ftp://invisible-island.net/ncurses/5.7/ncurses-5.7-${PATCHDATE}.patch.gz;name=p20100501 \
++        http://autobuilder.yoctoproject.org/sources/ncurses-5.7-${PATCHDATE}.patch.gz;name=p20100501 \
+         file://tic-hang.patch \
+         file://config.cache \
+ "
+-- 
+1.6.3.3
 
 
