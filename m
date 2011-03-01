@@ -1,20 +1,22 @@
 Return-Path: <liping.ke@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B77014C800A4
-	for <poky@yoctoproject.org>; Mon, 28 Feb 2011 19:29:24 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 28 Feb 2011 17:29:24 -0800
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id A4F074C805A1
+	for <poky@yoctoproject.org>; Mon, 28 Feb 2011 19:29:32 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 28 Feb 2011 17:29:25 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,244,1297065600"; d="scan'208";a="662367076"
+X-IronPort-AV: E=Sophos;i="4.62,244,1297065600"; d="scan'208";a="714397262"
 Received: from lke-nhm.sh.intel.com (HELO localhost) ([10.239.36.48])
-	by fmsmga002.fm.intel.com with ESMTP; 28 Feb 2011 17:29:23 -0800
-Message-Id: <cover.1299000572.git.liping.ke@intel.com>
-Old-Date: Wed, 2 Mar 2011 01:29:32 +0800
-Date: Wed, 02 Mar 2011  1:31:16 +0800
+	by orsmga001.jf.intel.com with ESMTP; 28 Feb 2011 17:29:24 -0800
+Message-Id: <8889404a9366bb5f08d7d455b725b4d784b010ce.1299000572.git.liping.ke@intel.com>
+In-Reply-To: <cover.1299000572.git.liping.ke@intel.com>
+References: <cover.1299000572.git.liping.ke@intel.com>
+Old-Date: Wed, 2 Mar 2011 01:24:22 +0800
+Date: Wed, 02 Mar 2011  1:31:17 +0800
 To: poky@yoctoproject.org
 CC: 
 From: Liping Ke <liping.ke@intel.com>
-Subject: [PATCH 0/1] Fix several small bugs for adt installer
+Subject: [PATCH 1/1] ADT: Fix several bugs for adt installer
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,32 +28,87 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Mar 2011 01:29:24 -0000
+X-List-Received-Date: Tue, 01 Mar 2011 01:29:32 -0000
 
 From: Liping Ke <liping.ke@intel.com>
 
-    
 Two bugs are found
 1) image download file path is not correct. So even if file is downloaded
    already, it can't be detected.
-2) sdk image now is renamed as sato-sdk, we need to change the name
+2) several images now are renamed, such as sato-dev, sato-sdk, we need to change the name
    accordingly.
 
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: lke/adt-newfix
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=lke/adt-newfix
-
-Thanks,
-    Liping Ke <liping.ke@intel.com>
+Signed-off-by: Liping Ke <liping.ke@intel.com>
 ---
-
-
-Liping Ke (1):
-  ADT: Fix several bugs for adt installer
-
  .../installer/adt-installer/adt_installer          |    9 +++++----
  .../installer/adt-installer/adt_installer.conf     |    8 ++++----
  .../installer/adt-installer/scripts/data_define    |    2 +-
  3 files changed, 10 insertions(+), 9 deletions(-)
+
+diff --git a/meta/recipes-devtools/installer/adt-installer/adt_installer b/meta/recipes-devtools/installer/adt-installer/adt_installer
+index 1f481de..cca576f 100755
+--- a/meta/recipes-devtools/installer/adt-installer/adt_installer
++++ b/meta/recipes-devtools/installer/adt-installer/adt_installer
+@@ -216,17 +216,18 @@ done
+ 
+ download_file()
+ {
+-if [ -f "$LOCAL_DOWNLOAD/$1" ]; then
+-  confirm_download $1
++local filename=`echo ${1##*/}`
++if [ -f "$LOCAL_DOWNLOAD/$filename" ]; then
++  confirm_download $filename
+   result="$?"
+   if [ ! "$result" == "0" ]; then
+     return
+   else
+     echo "Removing old file [$1]"
+-    rm -rf "$LOCAL_DOWNLOAD/$1" 
++    rm -rf "$LOCAL_DOWNLOAD/$filename" 
+   fi
+ fi
+-echo_info "Downloading file: $1..."
++echo_info "Downloading file: $filename..."
+ wget "$YOCTOADT_IPKG_REPO/$1" -P $LOCAL_DOWNLOAD --progress=bar:force 2>&1 | tee -a "$YOCTOADT_INSTALL_LOG_FILE" 
+ }
+ 
+diff --git a/meta/recipes-devtools/installer/adt-installer/adt_installer.conf b/meta/recipes-devtools/installer/adt-installer/adt_installer.conf
+index db602f6..d2af70d 100644
+--- a/meta/recipes-devtools/installer/adt-installer/adt_installer.conf
++++ b/meta/recipes-devtools/installer/adt-installer/adt_installer.conf
+@@ -39,14 +39,14 @@ YOCTOADT_NFS_UTIL="Y"
+ #YOCTOADT_METADATA="Y"
+ 
+ #The followings are for setting up specific target architecture
+-#YOCTOADT_ROOTFS_$arch is for specifying what root filesystem image files you want to download from the repository. The valid values to replace $arch are: arm, x86, x86_64, powerpc, mips.  The valid image files are: minimal, sato, sdk and lsb.  If you want to download multiple images, the entries are space separated
+-YOCTOADT_ROOTFS_arm="minimal sato"
++#YOCTOADT_ROOTFS_$arch is for specifying what root filesystem image files you want to download from the repository. The valid values to replace $arch are: arm, x86, x86_64, powerpc, mips.  The valid image files are: minimal, minimal-dev, sato, sato-dev, sato-sdk,lsb, lsb-dev, lsb-sdk.  If you want to download multiple images, the entries are space separated
++YOCTOADT_ROOTFS_arm="minimal sato-sdk"
+ #Specify which root filesystem file to use to extract as target sysroot.  Please ensure the entry is in the list of downloaded root filesystem files that specified above in YOCTOADT_ROOTFS_$arch
+ YOCTOADT_TARGET_SYSROOT_IMAGE_arm="minimal"
+ #The location where the target sysroot will be setup
+ YOCTOADT_TARGET_SYSROOT_LOC_arm="$HOME/test-yocto/arm"
+ 
+ #Here's another example for setting up target arch of x86, by uncommenting it will trigger the installer to download and setup 2 sysroot environment for 2 target arches: arm and x86.  If you want to add more target arch support, you can append more entries by following these samples
+-#YOCTOADT_ROOTFS_x86="sdk"
+-#YOCTOADT_TARGET_SYSROOT_IMAGE_x86="sdk"
++#YOCTOADT_ROOTFS_x86="sato-sdk"
++#YOCTOADT_TARGET_SYSROOT_IMAGE_x86="sato-sdk"
+ #YOCTOADT_TARGET_SYSROOT_LOC_x86="$HOME/test-yocto/x86"
+diff --git a/meta/recipes-devtools/installer/adt-installer/scripts/data_define b/meta/recipes-devtools/installer/adt-installer/scripts/data_define
+index 2895c4f..77f8b38 100644
+--- a/meta/recipes-devtools/installer/adt-installer/scripts/data_define
++++ b/meta/recipes-devtools/installer/adt-installer/scripts/data_define
+@@ -31,7 +31,7 @@ OPKG_LIBDIR="/var/lib"
+ 
+ # List all supported root fs types and target types,
+ # it will be used in user configuration validity checking
+-YOCTOADT_SUPPORTED_ROOTFS="minimal sato sdk lsb"
++YOCTOADT_SUPPORTED_ROOTFS="minimal minimal-dev sato sato-dev sato-sdk lsb lsb-dev lsb-sdk"
+ YOCTOADT_SUPPORTED_TARGETS="x86 x86_64 arm powerpc mips"
+ # Different host (32 bit or 64 bit) will have different opkg
+ # configuration files
+-- 
+1.7.0.4
 
 
