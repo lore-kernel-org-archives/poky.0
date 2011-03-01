@@ -1,27 +1,25 @@
-Return-Path: <mark.hatle@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 55E4C4C80A7E
-	for <poky@yoctoproject.org>; Tue,  1 Mar 2011 10:05:11 -0600 (CST)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p21G58SV012460
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Tue, 1 Mar 2011 08:05:08 -0800 (PST)
-Received: from Macintosh-5.local (172.25.36.227) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Tue, 1 Mar 2011 08:05:07 -0800
-Message-ID: <4D6D192E.6090801@windriver.com>
-Date: Tue, 1 Mar 2011 10:05:02 -0600
-From: Mark Hatle <mark.hatle@windriver.com>
-Organization: Wind River Systems
-User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
-	rv:1.9.2.13) Gecko/20101207 Thunderbird/3.1.7
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C45394C80A7E
+	for <poky@yoctoproject.org>; Tue,  1 Mar 2011 10:23:53 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 01 Mar 2011 08:23:53 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.62,248,1297065600"; d="scan'208";a="714748840"
+Received: from unknown (HELO [10.255.12.138]) ([10.255.12.138])
+	by orsmga001.jf.intel.com with ESMTP; 01 Mar 2011 08:23:53 -0800
+Message-ID: <4D6D1D97.1050205@linux.intel.com>
+Date: Tue, 01 Mar 2011 08:23:51 -0800
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
 MIME-Version: 1.0
 To: v sailaja <vsailub4u@gmail.com>
-References: <AANLkTi=CVPBSLQ_8345OrL_YKde=Mf3bqrxRZru75vSR@mail.gmail.com>
-In-Reply-To: <AANLkTi=CVPBSLQ_8345OrL_YKde=Mf3bqrxRZru75vSR@mail.gmail.com>
-X-Originating-IP: [172.25.36.227]
+References: <AANLkTin34iXW7Zy7Z4NJfa3Fmv3LSt8y1eYH4UoNWcac@mail.gmail.com>	<4D6BECBD.8060501@linux.intel.com>
+	<AANLkTikYLw+bcsV=RWCqg5ufz1rKZbUxKS0wGuNwruXT@mail.gmail.com>
+In-Reply-To: <AANLkTikYLw+bcsV=RWCqg5ufz1rKZbUxKS0wGuNwruXT@mail.gmail.com>
 Cc: poky@yoctoproject.org
-Subject: Re: got error while trying to pull the krb5 package into poky
+Subject: Re: errors while building the poky
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,115 +31,125 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Mar 2011 16:05:11 -0000
-Content-Type: text/plain; charset="windows-1252"
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Tue, 01 Mar 2011 16:23:54 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 3/1/11 4:45 AM, v sailaja wrote:
-> Hi,
-> 
-> I tried with the following
->                       
-> 
->               bitbake krb5  -c cleanall  
->               bitbake krb5
-> But again I am getting the same error and krb5 rpm file is not generated at 
-> tmp/deploy/rpm.
-> 
-> 
->  The value is
-> 
-> *PACKAGE_CLASSES ?= "package_rpm package_ipk"*
-> 
+On 03/01/2011 02:33 AM, v sailaja wrote:
+>
+> Hi Darren,
+>
+>
+> I  am using the Linux OS and  I installed all the pre-requisites. Still
+> I am facing the same problem.
+>
+> *OS               ---   LINUX
+
+
+The specific version is what I was after. Ubutnu 9.04, 9.10, 10.04, 
+10.10 ? Fedora 13, 14?
+
+32 bit or 64 bit?
+
+Thanks,
+
+Darren
+
+>              MACHINE  ---  atom-pc*
+>
+> _*error:*_
 > *
-> error:*
->  Generating solve db for /home/sailaja/poky-chrome/build/tmp/deploy/rpm/atom-pc...
-> |    total:               1      0.000000 MB      0.871674 secs
-> |    order:               1      0.000000 MB      0.090471 secs
-> |    fingerprint:       537      0.007286 MB      0.081155 secs
-> |    install:           278      0.000000 MB      0.179576 secs
-> |    dbadd:             278      0.000000 MB      0.081411 secs
-> |    dbget:            8678      1.128312 MB      0.016757 secs
-> |    dbput:            5035      2.213572 MB      0.020290 secs
-> |    readhdr:          2781      2.267168 MB      0.206626 secs
-> |    hdrload:        194461    256.103876 MB      1.118980 secs
-> |    hdrget:        3861605      0.000000 MB      6.181097 secs
-> | *Processing krb5...
-> | Unable to find package krb5!
-> | ERROR: Task failed: ('function do_rootfs failed',
-
-The error may not be completely clear, but this means that there is no package
-in tmp/deploy/rpm/* called "krb5".  In otherwords, there is a package
-requirement that is not being met.
-
-Figure out where the requirement is coming from and that will lead you toward a
-possible cause.
-
-rpm --qf "[%{NAME} %{REQUIRES}\n]" -qp <packages>
-
-That will list the name of the package, followed by a requirement.  This should
-allow you to figure out what is requiring krb5..
-
---Mark
-
-> '/home/sailaja/poky-chrome/build/tmp/work/atom-pc-poky-linux/poky-image-minimal-akshat-1.0-r0/temp/log.do_rootfs.9313')
-> NOTE: package poky-image-minimal-akshat-1.0-r0: task do_rootfs: Failed*
-> ERROR: Task 179
-> (/home/sailaja/poky-chrome/meta/recipes-core/images/poky-image-minimal-akshat.bb
-> <http://poky-image-minimal-akshat.bb/>, do_rootfs) failed with 1
-> ERROR:
-> '/home/sailaja/poky-chrome/meta/recipes-core/images/poky-image-minimal-akshat.bb
-> <http://poky-image-minimal-akshat.bb/>' failed
-> 
-> 
-> 
-> Please help me in finding the solution.
-> Any help  would be greatly apprecited.
-> 
+> I added the following packages to poky-image-minimal.bb
+> <http://poky-image-minimal.bb>
+>
+>
+>       *alsa-lib* *
+>        alsa-tools
+>        alsa-utils*
+>
+> But i am getting the error like* *
+>
+> *./configure: line 4246:syntax error near unexpected token `1.0.0'* *
+> ./configure: line 4246: `AM_PATH_ALSA(1.0.0)'*
+>
+> please help me  in finding the solution.* *
+> Any help would be greatly appreciated.*
+>
+>
+>
 > Thanks & Regards,
 > SAI
-> 
-> 
-> 
-> 
-> 
-> 
-> 
-> 
->     Hi SAI,
-> 
->      
-> 
->     Please try the following to rebuild the krb5 to see if the rpm is generated:
-> 
->      
-> 
->     -          bitbake krb5  -c cleanall
-> 
->     -          bitbake krb5
-> 
->      
-> 
->     This should generate the rpm file under the directory of “tmp/deploy/rpm”.
-> 
->      
-> 
->     b.t.w. what’s the value set to the variable PACKAGE_CLASSES in your
->     conf/local.conf?
-> 
->      
-> 
->     Best Regards,
-> 
->     Lianhao Lu
-> 
-> 
-> 
-> 
-> 
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+>
+>
+>
+>
+>
+>
+>
+>     Hi Sai,
+>
+>     I just noticed there hasn't been a reply to your message. Are you
+>     still experiencing problems? If so, can you let us know which OS you
+>     are building on and which MACHINE target you are building for?
+>
+>     Also, did you ensure you have installed the pre-requisites on your
+>     host per the instructions in the Yocto Quick Start guide? See
+>     http://www.yoctoproject.org -> Documentation -> Quick Start Guide.
+>
+>     --
+>     Darren
+>
+>
+>
+>         *I am trying to build the poky image    --
+>         *poky-image-minimal-live.*
+>         I added the packages  to poky-image-minimal.bb
+>         <http://poky-image-minimal.bb>
+>         *
+>         *<http://poky-image-minimal.bb>*
+>         *
+>
+>         *alsa-lib* *
+>               alsa-tools
+>               alsa-utils*
+>
+>         But i am getting the error like* *
+>
+>         *./configure: line 4246:syntax error near unexpected token
+>         `1.0.0'* *
+>         ./configure: line 4246: `AM_PATH_ALSA(1.0.0)'*
+>
+>         please help me someone in finding the solution.* *
+>         appeciated if anyone helps me.
+>         *
+>
+>
+>     Hi Sai
+>
+>
+>         Thanks,
+>         sai
+>
+>
+>
+>         _______________________________________________
+>         poky mailing list
+>         poky@yoctoproject.org <mailto:poky@yoctoproject.org>
+>         https://lists.yoctoproject.org/listinfo/poky
+>
+>
+>
+>     --
+>     Darren Hart
+>     Intel Open Source Technology Center
+>     Yocto Project - Linux Kernel
+>
+>
+>
 
+
+-- 
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
