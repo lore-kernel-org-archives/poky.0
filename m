@@ -1,25 +1,26 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C45394C80A7E
-	for <poky@yoctoproject.org>; Tue,  1 Mar 2011 10:23:53 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 01 Mar 2011 08:23:53 -0800
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 895074C80AA9
+	for <poky@pokylinux.org>; Tue,  1 Mar 2011 10:24:12 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 01 Mar 2011 08:24:11 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,248,1297065600"; d="scan'208";a="714748840"
-Received: from unknown (HELO [10.255.12.138]) ([10.255.12.138])
-	by orsmga001.jf.intel.com with ESMTP; 01 Mar 2011 08:23:53 -0800
-Message-ID: <4D6D1D97.1050205@linux.intel.com>
-Date: Tue, 01 Mar 2011 08:23:51 -0800
-From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
+X-IronPort-AV: E=Sophos;i="4.62,248,1297065600"; d="scan'208";a="892612132"
+Received: from unknown (HELO helios.localnet) ([10.255.17.4])
+	by fmsmga001.fm.intel.com with ESMTP; 01 Mar 2011 08:24:06 -0800
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
+Organization: Intel Corporation (UK)
+To: Koen Kooi <koen@dominion.thruhere.net>
+Date: Tue, 1 Mar 2011 16:24:06 +0000
+User-Agent: KMail/1.13.5 (Linux/2.6.35-25-generic-pae; KDE/4.6.0; i686; ; )
+References: <cover.1298961777.git.xiaofeng.yan@windriver.com>
+	<201103011023.58911.paul.eggleton@linux.intel.com>
+	<34ADCD70-E17B-459F-88E7-D959B0DB4737@dominion.thruhere.net>
+In-Reply-To: <34ADCD70-E17B-459F-88E7-D959B0DB4737@dominion.thruhere.net>
 MIME-Version: 1.0
-To: v sailaja <vsailub4u@gmail.com>
-References: <AANLkTin34iXW7Zy7Z4NJfa3Fmv3LSt8y1eYH4UoNWcac@mail.gmail.com>	<4D6BECBD.8060501@linux.intel.com>
-	<AANLkTikYLw+bcsV=RWCqg5ufz1rKZbUxKS0wGuNwruXT@mail.gmail.com>
-In-Reply-To: <AANLkTikYLw+bcsV=RWCqg5ufz1rKZbUxKS0wGuNwruXT@mail.gmail.com>
-Cc: poky@yoctoproject.org
-Subject: Re: errors while building the poky
+Message-Id: <201103011624.06798.paul.eggleton@linux.intel.com>
+Cc: "poky@pokylinux.org" <poky@pokylinux.org>
+Subject: Re: [PATCH 0/2] Add qt3 to poky
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,125 +32,22 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Mar 2011 16:23:54 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Tue, 01 Mar 2011 16:24:12 -0000
+Content-Type: Text/Plain;
+  charset="iso-8859-1"
 Content-Transfer-Encoding: 7bit
 
-On 03/01/2011 02:33 AM, v sailaja wrote:
->
-> Hi Darren,
->
->
-> I  am using the Linux OS and  I installed all the pre-requisites. Still
-> I am facing the same problem.
->
-> *OS               ---   LINUX
+On Tuesday 01 March 2011 10:33:08 you wrote:
+> And since there was never a qtopia for qt3 I highly doubt anyone is using
+> qt3/e.
 
+Well, you never know what people are doing behind closed doors. There was also 
+once a version of SystemRescueCD that was using the then-current version of 
+QtParted with Qt/Embedded 3.x to avoid including X. 
 
-The specific version is what I was after. Ubutnu 9.04, 9.10, 10.04, 
-10.10 ? Fedora 13, 14?
+For our purposes though it's only for LSB at this stage, so embedded appears 
+to be superfluous.
 
-32 bit or 64 bit?
-
-Thanks,
-
-Darren
-
->              MACHINE  ---  atom-pc*
->
-> _*error:*_
-> *
-> I added the following packages to poky-image-minimal.bb
-> <http://poky-image-minimal.bb>
->
->
->       *alsa-lib* *
->        alsa-tools
->        alsa-utils*
->
-> But i am getting the error like* *
->
-> *./configure: line 4246:syntax error near unexpected token `1.0.0'* *
-> ./configure: line 4246: `AM_PATH_ALSA(1.0.0)'*
->
-> please help me  in finding the solution.* *
-> Any help would be greatly appreciated.*
->
->
->
-> Thanks & Regards,
-> SAI
->
->
->
->
->
->
->
->     Hi Sai,
->
->     I just noticed there hasn't been a reply to your message. Are you
->     still experiencing problems? If so, can you let us know which OS you
->     are building on and which MACHINE target you are building for?
->
->     Also, did you ensure you have installed the pre-requisites on your
->     host per the instructions in the Yocto Quick Start guide? See
->     http://www.yoctoproject.org -> Documentation -> Quick Start Guide.
->
->     --
->     Darren
->
->
->
->         *I am trying to build the poky image    --
->         *poky-image-minimal-live.*
->         I added the packages  to poky-image-minimal.bb
->         <http://poky-image-minimal.bb>
->         *
->         *<http://poky-image-minimal.bb>*
->         *
->
->         *alsa-lib* *
->               alsa-tools
->               alsa-utils*
->
->         But i am getting the error like* *
->
->         *./configure: line 4246:syntax error near unexpected token
->         `1.0.0'* *
->         ./configure: line 4246: `AM_PATH_ALSA(1.0.0)'*
->
->         please help me someone in finding the solution.* *
->         appeciated if anyone helps me.
->         *
->
->
->     Hi Sai
->
->
->         Thanks,
->         sai
->
->
->
->         _______________________________________________
->         poky mailing list
->         poky@yoctoproject.org <mailto:poky@yoctoproject.org>
->         https://lists.yoctoproject.org/listinfo/poky
->
->
->
->     --
->     Darren Hart
->     Intel Open Source Technology Center
->     Yocto Project - Linux Kernel
->
->
->
-
-
--- 
-Darren Hart
-Intel Open Source Technology Center
-Yocto Project - Linux Kernel
+Cheers,
+Paul
 
