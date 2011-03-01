@@ -1,22 +1,22 @@
 Return-Path: <scott.m.rifenbark@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E801C4C80AAD
-	for <poky@yoctoproject.org>; Tue,  1 Mar 2011 08:07:50 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 01 Mar 2011 06:07:50 -0800
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id AE6484C800A4
+	for <poky@yoctoproject.org>; Tue,  1 Mar 2011 08:07:52 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 01 Mar 2011 06:07:52 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,246,1297065600"; d="scan'208";a="892542991"
+X-IronPort-AV: E=Sophos;i="4.62,246,1297065600"; d="scan'208";a="395690523"
 Received: from unknown (HELO localhost) ([10.255.12.134])
-	by fmsmga001.fm.intel.com with ESMTP; 01 Mar 2011 06:07:50 -0800
-Message-Id: <b80d2de3ad935a47483d1e9c5a7ee4459a9f9461.1298987770.git.scott.m.rifenbark@intel.com>
+	by azsmga001.ch.intel.com with ESMTP; 01 Mar 2011 06:07:51 -0800
+Message-Id: <3ae0cf3efe26529b17c959accb190e8f5860c3b6.1298987770.git.scott.m.rifenbark@intel.com>
 In-Reply-To: <cover.1298987770.git.scott.m.rifenbark@intel.com>
 References: <cover.1298987770.git.scott.m.rifenbark@intel.com>
-Old-Date: Fri, 25 Feb 2011 14:42:56 -0600
-Date: Tue, 01 Mar 2011  8:08:42 -0600
+Old-Date: Fri, 25 Feb 2011 14:52:04 -0600
+Date: Tue, 01 Mar 2011  8:08:43 -0600
 To: poky@yoctoproject.org
 CC: 
 From: <scott.m.rifenbark@intel.com>
-Subject: [PATCH 04/12] [BUGID# 553] - documentation/poky-ref-manual/introduction.xml: Fixed pokylinux.org URL
+Subject: [PATCH 05/12] [BUGID# 553] - documentation/poky-ref-manual/introduction.xml: fixed pokylinux.org URL
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,14 +28,14 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Mar 2011 14:07:51 -0000
+X-List-Received-Date: Tue, 01 Mar 2011 14:07:52 -0000
 
 From: Scott Rifenbark <scott.m.rifenbark@intel.com>
 
-[BUGID# 553] - In the Releases section (1.5.1) there was an URL to
-http://pokylinux.org/releases.  This URL was old and I replaced it
-with http://yoctoproject.org/downloads/poky.  This partially fixes
-bug 553.
+[BUGID# 553] - In the Development Checkouts section (1.5.3) there was a
+reference to our git repository located at git://git.pokylinux.org/poky.git.
+I changed this to git://git.yoctoproject.org/poky.git.  This is a
+partial fix to Bug 553.
 
 Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
 ---
@@ -43,18 +43,18 @@ Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
  1 files changed, 1 insertions(+), 1 deletions(-)
 
 diff --git a/documentation/poky-ref-manual/introduction.xml b/documentation/poky-ref-manual/introduction.xml
-index c7cca8f..97e7311 100644
+index 97e7311..59c6eea 100644
 --- a/documentation/poky-ref-manual/introduction.xml
 +++ b/documentation/poky-ref-manual/introduction.xml
-@@ -118,7 +118,7 @@
-         <title>Releases</title>
+@@ -152,7 +152,7 @@
  
-         <para>Periodically, we make releases of Poky available
--            at <ulink url='http://pokylinux.org/releases/'/>.
-+            at <ulink url='http://yoctoproject.org/downloads/poky/'/>.
-             These releases are more stable and more rigorously tested than the nightly development images.
+         <para>
+             Poky is available from our git repository located at
+-            git://git.pokylinux.org/poky.git; a web interface to the repository
++            git://git.yoctoproject.org/poky.git; a web interface to the repository
+             can be accessed at <ulink url='http://git.yoctoproject.org/'/>.
          </para>
-     </section>
+ 
 -- 
 1.7.1
 
