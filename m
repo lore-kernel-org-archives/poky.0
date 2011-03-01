@@ -1,35 +1,39 @@
-Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2DD084C800A4
-	for <poky@yoctoproject.org>; Tue,  1 Mar 2011 17:40:24 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 01 Mar 2011 15:40:23 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,249,1297065600"; d="scan'208";a="607979972"
-Received: from orsmsx603.amr.corp.intel.com ([10.22.226.49])
-	by orsmga002.jf.intel.com with ESMTP; 01 Mar 2011 15:40:18 -0800
-Received: from orsmsx606.amr.corp.intel.com (10.22.226.128) by
-	orsmsx603.amr.corp.intel.com (10.22.226.49) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Tue, 1 Mar 2011 15:40:17 -0800
-Received: from orsmsx504.amr.corp.intel.com ([10.22.226.207]) by
-	orsmsx606.amr.corp.intel.com ([10.22.226.128]) with mapi;
-	Tue, 1 Mar 2011 15:40:17 -0800
-From: "Kamble, Nitin A" <nitin.a.kamble@intel.com>
-To: Khem Raj <raj.khem@gmail.com>
-Date: Tue, 1 Mar 2011 15:40:16 -0800
-Thread-Topic: [poky] [PATCH 1/1] gcc: take out libiberty files from gcc
-	packages
-Thread-Index: AcvYZxEwvgcO6F5BQUum+8AxT60C/gAAVr7A
-Message-ID: <9DA5872FEF993D41B7173F58FCF6BE9431C4938A@orsmsx504.amr.corp.intel.com>
+Return-Path: <raj.khem@gmail.com>
+Received: from mail-fx0-f48.google.com (mail-fx0-f48.google.com
+	[209.85.161.48])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C02124C800A4
+	for <poky@yoctoproject.org>; Tue,  1 Mar 2011 17:53:23 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by fxm2 with SMTP id 2so7059415fxm.35
+	for <poky@yoctoproject.org>; Tue, 01 Mar 2011 15:53:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc:content-type:content-transfer-encoding;
+	bh=ARTxgubDsEj8A7MOJXWMvraXH6TEJXZoqxrZ4DWlaHI=;
+	b=J/+XZpUH5uI203/fDa2ZEOw88ANFXIdVp7EeqW0WMiM8Bz2z2vE8dgOg2fPeBeQ+gr
+	RviEN2J+dtXYIeUiXuZvgsdcAArpdTMzXGAlM3w7v5Oi4dTlmYgA5lKaonzZdbkh3kfl
+	uy8iZ9kHuKDyQ/KFakXKRdX9GnQDFLCgr2OyY=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+	:cc:content-type:content-transfer-encoding;
+	b=LoxRjQvyhjenT/EKp/oLdqTujL8jA3f/86+e7uRd9A0Ry7yNOJhmY4k8fQm5pz90bL
+	o24ik2xi+6BuDZRplghqPuUFy/A97a4zPicQVAreZnn5UHszxglocJ+c+ybZjZaSYb8e
+	9WLp2DeRHh4Mu9PAOTHqG2dGvtUGVSQwArbfQ=
+Received: by 10.223.93.140 with SMTP id v12mr6552788fam.96.1299023289620; Tue,
+	01 Mar 2011 15:48:09 -0800 (PST)
+MIME-Version: 1.0
+Received: by 10.223.30.151 with HTTP; Tue, 1 Mar 2011 15:47:14 -0800 (PST)
+In-Reply-To: <9DA5872FEF993D41B7173F58FCF6BE9431C4938A@orsmsx504.amr.corp.intel.com>
 References: <cover.1298991086.git.nitin.a.kamble@intel.com>
 	<d82ef128d4b9b9503bb645ee21ed2121683a5b54.1298991086.git.nitin.a.kamble@intel.com>
 	<AANLkTint7xar5fzMD15ssF9A18fC+fzV0Ke7W8cRNvqq@mail.gmail.com>
-In-Reply-To: <AANLkTint7xar5fzMD15ssF9A18fC+fzV0Ke7W8cRNvqq@mail.gmail.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
-MIME-Version: 1.0
+	<9DA5872FEF993D41B7173F58FCF6BE9431C4938A@orsmsx504.amr.corp.intel.com>
+From: Khem Raj <raj.khem@gmail.com>
+Date: Tue, 1 Mar 2011 15:47:14 -0800
+Message-ID: <AANLkTinLG5Yqguc8nyWHgrEPy57zQkp27MYNueG-_DtE@mail.gmail.com>
+To: "Kamble, Nitin A" <nitin.a.kamble@intel.com>
 Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: [PATCH 1/1] gcc: take out libiberty files from gcc packages
 X-BeenThere: poky@yoctoproject.org
@@ -43,139 +47,224 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Mar 2011 23:40:24 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-List-Received-Date: Tue, 01 Mar 2011 23:53:24 -0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogS2hlbSBSYWogW21haWx0
-bzpyYWoua2hlbUBnbWFpbC5jb21dDQo+IFNlbnQ6IFR1ZXNkYXksIE1hcmNoIDAxLCAyMDExIDM6
-MTkgUE0NCj4gVG86IEthbWJsZSwgTml0aW4gQQ0KPiBDYzogcG9reUB5b2N0b3Byb2plY3Qub3Jn
-DQo+IFN1YmplY3Q6IFJlOiBbcG9reV0gW1BBVENIIDEvMV0gZ2NjOiB0YWtlIG91dCBsaWJpYmVy
-dHkgZmlsZXMgZnJvbSBnY2MNCj4gcGFja2FnZXMNCj4gDQo+IE9uIFR1ZSwgTWFyIDEsIDIwMTEg
-YXQgNjo1MiBBTSwgTml0aW4gQSBLYW1ibGUNCj4gPG5pdGluLmEua2FtYmxlQGludGVsLmNvbT4g
-d3JvdGU6DQo+ID4gRnJvbTogTml0aW4gQSBLYW1ibGUgPG5pdGluLmEua2FtYmxlQGludGVsLmNv
-bT4NCj4gPg0KPiA+IHRoaXMgRml4ZXMgW0JVR0lEICM3NTRdDQo+ID4NCj4gPiBTaWduZWQtb2Zm
-LWJ5OiBOaXRpbiBBIEthbWJsZSA8bml0aW4uYS5rYW1ibGVAaW50ZWwuY29tPg0KPiA+IC0tLQ0K
-PiA+IMKgLi4uL2djYy9nY2MtY3Jvc3MtaW5pdGlhbF80LjUuMS5iYiDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCB8IMKgIMKgMiArLQ0KPiA+IMKgLi4uL2djYy9nY2MtY3Jvc3MtaW50ZXJtZWRpYXRl
-LmluYyDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCB8IMKgIMKgMyArKy0NCj4gPiDCoC4uLi9nY2Mv
-Z2NjLWNyb3NzLWludGVybWVkaWF0ZV80LjUuMS5iYiDCoCDCoCDCoCDCoCDCoCDCoHwgwqAgwqAy
-ICstDQo+ID4gwqBtZXRhL3JlY2lwZXMtZGV2dG9vbHMvZ2NjL2djYy1jcm9zc180LjUuMS5iYiDC
-oCDCoCDCoCB8IMKgIMKgMiArLQ0KPiA+IMKgLi4uL2djYy9nY2MtY3Jvc3NzZGstaW5pdGlhbF80
-LjUuMS5iYiDCoCDCoCDCoCDCoCDCoCDCoCDCoHwgwqAgwqAyICstDQo+ID4gwqAuLi4vZ2NjL2dj
-Yy1jcm9zc3Nkay1pbnRlcm1lZGlhdGVfNC41LjEuYmIgwqAgwqAgwqAgwqAgfCDCoCDCoDIgKy0N
-Cj4gPiDCoG1ldGEvcmVjaXBlcy1kZXZ0b29scy9nY2MvZ2NjLWNyb3Nzc2RrXzQuNS4xLmJiIMKg
-IMKgfCDCoCDCoDIgKy0NCj4gPiDCoG1ldGEvcmVjaXBlcy1kZXZ0b29scy9nY2MvZ2NjLXBhY2th
-Z2UtY3Jvc3MuaW5jIMKgIMKgfCDCoCDCoDQgKysrKw0KPiA+IMKgbWV0YS9yZWNpcGVzLWRldnRv
-b2xzL2djYy9nY2MtcGFja2FnZS10YXJnZXQuaW5jIMKgIHwgwqAgwqA0ICsrKysNCj4gPiDCoG1l
-dGEvcmVjaXBlcy1kZXZ0b29scy9nY2MvZ2NjXzQuNS4xLmJiIMKgIMKgIMKgIMKgIMKgIMKgIHwg
-wqAgwqAyICstDQo+ID4gwqAxMCBmaWxlcyBjaGFuZ2VkLCAxNyBpbnNlcnRpb25zKCspLCA4IGRl
-bGV0aW9ucygtKQ0KPiA+DQo+ID4gZGlmZiAtLWdpdCBhL21ldGEvcmVjaXBlcy1kZXZ0b29scy9n
-Y2MvZ2NjLWNyb3NzLWluaXRpYWxfNC41LjEuYmINCj4gYi9tZXRhL3JlY2lwZXMtZGV2dG9vbHMv
-Z2NjL2djYy1jcm9zcy1pbml0aWFsXzQuNS4xLmJiDQo+ID4gaW5kZXggYjJjMjU3ZC4uMzhlMDk2
-NCAxMDA2NDQNCj4gPiAtLS0gYS9tZXRhL3JlY2lwZXMtZGV2dG9vbHMvZ2NjL2djYy1jcm9zcy1p
-bml0aWFsXzQuNS4xLmJiDQo+ID4gKysrIGIvbWV0YS9yZWNpcGVzLWRldnRvb2xzL2djYy9nY2Mt
-Y3Jvc3MtaW5pdGlhbF80LjUuMS5iYg0KPiA+IEBAIC0xLDUgKzEsNSBAQA0KPiA+IMKgcmVxdWly
-ZSBnY2MtY3Jvc3NfJHtQVn0uYmINCj4gPiDCoHJlcXVpcmUgZ2NjLWNyb3NzLWluaXRpYWwuaW5j
-DQo+ID4NCj4gPiAtUFIgPSAicjIiDQo+ID4gK1BSID0gInIzIg0KPiA+DQo+ID4gZGlmZiAtLWdp
-dCBhL21ldGEvcmVjaXBlcy1kZXZ0b29scy9nY2MvZ2NjLWNyb3NzLWludGVybWVkaWF0ZS5pbmMN
-Cj4gYi9tZXRhL3JlY2lwZXMtZGV2dG9vbHMvZ2NjL2djYy1jcm9zcy1pbnRlcm1lZGlhdGUuaW5j
-DQo+ID4gaW5kZXggMmU1MjgzZC4uOTJjM2NlMiAxMDA2NDQNCj4gPiAtLS0gYS9tZXRhL3JlY2lw
-ZXMtZGV2dG9vbHMvZ2NjL2djYy1jcm9zcy1pbnRlcm1lZGlhdGUuaW5jDQo+ID4gKysrIGIvbWV0
-YS9yZWNpcGVzLWRldnRvb2xzL2djYy9nY2MtY3Jvc3MtaW50ZXJtZWRpYXRlLmluYw0KPiA+IEBA
-IC0zNSw3ICszNSw4IEBAIGRvX2luc3RhbGwgKCkgew0KPiA+IMKgIMKgIMKgIMKgcm0gLXJmICR7
-RH0ke2RhdGFkaXJ9Lw0KPiA+DQo+ID4gwqAgwqAgwqAgwqAjIFdlIHVzZSBsaWJpYmVydHkgZnJv
-bSBiaW51dGlscw0KPiA+IC0gwqAgwqAgwqAgcm0gLWYgJHtEfSR7ZXhlY19wcmVmaXh9L2xpYi9s
-aWIvbGliaWJlcnR5LmENCj4gPiArIMKgIMKgIMKgIGZpbmQgLW5hbWUgbGliaWJlcnR5LmEgJHtE
-fSR7ZXhlY19wcmVmaXh9L2xpYiB8IHhhcmdzIHJtIC1mDQo+ID4gKyDCoCDCoCDCoCBmaW5kIC1u
-YW1lIGxpYmliZXJ0eS5oICR7RH0ke2V4ZWNfcHJlZml4fS9saWIgfCB4YXJncyBybSAtZg0KPiA+
-DQo+IA0KPiB3aHkgZmluZCA/IERvbnQgeW91IGhhdmUgIHBhdGhzIGtub3duIHRvIHRoZXNlIGZp
-bGVzLiA/DQoNCg0KS2hlbSwNCiBUaGlzIGlzIGJlY2F1c2UgSSBub3RpY2VkIHBhdGhzIHZhcmlh
-dGlvbnMgbGlrZSBsaWIvbGliL2xpYmliZXJ0eS5hIA0KbGliL2xpYjY0L2xpYmliZXJ0eS5hIG9u
-IGRpZmZlcmVudCBtYWNoaW5lcy9hcmNoZXMuIEFuZCB3YW50ZWQgdG8gYWRkcmVzcyANCnRoZW0g
-YWxsIGluIG9uZSBzaG90Lg0KDQpUaGFua3MsDQpOaXRpbg0KDQo+IA0KPiANCj4gPiDCoCDCoCDC
-oCDCoCMgSW5zZXJ0IHN5bWxpbmtzIGludG8gbGliZXhlYyBzbyB3aGVuIHRvb2xzIHdpdGhvdXQg
-YSBwcmVmaXgNCj4gYXJlIHNlYXJjaGVkIGZvciwgdGhlIGNvcnJlY3Qgb25lcyBhcmUNCj4gPiDC
-oCDCoCDCoCDCoCMgZm91bmQuIFRoZXNlIG5lZWQgdG8gYmUgcmVsYXRpdmUgcGF0aHMgc28gdGhl
-eSB3b3JrIGluDQo+IGRpZmZlcmVudCBsb2NhdGlvbnMuDQo+ID4gZGlmZiAtLWdpdCBhL21ldGEv
-cmVjaXBlcy1kZXZ0b29scy9nY2MvZ2NjLWNyb3NzLQ0KPiBpbnRlcm1lZGlhdGVfNC41LjEuYmIg
-Yi9tZXRhL3JlY2lwZXMtZGV2dG9vbHMvZ2NjL2djYy1jcm9zcy0NCj4gaW50ZXJtZWRpYXRlXzQu
-NS4xLmJiDQo+ID4gaW5kZXggZTY1ZDVkZi4uOWEzMGNiNSAxMDA2NDQNCj4gPiAtLS0gYS9tZXRh
-L3JlY2lwZXMtZGV2dG9vbHMvZ2NjL2djYy1jcm9zcy1pbnRlcm1lZGlhdGVfNC41LjEuYmINCj4g
-PiArKysgYi9tZXRhL3JlY2lwZXMtZGV2dG9vbHMvZ2NjL2djYy1jcm9zcy1pbnRlcm1lZGlhdGVf
-NC41LjEuYmINCj4gPiBAQCAtMSw0ICsxLDQgQEANCj4gPiDCoHJlcXVpcmUgZ2NjLWNyb3NzXyR7
-UFZ9LmJiDQo+ID4gwqByZXF1aXJlIGdjYy1jcm9zcy1pbnRlcm1lZGlhdGUuaW5jDQo+ID4gLVBS
-ID0gInIzIg0KPiA+ICtQUiA9ICJyNCINCj4gPg0KPiA+IGRpZmYgLS1naXQgYS9tZXRhL3JlY2lw
-ZXMtZGV2dG9vbHMvZ2NjL2djYy1jcm9zc180LjUuMS5iYg0KPiBiL21ldGEvcmVjaXBlcy1kZXZ0
-b29scy9nY2MvZ2NjLWNyb3NzXzQuNS4xLmJiDQo+ID4gaW5kZXggMzk5Y2RmOS4uNzhiYjA1YSAx
-MDA2NDQNCj4gPiAtLS0gYS9tZXRhL3JlY2lwZXMtZGV2dG9vbHMvZ2NjL2djYy1jcm9zc180LjUu
-MS5iYg0KPiA+ICsrKyBiL21ldGEvcmVjaXBlcy1kZXZ0b29scy9nY2MvZ2NjLWNyb3NzXzQuNS4x
-LmJiDQo+ID4gQEAgLTEsNCArMSw0IEBADQo+ID4gLVBSID0gInIyIg0KPiA+ICtQUiA9ICJyMyIN
-Cj4gPg0KPiA+IMKgcmVxdWlyZSBnY2MtJHtQVn0uaW5jDQo+ID4gwqByZXF1aXJlIGdjYy1jcm9z
-czQuaW5jDQo+ID4gZGlmZiAtLWdpdCBhL21ldGEvcmVjaXBlcy1kZXZ0b29scy9nY2MvZ2NjLWNy
-b3Nzc2RrLWluaXRpYWxfNC41LjEuYmINCj4gYi9tZXRhL3JlY2lwZXMtZGV2dG9vbHMvZ2NjL2dj
-Yy1jcm9zc3Nkay1pbml0aWFsXzQuNS4xLmJiDQo+ID4gaW5kZXggMjQwY2FmNS4uZmVjNTNiOSAx
-MDA2NDQNCj4gPiAtLS0gYS9tZXRhL3JlY2lwZXMtZGV2dG9vbHMvZ2NjL2djYy1jcm9zc3Nkay1p
-bml0aWFsXzQuNS4xLmJiDQo+ID4gKysrIGIvbWV0YS9yZWNpcGVzLWRldnRvb2xzL2djYy9nY2Mt
-Y3Jvc3NzZGstaW5pdGlhbF80LjUuMS5iYg0KPiA+IEBAIC0xLDQgKzEsNCBAQA0KPiA+IMKgcmVx
-dWlyZSBnY2MtY3Jvc3MtaW5pdGlhbF8ke1BWfS5iYg0KPiA+IMKgcmVxdWlyZSBnY2MtY3Jvc3Nz
-ZGstaW5pdGlhbC5pbmMNCj4gPg0KPiA+IC1QUiA9ICJyMiINCj4gPiArUFIgPSAicjMiDQo+ID4g
-ZGlmZiAtLWdpdCBhL21ldGEvcmVjaXBlcy1kZXZ0b29scy9nY2MvZ2NjLWNyb3Nzc2RrLQ0KPiBp
-bnRlcm1lZGlhdGVfNC41LjEuYmIgYi9tZXRhL3JlY2lwZXMtZGV2dG9vbHMvZ2NjL2djYy1jcm9z
-c3Nkay0NCj4gaW50ZXJtZWRpYXRlXzQuNS4xLmJiDQo+ID4gaW5kZXggYTY2NTNkZC4uMTYxZDg3
-MCAxMDA2NDQNCj4gPiAtLS0gYS9tZXRhL3JlY2lwZXMtZGV2dG9vbHMvZ2NjL2djYy1jcm9zc3Nk
-ay1pbnRlcm1lZGlhdGVfNC41LjEuYmINCj4gPiArKysgYi9tZXRhL3JlY2lwZXMtZGV2dG9vbHMv
-Z2NjL2djYy1jcm9zc3Nkay1pbnRlcm1lZGlhdGVfNC41LjEuYmINCj4gPiBAQCAtMSw0ICsxLDQg
-QEANCj4gPiDCoHJlcXVpcmUgZ2NjLWNyb3NzLWludGVybWVkaWF0ZV8ke1BWfS5iYg0KPiA+IMKg
-cmVxdWlyZSBnY2MtY3Jvc3NzZGstaW50ZXJtZWRpYXRlLmluYw0KPiA+DQo+ID4gLVBSID0gInIy
-Ig0KPiA+ICtQUiA9ICJyMyINCj4gPiBkaWZmIC0tZ2l0IGEvbWV0YS9yZWNpcGVzLWRldnRvb2xz
-L2djYy9nY2MtY3Jvc3NzZGtfNC41LjEuYmINCj4gYi9tZXRhL3JlY2lwZXMtZGV2dG9vbHMvZ2Nj
-L2djYy1jcm9zc3Nka180LjUuMS5iYg0KPiA+IGluZGV4IDEyOWU4ZDMuLjcwNjkwODggMTAwNjQ0
-DQo+ID4gLS0tIGEvbWV0YS9yZWNpcGVzLWRldnRvb2xzL2djYy9nY2MtY3Jvc3NzZGtfNC41LjEu
-YmINCj4gPiArKysgYi9tZXRhL3JlY2lwZXMtZGV2dG9vbHMvZ2NjL2djYy1jcm9zc3Nka180LjUu
-MS5iYg0KPiA+IEBAIC0xLDQgKzEsNCBAQA0KPiA+IMKgcmVxdWlyZSBnY2MtY3Jvc3NfJHtQVn0u
-YmINCj4gPiDCoHJlcXVpcmUgZ2NjLWNyb3Nzc2RrLmluYw0KPiA+DQo+ID4gLVBSID0gInIyIg0K
-PiA+ICtQUiA9ICJyMyINCj4gPiBkaWZmIC0tZ2l0IGEvbWV0YS9yZWNpcGVzLWRldnRvb2xzL2dj
-Yy9nY2MtcGFja2FnZS1jcm9zcy5pbmMNCj4gYi9tZXRhL3JlY2lwZXMtZGV2dG9vbHMvZ2NjL2dj
-Yy1wYWNrYWdlLWNyb3NzLmluYw0KPiA+IGluZGV4IDRmOTAyZmEuLjA0YzgxMDEgMTAwNjQ0DQo+
-ID4gLS0tIGEvbWV0YS9yZWNpcGVzLWRldnRvb2xzL2djYy9nY2MtcGFja2FnZS1jcm9zcy5pbmMN
-Cj4gPiArKysgYi9tZXRhL3JlY2lwZXMtZGV2dG9vbHMvZ2NjL2djYy1wYWNrYWdlLWNyb3NzLmlu
-Yw0KPiA+IEBAIC0yNyw2ICsyNywxMCBAQCBkb19pbnN0YWxsICgpIHsNCj4gPiDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoHJtIC1yZiAke0R9JHtTVEFHSU5HX0RJUl9OQVRJVkV9JHtwcmVmaXhfbmF0
-aXZlfS8kZA0KPiA+IMKgIMKgIMKgIMKgZG9uZQ0KPiA+DQo+ID4gKyDCoCDCoCDCoCAjIFdlIHVz
-ZSBsaWJpYmVydHkgZnJvbSBiaW51dGlscw0KPiA+ICsgwqAgwqAgwqAgZmluZCAtbmFtZSBsaWJp
-YmVydHkuYSAke0R9JHtleGVjX3ByZWZpeH0vbGliIHwgeGFyZ3Mgcm0gLWYNCj4gPiArIMKgIMKg
-IMKgIGZpbmQgLW5hbWUgbGliaWJlcnR5LmggJHtEfSR7ZXhlY19wcmVmaXh9L2xpYiB8IHhhcmdz
-IHJtIC1mDQo+ID4gKw0KPiA+IMKgIMKgIMKgIMKgIyBnY2MtcnVudGltZSBpbnN0YWxscyBsaWJn
-Y2MgaW50byBhIHNwZWNpYWwgbG9jYXRpb24gaW4NCj4gc3RhZ2luZyBzaW5jZSBpdCBicmVha3Mg
-ZG9pbmcgYSBzdGFuZGFsb25lIGJ1aWxkDQo+ID4gwqAgwqAgwqAgwqBpZiBbICIke1BOfSIgPT0g
-ImdjYy1jcm9zcyIgLW8gIiR7UE59IiA9PSAiZ2NjLWNyb3Nzc2RrIiBdOw0KPiB0aGVuDQo+ID4g
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqBkZXN0PSR7RH0vJHtpbmNsdWRlZGlyfS9nY2MtYnVpbGQt
-aW50ZXJuYWwtDQo+ICR7TVVMVElNQUNIX1RBUkdFVF9TWVN9DQo+ID4gZGlmZiAtLWdpdCBhL21l
-dGEvcmVjaXBlcy1kZXZ0b29scy9nY2MvZ2NjLXBhY2thZ2UtdGFyZ2V0LmluYw0KPiBiL21ldGEv
-cmVjaXBlcy1kZXZ0b29scy9nY2MvZ2NjLXBhY2thZ2UtdGFyZ2V0LmluYw0KPiA+IGluZGV4IDMy
-ODZkYTYuLmQ2MWU5NmIgMTAwNjQ0DQo+ID4gLS0tIGEvbWV0YS9yZWNpcGVzLWRldnRvb2xzL2dj
-Yy9nY2MtcGFja2FnZS10YXJnZXQuaW5jDQo+ID4gKysrIGIvbWV0YS9yZWNpcGVzLWRldnRvb2xz
-L2djYy9nY2MtcGFja2FnZS10YXJnZXQuaW5jDQo+ID4gQEAgLTg2LDYgKzg2LDEwIEBAIGRvX2lu
-c3RhbGwgKCkgew0KPiA+IMKgIMKgIMKgIMKgIyBXZSBkb24ndCBjYXJlIGFib3V0IHRoZSBnY2Mt
-PHZlcnNpb24+IG9uZXMgZm9yIHRoaXMNCj4gPiDCoCDCoCDCoCDCoHJtIC1mICpnY2MtPy4/Kg0K
-PiA+DQo+ID4gKyDCoCDCoCDCoCAjIFdlIHVzZSBsaWJpYmVydHkgZnJvbSBiaW51dGlscw0KPiA+
-ICsgwqAgwqAgwqAgZmluZCAtbmFtZSBsaWJpYmVydHkuYSAke0R9JHtleGVjX3ByZWZpeH0vbGli
-IHwgeGFyZ3Mgcm0gLWYNCj4gPiArIMKgIMKgIMKgIGZpbmQgLW5hbWUgbGliaWJlcnR5LmggJHtE
-fSR7ZXhlY19wcmVmaXh9L2xpYiB8IHhhcmdzIHJtIC1mDQo+ID4gKw0KPiA+IMKgIMKgIMKgIMKg
-IyBTeW1saW5rcyBzbyB3ZSBjYW4gdXNlIHRoZXNlIHRyaXZpYWxseSBvbiB0aGUgdGFyZ2V0DQo+
-ID4gwqAgwqAgwqAgwqBsbiAtc2YgJHtUQVJHRVRfU1lTfS1nNzcgZzc3IHx8IHRydWUNCj4gPiDC
-oCDCoCDCoCDCoGxuIC1zZiAke1RBUkdFVF9TWVN9LWdmb3J0cmFuIGdmb3J0cmFuIHx8IHRydWUN
-Cj4gPiBkaWZmIC0tZ2l0IGEvbWV0YS9yZWNpcGVzLWRldnRvb2xzL2djYy9nY2NfNC41LjEuYmIg
-Yi9tZXRhL3JlY2lwZXMtDQo+IGRldnRvb2xzL2djYy9nY2NfNC41LjEuYmINCj4gPiBpbmRleCA5
-MTlkNGIwLi4yNWU0NTVjIDEwMDY0NA0KPiA+IC0tLSBhL21ldGEvcmVjaXBlcy1kZXZ0b29scy9n
-Y2MvZ2NjXzQuNS4xLmJiDQo+ID4gKysrIGIvbWV0YS9yZWNpcGVzLWRldnRvb2xzL2djYy9nY2Nf
-NC41LjEuYmINCj4gPiBAQCAtMSw0ICsxLDQgQEANCj4gPiAtUFIgPSAicjIiDQo+ID4gK1BSID0g
-InIzIg0KPiA+IMKgcmVxdWlyZSBnY2MtJHtQVn0uaW5jDQo+ID4gwqByZXF1aXJlIGdjYy1jb25m
-aWd1cmUtdGFyZ2V0LmluYw0KPiA+IMKgcmVxdWlyZSBnY2MtcGFja2FnZS10YXJnZXQuaW5jDQo+
-ID4gLS0NCj4gPiAxLjcuMi4yDQo+ID4NCj4gPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXw0KPiA+IHBva3kgbWFpbGluZyBsaXN0DQo+ID4gcG9reUB5b2N0
-b3Byb2plY3Qub3JnDQo+ID4gaHR0cHM6Ly9saXN0cy55b2N0b3Byb2plY3Qub3JnL2xpc3RpbmZv
-L3Bva3kNCj4gPg0K
+On Tue, Mar 1, 2011 at 3:40 PM, Kamble, Nitin A
+<nitin.a.kamble@intel.com> wrote:
+>
+>
+>> -----Original Message-----
+>> From: Khem Raj [mailto:raj.khem@gmail.com]
+>> Sent: Tuesday, March 01, 2011 3:19 PM
+>> To: Kamble, Nitin A
+>> Cc: poky@yoctoproject.org
+>> Subject: Re: [poky] [PATCH 1/1] gcc: take out libiberty files from gcc
+>> packages
+>>
+>> On Tue, Mar 1, 2011 at 6:52 AM, Nitin A Kamble
+>> <nitin.a.kamble@intel.com> wrote:
+>> > From: Nitin A Kamble <nitin.a.kamble@intel.com>
+>> >
+>> > this Fixes [BUGID #754]
+>> >
+>> > Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
+>> > ---
+>> > =C2=A0.../gcc/gcc-cross-initial_4.5.1.bb =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 | =C2=A0 =C2=A02 +-
+>> > =C2=A0.../gcc/gcc-cross-intermediate.inc =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 | =C2=A0 =C2=A03 ++-
+>> > =C2=A0.../gcc/gcc-cross-intermediate_4.5.1.bb =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0| =C2=A0 =C2=A02 +-
+>> > =C2=A0meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb =C2=A0 =C2=A0 =C2=
+=A0 | =C2=A0 =C2=A02 +-
+>> > =C2=A0.../gcc/gcc-crosssdk-initial_4.5.1.bb =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0| =C2=A0 =C2=A02 +-
+>> > =C2=A0.../gcc/gcc-crosssdk-intermediate_4.5.1.bb =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 | =C2=A0 =C2=A02 +-
+>> > =C2=A0meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb =C2=A0 =C2=A0| =
+=C2=A0 =C2=A02 +-
+>> > =C2=A0meta/recipes-devtools/gcc/gcc-package-cross.inc =C2=A0 =C2=A0| =
+=C2=A0 =C2=A04 ++++
+>> > =C2=A0meta/recipes-devtools/gcc/gcc-package-target.inc =C2=A0 | =C2=A0=
+ =C2=A04 ++++
+>> > =C2=A0meta/recipes-devtools/gcc/gcc_4.5.1.bb =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 | =C2=A0 =C2=A02 +-
+>> > =C2=A010 files changed, 17 insertions(+), 8 deletions(-)
+>> >
+>> > diff --git a/meta/recipes-devtools/gcc/gcc-cross-initial_4.5.1.bb
+>> b/meta/recipes-devtools/gcc/gcc-cross-initial_4.5.1.bb
+>> > index b2c257d..38e0964 100644
+>> > --- a/meta/recipes-devtools/gcc/gcc-cross-initial_4.5.1.bb
+>> > +++ b/meta/recipes-devtools/gcc/gcc-cross-initial_4.5.1.bb
+>> > @@ -1,5 +1,5 @@
+>> > =C2=A0require gcc-cross_${PV}.bb
+>> > =C2=A0require gcc-cross-initial.inc
+>> >
+>> > -PR =3D "r2"
+>> > +PR =3D "r3"
+>> >
+>> > diff --git a/meta/recipes-devtools/gcc/gcc-cross-intermediate.inc
+>> b/meta/recipes-devtools/gcc/gcc-cross-intermediate.inc
+>> > index 2e5283d..92c3ce2 100644
+>> > --- a/meta/recipes-devtools/gcc/gcc-cross-intermediate.inc
+>> > +++ b/meta/recipes-devtools/gcc/gcc-cross-intermediate.inc
+>> > @@ -35,7 +35,8 @@ do_install () {
+>> > =C2=A0 =C2=A0 =C2=A0 =C2=A0rm -rf ${D}${datadir}/
+>> >
+>> > =C2=A0 =C2=A0 =C2=A0 =C2=A0# We use libiberty from binutils
+>> > - =C2=A0 =C2=A0 =C2=A0 rm -f ${D}${exec_prefix}/lib/lib/libiberty.a
+>> > + =C2=A0 =C2=A0 =C2=A0 find -name libiberty.a ${D}${exec_prefix}/lib |=
+ xargs rm -f
+>> > + =C2=A0 =C2=A0 =C2=A0 find -name libiberty.h ${D}${exec_prefix}/lib |=
+ xargs rm -f
+>> >
+>>
+>> why find ? Dont you have =C2=A0paths known to these files. ?
+>
+>
+> Khem,
+> =C2=A0This is because I noticed paths variations like lib/lib/libiberty.a
+> lib/lib64/libiberty.a on different machines/arches. And wanted to address
+> them all in one shot.
+>
+
+IMO being specific is always better and it will have some performance
+hit with find
+
+> Thanks,
+> Nitin
+>
+>>
+>>
+>> > =C2=A0 =C2=A0 =C2=A0 =C2=A0# Insert symlinks into libexec so when tool=
+s without a prefix
+>> are searched for, the correct ones are
+>> > =C2=A0 =C2=A0 =C2=A0 =C2=A0# found. These need to be relative paths so=
+ they work in
+>> different locations.
+>> > diff --git a/meta/recipes-devtools/gcc/gcc-cross-
+>> intermediate_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-cross-
+>> intermediate_4.5.1.bb
+>> > index e65d5df..9a30cb5 100644
+>> > --- a/meta/recipes-devtools/gcc/gcc-cross-intermediate_4.5.1.bb
+>> > +++ b/meta/recipes-devtools/gcc/gcc-cross-intermediate_4.5.1.bb
+>> > @@ -1,4 +1,4 @@
+>> > =C2=A0require gcc-cross_${PV}.bb
+>> > =C2=A0require gcc-cross-intermediate.inc
+>> > -PR =3D "r3"
+>> > +PR =3D "r4"
+>> >
+>> > diff --git a/meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb
+>> b/meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb
+>> > index 399cdf9..78bb05a 100644
+>> > --- a/meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb
+>> > +++ b/meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb
+>> > @@ -1,4 +1,4 @@
+>> > -PR =3D "r2"
+>> > +PR =3D "r3"
+>> >
+>> > =C2=A0require gcc-${PV}.inc
+>> > =C2=A0require gcc-cross4.inc
+>> > diff --git a/meta/recipes-devtools/gcc/gcc-crosssdk-initial_4.5.1.bb
+>> b/meta/recipes-devtools/gcc/gcc-crosssdk-initial_4.5.1.bb
+>> > index 240caf5..fec53b9 100644
+>> > --- a/meta/recipes-devtools/gcc/gcc-crosssdk-initial_4.5.1.bb
+>> > +++ b/meta/recipes-devtools/gcc/gcc-crosssdk-initial_4.5.1.bb
+>> > @@ -1,4 +1,4 @@
+>> > =C2=A0require gcc-cross-initial_${PV}.bb
+>> > =C2=A0require gcc-crosssdk-initial.inc
+>> >
+>> > -PR =3D "r2"
+>> > +PR =3D "r3"
+>> > diff --git a/meta/recipes-devtools/gcc/gcc-crosssdk-
+>> intermediate_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-crosssdk-
+>> intermediate_4.5.1.bb
+>> > index a6653dd..161d870 100644
+>> > --- a/meta/recipes-devtools/gcc/gcc-crosssdk-intermediate_4.5.1.bb
+>> > +++ b/meta/recipes-devtools/gcc/gcc-crosssdk-intermediate_4.5.1.bb
+>> > @@ -1,4 +1,4 @@
+>> > =C2=A0require gcc-cross-intermediate_${PV}.bb
+>> > =C2=A0require gcc-crosssdk-intermediate.inc
+>> >
+>> > -PR =3D "r2"
+>> > +PR =3D "r3"
+>> > diff --git a/meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb
+>> b/meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb
+>> > index 129e8d3..7069088 100644
+>> > --- a/meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb
+>> > +++ b/meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb
+>> > @@ -1,4 +1,4 @@
+>> > =C2=A0require gcc-cross_${PV}.bb
+>> > =C2=A0require gcc-crosssdk.inc
+>> >
+>> > -PR =3D "r2"
+>> > +PR =3D "r3"
+>> > diff --git a/meta/recipes-devtools/gcc/gcc-package-cross.inc
+>> b/meta/recipes-devtools/gcc/gcc-package-cross.inc
+>> > index 4f902fa..04c8101 100644
+>> > --- a/meta/recipes-devtools/gcc/gcc-package-cross.inc
+>> > +++ b/meta/recipes-devtools/gcc/gcc-package-cross.inc
+>> > @@ -27,6 +27,10 @@ do_install () {
+>> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0rm -rf ${D}${ST=
+AGING_DIR_NATIVE}${prefix_native}/$d
+>> > =C2=A0 =C2=A0 =C2=A0 =C2=A0done
+>> >
+>> > + =C2=A0 =C2=A0 =C2=A0 # We use libiberty from binutils
+>> > + =C2=A0 =C2=A0 =C2=A0 find -name libiberty.a ${D}${exec_prefix}/lib |=
+ xargs rm -f
+>> > + =C2=A0 =C2=A0 =C2=A0 find -name libiberty.h ${D}${exec_prefix}/lib |=
+ xargs rm -f
+>> > +
+>> > =C2=A0 =C2=A0 =C2=A0 =C2=A0# gcc-runtime installs libgcc into a specia=
+l location in
+>> staging since it breaks doing a standalone build
+>> > =C2=A0 =C2=A0 =C2=A0 =C2=A0if [ "${PN}" =3D=3D "gcc-cross" -o "${PN}" =
+=3D=3D "gcc-crosssdk" ];
+>> then
+>> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dest=3D${D}/${i=
+ncludedir}/gcc-build-internal-
+>> ${MULTIMACH_TARGET_SYS}
+>> > diff --git a/meta/recipes-devtools/gcc/gcc-package-target.inc
+>> b/meta/recipes-devtools/gcc/gcc-package-target.inc
+>> > index 3286da6..d61e96b 100644
+>> > --- a/meta/recipes-devtools/gcc/gcc-package-target.inc
+>> > +++ b/meta/recipes-devtools/gcc/gcc-package-target.inc
+>> > @@ -86,6 +86,10 @@ do_install () {
+>> > =C2=A0 =C2=A0 =C2=A0 =C2=A0# We don't care about the gcc-<version> one=
+s for this
+>> > =C2=A0 =C2=A0 =C2=A0 =C2=A0rm -f *gcc-?.?*
+>> >
+>> > + =C2=A0 =C2=A0 =C2=A0 # We use libiberty from binutils
+>> > + =C2=A0 =C2=A0 =C2=A0 find -name libiberty.a ${D}${exec_prefix}/lib |=
+ xargs rm -f
+>> > + =C2=A0 =C2=A0 =C2=A0 find -name libiberty.h ${D}${exec_prefix}/lib |=
+ xargs rm -f
+>> > +
+>> > =C2=A0 =C2=A0 =C2=A0 =C2=A0# Symlinks so we can use these trivially on=
+ the target
+>> > =C2=A0 =C2=A0 =C2=A0 =C2=A0ln -sf ${TARGET_SYS}-g77 g77 || true
+>> > =C2=A0 =C2=A0 =C2=A0 =C2=A0ln -sf ${TARGET_SYS}-gfortran gfortran || t=
+rue
+>> > diff --git a/meta/recipes-devtools/gcc/gcc_4.5.1.bb b/meta/recipes-
+>> devtools/gcc/gcc_4.5.1.bb
+>> > index 919d4b0..25e455c 100644
+>> > --- a/meta/recipes-devtools/gcc/gcc_4.5.1.bb
+>> > +++ b/meta/recipes-devtools/gcc/gcc_4.5.1.bb
+>> > @@ -1,4 +1,4 @@
+>> > -PR =3D "r2"
+>> > +PR =3D "r3"
+>> > =C2=A0require gcc-${PV}.inc
+>> > =C2=A0require gcc-configure-target.inc
+>> > =C2=A0require gcc-package-target.inc
+>> > --
+>> > 1.7.2.2
+>> >
+>> > _______________________________________________
+>> > poky mailing list
+>> > poky@yoctoproject.org
+>> > https://lists.yoctoproject.org/listinfo/poky
+>> >
+>
 
