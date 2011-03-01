@@ -1,24 +1,25 @@
-Return-Path: <mark.hatle@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 66E984C800A7
-	for <poky@yoctoproject.org>; Tue,  1 Mar 2011 12:50:55 -0600 (CST)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p21Ios2E015206
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Tue, 1 Mar 2011 10:50:55 -0800 (PST)
-Received: from localhost.localdomain (172.25.36.229) by
-	ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server
-	(TLS) id 14.1.255.0; Tue, 1 Mar 2011 10:50:54 -0800
-From: Mark Hatle <mark.hatle@windriver.com>
-To: <poky@yoctoproject.org>
-Date: Tue, 1 Mar 2011 12:50:33 -0600
-Message-ID: <8999c7e414ddc1b2d8700b9f7d2aeb58985637e4.1299005382.git.mark.hatle@windriver.com>
-X-Mailer: git-send-email 1.7.4
-In-Reply-To: <cover.1299005382.git.mark.hatle@windriver.com>
-References: <cover.1299005382.git.mark.hatle@windriver.com>
+Return-Path: <saul.wold@intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 1A7704C80AAA
+	for <poky@yoctoproject.org>; Tue,  1 Mar 2011 12:52:40 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 01 Mar 2011 10:52:38 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.62,248,1297065600"; d="scan'208";a="395878987"
+Received: from unknown (HELO [10.255.12.100]) ([10.255.12.100])
+	by azsmga001.ch.intel.com with ESMTP; 01 Mar 2011 10:52:37 -0800
+Message-ID: <4D6D4075.4010800@intel.com>
+Date: Tue, 01 Mar 2011 10:52:37 -0800
+From: Saul Wold <saul.wold@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
 MIME-Version: 1.0
-X-Originating-IP: [172.25.36.229]
-Subject: [PATCH 1/1] insane.bbclass: Fix ELF bitsize comparison
+To: Liping Ke <liping.ke@intel.com>
+References: <cover.1298594898.git.liping.ke@intel.com>
+In-Reply-To: <cover.1298594898.git.liping.ke@intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/1] Fix several small bugs for adt installer
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,210 +31,45 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Mar 2011 18:50:55 -0000
-Content-Type: text/plain
+X-List-Received-Date: Tue, 01 Mar 2011 18:52:41 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Fix the way the ELF size is compared to ensure that incorrectly
-sized ELF binaries are captured during the file scan.
+On 02/24/2011 04:55 PM, Liping Ke wrote:
+> From: Liping Ke<liping.ke@intel.com>
+>
+> Two bugs are found
+> 1) image download file path is not correct. So even if file is downloaded
+>     already, it can't be detected.
+> 2) sdk image now is renamed as sato-sdk, we need to change the name
+>     accordingly.
+> This patch is for fixing the above two bugs.
+>
+>
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>    Branch: lke/adt-newfix
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=lke/adt-newfix
+>
+> Thanks,
+>      Liping Ke<liping.ke@intel.com>
+> ---
+>
+>
+> Liping Ke (1):
+>    ADT: Fix several bugs for adt installer
+>
+>   .../installer/adt-installer/adt_installer          |    9 +++++----
+>   .../installer/adt-installer/scripts/data_define    |    2 +-
+>   2 files changed, 6 insertions(+), 5 deletions(-)
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
+Merged into Master & Bernard
 
-lib/oe/qa.py is changed to accept a bitsize as a parameter.  Instead
-of previously defining true/false, it now takes "0" undefined, "32"
-32-bit, and "64" 64-bit as the size argument.  This allows us to
-preserve existing behavior of only loading one ELF type, while
-allowing the function to be able to discover the size on it's own.
-
-Signed-off-by: Mark Hatle <mark.hatle@windriver.com>
----
- meta/classes/insane.bbclass |   84 ++++++++++++++++++++++---------------------
- meta/lib/oe/qa.py           |   21 +++++++++--
- 2 files changed, 60 insertions(+), 45 deletions(-)
-
-diff --git a/meta/classes/insane.bbclass b/meta/classes/insane.bbclass
-index b376470..8124384 100644
---- a/meta/classes/insane.bbclass
-+++ b/meta/classes/insane.bbclass
-@@ -32,58 +32,58 @@ PACKAGEFUNCS += " do_package_qa "
- def package_qa_get_machine_dict():
-     return {
-             "darwin9" : { 
--                        "arm" :       (40,     0,    0,          True,          True),
-+                        "arm" :       (40,     0,    0,          True,          32),
-                       },
-             "linux" : { 
--                        "arm" :       (40,    97,    0,          True,          True),
--                        "armeb":      (40,    97,    0,          False,         True),
--                        "powerpc":    (20,     0,    0,          False,         True),
--                        "i386":       ( 3,     0,    0,          True,          True),
--                        "i486":       ( 3,     0,    0,          True,          True),
--                        "i586":       ( 3,     0,    0,          True,          True),
--                        "i686":       ( 3,     0,    0,          True,          True),
--                        "x86_64":     (62,     0,    0,          True,          False),
--                        "ia64":       (50,     0,    0,          True,          False),
--                        "alpha":      (36902,  0,    0,          True,          False),
--                        "hppa":       (15,     3,    0,          False,         True),
--                        "m68k":       ( 4,     0,    0,          False,         True),
--                        "mips":       ( 8,     0,    0,          False,         True),
--                        "mipsel":     ( 8,     0,    0,          True,          True),
--                        "s390":       (22,     0,    0,          False,         True),
--                        "sh4":        (42,     0,    0,          True,          True),
--                        "sparc":      ( 2,     0,    0,          False,         True),
-+                        "arm" :       (40,    97,    0,          True,          32),
-+                        "armeb":      (40,    97,    0,          False,         32),
-+                        "powerpc":    (20,     0,    0,          False,         32),
-+                        "i386":       ( 3,     0,    0,          True,          32),
-+                        "i486":       ( 3,     0,    0,          True,          32),
-+                        "i586":       ( 3,     0,    0,          True,          32),
-+                        "i686":       ( 3,     0,    0,          True,          32),
-+                        "x86_64":     (62,     0,    0,          True,          64),
-+                        "ia64":       (50,     0,    0,          True,          64),
-+                        "alpha":      (36902,  0,    0,          True,          64),
-+                        "hppa":       (15,     3,    0,          False,         32),
-+                        "m68k":       ( 4,     0,    0,          False,         32),
-+                        "mips":       ( 8,     0,    0,          False,         32),
-+                        "mipsel":     ( 8,     0,    0,          True,          32),
-+                        "s390":       (22,     0,    0,          False,         32),
-+                        "sh4":        (42,     0,    0,          True,          32),
-+                        "sparc":      ( 2,     0,    0,          False,         32),
-                       },
-             "linux-uclibc" : { 
--                        "arm" :       (  40,    97,    0,          True,          True),
--                        "armeb":      (  40,    97,    0,          False,         True),
--                        "powerpc":    (  20,     0,    0,          False,         True),
--                        "i386":       (   3,     0,    0,          True,          True),
--                        "i486":       (   3,     0,    0,          True,          True),
--                        "i586":       (   3,     0,    0,          True,          True),
--                        "i686":       (   3,     0,    0,          True,          True),
--                        "x86_64":     (  62,     0,    0,          True,          False),
--                        "mips":       (   8,     0,    0,          False,         True),
--                        "mipsel":     (   8,     0,    0,          True,          True),
--                        "avr32":      (6317,     0,    0,          False,         True),
--			"sh4":        (42,	 0,    0,          True,          True),
-+                        "arm" :       (  40,    97,    0,          True,          32),
-+                        "armeb":      (  40,    97,    0,          False,         32),
-+                        "powerpc":    (  20,     0,    0,          False,         32),
-+                        "i386":       (   3,     0,    0,          True,          32),
-+                        "i486":       (   3,     0,    0,          True,          32),
-+                        "i586":       (   3,     0,    0,          True,          32),
-+                        "i686":       (   3,     0,    0,          True,          32),
-+                        "x86_64":     (  62,     0,    0,          True,          64),
-+                        "mips":       (   8,     0,    0,          False,         32),
-+                        "mipsel":     (   8,     0,    0,          True,          32),
-+                        "avr32":      (6317,     0,    0,          False,         32),
-+			"sh4":        (42,	 0,    0,          True,          32),
- 
-                       },
-             "uclinux-uclibc" : {
--                        "bfin":       ( 106,     0,    0,          True,         True),
-+                        "bfin":       ( 106,     0,    0,          True,         32),
-                       }, 
-             "linux-gnueabi" : {
--                        "arm" :       (40,     0,    0,          True,          True),
--                        "armeb" :     (40,     0,    0,          False,         True),
-+                        "arm" :       (40,     0,    0,          True,          32),
-+                        "armeb" :     (40,     0,    0,          False,         32),
-                       },
-             "linux-uclibcgnueabi" : {
--                        "arm" :       (40,     0,    0,          True,          True),
--                        "armeb" :     (40,     0,    0,          False,         True),
-+                        "arm" :       (40,     0,    0,          True,          32),
-+                        "armeb" :     (40,     0,    0,          False,         32),
-                       },
-             "linux-gnuspe" : {
--                        "powerpc":    (20,     0,    0,          False,         True),
-+                        "powerpc":    (20,     0,    0,          False,         32),
-                       },
-             "linux-uclibcspe" : {
--                        "powerpc":    (20,     0,    0,          False,         True),
-+                        "powerpc":    (20,     0,    0,          False,         32),
-                       },
- 
-        }
-@@ -243,7 +243,7 @@ def package_qa_check_arch(path,name,d, elf):
-         return True
- 
-     #if this will throw an exception, then fix the dict above
--    (machine, osabi, abiversion, littleendian, bits32) \
-+    (machine, osabi, abiversion, littleendian, bits) \
-         = package_qa_get_machine_dict()[target_os][target_arch]
- 
-     # Check the architecture and endiannes of the binary
-@@ -251,6 +251,10 @@ def package_qa_check_arch(path,name,d, elf):
-         error_msg = "Architecture did not match (%d to %d) on %s" % \
-                  (machine, elf.machine(), package_qa_clean_path(path,d))
-         sane = package_qa_handle_error(4, error_msg, name, path, d)
-+    elif not bits == elf.abiSize():
-+        error_msg = "Bit size did not match (%d to %d) on %s" % \
-+                 (bits, elf.abiSize(), package_qa_clean_path(path,d))
-+        sane = package_qa_handle_error(4, error_msg, name, path, d)
-     elif not littleendian == elf.isLittleEndian():
-         error_msg = "Endiannes did not match (%d to %d) on %s" % \
-                  (littleendian, elf.isLittleEndian(), package_qa_clean_path(path,d))
-@@ -445,14 +449,12 @@ def package_qa_walk(path, funcs, package,d):
-     #if this will throw an exception, then fix the dict above
-     target_os   = bb.data.getVar('TARGET_OS',   d, True)
-     target_arch = bb.data.getVar('TARGET_ARCH', d, True)
--    (machine, osabi, abiversion, littleendian, bits32) \
--        = package_qa_get_machine_dict()[target_os][target_arch]
- 
-     sane = True
-     for root, dirs, files in os.walk(path):
-         for file in files:
-             path = os.path.join(root,file)
--            elf = oe.qa.ELFFile(path, bits32)
-+            elf = oe.qa.ELFFile(path)
-             try:
-                 elf.open()
-             except:
-diff --git a/meta/lib/oe/qa.py b/meta/lib/oe/qa.py
-index 0181393..7adf4d0 100644
---- a/meta/lib/oe/qa.py
-+++ b/meta/lib/oe/qa.py
-@@ -25,9 +25,9 @@ class ELFFile:
-             #print "'%x','%x' %s" % (ord(expectation), ord(result), self.name)
-             raise Exception("This does not work as expected")
- 
--    def __init__(self, name, bits32):
-+    def __init__(self, name, bits = 0):
-         self.name = name
--        self.bits32 = bits32
-+        self.bits = bits
- 
-     def open(self):
-         self.file = file(self.name, "r")
-@@ -38,10 +38,20 @@ class ELFFile:
-         self.my_assert(self.data[1], 'E')
-         self.my_assert(self.data[2], 'L')
-         self.my_assert(self.data[3], 'F')
--        if self.bits32 :
-+        if self.bits == 0:
-+            if self.data[ELFFile.EI_CLASS] == chr(ELFFile.ELFCLASS32):
-+                self.bits == 32
-+            elif self.data[ELFFile.EI_CLASS] == chr(ELFFile.ELFCLASS64):
-+                self.bits == 64
-+            else:
-+                # Not 32-bit or 64.. lets assert
-+                raise Exception("ELF but not 32 or 64 bit.")
-+        elif self.bits == 32:
-             self.my_assert(self.data[ELFFile.EI_CLASS], chr(ELFFile.ELFCLASS32))
--        else:
-+        elif self.bits == 64:
-             self.my_assert(self.data[ELFFile.EI_CLASS], chr(ELFFile.ELFCLASS64))
-+        else:
-+            raise Exception("Must specify unknown, 32 or 64 bit size.")
-         self.my_assert(self.data[ELFFile.EI_VERSION], chr(ELFFile.EV_CURRENT) )
- 
-         self.sex = self.data[ELFFile.EI_DATA]
-@@ -60,6 +70,9 @@ class ELFFile:
-     def abiVersion(self):
-         return ord(self.data[ELFFile.EI_ABIVERSION])
- 
-+    def abiSize(self):
-+	return self.bits
-+
-     def isLittleEndian(self):
-         return self.sex == "<"
- 
--- 
-1.7.4
+Thanks
+	Sau!
 
 
