@@ -1,22 +1,22 @@
 Return-Path: <scott.m.rifenbark@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 08EFA4C80AA8
-	for <poky@yoctoproject.org>; Tue,  1 Mar 2011 08:08:00 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 01 Mar 2011 06:08:00 -0800
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C08E14C80AA8
+	for <poky@yoctoproject.org>; Tue,  1 Mar 2011 08:08:02 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 01 Mar 2011 06:08:02 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,246,1297065600"; d="scan'208";a="714684214"
+X-IronPort-AV: E=Sophos;i="4.62,246,1297065600"; d="scan'208";a="607756862"
 Received: from unknown (HELO localhost) ([10.255.12.134])
-	by orsmga001.jf.intel.com with ESMTP; 01 Mar 2011 06:08:00 -0800
-Message-Id: <6082d359581e404c4705670d565ffeb6f8a65014.1298987770.git.scott.m.rifenbark@intel.com>
+	by orsmga002.jf.intel.com with ESMTP; 01 Mar 2011 06:08:02 -0800
+Message-Id: <c901f4738cb7b948d60cf3422a01be30ad54525f.1298987770.git.scott.m.rifenbark@intel.com>
 In-Reply-To: <cover.1298987770.git.scott.m.rifenbark@intel.com>
 References: <cover.1298987770.git.scott.m.rifenbark@intel.com>
-Old-Date: Fri, 25 Feb 2011 17:01:33 -0600
-Date: Tue, 01 Mar 2011  8:08:52 -0600
+Old-Date: Tue, 1 Mar 2011 07:44:04 -0600
+Date: Tue, 01 Mar 2011  8:08:53 -0600
 To: poky@yoctoproject.org
 CC: 
 From: <scott.m.rifenbark@intel.com>
-Subject: [PATCH 11/12] [BUGID# 553] - documentation/poky-ref-manual/resources.xml: Fixed pokylinux URL
+Subject: [PATCH 12/12] [BUGID# 553] - documentation/bsp-guide/bsp.xml: Re-write of click-through
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,35 +28,137 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Mar 2011 14:08:01 -0000
+X-List-Received-Date: Tue, 01 Mar 2011 14:08:03 -0000
 
 From: Scott Rifenbark <scott.m.rifenbark@intel.com>
 
-[BUGID# 553] - In appendix I in the Contributions section (I.6) there is
-mention of a Poky contributions tree and the URL
-git://git.pokylinux.org/poky-contrib.git is given.  I changed this
-URL to git://git.yoctoproject.org/poky-contrib.git.
+[BUGID# 553] - In the 'BSP Click-Through Licensing Procedure'
+section, which is shared between the BSP Guide and the Poky
+Reference Manual, there were three links to 'pokylinux.org'
+sites.  These links were intended to help a user get a license
+for encumbered BSPs.  However, the links never did work.  The
+section also had some wording that described a propsed naming
+convention for BSP tarballs that were encumbered and non-encumbered.
+The naming convention is a good idea but has not been followed
+so far.
 
-This is a partial fix for but 553.
+I removed the links and replaced them with general instructions
+on how to get through the licensing situation.  Also removed the
+hard-line naming rules and replaces with a more general explanation
+of how we are naming BSP (e.g. Crown Bay).
 
 Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
 ---
- documentation/poky-ref-manual/resources.xml |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ documentation/bsp-guide/bsp.xml |   59 ++++++++++++++++++++++----------------
+ 1 files changed, 34 insertions(+), 25 deletions(-)
 
-diff --git a/documentation/poky-ref-manual/resources.xml b/documentation/poky-ref-manual/resources.xml
-index 888610c..dd4b58d 100644
---- a/documentation/poky-ref-manual/resources.xml
-+++ b/documentation/poky-ref-manual/resources.xml
-@@ -149,7 +149,7 @@
- </programlisting>
+diff --git a/documentation/bsp-guide/bsp.xml b/documentation/bsp-guide/bsp.xml
+index 076c08c..ea9b001 100644
+--- a/documentation/bsp-guide/bsp.xml
++++ b/documentation/bsp-guide/bsp.xml
+@@ -533,19 +533,22 @@ FILESEXTRAPATHS := "${THISDIR}/${PN}"
+             </para>
  
-     <para>
--        A Poky contributions tree (poky-contrib, git://git.pokylinux.org/poky-contrib.git)
-+        A Poky contributions tree (poky-contrib, git://git.yoctoproject.org/poky-contrib.git)
-         exists for people to stage contributions in, for regular contributors.
-         If people desire such access, please ask on the mailing list. Usually
-         access will be given to anyone with a proven track record of good patches.
+             <para>
+-	      For cases where you can substitute something and still maintain functionality, the Poky website will make
+-	      available a 'de-featured' BSP completely free of the encumbered IP.
+-              In that case you can use the substitution directly and without any further licensing requirements.  
+-              If present, this fully 'de-featured' BSP will be named meta-&lt;bsp_name&gt; (i.e. the
+-	      normal default naming convention).  
+-              If available, this is the simplest the most preferred option.
++	      For cases where you can substitute something and still maintain functionality, 
++              the Yocto Project website at 
++              <ulink url='http://yoctoproject.org/download/board-support-package-bsp-downloads'></ulink> 
++              will make available a 'de-featured' BSP completely free of the encumbered IP.
++              In that case you can use the substitution directly and without any further licensing
++              requirements.  
++              If present, this fully 'de-featured' BSP will be named appropiately different 
++              than the normal encumbered BSP.
++              If available, this substitution is the simplest and most preferred option.
+               This, of course, assumes the resulting functionality meets requirements.
+             </para>
+ 
+             <para>
+-	      If however, a non-encumbered version is unavailable or the 'free' version would provide unsuitable
+-	      functionality or quality, an encumbered version can be used.  
+-              Encumbered versions of a BSP are given names of the form meta-&lt;bsp_name&gt;-nonfree.
++	      If however, a non-encumbered version is unavailable or the 'free' version 
++              would provide unsuitable functionality or quality, you can use 
++              an encumbered version.  
+             </para>
+ 
+             <para>  
+@@ -559,14 +562,23 @@ FILESEXTRAPATHS := "${THISDIR}/${PN}"
+ 
+ 		<para>
+ 		  Get a license key (or keys) for the encumbered BSP by visiting 
++                  a website and providing the name of the BSB and your email address
++                  through a web form.
++                </para>
++ 
++<!--
+                   <ulink url='https://pokylinux.org/bsp-keys.html'>https://pokylinux.org/bsp-keys.html</ulink>
+ 		  and give the name of the BSP and your e-mail address in the web form.
+ 		</para>
+ 
++                COMMENT:  This link is not implemented at this point.  
++
+ 		<programlisting>
+ 		  [screenshot of dialog box]
+ 		</programlisting>
+ 
++-->
++
+ 		<para>
+ 		  After agreeing to any applicable license terms, the
+ 		  BSP key(s) will be immediately sent to the address
+@@ -609,7 +621,8 @@ FILESEXTRAPATHS := "${THISDIR}/${PN}"
+ 		  encumbered BSP.  
+                   These prompts usually take the form of instructions
+ 		  needed to manually fetch the encumbered package(s)
+-		  and md5 sums into the required directory (e.g. the poky/build/downloads)
++		  and md5 sums into the required directory 
++                  (e.g. the <filename>poky/build/downloads</filename>).
+                   Once the manual package fetch has been
+ 		  completed, restart the build to continue where
+ 		  it left off.
+@@ -619,25 +632,21 @@ FILESEXTRAPATHS := "${THISDIR}/${PN}"
+               </listitem>
+               <listitem>
+ 		<para>
+-		  Get a full-featured BSP recipe rather than a key, by
+-		  visiting
+-		  <ulink url='https://pokylinux.org/bsps.html'>https://pokylinux.org/bsps.html</ulink>.
+-		  Accepting the license agreement(s) presented will
+-		  subsequently allow you to download a tarball
+-		  containing a full-featured BSP that is legally cleared for
+-		  your use by the just-given license agreement(s).
+-		  This method will also allow the encumbered image to
+-		  be built with no change at all to the normal build
+-		  process.
+-		</para>
++		  Get a full-featured BSP recipe rather than a key.
++                  You can do this by visiting the applicable BSP download page from the Yocto 
++                  Project website at
++                  <ulink url='http://yoctoproject.org/download/board-support-package-bsp-downloads'></ulink>.
++		  BSP tarballs that have proprietary information can be downloaded after agreeing 
++                  to licensing requirements as part of the download process. 
++                  Obtaining the code this way allows you to build an encumbered image with 
++                  no changes at all as compared to the normal build. 
++                </para>
+               </listitem>
+ 	    </orderedlist>
+ 	    <para>
+ 	      Note that the third method is also the only option available
+-	      when downloading pre-compiled images generated from
+-	      non-free BSPs.  
+-              Those images are likewise available at
+-	      <ulink url='https://pokylinux.org/bsps.html'>https://pokylinux.org/bsps.html</ulink>.
++	      when downloading pre-compiled images generated from non-free BSPs.  
++              Those images are likewise available at from the Yocto Project website.
+             </para> 
+         </section>
+ 
 -- 
 1.7.1
 
