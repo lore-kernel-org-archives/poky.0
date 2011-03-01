@@ -1,22 +1,22 @@
 Return-Path: <scott.m.rifenbark@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E32B44C80AA8
-	for <poky@yoctoproject.org>; Tue,  1 Mar 2011 08:07:57 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 01 Mar 2011 06:07:57 -0800
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 3AB774C80AB7
+	for <poky@yoctoproject.org>; Tue,  1 Mar 2011 08:08:00 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 01 Mar 2011 06:07:59 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,246,1297065600"; d="scan'208";a="892543099"
+X-IronPort-AV: E=Sophos;i="4.62,246,1297065600"; d="scan'208";a="395690611"
 Received: from unknown (HELO localhost) ([10.255.12.134])
-	by fmsmga001.fm.intel.com with ESMTP; 01 Mar 2011 06:07:57 -0800
-Message-Id: <e8db91b55351dc8931be3e5bc9ad963b75d085bf.1298987770.git.scott.m.rifenbark@intel.com>
+	by azsmga001.ch.intel.com with ESMTP; 01 Mar 2011 06:07:58 -0800
+Message-Id: <44dec28ebee2e5495ef9ba775a76b128088529a4.1298987770.git.scott.m.rifenbark@intel.com>
 In-Reply-To: <cover.1298987770.git.scott.m.rifenbark@intel.com>
 References: <cover.1298987770.git.scott.m.rifenbark@intel.com>
-Old-Date: Fri, 25 Feb 2011 16:37:57 -0600
-Date: Tue, 01 Mar 2011  8:08:49 -0600
+Old-Date: Fri, 25 Feb 2011 16:52:58 -0600
+Date: Tue, 01 Mar 2011  8:08:50 -0600
 To: poky@yoctoproject.org
 CC: 
 From: <scott.m.rifenbark@intel.com>
-Subject: [PATCH 09/12] [BUGID# 553] - documentation/poky-ref-manual/resources.xml: Fixed pokylinux URL
+Subject: [PATCH 10/12] documentation/poky-ref-manual/resources.xml: Text addtions in Links section in Appendix I
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,39 +28,43 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Mar 2011 14:07:58 -0000
+X-List-Received-Date: Tue, 01 Mar 2011 14:08:00 -0000
 
 From: Scott Rifenbark <scott.m.rifenbark@intel.com>
 
-[BUGID# 553] - In the "Bugtracker" section (appendix I - I.2) there is
-a reference to the bugtracker.  The text shows just the string
-"bug tracker" but the hidden URL was http://bugzilla.pokylinux.org.
-I updated the text to say to report problems by using the Bugzilla
-application and then gave the URL http://bugzilla.yoctoproject.org
-as the reference.
-
-This is a partial fix for bug 553.
+I added text after the bulleted items "The Poky website" and "BitBake Uer Manual."
+These were blank and it was not consistent with the rest of the list.
 
 Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
 ---
- documentation/poky-ref-manual/resources.xml |    4 ++--
- 1 files changed, 2 insertions(+), 2 deletions(-)
+ documentation/poky-ref-manual/resources.xml |    7 ++++---
+ 1 files changed, 4 insertions(+), 3 deletions(-)
 
 diff --git a/documentation/poky-ref-manual/resources.xml b/documentation/poky-ref-manual/resources.xml
-index b151b21..e6f7b26 100644
+index e6f7b26..888610c 100644
 --- a/documentation/poky-ref-manual/resources.xml
 +++ b/documentation/poky-ref-manual/resources.xml
-@@ -18,8 +18,8 @@
-     <title>Bugtracker</title>
- 
-     <para>
--        Problems with Poky should be reported in the 
--        <ulink url='http://bugzilla.pokylinux.org/'>bug tracker</ulink>.
-+        Problems with Poky should be reported using the Bugzilla application at 
-+        <ulink url='http://bugzilla.yoctoproject.org/'></ulink>.
-     </para>
- </section>
- 
+@@ -75,7 +75,8 @@
+             for Yocto Project.
+         </para></listitem>
+         <listitem><para>
+-            <ulink url='http://pokylinux.org'>The Poky website</ulink> 
++            <ulink url='http://pokylinux.org'>The Poky website</ulink> - The home site
++            for Poky Linux.
+         </para></listitem>
+         <listitem><para>
+             <ulink url='http://www.openedhand.com/'>OpenedHand</ulink> - The
+@@ -96,8 +97,8 @@
+             - The tool used to process Poky metadata.
+         </para></listitem>
+         <listitem><para>
+-            <ulink url='http://bitbake.berlios.de/manual/'>Bitbake User
+-                Manual</ulink>
++            <ulink url='http://bitbake.berlios.de/manual/'>BitBake User
++                Manual</ulink> - A comprehensive guide to the BitBake tool.
+         </para></listitem>
+         <listitem><para>
+             <ulink url='http://pimlico-project.org/'>Pimlico</ulink> - A
 -- 
 1.7.1
 
