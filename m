@@ -1,22 +1,27 @@
-Return-Path: <bruce.ashfield@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C53AD4C80A7E;
-	Tue,  1 Mar 2011 15:26:43 -0600 (CST)
-Received: from localhost.localdomain (yow-bashfiel-d2.ottawa.windriver.com
-	[128.224.146.167])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p21LQeND012464;
-	Tue, 1 Mar 2011 13:26:42 -0800 (PST)
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-To: rpurdie@linux.intel.com
-Date: Tue,  1 Mar 2011 16:28:12 -0500
-Message-Id: <3c7015f02d67a0af800df4dbf735c7650fd2b498.1299014724.git.bruce.ashfield@windriver.com>
-X-Mailer: git-send-email 1.7.0.4
-In-Reply-To: <cover.1299014724.git.bruce.ashfield@windriver.com>
-References: <cover.1299014724.git.bruce.ashfield@windriver.com>
-In-Reply-To: <cover.1299014724.git.bruce.ashfield@windriver.com>
-References: <cover.1299014724.git.bruce.ashfield@windriver.com>
-Cc: yocto@yoctoproject.org, poky@yoctoproject.org, saul.wold@intel.com
-Subject: [PATCH 1/1] kernel: remove explicit bash call in do_menuconfig
+Return-Path: <scott.a.garman@intel.com>
+Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 133F54C80AAE
+	for <poky@yoctoproject.org>; Tue,  1 Mar 2011 15:27:25 -0600 (CST)
+Received: from localhost (c-76-105-143-140.hsd1.or.comcast.net
+	[76.105.143.140])
+	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
+	(No client certificate requested)
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id 553BC837C05
+	for <poky@yoctoproject.org>; Tue,  1 Mar 2011 16:27:20 -0500 (EST)
+Message-Id: <cover.1299014665.git.scott.a.garman@intel.com>
+Old-Date: Tue, 1 Mar 2011 13:24:25 -0800
+Date: Tue, 01 Mar 2011 13:27:15 -0800
+To: poky@yoctoproject.org
+CC: 
+From: Scott Garman <scott.a.garman@intel.com>
+X-MasterFoo-MailScanner-Information: Please contact the ISP for more
+	information
+X-MailScanner-ID: 553BC837C05.0AA52
+X-MasterFoo-MailScanner: Found to be clean
+X-MasterFoo-MailScanner-SpamCheck: not spam
+X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
+X-Spam-Status: No
+Subject: [PATCH 0/1] screenshot bugfix
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,38 +33,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Mar 2011 21:26:44 -0000
+X-List-Received-Date: Tue, 01 Mar 2011 21:27:25 -0000
 
-Fixes [BUGID #598]
+From: Scott Garman <scott.a.garman@intel.com>
 
-The explicit addition of "bash" before "make menuconfig"
-is clearing variables that are required for pseudo. The
-end result is that menuconfig often fails silently with:
+Hi Saul,
 
-ERROR: ld.so: object 'libpseudo.so' from LD_PRELOAD cannot be preloaded: ignored.
+This pull request includes a fix for bug #664.
 
-Removing bash from the menuconfig SHELLCMDS variable fixes
-the psudo problem.
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: sgarman/screenshot-fix
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=sgarman/screenshot-fix
 
-Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
+Thanks,
+    Scott Garman <scott.a.garman@intel.com>
 ---
- meta/classes/kernel.bbclass |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
 
-diff --git a/meta/classes/kernel.bbclass b/meta/classes/kernel.bbclass
-index 5d9b86a..a1b1354 100644
---- a/meta/classes/kernel.bbclass
-+++ b/meta/classes/kernel.bbclass
-@@ -202,7 +202,7 @@ do_menuconfig() {
-         export DBUS_SESSION_BUS_ADDRESS='${DBUS_SESSION_BUS_ADDRESS}'
-         export XAUTHORITY='${XAUTHORITY}'
- 	export TERMWINDOWTITLE="${PN} Kernel Configuration"
--	export SHELLCMDS="bash make menuconfig"
-+	export SHELLCMDS="make menuconfig"
- 	${TERMCMDRUN}
- 	if [ $? -ne 0 ]; then
- 		echo "Fatal: '${TERMCMD}' not found. Check TERMCMD variable."
--- 
-1.7.0.4
+
+Scott Garman (1):
+  screenshot: change the order of LDADD arguments
+
+ .../files/dso_linking_change_build_fix.patch       |   49 --------------------
+ .../screenshot/files/fix_ldadd_order.patch         |   12 +++++
+ meta/recipes-sato/screenshot/screenshot_svn.bb     |    6 +-
+ 3 files changed, 15 insertions(+), 52 deletions(-)
+ delete mode 100644 meta/recipes-sato/screenshot/files/dso_linking_change_build_fix.patch
+ create mode 100644 meta/recipes-sato/screenshot/files/fix_ldadd_order.patch
 
 
