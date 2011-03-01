@@ -1,22 +1,21 @@
-Return-Path: <scott.m.rifenbark@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 3C4C24C80AAB
-	for <poky@yoctoproject.org>; Tue,  1 Mar 2011 12:15:23 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 01 Mar 2011 10:15:22 -0800
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 342D24C800A7
+	for <poky@yoctoproject.org>; Tue,  1 Mar 2011 12:45:17 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 01 Mar 2011 10:45:17 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,248,1297065600"; d="scan'208";a="395851874"
-Received: from unknown (HELO localhost) ([10.255.12.134])
-	by azsmga001.ch.intel.com with ESMTP; 01 Mar 2011 10:15:22 -0800
-Message-Id: <ace70658796d3c9c5aa53244311c26febdf72428.1299002830.git.scott.m.rifenbark@intel.com>
-In-Reply-To: <cover.1299002830.git.scott.m.rifenbark@intel.com>
-References: <cover.1299002830.git.scott.m.rifenbark@intel.com>
-Old-Date: Tue, 1 Mar 2011 08:59:13 -0600
-Date: Tue, 01 Mar 2011 12:16:12 -0600
+X-IronPort-AV: E=Sophos;i="4.62,248,1297065600"; d="scan'208";a="607873769"
+Received: from unknown (HELO helios) ([10.255.17.4])
+	by orsmga002.jf.intel.com with SMTP; 01 Mar 2011 10:45:16 -0800
+Received: by helios (sSMTP sendmail emulation); Tue, 01 Mar 2011 18:45:16 +0000
+Message-Id: <cover.1299004921.git.paul.eggleton@linux.intel.com>
+Old-Date: Tue, 1 Mar 2011 18:42:01 +0000
+Date: Tue, 01 Mar 2011 18:45:16 +0000
 To: poky@yoctoproject.org
 CC: 
-From: <scott.m.rifenbark@intel.com>
-Subject: [PATCH 3/3] documentation/bsp-guide/bsp-guide.xml: Updated revision history on title page.
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
+Subject: [PATCH 0/2] make zypper recommend uuidgen
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,41 +27,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Mar 2011 18:15:23 -0000
+X-List-Received-Date: Tue, 01 Mar 2011 18:45:19 -0000
 
-From: Scott Rifenbark <scott.m.rifenbark@intel.com>
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
 
-I updated the revision history on the title page to reflect the upcoming
-Release 1.0.  I will likely have to change this as we get nearer the
-release so I can be sure of the number and also add meaning release
-remarks to the entry.
+These patches split out uuidgen to a separate package and then add it to 
+zypper's RRECOMMENDS. This addresses bug #749 (I'm making the assumption here 
+that zypper really should need uuidgen, haven't looked into this closely).
 
-Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: paule/zypper-uuidgen
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=paule/zypper-uuidgen
+
+Thanks,
+    Paul Eggleton <paul.eggleton@linux.intel.com>
 ---
- documentation/bsp-guide/bsp-guide.xml |    7 ++++++-
- 1 files changed, 6 insertions(+), 1 deletions(-)
 
-diff --git a/documentation/bsp-guide/bsp-guide.xml b/documentation/bsp-guide/bsp-guide.xml
-index 4361a2c..2862e2e 100644
---- a/documentation/bsp-guide/bsp-guide.xml
-+++ b/documentation/bsp-guide/bsp-guide.xml
-@@ -29,9 +29,14 @@
- 
-         <revhistory>
-             <revision>
-+                <revnumber>1.0</revnumber>
-+                <date>1 April 2011</date>
-+                <revremark>This release represents the initial full release for Yocto Project.</revremark>
-+            </revision>
-+            <revision>
-                 <revnumber>0.9</revnumber>
-                 <date>27 October 2010</date>
--                <revremark>Beta Draft</revremark>
-+                <revremark>This release represents the Yocto Project Beta Draft.</revremark>
-             </revision>
-         </revhistory>
- 
--- 
-1.7.1
+
+Paul Eggleton (2):
+  util-linux: split out uuidgen to a separate package
+  zypper: add util-linux-uuidgen to RRECOMMENDS
+
+ meta/recipes-core/util-linux/util-linux.inc       |    3 ++-
+ meta/recipes-core/util-linux/util-linux_2.17.2.bb |    2 +-
+ meta/recipes-extended/zypper/zypper_git.bb        |    4 ++--
+ 3 files changed, 5 insertions(+), 4 deletions(-)
 
 
