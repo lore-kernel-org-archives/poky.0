@@ -1,23 +1,22 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id DD1124C80A89
-	for <poky@yoctoproject.org>; Tue,  1 Mar 2011 12:45:22 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 01 Mar 2011 10:45:22 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,248,1297065600"; d="scan'208";a="395874439"
-Received: from unknown (HELO helios) ([10.255.17.4])
-	by azsmga001.ch.intel.com with SMTP; 01 Mar 2011 10:45:20 -0800
-Received: by helios (sSMTP sendmail emulation); Tue, 01 Mar 2011 18:45:21 +0000
-Message-Id: <a39c0384af57791b511793b674874ab868b72b43.1299004921.git.paul.eggleton@linux.intel.com>
-In-Reply-To: <cover.1299004921.git.paul.eggleton@linux.intel.com>
-References: <cover.1299004921.git.paul.eggleton@linux.intel.com>
-Old-Date: Tue, 1 Mar 2011 18:34:53 +0000
-Date: Tue, 01 Mar 2011 18:45:21 +0000
-To: poky@yoctoproject.org
-CC: 
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-Subject: [PATCH 2/2] zypper: add util-linux-uuidgen to RRECOMMENDS
+Return-Path: <mark.hatle@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 9C0ED4C800A7
+	for <poky@yoctoproject.org>; Tue,  1 Mar 2011 12:50:54 -0600 (CST)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p21IosYs015201
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Tue, 1 Mar 2011 10:50:54 -0800 (PST)
+Received: from localhost.localdomain (172.25.36.229) by
+	ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server
+	(TLS) id 14.1.255.0; Tue, 1 Mar 2011 10:50:53 -0800
+From: Mark Hatle <mark.hatle@windriver.com>
+To: <poky@yoctoproject.org>
+Date: Tue, 1 Mar 2011 12:50:32 -0600
+Message-ID: <cover.1299005382.git.mark.hatle@windriver.com>
+X-Mailer: git-send-email 1.7.4
+MIME-Version: 1.0
+X-Originating-IP: [172.25.36.229]
+Subject: [PATCH 0/1] Fix insane class ELF bitsize checks
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,36 +28,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Mar 2011 18:45:23 -0000
+X-List-Received-Date: Tue, 01 Mar 2011 18:50:55 -0000
+Content-Type: text/plain
 
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
+The insane class was not checking the ELF bitsize, in fact if it wasn't
+correct it was skipping all of the QA checks!
 
-zypper complains if uuidgen is not available, so add it to RRECOMMENDS
-for the zypper package.
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: mhatle/insane
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=mhatle/insane
 
-Addresses [BUGID #749]
-
-Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
+Thanks,
+    Mark Hatle <mark.hatle@windriver.com>
 ---
- meta/recipes-extended/zypper/zypper_git.bb |    4 ++--
- 1 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/meta/recipes-extended/zypper/zypper_git.bb b/meta/recipes-extended/zypper/zypper_git.bb
-index 729eabd..af6bd49 100644
---- a/meta/recipes-extended/zypper/zypper_git.bb
-+++ b/meta/recipes-extended/zypper/zypper_git.bb
-@@ -5,8 +5,8 @@ LICENSE  = "GPLv2+"
- LIC_FILES_CHKSUM = "file://COPYING;md5=3201406e350b39e05a82e28b5020f413"
- 
- DEPENDS  = "libzypp augeas"
--RRECOMMENDS_${PN} = "procps"
--PR = "r3"
-+RRECOMMENDS_${PN} = "procps util-linux-uuidgen"
-+PR = "r4"
- 
- inherit cmake
- 
+
+Mark Hatle (1):
+  insane.bbclass: Fix ELF bitsize comparison
+
+ meta/classes/insane.bbclass |   84 ++++++++++++++++++++++---------------------
+ meta/lib/oe/qa.py           |   21 +++++++++--
+ 2 files changed, 60 insertions(+), 45 deletions(-)
+
 -- 
-1.7.1
+1.7.4
 
 
