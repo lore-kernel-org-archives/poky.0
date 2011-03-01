@@ -1,22 +1,27 @@
-Return-Path: <scott.m.rifenbark@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C08E14C80AA8
-	for <poky@yoctoproject.org>; Tue,  1 Mar 2011 08:08:02 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 01 Mar 2011 06:08:02 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,246,1297065600"; d="scan'208";a="607756862"
-Received: from unknown (HELO localhost) ([10.255.12.134])
-	by orsmga002.jf.intel.com with ESMTP; 01 Mar 2011 06:08:02 -0800
-Message-Id: <c901f4738cb7b948d60cf3422a01be30ad54525f.1298987770.git.scott.m.rifenbark@intel.com>
-In-Reply-To: <cover.1298987770.git.scott.m.rifenbark@intel.com>
-References: <cover.1298987770.git.scott.m.rifenbark@intel.com>
-Old-Date: Tue, 1 Mar 2011 07:44:04 -0600
-Date: Tue, 01 Mar 2011  8:08:53 -0600
-To: poky@yoctoproject.org
-CC: 
-From: <scott.m.rifenbark@intel.com>
-Subject: [PATCH 12/12] [BUGID# 553] - documentation/bsp-guide/bsp.xml: Re-write of click-through
+Return-Path: <mark.hatle@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 55E4C4C80A7E
+	for <poky@yoctoproject.org>; Tue,  1 Mar 2011 10:05:11 -0600 (CST)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p21G58SV012460
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Tue, 1 Mar 2011 08:05:08 -0800 (PST)
+Received: from Macintosh-5.local (172.25.36.227) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
+	Tue, 1 Mar 2011 08:05:07 -0800
+Message-ID: <4D6D192E.6090801@windriver.com>
+Date: Tue, 1 Mar 2011 10:05:02 -0600
+From: Mark Hatle <mark.hatle@windriver.com>
+Organization: Wind River Systems
+User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
+	rv:1.9.2.13) Gecko/20101207 Thunderbird/3.1.7
+MIME-Version: 1.0
+To: v sailaja <vsailub4u@gmail.com>
+References: <AANLkTi=CVPBSLQ_8345OrL_YKde=Mf3bqrxRZru75vSR@mail.gmail.com>
+In-Reply-To: <AANLkTi=CVPBSLQ_8345OrL_YKde=Mf3bqrxRZru75vSR@mail.gmail.com>
+X-Originating-IP: [172.25.36.227]
+Cc: poky@yoctoproject.org
+Subject: Re: got error while trying to pull the krb5 package into poky
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,138 +33,115 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Mar 2011 14:08:03 -0000
+X-List-Received-Date: Tue, 01 Mar 2011 16:05:11 -0000
+Content-Type: text/plain; charset="windows-1252"
+Content-Transfer-Encoding: 8bit
 
-From: Scott Rifenbark <scott.m.rifenbark@intel.com>
+On 3/1/11 4:45 AM, v sailaja wrote:
+> Hi,
+> 
+> I tried with the following
+>                       
+> 
+>               bitbake krb5  -c cleanall  
+>               bitbake krb5
+> But again I am getting the same error and krb5 rpm file is not generated at 
+> tmp/deploy/rpm.
+> 
+> 
+>  The value is
+> 
+> *PACKAGE_CLASSES ?= "package_rpm package_ipk"*
+> 
+> *
+> error:*
+>  Generating solve db for /home/sailaja/poky-chrome/build/tmp/deploy/rpm/atom-pc...
+> |    total:               1      0.000000 MB      0.871674 secs
+> |    order:               1      0.000000 MB      0.090471 secs
+> |    fingerprint:       537      0.007286 MB      0.081155 secs
+> |    install:           278      0.000000 MB      0.179576 secs
+> |    dbadd:             278      0.000000 MB      0.081411 secs
+> |    dbget:            8678      1.128312 MB      0.016757 secs
+> |    dbput:            5035      2.213572 MB      0.020290 secs
+> |    readhdr:          2781      2.267168 MB      0.206626 secs
+> |    hdrload:        194461    256.103876 MB      1.118980 secs
+> |    hdrget:        3861605      0.000000 MB      6.181097 secs
+> | *Processing krb5...
+> | Unable to find package krb5!
+> | ERROR: Task failed: ('function do_rootfs failed',
 
-[BUGID# 553] - In the 'BSP Click-Through Licensing Procedure'
-section, which is shared between the BSP Guide and the Poky
-Reference Manual, there were three links to 'pokylinux.org'
-sites.  These links were intended to help a user get a license
-for encumbered BSPs.  However, the links never did work.  The
-section also had some wording that described a propsed naming
-convention for BSP tarballs that were encumbered and non-encumbered.
-The naming convention is a good idea but has not been followed
-so far.
+The error may not be completely clear, but this means that there is no package
+in tmp/deploy/rpm/* called "krb5".  In otherwords, there is a package
+requirement that is not being met.
 
-I removed the links and replaced them with general instructions
-on how to get through the licensing situation.  Also removed the
-hard-line naming rules and replaces with a more general explanation
-of how we are naming BSP (e.g. Crown Bay).
+Figure out where the requirement is coming from and that will lead you toward a
+possible cause.
 
-Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
----
- documentation/bsp-guide/bsp.xml |   59 ++++++++++++++++++++++----------------
- 1 files changed, 34 insertions(+), 25 deletions(-)
+rpm --qf "[%{NAME} %{REQUIRES}\n]" -qp <packages>
 
-diff --git a/documentation/bsp-guide/bsp.xml b/documentation/bsp-guide/bsp.xml
-index 076c08c..ea9b001 100644
---- a/documentation/bsp-guide/bsp.xml
-+++ b/documentation/bsp-guide/bsp.xml
-@@ -533,19 +533,22 @@ FILESEXTRAPATHS := "${THISDIR}/${PN}"
-             </para>
- 
-             <para>
--	      For cases where you can substitute something and still maintain functionality, the Poky website will make
--	      available a 'de-featured' BSP completely free of the encumbered IP.
--              In that case you can use the substitution directly and without any further licensing requirements.  
--              If present, this fully 'de-featured' BSP will be named meta-&lt;bsp_name&gt; (i.e. the
--	      normal default naming convention).  
--              If available, this is the simplest the most preferred option.
-+	      For cases where you can substitute something and still maintain functionality, 
-+              the Yocto Project website at 
-+              <ulink url='http://yoctoproject.org/download/board-support-package-bsp-downloads'></ulink> 
-+              will make available a 'de-featured' BSP completely free of the encumbered IP.
-+              In that case you can use the substitution directly and without any further licensing
-+              requirements.  
-+              If present, this fully 'de-featured' BSP will be named appropiately different 
-+              than the normal encumbered BSP.
-+              If available, this substitution is the simplest and most preferred option.
-               This, of course, assumes the resulting functionality meets requirements.
-             </para>
- 
-             <para>
--	      If however, a non-encumbered version is unavailable or the 'free' version would provide unsuitable
--	      functionality or quality, an encumbered version can be used.  
--              Encumbered versions of a BSP are given names of the form meta-&lt;bsp_name&gt;-nonfree.
-+	      If however, a non-encumbered version is unavailable or the 'free' version 
-+              would provide unsuitable functionality or quality, you can use 
-+              an encumbered version.  
-             </para>
- 
-             <para>  
-@@ -559,14 +562,23 @@ FILESEXTRAPATHS := "${THISDIR}/${PN}"
- 
- 		<para>
- 		  Get a license key (or keys) for the encumbered BSP by visiting 
-+                  a website and providing the name of the BSB and your email address
-+                  through a web form.
-+                </para>
-+ 
-+<!--
-                   <ulink url='https://pokylinux.org/bsp-keys.html'>https://pokylinux.org/bsp-keys.html</ulink>
- 		  and give the name of the BSP and your e-mail address in the web form.
- 		</para>
- 
-+                COMMENT:  This link is not implemented at this point.  
-+
- 		<programlisting>
- 		  [screenshot of dialog box]
- 		</programlisting>
- 
-+-->
-+
- 		<para>
- 		  After agreeing to any applicable license terms, the
- 		  BSP key(s) will be immediately sent to the address
-@@ -609,7 +621,8 @@ FILESEXTRAPATHS := "${THISDIR}/${PN}"
- 		  encumbered BSP.  
-                   These prompts usually take the form of instructions
- 		  needed to manually fetch the encumbered package(s)
--		  and md5 sums into the required directory (e.g. the poky/build/downloads)
-+		  and md5 sums into the required directory 
-+                  (e.g. the <filename>poky/build/downloads</filename>).
-                   Once the manual package fetch has been
- 		  completed, restart the build to continue where
- 		  it left off.
-@@ -619,25 +632,21 @@ FILESEXTRAPATHS := "${THISDIR}/${PN}"
-               </listitem>
-               <listitem>
- 		<para>
--		  Get a full-featured BSP recipe rather than a key, by
--		  visiting
--		  <ulink url='https://pokylinux.org/bsps.html'>https://pokylinux.org/bsps.html</ulink>.
--		  Accepting the license agreement(s) presented will
--		  subsequently allow you to download a tarball
--		  containing a full-featured BSP that is legally cleared for
--		  your use by the just-given license agreement(s).
--		  This method will also allow the encumbered image to
--		  be built with no change at all to the normal build
--		  process.
--		</para>
-+		  Get a full-featured BSP recipe rather than a key.
-+                  You can do this by visiting the applicable BSP download page from the Yocto 
-+                  Project website at
-+                  <ulink url='http://yoctoproject.org/download/board-support-package-bsp-downloads'></ulink>.
-+		  BSP tarballs that have proprietary information can be downloaded after agreeing 
-+                  to licensing requirements as part of the download process. 
-+                  Obtaining the code this way allows you to build an encumbered image with 
-+                  no changes at all as compared to the normal build. 
-+                </para>
-               </listitem>
- 	    </orderedlist>
- 	    <para>
- 	      Note that the third method is also the only option available
--	      when downloading pre-compiled images generated from
--	      non-free BSPs.  
--              Those images are likewise available at
--	      <ulink url='https://pokylinux.org/bsps.html'>https://pokylinux.org/bsps.html</ulink>.
-+	      when downloading pre-compiled images generated from non-free BSPs.  
-+              Those images are likewise available at from the Yocto Project website.
-             </para> 
-         </section>
- 
--- 
-1.7.1
+That will list the name of the package, followed by a requirement.  This should
+allow you to figure out what is requiring krb5..
+
+--Mark
+
+> '/home/sailaja/poky-chrome/build/tmp/work/atom-pc-poky-linux/poky-image-minimal-akshat-1.0-r0/temp/log.do_rootfs.9313')
+> NOTE: package poky-image-minimal-akshat-1.0-r0: task do_rootfs: Failed*
+> ERROR: Task 179
+> (/home/sailaja/poky-chrome/meta/recipes-core/images/poky-image-minimal-akshat.bb
+> <http://poky-image-minimal-akshat.bb/>, do_rootfs) failed with 1
+> ERROR:
+> '/home/sailaja/poky-chrome/meta/recipes-core/images/poky-image-minimal-akshat.bb
+> <http://poky-image-minimal-akshat.bb/>' failed
+> 
+> 
+> 
+> Please help me in finding the solution.
+> Any help  would be greatly apprecited.
+> 
+> Thanks & Regards,
+> SAI
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+>     Hi SAI,
+> 
+>      
+> 
+>     Please try the following to rebuild the krb5 to see if the rpm is generated:
+> 
+>      
+> 
+>     -          bitbake krb5  -c cleanall
+> 
+>     -          bitbake krb5
+> 
+>      
+> 
+>     This should generate the rpm file under the directory of “tmp/deploy/rpm”.
+> 
+>      
+> 
+>     b.t.w. what’s the value set to the variable PACKAGE_CLASSES in your
+>     conf/local.conf?
+> 
+>      
+> 
+>     Best Regards,
+> 
+>     Lianhao Lu
+> 
+> 
+> 
+> 
+> 
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
 
