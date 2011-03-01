@@ -1,22 +1,26 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A14EB4C800A4
-	for <poky@yoctoproject.org>; Tue,  1 Mar 2011 04:24:00 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 01 Mar 2011 02:24:00 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,246,1297065600"; d="scan'208";a="395597196"
-Received: from unknown (HELO helios.localnet) ([10.255.17.4])
-	by azsmga001.ch.intel.com with ESMTP; 01 Mar 2011 02:23:59 -0800
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-Organization: Intel Corporation (UK)
-To: poky@yoctoproject.org
-Date: Tue, 1 Mar 2011 10:23:58 +0000
-User-Agent: KMail/1.13.5 (Linux/2.6.35-25-generic-pae; KDE/4.6.0; i686; ; )
+Return-Path: <koen@dominion.thruhere.net>
+Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 3B5CE4C800A4
+	for <poky@yoctoproject.org>; Tue,  1 Mar 2011 04:33:12 -0600 (CST)
+Received: by wwi18 with SMTP id 18so5524294wwi.11
+	for <poky@yoctoproject.org>; Tue, 01 Mar 2011 02:33:10 -0800 (PST)
+Received: by 10.227.2.84 with SMTP id 20mr1555506wbi.156.1298975590622;
+	Tue, 01 Mar 2011 02:33:10 -0800 (PST)
+Received: from [172.20.0.255] (ip545070eb.adsl-surfen.hetnet.nl
+	[84.80.112.235])
+	by mx.google.com with ESMTPS id r57sm2392103wes.25.2011.03.01.02.33.09
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Tue, 01 Mar 2011 02:33:09 -0800 (PST)
+Mime-Version: 1.0 (Apple Message framework v1082)
+From: Koen Kooi <koen@dominion.thruhere.net>
+In-Reply-To: <201103011023.58911.paul.eggleton@linux.intel.com>
+Date: Tue, 1 Mar 2011 11:33:08 +0100
+Message-Id: <34ADCD70-E17B-459F-88E7-D959B0DB4737@dominion.thruhere.net>
 References: <cover.1298961777.git.xiaofeng.yan@windriver.com>
-In-Reply-To: <cover.1298961777.git.xiaofeng.yan@windriver.com>
-MIME-Version: 1.0
-Message-Id: <201103011023.58911.paul.eggleton@linux.intel.com>
+	<201103011023.58911.paul.eggleton@linux.intel.com>
+To: Paul Eggleton <paul.eggleton@linux.intel.com>
+X-Mailer: Apple Mail (2.1082)
+Cc: poky@yoctoproject.org
 Subject: Re: [PATCH 0/2] Add qt3 to poky
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -29,21 +33,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Mar 2011 10:24:00 -0000
-Content-Type: Text/Plain;
-  charset="iso-8859-1"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 01 Mar 2011 10:33:13 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
 
-On Tuesday 01 March 2011 07:12:09 Xiaofeng Yan wrote:
-> From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
-> 
->   Packages qt3 from "OE" is needed by LSB Test Suite. So I add it to Poky.
 
-If we're adding this solely for LSB compliance, do we need the "embedded" 
-portions of Qt3 (i.e. qt3e.bbclass)? AFAICT the LSB documentation doesn't 
-mention it explicitly and if we don't add it it's one less thing we have to 
-support (I'm convinced it's not widely used in any case).
+Op 1 mrt 2011, om 11:23 heeft Paul Eggleton het volgende geschreven:
 
-Cheers,
-Paul
+> On Tuesday 01 March 2011 07:12:09 Xiaofeng Yan wrote:
+>> From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+>>=20
+>>  Packages qt3 from "OE" is needed by LSB Test Suite. So I add it to =
+Poky.
+>=20
+> If we're adding this solely for LSB compliance, do we need the =
+"embedded"=20
+> portions of Qt3 (i.e. qt3e.bbclass)? AFAICT the LSB documentation =
+doesn't=20
+> mention it explicitly and if we don't add it it's one less thing we =
+have to=20
+> support (I'm convinced it's not widely used in any case).
+
+And since there was never a qtopia for qt3 I highly doubt anyone is =
+using qt3/e.
+
+regards,
+
+Koen=
 
