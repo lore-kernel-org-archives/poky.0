@@ -1,26 +1,25 @@
 Return-Path: <saul.wold@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id AD2F44C800A4
-	for <poky@yoctoproject.org>; Mon, 28 Feb 2011 16:33:56 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 28 Feb 2011 14:33:56 -0800
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 29F104C80510
+	for <poky@yoctoproject.org>; Mon, 28 Feb 2011 18:38:56 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 28 Feb 2011 16:38:55 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,242,1297065600"; d="scan'208";a="714334712"
+X-IronPort-AV: E=Sophos;i="4.62,244,1297065600"; d="scan'208";a="662353294"
 Received: from unknown (HELO [10.255.12.96]) ([10.255.12.96])
-	by orsmga001.jf.intel.com with ESMTP; 28 Feb 2011 14:33:55 -0800
-Message-ID: <4D6C22D3.9080500@intel.com>
-Date: Mon, 28 Feb 2011 14:33:55 -0800
+	by fmsmga002.fm.intel.com with ESMTP; 28 Feb 2011 16:38:55 -0800
+Message-ID: <4D6C401F.8090604@intel.com>
+Date: Mon, 28 Feb 2011 16:38:55 -0800
 From: Saul Wold <saul.wold@intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
 	Thunderbird/3.0.5
 MIME-Version: 1.0
-To: Mark Hatle <mark.hatle@windriver.com>
-References: <cover.1298922394.git.mark.hatle@windriver.com>
-	<c8fff34ebe8c9e22bc863e54f5db81a5988c89bb.1298922394.git.mark.hatle@windriver.com>
-In-Reply-To: <c8fff34ebe8c9e22bc863e54f5db81a5988c89bb.1298922394.git.mark.hatle@windriver.com>
+To: Scott Garman <scott.a.garman@intel.com>
+References: <cover.1298929971.git.scott.a.garman@intel.com>
+In-Reply-To: <cover.1298929971.git.scott.a.garman@intel.com>
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 1/1] populate_sdk_rpm.bbclass: Add the necessary solvedb lock
+Subject: Re: [PATCH 0/1] distro tracking updates
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,38 +31,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 28 Feb 2011 22:33:56 -0000
+X-List-Received-Date: Tue, 01 Mar 2011 00:38:56 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 02/28/2011 11:50 AM, Mark Hatle wrote:
-> [BUG #776]
+On 02/28/2011 01:53 PM, Scott Garman wrote:
+> From: Scott Garman<scott.a.garman@intel.com>
 >
-Gentle reminder, format for bugs is: [BUGID #NNNN]
-
-Sau!
-
-> When using the RPM solve databases, we have to lock our operations
-> to avoid removing it while it's in use.
+> Hi Saul,
 >
-> The same lock is shared by the rootfs_rpm.bbclass
+> This pull request includes the additions of transfig and
+> linuxdoc-tools to the distro tracking file (which of course
+> should not imply that the Yocto Project is a Linux distro - it
+> most certainly is not that).
 >
-> Signed-off-by: Mark Hatle<mark.hatle@windriver.com>
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>    Branch: sgarman/distro-tracking
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=sgarman/distro-tracking
+>
+> Thanks,
+>      Scott Garman<scott.a.garman@intel.com>
 > ---
->   meta/classes/populate_sdk_rpm.bbclass |    1 +
->   1 files changed, 1 insertions(+), 0 deletions(-)
 >
-> diff --git a/meta/classes/populate_sdk_rpm.bbclass b/meta/classes/populate_sdk_rpm.bbclass
-> index 0afe042..da308c1 100644
-> --- a/meta/classes/populate_sdk_rpm.bbclass
-> +++ b/meta/classes/populate_sdk_rpm.bbclass
-> @@ -5,6 +5,7 @@ rpmlibdir = "/var/lib/rpm"
->   RPMOPTS="--dbpath ${rpmlibdir} --define='_openall_before_chroot 1'"
->   RPM="rpm ${RPMOPTS}"
 >
-> +do_populate_sdk[lockfiles] += "${DEPLOY_DIR_RPM}/rpm.lock"
+> Scott Garman (1):
+>    distro_tracking_fields.inc: add transfig and linuxdoc-tools recipes
 >
->   populate_sdk_post_rpm () {
+>   .../conf/distro/include/distro_tracking_fields.inc |   20 ++++++++++++++++++++
+>   1 files changed, 20 insertions(+), 0 deletions(-)
 >
+Pulled into Master and Bernard
+
+Thansk
+	Sau!
 
 
