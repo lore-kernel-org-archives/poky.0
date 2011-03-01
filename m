@@ -1,29 +1,39 @@
-Return-Path: <scott.a.garman@intel.com>
-Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 1B1204C80AAF
-	for <poky@yoctoproject.org>; Tue,  1 Mar 2011 15:27:28 -0600 (CST)
-Received: from localhost (c-76-105-143-140.hsd1.or.comcast.net
-	[76.105.143.140])
-	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
-	(No client certificate requested)
-	by masterfoo.zenlinux.com (Postfix) with ESMTP id C12D4837C06
-	for <poky@yoctoproject.org>; Tue,  1 Mar 2011 16:27:23 -0500 (EST)
-Message-Id: <cc834823c4140b0873d7d891188f6e4dfc119e0d.1299014665.git.scott.a.garman@intel.com>
-In-Reply-To: <cover.1299014665.git.scott.a.garman@intel.com>
-References: <cover.1299014665.git.scott.a.garman@intel.com>
-Old-Date: Tue, 1 Mar 2011 11:12:58 -0800
-Date: Tue, 01 Mar 2011 13:27:20 -0800
-To: poky@yoctoproject.org
-CC: 
-From: Scott Garman <scott.a.garman@intel.com>
-X-MasterFoo-MailScanner-Information: Please contact the ISP for more
-	information
-X-MailScanner-ID: C12D4837C06.3B3D1
-X-MasterFoo-MailScanner: Found to be clean
-X-MasterFoo-MailScanner-SpamCheck: not spam
-X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
-X-Spam-Status: No
-Subject: [PATCH 1/1] screenshot: change the order of LDADD arguments
+Return-Path: <raj.khem@gmail.com>
+Received: from mail-fx0-f48.google.com (mail-fx0-f48.google.com
+	[209.85.161.48])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2CCC14C80AB2
+	for <poky@yoctoproject.org>; Tue,  1 Mar 2011 17:19:06 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by fxm2 with SMTP id 2so7027633fxm.35
+	for <poky@yoctoproject.org>; Tue, 01 Mar 2011 15:19:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc:content-type:content-transfer-encoding;
+	bh=aLv80RRyS35NONqdTDW4kMmCD76mFhAesEoxEmQ/+6Q=;
+	b=KqAEyrt0J1umSxcep8x5NleJOk00pbjnaiX4SkTnZAS+t7dZqHJeUXb1W4mbdNU4ar
+	JE6c09vFZdohYYURK8OrTQkcgSglrN+P4E3Fm/VHqtKuR30nfkw7SusoJX+pCcsu8z4r
+	4hLyr+fJp/+9/Uin+zbH5lCR7qZVNpryjNm+g=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+	:cc:content-type:content-transfer-encoding;
+	b=K2eHcepGQdPKUK/R8wlOU4DdYwzlE6sDd59S9PBrkhOx+F1ocXOVz5lar8wTbr24zi
+	efoiFVqkx1rRW5+W+5fKfxul/Ypn+CJkKMXdbdfBwlQ6w5IDjI4SKVpombNEuv5Qc2ax
+	YEulP6CHO0ye0WvNl46SJnUispKWQNzSIa258=
+Received: by 10.223.100.2 with SMTP id w2mr8797235fan.115.1299021545128; Tue,
+	01 Mar 2011 15:19:05 -0800 (PST)
+MIME-Version: 1.0
+Received: by 10.223.30.151 with HTTP; Tue, 1 Mar 2011 15:18:45 -0800 (PST)
+In-Reply-To: <d82ef128d4b9b9503bb645ee21ed2121683a5b54.1298991086.git.nitin.a.kamble@intel.com>
+References: <cover.1298991086.git.nitin.a.kamble@intel.com>
+	<d82ef128d4b9b9503bb645ee21ed2121683a5b54.1298991086.git.nitin.a.kamble@intel.com>
+From: Khem Raj <raj.khem@gmail.com>
+Date: Tue, 1 Mar 2011 15:18:45 -0800
+Message-ID: <AANLkTint7xar5fzMD15ssF9A18fC+fzV0Ke7W8cRNvqq@mail.gmail.com>
+To: Nitin A Kamble <nitin.a.kamble@intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 1/1] gcc: take out libiberty files from gcc packages
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,128 +45,189 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Mar 2011 21:27:28 -0000
+X-List-Received-Date: Tue, 01 Mar 2011 23:19:06 -0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Scott Garman <scott.a.garman@intel.com>
+On Tue, Mar 1, 2011 at 6:52 AM, Nitin A Kamble <nitin.a.kamble@intel.com> w=
+rote:
+> From: Nitin A Kamble <nitin.a.kamble@intel.com>
+>
+> this Fixes [BUGID #754]
+>
+> Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
+> ---
+> =C2=A0.../gcc/gcc-cross-initial_4.5.1.bb =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 | =C2=A0 =C2=A02 +-
+> =C2=A0.../gcc/gcc-cross-intermediate.inc =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 | =C2=A0 =C2=A03 ++-
+> =C2=A0.../gcc/gcc-cross-intermediate_4.5.1.bb =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0| =C2=A0 =C2=A02 +-
+> =C2=A0meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb =C2=A0 =C2=A0 =C2=A0 |=
+ =C2=A0 =C2=A02 +-
+> =C2=A0.../gcc/gcc-crosssdk-initial_4.5.1.bb =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0| =C2=A0 =C2=A02 +-
+> =C2=A0.../gcc/gcc-crosssdk-intermediate_4.5.1.bb =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 | =C2=A0 =C2=A02 +-
+> =C2=A0meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb =C2=A0 =C2=A0| =C2=
+=A0 =C2=A02 +-
+> =C2=A0meta/recipes-devtools/gcc/gcc-package-cross.inc =C2=A0 =C2=A0| =C2=
+=A0 =C2=A04 ++++
+> =C2=A0meta/recipes-devtools/gcc/gcc-package-target.inc =C2=A0 | =C2=A0 =
+=C2=A04 ++++
+> =C2=A0meta/recipes-devtools/gcc/gcc_4.5.1.bb =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 | =C2=A0 =C2=A02 +-
+> =C2=A010 files changed, 17 insertions(+), 8 deletions(-)
+>
+> diff --git a/meta/recipes-devtools/gcc/gcc-cross-initial_4.5.1.bb b/meta/=
+recipes-devtools/gcc/gcc-cross-initial_4.5.1.bb
+> index b2c257d..38e0964 100644
+> --- a/meta/recipes-devtools/gcc/gcc-cross-initial_4.5.1.bb
+> +++ b/meta/recipes-devtools/gcc/gcc-cross-initial_4.5.1.bb
+> @@ -1,5 +1,5 @@
+> =C2=A0require gcc-cross_${PV}.bb
+> =C2=A0require gcc-cross-initial.inc
+>
+> -PR =3D "r2"
+> +PR =3D "r3"
+>
+> diff --git a/meta/recipes-devtools/gcc/gcc-cross-intermediate.inc b/meta/=
+recipes-devtools/gcc/gcc-cross-intermediate.inc
+> index 2e5283d..92c3ce2 100644
+> --- a/meta/recipes-devtools/gcc/gcc-cross-intermediate.inc
+> +++ b/meta/recipes-devtools/gcc/gcc-cross-intermediate.inc
+> @@ -35,7 +35,8 @@ do_install () {
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0rm -rf ${D}${datadir}/
+>
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0# We use libiberty from binutils
+> - =C2=A0 =C2=A0 =C2=A0 rm -f ${D}${exec_prefix}/lib/lib/libiberty.a
+> + =C2=A0 =C2=A0 =C2=A0 find -name libiberty.a ${D}${exec_prefix}/lib | xa=
+rgs rm -f
+> + =C2=A0 =C2=A0 =C2=A0 find -name libiberty.h ${D}${exec_prefix}/lib | xa=
+rgs rm -f
+>
 
-Rather than setting linker flags explicitly in LDADD as the
-previous patch did, simply put libshot.la before GTK_LIBS.
+why find ? Dont you have  paths known to these files. ?
 
-This fixes [BUGID #664]
 
-Signed-off-by: Scott Garman <scott.a.garman@intel.com>
----
- .../files/dso_linking_change_build_fix.patch       |   49 --------------------
- .../screenshot/files/fix_ldadd_order.patch         |   12 +++++
- meta/recipes-sato/screenshot/screenshot_svn.bb     |    6 +-
- 3 files changed, 15 insertions(+), 52 deletions(-)
- delete mode 100644 meta/recipes-sato/screenshot/files/dso_linking_change_build_fix.patch
- create mode 100644 meta/recipes-sato/screenshot/files/fix_ldadd_order.patch
-
-diff --git a/meta/recipes-sato/screenshot/files/dso_linking_change_build_fix.patch b/meta/recipes-sato/screenshot/files/dso_linking_change_build_fix.patch
-deleted file mode 100644
-index d3a9ed1..0000000
---- a/meta/recipes-sato/screenshot/files/dso_linking_change_build_fix.patch
-+++ /dev/null
-@@ -1,49 +0,0 @@
--after gcc linking has changed, all the libraries must be explicitely specified 
--This patch avoids these linking errors:
--
--
--
--| i586-poky-linux-libtool: link: ccache i586-poky-linux-gcc -march=i586 --sysroot=/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux -Wall -g -pthread -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/gtk-2.0 -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/gtk-2.0/include -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/atk-1.0 -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/cairo -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/pango-1.0 -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/glib-2.0 -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/glib-2.0/include -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/pixman-1 -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/freetype2 -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/libpng12 -pthread -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/incl
- ude/glib-2.0 -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/glib-2.0/include -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/gtk-2.0 -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/gtk-2.0/include -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/atk-1.0 -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/cairo -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/pango-1.0 -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/pixman-1 -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/freetype2 -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/libpng12 -fexpensive-optimizations -fomit-frame-pointer -frename-registers -O2 -ggdb -feliminate-unused-debug-types -Wl,-O1 -Wl,--hash-style=gnu -Wl,--as-needed -o .libs/screenshot main.o -pthread  /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libgtk-x11-2.0.so /disk0/pokybuild/bui
- ld1/tmp/sysroots/i586-poky-linux/usr/lib/libgdk-x11-2.0.so /disk0/pok
-ybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libatk-1.0.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libgdk_pixbuf-2.0.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libgio-2.0.so -lresolv /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libpangocairo-1.0.so -L/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libpangoft2-1.0.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libstdc++.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libcairo.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libpixman-1.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libpng12.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libXrender.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libX11.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libxcb.so /disk0/pokybuild/buil
- d1/tmp/sysroots/i586-poky-linux/usr/lib/libXau.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libXdmcp.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libz.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libpango-1.0.so -lm /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libfontconfig.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libfreetype.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libexpat.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libgobject-2.0.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libgmodule-2.0.so -ldl /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libgthread-2.0.so -lpthread /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libglib-2.0.so -lrt ./.libs/libshot.a -pthread
--| /disk0/pokybuild/build1/tmp/sysroots/x86_64-linux/usr/libexec/i586-poky-linux/gcc/i586-poky-linux/4.5.1/ld: L: invalid DSO for symbol `gdk_cursor_unref' definition
--| /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libgdk-x11-2.0.so: could not read symbols: Bad value
--| collect2: ld returned 1 exit status
--| make[1]: *** [screenshot] Error 1
--
--
--
--
--| i586-poky-linux-libtool: link: ccache i586-poky-linux-gcc -march=i586 --sysroot=/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux -Wall -g -pthread -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/gtk-2.0 -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/gtk-2.0/include -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/atk-1.0 -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/cairo -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/pango-1.0 -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/glib-2.0 -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/glib-2.0/include -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/pixman-1 -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/freetype2 -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/libpng12 -pthread -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/incl
- ude/glib-2.0 -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/glib-2.0/include -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/gtk-2.0 -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/gtk-2.0/include -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/atk-1.0 -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/cairo -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/pango-1.0 -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/pixman-1 -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/freetype2 -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/libpng12 -fexpensive-optimizations -fomit-frame-pointer -frename-registers -O2 -ggdb -feliminate-unused-debug-types -Wl,-O1 -Wl,--hash-style=gnu -Wl,--as-needed -o .libs/screenshot main.o -pthread  /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libgtk-x11-2.0.so /disk0/pokybuild/bui
- ld1/tmp/sysroots/i586-poky-linux/usr/lib/libatk-1.0.so /disk0/pokybui
-ld/build1/tmp/sysroots/i586-poky-linux/usr/lib/libgdk_pixbuf-2.0.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libgio-2.0.so -lresolv /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libpangocairo-1.0.so -L/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libpangoft2-1.0.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libstdc++.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libcairo.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libpixman-1.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libpng12.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libXrender.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libX11.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libxcb.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libXau.so /disk0/pokybuild/build1/tmp/s
- ysroots/i586-poky-linux/usr/lib/libXdmcp.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libz.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libpango-1.0.so -lm /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libfontconfig.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libfreetype.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libexpat.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libgobject-2.0.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libgmodule-2.0.so -ldl /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libgthread-2.0.so -lpthread /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libglib-2.0.so -lrt ./.libs/libshot.a /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libgdk-x11-2.0.so -pthread
--| /disk0/pokybuild/build1/tmp/sysroots/x86_64-linux/usr/libexec/i586-poky-linux/gcc/i586-poky-linux/4.5.1/ld: a: invalid DSO for symbol `gdk_pixbuf_unref' definition
--| /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libgdk_pixbuf-2.0.so: could not read symbols: Bad value
--| collect2: ld returned 1 exit status
--| make[1]: *** [screenshot] Error 1
--
--
--| i586-poky-linux-libtool: link: ccache i586-poky-linux-gcc -march=i586 --sysroot=/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux -Wall -g -pthread -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/gtk-2.0 -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/gtk-2.0/include -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/atk-1.0 -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/cairo -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/pango-1.0 -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/glib-2.0 -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/glib-2.0/include -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/pixman-1 -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/freetype2 -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/libpng12 -pthread -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/incl
- ude/glib-2.0 -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/glib-2.0/include -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/gtk-2.0 -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/gtk-2.0/include -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/atk-1.0 -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/cairo -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/pango-1.0 -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/pixman-1 -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/freetype2 -I/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/include/libpng12 -fexpensive-optimizations -fomit-frame-pointer -frename-registers -O2 -ggdb -feliminate-unused-debug-types -Wl,-O1 -Wl,--hash-style=gnu -Wl,--as-needed -o .libs/screenshot main.o -pthread  /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libgtk-x11-2.0.so /disk0/pokybuild/bui
- ld1/tmp/sysroots/i586-poky-linux/usr/lib/libatk-1.0.so /disk0/pokybui
-ld/build1/tmp/sysroots/i586-poky-linux/usr/lib/libpangocairo-1.0.so -L/disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libpangoft2-1.0.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libstdc++.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libcairo.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libpixman-1.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libpng12.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libXrender.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libX11.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libxcb.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libXau.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libXdmcp.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libpango-1.0.so /disk0/pokybuild/build1/tmp/sysroots/i586-pok
- y-linux/usr/lib/libfontconfig.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libfreetype.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libexpat.so ./.libs/libshot.a /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libgdk-x11-2.0.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libgdk_pixbuf-2.0.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libgio-2.0.so -lresolv /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libz.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libgobject-2.0.so /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libgmodule-2.0.so -ldl /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libgthread-2.0.so -lpthread /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libglib-2.0.so -lrt -lm -pthread
--| /disk0/pokybuild/build1/tmp/sysroots/x86_64-linux/usr/libexec/i586-poky-linux/gcc/i586-poky-linux/4.5.1/ld: }: invalid DSO for symbol `XUngrabServer' definition
--| /disk0/pokybuild/build1/tmp/sysroots/i586-poky-linux/usr/lib/libX11.so: could not read symbols: Bad value
--| collect2: ld returned 1 exit status
--| make[1]: *** [screenshot] Error 1
--
--Nitin A Kamble <nitin.a.kamble@intel.com>
--Date: 2011/01/11
--
--Update:
--This is identified as a libtool issue. While creating the libshot.la 
--file, libtool should have added these needed libraries in there.
-- A bug has been created for this issue: 
--   http://bugzilla.pokylinux.org/show_bug.cgi?id=664
--Nitin A Kamble <nitin.a.kamble@intel.com>
--Date: 2011/01/19
--
--
--Index: screenshot/Makefile.am
--===================================================================
----- screenshot.orig/Makefile.am
--+++ screenshot/Makefile.am
--@@ -23,4 +23,4 @@ endif
-- # A standalone tool for running from a terminal and scripts
-- bin_PROGRAMS = screenshot
-- screenshot_SOURCES = main.c
---screenshot_LDADD = $(GTK_LIBS) libshot.la
--+screenshot_LDADD = $(GTK_LIBS) libshot.la -lgdk-x11-2.0 -lgdk_pixbuf-2.0 -lX11
-diff --git a/meta/recipes-sato/screenshot/files/fix_ldadd_order.patch b/meta/recipes-sato/screenshot/files/fix_ldadd_order.patch
-new file mode 100644
-index 0000000..726d590
---- /dev/null
-+++ b/meta/recipes-sato/screenshot/files/fix_ldadd_order.patch
-@@ -0,0 +1,12 @@
-+Fix the ordering of LDADD options to fix a compilation failure.
-+
-+Signed-off-by: Scott Garman <scott.a.garman@intel.com>
-+diff -urN screenshot.orig//Makefile.am screenshot/Makefile.am
-+--- screenshot.orig//Makefile.am	2010-06-29 11:55:00.000000000 -0700
-++++ screenshot/Makefile.am	2011-03-01 11:09:01.215813968 -0800
-+@@ -23,4 +23,4 @@
-+ # A standalone tool for running from a terminal and scripts
-+ bin_PROGRAMS = screenshot
-+ screenshot_SOURCES = main.c
-+-screenshot_LDADD = $(GTK_LIBS) libshot.la
-++screenshot_LDADD = libshot.la $(GTK_LIBS)
-diff --git a/meta/recipes-sato/screenshot/screenshot_svn.bb b/meta/recipes-sato/screenshot/screenshot_svn.bb
-index ff2b7c8..f9c4db6 100644
---- a/meta/recipes-sato/screenshot/screenshot_svn.bb
-+++ b/meta/recipes-sato/screenshot/screenshot_svn.bb
-@@ -10,10 +10,10 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f \
- PRIORITY = "optional"
- DEPENDS = "matchbox-panel-2"
- PV = "0.0+svnr${SRCPV}"
--PR = "r1"
-+PR = "r2"
- 
--SRC_URI = "svn://svn.o-hand.com/repos/misc/trunk;module=${PN};proto=http\
--	file://dso_linking_change_build_fix.patch"
-+SRC_URI = "svn://svn.o-hand.com/repos/misc/trunk;module=${PN};proto=http \
-+           file://fix_ldadd_order.patch"
- 
- S = ${WORKDIR}/${PN}
- 
--- 
-1.7.1
-
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0# Insert symlinks into libexec so when tools w=
+ithout a prefix are searched for, the correct ones are
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0# found. These need to be relative paths so th=
+ey work in different locations.
+> diff --git a/meta/recipes-devtools/gcc/gcc-cross-intermediate_4.5.1.bb b/=
+meta/recipes-devtools/gcc/gcc-cross-intermediate_4.5.1.bb
+> index e65d5df..9a30cb5 100644
+> --- a/meta/recipes-devtools/gcc/gcc-cross-intermediate_4.5.1.bb
+> +++ b/meta/recipes-devtools/gcc/gcc-cross-intermediate_4.5.1.bb
+> @@ -1,4 +1,4 @@
+> =C2=A0require gcc-cross_${PV}.bb
+> =C2=A0require gcc-cross-intermediate.inc
+> -PR =3D "r3"
+> +PR =3D "r4"
+>
+> diff --git a/meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb b/meta/recipes-=
+devtools/gcc/gcc-cross_4.5.1.bb
+> index 399cdf9..78bb05a 100644
+> --- a/meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb
+> +++ b/meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb
+> @@ -1,4 +1,4 @@
+> -PR =3D "r2"
+> +PR =3D "r3"
+>
+> =C2=A0require gcc-${PV}.inc
+> =C2=A0require gcc-cross4.inc
+> diff --git a/meta/recipes-devtools/gcc/gcc-crosssdk-initial_4.5.1.bb b/me=
+ta/recipes-devtools/gcc/gcc-crosssdk-initial_4.5.1.bb
+> index 240caf5..fec53b9 100644
+> --- a/meta/recipes-devtools/gcc/gcc-crosssdk-initial_4.5.1.bb
+> +++ b/meta/recipes-devtools/gcc/gcc-crosssdk-initial_4.5.1.bb
+> @@ -1,4 +1,4 @@
+> =C2=A0require gcc-cross-initial_${PV}.bb
+> =C2=A0require gcc-crosssdk-initial.inc
+>
+> -PR =3D "r2"
+> +PR =3D "r3"
+> diff --git a/meta/recipes-devtools/gcc/gcc-crosssdk-intermediate_4.5.1.bb=
+ b/meta/recipes-devtools/gcc/gcc-crosssdk-intermediate_4.5.1.bb
+> index a6653dd..161d870 100644
+> --- a/meta/recipes-devtools/gcc/gcc-crosssdk-intermediate_4.5.1.bb
+> +++ b/meta/recipes-devtools/gcc/gcc-crosssdk-intermediate_4.5.1.bb
+> @@ -1,4 +1,4 @@
+> =C2=A0require gcc-cross-intermediate_${PV}.bb
+> =C2=A0require gcc-crosssdk-intermediate.inc
+>
+> -PR =3D "r2"
+> +PR =3D "r3"
+> diff --git a/meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb b/meta/recip=
+es-devtools/gcc/gcc-crosssdk_4.5.1.bb
+> index 129e8d3..7069088 100644
+> --- a/meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb
+> +++ b/meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb
+> @@ -1,4 +1,4 @@
+> =C2=A0require gcc-cross_${PV}.bb
+> =C2=A0require gcc-crosssdk.inc
+>
+> -PR =3D "r2"
+> +PR =3D "r3"
+> diff --git a/meta/recipes-devtools/gcc/gcc-package-cross.inc b/meta/recip=
+es-devtools/gcc/gcc-package-cross.inc
+> index 4f902fa..04c8101 100644
+> --- a/meta/recipes-devtools/gcc/gcc-package-cross.inc
+> +++ b/meta/recipes-devtools/gcc/gcc-package-cross.inc
+> @@ -27,6 +27,10 @@ do_install () {
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0rm -rf ${D}${STAGI=
+NG_DIR_NATIVE}${prefix_native}/$d
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0done
+>
+> + =C2=A0 =C2=A0 =C2=A0 # We use libiberty from binutils
+> + =C2=A0 =C2=A0 =C2=A0 find -name libiberty.a ${D}${exec_prefix}/lib | xa=
+rgs rm -f
+> + =C2=A0 =C2=A0 =C2=A0 find -name libiberty.h ${D}${exec_prefix}/lib | xa=
+rgs rm -f
+> +
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0# gcc-runtime installs libgcc into a special l=
+ocation in staging since it breaks doing a standalone build
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0if [ "${PN}" =3D=3D "gcc-cross" -o "${PN}" =3D=
+=3D "gcc-crosssdk" ]; then
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dest=3D${D}/${incl=
+udedir}/gcc-build-internal-${MULTIMACH_TARGET_SYS}
+> diff --git a/meta/recipes-devtools/gcc/gcc-package-target.inc b/meta/reci=
+pes-devtools/gcc/gcc-package-target.inc
+> index 3286da6..d61e96b 100644
+> --- a/meta/recipes-devtools/gcc/gcc-package-target.inc
+> +++ b/meta/recipes-devtools/gcc/gcc-package-target.inc
+> @@ -86,6 +86,10 @@ do_install () {
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0# We don't care about the gcc-<version> ones f=
+or this
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0rm -f *gcc-?.?*
+>
+> + =C2=A0 =C2=A0 =C2=A0 # We use libiberty from binutils
+> + =C2=A0 =C2=A0 =C2=A0 find -name libiberty.a ${D}${exec_prefix}/lib | xa=
+rgs rm -f
+> + =C2=A0 =C2=A0 =C2=A0 find -name libiberty.h ${D}${exec_prefix}/lib | xa=
+rgs rm -f
+> +
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0# Symlinks so we can use these trivially on th=
+e target
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0ln -sf ${TARGET_SYS}-g77 g77 || true
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0ln -sf ${TARGET_SYS}-gfortran gfortran || true
+> diff --git a/meta/recipes-devtools/gcc/gcc_4.5.1.bb b/meta/recipes-devtoo=
+ls/gcc/gcc_4.5.1.bb
+> index 919d4b0..25e455c 100644
+> --- a/meta/recipes-devtools/gcc/gcc_4.5.1.bb
+> +++ b/meta/recipes-devtools/gcc/gcc_4.5.1.bb
+> @@ -1,4 +1,4 @@
+> -PR =3D "r2"
+> +PR =3D "r3"
+> =C2=A0require gcc-${PV}.inc
+> =C2=A0require gcc-configure-target.inc
+> =C2=A0require gcc-package-target.inc
+> --
+> 1.7.2.2
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
 
