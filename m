@@ -1,39 +1,34 @@
 Return-Path: <vsailub4u@gmail.com>
-Received: from mail-pz0-f48.google.com (mail-pz0-f48.google.com
-	[209.85.210.48])
-	by mx1.pokylinux.org (Postfix) with ESMTP id CC69A4C80546
-	for <poky@yoctoproject.org>; Tue,  1 Mar 2011 04:33:45 -0600 (CST)
+Received: from mail-pv0-f176.google.com (mail-pv0-f176.google.com
+	[74.125.83.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 0068F4C800A4
+	for <poky@yoctoproject.org>; Tue,  1 Mar 2011 04:45:54 -0600 (CST)
 Authentication-Results: mx1.pokylinux.org; dkim=pass
 	(1024-bit key; insecure key) header.i=@gmail.com;
 	x-dkim-adsp=none (insecure policy)
-Received: by pzk28 with SMTP id 28so986408pzk.35
-	for <poky@yoctoproject.org>; Tue, 01 Mar 2011 02:33:45 -0800 (PST)
+Received: by pvg6 with SMTP id 6so984860pvg.35
+	for <poky@yoctoproject.org>; Tue, 01 Mar 2011 02:45:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:in-reply-to:references:date
-	:message-id:subject:from:to:content-type;
-	bh=jdW3zmyO9dXPpaKjflAVsRBsO1VtHOXnlkW0UJkOudg=;
-	b=ai0iwOQF2/bjpAwaqexjFIpB63LJa1Z81khVuuzzTkTeoWTYviquYi27rtCkmrjBC/
-	7xQoyoN/+I6w2UNb24/WnWKPGA+xAHtTzNYfOkgJhzPJs9lpSRVHip3UYuHWNhkW7Rmy
-	FGW0v9r3Kbybb0UTwOA+e+7WLoz6d1pFldQiQ=
+	h=domainkey-signature:mime-version:date:message-id:subject:from:to
+	:content-type; bh=bOdrV8xyJmtPpeL6JTLlJuTOTWa4puBn3t2urWu9BA0=;
+	b=hIBGAu2ISmXno9kqTXiogSseywtENag2GlSHHyYw7KDJDzuYFigTeekl/c4O+jXCJF
+	xWIQ8bzB9bA6WCqxICma2ZiKpzStdz/xz+clDfUKZWS1KwMjS4QWNJrXXy/11Se3ErT6
+	Da2BS6uiNlBYnlRJGwuto6hkcX+bskbu8Vzg4=
 DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:content-type;
-	b=RBKb2HHoPkKlR1Bfcywv0NH8TMpZCd+lhe+kpSJDWItAY4bdU8o2wM4iJk0vDeEpeQ
-	VAp3ak0iP8l85tYR+U9/ivGf7KnuJMorMJsM21uKnPUQDlhr/xgDuj7E/PFVDzLZ4U2R
-	a9tcr3jRBkknPRdtMs5KGKaKzp7LQX5TfQszs=
+	h=mime-version:date:message-id:subject:from:to:content-type;
+	b=tVAeqx/yZAaCA8xqFA9mPuF0II61vqqVA+sWI8Csc+nBAL0YeCIiKmEhiZW7TNi7R7
+	kpJ9TT1+0w3EkHkj153V+lHEhR/OeTPm8yhEcM2Ug6D2j52rJ2NOLdgNVOVnT4kHrhR6
+	Af8+hiRai/Qmx2nwHgsFUiq04EcNKLswiy+mQ=
 MIME-Version: 1.0
-Received: by 10.142.242.9 with SMTP id p9mr5269926wfh.291.1298975625400; Tue,
-	01 Mar 2011 02:33:45 -0800 (PST)
-Received: by 10.142.127.4 with HTTP; Tue, 1 Mar 2011 02:33:45 -0800 (PST)
-In-Reply-To: <4D6BECBD.8060501@linux.intel.com>
-References: <AANLkTin34iXW7Zy7Z4NJfa3Fmv3LSt8y1eYH4UoNWcac@mail.gmail.com>
-	<4D6BECBD.8060501@linux.intel.com>
-Date: Tue, 1 Mar 2011 16:03:45 +0530
-Message-ID: <AANLkTikYLw+bcsV=RWCqg5ufz1rKZbUxKS0wGuNwruXT@mail.gmail.com>
+Received: by 10.142.200.17 with SMTP id x17mr5283200wff.177.1298976354623;
+	Tue, 01 Mar 2011 02:45:54 -0800 (PST)
+Received: by 10.142.127.4 with HTTP; Tue, 1 Mar 2011 02:45:54 -0800 (PST)
+Date: Tue, 1 Mar 2011 16:15:54 +0530
+Message-ID: <AANLkTi=CVPBSLQ_8345OrL_YKde=Mf3bqrxRZru75vSR@mail.gmail.com>
 From: v sailaja <vsailub4u@gmail.com>
-To: Darren Hart <dvhart@linux.intel.com>, "Tian, Kevin" <kevin.tian@intel.com>,
+To: "Lu, Lianhao" <lianhao.lu@intel.com>, "Tian, Kevin" <kevin.tian@intel.com>,
 	poky@yoctoproject.org
-Subject: Re: errors while building the poky
+Subject: got error while trying to pull the krb5 package into poky
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -45,39 +40,57 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Mar 2011 10:33:46 -0000
-Content-Type: multipart/alternative; boundary=000e0cd2e5aab96edb049d69549b
+X-List-Received-Date: Tue, 01 Mar 2011 10:45:55 -0000
+Content-Type: multipart/alternative; boundary=000e0cd28df63063b5049d6980b1
 
---000e0cd2e5aab96edb049d69549b
-Content-Type: text/plain; charset=ISO-8859-1
+--000e0cd28df63063b5049d6980b1
+Content-Type: text/plain; charset=windows-1252
+Content-Transfer-Encoding: quoted-printable
 
-Hi Darren,
+Hi,
+
+I tried with the following
 
 
-I  am using the Linux OS and  I installed all the pre-requisites. Still  I
-am facing the same problem.
+              bitbake krb5  -c cleanall
+              bitbake krb5
+But again I am getting the same error and krb5 rpm file is not generated at
+tmp/deploy/rpm.
 
-           * OS               ---   LINUX
-            MACHINE  ---  atom-pc*
 
-*error:*
+ The value is
+
+*PACKAGE_CLASSES ?=3D "package_rpm package_ipk"*
+
 *
-I added the following packages to poky-image-minimal.bb
+error:*
+ Generating solve db for
+/home/sailaja/poky-chrome/build/tmp/deploy/rpm/atom-pc...
+|    total:               1      0.000000 MB      0.871674 secs
+|    order:               1      0.000000 MB      0.090471 secs
+|    fingerprint:       537      0.007286 MB      0.081155 secs
+|    install:           278      0.000000 MB      0.179576 secs
+|    dbadd:             278      0.000000 MB      0.081411 secs
+|    dbget:            8678      1.128312 MB      0.016757 secs
+|    dbput:            5035      2.213572 MB      0.020290 secs
+|    readhdr:          2781      2.267168 MB      0.206626 secs
+|    hdrload:        194461    256.103876 MB      1.118980 secs
+|    hdrget:        3861605      0.000000 MB      6.181097 secs
+| *Processing krb5...
+| Unable to find package krb5!
+| ERROR: Task failed: ('function do_rootfs failed',
+'/home/sailaja/poky-chrome/build/tmp/work/atom-pc-poky-linux/poky-image-min=
+imal-akshat-1.0-r0/temp/log.do_rootfs.9313')
+NOTE: package poky-image-minimal-akshat-1.0-r0: task do_rootfs: Failed*
+ERROR: Task 179 (/home/sailaja/poky-chrome/meta/recipes-core/images/
+poky-image-minimal-akshat.bb, do_rootfs) failed with 1
+ERROR: '/home/sailaja/poky-chrome/meta/recipes-core/images/
+poky-image-minimal-akshat.bb' failed
 
 
-     *alsa-lib* *
-      alsa-tools
-      alsa-utils*
 
-But i am getting the error like* *
-
-*./configure: line 4246:syntax error near unexpected token `1.0.0'* *
-./configure: line 4246: `AM_PATH_ALSA(1.0.0)'*
-
-please help me  in finding the solution.* *
-Any help would be greatly appreciated.*
-
-
+Please help me in finding the solution.
+Any help  would be greatly apprecited.
 
 Thanks & Regards,
 SAI
@@ -88,187 +101,198 @@ SAI
 
 
 
->
->>
-> Hi Sai,
->
-> I just noticed there hasn't been a reply to your message. Are you still
-> experiencing problems? If so, can you let us know which OS you are building
-> on and which MACHINE target you are building for?
->
-> Also, did you ensure you have installed the pre-requisites on your host per
-> the instructions in the Yocto Quick Start guide? See
-> http://www.yoctoproject.org -> Documentation -> Quick Start Guide.
->
-> --
-> Darren
+
+ Hi SAI,
 >
 >
 >
->  *I am trying to build the poky image    -- *poky-image-minimal-live.*
->> I added the packages  to poky-image-minimal.bb
->> *
->> * <http://poky-image-minimal.bb>*
->> *
->>
->> *alsa-lib* *
->>      alsa-tools
->>      alsa-utils*
->>
->> But i am getting the error like* *
->>
->> *./configure: line 4246:syntax error near unexpected token `1.0.0'* *
->> ./configure: line 4246: `AM_PATH_ALSA(1.0.0)'*
->>
->> please help me someone in finding the solution.* *
->> appeciated if anyone helps me.
->> *
->>
->
-> Hi Sai
+> Please try the following to rebuild the krb5 to see if the rpm is
+> generated:
 >
 >
->> Thanks,
->> sai
->>
->>
->>
->> _______________________________________________
->> poky mailing list
->> poky@yoctoproject.org
->> https://lists.yoctoproject.org/listinfo/poky
->>
+>
+> -          bitbake krb5  -c cleanall
+>
+> -          bitbake krb5
 >
 >
-> --
-> Darren Hart
-> Intel Open Source Technology Center
-> Yocto Project - Linux Kernel
+>
+> This should generate the rpm file under the directory of =93tmp/deploy/rp=
+m=94.
+>
+>
+>
+> b.t.w. what=92s the value set to the variable PACKAGE_CLASSES in your
+> conf/local.conf?
+>
+>
+>
+> Best Regards,
+>
+> Lianhao Lu
+>
 >
 
---000e0cd2e5aab96edb049d69549b
-Content-Type: text/html; charset=ISO-8859-1
+--000e0cd28df63063b5049d6980b1
+Content-Type: text/html; charset=windows-1252
 Content-Transfer-Encoding: quoted-printable
 
-<br><span style=3D"color: rgb(51, 153, 153);">Hi Darren,</span><br style=3D=
-"color: rgb(51, 153, 153);"><br style=3D"color: rgb(51, 153, 153);"><br sty=
-le=3D"color: rgb(51, 153, 153);"><span style=3D"color: rgb(51, 153, 153);">=
-I=A0 am using the Linux OS and=A0 I installed all the pre-requisites. Still=
-=A0 I am facing the same problem.</span><br style=3D"color: rgb(51, 153, 15=
-3);">
-<br style=3D"color: rgb(51, 153, 153);"><span style=3D"color: rgb(51, 153, =
-153);">=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0</span><b style=3D"color: rgb(51, 1=
-53, 153);"> OS=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ---=A0=A0 LINUX<br=
->=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 MACHINE=A0 ---=A0 atom-pc</b><br style=
-=3D"color: rgb(51, 153, 153);">
-
-<br style=3D"color: rgb(51, 153, 153);"><u style=3D"color: rgb(51, 153, 153=
-);"><b>error:</b></u><br style=3D"color: rgb(51, 153, 153);"><b style=3D"co=
-lor: rgb(51, 153, 153);"><br>I added the following packages to <a href=3D"h=
-ttp://poky-image-minimal.bb" target=3D"_blank">poky-image-minimal.bb</a><br=
->
-<br><br>=A0=A0=A0=A0
-
-*alsa-lib</b>
-<b style=3D"color: rgb(51, 153, 153);"><br>
-
- =A0 =A0 =A0 alsa-tools<br>
-
- =A0 =A0 =A0 alsa-utils*<br>
-  <br>
-
-But i am getting the error like</b>
-<b style=3D"color: rgb(51, 153, 153);"><br>
-  <br>
-
-*./configure: line 4246:syntax error near unexpected token `1.0.0&#39;</b>
-<b style=3D"color: rgb(51, 153, 153);"><br>
-
-./configure: line 4246: `AM_PATH_ALSA(1.0.0)&#39;*<br>
-  <br>
-
-please help me=A0 in finding the solution.</b>
-<b style=3D"color: rgb(51, 153, 153);"><br>
-
-Any help would be greatly appreciated.</b><br style=3D"color: rgb(51, 153, =
-153);"><br style=3D"color: rgb(51, 153, 153);"><br style=3D"color: rgb(51, =
-153, 153);"><br style=3D"color: rgb(51, 153, 153);"><span style=3D"color: r=
-gb(51, 153, 153);">Thanks &amp; Regards,</span><br style=3D"color: rgb(51, =
-153, 153);">
-<span style=3D"color: rgb(51, 153, 153);">SAI</span><br style=3D"color: rgb=
-(51, 153, 153);"><br style=3D"color: rgb(51, 153, 153);"><br style=3D"color=
-: rgb(51, 153, 153);"><br><br><div class=3D"gmail_quote"><div><br>=A0</div>=
-<blockquote class=3D"gmail_quote" style=3D"margin: 0pt 0pt 0pt 0.8ex; borde=
-r-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;">
-<blockquote class=3D"gmail_quote" style=3D"margin: 0pt 0pt 0pt 0.8ex; borde=
-r-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;">
-
-<br>
-</blockquote>
-<br>
-Hi Sai,<br>
-<br>
-I just noticed there hasn&#39;t been a reply to your message. Are you still=
- experiencing problems? If so, can you let us know which OS you are buildin=
-g on and which MACHINE target you are building for?<br>
-<br>
-Also, did you ensure you have installed the pre-requisites on your host per=
- the instructions in the Yocto Quick Start guide? See <a href=3D"http://www=
-.yoctoproject.org" target=3D"_blank">http://www.yoctoproject.org</a> -&gt; =
-Documentation -&gt; Quick Start Guide.<br>
+<span style=3D"color: rgb(51, 102, 102);">Hi,</span><br style=3D"color: rgb=
+(51, 102, 102);"><br style=3D"color: rgb(51, 102, 102);"><span style=3D"col=
+or: rgb(51, 102, 102);">I tried with the following </span><br style=3D"colo=
+r: rgb(51, 102, 102);">
 
 
-<br>
---<br>
-Darren<br>
-<br>
-<br>
-<br>
-<blockquote class=3D"gmail_quote" style=3D"margin: 0pt 0pt 0pt 0.8ex; borde=
-r-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;"><div>
-<b>I am trying to build the poky image =A0 =A0-- *poky-image-minimal-live.*=
-<br>
-I added the packages =A0to <a href=3D"http://poky-image-minimal.bb" target=
-=3D"_blank">poky-image-minimal.bb</a><br></b></div><b>
-&lt;<a href=3D"http://poky-image-minimal.bb" target=3D"_blank">http://poky-=
-image-minimal.bb</a>&gt;</b><div><b><br><br>
-*alsa-lib</b>
-<b><br>
- =A0 =A0 =A0alsa-tools<br>
- =A0 =A0 =A0alsa-utils*<br><br>
-But i am getting the error like</b>
-<b><br><br>
-*./configure: line 4246:syntax error near unexpected token `1.0.0&#39;</b>
-<b><br>
-./configure: line 4246: `AM_PATH_ALSA(1.0.0)&#39;*<br><br>
-please help me someone in finding the solution.</b>
-<b><br>
-appeciated if anyone helps me.<br></b>
-</div></blockquote>
-<br>
-Hi Sai<br>
-<br>
-<blockquote class=3D"gmail_quote" style=3D"margin: 0pt 0pt 0pt 0.8ex; borde=
-r-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;">
-<br>
-Thanks,<br>
-sai<br>
-<br>
-<br>
-<br>
-_______________________________________________<br>
-poky mailing list<br>
-<a href=3D"mailto:poky@yoctoproject.org" target=3D"_blank">poky@yoctoprojec=
-t.org</a><br>
-<a href=3D"https://lists.yoctoproject.org/listinfo/poky" target=3D"_blank">=
-https://lists.yoctoproject.org/listinfo/poky</a><br>
-</blockquote>
-<br>
-<br>
--- <br>
-Darren Hart<br>
-Intel Open Source Technology Center<br>
-Yocto Project - Linux Kernel<br>
-</blockquote><br></div><br>
+<span style=3D"font-size: 10.5pt; color: rgb(51, 102, 102);" lang=3D"EN-US"=
+><span><span style=3D"font: 7pt &quot;Times New Roman&quot;;">=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0
+</span></span><br><br>=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 =A0=A0 bitbake krb5 =
+=A0-c cleanall =A0 <br>=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 =A0=A0 bitbake krb5</=
+span><br style=3D"color: rgb(51, 102, 102);"><span style=3D"color: rgb(51, =
+102, 102);">But again I am getting the same error and krb5 rpm file is not =
+generated at=A0 tmp/deploy/rpm.</span><br>
 
---000e0cd2e5aab96edb049d69549b--
+<br style=3D"color: rgb(51, 102, 102);">
+<br style=3D"color: rgb(51, 102, 102);"><span style=3D"color: rgb(51, 102, =
+102);">=A0The value is </span><br><br><b style=3D"color: rgb(51, 153, 153);=
+">PACKAGE_CLASSES ?=3D &quot;package_rpm package_ipk&quot;</b><br><br><b><b=
+r>error:</b><br>
+
+<span style=3D"color: rgb(51, 102, 102);" lang=3D"EN-US">=A0Generating solv=
+e db for /home/sailaja/poky-chrome/build/tmp/deploy/rpm/atom-pc...<br>
+|=A0=A0=A0
+total:=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0
+1=A0=A0=A0=A0=A0 0.000000 MB=A0=A0=A0=A0=A0
+0.871674 secs<br>
+|=A0=A0=A0
+order:=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0
+1=A0=A0=A0=A0=A0 0.000000 MB=A0=A0=A0=A0=A0
+0.090471 secs<br>
+|=A0=A0=A0 fingerprint:=A0=A0=A0=A0=A0=A0
+537=A0=A0=A0=A0=A0 0.007286 MB=A0=A0=A0=A0=A0
+0.081155 secs<br>
+|=A0=A0=A0 install:=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0
+278=A0=A0=A0=A0=A0 0.000000 MB=A0=A0=A0=A0=A0
+0.179576 secs<br>
+|=A0=A0=A0
+dbadd:=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0
+278=A0=A0=A0=A0=A0 0.000000 MB=A0=A0=A0=A0=A0
+0.081411 secs<br>
+|=A0=A0=A0
+dbget:=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0
+8678=A0=A0=A0=A0=A0 1.128312 MB=A0=A0=A0=A0=A0
+0.016757 secs<br>
+|=A0=A0=A0
+dbput:=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0
+5035=A0=A0=A0=A0=A0 2.213572 MB=A0=A0=A0=A0=A0
+0.020290 secs<br>
+|=A0=A0=A0 readhdr:=A0=A0=A0=A0=A0=A0=A0=A0=A0
+2781=A0=A0=A0=A0=A0 2.267168 MB=A0=A0=A0=A0=A0
+0.206626 secs<br>
+|=A0=A0=A0 hdrload:=A0=A0=A0=A0=A0=A0=A0
+194461=A0=A0=A0 256.103876 MB=A0=A0=A0=A0=A0 1.118980
+secs<br>
+|=A0=A0=A0 hdrget:=A0=A0=A0=A0=A0=A0=A0
+3861605=A0=A0=A0=A0=A0 0.000000 MB=A0=A0=A0=A0=A0
+6.181097 secs<br>
+| <b>Processing krb5...<br>
+| Unable to find package krb5!<br>
+| ERROR: Task failed: (&#39;function do_rootfs failed&#39;,
+&#39;/home/sailaja/poky-chrome/build/tmp/work/atom-pc-poky-linux/poky-image=
+-minimal-akshat-1.0-r0/temp/log.do_rootfs.9313&#39;)<br>
+NOTE: package poky-image-minimal-akshat-1.0-r0: task do_rootfs: Failed</b><=
+br>
+ERROR: Task 179 (/home/sailaja/poky-chrome/meta/recipes-core/images/<a href=
+=3D"http://poky-image-minimal-akshat.bb/" target=3D"_blank">poky-image-mini=
+mal-akshat.bb</a>,
+do_rootfs) failed with 1<br>
+ERROR: &#39;/home/sailaja/poky-chrome/meta/recipes-core/images/<a href=3D"h=
+ttp://poky-image-minimal-akshat.bb/" target=3D"_blank">poky-image-minimal-a=
+kshat.bb</a>&#39;
+failed</span><br style=3D"color: rgb(51, 102, 102);"><br><br><br><span styl=
+e=3D"color: rgb(51, 102, 102);">Please help me in finding the solution.</sp=
+an><br style=3D"color: rgb(51, 102, 102);">
+<span style=3D"color: rgb(51, 102, 102);">Any help=A0 would be greatly appr=
+ecited.</span><br style=3D"color: rgb(51, 102, 102);"><br style=3D"color: r=
+gb(51, 102, 102);"><span style=3D"color: rgb(51, 102, 102);">Thanks &amp; R=
+egards,</span><br style=3D"color: rgb(51, 102, 102);">
+
+
+<span style=3D"color: rgb(51, 102, 102);">SAI</span><br><br><br><br style=
+=3D"color: rgb(51, 153, 153);"><br><br><br><br><div class=3D"gmail_quote"><=
+br><blockquote class=3D"gmail_quote" style=3D"margin: 0pt 0pt 0pt 0.8ex; bo=
+rder-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div link=3D"blue" vlink=3D"purple" lang=3D"ZH-CN">
+
+<div>
+
+<p class=3D"MsoNormal"><span style=3D"font-size: 10.5pt; color: rgb(31, 73,=
+ 125);" lang=3D"EN-US">Hi SAI,</span></p>
+
+<p class=3D"MsoNormal"><span style=3D"font-size: 10.5pt; color: rgb(31, 73,=
+ 125);" lang=3D"EN-US">=A0</span></p>
+
+<p class=3D"MsoNormal"><span style=3D"font-size: 10.5pt; color: rgb(31, 73,=
+ 125);" lang=3D"EN-US">Please try the following to rebuild the krb5 to see =
+if the rpm
+is generated:</span></p>
+
+<p class=3D"MsoNormal"><span style=3D"font-size: 10.5pt; color: rgb(31, 73,=
+ 125);" lang=3D"EN-US">=A0</span></p>
+
+<p style=3D"margin-left: 18pt;"><span style=3D"font-size: 10.5pt; color: rg=
+b(31, 73, 125);" lang=3D"EN-US"><span>-<span style=3D"font: 7pt &quot;Times=
+ New Roman&quot;;">=A0=A0=A0=A0=A0=A0=A0=A0=A0
+</span></span></span><span style=3D"font-size: 10.5pt; color: rgb(31, 73, 1=
+25);" lang=3D"EN-US">bitbake krb5 =A0-c cleanall</span></p>
+
+<p style=3D"margin-left: 18pt;"><span style=3D"font-size: 10.5pt; color: rg=
+b(31, 73, 125);" lang=3D"EN-US"><span>-<span style=3D"font: 7pt &quot;Times=
+ New Roman&quot;;">=A0=A0=A0=A0=A0=A0=A0=A0=A0
+</span></span></span><span style=3D"font-size: 10.5pt; color: rgb(31, 73, 1=
+25);" lang=3D"EN-US">bitbake krb5</span></p>
+
+<p class=3D"MsoNormal"><span style=3D"font-size: 10.5pt; color: rgb(31, 73,=
+ 125);" lang=3D"EN-US">=A0</span></p>
+
+<p class=3D"MsoNormal"><span style=3D"font-size: 10.5pt; color: rgb(31, 73,=
+ 125);" lang=3D"EN-US">This should generate the rpm file under the director=
+y of =93tmp/deploy/rpm=94.
+</span></p>
+
+<p class=3D"MsoNormal"><span style=3D"font-size: 10.5pt; color: rgb(31, 73,=
+ 125);" lang=3D"EN-US">=A0</span></p>
+
+<p class=3D"MsoNormal"><span style=3D"font-size: 10.5pt; color: rgb(31, 73,=
+ 125);" lang=3D"EN-US">b.t.w. what=92s the value set to the variable PACKAG=
+E_CLASSES
+in your conf/local.conf? </span></p>
+
+<p class=3D"MsoNormal"><span style=3D"font-size: 10.5pt; color: rgb(31, 73,=
+ 125);" lang=3D"EN-US">=A0</span></p>
+
+<p class=3D"MsoNormal"><span style=3D"font-size: 10.5pt; color: rgb(31, 73,=
+ 125);" lang=3D"EN-US">Best Regards,</span></p>
+
+<p class=3D"MsoNormal"><span style=3D"font-size: 10.5pt; color: rgb(31, 73,=
+ 125);" lang=3D"EN-US">Lianhao Lu</span></p><br></div>
+
+</div>
+
+
+</blockquote></div><br>
+
+--000e0cd28df63063b5049d6980b1--
