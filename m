@@ -1,35 +1,39 @@
-Return-Path: <gerard@de-haardt.com>
-Received: from cpsmtpb-ews01.kpnxchange.com (cpsmtpb-ews01.kpnxchange.com
-	[213.75.39.4])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 350F84C80510
-	for <poky@yoctoproject.org>; Tue,  1 Mar 2011 01:32:17 -0600 (CST)
-Received: from cpbrm-ews31.kpnxchange.com ([10.94.84.162]) by
-	cpsmtpb-ews01.kpnxchange.com with Microsoft SMTPSVC(6.0.3790.4675); 
-	Tue, 1 Mar 2011 08:32:16 +0100
-Received: from CPSMTPM-CMT102.kpnxchange.com ([195.121.3.18]) by
-	cpbrm-ews31.kpnxchange.com with Microsoft SMTPSVC(6.0.3790.4675); 
-	Tue, 1 Mar 2011 08:32:16 +0100
-Received: from mail.de-haardt.com ([86.81.67.223]) by
-	CPSMTPM-CMT102.kpnxchange.com with Microsoft
-	SMTPSVC(7.0.6002.18264); Tue, 1 Mar 2011 08:32:16 +0100
-Received: from [192.168.1.29] ([192.168.1.29])
-	(authenticated user gerard@de-haardt.com) by mail.de-haardt.com
-	(using TLSv1/SSLv3 with cipher AES256-SHA (256 bits));
-	Tue, 1 Mar 2011 08:32:12 +0100
-Message-ID: <4D6CA107.3070600@de-haardt.com>
-Date: Tue, 01 Mar 2011 08:32:23 +0100
-From: Gerard van den Bosch <gerard@de-haardt.com>
+Return-Path: <embedded.yogesh@gmail.com>
+Received: from mail-pw0-f48.google.com (mail-pw0-f48.google.com
+	[209.85.160.48])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 9995C4C800A4
+	for <poky@yoctoproject.org>; Tue,  1 Mar 2011 04:05:59 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by pwi14 with SMTP id 14so1093790pwi.35
+	for <poky@yoctoproject.org>; Tue, 01 Mar 2011 02:05:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:message-id:date:from:user-agent:mime-version:to
+	:subject:content-type:content-transfer-encoding;
+	bh=hweKzz4yz5fmKqa0YcH7KdXj6uN91skn4sDwkRdM9aM=;
+	b=LL4phNliG3+8F7iajC5MxUlo9GsocoWPYSOxnd+VOoFuSN5SNvhPbc57QA16mDjgnB
+	tzdne7Hanm3kb+NztZWmd0epGinxbIzgRpKKas7UGZj7oFTF5d4COsTA/4M3Klwu4k5K
+	HAbSclcxRRn0fxcQ7sFgiWxmsRxYQ9KBQ2fEU=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=message-id:date:from:user-agent:mime-version:to:subject
+	:content-type:content-transfer-encoding;
+	b=qrUNMPImGv0ikV6mbBJL/+rXKuU8YdZ6CTdFB2S02RMuq1/ZbWS1r/OsLZqaD1O0gh
+	7dwkG1EwS6+ZTPHDqKPqK9Nz/sxxeBf29Ex5SjFbplUdfl8Yc6RJSQyTRmproeX+jutD
+	FfOnxvgyZAZx6hUa576KS2Agzju9dR/yo6aLU=
+Received: by 10.142.248.15 with SMTP id v15mr516375wfh.279.1298973958861;
+	Tue, 01 Mar 2011 02:05:58 -0800 (PST)
+Received: from [192.168.11.118] ([115.111.25.162])
+	by mx.google.com with ESMTPS id z8sm7274786wfj.1.2011.03.01.02.05.56
+	(version=SSLv3 cipher=OTHER); Tue, 01 Mar 2011 02:05:58 -0800 (PST)
+Message-ID: <4D6CC501.9020004@gmail.com>
+Date: Tue, 01 Mar 2011 15:35:53 +0530
+From: "embedded.yogesh" <embedded.yogesh@gmail.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
+	rv:1.9.2.15pre) Gecko/20110207 Shredder/3.1.9pre
 MIME-Version: 1.0
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-References: <4D6BB5E7.8060902@de-haardt.com> <1298909566.26736.7580.camel@rex>
-In-Reply-To: <1298909566.26736.7580.camel@rex>
-X-OriginalArrivalTime: 01 Mar 2011 07:32:16.0360 (UTC)
-	FILETIME=[CA1BEE80:01CBD7E2]
-X-RcptDomain: yoctoproject.org
-Cc: poky@yoctoproject.org
-Subject: Re: recipe gtk program include directories
+To: poky@yoctoproject.org
+Subject: Got error while trying to pull ORBit as package in Poky
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,59 +45,91 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Mar 2011 07:32:17 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-List-Received-Date: Tue, 01 Mar 2011 10:05:59 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 02/28/2011 05:12 PM, Richard Purdie wrote:
-> On Mon, 2011-02-28 at 15:49 +0100, Gerard van den Bosch wrote:
->> I have created a simple program with GTK and now I want to add it as a
->> package in poky.
->> Because it is a single C file I have constructed the following recipe:
->>
->> DESCRIPTION = "Battery indication"
->> SECTION = "examples"
->> LICENSE = "GPL"
->> DEPENDS = "gtk+"
->>
->> SRC_URI = "file://image.c"
->>
->> S = "${WORKDIR}"
->>
->> do_compile() {
->>       ${CC} image.c -o image
->> }
->>
->> do_install() {
->>       install -d ${D}${bindir}
->>       install -m 0755 image ${D}${bindir}
->> }
->>
->> Now I have the problem that on my ubuntu computer I normally add
->> `pkg-config --libs --cflags gtk+-2.0` to the gcc compile line to include
->> the right directories.
->>
->> But I don't understand how to do this in a recipe, can someone point me
->> to an example or explain how this is done?
-> Can't you just add that to the do_compile line as you'd usually do, e.g:
->
-> do_compile () {
->      ${CC} image.c -o image `pkg-config --libs --cflags gtk+-2.0`
-> }
->
-> ? (and add pkgconfig-native to DEPENDS)
->
-> Cheers,
->
-> Richard
->
-Thanks, adding pkgconfig to the DEPENDS and adding the line I usually 
-add solved the problem. I also had to rename the file from image to 
-something else because the do_install created a folder image and 
-overwrite my compiled image file.
-But now it compiles and installs :).
+Hi,
 
-Regards,
-Gerard
+I am trying to pull Orbit2 package and got errors as follows. Can any 
+one help ?
 
+
+Log data follows:
+
+| automake (GNU automake) 1.11.1
+
+| Copyright (C) 2009 Free Software Foundation, Inc.
+
+| License GPLv2+: GNU GPL version 2 or later<http://gnu.org/licenses/gpl-2.0.html>
+
+| This is free software: you are free to change and redistribute it.
+
+| There is NO WARRANTY, to the extent permitted by law.
+
+|
+
+| Written by Tom Tromey<tromey@redhat.com>
+
+|        and Alexandre Duret-Lutz<adl@gnu.org>.
+
+| AUTOV is 1.11
+
+| NOTE: Executing autoreconf --verbose --install --force --exclude=autopoint -I /home/ylal/logi/poky-chrome/build/tmp/work/core2-poky-linux/ORBit2-2.10.0-r1/ORBit2-2.10.5/ -I/home/ylal/logi/poky-chrome/build/tmp/sysroots/core2-poky-linux/usr/share/aclocal-1.11 -I /home/ylal/logi/poky-chrome/build/tmp/sysroots/core2-poky-linux/usr/share/aclocal
+
+| autoreconf: Entering directory `.'
+
+| autoreconf: configure.in: not using Gettext
+
+| autoreconf: running: aclocal -I /home/ylal/logi/poky-chrome/build/tmp/work/core2-poky-linux/ORBit2-2.10.0-r1/ORBit2-2.10.5/ -I /home/ylal/logi/poky-chrome/build/tmp/sysroots/core2-poky-linux/usr/share/aclocal-1.11 -I /home/ylal/logi/poky-chrome/build/tmp/sysroots/core2-poky-linux/usr/share/aclocal -I /home/ylal/logi/poky-chrome/build/tmp/work/core2-poky-linux/ORBit2-2.10.0-r1/ORBit2-2.10.5/ -I /home/ylal/logi/poky-chrome/build/tmp/sysroots/core2-poky-linux/usr/share/aclocal-1.11 -I /home/ylal/logi/poky-chrome/build/tmp/sysroots/core2-poky-linux/usr/share/aclocal --force
+
+| autoreconf: configure.in: tracing
+
+| configure.in:198: warning: AC_RUN_IFELSE called without default to allow cross compiling
+
+| ../../lib/autoconf/general.m4:2709: AC_RUN_IFELSE is expanded from...
+
+| ../../lib/autoconf/general.m4:2725: AC_TRY_RUN is expanded from...
+
+| configure.in:198: the top level
+
+| autoreconf: running: libtoolize --copy --force
+
+| libtoolize: putting auxiliary files in `.'.
+
+| libtoolize: copying file `./ltmain.sh'
+
+| libtoolize: Consider adding `AC_CONFIG_MACRO_DIR([m4])' to configure.in and
+
+| libtoolize: rerunning libtoolize, to keep the correct libtool macros in-tree.
+
+| libtoolize: Consider adding `-I m4' to ACLOCAL_AMFLAGS in Makefile.am.
+
+| autoreconf: running: /home/ylal/logi/poky-chrome/build/tmp/sysroots/i686-linux/usr/bin/autoconf --include=/home/ylal/logi/poky-chrome/build/tmp/work/core2-poky-linux/ORBit2-2.10.0-r1/ORBit2-2.10.5/ --include=/home/ylal/logi/poky-chrome/build/tmp/sysroots/core2-poky-linux/usr/share/aclocal-1.11 --include=/home/ylal/logi/poky-chrome/build/tmp/sysroots/core2-poky-linux/usr/share/aclocal --force --warnings=cross
+
+| configure.in:198: warning: AC_RUN_IFELSE called without default to allow cross compiling
+
+| ../../lib/autoconf/general.m4:2709: AC_RUN_IFELSE is expanded from...
+
+| ../../lib/autoconf/general.m4:2725: AC_TRY_RUN is expanded from...
+
+| configure.in:198: the top level
+
+| configure.in:124: error: possibly undefined macro: PKG_CONFIG_MIN_VERSION
+
+|       If this token and others are legitimate, please use m4_pattern_allow.
+
+|       See the Autoconf documentation.
+
+| autoreconf: /home/ylal/logi/poky-chrome/build/tmp/sysroots/i686-linux/usr/bin/autoconf failed with exit status: 1
+
+| FATAL: autoreconf execution failed.
+
+| ERROR: Task failed: ('function do_configure failed', '/home/ylal/logi/poky-chrome/build/tmp/work/core2-poky-linux/ORBit2-2.10.0-r1/temp/log.do_configure.28161')
+
+NOTE: package ORBit2-2.10.0-r1: task do_configure: Failed
+
+
+Thanks and Regards
+Yogesh
 
