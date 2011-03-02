@@ -1,23 +1,23 @@
 Return-Path: <sgw@linux.intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9E3AE4C80AAE
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id DDC7E4C80AAE
 	for <poky@yoctoproject.org>; Wed,  2 Mar 2011 12:00:28 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 02 Mar 2011 10:00:28 -0800
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 02 Mar 2011 10:00:13 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,254,1297065600"; d="scan'208";a="396465471"
+X-IronPort-AV: E=Sophos;i="4.62,254,1297065600"; d="scan'208";a="893055691"
 Received: from unknown (HELO localhost) ([10.255.12.100])
-	by azsmga001.ch.intel.com with ESMTP; 02 Mar 2011 10:00:27 -0800
-Message-Id: <fb56ac6021fe09cb386c168f3fe0b11e04214972.1299088354.git.sgw@linux.intel.com>
+	by fmsmga001.fm.intel.com with ESMTP; 02 Mar 2011 10:00:12 -0800
+Message-Id: <f8297baecf5cec2c6e59761779a2a465a015e77c.1299088353.git.sgw@linux.intel.com>
 In-Reply-To: <cover.1299088353.git.sgw@linux.intel.com>
 References: <cover.1299088353.git.sgw@linux.intel.com>
-Old-Date: Fri, 25 Feb 2011 16:16:32 -0600
-Date: Wed, 02 Mar 2011 10:00:26 -0800
+Old-Date: Mon, 28 Feb 2011 16:46:18 +0800
+Date: Wed, 02 Mar 2011 10:00:12 -0800
 To: openembedded-core@lists.openembedded.org,poky@yoctoproject.org
 From: Saul Wold <sgw@linux.intel.com>
 X-Mailman-Approved-At: Wed, 02 Mar 2011 12:01:14 -0600
 Cc: Paul Eggleton <paul.eggleton@linux.intel.com>
-Subject: [PATCH 13/26] [BUGID# 553] - documentation/poky-ref-manual/faq.xml: Fixed pokylinux.org reference
+Subject: [PATCH 01/26] attr: Change SRC_URI to a correct location
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,36 +29,45 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 02 Mar 2011 18:00:28 -0000
+X-List-Received-Date: Wed, 02 Mar 2011 18:00:29 -0000
 
-From: Scott Rifenbark <scott.m.rifenbark@intel.com>
+From: Dongxiao Xu <dongxiao.xu@intel.com>
 
-[BUGID# 553] - In the FAQ appendix item H.12 there was a reference
-to http://pokylinux.org/sources/* in the question portion.  The
-reference should really be http://autobuilder.yoctoproject.org/sources/*.
-I made the change.
+attr has changed its download link, thus change accordingly.
 
-This is a partial fix for bug 553.
+This fixes [BUGID #710]
 
-Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
+Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
 ---
- documentation/poky-ref-manual/faq.xml |    3 ++-
- 1 files changed, 2 insertions(+), 1 deletions(-)
+ meta/recipes-support/attr/attr.inc       |    2 +-
+ meta/recipes-support/attr/attr_2.4.44.bb |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/documentation/poky-ref-manual/faq.xml b/documentation/poky-ref-manual/faq.xml
-index 7a891b0..03ae714 100644
---- a/documentation/poky-ref-manual/faq.xml
-+++ b/documentation/poky-ref-manual/faq.xml
-@@ -248,7 +248,8 @@
-     <qandaentry>
-         <question>
-             <para>
--                I see lots of 404 responses for files on http://pokylinux.org/sources/*. Is something wrong?
-+                I see lots of 404 responses for files on 
-+                http://autobuilder.yoctoproject.org/sources/*. Is something wrong?
-             </para>
-         </question>
-         <answer>
+diff --git a/meta/recipes-support/attr/attr.inc b/meta/recipes-support/attr/attr.inc
+index 9a8b0f6..e9467d7 100644
+--- a/meta/recipes-support/attr/attr.inc
++++ b/meta/recipes-support/attr/attr.inc
+@@ -9,7 +9,7 @@ LIC_FILES_CHKSUM = "file://doc/COPYING;md5=2d0aa14b3fce4694e4f615e30186335f \
+                     file://attr/attr.c;endline=17;md5=be0403261f0847e5f43ed5b08d19593c \
+                     file://libattr/libattr.c;endline=17;md5=7970f77049f8fa1199fff62a7ab724fb"
+ 
+-SRC_URI = "http://download.savannah.gnu.org/attr/${BP}.src.tar.gz"
++SRC_URI = "http://download.savannah.gnu.org/releases/attr/${BP}.src.tar.gz"
+ 
+ require ea-acl.inc
+ 
+diff --git a/meta/recipes-support/attr/attr_2.4.44.bb b/meta/recipes-support/attr/attr_2.4.44.bb
+index 4be27d0..a0945f1 100644
+--- a/meta/recipes-support/attr/attr_2.4.44.bb
++++ b/meta/recipes-support/attr/attr_2.4.44.bb
+@@ -1,6 +1,6 @@
+ require attr.inc
+ 
+-PR = "r2"
++PR = "r3"
+ 
+ SRC_URI += "file://memory-leak-in-copy.patch \
+             file://memory-leak2.patch \
 -- 
 1.7.1
 
