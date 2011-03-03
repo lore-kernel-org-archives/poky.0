@@ -1,21 +1,21 @@
 Return-Path: <sgw@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 565FD4C80A84
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 59C2B4C80A8B
 	for <poky@yoctoproject.org>; Thu,  3 Mar 2011 14:02:47 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 03 Mar 2011 12:02:46 -0800
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 03 Mar 2011 12:02:47 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,259,1297065600"; d="scan'208";a="893505474"
+X-IronPort-AV: E=Sophos;i="4.62,259,1297065600"; d="scan'208";a="663580410"
 Received: from unknown (HELO localhost) ([10.255.12.102])
-	by fmsmga001.fm.intel.com with ESMTP; 03 Mar 2011 12:02:46 -0800
-Message-Id: <06ae5cd63b3b42d8dafe953ffbce93c321f11ac3.1299182375.git.sgw@linux.intel.com>
+	by fmsmga002.fm.intel.com with ESMTP; 03 Mar 2011 12:02:47 -0800
+Message-Id: <da65d2bd3d1f83d84b728f4cddfd6418cd953241.1299182375.git.sgw@linux.intel.com>
 In-Reply-To: <cover.1299182375.git.sgw@linux.intel.com>
 References: <cover.1299182375.git.sgw@linux.intel.com>
-Old-Date: Thu, 3 Mar 2011 03:18:38 +0800
+Old-Date: Thu, 3 Mar 2011 10:24:37 +0800
 Date: Thu, 03 Mar 2011 12:02:46 -0800
 To: poky@yoctoproject.org,openembedded-core@lists.openembedded.org
 From: Saul Wold <sgw@linux.intel.com>
-Subject: [PATCH 06/10] ADT: Bug fix for Suse Linux
+Subject: [PATCH 07/10] recipe: add chkconfig for LSB command test
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,46 +29,50 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Thu, 03 Mar 2011 20:02:47 -0000
 
-From: Liping Ke <liping.ke@intel.com>
+From: Kang Kai <kai.kang@windriver.com>
 
-On Suse linux11.2, we found when using sudo, we must add -E opts
-to preserver some network proxy environment settings. Otherwise,
-opkg-cl can't access files behind firewall. [bug #785]
-Also, we need to add absolute path when sourcing files.
-Fix for [bug #786]
+chkconfig is a system tool for maintaining the /etc/rc*.d hierarchy,
+and LSB command test will check 2 links point to command  chkconfig
 
-Signed-off-by: Liping Ke <liping.ke@intel.com>
+Signed-off-by: Kang Kai <kai.kang@windriver.com>
 ---
- .../adt-installer/scripts/adt_installer_internal   |    2 +-
- .../installer/adt-installer/scripts/data_define    |    2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ .../recipes-extended/chkconfig/chkconfig_1.3.49.bb |   27 ++++++++++++++++++++
+ 1 files changed, 27 insertions(+), 0 deletions(-)
+ create mode 100644 meta/recipes-extended/chkconfig/chkconfig_1.3.49.bb
 
-diff --git a/meta/recipes-devtools/installer/adt-installer/scripts/adt_installer_internal b/meta/recipes-devtools/installer/adt-installer/scripts/adt_installer_internal
-index b5e304d..df142ff 100755
---- a/meta/recipes-devtools/installer/adt-installer/scripts/adt_installer_internal
-+++ b/meta/recipes-devtools/installer/adt-installer/scripts/adt_installer_internal
-@@ -81,7 +81,7 @@ else
- fi
- 
- #first update repository
--OPKG_CMD="sudo $LOCAL_OPKG_LOC/bin/opkg-cl"
-+OPKG_CMD="sudo -E $LOCAL_OPKG_LOC/bin/opkg-cl"
- 
- echo_info "Updating opkg..."
- $OPKG_CMD -f $OPKG_CONFIG_FILE -o $NATIVE_INSTALL_DIR update &>> $YOCTOADT_INSTALL_LOG_FILE
-diff --git a/meta/recipes-devtools/installer/adt-installer/scripts/data_define b/meta/recipes-devtools/installer/adt-installer/scripts/data_define
-index 77f8b38..e29cc30 100644
---- a/meta/recipes-devtools/installer/adt-installer/scripts/data_define
-+++ b/meta/recipes-devtools/installer/adt-installer/scripts/data_define
-@@ -23,7 +23,7 @@
- # THE SOFTWARE.
- 
- config_file="adt_installer.conf"
--source $config_file
-+source `eval echo $PWD`/$config_file
- 
- LOCAL_OPKG_LOC="./opkg/build/opkg"
- LOCAL_OPKG_FOLDER="./opkg/build"
+diff --git a/meta/recipes-extended/chkconfig/chkconfig_1.3.49.bb b/meta/recipes-extended/chkconfig/chkconfig_1.3.49.bb
+new file mode 100644
+index 0000000..bbaba71
+--- /dev/null
++++ b/meta/recipes-extended/chkconfig/chkconfig_1.3.49.bb
+@@ -0,0 +1,27 @@
++SUMMARY = "A system tool for maintaining the /etc/rc*.d hierarchy"
++
++DESCRIPTION = "Chkconfig is a basic system utility.  It updates and queries runlevel \
++information for system services.  Chkconfig manipulates the numerous \
++symbolic links in /etc/rc.d, to relieve system administrators of some \
++of the drudgery of manually editing the symbolic links."
++
++HOMEPAGE = "http://fedorahosted.org/releases/c/h/chkconfig"
++
++LICENSE = "GPLv2"
++LIC_FILES_CHKSUM = "file://COPYING;md5=5574c6965ae5f583e55880e397fbb018"
++
++DEPENDS = "libnewt gettext popt"
++
++PR = "r0"
++
++SRC_URI = "http://fedorahosted.org/releases/c/h/chkconfig/${P}.tar.bz2"
++SRC_URI[md5sum] = "9b5e91d25f4f3b21f4c0bdf55a721431"
++SRC_URI[sha256sum] = "775100a9d6f70fbd8f33ed24b560b6842161fc496c21b1fc6d2aed646f9d855f"
++
++inherit autotools
++
++do_install_append() {
++#    mkdir -p ${D}/etc/rc.d/init.d
++#   mkdir -p  ${D}/etc/rc.d/rc{0,1,2,3,4,5,6}.d
++    mkdir -p ${D}/etc/chkconfig.d
++}
 -- 
 1.7.1.1
 
