@@ -1,30 +1,22 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id DFE3D4C800A3
-	for <poky@yoctoproject.org>; Thu,  3 Mar 2011 10:59:18 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id A9801166058E; Thu,  3 Mar 2011 09:59:17 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2-r929478
-Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id C5252166052D;
-	Thu,  3 Mar 2011 09:59:16 -0700 (MST)
-Message-ID: <4D6FC8E4.3020400@mlbassoc.com>
-Date: Thu, 03 Mar 2011 09:59:16 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
+Return-Path: <mark.hatle@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id AF0884C800A3
+	for <poky@yoctoproject.org>; Thu,  3 Mar 2011 11:02:48 -0600 (CST)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p23H2miW003307
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Thu, 3 Mar 2011 09:02:48 -0800 (PST)
+Received: from localhost.localdomain (172.25.36.229) by
+	ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server
+	(TLS) id 14.1.255.0; Thu, 3 Mar 2011 09:02:47 -0800
+From: Mark Hatle <mark.hatle@windriver.com>
+To: <poky@yoctoproject.org>
+Date: Thu, 3 Mar 2011 11:02:42 -0600
+Message-ID: <cover.1299171724.git.mark.hatle@windriver.com>
+X-Mailer: git-send-email 1.7.4
 MIME-Version: 1.0
-To: Darren Hart <dvhart@linux.intel.com>
-References: <b9dded$i440ij@orsmga002.jf.intel.com>
-	<4D6FC6E0.3070303@mlbassoc.com>
-In-Reply-To: <4D6FC6E0.3070303@mlbassoc.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 1/2] module: build and clean hostprogs for each module
+X-Originating-IP: [172.25.36.229]
+Subject: [PATCH 0/1] Fix sanity checking ELF size determination
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,43 +28,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Mar 2011 16:59:19 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 03 Mar 2011 17:02:48 -0000
+Content-Type: text/plain
 
-On 03/03/2011 09:50 AM, Gary Thomas wrote:
-> On 03/02/2011 11:00 AM, Darren Hart wrote:
->> From: Darren Hart<dvhart@linux.intel.com>
->>
->> This fixes [BUGID #241]
->>
->> The kernel hostprogs are built for the host architecture. They should not
->> be deployed with to the target, and they should not be included in an sstate
->> package which might get reused on a host of a different architecture.
->>
->> As we don't build many out-of-tree modules, this patch takes the approach
->> of building the hostprogs as part of the module compile process with a
->> do_compile_prepend() routine in module.bbclass. To ensure the hostprogs
->> don't contaminate the build, they are removed in do_install_append().
->>
->> Signed-off-by: Darren Hart<dvhart@linux.intel.com>
->> CC: Gary Thomas<gary@mlbassoc.com>
->
-> Sadly, this doesn't seem to work for me. I don't see any indication in
-> run.do_compile that the extra steps were added at all.
->
-> Will it matter if my recipe overrides the do_compile() method?
->
+Fix the ELF size determination during sanity checking.
 
-Also, when you tested this, what was your target MACHINE (in particular,
-was the target a different architecture than the build host?)  I ask because
-I tried to just manually insert the compile_prepend() functions into my
-recipe and it ended up trying to build host tools (that's what the fuss
-is all about) using the target toolchain.
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: mhatle/bernard/fixes
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=mhatle/bernard/fixes
+
+Thanks,
+    Mark Hatle <mark.hatle@windriver.com>
+---
+
+
+Mark Hatle (1):
+  qa.py: Fix a typo when evaluating bitsize
+
+ meta/lib/oe/qa.py |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
 
 -- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+1.7.4
+
 
