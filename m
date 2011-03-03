@@ -1,29 +1,31 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id DE9EA4C8009A
-	for <poky@lists.pokylinux.org>; Thu,  3 Mar 2011 06:56:58 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 3E4851660511; Thu,  3 Mar 2011 05:56:58 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2-r929478
-Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 40E981660505;
-	Thu,  3 Mar 2011 05:56:56 -0700 (MST)
-Message-ID: <4D6F9018.1000605@mlbassoc.com>
-Date: Thu, 03 Mar 2011 05:56:56 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
-MIME-Version: 1.0
-To: "Zhai, Edwin" <edwin.zhai@intel.com>
-References: <4D6675E0.2040703@mlbassoc.com> <4D6B3BA3.9050303@intel.com>
-In-Reply-To: <4D6B3BA3.9050303@intel.com>
-Cc: Poky <poky@lists.pokylinux.org>
-Subject: Re: Is sstate broken
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 7F86C4C8009A
+	for <poky@yoctoproject.org>; Thu,  3 Mar 2011 07:13:08 -0600 (CST)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p23DCsT3008983;
+	Thu, 3 Mar 2011 13:12:54 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 08907-01; Thu,  3 Mar 2011 13:12:50 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p23DCj9j008975
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Thu, 3 Mar 2011 13:12:46 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Patches and discussions about the oe-core layer
+	<openembedded-core@lists.openembedded.org>
+In-Reply-To: <cover.1299088353.git.sgw@linux.intel.com>
+References: <cover.1299088353.git.sgw@linux.intel.com>
+Date: Thu, 03 Mar 2011 13:12:40 +0000
+Message-ID: <1299157960.26736.13089.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: Paul Eggleton <paul.eggleton@linux.intel.com>, poky@yoctoproject.org
+Subject: Re: [OE-core] [PATCH 00/26] Documentation and bug fixes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,75 +37,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Mar 2011 12:56:59 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Thu, 03 Mar 2011 13:13:09 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On 02/27/2011 11:07 PM, Zhai, Edwin wrote:
-> Gary,
->
-> Thanks for trying this.
-> sstate function is a little bit fragile recently. I'll look at it after fixing some other bugs.
+On Wed, 2011-03-02 at 10:00 -0800, Saul Wold wrote:
+> From: Saul Wold <sgw@linux.intel.com>
+> 
+> This is a batch of documentation updates and metadata bug fixes
+> addressing know bugs in the yoctoproject bugzilla.
+> 
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>   Branch: distro/oe-core
+>   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=distro/oe-core
+> 
+> Thanks,
+>     Saul Wold <sgw@linux.intel.com>
 
-Any progress on this?
+Merged into OE-Core master, thanks Saul.
 
-Should I file this as a bug?
+Cheers,
 
-> Gary Thomas wrote:
->>
->> I tried to run an experiment with SSTATE_MIRRORS on the latest master.
->> From what I can tell, this is 100% not working, although I may just
->> not have set it up properly. Here's what I did:
->>
->> * Build Poky for my platform in /local/xyz_ppc_poky
->> * Set up to build exact same machine/config/etc in /local/xyz_test
->> pointing SSTATE_MIRRORS at /local/xyz_ppc_poky/sstate-cache by
->> adding these lines to local.conf (only configuration change)
->> SSTATE_MIRRORS ?= "\
->> file://.* file:///local/xyz_ppc_poky/sstate-cache/"
->>
->> The end result is that both builds built (from scratch) the same
->> set of packages. There seems to be no reuse of anything from
->> the SSTATE_MIRRORS.
->>
->> $ du /local/xyz_ppc_poky/* -s
->> 20 /local/xyz_ppc_poky/conf
->> 1456 /local/xyz_ppc_poky/downloads
->> 4 /local/xyz_ppc_poky/pseudodone
->> 1010392 /local/xyz_ppc_poky/sstate-cache
->> 14434076 /local/xyz_ppc_poky/tmp
->>
->> $ du -s /local/xyz_test
->> 20 /local/xyz_test/conf
->> 1456 /local/xyz_test/downloads
->> 4 /local/xyz_test/pseudodone
->> 1010276 /local/xyz_test/sstate-cache
->> 14425860 /local/xyz_test/ tmp
->>
->> The full build log of the second run is at http://www.mlbassoc.com/poky/build_ppc_with_sstate
->> Notice the many lines which say that a particular step failed. I can't see the reason, nor
->> can I find any corresponding log file to help me out. An example is:
->> ERROR: Task 0 (virtual:native:/home/local/poky-amltd/meta/recipes-devtools/pseudo/pseudo_1.0.bb, do_unpack) failed with exit code '1'
->>
->> Am I missing something? Now that the build with BB_NO_NETWORK is working well,
->> this is my last hurdle to making Poky truly useful for my customers.
->>
->> Thanks
->>
->> --
->> ------------------------------------------------------------
->> Gary Thomas | Consulting for the
->> MLB Associates | Embedded world
->> ------------------------------------------------------------
->> _______________________________________________
->> poky mailing list
->> poky@yoctoproject.org
->> https://lists.yoctoproject.org/listinfo/poky
->>
+Richard
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
 
