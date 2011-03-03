@@ -1,39 +1,39 @@
 Return-Path: <raj.khem@gmail.com>
 Received: from mail-fx0-f48.google.com (mail-fx0-f48.google.com
 	[209.85.161.48])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7D87E4C80050
-	for <poky@yoctoproject.org>; Thu,  3 Mar 2011 14:27:17 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id B8D084C80772
+	for <poky@yoctoproject.org>; Thu,  3 Mar 2011 14:28:41 -0600 (CST)
 Authentication-Results: mx1.pokylinux.org; dkim=pass
 	(1024-bit key; insecure key) header.i=@gmail.com;
 	x-dkim-adsp=none (insecure policy)
-Received: by fxm2 with SMTP id 2so1972481fxm.35
-	for <poky@yoctoproject.org>; Thu, 03 Mar 2011 12:27:16 -0800 (PST)
+Received: by fxm2 with SMTP id 2so1974544fxm.35
+	for <poky@yoctoproject.org>; Thu, 03 Mar 2011 12:28:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
 	h=domainkey-signature:mime-version:in-reply-to:references:from:date
 	:message-id:subject:to:cc:content-type:content-transfer-encoding;
-	bh=RbGQK3mqHClgGjzZMyEdF/m73SD0rBLXTUAwvQSfcNs=;
-	b=rWMgPVcBj4R/eiqVWZS/1V+ihsJxRRzvIKQHdsKh5pHuwenDuPJNCv0B+c2Y34UxWc
-	dg+EE6Bld57JNqw0gQD7Td0kpTG5jr830bBKZ1TqxvBMnWf846VT9376lR7tD0yaLq8o
-	cq7hCBSXZ9Xy5fRHGFK1AxPrGkg51vdcShWv8=
+	bh=tEcbhGO5/Sq0UVXjYMnJ5uJXS/hK15A+ZCO/DnZMVPM=;
+	b=qfJkRiX1KxkEuJ6qgZINGXxAvKKp/UBvopT+4l7dKvPI8JQvxuplc1GuSxaa/UoPt8
+	uUCcxfHsLytVGPXhxCwt6HS4A5LwqD3hYJJ1sHeAQZQoMxLzHG/DG1v+NroClKNQWwkC
+	fyc/t7/xL1YhkIrk4wFEbeqfGgAEaWy1HvZqg=
 DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
 	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
 	:cc:content-type:content-transfer-encoding;
-	b=ujIQq0Ql8uwCTsHp5xsR5aLl8JItT5QpFLJHSsk/aRUcdh+Eg6dMVfvg+6rvgd4BF+
-	5qlkPKfkfISbV5paPiKnFFleM8vup7K/VcM0k+vJ56fGn1KGfb7DfRxYxX339XxdZtOD
-	xciTv/2OnYgtP22JEZucXKpb1ljD6glMajs0c=
-Received: by 10.223.87.1 with SMTP id u1mr1980279fal.112.1299184018229; Thu,
-	03 Mar 2011 12:26:58 -0800 (PST)
+	b=Eyp1zeKdCpIzqM9TCX6S1a67ITlmvOTW9shdYn8h5dC5ISAPLPIU6r+MQMsEsLGv/P
+	daazSTItho8N54458V4j+4n8YgZOPSen9ypmMKsfe7uaw81xghYOO71W+0BwPRXmlo4y
+	FqJO/XuROFuHOuVTmz4KFX4CGZR7iB6DZJGSA=
+Received: by 10.223.72.9 with SMTP id k9mr1991617faj.93.1299184099088; Thu, 03
+	Mar 2011 12:28:19 -0800 (PST)
 MIME-Version: 1.0
-Received: by 10.223.30.151 with HTTP; Thu, 3 Mar 2011 12:26:38 -0800 (PST)
-In-Reply-To: <da65d2bd3d1f83d84b728f4cddfd6418cd953241.1299182375.git.sgw@linux.intel.com>
+Received: by 10.223.30.151 with HTTP; Thu, 3 Mar 2011 12:27:58 -0800 (PST)
+In-Reply-To: <1bd92439689523c3249a91688688c2b83245fa5c.1299182375.git.sgw@linux.intel.com>
 References: <cover.1299182375.git.sgw@linux.intel.com>
-	<da65d2bd3d1f83d84b728f4cddfd6418cd953241.1299182375.git.sgw@linux.intel.com>
+	<1bd92439689523c3249a91688688c2b83245fa5c.1299182375.git.sgw@linux.intel.com>
 From: Khem Raj <raj.khem@gmail.com>
-Date: Thu, 3 Mar 2011 12:26:38 -0800
-Message-ID: <AANLkTi=7XzTXYvjgq6rqNYsW-uafHjsmSZqC01CxODJz@mail.gmail.com>
+Date: Thu, 3 Mar 2011 12:27:58 -0800
+Message-ID: <AANLkTi=kduRmC5Vsj3Lr-6ccRiQ-+AHSnUoYxkoPOmBT@mail.gmail.com>
 To: Saul Wold <sgw@linux.intel.com>
 Cc: poky@yoctoproject.org, openembedded-core@lists.openembedded.org
-Subject: Re: [PATCH 07/10] recipe: add chkconfig for LSB command test
+Subject: Re: [PATCH 08/10] recipe: add newt from OE
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -45,66 +45,180 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Mar 2011 20:27:17 -0000
+X-List-Received-Date: Thu, 03 Mar 2011 20:28:42 -0000
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
 On Thu, Mar 3, 2011 at 12:02 PM, Saul Wold <sgw@linux.intel.com> wrote:
 > From: Kang Kai <kai.kang@windriver.com>
 >
-> chkconfig is a system tool for maintaining the /etc/rc*.d hierarchy,
-> and LSB command test will check 2 links point to command =C2=A0chkconfig
+> newt is a library for text mode user interfaces, and required by
+> chkconfig because of LSB command test.
+
+may be mentioned the commit SHA of this file from OE repo would be nice to =
+have
+
+
 >
 > Signed-off-by: Kang Kai <kai.kang@windriver.com>
 > ---
-> =C2=A0.../recipes-extended/chkconfig/chkconfig_1.3.49.bb | =C2=A0 27 ++++=
-++++++++++++++++
-> =C2=A01 files changed, 27 insertions(+), 0 deletions(-)
-> =C2=A0create mode 100644 meta/recipes-extended/chkconfig/chkconfig_1.3.49=
-.bb
+> =C2=A0.../newt/files/include-without-python.patch =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0| =C2=A0 71 ++++++++++++++++++++
+> =C2=A0meta/recipes-extended/newt/libnewt_0.52.12.bb =C2=A0 =C2=A0 =C2=A0|=
+ =C2=A0 37 ++++++++++
+> =C2=A02 files changed, 108 insertions(+), 0 deletions(-)
+> =C2=A0create mode 100644 meta/recipes-extended/newt/files/include-without=
+-python.patch
+> =C2=A0create mode 100644 meta/recipes-extended/newt/libnewt_0.52.12.bb
 >
-> diff --git a/meta/recipes-extended/chkconfig/chkconfig_1.3.49.bb b/meta/r=
-ecipes-extended/chkconfig/chkconfig_1.3.49.bb
+> diff --git a/meta/recipes-extended/newt/files/include-without-python.patc=
+h b/meta/recipes-extended/newt/files/include-without-python.patch
 > new file mode 100644
-> index 0000000..bbaba71
+> index 0000000..277ee33
 > --- /dev/null
-> +++ b/meta/recipes-extended/chkconfig/chkconfig_1.3.49.bb
-> @@ -0,0 +1,27 @@
-> +SUMMARY =3D "A system tool for maintaining the /etc/rc*.d hierarchy"
+> +++ b/meta/recipes-extended/newt/files/include-without-python.patch
+> @@ -0,0 +1,71 @@
+> +From 3d13bbbb769050fac4cc6c904c174edc27e4f03d Mon Sep 17 00:00:00 2001
+> +From: Otavio Salvador <otavio@ossystems.com.br>
+> +Date: Thu, 20 Jan 2011 14:14:51 -0200
+> +Subject: [PATCH] build: add -without-python
 > +
-> +DESCRIPTION =3D "Chkconfig is a basic system utility. =C2=A0It updates a=
-nd queries runlevel \
-> +information for system services. =C2=A0Chkconfig manipulates the numerou=
-s \
-> +symbolic links in /etc/rc.d, to relieve system administrators of some \
-> +of the drudgery of manually editing the symbolic links."
+> +Signed-off-by: Otavio Salvador <otavio@ossystems.com.br>
+> +---
+> + Makefile.in =C2=A0| =C2=A0 =C2=A08 ++++----
+> + configure.ac | =C2=A0 10 ++++++++--
+> + 2 files changed, 12 insertions(+), 6 deletions(-)
 > +
-> +HOMEPAGE =3D "http://fedorahosted.org/releases/c/h/chkconfig"
+> +diff --git a/Makefile.in b/Makefile.in
+> +index e764e61..74e9097 100644
+> +--- a/Makefile.in
+> ++++ b/Makefile.in
+> +@@ -77,7 +77,7 @@ showkey: =C2=A0 =C2=A0 showkey.o $(LIBNEWT)
+> + =C2=A0 =C2=A0 =C2=A0 $(CC) -g -o showkey showkey.o $(LIBNEWT) $(LDFLAGS=
+) $(LIBS)
 > +
-> +LICENSE =3D "GPLv2"
-> +LIC_FILES_CHKSUM =3D "file://COPYING;md5=3D5574c6965ae5f583e55880e397fbb=
-018"
+> + _snackmodule.so: =C2=A0 snackmodule.c $(LIBNEWTSH)
+> +- =C2=A0 =C2=A0 =C2=A0for ver in $(PYTHONVERS) ; do \
+> ++ =C2=A0 =C2=A0 =C2=A0[ -n "$(PYTHONVERS)" ] && for ver in $(PYTHONVERS)=
+ ; do \
+> + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 mkdir -p $$ver ;\
+> + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 PCFLAGS=3D`$$ver-config --cflags`; \
+> + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 PIFLAGS=3D`$$ver-config --includes`; \
+> +@@ -85,7 +85,7 @@ _snackmodule.so: =C2=A0 snackmodule.c $(LIBNEWTSH)
+> + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 PLFLAGS=3D`$$ver-config --libs`; \
+> + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 $(CC) $(CPPFLAGS) $$PI=
+FLAGS $$PCFLAGS -c -o $$ver/snackmodule.o snackmodule.c ;\
+> + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 $(CC) --shared $$PLDFL=
+AGS $$PLFLAGS $(LDFLAGS) -o $$ver/_snackmodule.so $$ver/snackmodule.o -L. =
+=C2=A0-lnewt $(LIBS);\
+> +- =C2=A0 =C2=A0 =C2=A0done
+> ++ =C2=A0 =C2=A0 =C2=A0done || :
+> + =C2=A0 =C2=A0 =C2=A0 touch $@
 > +
-> +DEPENDS =3D "libnewt gettext popt"
+> + whiptail: $(NDIALOGOBJS) $(LIBNEWTSH)
+> +@@ -141,11 +141,11 @@ install-sh: sharedlib $(WHIPTCLSO) _snackmodule.so
+> + =C2=A0 =C2=A0 =C2=A0 ln -sf $(LIBNEWTSONAME) $(instroot)/$(libdir)/libn=
+ewt.so
+> + =C2=A0 =C2=A0 =C2=A0 ln -sf $(LIBNEWTSH) $(instroot)/$(libdir)/$(LIBNEW=
+TSONAME)
+> + =C2=A0 =C2=A0 =C2=A0 [ -n "$(WHIPTCLSO)" ] && install -m 755 whiptcl.so=
+ $(instroot)/$(libdir) || :
+> +- =C2=A0 =C2=A0 =C2=A0for ver in $(PYTHONVERS) ; do \
+> ++ =C2=A0 =C2=A0 =C2=A0[ -n "$(PYTHONVERS)" ] && for ver in $(PYTHONVERS)=
+ ; do \
+> + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0[ -d $(instroot)/$(libdir)/$$ver/site=
+-packages ] || install -m 755 -d $(instroot)/$(libdir)/$$ver/site-packages =
+;\
+> + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0install -m 755 $$ver/_snackmodule.so =
+$(instroot)/$(libdir)/$$ver/site-packages ;\
+> + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0install -m 644 snack.py $(instroot)/$=
+(libdir)/$$ver/site-packages ;\
+> +- =C2=A0 =C2=A0 =C2=A0done
+> ++ =C2=A0 =C2=A0 =C2=A0done || :
+> +
+> + Makefile: newt.spec
+> + =C2=A0 =C2=A0 =C2=A0 echo "You need to rerun ./configure before continu=
+ing"
+> +diff --git a/configure.ac b/configure.ac
+> +index 7bc381a..dc04352 100644
+> +--- a/configure.ac
+> ++++ b/configure.ac
+> +@@ -54,8 +54,14 @@ fi
+> + AC_CHECK_HEADERS([popt.h libintl.h])
+> +
+> + AC_MSG_CHECKING([for python versions])
+> +-PYTHONVERS=3D$(echo /usr/include/python*/Python.h | sed "s|/usr/include=
+/||g"| sed "s|/Python.h||g" 2> /dev/null)
+> +-AC_MSG_RESULT([$PYTHONVERS])
+> ++AC_ARG_WITH([python], [ =C2=A0--without-python =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0do not compile python support])
+> ++if test "x$with_python" =3D "xno"; then
+> ++ =C2=A0AC_MSG_RESULT([skipped])
+> ++ =C2=A0PYTHONVERS=3D
+> ++else
+> ++ =C2=A0PYTHONVERS=3D$(ls /usr/include/python*/Python.h 2> /dev/null | s=
+ed "s|/usr/include/||g"| sed "s|/Python.h||g" 2> /dev/null)
+> ++ =C2=A0AC_MSG_RESULT([$PYTHONVERS])
+> ++fi
+> + AC_SUBST([PYTHONVERS])
+> +
+> + AC_ARG_WITH([tcl], [ =C2=A0--without-tcl =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 do not compile whiptcl.so])
+> +--
+> +1.7.2.3
+> +
+> diff --git a/meta/recipes-extended/newt/libnewt_0.52.12.bb b/meta/recipes=
+-extended/newt/libnewt_0.52.12.bb
+> new file mode 100644
+> index 0000000..eefd6bd
+> --- /dev/null
+> +++ b/meta/recipes-extended/newt/libnewt_0.52.12.bb
+> @@ -0,0 +1,37 @@
+> +SUMMARY =3D "A library for text mode user interfaces"
+> +
+> +DESCRIPTION =3D "Newt is a programming library for color text mode, widg=
+et based user \
+> +interfaces. =C2=A0Newt can be used to add stacked windows, entry widgets=
+, \
+> +checkboxes, radio buttons, labels, plain text fields, scrollbars, \
+> +etc., to text mode user interfaces. =C2=A0This package also contains the=
+ \
+> +shared library needed by programs built with newt, as well as a \
+> +/usr/bin/dialog replacement called whiptail. =C2=A0Newt is based on the =
+\
+> +slang library."
+> +
+> +HOMEPAGE =3D "https://fedorahosted.org/newt/"
+> +SECTION =3D "libs"
+> +
+> +LICENSE =3D "LGPL"
+> +LIC_FILES_CHKSUM =3D "file://COPYING;md5=3D55ca817ccb7d5b5b66355690e9abc=
+605"
+> +
+> +# slang needs to be >=3D 2.2
+> +DEPENDS =3D "slang popt"
 > +
 > +PR =3D "r0"
 > +
-> +SRC_URI =3D "http://fedorahosted.org/releases/c/h/chkconfig/${P}.tar.bz2=
-"
-> +SRC_URI[md5sum] =3D "9b5e91d25f4f3b21f4c0bdf55a721431"
-> +SRC_URI[sha256sum] =3D "775100a9d6f70fbd8f33ed24b560b6842161fc496c21b1fc=
-6d2aed646f9d855f"
+> +SRCREV =3D "c3c7be75f6ef1adfc2be5f99c1e8ef3f0ab58c38"
+> +SRC_URI =3D "git://git.fedorahosted.org/git/newt;protocol=3Dgit \
+> + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 file://include-without-python.patch"
+> +S =3D "${WORKDIR}/git"
+> +
+> +EXTRA_OECONF =3D "--without-python --without-tcl"
 > +
 > +inherit autotools
 > +
-> +do_install_append() {
-> +# =C2=A0 =C2=A0mkdir -p ${D}/etc/rc.d/init.d
-> +# =C2=A0 mkdir -p =C2=A0${D}/etc/rc.d/rc{0,1,2,3,4,5,6}.d
-
-these comments can be removed I guess.
-
-> + =C2=A0 =C2=A0mkdir -p ${D}/etc/chkconfig.d
+> +PACKAGES_prepend =3D "whiptail "
+> +
+> +do_configure_prepend() {
+> + =C2=A0 =C2=A0sh autogen.sh
 > +}
+> +
+> +FILES_whiptail =3D "${bindir}/whiptail"
 > --
 > 1.7.1.1
 >
