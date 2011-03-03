@@ -1,34 +1,33 @@
-Return-Path: <liping.ke@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0EDE84C800A3
-	for <poky@yoctoproject.org>; Wed,  2 Mar 2011 21:40:41 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 02 Mar 2011 19:40:41 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,257,1297065600"; d="scan'208";a="396722395"
-Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
-	by azsmga001.ch.intel.com with ESMTP; 02 Mar 2011 19:40:40 -0800
-Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
-	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Thu, 3 Mar 2011 11:38:55 +0800
-Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
-	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi; Thu, 3 Mar 2011
-	11:38:53 +0800
-From: "Ke, Liping" <liping.ke@intel.com>
-To: "Ke, Liping" <liping.ke@intel.com>, "poky@yoctoproject.org"
-	<poky@yoctoproject.org>
-Date: Thu, 3 Mar 2011 11:38:53 +0800
-Thread-Topic: [PATCH 0/1] ADT: Add libtool-nativesdk for ADT installer
-Thread-Index: AcvZVAbwIerRdMaeTDOrVzNCcGA+4QAADmFw
-Message-ID: <789F9655DD1B8F43B48D77C5D306597332E8BF7A@shsmsx501.ccr.corp.intel.com>
-References: <789F9655DD1B8F43B48D77C5D306597332E8BF71@shsmsx501.ccr.corp.intel.com>
-In-Reply-To: <789F9655DD1B8F43B48D77C5D306597332E8BF71@shsmsx501.ccr.corp.intel.com>
-Accept-Language: zh-CN, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: zh-CN, en-US
+Return-Path: <kubera.samrat@gmail.com>
+Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
+	[74.125.82.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 48D2A4C803BA
+	for <poky@yoctoproject.org>; Wed,  2 Mar 2011 22:24:06 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by wya21 with SMTP id 21so919398wya.35
+	for <poky@yoctoproject.org>; Wed, 02 Mar 2011 20:24:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:date:message-id:subject:from:to
+	:content-type; bh=+/3TXMgOLsMWrWSRXCDt6ymy7b0fi6S9IwPhaUJzHPE=;
+	b=k1JwlH4mwvJcVCUUfYN2m+hOLM6/jWZKALO47nwCm7qaIlo/zoS9FIGArytRXzHgU3
+	CTBmWA5gkU0SlLJpqDMZwRCF81NYmaUB3/q42T3OY0IQK2srZtnSn3aRkZvmjFtMM5md
+	48LtTnC7Xhjt9YrFKTNjTaExnzhzqrU8qsq3U=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:date:message-id:subject:from:to:content-type;
+	b=oi6kno2Cfm6YKPXLUnWAe5LytP8oGlkkx5Nq7DSA9v07+HvHDp2EMi8rH3CGtbeZsl
+	0Q5AA1Ng6D6SgUnqt++vAn5IESv3+y5PsSPk4AIw90i9wLjBfcBLpkGxVRE8kZgWlBwR
+	B8jWrf0G8chwdSti0c8kC+HAD89L2u6Mk0+GE=
 MIME-Version: 1.0
-Subject: Re: [PATCH 0/1] ADT: Add libtool-nativesdk for ADT installer
+Received: by 10.216.17.204 with SMTP id j54mr166115wej.32.1299126245081; Wed,
+	02 Mar 2011 20:24:05 -0800 (PST)
+Received: by 10.216.69.83 with HTTP; Wed, 2 Mar 2011 20:24:05 -0800 (PST)
+Date: Thu, 3 Mar 2011 09:54:05 +0530
+Message-ID: <AANLkTi=XgciNC_9dy3zocW8GzBj6sbg5RjfbJe-OuhJM@mail.gmail.com>
+From: kubera samrat <kubera.samrat@gmail.com>
+To: poky@yoctoproject.org
+Subject: Reg:problem while Adding libgcc_s
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,58 +39,16 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Mar 2011 03:40:42 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Thu, 03 Mar 2011 04:24:06 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 
-Since today all kinds of Chinese proxies for wget does not work, speed is v=
-ery slow, < 1K,
-So auto create script does not work.
+hi,
+         I am using Ubuntu (10.04) on 64 bit machine. I have pulled in
+gcc but I am unable to find libgcc_s. Can any one help me in
+integrating this to poky.
+Your help will be greatly appreciated.
 
-So I sent this pull request manually.=20
-
-Any problem, just let me know.
-
-Thanks & Regards,
-criping
-
-> -----Original Message-----
-> From: poky-bounces@yoctoproject.org [mailto:poky-
-> bounces@yoctoproject.org] On Behalf Of Ke, Liping
-> Sent: Thursday, March 03, 2011 11:35 AM
-> To: poky@yoctoproject.org
-> Subject: [poky] [PATCH 0/1] ADT: Add libtool-nativesdk for ADT
-> installer
->=20
-> From: Liping Ke <liping.ke@intel.com>
->=20
-> Add libtool-nativesdk for ADT
-> We need to add libtool native sdk support in ADT installer.
-> This patch fix #bug  791
->=20
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->   Branch: lke/adt-libtool
->   Browse: http://git.pokylinux.org/cgit.cgi/poky-
-> contrib/log/?h=3Dlke/adt-libtool
->=20
-> Thanks,
->     Liping Ke <liping.ke@intel.com>
-> ---
->=20
->=20
-> Liping Ke (1):
->   ADT: Add libtool-nativesdk for ADT installer
->=20
->  .../adt-installer/scripts/adt_installer_internal   |    3 +++
-> 1 files changed, 3 insertions(+), 0 deletions(-)
->=20
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+--
+Thanks and regards
+V kubera Samrat
 
