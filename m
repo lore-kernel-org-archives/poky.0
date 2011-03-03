@@ -1,25 +1,25 @@
 Return-Path: <Kai.Kang@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5242C4C80479
-	for <poky@yoctoproject.org>; Wed,  2 Mar 2011 23:15:34 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 6D1C44C803CA
+	for <poky@yoctoproject.org>; Wed,  2 Mar 2011 23:15:38 -0600 (CST)
 Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p235FXGt009136
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p235Fb3A009150
 	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Wed, 2 Mar 2011 21:15:33 -0800 (PST)
+	for <poky@yoctoproject.org>; Wed, 2 Mar 2011 21:15:37 -0800 (PST)
 Received: from localhost (128.224.163.157) by ALA-HCA.corp.ad.wrs.com
 	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Wed, 2 Mar 2011 21:15:33 -0800
-Message-ID: <9f99aa42abf4d0e7cf19837366cba1d64e213c3a.1299127174.git.kai.kang@windriver.com>
+	Wed, 2 Mar 2011 21:15:37 -0800
+Message-ID: <64357f6d071cd027cc589aaa05a03639784c42fd.1299127174.git.kai.kang@windriver.com>
 In-Reply-To: <cover.1299127174.git.kai.kang@windriver.com>
 References: <cover.1299127174.git.kai.kang@windriver.com>
-Old-Date: Thu, 3 Mar 2011 10:24:37 +0800
-Date: Thu, 3 Mar 2011 13:15:29 +0800
+Old-Date: Thu, 3 Mar 2011 12:32:01 +0800
+Date: Thu, 3 Mar 2011 13:15:33 +0800
 To: <poky@yoctoproject.org>
 CC: 
 From: Kang Kai <kai.kang@windriver.com>
 MIME-Version: 1.0
 X-Originating-IP: [128.224.163.157]
-Subject: [PATCH 1/3] recipe: add chkconfig for LSB command test
+Subject: [PATCH 2/3] recipe: add newt from OE
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,53 +31,142 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Mar 2011 05:15:34 -0000
+X-List-Received-Date: Thu, 03 Mar 2011 05:15:38 -0000
 Content-Type: text/plain
 
 From: Kang Kai <kai.kang@windriver.com>
 
-chkconfig is a system tool for maintaining the /etc/rc*.d hierarchy,
-and LSB command test will check 2 links point to command  chkconfig
+newt is a library for text mode user interfaces, and required by
+chkconfig because of LSB command test.
 
 Signed-off-by: Kang Kai <kai.kang@windriver.com>
 ---
- .../recipes-extended/chkconfig/chkconfig_1.3.49.bb |   27 ++++++++++++++++++++
- 1 files changed, 27 insertions(+), 0 deletions(-)
- create mode 100644 meta/recipes-extended/chkconfig/chkconfig_1.3.49.bb
+ .../newt/files/include-without-python.patch        |   71 ++++++++++++++++++++
+ meta/recipes-extended/newt/libnewt_0.52.12.bb      |   37 ++++++++++
+ 2 files changed, 108 insertions(+), 0 deletions(-)
+ create mode 100644 meta/recipes-extended/newt/files/include-without-python.patch
+ create mode 100644 meta/recipes-extended/newt/libnewt_0.52.12.bb
 
-diff --git a/meta/recipes-extended/chkconfig/chkconfig_1.3.49.bb b/meta/recipes-extended/chkconfig/chkconfig_1.3.49.bb
+diff --git a/meta/recipes-extended/newt/files/include-without-python.patch b/meta/recipes-extended/newt/files/include-without-python.patch
 new file mode 100644
-index 0000000..bbaba71
+index 0000000..277ee33
 --- /dev/null
-+++ b/meta/recipes-extended/chkconfig/chkconfig_1.3.49.bb
-@@ -0,0 +1,27 @@
-+SUMMARY = "A system tool for maintaining the /etc/rc*.d hierarchy"
++++ b/meta/recipes-extended/newt/files/include-without-python.patch
+@@ -0,0 +1,71 @@
++From 3d13bbbb769050fac4cc6c904c174edc27e4f03d Mon Sep 17 00:00:00 2001
++From: Otavio Salvador <otavio@ossystems.com.br>
++Date: Thu, 20 Jan 2011 14:14:51 -0200
++Subject: [PATCH] build: add -without-python
 +
-+DESCRIPTION = "Chkconfig is a basic system utility.  It updates and queries runlevel \
-+information for system services.  Chkconfig manipulates the numerous \
-+symbolic links in /etc/rc.d, to relieve system administrators of some \
-+of the drudgery of manually editing the symbolic links."
++Signed-off-by: Otavio Salvador <otavio@ossystems.com.br>
++---
++ Makefile.in  |    8 ++++----
++ configure.ac |   10 ++++++++--
++ 2 files changed, 12 insertions(+), 6 deletions(-)
 +
-+HOMEPAGE = "http://fedorahosted.org/releases/c/h/chkconfig"
++diff --git a/Makefile.in b/Makefile.in
++index e764e61..74e9097 100644
++--- a/Makefile.in
+++++ b/Makefile.in
++@@ -77,7 +77,7 @@ showkey:	showkey.o $(LIBNEWT)
++ 	$(CC) -g -o showkey showkey.o $(LIBNEWT) $(LDFLAGS) $(LIBS)
++ 
++ _snackmodule.so:   snackmodule.c $(LIBNEWTSH)
++-	for ver in $(PYTHONVERS) ; do \
+++	[ -n "$(PYTHONVERS)" ] && for ver in $(PYTHONVERS) ; do \
++ 	    	mkdir -p $$ver ;\
++ 			PCFLAGS=`$$ver-config --cflags`; \
++ 			PIFLAGS=`$$ver-config --includes`; \
++@@ -85,7 +85,7 @@ _snackmodule.so:   snackmodule.c $(LIBNEWTSH)
++ 			PLFLAGS=`$$ver-config --libs`; \
++ 	        $(CC) $(CPPFLAGS) $$PIFLAGS $$PCFLAGS -c -o $$ver/snackmodule.o snackmodule.c ;\
++ 	        $(CC) --shared $$PLDFLAGS $$PLFLAGS $(LDFLAGS) -o $$ver/_snackmodule.so $$ver/snackmodule.o -L.  -lnewt $(LIBS);\
++-	done
+++	done || :
++ 	touch $@
++ 
++ whiptail: $(NDIALOGOBJS) $(LIBNEWTSH)
++@@ -141,11 +141,11 @@ install-sh: sharedlib $(WHIPTCLSO) _snackmodule.so
++ 	ln -sf $(LIBNEWTSONAME) $(instroot)/$(libdir)/libnewt.so
++ 	ln -sf $(LIBNEWTSH) $(instroot)/$(libdir)/$(LIBNEWTSONAME)
++ 	[ -n "$(WHIPTCLSO)" ] && install -m 755 whiptcl.so $(instroot)/$(libdir) || :
++-	for ver in $(PYTHONVERS) ; do \
+++	[ -n "$(PYTHONVERS)" ] && for ver in $(PYTHONVERS) ; do \
++ 	   [ -d $(instroot)/$(libdir)/$$ver/site-packages ] || install -m 755 -d $(instroot)/$(libdir)/$$ver/site-packages ;\
++ 	   install -m 755 $$ver/_snackmodule.so $(instroot)/$(libdir)/$$ver/site-packages ;\
++ 	   install -m 644 snack.py $(instroot)/$(libdir)/$$ver/site-packages ;\
++-	done
+++	done || :
++ 
++ Makefile: newt.spec
++ 	echo "You need to rerun ./configure before continuing"
++diff --git a/configure.ac b/configure.ac
++index 7bc381a..dc04352 100644
++--- a/configure.ac
+++++ b/configure.ac
++@@ -54,8 +54,14 @@ fi
++ AC_CHECK_HEADERS([popt.h libintl.h])
++ 
++ AC_MSG_CHECKING([for python versions])
++-PYTHONVERS=$(echo /usr/include/python*/Python.h | sed "s|/usr/include/||g"| sed "s|/Python.h||g" 2> /dev/null)
++-AC_MSG_RESULT([$PYTHONVERS])
+++AC_ARG_WITH([python], [  --without-python        do not compile python support])
+++if test "x$with_python" = "xno"; then
+++  AC_MSG_RESULT([skipped])
+++  PYTHONVERS=
+++else
+++  PYTHONVERS=$(ls /usr/include/python*/Python.h 2> /dev/null | sed "s|/usr/include/||g"| sed "s|/Python.h||g" 2> /dev/null)
+++  AC_MSG_RESULT([$PYTHONVERS])
+++fi
++ AC_SUBST([PYTHONVERS])
++ 
++ AC_ARG_WITH([tcl], [  --without-tcl           do not compile whiptcl.so])
++-- 
++1.7.2.3
 +
-+LICENSE = "GPLv2"
-+LIC_FILES_CHKSUM = "file://COPYING;md5=5574c6965ae5f583e55880e397fbb018"
+diff --git a/meta/recipes-extended/newt/libnewt_0.52.12.bb b/meta/recipes-extended/newt/libnewt_0.52.12.bb
+new file mode 100644
+index 0000000..eefd6bd
+--- /dev/null
++++ b/meta/recipes-extended/newt/libnewt_0.52.12.bb
+@@ -0,0 +1,37 @@
++SUMMARY = "A library for text mode user interfaces"
 +
-+DEPENDS = "libnewt gettext popt"
++DESCRIPTION = "Newt is a programming library for color text mode, widget based user \
++interfaces.  Newt can be used to add stacked windows, entry widgets, \
++checkboxes, radio buttons, labels, plain text fields, scrollbars, \
++etc., to text mode user interfaces.  This package also contains the \
++shared library needed by programs built with newt, as well as a \
++/usr/bin/dialog replacement called whiptail.  Newt is based on the \
++slang library."
++
++HOMEPAGE = "https://fedorahosted.org/newt/"
++SECTION = "libs"
++
++LICENSE = "LGPL"
++LIC_FILES_CHKSUM = "file://COPYING;md5=55ca817ccb7d5b5b66355690e9abc605"
++
++# slang needs to be >= 2.2
++DEPENDS = "slang popt"
 +
 +PR = "r0"
 +
-+SRC_URI = "http://fedorahosted.org/releases/c/h/chkconfig/${P}.tar.bz2"
-+SRC_URI[md5sum] = "9b5e91d25f4f3b21f4c0bdf55a721431"
-+SRC_URI[sha256sum] = "775100a9d6f70fbd8f33ed24b560b6842161fc496c21b1fc6d2aed646f9d855f"
++SRCREV = "c3c7be75f6ef1adfc2be5f99c1e8ef3f0ab58c38"
++SRC_URI = "git://git.fedorahosted.org/git/newt;protocol=git \
++           file://include-without-python.patch"
++S = "${WORKDIR}/git"
++
++EXTRA_OECONF = "--without-python --without-tcl"
 +
 +inherit autotools
 +
-+do_install_append() {
-+#    mkdir -p ${D}/etc/rc.d/init.d
-+#   mkdir -p  ${D}/etc/rc.d/rc{0,1,2,3,4,5,6}.d
-+    mkdir -p ${D}/etc/chkconfig.d
++PACKAGES_prepend = "whiptail "
++
++do_configure_prepend() {
++    sh autogen.sh
 +}
++
++FILES_whiptail = "${bindir}/whiptail"
 -- 
 1.7.1
 
