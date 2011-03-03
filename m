@@ -1,21 +1,21 @@
 Return-Path: <sgw@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 166924C80050
-	for <poky@yoctoproject.org>; Thu,  3 Mar 2011 16:49:18 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 03 Mar 2011 14:49:18 -0800
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 0CD364C80A72
+	for <poky@yoctoproject.org>; Thu,  3 Mar 2011 16:49:19 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 03 Mar 2011 14:49:19 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,260,1297065600"; d="scan'208";a="715899296"
+X-IronPort-AV: E=Sophos;i="4.62,260,1297065600"; d="scan'208";a="397242157"
 Received: from unknown (HELO localhost) ([10.255.12.102])
-	by orsmga001.jf.intel.com with ESMTP; 03 Mar 2011 14:49:18 -0800
-Message-Id: <10b7f170693dd6217b2f6a75893be872082696f9.1299192495.git.sgw@linux.intel.com>
+	by azsmga001.ch.intel.com with ESMTP; 03 Mar 2011 14:49:17 -0800
+Message-Id: <de623268301228d1948b7310191c2db28cf987dd.1299192495.git.sgw@linux.intel.com>
 In-Reply-To: <cover.1299192495.git.sgw@linux.intel.com>
 References: <cover.1299192495.git.sgw@linux.intel.com>
-Old-Date: Thu, 3 Mar 2011 19:54:09 +0800
-Date: Thu, 03 Mar 2011 14:49:18 -0800
+Old-Date: Thu, 3 Mar 2011 19:20:25 +0800
+Date: Thu, 03 Mar 2011 14:49:17 -0800
 To: poky@yoctoproject.org,openembedded-core@lists.openembedded.org
 From: Saul Wold <sgw@linux.intel.com>
-Subject: [PATCH 02/10] x11vnc: Fix the start failure
+Subject: [PATCH 01/10] libpcre: fix the name collision with libc
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,62 +27,86 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Mar 2011 22:49:19 -0000
+X-List-Received-Date: Thu, 03 Mar 2011 22:49:20 -0000
 
-From: Zhai Edwin <edwin.zhai@intel.com>
+From: Qing He <qing.he@intel.com>
 
-Default parameter "-gui" and "-rfbport" make x11vnc failed to start if no
-"wish" installed.
+fixes [YOCTO #721] [YOCTO #722]
 
-[BUGID #781] got fixed.
-
-[sgw: removed patch=1, as it's unneeded]
-Signed-off-by: Zhai Edwin <edwin.zhai@intel.com>
+[sgw: added patch comment, bump PR, and changed BUGID -> YOCTO]
+Signed-off-by: Qing He <qing.he@intel.com>
 Signed-off-by: Saul Wold <sgw@linux.intel.com>
 ---
- .../x11vnc/files/starting-fix.patch                |   18 ++++++++++++++++++
- meta/recipes-graphics/x11vnc/x11vnc_0.9.12.bb      |    3 ++-
- 2 files changed, 20 insertions(+), 1 deletions(-)
- create mode 100644 meta/recipes-graphics/x11vnc/files/starting-fix.patch
+ .../libpcre/files/fix-pcre-name-collision.patch    |   40 ++++++++++++++++++++
+ meta/recipes-support/libpcre/libpcre_8.10.bb       |    5 +-
+ 2 files changed, 43 insertions(+), 2 deletions(-)
+ create mode 100644 meta/recipes-support/libpcre/files/fix-pcre-name-collision.patch
 
-diff --git a/meta/recipes-graphics/x11vnc/files/starting-fix.patch b/meta/recipes-graphics/x11vnc/files/starting-fix.patch
+diff --git a/meta/recipes-support/libpcre/files/fix-pcre-name-collision.patch b/meta/recipes-support/libpcre/files/fix-pcre-name-collision.patch
 new file mode 100644
-index 0000000..f59e801
+index 0000000..6548353
 --- /dev/null
-+++ b/meta/recipes-graphics/x11vnc/files/starting-fix.patch
-@@ -0,0 +1,18 @@
-+"-gui" & "-rfbport" require "wish" installed, or else x11vnc fails to start.
-+Removing these 2 parameters makes x11vnc works well on poky sato image.
++++ b/meta/recipes-support/libpcre/files/fix-pcre-name-collision.patch
+@@ -0,0 +1,40 @@
 +
++This patch address a namespace collision with libc.
 +
-+Signed-off-by: Zhai Edwin <edwin.zhai@intel.com>
-+Index: x11vnc-0.9.12/x11vnc/x11vnc.desktop
-+===================================================================
-+--- x11vnc-0.9.12.orig/x11vnc/x11vnc.desktop	2011-03-03 10:33:18.000000000 +0800
-++++ x11vnc-0.9.12/x11vnc/x11vnc.desktop	2011-03-03 10:35:20.000000000 +0800
-+@@ -1,7 +1,7 @@
-+ [Desktop Entry]
-+ Name=X11VNC Server
-+ Comment=Share this desktop by VNC
-+-Exec=x11vnc -gui tray=setpass -rfbport PROMPT -bg -o %%HOME/.x11vnc.log.%%VNCDISPLAY
-++Exec=x11vnc -bg -o %%HOME/.x11vnc.log.%%VNCDISPLAY
-+ Icon=computer
-+ Terminal=false
-+ Type=Application
-diff --git a/meta/recipes-graphics/x11vnc/x11vnc_0.9.12.bb b/meta/recipes-graphics/x11vnc/x11vnc_0.9.12.bb
-index 87cda2c..f5a6662 100644
---- a/meta/recipes-graphics/x11vnc/x11vnc_0.9.12.bb
-+++ b/meta/recipes-graphics/x11vnc/x11vnc_0.9.12.bb
-@@ -9,7 +9,8 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=361b6b837cad26c6900a926b62aada5f \
++Although there is no "#include <regex.h>" in the source file, at
++runtime, it's unintentionally linked to the libc version, the regcomp of
++libc is called instead the pcre one using pcre's data structure...
++that looks like a disaster.
++
++Can patch is from Debian (and Ubuntu 11.04alpha has it also).
++
++[sgw: added patch comment]
++Signed-off-by: Qing He <qing.he@intel.com>
++Signed-off-by: Saul Wold <sgw@linux.intel.com>
++
++--- a/pcreposix.h	2010-05-17 00:17:23.000000000 +0800
+++++ b/pcreposix.h	2009-01-15 04:32:17.000000000 +0800
++@@ -133,14 +130,19 @@
++ 
++ /* The functions */
++ 
++-PCREPOSIX_EXP_DECL int regcomp(regex_t *, const char *, int);
++-PCREPOSIX_EXP_DECL int regexec(const regex_t *, const char *, size_t,
+++PCREPOSIX_EXP_DECL int pcreposix_regcomp(regex_t *, const char *, int);
+++PCREPOSIX_EXP_DECL int pcreposix_regexec(const regex_t *, const char *, size_t,
++                      regmatch_t *, int);
++-PCREPOSIX_EXP_DECL size_t regerror(int, const regex_t *, char *, size_t);
++-PCREPOSIX_EXP_DECL void regfree(regex_t *);
+++PCREPOSIX_EXP_DECL size_t pcreposix_regerror(int, const regex_t *, char *, size_t);
+++PCREPOSIX_EXP_DECL void pcreposix_regfree(regex_t *);
++ 
++ #ifdef __cplusplus
++ }   /* extern "C" */
++ #endif
++ 
+++#define regcomp pcreposix_regcomp
+++#define regexec pcreposix_regexec
+++#define regerror pcreposix_regerror
+++#define regfree pcreposix_regfree
+++
++ #endif /* End of pcreposix.h */
+diff --git a/meta/recipes-support/libpcre/libpcre_8.10.bb b/meta/recipes-support/libpcre/libpcre_8.10.bb
+index db89c89..2e17493 100644
+--- a/meta/recipes-support/libpcre/libpcre_8.10.bb
++++ b/meta/recipes-support/libpcre/libpcre_8.10.bb
+@@ -5,11 +5,12 @@ provides a POSIX calling interface to PCRE; the regular expressions \
+ themselves still follow Perl syntax and semantics. The header file for \
+ the POSIX-style functions is called pcreposix.h."
+ SECTION = "devel"
+-PR = "r4"
++PR = "r6"
+ LICENSE = "BSD"
+ LIC_FILES_CHKSUM = "file://LICENCE;md5=77f9b14fe707d0376d89bc162e6c54ff"
+ SRC_URI = "${SOURCEFORGE_MIRROR}/pcre/pcre-${PV}.tar.bz2 \
+-           file://pcre-cross.patch;patch=1"
++           file://pcre-cross.patch;patch=1 \
++           file://fix-pcre-name-collision.patch"
  
- DEPENDS = "openssl virtual/libx11 libxext avahi jpeg zlib"
- 
--SRC_URI = "${SOURCEFORGE_MIRROR}/libvncserver/x11vnc-${PV}.tar.gz"
-+SRC_URI = "${SOURCEFORGE_MIRROR}/libvncserver/x11vnc-${PV}.tar.gz\
-+           file://starting-fix.patch"
- 
- SRC_URI[md5sum] = "1498a68d02aa7b6c97bf746c073c8d00"
- SRC_URI[sha256sum] = "60a7cceee2c9a5f1c854340b2bae13f975ac55906237042f81f795b28a154a79"
+ SRC_URI[md5sum] = "780867a700e9d4e4b9cb47aa5453e4b2"
+ SRC_URI[sha256sum] = "7ac4e016f6bad8c7d990e6de9bce58c04ff5dd8838be0c5ada0afad1d6a07480"
 -- 
 1.7.1.1
 
