@@ -1,21 +1,21 @@
 Return-Path: <sgw@linux.intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C47164C80A72
-	for <poky@yoctoproject.org>; Thu,  3 Mar 2011 16:49:20 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 03 Mar 2011 14:49:20 -0800
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id A13B94C80A8B
+	for <poky@yoctoproject.org>; Thu,  3 Mar 2011 16:49:21 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 03 Mar 2011 14:49:21 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,260,1297065600"; d="scan'208";a="893570450"
+X-IronPort-AV: E=Sophos;i="4.62,260,1297065600"; d="scan'208";a="715899307"
 Received: from unknown (HELO localhost) ([10.255.12.102])
-	by fmsmga001.fm.intel.com with ESMTP; 03 Mar 2011 14:49:19 -0800
-Message-Id: <11232999d1a6f775f7c12961847b6fd6ff6ac832.1299192495.git.sgw@linux.intel.com>
+	by orsmga001.jf.intel.com with ESMTP; 03 Mar 2011 14:49:21 -0800
+Message-Id: <52e3578b10e34702777d8e2572f889b239c99660.1299192495.git.sgw@linux.intel.com>
 In-Reply-To: <cover.1299192495.git.sgw@linux.intel.com>
 References: <cover.1299192495.git.sgw@linux.intel.com>
-Old-Date: Thu, 3 Mar 2011 19:54:09 +0800
-Date: Thu, 03 Mar 2011 14:49:19 -0800
+Old-Date: Thu, 3 Mar 2011 10:24:37 +0800
+Date: Thu, 03 Mar 2011 14:49:21 -0800
 To: poky@yoctoproject.org,openembedded-core@lists.openembedded.org
 From: Saul Wold <sgw@linux.intel.com>
-Subject: [PATCH 04/10] gstreamer: install the sound card driver of es1370
+Subject: [PATCH 07/10] recipe: add chkconfig for LSB command test
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,35 +27,52 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Mar 2011 22:49:20 -0000
+X-List-Received-Date: Thu, 03 Mar 2011 22:49:21 -0000
 
-From: Zhai Edwin <edwin.zhai@intel.com>
+From: Kang Kai <kai.kang@windriver.com>
 
-When append "audio" to poky-qemu, emulated sound card like es1370 is
-exported to guest. This patch install the kernel driver in the
-poky-image-qemux86/x86_64 to use them.
+chkconfig is a system tool for maintaining the /etc/rc*.d hierarchy,
+and LSB command test will check 2 links point to command  chkconfig
 
-[BUGID #751]
-
-Signed-off-by: Zhai Edwin <edwin.zhai@intel.com>
+[sgw: removed commented out lines]
+Signed-off-by: Kang Kai <kai.kang@windriver.com>
+Signed-off-by: Saul Wold <sgw@linux.intel.com>
 ---
- .../gstreamer/gstreamer_0.10.31.bb                 |    3 +++
- 1 files changed, 3 insertions(+), 0 deletions(-)
+ .../recipes-extended/chkconfig/chkconfig_1.3.49.bb |   25 ++++++++++++++++++++
+ 1 files changed, 25 insertions(+), 0 deletions(-)
+ create mode 100644 meta/recipes-extended/chkconfig/chkconfig_1.3.49.bb
 
-diff --git a/meta/recipes-multimedia/gstreamer/gstreamer_0.10.31.bb b/meta/recipes-multimedia/gstreamer/gstreamer_0.10.31.bb
-index f489e83..96c45eb 100644
---- a/meta/recipes-multimedia/gstreamer/gstreamer_0.10.31.bb
-+++ b/meta/recipes-multimedia/gstreamer/gstreamer_0.10.31.bb
-@@ -27,6 +27,9 @@ EXTRA_OECONF = "--disable-docs-build --disable-dependency-tracking --with-check=
- #	mv ${WORKDIR}/gstregistrybinary.[ch] ${S}/gst/
- #}
- 
-+RRECOMMENDS_${PN}_qemux86    += "kernel-module-snd-ens1370 kernel-module-snd-rawmidi"
-+RRECOMMENDS_${PN}_qemux86-64 += "kernel-module-snd-ens1370 kernel-module-snd-rawmidi"
+diff --git a/meta/recipes-extended/chkconfig/chkconfig_1.3.49.bb b/meta/recipes-extended/chkconfig/chkconfig_1.3.49.bb
+new file mode 100644
+index 0000000..97da4a4
+--- /dev/null
++++ b/meta/recipes-extended/chkconfig/chkconfig_1.3.49.bb
+@@ -0,0 +1,25 @@
++SUMMARY = "A system tool for maintaining the /etc/rc*.d hierarchy"
 +
- FILES_${PN} += " ${libdir}/gstreamer-0.10/*.so"
- FILES_${PN}-dev += " ${libdir}/gstreamer-0.10/*.la ${libdir}/gstreamer-0.10/*.a"
- FILES_${PN}-dbg += " ${libdir}/gstreamer-0.10/.debug/"
++DESCRIPTION = "Chkconfig is a basic system utility.  It updates and queries runlevel \
++information for system services.  Chkconfig manipulates the numerous \
++symbolic links in /etc/rc.d, to relieve system administrators of some \
++of the drudgery of manually editing the symbolic links."
++
++HOMEPAGE = "http://fedorahosted.org/releases/c/h/chkconfig"
++
++LICENSE = "GPLv2"
++LIC_FILES_CHKSUM = "file://COPYING;md5=5574c6965ae5f583e55880e397fbb018"
++
++DEPENDS = "libnewt gettext popt"
++
++PR = "r0"
++
++SRC_URI = "http://fedorahosted.org/releases/c/h/chkconfig/${P}.tar.bz2"
++SRC_URI[md5sum] = "9b5e91d25f4f3b21f4c0bdf55a721431"
++SRC_URI[sha256sum] = "775100a9d6f70fbd8f33ed24b560b6842161fc496c21b1fc6d2aed646f9d855f"
++
++inherit autotools
++
++do_install_append() {
++    mkdir -p ${D}/etc/chkconfig.d
++}
 -- 
 1.7.1.1
 
