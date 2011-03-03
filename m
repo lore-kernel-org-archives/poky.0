@@ -1,33 +1,20 @@
-Return-Path: <cahoshing@gmail.com>
-Received: from mail-pz0-f48.google.com (mail-pz0-f48.google.com
-	[209.85.210.48])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 757194C800A3
-	for <poky@yoctoproject.org>; Thu,  3 Mar 2011 03:46:29 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by pzk28 with SMTP id 28so174393pzk.35
-	for <poky@yoctoproject.org>; Thu, 03 Mar 2011 01:46:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:date:message-id:subject:from:to
-	:content-type; bh=ngtM86htFi4bjhAv9dgPfEVlPMvNmwH1gJy3Th3Doo8=;
-	b=LIXPIogr7UVXfayx2f66YaZZ5UhfTZydm0SX8Jw11vjfDaxgEwA0mnk0Ggp+fWDWIq
-	YMcqzPa2AVGGWx4d/zWQVXtupZ/zVsSHRlTY7cHi5YwXUQLAUwJadhjR71T6r7hKMSAR
-	qc94IL9TVzcbGazWiffubbQrsdHkqLbcjNWz4=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:date:message-id:subject:from:to:content-type;
-	b=jV/0vaMDModNRiOUo0Rwpi3fibIy15pkBXIHVA0F4l638wzfdjQE4bylAemYvslVDs
-	Ohl3ttYd8X84dGPg+kDDXFIQo3JxmbC7+yKtHhAHrQUQ60MDyFWq9t/uAmvRDXp9EUuy
-	XvwK6c/u02tDYe9XZBPedJ/DbaPTV/zaYY9pg=
-MIME-Version: 1.0
-Received: by 10.142.239.14 with SMTP id m14mr716167wfh.12.1299145588965; Thu,
-	03 Mar 2011 01:46:28 -0800 (PST)
-Received: by 10.142.106.2 with HTTP; Thu, 3 Mar 2011 01:46:28 -0800 (PST)
-Date: Thu, 3 Mar 2011 15:16:28 +0530
-Message-ID: <AANLkTim7ObgjarV3z+nOuT3=0jk=u64Lkv3BVLBC-zSk@mail.gmail.com>
-From: chinmaya hoshing <cahoshing@gmail.com>
+Return-Path: <edwin.zhai@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 9E13F4C80050
+	for <poky@yoctoproject.org>; Thu,  3 Mar 2011 06:01:50 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 03 Mar 2011 04:01:50 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.62,258,1297065600"; d="scan'208";a="893348363"
+Received: from gzhai-nhm.sh.intel.com (HELO localhost) ([10.239.36.8])
+	by fmsmga001.fm.intel.com with ESMTP; 03 Mar 2011 04:01:49 -0800
+Message-Id: <cover.1299153379.git.edwin.zhai@intel.com>
+Old-Date: Thu, 3 Mar 2011 19:56:19 +0800
+Date: Thu, 03 Mar 2011 19:59:53 +0800
 To: poky@yoctoproject.org
-Subject: Error when polkit library is pulled
+CC: 
+From: Zhai Edwin <edwin.zhai@intel.com>
+Subject: [PATCH 0/3] Bug fixes for 1.0 M4, Edwin, Mar 3, 2011
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,83 +26,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Mar 2011 09:46:29 -0000
-Content-Type: multipart/alternative; boundary=000e0cd155be578351049d90e7c1
+X-List-Received-Date: Thu, 03 Mar 2011 12:01:50 -0000
 
---000e0cd155be578351049d90e7c1
-Content-Type: text/plain; charset=ISO-8859-1
+From: Zhai Edwin <edwin.zhai@intel.com>
 
-Hi,
-When polkit library is pulled ,this is the following error :-
+Saul,
+These are bug fixes for 456,751,781. Pls. have a look and pull.
 
+Thanks,
+edwin
 
-NOTE: package poky-image-minimal-initramfs-1.0-r0: task do_rootfs: Succeeded
-ERROR: Task failed: ('function do_rootfs failed',
-'/home/sct/poky-chrome/build/tmp/work/atom-pc-poky-linux/poky-image-minimal-akshat-1.0-r0/temp/log.do_rootfs.21457')
-ERROR: Logfile of failure stored in:
-/home/sct/poky-chrome/build/tmp/work/atom-pc-poky-linux/poky-image-minimal-akshat-1.0-r0/temp/log.do_rootfs.21457
-:
-:
-:
-:
-: base-files
-##################################################
-| error: unpacking of archive failed on file /var/cache: cpio: rename failed
-- Inappropriate ioctl for device
-| udev-extraconf
-##################################################
-| udev
-##################################################
-| zypper
-##################################################
-| avahi-daemon
-##################################################
-| hal-info
-##################################################
-| ERROR: Task failed: ('function do_rootfs failed',
-'/home/sct/poky-chrome/build/tmp/work/atom-pc-poky-linux/poky-image-minimal-akshat-1.0-r0/temp/log.do_rootfs.21457')
-NOTE: package poky-image-minimal-akshat-1.0-r0: task do_rootfs: Failed
-ERROR: Task 191 (/home/sct/poky-chrome/meta/recipes-core/images/
-poky-image-minimal-akshat.bb, do_rootfs) failed with 1
-ERROR: '/home/sct/poky-chrome/meta/recipes-core/images/
-poky-image-minimal-akshat.bb' failed
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: gzhai/fix2
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=gzhai/fix2
+
+Thanks,
+    Zhai Edwin <edwin.zhai@intel.com>
+---
 
 
-With Regards
-Chinmaya
+Zhai Edwin (3):
+  x11vnc: Fix the start failure
+  sato-icon-theme: Explictly use "Sato" as gtk icon theme
+  gstreamer: install the sound card driver of es1370
 
---000e0cd155be578351049d90e7c1
-Content-Type: text/html; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
+ .../x11vnc/files/starting-fix.patch                |   18 ++++++++++++++++++
+ meta/recipes-graphics/x11vnc/x11vnc_0.9.12.bb      |    3 ++-
+ .../gstreamer/gstreamer_0.10.31.bb                 |    3 +++
+ .../sato-icon-theme/sato-icon-theme.inc            |    3 +++
+ 4 files changed, 26 insertions(+), 1 deletions(-)
+ create mode 100644 meta/recipes-graphics/x11vnc/files/starting-fix.patch
 
-<div dir=3D"ltr">Hi,<br>When polkit library is pulled ,this is the followin=
-g error :-<br><br><br>NOTE: package poky-image-minimal-initramfs-1.0-r0: ta=
-sk do_rootfs: Succeeded<br>ERROR: Task failed: (&#39;function do_rootfs fai=
-led&#39;, &#39;/home/sct/poky-chrome/build/tmp/work/atom-pc-poky-linux/poky=
--image-minimal-akshat-1.0-r0/temp/log.do_rootfs.21457&#39;)<br>
-ERROR: Logfile of failure stored in: /home/sct/poky-chrome/build/tmp/work/a=
-tom-pc-poky-linux/poky-image-minimal-akshat-1.0-r0/temp/log.do_rootfs.21457=
-<br>:<br>:<br>:<br>:<br>: base-files=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0 ##################################################<br>
-| error: unpacking of archive failed on file /var/cache: cpio: rename faile=
-d - Inappropriate ioctl for device<br>| udev-extraconf=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0 ##################################################<br>| =
-udev=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 #=
-#################################################<br>
-| zypper=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ###=
-###############################################<br>| avahi-daemon=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ######################################=
-############<br>| hal-info=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0 ##################################################<br>
-| ERROR: Task failed: (&#39;function do_rootfs failed&#39;, &#39;/home/sct/=
-poky-chrome/build/tmp/work/atom-pc-poky-linux/poky-image-minimal-akshat-1.0=
--r0/temp/log.do_rootfs.21457&#39;)<br>NOTE: package poky-image-minimal-aksh=
-at-1.0-r0: task do_rootfs: Failed<br>
-ERROR: Task 191 (/home/sct/poky-chrome/meta/recipes-core/images/<a href=3D"=
-http://poky-image-minimal-akshat.bb">poky-image-minimal-akshat.bb</a>, do_r=
-ootfs) failed with 1<br>ERROR: &#39;/home/sct/poky-chrome/meta/recipes-core=
-/images/<a href=3D"http://poky-image-minimal-akshat.bb">poky-image-minimal-=
-akshat.bb</a>&#39; failed<br>
-<br><br>With Regards<br>Chinmaya<br></div>
 
---000e0cd155be578351049d90e7c1--
