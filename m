@@ -1,21 +1,21 @@
 Return-Path: <sgw@linux.intel.com>
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 904104C80A72
+	by mx1.pokylinux.org (Postfix) with ESMTP id C47164C80A72
 	for <poky@yoctoproject.org>; Thu,  3 Mar 2011 16:49:20 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
 	by fmsmga102.fm.intel.com with ESMTP; 03 Mar 2011 14:49:20 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,260,1297065600"; d="scan'208";a="663636599"
+X-IronPort-AV: E=Sophos;i="4.62,260,1297065600"; d="scan'208";a="893570450"
 Received: from unknown (HELO localhost) ([10.255.12.102])
-	by fmsmga002.fm.intel.com with ESMTP; 03 Mar 2011 14:49:20 -0800
-Message-Id: <000fa8e757fd10f69c581f88e277a3daeeb6894c.1299192495.git.sgw@linux.intel.com>
+	by fmsmga001.fm.intel.com with ESMTP; 03 Mar 2011 14:49:19 -0800
+Message-Id: <11232999d1a6f775f7c12961847b6fd6ff6ac832.1299192495.git.sgw@linux.intel.com>
 In-Reply-To: <cover.1299192495.git.sgw@linux.intel.com>
 References: <cover.1299192495.git.sgw@linux.intel.com>
-Old-Date: Thu, 3 Mar 2011 10:10:49 +0800
+Old-Date: Thu, 3 Mar 2011 19:54:09 +0800
 Date: Thu, 03 Mar 2011 14:49:19 -0800
 To: poky@yoctoproject.org,openembedded-core@lists.openembedded.org
 From: Saul Wold <sgw@linux.intel.com>
-Subject: [PATCH 05/10] Add libtool-nativesdk for ADT
+Subject: [PATCH 04/10] gstreamer: install the sound card driver of es1370
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,30 +29,33 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Thu, 03 Mar 2011 22:49:20 -0000
 
-From: Liping Ke <liping.ke@intel.com>
+From: Zhai Edwin <edwin.zhai@intel.com>
 
-We need to add libtool native sdk support in ADT installer.
-This patch fix #bug  791
+When append "audio" to poky-qemu, emulated sound card like es1370 is
+exported to guest. This patch install the kernel driver in the
+poky-image-qemux86/x86_64 to use them.
 
-Signed-off-by: Liping Ke <liping.ke@intel.com>
+[BUGID #751]
+
+Signed-off-by: Zhai Edwin <edwin.zhai@intel.com>
 ---
- .../adt-installer/scripts/adt_installer_internal   |    3 +++
+ .../gstreamer/gstreamer_0.10.31.bb                 |    3 +++
  1 files changed, 3 insertions(+), 0 deletions(-)
 
-diff --git a/meta/recipes-devtools/installer/adt-installer/scripts/adt_installer_internal b/meta/recipes-devtools/installer/adt-installer/scripts/adt_installer_internal
-index 9653284..b5e304d 100755
---- a/meta/recipes-devtools/installer/adt-installer/scripts/adt_installer_internal
-+++ b/meta/recipes-devtools/installer/adt-installer/scripts/adt_installer_internal
-@@ -101,6 +101,9 @@ check_result
- echo_info "Installing pkgconfig nativesdk ...\n"
- $OPKG_INSTALL_NATIVE_CMD pkgconfig-nativesdk &>> $YOCTOADT_INSTALL_LOG_FILE
- check_result
-+echo_info "Installing libtool nativesdk ...\n"
-+$OPKG_INSTALL_NATIVE_CMD libtool-nativesdk &>> $YOCTOADT_INSTALL_LOG_FILE
-+check_result
+diff --git a/meta/recipes-multimedia/gstreamer/gstreamer_0.10.31.bb b/meta/recipes-multimedia/gstreamer/gstreamer_0.10.31.bb
+index f489e83..96c45eb 100644
+--- a/meta/recipes-multimedia/gstreamer/gstreamer_0.10.31.bb
++++ b/meta/recipes-multimedia/gstreamer/gstreamer_0.10.31.bb
+@@ -27,6 +27,9 @@ EXTRA_OECONF = "--disable-docs-build --disable-dependency-tracking --with-check=
+ #	mv ${WORKDIR}/gstregistrybinary.[ch] ${S}/gst/
+ #}
  
- for native_target_type in $YOCTOADT_TARGETS; do
-   native_target_type=`echo "$native_target_type" | sed -e 's/x86_64/x86-64/' -e 's/x86$/i586/'`
++RRECOMMENDS_${PN}_qemux86    += "kernel-module-snd-ens1370 kernel-module-snd-rawmidi"
++RRECOMMENDS_${PN}_qemux86-64 += "kernel-module-snd-ens1370 kernel-module-snd-rawmidi"
++
+ FILES_${PN} += " ${libdir}/gstreamer-0.10/*.so"
+ FILES_${PN}-dev += " ${libdir}/gstreamer-0.10/*.la ${libdir}/gstreamer-0.10/*.a"
+ FILES_${PN}-dbg += " ${libdir}/gstreamer-0.10/.debug/"
 -- 
 1.7.1.1
 
