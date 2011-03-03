@@ -1,39 +1,39 @@
 Return-Path: <raj.khem@gmail.com>
 Received: from mail-fx0-f48.google.com (mail-fx0-f48.google.com
 	[209.85.161.48])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 732344C80050
-	for <poky@yoctoproject.org>; Thu,  3 Mar 2011 14:24:40 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id DA9C44C80772
+	for <poky@yoctoproject.org>; Thu,  3 Mar 2011 14:26:01 -0600 (CST)
 Authentication-Results: mx1.pokylinux.org; dkim=pass
 	(1024-bit key; insecure key) header.i=@gmail.com;
 	x-dkim-adsp=none (insecure policy)
-Received: by fxm2 with SMTP id 2so1968533fxm.35
-	for <poky@yoctoproject.org>; Thu, 03 Mar 2011 12:24:34 -0800 (PST)
+Received: by fxm2 with SMTP id 2so1970557fxm.35
+	for <poky@yoctoproject.org>; Thu, 03 Mar 2011 12:26:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
 	h=domainkey-signature:mime-version:in-reply-to:references:from:date
 	:message-id:subject:to:cc:content-type:content-transfer-encoding;
-	bh=DHoFWOSpIUjXI8djPwkmKH4xoXOizgi6GcYshiBgV68=;
-	b=jcQMZ3OG/8rr9lgvEXujvd8/IFKQS8SZOa4W0Z3CTSRFEXU+wjHEQAQvvgXKajMDjO
-	O2g4t0zd99JC0kfhqvd0Pk7djrDoBxDIvbn1hx8RGrMPjjtnH4zk7Vs9Erks5E2P4ZSo
-	Eehdt4LP2F7YVfXDfUgrDe5ZQtgyX5titkgq8=
+	bh=BYYHVAzEVXnDMYimfspcqC/zDtX3MQXwKX+c13UZ2sA=;
+	b=iRp7jxj3ir+Ot1GOgkH6szwXPgkR+8SjAbHeeFRsUHENmjshm5h0D6oUngEQI8VsqB
+	lvmrRHx8V8/y04dDA1FFCIAR79vzANtrbrTXVi9GI8QwWcgO0Cf4Poj5W4iFfky2hfPl
+	o7Lg3HCycz2Mz5Zogu09y19U2HAKMURY7rQ94=
 DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
 	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
 	:cc:content-type:content-transfer-encoding;
-	b=ewzKWHqCNixngVLS4vpBzFsExZxhvh53p2gctXFqG6TDp6U0PUOh6gHrTu4H68xGkJ
-	x9iwYwxYaCEdM6fntfouEcRfj4juerpgh+UzXUwSEZY4Gl6uSvJYqwlaPIQe1oHf5/AD
-	ItNP1FVkaI0PzAxhoakXgF+iLWsgS0zOaubds=
-Received: by 10.223.87.75 with SMTP id v11mr1972168fal.131.1299183874751; Thu,
-	03 Mar 2011 12:24:34 -0800 (PST)
+	b=uxh0k9ZKhApedDKhsvBACg/jsAvTcv1Yb1zZDO6T5bSWBgYfdOq2+IN4ZXKX3iwJ8m
+	a+BRto5JN3UKYwcn56kHf7/l3PLL8D7lRnJRBV9rroDJAz8DKX6GUpAg9fD9U+xz3F5B
+	pnTnzTqIgc9UvOuOnT3OYyWBJGlqa2/ZGZisc=
+Received: by 10.223.87.75 with SMTP id v11mr1973886fal.131.1299183961084; Thu,
+	03 Mar 2011 12:26:01 -0800 (PST)
 MIME-Version: 1.0
-Received: by 10.223.30.151 with HTTP; Thu, 3 Mar 2011 12:24:12 -0800 (PST)
-In-Reply-To: <06ae5cd63b3b42d8dafe953ffbce93c321f11ac3.1299182375.git.sgw@linux.intel.com>
+Received: by 10.223.30.151 with HTTP; Thu, 3 Mar 2011 12:25:41 -0800 (PST)
+In-Reply-To: <e5662d07e615cfa5879a5d700df2d1e9049a6413.1299182375.git.sgw@linux.intel.com>
 References: <cover.1299182375.git.sgw@linux.intel.com>
-	<06ae5cd63b3b42d8dafe953ffbce93c321f11ac3.1299182375.git.sgw@linux.intel.com>
+	<e5662d07e615cfa5879a5d700df2d1e9049a6413.1299182375.git.sgw@linux.intel.com>
 From: Khem Raj <raj.khem@gmail.com>
-Date: Thu, 3 Mar 2011 12:24:12 -0800
-Message-ID: <AANLkTi=Nm9RASdFb0EfxP6fDTfUaLsQ0z4eeEbrBUkVk@mail.gmail.com>
+Date: Thu, 3 Mar 2011 12:25:41 -0800
+Message-ID: <AANLkTi=aQ=HYbPrXd98qvxYC=voFhf0AJMsse5bcrp3M@mail.gmail.com>
 To: Saul Wold <sgw@linux.intel.com>
 Cc: poky@yoctoproject.org, openembedded-core@lists.openembedded.org
-Subject: Re: [PATCH 06/10] ADT: Bug fix for Suse Linux
+Subject: Re: [PATCH 03/10] sato-icon-theme: Explictly use "Sato" as gtk icon theme
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -45,62 +45,52 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Mar 2011 20:24:40 -0000
+X-List-Received-Date: Thu, 03 Mar 2011 20:26:02 -0000
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
 On Thu, Mar 3, 2011 at 12:02 PM, Saul Wold <sgw@linux.intel.com> wrote:
-> From: Liping Ke <liping.ke@intel.com>
+> From: Zhai Edwin <edwin.zhai@intel.com>
 >
-> On Suse linux11.2, we found when using sudo, we must add -E opts
-> to preserver some network proxy environment settings. Otherwise,
-> opkg-cl can't access files behind firewall. [bug #785]
-> Also, we need to add absolute path when sourcing files.
-> Fix for [bug #786]
+> There is a tricky race condition that "Sato" icons got missing on
+> matchbox-desktop as low priority "hicolor" theme was chosen. Explictly
+> settting "Sato" in gtk config file to avoid this.
 >
-> Signed-off-by: Liping Ke <liping.ke@intel.com>
+> [BUGID #456] got fixed.
+>
+> Signed-off-by: Zhai Edwin <edwin.zhai@intel.com>
 > ---
-> =C2=A0.../adt-installer/scripts/adt_installer_internal =C2=A0 | =C2=A0 =
-=C2=A02 +-
-> =C2=A0.../installer/adt-installer/scripts/data_define =C2=A0 =C2=A0| =C2=
-=A0 =C2=A02 +-
-> =C2=A02 files changed, 2 insertions(+), 2 deletions(-)
+> =C2=A0.../sato-icon-theme/sato-icon-theme.inc =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0| =C2=A0 =C2=A03 +++
+> =C2=A01 files changed, 3 insertions(+), 0 deletions(-)
 >
-> diff --git a/meta/recipes-devtools/installer/adt-installer/scripts/adt_in=
-staller_internal b/meta/recipes-devtools/installer/adt-installer/scripts/ad=
-t_installer_internal
-> index b5e304d..df142ff 100755
-> --- a/meta/recipes-devtools/installer/adt-installer/scripts/adt_installer=
-_internal
-> +++ b/meta/recipes-devtools/installer/adt-installer/scripts/adt_installer=
-_internal
-> @@ -81,7 +81,7 @@ else
-> =C2=A0fi
+> diff --git a/meta/recipes-sato/sato-icon-theme/sato-icon-theme.inc b/meta=
+/recipes-sato/sato-icon-theme/sato-icon-theme.inc
+> index a1669c6..0eff9dd 100644
+> --- a/meta/recipes-sato/sato-icon-theme/sato-icon-theme.inc
+> +++ b/meta/recipes-sato/sato-icon-theme/sato-icon-theme.inc
+> @@ -16,9 +16,12 @@ PACKAGE_ARCH =3D "all"
 >
-> =C2=A0#first update repository
-> -OPKG_CMD=3D"sudo $LOCAL_OPKG_LOC/bin/opkg-cl"
-> +OPKG_CMD=3D"sudo -E $LOCAL_OPKG_LOC/bin/opkg-cl"
+> =C2=A0EXTRA_OECONF +=3D "--with-iconmap=3D${STAGING_LIBDIR_NATIVE}/../lib=
+exec/icon-name-mapping"
 >
-> =C2=A0echo_info "Updating opkg..."
-> =C2=A0$OPKG_CMD -f $OPKG_CONFIG_FILE -o $NATIVE_INSTALL_DIR update &>> $Y=
-OCTOADT_INSTALL_LOG_FILE
-> diff --git a/meta/recipes-devtools/installer/adt-installer/scripts/data_d=
-efine b/meta/recipes-devtools/installer/adt-installer/scripts/data_define
-> index 77f8b38..e29cc30 100644
-> --- a/meta/recipes-devtools/installer/adt-installer/scripts/data_define
-> +++ b/meta/recipes-devtools/installer/adt-installer/scripts/data_define
-> @@ -23,7 +23,7 @@
-> =C2=A0# THE SOFTWARE.
->
-> =C2=A0config_file=3D"adt_installer.conf"
-> -source $config_file
-> +source `eval echo $PWD`/$config_file
+> +#explictly setting "Sato" as default icon theme to avoid icon missing du=
+e to
+> +#tricky race condition
+> =C2=A0pkg_postinst_${PN} () {
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0 if [ "x$D" !=3D "x" ]; then
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 exit 1
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0 fi
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0 gtk-update-icon-cache -q /usr/share/icons/Sat=
+o
+> + =C2=A0 =C2=A0 =C2=A0 =C2=A0echo 'gtk-icon-theme-name =3D "Sato"' >> /et=
+c/gtk-2.0/gtkrc
 
-would just using source `pwd`/$config_file work here
+what would happen if you reinstalled this packge again I guess it
+would keep appending right ?
 
->
-> =C2=A0LOCAL_OPKG_LOC=3D"./opkg/build/opkg"
-> =C2=A0LOCAL_OPKG_FOLDER=3D"./opkg/build"
+
+> =C2=A0}
 > --
 > 1.7.1.1
 >
