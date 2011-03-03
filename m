@@ -1,42 +1,26 @@
-Return-Path: <kubera.samrat@gmail.com>
-Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
-	[74.125.82.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 4D6DF4C800A3
-	for <poky@yoctoproject.org>; Thu,  3 Mar 2011 01:09:13 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by wya21 with SMTP id 21so1005157wya.35
-	for <poky@yoctoproject.org>; Wed, 02 Mar 2011 23:09:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:in-reply-to:references:date
-	:message-id:subject:from:to:cc:content-type
-	:content-transfer-encoding;
-	bh=d+QHOpU9C7+7q9iCCnsicm5XFWG7hM8Ui0NTy4QsaqQ=;
-	b=duXaACsn3obme3AXlbds9VnbvwZNz7hASOG5WAanXD2X1CCF/p8JBe/9rZ5GjRptx4
-	bv1ytEBfzQcczIFqzwHe5dpVwbjJCvVZOk58yA9B1WgBjsnOzJ4RpWbHWB/lFWhtqAl/
-	EATuIZCY66IdHs3fYfKt+kjH/ETtxyWAWSd3A=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type:content-transfer-encoding;
-	b=nYUGv0QC63fe7Uw+HoHQkVWfo/PF+boGd5xVNxnfWXK4ArHuDxT9YibvLIrJiqJ225
-	bl/GQe7ilsYyaXd/R8HhgtqfUIrTJuN2S5IEOJtkVj3RTrTPGb5PCB/lYsNSho6E42/N
-	gfpi8n8RudiZwWC4F9a+5d9osg/CmsRRLWJr8=
+Return-Path: <saul.wold@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id A8D6E4C800A3
+	for <poky@yoctoproject.org>; Thu,  3 Mar 2011 03:29:00 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 03 Mar 2011 01:29:00 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.62,257,1297065600"; d="scan'208";a="608577681"
+Received: from unknown (HELO [10.255.12.102]) ([10.255.12.102])
+	by orsmga002.jf.intel.com with ESMTP; 03 Mar 2011 01:28:50 -0800
+Message-ID: <4D6F5F51.3030903@intel.com>
+Date: Thu, 03 Mar 2011 01:28:49 -0800
+From: Saul Wold <saul.wold@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
 MIME-Version: 1.0
-Received: by 10.216.183.209 with SMTP id q59mr581397wem.17.1299136152066; Wed,
-	02 Mar 2011 23:09:12 -0800 (PST)
-Received: by 10.216.69.83 with HTTP; Wed, 2 Mar 2011 23:09:12 -0800 (PST)
-In-Reply-To: <1865303E0DED764181A9D882DEF65FB6866D365FBB@shsmsx502.ccr.corp.intel.com>
-References: <AANLkTi=XgciNC_9dy3zocW8GzBj6sbg5RjfbJe-OuhJM@mail.gmail.com>
-	<1865303E0DED764181A9D882DEF65FB6866D365FBA@shsmsx502.ccr.corp.intel.com>
-	<AANLkTi=YH3OH89E8viucBekQcSxvM0ZAyNcCnfFottwB@mail.gmail.com>
-	<1865303E0DED764181A9D882DEF65FB6866D365FBB@shsmsx502.ccr.corp.intel.com>
-Date: Thu, 3 Mar 2011 12:39:12 +0530
-Message-ID: <AANLkTimpVtH=M9TDqGY+QfWnq+0LokG1XLcpKg=H_PbA@mail.gmail.com>
-From: kubera samrat <kubera.samrat@gmail.com>
-To: "Cui, Dexuan" <dexuan.cui@intel.com>
+To: Darren Hart <dvhart@linux.intel.com>
+References: <b9dded$i440id@orsmga002.jf.intel.com>
+	<4D6ED407.2000102@linux.intel.com>
+In-Reply-To: <4D6ED407.2000102@linux.intel.com>
 Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: Reg:problem while Adding libgcc_s
+Subject: Re: [PATCH 0/2] RFC: enable building of out-of-tree modules
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -48,68 +32,109 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Mar 2011 07:09:13 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Thu, 03 Mar 2011 09:29:01 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi,
-          Thanks a lot. Now i can see gcc_s. Now I got problem while
-adding alsa.
-I got an error as stated below.
-
-ERROR: Task failed: ('function do_compile failed',
-'/home/kuberasamrat/poky-chrome/build/tmp/work/core2-poky-linux/alsa-tools-=
-1.0.20-r0/temp/log.do_compile.24942')
-ERROR: Logfile of failure stored in:
-/home/kuberasamrat/poky-chrome/build/tmp/work/core2-poky-linux/alsa-tools-1=
-.0.20-r0/temp/log.do_compile.24942
-Log data follows:
-| NOTE: make
-| ./ac3dec
-| configure.in:18: warning: macro `AM_PATH_ALSA' not found in library
-| configure.in:18: error: possibly undefined macro: AM_PATH_ALSA
-|       If this token and others are legitimate, please use m4_pattern_allo=
-w.
-|       See the Autoconf documentation.
-| make: *** [all] Error 1
-| FATAL: oe_runmake failed
-| ERROR: Task failed: ('function do_compile failed',
-'/home/kuberasamrat/poky-chrome/build/tmp/work/core2-poky-linux/alsa-tools-=
-1.0.20-r0/temp/log.do_compile.24942')
-NOTE: package alsa-tools-1.0.20-r0: task do_compile: Failed
-ERROR: Task 1140
-(/home/kuberasamrat/poky-chrome/meta/recipes-multimedia/alsa/alsa-tools_1.0=
-.20.bb,
-do_compile) failed with 1
-ERROR: '/home/kuberasamrat/poky-chrome/meta/recipes-multimedia/alsa/alsa-to=
-ols_1.0.20.bb'
-failed
-
-
-Can you give suggest me a solution for this.
-
-On Thu, Mar 3, 2011 at 11:39 AM, Cui, Dexuan <dexuan.cui@intel.com> wrote:
-> kubera samrat wrote:
->> Hi Dexuan,
->> =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 I have pulled in gcc into poky(using
->> meta/recipes-devtools/gcc/libgcc_4.5.1.bb). But I couldn't find
->> libgcc_s.so in target image. Do I have to change any configure options
->> to get gcc_s ?
->> or else suggest me approproate solution
-> Hi Kubera,
-> I build poky with "bitbake poky-image-sato-sdk" and in the target image, =
-I can find
-> /lib/libgcc_s.so.1
-> /lib/libgcc_s.so.
-> /usr/bin/gcc.
+On 03/02/2011 03:34 PM, Darren Hart wrote:
+> On 03/02/2011 10:00 AM, Darren Hart wrote:
+>> From: Darren Hart<dvhart@linux.intel.com>
+>>
+>> The following patches provide a mechanism to address [BUGID #241] through
+>> two additions to module.bbclass which build and clean the hostprogs. The
+>> second patch adds an example kernel module.
+>>
+>> When building with the hello-world-mod, the resulting rootfs is missing
+>> all the other kernel modules (/lib/modules/KERNEL_VER/extras contains
+>> hello-world.ko, but /lib/modules/KERNEL_VER/kernel is missing). The
+>> sysroots has all the modules, but the rootfs generated by the image
+>> recipe only has the hello-world module. This is the last wrinkle to
+>> iron out, any ideas on how to address this would be appreciated.
 >
-> I'm still not clear how you "pulled in" something.
+> CC'ing Saul and Mark hoping they may have some packaging insight into why this
+> might be happening.
 >
-> Thanks,
-> -- Dexuan
+Darren,
 
+I messed around with your branch tonight (after my migraine went away 
+finally).  I set in my local.conf
 
+MACHINE_ESSENTIAL_EXTRA_RRECOMMENDS += " hello-world-mod "
 
-Thanks and regards
-V kubera Samrat
+I tried it at first and it seemed to fail, but I cleanall'ed both 
+hello-world-mod and task-poky-boot and that seemed to do the trick. 
+Might have been a stale task-poky-boot was not getting rebuilt properly. 
+  I saw both a /lib/modules/<KERNELVER>/extra and 
+/lib/modules/<KERNELVER>/kernel in my images.
+
+Sau!
+
+> These patches are now available in my contrib/dvhart/modules branch.
+>
+> I've tried with both rpm and ipk root_fs packaging and get the same result. If
+> I include hello-world-mod in the image, the /lib/modules/KERNELVER/kernel
+> directory isn't present in the final rootfs, for example:
+>
+> BUILDING WITHOUT hello-world-mod in the image:
+>
+> dvhart@rage:build$ ls tmp/sysroots/qemux86/lib/modules/2.6.37.2-yocto-standard+
+> build  extra  kernel  modules.builtin  modules.order  source
+> dvhart@rage:build$ ls tmp/sysroots/qemux86/lib/modules/2.6.37.2-yocto-standard+/kernel/fs
+> autofs4  binfmt_misc.ko  cifs  configfs  jbd2  minix  nls  ocfs2  quota  reiserfs  romfs
+> dvhart@rage:build$ ls tmp/work/qemux86-poky-linux/poky-image-sato-1.0-r0/rootfs/lib/modules/2.6.37.2-yocto-standard+
+> kernel             modules.ccwmap   modules.devname      modules.isapnpmap  modules.seriomap  modules.symbols.bin
+> modules.alias      modules.dep      modules.ieee1394map  modules.ofmap      modules.softdep   modules.usbmap
+> modules.alias.bin  modules.dep.bin  modules.inputmap     modules.pcimap     modules.symbols
+> dvhart@rage:build$ ls tmp/work/qemux86-poky-linux/poky-image-sato-1.0-r0/rootfs/lib/modules/2.6.37.2-yocto-standard+/kernel/fs/
+> nls
+> dvhart@rage:build$ ls tmp/work/qemux86-poky-linux/poky-image-sato-1.0-r0/rootfs/lib/modules/2.6.37.2-yocto-standard+/kernel/fs/nls/
+> nls_utf8.ko
+>
+>
+> BUILDING WITH hello-world-mod in the image:
+>
+> dvhart@rage:build$ ls tmp/sysroots/qemux86/lib/modules/2.6.37.2-yocto-standard+
+> build  extra  kernel  modules.builtin  modules.order  source
+> dvhart@rage:build$ ls tmp/sysroots/qemux86/lib/modules/2.6.37.2-yocto-standard+/extra/
+> hello_world.ko
+> dvhart@rage:build$ ls tmp/sysroots/qemux86/lib/modules/2.6.37.2-yocto-standard+/kernel/fs
+> autofs4  binfmt_misc.ko  cifs  configfs  jbd2  minix  nls  ocfs2  quota  reiserfs  romfs
+> dvhart@rage:build$ ls tmp/work/qemux86-poky-linux/poky-image-sato-1.0-r0/rootfs/lib/modules/2.6.37.2-yocto-standard+
+> extra              modules.ccwmap   modules.devname      modules.isapnpmap  modules.seriomap  modules.symbols.bin
+> modules.alias      modules.dep      modules.ieee1394map  modules.ofmap      modules.softdep   modules.usbmap
+> modules.alias.bin  modules.dep.bin  modules.inputmap     modules.pcimap     modules.symbols
+>
+>
+> Still digging, but I'm mostly just stumbling around in the dark.
+>
+> --
+> Darren
+>
+>> Gary, can you try the module.bbclass with your module to see if it
+>> builds successfully?
+>>
+>> Thanks,
+>>
+>> Darren Hart (2):
+>>     module: build and clean hostprogs for each module
+>>     hello-world-mod: add a module for testing module.bbclass
+>>
+>>    meta/classes/module.bbclass                        |   21 ++-
+>>    meta/recipes-kernel/hello-world-mod/files/COPYING  |  340 ++++++++++++++++++++
+>>    meta/recipes-kernel/hello-world-mod/files/Makefile |   14 +
+>>    .../hello-world-mod/files/hello_world.c            |   33 ++
+>>    .../hello-world-mod/hello-world-mod.bb             |   15 +
+>>    5 files changed, 422 insertions(+), 1 deletions(-)
+>>    create mode 100644 meta/recipes-kernel/hello-world-mod/files/COPYING
+>>    create mode 100644 meta/recipes-kernel/hello-world-mod/files/Makefile
+>>    create mode 100644 meta/recipes-kernel/hello-world-mod/files/hello_world.c
+>>    create mode 100644 meta/recipes-kernel/hello-world-mod/hello-world-mod.bb
+>>
+>> _______________________________________________
+>> poky mailing list
+>> poky@yoctoproject.org
+>> https://lists.yoctoproject.org/listinfo/poky
+>
+>
+
 
