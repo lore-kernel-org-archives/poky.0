@@ -1,24 +1,22 @@
-Return-Path: <Xiaofeng.Yan@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 985924C80772
-	for <poky@yoctoproject.org>; Fri,  4 Mar 2011 03:39:06 -0600 (CST)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p249d6D0005372
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Fri, 4 Mar 2011 01:39:06 -0800 (PST)
-Received: from localhost (128.224.162.28) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Fri, 4 Mar 2011 01:39:05 -0800
-Message-ID: <61e9821c548e90d838ae31c5a579c4f06c669ef7.1299231297.git.xiaofeng.yan@windriver.com>
-In-Reply-To: <cover.1299231297.git.xiaofeng.yan@windriver.com>
-References: <cover.1299231297.git.xiaofeng.yan@windriver.com>
-Old-Date: Fri, 4 Mar 2011 17:29:29 +0800
-Date: Fri, 4 Mar 2011 17:38:13 +0800
-To: <poky@yoctoproject.org>
-From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
-MIME-Version: 1.0
-X-Originating-IP: [128.224.162.28]
-Subject: [PATCH 1/1] task-poky-lsb: Add packges needed by LSB Test Suite
+Return-Path: <lei.mei@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 48A5E4C80050
+	for <poky@yoctoproject.org>; Fri,  4 Mar 2011 04:20:07 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 04 Mar 2011 02:20:01 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.62,263,1297065600"; d="scan'208";a="893760366"
+Received: from daocaoren-desktop.sh.intel.com (HELO localhost)
+	([10.239.47.161])
+	by fmsmga001.fm.intel.com with ESMTP; 04 Mar 2011 02:19:51 -0800
+Message-Id: <657c1e7d12fe97e8db11bcee1333ec698dcc6b4b.1299232699.git.lei.mei@intel.com>
+In-Reply-To: <cover.1299232699.git.lei.mei@intel.com>
+References: <cover.1299232699.git.lei.mei@intel.com>
+Old-Date: Fri, 4 Mar 2011 17:17:05 +0800
+To: poky@yoctoproject.org
+CC: 
+From: Mei Lei <lei.mei@intel.com>
+Subject: [PATCH 1/1] distrodata.bbclass: Get git repo tag information
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,69 +28,112 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 04 Mar 2011 09:39:06 -0000
-Content-Type: text/plain
+Date: Fri, 04 Mar 2011 10:20:07 -0000
+X-Original-Date: 五, 04  3月 2011 18:19:34 +0800
+X-List-Received-Date: Fri, 04 Mar 2011 10:20:07 -0000
 
-From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+From: Mei Lei <lei.mei@intel.com>
 
-These packages added into task-poky-lsb.bb are absent in lsb-image during lsb test
+For those recipes which use git repo and have tag information, we can use tag to trace the version change. For other no tag recipes, we still use their
+commit checksum to trace their version change.
 
-Signed-off-by: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+Signed-off-by: Mei Lei <lei.mei@intel.com>
 ---
- meta/recipes-extended/tasks/task-poky-lsb.bb |   16 +++++++++++++++-
- 1 files changed, 15 insertions(+), 1 deletions(-)
+ meta/classes/distrodata.bbclass |   52 ++++++++++++++++++++++++++++++++------
+ 1 files changed, 43 insertions(+), 9 deletions(-)
 
-diff --git a/meta/recipes-extended/tasks/task-poky-lsb.bb b/meta/recipes-extended/tasks/task-poky-lsb.bb
-index a78e5ae..07f8e6f 100644
---- a/meta/recipes-extended/tasks/task-poky-lsb.bb
-+++ b/meta/recipes-extended/tasks/task-poky-lsb.bb
-@@ -114,6 +114,7 @@ RDEPENDS_task-poky-misc = "\
-     gettext \
-     groff \
-     lsb \
-+    lsbsetup \
-     lsof \
-     man \
-     man-pages \
-@@ -129,6 +130,7 @@ RDEPENDS_task-poky-lsb-command-add = "\
-     fontconfig-utils \
-     mailx \
-     msmtp \
-+    chkconfig \
- "
- #    cups
+diff --git a/meta/classes/distrodata.bbclass b/meta/classes/distrodata.bbclass
+index d84b306..e2cc8fa 100644
+--- a/meta/classes/distrodata.bbclass
++++ b/meta/classes/distrodata.bbclass
+@@ -347,7 +347,6 @@ python do_checkpkg() {
+ 		f = tempfile.NamedTemporaryFile(delete=False, prefix="%s-1-" % pn)
+ 		status = internal_fetch_wget(url, d, f)
+ 		fhtml = f.read()
+-
+ 		if status == "SUCC" and len(fhtml):
+ 			newver = parse_inter(curver)
  
-@@ -157,6 +159,10 @@ RDEPENDS_task-poky-lsb-graphic-add = "\
-     libxi \
-     libxtst \
-     qt4-plugin-sqldriver-sqlite \
-+    libx11-locale \
-+    xorg-minimal-fonts \
-+    gdk-pixbuf \
-+
- "
+@@ -436,6 +435,10 @@ python do_checkpkg() {
+ 			else:
+ 				"""newver still contains a full package name string"""
+ 				status = re.search("(\d+[\.\-_])*(\d+[0-9a-zA-Z]*)", newver[1]).group()
++				if "_" in status:
++					status = re.sub("_",".",status)
++				elif "-" in status:
++					status = re.sub("-",".",status)
+ 		elif not len(fhtml):
+ 			status = "ErrHostNoDir"
  
- RDEPENDS_task-poky-lsb-graphic-add_qemux86 = "\
-@@ -172,9 +178,17 @@ RDEPENDS_task-poky-lsb-runtime-add = "\
-     ldd \
-     pam-plugin-wheel \
-     e2fsprogs-mke2fs \
--    eglibc-localedata-posix \
-     mkfontdir \
-     liburi-perl \
-     libxml-parser-perl \
-     libxml-perl \
-+    eglibc-extra-nss \
-+    eglibc-localedatas \
-+    eglibc-gconvs \
-+    eglibc-charmaps \
-+    eglibc-binarys \
-+    eglibc-pcprofile \
-+    eglibc-pic \
-+    eglibc-utils \
-+
- "
+@@ -531,6 +534,12 @@ python do_checkpkg() {
+ 	
+ 			alturi = bb.encodeurl([type, host, altpath, user, pswd, {}])
+ 			newver = check_new_version(alturi, curname, d)
++			while(newver == "ErrHostNoDir"):
++				if alturi == "/download":
++					break
++				else:
++					alturi = "/".join(alturi.split("/")[0:-2]) + "/download"
++					newver = check_new_version(alturi, curname, d)
+ 			if not re.match("Err", newver):
+ 				pupver = newver
+ 				if pupver != pcurver:
+@@ -550,13 +559,38 @@ python do_checkpkg() {
+ 			gitproto = parm['protocol']
+ 		else:
+ 			gitproto = "rsync"
+-
+-		gitcmd = "git ls-remote %s://%s%s%s HEAD 2>&1" % (gitproto, gituser, host, path)
+-		print gitcmd
+-		ver = os.popen(gitcmd).read()
+-		if ver and re.search("HEAD", ver):
+-			pupver = ver.split("\t")[0]
+-			if pcurver == pupver:
++		gitcmd = "git ls-remote %s://%s%s%s *tag* 2>&1" % (gitproto, gituser, host, path)
++		gitcmd2 = "git ls-remote %s://%s%s%s HEAD 2>&1" % (gitproto, gituser, host, path)
++		tmp = os.popen(gitcmd).read()
++		tmp2 = os.popen(gitcmd2).read()
++		#This is for those repo have tag like: refs/tags/1.2.2
++		if tmp:
++			tmpline = tmp.split("\n")
++			verflag = 0
++			for line in tmpline:
++				if len(line)==0:
++					break;
++				puptag = line.split("/")[-1]
++				puptag = re.search("[0-9][0-9|\.|_]+[0-9]", puptag)
++				if puptag == None:
++					continue;
++				puptag = puptag.group()
++				puptag = re.sub("_",".",puptag)
++				plocaltag = pversion.split("+")[0]
++				if "git" in plocaltag:
++					plocaltag = plocaltag.split("-")[0]
++				result = bb.utils.vercmp(("0", puptag, ""), ("0", plocaltag, ""))
++				if result > 0:
++					verflag = 1
++					pstatus = "UPADTE"
++					pupver = puptag
++				elif verflag == 0 :
++					pupver = plocaltag
++					pstatus = "MATCH"
++		#This is for those no tag repo
++		elif tmp2:
++			pupver = tmp2.split("\t")[0]
++			if pupver in pversion:
+ 				pstatus = "MATCH"
+ 			else:
+ 				pstatus = "UPDATE"
+@@ -580,7 +614,7 @@ python do_checkpkg() {
+ 		for line in svninfo.split("\n"):
+ 			if re.search("^Last Changed Rev:", line):
+ 				pupver = line.split(" ")[-1]
+-				if pcurver == pupver:
++				if pupver in pversion:
+ 					pstatus = "MATCH"
+ 				else:
+ 					pstatus = "UPDATE"
 -- 
-1.7.0.4
+1.6.3.3
 
 
