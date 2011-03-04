@@ -1,22 +1,20 @@
 Return-Path: <lei.mei@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 48A5E4C80050
-	for <poky@yoctoproject.org>; Fri,  4 Mar 2011 04:20:07 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 04 Mar 2011 02:20:01 -0800
+Received: from mga02.intel.com (unknown [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 68B7F4C80A71
+	for <poky@yoctoproject.org>; Fri,  4 Mar 2011 04:20:18 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 04 Mar 2011 02:19:50 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,263,1297065600"; d="scan'208";a="893760366"
+X-IronPort-AV: E=Sophos;i="4.62,263,1297065600"; d="scan'208";a="609020022"
 Received: from daocaoren-desktop.sh.intel.com (HELO localhost)
 	([10.239.47.161])
-	by fmsmga001.fm.intel.com with ESMTP; 04 Mar 2011 02:19:51 -0800
-Message-Id: <657c1e7d12fe97e8db11bcee1333ec698dcc6b4b.1299232699.git.lei.mei@intel.com>
-In-Reply-To: <cover.1299232699.git.lei.mei@intel.com>
-References: <cover.1299232699.git.lei.mei@intel.com>
-Old-Date: Fri, 4 Mar 2011 17:17:05 +0800
+	by orsmga002.jf.intel.com with ESMTP; 04 Mar 2011 02:19:50 -0800
+Message-Id: <cover.1299232699.git.lei.mei@intel.com>
+Old-Date: Fri, 4 Mar 2011 17:58:19 +0800
 To: poky@yoctoproject.org
 CC: 
 From: Mei Lei <lei.mei@intel.com>
-Subject: [PATCH 1/1] distrodata.bbclass: Get git repo tag information
+Subject: [PATCH 0/1]distrodata.bbclass: Get recipes tag info from git repo
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,112 +26,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-Date: Fri, 04 Mar 2011 10:20:07 -0000
-X-Original-Date: 五, 04  3月 2011 18:19:34 +0800
-X-List-Received-Date: Fri, 04 Mar 2011 10:20:07 -0000
+Date: Fri, 04 Mar 2011 10:20:18 -0000
+X-Original-Date: 五, 04  3月 2011 18:19:33 +0800
+X-List-Received-Date: Fri, 04 Mar 2011 10:20:18 -0000
 
 From: Mei Lei <lei.mei@intel.com>
 
-For those recipes which use git repo and have tag information, we can use tag to trace the version change. For other no tag recipes, we still use their
-commit checksum to trace their version change.
+To reduce a lot of unnecessary upgrade reminader for those recipes which use git repo, we change the version track via tag information instead of commit checksum information. 
 
-Signed-off-by: Mei Lei <lei.mei@intel.com>
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: lmei3/distrodata.bbclass
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=lmei3/distrodata.bbclass
+
+Thanks,
+    Mei Lei <lei.mei@intel.com>
 ---
+
+
+Mei Lei (1):
+  distrodata.bbclass: Get git repo tag information
+
  meta/classes/distrodata.bbclass |   52 ++++++++++++++++++++++++++++++++------
  1 files changed, 43 insertions(+), 9 deletions(-)
-
-diff --git a/meta/classes/distrodata.bbclass b/meta/classes/distrodata.bbclass
-index d84b306..e2cc8fa 100644
---- a/meta/classes/distrodata.bbclass
-+++ b/meta/classes/distrodata.bbclass
-@@ -347,7 +347,6 @@ python do_checkpkg() {
- 		f = tempfile.NamedTemporaryFile(delete=False, prefix="%s-1-" % pn)
- 		status = internal_fetch_wget(url, d, f)
- 		fhtml = f.read()
--
- 		if status == "SUCC" and len(fhtml):
- 			newver = parse_inter(curver)
- 
-@@ -436,6 +435,10 @@ python do_checkpkg() {
- 			else:
- 				"""newver still contains a full package name string"""
- 				status = re.search("(\d+[\.\-_])*(\d+[0-9a-zA-Z]*)", newver[1]).group()
-+				if "_" in status:
-+					status = re.sub("_",".",status)
-+				elif "-" in status:
-+					status = re.sub("-",".",status)
- 		elif not len(fhtml):
- 			status = "ErrHostNoDir"
- 
-@@ -531,6 +534,12 @@ python do_checkpkg() {
- 	
- 			alturi = bb.encodeurl([type, host, altpath, user, pswd, {}])
- 			newver = check_new_version(alturi, curname, d)
-+			while(newver == "ErrHostNoDir"):
-+				if alturi == "/download":
-+					break
-+				else:
-+					alturi = "/".join(alturi.split("/")[0:-2]) + "/download"
-+					newver = check_new_version(alturi, curname, d)
- 			if not re.match("Err", newver):
- 				pupver = newver
- 				if pupver != pcurver:
-@@ -550,13 +559,38 @@ python do_checkpkg() {
- 			gitproto = parm['protocol']
- 		else:
- 			gitproto = "rsync"
--
--		gitcmd = "git ls-remote %s://%s%s%s HEAD 2>&1" % (gitproto, gituser, host, path)
--		print gitcmd
--		ver = os.popen(gitcmd).read()
--		if ver and re.search("HEAD", ver):
--			pupver = ver.split("\t")[0]
--			if pcurver == pupver:
-+		gitcmd = "git ls-remote %s://%s%s%s *tag* 2>&1" % (gitproto, gituser, host, path)
-+		gitcmd2 = "git ls-remote %s://%s%s%s HEAD 2>&1" % (gitproto, gituser, host, path)
-+		tmp = os.popen(gitcmd).read()
-+		tmp2 = os.popen(gitcmd2).read()
-+		#This is for those repo have tag like: refs/tags/1.2.2
-+		if tmp:
-+			tmpline = tmp.split("\n")
-+			verflag = 0
-+			for line in tmpline:
-+				if len(line)==0:
-+					break;
-+				puptag = line.split("/")[-1]
-+				puptag = re.search("[0-9][0-9|\.|_]+[0-9]", puptag)
-+				if puptag == None:
-+					continue;
-+				puptag = puptag.group()
-+				puptag = re.sub("_",".",puptag)
-+				plocaltag = pversion.split("+")[0]
-+				if "git" in plocaltag:
-+					plocaltag = plocaltag.split("-")[0]
-+				result = bb.utils.vercmp(("0", puptag, ""), ("0", plocaltag, ""))
-+				if result > 0:
-+					verflag = 1
-+					pstatus = "UPADTE"
-+					pupver = puptag
-+				elif verflag == 0 :
-+					pupver = plocaltag
-+					pstatus = "MATCH"
-+		#This is for those no tag repo
-+		elif tmp2:
-+			pupver = tmp2.split("\t")[0]
-+			if pupver in pversion:
- 				pstatus = "MATCH"
- 			else:
- 				pstatus = "UPDATE"
-@@ -580,7 +614,7 @@ python do_checkpkg() {
- 		for line in svninfo.split("\n"):
- 			if re.search("^Last Changed Rev:", line):
- 				pupver = line.split(" ")[-1]
--				if pcurver == pupver:
-+				if pupver in pversion:
- 					pstatus = "MATCH"
- 				else:
- 					pstatus = "UPDATE"
--- 
-1.6.3.3
 
 
