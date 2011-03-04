@@ -1,25 +1,19 @@
-Return-Path: <Jingdong.Lu@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D13E24C80A71
-	for <poky@yoctoproject.org>; Thu,  3 Mar 2011 20:11:47 -0600 (CST)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p242Blc8003472
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Thu, 3 Mar 2011 18:11:47 -0800 (PST)
-Received: from localhost (128.224.162.205) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Thu, 3 Mar 2011 18:11:46 -0800
-Message-ID: <7aa3356951b746249156138264585b4f58466ddd.1299204551.git.jingdong.lu@windriver.com>
-In-Reply-To: <cover.1299204551.git.jingdong.lu@windriver.com>
-References: <cover.1299204551.git.jingdong.lu@windriver.com>
-Old-Date: Fri, 4 Mar 2011 10:00:40 +0800
-Date: Fri, 4 Mar 2011 10:11:51 +0800
-To: <poky@yoctoproject.org>
-CC: 
-From: Jingdong Lu <jingdong.lu@windriver.com>
-MIME-Version: 1.0
-X-Originating-IP: [128.224.162.205]
-Subject: [PATCH 1/1] task-poky-lsb: add python-misc
+Return-Path: <ke.yu@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2F0804C800A3
+	for <poky@yoctoproject.org>; Thu,  3 Mar 2011 21:45:39 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 03 Mar 2011 19:45:38 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.62,262,1297065600"; d="scan'208";a="716004314"
+Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
+	by orsmga001.jf.intel.com with ESMTP; 03 Mar 2011 19:45:22 -0800
+From: Yu Ke <ke.yu@intel.com>
+To: poky@yoctoproject.org
+Date: Fri,  4 Mar 2011 11:50:45 +0800
+Message-Id: <cover.1299210292.git.ke.yu@intel.com>
+X-Mailer: git-send-email 1.7.0.4
+Subject: [PATCH 0/1] Fix for BUG782: vnc server issue in mips
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,31 +25,33 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 04 Mar 2011 02:11:48 -0000
-Content-Type: text/plain
+X-List-Received-Date: Fri, 04 Mar 2011 03:45:39 -0000
 
-From: Jingdong Lu <jingdong.lu@windriver.com>
+Bug 782 is that x86 vnc client does not work with vnc server in qemumips.
 
-python-misc also needed by python-runtime test of LSB.
+the root cause is that x11vnc server's word endian is wrong in qemumips.
 
-Signed-off-by: Jingdong Lu <jingdong.lu@windriver.com>
+mips linux is bigendian, while x86 linux is little endian, so there should be
+endian convention between the vnc client/server. the code does have the endian
+convertion logic and the logic works well in most case. the only issue is that
+in vncserver mips compiling, there is missing flag "-DLIBVNCSERVER_WORDS_BIGENDIAN",
+thus the vncserver in mips has wrong endian.
+
+Adding the flag can fix this issue.
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: kyu3/bug782-vnc
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kyu3/bug782-vnc
+
+Thanks,
+    Yu Ke <ke.yu@intel.com>
 ---
- meta/recipes-extended/tasks/task-poky-lsb.bb |    1 +
- 1 files changed, 1 insertions(+), 0 deletions(-)
 
-diff --git a/meta/recipes-extended/tasks/task-poky-lsb.bb b/meta/recipes-extended/tasks/task-poky-lsb.bb
-index ab640bd..0e485b5 100644
---- a/meta/recipes-extended/tasks/task-poky-lsb.bb
-+++ b/meta/recipes-extended/tasks/task-poky-lsb.bb
-@@ -140,6 +140,7 @@ RDEPENDS_task-poky-lsb-perl-add = "\
- 
- RDEPENDS_task-poky-lsb-python-add = "\
-     python-modules \
-+    python-misc \
- "
- 
- RDEPENDS_task-poky-lsb-graphic-add = "\
--- 
-1.7.0.4
+
+Yu Ke (1):
+  x11vnc: add big endian CFLAG for mips, to fix bug 782
+
+ meta/recipes-graphics/x11vnc/x11vnc_0.9.12.bb |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
 
 
