@@ -1,24 +1,25 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 8C3AB4C80A72
-	for <poky@yoctoproject.org>; Thu,  3 Mar 2011 19:27:39 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 03 Mar 2011 17:27:39 -0800
+Return-Path: <edwin.zhai@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D89714C80050
+	for <poky@lists.pokylinux.org>; Thu,  3 Mar 2011 19:59:34 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 03 Mar 2011 17:59:34 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,261,1297065600"; d="scan'208";a="715962534"
-Received: from unknown (HELO [10.255.12.102]) ([10.255.12.102])
-	by orsmga001.jf.intel.com with ESMTP; 03 Mar 2011 17:27:39 -0800
-Message-ID: <4D70400A.7060705@intel.com>
-Date: Thu, 03 Mar 2011 17:27:38 -0800
-From: Saul Wold <saul.wold@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
+X-IronPort-AV: E=Sophos;i="4.62,261,1297065600"; d="scan'208";a="608903004"
+Received: from shxpwgzhai1a.ccr.corp.intel.com (HELO [10.239.48.130])
+	([10.239.48.130])
+	by orsmga002.jf.intel.com with ESMTP; 03 Mar 2011 17:59:02 -0800
+Message-ID: <4D704768.2090100@intel.com>
+Date: Fri, 04 Mar 2011 09:59:04 +0800
+From: "Zhai, Edwin" <edwin.zhai@intel.com>
+User-Agent: Thunderbird 2.0.0.17 (Windows/20080914)
 MIME-Version: 1.0
-To: poky@yoctoproject.org
-References: <cover.1299153379.git.edwin.zhai@intel.com>
-In-Reply-To: <cover.1299153379.git.edwin.zhai@intel.com>
-Subject: Re: [PATCH 0/3] Bug fixes for 1.0 M4, Edwin, Mar 3, 2011
+To: Gary Thomas <gary@mlbassoc.com>
+References: <4D6675E0.2040703@mlbassoc.com> <4D6B3BA3.9050303@intel.com>
+	<4D6F9018.1000605@mlbassoc.com>
+In-Reply-To: <4D6F9018.1000605@mlbassoc.com>
+Cc: Poky <poky@lists.pokylinux.org>
+Subject: Re: Is sstate broken
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,48 +31,91 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 04 Mar 2011 01:27:39 -0000
+X-List-Received-Date: Fri, 04 Mar 2011 01:59:35 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 03/03/2011 03:59 AM, Zhai Edwin wrote:
-> From: Zhai Edwin<edwin.zhai@intel.com>
->
-> Saul,
-> These are bug fixes for 456,751,781. Pls. have a look and pull.
->
-> Thanks,
-> edwin
->
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->    Branch: gzhai/fix2
->    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=gzhai/fix2
->
-> Thanks,
->      Zhai Edwin<edwin.zhai@intel.com>
-> ---
->
->
-> Zhai Edwin (3):
->    x11vnc: Fix the start failure
->    sato-icon-theme: Explictly use "Sato" as gtk icon theme
->    gstreamer: install the sound card driver of es1370
->
->   .../x11vnc/files/starting-fix.patch                |   18 ++++++++++++++++++
->   meta/recipes-graphics/x11vnc/x11vnc_0.9.12.bb      |    3 ++-
->   .../gstreamer/gstreamer_0.10.31.bb                 |    3 +++
->   .../sato-icon-theme/sato-icon-theme.inc            |    3 +++
->   4 files changed, 26 insertions(+), 1 deletions(-)
->   create mode 100644 meta/recipes-graphics/x11vnc/files/starting-fix.patch
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
-Merged these into OE-Core and Bernard
 
-Thanks
-	Sau!
 
+Gary Thomas wrote:
+>
+> On 02/27/2011 11:07 PM, Zhai, Edwin wrote:
+> > Gary,
+> >
+> > Thanks for trying this.
+> > sstate function is a little bit fragile recently. I'll look at it 
+> after fixing some other bugs.
+>
+> Any progress on this?
+>
+> Should I file this as a bug?
+>
+
+We have one http://bugzilla.pokylinux.org/show_bug.cgi?id=788
+
+
+> > Gary Thomas wrote:
+> >>
+> >> I tried to run an experiment with SSTATE_MIRRORS on the latest master.
+> >> From what I can tell, this is 100% not working, although I may just
+> >> not have set it up properly. Here's what I did:
+> >>
+> >> * Build Poky for my platform in /local/xyz_ppc_poky
+> >> * Set up to build exact same machine/config/etc in /local/xyz_test
+> >> pointing SSTATE_MIRRORS at /local/xyz_ppc_poky/sstate-cache by
+> >> adding these lines to local.conf (only configuration change)
+> >> SSTATE_MIRRORS ?= "\
+> >> file://.* file:///local/xyz_ppc_poky/sstate-cache/"
+> >>
+> >> The end result is that both builds built (from scratch) the same
+> >> set of packages. There seems to be no reuse of anything from
+> >> the SSTATE_MIRRORS.
+> >>
+> >> $ du /local/xyz_ppc_poky/* -s
+> >> 20 /local/xyz_ppc_poky/conf
+> >> 1456 /local/xyz_ppc_poky/downloads
+> >> 4 /local/xyz_ppc_poky/pseudodone
+> >> 1010392 /local/xyz_ppc_poky/sstate-cache
+> >> 14434076 /local/xyz_ppc_poky/tmp
+> >>
+> >> $ du -s /local/xyz_test
+> >> 20 /local/xyz_test/conf
+> >> 1456 /local/xyz_test/downloads
+> >> 4 /local/xyz_test/pseudodone
+> >> 1010276 /local/xyz_test/sstate-cache
+> >> 14425860 /local/xyz_test/ tmp
+> >>
+> >> The full build log of the second run is at 
+> http://www.mlbassoc.com/poky/build_ppc_with_sstate
+> >> Notice the many lines which say that a particular step failed. I 
+> can't see the reason, nor
+> >> can I find any corresponding log file to help me out. An example is:
+> >> ERROR: Task 0 
+> (virtual:native:/home/local/poky-amltd/meta/recipes-devtools/pseudo/pseudo_1.0.bb, 
+> do_unpack) failed with exit code '1'
+>
+> >>
+> >> Am I missing something? Now that the build with BB_NO_NETWORK is 
+> working well,
+> >> this is my last hurdle to making Poky truly useful for my customers.
+> >>
+> >> Thanks
+> >>
+> >> --
+> >> ------------------------------------------------------------
+> >> Gary Thomas | Consulting for the
+> >> MLB Associates | Embedded world
+> >> ------------------------------------------------------------
+> >> _______________________________________________
+> >> poky mailing list
+> >> poky@yoctoproject.org
+> >> https://lists.yoctoproject.org/listinfo/poky
+> >>
+>
+> -- 
+> ------------------------------------------------------------
+> Gary Thomas                 |  Consulting for the
+> MLB Associates              |    Embedded world
+> ------------------------------------------------------------
+>
 
