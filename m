@@ -1,20 +1,22 @@
 Return-Path: <dvhart@linux.intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 812F44C800A3
-	for <poky@yoctoproject.org>; Thu,  3 Mar 2011 23:22:39 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 03 Mar 2011 21:22:38 -0800
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 10B454C800A4
+	for <poky@yoctoproject.org>; Thu,  3 Mar 2011 23:22:42 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 03 Mar 2011 21:22:42 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,262,1297065600"; d="scan'208";a="397398569"
+X-IronPort-AV: E=Sophos;i="4.62,262,1297065600"; d="scan'208";a="716032058"
 Received: from unknown (HELO localhost) ([10.255.12.133])
-	by azsmga001.ch.intel.com with ESMTP; 03 Mar 2011 21:22:35 -0800
-Message-Id: <cover.1299216097.git.dvhart@linux.intel.com>
-Old-Date: Thu, 3 Mar 2011 21:21:37 -0800
-Date: Thu, 03 Mar 2011 21:22:35 -0800
+	by orsmga001.jf.intel.com with ESMTP; 03 Mar 2011 21:22:37 -0800
+Message-Id: <6f048077181c39d34af60cce25a89c7e8adf5a34.1299216097.git.dvhart@linux.intel.com>
+In-Reply-To: <cover.1299216097.git.dvhart@linux.intel.com>
+References: <cover.1299216097.git.dvhart@linux.intel.com>
+Old-Date: Tue, 1 Mar 2011 14:17:55 -0800
+Date: Thu, 03 Mar 2011 21:22:36 -0800
 To: poky@yoctoproject.org
 From: Darren Hart <dvhart@linux.intel.com>
 Cc: Darren Hart <dvhart@linux.intel.com>
-Subject: [PATCH 0/2] [BUGID #241][KERNEL] Can't build kernel modules outside of virtual/kernel recipe
+Subject: [PATCH 1/2] module: build hostprogs for each module
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,36 +28,60 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 04 Mar 2011 05:22:39 -0000
+X-List-Received-Date: Fri, 04 Mar 2011 05:22:43 -0000
 
 From: Darren Hart <dvhart@linux.intel.com>
 
-The following patches provide a mechanism to address [BUGID #241] through an
-addition to module.bbclass which builds the hostprogs. The second patch adds an
-example kernel module.
+This fixes [BUGID #241]
 
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: dvhart/modules
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dvhart/modules
+The kernel hostprogs are built for the host architecture. They should not be
+deployed to the target, and they should not be included in an sstate package
+which might get reused on a host of a different architecture.
 
-Thanks,
-    Darren Hart <dvhart@linux.intel.com>
+As we don't build many out-of-tree modules, this patch takes the approach of
+building the hostprogs as part of the module compile process with a
+do_compile_prepend() routine in module.bbclass.
+
+We don't have to clean the hostprogs as modules depend on the kernel being
+populate_staging, so its done with the staging directory by the time we run.
+
+Signed-off-by: Darren Hart <dvhart@linux.intel.com>
+CC: Gary Thomas <gary@mlbassoc.com>
 ---
+ meta/classes/module.bbclass |   12 +++++++++++-
+ 1 files changed, 11 insertions(+), 1 deletions(-)
 
-
-Darren Hart (2):
-  module: build hostprogs for each module
-  hello-mod: add a module for testing module.bbclass
-
- meta/classes/module.bbclass                    |   12 +-
- meta/recipes-kernel/hello-mod/files/COPYING    |  340 ++++++++++++++++++++++++
- meta/recipes-kernel/hello-mod/files/Makefile   |   14 +
- meta/recipes-kernel/hello-mod/files/hello.c    |   33 +++
- meta/recipes-kernel/hello-mod/hello-mod_0.1.bb |   15 +
- 5 files changed, 413 insertions(+), 1 deletions(-)
- create mode 100644 meta/recipes-kernel/hello-mod/files/COPYING
- create mode 100644 meta/recipes-kernel/hello-mod/files/Makefile
- create mode 100644 meta/recipes-kernel/hello-mod/files/hello.c
- create mode 100644 meta/recipes-kernel/hello-mod/hello-mod_0.1.bb
+diff --git a/meta/classes/module.bbclass b/meta/classes/module.bbclass
+index d16d462..bbceaf7 100644
+--- a/meta/classes/module.bbclass
++++ b/meta/classes/module.bbclass
+@@ -3,6 +3,13 @@ DEPENDS += "virtual/kernel"
+ 
+ inherit module-base
+ 
++# Ensure the hostprogs are available for module compilation
++module_do_compile_prepend() {
++	unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS 
++	oe_runmake CC="${KERNEL_CC}" LD="${KERNEL_LD}" AR="${KERNEL_AR}" \
++	           -C ${STAGING_KERNEL_DIR} scripts
++}
++
+ module_do_compile() {
+ 	unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS
+ 	oe_runmake KERNEL_PATH=${STAGING_KERNEL_DIR}   \
+@@ -15,7 +22,10 @@ module_do_compile() {
+ 
+ module_do_install() {
+ 	unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS
+-	oe_runmake DEPMOD=echo INSTALL_MOD_PATH="${D}" CC="${KERNEL_CC}" LD="${KERNEL_LD}" modules_install
++	oe_runmake DEPMOD=echo INSTALL_MOD_PATH="${D}" \
++	           KERNEL_SRC=${STAGING_KERNEL_DIR} \
++	           CC="${KERNEL_CC}" LD="${KERNEL_LD}" \
++	           modules_install
+ }
+ 
+ pkg_postinst_append () {
+-- 
+1.7.1
 
 
