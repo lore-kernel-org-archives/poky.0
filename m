@@ -1,42 +1,39 @@
-Return-Path: <vsailub4u@gmail.com>
+Return-Path: <cahoshing@gmail.com>
 Received: from mail-pv0-f176.google.com (mail-pv0-f176.google.com
 	[74.125.83.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 592E34C800A3
-	for <poky@yoctoproject.org>; Thu,  3 Mar 2011 23:38:35 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2CB074C80861
+	for <poky@yoctoproject.org>; Thu,  3 Mar 2011 23:39:36 -0600 (CST)
 Authentication-Results: mx1.pokylinux.org; dkim=pass
 	(1024-bit key; insecure key) header.i=@gmail.com;
 	x-dkim-adsp=none (insecure policy)
-Received: by pvg6 with SMTP id 6so354168pvg.35
-	for <poky@yoctoproject.org>; Thu, 03 Mar 2011 21:38:35 -0800 (PST)
+Received: by pvg6 with SMTP id 6so354270pvg.35
+	for <poky@yoctoproject.org>; Thu, 03 Mar 2011 21:39:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
 	h=domainkey-signature:mime-version:in-reply-to:references:date
 	:message-id:subject:from:to:content-type;
-	bh=cXX+FSaGMlRbzmWAhT0XbYTxmDyGMt75Msg+Rxbzt98=;
-	b=DuwbSMnQZoOUZBVki2hMkNIF2K4v0CKTJcBF6fJwm3/RF3RVe+PEcKa7iZD0o7mZ+n
-	EHqtWe9SXdmx6ejWN59Fuiv0geru4dnwYs3Tzcf6nMCxFse1EjEq6nC84T/VDrsNHl4V
-	S/Zw5erbOZzW7OcRqo0HDqHt1X7MuxrpUlTFk=
+	bh=68qDz7u5jkqpLv4ZO3U2DTIz29RRgTJz0FYpoh2yXb0=;
+	b=NJCp6Uy97hoi7K29K7kZ+UG4vT5vBPowsaJfWyQ4vmhCwjI32EgF+csb/2QjVh1g4S
+	ma3+2X3jmPjiqisdgmXPZOI9fTGq92yxOeOS1y5MGx6zxL/O3JZBhDGwDcPmXVFr/PBG
+	Redsm/h9P2PI3HhbWEu8fVmqMnViQwCIisHcA=
 DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
 	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
 	:content-type;
-	b=RmhbOqUKKSMAHSG4AXIZjdF6+BOOFy3MCTTiRh0NQ37rjMqEI/GCVyiPmt7cY8PsmP
-	womz52flRaq/KE7WmajVat8MZJEirExicXV4xvEg6wCJFNOqG51cNKAILAq92E0TKWXM
-	cC0OZOAIRzdAQxEBlXH64cEfkyI8yImP6mYTE=
+	b=lB5IuaOz3yAoBwmCUM78GO0vnTORvfWHFgd4rESvS3sE36fK6E2k6pqIXnRnb0XVSu
+	xHhMk4ccLdqCz0Cka6FrWWY5TcGY7Fv3n7fCy3iMju30xGMPgBkJX3VrNv+Il5I4NfAM
+	YDcet22aUnmtzmS2BdcGfWbvD0Bfi1daoZlZY=
 MIME-Version: 1.0
-Received: by 10.142.201.17 with SMTP id y17mr212150wff.335.1299217114394; Thu,
-	03 Mar 2011 21:38:34 -0800 (PST)
-Received: by 10.142.127.4 with HTTP; Thu, 3 Mar 2011 21:38:34 -0800 (PST)
-In-Reply-To: <4D6E56EB.1030805@windriver.com>
-References: <AANLkTi=CVPBSLQ_8345OrL_YKde=Mf3bqrxRZru75vSR@mail.gmail.com>
-	<C10D3FB0CD45994C8A51FEC1227CE22F216C10FCA3@shsmsx502.ccr.corp.intel.com>
-	<AANLkTikfVT=RbM7EdTE2Ua4OeX8x-+dNff8Owk1Gvipb@mail.gmail.com>
-	<1299066337.26736.10252.camel@rex>
-	<AANLkTin8ceb5+qQc=_NK-wGMG8uEMQSw3M636LDw32cx@mail.gmail.com>
-	<4D6E56EB.1030805@windriver.com>
-Date: Fri, 4 Mar 2011 11:08:34 +0530
-Message-ID: <AANLkTinie6zPEtXgaRAj31XEOmPYdiiA909oPvorGVAB@mail.gmail.com>
-From: v sailaja <vsailub4u@gmail.com>
-To: Mark Hatle <mark.hatle@windriver.com>, poky@yoctoproject.org
-Subject: Re: got error while trying to pull the krb5 package into poky
+Received: by 10.142.7.4 with SMTP id 4mr190124wfg.386.1299216574865; Thu, 03
+	Mar 2011 21:29:34 -0800 (PST)
+Received: by 10.142.106.2 with HTTP; Thu, 3 Mar 2011 21:29:34 -0800 (PST)
+In-Reply-To: <AANLkTiknUiwRv58XJBQZPFnXgKeybyseBEGycDOTHsjT@mail.gmail.com>
+References: <AANLkTim7ObgjarV3z+nOuT3=0jk=u64Lkv3BVLBC-zSk@mail.gmail.com>
+	<4D6FC7BD.2070806@windriver.com>
+	<AANLkTiknUiwRv58XJBQZPFnXgKeybyseBEGycDOTHsjT@mail.gmail.com>
+Date: Fri, 4 Mar 2011 10:59:34 +0530
+Message-ID: <AANLkTinRvFiPXrc+qw9=NDc+DHq2K8fV9zWU2qL+vSFd@mail.gmail.com>
+From: chinmaya hoshing <cahoshing@gmail.com>
+To: mark.hatle@windriver.com, poky@yoctoproject.org
+Subject: Re: Error when polkit library is pulled
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -48,122 +45,104 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 04 Mar 2011 05:38:35 -0000
-Content-Type: multipart/alternative; boundary=000e0cd32e5696f2fc049da18e6d
+X-List-Received-Date: Fri, 04 Mar 2011 05:39:36 -0000
+Content-Type: multipart/alternative; boundary=00504502b08e6e603b049da16e47
 
---000e0cd32e5696f2fc049da18e6d
+--00504502b08e6e603b049da16e47
 Content-Type: text/plain; charset=ISO-8859-1
 
-Hi  Hatle,
+Hi,
 
+(regarding the polkit library which when pulled gives error)
 
-I need to pull krb5 into poky. But *Krb5 rpm is not created* at the build
-time.
-its as stated below:
+ I am using ubuntu 10.10 on 64 bit machine and having ext3/ext4 filesystem
 
-*Not creating empty RPM package for krb5.*
+-Chinmaya
 
-so that the rpm was not creating for krb5.
-Please tell me what are the dependencies and How to resolve this problem. I
-need to pull it into poky.
-Your explanation gave me an idea on krb5.
+On Fri, Mar 4, 2011 at 10:48 AM, v sailaja <vsailub4u@gmail.com> wrote:
 
-
-
-Thanks & Regards,
-SAI
-
-
-
-
-
-
+>
+>
+> ---------- Forwarded message ----------
+> From: Mark Hatle <mark.hatle@windriver.com>
+> Date: Thu, Mar 3, 2011 at 10:24 PM
+> Subject: Re: [poky] Error when polkit library is pulled
+> To: poky@yoctoproject.org
+>
+>
+>
+> On 3/3/11 3:46 AM, chinmaya hoshing wrote:
 > > Hi,
+> > When polkit library is pulled ,this is the following error :-
 > >
-> > I came to know with other contacts, building poky with its own krb5
-> package,
-> > there were no issues.
-> > But if we copied that krb5 package from openembedded, it showed the
-> errors.
-> > Please tell me Why is it so happening?
-> > Please help me  and fixing the problem
+> >
+> > NOTE: package poky-image-minimal-initramfs-1.0-r0: task do_rootfs:
+> Succeeded
+> > ERROR: Task failed: ('function do_rootfs failed',
+> >
+> '/home/sct/poky-chrome/build/tmp/work/atom-pc-poky-linux/poky-image-minimal-akshat-1.0-r0/temp/log.do_rootfs.21457')
+> > ERROR: Logfile of failure stored in:
+> >
+> /home/sct/poky-chrome/build/tmp/work/atom-pc-poky-linux/poky-image-minimal-akshat-1.0-r0/temp/log.do_rootfs.21457
+> > :
+> > :
+> > :
+> > :
+> > : base-files
+>  ##################################################
+> > | error: unpacking of archive failed on file /var/cache: cpio: rename
+> failed -
+> > Inappropriate ioctl for device
 >
-> AFAIK, Poky doesn't have a krb5 recipe of it's own.
->
-> Before you dig into the krb5 package, why are you adding krb5 support to
-> your
-> device?  Is there a specific reason or did it just show up as a dependency
-> for
-> something?  (Many times on the desktop, krb5 is provided by default and
-> gets
-> linked into all sorts of things..  but in an embedded environment it's
-> rarely
-> used as there is no reason to coordinate with a kerberos server on user
-> identity.  If you decide kerberos support is NOT needed, figure out where
+> The above is the cause of the failed install.  What filesystem are you on?
+>  The
+> failure is severe, it created a directory, tried to rename the directory
+> and got
+> an "Inappropriate ioctl for device".. in otherwords the device prevented
 > the
-> krb5 dependency is coming from and figure out if you can remove it from the
-> package and/or recipe.)
+> rename for some reason.
 >
-> (But if you do need krb5...) If you import it from OpenEmbedded, something
+> Is your build being done on either an NFS, Clearcase, or other non-local
+> filesystem?  Or do you have selinux or something like that enabled that saw
+> "/var/cache", and prevented the renaming thinking it was a hacking attempt?
+>
+> (FYI, the rename happens so that the creation of files/directories happens
+> atomically.  create /var/cache.XXXXXX then mv /var/cache.XXXXX /var/cache
 > is
-> either wrong with the krb5 recipe -- not populating the base "krb5" package
-> --
-> or something is wrong with the software that is requiring krb5.
->
-> The first thing to do is look at the krb5 package and see if any of the
-> software
-> it has built belongs in a base krb5 package and isn't being properly
-> installed.... fix the do_install rule to install the missing components...
->
-> if there is no software to install into a krb5 package -- then it appears
-> to me
-> whatever is attempting to require the run-time dependency of "krb5" is
-> broken.
-> You should find the recipe that has the RDEPENDS and remove it -- or change
-> the
-> dependency to something more appropriate such a the krb5-libs.  (Note:
->  most of
-> the time there is no reason to manually state a RDEPENDS on a -libs
-> package,
-> because the system figured out run-time library dependencies automatically
-> --
-> only library usages where you can't automatically detect things need
-> RDEPENDS,
-> this is usually the case when things are dlopened.)
+> being done... ensuring the old item only goes away when the new item is
+> fully
+> created.)
 >
 > --Mark
 >
-> > Thanks & Regards,
-> > Sai
+>
+> > | udev-extraconf
+>  ##################################################
+> > | udev
+>  ##################################################
+> > | zypper
+>  ##################################################
+> > | avahi-daemon
+>  ##################################################
+> > | hal-info
+>  ##################################################
+> > | ERROR: Task failed: ('function do_rootfs failed',
+> >
+> '/home/sct/poky-chrome/build/tmp/work/atom-pc-poky-linux/poky-image-minimal-akshat-1.0-r0/temp/log.do_rootfs.21457')
+> > NOTE: package poky-image-minimal-akshat-1.0-r0: task do_rootfs: Failed
+> > ERROR: Task 191
+> > (/home/sct/poky-chrome/meta/recipes-core/images/
+> poky-image-minimal-akshat.bb
+> > <http://poky-image-minimal-akshat.bb>, do_rootfs) failed with 1
+>
+> > ERROR:
+> > '/home/sct/poky-chrome/meta/recipes-core/images/
+> poky-image-minimal-akshat.bb
+> > <http://poky-image-minimal-akshat.bb>' failed
 > >
 > >
-> >
-> >     On Wed, 2011-03-02 at 17:05 +0530, v sailaja wrote:
-> >     > Hi Lianhao,
-> >     >
-> >     > There are krb5-dev-1.6.3-r6.core2.rpm and
-> krb5-dbg-1.6.3-r6.core2.rpm
-> >     > in
-> >
->  /home/sailaja/poky-chrome/build/tmp/work/core2-poky-linux/krb5-1.6.3-r6/deploy-rpms.
-> >     > But  there is no specific rpm on krb5 like  krb5-1.6.3-r6.rpm.
-> >     >
-> >     > Again its showing an error as follows:
-> >
-> >     This probably means the contents of the krb5 package was empty and it
-> >     didn't build the package.
-> >
-> >     > I am facing the same problem with some more packages like xcb-proto
-> >
-> >     The contents of xcb-proto *is* empty since its just development
-> headers
-> >     and they end up in the xcb-proto-dev package.
-> >
-> >     Cheers,
-> >
-> >     Richard
-> >
-> >
+> > With Regards
+> > Chinmaya
 > >
 > >
 > >
@@ -172,126 +151,133 @@ SAI
 > > poky@yoctoproject.org
 > > https://lists.yoctoproject.org/listinfo/poky
 >
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
 >
 
---000e0cd32e5696f2fc049da18e6d
+--00504502b08e6e603b049da16e47
 Content-Type: text/html; charset=ISO-8859-1
 Content-Transfer-Encoding: quoted-printable
 
-Hi=A0 Hatle,<br><br><br>I need to pull krb5 into poky. But <b>Krb5 rpm is n=
-ot created</b> at the build time.<br>its as stated below:<br><br><b>Not cre=
-ating empty RPM package for krb5.</b><br><br>so that the rpm was not creati=
-ng for krb5.<br>
-Please tell me what are the dependencies and How to resolve this problem. I=
- need to pull it into poky.<br>Your explanation gave me an idea on krb5.<br=
-><br><br><br>Thanks &amp; Regards,<br>SAI<br><br><br><br><div class=3D"gmai=
-l_quote">
-<div><br>=A0</div><blockquote class=3D"gmail_quote" style=3D"margin: 0pt 0p=
-t 0pt 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;"=
-><div>
+<div dir=3D"ltr">Hi,<div><br><div>(regarding the polkit library which when =
+pulled gives error)</div><div><br><div>=A0<span dir=3D"ltr" id=3D":bh">I am=
+ using ubuntu 10.10 on 64 bit machine and having ext3/ext4 filesystem</span=
+><br>
+<br></div><div>-Chinmaya</div><div><br><div class=3D"gmail_quote">On Fri, M=
+ar 4, 2011 at 10:48 AM, v sailaja <span dir=3D"ltr">&lt;<a href=3D"mailto:v=
+sailub4u@gmail.com">vsailub4u@gmail.com</a>&gt;</span> wrote:<br><blockquot=
+e class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc sol=
+id;padding-left:1ex;">
+<br><br><div class=3D"gmail_quote">---------- Forwarded message ----------<=
+br>From: <b class=3D"gmail_sendername">Mark Hatle</b> <span dir=3D"ltr">&lt=
+;<a href=3D"mailto:mark.hatle@windriver.com" target=3D"_blank">mark.hatle@w=
+indriver.com</a>&gt;</span><br>
+
+Date: Thu, Mar 3, 2011 at 10:24 PM<br>Subject: Re: [poky] Error when polkit=
+ library is pulled<br>To: <a href=3D"mailto:poky@yoctoproject.org" target=
+=3D"_blank">poky@yoctoproject.org</a><div class=3D"im"><br><br><br><div>On =
+3/3/11 3:46 AM, chinmaya hoshing wrote:<br>
+
+
 &gt; Hi,<br>
+&gt; When polkit library is pulled ,this is the following error :-<br>
 &gt;<br>
-&gt; I came to know with other contacts, building poky with its own krb5 pa=
-ckage,<br>
-&gt; there were no issues.<br>
-&gt; But if we copied that krb5 package from openembedded, it showed the er=
-rors.<br>
-&gt; Please tell me Why is it so happening?<br>
-&gt; Please help me =A0and fixing the problem<br>
+&gt;<br>
+&gt; NOTE: package poky-image-minimal-initramfs-1.0-r0: task do_rootfs: Suc=
+ceeded<br>
+&gt; ERROR: Task failed: (&#39;function do_rootfs failed&#39;,<br>
+&gt; &#39;/home/sct/poky-chrome/build/tmp/work/atom-pc-poky-linux/poky-imag=
+e-minimal-akshat-1.0-r0/temp/log.do_rootfs.21457&#39;)<br>
+&gt; ERROR: Logfile of failure stored in:<br>
+&gt; /home/sct/poky-chrome/build/tmp/work/atom-pc-poky-linux/poky-image-min=
+imal-akshat-1.0-r0/temp/log.do_rootfs.21457<br>
+&gt; :<br>
+&gt; :<br>
+&gt; :<br>
+&gt; :<br>
+&gt; : base-files =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0######################=
+############################<br>
+&gt; | error: unpacking of archive failed on file /var/cache: cpio: rename =
+failed -<br>
+&gt; Inappropriate ioctl for device<br>
 <br>
-</div>AFAIK, Poky doesn&#39;t have a krb5 recipe of it&#39;s own.<br>
+</div></div>The above is the cause of the failed install. =A0What filesyste=
+m are you on? =A0The<br>
+failure is severe, it created a directory, tried to rename the directory an=
+d got<br>
+an &quot;Inappropriate ioctl for device&quot;.. in otherwords the device pr=
+evented the<br>
+rename for some reason.<br>
 <br>
-Before you dig into the krb5 package, why are you adding krb5 support to yo=
-ur<br>
-device? =A0Is there a specific reason or did it just show up as a dependenc=
-y for<br>
-something? =A0(Many times on the desktop, krb5 is provided by default and g=
-ets<br>
-linked into all sorts of things.. =A0but in an embedded environment it&#39;=
-s rarely<br>
-used as there is no reason to coordinate with a kerberos server on user<br>
-identity. =A0If you decide kerberos support is NOT needed, figure out where=
- the<br>
-krb5 dependency is coming from and figure out if you can remove it from the=
-<br>
-package and/or recipe.)<br>
-<br>
-(But if you do need krb5...) If you import it from OpenEmbedded, something =
-is<br>
-either wrong with the krb5 recipe -- not populating the base &quot;krb5&quo=
-t; package --<br>
-or something is wrong with the software that is requiring krb5.<br>
-<br>
-The first thing to do is look at the krb5 package and see if any of the sof=
-tware<br>
-it has built belongs in a base krb5 package and isn&#39;t being properly<br=
+Is your build being done on either an NFS, Clearcase, or other non-local<br=
 >
-installed.... fix the do_install rule to install the missing components...<=
-br>
+filesystem? =A0Or do you have selinux or something like that enabled that s=
+aw<br>
+&quot;/var/cache&quot;, and prevented the renaming thinking it was a hackin=
+g attempt?<br>
 <br>
-if there is no software to install into a krb5 package -- then it appears t=
-o me<br>
-whatever is attempting to require the run-time dependency of &quot;krb5&quo=
-t; is broken.<br>
-You should find the recipe that has the RDEPENDS and remove it -- or change=
- the<br>
-dependency to something more appropriate such a the krb5-libs. =A0(Note: =
-=A0most of<br>
-the time there is no reason to manually state a RDEPENDS on a -libs package=
-,<br>
-because the system figured out run-time library dependencies automatically =
---<br>
-only library usages where you can&#39;t automatically detect things need RD=
-EPENDS,<br>
-this is usually the case when things are dlopened.)<br>
-<font color=3D"#888888"><br>
---Mark<br>
-</font><div><br>
-&gt; Thanks &amp; Regards,<br>
-&gt; Sai<br>
+(FYI, the rename happens so that the creation of files/directories happens<=
+br>
+atomically. =A0create /var/cache.XXXXXX then mv /var/cache.XXXXX /var/cache=
+ is<br>
+being done... ensuring the old item only goes away when the new item is ful=
+ly<br>
+created.)<br>
+<br>
+--Mark<div class=3D"im"><br>
+<div><br>
+&gt; | udev-extraconf =A0 =A0 =A0 =A0 =A0 =A0 =A0##########################=
+########################<br>
+&gt; | udev =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0################=
+##################################<br>
+&gt; | zypper =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0##################=
+################################<br>
+&gt; | avahi-daemon =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0########################=
+##########################<br>
+&gt; | hal-info =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0####################=
+##############################<br>
+&gt; | ERROR: Task failed: (&#39;function do_rootfs failed&#39;,<br>
+&gt; &#39;/home/sct/poky-chrome/build/tmp/work/atom-pc-poky-linux/poky-imag=
+e-minimal-akshat-1.0-r0/temp/log.do_rootfs.21457&#39;)<br>
+&gt; NOTE: package poky-image-minimal-akshat-1.0-r0: task do_rootfs: Failed=
+<br>
+&gt; ERROR: Task 191<br>
+&gt; (/home/sct/poky-chrome/meta/recipes-core/images/<a href=3D"http://poky=
+-image-minimal-akshat.bb" target=3D"_blank">poky-image-minimal-akshat.bb</a=
+><br>
+</div></div>&gt; &lt;<a href=3D"http://poky-image-minimal-akshat.bb" target=
+=3D"_blank">http://poky-image-minimal-akshat.bb</a>&gt;, do_rootfs) failed =
+with 1<div class=3D"im"><br>
+<div>&gt; ERROR:<br>
+&gt; &#39;/home/sct/poky-chrome/meta/recipes-core/images/<a href=3D"http://=
+poky-image-minimal-akshat.bb" target=3D"_blank">poky-image-minimal-akshat.b=
+b</a><br>
+</div></div>&gt; &lt;<a href=3D"http://poky-image-minimal-akshat.bb" target=
+=3D"_blank">http://poky-image-minimal-akshat.bb</a>&gt;&#39; failed<br>
+&gt;<br>
+&gt;<br>
+&gt; With Regards<br>
+&gt; Chinmaya<br>
 &gt;<br>
 &gt;<br>
 &gt;<br>
-&gt; =A0 =A0 On Wed, 2011-03-02 at 17:05 +0530, v sailaja wrote:<br>
-&gt; =A0 =A0 &gt; Hi Lianhao,<br>
-&gt; =A0 =A0 &gt;<br>
-&gt; =A0 =A0 &gt; There are krb5-dev-1.6.3-r6.core2.rpm and krb5-dbg-1.6.3-=
-r6.core2.rpm<br>
-&gt; =A0 =A0 &gt; in<br>
-&gt; =A0 =A0 =A0/home/sailaja/poky-chrome/build/tmp/work/core2-poky-linux/k=
-rb5-1.6.3-r6/deploy-rpms.<br>
-&gt; =A0 =A0 &gt; But =A0there is no specific rpm on krb5 like =A0krb5-1.6.=
-3-r6.rpm.<br>
-&gt; =A0 =A0 &gt;<br>
-&gt; =A0 =A0 &gt; Again its showing an error as follows:<br>
-&gt;<br>
-&gt; =A0 =A0 This probably means the contents of the krb5 package was empty=
- and it<br>
-&gt; =A0 =A0 didn&#39;t build the package.<br>
-&gt;<br>
-&gt; =A0 =A0 &gt; I am facing the same problem with some more packages like=
- xcb-proto<br>
-&gt;<br>
-&gt; =A0 =A0 The contents of xcb-proto *is* empty since its just developmen=
-t headers<br>
-&gt; =A0 =A0 and they end up in the xcb-proto-dev package.<br>
-&gt;<br>
-&gt; =A0 =A0 Cheers,<br>
-&gt;<br>
-&gt; =A0 =A0 Richard<br>
-&gt;<br>
-&gt;<br>
-&gt;<br>
-&gt;<br>
-&gt;<br>
-</div><div><div></div><div>&gt; ___________________________________________=
-____<br>
+&gt; _______________________________________________<br>
 &gt; poky mailing list<br>
 &gt; <a href=3D"mailto:poky@yoctoproject.org" target=3D"_blank">poky@yoctop=
 roject.org</a><br>
 &gt; <a href=3D"https://lists.yoctoproject.org/listinfo/poky" target=3D"_bl=
 ank">https://lists.yoctoproject.org/listinfo/poky</a><br>
 <br>
-</div></div></blockquote></div><br>
+_______________________________________________<br>
+poky mailing list<br>
+<a href=3D"mailto:poky@yoctoproject.org" target=3D"_blank">poky@yoctoprojec=
+t.org</a><br>
+<a href=3D"https://lists.yoctoproject.org/listinfo/poky" target=3D"_blank">=
+https://lists.yoctoproject.org/listinfo/poky</a><br>
+</div><br>
+</blockquote></div><br></div></div></div></div>
 
---000e0cd32e5696f2fc049da18e6d--
+--00504502b08e6e603b049da16e47--
