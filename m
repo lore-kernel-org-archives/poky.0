@@ -1,25 +1,44 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 61D854C80772
-	for <poky@yoctoproject.org>; Thu,  3 Mar 2011 22:40:18 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 03 Mar 2011 20:40:18 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,262,1297065600"; d="scan'208";a="893667476"
-Received: from unknown (HELO [10.255.12.133]) ([10.255.12.133])
-	by fmsmga001.fm.intel.com with ESMTP; 03 Mar 2011 20:39:44 -0800
-Message-ID: <4D706D10.4050809@linux.intel.com>
-Date: Thu, 03 Mar 2011 20:39:44 -0800
-From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.13) Gecko/20101208 Lightning/1.0b2 Thunderbird/3.1.7
+Return-Path: <raj.khem@gmail.com>
+Received: from mail-pv0-f176.google.com (mail-pv0-f176.google.com
+	[74.125.83.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id CE5664C800A3
+	for <poky@yoctoproject.org>; Thu,  3 Mar 2011 23:12:04 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by pvg6 with SMTP id 6so351102pvg.35
+	for <poky@yoctoproject.org>; Thu, 03 Mar 2011 21:12:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:message-id:date:from:user-agent:mime-version:to
+	:subject:references:in-reply-to:content-type
+	:content-transfer-encoding;
+	bh=shDxIU7K79PLfJLVxey3PZOX1NUmQmlSzfzVlznmJ1I=;
+	b=vfZSZagCcoUUZ/ho9qXxGCG98smTPpYKEkbSwvt1XFGgcwFuXep4899bu4sxlneCBb
+	lvxllwvhqIjyIqb0uzmZzlrhVuKAxmxTyQqPDSYoxV1UmjYT9Hba5EivHnxdF70R0E47
+	uaTK7qHoLvrYbnjGmPVHD0eGuI501BCHNTSUA=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=message-id:date:from:user-agent:mime-version:to:subject:references
+	:in-reply-to:content-type:content-transfer-encoding;
+	b=DrIpnIJEjMs8K+5loPNOwQBoLb9X15EDzIiNgk6gg49AYUZ/rOBX6y1Cf5Az5FaFYk
+	TlySYZdmoWaYWRaOMrGgwbuT0fJebKDOXY/pRKUSvna64iNz8pea0alnMeolM5V20Y6h
+	/PBDKeUl9+GDuWNhJHwsyFxpQzHyuPTDWJlI4=
+Received: by 10.142.180.15 with SMTP id c15mr234368wff.49.1299215524362;
+	Thu, 03 Mar 2011 21:12:04 -0800 (PST)
+Received: from [192.168.1.70] (99-57-141-118.lightspeed.sntcca.sbcglobal.net
+	[99.57.141.118])
+	by mx.google.com with ESMTPS id w32sm2432644wfh.7.2011.03.03.21.12.02
+	(version=SSLv3 cipher=OTHER); Thu, 03 Mar 2011 21:12:03 -0800 (PST)
+Message-ID: <4D70749F.4010207@gmail.com>
+Date: Thu, 03 Mar 2011 21:11:59 -0800
+From: Khem Raj <raj.khem@gmail.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US;
+	rv:1.9.2.13) Gecko/20101207 Thunderbird/3.1.7
 MIME-Version: 1.0
-To: Gary Thomas <gary@mlbassoc.com>
-References: <b9dded$i440ij@orsmga002.jf.intel.com>	<4D6FC6E0.3070303@mlbassoc.com>
-	<4D6FC8E4.3020400@mlbassoc.com>
-In-Reply-To: <4D6FC8E4.3020400@mlbassoc.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 1/2] module: build and clean hostprogs for each module
+To: poky@yoctoproject.org
+References: <cover.1299210292.git.ke.yu@intel.com>
+	<98727668717469ae0d90f6d8deb1f8bf224c36f6.1299210292.git.ke.yu@intel.com>
+In-Reply-To: <98727668717469ae0d90f6d8deb1f8bf224c36f6.1299210292.git.ke.yu@intel.com>
+Subject: Re: [PATCH 1/1] x11vnc: add big endian CFLAG for mips, to fix bug 782
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,68 +50,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 04 Mar 2011 04:40:18 -0000
+X-List-Received-Date: Fri, 04 Mar 2011 05:12:05 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 03/03/2011 08:59 AM, Gary Thomas wrote:
-> On 03/03/2011 09:50 AM, Gary Thomas wrote:
->> On 03/02/2011 11:00 AM, Darren Hart wrote:
->>> From: Darren Hart<dvhart@linux.intel.com>
->>>
->>> This fixes [BUGID #241]
->>>
->>> The kernel hostprogs are built for the host architecture. They should
->>> not
->>> be deployed with to the target, and they should not be included in an
->>> sstate
->>> package which might get reused on a host of a different architecture.
->>>
->>> As we don't build many out-of-tree modules, this patch takes the
->>> approach
->>> of building the hostprogs as part of the module compile process with a
->>> do_compile_prepend() routine in module.bbclass. To ensure the hostprogs
->>> don't contaminate the build, they are removed in do_install_append().
->>>
->>> Signed-off-by: Darren Hart<dvhart@linux.intel.com>
->>> CC: Gary Thomas<gary@mlbassoc.com>
->>
->> Sadly, this doesn't seem to work for me. I don't see any indication in
->> run.do_compile that the extra steps were added at all.
->>
->> Will it matter if my recipe overrides the do_compile() method?
->>
+On 3/3/2011 7:50 PM, Yu Ke wrote:
+> linux mips is big endian, so need "LIBVNCSERVER_WORDS_BIGENDIAN"
+> flag for mips compilling.
 >
-> Also, when you tested this, what was your target MACHINE (in particular,
-> was the target a different architecture than the build host?) I ask because
-> I tried to just manually insert the compile_prepend() functions into my
-> recipe and it ended up trying to build host tools (that's what the fuss
-> is all about) using the target toolchain.
+> this patch fix bug [YOCTO #782]
+>
+> Signed-off-by: Yu Ke<ke.yu@intel.com>
+> ---
+>   meta/recipes-graphics/x11vnc/x11vnc_0.9.12.bb |    1 +
+>   1 files changed, 1 insertions(+), 0 deletions(-)
+>
+> diff --git a/meta/recipes-graphics/x11vnc/x11vnc_0.9.12.bb b/meta/recipes-graphics/x11vnc/x11vnc_0.9.12.bb
+> index f5a6662..17e9593 100644
+> --- a/meta/recipes-graphics/x11vnc/x11vnc_0.9.12.bb
+> +++ b/meta/recipes-graphics/x11vnc/x11vnc_0.9.12.bb
+> @@ -17,3 +17,4 @@ SRC_URI[sha256sum] = "60a7cceee2c9a5f1c854340b2bae13f975ac55906237042f81f795b28a
+>
+>   inherit autotools
+>
+> +CFLAGS_mips += "-DLIBVNCSERVER_WORDS_BIGENDIAN"
 
-I made some modifications to avoid a Race that RP pointed out (just 
-removed the cleans from the module.bbclass since they weren't necessary 
-anyway). With this, I set my MACHINE to beagleboard and built minimal. 
-You can see from the following that hostprogs were build for the host 
-and the module for the target:
-
-dvhart@rage:build-beagleboard$ file 
-./tmp/work/beagleboard-poky-linux-gnueabi/linux-yocto-2.6.37+git1+e2737075b79e4fc682e41051cf1c0bc47a47d502_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/linux-beagleboard-standard-build/scripts/basic/fixdep
-./tmp/work/beagleboard-poky-linux-gnueabi/linux-yocto-2.6.37+git1+e2737075b79e4fc682e41051cf1c0bc47a47d502_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/linux-beagleboard-standard-build/scripts/basic/fixdep: 
-ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked 
-(uses shared libs), for GNU/Linux 2.6.15, not stripped
-
-dvhart@rage:build-beagleboard$ file 
-./tmp/work/beagleboard-poky-linux-gnueabi/hello-world-mod-1.0-r0/package/lib/modules/2.6.37.2-yocto-standard+/extra/hello_world.ko
-./tmp/work/beagleboard-poky-linux-gnueabi/hello-world-mod-1.0-r0/package/lib/modules/2.6.37.2-yocto-standard+/extra/hello_world.ko: 
-ELF 32-bit LSB relocatable, ARM, version 1 (SYSV), not stripped
-
-I'm going to do a beagleboard boot test, but if that works I'll be 
-resending these changes to close BUG 241 as they work on both qemux86 
-and beagleboard using hello-world-mod which uses a very typical 
-out-of-tree kernel module Make setup.
-
--- 
-Darren Hart
-Intel Open Source Technology Center
-Yocto Project - Linux Kernel
+I see that this package uses autconf macro AC_C_BIGENDIAN
+to assert endianness. I would interested to know why this test does not 
+work.
 
