@@ -1,22 +1,42 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A5EF84C80A71
-	for <poky@yoctoproject.org>; Thu,  3 Mar 2011 23:23:09 -0600 (CST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 03 Mar 2011 21:23:09 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,262,1297065600"; d="scan'208";a="608949003"
-Received: from unknown (HELO localhost) ([10.255.12.133])
-	by orsmga002.jf.intel.com with ESMTP; 03 Mar 2011 21:22:37 -0800
-Message-Id: <8b67adff0bd10ed4355775fa960a4c0e2e44db27.1299216097.git.dvhart@linux.intel.com>
-In-Reply-To: <cover.1299216097.git.dvhart@linux.intel.com>
-References: <cover.1299216097.git.dvhart@linux.intel.com>
-Old-Date: Tue, 1 Mar 2011 14:18:32 -0800
-Date: Thu, 03 Mar 2011 21:22:37 -0800
-To: poky@yoctoproject.org
-From: Darren Hart <dvhart@linux.intel.com>
-Cc: Darren Hart <dvhart@linux.intel.com>
-Subject: [PATCH 2/2] hello-mod: add a module for testing module.bbclass
+Return-Path: <vsailub4u@gmail.com>
+Received: from mail-pv0-f176.google.com (mail-pv0-f176.google.com
+	[74.125.83.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 592E34C800A3
+	for <poky@yoctoproject.org>; Thu,  3 Mar 2011 23:38:35 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by pvg6 with SMTP id 6so354168pvg.35
+	for <poky@yoctoproject.org>; Thu, 03 Mar 2011 21:38:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:in-reply-to:references:date
+	:message-id:subject:from:to:content-type;
+	bh=cXX+FSaGMlRbzmWAhT0XbYTxmDyGMt75Msg+Rxbzt98=;
+	b=DuwbSMnQZoOUZBVki2hMkNIF2K4v0CKTJcBF6fJwm3/RF3RVe+PEcKa7iZD0o7mZ+n
+	EHqtWe9SXdmx6ejWN59Fuiv0geru4dnwYs3Tzcf6nMCxFse1EjEq6nC84T/VDrsNHl4V
+	S/Zw5erbOZzW7OcRqo0HDqHt1X7MuxrpUlTFk=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:content-type;
+	b=RmhbOqUKKSMAHSG4AXIZjdF6+BOOFy3MCTTiRh0NQ37rjMqEI/GCVyiPmt7cY8PsmP
+	womz52flRaq/KE7WmajVat8MZJEirExicXV4xvEg6wCJFNOqG51cNKAILAq92E0TKWXM
+	cC0OZOAIRzdAQxEBlXH64cEfkyI8yImP6mYTE=
+MIME-Version: 1.0
+Received: by 10.142.201.17 with SMTP id y17mr212150wff.335.1299217114394; Thu,
+	03 Mar 2011 21:38:34 -0800 (PST)
+Received: by 10.142.127.4 with HTTP; Thu, 3 Mar 2011 21:38:34 -0800 (PST)
+In-Reply-To: <4D6E56EB.1030805@windriver.com>
+References: <AANLkTi=CVPBSLQ_8345OrL_YKde=Mf3bqrxRZru75vSR@mail.gmail.com>
+	<C10D3FB0CD45994C8A51FEC1227CE22F216C10FCA3@shsmsx502.ccr.corp.intel.com>
+	<AANLkTikfVT=RbM7EdTE2Ua4OeX8x-+dNff8Owk1Gvipb@mail.gmail.com>
+	<1299066337.26736.10252.camel@rex>
+	<AANLkTin8ceb5+qQc=_NK-wGMG8uEMQSw3M636LDw32cx@mail.gmail.com>
+	<4D6E56EB.1030805@windriver.com>
+Date: Fri, 4 Mar 2011 11:08:34 +0530
+Message-ID: <AANLkTinie6zPEtXgaRAj31XEOmPYdiiA909oPvorGVAB@mail.gmail.com>
+From: v sailaja <vsailub4u@gmail.com>
+To: Mark Hatle <mark.hatle@windriver.com>, poky@yoctoproject.org
+Subject: Re: got error while trying to pull the krb5 package into poky
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,459 +48,250 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 04 Mar 2011 05:23:10 -0000
+X-List-Received-Date: Fri, 04 Mar 2011 05:38:35 -0000
+Content-Type: multipart/alternative; boundary=000e0cd32e5696f2fc049da18e6d
 
-From: Darren Hart <dvhart@linux.intel.com>
+--000e0cd32e5696f2fc049da18e6d
+Content-Type: text/plain; charset=ISO-8859-1
 
-The following patch creates a hello-mod recipe for building a trivial
-out-of-tree kernel module, hello-mod.ko. This demonstrates the hostprogs
-build modifications added to module.bbclass. When loaded and unloaded,
-the module prints a simple string to the console to demonstrate it was
-compiled correctly.
-
-Tested on qemux86 poky-image-sato and beagleboard poky-image-minimal
-(after adding hello-mod to the images).
-
-Signed-off-by: Darren Hart <dvhart@linux.intel.com>
-CC: Gary Thomas <gary@mlbassoc.com>
----
- meta/recipes-kernel/hello-mod/files/COPYING    |  340 ++++++++++++++++++++++++
- meta/recipes-kernel/hello-mod/files/Makefile   |   14 +
- meta/recipes-kernel/hello-mod/files/hello.c    |   33 +++
- meta/recipes-kernel/hello-mod/hello-mod_0.1.bb |   15 +
- 4 files changed, 402 insertions(+), 0 deletions(-)
- create mode 100644 meta/recipes-kernel/hello-mod/files/COPYING
- create mode 100644 meta/recipes-kernel/hello-mod/files/Makefile
- create mode 100644 meta/recipes-kernel/hello-mod/files/hello.c
- create mode 100644 meta/recipes-kernel/hello-mod/hello-mod_0.1.bb
-
-diff --git a/meta/recipes-kernel/hello-mod/files/COPYING b/meta/recipes-kernel/hello-mod/files/COPYING
-new file mode 100644
-index 0000000..6d45519
---- /dev/null
-+++ b/meta/recipes-kernel/hello-mod/files/COPYING
-@@ -0,0 +1,340 @@
-+		    GNU GENERAL PUBLIC LICENSE
-+		       Version 2, June 1991
-+
-+ Copyright (C) 1989, 1991 Free Software Foundation, Inc.
-+                       51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-+ Everyone is permitted to copy and distribute verbatim copies
-+ of this license document, but changing it is not allowed.
-+
-+			    Preamble
-+
-+  The licenses for most software are designed to take away your
-+freedom to share and change it.  By contrast, the GNU General Public
-+License is intended to guarantee your freedom to share and change free
-+software--to make sure the software is free for all its users.  This
-+General Public License applies to most of the Free Software
-+Foundation's software and to any other program whose authors commit to
-+using it.  (Some other Free Software Foundation software is covered by
-+the GNU Library General Public License instead.)  You can apply it to
-+your programs, too.
-+
-+  When we speak of free software, we are referring to freedom, not
-+price.  Our General Public Licenses are designed to make sure that you
-+have the freedom to distribute copies of free software (and charge for
-+this service if you wish), that you receive source code or can get it
-+if you want it, that you can change the software or use pieces of it
-+in new free programs; and that you know you can do these things.
-+
-+  To protect your rights, we need to make restrictions that forbid
-+anyone to deny you these rights or to ask you to surrender the rights.
-+These restrictions translate to certain responsibilities for you if you
-+distribute copies of the software, or if you modify it.
-+
-+  For example, if you distribute copies of such a program, whether
-+gratis or for a fee, you must give the recipients all the rights that
-+you have.  You must make sure that they, too, receive or can get the
-+source code.  And you must show them these terms so they know their
-+rights.
-+
-+  We protect your rights with two steps: (1) copyright the software, and
-+(2) offer you this license which gives you legal permission to copy,
-+distribute and/or modify the software.
-+
-+  Also, for each author's protection and ours, we want to make certain
-+that everyone understands that there is no warranty for this free
-+software.  If the software is modified by someone else and passed on, we
-+want its recipients to know that what they have is not the original, so
-+that any problems introduced by others will not reflect on the original
-+authors' reputations.
-+
-+  Finally, any free program is threatened constantly by software
-+patents.  We wish to avoid the danger that redistributors of a free
-+program will individually obtain patent licenses, in effect making the
-+program proprietary.  To prevent this, we have made it clear that any
-+patent must be licensed for everyone's free use or not licensed at all.
-+
-+  The precise terms and conditions for copying, distribution and
-+modification follow.
-+
-+		    GNU GENERAL PUBLIC LICENSE
-+   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
-+
-+  0. This License applies to any program or other work which contains
-+a notice placed by the copyright holder saying it may be distributed
-+under the terms of this General Public License.  The "Program", below,
-+refers to any such program or work, and a "work based on the Program"
-+means either the Program or any derivative work under copyright law:
-+that is to say, a work containing the Program or a portion of it,
-+either verbatim or with modifications and/or translated into another
-+language.  (Hereinafter, translation is included without limitation in
-+the term "modification".)  Each licensee is addressed as "you".
-+
-+Activities other than copying, distribution and modification are not
-+covered by this License; they are outside its scope.  The act of
-+running the Program is not restricted, and the output from the Program
-+is covered only if its contents constitute a work based on the
-+Program (independent of having been made by running the Program).
-+Whether that is true depends on what the Program does.
-+
-+  1. You may copy and distribute verbatim copies of the Program's
-+source code as you receive it, in any medium, provided that you
-+conspicuously and appropriately publish on each copy an appropriate
-+copyright notice and disclaimer of warranty; keep intact all the
-+notices that refer to this License and to the absence of any warranty;
-+and give any other recipients of the Program a copy of this License
-+along with the Program.
-+
-+You may charge a fee for the physical act of transferring a copy, and
-+you may at your option offer warranty protection in exchange for a fee.
-+
-+  2. You may modify your copy or copies of the Program or any portion
-+of it, thus forming a work based on the Program, and copy and
-+distribute such modifications or work under the terms of Section 1
-+above, provided that you also meet all of these conditions:
-+
-+    a) You must cause the modified files to carry prominent notices
-+    stating that you changed the files and the date of any change.
-+
-+    b) You must cause any work that you distribute or publish, that in
-+    whole or in part contains or is derived from the Program or any
-+    part thereof, to be licensed as a whole at no charge to all third
-+    parties under the terms of this License.
-+
-+    c) If the modified program normally reads commands interactively
-+    when run, you must cause it, when started running for such
-+    interactive use in the most ordinary way, to print or display an
-+    announcement including an appropriate copyright notice and a
-+    notice that there is no warranty (or else, saying that you provide
-+    a warranty) and that users may redistribute the program under
-+    these conditions, and telling the user how to view a copy of this
-+    License.  (Exception: if the Program itself is interactive but
-+    does not normally print such an announcement, your work based on
-+    the Program is not required to print an announcement.)
-+
-+These requirements apply to the modified work as a whole.  If
-+identifiable sections of that work are not derived from the Program,
-+and can be reasonably considered independent and separate works in
-+themselves, then this License, and its terms, do not apply to those
-+sections when you distribute them as separate works.  But when you
-+distribute the same sections as part of a whole which is a work based
-+on the Program, the distribution of the whole must be on the terms of
-+this License, whose permissions for other licensees extend to the
-+entire whole, and thus to each and every part regardless of who wrote it.
-+
-+Thus, it is not the intent of this section to claim rights or contest
-+your rights to work written entirely by you; rather, the intent is to
-+exercise the right to control the distribution of derivative or
-+collective works based on the Program.
-+
-+In addition, mere aggregation of another work not based on the Program
-+with the Program (or with a work based on the Program) on a volume of
-+a storage or distribution medium does not bring the other work under
-+the scope of this License.
-+
-+  3. You may copy and distribute the Program (or a work based on it,
-+under Section 2) in object code or executable form under the terms of
-+Sections 1 and 2 above provided that you also do one of the following:
-+
-+    a) Accompany it with the complete corresponding machine-readable
-+    source code, which must be distributed under the terms of Sections
-+    1 and 2 above on a medium customarily used for software interchange; or,
-+
-+    b) Accompany it with a written offer, valid for at least three
-+    years, to give any third party, for a charge no more than your
-+    cost of physically performing source distribution, a complete
-+    machine-readable copy of the corresponding source code, to be
-+    distributed under the terms of Sections 1 and 2 above on a medium
-+    customarily used for software interchange; or,
-+
-+    c) Accompany it with the information you received as to the offer
-+    to distribute corresponding source code.  (This alternative is
-+    allowed only for noncommercial distribution and only if you
-+    received the program in object code or executable form with such
-+    an offer, in accord with Subsection b above.)
-+
-+The source code for a work means the preferred form of the work for
-+making modifications to it.  For an executable work, complete source
-+code means all the source code for all modules it contains, plus any
-+associated interface definition files, plus the scripts used to
-+control compilation and installation of the executable.  However, as a
-+special exception, the source code distributed need not include
-+anything that is normally distributed (in either source or binary
-+form) with the major components (compiler, kernel, and so on) of the
-+operating system on which the executable runs, unless that component
-+itself accompanies the executable.
-+
-+If distribution of executable or object code is made by offering
-+access to copy from a designated place, then offering equivalent
-+access to copy the source code from the same place counts as
-+distribution of the source code, even though third parties are not
-+compelled to copy the source along with the object code.
-+
-+  4. You may not copy, modify, sublicense, or distribute the Program
-+except as expressly provided under this License.  Any attempt
-+otherwise to copy, modify, sublicense or distribute the Program is
-+void, and will automatically terminate your rights under this License.
-+However, parties who have received copies, or rights, from you under
-+this License will not have their licenses terminated so long as such
-+parties remain in full compliance.
-+
-+  5. You are not required to accept this License, since you have not
-+signed it.  However, nothing else grants you permission to modify or
-+distribute the Program or its derivative works.  These actions are
-+prohibited by law if you do not accept this License.  Therefore, by
-+modifying or distributing the Program (or any work based on the
-+Program), you indicate your acceptance of this License to do so, and
-+all its terms and conditions for copying, distributing or modifying
-+the Program or works based on it.
-+
-+  6. Each time you redistribute the Program (or any work based on the
-+Program), the recipient automatically receives a license from the
-+original licensor to copy, distribute or modify the Program subject to
-+these terms and conditions.  You may not impose any further
-+restrictions on the recipients' exercise of the rights granted herein.
-+You are not responsible for enforcing compliance by third parties to
-+this License.
-+
-+  7. If, as a consequence of a court judgment or allegation of patent
-+infringement or for any other reason (not limited to patent issues),
-+conditions are imposed on you (whether by court order, agreement or
-+otherwise) that contradict the conditions of this License, they do not
-+excuse you from the conditions of this License.  If you cannot
-+distribute so as to satisfy simultaneously your obligations under this
-+License and any other pertinent obligations, then as a consequence you
-+may not distribute the Program at all.  For example, if a patent
-+license would not permit royalty-free redistribution of the Program by
-+all those who receive copies directly or indirectly through you, then
-+the only way you could satisfy both it and this License would be to
-+refrain entirely from distribution of the Program.
-+
-+If any portion of this section is held invalid or unenforceable under
-+any particular circumstance, the balance of the section is intended to
-+apply and the section as a whole is intended to apply in other
-+circumstances.
-+
-+It is not the purpose of this section to induce you to infringe any
-+patents or other property right claims or to contest validity of any
-+such claims; this section has the sole purpose of protecting the
-+integrity of the free software distribution system, which is
-+implemented by public license practices.  Many people have made
-+generous contributions to the wide range of software distributed
-+through that system in reliance on consistent application of that
-+system; it is up to the author/donor to decide if he or she is willing
-+to distribute software through any other system and a licensee cannot
-+impose that choice.
-+
-+This section is intended to make thoroughly clear what is believed to
-+be a consequence of the rest of this License.
-+
-+  8. If the distribution and/or use of the Program is restricted in
-+certain countries either by patents or by copyrighted interfaces, the
-+original copyright holder who places the Program under this License
-+may add an explicit geographical distribution limitation excluding
-+those countries, so that distribution is permitted only in or among
-+countries not thus excluded.  In such case, this License incorporates
-+the limitation as if written in the body of this License.
-+
-+  9. The Free Software Foundation may publish revised and/or new versions
-+of the General Public License from time to time.  Such new versions will
-+be similar in spirit to the present version, but may differ in detail to
-+address new problems or concerns.
-+
-+Each version is given a distinguishing version number.  If the Program
-+specifies a version number of this License which applies to it and "any
-+later version", you have the option of following the terms and conditions
-+either of that version or of any later version published by the Free
-+Software Foundation.  If the Program does not specify a version number of
-+this License, you may choose any version ever published by the Free Software
-+Foundation.
-+
-+  10. If you wish to incorporate parts of the Program into other free
-+programs whose distribution conditions are different, write to the author
-+to ask for permission.  For software which is copyrighted by the Free
-+Software Foundation, write to the Free Software Foundation; we sometimes
-+make exceptions for this.  Our decision will be guided by the two goals
-+of preserving the free status of all derivatives of our free software and
-+of promoting the sharing and reuse of software generally.
-+
-+			    NO WARRANTY
-+
-+  11. BECAUSE THE PROGRAM IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY
-+FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW.  EXCEPT WHEN
-+OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES
-+PROVIDE THE PROGRAM "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED
-+OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
-+MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.  THE ENTIRE RISK AS
-+TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU.  SHOULD THE
-+PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING,
-+REPAIR OR CORRECTION.
-+
-+  12. IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING
-+WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR
-+REDISTRIBUTE THE PROGRAM AS PERMITTED ABOVE, BE LIABLE TO YOU FOR DAMAGES,
-+INCLUDING ANY GENERAL, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING
-+OUT OF THE USE OR INABILITY TO USE THE PROGRAM (INCLUDING BUT NOT LIMITED
-+TO LOSS OF DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY
-+YOU OR THIRD PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER
-+PROGRAMS), EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE
-+POSSIBILITY OF SUCH DAMAGES.
-+
-+		     END OF TERMS AND CONDITIONS
-+
-+	    How to Apply These Terms to Your New Programs
-+
-+  If you develop a new program, and you want it to be of the greatest
-+possible use to the public, the best way to achieve this is to make it
-+free software which everyone can redistribute and change under these terms.
-+
-+  To do so, attach the following notices to the program.  It is safest
-+to attach them to the start of each source file to most effectively
-+convey the exclusion of warranty; and each file should have at least
-+the "copyright" line and a pointer to where the full notice is found.
-+
-+    <one line to give the program's name and a brief idea of what it does.>
-+    Copyright (C) <year>  <name of author>
-+
-+    This program is free software; you can redistribute it and/or modify
-+    it under the terms of the GNU General Public License as published by
-+    the Free Software Foundation; either version 2 of the License, or
-+    (at your option) any later version.
-+
-+    This program is distributed in the hope that it will be useful,
-+    but WITHOUT ANY WARRANTY; without even the implied warranty of
-+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-+    GNU General Public License for more details.
-+
-+    You should have received a copy of the GNU General Public License
-+    along with this program; if not, write to the Free Software
-+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-+
-+
-+Also add information on how to contact you by electronic and paper mail.
-+
-+If the program is interactive, make it output a short notice like this
-+when it starts in an interactive mode:
-+
-+    Gnomovision version 69, Copyright (C) year name of author
-+    Gnomovision comes with ABSOLUTELY NO WARRANTY; for details type `show w'.
-+    This is free software, and you are welcome to redistribute it
-+    under certain conditions; type `show c' for details.
-+
-+The hypothetical commands `show w' and `show c' should show the appropriate
-+parts of the General Public License.  Of course, the commands you use may
-+be called something other than `show w' and `show c'; they could even be
-+mouse-clicks or menu items--whatever suits your program.
-+
-+You should also get your employer (if you work as a programmer) or your
-+school, if any, to sign a "copyright disclaimer" for the program, if
-+necessary.  Here is a sample; alter the names:
-+
-+  Yoyodyne, Inc., hereby disclaims all copyright interest in the program
-+  `Gnomovision' (which makes passes at compilers) written by James Hacker.
-+
-+  <signature of Ty Coon>, 1 April 1989
-+  Ty Coon, President of Vice
-+
-+This General Public License does not permit incorporating your program into
-+proprietary programs.  If your program is a subroutine library, you may
-+consider it more useful to permit linking proprietary applications with the
-+library.  If this is what you want to do, use the GNU Library General
-+Public License instead of this License.
-diff --git a/meta/recipes-kernel/hello-mod/files/Makefile b/meta/recipes-kernel/hello-mod/files/Makefile
-new file mode 100644
-index 0000000..4ded35f
---- /dev/null
-+++ b/meta/recipes-kernel/hello-mod/files/Makefile
-@@ -0,0 +1,14 @@
-+obj-m := hello.o
-+
-+SRC := $(shell pwd)
-+
-+all:
-+	$(MAKE) -C $(KERNEL_SRC) M=$(SRC)
-+
-+modules_install:
-+	$(MAKE) -C $(KERNEL_SRC) M=$(SRC) modules_install
-+
-+clean:
-+	rm -f *.o *~ core .depend .*.cmd *.ko *.mod.c
-+	rm -f Module.markers Module.symvers modules.order
-+	rm -rf .tmp_versions Modules.symvers
-diff --git a/meta/recipes-kernel/hello-mod/files/hello.c b/meta/recipes-kernel/hello-mod/files/hello.c
-new file mode 100644
-index 0000000..f3c0d37
---- /dev/null
-+++ b/meta/recipes-kernel/hello-mod/files/hello.c
-@@ -0,0 +1,33 @@
-+/******************************************************************************
-+ *
-+ *   Copyright (C) 2011  Intel Corporation. All rights reserved.
-+ *
-+ *   This program is free software;  you can redistribute it and/or modify
-+ *   it under the terms of the GNU General Public License as published by
-+ *   the Free Software Foundation; version 2 of the License.
-+ *
-+ *   This program is distributed in the hope that it will be useful,
-+ *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
-+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
-+ *   the GNU General Public License for more details.
-+ *
-+ *   You should have received a copy of the GNU General Public License
-+ *   along with this program;  if not, write to the Free Software
-+ *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-+ *
-+ *****************************************************************************/
-+
-+#include <linux/module.h>
-+
-+int init_module(void)
-+{
-+	printk("Hello World!\n");
-+	return 0;
-+}
-+
-+void cleanup_module(void)
-+{
-+	printk("Goodbye Cruel World!\n");
-+}
-+
-+MODULE_LICENSE("GPL");
-diff --git a/meta/recipes-kernel/hello-mod/hello-mod_0.1.bb b/meta/recipes-kernel/hello-mod/hello-mod_0.1.bb
-new file mode 100644
-index 0000000..bbd4984
---- /dev/null
-+++ b/meta/recipes-kernel/hello-mod/hello-mod_0.1.bb
-@@ -0,0 +1,15 @@
-+DESCRIPTION = "hello-world-mod tests the module.bbclass mechanism."
-+LICENSE = "GPLv2"
-+LIC_FILES_CHKSUM = "file://COPYING;md5=12f884d2ae1ff87c09e5b7ccc2c4ca7e"
-+
-+inherit module
-+
-+PR = r0
-+PV = "0.1"
-+
-+SRC_URI = "file://Makefile \
-+           file://hello.c \
-+           file://COPYING \
-+          "
-+
-+S = "${WORKDIR}"
--- 
-1.7.1
+Hi  Hatle,
 
 
+I need to pull krb5 into poky. But *Krb5 rpm is not created* at the build
+time.
+its as stated below:
+
+*Not creating empty RPM package for krb5.*
+
+so that the rpm was not creating for krb5.
+Please tell me what are the dependencies and How to resolve this problem. I
+need to pull it into poky.
+Your explanation gave me an idea on krb5.
+
+
+
+Thanks & Regards,
+SAI
+
+
+
+
+
+
+> > Hi,
+> >
+> > I came to know with other contacts, building poky with its own krb5
+> package,
+> > there were no issues.
+> > But if we copied that krb5 package from openembedded, it showed the
+> errors.
+> > Please tell me Why is it so happening?
+> > Please help me  and fixing the problem
+>
+> AFAIK, Poky doesn't have a krb5 recipe of it's own.
+>
+> Before you dig into the krb5 package, why are you adding krb5 support to
+> your
+> device?  Is there a specific reason or did it just show up as a dependency
+> for
+> something?  (Many times on the desktop, krb5 is provided by default and
+> gets
+> linked into all sorts of things..  but in an embedded environment it's
+> rarely
+> used as there is no reason to coordinate with a kerberos server on user
+> identity.  If you decide kerberos support is NOT needed, figure out where
+> the
+> krb5 dependency is coming from and figure out if you can remove it from the
+> package and/or recipe.)
+>
+> (But if you do need krb5...) If you import it from OpenEmbedded, something
+> is
+> either wrong with the krb5 recipe -- not populating the base "krb5" package
+> --
+> or something is wrong with the software that is requiring krb5.
+>
+> The first thing to do is look at the krb5 package and see if any of the
+> software
+> it has built belongs in a base krb5 package and isn't being properly
+> installed.... fix the do_install rule to install the missing components...
+>
+> if there is no software to install into a krb5 package -- then it appears
+> to me
+> whatever is attempting to require the run-time dependency of "krb5" is
+> broken.
+> You should find the recipe that has the RDEPENDS and remove it -- or change
+> the
+> dependency to something more appropriate such a the krb5-libs.  (Note:
+>  most of
+> the time there is no reason to manually state a RDEPENDS on a -libs
+> package,
+> because the system figured out run-time library dependencies automatically
+> --
+> only library usages where you can't automatically detect things need
+> RDEPENDS,
+> this is usually the case when things are dlopened.)
+>
+> --Mark
+>
+> > Thanks & Regards,
+> > Sai
+> >
+> >
+> >
+> >     On Wed, 2011-03-02 at 17:05 +0530, v sailaja wrote:
+> >     > Hi Lianhao,
+> >     >
+> >     > There are krb5-dev-1.6.3-r6.core2.rpm and
+> krb5-dbg-1.6.3-r6.core2.rpm
+> >     > in
+> >
+>  /home/sailaja/poky-chrome/build/tmp/work/core2-poky-linux/krb5-1.6.3-r6/deploy-rpms.
+> >     > But  there is no specific rpm on krb5 like  krb5-1.6.3-r6.rpm.
+> >     >
+> >     > Again its showing an error as follows:
+> >
+> >     This probably means the contents of the krb5 package was empty and it
+> >     didn't build the package.
+> >
+> >     > I am facing the same problem with some more packages like xcb-proto
+> >
+> >     The contents of xcb-proto *is* empty since its just development
+> headers
+> >     and they end up in the xcb-proto-dev package.
+> >
+> >     Cheers,
+> >
+> >     Richard
+> >
+> >
+> >
+> >
+> >
+> > _______________________________________________
+> > poky mailing list
+> > poky@yoctoproject.org
+> > https://lists.yoctoproject.org/listinfo/poky
+>
+>
+
+--000e0cd32e5696f2fc049da18e6d
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
+
+Hi=A0 Hatle,<br><br><br>I need to pull krb5 into poky. But <b>Krb5 rpm is n=
+ot created</b> at the build time.<br>its as stated below:<br><br><b>Not cre=
+ating empty RPM package for krb5.</b><br><br>so that the rpm was not creati=
+ng for krb5.<br>
+Please tell me what are the dependencies and How to resolve this problem. I=
+ need to pull it into poky.<br>Your explanation gave me an idea on krb5.<br=
+><br><br><br>Thanks &amp; Regards,<br>SAI<br><br><br><br><div class=3D"gmai=
+l_quote">
+<div><br>=A0</div><blockquote class=3D"gmail_quote" style=3D"margin: 0pt 0p=
+t 0pt 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;"=
+><div>
+&gt; Hi,<br>
+&gt;<br>
+&gt; I came to know with other contacts, building poky with its own krb5 pa=
+ckage,<br>
+&gt; there were no issues.<br>
+&gt; But if we copied that krb5 package from openembedded, it showed the er=
+rors.<br>
+&gt; Please tell me Why is it so happening?<br>
+&gt; Please help me =A0and fixing the problem<br>
+<br>
+</div>AFAIK, Poky doesn&#39;t have a krb5 recipe of it&#39;s own.<br>
+<br>
+Before you dig into the krb5 package, why are you adding krb5 support to yo=
+ur<br>
+device? =A0Is there a specific reason or did it just show up as a dependenc=
+y for<br>
+something? =A0(Many times on the desktop, krb5 is provided by default and g=
+ets<br>
+linked into all sorts of things.. =A0but in an embedded environment it&#39;=
+s rarely<br>
+used as there is no reason to coordinate with a kerberos server on user<br>
+identity. =A0If you decide kerberos support is NOT needed, figure out where=
+ the<br>
+krb5 dependency is coming from and figure out if you can remove it from the=
+<br>
+package and/or recipe.)<br>
+<br>
+(But if you do need krb5...) If you import it from OpenEmbedded, something =
+is<br>
+either wrong with the krb5 recipe -- not populating the base &quot;krb5&quo=
+t; package --<br>
+or something is wrong with the software that is requiring krb5.<br>
+<br>
+The first thing to do is look at the krb5 package and see if any of the sof=
+tware<br>
+it has built belongs in a base krb5 package and isn&#39;t being properly<br=
+>
+installed.... fix the do_install rule to install the missing components...<=
+br>
+<br>
+if there is no software to install into a krb5 package -- then it appears t=
+o me<br>
+whatever is attempting to require the run-time dependency of &quot;krb5&quo=
+t; is broken.<br>
+You should find the recipe that has the RDEPENDS and remove it -- or change=
+ the<br>
+dependency to something more appropriate such a the krb5-libs. =A0(Note: =
+=A0most of<br>
+the time there is no reason to manually state a RDEPENDS on a -libs package=
+,<br>
+because the system figured out run-time library dependencies automatically =
+--<br>
+only library usages where you can&#39;t automatically detect things need RD=
+EPENDS,<br>
+this is usually the case when things are dlopened.)<br>
+<font color=3D"#888888"><br>
+--Mark<br>
+</font><div><br>
+&gt; Thanks &amp; Regards,<br>
+&gt; Sai<br>
+&gt;<br>
+&gt;<br>
+&gt;<br>
+&gt; =A0 =A0 On Wed, 2011-03-02 at 17:05 +0530, v sailaja wrote:<br>
+&gt; =A0 =A0 &gt; Hi Lianhao,<br>
+&gt; =A0 =A0 &gt;<br>
+&gt; =A0 =A0 &gt; There are krb5-dev-1.6.3-r6.core2.rpm and krb5-dbg-1.6.3-=
+r6.core2.rpm<br>
+&gt; =A0 =A0 &gt; in<br>
+&gt; =A0 =A0 =A0/home/sailaja/poky-chrome/build/tmp/work/core2-poky-linux/k=
+rb5-1.6.3-r6/deploy-rpms.<br>
+&gt; =A0 =A0 &gt; But =A0there is no specific rpm on krb5 like =A0krb5-1.6.=
+3-r6.rpm.<br>
+&gt; =A0 =A0 &gt;<br>
+&gt; =A0 =A0 &gt; Again its showing an error as follows:<br>
+&gt;<br>
+&gt; =A0 =A0 This probably means the contents of the krb5 package was empty=
+ and it<br>
+&gt; =A0 =A0 didn&#39;t build the package.<br>
+&gt;<br>
+&gt; =A0 =A0 &gt; I am facing the same problem with some more packages like=
+ xcb-proto<br>
+&gt;<br>
+&gt; =A0 =A0 The contents of xcb-proto *is* empty since its just developmen=
+t headers<br>
+&gt; =A0 =A0 and they end up in the xcb-proto-dev package.<br>
+&gt;<br>
+&gt; =A0 =A0 Cheers,<br>
+&gt;<br>
+&gt; =A0 =A0 Richard<br>
+&gt;<br>
+&gt;<br>
+&gt;<br>
+&gt;<br>
+&gt;<br>
+</div><div><div></div><div>&gt; ___________________________________________=
+____<br>
+&gt; poky mailing list<br>
+&gt; <a href=3D"mailto:poky@yoctoproject.org" target=3D"_blank">poky@yoctop=
+roject.org</a><br>
+&gt; <a href=3D"https://lists.yoctoproject.org/listinfo/poky" target=3D"_bl=
+ank">https://lists.yoctoproject.org/listinfo/poky</a><br>
+<br>
+</div></div></blockquote></div><br>
+
+--000e0cd32e5696f2fc049da18e6d--
