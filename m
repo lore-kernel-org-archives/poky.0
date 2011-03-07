@@ -1,22 +1,22 @@
-Return-Path: <liping.ke@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 806244C80581
-	for <poky@yoctoproject.org>; Mon,  7 Mar 2011 00:23:06 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 06 Mar 2011 22:23:04 -0800
+Return-Path: <dongxiao.xu@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 839594C800A7
+	for <poky@yoctoproject.org>; Mon,  7 Mar 2011 02:00:57 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 07 Mar 2011 00:00:50 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,275,1297065600"; d="scan'208";a="717042496"
-Received: from lke-nhm.sh.intel.com (HELO localhost) ([10.239.36.48])
-	by orsmga001.jf.intel.com with ESMTP; 06 Mar 2011 22:22:59 -0800
-Message-Id: <16f2153b0710caccdb68aad83b839f93bcf1e4cd.1299478629.git.liping.ke@intel.com>
-In-Reply-To: <cover.1299478629.git.liping.ke@intel.com>
-References: <cover.1299478629.git.liping.ke@intel.com>
-Old-Date: Mon, 7 Mar 2011 13:10:42 +0800
-Date: Mon, 07 Mar 2011 14:21:34 +0800
+X-IronPort-AV: E=Sophos;i="4.62,276,1297065600"; d="scan'208";a="664544584"
+Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.64])
+	by fmsmga002.fm.intel.com with ESMTP; 07 Mar 2011 00:00:34 -0800
+Message-Id: <11d60c5b1494c8c796d5e5020bcbb1285c769a73.1299254646.git.dongxiao.xu@intel.com>
+In-Reply-To: <cover.1299254646.git.dongxiao.xu@intel.com>
+References: <cover.1299254646.git.dongxiao.xu@intel.com>
+Old-Date: Sat, 5 Mar 2011 00:02:14 +0800
+Date: Mon, 07 Mar 2011 16:00:24 +0800
 To: poky@yoctoproject.org
 CC: 
-From: Liping Ke <liping.ke@intel.com>
-Subject: [PATCH 1/1] adt: Update to svn r596 to fix symbolic link issues
+From: Dongxiao Xu <dongxiao.xu@intel.com>
+Subject: [PATCH 1/1] connman: add xuser to the dbus permission list
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,80 +28,71 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 07 Mar 2011 06:23:06 -0000
+X-List-Received-Date: Mon, 07 Mar 2011 08:00:57 -0000
 
-From: Liping Ke <liping.ke@intel.com>
+From: Dongxiao Xu <dongxiao.xu@intel.com>
 
-See the longlinksfix patch for details but symlinks over 100 chars long
-were broken in sdk tarballs and its due to problems in the inbuilt tar in
-libbb in opkg. svn r596 has already fixed the problem.
+Some platform (like atom-pc) enables rootless X,
+thus the connman frontend run on it need the
+permission to connect with connman by dbus.
+This commit grants permission to xuser.
 
-Signed-off-by: Liping Ke <liping.ke@intel.com>
+This fixes [BUGID #779]
+
+Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
 ---
- .../conf/distro/include/poky-default-revisions.inc |    1 +
- .../installer/adt-installer/adt_installer          |    2 +-
- .../installer/adt-installer_1.0.bb                 |    8 ++++----
- 3 files changed, 6 insertions(+), 5 deletions(-)
+ .../connman-0.65/add_xuser_dbus_permission.patch   |   21 ++++++++++++++++++++
+ meta/recipes-connectivity/connman/connman_0.65.bb  |    3 +-
+ 2 files changed, 23 insertions(+), 1 deletions(-)
+ create mode 100644 meta/recipes-connectivity/connman/connman-0.65/add_xuser_dbus_permission.patch
 
-diff --git a/meta/conf/distro/include/poky-default-revisions.inc b/meta/conf/distro/include/poky-default-revisions.inc
-index 2f33630..0f8433b 100644
---- a/meta/conf/distro/include/poky-default-revisions.inc
-+++ b/meta/conf/distro/include/poky-default-revisions.inc
-@@ -140,6 +140,7 @@ OPKGSRCREV = "596"
- SRCREV_pn-opkg ??= "${OPKGSRCREV}"
- SRCREV_pn-opkg-native ??= "${OPKGSRCREV}"
- SRCREV_pn-opkg-nativesdk ??= "${OPKGSRCREV}"
-+SRCREV_pn-adt-installer ??= "${OPKGSRCREV}"
- SRCREV_pn-opkg-nogpg ??= "${OPKGSRCREV}"
- SRCREV_pn-opkg-nogpg-native ??= "${OPKGSRCREV}"
- SRCREV_pn-opkg-nogpg-nativesdk ??= "${OPKGSRCREV}"
-diff --git a/meta/recipes-devtools/installer/adt-installer/adt_installer b/meta/recipes-devtools/installer/adt-installer/adt_installer
-index 2448d2b..b1b4970 100755
---- a/meta/recipes-devtools/installer/adt-installer/adt_installer
-+++ b/meta/recipes-devtools/installer/adt-installer/adt_installer
-@@ -170,7 +170,7 @@ if [ ! -x "$LOCAL_OPKG_LOC/bin/opkg-cl" ]; then
-   check_result
+diff --git a/meta/recipes-connectivity/connman/connman-0.65/add_xuser_dbus_permission.patch b/meta/recipes-connectivity/connman/connman-0.65/add_xuser_dbus_permission.patch
+new file mode 100644
+index 0000000..787d49b
+--- /dev/null
++++ b/meta/recipes-connectivity/connman/connman-0.65/add_xuser_dbus_permission.patch
+@@ -0,0 +1,21 @@
++Some platform (like atom-pc) enables rootless X,
++thus we need to add the xuser in the list.
++
++Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
++
++diff -ruN connman-0.65-orig/src/connman-dbus.conf connman-0.65/src/connman-dbus.conf
++--- connman-0.65-orig/src/connman-dbus.conf	2011-03-04 09:34:49.000000000 +0800
+++++ connman-0.65/src/connman-dbus.conf	2011-03-04 09:35:21.000000000 +0800
++@@ -7,6 +7,12 @@
++         <allow send_interface="net.connman.Agent"/>
++         <allow send_interface="net.connman.Counter"/>
++     </policy>
+++    <policy user="xuser">
+++        <allow own="net.connman"/>
+++        <allow send_destination="net.connman"/>
+++        <allow send_interface="net.connman.Agent"/>
+++        <allow send_interface="net.connman.Counter"/>
+++    </policy>
++     <policy at_console="true">
++         <allow send_destination="net.connman"/>
++     </policy>
+diff --git a/meta/recipes-connectivity/connman/connman_0.65.bb b/meta/recipes-connectivity/connman/connman_0.65.bb
+index 0b077e1..8bb84a1 100644
+--- a/meta/recipes-connectivity/connman/connman_0.65.bb
++++ b/meta/recipes-connectivity/connman/connman_0.65.bb
+@@ -1,5 +1,5 @@
+ require connman.inc
+-PR = "r0"
++PR = "r1"
  
-   echo_info "Configure opkg ...\n"
--  ./configure --prefix=$parent_folder/$LOCAL_OPKG_LOC --with-opkglibdir=$OPKG_LIBDIR --disable-curl --disable-ssl-curl --disable-gpg --disable-shave >> $parent_folder/$YOCTOADT_INSTALL_LOG_FILE
-+  ./autogen.sh --prefix=$parent_folder/$LOCAL_OPKG_LOC --with-opkglibdir=$OPKG_LIBDIR --disable-curl --disable-ssl-curl --disable-gpg --disable-shave >> $parent_folder/$YOCTOADT_INSTALL_LOG_FILE
-   check_result
+ EXTRA_OECONF += "\
+   ac_cv_path_WPASUPPLICANT=/usr/sbin/wpa_supplicant \
+@@ -21,6 +21,7 @@ EXTRA_OECONF += "\
+ SRC_URI  = "\
+   http://www.kernel.org/pub/linux/network/connman/connman-${PV}.tar.gz \
+   file://fix-shutdown-ap-disconnect.patch \
++  file://add_xuser_dbus_permission.patch \
+   file://connman \
+ "
  
-   echo_info "Make opkg ...\n"
-diff --git a/meta/recipes-devtools/installer/adt-installer_1.0.bb b/meta/recipes-devtools/installer/adt-installer_1.0.bb
-index e865971..50290f9 100644
---- a/meta/recipes-devtools/installer/adt-installer_1.0.bb
-+++ b/meta/recipes-devtools/installer/adt-installer_1.0.bb
-@@ -39,7 +39,8 @@ YOCTOADT_VERSION = "${SDK_VERSION}"
- 
- inherit deploy
- 
--SRC_URI = "http://opkg.googlecode.com/files/opkg-0.1.8.tar.gz \
-+PV = "0.1.8+svnr${SRCPV}"
-+SRC_URI = "svn://opkg.googlecode.com/svn;module=trunk;proto=http \
-            file://adt_installer \
-            file://scripts/adt_installer_internal \
-            file://scripts/util \
-@@ -49,8 +50,6 @@ SRC_URI = "http://opkg.googlecode.com/files/opkg-0.1.8.tar.gz \
-            file://opkg/conf/opkg-sdk-x86_64.conf \
-            file://opkg/conf/opkg-sdk-i686.conf \
- 	  "
--SRC_URI[md5sum] = "c714ce0e4863bf1315e3b6913ffe3299"
--SRC_URI[sha256sum] = "ff94bf30bd662d49c4b5057e3a0818d062731adaa555d59abd677ec32a3c1c60"
- 
- fakeroot do_deploy () {
- 	cd ${WORKDIR}
-@@ -59,7 +58,8 @@ fakeroot do_deploy () {
- 	rm -rf ${ADT_DIR}
- 	mkdir -p ${ADT_DIR}/opkg/build
- 	cp -r opkg ${ADT_DIR}/
--	cp -r opkg-0.1.8 ${ADT_DIR}/opkg/build/
-+	cp -r trunk ${ADT_DIR}/opkg/build/
-+	mv ${ADT_DIR}/opkg/build/trunk ${ADT_DIR}/opkg/build/opkg-svn
- 	cp -r scripts ${ADT_DIR}/
- 	cp adt_installer ${ADT_DIR}
- 	cp adt_installer.conf ${ADT_DIR}
 -- 
-1.7.0.4
+1.7.1
 
 
