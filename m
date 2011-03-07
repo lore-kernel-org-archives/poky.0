@@ -1,26 +1,21 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id BE6C04C800AC
-	for <poky@yoctoproject.org>; Mon,  7 Mar 2011 10:31:34 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 07 Mar 2011 08:31:34 -0800
+Return-Path: <nitin.a.kamble@intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 55EB04C80050
+	for <poky@yoctoproject.org>; Mon,  7 Mar 2011 10:56:20 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 07 Mar 2011 08:56:16 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,277,1297065600"; d="scan'208";a="664684496"
-Received: from unknown (HELO [10.255.12.179]) ([10.255.12.179])
-	by fmsmga002.fm.intel.com with ESMTP; 07 Mar 2011 08:30:45 -0800
-Message-ID: <4D750834.2060803@linux.intel.com>
-Date: Mon, 07 Mar 2011 08:30:44 -0800
-From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.14) Gecko/20110223 Lightning/1.0b2 Thunderbird/3.1.8
-MIME-Version: 1.0
-To: Patches and discussions about the oe-core layer
-	<openembedded-core@lists.openembedded.org>
-References: <cover.1299267630.git.sgw@linux.intel.com>	<e807fc977770cb64a217768672c18437ea8f3057.1299267630.git.sgw@linux.intel.com>	<A53A0FEC-74B3-483C-916C-EB87748A1AC8@dominion.thruhere.net>	<4D715D30.3030608@linux.intel.com>	<EEFD338A-726B-4502-B995-442E9AB37B9D@dominion.thruhere.net>	<8BD56976-D3F5-41F0-8CD6-9CF4B3CBB6C1@dominion.thruhere.net>
-	<4D7173CE.2090104@linux.intel.com>
-In-Reply-To: <4D7173CE.2090104@linux.intel.com>
-Cc: poky <poky@yoctoproject.org>
-Subject: Re: [OE-core] [PATCH 04/13] module: build hostprogs for each module
+X-IronPort-AV: E=Sophos;i="4.62,277,1297065600"; d="scan'208";a="398829398"
+Received: from nbuild2.sc.intel.com (HELO localhost) ([172.25.110.37])
+	by azsmga001.ch.intel.com with ESMTP; 07 Mar 2011 08:55:45 -0800
+Message-Id: <0cfc1314469e2fe9412ec0285a9bbe577a195258.1299516806.git.nitin.a.kamble@intel.com>
+In-Reply-To: <cover.1299516806.git.nitin.a.kamble@intel.com>
+References: <cover.1299516806.git.nitin.a.kamble@intel.com>
+Old-Date: Sat, 5 Mar 2011 16:37:14 -0800
+Date: Mon, 07 Mar 2011  8:55:45 -0800
+To: poky@yoctoproject.org,openembedded-core@lists.openembedded.org
+From: Nitin A Kamble <nitin.a.kamble@intel.com>
+Subject: [PATCH 1/1] gcc-runtime: fix LSB library checks for libstdc++.so.6
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,102 +27,118 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 07 Mar 2011 16:31:35 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 07 Mar 2011 16:56:20 -0000
 
-On 03/04/2011 03:20 PM, Darren Hart wrote:
-> On 03/04/2011 02:30 PM, Koen Kooi wrote:
->>
->> Op 4 mrt 2011, om 23:28 heeft Koen Kooi het volgende geschreven:
->>
->>>
->>> Op 4 mrt 2011, om 22:44 heeft Darren Hart het volgende geschreven:
->>>
->>>> On 03/04/2011 12:04 PM, Koen Kooi wrote:
->>>>>
->>>>> Op 4 mrt 2011, om 20:42 heeft Saul Wold het volgende geschreven:
->>>>>
->>>>>> From: Darren Hart<dvhart@linux.intel.com>
->>>>>>
->>>>>> This fixes [BUGID #241]
->>>>>>
->>>>>> The kernel hostprogs are built for the host architecture. They
->>>>>> should not be
->>>>>> deployed to the target, and they should not be included in an
->>>>>> sstate package
->>>>>> which might get reused on a host of a different architecture.
->>>>>>
->>>>>> As we don't build many out-of-tree modules, this patch takes the
->>>>>> approach of
->>>>>> building the hostprogs as part of the module compile process with a
->>>>>> do_compile_prepend() routine in module.bbclass.
->>>>>>
->>>>>> We don't have to clean the hostprogs as modules depend on the
->>>>>> kernel being
->>>>>> populate_staging, so its done with the staging directory by the
->>>>>> time we run.
->>>>>>
->>>>>> Signed-off-by: Darren Hart<dvhart@linux.intel.com>
->>>>>> CC: Gary Thomas<gary@mlbassoc.com>
->>>>>> ---
->>>>>> meta/classes/module.bbclass | 12 +++++++++++-
->>>>>> 1 files changed, 11 insertions(+), 1 deletions(-)
->>>>>>
->>>>>> diff --git a/meta/classes/module.bbclass
->>>>>> b/meta/classes/module.bbclass
->>>>>> index d16d462..bbceaf7 100644
->>>>>> --- a/meta/classes/module.bbclass
->>>>>> +++ b/meta/classes/module.bbclass
->>>>>> @@ -3,6 +3,13 @@ DEPENDS += "virtual/kernel"
->>>>>>
->>>>>> inherit module-base
->>>>>>
->>>>>> +# Ensure the hostprogs are available for module compilation
->>>>>> +module_do_compile_prepend() {
->>>>>> + unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS
->>>>>> + oe_runmake CC="${KERNEL_CC}" LD="${KERNEL_LD}" AR="${KERNEL_AR}" \
->>>>>> + -C ${STAGING_KERNEL_DIR} scripts
->>>>>> +}
->>>>>> +
->>>>>> module_do_compile() {
->>>>>> unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS
->>>>>> oe_runmake KERNEL_PATH=${STAGING_KERNEL_DIR} \
->>>>>> @@ -15,7 +22,10 @@ module_do_compile() {
->>>>>
->>>>> Why not put it in do_compile itself?
->>>>
->>>> My rationale was that a module recipe may override do_compile for
->>>> one reason or another, but they will still need the hostprogs which
->>>> we stripped in kernel.bbclass. This way, even if they override
->>>> do_compile, the _prepend will still get run and prepare the
->>>> hostprogs.
->>>
->>> Are you sure that actually works? AIUI bitbake will fold the compile
->>> and prepend into one when you try to override it.
->>
->> What I actually meant to say is: If you need to prepend it to
->> do_compile, even when someone will override it, use addtask to insert
->> it between configure and compile. That makes the intention a lot
->> clearer and isn't depending on faulty bitbake behaviour.
->
-> You could be right, I'm not terribly familiar with how the "inheritance"
-> model works. It seems to me the "addtask" method would work regardless
-> as you suggest, and I have no objection to taking that route.
->
-> Richard, do you have a preference? Can you clear up the inheritance
-> question?
->
+From: Nitin A Kamble <nitin.a.kamble@intel.com>
 
-Had a chat with Richard. His suggestion was to use a new function, ie 
-do_hostprogs, which do_compile() calls. If a recipe overrides 
-do_compile() it can call do_hostprogs() or manage it on its own. I'll do 
-some testing and send out a follow-on patch.
+[YOCTO #795]
 
-Thanks,
+When we run library check of LSB on qemux86 and qemuppc, we got some failures
+about 'libstdc++.so.6'.
 
+Test environment:
+Platform: Qemu-x86, Qemu-ppc
+lsb image: poky-image-lsb-qemux86-test.ext3(Feb 26th, auto-build server)
+Library check of LSB: 4.1.0-1
+
+The error log:
+Did not find _ZNKSt5ctypeIcE8do_widenEPKcS2_Pc (GLIBCXX_3.4) in libstdc++.so.6
+Unmangled symbol name: std::ctype<char>::do_widen(char const*, char const*,
+char*) const
+...
+
+ found that some weak symbols ('W') change into local ('t') during link time
+and be stripped. According to compiling log, the option
+"-fvisibility-inlines-hidden" is used for gcc. And this option caused some weak
+symbols change into local.
+
+see http://bugzilla.pokylinux.org/show_bug.cgi?id=795 for more information on the bug.
+
+Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
+Signed-off-by: Jingdong Lu <jingdong.lu@windriver.com>
+---
+ meta/conf/bitbake.conf                             |    2 +-
+ meta/conf/distro/include/poky-eglibc.inc           |    2 +-
+ meta/conf/distro/include/poky-glibc.inc            |    2 +-
+ meta/conf/distro/include/poky-uclibc.inc           |    2 +-
+ .../recipes-devtools/gcc/gcc-configure-runtime.inc |    1 +
+ meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb     |    2 +-
+ 6 files changed, 6 insertions(+), 5 deletions(-)
+
+diff --git a/meta/conf/bitbake.conf b/meta/conf/bitbake.conf
+index cf99a81..473306a 100644
+--- a/meta/conf/bitbake.conf
++++ b/meta/conf/bitbake.conf
+@@ -463,7 +463,7 @@ export CFLAGS = "${TARGET_CFLAGS}"
+ export TARGET_CFLAGS = "${TARGET_CPPFLAGS} ${SELECTED_OPTIMIZATION}"
+ 
+ export BUILD_CXXFLAGS = "${BUILD_CFLAGS} -fpermissive"
+-export CXXFLAGS = "${TARGET_CXXFLAGS}"
++export CXXFLAGS = "${TARGET_CXXFLAGS} ${CXXFLAGS_EXTRA}"
+ export TARGET_CXXFLAGS = "${TARGET_CFLAGS} -fpermissive"
+ 
+ export BUILD_LDFLAGS = "-L${STAGING_LIBDIR_NATIVE} \
+diff --git a/meta/conf/distro/include/poky-eglibc.inc b/meta/conf/distro/include/poky-eglibc.inc
+index 3d2c362..44a0146 100644
+--- a/meta/conf/distro/include/poky-eglibc.inc
++++ b/meta/conf/distro/include/poky-eglibc.inc
+@@ -19,7 +19,7 @@ PREFERRED_PROVIDER_virtual/${SDK_PREFIX}libc-initial-nativesdk ?= "eglibc-initia
+ 
+ TARGET_OS = "${GLIBCTARGETOS}"
+ 
+-CXXFLAGS += "-fvisibility-inlines-hidden"
++CXXFLAGS_EXTRA += "-fvisibility-inlines-hidden"
+ 
+ LIBC_DEPENDENCIES = "libsegfault \
+ 		     eglibc \
+diff --git a/meta/conf/distro/include/poky-glibc.inc b/meta/conf/distro/include/poky-glibc.inc
+index 4be7122..d3f28c0 100644
+--- a/meta/conf/distro/include/poky-glibc.inc
++++ b/meta/conf/distro/include/poky-glibc.inc
+@@ -18,7 +18,7 @@ PREFERRED_PROVIDER_virtual/${SDK_PREFIX}libc-initial-nativesdk ?= "glibc-initial
+ 
+ TARGET_OS = "${GLIBCTARGETOS}"
+ 
+-CXXFLAGS += "-fvisibility-inlines-hidden"
++CXXFLAGS_EXTRA += "-fvisibility-inlines-hidden"
+ 
+ LIBC_DEPENDENCIES = "\
+     libsegfault \
+diff --git a/meta/conf/distro/include/poky-uclibc.inc b/meta/conf/distro/include/poky-uclibc.inc
+index def9dfe..13c17f9 100644
+--- a/meta/conf/distro/include/poky-uclibc.inc
++++ b/meta/conf/distro/include/poky-uclibc.inc
+@@ -15,7 +15,7 @@ USE_NLS_glib-2.0 = "yes"
+ 
+ TARGET_OS = "${UCLIBCTARGETOS}"
+ 
+-CXXFLAGS += "-fvisibility-inlines-hidden"
++CXXFLAGS_EXTRA += "-fvisibility-inlines-hidden"
+ 
+ IMAGE_LINGUAS = ""
+ 
+diff --git a/meta/recipes-devtools/gcc/gcc-configure-runtime.inc b/meta/recipes-devtools/gcc/gcc-configure-runtime.inc
+index 6cc11e2..d4dfbc2 100644
+--- a/meta/recipes-devtools/gcc/gcc-configure-runtime.inc
++++ b/meta/recipes-devtools/gcc/gcc-configure-runtime.inc
+@@ -1,5 +1,6 @@
+ require gcc-configure-common.inc
+ 
++CXXFLAGS_EXTA = ""
+ EXTRA_OECONF_PATHS = " \
+     --with-local-prefix=${STAGING_DIR_TARGET}${prefix} \
+     --with-gxx-include-dir=${includedir}/c++/ \
+diff --git a/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb
+index 093f9bf..c1e680d 100644
+--- a/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb
++++ b/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb
+@@ -1,4 +1,4 @@
+-PR = "r2"
++PR = "r3"
+ 
+ require gcc-${PV}.inc
+ require gcc-configure-runtime.inc
 -- 
-Darren Hart
-Intel Open Source Technology Center
-Yocto Project - Linux Kernel
+1.7.3.4
+
 
