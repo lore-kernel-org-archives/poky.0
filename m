@@ -1,21 +1,20 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5C4EB4C80581
-	for <poky@yoctoproject.org>; Sun,  6 Mar 2011 11:19:40 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 06 Mar 2011 09:19:40 -0800
+Return-Path: <liping.ke@intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D38A54C8009A
+	for <poky@yoctoproject.org>; Mon,  7 Mar 2011 00:23:00 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 06 Mar 2011 22:22:58 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,272,1297065600"; d="scan'208";a="894350909"
-Received: from unknown (HELO localhost) ([10.255.12.181])
-	by fmsmga001.fm.intel.com with ESMTP; 06 Mar 2011 09:19:40 -0800
-Message-Id: <21f294d9600a369fff5eafb0c7358694d9ff0221.1299431945.git.sgw@linux.intel.com>
-In-Reply-To: <cover.1299431945.git.sgw@linux.intel.com>
-References: <cover.1299431945.git.sgw@linux.intel.com>
-Old-Date: Sun, 6 Mar 2011 09:12:04 -0800
-Date: Sun, 06 Mar 2011  9:19:39 -0800
-To: poky@yoctoproject.org,openembedded-core@lists.openembedded.org
-From: Saul Wold <sgw@linux.intel.com>
-Subject: [PATCH 2/2] attr: Added ncurses to depends
+X-IronPort-AV: E=Sophos;i="4.62,275,1297065600"; d="scan'208";a="398568777"
+Received: from lke-nhm.sh.intel.com (HELO localhost) ([10.239.36.48])
+	by azsmga001.ch.intel.com with ESMTP; 06 Mar 2011 22:22:57 -0800
+Message-Id: <cover.1299478629.git.liping.ke@intel.com>
+Old-Date: Mon, 7 Mar 2011 14:17:09 +0800
+Date: Mon, 07 Mar 2011 14:21:33 +0800
+To: poky@yoctoproject.org
+CC: 
+From: Liping Ke <liping.ke@intel.com>
+Subject: [PATCH 0/1] adt: Update to svn r596 to fix symbolic link issues
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,29 +26,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 06 Mar 2011 17:19:40 -0000
+X-List-Received-Date: Mon, 07 Mar 2011 06:23:01 -0000
 
-From: Saul Wold <sgw@linux.intel.com>
+From: Liping Ke <liping.ke@intel.com>
 
-Signed-off-by: Saul Wold <sgw@linux.intel.com>
+See the longlinksfix patch for details but symlinks over 100 chars long
+were broken in sdk tarballs and its due to problems in the inbuilt tar in
+libbb in opkg. svn r596 has already fixed the problem.
+
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: lke/opkg-upgrade
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=lke/opkg-upgrade
+
+Thanks,
+    Liping Ke <liping.ke@intel.com>
 ---
- meta/recipes-support/attr/attr.inc |    2 ++
- 1 files changed, 2 insertions(+), 0 deletions(-)
 
-diff --git a/meta/recipes-support/attr/attr.inc b/meta/recipes-support/attr/attr.inc
-index e9467d7..c110340 100644
---- a/meta/recipes-support/attr/attr.inc
-+++ b/meta/recipes-support/attr/attr.inc
-@@ -2,6 +2,8 @@ DESCRIPTION = "utilities for manipulating filesystem extended attributes"
- HOMEPAGE = "http://savannah.nongnu.org/projects/attr/"
- SECTION = "libs"
- 
-+DEPENDS = "ncurses"
-+
- LICENSE = "LGPLv2.1+ & GPLv2+"
- LICENSE_${PN} = "GPLv2+"
- LICENSE_lib${PN} = "LGPLv2.1+"
--- 
-1.7.1.1
+
+Liping Ke (1):
+  adt: Update to svn r596 to fix symbolic link issues
+
+ .../conf/distro/include/poky-default-revisions.inc |    1 +
+ .../installer/adt-installer/adt_installer          |    2 +-
+ .../installer/adt-installer_1.0.bb                 |    8 ++++----
+ 3 files changed, 6 insertions(+), 5 deletions(-)
 
 
