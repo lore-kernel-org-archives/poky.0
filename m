@@ -1,39 +1,27 @@
-Return-Path: <raj.khem@gmail.com>
-Received: from mail-fx0-f48.google.com (mail-fx0-f48.google.com
-	[209.85.161.48])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 46CCF4C80050
-	for <poky@yoctoproject.org>; Mon,  7 Mar 2011 11:18:00 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by fxm2 with SMTP id 2so5644806fxm.35
-	for <poky@yoctoproject.org>; Mon, 07 Mar 2011 09:17:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc:content-type:content-transfer-encoding;
-	bh=eAiZUZjf3XSUKzumOFUhLNdGJmbclKM5dFN99YD0rls=;
-	b=hHcO/dQpOaW+hvG2NiJYQSjNKMkMCuZrhdKk+W24bVsUuefasAvlQ3LaXHqYGmCSBq
-	X1Rmfq8FdQAfHXYBB4GDZgJbNCq+1bc0XBttnjLYf2KT4BHXkTaqEm4e+onYz9J60t6i
-	ozDENX6Nrhc9LZghj3JDMe0J4N/3hClvCBWkg=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc:content-type:content-transfer-encoding;
-	b=mMbI9/d7jUZieneO5AB7fF2VVXdZ8j6KlsheJ+oCUciRJphdIWumHShpL6Vv1j0Ph9
-	c4eKciLYXAQ+X/kcLL6Dnhx/STyZXPg9INx+fPlSxgxOMpfE8X5L8nVssprugkSoI9U9
-	1ZcphPGV1/odwfBmru4gPWlJaaLah9+ajxmh4=
-Received: by 10.223.143.86 with SMTP id t22mr5018618fau.74.1299518218253; Mon,
-	07 Mar 2011 09:16:58 -0800 (PST)
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id EF9AD4C800AC
+	for <poky@yoctoproject.org>; Mon,  7 Mar 2011 16:18:13 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 07 Mar 2011 14:18:13 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.62,279,1297065600"; d="scan'208";a="894767887"
+Received: from unknown (HELO [10.255.12.191]) ([10.255.12.191])
+	by fmsmga001.fm.intel.com with ESMTP; 07 Mar 2011 14:16:52 -0800
+Message-ID: <4D755955.7040909@linux.intel.com>
+Date: Mon, 07 Mar 2011 14:16:53 -0800
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.14) Gecko/20110223 Lightning/1.0b2 Thunderbird/3.1.8
 MIME-Version: 1.0
-Received: by 10.223.30.151 with HTTP; Mon, 7 Mar 2011 09:14:26 -0800 (PST)
-In-Reply-To: <0cfc1314469e2fe9412ec0285a9bbe577a195258.1299516806.git.nitin.a.kamble@intel.com>
-References: <cover.1299516806.git.nitin.a.kamble@intel.com>
-	<0cfc1314469e2fe9412ec0285a9bbe577a195258.1299516806.git.nitin.a.kamble@intel.com>
-From: Khem Raj <raj.khem@gmail.com>
-Date: Mon, 7 Mar 2011 09:14:26 -0800
-Message-ID: <AANLkTi=ug_MBMiLEWpfYd0=tgMstJVE4r5oVNW6JDA_+@mail.gmail.com>
-To: Nitin A Kamble <nitin.a.kamble@intel.com>
-Cc: poky@yoctoproject.org, openembedded-core@lists.openembedded.org
-Subject: Re: [PATCH 1/1] gcc-runtime: fix LSB library checks for libstdc++.so.6
+To: Gary Thomas <gary@mlbassoc.com>
+References: <b9dded$i440ij@orsmga002.jf.intel.com>	<4D6FC6E0.3070303@mlbassoc.com>	<4D6FC8E4.3020400@mlbassoc.com>
+	<4D706D10.4050809@linux.intel.com>	<4D70D0B9.3020902@mlbassoc.com>
+	<4D714C7D.2060300@linux.intel.com>
+	<4D715A2B.3080505@linux.intel.com> <4D73B4A1.5010409@mlbassoc.com>
+In-Reply-To: <4D73B4A1.5010409@mlbassoc.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 1/2] module: build and clean hostprogs for each module
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -45,160 +33,237 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 07 Mar 2011 17:18:00 -0000
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Mon, 07 Mar 2011 22:18:14 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Mar 7, 2011 at 8:55 AM, Nitin A Kamble <nitin.a.kamble@intel.com> w=
-rote:
-> From: Nitin A Kamble <nitin.a.kamble@intel.com>
+On 03/06/2011 08:21 AM, Gary Thomas wrote:
+> On 03/04/11 14:31, Darren Hart wrote:
+>> On 03/04/2011 12:33 PM, Darren Hart wrote:
+>>> On 03/04/2011 03:44 AM, Gary Thomas wrote:
+>>>> On 03/03/2011 09:39 PM, Darren Hart wrote:
+>>>>> On 03/03/2011 08:59 AM, Gary Thomas wrote:
+>>>>>> On 03/03/2011 09:50 AM, Gary Thomas wrote:
+>>>>>>> On 03/02/2011 11:00 AM, Darren Hart wrote:
+>>>>>>>> From: Darren Hart<dvhart@linux.intel.com>
+>>>>>>>>
+>>>>>>>> This fixes [BUGID #241]
+>>>>>>>>
+>>>>>>>> The kernel hostprogs are built for the host architecture. They
+>>>>>>>> should
+>>>>>>>> not
+>>>>>>>> be deployed with to the target, and they should not be included
+>>>>>>>> in an
+>>>>>>>> sstate
+>>>>>>>> package which might get reused on a host of a different
+>>>>>>>> architecture.
+>>>>>>>>
+>>>>>>>> As we don't build many out-of-tree modules, this patch takes the
+>>>>>>>> approach
+>>>>>>>> of building the hostprogs as part of the module compile process
+>>>>>>>> with a
+>>>>>>>> do_compile_prepend() routine in module.bbclass. To ensure the
+>>>>>>>> hostprogs
+>>>>>>>> don't contaminate the build, they are removed in
+>>>>>>>> do_install_append().
+>>>>>>>>
+>>>>>>>> Signed-off-by: Darren Hart<dvhart@linux.intel.com>
+>>>>>>>> CC: Gary Thomas<gary@mlbassoc.com>
+>>>>>>>
+>>>>>>> Sadly, this doesn't seem to work for me. I don't see any
+>>>>>>> indication in
+>>>>>>> run.do_compile that the extra steps were added at all.
+>>>>>>>
+>>>>>>> Will it matter if my recipe overrides the do_compile() method?
+>>>>>>>
+>>>>>>
+>>>>>> Also, when you tested this, what was your target MACHINE (in
+>>>>>> particular,
+>>>>>> was the target a different architecture than the build host?) I ask
+>>>>>> because
+>>>>>> I tried to just manually insert the compile_prepend() functions
+>>>>>> into my
+>>>>>> recipe and it ended up trying to build host tools (that's what the
+>>>>>> fuss
+>>>>>> is all about) using the target toolchain.
+>>>>>
+>>>>> I made some modifications to avoid a Race that RP pointed out (just
+>>>>> removed the cleans from the module.bbclass since they weren't
+>>>>> necessary anyway). With this, I set my MACHINE to
+>>>>> beagleboard and built minimal. You can see from the following that
+>>>>> hostprogs were build for the host and the module for the target:
+>>>>>
+>>>>> dvhart@rage:build-beagleboard$ file
+>>>>> ./tmp/work/beagleboard-poky-linux-gnueabi/linux-yocto-2.6.37+git1+e2737075b79e4fc682e41051cf1c0bc47a47d502_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/linux-beagleboard-standard-build/scripts/basic/fixdep
+>>>>>
+>>>>>
+>>>>>
+>>>>>
+>>>>>
+>>>>> ./tmp/work/beagleboard-poky-linux-gnueabi/linux-yocto-2.6.37+git1+e2737075b79e4fc682e41051cf1c0bc47a47d502_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/linux-beagleboard-standard-build/scripts/basic/fixdep:
+>>>>>
+>>>>>
+>>>>>
+>>>>>
+>>>>> ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically
+>>>>> linked (uses shared libs), for GNU/Linux 2.6.15, not stripped
+>>>>
+>>>> Why are you looking in ${KERNEL_SRC}? It may not exist (think rm_work)
+>>>> when your module gets built.
+>>>>
+>>>> The example recipe I have uses ${STAGING_KERNEL_DIR} something like
+>>>> this:
+>>>> make -C ${STAGING_KERNEL_DIR} M=src
+>>>>
+>>>
+>>> module.bbclass passes KERNEL_SRC=${STAGING_KERNEL_DIR} to the module's
+>>> Makefile.
+>>>
+>>> I don't use STAGING_KERNEL_DIR in the hello-mod Makefile as I wanted the
+>>> Makefile to exemplary of external modules, and not poky specific.
+>>>
+>>>
+>>>> Also, if you look at the run.do_compile script for your module
+>>>> recipe, is
+>>>> there any indication that the compile_prepend() stuff was even added?
+>>>
+>>> I do see the compile_prepend() code prepended to the do_compile code:
+>>>
+>>> unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS
+>>> oe_runmake CC="arm-poky-linux-gnueabi-gcc "
+>>> LD="arm-poky-linux-gnueabi-ld
+>>> --sysroot=/home/dvhart/source/poky.git/build-beagleboard/tmp/sysroots/beagleboard
+>>>
+>>> " AR="arm-poky-linux-gnueabi-ar " \
+>>> -C
+>>> /home/dvhart/source/poky.git/build-beagleboard/tmp/sysroots/beagleboard/kernel
+>>>
+>>> scripts
+>>>
+>>> Hrm.... but looking at that, that's the target compiler... not the host
+>>> compiler... so why on earth did this work.... grumble. Some more
+>>> investigation remains it seems...
+>>
+>>
+>> Actually, this isn't a problem. For the compilation of hostprogs, the
+>> kernel Make system uses HOSTCC, not CC. From log.do_compile:
+>>
+>> make -C
+>> /home/dvhart/source/poky.git/build-beagleboard/tmp/work/beagleboard-poky-linux-gnueabi/linux-yocto-2.6.37+git1+e2737075b79e4fc682e41051cf1c0bc47a47d502_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/linux
+>>
+>> O=/home/dvhart/source/poky.git/build-beagleboard/tmp/sysroots/beagleboard/kernel/.
+>> scripts
 >
-> [YOCTO #795]
+> This sure looks like it's using the kernel source tree, not the staging
+> tree. If you run with rm_work
+> and/or sstate caching, that directory may not exist! My example (which
+> was lifted fro OE) uses the
+> kernel _staging_ directory, which should exist.
+
+Ah, the problem is that while I pass STAGING_KERNEL_DIR, the Makefile 
+there just redirects the make to the kernel source directory. What we 
+appear to need is something along the lines of:
+
+$ make O=${PN}-modules_prepare modules_prepare
+
+which runs 'prepare' and 'scripts'. Unfortunately, this still has a 
+symlink to the source dir in the output dir - probably for things like 
+vmlinux, etc. I'm looking into how we can best accomplish this without 
+the recipe becoming too fragile to maintain from kernel version to 
+kernel version.
+
+--
+Darren
+
 >
-> When we run library check of LSB on qemux86 and qemuppc, we got some fail=
-ures
-> about 'libstdc++.so.6'.
+> Recipe attached - I'm not sure how much use it is as it as a boat-load
+> of dependencies
+> which are not germane to this issue.
 >
-> Test environment:
-> Platform: Qemu-x86, Qemu-ppc
-> lsb image: poky-image-lsb-qemux86-test.ext3(Feb 26th, auto-build server)
-> Library check of LSB: 4.1.0-1
->
-> The error log:
-> Did not find _ZNKSt5ctypeIcE8do_widenEPKcS2_Pc (GLIBCXX_3.4) in libstdc++=
-.so.6
-> Unmangled symbol name: std::ctype<char>::do_widen(char const*, char const=
-*,
-> char*) const
-> ...
->
-> =C2=A0found that some weak symbols ('W') change into local ('t') during l=
-ink time
-> and be stripped. According to compiling log, the option
-> "-fvisibility-inlines-hidden" is used for gcc. And this option caused som=
-e weak
-> symbols change into local.
+>> make[1]: Entering directory
+>> `/home/dvhart/source/poky.git/build-beagleboard/tmp/work/beagleboard-poky-linux-gnueabi/linux-yocto-2.6.37+git1+e2737075b79e4fc682e41051cf1c0bc47a47d502_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/linux'
+>>
+>>
+>> HOSTCC scripts/basic/fixdep
+>> HOSTCC scripts/basic/docproc
+>> GEN
+>> /home/dvhart/source/poky.git/build-beagleboard/tmp/sysroots/beagleboard/kernel/Makefile
+>>
+>> HOSTCC scripts/kconfig/conf.o
+>> HOSTCC scripts/kconfig/kxgettext.o
+>> HOSTCC scripts/kconfig/zconf.tab.o
+>> HOSTLD scripts/kconfig/conf
+>>
+>> While the module itself builds with:
+>>
+>> make -C
+>> /home/dvhart/source/poky.git/build-beagleboard/tmp/work/beagleboard-poky-linux-gnueabi/linux-yocto-2.6.37+git1+e2737075b79e4fc682e41051cf1c0bc47a47d502_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/linux
+>>
+>> O=/home/dvhart/source/poky.git/build-beagleboard/tmp/sysroots/beagleboard/kernel/.
+>>
+>> LD
+>> /home/dvhart/source/poky.git/build-beagleboard/tmp/work/beagleboard-poky-linux-gnueabi/hello-mod-0.1-r0/built-in.o
+>>
+>> CC [M]
+>> /home/dvhart/source/poky.git/build-beagleboard/tmp/work/beagleboard-poky-linux-gnueabi/hello-mod-0.1-r0/hello.o
+>>
+>> Building modules, stage 2.
+>> MODPOST 1 modules
+>> CC
+>> /home/dvhart/source/poky.git/build-beagleboard/tmp/work/beagleboard-poky-linux-gnueabi/hello-mod-0.1-r0/hello.mod.o
+>>
+>> LD [M]
+>> /home/dvhart/source/poky.git/build-beagleboard/tmp/work/beagleboard-poky-linux-gnueabi/hello-mod-0.1-r0/hello.ko
+>>
+>>
+>>
+>> Things are working as intended for the hello-mod recipe.
+>>
+>> --
+>> Darren
+>>
+>>>
+>>>
+>>> > I don't see it in mine (yes, it inherits module)
+>>>
+>>> Even though there is something up with the script build above, you
+>>> should be seeing it in run.do_compile. Is this recipe something you can
+>>> share? Also, have you tried from a clean build? I ran into various
+>>> (strange) problems because I wasn't cleaning the right
+>>> tasks/recipes/etc. I think your problem is different, but might have a
+>>> similar cause.
+>>>
+>>> --
+>>> Darren
+>>>
+>>>>
+>>>>>
+>>>>> dvhart@rage:build-beagleboard$ file
+>>>>> ./tmp/work/beagleboard-poky-linux-gnueabi/hello-world-mod-1.0-r0/package/lib/modules/2.6.37.2-yocto-standard+/extra/hello_world.ko
+>>>>>
+>>>>>
+>>>>>
+>>>>> ./tmp/work/beagleboard-poky-linux-gnueabi/hello-world-mod-1.0-r0/package/lib/modules/2.6.37.2-yocto-standard+/extra/hello_world.ko:
+>>>>>
+>>>>>
+>>>>> ELF 32-bit LSB relocatable, ARM, version 1
+>>>>> (SYSV), not stripped
+>>>>>
+>>>>> I'm going to do a beagleboard boot test, but if that works I'll be
+>>>>> resending these changes to close BUG 241 as they work on both qemux86
+>>>>> and beagleboard using hello-world-mod which
+>>>>> uses a very typical out-of-tree kernel module Make setup.
+>>>>>
+>>>>
+>>>
+>>>
+>>
+>>
 >
 
 
-you could use oe_filter_out functionality to strip out a given option
-and you wont need to touch so many parts. Just do something like
-
-CXXFLAGS =3D "${@oe_filter_out('-fvisibility-inlines-hidden',
-'${CXXFLAGS}', d)}" in gcc runtime recipe and you should be set
-
-Thanks
-
--Khem
-
-> see http://bugzilla.pokylinux.org/show_bug.cgi?id=3D795 for more informat=
-ion on the bug.
->
-> Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
-> Signed-off-by: Jingdong Lu <jingdong.lu@windriver.com>
-> ---
-> =C2=A0meta/conf/bitbake.conf =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 | =C2=A0 =C2=A02 +-
-> =C2=A0meta/conf/distro/include/poky-eglibc.inc =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 | =C2=A0 =C2=A02 +-
-> =C2=A0meta/conf/distro/include/poky-glibc.inc =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0| =C2=A0 =C2=A02 +-
-> =C2=A0meta/conf/distro/include/poky-uclibc.inc =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 | =C2=A0 =C2=A02 +-
-> =C2=A0.../recipes-devtools/gcc/gcc-configure-runtime.inc | =C2=A0 =C2=A01=
- +
-> =C2=A0meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb =C2=A0 =C2=A0 | =C2=
-=A0 =C2=A02 +-
-> =C2=A06 files changed, 6 insertions(+), 5 deletions(-)
->
-> diff --git a/meta/conf/bitbake.conf b/meta/conf/bitbake.conf
-> index cf99a81..473306a 100644
-> --- a/meta/conf/bitbake.conf
-> +++ b/meta/conf/bitbake.conf
-> @@ -463,7 +463,7 @@ export CFLAGS =3D "${TARGET_CFLAGS}"
-> =C2=A0export TARGET_CFLAGS =3D "${TARGET_CPPFLAGS} ${SELECTED_OPTIMIZATIO=
-N}"
->
-> =C2=A0export BUILD_CXXFLAGS =3D "${BUILD_CFLAGS} -fpermissive"
-> -export CXXFLAGS =3D "${TARGET_CXXFLAGS}"
-> +export CXXFLAGS =3D "${TARGET_CXXFLAGS} ${CXXFLAGS_EXTRA}"
-> =C2=A0export TARGET_CXXFLAGS =3D "${TARGET_CFLAGS} -fpermissive"
->
-> =C2=A0export BUILD_LDFLAGS =3D "-L${STAGING_LIBDIR_NATIVE} \
-> diff --git a/meta/conf/distro/include/poky-eglibc.inc b/meta/conf/distro/=
-include/poky-eglibc.inc
-> index 3d2c362..44a0146 100644
-> --- a/meta/conf/distro/include/poky-eglibc.inc
-> +++ b/meta/conf/distro/include/poky-eglibc.inc
-> @@ -19,7 +19,7 @@ PREFERRED_PROVIDER_virtual/${SDK_PREFIX}libc-initial-na=
-tivesdk ?=3D "eglibc-initia
->
-> =C2=A0TARGET_OS =3D "${GLIBCTARGETOS}"
->
-> -CXXFLAGS +=3D "-fvisibility-inlines-hidden"
-> +CXXFLAGS_EXTRA +=3D "-fvisibility-inlines-hidden"
->
-> =C2=A0LIBC_DEPENDENCIES =3D "libsegfault \
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 egl=
-ibc \
-> diff --git a/meta/conf/distro/include/poky-glibc.inc b/meta/conf/distro/i=
-nclude/poky-glibc.inc
-> index 4be7122..d3f28c0 100644
-> --- a/meta/conf/distro/include/poky-glibc.inc
-> +++ b/meta/conf/distro/include/poky-glibc.inc
-> @@ -18,7 +18,7 @@ PREFERRED_PROVIDER_virtual/${SDK_PREFIX}libc-initial-na=
-tivesdk ?=3D "glibc-initial
->
-> =C2=A0TARGET_OS =3D "${GLIBCTARGETOS}"
->
-> -CXXFLAGS +=3D "-fvisibility-inlines-hidden"
-> +CXXFLAGS_EXTRA +=3D "-fvisibility-inlines-hidden"
->
-> =C2=A0LIBC_DEPENDENCIES =3D "\
-> =C2=A0 =C2=A0 libsegfault \
-> diff --git a/meta/conf/distro/include/poky-uclibc.inc b/meta/conf/distro/=
-include/poky-uclibc.inc
-> index def9dfe..13c17f9 100644
-> --- a/meta/conf/distro/include/poky-uclibc.inc
-> +++ b/meta/conf/distro/include/poky-uclibc.inc
-> @@ -15,7 +15,7 @@ USE_NLS_glib-2.0 =3D "yes"
->
-> =C2=A0TARGET_OS =3D "${UCLIBCTARGETOS}"
->
-> -CXXFLAGS +=3D "-fvisibility-inlines-hidden"
-> +CXXFLAGS_EXTRA +=3D "-fvisibility-inlines-hidden"
->
-> =C2=A0IMAGE_LINGUAS =3D ""
->
-> diff --git a/meta/recipes-devtools/gcc/gcc-configure-runtime.inc b/meta/r=
-ecipes-devtools/gcc/gcc-configure-runtime.inc
-> index 6cc11e2..d4dfbc2 100644
-> --- a/meta/recipes-devtools/gcc/gcc-configure-runtime.inc
-> +++ b/meta/recipes-devtools/gcc/gcc-configure-runtime.inc
-> @@ -1,5 +1,6 @@
-> =C2=A0require gcc-configure-common.inc
->
-> +CXXFLAGS_EXTA =3D ""
-> =C2=A0EXTRA_OECONF_PATHS =3D " \
-> =C2=A0 =C2=A0 --with-local-prefix=3D${STAGING_DIR_TARGET}${prefix} \
-> =C2=A0 =C2=A0 --with-gxx-include-dir=3D${includedir}/c++/ \
-> diff --git a/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb b/meta/recipe=
-s-devtools/gcc/gcc-runtime_4.5.1.bb
-> index 093f9bf..c1e680d 100644
-> --- a/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb
-> +++ b/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb
-> @@ -1,4 +1,4 @@
-> -PR =3D "r2"
-> +PR =3D "r3"
->
-> =C2=A0require gcc-${PV}.inc
-> =C2=A0require gcc-configure-runtime.inc
-> --
-> 1.7.3.4
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
+-- 
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
