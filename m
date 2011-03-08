@@ -1,22 +1,40 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9D29D4C800A7
-	for <poky@yoctoproject.org>; Mon,  7 Mar 2011 18:31:25 -0600 (CST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 07 Mar 2011 16:31:25 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,280,1297065600"; d="scan'208";a="894806186"
-Received: from unknown (HELO localhost) ([10.255.12.99])
-	by fmsmga001.fm.intel.com with ESMTP; 07 Mar 2011 16:29:33 -0800
-Message-Id: <90d4624f0c5de6a35eace1f13c3e04df9737390c.1299544029.git.sgw@linux.intel.com>
-In-Reply-To: <cover.1299544029.git.sgw@linux.intel.com>
+Return-Path: <raj.khem@gmail.com>
+Received: from mail-fx0-f48.google.com (mail-fx0-f48.google.com
+	[209.85.161.48])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4B3A84C80578
+	for <poky@yoctoproject.org>; Tue,  8 Mar 2011 12:26:26 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by fxm2 with SMTP id 2so7129298fxm.35
+	for <poky@yoctoproject.org>; Tue, 08 Mar 2011 10:26:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc:content-type:content-transfer-encoding;
+	bh=d3/SDrdQYgm9ojoY8CsTBspjUkUhCJV2wYiUFPy1320=;
+	b=ngvBsgogVwnbjHtkqD1x13359ZJktlmFkGVkP5dOWAaobc0xKBlOnzDIJST9C6cptu
+	ghYdutdjIl7Tt8F+BtcwR8NASbJdOFkk/YLr4xoQz0H5VFJe4OC0gcmb3DR3W2HupzkK
+	lTDhb9mmhC+ETbZpLEZK08L7teNFm7iP94KUY=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+	:cc:content-type:content-transfer-encoding;
+	b=aAVtJYKhul//yh/q8flJq2MeEhWVIzt+rJuLenwzymIr6vI2PpAO5fkOd9gmwjxnBd
+	ytPsm9y38BH1Miey2ru/Nh10L92Jvg1AnO5ydRcbk3BApeLARgb6skeZLaII6wlnQz+K
+	WcfyR6BZmCAiha7BrEMB7zdh4anS9uHQI4Ro4=
+Received: by 10.223.143.86 with SMTP id t22mr945063fau.74.1299608785105; Tue,
+	08 Mar 2011 10:26:25 -0800 (PST)
+MIME-Version: 1.0
+Received: by 10.223.30.151 with HTTP; Tue, 8 Mar 2011 10:25:55 -0800 (PST)
+In-Reply-To: <21f294d9600a369fff5eafb0c7358694d9ff0221.1299544029.git.sgw@linux.intel.com>
 References: <cover.1299544029.git.sgw@linux.intel.com>
-Old-Date: Mon, 7 Mar 2011 13:10:42 +0800
-Date: Mon, 07 Mar 2011 16:29:33 -0800
-To: poky@yoctoproject.org,openembedded-core@lists.openembedded.org
-From: Saul Wold <sgw@linux.intel.com>
-X-Mailman-Approved-At: Tue, 08 Mar 2011 10:38:58 -0600
-Subject: [PATCH 4/8] adt: Update to svn r596 to fix symbolic link issues
+	<21f294d9600a369fff5eafb0c7358694d9ff0221.1299544029.git.sgw@linux.intel.com>
+From: Khem Raj <raj.khem@gmail.com>
+Date: Tue, 8 Mar 2011 10:25:55 -0800
+Message-ID: <AANLkTims9zAC2Vpi1QDZNb0GoCercnGi-wb+1fSqfPMd@mail.gmail.com>
+To: Patches and discussions about the oe-core layer
+	<openembedded-core@lists.openembedded.org>
+Cc: poky@yoctoproject.org
+Subject: Re: [OE-core] [PATCH 2/8] attr: Added ncurses to depends
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,80 +46,44 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 08 Mar 2011 00:31:25 -0000
+X-List-Received-Date: Tue, 08 Mar 2011 18:26:26 -0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Liping Ke <liping.ke@intel.com>
+On Mon, Mar 7, 2011 at 4:29 PM, Saul Wold <sgw@linux.intel.com> wrote:
+> From: Saul Wold <sgw@linux.intel.com>
+>
+> Signed-off-by: Saul Wold <sgw@linux.intel.com>
+> ---
+> =C2=A0meta/recipes-support/attr/attr.inc | =C2=A0 =C2=A02 ++
+> =C2=A01 files changed, 2 insertions(+), 0 deletions(-)
+>
+> diff --git a/meta/recipes-support/attr/attr.inc b/meta/recipes-support/at=
+tr/attr.inc
+> index e9467d7..c110340 100644
+> --- a/meta/recipes-support/attr/attr.inc
+> +++ b/meta/recipes-support/attr/attr.inc
+> @@ -2,6 +2,8 @@ DESCRIPTION =3D "utilities for manipulating filesystem ex=
+tended attributes"
+> =C2=A0HOMEPAGE =3D "http://savannah.nongnu.org/projects/attr/"
+> =C2=A0SECTION =3D "libs"
+>
+> +DEPENDS =3D "ncurses"
+> +
 
-See the longlinksfix patch for details but symlinks over 100 chars long
-were broken in sdk tarballs and its due to problems in the inbuilt tar in
-libbb in opkg. svn r596 has already fixed the problem.
+why does it need ncurses dependency ?
 
-Signed-off-by: Liping Ke <liping.ke@intel.com>
----
- .../conf/distro/include/poky-default-revisions.inc |    1 +
- .../installer/adt-installer/adt_installer          |    2 +-
- .../installer/adt-installer_1.0.bb                 |    8 ++++----
- 3 files changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/meta/conf/distro/include/poky-default-revisions.inc b/meta/conf/distro/include/poky-default-revisions.inc
-index 5045c9e..36202a1 100644
---- a/meta/conf/distro/include/poky-default-revisions.inc
-+++ b/meta/conf/distro/include/poky-default-revisions.inc
-@@ -140,6 +140,7 @@ OPKGSRCREV = "596"
- SRCREV_pn-opkg ??= "${OPKGSRCREV}"
- SRCREV_pn-opkg-native ??= "${OPKGSRCREV}"
- SRCREV_pn-opkg-nativesdk ??= "${OPKGSRCREV}"
-+SRCREV_pn-adt-installer ??= "${OPKGSRCREV}"
- SRCREV_pn-opkg-nogpg ??= "${OPKGSRCREV}"
- SRCREV_pn-opkg-nogpg-native ??= "${OPKGSRCREV}"
- SRCREV_pn-opkg-nogpg-nativesdk ??= "${OPKGSRCREV}"
-diff --git a/meta/recipes-devtools/installer/adt-installer/adt_installer b/meta/recipes-devtools/installer/adt-installer/adt_installer
-index 2448d2b..b1b4970 100755
---- a/meta/recipes-devtools/installer/adt-installer/adt_installer
-+++ b/meta/recipes-devtools/installer/adt-installer/adt_installer
-@@ -170,7 +170,7 @@ if [ ! -x "$LOCAL_OPKG_LOC/bin/opkg-cl" ]; then
-   check_result
- 
-   echo_info "Configure opkg ...\n"
--  ./configure --prefix=$parent_folder/$LOCAL_OPKG_LOC --with-opkglibdir=$OPKG_LIBDIR --disable-curl --disable-ssl-curl --disable-gpg --disable-shave >> $parent_folder/$YOCTOADT_INSTALL_LOG_FILE
-+  ./autogen.sh --prefix=$parent_folder/$LOCAL_OPKG_LOC --with-opkglibdir=$OPKG_LIBDIR --disable-curl --disable-ssl-curl --disable-gpg --disable-shave >> $parent_folder/$YOCTOADT_INSTALL_LOG_FILE
-   check_result
- 
-   echo_info "Make opkg ...\n"
-diff --git a/meta/recipes-devtools/installer/adt-installer_1.0.bb b/meta/recipes-devtools/installer/adt-installer_1.0.bb
-index e865971..50290f9 100644
---- a/meta/recipes-devtools/installer/adt-installer_1.0.bb
-+++ b/meta/recipes-devtools/installer/adt-installer_1.0.bb
-@@ -39,7 +39,8 @@ YOCTOADT_VERSION = "${SDK_VERSION}"
- 
- inherit deploy
- 
--SRC_URI = "http://opkg.googlecode.com/files/opkg-0.1.8.tar.gz \
-+PV = "0.1.8+svnr${SRCPV}"
-+SRC_URI = "svn://opkg.googlecode.com/svn;module=trunk;proto=http \
-            file://adt_installer \
-            file://scripts/adt_installer_internal \
-            file://scripts/util \
-@@ -49,8 +50,6 @@ SRC_URI = "http://opkg.googlecode.com/files/opkg-0.1.8.tar.gz \
-            file://opkg/conf/opkg-sdk-x86_64.conf \
-            file://opkg/conf/opkg-sdk-i686.conf \
- 	  "
--SRC_URI[md5sum] = "c714ce0e4863bf1315e3b6913ffe3299"
--SRC_URI[sha256sum] = "ff94bf30bd662d49c4b5057e3a0818d062731adaa555d59abd677ec32a3c1c60"
- 
- fakeroot do_deploy () {
- 	cd ${WORKDIR}
-@@ -59,7 +58,8 @@ fakeroot do_deploy () {
- 	rm -rf ${ADT_DIR}
- 	mkdir -p ${ADT_DIR}/opkg/build
- 	cp -r opkg ${ADT_DIR}/
--	cp -r opkg-0.1.8 ${ADT_DIR}/opkg/build/
-+	cp -r trunk ${ADT_DIR}/opkg/build/
-+	mv ${ADT_DIR}/opkg/build/trunk ${ADT_DIR}/opkg/build/opkg-svn
- 	cp -r scripts ${ADT_DIR}/
- 	cp adt_installer ${ADT_DIR}
- 	cp adt_installer.conf ${ADT_DIR}
--- 
-1.7.1.1
-
+> =C2=A0LICENSE =3D "LGPLv2.1+ & GPLv2+"
+> =C2=A0LICENSE_${PN} =3D "GPLv2+"
+> =C2=A0LICENSE_lib${PN} =3D "LGPLv2.1+"
+> --
+> 1.7.1.1
+>
+>
+> _______________________________________________
+> Openembedded-core mailing list
+> Openembedded-core@lists.openembedded.org
+> http://lists.linuxtogo.org/cgi-bin/mailman/listinfo/openembedded-core
+>
 
