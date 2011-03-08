@@ -1,24 +1,39 @@
-Return-Path: <Jingdong.Lu@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 184634C80A8A
-	for <poky@yoctoproject.org>; Mon,  7 Mar 2011 19:13:06 -0600 (CST)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p281D5l0009056
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Mon, 7 Mar 2011 17:13:05 -0800 (PST)
-Received: from localhost (128.224.162.205) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Mon, 7 Mar 2011 17:13:04 -0800
-Message-ID: <6b9f4256d94446f64505a2b1f121745964f9f912.1299546487.git.jingdong.lu@windriver.com>
-In-Reply-To: <cover.1299546487.git.jingdong.lu@windriver.com>
-References: <cover.1299546487.git.jingdong.lu@windriver.com>
-Old-Date: Tue, 8 Mar 2011 08:47:21 +0800
-Date: Tue, 8 Mar 2011 09:13:01 +0800
-To: <poky@yoctoproject.org>, <nitin.a.kamble@intel.com>
-From: Jingdong Lu <jingdong.lu@windriver.com>
+Return-Path: <raj.khem@gmail.com>
+Received: from mail-fx0-f48.google.com (mail-fx0-f48.google.com
+	[209.85.161.48])
+	by mx1.pokylinux.org (Postfix) with ESMTP id CF78F4C800A3
+	for <poky@yoctoproject.org>; Mon,  7 Mar 2011 19:16:48 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by fxm2 with SMTP id 2so6206128fxm.35
+	for <poky@yoctoproject.org>; Mon, 07 Mar 2011 17:16:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc:content-type:content-transfer-encoding;
+	bh=7dkyV2IHUX5lGDVzFFOJuyQO/PrPTxD3KpOFNakKYbc=;
+	b=smc7T4biqw0sPw23hf6b4LzZdKBXOezO5UmFzrXiDK4KCzlvwtWrWdSagggJgr68wM
+	z46PjvtcWGTO7y10PHxY9GXtrS37aqXi+VTxpzb9U8f7h5s5h3DEsrkJTEEo1UWTxocj
+	I0wvnkEf5IR5PC6sLCySfvfvTDLzeWwAzNxJM=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+	:cc:content-type:content-transfer-encoding;
+	b=XDrRJGauzFsq/fekVIyQSAMQiNpOaqoJ4sa56j1rzWkWHCXcX+tktW2COr2VvtMAhY
+	EmwPg7QXELh2yPLcD3wubWzaEr5E72fA+hXe6I0huEtRbjboaFQfelniLQQ3czwX4o0O
+	J2uvLDPM3JZc17pPfqJsjmW673ym9rHzfkv14=
+Received: by 10.223.76.147 with SMTP id c19mr1886557fak.55.1299547007165; Mon,
+	07 Mar 2011 17:16:47 -0800 (PST)
 MIME-Version: 1.0
-X-Originating-IP: [128.224.162.205]
-Subject: [PATCH 1/1] perl: Fix Perl test failure of LSB. [bug 794]
+Received: by 10.223.30.151 with HTTP; Mon, 7 Mar 2011 17:16:17 -0800 (PST)
+In-Reply-To: <ddc99853f9ba82192fa6562c6e6732cf4b55445b.1299544029.git.sgw@linux.intel.com>
+References: <cover.1299544029.git.sgw@linux.intel.com>
+	<ddc99853f9ba82192fa6562c6e6732cf4b55445b.1299544029.git.sgw@linux.intel.com>
+From: Khem Raj <raj.khem@gmail.com>
+Date: Mon, 7 Mar 2011 17:16:17 -0800
+Message-ID: <AANLkTimwBGBU=_0jKY+MW4_wo+CZ6sjG9vzzDkzYyX_i@mail.gmail.com>
+To: Saul Wold <sgw@linux.intel.com>
+Cc: poky@yoctoproject.org, openembedded-core@lists.openembedded.org
+Subject: Re: [PATCH 8/8] gcc-runtime: fix LSB library checks for libstdc++.so.6
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,42 +45,152 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 08 Mar 2011 01:13:06 -0000
-Content-Type: text/plain
+X-List-Received-Date: Tue, 08 Mar 2011 01:16:49 -0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Jingdong Lu <jingdong.lu@windriver.com>
+On Mon, Mar 7, 2011 at 4:29 PM, Saul Wold <sgw@linux.intel.com> wrote:
+> From: Nitin A Kamble <nitin.a.kamble@intel.com>
+>
+> [YOCTO #795]
+>
+> When we run library check of LSB on qemux86 and qemuppc, we got some fail=
+ures
+> about 'libstdc++.so.6'.
 
-When running perl test of LSB check, $Config(ccflags_nolargefiles) will find the argument and the value of
-"ccflags_nolargefiles" in Config_heavy.pl. So we retain the "ccflags_uselargefiles".
-[BUGID: 794]
+Saul
 
-Signed-off-by: Jingdong Lu <jingdong.lu@windriver.com>
----
- meta/recipes-devtools/perl/perl_5.12.2.bb |    3 +--
- 1 files changed, 1 insertions(+), 2 deletions(-)
+I have provided comments to redo this patch.
 
-diff --git a/meta/recipes-devtools/perl/perl_5.12.2.bb b/meta/recipes-devtools/perl/perl_5.12.2.bb
-index 18fad18..7621674 100644
---- a/meta/recipes-devtools/perl/perl_5.12.2.bb
-+++ b/meta/recipes-devtools/perl/perl_5.12.2.bb
-@@ -8,7 +8,7 @@ PRIORITY = "optional"
- # We need gnugrep (for -I)
- DEPENDS = "virtual/db perl-native-${PV} grep-native"
- DEPENDS += "gdbm zlib"
--PR = "r2"
-+PR = "r3"
- 
- # 5.10.1 has Module::Build built-in
- PROVIDES += "libmodule-build-perl"
-@@ -93,7 +93,6 @@ do_nolargefile() {
- 	sed -i -e "s,\(uselargefiles=\)'define',\1'undef',g" \
- 		-e "s,\(d_readdir64_r=\)'define',\1'undef',g" \
- 		-e "s,\(readdir64_r_proto=\)'\w+',\1'0',g" \
--		-e "/ccflags_uselargefiles/d" \
- 		-e "s/-Duselargefiles//" \
- 		-e "s/-D_FILE_OFFSET_BITS=64//" \
- 		-e "s/-D_LARGEFILE_SOURCE//" \
--- 
-1.7.0.4
-
+>
+> Test environment:
+> Platform: Qemu-x86, Qemu-ppc
+> lsb image: poky-image-lsb-qemux86-test.ext3(Feb 26th, auto-build server)
+> Library check of LSB: 4.1.0-1
+>
+> The error log:
+> Did not find _ZNKSt5ctypeIcE8do_widenEPKcS2_Pc (GLIBCXX_3.4) in libstdc++=
+.so.6
+> Unmangled symbol name: std::ctype<char>::do_widen(char const*, char const=
+*,
+> char*) const
+> ...
+>
+> =C2=A0found that some weak symbols ('W') change into local ('t') during l=
+ink time
+> and be stripped. According to compiling log, the option
+> "-fvisibility-inlines-hidden" is used for gcc. And this option caused som=
+e weak
+> symbols change into local.
+>
+> see http://bugzilla.pokylinux.org/show_bug.cgi?id=3D795 for more informat=
+ion on the bug.
+>
+> Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
+> Signed-off-by: Jingdong Lu <jingdong.lu@windriver.com>
+> ---
+> =C2=A0meta/conf/bitbake.conf =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 | =C2=A0 =C2=A02 +-
+> =C2=A0meta/conf/distro/include/poky-eglibc.inc =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 | =C2=A0 =C2=A02 +-
+> =C2=A0meta/conf/distro/include/poky-glibc.inc =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0| =C2=A0 =C2=A02 +-
+> =C2=A0meta/conf/distro/include/poky-uclibc.inc =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 | =C2=A0 =C2=A02 +-
+> =C2=A0.../recipes-devtools/gcc/gcc-configure-runtime.inc | =C2=A0 =C2=A01=
+ +
+> =C2=A0meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb =C2=A0 =C2=A0 | =C2=
+=A0 =C2=A02 +-
+> =C2=A06 files changed, 6 insertions(+), 5 deletions(-)
+>
+> diff --git a/meta/conf/bitbake.conf b/meta/conf/bitbake.conf
+> index cf99a81..473306a 100644
+> --- a/meta/conf/bitbake.conf
+> +++ b/meta/conf/bitbake.conf
+> @@ -463,7 +463,7 @@ export CFLAGS =3D "${TARGET_CFLAGS}"
+> =C2=A0export TARGET_CFLAGS =3D "${TARGET_CPPFLAGS} ${SELECTED_OPTIMIZATIO=
+N}"
+>
+> =C2=A0export BUILD_CXXFLAGS =3D "${BUILD_CFLAGS} -fpermissive"
+> -export CXXFLAGS =3D "${TARGET_CXXFLAGS}"
+> +export CXXFLAGS =3D "${TARGET_CXXFLAGS} ${CXXFLAGS_EXTRA}"
+> =C2=A0export TARGET_CXXFLAGS =3D "${TARGET_CFLAGS} -fpermissive"
+>
+> =C2=A0export BUILD_LDFLAGS =3D "-L${STAGING_LIBDIR_NATIVE} \
+> diff --git a/meta/conf/distro/include/poky-eglibc.inc b/meta/conf/distro/=
+include/poky-eglibc.inc
+> index 3d2c362..44a0146 100644
+> --- a/meta/conf/distro/include/poky-eglibc.inc
+> +++ b/meta/conf/distro/include/poky-eglibc.inc
+> @@ -19,7 +19,7 @@ PREFERRED_PROVIDER_virtual/${SDK_PREFIX}libc-initial-na=
+tivesdk ?=3D "eglibc-initia
+>
+> =C2=A0TARGET_OS =3D "${GLIBCTARGETOS}"
+>
+> -CXXFLAGS +=3D "-fvisibility-inlines-hidden"
+> +CXXFLAGS_EXTRA +=3D "-fvisibility-inlines-hidden"
+>
+> =C2=A0LIBC_DEPENDENCIES =3D "libsegfault \
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 egl=
+ibc \
+> diff --git a/meta/conf/distro/include/poky-glibc.inc b/meta/conf/distro/i=
+nclude/poky-glibc.inc
+> index 4be7122..d3f28c0 100644
+> --- a/meta/conf/distro/include/poky-glibc.inc
+> +++ b/meta/conf/distro/include/poky-glibc.inc
+> @@ -18,7 +18,7 @@ PREFERRED_PROVIDER_virtual/${SDK_PREFIX}libc-initial-na=
+tivesdk ?=3D "glibc-initial
+>
+> =C2=A0TARGET_OS =3D "${GLIBCTARGETOS}"
+>
+> -CXXFLAGS +=3D "-fvisibility-inlines-hidden"
+> +CXXFLAGS_EXTRA +=3D "-fvisibility-inlines-hidden"
+>
+> =C2=A0LIBC_DEPENDENCIES =3D "\
+> =C2=A0 =C2=A0 libsegfault \
+> diff --git a/meta/conf/distro/include/poky-uclibc.inc b/meta/conf/distro/=
+include/poky-uclibc.inc
+> index def9dfe..13c17f9 100644
+> --- a/meta/conf/distro/include/poky-uclibc.inc
+> +++ b/meta/conf/distro/include/poky-uclibc.inc
+> @@ -15,7 +15,7 @@ USE_NLS_glib-2.0 =3D "yes"
+>
+> =C2=A0TARGET_OS =3D "${UCLIBCTARGETOS}"
+>
+> -CXXFLAGS +=3D "-fvisibility-inlines-hidden"
+> +CXXFLAGS_EXTRA +=3D "-fvisibility-inlines-hidden"
+>
+> =C2=A0IMAGE_LINGUAS =3D ""
+>
+> diff --git a/meta/recipes-devtools/gcc/gcc-configure-runtime.inc b/meta/r=
+ecipes-devtools/gcc/gcc-configure-runtime.inc
+> index 6cc11e2..d4dfbc2 100644
+> --- a/meta/recipes-devtools/gcc/gcc-configure-runtime.inc
+> +++ b/meta/recipes-devtools/gcc/gcc-configure-runtime.inc
+> @@ -1,5 +1,6 @@
+> =C2=A0require gcc-configure-common.inc
+>
+> +CXXFLAGS_EXTA =3D ""
+> =C2=A0EXTRA_OECONF_PATHS =3D " \
+> =C2=A0 =C2=A0 --with-local-prefix=3D${STAGING_DIR_TARGET}${prefix} \
+> =C2=A0 =C2=A0 --with-gxx-include-dir=3D${includedir}/c++/ \
+> diff --git a/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb b/meta/recipe=
+s-devtools/gcc/gcc-runtime_4.5.1.bb
+> index 093f9bf..c1e680d 100644
+> --- a/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb
+> +++ b/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb
+> @@ -1,4 +1,4 @@
+> -PR =3D "r2"
+> +PR =3D "r3"
+>
+> =C2=A0require gcc-${PV}.inc
+> =C2=A0require gcc-configure-runtime.inc
+> --
+> 1.7.1.1
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
 
