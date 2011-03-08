@@ -1,22 +1,22 @@
 Return-Path: <sgw@linux.intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 954404C80AA9
-	for <poky@yoctoproject.org>; Mon,  7 Mar 2011 18:29:36 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 07 Mar 2011 16:29:36 -0800
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 7976C4C80AA4
+	for <poky@yoctoproject.org>; Mon,  7 Mar 2011 18:29:38 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 07 Mar 2011 16:29:38 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,280,1297065600"; d="scan'208";a="399048515"
+X-IronPort-AV: E=Sophos;i="4.62,280,1297065600"; d="scan'208";a="610129668"
 Received: from unknown (HELO localhost) ([10.255.12.99])
-	by azsmga001.ch.intel.com with ESMTP; 07 Mar 2011 16:29:35 -0800
-Message-Id: <0c04b8bd89465d186d0ccb6912e7c08aae506541.1299544029.git.sgw@linux.intel.com>
+	by orsmga002.jf.intel.com with ESMTP; 07 Mar 2011 16:29:37 -0800
+Message-Id: <ddc99853f9ba82192fa6562c6e6732cf4b55445b.1299544029.git.sgw@linux.intel.com>
 In-Reply-To: <cover.1299544029.git.sgw@linux.intel.com>
 References: <cover.1299544029.git.sgw@linux.intel.com>
-Old-Date: Mon, 7 Mar 2011 16:47:20 +0800
-Date: Mon, 07 Mar 2011 16:29:34 -0800
+Old-Date: Sat, 5 Mar 2011 16:37:14 -0800
+Date: Mon, 07 Mar 2011 16:29:37 -0800
 To: poky@yoctoproject.org,openembedded-core@lists.openembedded.org
 From: Saul Wold <sgw@linux.intel.com>
 X-Mailman-Approved-At: Mon, 07 Mar 2011 18:30:15 -0600
-Subject: [PATCH 6/8] util-macros: fix DEPENDS in the case of native/nativesdk
+Subject: [PATCH 8/8] gcc-runtime: fix LSB library checks for libstdc++.so.6
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,46 +28,117 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 08 Mar 2011 00:29:36 -0000
+X-List-Received-Date: Tue, 08 Mar 2011 00:29:38 -0000
 
-From: Dexuan Cui <dexuan.cui@intel.com>
+From: Nitin A Kamble <nitin.a.kamble@intel.com>
 
-This fixes [YOCTO #814]
+[YOCTO #795]
 
-Without the line fixing nativesdk, bitbake meta-toolchain-gmae would
-get the following:
+When we run library check of LSB on qemux86 and qemuppc, we got some failures
+about 'libstdc++.so.6'.
 
-Missing or unbuildable dependency chain was: ['meta-toolchain-gmae', 'task-sdk-host', 'qemu-nativesdk', 'libsdl-nativesdk', 'libx11-nativesdk', 'util-macros-nativesdk', 'libgpg-error-nativesdk']
-ERROR: Nothing PROVIDES 'libgpg-error-nativesdk'
+Test environment:
+Platform: Qemu-x86, Qemu-ppc
+lsb image: poky-image-lsb-qemux86-test.ext3(Feb 26th, auto-build server)
+Library check of LSB: 4.1.0-1
 
-[sgw: inherit gettext]
-Signed-off-by: Dexuan Cui <dexuan.cui@intel.com>
-Signed-off-by: Lianhao Lu <lianhao.lu@intel.com>
-Signed-off-by: Saul Wold <sgw@linux.intel.com>
+The error log:
+Did not find _ZNKSt5ctypeIcE8do_widenEPKcS2_Pc (GLIBCXX_3.4) in libstdc++.so.6
+Unmangled symbol name: std::ctype<char>::do_widen(char const*, char const*,
+char*) const
+...
+
+ found that some weak symbols ('W') change into local ('t') during link time
+and be stripped. According to compiling log, the option
+"-fvisibility-inlines-hidden" is used for gcc. And this option caused some weak
+symbols change into local.
+
+see http://bugzilla.pokylinux.org/show_bug.cgi?id=795 for more information on the bug.
+
+Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
+Signed-off-by: Jingdong Lu <jingdong.lu@windriver.com>
 ---
- .../xorg-util/util-macros_1.11.0.bb                |    5 +++--
- 1 files changed, 3 insertions(+), 2 deletions(-)
+ meta/conf/bitbake.conf                             |    2 +-
+ meta/conf/distro/include/poky-eglibc.inc           |    2 +-
+ meta/conf/distro/include/poky-glibc.inc            |    2 +-
+ meta/conf/distro/include/poky-uclibc.inc           |    2 +-
+ .../recipes-devtools/gcc/gcc-configure-runtime.inc |    1 +
+ meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb     |    2 +-
+ 6 files changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/meta/recipes-graphics/xorg-util/util-macros_1.11.0.bb b/meta/recipes-graphics/xorg-util/util-macros_1.11.0.bb
-index 2bfe514..10de96c 100644
---- a/meta/recipes-graphics/xorg-util/util-macros_1.11.0.bb
-+++ b/meta/recipes-graphics/xorg-util/util-macros_1.11.0.bb
-@@ -11,12 +11,13 @@ PE = "1"
- PR = "r0"
+diff --git a/meta/conf/bitbake.conf b/meta/conf/bitbake.conf
+index cf99a81..473306a 100644
+--- a/meta/conf/bitbake.conf
++++ b/meta/conf/bitbake.conf
+@@ -463,7 +463,7 @@ export CFLAGS = "${TARGET_CFLAGS}"
+ export TARGET_CFLAGS = "${TARGET_CPPFLAGS} ${SELECTED_OPTIMIZATION}"
  
- # ${PN} is empty so we need to tweak -dev and -dbg package dependencies
--DEPENDS = "gettext libgpg-error"
--DEPENDS_virtclass-native = "gettext"
-+DEPENDS = "libgpg-error"
+ export BUILD_CXXFLAGS = "${BUILD_CFLAGS} -fpermissive"
+-export CXXFLAGS = "${TARGET_CXXFLAGS}"
++export CXXFLAGS = "${TARGET_CXXFLAGS} ${CXXFLAGS_EXTRA}"
+ export TARGET_CXXFLAGS = "${TARGET_CFLAGS} -fpermissive"
  
- RDEPENDS_${PN}-dev = ""
- RRECOMMENDS_${PN}-dbg = "${PN}-dev (= ${EXTENDPV})"
+ export BUILD_LDFLAGS = "-L${STAGING_LIBDIR_NATIVE} \
+diff --git a/meta/conf/distro/include/poky-eglibc.inc b/meta/conf/distro/include/poky-eglibc.inc
+index 3d2c362..44a0146 100644
+--- a/meta/conf/distro/include/poky-eglibc.inc
++++ b/meta/conf/distro/include/poky-eglibc.inc
+@@ -19,7 +19,7 @@ PREFERRED_PROVIDER_virtual/${SDK_PREFIX}libc-initial-nativesdk ?= "eglibc-initia
  
-+inherit gettext
-+
- BBCLASSEXTEND = "native nativesdk"
+ TARGET_OS = "${GLIBCTARGETOS}"
  
- SRC_URI[md5sum] = "8580021f3a9e242ab09d23d62e475d53"
+-CXXFLAGS += "-fvisibility-inlines-hidden"
++CXXFLAGS_EXTRA += "-fvisibility-inlines-hidden"
+ 
+ LIBC_DEPENDENCIES = "libsegfault \
+ 		     eglibc \
+diff --git a/meta/conf/distro/include/poky-glibc.inc b/meta/conf/distro/include/poky-glibc.inc
+index 4be7122..d3f28c0 100644
+--- a/meta/conf/distro/include/poky-glibc.inc
++++ b/meta/conf/distro/include/poky-glibc.inc
+@@ -18,7 +18,7 @@ PREFERRED_PROVIDER_virtual/${SDK_PREFIX}libc-initial-nativesdk ?= "glibc-initial
+ 
+ TARGET_OS = "${GLIBCTARGETOS}"
+ 
+-CXXFLAGS += "-fvisibility-inlines-hidden"
++CXXFLAGS_EXTRA += "-fvisibility-inlines-hidden"
+ 
+ LIBC_DEPENDENCIES = "\
+     libsegfault \
+diff --git a/meta/conf/distro/include/poky-uclibc.inc b/meta/conf/distro/include/poky-uclibc.inc
+index def9dfe..13c17f9 100644
+--- a/meta/conf/distro/include/poky-uclibc.inc
++++ b/meta/conf/distro/include/poky-uclibc.inc
+@@ -15,7 +15,7 @@ USE_NLS_glib-2.0 = "yes"
+ 
+ TARGET_OS = "${UCLIBCTARGETOS}"
+ 
+-CXXFLAGS += "-fvisibility-inlines-hidden"
++CXXFLAGS_EXTRA += "-fvisibility-inlines-hidden"
+ 
+ IMAGE_LINGUAS = ""
+ 
+diff --git a/meta/recipes-devtools/gcc/gcc-configure-runtime.inc b/meta/recipes-devtools/gcc/gcc-configure-runtime.inc
+index 6cc11e2..d4dfbc2 100644
+--- a/meta/recipes-devtools/gcc/gcc-configure-runtime.inc
++++ b/meta/recipes-devtools/gcc/gcc-configure-runtime.inc
+@@ -1,5 +1,6 @@
+ require gcc-configure-common.inc
+ 
++CXXFLAGS_EXTA = ""
+ EXTRA_OECONF_PATHS = " \
+     --with-local-prefix=${STAGING_DIR_TARGET}${prefix} \
+     --with-gxx-include-dir=${includedir}/c++/ \
+diff --git a/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb
+index 093f9bf..c1e680d 100644
+--- a/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb
++++ b/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb
+@@ -1,4 +1,4 @@
+-PR = "r2"
++PR = "r3"
+ 
+ require gcc-${PV}.inc
+ require gcc-configure-runtime.inc
 -- 
 1.7.1.1
 
