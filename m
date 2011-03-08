@@ -1,22 +1,32 @@
-Return-Path: <liping.ke@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 591DE4C80A4F
-	for <poky@yoctoproject.org>; Mon,  7 Mar 2011 23:06:31 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 07 Mar 2011 21:06:30 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,282,1297065600"; d="scan'208";a="399143247"
-Received: from lke-nhm.sh.intel.com (HELO localhost) ([10.239.36.48])
-	by azsmga001.ch.intel.com with ESMTP; 07 Mar 2011 21:06:08 -0800
-Message-Id: <6e98b52547e8df1dbeeb1813e0da6524a87ebcdd.1299560576.git.liping.ke@intel.com>
-In-Reply-To: <cover.1299560576.git.liping.ke@intel.com>
-References: <cover.1299560576.git.liping.ke@intel.com>
-Old-Date: Tue, 8 Mar 2011 12:55:08 +0800
-Date: Tue, 08 Mar 2011 13:04:35 +0800
+Return-Path: <kubera.samrat@gmail.com>
+Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 001174C80050
+	for <poky@yoctoproject.org>; Mon,  7 Mar 2011 23:40:44 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by wwd20 with SMTP id 20so429052wwd.11
+	for <poky@yoctoproject.org>; Mon, 07 Mar 2011 21:40:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:date:message-id:subject:from:to
+	:content-type; bh=oehgnvQBzw/zW1Hk0w8xw2aIIg2JYGduCroI63kyRsY=;
+	b=eEH2PAP2ztzKvi2YzCNbu9ixL1rGF+dIt6zGW3CMEKLv6eTY0BSaGfA1o2FmeYzp6k
+	XF6rVPfoyDXjRsPJS2+GYDxMvrlr40p8rKvGoTqv4arsFCvQJtCRmQOm3fpo16uUhqjZ
+	SEGzerA17S4EcqJ+jzuU2Sqg+0/BOMw3+DXuc=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:date:message-id:subject:from:to:content-type;
+	b=KEBPe/K3foY36YD98KZM9cdAyFh/TggUaHQA26goH+cw+6280ICTYnLqDVOXkIf+zY
+	VWlzugoMiVdM00/0F6V/7P9u+vtdwPXdEc0q1OyZpkyCDbRqsuVOmW95zgCis7BKQvti
+	vKLpYO8yABIFqGC2h9CVfwOD24Qs6zUxaSh1A=
+MIME-Version: 1.0
+Received: by 10.216.198.27 with SMTP id u27mr4138694wen.47.1299562843878; Mon,
+	07 Mar 2011 21:40:43 -0800 (PST)
+Received: by 10.216.69.83 with HTTP; Mon, 7 Mar 2011 21:40:43 -0800 (PST)
+Date: Tue, 8 Mar 2011 11:10:43 +0530
+Message-ID: <AANLkTi=up7xTGUbD85evMyutLjjqhAsUnfPTjXy+vZkH@mail.gmail.com>
+From: kubera samrat <kubera.samrat@gmail.com>
 To: poky@yoctoproject.org
-CC: 
-From: Liping Ke <liping.ke@intel.com>
-Subject: [PATCH 1/1] adt: removed unused repo source and opkg options
+Subject: error while adding alsa-utils to my recipe
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,56 +38,20 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 08 Mar 2011 05:06:31 -0000
+X-List-Received-Date: Tue, 08 Mar 2011 05:40:45 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 
-From: Liping Ke <liping.ke@intel.com>
+Hi all,
+                     While compilation alsa-utils 1.0.21 I got:
+checking for form.h... yes checking for new_panel in -lpanelw... no
+configure: error: panelw library not found.
+Could you please suggest me a solution.
 
-opgk option --force-overwrite is only a workaround for bug #547.
-Now this bug is gone, so remove this option.
+I am using ubunti 10.04 on 64 bit machine
 
-and also, the first opkg repo source is not useful, remove it.
 
-Signed-off-by: Liping Ke <liping.ke@intel.com>
----
- .../adt-installer/opkg/conf/opkg-sdk-i686.conf     |    1 -
- .../adt-installer/opkg/conf/opkg-sdk-x86_64.conf   |    1 -
- .../adt-installer/scripts/adt_installer_internal   |    2 +-
- 3 files changed, 1 insertions(+), 3 deletions(-)
 
-diff --git a/meta/recipes-devtools/installer/adt-installer/opkg/conf/opkg-sdk-i686.conf b/meta/recipes-devtools/installer/adt-installer/opkg/conf/opkg-sdk-i686.conf
-index 1d8c89a..9c93a72 100644
---- a/meta/recipes-devtools/installer/adt-installer/opkg/conf/opkg-sdk-i686.conf
-+++ b/meta/recipes-devtools/installer/adt-installer/opkg/conf/opkg-sdk-i686.conf
-@@ -2,5 +2,4 @@ arch all 1
- arch any 6
- arch noarch 11
- arch i686-nativesdk 16
--src yp http://adtrepo.yoctoproject.org/1.0/adt-ipk
- src yp-i686-nativesdk http://adtrepo.yoctoproject.org/1.0/adt-ipk/i686-nativesdk
-diff --git a/meta/recipes-devtools/installer/adt-installer/opkg/conf/opkg-sdk-x86_64.conf b/meta/recipes-devtools/installer/adt-installer/opkg/conf/opkg-sdk-x86_64.conf
-index 6b14f98..3e70aac 100644
---- a/meta/recipes-devtools/installer/adt-installer/opkg/conf/opkg-sdk-x86_64.conf
-+++ b/meta/recipes-devtools/installer/adt-installer/opkg/conf/opkg-sdk-x86_64.conf
-@@ -2,5 +2,4 @@ arch all 1
- arch any 6
- arch noarch 11
- arch x86_64-nativesdk 16
--src yp http://adtrepo.yoctoproject.org/1.0/adt-ipk
- src yp-x86_64-nativesdk http://adtrepo.yoctoproject.org/1.0/adt-ipk/x86_64-nativesdk
-diff --git a/meta/recipes-devtools/installer/adt-installer/scripts/adt_installer_internal b/meta/recipes-devtools/installer/adt-installer/scripts/adt_installer_internal
-index df142ff..bc92069 100755
---- a/meta/recipes-devtools/installer/adt-installer/scripts/adt_installer_internal
-+++ b/meta/recipes-devtools/installer/adt-installer/scripts/adt_installer_internal
-@@ -89,7 +89,7 @@ echo_info "opkg update process ended..."
- check_result
- 
- #install below must sdk-host packages
--OPKG_INSTALL_CMD="$OPKG_CMD --force-overwrite"
-+OPKG_INSTALL_CMD="$OPKG_CMD "
- OPKG_INSTALL_NATIVE_CMD="$OPKG_INSTALL_CMD  -f $OPKG_CONFIG_FILE -o $NATIVE_INSTALL_DIR install"
- 
- echo_info "Installing pseudo nativesdk ...\n"
+Thanks and regards
 -- 
-1.7.0.4
-
+V kubera Samrat
 
