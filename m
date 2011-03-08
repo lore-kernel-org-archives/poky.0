@@ -1,24 +1,31 @@
-Return-Path: <josh@openedhand.com>
-Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 155E74C800A3
-	for <poky@yoctoproject.org>; Tue,  8 Mar 2011 12:47:10 -0600 (CST)
-Received: from [172.10.10.228] (unknown [67.232.160.146])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by pug.o-hand.com (Postfix) with ESMTP id 3DDC912EC1CA;
-	Tue,  8 Mar 2011 13:30:29 -0600 (CST)
-From: Joshua Lock <josh@openedhand.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C17304C800A3
+	for <poky@yoctoproject.org>; Tue,  8 Mar 2011 12:50:54 -0600 (CST)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p28IhOaI023080;
+	Tue, 8 Mar 2011 18:43:24 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 22665-07; Tue,  8 Mar 2011 18:43:20 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p28IhC2I023074
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Tue, 8 Mar 2011 18:43:16 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
 To: Patches and discussions about the oe-core layer
 	<openembedded-core@lists.openembedded.org>
-In-Reply-To: <0c04b8bd89465d186d0ccb6912e7c08aae506541.1299544029.git.sgw@linux.intel.com>
-References: <cover.1299544029.git.sgw@linux.intel.com>
-	<0c04b8bd89465d186d0ccb6912e7c08aae506541.1299544029.git.sgw@linux.intel.com>
-Date: Tue, 08 Mar 2011 10:47:01 -0800
-Message-ID: <1299610021.5026.9.camel@scimitar>
+In-Reply-To: <cover.1299431945.git.sgw@linux.intel.com>
+References: <cover.1299431945.git.sgw@linux.intel.com>
+Date: Tue, 08 Mar 2011 10:43:10 -0800
+Message-ID: <1299609790.602.87.camel@rex>
 Mime-Version: 1.0
-X-Mailer: Evolution 2.32.1 (2.32.1-1.fc14) 
-Cc: poky <poky@yoctoproject.org>
-Subject: Re: [OE-core] [PATCH 6/8] util-macros: fix DEPENDS in the case of native/nativesdk
+X-Mailer: Evolution 2.28.3 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky@yoctoproject.org
+Subject: Re: [OE-core] [PATCH 0/2] 2 More Dependency Fixes for RC2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,103 +37,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 08 Mar 2011 18:47:10 -0000
-X-Groupsio-MsgNum: 4311
-Content-Type: multipart/mixed; boundary="=-Wk4h4c454hLcCUWZCUoo"
-
---=-Wk4h4c454hLcCUWZCUoo
+X-List-Received-Date: Tue, 08 Mar 2011 18:50:55 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On Mon, 2011-03-07 at 16:29 -0800, Saul Wold wrote:
-From: Dexuan Cui <dexuan.cui@intel.com>
+On Sun, 2011-03-06 at 09:19 -0800, Saul Wold wrote:
+> From: Saul Wold <sgw@linux.intel.com>
 > 
-> This fixes [YOCTO #814]
+> Fix more dependency issues
 > 
-> Without the line fixing nativesdk, bitbake meta-toolchain-gmae would
-> get the following:
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>   Branch: distro/oe-core
+>   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=distro/oe-core
 > 
-> Missing or unbuildable dependency chain was: ['meta-toolchain-gmae',
-'task-sdk-host', 'qemu-nativesdk', 'libsdl-nativesdk',
-'libx11-nativesdk', 'util-macros-nativesdk', 'libgpg-error-nativesdk']
-> ERROR: Nothing PROVIDES 'libgpg-error-nativesdk'
-> 
-> [sgw: inherit gettext]
-> Signed-off-by: Dexuan Cui <dexuan.cui@intel.com>
-> Signed-off-by: Lianhao Lu <lianhao.lu@intel.com>
-> Signed-off-by: Saul Wold <sgw@linux.intel.com>
+> Thanks,
+>     Saul Wold <sgw@linux.intel.com>
 > ---
->  .../xorg-util/util-macros_1.11.0.bb                |    5 +++--
->  1 files changed, 3 insertions(+), 2 deletions(-)
 > 
-> diff --git a/meta/recipes-graphics/xorg-util/util-macros_1.11.0.bb
-b/meta/recipes-graphics/xorg-util/util-macros_1.11.0.bb
-> index 2bfe514..10de96c 100644
-> --- a/meta/recipes-graphics/xorg-util/util-macros_1.11.0.bb
-> +++ b/meta/recipes-graphics/xorg-util/util-macros_1.11.0.bb
-> @@ -11,12 +11,13 @@ PE = "1"
->  PR = "r0"
->  
->  # ${PN} is empty so we need to tweak -dev and -dbg package
-dependencies
-> -DEPENDS = "gettext libgpg-error"
-> -DEPENDS_virtclass-native = "gettext"
-> +DEPENDS = "libgpg-error"
->  
->  RDEPENDS_${PN}-dev = ""
->  RRECOMMENDS_${PN}-dbg = "${PN}-dev (= ${EXTENDPV})"
->  
-> +inherit gettext
-> +
->  BBCLASSEXTEND = "native nativesdk"
->  
->  SRC_URI[md5sum] = "8580021f3a9e242ab09d23d62e475d53"
 > 
-By making this change you've introduced the requirement for native and
-nativesdk variants of libgpg-error, we don't want nor need this for the
--native* builds which is why we had a line explicitly setting the
-DEPENDS for native.
+> Saul Wold (2):
+>   gst-plugins: Added hal to DEPENDS
+>   attr: Added ncurses to depends
+> 
+>  meta/recipes-multimedia/gstreamer/gst-plugins.inc |    2 +-
+>  meta/recipes-support/attr/attr.inc                |    2 ++
+>  2 files changed, 3 insertions(+), 1 deletions(-)
 
-The right way to do this is to have a similar line for the nativesdk
-DEPENDS as per the attached patch (and my josh/bernard branch on
-poky-contrib).
+Merged into master, thanks.
 
-Cheers,
-Joshua
--- 
-Joshua Lock
-        Yocto Build System Monkey
-        Intel Open Source Technology Centre
-
---=-Wk4h4c454hLcCUWZCUoo
-Content-Disposition: attachment; filename="0001-util-macros-fix-DEPENDS-for-nativesdk.patch"
-Content-Type: text/x-patch; name="0001-util-macros-fix-DEPENDS-for-nativesdk.patch"; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-
-From 48f856c6bdb8c7ddaf23963238ab52fb8856cdd5 Mon Sep 17 00:00:00 2001
-From: Joshua Lock <josh@linux.intel.com>
-Date: Tue, 8 Mar 2011 10:20:27 -0800
-Subject: [PATCH] util-macros: fix DEPENDS for nativesdk
-
-Signed-off-by: Joshua Lock <josh@linux.intel.com>
----
- .../xorg-util/util-macros_1.11.0.bb                |    1 +
- 1 files changed, 1 insertions(+), 0 deletions(-)
-
-diff --git a/meta/recipes-graphics/xorg-util/util-macros_1.11.0.bb b/meta/recipes-graphics/xorg-util/util-macros_1.11.0.bb
-index 2bfe514..e2c558c 100644
---- a/meta/recipes-graphics/xorg-util/util-macros_1.11.0.bb
-+++ b/meta/recipes-graphics/xorg-util/util-macros_1.11.0.bb
-@@ -13,6 +13,7 @@ PR = "r0"
- # ${PN} is empty so we need to tweak -dev and -dbg package dependencies
- DEPENDS = "gettext libgpg-error"
- DEPENDS_virtclass-native = "gettext"
-+DEPENDS_virtclass-nativesdk = "gettext"
- 
- RDEPENDS_${PN}-dev = ""
- RRECOMMENDS_${PN}-dbg = "${PN}-dev (= ${EXTENDPV})"
--- 
-1.7.4
+Richard
 
 
---=-Wk4h4c454hLcCUWZCUoo--
