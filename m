@@ -1,20 +1,44 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0CFE54C8090B
-	for <poky@yoctoproject.org>; Wed,  9 Mar 2011 15:33:02 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 09 Mar 2011 13:33:02 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,292,1297065600"; d="scan'208";a="400237011"
-Received: from unknown (HELO localhost) ([10.255.12.117])
-	by azsmga001.ch.intel.com with ESMTP; 09 Mar 2011 13:33:01 -0800
-Message-Id: <edad97936654f13dbbef0651f508615dc4c89e65.1299705776.git.dvhart@linux.intel.com>
-Old-Date: Wed, 9 Mar 2011 12:55:20 -0800
-Date: Wed, 09 Mar 2011 13:32:59 -0800
-To: poky@yoctoproject.org
-From: Darren Hart <dvhart@linux.intel.com>
-Cc: Darren Hart <dvhart@linux.intel.com>, Joshua Lock <josh@linux.intel.com>
-Subject: [PATCH] bitbake docs: use dblatex to build the pdf bitbake manual
+Return-Path: <raj.khem@gmail.com>
+Received: from mail-bw0-f44.google.com (mail-bw0-f44.google.com
+	[209.85.214.44])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 02D2E4C800A0
+	for <poky@lists.pokylinux.org>; Wed,  9 Mar 2011 15:52:17 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by bwz13 with SMTP id 13so981546bwz.3
+	for <poky@lists.pokylinux.org>; Wed, 09 Mar 2011 13:52:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc:content-type:content-transfer-encoding;
+	bh=UZmK35HF0yQxumSwWpNvelWNmEoFRmNuNQb1FmoR32A=;
+	b=bALLYg8fwhOm/1TwZ/qnRC73rKFc8067Vh9+YwaN6mb18UGgN3Lmup6SU2apJKQkpX
+	xs4Fdc86WRmrv15ImM1N1sD9BvPG73eBUZjr1xxUxUrs5NYCQs26xwhN2ZFKCzqRG2GK
+	JOW3P03com6dDMhzeUcLZBtjj4yBAhzPjJtEQ=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+	:cc:content-type:content-transfer-encoding;
+	b=fcG2gThRmxCxLNdSk1hv+yhz9hGMkqR2z+3XtifjixRHoEdhRq7w7bOCp0Gn8YEFMw
+	ejvf5ZsjztNsDKdU47xXbiIUJn94bzmgtLpA+dIopjVOaZ4LdlaNHYlkq6bnMShs3WUj
+	M5F/XMocCjsQq1nFEXWWyGQ0eeSfomI8LqGJU=
+Received: by 10.223.5.3 with SMTP id 3mr6276615fat.0.1299707536463; Wed, 09
+	Mar 2011 13:52:16 -0800 (PST)
+MIME-Version: 1.0
+Received: by 10.223.30.151 with HTTP; Wed, 9 Mar 2011 13:51:46 -0800 (PST)
+In-Reply-To: <3FBA67DC-6150-4EFE-A5C4-57D895BA697D@dominion.thruhere.net>
+References: <4D6675E0.2040703@mlbassoc.com> <4D6B3BA3.9050303@intel.com>
+	<4D6F9018.1000605@mlbassoc.com> <4D704768.2090100@intel.com>
+	<4D70CE46.7040104@mlbassoc.com> <1299634187.602.546.camel@rex>
+	<4D77C9F9.4040309@mlbassoc.com> <1299697497.602.866.camel@rex>
+	<3FBA67DC-6150-4EFE-A5C4-57D895BA697D@dominion.thruhere.net>
+From: Khem Raj <raj.khem@gmail.com>
+Date: Wed, 9 Mar 2011 13:51:46 -0800
+Message-ID: <AANLkTin6pW+Om2qF1Ey5=ftWfkNh3FtzRB01fqCmo+EP@mail.gmail.com>
+To: Koen Kooi <koen@dominion.thruhere.net>
+Cc: Poky <poky@lists.pokylinux.org>,
+	Patches and discussions about the oe-core layer
+	<openembedded-core@lists.openembedded.org>
+Subject: Re: Is sstate broken
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,52 +50,75 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Mar 2011 21:33:03 -0000
+X-List-Received-Date: Wed, 09 Mar 2011 21:52:18 -0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Darren Hart <dvhart@linux.intel.com>
+On Wed, Mar 9, 2011 at 11:30 AM, Koen Kooi <koen@dominion.thruhere.net> wro=
+te:
+>
+> Op 9 mrt 2011, om 20:04 heeft Richard Purdie het volgende geschreven:
+>
+>> On Wed, 2011-03-09 at 11:42 -0700, Gary Thomas wrote:
+>>> I updated to master (fab742bd4693ed3092690a20dd32d53fe27c3d4c) and trie=
+d again.
+>>> I don't see any difference - the run using the sstate cache as a mirror
+>>> seems to do all the same work as without. =C2=A0Here's how I tested it.
+>>>
+>>> * Build original tree
+>>> =C2=A0 % POKYCONF=3Dmeta-cobra3530p60/conf . /tmp/poky-amltd/poky-init-=
+build-env /local/p60_step1
+>>> =C2=A0 ... adjust conf/local.conf
+>>> =C2=A0 % bitbake amltd-console-image
+>>>
+>>> * Rebuild, using previous result for SSTATE_MIRRORS
+>>> =C2=A0 % POKYCONF=3Dmeta-cobra3530p60/conf . /tmp/poky-amltd/poky-init-=
+build-env /local/p60_step2
+>>> =C2=A0 ... adjust conf/local.conf
+>>> =C2=A0 % bitbake amltd-console-image
+>>>
+>>> The only difference between the two runs is enabling SSTATE_MIRRORS in =
+local.conf
+>>> =C2=A0 % =C2=A0diff -u /local/p60_step?/conf/local.conf
+>>> =C2=A0 =C2=A0--- /local/p60_step1/conf/local.conf =C2=A0 =C2=A02011-03-=
+09 08:28:18.266933061 -0700
+>>> =C2=A0 =C2=A0+++ /local/p60_step2/conf/local.conf =C2=A0 =C2=A02011-03-=
+09 09:57:51.365932951 -0700
+>>> =C2=A0 =C2=A0@@ -53,4 +53,7 @@
+>>> =C2=A0 =C2=A0 IMAGE_LINGUAS ?=3D "en-us"
+>>>
+>>> =C2=A0 =C2=A0 # Minimize feature set
+>>> =C2=A0 =C2=A0 DISTRO_FEATURES ?=3D "alsa"
+>>> =C2=A0 =C2=A0+SSTATE_MIRRORS ?=3D "\
+>>> =C2=A0 =C2=A0+file://.* file:///local/p60_step1/sstate-cache/"
+>>>
+>>> The results seem to have gone through all the same steps (or nearly so)=
+. =C2=A0The output
+>>> from the runs is at
+>>> =C2=A0 http://www.mlbassoc.com/poky/build.step1
+>>> =C2=A0 http://www.mlbassoc.com/poky/build.step2
+>>>
+>>> Comparing the two build trees:
+>>> =C2=A0 % ls /local/p60_step1/tmp/work/*/*/temp/log.do_compile | wc
+>>> =C2=A0 =C2=A0 144 =C2=A0 =C2=A0 144 =C2=A0 12521
+>>> =C2=A0 % ls /local/p60_step2/tmp/work/*/*/temp/log.do_compile | wc
+>>> =C2=A0 =C2=A0 143 =C2=A0 =C2=A0 143 =C2=A0 12427
+>>> =C2=A0 % du -s /local/p60_step?
+>>> =C2=A0 15229296 =C2=A0 =C2=A0 =C2=A0 =C2=A0/local/p60_step1
+>>> =C2=A0 15162760 =C2=A0 =C2=A0 =C2=A0 =C2=A0/local/p60_step2
+>>>
+>>> I know this procedure used to work (or at least close). =C2=A0Am I doin=
+g
+>>> something wrong?
+>>
+>> You're not doing anything wrong and this is the same scenario I've been
+>> testing with. After I'd fixed the origin problem it created a problem
+>> with file urls containing globing. I managed to break the original patch
+>> with the globing fix. The good news is the problem is simple and I've
+>> pushed a fix.
+>
+> Is that fix in oe-core as well?
 
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: dvhart/doc
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dvhart/doc
-
-Thanks,
-    Darren Hart <dvhart@linux.intel.com>
-
-Darren Hart (1):
-  bitbake docs: use dblatex to build the pdf bitbake manual
-
- bitbake/doc/manual/Makefile |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
-
-Fix [BUGID #593]
-
-The current manual build fails for printing formats which use latex as an
-intermediate format. This bug has been reported in multiple locations and I
-haven't found a solution posted to any of them.
-
-Using --with-dblatex uses dblatex to make the conversion and successfully
-generates the pdf. It adds a dependency on dblatex and its dependencies.
-
-Signed-off-by: Darren Hart <dvhart@linux.intel.com>
-CC: Joshua Lock <josh@linux.intel.com>
----
- bitbake/doc/manual/Makefile |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
-
-diff --git a/bitbake/doc/manual/Makefile b/bitbake/doc/manual/Makefile
-index a43c025..341ab55 100644
---- a/bitbake/doc/manual/Makefile
-+++ b/bitbake/doc/manual/Makefile
-@@ -45,7 +45,7 @@ endif
- 	$(call command,xsltproc --stringparam base.dir $@/ $(if $(htmlcssfile),--stringparam html.stylesheet $(htmlcssfile)) $(htmlxsl) $(manual),XSLTPROC $@ $(manual))
- 
- $(xmltotypes): $(manual)
--	$(call command,xmlto --extensions -o $(topdir)/$@ $@ $(manual),XMLTO $@ $(manual))
-+	$(call command,xmlto --with-dblatex --extensions -o $(topdir)/$@ $@ $(manual),XMLTO $@ $(manual))
- 
- clean:
- 	rm -rf $(cleanfiles)
--- 
-1.7.1
-
+I guess its hardening in yocto and eventually will make into oe-core
+which is good.
 
