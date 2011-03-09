@@ -1,21 +1,32 @@
-Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 49B674C800B8
-	for <poky@yoctoproject.org>; Tue,  8 Mar 2011 19:26:14 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 08 Mar 2011 17:26:13 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,286,1297065600"; d="scan'208";a="399726637"
-Received: from nbuild2.sc.intel.com (HELO localhost) ([172.25.110.37])
-	by azsmga001.ch.intel.com with ESMTP; 08 Mar 2011 17:26:13 -0800
-Message-Id: <33b26ba051fa171e480bce3a1e4497a619241176.1299633840.git.nitin.a.kamble@intel.com>
-In-Reply-To: <cover.1299633840.git.nitin.a.kamble@intel.com>
-References: <cover.1299633840.git.nitin.a.kamble@intel.com>
-Old-Date: Sat, 5 Mar 2011 16:37:14 -0800
-Date: Tue, 08 Mar 2011 17:26:13 -0800
-To: poky@yoctoproject.org,openembedded-core@lists.openembedded.org
-From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Subject: [PATCH 1/1] gcc-runtime: fix LSB library checks for libstdc++.so.6
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 265DF4C8009A
+	for <poky@lists.pokylinux.org>; Tue,  8 Mar 2011 19:30:07 -0600 (CST)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p291U4hi031427;
+	Wed, 9 Mar 2011 01:30:04 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 31382-01; Wed,  9 Mar 2011 01:30:00 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p291TmYo031414
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Wed, 9 Mar 2011 01:29:52 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Gary Thomas <gary@mlbassoc.com>
+In-Reply-To: <4D70CE46.7040104@mlbassoc.com>
+References: <4D6675E0.2040703@mlbassoc.com> <4D6B3BA3.9050303@intel.com>
+	<4D6F9018.1000605@mlbassoc.com> <4D704768.2090100@intel.com>
+	<4D70CE46.7040104@mlbassoc.com>
+Date: Tue, 08 Mar 2011 17:29:47 -0800
+Message-ID: <1299634187.602.546.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: Poky <poky@lists.pokylinux.org>
+Subject: Re: Is sstate broken
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,65 +38,39 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Mar 2011 01:26:14 -0000
+X-List-Received-Date: Wed, 09 Mar 2011 01:30:07 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-From: Nitin A Kamble <nitin.a.kamble@intel.com>
+On Fri, 2011-03-04 at 04:34 -0700, Gary Thomas wrote:
+> On 03/03/2011 06:59 PM, Zhai, Edwin wrote:
+> > Gary Thomas wrote:
+> >> On 02/27/2011 11:07 PM, Zhai, Edwin wrote:
+> >> > Thanks for trying this.
+> >> > sstate function is a little bit fragile recently. I'll look at it after fixing some other bugs.
+> >>
+> >> Any progress on this?
+> >>
+> >> Should I file this as a bug?
+> >>
+> >
+> > We have one http://bugzilla.pokylinux.org/show_bug.cgi?id=788
+> 
+> Yes, that addresses the random errors (which don't seem to have any affect)
+> 
+> However, even without those errors, the sstate information is not being
+> used at all.  In my experiment, a new tree (with the old sstate pointed
+> to by SSTATE_MIRRORS) is executing a full build every time.
+> 
+> Did I miss something?
 
-[YOCTO #795]
+This should be fixed by the couple of recent changes in master, if you
+could check this is working I'd appreciate it as we are getting close to
+the release and I'd like this to be working.
 
-When we run library check of LSB on qemux86 and qemuppc, we got some failures
-about 'libstdc++.so.6'.
+Cheers,
 
-Test environment:
-Platform: Qemu-x86, Qemu-ppc
-lsb image: poky-image-lsb-qemux86-test.ext3(Feb 26th, auto-build server)
-Library check of LSB: 4.1.0-1
+Richard
 
-The error log:
-Did not find _ZNKSt5ctypeIcE8do_widenEPKcS2_Pc (GLIBCXX_3.4) in libstdc++.so.6
-Unmangled symbol name: std::ctype<char>::do_widen(char const*, char const*,
-char*) const
-...
-
- found that some weak symbols ('W') change into local ('t') during link time
-and be stripped. According to compiling log, the option
-"-fvisibility-inlines-hidden" is used for gcc. And this option caused some weak
-symbols change into local.
-
-see http://bugzilla.pokylinux.org/show_bug.cgi?id=795 for more information on the bug.
-
-Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
-Signed-off-by: Jingdong Lu <jingdong.lu@windriver.com>
-Signed-off-by: Khem Raj <raj.khem@gmail.com>
----
- .../recipes-devtools/gcc/gcc-configure-runtime.inc |    3 +++
- meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb     |    2 +-
- 2 files changed, 4 insertions(+), 1 deletions(-)
-
-diff --git a/meta/recipes-devtools/gcc/gcc-configure-runtime.inc b/meta/recipes-devtools/gcc/gcc-configure-runtime.inc
-index 6cc11e2..2d214af 100644
---- a/meta/recipes-devtools/gcc/gcc-configure-runtime.inc
-+++ b/meta/recipes-devtools/gcc/gcc-configure-runtime.inc
-@@ -1,5 +1,8 @@
- require gcc-configure-common.inc
- 
-+CXXFLAGS = "${@oe_filter_out('-fvisibility-inlines-hidden',
-+'${CXXFLAGS}', d)}" 
-+
- EXTRA_OECONF_PATHS = " \
-     --with-local-prefix=${STAGING_DIR_TARGET}${prefix} \
-     --with-gxx-include-dir=${includedir}/c++/ \
-diff --git a/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb
-index 093f9bf..c1e680d 100644
---- a/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb
-+++ b/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb
-@@ -1,4 +1,4 @@
--PR = "r2"
-+PR = "r3"
- 
- require gcc-${PV}.inc
- require gcc-configure-runtime.inc
--- 
-1.7.3.4
 
 
