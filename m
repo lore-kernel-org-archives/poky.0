@@ -1,33 +1,32 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 3404A4C80050
-	for <poky@yoctoproject.org>; Wed,  9 Mar 2011 14:04:10 -0600 (CST)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p29Jx2dJ023833;
-	Wed, 9 Mar 2011 19:59:02 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 21021-10; Wed,  9 Mar 2011 19:58:58 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p29JwnmE023816
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Wed, 9 Mar 2011 19:58:52 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Patches and discussions about the oe-core layer
-	<openembedded-core@lists.openembedded.org>
-In-Reply-To: <4D7707E9.3080702@gmail.com>
-References: <cover.1299633840.git.nitin.a.kamble@intel.com>
-	<33b26ba051fa171e480bce3a1e4497a619241176.1299633840.git.nitin.a.kamble@intel.com>
-	<4D7707E9.3080702@gmail.com>
-Date: Wed, 09 Mar 2011 11:58:46 -0800
-Message-ID: <1299700726.602.988.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@yoctoproject.org
-Subject: Re: [OE-core] [PATCH 1/1] gcc-runtime: fix LSB library checks for libstdc++.so.6
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id EC5474C80050
+	for <poky@lists.pokylinux.org>; Wed,  9 Mar 2011 14:26:38 -0600 (CST)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id AE9621660537; Wed,  9 Mar 2011 13:26:38 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.2-r929478
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 4A193166051F;
+	Wed,  9 Mar 2011 13:26:37 -0700 (MST)
+Message-ID: <4D77E27D.7020901@mlbassoc.com>
+Date: Wed, 09 Mar 2011 13:26:37 -0700
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
+MIME-Version: 1.0
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+References: <4D6675E0.2040703@mlbassoc.com> <4D6B3BA3.9050303@intel.com>	
+	<4D6F9018.1000605@mlbassoc.com> <4D704768.2090100@intel.com>	
+	<4D70CE46.7040104@mlbassoc.com> <1299634187.602.546.camel@rex>	
+	<4D77C9F9.4040309@mlbassoc.com> <1299697497.602.866.camel@rex>
+In-Reply-To: <1299697497.602.866.camel@rex>
+Cc: Poky <poky@lists.pokylinux.org>
+Subject: Re: Is sstate broken
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,78 +38,104 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Mar 2011 20:04:10 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Wed, 09 Mar 2011 20:26:39 -0000
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Tue, 2011-03-08 at 20:54 -0800, Khem Raj wrote:
-> On 3/8/2011 5:26 PM, Nitin A Kamble wrote:
-> > From: Nitin A Kamble<nitin.a.kamble@intel.com>
-> >
-> > [YOCTO #795]
-> >
-> > When we run library check of LSB on qemux86 and qemuppc, we got some failures
-> > about 'libstdc++.so.6'.
-> >
-> > Test environment:
-> > Platform: Qemu-x86, Qemu-ppc
-> > lsb image: poky-image-lsb-qemux86-test.ext3(Feb 26th, auto-build server)
-> > Library check of LSB: 4.1.0-1
-> >
-> > The error log:
-> > Did not find _ZNKSt5ctypeIcE8do_widenEPKcS2_Pc (GLIBCXX_3.4) in libstdc++.so.6
-> > Unmangled symbol name: std::ctype<char>::do_widen(char const*, char const*,
-> > char*) const
-> > ...
-> >
-> >   found that some weak symbols ('W') change into local ('t') during link time
-> > and be stripped. According to compiling log, the option
-> > "-fvisibility-inlines-hidden" is used for gcc. And this option caused some weak
-> > symbols change into local.
-> >
-> > see http://bugzilla.pokylinux.org/show_bug.cgi?id=795 for more information on the bug.
-> >
-> > Signed-off-by: Nitin A Kamble<nitin.a.kamble@intel.com>
-> > Signed-off-by: Jingdong Lu<jingdong.lu@windriver.com>
-> > Signed-off-by: Khem Raj<raj.khem@gmail.com>
-> 
-> thank you. Applied it to openembedded-core
+On 03/09/11 12:04, Richard Purdie wrote:
+> On Wed, 2011-03-09 at 11:42 -0700, Gary Thomas wrote:
+>> I updated to master (fab742bd4693ed3092690a20dd32d53fe27c3d4c) and tried again.
+>> I don't see any difference - the run using the sstate cache as a mirror
+>> seems to do all the same work as without.  Here's how I tested it.
+>>
+>> * Build original tree
+>>     % POKYCONF=meta-cobra3530p60/conf . /tmp/poky-amltd/poky-init-build-env /local/p60_step1
+>>     ... adjust conf/local.conf
+>>     % bitbake amltd-console-image
+>>
+>> * Rebuild, using previous result for SSTATE_MIRRORS
+>>     % POKYCONF=meta-cobra3530p60/conf . /tmp/poky-amltd/poky-init-build-env /local/p60_step2
+>>     ... adjust conf/local.conf
+>>     % bitbake amltd-console-image
+>>
+>> The only difference between the two runs is enabling SSTATE_MIRRORS in local.conf
+>>     %  diff -u /local/p60_step?/conf/local.conf
+>>      --- /local/p60_step1/conf/local.conf    2011-03-09 08:28:18.266933061 -0700
+>>      +++ /local/p60_step2/conf/local.conf    2011-03-09 09:57:51.365932951 -0700
+>>      @@ -53,4 +53,7 @@
+>>       IMAGE_LINGUAS ?= "en-us"
+>>
+>>       # Minimize feature set
+>>       DISTRO_FEATURES ?= "alsa"
+>>      +SSTATE_MIRRORS ?= "\
+>>      +file://.* file:///local/p60_step1/sstate-cache/"
+>>
+>> The results seem to have gone through all the same steps (or nearly so).  The output
+>> from the runs is at
+>>     http://www.mlbassoc.com/poky/build.step1
+>>     http://www.mlbassoc.com/poky/build.step2
+>>
+>> Comparing the two build trees:
+>>     % ls /local/p60_step1/tmp/work/*/*/temp/log.do_compile | wc
+>>       144     144   12521
+>>     % ls /local/p60_step2/tmp/work/*/*/temp/log.do_compile | wc
+>>       143     143   12427
+>>     % du -s /local/p60_step?
+>>     15229296        /local/p60_step1
+>>     15162760        /local/p60_step2
+>>
+>> I know this procedure used to work (or at least close).  Am I doing
+>> something wrong?
+>
+> You're not doing anything wrong and this is the same scenario I've been
+> testing with. After I'd fixed the origin problem it created a problem
+> with file urls containing globing. I managed to break the original patch
+> with the globing fix. The good news is the problem is simple and I've
+> pushed a fix.
+>
+> It should work *much* better than you've seen above, not needing to
+> rerun many tasks so if its working it will be very obvious.
 
-This raises some questions about how the pull model works as I'd been
-holding off the python RDEPENDS change until I'd had time to check
-something out yet you've applied it. I haven't had the time to be able
-to make any informed feedback on the patch yet whether it was ok or not
-and being able to give any informed feedback takes time.
+Yes, indeed it does!  I just reran step2 from scratch and it finished
+in only 13 minutes (with a lot of other things on the build machine so
+this is quite good).  There's still quite a lot of stuff in the build
+tree:
+   % du -s /local/p60_step2
+   7285332 /local/p60_step2
+but that's only about 1/2 of before.  The results seem very close:
+   % ls -l /local/p60_step2/tmp/deploy/images/
+   total 10748
+   -rwxrw-r--  1 gthomas gthomas 5446150 Mar  9 13:15 amltd-console-image-cobra3530p60-20110309200339.rootfs.tar.bz2
+   lrwxrwxrwx  1 gthomas gthomas      62 Mar  9 13:15 amltd-console-image-cobra3530p60.tar.bz2 -> amltd-console-image-cobra3530p60-20110309200339.rootfs.tar.bz2
+   drwxrwxr-x 91 gthomas gthomas    4096 Mar  9 13:08 licenses
+   -rw-rw-r--  1 gthomas gthomas 3077911 Mar  9 09:24 modules-2.6.37-r0-cobra3530p60.tgz
+   -rw-r--r--  1 gthomas gthomas 2468564 Mar  9 09:24 uImage-2.6.37-r0-cobra3530p60-20110309153435.bin
+   lrwxrwxrwx  1 gthomas gthomas      48 Mar  9 09:24 uImage-cobra3530p60.bin -> uImage-2.6.37-r0-cobra3530p60-20110309153435.bin
+   % ls -l /local/p60_step1/tmp/deploy/images/
+   total 10748
+   -rwxrw-r--  1 gthomas gthomas 5446783 Mar  9 09:53 amltd-console-image-cobra3530p60-20110309153435.rootfs.tar.bz2
+   lrwxrwxrwx  1 gthomas gthomas      62 Mar  9 09:53 amltd-console-image-cobra3530p60.tar.bz2 -> amltd-console-image-cobra3530p60-20110309153435.rootfs.tar.bz2
+   drwxrwxr-x 92 gthomas gthomas    4096 Mar  9 09:06 licenses
+   -rw-rw-r--  1 gthomas gthomas 3077911 Mar  9 09:24 modules-2.6.37-r0-cobra3530p60.tgz
+   -rw-r--r--  1 gthomas gthomas 2468564 Mar  9 09:24 uImage-2.6.37-r0-cobra3530p60-20110309153435.bin
+   lrwxrwxrwx  1 gthomas gthomas      48 Mar  9 09:24 uImage-cobra3530p60.bin -> uImage-2.6.37-r0-cobra3530p60-20110309153435.bin
 
-My basic concern that that the RDEPENDS shouldn't be having that effect
-on native packages and it if it, we probably have a bug somewhere else
-that likely needs fixing.
+I unpacked the resulting image tarballs and they match, modulo the
+package install times in the opkg database.
 
-So the question is whether we are going truly for the pull model, who
-are the people top of tree, what code review applies to patches from
-those people, how absence might get handled and so forth.
+Looks like it's working correctly now :-)
 
-As an illustration, it would have been much more useful for me if
-someone had pulled the individual patches together into a single git
-branch and presented that. This helps me as it highlights the
-outstanding patches and is what Saul does with many of the Yocto
-patches.
+Can you explain what the sstate files are and how I might make use of them?
+In particular, I'd like to be able to hand my customers a sstate cache which
+holds the majority of the tools they might need to speed startup.  Sending
+the whole thing is a bit problematic as it's quite large, so if I can winnow
+it a bit it would help.
 
-I'm aware there are a few patches pending review and I'm thinking the
-best approach may be some kind of staging/-next type branch where we
-keep these as we review and then either accept, reject or ask for
-improvements.
+Thanks for getting this back in order
 
-One other thing I noticed is that Khem merged a patch known to be broken
-and then a fixup for it several commits later. I don't like to do that
-for known breakage since it means things are not bisectable and in that
-case I'd have squashed the changes with an update to the commit message
-about the change. Its not a major issue but something to keep in mind
-going forwards.
-
-Cheers,
-
-Richard
-
-
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
