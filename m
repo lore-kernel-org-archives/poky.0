@@ -1,26 +1,29 @@
-Return-Path: <Kai.Kang@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 6FFB74C8009A
-	for <poky@yoctoproject.org>; Wed,  9 Mar 2011 00:51:57 -0600 (CST)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p296pu1Z010065
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Tue, 8 Mar 2011 22:51:57 -0800 (PST)
-Received: from [128.224.163.157] (128.224.163.157) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Tue, 8 Mar 2011 22:51:56 -0800
-Message-ID: <4D772372.7010803@windriver.com>
-Date: Wed, 9 Mar 2011 14:51:30 +0800
-From: Kang Kai <Kai.Kang@windriver.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.13) Gecko/20101208 Thunderbird/3.1.7
-MIME-Version: 1.0
-To: <poky@yoctoproject.org>
-References: <cover.1299254646.git.dongxiao.xu@intel.com>	<11d60c5b1494c8c796d5e5020bcbb1285c769a73.1299254646.git.dongxiao.xu@intel.com>	<20110308140320.GG23315@kyu3-hedt>
-	<4D7715F6.3070401@windriver.com>
-In-Reply-To: <4D7715F6.3070401@windriver.com>
-X-Originating-IP: [128.224.163.157]
-Subject: Re: current master tree build failed.
+Return-Path: <koen@dominion.thruhere.net>
+Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
+	[74.125.82.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 552C44C80578
+	for <poky@yoctoproject.org>; Wed,  9 Mar 2011 01:49:13 -0600 (CST)
+Received: by wyb40 with SMTP id 40so264417wyb.35
+	for <poky@yoctoproject.org>; Tue, 08 Mar 2011 23:49:12 -0800 (PST)
+Received: by 10.216.63.132 with SMTP id a4mr4175374wed.78.1299656892369;
+	Tue, 08 Mar 2011 23:48:12 -0800 (PST)
+Received: from [172.20.1.5] (ip545070eb.adsl-surfen.hetnet.nl [84.80.112.235])
+	by mx.google.com with ESMTPS id n4sm742139wee.28.2011.03.08.23.48.11
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Tue, 08 Mar 2011 23:48:11 -0800 (PST)
+Mime-Version: 1.0 (Apple Message framework v1082)
+From: Koen Kooi <koen@dominion.thruhere.net>
+In-Reply-To: <201103090129.37429.paul.eggleton@linux.intel.com>
+Date: Wed, 9 Mar 2011 08:48:10 +0100
+Message-Id: <09DD7BA4-C30B-40FC-B8C7-B5F2CF74A09B@dominion.thruhere.net>
+References: <cover.1299544029.git.sgw@linux.intel.com>
+	<1299610544.602.109.camel@rex>
+	<201103090129.37429.paul.eggleton@linux.intel.com>
+To: Paul Eggleton <paul.eggleton@linux.intel.com>
+X-Mailer: Apple Mail (2.1082)
+Cc: poky@yoctoproject.org, Patches and discussions about the oe-core layer
+	<openembedded-core@lists.openembedded.org>
+Subject: Re: [OE-core] [PATCH 0/8] Numerous bug fixes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,37 +35,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Mar 2011 06:51:57 -0000
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Wed, 09 Mar 2011 07:49:14 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
 
-On 2011年03月09日 13:53, Kang Kai wrote:
-> Hi,
->
-> I pull the master tree and HEAD is 
-> fab742bd4693ed3092690a20dd32d53fe27c3d4c. When I run bitbake, I got 
-> the error message:
->
-> ERROR: Poky's config sanity checker detected a potential 
-> misconfiguration.
-> Either fix the cause of this error or at your own risk disable the 
-> checker (see sanity.conf).
-> Following is the list of potential problems / advisories:
->
-> Please set TARGET_OS directly, or choose a MACHINE or DISTRO that does 
-> so.
-> DISTRO 'poky' not found. Please set a valid DISTRO in your local.conf
->
-> What can I do to remove this? Thanks.
->
-> Regards,
-> Kang Kai
-> _______________________________________________
+
+Op 9 mrt 2011, om 02:29 heeft Paul Eggleton het volgende geschreven:
+
+> On Tuesday 08 March 2011 18:55:44 Richard Purdie wrote:
+>>> Saul Wold (3):
+>>>  gst-plugins: Added hal to DEPENDS
+>>>  attr: Added ncurses to depends
+>>>  lsb-live image: add lsb-live and lsb-sdk-live image types
+>>=20
+>> Merged. I'd like to drop the hal dependency if someone can send me a
+>> patch which disables it and everything works.
+>=20
+> Patch attached to do this (against oe-core) .
+
+
+Looks good to me:
+
+Acked-by: Koen Kooi <koen@dominion.thruhere.net>
+
+>=20
+> Cheers,
+> Paul
+> =
+<0001-gst-plugins-good-remove-dependency-on-hal.patch>____________________=
+___________________________
 > poky mailing list
 > poky@yoctoproject.org
 > https://lists.yoctoproject.org/listinfo/poky
-Solved. Many thanks to Jingdong.
-add meta-yocto directory to conf/bblayers.conf.
-
 
 
