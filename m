@@ -1,33 +1,26 @@
-Return-Path: <kubera.samrat@gmail.com>
-Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
-	[74.125.82.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2E4064C8009A
-	for <poky@yoctoproject.org>; Wed,  9 Mar 2011 00:49:56 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by wyb40 with SMTP id 40so232163wyb.35
-	for <poky@yoctoproject.org>; Tue, 08 Mar 2011 22:49:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:date:message-id:subject:from:to
-	:content-type; bh=SYiu5s1s8+ndbq62m/rMccUxpAkPdXj6MHpY6REf5CY=;
-	b=l2uWwEsw7BxYDpZCFvEUJGlUokdZVRRYrE+nSbpVj2vquizQ3P761dvXC+Whz1ni++
-	uWvScf6yflHdsZr8TpZ22SLcXKDAWj7uI5Lkuojp2mWCSlA3d6AO0UUiJ/6WoyAQc0rs
-	R2wfn2Y/zA/FIaXsMb8OOqKTyhJxJkrhSvH3o=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:date:message-id:subject:from:to:content-type;
-	b=Ioy5g/210vUU0WWJ04ryrr4WXgQIJ+KTjkFyHpzxds8JwE8rZEDi9pP5oyun/NhN/0
-	8yIqzen9ZUmukE62r0BWH5mXmzz0gB66u8LDAvPTfvjy/gYBqeyZiCI5fpzs4ffeympC
-	AfCiJa+6h1O/u/kvukE5k8SZmqTEcet8qCe8c=
+Return-Path: <Kai.Kang@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 6FFB74C8009A
+	for <poky@yoctoproject.org>; Wed,  9 Mar 2011 00:51:57 -0600 (CST)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p296pu1Z010065
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Tue, 8 Mar 2011 22:51:57 -0800 (PST)
+Received: from [128.224.163.157] (128.224.163.157) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
+	Tue, 8 Mar 2011 22:51:56 -0800
+Message-ID: <4D772372.7010803@windriver.com>
+Date: Wed, 9 Mar 2011 14:51:30 +0800
+From: Kang Kai <Kai.Kang@windriver.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.13) Gecko/20101208 Thunderbird/3.1.7
 MIME-Version: 1.0
-Received: by 10.216.157.129 with SMTP id o1mr4232051wek.59.1299653395115; Tue,
-	08 Mar 2011 22:49:55 -0800 (PST)
-Received: by 10.216.236.166 with HTTP; Tue, 8 Mar 2011 22:49:55 -0800 (PST)
-Date: Wed, 9 Mar 2011 12:19:55 +0530
-Message-ID: <AANLkTikhM5c1rMZPy3R9FGHe1E6RHoQNxBNKUnNyrP5L@mail.gmail.com>
-From: kubera samrat <kubera.samrat@gmail.com>
-To: poky@yoctoproject.org
-Subject: Error while adding alsa-utils to recipe
+To: <poky@yoctoproject.org>
+References: <cover.1299254646.git.dongxiao.xu@intel.com>	<11d60c5b1494c8c796d5e5020bcbb1285c769a73.1299254646.git.dongxiao.xu@intel.com>	<20110308140320.GG23315@kyu3-hedt>
+	<4D7715F6.3070401@windriver.com>
+In-Reply-To: <4D7715F6.3070401@windriver.com>
+X-Originating-IP: [128.224.163.157]
+Subject: Re: current master tree build failed.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,28 +32,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Mar 2011 06:49:56 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Wed, 09 Mar 2011 06:51:57 -0000
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi all,
-        I have added alsa-utils. I got an error while compiling it.
-Please go thru the error below and suggest me the appropriate
-solution.
+On 2011年03月09日 13:53, Kang Kai wrote:
+> Hi,
+>
+> I pull the master tree and HEAD is 
+> fab742bd4693ed3092690a20dd32d53fe27c3d4c. When I run bitbake, I got 
+> the error message:
+>
+> ERROR: Poky's config sanity checker detected a potential 
+> misconfiguration.
+> Either fix the cause of this error or at your own risk disable the 
+> checker (see sanity.conf).
+> Following is the list of potential problems / advisories:
+>
+> Please set TARGET_OS directly, or choose a MACHINE or DISTRO that does 
+> so.
+> DISTRO 'poky' not found. Please set a valid DISTRO in your local.conf
+>
+> What can I do to remove this? Thanks.
+>
+> Regards,
+> Kang Kai
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+Solved. Many thanks to Jingdong.
+add meta-yocto directory to conf/bblayers.conf.
 
 
- configure: WARNING: panel.h: present but cannot be compiled
-| configure: WARNING: panel.h:     check for missing prerequisite headers?
-| configure: WARNING: panel.h: see the Autoconf documentation
-| configure: WARNING: panel.h:     section "Present But Cannot Be Compiled"
-| configure: WARNING: panel.h: proceeding with the compiler's result
-| checking for panel.h... no
-| configure: error: required curses helper header not found
-
-In my recipe file I have added dependencies..."alsa-lib ncurses
-gettext dialog pciutils psmisc"
-I am using ubuntu 10.04 on 64 bit machine
-
-Thanks and regards
--- 
-V kubera Samrat
 
