@@ -1,23 +1,22 @@
-Return-Path: <bruce.ashfield@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id DCD844C800A3
-	for <poky@yoctoproject.org>; Thu, 10 Mar 2011 11:19:24 -0600 (CST)
-Received: from localhost.localdomain (yow-bashfiel-d2.ottawa.windriver.com
-	[128.224.146.167])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p2AHJB5k011728;
-	Thu, 10 Mar 2011 09:19:13 -0800 (PST)
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-To: rpurdie@linux.intel.com
-Date: Thu, 10 Mar 2011 12:20:43 -0500
-Message-Id: <d4c0401dde8ef4868fb605096aa2f8f121dc9165.1299776754.git.bruce.ashfield@windriver.com>
-X-Mailer: git-send-email 1.7.0.4
-In-Reply-To: <cover.1299776753.git.bruce.ashfield@windriver.com>
-References: <cover.1299776753.git.bruce.ashfield@windriver.com>
-In-Reply-To: <cover.1299776753.git.bruce.ashfield@windriver.com>
-References: <cover.1299776753.git.bruce.ashfield@windriver.com>
-Cc: openembedded-core@lists.openembedded.org, poky@yoctoproject.org,
-	saul.wold@intel.com
-Subject: [PATCH 1/1] linux-yocto: update to 2.6.37.3
+Return-Path: <josh@openedhand.com>
+Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2A1AC4C800A3
+	for <poky@yoctoproject.org>; Thu, 10 Mar 2011 13:15:36 -0600 (CST)
+Received: from [172.10.10.228] (unknown [67.232.160.146])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by pug.o-hand.com (Postfix) with ESMTP id DC32912EC11A
+	for <poky@yoctoproject.org>; Thu, 10 Mar 2011 13:58:40 -0600 (CST)
+From: Joshua Lock <josh@openedhand.com>
+To: poky@yoctoproject.org
+In-Reply-To: <e1692bf2937813717780e2c58a0fb803bb190fa3.1299775598.git.sgw@linux.intel.com>
+References: <cover.1299775598.git.sgw@linux.intel.com>
+	<e1692bf2937813717780e2c58a0fb803bb190fa3.1299775598.git.sgw@linux.intel.com>
+Date: Thu, 10 Mar 2011 11:14:55 -0800
+Message-ID: <1299784495.22278.1.camel@scimitar>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.1 (2.32.1-1.fc14) 
+Subject: Re: [PATCH 1/8] oprofileui: upgrade to the latest version maintained by the Yocto project
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,54 +28,108 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 10 Mar 2011 17:19:25 -0000
+X-List-Received-Date: Thu, 10 Mar 2011 19:15:36 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-The 2.6.37.3 -stable update is available and can safely be merged
-into the linux-yocto BSPs. This updated the SRCREVs of the BSP
-branches to their new values.
+On Thu, 2011-03-10 at 08:50 -0800, Saul Wold wrote:
+> From: Dexuan Cui <dexuan.cui@intel.com>
+> 
+> Oprofileui at http://labs.o-hand.com/oprofileui/ is not maintained now, so
+> we should change SRC_URI to the one maintained by the Yocto project. This
+> one includes new bugfixes.
+> 
+> This fixes [YOCTO #820]
+> 
+> Signed-off-by: Dexuan Cui <dexuan.cui@intel.com>
+> ---
+>  .../conf/distro/include/poky-default-revisions.inc |    2 +-
+>  meta/recipes-kernel/oprofile/oprofileui-git.inc    |   10 ++++++++++
+>  meta/recipes-kernel/oprofile/oprofileui-svn.inc    |    9 ---------
+>  meta/recipes-kernel/oprofile/oprofileui_git.bb     |    2 ++
+>  meta/recipes-kernel/oprofile/oprofileui_svn.bb     |    2 --
+>  5 files changed, 13 insertions(+), 12 deletions(-)
+>  create mode 100644 meta/recipes-kernel/oprofile/oprofileui-git.inc
+>  delete mode 100644 meta/recipes-kernel/oprofile/oprofileui-svn.inc
+>  create mode 100644 meta/recipes-kernel/oprofile/oprofileui_git.bb
+>  delete mode 100644 meta/recipes-kernel/oprofile/oprofileui_svn.bb
+> 
+> diff --git a/meta/conf/distro/include/poky-default-revisions.inc b/meta/conf/distro/include/poky-default-revisions.inc
+> index 36202a1..aee1749 100644
+> --- a/meta/conf/distro/include/poky-default-revisions.inc
+> +++ b/meta/conf/distro/include/poky-default-revisions.inc
+> @@ -146,7 +146,7 @@ SRCREV_pn-opkg-nogpg-native ??= "${OPKGSRCREV}"
+>  SRCREV_pn-opkg-nogpg-nativesdk ??= "${OPKGSRCREV}"
+>  SRCREV_pn-opkg-utils-native ??= "4747"
+>  SRCREV_pn-opkg-utils ??= "4747"
+> -SRCREV_pn-oprofileui ??= "197"
+> +SRCREV_pn-oprofileui ??= "e2d998d8a55dc1e49d1588841f83eff8e6809753"
+>  SRCREV_pn-tcf-agent ??= "1078"
+>  SRCREV_pn-osc-native ??= "9096"
+>  SRCREV_pn-owl-video ??= "394"
+> diff --git a/meta/recipes-kernel/oprofile/oprofileui-git.inc b/meta/recipes-kernel/oprofile/oprofileui-git.inc
+> new file mode 100644
+> index 0000000..b4a573b
+> --- /dev/null
+> +++ b/meta/recipes-kernel/oprofile/oprofileui-git.inc
+> @@ -0,0 +1,10 @@
+> +require oprofileui.inc
+> +
+> +PV = "0.0+git${SRCPV}"
+> +PR = "r2"
+> +
+> +S = "${WORKDIR}/git"
+> +
+> +# Oprofileui at http://labs.o-hand.com/oprofileui/ is not maintained now.
+> +SRC_URI = "git://git.pokylinux.org/oprofileui;protocol=git \
+> +           file://dso_linking_change_build_fix.patch "
+> diff --git a/meta/recipes-kernel/oprofile/oprofileui-svn.inc b/meta/recipes-kernel/oprofile/oprofileui-svn.inc
+> deleted file mode 100644
+> index 5d40914..0000000
+> --- a/meta/recipes-kernel/oprofile/oprofileui-svn.inc
+> +++ /dev/null
+> @@ -1,9 +0,0 @@
+> -require oprofileui.inc
+> -
+> -PV = "0.0+svnr${SRCPV}"
+> -PR = "r1"
+> -
+> -S = "${WORKDIR}/trunk"
+> -
+> -SRC_URI = "svn://svn.o-hand.com/repos/oprofileui;module=trunk;proto=http \
+> -           file://dso_linking_change_build_fix.patch "
+> diff --git a/meta/recipes-kernel/oprofile/oprofileui_git.bb b/meta/recipes-kernel/oprofile/oprofileui_git.bb
+> new file mode 100644
+> index 0000000..705f4e1
+> --- /dev/null
+> +++ b/meta/recipes-kernel/oprofile/oprofileui_git.bb
+> @@ -0,0 +1,2 @@
+> +require oprofileui-git.inc
+> +
 
-Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
----
- .../conf/distro/include/poky-default-revisions.inc |   24 ++++++++++----------
- 1 files changed, 12 insertions(+), 12 deletions(-)
+Any reason you've done it htis way?
+Can we merge the contents of oprofileui-git.inc into oprofileui_git.bb
+and delete oprofileui-git.inc only have one file here?
 
-diff --git a/meta/conf/distro/include/poky-default-revisions.inc b/meta/conf/distro/include/poky-default-revisions.inc
-index 36202a1..a1b0b77 100644
---- a/meta/conf/distro/include/poky-default-revisions.inc
-+++ b/meta/conf/distro/include/poky-default-revisions.inc
-@@ -98,19 +98,19 @@ SRCREV_machine_pn-linux-yocto-stable_beagleboard ?= "ef7f944e773950d4016b7643f9e
- SRCREV_machine_pn-linux-yocto-stable ?= "72ca49ab08b8eb475cec82a10049503602325791"
- SRCREV_meta_pn-linux-yocto-stable ?= "e1f85a470934a0cf6abde5d95533e74501822c6b"
- # development SRCREVs
--SRCREV_machine_pn-linux-yocto_qemuarm ?= "dd15f43fe3d4820ce112501c1a790c9bc12cfd0b"
--SRCREV_machine_pn-linux-yocto_qemumips ?= "76f30ca447fd0f06e76d0cb4935b016a1440e23e"
--SRCREV_machine_pn-linux-yocto_qemuppc ?= "b318cc6df4a439dc2b547f8eb841ff1ede69419b"
--SRCREV_machine_pn-linux-yocto_qemux86 ?= "37e8651b5df243aca2388867212c06338159df4e"
--SRCREV_machine_pn-linux-yocto_qemux86-64 ?= "2b412826bbeb4a16abe2ea74f2456ab880c6e3c1"
--SRCREV_machine_pn-linux-yocto_emenlow ?= "db6fc8c0d3d7f3e474e6c6b95138123911311942"
--SRCREV_machine_pn-linux-yocto_atom-pc ?= "2b412826bbeb4a16abe2ea74f2456ab880c6e3c1"
--SRCREV_machine_pn-linux-yocto_routerstationpro ?= "17dedeb17887eb398743b04615302b61bd95ffdd"
--SRCREV_machine_pn-linux-yocto_mpc8315e-rdb ?= "6117f19403ccd5c288ce553def432925296a28b7"
--SRCREV_machine_pn-linux-yocto_beagleboard ?= "2b412826bbeb4a16abe2ea74f2456ab880c6e3c1"
--SRCREV_machine_pn-linux-yocto ?= "2b412826bbeb4a16abe2ea74f2456ab880c6e3c1"
-+SRCREV_machine_pn-linux-yocto_qemuarm ?= "233213a1e09eae3de7047ff406b156608788ec17"
-+SRCREV_machine_pn-linux-yocto_qemumips ?= "54bb956f70349923af29f28a4f9471f5658e1787"
-+SRCREV_machine_pn-linux-yocto_qemuppc ?= "6f21e2e83dc93e108183256f3efebb63a6a11b6d"
-+SRCREV_machine_pn-linux-yocto_qemux86 ?= "c75cbd202d8abb0b5f316f934f5d33c17ff6d3c3"
-+SRCREV_machine_pn-linux-yocto_qemux86-64 ?= "2b2ef940457f0bb40e0fb76937c921c2962364ca"
-+SRCREV_machine_pn-linux-yocto_emenlow ?= "f296e59556bdd738eaea8e34606f068dddb8610f"
-+SRCREV_machine_pn-linux-yocto_atom-pc ?= "2b2ef940457f0bb40e0fb76937c921c2962364ca"
-+SRCREV_machine_pn-linux-yocto_routerstationpro ?= "530ca3030e15a5d829e804a58e4e449db82f9b4a"
-+SRCREV_machine_pn-linux-yocto_mpc8315e-rdb ?= "e14870b99caa29b6e9d98a3e7d5337b0c63cc264"
-+SRCREV_machine_pn-linux-yocto_beagleboard ?= "2b2ef940457f0bb40e0fb76937c921c2962364ca"
-+SRCREV_machine_pn-linux-yocto ?= "2b2ef940457f0bb40e0fb76937c921c2962364ca"
- SRCREV_meta_pn-linux-yocto ?= "212cae404e57ff9dc58c808035770d51325c3512"
--SRCREV_pn-linux-libc-headers-yocto ??= "2b412826bbeb4a16abe2ea74f2456ab880c6e3c1"
-+SRCREV_pn-linux-libc-headers-yocto ??= "2b2ef940457f0bb40e0fb76937c921c2962364ca"
- SRCREV_pn-matchbox-config-gtk ??= "3ed74dfb7c57be088a5ab36e446c0ccde9fa1028"
- SRCREV_pn-matchbox-desktop-sato ??= "76"
- SRCREV_pn-matchbox-desktop ??= "af7ed6775487380be73160aa0298bf6019765fad"
+inc files are useful for sharing metadata between several recipes but
+since we only have one recipe here (and should only ever provide one
+_git recipe) the inc file is pretty superfluous at this time.
+
+Thanks,
+Joshua
+
+> diff --git a/meta/recipes-kernel/oprofile/oprofileui_svn.bb b/meta/recipes-kernel/oprofile/oprofileui_svn.bb
+> deleted file mode 100644
+> index 39e10b4..0000000
+> --- a/meta/recipes-kernel/oprofile/oprofileui_svn.bb
+> +++ /dev/null
+> @@ -1,2 +0,0 @@
+> -require oprofileui-svn.inc
+> -
+
 -- 
-1.7.0.4
+Joshua Lock
+        Yocto Build System Monkey
+        Intel Open Source Technology Centre
 
 
