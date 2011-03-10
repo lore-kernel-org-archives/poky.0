@@ -1,21 +1,21 @@
 Return-Path: <sgw@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B0E4B4C800A3
-	for <poky@yoctoproject.org>; Thu, 10 Mar 2011 10:52:05 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 10 Mar 2011 08:52:05 -0800
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id DCE104C80AA8
+	for <poky@yoctoproject.org>; Thu, 10 Mar 2011 10:52:20 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 10 Mar 2011 08:52:20 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,297,1297065600"; d="scan'208";a="665978536"
+X-IronPort-AV: E=Sophos;i="4.62,297,1297065600"; d="scan'208";a="400702105"
 Received: from unknown (HELO localhost) ([10.255.17.57])
-	by fmsmga002.fm.intel.com with ESMTP; 10 Mar 2011 08:51:55 -0800
-Message-Id: <7d67caada2a21c68cc999a8dce134dc5d7f2474e.1299775598.git.sgw@linux.intel.com>
+	by azsmga001.ch.intel.com with ESMTP; 10 Mar 2011 08:52:09 -0800
+Message-Id: <6239e728118eeeda27544796e91552b6298b2e34.1299775598.git.sgw@linux.intel.com>
 In-Reply-To: <cover.1299775598.git.sgw@linux.intel.com>
 References: <cover.1299775598.git.sgw@linux.intel.com>
-Old-Date: Thu, 10 Mar 2011 12:33:26 +0800
-Date: Thu, 10 Mar 2011  8:51:52 -0800
+Old-Date: Thu, 10 Mar 2011 09:37:04 +0800
+Date: Thu, 10 Mar 2011  8:52:07 -0800
 To: poky@yoctoproject.org,openembedded-core@lists.openembedded.org
 From: Saul Wold <sgw@linux.intel.com>
-Subject: [PATCH 5/8] tinylogin: Fix rotate passwd check logic
+Subject: [PATCH 6/8] gcc/collect2: Added --sysroot support into collect2 in gcc.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,89 +27,152 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 10 Mar 2011 16:52:05 -0000
+X-List-Received-Date: Thu, 10 Mar 2011 16:52:21 -0000
 
-From: Dongxiao Xu <dongxiao.xu@intel.com>
+From: Lianhao Lu <lianhao.lu@intel.com>
 
-Fix rotate passwd check logic which will write data into un-allocated
-memory.
+[YOCTO #815] Added --sysroot into COLLECT_GCC_OPTIONS to allow the
+collect2 support user specifed sysroot.
 
-This fixes [YOCTO #735]
-
-Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
+Signed-off-by: Lianhao Lu <lianhao.lu@intel.com>
 ---
- .../tinylogin-1.4/passwd_rotate_check.patch        |   39 ++++++++++++++++++++
- meta/recipes-core/tinylogin/tinylogin_1.4.bb       |    5 ++-
- 2 files changed, 42 insertions(+), 2 deletions(-)
- create mode 100644 meta/recipes-core/tinylogin/tinylogin-1.4/passwd_rotate_check.patch
+ meta/recipes-devtools/gcc/gcc-4.5.1.inc            |    1 +
+ .../gcc/gcc-4.5.1/COLLECT_GCC_OPTIONS.patch        |   22 ++++++++++++++++++++
+ .../gcc/gcc-cross-canadian_4.5.1.bb                |    2 +-
+ .../gcc/gcc-cross-initial_4.5.1.bb                 |    2 +-
+ .../gcc/gcc-cross-intermediate_4.5.1.bb            |    2 +-
+ meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb       |    2 +-
+ .../gcc/gcc-crosssdk-initial_4.5.1.bb              |    2 +-
+ .../gcc/gcc-crosssdk-intermediate_4.5.1.bb         |    2 +-
+ meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb    |    2 +-
+ meta/recipes-devtools/gcc/gcc_4.5.1.bb             |    2 +-
+ 10 files changed, 31 insertions(+), 8 deletions(-)
+ create mode 100644 meta/recipes-devtools/gcc/gcc-4.5.1/COLLECT_GCC_OPTIONS.patch
 
-diff --git a/meta/recipes-core/tinylogin/tinylogin-1.4/passwd_rotate_check.patch b/meta/recipes-core/tinylogin/tinylogin-1.4/passwd_rotate_check.patch
+diff --git a/meta/recipes-devtools/gcc/gcc-4.5.1.inc b/meta/recipes-devtools/gcc/gcc-4.5.1.inc
+index 6c600c1..3c4902e 100644
+--- a/meta/recipes-devtools/gcc/gcc-4.5.1.inc
++++ b/meta/recipes-devtools/gcc/gcc-4.5.1.inc
+@@ -56,6 +56,7 @@ SRC_URI = "${GNU_MIRROR}/gcc/gcc-${PV}/gcc-${PV}.tar.bz2 \
+ 	   file://disable_relax_pic_calls_flag.patch \
+ 	   file://gcc-poison-parameters.patch \
+ 	   file://GPLUSPLUS_INCLUDE_DIR_with_sysroot.patch \
++	   file://COLLECT_GCC_OPTIONS.patch \
+ 	  "
+ 	
+ SRC_URI_append_sh3  = " file://sh3-installfix-fixheaders.patch;patch=1 "
+diff --git a/meta/recipes-devtools/gcc/gcc-4.5.1/COLLECT_GCC_OPTIONS.patch b/meta/recipes-devtools/gcc/gcc-4.5.1/COLLECT_GCC_OPTIONS.patch
 new file mode 100644
-index 0000000..c602493
+index 0000000..3e3dec7
 --- /dev/null
-+++ b/meta/recipes-core/tinylogin/tinylogin-1.4/passwd_rotate_check.patch
-@@ -0,0 +1,39 @@
-+Fix rotate check logic
++++ b/meta/recipes-devtools/gcc/gcc-4.5.1/COLLECT_GCC_OPTIONS.patch
+@@ -0,0 +1,22 @@
++#This patck added --sysroot into COLLECT_GCC_OPTIONS which is used to
++#invoke collect2.
 +
-+Rotate passwd checking code has logic error, which writes data into
-+un-allocated memory. This patch fixes the issue.
-+
-+Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
-+
-+diff --git a/libbb/obscure.c b/libbb/obscure.c
-+index 750b611..4a07b5f 100644
-+--- a/libbb/obscure.c
-++++ b/libbb/obscure.c
-+@@ -135,7 +135,7 @@ password_check(const char *old, const char *newval, const struct passwd *pwdp)
-+ {
-+ 	const char *msg;
-+ 	char *newmono, *wrapped;
-+-	int lenwrap;
-++	int lenold, lenwrap;
++diff -ruN gcc-4.5.1.orig/gcc/gcc.c gcc-4.5.1/gcc/gcc.c
++--- gcc-4.5.1.orig/gcc/gcc.c	2011-03-09 16:43:39.127752586 +0800
+++++ gcc-4.5.1/gcc/gcc.c	2011-03-09 16:47:15.894929459 +0800
++@@ -4667,6 +4667,15 @@
++ 		sizeof ("COLLECT_GCC_OPTIONS=") - 1);
 + 
-+ 	if (strcmp(newval, old) == 0)
-+ 		return "no change";
-+@@ -144,7 +144,8 @@ password_check(const char *old, const char *newval, const struct passwd *pwdp)
-+ 
-+ 	msg = NULL;
-+ 	newmono = str_lower(xstrdup(newval));
-+-	lenwrap = strlen(old) * 2 + 1;
-++	lenold = strlen(old);
-++	lenwrap = lenold * 2 + 1;
-+ 	wrapped = (char *) xmalloc(lenwrap);
-+ 	str_lower(strcpy(wrapped, old));
-+ 
-+@@ -158,7 +159,7 @@ password_check(const char *old, const char *newval, const struct passwd *pwdp)
-+ 		msg = "too similiar";
-+ 
-+ 	else {
-+-		safe_strncpy(wrapped + lenwrap, wrapped, lenwrap + 1);
-++		safe_strncpy(wrapped + lenold, wrapped, lenold + 1);
-+ 		if (strstr(wrapped, newmono))
-+ 			msg = "rotated";
-+ 	}
-diff --git a/meta/recipes-core/tinylogin/tinylogin_1.4.bb b/meta/recipes-core/tinylogin/tinylogin_1.4.bb
-index df626cf..0b51b25 100644
---- a/meta/recipes-core/tinylogin/tinylogin_1.4.bb
-+++ b/meta/recipes-core/tinylogin/tinylogin_1.4.bb
-@@ -7,14 +7,15 @@ and groups on an embedded system."
- HOMEPAGE = "http://tinylogin.busybox.net/"
- LICENSE = "GPLv2"
- LIC_FILES_CHKSUM="file://LICENSE;md5=f1060fa3a366f098b5b1d8c2077ba269"
--PR = "r5"
-+PR = "r6"
++   first_time = TRUE;
+++#ifdef HAVE_LD_SYSROOT
+++  if (target_system_root_changed && target_system_root)
+++    {
+++      obstack_grow (&collect_obstack, "'--sysroot=", sizeof("'--sysroot=")-1);
+++      obstack_grow (&collect_obstack, target_system_root,strlen(target_system_root));
+++      obstack_grow (&collect_obstack, "'", 1);
+++      first_time = FALSE;
+++    }
+++#endif
++   for (i = 0; (int) i < n_switches; i++)
++     {
++       const char *const *args;
+diff --git a/meta/recipes-devtools/gcc/gcc-cross-canadian_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-cross-canadian_4.5.1.bb
+index 3eea4bc..92708d4 100644
+--- a/meta/recipes-devtools/gcc/gcc-cross-canadian_4.5.1.bb
++++ b/meta/recipes-devtools/gcc/gcc-cross-canadian_4.5.1.bb
+@@ -5,7 +5,7 @@ require gcc-cross-canadian.inc
+ require gcc-configure-sdk.inc
+ require gcc-package-sdk.inc
  
- SRC_URI = "http://tinylogin.busybox.net/downloads/tinylogin-${PV}.tar.bz2 \
- 	file://cvs-20040608.patch;patch=1;pnum=1 \
- 	file://add-system.patch;patch=1;pnum=1 \
- 	file://adduser-empty_pwd.patch;patch=1 \
- 	file://remove-index.patch;patch=1 \
--	file://use_O2_option.patch"
-+	file://use_O2_option.patch \
-+	file://passwd_rotate_check.patch"
+-PR = "r3"
++PR = "r4"
  
- SRC_URI[md5sum] = "44da0ff2b727455669890b24305e351d"
- SRC_URI[sha256sum] = "5e542e4b7825305a3678bf73136c392feb0d44b8bbf926e8eda5453eea7ddd6b"
+ DEPENDS += "gmp-nativesdk mpfr-nativesdk libmpc-nativesdk elfutils-nativesdk"
+ RDEPENDS_${PN} += "mpfr-nativesdk libmpc-nativesdk elfutils-nativesdk"
+diff --git a/meta/recipes-devtools/gcc/gcc-cross-initial_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-cross-initial_4.5.1.bb
+index 38e0964..081b7d6 100644
+--- a/meta/recipes-devtools/gcc/gcc-cross-initial_4.5.1.bb
++++ b/meta/recipes-devtools/gcc/gcc-cross-initial_4.5.1.bb
+@@ -1,5 +1,5 @@
+ require gcc-cross_${PV}.bb
+ require gcc-cross-initial.inc
+ 
+-PR = "r3"
++PR = "r4"
+ 
+diff --git a/meta/recipes-devtools/gcc/gcc-cross-intermediate_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-cross-intermediate_4.5.1.bb
+index 9a30cb5..a8473b0 100644
+--- a/meta/recipes-devtools/gcc/gcc-cross-intermediate_4.5.1.bb
++++ b/meta/recipes-devtools/gcc/gcc-cross-intermediate_4.5.1.bb
+@@ -1,4 +1,4 @@
+ require gcc-cross_${PV}.bb
+ require gcc-cross-intermediate.inc
+-PR = "r4"
++PR = "r5"
+ 
+diff --git a/meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb
+index 78bb05a..af6daf4 100644
+--- a/meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb
++++ b/meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb
+@@ -1,4 +1,4 @@
+-PR = "r3"
++PR = "r4"
+ 
+ require gcc-${PV}.inc
+ require gcc-cross4.inc
+diff --git a/meta/recipes-devtools/gcc/gcc-crosssdk-initial_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-crosssdk-initial_4.5.1.bb
+index fec53b9..9708248 100644
+--- a/meta/recipes-devtools/gcc/gcc-crosssdk-initial_4.5.1.bb
++++ b/meta/recipes-devtools/gcc/gcc-crosssdk-initial_4.5.1.bb
+@@ -1,4 +1,4 @@
+ require gcc-cross-initial_${PV}.bb
+ require gcc-crosssdk-initial.inc
+ 
+-PR = "r3"
++PR = "r4"
+diff --git a/meta/recipes-devtools/gcc/gcc-crosssdk-intermediate_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-crosssdk-intermediate_4.5.1.bb
+index 161d870..d235969 100644
+--- a/meta/recipes-devtools/gcc/gcc-crosssdk-intermediate_4.5.1.bb
++++ b/meta/recipes-devtools/gcc/gcc-crosssdk-intermediate_4.5.1.bb
+@@ -1,4 +1,4 @@
+ require gcc-cross-intermediate_${PV}.bb
+ require gcc-crosssdk-intermediate.inc
+ 
+-PR = "r3"
++PR = "r4"
+diff --git a/meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb
+index 7069088..bae2389 100644
+--- a/meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb
++++ b/meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb
+@@ -1,4 +1,4 @@
+ require gcc-cross_${PV}.bb
+ require gcc-crosssdk.inc
+ 
+-PR = "r3"
++PR = "r4"
+diff --git a/meta/recipes-devtools/gcc/gcc_4.5.1.bb b/meta/recipes-devtools/gcc/gcc_4.5.1.bb
+index 25e455c..a193b38 100644
+--- a/meta/recipes-devtools/gcc/gcc_4.5.1.bb
++++ b/meta/recipes-devtools/gcc/gcc_4.5.1.bb
+@@ -1,4 +1,4 @@
+-PR = "r3"
++PR = "r4"
+ require gcc-${PV}.inc
+ require gcc-configure-target.inc
+ require gcc-package-target.inc
 -- 
 1.7.1.1
 
