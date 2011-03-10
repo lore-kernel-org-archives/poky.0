@@ -1,22 +1,33 @@
-Return-Path: <liping.ke@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 158104C80852
-	for <poky@yoctoproject.org>; Thu, 10 Mar 2011 03:33:28 -0600 (CST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 10 Mar 2011 01:33:03 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,295,1297065600"; d="scan'208";a="718585869"
-Received: from lke-nhm.sh.intel.com (HELO localhost) ([10.239.36.48])
-	by orsmga001.jf.intel.com with ESMTP; 10 Mar 2011 01:33:02 -0800
-Message-Id: <5a97c0eed40a529bf704e3592920401e6136b443.1299749366.git.liping.ke@intel.com>
-In-Reply-To: <cover.1299749366.git.liping.ke@intel.com>
-References: <cover.1299749366.git.liping.ke@intel.com>
-Old-Date: Thu, 10 Mar 2011 17:27:55 +0800
-Date: Thu, 10 Mar 2011 17:31:10 +0800
+Return-Path: <kubera.samrat@gmail.com>
+Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
+	[74.125.82.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D49B54C800A0
+	for <poky@yoctoproject.org>; Thu, 10 Mar 2011 03:51:15 -0600 (CST)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by wyb40 with SMTP id 40so1670929wyb.35
+	for <poky@yoctoproject.org>; Thu, 10 Mar 2011 01:51:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:date:message-id:subject:from:to
+	:content-type; bh=XdNmFzMunoQSula087fUyjg99t+WLBOwPtwlyYgivII=;
+	b=mxHJW5dKyFXIl/N8ObEeD03Wj23tyo3OIWDeUkC4xsOsx3fBg6vUB5QJinNIFKTe5F
+	pGNYojkW4J4g+Nzef4LUp/JriOPN78Ky5HCod5NZuEcBWYHb37JY1f8PjfKY59k5FXqI
+	LDIwbjB7oAWb1t1y1evxfluexnA/n5IF8o4tU=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:date:message-id:subject:from:to:content-type;
+	b=rIYC0PSptiSVIE1b0VqjtlWcisPn3iPccEzPBoONSzlVKGzBUVf0yYQI6XbLU//wUm
+	xbgEfIOMqMCsRVNQy1A+hBx4Xn9LTeqyMnCMtdo6cLf9VWgw0gUhUF8nS2Y4yaYWYQae
+	1ft2NRW7SXVW0QURSpR9H83z8jFxjgr4j0k9o=
+MIME-Version: 1.0
+Received: by 10.216.25.202 with SMTP id z52mr5693207wez.14.1299750674809; Thu,
+	10 Mar 2011 01:51:14 -0800 (PST)
+Received: by 10.216.236.166 with HTTP; Thu, 10 Mar 2011 01:51:14 -0800 (PST)
+Date: Thu, 10 Mar 2011 15:21:14 +0530
+Message-ID: <AANLkTikrLuE0NdP_Hbqy-B55nYEf7QvKBfM-wQSaNNft@mail.gmail.com>
+From: kubera samrat <kubera.samrat@gmail.com>
 To: poky@yoctoproject.org
-CC: 
-From: Liping Ke <liping.ke@intel.com>
-Subject: [PATCH 1/1] Disable wget server side cache
+Subject: Problem while adding "ffmpeg"
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,66 +39,85 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 10 Mar 2011 09:33:28 -0000
+X-List-Received-Date: Thu, 10 Mar 2011 09:51:16 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 
-From: Liping Ke <liping.ke@intel.com>
+Hi all,
 
-We found some proxy server has wrong cache for long http file name.
-It will cause fetching wrong ipk files from adt repo. To avoid this,
-we use wget options --no-cache to disable all server side cache.
-It will make the fetch speed slower, yet correct always.
+I have added ffmpeg to my recipe. I have created the following recipe
+for ffmpeg and placed in "meta/recipes-multimedia/ffmpeg" folder.
 
-Signed-off-by: Liping Ke <liping.ke@intel.com>
-Signed-off-by: Lianhao Lu <lianhao.lu@intel.com>
----
- .../installer/adt-installer_1.0.bb                 |    3 ++-
- .../installer/files/wget_cache.patch               |   10 ++++++++++
- 2 files changed, 12 insertions(+), 1 deletions(-)
- create mode 100644 meta/recipes-devtools/installer/files/wget_cache.patch
+******************************************************************************************************************************************************************************************
+# ffmpeg_0.6.1.bb
+DESCRIPTION = "Complete and free Internet live audio and video
+broadcasting solution for Linux/Unix"
+DEPENDS = "alsa-lib bzip2 lame libvorbis faad2 zlib x264 libtheora
+libxfixes schroedinger libvpx sdl xvidcore libvdpau libva"
 
-diff --git a/meta/recipes-devtools/installer/adt-installer_1.0.bb b/meta/recipes-devtools/installer/adt-installer_1.0.bb
-index 50290f9..ff7afe6 100644
---- a/meta/recipes-devtools/installer/adt-installer_1.0.bb
-+++ b/meta/recipes-devtools/installer/adt-installer_1.0.bb
-@@ -36,11 +36,13 @@ PR = "r0"
- ADT_DEPLOY = "${TMPDIR}/deploy/sdk/"
- ADT_DIR = "${WORKDIR}/adt-installer/"
- YOCTOADT_VERSION = "${SDK_VERSION}"
-+S = "${WORKDIR}/trunk"
- 
- inherit deploy
- 
- PV = "0.1.8+svnr${SRCPV}"
- SRC_URI = "svn://opkg.googlecode.com/svn;module=trunk;proto=http \
-+           file://wget_cache.patch \
-            file://adt_installer \
-            file://scripts/adt_installer_internal \
-            file://scripts/util \
-@@ -70,7 +72,6 @@ fakeroot do_deploy () {
- 	cp ${WORKDIR}/adt_installer.tar.bz2 ${ADT_DEPLOY}
- }
- 
--do_patch[noexec] = "1"
- do_install[noexec] = "1"
- do_configure[noexec] = "1"
- do_compile[noexec] = "1"
-diff --git a/meta/recipes-devtools/installer/files/wget_cache.patch b/meta/recipes-devtools/installer/files/wget_cache.patch
-new file mode 100644
-index 0000000..6fd38e5
---- /dev/null
-+++ b/meta/recipes-devtools/installer/files/wget_cache.patch
-@@ -0,0 +1,10 @@
-+--- trunk/libopkg/opkg_download.c	2011-03-10 16:41:29.000000000 +0800
-++++ trunk/libopkg/opkg_download.c	2011-03-10 16:42:33.000000000 +0800
-+@@ -162,6 +162,7 @@
-+ 
-+       argv[i++] = "wget";
-+       argv[i++] = "-q";
-++      argv[i++] = "--no-cache";
-+       if (conf->http_proxy || conf->ftp_proxy) {
-+ 	argv[i++] = "-Y";
-+ 	argv[i++] = "on";
--- 
-1.7.0.4
+LICENSE = "GPL"
 
+inherit autotools pkgconfig
+
+PR="r0"
+#S = "${WORKDIR}/ffmpeg-${PV}"
+
+
+SRC_URI = "http://ffmpeg.org/releases/ffmpeg-${PV}.tar.bz2"
+EXTRA_OECONF += "--enable-shared \
+	--enable-pthreads\
+	--enable-gpl\
+	--enable-libmp3lame\
+	--enable-libvorbis\
+	--enable-libfaac\
+	--enable-libxvid\
+	--enable-libx264\
+   	--enable-libvpx\
+    	--enable-libtheora\
+    	--enable-postproc \
+    	--enable-shared \
+    	--enable-x11grab \
+   	--enable-libopencore_amrnb \
+    	--enable-libopencore_amrwb \
+    	--enable-libschroedinger \
+    	--enable-libopenjpeg \
+    	--enable-version3 \
+    	--enable-nonfree \
+    	--enable-runtime-cpudetect \
+    	--disable-debug \
+    	--disable-asm"
+
+do_configure(){
+	oe_conf	--prefix=${D}
+}
+
+do_compile(){
+        oe_runmake
+}
+
+do_install(){
+        oe_runmake install DESTDIR=${D}
+}
+
+SRC_URI[md5sum] = "4f5d732d25eedfb072251b5314ba2093"
+***************************************************************************************************************************************************************************************************************
+
+While building, I am getting the following error:
+
+
+ERROR: Nothing RPROVIDES 'ffmpeg' (but
+/home/kuberasamrat/poky-chrome/meta/recipes-core/images/poky-image-minimal-akshat.bb
+RDEPENDS on or otherwise requires it)
+NOTE: Runtime target 'ffmpeg' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['ffmpeg']
+ERROR: Required build target 'poky-image-minimal-akshat-live' has no
+buildable providers.
+Missing or unbuildable dependency chain was:
+['poky-image-minimal-akshat-live', 'poky-image-minimal-akshat',
+'ffmpeg']
+
+Please guide me, if you have any solution or advice, if I am doing
+something wrong.
+
+Thanks and regards,
+V kubera Samrat
 
