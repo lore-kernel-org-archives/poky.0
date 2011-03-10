@@ -1,24 +1,19 @@
-Return-Path: <Kai.Kang@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id BFCE24C80AA4
-	for <poky@yoctoproject.org>; Thu, 10 Mar 2011 00:07:55 -0600 (CST)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p2A67tXX019592
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Wed, 9 Mar 2011 22:07:55 -0800 (PST)
-Received: from localhost (128.224.163.157) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Wed, 9 Mar 2011 22:07:54 -0800
-Message-ID: <108cd6309917017e537b63d8951f7c9b6f48bb08.1299727511.git.kai.kang@windriver.com>
-In-Reply-To: <cover.1299727511.git.kai.kang@windriver.com>
-References: <cover.1299727511.git.kai.kang@windriver.com>
-Old-Date: Thu, 10 Mar 2011 09:42:23 +0800
-Date: Thu, 10 Mar 2011 14:07:18 +0800
-To: <poky@yoctoproject.org>
-From: Kang Kai <kai.kang@windriver.com>
-MIME-Version: 1.0
-X-Originating-IP: [128.224.163.157]
-Subject: [PATCH 1/1] PATCH: fix Bug 812 about slang
+Return-Path: <lianhao.lu@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 907B74C804BD
+	for <poky@yoctoproject.org>; Thu, 10 Mar 2011 00:22:58 -0600 (CST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 09 Mar 2011 22:22:58 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.62,294,1297065600"; d="scan'208";a="665809832"
+Received: from llu-piketon.sh.intel.com (HELO localhost) ([10.239.36.87])
+	by fmsmga002.fm.intel.com with ESMTP; 09 Mar 2011 22:22:57 -0800
+Message-Id: <cover.1299737813.git.lianhao.lu@intel.com>
+Old-Date: Thu, 10 Mar 2011 14:16:53 +0800
+Date: Thu, 10 Mar 2011 14:21:47 +0800
+To: poky@yoctoproject.org
+From: Lianhao Lu <lianhao.lu@intel.com>
+Subject: [PATCH 0/1] gcc/collect: Fixing Bug#815
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,72 +25,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 10 Mar 2011 06:07:55 -0000
-Content-Type: text/plain
+X-List-Received-Date: Thu, 10 Mar 2011 06:22:58 -0000
 
-From: Kang Kai <kai.kang@windriver.com>
+From: Lianhao Lu <lianhao.lu@intel.com>
 
-Fix cross compile warnings: when bitbake slang, it links to building machine's
-library, add fix-cross-configure.patch to fix it.
+Added --sysroot support in the collect2 in gcc by adding --sysroot 
+into COLLECT_GCC_OPTIONS. This allow the collect2 to pass --sysroot 
+to ld or gcc it invokes.
 
-Add necessary files to run slsh.
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: llu/gcc_collect
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=llu/gcc_collect
 
-Signed-off-by: Kang Kai <kai.kang@windriver.com>
+Thanks,
+    Lianhao Lu <lianhao.lu@intel.com>
 ---
- .../slang/slang/fix-cross-configure.patch          |   16 ++++++++++++++++
- meta/recipes-extended/slang/slang_2.2.2.bb         |    7 +++++--
- 2 files changed, 21 insertions(+), 2 deletions(-)
- create mode 100644 meta/recipes-extended/slang/slang/fix-cross-configure.patch
 
-diff --git a/meta/recipes-extended/slang/slang/fix-cross-configure.patch b/meta/recipes-extended/slang/slang/fix-cross-configure.patch
-new file mode 100644
-index 0000000..0a22a1f
---- /dev/null
-+++ b/meta/recipes-extended/slang/slang/fix-cross-configure.patch
-@@ -0,0 +1,16 @@
-+$(SLANG_INST_LIB) refer to absolute dir /usr/lib, it will make link to build machine's library 
-+when do cross compilation, remove it.
-+
-+create by Kang Kai <kai.kang@windriver.com>
-+--- slang-2.2.2/slsh/Makefile.in.orig	2011-03-09 10:17:25.315245968 +0800
-++++ slang-2.2.2/slsh/Makefile.in	2011-03-09 10:17:48.425245969 +0800
-+@@ -65,7 +65,8 @@
-+ @SET_MAKE@
-+ SHELL = /bin/sh
-+ #INST_LIBS = $(RPATH) $(SLANG_INST_LIB) $(DEST_LIB_DIR) -lslang $(READLINE_LIB) $(OTHER_LIBS)
-+-INST_LIBS = $(DEST_LIB_DIR) $(RPATH) $(SLANG_INST_LIB) -lslang $(READLINE_LIB) $(OTHER_LIBS)
-++#INST_LIBS = $(DEST_LIB_DIR) $(RPATH) $(SLANG_INST_LIB) -lslang $(READLINE_LIB) $(OTHER_LIBS)
-++INST_LIBS = $(DEST_LIB_DIR) $(RPATH) -lslang $(READLINE_LIB) $(OTHER_LIBS)
-+ DEFS = -DSLSH_CONF_DIR='"$(SLSH_CONF_DIR)"' -DSLSH_PATH='"$(SLSH_LIB_DIR)"' \
-+  -DSLSH_CONF_DIR_ENV='$(SLSH_CONF_DIR_ENV)' -DSLSH_LIB_DIR_ENV='$(SLSH_LIB_DIR_ENV)' \
-+  -DSLSH_PATH_ENV='$(SLSH_PATH_ENV)' 
-diff --git a/meta/recipes-extended/slang/slang_2.2.2.bb b/meta/recipes-extended/slang/slang_2.2.2.bb
-index 7fe76af..2498d85 100644
---- a/meta/recipes-extended/slang/slang_2.2.2.bb
-+++ b/meta/recipes-extended/slang/slang_2.2.2.bb
-@@ -10,16 +10,19 @@ to recode S-Lang procedures in C if you need to."
- SECTION = "libs"
- PRIORITY = "optional"
- DEPENDS = "pcre"
--PR = "r0"
-+PR = "r1"
- 
- LICENSE = "GPL Artistic"
- LIC_FILES_CHKSUM = "file://COPYING;md5=0636e73ff0215e8d672dc4c32c317bb3"
- 
- 
- SRC_URI = "ftp://space.mit.edu/pub/davis/slang/v2.2/OLD/slang-${PV}.tar.bz2 \
--           file://fix-uclibc.patch"
-+           file://fix-uclibc.patch \
-+           file://fix-cross-configure.patch"
- 
- inherit autotools
- 
- SRC_URI[md5sum] = "974437602a781cfe92ab61433dd16d03"
- SRC_URI[sha256sum] = "cfaf8551fa3855f9b0043309bb553ef6d457f931b404df5a6ba6a5a69371fc42"
-+
-+FILES_${PN} += "/usr/share/slsh/"
--- 
-1.7.1
+
+Lianhao Lu (1):
+  gcc/collect2: Added --sysroot support into collect2 in gcc.
+
+ meta/recipes-devtools/gcc/gcc-4.5.1.inc            |    1 +
+ .../gcc/gcc-4.5.1/COLLECT_GCC_OPTIONS.patch        |   22 ++++++++++++++++++++
+ .../gcc/gcc-cross-canadian_4.5.1.bb                |    2 +-
+ .../gcc/gcc-cross-initial_4.5.1.bb                 |    2 +-
+ .../gcc/gcc-cross-intermediate_4.5.1.bb            |    2 +-
+ meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb       |    2 +-
+ .../gcc/gcc-crosssdk-initial_4.5.1.bb              |    2 +-
+ .../gcc/gcc-crosssdk-intermediate_4.5.1.bb         |    2 +-
+ meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb    |    2 +-
+ meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb     |    2 +-
+ meta/recipes-devtools/gcc/gcc_4.5.1.bb             |    2 +-
+ 11 files changed, 32 insertions(+), 9 deletions(-)
+ create mode 100644 meta/recipes-devtools/gcc/gcc-4.5.1/COLLECT_GCC_OPTIONS.patch
 
 
