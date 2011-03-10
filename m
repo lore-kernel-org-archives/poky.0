@@ -1,21 +1,39 @@
-Return-Path: <lianhao.lu@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 6730D4C80A8B
-	for <poky@yoctoproject.org>; Thu, 10 Mar 2011 00:23:00 -0600 (CST)
+Return-Path: <dongxiao.xu@intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5592A4C804BD
+	for <poky@yoctoproject.org>; Thu, 10 Mar 2011 00:41:43 -0600 (CST)
 Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 09 Mar 2011 22:22:59 -0800
+	by azsmga102.ch.intel.com with ESMTP; 09 Mar 2011 22:41:42 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,294,1297065600"; d="scan'208";a="400450207"
-Received: from llu-piketon.sh.intel.com (HELO localhost) ([10.239.36.87])
-	by azsmga001.ch.intel.com with ESMTP; 09 Mar 2011 22:22:58 -0800
-Message-Id: <6a1fe90d5a43e3260098dc90b8d467a1ba7d6335.1299737813.git.lianhao.lu@intel.com>
-In-Reply-To: <cover.1299737813.git.lianhao.lu@intel.com>
-References: <cover.1299737813.git.lianhao.lu@intel.com>
-Old-Date: Thu, 10 Mar 2011 09:37:04 +0800
-Date: Thu, 10 Mar 2011 14:21:49 +0800
-To: poky@yoctoproject.org
-From: Lianhao Lu <lianhao.lu@intel.com>
-Subject: [PATCH 1/1] gcc/collect2: Added --sysroot support into collect2 in gcc.
+X-IronPort-AV: E=Sophos;i="4.62,294,1297065600"; d="scan'208";a="400456029"
+Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
+	by azsmga001.ch.intel.com with ESMTP; 09 Mar 2011 22:41:42 -0800
+Received: from pgsmsx509.gar.corp.intel.com (172.30.13.17) by
+	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Thu, 10 Mar 2011 14:40:40 +0800
+Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
+	PGSMSX509.gar.corp.intel.com (172.30.13.17) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Thu, 10 Mar 2011 14:40:39 +0800
+Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
+	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
+	Thu, 10 Mar 2011 14:40:38 +0800
+From: "Xu, Dongxiao" <dongxiao.xu@intel.com>
+To: "Yu, Ke" <ke.yu@intel.com>
+Date: Thu, 10 Mar 2011 14:40:37 +0800
+Thread-Topic: [poky] [PATCH 1/1] connman: add xuser to the dbus permission list
+Thread-Index: AcvdmZi3JiHB96b8QIG6r//kyfD72AAiZ9Sw
+Message-ID: <D5AB6E638E5A3E4B8F4406B113A5A19A335C965C@shsmsx501.ccr.corp.intel.com>
+References: <cover.1299254646.git.dongxiao.xu@intel.com>
+	<11d60c5b1494c8c796d5e5020bcbb1285c769a73.1299254646.git.dongxiao.xu@intel.com>
+	<20110308140320.GG23315@kyu3-hedt>
+In-Reply-To: <20110308140320.GG23315@kyu3-hedt>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
+MIME-Version: 1.0
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH 1/1] connman: add xuser to the dbus permission list
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,164 +45,128 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 10 Mar 2011 06:23:00 -0000
+X-List-Received-Date: Thu, 10 Mar 2011 06:41:43 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-From: Lianhao Lu <lianhao.lu@intel.com>
+Hi Ke,
 
-[YOCTO #815] Added --sysroot into COLLECT_GCC_OPTIONS to allow the
-collect2 support user specifed sysroot.
+Yu, Ke wrote:
+> Hi Dongxiao,
+>=20
+> Thanks for the fix. I just feel it may be better to do it in rootless
+> x routine, instead of connman. because the "xuser" is introduced by
+> rootless x routine, and the user name is configurable by
+> /etc/X11/Xusername (details in
+> meta/recipes-graphics/x11-common/xserver-nodm-init.bb: pkg_postinst).
+> if the user name changed by user configuration, the connman will
+> break again.   =20
 
-Signed-off-by: Lianhao Lu <lianhao.lu@intel.com>
----
- meta/recipes-devtools/gcc/gcc-4.5.1.inc            |    1 +
- .../gcc/gcc-4.5.1/COLLECT_GCC_OPTIONS.patch        |   22 ++++++++++++++++++++
- .../gcc/gcc-cross-canadian_4.5.1.bb                |    2 +-
- .../gcc/gcc-cross-initial_4.5.1.bb                 |    2 +-
- .../gcc/gcc-cross-intermediate_4.5.1.bb            |    2 +-
- meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb       |    2 +-
- .../gcc/gcc-crosssdk-initial_4.5.1.bb              |    2 +-
- .../gcc/gcc-crosssdk-intermediate_4.5.1.bb         |    2 +-
- meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb    |    2 +-
- meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb     |    2 +-
- meta/recipes-devtools/gcc/gcc_4.5.1.bb             |    2 +-
- 11 files changed, 32 insertions(+), 9 deletions(-)
- create mode 100644 meta/recipes-devtools/gcc/gcc-4.5.1/COLLECT_GCC_OPTIONS.patch
+Thanks for pointing it out, your concern is reasonable. Hardcode xuser in
+connman's config file will have problems if user did any change to the name=
+.
+ =20
+>=20
+> So I wonder if connman has the standard interface to grant
+> permission, so that rootless x routine can call it to grant xuser
+> permission. e.g. =20
+> - A group-based policy, i.e. for any user belongs to the connman
+> group, it will has the required dbus permission.=20
+> - or a standalone command like "connman-perm xuser" which can add
+> xuser into connman-dbus.conf=20
 
-diff --git a/meta/recipes-devtools/gcc/gcc-4.5.1.inc b/meta/recipes-devtools/gcc/gcc-4.5.1.inc
-index 6c600c1..3c4902e 100644
---- a/meta/recipes-devtools/gcc/gcc-4.5.1.inc
-+++ b/meta/recipes-devtools/gcc/gcc-4.5.1.inc
-@@ -56,6 +56,7 @@ SRC_URI = "${GNU_MIRROR}/gcc/gcc-${PV}/gcc-${PV}.tar.bz2 \
- 	   file://disable_relax_pic_calls_flag.patch \
- 	   file://gcc-poison-parameters.patch \
- 	   file://GPLUSPLUS_INCLUDE_DIR_with_sysroot.patch \
-+	   file://COLLECT_GCC_OPTIONS.patch \
- 	  "
- 	
- SRC_URI_append_sh3  = " file://sh3-installfix-fixheaders.patch;patch=1 "
-diff --git a/meta/recipes-devtools/gcc/gcc-4.5.1/COLLECT_GCC_OPTIONS.patch b/meta/recipes-devtools/gcc/gcc-4.5.1/COLLECT_GCC_OPTIONS.patch
-new file mode 100644
-index 0000000..3e3dec7
---- /dev/null
-+++ b/meta/recipes-devtools/gcc/gcc-4.5.1/COLLECT_GCC_OPTIONS.patch
-@@ -0,0 +1,22 @@
-+#This patck added --sysroot into COLLECT_GCC_OPTIONS which is used to
-+#invoke collect2.
-+
-+diff -ruN gcc-4.5.1.orig/gcc/gcc.c gcc-4.5.1/gcc/gcc.c
-+--- gcc-4.5.1.orig/gcc/gcc.c	2011-03-09 16:43:39.127752586 +0800
-++++ gcc-4.5.1/gcc/gcc.c	2011-03-09 16:47:15.894929459 +0800
-+@@ -4667,6 +4667,15 @@
-+ 		sizeof ("COLLECT_GCC_OPTIONS=") - 1);
-+ 
-+   first_time = TRUE;
-++#ifdef HAVE_LD_SYSROOT
-++  if (target_system_root_changed && target_system_root)
-++    {
-++      obstack_grow (&collect_obstack, "'--sysroot=", sizeof("'--sysroot=")-1);
-++      obstack_grow (&collect_obstack, target_system_root,strlen(target_system_root));
-++      obstack_grow (&collect_obstack, "'", 1);
-++      first_time = FALSE;
-++    }
-++#endif
-+   for (i = 0; (int) i < n_switches; i++)
-+     {
-+       const char *const *args;
-diff --git a/meta/recipes-devtools/gcc/gcc-cross-canadian_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-cross-canadian_4.5.1.bb
-index 3eea4bc..92708d4 100644
---- a/meta/recipes-devtools/gcc/gcc-cross-canadian_4.5.1.bb
-+++ b/meta/recipes-devtools/gcc/gcc-cross-canadian_4.5.1.bb
-@@ -5,7 +5,7 @@ require gcc-cross-canadian.inc
- require gcc-configure-sdk.inc
- require gcc-package-sdk.inc
- 
--PR = "r3"
-+PR = "r4"
- 
- DEPENDS += "gmp-nativesdk mpfr-nativesdk libmpc-nativesdk elfutils-nativesdk"
- RDEPENDS_${PN} += "mpfr-nativesdk libmpc-nativesdk elfutils-nativesdk"
-diff --git a/meta/recipes-devtools/gcc/gcc-cross-initial_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-cross-initial_4.5.1.bb
-index 38e0964..081b7d6 100644
---- a/meta/recipes-devtools/gcc/gcc-cross-initial_4.5.1.bb
-+++ b/meta/recipes-devtools/gcc/gcc-cross-initial_4.5.1.bb
-@@ -1,5 +1,5 @@
- require gcc-cross_${PV}.bb
- require gcc-cross-initial.inc
- 
--PR = "r3"
-+PR = "r4"
- 
-diff --git a/meta/recipes-devtools/gcc/gcc-cross-intermediate_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-cross-intermediate_4.5.1.bb
-index 9a30cb5..a8473b0 100644
---- a/meta/recipes-devtools/gcc/gcc-cross-intermediate_4.5.1.bb
-+++ b/meta/recipes-devtools/gcc/gcc-cross-intermediate_4.5.1.bb
-@@ -1,4 +1,4 @@
- require gcc-cross_${PV}.bb
- require gcc-cross-intermediate.inc
--PR = "r4"
-+PR = "r5"
- 
-diff --git a/meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb
-index 78bb05a..af6daf4 100644
---- a/meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb
-+++ b/meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb
-@@ -1,4 +1,4 @@
--PR = "r3"
-+PR = "r4"
- 
- require gcc-${PV}.inc
- require gcc-cross4.inc
-diff --git a/meta/recipes-devtools/gcc/gcc-crosssdk-initial_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-crosssdk-initial_4.5.1.bb
-index fec53b9..9708248 100644
---- a/meta/recipes-devtools/gcc/gcc-crosssdk-initial_4.5.1.bb
-+++ b/meta/recipes-devtools/gcc/gcc-crosssdk-initial_4.5.1.bb
-@@ -1,4 +1,4 @@
- require gcc-cross-initial_${PV}.bb
- require gcc-crosssdk-initial.inc
- 
--PR = "r3"
-+PR = "r4"
-diff --git a/meta/recipes-devtools/gcc/gcc-crosssdk-intermediate_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-crosssdk-intermediate_4.5.1.bb
-index 161d870..d235969 100644
---- a/meta/recipes-devtools/gcc/gcc-crosssdk-intermediate_4.5.1.bb
-+++ b/meta/recipes-devtools/gcc/gcc-crosssdk-intermediate_4.5.1.bb
-@@ -1,4 +1,4 @@
- require gcc-cross-intermediate_${PV}.bb
- require gcc-crosssdk-intermediate.inc
- 
--PR = "r3"
-+PR = "r4"
-diff --git a/meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb
-index 7069088..bae2389 100644
---- a/meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb
-+++ b/meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb
-@@ -1,4 +1,4 @@
- require gcc-cross_${PV}.bb
- require gcc-crosssdk.inc
- 
--PR = "r3"
-+PR = "r4"
-diff --git a/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb
-index 093f9bf..c1e680d 100644
---- a/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb
-+++ b/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb
-@@ -1,4 +1,4 @@
--PR = "r2"
-+PR = "r3"
- 
- require gcc-${PV}.inc
- require gcc-configure-runtime.inc
-diff --git a/meta/recipes-devtools/gcc/gcc_4.5.1.bb b/meta/recipes-devtools/gcc/gcc_4.5.1.bb
-index 25e455c..a193b38 100644
---- a/meta/recipes-devtools/gcc/gcc_4.5.1.bb
-+++ b/meta/recipes-devtools/gcc/gcc_4.5.1.bb
-@@ -1,4 +1,4 @@
--PR = "r3"
-+PR = "r4"
- require gcc-${PV}.inc
- require gcc-configure-target.inc
- require gcc-package-target.inc
--- 
-1.7.0.4
+I found there is another item in the connman.conf, named "at_console",
+which can authenticate permissions to user.
+That module needs libpam as its basic. It seems that currently sato image
+didn't install pam into target system.
+
+The original commit was checked in master, at least it will not block QA's =
+testings.
+
+I will think about using more convenient way to fix the problem.
+
+Thanks,
+Dongxiao
+
+>=20
+> Also another alternative is: in connman pkg_postinst, get x user name
+> from /etc/X11/Xusername, then grant the user permission. in this
+> case, at least you won't need to hardcode the xuser name. =20
+>=20
+> Regards
+> Ke
+>=20
+> On Mar 07, 16:00, Dongxiao Xu wrote:
+>> From: Dongxiao Xu <dongxiao.xu@intel.com>
+>>=20
+>> Some platform (like atom-pc) enables rootless X, thus the connman
+>> frontend run on it need the permission to connect with connman by
+>> dbus.
+>> This commit grants permission to xuser.
+>>=20
+>> This fixes [BUGID #779]
+>>=20
+>> Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
+>> ---
+>>  .../connman-0.65/add_xuser_dbus_permission.patch   |   21
+>>  ++++++++++++++++++++
+>>  meta/recipes-connectivity/connman/connman_0.65.bb  |    3 +- 2
+>> files changed, 23 insertions(+), 1 deletions(-)  create mode 100644
+>> meta/recipes-connectivity/connman/connman-0.65/add_xuser_dbus_permissi
+>> on.patch
+>>=20
+>> diff --git
+>> a/meta/recipes-connectivity/connman/connman-0.65/add_xuser_dbus_permis
+>> sion.patch
+>> b/meta/recipes-connectivity/connman/connman-0.65/add_xuser_dbus_permis
+>> sion.patch
+>> new file mode 100644
+>> index 0000000..787d49b
+>> --- /dev/null
+>> +++
+>> b/meta/recipes-connectivity/connman/connman-0.65/add_xuser_dbus_pe
+>> +++ rmission.patch @@ -0,0 +1,21 @@ +Some platform (like atom-pc)
+>> enables rootless X, thus we need to add +the xuser in the list. +
+>> +Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com> +
+>> +diff -ruN connman-0.65-orig/src/connman-dbus.conf
+>> connman-0.65/src/connman-dbus.conf +---
+>> connman-0.65-orig/src/connman-dbus.conf	2011-03-04
+>> 09:34:49.000000000 +0800 ++++
+>> connman-0.65/src/connman-dbus.conf	2011-03-04 09:35:21.000000000
+>> +0800 +@@ -7,6 +7,12 @@ +         <allow
+>> send_interface=3D"net.connman.Agent"/> +         <allow
+>> send_interface=3D"net.connman.Counter"/> +     </policy> ++    <policy
+>> user=3D"xuser"> ++        <allow own=3D"net.connman"/> ++        <allow
+>> send_destination=3D"net.connman"/> ++        <allow
+>> send_interface=3D"net.connman.Agent"/> ++        <allow
+>> send_interface=3D"net.connman.Counter"/> ++    </policy> +     <policy
+>> at_console=3D"true"> +         <allow send_destination=3D"net.connman"/>
+>> +     </policy>=20
+>> diff --git a/meta/recipes-connectivity/connman/connman_0.65.bb
+>> b/meta/recipes-connectivity/connman/connman_0.65.bb
+>> index 0b077e1..8bb84a1 100644
+>> --- a/meta/recipes-connectivity/connman/connman_0.65.bb
+>> +++ b/meta/recipes-connectivity/connman/connman_0.65.bb @@ -1,5 +1,5
+>>  @@ require connman.inc
+>> -PR =3D "r0"
+>> +PR =3D "r1"
+>>=20
+>>  EXTRA_OECONF +=3D "\
+>>    ac_cv_path_WPASUPPLICANT=3D/usr/sbin/wpa_supplicant \ @@ -21,6 +21,7
+>> @@ EXTRA_OECONF +=3D "\  SRC_URI  =3D "\
+>>  =20
+>>  =20
+>> http://www.kernel.org/pub/linux/network/connman/connman-${PV}.tar.gz
+>>    \ file://fix-shutdown-ap-disconnect.patch \ +=20
+>>  file://add_xuser_dbus_permission.patch \ file://connman \ "
+>>=20
+>> --
+>> 1.7.1
+>>=20
+>> _______________________________________________
+>> poky mailing list
+>> poky@yoctoproject.org
+>> https://lists.yoctoproject.org/listinfo/poky
 
 
