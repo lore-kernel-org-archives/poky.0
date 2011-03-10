@@ -1,24 +1,20 @@
-Return-Path: <mark.hatle@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 34CF54C80050
-	for <poky@lists.pokylinux.org>; Wed,  9 Mar 2011 17:50:37 -0600 (CST)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p29NoZ3u000485
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@lists.pokylinux.org>; Wed, 9 Mar 2011 15:50:35 -0800 (PST)
-Received: from localhost.localdomain (172.25.34.61) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Wed, 9 Mar 2011 15:50:35 -0800
-From: Mark Hatle <mark.hatle@windriver.com>
-To: <poky@lists.pokylinux.org>
-Date: Wed, 9 Mar 2011 17:50:51 -0600
-Message-ID: <588d20caa2bc31465da4a9df20906310105f8b8c.1299714512.git.mark.hatle@windriver.com>
-X-Mailer: git-send-email 1.7.3.4
-In-Reply-To: <cover.1299714512.git.mark.hatle@windriver.com>
-References: <cover.1299714512.git.mark.hatle@windriver.com>
-MIME-Version: 1.0
-X-Originating-IP: [172.25.34.61]
-Subject: [PATCH 1/1] gcc-runtime: Ensure that gcc-runtime builds a debug package
+Return-Path: <dongxiao.xu@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 7B0B54C80852
+	for <poky@yoctoproject.org>; Wed,  9 Mar 2011 19:20:04 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 09 Mar 2011 17:20:04 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.62,293,1297065600"; d="scan'208";a="895676659"
+Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.64])
+	by fmsmga001.fm.intel.com with ESMTP; 09 Mar 2011 17:20:03 -0800
+Message-Id: <cover.1299719736.git.dongxiao.xu@intel.com>
+Old-Date: Thu, 10 Mar 2011 09:15:36 +0800
+Date: Thu, 10 Mar 2011  9:19:48 +0800
+To: poky@yoctoproject.org
+CC: 
+From: Dongxiao Xu <dongxiao.xu@intel.com>
+Subject: [PATCH 0/1][PULL] Fix bug 783
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,49 +26,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Mar 2011 23:50:37 -0000
-Content-Type: text/plain
+X-List-Received-Date: Thu, 10 Mar 2011 01:20:04 -0000
 
-The gcc-runtime package will now create the proper dbg package.  The
-RRECOMMENDS change is required to deal with the default.  This is
-documented in bug 824.
+From: Dongxiao Xu <dongxiao.xu@intel.com>
 
-Signed-off-by: Mark Hatle <mark.hatle@windriver.com>
+This pull request fixes [YOCTO #783], which is a parallel make issue of telepathy-python.
+Please help to review and pull.
+
+Tested 10 rounds of telepathy-python build with no error occurred.
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: dxu4/bugfix
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dxu4/bugfix
+
+Thanks,
+    Dongxiao Xu <dongxiao.xu@intel.com>
 ---
- meta/recipes-devtools/gcc/gcc-package-runtime.inc |    3 +++
- meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb    |    2 +-
- 2 files changed, 4 insertions(+), 1 deletions(-)
 
-diff --git a/meta/recipes-devtools/gcc/gcc-package-runtime.inc b/meta/recipes-devtools/gcc/gcc-package-runtime.inc
-index e8c9011..04c70c0 100644
---- a/meta/recipes-devtools/gcc/gcc-package-runtime.inc
-+++ b/meta/recipes-devtools/gcc/gcc-package-runtime.inc
-@@ -1,4 +1,5 @@
- PACKAGES = "\
-+  ${PN}-dbg \
-   libstdc++ \
-   libstdc++-precompile-dev \
-   libstdc++-dev \
-@@ -11,6 +12,8 @@ PACKAGES = "\
-   libmudflap \
-   libmudflap-dev \
- "
-+# The base package doesn't exist, so we clear the recommends.
-+RRECOMMENDS_${PN}-dbg = ""
- 
- FILES_libg2c = "${target_libdir}/libg2c.so.*"
- FILES_libg2c-dev = "\
-diff --git a/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb
-index 093f9bf..c1e680d 100644
---- a/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb
-+++ b/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb
-@@ -1,4 +1,4 @@
--PR = "r2"
-+PR = "r3"
- 
- require gcc-${PV}.inc
- require gcc-configure-runtime.inc
--- 
-1.7.3.4
+
+Dongxiao Xu (1):
+  telepathy-python: Fix parallel make issue.
+
+ .../telepathy-python-0.15.19/parallel_make.patch   |   40 ++++++++++++++++++++
+ .../telepathy/telepathy-python_0.15.19.bb          |    5 +-
+ 2 files changed, 43 insertions(+), 2 deletions(-)
+ create mode 100644 meta/recipes-connectivity/telepathy/telepathy-python-0.15.19/parallel_make.patch
 
 
