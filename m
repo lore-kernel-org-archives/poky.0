@@ -1,26 +1,19 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 739554C800A0
-	for <poky@lists.pokylinux.org>; Fri, 11 Mar 2011 11:36:12 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 175571660365; Fri, 11 Mar 2011 10:36:12 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2-r929478
-Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id D501D166034F;
-	Fri, 11 Mar 2011 10:35:56 -0700 (MST)
-Message-ID: <4D7A5D7C.6040608@mlbassoc.com>
-Date: Fri, 11 Mar 2011 10:35:56 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
-MIME-Version: 1.0
-To: Poky <poky@lists.pokylinux.org>
-Subject: file clashes
+Return-Path: <nitin.a.kamble@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 7301F4C80050
+	for <poky@yoctoproject.org>; Fri, 11 Mar 2011 12:15:14 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 11 Mar 2011 10:15:13 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.62,304,1297065600"; d="scan'208";a="896347729"
+Received: from nbuild2.sc.intel.com (HELO localhost) ([172.25.110.37])
+	by fmsmga001.fm.intel.com with ESMTP; 11 Mar 2011 10:15:14 -0800
+Message-Id: <cover.1299867196.git.nitin.a.kamble@intel.com>
+Old-Date: Fri, 11 Mar 2011 10:13:16 -0800
+Date: Fri, 11 Mar 2011 10:15:13 -0800
+To: poky@yoctoproject.org,openembedded-core@lists.openembedded.org
+From: Nitin A Kamble <nitin.a.kamble@intel.com>
+Subject: [PATCH 0/1] perl parallel build fixes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,25 +25,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 Mar 2011 17:36:12 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 11 Mar 2011 18:15:14 -0000
 
-I started with my sato-like image which includes gnome-keyring.
-Then I added another application which wanted to use libgnome-keyring.
-This caused this clash at install time (I'm still using opkg):
-  * check_data_file_clashes: Package libgnome-keyring0 wants to install file /usr/lib/libgnome-keyring.so.0.1.1
-         But that file is already provided by package  * gnome-keyring
-  * check_data_file_clashes: Package libgnome-keyring0 wants to install file /usr/lib/libgnome-keyring.so.0
-         But that file is already provided by package  * gnome-keyring
+From: Nitin A Kamble <nitin.a.kamble@intel.com>
 
-Does this happen because of the recipe/versions?
-   meta/recipes-gnome/gnome/libgnome-keyring_2.32.0.bb
-   meta/recipes-gnome/gnome/gnome-keyring_2.32.1.bb
+imore information in the commit emails
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: nitin/misc
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=nitin/misc
+
+Thanks,
+    Nitin A Kamble <nitin.a.kamble@intel.com>
+---
+
+
+Nitin A Kamble (1):
+  perl: another set of parallel build fixes
+
+ .../perl/perl-5.12.2/parallel_build_fix_4.patch    |   55 +++
+ .../perl/perl-5.12.2/parallel_build_fix_5.patch    |  428 ++++++++++++++++++++
+ .../perl/perl-5.12.2/parallel_build_fix_6.patch    |  156 +++++++
+ meta/recipes-devtools/perl/perl-native_5.12.2.bb   |    5 +-
+ meta/recipes-devtools/perl/perl_5.12.2.bb          |    5 +-
+ 5 files changed, 647 insertions(+), 2 deletions(-)
+ create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/parallel_build_fix_4.patch
+ create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/parallel_build_fix_5.patch
+ create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/parallel_build_fix_6.patch
 
 -- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+1.7.3.4
+
 
