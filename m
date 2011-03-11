@@ -1,20 +1,22 @@
 Return-Path: <dexuan.cui@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 1CDE64C800A7
-	for <poky@yoctoproject.org>; Fri, 11 Mar 2011 05:43:19 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 11 Mar 2011 03:43:18 -0800
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4F2E74C80861
+	for <poky@yoctoproject.org>; Fri, 11 Mar 2011 05:43:20 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 11 Mar 2011 03:43:19 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,302,1297065600"; d="scan'208";a="401162237"
+X-IronPort-AV: E=Sophos;i="4.62,302,1297065600"; d="scan'208";a="719070780"
 Received: from dcui-desktop.sh.intel.com (HELO localhost) ([10.239.13.51])
-	by azsmga001.ch.intel.com with ESMTP; 11 Mar 2011 03:43:17 -0800
-Message-Id: <cover.1299843601.git.dexuan.cui@intel.com>
-Old-Date: Fri, 11 Mar 2011 19:40:01 +0800
-Date: Fri, 11 Mar 2011 19:41:52 +0800
+	by orsmga001.jf.intel.com with ESMTP; 11 Mar 2011 03:43:19 -0800
+Message-Id: <e8db1316621f048126d08de9ce2b0b7e82cb5792.1299843601.git.dexuan.cui@intel.com>
+In-Reply-To: <cover.1299843601.git.dexuan.cui@intel.com>
+References: <cover.1299843601.git.dexuan.cui@intel.com>
+Old-Date: Fri, 11 Mar 2011 19:25:24 +0800
+Date: Fri, 11 Mar 2011 19:41:53 +0800
 To: poky@yoctoproject.org
 CC: 
 From: Dexuan Cui <dexuan.cui@intel.com>
-Subject: [PATCH 0/1] sugarbay.conf: add mesa library correctly
+Subject: [PATCH 1/1] sugarbay.conf: add mesa library: correct previous wrong modification
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,31 +28,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 Mar 2011 11:43:19 -0000
+X-List-Received-Date: Fri, 11 Mar 2011 11:43:20 -0000
 
 From: Dexuan Cui <dexuan.cui@intel.com>
+
+This fixes [BUGID #727]
 
 766c20ef2141d058f15074e866313ab119332ea8 added
 mesa-dri-driver-i915, but actually it should be
 mesa-dri-driver-i965.
 
-This fixes [BUGID #727]
-
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: dcui/meta-intel
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dcui/meta-intel
-
-Thanks,
-    Dexuan Cui <dexuan.cui@intel.com>
+Signed-off-by: Dexuan Cui <dexuan.cui@intel.com>
+Signed-off-by: Ke Yu <ke.yu@intel.com>
 ---
-
-
-Dexuan Cui (1):
-  sugarbay.conf: add mesa library: correct previous wrong modification
-
  meta-sugarbay/conf/machine/sugarbay.conf |    2 +-
  1 files changed, 1 insertions(+), 1 deletions(-)
 
+diff --git a/meta-sugarbay/conf/machine/sugarbay.conf b/meta-sugarbay/conf/machine/sugarbay.conf
+index 92d7c54..00534a5 100644
+--- a/meta-sugarbay/conf/machine/sugarbay.conf
++++ b/meta-sugarbay/conf/machine/sugarbay.conf
+@@ -28,7 +28,7 @@ XSERVER ?= "xserver-xf86-dri-lite \
+            xf86-input-synaptics \
+            xf86-video-intel \
+            mesa-dri \
+-           mesa-dri-driver-i915"
++           mesa-dri-driver-i965"
+ 
+ SERIAL_CONSOLE = "115200 ttyS0"
+ 
 -- 
 1.7.2
 
