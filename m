@@ -1,24 +1,26 @@
-Return-Path: <mark.hatle@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 6732F4C804B8
-	for <poky@lists.pokylinux.org>; Thu, 10 Mar 2011 18:03:40 -0600 (CST)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p2B03ZHK021577
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@lists.pokylinux.org>; Thu, 10 Mar 2011 16:03:35 -0800 (PST)
-Received: from localhost.localdomain (172.25.34.61) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Thu, 10 Mar 2011 16:03:34 -0800
-From: Mark Hatle <mark.hatle@windriver.com>
-To: <poky@lists.pokylinux.org>
-Date: Thu, 10 Mar 2011 18:03:54 -0600
-Message-ID: <466cc2565c4497bd56351049186543b9bf53fc0d.1299801529.git.mark.hatle@windriver.com>
-X-Mailer: git-send-email 1.7.3.4
-In-Reply-To: <cover.1299801529.git.mark.hatle@windriver.com>
-References: <cover.1299801529.git.mark.hatle@windriver.com>
-MIME-Version: 1.0
-X-Originating-IP: [172.25.34.61]
-Subject: [PATCH 4/4] gcc-runtime: Fix dbg files
+Return-Path: <scott.a.garman@intel.com>
+Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 0B8944C800A3
+	for <poky@yoctoproject.org>; Thu, 10 Mar 2011 18:59:42 -0600 (CST)
+Received: from localhost (unknown [209.216.169.162])
+	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
+	(No client certificate requested)
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id 3B9D6304F3
+	for <poky@yoctoproject.org>; Thu, 10 Mar 2011 19:59:34 -0500 (EST)
+Message-Id: <cover.1299804498.git.scott.a.garman@intel.com>
+Old-Date: Thu, 10 Mar 2011 16:48:18 -0800
+Date: Thu, 10 Mar 2011 16:59:30 -0800
+To: poky@yoctoproject.org
+CC: 
+From: Scott Garman <scott.a.garman@intel.com>
+X-MasterFoo-MailScanner-Information: Please contact the ISP for more
+	information
+X-MailScanner-ID: 3B9D6304F3.E8BAD
+X-MasterFoo-MailScanner: Found to be clean
+X-MasterFoo-MailScanner-SpamCheck: not spam
+X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
+X-Spam-Status: No
+Subject: [PATCH 0/6] Set ssh server using IMAGE_FEATURES
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,46 +32,47 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 Mar 2011 00:03:40 -0000
-Content-Type: text/plain
+X-List-Received-Date: Fri, 11 Mar 2011 00:59:42 -0000
 
-In order to debug certain C++ items, you need the helper python
-components.  These components should live in the -dbg package, ensure
-they are added to the recipe.
+From: Scott Garman <scott.a.garman@intel.com>
 
-Signed-off-by: Mark Hatle <mark.hatle@windriver.com>
+Hi Saul,
+
+This pull request refactors the way an ssh server can be specified,
+making it simpler to switch between dropbear and openssh. It fixes
+[YOCTO #378]
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: sgarman/ssh-switch
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=sgarman/ssh-switch
+
+Thanks,
+    Scott Garman <scott.a.garman@intel.com>
 ---
- meta/recipes-devtools/gcc/gcc-package-runtime.inc |    5 +++++
- meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb    |    2 +-
- 2 files changed, 6 insertions(+), 1 deletions(-)
 
-diff --git a/meta/recipes-devtools/gcc/gcc-package-runtime.inc b/meta/recipes-devtools/gcc/gcc-package-runtime.inc
-index 04c70c0..51483f9 100644
---- a/meta/recipes-devtools/gcc/gcc-package-runtime.inc
-+++ b/meta/recipes-devtools/gcc/gcc-package-runtime.inc
-@@ -15,6 +15,11 @@ PACKAGES = "\
- # The base package doesn't exist, so we clear the recommends.
- RRECOMMENDS_${PN}-dbg = ""
- 
-+# include python debugging scripts
-+FILES_${PN}-dbg += "\
-+  ${libdir}/libstdc++.so.*-gdb.py \
-+  ${datadir}/gcc-${PV}/python/libstdcxx"
-+
- FILES_libg2c = "${target_libdir}/libg2c.so.*"
- FILES_libg2c-dev = "\
-   ${libdir}/libg2c.so \
-diff --git a/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb
-index c1e680d..9eb658b 100644
---- a/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb
-+++ b/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb
-@@ -1,4 +1,4 @@
--PR = "r3"
-+PR = "r4"
- 
- require gcc-${PV}.inc
- require gcc-configure-runtime.inc
--- 
-1.7.3.4
+
+Scott Garman (6):
+  task-base, task-poky-basic, task-poky: Remove hard-coded references
+    to dropbear
+  openssh: allow the openssh meta package to be empty
+  task-poky-ssh.bb: new task for ssh services
+  poky-image.bbclass: add ssh-server as an IMAGE_FEATURES option
+  poky-image-sato.bb: add ssh-server to IMAGE_FEATURES
+  poky-image-lsb: add ssh-server to IMAGE_FEATURES
+
+ meta/classes/poky-image.bbclass                    |    6 ++++-
+ meta/recipes-connectivity/openssh/openssh_5.6p1.bb |    4 ++-
+ meta/recipes-core/tasks/task-base.bb               |    8 +------
+ meta/recipes-core/tasks/task-poky-ssh.bb           |   22 ++++++++++++++++++++
+ meta/recipes-extended/images/poky-image-lsb-dev.bb |    2 +-
+ meta/recipes-extended/images/poky-image-lsb-sdk.bb |    2 +-
+ meta/recipes-extended/images/poky-image-lsb.bb     |    2 +-
+ meta/recipes-extended/tasks/task-poky-basic.bb     |    3 +-
+ meta/recipes-sato/images/poky-image-sato-dev.bb    |    2 +-
+ meta/recipes-sato/images/poky-image-sato-sdk.bb    |    2 +-
+ meta/recipes-sato/images/poky-image-sato.bb        |    2 +-
+ meta/recipes-sato/tasks/task-poky.bb               |    3 +-
+ 12 files changed, 39 insertions(+), 19 deletions(-)
+ create mode 100644 meta/recipes-core/tasks/task-poky-ssh.bb
 
 
