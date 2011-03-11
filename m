@@ -1,24 +1,30 @@
-Return-Path: <Xiaofeng.Yan@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E60C64C800A7
-	for <poky@yoctoproject.org>; Fri, 11 Mar 2011 04:14:35 -0600 (CST)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p2BAEZ8T014829
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Fri, 11 Mar 2011 02:14:35 -0800 (PST)
-Received: from localhost (128.224.162.28) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Fri, 11 Mar 2011 02:14:34 -0800
-Message-ID: <360bddfaa4b10910a717b56ee392f5d1088bf2f6.1299838160.git.xiaofeng.yan@windriver.com>
-In-Reply-To: <cover.1299838160.git.xiaofeng.yan@windriver.com>
-References: <cover.1299838160.git.xiaofeng.yan@windriver.com>
-Old-Date: Fri, 11 Mar 2011 18:03:06 +0800
-Date: Fri, 11 Mar 2011 18:11:59 +0800
-To: <poky@yoctoproject.org>
-From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 9F7194C800A3
+	for <poky@lists.pokylinux.org>; Fri, 11 Mar 2011 05:19:48 -0600 (CST)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 10978166038A; Fri, 11 Mar 2011 04:19:48 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.2-r929478
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id D0D631660365;
+	Fri, 11 Mar 2011 04:19:06 -0700 (MST)
+Message-ID: <4D7A052A.2050400@mlbassoc.com>
+Date: Fri, 11 Mar 2011 04:19:06 -0700
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
 MIME-Version: 1.0
-X-Originating-IP: [128.224.162.28]
-Subject: [PATCH 1/1] task-poky-lsb: Add some packages required by lsb test suite
+To: "Tian, Kevin" <kevin.tian@intel.com>
+References: <4D7996EE.80005@mlbassoc.com>
+	<625BA99ED14B2D499DC4E29D8138F1505770D748C8@shsmsx502.ccr.corp.intel.com>
+In-Reply-To: <625BA99ED14B2D499DC4E29D8138F1505770D748C8@shsmsx502.ccr.corp.intel.com>
+Cc: Poky <poky@lists.pokylinux.org>
+Subject: Re: Problems adding native support packages
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,34 +36,97 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 Mar 2011 10:14:36 -0000
-Content-Type: text/plain
+X-List-Received-Date: Fri, 11 Mar 2011 11:19:49 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+On 03/10/2011 09:57 PM, Tian, Kevin wrote:
+>> From: Gary Thomas
+>> Sent: Friday, March 11, 2011 11:29 AM
+>>
+>> I'm trying to import a native package from OE for which the
+>> main package depends on libiconv.  This seems to imply that
+>> when I extend to the native package using BBCLASSEXTEND, the
+>> native package depends on virtual/libiconv-native
+>>
+>> I can't figure out how to provide this.  Any clues?
+>
+> I'm not sure about the problem here. do you want virtual/libiconv-native dependency
+> or not? If target recipe already has a DEPENDS = "libiconv", then with BBCLASSEXTEND
+> you have libiconv-native automatically.
+>
+> Or if you only want to add libiconv-native for native recipe exclusively, then:
+>
+> DEPENDS_virtclass-native = "virtual/libiconv-native"
 
-Add packages gdk-pixbuf-loader-(bmp,ico,ani) to list task-poky-lsb.bb
+Actually, the problem is that such a dependency was added automatically by BBCLASSEXTEND.
+virtual/libiconv is provided by eglibc package, but it's not clear if it can provide
+virtual/libiconv-native
 
-Signed-off-by: Xiaofeng Yan <xiaofeng.yan@windriver.com>
----
- meta/recipes-extended/tasks/task-poky-lsb.bb |    4 +++-
- 1 files changed, 3 insertions(+), 1 deletions(-)
+The other problem is that there is a meta/recipes-support/libiconv/libiconv_1.9.2.bb recipe
+in the tree which does not build at all, native or target.
 
-diff --git a/meta/recipes-extended/tasks/task-poky-lsb.bb b/meta/recipes-extended/tasks/task-poky-lsb.bb
-index 42fd8e0..5e3397e 100644
---- a/meta/recipes-extended/tasks/task-poky-lsb.bb
-+++ b/meta/recipes-extended/tasks/task-poky-lsb.bb
-@@ -162,7 +162,9 @@ RDEPENDS_task-poky-lsb-graphic-add = "\
-     qt4-plugin-sqldriver-sqlite \
-     libx11-locale \
-     xorg-minimal-fonts \
--    gdk-pixbuf \
-+    gdk-pixbuf-loader-ico \
-+    gdk-pixbuf-loader-bmp \
-+    gdk-pixbuf-loader-ani \
- "
- 
- RDEPENDS_task-poky-lsb-graphic-add_qemux86 = "\
+>>
+>> n.b. the recipe from OE is librsvg and importing it seems to be
+>> pretty invasive.  To build the native package, I needed to add
+>> native support for all of these packages:
+>>
+>> #       modified:   meta/recipes-gnome/gnome/libart-lgpl_2.3.21.bb
+>> #       modified:   meta/recipes-gnome/gtk+/gtk+.inc
+>> #       modified:   meta/recipes-graphics/cairo/cairo.inc
+>> #       modified:   meta/recipes-graphics/pango/pango.inc
+>> #       modified:   meta/recipes-graphics/xorg-lib/libxcomposite_0.4.3.bb
+>> #       modified:   meta/recipes-graphics/xorg-lib/libxcursor_1.1.11.bb
+>> #       modified:   meta/recipes-graphics/xorg-lib/libxdamage_1.1.3.bb
+>> #       modified:   meta/recipes-graphics/xorg-lib/libxfixes_4.0.5.bb
+>> #       modified:   meta/recipes-graphics/xorg-lib/libxft_2.2.0.bb
+>> #       modified:   meta/recipes-graphics/xorg-lib/libxrandr_1.3.1.bb
+>> #       modified:   meta/recipes-graphics/xorg-lib/libxrender_0.9.6.bb
+>> #       modified:   meta/recipes-graphics/xorg-lib/pixman_0.20.2.bb
+>> #       modified:
+>> meta/recipes-graphics/xorg-proto/compositeproto_0.4.2.bb
+>> #       modified:
+>> meta/recipes-graphics/xorg-proto/damageproto_1.2.1.bb
+>> #       modified:   meta/recipes-graphics/xorg-proto/fixesproto_4.1.2.bb
+>> #       modified:   meta/recipes-graphics/xorg-proto/randrproto_1.3.2.bb
+>> #       modified:
+>> meta/recipes-graphics/xorg-proto/renderproto_0.11.1.bb
+>> #       modified:
+>> meta/recipes-graphics/xorg-proto/xineramaproto_1.2.1.bb
+>> #       modified:   meta/recipes-multimedia/alsa/alsa-tools_1.0.20.bb
+>> #       modified:   meta/recipes-support/atk/atk.inc
+>> #       modified:   meta/recipes-support/libcroco/libcroco_0.6.2.bb
+>> #       modified:   meta/recipes-support/libgcrypt/libgcrypt.inc
+>> #       modified:   meta/recipes-support/libgpg-error/libgpg-error_1.9.bb
+>>
+>> I also ran into a problem when I added native to atk, I get this error
+>> which makes no sense at all to me:
+>>     NOTE: package atk-native-1.32.0-r0: task do_fetch: Started
+>>     ERROR: Function 'Fetcher failure for URL:
+>> 'http://download.gnome.org/sources/atk/1.32/atk-native-1.32.0.tar.bz2'.
+>> Unable to fetch URL
+>> http://download.gnome.org/sources/atk/1.32/atk-native-1.32.0.tar.bz2 from
+>> any source.' failed
+>> This seems to be the only package in the set above that wants to fetch a
+>> -native
+>> tarball (there are no such files in the sources repository as far as I can tell)
+>>
+>> Thanks
+>>
+>>
+>> --
+>> ------------------------------------------------------------
+>> Gary Thomas                 |  Consulting for the
+>> MLB Associates              |    Embedded world
+>> ------------------------------------------------------------
+>> _______________________________________________
+>> poky mailing list
+>> poky@yoctoproject.org
+>> https://lists.yoctoproject.org/listinfo/poky
+
 -- 
-1.7.0.4
-
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
