@@ -1,22 +1,22 @@
 Return-Path: <sgw@linux.intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id DE03B4C80A8D
-	for <poky@yoctoproject.org>; Thu, 10 Mar 2011 20:20:16 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 10 Mar 2011 18:20:16 -0800
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 7FF434C80AA4
+	for <poky@yoctoproject.org>; Thu, 10 Mar 2011 20:20:34 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 10 Mar 2011 18:20:34 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,300,1297065600"; d="scan'208";a="666140182"
+X-IronPort-AV: E=Sophos;i="4.62,300,1297065600"; d="scan'208";a="611596217"
 Received: from unknown (HELO localhost) ([10.255.17.57])
-	by fmsmga002.fm.intel.com with ESMTP; 10 Mar 2011 18:20:13 -0800
-Message-Id: <dbc752c75786b0985fbeb4986467ae01290f424a.1299809859.git.sgw@linux.intel.com>
+	by orsmga002.jf.intel.com with ESMTP; 10 Mar 2011 18:20:30 -0800
+Message-Id: <e45b1dc124481012f097194421cc81de65def8d5.1299809859.git.sgw@linux.intel.com>
 In-Reply-To: <cover.1299809859.git.sgw@linux.intel.com>
 References: <cover.1299809859.git.sgw@linux.intel.com>
-Old-Date: Thu, 10 Mar 2011 11:51:26 -0600
-Date: Thu, 10 Mar 2011 18:20:11 -0800
+Old-Date: Fri, 4 Mar 2011 14:03:02 -0800
+Date: Thu, 10 Mar 2011 18:20:28 -0800
 To: poky@yoctoproject.org,openembedded-core@lists.openembedded.org
 From: Saul Wold <sgw@linux.intel.com>
 Cc: Paul Eggleton <paul.eggleton@linux.intel.com>
-Subject: [PATCH 03/12] package.bbclass: Change the debug directory to avoid conflicts
+Subject: [PATCH 06/12] task-base, task-poky-basic, task-poky: Remove hard-coded references to dropbear
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,64 +28,95 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 Mar 2011 02:20:17 -0000
+X-List-Received-Date: Fri, 11 Mar 2011 02:20:34 -0000
 
-From: Mark Hatle <mark.hatle@windriver.com>
+From: Scott Garman <scott.a.garman@intel.com>
 
-The debug directory before was below ${WORKDIR}.  Unfortunately if
-something was based on a git tree, it meant that "git" was the
-directory name being preserved for usr/src/debug usage.  The patch
-moves to using "${WORKDIR}/.." as the base, to ensure that the
-WORKDIR naming is used in usr/src/debug.
+This is the first step in refactoring the SSH server selection to
+be done in IMAGE_FEATURES instead of as hardcoded in these tasks.
 
-Signed-off-by: Mark Hatle <mark.hatle@windriver.com>
+Signed-off-by: Scott Garman <scott.a.garman@intel.com>
 ---
- meta/classes/package.bbclass |   10 ++++++++--
- 1 files changed, 8 insertions(+), 2 deletions(-)
+ meta/recipes-core/tasks/task-base.bb           |    8 +-------
+ meta/recipes-extended/tasks/task-poky-basic.bb |    3 +--
+ meta/recipes-sato/tasks/task-poky.bb           |    3 +--
+ 3 files changed, 3 insertions(+), 11 deletions(-)
 
-diff --git a/meta/classes/package.bbclass b/meta/classes/package.bbclass
-index 137de09..a7a5894 100644
---- a/meta/classes/package.bbclass
-+++ b/meta/classes/package.bbclass
-@@ -180,6 +180,7 @@ def splitfile(file, debugfile, debugsrcdir, d):
-     objcopy = bb.data.getVar("OBJCOPY", d, True)
-     debugedit = bb.data.expand("${STAGING_LIBDIR_NATIVE}/rpm/bin/debugedit", d)
-     workdir = bb.data.expand("${WORKDIR}", d)
-+    workparentdir = os.path.dirname(workdir)
-     sourcefile = bb.data.expand("${WORKDIR}/debugsources.list", d)
+diff --git a/meta/recipes-core/tasks/task-base.bb b/meta/recipes-core/tasks/task-base.bb
+index d613bb2..138e617 100644
+--- a/meta/recipes-core/tasks/task-base.bb
++++ b/meta/recipes-core/tasks/task-base.bb
+@@ -2,7 +2,7 @@ DESCRIPTION = "Merge machine and distro options to create a basic machine task/p
+ LICENSE = "MIT"
+ LIC_FILES_CHKSUM = "file://${POKYBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58 \
+                     file://${POKYBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
+-PR = "r69"
++PR = "r70"
  
-     # We ignore kernel modules, we don't generate debug info files.
-@@ -194,7 +195,7 @@ def splitfile(file, debugfile, debugsrcdir, d):
+ inherit task
  
-     # We need to extract the debug src information here...
-     if debugsrcdir:
--	os.system("%s'%s' -b '%s' -d '%s' -i -l '%s' '%s'" % (pathprefix, debugedit, workdir, debugsrcdir, sourcefile, file))
-+	os.system("%s'%s' -b '%s' -d '%s' -i -l '%s' '%s'" % (pathprefix, debugedit, workparentdir, debugsrcdir, sourcefile, file))
+@@ -60,11 +60,6 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
+ HOTPLUG ?= "${@base_contains("MACHINE_FEATURES", "kernel24",  "linux-hotplug","",d)} "
  
-     bb.mkdirhier(os.path.dirname(debugfile))
+ #
+-# dropbear, openssh or none
+-#
+-DISTRO_SSH_DAEMON ?= "dropbear"
+-
+-#
+ # pcmciautils for >= 2.6.13-rc1, pcmcia-cs for others
+ #
+ PCMCIA_MANAGER ?= "${@base_contains('MACHINE_FEATURES', 'kernel26','pcmciautils','pcmcia-cs',d)} "
+@@ -81,7 +76,6 @@ MACHINE_ESSENTIAL_EXTRA_RRECOMMENDS ?= ""
+ RDEPENDS_task-base = "\
+     task-distro-base \
+     task-machine-base \
+-    ${DISTRO_SSH_DAEMON} \
+     ${HOTPLUG} \
+     \
+     ${@base_contains('MACHINE_FEATURES', 'kernel26','task-base-kernel26','task-base-kernel24',d)} \
+diff --git a/meta/recipes-extended/tasks/task-poky-basic.bb b/meta/recipes-extended/tasks/task-poky-basic.bb
+index d7beafe..3d313f0 100644
+--- a/meta/recipes-extended/tasks/task-poky-basic.bb
++++ b/meta/recipes-extended/tasks/task-poky-basic.bb
+@@ -3,7 +3,7 @@
+ #
  
-@@ -222,15 +223,20 @@ def splitfile2(debugsrcdir, d):
-     objcopy = bb.data.getVar("OBJCOPY", d, True)
-     debugedit = bb.data.expand("${STAGING_LIBDIR_NATIVE}/rpm/bin/debugedit", d)
-     workdir = bb.data.expand("${WORKDIR}", d)
-+    workparentdir = os.path.dirname(workdir)
-+    workbasedir = os.path.basename(workdir)
-     sourcefile = bb.data.expand("${WORKDIR}/debugsources.list", d)
+ DESCRIPTION = "Create Basic Image Tasks"
+-PR = "r2"
++PR = "r3"
+ LICENSE = "MIT"
+ LIC_FILES_CHKSUM = "file://${POKYBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58 \
+                     file://${POKYBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
+@@ -55,7 +55,6 @@ RDEPENDS_task-poky-basic = "\
  
-     if debugsrcdir:
-        bb.mkdirhier("%s%s" % (dvar, debugsrcdir))
+ RDEPENDS_task-poky-base-utils = "\
+     busybox \
+-    dropbear \
+     "
  
-        processdebugsrc =  "LC_ALL=C ; sort -z -u '%s' | egrep -v -z '(<internal>|<built-in>)$' | "
-+       # We need to ignore files that are not actually ours
-+       # we do this by only paying attention to items from this package
-+       processdebugsrc += "egrep -z '%s' | "
-        processdebugsrc += "(cd '%s' ; cpio -pd0mL '%s%s' 2>/dev/null)"
+ RDEPENDS_task-poky-basic-libs = "\
+diff --git a/meta/recipes-sato/tasks/task-poky.bb b/meta/recipes-sato/tasks/task-poky.bb
+index cfcbacb..72d4d0d 100644
+--- a/meta/recipes-sato/tasks/task-poky.bb
++++ b/meta/recipes-sato/tasks/task-poky.bb
+@@ -6,7 +6,7 @@ DESCRIPTION = "Tasks for OpenedHand Poky"
+ LICENSE = "MIT"
+ LIC_FILES_CHKSUM = "file://${POKYBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58 \
+                     file://${POKYBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
+-PR = "r33"
++PR = "r34"
  
--       os.system(processdebugsrc % (sourcefile, workdir, dvar, debugsrcdir))
-+       os.system(processdebugsrc % (sourcefile, workbasedir, workparentdir, dvar, debugsrcdir))
+ PACKAGES = "\
+     task-poky-apps-console \
+@@ -37,7 +37,6 @@ FILEMANAGER_mips ?= ""
  
-        # The copy by cpio may have resulted in some empty directories!  Remove these
-        for root, dirs, files in os.walk("%s%s" % (dvar, debugsrcdir)):
+ RDEPENDS_task-poky-apps-console = "\
+     avahi-daemon \
+-    dropbear \
+     dbus \
+     portmap \
+     ${SPLASH}"
 -- 
 1.7.1.1
 
