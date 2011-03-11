@@ -1,26 +1,28 @@
 Return-Path: <scott.a.garman@intel.com>
 Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5673C4C800A7
-	for <poky@yoctoproject.org>; Thu, 10 Mar 2011 19:41:09 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id DA6FC4C804B8
+	for <poky@yoctoproject.org>; Thu, 10 Mar 2011 19:41:20 -0600 (CST)
 Received: from localhost (unknown [67.232.160.146])
 	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
 	(No client certificate requested)
-	by masterfoo.zenlinux.com (Postfix) with ESMTP id A0582304F3
-	for <poky@yoctoproject.org>; Thu, 10 Mar 2011 20:41:04 -0500 (EST)
-Message-Id: <cover.1299807513.git.scott.a.garman@intel.com>
-Old-Date: Thu, 10 Mar 2011 17:38:33 -0800
-Date: Thu, 10 Mar 2011 17:41:01 -0800
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id A038C304F3
+	for <poky@yoctoproject.org>; Thu, 10 Mar 2011 20:41:12 -0500 (EST)
+Message-Id: <bcbd651b7ab49ce5de3674b4c1bb9be9f0060658.1299807513.git.scott.a.garman@intel.com>
+In-Reply-To: <cover.1299807513.git.scott.a.garman@intel.com>
+References: <cover.1299807513.git.scott.a.garman@intel.com>
+Old-Date: Thu, 10 Mar 2011 16:06:16 -0800
+Date: Thu, 10 Mar 2011 17:41:10 -0800
 To: poky@yoctoproject.org
 CC: 
 From: Scott Garman <scott.a.garman@intel.com>
 X-MasterFoo-MailScanner-Information: Please contact the ISP for more
 	information
-X-MailScanner-ID: A0582304F3.0C5DA
+X-MailScanner-ID: A038C304F3.B9504
 X-MasterFoo-MailScanner: Found to be clean
 X-MasterFoo-MailScanner-SpamCheck: not spam
 X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
 X-Spam-Status: No
-Subject: [PATCH 0/7] Set ssh server using IMAGE_FEATURES, v2
+Subject: [PATCH 2/7] openssh: allow the openssh meta package to be empty
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,46 +34,42 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 Mar 2011 01:41:09 -0000
+X-List-Received-Date: Fri, 11 Mar 2011 01:41:21 -0000
 
 From: Scott Garman <scott.a.garman@intel.com>
 
-Hi Saul,
+This allows the openssh meta-package to be used in the
+poky-ssh task. Otherwise there will be no package named
+openssh to install during image creation.
 
-Based on feedback from you and Joshua, here is an updated pull request
-for refactoring the way an ssh server can be specified in images. It
-fixes [YOCTO #378].
-
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: sgarman/ssh-switch
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=sgarman/ssh-switch
-
-Thanks,
-    Scott Garman <scott.a.garman@intel.com>
+Signed-off-by: Scott Garman <scott.a.garman@intel.com>
 ---
+ meta/recipes-connectivity/openssh/openssh_5.6p1.bb |    4 +++-
+ 1 files changed, 3 insertions(+), 1 deletions(-)
 
-
-Scott Garman (7):
-  task-base, task-poky-basic, task-poky: Remove hard-coded references
-    to dropbear
-  openssh: allow the openssh meta package to be empty
-  task-poky-ssh.bb: new task for ssh services
-  poky-image.bbclass: add ssh-server as an IMAGE_FEATURES option
-  poky-image.bbclass: add ssh-server to SATO_IMAGE_FEATURES
-  poky-image-lsb: add ssh-server to IMAGE_FEATURES
-  poky-image-basic: add ssh-server to IMAGE_FEATURES
-
- meta/classes/poky-image.bbclass                    |    8 +++++-
- meta/recipes-connectivity/openssh/openssh_5.6p1.bb |    4 ++-
- meta/recipes-core/tasks/task-base.bb               |    8 +------
- meta/recipes-core/tasks/task-poky-ssh.bb           |   22 ++++++++++++++++++++
- meta/recipes-extended/images/poky-image-basic.bb   |    4 ++-
- meta/recipes-extended/images/poky-image-lsb-dev.bb |    4 ++-
- meta/recipes-extended/images/poky-image-lsb-sdk.bb |    4 ++-
- meta/recipes-extended/images/poky-image-lsb.bb     |    4 ++-
- meta/recipes-extended/tasks/task-poky-basic.bb     |    4 +--
- meta/recipes-sato/tasks/task-poky.bb               |    3 +-
- 10 files changed, 46 insertions(+), 19 deletions(-)
- create mode 100644 meta/recipes-core/tasks/task-poky-ssh.bb
+diff --git a/meta/recipes-connectivity/openssh/openssh_5.6p1.bb b/meta/recipes-connectivity/openssh/openssh_5.6p1.bb
+index be9ae09..d93a773 100644
+--- a/meta/recipes-connectivity/openssh/openssh_5.6p1.bb
++++ b/meta/recipes-connectivity/openssh/openssh_5.6p1.bb
+@@ -7,7 +7,7 @@ SECTION = "console/network"
+ LICENSE = "BSD"
+ LIC_FILES_CHKSUM = "file://LICENCE;md5=7ae09218173be1643c998a4b71027f9b"
+ 
+-PR = "r0"
++PR = "r1"
+ 
+ DEPENDS = "zlib openssl"
+ DEPENDS += "${@base_contains('DISTRO_FEATURES', 'pam', 'libpam', '', d)}"
+@@ -67,6 +67,8 @@ do_install_append () {
+ 	rmdir ${D}/var/run/sshd ${D}/var/run ${D}/var
+ }
+ 
++ALLOW_EMPTY_${PN} = "1"
++
+ PACKAGES =+ "${PN}-keygen ${PN}-scp ${PN}-ssh ${PN}-sshd ${PN}-sftp ${PN}-misc ${PN}-sftp-server"
+ FILES_${PN}-scp = "${bindir}/scp.${PN}"
+ FILES_${PN}-ssh = "${bindir}/ssh.${PN} ${sysconfdir}/ssh/ssh_config"
+-- 
+1.7.1
 
 
