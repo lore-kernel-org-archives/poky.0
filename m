@@ -1,28 +1,28 @@
 Return-Path: <scott.a.garman@intel.com>
 Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C29204C80AB0
-	for <poky@yoctoproject.org>; Thu, 10 Mar 2011 19:00:00 -0600 (CST)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 626F54C80AB0
+	for <poky@yoctoproject.org>; Thu, 10 Mar 2011 19:00:02 -0600 (CST)
 Received: from localhost (unknown [209.216.169.162])
 	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
 	(No client certificate requested)
-	by masterfoo.zenlinux.com (Postfix) with ESMTP id A1171308C5
-	for <poky@yoctoproject.org>; Thu, 10 Mar 2011 19:59:56 -0500 (EST)
-Message-Id: <9e6bf85acfd155e872b26457faabcb4868ceb4d2.1299804498.git.scott.a.garman@intel.com>
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id 98888308C2
+	for <poky@yoctoproject.org>; Thu, 10 Mar 2011 19:59:49 -0500 (EST)
+Message-Id: <f3a556bc22d8ed0e85987aad309c2d29f47c2c8b.1299804498.git.scott.a.garman@intel.com>
 In-Reply-To: <cover.1299804498.git.scott.a.garman@intel.com>
 References: <cover.1299804498.git.scott.a.garman@intel.com>
-Old-Date: Thu, 10 Mar 2011 16:22:33 -0800
-Date: Thu, 10 Mar 2011 16:59:53 -0800
+Old-Date: Sat, 5 Mar 2011 19:30:53 -0800
+Date: Thu, 10 Mar 2011 16:59:47 -0800
 To: poky@yoctoproject.org
 CC: 
 From: Scott Garman <scott.a.garman@intel.com>
 X-MasterFoo-MailScanner-Information: Please contact the ISP for more
 	information
-X-MailScanner-ID: A1171308C5.BD0DA
+X-MailScanner-ID: 98888308C2.927C6
 X-MasterFoo-MailScanner: Found to be clean
 X-MasterFoo-MailScanner-SpamCheck: not spam
 X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
 X-Spam-Status: No
-Subject: [PATCH 6/6] poky-image-lsb: add ssh-server to IMAGE_FEATURES
+Subject: [PATCH 4/6] poky-image.bbclass: add ssh-server as an IMAGE_FEATURES option
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,47 +34,44 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 Mar 2011 01:00:00 -0000
+X-List-Received-Date: Fri, 11 Mar 2011 01:00:02 -0000
 
 From: Scott Garman <scott.a.garman@intel.com>
 
+Images which want to include an ssh server can then add
+ssh-server to their IMAGE_FEATURES.
+
 Signed-off-by: Scott Garman <scott.a.garman@intel.com>
 ---
- meta/recipes-extended/images/poky-image-lsb-dev.bb |    2 +-
- meta/recipes-extended/images/poky-image-lsb-sdk.bb |    2 +-
- meta/recipes-extended/images/poky-image-lsb.bb     |    2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+ meta/classes/poky-image.bbclass |    6 +++++-
+ 1 files changed, 5 insertions(+), 1 deletions(-)
 
-diff --git a/meta/recipes-extended/images/poky-image-lsb-dev.bb b/meta/recipes-extended/images/poky-image-lsb-dev.bb
-index d490ee5..35b80a3 100644
---- a/meta/recipes-extended/images/poky-image-lsb-dev.bb
-+++ b/meta/recipes-extended/images/poky-image-lsb-dev.bb
-@@ -1,4 +1,4 @@
--IMAGE_FEATURES += "apps-console-core dev-pkgs "
-+IMAGE_FEATURES += "apps-console-core dev-pkgs ssh-server"
- 
- IMAGE_INSTALL = "\
-     ${POKY_BASE_INSTALL} \
-diff --git a/meta/recipes-extended/images/poky-image-lsb-sdk.bb b/meta/recipes-extended/images/poky-image-lsb-sdk.bb
-index 184b5d7..0b1e1e9 100644
---- a/meta/recipes-extended/images/poky-image-lsb-sdk.bb
-+++ b/meta/recipes-extended/images/poky-image-lsb-sdk.bb
-@@ -1,4 +1,4 @@
--IMAGE_FEATURES += "apps-console-core tools-debug tools-profile tools-sdk dev-pkgs"
-+IMAGE_FEATURES += "apps-console-core tools-debug tools-profile tools-sdk dev-pkgs ssh-server"
- 
- IMAGE_INSTALL = "\
-     ${POKY_BASE_INSTALL} \
-diff --git a/meta/recipes-extended/images/poky-image-lsb.bb b/meta/recipes-extended/images/poky-image-lsb.bb
-index 8424d91..096fed4 100644
---- a/meta/recipes-extended/images/poky-image-lsb.bb
-+++ b/meta/recipes-extended/images/poky-image-lsb.bb
-@@ -1,4 +1,4 @@
--IMAGE_FEATURES += "apps-console-core "
-+IMAGE_FEATURES += "apps-console-core ssh-server"
- 
- IMAGE_INSTALL = "\
-     ${POKY_BASE_INSTALL} \
+diff --git a/meta/classes/poky-image.bbclass b/meta/classes/poky-image.bbclass
+index 225584b..896ef94 100644
+--- a/meta/classes/poky-image.bbclass
++++ b/meta/classes/poky-image.bbclass
+@@ -24,6 +24,7 @@ LIC_FILES_CHKSUM = "file://${POKYBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3
+ # - tools-profile       - profiling tools
+ # - tools-testapps      - tools usable to make some device tests
+ # - nfs-server          - NFS server (exports / over NFS to everybody)
++# - ssh-server          - SSH server (dropbear vs. openssh)
+ # - dev-pkgs            - development packages
+ # - dbg-pkgs            - debug packages
+ #
+@@ -79,9 +80,12 @@ POKY_BASE_INSTALL = '\
+     \
+     ${@base_contains("IMAGE_FEATURES", "nfs-server", "task-poky-nfs-server", "",d)} \
+     ${@base_contains("IMAGE_FEATURES", ["nfs-server", "dbg-pkgs"], "task-poky-nfs-server-dbg", "",d)} \
+-    \
+     ${@base_contains("IMAGE_FEATURES", ["nfs-server", "dev-pkgs"], "task-poky-nfs-server-dev", "",d)} \
+     \
++    ${@base_contains("IMAGE_FEATURES", "ssh-server", "task-poky-ssh-server", "",d)} \
++    ${@base_contains("IMAGE_FEATURES", ["ssh-server", "dbg-pkgs"], "task-poky-ssh-server-dbg", "",d)} \
++    ${@base_contains("IMAGE_FEATURES", ["ssh-server", "dev-pkgs"], "task-poky-ssh-server-dev", "",d)} \
++    \
+     ${@base_contains("IMAGE_FEATURES", "package-management", "${ROOTFS_PKGMANAGE}", "${ROOTFS_PKGMANAGE_BOOTSTRAP}",d)} \
+     ${@base_contains("IMAGE_FEATURES", "qt4-pkgs", "task-poky-qt-demos", "",d)} \
+     ${POKY_EXTRA_INSTALL} \
 -- 
 1.7.1
 
