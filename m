@@ -1,31 +1,26 @@
-Return-Path: <Tom_Rini@mentor.com>
-Received: from relay1.mentorg.com (relay1.mentorg.com [192.94.38.131])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 857B84C800B7
-	for <poky@yoctoproject.org>; Fri, 11 Mar 2011 11:26:46 -0600 (CST)
-Received: from svr-orw-fem-01.mgc.mentorg.com ([147.34.98.93])
-	by relay1.mentorg.com with esmtp 
-	id 1Py66w-0006mv-1q from Tom_Rini@mentor.com 
-	for poky@yoctoproject.org; Fri, 11 Mar 2011 09:26:46 -0800
-Received: from SVR-ORW-FEM-04.mgc.mentorg.com ([147.34.97.41]) by
-	svr-orw-fem-01.mgc.mentorg.com over TLS secured channel with
-	Microsoft SMTPSVC(6.0.3790.4675); Fri, 11 Mar 2011 09:25:26 -0800
-Received: from [172.30.80.238] (147.34.91.1) by svr-orw-fem-04.mgc.mentorg.com
-	(147.34.97.41) with Microsoft SMTP Server id 14.1.270.1;
-	Fri, 11 Mar 2011 09:25:25 -0800
-Message-ID: <4D7A5AFA.7080107@mentor.com>
-Date: Fri, 11 Mar 2011 10:25:14 -0700
-From: Tom Rini <tom_rini@mentor.com>
-Organization: Mentor Graphics Corporation
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 115054C800A0
+	for <poky@lists.pokylinux.org>; Fri, 11 Mar 2011 11:30:37 -0600 (CST)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 84C4B1660348; Fri, 11 Mar 2011 10:30:36 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.2-r929478
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 292E6166029A;
+	Fri, 11 Mar 2011 10:30:35 -0700 (MST)
+Message-ID: <4D7A5C3B.6070709@mlbassoc.com>
+Date: Fri, 11 Mar 2011 10:30:35 -0700
+From: Gary Thomas <gary@mlbassoc.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.14) Gecko/20110223 Lightning/1.0b2 Thunderbird/3.1.8
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
 MIME-Version: 1.0
-To: <poky@yoctoproject.org>
-References: <4D7A08BF.80303@mlbassoc.com> <1299863594.1445.2875.camel@rex>
-	<4D7A59DC.6070900@mlbassoc.com>
-In-Reply-To: <4D7A59DC.6070900@mlbassoc.com>
-X-OriginalArrivalTime: 11 Mar 2011 17:25:26.0484 (UTC)
-	FILETIME=[4F9B6140:01CBE011]
-Subject: Re: Native vs not
+To: Poky <poky@lists.pokylinux.org>
+Subject: icon registration
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,59 +32,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 Mar 2011 17:26:46 -0000
-Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
+X-List-Received-Date: Fri, 11 Mar 2011 17:30:37 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 03/11/2011 10:20 AM, Gary Thomas wrote:
-> On 03/11/2011 10:13 AM, Richard Purdie wrote:
->> On Fri, 2011-03-11 at 04:34 -0700, Gary Thomas wrote:
->>> As pointed out in another thread, I'm trying to build a native
->>> package which sends "I need native" ripples throughout much of
->>> the Poky infrastructure.
->>>
->>> Does having a native version available for any given package incur a
->>> cost?
->>> If not, would patches for [all of] the packages I need be acceptable?
->>>
->>> So far, nearly all of the affected packages built fine, just adding
->>> native
->>> to BBCLASSEXTEND. Many already build nativesdk versions already.
->>
->> There is a cost incurred by doing this since it does increase parse time
->> and this is something user exposed which we do try and keep under
->> control.
->>
->> Having said that, the BBCLASSEXTEND technology has a lot less overhead
->> than some of the older approaches to native/sdk recipes.
->
-> As is, I created a separate layer with a bunch of bbappend files that are
-> only
-> BBCLASSEXTEND += " native "
-> I suppose if I never needed them, I could just not enable that layer.
->
->>
->> The main reason I've been against native everywhere is that having
->> native versions available makes it far too easy for people to add native
->> dependencies which encourage feature creep without thinking through the
->> huge additional dependency chains, the extra build time and other
->> implications. Often there are slightly more difficult but worthwhile
->> ways we can avoid the native dependency.
->
-> Such as? I started down this path needing a native tool (which admittedly
-> came from an OE recipe librsvg) which then cascaded into cairo-native and
-> beyond, totally 22 packages!. If I knew of a short circuit for this, I'd
-> certainly entertain it.
+I built & installed gnome-icon-theme on top of my sato(-like) image,
+but the new icons did not show up.  I've built a GTK-webcore application
+(midori browser) that wants to use some GNOME icons that it can't find:
+    Gtk-WARNING **: Error loading theme icon 'stock_new-tab' for stock: Icon 'stock_new-tab' not present in te
+For some GTK+ applications, this seems to be fatal :-(
 
-Having just skimmed the OE recipes, yeah, there we just build a ton of 
-stuff in librsvg-native.  But I would start by looking at what we can 
-pass to configure to disable things as part of the host tool build.
+Does anyone know how new icon sets might be registered?  Shouldn't
+this happen automatically when you install a theme?
 
-Doing some git grep'ing I see there's just a few things in OE that need 
-librsvg-native so perhaps we can build a much more limited native recipe 
-instead and still generate what we need to.
+n.b. I simply copied the /usr/share/icons/gnome/ tree over /usr/share/icons/Sato
+and the application runs perfectly.  I'd rather not have to resort this.
+
+Thanks
 
 -- 
-Tom Rini
-Mentor Graphics Corporation
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
