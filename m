@@ -1,22 +1,19 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 8C80E4C804D9
-	for <poky@yoctoproject.org>; Fri, 11 Mar 2011 13:22:13 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 11 Mar 2011 11:21:59 -0800
+Return-Path: <nitin.a.kamble@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 78D4D4C8009A
+	for <poky@yoctoproject.org>; Fri, 11 Mar 2011 14:22:40 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 11 Mar 2011 12:22:40 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,304,1297065600"; d="scan'208";a="401368972"
-Received: from unknown (HELO localhost) ([10.255.12.198])
-	by azsmga001.ch.intel.com with ESMTP; 11 Mar 2011 11:21:59 -0800
-Message-Id: <4bbfc4f08b0e906ba4182f0ad2baad77a5938db9.1299871227.git.dvhart@linux.intel.com>
-In-Reply-To: <cover.1299871227.git.dvhart@linux.intel.com>
-References: <cover.1299871227.git.dvhart@linux.intel.com>
-Old-Date: Fri, 11 Mar 2011 11:19:10 -0800
-Date: Fri, 11 Mar 2011 11:21:56 -0800
-To: poky@yoctoproject.org
-From: Darren Hart <dvhart@linux.intel.com>
-Cc: Darren Hart <dvhart@linux.intel.com>
-Subject: [PATCH 2/2] n450: Default to atom-pc SRCREVs for linux-yocto-stable
+X-IronPort-AV: E=Sophos;i="4.62,304,1297065600"; d="scan'208";a="611957307"
+Received: from nbuild2.sc.intel.com (HELO localhost) ([172.25.110.37])
+	by orsmga002.jf.intel.com with ESMTP; 11 Mar 2011 12:22:39 -0800
+Message-Id: <cover.1299874717.git.nitin.a.kamble@intel.com>
+Old-Date: Fri, 11 Mar 2011 12:18:37 -0800
+Date: Fri, 11 Mar 2011 12:22:39 -0800
+To: poky@yoctoproject.org,openembedded-core@lists.openembedded.org
+From: Nitin A Kamble <nitin.a.kamble@intel.com>
+Subject: [PATCH 0/1] perl parallel build fix - corrected
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,35 +25,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 Mar 2011 19:22:13 -0000
+X-List-Received-Date: Fri, 11 Mar 2011 20:22:40 -0000
 
-From: Darren Hart <dvhart@linux.intel.com>
+From: Nitin A Kamble <nitin.a.kamble@intel.com>
 
-AUTOREV should only be used for local development and that can be set using
-the meta-extras/meta-kernel-dev layer. Comment the subtle aspect of defaulting
-to the atom-pc SRCREVs due to the shared KMACHINE.
+I missed rebasing an existing perl patch which gets affected by the parallel build fix patches. It is included in this request.
 
-Signed-off-by: Darren Hart <dvhart@linux.intel.com>
-CC: Tom Zanussi <tom.zanussi@intel.com>
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: nitin/misc
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=nitin/misc
+
+Thanks,
+    Nitin A Kamble <nitin.a.kamble@intel.com>
 ---
- .../linux/linux-yocto-stable_git.bbappend          |    6 +++---
- 1 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/meta-n450/recipes-kernel/linux/linux-yocto-stable_git.bbappend b/meta-n450/recipes-kernel/linux/linux-yocto-stable_git.bbappend
-index 6a0cfd2..e7c2df8 100644
---- a/meta-n450/recipes-kernel/linux/linux-yocto-stable_git.bbappend
-+++ b/meta-n450/recipes-kernel/linux/linux-yocto-stable_git.bbappend
-@@ -2,6 +2,6 @@ FILESEXTRAPATHS := "${THISDIR}/${PN}"
- KMACHINE_n450 = "atom-pc"
- COMPATIBLE_MACHINE_n450 = "n450"
- 
--SRCREV="${AUTOREV}"
--# Functionality flags
--#KERNEL_REVISION_CHECKING ?= "t"
-+# We use the atom-pc machine SRCREV and the default meta SRCREV
-+#SRCREV_machine_pn-linux-yocto-stable_n450 = ""
-+#SRCREV_meta_pn-linux-yocto-stable_n450 ?= ""
+
+Nitin A Kamble (1):
+  perl: another set of parallel build fixes
+
+ .../perl/perl-5.12.2/Makefile.SH.patch             |   44 +-
+ .../perl/perl-5.12.2/parallel_build_fix_4.patch    |   55 +++
+ .../perl/perl-5.12.2/parallel_build_fix_5.patch    |  428 ++++++++++++++++++++
+ .../perl/perl-5.12.2/parallel_build_fix_6.patch    |  156 +++++++
+ meta/recipes-devtools/perl/perl-native_5.12.2.bb   |    5 +-
+ meta/recipes-devtools/perl/perl_5.12.2.bb          |    5 +-
+ 6 files changed, 669 insertions(+), 24 deletions(-)
+ create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/parallel_build_fix_4.patch
+ create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/parallel_build_fix_5.patch
+ create mode 100644 meta/recipes-devtools/perl/perl-5.12.2/parallel_build_fix_6.patch
+
 -- 
-1.7.1
+1.7.3.4
 
 
