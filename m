@@ -1,36 +1,26 @@
-Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5A6364C800B8
-	for <poky@yoctoproject.org>; Thu, 10 Mar 2011 21:20:31 -0600 (CST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 10 Mar 2011 19:20:30 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,300,1297065600"; d="scan'208";a="400988448"
-Received: from orsmsx603.amr.corp.intel.com ([10.22.226.49])
-	by azsmga001.ch.intel.com with ESMTP; 10 Mar 2011 19:20:08 -0800
-Received: from orsmsx606.amr.corp.intel.com (10.22.226.128) by
-	orsmsx603.amr.corp.intel.com (10.22.226.49) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Thu, 10 Mar 2011 19:20:07 -0800
-Received: from orsmsx504.amr.corp.intel.com ([10.22.226.207]) by
-	orsmsx606.amr.corp.intel.com ([10.22.226.128]) with mapi;
-	Thu, 10 Mar 2011 19:20:07 -0800
-From: "Kamble, Nitin A" <nitin.a.kamble@intel.com>
-To: "Lu, Lianhao" <lianhao.lu@intel.com>, "poky@yoctoproject.org"
-	<poky@yoctoproject.org>
-Date: Thu, 10 Mar 2011 19:19:50 -0800
-Thread-Topic: [poky] [PATCH 1/1] gcc/collect2: Added --sysroot support into
-	collect2 in gcc.
-Thread-Index: Acve66o75vsQB0r4QUuH1iNje7tuSwAr2+TQ
-Message-ID: <9DA5872FEF993D41B7173F58FCF6BE9431F33E45@orsmsx504.amr.corp.intel.com>
-References: <cover.1299737813.git.lianhao.lu@intel.com>
-	<6a1fe90d5a43e3260098dc90b8d467a1ba7d6335.1299737813.git.lianhao.lu@intel.com>
-In-Reply-To: <6a1fe90d5a43e3260098dc90b8d467a1ba7d6335.1299737813.git.lianhao.lu@intel.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 563C24C800B8
+	for <poky@lists.pokylinux.org>; Thu, 10 Mar 2011 21:29:19 -0600 (CST)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id A76341660171; Thu, 10 Mar 2011 20:29:15 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=ham version=3.3.2-r929478
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id AE41916601E5;
+	Thu, 10 Mar 2011 20:28:46 -0700 (MST)
+Message-ID: <4D7996EE.80005@mlbassoc.com>
+Date: Thu, 10 Mar 2011 20:28:46 -0700
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
 MIME-Version: 1.0
-Subject: Re: [PATCH 1/1] gcc/collect2: Added --sysroot support into	collect2 in gcc.
+To: Poky <poky@lists.pokylinux.org>
+Subject: Problems adding native support packages
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,206 +32,59 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 Mar 2011 03:20:31 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Fri, 11 Mar 2011 03:29:20 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Looks fine to me.
+I'm trying to import a native package from OE for which the
+main package depends on libiconv.  This seems to imply that
+when I extend to the native package using BBCLASSEXTEND, the
+native package depends on virtual/libiconv-native
 
-Thanks,
-Nitin
+I can't figure out how to provide this.  Any clues?
+
+n.b. the recipe from OE is librsvg and importing it seems to be
+pretty invasive.  To build the native package, I needed to add
+native support for all of these packages:
+
+#       modified:   meta/recipes-gnome/gnome/libart-lgpl_2.3.21.bb
+#       modified:   meta/recipes-gnome/gtk+/gtk+.inc
+#       modified:   meta/recipes-graphics/cairo/cairo.inc
+#       modified:   meta/recipes-graphics/pango/pango.inc
+#       modified:   meta/recipes-graphics/xorg-lib/libxcomposite_0.4.3.bb
+#       modified:   meta/recipes-graphics/xorg-lib/libxcursor_1.1.11.bb
+#       modified:   meta/recipes-graphics/xorg-lib/libxdamage_1.1.3.bb
+#       modified:   meta/recipes-graphics/xorg-lib/libxfixes_4.0.5.bb
+#       modified:   meta/recipes-graphics/xorg-lib/libxft_2.2.0.bb
+#       modified:   meta/recipes-graphics/xorg-lib/libxrandr_1.3.1.bb
+#       modified:   meta/recipes-graphics/xorg-lib/libxrender_0.9.6.bb
+#       modified:   meta/recipes-graphics/xorg-lib/pixman_0.20.2.bb
+#       modified:   meta/recipes-graphics/xorg-proto/compositeproto_0.4.2.bb
+#       modified:   meta/recipes-graphics/xorg-proto/damageproto_1.2.1.bb
+#       modified:   meta/recipes-graphics/xorg-proto/fixesproto_4.1.2.bb
+#       modified:   meta/recipes-graphics/xorg-proto/randrproto_1.3.2.bb
+#       modified:   meta/recipes-graphics/xorg-proto/renderproto_0.11.1.bb
+#       modified:   meta/recipes-graphics/xorg-proto/xineramaproto_1.2.1.bb
+#       modified:   meta/recipes-multimedia/alsa/alsa-tools_1.0.20.bb
+#       modified:   meta/recipes-support/atk/atk.inc
+#       modified:   meta/recipes-support/libcroco/libcroco_0.6.2.bb
+#       modified:   meta/recipes-support/libgcrypt/libgcrypt.inc
+#       modified:   meta/recipes-support/libgpg-error/libgpg-error_1.9.bb
+
+I also ran into a problem when I added native to atk, I get this error
+which makes no sense at all to me:
+   NOTE: package atk-native-1.32.0-r0: task do_fetch: Started
+   ERROR: Function 'Fetcher failure for URL: 'http://download.gnome.org/sources/atk/1.32/atk-native-1.32.0.tar.bz2'. Unable to fetch URL 
+http://download.gnome.org/sources/atk/1.32/atk-native-1.32.0.tar.bz2 from any source.' failed
+This seems to be the only package in the set above that wants to fetch a -native
+tarball (there are no such files in the sources repository as far as I can tell)
+
+Thanks
 
 
-> -----Original Message-----
-> From: poky-bounces@yoctoproject.org [mailto:poky-
-> bounces@yoctoproject.org] On Behalf Of Lianhao Lu
-> Sent: Wednesday, March 09, 2011 10:22 PM
-> To: poky@yoctoproject.org
-> Subject: [poky] [PATCH 1/1] gcc/collect2: Added --sysroot support into
-> collect2 in gcc.
->=20
-> From: Lianhao Lu <lianhao.lu@intel.com>
->=20
-> [YOCTO #815] Added --sysroot into COLLECT_GCC_OPTIONS to allow the
-> collect2 support user specifed sysroot.
->=20
-> Signed-off-by: Lianhao Lu <lianhao.lu@intel.com>
-> ---
->  meta/recipes-devtools/gcc/gcc-4.5.1.inc            |    1 +
->  .../gcc/gcc-4.5.1/COLLECT_GCC_OPTIONS.patch        |   22
-> ++++++++++++++++++++
->  .../gcc/gcc-cross-canadian_4.5.1.bb                |    2 +-
->  .../gcc/gcc-cross-initial_4.5.1.bb                 |    2 +-
->  .../gcc/gcc-cross-intermediate_4.5.1.bb            |    2 +-
->  meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb       |    2 +-
->  .../gcc/gcc-crosssdk-initial_4.5.1.bb              |    2 +-
->  .../gcc/gcc-crosssdk-intermediate_4.5.1.bb         |    2 +-
->  meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb    |    2 +-
->  meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb     |    2 +-
->  meta/recipes-devtools/gcc/gcc_4.5.1.bb             |    2 +-
->  11 files changed, 32 insertions(+), 9 deletions(-)
->  create mode 100644 meta/recipes-devtools/gcc/gcc-
-> 4.5.1/COLLECT_GCC_OPTIONS.patch
->=20
-> diff --git a/meta/recipes-devtools/gcc/gcc-4.5.1.inc b/meta/recipes-
-> devtools/gcc/gcc-4.5.1.inc
-> index 6c600c1..3c4902e 100644
-> --- a/meta/recipes-devtools/gcc/gcc-4.5.1.inc
-> +++ b/meta/recipes-devtools/gcc/gcc-4.5.1.inc
-> @@ -56,6 +56,7 @@ SRC_URI =3D "${GNU_MIRROR}/gcc/gcc-${PV}/gcc-
-> ${PV}.tar.bz2 \
->  	   file://disable_relax_pic_calls_flag.patch \
->  	   file://gcc-poison-parameters.patch \
->  	   file://GPLUSPLUS_INCLUDE_DIR_with_sysroot.patch \
-> +	   file://COLLECT_GCC_OPTIONS.patch \
->  	  "
->=20
->  SRC_URI_append_sh3  =3D " file://sh3-installfix-fixheaders.patch;patch=
-=3D1
-> "
-> diff --git a/meta/recipes-devtools/gcc/gcc-
-> 4.5.1/COLLECT_GCC_OPTIONS.patch b/meta/recipes-devtools/gcc/gcc-
-> 4.5.1/COLLECT_GCC_OPTIONS.patch
-> new file mode 100644
-> index 0000000..3e3dec7
-> --- /dev/null
-> +++ b/meta/recipes-devtools/gcc/gcc-4.5.1/COLLECT_GCC_OPTIONS.patch
-> @@ -0,0 +1,22 @@
-> +#This patck added --sysroot into COLLECT_GCC_OPTIONS which is used to
-> +#invoke collect2.
-> +
-> +diff -ruN gcc-4.5.1.orig/gcc/gcc.c gcc-4.5.1/gcc/gcc.c
-> +--- gcc-4.5.1.orig/gcc/gcc.c	2011-03-09 16:43:39.127752586 +0800
-> ++++ gcc-4.5.1/gcc/gcc.c	2011-03-09 16:47:15.894929459 +0800
-> +@@ -4667,6 +4667,15 @@
-> + 		sizeof ("COLLECT_GCC_OPTIONS=3D") - 1);
-> +
-> +   first_time =3D TRUE;
-> ++#ifdef HAVE_LD_SYSROOT
-> ++  if (target_system_root_changed && target_system_root)
-> ++    {
-> ++      obstack_grow (&collect_obstack, "'--sysroot=3D", sizeof("'--
-> sysroot=3D")-1);
-> ++      obstack_grow (&collect_obstack,
-> target_system_root,strlen(target_system_root));
-> ++      obstack_grow (&collect_obstack, "'", 1);
-> ++      first_time =3D FALSE;
-> ++    }
-> ++#endif
-> +   for (i =3D 0; (int) i < n_switches; i++)
-> +     {
-> +       const char *const *args;
-> diff --git a/meta/recipes-devtools/gcc/gcc-cross-canadian_4.5.1.bb
-> b/meta/recipes-devtools/gcc/gcc-cross-canadian_4.5.1.bb
-> index 3eea4bc..92708d4 100644
-> --- a/meta/recipes-devtools/gcc/gcc-cross-canadian_4.5.1.bb
-> +++ b/meta/recipes-devtools/gcc/gcc-cross-canadian_4.5.1.bb
-> @@ -5,7 +5,7 @@ require gcc-cross-canadian.inc
->  require gcc-configure-sdk.inc
->  require gcc-package-sdk.inc
->=20
-> -PR =3D "r3"
-> +PR =3D "r4"
->=20
->  DEPENDS +=3D "gmp-nativesdk mpfr-nativesdk libmpc-nativesdk elfutils-
-> nativesdk"
->  RDEPENDS_${PN} +=3D "mpfr-nativesdk libmpc-nativesdk elfutils-nativesdk"
-> diff --git a/meta/recipes-devtools/gcc/gcc-cross-initial_4.5.1.bb
-> b/meta/recipes-devtools/gcc/gcc-cross-initial_4.5.1.bb
-> index 38e0964..081b7d6 100644
-> --- a/meta/recipes-devtools/gcc/gcc-cross-initial_4.5.1.bb
-> +++ b/meta/recipes-devtools/gcc/gcc-cross-initial_4.5.1.bb
-> @@ -1,5 +1,5 @@
->  require gcc-cross_${PV}.bb
->  require gcc-cross-initial.inc
->=20
-> -PR =3D "r3"
-> +PR =3D "r4"
->=20
-> diff --git a/meta/recipes-devtools/gcc/gcc-cross-intermediate_4.5.1.bb
-> b/meta/recipes-devtools/gcc/gcc-cross-intermediate_4.5.1.bb
-> index 9a30cb5..a8473b0 100644
-> --- a/meta/recipes-devtools/gcc/gcc-cross-intermediate_4.5.1.bb
-> +++ b/meta/recipes-devtools/gcc/gcc-cross-intermediate_4.5.1.bb
-> @@ -1,4 +1,4 @@
->  require gcc-cross_${PV}.bb
->  require gcc-cross-intermediate.inc
-> -PR =3D "r4"
-> +PR =3D "r5"
->=20
-> diff --git a/meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb
-> b/meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb
-> index 78bb05a..af6daf4 100644
-> --- a/meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb
-> +++ b/meta/recipes-devtools/gcc/gcc-cross_4.5.1.bb
-> @@ -1,4 +1,4 @@
-> -PR =3D "r3"
-> +PR =3D "r4"
->=20
->  require gcc-${PV}.inc
->  require gcc-cross4.inc
-> diff --git a/meta/recipes-devtools/gcc/gcc-crosssdk-initial_4.5.1.bb
-> b/meta/recipes-devtools/gcc/gcc-crosssdk-initial_4.5.1.bb
-> index fec53b9..9708248 100644
-> --- a/meta/recipes-devtools/gcc/gcc-crosssdk-initial_4.5.1.bb
-> +++ b/meta/recipes-devtools/gcc/gcc-crosssdk-initial_4.5.1.bb
-> @@ -1,4 +1,4 @@
->  require gcc-cross-initial_${PV}.bb
->  require gcc-crosssdk-initial.inc
->=20
-> -PR =3D "r3"
-> +PR =3D "r4"
-> diff --git a/meta/recipes-devtools/gcc/gcc-crosssdk-
-> intermediate_4.5.1.bb b/meta/recipes-devtools/gcc/gcc-crosssdk-
-> intermediate_4.5.1.bb
-> index 161d870..d235969 100644
-> --- a/meta/recipes-devtools/gcc/gcc-crosssdk-intermediate_4.5.1.bb
-> +++ b/meta/recipes-devtools/gcc/gcc-crosssdk-intermediate_4.5.1.bb
-> @@ -1,4 +1,4 @@
->  require gcc-cross-intermediate_${PV}.bb
->  require gcc-crosssdk-intermediate.inc
->=20
-> -PR =3D "r3"
-> +PR =3D "r4"
-> diff --git a/meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb
-> b/meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb
-> index 7069088..bae2389 100644
-> --- a/meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb
-> +++ b/meta/recipes-devtools/gcc/gcc-crosssdk_4.5.1.bb
-> @@ -1,4 +1,4 @@
->  require gcc-cross_${PV}.bb
->  require gcc-crosssdk.inc
->=20
-> -PR =3D "r3"
-> +PR =3D "r4"
-> diff --git a/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb
-> b/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb
-> index 093f9bf..c1e680d 100644
-> --- a/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb
-> +++ b/meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb
-> @@ -1,4 +1,4 @@
-> -PR =3D "r2"
-> +PR =3D "r3"
->=20
->  require gcc-${PV}.inc
->  require gcc-configure-runtime.inc
-> diff --git a/meta/recipes-devtools/gcc/gcc_4.5.1.bb b/meta/recipes-
-> devtools/gcc/gcc_4.5.1.bb
-> index 25e455c..a193b38 100644
-> --- a/meta/recipes-devtools/gcc/gcc_4.5.1.bb
-> +++ b/meta/recipes-devtools/gcc/gcc_4.5.1.bb
-> @@ -1,4 +1,4 @@
-> -PR =3D "r3"
-> +PR =3D "r4"
->  require gcc-${PV}.inc
->  require gcc-configure-target.inc
->  require gcc-package-target.inc
-> --
-> 1.7.0.4
->=20
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
