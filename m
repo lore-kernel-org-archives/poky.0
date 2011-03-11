@@ -1,26 +1,20 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 666CA4C800A3
-	for <poky@lists.pokylinux.org>; Fri, 11 Mar 2011 05:34:24 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 29F6A1660100; Fri, 11 Mar 2011 04:34:24 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=ham version=3.3.2-r929478
-Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id D7ED016600D9;
-	Fri, 11 Mar 2011 04:34:23 -0700 (MST)
-Message-ID: <4D7A08BF.80303@mlbassoc.com>
-Date: Fri, 11 Mar 2011 04:34:23 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
-MIME-Version: 1.0
-To: Poky <poky@lists.pokylinux.org>
-Subject: Native vs not
+Return-Path: <dexuan.cui@intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 1CDE64C800A7
+	for <poky@yoctoproject.org>; Fri, 11 Mar 2011 05:43:19 -0600 (CST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 11 Mar 2011 03:43:18 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.62,302,1297065600"; d="scan'208";a="401162237"
+Received: from dcui-desktop.sh.intel.com (HELO localhost) ([10.239.13.51])
+	by azsmga001.ch.intel.com with ESMTP; 11 Mar 2011 03:43:17 -0800
+Message-Id: <cover.1299843601.git.dexuan.cui@intel.com>
+Old-Date: Fri, 11 Mar 2011 19:40:01 +0800
+Date: Fri, 11 Mar 2011 19:41:52 +0800
+To: poky@yoctoproject.org
+CC: 
+From: Dexuan Cui <dexuan.cui@intel.com>
+Subject: [PATCH 0/1] sugarbay.conf: add mesa library correctly
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,23 +26,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 Mar 2011 11:34:24 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 11 Mar 2011 11:43:19 -0000
 
-As pointed out in another thread, I'm trying to build a native
-package which sends "I need native" ripples throughout much of
-the Poky infrastructure.
+From: Dexuan Cui <dexuan.cui@intel.com>
 
-Does having a native version available for any given package incur a cost?
-If not, would patches for [all of] the packages I need be acceptable?
+766c20ef2141d058f15074e866313ab119332ea8 added
+mesa-dri-driver-i915, but actually it should be
+mesa-dri-driver-i965.
 
-So far, nearly all of the affected packages built fine, just adding native
-to BBCLASSEXTEND.  Many already build nativesdk versions already.
+This fixes [BUGID #727]
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: dcui/meta-intel
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dcui/meta-intel
+
+Thanks,
+    Dexuan Cui <dexuan.cui@intel.com>
+---
+
+
+Dexuan Cui (1):
+  sugarbay.conf: add mesa library: correct previous wrong modification
+
+ meta-sugarbay/conf/machine/sugarbay.conf |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
 -- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+1.7.2
+
 
