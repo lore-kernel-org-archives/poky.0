@@ -1,22 +1,22 @@
 Return-Path: <dvhart@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 45C374C804D9
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8C80E4C804D9
 	for <poky@yoctoproject.org>; Fri, 11 Mar 2011 13:22:13 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 11 Mar 2011 11:21:58 -0800
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 11 Mar 2011 11:21:59 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,304,1297065600"; d="scan'208";a="666386548"
+X-IronPort-AV: E=Sophos;i="4.62,304,1297065600"; d="scan'208";a="401368972"
 Received: from unknown (HELO localhost) ([10.255.12.198])
-	by fmsmga002.fm.intel.com with ESMTP; 11 Mar 2011 11:21:58 -0800
-Message-Id: <232c1be664075eeceb2b123ef91d2dd71a1eb7a6.1299871227.git.dvhart@linux.intel.com>
+	by azsmga001.ch.intel.com with ESMTP; 11 Mar 2011 11:21:59 -0800
+Message-Id: <4bbfc4f08b0e906ba4182f0ad2baad77a5938db9.1299871227.git.dvhart@linux.intel.com>
 In-Reply-To: <cover.1299871227.git.dvhart@linux.intel.com>
 References: <cover.1299871227.git.dvhart@linux.intel.com>
-Old-Date: Fri, 11 Mar 2011 11:19:56 -0800
-Date: Fri, 11 Mar 2011 11:21:55 -0800
+Old-Date: Fri, 11 Mar 2011 11:19:10 -0800
+Date: Fri, 11 Mar 2011 11:21:56 -0800
 To: poky@yoctoproject.org
 From: Darren Hart <dvhart@linux.intel.com>
 Cc: Darren Hart <dvhart@linux.intel.com>
-Subject: [PATCH 1/2] n450: use KMACHINE instead of WRMACHINE (fix boot failure)
+Subject: [PATCH 2/2] n450: Default to atom-pc SRCREVs for linux-yocto-stable
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,31 +32,30 @@ X-List-Received-Date: Fri, 11 Mar 2011 19:22:13 -0000
 
 From: Darren Hart <dvhart@linux.intel.com>
 
-Fixes [YOCTO #837]
-
-The n450 linux-yocto-stable bbappend was using WRMACHINE instead of KMACHINE.
-This resulted in KMACHINE being set to UNDEFINED by the linux-yocto.inc which
-resulted in bulding the common_pc-standard branch instead of the
-atom-pc-standard branch. This build a kernel without vfat, blk loop, and the
-requisite codepages.
+AUTOREV should only be used for local development and that can be set using
+the meta-extras/meta-kernel-dev layer. Comment the subtle aspect of defaulting
+to the atom-pc SRCREVs due to the shared KMACHINE.
 
 Signed-off-by: Darren Hart <dvhart@linux.intel.com>
 CC: Tom Zanussi <tom.zanussi@intel.com>
 ---
- .../linux/linux-yocto-stable_git.bbappend          |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ .../linux/linux-yocto-stable_git.bbappend          |    6 +++---
+ 1 files changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/meta-n450/recipes-kernel/linux/linux-yocto-stable_git.bbappend b/meta-n450/recipes-kernel/linux/linux-yocto-stable_git.bbappend
-index 3a893f6..6a0cfd2 100644
+index 6a0cfd2..e7c2df8 100644
 --- a/meta-n450/recipes-kernel/linux/linux-yocto-stable_git.bbappend
 +++ b/meta-n450/recipes-kernel/linux/linux-yocto-stable_git.bbappend
-@@ -1,5 +1,5 @@
- FILESEXTRAPATHS := "${THISDIR}/${PN}"
--WRMACHINE_n450 = "atom-pc"
-+KMACHINE_n450 = "atom-pc"
+@@ -2,6 +2,6 @@ FILESEXTRAPATHS := "${THISDIR}/${PN}"
+ KMACHINE_n450 = "atom-pc"
  COMPATIBLE_MACHINE_n450 = "n450"
  
- SRCREV="${AUTOREV}"
+-SRCREV="${AUTOREV}"
+-# Functionality flags
+-#KERNEL_REVISION_CHECKING ?= "t"
++# We use the atom-pc machine SRCREV and the default meta SRCREV
++#SRCREV_machine_pn-linux-yocto-stable_n450 = ""
++#SRCREV_meta_pn-linux-yocto-stable_n450 ?= ""
 -- 
 1.7.1
 
