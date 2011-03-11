@@ -1,28 +1,28 @@
 Return-Path: <scott.a.garman@intel.com>
 Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 635D04C800A7
+	by mx1.pokylinux.org (Postfix) with ESMTP id B764A4C800A7
 	for <poky@yoctoproject.org>; Thu, 10 Mar 2011 18:59:57 -0600 (CST)
 Received: from localhost (unknown [209.216.169.162])
 	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
 	(No client certificate requested)
-	by masterfoo.zenlinux.com (Postfix) with ESMTP id 31027308C4
-	for <poky@yoctoproject.org>; Thu, 10 Mar 2011 19:59:53 -0500 (EST)
-Message-Id: <ba57b7500dde13b41db8c4959aa2e8be97f19903.1299804498.git.scott.a.garman@intel.com>
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id 415CE30510
+	for <poky@yoctoproject.org>; Thu, 10 Mar 2011 19:59:46 -0500 (EST)
+Message-Id: <19aa5b8305c55f26812fe0ad26c0662567125870.1299804498.git.scott.a.garman@intel.com>
 In-Reply-To: <cover.1299804498.git.scott.a.garman@intel.com>
 References: <cover.1299804498.git.scott.a.garman@intel.com>
-Old-Date: Sat, 5 Mar 2011 19:32:03 -0800
-Date: Thu, 10 Mar 2011 16:59:50 -0800
+Old-Date: Sat, 5 Mar 2011 19:28:23 -0800
+Date: Thu, 10 Mar 2011 16:59:43 -0800
 To: poky@yoctoproject.org
 CC: 
 From: Scott Garman <scott.a.garman@intel.com>
 X-MasterFoo-MailScanner-Information: Please contact the ISP for more
 	information
-X-MailScanner-ID: 31027308C4.9F8F4
+X-MailScanner-ID: 415CE30510.06C8B
 X-MasterFoo-MailScanner: Found to be clean
 X-MasterFoo-MailScanner-SpamCheck: not spam
 X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
 X-Spam-Status: No
-Subject: [PATCH 5/6] poky-image-sato.bb: add ssh-server to IMAGE_FEATURES
+Subject: [PATCH 3/6] task-poky-ssh.bb: new task for ssh services
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,52 +38,44 @@ X-List-Received-Date: Fri, 11 Mar 2011 00:59:57 -0000
 
 From: Scott Garman <scott.a.garman@intel.com>
 
+This task can then be used in image recipes to include a
+configurable ssh server. Currently dropbear and openssh
+are supported.
+
 Signed-off-by: Scott Garman <scott.a.garman@intel.com>
 ---
- meta/recipes-sato/images/poky-image-sato-dev.bb |    2 +-
- meta/recipes-sato/images/poky-image-sato-sdk.bb |    2 +-
- meta/recipes-sato/images/poky-image-sato.bb     |    2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+ meta/recipes-core/tasks/task-poky-ssh.bb |   22 ++++++++++++++++++++++
+ 1 files changed, 22 insertions(+), 0 deletions(-)
+ create mode 100644 meta/recipes-core/tasks/task-poky-ssh.bb
 
-diff --git a/meta/recipes-sato/images/poky-image-sato-dev.bb b/meta/recipes-sato/images/poky-image-sato-dev.bb
-index 429095e..71d44e2 100644
---- a/meta/recipes-sato/images/poky-image-sato-dev.bb
-+++ b/meta/recipes-sato/images/poky-image-sato-dev.bb
-@@ -2,7 +2,7 @@
- # Copyright (C) 2007 OpenedHand Ltd.
- #
- 
--IMAGE_FEATURES += "apps-console-core ${SATO_IMAGE_FEATURES} dev-pkgs"
-+IMAGE_FEATURES += "apps-console-core ${SATO_IMAGE_FEATURES} dev-pkgs ssh-server"
- 
- LICENSE = "MIT"
- 
-diff --git a/meta/recipes-sato/images/poky-image-sato-sdk.bb b/meta/recipes-sato/images/poky-image-sato-sdk.bb
-index 9f8eef9..7ee2f95 100644
---- a/meta/recipes-sato/images/poky-image-sato-sdk.bb
-+++ b/meta/recipes-sato/images/poky-image-sato-sdk.bb
-@@ -2,7 +2,7 @@
- # Copyright (C) 2007 OpenedHand Ltd.
- #
- 
--IMAGE_FEATURES += "apps-console-core ${SATO_IMAGE_FEATURES} tools-debug tools-profile tools-sdk dev-pkgs qt4-pkgs"
-+IMAGE_FEATURES += "apps-console-core ${SATO_IMAGE_FEATURES} tools-debug tools-profile tools-sdk dev-pkgs qt4-pkgs ssh-server"
- 
- LICENSE = "MIT"
- 
-diff --git a/meta/recipes-sato/images/poky-image-sato.bb b/meta/recipes-sato/images/poky-image-sato.bb
-index 35d1a53..31f74b1 100644
---- a/meta/recipes-sato/images/poky-image-sato.bb
-+++ b/meta/recipes-sato/images/poky-image-sato.bb
-@@ -2,7 +2,7 @@
- # Copyright (C) 2007 OpenedHand Ltd.
- #
- 
--IMAGE_FEATURES += "apps-console-core ${SATO_IMAGE_FEATURES}"
-+IMAGE_FEATURES += "apps-console-core ${SATO_IMAGE_FEATURES} ssh-server"
- 
- LICENSE = "MIT"
- 
+diff --git a/meta/recipes-core/tasks/task-poky-ssh.bb b/meta/recipes-core/tasks/task-poky-ssh.bb
+new file mode 100644
+index 0000000..37a0241
+--- /dev/null
++++ b/meta/recipes-core/tasks/task-poky-ssh.bb
+@@ -0,0 +1,22 @@
++DESCRIPTION = "SSH tasks for Poky"
++LICENSE = "MIT"
++LIC_FILES_CHKSUM = "file://${POKYBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58 \
++                    file://${POKYBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
++PR = "r0"
++
++PACKAGES = "\
++    task-poky-ssh-server \
++    task-poky-ssh-server-dbg \
++    task-poky-ssh-server-dev \
++    "
++
++ALLOW_EMPTY = "1"
++
++# Default to dropbear for historical reasons
++IMAGE_SSH_PROVIDER ?= "dropbear"
++
++RDEPENDS_task-poky-ssh-server = "${IMAGE_SSH_PROVIDER}" 
++
++RDEPENDS_task-poky-ssh-server-dbg = "${IMAGE_SSH_PROVIDER}-dbg"
++
++RDEPENDS_task-poky-ssh-server-dev = "${IMAGE_SSH_PROVIDER}-dev"
 -- 
 1.7.1
 
