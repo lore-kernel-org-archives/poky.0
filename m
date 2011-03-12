@@ -1,28 +1,39 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 73E424C80050
-	for <poky@yoctoproject.org>; Fri, 11 Mar 2011 17:13:59 -0600 (CST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 75928166030B; Fri, 11 Mar 2011 16:13:58 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2-r929478
-Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id BB590166030A;
-	Fri, 11 Mar 2011 16:13:52 -0700 (MST)
-Message-ID: <4D7AACB0.3020005@mlbassoc.com>
-Date: Fri, 11 Mar 2011 16:13:52 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
+Return-Path: <kevin.tian@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 0ACDE4C8009A
+	for <poky@lists.pokylinux.org>; Fri, 11 Mar 2011 18:09:34 -0600 (CST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 11 Mar 2011 16:09:32 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.62,306,1297065600"; d="scan'208";a="719296209"
+Received: from pgsmsx603.gar.corp.intel.com ([10.221.43.87])
+	by orsmga001.jf.intel.com with ESMTP; 11 Mar 2011 16:09:32 -0800
+Received: from pgsmsx509.gar.corp.intel.com (172.30.13.17) by
+	pgsmsx603.gar.corp.intel.com (10.221.43.87) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Sat, 12 Mar 2011 08:09:31 +0800
+Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
+	PGSMSX509.gar.corp.intel.com (172.30.13.17) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Sat, 12 Mar 2011 08:09:31 +0800
+Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
+	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
+	Sat, 12 Mar 2011 08:09:29 +0800
+From: "Tian, Kevin" <kevin.tian@intel.com>
+To: Gary Thomas <gary@mlbassoc.com>
+Date: Sat, 12 Mar 2011 08:09:28 +0800
+Thread-Topic: [poky] Problems adding native support packages
+Thread-Index: Acvf5cH8xO+/6wMxTZa7BOnOBKLblQAY9QVA
+Message-ID: <625BA99ED14B2D499DC4E29D8138F1505770D74E61@shsmsx502.ccr.corp.intel.com>
+References: <4D7996EE.80005@mlbassoc.com>
+	<625BA99ED14B2D499DC4E29D8138F1505770D748C8@shsmsx502.ccr.corp.intel.com>
+	<4D7A052A.2050400@mlbassoc.com> <4D7A11EA.4050306@mlbassoc.com>
+In-Reply-To: <4D7A11EA.4050306@mlbassoc.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
 MIME-Version: 1.0
-To: poky@yoctoproject.org
-References: <4D7A5D7C.6040608@mlbassoc.com>
-In-Reply-To: <4D7A5D7C.6040608@mlbassoc.com>
-Subject: Re: file clashes
+Cc: Poky <poky@lists.pokylinux.org>
+Subject: Re: Problems adding native support packages
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,32 +45,61 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 Mar 2011 23:14:00 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Sat, 12 Mar 2011 00:09:35 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On 03/11/2011 10:35 AM, Gary Thomas wrote:
-> I started with my sato-like image which includes gnome-keyring.
-> Then I added another application which wanted to use libgnome-keyring.
-> This caused this clash at install time (I'm still using opkg):
-> * check_data_file_clashes: Package libgnome-keyring0 wants to install file /usr/lib/libgnome-keyring.so.0.1.1
-> But that file is already provided by package * gnome-keyring
-> * check_data_file_clashes: Package libgnome-keyring0 wants to install file /usr/lib/libgnome-keyring.so.0
-> But that file is already provided by package * gnome-keyring
->
-> Does this happen because of the recipe/versions?
-> meta/recipes-gnome/gnome/libgnome-keyring_2.32.0.bb
-> meta/recipes-gnome/gnome/gnome-keyring_2.32.1.bb
+> From: Gary Thomas [mailto:gary@mlbassoc.com]
+> Sent: Friday, March 11, 2011 8:14 PM
+>=20
+> On 03/11/2011 04:19 AM, Gary Thomas wrote:
+> > On 03/10/2011 09:57 PM, Tian, Kevin wrote:
+> >>> From: Gary Thomas
+> >>> Sent: Friday, March 11, 2011 11:29 AM
+> >>>
+> >>> I'm trying to import a native package from OE for which the
+> >>> main package depends on libiconv. This seems to imply that
+> >>> when I extend to the native package using BBCLASSEXTEND, the
+> >>> native package depends on virtual/libiconv-native
+> >>>
+> >>> I can't figure out how to provide this. Any clues?
+> >>
+> >> I'm not sure about the problem here. do you want virtual/libiconv-nati=
+ve
+> dependency
+> >> or not? If target recipe already has a DEPENDS =3D "libiconv", then wi=
+th
+> BBCLASSEXTEND
+> >> you have libiconv-native automatically.
+> >>
+> >> Or if you only want to add libiconv-native for native recipe exclusive=
+ly, then:
+> >>
+> >> DEPENDS_virtclass-native =3D "virtual/libiconv-native"
+> >
+> > Actually, the problem is that such a dependency was added automatically=
+ by
+> BBCLASSEXTEND.
+> > virtual/libiconv is provided by eglibc package, but it's not clear if i=
+t can provide
+> > virtual/libiconv-native
+>=20
+> It comes from this dependency which seems very hard to satisfy:
+>    meta/recipes-graphics/pango/pango.inc:DEPENDS =3D "glib-2.0 fontconfig
+> freetype zlib virtual/libiconv virtual/libx11 libxft gtk-doc-native cairo=
+"
+>=20
+> It looks like I can side-step this by adding
+>    ASSUME_PROVIDED +=3D " virtual/libiconv-native "
+>=20
 
-This turned out to be my problem - I had pinned gnome-keyring to 2.28.0
-which caused the clash.  Removing that pin and all is well.
+the other alternative is to use DEPENDS_virtclass-native to list all depend=
+encies=20
+you think the native recipe requires instead of implicitly sharing same DEP=
+ENDS
+from target recipe.
 
-Perhaps old recipes like that should be removed, certainly if they
-cause problems?
-
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+Thanks
+Kevin
 
