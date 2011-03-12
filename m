@@ -1,22 +1,23 @@
 Return-Path: <dvhart@linux.intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D19234C8009A
-	for <poky@yoctoproject.org>; Fri, 11 Mar 2011 23:06:34 -0600 (CST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 11 Mar 2011 21:06:34 -0800
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 925D64C8009A
+	for <poky@yoctoproject.org>; Sat, 12 Mar 2011 01:45:28 -0600 (CST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 11 Mar 2011 23:45:28 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,307,1297065600"; d="scan'208";a="666507764"
+X-IronPort-AV: E=Sophos;i="4.62,307,1297065600"; d="scan'208";a="612133242"
 Received: from unknown (HELO [10.255.12.198]) ([10.255.12.198])
-	by fmsmga002.fm.intel.com with ESMTP; 11 Mar 2011 21:06:34 -0800
-Message-ID: <4D7AFF55.3080609@linux.intel.com>
-Date: Fri, 11 Mar 2011 21:06:29 -0800
+	by orsmga002.jf.intel.com with ESMTP; 11 Mar 2011 23:45:27 -0800
+Message-ID: <4D7B2492.9000403@linux.intel.com>
+Date: Fri, 11 Mar 2011 23:45:22 -0800
 From: Darren Hart <dvhart@linux.intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.2.14) Gecko/20110223 Lightning/1.0b2 Thunderbird/3.1.8
 MIME-Version: 1.0
-To: Gary Thomas <gary@mlbassoc.com>
-References: <4D7AF731.30508@linux.intel.com> <4D7AF92B.8020007@mlbassoc.com>
-In-Reply-To: <4D7AF92B.8020007@mlbassoc.com>
+To: Koen Kooi <koen@beagleboard.org>
+References: <4D7AF731.30508@linux.intel.com>
+	<83D5A5C2-F470-425F-84BE-F726CD652759@beagleboard.org>
+In-Reply-To: <83D5A5C2-F470-425F-84BE-F726CD652759@beagleboard.org>
 Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: MACHINE_EXTRA_RRECOMMENDS not working?
 X-BeenThere: poky@yoctoproject.org
@@ -30,18 +31,45 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 12 Mar 2011 05:06:35 -0000
+X-List-Received-Date: Sat, 12 Mar 2011 07:45:28 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
 
 
-On 03/11/2011 08:40 PM, Gary Thomas wrote:
-> On 03/11/2011 09:31 PM, Darren Hart wrote:
+On 03/11/2011 11:00 PM, Koen Kooi wrote:
+>
+>
+> Op 12 mrt. 2011 om 05:31 heeft Darren Hart<dvhart@linux.intel.com>  het volgende geschreven:
+>
 >> I'm working to get a certain package installed for a specific machine.
 >> In particular, I wrote a simple init.d script called n450-audio which
 >> sets the mixer for the n450 dev board to unmute the FRONT channel and
->> set the volume to 70% or so - as it is muted if left untouched. For now,
+>> set the volume to 70% or so - as it is muted if left untouched.
+>
+> Wouldn't alsa-state be a better place for that?
+
+It would be, yes. Turns out we don't have alsa-state in poky yet, and 
+adding it now would be a lot of last minute churn - so opted to fix this 
+particular recipe now (n450-audio already existed in some form) and look 
+into a more appropriate general purpose solution as a follow-up.
+
+I wasn't aware of the alsa-state recipe in OE, had a look, and it looks 
+very similar to what I had in mind. Thanks for the pointer.
+
+Thanks,
+
+Darren
+>
+> regards,
+>
+> koen
+>
+>
+>
+>
+>
+>> For now,
 >> I just want to make this board work, so I want to make this package get
 >> installed if it's dependencies are met (if amixer is installed).
 >>
@@ -88,24 +116,17 @@ On 03/11/2011 08:40 PM, Gary Thomas wrote:
 >> I took a look at what they are used for elsewhere and found:
 >>
 >> $ cat ~/.bashrc | grep bb
->> alias bb='bitbake'
->> alias bbdeps='bitbake -g -u depexp'
+>>     alias bb='bitbake'
+>>     alias bbdeps='bitbake -g -u depexp'
 >> dvhart@rage:poky.git$ git grep MACHINE_EXTRA_RRECOMMENDS
->> documentation/poky-ref-manual/ref-variables.xml:<glossentry
->> id='var-MACHINE_EXTRA_RRECOMMENDS'><glossterm>MACHINE_
->> documentation/poky-ref-manual/ref-varlocality.xml:<para><glossterm
->> linkend='var-MACHINE_EXTRA_RRECOMMENDS'>
+>> documentation/poky-ref-manual/ref-variables.xml:<glossentry id='var-MACHINE_EXTRA_RRECOMMENDS'><glossterm>MACHINE_
+>> documentation/poky-ref-manual/ref-varlocality.xml:<para><glossterm linkend='var-MACHINE_EXTRA_RRECOMMENDS'>
 >> meta/conf/bitbake.conf:MACHINE_EXTRA_RRECOMMENDS ?= ""
->> meta/conf/machine/atom-pc.conf:MACHINE_EXTRA_RRECOMMENDS =
->> "kernel-modules eee-acpi-scripts"
->> meta/conf/machine/beagleboard.conf:MACHINE_EXTRA_RRECOMMENDS = "
->> kernel-modules"
->> meta/conf/machine/qemumips.conf:MACHINE_EXTRA_RRECOMMENDS = "
->> kernel-modules"
->> meta/conf/machine/routerstationpro.conf:MACHINE_EXTRA_RRECOMMENDS = "
->> kernel-modules"
->> meta/recipes-core/tasks/task-base.bb:RRECOMMENDS_task-machine-base =
->> "${MACHINE_EXTRA_RRECOMMENDS}"
+>> meta/conf/machine/atom-pc.conf:MACHINE_EXTRA_RRECOMMENDS = "kernel-modules eee-acpi-scripts"
+>> meta/conf/machine/beagleboard.conf:MACHINE_EXTRA_RRECOMMENDS = " kernel-modules"
+>> meta/conf/machine/qemumips.conf:MACHINE_EXTRA_RRECOMMENDS = " kernel-modules"
+>> meta/conf/machine/routerstationpro.conf:MACHINE_EXTRA_RRECOMMENDS = " kernel-modules"
+>> meta/recipes-core/tasks/task-base.bb:RRECOMMENDS_task-machine-base = "${MACHINE_EXTRA_RRECOMMENDS}"
 >>
 >> Only two other recipes are referenced with these variables:
 >> kernel-modules and eee-acpi-scripts. I had an atom-pc build so I mounted
@@ -126,30 +147,18 @@ On 03/11/2011 08:40 PM, Gary Thomas wrote:
 >> If you want to see the branch in question, it's here:
 >> http://git.pokylinux.org/cgit/cgit.cgi/meta-intel/log/?h=dvhart/n450-audio
 >>
->>
 >> (Yes, the init script is terrible - working on that.)
 >>
 >> Thanks,
->
-> Did you rebuild task-machine-base?
-
-I did not - but the dependency graph showed task-base dependent on it.
-
-$ bitbake -c cleanall task-machine-base task-base n450-audio 
-poky-image-sato-live
-
-The output didn't make any reference to "task-machine-base".
-
-$ bitbake poky-image-sato-live
-
-mount and check the fs.... huh... it's there. Interesting...
-
-I'm going to try a clean build now and ensure this works as intended, 
-and not just some hinky side-effect of the POKY_EXTRA_INSTALL I just 
-barely commented out of local.conf. Thanks for the tip Gary!
-
-This doesn't adress the observations regarding kernel-modules and 
-eee-acpi-scripts though.
+>>
+>> --
+>> Darren Hart
+>> Intel Open Source Technology Center
+>> Yocto Project - Linux Kernel
+>> _______________________________________________
+>> poky mailing list
+>> poky@yoctoproject.org
+>> https://lists.yoctoproject.org/listinfo/poky
 
 -- 
 Darren Hart
