@@ -1,48 +1,21 @@
-Return-Path: <raj.khem@gmail.com>
-Received: from mail-yx0-f176.google.com (mail-yx0-f176.google.com
-	[209.85.213.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 973FD4C80050
-	for <poky@yoctoproject.org>; Fri, 11 Mar 2011 20:31:22 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by yxd5 with SMTP id 5so2056069yxd.35
-	for <poky@yoctoproject.org>; Fri, 11 Mar 2011 18:31:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:date:from:to:cc:subject:message-id
-	:mail-followup-to:references:mime-version:content-type
-	:content-disposition:in-reply-to:user-agent;
-	bh=/Cs/iPpYVuJd14OE0kMrPCGvKkZUvQOqBycg0/t6Yzg=;
-	b=HoUhIJY6PdUyfofBtamvg+gJUGN3fVWgx63cy8Vhp2QS9EUx/ltNf0VVowTxsxyXkE
-	oES8yXfbYH+vmOfyPWXycoMkphFyDofKTDSgX5TipRAo+/AfCXmmAe1bQMJVH/VvdIGh
-	7kElRqRz36SFTWUjRsKanh92iTnNgJvKFEyqE=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=date:from:to:cc:subject:message-id:mail-followup-to:references
-	:mime-version:content-type:content-disposition:in-reply-to
-	:user-agent;
-	b=nXK44m5lrZzNu5v3ihbKZedFSEfXE2n3PkuhOTq9GJkvE7rOt1CXIT+XBF7hDhYgKw
-	a63UMGPZgawdEjze21gU0aQK+yph7TEhyTEoJVRQQmHFVIpWaXMvEFWVvT5NHrUUK1+Z
-	pz68tm23bGXJ1ONpbi8QwJ2DSvC3pjfOUCpbI=
-Received: by 10.150.75.4 with SMTP id x4mr958577yba.410.1299897080707;
-	Fri, 11 Mar 2011 18:31:20 -0800 (PST)
-Received: from sakrah.homelinux.org
-	(99-57-141-118.lightspeed.sntcca.sbcglobal.net [99.57.141.118])
-	by mx.google.com with ESMTPS id q18sm86933ybk.11.2011.03.11.18.31.18
-	(version=TLSv1/SSLv3 cipher=OTHER);
-	Fri, 11 Mar 2011 18:31:19 -0800 (PST)
-Date: Fri, 11 Mar 2011 18:31:40 -0800
-From: Khem Raj <raj.khem@gmail.com>
-To: Saul Wold <sgw@linux.intel.com>
-Message-ID: <20110312023140.GA4829@sakrah.homelinux.org>
-Mail-Followup-To: Saul Wold <sgw@linux.intel.com>, poky@yoctoproject.org,
-	openembedded-core@lists.openembedded.org
-References: <cover.1299891748.git.sgw@linux.intel.com>
-	<4D7ACD9C.3010002@linux.intel.com>
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E42074C80050
+	for <poky@yoctoproject.org>; Fri, 11 Mar 2011 22:31:50 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 11 Mar 2011 20:31:50 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.62,307,1297065600"; d="scan'208";a="896489659"
+Received: from unknown (HELO [10.255.12.198]) ([10.255.12.198])
+	by fmsmga001.fm.intel.com with ESMTP; 11 Mar 2011 20:31:50 -0800
+Message-ID: <4D7AF731.30508@linux.intel.com>
+Date: Fri, 11 Mar 2011 20:31:45 -0800
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.14) Gecko/20110223 Lightning/1.0b2 Thunderbird/3.1.8
 MIME-Version: 1.0
-In-Reply-To: <4D7ACD9C.3010002@linux.intel.com>
-User-Agent: Mutt/1.5.20 (2009-06-14)
-Cc: poky@yoctoproject.org, openembedded-core@lists.openembedded.org
-Subject: Re: [PATCH 0/1] gnu-config make sure we use perl-native
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: MACHINE_EXTRA_RRECOMMENDS not working?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -54,52 +27,97 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 12 Mar 2011 02:31:22 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-List-Received-Date: Sat, 12 Mar 2011 04:31:51 -0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
 
-On (11/03/11 17:34), Saul Wold wrote:
-> On 03/11/2011 05:15 PM, Saul Wold wrote:
-> >From: Saul Wold<sgw@linux.intel.com>
-> >
-> >During a world build I was getting a perl version mismatch between
-> >the perl-native and the host perl. This change ensures that
-> >perl-native is used always.
-> >
-> 
-> Never mind this patch, Saul's brain is not functioning well today,
-> I completely missed the comment!
+I'm working to get a certain package installed for a specific machine.
+In particular, I wrote a simple init.d script called n450-audio which
+sets the mixer for the n450 dev board to unmute the FRONT channel and
+set the volume to 70% or so - as it is muted if left untouched. For now,
+I just want to make this board work, so I want to make this package get
+installed if it's dependencies are met (if amixer is installed).
 
-I discarded my reply :)
-> 
-> Back to the drawing board on why the miss-match is occuring in
-> Config.pm then.
+As I understand it, the best way to do this is with something like the
+following in the machine/n450.conf file:
 
-somewhere there is /usr/bin/perl referred may be a cross recipe ?
+MACHINE_EXTRA_RRECOMMENDS += " n450-audio "
 
-> 
-> Sau!
-> >Pull URL: git://git.pokylinux.org/poky-contrib.git
-> >   Branch: sgw/gnu-config
-> >   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=sgw/gnu-config
-> >
-> >Thanks,
-> >     Saul Wold<sgw@linux.intel.com>
-> >---
-> >
-> >
-> >Saul Wold (1):
-> >   gnu-config: Ensure that we use perl-native to avoid version
-> >     mis-matches
-> >
-> >  .../gnu-config/gnu-config_20080123.bb              |    4 +---
-> >  1 files changed, 1 insertions(+), 3 deletions(-)
-> >
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+And that recipe in turn defines:
+
+RDEPENDS = "alsa-utils-amixer"
+
+I then:
+
+$ bitbake -c cleanall task-base poky-image-sato-live n450-audio
+
+followed by:
+
+$ bitbake poky-image-sato-live
+
+The n450-audio recipe is built, but it does not appear in the generated
+image (nor in the ext3 image).
+
+I checked the dependency chain and task-base does depend on n450-audio:
+
+$ bitbake -g -u depexp poky-image-sato-live
+
+
+I then tried using the following variables in place of
+MACHINE_EXTRA_RRECOMMENDS with the same result:
+
+MACHINE_EXTRA_RDEPENDS
+MACHINE_ESSENTIAL_RRECOMMENDS
+MACHINE_ESSENTIAL_RDEPENDS
+
+Finally, I added the following to my local.conf and the image built as
+expected:
+
+POKY_EXTRA_INSTALL = " n450-audio "
+
+Am I completely off in the weeds here? If this isn't what these
+directives are for - what are they for?
+
+I took a look at what they are used for elsewhere and found:
+
+$ cat ~/.bashrc | grep bb
+    alias bb='bitbake'
+    alias bbdeps='bitbake -g -u depexp'
+dvhart@rage:poky.git$ git grep MACHINE_EXTRA_RRECOMMENDS
+documentation/poky-ref-manual/ref-variables.xml:         <glossentry id='var-MACHINE_EXTRA_RRECOMMENDS'><glossterm>MACHINE_
+documentation/poky-ref-manual/ref-varlocality.xml:                <para><glossterm linkend='var-MACHINE_EXTRA_RRECOMMENDS'>
+meta/conf/bitbake.conf:MACHINE_EXTRA_RRECOMMENDS ?= ""
+meta/conf/machine/atom-pc.conf:MACHINE_EXTRA_RRECOMMENDS = "kernel-modules eee-acpi-scripts"
+meta/conf/machine/beagleboard.conf:MACHINE_EXTRA_RRECOMMENDS = " kernel-modules"
+meta/conf/machine/qemumips.conf:MACHINE_EXTRA_RRECOMMENDS = " kernel-modules"
+meta/conf/machine/routerstationpro.conf:MACHINE_EXTRA_RRECOMMENDS = " kernel-modules"
+meta/recipes-core/tasks/task-base.bb:RRECOMMENDS_task-machine-base = "${MACHINE_EXTRA_RRECOMMENDS}"
+
+Only two other recipes are referenced with these variables:
+kernel-modules and eee-acpi-scripts. I had an atom-pc build so I mounted
+the rootfs and dug around - not a trace of the eee-acpi-scripts to found
+anywhere. I checked for modules under
+/lib/modules/2.6.34.7-yocto-standard/ and found several *.*map files,
+but nothing else (certainly no *.ko files). So this mechanism certainly
+doesn't do what I thought it did.
+
+Is it supposed to? If not, what does it do. It does cause the package
+listed to be built, perhaps that is it's only purpose? The user can
+install the package manually if they want it?
+
+And, more to the point, if this isn't the right mechanism to cause a
+package to be added (if deps are met) to any image for a specific
+machine, what is?
+
+If you want to see the branch in question, it's here:
+http://git.pokylinux.org/cgit/cgit.cgi/meta-intel/log/?h=dvhart/n450-audio
+
+(Yes, the init script is terrible - working on that.)
+
+Thanks,
 
 -- 
--Khem
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
