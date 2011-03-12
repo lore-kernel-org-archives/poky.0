@@ -1,43 +1,20 @@
-Return-Path: <raj.khem@gmail.com>
-Received: from mail-pw0-f48.google.com (mail-pw0-f48.google.com
-	[209.85.160.48])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 34DDF4C80050
-	for <poky@yoctoproject.org>; Sat, 12 Mar 2011 02:38:16 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by pwi14 with SMTP id 14so810335pwi.35
-	for <poky@yoctoproject.org>; Sat, 12 Mar 2011 00:38:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:message-id:date:from:user-agent:mime-version:to
-	:subject:references:in-reply-to:content-type
-	:content-transfer-encoding;
-	bh=F5QfyXwFdSiQwYa4F9y+a+Wfuls/r2veKrm/lB7DXdI=;
-	b=dOFGxus0xdjxVQAz0BwDYwgBYYOTbKJgpzHl3vPcDJTGpu7RABNjBCvNZuK4JzSUAm
-	EvszzaLNc+fU+DL95XuUqbnJj1t1iTvxoujxCqX3am7VorOGQ60/D3b89FNlKinIB40b
-	Dbq9aoxwPBnX5vB0E6Ce5H7XREIfPi1mBXExo=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=message-id:date:from:user-agent:mime-version:to:subject:references
-	:in-reply-to:content-type:content-transfer-encoding;
-	b=MJSZ9mTjVIwYcuHsmTrBNUiiFm27aUJY7Iuq56MYgufSs0ZS1Ype3vOq9LpLkMsp0C
-	3ncSW4U+MbACV+gMhdTTuWJz4thwd+R3BTmu5q75ahpXKPRRymmssDi/sVmk4lLSZgnx
-	/4P84AiFVa8pY5o7iOSugBSNDNsuoOktDzvSk=
-Received: by 10.143.87.1 with SMTP id p1mr4533597wfl.271.1299919094791;
-	Sat, 12 Mar 2011 00:38:14 -0800 (PST)
-Received: from [192.168.1.70] (99-57-141-118.lightspeed.sntcca.sbcglobal.net
-	[99.57.141.118])
-	by mx.google.com with ESMTPS id w19sm6595972wfd.8.2011.03.12.00.38.12
-	(version=SSLv3 cipher=OTHER); Sat, 12 Mar 2011 00:38:13 -0800 (PST)
-Message-ID: <4D7B30ED.3020801@gmail.com>
-Date: Sat, 12 Mar 2011 00:38:05 -0800
-From: Khem Raj <raj.khem@gmail.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US;
-	rv:1.9.2.15) Gecko/20110303 Thunderbird/3.1.9
-MIME-Version: 1.0
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 871334C80050
+	for <poky@yoctoproject.org>; Sat, 12 Mar 2011 02:46:21 -0600 (CST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 12 Mar 2011 00:46:21 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.62,307,1297065600"; d="scan'208";a="896518238"
+Received: from unknown (HELO localhost) ([10.255.12.198])
+	by fmsmga001.fm.intel.com with ESMTP; 12 Mar 2011 00:46:21 -0800
+Message-Id: <cover.1299919238.git.dvhart@linux.intel.com>
+Old-Date: Sat, 12 Mar 2011 00:40:38 -0800
+Date: Sat, 12 Mar 2011  0:46:15 -0800
 To: poky@yoctoproject.org
-References: <AANLkTim5QiDttsH40ezchVxLVGQVAtV5iGKbAE7J2edh@mail.gmail.com>
-In-Reply-To: <AANLkTim5QiDttsH40ezchVxLVGQVAtV5iGKbAE7J2edh@mail.gmail.com>
-Subject: Re: problem .so files in my image.
+From: Darren Hart <dvhart@linux.intel.com>
+Cc: Darren Hart <dvhart@linux.intel.com>
+Subject: [PATCH 0/2][meta-intel] n450: set default mixer settings on boot [YOCTO #798]
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -49,90 +26,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 12 Mar 2011 08:38:16 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Sat, 12 Mar 2011 08:46:21 -0000
 
-On 3/12/2011 12:29 AM, kubera samrat wrote:
-> Hi,
->
->          I have added jpeg_6b to my recipe. When I build it It got
-> succesful stating " Tasks Summary: Attempted 3879 tasks of which 3863
-> didn't need to be rerun and 0 failed."
-> But When I mount my image I am unable to see ".so" files. But I can
-> see those files created in ".libs" folder. even I tried to copy those
-> files from .libs to image folder but I can't see.
+From: Darren Hart <dvhart@linux.intel.com>
 
-you should add the packages to your image one way is
-in local.conf add
-IMAGE_INSTALL += "jpeg-tools ..."
+The following patches address Bug 798. The existing n450-audiofix wasn't
+getting installed, and it wasn't adjusting the mixer. These patches repair
+the recipe and update it to resemble a proper init script.
 
-basically find the package names from deploy directory and use them in 
-above construct.
+This is a stop-gap solution as a more general solution, such as alsa-state,
+would be preferred long term.
 
-> Can you please suggest me the solution. my jpeg_6b.bb file looks like
-> as shown below.
->
-> ************************************************************************************************************************************************************
-> SUMMARY = "library for jpeg"
-> DESCRIPTION = "Libraries that allow compression of image files based
-> on the Joint Photographic Experts"
-> HOMEPAGE = "http://www.ijg.org/"
-> SECTION = "libs"
-> LICENSE = "jpeg"
-> DEPENDS = "libtool-cross"
-> DEPENDS_virtclass-native = "libtool-native"
->
-> PR = "r0"
-> S = "${WORKDIR}/jpeg-${PV}"
->
-> SRC_URI = "http://www.ijg.org/files/jpegsrc.v${PV}.tar.gz"
-> inherit pkgconfig autotools
-> EXTRA_OECONF="--enable-static --enable-shared"
-> EXTRA_OEMAKE='"LIBTOOL=${STAGING_BINDIR}/${HOST_SYS}-libtool"'
->
-> #CFLAGS_append = " -D_REENTRANT"
-> #INSTALL_PREFIX="${D}"
-> do_configure_prepend(){
-> #               rm -f ${D}/ltconfig
->                  rm -f ${D}/ltmain.sh
-> #               rm -f ${D}${includedir}/jconfig.h
-> }
-> do_configure(){
->          oe_runconf PREFIX=${D}
-> }
-> do_compile(){
->          oe_runmake "LIBTOOL=$LIBTOOL"
-> }
-> do_install(){
->          install -d ${D}${bindir} ${D}${includedir}\
->                  ${D}${mandir}/man1 ${D}${libdir}
->
-> #       install -m 0755 .libs/libjpeg.so ${STAGING_LIBDIR}
-> #       install -m 0755 .libs/libjpeg.so.62 ${STAGING_LIBDIR}
-> #       install -m 0755 .libs/libjpeg.so.62.0.0 ${STAGING_LIBDIR}
->
->          oe_runmake 'bindir=${D}${bindir}' 'mandir=${D}${mandir}'
-> 'libdir=${D}${libdir}'install
->          install -m 0755 .libs/libjpeg.so ${D}${libdir}
->          install -m 0755 .libs/libjpeg.so.62 ${D}${libdir}
->          install -m 0755 .libs/libjpeg.so.62.0.0 ${D}${libdir}
-> }
->
-> PACKAGES =+             "jpeg-tools "
-> DESCRIPTION_jpeg-tools = "The jpeg-tools package includes the client
-> programs for access libjpeg functionality.  These tools allow for the
-> compression, decompression, transformation and display of JPEG files."
-> FILES_jpeg-tools =      "${bindir}/*"
->
-> BBCLASSEXTEND = "native"
->
-> ***************************************************************************************************************************************
-> Thanks and regards,
-> V kubera Samrat
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+Darren Hart (2):
+  n450: revamp audio mixer init script
+  n450: replace n450-audio with a proper init script
+
+ meta-n450/conf/machine/n450.conf                   |    2 +
+ meta-n450/recipes-bsp/audiofix/audiofix.bb         |   17 --------
+ meta-n450/recipes-bsp/audiofix/files/n450_audiofix |   13 ------
+ meta-n450/recipes-bsp/n450-audio/n450-audio.bb     |   30 ++++++++++++++
+ .../recipes-bsp/n450-audio/n450-audio/n450-audio   |   42 ++++++++++++++++++++
+ 5 files changed, 74 insertions(+), 30 deletions(-)
+ delete mode 100644 meta-n450/recipes-bsp/audiofix/audiofix.bb
+ delete mode 100644 meta-n450/recipes-bsp/audiofix/files/n450_audiofix
+ create mode 100644 meta-n450/recipes-bsp/n450-audio/n450-audio.bb
+ create mode 100644 meta-n450/recipes-bsp/n450-audio/n450-audio/n450-audio
 
 
