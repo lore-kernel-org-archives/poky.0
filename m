@@ -1,39 +1,29 @@
-Return-Path: <embedded.yogesh@gmail.com>
-Received: from mail-pv0-f176.google.com (mail-pv0-f176.google.com
-	[74.125.83.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D7A6D4C800A7
-	for <poky@yoctoproject.org>; Sun, 13 Mar 2011 01:56:17 -0600 (CST)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by pvg6 with SMTP id 6so920286pvg.35
-	for <poky@yoctoproject.org>; Sat, 12 Mar 2011 23:56:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:message-id:date:from:user-agent:mime-version:to
-	:subject:content-type:content-transfer-encoding;
-	bh=B9ckjjkmNmVm2wIWOwSojGrG3K/CRG0xKZP5iIDYQUk=;
-	b=EpPtwNe8HsPTeln35aPelsa1zgDCLaL/fPYb9xYbQzd33EkgwmaykvwxxPxa20kTq0
-	rZEjBdJNIy5ZJnIz9yswDJwmuxuJ3SOhObRb3JuNzFozZegOmOiXccDSp4WTBEI69fuL
-	a91ZKMeZZZsrXr2KfAPaWOi5JJI4qPctSqJ7c=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=message-id:date:from:user-agent:mime-version:to:subject
-	:content-type:content-transfer-encoding;
-	b=U0SVCM+N0CRFfZlIavX1vp71HfdUHU4JHTfQHzscK1ufM+xwABYEkSziHvzdZma8uX
-	/eQDfl6ABzJfMXuVKotbtdgtsoo50W8lUsBMBwWe51jMfYSJ0DUWcbSGJpzdLPS1J1Ed
-	qqCx8XhcC3jxIyoH4tydgmkVBAuNfiP3vrlPc=
-Received: by 10.142.232.20 with SMTP id e20mr9362460wfh.119.1300002972404;
-	Sat, 12 Mar 2011 23:56:12 -0800 (PST)
-Received: from [192.168.11.118] ([115.111.25.162])
-	by mx.google.com with ESMTPS id m10sm8240910wfl.11.2011.03.12.23.56.09
-	(version=SSLv3 cipher=OTHER); Sat, 12 Mar 2011 23:56:11 -0800 (PST)
-Message-ID: <4D7C7897.2040702@gmail.com>
-Date: Sun, 13 Mar 2011 13:26:07 +0530
-From: "embedded.yogesh" <embedded.yogesh@gmail.com>
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 3EF974C80188
+	for <poky@yoctoproject.org>; Sun, 13 Mar 2011 10:49:22 -0500 (CDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id A7B141660207; Sun, 13 Mar 2011 09:49:21 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.2-r929478
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 8C56516601E5;
+	Sun, 13 Mar 2011 09:49:20 -0600 (MDT)
+Message-ID: <4D7CE780.7070704@mlbassoc.com>
+Date: Sun, 13 Mar 2011 09:49:20 -0600
+From: Gary Thomas <gary@mlbassoc.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.15pre) Gecko/20110207 Shredder/3.1.9pre
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
 MIME-Version: 1.0
-To: poky@yoctoproject.org
-Subject: unpacking of archive failed
+To: "embedded.yogesh" <embedded.yogesh@gmail.com>
+References: <4D7C7897.2040702@gmail.com>
+In-Reply-To: <4D7C7897.2040702@gmail.com>
+Cc: poky@yoctoproject.org
+Subject: Re: unpacking of archive failed
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -45,18 +35,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 13 Mar 2011 07:56:18 -0000
+X-List-Received-Date: Sun, 13 Mar 2011 15:49:23 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi,
+On 03/13/2011 12:56 AM, embedded.yogesh wrote:
+> Hi,
+>
+> I am getting following error again and again, can any one guide how to resolve this .
+>
+> "error: unpacking of archive failed on file /var/cache: cpio: rename failed - Inappropriate ioctl for device"
 
-I am getting following error again and again, can any one guide how to 
-resolve this .
+More details needed.
+   * What's the target MACHINE
+   * What recipe are you trying to build?
+   * What is your host [build] computer (OS, etc)?
 
-"error: unpacking of archive failed on file /var/cache: cpio: rename failed - Inappropriate ioctl for device"
+Also posting the appropriate log files (e.g. log.do_unpack from the failed
+recipe) to postbin.com will help a lot.
 
-
----
-Yogesh
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
