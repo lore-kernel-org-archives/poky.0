@@ -1,20 +1,22 @@
 Return-Path: <josh@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0ACDA4C80A73
-	for <poky@yoctoproject.org>; Mon, 14 Mar 2011 09:45:49 -0500 (CDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 14 Mar 2011 07:45:49 -0700
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 99B0C4C80AAC
+	for <poky@yoctoproject.org>; Mon, 14 Mar 2011 09:45:56 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 14 Mar 2011 07:45:56 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,316,1297065600"; d="scan'208";a="897066163"
+X-IronPort-AV: E=Sophos;i="4.62,316,1297065600"; d="scan'208";a="612730987"
 Received: from unknown (HELO localhost) ([10.255.16.55])
-	by fmsmga001.fm.intel.com with ESMTP; 14 Mar 2011 07:45:49 -0700
-Message-Id: <cover.1300113623.git.josh@linux.intel.com>
-Old-Date: Mon, 14 Mar 2011 14:40:23 +0000
-Date: Mon, 14 Mar 2011 14:45:43 +0000
+	by orsmga002.jf.intel.com with ESMTP; 14 Mar 2011 07:45:55 -0700
+Message-Id: <cb6c8db892ebde20224cf9c30dc8cf4b07494ce2.1300113623.git.josh@linux.intel.com>
+In-Reply-To: <cover.1300113623.git.josh@linux.intel.com>
+References: <cover.1300113623.git.josh@linux.intel.com>
+Old-Date: Sat, 5 Mar 2011 17:13:32 +0000
+Date: Mon, 14 Mar 2011 14:45:49 +0000
 To: poky@yoctoproject.org
 CC: 
 From: Joshua Lock <josh@linux.intel.com>
-Subject: [PATCH 0/2] Image creator bug fixes
+Subject: [PATCH 1/2] bitbake/cooker: don't error in prepareTreeData for unbuildable targets
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,37 +28,33 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 Mar 2011 14:45:50 -0000
+X-List-Received-Date: Mon, 14 Mar 2011 14:45:56 -0000
 
 From: Joshua Lock <josh@linux.intel.com>
 
-This series contains a couple of GUI bug fixes intended for Bernard and master.
+Set abort to False in prepareTreeData so that unbuildable targets do not
+raise an exception.
 
-The first stops unbuildable targets from breaking the image creator, though I'd
-like to investigate the possibility of stopping such recipes even being shown
-in the GUI I thought it useful to provide a workaround for the Bernard release.
-
-The second fixes a logic inversions and ensures that the cancel button does the
-right thing.
-
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: josh/hob-bernard
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=josh/hob-bernard
-
-Thanks,
-    Joshua Lock <josh@linux.intel.com>
+Signed-off-by: Joshua Lock <josh@linux.intel.com>
 ---
-
-
-Joshua Lock (2):
-  bitbake/cooker: don't error in prepareTreeData for unbuildable
-    targets
-  bitbake/hob: fix cancel button
-
  bitbake/lib/bb/cooker.py |    4 +++-
- bitbake/lib/bb/ui/hob.py |    2 +-
- 2 files changed, 4 insertions(+), 2 deletions(-)
+ 1 files changed, 3 insertions(+), 1 deletions(-)
 
+diff --git a/bitbake/lib/bb/cooker.py b/bitbake/lib/bb/cooker.py
+index 18e9bb8..97863e5 100644
+--- a/bitbake/lib/bb/cooker.py
++++ b/bitbake/lib/bb/cooker.py
+@@ -253,7 +253,9 @@ class BBCooker:
+         localdata = data.createCopy(self.configuration.data)
+         bb.data.update_data(localdata)
+         bb.data.expandKeys(localdata)
+-        taskdata = bb.taskdata.TaskData(self.configuration.abort)
++        # We set abort to False here to prevent unbuildable targets raising
++        # an exception when we're just generating data
++        taskdata = bb.taskdata.TaskData(False)
+ 
+         runlist = []
+         for k in pkgs_to_build:
 -- 
 1.7.4
 
