@@ -1,29 +1,26 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 8972A4C800BE
-	for <poky@lists.pokylinux.org>; Mon, 14 Mar 2011 06:45:09 -0500 (CDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 1308B16602D5; Mon, 14 Mar 2011 05:45:09 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2-r929478
-Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 406F01660265;
-	Mon, 14 Mar 2011 05:45:08 -0600 (MDT)
-Message-ID: <4D7DFFC4.8070501@mlbassoc.com>
-Date: Mon, 14 Mar 2011 05:45:08 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 563A44C800BE
+	for <poky@yoctoproject.org>; Mon, 14 Mar 2011 06:51:15 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 14 Mar 2011 04:51:14 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.62,315,1297065600"; d="scan'208";a="402237688"
+Received: from unknown (HELO helios.localnet) ([10.255.12.146])
+	by azsmga001.ch.intel.com with ESMTP; 14 Mar 2011 04:51:13 -0700
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
+Organization: Intel Corporation (UK)
+To: poky@yoctoproject.org
+Date: Mon, 14 Mar 2011 11:51:11 +0000
+User-Agent: KMail/1.13.5 (Linux/2.6.35-27-generic-pae; KDE/4.6.1; i686; ; )
+References: <cover.1299891748.git.sgw@linux.intel.com>
+	<4D7ACD9C.3010002@linux.intel.com>
+	<20110312023140.GA4829@sakrah.homelinux.org>
+In-Reply-To: <20110312023140.GA4829@sakrah.homelinux.org>
 MIME-Version: 1.0
-To: "Zhai, Edwin" <edwin.zhai@intel.com>
-References: <4D7A5C3B.6070709@mlbassoc.com> <4D7D7997.8050100@intel.com>
-In-Reply-To: <4D7D7997.8050100@intel.com>
-Cc: Poky <poky@lists.pokylinux.org>
-Subject: Re: icon registration
+Message-Id: <201103141151.12235.paul.eggleton@linux.intel.com>
+Cc: openembedded-core@lists.openembedded.org
+Subject: Re: [PATCH 0/1] gnu-config make sure we use perl-native
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,45 +32,23 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 Mar 2011 11:45:09 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Mon, 14 Mar 2011 11:51:15 -0000
+Content-Type: Text/Plain;
+  charset="iso-8859-1"
 Content-Transfer-Encoding: 7bit
 
-On 03/13/2011 08:12 PM, Zhai, Edwin wrote:
-> Gary,
-> We have explicitly set the default icon theme as "sato" to fix a bug. You can change /etc/gtk/gtkrc.. for a try.
+On Saturday 12 March 2011 02:31:40 Khem Raj wrote:
+> > Back to the drawing board on why the miss-match is occuring in
+> > Config.pm then.
+> 
+> somewhere there is /usr/bin/perl referred may be a cross recipe ?
 
-Wouldn't that be /etc/gtk-2.0/gtkrc?
+I've hit this issue this morning, and have filed a bug report:
 
-I could not find a way to use this file to allow both sets of icon (themes, actually).
-Do you know how?  I don't want to necessarily replace sato, just allow the use of the
-standard gnome elements.
+  http://bugzilla.pokylinux.org/show_bug.cgi?id=866
 
-n.b. there seems to be a bug in the GTK libraries that make them fail if the default
-icons are not available.  It tries to render GTK_STOCK_MISSING_IMAGE for the missing
-icons and this fails if there is no such icon available in the set (e.g. in sato).
-On ARM at least, this is a fatal segmentation error.  Should I report this as a bug
-in Poky?
+Not sure if it helps but at least it should be easy to reproduce.
 
-> Gary Thomas wrote:
->>
->> I built & installed gnome-icon-theme on top of my sato(-like) image,
->> but the new icons did not show up. I've built a GTK-webcore application
->> (midori browser) that wants to use some GNOME icons that it can't find:
->> Gtk-WARNING **: Error loading theme icon 'stock_new-tab' for stock: Icon 'stock_new-tab' not present in te
->> For some GTK+ applications, this seems to be fatal :-(
->>
->> Does anyone know how new icon sets might be registered? Shouldn't
->> this happen automatically when you install a theme?
->>
->> n.b. I simply copied the /usr/share/icons/gnome/ tree over /usr/share/icons/Sato
->> and the application runs perfectly. I'd rather not have to resort this.
->>
->> Thanks
-
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+Cheers,
+Paul
 
