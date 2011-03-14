@@ -1,22 +1,20 @@
 Return-Path: <josh@linux.intel.com>
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C88444C80AAD
-	for <poky@yoctoproject.org>; Mon, 14 Mar 2011 09:35:38 -0500 (CDT)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 0ACDA4C80A73
+	for <poky@yoctoproject.org>; Mon, 14 Mar 2011 09:45:49 -0500 (CDT)
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 14 Mar 2011 07:35:38 -0700
+	by fmsmga101.fm.intel.com with ESMTP; 14 Mar 2011 07:45:49 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,316,1297065600"; d="scan'208";a="897062422"
+X-IronPort-AV: E=Sophos;i="4.62,316,1297065600"; d="scan'208";a="897066163"
 Received: from unknown (HELO localhost) ([10.255.16.55])
-	by fmsmga001.fm.intel.com with ESMTP; 14 Mar 2011 07:35:37 -0700
-Message-Id: <8f0ba82638b2f96dfd3143b720fa8e170f137991.1300113029.git.josh@linux.intel.com>
-In-Reply-To: <cover.1300113029.git.josh@linux.intel.com>
-References: <cover.1300113029.git.josh@linux.intel.com>
-Old-Date: Sat, 5 Mar 2011 17:01:14 +0000
-Date: Mon, 14 Mar 2011 14:35:32 +0000
+	by fmsmga001.fm.intel.com with ESMTP; 14 Mar 2011 07:45:49 -0700
+Message-Id: <cover.1300113623.git.josh@linux.intel.com>
+Old-Date: Mon, 14 Mar 2011 14:40:23 +0000
+Date: Mon, 14 Mar 2011 14:45:43 +0000
 To: poky@yoctoproject.org
 CC: 
 From: Joshua Lock <josh@linux.intel.com>
-Subject: [PATCH 2/2] bitbake/xmlrpc: only use BBTransport for affected Python versions
+Subject: [PATCH 0/2] Image creator bug fixes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,73 +26,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 Mar 2011 14:35:38 -0000
+X-List-Received-Date: Mon, 14 Mar 2011 14:45:50 -0000
 
 From: Joshua Lock <josh@linux.intel.com>
 
-Upstream have fixed the xmlrpclip.Transport() bug from Python #8194 for
-the Python 2.7.2 release, therefore as we know which versions of the
-standard library are affected we can only use our copy/paste class when
-it's needed.
+This series contains a couple of GUI bug fixes intended for Bernard and master.
 
-Signed-off-by: Joshua Lock <josh@linux.intel.com>
+The first stops unbuildable targets from breaking the image creator, though I'd
+like to investigate the possibility of stopping such recipes even being shown
+in the GUI I thought it useful to provide a workaround for the Bernard release.
+
+The second fixes a logic inversions and ensures that the cancel button does the
+right thing.
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: josh/hob-bernard
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=josh/hob-bernard
+
+Thanks,
+    Joshua Lock <josh@linux.intel.com>
 ---
- bitbake/lib/bb/server/xmlrpc.py |   21 +++++++++++++++++----
- 1 files changed, 17 insertions(+), 4 deletions(-)
 
-diff --git a/bitbake/lib/bb/server/xmlrpc.py b/bitbake/lib/bb/server/xmlrpc.py
-index 0d03e30..e7b6010 100644
---- a/bitbake/lib/bb/server/xmlrpc.py
-+++ b/bitbake/lib/bb/server/xmlrpc.py
-@@ -52,6 +52,8 @@ if sys.hexversion < 0x020600F0:
- # implementations from Python 2.6.6's xmlrpclib.
- #
- # Upstream Python bug is #8194 (http://bugs.python.org/issue8194)
-+# This bug is relevant for Python 2.7.0 and 2.7.1 but was fixed for
-+# Python > 2.7.2
- ##
- 
- class BBTransport(xmlrpclib.Transport):
-@@ -107,6 +109,18 @@ class BBTransport(xmlrpclib.Transport):
- 
-         return u.close()
- 
-+def _create_server(host, port):
-+    # Python 2.7.0 and 2.7.1 have a buggy Transport implementation
-+    # For those versions of Python, and only those versions, use our
-+    # own copy/paste BBTransport class.
-+    if (2, 7, 0) <= sys.version_info < (2, 7, 2):
-+        t = BBTransport()
-+        s = xmlrpclib.Server("http://%s:%d/" % (host, port), transport=t, allow_none=True)
-+    else:
-+        s = xmlrpclib.Server("http://%s:%d/" % (host, port), allow_none=True)
-+
-+    return s
-+
- class BitBakeServerCommands():
-     def __init__(self, server, cooker):
-         self.cooker = cooker
-@@ -116,8 +130,8 @@ class BitBakeServerCommands():
-         """
-         Register a remote UI Event Handler
-         """
--        t = BBTransport()
--        s = xmlrpclib.Server("http://%s:%d/" % (host, port), transport=t, allow_none=True)
-+        s = _create_server(host, port)
-+
-         return bb.event.register_UIHhandler(s)
- 
-     def unregisterEventHandler(self, handlerNum):
-@@ -240,8 +254,7 @@ class BitbakeUILauch():
- 
- class BitBakeServerConnection():
-     def __init__(self, serverinfo):
--        t = BBTransport()
--        self.connection = xmlrpclib.Server("http://%s:%s" % (serverinfo.host, serverinfo.port), transport=t, allow_none=True)
-+        self.connection = _create_server(serverinfo.host, serverinfo.port)
-         self.events = uievent.BBUIEventQueue(self.connection)
-         for event in bb.event.ui_queue:
-             self.events.queue_event(event)
+
+Joshua Lock (2):
+  bitbake/cooker: don't error in prepareTreeData for unbuildable
+    targets
+  bitbake/hob: fix cancel button
+
+ bitbake/lib/bb/cooker.py |    4 +++-
+ bitbake/lib/bb/ui/hob.py |    2 +-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
+
 -- 
 1.7.4
 
