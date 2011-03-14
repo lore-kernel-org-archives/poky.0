@@ -1,30 +1,21 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7DF5A4C80AB0
-	for <poky@yoctoproject.org>; Mon, 14 Mar 2011 16:11:59 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2ELBv5u007307;
-	Mon, 14 Mar 2011 21:11:57 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 06965-08; Mon, 14 Mar 2011 21:11:53 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2ELBnZO007301
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Mon, 14 Mar 2011 21:11:49 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Dexuan Cui <dexuan.cui@intel.com>
-In-Reply-To: <cover.1300093238.git.dexuan.cui@intel.com>
-References: <cover.1300093238.git.dexuan.cui@intel.com>
-Date: Mon, 14 Mar 2011 21:11:43 +0000
-Message-ID: <1300137103.30423.598.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/1] oprofile: use timer interrupt mode for now
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id BDEBA4C80AA8
+	for <poky@yoctoproject.org>; Mon, 14 Mar 2011 16:29:22 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 14 Mar 2011 14:29:22 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.62,318,1297065600"; d="scan'208";a="720094834"
+Received: from doubt.jf.intel.com (HELO [10.7.199.155]) ([10.7.199.155])
+	by orsmga001.jf.intel.com with ESMTP; 14 Mar 2011 14:29:22 -0700
+Message-ID: <4D7E88AC.5060809@linux.intel.com>
+Date: Mon, 14 Mar 2011 14:29:16 -0700
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.14) Gecko/20110223 Lightning/1.0b2 Thunderbird/3.1.8
+MIME-Version: 1.0
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: DISTRO 'poky' not found
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,43 +27,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 Mar 2011 21:11:59 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Mon, 14 Mar 2011 21:29:23 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 7bit
 
-On Mon, 2011-03-14 at 17:03 +0800, Dexuan Cui wrote:
-> From: Dexuan Cui <dexuan.cui@intel.com>
-> 
-> Currently oprofile's event based interrupt mode doesn't work(Bug #828) in
-> qemux86 and qemux86-64. We can use timer interrupt mode for now.
-> 
-> With this workaround, oprofile can work in qemux86 and qemux86-64.
-> I tested in Ubuntu 10.04.
-> 
-> With this workaround, we can lower the priority of bug #828 and I'll continue
-> to look into it.
-> 
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->   Branch: dcui/master
->   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dcui/master
-> 
-> Thanks,
->     Dexuan Cui <dexuan.cui@intel.com>
-> ---
-> 
-> 
-> Dexuan Cui (1):
->   poky-qemu-internal: force oprofile into using timer interrupt mode
->     for qemux86/qemux86-64 for now
-> 
->  scripts/poky-qemu-internal |    6 ++++++
->  1 files changed, 6 insertions(+), 0 deletions(-)
+I've run into this error several times during development of various things. It will be in a build tree that I have been working with for a while, then when I come back to it, I get the following. Any idea what triggers this? I suspect something in my workflow, but I can't imagine what it would be. I'd really like to not have to delete my build tree.
 
-Merged into OE-Core and Poky master.
+$ cd poky.git
+$ source poky-init-build-env build-qemux86/
 
-Cheers,
+### Shell environment set up for Poky builds. ###
 
-Richard
+You can now run 'bitbake <target>'
+
+Common targets are:
+    poky-image-minimal
+    poky-image-sato
+    meta-toolchain
+    meta-toolchain-sdk
+
+You can also run generated qemu images with a command like 'poky-qemu qemux86'
+
+$ bitbake linux-yocto
+ERROR:  Poky's config sanity checker detected a potential misconfiguration.
+    Either fix the cause of this error or at your own risk disable the checker (see sanity.conf).
+    Following is the list of potential problems / advisories:
+
+    Please set TARGET_OS directly, or choose a MACHINE or DISTRO that does so.
+DISTRO 'poky' not found. Please set a valid DISTRO in your local.conf
 
 
+-- 
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
