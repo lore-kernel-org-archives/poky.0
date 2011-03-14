@@ -1,33 +1,29 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7B40D4C800BE
-	for <poky@yoctoproject.org>; Mon, 14 Mar 2011 13:26:18 -0500 (CDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id F0B0816601CF; Mon, 14 Mar 2011 12:26:17 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2-r929478
-Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id AE12E1660198;
-	Mon, 14 Mar 2011 12:26:16 -0600 (MDT)
-Message-ID: <4D7E5DC8.3000006@mlbassoc.com>
-Date: Mon, 14 Mar 2011 12:26:16 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C21424C80A73
+	for <poky@yoctoproject.org>; Mon, 14 Mar 2011 13:46:37 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 14 Mar 2011 11:46:37 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.62,317,1297065600"; d="scan'208";a="720047164"
+Received: from doubt.jf.intel.com (HELO [10.7.199.155]) ([10.7.199.155])
+	by orsmga001.jf.intel.com with ESMTP; 14 Mar 2011 11:46:37 -0700
+Message-ID: <4D7E6289.2050208@linux.intel.com>
+Date: Mon, 14 Mar 2011 11:46:33 -0700
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.14) Gecko/20110223 Lightning/1.0b2 Thunderbird/3.1.8
 MIME-Version: 1.0
-To: Tom Rini <tom_rini@mentor.com>
-References: <4D7A08BF.80303@mlbassoc.com>
-	<1299863594.1445.2875.camel@rex>		<4D7A59DC.6070900@mlbassoc.com>
-	<4D7A5AFA.7080107@mentor.com>		<4D7A5CB8.8000701@mlbassoc.com>		<20110312001053.GF5603@sakrah.homelinux.org>	<4D7E4FB9.2060203@mentor.com>	
-	<1300124421.30423.311.camel@rex>	<4D7E547A.5020906@mentor.com>
-	<1300125326.30423.343.camel@rex> <4D7E588A.2090907@mentor.com>
-In-Reply-To: <4D7E588A.2090907@mentor.com>
-Cc: poky@yoctoproject.org
-Subject: Re: Native vs not
+To: Koen Kooi <koen@dominion.thruhere.net>
+References: <cover.1299267630.git.sgw@linux.intel.com>	<e807fc977770cb64a217768672c18437ea8f3057.1299267630.git.sgw@linux.intel.com>	<A53A0FEC-74B3-483C-916C-EB87748A1AC8@dominion.thruhere.net>	<4D715D30.3030608@linux.intel.com>	<EEFD338A-726B-4502-B995-442E9AB37B9D@dominion.thruhere.net>	<8BD56976-D3F5-41F0-8CD6-9CF4B3CBB6C1@dominion.thruhere.net>
+	<4D7173CE.2090104@linux.intel.com>
+	<4D750834.2060803@linux.intel.com>
+	<4A916656-9670-438B-AA5E-21309243FBA1@dominion.thruhere.net>
+In-Reply-To: <4A916656-9670-438B-AA5E-21309243FBA1@dominion.thruhere.net>
+Cc: poky <poky@yoctoproject.org>,
+	Patches and discussions about the oe-core layer
+	<openembedded-core@lists.openembedded.org>
+Subject: Re: [OE-core] [PATCH 04/13] module: build hostprogs for each module
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,60 +35,118 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 Mar 2011 18:26:18 -0000
+X-List-Received-Date: Mon, 14 Mar 2011 18:46:38 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 03/14/2011 12:03 PM, Tom Rini wrote:
-> On 03/14/2011 10:55 AM, Richard Purdie wrote:
->> On Mon, 2011-03-14 at 10:46 -0700, Tom Rini wrote:
->>> On 03/14/2011 10:40 AM, Richard Purdie wrote:
->>>> On Mon, 2011-03-14 at 10:26 -0700, Tom Rini wrote:
->>>>> On 03/11/2011 05:10 PM, Khem Raj wrote:
->>>>>
->>>>>> I think having some buildhost/native packages (based on distro/version) trusted and assume provided or even
->>>>>> installed using the build host package management could be one approach
->>>>>> in modern distros I think we could use lot of host packages as is. or
->>>>>> may be trust all and keep a list of blacklisted packages for a given
->>>>>> distro might be something useful
->>>>>
->>>>> I've been thinking about this a bit and at least at the high level there
->>>>> is an argument for making it easy to opt out of a big class of host
->>>>> tools, on a modern distro and trade reprodicibility / reliability for
->>>>> faster initial build times. And on the flip side, opt out of a bit more
->>>>> of our host tool dependencies.
->>>>
->>>> This is what ASSUME_PROVIDED is there for :)
->>>
->>> Well yes. But it'd be nice if we had a few helpers so you could say:
->>> ASSUME_PROVIDED += "${SCM_FETCH_TOOLS} ${DOCUMENTATION_GENERATION_TOOLS}
->>> ..."
->>> and so forth.
->>
->> We need to user to be very clearly aware of what they're adding IMO so
->> I'd prefer maybe just some commented out lines such as:
->>
->> # Uncomment this if you want to use the system provided scm utilities
->> # instead of having the system build them
->> #ASSUME_PROVIDED += "git-native svn-native"
->>
->> I'm actually thinking about a local.conf.sample.advanced file where we
->> list a load of things like this. This means we can keep
->> local.conf.sample simple (the things they probably *need* to look at)
->> yet still show users some of the other more advanced options.
->
-> I agree. There's very real risk involved in not assuming things. But there's also very real cases where people are fine taking the risk (and in some cases it's not really that
-> risky, eg scm fetching tools, but others really are).
 
-I fully agree with the basic idea, but I'm not sure it solves everything.
-I ended up down this road when a configure step tried to use a host tool,
-in this case /usr/bin/rsvg-convert.  I think there still would have been
-some grousing even if I had ASSUME_PROVIDED="librsvg-native" which is
-the package I ended up needing to build.
+
+On 03/14/2011 11:10 AM, Koen Kooi wrote:
+>
+> Op 7 mrt 2011, om 17:30 heeft Darren Hart het volgende geschreven:
+>
+>> On 03/04/2011 03:20 PM, Darren Hart wrote:
+>>> On 03/04/2011 02:30 PM, Koen Kooi wrote:
+>>>>
+>>>> Op 4 mrt 2011, om 23:28 heeft Koen Kooi het volgende geschreven:
+>>>>
+>>>>>
+>>>>> Op 4 mrt 2011, om 22:44 heeft Darren Hart het volgende geschreven:
+>>>>>
+>>>>>> On 03/04/2011 12:04 PM, Koen Kooi wrote:
+>>>>>>>
+>>>>>>> Op 4 mrt 2011, om 20:42 heeft Saul Wold het volgende geschreven:
+>>>>>>>
+>>>>>>>> From: Darren Hart<dvhart@linux.intel.com>
+>>>>>>>>
+>>>>>>>> This fixes [BUGID #241]
+>>>>>>>>
+>>>>>>>> The kernel hostprogs are built for the host architecture. They
+>>>>>>>> should not be
+>>>>>>>> deployed to the target, and they should not be included in an
+>>>>>>>> sstate package
+>>>>>>>> which might get reused on a host of a different architecture.
+>>>>>>>>
+>>>>>>>> As we don't build many out-of-tree modules, this patch takes the
+>>>>>>>> approach of
+>>>>>>>> building the hostprogs as part of the module compile process with a
+>>>>>>>> do_compile_prepend() routine in module.bbclass.
+>>>>>>>>
+>>>>>>>> We don't have to clean the hostprogs as modules depend on the
+>>>>>>>> kernel being
+>>>>>>>> populate_staging, so its done with the staging directory by the
+>>>>>>>> time we run.
+>>>>>>>>
+>>>>>>>> Signed-off-by: Darren Hart<dvhart@linux.intel.com>
+>>>>>>>> CC: Gary Thomas<gary@mlbassoc.com>
+>>>>>>>> ---
+>>>>>>>> meta/classes/module.bbclass | 12 +++++++++++-
+>>>>>>>> 1 files changed, 11 insertions(+), 1 deletions(-)
+>>>>>>>>
+>>>>>>>> diff --git a/meta/classes/module.bbclass
+>>>>>>>> b/meta/classes/module.bbclass
+>>>>>>>> index d16d462..bbceaf7 100644
+>>>>>>>> --- a/meta/classes/module.bbclass
+>>>>>>>> +++ b/meta/classes/module.bbclass
+>>>>>>>> @@ -3,6 +3,13 @@ DEPENDS += "virtual/kernel"
+>>>>>>>>
+>>>>>>>> inherit module-base
+>>>>>>>>
+>>>>>>>> +# Ensure the hostprogs are available for module compilation
+>>>>>>>> +module_do_compile_prepend() {
+>>>>>>>> + unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS
+>>>>>>>> + oe_runmake CC="${KERNEL_CC}" LD="${KERNEL_LD}" AR="${KERNEL_AR}" \
+>>>>>>>> + -C ${STAGING_KERNEL_DIR} scripts
+>>>>>>>> +}
+>>>>>>>> +
+>>>>>>>> module_do_compile() {
+>>>>>>>> unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS
+>>>>>>>> oe_runmake KERNEL_PATH=${STAGING_KERNEL_DIR} \
+>>>>>>>> @@ -15,7 +22,10 @@ module_do_compile() {
+>>>>>>>
+>>>>>>> Why not put it in do_compile itself?
+>>>>>>
+>>>>>> My rationale was that a module recipe may override do_compile for
+>>>>>> one reason or another, but they will still need the hostprogs which
+>>>>>> we stripped in kernel.bbclass. This way, even if they override
+>>>>>> do_compile, the _prepend will still get run and prepare the
+>>>>>> hostprogs.
+>>>>>
+>>>>> Are you sure that actually works? AIUI bitbake will fold the compile
+>>>>> and prepend into one when you try to override it.
+>>>>
+>>>> What I actually meant to say is: If you need to prepend it to
+>>>> do_compile, even when someone will override it, use addtask to insert
+>>>> it between configure and compile. That makes the intention a lot
+>>>> clearer and isn't depending on faulty bitbake behaviour.
+>>>
+>>> You could be right, I'm not terribly familiar with how the "inheritance"
+>>> model works. It seems to me the "addtask" method would work regardless
+>>> as you suggest, and I have no objection to taking that route.
+>>>
+>>> Richard, do you have a preference? Can you clear up the inheritance
+>>> question?
+>>>
+>>
+>> Had a chat with Richard. His suggestion was to use a new function, ie do_hostprogs, which do_compile() calls. If a recipe overrides do_compile() it can call do_hostprogs() or manage it on its own. I'll do some testing and send out a follow-on patch.
+>
+> Any news on this? I just hit the issue:
+>
+> |   CC [M]  /OE/tentacle/build/tmp-angstrom_2010_x/work/beagleboard-angstrom-linux-gnueabi/ti-dsplink-1_1_65_00_03-r99i/dsplink_linux_1_65_00_03/dsplink/gpp/src/../../gpp/src/arch/CFG_map.o
+> | /bin/sh: scripts/basic/fixdep: No such file or directory
+
+Yes, I have a working solution, but have been trying to polish it up and 
+getting pulled away on other bugs. I'll clean it up and push it out by 
+tonight, although I expect a few review cycles will be needed before we 
+are all happy with it.
+
+The tricky part is balancing the complexity of building the configured 
+source tree with the size it takes up in sysroots. It can be done in as 
+little as 80MB, but the easiest way (and the easiest to maintain going 
+forward) is 500MB. More on that tonight.
 
 -- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
