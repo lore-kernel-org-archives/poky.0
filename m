@@ -1,34 +1,33 @@
-Return-Path: <scott.m.rifenbark@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 970A74C800BE
-	for <poky@yoctoproject.org>; Mon, 14 Mar 2011 11:52:01 -0500 (CDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 14 Mar 2011 09:52:01 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,316,1297065600"; d="scan'208";a="897111375"
-Received: from orsmsx603.amr.corp.intel.com ([10.22.226.49])
-	by fmsmga001.fm.intel.com with ESMTP; 14 Mar 2011 09:51:58 -0700
-Received: from orsmsx504.amr.corp.intel.com ([10.22.226.207]) by
-	orsmsx603.amr.corp.intel.com ([10.22.226.49]) with mapi;
-	Mon, 14 Mar 2011 09:51:51 -0700
-From: "Rifenbark, Scott M" <scott.m.rifenbark@intel.com>
-To: Darren Hart <dvhart@linux.intel.com>, "Zanussi, Tom"
-	<tom.zanussi@intel.com>
-Date: Mon, 14 Mar 2011 09:51:48 -0700
-Thread-Topic: [poky] [PATCH 2/2] documentation: Kernel Manual fixes
-Thread-Index: AcviZXREpeEwIvXaSkWEA8cjOkElfAAAptxQ
-Message-ID: <DE8BA75F34A0404282AC5E15F691BC762763AB84@orsmsx504.amr.corp.intel.com>
-References: <cover.1300081427.git.tom.zanussi@intel.com>
-	<b3358d9bde3fd31dbca76323337d248dacce8c5b.1300081427.git.tom.zanussi@intel.com>
-	<4D7E4311.2040503@linux.intel.com>
-In-Reply-To: <4D7E4311.2040503@linux.intel.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
+Return-Path: <Tom_Rini@mentor.com>
+Received: from relay1.mentorg.com (relay1.mentorg.com [192.94.38.131])
+	by mx1.pokylinux.org (Postfix) with ESMTP id EDC344C80A73
+	for <poky@yoctoproject.org>; Mon, 14 Mar 2011 12:26:32 -0500 (CDT)
+Received: from svr-orw-exc-10.mgc.mentorg.com ([147.34.98.58])
+	by relay1.mentorg.com with esmtp 
+	id 1PzBXM-0001Qu-EF from Tom_Rini@mentor.com 
+	for poky@yoctoproject.org; Mon, 14 Mar 2011 10:26:32 -0700
+Received: from SVR-ORW-FEM-05.mgc.mentorg.com ([147.34.97.43]) by
+	SVR-ORW-EXC-10.mgc.mentorg.com with Microsoft
+	SMTPSVC(6.0.3790.4675); Mon, 14 Mar 2011 10:26:21 -0700
+Received: from [172.30.80.14] (147.34.91.1) by svr-orw-fem-05 (147.34.97.43)
+	with Microsoft SMTP Server id 14.1.270.1;
+	Mon, 14 Mar 2011 10:26:31 -0700
+Message-ID: <4D7E4FB9.2060203@mentor.com>
+Date: Mon, 14 Mar 2011 10:26:17 -0700
+From: Tom Rini <tom_rini@mentor.com>
+Organization: Mentor Graphics Corporation
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.14) Gecko/20110223 Lightning/1.0b2 Thunderbird/3.1.8
 MIME-Version: 1.0
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 2/2] documentation: Kernel Manual fixes
+To: <poky@yoctoproject.org>
+References: <4D7A08BF.80303@mlbassoc.com> <1299863594.1445.2875.camel@rex>
+	<4D7A59DC.6070900@mlbassoc.com> <4D7A5AFA.7080107@mentor.com>
+	<4D7A5CB8.8000701@mlbassoc.com>
+	<20110312001053.GF5603@sakrah.homelinux.org>
+In-Reply-To: <20110312001053.GF5603@sakrah.homelinux.org>
+X-OriginalArrivalTime: 14 Mar 2011 17:26:21.0537 (UTC)
+	FILETIME=[EFA90D10:01CBE26C]
+Subject: Re: Native vs not
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,97 +39,25 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 Mar 2011 16:52:01 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Mon, 14 Mar 2011 17:26:33 -0000
+Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
+Content-Transfer-Encoding: 7bit
 
-True on the contractions... not good to use those.
+On 03/11/2011 05:10 PM, Khem Raj wrote:
 
------Original Message-----
-From: poky-bounces@yoctoproject.org [mailto:poky-bounces@yoctoproject.org] =
-On Behalf Of Darren Hart
-Sent: Monday, March 14, 2011 9:32 AM
-To: Zanussi, Tom
-Cc: poky@yoctoproject.org
-Subject: Re: [poky] [PATCH 2/2] documentation: Kernel Manual fixes
+> I think having some buildhost/native packages (based on distro/version) trusted and assume provided or even
+> installed using the build host package management could be one approach
+> in modern distros I think we could use lot of host packages as is. or
+> may be trust all and keep a list of blacklisted packages for a given
+> distro might be something useful
 
+I've been thinking about this a bit and at least at the high level there 
+is an argument for making it easy to opt out of a big class of host 
+tools, on a modern distro and trade reprodicibility / reliability for 
+faster initial build times.  And on the flip side, opt out of a bit more 
+of our host tool dependencies.
 
-
-On 03/13/2011 10:50 PM, Tom Zanussi wrote:
-> From: Tom Zanussi<tom.zanussi@intel.com>
->
-
-Thanks Tom, you beat me to it.
-
-> Upgraded to reflect 1.0 usage rather than 0.90 usage, and some other
-> clarifications and minor changes.
-
-Only one minor nitpic below:
-
->
-> Signed-off-by: Tom Zanussi<tom.zanussi@intel.com>
-> ---
->   documentation/kernel-manual/kernel-how-to.xml |  120 +++++++++++++-----=
--------
->   1 files changed, 61 insertions(+), 59 deletions(-)
->
-> diff --git a/documentation/kernel-manual/kernel-how-to.xml b/documentatio=
-n/kernel-manual/kernel-how-to.xml
-> index abb19f2..fdfda40 100644
-> --- a/documentation/kernel-manual/kernel-how-to.xml
-> +++ b/documentation/kernel-manual/kernel-how-to.xml
-> @@ -425,18 +425,18 @@ repository.
->
-
-...
-
->               <para>
-> -                This section provides an example for creating a BSP that=
- is based on an existing, and hopefully,
-> -                similar one.
-> -                Follow these steps and keep in mind your particular situ=
-ation and differences:
-> +                This section provides an example for creating a BSP
-> +                that is based on an existing, and hopefully, similar
-> +                one.  It assumes you'll be using a local kernel
-
-We should void using contractions in formal documentation
-
-s/you'll/you will/
-
-> +                repository and will be pointing the kernel recipe at
-> +                that.  Follow these steps and keep in mind your
-> +                particular situation and differences:
->
->               <orderedlist>
->                   <listitem><para>
-> @@ -1016,16 +1019,10 @@ That's it. Configure and build.
->                   </para>
->
->                   <para>
-> -                    You can start with something in<filename>meta/conf/m=
-achine</filename>.
-> -                    Or,<filename>meta-emenlow/conf/machine</filename>  h=
-as an example in its own layer.
-> +                    You can start with something in<filename>meta/conf/m=
-achine</filename>  -<filename>meta/conf/machine/atom-pc.conf</filename>  fo=
-r example.  Or, you can start with a machine configuration from any of the =
-BSP layers in the meta-intel repository at<ulink url=3D'http://git.pokylinu=
-x.org/cgit/cgit.cgi/meta-intel/'></ulink>, such as<filename>meta-intel/meta=
--emenlow/conf/machine/emenlow.conf</filename>.
-
-I presume we're using some line length limit in our documentation?
-
-
-Otherwise looks good to me.
-
---=20
-Darren Hart
-Intel Open Source Technology Center
-Yocto Project - Linux Kernel
-_______________________________________________
-poky mailing list
-poky@yoctoproject.org
-https://lists.yoctoproject.org/listinfo/poky
+-- 
+Tom Rini
+Mentor Graphics Corporation
 
