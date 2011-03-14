@@ -1,22 +1,35 @@
-Return-Path: <josh@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 22EAF4C80050
-	for <poky@yoctoproject.org>; Mon, 14 Mar 2011 12:52:40 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 14 Mar 2011 10:52:39 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,317,1297065600"; d="scan'208";a="720023393"
-Received: from unknown (HELO [10.255.16.55]) ([10.255.16.55])
-	by orsmga001.jf.intel.com with ESMTP; 14 Mar 2011 10:52:34 -0700
-From: Joshua Lock <josh@linux.intel.com>
-To: poky@yoctoproject.org
-In-Reply-To: <edad97936654f13dbbef0651f508615dc4c89e65.1299705776.git.dvhart@linux.intel.com>
-References: <edad97936654f13dbbef0651f508615dc4c89e65.1299705776.git.dvhart@linux.intel.com>
-Date: Mon, 14 Mar 2011 17:52:28 +0000
-Message-ID: <1300125148.2802.27.camel@scimitar>
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id F2CFC4C800BE
+	for <poky@yoctoproject.org>; Mon, 14 Mar 2011 12:55:44 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2EHteA6004711;
+	Mon, 14 Mar 2011 17:55:40 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 04524-03; Mon, 14 Mar 2011 17:55:36 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2EHtWcR004705
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Mon, 14 Mar 2011 17:55:33 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Tom Rini <tom_rini@mentor.com>
+In-Reply-To: <4D7E547A.5020906@mentor.com>
+References: <4D7A08BF.80303@mlbassoc.com> <1299863594.1445.2875.camel@rex>
+	<4D7A59DC.6070900@mlbassoc.com> <4D7A5AFA.7080107@mentor.com>
+	<4D7A5CB8.8000701@mlbassoc.com>
+	<20110312001053.GF5603@sakrah.homelinux.org>
+	<4D7E4FB9.2060203@mentor.com>
+	<1300124421.30423.311.camel@rex>  <4D7E547A.5020906@mentor.com>
+Date: Mon, 14 Mar 2011 17:55:26 +0000
+Message-ID: <1300125326.30423.343.camel@rex>
 Mime-Version: 1.0
-X-Mailer: Evolution 2.32.2 (2.32.2-1.fc14) 
-Subject: Re: [PATCH] bitbake docs: use dblatex to build the pdf bitbake manual
+X-Mailer: Evolution 2.28.3 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky@yoctoproject.org
+Subject: Re: Native vs not
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,48 +41,48 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 Mar 2011 17:52:40 -0000
+X-List-Received-Date: Mon, 14 Mar 2011 17:55:45 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On Wed, 2011-03-09 at 13:32 -0800, Darren Hart wrote:
-> From: Darren Hart <dvhart@linux.intel.com>
+On Mon, 2011-03-14 at 10:46 -0700, Tom Rini wrote:
+> On 03/14/2011 10:40 AM, Richard Purdie wrote:
+> > On Mon, 2011-03-14 at 10:26 -0700, Tom Rini wrote:
+> >> On 03/11/2011 05:10 PM, Khem Raj wrote:
+> >>
+> >>> I think having some buildhost/native packages (based on distro/version) trusted and assume provided or even
+> >>> installed using the build host package management could be one approach
+> >>> in modern distros I think we could use lot of host packages as is. or
+> >>> may be trust all and keep a list of blacklisted packages for a given
+> >>> distro might be something useful
+> >>
+> >> I've been thinking about this a bit and at least at the high level there
+> >> is an argument for making it easy to opt out of a big class of host
+> >> tools, on a modern distro and trade reprodicibility / reliability for
+> >> faster initial build times.  And on the flip side, opt out of a bit more
+> >> of our host tool dependencies.
+> >
+> > This is what ASSUME_PROVIDED is there for :)
 > 
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->   Branch: dvhart/doc
->   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dvhart/doc
-> 
-> Thanks,
->     Darren Hart <dvhart@linux.intel.com>
-> 
-> Darren Hart (1):
->   bitbake docs: use dblatex to build the pdf bitbake manual
-> 
->  bitbake/doc/manual/Makefile |    2 +-
->  1 files changed, 1 insertions(+), 1 deletions(-)
-> 
-> Fix [BUGID #593]
-> 
-> The current manual build fails for printing formats which use latex as an
-> intermediate format. This bug has been reported in multiple locations and I
-> haven't found a solution posted to any of them.
-> 
-> Using --with-dblatex uses dblatex to make the conversion and successfully
-> generates the pdf. It adds a dependency on dblatex and its dependencies.
-> 
-> Signed-off-by: Darren Hart <dvhart@linux.intel.com>
-> CC: Joshua Lock <josh@linux.intel.com>
+> Well yes.  But it'd be nice if we had a few helpers so you could say:
+> ASSUME_PROVIDED += "${SCM_FETCH_TOOLS} ${DOCUMENTATION_GENERATION_TOOLS} 
+> ..."
+> and so forth.
 
-With this patch and dblatex installed I am able to build the BitBake
-manual.
+We need to user to be very clearly aware of what they're adding IMO so
+I'd prefer maybe just some commented out lines such as:
 
-Signed-off-by: Joshua Lock <josh@linux.intel.com>
+# Uncomment this if you want to use the system provided scm utilities
+# instead of having the system build them
+#ASSUME_PROVIDED += "git-native svn-native"
+
+I'm actually thinking about a local.conf.sample.advanced file where we
+list a load of things like this. This means we can keep
+local.conf.sample simple (the things they probably *need* to look at)
+yet still show users some of the other more advanced options.
 
 Cheers,
-Joshua
--- 
-Joshua Lock
-        Yocto Build System Monkey
-        Intel Open Source Technology Centre
+
+Richard
 
 
