@@ -1,39 +1,39 @@
 Return-Path: <embedded.yogesh@gmail.com>
-Received: from mail-fx0-f48.google.com (mail-fx0-f48.google.com
-	[209.85.161.48])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9B1E64C804D4
-	for <poky@yoctoproject.org>; Sun, 13 Mar 2011 23:03:55 -0500 (CDT)
+Received: from mail-pw0-f48.google.com (mail-pw0-f48.google.com
+	[209.85.160.48])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 1660D4C804E4
+	for <poky@yoctoproject.org>; Mon, 14 Mar 2011 00:28:10 -0500 (CDT)
 Authentication-Results: mx1.pokylinux.org; dkim=pass
 	(1024-bit key; insecure key) header.i=@gmail.com;
 	x-dkim-adsp=none (insecure policy)
-Received: by fxm7 with SMTP id 7so3377152fxm.35
-	for <poky@yoctoproject.org>; Sun, 13 Mar 2011 21:03:54 -0700 (PDT)
+Received: by pwi14 with SMTP id 14so1093889pwi.35
+	for <poky@yoctoproject.org>; Sun, 13 Mar 2011 22:28:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:in-reply-to:references:date
-	:message-id:subject:from:to:cc:content-type;
-	bh=Y8wyd8FTVj2NOAqayenqqOrIO7ie+FzruWX/gOBLIg8=;
-	b=FMIQX191+S5dFuZq3YCNIxzha0G5mzad2+OO8hEKakWi1GmG/4KeVOR4KFivBbalcj
-	yec52Jaaly24AweruVj1/77OfKJh0cMGKEtNNW2zOIOx+5qnL9ZUbSWtRQCfrfXG6myO
-	Q8KEabaNQn5ebSmix9oDfoj0WAN4kdSFHpilk=
+	h=domainkey-signature:message-id:date:from:user-agent:mime-version:to
+	:subject:content-type;
+	bh=QGq6LxmGE7Z6ah2FxewUZf/EogjlQaZGq3v4Q3WWcdo=;
+	b=D5M5b4jkT6UDnfIJOBDk/Oa/dX3oTXmp4WSQVC+wrSECKfDDLGIOKKkqpNkaYobjNI
+	GDwUlnd9ZAFK4Wjxmi6aY0w3uc83ej0Igy7sAH7atIrbjlyumcR1fL4pk//9OHnj1fAh
+	PLjccRP8F2NvL/mGhexAzJom5PrET0Iu0dEEE=
 DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type;
-	b=JNzC0lsBXjOEvL5/9IoxjBPe8KlmPtM0jhoDQy9qBbsx1yDpGG7U0CFkUmnsBrjojk
-	3qW5hwBWs+InPUYPoUM0eMFvzcu6cX/5RhQIzaYm3zYeHNaLRj153F9PRxffo3KIHL0I
-	ukxsMwr8NRawEGTAaNzm6FSJBA3kZZOcfEl4s=
+	h=message-id:date:from:user-agent:mime-version:to:subject
+	:content-type;
+	b=xkIx+xF2IQTR+IRaNRIBi10N63fANTGJku1dACVIIpH0yRqV1wX5ut35iezy1uyz4F
+	NtzHk91bQf2x/UqPLbRY7p1+d0Z+oRddvyWGU7TAIj1xRNPUZFeUIXnHNm5lcuIPib52
+	fFw/+REwLXqUzJOfxHMwBdG4kAF3kD17psklE=
+Received: by 10.142.99.11 with SMTP id w11mr9867945wfb.436.1300080489578;
+	Sun, 13 Mar 2011 22:28:09 -0700 (PDT)
+Received: from [192.168.11.118] ([115.111.25.162])
+	by mx.google.com with ESMTPS id w32sm9750503wfh.19.2011.03.13.22.28.06
+	(version=SSLv3 cipher=OTHER); Sun, 13 Mar 2011 22:28:08 -0700 (PDT)
+Message-ID: <4D7DA763.7030907@gmail.com>
+Date: Mon, 14 Mar 2011 10:58:03 +0530
+From: "embedded.yogesh" <embedded.yogesh@gmail.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.15pre) Gecko/20110207 Shredder/3.1.9pre
 MIME-Version: 1.0
-Received: by 10.223.102.129 with SMTP id g1mr4393886fao.3.1300075434458; Sun,
-	13 Mar 2011 21:03:54 -0700 (PDT)
-Received: by 10.223.108.140 with HTTP; Sun, 13 Mar 2011 21:03:54 -0700 (PDT)
-In-Reply-To: <4D7CE780.7070704@mlbassoc.com>
-References: <4D7C7897.2040702@gmail.com>
-	<4D7CE780.7070704@mlbassoc.com>
-Date: Mon, 14 Mar 2011 09:33:54 +0530
-Message-ID: <AANLkTi=OTMB--JqGuTB8PHAOWejDq8VGwX7zM79UDkvt@mail.gmail.com>
-From: yogesh lal <embedded.yogesh@gmail.com>
-To: Gary Thomas <gary@mlbassoc.com>
-Cc: poky@yoctoproject.org
-Subject: Re: unpacking of archive failed
+To: poky@yoctoproject.org
+Subject: Problem while generating rootfs with package_ipk
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -45,510 +45,112 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 Mar 2011 04:03:56 -0000
-X-Groupsio-MsgNum: 4476
-Content-Type: multipart/mixed; boundary=20cf30433fe673c2ad049e69668b
+X-List-Received-Date: Mon, 14 Mar 2011 05:28:10 -0000
+Content-Type: multipart/alternative;
+	boundary="------------010804000704020706010408"
 
---20cf30433fe673c2ad049e69668b
-Content-Type: multipart/alternative; boundary=20cf30433fe673c261049e696689
-
---20cf30433fe673c261049e696689
-Content-Type: text/plain; charset=ISO-8859-1
+--------------010804000704020706010408
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
 Hi,
 
-1 >> MACHINE ?= "atom-pc"
+While generating rootfs with
 
-2 >> I have my own recipe file , some thing like below :-
+MACHINE ?= "atom-pc"
+/PACKAGE_CLASSES ?= "package_ipk"/
+Host machine "Linux xxx-desktop 2.6.32-28-generic-pae #55-Ubuntu SMP Mon 
+Jan 10 22:34:08 UTC 2011 i686 GNU/Linux"
 
-Recipe 1 :
-"require recipes-core/images/poky-image-minimal.bb
-IMAGE_INSTALL += "psplash....... and so on"
+Got following error :-
 
-Recipe 2:
-DESCRIPTION = "Bootable Live Image"
-require recipes-core/images/poky-image-live.inc
-LABELS += "boot install"
-ROOTFS = "${DEPLOY_DIR_IMAGE}/recipe1-${MACHINE}.ext3"
-LICENSE = "MIT"
-do_bootimg[depends] += "recipe1:do_rootfs"
+| Configuring xhost.
 
-And then I am executing bitbake for "Recipe 2"
+| Configuring wireless-tools.
 
-These recipe  1 & 2 are like poky-image-minimal.bb and
-poky-image-minimal-live.bb respectively.
+| Configuring libxss1.
 
-3 >> And my host details are
-      "2.6.35-22-generic #33-Ubuntu SMP Sun Sep 19 20:32:27 UTC 2010 x86_64
-GNU/Linux" ( got by uname -a command )
+| Collected errors:
+
+|  * extract_archive: Cannot create symlink from ./var/log to 'volatile/log': File exists.
+
+|  * extract_archive: Cannot create symlink from ./var/cache to 'volatile/cache': File exists.
+
+|  * extract_archive: Cannot create symlink from ./var/run to 'volatile/run': File exists.
+
+| + '[' '!' -z '' ']'
+
+| + export D=/home/ylal/logi/poky/build/tmp/work/atom-pc-poky-linux/poky-image-minimal-logi-1.0-r0/rootfs
+
+| + D=/home/ylal/logi/poky/build/tmp/work/atom-pc-poky-linux/poky-image-minimal-logi-1.0-r0/rootfs
+
+| + export OFFLINE_ROOT=/home/ylal/logi/poky-chrome/build/tmp/work/atom-pc-poky-linux/poky-image-minimal-logi-1.0-r0/rootfs
+
+| + OFFLINE_ROOT=/home/ylal/logi/poky/build/tmp/work/atom-pc-poky-linux/poky-image-minimal-logi-1.0-r0/rootfs
+
+| + export IPKG_OFFLINE_ROOT=/home/ylal/logi/poky/build/tmp/work/atom-pc-poky-linux/poky-image-minimal-logi-1.0-r0/rootfs
+
+| + IPKG_OFFLINE_ROOT=/home/ylal/logi/poky/build/tmp/work/atom-pc-poky-linux/poky-image-minimal-logi-1.0-r0/rootfs
+
+| + export OPKG_OFFLINE_ROOT=/home/ylal/logi/poky/build/tmp/work/atom-pc-poky-linux/poky-image-minimal-logi-1.0-r0/rootfs
+
+| + OPKG_OFFLINE_ROOT=/home/ylal/logi/poky/build/tmp/work/atom-pc-poky-linux/poky-image-minimal-logi-1.0-r0/rootfs
+
+| + ipk_insert_feed_uris
+
+| + echo 'Building from feeds activated!'
+
+| Building from feeds activated!
 
 
-Error log is as follows :-
-
-NOTE: Running task 3932 of 3953
-(ID: 106, virtual:native:/home/xxx/poky/meta/recipes-devtools/opkg-utils/
-opkg-utils_svn.bb, do_package_write)
-
-ERROR: Task failed:
-('function do_rootfs failed',
-'/home/xxx/poky/build/tmp/work/atom-pc-poky-linux/poky-image-minimal-recipe1-1.0-r0/temp/log.do_rootfs.9024')
-
-ERROR: Logfile of failure stored in
-\:
-/home/xxx/poky/build/tmp/work/atom-pc-poky-linux/poky-image-minimal-recipe1-1.0-r0/temp/log.do_rootfs.9024
-
-Also attaching my log file please have a look on it :)
-
-
-Thanks & Regards
+Thanks
 Yogesh
 
-
-On Sun, Mar 13, 2011 at 9:19 PM, Gary Thomas <gary@mlbassoc.com> wrote:
-
-> On 03/13/2011 12:56 AM, embedded.yogesh wrote:
->
->> Hi,
->>
->> I am getting following error again and again, can any one guide how to
->> resolve this .
->>
->> "error: unpacking of archive failed on file /var/cache: cpio: rename
->> failed - Inappropriate ioctl for device"
->>
->
-> More details needed.
->  * What's the target MACHINE
->  * What recipe are you trying to build?
->  * What is your host [build] computer (OS, etc)?
->
-> Also posting the appropriate log files (e.g. log.do_unpack from the failed
-> recipe) to postbin.com will help a lot.
->
-> --
-> ------------------------------------------------------------
-> Gary Thomas                 |  Consulting for the
-> MLB Associates              |    Embedded world
-> ------------------------------------------------------------
->
-
---20cf30433fe673c261049e696689
+--------------010804000704020706010408
 Content-Type: text/html; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
 
-Hi,<div><br></div><div>1 &gt;&gt; MACHINE ?=3D &quot;atom-pc&quot;</div><di=
-v><br></div><div>2 &gt;&gt; I have my own recipe file , some thing like bel=
-ow :-</div><div><br></div><div>Recipe 1 :</div><div><div>&quot;require reci=
-pes-core/images/<a href=3D"http://poky-image-minimal.bb">poky-image-minimal=
-.bb</a></div>
-<div>IMAGE_INSTALL +=3D &quot;psplash....... and so on&quot;</div></div><di=
-v><br></div><div>Recipe 2:</div><div><div>DESCRIPTION =3D &quot;Bootable Li=
-ve Image&quot;</div><div>require recipes-core/images/poky-image-live.inc</d=
-iv>
-<div>LABELS +=3D &quot;boot install&quot;</div><div>ROOTFS =3D &quot;${DEPL=
-OY_DIR_IMAGE}/recipe1-${MACHINE}.ext3&quot;</div><div>LICENSE =3D &quot;MIT=
-&quot;</div><div>do_bootimg[depends] +=3D &quot;recipe1:do_rootfs&quot;</di=
-v></div>
-<div><br></div><div>And then I am executing bitbake for &quot;Recipe 2&quot=
-;</div><div><br></div><div>These recipe =A01 &amp; 2 are like=A0<a href=3D"=
-http://poky-image-minimal.bb">poky-image-minimal.bb</a> and <a href=3D"http=
-://poky-image-minimal-live.bb">poky-image-minimal-live.bb</a> respectively.=
-</div>
-<div><br></div><div>3 &gt;&gt; And my host details are =A0</div><div>=A0=A0=
- =A0 =A0&quot;2.6.35-22-generic #33-Ubuntu SMP Sun Sep 19 20:32:27 UTC 2010=
- x86_64 GNU/Linux&quot; ( got by uname -a command )</div><div><br></div><di=
-v><br>
-</div><div>Error log is as follows :-</div><div><div><br></div><div>NOTE: R=
-unning task 3932 of 3953=A0</div><div>(ID: 106, virtual:native:/home/xxx/po=
-ky/meta/recipes-devtools/opkg-utils/<a href=3D"http://opkg-utils_svn.bb">op=
-kg-utils_svn.bb</a>, do_package_write)</div>
-<div><br></div><div>ERROR: Task failed:=A0</div><div>(&#39;function do_root=
-fs failed&#39;, &#39;/home/xxx/poky/build/tmp/work/atom-pc-poky-linux/poky-=
-image-minimal-recipe1-1.0-r0/temp/log.do_rootfs.9024&#39;)</div><div><br>
-</div><div>ERROR: Logfile of failure stored in</div><div>\: /home/xxx/poky/=
-build/tmp/work/atom-pc-poky-linux/poky-image-minimal-recipe1-1.0-r0/temp/lo=
-g.do_rootfs.9024</div></div><div><br></div><div>Also attaching my log file =
-please have a look on it :)</div>
-<div><br></div><div><br></div><div>Thanks &amp; Regards</div><div>Yogesh</d=
-iv><div><br></div><div><br><div class=3D"gmail_quote">On Sun, Mar 13, 2011 =
-at 9:19 PM, Gary Thomas <span dir=3D"ltr">&lt;<a href=3D"mailto:gary@mlbass=
-oc.com">gary@mlbassoc.com</a>&gt;</span> wrote:<br>
-<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
-x #ccc solid;padding-left:1ex;"><div><div></div><div class=3D"h5">On 03/13/=
-2011 12:56 AM, embedded.yogesh wrote:<br>
-<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
-x #ccc solid;padding-left:1ex">
-Hi,<br>
-<br>
-I am getting following error again and again, can any one guide how to reso=
-lve this .<br>
-<br>
-&quot;error: unpacking of archive failed on file /var/cache: cpio: rename f=
-ailed - Inappropriate ioctl for device&quot;<br>
-</blockquote>
-<br></div></div>
-More details needed.<br>
- =A0* What&#39;s the target MACHINE<br>
- =A0* What recipe are you trying to build?<br>
- =A0* What is your host [build] computer (OS, etc)?<br>
-<br>
-Also posting the appropriate log files (e.g. log.do_unpack from the failed<=
-br>
-recipe) to <a href=3D"http://postbin.com" target=3D"_blank">postbin.com</a>=
- will help a lot.<br><font color=3D"#888888">
-<br>
--- <br>
-------------------------------------------------------------<br>
-Gary Thomas =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 | =A0Consulting for the<br>
-MLB Associates =A0 =A0 =A0 =A0 =A0 =A0 =A0| =A0 =A0Embedded world<br>
-------------------------------------------------------------<br>
-</font></blockquote></div><br></div>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
 
---20cf30433fe673c261049e696689--
+    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+  </head>
+  <body text="#000000" bgcolor="#ffffff">
+    Hi,<br>
+    <br>
+    While generating rootfs with <br>
+    <br>
+    MACHINE ?= "atom-pc"<br>
+    <i>PACKAGE_CLASSES ?= "package_ipk"</i><br>
+    Host machine "Linux xxx-desktop 2.6.32-28-generic-pae #55-Ubuntu SMP
+    Mon Jan 10 22:34:08 UTC 2011 i686 GNU/Linux"<br>
+    <br>
+    Got following error :-<br>
+    <br>
+    <pre>| Configuring xhost.</pre>
+    <pre>| Configuring wireless-tools.</pre>
+    <pre>| Configuring libxss1.</pre>
+    <pre>| Collected errors:</pre>
+    <pre>|&nbsp; * extract_archive: Cannot create symlink from ./var/log to 'volatile/log': File exists.</pre>
+    <pre>|&nbsp; * extract_archive: Cannot create symlink from ./var/cache to 'volatile/cache': File exists.</pre>
+    <pre>|&nbsp; * extract_archive: Cannot create symlink from ./var/run to 'volatile/run': File exists.</pre>
+    <pre>| + '[' '!' -z '' ']'</pre>
+    <pre>| + export D=/home/ylal/logi/poky/build/tmp/work/atom-pc-poky-linux/poky-image-minimal-logi-1.0-r0/rootfs</pre>
+    <pre>| + D=/home/ylal/logi/poky/build/tmp/work/atom-pc-poky-linux/poky-image-minimal-logi-1.0-r0/rootfs</pre>
+    <pre>| + export OFFLINE_ROOT=/home/ylal/logi/poky-chrome/build/tmp/work/atom-pc-poky-linux/poky-image-minimal-logi-1.0-r0/rootfs</pre>
+    <pre>| + OFFLINE_ROOT=/home/ylal/logi/poky/build/tmp/work/atom-pc-poky-linux/poky-image-minimal-logi-1.0-r0/rootfs</pre>
+    <pre>| + export IPKG_OFFLINE_ROOT=/home/ylal/logi/poky/build/tmp/work/atom-pc-poky-linux/poky-image-minimal-logi-1.0-r0/rootfs</pre>
+    <pre>| + IPKG_OFFLINE_ROOT=/home/ylal/logi/poky/build/tmp/work/atom-pc-poky-linux/poky-image-minimal-logi-1.0-r0/rootfs</pre>
+    <pre>| + export OPKG_OFFLINE_ROOT=/home/ylal/logi/poky/build/tmp/work/atom-pc-poky-linux/poky-image-minimal-logi-1.0-r0/rootfs</pre>
+    <pre>| + OPKG_OFFLINE_ROOT=/home/ylal/logi/poky/build/tmp/work/atom-pc-poky-linux/poky-image-minimal-logi-1.0-r0/rootfs</pre>
+    <pre>| + ipk_insert_feed_uris</pre>
+    <pre>| + echo 'Building from feeds activated!'</pre>
+    <pre>| Building from feeds activated!</pre>
+    <br>
+    Thanks<br>
+    Yogesh<br>
+  </body>
+</html>
 
---20cf30433fe673c2ad049e69668b
-Content-Type: application/octet-stream; name="log.do_rootfs.9024"
-Content-Disposition: attachment; filename="log.do_rootfs.9024"
-Content-Transfer-Encoding: base64
-X-Attachment-Id: f_gl8va0490
-
-KyBybSAtcmYgL2hvbWUveHh4L3Bva3kvYnVpbGQvdG1wL3dvcmsvYXRvbS1wYy1wb2t5LWxpbnV4
-L3Bva3ktaW1hZ2UtbWluaW1hbC1yZWNpcGUxLTEuMC1yMC9yb290ZnMKKyBta2RpciAtcCAvaG9t
-ZS94eHgvcG9reS9idWlsZC90bXAvd29yay9hdG9tLXBjLXBva3ktbGludXgvcG9reS1pbWFnZS1t
-aW5pbWFsLXJlY2lwZTEtMS4wLXIwL3Jvb3RmcworIG1rZGlyIC1wIC9ob21lL3h4eC9wb2t5L2J1
-aWxkL3RtcC9kZXBsb3kvaW1hZ2VzCisgJ1snIDAgJyE9JyAxICddJworIGZvciBkZXZ0YWJsZSBp
-biAvaG9tZS94eHgvcG9reS9tZXRhL2ZpbGVzL2RldmljZV90YWJsZS1taW5pbWFsLnR4dAorIG1h
-a2VkZXZzIC1yIC9ob21lL3h4eC9wb2t5L2J1aWxkL3RtcC93b3JrL2F0b20tcGMtcG9reS1saW51
-eC9wb2t5LWltYWdlLW1pbmltYWwtcmVjaXBlMS0xLjAtcjAvcm9vdGZzIC1EIC9ob21lL3h4eC9w
-b2t5L21ldGEvZmlsZXMvZGV2aWNlX3RhYmxlLW1pbmltYWwudHh0Cisgcm9vdGZzX3JwbV9kb19y
-b290ZnMKKyBzZXQgK3gKR2VuZXJhdGluZyBzb2x2ZSBkYiBmb3IgL2hvbWUveHh4L3Bva3kvYnVp
-bGQvdG1wL2RlcGxveS9ycG0vYWxsLi4uCiAgIHRvdGFsOiAgICAgICAgICAgICAgIDEgICAgICAw
-LjAwMDAwMCBNQiAgICAgIDAuNDE4MDYzIHNlY3MKICAgb3JkZXI6ICAgICAgICAgICAgICAgMSAg
-ICAgIDAuMDAwMDAwIE1CICAgICAgMC4wMDY3MzAgc2VjcwogICBmaW5nZXJwcmludDogICAgICAg
-IDMyICAgICAgMC4wMDAzODYgTUIgICAgICAwLjIwNTM5MiBzZWNzCiAgIGluc3RhbGw6ICAgICAg
-ICAgICAgMjMgICAgICAwLjAwMDAwMCBNQiAgICAgIDAuMDE1ODk0IHNlY3MKICAgZGJhZGQ6ICAg
-ICAgICAgICAgICAyMyAgICAgIDAuMDAwMDAwIE1CICAgICAgMC4wMDc0ODggc2VjcwogICBkYmdl
-dDogICAgICAgICAgICAgNTAxICAgICAgMC4wMDIzNjAgTUIgICAgICAwLjAwMDc1OCBzZWNzCiAg
-IGRicHV0OiAgICAgICAgICAgICAzMDggICAgICAwLjA2MTAxMiBNQiAgICAgIDAuMDAwODc3IHNl
-Y3MKICAgcmVhZGhkcjogICAgICAgICAgIDIzMSAgICAgIDAuMTM1MzEyIE1CICAgICAgMC4xMjMy
-OTggc2VjcwogICBoZHJsb2FkOiAgICAgICAgICAxNDI2ICAgICAgMS43NDAzODQgTUIgICAgICAw
-LjAwNzYyMiBzZWNzCiAgIGhkcmdldDogICAgICAgICAgMjQzOTcgICAgICAwLjAwMDAwMCBNQiAg
-ICAgIDAuMDI2OTQ5IHNlY3MKR2VuZXJhdGluZyBzb2x2ZSBkYiBmb3IgL2hvbWUveHh4L3Bva3kv
-YnVpbGQvdG1wL2RlcGxveS9ycG0vY29yZTIuLi4KICAgdG90YWw6ICAgICAgICAgICAgICAgMSAg
-ICAgIDAuMDAwMDAwIE1CICAgICA1Ni4zOTYyNDYgc2VjcwogICBvcmRlcjogICAgICAgICAgICAg
-ICAxICAgICAgMC4wMDAwMDAgTUIgICAgICAzLjY5ODg2NiBzZWNzCiAgIGZpbmdlcnByaW50OiAg
-ICAgMTA0NjEgICAgICAwLjEzMzYyNiBNQiAgICAgIDMuMzY1MTE1IHNlY3MKICAgaW5zdGFsbDog
-ICAgICAgICAgNTM4OCAgICAgIDAuMDAwMDAwIE1CICAgICAgNy40NzY5MDEgc2VjcwogICBkYmFk
-ZDogICAgICAgICAgICA1Mzg4ICAgICAgMC4wMDAwMDAgTUIgICAgICAyLjM1MTMyNSBzZWNzCiAg
-IGRiZ2V0OiAgICAgICAgICAxNjY1MDIgICAgMTk5LjQ5NjkyOCBNQiAgICAgIDAuNTM1MDY4IHNl
-Y3MKICAgZGJwdXQ6ICAgICAgICAgICA5OTY4OSAgICAyMTcuMTg4Mjk2IE1CICAgICAgMC42NTYy
-MDQgc2VjcwogICByZWFkaGRyOiAgICAgICAgIDUzODgxICAgICAzOC4wNjE3OTQgTUIgICAgIDMx
-LjMyMDQwNSBzZWNzCiAgIGhkcmxvYWQ6ICAgICAgNzI2MDA2MDYgIDg4OTg3LjMwOTc4NSBNQiAg
-ICA0NDguNzk0NzA1IHNlY3MKICAgaGRyZ2V0OiAgICAgICAxNDMxOTcyNzQ0ICAgICAgMC4wMDAw
-MDAgTUIgICAxNjczLjAxNzkyNiBzZWNzCkdlbmVyYXRpbmcgc29sdmUgZGIgZm9yIC9ob21lL3h4
-eC9wb2t5L2J1aWxkL3RtcC9kZXBsb3kvcnBtL2F0b20tcGMuLi4KICAgdG90YWw6ICAgICAgICAg
-ICAgICAgMSAgICAgIDAuMDAwMDAwIE1CICAgICAgMy40NzI5Njkgc2VjcwogICBvcmRlcjogICAg
-ICAgICAgICAgICAxICAgICAgMC4wMDAwMDAgTUIgICAgICAwLjE4MDY0MCBzZWNzCiAgIGZpbmdl
-cnByaW50OiAgICAgICA1MzQgICAgICAwLjAwNzI4NiBNQiAgICAgIDAuMTkzOTQ2IHNlY3MKICAg
-aW5zdGFsbDogICAgICAgICAgIDI3NSAgICAgIDAuMDAwMDAwIE1CICAgICAgMC4yNDY1NDQgc2Vj
-cwogICBkYmFkZDogICAgICAgICAgICAgMjc1ICAgICAgMC4wMDAwMDAgTUIgICAgICAwLjA4NTcz
-OSBzZWNzCiAgIGRiZ2V0OiAgICAgICAgICAgIDg2NjUgICAgICAxLjEyODMwNCBNQiAgICAgIDAu
-MDI0NjAxIHNlY3MKICAgZGJwdXQ6ICAgICAgICAgICAgNTAyMiAgICAgIDIuMjEwNTEyIE1CICAg
-ICAgMC4wMTc4OTYgc2VjcwogICByZWFkaGRyOiAgICAgICAgICAyNzUxICAgICAgMi4yNjA5MDQg
-TUIgICAgICAyLjYwNTg5NCBzZWNzCiAgIGhkcmxvYWQ6ICAgICAgICAxOTAzMDAgICAgMjcwLjEw
-NjQ2OCBNQiAgICAgIDAuOTYyMzU4IHNlY3MKICAgaGRyZ2V0OiAgICAgICAgMzc5NTMzOSAgICAg
-IDAuMDAwMDAwIE1CICAgICAgNC4zNTM2NTMgc2VjcwpQcm9jZXNzaW5nIGtleXV0aWxzLi4uClBy
-b2Nlc3NpbmcgeGY4Ni1pbnB1dC1tb3VzZS4uLgpQcm9jZXNzaW5nIHBzcGxhc2guLi4KUHJvY2Vz
-c2luZyBnc3RyZWFtZXIuLi4KUHJvY2Vzc2luZyBzaGFyZWQtbWltZS1pbmZvLi4uClByb2Nlc3Np
-bmcgbGlidGFzbjEtMy4uLgpQcm9jZXNzaW5nIHhob3N0Li4uClByb2Nlc3Npbmcgb3JiaXQyLi4u
-ClByb2Nlc3NpbmcgbGlieGN1cnNvcjEuLi4KUHJvY2Vzc2luZyBsaWJlcmF0aW9uLWZvbnRzLi4u
-ClByb2Nlc3NpbmcgbGlieGRtY3A2Li4uClByb2Nlc3NpbmcgbGlieG11Ni4uLgpQcm9jZXNzaW5n
-IGxpYnhjYjEuLi4KUHJvY2Vzc2luZyB4YXV0aC4uLgpQcm9jZXNzaW5nIGxpYmZvbnRjb25maWcx
-Li4uClByb2Nlc3NpbmcgcnBtLi4uClByb2Nlc3NpbmcgcGFuZ28uLi4KUHJvY2Vzc2luZyBsaWJk
-YnVzLWdsaWItMS0yLi4uClByb2Nlc3NpbmcgbGlieGF1Ni4uLgpQcm9jZXNzaW5nIGJ6aXAyLi4u
-ClByb2Nlc3NpbmcgY3Vwcy4uLgpQcm9jZXNzaW5nIGdzdC1wbHVnaW5zLWdvb2QuLi4KUHJvY2Vz
-c2luZyBsaWJnY3J5cHQxMS4uLgpQcm9jZXNzaW5nIGxpYnhpNi4uLgpQcm9jZXNzaW5nIGxpYnBj
-cmUwLi4uClByb2Nlc3NpbmcgeGY4Ni12aWRlby1pbnRlbC4uLgpQcm9jZXNzaW5nIGxpYmdwZy1l
-cnJvcjAuLi4KUHJvY2Vzc2luZyBsaWJ4c3MxLi4uClByb2Nlc3NpbmcgZHJvcGJlYXIuLi4KUHJv
-Y2Vzc2luZyB4c2VydmVyLXhmODYtZHJpLWxpdGUuLi4KUHJvY2Vzc2luZyBsaWJ4dDYuLi4KUHJv
-Y2Vzc2luZyBsaWJ4aW5lcmFtYTEuLi4KUHJvY2Vzc2luZyBzcWxpdGUzLi4uClByb2Nlc3Npbmcg
-Z3RrLWVuZ2luZXMuLi4KUHJvY2Vzc2luZyBsaWJ4ZGFtYWdlMS4uLgpQcm9jZXNzaW5nIGljdS4u
-LgpQcm9jZXNzaW5nIGxpYnBpeG1hbi0xLTAuLi4KUHJvY2Vzc2luZyB4dGVybS4uLgpQcm9jZXNz
-aW5nIGxpYmV4cGF0MS4uLgpQcm9jZXNzaW5nIHhmODYtaW5wdXQta2V5Ym9hcmQuLi4KUHJvY2Vz
-c2luZyBsaWJ4Zm9udDEuLi4KUHJvY2Vzc2luZyBmbHV4Ym94Li4uClByb2Nlc3NpbmcgenlwcGVy
-Li4uClByb2Nlc3NpbmcgeHJhbmRyLi4uClByb2Nlc3NpbmcgbGlibm90aWZ5Li4uClByb2Nlc3Np
-bmcgeGNiLXV0aWwuLi4KUHJvY2Vzc2luZyBsaWJnbnV0bHMyNi4uLgpQcm9jZXNzaW5nIHRhc2st
-cG9reS1ib290Li4uClByb2Nlc3NpbmcgbGlieGZpeGVzMy4uLgpQcm9jZXNzaW5nIGdub21lLWtl
-eXJpbmcuLi4KUHJvY2Vzc2luZyBsaWJhdGstMS4wLTAuLi4KUHJvY2Vzc2luZyBsaWJ3aW5kb3dz
-d203Li4uClByb2Nlc3NpbmcgZGJ1cy0xLi4uClByb2Nlc3NpbmcgbGlieDExLTYuLi4KUHJvY2Vz
-c2luZyBnc3QtZmZtcGVnLi4uClByb2Nlc3Npbmcgb3BlbnNzbC4uLgpQcm9jZXNzaW5nIHhzZXJ2
-ZXIteGY4Ni1jb25maWcuLi4KUHJvY2Vzc2luZyBsaWJ4Y29tcG9zaXRlMS4uLgpQcm9jZXNzaW5n
-IGxpYnh0c3Q2Li4uClByb2Nlc3NpbmcgbW9kdWxlLWluaXQtdG9vbHMuLi4KUHJvY2Vzc2luZyBs
-aWJ4cmVuZGVyMS4uLgpQcm9jZXNzaW5nIGFsc2EtbGliLi4uClByb2Nlc3NpbmcgYXZhaGkuLi4K
-UHJvY2Vzc2luZyB4aW5pdC4uLgpNYW5pZmVzdDogL2hvbWUveHh4L3Bva3kvYnVpbGQvdG1wL3dv
-cmsvYXRvbS1wYy1wb2t5LWxpbnV4L3Bva3ktaW1hZ2UtbWluaW1hbC1yZWNpcGUxLTEuMC1yMC9y
-b290ZnMvaW5zdGFsbC9pbnN0YWxsLm1hbmlmZXN0CnJwbWRiOiBjb25maWd1cmVkIGVudmlyb25t
-ZW50IGZsYWdzIGluY29tcGF0aWJsZSB3aXRoIGV4aXN0aW5nIGVudmlyb25tZW50ClByZXBhcmlu
-Zy4uLiAgICAgICAgICAgICAgICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIwpsaWJnY2MxICAgICAgICAgICAgICAgICAgICAgIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKdGFzay1wb2t5LWJvb3QgICAgICAg
-ICAgICAgICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-CmxpYmM2ICAgICAgICAgICAgICAgICAgICAgICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIwpsaWJwYW0gICAgICAgICAgICAgICAgICAgICAgIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKcGFtLXBsdWdpbi1w
-ZXJtaXQgICAgICAgICAgICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjCmxpYnVkZXYwICAgICAgICAgICAgICAgICAgICAjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwpsaWJhdHRyMSAgICAgICAgICAgICAgICAg
-ICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKbGli
-YWNsMSAgICAgICAgICAgICAgICAgICAgICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjCnBhbS1wbHVnaW4td2FybiAgICAgICAgICAgICAjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwpwYW0tcGx1Z2luLWRlbnkg
-ICAgICAgICAgICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMKYXVnZWFzICAgICAgICAgICAgICAgICAgICAgICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCmxpYmlkbC0yLTAgICAgICAgICAgICAgICAgICAj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwpmb250Y29u
-ZmlnLXV0aWxzICAgICAgICAgICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMKbGlieGF1NiAgICAgICAgICAgICAgICAgICAgICMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCmxpYnoxICAgICAgICAgICAgICAg
-ICAgICAgICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IwpsaWJ4Y2IxICAgICAgICAgICAgICAgICAgICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKbGliZ2xpYi0yLjAtMCAgICAgICAgICAgICAgICMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCmxpYnN0ZGMrKzYg
-ICAgICAgICAgICAgICAgICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIwpsaWJleHBhdDEgICAgICAgICAgICAgICAgICAgIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKbGliZnJlZXR5cGU2ICAgICAgICAgICAg
-ICAgICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCmxp
-YnBuZzEyLTAgICAgICAgICAgICAgICAgICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIwpsaWJwaXhtYW4tMS0wICAgICAgICAgICAgICAgIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKbGliZ3BnLWVycm9yMCAg
-ICAgICAgICAgICAgICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjCmxpYmdjcnlwdDExICAgICAgICAgICAgICAgICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwpsaWJpY2U2ICAgICAgICAgICAgICAgICAgICAg
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKbGliaWN1
-ZGF0YTM2ICAgICAgICAgICAgICAgICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjCmxpYmljdXVjMzYgICAgICAgICAgICAgICAgICAjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwpsaWJ4bWwyICAgICAgICAgICAg
-ICAgICAgICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMKbGliaWN1aTE4bjM2ICAgICAgICAgICAgICAgICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCmxpYmF0ay0xLjAtMCAgICAgICAgICAgICAgICAjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwpsaWJ0YXNuMS0z
-ICAgICAgICAgICAgICAgICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMKbGliY3J5cHRvMC45LjggICAgICAgICAgICAgICMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCnhmODYtaW5wdXQtbW91c2UgICAgICAg
-ICAgICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwps
-aWJjdXBzMiAgICAgICAgICAgICAgICAgICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMKbGlieGRtY3A2ICAgICAgICAgICAgICAgICAgICMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCmxpYmRybTIgICAgICAg
-ICAgICAgICAgICAgICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIwpsaWJwY2lhY2Nlc3MwICAgICAgICAgICAgICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKbGlib2dnMCAgICAgICAgICAgICAgICAgICAg
-ICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCmxpYmpw
-ZWc4ICAgICAgICAgICAgICAgICAgICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIwpnbGliYy1nY29udi1pc284ODU5LTEgICAgICAgIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKbGliYmxraWQxICAgICAgICAg
-ICAgICAgICAgICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjCmxpYmF1Z2VhczAgICAgICAgICAgICAgICAgICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwpsaWJjdXBzaW1hZ2UgICAgICAgICAgICAgICAgIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKbGlidm9yYmlz
-ICAgICAgICAgICAgICAgICAgICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjCmxpYnNzbDAuOS44ICAgICAgICAgICAgICAgICAjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwpsaWJnbnV0bHMyNiAgICAgICAgICAg
-ICAgICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMK
-bGliY3VybDUgICAgICAgICAgICAgICAgICAgICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjCmxpYmljdXR1MzYgICAgICAgICAgICAgICAgICAjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwpsaWJpY3VpbzM2ICAg
-ICAgICAgICAgICAgICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMKbGlieGNiLXNobTAgICAgICAgICAgICAgICAgICMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCmxpYnhjYi1yZW5kZXIwICAgICAgICAgICAg
-ICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwpsaWJm
-b250ZW5jMSAgICAgICAgICAgICAgICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMKbGlieGZvbnQxICAgICAgICAgICAgICAgICAgICMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCmxpYnBjaTMgICAgICAgICAg
-ICAgICAgICAgICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIwplbGZ1dGlscyAgICAgICAgICAgICAgICAgICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKbGlicG9wdDAgICAgICAgICAgICAgICAgICAgICMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCmxpYnNxbGl0
-ZTMtMCAgICAgICAgICAgICAgICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIwpsaWJhc291bmQyICAgICAgICAgICAgICAgICAgIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKbGlidXNiLTEuMC0wICAgICAgICAg
-ICAgICAgICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-CmxpYnVzYi1jb21wYXQgICAgICAgICAgICAgICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIwpsaWJkYWVtb24wICAgICAgICAgICAgICAgICAgIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKbGliY2FwMiAgICAg
-ICAgICAgICAgICAgICAgICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjCmFsc2EtbGliICAgICAgICAgICAgICAgICAgICAjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwpzcWxpdGUzICAgICAgICAgICAgICAgICAg
-ICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKeHNl
-cnZlci14Zjg2LWRyaS1saXRlICAgICAgICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjCnhjYi11dGlsICAgICAgICAgICAgICAgICAgICAjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwpvcGVuc3NsICAgICAgICAg
-ICAgICAgICAgICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMKZ2xpYmMtZ2NvbnYgICAgICAgICAgICAgICAgICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCnhmODYtdmlkZW8taW50ZWwgICAgICAgICAgICAj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwp4Zjg2LWlu
-cHV0LWtleWJvYXJkICAgICAgICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMKdXBkYXRlLWFsdGVybmF0aXZlcy1jd29ydGggICMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCmxpYnBjcmUwICAgICAgICAgICAg
-ICAgICAgICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IwpndGstZW5naW5lcyAgICAgICAgICAgICAgICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKbmN1cnNlcyAgICAgICAgICAgICAgICAgICAgICMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCmxpYnJlYWRsaW5l
-NiAgICAgICAgICAgICAgICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIwp4a2V5Ym9hcmQtY29uZmlnICAgICAgICAgICAgIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKbGlieDExLTYgICAgICAgICAgICAgICAg
-ICAgICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCmxp
-YnhleHQ2ICAgICAgICAgICAgICAgICAgICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIwpsaWJ4cmVuZGVyMSAgICAgICAgICAgICAgICAgIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKbGlieGZpeGVzMyAgICAg
-ICAgICAgICAgICAgICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjCmxpYnhyYW5kcjIgICAgICAgICAgICAgICAgICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwpsaWJ4bXV1MSAgICAgICAgICAgICAgICAgICAg
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKbGlieHBt
-NCAgICAgICAgICAgICAgICAgICAgICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjCmxpYnhjdXJzb3IxICAgICAgICAgICAgICAgICAjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwpsaWJ4ZGFtYWdlMSAgICAgICAg
-ICAgICAgICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMKbGlieGNvbXBvc2l0ZTEgICAgICAgICAgICAgICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCmxpYnhpNiAgICAgICAgICAgICAgICAgICAgICAjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwpsaWJ4aW5lcmFt
-YTEgICAgICAgICAgICAgICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMKbGlieGtiZmlsZTEgICAgICAgICAgICAgICAgICMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCnBjaXV0aWxzLWlkcyAgICAgICAgICAg
-ICAgICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwp1
-c2J1dGlscy1pZHMgICAgICAgICAgICAgICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMKc2hhcmVkLW1pbWUtaW5mbyAgICAgICAgICAgICMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCnhrYmNvbXAgICAgICAg
-ICAgICAgICAgICAgICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIwpsaWJ4dHN0NiAgICAgICAgICAgICAgICAgICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKeGhvc3QgICAgICAgICAgICAgICAgICAgICAg
-ICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCnhhdXRo
-ICAgICAgICAgICAgICAgICAgICAgICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIwp4cmFuZHIgICAgICAgICAgICAgICAgICAgICAgIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKbGlieHNzMSAgICAgICAgICAg
-ICAgICAgICAgICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjCmxpYndpbmRvd3N3bTcgICAgICAgICAgICAgICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwp4aW5pdCAgICAgICAgICAgICAgICAgICAgICAgIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKb3JiaXQyICAg
-ICAgICAgICAgICAgICAgICAgICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjCmF1Z2Vhcy1sZW5zZXMgICAgICAgICAgICAgICAjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwphbHNhLWNvbmYtYmFzZSAgICAgICAg
-ICAgICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMK
-bGliZGJ1cy0xLTMgICAgICAgICAgICAgICAgICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjCmxpYmRidXMtZ2xpYi0xLTIgICAgICAgICAgICAjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwpsaWJoYWwxICAgICAg
-ICAgICAgICAgICAgICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMKbGliaGFsLXN0b3JhZ2UxICAgICAgICAgICAgICMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCmVnZ2RidXMgICAgICAgICAgICAgICAgICAg
-ICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwpsaWJn
-bm9tZS1rZXlyaW5nMCAgICAgICAgICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMKYnVzeWJveCAgICAgICAgICAgICAgICAgICAgICMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCm1vZHV0aWxzLWluaXRzY3Jp
-cHRzICAgICAgICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIwp0aW55bG9naW4gICAgICAgICAgICAgICAgICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKbGlibnNzLW1kbnMgICAgICAgICAgICAgICAgICMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCmxpYmF2YWhp
-LWNvbW1vbjMgICAgICAgICAgICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIwpwYW5nby1tb2R1bGUtYmFzaWMteCAgICAgICAgIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKbGliYXZhaGktY29yZTcgICAgICAg
-ICAgICAgICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-CnV0aWwtbGludXgtY2ZkaXNrICAgICAgICAgICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIwptb2R1bGUtaW5pdC10b29scyAgICAgICAgICAgIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKbW9kdWxlLWluaXQt
-dG9vbHMtZGVwbW9kICAgICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjCnV0aWwtbGludXgtbG9zZXR1cCAgICAgICAgICAjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwptYWtlZGV2cyAgICAgICAgICAgICAgICAg
-ICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKYnpp
-cDIgICAgICAgICAgICAgICAgICAgICAgICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjCmNvbnNvbGUtdG9vbHMgICAgICAgICAgICAgICAjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwpoYWwgICAgICAgICAgICAg
-ICAgICAgICAgICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMKZGJ1cy0xICAgICAgICAgICAgICAgICAgICAgICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCmxpYmVyYXRpb24tZm9udHMgICAgICAgICAgICAj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwpsaWJmb250
-Y29uZmlnMSAgICAgICAgICAgICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMKbGliY2Fpcm8yICAgICAgICAgICAgICAgICAgICMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCmxpYnhmdDIgICAgICAgICAgICAg
-ICAgICAgICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IwpwYW5nbyAgICAgICAgICAgICAgICAgICAgICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKaW5pdHNjcmlwdHMgICAgICAgICAgICAgICAgICMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCnBhbmdvLW1vZHVs
-ZS1iYXNpYy1mYyAgICAgICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIwpzeXN2aW5pdCAgICAgICAgICAgICAgICAgICAgIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKeG9yZy1taW5pbWFsLWZvbnRzICAgICAg
-ICAgICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCmdz
-dHJlYW1lciAgICAgICAgICAgICAgICAgICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIwp4c2VydmVyLXhmODYtY29uZmlnICAgICAgICAgIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKYmVlY3J5cHQgICAgICAg
-ICAgICAgICAgICAgICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjCnJwbSAgICAgICAgICAgICAgICAgICAgICAgICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwpjdXBzICAgICAgICAgICAgICAgICAgICAgICAg
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKdXRpbC1s
-aW51eC1uZy1yZWFkcHJvZmlsZSAgICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjCnV0aWwtbGludXgtc2ZkaXNrICAgICAgICAgICAjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwpsaWJ6eXBwICAgICAgICAgICAg
-ICAgICAgICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMKbGlicGFtLXJ1bnRpbWUgICAgICAgICAgICAgICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCnVkZXYtY2FjaGUgICAgICAgICAgICAgICAgICAjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwp1ZGV2ICAgICAg
-ICAgICAgICAgICAgICAgICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMKdWRldi1leHRyYWNvbmYgICAgICAgICAgICAgICMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCnBzcGxhc2ggICAgICAgICAgICAgICAg
-ICAgICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwpw
-cm9jcHMgICAgICAgICAgICAgICAgICAgICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMKenlwcGVyICAgICAgICAgICAgICAgICAgICAgICMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCnVwZGF0ZS1yYy5kICAg
-ICAgICAgICAgICAgICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIwphdmFoaS1kYWVtb24gICAgICAgICAgICAgICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKYmFzZS1wYXNzd2QgICAgICAgICAgICAgICAg
-ICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCmRyb3Bi
-ZWFyICAgICAgICAgICAgICAgICAgICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIwppY3UgICAgICAgICAgICAgICAgICAgICAgICAgIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKcGFtLXBsdWdpbi11bml4ICAg
-ICAgICAgICAgICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjCnNhdC1zb2x2ZXIgICAgICAgICAgICAgICAgICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwpnc3QtZmZtcGVnICAgICAgICAgICAgICAgICAgIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKc3lzdmluaXQt
-cGlkb2YgICAgICAgICAgICAgICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjCmZsdXhib3ggICAgICAgICAgICAgICAgICAgICAjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwprZXl1dGlscyAgICAgICAgICAgICAg
-ICAgICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMK
-c3lzdmluaXQtaW5pdHRhYiAgICAgICAgICAgICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjCmF2YWhpICAgICAgICAgICAgICAgICAgICAgICAjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwprZXltYXBzICAgICAg
-ICAgICAgICAgICAgICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMKbmV0YmFzZSAgICAgICAgICAgICAgICAgICAgICMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCnV0aWwtbGludXggICAgICAgICAgICAgICAg
-ICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwpsaWJz
-bTYgICAgICAgICAgICAgICAgICAgICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMKbGlieHQ2ICAgICAgICAgICAgICAgICAgICAgICMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCmxpYnhtdTYgICAgICAgICAg
-ICAgICAgICAgICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIwpnc3QtcGx1Z2lucy1nb29kICAgICAgICAgICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKYmFzZS1maWxlcyAgICAgICAgICAgICAgICAgICMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCmVycm9yOiB1
-bnBhY2tpbmcgb2YgYXJjaGl2ZSBmYWlsZWQgb24gZmlsZSAvdmFyL2NhY2hlOiBjcGlvOiByZW5h
-bWUgZmFpbGVkIC0gSW5hcHByb3ByaWF0ZSBpb2N0bCBmb3IgZGV2aWNlCmhhbC1pbmZvICAgICAg
-ICAgICAgICAgICAgICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIwpnbm9tZS1rZXlyaW5nICAgICAgICAgICAgICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKbGlieGF3Ny03ICAgICAgICAgICAgICAgICAg
-ICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCnV0aWwt
-bGludXgtZmRpc2sgICAgICAgICAgICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIwp1dGlsLWxpbnV4LW1vdW50ICAgICAgICAgICAgIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKeHRlcm0gICAgICAgICAgICAg
-ICAgICAgICAgICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjCnV0aWwtbGludXgtc3dhcG9ub2ZmICAgICAgICAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwp1dGlsLWxpbnV4LXVtb3VudCAgICAgICAgICAgIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKZ2RrLXBpeGJ1
-Zi1sb2FkZXItcG5nICAgICAgICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjCmdkay1waXhidWYtbG9hZGVyLWpwZWcgICAgICAjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwpndGsrICAgICAgICAgICAgICAgICAg
-ICAgICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMK
-Z2RrLXBpeGJ1Zi1sb2FkZXIteHBtICAgICAgICMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjCmxpYm5vdGlmeSAgICAgICAgICAgICAgICAgICAjIyMjIyMj
-IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIwpnZGstcGl4YnVmLWxv
-YWRlci1naWYgICAgICAgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
-IyMjIyMjIyMKRVJST1I6IFRhc2sgZmFpbGVkOiAoJ2Z1bmN0aW9uIGRvX3Jvb3RmcyBmYWlsZWQn
-LCAnL2hvbWUveHh4L3Bva3kvYnVpbGQvdG1wL3dvcmsvYXRvbS1wYy1wb2t5LWxpbnV4L3Bva3kt
-aW1hZ2UtbWluaW1hbC1yZWNpcGUxLTEuMC1yMC90ZW1wL2xvZy5kb19yb290ZnMuOTAyNCcpCg==
-
---20cf30433fe673c2ad049e69668b--
+--------------010804000704020706010408--
