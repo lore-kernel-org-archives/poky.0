@@ -1,27 +1,22 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 333D14C80AAB
-	for <poky@pokylinux.org>; Mon, 14 Mar 2011 18:27:20 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2ENRJIH009140
-	for <poky@pokylinux.org>; Mon, 14 Mar 2011 23:27:19 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP id 08666-08 for <poky@pokylinux.org>;
-	Mon, 14 Mar 2011 23:27:15 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2ENREgG009134
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO)
-	for <poky@pokylinux.org>; Mon, 14 Mar 2011 23:27:15 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: poky <poky@pokylinux.org>
-Date: Mon, 14 Mar 2011 23:27:08 +0000
-Message-ID: <1300145228.30423.777.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Subject: Post 1.0 Feature planning
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 7BD4D4C80AA8
+	for <poky@yoctoproject.org>; Mon, 14 Mar 2011 18:54:53 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 14 Mar 2011 16:54:52 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.62,319,1297065600"; d="scan'208";a="612939100"
+Received: from doubt.jf.intel.com (HELO localhost) ([10.7.199.155])
+	by orsmga002.jf.intel.com with ESMTP; 14 Mar 2011 16:54:44 -0700
+Message-Id: <cc3e525fdb480d6b86637afa7b4c8d947d32304b.1300146920.git.dvhart@linux.intel.com>
+In-Reply-To: <cover.1300146920.git.dvhart@linux.intel.com>
+References: <cover.1300146920.git.dvhart@linux.intel.com>
+Old-Date: Mon, 14 Mar 2011 16:44:06 -0700
+Date: Mon, 14 Mar 2011 16:54:37 -0700
+To: poky@yoctoproject.org, bruce.ashfield@windriver.com,
+	jessica.zhang@intel.com
+From: Darren Hart <dvhart@linux.intel.com>
+Subject: [PATCH] qemux86-64: Enable latencytop and profiling (temporary)
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,17 +28,56 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 Mar 2011 23:27:20 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 14 Mar 2011 23:54:53 -0000
 
-I just wanted to put a quick note here that we're starting the post 1.0
-feature planning on the Yocto list:
+From: Darren Hart <dvhart@linux.intel.com>
 
-https://lists.yoctoproject.org/pipermail/yocto/2011-March/001142.html
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: dvhart/kernel
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dvhart/kernel
 
-Cheers,
+Thanks,
+    Darren Hart <dvhart@linux.intel.com>
+---
 
-Richard
+
+Darren Hart (1):
+  qemux86-64: Enable latencytop and profiling (temporary)
+
+ meta/recipes-kernel/linux/linux-yocto_git.bb |    4 ++++
+ 1 files changed, 4 insertions(+), 0 deletions(-)
+
+
+Fixes [YOCTO #858] and [YOCTO #859]
+
+common-pc-64.scc in the linux-yocto meta data omits latencytop and profiling
+(but common-pc.scc includes them). The right fix is in common-pc-64.inc, but
+this fix gets people people unblocked until Bruce can commit the proper fix to
+linux-yocto.
+
+Signed-off-by: Darren Hart <dvhart@linux.intel.com>
+CC: Bruce Ashfield <bruce.ashfield@windriver.com>
+CC: Jessica Zhang <jessica.zhang@intel.com>
+---
+ meta/recipes-kernel/linux/linux-yocto_git.bb |    4 ++++
+ 1 files changed, 4 insertions(+), 0 deletions(-)
+
+diff --git a/meta/recipes-kernel/linux/linux-yocto_git.bb b/meta/recipes-kernel/linux/linux-yocto_git.bb
+index 38fbba3..f35d1a2 100644
+--- a/meta/recipes-kernel/linux/linux-yocto_git.bb
++++ b/meta/recipes-kernel/linux/linux-yocto_git.bb
+@@ -31,6 +31,10 @@ KERNEL_FEATURES="features/netfilter"
+ KERNEL_FEATURES_append_qemux86=" cfg/sound"
+ KERNEL_FEATURES_append_qemux86-64=" cfg/sound"
+ 
++# Temporary fix for oprofile and latencytop on qemux86-64
++KERNEL_FEATURES_append_qemux86-64=" features/profiling"
++KERNEL_FEATURES_append_qemux86-64=" features/latencytop"
++
+ # extra tasks
+ addtask kernel_link_vmlinux after do_compile before do_install
+ addtask validate_branches before do_patch after do_kernel_checkout
+-- 
+1.7.3.4
 
 
