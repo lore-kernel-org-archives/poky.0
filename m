@@ -1,22 +1,29 @@
-Return-Path: <liping.ke@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 074D14C80AA3
-	for <poky@yoctoproject.org>; Mon, 14 Mar 2011 04:42:01 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 14 Mar 2011 02:42:01 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,314,1297065600"; d="scan'208";a="402194145"
-Received: from lke-nhm.sh.intel.com (HELO localhost) ([10.239.36.48])
-	by azsmga001.ch.intel.com with ESMTP; 14 Mar 2011 02:42:00 -0700
-Message-Id: <5b2cf775035a11207f59f01eb2858c6435a8ffd0.1300095446.git.liping.ke@intel.com>
-In-Reply-To: <cover.1300095446.git.liping.ke@intel.com>
-References: <cover.1300095446.git.liping.ke@intel.com>
-Old-Date: Mon, 14 Mar 2011 17:35:43 +0800
-Date: Mon, 14 Mar 2011 17:39:31 +0800
-To: poky@yoctoproject.org
-CC: 
-From: Liping Ke <liping.ke@intel.com>
-Subject: [PATCH 1/1] adt: fix ppc/powerpcc naming bug
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8972A4C800BE
+	for <poky@lists.pokylinux.org>; Mon, 14 Mar 2011 06:45:09 -0500 (CDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 1308B16602D5; Mon, 14 Mar 2011 05:45:09 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.2-r929478
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 406F01660265;
+	Mon, 14 Mar 2011 05:45:08 -0600 (MDT)
+Message-ID: <4D7DFFC4.8070501@mlbassoc.com>
+Date: Mon, 14 Mar 2011 05:45:08 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
+MIME-Version: 1.0
+To: "Zhai, Edwin" <edwin.zhai@intel.com>
+References: <4D7A5C3B.6070709@mlbassoc.com> <4D7D7997.8050100@intel.com>
+In-Reply-To: <4D7D7997.8050100@intel.com>
+Cc: Poky <poky@lists.pokylinux.org>
+Subject: Re: icon registration
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,69 +35,45 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 Mar 2011 09:42:02 -0000
+X-List-Received-Date: Mon, 14 Mar 2011 11:45:09 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Liping Ke <liping.ke@intel.com>
+On 03/13/2011 08:12 PM, Zhai, Edwin wrote:
+> Gary,
+> We have explicitly set the default icon theme as "sato" to fix a bug. You can change /etc/gtk/gtkrc.. for a try.
 
-for ipk files on ppc, the name should be powerpc. So does the
-environment file name. For the tar file name, it should be ppc.
-This patch is to correct the arch/machine name pair.
-Related Bug#864
+Wouldn't that be /etc/gtk-2.0/gtkrc?
 
-Signed-off-by: Liping ke <liping.ke@intel.com>
----
- .../adt-installer/scripts/adt_installer_internal   |    6 ++++--
- .../installer/adt-installer/scripts/data_define    |    2 +-
- 2 files changed, 5 insertions(+), 3 deletions(-)
+I could not find a way to use this file to allow both sets of icon (themes, actually).
+Do you know how?  I don't want to necessarily replace sato, just allow the use of the
+standard gnome elements.
 
-diff --git a/meta/recipes-devtools/installer/adt-installer/scripts/adt_installer_internal b/meta/recipes-devtools/installer/adt-installer/scripts/adt_installer_internal
-index bc92069..a77a3ff 100755
---- a/meta/recipes-devtools/installer/adt-installer/scripts/adt_installer_internal
-+++ b/meta/recipes-devtools/installer/adt-installer/scripts/adt_installer_internal
-@@ -29,7 +29,6 @@ parse_config()
-   case $INST_ARCH in 
-   i[3-6]86)
-     OPKG_CONFIG_FILE=$YOCTOADT_OPKG_CONF_FILE_32
--    #POKY_NATIVE_SYSROOT="$INSTALL_FOLDER/sysroots/i586-pokysdk-linux/"
-     POKY_NATIVE_SYSROOT="$INSTALL_FOLDER/sysroots/$INST_ARCH-pokysdk-linux/"
-     ;;
-   x86_64)
-@@ -106,7 +105,7 @@ $OPKG_INSTALL_NATIVE_CMD libtool-nativesdk &>> $YOCTOADT_INSTALL_LOG_FILE
- check_result
- 
- for native_target_type in $YOCTOADT_TARGETS; do
--  native_target_type=`echo "$native_target_type" | sed -e 's/x86_64/x86-64/' -e 's/x86$/i586/'`
-+  native_target_type=`echo "$native_target_type" | sed -e 's/x86_64/x86-64/' -e's/ppc/powerpc/'  -e 's/x86$/i586/'`
-   echo_info "Installing cross toolchain for $native_target_type ..."
-   echo_info "Installing binutils for $native_target_type ..."
-   $OPKG_INSTALL_NATIVE_CMD binutils-cross-canadian-$native_target_type &>> $YOCTOADT_INSTALL_LOG_FILE
-@@ -180,9 +179,12 @@ check_result
- echo_info "Updating environment script with target sysroot location."
- if [ "$1" == "x86"  ]; then
-   env_filename=`ls $INSTALL_FOLDER/environment-setup-i586*`
-+elif [ "$1" == "ppc"  ]; then
-+  env_filename=`ls $INSTALL_FOLDER/environment-setup-powerpc*`
- else
-   env_filename=`ls $INSTALL_FOLDER/environment-setup-$1*`
- fi
-+
- if [ ! -z "$env_filename" ]; then
-   sudo sed -i -e "s%##SDKTARGETSYSROOT##%$target_sysroot%g" $env_filename
- else
-diff --git a/meta/recipes-devtools/installer/adt-installer/scripts/data_define b/meta/recipes-devtools/installer/adt-installer/scripts/data_define
-index c7bce6d..ca1d47c 100644
---- a/meta/recipes-devtools/installer/adt-installer/scripts/data_define
-+++ b/meta/recipes-devtools/installer/adt-installer/scripts/data_define
-@@ -32,7 +32,7 @@ OPKG_LIBDIR="/var/lib"
- # List all supported root fs types and target types,
- # it will be used in user configuration validity checking
- YOCTOADT_SUPPORTED_ROOTFS="minimal minimal-dev sato sato-dev sato-sdk lsb lsb-dev lsb-sdk"
--YOCTOADT_SUPPORTED_TARGETS="x86 x86_64 arm powerpc mips"
-+YOCTOADT_SUPPORTED_TARGETS="x86 x86_64 arm ppc mips"
- # Different host (32 bit or 64 bit) will have different opkg
- # configuration files
- YOCTOADT_OPKG_CONF_FILE_32="./opkg/conf/opkg-sdk-i686.conf"
+n.b. there seems to be a bug in the GTK libraries that make them fail if the default
+icons are not available.  It tries to render GTK_STOCK_MISSING_IMAGE for the missing
+icons and this fails if there is no such icon available in the set (e.g. in sato).
+On ARM at least, this is a fatal segmentation error.  Should I report this as a bug
+in Poky?
+
+> Gary Thomas wrote:
+>>
+>> I built & installed gnome-icon-theme on top of my sato(-like) image,
+>> but the new icons did not show up. I've built a GTK-webcore application
+>> (midori browser) that wants to use some GNOME icons that it can't find:
+>> Gtk-WARNING **: Error loading theme icon 'stock_new-tab' for stock: Icon 'stock_new-tab' not present in te
+>> For some GTK+ applications, this seems to be fatal :-(
+>>
+>> Does anyone know how new icon sets might be registered? Shouldn't
+>> this happen automatically when you install a theme?
+>>
+>> n.b. I simply copied the /usr/share/icons/gnome/ tree over /usr/share/icons/Sato
+>> and the application runs perfectly. I'd rather not have to resort this.
+>>
+>> Thanks
+
 -- 
-1.7.0.4
-
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
