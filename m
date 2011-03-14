@@ -1,35 +1,36 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9EB694C8009A
-	for <poky@lists.pokylinux.org>; Sun, 13 Mar 2011 17:26:57 -0500 (CDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 02F8D166027D; Sun, 13 Mar 2011 16:26:57 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2-r929478
-Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 9D359166026D;
-	Sun, 13 Mar 2011 16:26:55 -0600 (MDT)
-Message-ID: <4D7D44AF.2030706@mlbassoc.com>
-Date: Sun, 13 Mar 2011 16:26:55 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
+Return-Path: <dexuan.cui@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E154B4C803D6
+	for <poky@yoctoproject.org>; Sun, 13 Mar 2011 19:55:19 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 13 Mar 2011 17:55:19 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.62,312,1297065600"; d="scan'208";a="612518897"
+Received: from pgsmsx603.gar.corp.intel.com ([10.221.43.87])
+	by orsmga002.jf.intel.com with ESMTP; 13 Mar 2011 17:55:18 -0700
+Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
+	pgsmsx603.gar.corp.intel.com (10.221.43.87) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Mon, 14 Mar 2011 08:54:54 +0800
+Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
+	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
+	Mon, 14 Mar 2011 08:54:53 +0800
+From: "Cui, Dexuan" <dexuan.cui@intel.com>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Date: Mon, 14 Mar 2011 08:54:52 +0800
+Thread-Topic: [poky] [PATCH 1/1] sugarbay.conf: add mesa library: correct
+	previous wrong modification
+Thread-Index: Acvf4ZDBbk+u5RZnRXyCDnumSskn5wCAH4yw
+Message-ID: <1865303E0DED764181A9D882DEF65FB68682734EFB@shsmsx502.ccr.corp.intel.com>
+References: <cover.1299843601.git.dexuan.cui@intel.com>
+	<e8db1316621f048126d08de9ce2b0b7e82cb5792.1299843601.git.dexuan.cui@intel.com>
+In-Reply-To: <e8db1316621f048126d08de9ce2b0b7e82cb5792.1299843601.git.dexuan.cui@intel.com>
+Accept-Language: zh-CN, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: zh-CN, en-US
 MIME-Version: 1.0
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-References: <4D7996EE.80005@mlbassoc.com>	
-	<625BA99ED14B2D499DC4E29D8138F1505770D748C8@shsmsx502.ccr.corp.intel.com>	
-	<D5AB6E638E5A3E4B8F4406B113A5A19A335C9B62@shsmsx501.ccr.corp.intel.com>	
-	<625BA99ED14B2D499DC4E29D8138F1505770D748EA@shsmsx502.ccr.corp.intel.com>	
-	<D5AB6E638E5A3E4B8F4406B113A5A19A335C9B6F@shsmsx501.ccr.corp.intel.com>	
-	<625BA99ED14B2D499DC4E29D8138F1505770D74928@shsmsx502.ccr.corp.intel.com>
-	<1299882310.1445.3004.camel@rex>
-In-Reply-To: <1299882310.1445.3004.camel@rex>
-Cc: Poky <poky@lists.pokylinux.org>
-Subject: Re: Problems adding native support packages
+Cc: "Wold, Saul" <saul.wold@intel.com>
+Subject: Re: [PATCH 1/1] sugarbay.conf: add mesa library: correct	previous wrong modification
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,51 +42,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 13 Mar 2011 22:26:57 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 14 Mar 2011 00:55:20 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="gb2312"
+Content-Transfer-Encoding: base64
 
-On 03/11/2011 03:25 PM, Richard Purdie wrote:
-> On Fri, 2011-03-11 at 13:52 +0800, Tian, Kevin wrote:
->> From: Xu, Dongxiao:
->>> Tian, Kevin wrote:
->>>>>
->>>>> atk's SRC_URI is assigned like:
->>>>>
->>>>> SRC_URI =
->>>>> "http://download.gnome.org/sources/atk/1.32/${PN}-${PV}.tar.bz2"
->>>>>
->>>>> After introducing native to atk, PN is changed to atk-native, thus
->>>>> no resouce is found in the repo.
->>>>>
->>>>> I will make a fix to that. But for your quick workaournd, you can
->>>>> change the atk's SRC_URI to:
->>>>>
->>>>> SRC_URI =
->>>>> "http://download.gnome.org/sources/atk/1.32/atk-${PV}.tar.bz2"
->>>>>
->>>>
->>>> use ${BPN}-${PV} instead.
->>>
->>> Yes. This is the right approach.
->>>
->>> I checked in current poky meta recipes, there are about 67 recipes which
->>> directly uses ${PN} in the SRC_URI line.
->>>
->>> Do we need to change all of them to ${BPN}?
->>>
->>
->> I think it's a cleaner way to use BPN, or even simple BP. This would avoid an error
->> alarm when extending some recipes to native. :-)
->
-> This is exactly the use case for the BPN variable so yes, making
-> standardised use of that would be good.
-
-I filed this as bug #860 so the problem is not forgotten.
-
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+U29ycnkgLS0gIGl0IHNob3VsZCBiZSAiW1lPQ1RPICM3MjddIiByYXRoZXIgdGhhbiAiW0JVR0lE
+ICM3MjddIiBub3cuLi4NClBsZWFzZSBjb3JyZWN0IHRoZSB0eXBvIHdoZW4gYWNjZXB0aW5nIHRo
+ZSBwYXRjaC4NCg0KVGhhbmtzLA0KLS0gRGV4dWFuDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0t
+LS0tDQpGcm9tOiBwb2t5LWJvdW5jZXNAeW9jdG9wcm9qZWN0Lm9yZyBbbWFpbHRvOnBva3ktYm91
+bmNlc0B5b2N0b3Byb2plY3Qub3JnXSBPbiBCZWhhbGYgT2YgRGV4dWFuIEN1aQ0KU2VudDogMjAx
+McTqM9TCMTHI1SAxOTo0Mg0KVG86IHBva3lAeW9jdG9wcm9qZWN0Lm9yZw0KU3ViamVjdDogW3Bv
+a3ldIFtQQVRDSCAxLzFdIHN1Z2FyYmF5LmNvbmY6IGFkZCBtZXNhIGxpYnJhcnk6IGNvcnJlY3Qg
+cHJldmlvdXMgd3JvbmcgbW9kaWZpY2F0aW9uDQoNCkZyb206IERleHVhbiBDdWkgPGRleHVhbi5j
+dWlAaW50ZWwuY29tPg0KDQpUaGlzIGZpeGVzIFtCVUdJRCAjNzI3XQ0KDQo3NjZjMjBlZjIxNDFk
+MDU4ZjE1MDc0ZTg2NjMxM2FiMTE5MzMyZWE4IGFkZGVkDQptZXNhLWRyaS1kcml2ZXItaTkxNSwg
+YnV0IGFjdHVhbGx5IGl0IHNob3VsZCBiZQ0KbWVzYS1kcmktZHJpdmVyLWk5NjUuDQoNClNpZ25l
+ZC1vZmYtYnk6IERleHVhbiBDdWkgPGRleHVhbi5jdWlAaW50ZWwuY29tPg0KU2lnbmVkLW9mZi1i
+eTogS2UgWXUgPGtlLnl1QGludGVsLmNvbT4NCi0tLQ0KIG1ldGEtc3VnYXJiYXkvY29uZi9tYWNo
+aW5lL3N1Z2FyYmF5LmNvbmYgfCAgICAyICstDQogMSBmaWxlcyBjaGFuZ2VkLCAxIGluc2VydGlv
+bnMoKyksIDEgZGVsZXRpb25zKC0pDQoNCmRpZmYgLS1naXQgYS9tZXRhLXN1Z2FyYmF5L2NvbmYv
+bWFjaGluZS9zdWdhcmJheS5jb25mIGIvbWV0YS1zdWdhcmJheS9jb25mL21hY2hpbmUvc3VnYXJi
+YXkuY29uZg0KaW5kZXggOTJkN2M1NC4uMDA1MzRhNSAxMDA2NDQNCi0tLSBhL21ldGEtc3VnYXJi
+YXkvY29uZi9tYWNoaW5lL3N1Z2FyYmF5LmNvbmYNCisrKyBiL21ldGEtc3VnYXJiYXkvY29uZi9t
+YWNoaW5lL3N1Z2FyYmF5LmNvbmYNCkBAIC0yOCw3ICsyOCw3IEBAIFhTRVJWRVIgPz0gInhzZXJ2
+ZXIteGY4Ni1kcmktbGl0ZSBcDQogICAgICAgICAgICB4Zjg2LWlucHV0LXN5bmFwdGljcyBcDQog
+ICAgICAgICAgICB4Zjg2LXZpZGVvLWludGVsIFwNCiAgICAgICAgICAgIG1lc2EtZHJpIFwNCi0g
+ICAgICAgICAgIG1lc2EtZHJpLWRyaXZlci1pOTE1Ig0KKyAgICAgICAgICAgbWVzYS1kcmktZHJp
+dmVyLWk5NjUiDQogDQogU0VSSUFMX0NPTlNPTEUgPSAiMTE1MjAwIHR0eVMwIg0KIA0KLS0gDQox
+LjcuMg0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0K
+cG9reSBtYWlsaW5nIGxpc3QNCnBva3lAeW9jdG9wcm9qZWN0Lm9yZw0KaHR0cHM6Ly9saXN0cy55
+b2N0b3Byb2plY3Qub3JnL2xpc3RpbmZvL3Bva3kNCg==
 
