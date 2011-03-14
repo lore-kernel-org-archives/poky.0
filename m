@@ -1,25 +1,29 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 563A44C800BE
-	for <poky@yoctoproject.org>; Mon, 14 Mar 2011 06:51:15 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 14 Mar 2011 04:51:14 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,315,1297065600"; d="scan'208";a="402237688"
-Received: from unknown (HELO helios.localnet) ([10.255.12.146])
-	by azsmga001.ch.intel.com with ESMTP; 14 Mar 2011 04:51:13 -0700
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-Organization: Intel Corporation (UK)
-To: poky@yoctoproject.org
-Date: Mon, 14 Mar 2011 11:51:11 +0000
-User-Agent: KMail/1.13.5 (Linux/2.6.35-27-generic-pae; KDE/4.6.1; i686; ; )
+Return-Path: <koen@dominion.thruhere.net>
+Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C80134C800BE
+	for <poky@yoctoproject.org>; Mon, 14 Mar 2011 07:18:32 -0500 (CDT)
+Received: by wwd20 with SMTP id 20so5041665wwd.11
+	for <poky@yoctoproject.org>; Mon, 14 Mar 2011 05:18:31 -0700 (PDT)
+Received: by 10.216.143.89 with SMTP id k67mr2353762wej.25.1300105111053;
+	Mon, 14 Mar 2011 05:18:31 -0700 (PDT)
+Received: from [172.20.0.255] (ip545070eb.adsl-surfen.hetnet.nl
+	[84.80.112.235])
+	by mx.google.com with ESMTPS id n73sm332811wej.12.2011.03.14.05.18.30
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Mon, 14 Mar 2011 05:18:30 -0700 (PDT)
+Mime-Version: 1.0 (Apple Message framework v1082)
+From: Koen Kooi <koen@dominion.thruhere.net>
+In-Reply-To: <201103141151.12235.paul.eggleton@linux.intel.com>
+Date: Mon, 14 Mar 2011 13:18:29 +0100
+Message-Id: <46D5E03C-9927-4F57-A6AC-7024B8478E1C@dominion.thruhere.net>
 References: <cover.1299891748.git.sgw@linux.intel.com>
 	<4D7ACD9C.3010002@linux.intel.com>
 	<20110312023140.GA4829@sakrah.homelinux.org>
-In-Reply-To: <20110312023140.GA4829@sakrah.homelinux.org>
-MIME-Version: 1.0
-Message-Id: <201103141151.12235.paul.eggleton@linux.intel.com>
-Cc: openembedded-core@lists.openembedded.org
+	<201103141151.12235.paul.eggleton@linux.intel.com>
+To: Paul Eggleton <paul.eggleton@linux.intel.com>
+X-Mailer: Apple Mail (2.1082)
+Cc: poky@yoctoproject.org, Patches and discussions about the oe-core layer
+	<openembedded-core@lists.openembedded.org>
 Subject: Re: [PATCH 0/1] gnu-config make sure we use perl-native
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -32,23 +36,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 Mar 2011 11:51:15 -0000
-Content-Type: Text/Plain;
-  charset="iso-8859-1"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 14 Mar 2011 12:18:33 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
 
-On Saturday 12 March 2011 02:31:40 Khem Raj wrote:
-> > Back to the drawing board on why the miss-match is occuring in
-> > Config.pm then.
-> 
-> somewhere there is /usr/bin/perl referred may be a cross recipe ?
 
-I've hit this issue this morning, and have filed a bug report:
+Op 14 mrt 2011, om 12:51 heeft Paul Eggleton het volgende geschreven:
 
-  http://bugzilla.pokylinux.org/show_bug.cgi?id=866
+> On Saturday 12 March 2011 02:31:40 Khem Raj wrote:
+>>> Back to the drawing board on why the miss-match is occuring in
+>>> Config.pm then.
+>>=20
+>> somewhere there is /usr/bin/perl referred may be a cross recipe ?
+>=20
+> I've hit this issue this morning, and have filed a bug report:
+>=20
+>  http://bugzilla.pokylinux.org/show_bug.cgi?id=3D866
+>=20
+> Not sure if it helps but at least it should be easy to reproduce.
 
-Not sure if it helps but at least it should be easy to reproduce.
+I haven't checked if the OE .dev and OE core gnu-config are similar, but =
+have a look at:
 
-Cheers,
-Paul
+=
+http://cgit.openembedded.org/cgit.cgi/openembedded/commit/?id=3Dbe21179c53=
+21bd0afb9221f020ac12ad75c86a3b
+=
+http://cgit.openembedded.org/cgit.cgi/openembedded/commit/?id=3Dedcdefbf6e=
+0675c1bcc1fc4f464f654223380e50
+
+regards,
+
+Koen=
 
