@@ -1,32 +1,32 @@
-Return-Path: <gerard@de-haardt.com>
-Received: from cpsmtpb-ews05.kpnxchange.com (cpsmtpb-ews05.kpnxchange.com
-	[213.75.39.8])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 176CB4C8009A
-	for <poky@yoctoproject.org>; Tue, 15 Mar 2011 05:57:44 -0500 (CDT)
-Received: from cpbrm-ews06.kpnxchange.com ([10.94.84.137]) by
-	cpsmtpb-ews05.kpnxchange.com with Microsoft SMTPSVC(6.0.3790.4675); 
-	Tue, 15 Mar 2011 11:57:44 +0100
-Received: from CPSMTPM-CMT108.kpnxchange.com ([195.121.3.24]) by
-	cpbrm-ews06.kpnxchange.com with Microsoft SMTPSVC(6.0.3790.4675); 
-	Tue, 15 Mar 2011 11:57:44 +0100
-Received: from mail.de-haardt.com ([86.81.67.223]) by
-	CPSMTPM-CMT108.kpnxchange.com with Microsoft
-	SMTPSVC(7.0.6002.18264); Tue, 15 Mar 2011 11:57:43 +0100
-Received: from [192.168.1.160] ([192.168.1.160])
-	(authenticated user gerard@de-haardt.com) by mail.de-haardt.com
-	(using TLSv1/SSLv3 with cipher AES256-SHA (256 bits))
-	for poky@yoctoproject.org; Tue, 15 Mar 2011 11:57:39 +0100
-Message-ID: <4D7F4630.3030705@de-haardt.com>
-Date: Tue, 15 Mar 2011 11:57:52 +0100
-From: Gerard van den Bosch <gerard@de-haardt.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.14) Gecko/20110223 Lightning/1.0b2 Thunderbird/3.1.8
-MIME-Version: 1.0
-To: poky@yoctoproject.org
-X-OriginalArrivalTime: 15 Mar 2011 10:57:43.0504 (UTC)
-	FILETIME=[CF715500:01CBE2FF]
-X-RcptDomain: yoctoproject.org
-Subject: compile application header file missing
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C7C4C4C8009A
+	for <poky@yoctoproject.org>; Tue, 15 Mar 2011 06:09:36 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2FB9X6C017356;
+	Tue, 15 Mar 2011 11:09:33 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 17256-02; Tue, 15 Mar 2011 11:09:29 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2FB9QCw017350
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Tue, 15 Mar 2011 11:09:26 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Darren Hart <dvhart@linux.intel.com>
+In-Reply-To: <4D7F1582.2010107@linux.intel.com>
+References: <cover.1300146920.git.dvhart@linux.intel.com>
+	<cc3e525fdb480d6b86637afa7b4c8d947d32304b.1300146920.git.dvhart@linux.intel.com>
+	<1300152074.30423.953.camel@rex>  <4D7F1582.2010107@linux.intel.com>
+Date: Tue, 15 Mar 2011 11:09:18 +0000
+Message-ID: <1300187358.30423.1553.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH] qemux86-64: Enable latencytop and profiling (temporary)
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,32 +38,43 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 Mar 2011 10:57:45 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Tue, 15 Mar 2011 11:09:37 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-Hello,
+On Tue, 2011-03-15 at 00:30 -0700, Darren Hart wrote:
+> 
+> On 03/14/2011 06:21 PM, Richard Purdie wrote:
+> > On Mon, 2011-03-14 at 16:54 -0700, Darren Hart wrote:
+> >> From: Darren Hart<dvhart@linux.intel.com>
+> >>
+> >> Pull URL: git://git.pokylinux.org/poky-contrib.git
+> >>    Branch: dvhart/kernel
+> >>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dvhart/kernel
+> >>
+> >> Thanks,
+> >>      Darren Hart<dvhart@linux.intel.com>
+> >> ---
+> >>
+> >>
+> >> Darren Hart (1):
+> >>    qemux86-64: Enable latencytop and profiling (temporary)
+> >>
+> >>   meta/recipes-kernel/linux/linux-yocto_git.bb |    4 ++++
+> >>   1 files changed, 4 insertions(+), 0 deletions(-)
+> >
+> > Merged into OECore and Poky master.
+> 
+> Gah, my note in response to my post was bounced (wrong email address). I 
+> said that this patch should only go to bernard and master would get the 
+> update from Bruce to linux-yocto naturally. It's fine though, we can 
+> revert this patch later.
 
-I have programmed an application that uses the OpenSLP library and thus 
-needs the header file from it.
-OpenSLP is already compiled and running fine on the target.
+We don't take patches for Bernard unless the problem is fixed in master
+too.
 
-But when I try to compile my application it can't find the header file.
-When I print out the CFLAGS with bitbake myimage -e | grep CFLAGS the 
-BUILD_CFLAGS point to:
-/home/gerard/green-3.3/build/tmp/sysroots/i686-linux/usr/include
-The slp.h is indeed missing, but it is located at:
-/home/gerard/green-3.3/build/tmp/sysroots/armv7a-poky-linux-gnueabi/usr/include
+Cheers,
 
-How can I change the CFLAGS to look in the other folder or force OpenSLP 
-to drop it in the i686 folder?
-
-I have added OpenSLP to my DEPENDS in the recipe, also tried RDEPENDS 
-but it didn't solve the problem.
-
-Regards,
-Gerard
-
-
+Richard
 
 
