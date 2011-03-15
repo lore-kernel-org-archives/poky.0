@@ -1,29 +1,35 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 97FA34C803D6
-	for <poky@lists.pokylinux.org>; Tue, 15 Mar 2011 09:08:50 -0500 (CDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 5BD9516603F8; Tue, 15 Mar 2011 08:08:49 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2-r929478
-Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 8A15E16603E1;
-	Tue, 15 Mar 2011 08:08:48 -0600 (MDT)
-Message-ID: <4D7F72F0.5020104@mlbassoc.com>
-Date: Tue, 15 Mar 2011 08:08:48 -0600
-From: Gary Thomas <gary@mlbassoc.com>
+Return-Path: <gerard@de-haardt.com>
+Received: from cpsmtpb-ews07.kpnxchange.com (cpsmtpb-ews07.kpnxchange.com
+	[213.75.39.10])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 58CAF4C80050
+	for <poky@yoctoproject.org>; Tue, 15 Mar 2011 10:03:09 -0500 (CDT)
+Received: from cpbrm-ews30.kpnxchange.com ([10.94.84.161]) by
+	cpsmtpb-ews07.kpnxchange.com with Microsoft SMTPSVC(6.0.3790.4675); 
+	Tue, 15 Mar 2011 16:03:06 +0100
+Received: from CPSMTPM-CMT105.kpnxchange.com ([195.121.3.21]) by
+	cpbrm-ews30.kpnxchange.com with Microsoft SMTPSVC(6.0.3790.4675); 
+	Tue, 15 Mar 2011 16:03:06 +0100
+Received: from mail.de-haardt.com ([86.81.67.223]) by
+	CPSMTPM-CMT105.kpnxchange.com with Microsoft
+	SMTPSVC(7.0.6002.18264); Tue, 15 Mar 2011 16:03:06 +0100
+Received: from [192.168.1.160] ([192.168.1.160])
+	(authenticated user gerard@de-haardt.com) by mail.de-haardt.com
+	(using TLSv1/SSLv3 with cipher AES256-SHA (256 bits));
+	Tue, 15 Mar 2011 16:03:01 +0100
+Message-ID: <4D7F7FB4.30007@de-haardt.com>
+Date: Tue, 15 Mar 2011 16:03:16 +0100
+From: Gerard van den Bosch <gerard@de-haardt.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
+	rv:1.9.2.14) Gecko/20110223 Lightning/1.0b2 Thunderbird/3.1.8
 MIME-Version: 1.0
 To: Richard Purdie <richard.purdie@linuxfoundation.org>
-References: <4D7F6EE6.6070504@mlbassoc.com> <1300197835.30423.1757.camel@rex>
-In-Reply-To: <1300197835.30423.1757.camel@rex>
-Cc: Poky <poky@lists.pokylinux.org>
-Subject: Re: Update gone terribly wrong
+References: <4D7F4630.3030705@de-haardt.com> <1300196286.30423.1726.camel@rex>
+In-Reply-To: <1300196286.30423.1726.camel@rex>
+X-OriginalArrivalTime: 15 Mar 2011 15:03:06.0382 (UTC)
+	FILETIME=[16F63AE0:01CBE322]
+X-RcptDomain: yoctoproject.org
+Cc: poky@yoctoproject.org
+Subject: Re: compile application header file missing
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,59 +41,90 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 Mar 2011 14:08:50 -0000
+X-List-Received-Date: Tue, 15 Mar 2011 15:03:13 -0000
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 03/15/2011 08:03 AM, Richard Purdie wrote:
-> On Tue, 2011-03-15 at 07:51 -0600, Gary Thomas wrote:
->> I updated my Poky tree to current master this morning (4c695dbcd12b295a4215422622006f1f58469297)
+On 03/15/2011 02:38 PM, Richard Purdie wrote:
+> On Tue, 2011-03-15 at 11:57 +0100, Gerard van den Bosch wrote:
+>> Hello,
 >>
->> Now, when I try to build in an extant tree, I get errors like these:
->>     /home/local/poky-amltd/scripts/bitbake: line 51: 28850 Segmentation fault      (core dumped) PSEUDO_BINDIR=$PSEUDOBINDIR PSEUDO_LIBDIR=$PSEUDOBINDIR/../lib/pseudo/lib
->> PSEUDO_PREFIX=$PSEUDOBINDIR/../../ PSEUDO_DISABLED=1 $PSEUDOBINDIR/pseudo $BITBAKE $@
+>> I have programmed an application that uses the OpenSLP library and thus
+>> needs the header file from it.
+>> OpenSLP is already compiled and running fine on the target.
 >>
->> So, I removed pseudodone and got
->>     /home/local/poky-amltd/scripts/bitbake: line 43: 28891 Segmentation fault      (core dumped) bitbake pseudo-native tar-replacement-native -c populate_sysroot
->
-> This looks like python itself is segfaulting, even without pseudo loaded
-> so it could well be something outside our control :/. Which python
-> version is that?
-
-Python 2.6.4 on Fedora 13
-
->
-> If you still have the build around it would be interesting to see if
-> just removing the cache directory fixed that or trying to narrow down
-> which files are triggering the segfault.
-
-When I moved sstate-cache & tmp, the problem went away.  I kept the old trees
-and will try and figure out what's crashing.
-
->
->> So I figured I'd just restart, so I tried this:
->>     % mv tmp tmp.BAD
->>     % mv sstate-cache sstate-mirror
->>     ... set SSTATE_MIRRORS to use the old cache
->>     %  tail -n3 conf/local.conf
->>     SSTATE_MIRRORS ?= "\
->>     file://.* file:///local/p60_poky/sstate-mirror/"
+>> But when I try to compile my application it can't find the header file.
+>> When I print out the CFLAGS with bitbake myimage -e | grep CFLAGS the
+>> BUILD_CFLAGS point to:
+>> /home/gerard/green-3.3/build/tmp/sysroots/i686-linux/usr/include
+>> The slp.h is indeed missing, but it is located at:
+>> /home/gerard/green-3.3/build/tmp/sysroots/armv7a-poky-linux-gnueabi/usr/include
 >>
->> Sadly, it's rebuilding everything, reusing nothing :-(
+>> How can I change the CFLAGS to look in the other folder or force OpenSLP
+>> to drop it in the i686 folder?
 >>
->> Any ideas what went wrong and why the sstate mirror is not working (again)?
+>> I have added OpenSLP to my DEPENDS in the recipe, also tried RDEPENDS
+>> but it didn't solve the problem.
+> You should be adding OpenSLP to DEPENDS. The toolchain should be
+> automatically searching the arm sysroot /usr/include directory for
+> include files which is where your file is.
 >
-> Likely, some of the changes in master meant the sstate checksums were
-> invalidated and it therefore required a rebuild. The sstate files are
-> only used if the checksums are found to be valid.
+> I appreciate this is the green release, in master we have this in
+> meta/conf/bitbake.conf:
+>
+> TOOLCHAIN_OPTIONS = " --sysroot=${STAGING_DIR_TARGET}"
+>
+> export CC = "${CCACHE}${HOST_PREFIX}gcc ${HOST_CC_ARCH}${TOOLCHAIN_OPTIONS}"
+>
+> Back in green, this option should be being hardcoded into gcc as the
+> default sysroot option but you could try explicitly setting it.
+>
+> Note that BUILD_CFLAGS is the wrong place to look, those are for native
+> build tools, not target ones. You want to use TARGET_CFLAGS and
+> TARGET_CFLAGS should be the same as CFLAGS.
+>
+> After reading the above, if your image *is* using BUILD_CFLAGS and
+> BUILD_CC instead of CC, that is your real problem, it should be using
+> the target device compiler, not the build one.
 >
 > Cheers,
 >
 > Richard
+>
+I am indeed using the Green release.
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+The TARGET_CFLAGS are indeed the same as the CFLAGS. The system is using the default CC and not the BUILD_CC, thanks for pointing out the difference.
+
+I have added the --sysroot option pointing to the arm sysroot to the CFLAGS in my recipe, with compilation it now looks like this:
+arm-poky-linux-gnueabi-gcc -march=armv7-a -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp -fno-tree-vectorize -fexpensive-optimizations -fomit-frame-pointer -frename-registers -O2 -ggdb -feliminate-unused-debug-types --sysroot=/home/gerard/green-3.3/build/tmp/sysroots/armv7a-poky-linux-gnueabi/ libxmlpcp.c -o libxmlpcp.o
+
+This removes the missing SLP.h error.
+
+Is this problem related to my recipe or did I broke my build environment?
+
+My recipe looks like this:
+DESCRIPTION = "libxmlpcp"
+SECTION = "examples"
+DEPENDS = "openslp libxml2"
+LICENSE = "LGPL"
+
+SRC_URI = "file://libxmlpcp.tar.gz"
+
+CFLAGS += --sysroot=/home/gerard/green-3.3/build/tmp/sysroots/armv7a-poky-linux-gnueabi/
+
+do_install() {
+     install -d ${D}${libdir}
+     install -d ${D}${includedir}
+     oe_runmake 'INSTALLHEADERDIR=${D}${includedir}' 'INSTALLLIBDIR=${D}${libdir}' \
+     install
+}
+
+Regards,
+Gerard
+
+
+
+
+
+
 
