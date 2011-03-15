@@ -1,35 +1,26 @@
-Return-Path: <gerard@de-haardt.com>
-Received: from cpsmtpb-ews07.kpnxchange.com (cpsmtpb-ews07.kpnxchange.com
-	[213.75.39.10])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 58CAF4C80050
-	for <poky@yoctoproject.org>; Tue, 15 Mar 2011 10:03:09 -0500 (CDT)
-Received: from cpbrm-ews30.kpnxchange.com ([10.94.84.161]) by
-	cpsmtpb-ews07.kpnxchange.com with Microsoft SMTPSVC(6.0.3790.4675); 
-	Tue, 15 Mar 2011 16:03:06 +0100
-Received: from CPSMTPM-CMT105.kpnxchange.com ([195.121.3.21]) by
-	cpbrm-ews30.kpnxchange.com with Microsoft SMTPSVC(6.0.3790.4675); 
-	Tue, 15 Mar 2011 16:03:06 +0100
-Received: from mail.de-haardt.com ([86.81.67.223]) by
-	CPSMTPM-CMT105.kpnxchange.com with Microsoft
-	SMTPSVC(7.0.6002.18264); Tue, 15 Mar 2011 16:03:06 +0100
-Received: from [192.168.1.160] ([192.168.1.160])
-	(authenticated user gerard@de-haardt.com) by mail.de-haardt.com
-	(using TLSv1/SSLv3 with cipher AES256-SHA (256 bits));
-	Tue, 15 Mar 2011 16:03:01 +0100
-Message-ID: <4D7F7FB4.30007@de-haardt.com>
-Date: Tue, 15 Mar 2011 16:03:16 +0100
-From: Gerard van den Bosch <gerard@de-haardt.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.14) Gecko/20110223 Lightning/1.0b2 Thunderbird/3.1.8
+Return-Path: <sgw@linux.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 771534C803D6
+	for <poky@yoctoproject.org>; Tue, 15 Mar 2011 12:24:34 -0500 (CDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 15 Mar 2011 10:24:33 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.63,188,1299484800"; d="scan'208";a="667523171"
+Received: from unknown (HELO [10.255.12.143]) ([10.255.12.143])
+	by fmsmga002.fm.intel.com with ESMTP; 15 Mar 2011 10:24:31 -0700
+Message-ID: <4D7FA0CE.8000306@linux.intel.com>
+Date: Tue, 15 Mar 2011 10:24:30 -0700
+From: Saul Wold <sgw@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
 MIME-Version: 1.0
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-References: <4D7F4630.3030705@de-haardt.com> <1300196286.30423.1726.camel@rex>
-In-Reply-To: <1300196286.30423.1726.camel@rex>
-X-OriginalArrivalTime: 15 Mar 2011 15:03:06.0382 (UTC)
-	FILETIME=[16F63AE0:01CBE322]
-X-RcptDomain: yoctoproject.org
+To: Kang Kai <kai.kang@windriver.com>
+References: <cover.1300167046.git.kai.kang@windriver.com>
+	<3497d99d8f4a865204e1c334dd797bff54511e7d.1300167046.git.kai.kang@windriver.com>
+In-Reply-To: <3497d99d8f4a865204e1c334dd797bff54511e7d.1300167046.git.kai.kang@windriver.com>
 Cc: poky@yoctoproject.org
-Subject: Re: compile application header file missing
+Subject: Re: [PATCH 1/1] slang: export INST_LIB_DIR to fix compile problems
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,90 +32,57 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 Mar 2011 15:03:13 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-List-Received-Date: Tue, 15 Mar 2011 17:24:34 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 03/15/2011 02:38 PM, Richard Purdie wrote:
-> On Tue, 2011-03-15 at 11:57 +0100, Gerard van den Bosch wrote:
->> Hello,
->>
->> I have programmed an application that uses the OpenSLP library and thus
->> needs the header file from it.
->> OpenSLP is already compiled and running fine on the target.
->>
->> But when I try to compile my application it can't find the header file.
->> When I print out the CFLAGS with bitbake myimage -e | grep CFLAGS the
->> BUILD_CFLAGS point to:
->> /home/gerard/green-3.3/build/tmp/sysroots/i686-linux/usr/include
->> The slp.h is indeed missing, but it is located at:
->> /home/gerard/green-3.3/build/tmp/sysroots/armv7a-poky-linux-gnueabi/usr/include
->>
->> How can I change the CFLAGS to look in the other folder or force OpenSLP
->> to drop it in the i686 folder?
->>
->> I have added OpenSLP to my DEPENDS in the recipe, also tried RDEPENDS
->> but it didn't solve the problem.
-> You should be adding OpenSLP to DEPENDS. The toolchain should be
-> automatically searching the arm sysroot /usr/include directory for
-> include files which is where your file is.
+Kang,
+
+Sorry about this, one other things was noticed about your use of FILES 
+below, please see that comment.
+
+Sau!
+
+On 03/14/2011 10:36 PM, Kang Kai wrote:
+> From: Kang Kai<kai.kang@windriver.com>
 >
-> I appreciate this is the green release, in master we have this in
-> meta/conf/bitbake.conf:
+> Export "INST_LIB_DIR" in do_install to slang/slsh to fix cross compile warnings
+> Fix [YOCTO #812]
 >
-> TOOLCHAIN_OPTIONS = " --sysroot=${STAGING_DIR_TARGET}"
+> Add necessary files to run slsh.
 >
-> export CC = "${CCACHE}${HOST_PREFIX}gcc ${HOST_CC_ARCH}${TOOLCHAIN_OPTIONS}"
+> Signed-off-by: Kang Kai<kai.kang@windriver.com>
+> ---
+>   meta/recipes-extended/slang/slang_2.2.2.bb |    8 +++++++-
+>   1 files changed, 7 insertions(+), 1 deletions(-)
 >
-> Back in green, this option should be being hardcoded into gcc as the
-> default sysroot option but you could try explicitly setting it.
+> diff --git a/meta/recipes-extended/slang/slang_2.2.2.bb b/meta/recipes-extended/slang/slang_2.2.2.bb
+> index 7fe76af..8459e24 100644
+> --- a/meta/recipes-extended/slang/slang_2.2.2.bb
+> +++ b/meta/recipes-extended/slang/slang_2.2.2.bb
+> @@ -10,7 +10,7 @@ to recode S-Lang procedures in C if you need to."
+>   SECTION = "libs"
+>   PRIORITY = "optional"
+>   DEPENDS = "pcre"
+> -PR = "r0"
+> +PR = "r1"
 >
-> Note that BUILD_CFLAGS is the wrong place to look, those are for native
-> build tools, not target ones. You want to use TARGET_CFLAGS and
-> TARGET_CFLAGS should be the same as CFLAGS.
+>   LICENSE = "GPL Artistic"
+>   LIC_FILES_CHKSUM = "file://COPYING;md5=0636e73ff0215e8d672dc4c32c317bb3"
+> @@ -23,3 +23,9 @@ inherit autotools
 >
-> After reading the above, if your image *is* using BUILD_CFLAGS and
-> BUILD_CC instead of CC, that is your real problem, it should be using
-> the target device compiler, not the build one.
->
-> Cheers,
->
-> Richard
->
-I am indeed using the Green release.
+>   SRC_URI[md5sum] = "974437602a781cfe92ab61433dd16d03"
+>   SRC_URI[sha256sum] = "cfaf8551fa3855f9b0043309bb553ef6d457f931b404df5a6ba6a5a69371fc42"
+> +
+> +do_install() {
+> +	oe_runmake install DESTDIR=${D} -e 'INST_LIB_DIR=${STAGING_DIR_HOST}/usr/lib'
+> +}
+> +
+> +FILES_${PN} += "/usr/share/slsh/"
+This should be:
+FILES_${PN} += "${datadir}/slsh"
 
-The TARGET_CFLAGS are indeed the same as the CFLAGS. The system is using the default CC and not the BUILD_CC, thanks for pointing out the difference.
+This change will ensure correct path names.
 
-I have added the --sysroot option pointing to the arm sysroot to the CFLAGS in my recipe, with compilation it now looks like this:
-arm-poky-linux-gnueabi-gcc -march=armv7-a -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp -fno-tree-vectorize -fexpensive-optimizations -fomit-frame-pointer -frename-registers -O2 -ggdb -feliminate-unused-debug-types --sysroot=/home/gerard/green-3.3/build/tmp/sysroots/armv7a-poky-linux-gnueabi/ libxmlpcp.c -o libxmlpcp.o
-
-This removes the missing SLP.h error.
-
-Is this problem related to my recipe or did I broke my build environment?
-
-My recipe looks like this:
-DESCRIPTION = "libxmlpcp"
-SECTION = "examples"
-DEPENDS = "openslp libxml2"
-LICENSE = "LGPL"
-
-SRC_URI = "file://libxmlpcp.tar.gz"
-
-CFLAGS += --sysroot=/home/gerard/green-3.3/build/tmp/sysroots/armv7a-poky-linux-gnueabi/
-
-do_install() {
-     install -d ${D}${libdir}
-     install -d ${D}${includedir}
-     oe_runmake 'INSTALLHEADERDIR=${D}${includedir}' 'INSTALLLIBDIR=${D}${libdir}' \
-     install
-}
-
-Regards,
-Gerard
-
-
-
-
-
-
+Sau!
 
