@@ -1,32 +1,20 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C7C4C4C8009A
-	for <poky@yoctoproject.org>; Tue, 15 Mar 2011 06:09:36 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2FB9X6C017356;
-	Tue, 15 Mar 2011 11:09:33 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 17256-02; Tue, 15 Mar 2011 11:09:29 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2FB9QCw017350
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Tue, 15 Mar 2011 11:09:26 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Darren Hart <dvhart@linux.intel.com>
-In-Reply-To: <4D7F1582.2010107@linux.intel.com>
-References: <cover.1300146920.git.dvhart@linux.intel.com>
-	<cc3e525fdb480d6b86637afa7b4c8d947d32304b.1300146920.git.dvhart@linux.intel.com>
-	<1300152074.30423.953.camel@rex>  <4D7F1582.2010107@linux.intel.com>
-Date: Tue, 15 Mar 2011 11:09:18 +0000
-Message-ID: <1300187358.30423.1553.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH] qemux86-64: Enable latencytop and profiling (temporary)
+Return-Path: <josh@linux.intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 1759C4C8009A
+	for <poky@yoctoproject.org>; Tue, 15 Mar 2011 06:17:27 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 15 Mar 2011 04:17:26 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.62,321,1297065600"; d="scan'208";a="402820520"
+Received: from unknown (HELO localhost) ([10.255.16.25])
+	by azsmga001.ch.intel.com with ESMTP; 15 Mar 2011 04:17:26 -0700
+Message-Id: <cover.1300185095.git.josh@linux.intel.com>
+Old-Date: Tue, 15 Mar 2011 10:31:35 +0000
+Date: Tue, 15 Mar 2011 11:17:20 +0000
+To: poky@yoctoproject.org
+CC: 
+From: Joshua Lock <josh@linux.intel.com>
+Subject: [PATCH 0/1] Fix inclusion of meta-yocto
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,43 +26,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 Mar 2011 11:09:37 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 15 Mar 2011 11:17:27 -0000
 
-On Tue, 2011-03-15 at 00:30 -0700, Darren Hart wrote:
-> 
-> On 03/14/2011 06:21 PM, Richard Purdie wrote:
-> > On Mon, 2011-03-14 at 16:54 -0700, Darren Hart wrote:
-> >> From: Darren Hart<dvhart@linux.intel.com>
-> >>
-> >> Pull URL: git://git.pokylinux.org/poky-contrib.git
-> >>    Branch: dvhart/kernel
-> >>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dvhart/kernel
-> >>
-> >> Thanks,
-> >>      Darren Hart<dvhart@linux.intel.com>
-> >> ---
-> >>
-> >>
-> >> Darren Hart (1):
-> >>    qemux86-64: Enable latencytop and profiling (temporary)
-> >>
-> >>   meta/recipes-kernel/linux/linux-yocto_git.bb |    4 ++++
-> >>   1 files changed, 4 insertions(+), 0 deletions(-)
-> >
-> > Merged into OECore and Poky master.
-> 
-> Gah, my note in response to my post was bounced (wrong email address). I 
-> said that this patch should only go to bernard and master would get the 
-> update from Bruce to linux-yocto naturally. It's fine though, we can 
-> revert this patch later.
+From: Joshua Lock <josh@linux.intel.com>
 
-We don't take patches for Bernard unless the problem is fixed in master
-too.
+New build dirs created on the master branch are missing the meta-yocto
+layer in the default bblayers.conf
 
-Cheers,
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: josh/master
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=josh/master
 
-Richard
+Thanks,
+    Joshua Lock <josh@linux.intel.com>
+---
+
+
+Joshua Lock (1):
+  bblayers.conf.sample: include meta-yocto in default layers
+
+ meta-yocto/conf/bblayers.conf.sample |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+
+-- 
+1.7.4
 
 
