@@ -1,21 +1,43 @@
 Return-Path: <lianhao.lu@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 16FAE4C805BB
-	for <poky@yoctoproject.org>; Tue, 15 Mar 2011 04:43:42 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 15 Mar 2011 02:43:41 -0700
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 0EA374C80AAA
+	for <poky@yoctoproject.org>; Tue, 15 Mar 2011 05:30:59 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 15 Mar 2011 03:30:59 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,321,1297065600"; d="scan'208";a="613110563"
-Received: from llu-piketon.sh.intel.com (HELO localhost) ([10.239.36.87])
-	by orsmga002.jf.intel.com with ESMTP; 15 Mar 2011 02:43:41 -0700
-Message-Id: <4a490a871b3f42f995e4ae2ebc103b731b03e33d.1300182097.git.lianhao.lu@intel.com>
-In-Reply-To: <cover.1300182097.git.lianhao.lu@intel.com>
-References: <cover.1300182097.git.lianhao.lu@intel.com>
-Old-Date: Tue, 15 Mar 2011 17:37:11 +0800
-Date: Tue, 15 Mar 2011 17:42:47 +0800
-To: poky@yoctoproject.org
-From: Lianhao Lu <lianhao.lu@intel.com>
-Subject: [PATCH 1/1] package-index.bb: Added missing dependencies.
+X-IronPort-AV: E=Sophos;i="4.62,321,1297065600"; d="scan'208";a="720299322"
+Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
+	by orsmga001.jf.intel.com with ESMTP; 15 Mar 2011 03:30:58 -0700
+Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
+	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
+	(TLS) id 8.2.254.0; Tue, 15 Mar 2011 18:30:51 +0800
+Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
+	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
+	Tue, 15 Mar 2011 18:30:50 +0800
+From: "Lu, Lianhao" <lianhao.lu@intel.com>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Date: Tue, 15 Mar 2011 18:30:48 +0800
+Thread-Topic: autoconf version mismatch on Bernard
+Thread-Index: AcviuF6X3NPDYBMCSiyVQqCSttQh7gACdJLwAACUHfcADTdDAA==
+Message-ID: <C10D3FB0CD45994C8A51FEC1227CE22F218AD10FDC@shsmsx502.ccr.corp.intel.com>
+References: <789F9655DD1B8F43B48D77C5D306597332F02CB7@shsmsx501.ccr.corp.intel.com>
+	<9AFCD584B0B67B48AE8D8585BE30BA95304B58D2@orsmsx504.amr.corp.intel.com>
+	<789F9655DD1B8F43B48D77C5D306597332F5FE28@shsmsx501.ccr.corp.intel.com>
+	<C10D3FB0CD45994C8A51FEC1227CE22F21852820F8@shsmsx502.ccr.corp.intel.com>
+	<789F9655DD1B8F43B48D77C5D306597332FC7643@shsmsx501.ccr.corp.intel.com>
+	<9AFCD584B0B67B48AE8D8585BE30BA9530656D87@orsmsx504.amr.corp.intel.com>
+	<789F9655DD1B8F43B48D77C5D306597332FC77B4@shsmsx501.ccr.corp.intel.com>
+	<4D7ECE4C.6030500@intel.com>,
+	<9AFCD584B0B67B48AE8D8585BE30BA9530656E56@orsmsx504.amr.corp.intel.com>
+	<DC74E0187B44084E9AD28300B75DFE302A8B528B@orsmsx504.amr.corp.intel.com>
+In-Reply-To: <DC74E0187B44084E9AD28300B75DFE302A8B528B@orsmsx504.amr.corp.intel.com>
+Accept-Language: zh-CN, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: zh-CN, en-US
+MIME-Version: 1.0
+Cc: "Wold, Saul" <saul.wold@intel.com>
+Subject: autoconf version mismatch on Bernard
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,33 +49,24 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 Mar 2011 09:43:42 -0000
+X-List-Received-Date: Tue, 15 Mar 2011 10:31:00 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-From: Lianhao Lu <lianhao.lu@intel.com>
+Hi guys,
 
-[YOCTO #871] Added missing dependencies to opkg-utils-native and
-opkg-native.
+Does anyone see this kind of failure in recent poky build on bernard branch=
+:
+http://autobuilder.pokylinux.org:8010/builders/nightly-toolchain-test/build=
+s/1/steps/shell_5/logs/stdio=20
 
-Signed-off-by: Lianhao Lu <lianhao.lu@intel.com>
----
- meta/recipes-core/meta/package-index.bb |    3 +++
- 1 files changed, 3 insertions(+), 0 deletions(-)
+It seems there is a autoconf version mismatch. Liping used to meet once, an=
+d "bitbake autoconf-native -c cleanall; bitbake autoconf-native" seems get =
+it worked-around. I cannot reproduce this bug on my local build machine.=20
 
-diff --git a/meta/recipes-core/meta/package-index.bb b/meta/recipes-core/meta/package-index.bb
-index c9e9694..3c642cb 100644
---- a/meta/recipes-core/meta/package-index.bb
-+++ b/meta/recipes-core/meta/package-index.bb
-@@ -20,6 +20,9 @@ do_populate_sysroot[noexec] = "1"
- 
- do_package_index[nostamp] = "1"
- do_package_index[dirs] = "${DEPLOY_DIR_IPK}"
-+do_package_index[depends] += "opkg-utils-native:do_populate_sysroot"
-+do_package_index[depends] += "opkg-native:do_populate_sysroot"
-+
- do_package_index() {
- 	set -ex
- 	package_update_index_ipk
--- 
-1.7.0.4
+Best Regards,
+Lianhao
+
 
 
