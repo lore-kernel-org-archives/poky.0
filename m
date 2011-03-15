@@ -1,23 +1,22 @@
 Return-Path: <scott.m.rifenbark@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 8FA014C803D6
-	for <poky@yoctoproject.org>; Tue, 15 Mar 2011 18:42:28 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 15 Mar 2011 16:42:28 -0700
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4A78D4C8009D
+	for <poky@yoctoproject.org>; Tue, 15 Mar 2011 18:42:30 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 15 Mar 2011 16:42:29 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,191,1299484800"; 
-	d="scan'208,217";a="613438771"
+X-IronPort-AV: E=Sophos;i="4.63,191,1299484800"; d="scan'208";a="403176222"
 Received: from unknown (HELO localhost) ([10.255.12.159])
-	by orsmga002.jf.intel.com with ESMTP; 15 Mar 2011 16:42:27 -0700
-Message-Id: <16562271ee5876a690b3727083582ddfdbe40341.1300232339.git.scott.m.rifenbark@intel.com>
+	by azsmga001.ch.intel.com with ESMTP; 15 Mar 2011 16:42:29 -0700
+Message-Id: <f735f12377dac6fa6eb05fd1c004f7d5a70c43b8.1300232339.git.scott.m.rifenbark@intel.com>
 In-Reply-To: <cover.1300232338.git.scott.m.rifenbark@intel.com>
 References: <cover.1300232338.git.scott.m.rifenbark@intel.com>
-Old-Date: Mon, 14 Mar 2011 14:38:54 -0600
-Date: Tue, 15 Mar 2011 17:43:19 -0600
+Old-Date: Mon, 14 Mar 2011 14:43:26 -0600
+Date: Tue, 15 Mar 2011 17:43:21 -0600
 To: poky@yoctoproject.org
 CC: 
 From: <scott.m.rifenbark@intel.com>
-Subject: [PATCH 03/13] documentation/adt-manual/adt-manual.xml: Initial file
+Subject: [PATCH 04/13] documentation/adt-manual/Makefile: Initial Makefile
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,85 +28,53 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 Mar 2011 23:42:28 -0000
+X-List-Received-Date: Tue, 15 Mar 2011 23:42:30 -0000
 
 From: Scott Rifenbark <scott.m.rifenbark@intel.com>
 
-This is the initial file that the Makefile calls.  The changes in this
-commit reflect edits taking it from the copied kernel manual version.
+These edits take the Makefile from the version I copied over from
+the Kernel manual to create the initial version for the ADT Manual.
 
 Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
 ---
- documentation/adt-manual/adt-manual.xml |   26 +++++++++++++++-----------
- 1 files changed, 15 insertions(+), 11 deletions(-)
+ documentation/adt-manual/Makefile |   12 ++++++------
+ 1 files changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/documentation/adt-manual/adt-manual.xml b/documentation/adt-manual/adt-manual.xml
-index e9a9ed3..9c08d7f 100644
---- a/documentation/adt-manual/adt-manual.xml
-+++ b/documentation/adt-manual/adt-manual.xml
-@@ -1,7 +1,7 @@
- <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
- "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+diff --git a/documentation/adt-manual/Makefile b/documentation/adt-manual/Makefile
+index dcfcb92..ec19bce 100644
+--- a/documentation/adt-manual/Makefile
++++ b/documentation/adt-manual/Makefile
+@@ -14,7 +14,7 @@ XSL_XHTML_URI = $(XSL_BASE_URI)/xhtml/docbook.xsl
+ all: html pdf tarball
  
--<book id='kernel-manual' lang='en' 
-+<book id='adt-manual' lang='en' 
-       xmlns:xi="http://www.w3.org/2003/XInclude"
-       xmlns="http://docbook.org/ns/docbook"
-       >
-@@ -9,7 +9,7 @@
+ pdf:
+-	../tools/poky-docbook-to-pdf kernel-manual.xml ../template
++	../tools/poky-docbook-to-pdf adt-manual.xml ../template
  
-         <mediaobject>
-             <imageobject>
--                <imagedata fileref='figures/kernel-title.png' 
-+                <imagedata fileref='figures/adt-title.png' 
-                     format='SVG' 
-                     align='left' scalefit='1' width='100%'/>
-             </imageobject>    
-@@ -19,19 +19,19 @@
+ ##
+ # These URI should be rewritten by your distribution's xml catalog to
+@@ -23,16 +23,16 @@ pdf:
+ html:
+ #       See http://www.sagehill.net/docbookxsl/HtmlOutput.html 
  
-         <authorgroup>
-             <author>
--                <firstname>Bruce</firstname> <surname>Ashfield</surname>
-+                <firstname>Jessica</firstname> <surname>Zhang</surname>
-                 <affiliation>
--                    <orgname>Wind River Corporation</orgname>
-+                    <orgname>Intel Corporation</orgname>
-                 </affiliation>
--                <email>bruce.ashfield@windriver.com</email>
-+                <email>jessica.zhang@intel.com</email>
-             </author>
-         </authorgroup>
+-#	xsltproc $(XSLTOPTS) -o yocto-project-qs.html $(XSL_XHTML_URI) yocto-project-qs.xml
+-	xsltproc $(XSLTOPTS) -o kernel-manual.html yocto-project-kernel-manual-customization.xsl kernel-manual.xml
++#	xsltproc $(XSLTOPTS) -o adt-manual.html $(XSL_XHTML_URI) adt-manual.xml
++	xsltproc $(XSLTOPTS) -o adt-manual.html adt-manual-customization.xsl adt-manual.xml
  
-         <revhistory>
-             <revision>
--                <revnumber>0.9</revnumber>
--                <date>24 November 2010</date>
--                <revremark>Beta Draft</revremark>
-+                <revnumber>1.0</revnumber>
-+                <date>14 March 2011</date>
-+                <revremark>Initial Document released with Yocto Project 1.0.</revremark>
-             </revision>
-         </revhistory>
+ tarball: html
+-	tar -cvzf kernel-manual.tgz kernel-manual.html style.css figures/kernel-title.png figures/kernel-big-picture.png figures/kernel-architecture-overview.png
++	tar -cvzf adt-manual.tgz adt-manual.html style.css figures/adt-title.png figures/yocto-project-transp.png
  
-@@ -49,11 +49,15 @@
+ validate:
+-	xmllint --postvalid --xinclude --noout kernel-manual.xml
++	xmllint --postvalid --xinclude --noout adt-manual.xml
  
-     </bookinfo>
+-OUTPUTS = kernel-manual.tgz kernel-manual.html kernel-manual.pdf
++OUTPUTS = adt-manual.tgz adt-manual.html adt-manual.pdf
+ SOURCES = *.png *.xml *.css
  
--    <xi:include href="kernel-doc-intro.xml"/>
-+    <xi:include href="adt-intro.xml"/>
- 
--    <xi:include href="kernel-concepts.xml"/>
-+    <xi:include href="adt-prepare.xml"/>
- 
--    <xi:include href="kernel-how-to.xml"/>
-+    <xi:include href="adt-package.xml"/>
-+
-+    <xi:include href="adt-eclipse.xml"/>
-+
-+    <xi:include href="adt-command.xml"/>
- 
- <!--    <index id='index'>
-       <title>Index</title>
+ publish:
 -- 
 1.7.1
 
