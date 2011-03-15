@@ -1,30 +1,26 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 19C8D4C80050
-	for <poky@yoctoproject.org>; Tue, 15 Mar 2011 08:41:34 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2FDcP6R018685;
-	Tue, 15 Mar 2011 13:38:25 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 18570-03; Tue, 15 Mar 2011 13:38:21 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2FDcF58018679
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Tue, 15 Mar 2011 13:38:17 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Gerard van den Bosch <gerard@de-haardt.com>
-In-Reply-To: <4D7F4630.3030705@de-haardt.com>
-References: <4D7F4630.3030705@de-haardt.com>
-Date: Tue, 15 Mar 2011 13:38:06 +0000
-Message-ID: <1300196286.30423.1726.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@yoctoproject.org
-Subject: Re: compile application header file missing
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 40AB94C80050
+	for <poky@lists.pokylinux.org>; Tue, 15 Mar 2011 08:51:36 -0500 (CDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 9CCCF1660386; Tue, 15 Mar 2011 07:51:35 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.2-r929478
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 430191660383;
+	Tue, 15 Mar 2011 07:51:34 -0600 (MDT)
+Message-ID: <4D7F6EE6.6070504@mlbassoc.com>
+Date: Tue, 15 Mar 2011 07:51:34 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
+MIME-Version: 1.0
+To: Poky <poky@lists.pokylinux.org>
+Subject: Update gone terribly wrong
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,54 +32,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 Mar 2011 13:41:35 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Tue, 15 Mar 2011 13:51:36 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Tue, 2011-03-15 at 11:57 +0100, Gerard van den Bosch wrote:
-> Hello,
-> 
-> I have programmed an application that uses the OpenSLP library and thus 
-> needs the header file from it.
-> OpenSLP is already compiled and running fine on the target.
-> 
-> But when I try to compile my application it can't find the header file.
-> When I print out the CFLAGS with bitbake myimage -e | grep CFLAGS the 
-> BUILD_CFLAGS point to:
-> /home/gerard/green-3.3/build/tmp/sysroots/i686-linux/usr/include
-> The slp.h is indeed missing, but it is located at:
-> /home/gerard/green-3.3/build/tmp/sysroots/armv7a-poky-linux-gnueabi/usr/include
-> 
-> How can I change the CFLAGS to look in the other folder or force OpenSLP 
-> to drop it in the i686 folder?
-> 
-> I have added OpenSLP to my DEPENDS in the recipe, also tried RDEPENDS 
-> but it didn't solve the problem.
+I updated my Poky tree to current master this morning (4c695dbcd12b295a4215422622006f1f58469297)
 
-You should be adding OpenSLP to DEPENDS. The toolchain should be
-automatically searching the arm sysroot /usr/include directory for
-include files which is where your file is.
+Now, when I try to build in an extant tree, I get errors like these:
+   /home/local/poky-amltd/scripts/bitbake: line 51: 28850 Segmentation fault      (core dumped) PSEUDO_BINDIR=$PSEUDOBINDIR PSEUDO_LIBDIR=$PSEUDOBINDIR/../lib/pseudo/lib 
+PSEUDO_PREFIX=$PSEUDOBINDIR/../../ PSEUDO_DISABLED=1 $PSEUDOBINDIR/pseudo $BITBAKE $@
 
-I appreciate this is the green release, in master we have this in
-meta/conf/bitbake.conf:
+So, I removed pseudodone and got
+   /home/local/poky-amltd/scripts/bitbake: line 43: 28891 Segmentation fault      (core dumped) bitbake pseudo-native tar-replacement-native -c populate_sysroot
 
-TOOLCHAIN_OPTIONS = " --sysroot=${STAGING_DIR_TARGET}"
+So I figured I'd just restart, so I tried this:
+   % mv tmp tmp.BAD
+   % mv sstate-cache sstate-mirror
+   ... set SSTATE_MIRRORS to use the old cache
+   %  tail -n3 conf/local.conf
+   SSTATE_MIRRORS ?= "\
+   file://.* file:///local/p60_poky/sstate-mirror/"
 
-export CC = "${CCACHE}${HOST_PREFIX}gcc ${HOST_CC_ARCH}${TOOLCHAIN_OPTIONS}"
+Sadly, it's rebuilding everything, reusing nothing :-(
 
-Back in green, this option should be being hardcoded into gcc as the
-default sysroot option but you could try explicitly setting it.
+Any ideas what went wrong and why the sstate mirror is not working (again)?
 
-Note that BUILD_CFLAGS is the wrong place to look, those are for native
-build tools, not target ones. You want to use TARGET_CFLAGS and
-TARGET_CFLAGS should be the same as CFLAGS.
-
-After reading the above, if your image *is* using BUILD_CFLAGS and
-BUILD_CC instead of CC, that is your real problem, it should be using
-the target device compiler, not the build one.
-
-Cheers,
-
-Richard
-
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
