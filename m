@@ -1,25 +1,37 @@
-Return-Path: <Kai.Kang@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 694F84C8009A
-	for <poky@yoctoproject.org>; Tue, 15 Mar 2011 00:38:09 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p2F5c8hn026280
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Mon, 14 Mar 2011 22:38:08 -0700 (PDT)
-Received: from localhost (128.224.163.157) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Mon, 14 Mar 2011 22:38:08 -0700
-Message-ID: <3497d99d8f4a865204e1c334dd797bff54511e7d.1300167046.git.kai.kang@windriver.com>
-In-Reply-To: <cover.1300167046.git.kai.kang@windriver.com>
-References: <cover.1300167046.git.kai.kang@windriver.com>
-Old-Date: Mon, 14 Mar 2011 14:06:09 +0800
-Date: Tue, 15 Mar 2011 13:36:39 +0800
-To: <sgw@linux.intel.com>
-From: Kang Kai <kai.kang@windriver.com>
+Return-Path: <kubera.samrat@gmail.com>
+Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
+	[74.125.82.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C0E144C80050
+	for <poky@yoctoproject.org>; Tue, 15 Mar 2011 01:41:17 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by wyb40 with SMTP id 40so294410wyb.35
+	for <poky@yoctoproject.org>; Mon, 14 Mar 2011 23:41:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:in-reply-to:references:date
+	:message-id:subject:from:to:content-type;
+	bh=3WNn6uXK9cJAxvqq1RynWTYqQIDMc/NlWyVyzLTqeGk=;
+	b=gB13pnOgZ9YJfCqb/Uh5LfpQLjHgJhQFmTrvtMuG62bpsDIhsqhhSSoMZvO8eS3Y1v
+	6QvCdKQjIr2ucIJEBpDpmiwyEYkgedEUiwhu6P6X6JV2UXhC+VPNqhmMt80PvOPQ4UQ0
+	dtAniWRRahLhhnijClrTmMNX7eI5R5Nf2ZdTE=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:content-type;
+	b=lKk1aadwcFsH58eIEYR/FEQzwndX5TUJTtR+JHjx9aefEYjJyQPtVwXfG7R3ipdwO3
+	wiMMgCK9VX4pemJR5YNbeSdZRwRIaU506K6FutAeyIOh5B86q3XSmgqJs/kxVnP6SRkI
+	6/HuKteBjhTeF8mAsfLYG4Hf/Xx/CYF88fk/Q=
 MIME-Version: 1.0
-X-Originating-IP: [128.224.163.157]
-Cc: poky@yoctoproject.org
-Subject: [PATCH 1/1] slang: export INST_LIB_DIR to fix compile problems
+Received: by 10.216.62.77 with SMTP id x55mr551109wec.59.1300171276664; Mon,
+	14 Mar 2011 23:41:16 -0700 (PDT)
+Received: by 10.216.236.166 with HTTP; Mon, 14 Mar 2011 23:41:16 -0700 (PDT)
+In-Reply-To: <AANLkTi=bahdLUNge_zTEbqz_EiptcAyV+xpQKfG1NE3Y@mail.gmail.com>
+References: <AANLkTi=bahdLUNge_zTEbqz_EiptcAyV+xpQKfG1NE3Y@mail.gmail.com>
+Date: Tue, 15 Mar 2011 12:11:16 +0530
+Message-ID: <AANLkTikZfHe2irEzbjWqRHuj0zD8DQ=vf99-FjWCfuxF@mail.gmail.com>
+From: kubera samrat <kubera.samrat@gmail.com>
+To: poky@yoctoproject.org
+Subject: Re: Problem while adding krb5
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,45 +43,54 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 Mar 2011 05:38:09 -0000
-Content-Type: text/plain
+X-List-Received-Date: Tue, 15 Mar 2011 06:41:18 -0000
+Content-Type: multipart/alternative; boundary=000e0ce0b84217c06a049e7fb7ca
 
-From: Kang Kai <kai.kang@windriver.com>
+--000e0ce0b84217c06a049e7fb7ca
+Content-Type: text/plain; charset=ISO-8859-1
 
-Export "INST_LIB_DIR" in do_install to slang/slsh to fix cross compile warnings
-Fix [YOCTO #812]
+hi,
+    I am placing the log when I build it.
 
-Add necessary files to run slsh.
-
-Signed-off-by: Kang Kai <kai.kang@windriver.com>
----
- meta/recipes-extended/slang/slang_2.2.2.bb |    8 +++++++-
- 1 files changed, 7 insertions(+), 1 deletions(-)
-
-diff --git a/meta/recipes-extended/slang/slang_2.2.2.bb b/meta/recipes-extended/slang/slang_2.2.2.bb
-index 7fe76af..8459e24 100644
---- a/meta/recipes-extended/slang/slang_2.2.2.bb
-+++ b/meta/recipes-extended/slang/slang_2.2.2.bb
-@@ -10,7 +10,7 @@ to recode S-Lang procedures in C if you need to."
- SECTION = "libs"
- PRIORITY = "optional"
- DEPENDS = "pcre"
--PR = "r0"
-+PR = "r1"
- 
- LICENSE = "GPL Artistic"
- LIC_FILES_CHKSUM = "file://COPYING;md5=0636e73ff0215e8d672dc4c32c317bb3"
-@@ -23,3 +23,9 @@ inherit autotools
- 
- SRC_URI[md5sum] = "974437602a781cfe92ab61433dd16d03"
- SRC_URI[sha256sum] = "cfaf8551fa3855f9b0043309bb553ef6d457f931b404df5a6ba6a5a69371fc42"
-+
-+do_install() {
-+	oe_runmake install DESTDIR=${D} -e 'INST_LIB_DIR=${STAGING_DIR_HOST}/usr/lib'
-+}
-+
-+FILES_${PN} += "/usr/share/slsh/"
--- 
-1.7.1
+NOTE: package krb5-1.6.3-r6: task do_package_write_rpm: Started
+NOTE: Creating RPM package for krb5-dbg
+*NOTE: Not creating empty RPM package for krb5*
+*NOTE: Not creating empty RPM package for krb5-doc*
+NOTE: Creating RPM package for krb5-dev
+*NOTE: Not creating empty RPM package for krb5-locale*
+NOTE: package krb5-1.6.3-r6: task do_package_write_rpm: Succeeded
 
 
+By seeing this log I checked the /deploy-rpms folder, it has created only
+krb5-dbg and krb5-dev as it stated in the log. But still even these rpms are
+empty. I checked using less command. I think this might be the problem
+rootfs is not going to find krb5.
+Can anyone please suggest me the way to find the solution. Your help will be
+greatly appreciated.
+
+
+
+Thanks and regards,
+Kubera Samrat
+
+--000e0ce0b84217c06a049e7fb7ca
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
+
+hi,<br> =A0 =A0 I am placing the log when I build it.<br><br>NOTE: package =
+krb5-1.6.3-r6: task do_package_write_rpm: Started<br>NOTE: Creating RPM pac=
+kage for krb5-dbg<br><b>NOTE: Not creating empty RPM package for krb5</b><b=
+r>
+<b>NOTE: Not creating empty RPM package for krb5-doc</b><br>NOTE: Creating =
+RPM package for krb5-dev<br><b>NOTE: Not creating empty RPM package for krb=
+5-locale</b><br>NOTE: package krb5-1.6.3-r6: task do_package_write_rpm: Suc=
+ceeded<br>
+<br><br>By seeing this log I checked the /deploy-rpms folder, it has create=
+d only krb5-dbg and krb5-dev as it stated in the log. But still even these =
+rpms are empty. I checked using less command. I think this might be the pro=
+blem rootfs is not going to find krb5. <br>
+Can anyone please suggest me the way to find the solution. Your help will b=
+e greatly appreciated.<br><br><br><br>Thanks and regards,<br>Kubera Samrat<=
+br>
+
+--000e0ce0b84217c06a049e7fb7ca--
