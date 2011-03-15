@@ -1,27 +1,29 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0CDD64C803D6
-	for <poky@lists.pokylinux.org>; Tue, 15 Mar 2011 08:58:17 -0500 (CDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 9BC5016601DA; Tue, 15 Mar 2011 07:58:16 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2-r929478
-Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 360CC16601AD;
-	Tue, 15 Mar 2011 07:58:15 -0600 (MDT)
-Message-ID: <4D7F7077.70507@mlbassoc.com>
-Date: Tue, 15 Mar 2011 07:58:15 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
-MIME-Version: 1.0
-To: Poky <poky@lists.pokylinux.org>
-References: <4D7F6EE6.6070504@mlbassoc.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 095294C803D6
+	for <poky@lists.pokylinux.org>; Tue, 15 Mar 2011 09:04:12 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2FE4BdD019236;
+	Tue, 15 Mar 2011 14:04:11 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 18850-06; Tue, 15 Mar 2011 14:04:07 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2FE4218019230
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Tue, 15 Mar 2011 14:04:03 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Gary Thomas <gary@mlbassoc.com>
 In-Reply-To: <4D7F6EE6.6070504@mlbassoc.com>
+References: <4D7F6EE6.6070504@mlbassoc.com>
+Date: Tue, 15 Mar 2011 14:03:55 +0000
+Message-ID: <1300197835.30423.1757.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: Poky <poky@lists.pokylinux.org>
 Subject: Re: Update gone terribly wrong
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -34,45 +36,46 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 Mar 2011 13:58:17 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Tue, 15 Mar 2011 14:04:13 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On 03/15/2011 07:51 AM, Gary Thomas wrote:
+On Tue, 2011-03-15 at 07:51 -0600, Gary Thomas wrote:
 > I updated my Poky tree to current master this morning (4c695dbcd12b295a4215422622006f1f58469297)
->
+> 
 > Now, when I try to build in an extant tree, I get errors like these:
-> /home/local/poky-amltd/scripts/bitbake: line 51: 28850 Segmentation fault (core dumped) PSEUDO_BINDIR=$PSEUDOBINDIR PSEUDO_LIBDIR=$PSEUDOBINDIR/../lib/pseudo/lib
+>    /home/local/poky-amltd/scripts/bitbake: line 51: 28850 Segmentation fault      (core dumped) PSEUDO_BINDIR=$PSEUDOBINDIR PSEUDO_LIBDIR=$PSEUDOBINDIR/../lib/pseudo/lib 
 > PSEUDO_PREFIX=$PSEUDOBINDIR/../../ PSEUDO_DISABLED=1 $PSEUDOBINDIR/pseudo $BITBAKE $@
->
+> 
 > So, I removed pseudodone and got
-> /home/local/poky-amltd/scripts/bitbake: line 43: 28891 Segmentation fault (core dumped) bitbake pseudo-native tar-replacement-native -c populate_sysroot
->
+>    /home/local/poky-amltd/scripts/bitbake: line 43: 28891 Segmentation fault      (core dumped) bitbake pseudo-native tar-replacement-native -c populate_sysroot
+
+This looks like python itself is segfaulting, even without pseudo loaded
+so it could well be something outside our control :/. Which python
+version is that?
+
+If you still have the build around it would be interesting to see if
+just removing the cache directory fixed that or trying to narrow down
+which files are triggering the segfault.
+
 > So I figured I'd just restart, so I tried this:
-> % mv tmp tmp.BAD
-> % mv sstate-cache sstate-mirror
-> ... set SSTATE_MIRRORS to use the old cache
-> % tail -n3 conf/local.conf
-> SSTATE_MIRRORS ?= "\
-> file://.* file:///local/p60_poky/sstate-mirror/"
->
+>    % mv tmp tmp.BAD
+>    % mv sstate-cache sstate-mirror
+>    ... set SSTATE_MIRRORS to use the old cache
+>    %  tail -n3 conf/local.conf
+>    SSTATE_MIRRORS ?= "\
+>    file://.* file:///local/p60_poky/sstate-mirror/"
+> 
 > Sadly, it's rebuilding everything, reusing nothing :-(
->
+> 
 > Any ideas what went wrong and why the sstate mirror is not working (again)?
->
 
-1/2 an answer to the sstate question; it looks like something has changed the
-[md5] hash on the state files.  I ran bitbake with strace to see what files it
-was looking at, for example, it tried to look at
-   sstate-libxau-native-i686-linux-1.0.6-r0-i686-2-c96b705204df4a0b4b85a9629d15fe53_populate-sysroot.tgz
-when the old sstate held
-   sstate-libxau-native-i686-linux-1.0.6-r0-i686-2-cb04fd60d897b3222c3c046e571117ff_populate-sysroot.tgz
+Likely, some of the changes in master meant the sstate checksums were
+invalidated and it therefore required a rebuild. The sstate files are
+only used if the checksums are found to be valid.
 
-What controls this hash and why did it change for every package?
+Cheers,
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+Richard
+
 
