@@ -1,30 +1,30 @@
 Return-Path: <richard.purdie@linuxfoundation.org>
 Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
 	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2D54C4C8009A
-	for <poky@yoctoproject.org>; Tue, 15 Mar 2011 06:37:13 -0500 (CDT)
+	by mx1.pokylinux.org (Postfix) with ESMTP id A1B364C80050
+	for <poky@yoctoproject.org>; Tue, 15 Mar 2011 08:21:56 -0500 (CDT)
 Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2FBbBgJ017754;
-	Tue, 15 Mar 2011 11:37:11 GMT
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2FDLrVc018578;
+	Tue, 15 Mar 2011 13:21:53 GMT
 Received: from tim.rpsys.net ([127.0.0.1])
 	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
 	port 10024) with LMTP
-	id 17256-10; Tue, 15 Mar 2011 11:37:07 +0000 (GMT)
+	id 18343-04; Tue, 15 Mar 2011 13:21:49 +0000 (GMT)
 Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2FBb5D1017748
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2FDLii1018572
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Tue, 15 Mar 2011 11:37:05 GMT
+	Tue, 15 Mar 2011 13:21:44 GMT
 From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Joshua Lock <josh@linux.intel.com>
-In-Reply-To: <cover.1300185095.git.josh@linux.intel.com>
-References: <cover.1300185095.git.josh@linux.intel.com>
-Date: Tue, 15 Mar 2011 11:36:57 +0000
-Message-ID: <1300189017.30423.1586.camel@rex>
+To: Paul Eggleton <paul.eggleton@linux.intel.com>
+In-Reply-To: <cover.1298903625.git.paul.eggleton@linux.intel.com>
+References: <cover.1298903625.git.paul.eggleton@linux.intel.com>
+Date: Tue, 15 Mar 2011 13:21:36 +0000
+Message-ID: <1300195296.30423.1698.camel@rex>
 Mime-Version: 1.0
 X-Mailer: Evolution 2.28.3 
 X-Virus-Scanned: amavisd-new at rpsys.net
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/1] Fix inclusion of meta-yocto
+Subject: Re: [PATCH 0/3] Minor sstate-related fixes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,35 +36,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 Mar 2011 11:37:13 -0000
+X-List-Received-Date: Tue, 15 Mar 2011 13:21:57 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On Tue, 2011-03-15 at 11:17 +0000, Joshua Lock wrote:
-> From: Joshua Lock <josh@linux.intel.com>
+On Mon, 2011-02-28 at 14:37 +0000, Paul Eggleton wrote:
+> From: Paul Eggleton <paul.eggleton@linux.intel.com>
 > 
-> New build dirs created on the master branch are missing the meta-yocto
-> layer in the default bblayers.conf
+> These patches fix two potential sources of problems with sstate stamp file 
+> handling and one error message issue for setscene tasks. They are not urgent
+> for the 1.0 release but may be desirable.
 > 
 > Pull URL: git://git.pokylinux.org/poky-contrib.git
->   Branch: josh/master
->   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=josh/master
+>   Branch: paule/sstate-fixes
+>   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=paule/sstate-fixes
 > 
 > Thanks,
->     Joshua Lock <josh@linux.intel.com>
+>     Paul Eggleton <paul.eggleton@linux.intel.com>
 > ---
 > 
 > 
-> Joshua Lock (1):
->   bblayers.conf.sample: include meta-yocto in default layers
+> Paul Eggleton (3):
+>   sstate.bbclass: avoid deleting unrelated stamp files
+>   sstate.bbclass: always delete stamp files in sstate_clean
+>   bitbake/runqueue: show correct task name for setscene task failure
 > 
->  meta-yocto/conf/bblayers.conf.sample |    1 +
->  1 files changed, 1 insertions(+), 0 deletions(-)
+>  bitbake/lib/bb/runqueue.py  |   14 +++++++++++---
+>  meta/classes/sstate.bbclass |   20 ++++++++++----------
+>  2 files changed, 21 insertions(+), 13 deletions(-)
 
-I'm not sure how I missed that, I was sure I'd committed something like
-that. I've merged to master, thanks!
+I've merged these patches, thanks!
 
 Richard
-
 
 
