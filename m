@@ -1,43 +1,32 @@
-Return-Path: <lianhao.lu@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0EA374C80AAA
-	for <poky@yoctoproject.org>; Tue, 15 Mar 2011 05:30:59 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 15 Mar 2011 03:30:59 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.62,321,1297065600"; d="scan'208";a="720299322"
-Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
-	by orsmga001.jf.intel.com with ESMTP; 15 Mar 2011 03:30:58 -0700
-Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
-	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Tue, 15 Mar 2011 18:30:51 +0800
-Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
-	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
-	Tue, 15 Mar 2011 18:30:50 +0800
-From: "Lu, Lianhao" <lianhao.lu@intel.com>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Date: Tue, 15 Mar 2011 18:30:48 +0800
-Thread-Topic: autoconf version mismatch on Bernard
-Thread-Index: AcviuF6X3NPDYBMCSiyVQqCSttQh7gACdJLwAACUHfcADTdDAA==
-Message-ID: <C10D3FB0CD45994C8A51FEC1227CE22F218AD10FDC@shsmsx502.ccr.corp.intel.com>
-References: <789F9655DD1B8F43B48D77C5D306597332F02CB7@shsmsx501.ccr.corp.intel.com>
-	<9AFCD584B0B67B48AE8D8585BE30BA95304B58D2@orsmsx504.amr.corp.intel.com>
-	<789F9655DD1B8F43B48D77C5D306597332F5FE28@shsmsx501.ccr.corp.intel.com>
-	<C10D3FB0CD45994C8A51FEC1227CE22F21852820F8@shsmsx502.ccr.corp.intel.com>
-	<789F9655DD1B8F43B48D77C5D306597332FC7643@shsmsx501.ccr.corp.intel.com>
-	<9AFCD584B0B67B48AE8D8585BE30BA9530656D87@orsmsx504.amr.corp.intel.com>
-	<789F9655DD1B8F43B48D77C5D306597332FC77B4@shsmsx501.ccr.corp.intel.com>
-	<4D7ECE4C.6030500@intel.com>,
-	<9AFCD584B0B67B48AE8D8585BE30BA9530656E56@orsmsx504.amr.corp.intel.com>
-	<DC74E0187B44084E9AD28300B75DFE302A8B528B@orsmsx504.amr.corp.intel.com>
-In-Reply-To: <DC74E0187B44084E9AD28300B75DFE302A8B528B@orsmsx504.amr.corp.intel.com>
-Accept-Language: zh-CN, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: zh-CN, en-US
+Return-Path: <gerard@de-haardt.com>
+Received: from cpsmtpb-ews05.kpnxchange.com (cpsmtpb-ews05.kpnxchange.com
+	[213.75.39.8])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 176CB4C8009A
+	for <poky@yoctoproject.org>; Tue, 15 Mar 2011 05:57:44 -0500 (CDT)
+Received: from cpbrm-ews06.kpnxchange.com ([10.94.84.137]) by
+	cpsmtpb-ews05.kpnxchange.com with Microsoft SMTPSVC(6.0.3790.4675); 
+	Tue, 15 Mar 2011 11:57:44 +0100
+Received: from CPSMTPM-CMT108.kpnxchange.com ([195.121.3.24]) by
+	cpbrm-ews06.kpnxchange.com with Microsoft SMTPSVC(6.0.3790.4675); 
+	Tue, 15 Mar 2011 11:57:44 +0100
+Received: from mail.de-haardt.com ([86.81.67.223]) by
+	CPSMTPM-CMT108.kpnxchange.com with Microsoft
+	SMTPSVC(7.0.6002.18264); Tue, 15 Mar 2011 11:57:43 +0100
+Received: from [192.168.1.160] ([192.168.1.160])
+	(authenticated user gerard@de-haardt.com) by mail.de-haardt.com
+	(using TLSv1/SSLv3 with cipher AES256-SHA (256 bits))
+	for poky@yoctoproject.org; Tue, 15 Mar 2011 11:57:39 +0100
+Message-ID: <4D7F4630.3030705@de-haardt.com>
+Date: Tue, 15 Mar 2011 11:57:52 +0100
+From: Gerard van den Bosch <gerard@de-haardt.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.14) Gecko/20110223 Lightning/1.0b2 Thunderbird/3.1.8
 MIME-Version: 1.0
-Cc: "Wold, Saul" <saul.wold@intel.com>
-Subject: autoconf version mismatch on Bernard
+To: poky@yoctoproject.org
+X-OriginalArrivalTime: 15 Mar 2011 10:57:43.0504 (UTC)
+	FILETIME=[CF715500:01CBE2FF]
+X-RcptDomain: yoctoproject.org
+Subject: compile application header file missing
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -49,24 +38,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 Mar 2011 10:31:00 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Tue, 15 Mar 2011 10:57:45 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi guys,
+Hello,
 
-Does anyone see this kind of failure in recent poky build on bernard branch=
-:
-http://autobuilder.pokylinux.org:8010/builders/nightly-toolchain-test/build=
-s/1/steps/shell_5/logs/stdio=20
+I have programmed an application that uses the OpenSLP library and thus 
+needs the header file from it.
+OpenSLP is already compiled and running fine on the target.
 
-It seems there is a autoconf version mismatch. Liping used to meet once, an=
-d "bitbake autoconf-native -c cleanall; bitbake autoconf-native" seems get =
-it worked-around. I cannot reproduce this bug on my local build machine.=20
+But when I try to compile my application it can't find the header file.
+When I print out the CFLAGS with bitbake myimage -e | grep CFLAGS the 
+BUILD_CFLAGS point to:
+/home/gerard/green-3.3/build/tmp/sysroots/i686-linux/usr/include
+The slp.h is indeed missing, but it is located at:
+/home/gerard/green-3.3/build/tmp/sysroots/armv7a-poky-linux-gnueabi/usr/include
 
-Best Regards,
-Lianhao
+How can I change the CFLAGS to look in the other folder or force OpenSLP 
+to drop it in the i686 folder?
+
+I have added OpenSLP to my DEPENDS in the recipe, also tried RDEPENDS 
+but it didn't solve the problem.
+
+Regards,
+Gerard
+
 
 
 
