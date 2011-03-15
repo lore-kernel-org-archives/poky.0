@@ -1,22 +1,22 @@
 Return-Path: <scott.m.rifenbark@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 65C424C80AAC
-	for <poky@yoctoproject.org>; Tue, 15 Mar 2011 18:42:36 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 15 Mar 2011 16:42:36 -0700
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id F3F324C80AB3
+	for <poky@yoctoproject.org>; Tue, 15 Mar 2011 18:42:39 -0500 (CDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 15 Mar 2011 16:42:39 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,191,1299484800"; d="scan'208";a="403176241"
+X-IronPort-AV: E=Sophos;i="4.63,191,1299484800"; d="scan'208";a="897638750"
 Received: from unknown (HELO localhost) ([10.255.12.159])
-	by azsmga001.ch.intel.com with ESMTP; 15 Mar 2011 16:42:35 -0700
-Message-Id: <b587ac75e400061ba681fb4b6fcf743ec37108ce.1300232339.git.scott.m.rifenbark@intel.com>
+	by fmsmga001.fm.intel.com with ESMTP; 15 Mar 2011 16:42:38 -0700
+Message-Id: <0320268e546a0e138074c0da46db03cb1a9dd1da.1300232339.git.scott.m.rifenbark@intel.com>
 In-Reply-To: <cover.1300232338.git.scott.m.rifenbark@intel.com>
 References: <cover.1300232338.git.scott.m.rifenbark@intel.com>
-Old-Date: Mon, 14 Mar 2011 17:47:21 -0600
-Date: Tue, 15 Mar 2011 17:43:27 -0600
+Old-Date: Tue, 15 Mar 2011 15:41:35 -0600
+Date: Tue, 15 Mar 2011 17:43:31 -0600
 To: poky@yoctoproject.org
 CC: 
 From: <scott.m.rifenbark@intel.com>
-Subject: [PATCH 08/13] documentation/adt-manual/adt-prepare.xml: Initial draft of preparation chapter
+Subject: [PATCH 10/13] documentation/adt-manual/adt-eclipse.xml: Initial draft for Eclipse chapter.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,47 +28,51 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 Mar 2011 23:42:36 -0000
+X-List-Received-Date: Tue, 15 Mar 2011 23:42:40 -0000
 
 From: Scott Rifenbark <scott.m.rifenbark@intel.com>
 
-This commit is the initial draft of the preparation chapter (chapter 2).
+This is the initial draft of the Eclipse chapter.
 
 Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
 ---
- documentation/adt-manual/adt-prepare.xml |  253 +++++++++++++++++++++++++-----
- 1 files changed, 216 insertions(+), 37 deletions(-)
+ documentation/adt-manual/adt-eclipse.xml |  443 +++++++++++++++++++++++++++---
+ 1 files changed, 408 insertions(+), 35 deletions(-)
 
-diff --git a/documentation/adt-manual/adt-prepare.xml b/documentation/adt-manual/adt-prepare.xml
-index 928a091..77999b8 100644
---- a/documentation/adt-manual/adt-prepare.xml
-+++ b/documentation/adt-manual/adt-prepare.xml
-@@ -3,53 +3,232 @@
+diff --git a/documentation/adt-manual/adt-eclipse.xml b/documentation/adt-manual/adt-eclipse.xml
+index 2bb5bd5..9fa39cf 100644
+--- a/documentation/adt-manual/adt-eclipse.xml
++++ b/documentation/adt-manual/adt-eclipse.xml
+@@ -2,54 +2,427 @@
+ "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
  
- <chapter id='adt-prepare'>
- 
+ <chapter id='adt-eclipse'>
+-
 -<title>Yocto Project Kernel Architecture and Use Manual</title>
-+<title>Preparing to Use the Application Development Toolkit (ADT)</title>
- 
--<section id='prepare'>
+-
+-<section id='eclipse'>
 -    <title>Introduction</title>
--    <para>
++<title>Working Within Eclipse</title>
+     <para>
 -        The Yocto Project presents the kernel as a fully patched, history-clean git
 -        repository. 
 -        The git tree represents the selected features, board support,
 -        and configurations extensively tested by Yocto Project. 
 -        The Yocto Project kernel allows the end user to leverage community
 -        best practices to seamlessly manage the development, build and debug cycles.
--    </para>
-+<para>
-+    In order to use the ADT it must be installed, the environment setup script must be 
-+    sourced, and the kernel and filesystem image specific to the target architecture must exist.  
-+    This section describes how to install the ADT, set up the environment, and provides 
-+    some reference information on kernels and filesystem images.
-+</para>
-+
-+<section id='installing-the-adt'>
-+    <title>Installing the ADT</title>
++        The Eclipse IDE is a popular development environment and it fully supports 
++        development using Yocto Project.  
++        When you install and configure the Eclipse Yocto Project Plug-in into 
++        the Eclipse IDE you maximize your Yocto Project design experience.  
++        Installing and configuring the Plug-in results in an environment that 
++        has extensions specifically designed to let you more easily develop software.  
++        These extensions allow for cross-compilation and deployment and execution of 
++        your output into a QEMU emulation session.  
++        You can also perform cross-debugging and profiling.  
++        The environment also has a suite of tools that allows you to perform 
++        remote profiling, tracing, collection of power data, collection of 
++        latency data, and collection of performance data.
+     </para>
      <para>
 -        This manual describes the Yocto Project kernel by providing information
 -        on its history, organization, benefits, and use.
@@ -84,14 +88,13 @@ index 928a091..77999b8 100644
 -                Project Specific Tree", "How to Examine Changes in a Branch", and "Saving Kernel
 -                Modifications."</para></listitem>
 -        </itemizedlist>
-+        You can install the ADT three ways.  
-+        However, we recommend configuring and running the ADT Installer script.  
-+        Running this script automates much of the process for you.  
-+        For example, the script allows you to install the QEMU emulator and 
-+        user-space NFS, define which root filesystem profiles to download, 
-+        and allows you to define the target sysroot location.
++        This section describes how to install and configure the Eclipse IDE 
++        Yocto Plug-in and how to use it to develop your Yocto Project.
      </para>
--    <para>
++
++<section id='setting-up-the-eclipse-ide'>
++    <title>Setting Up the Eclipse IDE</title>
+     <para>
 -        For more information on the kernel, see the following links:
 -        <itemizedlist>
 -            <listitem><para><ulink url='http://ldn.linuxfoundation.org/book/1-a-guide-kernel-development-process'></ulink></para></listitem>
@@ -101,215 +104,405 @@ index 928a091..77999b8 100644
 -        <para> 
 -        You can find more information on Yocto Project by visiting the website at
 -        <ulink url='http://www.yoctoproject.org'></ulink>.
+-        </para>
++        To develop within the Eclipse IDE you need to do the following:
++        <orderedlist>
++            <listitem><para>Be sure the optimal version of Eclipse IDE 
++            is installed.</para></listitem>
++            <listitem><para>Install required Eclipse plug-ins prior to installing 
++            the Eclipse Yocto Plug-in.</para></listitem>
++            <listitem><para>Configure the Eclipse Yocto Plug-in.</para></listitem>
++        </orderedlist>
+     </para>
 +
-+    <section id='configuring-and-running-the-adt-installer'>
-+        <title>Configuring and Running the ADT Installer</title>
++    <section id='installing-eclipse-ide'>
++    <title>Installing Eclipse IDE</title>
 +        <para>
-+            The ADT Installer is contained in a tarball that can be built using 
-+            <filename>bitbake adt-installer</filename>. 
-+            Yocto Project has a pre-built ADT Installer tarball that you can download 
-+            from <filename>tmp/deploy/sdk</filename> located in the build directory.
-         </para>
--    </para>
--</section>
- 
-+        <note>
-+            You can install and run the ADT Installer tarball in any directory you want.
-+        </note>
-+
-+        <para>
-+            Before running the ADT Installer you need to configure it by editing 
-+            the <filename>adt-installer.conf</filename> file, which is located in the 
-+            directory where the ADT Installer tarball was installed.  
-+            Your configurations determine which kernel and filesystem image are downloaded.  
-+            The following list describes the variables you can define for the ADT Installer.  
-+            For configuration values and restrictions see the comments in  
-+            the <filename>adt-installer.conf</filename> file:
- 
-+            <itemizedlist>
-+                <listitem><para><filename>YOCTOADT_IPKG_REPO</filename> – This area 
-+                includes the IPKG-based packages and the root filesystem upon which 
-+                the installation is based.  
-+                If you want to set up your own IPKG repository pointed to by 
-+                <filename>YOCTOADT_IPKG_REPO</filename>, you need to be sure that the 
-+                directory structure follows the same layout as the reference directory 
-+                set up at <ulink url='http://adtrepo.yoctoproject.org'></ulink>.  
-+                Also, your repository needs to be accessible through HTTP.
-+                </para></listitem>
-+                <listitem><para><filename>YOCTOADT-TARGETS</filename> – The machine 
-+                target architectures for which you want to set up cross-development 
-+                environments.
-+                </para></listitem>
-+                <listitem><para><filename>YOCTOADT_QEMU</filename> – Indicates whether 
-+                or not to install the emulator QEMU.
-+                </para></listitem>
-+                <listitem><para><filename>YOCTOADT_NFS_UTIL</filename> – Indicates whether 
-+                or not to install user-mode NFS.  
-+                If you plan to use the Yocto Eclipse IDE plug-in against QEMU, 
-+                you should install NFS.
-+                    <note>
-+                    To boot QEMU images using our userspace NFS server, you need 
-+                    to be running portmap or rpcbind. 
-+                    If you are running rpcbind, you will also need to add the -i 
-+                    option when rpcbind starts up. 
-+                    Please make sure you understand the security implications of doing this. 
-+                    Your firewall settings may also have to be modified to allow 
-+                    NFS booting to work.
-+                    </note>
-+                </para></listitem>
-+                <listitem><para><filename>YOCTOADT_ROOTFS_&lt;arch&gt;</filename> - The root 
-+                filesystem images you want to download.
-+                </para></listitem>
-+                <listitem><para><filename>YOCTOADT_TARGET_SYSROOT_IMAGE_&lt;arch&gt;</filename> - The 
-+                root filesystem used to extract and create the target sysroot.
-+                </para></listitem>
-+                <listitem><para><filename>YOCTOADT_TARGET_SYSROOT_LOC_&lt;arch&gt;</filename> - The 
-+                location of the target sysroot that will be set up on the development machine.
-+                </para></listitem>
-+            </itemizedlist>
++            It is recommended that you have the Helios 3.6.1 version of the 
++            Eclipse IDE installed on your development system.  
++            If you don’t have this version you can find it at 
++            <ulink url='http://www.eclipse.org/downloads'></ulink>.  
++            From that site, choose the Eclipse Classic version.  
++            This version contains the Eclipse Platform, the Java Development 
++            Tools (JDT), and the Plug-in Development Environment.
 +        </para>
-+
 +        <para>
-+            After you have configured the <filename>adt-installer.conf</filename> file, 
-+            run the installer using the following command:
++            Once you have downloaded the tarball, extract it into a clean 
++            directory and complete the installation.
++        </para>
++        <para>
++            One issue exists that you need to be aware of regarding the Java 
++            Virtual machine’s garbage collection (GC) process.  
++            The GC process does not clean up the permanent generation 
++            space (PermGen).  
++            This space stores meta-data descriptions of classes.  
++            The default value is set too small and it could trigger an 
++            out-of-memory error such as the following:
 +            <literallayout class='monospaced'>
-+     $ adt_installer
++     Java.lang.OutOfMemoryError: PermGen space
 +            </literallayout>
 +        </para>
-+
 +        <para>
-+            Once the installer begins to run you are asked whether you want to run in 
-+            interactive or silent mode.  
-+            If you want to closely monitor the installation then choose “I” for interactive 
-+            mode rather than “S” for silent mode.  
-+            Follow the prompts from the script to complete the installation.
++            This error causes the application to hang.
 +        </para>
- 
 +        <para>
-+            Once the installation completes, the cross-toolchain is installed in 
-+            <filename>/opt/poky/$SDKVERSION</filename>.
-+        </para>
- 
-+        <para>
-+            Before using the ADT you need to run the environment setup script for 
-+            your target architecture also located in <filename>/opt/poky/$SDKVERSION</filename>.
-+            See the <xref linkend='setting-up-the-environment'>“Setting Up the Environment”</xref> 
-+            section for information.
++            To fix this issue you can use the &dash;&dash;vmargs option when you start 
++            Eclipse to increase the size of the permanent generation space:
++            <literallayout class='monospaced'>
++     eclipse &dash;&dash;vmargs &dash;&dash;XX:PermSize=256M
++            </literallayout>
 +        </para>
 +    </section>
- 
-+    <section id='using-an-existing-toolchain-tarball'>
-+        <title>Using an Existing Toolchain Tarball</title>
++
++    <section id='installing-required-plug-ins-and-the-eclipse-yocto-plug-in'>
++    <title>Installing Required Plug-ins and the Eclipse Yocto Plug-in</title>
 +        <para>
-+            If you don’t want to use the ADT Installer you can install the toolchain 
-+            and the sysroot by hand.  
-+            Follow these steps:
++            Before installing the Yocto Plug-in you need to be sure that the 
++            CDT 7.0, RSE 3.2, and Autotools plug-ins are all installed.  
++            After installing these three plug-ins, you can install the 
++            Eclipse Yocto Plug-in.  
++            Use the following URLs for the plug-ins:
 +            <orderedlist>
-+                <listitem><para>Locate and download the architecture-specific toolchain 
-+                tarball from <ulink url='http://autobuilder.yoctoproject.org/downloads/yocto-0.9'></ulink>.
-+                Look in the ‘toolchain’ folder and then open up the folder that matches your 
-+                host development system (i.e. 'i586' for 32-bit machines or 'x86_64' 
-+                for 64-bit machines).  
-+                Then, select the toolchain tarball whose name includes the appropriate 
-+                target architecture.
-+                <note>
-+                    If you need to build the toolchain tarball use the 
-+                    <filename>bitbake meta-toolchain</filename> command after you have 
-+                    sourced the poky-build-init script.  
-+                    The tarball will be located in the build directory at 
-+                    <filename>tmp/deploy/sdk</filename> after the build.
-+                </note>
-+                </para></listitem>
-+                <listitem><para>Make sure you are in the root directory and then expand 
-+                the tarball.  
-+                The tarball expands into the <filename>/opt/poky/$SDKVERSION</filename> directory.
-+                </para></listitem>
-+                <listitem><para>Set up the environment by sourcing the environment set up 
-+                script.  
-+                See the <xref linkend='setting-up-the-environment'>“Setting Up the Environment”</xref>
-+                for information.
-+                </para></listitem>
++                <listitem><para><emphasis>CDT 7.0</emphasis> – 
++                <ulink url='http://download.eclipse.org/tools/cdt/releases/helios/'></ulink>:  
++                For CDT main features select the checkbox so you get all items.  
++                For CDT optional features expand the selections and check 
++                “C/C++ Remote Launch”.</para></listitem>
++                <listitem><para><emphasis>RSE 3.2</emphasis> – 
++                <ulink url='http://download.eclipse.org/tm/updates/3.2'></ulink>:  
++                Check the box next to “TM and RSE Main Features” so you select all 
++                those items.  
++                Note that all items in the main features depend on 3.2.1 version.  
++                Expand the items under “TM and RSE Uncategorized 3.2.1” and 
++                select the following:  “Remote System Explorer End-User Runtime”, 
++                “Remote System Explorer Extended SDK”, “Remote System Explorer User Actions”, 
++                “RSE Core”, “RSE Terminals UI”, and “Target Management Terminal”.</para></listitem>
++                <listitem><para><emphasis>Autotools</emphasis> – 
++                <ulink url='http://download.eclipse.org/technology/linuxtools/update'></ulink>:
++                Expand the items under “Linux Tools” and select “Autotools support 
++                for CDT (Incubation)”.</para></listitem>
++                <listitem><para><emphasis>Yocto Plug-in</emphasis> – 
++                <ulink url='http://www.yoctoproject.org/downloads/eclipse-plugin/'></ulink>:
++                Check the box next to “Development tools &amp; SDKs for Yocto Linux” 
++                to select all the items.</para></listitem>
++            </orderedlist>
++        </para>
++        <para>
++            Follow these general steps to install a plug-in:
++            <orderedlist>
++                <listitem><para>From within the Eclipse IDE select the 
++                “Install New Software” item from the “Help” menu.</para></listitem>
++                <listitem><para>Click “Add…” in the “Work with:” area.</para></listitem>
++                <listitem><para>Enter the URL for the repository and leave the “Name” 
++                field blank.</para></listitem>
++                <listitem><para>Check the boxes next to the software you need to 
++                install and then complete the installation.  
++                For information on the specific software packages you need to include, 
++                see the previous list.</para></listitem>
 +            </orderedlist>
 +        </para>
 +    </section>
- 
-+    <section id='using-the-toolchain-from-within-the-build-tree'>
-+        <title>Using the Toolchain from Within the Build Tree</title>
++
++    <section id='configuring-the-plug-in'>
++    <title>Configuring the Plug-in</title>
 +        <para>
-+            A final way of accessing the toolchain is from the build tree.  
-+            The build tree can be set up to contain the architecture-specific cross toolchain.  
-+            To populate the build tree with the toolchain you need to run the following command:
-+            <literallayout class='monospaced'>  
-+     $ bitbake meta-ide-support
-+            </literallayout>
++            Configuring the Eclipse Yocto Plug-in involves choosing the Cross 
++            Compiler Options, selecting the Target Architecture, and choosing 
++            the Target Options.  
++            These settings are the default settings for all projects.  
++            You do have opportunities to change them later if you choose to when 
++            you configure the project.  
++            See “Configuring the Cross Toolchain” section later in the manual.
 +        </para>
-+ 
 +        <para>
-+            Before running the command you need to be sure that the 
-+            <filename>conf/local.conf</filename> file in the build directory has 
-+            the desired architecture specified for the <filename>MACHINE</filename> 
-+            variable.
-+            See the <filename>local.conf</filename> file for a list of values you 
-+            can supply for this variable.  
-+            You can populate the build tree with the cross-toolchains for more 
-+            than a single architecture.  
-+            You just need to edit the <filename>local.conf</filename> file and re-run 
-+            the BitBake command.
++            To start, you need to do the following from within the Eclipse IDE:
++            <itemizedlist>
++                <listitem><para>Choose Windows -&gt; Preferences to display 
++                the Preferences Dialog</para></listitem>
++                <listitem><para>Click “Yocto SDK”</para></listitem>
++            </itemizedlist>
 +        </para>
 +
-+        <para>
-+            Once the build tree has the toolchain you need to source the environment 
-+            setup script so that you can run the cross-tools without having to locate them.  
-+            See the <xref linkend='setting-up-the-environment'>“Setting Up the Environment”</xref>
-+            for information.
-+        </para>
++        <section id='configuring-the-cross-compiler-options'>
++        <title>Configuring the Cross-Compiler Options</title>
++            <para>
++                Choose between ‘SDK Root Mode’ and ‘Poky Tree Mode’ for Cross 
++                Compiler Options.
++                <itemizedlist>
++                    <listitem><para><emphasis>SDK Root Mode</emphasis> – Select this mode 
++                    when you are not concerned with building an image or you do not have 
++                    a Poky build tree on your system.  
++                    For example, suppose you are an application developer and do not 
++                    need to build an image.  
++                    You just want to use an architecture-specific toolchain on an 
++                    existing kernel and root filesystem.  
++                    When you use SDK Root Mode you are using the toolchain installed 
++                    in the <filename>/opt/poky</filename> directory.</para></listitem>
++                    <listitem><para><emphasis>Poky Tree Mode</emphasis> – Select this mode 
++                    if you are concerned with building images for hardware or your 
++                    development environment already has a build tree.  
++                    In this case you likely already have a Poky build tree installed on 
++                    your system or you (or someone else) will be building one.
++                    When you use the Poky Tree Mode you are using the toolchain bundled 
++                    inside the Poky build tree.  
++                    If you use this mode you must also supply the Poky Root Location 
++                    in the Preferences Dialog.</para></listitem>
++                </itemizedlist>
++            </para>
++        </section>
++
++        <section id='configuring-the-sysroot'>
++        <title>Configuring the Sysroot</title>
++            <para>
++                Specify the sysroot, which is used by both the QEMU user-space 
++                NFS boot process and by the cross-toolchain regardless of the 
++                mode you select (SDK Root Mode or Poky Tree Mode).  
++                For example, sysroot is the location to which you extract the 
++                downloaded image’s root filesystem to through the ADT Installer.
++            </para>
++        </section>
++
++        <section id='selecting-the-target-architecture'>
++        <title>Selecting the Target Architecture</title>
++            <para>
++                Use the pull-down Target Architecture menu and select the 
++                target architecture.
++            </para>
++            <para>
++                The Target Architecture is the type of hardware you are 
++                going to use or emulate.  
++                This pull-down menu should have the supported architectures.  
++                If the architecture you need is not listed in the menu then you 
++                will need to re-visit 
++                <xref linkend='adt-prepare'>
++                “Preparing to Use the Application Development Toolkit (ADT)”</xref> 
++                section  earlier in this document.
++            </para>
++        </section>
++
++        <section id='choosing-the-target-options'>
++        <title>Choosing the Target Options</title>
++            <para>
++                You can choose to emulate hardware using the QEMU emulator, or you 
++                can choose to use actual hardware.
++                <itemizedlist>
++                    <listitem><para><emphasis>External HW</emphasis> – Select this option 
++                    if you will be using actual hardware.</para></listitem>
++                    <listitem><para><emphasis>QEMU</emphasis> – Select this option if 
++                    you will be using the QEMU emulator.  
++                    If you are using the emulator you also need to locate the Kernel 
++                    and you can specify custom options.</para>
++                    <para>In Poky Tree Mode the kernel you built will be located in the 
++                    Poky Build tree in <filename>tmp/deploy/images</filename> directory.   
++                    In SDK Root Mode the pre-built kernel you downloaded is located 
++                    in the directory you specified when you downloaded the image.</para>
++                    <para>Most custom options are for advanced QEMU users to further 
++                    customize their QEMU instance.  
++                    These options are specified between paired angled brackets.  
++                    Some options must be specified outside the brackets.  
++                    Use the <filename>man qemu</filename> command to get help on all the options.  
++                    The following is an example custom:
++                        <literallayout class='monospaced'>
++    serial ‘&lt;-m 256 –full-screen&gt;’
++                        </literallayout>
++                    </para>
++                    <para>
++                    Regardless of the mode, Sysroot is already defined in the “Sysroot” 
++                    field.</para></listitem>
++                </itemizedlist>
++            </para>
++            <para>
++                Click the “OK” button to save your plug-in configurations.
++            </para>
++        </section>
 +    </section>
-+</section>
-+
-+<section id='setting-up-the-environment'>
-+    <title>Setting Up the Environment</title>
+ </section>
+ 
++<section id='creating-the-project'>
++<title>Creating the Project</title>
 +    <para>
-+        Before you can use the cross-toolchain you need to set up the environment by 
-+        sourcing the environment setup script.  
-+        If you used adt_installer or used an existing ADT tarball to install the ADT,
-+        then you can find this script in the <filename>/opt/poky/$SDKVERSION</filename>
-+        directory.  
-+        If you are using the ADT from a Poky build tree, then look in the build 
-+        directory in <filename>tmp</filename> for the setup script.
++        You can create two types of projects:  Autotools-based, or Makefile-based.  
++        This section describes how to create autotools-based projects from within 
++        the Eclipse IDE.  
++        For information on creating projects in a terminal window see 
++        <xref linkend='using-the-command-line'> “Using the Command Line”</xref> 
++        section.
 +    </para>
-+
-+    <para> 
-+        Be sure to run the environment setup script that matches the architecture for 
-+        which you are developing.  
-+        Environment setup scripts begin with the string “environment-setup” and include as 
-+        part of their name the architecture.  
-+        For example, the environment setup script for a 64-bit IA-based architecture would 
-+        be the following: 
-+        <literallayout class='monospaced'>
-+     /opt/poky/environment-setup-x86_64-poky-linux
-+        </literallayout>
-+    </para>
-+</section>
-+
-+<section id='kernels-and-filesystem-images'>
-+    <title>Kernels and Filesystem Images</title>
 +    <para>
-+        You will need to have a kernel and filesystem image to boot using your 
-+        hardware or the QEMU emulator.  
-+        That means you either have to build them or know where to get them.  
-+        You can find lots of details on how to get or build images and kernels for your 
-+        architecture in the "Yocto Project Quick Start" found at 
-+        <ulink url='http://www.yoctoproject.org/docs/yocto-quick-start/yocto-project-qs.html'></ulink>.
-+        <note> 
-+            Yocto Project provides basic kernels and filesystem images for several 
-+            architectures (x86, x86-64, mips, powerpc, and arm) that can be used 
-+            unaltered in the QEMU emulator.  
-+            These kernels and filesystem images reside in the Yocto Project release 
-+            area - <ulink url='http://autobuilder.yoctoproject.org/downloads/yocto-0.9/'></ulink>
-+            and are ideal for experimentation within Yocto Project.
-+        </note>
++        To create a project based on a Yocto template and then display the source code, 
++        follow these steps:
++        <orderedlist>
++            <listitem><para>Select File -> New -> Project.</para></listitem>
++            <listitem><para>Double click “CC++”.</para></listitem>
++            <listitem><para>Double click “C Project” to create the project.</para></listitem>
++            <listitem><para>Double click “Yocto SDK Project”.</para></listitem>
++            <listitem><para>Select “Hello World ANSI C Autotools Project”.  
++            This is an Autotools-based project based on a Yocto Project template.</para></listitem>
++            <listitem><para>Put a name in the “Project name:” field.</para></listitem>
++            <listitem><para>Click “Next”.</para></listitem>
++            <listitem><para>Add information in the “Author” field.</para></listitem>
++            <listitem><para>Use “GNU General Public License v2.0” for the License.</para></listitem>
++            <listitem><para>Click “Finish”.</para></listitem>
++            <listitem><para>Answer ‘Yes” to the open perspective prompt.</para></listitem>
++            <listitem><para>In the Project Explorer expand your project.</para></listitem>
++            <listitem><para>Expand ‘src’.</para></listitem>
++            <listitem><para>Double click on your source file and the code appears 
++            in the window.  
++            This is the template.</para></listitem>
++        </orderedlist>
 +    </para>
 +</section>
+ 
++<section id='configuring-the-cross-toolchains'>
++<title>Configuring the Cross-Toolchains</title>
++    <para>
++        The previous section, <xref linkend='configuring-the-cross-compiler-options'>
++        “Configuring the Cross-Compiler Options”</xref>, set up the default project 
++        configurations.  
++        You can change these settings for a given project by following these steps:
++        <orderedlist>
++            <listitem><para>Select Project -> Invoke Yocto Tools -> Reconfigure Yocto.  
++            This brings up the project Yocto Settings Dialog.  
++            Settings are inherited from the default project configuration.  
++            The information in this dialogue is identical to that chosen earlier 
++            for the Cross Compiler Option (SDK Root Mode or Poky Tree Mode), 
++            the Target Architecture, and the Target Options.  
++            The settings are inherited from the Yocto Plug-in configuration performed 
++            after installing the plug-in.</para></listitem>
++            <listitem><para>Select Project -> Reconfigure Project.  
++            This runs the <filename>autogen.sh</filename> in the workspace for your project.  
++            The script runs <filename>libtoolize</filename>, <filename>aclocal</filename>,
++            <filename>autoconf</filename>, <filename>autoheader</filename>, 
++            <filename>automake &dash;&dash;a</filename>, and 
++            <filename>./configure</filename>.</para></listitem>
++        </orderedlist>
++    </para>
++</section>
+ 
++<section id='building-the-project'>
++<title>Building the Project</title>
++    <para>
++        To build the project, select Project -&gt; Build Project.  
++        You should see the console updated and you can note the cross-compiler you are using.
++    </para>
++</section>
+ 
++<section id='starting-qemu-in-user-space-nfs-mode'>
++<title>Starting QEMU in User Space NFS Mode</title>
++    <para>
++        To start the QEMU emulator from within Eclipse, follow these steps:
++        <orderedlist>
++            <listitem><para>Select Run -> External Tools -> External Tools Configurations...
++            This selection brings up the External Tools Configurations Dialogue.</para></listitem>
++            <listitem><para>Go to the left navigation area and expand ‘Program’.  
++            You should find the image listed.  
++            For example, qemu-x86_64-poky-linux.</para></listitem>
++            <listitem><para>Click on the image.  
++            This brings up a new environment in the main area of the External 
++            Tools Configurations Dialogue.  
++            The Main tab is selected.</para></listitem>
++            <listitem><para>Click “Run” next.  
++            This brings up a shell window.</para></listitem>
++            <listitem><para>Enter your host root password in the shell window at the prompt.  
++            This sets up a Tap 0 connection needed for running in user-space NFS mode.</para></listitem>
++            <listitem><para>Wait for QEMU to launch.</para></listitem>
++            <listitem><para>Once QEMU launches you need to determine the IP Address 
++            for the user-space NFS.  
++            You can do that by going to a terminal in the QEMU and entering the 
++            <filename>ipconfig</filename> command.</para></listitem>
++        </orderedlist>
++    </para>
++</section>
+ 
++<section id='deploying-and-debugging-the-application'>
++<title>Deploying and Debugging the Application</title>
++    <para>
++        Once QEMU is running you can deploy your application and use the emulator 
++        to perform debugging.  
++        Follow these steps to deploy the application.
++        <orderedlist>
++            <listitem><para>Select Run -> Debug Configurations...</para></listitem>
++            <listitem><para>In the left area expand “C/C++Remote Application”.</para></listitem>
++            <listitem><para>Locate your project and select it to bring up a new 
++            tabbed view in the Debug Configurations dialogue.</para></listitem>
++            <listitem><para>Enter the absolute path into which you want to deploy 
++            the application.  
++            Use the Remote Absolute File Path for C/C++Application:.  
++            For example, enter <filename>/usr/bin/&lt;programname&gt;</filename>.</para></listitem>
++            <listitem><para>Click on the Debugger tab to see the cross-tool debugger 
++            you are using.</para></listitem>
++            <listitem><para>Create a new connection to the QEMU instance 
++            by clicking on “new”.</para></listitem>
++            <listitem><para>Select “TCF, which means Target Communication Framework.</para></listitem>
++            <listitem><para>Click “Next”.</para></listitem>
++            <listitem><para>Clear out the “host name” field and enter the IP Address 
++            determined earlier.</para></listitem>
++            <listitem><para>Click Finish to close the new connections dialogue.</para></listitem>
++            <listitem><para>Use the drop-down menu now in the “Connection” field and pick 
++            the IP Address you entered.</para></listitem>
++            <listitem><para>Click “Debug” to bring up a login screen and login.</para></listitem>
++            <listitem><para>Accept the debug perspective.</para></listitem>
++        </orderedlist>
++    </para>
++</section>
+ 
++<section id='running-user-space-tools'>
++<title>Running User-Space Tools</title>
++    <para>
++        As mentioned earlier in the manual several tools exist that enhance 
++        your development experience.  
++        These tools are aids in developing and debugging applications and images.  
++        You can run these user-space tools from within the Yocto Eclipse 
++        Plug-in through the Window -> YoctoTools menu.
++    </para>
++    <para>
++        Once you pick a tool you need to configure it for the remote target. 
++        Every tool needs to have the connection configured. 
++        You must select an existing TCF-based RSE connection to the remote target. 
++        If one does not exist, click "New" to create one.
++    </para>
++    <para>
++        Here are some specifics about the remote tools:
++        <itemizedlist>
++            <listitem><para><emphasis>OProfile:</emphasis>  Selecting this tool causes 
++            the oprofile-server on the remote target to launch on the local host machine.  
++            The oprofile-viewer must be installed on the local host machine and the 
++            oprofile-server must be installed on the remote target, respectively, in order 
++            to use.  
++            You can locate both the viewer and server from 
++            <ulink url='http://git.pokylinux.org/cgit/cgit.cgi/oprofileui/'></ulink>.  
++            You need to compile and install the oprofile-viewer from the source code 
++            on your local host machine.  
++            The oprofile-server is installed by default in the image.</para></listitem>
++            <listitem><para><emphasis>Lttng-ust:</emphasis>  Selecting this tool runs 
++            "usttrace" on the remote target, transfers the output data back to the 
++            local host machine and uses "lttv-gui" to graphically display the output.  
++            The "lttv-gui" must be installed on the local host machine to use this tool.  
++            For information on how to use "lttng" to trace an application, see 
++            <ulink url='http://lttng.org/files/ust/manual/ust.html'></ulink>.</para>
++            <para>For "Application" you must supply the absolute path name of the 
++            application to be traced by user mode lttng.  
++            For example, typing <filename>/path/to/foo</filename> triggers 
++            <filename>usttrace /path/to/foo</filename> on the remote target to trace the 
++            program <filename>/path/to/foo</filename>.</para>
++            <para>"Argument" is passed to <filename>usttrace</filename>
++            running on the remote target.</para></listitem>
++            <listitem><para><emphasis>PowerTOP:</emphasis>  Selecting this tool runs 
++            "PowerTOP" on the remote target machine and displays the results in a 
++            new view called "powertop".</para>
++            <para>"Time to gather data(sec):" is the time passed in seconds before data 
++            is gathered from the remote target for analysis.</para>
++            <para>"show pids in wakeups list:" corresponds to the -p argument 
++            passed to "powertop".</para></listitem>
++            <listitem><para><emphasis>LatencyTOP and Perf:</emphasis>  "LatencyTOP" 
++            identifies system latency, while "perf" monitors the system's 
++            performance counter registers. 
++            Selecting either of these tools causes an RSE terminal view to appear 
++            from which you can run the tools. 
++            Both tools refresh the entire screen to display results while they run.</para></listitem>
++        </itemizedlist>
++    </para>
++</section> 
  
  </chapter>
  <!--
