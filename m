@@ -1,22 +1,20 @@
 Return-Path: <dvhart@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 3D5884C8009A
-	for <poky@yoctoproject.org>; Tue, 15 Mar 2011 19:08:36 -0500 (CDT)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 0BC7A4C8009A
+	for <poky@yoctoproject.org>; Tue, 15 Mar 2011 19:19:26 -0500 (CDT)
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 15 Mar 2011 17:08:35 -0700
+	by orsmga102.jf.intel.com with ESMTP; 15 Mar 2011 17:19:26 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,191,1299484800"; d="scan'208";a="720566013"
+X-IronPort-AV: E=Sophos;i="4.63,191,1299484800"; d="scan'208";a="720568650"
 Received: from unknown (HELO localhost) ([10.255.12.146])
-	by orsmga001.jf.intel.com with ESMTP; 15 Mar 2011 17:08:35 -0700
-From: Darren Hart <dvhart@linux.intel.com>
+	by orsmga001.jf.intel.com with ESMTP; 15 Mar 2011 17:19:26 -0700
+Message-Id: <cover.1300234408.git.dvhart@linux.intel.com>
+Old-Date: Tue, 15 Mar 2011 17:13:28 -0700
+Date: Tue, 15 Mar 2011 17:19:15 -0700
 To: poky@yoctoproject.org
-Date: Tue, 15 Mar 2011 17:08:13 -0700
-Message-Id: <3d39aad0f231d983c4eaa0d2cc09991fc62285fa.1300233983.git.dvhart@linux.intel.com>
-X-Mailer: git-send-email 1.7.1
-In-Reply-To: <cover.1300233983.git.dvhart@linux.intel.com>
-References: <cover.1300233983.git.dvhart@linux.intel.com>
+From: Darren Hart <dvhart@linux.intel.com>
 Cc: Darren Hart <dvhart@linux.intel.com>
-Subject: [PATCH] formfactor: Assume HAVE_TOUCHSCREEN=0
+Subject: [PATCH 0/2][meta-intel] Fix Keyboard and Mouse on n450 [YOCTO #869]
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,53 +26,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 16 Mar 2011 00:08:36 -0000
+X-List-Received-Date: Wed, 16 Mar 2011 00:19:27 -0000
 
-Pull URL: git://git.pokylinux.org/poky-contrib.git
+From: Darren Hart <dvhart@linux.intel.com>
+
+Before committing these patches to the meta-intel layer, I'd appreciate a
+review, perhaps from Tom, to ensure I didn't miss anything - seeing how close
+we are to release.
+
+Pull URL: git://git.pokylinux.org/meta-intel.git
   Branch: dvhart/bernard/n450
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dvhart/bernard/n450
+  Browse: http://git.pokylinux.org/cgit.cgi/meta-intel/log/?h=dvhart/bernard/n450
 
 Thanks,
     Darren Hart <dvhart@linux.intel.com>
 ---
 
 
-Darren Hart (1):
-  formfactor: Assume HAVE_TOUCHSCREEN=0
+Darren Hart (2):
+  n450: add formfactor config
+  n450: add xorg.conf to disable AutoAddDevices
 
- meta/recipes-bsp/formfactor/files/config |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
-
-If no machine specific formfactor is found, the formfactor config defaults
-to HAVE_TOUCHSCREEN=1. The result is for the matchbox session to disable
-the cursor. This can lead to a lot of churn sorting out why the cursor doesn't
-appear: xorg bug, xorg driver bug, kernel drm driver bug, kms bug, many
-of which appear when searching for invisible cursor on the web.
-
-On the other hand, if a cursor appears on a touchscreen device, one is much
-more likely to reach a correct conclusion: "I need to set HAVE_TOUCHSCREEN=1
-in my custom machine formfactor config". Which likely exists or is needed for
-other formfactor specific things such as dpi, screen size, rotation, etc.
-
-Signed-off-by: Darren Hart <dvhart@linux.intel.com>
----
- meta/recipes-bsp/formfactor/files/config |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
-
-diff --git a/meta/recipes-bsp/formfactor/files/config b/meta/recipes-bsp/formfactor/files/config
-index ed15d9e..e936916 100755
---- a/meta/recipes-bsp/formfactor/files/config
-+++ b/meta/recipes-bsp/formfactor/files/config
-@@ -5,7 +5,7 @@ if [ -e /etc/formfactor/machconfig ]; then
- fi
- 
- if [ -z "$HAVE_TOUCHSCREEN" ]; then
--    HAVE_TOUCHSCREEN=1
-+    HAVE_TOUCHSCREEN=0
- fi
- 
- if [ -z "$HAVE_KEYBOARD" ]; then
--- 
-1.7.1
+ .../formfactor/formfactor/n450/machconfig          |    3 ++
+ .../recipes-bsp/formfactor/formfactor_0.0.bbappend |    3 ++
+ .../xserver-xf86-config/n450/xorg.conf             |   26 ++++++++++++++++++++
+ .../xorg-xserver/xserver-xf86-config_0.1.bbappend  |    3 ++
+ 4 files changed, 35 insertions(+), 0 deletions(-)
+ create mode 100644 meta-n450/recipes-bsp/formfactor/formfactor/n450/machconfig
+ create mode 100644 meta-n450/recipes-bsp/formfactor/formfactor_0.0.bbappend
+ create mode 100644 meta-n450/recipes-graphics/xorg-xserver/xserver-xf86-config/n450/xorg.conf
+ create mode 100644 meta-n450/recipes-graphics/xorg-xserver/xserver-xf86-config_0.1.bbappend
 
 
