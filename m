@@ -1,19 +1,23 @@
-Return-Path: <tom.zanussi@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 97E674C80A4F
-	for <poky@yoctoproject.org>; Wed, 16 Mar 2011 00:53:52 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 15 Mar 2011 22:53:45 -0700
-Message-Id: <849307$c0jmcd@azsmga001.ch.intel.com>
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,193,1299484800"; d="scan'208";a="403298706"
-Received: from unknown (HELO localhost) ([10.255.12.136])
-	by azsmga001.ch.intel.com with ESMTP; 15 Mar 2011 22:53:44 -0700
-Old-Date: Tue, 15 Mar 2011 23:45:13 -0500
-Date: Wed, 16 Mar 2011  0:53:40 -0500
-To: poky@yoctoproject.org
-From: Tom Zanussi <tom.zanussi@intel.com>
-Subject: [PATCH 1/1] crownbay-noemgd: fix matchbox-panel segfault
+Return-Path: <Kai.Kang@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 35B224C8009D
+	for <poky@yoctoproject.org>; Wed, 16 Mar 2011 02:08:03 -0500 (CDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p2G782Ta026586
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Wed, 16 Mar 2011 00:08:02 -0700 (PDT)
+Received: from localhost (128.224.163.157) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
+	Wed, 16 Mar 2011 00:08:01 -0700
+Message-ID: <cover.1300258088.git.kai.kang@windriver.com>
+Old-Date: Wed, 16 Mar 2011 14:48:08 +0800
+Date: Wed, 16 Mar 2011 15:06:21 +0800
+To: <sgw@linux.intel.com>
+From: Kang Kai <kai.kang@windriver.com>
+MIME-Version: 1.0
+X-Originating-IP: [128.224.163.157]
+Cc: poky@yoctoproject.org
+Subject: [PATCH 0/1] slang: export INST_LIB_DIR to fix compile problems
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -25,28 +29,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 16 Mar 2011 05:53:52 -0000
+X-List-Received-Date: Wed, 16 Mar 2011 07:08:04 -0000
+Content-Type: text/plain
 
-From: Tom Zanussi <tom.zanussi@intel.com>
+From: Kang Kai <kai.kang@windriver.com>
 
-This fixes [BUGID #738] for crownbay-noemgd.
+Hi Soul,
 
-Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
+Thanks for your meticulous help, please help me to check it again.
+Thanks you!
+
+When bitbake slang/slsh, it links to building machine's libraries by using INST_LIB_DIR.
+Export INST_LIB_DIR in do_install to fix the cross compile problems.
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: kangkai/distro01
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kangkai/distro01
+
+Thanks,
+    Kang Kai <kai.kang@windriver.com>
 ---
- .../recipes-gnome/gtk+/gtk+_2.22.1.bbappend        |    3 +++
- 1 files changed, 3 insertions(+), 0 deletions(-)
 
-diff --git a/meta-crownbay/recipes-gnome/gtk+/gtk+_2.22.1.bbappend b/meta-crownbay/recipes-gnome/gtk+/gtk+_2.22.1.bbappend
-index 6efeb5c..d20e233 100644
---- a/meta-crownbay/recipes-gnome/gtk+/gtk+_2.22.1.bbappend
-+++ b/meta-crownbay/recipes-gnome/gtk+/gtk+_2.22.1.bbappend
-@@ -1,2 +1,5 @@
-+PR .= ".1"
-+
- #-fomit-frame-pointer in default FULL_OPTIMIZATION will cause matchbox-panel segfault on crownbay
- FULL_OPTIMIZATION_crownbay = "-fexpensive-optimizations -frename-registers -O2 -ggdb -feliminate-unused-debug-types"
-+FULL_OPTIMIZATION_crownbay-noemgd = "-fexpensive-optimizations -frename-registers -O2 -ggdb -feliminate-unused-debug-types"
--- 
-1.7.0.4
+
+Kang Kai (1):
+  slang: export INST_LIB_DIR to fix compile problems
+
+ meta/recipes-extended/slang/slang_2.2.2.bb |    8 +++++++-
+ 1 files changed, 7 insertions(+), 1 deletions(-)
 
 
