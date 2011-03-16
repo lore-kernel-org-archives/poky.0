@@ -1,29 +1,24 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0C0324C805BB
-	for <poky@yoctoproject.org>; Wed, 16 Mar 2011 17:27:52 -0500 (CDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id B04AB16602BA; Wed, 16 Mar 2011 16:27:51 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2-r929478
-Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id BB250166029C;
-	Wed, 16 Mar 2011 16:27:50 -0600 (MDT)
-Message-ID: <4D813966.30309@mlbassoc.com>
-Date: Wed, 16 Mar 2011 16:27:50 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id A28434C805BB
+	for <poky@yoctoproject.org>; Wed, 16 Mar 2011 17:34:47 -0500 (CDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 16 Mar 2011 15:34:47 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.63,195,1299484800"; d="scan'208";a="898038682"
+Received: from unknown (HELO [10.255.12.146]) ([10.255.12.146])
+	by fmsmga001.fm.intel.com with ESMTP; 16 Mar 2011 15:34:47 -0700
+Message-ID: <4D813AED.4030605@linux.intel.com>
+Date: Wed, 16 Mar 2011 15:34:21 -0700
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.14) Gecko/20110223 Lightning/1.0b2 Thunderbird/3.1.8
 MIME-Version: 1.0
-To: Mark Hatle <mark.hatle@windriver.com>
-References: <4D81355C.5060700@mlbassoc.com> <4D813850.1000700@windriver.com>
-In-Reply-To: <4D813850.1000700@windriver.com>
-Cc: poky@yoctoproject.org
-Subject: Re: Shared library packaging
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+References: <4D812FD5.5050504@linux.intel.com> <4D81307F.80702@linux.intel.com>
+	<4D813515.2030801@linux.intel.com>
+In-Reply-To: <4D813515.2030801@linux.intel.com>
+Subject: Re: [PATCH A] n450: add optimization flags to gtk+ for n450 to avoid gcc core2 bug
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,65 +30,66 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 16 Mar 2011 22:27:52 -0000
+X-List-Received-Date: Wed, 16 Mar 2011 22:34:47 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 03/16/2011 04:23 PM, Mark Hatle wrote:
-> On 3/16/11 5:10 PM, Gary Thomas wrote:
->> I'm working on a recipe which has a number of shared libraries (actually
->> this is just an import from OE (mozilla/nss) which has the same problem as listed below)
->> The package creates a number of libraries (from the work tree):
->>       image/usr/lib/libsmime3.so ->  libsmime3.so.1oe
->>       image/usr/lib/libsmime3.so.1oe
->>       image/usr/lib/libsoftokn3.so
->>       image/usr/lib/libfreebl3.so
->>       image/usr/lib/libnssutil3.so ->  libnssutil3.so.1oe
->>       image/usr/lib/libnssutil3.so.1oe
->>       image/usr/lib/libnss3.so ->  libnss3.so.1oe
->>       image/usr/lib/libnss3.so.1oe
->>       image/usr/lib/libssl3.so ->  libssl3.so.1oe
->>       image/usr/lib/libssl3.so.1oe
+
+
+On 03/16/2011 03:09 PM, Darren Hart wrote:
+> On 03/16/2011 02:49 PM, Darren Hart wrote:
 >>
->> The .so.1oe files are packaged in nss_XXX.ipk and the .so files are
->> put into nss-dev_XXX.ipk.  The problem is that there is code out there
->> that only wants to look for the .so files (no -dev packages installed)
->> and fail to find libsoftokn3.so and libfreebl3.so
+>> Fixes [YOCTO #853]
+>>
+>> Without these added optimization flags, the matchbox-panel (and
+>> possibly other)
+>> applications would segfault. This patch applies the change only to the
+>> gtk+
+>> recipe for the n450 bsp.
+>>
+>> Signed-off-by: Darren Hart<dvhart@linux.intel.com>
+>> CC: Ke Yu<ke.yu@intel.com>
+>> ---
+>> meta-n450/recipes-gnome/gtk+/gtk+_2.22.1.bbappend | 2 ++
+>> 1 files changed, 2 insertions(+), 0 deletions(-)
+>> create mode 100644 meta-n450/recipes-gnome/gtk+/gtk+_2.22.1.bbappend
+>>
+>> diff --git a/meta-n450/recipes-gnome/gtk+/gtk+_2.22.1.bbappend
+>> b/meta-n450/recipes-gnome/gtk+/gtk+_2.22.1.bbappend
+>> new file mode 100644
+>> index 0000000..3af4187
+>> --- /dev/null
+>> +++ b/meta-n450/recipes-gnome/gtk+/gtk+_2.22.1.bbappend
+>> @@ -0,0 +1,2 @@
+>> +#-fomit-frame-pointer in default FULL_OPTIMIZATION will cause
+>> matchbox-panel segfault on n450
+>> +FULL_OPTIMIZATION_n450 = "-fexpensive-optimizations
+>> -frename-registers -O2 -ggdb -feliminate-unused-debug-types"
 >
-> This sounds like an error in the SONAME embedded in the files.  For example if
-> the soname of libnss2.so.1oe, is libnss3.so, both it and the link will be
-> captured in the base package -- leaving the -dev empty.
 >
-> (If the SONAME is correct and it's not working this way that is likely a bug in
-> the routines breaking up base and dev packages!)
+> Note that this patch only addresses the problem for the n450, and it
+> would remain on the atom-pc. If we don't want to take Patch B, then we
+> would need another solution for atom-pc. The only thing that comes to
+> mind would be to add the above to the core gtk+ recipe in the form:
+>
+> #-fomit-frame-pointer in default FULL_OPTIMIZATION will cause
+> matchbox-panel segfault on atom-pc
+> FULL_OPTIMIZATION_atom-pc = "-fexpensive-optimizations
+> -frename-registers -O2 -ggdb -feliminate-unused-debug-types"
 
-How can I check this (not my comfort zone)?
+Guess I should have looked at the recipe first :-) It already does this. 
+I'll push the n450 patch per Saul's preference of minimal change.
+
+--
+Darren
 
 >
->> Is there a way to [easily?] force these two libraries to be packaged
->> into nss-XXX.ipk?
 >
-> Assuming fixing the sonames is not an option, the alternative is to specify the
-> packages and FILES_... list of files for each chunk instead of letting the
-> system determine things automatically.  It's a bit messier, but you have
-> ultimate control of what is and is not included...
+> Thoughts?
 >
->> My current workaround is to use a post-install script to create the .so
->> files from the .so.1oe files for these two libraries.  It gets my code
->> (chromium-11 browser!) to work, but it's not very satisfying.
->
-> If possible, fix the soname item... otherwise there can be loader problems if
-> the device doesn't end up with an ld.so.cache...  (which is why the link is
-> working I suspect...)
-
-I think the problem is in some very messy Mozilla code that uses dl_load() directly
-and only looks for the .so file name.
-
-I'll probably go with the FILES solution.
 
 -- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
