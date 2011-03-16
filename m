@@ -1,25 +1,27 @@
-Return-Path: <Kai.Kang@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0EA5A4C80889
-	for <poky@yoctoproject.org>; Wed, 16 Mar 2011 02:08:07 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p2G786fD026663
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Wed, 16 Mar 2011 00:08:06 -0700 (PDT)
-Received: from localhost (128.224.163.157) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Wed, 16 Mar 2011 00:08:05 -0700
-Message-ID: <d6625fdbfd69a576cda5f03fefa321ad9687bca4.1300258088.git.kai.kang@windriver.com>
-In-Reply-To: <cover.1300258088.git.kai.kang@windriver.com>
-References: <cover.1300258088.git.kai.kang@windriver.com>
-Old-Date: Wed, 16 Mar 2011 14:41:51 +0800
-Date: Wed, 16 Mar 2011 15:06:25 +0800
-To: <sgw@linux.intel.com>
-From: Kang Kai <kai.kang@windriver.com>
-MIME-Version: 1.0
-X-Originating-IP: [128.224.163.157]
+Return-Path: <koen@dominion.thruhere.net>
+Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 9780B4C8009A
+	for <poky@yoctoproject.org>; Wed, 16 Mar 2011 03:14:01 -0500 (CDT)
+Received: by wwd20 with SMTP id 20so1605287wwd.11
+	for <poky@yoctoproject.org>; Wed, 16 Mar 2011 01:14:00 -0700 (PDT)
+Received: by 10.227.71.206 with SMTP id i14mr452485wbj.215.1300263240380;
+	Wed, 16 Mar 2011 01:14:00 -0700 (PDT)
+Received: from [172.20.0.255] (ip545070eb.adsl-surfen.hetnet.nl
+	[84.80.112.235])
+	by mx.google.com with ESMTPS id bd8sm833840wbb.1.2011.03.16.01.13.59
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Wed, 16 Mar 2011 01:13:59 -0700 (PDT)
+Mime-Version: 1.0 (Apple Message framework v1082)
+From: Koen Kooi <koen@dominion.thruhere.net>
+In-Reply-To: <945a0bac5f7174fdb27b518b061cb8eabf640a78.1300230459.git.scott.a.garman@intel.com>
+Date: Wed, 16 Mar 2011 09:13:58 +0100
+Message-Id: <5B279E08-1255-421A-82AE-F3795325744B@dominion.thruhere.net>
+References: <cover.1300230459.git.scott.a.garman@intel.com>
+	<945a0bac5f7174fdb27b518b061cb8eabf640a78.1300230459.git.scott.a.garman@intel.com>
+To: Scott Garman <scott.a.garman@intel.com>
+X-Mailer: Apple Mail (2.1082)
 Cc: poky@yoctoproject.org
-Subject: [PATCH 1/1] slang: export INST_LIB_DIR to fix compile problems
+Subject: Re: [PATCH 2/7] task-poky-ssh-dropbear: new task recipe for dropbear ssh
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,45 +33,52 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 16 Mar 2011 07:08:07 -0000
-Content-Type: text/plain
+X-List-Received-Date: Wed, 16 Mar 2011 08:14:02 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
 
-From: Kang Kai <kai.kang@windriver.com>
 
-Export "INST_LIB_DIR" in do_install to slang/slsh to fix cross compile warnings
-Fixes [YOCTO #812]
+Op 16 mrt 2011, om 00:12 heeft Scott Garman het volgende geschreven:
 
-Add necessary files to run slsh.
+> From: Scott Garman <scott.a.garman@intel.com>
+>=20
+> This task can be used when IMAGE_FEATURES is set to
+> ssh-server-dropbear.
+>=20
+> Signed-off-by: Scott Garman <scott.a.garman@intel.com>
+> ---
+> meta/recipes-core/tasks/task-poky-ssh-dropbear.bb |   17 =
++++++++++++++++++
+> 1 files changed, 17 insertions(+), 0 deletions(-)
+> create mode 100644 meta/recipes-core/tasks/task-poky-ssh-dropbear.bb
+>=20
+> diff --git a/meta/recipes-core/tasks/task-poky-ssh-dropbear.bb =
+b/meta/recipes-core/tasks/task-poky-ssh-dropbear.bb
+> new file mode 100644
+> index 0000000..870d2d9
+> --- /dev/null
+> +++ b/meta/recipes-core/tasks/task-poky-ssh-dropbear.bb
+> @@ -0,0 +1,17 @@
+> +DESCRIPTION =3D "Dropbear SSH task for Poky"
+> +LICENSE =3D "MIT"
+> +LIC_FILES_CHKSUM =3D =
+"file://${POKYBASE}/LICENSE;md5=3D3f40d7994397109285ec7b81fdeb3b58 \
+> +                    =
+file://${POKYBASE}/meta/COPYING.MIT;md5=3D3da9cfbcb788c80a0384361b4de20420=
+"
+> +PR =3D "r0"
+> +
+> +PACKAGES =3D "\
+> +    task-poky-ssh-dropbear \
+> +    task-poky-ssh-dropbear-dbg \
+> +    task-poky-ssh-dropbear-dev \
+> +    "
+> +
+> +ALLOW_EMPTY =3D "1"
+> +
+> +RDEPENDS_task-poky-ssh-dropbear =3D "dropbear"
+> +RDEPENDS_task-poky-ssh-dropbear-dbg =3D "dropbear-dbg"
+> +RDEPENDS_task-poky-ssh-dropbear-dev =3D "dropbear-dev"
 
-Signed-off-by: Kang Kai <kai.kang@windriver.com>
----
- meta/recipes-extended/slang/slang_2.2.2.bb |    8 +++++++-
- 1 files changed, 7 insertions(+), 1 deletions(-)
-
-diff --git a/meta/recipes-extended/slang/slang_2.2.2.bb b/meta/recipes-extended/slang/slang_2.2.2.bb
-index 7fe76af..f77a946 100644
---- a/meta/recipes-extended/slang/slang_2.2.2.bb
-+++ b/meta/recipes-extended/slang/slang_2.2.2.bb
-@@ -10,7 +10,7 @@ to recode S-Lang procedures in C if you need to."
- SECTION = "libs"
- PRIORITY = "optional"
- DEPENDS = "pcre"
--PR = "r0"
-+PR = "r1"
- 
- LICENSE = "GPL Artistic"
- LIC_FILES_CHKSUM = "file://COPYING;md5=0636e73ff0215e8d672dc4c32c317bb3"
-@@ -23,3 +23,9 @@ inherit autotools
- 
- SRC_URI[md5sum] = "974437602a781cfe92ab61433dd16d03"
- SRC_URI[sha256sum] = "cfaf8551fa3855f9b0043309bb553ef6d457f931b404df5a6ba6a5a69371fc42"
-+
-+do_install() {
-+	oe_runmake install DESTDIR=${D} -e 'INST_LIB_DIR=${STAGING_DIR_HOST}/usr/lib'
-+}
-+
-+FILES_${PN} += "${datadir}/slsh/"
--- 
-1.7.1
-
+looks like a good candidate for 'inherit task'=
 
