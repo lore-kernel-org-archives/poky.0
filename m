@@ -1,19 +1,19 @@
-Return-Path: <tom.zanussi@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 13B514C80861
-	for <poky@yoctoproject.org>; Wed, 16 Mar 2011 15:51:39 -0500 (CDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 16 Mar 2011 13:51:39 -0700
-Message-Id: <1bdc18$jt3182@fmsmga002.fm.intel.com>
+Return-Path: <nitin.a.kamble@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 877644C805BB
+	for <poky@yoctoproject.org>; Wed, 16 Mar 2011 16:03:56 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 16 Mar 2011 14:03:56 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,195,1299484800"; d="scan'208";a="668042510"
-Received: from unknown (HELO localhost) ([10.255.12.136])
-	by fmsmga002.fm.intel.com with ESMTP; 16 Mar 2011 13:51:39 -0700
-Old-Date: Wed, 16 Mar 2011 15:40:56 -0500
-Date: Wed, 16 Mar 2011 15:51:35 -0500
-To: poky@yoctoproject.org
-From: Tom Zanussi <tom.zanussi@intel.com>
-Subject: [PATCH 1/1] crownbay: xserver-xf86-emgd sum fixes
+X-IronPort-AV: E=Sophos;i="4.63,195,1299484800"; d="scan'208";a="613859225"
+Received: from nbuild2.sc.intel.com (HELO localhost) ([172.25.110.37])
+	by orsmga002.jf.intel.com with ESMTP; 16 Mar 2011 14:03:56 -0700
+Message-Id: <cover.1300309327.git.nitin.a.kamble@intel.com>
+Old-Date: Wed, 16 Mar 2011 14:02:07 -0700
+Date: Wed, 16 Mar 2011 14:03:55 -0700
+To: poky@yoctoproject.org,openembedded-core@lists.openembedded.org
+From: Nitin A Kamble <nitin.a.kamble@intel.com>
+Subject: [PATCH 0/2] GPLv2 versions of m4 & bison
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -25,33 +25,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 16 Mar 2011 20:51:40 -0000
+X-List-Received-Date: Wed, 16 Mar 2011 21:03:56 -0000
 
-From: Tom Zanussi <tom.zanussi@intel.com>
+From: Nitin A Kamble <nitin.a.kamble@intel.com>
 
-Fixes [BUGID #885].  Fix changed md5 and sha256 sums for this package.
+These commits adds GPLv2 versions of m4 & bison recipes.
 
-Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: nitin/misc
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=nitin/misc
+
+Thanks,
+    Nitin A Kamble <nitin.a.kamble@intel.com>
 ---
- .../xorg-xserver/xserver-xf86-emgd_1.7.99.2.bb     |    4 ++--
- 1 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/meta-crownbay/recipes-graphics/xorg-xserver/xserver-xf86-emgd_1.7.99.2.bb b/meta-crownbay/recipes-graphics/xorg-xserver/xserver-xf86-emgd_1.7.99.2.bb
-index 5f22213..01f0a24 100644
---- a/meta-crownbay/recipes-graphics/xorg-xserver/xserver-xf86-emgd_1.7.99.2.bb
-+++ b/meta-crownbay/recipes-graphics/xorg-xserver/xserver-xf86-emgd_1.7.99.2.bb
-@@ -15,8 +15,8 @@ SRC_URI += "file://nodolt.patch \
- # Misc build failure for master HEAD
- SRC_URI += "file://fix_open_max_preprocessor_error.patch"
- 
--SRC_URI[md5sum] = "5c8773499a6a8c1ddaedf33577ec9634"
--SRC_URI[sha256sum] = "8b30800004c98fc7a8e6ff31a339f28451be5132e774443be22bf226e1791e34"
-+SRC_URI[md5sum] = "cafc4e2d4ef6cf6e47f3e7dffeb3346a"
-+SRC_URI[sha256sum] = "a89f13b166b412930fe418ff50032dd2cde8bb181d8b47b5ca6f848d218fdcf2"
- 
- RDEPENDS_${PN} += "xserver-xf86-emgd-bin mesa-dri"
- 
+
+Nitin A Kamble (2):
+  bison: bring back GPLv2 version 2.3 of bison recipe
+  m4: bring back GPLv2 version 1.4.9 of m4 recipe
+
+ .../bison/bison/bison-2.3_m4.patch                 |  590 ++++++++++++++++++++
+ meta/recipes-devtools/bison/bison_2.3.bb           |   35 ++
+ meta/recipes-devtools/m4/m4-native_1.4.9.bb        |   12 +
+ .../m4/m4/fix_for_circular_dependency.patch        |   75 +++
+ meta/recipes-devtools/m4/m4_1.4.9.bb               |   18 +
+ 5 files changed, 730 insertions(+), 0 deletions(-)
+ create mode 100644 meta/recipes-devtools/bison/bison/bison-2.3_m4.patch
+ create mode 100644 meta/recipes-devtools/bison/bison_2.3.bb
+ create mode 100644 meta/recipes-devtools/m4/m4-native_1.4.9.bb
+ create mode 100644 meta/recipes-devtools/m4/m4/fix_for_circular_dependency.patch
+ create mode 100644 meta/recipes-devtools/m4/m4_1.4.9.bb
+
 -- 
-1.7.0.4
+1.7.3.4
 
 
