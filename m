@@ -1,22 +1,20 @@
 Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 275774C80AAF
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 3EDC74C80AB7
 	for <poky@yoctoproject.org>; Thu, 17 Mar 2011 17:35:56 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 17 Mar 2011 15:35:55 -0700
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 17 Mar 2011 15:35:55 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,201,1299484800"; d="scan'208";a="614375957"
+X-IronPort-AV: E=Sophos;i="4.63,201,1299484800"; d="scan'208";a="668480640"
 Received: from nbuild2.sc.intel.com (HELO localhost) ([172.25.110.37])
-	by orsmga002.jf.intel.com with ESMTP; 17 Mar 2011 15:35:55 -0700
-Message-Id: <93c5b219636655e2aef0c7fcbda426cca007a0e0.1300401018.git.nitin.a.kamble@intel.com>
-In-Reply-To: <cover.1300401016.git.nitin.a.kamble@intel.com>
-References: <cover.1300401016.git.nitin.a.kamble@intel.com>
-Old-Date: Thu, 17 Mar 2011 10:25:04 -0700
-Date: Thu, 17 Mar 2011 15:35:55 -0700
+	by fmsmga002.fm.intel.com with ESMTP; 17 Mar 2011 15:35:54 -0700
+Message-Id: <cover.1300401016.git.nitin.a.kamble@intel.com>
+Old-Date: Thu, 17 Mar 2011 15:30:16 -0700
+Date: Thu, 17 Mar 2011 15:35:53 -0700
 To: poky@yoctoproject.org
 CC: 
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Subject: [PATCH 7/7] coreutils-6.9: fix man page building for the gplv2 recipe
+Subject: [PATCH 0/7] non-gplv3 poky-image-basic image
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,140 +30,73 @@ X-List-Received-Date: Thu, 17 Mar 2011 22:35:56 -0000
 
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
 
-Added a new patch:
-   coreutils-6.9/fix_for_manpage_building.patch
-And the target recipe now depends on the native recipe for the manpage
-generation.
+These commits enable poky-image-basic image with non-gplv3 packages.
+Non glv3 packages/images can be built by, setting 
+INCOMPATIBLE_LICENSE = "GPLv3"
+in the local.conf
+                                   
 
-Similar fix may be needed to the GPLv3 version of this recipe.
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: nitin/misc
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=nitin/misc
 
-Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
+Thanks,
+    Nitin A Kamble <nitin.a.kamble@intel.com>
 ---
- .../coreutils-6.9/fix_for_manpage_building.patch   |   83 ++++++++++++++++++++
- meta/recipes-core/coreutils/coreutils_6.9.bb       |   10 ++-
- 2 files changed, 90 insertions(+), 3 deletions(-)
- create mode 100644 meta/recipes-core/coreutils/coreutils-6.9/fix_for_manpage_building.patch
 
-diff --git a/meta/recipes-core/coreutils/coreutils-6.9/fix_for_manpage_building.patch b/meta/recipes-core/coreutils/coreutils-6.9/fix_for_manpage_building.patch
-new file mode 100644
-index 0000000..67e1279
---- /dev/null
-+++ b/meta/recipes-core/coreutils/coreutils-6.9/fix_for_manpage_building.patch
-@@ -0,0 +1,83 @@
-+Use native coreutils binaries to build manpages in cross environment.
-+This avoids man page build issues like this:
-+
-+| Making all in man
-+| make[1]: Entering directory `/build_disk/poky_build/build1/tmp/work/i586-poky-linux/coreutils-6.9-r0/coreutils-6.9/man'
-+| Updating man page cut.1
-+| Updating man page dir.1
-+| Updating man page expand.1
-+| Updating man page fold.1
-+| Updating man page install.1
-+| Updating man page join.1
-+| Updating man page pr.1
-+| Updating man page ls.1
-+| Updating man page sort.1
-+| Updating man page unexpand.1
-+| Updating man page uniq.1
-+| Updating man page who.1
-+| Updating man page vdir.1
-+| help2man: can't get `--help' info from dir.td/dir
-+| help2man: can't get `--help' info from cut.td/cut
-+| make[1]: *** [dir.1] Error 126
-+| make[1]: *** Waiting for unfinished jobs....
-+| help2man: can't get `--help' info from fold.td/fold
-+| help2man: can't get `--help' info from install.td/install
-+| help2man: can't get `--help' info from expand.td/expand
-+| help2man: can't get `--help' info from join.td/join
-+| make[1]: *** [cut.1] Error 126
-+| make[1]: *** [fold.1] Error 126
-+| make[1]: *** [install.1] Error 126
-+| help2man: can't get `--help' info from sort.td/sort
-+| make[1]: *** [expand.1] Error 126
-+| help2man: can't get `--help' info from pr.td/pr
-+| make[1]: *** [join.1] Error 126
-+| help2man: can't get `--help' info from ls.td/ls
-+| help2man: can't get `--help' info from unexpand.td/unexpand
-+| help2man: can't get `--help' info from uniq.td/uniq
-+| help2man: can't get `--help' info from who.td/who
-+| make[1]: *** [sort.1] Error 126
-+| make[1]: *** [pr.1] Error 126
-+| help2man: can't get `--help' info from vdir.td/vdir
-+| make[1]: *** [ls.1] Error 126
-+| make[1]: *** [uniq.1] Error 126
-+| make[1]: *** [unexpand.1] Error 126
-+| make[1]: *** [who.1] Error 126
-+| make[1]: *** [vdir.1] Error 126
-+| make[1]: Leaving directory `/build_disk/poky_build/build1/tmp/work/i586-poky-linux/coreutils-6.9-r0/coreutils-6.9/man'
-+| make: *** [all-recursive] Error 1
-+| FATAL: oe_runmake failed
-+| ERROR: Function 'do_compile' failed (see /build_disk/poky_build/build1/tmp/work/i586-poky-linux/coreutils-6.9-r0/temp/log.do_compile.12780 for further information)
-+NOTE: package coreutils-6.9-r0: task do_compile: Failed
-+ERROR: Task 8 (/home/nitin/prj/poky.git/meta/recipes-core/coreutils/coreutils_6.9.bb, do_compile) failed with exit code '1'
-+
-+
-+This patch is made for gplv2 coreutils the recipe
-+Nitin A Kamble <nitin.a.kamble@intel.com>
-+2011/03/17
-+
-+Index: man/Makefile.am
-+===================================================================
-+--- a/man.orig/Makefile.am
-++++ b/man/Makefile.am
-+@@ -167,7 +167,7 @@ mapped_name = `echo $*|sed 's/install/gi
-+ 	            $(PERL) -- $(srcdir)/help2man		\
-+ 	             --source='$(PACKAGE_STRING)'		\
-+ 	             --include=$(srcdir)/$*.x			\
-+-	             --output=$t/$@ $t/$*;			\
-++	             --output=$t/$@ $*;			\
-+ 	       }						\
-+ 	    && sed 's|$*\.td/||g' $t/$@ > $@			\
-+ 	    && chmod a-w $@					\
-+Index: man/Makefile.in
-+===================================================================
-+--- a/man.orig/Makefile.in
-++++ b/man/Makefile.in
-+@@ -865,7 +865,7 @@ yes.1:		$(common_dep)	$(srcdir)/yes.x		.
-+ 	            $(PERL) -- $(srcdir)/help2man		\
-+ 	             --source='$(PACKAGE_STRING)'		\
-+ 	             --include=$(srcdir)/$*.x			\
-+-	             --output=$t/$@ $t/$*;			\
-++	             --output=$t/$@ $*;			\
-+ 	       }						\
-+ 	    && sed 's|$*\.td/||g' $t/$@ > $@			\
-+ 	    && chmod a-w $@					\
-diff --git a/meta/recipes-core/coreutils/coreutils_6.9.bb b/meta/recipes-core/coreutils/coreutils_6.9.bb
-index 60ea903..2d7fded 100644
---- a/meta/recipes-core/coreutils/coreutils_6.9.bb
-+++ b/meta/recipes-core/coreutils/coreutils_6.9.bb
-@@ -8,12 +8,13 @@ BUGTRACKER = "http://debbugs.gnu.org/coreutils"
- LICENSE = "GPLv2+"
- LIC_FILES_CHKSUM = "file://COPYING;md5=751419260aa954499f7abaabaa882bbe \
-                     file://src/ls.c;startline=4;endline=16;md5=482a96d4f25010a4e13f8743e0c3685e"
--PR = "r0"
--DEPENDS = "perl-native"
-+PR = "r1"
-+DEPENDS = "perl-native coreutils-native-${PV} gettext "
-+DEPENDS_virtclass-native = "perl-native gettext-native"
- 
- inherit autotools gettext
- 
--SRC_URI = "http://ftp.gnu.org/gnu/coreutils/${BP}.tar.bz2 \
-+SRC_URI_BASE = "http://ftp.gnu.org/gnu/coreutils/${BP}.tar.bz2 \
-            file://gnulib_m4.patch \
-            file://futimens.patch \
-            file://coreutils-ls-x.patch \
-@@ -23,6 +24,9 @@ SRC_URI = "http://ftp.gnu.org/gnu/coreutils/${BP}.tar.bz2 \
-            file://coreutils-fix-install.patch \
-            file://man-touch.patch"
- 
-+SRC_URI = "${SRC_URI_BASE} file://fix_for_manpage_building.patch"
-+SRC_URI_virtclass-native = "${SRC_URI_BASE}"
-+
- # [ gets a special treatment and is not included in this
- bindir_progs = "base64 basename cksum comm csplit cut dir dircolors dirname du \
-                 env expand expr factor fmt fold groups head hostid id install \
+
+Nitin A Kamble (1):
+  coreutils-6.9: fix man page building for the gplv2 recipe
+
+Saul Wold (6):
+  util-linux: Setup for GPLv2 Recipe
+  extended tasks: move binutils from basic to lsb
+  poky-image-basic: remove POKY_BASE_INSTALL
+  poky.conf: add additional Libraries to the LGPLv2 Whitelist
+  poky.conf: remove gnome-common from WHITELIST_GPLV3
+  gettext: Upgrade GPLv2 version to 0.16.1
+
+ meta/conf/distro/poky.conf                         |    4 +-
+ .../coreutils-6.9/fix_for_manpage_building.patch   |   83 ++
+ meta/recipes-core/coreutils/coreutils_6.9.bb       |   10 +-
+ .../gettext/gettext-0.14.1/gettext-vpath.patch     |   15 -
+ .../gettext/gettext-0.14.1/linklib_from_0.17.patch | 1135 --------------------
+ .../disable_java.patch                             |   19 +-
+ .../gettext-0.16.1/fix_aclocal_version.patch       |  107 ++
+ .../gettext-0.16.1/fix_gnu_source_circular.patch   |  345 ++++++
+ .../fixchicken.patch                               |    0
+ .../getline.m4.patch                               |    0
+ .../gettext-autoconf-lib-link-no-L.patch           |    4 +
+ .../gettext-error_print_progname.patch             |    0
+ .../gettext/gettext-0.16.1/gettext-vpath.patch     |   17 +
+ .../gettext-0.16.1/hardcode_macro_version.patch    |   48 +
+ .../gettext/gettext-0.16.1/linklib_from_0.17.patch |  717 ++++++++++++
+ .../{gettext_0.14.1.bb => gettext_0.16.1.bb}       |   20 +-
+ .../util-linux-2.17.2/remove-lscpu.patch           |  101 ++
+ meta/recipes-core/util-linux/util-linux.inc        |    5 +-
+ meta/recipes-core/util-linux/util-linux_2.17.2.bb  |   10 +-
+ meta/recipes-core/util-linux/util-linux_gplv2.bb   |   26 +
+ meta/recipes-extended/images/poky-image-basic.bb   |    4 +-
+ meta/recipes-extended/tasks/task-poky-basic.bb     |    2 -
+ meta/recipes-extended/tasks/task-poky-lsb.bb       |    3 +-
+ 23 files changed, 1491 insertions(+), 1184 deletions(-)
+ create mode 100644 meta/recipes-core/coreutils/coreutils-6.9/fix_for_manpage_building.patch
+ delete mode 100644 meta/recipes-core/gettext/gettext-0.14.1/gettext-vpath.patch
+ delete mode 100644 meta/recipes-core/gettext/gettext-0.14.1/linklib_from_0.17.patch
+ rename meta/recipes-core/gettext/{gettext-0.14.1 => gettext-0.16.1}/disable_java.patch (53%)
+ create mode 100644 meta/recipes-core/gettext/gettext-0.16.1/fix_aclocal_version.patch
+ create mode 100644 meta/recipes-core/gettext/gettext-0.16.1/fix_gnu_source_circular.patch
+ rename meta/recipes-core/gettext/{gettext-0.14.1 => gettext-0.16.1}/fixchicken.patch (100%)
+ rename meta/recipes-core/gettext/{gettext-0.14.1 => gettext-0.16.1}/getline.m4.patch (100%)
+ rename meta/recipes-core/gettext/{gettext-0.14.1 => gettext-0.16.1}/gettext-autoconf-lib-link-no-L.patch (88%)
+ rename meta/recipes-core/gettext/{gettext-0.14.1 => gettext-0.16.1}/gettext-error_print_progname.patch (100%)
+ create mode 100644 meta/recipes-core/gettext/gettext-0.16.1/gettext-vpath.patch
+ create mode 100644 meta/recipes-core/gettext/gettext-0.16.1/hardcode_macro_version.patch
+ create mode 100644 meta/recipes-core/gettext/gettext-0.16.1/linklib_from_0.17.patch
+ rename meta/recipes-core/gettext/{gettext_0.14.1.bb => gettext_0.16.1.bb} (74%)
+ create mode 100644 meta/recipes-core/util-linux/util-linux-2.17.2/remove-lscpu.patch
+ create mode 100644 meta/recipes-core/util-linux/util-linux_gplv2.bb
+
 -- 
 1.7.3.4
 
