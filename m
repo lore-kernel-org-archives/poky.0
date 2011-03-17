@@ -1,48 +1,36 @@
-Return-Path: <raj.khem@gmail.com>
-Received: from mail-iw0-f176.google.com (mail-iw0-f176.google.com
-	[209.85.214.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 87EF94C806DA
-	for <poky@yoctoproject.org>; Thu, 17 Mar 2011 02:35:49 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by iwr19 with SMTP id 19so3456406iwr.35
-	for <poky@yoctoproject.org>; Thu, 17 Mar 2011 00:35:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:date:from:to:cc:subject:message-id
-	:mail-followup-to:references:mime-version:content-type
-	:content-disposition:in-reply-to:user-agent;
-	bh=mQNOzGF3TUSRwn1lBnyAiidl7aPluJvwwLNUtvdBOUs=;
-	b=SEWy+28/rMBd3OvTQkTjzA+A5N5Zv2jHSusT0WG3U/fhJ3Pmh35S7jRy28gsSAZUyR
-	I0Qs72jyfnhk9NFHfKc6if4nyMLpekFYYX+J9Q3lYdEXk9+Zp8MRy1wYngO8ui7fr2mo
-	gb1uC+YmNKinOOIwD9gfaFLB2xs4N/9dcO5QU=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=date:from:to:cc:subject:message-id:mail-followup-to:references
-	:mime-version:content-type:content-disposition:in-reply-to
-	:user-agent;
-	b=symzXTjrQcV4YfzPKJg6OIA+dHqXWqOrT949ctJO+7+2fT5YZ+SXx9bwBB1exaQlqo
-	4ucquzaFLJEwZNzoGiDtr2AIN6u9WxAEXB72jZBnPcBz4Y/3wdTOyCTOFYTvtfelAtlH
-	IgRaDdpJB3HOud1tGF9riLp7lBMuqCP/ulRkE=
-Received: by 10.42.196.193 with SMTP id eh1mr1406799icb.385.1300347348978;
-	Thu, 17 Mar 2011 00:35:48 -0700 (PDT)
-Received: from sakrah.homelinux.org
-	(99-57-141-118.lightspeed.sntcca.sbcglobal.net [99.57.141.118])
-	by mx.google.com with ESMTPS id e7sm258048ibb.57.2011.03.17.00.35.46
-	(version=TLSv1/SSLv3 cipher=OTHER);
-	Thu, 17 Mar 2011 00:35:47 -0700 (PDT)
-Date: Thu, 17 Mar 2011 00:36:35 -0700
-From: Khem Raj <raj.khem@gmail.com>
-To: Mark Hatle <mark.hatle@windriver.com>
-Message-ID: <20110317073635.GA27644@sakrah.homelinux.org>
-Mail-Followup-To: Mark Hatle <mark.hatle@windriver.com>,
-	Gary Thomas <gary@mlbassoc.com>, poky@yoctoproject.org
-References: <4D81355C.5060700@mlbassoc.com> <4D813850.1000700@windriver.com>
-	<4D813966.30309@mlbassoc.com> <4D813BEA.4050905@windriver.com>
+Return-Path: <gerard@de-haardt.com>
+Received: from cpsmtpb-ews05.kpnxchange.com (cpsmtpb-ews05.kpnxchange.com
+	[213.75.39.8])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 090204C806DA
+	for <poky@yoctoproject.org>; Thu, 17 Mar 2011 02:43:17 -0500 (CDT)
+Received: from cpbrm-ews34.kpnxchange.com ([10.94.84.165]) by
+	cpsmtpb-ews05.kpnxchange.com with Microsoft SMTPSVC(6.0.3790.4675); 
+	Thu, 17 Mar 2011 08:43:17 +0100
+Received: from CPSMTPM-CMT104.kpnxchange.com ([195.121.3.20]) by
+	cpbrm-ews34.kpnxchange.com with Microsoft SMTPSVC(6.0.3790.4675); 
+	Thu, 17 Mar 2011 08:43:16 +0100
+Received: from mail.de-haardt.com ([86.81.67.223]) by
+	CPSMTPM-CMT104.kpnxchange.com with Microsoft
+	SMTPSVC(7.0.6002.18264); Thu, 17 Mar 2011 08:43:16 +0100
+Received: from [192.168.1.160] ([192.168.1.160])
+	(authenticated user gerard@de-haardt.com) by mail.de-haardt.com
+	(using TLSv1/SSLv3 with cipher AES256-SHA (256 bits));
+	Thu, 17 Mar 2011 08:43:12 +0100
+Message-ID: <4D81BBAC.9000402@de-haardt.com>
+Date: Thu, 17 Mar 2011 08:43:40 +0100
+From: Gerard van den Bosch <gerard@de-haardt.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.14) Gecko/20110223 Lightning/1.0b2 Thunderbird/3.1.8
 MIME-Version: 1.0
-In-Reply-To: <4D813BEA.4050905@windriver.com>
-User-Agent: Mutt/1.5.20 (2009-06-14)
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+References: <4D7F4630.3030705@de-haardt.com>	 <1300196286.30423.1726.camel@rex>
+	<4D7F7FB4.30007@de-haardt.com> <1300291688.30423.1890.camel@rex>
+In-Reply-To: <1300291688.30423.1890.camel@rex>
+X-OriginalArrivalTime: 17 Mar 2011 07:43:16.0882 (UTC)
+	FILETIME=[FA6B9720:01CBE476]
+X-RcptDomain: yoctoproject.org
 Cc: poky@yoctoproject.org
-Subject: Re: Shared library packaging
+Subject: Re: compile application header file missing
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -54,84 +42,97 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 17 Mar 2011 07:35:49 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-List-Received-Date: Thu, 17 Mar 2011 07:43:19 -0000
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On (16/03/11 17:38), Mark Hatle wrote:
-> On 3/16/11 5:27 PM, Gary Thomas wrote:
-> > On 03/16/2011 04:23 PM, Mark Hatle wrote:
-> >> On 3/16/11 5:10 PM, Gary Thomas wrote:
-> >>> I'm working on a recipe which has a number of shared libraries (actually
-> >>> this is just an import from OE (mozilla/nss) which has the same problem as listed below)
-> >>> The package creates a number of libraries (from the work tree):
-> >>>       image/usr/lib/libsmime3.so ->  libsmime3.so.1oe
-> >>>       image/usr/lib/libsmime3.so.1oe
-> >>>       image/usr/lib/libsoftokn3.so
-> >>>       image/usr/lib/libfreebl3.so
-> >>>       image/usr/lib/libnssutil3.so ->  libnssutil3.so.1oe
-> >>>       image/usr/lib/libnssutil3.so.1oe
-> >>>       image/usr/lib/libnss3.so ->  libnss3.so.1oe
-> >>>       image/usr/lib/libnss3.so.1oe
-> >>>       image/usr/lib/libssl3.so ->  libssl3.so.1oe
-> >>>       image/usr/lib/libssl3.so.1oe
-> >>>
-> >>> The .so.1oe files are packaged in nss_XXX.ipk and the .so files are
-> >>> put into nss-dev_XXX.ipk.  The problem is that there is code out there
-> >>> that only wants to look for the .so files (no -dev packages installed)
-> >>> and fail to find libsoftokn3.so and libfreebl3.so
-> >>
-> >> This sounds like an error in the SONAME embedded in the files.  For example if
-> >> the soname of libnss2.so.1oe, is libnss3.so, both it and the link will be
-> >> captured in the base package -- leaving the -dev empty.
-> >>
-> >> (If the SONAME is correct and it's not working this way that is likely a bug in
-> >> the routines breaking up base and dev packages!)
-> > 
-> > How can I check this (not my comfort zone)?
-> 
-> I usually run "readelf -a <library>"  and then grep for SONAME.
-> 
-> It's likely better to run the target version of readelf if the target is not IA32.
-> 
-> >>
-> >>> Is there a way to [easily?] force these two libraries to be packaged
-> >>> into nss-XXX.ipk?
-> >>
-> >> Assuming fixing the sonames is not an option, the alternative is to specify the
-> >> packages and FILES_... list of files for each chunk instead of letting the
-> >> system determine things automatically.  It's a bit messier, but you have
-> >> ultimate control of what is and is not included...
-> >>
-> >>> My current workaround is to use a post-install script to create the .so
-> >>> files from the .so.1oe files for these two libraries.  It gets my code
-> >>> (chromium-11 browser!) to work, but it's not very satisfying.
-> >>
-> >> If possible, fix the soname item... otherwise there can be loader problems if
-> >> the device doesn't end up with an ld.so.cache...  (which is why the link is
-> >> working I suspect...)
-> > 
-> > I think the problem is in some very messy Mozilla code that uses dl_load() directly
-> > and only looks for the .so file name.
-> > 
-> > I'll probably go with the FILES solution.
-> > 
-> 
-> Ya, dl_loaded files don't follow the normal conventions, the files approach is
-> likely your only solution then.
+On 03/16/2011 05:08 PM, Richard Purdie wrote:
+> On Tue, 2011-03-15 at 16:03 +0100, Gerard van den Bosch wrote:
+>> I am indeed using the Green release.
+>>
+>> The TARGET_CFLAGS are indeed the same as the CFLAGS. The system is
+>> using the default CC and not the BUILD_CC, thanks for pointing out the
+>> difference.
+>>
+>> I have added the --sysroot option pointing to the arm sysroot to the
+>> CFLAGS in my recipe, with compilation it now looks like this:
+>> arm-poky-linux-gnueabi-gcc -march=armv7-a -mtune=cortex-a8 -mfpu=neon
+>> -mfloat-abi=softfp -fno-tree-vectorize -fexpensive-optimizations
+>> -fomit-frame-pointer -frename-registers -O2 -ggdb
+>> -feliminate-unused-debug-types
+>> --sysroot=/home/gerard/green-3.3/build/tmp/sysroots/armv7a-poky-linux-gnueabi/ libxmlpcp.c -o libxmlpcp.o
+>>
+>> This removes the missing SLP.h error.
+>>
+>> Is this problem related to my recipe or did I broke my build
+>> environment?
+> To be honest, I don't know. The compiler should have been defaulting to
+> that already so I don't understand why it wasn't working. We now
+> explictly set this in master to allow for toolchain relocation and the
+> machine specific sysroots support. You could try backporting the piece
+> of code I previously referred to which should also fix the problem.
+>
+> If that option were missing from the toolchain I'd have expected you to
+> see other errors rather than just this isolated problem...
+It also couldn't find libxml headers either but because I thought it was similar to the missing SLP.h I left it out.
+I made the changes now to the bitbake conf file like you wrote and it compiles now without having to add the sysroot in my recipe, I have also modified my recipe to pick up libxml also.
+DESCRIPTION = "libxmlpcp"
+SECTION = "libs"
+DEPENDS = "openslp libxml2"
+LICENSE = "LGPL"
 
-if you enable QA/insane.bbclass then you will get QA errors  for ".so"
-library symlinks in non-dev packages
+SRC_URI = "file://libxmlpcp.tar.gz"
 
-So you might have to disable QA for this case.
+EXTRA_OEMAKE = "'CFLAGS=${CFLAGS} -fPIC -c -I${OPIEDIR}${includedir}/libxml2' 'LDFLAGS=${LDFLAGS} -shared -lxml2 -lslp'"
 
-> 
-> --Mark
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+do_install() {
+      install -d ${D}${libdir}
+      install -d ${D}${includedir}
+      oe_runmake 'INSTALLHEADERDIR=${D}${includedir}' 'INSTALLLIBDIR=${D}${libdir}' \
+      install
+}
 
--- 
--Khem
+But when build is done I can not find the lib in the actual rootfs, looking at the date the rootfs is being regenerated.
+
+The lib file exists in the build tree on the following places:
+tmp/work/armv7a-poky-linux-gnueabi/libxmlpcp-0.1.0-r0/image/usr/lib
+tmp/sysroots/armv7a-poky-linux-gnueabi/usr/lib
+libxmlpcp-dbg_0.1.0-r0_armv7a.ipk and libxmlpcp-dev_0.1.0-r0_armv7a.ipk in the tmp/deploy/ipk/armv7a folder.
+
+I only get a "strip" error, can this be the reason it isn't included in the rootfs?
+ERROR: runstrip: ''arm-poky-linux-gnueabi-strip' --remove-section=.comment --remove-section=.note --strip-unneeded '/home/gerard/green-3.3/build/tmp/work/armv7a-poky-linux-gnueabi/libxmlpcp-0.1.0-r0/package/usr/lib/libxmlpcp.so'' strip command failed
+
+Because I didn't get soup out of it I installed the laverne release also.
+If I build my package with that it also gives the strip error but at the end this gives the error that the do_rootfs failed because it couldn't find the package libxmlpcp.
+So I assume this is also the problem in green why my package isn't included in the rootfs only that build doesn't give the error.
+
+I have runned my build with -DDDvv but can't figure out where it searches for my libxmlpcp package.
+
+Regards,
+Gerard
+
+>> My recipe looks like this:
+>> DESCRIPTION = "libxmlpcp"
+>> SECTION = "examples"
+>> DEPENDS = "openslp libxml2"
+>> LICENSE = "LGPL"
+>>
+>> SRC_URI = "file://libxmlpcp.tar.gz"
+>>
+>> CFLAGS += --sysroot=/home/gerard/green-3.3/build/tmp/sysroots/armv7a-poky-linux-gnueabi/
+>>
+>> do_install() {
+>>       install -d ${D}${libdir}
+>>       install -d ${D}${includedir}
+>>       oe_runmake 'INSTALLHEADERDIR=${D}${includedir}' 'INSTALLLIBDIR=${D}${libdir}' \
+>>       install
+>> }
+> That all looks reasonable enough...
+>
+> Cheers,
+>
+> Richard
+>
+
+
 
