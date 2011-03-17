@@ -1,19 +1,21 @@
 Return-Path: <sgw@linux.intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2B3E04C805A8
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 464D84C80861
 	for <poky@yoctoproject.org>; Thu, 17 Mar 2011 04:58:44 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 17 Mar 2011 02:58:43 -0700
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 17 Mar 2011 02:58:43 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,198,1299484800"; d="scan'208";a="404009539"
+X-IronPort-AV: E=Sophos;i="4.63,198,1299484800"; d="scan'208";a="668232588"
 Received: from unknown (HELO localhost) ([10.255.12.145])
-	by azsmga001.ch.intel.com with ESMTP; 17 Mar 2011 02:58:42 -0700
-Message-Id: <cover.1300355683.git.sgw@linux.intel.com>
-Old-Date: Thu, 17 Mar 2011 02:54:43 -0700
-Date: Thu, 17 Mar 2011  2:58:42 -0700
+	by fmsmga002.fm.intel.com with ESMTP; 17 Mar 2011 02:58:43 -0700
+Message-Id: <e13762b10af724def4290582b53f8072eaa8de9f.1300355683.git.sgw@linux.intel.com>
+In-Reply-To: <cover.1300355683.git.sgw@linux.intel.com>
+References: <cover.1300355683.git.sgw@linux.intel.com>
+Old-Date: Tue, 15 Mar 2011 13:18:04 -0700
+Date: Thu, 17 Mar 2011  2:58:43 -0700
 To: openembedded-core@lists.openembedded.org,poky@yoctoproject.org
 From: Saul Wold <sgw@linux.intel.com>
-Subject: [PATCH 0/7] Non-GPLv3 Changes & a dependency Fix
+Subject: [PATCH 1/7] util-linux: Setup for GPLv2 Recipe
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,70 +31,105 @@ X-List-Received-Date: Thu, 17 Mar 2011 09:58:44 -0000
 
 From: Saul Wold <sgw@linux.intel.com>
 
-Richard,
+ * add task to remove the GPLv3 lscpu code
+ * Add patch to remove the reference to lscpu in Makfiles
 
-This set of changes enables both poky-image-minimal and poky-image-basic
-to build non-gplv3 core image. These are bound for bernard
-
-There is also a fix for the gnome-vfs dependency on ACL. This is
-a potential build stopper and should be considered for bernard
-
-Sau!
-
-
-Pull URL: git://git.openembedded.org/openembedded-core-contrib
-  Branch: sgw/non-gplv3
-  Browse: http://git.openembedded.org/cgit.cgi/openembedded-core-contrib/log/?h=sgw/non-gplv3
-
-Thanks,
-    Saul Wold <sgw@linux.intel.com>
+Signed-off-by: Saul Wold <sgw@linux.intel.com>
 ---
-
-
-Saul Wold (7):
-  util-linux: Setup for GPLv2 Recipe
-  extended tasks: move binutils from basic to lsb
-  poky-image-basic: remove POKY_BASE_INSTALL
-  poky.conf: add additional Libraries to the LGPLv2 Whitelist
-  poky.conf: remove gnome-common from WHITELIST_GPLV3
-  gettext: Upgrade GPLv2 version to 0.16.1
-  gnome-vfs: add DEPENDS for acl
-
- meta/conf/distro/poky.conf                         |    4 +-
- .../gettext/gettext-0.14.1/gettext-vpath.patch     |   15 -
- .../gettext/gettext-0.14.1/linklib_from_0.17.patch | 1135 --------------------
- .../disable_java.patch                             |   19 +-
- .../gettext-0.16.1/fix_aclocal_version.patch       |  107 ++
- .../gettext-0.16.1/fix_gnu_source_circular.patch   |  345 ++++++
- .../fixchicken.patch                               |    0
- .../getline.m4.patch                               |    0
- .../gettext-autoconf-lib-link-no-L.patch           |    4 +
- .../gettext-error_print_progname.patch             |    0
- .../gettext/gettext-0.16.1/gettext-vpath.patch     |   17 +
- .../gettext-0.16.1/hardcode_macro_version.patch    |   48 +
- .../gettext/gettext-0.16.1/linklib_from_0.17.patch |  717 ++++++++++++
- .../{gettext_0.14.1.bb => gettext_0.16.1.bb}       |   20 +-
- meta/recipes-core/util-linux/util-linux.inc        |    5 +-
- meta/recipes-core/util-linux/util-linux_2.17.2.bb  |    9 +-
- meta/recipes-core/util-linux/util-linux_gplv2.bb   |   24 +
- meta/recipes-extended/images/poky-image-basic.bb   |    4 +-
- meta/recipes-extended/tasks/task-poky-basic.bb     |    2 -
- meta/recipes-extended/tasks/task-poky-lsb.bb       |    3 +-
- meta/recipes-gnome/gnome/gnome-vfs_2.24.4.bb       |    2 +-
- 21 files changed, 1298 insertions(+), 1182 deletions(-)
- delete mode 100644 meta/recipes-core/gettext/gettext-0.14.1/gettext-vpath.patch
- delete mode 100644 meta/recipes-core/gettext/gettext-0.14.1/linklib_from_0.17.patch
- rename meta/recipes-core/gettext/{gettext-0.14.1 => gettext-0.16.1}/disable_java.patch (53%)
- create mode 100644 meta/recipes-core/gettext/gettext-0.16.1/fix_aclocal_version.patch
- create mode 100644 meta/recipes-core/gettext/gettext-0.16.1/fix_gnu_source_circular.patch
- rename meta/recipes-core/gettext/{gettext-0.14.1 => gettext-0.16.1}/fixchicken.patch (100%)
- rename meta/recipes-core/gettext/{gettext-0.14.1 => gettext-0.16.1}/getline.m4.patch (100%)
- rename meta/recipes-core/gettext/{gettext-0.14.1 => gettext-0.16.1}/gettext-autoconf-lib-link-no-L.patch (88%)
- rename meta/recipes-core/gettext/{gettext-0.14.1 => gettext-0.16.1}/gettext-error_print_progname.patch (100%)
- create mode 100644 meta/recipes-core/gettext/gettext-0.16.1/gettext-vpath.patch
- create mode 100644 meta/recipes-core/gettext/gettext-0.16.1/hardcode_macro_version.patch
- create mode 100644 meta/recipes-core/gettext/gettext-0.16.1/linklib_from_0.17.patch
- rename meta/recipes-core/gettext/{gettext_0.14.1.bb => gettext_0.16.1.bb} (74%)
+ meta/recipes-core/util-linux/util-linux.inc       |    5 +---
+ meta/recipes-core/util-linux/util-linux_2.17.2.bb |    9 +++++++-
+ meta/recipes-core/util-linux/util-linux_gplv2.bb  |   24 +++++++++++++++++++++
+ 3 files changed, 33 insertions(+), 5 deletions(-)
  create mode 100644 meta/recipes-core/util-linux/util-linux_gplv2.bb
+
+diff --git a/meta/recipes-core/util-linux/util-linux.inc b/meta/recipes-core/util-linux/util-linux.inc
+index 6f8bcb3..446c8e4 100644
+--- a/meta/recipes-core/util-linux/util-linux.inc
++++ b/meta/recipes-core/util-linux/util-linux.inc
+@@ -5,9 +5,7 @@ disk partitioning, kernel message management, filesystem creation, and system lo
+ 
+ SECTION = "base"
+ 
+-# note that `lscpu' is under GPLv3+
+ LICENSE = "GPLv2+ & LGPLv2.1+ & BSD"
+-LICENSE_util-linux-lscpu = "GPLv3+"
+ 
+ LIC_FILES_CHKSUM = "file://README.licensing;md5=1530e36fe1304d4535513de90a290df9 \
+                     file://COPYING;md5=59530bdf33659b29e73d4adb9f9f6552 \
+@@ -30,7 +28,7 @@ SRC_URI = "${KERNELORG_MIRROR}/pub/linux/utils/util-linux-ng/v${MAJOR_VERSION}/u
+ PACKAGES =+ "util-linux-fdisk util-linux-cfdisk util-linux-sfdisk util-linux-swaponoff \
+                     util-linux-losetup util-linux-umount util-linux-mount util-linux-readprofile \
+                     util-linux-libblkid util-linux-libblkid-dev util-linux-libuuid util-linux-libuuid-dev \
+-                    util-linux-lscpu util-linux-uuidgen \
++                    util-linux-uuidgen \
+                    "
+ 
+ S = "${WORKDIR}/util-linux-ng-${PV}"
+@@ -49,7 +47,6 @@ FILES_util-linux-losetup = "${base_sbindir}/losetup.${PN}"
+ FILES_util-linux-mount = "${base_bindir}/mount.${PN}"
+ FILES_util-linux-umount = "${base_bindir}/umount.${PN}"
+ FILES_util-linux-readprofile = "${base_sbindir}/readprofile"
+-FILES_util-linux-lscpu = "${bindir}/lscpu"
+ FILES_util-linux-uuidgen = "${bindir}/uuidgen"
+ 
+ FILES_util-linux-libblkid = "${libdir}/libblkid.so.*"
+diff --git a/meta/recipes-core/util-linux/util-linux_2.17.2.bb b/meta/recipes-core/util-linux/util-linux_2.17.2.bb
+index 190a9e3..b1f5b13 100644
+--- a/meta/recipes-core/util-linux/util-linux_2.17.2.bb
++++ b/meta/recipes-core/util-linux/util-linux_2.17.2.bb
+@@ -1,6 +1,9 @@
+ MAJOR_VERSION = "2.17"
+ require util-linux.inc
+-PR = "r6"
++PR = "r7"
++
++# note that `lscpu' is under GPLv3+
++LICENSE_util-linux-lscpu = "GPLv3+"
+ 
+ SRC_URI += "file://uclibc-compile.patch \
+ 	          file://util-linux-ng-replace-siginterrupt.patch \
+@@ -9,6 +12,10 @@ SRC_URI += "file://uclibc-compile.patch \
+ SRC_URI[md5sum] = "4635725a3eef1c57090bac8ea5e082e6"
+ SRC_URI[sha256sum] = "c9ae801b6a5ab20b7749a278a8bf6830ef53adc5e8b7eb0ac1a9f410c774118f"
+ 
++PACKAGES =+ " util-linux-lscp "
++
++FILES_util-linux-lscpu = "${bindir}/lscpu"
++
+ # fallocate is glibc 2.10, fallocate64 is glibc 2.11
+ # we need to disable it for older versions
+ EXTRA_OECONF += "ac_cv_func_fallocate=no"
+diff --git a/meta/recipes-core/util-linux/util-linux_gplv2.bb b/meta/recipes-core/util-linux/util-linux_gplv2.bb
+new file mode 100644
+index 0000000..c711fac
+--- /dev/null
++++ b/meta/recipes-core/util-linux/util-linux_gplv2.bb
+@@ -0,0 +1,24 @@
++MAJOR_VERSION = "2.17"
++PV = "2.17.1"
++
++require util-linux.inc
++PR = "r1"
++
++SRC_URI += "file://uclibc-compile.patch \
++	          file://util-linux-ng-replace-siginterrupt.patch \
++                  file://util-linux-ng-2.16-mount_lock_path.patch \
++                  file://remove-lscpu.patch"
++
++do_remove_lscpu() {
++	rm -f sys-utils/lscpu.c
++	rm -f sys-utils/lscpu.1
++}
++addtask remove_lscpu before do_configure after do_patch
++
++SRC_URI[md5sum] = "4635725a3eef1c57090bac8ea5e082e6"
++SRC_URI[sha256sum] = "c9ae801b6a5ab20b7749a278a8bf6830ef53adc5e8b7eb0ac1a9f410c774118f"
++
++# fallocate is glibc 2.10, fallocate64 is glibc 2.11
++# we need to disable it for older versions
++EXTRA_OECONF += "ac_cv_func_fallocate=no"
++EXTRA_OECONF_virtclass-native += "--disable-fallocate --disable-use-tty-group"
+-- 
+1.7.1.1
 
 
