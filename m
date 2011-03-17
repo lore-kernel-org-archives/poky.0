@@ -1,34 +1,25 @@
-Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7EEE34C805BB
-	for <poky@yoctoproject.org>; Wed, 16 Mar 2011 20:45:04 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 16 Mar 2011 18:45:04 -0700
+Return-Path: <ke.yu@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id DE4D04C805A8
+	for <poky@yoctoproject.org>; Wed, 16 Mar 2011 21:07:35 -0500 (CDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 16 Mar 2011 19:07:35 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,197,1299484800"; d="scan'208";a="613952564"
-Received: from orsmsx603.amr.corp.intel.com ([10.22.226.49])
-	by orsmga002.jf.intel.com with ESMTP; 16 Mar 2011 18:44:45 -0700
-Received: from orsmsx504.amr.corp.intel.com ([10.22.226.207]) by
-	orsmsx603.amr.corp.intel.com ([10.22.226.49]) with mapi;
-	Wed, 16 Mar 2011 18:44:45 -0700
-From: "Kamble, Nitin A" <nitin.a.kamble@intel.com>
-To: Gary Thomas <gary@mlbassoc.com>
-Date: Wed, 16 Mar 2011 18:44:43 -0700
-Thread-Topic: [poky] [PATCH 0/2] GPLv2 versions of m4 & bison
-Thread-Index: AcvkPuhY8h/Yr/QDSCGgHfss4bBtkAABetdg
-Message-ID: <9DA5872FEF993D41B7173F58FCF6BE943205638A@orsmsx504.amr.corp.intel.com>
-References: <cover.1300309327.git.nitin.a.kamble@intel.com>
-	<4D815D7F.3070304@mlbassoc.com>
-In-Reply-To: <4D815D7F.3070304@mlbassoc.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
+X-IronPort-AV: E=Sophos;i="4.63,197,1299484800"; d="scan'208";a="898093327"
+Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
+	by fmsmga001.fm.intel.com with ESMTP; 16 Mar 2011 19:07:34 -0700
+Date: Thu, 17 Mar 2011 10:13:34 +0800
+From: Yu Ke <ke.yu@intel.com>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+Message-ID: <20110317021334.GA26323@kyu3-hedt>
+References: <4D812FD5.5050504@linux.intel.com>
+	<1300320837.30423.1924.camel@rex>
 MIME-Version: 1.0
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>,
-	"openembedded-core@lists.openembedded.org"
-	<openembedded-core@lists.openembedded.org>
-Subject: Re: [PATCH 0/2] GPLv2 versions of m4 & bison
+In-Reply-To: <1300320837.30423.1924.camel@rex>
+User-Agent: Mutt/1.5.20 (2009-06-14)
+Cc: Darren Hart <dvhart@linux.intel.com>,
+	"poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH A or B] Fix for bug #853 - matchbox-panel segfaults, X becomes unusable
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,66 +31,54 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 17 Mar 2011 01:45:04 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Thu, 17 Mar 2011 02:07:36 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
+On Mar 17, 00:13, Richard Purdie wrote:
+> On Wed, 2011-03-16 at 14:47 -0700, Darren Hart wrote:
+> > The root cause of the matchbox-panel segfault is the same as for the 
+> > previous two bugs addressing the same issue:
+> > 
+> > o Bug 224 - [Netbook/emenlow] matchbox-panel segfault after X startup
+> > o Bug 738 - matchbox-panel segfault after X startup
+> > 
+> > There apparently is a bug in gcc which results in the omission of some 
+> > code leading to the segfault on core2. The following flags resolve the 
+> > problem.
+> > 
+> > FULL_OPTIMIZATION = "-fexpensive-optimizations -frename-registers -O2 
+> > -ggdb -feliminate-unused-debug-types"
+> > 
+> > We can continue to patch each new machine's gtk+ recipe that is based on 
+> > atom-pc.conf, or we can just add the above to tune-atom.conf. I've 
+> > tested both on both the n450 and a Toshiba NB305 netbook, and each 
+> > solution is effective.
+> > 
+> > Chaging it in tune-atom.conf likely fixes other bugs we either haven't 
+> > solved yet or simply haven't hit. It is also much more invasive, and we 
+> > may not be willing to accept that this close to 1.0. The patches follow, 
+> > and we can include one or the other.
+> > 
+> > Preferences?
+> 
+> I'm in favour of C which is to add this to tune-atom.inc:
+> 
+> FULL_OPTIMIZATION_pn-gtk+ = "-fexpensive-optimizations -frename-registers -O2 -ggdb -feliminate-unused-debug-types"
+> 
+> :)
+> 
+> Cheers,
+> 
+> Richard
 
+I have an option D :)
 
-> -----Original Message-----
-> From: Gary Thomas [mailto:gary@mlbassoc.com]
-> Sent: Wednesday, March 16, 2011 6:02 PM
-> To: Kamble, Nitin A
-> Cc: poky@yoctoproject.org; openembedded-core@lists.openembedded.org
-> Subject: Re: [poky] [PATCH 0/2] GPLv2 versions of m4 & bison
->=20
-> On 03/16/2011 03:03 PM, Nitin A Kamble wrote:
-> > From: Nitin A Kamble<nitin.a.kamble@intel.com>
-> >
-> > These commits adds GPLv2 versions of m4&  bison recipes.
-> >
-> > Pull URL: git://git.pokylinux.org/poky-contrib.git
-> >    Branch: nitin/misc
-> >    Browse: http://git.pokylinux.org/cgit.cgi/poky-
-> contrib/log/?h=3Dnitin/misc
-> >
-> > Thanks,
-> >      Nitin A Kamble<nitin.a.kamble@intel.com>
-> > ---
-> >
-> >
-> > Nitin A Kamble (2):
-> >    bison: bring back GPLv2 version 2.3 of bison recipe
-> >    m4: bring back GPLv2 version 1.4.9 of m4 recipe
-> >
-> >   .../bison/bison/bison-2.3_m4.patch                 |  590
-> ++++++++++++++++++++
-> >   meta/recipes-devtools/bison/bison_2.3.bb           |   35 ++
-> >   meta/recipes-devtools/m4/m4-native_1.4.9.bb        |   12 +
-> >   .../m4/m4/fix_for_circular_dependency.patch        |   75 +++
-> >   meta/recipes-devtools/m4/m4_1.4.9.bb               |   18 +
-> >   5 files changed, 730 insertions(+), 0 deletions(-)
-> >   create mode 100644 meta/recipes-devtools/bison/bison/bison-
-> 2.3_m4.patch
-> >   create mode 100644 meta/recipes-devtools/bison/bison_2.3.bb
-> >   create mode 100644 meta/recipes-devtools/m4/m4-native_1.4.9.bb
-> >   create mode 100644 meta/recipes-
-> devtools/m4/m4/fix_for_circular_dependency.patch
-> >   create mode 100644 meta/recipes-devtools/m4/m4_1.4.9.bb
-> >
->=20
-> Was this purely for licensing reasons?  (just asking since there was no
-> discussion on this list)
+i.e. in gtk+_2.22.1.bb, add:
+FULL_OPTIMIZATION_core2= "-fexpensive-optimizations -frename-registers -O2 -ggdb -feliminate-unused-debug-types"
 
-Yes, it was for licensing reasons.
-Thanks,
-Nitin
+because this issue is caused by gcc optimization for core2 arch, so in theory, all machine with core2 arch setting will be affected, no only limited to atom machine
 
->=20
-> --
-> ------------------------------------------------------------
-> Gary Thomas                 |  Consulting for the
-> MLB Associates              |    Embedded world
-> ------------------------------------------------------------
+Regards
+Ke
 
