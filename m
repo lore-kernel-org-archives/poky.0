@@ -1,37 +1,19 @@
-Return-Path: <gerard@de-haardt.com>
-Received: from cpsmtpb-ews09.kpnxchange.com (cpsmtpb-ews09.kpnxchange.com
-	[213.75.39.14])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0FA2E4C805A8
-	for <poky@yoctoproject.org>; Thu, 17 Mar 2011 03:21:51 -0500 (CDT)
-Received: from cpbrm-ews16.kpnxchange.com ([10.94.84.147]) by
-	cpsmtpb-ews09.kpnxchange.com with Microsoft SMTPSVC(6.0.3790.4675); 
-	Thu, 17 Mar 2011 09:21:51 +0100
-Received: from CPSMTPM-CMT102.kpnxchange.com ([195.121.3.18]) by
-	cpbrm-ews16.kpnxchange.com with Microsoft SMTPSVC(6.0.3790.4675); 
-	Thu, 17 Mar 2011 09:21:51 +0100
-Received: from mail.de-haardt.com ([86.81.67.223]) by
-	CPSMTPM-CMT102.kpnxchange.com with Microsoft
-	SMTPSVC(7.0.6002.18264); Thu, 17 Mar 2011 09:21:50 +0100
-Received: from [192.168.1.160] ([192.168.1.160])
-	(authenticated user gerard@de-haardt.com) by mail.de-haardt.com
-	(using TLSv1/SSLv3 with cipher AES256-SHA (256 bits))
-	for poky@yoctoproject.org; Thu, 17 Mar 2011 09:21:46 +0100
-Message-ID: <4D81C4B6.30700@de-haardt.com>
-Date: Thu, 17 Mar 2011 09:22:14 +0100
-From: Gerard van den Bosch <gerard@de-haardt.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.14) Gecko/20110223 Lightning/1.0b2 Thunderbird/3.1.8
-MIME-Version: 1.0
-To: poky@yoctoproject.org
-References: <4D7F4630.3030705@de-haardt.com>
-	<1300196286.30423.1726.camel@rex>	<4D7F7FB4.30007@de-haardt.com>
-	<1300291688.30423.1890.camel@rex>	<4D81BBAC.9000402@de-haardt.com>	<20110317075236.GB27644@sakrah.homelinux.org>
-	<4D81BFA8.8080504@de-haardt.com>
-In-Reply-To: <4D81BFA8.8080504@de-haardt.com>
-X-OriginalArrivalTime: 17 Mar 2011 08:21:50.0837 (UTC)
-	FILETIME=[5DA51A50:01CBE47C]
-X-RcptDomain: yoctoproject.org
-Subject: Re: compile application header file missing
+Return-Path: <sgw@linux.intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2B3E04C805A8
+	for <poky@yoctoproject.org>; Thu, 17 Mar 2011 04:58:44 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 17 Mar 2011 02:58:43 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.63,198,1299484800"; d="scan'208";a="404009539"
+Received: from unknown (HELO localhost) ([10.255.12.145])
+	by azsmga001.ch.intel.com with ESMTP; 17 Mar 2011 02:58:42 -0700
+Message-Id: <cover.1300355683.git.sgw@linux.intel.com>
+Old-Date: Thu, 17 Mar 2011 02:54:43 -0700
+Date: Thu, 17 Mar 2011  2:58:42 -0700
+To: openembedded-core@lists.openembedded.org,poky@yoctoproject.org
+From: Saul Wold <sgw@linux.intel.com>
+Subject: [PATCH 0/7] Non-GPLv3 Changes & a dependency Fix
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,93 +25,74 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 17 Mar 2011 08:21:52 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 17 Mar 2011 09:58:44 -0000
 
-On 03/17/2011 09:00 AM, Gerard van den Bosch wrote:
-> On 03/17/2011 08:52 AM, Khem Raj wrote:
->>> DESCRIPTION = "libxmlpcp"
->>> SECTION = "libs"
->>> DEPENDS = "openslp libxml2"
->>> LICENSE = "LGPL"
->>>
->>> SRC_URI = "file://libxmlpcp.tar.gz"
->>>
->>> EXTRA_OEMAKE = "'CFLAGS=${CFLAGS} -fPIC -c 
->>> -I${OPIEDIR}${includedir}/libxml2' 'LDFLAGS=${LDFLAGS} -shared 
->>> -lxml2 -lslp'"
->>>
->>> do_install() {
->>>       install -d ${D}${libdir}
->>>       install -d ${D}${includedir}
->>>       oe_runmake 'INSTALLHEADERDIR=${D}${includedir}' 
->>> 'INSTALLLIBDIR=${D}${libdir}' \
->>>       install
->>> }
->>>
->>> But when build is done I can not find the lib in the actual rootfs, 
->>> looking at the date the rootfs is being regenerated.
->>>
->>> The lib file exists in the build tree on the following places:
->>> tmp/work/armv7a-poky-linux-gnueabi/libxmlpcp-0.1.0-r0/image/usr/lib
->>> tmp/sysroots/armv7a-poky-linux-gnueabi/usr/lib
->>> libxmlpcp-dbg_0.1.0-r0_armv7a.ipk and 
->>> libxmlpcp-dev_0.1.0-r0_armv7a.ipk in the tmp/deploy/ipk/armv7a folder.
->>>
->>> I only get a "strip" error, can this be the reason it isn't included 
->>> in the rootfs?
->>> ERROR: runstrip: ''arm-poky-linux-gnueabi-strip' 
->>> --remove-section=.comment --remove-section=.note --strip-unneeded 
->>> '/home/gerard/green-3.3/build/tmp/work/armv7a-poky-linux-gnueabi/libxmlpcp-0.1.0-r0/package/usr/lib/libxmlpcp.so'' 
->>> strip command failed
->> It could very well be. Can you run file or readelf -e over libxmlpcp.so
->> and see if it is for ARM architecture ?
->>
->> -Khem
->
-> This gives me the following ELF header:
-> ELF Header:
->   Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00
->   Class:                             ELF32
->   Data:                              2's complement, little endian
->   Version:                           1 (current)
->   OS/ABI:                            UNIX - System V
->   ABI Version:                       0
->   Type:                              DYN (Shared object file)
->   Machine:                           Intel 80386
->   Version:                           0x1
->   Entry point address:               0x12f0
->   Start of program headers:          52 (bytes into file)
->   Start of section headers:          29436 (bytes into file)
->   Flags:                             0x0
->   Size of this header:               52 (bytes)
->   Size of program headers:           32 (bytes)
->   Number of program headers:         6
->   Size of section headers:           40 (bytes)
->   Number of section headers:         37
->   Section header string table index: 34
->
-> If I process the 'file' command it gives me:
-> libxmlpcp.so: ELF 32-bit LSB shared object, Intel 80386, version 1 
-> (SYSV), dynamically linked, not stripped
->
-> Ok thus there is the problem, it isn't ARM architecture.
->
-> Regards,
-> Gerard
->
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
-Added CC=${CC} to the EXTRA_OEMAKE parameter and it now builds it as ARM lib.
-The strip error is gone but file isn't stripped:libxmlpcp.so:
-ELF 32-bit LSB shared object, ARM, version 1 (SYSV), dynamically linked, not stripped
+From: Saul Wold <sgw@linux.intel.com>
 
-However strangely still missing it in the rootfs, but I will continue my search.
+Richard,
+
+This set of changes enables both poky-image-minimal and poky-image-basic
+to build non-gplv3 core image. These are bound for bernard
+
+There is also a fix for the gnome-vfs dependency on ACL. This is
+a potential build stopper and should be considered for bernard
+
+Sau!
 
 
+Pull URL: git://git.openembedded.org/openembedded-core-contrib
+  Branch: sgw/non-gplv3
+  Browse: http://git.openembedded.org/cgit.cgi/openembedded-core-contrib/log/?h=sgw/non-gplv3
+
+Thanks,
+    Saul Wold <sgw@linux.intel.com>
+---
+
+
+Saul Wold (7):
+  util-linux: Setup for GPLv2 Recipe
+  extended tasks: move binutils from basic to lsb
+  poky-image-basic: remove POKY_BASE_INSTALL
+  poky.conf: add additional Libraries to the LGPLv2 Whitelist
+  poky.conf: remove gnome-common from WHITELIST_GPLV3
+  gettext: Upgrade GPLv2 version to 0.16.1
+  gnome-vfs: add DEPENDS for acl
+
+ meta/conf/distro/poky.conf                         |    4 +-
+ .../gettext/gettext-0.14.1/gettext-vpath.patch     |   15 -
+ .../gettext/gettext-0.14.1/linklib_from_0.17.patch | 1135 --------------------
+ .../disable_java.patch                             |   19 +-
+ .../gettext-0.16.1/fix_aclocal_version.patch       |  107 ++
+ .../gettext-0.16.1/fix_gnu_source_circular.patch   |  345 ++++++
+ .../fixchicken.patch                               |    0
+ .../getline.m4.patch                               |    0
+ .../gettext-autoconf-lib-link-no-L.patch           |    4 +
+ .../gettext-error_print_progname.patch             |    0
+ .../gettext/gettext-0.16.1/gettext-vpath.patch     |   17 +
+ .../gettext-0.16.1/hardcode_macro_version.patch    |   48 +
+ .../gettext/gettext-0.16.1/linklib_from_0.17.patch |  717 ++++++++++++
+ .../{gettext_0.14.1.bb => gettext_0.16.1.bb}       |   20 +-
+ meta/recipes-core/util-linux/util-linux.inc        |    5 +-
+ meta/recipes-core/util-linux/util-linux_2.17.2.bb  |    9 +-
+ meta/recipes-core/util-linux/util-linux_gplv2.bb   |   24 +
+ meta/recipes-extended/images/poky-image-basic.bb   |    4 +-
+ meta/recipes-extended/tasks/task-poky-basic.bb     |    2 -
+ meta/recipes-extended/tasks/task-poky-lsb.bb       |    3 +-
+ meta/recipes-gnome/gnome/gnome-vfs_2.24.4.bb       |    2 +-
+ 21 files changed, 1298 insertions(+), 1182 deletions(-)
+ delete mode 100644 meta/recipes-core/gettext/gettext-0.14.1/gettext-vpath.patch
+ delete mode 100644 meta/recipes-core/gettext/gettext-0.14.1/linklib_from_0.17.patch
+ rename meta/recipes-core/gettext/{gettext-0.14.1 => gettext-0.16.1}/disable_java.patch (53%)
+ create mode 100644 meta/recipes-core/gettext/gettext-0.16.1/fix_aclocal_version.patch
+ create mode 100644 meta/recipes-core/gettext/gettext-0.16.1/fix_gnu_source_circular.patch
+ rename meta/recipes-core/gettext/{gettext-0.14.1 => gettext-0.16.1}/fixchicken.patch (100%)
+ rename meta/recipes-core/gettext/{gettext-0.14.1 => gettext-0.16.1}/getline.m4.patch (100%)
+ rename meta/recipes-core/gettext/{gettext-0.14.1 => gettext-0.16.1}/gettext-autoconf-lib-link-no-L.patch (88%)
+ rename meta/recipes-core/gettext/{gettext-0.14.1 => gettext-0.16.1}/gettext-error_print_progname.patch (100%)
+ create mode 100644 meta/recipes-core/gettext/gettext-0.16.1/gettext-vpath.patch
+ create mode 100644 meta/recipes-core/gettext/gettext-0.16.1/hardcode_macro_version.patch
+ create mode 100644 meta/recipes-core/gettext/gettext-0.16.1/linklib_from_0.17.patch
+ rename meta/recipes-core/gettext/{gettext_0.14.1.bb => gettext_0.16.1.bb} (74%)
+ create mode 100644 meta/recipes-core/util-linux/util-linux_gplv2.bb
 
 
