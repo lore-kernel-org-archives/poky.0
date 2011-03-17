@@ -1,34 +1,28 @@
-Return-Path: <xudong.hao@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 174D24C8009D
-	for <poky@yoctoproject.org>; Thu, 17 Mar 2011 09:15:34 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 17 Mar 2011 07:15:33 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,199,1299484800"; d="scan'208";a="404109670"
-Received: from pgsmsx601.gar.corp.intel.com ([10.221.43.69])
-	by azsmga001.ch.intel.com with ESMTP; 17 Mar 2011 07:15:32 -0700
-Received: from pgsmsx509.gar.corp.intel.com (172.30.13.17) by
-	pgsmsx601.gar.corp.intel.com (10.221.43.69) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Thu, 17 Mar 2011 22:15:30 +0800
-Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
-	PGSMSX509.gar.corp.intel.com (172.30.13.17) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Thu, 17 Mar 2011 22:15:30 +0800
-Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
-	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
-	Thu, 17 Mar 2011 22:14:47 +0800
-From: "Hao, Xudong" <xudong.hao@intel.com>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Date: Thu, 17 Mar 2011 22:14:46 +0800
-Thread-Topic: [poky] creat-lsb-image: LSB test issue on x86_64
-Thread-Index: AcvkratRMe6EUFKARdamc206eZuICg==
-Message-ID: <BC00F5384FCFC9499AF06F92E8B78A9E1FD9975DC1@shsmsx502.ccr.corp.intel.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
+Return-Path: <mark.hatle@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id A532A4C805A8
+	for <poky@yoctoproject.org>; Thu, 17 Mar 2011 10:03:08 -0500 (CDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p2HF35ct027255
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Thu, 17 Mar 2011 08:03:07 -0700 (PDT)
+Received: from Macintosh-5.local (172.25.36.231) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
+	Thu, 17 Mar 2011 08:03:04 -0700
+Message-ID: <4D8222A7.8000409@windriver.com>
+Date: Thu, 17 Mar 2011 10:03:03 -0500
+From: Mark Hatle <mark.hatle@windriver.com>
+Organization: Wind River Systems
+User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
+	rv:1.9.2.15) Gecko/20110303 Thunderbird/3.1.9
 MIME-Version: 1.0
-Subject: creat-lsb-image: LSB test issue on x86_64
+To: Zhai Edwin <edwin.zhai@intel.com>
+References: <cover.1300352186.git.edwin.zhai@intel.com>
+	<f596757000465a4b8350e16f21553a23b8bbedfa.1300352186.git.edwin.zhai@intel.com>
+In-Reply-To: <f596757000465a4b8350e16f21553a23b8bbedfa.1300352186.git.edwin.zhai@intel.com>
+X-Originating-IP: [172.25.36.231]
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 1/1] qemu: Use mesa's libGL rather than nVidia's to	avoid segfault of qemu
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,58 +34,74 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 17 Mar 2011 14:15:34 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Thu, 17 Mar 2011 15:03:09 -0000
+Content-Type: text/plain; charset="ISO-8859-1"
+Content-Transfer-Encoding: 7bit
 
-I used the latest poky tree with current master: 35260008f4094100ba337776a2=
-ba5a2cece0d2c7.
-When I do LSB test on x86_64 arch, both on qemu with lsb image or BSP image=
-, according to creat-lsb-image script, it would download ia64 rpm packages =
-instead of x86_64 packages, even if we installed "ia64" rpm balls to x86_64=
- system with some work around, the lsb test will fail.=20
+I reworked the patch slightly.. It's available on poky-contrib
+mhatle/qemu-workaround.
 
-Then I looked into the package source and find x86_64 packages.
+Specifically I changed:
+- the warning message to make clarify it a bit.
+- Changed the preload to be "libGL.so", so the rt-linker will now search for it
+(/usr/lib/libGL.so may be wrong on some systems where /usr/lib64 is the default
+library path)
+- Added a second check to see if the workaround worked or not, if it didn't add
+a second warning message
+- To the QEMU run line, add "stty sane" in the case of a failure.  Otherwise
+QEMU leaves the terminal/console in a confused state.
 
-Xiaofeng, how about this changes:
+Can you please verify that this still works on the Ubuntu systems and that I
+didn't miss anything/break anything else?  If so I think this is the version we
+should go with.
 
-diff --git a/scripts/creat-lsb-image b/scripts/creat-lsb-image
-index 3802e2f..3f295ba 100755
---- a/scripts/creat-lsb-image
-+++ b/scripts/creat-lsb-image
-@@ -75,8 +75,8 @@ if [ ${ARCH} =3D=3D x86 ];then
-    T_ARCH=3Dia32
-     P_ARCH=3Di486
- elif [ ${ARCH} =3D=3D x86_64 ];then
--   T_ARCH=3Dia64
--    P_ARCH=3Dia64
-+   T_ARCH=3Damd64
-+    P_ARCH=3Dx86_64
- else
-    P_ARCH=3Dppc
-    T_ARCH=3D${ARCH}
-@@ -92,7 +92,11 @@ mkdir -p lsb-test-suite-${MACHINE_ARCH}
- if [ -d lsb-test-suite-${MACHINE_ARCH} ];then
-    cd lsb-test-suite-${MACHINE_ARCH}
-    ECHO "Download lsb test suite, it could take some time..."
--    wget -c -t 5  http://ftp.linuxfoundation.org/pub/lsb/bundles/released-=
-4.1.0/dist-testkit/lsb-dist-testkit-4.1.0-5.${T_ARCH}.tar.gz
-+   if [ ${ARCH} =3D=3D x86_64 ];then
-+       wget -c -t 5  http://ftp.linuxfoundation.org/pub/lsb/bundles/releas=
-ed-4.1.0/dist-testkit/lsb-dist-testkit-4.1.0-5.${P_ARCH}.tar.gz
-+   else
-+       wget -c -t 5  http://ftp.linuxfoundation.org/pub/lsb/bundles/releas=
-ed-4.1.0/dist-testkit/lsb-dist-testkit-4.1.0-5.${T_ARCH}.tar.gz
-+   fi
-     exit_check
-    ECHO "Download lsb-xdg-utils-4.0.0-2.${P_ARCH}.rpm"
-    wget -c -t 5 http://ftp.linux-foundation.org/pub/lsb/lsbdev/released-4.=
-1.0/binary/${T_ARCH}/lsb-xdg-utils-4.0.0-2.${P_ARCH}.rpm
+--Mark
 
-
-Best Regards,
-Xudong Hao
-
+On 3/17/11 7:22 AM, Zhai Edwin wrote:
+> From: Zhai Edwin <edwin.zhai@intel.com>
+> 
+> Proprietary nVidia driver introduce its own libGL that precede mesa's.
+> qemu has segfault if linked with it. This fix try to use mesa's libGL
+> if ldd find qemu linked with nVidia libGL.
+> 
+> [YOCTO #649]
+> [YOCTO #698]
+> 
+> 
+> Signed-off-by: Zhai Edwin <edwin.zhai@intel.com>
+> ---
+>  scripts/poky-qemu-internal |   16 +++++++++++++++-
+>  1 files changed, 15 insertions(+), 1 deletions(-)
+> 
+> diff --git a/scripts/poky-qemu-internal b/scripts/poky-qemu-internal
+> index 3638a65..1f09fe7 100755
+> --- a/scripts/poky-qemu-internal
+> +++ b/scripts/poky-qemu-internal
+> @@ -436,10 +436,24 @@ else
+>      echo "Warning: distccd not present, no distcc support loaded."
+>  fi
+>  
+> +# qemu got segfault if linked with nVidia's libgl
+> +GL_LD_PRELOAD=$LD_PRELOAD
+> +
+> +if ldd $QEMUBIN | grep -i nvidia &> /dev/null
+> +then
+> +    echo "************** !!!Warning!!! **************
+> +    You installed nVidia's libGL.so that probably lead qemu segfault!
+> +    Pls. uninstall proprietary nVidia driver or make mesa libgl precede nvidia's."
+> +
+> +    # To avoid segfault of qemu, skip nVidia's libGL and use mesa's instead
+> +    echo "Skip nVidia's libGL!"
+> +    GL_LD_PRELOAD="/usr/lib/libGL.so $LD_PRELOAD"
+> +fi
+> +
+>  echo "Running $QEMU..."
+>  # -no-reboot is a mandatory option - see bug #100
+>  echo $QEMUBIN -kernel $KERNEL $QEMUOPTIONS $SERIALOPTS -no-reboot $SCRIPT_QEMU_OPT $SCRIPT_QEMU_EXTRA_OPT --append '"'$KERNCMDLINE $SCRIPT_KERNEL_OPT'"'
+> -$QEMUBIN -kernel $KERNEL $QEMUOPTIONS $SERIALOPTS -no-reboot $SCRIPT_QEMU_OPT $SCRIPT_QEMU_EXTRA_OPT --append "$KERNCMDLINE $SCRIPT_KERNEL_OPT" || /bin/true
+> +LD_PRELOAD="$GL_LD_PRELOAD" $QEMUBIN -kernel $KERNEL $QEMUOPTIONS $SERIALOPTS -no-reboot $SCRIPT_QEMU_OPT $SCRIPT_QEMU_EXTRA_OPT --append "$KERNCMDLINE $SCRIPT_KERNEL_OPT" || /bin/true
+>  
+>  cleanup
+>  
 
 
