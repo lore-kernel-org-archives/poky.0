@@ -1,20 +1,22 @@
-Return-Path: <tom.zanussi@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E38DD4C80AAF
-	for <poky@yoctoproject.org>; Thu, 17 Mar 2011 13:45:35 -0500 (CDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 17 Mar 2011 11:45:35 -0700
-Message-Id: <1bdc18$jtdv9j@fmsmga002.fm.intel.com>
+Return-Path: <nitin.a.kamble@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 316964C80878
+	for <poky@yoctoproject.org>; Thu, 17 Mar 2011 17:35:55 -0500 (CDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 17 Mar 2011 15:35:54 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,200,1299484800"; d="scan'208";a="668400958"
-Received: from unknown (HELO localhost) ([10.255.12.136])
-	by fmsmga002.fm.intel.com with ESMTP; 17 Mar 2011 11:45:34 -0700
-Old-Date: Thu, 17 Mar 2011 13:03:34 -0500
-Date: Thu, 17 Mar 2011 13:45:29 -0500
-To: bruce.ashfield@windriver.com, bruce.ashfield@gmail.com,
-	poky@yoctoproject.org
-From: Tom Zanussi <tom.zanussi@intel.com>
-Subject: [KERNEL][linux-yocto-stable][PATCH 1/1] crownbay: update a handful of EMGD licenses
+X-IronPort-AV: E=Sophos;i="4.63,201,1299484800"; d="scan'208";a="898444391"
+Received: from nbuild2.sc.intel.com (HELO localhost) ([172.25.110.37])
+	by fmsmga001.fm.intel.com with ESMTP; 17 Mar 2011 15:35:54 -0700
+Message-Id: <ce59dc6e5f253f4ad22a0b7767998cad2c301abc.1300401018.git.nitin.a.kamble@intel.com>
+In-Reply-To: <cover.1300401016.git.nitin.a.kamble@intel.com>
+References: <cover.1300401016.git.nitin.a.kamble@intel.com>
+Old-Date: Tue, 15 Mar 2011 13:18:04 -0700
+Date: Thu, 17 Mar 2011 15:35:54 -0700
+To: poky@yoctoproject.org
+CC: 
+From: Nitin A Kamble <nitin.a.kamble@intel.com>
+Subject: [PATCH 1/7] util-linux: Setup for GPLv2 Recipe
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,1154 +28,222 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 17 Mar 2011 18:45:36 -0000
+X-List-Received-Date: Thu, 17 Mar 2011 22:35:55 -0000
 
-From: Tom Zanussi <tom.zanussi@intel.com>
+From: Saul Wold <sgw@linux.intel.com>
 
-The version of the EMGD driver we use had a few included license
-mistakes.  Correct these as per upstream.
+ * add task to remove the GPLv3 lscpu code
+ * Add patch to remove the reference to lscpu in Makfiles
 
-Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
+Signed-off-by: Saul Wold <sgw@linux.intel.com>
+Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
 ---
- drivers/gpu/drm/emgd/emgd/pal/Makefile.include     |   39 ++--
- .../emgd/pvr/services4/system/common/sysconfig.c   |  287 ++++++++++----------
- .../drm/emgd/pvr/services4/system/plb/sysconfig.c  |   64 +++---
- .../drm/emgd/pvr/services4/system/tnc/sysconfig.c  |   64 +++---
- .../gpu/drm/emgd/pvr/services4/system/tnc/systnc.h |   48 ++--
- 5 files changed, 246 insertions(+), 256 deletions(-)
+ .../util-linux-2.17.2/remove-lscpu.patch           |  101 ++++++++++++++++++++
+ meta/recipes-core/util-linux/util-linux.inc        |    5 +-
+ meta/recipes-core/util-linux/util-linux_2.17.2.bb  |   10 ++-
+ meta/recipes-core/util-linux/util-linux_gplv2.bb   |   26 +++++
+ 4 files changed, 137 insertions(+), 5 deletions(-)
+ create mode 100644 meta/recipes-core/util-linux/util-linux-2.17.2/remove-lscpu.patch
+ create mode 100644 meta/recipes-core/util-linux/util-linux_gplv2.bb
 
-diff --git a/drivers/gpu/drm/emgd/emgd/pal/Makefile.include b/drivers/gpu/drm/emgd/emgd/pal/Makefile.include
-index 8143979..91f9afa 100644
---- a/drivers/gpu/drm/emgd/emgd/pal/Makefile.include
-+++ b/drivers/gpu/drm/emgd/emgd/pal/Makefile.include
-@@ -1,25 +1,26 @@
- #----------------------------------------------------------------------------
- # Filename: Makefile.include
--# $Revision: 1.1 $
-+# $Revision: 1.2 $
- #----------------------------------------------------------------------------
--# INTEL CONFIDENTIAL
--# Copyright (2002-2008) Intel Corporation All Rights Reserved.
--# The source code contained or described herein and all documents related to
--# the source code ("Material") are owned by Intel Corporation or its suppliers
--# or licensors. Title to the Material remains with Intel Corporation or its
--# suppliers and licensors. The Material contains trade secrets and proprietary
--# and confidential information of Intel or its suppliers and licensors. The
--# Material is protected by worldwide copyright and trade secret laws and
--# treaty provisions. No part of the Material may be used, copied, reproduced,
--# modified, published, uploaded, posted, transmitted, distributed, or
--# disclosed in any way without Intel's prior express written permission.
--# 
--# No license under any patent, copyright, trade secret or other intellectual
--# property right is granted to or conferred upon you by disclosure or
--# delivery of the Materials, either expressly, by implication, inducement,
--# estoppel or otherwise. Any license under such intellectual property rights
--# must be express and approved by Intel in writing.
--# 
-+# Copyright © 2002-2010, Intel Corporation.
-+#
-+# Permission is hereby granted, free of charge, to any person obtaining a copy
-+# of this software and associated documentation files (the "Software"), to deal
-+# in the Software without restriction, including without limitation the rights
-+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-+# copies of the Software, and to permit persons to whom the Software is
-+# furnished to do so, subject to the following conditions:
-+#
-+# The above copyright notice and this permission notice shall be included in
-+# all copies or substantial portions of the Software.
-+#
-+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-+# THE SOFTWARE.
- #----------------------------------------------------------------------------
- 
- ifeq ($(origin EGD_CFG), undefined)
-diff --git a/drivers/gpu/drm/emgd/pvr/services4/system/common/sysconfig.c b/drivers/gpu/drm/emgd/pvr/services4/system/common/sysconfig.c
-index 5037186..4c9946c 100644
---- a/drivers/gpu/drm/emgd/pvr/services4/system/common/sysconfig.c
-+++ b/drivers/gpu/drm/emgd/pvr/services4/system/common/sysconfig.c
-@@ -1,35 +1,36 @@
- /* -*- syscommon-c -*-
--*-----------------------------------------------------------------------------
--* Filename: syscommon.c
--* $Revision: 1.6 $
--*-----------------------------------------------------------------------------
--* INTEL CONFIDENTIAL
--* Copyright 2010 Intel Corporation All Rights Reserved.
--* The source code contained or described herein and all documents related to
--* the source code ("Material") are owned by Intel Corporation or its suppliers
--* or licensors. Title to the Material remains with Intel Corporation or its
--* suppliers and licensors. The Material contains trade secrets and proprietary
--* and confidential information of Intel or its suppliers and licensors. The
--* Material is protected by worldwide copyright and trade secret laws and
--* treaty provisions. No part of the Material may be used, copied, reproduced,
--* modified, published, uploaded, posted, transmitted, distributed, or
--* disclosed in any way without Intel's prior express written permission.
--*
--* No license under any patent, copyright, trade secret or other intellectual
--* property right is granted to or conferred upon you by disclosure or
--* delivery of the Materials, either expressly, by implication, inducement,
--* estoppel or otherwise. Any license under such intellectual property rights
--* must be express and approved by Intel in writing.
--*
--*
--*-----------------------------------------------------------------------------
--* Description: platform detection, and sharing of correct platform interface.
--*
--*-----------------------------------------------------------------------------
--* Authors:
--*  Marcin Tomczyk
--*-----------------------------------------------------------------------------
--*/
-+ *-----------------------------------------------------------------------------
-+ * Filename: syscommon.c
-+ * $Revision: 1.7 $
-+ *-----------------------------------------------------------------------------
-+ * Copyright © 2002-2010, Intel Corporation.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a copy
-+ * of this software and associated documentation files (the "Software"), to deal
-+ * in the Software without restriction, including without limitation the rights
-+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-+ * copies of the Software, and to permit persons to whom the Software is
-+ * furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-+ * THE SOFTWARE.
-+ *
-+ *-----------------------------------------------------------------------------
-+ * Description: platform detection, and sharing of correct platform interface.
-+ *
-+ *-----------------------------------------------------------------------------
-+ * Authors:
-+ *  Marcin Tomczyk
-+ *-----------------------------------------------------------------------------
-+ */
- 
- #include <linux/pci.h>
- #include "sgxdefs.h"
-@@ -124,7 +125,7 @@ IMG_VOID SysPlatformDetect(IMG_VOID)
- 
- 
- /* --------------------------------------------------------------------------*/
--/** 
-+/**
- * @Synopsis  Interface for Atom E6xx device
- */
- /* ----------------------------------------------------------------------------*/
-@@ -196,14 +197,14 @@ static PVRSRV_ERROR PCIInitDev(SYS_DATA *psSysData)
- #if defined(SGX_FEATURE_HOST_PORT)
- 	PVR_TRACE(("Host Port region: %x to %x", OSPCIAddrRangeStart(psSysSpecData->hSGXPCI, HP_ADDR_RANGE_INDEX), OSPCIAddrRangeEnd(psSysSpecData->hSGXPCI, HP_ADDR_RANGE_INDEX)));
- #endif
--	
-+
- 	if (OSPCIAddrRangeLen(psSysSpecData->hSGXPCI, ADDR_RANGE_INDEX) < MAX_OFFSET)
- 	{
- 		PVR_DPF((PVR_DBG_ERROR,"PCIInitDev: Device memory region isn't big enough"));
- 		return PVRSRV_ERROR_GENERIC;
- 	}
- 
--	
-+
- 	if (OSPCIRequestAddrRange(psSysSpecData->hSGXPCI, ADDR_RANGE_INDEX) != PVRSRV_OK)
- 	{
- 		PVR_DPF((PVR_DBG_ERROR,"PCIInitDev: Device memory region not available"));
-@@ -211,7 +212,7 @@ static PVRSRV_ERROR PCIInitDev(SYS_DATA *psSysData)
- 	}
- 	 SYS_SPECIFIC_DATA_SET(psSysSpecData, SYS_SPECIFIC_DATA_PCI_REQUEST_SGX_ADDR_RANGE);
- 
--	
-+
- #if defined(SGX_FEATURE_HOST_PORT)
- 	if (OSPCIRequestAddrRange(psSysSpecData->hSGXPCI, HP_ADDR_RANGE_INDEX) != PVRSRV_OK)
- 	{
-@@ -244,31 +245,31 @@ static IMG_VOID PCIDeInitDev(SYS_DATA *psSysData)
- 		OSPCIReleaseDev(psSysSpecData->hSGXPCI);
- 	}
- }
--#else	
-+#else
- static PVRSRV_ERROR FindPCIDevice(IMG_UINT16 ui16VenID, IMG_UINT16 ui16DevID, PCICONFIG_SPACE *psPCISpace)
- {
- 	IMG_UINT32 ui32BusNum;
- 	IMG_UINT32 ui32DevNum;
- 	IMG_UINT32 ui32VenDevID;
- 
--	
-+
- 	for (ui32BusNum=0; ui32BusNum < 255; ui32BusNum++)
- 	{
--		
-+
- 		for (ui32DevNum=0; ui32DevNum < 32; ui32DevNum++)
- 		{
--			
-+
- 			ui32VenDevID=OSPCIReadDword(ui32BusNum, ui32DevNum, 0, 0);
- 
--			
-+
- 			if (ui32VenDevID == (IMG_UINT32)((ui16DevID<<16)+ui16VenID))
- 			{
- 				IMG_UINT32 ui32Idx;
- 
--				
-+
- 				OSPCIWriteDword(ui32BusNum, ui32DevNum, 0, 4, OSPCIReadDword(ui32BusNum, ui32DevNum, 0, 4) | 0x02);
- 
--				
-+
- 				for (ui32Idx=0; ui32Idx < 64; ui32Idx++)
- 				{
- 					psPCISpace->u.aui32PCISpace[ui32Idx] = OSPCIReadDword(ui32BusNum, ui32DevNum, 0, ui32Idx*4);
-@@ -289,7 +290,7 @@ static PVRSRV_ERROR FindPCIDevice(IMG_UINT16 ui16VenID, IMG_UINT16 ui16DevID, PC
- 
- 	return PVRSRV_ERROR_GENERIC;
- }
--#endif	
-+#endif
- 
- static PVRSRV_ERROR SysLocateDevices(SYS_DATA *psSysData)
- {
-@@ -339,21 +340,21 @@ static PVRSRV_ERROR SysLocateDevices(SYS_DATA *psSysData)
- 	}
- 
- 	ui32IRQ = (IMG_UINT32)sPCISpace.u.aui8PCISpace[0x3C];
--#endif	
-+#endif
-+
- 
--	
- 	gsSGXDeviceMap.ui32Flags = 0x0;
- 
--	
-+
- #if defined(NO_HARDWARE)
--	
-+
- 	gsSGXDeviceMap.ui32IRQ = 0;
- #else
- 	gsSGXDeviceMap.ui32IRQ = ui32IRQ;
- #endif
- 
- #if defined(NO_HARDWARE)
--	
-+
- 	eError = OSBaseAllocContigMemory(SGX_REG_SIZE,
- 										&gsSGXRegsCPUVAddr,
- 										&sCpuPAddr);
-@@ -368,29 +369,29 @@ static PVRSRV_ERROR SysLocateDevices(SYS_DATA *psSysData)
- 	OSMemSet(gsSGXRegsCPUVAddr, 0, SGX_REG_SIZE);
- 
- #if defined(__linux__)
--	
-+
- 	gsSGXDeviceMap.pvRegsCpuVBase = gsSGXRegsCPUVAddr;
- #else
--	
-+
- 	gsSGXDeviceMap.pvRegsCpuVBase = IMG_NULL;
- #endif
- 
--#else	
-+#else
- 	gsSGXDeviceMap.sRegsSysPBase.uiAddr = ui32BaseAddr + SGX_REGS_OFFSET;
--#endif	
-+#endif
-+
- 
--	
- 	gsSGXDeviceMap.sRegsCpuPBase = SysSysPAddrToCpuPAddr(gsSGXDeviceMap.sRegsSysPBase);
- 	gsSGXDeviceMap.ui32RegsSize = SGX_REG_SIZE;
- 
- #if defined(SGX_FEATURE_HOST_PORT)
--	
-+
- 	gsSGXDeviceMap.ui32Flags = SGX_HOSTPORT_PRESENT;
- 	gsSGXDeviceMap.sHPSysPBase.uiAddr = ui32HostPortAddr;
- 	gsSGXDeviceMap.sHPCpuPBase = SysSysPAddrToCpuPAddr(gsSGXDeviceMap.sHPSysPBase);
- 	gsSGXDeviceMap.ui32HPSize = SYS_SGX_HP_SIZE;
- #endif
--	
-+
- 
- 
- 
-@@ -400,7 +401,7 @@ static PVRSRV_ERROR SysLocateDevices(SYS_DATA *psSysData)
- 	gsSGXDeviceMap.ui32LocalMemSize = 0;
- 
- #if !defined(NO_HARDWARE)
--	
-+
- 	{
- 		IMG_SYS_PHYADDR sPoulsboRegsCpuPBase;
- 
-@@ -421,10 +422,10 @@ static PVRSRV_ERROR SysLocateDevices(SYS_DATA *psSysData)
- #endif
- 
- #ifdef SUPPORT_MSVDX
--	
-+
- 
- #if defined(NO_HARDWARE)
--	
-+
- 	eError = OSBaseAllocContigMemory(MSVDX_REG_SIZE,
- 										&gsMSVDXRegsCPUVAddr,
- 										&sCpuPAddr);
-@@ -438,10 +439,10 @@ static PVRSRV_ERROR SysLocateDevices(SYS_DATA *psSysData)
- 	OSMemSet(gsMSVDXRegsCPUVAddr, 0, MSVDX_REG_SIZE);
- 
- #if defined(__linux__)
--	
-+
- 	gsMSVDXDeviceMap.pvRegsCpuVBase = gsMSVDXRegsCPUVAddr;
- #else
--	
-+
- 	gsMSVDXDeviceMap.pvRegsCpuVBase = IMG_NULL;
- #endif
- #else
-@@ -450,7 +451,7 @@ static PVRSRV_ERROR SysLocateDevices(SYS_DATA *psSysData)
- 	gsMSVDXDeviceMap.sRegsSysPBase		  = SysCpuPAddrToSysPAddr(gsMSVDXDeviceMap.sRegsCpuPBase);
- 	gsMSVDXDeviceMap.ui32RegsSize		  = MSVDX_REG_SIZE;
- 
--	
-+
- 
- 
- 
-@@ -459,13 +460,13 @@ static PVRSRV_ERROR SysLocateDevices(SYS_DATA *psSysData)
- 	gsMSVDXDeviceMap.sLocalMemCpuPBase.uiAddr = 0;
- 	gsMSVDXDeviceMap.ui32LocalMemSize		  = 0;
- 
--	
-+
- 
- 	gsMSVDXDeviceMap.ui32IRQ = ui32IRQ;
- 
--#endif 
-+#endif
-+
- 
--	
- 
- 	return PVRSRV_OK;
- }
-@@ -478,28 +479,28 @@ static PVRSRV_ERROR FindPCIDevice(IMG_UINT16 ui16VenID, IMG_UINT16 ui16DevID, PC
- 	IMG_UINT32  ui32VenDevID;
- 	IMG_UINT32	ui32BarIndex;
- 
--	
-+
- 	for (ui32BusNum=0; ui32BusNum < 255; ui32BusNum++)
- 	{
--		
-+
- 		for (ui32DevNum=0; ui32DevNum < 32; ui32DevNum++)
- 		{
--			
-+
- 			ui32VenDevID=OSPCIReadDword(ui32BusNum, ui32DevNum, 0, 0);
- 
--			
-+
- 			if (ui32VenDevID == (IMG_UINT32)((ui16DevID<<16)+ui16VenID))
- 			{
- 				IMG_UINT32 ui32Idx;
- 
--				
-+
- 				OSPCIWriteDword(ui32BusNum, ui32DevNum, 0, 4, OSPCIReadDword(ui32BusNum, ui32DevNum, 0, 4) | 0x02);
- 
--				psPCISpace->ui32BusNum  = ui32BusNum;	
-+				psPCISpace->ui32BusNum  = ui32BusNum;
- 				psPCISpace->ui32DevNum  = ui32DevNum;
- 				psPCISpace->ui32FuncNum = 0;
- 
--				
-+
- 				for (ui32Idx=0; ui32Idx < 64; ui32Idx++)
- 				{
- 					psPCISpace->u.aui32PCISpace[ui32Idx] = OSPCIReadDword(ui32BusNum, ui32DevNum, 0, ui32Idx*4);
-@@ -509,7 +510,7 @@ static PVRSRV_ERROR FindPCIDevice(IMG_UINT16 ui16VenID, IMG_UINT16 ui16DevID, PC
- 						PVR_DPF((PVR_DBG_VERBOSE,"%08X\n",psPCISpace->u.aui32PCISpace[ui32Idx]));
- 					}
- 				}
--						 										
-+
- 				for (ui32BarIndex = 0; ui32BarIndex < 6; ui32BarIndex++)
- 				{
- 					GetPCIMemSpaceSize (ui32BusNum, ui32DevNum, ui32BarIndex, &psPCISpace->aui32PCIMemSpaceSize[ui32BarIndex]);
-@@ -557,7 +558,7 @@ static PVRSRV_ERROR SysCreateVersionString(SYS_DATA *psSysData)
-     IMG_CHAR *pszVersionString;
- 
- #if !defined(NO_HARDWARE)
--     
-+
-     {
- 	IMG_VOID *pvSGXRegs;
- 
-@@ -571,8 +572,8 @@ static PVRSRV_ERROR SysCreateVersionString(SYS_DATA *psSysData)
-             ui32SGXRevision = OSReadHWReg(pvSGXRegs, EUR_CR_CORE_REVISION);
- 
- 	     OSUnMapPhysToLin(pvSGXRegs,
--		   									 	gsSGXDeviceMap.ui32RegsSize,
--											 	PVRSRV_HAP_KERNEL_ONLY|PVRSRV_HAP_UNCACHED,
-+												gsSGXDeviceMap.ui32RegsSize,
-+												PVRSRV_HAP_KERNEL_ONLY|PVRSRV_HAP_UNCACHED,
- 												IMG_NULL);
- 	}
- 	else
-@@ -609,7 +610,7 @@ static PVRSRV_ERROR SysCreateVersionString(SYS_DATA *psSysData)
-                     ui32MaxStrLen + 1,
-                     pszVersionString,
-                     IMG_NULL);
--		
-+
- 		return PVRSRV_ERROR_GENERIC;
-     }
- 
-@@ -631,7 +632,7 @@ static IMG_VOID SysFreeVersionString(SYS_DATA *psSysData)
- 		psSysData->pszVersionString = NULL;
-     }
- }
--#endif 
-+#endif
- PVRSRV_ERROR SysInitialise(IMG_VOID)
- {
- 	IMG_UINT32			i;
-@@ -642,14 +643,14 @@ PVRSRV_ERROR SysInitialise(IMG_VOID)
- 	PVR_DPF((PVR_DBG_MESSAGE,"SysInitialise"));
- 
- 	SysPlatformDetect();
--	
-+
- 	gpsSysData = &gsSysData;
- 	OSMemSet(gpsSysData, 0, sizeof(SYS_DATA));
- 
- 	gpsSysData->pvSysSpecificData = &gsSysSpecificData;
- 	gsSysSpecificData.ui32SysSpecificData = 0;
- #ifdef	LDM_PCI
--	
-+
- 	PVR_ASSERT(gpsPVRLDMDev != IMG_NULL);
- 	gsSysSpecificData.psPCIDev = gpsPVRLDMDev;
- #endif
-@@ -663,15 +664,15 @@ PVRSRV_ERROR SysInitialise(IMG_VOID)
- 		return eError;
- 	}
- 
--	
-+
- 	psTimingInfo = &gsSGXDeviceMap.sTimingInfo;
- 	psTimingInfo->ui32CoreClockSpeed = SYS_SGX_CLOCK_SPEED;
- 	psTimingInfo->ui32HWRecoveryFreq = SYS_SGX_HWRECOVERY_TIMEOUT_FREQ;
- #if defined(SUPPORT_ACTIVE_POWER_MANAGEMENT)
- 	psTimingInfo->bEnableActivePM = IMG_TRUE;
--#else	
-+#else
- 	psTimingInfo->bEnableActivePM = IMG_FALSE;
--#endif 
-+#endif
- 	psTimingInfo->ui32ActivePowManLatencyms = SYS_SGX_ACTIVE_POWER_LATENCY_MS;
- 	psTimingInfo->ui32uKernelFreq = SYS_SGX_PDS_TIMER_FREQ;
- 
-@@ -687,7 +688,7 @@ PVRSRV_ERROR SysInitialise(IMG_VOID)
- 
- 	gpsSysData->ui32NumDevices = SYS_DEVICE_COUNT;
- 
--	
-+
- 	for(i=0; i<SYS_DEVICE_COUNT; i++)
- 	{
- 		gpsSysData->sDeviceID[i].uiID = i;
-@@ -716,7 +717,7 @@ PVRSRV_ERROR SysInitialise(IMG_VOID)
- 		return eError;
- 	}
- 
--	
-+
- 	eError = PVRSRVRegisterDevice(gpsSysData, SGXRegisterDevice,
- 								  DEVICE_SGX_INTERRUPT, &gui32SGXDeviceID);
- 	if (eError != PVRSRV_OK)
-@@ -744,7 +745,7 @@ PVRSRV_ERROR SysInitialise(IMG_VOID)
- 
- 	while(psDeviceNode)
- 	{
--		
-+
- 		switch(psDeviceNode->sDevId.eDeviceType)
- 		{
- 			case PVRSRV_DEVICE_TYPE_SGX:
-@@ -752,19 +753,19 @@ PVRSRV_ERROR SysInitialise(IMG_VOID)
- 				DEVICE_MEMORY_INFO *psDevMemoryInfo;
- 				DEVICE_MEMORY_HEAP_INFO *psDeviceMemoryHeap;
- 
--				
-+
- 				psDeviceNode->psLocalDevMemArena = IMG_NULL;
- 
--				
-+
- 				psDevMemoryInfo = &psDeviceNode->sDevMemoryInfo;
- 				psDeviceMemoryHeap = psDevMemoryInfo->psDeviceMemoryHeap;
- 
--				
-+
- 				for(i=0; i<psDevMemoryInfo->ui32HeapCount; i++)
- 				{
- 					psDeviceMemoryHeap[i].ui32Attribs |= PVRSRV_BACKINGSTORE_SYSMEM_NONCONTIG;
- #ifdef OEM_CUSTOMISE
--					
-+
- #endif
- 				}
- 
-@@ -777,19 +778,19 @@ PVRSRV_ERROR SysInitialise(IMG_VOID)
- 				DEVICE_MEMORY_INFO *psDevMemoryInfo;
- 				DEVICE_MEMORY_HEAP_INFO *psDeviceMemoryHeap;
- 
--				
-+
- 				psDeviceNode->psLocalDevMemArena = IMG_NULL;
- 
--				
-+
- 				psDevMemoryInfo = &psDeviceNode->sDevMemoryInfo;
- 				psDeviceMemoryHeap = psDevMemoryInfo->psDeviceMemoryHeap;
- 
--				
-+
- 				for(i=0; i<psDevMemoryInfo->ui32HeapCount; i++)
- 				{
- 					psDeviceMemoryHeap[i].ui32Attribs |= PVRSRV_BACKINGSTORE_SYSMEM_NONCONTIG;
- #ifdef OEM_CUSTOMISE
--					
-+
- #endif
- 				}
- 				break;
-@@ -802,14 +803,14 @@ PVRSRV_ERROR SysInitialise(IMG_VOID)
- 			}
- 		}
- 
--		
-+
- 		psDeviceNode = psDeviceNode->psNext;
- 	}
- 
- 	PDUMPINIT();
- 	SYS_SPECIFIC_DATA_SET(&gsSysSpecificData, SYS_SPECIFIC_DATA_PDUMP_INIT);
- 
--	
-+
- 	eError = PVRSRVInitialiseDevice (gui32SGXDeviceID);
- 	if (eError != PVRSRV_OK)
- 	{
-@@ -843,15 +844,15 @@ static IMG_VOID SysEnableInterrupts(SYS_DATA *psSysData)
- 	IMG_UINT32 ui32Mask;
- 
- 	ui32Mask = THALIA_MASK | MSVDX_MASK;
--	
-+
- 	ui32RegData = OSReadHWReg(gsPoulsboRegsCPUVaddr, INTERRUPT_IDENTITY_REG);
- 	OSWriteHWReg(gsPoulsboRegsCPUVaddr, INTERRUPT_IDENTITY_REG, ui32RegData | ui32Mask);
- 
--	
-+
- 	ui32RegData = OSReadHWReg(gsPoulsboRegsCPUVaddr, INTERRUPT_MASK_REG);
- 	OSWriteHWReg(gsPoulsboRegsCPUVaddr, INTERRUPT_MASK_REG, ui32RegData & (~ui32Mask));
- 
--	
-+
- 	ui32RegData = OSReadHWReg(gsPoulsboRegsCPUVaddr, INTERRUPT_ENABLE_REG);
- 	OSWriteHWReg(gsPoulsboRegsCPUVaddr, INTERRUPT_ENABLE_REG, ui32RegData | ui32Mask);
- 
-@@ -868,11 +869,11 @@ static IMG_VOID SysDisableInterrupts(SYS_DATA *psSysData)
- 
- 
- 	ui32Mask = THALIA_MASK | MSVDX_MASK;
--	
-+
- 	ui32RegData = OSReadHWReg(gsPoulsboRegsCPUVaddr, INTERRUPT_ENABLE_REG);
- 	OSWriteHWReg(gsPoulsboRegsCPUVaddr, INTERRUPT_ENABLE_REG, ui32RegData & (~ui32Mask));
- 
--	
-+
- 	ui32RegData = OSReadHWReg(gsPoulsboRegsCPUVaddr, INTERRUPT_MASK_REG);
- 	OSWriteHWReg(gsPoulsboRegsCPUVaddr, INTERRUPT_MASK_REG, ui32RegData | ui32Mask);
- 
-@@ -916,7 +917,7 @@ PVRSRV_ERROR SysFinalise(IMG_VOID)
- 	SYS_SPECIFIC_DATA_SET(&gsSysSpecificData, SYS_SPECIFIC_DATA_IRQ_ENABLED);
- 
- #ifdef	__linux__
--	
-+
- 	eError = SysCreateVersionString(gpsSysData);
- 	if (eError != PVRSRV_OK)
- 	{
-@@ -963,7 +964,7 @@ PVRSRV_ERROR SysDeinitialise (SYS_DATA *psSysData)
- #if defined(SUPPORT_MSVDX)
- 	if (SYS_SPECIFIC_DATA_TEST(psSysSpecData, SYS_SPECIFIC_DATA_MSVDX_INITIALISED))
- 	{
--		
-+
- 		eError = PVRSRVDeinitialiseDevice(gui32MSVDXDeviceID);
- 		if (eError != PVRSRV_OK)
- 		{
-@@ -975,7 +976,7 @@ PVRSRV_ERROR SysDeinitialise (SYS_DATA *psSysData)
- 
- 	if (SYS_SPECIFIC_DATA_TEST(psSysSpecData, SYS_SPECIFIC_DATA_SGX_INITIALISED))
- 	{
--		
-+
- 		eError = PVRSRVDeinitialiseDevice(gui32SGXDeviceID);
- 		if (eError != PVRSRV_OK)
- 		{
-@@ -1014,7 +1015,7 @@ PVRSRV_ERROR SysDeinitialise (SYS_DATA *psSysData)
- #endif
- 
- #if !defined(NO_HARDWARE)
--	
-+
- 	OSUnMapPhysToLin(gsPoulsboRegsCPUVaddr,
- 											 REG_SIZE,
- 											 PVRSRV_HAP_KERNEL_ONLY|PVRSRV_HAP_UNCACHED,
-@@ -1049,7 +1050,7 @@ IMG_UINT32 SysGetInterruptSource(SYS_DATA* psSysData,
- 	PVR_UNREFERENCED_PARAMETER(psSysData);
- 	PVR_UNREFERENCED_PARAMETER(psDeviceNode);
- 
--	
-+
- 	ui32Data = OSReadHWReg(gsPoulsboRegsCPUVaddr, INTERRUPT_IDENTITY_REG);
- 
- 	if (ui32Data & THALIA_MASK)
-@@ -1062,11 +1063,11 @@ IMG_UINT32 SysGetInterruptSource(SYS_DATA* psSysData,
- 		ui32Devices |= DEVICE_MSVDX_INTERRUPT;
- 	}
- 
--	
-+
- 	ui32DIMMask = OSReadHWReg(gsPoulsboRegsCPUVaddr, INTERRUPT_ENABLE_REG);
- 	ui32DIMMask &= ~(THALIA_MASK | MSVDX_MASK);
- 
--	
-+
- 	if (ui32Data & ui32DIMMask)
- 	{
- 		ui32Devices |= DEVICE_DISP_INTERRUPT;
-@@ -1123,14 +1124,14 @@ PVRSRV_ERROR SysGetDeviceMemoryMap(PVRSRV_DEVICE_TYPE eDeviceType,
- 	{
- 		case PVRSRV_DEVICE_TYPE_SGX:
- 		{
--			
-+
- 			*ppvDeviceMap = (IMG_VOID*)&gsSGXDeviceMap;
- 			break;
- 		}
- #ifdef SUPPORT_MSVDX
- 		case PVRSRV_DEVICE_TYPE_MSVDX:
- 		{
--			
-+
- 			*ppvDeviceMap = (IMG_VOID*)&gsMSVDXDeviceMap;
- 			break;
- 		}
-@@ -1151,7 +1152,7 @@ IMG_DEV_PHYADDR SysCpuPAddrToDevPAddr (PVRSRV_DEVICE_TYPE eDeviceType,
- 
- 	PVR_UNREFERENCED_PARAMETER(eDeviceType);
- 
--	
-+
- 	DevPAddr.uiAddr = CpuPAddr.uiAddr;
- 
- 	return DevPAddr;
-@@ -1162,7 +1163,7 @@ IMG_CPU_PHYADDR SysSysPAddrToCpuPAddr (IMG_SYS_PHYADDR sys_paddr)
- {
- 	IMG_CPU_PHYADDR cpu_paddr;
- 
--	
-+
- 	cpu_paddr.uiAddr = sys_paddr.uiAddr;
- 	return cpu_paddr;
- }
-@@ -1171,7 +1172,7 @@ IMG_SYS_PHYADDR SysCpuPAddrToSysPAddr (IMG_CPU_PHYADDR cpu_paddr)
- {
- 	IMG_SYS_PHYADDR sys_paddr;
- 
--	
-+
- 	sys_paddr.uiAddr = cpu_paddr.uiAddr;
- 	return sys_paddr;
- }
-@@ -1183,7 +1184,7 @@ IMG_DEV_PHYADDR SysSysPAddrToDevPAddr (PVRSRV_DEVICE_TYPE eDeviceType, IMG_SYS_P
- 
- 	PVR_UNREFERENCED_PARAMETER(eDeviceType);
- 
--	
-+
-     DevPAddr.uiAddr = SysPAddr.uiAddr;
- 
-     return DevPAddr;
-@@ -1196,7 +1197,7 @@ IMG_SYS_PHYADDR SysDevPAddrToSysPAddr (PVRSRV_DEVICE_TYPE eDeviceType, IMG_DEV_P
- 
- 	PVR_UNREFERENCED_PARAMETER(eDeviceType);
- 
--    
-+
-     SysPAddr.uiAddr = DevPAddr.uiAddr;
- 
-     return SysPAddr;
-@@ -1255,12 +1256,12 @@ static PVRSRV_ERROR SysMapInRegisters(IMG_VOID)
- 		{
- 			PVRSRV_SGXDEV_INFO *psDevInfo = (PVRSRV_SGXDEV_INFO *)psDeviceNodeList->pvDevice;
- #if defined(NO_HARDWARE) && defined(__linux__)
--			
-+
- 			PVR_ASSERT(gsSGXRegsCPUVAddr);
- 
- 			psDevInfo->pvRegsBaseKM = gsSGXRegsCPUVAddr;
--#else	
--			
-+#else
-+
- 			if (SYS_SPECIFIC_DATA_TEST(&gsSysSpecificData, SYS_SPECIFIC_DATA_PM_UNMAP_SGX_REGS))
- 			{
- 				psDevInfo->pvRegsBaseKM = OSMapPhysToLin(gsSGXDeviceMap.sRegsCpuPBase,
-@@ -1275,7 +1276,7 @@ static PVRSRV_ERROR SysMapInRegisters(IMG_VOID)
- 				}
- 				SYS_SPECIFIC_DATA_CLEAR(&gsSysSpecificData, SYS_SPECIFIC_DATA_PM_UNMAP_SGX_REGS);
- 			}
--#endif	
-+#endif
- 
- 			psDevInfo->ui32RegSize   = gsSGXDeviceMap.ui32RegsSize;
- 			psDevInfo->sRegsPhysBase = gsSGXDeviceMap.sRegsSysPBase;
-@@ -1285,7 +1286,7 @@ static PVRSRV_ERROR SysMapInRegisters(IMG_VOID)
- 			{
- 				if (SYS_SPECIFIC_DATA_TEST(&gsSysSpecificData, SYS_SPECIFIC_DATA_PM_UNMAP_SGX_HP))
- 				{
--					
-+
- 					psDevInfo->pvHostPortBaseKM = OSMapPhysToLin(gsSGXDeviceMap.sHPCpuPBase,
- 														     gsSGXDeviceMap.ui32HPSize,
- 														     PVRSRV_HAP_KERNEL_ONLY|PVRSRV_HAP_UNCACHED,
-@@ -1300,7 +1301,7 @@ static PVRSRV_ERROR SysMapInRegisters(IMG_VOID)
- 				psDevInfo->ui32HPSize  = gsSGXDeviceMap.ui32HPSize;
- 				psDevInfo->sHPSysPAddr = gsSGXDeviceMap.sHPSysPBase;
- 			}
--#endif 
-+#endif
- 			break;
- 		}
- #ifdef SUPPORT_MSVDX
-@@ -1308,13 +1309,13 @@ static PVRSRV_ERROR SysMapInRegisters(IMG_VOID)
- 		{
- 			PVRSRV_MSVDXDEV_INFO *psDevInfo = (PVRSRV_MSVDXDEV_INFO *)psDeviceNodeList->pvDevice;
- #if defined(NO_HARDWARE) && defined(__linux__)
--			
-+
- 			PVR_ASSERT(gsMSVDXRegsCPUVAddr);
- 			psDevInfo->pvRegsBaseKM = gsMSVDXRegsCPUVAddr;
--#else	
-+#else
- 			if (SYS_SPECIFIC_DATA_TEST(&gsSysSpecificData, SYS_SPECIFIC_DATA_PM_UNMAP_MSVDX_REGS))
- 			{
--				
-+
- 				psDevInfo->pvRegsBaseKM = OSMapPhysToLin (
- 					gsMSVDXDeviceMap.sRegsCpuPBase,
- 					gsMSVDXDeviceMap.ui32RegsSize,
-@@ -1327,12 +1328,12 @@ static PVRSRV_ERROR SysMapInRegisters(IMG_VOID)
- 				}
- 				SYS_SPECIFIC_DATA_CLEAR(&gsSysSpecificData, SYS_SPECIFIC_DATA_PM_UNMAP_MSVDX_REGS);
- 			}
--#endif	
-+#endif
- 			psDevInfo->ui32RegSize = gsMSVDXDeviceMap.ui32RegsSize;
- 			psDevInfo->sRegsPhysBase = gsMSVDXDeviceMap.sRegsSysPBase;
- 			break;
- 		}
--#endif	
-+#endif
- 		default:
- 			break;
- 		}
-@@ -1357,7 +1358,7 @@ static PVRSRV_ERROR SysUnmapRegisters(IMG_VOID)
- 		{
- 			PVRSRV_SGXDEV_INFO *psDevInfo = (PVRSRV_SGXDEV_INFO *)psDeviceNodeList->pvDevice;
- #if !(defined(NO_HARDWARE) && defined(__linux__))
--			
-+
- 			if (psDevInfo->pvRegsBaseKM)
- 			{
- 				OSUnMapPhysToLin(psDevInfo->pvRegsBaseKM,
-@@ -1367,7 +1368,7 @@ static PVRSRV_ERROR SysUnmapRegisters(IMG_VOID)
- 
- 				SYS_SPECIFIC_DATA_SET(&gsSysSpecificData, SYS_SPECIFIC_DATA_PM_UNMAP_SGX_REGS);
- 			}
--#endif	
-+#endif
- 
- 			psDevInfo->pvRegsBaseKM = IMG_NULL;
- 			psDevInfo->ui32RegSize          = 0;
-@@ -1376,7 +1377,7 @@ static PVRSRV_ERROR SysUnmapRegisters(IMG_VOID)
- #if defined(SGX_FEATURE_HOST_PORT)
- 			if (gsSGXDeviceMap.ui32Flags & SGX_HOSTPORT_PRESENT)
- 			{
--				
-+
- 				if (psDevInfo->pvHostPortBaseKM)
- 				{
- 					OSUnMapPhysToLin(psDevInfo->pvHostPortBaseKM,
-@@ -1392,7 +1393,7 @@ static PVRSRV_ERROR SysUnmapRegisters(IMG_VOID)
- 				psDevInfo->ui32HPSize  = 0;
- 				psDevInfo->sHPSysPAddr.uiAddr = 0;
- 			}
--#endif 
-+#endif
- 			break;
- 		}
- #ifdef SUPPORT_MSVDX
-@@ -1409,13 +1410,13 @@ static PVRSRV_ERROR SysUnmapRegisters(IMG_VOID)
- 
- 				SYS_SPECIFIC_DATA_SET(&gsSysSpecificData, SYS_SPECIFIC_DATA_PM_UNMAP_MSVDX_REGS);
- 			}
--#endif	
-+#endif
- 			psDevInfo->pvRegsBaseKM = IMG_NULL;
- 			psDevInfo->ui32RegSize = 0;
- 			psDevInfo->sRegsPhysBase.uiAddr = 0;
- 			break;
- 		}
--#endif	
-+#endif
- 		default:
- 			break;
- 		}
-@@ -1423,13 +1424,13 @@ static PVRSRV_ERROR SysUnmapRegisters(IMG_VOID)
- 	}
- 
- #if !(defined(NO_HARDWARE) || defined(__linux__))
--	
-+
- 	OSUnMapPhysToLin(gsPoulsboRegsCPUVaddr,
- 				REG_SIZE,
- 				PVRSRV_HAP_KERNEL_ONLY|PVRSRV_HAP_UNCACHED,
- 				IMG_NULL);
- 
--	
-+
- #if defined(MAP_UNUSED_MAPPINGS)
- 	OSUnMapPhysToLin(gsPoulsboDisplayRegsCPUVaddr,
- 				DISPLAY_REG_SIZE,
-@@ -1437,7 +1438,7 @@ static PVRSRV_ERROR SysUnmapRegisters(IMG_VOID)
- 				IMG_NULL);
- #endif
- 
--#endif	
-+#endif
- 
- #if defined(NO_HARDWARE)
- #ifdef SUPPORT_MSVDX
-@@ -1462,7 +1463,7 @@ static PVRSRV_ERROR SysUnmapRegisters(IMG_VOID)
- 
- 		SYS_SPECIFIC_DATA_CLEAR(&gsSysSpecificData, SYS_SPECIFIC_DATA_ALLOC_DUMMY_SGX_REGS);
- 	}
--#endif 
-+#endif
- 
- 	return PVRSRV_OK;
- }
-@@ -1477,7 +1478,7 @@ PVRSRV_ERROR SysSystemPrePowerState(PVRSRV_SYS_POWER_STATE eNewPowerState)
- 		if ((eNewPowerState == PVRSRV_SYS_POWER_STATE_D3) &&
- 			(gpsSysData->eCurrentPowerState < PVRSRV_SYS_POWER_STATE_D3))
- 		{
--			
-+
- 			if (SYS_SPECIFIC_DATA_TEST(&gsSysSpecificData, SYS_SPECIFIC_DATA_IRQ_ENABLED))
- 			{
- 				SysDisableInterrupts(gpsSysData);
-@@ -1497,9 +1498,9 @@ PVRSRV_ERROR SysSystemPrePowerState(PVRSRV_SYS_POWER_STATE eNewPowerState)
- 				SYS_SPECIFIC_DATA_SET(&gsSysSpecificData, SYS_SPECIFIC_DATA_PM_UNINSTALL_LISR);
- 				SYS_SPECIFIC_DATA_CLEAR(&gsSysSpecificData, SYS_SPECIFIC_DATA_LISR_INSTALLED);
- 			}
--#endif 
-+#endif
-+
- 
--			
- 			SysUnmapRegisters();
- #ifdef	__linux__
- 			eError = OSPCISuspendDev(gsSysSpecificData.hSGXPCI);
-@@ -1530,7 +1531,7 @@ PVRSRV_ERROR SysSystemPostPowerState(PVRSRV_SYS_POWER_STATE eNewPowerState)
- 				PVR_DPF((PVR_DBG_ERROR,"SysSystemPostPowerState: OSPCIResumeDev failed (%d)", eError));
- 			}
- #endif
--			
-+
- 
- 
- 			eError = SysLocateDevices(gpsSysData);
-@@ -1540,7 +1541,7 @@ PVRSRV_ERROR SysSystemPostPowerState(PVRSRV_SYS_POWER_STATE eNewPowerState)
- 				return eError;
- 			}
- 
--			
-+
- 			eError = SysMapInRegisters();
- 			if (eError != PVRSRV_OK)
- 			{
-@@ -1559,7 +1560,7 @@ PVRSRV_ERROR SysSystemPostPowerState(PVRSRV_SYS_POWER_STATE eNewPowerState)
- 				SYS_SPECIFIC_DATA_SET(&gsSysSpecificData, SYS_SPECIFIC_DATA_LISR_INSTALLED);
- 				SYS_SPECIFIC_DATA_CLEAR(&gsSysSpecificData, SYS_SPECIFIC_DATA_PM_UNINSTALL_LISR);
- 			}
--#endif 
-+#endif
- 
- 			if (SYS_SPECIFIC_DATA_TEST(&gsSysSpecificData, SYS_SPECIFIC_DATA_PM_IRQ_DISABLE))
- 			{
-@@ -1606,7 +1607,3 @@ PVRSRV_ERROR SysDevicePostPowerState(IMG_UINT32				ui32DeviceIndex,
- 
- 	return PVRSRV_OK;
- }
--
--
--
--
-diff --git a/drivers/gpu/drm/emgd/pvr/services4/system/plb/sysconfig.c b/drivers/gpu/drm/emgd/pvr/services4/system/plb/sysconfig.c
-index 0737aaf..63a1c96 100644
---- a/drivers/gpu/drm/emgd/pvr/services4/system/plb/sysconfig.c
-+++ b/drivers/gpu/drm/emgd/pvr/services4/system/plb/sysconfig.c
-@@ -1,35 +1,36 @@
- /* -*- syscommon-c -*-
--*-----------------------------------------------------------------------------
--* Filename: syscommon.c
--* $Revision: 1.2 $
--*-----------------------------------------------------------------------------
--* INTEL CONFIDENTIAL
--* Copyright 2010 Intel Corporation All Rights Reserved.
--* The source code contained or described herein and all documents related to
--* the source code ("Material") are owned by Intel Corporation or its suppliers
--* or licensors. Title to the Material remains with Intel Corporation or its
--* suppliers and licensors. The Material contains trade secrets and proprietary
--* and confidential information of Intel or its suppliers and licensors. The
--* Material is protected by worldwide copyright and trade secret laws and
--* treaty provisions. No part of the Material may be used, copied, reproduced,
--* modified, published, uploaded, posted, transmitted, distributed, or
--* disclosed in any way without Intel's prior express written permission.
--*
--* No license under any patent, copyright, trade secret or other intellectual
--* property right is granted to or conferred upon you by disclosure or
--* delivery of the Materials, either expressly, by implication, inducement,
--* estoppel or otherwise. Any license under such intellectual property rights
--* must be express and approved by Intel in writing.
--*
--*
--*-----------------------------------------------------------------------------
--* Description: platform detection, and sharing of correct platform interface.
--*
--*-----------------------------------------------------------------------------
--* Authors:
--*  Marcin Tomczyk
--*-----------------------------------------------------------------------------
--*/
-+ *-----------------------------------------------------------------------------
-+ * Filename: syscommon.c
-+ * $Revision: 1.3 $
-+ *-----------------------------------------------------------------------------
-+ * Copyright © 2002-2010, Intel Corporation.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a copy
-+ * of this software and associated documentation files (the "Software"), to deal
-+ * in the Software without restriction, including without limitation the rights
-+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-+ * copies of the Software, and to permit persons to whom the Software is
-+ * furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-+ * THE SOFTWARE.
-+ *
-+ *-----------------------------------------------------------------------------
-+ * Description: platform detection, and sharing of correct platform interface.
-+ *
-+ *-----------------------------------------------------------------------------
-+ * Authors:
-+ *  Marcin Tomczyk
-+ *-----------------------------------------------------------------------------
-+ */
- 
- #include "sysconfig.h"
- #include "sysplb.h"
-@@ -47,4 +48,3 @@ SYS_PLATFORM_INTERFACE gpsSysPlatformInterfacePlb = {
- 	SYS_SGX_CLOCK_SPEED_PLB,
- 	SYS_SGX_ACTIVE_POWER_LATENCY_MS_PLB
- };
--
-diff --git a/drivers/gpu/drm/emgd/pvr/services4/system/tnc/sysconfig.c b/drivers/gpu/drm/emgd/pvr/services4/system/tnc/sysconfig.c
-index 5b94861..e4d9426 100644
---- a/drivers/gpu/drm/emgd/pvr/services4/system/tnc/sysconfig.c
-+++ b/drivers/gpu/drm/emgd/pvr/services4/system/tnc/sysconfig.c
-@@ -1,35 +1,36 @@
- /* -*- syscommon-c -*-
--*-----------------------------------------------------------------------------
--* Filename: syscommon.c
--* $Revision: 1.2 $
--*-----------------------------------------------------------------------------
--* INTEL CONFIDENTIAL
--* Copyright 2010 Intel Corporation All Rights Reserved.
--* The source code contained or described herein and all documents related to
--* the source code ("Material") are owned by Intel Corporation or its suppliers
--* or licensors. Title to the Material remains with Intel Corporation or its
--* suppliers and licensors. The Material contains trade secrets and proprietary
--* and confidential information of Intel or its suppliers and licensors. The
--* Material is protected by worldwide copyright and trade secret laws and
--* treaty provisions. No part of the Material may be used, copied, reproduced,
--* modified, published, uploaded, posted, transmitted, distributed, or
--* disclosed in any way without Intel's prior express written permission.
--*
--* No license under any patent, copyright, trade secret or other intellectual
--* property right is granted to or conferred upon you by disclosure or
--* delivery of the Materials, either expressly, by implication, inducement,
--* estoppel or otherwise. Any license under such intellectual property rights
--* must be express and approved by Intel in writing.
--*
--*
--*-----------------------------------------------------------------------------
--* Description: platform detection, and sharing of correct platform interface.
--*
--*-----------------------------------------------------------------------------
--* Authors:
--*  Marcin Tomczyk
--*-----------------------------------------------------------------------------
--*/
-+ *-----------------------------------------------------------------------------
-+ * Filename: syscommon.c
-+ * $Revision: 1.3 $
-+ *-----------------------------------------------------------------------------
-+ * Copyright © 2002-2010, Intel Corporation.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a copy
-+ * of this software and associated documentation files (the "Software"), to deal
-+ * in the Software without restriction, including without limitation the rights
-+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-+ * copies of the Software, and to permit persons to whom the Software is
-+ * furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-+ * THE SOFTWARE.
-+ *
-+ *-----------------------------------------------------------------------------
-+ * Description: platform detection, and sharing of correct platform interface.
-+ *
-+ *-----------------------------------------------------------------------------
-+ * Authors:
-+ *  Marcin Tomczyk
-+ *-----------------------------------------------------------------------------
-+ */
- 
- #include "sysconfig.h"
- #include "systnc.h"
-@@ -47,4 +48,3 @@ SYS_PLATFORM_INTERFACE gpsSysPlatformInterfaceTnc = {
- 	SYS_SGX_CLOCK_SPEED_TNC,
- 	SYS_SGX_ACTIVE_POWER_LATENCY_MS_TNC
- };
--
-diff --git a/drivers/gpu/drm/emgd/pvr/services4/system/tnc/systnc.h b/drivers/gpu/drm/emgd/pvr/services4/system/tnc/systnc.h
-index 3f26d4c..7d5c2d6 100644
---- a/drivers/gpu/drm/emgd/pvr/services4/system/tnc/systnc.h
-+++ b/drivers/gpu/drm/emgd/pvr/services4/system/tnc/systnc.h
-@@ -1,40 +1,32 @@
- /**********************************************************************
-- *
-- * Copyright(c) 2008 Imagination Technologies Ltd. All rights reserved.
-- * 
-- * This program is free software; you can redistribute it and/or modify it
-- * under the terms and conditions of the GNU General Public License,
-- * version 2, as published by the Free Software Foundation.
-- * 
-- * This program is distributed in the hope it will be useful but, except 
-- * as otherwise stated in writing, without any warranty; without even the 
-- * implied warranty of merchantability or fitness for a particular purpose. 
-- * See the GNU General Public License for more details.
-- * 
-- * You should have received a copy of the GNU General Public License along with
-- * this program; if not, write to the Free Software Foundation, Inc.,
-- * 51 Franklin St - Fifth Floor, Boston, MA 02110-1301 USA.
-- * 
-- * The full GNU General Public License is included in this distribution in
-- * the file called "COPYING".
-- *
-- * Contact Information:
-- * Imagination Technologies Ltd. <gpl-support@imgtec.com>
-- * Home Park Estate, Kings Langley, Herts, WD4 8LZ, UK 
-- *
-+ Copyright (c) Imagination Technologies Ltd.
-+
-+ Permission is hereby granted, free of charge, to any person obtaining a copy
-+ of this software and associated documentation files (the "Software"), to deal
-+ in the Software without restriction, including without limitation the rights
-+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-+ copies of the Software, and to permit persons to whom the Software is
-+ furnished to do so, subject to the following conditions:
-+
-+ The above copyright notice and this permission notice shall be included in
-+ all copies or substantial portions of the Software.
-+
-+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-+ THE SOFTWARE.
-  ******************************************************************************/
--/* INTEL CONFIDENTIAL
-- * Copyright 2010 Intel Corporation All Rights Reserved.
-- */
- 
- #ifndef _SYSTNC_H
- #define _SYSTNC_H
- 
--#define SYS_SGX_DEV_DEVICE_ID_TNC	0x4108	
-+#define SYS_SGX_DEV_DEVICE_ID_TNC	0x4108
- #define VS_PRODUCT_NAME_TNC     	"SGX Atom E6xx"
- #define SGX_REGS_OFFSET_TNC     	0x80000
- #define MSVDX_REGS_OFFSET_TNC   	0x90000
- #define SYS_SGX_CLOCK_SPEED_TNC                     (400000000)
- #define SYS_SGX_ACTIVE_POWER_LATENCY_MS_TNC         (50)
- #endif
--
+diff --git a/meta/recipes-core/util-linux/util-linux-2.17.2/remove-lscpu.patch b/meta/recipes-core/util-linux/util-linux-2.17.2/remove-lscpu.patch
+new file mode 100644
+index 0000000..200dc2c
+--- /dev/null
++++ b/meta/recipes-core/util-linux/util-linux-2.17.2/remove-lscpu.patch
+@@ -0,0 +1,101 @@
++Take out lscpu stuff from the code
++
++2011/03/17
++Saul Wold <saul.wold@intel.com>
++Nitin A Kamble <nitin.a.kamble@intel.com>
++
++Index: util-linux-ng-2.17.2/sys-utils/Makefile.am
++===================================================================
++--- util-linux-ng-2.17.2.orig/sys-utils/Makefile.am
+++++ util-linux-ng-2.17.2/sys-utils/Makefile.am
++@@ -11,11 +11,11 @@ dist_man_MANS = flock.1 ipcrm.1 ipcs.1 i
++ if LINUX
++ bin_PROGRAMS += dmesg
++ sbin_PROGRAMS += ctrlaltdel
++-usrbin_exec_PROGRAMS += cytune setarch lscpu
+++usrbin_exec_PROGRAMS += cytune setarch
++ usrsbin_exec_PROGRAMS += ldattach tunelp rtcwake
++ 
++ dist_man_MANS += dmesg.1 ctrlaltdel.8 cytune.8 setarch.8 \
++-		ldattach.8 lscpu.1 tunelp.8 rtcwake.8
+++		ldattach.8 tunelp.8 rtcwake.8
++ endif
++ 
++ cytune_SOURCES = cytune.c cyclades.h
++Index: util-linux-ng-2.17.2/sys-utils/Makefile.in
++===================================================================
++--- util-linux-ng-2.17.2.orig/sys-utils/Makefile.in
+++++ util-linux-ng-2.17.2/sys-utils/Makefile.in
++@@ -47,10 +47,10 @@ usrsbin_exec_PROGRAMS = readprofile$(EXE
++ 	$(am__EXEEXT_10)
++ @LINUX_TRUE@am__append_1 = dmesg
++ @LINUX_TRUE@am__append_2 = ctrlaltdel
++-@LINUX_TRUE@am__append_3 = cytune setarch lscpu
+++@LINUX_TRUE@am__append_3 = cytune setarch
++ @LINUX_TRUE@am__append_4 = ldattach tunelp rtcwake
++ @LINUX_TRUE@am__append_5 = dmesg.1 ctrlaltdel.8 cytune.8 setarch.8 \
++-@LINUX_TRUE@		ldattach.8 lscpu.1 tunelp.8 rtcwake.8
+++@LINUX_TRUE@		ldattach.8 tunelp.8 rtcwake.8
++ 
++ @BUILD_FALLOCATE_TRUE@am__append_6 = fallocate
++ @BUILD_FALLOCATE_TRUE@am__append_7 = fallocate.1
++@@ -100,7 +100,7 @@ am__installdirs = "$(DESTDIR)$(bindir)" 
++ @BUILD_PIVOT_ROOT_TRUE@am__EXEEXT_4 = pivot_root$(EXEEXT)
++ @BUILD_SWITCH_ROOT_TRUE@am__EXEEXT_5 = switch_root$(EXEEXT)
++ @LINUX_TRUE@am__EXEEXT_6 = cytune$(EXEEXT) setarch$(EXEEXT) \
++-@LINUX_TRUE@	lscpu$(EXEEXT)
+++@LINUX_TRUE@
++ @BUILD_FALLOCATE_TRUE@am__EXEEXT_7 = fallocate$(EXEEXT)
++ @BUILD_UNSHARE_TRUE@am__EXEEXT_8 = unshare$(EXEEXT)
++ @LINUX_TRUE@am__EXEEXT_9 = ldattach$(EXEEXT) tunelp$(EXEEXT) \
++@@ -141,9 +141,6 @@ ipcs_LDADD = $(LDADD)
++ ldattach_SOURCES = ldattach.c
++ ldattach_OBJECTS = ldattach.$(OBJEXT)
++ ldattach_LDADD = $(LDADD)
++-lscpu_SOURCES = lscpu.c
++-lscpu_OBJECTS = lscpu.$(OBJEXT)
++-lscpu_LDADD = $(LDADD)
++ pivot_root_SOURCES = pivot_root.c
++ pivot_root_OBJECTS = pivot_root.$(OBJEXT)
++ pivot_root_LDADD = $(LDADD)
++@@ -201,11 +198,11 @@ AM_V_GEN = $(am__v_GEN_$(V))
++ am__v_GEN_ = $(am__v_GEN_$(AM_DEFAULT_VERBOSITY))
++ am__v_GEN_0 = @echo "  GEN   " $@;
++ SOURCES = arch.c ctrlaltdel.c $(cytune_SOURCES) dmesg.c fallocate.c \
++-	flock.c ipcmk.c ipcrm.c ipcs.c ldattach.c lscpu.c pivot_root.c \
+++	flock.c ipcmk.c ipcrm.c ipcs.c ldattach.c pivot_root.c \
++ 	rdev.c readprofile.c renice.c rtcwake.c setarch.c setsid.c \
++ 	switch_root.c $(tunelp_SOURCES) unshare.c
++ DIST_SOURCES = arch.c ctrlaltdel.c $(cytune_SOURCES) dmesg.c \
++-	fallocate.c flock.c ipcmk.c ipcrm.c ipcs.c ldattach.c lscpu.c \
+++	fallocate.c flock.c ipcmk.c ipcrm.c ipcs.c ldattach.c \
++ 	pivot_root.c rdev.c readprofile.c renice.c rtcwake.c setarch.c \
++ 	setsid.c switch_root.c $(tunelp_SOURCES) unshare.c
++ INFO_DEPS = $(srcdir)/ipc.info
++@@ -248,7 +245,7 @@ NROFF = nroff
++ MANS = $(dist_man_MANS) $(man_MANS)
++ am__dist_noinst_DATA_DIST = flock.1 ipcrm.1 ipcs.1 ipcmk.1 renice.1 \
++ 	setsid.1 readprofile.1 dmesg.1 ctrlaltdel.8 cytune.8 setarch.8 \
++-	ldattach.8 lscpu.1 tunelp.8 rtcwake.8 fallocate.1 pivot_root.8 \
+++	ldattach.8 tunelp.8 rtcwake.8 fallocate.1 pivot_root.8 \
++ 	switch_root.8 unshare.1 arch.1 rdev.8
++ DATA = $(dist_noinst_DATA)
++ ETAGS = etags
++@@ -678,9 +675,6 @@ ipcs$(EXEEXT): $(ipcs_OBJECTS) $(ipcs_DE
++ ldattach$(EXEEXT): $(ldattach_OBJECTS) $(ldattach_DEPENDENCIES) 
++ 	@rm -f ldattach$(EXEEXT)
++ 	$(AM_V_CCLD)$(LINK) $(ldattach_OBJECTS) $(ldattach_LDADD) $(LIBS)
++-lscpu$(EXEEXT): $(lscpu_OBJECTS) $(lscpu_DEPENDENCIES) 
++-	@rm -f lscpu$(EXEEXT)
++-	$(AM_V_CCLD)$(LINK) $(lscpu_OBJECTS) $(lscpu_LDADD) $(LIBS)
++ pivot_root$(EXEEXT): $(pivot_root_OBJECTS) $(pivot_root_DEPENDENCIES) 
++ 	@rm -f pivot_root$(EXEEXT)
++ 	$(AM_V_CCLD)$(LINK) $(pivot_root_OBJECTS) $(pivot_root_LDADD) $(LIBS)
++@@ -728,7 +722,6 @@ distclean-compile:
++ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ipcrm.Po@am__quote@
++ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ipcs.Po@am__quote@
++ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ldattach.Po@am__quote@
++-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lscpu.Po@am__quote@
++ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pivot_root.Po@am__quote@
++ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdev.Po@am__quote@
++ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/readprofile.Po@am__quote@
+diff --git a/meta/recipes-core/util-linux/util-linux.inc b/meta/recipes-core/util-linux/util-linux.inc
+index 6f8bcb3..446c8e4 100644
+--- a/meta/recipes-core/util-linux/util-linux.inc
++++ b/meta/recipes-core/util-linux/util-linux.inc
+@@ -5,9 +5,7 @@ disk partitioning, kernel message management, filesystem creation, and system lo
+ 
+ SECTION = "base"
+ 
+-# note that `lscpu' is under GPLv3+
+ LICENSE = "GPLv2+ & LGPLv2.1+ & BSD"
+-LICENSE_util-linux-lscpu = "GPLv3+"
+ 
+ LIC_FILES_CHKSUM = "file://README.licensing;md5=1530e36fe1304d4535513de90a290df9 \
+                     file://COPYING;md5=59530bdf33659b29e73d4adb9f9f6552 \
+@@ -30,7 +28,7 @@ SRC_URI = "${KERNELORG_MIRROR}/pub/linux/utils/util-linux-ng/v${MAJOR_VERSION}/u
+ PACKAGES =+ "util-linux-fdisk util-linux-cfdisk util-linux-sfdisk util-linux-swaponoff \
+                     util-linux-losetup util-linux-umount util-linux-mount util-linux-readprofile \
+                     util-linux-libblkid util-linux-libblkid-dev util-linux-libuuid util-linux-libuuid-dev \
+-                    util-linux-lscpu util-linux-uuidgen \
++                    util-linux-uuidgen \
+                    "
+ 
+ S = "${WORKDIR}/util-linux-ng-${PV}"
+@@ -49,7 +47,6 @@ FILES_util-linux-losetup = "${base_sbindir}/losetup.${PN}"
+ FILES_util-linux-mount = "${base_bindir}/mount.${PN}"
+ FILES_util-linux-umount = "${base_bindir}/umount.${PN}"
+ FILES_util-linux-readprofile = "${base_sbindir}/readprofile"
+-FILES_util-linux-lscpu = "${bindir}/lscpu"
+ FILES_util-linux-uuidgen = "${bindir}/uuidgen"
+ 
+ FILES_util-linux-libblkid = "${libdir}/libblkid.so.*"
+diff --git a/meta/recipes-core/util-linux/util-linux_2.17.2.bb b/meta/recipes-core/util-linux/util-linux_2.17.2.bb
+index 190a9e3..ea59b56 100644
+--- a/meta/recipes-core/util-linux/util-linux_2.17.2.bb
++++ b/meta/recipes-core/util-linux/util-linux_2.17.2.bb
+@@ -1,6 +1,10 @@
+ MAJOR_VERSION = "2.17"
+ require util-linux.inc
+-PR = "r6"
++PR = "r7"
++
++LICENSE += " & GPLv3+"
++# note that `lscpu' is under GPLv3+
++LICENSE_util-linux-lscpu = "GPLv3+"
+ 
+ SRC_URI += "file://uclibc-compile.patch \
+ 	          file://util-linux-ng-replace-siginterrupt.patch \
+@@ -9,6 +13,10 @@ SRC_URI += "file://uclibc-compile.patch \
+ SRC_URI[md5sum] = "4635725a3eef1c57090bac8ea5e082e6"
+ SRC_URI[sha256sum] = "c9ae801b6a5ab20b7749a278a8bf6830ef53adc5e8b7eb0ac1a9f410c774118f"
+ 
++PACKAGES =+ " util-linux-lscpu "
++
++FILES_util-linux-lscpu = "${bindir}/lscpu"
++
+ # fallocate is glibc 2.10, fallocate64 is glibc 2.11
+ # we need to disable it for older versions
+ EXTRA_OECONF += "ac_cv_func_fallocate=no"
+diff --git a/meta/recipes-core/util-linux/util-linux_gplv2.bb b/meta/recipes-core/util-linux/util-linux_gplv2.bb
+new file mode 100644
+index 0000000..5772770
+--- /dev/null
++++ b/meta/recipes-core/util-linux/util-linux_gplv2.bb
+@@ -0,0 +1,26 @@
++MAJOR_VERSION = "2.17"
++PV = "2.17.2"
++
++require util-linux.inc
++PR = "gplv2.r1"
++
++SRC_URI += "file://uclibc-compile.patch \
++	    file://util-linux-ng-replace-siginterrupt.patch \
++            file://util-linux-ng-2.16-mount_lock_path.patch \
++            file://remove-lscpu.patch"
++
++do_remove_lscpu() {
++	rm -f sys-utils/lscpu.c
++	rm -f sys-utils/lscpu.1
++	rm -rf tests/ts/lscpu
++        rm -rf tests/expected/lscpu
++}
++addtask remove_lscpu before do_configure after do_patch
++
++SRC_URI[md5sum] = "4635725a3eef1c57090bac8ea5e082e6"
++SRC_URI[sha256sum] = "c9ae801b6a5ab20b7749a278a8bf6830ef53adc5e8b7eb0ac1a9f410c774118f"
++
++# fallocate is glibc 2.10, fallocate64 is glibc 2.11
++# we need to disable it for older versions
++EXTRA_OECONF += "ac_cv_func_fallocate=no"
++EXTRA_OECONF_virtclass-native += "--disable-fallocate --disable-use-tty-group"
 -- 
-1.7.0.4
+1.7.3.4
 
 
