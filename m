@@ -1,25 +1,25 @@
 Return-Path: <dvhart@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 953664C805A8
-	for <poky@yoctoproject.org>; Thu, 17 Mar 2011 10:17:49 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 17 Mar 2011 08:17:48 -0700
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 794A44C805A8
+	for <poky@yoctoproject.org>; Thu, 17 Mar 2011 10:24:42 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 17 Mar 2011 08:24:41 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,199,1299484800"; d="scan'208";a="721215973"
+X-IronPort-AV: E=Sophos;i="4.63,199,1299484800"; d="scan'208";a="614206552"
 Received: from doubt.jf.intel.com (HELO [10.7.199.54]) ([10.7.199.54])
-	by orsmga001.jf.intel.com with ESMTP; 17 Mar 2011 08:17:38 -0700
-Message-ID: <4D822612.2050604@linux.intel.com>
-Date: Thu, 17 Mar 2011 08:17:38 -0700
+	by orsmga002.jf.intel.com with ESMTP; 17 Mar 2011 08:24:41 -0700
+Message-ID: <4D8227B9.4040401@linux.intel.com>
+Date: Thu, 17 Mar 2011 08:24:41 -0700
 From: Darren Hart <dvhart@linux.intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.2.14) Gecko/20110223 Lightning/1.0b2 Thunderbird/3.1.8
 MIME-Version: 1.0
-To: Zhai Edwin <edwin.zhai@intel.com>
-References: <cover.1300352186.git.edwin.zhai@intel.com>
-	<f596757000465a4b8350e16f21553a23b8bbedfa.1300352186.git.edwin.zhai@intel.com>
-In-Reply-To: <f596757000465a4b8350e16f21553a23b8bbedfa.1300352186.git.edwin.zhai@intel.com>
+To: scott.m.rifenbark@intel.com
+References: <cover.1300293938.git.scott.m.rifenbark@intel.com>
+	<af05c78410f16632fd9c4f36bf5b9ba469df07fd.1300293938.git.scott.m.rifenbark@intel.com>
+In-Reply-To: <af05c78410f16632fd9c4f36bf5b9ba469df07fd.1300293938.git.scott.m.rifenbark@intel.com>
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 1/1] qemu: Use mesa's libGL rather than nVidia's to	avoid segfault of qemu
+Subject: Re: [PATCH 1/2] documentation/adt-manual/adt-eclipse.xml: Re-inserted Autotools plug-in requirement.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,79 +31,63 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 17 Mar 2011 15:17:49 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 17 Mar 2011 15:24:42 -0000
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 03/17/2011 05:22 AM, Zhai Edwin wrote:
-> From: Zhai Edwin<edwin.zhai@intel.com>
->
-> Proprietary nVidia driver introduce its own libGL that precede mesa's.
-> qemu has segfault if linked with it. This fix try to use mesa's libGL
-> if ldd find qemu linked with nVidia libGL.
->
-> [YOCTO #649]
-> [YOCTO #698]
->
 
-Looks like the right approach, my only concern is the wording of the 
-error messages. They are ambiguous with respect to what the script WILL 
-DO and what it is telling the user THEY SHOULD DO. Also, avoiding the 
-"you did this, bad user" sort of language wold be good.
 
-Consider the following:
-
+On 03/16/2011 09:48 AM, scott.m.rifenbark@intel.com wrote:
+> From: Scott Rifenbark<scott.m.rifenbark@intel.com>
 >
-> Signed-off-by: Zhai Edwin<edwin.zhai@intel.com>
+> Jessica flip-flopped on the need for the Autotools plug-in that was
+> removed from the manual.  I have re-inserted the instructions for adding
+> this plug-in in as part of the Eclipse set up.
 > ---
->   scripts/poky-qemu-internal |   16 +++++++++++++++-
->   1 files changed, 15 insertions(+), 1 deletions(-)
+>   documentation/adt-manual/adt-eclipse.xml |    9 +++++++--
+>   1 files changed, 7 insertions(+), 2 deletions(-)
 >
-> diff --git a/scripts/poky-qemu-internal b/scripts/poky-qemu-internal
-> index 3638a65..1f09fe7 100755
-> --- a/scripts/poky-qemu-internal
-> +++ b/scripts/poky-qemu-internal
-> @@ -436,10 +436,24 @@ else
->       echo "Warning: distccd not present, no distcc support loaded."
->   fi
->
-> +# qemu got segfault if linked with nVidia's libgl
-> +GL_LD_PRELOAD=$LD_PRELOAD
-> +
-> +if ldd $QEMUBIN | grep -i nvidia&>  /dev/null
-> +then
-> +    echo "************** !!!Warning!!! **************
-> +    You installed nVidia's libGL.so that probably lead qemu segfault!
-> +    Pls. uninstall proprietary nVidia driver or make mesa libgl precede nvidia's."
-> +
-> +    # To avoid segfault of qemu, skip nVidia's libGL and use mesa's instead
-> +    echo "Skip nVidia's libGL!"
+> diff --git a/documentation/adt-manual/adt-eclipse.xml b/documentation/adt-manual/adt-eclipse.xml
+> index d41f496..7c0ee06 100644
+> --- a/documentation/adt-manual/adt-eclipse.xml
+> +++ b/documentation/adt-manual/adt-eclipse.xml
+> @@ -78,8 +78,9 @@
+>       <title>Installing Required Plug-ins and the Eclipse Yocto Plug-in</title>
+>           <para>
+>               Before installing the Yocto Plug-in you need to be sure that the
+> -            CDT 7.0 and RSE 3.2 plug-ins are all installed.
+> -            After installing these two plug-ins, you can install the
+> +            CDT 7.0, RSE 3.2, and Autotools plug-ins are all installed in the
+> +            following order.
+> +            After installing these three plug-ins, you can install the
+>               Eclipse Yocto Plug-in.
+>               Use the following URLs for the plug-ins:
+>               <orderedlist>
+> @@ -97,6 +98,10 @@
+>                   select the following:  “Remote System Explorer End-User Runtime”,
+>                   “Remote System Explorer Extended SDK”, “Remote System Explorer User Actions”,
 
-No need for two separate messages here, consider:
 
-cat <<EOM
-************** !!! Warning !!! **************
-nVidia's proprietary OpenGL libraries are known to have compatibility 
-issues with qemu, resulting in a segfault. Please uninstall these 
-drivers or ensure the mesa libGL libraries precede nvidia's.
-
-Attempting to use mesa's libGL.so via GL_LD_PRELOAD."
-EOM
+What are all these characters?
 
 --
 Darren
 
-> +    GL_LD_PRELOAD="/usr/lib/libGL.so $LD_PRELOAD"
-> +fi
-> +
->   echo "Running $QEMU..."
->   # -no-reboot is a mandatory option - see bug #100
->   echo $QEMUBIN -kernel $KERNEL $QEMUOPTIONS $SERIALOPTS -no-reboot $SCRIPT_QEMU_OPT $SCRIPT_QEMU_EXTRA_OPT --append '"'$KERNCMDLINE $SCRIPT_KERNEL_OPT'"'
-> -$QEMUBIN -kernel $KERNEL $QEMUOPTIONS $SERIALOPTS -no-reboot $SCRIPT_QEMU_OPT $SCRIPT_QEMU_EXTRA_OPT --append "$KERNCMDLINE $SCRIPT_KERNEL_OPT" || /bin/true
-> +LD_PRELOAD="$GL_LD_PRELOAD" $QEMUBIN -kernel $KERNEL $QEMUOPTIONS $SERIALOPTS -no-reboot $SCRIPT_QEMU_OPT $SCRIPT_QEMU_EXTRA_OPT --append "$KERNCMDLINE $SCRIPT_KERNEL_OPT" || /bin/true
+>                   “RSE Core”, “RSE Terminals UI”, and “Target Management Terminal”.</para></listitem>
+> +<listitem><para><emphasis>Autotools</emphasis>  –
+> +<ulink url='http://www.download.eclipse.org/technology/linuxtools/update/'></ulink>:
+> +                Expand the items under “Linux Tools” and select “Autotools support for
+> +                CDT (Incubation)”.</para></listitem>
+>                   <listitem><para><emphasis>Yocto Plug-in</emphasis>  –
+>                   <ulink url='http://www.yoctoproject.org/downloads/eclipse-plugin/'></ulink>:
+>                   Check the box next to “Development tools&amp; SDKs for Yocto Linux”
 >
->   cleanup
 >
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
 -- 
 Darren Hart
