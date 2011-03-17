@@ -1,35 +1,20 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 69EDB4C800A4
-	for <poky@yoctoproject.org>; Thu, 17 Mar 2011 06:48:50 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2HBmiac020344;
-	Thu, 17 Mar 2011 11:48:44 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 20284-01; Thu, 17 Mar 2011 11:48:41 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2HBmWNX020338
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Thu, 17 Mar 2011 11:48:36 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Patches and discussions about the oe-core layer
-	<openembedded-core@lists.openembedded.org>
-In-Reply-To: <46D5E03C-9927-4F57-A6AC-7024B8478E1C@dominion.thruhere.net>
-References: <cover.1299891748.git.sgw@linux.intel.com>
-	<4D7ACD9C.3010002@linux.intel.com>
-	<20110312023140.GA4829@sakrah.homelinux.org>
-	<201103141151.12235.paul.eggleton@linux.intel.com>
-	<46D5E03C-9927-4F57-A6AC-7024B8478E1C@dominion.thruhere.net>
-Date: Thu, 17 Mar 2011 11:48:18 +0000
-Message-ID: <1300362499.30423.1931.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: Paul Eggleton <paul.eggleton@linux.intel.com>, poky@yoctoproject.org
-Subject: Re: [OE-core] [PATCH 0/1] gnu-config make sure we use perl-native
+Return-Path: <edwin.zhai@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 22DD84C80578
+	for <poky@yoctoproject.org>; Thu, 17 Mar 2011 07:20:06 -0500 (CDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 17 Mar 2011 05:20:05 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.63,198,1299484800"; d="scan'208";a="668271232"
+Received: from gw-vmm.sh.intel.com (HELO localhost) ([10.239.48.224])
+	by fmsmga002.fm.intel.com with ESMTP; 17 Mar 2011 05:20:04 -0700
+Message-Id: <cover.1300352186.git.edwin.zhai@intel.com>
+Old-Date: Thu, 17 Mar 2011 16:56:26 +0800
+Date: Thu, 17 Mar 2011 20:22:45 +0800
+To: poky@yoctoproject.org
+CC: 
+From: Zhai Edwin <edwin.zhai@intel.com>
+Subject: [PATCH 0/1] v2 fix qemu segfault with nVidia proprietary driver
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,33 +26,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 17 Mar 2011 11:48:51 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 17 Mar 2011 12:20:06 -0000
 
-On Mon, 2011-03-14 at 13:18 +0100, Koen Kooi wrote:
-> Op 14 mrt 2011, om 12:51 heeft Paul Eggleton het volgende geschreven:
-> 
-> > On Saturday 12 March 2011 02:31:40 Khem Raj wrote:
-> >>> Back to the drawing board on why the miss-match is occuring in
-> >>> Config.pm then.
-> >> 
-> >> somewhere there is /usr/bin/perl referred may be a cross recipe ?
-> > 
-> > I've hit this issue this morning, and have filed a bug report:
-> > 
-> >  http://bugzilla.pokylinux.org/show_bug.cgi?id=866
-> > 
-> > Not sure if it helps but at least it should be easy to reproduce.
-> 
-> I haven't checked if the OE .dev and OE core gnu-config are similar, but have a look at:
-> 
-> http://cgit.openembedded.org/cgit.cgi/openembedded/commit/?id=be21179c5321bd0afb9221f020ac12ad75c86a3b
-> http://cgit.openembedded.org/cgit.cgi/openembedded/commit/?id=edcdefbf6e0675c1bcc1fc4f464f654223380e50
-> 
+From: Zhai Edwin <edwin.zhai@intel.com>
 
-I'm going to merge these into OE.core, thanks.
+Saul,
+This is v2 version according to comments from Mark.
 
-Richard
+thanks,
+edwin
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: gzhai/fix2
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=gzhai/fix2
+
+Thanks,
+    Zhai Edwin <edwin.zhai@intel.com>
+---
+
+
+Zhai Edwin (1):
+  qemu: Use mesa's libGL rather than nVidia's to avoid segfault of qemu
+
+ scripts/poky-qemu-internal |   16 +++++++++++++++-
+ 1 files changed, 15 insertions(+), 1 deletions(-)
 
 
