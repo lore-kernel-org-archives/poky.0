@@ -1,22 +1,21 @@
-Return-Path: <edwin.zhai@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C43B14C805A8
-	for <poky@yoctoproject.org>; Thu, 17 Mar 2011 07:20:18 -0500 (CDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 17 Mar 2011 05:20:16 -0700
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D6AF24C800A4
+	for <poky@yoctoproject.org>; Thu, 17 Mar 2011 08:43:10 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 17 Mar 2011 06:43:10 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,198,1299484800"; d="scan'208";a="898235067"
-Received: from gw-vmm.sh.intel.com (HELO localhost) ([10.239.48.224])
-	by fmsmga001.fm.intel.com with ESMTP; 17 Mar 2011 05:20:06 -0700
-Message-Id: <f596757000465a4b8350e16f21553a23b8bbedfa.1300352186.git.edwin.zhai@intel.com>
-In-Reply-To: <cover.1300352186.git.edwin.zhai@intel.com>
-References: <cover.1300352186.git.edwin.zhai@intel.com>
-Old-Date: Thu, 17 Mar 2011 15:47:06 +0800
-Date: Thu, 17 Mar 2011 20:22:46 +0800
-To: poky@yoctoproject.org
-CC: 
-From: Zhai Edwin <edwin.zhai@intel.com>
-Subject: [PATCH 1/1] qemu: Use mesa's libGL rather than nVidia's to avoid segfault of qemu
+X-IronPort-AV: E=Sophos;i="4.63,199,1299484800"; d="scan'208";a="614163461"
+Received: from unknown (HELO [10.255.12.146]) ([10.255.12.146])
+	by orsmga002.jf.intel.com with ESMTP; 17 Mar 2011 06:43:05 -0700
+Message-ID: <4D820FC5.90509@linux.intel.com>
+Date: Thu, 17 Mar 2011 06:42:29 -0700
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.14) Gecko/20110223 Lightning/1.0b2 Thunderbird/3.1.8
+MIME-Version: 1.0
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Git commit messages
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,54 +27,19 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 17 Mar 2011 12:20:18 -0000
+X-List-Received-Date: Thu, 17 Mar 2011 13:43:11 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Zhai Edwin <edwin.zhai@intel.com>
+Just a reminder to folks. Please remember to line wrap your git commit 
+messages at 80 chars or less. Aside from make the pull requests easier 
+to consume on mailing lists, extra long lines don't work well with "git 
+log" as it doesn't re-wrap them, it just truncates the lines.
 
-Proprietary nVidia driver introduce its own libGL that precede mesa's.
-qemu has segfault if linked with it. This fix try to use mesa's libGL
-if ldd find qemu linked with nVidia libGL.
+Thanks,
 
-[YOCTO #649]
-[YOCTO #698]
-
-
-Signed-off-by: Zhai Edwin <edwin.zhai@intel.com>
----
- scripts/poky-qemu-internal |   16 +++++++++++++++-
- 1 files changed, 15 insertions(+), 1 deletions(-)
-
-diff --git a/scripts/poky-qemu-internal b/scripts/poky-qemu-internal
-index 3638a65..1f09fe7 100755
---- a/scripts/poky-qemu-internal
-+++ b/scripts/poky-qemu-internal
-@@ -436,10 +436,24 @@ else
-     echo "Warning: distccd not present, no distcc support loaded."
- fi
- 
-+# qemu got segfault if linked with nVidia's libgl
-+GL_LD_PRELOAD=$LD_PRELOAD
-+
-+if ldd $QEMUBIN | grep -i nvidia &> /dev/null
-+then
-+    echo "************** !!!Warning!!! **************
-+    You installed nVidia's libGL.so that probably lead qemu segfault!
-+    Pls. uninstall proprietary nVidia driver or make mesa libgl precede nvidia's."
-+
-+    # To avoid segfault of qemu, skip nVidia's libGL and use mesa's instead
-+    echo "Skip nVidia's libGL!"
-+    GL_LD_PRELOAD="/usr/lib/libGL.so $LD_PRELOAD"
-+fi
-+
- echo "Running $QEMU..."
- # -no-reboot is a mandatory option - see bug #100
- echo $QEMUBIN -kernel $KERNEL $QEMUOPTIONS $SERIALOPTS -no-reboot $SCRIPT_QEMU_OPT $SCRIPT_QEMU_EXTRA_OPT --append '"'$KERNCMDLINE $SCRIPT_KERNEL_OPT'"'
--$QEMUBIN -kernel $KERNEL $QEMUOPTIONS $SERIALOPTS -no-reboot $SCRIPT_QEMU_OPT $SCRIPT_QEMU_EXTRA_OPT --append "$KERNCMDLINE $SCRIPT_KERNEL_OPT" || /bin/true
-+LD_PRELOAD="$GL_LD_PRELOAD" $QEMUBIN -kernel $KERNEL $QEMUOPTIONS $SERIALOPTS -no-reboot $SCRIPT_QEMU_OPT $SCRIPT_QEMU_EXTRA_OPT --append "$KERNCMDLINE $SCRIPT_KERNEL_OPT" || /bin/true
- 
- cleanup
- 
 -- 
-1.7.1
-
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
