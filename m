@@ -1,22 +1,22 @@
 Return-Path: <scott.m.rifenbark@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E498B4C80578
-	for <poky@yoctoproject.org>; Fri, 18 Mar 2011 11:58:47 -0500 (CDT)
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C95E34C80AB4
+	for <poky@yoctoproject.org>; Fri, 18 Mar 2011 11:58:54 -0500 (CDT)
 Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 18 Mar 2011 09:58:47 -0700
+	by azsmga101.ch.intel.com with ESMTP; 18 Mar 2011 09:58:54 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,206,1299484800"; d="scan'208";a="404782142"
+X-IronPort-AV: E=Sophos;i="4.63,206,1299484800"; d="scan'208";a="404782163"
 Received: from unknown (HELO localhost) ([10.255.12.172])
-	by azsmga001.ch.intel.com with ESMTP; 18 Mar 2011 09:58:46 -0700
-Message-Id: <31dcbb19fde437effdc0cfc55119735077544b6b.1300467410.git.scott.m.rifenbark@intel.com>
+	by azsmga001.ch.intel.com with ESMTP; 18 Mar 2011 09:58:50 -0700
+Message-Id: <e00a2cad9a642d219a350180fcdd04202272e24a.1300467410.git.scott.m.rifenbark@intel.com>
 In-Reply-To: <cover.1300467410.git.scott.m.rifenbark@intel.com>
 References: <cover.1300467410.git.scott.m.rifenbark@intel.com>
-Old-Date: Wed, 16 Mar 2011 22:50:06 -0600
-Date: Fri, 18 Mar 2011 10:59:38 -0600
+Old-Date: Thu, 17 Mar 2011 08:32:48 -0600
+Date: Fri, 18 Mar 2011 10:59:43 -0600
 To: poky@yoctoproject.org
 CC: 
 From: <scott.m.rifenbark@intel.com>
-Subject: [PATCH 01/15] [BUGID# 873] - documentation/poky-ref-manual: Notes added for non-GPLv3 builds
+Subject: [PATCH 04/15] documentation/poky-ref-manual/style.css: Updated to match other manuals
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,72 +28,105 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 Mar 2011 16:58:48 -0000
+X-List-Received-Date: Fri, 18 Mar 2011 16:58:55 -0000
 
 From: Scott Rifenbark <scott.m.rifenbark@intel.com>
 
-[BUGID# 873] - Added a note in the Images Appendix indicating that
-building an image without GPLv3 components is only supported for
-base and minimal images.  Also put the two changes you have to do
-to the local.conf file for the build.
-
-Added a note in the second chapter in the section on building images.
-The note indicates the same as in the appendix but does not go into the
-local.conf file detail.
+I have updated some styles so that the GIT manuals are looking more
+consistent and have better color schemes for the section headings.
 
 Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
 ---
- documentation/poky-ref-manual/ref-images.xml |   12 ++++++++++++
- documentation/poky-ref-manual/usingpoky.xml  |    7 ++++++-
- 2 files changed, 18 insertions(+), 1 deletions(-)
+ documentation/poky-ref-manual/style.css |   22 ++++++++++++++--------
+ 1 files changed, 14 insertions(+), 8 deletions(-)
 
-diff --git a/documentation/poky-ref-manual/ref-images.xml b/documentation/poky-ref-manual/ref-images.xml
-index 9477883..03cc624 100644
---- a/documentation/poky-ref-manual/ref-images.xml
-+++ b/documentation/poky-ref-manual/ref-images.xml
-@@ -13,6 +13,18 @@
-         Images are listed below along with details of what they contain:
-     </para>
+diff --git a/documentation/poky-ref-manual/style.css b/documentation/poky-ref-manual/style.css
+index 3564aff..138d485 100644
+--- a/documentation/poky-ref-manual/style.css
++++ b/documentation/poky-ref-manual/style.css
+@@ -50,9 +50,13 @@ body {
+   color: #333;
+ }
  
-+    <note>
-+        Building an image without GNU Public License Version 3 (GPLv3) components is 
-+        only supported for minimal and base images.
-+        Furthermore, if you are going to build an image using non-GPLv3 components,
-+        you must make the following changes in the <filename>local.conf</filename> file
-+        before using the BitBake command to build the minimal or base image:
-+        <literallayout class='monospaced'>
-+     1. Comment out the IMAGE_EXTRA_FEATURES line
-+     2. Set INCOMPATIBLE_LICENSE = "GPLv3"
-+        </literallayout>
-+    </note>
++.reviewer {
++  color: red;
++}
 +
-     <itemizedlist>
-             <listitem>
-                 <para>
-diff --git a/documentation/poky-ref-manual/usingpoky.xml b/documentation/poky-ref-manual/usingpoky.xml
-index 79e9dfb..aecefd3 100644
---- a/documentation/poky-ref-manual/usingpoky.xml
-+++ b/documentation/poky-ref-manual/usingpoky.xml
-@@ -151,13 +151,18 @@
-     </para>
-     <para>
-         The target is the name of the recipe you want to build. 
--        Common targets are the images in <filename>meta/recipes-core/images</filename>),
-+        Common targets are the images in <filename>meta/recipes-core/images</filename>,
-         <filename>/meta/recipes-sato/images</filename>, etc.
-         Or, the target can be the name of a recipe for a specific piece of software such as 
-         <application>busybox</application>. 
-         For more details about the standard images available, see the 
-         <link linkend="ref-images">'Reference: Images'</link> appendix.
-     </para>
-+    <note>
-+        Building an image without GNU Public License Version 3 (GPLv3) components is 
-+        only supported for minimal and base images.
-+        See <link linkend='ref-images'>'Reference: Images'</link> for more information.
-+    </note>
- </section>
+ h1,h2,h3,h4,h5,h6,h7 {
+   font-family: Arial, Sans;
+-  color:#999999;
++  color: #00557D;
+   clear: both;
+ }
  
- <section id='usingpoky-install'>
+@@ -76,7 +80,7 @@ h2 {
+   margin: 2em 0em 0.66em 0em;
+   padding: 0.5em 0em 0em 0em;
+   font-size: 1.5em;
+-  font-weight: normal;
++  font-weight: bold;
+ }
+ 
+ h3.subtitle {
+@@ -90,28 +94,28 @@ h3 {
+   margin: 1em 0em 0.5em 0em;
+   padding: 1em 0em 0em 0em;
+   font-size: 140%;
+-  font-weight: normal;
++  font-weight: bold;
+ }
+ 
+ h4 {
+   margin: 1em 0em 0.5em 0em;
+   padding: 1em 0em 0em 0em;
+   font-size: 120%;
+-  font-weight: normal;
++  font-weight: bold;
+ }
+ 
+ h5 {
+   margin: 1em 0em 0.5em 0em;
+   padding: 1em 0em 0em 0em;
+-  font-size: 110.000%;
+-  border-bottom: 1px solid black;
++  font-size: 110%;
++  font-weight: bold;
+ }
+ 
+ h6 {
+   margin: 1em 0em 0em 0em;
+   padding: 1em 0em 0em 0em;
+   font-size: 80%;
+-  font-weight: normal;
++  font-weight: bold;
+ }
+ 
+ .authorgroup {
+@@ -132,6 +136,7 @@ h3.author {
+   padding: 0em 0em 0em 0em;
+   font-weight: normal;
+   font-size: 100%;
++  color: #333;
+   clear: both;
+ }
+ 
+@@ -154,6 +159,7 @@ h3.author {
+ .list-of-examples,
+ .list-of-figures {
+   padding: 1.33em 0em 2.5em 0em;
++  color: #00557D;
+ }
+ 
+ .toc p,
+@@ -930,7 +936,7 @@ table {
+ 
+ .tip,
+ .note {
+-   background: #91ae35;
++   background: #666666;
+    color: #fff;   
+    padding: 20px;
+    margin: 20px;
 -- 
 1.7.1
 
