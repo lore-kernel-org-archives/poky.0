@@ -1,31 +1,30 @@
 Return-Path: <richard.purdie@linuxfoundation.org>
 Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
 	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 111354C80AB3
-	for <poky@yoctoproject.org>; Fri, 18 Mar 2011 11:45:41 -0500 (CDT)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8A4154C80AB9
+	for <poky@yoctoproject.org>; Fri, 18 Mar 2011 11:46:22 -0500 (CDT)
 Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2IGgWvc008890;
-	Fri, 18 Mar 2011 16:42:32 GMT
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2IGkKl1009015;
+	Fri, 18 Mar 2011 16:46:20 GMT
 Received: from tim.rpsys.net ([127.0.0.1])
 	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
 	port 10024) with LMTP
-	id 08466-07; Fri, 18 Mar 2011 16:42:28 +0000 (GMT)
+	id 08749-06; Fri, 18 Mar 2011 16:46:16 +0000 (GMT)
 Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2IGgMFw008884
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2IGkBwC009008
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Fri, 18 Mar 2011 16:42:23 GMT
+	Fri, 18 Mar 2011 16:46:12 GMT
 From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Gerard van den Bosch <gerard@de-haardt.com>
-In-Reply-To: <4D837763.7060009@de-haardt.com>
-References: <4D83700C.1000402@de-haardt.com>
-	<1300460171.30423.2202.camel@rex>  <4D837763.7060009@de-haardt.com>
-Date: Fri, 18 Mar 2011 16:42:05 +0000
-Message-ID: <1300466525.30423.2204.camel@rex>
+To: Joshua Lock <josh@linux.intel.com>
+In-Reply-To: <cover.1300455487.git.josh@linux.intel.com>
+References: <cover.1300455487.git.josh@linux.intel.com>
+Date: Fri, 18 Mar 2011 16:45:55 +0000
+Message-ID: <1300466755.30423.2207.camel@rex>
 Mime-Version: 1.0
 X-Mailer: Evolution 2.28.3 
 X-Virus-Scanned: amavisd-new at rpsys.net
 Cc: poky@yoctoproject.org
-Subject: Re: problem with serial interface laverne
+Subject: Re: [PATCH 0/1] Sanity check for duplicate PACKAGE_ARCHS
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,42 +36,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 Mar 2011 16:45:42 -0000
+X-List-Received-Date: Fri, 18 Mar 2011 16:46:23 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On Fri, 2011-03-18 at 16:16 +0100, Gerard van den Bosch wrote:
-> On 03/18/2011 03:56 PM, Richard Purdie wrote:
-> > On Fri, 2011-03-18 at 15:45 +0100, Gerard van den Bosch wrote:
-> >> Hello,
-> >>
-> >> I have changed from green to laverne release.
-> >> But now I have a problem with the serial interface.
-> >> The booting process goes good but when asked for the login name I can
-> >> enter root and press enter.
-> >> Then I am presented with the shell but can't type anything anymore, only
-> >> some enters seem to get through.
-> >> Is there changed anything concerning the serial interface and or
-> >> settings for this in the laverne release?
-> >>
-> >> I have kept my machine settings and kernel the same.
-> > I'm reminded of this bug:
-> >
-> > http://git.yoctoproject.org/cgit.cgi/poky/commit/?id=97d80dd99021d975f40304f8327c330fe1a1f71b
-> >
-> > Could you try that and let us know if it helps?
-> >
-> > If so, I'll ensure we add that the laverne branch so it would make any
-> > future point release of laverne.
-> >
-> > Cheers,
-> >
-> > Richard
-> >
-> This fixes the problem, thanks!
+On Fri, 2011-03-18 at 13:41 +0000, Joshua Lock wrote:
+> From: Joshua Lock <josh@linux.intel.com>
+> 
+> I have had some pain this morning caused by duplicated entries in my
+> PACKAGE_ARCHS variable. After Richard helped me debug this he suggest we
+> add a sanity check for this issue.
+> 
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>   Branch: josh/bernard
+>   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=josh/bernard
+> 
+> Thanks,
+>     Joshua Lock <josh@linux.intel.com>
+> ---
+> 
+> 
+> Joshua Lock (1):
+>   sanity.bbclass: check for duplicates in PACKAGE_ARCHS
+> 
+>  meta/classes/sanity.bbclass |   13 +++++++++++++
+>  1 files changed, 13 insertions(+), 0 deletions(-)
 
-I've added the fix to the laverne branch, thanks.
+Merged into master, not sure this will make bernard at this point but
+its good to have the check.
+
+Cheers,
 
 Richard
+
 
 
