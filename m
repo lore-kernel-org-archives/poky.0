@@ -1,22 +1,22 @@
 Return-Path: <scott.m.rifenbark@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 788604C80AB0
-	for <poky@yoctoproject.org>; Fri, 18 Mar 2011 07:54:43 -0500 (CDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 18 Mar 2011 05:54:43 -0700
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id A67334C804B8
+	for <poky@yoctoproject.org>; Fri, 18 Mar 2011 08:03:30 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 18 Mar 2011 06:03:25 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,205,1299484800"; d="scan'208";a="898650586"
+X-IronPort-AV: E=Sophos;i="4.63,205,1299484800"; d="scan'208";a="721593633"
 Received: from unknown (HELO localhost) ([10.255.12.172])
-	by fmsmga001.fm.intel.com with ESMTP; 18 Mar 2011 05:54:43 -0700
-Message-Id: <899628c8b8b2d31b824ad5a9014521fc899a180e.1300452791.git.scott.m.rifenbark@intel.com>
-In-Reply-To: <cover.1300452791.git.scott.m.rifenbark@intel.com>
-References: <cover.1300452791.git.scott.m.rifenbark@intel.com>
-Old-Date: Thu, 17 Mar 2011 13:35:27 -0600
-Date: Fri, 18 Mar 2011  6:55:35 -0600
+	by orsmga001.jf.intel.com with ESMTP; 18 Mar 2011 06:03:24 -0700
+Message-Id: <e58b1befa6d01dbc752fb1d7b27aaa7922d1d493.1300453334.git.scott.m.rifenbark@intel.com>
+In-Reply-To: <cover.1300453334.git.scott.m.rifenbark@intel.com>
+References: <cover.1300453334.git.scott.m.rifenbark@intel.com>
+Old-Date: Thu, 17 Mar 2011 14:00:27 -0600
+Date: Fri, 18 Mar 2011  7:04:17 -0600
 To: poky@yoctoproject.org
 CC: 
 From: <scott.m.rifenbark@intel.com>
-Subject: [PATCH 4/4] documentation/bsp-guide/bsp.xml: Spell check
+Subject: [PATCH 2/2] documentation/kernel-manual/kernel-how-to.xml: Spell checked
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,58 +28,48 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 Mar 2011 12:54:43 -0000
+X-List-Received-Date: Fri, 18 Mar 2011 13:03:30 -0000
 
 From: Scott Rifenbark <scott.m.rifenbark@intel.com>
 
-Performed a spell check and caught a couple small things.
+Performed a spell check and found a couple items.
 
 Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
 ---
- documentation/bsp-guide/bsp.xml |    9 +++++----
- 1 files changed, 5 insertions(+), 4 deletions(-)
+ documentation/kernel-manual/kernel-how-to.xml |    6 +++---
+ 1 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/documentation/bsp-guide/bsp.xml b/documentation/bsp-guide/bsp.xml
-index ba6ad74..36715f3 100644
---- a/documentation/bsp-guide/bsp.xml
-+++ b/documentation/bsp-guide/bsp.xml
-@@ -160,7 +160,7 @@ meta-&lt;bsp_name&gt;/binary/&lt;bootable_images&gt;
-             </programlisting>
- 
-             <para>
--                This optional area contains useful pre-built kernels and userspace filesystem 
-+                This optional area contains useful pre-built kernels and user-space filesystem 
-                 images appropriate to the target system.
-                 This directory contains the Application Development Toolkit (ADT) and minimal
-                 live images when the BSP is has been "tar-balled" and placed on the Yocto Project website. 
-@@ -391,7 +391,8 @@ SRC_URI += "file://defconfig \
-                 </programlisting>
-             </para>
-             <para>
--                The FILESEXTRAPATHS variable is boilerplated here in order to make it easy to do that.
-+                The FILESEXTRAPATHS variable is in boilerplate form here in order to make it easy 
-+                to do that.
-                 It basically allows those configuration files to be found by the build process.
-             </para>
-             <note><para>
-@@ -539,7 +540,7 @@ FILESEXTRAPATHS := "${THISDIR}/${PN}"
-               will make available a 'de-featured' BSP completely free of the encumbered IP.
-               In that case you can use the substitution directly and without any further licensing
-               requirements.  
--              If present, this fully 'de-featured' BSP will be named appropiately different 
-+              If present, this fully 'de-featured' BSP will be named appropriately different 
-               than the normal encumbered BSP.
-               If available, this substitution is the simplest and most preferred option.
-               This, of course, assumes the resulting functionality meets requirements.
-@@ -562,7 +563,7 @@ FILESEXTRAPATHS := "${THISDIR}/${PN}"
- 
- 		<para>
- 		  Get a license key (or keys) for the encumbered BSP by visiting 
--                  a website and providing the name of the BSB and your email address
-+                  a website and providing the name of the BSP and your email address
-                   through a web form.
+diff --git a/documentation/kernel-manual/kernel-how-to.xml b/documentation/kernel-manual/kernel-how-to.xml
+index 3ca1746..79c8526 100644
+--- a/documentation/kernel-manual/kernel-how-to.xml
++++ b/documentation/kernel-manual/kernel-how-to.xml
+@@ -475,7 +475,7 @@ repository.
+                 <para>
+                     You can use many other comparisons to isolate BSP changes.
+                     For example, you can compare against kernel.org tags (e.g. v2.6.27.18, etc), or
+-                    you can compare agains subsystems (e.g. git whatchanged mm).
++                    you can compare against subsystems (e.g. git whatchanged mm).
                  </para>
-  
+             </section>
+         </section>
+@@ -600,7 +600,7 @@ repository.
+                 <para>
+                     Distributed development with git is possible when you use a universally 
+                     agreed-upon unique commit identifier (set by the creator of the commit) that maps to a
+-                    specific changeset with a specific parent.  
++                    specific change set with a specific parent.  
+                     This identifier is created for you when
+                     you create a commit, and is re-created when you amend, alter or re-apply
+                     a commit.  
+@@ -1059,7 +1059,7 @@ That's it. Configure and build.
+                         (linux-yocto is the kernel listed in
+                         <filename>meta-emenlow/conf/machine/emenlow.conf</filename>)</para></listitem>.
+                         <listitem><para>Add a new entry in the <filename>build/conf/bblayers.conf</filename> 
+-                        so the new layer can be found by Bitbake.</para></listitem>
++                        so the new layer can be found by BitBake.</para></listitem>
+                     </itemizedlist>
+                 </para></listitem>
+                 
 -- 
 1.7.1
 
