@@ -1,21 +1,21 @@
 Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C604E4C80AAF
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D694F4C804CA
 	for <poky@yoctoproject.org>; Fri, 18 Mar 2011 11:24:16 -0500 (CDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 18 Mar 2011 09:24:16 -0700
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 18 Mar 2011 09:24:16 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,205,1299484800"; d="scan'208";a="898712921"
+X-IronPort-AV: E=Sophos;i="4.63,205,1299484800"; d="scan'208";a="404761678"
 Received: from nbuild2.sc.intel.com (HELO localhost) ([172.25.110.37])
-	by fmsmga001.fm.intel.com with ESMTP; 18 Mar 2011 09:24:16 -0700
-Message-Id: <d551d658a7848658f5b664c08fb0a0840369d1bc.1300465259.git.nitin.a.kamble@intel.com>
+	by azsmga001.ch.intel.com with ESMTP; 18 Mar 2011 09:24:16 -0700
+Message-Id: <af43d8b8c40bfcf3dd1dd6592242afab33aec37d.1300465259.git.nitin.a.kamble@intel.com>
 In-Reply-To: <cover.1300465259.git.nitin.a.kamble@intel.com>
 References: <cover.1300465259.git.nitin.a.kamble@intel.com>
-Old-Date: Wed, 16 Mar 2011 13:53:36 -0700
-Date: Fri, 18 Mar 2011  9:24:16 -0700
+Old-Date: Wed, 16 Mar 2011 15:10:47 -0700
+Date: Fri, 18 Mar 2011  9:24:15 -0700
 To: poky@yoctoproject.org,openembedded-core@lists.openembedded.org
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Subject: [PATCH 3/7] poky.conf: add additional Libraries to the LGPLv2 Whitelist
+Subject: [PATCH 1/7] extended tasks: move binutils from basic to lsb
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,32 +27,51 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 Mar 2011 16:24:16 -0000
+X-List-Received-Date: Fri, 18 Mar 2011 16:24:17 -0000
 
 From: Saul Wold <sgw@linux.intel.com>
 
-The ligcc and gcc-runtime both are LGPLv2 libraries although they
-are part of the large GCC GPLv3 code. There is clearly called out
-exceptions for these libraries.
-
 Signed-off-by: Saul Wold <sgw@linux.intel.com>
 ---
- meta/conf/distro/poky.conf |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ meta/recipes-extended/tasks/task-poky-basic.bb |    2 --
+ meta/recipes-extended/tasks/task-poky-lsb.bb   |    3 +--
+ 2 files changed, 1 insertions(+), 4 deletions(-)
 
-diff --git a/meta/conf/distro/poky.conf b/meta/conf/distro/poky.conf
-index 71e40de..eee12b7 100644
---- a/meta/conf/distro/poky.conf
-+++ b/meta/conf/distro/poky.conf
-@@ -131,7 +131,7 @@ EXTRAOPKGCONFIG = "poky-feed-config-opkg"
- # directly part of the distribution. 
- HOSTTOOLS_WHITELIST_GPLv3 ?= ""
- WHITELIST_GPLv3 ?= "less gnome-common"
--LGPLv2_WHITELIST_GPLv3 ?= "libassuan gnutls libtasn1 libidn" 
-+LGPLv2_WHITELIST_GPLv3 ?= "libassuan gnutls libtasn1 libidn libgcc gcc-runtime" 
+diff --git a/meta/recipes-extended/tasks/task-poky-basic.bb b/meta/recipes-extended/tasks/task-poky-basic.bb
+index d7beafe..93aeeef 100644
+--- a/meta/recipes-extended/tasks/task-poky-basic.bb
++++ b/meta/recipes-extended/tasks/task-poky-basic.bb
+@@ -100,7 +100,6 @@ RDEPENDS_task-poky-basic-extended = "\
+     module-init-tools \
+     openssl \
+     "
+-#    openssh
  
- # This is a list of packages that require a commercial license to ship
- # product. If shipped as part of an image these packages may have 
+ RDEPENDS_task-poky-dev-utils = "\
+     byacc \
+@@ -108,7 +107,6 @@ RDEPENDS_task-poky-dev-utils = "\
+     m4 \
+     make \
+     patch \
+-    binutils \
+     "
+ 
+ RDEPENDS_task-poky-initscripts = "\
+diff --git a/meta/recipes-extended/tasks/task-poky-lsb.bb b/meta/recipes-extended/tasks/task-poky-lsb.bb
+index 42fd8e0..16cb9a6 100644
+--- a/meta/recipes-extended/tasks/task-poky-lsb.bb
++++ b/meta/recipes-extended/tasks/task-poky-lsb.bb
+@@ -52,9 +52,8 @@ RDEPENDS_task-poky-lsb = "\
+     task-poky-lsb-command-add \
+     "
+ 
+-#
+-# GPLv2 Should List
+ RDEPENDS_task-poky-sys-extended = "\
++    binutils \
+     chkconfig \
+     curl \
+     dhcp-client \
 -- 
 1.7.3.4
 
