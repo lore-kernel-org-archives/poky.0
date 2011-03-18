@@ -1,21 +1,21 @@
 Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7B5284C80AAF
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 9D7754C80ABD
 	for <poky@yoctoproject.org>; Fri, 18 Mar 2011 11:24:17 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 18 Mar 2011 09:24:17 -0700
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 18 Mar 2011 09:24:17 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,205,1299484800"; d="scan'208";a="404761690"
+X-IronPort-AV: E=Sophos;i="4.63,205,1299484800"; d="scan'208";a="668756710"
 Received: from nbuild2.sc.intel.com (HELO localhost) ([172.25.110.37])
-	by azsmga001.ch.intel.com with ESMTP; 18 Mar 2011 09:24:17 -0700
-Message-Id: <cc66cf92d7818af44e24f6ba0a5615e3e5e8ad44.1300465259.git.nitin.a.kamble@intel.com>
+	by fmsmga002.fm.intel.com with ESMTP; 18 Mar 2011 09:24:17 -0700
+Message-Id: <9c41d034df42b02cfd12da9644e1dac65135d07f.1300465259.git.nitin.a.kamble@intel.com>
 In-Reply-To: <cover.1300465259.git.nitin.a.kamble@intel.com>
 References: <cover.1300465259.git.nitin.a.kamble@intel.com>
-Old-Date: Thu, 17 Mar 2011 10:25:04 -0700
+Old-Date: Tue, 15 Mar 2011 13:18:04 -0700
 Date: Fri, 18 Mar 2011  9:24:17 -0700
 To: poky@yoctoproject.org,openembedded-core@lists.openembedded.org
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Subject: [PATCH 6/7] coreutils-6.9: fix man page building for the gplv2 recipe
+Subject: [PATCH 7/7] util-linux: Setup for GPLv2 Recipe
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,142 +29,222 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Fri, 18 Mar 2011 16:24:17 -0000
 
-From: Nitin A Kamble <nitin.a.kamble@intel.com>
+From: Saul Wold <sgw@linux.intel.com>
 
-Added a new patch:
-   coreutils-6.9/fix_for_manpage_building.patch
-And the target recipe now depends on the native recipe for the manpage
-generation.
+ * add task to remove the GPLv3 lscpu code
+ * Add patch to remove the reference to lscpu in Makfiles
 
-Similar fix may be needed to the GPLv3 version of this recipe.
-
+Signed-off-by: Saul Wold <sgw@linux.intel.com>
 Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
+Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
 ---
- .../coreutils-6.9/fix_for_manpage_building.patch   |   83 ++++++++++++++++++++
- meta/recipes-core/coreutils/coreutils_6.9.bb       |   10 ++-
- 2 files changed, 90 insertions(+), 3 deletions(-)
- create mode 100644 meta/recipes-core/coreutils/coreutils-6.9/fix_for_manpage_building.patch
+ .../util-linux-2.17.2/remove-lscpu.patch           |  101 ++++++++++++++++++++
+ meta/recipes-core/util-linux/util-linux.inc        |   14 +--
+ meta/recipes-core/util-linux/util-linux_2.17.2.bb  |   31 ++++++-
+ 3 files changed, 137 insertions(+), 9 deletions(-)
+ create mode 100644 meta/recipes-core/util-linux/util-linux-2.17.2/remove-lscpu.patch
 
-diff --git a/meta/recipes-core/coreutils/coreutils-6.9/fix_for_manpage_building.patch b/meta/recipes-core/coreutils/coreutils-6.9/fix_for_manpage_building.patch
+diff --git a/meta/recipes-core/util-linux/util-linux-2.17.2/remove-lscpu.patch b/meta/recipes-core/util-linux/util-linux-2.17.2/remove-lscpu.patch
 new file mode 100644
-index 0000000..67e1279
+index 0000000..200dc2c
 --- /dev/null
-+++ b/meta/recipes-core/coreutils/coreutils-6.9/fix_for_manpage_building.patch
-@@ -0,0 +1,83 @@
-+Use native coreutils binaries to build manpages in cross environment.
-+This avoids man page build issues like this:
++++ b/meta/recipes-core/util-linux/util-linux-2.17.2/remove-lscpu.patch
+@@ -0,0 +1,101 @@
++Take out lscpu stuff from the code
 +
-+| Making all in man
-+| make[1]: Entering directory `/build_disk/poky_build/build1/tmp/work/i586-poky-linux/coreutils-6.9-r0/coreutils-6.9/man'
-+| Updating man page cut.1
-+| Updating man page dir.1
-+| Updating man page expand.1
-+| Updating man page fold.1
-+| Updating man page install.1
-+| Updating man page join.1
-+| Updating man page pr.1
-+| Updating man page ls.1
-+| Updating man page sort.1
-+| Updating man page unexpand.1
-+| Updating man page uniq.1
-+| Updating man page who.1
-+| Updating man page vdir.1
-+| help2man: can't get `--help' info from dir.td/dir
-+| help2man: can't get `--help' info from cut.td/cut
-+| make[1]: *** [dir.1] Error 126
-+| make[1]: *** Waiting for unfinished jobs....
-+| help2man: can't get `--help' info from fold.td/fold
-+| help2man: can't get `--help' info from install.td/install
-+| help2man: can't get `--help' info from expand.td/expand
-+| help2man: can't get `--help' info from join.td/join
-+| make[1]: *** [cut.1] Error 126
-+| make[1]: *** [fold.1] Error 126
-+| make[1]: *** [install.1] Error 126
-+| help2man: can't get `--help' info from sort.td/sort
-+| make[1]: *** [expand.1] Error 126
-+| help2man: can't get `--help' info from pr.td/pr
-+| make[1]: *** [join.1] Error 126
-+| help2man: can't get `--help' info from ls.td/ls
-+| help2man: can't get `--help' info from unexpand.td/unexpand
-+| help2man: can't get `--help' info from uniq.td/uniq
-+| help2man: can't get `--help' info from who.td/who
-+| make[1]: *** [sort.1] Error 126
-+| make[1]: *** [pr.1] Error 126
-+| help2man: can't get `--help' info from vdir.td/vdir
-+| make[1]: *** [ls.1] Error 126
-+| make[1]: *** [uniq.1] Error 126
-+| make[1]: *** [unexpand.1] Error 126
-+| make[1]: *** [who.1] Error 126
-+| make[1]: *** [vdir.1] Error 126
-+| make[1]: Leaving directory `/build_disk/poky_build/build1/tmp/work/i586-poky-linux/coreutils-6.9-r0/coreutils-6.9/man'
-+| make: *** [all-recursive] Error 1
-+| FATAL: oe_runmake failed
-+| ERROR: Function 'do_compile' failed (see /build_disk/poky_build/build1/tmp/work/i586-poky-linux/coreutils-6.9-r0/temp/log.do_compile.12780 for further information)
-+NOTE: package coreutils-6.9-r0: task do_compile: Failed
-+ERROR: Task 8 (/home/nitin/prj/poky.git/meta/recipes-core/coreutils/coreutils_6.9.bb, do_compile) failed with exit code '1'
-+
-+
-+This patch is made for gplv2 coreutils the recipe
-+Nitin A Kamble <nitin.a.kamble@intel.com>
 +2011/03/17
++Saul Wold <saul.wold@intel.com>
++Nitin A Kamble <nitin.a.kamble@intel.com>
 +
-+Index: man/Makefile.am
++Index: util-linux-ng-2.17.2/sys-utils/Makefile.am
 +===================================================================
-+--- a/man.orig/Makefile.am
-++++ b/man/Makefile.am
-+@@ -167,7 +167,7 @@ mapped_name = `echo $*|sed 's/install/gi
-+ 	            $(PERL) -- $(srcdir)/help2man		\
-+ 	             --source='$(PACKAGE_STRING)'		\
-+ 	             --include=$(srcdir)/$*.x			\
-+-	             --output=$t/$@ $t/$*;			\
-++	             --output=$t/$@ $*;			\
-+ 	       }						\
-+ 	    && sed 's|$*\.td/||g' $t/$@ > $@			\
-+ 	    && chmod a-w $@					\
-+Index: man/Makefile.in
++--- util-linux-ng-2.17.2.orig/sys-utils/Makefile.am
+++++ util-linux-ng-2.17.2/sys-utils/Makefile.am
++@@ -11,11 +11,11 @@ dist_man_MANS = flock.1 ipcrm.1 ipcs.1 i
++ if LINUX
++ bin_PROGRAMS += dmesg
++ sbin_PROGRAMS += ctrlaltdel
++-usrbin_exec_PROGRAMS += cytune setarch lscpu
+++usrbin_exec_PROGRAMS += cytune setarch
++ usrsbin_exec_PROGRAMS += ldattach tunelp rtcwake
++ 
++ dist_man_MANS += dmesg.1 ctrlaltdel.8 cytune.8 setarch.8 \
++-		ldattach.8 lscpu.1 tunelp.8 rtcwake.8
+++		ldattach.8 tunelp.8 rtcwake.8
++ endif
++ 
++ cytune_SOURCES = cytune.c cyclades.h
++Index: util-linux-ng-2.17.2/sys-utils/Makefile.in
 +===================================================================
-+--- a/man.orig/Makefile.in
-++++ b/man/Makefile.in
-+@@ -865,7 +865,7 @@ yes.1:		$(common_dep)	$(srcdir)/yes.x		.
-+ 	            $(PERL) -- $(srcdir)/help2man		\
-+ 	             --source='$(PACKAGE_STRING)'		\
-+ 	             --include=$(srcdir)/$*.x			\
-+-	             --output=$t/$@ $t/$*;			\
-++	             --output=$t/$@ $*;			\
-+ 	       }						\
-+ 	    && sed 's|$*\.td/||g' $t/$@ > $@			\
-+ 	    && chmod a-w $@					\
-diff --git a/meta/recipes-core/coreutils/coreutils_6.9.bb b/meta/recipes-core/coreutils/coreutils_6.9.bb
-index 60ea903..2d7fded 100644
---- a/meta/recipes-core/coreutils/coreutils_6.9.bb
-+++ b/meta/recipes-core/coreutils/coreutils_6.9.bb
-@@ -8,12 +8,13 @@ BUGTRACKER = "http://debbugs.gnu.org/coreutils"
- LICENSE = "GPLv2+"
- LIC_FILES_CHKSUM = "file://COPYING;md5=751419260aa954499f7abaabaa882bbe \
-                     file://src/ls.c;startline=4;endline=16;md5=482a96d4f25010a4e13f8743e0c3685e"
--PR = "r0"
--DEPENDS = "perl-native"
-+PR = "r1"
-+DEPENDS = "perl-native coreutils-native-${PV} gettext "
-+DEPENDS_virtclass-native = "perl-native gettext-native"
++--- util-linux-ng-2.17.2.orig/sys-utils/Makefile.in
+++++ util-linux-ng-2.17.2/sys-utils/Makefile.in
++@@ -47,10 +47,10 @@ usrsbin_exec_PROGRAMS = readprofile$(EXE
++ 	$(am__EXEEXT_10)
++ @LINUX_TRUE@am__append_1 = dmesg
++ @LINUX_TRUE@am__append_2 = ctrlaltdel
++-@LINUX_TRUE@am__append_3 = cytune setarch lscpu
+++@LINUX_TRUE@am__append_3 = cytune setarch
++ @LINUX_TRUE@am__append_4 = ldattach tunelp rtcwake
++ @LINUX_TRUE@am__append_5 = dmesg.1 ctrlaltdel.8 cytune.8 setarch.8 \
++-@LINUX_TRUE@		ldattach.8 lscpu.1 tunelp.8 rtcwake.8
+++@LINUX_TRUE@		ldattach.8 tunelp.8 rtcwake.8
++ 
++ @BUILD_FALLOCATE_TRUE@am__append_6 = fallocate
++ @BUILD_FALLOCATE_TRUE@am__append_7 = fallocate.1
++@@ -100,7 +100,7 @@ am__installdirs = "$(DESTDIR)$(bindir)" 
++ @BUILD_PIVOT_ROOT_TRUE@am__EXEEXT_4 = pivot_root$(EXEEXT)
++ @BUILD_SWITCH_ROOT_TRUE@am__EXEEXT_5 = switch_root$(EXEEXT)
++ @LINUX_TRUE@am__EXEEXT_6 = cytune$(EXEEXT) setarch$(EXEEXT) \
++-@LINUX_TRUE@	lscpu$(EXEEXT)
+++@LINUX_TRUE@
++ @BUILD_FALLOCATE_TRUE@am__EXEEXT_7 = fallocate$(EXEEXT)
++ @BUILD_UNSHARE_TRUE@am__EXEEXT_8 = unshare$(EXEEXT)
++ @LINUX_TRUE@am__EXEEXT_9 = ldattach$(EXEEXT) tunelp$(EXEEXT) \
++@@ -141,9 +141,6 @@ ipcs_LDADD = $(LDADD)
++ ldattach_SOURCES = ldattach.c
++ ldattach_OBJECTS = ldattach.$(OBJEXT)
++ ldattach_LDADD = $(LDADD)
++-lscpu_SOURCES = lscpu.c
++-lscpu_OBJECTS = lscpu.$(OBJEXT)
++-lscpu_LDADD = $(LDADD)
++ pivot_root_SOURCES = pivot_root.c
++ pivot_root_OBJECTS = pivot_root.$(OBJEXT)
++ pivot_root_LDADD = $(LDADD)
++@@ -201,11 +198,11 @@ AM_V_GEN = $(am__v_GEN_$(V))
++ am__v_GEN_ = $(am__v_GEN_$(AM_DEFAULT_VERBOSITY))
++ am__v_GEN_0 = @echo "  GEN   " $@;
++ SOURCES = arch.c ctrlaltdel.c $(cytune_SOURCES) dmesg.c fallocate.c \
++-	flock.c ipcmk.c ipcrm.c ipcs.c ldattach.c lscpu.c pivot_root.c \
+++	flock.c ipcmk.c ipcrm.c ipcs.c ldattach.c pivot_root.c \
++ 	rdev.c readprofile.c renice.c rtcwake.c setarch.c setsid.c \
++ 	switch_root.c $(tunelp_SOURCES) unshare.c
++ DIST_SOURCES = arch.c ctrlaltdel.c $(cytune_SOURCES) dmesg.c \
++-	fallocate.c flock.c ipcmk.c ipcrm.c ipcs.c ldattach.c lscpu.c \
+++	fallocate.c flock.c ipcmk.c ipcrm.c ipcs.c ldattach.c \
++ 	pivot_root.c rdev.c readprofile.c renice.c rtcwake.c setarch.c \
++ 	setsid.c switch_root.c $(tunelp_SOURCES) unshare.c
++ INFO_DEPS = $(srcdir)/ipc.info
++@@ -248,7 +245,7 @@ NROFF = nroff
++ MANS = $(dist_man_MANS) $(man_MANS)
++ am__dist_noinst_DATA_DIST = flock.1 ipcrm.1 ipcs.1 ipcmk.1 renice.1 \
++ 	setsid.1 readprofile.1 dmesg.1 ctrlaltdel.8 cytune.8 setarch.8 \
++-	ldattach.8 lscpu.1 tunelp.8 rtcwake.8 fallocate.1 pivot_root.8 \
+++	ldattach.8 tunelp.8 rtcwake.8 fallocate.1 pivot_root.8 \
++ 	switch_root.8 unshare.1 arch.1 rdev.8
++ DATA = $(dist_noinst_DATA)
++ ETAGS = etags
++@@ -678,9 +675,6 @@ ipcs$(EXEEXT): $(ipcs_OBJECTS) $(ipcs_DE
++ ldattach$(EXEEXT): $(ldattach_OBJECTS) $(ldattach_DEPENDENCIES) 
++ 	@rm -f ldattach$(EXEEXT)
++ 	$(AM_V_CCLD)$(LINK) $(ldattach_OBJECTS) $(ldattach_LDADD) $(LIBS)
++-lscpu$(EXEEXT): $(lscpu_OBJECTS) $(lscpu_DEPENDENCIES) 
++-	@rm -f lscpu$(EXEEXT)
++-	$(AM_V_CCLD)$(LINK) $(lscpu_OBJECTS) $(lscpu_LDADD) $(LIBS)
++ pivot_root$(EXEEXT): $(pivot_root_OBJECTS) $(pivot_root_DEPENDENCIES) 
++ 	@rm -f pivot_root$(EXEEXT)
++ 	$(AM_V_CCLD)$(LINK) $(pivot_root_OBJECTS) $(pivot_root_LDADD) $(LIBS)
++@@ -728,7 +722,6 @@ distclean-compile:
++ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ipcrm.Po@am__quote@
++ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ipcs.Po@am__quote@
++ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ldattach.Po@am__quote@
++-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lscpu.Po@am__quote@
++ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pivot_root.Po@am__quote@
++ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdev.Po@am__quote@
++ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/readprofile.Po@am__quote@
+diff --git a/meta/recipes-core/util-linux/util-linux.inc b/meta/recipes-core/util-linux/util-linux.inc
+index 6f8bcb3..861747d 100644
+--- a/meta/recipes-core/util-linux/util-linux.inc
++++ b/meta/recipes-core/util-linux/util-linux.inc
+@@ -5,9 +5,7 @@ disk partitioning, kernel message management, filesystem creation, and system lo
  
- inherit autotools gettext
+ SECTION = "base"
  
--SRC_URI = "http://ftp.gnu.org/gnu/coreutils/${BP}.tar.bz2 \
-+SRC_URI_BASE = "http://ftp.gnu.org/gnu/coreutils/${BP}.tar.bz2 \
-            file://gnulib_m4.patch \
-            file://futimens.patch \
-            file://coreutils-ls-x.patch \
-@@ -23,6 +24,9 @@ SRC_URI = "http://ftp.gnu.org/gnu/coreutils/${BP}.tar.bz2 \
-            file://coreutils-fix-install.patch \
-            file://man-touch.patch"
+-# note that `lscpu' is under GPLv3+
+ LICENSE = "GPLv2+ & LGPLv2.1+ & BSD"
+-LICENSE_util-linux-lscpu = "GPLv3+"
  
-+SRC_URI = "${SRC_URI_BASE} file://fix_for_manpage_building.patch"
-+SRC_URI_virtclass-native = "${SRC_URI_BASE}"
+ LIC_FILES_CHKSUM = "file://README.licensing;md5=1530e36fe1304d4535513de90a290df9 \
+                     file://COPYING;md5=59530bdf33659b29e73d4adb9f9f6552 \
+@@ -27,11 +25,11 @@ SRC_URI = "${KERNELORG_MIRROR}/pub/linux/utils/util-linux-ng/v${MAJOR_VERSION}/u
+            file://make_include \
+            "
+ 
+-PACKAGES =+ "util-linux-fdisk util-linux-cfdisk util-linux-sfdisk util-linux-swaponoff \
+-                    util-linux-losetup util-linux-umount util-linux-mount util-linux-readprofile \
+-                    util-linux-libblkid util-linux-libblkid-dev util-linux-libuuid util-linux-libuuid-dev \
+-                    util-linux-lscpu util-linux-uuidgen \
+-                   "
++PACKAGES =+ "util-linux-fdisk util-linux-cfdisk util-linux-sfdisk \
++             util-linux-swaponoff util-linux-losetup util-linux-umount \
++             util-linux-mount util-linux-readprofile util-linux-libblkid \
++             util-linux-libblkid-dev util-linux-libuuid util-linux-libuuid-dev \
++             util-linux-uuidgen util-linux-lscpu"
+ 
+ S = "${WORKDIR}/util-linux-ng-${PV}"
+ 
+@@ -49,13 +47,13 @@ FILES_util-linux-losetup = "${base_sbindir}/losetup.${PN}"
+ FILES_util-linux-mount = "${base_bindir}/mount.${PN}"
+ FILES_util-linux-umount = "${base_bindir}/umount.${PN}"
+ FILES_util-linux-readprofile = "${base_sbindir}/readprofile"
+-FILES_util-linux-lscpu = "${bindir}/lscpu"
+ FILES_util-linux-uuidgen = "${bindir}/uuidgen"
+ 
+ FILES_util-linux-libblkid = "${libdir}/libblkid.so.*"
+ FILES_util-linux-libblkid-dev = "${libdir}/libblkid.so ${libdir}/libblkid.a ${libdir}/libblkid.la ${includedir}/blkid"
+ FILES_util-linux-libuuid = "${libdir}/libuuid.so.*"
+ FILES_util-linux-libuuid-dev = "${libdir}/libuuid.so ${libdir}/libuuid.a ${libdir}/libuuid.la ${includedir}/uuid"
++FILES_util-linux-lscpu = "${bindir}/lscpu"
+ 
+ RRECOMMENDS_${PN} = "util-linux-fdisk util-linux-cfdisk util-linux-sfdisk util-linux-mount util-linux-readprofile "
+ RDEPENDS_${PN} = "util-linux-umount util-linux-swaponoff util-linux-losetup"
+diff --git a/meta/recipes-core/util-linux/util-linux_2.17.2.bb b/meta/recipes-core/util-linux/util-linux_2.17.2.bb
+index 190a9e3..f6bdfd4 100644
+--- a/meta/recipes-core/util-linux/util-linux_2.17.2.bb
++++ b/meta/recipes-core/util-linux/util-linux_2.17.2.bb
+@@ -1,6 +1,9 @@
+ MAJOR_VERSION = "2.17"
++PR = "r7"
+ require util-linux.inc
+-PR = "r6"
 +
- # [ gets a special treatment and is not included in this
- bindir_progs = "base64 basename cksum comm csplit cut dir dircolors dirname du \
-                 env expand expr factor fmt fold groups head hostid id install \
++# note that `lscpu' is under GPLv3+
++LICENSE_util-linux-lscpu = "GPLv3+"
+ 
+ SRC_URI += "file://uclibc-compile.patch \
+ 	          file://util-linux-ng-replace-siginterrupt.patch \
+@@ -9,6 +12,32 @@ SRC_URI += "file://uclibc-compile.patch \
+ SRC_URI[md5sum] = "4635725a3eef1c57090bac8ea5e082e6"
+ SRC_URI[sha256sum] = "c9ae801b6a5ab20b7749a278a8bf6830ef53adc5e8b7eb0ac1a9f410c774118f"
+ 
++# Only lscpu part is gplv3; rest of the code is not, 
++# so take out the lscpu parts while running non-gplv3 build.
++python () {
++    d.setVar("REMOVELSCPU", "no")
++    if (d.getVar("INCOMPATIBLE_LICENSE", True) or "").find("GPLv3") != -1:
++        # avoid GPLv3 
++        d.setVar("REMOVELSCPU", "yes")
++        packages = (d.getVar("PACKAGES", False) or "").split()
++        if "util-linux-lscpu" in packages:
++            packages.remove("util-linux-lscpu")
++        d.setVar("PACKAGES", " ".join(packages))
++
++        src_uri = (d.getVar("SRC_URI", False) or "").split()
++        src_uri.append("file://remove-lscpu.patch")
++        d.setVar("SRC_URI", " ".join(src_uri))
++}       
++
++do_remove_lscpu() {
++    if [ "x${REMOVELSCPU}" = "xyes" ]; then
++         rm -f sys-utils/lscpu.c sys-utils/lscpu.1
++         rm -rf tests/ts/lscpu tests/expected/lscpu
++    fi
++}
++
++addtask remove_lscpu before do_configure after do_patch
++
+ # fallocate is glibc 2.10, fallocate64 is glibc 2.11
+ # we need to disable it for older versions
+ EXTRA_OECONF += "ac_cv_func_fallocate=no"
 -- 
 1.7.3.4
 
