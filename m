@@ -1,31 +1,29 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C04364C805A8
-	for <poky@yoctoproject.org>; Thu, 17 Mar 2011 20:45:29 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2I1jQHh031076;
-	Fri, 18 Mar 2011 01:45:26 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 30693-06; Fri, 18 Mar 2011 01:45:22 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2I1jFLW031057
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Fri, 18 Mar 2011 01:45:18 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Kang Kai <kai.kang@windriver.com>
-In-Reply-To: <3404b336e81764d15f546279aa594bd30587836f.1300411762.git.kai.kang@windriver.com>
-References: <cover.1300411762.git.kai.kang@windriver.com>
-	<3404b336e81764d15f546279aa594bd30587836f.1300411762.git.kai.kang@windriver.com>
-Date: Fri, 18 Mar 2011 01:44:59 +0000
-Message-ID: <1300412699.30423.2180.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 1/1] msmtp: add link sendmail for lsb command check
+Return-Path: <mark.hatle@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 05CDC4C8009D
+	for <poky@yoctoproject.org>; Thu, 17 Mar 2011 21:42:43 -0500 (CDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p2I2ggtf020791
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Thu, 17 Mar 2011 19:42:43 -0700 (PDT)
+Received: from Macintosh-5.local (172.25.36.231) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
+	Thu, 17 Mar 2011 19:42:42 -0700
+Message-ID: <4D82C6A0.8000202@windriver.com>
+Date: Thu, 17 Mar 2011 21:42:40 -0500
+From: Mark Hatle <mark.hatle@windriver.com>
+Organization: Wind River Systems
+User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
+	rv:1.9.2.15) Gecko/20110303 Thunderbird/3.1.9
+MIME-Version: 1.0
+To: "Tian, Kevin" <kevin.tian@intel.com>
+References: <cover.1300352186.git.edwin.zhai@intel.com>	<f596757000465a4b8350e16f21553a23b8bbedfa.1300352186.git.edwin.zhai@intel.com>
+	<4D8222A7.8000409@windriver.com>
+	<625BA99ED14B2D499DC4E29D8138F1505834F2B2F0@shsmsx502.ccr.corp.intel.com>
+In-Reply-To: <625BA99ED14B2D499DC4E29D8138F1505834F2B2F0@shsmsx502.ccr.corp.intel.com>
+X-Originating-IP: [172.25.36.231]
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH 1/1] qemu: Use mesa's libGL rather than nVidia's to	avoid segfault of qemu
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,56 +35,113 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 Mar 2011 01:45:30 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Fri, 18 Mar 2011 02:42:44 -0000
+Content-Type: text/plain; charset="ISO-8859-1"
 Content-Transfer-Encoding: 7bit
 
-On Fri, 2011-03-18 at 09:34 +0800, Kang Kai wrote:
-> From: Kang Kai <kai.kang@windriver.com>
+On 3/17/11 7:41 PM, Tian, Kevin wrote:
+>> From: Mark Hatle
+>> Sent: Thursday, March 17, 2011 11:03 PM
+>>
+>> I reworked the patch slightly.. It's available on poky-contrib
+>> mhatle/qemu-workaround.
+>>
+>> Specifically I changed:
+>> - the warning message to make clarify it a bit.
+>> - Changed the preload to be "libGL.so", so the rt-linker will now search for it
+>> (/usr/lib/libGL.so may be wrong on some systems where /usr/lib64 is the
+>> default
+>> library path)
 > 
-> LSB command check will test the exist of sendmail, so make sendmail
-> link to msmtp in order to pass the test.
+> Just double confirm here. You are sure that just "libGL.so" will hit /usr/lib/libGL.so
+> instead of the nvidia proprietary one, right? I'm interesting how nvidia 
+> proprietary driver is linked to qemu binary then? I can understand why Edwin
+> originally use full path to make sure default one being used, but of course it may
+> be wrong as you said on some system.
+
+By specifying "libGL.so", it will cause the ld.so to resolve the path using the
+normal resolution.  Usually the nVidia stuff is linked in via libGL.so.1 or
+similar.  libGL.so is usually only used for development linking.
+
+>> - Added a second check to see if the workaround worked or not, if it didn't add
+>> a second warning message
+>> - To the QEMU run line, add "stty sane" in the case of a failure.  Otherwise
+>> QEMU leaves the terminal/console in a confused state.
+>>
+>> Can you please verify that this still works on the Ubuntu systems and that I
+>> didn't miss anything/break anything else?  If so I think this is the version we
+>> should go with.
 > 
-> Related to [YOCTO #520]
+> Edwin is out of office in the morning, and he will confirm them once he's back.
+
+ok.
+
+--Mark
+
+> Thanks
+> Kevin
 > 
-> Signed-off-by: Kang Kai <kai.kang@windriver.com>
-
-Shouldn't this be using the update-alternatives mechanism?
-
-Cheers,
-
-Richard
-
->  meta/recipes-extended/msmtp/msmtp_1.4.23.bb |   12 +++++++++++-
->  1 files changed, 11 insertions(+), 1 deletions(-)
-> 
-> diff --git a/meta/recipes-extended/msmtp/msmtp_1.4.23.bb b/meta/recipes-extended/msmtp/msmtp_1.4.23.bb
-> index cb3d83c..5fc4060 100644
-> --- a/meta/recipes-extended/msmtp/msmtp_1.4.23.bb
-> +++ b/meta/recipes-extended/msmtp/msmtp_1.4.23.bb
-> @@ -6,7 +6,7 @@ SECTION = "console/network"
->  PRIORITY = "required"
->  LICENSE = "GPLv3"
->  DEPENDS = "zlib gnutls"
-> -PR = "r0"
-> +PR = "r1"
->  
-> 
->  #COPYING or Licence
-> @@ -19,3 +19,13 @@ SRC_URI[md5sum] = "5fb7ae88186624cdb125d3efad3fdc16"
->  SRC_URI[sha256sum] = "269cd30eeb867167c6a599e23399f4fc24196fcdef3bac5b120d806b3b421810"
->  
->  inherit gettext autotools
-> +
-> +pkg_postinst_${PN} () {
-> +    if [ "x$D" != "x" ] ; then
-> +        exit 1
-> +    fi
-> +
-> +    if [ ! -e ${sbindir}/sendmail ]; then
-> +        ln -sf ${bindir}/msmtp ${sbindir}/sendmail
-> +    fi
-> +}
-
+>>
+>> --Mark
+>>
+>> On 3/17/11 7:22 AM, Zhai Edwin wrote:
+>>> From: Zhai Edwin <edwin.zhai@intel.com>
+>>>
+>>> Proprietary nVidia driver introduce its own libGL that precede mesa's.
+>>> qemu has segfault if linked with it. This fix try to use mesa's libGL
+>>> if ldd find qemu linked with nVidia libGL.
+>>>
+>>> [YOCTO #649]
+>>> [YOCTO #698]
+>>>
+>>>
+>>> Signed-off-by: Zhai Edwin <edwin.zhai@intel.com>
+>>> ---
+>>>  scripts/poky-qemu-internal |   16 +++++++++++++++-
+>>>  1 files changed, 15 insertions(+), 1 deletions(-)
+>>>
+>>> diff --git a/scripts/poky-qemu-internal b/scripts/poky-qemu-internal
+>>> index 3638a65..1f09fe7 100755
+>>> --- a/scripts/poky-qemu-internal
+>>> +++ b/scripts/poky-qemu-internal
+>>> @@ -436,10 +436,24 @@ else
+>>>      echo "Warning: distccd not present, no distcc support loaded."
+>>>  fi
+>>>
+>>> +# qemu got segfault if linked with nVidia's libgl
+>>> +GL_LD_PRELOAD=$LD_PRELOAD
+>>> +
+>>> +if ldd $QEMUBIN | grep -i nvidia &> /dev/null
+>>> +then
+>>> +    echo "************** !!!Warning!!! **************
+>>> +    You installed nVidia's libGL.so that probably lead qemu segfault!
+>>> +    Pls. uninstall proprietary nVidia driver or make mesa libgl precede
+>> nvidia's."
+>>> +
+>>> +    # To avoid segfault of qemu, skip nVidia's libGL and use mesa's instead
+>>> +    echo "Skip nVidia's libGL!"
+>>> +    GL_LD_PRELOAD="/usr/lib/libGL.so $LD_PRELOAD"
+>>> +fi
+>>> +
+>>>  echo "Running $QEMU..."
+>>>  # -no-reboot is a mandatory option - see bug #100
+>>>  echo $QEMUBIN -kernel $KERNEL $QEMUOPTIONS $SERIALOPTS
+>> -no-reboot $SCRIPT_QEMU_OPT $SCRIPT_QEMU_EXTRA_OPT --append
+>> '"'$KERNCMDLINE $SCRIPT_KERNEL_OPT'"'
+>>> -$QEMUBIN -kernel $KERNEL $QEMUOPTIONS $SERIALOPTS -no-reboot
+>> $SCRIPT_QEMU_OPT $SCRIPT_QEMU_EXTRA_OPT --append "$KERNCMDLINE
+>> $SCRIPT_KERNEL_OPT" || /bin/true
+>>> +LD_PRELOAD="$GL_LD_PRELOAD" $QEMUBIN -kernel $KERNEL
+>> $QEMUOPTIONS $SERIALOPTS -no-reboot $SCRIPT_QEMU_OPT
+>> $SCRIPT_QEMU_EXTRA_OPT --append "$KERNCMDLINE
+>> $SCRIPT_KERNEL_OPT" || /bin/true
+>>>
+>>>  cleanup
+>>>
+>>
+>> _______________________________________________
+>> poky mailing list
+>> poky@yoctoproject.org
+>> https://lists.yoctoproject.org/listinfo/poky
 
 
