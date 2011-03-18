@@ -1,16 +1,16 @@
 Return-Path: <Kai.Kang@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C612D4C805A8
-	for <poky@yoctoproject.org>; Fri, 18 Mar 2011 04:02:37 -0500 (CDT)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 351A34C80AB0
+	for <poky@yoctoproject.org>; Fri, 18 Mar 2011 04:02:45 -0500 (CDT)
 Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p2I92Z81010391
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p2I92BFO010319
 	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Fri, 18 Mar 2011 02:02:35 -0700 (PDT)
+	Fri, 18 Mar 2011 02:02:11 -0700 (PDT)
 Received: from [128.224.163.157] (128.224.163.157) by ALA-HCA.corp.ad.wrs.com
 	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Fri, 18 Mar 2011 02:02:34 -0700
-Message-ID: <4D831F31.3000004@windriver.com>
-Date: Fri, 18 Mar 2011 17:00:33 +0800
+	Fri, 18 Mar 2011 02:02:10 -0700
+Message-ID: <4D831F19.5090802@windriver.com>
+Date: Fri, 18 Mar 2011 17:00:09 +0800
 From: Kang Kai <Kai.Kang@windriver.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.2.13) Gecko/20101208 Thunderbird/3.1.7
@@ -34,51 +34,58 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 Mar 2011 09:02:38 -0000
+X-List-Received-Date: Fri, 18 Mar 2011 09:02:45 -0000
 Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Kang Kai <kai.kang@windriver.com>
+On 2011年03月18日 09:44, Richard Purdie wrote:
+> On Fri, 2011-03-18 at 09:34 +0800, Kang Kai wrote:
+>> From: Kang Kai<kai.kang@windriver.com>
+>>
+>> LSB command check will test the exist of sendmail, so make sendmail
+>> link to msmtp in order to pass the test.
+>>
+>> Related to [YOCTO #520]
+>>
+>> Signed-off-by: Kang Kai<kai.kang@windriver.com>
+> Shouldn't this be using the update-alternatives mechanism?
+Hi Richard,
 
-LSB command check will test the exist of sendmail, so make sendmail
-link to msmtp in order to pass the test.
+I updated the patch, using update-alternatives to make links.
+Please help me to check in next letter.
 
-Related to [YOCTO #520]
-
-Signed-off-by: Kang Kai <kai.kang@windriver.com>
----
-  meta/recipes-extended/msmtp/msmtp_1.4.23.bb |   10 +++++++++-
-  1 files changed, 9 insertions(+), 1 deletions(-)
-
-diff --git a/meta/recipes-extended/msmtp/msmtp_1.4.23.bb 
-b/meta/recipes-extended/msmtp/msmtp_1.4.23.bb
-index cb3d83c..b3500d0 100644
---- a/meta/recipes-extended/msmtp/msmtp_1.4.23.bb
-+++ b/meta/recipes-extended/msmtp/msmtp_1.4.23.bb
-@@ -6,7 +6,7 @@ SECTION = "console/network"
-  PRIORITY = "required"
-  LICENSE = "GPLv3"
-  DEPENDS = "zlib gnutls"
--PR = "r0"
-+PR = "r1"
-
-
-  #COPYING or Licence
-@@ -19,3 +19,11 @@ SRC_URI[md5sum] = "5fb7ae88186624cdb125d3efad3fdc16"
-  SRC_URI[sha256sum] = 
-"269cd30eeb867167c6a599e23399f4fc24196fcdef3bac5b120d806b3b421810"
-
-  inherit gettext autotools
-+
-+pkg_postinst_${PN} () {
-+    update-alternatives --install ${sbindir}/sendmail sendmail 
-${bindir}/msmtp 100
-+}
-+
-+pkg_prerm_${PN} () {
-+    update-alternatives --remove sendmail ${bindir}/msmtp
-+}
--- 
-1.7.1
+Thanks and Regards,
+Kai
+>>   meta/recipes-extended/msmtp/msmtp_1.4.23.bb |   12 +++++++++++-
+>>   1 files changed, 11 insertions(+), 1 deletions(-)
+>>
+>> diff --git a/meta/recipes-extended/msmtp/msmtp_1.4.23.bb b/meta/recipes-extended/msmtp/msmtp_1.4.23.bb
+>> index cb3d83c..5fc4060 100644
+>> --- a/meta/recipes-extended/msmtp/msmtp_1.4.23.bb
+>> +++ b/meta/recipes-extended/msmtp/msmtp_1.4.23.bb
+>> @@ -6,7 +6,7 @@ SECTION = "console/network"
+>>   PRIORITY = "required"
+>>   LICENSE = "GPLv3"
+>>   DEPENDS = "zlib gnutls"
+>> -PR = "r0"
+>> +PR = "r1"
+>>
+>>
+>>   #COPYING or Licence
+>> @@ -19,3 +19,13 @@ SRC_URI[md5sum] = "5fb7ae88186624cdb125d3efad3fdc16"
+>>   SRC_URI[sha256sum] = "269cd30eeb867167c6a599e23399f4fc24196fcdef3bac5b120d806b3b421810"
+>>
+>>   inherit gettext autotools
+>> +
+>> +pkg_postinst_${PN} () {
+>> +    if [ "x$D" != "x" ] ; then
+>> +        exit 1
+>> +    fi
+>> +
+>> +    if [ ! -e ${sbindir}/sendmail ]; then
+>> +        ln -sf ${bindir}/msmtp ${sbindir}/sendmail
+>> +    fi
+>> +}
+>
 
 
