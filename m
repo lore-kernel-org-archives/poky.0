@@ -1,21 +1,30 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 98C474C80FE1
-	for <poky@yoctoproject.org>; Fri, 18 Mar 2011 12:01:06 -0500 (CDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 18 Mar 2011 09:59:30 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,206,1299484800"; d="scan'208";a="668767483"
-Received: from unknown (HELO helios) ([10.255.12.183])
-	by fmsmga002.fm.intel.com with SMTP; 18 Mar 2011 09:59:29 -0700
-Received: by helios (sSMTP sendmail emulation); Fri, 18 Mar 2011 16:59:31 +0000
-Message-Id: <cover.1300467183.git.paul.eggleton@linux.intel.com>
-Old-Date: Fri, 18 Mar 2011 16:53:03 +0000
-Date: Fri, 18 Mar 2011 16:59:31 +0000
-To: poky@yoctoproject.org
-CC: 
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-Subject: [PATCH 0/1] Update README.hardware
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 842674C8009D
+	for <poky@yoctoproject.org>; Fri, 18 Mar 2011 12:24:28 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2IHOQqQ010169;
+	Fri, 18 Mar 2011 17:24:26 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 09850-05; Fri, 18 Mar 2011 17:24:22 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2IHOK0u010162
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Fri, 18 Mar 2011 17:24:21 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: scott.m.rifenbark@intel.com
+In-Reply-To: <cover.1300467410.git.scott.m.rifenbark@intel.com>
+References: <cover.1300467410.git.scott.m.rifenbark@intel.com>
+Date: Fri, 18 Mar 2011 17:24:04 +0000
+Message-ID: <1300469044.30423.2209.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 00/15] [DOCS] Poky Reference Manual changes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,32 +36,54 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 Mar 2011 17:01:11 -0000
+X-List-Received-Date: Fri, 18 Mar 2011 17:24:28 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
+On Fri, 2011-03-18 at 10:59 -0600, scott.m.rifenbark@intel.com wrote:
+> From: Scott Rifenbark <scott.m.rifenbark@intel.com>
+> 
+> These commits are the changes for the Poky Reference Manual.
+> Some bugs taken care of, spell-checks, title page updates,
+> grammar fixes, FAQ entries, formfactor path fix.
+> 
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>   Branch: srifenbark/poky-work
+>   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=srifenbark/poky-work
+> 
+> Thanks,
+>      <scott.m.rifenbark@intel.com>
+> ---
+> 
+> 
+> Scott Rifenbark (15):
+>   [BUGID# 873] - documentation/poky-ref-manual: Notes added for
+>     non-GPLv3 builds
+>   [BUGID# 293] - documentation/poky-ref-manual/extendpoky.xml: Added
+>     text for choosing server
+>   documentation/poky-ref-manual/extendpoky.xml: Spell check
+>   documentation/poky-ref-manual/style.css: Updated to match other
+>     manuals
+>   documentation/poky-ref-manual/poky-ref-manual.xml: Updated title page
+>   documentation/poky-ref-manual/faq.xml:  Spell Check
+>   documentation/poky-ref-manual/introduction.xml:  Removed link
+>   documentation/poky-ref-manual/introduction.xml: Wording and release
+>     update
+>   documentation/poky-ref-manual/usingpoky.xml: grammar fix and BitBake
+>     fix
+>   documentation/poky-ref-manual/usingpoky.xml:  More BitBake changes
+>   documentation/poky-ref-manual/faq.xml: Added three FAQ entries
+>   documentation/poky-ref-manual/usingpoky.xml:  Small edits
+>   documentation/poky-ref-manual/extendpoky.xml: small edits
+>   documentation/poky-ref-manual/extendpoky.xml: Formfactor path
+>     corrected
+>   documentation/poky-ref-manual/faq.xml:  Added entry about proxy and
+>     firewall
 
-Updates README.hardware for the 1.0 release. 
+Merged to master, thanks Scott.
 
-Note that this removes a number of sections for machines that have been moved
-to meta-extras. I have created a separate README.hardware.extras file for these
-to be included in meta-extras, which I will post separately.
+Cheers,
 
-Unfortunately we are still missing instructions for the Freescale MPC8315E-RDB;
-hopefully these can be sourced and added in time.
-
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: paule/readme-hardware
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=paule/readme-hardware
-
-Thanks,
-    Paul Eggleton <paul.eggleton@linux.intel.com>
----
-
-
-Paul Eggleton (1):
-  README.hardware: update for 1.0 release
-
- README.hardware |  575 ++++++++++++++++--------------------------------------
- 1 files changed, 171 insertions(+), 404 deletions(-)
+Richard
 
 
