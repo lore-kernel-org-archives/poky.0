@@ -1,30 +1,22 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id AE2194C80050
-	for <poky@yoctoproject.org>; Fri, 18 Mar 2011 11:56:30 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2IGuPhd009287;
-	Fri, 18 Mar 2011 16:56:26 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 09058-04; Fri, 18 Mar 2011 16:56:21 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2IGuHMx009279
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Fri, 18 Mar 2011 16:56:17 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Nitin A Kamble <nitin.a.kamble@intel.com>
-In-Reply-To: <cover.1300465259.git.nitin.a.kamble@intel.com>
-References: <cover.1300465259.git.nitin.a.kamble@intel.com>
-Date: Fri, 18 Mar 2011 16:56:00 +0000
-Message-ID: <1300467360.30423.2208.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@yoctoproject.org, openembedded-core@lists.openembedded.org
-Subject: Re: [PATCH 0/7] commits for GPLv2 poky-image-basic image
+Return-Path: <scott.m.rifenbark@intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E498B4C80578
+	for <poky@yoctoproject.org>; Fri, 18 Mar 2011 11:58:47 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 18 Mar 2011 09:58:47 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.63,206,1299484800"; d="scan'208";a="404782142"
+Received: from unknown (HELO localhost) ([10.255.12.172])
+	by azsmga001.ch.intel.com with ESMTP; 18 Mar 2011 09:58:46 -0700
+Message-Id: <31dcbb19fde437effdc0cfc55119735077544b6b.1300467410.git.scott.m.rifenbark@intel.com>
+In-Reply-To: <cover.1300467410.git.scott.m.rifenbark@intel.com>
+References: <cover.1300467410.git.scott.m.rifenbark@intel.com>
+Old-Date: Wed, 16 Mar 2011 22:50:06 -0600
+Date: Fri, 18 Mar 2011 10:59:38 -0600
+To: poky@yoctoproject.org
+CC: 
+From: <scott.m.rifenbark@intel.com>
+Subject: [PATCH 01/15] [BUGID# 873] - documentation/poky-ref-manual: Notes added for non-GPLv3 builds
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,44 +28,73 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 Mar 2011 16:56:31 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 18 Mar 2011 16:58:48 -0000
 
-On Fri, 2011-03-18 at 09:24 -0700, Nitin A Kamble wrote:
-> From: Nitin A Kamble <nitin.a.kamble@intel.com>
-> 
-> 
-> Richard,
->   I have rrebased this to bernard branch. So you may not need all the commits
-> as you have already pulled some of the saul's commits in the OE & master 
-> branch.
-> 
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->   Branch: nitin/misc
->   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=nitin/misc
-> 
-> Thanks,
->     Nitin A Kamble <nitin.a.kamble@intel.com>
-> ---
-> 
-> 
-> Nitin A Kamble (1):
->   coreutils-6.9: fix man page building for the gplv2 recipe
-> 
-> Saul Wold (6):
->   extended tasks: move binutils from basic to lsb
->   poky-image-basic: remove POKY_BASE_INSTALL
->   poky.conf: add additional Libraries to the LGPLv2 Whitelist
->   poky.conf: remove gnome-common from WHITELIST_GPLV3
->   gettext: Upgrade GPLv2 version to 0.16.1
->   util-linux: Setup for GPLv2 Recipe
+From: Scott Rifenbark <scott.m.rifenbark@intel.com>
 
-Most of these had already merged. I've added the util-linux one to
-master though.
+[BUGID# 873] - Added a note in the Images Appendix indicating that
+building an image without GPLv3 components is only supported for
+base and minimal images.  Also put the two changes you have to do
+to the local.conf file for the build.
 
-Cheers,
+Added a note in the second chapter in the section on building images.
+The note indicates the same as in the appendix but does not go into the
+local.conf file detail.
 
-Richard
+Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
+---
+ documentation/poky-ref-manual/ref-images.xml |   12 ++++++++++++
+ documentation/poky-ref-manual/usingpoky.xml  |    7 ++++++-
+ 2 files changed, 18 insertions(+), 1 deletions(-)
+
+diff --git a/documentation/poky-ref-manual/ref-images.xml b/documentation/poky-ref-manual/ref-images.xml
+index 9477883..03cc624 100644
+--- a/documentation/poky-ref-manual/ref-images.xml
++++ b/documentation/poky-ref-manual/ref-images.xml
+@@ -13,6 +13,18 @@
+         Images are listed below along with details of what they contain:
+     </para>
+ 
++    <note>
++        Building an image without GNU Public License Version 3 (GPLv3) components is 
++        only supported for minimal and base images.
++        Furthermore, if you are going to build an image using non-GPLv3 components,
++        you must make the following changes in the <filename>local.conf</filename> file
++        before using the BitBake command to build the minimal or base image:
++        <literallayout class='monospaced'>
++     1. Comment out the IMAGE_EXTRA_FEATURES line
++     2. Set INCOMPATIBLE_LICENSE = "GPLv3"
++        </literallayout>
++    </note>
++
+     <itemizedlist>
+             <listitem>
+                 <para>
+diff --git a/documentation/poky-ref-manual/usingpoky.xml b/documentation/poky-ref-manual/usingpoky.xml
+index 79e9dfb..aecefd3 100644
+--- a/documentation/poky-ref-manual/usingpoky.xml
++++ b/documentation/poky-ref-manual/usingpoky.xml
+@@ -151,13 +151,18 @@
+     </para>
+     <para>
+         The target is the name of the recipe you want to build. 
+-        Common targets are the images in <filename>meta/recipes-core/images</filename>),
++        Common targets are the images in <filename>meta/recipes-core/images</filename>,
+         <filename>/meta/recipes-sato/images</filename>, etc.
+         Or, the target can be the name of a recipe for a specific piece of software such as 
+         <application>busybox</application>. 
+         For more details about the standard images available, see the 
+         <link linkend="ref-images">'Reference: Images'</link> appendix.
+     </para>
++    <note>
++        Building an image without GNU Public License Version 3 (GPLv3) components is 
++        only supported for minimal and base images.
++        See <link linkend='ref-images'>'Reference: Images'</link> for more information.
++    </note>
+ </section>
+ 
+ <section id='usingpoky-install'>
+-- 
+1.7.1
 
 
