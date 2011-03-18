@@ -1,22 +1,22 @@
 Return-Path: <scott.m.rifenbark@intel.com>
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 909DD4C80FE0
-	for <poky@yoctoproject.org>; Fri, 18 Mar 2011 12:00:02 -0500 (CDT)
+	by mx1.pokylinux.org (Postfix) with ESMTP id C31894C80FD4
+	for <poky@yoctoproject.org>; Fri, 18 Mar 2011 12:00:10 -0500 (CDT)
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 18 Mar 2011 09:58:49 -0700
+	by fmsmga101.fm.intel.com with ESMTP; 18 Mar 2011 09:58:54 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,206,1299484800"; d="scan'208";a="898726294"
+X-IronPort-AV: E=Sophos;i="4.63,206,1299484800"; d="scan'208";a="898726328"
 Received: from unknown (HELO localhost) ([10.255.12.172])
-	by fmsmga001.fm.intel.com with ESMTP; 18 Mar 2011 09:58:49 -0700
-Message-Id: <c88677cc7635ce52a2cd542471993acaaf891885.1300467410.git.scott.m.rifenbark@intel.com>
+	by fmsmga001.fm.intel.com with ESMTP; 18 Mar 2011 09:58:54 -0700
+Message-Id: <5c0711f00125774cf9e55bcfcfc881cd2545aa8b.1300467410.git.scott.m.rifenbark@intel.com>
 In-Reply-To: <cover.1300467410.git.scott.m.rifenbark@intel.com>
 References: <cover.1300467410.git.scott.m.rifenbark@intel.com>
-Old-Date: Thu, 17 Mar 2011 08:21:21 -0600
-Date: Fri, 18 Mar 2011 10:59:42 -0600
+Old-Date: Thu, 17 Mar 2011 10:56:02 -0600
+Date: Fri, 18 Mar 2011 10:59:47 -0600
 To: poky@yoctoproject.org
 CC: 
 From: <scott.m.rifenbark@intel.com>
-Subject: [PATCH 03/15] documentation/poky-ref-manual/extendpoky.xml: Spell check
+Subject: [PATCH 06/15] documentation/poky-ref-manual/faq.xml: Spell Check
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,134 +28,62 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 Mar 2011 17:00:02 -0000
+X-List-Received-Date: Fri, 18 Mar 2011 17:00:10 -0000
 
 From: Scott Rifenbark <scott.m.rifenbark@intel.com>
 
-A spell check performed on this chapter.
+Performed a spell check and corrected several problems.
 
 Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
 ---
- documentation/poky-ref-manual/extendpoky.xml |   30 +++++++++++++-------------
- 1 files changed, 15 insertions(+), 15 deletions(-)
+ documentation/poky-ref-manual/faq.xml |   10 +++++-----
+ 1 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/documentation/poky-ref-manual/extendpoky.xml b/documentation/poky-ref-manual/extendpoky.xml
-index d7d2c6c..951468d 100644
---- a/documentation/poky-ref-manual/extendpoky.xml
-+++ b/documentation/poky-ref-manual/extendpoky.xml
-@@ -46,7 +46,7 @@
-                 "do_install" tasks.
-                 The <glossterm><link linkend='var-S'>S</link></glossterm> variable defines the 
-                 directory containing the source code, which is set to <glossterm><link linkend='var-WORKDIR'>
--                WORKDIR</link></glossterm> in this case - the directory Bitbake uses for the build.
-+                WORKDIR</link></glossterm> in this case - the directory BitBake uses for the build.
+diff --git a/documentation/poky-ref-manual/faq.xml b/documentation/poky-ref-manual/faq.xml
+index 03ae714..96e32d5 100644
+--- a/documentation/poky-ref-manual/faq.xml
++++ b/documentation/poky-ref-manual/faq.xml
+@@ -108,7 +108,7 @@
+                 </listitem>
+                 <listitem>
+                     <para>
+-                    Send us bitbake recipes if you have them (see the Poky handbook to find out how to create recipes)
++                    Send us BitBake recipes if you have them (see the Poky handbook to find out how to create recipes)
+                     </para>
+                 </listitem>
+             </itemizedlist>
+@@ -148,7 +148,7 @@
+         </question>
+         <answer>
+             <para>
+-                To add a package you need to create a bitbake recipe - see the Poky handbook to find out how to create a recipe.
++                To add a package you need to create a BitBake recipe - see the Poky handbook to find out how to create a recipe.
              </para>
-             <programlisting>
- DESCRIPTION = "Simple helloworld application"
-@@ -68,7 +68,7 @@ do_install() {
- }
-             </programlisting>
+         </answer>
+     </qandaentry>
+@@ -332,19 +332,19 @@
+         </question>
+         <answer>
              <para>
--                By default, the "helloworld", "helloworld-dbg" and "hellworld-dev"
-+                By default, the "helloworld", "helloworld-dbg" and "helloworld-dev"
-                 packages are built. 
-                 For information on how to customize the packaging process, see
-                 <link linkend='usingpoky-extend-addpkg-files'>Controlling Package Content</link>.
-@@ -81,7 +81,7 @@ do_install() {
-                 Applications that use autotools such as <filename>autoconf</filename> and 
-                 <filename>automake</filename> require a recipe that has a source archive listed in 
-                 <glossterm><link linkend='var-SRC_URI'>SRC_URI</link></glossterm> and 
--                <filename>also inherits autotools</filename>, which instructs Bitbake to use the
-+                <filename>also inherits autotools</filename>, which instructs BitBake to use the
-                 <filename>autotools.bbclass</filename> file, which contains the definitions of all the steps
-                 needed to build an autotooled application.
-                 The result of the build is automatically packaged. 
-@@ -114,13 +114,13 @@ inherit autotools gettext
-             <para>
-                 Applications that use GNU <filename>make</filename> also require a recipe that has
-                 the source archive listed in <glossterm><link linkend='var-SRC_URI'>SRC_URI</link></glossterm>. 
--                You do not need to add a <function>do_compile</function> step since by default Bitbake 
-+                You do not need to add a <function>do_compile</function> step since by default BitBake 
-                 starts the <filename>make</filename> command to compile the application. 
-                 If you need additional <filename>make</filename> options you should store them in the 
-                 <glossterm><link linkend='var-EXTRA_OEMAKE'>EXTRA_OEMAKE</link></glossterm> variable.
--                Bitbake passes these options into the <filename>make</filename> GNU invocation. 
-+                BitBake passes these options into the <filename>make</filename> GNU invocation. 
-                 Note that a "do_install" task is still required.
--                Otherwise Bitbake runs an empty "do_install" task by default. 
-+                Otherwise BitBake runs an empty "do_install" task by default. 
+-                If the same build is failing in totally different and random ways the most likely explaination is that either the hardware you're running it on has some problem or if you are running it under virtualisation, the virtualisation probably has bugs. Poky processes a massive amount of data causing lots of network, disk and cpu activity and is senstive to even single bit failure in any of these areas. Totally random failures have always been traced back to hardware or virtualisation issues.
++                If the same build is failing in totally different and random ways the most likely explanation is that either the hardware you're running it on has some problem or if you are running it under virtualisation, the virtualisation probably has bugs. Poky processes a massive amount of data causing lots of network, disk and cpu activity and is sensitive to even single bit failure in any of these areas. Totally random failures have always been traced back to hardware or virtualisation issues.
              </para>
+         </answer>
+     </qandaentry>
+     <qandaentry>
+         <question>
              <para>
-                 Some applications might require extra parameters to be passed to the compiler.
-@@ -529,7 +529,7 @@ DISPLAY_SUBPIXEL_ORDER=vrgb
-     <section id="usingpoky-changes">
-         <title>Making and Maintaining Changes</title>
-         <para>
--            Because Poky offers extreme configurability and flexibility, we recognize that people will want 
-+            Because Poky is extremely configurable and flexible, we recognize that people will want 
-             to extend, configure or optimize Poky for their specific uses.
-             To best keep pace with future Poky changes we recommend you make controlled changes to Poky.
-         </para>
-@@ -541,12 +541,12 @@ DISPLAY_SUBPIXEL_ORDER=vrgb
-         </para>
- 
-         <section id="usingpoky-changes-layers">
--          <title>Bitbake Layers</title>
-+          <title>BitBake Layers</title>
-           <para>
-                 Often, people want to extend Poky either by adding packages
-                 or by overriding files contained within Poky to add their own
-                 functionality. 
--                Bitbake has a powerful mechanism called
-+                BitBake has a powerful mechanism called
-                 "layers", which provides a way to handle this extension in a fully
-                 supported and non-invasive fashion.
-            </para>
-@@ -575,7 +575,7 @@ BBLAYERS = " \
-            </para>
- 
-           <para>
--               Bitbake parses each <filename>conf/layer.conf</filename> file for each layer in BBLAYERS
-+               BitBake parses each <filename>conf/layer.conf</filename> file for each layer in BBLAYERS
-                and adds the recipes, classes and configuration contained within the layer to Poky.
-                To create your own layer, independent of the main Poky repository,
-                simply create a directory with a <filename>conf/layer.conf</filename> file and
-@@ -613,14 +613,14 @@ BBFILE_PRIORITY_emenlow = "6"
-                 Note the use of the <glossterm><link linkend='var-LAYERDIR'>LAYERDIR</link></glossterm> 
-                 variable with the immediate expansion operator.
-                 The LAYERDIR variable expands to the directory of the current layer and
--                requires the immediate expansion operator so that Bitbake does not wait to expand the variable 
-+                requires the immediate expansion operator so that BitBake does not wait to expand the variable 
-                 when it's parsing a different directory.
+-                What do we need to ship for licence complience?
++                What do we need to ship for license compliance?
              </para>
+         </question>
+         <answer>
              <para>
--                Bitbake can locate where other bbclass and configuration files are applied through 
-+                BitBake can locate where other bbclass and configuration files are applied through 
-                 the <glossterm><link linkend='var-BBPATH'>BBPATH</link></glossterm>
-                 environment variable. 
--                For these cases, Bitbake uses the first file with the matching name found in BBPATH.
-+                For these cases, BitBake uses the first file with the matching name found in BBPATH.
-                 This is similar to the way the PATH variable is used for binaries. 
-                 We recommend, therefore, that you use unique bbclass and configuration file names in your
-                 custom layer.
-@@ -747,7 +747,7 @@ BBFILE_PRIORITY_emenlow = "6"
-             <para>
-                 The core component of any development effort with Poky is often an 
-                 automated build testing framework and an image generation process. 
--                You can use these core components to check that the metadata is buildable, 
-+                You can use these core components to check that the metadata can be built, 
-                 highlight when commits break the build, and provide up-to-date images that 
-                 allow people to test the end result and use it as a base platform for further 
-                 development. 
-@@ -969,7 +969,7 @@ LIC_FILES_CHKSUM = "file://../license.html;md5=5c94767cedb5d6987c902ac850ded2c6"
-                 This practice allow you to just track the "COPYING" file as long as it is kept up to date. 
+-                This is a difficult question and you need to consult your lawyer for the answer for your specific case. Its worth bearing in mind that for GPL complience there needs to be enough information shipped to allow someone else to rebuild the same end result as you are shipping. This means sharing the source code, any patches applied to it but also any configuration information about how that package was configured and built.
++                This is a difficult question and you need to consult your lawyer for the answer for your specific case. Its worth bearing in mind that for GPL compliance there needs to be enough information shipped to allow someone else to rebuild the same end result as you are shipping. This means sharing the source code, any patches applied to it but also any configuration information about how that package was configured and built.
              </para>
-             <tip>
--                If you specify an empty or invalid "md5" parameter, Bitbake returns an md5 mis-match 
-+                If you specify an empty or invalid "md5" parameter, BitBake returns an md5 mis-match 
-                 error and displays the correct "md5" parameter value during the build. The correct parameter
-                 is also captured in the build log. 
-             </tip>
+         </answer>
+     </qandaentry>
 -- 
 1.7.1
 
