@@ -1,24 +1,22 @@
-Return-Path: <mark.hatle@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2C7AE4C80188
-	for <poky@yoctoproject.org>; Fri, 18 Mar 2011 13:39:34 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p2IIdShY015851
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Fri, 18 Mar 2011 11:39:28 -0700 (PDT)
-Received: from localhost.localdomain (172.25.36.229) by
-	ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server
-	(TLS) id 14.1.255.0; Fri, 18 Mar 2011 11:39:28 -0700
-From: Mark Hatle <mark.hatle@windriver.com>
-To: <poky@yoctoproject.org>
-Date: Fri, 18 Mar 2011 13:39:22 -0500
-Message-ID: <72a14793524511b6ab21b686b92b40ec6faeaef8.1300473493.git.mark.hatle@windriver.com>
-X-Mailer: git-send-email 1.7.4
-In-Reply-To: <cover.1300473493.git.mark.hatle@windriver.com>
-References: <cover.1300473493.git.mark.hatle@windriver.com>
-MIME-Version: 1.0
-X-Originating-IP: [172.25.36.229]
-Subject: [PATCH 1/1] db: Fix path of arm-thumb patch
+Return-Path: <tom.zanussi@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 602D44C80188
+	for <poky@yoctoproject.org>; Fri, 18 Mar 2011 15:26:51 -0500 (CDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 18 Mar 2011 13:26:50 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.63,207,1299484800"; d="scan'208";a="668837089"
+Received: from unknown (HELO [10.255.12.121]) ([10.255.12.121])
+	by fmsmga002.fm.intel.com with ESMTP; 18 Mar 2011 13:26:50 -0700
+From: Tom Zanussi <tom.zanussi@intel.com>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+In-Reply-To: <1bdc18$jtoki7@fmsmga002.fm.intel.com>
+References: <1bdc18$jtoki7@fmsmga002.fm.intel.com>
+Date: Fri, 18 Mar 2011 15:26:50 -0500
+Message-ID: <1300480010.3049.1.camel@elmorro>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+Subject: Re: [PATCH 0/1] Fix for bug 888
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,64 +28,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 Mar 2011 18:39:34 -0000
-Content-Type: text/plain
+X-List-Received-Date: Fri, 18 Mar 2011 20:26:51 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Newer versions of patch, such as in Fedora 14, don't like ".." within
-the middle of the file to be patched path.
+On Fri, 2011-03-18 at 09:11 -0700, Zanussi, Tom wrote:
+> From: Tom Zanussi <tom.zanussi@intel.com>
+> 
+> This is the SRC_URI version of the previous pull request, as a backup
+> in case the previous pull request can't be done in time...
+> 
+> Fixes [BUGID #888].  Please pull.
 
-In order to fix the issue we have to hand apply the patch instead of using
-the normal mechanisms.  Only flaw with the os.system(...) approach is if it
-fails we don't get any notification or a resolver failure.
+Pushed to bernard.
 
-Signed-off-by: Mark Hatle <mark.hatle@windriver.com>
----
- .../db/db/arm-thumb-mutex_db5.patch                |    4 ++--
- meta/recipes-support/db/db_5.1.19.bb               |    9 ++++++---
- 2 files changed, 8 insertions(+), 5 deletions(-)
+> 
+> Pull URL: git://git.pokylinux.org/meta-intel.git
+>   Branch: tzanussi/crownbay-bugfix-888
+>   Browse: http://git.pokylinux.org/cgit/cgit.cgi/meta-intel/commit/?h=tzanussi/crownbay-bugfix-888
+> 
+> Tom Zanussi (1):
+>   crownbay: update a handful of EMGD licenses for linux-yocto and
+>     linux-yocto-stable
+> 
+>  ...rownbay-update-a-handful-of-EMGD-licenses.patch | 1151 ++++++++++++++++++++
+>  .../linux/linux-yocto-stable_git.bbappend          |    2 +
+>  ...rownbay-update-a-handful-of-EMGD-licenses.patch | 1151 ++++++++++++++++++++
+>  .../recipes-kernel/linux/linux-yocto_git.bbappend  |    2 +
+>  4 files changed, 2306 insertions(+), 0 deletions(-)
+>  create mode 100644 meta-crownbay/recipes-kernel/linux/linux-yocto-stable/0001-crownbay-update-a-handful-of-EMGD-licenses.patch
+>  create mode 100644 meta-crownbay/recipes-kernel/linux/linux-yocto/0001-crownbay-update-a-handful-of-EMGD-licenses.patch
+> 
 
-diff --git a/meta/recipes-support/db/db/arm-thumb-mutex_db5.patch b/meta/recipes-support/db/db/arm-thumb-mutex_db5.patch
-index 37d0d93..51d4854 100644
---- a/meta/recipes-support/db/db/arm-thumb-mutex_db5.patch
-+++ b/meta/recipes-support/db/db/arm-thumb-mutex_db5.patch
-@@ -1,5 +1,5 @@
----- db-5.1.19/../src/dbinc/mutex_int.h.orig	2011-01-05 19:21:42.181805366 -0600
--+++ db-5.1.19/../src/dbinc/mutex_int.h	2011-01-05 19:24:53.141853117 -0600
-+--- db-5.1.19/src/dbinc/mutex_int.h.orig	2011-01-05 19:21:42.181805366 -0600
-++++ db-5.1.19/src/dbinc/mutex_int.h	2011-01-05 19:24:53.141853117 -0600
- @@ -474,6 +474,25 @@
-  
-  #ifdef LOAD_ACTUAL_MUTEX_CODE
-diff --git a/meta/recipes-support/db/db_5.1.19.bb b/meta/recipes-support/db/db_5.1.19.bb
-index 919e532..94ce180 100644
---- a/meta/recipes-support/db/db_5.1.19.bb
-+++ b/meta/recipes-support/db/db_5.1.19.bb
-@@ -14,11 +14,10 @@ HOMEPAGE = "http://www.oracle.com/technology/products/berkeley-db/db/index.html"
- LICENSE = "BSD Sleepycat"
- VIRTUAL_NAME ?= "virtual/db"
- CONFLICTS = "db3"
--PR = "r1"
-+PR = "r2"
- 
- SRC_URI = "http://download.oracle.com/berkeley-db/db-${PV}.tar.gz"
--#SRC_URI_MD5 = "http://downloads.sleepycat.com/db-${PV}.tar.gz.md5"
--SRC_URI += "file://arm-thumb-mutex_db5.patch;patch=1"
-+SRC_URI += "file://arm-thumb-mutex_db5.patch;apply=no"
- 
- SRC_URI[md5sum] = "76fcbfeebfcd09ba0b4d96bfdf8d884d"
- SRC_URI[sha256sum] = "0194d4ca9266ba1a1c0bfbc233b18bfd05f63163453c81ebcdfdc7112d5ac850"
-@@ -80,6 +79,10 @@ do_configure() {
- 	oe_runconf
- }
- 
-+do_patch_append() {
-+	os.system("cd ${S}/.. ; patch -p1 -i ${WORKDIR}/arm-thumb-mutex_db5.patch")
-+}
-+
- do_install_append() {
- 	mkdir -p ${D}/${includedir}/db51
- 	#mv ${D}/${includedir}/db_185.h ${D}/${includedir}/db51/.
--- 
-1.7.4
 
 
