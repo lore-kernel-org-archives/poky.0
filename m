@@ -1,31 +1,28 @@
-Return-Path: <lianhao.lu@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 33C194C8009D
-	for <poky@yoctoproject.org>; Fri, 18 Mar 2011 02:41:45 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 18 Mar 2011 00:41:44 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,204,1299484800"; d="scan'208";a="721513941"
-Received: from pgsmsx601.gar.corp.intel.com ([10.221.43.69])
-	by orsmga001.jf.intel.com with ESMTP; 18 Mar 2011 00:41:44 -0700
-Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
-	pgsmsx601.gar.corp.intel.com (10.221.43.69) with Microsoft SMTP Server
-	(TLS) id 8.2.254.0; Fri, 18 Mar 2011 15:40:39 +0800
-Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
-	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
-	Fri, 18 Mar 2011 15:40:38 +0800
-From: "Lu, Lianhao" <lianhao.lu@intel.com>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Date: Fri, 18 Mar 2011 15:40:37 +0800
-Thread-Topic: A problem of siteconfig mismatch 
-Thread-Index: AcvlP8WfCF6RDs/AQ9qwV6fC20dSUQ==
-Message-ID: <C10D3FB0CD45994C8A51FEC1227CE22F21A67862DE@shsmsx502.ccr.corp.intel.com>
-Accept-Language: zh-CN, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: zh-CN, en-US
+Return-Path: <Kai.Kang@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C612D4C805A8
+	for <poky@yoctoproject.org>; Fri, 18 Mar 2011 04:02:37 -0500 (CDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p2I92Z81010391
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Fri, 18 Mar 2011 02:02:35 -0700 (PDT)
+Received: from [128.224.163.157] (128.224.163.157) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
+	Fri, 18 Mar 2011 02:02:34 -0700
+Message-ID: <4D831F31.3000004@windriver.com>
+Date: Fri, 18 Mar 2011 17:00:33 +0800
+From: Kang Kai <Kai.Kang@windriver.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.13) Gecko/20101208 Thunderbird/3.1.7
 MIME-Version: 1.0
-Subject: A problem of siteconfig mismatch
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+References: <cover.1300411762.git.kai.kang@windriver.com>	
+	<3404b336e81764d15f546279aa594bd30587836f.1300411762.git.kai.kang@windriver.com>
+	<1300412699.30423.2180.camel@rex>
+In-Reply-To: <1300412699.30423.2180.camel@rex>
+X-Originating-IP: [128.224.163.157]
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 1/1] msmtp: add link sendmail for lsb command check
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,35 +34,51 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 Mar 2011 07:41:45 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Fri, 18 Mar 2011 09:02:38 -0000
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi guys,
+From: Kang Kai <kai.kang@windriver.com>
 
-We recently found a bug #892(http://bugzilla.pokylinux.org/show_bug.cgi?id=
-=3D892) of the siteconfig mismatch problem in meta-environment package. The=
- site config file is used by autoconf during cross compiling to provide def=
-ault configuration values.=20
+LSB command check will test the exist of sendmail, so make sendmail
+link to msmtp in order to pass the test.
 
-In current poky, each package will use the function siteconfig_do_siteconfi=
-g_gencache() in siteconfig.bbclass to populate its own siteconfig file suit=
-able for cross compiling into SITECONFIG_SYSROOTCACHE. And the function sit=
-einfo_get_files() in siteinfo.bbclass will dump content of all the siteconf=
-ig files from SITECONFIG_SYSROOTCACHE into the final siteconfig file which =
-will be used by the host autoconf during cross compilation.=20
+Related to [YOCTO #520]
 
-This requires all the siteconfig files must be available in SITECONFIG_SYSR=
-OOTCACHE when siteinfo_get_files() is being called. That's the reason for b=
-ug #892.
+Signed-off-by: Kang Kai <kai.kang@windriver.com>
+---
+  meta/recipes-extended/msmtp/msmtp_1.4.23.bb |   10 +++++++++-
+  1 files changed, 9 insertions(+), 1 deletions(-)
 
-Since we now allow the user to specify the sysroot during cross compile, I =
-think the siteconfig file should be consistent with the target sysroot, not=
- with the SITECONFIG_SYSROOTCACHE. Otherwise there might be problems.
+diff --git a/meta/recipes-extended/msmtp/msmtp_1.4.23.bb 
+b/meta/recipes-extended/msmtp/msmtp_1.4.23.bb
+index cb3d83c..b3500d0 100644
+--- a/meta/recipes-extended/msmtp/msmtp_1.4.23.bb
++++ b/meta/recipes-extended/msmtp/msmtp_1.4.23.bb
+@@ -6,7 +6,7 @@ SECTION = "console/network"
+  PRIORITY = "required"
+  LICENSE = "GPLv3"
+  DEPENDS = "zlib gnutls"
+-PR = "r0"
++PR = "r1"
 
-Any comment?
 
-Best Regards,
--Lianhao Lu =20
+  #COPYING or Licence
+@@ -19,3 +19,11 @@ SRC_URI[md5sum] = "5fb7ae88186624cdb125d3efad3fdc16"
+  SRC_URI[sha256sum] = 
+"269cd30eeb867167c6a599e23399f4fc24196fcdef3bac5b120d806b3b421810"
+
+  inherit gettext autotools
++
++pkg_postinst_${PN} () {
++    update-alternatives --install ${sbindir}/sendmail sendmail 
+${bindir}/msmtp 100
++}
++
++pkg_prerm_${PN} () {
++    update-alternatives --remove sendmail ${bindir}/msmtp
++}
+-- 
+1.7.1
+
 
