@@ -1,26 +1,26 @@
-Return-Path: <tom.zanussi@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D6EF54C8009A
-	for <poky@yoctoproject.org>; Fri, 18 Mar 2011 21:21:41 -0500 (CDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 18 Mar 2011 19:21:41 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,208,1299484800"; d="scan'208";a="668925153"
-Received: from unknown (HELO [10.255.12.121]) ([10.255.12.121])
-	by fmsmga002.fm.intel.com with ESMTP; 18 Mar 2011 19:21:40 -0700
-From: Tom Zanussi <tom.zanussi@intel.com>
-To: Bruce Ashfield <bruce.ashfield@gmail.com>
-In-Reply-To: <AANLkTi=ELDD_XGUXaBe2zoa==-hO7B0xJ2TABmrV2Pn3@mail.gmail.com>
-References: <1bdc18$jtdv00@fmsmga002.fm.intel.com>
-	<AANLkTikFB9w+x9XNk407hf8MEVum0E4bqxPT1mGYmp6G@mail.gmail.com>
-	<1300460758.8530.4.camel@elmorro>
-	<AANLkTi=ELDD_XGUXaBe2zoa==-hO7B0xJ2TABmrV2Pn3@mail.gmail.com>
-Date: Fri, 18 Mar 2011 21:21:37 -0500
-Message-ID: <1300501297.3049.4.camel@elmorro>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [KERNEL][linux-yocto][PATCH 0/1] Fix for bug 888
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8599D4C802F2
+	for <poky@lists.pokylinux.org>; Sun, 20 Mar 2011 20:58:47 -0500 (CDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 0652A16601A1; Sun, 20 Mar 2011 19:58:44 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.2-r929478
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id B3B0D16600F4;
+	Sun, 20 Mar 2011 19:58:42 -0600 (MDT)
+Message-ID: <4D86B0D2.2070004@mlbassoc.com>
+Date: Sun, 20 Mar 2011 19:58:42 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
+MIME-Version: 1.0
+To: Poky <poky@lists.pokylinux.org>
+Subject: RPM vs IPK
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,81 +32,23 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 19 Mar 2011 02:21:42 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Mon, 21 Mar 2011 01:58:47 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Fri, 2011-03-18 at 18:45 -0700, Bruce Ashfield wrote:
-> On Fri, Mar 18, 2011 at 11:05 AM, Tom Zanussi <tom.zanussi@intel.com> wrote:
-> > On Fri, 2011-03-18 at 07:05 -0700, Bruce Ashfield wrote:
-> >> On Thu, Mar 17, 2011 at 2:45 PM, Tom Zanussi <tom.zanussi@intel.com> wrote:
-> >> > From: Tom Zanussi <tom.zanussi@intel.com>
-> >> >
-> >> > Fixes [BUGID #888].  Please pull.
-> >> >
-> >> > Pull URL: git://git.pokylinux.org/linux-yocto-2.6.37-contrib.git
-> >> >  Branch: tzanussi/crownbay-bugfix-888
-> >> >  Browse: http://git.pokylinux.org/cgit/cgit.cgi/linux-yocto-2.6.37-contrib/log/?h=tzanussi/crownbay-bugfix-888
-> >>
-> >> I'm back to location in the world with a working access to the
-> >> internet :)
-> >>
-> >> These look good to me.
-> >>
-> >> What's the timeline for getting this into the tree? I can merge this in about
-> >> 10 hours from now, and have it in for the weekend.
-> >>
-> >
-> > Hi Bruce,
-> >
-> > The timeline looks to be shorter than that, but no problem, I'm just
-> > going to resubmit them using the good old SRC_URI method, so Richard can
-> > pull them in...
-> 
-> ok. Just back now ... I'll do these merges over the weekend, and
-> we'll have them for master, and bernard can stay as is (unless
-> Richard wants to do any propagation to that branch).
-> 
+I know that historically Poky has used 'ipk' as the primary packaging
+mechanism.  It seems that now Poky/Yocto has move to 'rpm'.  My distribution
+is still using ipk, but I'm happy to change, given a good argument.
 
-OK, sounds good - I pulled the SRC_URI patches into bernard earlier, so
-we're ok for now...
+* Is there such [a good reason] to use rpm over ipk?
+* What are the pros and cons?  I'm mostly interested in very resource limited
+   deeply embedded systems which often only run from FLASH.
 
-Tom
+Thanks for any comments
 
-> Cheers,
-> 
-> Bruce
-> 
-> >
-> > Thanks,
-> >
-> > Tom
-> >
-> >> Cheers,
-> >>
-> >> Bruce
-> >>
-> >> >
-> >> > Tom Zanussi (1):
-> >> >  crownbay: update a handful of EMGD licenses
-> >> >
-> >> >  drivers/gpu/drm/emgd/emgd/pal/Makefile.include     |   39 ++--
-> >> >  .../emgd/pvr/services4/system/common/sysconfig.c   |  287 ++++++++++----------
-> >> >  .../drm/emgd/pvr/services4/system/plb/sysconfig.c  |   64 +++---
-> >> >  .../drm/emgd/pvr/services4/system/tnc/sysconfig.c  |   64 +++---
-> >> >  .../gpu/drm/emgd/pvr/services4/system/tnc/systnc.h |   48 ++--
-> >> >  5 files changed, 246 insertions(+), 256 deletions(-)
-> >> >
-> >> >
-> >>
-> >>
-> >>
-> >
-> >
-> >
-> 
-> 
-> 
-
-
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
