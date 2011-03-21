@@ -1,28 +1,30 @@
-Return-Path: <koen@dominion.thruhere.net>
-Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
-	[74.125.82.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 65DCD4C800AC
-	for <poky@yoctoproject.org>; Mon, 21 Mar 2011 06:49:47 -0500 (CDT)
-Received: by wyb40 with SMTP id 40so7061827wyb.35
-	for <poky@yoctoproject.org>; Mon, 21 Mar 2011 04:49:46 -0700 (PDT)
-Received: by 10.227.179.138 with SMTP id bq10mr4104937wbb.12.1300708186199;
-	Mon, 21 Mar 2011 04:49:46 -0700 (PDT)
-Received: from [172.20.1.5] (ip545070eb.adsl-surfen.hetnet.nl [84.80.112.235])
-	by mx.google.com with ESMTPS id g7sm2718656wby.31.2011.03.21.04.49.44
-	(version=TLSv1/SSLv3 cipher=OTHER);
-	Mon, 21 Mar 2011 04:49:45 -0700 (PDT)
-Mime-Version: 1.0 (Apple Message framework v1082)
-From: Koen Kooi <koen@dominion.thruhere.net>
-In-Reply-To: <63726.2611.qm@web95703.mail.in.yahoo.com>
-Date: Mon, 21 Mar 2011 12:49:43 +0100
-Message-Id: <93102E2F-F094-409F-AB37-B9887256A219@dominion.thruhere.net>
-References: <63726.2611.qm@web95703.mail.in.yahoo.com>
-To: Sparsh Wid hope <sparsh150847@yahoo.com>
-X-Mailer: Apple Mail (2.1082)
-Cc: poky <poky@yoctoproject.org>,
-	Patches and discussions about the oe-core layer
-	<openembedded-core@lists.openembedded.org>
-Subject: Re: Need help to build poky image for beagle board
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 142CB4C80132
+	for <poky@lists.pokylinux.org>; Mon, 21 Mar 2011 06:58:03 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2LBw492012649;
+	Mon, 21 Mar 2011 11:58:04 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 12187-07; Mon, 21 Mar 2011 11:58:00 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2LBvt8g012643
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Mon, 21 Mar 2011 11:57:56 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Gary Thomas <gary@mlbassoc.com>
+In-Reply-To: <4D86B0D2.2070004@mlbassoc.com>
+References: <4D86B0D2.2070004@mlbassoc.com>
+Date: Mon, 21 Mar 2011 11:57:31 +0000
+Message-ID: <1300708651.30423.3434.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: Poky <poky@lists.pokylinux.org>
+Subject: Re: RPM vs IPK
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,73 +36,44 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 Mar 2011 11:49:48 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Mon, 21 Mar 2011 11:58:04 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+
+On Sun, 2011-03-20 at 19:58 -0600, Gary Thomas wrote:
+> I know that historically Poky has used 'ipk' as the primary packaging
+> mechanism.  It seems that now Poky/Yocto has move to 'rpm'.  My distribution
+> is still using ipk, but I'm happy to change, given a good argument.
+> 
+> * Is there such [a good reason] to use rpm over ipk?
+> * What are the pros and cons?  I'm mostly interested in very resource limited
+>    deeply embedded systems which often only run from FLASH.
+> 
+> Thanks for any comments
+
+My advice is that for such a resource limited system, you're probably
+best of sticking to ipk, particularly if you have it working already.
+
+opkg:
+
+* Has a smaller disk footprint
+* Is generally faster than rpm
+
+rpm+zypper:
+
+* More of an industry standard
+* Emphasises correctness and robustness over speed (e.g. number of 
+  fsync calls)
+* Has desktop/enterprise features
+* Not optimised for size (e.g. uses c++)
+
+I'd not say one was better than the other, they're just different and
+suit different use cases.
+
+Cheers,
+
+Richard
 
 
-Op 21 mrt 2011, om 11:29 heeft Sparsh Wid hope het volgende geschreven:
-
-> Hi All,
->=20
-> I'm trying to build poky image for beagle board.=20
-
-I'll address the 'beagleboard' portion of your question below.
-
-> I got the following error-=20
-> FATAL: Error when parsing []: file classes/packaged-staging.bbclass =
-not found in =
-/home/surya/Surya/pro/POKY/meta-texasinstruments:/home/surya/Surya/pro/POK=
-Y/meta
->=20
-> I followed the steps below-
->=20
-> 1.Downloaded the source=20
-> wget -c =
-http://git.pokylinux.org/cgit/cgit.cgi/poky/snapshot/poky-laverne-4.0.1.ta=
-r.bz2
->=20
-> and rename it as POKY.
-> 2. Get TI's overlay
-> git clone git://github.com/mrchapp/meta-texasinstruments.git
-> cd meta-texasinstruments
-> git checkout -b gitomapzoom --track origin/gitomapzoom
-
-That's not a TI overlay, it's an overlay done by someone to add the =
-dspbridge stuff to OE. If you want better beagleboard support, use the =
-following layer:
-
-http://gitorious.org/angstrom/angstrom-layers/
-
-If you don't want to manually resolve all the layer dependencies have a =
-look at the scripts mentioned in the readme:
-
-http://gitorious.org/angstrom/angstrom-layers/blobs/master/README
-
-The 'better' in the above is aimed at hw support like cpufreq, DSP, =
-1GHz/720MHz, etc. The standard yocto kernel lacks all that because it's =
-focussed at different things like 100% POSIX compliance.
-
-regards,
-
-Koen
-
->=20
-> 3. Copy configuration
-> cp -p POKY/meta-texasinstruments/conf/misc/local.conf =
-POKY/build/conf/local.conf
->=20
-> 4. Build!
-> cd POKY
-> source poky-init-build-env
->=20
-> from the link http://elinux.org/BeagleBoard/Poky
-> Help me to solve this error.
-> Thanks in advance         =20
->=20
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
 
 
