@@ -1,33 +1,29 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B6C124C800BB
-	for <poky@yoctoproject.org>; Mon, 21 Mar 2011 07:12:55 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2LCCicW012853;
-	Mon, 21 Mar 2011 12:12:44 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 12813-01; Mon, 21 Mar 2011 12:12:40 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2LCCbaq012843
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Mon, 21 Mar 2011 12:12:38 GMT
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Koen Kooi <koen@dominion.thruhere.net>
-In-Reply-To: <93102E2F-F094-409F-AB37-B9887256A219@dominion.thruhere.net>
-References: <63726.2611.qm@web95703.mail.in.yahoo.com>
-	<93102E2F-F094-409F-AB37-B9887256A219@dominion.thruhere.net>
-Date: Mon, 21 Mar 2011 12:12:13 +0000
-Message-ID: <1300709533.30423.3459.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: Sparsh Wid hope <sparsh150847@yahoo.com>, poky <poky@yoctoproject.org>,
-	Patches and discussions about the oe-core layer
-	<openembedded-core@lists.openembedded.org>
-Subject: Re: Need help to build poky image for beagle board
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2683F4C800BA
+	for <poky@lists.pokylinux.org>; Mon, 21 Mar 2011 09:02:59 -0500 (CDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id CECF4166023E; Mon, 21 Mar 2011 08:02:57 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.2-r929478
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 1E57B1660107;
+	Mon, 21 Mar 2011 08:02:57 -0600 (MDT)
+Message-ID: <4D875A91.8000402@mlbassoc.com>
+Date: Mon, 21 Mar 2011 08:02:57 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
+MIME-Version: 1.0
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+References: <4D86B0D2.2070004@mlbassoc.com> <1300708651.30423.3434.camel@rex>
+In-Reply-To: <1300708651.30423.3434.camel@rex>
+Cc: Poky <poky@lists.pokylinux.org>
+Subject: Re: RPM vs IPK
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,68 +35,55 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 Mar 2011 12:13:01 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Mon, 21 Mar 2011 14:03:00 -0000
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Mon, 2011-03-21 at 12:49 +0100, Koen Kooi wrote:
-> Op 21 mrt 2011, om 11:29 heeft Sparsh Wid hope het volgende geschreven: 
-> > I'm trying to build poky image for beagle board. 
-> 
-> I'll address the 'beagleboard' portion of your question below.
-> 
-> > I got the following error- 
-> > FATAL: Error when parsing []: file classes/packaged-staging.bbclass not found in /home/surya/Surya/pro/POKY/meta-texasinstruments:/home/surya/Surya/pro/POKY/meta
-> > 
-> > I followed the steps below-
-> > 
-> > 1.Downloaded the source 
-> > wget -c http://git.pokylinux.org/cgit/cgit.cgi/poky/snapshot/poky-laverne-4.0.1.tar.bz2
-> > 
-> > and rename it as POKY.
-> > 2. Get TI's overlay
-> > git clone git://github.com/mrchapp/meta-texasinstruments.git
-> > cd meta-texasinstruments
-> > git checkout -b gitomapzoom --track origin/gitomapzoom
+On 03/21/2011 05:57 AM, Richard Purdie wrote:
+> On Sun, 2011-03-20 at 19:58 -0600, Gary Thomas wrote:
+>> I know that historically Poky has used 'ipk' as the primary packaging
+>> mechanism.  It seems that now Poky/Yocto has move to 'rpm'.  My distribution
+>> is still using ipk, but I'm happy to change, given a good argument.
+>>
+>> * Is there such [a good reason] to use rpm over ipk?
+>> * What are the pros and cons?  I'm mostly interested in very resource limited
+>>     deeply embedded systems which often only run from FLASH.
+>>
+>> Thanks for any comments
+>
+> My advice is that for such a resource limited system, you're probably
+> best of sticking to ipk, particularly if you have it working already.
+>
+> opkg:
+>
+> * Has a smaller disk footprint
+> * Is generally faster than rpm
+>
+> rpm+zypper:
+>
+> * More of an industry standard
+> * Emphasises correctness and robustness over speed (e.g. number of
+>    fsync calls)
 
-As others have said, this is an older metadata layer which was written
-by some people at TI for older versions of Poky. Its not really been
-updated in a couple of years. If you really want to use that layer, you
-need to use it with the version of Poky it was written for. I'm not sure
-offhand which that would be but its a very early development of our
-layer technology and we're getting better at handling documenting the
-depedencies and working on a more automated way to handle this.
+Does this mean ipk/opkg fails along these lines in any way?
 
-> That's not a TI overlay, it's an overlay done by someone to add the
-> dspbridge stuff to OE. If you want better beagleboard support, use the
-> following layer:
-> 
-> http://gitorious.org/angstrom/angstrom-layers/
-> 
-> If you don't want to manually resolve all the layer dependencies have
-> a look at the scripts mentioned in the readme:
-> 
-> http://gitorious.org/angstrom/angstrom-layers/blobs/master/README
-> 
-> The 'better' in the above is aimed at hw support like cpufreq, DSP,
-> 1GHz/720MHz, etc. The standard yocto kernel lacks all that because
-> it's focussed at different things like 100% POSIX compliance.
+> * Has desktop/enterprise features
 
-Right, Yocto decided to use the beagleboard hardware as a hardware
-target to demonstrate that its core arm support was good.
+Such as?
 
-We've therefore been looking at things like POSIX tests, LSB compliance
-and also some of the tooling benefits from the Yocto kernel such as its
-defconfig management, integrated lttng support and other features. In
-the meantime, the hardware component support in other layers has vastly
-improved which is great.
+> * Not optimised for size (e.g. uses c++)
+>
+> I'd not say one was better than the other, they're just different and
+> suit different use cases.
 
-I'm hoping we'll find ways to get the best of both worlds in future and
-we're looking at ways of making that happen.
+Pretty much what I thought, thanks.
 
-Cheers,
+My only concern is that if rpm is the primary emphasis, ipk/opkg might
+suffer from rot.
 
-Richard
-
-
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
