@@ -1,27 +1,29 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2683F4C800BA
-	for <poky@lists.pokylinux.org>; Mon, 21 Mar 2011 09:02:59 -0500 (CDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id CECF4166023E; Mon, 21 Mar 2011 08:02:57 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2-r929478
-Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 1E57B1660107;
-	Mon, 21 Mar 2011 08:02:57 -0600 (MDT)
-Message-ID: <4D875A91.8000402@mlbassoc.com>
-Date: Mon, 21 Mar 2011 08:02:57 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
-MIME-Version: 1.0
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-References: <4D86B0D2.2070004@mlbassoc.com> <1300708651.30423.3434.camel@rex>
-In-Reply-To: <1300708651.30423.3434.camel@rex>
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 17D514C800BA
+	for <poky@lists.pokylinux.org>; Mon, 21 Mar 2011 09:43:27 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2LEhSMK023490;
+	Mon, 21 Mar 2011 14:43:28 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 23056-04; Mon, 21 Mar 2011 14:43:24 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2LEhMIZ023484
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Mon, 21 Mar 2011 14:43:23 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Gary Thomas <gary@mlbassoc.com>
+In-Reply-To: <4D875A91.8000402@mlbassoc.com>
+References: <4D86B0D2.2070004@mlbassoc.com>
+	<1300708651.30423.3434.camel@rex>  <4D875A91.8000402@mlbassoc.com>
+Date: Mon, 21 Mar 2011 14:42:57 +0000
+Message-ID: <1300718577.30423.3649.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+X-Virus-Scanned: amavisd-new at rpsys.net
 Cc: Poky <poky@lists.pokylinux.org>
 Subject: Re: RPM vs IPK
 X-BeenThere: poky@yoctoproject.org
@@ -35,55 +37,56 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 Mar 2011 14:03:00 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-List-Received-Date: Mon, 21 Mar 2011 14:43:28 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On 03/21/2011 05:57 AM, Richard Purdie wrote:
-> On Sun, 2011-03-20 at 19:58 -0600, Gary Thomas wrote:
->> I know that historically Poky has used 'ipk' as the primary packaging
->> mechanism.  It seems that now Poky/Yocto has move to 'rpm'.  My distribution
->> is still using ipk, but I'm happy to change, given a good argument.
->>
->> * Is there such [a good reason] to use rpm over ipk?
->> * What are the pros and cons?  I'm mostly interested in very resource limited
->>     deeply embedded systems which often only run from FLASH.
->>
->> Thanks for any comments
->
-> My advice is that for such a resource limited system, you're probably
-> best of sticking to ipk, particularly if you have it working already.
->
-> opkg:
->
-> * Has a smaller disk footprint
-> * Is generally faster than rpm
->
-> rpm+zypper:
->
-> * More of an industry standard
-> * Emphasises correctness and robustness over speed (e.g. number of
->    fsync calls)
+On Mon, 2011-03-21 at 08:02 -0600, Gary Thomas wrote:
+> On 03/21/2011 05:57 AM, Richard Purdie wrote:
+> > rpm+zypper:
+> >
+> > * More of an industry standard
+> > * Emphasises correctness and robustness over speed (e.g. number of
+> >    fsync calls)
+> 
+> Does this mean ipk/opkg fails along these lines in any way?
 
-Does this mean ipk/opkg fails along these lines in any way?
+The opkg source code has certainly not been audited as thoroughly as the
+rpm codebase for those kind of issues. I'd say the two codebases each
+have their own set of problems though :).
 
-> * Has desktop/enterprise features
+> > * Has desktop/enterprise features
 
-Such as?
+Off the top of my head, the ones I'm aware of are:
 
-> * Not optimised for size (e.g. uses c++)
->
-> I'd not say one was better than the other, they're just different and
-> suit different use cases.
+Possibility of DeltaRPM updates
+Various more advanced dependency calculations (which we're adding for
+the benefit of all packaging backends in Yocto) 
+   * per-file dependenies
+   * perl/python module dependencies
+   * directory ownership
+Multilib support
+Tighter integration with features like prelink.
 
-Pretty much what I thought, thanks.
+I'm sure some of the more rpm literate people on the list can detail
+others.
 
-My only concern is that if rpm is the primary emphasis, ipk/opkg might
-suffer from rot.
+> > * Not optimised for size (e.g. uses c++)
+> >
+> > I'd not say one was better than the other, they're just different and
+> > suit different use cases.
+> 
+> Pretty much what I thought, thanks.
+> 
+> My only concern is that if rpm is the primary emphasis, ipk/opkg might
+> suffer from rot.
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+I want to see opkg continue to work well, if you do see any problems
+with it, let us know...
+
+Cheers,
+
+Richard
+
+
 
