@@ -1,29 +1,23 @@
 Return-Path: <tom.zanussi@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id AC9204C80050
-	for <poky@lists.pokylinux.org>; Tue, 22 Mar 2011 01:22:20 -0500 (CDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 21 Mar 2011 23:22:20 -0700
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 682124C800AC
+	for <poky@lists.pokylinux.org>; Tue, 22 Mar 2011 02:39:26 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 22 Mar 2011 00:39:11 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,224,1299484800"; d="scan'208";a="899803230"
+X-IronPort-AV: E=Sophos;i="4.63,224,1299484800"; d="scan'208";a="406256783"
 Received: from unknown (HELO [10.255.12.121]) ([10.255.12.121])
-	by fmsmga001.fm.intel.com with ESMTP; 21 Mar 2011 23:22:19 -0700
+	by azsmga001.ch.intel.com with ESMTP; 22 Mar 2011 00:39:11 -0700
 From: Tom Zanussi <tom.zanussi@intel.com>
 To: Gary Thomas <gary@mlbassoc.com>
-In-Reply-To: <4D87F389.3070909@mlbassoc.com>
-References: <4D876DD3.5070106@mlbassoc.com>
-	<1300722848.30423.3751.camel@rex>	<4D877E6B.9000007@mlbassoc.com>
-	<1300730269.30423.3975.camel@rex>	<4D879883.5010501@linux.intel.com>
-	<4D879A14.7040104@mlbassoc.com>	<4D87AAF2.3010108@linux.intel.com>
-	<4D87B30F.90802@mlbassoc.com>  <4D87B434.1070404@windriver.com>
-	<1300741361.3049.18.camel@elmorro> <4D87D815.6090404@mlbassoc.com>
-	<4D87DE46.9040401@linux.intel.com>  <4D87F389.3070909@mlbassoc.com>
-Date: Tue, 22 Mar 2011 01:22:23 -0500
-Message-ID: <1300774943.3049.163.camel@elmorro>
+In-Reply-To: <4D87A03B.2000403@mlbassoc.com>
+References: <4D87A03B.2000403@mlbassoc.com>
+Date: Tue, 22 Mar 2011 02:39:14 -0500
+Message-ID: <1300779554.3049.196.camel@elmorro>
 Mime-Version: 1.0
 X-Mailer: Evolution 2.28.3 
-Cc: Poky <poky@lists.pokylinux.org>, Darren Hart <dvhart@linux.intel.com>
-Subject: Re: Using RPM with Poky
+Cc: Poky <poky@lists.pokylinux.org>
+Subject: Re: Making live images bigger
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,235 +29,58 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 Mar 2011 06:22:21 -0000
+X-List-Received-Date: Tue, 22 Mar 2011 07:39:26 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On Mon, 2011-03-21 at 17:55 -0700, Gary Thomas wrote:
-> On 03/21/2011 05:24 PM, Darren Hart wrote:
-> >
-> >
-> > On 03/21/2011 03:58 PM, Gary Thomas wrote:
-> >> On 03/21/2011 03:02 PM, Tom Zanussi wrote:
-> >>> On Mon, 2011-03-21 at 13:25 -0700, Bruce Ashfield wrote:
-> >>>> On 11-03-21 04:20 PM, Gary Thomas wrote:
-> >>>>> On 03/21/2011 01:45 PM, Darren Hart wrote:
-> >>>>>>
-> >>>>>>
-> >>>>>> On 03/21/2011 11:33 AM, Gary Thomas wrote:
-> >>>>>>> On 03/21/2011 12:27 PM, Darren Hart wrote:
-> >>>>>>>>
-> >>>>>>>>
-> >>>>>>>> On 03/21/2011 10:57 AM, Richard Purdie wrote:
-> >>>>>>>>> On Mon, 2011-03-21 at 10:35 -0600, Gary Thomas wrote:
-> >>>>>>>>>> On 03/21/2011 09:54 AM, Richard Purdie wrote:
-> >>>>>>>>>>> On Mon, 2011-03-21 at 09:25 -0600, Gary Thomas wrote:
-> >>>>>>>>>>>> I'm trying to do some testing with Poky on an atom-PC. I thought
-> >>>>>>>>>>>> I'd try with a minimal system and then add pieces I need. Sadly,
-> >>>>>>>>>>>> I've run aground doing this. I've built a couple of images with
-> >>>>>>>>>>>> varying results:
-> >>>>>>>>>>>> poky-image-minimal-live - boots on my box
-> >>>>>>>>>>>> poky-image-sato-live - boots, but fails to find X display, then
-> >>>>>>>>>>>> hangs (*)
-> >>>>>>>>>>>>
-> >>>>>>>>>>>> There seem to be no RPM tools on the minimal image. Did I miss
-> >>>>>>>>>>>> something?
-> >>>>>>>>>>>> On my old, ipk based system, I'd build up a minimal image
-> >>>>>>>>>>>> then use
-> >>>>>>>>>>>> opkg
-> >>>>>>>>>>>> to install additional packages.
-> >>>>>>>>>>>
-> >>>>>>>>>>> Minimal images were never meant to ship with the package manager
-> >>>>>>>>>>> and now
-> >>>>>>>>>>> don't. You can obviously change the image definitions easily
-> >>>>>>>>>>> enough as
-> >>>>>>>>>>> needed.
-> >>>>>>>>>>>
-> >>>>>>>>>>>> How do I do that with the RPM based images?
-> >>>>>>>>>>>
-> >>>>>>>>>>> The same switch turns on/off the package manager data for rpm and
-> >>>>>>>>>>> opkg.
-> >>>>>>>>>>
-> >>>>>>>>>> I tried adding this to local.conf, but nothing changed when I
-> >>>>>>>>>> build
-> >>>>>>>>>> minimal image:
-> >>>>>>>>>> IMAGE_FEATURES += " package-management ssh-server-dropbear "
-> >>>>>>>>>
-> >>>>>>>>> There is also this:
-> >>>>>>>>>
-> >>>>>>>>> # remove not needed ipkg informations
-> >>>>>>>>> ROOTFS_POSTPROCESS_COMMAND += "remove_packaging_data_files ; "
-> >>>>>>>>>
-> >>>>>>>>> in poky-image-minimal.bbclass which has been there for a long
-> >>>>>>>>> time and
-> >>>>>>>>> removes the package manager data files.
-> >>>>>>>>>
-> >>>>>>>>>
-> >>>>>>>>>> BTW, where is this documented? Not in the Poky handbook from
-> >>>>>>>>>> what I
-> >>>>>>>>>> can tell.
-> >>>>>>>>>>
-> >>>>>>>>>> Also, is there documentation on how to use zypper, how to set up
-> >>>>>>>>>> repositories, etc?
-> >>>>>>>>>
-> >>>>>>>>> I think others have helped here. Please do send patches for the
-> >>>>>>>>> manual
-> >>>>>>>>> when people go to the trouble of finding information to help
-> >>>>>>>>> though!
-> >>>>>>>>>
-> >>>>>>>>>>>> I've checked the documentation and there's basically nothing
-> >>>>>>>>>>>> about this, unless I looked in the wrong place.
-> >>>>>>>>>>>>
-> >>>>>>>>>>>> Any ideas or pointers gladly accepted. Thanks
-> >>>>>>>>>>>>
-> >>>>>>>>>>>> (*) I had success with this in the past when I booted with
-> >>>>>>>>>>>> MACHINE=emenlow
-> >>>>>>>>>>>> but that hardware isn't in the primary list.
-> >>>>>>>>>>>
-> >>>>>>>>>>> I'm not sure why this isn't working or what the problem might
-> >>>>>>>>>>> be...
-> >>>>>>>>>>
-> >>>>>>>>>> It complains it can't find /dev/fb0. See the boot log at
-> >>>>>>>>>> http://www.mlbassoc.com/poky/boot_2011-03-21.log
-> >>>>>>>>>
-> >>>>>>>>> Does your board have Intel graphics or PVR/SGX? emenlow has PVR/SGX
-> >>>>>>>>> which might explain this...
-> >>>>>>>>
-> >>>>>>>> And if you need emenlow, that bsp is now part of the meta-intel
-> >>>>>>>> layer:
-> >>>>>>>>
-> >>>>>>>> http://git.pokylinux.org/cgit.cgi/meta-intel/
-> >>>>>>>
-> >>>>>>> Do you have instructions/suggestions on how to add this to my extant
-> >>>>>>> Poky tree?
-> >>>>>>>
-> >>>>>>
-> >>>>>> It's just another layer, so you checkout it out somewhere and add the
-> >>>>>> meta-intel/meta-$MACHINE directory to your conf/bblayer.conf file.
-> >>>>>
-> >>>>> I did that, changed MACHINE=emenlow, but I got this error:
-> >>>>>
-> >>>>> | cc1: warnings being treated as errors
-> >>>>> | cc1: error: include location "/usr/local/include" is unsafe for
-> >>>>> cross-compilation
-> >>>>> | make: *** [util/scripting-engines/trace-event-perl.o] Error 1
-> >>>>> | make: Leaving directory
-> >>>>> `/home/local/pc_test/tmp/work/emenlow-poky-linux/linux-yocto-2.6.37+git2+29047c254624e0bd8a0ac6da92862f7c6357cb0b_1+c6299ae5bece8e3a6e1bc2c236862ae004629aae-r16/linux/tools/perf'
-> >>>>>
-> >>>>>
-> >>>>> | FATAL: oe_runmake failed
-> >>>>> | ERROR: Function 'do_compile_perf' failed (see
-> >>>>> /home/local/pc_test/tmp/work/emenlow-poky-linux/linux-yocto-2.6.37+git2+29047c254624e0bd8a0ac6da92862f7c6357cb0b_1+c6299ae5bece8e3a6e1bc2c236862ae004629aae-r16/temp/log.do_compile_perf.10359
-> >>>>>
-> >>>>>
-> >>>>> for further information)
-> >>>>>
-> >>>>> This from yesterday's master (aeaa356a5ee77b4596c479451a9db289381a4d16)
-> >>>>>
-> >>>>> I recall seeing similar errors recently, but not the solution. Is there
-> >>>>> an easy fix?
-> >>>>
-> >>>> It means that the SRCREV for the branch doesn't have the
-> >>>> following commit covered:
-> >>>>
-> >>>> ----------
-> >>>>
-> >>>> commit 2b412826bbeb4a16abe2ea74f2456ab880c6e3c1
-> >>>> Author: Bruce Ashfield<bruce.ashfield@windriver.com>
-> >>>> Date: Fri Feb 25 13:18:51 2011 -0500
-> >>>>
-> >>>> perf: hard-code NO_LIBPERL/NO_LIBPYTHON
-> >>>>
-> >>>> ExtUtils::Embed ccopts is getting the host's -I/usr/local/include and
-> >>>> using it to compile perf, which results in a compilation error that
-> >>>> started appearing just recently.
-> >>>>
-> >>>> This turns the code that makes use of ExtUtils::Embed off and simply
-> >>>> hard-codes NO_LIBPERL.
-> >>>>
-> >>>> It does the same for LIBPYTHON while we're at it, since it probably
-> >>>> suffers from a similar underlying problem and just by chance hasn't
-> >>>> broken anything yet.
-> >>>>
-> >>>> This will be re-enabled after I familiarize myself with the perf
-> >>>> recipe and am able to create a proper fix.
-> >>>>
-> >>>> Signed-off-by: Tom Zanussi<tom.zanussi@intel.com>
-> >>>> Signed-off-by: Bruce Ashfield<bruce.ashfield@windriver.com>
-> >>>>
-> >>>> ----------
-> >>>>
-> >>>> The kernel repo has this, and I thought that the meta-intel
-> >>>> emenlow had an updated SRCREV .. but your build error indicates
-> >>>> otherwise.
-> >>>>
-> >>>
-> >>> Hmm, strange - the SRCREV does look like it needed to be updated but yet
-> >>> I nor the autobuilder have been seeing this.
-> >>>
-> >>> Anyway, I just updated the kernel SRCREVs in master, please try again...
-> >>
-> >> It work now, thanks. It also found my display and SATA devices. Sadly, when
-> >> it's running X, I can't use the mouse. It seems to be found, but doesn't
-> >> work.
-> >>
-> >> I get these messages during boot:
-> >> usb 1-1.2: USB disconnect, address 6
-> >> usb 1-1.2: new low speed USB device using ehci_hcd and address 7
-> >> input: Logitech USB-PS/2 Optical Mouse as
-> >> /devices/pci0000:00/0000:00:1d.7/usb1/1-1/1-1.2/1-1.2:1.0/input/input4
-> >> generic-usb 0003:046D:C03D.0005: input: USB HID v1.10 Mouse [Logitech
-> >> USB-PS/2 Optical Mouse] on usb-0000:00:1d.7-1.2/input0
-> >> And there is a device created:
-> >> root@emenlow:~# ls -l /dev/input/
-> >> drwxr-xr-x 2 root root 60 Mar 21 22:27 by-id
-> >> drwxr-xr-x 2 root root 60 Mar 21 22:27 by-path
-> >> crw-r----- 1 root root 13, 63 Mar 21 06:31 mice
-> >> crw-r----- 1 root root 13, 32 Mar 21 22:27 mouse0
-> >>
-> >> Ideas?
-> >
-> >
-> > By "doesn't work" do you mean that you don't see the cursor? Or do you see the cursor, but it doesn't move? Or it moves but clicking has no effect?
-> >
-> > If "I don't see a cursor" try looking at the formfactor file and check the value of "HAVE_TOUCHSCREEN":
-> >
-> > # grep -r TOUCHSCREEN /etc/formfactor/
-> > /etc/formfactor/config:if [ -z "$HAVE_TOUCHSCREEN" ]; then
-> > /etc/formfactor/config: HAVE_TOUCHSCREEN=0
-> > /etc/formfactor/machconfig:HAVE_TOUCHSCREEN=0
-> >
-> > You want that to be 0, if it's 1, then matchbox will hide the mouse. See /etc/matchbox/session
+On Mon, 2011-03-21 at 12:00 -0700, Gary Thomas wrote: 
+> I'm running a live (USB) image on my Atom-PC and would like to
+> install more programs.  Now that I've figured out the magic to
+> use zypper and rpm (thanks, Mark), I have a new problem.  The
+> image on the USB device is too small - basically no free space :-(
 > 
-> I had already checked that file - it's correct & I do see a cursor, it just doesn't move.
+> So, I tried to adjust this by setting:
+>    /tmp/poky-amltd/meta-yocto/conf/machine/atom-pc.conf:IMAGE_ROOTFS_SIZE_ext3 ?= "1000000"
+> which I think should give me a 1GB USB setup.  Sadly, the result was exactly the
+> same size as when I ran it with the default size.
+> 
+> Any ideas what I'm doing wrong?  I edited the config as above, then simply ran
+>    % bitbake poky-image-sato-live
+> I can see that it rebuilt the images, but they're just too small still.
 > 
 
-The mouse on my emenlow system, a WEBS-2120 box, works ok with a fresh
-build from master.  Here's my dmesg output:
+According to this in image.bbclass, the size should end up with 20% free
+space (IMAGE_OVERHEAD_FACTOR = 1.2) regardless.
 
-usb 2-1: new low speed USB device using uhci_hcd and address 2
-input: USB Optical Mouse
-as /devices/pci0000:00/0000:00:1d.0/usb2/2-1/2-1:1.0/input/input2
-generic-usb 0003:0461:4D65.0001: input: USB HID v1.11 Mouse [USB Optical
-Mouse] on usb-0000:00:1d.0-1/input0
+ROOTFS_SIZE=`du -ks ${IMAGE_ROOTFS}|awk '{size = $1 * ${IMAGE_OVERHEAD_FACTOR}; print (size > ${IMAGE_ROOTFS_SIZE} ? size : ${IMAGE_ROOTFS_SIZE}) }'`
 
-The difference seems to be uhci_hcd vs ehci_hcd in your case...
+But in any case, IMAGE_ROOTFS_SIZE_ext3 seems to be getting ignored -
+the only way I was able to get a 1G image was to use the straight
+IMAGE_ROOTFS_SIZE e.g. using
+
+IMAGE_ROOTFS_SIZE ?= "1000000"
+
+instead of
+
+IMAGE_ROOTFS_SIZE_ext3 = "2000000"
+
+in emenlow.conf.  The image sizes before and after:
+
+-rw-r--r--   1 trz trz  582105088 2011-03-22 01:58 poky-image-sato-live-emenlow-20110322065226.hddimg
+-rw-r--r--   1 trz trz  581939200 2011-03-22 01:58 poky-image-sato-live-emenlow-20110322065226.iso
+-rw-r--r--   1 trz trz 1032947712 2011-03-22 02:21 poky-image-sato-live-emenlow-20110322071321.hddimg
+-rw-r--r--   1 trz trz 1032779776 2011-03-22 02:21 poky-image-sato-live-emenlow-20110322071321.iso
+
+But 1000000 is half of what the default is supposed to in the first
+place - if it was working correctly, it should have gotten 2Gb by
+default apparently...
 
 Tom
 
-> >>
-> >> Now, if I can just figure out how to make the [live] image larger...
-> >> (free space)
-> >> I can get on with the real testing I need to do.
-> >> Thanks for the help
-> >>
-> >
+
+> Thanks
 > 
-> -- 
-> ------------------------------------------------------------
-> Gary Thomas                 |  Consulting for the
-> MLB Associates              |    Embedded world
-> ------------------------------------------------------------
+
 
 
 
