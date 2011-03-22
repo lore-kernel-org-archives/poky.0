@@ -1,32 +1,24 @@
-Return-Path: <kubera.samrat@gmail.com>
-Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 857FC4C800BA
-	for <poky@yoctoproject.org>; Tue, 22 Mar 2011 08:35:08 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by wwd20 with SMTP id 20so8044376wwd.11
-	for <poky@yoctoproject.org>; Tue, 22 Mar 2011 06:35:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:date:message-id:subject:from:to
-	:content-type; bh=SJJiJqavKMh5ljCrt8/IfLDcdrZ1SvC2SEcHu2saLa8=;
-	b=Kfk86l/roJEyHtuCfpmvqMZYqV6mHdGHjUai425tn6Ohi4B/pw32ik+tLH/wc2kLYM
-	4PSMi58mOFutAh4TiVhpB/zyg1OQWdfaG6My81M0pjA5HhMJyD2Ir6YoHa5OORngJAGA
-	l2Y/qWyS1BnqlZrqib2r4MySs+VX7b72rrf0s=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:date:message-id:subject:from:to:content-type;
-	b=c7L1Z7LWxE0WGGtn79laPrcStW6j9qYbyYebFLjIClssWwsSoQNTPwdcKeI9BKe3Na
-	V7OgWclLEP3A2aNiKG395vTR/erl4e14QnPDGIyK5OfR2IkVb9oaVzrNpycYAAlju0CZ
-	E78Lj29wzjneFV1eclPRWSUwkUtchAHL9Sdc0=
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 3AF294C800BA
+	for <poky@yoctoproject.org>; Tue, 22 Mar 2011 08:41:20 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 22 Mar 2011 06:41:19 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.63,224,1299484800"; d="scan'208";a="722877612"
+Received: from unknown (HELO [10.255.12.183]) ([10.255.12.183])
+	by orsmga001.jf.intel.com with ESMTP; 22 Mar 2011 06:41:19 -0700
+Message-ID: <4D88A6FF.4040701@linux.intel.com>
+Date: Tue, 22 Mar 2011 06:41:19 -0700
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.14) Gecko/20110223 Lightning/1.0b2 Thunderbird/3.1.8
 MIME-Version: 1.0
-Received: by 10.216.51.135 with SMTP id b7mr6363927wec.29.1300800907180; Tue,
-	22 Mar 2011 06:35:07 -0700 (PDT)
-Received: by 10.216.236.166 with HTTP; Tue, 22 Mar 2011 06:35:07 -0700 (PDT)
-Date: Tue, 22 Mar 2011 19:05:07 +0530
-Message-ID: <AANLkTin_LpvXeF7K+Xp5KqwGWP=rALmt+DtdbgXUuuTB@mail.gmail.com>
-From: kubera samrat <kubera.samrat@gmail.com>
-To: poky@yoctoproject.org
-Subject: Problem while pulling mesa
+To: Akshat Saha <akshat.embedded@gmail.com>
+References: <AANLkTi=Ysq2iVVt--_PD4KOmY9Rq6Uim3X9SSzM-8Pb4@mail.gmail.com>
+In-Reply-To: <AANLkTi=Ysq2iVVt--_PD4KOmY9Rq6Uim3X9SSzM-8Pb4@mail.gmail.com>
+Cc: poky@yoctoproject.org
+Subject: Re: Poky for BeagleBoard
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,166 +30,41 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 Mar 2011 13:35:09 -0000
-Content-Type: multipart/alternative; boundary=0016e6de00edfefb16049f124f97
+X-List-Received-Date: Tue, 22 Mar 2011 13:41:20 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
---0016e6de00edfefb16049f124f97
-Content-Type: text/plain; charset=ISO-8859-1
+Hi Akshat, please see this thread from a few days ago, not Koen and 
+Richard's replies in particular.
 
-Hi all,
-         I have included mesa in my recipe. I got all the .so files which I
-needed except GLES files. I am including my bb file in this mail below. So
-please tell me the modifications which has to be done such that those
-libraries get included. I have given extra conf according to the website
-given below
-http://mesa3d.sourceforge.net/
-http://mesa3d.sourceforge.net/egl.html
+https://lists.yoctoproject.org/pipermail/poky/2011-March/004889.html
 
+--
+Darren
 
-*********************************************************************************
-include mesa-common.inc
+On 03/22/2011 03:44 AM, Akshat Saha wrote:
+> Hi,
+>
+> I want to build poky for BeagleBoard.
+>
+> I am using laverne-4.0.1, on Ubuntu-10.10, 64-bit machine.
+> I referred to http://elinux.org/BeagleBoard/Poky, but it seems this
+> document was written for some old poky version.
+>
+> Any guidance or suggestion is greatly appreciated.
+>
+> Thanks in Advance,
+> Akshat
+>
+>
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
-LIC_FILES_CHKSUM =
-"file://docs/license.html;md5=7a3373c039b6b925c427755a4f779c1d"
+-- 
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
-PROTO_DEPS = "xf86driproto glproto dri2proto"
-LIB_DEPS = "libdrm virtual/libx11 libxext libxxf86vm libxdamage libxfixes
-expat"
-
-DEPENDS = "${PROTO_DEPS}  ${LIB_DEPS} mesa-dri-glsl-native python-native"
-
-PR = "r2"
-
-SRC_URI += "file://crossfix.patch"
-
-# most of our targets do not have DRI so will use mesa-xlib
-DEFAULT_PREFERENCE = "-1"
-
-# Atom PCs have DRI support so use mesa-dri by default
-DEFAULT_PREFERENCE_atom-pc = "1"
-
-LEAD_SONAME = "libGL.so.1"
-
-EXTRA_OECONF += "--with-driver=dri --enable-egl --enable-gallium
---enable-glx-tls --enable-gl-osmesa --enable-glu \
-         --enable-glw --enable-gallium-swrast --enable-xcbi
---enable-gles-overlay --enable-openvg --enable-gallium-egl"
-
-# We need glsl-compile built for buildhost arch instead of target (is
-provided by mesa-dri-glsl-native)"
-do_configure_prepend() {
-    sed -i "s#^GLSL_CL = .*\$#GLSL_CL =
-${STAGING_BINDIR_NATIVE}/glsl-compile#g"
-${S}/src/mesa/shader/slang/library/Makefile
-}
-
-do_install_append () {
-    install -d ${D}/usr/bin
-    install -d ${D}${libdir}/dri
-    install -d ${D}${libdir}/egl
-    install -m 0755 ${S}/progs/xdemos/{glxdemo,glxgears,glxheads,glxinfo}
-${D}/usr/bin/
-}
-
-#python populate_packages_prepend() {
-#    import os.path
-
-#    dri_drivers_root = os.path.join(bb.data.getVar('libdir', d, 1), "dri")
-
-#    do_split_packages(d, dri_drivers_root, '^(.*)_dri\.so$',
-'mesa-dri-driver-%s', 'Mesa %s DRI driver', extra_depends='')
-#}
-
-COMPATIBLE_HOST = '(i.86.*-linux|x86_64.*-linux)'
-
-#PACKAGES =+ "${PN}-xprogs"
-#PACKAGES_DYNAMIC = "mesa-dri-driver-*"
-
-FILES_${PN} += "${libdir}/dri/i965_dri.so"
-FILES_${PN} += "${libdir}/dri/swrast_dri.so"
-FILES_${PN} += "${libdir}/egl/*"
-#FILES_${PN}-xprogs = "${bindir}/glxdemo ${bindir}/glxgears
-${bindir}/glxheads ${bindir}/glxinfo"
-
-#
-# Header generated by i586-poky-linux-gcc gen_matypes.c -o gen_matypes -I
-../../../include/GL -I ../../../include -I .. -I ../main/ -I ../math -I
-../glapi/ -I ../tnl
-# then run gen_matypes > matypes.h on device
-#
-******************************************************************************************************************************************
-In this file I have given conf options according to one of the methods
-mentioned in website. I tried the other way also. Even the same result.
-
-****************************************************************************************************************************************
-Your help will be greatly appreciated
-
-
-
-Thanks and regards,
-V kubera Samrat
-
---0016e6de00edfefb16049f124f97
-Content-Type: text/html; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
-
-Hi all,<br>=A0=A0=A0=A0=A0=A0=A0=A0 I have included mesa in my recipe. I go=
-t all the .so files which I needed except GLES files. I am including my bb =
-file in this mail below. So please tell me the modifications which has to b=
-e done such that those libraries get included. I have given extra conf acco=
-rding to the website given below<br>
-<a href=3D"http://mesa3d.sourceforge.net/">http://mesa3d.sourceforge.net/</=
-a><br><a href=3D"http://mesa3d.sourceforge.net/egl.html">http://mesa3d.sour=
-ceforge.net/egl.html</a><br><br><br>***************************************=
-******************************************<br>
-include mesa-common.inc<br><br>LIC_FILES_CHKSUM =3D &quot;file://docs/licen=
-se.html;md5=3D7a3373c039b6b925c427755a4f779c1d&quot;<br><br>PROTO_DEPS =3D =
-&quot;xf86driproto glproto dri2proto&quot;<br>LIB_DEPS =3D &quot;libdrm vir=
-tual/libx11 libxext libxxf86vm libxdamage libxfixes expat&quot;<br>
-<br>DEPENDS =3D &quot;${PROTO_DEPS}=A0 ${LIB_DEPS} mesa-dri-glsl-native pyt=
-hon-native&quot;<br><br>PR =3D &quot;r2&quot;<br><br>SRC_URI +=3D &quot;fil=
-e://crossfix.patch&quot;<br><br># most of our targets do not have DRI so wi=
-ll use mesa-xlib<br>
-DEFAULT_PREFERENCE =3D &quot;-1&quot;<br><br># Atom PCs have DRI support so=
- use mesa-dri by default<br>DEFAULT_PREFERENCE_atom-pc =3D &quot;1&quot;<br=
-><br>LEAD_SONAME =3D &quot;libGL.so.1&quot;<br><br>EXTRA_OECONF +=3D &quot;=
---with-driver=3Ddri --enable-egl --enable-gallium --enable-glx-tls --enable=
--gl-osmesa --enable-glu \<br>
-=A0=A0=A0 =A0=A0=A0 =A0--enable-glw --enable-gallium-swrast --enable-xcbi -=
--enable-gles-overlay --enable-openvg --enable-gallium-egl&quot;<br><br># We=
- need glsl-compile built for buildhost arch instead of target (is provided =
-by mesa-dri-glsl-native)&quot;<br>
-do_configure_prepend() {<br>=A0=A0=A0 sed -i &quot;s#^GLSL_CL =3D .*\$#GLSL=
-_CL =3D ${STAGING_BINDIR_NATIVE}/glsl-compile#g&quot; ${S}/src/mesa/shader/=
-slang/library/Makefile<br>}<br><br>do_install_append () {<br>=A0=A0=A0 inst=
-all -d ${D}/usr/bin<br>
-=A0=A0=A0 install -d ${D}${libdir}/dri<br>=A0=A0=A0 install -d ${D}${libdir=
-}/egl<br>=A0=A0=A0 install -m 0755 ${S}/progs/xdemos/{glxdemo,glxgears,glxh=
-eads,glxinfo} ${D}/usr/bin/<br>}<br><br>#python populate_packages_prepend()=
- {<br>#=A0=A0=A0 import os.path<br>
-<br>#=A0=A0=A0 dri_drivers_root =3D os.path.join(bb.data.getVar(&#39;libdir=
-&#39;, d, 1), &quot;dri&quot;)<br><br>#=A0=A0=A0 do_split_packages(d, dri_d=
-rivers_root, &#39;^(.*)_dri\.so$&#39;, &#39;mesa-dri-driver-%s&#39;, &#39;M=
-esa %s DRI driver&#39;, extra_depends=3D&#39;&#39;)<br>
-#}<br><br>COMPATIBLE_HOST =3D &#39;(i.86.*-linux|x86_64.*-linux)&#39;<br><b=
-r>#PACKAGES =3D+ &quot;${PN}-xprogs&quot;<br>#PACKAGES_DYNAMIC =3D &quot;me=
-sa-dri-driver-*&quot;<br><br>FILES_${PN} +=3D &quot;${libdir}/dri/i965_dri.=
-so&quot;<br>
-FILES_${PN} +=3D &quot;${libdir}/dri/swrast_dri.so&quot;<br>FILES_${PN} +=
-=3D &quot;${libdir}/egl/*&quot;<br>#FILES_${PN}-xprogs =3D &quot;${bindir}/=
-glxdemo ${bindir}/glxgears ${bindir}/glxheads ${bindir}/glxinfo&quot;<br><b=
-r>#<br>
-# Header generated by i586-poky-linux-gcc gen_matypes.c -o gen_matypes -I .=
-./../../include/GL -I ../../../include -I .. -I ../main/ -I ../math -I ../g=
-lapi/ -I ../tnl<br># then run gen_matypes &gt; matypes.h on device<br>#<br>
-***************************************************************************=
-***************************************************************<br>In this =
-file I have given conf options according to one of the methods mentioned in=
- website. I tried the other way also. Even the same result.<br>
-<br>***********************************************************************=
-*****************************************************************<br>Your h=
-elp will be greatly appreciated<br><br><br clear=3D"all"><br>Thanks and reg=
-ards,<br>
-V kubera Samrat<br><br><br>
-
---0016e6de00edfefb16049f124f97--
