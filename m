@@ -1,32 +1,33 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A929B4C80ABD
-	for <poky@lists.pokylinux.org>; Tue, 22 Mar 2011 06:20:24 -0500 (CDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 90F2A16601BD; Tue, 22 Mar 2011 05:20:23 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=ham version=3.3.2-r929478
-Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 2E1581660190;
-	Tue, 22 Mar 2011 05:20:22 -0600 (MDT)
-Message-ID: <4D8885F6.5030405@mlbassoc.com>
-Date: Tue, 22 Mar 2011 05:20:22 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
+Return-Path: <akshat.embedded@gmail.com>
+Received: from mail-qy0-f169.google.com (mail-qy0-f169.google.com
+	[209.85.216.169])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 97AE64C80479
+	for <poky@yoctoproject.org>; Tue, 22 Mar 2011 06:25:10 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by qyk2 with SMTP id 2so3819020qyk.14
+	for <poky@yoctoproject.org>; Tue, 22 Mar 2011 04:25:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:date:message-id:subject:from:to
+	:content-type; bh=/zZfYkpal5qdhR6XAPJmuhYXfRYu5IHccn8xnV6gZEw=;
+	b=RSslWElaLa0qFgD8QJgP0WZQ8iOy2kyBA43OSKvpwS1VUWq9BA3kJQbr1Q+wmvLIpS
+	EtCNWmUuA9/K071yns+lKve9V7VI5cKUOxmqaNkzyFRRQiw/FMrlmBfMGP0mo25Xc5mS
+	cJBpgp109p8bpxweRN2+8KWw2wws5ooMkdWeQ=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:date:message-id:subject:from:to:content-type;
+	b=AMcLHBNn2VBL4AroBVVH8apX8QqmmoE3jg2Ol/9R1zTfZywOotxBRFfOFVaq0FUGBK
+	b0Tw76MAcIlJzyHAVGf+JeYafYlEUfZzpHtbkz11ReWE+N1Xc3y9tHmVZSuUI3xOV3EK
+	pOs5IQli7vcwgTtYvsyEbhrYlne8vhptyaykk=
 MIME-Version: 1.0
-To: Darren Hart <dvhart@linux.intel.com>
-References: <4D876DD3.5070106@mlbassoc.com>		<1300722848.30423.3751.camel@rex>	<4D877E6B.9000007@mlbassoc.com>		<1300730269.30423.3975.camel@rex>	<4D879883.5010501@linux.intel.com>		<4D879A14.7040104@mlbassoc.com>	<4D87AAF2.3010108@linux.intel.com>		<4D87B30F.90802@mlbassoc.com>
-	<4D87B434.1070404@windriver.com>	<1300741361.3049.18.camel@elmorro>
-	<4D87D815.6090404@mlbassoc.com>	<4D87DE46.9040401@linux.intel.com>
-	<4D87F389.3070909@mlbassoc.com> <4D880E53.2060900@linux.intel.com>
-In-Reply-To: <4D880E53.2060900@linux.intel.com>
-Cc: Poky <poky@lists.pokylinux.org>
-Subject: Re: Using RPM with Poky
+Received: by 10.229.36.67 with SMTP id s3mr4644748qcd.60.1300790693438; Tue,
+	22 Mar 2011 03:44:53 -0700 (PDT)
+Received: by 10.229.20.205 with HTTP; Tue, 22 Mar 2011 03:44:53 -0700 (PDT)
+Date: Tue, 22 Mar 2011 16:14:53 +0530
+Message-ID: <AANLkTi=Ysq2iVVt--_PD4KOmY9Rq6Uim3X9SSzM-8Pb4@mail.gmail.com>
+From: Akshat Saha <akshat.embedded@gmail.com>
+To: poky@yoctoproject.org
+Subject: Poky for BeagleBoard
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,252 +39,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 Mar 2011 11:20:25 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 22 Mar 2011 11:25:10 -0000
+Content-Type: multipart/alternative; boundary=0016e64eed2635a35d049f0fef3e
 
-On 03/21/2011 08:49 PM, Darren Hart wrote:
->
->
-> On 03/21/2011 05:55 PM, Gary Thomas wrote:
->> On 03/21/2011 05:24 PM, Darren Hart wrote:
->>>
->>>
->>> On 03/21/2011 03:58 PM, Gary Thomas wrote:
->>>> On 03/21/2011 03:02 PM, Tom Zanussi wrote:
->>>>> On Mon, 2011-03-21 at 13:25 -0700, Bruce Ashfield wrote:
->>>>>> On 11-03-21 04:20 PM, Gary Thomas wrote:
->>>>>>> On 03/21/2011 01:45 PM, Darren Hart wrote:
->>>>>>>>
->>>>>>>>
->>>>>>>> On 03/21/2011 11:33 AM, Gary Thomas wrote:
->>>>>>>>> On 03/21/2011 12:27 PM, Darren Hart wrote:
->>>>>>>>>>
->>>>>>>>>>
->>>>>>>>>> On 03/21/2011 10:57 AM, Richard Purdie wrote:
->>>>>>>>>>> On Mon, 2011-03-21 at 10:35 -0600, Gary Thomas wrote:
->>>>>>>>>>>> On 03/21/2011 09:54 AM, Richard Purdie wrote:
->>>>>>>>>>>>> On Mon, 2011-03-21 at 09:25 -0600, Gary Thomas wrote:
->>>>>>>>>>>>>> I'm trying to do some testing with Poky on an atom-PC. I
->>>>>>>>>>>>>> thought
->>>>>>>>>>>>>> I'd try with a minimal system and then add pieces I need.
->>>>>>>>>>>>>> Sadly,
->>>>>>>>>>>>>> I've run aground doing this. I've built a couple of images
->>>>>>>>>>>>>> with
->>>>>>>>>>>>>> varying results:
->>>>>>>>>>>>>> poky-image-minimal-live - boots on my box
->>>>>>>>>>>>>> poky-image-sato-live - boots, but fails to find X display,
->>>>>>>>>>>>>> then
->>>>>>>>>>>>>> hangs (*)
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> There seem to be no RPM tools on the minimal image. Did I miss
->>>>>>>>>>>>>> something?
->>>>>>>>>>>>>> On my old, ipk based system, I'd build up a minimal image
->>>>>>>>>>>>>> then use
->>>>>>>>>>>>>> opkg
->>>>>>>>>>>>>> to install additional packages.
->>>>>>>>>>>>>
->>>>>>>>>>>>> Minimal images were never meant to ship with the package
->>>>>>>>>>>>> manager
->>>>>>>>>>>>> and now
->>>>>>>>>>>>> don't. You can obviously change the image definitions easily
->>>>>>>>>>>>> enough as
->>>>>>>>>>>>> needed.
->>>>>>>>>>>>>
->>>>>>>>>>>>>> How do I do that with the RPM based images?
->>>>>>>>>>>>>
->>>>>>>>>>>>> The same switch turns on/off the package manager data for
->>>>>>>>>>>>> rpm and
->>>>>>>>>>>>> opkg.
->>>>>>>>>>>>
->>>>>>>>>>>> I tried adding this to local.conf, but nothing changed when I
->>>>>>>>>>>> build
->>>>>>>>>>>> minimal image:
->>>>>>>>>>>> IMAGE_FEATURES += " package-management ssh-server-dropbear "
->>>>>>>>>>>
->>>>>>>>>>> There is also this:
->>>>>>>>>>>
->>>>>>>>>>> # remove not needed ipkg informations
->>>>>>>>>>> ROOTFS_POSTPROCESS_COMMAND += "remove_packaging_data_files ; "
->>>>>>>>>>>
->>>>>>>>>>> in poky-image-minimal.bbclass which has been there for a long
->>>>>>>>>>> time and
->>>>>>>>>>> removes the package manager data files.
->>>>>>>>>>>
->>>>>>>>>>>
->>>>>>>>>>>> BTW, where is this documented? Not in the Poky handbook from
->>>>>>>>>>>> what I
->>>>>>>>>>>> can tell.
->>>>>>>>>>>>
->>>>>>>>>>>> Also, is there documentation on how to use zypper, how to set up
->>>>>>>>>>>> repositories, etc?
->>>>>>>>>>>
->>>>>>>>>>> I think others have helped here. Please do send patches for the
->>>>>>>>>>> manual
->>>>>>>>>>> when people go to the trouble of finding information to help
->>>>>>>>>>> though!
->>>>>>>>>>>
->>>>>>>>>>>>>> I've checked the documentation and there's basically nothing
->>>>>>>>>>>>>> about this, unless I looked in the wrong place.
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> Any ideas or pointers gladly accepted. Thanks
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> (*) I had success with this in the past when I booted with
->>>>>>>>>>>>>> MACHINE=emenlow
->>>>>>>>>>>>>> but that hardware isn't in the primary list.
->>>>>>>>>>>>>
->>>>>>>>>>>>> I'm not sure why this isn't working or what the problem might
->>>>>>>>>>>>> be...
->>>>>>>>>>>>
->>>>>>>>>>>> It complains it can't find /dev/fb0. See the boot log at
->>>>>>>>>>>> http://www.mlbassoc.com/poky/boot_2011-03-21.log
->>>>>>>>>>>
->>>>>>>>>>> Does your board have Intel graphics or PVR/SGX? emenlow has
->>>>>>>>>>> PVR/SGX
->>>>>>>>>>> which might explain this...
->>>>>>>>>>
->>>>>>>>>> And if you need emenlow, that bsp is now part of the meta-intel
->>>>>>>>>> layer:
->>>>>>>>>>
->>>>>>>>>> http://git.pokylinux.org/cgit.cgi/meta-intel/
->>>>>>>>>
->>>>>>>>> Do you have instructions/suggestions on how to add this to my
->>>>>>>>> extant
->>>>>>>>> Poky tree?
->>>>>>>>>
->>>>>>>>
->>>>>>>> It's just another layer, so you checkout it out somewhere and add
->>>>>>>> the
->>>>>>>> meta-intel/meta-$MACHINE directory to your conf/bblayer.conf file.
->>>>>>>
->>>>>>> I did that, changed MACHINE=emenlow, but I got this error:
->>>>>>>
->>>>>>> | cc1: warnings being treated as errors
->>>>>>> | cc1: error: include location "/usr/local/include" is unsafe for
->>>>>>> cross-compilation
->>>>>>> | make: *** [util/scripting-engines/trace-event-perl.o] Error 1
->>>>>>> | make: Leaving directory
->>>>>>> `/home/local/pc_test/tmp/work/emenlow-poky-linux/linux-yocto-2.6.37+git2+29047c254624e0bd8a0ac6da92862f7c6357cb0b_1+c6299ae5bece8e3a6e1bc2c236862ae004629aae-r16/linux/tools/perf'
->>>>>>>
->>>>>>>
->>>>>>>
->>>>>>>
->>>>>>> | FATAL: oe_runmake failed
->>>>>>> | ERROR: Function 'do_compile_perf' failed (see
->>>>>>> /home/local/pc_test/tmp/work/emenlow-poky-linux/linux-yocto-2.6.37+git2+29047c254624e0bd8a0ac6da92862f7c6357cb0b_1+c6299ae5bece8e3a6e1bc2c236862ae004629aae-r16/temp/log.do_compile_perf.10359
->>>>>>>
->>>>>>>
->>>>>>>
->>>>>>>
->>>>>>> for further information)
->>>>>>>
->>>>>>> This from yesterday's master
->>>>>>> (aeaa356a5ee77b4596c479451a9db289381a4d16)
->>>>>>>
->>>>>>> I recall seeing similar errors recently, but not the solution. Is
->>>>>>> there
->>>>>>> an easy fix?
->>>>>>
->>>>>> It means that the SRCREV for the branch doesn't have the
->>>>>> following commit covered:
->>>>>>
->>>>>> ----------
->>>>>>
->>>>>> commit 2b412826bbeb4a16abe2ea74f2456ab880c6e3c1
->>>>>> Author: Bruce Ashfield<bruce.ashfield@windriver.com>
->>>>>> Date: Fri Feb 25 13:18:51 2011 -0500
->>>>>>
->>>>>> perf: hard-code NO_LIBPERL/NO_LIBPYTHON
->>>>>>
->>>>>> ExtUtils::Embed ccopts is getting the host's -I/usr/local/include and
->>>>>> using it to compile perf, which results in a compilation error that
->>>>>> started appearing just recently.
->>>>>>
->>>>>> This turns the code that makes use of ExtUtils::Embed off and simply
->>>>>> hard-codes NO_LIBPERL.
->>>>>>
->>>>>> It does the same for LIBPYTHON while we're at it, since it probably
->>>>>> suffers from a similar underlying problem and just by chance hasn't
->>>>>> broken anything yet.
->>>>>>
->>>>>> This will be re-enabled after I familiarize myself with the perf
->>>>>> recipe and am able to create a proper fix.
->>>>>>
->>>>>> Signed-off-by: Tom Zanussi<tom.zanussi@intel.com>
->>>>>> Signed-off-by: Bruce Ashfield<bruce.ashfield@windriver.com>
->>>>>>
->>>>>> ----------
->>>>>>
->>>>>> The kernel repo has this, and I thought that the meta-intel
->>>>>> emenlow had an updated SRCREV .. but your build error indicates
->>>>>> otherwise.
->>>>>>
->>>>>
->>>>> Hmm, strange - the SRCREV does look like it needed to be updated but
->>>>> yet
->>>>> I nor the autobuilder have been seeing this.
->>>>>
->>>>> Anyway, I just updated the kernel SRCREVs in master, please try
->>>>> again...
->>>>
->>>> It work now, thanks. It also found my display and SATA devices.
->>>> Sadly, when
->>>> it's running X, I can't use the mouse. It seems to be found, but doesn't
->>>> work.
->>>>
->>>> I get these messages during boot:
->>>> usb 1-1.2: USB disconnect, address 6
->>>> usb 1-1.2: new low speed USB device using ehci_hcd and address 7
->>>> input: Logitech USB-PS/2 Optical Mouse as
->>>> /devices/pci0000:00/0000:00:1d.7/usb1/1-1/1-1.2/1-1.2:1.0/input/input4
->>>> generic-usb 0003:046D:C03D.0005: input: USB HID v1.10 Mouse [Logitech
->>>> USB-PS/2 Optical Mouse] on usb-0000:00:1d.7-1.2/input0
->>>> And there is a device created:
->>>> root@emenlow:~# ls -l /dev/input/
->>>> drwxr-xr-x 2 root root 60 Mar 21 22:27 by-id
->>>> drwxr-xr-x 2 root root 60 Mar 21 22:27 by-path
->>>> crw-r----- 1 root root 13, 63 Mar 21 06:31 mice
->>>> crw-r----- 1 root root 13, 32 Mar 21 22:27 mouse0
->>>>
->>>> Ideas?
->>>
->>>
->>> By "doesn't work" do you mean that you don't see the cursor? Or do you
->>> see the cursor, but it doesn't move? Or it moves but clicking has no
->>> effect?
->>>
->>> If "I don't see a cursor" try looking at the formfactor file and check
->>> the value of "HAVE_TOUCHSCREEN":
->>>
->>> # grep -r TOUCHSCREEN /etc/formfactor/
->>> /etc/formfactor/config:if [ -z "$HAVE_TOUCHSCREEN" ]; then
->>> /etc/formfactor/config: HAVE_TOUCHSCREEN=0
->>> /etc/formfactor/machconfig:HAVE_TOUCHSCREEN=0
->>>
->>> You want that to be 0, if it's 1, then matchbox will hide the mouse.
->>> See /etc/matchbox/session
->>
->> I had already checked that file - it's correct & I do see a cursor, it
->> just doesn't move.
->
-> The other thing to check is the xorg.conf and see if adding/removing the following makes a difference:
->
-> Option "AutoAddDevices" "False"
+--0016e64eed2635a35d049f0fef3e
+Content-Type: text/plain; charset=ISO-8859-1
 
-Looking at the output when starting X, I think there is another problem:
+Hi,
 
-(==) Log file: "/var/log/Xorg.0.log", Time: Tue Mar 22 10:42:18 2011
-(==) Using config file: "/etc/X11/xorg.conf"
-(EE) module ABI major version (11) doesn't match the server's version (8)
-(EE) Failed to load module "mouse" (module requirement mismatch, 0)
-(EE) module ABI major version (11) doesn't match the server's version (8)
-(EE) Failed to load module "kbd" (module requirement mismatch, 0)
+I want to build poky for BeagleBoard.
 
-In particular, neither the keyboard nor mouse X drivers could be loaded.
+I am using laverne-4.0.1, on Ubuntu-10.10, 64-bit machine.
+I referred to http://elinux.org/BeagleBoard/Poky, but it seems this document
+was written for some old poky version.
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+Any guidance or suggestion is greatly appreciated.
 
+Thanks in Advance,
+Akshat
+
+--0016e64eed2635a35d049f0fef3e
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
+
+Hi,<div><br></div><div>I want to build poky for BeagleBoard.=A0</div><div><=
+br></div><div>I am using laverne-4.0.1, on Ubuntu-10.10, 64-bit machine.</d=
+iv><div>I=A0referred to <a href=3D"http://elinux.org/BeagleBoard/Poky">http=
+://elinux.org/BeagleBoard/Poky</a>, but it seems this document was written =
+for some old poky=A0version.</div>
+<div><br></div><div>Any guidance or suggestion is greatly appreciated.</div=
+><div><br></div><div>Thanks in Advance,</div><div>Akshat</div><meta http-eq=
+uiv=3D"content-type" content=3D"text/html; charset=3Dutf-8">
+
+--0016e64eed2635a35d049f0fef3e--
