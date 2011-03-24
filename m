@@ -1,25 +1,46 @@
-Return-Path: <ke.yu@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id F09A44C800BA
-	for <poky@yoctoproject.org>; Wed, 23 Mar 2011 21:16:20 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 23 Mar 2011 19:16:20 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,234,1299484800"; d="scan'208";a="723737025"
-Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
-	by orsmga001.jf.intel.com with ESMTP; 23 Mar 2011 19:16:19 -0700
-Date: Thu, 24 Mar 2011 10:22:39 +0800
-From: Yu Ke <ke.yu@intel.com>
-To: kubera samrat <kubera.samrat@gmail.com>
-Message-ID: <20110324022239.GC26323@kyu3-hedt>
-References: <AANLkTin_LpvXeF7K+Xp5KqwGWP=rALmt+DtdbgXUuuTB@mail.gmail.com>
-	<20110323094041.GB26323@kyu3-hedt>
-	<AANLkTi=kwHSYcSss8rQyGHY7N+9cg2CZ2H4XA=Dt5mbJ@mail.gmail.com>
+Return-Path: <raj.khem@gmail.com>
+Received: from mail-iw0-f176.google.com (mail-iw0-f176.google.com
+	[209.85.214.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 514104C800BB
+	for <poky@yoctoproject.org>; Wed, 23 Mar 2011 22:19:21 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by iwr19 with SMTP id 19so12795426iwr.35
+	for <poky@yoctoproject.org>; Wed, 23 Mar 2011 20:19:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:date:from:to:cc:subject:message-id
+	:mail-followup-to:references:mime-version:content-type
+	:content-disposition:in-reply-to:user-agent;
+	bh=uzsEGsrp4/HN/O3TkXyF+XmG1pSHMZlH0mBPOJYlq4A=;
+	b=TyZDyeVbn7JWz/WcvJNtIOwXbazsaiCtgC3uPq3zwL4daQg0ZefyVaq/B6SLOVAZ7z
+	jRW4ozBhOIGM+xdO9IT6e9m15XIEXuF8Ryfp7GmQb1JmcGq+tVVSXvT3x+q/FiDAyOYW
+	mKSanlam0kQk4eVZhcrM7uDYgmJndeezUhfjg=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=date:from:to:cc:subject:message-id:mail-followup-to:references
+	:mime-version:content-type:content-disposition:in-reply-to
+	:user-agent;
+	b=GMMiU+qxaGvtrh+ZIjkijSlb1CP9gM2QeY54nEH2WLXNl3k8AkqbdTbMnIMza4ZYMM
+	AQudoT6ViEz87e7tc9lQn3yxEc3E5+rQ9C2blUP5S2rCz9RN78DZ8b2XD23Gysbgs09h
+	BNdgJguj/Fc7Q3hFm0lWW0Jjua/Ilz153gXEI=
+Received: by 10.43.58.148 with SMTP id wk20mr268749icb.242.1300936760747;
+	Wed, 23 Mar 2011 20:19:20 -0700 (PDT)
+Received: from sakrah.homelinux.org
+	(99-57-141-118.lightspeed.sntcca.sbcglobal.net [99.57.141.118])
+	by mx.google.com with ESMTPS id 19sm6212258ibx.1.2011.03.23.20.19.18
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Wed, 23 Mar 2011 20:19:19 -0700 (PDT)
+Date: Wed, 23 Mar 2011 20:19:44 -0700
+From: Khem Raj <raj.khem@gmail.com>
+To: Colin Walters <walters@verbum.org>
+Message-ID: <20110324031944.GC20796@sakrah.homelinux.org>
+Mail-Followup-To: Colin Walters <walters@verbum.org>, poky@yoctoproject.org
+References: <AANLkTikeUs9N=0-q_TPFr-xsQZTmAh5PORHYtrSMpf8u@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <AANLkTi=kwHSYcSss8rQyGHY7N+9cg2CZ2H4XA=Dt5mbJ@mail.gmail.com>
+In-Reply-To: <AANLkTikeUs9N=0-q_TPFr-xsQZTmAh5PORHYtrSMpf8u@mail.gmail.com>
 User-Agent: Mutt/1.5.20 (2009-06-14)
 Cc: poky@yoctoproject.org
-Subject: Re: Problem while pulling mesa
+Subject: Re: [patch] autotools: Override do_compile to specify V=1 if project uses AM_V_GEN
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,76 +52,25 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 24 Mar 2011 02:16:21 -0000
+X-List-Received-Date: Thu, 24 Mar 2011 03:19:21 -0000
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Mar 23, 15:43, kubera samrat wrote:
-> Hi Yu ke,
->            I have changed my extra conf. Now I am getting an error stated
-> below.
+On (23/03/11 18:30), Colin Walters wrote:
+>     Non-verbose logs are really annoying when trying to debug a build
+>     failure.  A lot of projects are copying in the flag to use
+>     AM_SILENT_RULES which automake gained recently.  We need to undo
+>     this.
 > 
-> ******************************************
-> EXTRA_OECONF += "--with-driver=dri --enable-egl --enable-gallium *
-> --enable-gallium-eg*l --enable-glx-tls --enable-gl-osmesa --enable-glu
-> --enable-glw --enable-gallium-swrast --enable-xcbi --enable-egl *--enable-gles2
-> --with-state-trackers=glx,egl,es --enable-gallium-swrast
-> --with-egl-driver-dir=${D}${libdir}/egl --with-egl-platforms=x11,drm
-> --enable-gles-overlay*"
-> *************************************************
-> ERROR LOG
-> *******************************************
-> | Traceback (most recent call last):
-> |   File "main/es_generator.py", line 174, in <module>
-> |     keys = apiutil.GetAllFunctions(functionList, version)
-> |   File
-> "/home/kuberasamrat/poky-chrome/build/tmp/work/core2-poky-linux/mesa-dri-7.8.2-r2/Mesa-7.8.2/src/mesa/es/main/APIspecutil.py",
-> line 87, in GetAllFunctions
-> |     _ParseXML(filename, api)
-> |   File
-> "/home/kuberasamrat/poky-chrome/build/tmp/work/core2-poky-linux/mesa-dri-7.8.2-r2/Mesa-7.8.2/src/mesa/es/main/APIspecutil.py",
-> line 52, in _ParseXML
-> |     impl = spec.get_impl()
-> |   File
-> "/home/kuberasamrat/poky-chrome/build/tmp/work/core2-poky-linux/mesa-dri-7.8.2-r2/Mesa-7.8.2/src/mesa/es/main/APIspec.py",
-> line 65, in get_impl
-> |     return API(self, self.impl_node)
-> |   File
-> "/home/kuberasamrat/poky-chrome/build/tmp/work/core2-poky-linux/mesa-dri-7.8.2-r2/Mesa-7.8.2/src/mesa/es/main/APIspec.py",
-> line 101, in __init__
-> |     self.categories)
-> |   File
-> "/home/kuberasamrat/poky-chrome/build/tmp/work/core2-poky-linux/mesa-dri-7.8.2-r2/Mesa-7.8.2/src/mesa/es/main/APIspec.py",
-> line 175, in __init__
-> |     self._init_params(param_nodes)
-> |   File
-> "/home/kuberasamrat/poky-chrome/build/tmp/work/core2-poky-linux/mesa-dri-7.8.2-r2/Mesa-7.8.2/src/mesa/es/main/APIspec.py",
-> line 194, in _init_params
-> |     if not size or size > param_node.lsCountNode():
-> |   File
-> "/home/kuberasamrat/poky-chrome/build/tmp/sysroots/x86_64-linux/usr/lib/python2.6/site-packages/libxml2.py",
-> line 2983, in lsCountNode
-> |     ret = libxml2mod.xmlLsCountNode(self._o)
-> |* AttributeError: 'module' object has no attribute 'xmlLsCountNode'*
-> *| make[2]: *** No rule to make target `depend', needed by `default'.  Stop.
-> *
-> *| make[2]: Leaving directory
-> `/home/kuberasamrat/poky-chrome/build/tmp/work/core2-poky-linux/mesa-dri-7.8.2-r2/Mesa-7.8.2/src/mesa/es'
-> *
-> *| make[1]: *** [subdirs] Error 1*
-> *| make[1]: Leaving directory
-> `/home/kuberasamrat/poky-chrome/build/tmp/work/core2-poky-linux/mesa-dri-7.8.2-r2/Mesa-7.8.2/src'
-> *
-> *| make: *** [default] Error 1*
-> *| FATAL: oe_runmake failed*
-> ****************************************************************************************************************************************************
+>     Implement this by overriding do_compile in autotools to look for
+>     its signature, and specify V=1 to make if we find it.
 
-This is a libxml2 issue. mesa requires libxml2 debug module (default is on), which is however disabled by "--without-debug" option. so you can try to remove this option in the libxml2 to fix this issue.
+usually package which use silent-rules they have --disable-silent-rules
+Did you try to pass this option ? May be try it with EXTRA_OECONF and
+see if that helps
 
-This issue is already addressed in poky upstream  before. see commit http://git.pokylinux.org/cgit/cgit.cgi/poky/commit/?id=032553036dcd0a4b977ab0e4e78b4af4a23e4ad6 for detail.
+but if this patch it needed then ${MAKE} call should become oe_runmake
 
-Regards
-Ke
-
-
+-- 
+-Khem
 
