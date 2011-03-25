@@ -1,25 +1,35 @@
-Return-Path: <Kai.Kang@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A18634C80A86
-	for <poky@yoctoproject.org>; Fri, 25 Mar 2011 01:52:41 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p2P6qfqc002705
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Thu, 24 Mar 2011 23:52:41 -0700 (PDT)
-Received: from localhost (128.224.163.157) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Thu, 24 Mar 2011 23:52:34 -0700
-Message-ID: <07004f25fd2fe6d0d03b040245e52f1f986919f3.1301035479.git.kai.kang@windriver.com>
-In-Reply-To: <cover.1301035479.git.kai.kang@windriver.com>
-References: <cover.1301035479.git.kai.kang@windriver.com>
-Old-Date: Fri, 25 Mar 2011 14:28:05 +0800
-Date: Fri, 25 Mar 2011 14:52:39 +0800
-To: <poky@yoctoproject.org>
-From: Kang Kai <kai.kang@windriver.com>
+Return-Path: <jiajun.xu@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 87DFB4C800A0
+	for <poky@pokylinux.org>; Fri, 25 Mar 2011 08:45:39 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 25 Mar 2011 06:45:38 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.63,242,1299484800"; 
+	d="xml'?ods'72,48?png'72,48,150?scan'72,48,150,208,217,48,150,72";
+	a="725081172"
+Received: from pgsmsx603.gar.corp.intel.com ([10.221.43.87])
+	by orsmga001.jf.intel.com with ESMTP; 25 Mar 2011 06:45:34 -0700
+Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
+	pgsmsx603.gar.corp.intel.com (10.221.43.87) with Microsoft SMTP Server
+	(TLS) id 8.2.255.0; Fri, 25 Mar 2011 21:45:28 +0800
+Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
+	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
+	Fri, 25 Mar 2011 21:45:26 +0800
+From: "Xu, Jiajun" <jiajun.xu@intel.com>
+To: "poky@pokylinux.org" <poky@pokylinux.org>, "yocto@yoctoproject.org"
+	<yocto@yoctoproject.org>
+Date: Fri, 25 Mar 2011 21:45:22 +0800
+Thread-Topic: Fullpass Test Report for Yocto M4 Gold Build 20110318
+Thread-Index: Acvq8uN0+2c90bFDQLqJv84QV+17OQ==
+Message-ID: <D5AB6E638E5A3E4B8F4406B113A5A19A504DCCE1@shsmsx501.ccr.corp.intel.com>
+Accept-Language: en-US
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
 MIME-Version: 1.0
-X-Originating-IP: [128.224.163.157]
 X-Mailman-Approved-At: Mon, 28 Mar 2011 17:24:46 -0500
-Subject: [PATCH 2/2] nss: add nss for LSB library check
+Subject: Fullpass Test Report for Yocto M4 Gold Build 20110318
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,8747 +41,4278 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 25 Mar 2011 06:52:42 -0000
-Content-Type: text/plain
+X-List-Received-Date: Fri, 25 Mar 2011 13:45:40 -0000
+X-Groupsio-MsgNum: 4918
+Content-Language: en-US
+Content-Type: multipart/mixed;
+	boundary="_005_D5AB6E638E5A3E4B8F4406B113A5A19A504DCCE1shsmsx501ccrcor_"
 
-From: Kang Kai <kai.kang@windriver.com>
+--_005_D5AB6E638E5A3E4B8F4406B113A5A19A504DCCE1shsmsx501ccrcor_
+Content-Type: multipart/alternative;
+	boundary="_000_D5AB6E638E5A3E4B8F4406B113A5A19A504DCCE1shsmsx501ccrcor_"
 
-LSB library check will test libnss3.so and libssl3.so
-which provided by nss.
-Import from OE, rev 6fe7cef27069415f2eba36bc640cf59013d4979b
-Ajust FILES and update SUMMARY, DESCRIPTION and PR.
+--_000_D5AB6E638E5A3E4B8F4406B113A5A19A504DCCE1shsmsx501ccrcor_
+Content-Type: text/plain; charset="gb2312"
+Content-Transfer-Encoding: base64
 
-Signed-off-by: Kang Kai <kai.kang@windriver.com>
----
- .../mozilla/nss-3.12.6/00_ckbi_1.79.patch          | 6386 ++++++++++++++++++++
- .../mozilla/nss-3.12.6/25_entropy.patch            |   22 +
- .../mozilla/nss-3.12.6/38_hurd.patch               |   59 +
- .../mozilla/nss-3.12.6/38_kbsd.patch               |  152 +
- .../mozilla/nss-3.12.6/38_mips64_build.patch       |   27 +
- .../mozilla/nss-3.12.6/80_security_build.patch     |   17 +
- .../mozilla/nss-3.12.6/80_security_tools.patch     |   26 +
- .../mozilla/nss-3.12.6/81_sonames.patch            |  351 ++
- .../mozilla/nss-3.12.6/85_security_load.patch      |   79 +
- .../mozilla/nss-3.12.6/90_realpath.patch           |   35 +
- .../mozilla/nss-3.12.6/91_build_pwdecrypt.patch    |   17 +
- .../nss-3.12.6/95_add_spi+cacert_ca_certs.patch    | 1168 ++++
- .../mozilla/nss-3.12.6/96_NSS_VersionCheck.patch   |   18 +
- .../97_SSL_RENEGOTIATE_TRANSITIONAL.patch          |   21 +
- .../mozilla/nss-3.12.6/build-fix.patch             |   63 +
- meta/recipes-extended/mozilla/nss-3.12.6/nss.pc.in |   11 +
- meta/recipes-extended/mozilla/nss-3.12.6/series    |   14 +
- meta/recipes-extended/mozilla/nss_3.12.6.bb        |  116 +
- 18 files changed, 8582 insertions(+), 0 deletions(-)
- create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/00_ckbi_1.79.patch
- create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/25_entropy.patch
- create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/38_hurd.patch
- create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/38_kbsd.patch
- create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/38_mips64_build.patch
- create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/80_security_build.patch
- create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/80_security_tools.patch
- create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/81_sonames.patch
- create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/85_security_load.patch
- create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/90_realpath.patch
- create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/91_build_pwdecrypt.patch
- create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/95_add_spi+cacert_ca_certs.patch
- create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/96_NSS_VersionCheck.patch
- create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/97_SSL_RENEGOTIATE_TRANSITIONAL.patch
- create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/build-fix.patch
- create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/nss.pc.in
- create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/series
- create mode 100644 meta/recipes-extended/mozilla/nss_3.12.6.bb
+SGkgYWxsLA0KDQogICAgICAgVGhpcyBpcyB0aGUgZnVsbHBhc3MgdGVzdCByZXBvcnQgZm9yIEdv
+bGQgQnVpbGQgMjAxMTAzMTguIFFBIGZpbmlzaGVkIGFsbCBmdW5jdGlvbmFsaXR5IHRlc3Rpbmcg
+YW5kIG5vdyBvbmx5IHN0cmVzcyB0ZXN0aW5nIGlzIHN0aWxsIG9uLWdvaW5nLiAyIG5ldyBidWdz
+IGFyZSBmb3VuZCBhZnRlciBsYXN0IHRlc3QgcmVwb3J0LCBhbmQgdGhlcmUgYXJlIHRvdGFsbHkg
+NSBuZXcgYnVncyBmb3VuZCBpbiBHb2xkIGJ1aWxkIHRlc3RpbmcuIFJQTSBxdWVyeSBjb3VsZCBu
+b3Qgd29yayB3aXRoIG5vbi1yb290IHVzZXIuIFBhY2thZ2UgaW5mb3JtYXRpb24gbWF5IGJlIG1l
+c3NlZCB3aXRoIEdQTHYzL25vbi1HUEx2MyBidWlsZGluZyBoYXBwZW5lZCBpbiBzYW1lIGZvbGRl
+ci4gT25seSAxNyBvZiB0b3RhbCA1NDIgY2FzZXMgYXJlIGZhaWxlZCBvciBibG9ja2VkIGluIG91
+ciB0ZXN0aW5nLCB3aXRoIHRvdGFsbHkgOCBvcGVuIGJ1Z3MuIFRoZSB0d28gdmlkZW8gcGVyZm9y
+bWFuY2UgYnVncyBvbiBuNDUwIGFuZCBjcm93bmJheSBub2VtZ2QgYXJlIG1hcmtlZCBhcyBXT05U
+VEZJWCBhbmQgTk9UQUJVRy4NCg0KRm9yIGJ1ZyBmaXhpbmcsIHRoZXJlIGFyZSAxNyBidWdzIGFy
+ZSB2ZXJpZmllZCBhcyBmaXhlZC4gVGhlIGdvb2QgbmV3cyBpcyB0aGF0IHdlIGhhdmUgdmVyaWZp
+ZWQgYWxsIHp5cHBlci9ycG0gYnVncyBmaXhlZCBpbiB0aGlzIGJ1aWxkLCBleGNlcHQgZm9yIG9u
+bHkgb25lIHp5cHBlciBpc3N1ZSBvbiBxZW11YXJtKGJ1ZyA4MjcpLiBBbGwgdGhlIGltYWdlcyBh
+bmQgdG9vbGNoYWluIHRhcmJhbGxzIGFyZSBidWlsdCBvdXQuIEF1ZGlvL3ZpZGVvIGNvbWUgdG8g
+d29yayBvbiBibGFja3NhbmQgYWdhaW4uIFRoZXJlIGlzIG5vIGNyaXRpY2FsL21ham9yIGJ1ZyBv
+biBib3RoIHJlYWwgaGFyZHdhcmUgYW5kIHFlbXUgdGFyZ2V0cy4gMkQgJiAzRCBncmFwaGljcyBi
+ZW5jaG1hcmsgb24gc3VnYXJiYXkgc2hvd3MgYSBzaW1pbGFyIHNjb3JlIHdpdGggdGhlIHJlc3Vs
+dCBvZiBJbnRlbCBHcmFwaGljcyAyMDEwUTQgcmVsZWFzZShDaGVjayB0aGUgYXR0YWNoZWQgcmVz
+dWx0IGZvciBkZXRhaWxlZCBzY29yZSkuIG5vbi1HUEx2MyBidWlsZCBhbmQgc3N0YXRlIGNvdWxk
+IHdvcmsgaW4gUUEgdGVzdGluZyBub3cuIENyb3duYmF5IGVtZ2QgYW5kIG5vZW1nZCBpbWFnZSBj
+b3VsZCB3b3JrIHdpdGggb25seSBvbmUgUzMgYnVnLiBONDUwIGFsc28gaGFzIDIgbm9uLWNyaXRp
+Y2FsIGJ1Z3MsIHdoaWNoIGhhdmUgbWlub3IgaW1wYWN0cy4gSmFzcGVyZm9yZXN0LCBhcyB3ZWxs
+IGFzIHJvdXRlcnN0YXRpb25wcm8gYW5kIG1wYzgzMTVlLXJkYiwgcGFzcyB0aGUgdGVzdGluZyB3
+aXRob3V0IGFueSBmYWlsdXJlLg0KDQpOb3RlOiBUaGUgYmVhZ2xlYm9hcmQgYm9hcmQgaXMgYnJv
+a2VuIHNvIHdlIGNvdWxkIG5vdCBwZXJmb3JtIHRlc3RpbmcgZm9yIHRoaXMgYnVpbGQuIExTQiB0
+ZXN0IHJlc3VsdCBpcyBpbiBhdHRhY2htZW50IGFzIFhpYW9mZW5nIHNlbnQgb3V0IHByZXZpb3Vz
+bHkuDQoNCg0KDQpUZXN0IFN1bW1hcnkNCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLQ0KDQoNCg0KVGVzdCBSZXN1bHQgU3VtbWFyeQ0KDQoNCkNvbXBvbmVudA0KDQpUYXJn
+ZXQNCg0KU3RhdHVzDQoNCkNvbW1lbnRzDQoNCg0KQlNQDQoNClN1Z2FyQmF5DQoNCkdPT0QNCg0K
+RXZlcnl0aGluZyBydW5zIHdlbGw7IDJEICYgM0QgZ3JhcGhpY3MgYmVuY2htYXJrIHNob3dzIGEg
+c2ltaWxhciBzY29yZSB3aXRoIEludGVsIEdyYXBoaWNzIDIwMTBRNCByZWxhc2Ugc2NvcmU7DQoN
+Cg0KoaENCg0KQ3Jvd25CYXkNCg0KR09PRA0KDQpTMyBkb2VzIG5vdCB3b3JrOw0KDQoNCqGhDQoN
+Ckphc3BlckZvcmVzdA0KDQpHT09EDQoNCkV2ZXJ5dGhpbmcgcnVucyB3ZWxsDQoNCg0KoaENCg0K
+QmxhY2tzYW5kDQoNCkdPT0QNCg0KeHVzZXIgaGFzIG5vIHByaXZpbGVnZSB0byBydW4gcnBtIHF1
+ZXJ5OyBTMyBkb2VzIG5vdCB3b3JrOw0KDQoNCqGhDQoNCkJlYWdsZWJvYXJkDQoNCk4vQQ0KDQpO
+byB0ZXN0IGJlY2F1c2UgdGhlIGJvYXJkIGlzIGJyb2tlbg0KDQoNCqGhDQoNClJvdXRlcnN0YXRp
+b25wcm8NCg0KR09PRA0KDQpFdmVyeXRoaW5nIHJ1bnMgd2VsbA0KDQoNCqGhDQoNCk1wYzgzMTVl
+LXJkYg0KDQpHT09EDQoNCkV2ZXJ5dGhpbmcgcnVucyB3ZWxsDQoNCg0KUUVNVQ0KDQpxZW11eDg2
+DQoNCkdPT0QNCg0KRXZlcnl0aGluZyBydW5zIHdlbGwNCg0KDQqhoQ0KDQpxZW11eDg2LTY0DQoN
+CkdPT0QNCg0KRXZlcnl0aGluZyBydW5zIHdlbGwNCg0KDQqhoQ0KDQpxZW11YXJtDQoNCkdPT0QN
+Cg0KenlwcGVyIGNvdWxkIG9ubHkgc2hvdyBwYXJ0aWFsIHBhY2thZ2VzIGluc3RhbGxlZCBvbiBz
+eXN0ZW07DQoNCg0KoaENCg0KcWVtdXBwYw0KDQpHT09EDQoNCmdjYyBtYXkgc2VnZmF1bHQ7DQoN
+Cg0KoaENCg0KcWVtdW1pcHMNCg0KR09PRA0KDQpFdmVyeXRoaW5nIHJ1bnMgd2VsbA0KDQoNClNE
+Sw0KDQqhoQ0KDQpCdWdneQ0KDQp1bmZzIGRvZXMgbm90IHdvcmsgd2l0aCBxZW11cHBjDQoNCg0K
+RG9jdW1lbnRhdGlvbg0KDQqhoQ0KDQpHT09EDQoNClBva3kgaGFuZGJvb2sgaXMgdHJpZWQgYW5k
+IG5vIGlzc3VlIGZvdW5kDQoNCg0KQ29tcGxpYW5jZSBUZXN0DQoNCqGhDQoNCkdPT0QNCg0KVGVz
+dGluZyBpcyBmaW5pc2hlZCwgYnV0IHN0aWxsIG5lZWRzIGFuYWx5c2lzLiBObyBjcml0aWNhbCBi
+dWcgZm91bmQgdGlsbCBub3cNCg0KDQpQb2t5DQoNCqGhDQoNCkdPT0QNCg0Kbm9uLUdQTHYzIGJ1
+aWxkIGFuZCBzc3RhdGUgd29yayB3ZWxsIG5vdzsNCg0KDQpTdHJlc3MgVGVzdA0KDQqhoQ0KDQpH
+T09EDQoNClRlc3RpbmcgaXMgbm90IGZpbmlzaGVkIHlldCwgaGFzIG5vIGlzc3VlIHRpbGwgbm93
+DQoNCg0KDQoNCqGhDQoNCkNyaXRpY2FsIGJ1Z3MsIG1vcmUgdGhhbiA1MCUgdGVzdCBjYXNlcyBh
+cmUgYmxvY2tlZA0KDQqhoQ0KDQpPbmx5IE5vcm1hbCwgTWlub3Igb3IgRW5oYW5jZW1lbnQgYnVn
+cywgbGVzcyB0aGFuIDEwJSB0ZXN0IGNhc2VzIGZhaWxlZA0KDQqhoQ0KDQpOb3JtYWwsIE1ham9y
+IGFuZCBDcml0aWNhbCBidWdzLCBtb3JlIHRoYW4gMTAlIHRlc3QgY2FzZXMgZmFpbGVkDQoNCg0K
+DQoNCkRldGFpbGVkIFRlc3QgUmVzdWx0IGZvciBlYWNoIGNvbXBvbmVudA0KDQoNClRhcmdldA0K
+DQpUb3RhbCBUQ3MNCg0KTm90IFJ1bg0KDQpQYXNzZWQNCg0KRmFpbGVkDQoNCk5vdCB0ZXN0YWJs
+ZSAoQmxvY2tlZCkNCg0KDQpDcm93bmJheSBlbWdkIFNhdG8tU0RLDQoNCjU0DQoNCjANCg0KNTEN
+Cg0KMSAoYnVnIDg4MikNCg0KMiAoYnVnIDg4MikNCg0KDQpDcm93bmJheSBub2VtZ2QgU2F0by1T
+REsNCg0KNTANCg0KMA0KDQo0Nw0KDQoxIChidWcgODgyKQ0KDQoyIChidWcgODgyKQ0KDQoNClN1
+Z2FyYmF5IFNhdG8tU0RLDQoNCjU5DQoNCjANCg0KNTkNCg0KMA0KDQowDQoNCg0KSmFzcGVyZm9y
+ZXN0IExTQi1TREsNCg0KMzMNCg0KMA0KDQozMw0KDQowDQoNCjANCg0KDQpuNDUwIFNhdG8tU0RL
+DQoNCjU2DQoNCjANCg0KNTINCg0KMiAoYnVnIDYwNywgNjEzKQ0KDQoyIChidWcgNjEzKQ0KDQoN
+ClJvdXRlcnN0YXRpb25wcm8gU2F0by1TREsNCg0KMzANCg0KMA0KDQozMA0KDQowDQoNCjANCg0K
+DQpNcGM4MzE1ZS1yZGIgU2F0by1TREsNCg0KMjkNCg0KMA0KDQoyOQ0KDQowDQoNCjANCg0KDQpR
+ZW11eDg2LTY0IFNhdG8NCg0KMjENCg0KMA0KDQoyMQ0KDQowDQoNCjANCg0KDQpRZW11eDg2LTY0
+IFNhdG8tU0RLDQoNCjI0DQoNCjANCg0KMjQNCg0KMA0KDQowDQoNCg0KUWVtdXg4NiBTYXRvDQoN
+CjIxDQoNCjANCg0KMjENCg0KMA0KDQowDQoNCg0KUWVtdXg4NiBTYXRvLVNESw0KDQoyNA0KDQow
+DQoNCjI0DQoNCjANCg0KMA0KDQoNClFlbXVtaXBzIFNhdG8NCg0KMjENCg0KMA0KDQoyMQ0KDQow
+DQoNCjANCg0KDQpRZW11bWlwcyBTYXRvLVNESw0KDQoyNA0KDQowDQoNCjI0DQoNCjANCg0KMA0K
+DQoNClFlbXVwcGMgU2F0bw0KDQoxOA0KDQowDQoNCjE4DQoNCjANCg0KMA0KDQoNClFlbXVwcGMg
+U2F0by1TREsNCg0KMjENCg0KMA0KDQoxOQ0KDQoyIChidWcgNzgwKQ0KDQowDQoNCg0KUWVtdWFy
+bSBTYXRvDQoNCjIxDQoNCjANCg0KMTkNCg0KMiAoYnVnIDgyNykNCg0KMA0KDQoNClFlbXVhcm0g
+U2F0by1TREsNCg0KMjQNCg0KMA0KDQoyMg0KDQoyIChidWcgODI3KQ0KDQowDQoNCg0KU0RLDQoN
+CjMNCg0KMA0KDQoyDQoNCjEgKGJ1ZyA0MTQpDQoNCjANCg0KDQpQb2t5DQoNCjgNCg0KMA0KDQo4
+DQoNCjANCg0KMA0KDQoNCkRvY3VtZW50YXRpb24NCg0KMQ0KDQowDQoNCjENCg0KMA0KDQowDQoN
+Cg0KVG90YWwNCg0KNTQyDQoNCjANCg0KNTI1DQoNCjExDQoNCjYNCg0KDQoNCg0KKiBZb3UgY2Fu
+IGNoZWNrIHRoZSBkZXRhaWxlZCB0ZXN0IHJlc3VsdCBpbiBhdHRhY2htZW50IGZvciBlYWNoIHRh
+cmdldC4NCg0KKiogVGhlIGZhaWxlZC9ibG9ja2VkIGNhc2UgbnVtYmVyIGlzIGxpc3RlZCB3aXRo
+IGZhaWxlZCBjYXNlc6GvIGJ1ZyBudW1iZXIuDQoNCg0KDQpJbWFnZXMNCi0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0KDQpJbWFnZTogaHR0cDovL2F1dG9idWlsZGVyLnBv
+a3lsaW51eC5vcmcvbmlnaHRseS8yMDExMDMxOC0zLw0KDQpUcmVlL0JyYW5jaDogUG9reS9CZXJu
+YXJkDQoNCkNvbW1pdDogODJhZjhiOWZiNmQ2ZDE0Mzk5NDNmZDE1YjhhNzVjMGU2NjNlNGE0NQ0K
+DQoNCg0KSXNzdWUgU3VtbWFyeQ0KLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tDQoNClp5cHBlci9SUE06DQoNCjEuICAgICBbenlwcGVyXSB6eXBwZXIgY2FuIG5vdCBzZWFy
+Y2ggYW55IHBhY2thZ2VzIGFmdGVyIGluc3RhbGxlZCBwYWNrYWdlIGJ5IHJwbSBvbiBxZW11YXJt
+DQoNCmh0dHA6Ly9idWd6aWxsYS5wb2t5bGludXgub3JnL3Nob3dfYnVnLmNnaT9pZD04MjcNCg0K
+DQoNClBva3k6DQoNCjEuICAgICBOZXchIHBhY2thZ2UgaW5mb3JtYXRpb24gbWVzc2VkIGFmdGVy
+IGJ1aWxkaW5nIEdQTHYzL25vbi1HUEx2MyBmb3Igc2V2ZXJhbCB0aW1lcw0KDQpodHRwOi8vYnVn
+emlsbGEucG9reWxpbnV4Lm9yZy9zaG93X2J1Zy5jZ2k/aWQ9OTI5DQoNCg0KDQpDb21wbGlhbmNl
+Og0KDQoxLiAgICAgTmV3ISBbUE9TSVhdIGNhc2UgcHRocmVhZF9jb25kX2Jyb2FkY2FzdCBkb2Vz
+IG5vdCBraWxsIGl0c2VsZiBhZnRlciBmaW5pc2hlZA0KDQpodHRwOi8vYnVnemlsbGEucG9reWxp
+bnV4Lm9yZy9zaG93X2J1Zy5jZ2k/aWQ9OTI3DQoNCg0KDQpCU1A6DQoNCjEuICAgICBOZXchIFti
+bGFja3NhbmRdIGl0IHNob3cgcG9vciBwZXJmb3JtYW5jZSB3aXRoIHZpZGVvIHBsYXllciAgLS0g
+IE1hcmtlZCBhcyBXT05URklYDQoNCmh0dHA6Ly9idWd6aWxsYS5wb2t5bGludXgub3JnL3Nob3df
+YnVnLmNnaT9pZD05MjENCg0KMi4gICAgIE5ldyEgW2Nyb3duYmF5LW5vZW1nZF0gdmlkZW8gcGxh
+eWVyIGhhcyBwb29yIHBlcmZvcm1hbmNlIHdoZW4gcGxheWluZyB2aWRlbyBmaWxlICAtLSBNYXJr
+ZWQgYXMgTk9UQUJVRyBzaW5jZSBpdKGvcyBleHBlY3RlZA0KDQpodHRwOi8vYnVnemlsbGEucG9r
+eWxpbnV4Lm9yZy9zaG93X2J1Zy5jZ2k/aWQ9OTIwDQoNCjMuICAgICBOZXchICJycG0gLXFhIiBj
+YW4gbm90IHJ1biBmb3Igbm9uLXJvb3QgdXNlcjogUGVybWlzc2lvbiBkZW5pZWQNCg0KaHR0cDov
+L2J1Z3ppbGxhLnBva3lsaW51eC5vcmcvc2hvd19idWcuY2dpP2lkPTkyMg0KDQo0LiAgICAgW0Js
+YWNrc2FuZF1zeXN0ZW0gY2Fubm90IGVudGVyIFMzIHN0YW5kYnkgbW9kZQ0KDQpodHRwOi8vYnVn
+emlsbGEucG9reWxpbnV4Lm9yZy9zaG93X2J1Zy5jZ2k/aWQ9NjEzDQoNCjUuICAgICBbY3Jvd25i
+YXldIHN5c3RlbSBjb3VsZCBub3QgZW50ZXIgaW50byBTMyB3aXRoIGNyb3duYmF5DQoNCmh0dHA6
+Ly9idWd6aWxsYS5wb2t5bGludXgub3JnL3Nob3dfYnVnLmNnaT9pZD04ODINCg0KNi4gICAgIFtT
+dWdhcmJheV0gR0ZYIDNEIGdhbWUgdGVzdCBmYWlsIHRvIHJ1biB3aXRoIHN1Z2FyYmF5IEJTUCBp
+bWFnZSBkdWUgdG8gbGlic2RsLnNvDQoNCmh0dHA6Ly9idWd6aWxsYS5wb2t5bGludXgub3JnL3No
+b3dfYnVnLmNnaT9pZD04ODMNCg0KNy4gICAgIFtCbGFja3NhbmRdIFNvbWUgZXJyb3IgaW5mb3Jt
+YXRpb24gcHJvbXB0ZWQgd2hlbiBydW4gZG1lc2cgY29tbWFuZA0KDQpodHRwOi8vYnVnemlsbGEu
+cG9reWxpbnV4Lm9yZy9zaG93X2J1Zy5jZ2k/aWQ9NjA3DQoNCg0KDQpTREs6DQoNCjEuICAgICBb
+UFBDXSBrZXJuZWwgcGFuaWMgd2hlbiBib290aW5nIHBva3ktaW1hZ2Utc2RrLXFlbXVwcGMgdGhy
+b3VnaCBVTkZTDQoNCmh0dHA6Ly9idWd6aWxsYS5wb2t5bGludXgub3JnL3Nob3dfYnVnLmNnaT9p
+ZD00MTQNCg0KDQoNCk90aGVyczoNCg0KMS4gICAgIGdjYyBzZWdmYXVsdCBvbiBxZW11cHBjIChu
+aWdodGx5IGJ1aWxkIDIwMTEwMjI2LTEpDQoNCmh0dHA6Ly9idWd6aWxsYS5wb2t5bGludXgub3Jn
+L3Nob3dfYnVnLmNnaT9pZD03ODANCg0KDQoNClZlcmlmaWVkIEZpeGVkIEJ1Z3M6DQoNCjEuICAg
+ICBbY3Jvd25iYXldIGVtZ2QgY3Jvd25iYXkgYnVpbGQgZmFpbCBvbiB4c2VydmVyLXhmODYtZW1n
+ZCBmZXRjaA0KDQpodHRwOi8vYnVnemlsbGEucG9reWxpbnV4Lm9yZy9zaG93X2J1Zy5jZ2k/aWQ9
+ODg1DQoNCjIuICAgICBbbjQ1MF1CbGFja3NhbmQga2V5Ym9hcmQvbW91c2UgZG8gbm90IHdvcmsg
+b24gWCB3aW5kb3cNCg0KaHR0cDovL2J1Z3ppbGxhLnBva3lsaW51eC5vcmcvc2hvd19idWcuY2dp
+P2lkPTg2OQ0KDQozLiAgICAgbWF0Y2hib3gtcGFuZWwgc2VnZmF1bHQgYWZ0ZXIgWCBzdGFydHVw
+DQoNCmh0dHA6Ly9idWd6aWxsYS5wb2t5bGludXgub3JnL3Nob3dfYnVnLmNnaT9pZD03MzgNCg0K
+NC4gICAgIFthdXRvYnVpbGRlcl0gaTY4NiB0b29sY2hhaW4gbm90IGNvcGllZCB0byBzaGFyaW5n
+IGZvbGRlcg0KDQpodHRwOi8vYnVnemlsbGEucG9reWxpbnV4Lm9yZy9zaG93X2J1Zy5jZ2k/aWQ9
+ODg0DQoNCjUuICAgICBhdWRpbyBtaXhlciBvbiBCbGFja1NhbmQgaXMgbXV0ZWQgb24gYm9vdA0K
+DQpodHRwOi8vYnVnemlsbGEucG9reWxpbnV4Lm9yZy9zaG93X2J1Zy5jZ2k/aWQ9NDM5DQoNCjYu
+ICAgICBbYmxhY2tzYW5kXSBubyBzb3VuZCBldmVuIGFsbCBvcHRpb25zIGluIGFtaXhlciBlbmFi
+bGVkDQoNCmh0dHA6Ly9idWd6aWxsYS5wb2t5bGludXgub3JnL3Nob3dfYnVnLmNnaT9pZD03OTgN
+Cg0KNy4gICAgIFtibGFja3NhbmRdIGNvbmZpZ3VyZWQgYXVkaW9zaW5rIGlzIG5vdCB3b3JraW5n
+IGZvciB2aWRlbyBwbGF5ZXINCg0KaHR0cDovL2J1Z3ppbGxhLnBva3lsaW51eC5vcmcvc2hvd19i
+dWcuY2dpP2lkPTc5OQ0KDQo4LiAgICAgW0Nvbm5tYW5dIHh1c2VyIG11c3QgYmUgZ3JhbnRlZCBw
+cml2aWxlZ2UgdG8gc3RhcnQgY29ubm1hbi1hcHBsZXQNCg0KaHR0cDovL2J1Z3ppbGxhLnBva3ls
+aW51eC5vcmcvc2hvd19idWcuY2dpP2lkPTc3OQ0KDQo5LiAgICAgVGhlIGJvdHRvbSBpY29ucyBv
+biBBcHBsaWNhdGlvbnMgYW5kIEFsbCBzY3JlZW4gYXJlIGN1dC1vZmYgaW4gcWVtdS4NCg0KaHR0
+cDovL2J1Z3ppbGxhLnBva3lsaW51eC5vcmcvc2hvd19idWcuY2dpP2lkPTY1OA0KDQoxMC4gIFt6
+eXBwZXJdIHp5cHBlciBpbnN0YWxsIGRvZXMgbm90IHdvcmsgb24gcWVtdXg4Ni9hdG9tLXBjDQoN
+Cmh0dHA6Ly9idWd6aWxsYS5wb2t5bGludXgub3JnL3Nob3dfYnVnLmNnaT9pZD04MDMNCg0KMTEu
+ICBbenlwcGVyXSB6eXBwZXIgbG9zZSBwYWNrYWdlIGluZm9ybWF0aW9uIGFmdGVyIHp5cHBlci9y
+cG0gaW5zdGFsbC9yZW1vdmUNCg0KaHR0cDovL2J1Z3ppbGxhLnBva3lsaW51eC5vcmcvc2hvd19i
+dWcuY2dpP2lkPTgwNA0KDQoxMi4gIFt6eXBwZXJdIGluc3RhbGxhdGlvbiBmYWlsdXJlIG9uIHBw
+YyAobmlnaHRseSBidWlsZCAyMDExMDMwNS00KQ0KDQpodHRwOi8vYnVnemlsbGEucG9reWxpbnV4
+Lm9yZy9zaG93X2J1Zy5jZ2k/aWQ9ODQxDQoNCjEzLiAgW3p5cHBlcl0genlwcGVyIGluc3RhbGwg
+ZmFpbGVkIG9uIHJvdXRlcnN0YXRpb25wcm8gc2RrIGltYWdlDQoNCmh0dHA6Ly9idWd6aWxsYS5w
+b2t5bGludXgub3JnL3Nob3dfYnVnLmNnaT9pZD04NDUNCg0KMTQuICBycG0gcmVtb3ZlIHBhY2th
+Z2UgZXJyb3INCg0KaHR0cDovL2J1Z3ppbGxhLnBva3lsaW51eC5vcmcvc2hvd19idWcuY2dpP2lk
+PTc4Nw0KDQoxNS4gIFt6eXBwZXJdIHBhY2thZ2UgcmVtb3ZhbCBmYWlsdXJlDQoNCmh0dHA6Ly9i
+dWd6aWxsYS5wb2t5bGludXgub3JnL3Nob3dfYnVnLmNnaT9pZD00OTENCg0KMTYuICBbc3N0YXRl
+XSBkb19jb25maWd1cmUgZmFpbGVkIHdpdGggbGlidG9vbC1jcm9zcyB3aGVuIGxvY2FsIHNzdGF0
+ZSBjYWNoZSB1c2VkDQoNCmh0dHA6Ly9idWd6aWxsYS5wb2t5bGludXgub3JnL3Nob3dfYnVnLmNn
+aT9pZD04OTQNCg0KMTcuICBGYWlsIHRvIGJ1aWxkIG5vbi1HUEx2MyBpbWFnZQ0KDQpodHRwOi8v
+YnVnemlsbGEucG9reWxpbnV4Lm9yZy9zaG93X2J1Zy5jZ2k/aWQ9NzEyDQoNCg0KDQoNCg0KQmVz
+dCBSZWdhcmRzLA0KDQpKaWFqdW4NCg==
 
-diff --git a/meta/recipes-extended/mozilla/nss-3.12.6/00_ckbi_1.79.patch b/meta/recipes-extended/mozilla/nss-3.12.6/00_ckbi_1.79.patch
-new file mode 100644
-index 0000000..65b2e0d
---- /dev/null
-+++ b/meta/recipes-extended/mozilla/nss-3.12.6/00_ckbi_1.79.patch
-@@ -0,0 +1,6386 @@
-+diff --git a/mozilla/security/nss/lib/ckfw/builtins/certdata.c b/mozilla/security/nss/lib/ckfw/builtins/certdata.c
-+index 2c6fdab..52b78ad 100644
-+--- a/mozilla/security/nss/lib/ckfw/builtins/certdata.c
-++++ b/mozilla/security/nss/lib/ckfw/builtins/certdata.c
-+@@ -35,7 +35,7 @@
-+  *
-+  * ***** END LICENSE BLOCK ***** */
-+ #ifdef DEBUG
-+-static const char CVS_ID[] = "@(#) $RCSfile: certdata.c,v $ $Revision: 1.59 $ $Date: 2010/02/16 22:14:34 $""; @(#) $RCSfile: certdata.c,v $ $Revision: 1.59 $ $Date: 2010/02/16 22:14:34 $";
-++static const char CVS_ID[] = "@(#) $RCSfile: certdata.c,v $ $Revision: 1.67 $ $Date: 2010/04/08 14:28:58 $""; @(#) $RCSfile: certdata.c,v $ $Revision: 1.67 $ $Date: 2010/04/08 14:28:58 $";
-+ #endif /* DEBUG */
-+ 
-+ #ifndef BUILTINS_H
-+@@ -960,66 +960,6 @@ static const CK_ATTRIBUTE_TYPE nss_builtins_types_300 [] = {
-+ static const CK_ATTRIBUTE_TYPE nss_builtins_types_301 [] = {
-+  CKA_CLASS,  CKA_TOKEN,  CKA_PRIVATE,  CKA_MODIFIABLE,  CKA_LABEL,  CKA_CERT_SHA1_HASH,  CKA_CERT_MD5_HASH,  CKA_ISSUER,  CKA_SERIAL_NUMBER,  CKA_TRUST_SERVER_AUTH,  CKA_TRUST_EMAIL_PROTECTION,  CKA_TRUST_CODE_SIGNING,  CKA_TRUST_STEP_UP_APPROVED
-+ };
-+-static const CK_ATTRIBUTE_TYPE nss_builtins_types_302 [] = {
-+- CKA_CLASS,  CKA_TOKEN,  CKA_PRIVATE,  CKA_MODIFIABLE,  CKA_LABEL,  CKA_CERTIFICATE_TYPE,  CKA_SUBJECT,  CKA_ID,  CKA_ISSUER,  CKA_SERIAL_NUMBER,  CKA_VALUE
-+-};
-+-static const CK_ATTRIBUTE_TYPE nss_builtins_types_303 [] = {
-+- CKA_CLASS,  CKA_TOKEN,  CKA_PRIVATE,  CKA_MODIFIABLE,  CKA_LABEL,  CKA_CERT_SHA1_HASH,  CKA_CERT_MD5_HASH,  CKA_ISSUER,  CKA_SERIAL_NUMBER,  CKA_TRUST_SERVER_AUTH,  CKA_TRUST_EMAIL_PROTECTION,  CKA_TRUST_CODE_SIGNING,  CKA_TRUST_STEP_UP_APPROVED
-+-};
-+-static const CK_ATTRIBUTE_TYPE nss_builtins_types_304 [] = {
-+- CKA_CLASS,  CKA_TOKEN,  CKA_PRIVATE,  CKA_MODIFIABLE,  CKA_LABEL,  CKA_CERTIFICATE_TYPE,  CKA_SUBJECT,  CKA_ID,  CKA_ISSUER,  CKA_SERIAL_NUMBER,  CKA_VALUE
-+-};
-+-static const CK_ATTRIBUTE_TYPE nss_builtins_types_305 [] = {
-+- CKA_CLASS,  CKA_TOKEN,  CKA_PRIVATE,  CKA_MODIFIABLE,  CKA_LABEL,  CKA_CERT_SHA1_HASH,  CKA_CERT_MD5_HASH,  CKA_ISSUER,  CKA_SERIAL_NUMBER,  CKA_TRUST_SERVER_AUTH,  CKA_TRUST_EMAIL_PROTECTION,  CKA_TRUST_CODE_SIGNING,  CKA_TRUST_STEP_UP_APPROVED
-+-};
-+-static const CK_ATTRIBUTE_TYPE nss_builtins_types_306 [] = {
-+- CKA_CLASS,  CKA_TOKEN,  CKA_PRIVATE,  CKA_MODIFIABLE,  CKA_LABEL,  CKA_CERTIFICATE_TYPE,  CKA_SUBJECT,  CKA_ID,  CKA_ISSUER,  CKA_SERIAL_NUMBER,  CKA_VALUE
-+-};
-+-static const CK_ATTRIBUTE_TYPE nss_builtins_types_307 [] = {
-+- CKA_CLASS,  CKA_TOKEN,  CKA_PRIVATE,  CKA_MODIFIABLE,  CKA_LABEL,  CKA_CERT_SHA1_HASH,  CKA_CERT_MD5_HASH,  CKA_ISSUER,  CKA_SERIAL_NUMBER,  CKA_TRUST_SERVER_AUTH,  CKA_TRUST_EMAIL_PROTECTION,  CKA_TRUST_CODE_SIGNING,  CKA_TRUST_STEP_UP_APPROVED
-+-};
-+-static const CK_ATTRIBUTE_TYPE nss_builtins_types_308 [] = {
-+- CKA_CLASS,  CKA_TOKEN,  CKA_PRIVATE,  CKA_MODIFIABLE,  CKA_LABEL,  CKA_CERTIFICATE_TYPE,  CKA_SUBJECT,  CKA_ID,  CKA_ISSUER,  CKA_SERIAL_NUMBER,  CKA_VALUE
-+-};
-+-static const CK_ATTRIBUTE_TYPE nss_builtins_types_309 [] = {
-+- CKA_CLASS,  CKA_TOKEN,  CKA_PRIVATE,  CKA_MODIFIABLE,  CKA_LABEL,  CKA_CERT_SHA1_HASH,  CKA_CERT_MD5_HASH,  CKA_ISSUER,  CKA_SERIAL_NUMBER,  CKA_TRUST_SERVER_AUTH,  CKA_TRUST_EMAIL_PROTECTION,  CKA_TRUST_CODE_SIGNING,  CKA_TRUST_STEP_UP_APPROVED
-+-};
-+-static const CK_ATTRIBUTE_TYPE nss_builtins_types_310 [] = {
-+- CKA_CLASS,  CKA_TOKEN,  CKA_PRIVATE,  CKA_MODIFIABLE,  CKA_LABEL,  CKA_CERTIFICATE_TYPE,  CKA_SUBJECT,  CKA_ID,  CKA_ISSUER,  CKA_SERIAL_NUMBER,  CKA_VALUE
-+-};
-+-static const CK_ATTRIBUTE_TYPE nss_builtins_types_311 [] = {
-+- CKA_CLASS,  CKA_TOKEN,  CKA_PRIVATE,  CKA_MODIFIABLE,  CKA_LABEL,  CKA_CERT_SHA1_HASH,  CKA_CERT_MD5_HASH,  CKA_ISSUER,  CKA_SERIAL_NUMBER,  CKA_TRUST_SERVER_AUTH,  CKA_TRUST_EMAIL_PROTECTION,  CKA_TRUST_CODE_SIGNING,  CKA_TRUST_STEP_UP_APPROVED
-+-};
-+-static const CK_ATTRIBUTE_TYPE nss_builtins_types_312 [] = {
-+- CKA_CLASS,  CKA_TOKEN,  CKA_PRIVATE,  CKA_MODIFIABLE,  CKA_LABEL,  CKA_CERTIFICATE_TYPE,  CKA_SUBJECT,  CKA_ID,  CKA_ISSUER,  CKA_SERIAL_NUMBER,  CKA_VALUE
-+-};
-+-static const CK_ATTRIBUTE_TYPE nss_builtins_types_313 [] = {
-+- CKA_CLASS,  CKA_TOKEN,  CKA_PRIVATE,  CKA_MODIFIABLE,  CKA_LABEL,  CKA_CERT_SHA1_HASH,  CKA_CERT_MD5_HASH,  CKA_ISSUER,  CKA_SERIAL_NUMBER,  CKA_TRUST_SERVER_AUTH,  CKA_TRUST_EMAIL_PROTECTION,  CKA_TRUST_CODE_SIGNING,  CKA_TRUST_STEP_UP_APPROVED
-+-};
-+-static const CK_ATTRIBUTE_TYPE nss_builtins_types_314 [] = {
-+- CKA_CLASS,  CKA_TOKEN,  CKA_PRIVATE,  CKA_MODIFIABLE,  CKA_LABEL,  CKA_CERTIFICATE_TYPE,  CKA_SUBJECT,  CKA_ID,  CKA_ISSUER,  CKA_SERIAL_NUMBER,  CKA_VALUE
-+-};
-+-static const CK_ATTRIBUTE_TYPE nss_builtins_types_315 [] = {
-+- CKA_CLASS,  CKA_TOKEN,  CKA_PRIVATE,  CKA_MODIFIABLE,  CKA_LABEL,  CKA_CERT_SHA1_HASH,  CKA_CERT_MD5_HASH,  CKA_ISSUER,  CKA_SERIAL_NUMBER,  CKA_TRUST_SERVER_AUTH,  CKA_TRUST_EMAIL_PROTECTION,  CKA_TRUST_CODE_SIGNING,  CKA_TRUST_STEP_UP_APPROVED
-+-};
-+-static const CK_ATTRIBUTE_TYPE nss_builtins_types_316 [] = {
-+- CKA_CLASS,  CKA_TOKEN,  CKA_PRIVATE,  CKA_MODIFIABLE,  CKA_LABEL,  CKA_CERTIFICATE_TYPE,  CKA_SUBJECT,  CKA_ID,  CKA_ISSUER,  CKA_SERIAL_NUMBER,  CKA_VALUE
-+-};
-+-static const CK_ATTRIBUTE_TYPE nss_builtins_types_317 [] = {
-+- CKA_CLASS,  CKA_TOKEN,  CKA_PRIVATE,  CKA_MODIFIABLE,  CKA_LABEL,  CKA_CERT_SHA1_HASH,  CKA_CERT_MD5_HASH,  CKA_ISSUER,  CKA_SERIAL_NUMBER,  CKA_TRUST_SERVER_AUTH,  CKA_TRUST_EMAIL_PROTECTION,  CKA_TRUST_CODE_SIGNING,  CKA_TRUST_STEP_UP_APPROVED
-+-};
-+-static const CK_ATTRIBUTE_TYPE nss_builtins_types_318 [] = {
-+- CKA_CLASS,  CKA_TOKEN,  CKA_PRIVATE,  CKA_MODIFIABLE,  CKA_LABEL,  CKA_CERTIFICATE_TYPE,  CKA_SUBJECT,  CKA_ID,  CKA_ISSUER,  CKA_SERIAL_NUMBER,  CKA_VALUE
-+-};
-+-static const CK_ATTRIBUTE_TYPE nss_builtins_types_319 [] = {
-+- CKA_CLASS,  CKA_TOKEN,  CKA_PRIVATE,  CKA_MODIFIABLE,  CKA_LABEL,  CKA_CERT_SHA1_HASH,  CKA_CERT_MD5_HASH,  CKA_ISSUER,  CKA_SERIAL_NUMBER,  CKA_TRUST_SERVER_AUTH,  CKA_TRUST_EMAIL_PROTECTION,  CKA_TRUST_CODE_SIGNING,  CKA_TRUST_STEP_UP_APPROVED
-+-};
-+-static const CK_ATTRIBUTE_TYPE nss_builtins_types_320 [] = {
-+- CKA_CLASS,  CKA_TOKEN,  CKA_PRIVATE,  CKA_MODIFIABLE,  CKA_LABEL,  CKA_CERTIFICATE_TYPE,  CKA_SUBJECT,  CKA_ID,  CKA_ISSUER,  CKA_SERIAL_NUMBER,  CKA_VALUE
-+-};
-+-static const CK_ATTRIBUTE_TYPE nss_builtins_types_321 [] = {
-+- CKA_CLASS,  CKA_TOKEN,  CKA_PRIVATE,  CKA_MODIFIABLE,  CKA_LABEL,  CKA_CERT_SHA1_HASH,  CKA_CERT_MD5_HASH,  CKA_ISSUER,  CKA_SERIAL_NUMBER,  CKA_TRUST_SERVER_AUTH,  CKA_TRUST_EMAIL_PROTECTION,  CKA_TRUST_CODE_SIGNING,  CKA_TRUST_STEP_UP_APPROVED
-+-};
-+ #ifdef DEBUG
-+ static const NSSItem nss_builtins_items_0 [] = {
-+   { (void *)&cko_data, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+@@ -1028,7 +968,7 @@ static const NSSItem nss_builtins_items_0 [] = {
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)"CVS ID", (PRUint32)7 },
-+   { (void *)"NSS", (PRUint32)4 },
-+-  { (void *)"@(#) $RCSfile: certdata.c,v $ $Revision: 1.59 $ $Date: 2010/02/16 22:14:34 $""; @(#) $RCSfile: certdata.c,v $ $Revision: 1.59 $ $Date: 2010/02/16 22:14:34 $", (PRUint32)160 }
-++  { (void *)"@(#) $RCSfile: certdata.c,v $ $Revision: 1.67 $ $Date: 2010/04/08 14:28:58 $""; @(#) $RCSfile: certdata.c,v $ $Revision: 1.67 $ $Date: 2010/04/08 14:28:58 $", (PRUint32)160 }
-+ };
-+ #endif /* DEBUG */
-+ static const NSSItem nss_builtins_items_1 [] = {
-+@@ -1043,98 +983,6 @@ static const NSSItem nss_builtins_items_2 [] = {
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)"Verisign/RSA Secure Server CA", (PRUint32)30 },
-+-  { (void *)&ckc_x_509, (PRUint32)sizeof(CK_CERTIFICATE_TYPE) },
-+-  { (void *)"\060\137\061\013\060\011\006\003\125\004\006\023\002\125\123\061"
-+-"\040\060\036\006\003\125\004\012\023\027\122\123\101\040\104\141"
-+-"\164\141\040\123\145\143\165\162\151\164\171\054\040\111\156\143"
-+-"\056\061\056\060\054\006\003\125\004\013\023\045\123\145\143\165"
-+-"\162\145\040\123\145\162\166\145\162\040\103\145\162\164\151\146"
-+-"\151\143\141\164\151\157\156\040\101\165\164\150\157\162\151\164"
-+-"\171"
-+-, (PRUint32)97 },
-+-  { (void *)"0", (PRUint32)2 },
-+-  { (void *)"\060\137\061\013\060\011\006\003\125\004\006\023\002\125\123\061"
-+-"\040\060\036\006\003\125\004\012\023\027\122\123\101\040\104\141"
-+-"\164\141\040\123\145\143\165\162\151\164\171\054\040\111\156\143"
-+-"\056\061\056\060\054\006\003\125\004\013\023\045\123\145\143\165"
-+-"\162\145\040\123\145\162\166\145\162\040\103\145\162\164\151\146"
-+-"\151\143\141\164\151\157\156\040\101\165\164\150\157\162\151\164"
-+-"\171"
-+-, (PRUint32)97 },
-+-  { (void *)"\002\020\002\255\146\176\116\105\376\136\127\157\074\230\031\136"
-+-"\335\300"
-+-, (PRUint32)18 },
-+-  { (void *)"\060\202\002\064\060\202\001\241\002\020\002\255\146\176\116\105"
-+-"\376\136\127\157\074\230\031\136\335\300\060\015\006\011\052\206"
-+-"\110\206\367\015\001\001\002\005\000\060\137\061\013\060\011\006"
-+-"\003\125\004\006\023\002\125\123\061\040\060\036\006\003\125\004"
-+-"\012\023\027\122\123\101\040\104\141\164\141\040\123\145\143\165"
-+-"\162\151\164\171\054\040\111\156\143\056\061\056\060\054\006\003"
-+-"\125\004\013\023\045\123\145\143\165\162\145\040\123\145\162\166"
-+-"\145\162\040\103\145\162\164\151\146\151\143\141\164\151\157\156"
-+-"\040\101\165\164\150\157\162\151\164\171\060\036\027\015\071\064"
-+-"\061\061\060\071\060\060\060\060\060\060\132\027\015\061\060\060"
-+-"\061\060\067\062\063\065\071\065\071\132\060\137\061\013\060\011"
-+-"\006\003\125\004\006\023\002\125\123\061\040\060\036\006\003\125"
-+-"\004\012\023\027\122\123\101\040\104\141\164\141\040\123\145\143"
-+-"\165\162\151\164\171\054\040\111\156\143\056\061\056\060\054\006"
-+-"\003\125\004\013\023\045\123\145\143\165\162\145\040\123\145\162"
-+-"\166\145\162\040\103\145\162\164\151\146\151\143\141\164\151\157"
-+-"\156\040\101\165\164\150\157\162\151\164\171\060\201\233\060\015"
-+-"\006\011\052\206\110\206\367\015\001\001\001\005\000\003\201\211"
-+-"\000\060\201\205\002\176\000\222\316\172\301\256\203\076\132\252"
-+-"\211\203\127\254\045\001\166\014\255\256\216\054\067\316\353\065"
-+-"\170\144\124\003\345\204\100\121\311\277\217\010\342\212\202\010"
-+-"\322\026\206\067\125\351\261\041\002\255\166\150\201\232\005\242"
-+-"\113\311\113\045\146\042\126\154\210\007\217\367\201\131\155\204"
-+-"\007\145\160\023\161\166\076\233\167\114\343\120\211\126\230\110"
-+-"\271\035\247\051\032\023\056\112\021\131\234\036\025\325\111\124"
-+-"\054\163\072\151\202\261\227\071\234\155\160\147\110\345\335\055"
-+-"\326\310\036\173\002\003\001\000\001\060\015\006\011\052\206\110"
-+-"\206\367\015\001\001\002\005\000\003\176\000\145\335\176\341\262"
-+-"\354\260\342\072\340\354\161\106\232\031\021\270\323\307\240\264"
-+-"\003\100\046\002\076\011\234\341\022\263\321\132\366\067\245\267"
-+-"\141\003\266\133\026\151\073\306\104\010\014\210\123\014\153\227"
-+-"\111\307\076\065\334\154\271\273\252\337\134\273\072\057\223\140"
-+-"\266\251\113\115\362\040\367\315\137\177\144\173\216\334\000\134"
-+-"\327\372\167\312\071\026\131\157\016\352\323\265\203\177\115\115"
-+-"\102\126\166\264\311\137\004\370\070\370\353\322\137\165\137\315"
-+-"\173\374\345\216\200\174\374\120"
-+-, (PRUint32)568 }
-+-};
-+-static const NSSItem nss_builtins_items_3 [] = {
-+-  { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+-  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)"Verisign/RSA Secure Server CA", (PRUint32)30 },
-+-  { (void *)"\104\143\305\061\327\314\301\000\147\224\141\053\266\126\323\277"
-+-"\202\127\204\157"
-+-, (PRUint32)20 },
-+-  { (void *)"\164\173\202\003\103\360\000\236\153\263\354\107\277\205\245\223"
-+-, (PRUint32)16 },
-+-  { (void *)"\060\137\061\013\060\011\006\003\125\004\006\023\002\125\123\061"
-+-"\040\060\036\006\003\125\004\012\023\027\122\123\101\040\104\141"
-+-"\164\141\040\123\145\143\165\162\151\164\171\054\040\111\156\143"
-+-"\056\061\056\060\054\006\003\125\004\013\023\045\123\145\143\165"
-+-"\162\145\040\123\145\162\166\145\162\040\103\145\162\164\151\146"
-+-"\151\143\141\164\151\157\156\040\101\165\164\150\157\162\151\164"
-+-"\171"
-+-, (PRUint32)97 },
-+-  { (void *)"\002\020\002\255\146\176\116\105\376\136\127\157\074\230\031\136"
-+-"\335\300"
-+-, (PRUint32)18 },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) }
-+-};
-+-static const NSSItem nss_builtins_items_4 [] = {
-+-  { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+-  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)"GTE CyberTrust Root CA", (PRUint32)23 },
-+   { (void *)&ckc_x_509, (PRUint32)sizeof(CK_CERTIFICATE_TYPE) },
-+   { (void *)"\060\105\061\013\060\011\006\003\125\004\006\023\002\125\123\061"
-+@@ -1186,7 +1034,7 @@ static const NSSItem nss_builtins_items_4 [] = {
-+ "\264\172\341\345\132\037\204\060\234\323\237\245\045\330"
-+ , (PRUint32)510 }
-+ };
-+-static const NSSItem nss_builtins_items_5 [] = {
-++static const NSSItem nss_builtins_items_3 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -1205,12 +1053,12 @@ static const NSSItem nss_builtins_items_5 [] = {
-+ , (PRUint32)71 },
-+   { (void *)"\002\002\001\243"
-+ , (PRUint32)4 },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) }
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_6 [] = {
-++static const NSSItem nss_builtins_items_4 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -1278,7 +1126,7 @@ static const NSSItem nss_builtins_items_6 [] = {
-+ "\037\042\265\315\225\255\272\247\314\371\253\013\172\177"
-+ , (PRUint32)606 }
-+ };
-+-static const NSSItem nss_builtins_items_7 [] = {
-++static const NSSItem nss_builtins_items_5 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -1303,258 +1151,9 @@ static const NSSItem nss_builtins_items_7 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) }
-+-};
-+-static const NSSItem nss_builtins_items_8 [] = {
-+-  { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+-  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)"Thawte Personal Basic CA", (PRUint32)25 },
-+-  { (void *)&ckc_x_509, (PRUint32)sizeof(CK_CERTIFICATE_TYPE) },
-+-  { (void *)"\060\201\313\061\013\060\011\006\003\125\004\006\023\002\132\101"
-+-"\061\025\060\023\006\003\125\004\010\023\014\127\145\163\164\145"
-+-"\162\156\040\103\141\160\145\061\022\060\020\006\003\125\004\007"
-+-"\023\011\103\141\160\145\040\124\157\167\156\061\032\060\030\006"
-+-"\003\125\004\012\023\021\124\150\141\167\164\145\040\103\157\156"
-+-"\163\165\154\164\151\156\147\061\050\060\046\006\003\125\004\013"
-+-"\023\037\103\145\162\164\151\146\151\143\141\164\151\157\156\040"
-+-"\123\145\162\166\151\143\145\163\040\104\151\166\151\163\151\157"
-+-"\156\061\041\060\037\006\003\125\004\003\023\030\124\150\141\167"
-+-"\164\145\040\120\145\162\163\157\156\141\154\040\102\141\163\151"
-+-"\143\040\103\101\061\050\060\046\006\011\052\206\110\206\367\015"
-+-"\001\011\001\026\031\160\145\162\163\157\156\141\154\055\142\141"
-+-"\163\151\143\100\164\150\141\167\164\145\056\143\157\155"
-+-, (PRUint32)206 },
-+-  { (void *)"0", (PRUint32)2 },
-+-  { (void *)"\060\201\313\061\013\060\011\006\003\125\004\006\023\002\132\101"
-+-"\061\025\060\023\006\003\125\004\010\023\014\127\145\163\164\145"
-+-"\162\156\040\103\141\160\145\061\022\060\020\006\003\125\004\007"
-+-"\023\011\103\141\160\145\040\124\157\167\156\061\032\060\030\006"
-+-"\003\125\004\012\023\021\124\150\141\167\164\145\040\103\157\156"
-+-"\163\165\154\164\151\156\147\061\050\060\046\006\003\125\004\013"
-+-"\023\037\103\145\162\164\151\146\151\143\141\164\151\157\156\040"
-+-"\123\145\162\166\151\143\145\163\040\104\151\166\151\163\151\157"
-+-"\156\061\041\060\037\006\003\125\004\003\023\030\124\150\141\167"
-+-"\164\145\040\120\145\162\163\157\156\141\154\040\102\141\163\151"
-+-"\143\040\103\101\061\050\060\046\006\011\052\206\110\206\367\015"
-+-"\001\011\001\026\031\160\145\162\163\157\156\141\154\055\142\141"
-+-"\163\151\143\100\164\150\141\167\164\145\056\143\157\155"
-+-, (PRUint32)206 },
-+-  { (void *)"\002\001\000"
-+-, (PRUint32)3 },
-+-  { (void *)"\060\202\003\041\060\202\002\212\240\003\002\001\002\002\001\000"
-+-"\060\015\006\011\052\206\110\206\367\015\001\001\004\005\000\060"
-+-"\201\313\061\013\060\011\006\003\125\004\006\023\002\132\101\061"
-+-"\025\060\023\006\003\125\004\010\023\014\127\145\163\164\145\162"
-+-"\156\040\103\141\160\145\061\022\060\020\006\003\125\004\007\023"
-+-"\011\103\141\160\145\040\124\157\167\156\061\032\060\030\006\003"
-+-"\125\004\012\023\021\124\150\141\167\164\145\040\103\157\156\163"
-+-"\165\154\164\151\156\147\061\050\060\046\006\003\125\004\013\023"
-+-"\037\103\145\162\164\151\146\151\143\141\164\151\157\156\040\123"
-+-"\145\162\166\151\143\145\163\040\104\151\166\151\163\151\157\156"
-+-"\061\041\060\037\006\003\125\004\003\023\030\124\150\141\167\164"
-+-"\145\040\120\145\162\163\157\156\141\154\040\102\141\163\151\143"
-+-"\040\103\101\061\050\060\046\006\011\052\206\110\206\367\015\001"
-+-"\011\001\026\031\160\145\162\163\157\156\141\154\055\142\141\163"
-+-"\151\143\100\164\150\141\167\164\145\056\143\157\155\060\036\027"
-+-"\015\071\066\060\061\060\061\060\060\060\060\060\060\132\027\015"
-+-"\062\060\061\062\063\061\062\063\065\071\065\071\132\060\201\313"
-+-"\061\013\060\011\006\003\125\004\006\023\002\132\101\061\025\060"
-+-"\023\006\003\125\004\010\023\014\127\145\163\164\145\162\156\040"
-+-"\103\141\160\145\061\022\060\020\006\003\125\004\007\023\011\103"
-+-"\141\160\145\040\124\157\167\156\061\032\060\030\006\003\125\004"
-+-"\012\023\021\124\150\141\167\164\145\040\103\157\156\163\165\154"
-+-"\164\151\156\147\061\050\060\046\006\003\125\004\013\023\037\103"
-+-"\145\162\164\151\146\151\143\141\164\151\157\156\040\123\145\162"
-+-"\166\151\143\145\163\040\104\151\166\151\163\151\157\156\061\041"
-+-"\060\037\006\003\125\004\003\023\030\124\150\141\167\164\145\040"
-+-"\120\145\162\163\157\156\141\154\040\102\141\163\151\143\040\103"
-+-"\101\061\050\060\046\006\011\052\206\110\206\367\015\001\011\001"
-+-"\026\031\160\145\162\163\157\156\141\154\055\142\141\163\151\143"
-+-"\100\164\150\141\167\164\145\056\143\157\155\060\201\237\060\015"
-+-"\006\011\052\206\110\206\367\015\001\001\001\005\000\003\201\215"
-+-"\000\060\201\211\002\201\201\000\274\274\223\123\155\300\120\117"
-+-"\202\025\346\110\224\065\246\132\276\157\102\372\017\107\356\167"
-+-"\165\162\335\215\111\233\226\127\240\170\324\312\077\121\263\151"
-+-"\013\221\166\027\042\007\227\152\304\121\223\113\340\215\357\067"
-+-"\225\241\014\115\332\064\220\035\027\211\227\340\065\070\127\112"
-+-"\300\364\010\160\351\074\104\173\120\176\141\232\220\343\043\323"
-+-"\210\021\106\047\365\013\007\016\273\335\321\177\040\012\210\271"
-+-"\126\013\056\034\200\332\361\343\236\051\357\024\275\012\104\373"
-+-"\033\133\030\321\277\043\223\041\002\003\001\000\001\243\023\060"
-+-"\021\060\017\006\003\125\035\023\001\001\377\004\005\060\003\001"
-+-"\001\377\060\015\006\011\052\206\110\206\367\015\001\001\004\005"
-+-"\000\003\201\201\000\055\342\231\153\260\075\172\211\327\131\242"
-+-"\224\001\037\053\335\022\113\123\302\255\177\252\247\000\134\221"
-+-"\100\127\045\112\070\252\204\160\271\331\200\017\245\173\134\373"
-+-"\163\306\275\327\212\141\134\003\343\055\047\250\027\340\204\205"
-+-"\102\334\136\233\306\267\262\155\273\164\257\344\077\313\247\267"
-+-"\260\340\135\276\170\203\045\224\322\333\201\017\171\007\155\117"
-+-"\364\071\025\132\122\001\173\336\062\326\115\070\366\022\134\006"
-+-"\120\337\005\133\275\024\113\241\337\051\272\073\101\215\367\143"
-+-"\126\241\337\042\261"
-+-, (PRUint32)805 }
-+-};
-+-static const NSSItem nss_builtins_items_9 [] = {
-+-  { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+-  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)"Thawte Personal Basic CA", (PRUint32)25 },
-+-  { (void *)"\100\347\214\035\122\075\034\331\225\117\254\032\032\263\275\074"
-+-"\272\241\133\374"
-+-, (PRUint32)20 },
-+-  { (void *)"\346\013\322\311\312\055\210\333\032\161\016\113\170\353\002\101"
-+-, (PRUint32)16 },
-+-  { (void *)"\060\201\313\061\013\060\011\006\003\125\004\006\023\002\132\101"
-+-"\061\025\060\023\006\003\125\004\010\023\014\127\145\163\164\145"
-+-"\162\156\040\103\141\160\145\061\022\060\020\006\003\125\004\007"
-+-"\023\011\103\141\160\145\040\124\157\167\156\061\032\060\030\006"
-+-"\003\125\004\012\023\021\124\150\141\167\164\145\040\103\157\156"
-+-"\163\165\154\164\151\156\147\061\050\060\046\006\003\125\004\013"
-+-"\023\037\103\145\162\164\151\146\151\143\141\164\151\157\156\040"
-+-"\123\145\162\166\151\143\145\163\040\104\151\166\151\163\151\157"
-+-"\156\061\041\060\037\006\003\125\004\003\023\030\124\150\141\167"
-+-"\164\145\040\120\145\162\163\157\156\141\154\040\102\141\163\151"
-+-"\143\040\103\101\061\050\060\046\006\011\052\206\110\206\367\015"
-+-"\001\011\001\026\031\160\145\162\163\157\156\141\154\055\142\141"
-+-"\163\151\143\100\164\150\141\167\164\145\056\143\157\155"
-+-, (PRUint32)206 },
-+-  { (void *)"\002\001\000"
-+-, (PRUint32)3 },
-+-  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+-};
-+-static const NSSItem nss_builtins_items_10 [] = {
-+-  { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+-  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)"Thawte Personal Premium CA", (PRUint32)27 },
-+-  { (void *)&ckc_x_509, (PRUint32)sizeof(CK_CERTIFICATE_TYPE) },
-+-  { (void *)"\060\201\317\061\013\060\011\006\003\125\004\006\023\002\132\101"
-+-"\061\025\060\023\006\003\125\004\010\023\014\127\145\163\164\145"
-+-"\162\156\040\103\141\160\145\061\022\060\020\006\003\125\004\007"
-+-"\023\011\103\141\160\145\040\124\157\167\156\061\032\060\030\006"
-+-"\003\125\004\012\023\021\124\150\141\167\164\145\040\103\157\156"
-+-"\163\165\154\164\151\156\147\061\050\060\046\006\003\125\004\013"
-+-"\023\037\103\145\162\164\151\146\151\143\141\164\151\157\156\040"
-+-"\123\145\162\166\151\143\145\163\040\104\151\166\151\163\151\157"
-+-"\156\061\043\060\041\006\003\125\004\003\023\032\124\150\141\167"
-+-"\164\145\040\120\145\162\163\157\156\141\154\040\120\162\145\155"
-+-"\151\165\155\040\103\101\061\052\060\050\006\011\052\206\110\206"
-+-"\367\015\001\011\001\026\033\160\145\162\163\157\156\141\154\055"
-+-"\160\162\145\155\151\165\155\100\164\150\141\167\164\145\056\143"
-+-"\157\155"
-+-, (PRUint32)210 },
-+-  { (void *)"0", (PRUint32)2 },
-+-  { (void *)"\060\201\317\061\013\060\011\006\003\125\004\006\023\002\132\101"
-+-"\061\025\060\023\006\003\125\004\010\023\014\127\145\163\164\145"
-+-"\162\156\040\103\141\160\145\061\022\060\020\006\003\125\004\007"
-+-"\023\011\103\141\160\145\040\124\157\167\156\061\032\060\030\006"
-+-"\003\125\004\012\023\021\124\150\141\167\164\145\040\103\157\156"
-+-"\163\165\154\164\151\156\147\061\050\060\046\006\003\125\004\013"
-+-"\023\037\103\145\162\164\151\146\151\143\141\164\151\157\156\040"
-+-"\123\145\162\166\151\143\145\163\040\104\151\166\151\163\151\157"
-+-"\156\061\043\060\041\006\003\125\004\003\023\032\124\150\141\167"
-+-"\164\145\040\120\145\162\163\157\156\141\154\040\120\162\145\155"
-+-"\151\165\155\040\103\101\061\052\060\050\006\011\052\206\110\206"
-+-"\367\015\001\011\001\026\033\160\145\162\163\157\156\141\154\055"
-+-"\160\162\145\155\151\165\155\100\164\150\141\167\164\145\056\143"
-+-"\157\155"
-+-, (PRUint32)210 },
-+-  { (void *)"\002\001\000"
-+-, (PRUint32)3 },
-+-  { (void *)"\060\202\003\051\060\202\002\222\240\003\002\001\002\002\001\000"
-+-"\060\015\006\011\052\206\110\206\367\015\001\001\004\005\000\060"
-+-"\201\317\061\013\060\011\006\003\125\004\006\023\002\132\101\061"
-+-"\025\060\023\006\003\125\004\010\023\014\127\145\163\164\145\162"
-+-"\156\040\103\141\160\145\061\022\060\020\006\003\125\004\007\023"
-+-"\011\103\141\160\145\040\124\157\167\156\061\032\060\030\006\003"
-+-"\125\004\012\023\021\124\150\141\167\164\145\040\103\157\156\163"
-+-"\165\154\164\151\156\147\061\050\060\046\006\003\125\004\013\023"
-+-"\037\103\145\162\164\151\146\151\143\141\164\151\157\156\040\123"
-+-"\145\162\166\151\143\145\163\040\104\151\166\151\163\151\157\156"
-+-"\061\043\060\041\006\003\125\004\003\023\032\124\150\141\167\164"
-+-"\145\040\120\145\162\163\157\156\141\154\040\120\162\145\155\151"
-+-"\165\155\040\103\101\061\052\060\050\006\011\052\206\110\206\367"
-+-"\015\001\011\001\026\033\160\145\162\163\157\156\141\154\055\160"
-+-"\162\145\155\151\165\155\100\164\150\141\167\164\145\056\143\157"
-+-"\155\060\036\027\015\071\066\060\061\060\061\060\060\060\060\060"
-+-"\060\132\027\015\062\060\061\062\063\061\062\063\065\071\065\071"
-+-"\132\060\201\317\061\013\060\011\006\003\125\004\006\023\002\132"
-+-"\101\061\025\060\023\006\003\125\004\010\023\014\127\145\163\164"
-+-"\145\162\156\040\103\141\160\145\061\022\060\020\006\003\125\004"
-+-"\007\023\011\103\141\160\145\040\124\157\167\156\061\032\060\030"
-+-"\006\003\125\004\012\023\021\124\150\141\167\164\145\040\103\157"
-+-"\156\163\165\154\164\151\156\147\061\050\060\046\006\003\125\004"
-+-"\013\023\037\103\145\162\164\151\146\151\143\141\164\151\157\156"
-+-"\040\123\145\162\166\151\143\145\163\040\104\151\166\151\163\151"
-+-"\157\156\061\043\060\041\006\003\125\004\003\023\032\124\150\141"
-+-"\167\164\145\040\120\145\162\163\157\156\141\154\040\120\162\145"
-+-"\155\151\165\155\040\103\101\061\052\060\050\006\011\052\206\110"
-+-"\206\367\015\001\011\001\026\033\160\145\162\163\157\156\141\154"
-+-"\055\160\162\145\155\151\165\155\100\164\150\141\167\164\145\056"
-+-"\143\157\155\060\201\237\060\015\006\011\052\206\110\206\367\015"
-+-"\001\001\001\005\000\003\201\215\000\060\201\211\002\201\201\000"
-+-"\311\146\331\370\007\104\317\271\214\056\360\241\357\023\105\154"
-+-"\005\337\336\047\026\121\066\101\021\154\154\073\355\376\020\175"
-+-"\022\236\345\233\102\232\376\140\061\303\146\267\163\072\110\256"
-+-"\116\320\062\067\224\210\265\015\266\331\363\362\104\331\325\210"
-+-"\022\335\166\115\362\032\374\157\043\036\172\361\330\230\105\116"
-+-"\007\020\357\026\102\320\103\165\155\112\336\342\252\311\061\377"
-+-"\037\000\160\174\146\317\020\045\010\272\372\356\000\351\106\003"
-+-"\146\047\021\025\073\252\133\362\230\335\066\102\262\332\210\165"
-+-"\002\003\001\000\001\243\023\060\021\060\017\006\003\125\035\023"
-+-"\001\001\377\004\005\060\003\001\001\377\060\015\006\011\052\206"
-+-"\110\206\367\015\001\001\004\005\000\003\201\201\000\151\066\211"
-+-"\367\064\052\063\162\057\155\073\324\042\262\270\157\232\305\066"
-+-"\146\016\033\074\241\261\165\132\346\375\065\323\370\250\362\007"
-+-"\157\205\147\216\336\053\271\342\027\260\072\240\360\016\242\000"
-+-"\232\337\363\024\025\156\273\310\205\132\230\200\371\377\276\164"
-+-"\035\075\363\376\060\045\321\067\064\147\372\245\161\171\060\141"
-+-"\051\162\300\340\054\114\373\126\344\072\250\157\345\062\131\122"
-+-"\333\165\050\120\131\014\370\013\031\344\254\331\257\226\215\057"
-+-"\120\333\007\303\352\037\253\063\340\365\053\061\211"
-+-, (PRUint32)813 }
-+-};
-+-static const NSSItem nss_builtins_items_11 [] = {
-+-  { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+-  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)"Thawte Personal Premium CA", (PRUint32)27 },
-+-  { (void *)"\066\206\065\143\375\121\050\307\276\246\360\005\317\351\264\066"
-+-"\150\010\154\316"
-+-, (PRUint32)20 },
-+-  { (void *)"\072\262\336\042\232\040\223\111\371\355\310\322\212\347\150\015"
-+-, (PRUint32)16 },
-+-  { (void *)"\060\201\317\061\013\060\011\006\003\125\004\006\023\002\132\101"
-+-"\061\025\060\023\006\003\125\004\010\023\014\127\145\163\164\145"
-+-"\162\156\040\103\141\160\145\061\022\060\020\006\003\125\004\007"
-+-"\023\011\103\141\160\145\040\124\157\167\156\061\032\060\030\006"
-+-"\003\125\004\012\023\021\124\150\141\167\164\145\040\103\157\156"
-+-"\163\165\154\164\151\156\147\061\050\060\046\006\003\125\004\013"
-+-"\023\037\103\145\162\164\151\146\151\143\141\164\151\157\156\040"
-+-"\123\145\162\166\151\143\145\163\040\104\151\166\151\163\151\157"
-+-"\156\061\043\060\041\006\003\125\004\003\023\032\124\150\141\167"
-+-"\164\145\040\120\145\162\163\157\156\141\154\040\120\162\145\155"
-+-"\151\165\155\040\103\101\061\052\060\050\006\011\052\206\110\206"
-+-"\367\015\001\011\001\026\033\160\145\162\163\157\156\141\154\055"
-+-"\160\162\145\155\151\165\155\100\164\150\141\167\164\145\056\143"
-+-"\157\155"
-+-, (PRUint32)210 },
-+-  { (void *)"\002\001\000"
-+-, (PRUint32)3 },
-+-  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_12 [] = {
-++static const NSSItem nss_builtins_items_6 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -1648,7 +1247,7 @@ static const NSSItem nss_builtins_items_12 [] = {
-+ "\201"
-+ , (PRUint32)817 }
-+ };
-+-static const NSSItem nss_builtins_items_13 [] = {
-++static const NSSItem nss_builtins_items_7 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -1681,7 +1280,7 @@ static const NSSItem nss_builtins_items_13 [] = {
-+   { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_14 [] = {
-++static const NSSItem nss_builtins_items_8 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -1771,7 +1370,7 @@ static const NSSItem nss_builtins_items_14 [] = {
-+ "\243\377\212\043\056\160\107"
-+ , (PRUint32)791 }
-+ };
-+-static const NSSItem nss_builtins_items_15 [] = {
-++static const NSSItem nss_builtins_items_9 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -1801,9 +1400,9 @@ static const NSSItem nss_builtins_items_15 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) }
-++  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_16 [] = {
-++static const NSSItem nss_builtins_items_10 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -1896,7 +1495,7 @@ static const NSSItem nss_builtins_items_16 [] = {
-+ "\246\015\246\043\371\273\313\246\007\024\102"
-+ , (PRUint32)811 }
-+ };
-+-static const NSSItem nss_builtins_items_17 [] = {
-++static const NSSItem nss_builtins_items_11 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -1927,9 +1526,9 @@ static const NSSItem nss_builtins_items_17 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) }
-++  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_18 [] = {
-++static const NSSItem nss_builtins_items_12 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -2004,7 +1603,7 @@ static const NSSItem nss_builtins_items_18 [] = {
-+ "\254\007\167\070"
-+ , (PRUint32)804 }
-+ };
-+-static const NSSItem nss_builtins_items_19 [] = {
-++static const NSSItem nss_builtins_items_13 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -2028,129 +1627,7 @@ static const NSSItem nss_builtins_items_19 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_20 [] = {
-+-  { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+-  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)"ABAecom (sub., Am. Bankers Assn.) Root CA", (PRUint32)42 },
-+-  { (void *)&ckc_x_509, (PRUint32)sizeof(CK_CERTIFICATE_TYPE) },
-+-  { (void *)"\060\201\211\061\013\060\011\006\003\125\004\006\023\002\125\123"
-+-"\061\013\060\011\006\003\125\004\010\023\002\104\103\061\023\060"
-+-"\021\006\003\125\004\007\023\012\127\141\163\150\151\156\147\164"
-+-"\157\156\061\027\060\025\006\003\125\004\012\023\016\101\102\101"
-+-"\056\105\103\117\115\054\040\111\116\103\056\061\031\060\027\006"
-+-"\003\125\004\003\023\020\101\102\101\056\105\103\117\115\040\122"
-+-"\157\157\164\040\103\101\061\044\060\042\006\011\052\206\110\206"
-+-"\367\015\001\011\001\026\025\141\144\155\151\156\100\144\151\147"
-+-"\163\151\147\164\162\165\163\164\056\143\157\155"
-+-, (PRUint32)140 },
-+-  { (void *)"0", (PRUint32)2 },
-+-  { (void *)"\060\201\211\061\013\060\011\006\003\125\004\006\023\002\125\123"
-+-"\061\013\060\011\006\003\125\004\010\023\002\104\103\061\023\060"
-+-"\021\006\003\125\004\007\023\012\127\141\163\150\151\156\147\164"
-+-"\157\156\061\027\060\025\006\003\125\004\012\023\016\101\102\101"
-+-"\056\105\103\117\115\054\040\111\116\103\056\061\031\060\027\006"
-+-"\003\125\004\003\023\020\101\102\101\056\105\103\117\115\040\122"
-+-"\157\157\164\040\103\101\061\044\060\042\006\011\052\206\110\206"
-+-"\367\015\001\011\001\026\025\141\144\155\151\156\100\144\151\147"
-+-"\163\151\147\164\162\165\163\164\056\143\157\155"
-+-, (PRUint32)140 },
-+-  { (void *)"\002\021\000\320\036\100\220\000\000\106\122\000\000\000\001\000"
-+-"\000\000\004"
-+-, (PRUint32)19 },
-+-  { (void *)"\060\202\003\265\060\202\002\235\240\003\002\001\002\002\021\000"
-+-"\320\036\100\220\000\000\106\122\000\000\000\001\000\000\000\004"
-+-"\060\015\006\011\052\206\110\206\367\015\001\001\005\005\000\060"
-+-"\201\211\061\013\060\011\006\003\125\004\006\023\002\125\123\061"
-+-"\013\060\011\006\003\125\004\010\023\002\104\103\061\023\060\021"
-+-"\006\003\125\004\007\023\012\127\141\163\150\151\156\147\164\157"
-+-"\156\061\027\060\025\006\003\125\004\012\023\016\101\102\101\056"
-+-"\105\103\117\115\054\040\111\116\103\056\061\031\060\027\006\003"
-+-"\125\004\003\023\020\101\102\101\056\105\103\117\115\040\122\157"
-+-"\157\164\040\103\101\061\044\060\042\006\011\052\206\110\206\367"
-+-"\015\001\011\001\026\025\141\144\155\151\156\100\144\151\147\163"
-+-"\151\147\164\162\165\163\164\056\143\157\155\060\036\027\015\071"
-+-"\071\060\067\061\062\061\067\063\063\065\063\132\027\015\060\071"
-+-"\060\067\060\071\061\067\063\063\065\063\132\060\201\211\061\013"
-+-"\060\011\006\003\125\004\006\023\002\125\123\061\013\060\011\006"
-+-"\003\125\004\010\023\002\104\103\061\023\060\021\006\003\125\004"
-+-"\007\023\012\127\141\163\150\151\156\147\164\157\156\061\027\060"
-+-"\025\006\003\125\004\012\023\016\101\102\101\056\105\103\117\115"
-+-"\054\040\111\116\103\056\061\031\060\027\006\003\125\004\003\023"
-+-"\020\101\102\101\056\105\103\117\115\040\122\157\157\164\040\103"
-+-"\101\061\044\060\042\006\011\052\206\110\206\367\015\001\011\001"
-+-"\026\025\141\144\155\151\156\100\144\151\147\163\151\147\164\162"
-+-"\165\163\164\056\143\157\155\060\202\001\042\060\015\006\011\052"
-+-"\206\110\206\367\015\001\001\001\005\000\003\202\001\017\000\060"
-+-"\202\001\012\002\202\001\001\000\261\323\021\340\171\125\103\007"
-+-"\010\114\313\005\102\000\342\015\203\106\075\344\223\272\266\006"
-+-"\323\015\131\275\076\301\316\103\147\001\212\041\250\357\274\314"
-+-"\320\242\314\260\125\226\123\204\146\005\000\332\104\111\200\330"
-+-"\124\012\245\045\206\224\355\143\126\377\160\154\243\241\031\322"
-+-"\170\276\150\052\104\136\057\317\314\030\136\107\274\072\261\106"
-+-"\075\036\360\271\054\064\137\214\174\114\010\051\235\100\125\353"
-+-"\074\175\203\336\265\360\367\212\203\016\241\114\264\072\245\263"
-+-"\137\132\042\227\354\031\233\301\005\150\375\346\267\251\221\224"
-+-"\054\344\170\110\044\032\045\031\072\353\225\234\071\012\212\317"
-+-"\102\262\360\034\325\137\373\153\355\150\126\173\071\054\162\070"
-+-"\260\356\223\251\323\173\167\074\353\161\003\251\070\112\026\154"
-+-"\211\052\312\332\063\023\171\302\125\214\355\234\273\362\313\133"
-+-"\020\370\056\141\065\306\051\114\052\320\052\143\321\145\131\264"
-+-"\370\315\371\364\000\204\266\127\102\205\235\062\250\371\052\124"
-+-"\373\377\170\101\274\275\161\050\364\273\220\274\377\226\064\004"
-+-"\343\105\236\241\106\050\100\201\002\003\001\000\001\243\026\060"
-+-"\024\060\022\006\003\125\035\023\001\001\377\004\010\060\006\001"
-+-"\001\377\002\001\010\060\015\006\011\052\206\110\206\367\015\001"
-+-"\001\005\005\000\003\202\001\001\000\004\157\045\206\344\346\226"
-+-"\047\264\331\102\300\320\311\000\261\177\124\076\207\262\155\044"
-+-"\251\057\012\176\375\244\104\260\370\124\007\275\033\235\235\312"
-+-"\173\120\044\173\021\133\111\243\246\277\022\164\325\211\267\267"
-+-"\057\230\144\045\024\267\141\351\177\140\200\153\323\144\350\253"
-+-"\275\032\326\121\372\300\264\135\167\032\177\144\010\136\171\306"
-+-"\005\114\361\172\335\115\175\316\346\110\173\124\322\141\222\201"
-+-"\326\033\326\000\360\016\236\050\167\240\115\210\307\042\166\031"
-+-"\303\307\236\033\246\167\170\370\137\233\126\321\360\362\027\254"
-+-"\216\235\131\346\037\376\127\266\331\136\341\135\237\105\354\141"
-+-"\150\031\101\341\262\040\046\376\132\060\166\044\377\100\162\074"
-+-"\171\237\174\042\110\253\106\315\333\263\206\054\217\277\005\101"
-+-"\323\301\343\024\343\101\027\046\320\174\247\161\114\031\350\112"
-+-"\017\162\130\061\175\354\140\172\243\042\050\275\031\044\140\077"
-+-"\073\207\163\300\153\344\313\256\267\253\045\103\262\125\055\173"
-+-"\253\006\016\165\135\064\345\135\163\155\236\262\165\100\245\131"
-+-"\311\117\061\161\210\331\210\177\124"
-+-, (PRUint32)953 }
-+-};
-+-static const NSSItem nss_builtins_items_21 [] = {
-+-  { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+-  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)"ABAecom (sub., Am. Bankers Assn.) Root CA", (PRUint32)42 },
-+-  { (void *)"\172\164\101\017\260\315\134\227\052\066\113\161\277\003\035\210"
-+-"\246\121\016\236"
-+-, (PRUint32)20 },
-+-  { (void *)"\101\270\007\367\250\321\011\356\264\232\216\160\115\374\033\170"
-+-, (PRUint32)16 },
-+-  { (void *)"\060\201\211\061\013\060\011\006\003\125\004\006\023\002\125\123"
-+-"\061\013\060\011\006\003\125\004\010\023\002\104\103\061\023\060"
-+-"\021\006\003\125\004\007\023\012\127\141\163\150\151\156\147\164"
-+-"\157\156\061\027\060\025\006\003\125\004\012\023\016\101\102\101"
-+-"\056\105\103\117\115\054\040\111\116\103\056\061\031\060\027\006"
-+-"\003\125\004\003\023\020\101\102\101\056\105\103\117\115\040\122"
-+-"\157\157\164\040\103\101\061\044\060\042\006\011\052\206\110\206"
-+-"\367\015\001\011\001\026\025\141\144\155\151\156\100\144\151\147"
-+-"\163\151\147\164\162\165\163\164\056\143\157\155"
-+-, (PRUint32)140 },
-+-  { (void *)"\002\021\000\320\036\100\220\000\000\106\122\000\000\000\001\000"
-+-"\000\000\004"
-+-, (PRUint32)19 },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) }
-+-};
-+-static const NSSItem nss_builtins_items_22 [] = {
-++static const NSSItem nss_builtins_items_14 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -2225,7 +1702,7 @@ static const NSSItem nss_builtins_items_22 [] = {
-+ "\241\223\004\273\206\237\072\133\103\172\303\212\145"
-+ , (PRUint32)813 }
-+ };
-+-static const NSSItem nss_builtins_items_23 [] = {
-++static const NSSItem nss_builtins_items_15 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -2247,9 +1724,9 @@ static const NSSItem nss_builtins_items_23 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) }
-++  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_24 [] = {
-++static const NSSItem nss_builtins_items_16 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -2324,7 +1801,7 @@ static const NSSItem nss_builtins_items_24 [] = {
-+ "\307\177\033\033\326\006\040\002\130\241\303\242\003"
-+ , (PRUint32)813 }
-+ };
-+-static const NSSItem nss_builtins_items_25 [] = {
-++static const NSSItem nss_builtins_items_17 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -2346,269 +1823,9 @@ static const NSSItem nss_builtins_items_25 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) }
-+-};
-+-static const NSSItem nss_builtins_items_26 [] = {
-+-  { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+-  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)"Digital Signature Trust Co. Global CA 2", (PRUint32)40 },
-+-  { (void *)&ckc_x_509, (PRUint32)sizeof(CK_CERTIFICATE_TYPE) },
-+-  { (void *)"\060\201\251\061\013\060\011\006\003\125\004\006\023\002\165\163"
-+-"\061\015\060\013\006\003\125\004\010\023\004\125\164\141\150\061"
-+-"\027\060\025\006\003\125\004\007\023\016\123\141\154\164\040\114"
-+-"\141\153\145\040\103\151\164\171\061\044\060\042\006\003\125\004"
-+-"\012\023\033\104\151\147\151\164\141\154\040\123\151\147\156\141"
-+-"\164\165\162\145\040\124\162\165\163\164\040\103\157\056\061\021"
-+-"\060\017\006\003\125\004\013\023\010\104\123\124\103\101\040\130"
-+-"\061\061\026\060\024\006\003\125\004\003\023\015\104\123\124\040"
-+-"\122\157\157\164\103\101\040\130\061\061\041\060\037\006\011\052"
-+-"\206\110\206\367\015\001\011\001\026\022\143\141\100\144\151\147"
-+-"\163\151\147\164\162\165\163\164\056\143\157\155"
-+-, (PRUint32)172 },
-+-  { (void *)"0", (PRUint32)2 },
-+-  { (void *)"\060\201\251\061\013\060\011\006\003\125\004\006\023\002\165\163"
-+-"\061\015\060\013\006\003\125\004\010\023\004\125\164\141\150\061"
-+-"\027\060\025\006\003\125\004\007\023\016\123\141\154\164\040\114"
-+-"\141\153\145\040\103\151\164\171\061\044\060\042\006\003\125\004"
-+-"\012\023\033\104\151\147\151\164\141\154\040\123\151\147\156\141"
-+-"\164\165\162\145\040\124\162\165\163\164\040\103\157\056\061\021"
-+-"\060\017\006\003\125\004\013\023\010\104\123\124\103\101\040\130"
-+-"\061\061\026\060\024\006\003\125\004\003\023\015\104\123\124\040"
-+-"\122\157\157\164\103\101\040\130\061\061\041\060\037\006\011\052"
-+-"\206\110\206\367\015\001\011\001\026\022\143\141\100\144\151\147"
-+-"\163\151\147\164\162\165\163\164\056\143\157\155"
-+-, (PRUint32)172 },
-+-  { (void *)"\002\021\000\320\036\100\213\000\000\002\174\000\000\000\002\000"
-+-"\000\000\001"
-+-, (PRUint32)19 },
-+-  { (void *)"\060\202\003\330\060\202\002\300\002\021\000\320\036\100\213\000"
-+-"\000\002\174\000\000\000\002\000\000\000\001\060\015\006\011\052"
-+-"\206\110\206\367\015\001\001\005\005\000\060\201\251\061\013\060"
-+-"\011\006\003\125\004\006\023\002\165\163\061\015\060\013\006\003"
-+-"\125\004\010\023\004\125\164\141\150\061\027\060\025\006\003\125"
-+-"\004\007\023\016\123\141\154\164\040\114\141\153\145\040\103\151"
-+-"\164\171\061\044\060\042\006\003\125\004\012\023\033\104\151\147"
-+-"\151\164\141\154\040\123\151\147\156\141\164\165\162\145\040\124"
-+-"\162\165\163\164\040\103\157\056\061\021\060\017\006\003\125\004"
-+-"\013\023\010\104\123\124\103\101\040\130\061\061\026\060\024\006"
-+-"\003\125\004\003\023\015\104\123\124\040\122\157\157\164\103\101"
-+-"\040\130\061\061\041\060\037\006\011\052\206\110\206\367\015\001"
-+-"\011\001\026\022\143\141\100\144\151\147\163\151\147\164\162\165"
-+-"\163\164\056\143\157\155\060\036\027\015\071\070\061\062\060\061"
-+-"\061\070\061\070\065\065\132\027\015\060\070\061\061\062\070\061"
-+-"\070\061\070\065\065\132\060\201\251\061\013\060\011\006\003\125"
-+-"\004\006\023\002\165\163\061\015\060\013\006\003\125\004\010\023"
-+-"\004\125\164\141\150\061\027\060\025\006\003\125\004\007\023\016"
-+-"\123\141\154\164\040\114\141\153\145\040\103\151\164\171\061\044"
-+-"\060\042\006\003\125\004\012\023\033\104\151\147\151\164\141\154"
-+-"\040\123\151\147\156\141\164\165\162\145\040\124\162\165\163\164"
-+-"\040\103\157\056\061\021\060\017\006\003\125\004\013\023\010\104"
-+-"\123\124\103\101\040\130\061\061\026\060\024\006\003\125\004\003"
-+-"\023\015\104\123\124\040\122\157\157\164\103\101\040\130\061\061"
-+-"\041\060\037\006\011\052\206\110\206\367\015\001\011\001\026\022"
-+-"\143\141\100\144\151\147\163\151\147\164\162\165\163\164\056\143"
-+-"\157\155\060\202\001\042\060\015\006\011\052\206\110\206\367\015"
-+-"\001\001\001\005\000\003\202\001\017\000\060\202\001\012\002\202"
-+-"\001\001\000\322\306\046\266\347\245\075\301\304\150\325\120\157"
-+-"\123\305\157\111\023\011\270\257\054\110\215\024\152\243\027\137"
-+-"\132\371\323\056\165\057\330\050\142\321\223\057\374\115\324\253"
-+-"\207\345\010\307\231\347\222\077\165\275\353\045\264\025\301\233"
-+-"\031\075\322\104\215\327\164\040\155\067\002\217\151\223\133\212"
-+-"\304\031\235\364\262\016\374\026\154\271\261\005\222\203\321\205"
-+-"\054\140\224\076\105\125\240\331\253\010\041\346\140\350\073\164"
-+-"\362\231\120\121\150\320\003\055\261\200\276\243\330\122\260\104"
-+-"\315\103\112\160\216\130\205\225\341\116\054\326\055\101\157\326"
-+-"\204\347\310\230\104\312\107\333\054\044\245\151\046\317\153\270"
-+-"\047\142\303\364\311\172\222\043\355\023\147\202\256\105\056\105"
-+-"\345\176\162\077\205\235\224\142\020\346\074\221\241\255\167\000"
-+-"\340\025\354\363\204\200\162\172\216\156\140\227\307\044\131\020"
-+-"\064\203\133\341\245\244\151\266\127\065\034\170\131\306\323\057"
-+-"\072\163\147\356\224\312\004\023\005\142\006\160\043\263\364\174"
-+-"\356\105\331\144\013\133\111\252\244\103\316\046\304\104\022\154"
-+-"\270\335\171\002\003\001\000\001\060\015\006\011\052\206\110\206"
-+-"\367\015\001\001\005\005\000\003\202\001\001\000\242\067\262\077"
-+-"\151\373\327\206\171\124\111\061\225\063\053\363\321\011\024\111"
-+-"\142\140\206\245\260\021\342\120\302\035\006\127\076\055\350\063"
-+-"\144\276\233\252\255\137\033\115\324\231\225\242\213\232\311\142"
-+-"\162\265\151\352\331\130\253\065\355\025\242\103\326\266\274\007"
-+-"\171\145\144\163\175\327\171\312\173\325\132\121\306\341\123\004"
-+-"\226\215\070\317\243\027\254\071\161\153\001\303\213\123\074\143"
-+-"\351\356\171\300\344\276\222\062\144\172\263\037\227\224\142\275"
-+-"\352\262\040\025\225\373\227\362\170\057\143\066\100\070\343\106"
-+-"\017\035\335\254\225\312\347\113\220\173\261\113\251\324\305\353"
-+-"\232\332\252\325\243\224\024\106\215\055\037\363\072\326\223\072"
-+-"\366\076\171\374\350\346\260\165\355\356\075\311\160\307\135\252"
-+-"\201\113\106\045\034\307\154\025\343\225\116\017\252\062\067\224"
-+-"\012\027\044\222\023\204\130\322\143\157\053\367\346\133\142\013"
-+-"\023\027\260\015\122\114\376\376\157\134\342\221\156\035\375\244"
-+-"\142\327\150\372\216\172\117\322\010\332\223\334\360\222\021\172"
-+-"\320\334\162\223\014\163\223\142\205\150\320\364"
-+-, (PRUint32)988 }
-+-};
-+-static const NSSItem nss_builtins_items_27 [] = {
-+-  { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+-  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)"Digital Signature Trust Co. Global CA 2", (PRUint32)40 },
-+-  { (void *)"\267\057\377\222\322\316\103\336\012\215\114\124\214\120\067\046"
-+-"\250\036\053\223"
-+-, (PRUint32)20 },
-+-  { (void *)"\154\311\247\156\107\361\014\343\123\073\170\114\115\302\152\305"
-+-, (PRUint32)16 },
-+-  { (void *)"\060\201\251\061\013\060\011\006\003\125\004\006\023\002\165\163"
-+-"\061\015\060\013\006\003\125\004\010\023\004\125\164\141\150\061"
-+-"\027\060\025\006\003\125\004\007\023\016\123\141\154\164\040\114"
-+-"\141\153\145\040\103\151\164\171\061\044\060\042\006\003\125\004"
-+-"\012\023\033\104\151\147\151\164\141\154\040\123\151\147\156\141"
-+-"\164\165\162\145\040\124\162\165\163\164\040\103\157\056\061\021"
-+-"\060\017\006\003\125\004\013\023\010\104\123\124\103\101\040\130"
-+-"\061\061\026\060\024\006\003\125\004\003\023\015\104\123\124\040"
-+-"\122\157\157\164\103\101\040\130\061\061\041\060\037\006\011\052"
-+-"\206\110\206\367\015\001\011\001\026\022\143\141\100\144\151\147"
-+-"\163\151\147\164\162\165\163\164\056\143\157\155"
-+-, (PRUint32)172 },
-+-  { (void *)"\002\021\000\320\036\100\213\000\000\002\174\000\000\000\002\000"
-+-"\000\000\001"
-+-, (PRUint32)19 },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) }
-+-};
-+-static const NSSItem nss_builtins_items_28 [] = {
-+-  { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+-  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)"Digital Signature Trust Co. Global CA 4", (PRUint32)40 },
-+-  { (void *)&ckc_x_509, (PRUint32)sizeof(CK_CERTIFICATE_TYPE) },
-+-  { (void *)"\060\201\251\061\013\060\011\006\003\125\004\006\023\002\165\163"
-+-"\061\015\060\013\006\003\125\004\010\023\004\125\164\141\150\061"
-+-"\027\060\025\006\003\125\004\007\023\016\123\141\154\164\040\114"
-+-"\141\153\145\040\103\151\164\171\061\044\060\042\006\003\125\004"
-+-"\012\023\033\104\151\147\151\164\141\154\040\123\151\147\156\141"
-+-"\164\165\162\145\040\124\162\165\163\164\040\103\157\056\061\021"
-+-"\060\017\006\003\125\004\013\023\010\104\123\124\103\101\040\130"
-+-"\062\061\026\060\024\006\003\125\004\003\023\015\104\123\124\040"
-+-"\122\157\157\164\103\101\040\130\062\061\041\060\037\006\011\052"
-+-"\206\110\206\367\015\001\011\001\026\022\143\141\100\144\151\147"
-+-"\163\151\147\164\162\165\163\164\056\143\157\155"
-+-, (PRUint32)172 },
-+-  { (void *)"0", (PRUint32)2 },
-+-  { (void *)"\060\201\251\061\013\060\011\006\003\125\004\006\023\002\165\163"
-+-"\061\015\060\013\006\003\125\004\010\023\004\125\164\141\150\061"
-+-"\027\060\025\006\003\125\004\007\023\016\123\141\154\164\040\114"
-+-"\141\153\145\040\103\151\164\171\061\044\060\042\006\003\125\004"
-+-"\012\023\033\104\151\147\151\164\141\154\040\123\151\147\156\141"
-+-"\164\165\162\145\040\124\162\165\163\164\040\103\157\056\061\021"
-+-"\060\017\006\003\125\004\013\023\010\104\123\124\103\101\040\130"
-+-"\062\061\026\060\024\006\003\125\004\003\023\015\104\123\124\040"
-+-"\122\157\157\164\103\101\040\130\062\061\041\060\037\006\011\052"
-+-"\206\110\206\367\015\001\011\001\026\022\143\141\100\144\151\147"
-+-"\163\151\147\164\162\165\163\164\056\143\157\155"
-+-, (PRUint32)172 },
-+-  { (void *)"\002\021\000\320\036\100\213\000\000\167\155\000\000\000\001\000"
-+-"\000\000\004"
-+-, (PRUint32)19 },
-+-  { (void *)"\060\202\003\330\060\202\002\300\002\021\000\320\036\100\213\000"
-+-"\000\167\155\000\000\000\001\000\000\000\004\060\015\006\011\052"
-+-"\206\110\206\367\015\001\001\005\005\000\060\201\251\061\013\060"
-+-"\011\006\003\125\004\006\023\002\165\163\061\015\060\013\006\003"
-+-"\125\004\010\023\004\125\164\141\150\061\027\060\025\006\003\125"
-+-"\004\007\023\016\123\141\154\164\040\114\141\153\145\040\103\151"
-+-"\164\171\061\044\060\042\006\003\125\004\012\023\033\104\151\147"
-+-"\151\164\141\154\040\123\151\147\156\141\164\165\162\145\040\124"
-+-"\162\165\163\164\040\103\157\056\061\021\060\017\006\003\125\004"
-+-"\013\023\010\104\123\124\103\101\040\130\062\061\026\060\024\006"
-+-"\003\125\004\003\023\015\104\123\124\040\122\157\157\164\103\101"
-+-"\040\130\062\061\041\060\037\006\011\052\206\110\206\367\015\001"
-+-"\011\001\026\022\143\141\100\144\151\147\163\151\147\164\162\165"
-+-"\163\164\056\143\157\155\060\036\027\015\071\070\061\061\063\060"
-+-"\062\062\064\066\061\066\132\027\015\060\070\061\061\062\067\062"
-+-"\062\064\066\061\066\132\060\201\251\061\013\060\011\006\003\125"
-+-"\004\006\023\002\165\163\061\015\060\013\006\003\125\004\010\023"
-+-"\004\125\164\141\150\061\027\060\025\006\003\125\004\007\023\016"
-+-"\123\141\154\164\040\114\141\153\145\040\103\151\164\171\061\044"
-+-"\060\042\006\003\125\004\012\023\033\104\151\147\151\164\141\154"
-+-"\040\123\151\147\156\141\164\165\162\145\040\124\162\165\163\164"
-+-"\040\103\157\056\061\021\060\017\006\003\125\004\013\023\010\104"
-+-"\123\124\103\101\040\130\062\061\026\060\024\006\003\125\004\003"
-+-"\023\015\104\123\124\040\122\157\157\164\103\101\040\130\062\061"
-+-"\041\060\037\006\011\052\206\110\206\367\015\001\011\001\026\022"
-+-"\143\141\100\144\151\147\163\151\147\164\162\165\163\164\056\143"
-+-"\157\155\060\202\001\042\060\015\006\011\052\206\110\206\367\015"
-+-"\001\001\001\005\000\003\202\001\017\000\060\202\001\012\002\202"
-+-"\001\001\000\334\165\360\214\300\165\226\232\300\142\037\046\367"
-+-"\304\341\232\352\340\126\163\133\231\315\001\104\250\010\266\325"
-+-"\247\332\032\004\030\071\222\112\170\243\201\302\365\167\172\120"
-+-"\264\160\377\232\253\306\307\312\156\203\117\102\230\373\046\013"
-+-"\332\334\155\326\251\231\125\122\147\351\050\003\222\334\345\260"
-+-"\005\232\017\025\371\153\131\162\126\362\372\071\374\252\150\356"
-+-"\017\037\020\203\057\374\235\372\027\226\335\202\343\346\105\175"
-+-"\300\113\200\104\037\355\054\340\204\375\221\134\222\124\151\045"
-+-"\345\142\151\334\345\356\000\122\275\063\013\255\165\002\205\247"
-+-"\144\120\055\305\031\031\060\300\046\333\311\323\375\056\231\255"
-+-"\131\265\013\115\324\101\256\205\110\103\131\334\267\250\342\242"
-+-"\336\303\217\327\270\241\142\246\150\120\122\344\317\061\247\224"
-+-"\205\332\237\106\062\027\126\345\362\353\146\075\022\377\103\333"
-+-"\230\357\167\317\313\201\215\064\261\306\120\112\046\321\344\076"
-+-"\101\120\257\154\256\042\064\056\325\153\156\203\272\171\270\166"
-+-"\145\110\332\011\051\144\143\042\271\373\107\166\205\214\206\104"
-+-"\313\011\333\002\003\001\000\001\060\015\006\011\052\206\110\206"
-+-"\367\015\001\001\005\005\000\003\202\001\001\000\265\066\016\135"
-+-"\341\141\050\132\021\145\300\077\203\003\171\115\276\050\246\013"
-+-"\007\002\122\205\315\370\221\320\020\154\265\152\040\133\034\220"
-+-"\331\060\074\306\110\236\212\136\144\371\241\161\167\357\004\047"
-+-"\037\007\353\344\046\367\163\164\311\104\030\032\146\323\340\103"
-+-"\257\221\073\321\313\054\330\164\124\072\034\115\312\324\150\315"
-+-"\043\174\035\020\236\105\351\366\000\156\246\315\031\377\117\054"
-+-"\051\217\127\115\304\167\222\276\340\114\011\373\135\104\206\146"
-+-"\041\250\271\062\242\126\325\351\214\203\174\131\077\304\361\013"
-+-"\347\235\354\236\275\234\030\016\076\302\071\171\050\267\003\015"
-+-"\010\313\306\347\331\001\067\120\020\354\314\141\026\100\324\257"
-+-"\061\164\173\374\077\061\247\320\107\163\063\071\033\314\116\152"
-+-"\327\111\203\021\006\376\353\202\130\063\062\114\360\126\254\036"
-+-"\234\057\126\232\173\301\112\034\245\375\125\066\316\374\226\115"
-+-"\364\260\360\354\267\154\202\355\057\061\231\102\114\251\262\015"
-+-"\270\025\135\361\337\272\311\265\112\324\144\230\263\046\251\060"
-+-"\310\375\246\354\253\226\041\255\177\302\170\266"
-+-, (PRUint32)988 }
-+-};
-+-static const NSSItem nss_builtins_items_29 [] = {
-+-  { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+-  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)"Digital Signature Trust Co. Global CA 4", (PRUint32)40 },
-+-  { (void *)"\147\353\063\173\150\114\353\016\302\260\166\012\264\210\047\214"
-+-"\335\225\227\335"
-+-, (PRUint32)20 },
-+-  { (void *)"\315\073\075\142\133\011\270\011\066\207\236\022\057\161\144\272"
-+-, (PRUint32)16 },
-+-  { (void *)"\060\201\251\061\013\060\011\006\003\125\004\006\023\002\165\163"
-+-"\061\015\060\013\006\003\125\004\010\023\004\125\164\141\150\061"
-+-"\027\060\025\006\003\125\004\007\023\016\123\141\154\164\040\114"
-+-"\141\153\145\040\103\151\164\171\061\044\060\042\006\003\125\004"
-+-"\012\023\033\104\151\147\151\164\141\154\040\123\151\147\156\141"
-+-"\164\165\162\145\040\124\162\165\163\164\040\103\157\056\061\021"
-+-"\060\017\006\003\125\004\013\023\010\104\123\124\103\101\040\130"
-+-"\062\061\026\060\024\006\003\125\004\003\023\015\104\123\124\040"
-+-"\122\157\157\164\103\101\040\130\062\061\041\060\037\006\011\052"
-+-"\206\110\206\367\015\001\011\001\026\022\143\141\100\144\151\147"
-+-"\163\151\147\164\162\165\163\164\056\143\157\155"
-+-, (PRUint32)172 },
-+-  { (void *)"\002\021\000\320\036\100\213\000\000\167\155\000\000\000\001\000"
-+-"\000\000\004"
-+-, (PRUint32)19 },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) }
-++  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_30 [] = {
-++static const NSSItem nss_builtins_items_18 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -2674,7 +1891,7 @@ static const NSSItem nss_builtins_items_30 [] = {
-+ "\224"
-+ , (PRUint32)577 }
-+ };
-+-static const NSSItem nss_builtins_items_31 [] = {
-++static const NSSItem nss_builtins_items_19 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -2701,7 +1918,7 @@ static const NSSItem nss_builtins_items_31 [] = {
-+   { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_32 [] = {
-++static const NSSItem nss_builtins_items_20 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -2766,7 +1983,7 @@ static const NSSItem nss_builtins_items_32 [] = {
-+ "\360\210\321\345\170\215\245\052\117\366\227\015\027\167\312\330"
-+ , (PRUint32)576 }
-+ };
-+-static const NSSItem nss_builtins_items_33 [] = {
-++static const NSSItem nss_builtins_items_21 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -2793,7 +2010,7 @@ static const NSSItem nss_builtins_items_33 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_34 [] = {
-++static const NSSItem nss_builtins_items_22 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -2858,7 +2075,7 @@ static const NSSItem nss_builtins_items_34 [] = {
-+ "\300\175\267\162\234\311\066\072\153\237\116\250\377\144\015\144"
-+ , (PRUint32)576 }
-+ };
-+-static const NSSItem nss_builtins_items_35 [] = {
-++static const NSSItem nss_builtins_items_23 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -2883,9 +2100,9 @@ static const NSSItem nss_builtins_items_35 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) }
-++  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_36 [] = {
-++static const NSSItem nss_builtins_items_24 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -2975,7 +2192,7 @@ static const NSSItem nss_builtins_items_36 [] = {
-+ "\017\061\134\350\362\331"
-+ , (PRUint32)774 }
-+ };
-+-static const NSSItem nss_builtins_items_37 [] = {
-++static const NSSItem nss_builtins_items_25 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -3008,7 +2225,7 @@ static const NSSItem nss_builtins_items_37 [] = {
-+   { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_38 [] = {
-++static const NSSItem nss_builtins_items_26 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -3098,7 +2315,7 @@ static const NSSItem nss_builtins_items_38 [] = {
-+ "\214\022\173\305\104\264\256"
-+ , (PRUint32)775 }
-+ };
-+-static const NSSItem nss_builtins_items_39 [] = {
-++static const NSSItem nss_builtins_items_27 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -3131,7 +2348,7 @@ static const NSSItem nss_builtins_items_39 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_40 [] = {
-++static const NSSItem nss_builtins_items_28 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -3221,7 +2438,7 @@ static const NSSItem nss_builtins_items_40 [] = {
-+ "\240\235\235\151\221\375"
-+ , (PRUint32)774 }
-+ };
-+-static const NSSItem nss_builtins_items_41 [] = {
-++static const NSSItem nss_builtins_items_29 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -3254,7 +2471,7 @@ static const NSSItem nss_builtins_items_41 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_42 [] = {
-++static const NSSItem nss_builtins_items_30 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -3344,7 +2561,7 @@ static const NSSItem nss_builtins_items_42 [] = {
-+ "\117\312\200\221\266\051"
-+ , (PRUint32)774 }
-+ };
-+-static const NSSItem nss_builtins_items_43 [] = {
-++static const NSSItem nss_builtins_items_31 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -3375,9 +2592,9 @@ static const NSSItem nss_builtins_items_43 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) }
-++  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_44 [] = {
-++static const NSSItem nss_builtins_items_32 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -3459,7 +2676,7 @@ static const NSSItem nss_builtins_items_44 [] = {
-+ "\125\342\374\110\311\051\046\151\340"
-+ , (PRUint32)889 }
-+ };
-+-static const NSSItem nss_builtins_items_45 [] = {
-++static const NSSItem nss_builtins_items_33 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -3484,7 +2701,7 @@ static const NSSItem nss_builtins_items_45 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_46 [] = {
-++static const NSSItem nss_builtins_items_34 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -3568,7 +2785,7 @@ static const NSSItem nss_builtins_items_46 [] = {
-+ "\152\374\176\102\070\100\144\022\367\236\201\341\223\056"
-+ , (PRUint32)958 }
-+ };
-+-static const NSSItem nss_builtins_items_47 [] = {
-++static const NSSItem nss_builtins_items_35 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -3592,7 +2809,7 @@ static const NSSItem nss_builtins_items_47 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_48 [] = {
-++static const NSSItem nss_builtins_items_36 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -3677,7 +2894,7 @@ static const NSSItem nss_builtins_items_48 [] = {
-+ "\161\202\053\231\317\072\267\365\055\162\310"
-+ , (PRUint32)747 }
-+ };
-+-static const NSSItem nss_builtins_items_49 [] = {
-++static const NSSItem nss_builtins_items_37 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -3708,7 +2925,7 @@ static const NSSItem nss_builtins_items_49 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_50 [] = {
-++static const NSSItem nss_builtins_items_38 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -3793,7 +3010,7 @@ static const NSSItem nss_builtins_items_50 [] = {
-+ "\276\355\164\114\274\133\325\142\037\103\335"
-+ , (PRUint32)747 }
-+ };
-+-static const NSSItem nss_builtins_items_51 [] = {
-++static const NSSItem nss_builtins_items_39 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -3824,7 +3041,7 @@ static const NSSItem nss_builtins_items_51 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_52 [] = {
-++static const NSSItem nss_builtins_items_40 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -3909,7 +3126,7 @@ static const NSSItem nss_builtins_items_52 [] = {
-+ "\040\017\105\176\153\242\177\243\214\025\356"
-+ , (PRUint32)747 }
-+ };
-+-static const NSSItem nss_builtins_items_53 [] = {
-++static const NSSItem nss_builtins_items_41 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -3940,7 +3157,7 @@ static const NSSItem nss_builtins_items_53 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_54 [] = {
-++static const NSSItem nss_builtins_items_42 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -4047,7 +3264,7 @@ static const NSSItem nss_builtins_items_54 [] = {
-+ "\113\336\006\226\161\054\362\333\266\037\244\357\077\356"
-+ , (PRUint32)1054 }
-+ };
-+-static const NSSItem nss_builtins_items_55 [] = {
-++static const NSSItem nss_builtins_items_43 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -4080,7 +3297,7 @@ static const NSSItem nss_builtins_items_55 [] = {
-+   { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_56 [] = {
-++static const NSSItem nss_builtins_items_44 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -4187,7 +3404,7 @@ static const NSSItem nss_builtins_items_56 [] = {
-+ "\311\130\020\371\252\357\132\266\317\113\113\337\052"
-+ , (PRUint32)1053 }
-+ };
-+-static const NSSItem nss_builtins_items_57 [] = {
-++static const NSSItem nss_builtins_items_45 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -4220,7 +3437,7 @@ static const NSSItem nss_builtins_items_57 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_58 [] = {
-++static const NSSItem nss_builtins_items_46 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -4327,7 +3544,7 @@ static const NSSItem nss_builtins_items_58 [] = {
-+ "\153\271\012\172\116\117\113\204\356\113\361\175\335\021"
-+ , (PRUint32)1054 }
-+ };
-+-static const NSSItem nss_builtins_items_59 [] = {
-++static const NSSItem nss_builtins_items_47 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -4360,7 +3577,7 @@ static const NSSItem nss_builtins_items_59 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_60 [] = {
-++static const NSSItem nss_builtins_items_48 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -4467,7 +3684,7 @@ static const NSSItem nss_builtins_items_60 [] = {
-+ "\367\146\103\363\236\203\076\040\252\303\065\140\221\316"
-+ , (PRUint32)1054 }
-+ };
-+-static const NSSItem nss_builtins_items_61 [] = {
-++static const NSSItem nss_builtins_items_49 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -4498,9 +3715,9 @@ static const NSSItem nss_builtins_items_61 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) }
-++  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_62 [] = {
-++static const NSSItem nss_builtins_items_50 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -4618,7 +3835,7 @@ static const NSSItem nss_builtins_items_62 [] = {
-+ "\155\055\105\013\367\012\223\352\355\006\371\262"
-+ , (PRUint32)1244 }
-+ };
-+-static const NSSItem nss_builtins_items_63 [] = {
-++static const NSSItem nss_builtins_items_51 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -4650,7 +3867,7 @@ static const NSSItem nss_builtins_items_63 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_64 [] = {
-++static const NSSItem nss_builtins_items_52 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -4770,7 +3987,7 @@ static const NSSItem nss_builtins_items_64 [] = {
-+ "\354"
-+ , (PRUint32)1265 }
-+ };
-+-static const NSSItem nss_builtins_items_65 [] = {
-++static const NSSItem nss_builtins_items_53 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -4797,12 +4014,12 @@ static const NSSItem nss_builtins_items_65 [] = {
-+ , (PRUint32)204 },
-+   { (void *)"\002\004\070\003\221\356"
-+ , (PRUint32)6 },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_66 [] = {
-++static const NSSItem nss_builtins_items_54 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -4910,7 +4127,7 @@ static const NSSItem nss_builtins_items_66 [] = {
-+ "\275\114\105\236\141\272\277\204\201\222\003\321\322\151\174\305"
-+ , (PRUint32)1120 }
-+ };
-+-static const NSSItem nss_builtins_items_67 [] = {
-++static const NSSItem nss_builtins_items_55 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -4941,7 +4158,7 @@ static const NSSItem nss_builtins_items_67 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_68 [] = {
-++static const NSSItem nss_builtins_items_56 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -5023,7 +4240,7 @@ static const NSSItem nss_builtins_items_68 [] = {
-+ "\347\201\035\031\303\044\102\352\143\071\251"
-+ , (PRUint32)891 }
-+ };
-+-static const NSSItem nss_builtins_items_69 [] = {
-++static const NSSItem nss_builtins_items_57 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -5048,7 +4265,7 @@ static const NSSItem nss_builtins_items_69 [] = {
-+   { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_70 [] = {
-++static const NSSItem nss_builtins_items_58 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -5116,7 +4333,7 @@ static const NSSItem nss_builtins_items_70 [] = {
-+ "\126\224\251\125"
-+ , (PRUint32)660 }
-+ };
-+-static const NSSItem nss_builtins_items_71 [] = {
-++static const NSSItem nss_builtins_items_59 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -5141,7 +4358,7 @@ static const NSSItem nss_builtins_items_71 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_72 [] = {
-++static const NSSItem nss_builtins_items_60 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -5208,7 +4425,7 @@ static const NSSItem nss_builtins_items_72 [] = {
-+ "\132\052\202\262\067\171"
-+ , (PRUint32)646 }
-+ };
-+-static const NSSItem nss_builtins_items_73 [] = {
-++static const NSSItem nss_builtins_items_61 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -5233,7 +4450,7 @@ static const NSSItem nss_builtins_items_73 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_74 [] = {
-++static const NSSItem nss_builtins_items_62 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -5308,7 +4525,7 @@ static const NSSItem nss_builtins_items_74 [] = {
-+ "\221\060\352\315"
-+ , (PRUint32)804 }
-+ };
-+-static const NSSItem nss_builtins_items_75 [] = {
-++static const NSSItem nss_builtins_items_63 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -5332,118 +4549,7 @@ static const NSSItem nss_builtins_items_75 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_76 [] = {
-+-  { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+-  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)"Visa International Global Root 2", (PRUint32)33 },
-+-  { (void *)&ckc_x_509, (PRUint32)sizeof(CK_CERTIFICATE_TYPE) },
-+-  { (void *)"\060\141\061\013\060\011\006\003\125\004\006\023\002\125\123\061"
-+-"\015\060\013\006\003\125\004\012\023\004\126\111\123\101\061\057"
-+-"\060\055\006\003\125\004\013\023\046\126\151\163\141\040\111\156"
-+-"\164\145\162\156\141\164\151\157\156\141\154\040\123\145\162\166"
-+-"\151\143\145\040\101\163\163\157\143\151\141\164\151\157\156\061"
-+-"\022\060\020\006\003\125\004\003\023\011\107\120\040\122\157\157"
-+-"\164\040\062"
-+-, (PRUint32)99 },
-+-  { (void *)"0", (PRUint32)2 },
-+-  { (void *)"\060\141\061\013\060\011\006\003\125\004\006\023\002\125\123\061"
-+-"\015\060\013\006\003\125\004\012\023\004\126\111\123\101\061\057"
-+-"\060\055\006\003\125\004\013\023\046\126\151\163\141\040\111\156"
-+-"\164\145\162\156\141\164\151\157\156\141\154\040\123\145\162\166"
-+-"\151\143\145\040\101\163\163\157\143\151\141\164\151\157\156\061"
-+-"\022\060\020\006\003\125\004\003\023\011\107\120\040\122\157\157"
-+-"\164\040\062"
-+-, (PRUint32)99 },
-+-  { (void *)"\002\002\003\036"
-+-, (PRUint32)4 },
-+-  { (void *)"\060\202\003\200\060\202\002\150\240\003\002\001\002\002\002\003"
-+-"\036\060\015\006\011\052\206\110\206\367\015\001\001\005\005\000"
-+-"\060\141\061\013\060\011\006\003\125\004\006\023\002\125\123\061"
-+-"\015\060\013\006\003\125\004\012\023\004\126\111\123\101\061\057"
-+-"\060\055\006\003\125\004\013\023\046\126\151\163\141\040\111\156"
-+-"\164\145\162\156\141\164\151\157\156\141\154\040\123\145\162\166"
-+-"\151\143\145\040\101\163\163\157\143\151\141\164\151\157\156\061"
-+-"\022\060\020\006\003\125\004\003\023\011\107\120\040\122\157\157"
-+-"\164\040\062\060\036\027\015\060\060\060\070\061\066\062\062\065"
-+-"\061\060\060\132\027\015\062\060\060\070\061\065\062\063\065\071"
-+-"\060\060\132\060\141\061\013\060\011\006\003\125\004\006\023\002"
-+-"\125\123\061\015\060\013\006\003\125\004\012\023\004\126\111\123"
-+-"\101\061\057\060\055\006\003\125\004\013\023\046\126\151\163\141"
-+-"\040\111\156\164\145\162\156\141\164\151\157\156\141\154\040\123"
-+-"\145\162\166\151\143\145\040\101\163\163\157\143\151\141\164\151"
-+-"\157\156\061\022\060\020\006\003\125\004\003\023\011\107\120\040"
-+-"\122\157\157\164\040\062\060\202\001\042\060\015\006\011\052\206"
-+-"\110\206\367\015\001\001\001\005\000\003\202\001\017\000\060\202"
-+-"\001\012\002\202\001\001\000\251\001\160\265\252\304\100\360\253"
-+-"\152\046\141\171\031\000\374\277\233\067\131\014\257\157\144\033"
-+-"\370\332\225\224\044\151\063\021\160\312\343\126\164\242\027\127"
-+-"\144\134\040\006\341\326\357\161\267\073\367\253\301\151\320\111"
-+-"\244\261\004\327\364\127\142\211\134\260\165\055\027\044\151\343"
-+-"\102\140\344\356\164\326\253\200\126\330\210\050\341\373\155\042"
-+-"\375\043\174\106\163\117\176\124\163\036\250\054\125\130\165\267"
-+-"\114\363\132\105\245\002\032\372\332\235\303\105\303\042\136\363"
-+-"\213\361\140\051\322\307\137\264\014\072\121\203\357\060\370\324"
-+-"\347\307\362\372\231\243\042\120\276\371\005\067\243\255\355\232"
-+-"\303\346\354\210\033\266\031\047\033\070\213\200\115\354\271\307"
-+-"\305\211\313\374\032\062\355\043\360\265\001\130\371\366\217\340"
-+-"\205\251\114\011\162\071\022\333\263\365\317\116\142\144\332\306"
-+-"\031\025\072\143\035\351\027\125\241\114\042\074\064\062\106\370"
-+-"\145\127\272\053\357\066\214\152\372\331\331\104\364\252\335\204"
-+-"\327\015\034\262\124\254\062\205\264\144\015\336\101\273\261\064"
-+-"\306\001\206\062\144\325\237\002\003\001\000\001\243\102\060\100"
-+-"\060\035\006\003\125\035\016\004\026\004\024\236\175\113\064\277"
-+-"\161\255\302\005\366\003\165\200\316\251\117\032\304\044\114\060"
-+-"\017\006\003\125\035\023\001\001\377\004\005\060\003\001\001\377"
-+-"\060\016\006\003\125\035\017\001\001\377\004\004\003\002\001\006"
-+-"\060\015\006\011\052\206\110\206\367\015\001\001\005\005\000\003"
-+-"\202\001\001\000\041\245\166\024\125\371\255\047\160\217\074\364"
-+-"\325\154\310\314\012\253\243\230\013\212\006\043\305\311\141\333"
-+-"\231\007\151\065\046\061\376\307\056\204\302\231\141\324\015\351"
-+-"\175\056\023\053\174\216\205\266\205\307\113\317\065\266\054\107"
-+-"\075\316\051\057\330\157\237\211\034\144\223\277\010\275\166\320"
-+-"\220\212\224\263\177\050\133\156\254\115\063\054\355\145\334\026"
-+-"\314\342\315\256\244\075\142\222\006\225\046\277\337\271\344\040"
-+-"\246\163\152\301\276\367\224\104\326\115\157\052\013\153\030\115"
-+-"\164\020\066\150\152\132\301\152\247\335\066\051\214\270\060\213"
-+-"\117\041\077\000\056\124\060\007\072\272\212\344\303\236\312\330"
-+-"\265\330\173\316\165\105\146\007\364\155\055\330\172\312\351\211"
-+-"\212\362\043\330\057\313\156\000\066\117\373\360\057\001\314\017"
-+-"\300\042\145\364\253\342\116\141\055\003\202\175\221\026\265\060"
-+-"\325\024\336\136\307\220\374\241\374\253\020\257\134\153\160\247"
-+-"\007\357\051\206\350\262\045\307\040\377\046\335\167\357\171\104"
-+-"\024\304\275\335\073\305\003\233\167\043\354\240\354\273\132\071"
-+-"\265\314\255\006"
-+-, (PRUint32)900 }
-+-};
-+-static const NSSItem nss_builtins_items_77 [] = {
-+-  { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+-  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)"Visa International Global Root 2", (PRUint32)33 },
-+-  { (void *)"\311\015\033\352\210\075\247\321\027\276\073\171\364\041\016\032"
-+-"\130\224\247\055"
-+-, (PRUint32)20 },
-+-  { (void *)"\065\110\225\066\112\124\132\162\226\216\340\144\314\357\054\214"
-+-, (PRUint32)16 },
-+-  { (void *)"\060\141\061\013\060\011\006\003\125\004\006\023\002\125\123\061"
-+-"\015\060\013\006\003\125\004\012\023\004\126\111\123\101\061\057"
-+-"\060\055\006\003\125\004\013\023\046\126\151\163\141\040\111\156"
-+-"\164\145\162\156\141\164\151\157\156\141\154\040\123\145\162\166"
-+-"\151\143\145\040\101\163\163\157\143\151\141\164\151\157\156\061"
-+-"\022\060\020\006\003\125\004\003\023\011\107\120\040\122\157\157"
-+-"\164\040\062"
-+-, (PRUint32)99 },
-+-  { (void *)"\002\002\003\036"
-+-, (PRUint32)4 },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+-};
-+-static const NSSItem nss_builtins_items_78 [] = {
-++static const NSSItem nss_builtins_items_64 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -5552,7 +4658,7 @@ static const NSSItem nss_builtins_items_78 [] = {
-+ "\043\020\077\041\020\131\267\344\100\335\046\014\043\366\252\256"
-+ , (PRUint32)1328 }
-+ };
-+-static const NSSItem nss_builtins_items_79 [] = {
-++static const NSSItem nss_builtins_items_65 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -5572,12 +4678,12 @@ static const NSSItem nss_builtins_items_79 [] = {
-+ , (PRUint32)92 },
-+   { (void *)"\002\004\071\117\175\207"
-+ , (PRUint32)6 },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_80 [] = {
-++static const NSSItem nss_builtins_items_66 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -5671,7 +4777,7 @@ static const NSSItem nss_builtins_items_80 [] = {
-+ "\065\341\035\026\034\320\274\053\216\326\161\331"
-+ , (PRUint32)1052 }
-+ };
-+-static const NSSItem nss_builtins_items_81 [] = {
-++static const NSSItem nss_builtins_items_67 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -5697,7 +4803,7 @@ static const NSSItem nss_builtins_items_81 [] = {
-+   { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_82 [] = {
-++static const NSSItem nss_builtins_items_68 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -5795,7 +4901,7 @@ static const NSSItem nss_builtins_items_82 [] = {
-+ "\027\132\173\320\274\307\217\116\206\004"
-+ , (PRUint32)1082 }
-+ };
-+-static const NSSItem nss_builtins_items_83 [] = {
-++static const NSSItem nss_builtins_items_69 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -5822,7 +4928,7 @@ static const NSSItem nss_builtins_items_83 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_84 [] = {
-++static const NSSItem nss_builtins_items_70 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -5916,7 +5022,7 @@ static const NSSItem nss_builtins_items_84 [] = {
-+ "\116\072\063\014\053\263\055\220\006"
-+ , (PRUint32)1049 }
-+ };
-+-static const NSSItem nss_builtins_items_85 [] = {
-++static const NSSItem nss_builtins_items_71 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -5942,7 +5048,7 @@ static const NSSItem nss_builtins_items_85 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_86 [] = {
-++static const NSSItem nss_builtins_items_72 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -6037,7 +5143,7 @@ static const NSSItem nss_builtins_items_86 [] = {
-+ "\306\241"
-+ , (PRUint32)1058 }
-+ };
-+-static const NSSItem nss_builtins_items_87 [] = {
-++static const NSSItem nss_builtins_items_73 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -6063,141 +5169,7 @@ static const NSSItem nss_builtins_items_87 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_88 [] = {
-+-  { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+-  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)"Verisign Time Stamping Authority CA", (PRUint32)36 },
-+-  { (void *)&ckc_x_509, (PRUint32)sizeof(CK_CERTIFICATE_TYPE) },
-+-  { (void *)"\060\201\245\061\027\060\025\006\003\125\004\012\023\016\126\145"
-+-"\162\151\123\151\147\156\054\040\111\156\143\056\061\037\060\035"
-+-"\006\003\125\004\013\023\026\126\145\162\151\123\151\147\156\040"
-+-"\124\162\165\163\164\040\116\145\164\167\157\162\153\061\073\060"
-+-"\071\006\003\125\004\013\023\062\124\145\162\155\163\040\157\146"
-+-"\040\165\163\145\040\141\164\040\150\164\164\160\163\072\057\057"
-+-"\167\167\167\056\166\145\162\151\163\151\147\156\056\143\157\155"
-+-"\057\162\160\141\040\050\143\051\060\060\061\054\060\052\006\003"
-+-"\125\004\003\023\043\126\145\162\151\123\151\147\156\040\124\151"
-+-"\155\145\040\123\164\141\155\160\151\156\147\040\101\165\164\150"
-+-"\157\162\151\164\171\040\103\101"
-+-, (PRUint32)168 },
-+-  { (void *)"0", (PRUint32)2 },
-+-  { (void *)"\060\201\301\061\013\060\011\006\003\125\004\006\023\002\125\123"
-+-"\061\027\060\025\006\003\125\004\012\023\016\126\145\162\151\123"
-+-"\151\147\156\054\040\111\156\143\056\061\074\060\072\006\003\125"
-+-"\004\013\023\063\103\154\141\163\163\040\063\040\120\165\142\154"
-+-"\151\143\040\120\162\151\155\141\162\171\040\103\145\162\164\151"
-+-"\146\151\143\141\164\151\157\156\040\101\165\164\150\157\162\151"
-+-"\164\171\040\055\040\107\062\061\072\060\070\006\003\125\004\013"
-+-"\023\061\050\143\051\040\061\071\071\070\040\126\145\162\151\123"
-+-"\151\147\156\054\040\111\156\143\056\040\055\040\106\157\162\040"
-+-"\141\165\164\150\157\162\151\172\145\144\040\165\163\145\040\157"
-+-"\156\154\171\061\037\060\035\006\003\125\004\013\023\026\126\145"
-+-"\162\151\123\151\147\156\040\124\162\165\163\164\040\116\145\164"
-+-"\167\157\162\153"
-+-, (PRUint32)196 },
-+-  { (void *)"\002\020\123\141\262\140\256\333\161\216\247\224\263\023\063\364"
-+-"\007\011"
-+-, (PRUint32)18 },
-+-  { (void *)"\060\202\003\315\060\202\003\066\240\003\002\001\002\002\020\123"
-+-"\141\262\140\256\333\161\216\247\224\263\023\063\364\007\011\060"
-+-"\015\006\011\052\206\110\206\367\015\001\001\005\005\000\060\201"
-+-"\301\061\013\060\011\006\003\125\004\006\023\002\125\123\061\027"
-+-"\060\025\006\003\125\004\012\023\016\126\145\162\151\123\151\147"
-+-"\156\054\040\111\156\143\056\061\074\060\072\006\003\125\004\013"
-+-"\023\063\103\154\141\163\163\040\063\040\120\165\142\154\151\143"
-+-"\040\120\162\151\155\141\162\171\040\103\145\162\164\151\146\151"
-+-"\143\141\164\151\157\156\040\101\165\164\150\157\162\151\164\171"
-+-"\040\055\040\107\062\061\072\060\070\006\003\125\004\013\023\061"
-+-"\050\143\051\040\061\071\071\070\040\126\145\162\151\123\151\147"
-+-"\156\054\040\111\156\143\056\040\055\040\106\157\162\040\141\165"
-+-"\164\150\157\162\151\172\145\144\040\165\163\145\040\157\156\154"
-+-"\171\061\037\060\035\006\003\125\004\013\023\026\126\145\162\151"
-+-"\123\151\147\156\040\124\162\165\163\164\040\116\145\164\167\157"
-+-"\162\153\060\036\027\015\060\060\060\071\062\066\060\060\060\060"
-+-"\060\060\132\027\015\061\060\060\071\062\065\062\063\065\071\065"
-+-"\071\132\060\201\245\061\027\060\025\006\003\125\004\012\023\016"
-+-"\126\145\162\151\123\151\147\156\054\040\111\156\143\056\061\037"
-+-"\060\035\006\003\125\004\013\023\026\126\145\162\151\123\151\147"
-+-"\156\040\124\162\165\163\164\040\116\145\164\167\157\162\153\061"
-+-"\073\060\071\006\003\125\004\013\023\062\124\145\162\155\163\040"
-+-"\157\146\040\165\163\145\040\141\164\040\150\164\164\160\163\072"
-+-"\057\057\167\167\167\056\166\145\162\151\163\151\147\156\056\143"
-+-"\157\155\057\162\160\141\040\050\143\051\060\060\061\054\060\052"
-+-"\006\003\125\004\003\023\043\126\145\162\151\123\151\147\156\040"
-+-"\124\151\155\145\040\123\164\141\155\160\151\156\147\040\101\165"
-+-"\164\150\157\162\151\164\171\040\103\101\060\201\237\060\015\006"
-+-"\011\052\206\110\206\367\015\001\001\001\005\000\003\201\215\000"
-+-"\060\201\211\002\201\201\000\322\031\235\147\302\000\041\131\142"
-+-"\316\264\011\042\104\151\212\370\045\132\333\355\015\267\066\176"
-+-"\116\340\273\224\076\220\045\207\302\141\107\051\331\275\124\270"
-+-"\143\314\054\175\151\264\063\066\364\067\007\232\301\335\100\124"
-+-"\374\340\170\235\240\223\271\011\075\043\121\177\104\302\024\164"
-+-"\333\012\276\313\311\060\064\100\230\076\320\327\045\020\201\224"
-+-"\275\007\117\234\326\124\047\337\056\250\277\313\220\214\215\165"
-+-"\113\274\342\350\104\207\315\346\101\012\045\156\350\364\044\002"
-+-"\305\122\017\156\354\230\165\002\003\001\000\001\243\201\337\060"
-+-"\201\334\060\017\006\003\125\035\023\004\010\060\006\001\001\377"
-+-"\002\001\000\060\105\006\003\125\035\040\004\076\060\074\060\072"
-+-"\006\014\140\206\110\001\206\370\105\001\007\027\001\003\060\052"
-+-"\060\050\006\010\053\006\001\005\005\007\002\001\026\034\150\164"
-+-"\164\160\163\072\057\057\167\167\167\056\166\145\162\151\163\151"
-+-"\147\156\056\143\157\155\057\162\160\141\060\061\006\003\125\035"
-+-"\037\004\052\060\050\060\046\240\044\240\042\206\040\150\164\164"
-+-"\160\072\057\057\143\162\154\056\166\145\162\151\163\151\147\156"
-+-"\056\143\157\155\057\160\143\141\063\056\143\162\154\060\013\006"
-+-"\003\125\035\017\004\004\003\002\001\006\060\102\006\010\053\006"
-+-"\001\005\005\007\001\001\004\066\060\064\060\062\006\010\053\006"
-+-"\001\005\005\007\060\001\246\046\026\044\150\164\164\160\072\057"
-+-"\057\157\143\163\160\056\166\145\162\151\163\151\147\156\056\143"
-+-"\157\155\057\157\143\163\160\057\163\164\141\164\165\163\060\015"
-+-"\006\011\052\206\110\206\367\015\001\001\005\005\000\003\201\201"
-+-"\000\202\160\150\225\337\266\015\302\001\160\031\112\322\124\126"
-+-"\036\254\362\105\114\207\270\365\065\353\170\113\005\251\310\235"
-+-"\073\031\041\056\160\064\112\242\365\211\340\025\165\105\347\050"
-+-"\067\000\064\047\051\350\067\113\362\357\104\227\153\027\121\032"
-+-"\303\126\235\074\032\212\366\112\106\106\067\214\372\313\365\144"
-+-"\132\070\150\056\034\303\357\160\316\270\106\006\026\277\367\176"
-+-"\347\265\250\076\105\254\251\045\165\042\173\157\077\260\234\224"
-+-"\347\307\163\253\254\037\356\045\233\300\026\355\267\312\133\360"
-+-"\024"
-+-, (PRUint32)977 }
-+-};
-+-static const NSSItem nss_builtins_items_89 [] = {
-+-  { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+-  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)"Verisign Time Stamping Authority CA", (PRUint32)36 },
-+-  { (void *)"\246\017\064\310\142\154\201\366\213\367\175\251\366\147\130\212"
-+-"\220\077\175\066"
-+-, (PRUint32)20 },
-+-  { (void *)"\211\111\124\214\310\150\232\203\051\354\334\006\163\041\253\227"
-+-, (PRUint32)16 },
-+-  { (void *)"\060\201\301\061\013\060\011\006\003\125\004\006\023\002\125\123"
-+-"\061\027\060\025\006\003\125\004\012\023\016\126\145\162\151\123"
-+-"\151\147\156\054\040\111\156\143\056\061\074\060\072\006\003\125"
-+-"\004\013\023\063\103\154\141\163\163\040\063\040\120\165\142\154"
-+-"\151\143\040\120\162\151\155\141\162\171\040\103\145\162\164\151"
-+-"\146\151\143\141\164\151\157\156\040\101\165\164\150\157\162\151"
-+-"\164\171\040\055\040\107\062\061\072\060\070\006\003\125\004\013"
-+-"\023\061\050\143\051\040\061\071\071\070\040\126\145\162\151\123"
-+-"\151\147\156\054\040\111\156\143\056\040\055\040\106\157\162\040"
-+-"\141\165\164\150\157\162\151\172\145\144\040\165\163\145\040\157"
-+-"\156\154\171\061\037\060\035\006\003\125\004\013\023\026\126\145"
-+-"\162\151\123\151\147\156\040\124\162\165\163\164\040\116\145\164"
-+-"\167\157\162\153"
-+-, (PRUint32)196 },
-+-  { (void *)"\002\020\123\141\262\140\256\333\161\216\247\224\263\023\063\364"
-+-"\007\011"
-+-, (PRUint32)18 },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+-};
-+-static const NSSItem nss_builtins_items_90 [] = {
-++static const NSSItem nss_builtins_items_74 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -6272,7 +5244,7 @@ static const NSSItem nss_builtins_items_90 [] = {
-+ "\011\254\211\111\323"
-+ , (PRUint32)677 }
-+ };
-+-static const NSSItem nss_builtins_items_91 [] = {
-++static const NSSItem nss_builtins_items_75 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -6300,7 +5272,7 @@ static const NSSItem nss_builtins_items_91 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_92 [] = {
-++static const NSSItem nss_builtins_items_76 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -6412,7 +5384,7 @@ static const NSSItem nss_builtins_items_92 [] = {
-+ "\005\377\154\211\063\360\354\025\017"
-+ , (PRUint32)1177 }
-+ };
-+-static const NSSItem nss_builtins_items_93 [] = {
-++static const NSSItem nss_builtins_items_77 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -6438,12 +5410,12 @@ static const NSSItem nss_builtins_items_93 [] = {
-+ , (PRUint32)189 },
-+   { (void *)"\002\004\070\233\021\074"
-+ , (PRUint32)6 },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_94 [] = {
-++static const NSSItem nss_builtins_items_78 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -6554,7 +5526,7 @@ static const NSSItem nss_builtins_items_94 [] = {
-+ "\316\145\146\227\256\046\136"
-+ , (PRUint32)1159 }
-+ };
-+-static const NSSItem nss_builtins_items_95 [] = {
-++static const NSSItem nss_builtins_items_79 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -6580,12 +5552,12 @@ static const NSSItem nss_builtins_items_95 [] = {
-+ , (PRUint32)183 },
-+   { (void *)"\002\004\070\236\366\344"
-+ , (PRUint32)6 },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_96 [] = {
-++static const NSSItem nss_builtins_items_80 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -6697,7 +5669,7 @@ static const NSSItem nss_builtins_items_96 [] = {
-+ "\036\177\132\264\074"
-+ , (PRUint32)1173 }
-+ };
-+-static const NSSItem nss_builtins_items_97 [] = {
-++static const NSSItem nss_builtins_items_81 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -6728,7 +5700,7 @@ static const NSSItem nss_builtins_items_97 [] = {
-+   { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_98 [] = {
-++static const NSSItem nss_builtins_items_82 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -6823,7 +5795,7 @@ static const NSSItem nss_builtins_items_98 [] = {
-+ "\071\050\150\016\163\335\045\232\336\022"
-+ , (PRUint32)1002 }
-+ };
-+-static const NSSItem nss_builtins_items_99 [] = {
-++static const NSSItem nss_builtins_items_83 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -6851,7 +5823,7 @@ static const NSSItem nss_builtins_items_99 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_100 [] = {
-++static const NSSItem nss_builtins_items_84 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -6978,7 +5950,7 @@ static const NSSItem nss_builtins_items_100 [] = {
-+ "\204\327\372\334\162\133\367\301\072\150"
-+ , (PRUint32)1514 }
-+ };
-+-static const NSSItem nss_builtins_items_101 [] = {
-++static const NSSItem nss_builtins_items_85 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -7006,7 +5978,7 @@ static const NSSItem nss_builtins_items_101 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_102 [] = {
-++static const NSSItem nss_builtins_items_86 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -7121,7 +6093,7 @@ static const NSSItem nss_builtins_items_102 [] = {
-+ "\061\210\027\120\237\311\304\016\213\330\250\002\143\015"
-+ , (PRUint32)1390 }
-+ };
-+-static const NSSItem nss_builtins_items_103 [] = {
-++static const NSSItem nss_builtins_items_87 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -7142,12 +6114,12 @@ static const NSSItem nss_builtins_items_103 [] = {
-+ , (PRUint32)104 },
-+   { (void *)"\002\004\074\265\075\106"
-+ , (PRUint32)6 },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_104 [] = {
-++static const NSSItem nss_builtins_items_88 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -7277,7 +6249,7 @@ static const NSSItem nss_builtins_items_104 [] = {
-+ "\254\142\127\251\367"
-+ , (PRUint32)1621 }
-+ };
-+-static const NSSItem nss_builtins_items_105 [] = {
-++static const NSSItem nss_builtins_items_89 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -7298,12 +6270,12 @@ static const NSSItem nss_builtins_items_105 [] = {
-+ , (PRUint32)104 },
-+   { (void *)"\002\004\074\265\117\100"
-+ , (PRUint32)6 },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_106 [] = {
-++static const NSSItem nss_builtins_items_90 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -7419,7 +6391,7 @@ static const NSSItem nss_builtins_items_106 [] = {
-+ "\230\150\373\001\103\326\033\342\011\261\227\034"
-+ , (PRUint32)1388 }
-+ };
-+-static const NSSItem nss_builtins_items_107 [] = {
-++static const NSSItem nss_builtins_items_91 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -7441,12 +6413,12 @@ static const NSSItem nss_builtins_items_107 [] = {
-+   { (void *)"\002\020\073\131\307\173\315\133\127\236\275\067\122\254\166\264"
-+ "\252\032"
-+ , (PRUint32)18 },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_108 [] = {
-++static const NSSItem nss_builtins_items_92 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -7524,7 +6496,7 @@ static const NSSItem nss_builtins_items_108 [] = {
-+ "\354\040\005\141\336"
-+ , (PRUint32)869 }
-+ };
-+-static const NSSItem nss_builtins_items_109 [] = {
-++static const NSSItem nss_builtins_items_93 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -7548,92 +6520,7 @@ static const NSSItem nss_builtins_items_109 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_110 [] = {
-+-  { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+-  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)"RSA Security 1024 v3", (PRUint32)21 },
-+-  { (void *)&ckc_x_509, (PRUint32)sizeof(CK_CERTIFICATE_TYPE) },
-+-  { (void *)"\060\072\061\031\060\027\006\003\125\004\012\023\020\122\123\101"
-+-"\040\123\145\143\165\162\151\164\171\040\111\156\143\061\035\060"
-+-"\033\006\003\125\004\013\023\024\122\123\101\040\123\145\143\165"
-+-"\162\151\164\171\040\061\060\062\064\040\126\063"
-+-, (PRUint32)60 },
-+-  { (void *)"0", (PRUint32)2 },
-+-  { (void *)"\060\072\061\031\060\027\006\003\125\004\012\023\020\122\123\101"
-+-"\040\123\145\143\165\162\151\164\171\040\111\156\143\061\035\060"
-+-"\033\006\003\125\004\013\023\024\122\123\101\040\123\145\143\165"
-+-"\162\151\164\171\040\061\060\062\064\040\126\063"
-+-, (PRUint32)60 },
-+-  { (void *)"\002\020\012\001\001\001\000\000\002\174\000\000\000\013\000\000"
-+-"\000\002"
-+-, (PRUint32)18 },
-+-  { (void *)"\060\202\002\134\060\202\001\305\240\003\002\001\002\002\020\012"
-+-"\001\001\001\000\000\002\174\000\000\000\013\000\000\000\002\060"
-+-"\015\006\011\052\206\110\206\367\015\001\001\005\005\000\060\072"
-+-"\061\031\060\027\006\003\125\004\012\023\020\122\123\101\040\123"
-+-"\145\143\165\162\151\164\171\040\111\156\143\061\035\060\033\006"
-+-"\003\125\004\013\023\024\122\123\101\040\123\145\143\165\162\151"
-+-"\164\171\040\061\060\062\064\040\126\063\060\036\027\015\060\061"
-+-"\060\062\062\062\062\061\060\061\064\071\132\027\015\062\066\060"
-+-"\062\062\062\062\060\060\061\064\071\132\060\072\061\031\060\027"
-+-"\006\003\125\004\012\023\020\122\123\101\040\123\145\143\165\162"
-+-"\151\164\171\040\111\156\143\061\035\060\033\006\003\125\004\013"
-+-"\023\024\122\123\101\040\123\145\143\165\162\151\164\171\040\061"
-+-"\060\062\064\040\126\063\060\201\237\060\015\006\011\052\206\110"
-+-"\206\367\015\001\001\001\005\000\003\201\215\000\060\201\211\002"
-+-"\201\201\000\325\335\376\146\011\317\044\074\076\256\201\116\116"
-+-"\212\304\151\200\133\131\073\337\271\115\114\312\265\055\303\047"
-+-"\055\074\257\000\102\155\274\050\246\226\317\177\327\130\254\203"
-+-"\012\243\125\265\173\027\220\025\204\114\212\356\046\231\334\130"
-+-"\357\307\070\246\252\257\320\216\102\310\142\327\253\254\251\373"
-+-"\112\175\277\352\376\022\115\335\377\046\055\157\066\124\150\310"
-+-"\322\204\126\356\222\123\141\011\263\077\071\233\250\311\233\275"
-+-"\316\237\176\324\031\152\026\051\030\276\327\072\151\334\045\133"
-+-"\063\032\121\002\003\001\000\001\243\143\060\141\060\017\006\003"
-+-"\125\035\023\001\001\377\004\005\060\003\001\001\377\060\016\006"
-+-"\003\125\035\017\001\001\377\004\004\003\002\001\006\060\037\006"
-+-"\003\125\035\043\004\030\060\026\200\024\304\300\034\244\007\224"
-+-"\375\315\115\001\324\124\332\245\014\137\336\256\005\132\060\035"
-+-"\006\003\125\035\016\004\026\004\024\304\300\034\244\007\224\375"
-+-"\315\115\001\324\124\332\245\014\137\336\256\005\132\060\015\006"
-+-"\011\052\206\110\206\367\015\001\001\005\005\000\003\201\201\000"
-+-"\077\055\152\343\046\103\225\175\211\227\145\373\165\344\162\035"
-+-"\106\127\304\141\153\151\237\022\233\054\325\132\350\300\242\360"
-+-"\103\225\343\037\351\166\315\334\353\274\223\240\145\012\307\115"
-+-"\117\137\247\257\242\106\024\271\014\363\314\275\152\156\267\235"
-+-"\336\045\102\320\124\377\236\150\163\143\334\044\353\042\277\250"
-+-"\162\362\136\000\341\015\116\072\103\156\231\116\077\211\170\003"
-+-"\230\312\363\125\314\235\256\216\301\252\105\230\372\217\032\240"
-+-"\215\210\043\361\025\101\015\245\106\076\221\077\213\353\367\161"
-+-, (PRUint32)608 }
-+-};
-+-static const NSSItem nss_builtins_items_111 [] = {
-+-  { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+-  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)"RSA Security 1024 v3", (PRUint32)21 },
-+-  { (void *)"\074\273\135\340\374\326\071\174\005\210\345\146\227\275\106\052"
-+-"\275\371\134\166"
-+-, (PRUint32)20 },
-+-  { (void *)"\072\345\120\260\071\276\307\106\066\063\241\376\202\076\215\224"
-+-, (PRUint32)16 },
-+-  { (void *)"\060\072\061\031\060\027\006\003\125\004\012\023\020\122\123\101"
-+-"\040\123\145\143\165\162\151\164\171\040\111\156\143\061\035\060"
-+-"\033\006\003\125\004\013\023\024\122\123\101\040\123\145\143\165"
-+-"\162\151\164\171\040\061\060\062\064\040\126\063"
-+-, (PRUint32)60 },
-+-  { (void *)"\002\020\012\001\001\001\000\000\002\174\000\000\000\013\000\000"
-+-"\000\002"
-+-, (PRUint32)18 },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+-};
-+-static const NSSItem nss_builtins_items_112 [] = {
-++static const NSSItem nss_builtins_items_94 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -7711,7 +6598,7 @@ static const NSSItem nss_builtins_items_112 [] = {
-+ "\302\005\146\200\241\313\346\063"
-+ , (PRUint32)856 }
-+ };
-+-static const NSSItem nss_builtins_items_113 [] = {
-++static const NSSItem nss_builtins_items_95 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -7735,7 +6622,7 @@ static const NSSItem nss_builtins_items_113 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_114 [] = {
-++static const NSSItem nss_builtins_items_96 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -7814,7 +6701,7 @@ static const NSSItem nss_builtins_items_114 [] = {
-+ "\342\042\051\256\175\203\100\250\272\154"
-+ , (PRUint32)874 }
-+ };
-+-static const NSSItem nss_builtins_items_115 [] = {
-++static const NSSItem nss_builtins_items_97 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -7838,7 +6725,7 @@ static const NSSItem nss_builtins_items_115 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_116 [] = {
-++static const NSSItem nss_builtins_items_98 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -7949,7 +6836,7 @@ static const NSSItem nss_builtins_items_116 [] = {
-+ "\244\346\216\330\371\051\110\212\316\163\376\054"
-+ , (PRUint32)1388 }
-+ };
-+-static const NSSItem nss_builtins_items_117 [] = {
-++static const NSSItem nss_builtins_items_99 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -7973,7 +6860,7 @@ static const NSSItem nss_builtins_items_117 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_118 [] = {
-++static const NSSItem nss_builtins_items_100 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -8084,7 +6971,7 @@ static const NSSItem nss_builtins_items_118 [] = {
-+ "\362\034\054\176\256\002\026\322\126\320\057\127\123\107\350\222"
-+ , (PRUint32)1392 }
-+ };
-+-static const NSSItem nss_builtins_items_119 [] = {
-++static const NSSItem nss_builtins_items_101 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -8108,7 +6995,7 @@ static const NSSItem nss_builtins_items_119 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_120 [] = {
-++static const NSSItem nss_builtins_items_102 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -8216,7 +7103,7 @@ static const NSSItem nss_builtins_items_120 [] = {
-+ "\152\372\246\070\254\037\304\204"
-+ , (PRUint32)1128 }
-+ };
-+-static const NSSItem nss_builtins_items_121 [] = {
-++static const NSSItem nss_builtins_items_103 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -8242,12 +7129,12 @@ static const NSSItem nss_builtins_items_121 [] = {
-+   { (void *)"\002\020\104\276\014\213\120\000\044\264\021\323\066\060\113\300"
-+ "\063\167"
-+ , (PRUint32)18 },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_122 [] = {
-++static const NSSItem nss_builtins_items_104 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -8334,7 +7221,7 @@ static const NSSItem nss_builtins_items_122 [] = {
-+ "\200\072\231\355\165\314\106\173"
-+ , (PRUint32)936 }
-+ };
-+-static const NSSItem nss_builtins_items_123 [] = {
-++static const NSSItem nss_builtins_items_105 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -8360,7 +7247,7 @@ static const NSSItem nss_builtins_items_123 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_124 [] = {
-++static const NSSItem nss_builtins_items_106 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -8479,7 +7366,7 @@ static const NSSItem nss_builtins_items_124 [] = {
-+ "\105\217\046\221\242\216\376\251"
-+ , (PRUint32)1448 }
-+ };
-+-static const NSSItem nss_builtins_items_125 [] = {
-++static const NSSItem nss_builtins_items_107 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -8505,7 +7392,7 @@ static const NSSItem nss_builtins_items_125 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_126 [] = {
-++static const NSSItem nss_builtins_items_108 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -8593,7 +7480,7 @@ static const NSSItem nss_builtins_items_126 [] = {
-+ "\222\340\134\366\007\017"
-+ , (PRUint32)934 }
-+ };
-+-static const NSSItem nss_builtins_items_127 [] = {
-++static const NSSItem nss_builtins_items_109 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -8620,7 +7507,7 @@ static const NSSItem nss_builtins_items_127 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_128 [] = {
-++static const NSSItem nss_builtins_items_110 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -8712,7 +7599,7 @@ static const NSSItem nss_builtins_items_128 [] = {
-+ "\367\115\146\177\247\360\034\001\046\170\262\146\107\160\121\144"
-+ , (PRUint32)864 }
-+ };
-+-static const NSSItem nss_builtins_items_129 [] = {
-++static const NSSItem nss_builtins_items_111 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -8743,7 +7630,7 @@ static const NSSItem nss_builtins_items_129 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_130 [] = {
-++static const NSSItem nss_builtins_items_112 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -8835,7 +7722,7 @@ static const NSSItem nss_builtins_items_130 [] = {
-+ "\030\122\051\213\107\064\022\011\324\273\222\065\357\017\333\064"
-+ , (PRUint32)864 }
-+ };
-+-static const NSSItem nss_builtins_items_131 [] = {
-++static const NSSItem nss_builtins_items_113 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -8866,7 +7753,7 @@ static const NSSItem nss_builtins_items_131 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_132 [] = {
-++static const NSSItem nss_builtins_items_114 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -8937,7 +7824,7 @@ static const NSSItem nss_builtins_items_132 [] = {
-+ "\350\140\052\233\205\112\100\363\153\212\044\354\006\026\054\163"
-+ , (PRUint32)784 }
-+ };
-+-static const NSSItem nss_builtins_items_133 [] = {
-++static const NSSItem nss_builtins_items_115 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -8960,7 +7847,7 @@ static const NSSItem nss_builtins_items_133 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_134 [] = {
-++static const NSSItem nss_builtins_items_116 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -9058,7 +7945,7 @@ static const NSSItem nss_builtins_items_134 [] = {
-+ "\225\351\066\226\230\156"
-+ , (PRUint32)1078 }
-+ };
-+-static const NSSItem nss_builtins_items_135 [] = {
-++static const NSSItem nss_builtins_items_117 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -9085,7 +7972,7 @@ static const NSSItem nss_builtins_items_135 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_136 [] = {
-++static const NSSItem nss_builtins_items_118 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -9184,7 +8071,7 @@ static const NSSItem nss_builtins_items_136 [] = {
-+ "\354\375\051"
-+ , (PRUint32)1091 }
-+ };
-+-static const NSSItem nss_builtins_items_137 [] = {
-++static const NSSItem nss_builtins_items_119 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -9211,7 +8098,7 @@ static const NSSItem nss_builtins_items_137 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_138 [] = {
-++static const NSSItem nss_builtins_items_120 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -9312,7 +8199,7 @@ static const NSSItem nss_builtins_items_138 [] = {
-+ "\160\136\310\304\170\260\142"
-+ , (PRUint32)1095 }
-+ };
-+-static const NSSItem nss_builtins_items_139 [] = {
-++static const NSSItem nss_builtins_items_121 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -9340,7 +8227,7 @@ static const NSSItem nss_builtins_items_139 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_140 [] = {
-++static const NSSItem nss_builtins_items_122 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -9518,7 +8405,7 @@ static const NSSItem nss_builtins_items_140 [] = {
-+ "\001\177\046\304\143\365\045\102\136\142\275"
-+ , (PRUint32)2043 }
-+ };
-+-static const NSSItem nss_builtins_items_141 [] = {
-++static const NSSItem nss_builtins_items_123 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -9550,12 +8437,12 @@ static const NSSItem nss_builtins_items_141 [] = {
-+ , (PRUint32)288 },
-+   { (void *)"\002\001\000"
-+ , (PRUint32)3 },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_142 [] = {
-++static const NSSItem nss_builtins_items_124 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -9732,7 +8619,7 @@ static const NSSItem nss_builtins_items_142 [] = {
-+ "\206\063\076\346\057\110\156\257\124\220\116\255\261\045"
-+ , (PRUint32)2030 }
-+ };
-+-static const NSSItem nss_builtins_items_143 [] = {
-++static const NSSItem nss_builtins_items_125 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -9764,12 +8651,12 @@ static const NSSItem nss_builtins_items_143 [] = {
-+ , (PRUint32)278 },
-+   { (void *)"\002\001\000"
-+ , (PRUint32)3 },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_144 [] = {
-++static const NSSItem nss_builtins_items_126 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -9946,7 +8833,7 @@ static const NSSItem nss_builtins_items_144 [] = {
-+ "\257\175\310\352\351\324\126\331\016\023\262\305\105\120"
-+ , (PRUint32)2030 }
-+ };
-+-static const NSSItem nss_builtins_items_145 [] = {
-++static const NSSItem nss_builtins_items_127 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -9978,12 +8865,12 @@ static const NSSItem nss_builtins_items_145 [] = {
-+ , (PRUint32)278 },
-+   { (void *)"\002\001\000"
-+ , (PRUint32)3 },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_146 [] = {
-++static const NSSItem nss_builtins_items_128 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -10161,7 +9048,7 @@ static const NSSItem nss_builtins_items_146 [] = {
-+ "\336\007\043\162\346\275\040\024\113\264\206"
-+ , (PRUint32)2043 }
-+ };
-+-static const NSSItem nss_builtins_items_147 [] = {
-++static const NSSItem nss_builtins_items_129 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -10193,12 +9080,12 @@ static const NSSItem nss_builtins_items_147 [] = {
-+ , (PRUint32)280 },
-+   { (void *)"\002\001\000"
-+ , (PRUint32)3 },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_148 [] = {
-++static const NSSItem nss_builtins_items_130 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -10376,7 +9263,7 @@ static const NSSItem nss_builtins_items_148 [] = {
-+ "\311\024\025\014\343\007\203\233\046\165\357"
-+ , (PRUint32)2043 }
-+ };
-+-static const NSSItem nss_builtins_items_149 [] = {
-++static const NSSItem nss_builtins_items_131 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -10408,122 +9295,12 @@ static const NSSItem nss_builtins_items_149 [] = {
-+ , (PRUint32)280 },
-+   { (void *)"\002\001\000"
-+ , (PRUint32)3 },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+-};
-+-static const NSSItem nss_builtins_items_150 [] = {
-+-  { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+-  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)"IPS Servidores root", (PRUint32)20 },
-+-  { (void *)&ckc_x_509, (PRUint32)sizeof(CK_CERTIFICATE_TYPE) },
-+-  { (void *)"\060\201\243\061\013\060\011\006\003\125\004\006\023\002\105\123"
-+-"\061\022\060\020\006\003\125\004\010\023\011\102\101\122\103\105"
-+-"\114\117\116\101\061\022\060\020\006\003\125\004\007\023\011\102"
-+-"\101\122\103\105\114\117\116\101\061\031\060\027\006\003\125\004"
-+-"\012\023\020\111\120\123\040\123\145\147\165\162\151\144\141\144"
-+-"\040\103\101\061\030\060\026\006\003\125\004\013\023\017\103\145"
-+-"\162\164\151\146\151\143\141\143\151\157\156\145\163\061\027\060"
-+-"\025\006\003\125\004\003\023\016\111\120\123\040\123\105\122\126"
-+-"\111\104\117\122\105\123\061\036\060\034\006\011\052\206\110\206"
-+-"\367\015\001\011\001\026\017\151\160\163\100\155\141\151\154\056"
-+-"\151\160\163\056\145\163"
-+-, (PRUint32)166 },
-+-  { (void *)"0", (PRUint32)2 },
-+-  { (void *)"\060\201\243\061\013\060\011\006\003\125\004\006\023\002\105\123"
-+-"\061\022\060\020\006\003\125\004\010\023\011\102\101\122\103\105"
-+-"\114\117\116\101\061\022\060\020\006\003\125\004\007\023\011\102"
-+-"\101\122\103\105\114\117\116\101\061\031\060\027\006\003\125\004"
-+-"\012\023\020\111\120\123\040\123\145\147\165\162\151\144\141\144"
-+-"\040\103\101\061\030\060\026\006\003\125\004\013\023\017\103\145"
-+-"\162\164\151\146\151\143\141\143\151\157\156\145\163\061\027\060"
-+-"\025\006\003\125\004\003\023\016\111\120\123\040\123\105\122\126"
-+-"\111\104\117\122\105\123\061\036\060\034\006\011\052\206\110\206"
-+-"\367\015\001\011\001\026\017\151\160\163\100\155\141\151\154\056"
-+-"\151\160\163\056\145\163"
-+-, (PRUint32)166 },
-+-  { (void *)"\002\001\000"
-+-, (PRUint32)3 },
-+-  { (void *)"\060\202\002\267\060\202\002\040\002\001\000\060\015\006\011\052"
-+-"\206\110\206\367\015\001\001\004\005\000\060\201\243\061\013\060"
-+-"\011\006\003\125\004\006\023\002\105\123\061\022\060\020\006\003"
-+-"\125\004\010\023\011\102\101\122\103\105\114\117\116\101\061\022"
-+-"\060\020\006\003\125\004\007\023\011\102\101\122\103\105\114\117"
-+-"\116\101\061\031\060\027\006\003\125\004\012\023\020\111\120\123"
-+-"\040\123\145\147\165\162\151\144\141\144\040\103\101\061\030\060"
-+-"\026\006\003\125\004\013\023\017\103\145\162\164\151\146\151\143"
-+-"\141\143\151\157\156\145\163\061\027\060\025\006\003\125\004\003"
-+-"\023\016\111\120\123\040\123\105\122\126\111\104\117\122\105\123"
-+-"\061\036\060\034\006\011\052\206\110\206\367\015\001\011\001\026"
-+-"\017\151\160\163\100\155\141\151\154\056\151\160\163\056\145\163"
-+-"\060\036\027\015\071\070\060\061\060\061\062\063\062\061\060\067"
-+-"\132\027\015\060\071\061\062\062\071\062\063\062\061\060\067\132"
-+-"\060\201\243\061\013\060\011\006\003\125\004\006\023\002\105\123"
-+-"\061\022\060\020\006\003\125\004\010\023\011\102\101\122\103\105"
-+-"\114\117\116\101\061\022\060\020\006\003\125\004\007\023\011\102"
-+-"\101\122\103\105\114\117\116\101\061\031\060\027\006\003\125\004"
-+-"\012\023\020\111\120\123\040\123\145\147\165\162\151\144\141\144"
-+-"\040\103\101\061\030\060\026\006\003\125\004\013\023\017\103\145"
-+-"\162\164\151\146\151\143\141\143\151\157\156\145\163\061\027\060"
-+-"\025\006\003\125\004\003\023\016\111\120\123\040\123\105\122\126"
-+-"\111\104\117\122\105\123\061\036\060\034\006\011\052\206\110\206"
-+-"\367\015\001\011\001\026\017\151\160\163\100\155\141\151\154\056"
-+-"\151\160\163\056\145\163\060\201\237\060\015\006\011\052\206\110"
-+-"\206\367\015\001\001\001\005\000\003\201\215\000\060\201\211\002"
-+-"\201\201\000\254\117\122\164\237\071\352\216\334\045\304\274\230"
-+-"\135\230\144\044\011\074\041\263\314\031\265\216\224\216\207\321"
-+-"\370\067\076\241\310\055\130\244\200\065\133\241\165\154\035\105"
-+-"\014\037\141\143\152\136\157\233\012\114\301\310\270\141\043\065"
-+-"\201\377\376\254\170\160\055\150\341\072\007\230\225\002\124\335"
-+-"\315\043\267\200\123\327\310\067\105\162\006\044\022\272\023\141"
-+-"\041\212\156\165\050\340\305\017\064\375\066\330\105\177\341\270"
-+-"\066\357\263\341\306\040\216\350\264\070\274\341\076\366\021\336"
-+-"\214\235\001\002\003\001\000\001\060\015\006\011\052\206\110\206"
-+-"\367\015\001\001\004\005\000\003\201\201\000\054\363\303\171\130"
-+-"\044\336\306\073\321\340\102\151\270\356\144\263\075\142\001\271"
-+-"\263\204\337\043\175\335\230\317\020\251\376\000\330\042\226\005"
-+-"\023\007\124\127\305\247\336\313\331\270\210\102\366\231\333\024"
-+-"\167\037\266\376\045\075\341\242\076\003\251\201\322\055\154\107"
-+-"\365\226\106\214\042\253\310\314\015\016\227\136\213\101\264\073"
-+-"\304\012\006\100\035\335\106\364\001\335\272\202\056\074\075\170"
-+-"\160\236\174\030\320\253\370\270\167\007\106\161\361\312\013\143"
-+-"\134\152\371\162\224\325\001\117\240\333\102"
-+-, (PRUint32)699 }
-+-};
-+-static const NSSItem nss_builtins_items_151 [] = {
-+-  { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+-  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)"IPS Servidores root", (PRUint32)20 },
-+-  { (void *)"\044\272\155\154\212\133\130\067\244\215\265\372\351\031\352\147"
-+-"\134\224\322\027"
-+-, (PRUint32)20 },
-+-  { (void *)"\173\265\010\231\232\214\030\277\205\047\175\016\256\332\262\253"
-+-, (PRUint32)16 },
-+-  { (void *)"\060\201\243\061\013\060\011\006\003\125\004\006\023\002\105\123"
-+-"\061\022\060\020\006\003\125\004\010\023\011\102\101\122\103\105"
-+-"\114\117\116\101\061\022\060\020\006\003\125\004\007\023\011\102"
-+-"\101\122\103\105\114\117\116\101\061\031\060\027\006\003\125\004"
-+-"\012\023\020\111\120\123\040\123\145\147\165\162\151\144\141\144"
-+-"\040\103\101\061\030\060\026\006\003\125\004\013\023\017\103\145"
-+-"\162\164\151\146\151\143\141\143\151\157\156\145\163\061\027\060"
-+-"\025\006\003\125\004\003\023\016\111\120\123\040\123\105\122\126"
-+-"\111\104\117\122\105\123\061\036\060\034\006\011\052\206\110\206"
-+-"\367\015\001\011\001\026\017\151\160\163\100\155\141\151\154\056"
-+-"\151\160\163\056\145\163"
-+-, (PRUint32)166 },
-+-  { (void *)"\002\001\000"
-+-, (PRUint32)3 },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_152 [] = {
-++static const NSSItem nss_builtins_items_132 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -10707,7 +9484,7 @@ static const NSSItem nss_builtins_items_152 [] = {
-+ "\207\112\137\334\357\351\126\360\012\014\350\165"
-+ , (PRUint32)2108 }
-+ };
-+-static const NSSItem nss_builtins_items_153 [] = {
-++static const NSSItem nss_builtins_items_133 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -10740,12 +9517,12 @@ static const NSSItem nss_builtins_items_153 [] = {
-+ , (PRUint32)290 },
-+   { (void *)"\002\001\000"
-+ , (PRUint32)3 },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_154 [] = {
-++static const NSSItem nss_builtins_items_134 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -10871,7 +9648,7 @@ static const NSSItem nss_builtins_items_154 [] = {
-+ "\112\164\066\371"
-+ , (PRUint32)1492 }
-+ };
-+-static const NSSItem nss_builtins_items_155 [] = {
-++static const NSSItem nss_builtins_items_135 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -10899,7 +9676,7 @@ static const NSSItem nss_builtins_items_155 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_156 [] = {
-++static const NSSItem nss_builtins_items_136 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -11015,7 +9792,7 @@ static const NSSItem nss_builtins_items_156 [] = {
-+ "\020\005\145\325\202\020\352\302\061\315\056"
-+ , (PRUint32)1467 }
-+ };
-+-static const NSSItem nss_builtins_items_157 [] = {
-++static const NSSItem nss_builtins_items_137 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -11039,7 +9816,7 @@ static const NSSItem nss_builtins_items_157 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_158 [] = {
-++static const NSSItem nss_builtins_items_138 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -11170,7 +9947,7 @@ static const NSSItem nss_builtins_items_158 [] = {
-+ "\332"
-+ , (PRUint32)1697 }
-+ };
-+-static const NSSItem nss_builtins_items_159 [] = {
-++static const NSSItem nss_builtins_items_139 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -11194,7 +9971,7 @@ static const NSSItem nss_builtins_items_159 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_160 [] = {
-++static const NSSItem nss_builtins_items_140 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -11274,7 +10051,7 @@ static const NSSItem nss_builtins_items_160 [] = {
-+ "\057\317\246\356\311\160\042\024\275\375\276\154\013\003"
-+ , (PRUint32)862 }
-+ };
-+-static const NSSItem nss_builtins_items_161 [] = {
-++static const NSSItem nss_builtins_items_141 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -11299,7 +10076,7 @@ static const NSSItem nss_builtins_items_161 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_162 [] = {
-++static const NSSItem nss_builtins_items_142 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -11372,7 +10149,7 @@ static const NSSItem nss_builtins_items_162 [] = {
-+ "\127\275\125\232"
-+ , (PRUint32)804 }
-+ };
-+-static const NSSItem nss_builtins_items_163 [] = {
-++static const NSSItem nss_builtins_items_143 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -11395,7 +10172,7 @@ static const NSSItem nss_builtins_items_163 [] = {
-+   { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_164 [] = {
-++static const NSSItem nss_builtins_items_144 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -11468,7 +10245,7 @@ static const NSSItem nss_builtins_items_164 [] = {
-+ "\160\254\337\114"
-+ , (PRUint32)804 }
-+ };
-+-static const NSSItem nss_builtins_items_165 [] = {
-++static const NSSItem nss_builtins_items_145 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -11491,7 +10268,7 @@ static const NSSItem nss_builtins_items_165 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_166 [] = {
-++static const NSSItem nss_builtins_items_146 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -11577,7 +10354,7 @@ static const NSSItem nss_builtins_items_166 [] = {
-+ "\025\301\044\174\062\174\003\035\073\241\130\105\062\223"
-+ , (PRUint32)958 }
-+ };
-+-static const NSSItem nss_builtins_items_167 [] = {
-++static const NSSItem nss_builtins_items_147 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -11602,7 +10379,7 @@ static const NSSItem nss_builtins_items_167 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_168 [] = {
-++static const NSSItem nss_builtins_items_148 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -11693,7 +10470,7 @@ static const NSSItem nss_builtins_items_168 [] = {
-+ "\151\003\142\270\231\005\005\075\153\170\022\275\260\157\145"
-+ , (PRUint32)1071 }
-+ };
-+-static const NSSItem nss_builtins_items_169 [] = {
-++static const NSSItem nss_builtins_items_149 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -11717,7 +10494,7 @@ static const NSSItem nss_builtins_items_169 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_170 [] = {
-++static const NSSItem nss_builtins_items_150 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -11821,7 +10598,7 @@ static const NSSItem nss_builtins_items_170 [] = {
-+ "\004\243\103\055\332\374\013\142\352\057\137\142\123"
-+ , (PRUint32)1309 }
-+ };
-+-static const NSSItem nss_builtins_items_171 [] = {
-++static const NSSItem nss_builtins_items_151 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -11844,7 +10621,7 @@ static const NSSItem nss_builtins_items_171 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_172 [] = {
-++static const NSSItem nss_builtins_items_152 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -11950,7 +10727,7 @@ static const NSSItem nss_builtins_items_172 [] = {
-+ "\364\010"
-+ , (PRUint32)1122 }
-+ };
-+-static const NSSItem nss_builtins_items_173 [] = {
-++static const NSSItem nss_builtins_items_153 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -11980,7 +10757,7 @@ static const NSSItem nss_builtins_items_173 [] = {
-+   { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_174 [] = {
-++static const NSSItem nss_builtins_items_154 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -12094,7 +10871,7 @@ static const NSSItem nss_builtins_items_174 [] = {
-+ "\005\323\312\003\112\124"
-+ , (PRUint32)1190 }
-+ };
-+-static const NSSItem nss_builtins_items_175 [] = {
-++static const NSSItem nss_builtins_items_155 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -12126,7 +10903,7 @@ static const NSSItem nss_builtins_items_175 [] = {
-+   { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_176 [] = {
-++static const NSSItem nss_builtins_items_156 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -12233,7 +11010,7 @@ static const NSSItem nss_builtins_items_176 [] = {
-+ "\062\234\036\273\235\370\146\250"
-+ , (PRUint32)1144 }
-+ };
-+-static const NSSItem nss_builtins_items_177 [] = {
-++static const NSSItem nss_builtins_items_157 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -12263,7 +11040,7 @@ static const NSSItem nss_builtins_items_177 [] = {
-+   { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_178 [] = {
-++static const NSSItem nss_builtins_items_158 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -12369,7 +11146,7 @@ static const NSSItem nss_builtins_items_178 [] = {
-+ "\275\023\122\035\250\076\315\000\037\310"
-+ , (PRUint32)1130 }
-+ };
-+-static const NSSItem nss_builtins_items_179 [] = {
-++static const NSSItem nss_builtins_items_159 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -12399,7 +11176,7 @@ static const NSSItem nss_builtins_items_179 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_180 [] = {
-++static const NSSItem nss_builtins_items_160 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -12508,7 +11285,7 @@ static const NSSItem nss_builtins_items_180 [] = {
-+ "\334"
-+ , (PRUint32)1217 }
-+ };
-+-static const NSSItem nss_builtins_items_181 [] = {
-++static const NSSItem nss_builtins_items_161 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -12536,7 +11313,7 @@ static const NSSItem nss_builtins_items_181 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_182 [] = {
-++static const NSSItem nss_builtins_items_162 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -12643,7 +11420,7 @@ static const NSSItem nss_builtins_items_182 [] = {
-+ "\166\135\165\220\032\365\046\217\360"
-+ , (PRUint32)1225 }
-+ };
-+-static const NSSItem nss_builtins_items_183 [] = {
-++static const NSSItem nss_builtins_items_163 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -12670,7 +11447,7 @@ static const NSSItem nss_builtins_items_183 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_184 [] = {
-++static const NSSItem nss_builtins_items_164 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -12820,7 +11597,7 @@ static const NSSItem nss_builtins_items_184 [] = {
-+ "\306\224\107\351\050"
-+ , (PRUint32)1749 }
-+ };
-+-static const NSSItem nss_builtins_items_185 [] = {
-++static const NSSItem nss_builtins_items_165 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -12852,7 +11629,7 @@ static const NSSItem nss_builtins_items_185 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_186 [] = {
-++static const NSSItem nss_builtins_items_166 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -12995,7 +11772,7 @@ static const NSSItem nss_builtins_items_186 [] = {
-+ "\210"
-+ , (PRUint32)1665 }
-+ };
-+-static const NSSItem nss_builtins_items_187 [] = {
-++static const NSSItem nss_builtins_items_167 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -13026,7 +11803,7 @@ static const NSSItem nss_builtins_items_187 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_188 [] = {
-++static const NSSItem nss_builtins_items_168 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -13145,7 +11922,7 @@ static const NSSItem nss_builtins_items_188 [] = {
-+ "\066\053\143\254\130\001\153\063\051\120\206\203\361\001\110"
-+ , (PRUint32)1359 }
-+ };
-+-static const NSSItem nss_builtins_items_189 [] = {
-++static const NSSItem nss_builtins_items_169 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -13174,7 +11951,7 @@ static const NSSItem nss_builtins_items_189 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_190 [] = {
-++static const NSSItem nss_builtins_items_170 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -13294,7 +12071,7 @@ static const NSSItem nss_builtins_items_190 [] = {
-+ "\063\004\324"
-+ , (PRUint32)1363 }
-+ };
-+-static const NSSItem nss_builtins_items_191 [] = {
-++static const NSSItem nss_builtins_items_171 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -13323,7 +12100,7 @@ static const NSSItem nss_builtins_items_191 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_192 [] = {
-++static const NSSItem nss_builtins_items_172 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -13424,7 +12201,7 @@ static const NSSItem nss_builtins_items_192 [] = {
-+ "\264\003\045\274"
-+ , (PRUint32)1076 }
-+ };
-+-static const NSSItem nss_builtins_items_193 [] = {
-++static const NSSItem nss_builtins_items_173 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -13453,7 +12230,7 @@ static const NSSItem nss_builtins_items_193 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_194 [] = {
-++static const NSSItem nss_builtins_items_174 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -13546,7 +12323,7 @@ static const NSSItem nss_builtins_items_194 [] = {
-+ "\177\333\275\237"
-+ , (PRUint32)1028 }
-+ };
-+-static const NSSItem nss_builtins_items_195 [] = {
-++static const NSSItem nss_builtins_items_175 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -13572,7 +12349,7 @@ static const NSSItem nss_builtins_items_195 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_196 [] = {
-++static const NSSItem nss_builtins_items_176 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -13666,7 +12443,7 @@ static const NSSItem nss_builtins_items_196 [] = {
-+ "\037\027\224"
-+ , (PRUint32)1043 }
-+ };
-+-static const NSSItem nss_builtins_items_197 [] = {
-++static const NSSItem nss_builtins_items_177 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -13692,158 +12469,7 @@ static const NSSItem nss_builtins_items_197 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_198 [] = {
-+-  { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+-  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)"StartCom Ltd.", (PRUint32)14 },
-+-  { (void *)&ckc_x_509, (PRUint32)sizeof(CK_CERTIFICATE_TYPE) },
-+-  { (void *)"\060\201\260\061\013\060\011\006\003\125\004\006\023\002\111\114"
-+-"\061\017\060\015\006\003\125\004\010\023\006\111\163\162\141\145"
-+-"\154\061\016\060\014\006\003\125\004\007\023\005\105\151\154\141"
-+-"\164\061\026\060\024\006\003\125\004\012\023\015\123\164\141\162"
-+-"\164\103\157\155\040\114\164\144\056\061\032\060\030\006\003\125"
-+-"\004\013\023\021\103\101\040\101\165\164\150\157\162\151\164\171"
-+-"\040\104\145\160\056\061\051\060\047\006\003\125\004\003\023\040"
-+-"\106\162\145\145\040\123\123\114\040\103\145\162\164\151\146\151"
-+-"\143\141\164\151\157\156\040\101\165\164\150\157\162\151\164\171"
-+-"\061\041\060\037\006\011\052\206\110\206\367\015\001\011\001\026"
-+-"\022\141\144\155\151\156\100\163\164\141\162\164\143\157\155\056"
-+-"\157\162\147"
-+-, (PRUint32)179 },
-+-  { (void *)"0", (PRUint32)2 },
-+-  { (void *)"\060\201\260\061\013\060\011\006\003\125\004\006\023\002\111\114"
-+-"\061\017\060\015\006\003\125\004\010\023\006\111\163\162\141\145"
-+-"\154\061\016\060\014\006\003\125\004\007\023\005\105\151\154\141"
-+-"\164\061\026\060\024\006\003\125\004\012\023\015\123\164\141\162"
-+-"\164\103\157\155\040\114\164\144\056\061\032\060\030\006\003\125"
-+-"\004\013\023\021\103\101\040\101\165\164\150\157\162\151\164\171"
-+-"\040\104\145\160\056\061\051\060\047\006\003\125\004\003\023\040"
-+-"\106\162\145\145\040\123\123\114\040\103\145\162\164\151\146\151"
-+-"\143\141\164\151\157\156\040\101\165\164\150\157\162\151\164\171"
-+-"\061\041\060\037\006\011\052\206\110\206\367\015\001\011\001\026"
-+-"\022\141\144\155\151\156\100\163\164\141\162\164\143\157\155\056"
-+-"\157\162\147"
-+-, (PRUint32)179 },
-+-  { (void *)"\002\001\000"
-+-, (PRUint32)3 },
-+-  { (void *)"\060\202\005\026\060\202\004\177\240\003\002\001\002\002\001\000"
-+-"\060\015\006\011\052\206\110\206\367\015\001\001\004\005\000\060"
-+-"\201\260\061\013\060\011\006\003\125\004\006\023\002\111\114\061"
-+-"\017\060\015\006\003\125\004\010\023\006\111\163\162\141\145\154"
-+-"\061\016\060\014\006\003\125\004\007\023\005\105\151\154\141\164"
-+-"\061\026\060\024\006\003\125\004\012\023\015\123\164\141\162\164"
-+-"\103\157\155\040\114\164\144\056\061\032\060\030\006\003\125\004"
-+-"\013\023\021\103\101\040\101\165\164\150\157\162\151\164\171\040"
-+-"\104\145\160\056\061\051\060\047\006\003\125\004\003\023\040\106"
-+-"\162\145\145\040\123\123\114\040\103\145\162\164\151\146\151\143"
-+-"\141\164\151\157\156\040\101\165\164\150\157\162\151\164\171\061"
-+-"\041\060\037\006\011\052\206\110\206\367\015\001\011\001\026\022"
-+-"\141\144\155\151\156\100\163\164\141\162\164\143\157\155\056\157"
-+-"\162\147\060\036\027\015\060\065\060\063\061\067\061\067\063\067"
-+-"\064\070\132\027\015\063\065\060\063\061\060\061\067\063\067\064"
-+-"\070\132\060\201\260\061\013\060\011\006\003\125\004\006\023\002"
-+-"\111\114\061\017\060\015\006\003\125\004\010\023\006\111\163\162"
-+-"\141\145\154\061\016\060\014\006\003\125\004\007\023\005\105\151"
-+-"\154\141\164\061\026\060\024\006\003\125\004\012\023\015\123\164"
-+-"\141\162\164\103\157\155\040\114\164\144\056\061\032\060\030\006"
-+-"\003\125\004\013\023\021\103\101\040\101\165\164\150\157\162\151"
-+-"\164\171\040\104\145\160\056\061\051\060\047\006\003\125\004\003"
-+-"\023\040\106\162\145\145\040\123\123\114\040\103\145\162\164\151"
-+-"\146\151\143\141\164\151\157\156\040\101\165\164\150\157\162\151"
-+-"\164\171\061\041\060\037\006\011\052\206\110\206\367\015\001\011"
-+-"\001\026\022\141\144\155\151\156\100\163\164\141\162\164\143\157"
-+-"\155\056\157\162\147\060\201\237\060\015\006\011\052\206\110\206"
-+-"\367\015\001\001\001\005\000\003\201\215\000\060\201\211\002\201"
-+-"\201\000\355\204\140\000\043\236\310\112\121\051\047\336\072\241"
-+-"\071\265\151\253\011\262\057\064\375\141\334\075\323\260\317\261"
-+-"\327\302\304\302\261\344\226\126\304\276\252\024\016\347\314\072"
-+-"\120\310\072\142\235\303\243\254\131\173\216\356\125\032\034\107"
-+-"\276\243\227\071\263\265\357\043\054\010\350\330\257\163\057\271"
-+-"\311\203\350\355\000\017\310\165\245\057\064\114\030\350\166\210"
-+-"\043\111\212\333\266\355\150\332\303\265\142\051\114\245\113\267"
-+-"\230\264\011\024\020\240\370\376\142\166\042\025\013\244\326\010"
-+-"\057\065\002\003\001\000\001\243\202\002\074\060\202\002\070\060"
-+-"\017\006\003\125\035\023\001\001\377\004\005\060\003\001\001\377"
-+-"\060\013\006\003\125\035\017\004\004\003\002\001\346\060\035\006"
-+-"\003\125\035\016\004\026\004\024\034\211\303\226\314\275\376\062"
-+-"\325\015\214\201\061\266\230\235\215\050\144\215\060\201\335\006"
-+-"\003\125\035\043\004\201\325\060\201\322\200\024\034\211\303\226"
-+-"\314\275\376\062\325\015\214\201\061\266\230\235\215\050\144\215"
-+-"\241\201\266\244\201\263\060\201\260\061\013\060\011\006\003\125"
-+-"\004\006\023\002\111\114\061\017\060\015\006\003\125\004\010\023"
-+-"\006\111\163\162\141\145\154\061\016\060\014\006\003\125\004\007"
-+-"\023\005\105\151\154\141\164\061\026\060\024\006\003\125\004\012"
-+-"\023\015\123\164\141\162\164\103\157\155\040\114\164\144\056\061"
-+-"\032\060\030\006\003\125\004\013\023\021\103\101\040\101\165\164"
-+-"\150\157\162\151\164\171\040\104\145\160\056\061\051\060\047\006"
-+-"\003\125\004\003\023\040\106\162\145\145\040\123\123\114\040\103"
-+-"\145\162\164\151\146\151\143\141\164\151\157\156\040\101\165\164"
-+-"\150\157\162\151\164\171\061\041\060\037\006\011\052\206\110\206"
-+-"\367\015\001\011\001\026\022\141\144\155\151\156\100\163\164\141"
-+-"\162\164\143\157\155\056\157\162\147\202\001\000\060\035\006\003"
-+-"\125\035\021\004\026\060\024\201\022\141\144\155\151\156\100\163"
-+-"\164\141\162\164\143\157\155\056\157\162\147\060\035\006\003\125"
-+-"\035\022\004\026\060\024\201\022\141\144\155\151\156\100\163\164"
-+-"\141\162\164\143\157\155\056\157\162\147\060\021\006\011\140\206"
-+-"\110\001\206\370\102\001\001\004\004\003\002\000\007\060\057\006"
-+-"\011\140\206\110\001\206\370\102\001\015\004\042\026\040\106\162"
-+-"\145\145\040\123\123\114\040\103\145\162\164\151\146\151\143\141"
-+-"\164\151\157\156\040\101\165\164\150\157\162\151\164\171\060\062"
-+-"\006\011\140\206\110\001\206\370\102\001\004\004\045\026\043\150"
-+-"\164\164\160\072\057\057\143\145\162\164\056\163\164\141\162\164"
-+-"\143\157\155\056\157\162\147\057\143\141\055\143\162\154\056\143"
-+-"\162\154\060\050\006\011\140\206\110\001\206\370\102\001\002\004"
-+-"\033\026\031\150\164\164\160\072\057\057\143\145\162\164\056\163"
-+-"\164\141\162\164\143\157\155\056\157\162\147\057\060\071\006\011"
-+-"\140\206\110\001\206\370\102\001\010\004\054\026\052\150\164\164"
-+-"\160\072\057\057\143\145\162\164\056\163\164\141\162\164\143\157"
-+-"\155\056\157\162\147\057\151\156\144\145\170\056\160\150\160\077"
-+-"\141\160\160\075\061\061\061\060\015\006\011\052\206\110\206\367"
-+-"\015\001\001\004\005\000\003\201\201\000\154\161\045\341\236\064"
-+-"\221\041\357\333\154\275\001\010\126\217\210\330\101\072\123\365"
-+-"\162\337\047\127\113\166\204\367\150\244\376\353\077\011\176\050"
-+-"\270\127\352\037\301\252\342\377\226\237\111\231\346\262\225\163"
-+-"\226\306\110\307\136\215\007\162\126\370\203\217\237\167\257\051"
-+-"\323\105\016\244\356\260\066\164\055\360\315\230\043\173\067\113"
-+-"\332\376\121\230\304\036\064\074\210\375\231\073\120\247\301\213"
-+-"\063\307\302\122\026\022\225\123\145\042\357\272\213\316\142\333"
-+-"\160\043\261\200\337\032\040\070\347\176"
-+-, (PRUint32)1306 }
-+-};
-+-static const NSSItem nss_builtins_items_199 [] = {
-+-  { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+-  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)"StartCom Ltd.", (PRUint32)14 },
-+-  { (void *)"\225\346\255\370\327\161\106\002\115\325\152\041\262\347\077\315"
-+-"\362\073\065\377"
-+-, (PRUint32)20 },
-+-  { (void *)"\010\174\130\037\122\053\104\264\073\171\315\001\370\305\303\311"
-+-, (PRUint32)16 },
-+-  { (void *)"\060\201\260\061\013\060\011\006\003\125\004\006\023\002\111\114"
-+-"\061\017\060\015\006\003\125\004\010\023\006\111\163\162\141\145"
-+-"\154\061\016\060\014\006\003\125\004\007\023\005\105\151\154\141"
-+-"\164\061\026\060\024\006\003\125\004\012\023\015\123\164\141\162"
-+-"\164\103\157\155\040\114\164\144\056\061\032\060\030\006\003\125"
-+-"\004\013\023\021\103\101\040\101\165\164\150\157\162\151\164\171"
-+-"\040\104\145\160\056\061\051\060\047\006\003\125\004\003\023\040"
-+-"\106\162\145\145\040\123\123\114\040\103\145\162\164\151\146\151"
-+-"\143\141\164\151\157\156\040\101\165\164\150\157\162\151\164\171"
-+-"\061\041\060\037\006\011\052\206\110\206\367\015\001\011\001\026"
-+-"\022\141\144\155\151\156\100\163\164\141\162\164\143\157\155\056"
-+-"\157\162\147"
-+-, (PRUint32)179 },
-+-  { (void *)"\002\001\000"
-+-, (PRUint32)3 },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+-  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+-};
-+-static const NSSItem nss_builtins_items_200 [] = {
-++static const NSSItem nss_builtins_items_178 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -13998,7 +12624,7 @@ static const NSSItem nss_builtins_items_200 [] = {
-+ "\152\263\364\210\034\200\015\374\162\212\350\203\136"
-+ , (PRUint32)1997 }
-+ };
-+-static const NSSItem nss_builtins_items_201 [] = {
-++static const NSSItem nss_builtins_items_179 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -14025,7 +12651,7 @@ static const NSSItem nss_builtins_items_201 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_202 [] = {
-++static const NSSItem nss_builtins_items_180 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -14138,7 +12764,7 @@ static const NSSItem nss_builtins_items_202 [] = {
-+ "\245\206\054\174\364\022"
-+ , (PRUint32)1398 }
-+ };
-+-static const NSSItem nss_builtins_items_203 [] = {
-++static const NSSItem nss_builtins_items_181 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -14163,7 +12789,7 @@ static const NSSItem nss_builtins_items_203 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_204 [] = {
-++static const NSSItem nss_builtins_items_182 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -14267,7 +12893,7 @@ static const NSSItem nss_builtins_items_204 [] = {
-+ "\252\341\247\063\366\375\112\037\366\331\140"
-+ , (PRUint32)1115 }
-+ };
-+-static const NSSItem nss_builtins_items_205 [] = {
-++static const NSSItem nss_builtins_items_183 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -14296,7 +12922,7 @@ static const NSSItem nss_builtins_items_205 [] = {
-+   { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_206 [] = {
-++static const NSSItem nss_builtins_items_184 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -14391,7 +13017,7 @@ static const NSSItem nss_builtins_items_206 [] = {
-+ "\117\041\145\073\112\177\107\243\373"
-+ , (PRUint32)1001 }
-+ };
-+-static const NSSItem nss_builtins_items_207 [] = {
-++static const NSSItem nss_builtins_items_185 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -14419,7 +13045,7 @@ static const NSSItem nss_builtins_items_207 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_208 [] = {
-++static const NSSItem nss_builtins_items_186 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -14542,7 +13168,7 @@ static const NSSItem nss_builtins_items_208 [] = {
-+ "\060\032\365\232\154\364\016\123\371\072\133\321\034"
-+ , (PRUint32)1501 }
-+ };
-+-static const NSSItem nss_builtins_items_209 [] = {
-++static const NSSItem nss_builtins_items_187 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -14569,7 +13195,7 @@ static const NSSItem nss_builtins_items_209 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_210 [] = {
-++static const NSSItem nss_builtins_items_188 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -14658,7 +13284,7 @@ static const NSSItem nss_builtins_items_210 [] = {
-+ "\346\120\262\247\372\012\105\057\242\360\362"
-+ , (PRUint32)955 }
-+ };
-+-static const NSSItem nss_builtins_items_211 [] = {
-++static const NSSItem nss_builtins_items_189 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -14685,7 +13311,7 @@ static const NSSItem nss_builtins_items_211 [] = {
-+   { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_212 [] = {
-++static const NSSItem nss_builtins_items_190 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -14774,7 +13400,7 @@ static const NSSItem nss_builtins_items_212 [] = {
-+ "\225\155\336"
-+ , (PRUint32)947 }
-+ };
-+-static const NSSItem nss_builtins_items_213 [] = {
-++static const NSSItem nss_builtins_items_191 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -14801,7 +13427,7 @@ static const NSSItem nss_builtins_items_213 [] = {
-+   { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_214 [] = {
-++static const NSSItem nss_builtins_items_192 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -14891,7 +13517,7 @@ static const NSSItem nss_builtins_items_214 [] = {
-+ "\370\351\056\023\243\167\350\037\112"
-+ , (PRUint32)969 }
-+ };
-+-static const NSSItem nss_builtins_items_215 [] = {
-++static const NSSItem nss_builtins_items_193 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -14918,7 +13544,7 @@ static const NSSItem nss_builtins_items_215 [] = {
-+   { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_216 [] = {
-++static const NSSItem nss_builtins_items_194 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -14999,7 +13625,7 @@ static const NSSItem nss_builtins_items_216 [] = {
-+ "\227\277\242\216\264\124"
-+ , (PRUint32)918 }
-+ };
-+-static const NSSItem nss_builtins_items_217 [] = {
-++static const NSSItem nss_builtins_items_195 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -15023,7 +13649,7 @@ static const NSSItem nss_builtins_items_217 [] = {
-+   { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_218 [] = {
-++static const NSSItem nss_builtins_items_196 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -15101,7 +13727,7 @@ static const NSSItem nss_builtins_items_218 [] = {
-+ "\013\004\216\007\333\051\266\012\356\235\202\065\065\020"
-+ , (PRUint32)846 }
-+ };
-+-static const NSSItem nss_builtins_items_219 [] = {
-++static const NSSItem nss_builtins_items_197 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -15126,7 +13752,7 @@ static const NSSItem nss_builtins_items_219 [] = {
-+   { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_220 [] = {
-++static const NSSItem nss_builtins_items_198 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -15218,7 +13844,7 @@ static const NSSItem nss_builtins_items_220 [] = {
-+ "\363\267\240\247\315\345\172\063\066\152\372\232\053"
-+ , (PRUint32)1037 }
-+ };
-+-static const NSSItem nss_builtins_items_221 [] = {
-++static const NSSItem nss_builtins_items_199 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -15244,7 +13870,7 @@ static const NSSItem nss_builtins_items_221 [] = {
-+   { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_222 [] = {
-++static const NSSItem nss_builtins_items_200 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -15346,7 +13972,7 @@ static const NSSItem nss_builtins_items_222 [] = {
-+ "\104\144\003\045\352\336\133\156\237\311\362\116\254\335\307"
-+ , (PRUint32)1023 }
-+ };
-+-static const NSSItem nss_builtins_items_223 [] = {
-++static const NSSItem nss_builtins_items_201 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -15377,7 +14003,7 @@ static const NSSItem nss_builtins_items_223 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_224 [] = {
-++static const NSSItem nss_builtins_items_202 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -15485,7 +14111,7 @@ static const NSSItem nss_builtins_items_224 [] = {
-+ "\167\161\307\372\221\372\057\121\236\351\071\122\266\347\004\102"
-+ , (PRUint32)1088 }
-+ };
-+-static const NSSItem nss_builtins_items_225 [] = {
-++static const NSSItem nss_builtins_items_203 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -15517,7 +14143,7 @@ static const NSSItem nss_builtins_items_225 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_226 [] = {
-++static const NSSItem nss_builtins_items_204 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -15634,7 +14260,7 @@ static const NSSItem nss_builtins_items_226 [] = {
-+ "\205\206\171\145\322"
-+ , (PRUint32)1477 }
-+ };
-+-static const NSSItem nss_builtins_items_227 [] = {
-++static const NSSItem nss_builtins_items_205 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -15658,7 +14284,7 @@ static const NSSItem nss_builtins_items_227 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_228 [] = {
-++static const NSSItem nss_builtins_items_206 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -15774,7 +14400,7 @@ static const NSSItem nss_builtins_items_228 [] = {
-+ "\111\044\133\311\260\320\127\301\372\076\172\341\227\311"
-+ , (PRUint32)1470 }
-+ };
-+-static const NSSItem nss_builtins_items_229 [] = {
-++static const NSSItem nss_builtins_items_207 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -15798,7 +14424,7 @@ static const NSSItem nss_builtins_items_229 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_230 [] = {
-++static const NSSItem nss_builtins_items_208 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -15915,7 +14541,7 @@ static const NSSItem nss_builtins_items_230 [] = {
-+ "\156"
-+ , (PRUint32)1473 }
-+ };
-+-static const NSSItem nss_builtins_items_231 [] = {
-++static const NSSItem nss_builtins_items_209 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -15939,7 +14565,7 @@ static const NSSItem nss_builtins_items_231 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_232 [] = {
-++static const NSSItem nss_builtins_items_210 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -16022,7 +14648,7 @@ static const NSSItem nss_builtins_items_232 [] = {
-+ "\253\022\350\263\336\132\345\240\174\350\017\042\035\132\351\131"
-+ , (PRUint32)896 }
-+ };
-+-static const NSSItem nss_builtins_items_233 [] = {
-++static const NSSItem nss_builtins_items_211 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -16048,7 +14674,7 @@ static const NSSItem nss_builtins_items_233 [] = {
-+   { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_234 [] = {
-++static const NSSItem nss_builtins_items_212 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -16152,7 +14778,7 @@ static const NSSItem nss_builtins_items_234 [] = {
-+ "\215\126\214\150"
-+ , (PRUint32)1060 }
-+ };
-+-static const NSSItem nss_builtins_items_235 [] = {
-++static const NSSItem nss_builtins_items_213 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -16183,7 +14809,7 @@ static const NSSItem nss_builtins_items_235 [] = {
-+   { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_236 [] = {
-++static const NSSItem nss_builtins_items_214 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -16302,7 +14928,7 @@ static const NSSItem nss_builtins_items_236 [] = {
-+ "\254\021\326\250\355\143\152"
-+ , (PRUint32)1239 }
-+ };
-+-static const NSSItem nss_builtins_items_237 [] = {
-++static const NSSItem nss_builtins_items_215 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -16335,7 +14961,7 @@ static const NSSItem nss_builtins_items_237 [] = {
-+   { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_238 [] = {
-++static const NSSItem nss_builtins_items_216 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -16420,7 +15046,7 @@ static const NSSItem nss_builtins_items_238 [] = {
-+ "\113\035\236\054\302\270\150\274\355\002\356\061"
-+ , (PRUint32)956 }
-+ };
-+-static const NSSItem nss_builtins_items_239 [] = {
-++static const NSSItem nss_builtins_items_217 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -16445,7 +15071,7 @@ static const NSSItem nss_builtins_items_239 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_240 [] = {
-++static const NSSItem nss_builtins_items_218 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -16530,7 +15156,7 @@ static const NSSItem nss_builtins_items_240 [] = {
-+ "\117\043\037\332\154\254\037\104\341\335\043\170\121\133\307\026"
-+ , (PRUint32)960 }
-+ };
-+-static const NSSItem nss_builtins_items_241 [] = {
-++static const NSSItem nss_builtins_items_219 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -16555,7 +15181,7 @@ static const NSSItem nss_builtins_items_241 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_242 [] = {
-++static const NSSItem nss_builtins_items_220 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -16655,7 +15281,7 @@ static const NSSItem nss_builtins_items_242 [] = {
-+ "\145"
-+ , (PRUint32)1057 }
-+ };
-+-static const NSSItem nss_builtins_items_243 [] = {
-++static const NSSItem nss_builtins_items_221 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -16684,7 +15310,7 @@ static const NSSItem nss_builtins_items_243 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_244 [] = {
-++static const NSSItem nss_builtins_items_222 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -16802,7 +15428,7 @@ static const NSSItem nss_builtins_items_244 [] = {
-+ "\262\345\214\360\206\231\270\345\305\337\204\301\267\353"
-+ , (PRUint32)1422 }
-+ };
-+-static const NSSItem nss_builtins_items_245 [] = {
-++static const NSSItem nss_builtins_items_223 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -16829,7 +15455,7 @@ static const NSSItem nss_builtins_items_245 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_246 [] = {
-++static const NSSItem nss_builtins_items_224 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -16921,7 +15547,7 @@ static const NSSItem nss_builtins_items_246 [] = {
-+ "\244\140\114\260\125\240\240\173\127\262"
-+ , (PRUint32)1002 }
-+ };
-+-static const NSSItem nss_builtins_items_247 [] = {
-++static const NSSItem nss_builtins_items_225 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -16948,7 +15574,7 @@ static const NSSItem nss_builtins_items_247 [] = {
-+   { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_248 [] = {
-++static const NSSItem nss_builtins_items_226 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -17057,7 +15683,7 @@ static const NSSItem nss_builtins_items_248 [] = {
-+ "\333"
-+ , (PRUint32)1217 }
-+ };
-+-static const NSSItem nss_builtins_items_249 [] = {
-++static const NSSItem nss_builtins_items_227 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -17085,7 +15711,7 @@ static const NSSItem nss_builtins_items_249 [] = {
-+   { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_250 [] = {
-++static const NSSItem nss_builtins_items_228 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -17159,7 +15785,7 @@ static const NSSItem nss_builtins_items_250 [] = {
-+ "\334\335\363\377\035\054\072\026\127\331\222\071\326"
-+ , (PRUint32)653 }
-+ };
-+-static const NSSItem nss_builtins_items_251 [] = {
-++static const NSSItem nss_builtins_items_229 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -17188,7 +15814,7 @@ static const NSSItem nss_builtins_items_251 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_252 [] = {
-++static const NSSItem nss_builtins_items_230 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -17280,7 +15906,7 @@ static const NSSItem nss_builtins_items_252 [] = {
-+ "\321\236\164\310\166\147"
-+ , (PRUint32)1078 }
-+ };
-+-static const NSSItem nss_builtins_items_253 [] = {
-++static const NSSItem nss_builtins_items_231 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -17305,7 +15931,7 @@ static const NSSItem nss_builtins_items_253 [] = {
-+   { (void *)&ckt_netscape_untrusted, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_254 [] = {
-++static const NSSItem nss_builtins_items_232 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -17402,7 +16028,7 @@ static const NSSItem nss_builtins_items_254 [] = {
-+ "\253\205\322\140\126\132"
-+ , (PRUint32)1030 }
-+ };
-+-static const NSSItem nss_builtins_items_255 [] = {
-++static const NSSItem nss_builtins_items_233 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -17430,7 +16056,7 @@ static const NSSItem nss_builtins_items_255 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_256 [] = {
-++static const NSSItem nss_builtins_items_234 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -17515,7 +16141,7 @@ static const NSSItem nss_builtins_items_256 [] = {
-+ "\164"
-+ , (PRUint32)897 }
-+ };
-+-static const NSSItem nss_builtins_items_257 [] = {
-++static const NSSItem nss_builtins_items_235 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -17541,7 +16167,7 @@ static const NSSItem nss_builtins_items_257 [] = {
-+   { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_258 [] = {
-++static const NSSItem nss_builtins_items_236 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -17638,7 +16264,7 @@ static const NSSItem nss_builtins_items_258 [] = {
-+ "\374\276\337\012\015"
-+ , (PRUint32)1013 }
-+ };
-+-static const NSSItem nss_builtins_items_259 [] = {
-++static const NSSItem nss_builtins_items_237 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -17667,7 +16293,7 @@ static const NSSItem nss_builtins_items_259 [] = {
-+   { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_260 [] = {
-++static const NSSItem nss_builtins_items_238 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -17778,7 +16404,7 @@ static const NSSItem nss_builtins_items_260 [] = {
-+ "\241\361\017\033\037\075\236\004\203\335\226\331\035\072\224"
-+ , (PRUint32)1151 }
-+ };
-+-static const NSSItem nss_builtins_items_261 [] = {
-++static const NSSItem nss_builtins_items_239 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -17810,7 +16436,7 @@ static const NSSItem nss_builtins_items_261 [] = {
-+   { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_262 [] = {
-++static const NSSItem nss_builtins_items_240 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -17964,7 +16590,7 @@ static const NSSItem nss_builtins_items_262 [] = {
-+ "\103\307\003\340\067\116\135\012\334\131\040\045"
-+ , (PRUint32)1964 }
-+ };
-+-static const NSSItem nss_builtins_items_263 [] = {
-++static const NSSItem nss_builtins_items_241 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -17992,7 +16618,7 @@ static const NSSItem nss_builtins_items_263 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_264 [] = {
-++static const NSSItem nss_builtins_items_242 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -18073,7 +16699,7 @@ static const NSSItem nss_builtins_items_264 [] = {
-+ "\300\226\130\057\352\273\106\327\273\344\331\056"
-+ , (PRUint32)940 }
-+ };
-+-static const NSSItem nss_builtins_items_265 [] = {
-++static const NSSItem nss_builtins_items_243 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -18096,12 +16722,12 @@ static const NSSItem nss_builtins_items_265 [] = {
-+   { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_266 [] = {
-++static const NSSItem nss_builtins_items_244 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)"AC Ra\xC3\xADz Certic\xC3\xA1mara S.A.", (PRUint32)39 },
-++  { (void *)"AC Ra\xC3\xADz Certic\xC3\xA1mara S.A.", (PRUint32)27 },
-+   { (void *)&ckc_x_509, (PRUint32)sizeof(CK_CERTIFICATE_TYPE) },
-+   { (void *)"\060\173\061\013\060\011\006\003\125\004\006\023\002\103\117\061"
-+ "\107\060\105\006\003\125\004\012\014\076\123\157\143\151\145\144"
-+@@ -18230,12 +16856,12 @@ static const NSSItem nss_builtins_items_266 [] = {
-+ "\005\211\374\170\326\134\054\046\103\251"
-+ , (PRUint32)1642 }
-+ };
-+-static const NSSItem nss_builtins_items_267 [] = {
-++static const NSSItem nss_builtins_items_245 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)"AC Ra\xC3\xADz Certic\xC3\xA1mara S.A.", (PRUint32)39 },
-++  { (void *)"AC Ra\xC3\xADz Certic\xC3\xA1mara S.A.", (PRUint32)27 },
-+   { (void *)"\313\241\305\370\260\343\136\270\271\105\022\323\371\064\242\351"
-+ "\006\020\323\066"
-+ , (PRUint32)20 },
-+@@ -18258,7 +16884,7 @@ static const NSSItem nss_builtins_items_267 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_268 [] = {
-++static const NSSItem nss_builtins_items_246 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -18363,7 +16989,7 @@ static const NSSItem nss_builtins_items_268 [] = {
-+ "\334\144\047\027\214\132\267\332\164\050\315\227\344\275"
-+ , (PRUint32)1198 }
-+ };
-+-static const NSSItem nss_builtins_items_269 [] = {
-++static const NSSItem nss_builtins_items_247 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -18390,7 +17016,7 @@ static const NSSItem nss_builtins_items_269 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_270 [] = {
-++static const NSSItem nss_builtins_items_248 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -18495,7 +17121,7 @@ static const NSSItem nss_builtins_items_270 [] = {
-+ "\016\121\075\157\373\226\126\200\342\066\027\321\334\344"
-+ , (PRUint32)1198 }
-+ };
-+-static const NSSItem nss_builtins_items_271 [] = {
-++static const NSSItem nss_builtins_items_249 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -18522,7 +17148,7 @@ static const NSSItem nss_builtins_items_271 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_272 [] = {
-++static const NSSItem nss_builtins_items_250 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -18615,7 +17241,7 @@ static const NSSItem nss_builtins_items_272 [] = {
-+ "\230"
-+ , (PRUint32)993 }
-+ };
-+-static const NSSItem nss_builtins_items_273 [] = {
-++static const NSSItem nss_builtins_items_251 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -18642,7 +17268,7 @@ static const NSSItem nss_builtins_items_273 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_274 [] = {
-++static const NSSItem nss_builtins_items_252 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -18731,7 +17357,7 @@ static const NSSItem nss_builtins_items_274 [] = {
-+ "\126\144\127"
-+ , (PRUint32)931 }
-+ };
-+-static const NSSItem nss_builtins_items_275 [] = {
-++static const NSSItem nss_builtins_items_253 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -18758,7 +17384,7 @@ static const NSSItem nss_builtins_items_275 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_276 [] = {
-++static const NSSItem nss_builtins_items_254 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -18839,7 +17465,7 @@ static const NSSItem nss_builtins_items_276 [] = {
-+ "\000\147\240\161\000\202\110"
-+ , (PRUint32)919 }
-+ };
-+-static const NSSItem nss_builtins_items_277 [] = {
-++static const NSSItem nss_builtins_items_255 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -18863,7 +17489,7 @@ static const NSSItem nss_builtins_items_277 [] = {
-+   { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_278 [] = {
-++static const NSSItem nss_builtins_items_256 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -18945,7 +17571,7 @@ static const NSSItem nss_builtins_items_278 [] = {
-+ "\316\145\006\056\135\322\052\123\164\136\323\156\047\236\217"
-+ , (PRUint32)943 }
-+ };
-+-static const NSSItem nss_builtins_items_279 [] = {
-++static const NSSItem nss_builtins_items_257 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -18969,7 +17595,7 @@ static const NSSItem nss_builtins_items_279 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_280 [] = {
-++static const NSSItem nss_builtins_items_258 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -19050,7 +17676,7 @@ static const NSSItem nss_builtins_items_280 [] = {
-+ "\246\210\070\316\125"
-+ , (PRUint32)933 }
-+ };
-+-static const NSSItem nss_builtins_items_281 [] = {
-++static const NSSItem nss_builtins_items_259 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -19073,7 +17699,7 @@ static const NSSItem nss_builtins_items_281 [] = {
-+   { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_282 [] = {
-++static const NSSItem nss_builtins_items_260 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -19192,7 +17818,7 @@ static const NSSItem nss_builtins_items_282 [] = {
-+ "\201\370\021\234"
-+ , (PRUint32)1460 }
-+ };
-+-static const NSSItem nss_builtins_items_283 [] = {
-++static const NSSItem nss_builtins_items_261 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -19218,12 +17844,12 @@ static const NSSItem nss_builtins_items_283 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_284 [] = {
-++static const NSSItem nss_builtins_items_262 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)"T\xc3\x9c\x42\xC4\xB0TAK UEKAE K\xC3\xB6k Sertifika Hizmet Sa\xC4\x9Flay\xc4\xb1\x63\xc4\xb1s\xc4\xb1 - S\xC3\xBCr\xC3\xBCm 3", (PRUint32)126 },
-++  { (void *)"T\xc3\x9c\x42\xC4\xB0TAK UEKAE K\xC3\xB6k Sertifika Hizmet Sa\xC4\x9Flay\xc4\xb1\x63\xc4\xb1s\xc4\xb1 - S\xC3\xBCr\xC3\xBCm 3", (PRUint32)66 },
-+   { (void *)&ckc_x_509, (PRUint32)sizeof(CK_CERTIFICATE_TYPE) },
-+   { (void *)"\060\202\001\053\061\013\060\011\006\003\125\004\006\023\002\124"
-+ "\122\061\030\060\026\006\003\125\004\007\014\017\107\145\142\172"
-+@@ -19352,12 +17978,12 @@ static const NSSItem nss_builtins_items_284 [] = {
-+ "\311\234\220\332\354\251\102\074\255\266\002"
-+ , (PRUint32)1307 }
-+ };
-+-static const NSSItem nss_builtins_items_285 [] = {
-++static const NSSItem nss_builtins_items_263 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)"T\xc3\x9c\x42\xC4\xB0TAK UEKAE K\xC3\xB6k Sertifika Hizmet Sa\xC4\x9Flay\xc4\xb1\x63\xc4\xb1s\xc4\xb1 - S\xC3\xBCr\xC3\xBCm 3", (PRUint32)126 },
-++  { (void *)"T\xc3\x9c\x42\xC4\xB0TAK UEKAE K\xC3\xB6k Sertifika Hizmet Sa\xC4\x9Flay\xc4\xb1\x63\xc4\xb1s\xc4\xb1 - S\xC3\xBCr\xC3\xBCm 3", (PRUint32)66 },
-+   { (void *)"\033\113\071\141\046\047\153\144\221\242\150\155\327\002\103\041"
-+ "\055\037\035\226"
-+ , (PRUint32)20 },
-+@@ -19390,7 +18016,7 @@ static const NSSItem nss_builtins_items_285 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_286 [] = {
-++static const NSSItem nss_builtins_items_264 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -19468,7 +18094,7 @@ static const NSSItem nss_builtins_items_286 [] = {
-+ "\366\324\357\277\114\210\150"
-+ , (PRUint32)855 }
-+ };
-+-static const NSSItem nss_builtins_items_287 [] = {
-++static const NSSItem nss_builtins_items_265 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -19492,7 +18118,7 @@ static const NSSItem nss_builtins_items_287 [] = {
-+   { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_288 [] = {
-++static const NSSItem nss_builtins_items_266 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -19570,7 +18196,7 @@ static const NSSItem nss_builtins_items_288 [] = {
-+ "\246\347\313\100\003\335\171"
-+ , (PRUint32)855 }
-+ };
-+-static const NSSItem nss_builtins_items_289 [] = {
-++static const NSSItem nss_builtins_items_267 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -19594,12 +18220,12 @@ static const NSSItem nss_builtins_items_289 [] = {
-+   { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_290 [] = {
-++static const NSSItem nss_builtins_items_268 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)"EBG Elektronik Sertifika Hizmet Sa\xC4\x9Flay\xc4\xb1\x63\xc4\xb1s\xc4\xb1", (PRUint32)75 },
-++  { (void *)"EBG Elektronik Sertifika Hizmet Sa\xC4\x9Flay\xc4\xb1\x63\xc4\xb1s\xc4\xb1", (PRUint32)48 },
-+   { (void *)&ckc_x_509, (PRUint32)sizeof(CK_CERTIFICATE_TYPE) },
-+   { (void *)"\060\201\200\061\070\060\066\006\003\125\004\003\014\057\105\102"
-+ "\107\040\105\154\145\153\164\162\157\156\151\153\040\123\145\162"
-+@@ -19721,12 +18347,12 @@ static const NSSItem nss_builtins_items_290 [] = {
-+ "\320\352\111\242\034\215\122\024\246\012\223"
-+ , (PRUint32)1515 }
-+ };
-+-static const NSSItem nss_builtins_items_291 [] = {
-++static const NSSItem nss_builtins_items_269 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+-  { (void *)"EBG Elektronik Sertifika Hizmet Sa\xC4\x9Flay\xc4\xb1\x63\xc4\xb1s\xc4\xb1", (PRUint32)75 },
-++  { (void *)"EBG Elektronik Sertifika Hizmet Sa\xC4\x9Flay\xc4\xb1\x63\xc4\xb1s\xc4\xb1", (PRUint32)48 },
-+   { (void *)"\214\226\272\353\335\053\007\007\110\356\060\062\146\240\363\230"
-+ "\156\174\256\130"
-+ , (PRUint32)20 },
-+@@ -19749,7 +18375,7 @@ static const NSSItem nss_builtins_items_291 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_292 [] = {
-++static const NSSItem nss_builtins_items_270 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -19823,7 +18449,7 @@ static const NSSItem nss_builtins_items_292 [] = {
-+ "\366\356\260\132\116\111\104\124\130\137\102\203"
-+ , (PRUint32)828 }
-+ };
-+-static const NSSItem nss_builtins_items_293 [] = {
-++static const NSSItem nss_builtins_items_271 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -19846,7 +18472,7 @@ static const NSSItem nss_builtins_items_293 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_294 [] = {
-++static const NSSItem nss_builtins_items_272 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -19922,7 +18548,7 @@ static const NSSItem nss_builtins_items_294 [] = {
-+ "\011\333\212\101\202\236\146\233\021"
-+ , (PRUint32)857 }
-+ };
-+-static const NSSItem nss_builtins_items_295 [] = {
-++static const NSSItem nss_builtins_items_273 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -19945,7 +18571,7 @@ static const NSSItem nss_builtins_items_295 [] = {
-+   { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_296 [] = {
-++static const NSSItem nss_builtins_items_274 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -20028,7 +18654,7 @@ static const NSSItem nss_builtins_items_296 [] = {
-+ "\262\033\211\124"
-+ , (PRUint32)932 }
-+ };
-+-static const NSSItem nss_builtins_items_297 [] = {
-++static const NSSItem nss_builtins_items_275 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -20052,7 +18678,7 @@ static const NSSItem nss_builtins_items_297 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_298 [] = {
-++static const NSSItem nss_builtins_items_276 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -20152,7 +18778,7 @@ static const NSSItem nss_builtins_items_298 [] = {
-+ "\021\055"
-+ , (PRUint32)1026 }
-+ };
-+-static const NSSItem nss_builtins_items_299 [] = {
-++static const NSSItem nss_builtins_items_277 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -20182,7 +18808,7 @@ static const NSSItem nss_builtins_items_299 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_300 [] = {
-++static const NSSItem nss_builtins_items_278 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -20256,7 +18882,7 @@ static const NSSItem nss_builtins_items_300 [] = {
-+ "\367\130\077\056\162\002\127\243\217\241\024\056"
-+ , (PRUint32)652 }
-+ };
-+-static const NSSItem nss_builtins_items_301 [] = {
-++static const NSSItem nss_builtins_items_279 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -20285,7 +18911,7 @@ static const NSSItem nss_builtins_items_301 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_302 [] = {
-++static const NSSItem nss_builtins_items_280 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -20391,7 +19017,7 @@ static const NSSItem nss_builtins_items_302 [] = {
-+ "\061\324\100\032\142\064\066\077\065\001\256\254\143\240"
-+ , (PRUint32)1070 }
-+ };
-+-static const NSSItem nss_builtins_items_303 [] = {
-++static const NSSItem nss_builtins_items_281 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -20423,7 +19049,7 @@ static const NSSItem nss_builtins_items_303 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_304 [] = {
-++static const NSSItem nss_builtins_items_282 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -20502,7 +19128,7 @@ static const NSSItem nss_builtins_items_304 [] = {
-+ "\017\212"
-+ , (PRUint32)690 }
-+ };
-+-static const NSSItem nss_builtins_items_305 [] = {
-++static const NSSItem nss_builtins_items_283 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -20532,7 +19158,7 @@ static const NSSItem nss_builtins_items_305 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_306 [] = {
-++static const NSSItem nss_builtins_items_284 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -20647,7 +19273,7 @@ static const NSSItem nss_builtins_items_306 [] = {
-+ "\354\315\202\141\361\070\346\117\227\230\052\132\215"
-+ , (PRUint32)1213 }
-+ };
-+-static const NSSItem nss_builtins_items_307 [] = {
-++static const NSSItem nss_builtins_items_285 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -20679,7 +19305,7 @@ static const NSSItem nss_builtins_items_307 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_308 [] = {
-++static const NSSItem nss_builtins_items_286 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -20777,7 +19403,7 @@ static const NSSItem nss_builtins_items_308 [] = {
-+ "\055\247\330\206\052\335\056\020"
-+ , (PRUint32)904 }
-+ };
-+-static const NSSItem nss_builtins_items_309 [] = {
-++static const NSSItem nss_builtins_items_287 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -20810,7 +19436,7 @@ static const NSSItem nss_builtins_items_309 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_310 [] = {
-++static const NSSItem nss_builtins_items_288 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -20912,7 +19538,7 @@ static const NSSItem nss_builtins_items_310 [] = {
-+ "\330\316\304\143\165\077\131\107\261"
-+ , (PRUint32)1049 }
-+ };
-+-static const NSSItem nss_builtins_items_311 [] = {
-++static const NSSItem nss_builtins_items_289 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -20942,7 +19568,7 @@ static const NSSItem nss_builtins_items_311 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_312 [] = {
-++static const NSSItem nss_builtins_items_290 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -21061,7 +19687,7 @@ static const NSSItem nss_builtins_items_312 [] = {
-+ "\370\161\012\334\271\374\175\062\140\346\353\257\212\001"
-+ , (PRUint32)1486 }
-+ };
-+-static const NSSItem nss_builtins_items_313 [] = {
-++static const NSSItem nss_builtins_items_291 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -21086,7 +19712,7 @@ static const NSSItem nss_builtins_items_313 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_314 [] = {
-++static const NSSItem nss_builtins_items_292 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -21176,7 +19802,7 @@ static const NSSItem nss_builtins_items_314 [] = {
-+ "\315\345\250"
-+ , (PRUint32)1043 }
-+ };
-+-static const NSSItem nss_builtins_items_315 [] = {
-++static const NSSItem nss_builtins_items_293 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -21200,7 +19826,7 @@ static const NSSItem nss_builtins_items_315 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_316 [] = {
-++static const NSSItem nss_builtins_items_294 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -21305,7 +19931,7 @@ static const NSSItem nss_builtins_items_316 [] = {
-+ "\115\273\306\104\333\066\313\052\234\216"
-+ , (PRUint32)1258 }
-+ };
-+-static const NSSItem nss_builtins_items_317 [] = {
-++static const NSSItem nss_builtins_items_295 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -21330,7 +19956,7 @@ static const NSSItem nss_builtins_items_317 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_318 [] = {
-++static const NSSItem nss_builtins_items_296 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -21406,7 +20032,7 @@ static const NSSItem nss_builtins_items_318 [] = {
-+ "\002\153\331\132"
-+ , (PRUint32)820 }
-+ };
-+-static const NSSItem nss_builtins_items_319 [] = {
-++static const NSSItem nss_builtins_items_297 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -21430,7 +20056,7 @@ static const NSSItem nss_builtins_items_319 [] = {
-+   { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-+-static const NSSItem nss_builtins_items_320 [] = {
-++static const NSSItem nss_builtins_items_298 [] = {
-+   { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -21512,7 +20138,7 @@ static const NSSItem nss_builtins_items_320 [] = {
-+ "\362"
-+ , (PRUint32)881 }
-+ };
-+-static const NSSItem nss_builtins_items_321 [] = {
-++static const NSSItem nss_builtins_items_299 [] = {
-+   { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+   { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+@@ -21537,6 +20163,146 @@ static const NSSItem nss_builtins_items_321 [] = {
-+   { (void *)&ckt_netscape_trust_unknown, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-++static const NSSItem nss_builtins_items_300 [] = {
-++  { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-++  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-++  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-++  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-++  { (void *)"ACEDICOM Root", (PRUint32)14 },
-++  { (void *)&ckc_x_509, (PRUint32)sizeof(CK_CERTIFICATE_TYPE) },
-++  { (void *)"\060\104\061\026\060\024\006\003\125\004\003\014\015\101\103\105"
-++"\104\111\103\117\115\040\122\157\157\164\061\014\060\012\006\003"
-++"\125\004\013\014\003\120\113\111\061\017\060\015\006\003\125\004"
-++"\012\014\006\105\104\111\103\117\115\061\013\060\011\006\003\125"
-++"\004\006\023\002\105\123"
-++, (PRUint32)70 },
-++  { (void *)"0", (PRUint32)2 },
-++  { (void *)"\060\104\061\026\060\024\006\003\125\004\003\014\015\101\103\105"
-++"\104\111\103\117\115\040\122\157\157\164\061\014\060\012\006\003"
-++"\125\004\013\014\003\120\113\111\061\017\060\015\006\003\125\004"
-++"\012\014\006\105\104\111\103\117\115\061\013\060\011\006\003\125"
-++"\004\006\023\002\105\123"
-++, (PRUint32)70 },
-++  { (void *)"\002\010\141\215\307\206\073\001\202\005"
-++, (PRUint32)10 },
-++  { (void *)"\060\202\005\265\060\202\003\235\240\003\002\001\002\002\010\141"
-++"\215\307\206\073\001\202\005\060\015\006\011\052\206\110\206\367"
-++"\015\001\001\005\005\000\060\104\061\026\060\024\006\003\125\004"
-++"\003\014\015\101\103\105\104\111\103\117\115\040\122\157\157\164"
-++"\061\014\060\012\006\003\125\004\013\014\003\120\113\111\061\017"
-++"\060\015\006\003\125\004\012\014\006\105\104\111\103\117\115\061"
-++"\013\060\011\006\003\125\004\006\023\002\105\123\060\036\027\015"
-++"\060\070\060\064\061\070\061\066\062\064\062\062\132\027\015\062"
-++"\070\060\064\061\063\061\066\062\064\062\062\132\060\104\061\026"
-++"\060\024\006\003\125\004\003\014\015\101\103\105\104\111\103\117"
-++"\115\040\122\157\157\164\061\014\060\012\006\003\125\004\013\014"
-++"\003\120\113\111\061\017\060\015\006\003\125\004\012\014\006\105"
-++"\104\111\103\117\115\061\013\060\011\006\003\125\004\006\023\002"
-++"\105\123\060\202\002\042\060\015\006\011\052\206\110\206\367\015"
-++"\001\001\001\005\000\003\202\002\017\000\060\202\002\012\002\202"
-++"\002\001\000\377\222\225\341\150\006\166\264\054\310\130\110\312"
-++"\375\200\124\051\125\143\044\377\220\145\233\020\165\173\303\152"
-++"\333\142\002\001\362\030\206\265\174\132\070\261\344\130\271\373"
-++"\323\330\055\237\275\062\067\277\054\025\155\276\265\364\041\322"
-++"\023\221\331\007\255\001\005\326\363\275\167\316\137\102\201\012"
-++"\371\152\343\203\000\250\053\056\125\023\143\201\312\107\034\173"
-++"\134\026\127\172\033\203\140\004\072\076\145\303\315\001\336\336"
-++"\244\326\014\272\216\336\331\004\356\027\126\042\233\217\143\375"
-++"\115\026\013\267\173\167\214\371\045\265\321\155\231\022\056\117"
-++"\032\270\346\352\004\222\256\075\021\271\121\102\075\207\260\061"
-++"\205\257\171\132\234\376\347\116\136\222\117\103\374\253\072\255"
-++"\245\022\046\146\271\342\014\327\230\316\324\130\245\225\100\012"
-++"\267\104\235\023\164\053\302\245\353\042\025\230\020\330\213\305"
-++"\004\237\035\217\140\345\006\033\233\317\271\171\240\075\242\043"
-++"\077\102\077\153\372\034\003\173\060\215\316\154\300\277\346\033"
-++"\137\277\147\270\204\031\325\025\357\173\313\220\066\061\142\311"
-++"\274\002\253\106\137\233\376\032\150\224\064\075\220\216\255\366"
-++"\344\035\011\177\112\210\070\077\276\147\375\064\226\365\035\274"
-++"\060\164\313\070\356\325\154\253\324\374\364\000\267\000\133\205"
-++"\062\026\166\063\351\330\243\231\235\005\000\252\026\346\363\201"
-++"\175\157\175\252\206\155\255\025\164\323\304\242\161\252\364\024"
-++"\175\347\062\270\037\274\325\361\116\275\157\027\002\071\327\016"
-++"\225\102\072\307\000\076\351\046\143\021\352\013\321\112\377\030"
-++"\235\262\327\173\057\072\331\226\373\350\036\222\256\023\125\310"
-++"\331\047\366\334\110\033\260\044\301\205\343\167\235\232\244\363"
-++"\014\021\035\015\310\264\024\356\265\202\127\011\277\040\130\177"
-++"\057\042\043\330\160\313\171\154\311\113\362\251\052\310\374\207"
-++"\053\327\032\120\370\047\350\057\103\343\072\275\330\127\161\375"
-++"\316\246\122\133\371\335\115\355\345\366\157\211\355\273\223\234"
-++"\166\041\165\360\222\114\051\367\057\234\001\056\376\120\106\236"
-++"\144\014\024\263\007\133\305\302\163\154\361\007\134\105\044\024"
-++"\065\256\203\361\152\115\211\172\372\263\330\055\146\360\066\207"
-++"\365\053\123\002\003\001\000\001\243\201\252\060\201\247\060\017"
-++"\006\003\125\035\023\001\001\377\004\005\060\003\001\001\377\060"
-++"\037\006\003\125\035\043\004\030\060\026\200\024\246\263\341\053"
-++"\053\111\266\327\163\241\252\224\365\001\347\163\145\114\254\120"
-++"\060\016\006\003\125\035\017\001\001\377\004\004\003\002\001\206"
-++"\060\035\006\003\125\035\016\004\026\004\024\246\263\341\053\053"
-++"\111\266\327\163\241\252\224\365\001\347\163\145\114\254\120\060"
-++"\104\006\003\125\035\040\004\075\060\073\060\071\006\004\125\035"
-++"\040\000\060\061\060\057\006\010\053\006\001\005\005\007\002\001"
-++"\026\043\150\164\164\160\072\057\057\141\143\145\144\151\143\157"
-++"\155\056\145\144\151\143\157\155\147\162\157\165\160\056\143\157"
-++"\155\057\144\157\143\060\015\006\011\052\206\110\206\367\015\001"
-++"\001\005\005\000\003\202\002\001\000\316\054\013\122\121\142\046"
-++"\175\014\047\203\217\305\366\332\240\150\173\117\222\136\352\244"
-++"\163\062\021\123\104\262\104\313\235\354\017\171\102\263\020\246"
-++"\307\015\235\313\266\372\077\072\174\352\277\210\123\033\074\367"
-++"\202\372\005\065\063\341\065\250\127\300\347\375\215\117\077\223"
-++"\062\117\170\146\003\167\007\130\351\225\310\176\076\320\171\000"
-++"\214\362\033\121\063\233\274\224\351\072\173\156\122\055\062\236"
-++"\043\244\105\373\266\056\023\260\213\030\261\335\316\325\035\247"
-++"\102\177\125\276\373\133\273\107\324\374\044\315\004\256\226\005"
-++"\025\326\254\316\060\363\312\013\305\272\342\042\340\246\255\042"
-++"\344\002\356\164\021\177\114\377\170\035\065\332\346\002\064\353"
-++"\030\022\141\167\006\011\026\143\352\030\255\242\207\037\362\307"
-++"\200\011\011\165\116\020\250\217\075\206\270\165\021\300\044\142"
-++"\212\226\173\112\105\351\354\131\305\276\153\203\346\341\350\254"
-++"\265\060\036\376\005\007\200\371\341\043\015\120\217\005\230\377"
-++"\054\137\350\073\266\255\317\201\265\041\207\312\010\052\043\047"
-++"\060\040\053\317\355\224\133\254\262\172\322\307\050\241\212\013"
-++"\233\115\112\054\155\205\077\011\162\074\147\342\331\334\007\272"
-++"\353\145\173\132\001\143\326\220\133\117\027\146\075\177\013\031"
-++"\243\223\143\020\122\052\237\024\026\130\342\334\245\364\241\026"
-++"\213\016\221\213\201\312\233\131\372\330\153\221\007\145\125\137"
-++"\122\037\257\072\373\220\335\151\245\133\234\155\016\054\266\372"
-++"\316\254\245\174\062\112\147\100\334\060\064\043\335\327\004\043"
-++"\146\360\374\125\200\247\373\146\031\202\065\147\142\160\071\136"
-++"\157\307\352\220\100\104\010\036\270\262\326\333\356\131\247\015"
-++"\030\171\064\274\124\030\136\123\312\064\121\355\105\012\346\216"
-++"\307\202\066\076\247\070\143\251\060\054\027\020\140\222\237\125"
-++"\207\022\131\020\302\017\147\151\021\314\116\036\176\112\232\255"
-++"\257\100\250\165\254\126\220\164\270\240\234\245\171\157\334\351"
-++"\032\310\151\005\351\272\372\003\263\174\344\340\116\302\316\235"
-++"\350\266\106\015\156\176\127\072\147\224\302\313\037\234\167\112"
-++"\147\116\151\206\103\223\070\373\266\333\117\203\221\324\140\176"
-++"\113\076\053\070\007\125\230\136\244"
-++, (PRUint32)1465 }
-++};
-++static const NSSItem nss_builtins_items_301 [] = {
-++  { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-++  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-++  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-++  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-++  { (void *)"ACEDICOM Root", (PRUint32)14 },
-++  { (void *)"\340\264\062\056\262\366\245\150\266\124\123\204\110\030\112\120"
-++"\066\207\103\204"
-++, (PRUint32)20 },
-++  { (void *)"\102\201\240\342\034\343\125\020\336\125\211\102\145\226\042\346"
-++, (PRUint32)16 },
-++  { (void *)"\060\104\061\026\060\024\006\003\125\004\003\014\015\101\103\105"
-++"\104\111\103\117\115\040\122\157\157\164\061\014\060\012\006\003"
-++"\125\004\013\014\003\120\113\111\061\017\060\015\006\003\125\004"
-++"\012\014\006\105\104\111\103\117\115\061\013\060\011\006\003\125"
-++"\004\006\023\002\105\123"
-++, (PRUint32)70 },
-++  { (void *)"\002\010\141\215\307\206\073\001\202\005"
-++, (PRUint32)10 },
-++  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-++};
-+ 
-+ builtinsInternalObject
-+ nss_builtins_data[] = {
-+@@ -21843,31 +20609,11 @@ nss_builtins_data[] = {
-+   { 11, nss_builtins_types_298, nss_builtins_items_298, {NULL} },
-+   { 13, nss_builtins_types_299, nss_builtins_items_299, {NULL} },
-+   { 11, nss_builtins_types_300, nss_builtins_items_300, {NULL} },
-+-  { 13, nss_builtins_types_301, nss_builtins_items_301, {NULL} },
-+-  { 11, nss_builtins_types_302, nss_builtins_items_302, {NULL} },
-+-  { 13, nss_builtins_types_303, nss_builtins_items_303, {NULL} },
-+-  { 11, nss_builtins_types_304, nss_builtins_items_304, {NULL} },
-+-  { 13, nss_builtins_types_305, nss_builtins_items_305, {NULL} },
-+-  { 11, nss_builtins_types_306, nss_builtins_items_306, {NULL} },
-+-  { 13, nss_builtins_types_307, nss_builtins_items_307, {NULL} },
-+-  { 11, nss_builtins_types_308, nss_builtins_items_308, {NULL} },
-+-  { 13, nss_builtins_types_309, nss_builtins_items_309, {NULL} },
-+-  { 11, nss_builtins_types_310, nss_builtins_items_310, {NULL} },
-+-  { 13, nss_builtins_types_311, nss_builtins_items_311, {NULL} },
-+-  { 11, nss_builtins_types_312, nss_builtins_items_312, {NULL} },
-+-  { 13, nss_builtins_types_313, nss_builtins_items_313, {NULL} },
-+-  { 11, nss_builtins_types_314, nss_builtins_items_314, {NULL} },
-+-  { 13, nss_builtins_types_315, nss_builtins_items_315, {NULL} },
-+-  { 11, nss_builtins_types_316, nss_builtins_items_316, {NULL} },
-+-  { 13, nss_builtins_types_317, nss_builtins_items_317, {NULL} },
-+-  { 11, nss_builtins_types_318, nss_builtins_items_318, {NULL} },
-+-  { 13, nss_builtins_types_319, nss_builtins_items_319, {NULL} },
-+-  { 11, nss_builtins_types_320, nss_builtins_items_320, {NULL} },
-+-  { 13, nss_builtins_types_321, nss_builtins_items_321, {NULL} }
-++  { 13, nss_builtins_types_301, nss_builtins_items_301, {NULL} }
-+ };
-+ const PRUint32
-+ #ifdef DEBUG
-+-  nss_builtins_nObjects = 321+1;
-++  nss_builtins_nObjects = 301+1;
-+ #else
-+-  nss_builtins_nObjects = 321;
-++  nss_builtins_nObjects = 301;
-+ #endif /* DEBUG */
-+diff --git a/mozilla/security/nss/lib/ckfw/builtins/certdata.perl b/mozilla/security/nss/lib/ckfw/builtins/certdata.perl
-+index a632c5a..cb4a863 100644
-+--- a/mozilla/security/nss/lib/ckfw/builtins/certdata.perl
-++++ b/mozilla/security/nss/lib/ckfw/builtins/certdata.perl
-+@@ -35,7 +35,7 @@
-+ # the terms of any one of the MPL, the GPL or the LGPL.
-+ #
-+ # ***** END LICENSE BLOCK *****
-+-my $cvs_id = '@(#) $RCSfile: certdata.perl,v $ $Revision: 1.12 $ $Date: 2008/01/23 07:34:49 $';
-++my $cvs_id = '@(#) $RCSfile: certdata.perl,v $ $Revision: 1.13 $ $Date: 2010/03/26 22:06:47 $';
-+ use strict;
-+ 
-+ my %constants;
-+@@ -101,9 +101,9 @@ while(<>) {
-+       $fields[2] = "\"" . $fields[2] . "\"";
-+     }
-+ 
-+-    my $scratch = $fields[2];
-+-    $size = $scratch =~ s/[^"\n]//g; # should supposedly handle multilines, too..
-+-    $size += 1; # null terminate
-++    my $scratch = eval($fields[2]);
-++
-++    $size = length($scratch) + 1; # null terminate
-+   }
-+ 
-+   if( $fields[1] =~ /OCTAL/ ) {
-+diff --git a/mozilla/security/nss/lib/ckfw/builtins/certdata.txt b/mozilla/security/nss/lib/ckfw/builtins/certdata.txt
-+index 22ed023..93f1854 100644
-+--- a/mozilla/security/nss/lib/ckfw/builtins/certdata.txt
-++++ b/mozilla/security/nss/lib/ckfw/builtins/certdata.txt
-+@@ -34,7 +34,7 @@
-+ # the terms of any one of the MPL, the GPL or the LGPL.
-+ #
-+ # ***** END LICENSE BLOCK *****
-+-CVS_ID "@(#) $RCSfile: certdata.txt,v $ $Revision: 1.58 $ $Date: 2010/02/16 22:14:35 $"
-++CVS_ID "@(#) $RCSfile: certdata.txt,v $ $Revision: 1.64 $ $Date: 2010/04/08 14:28:59 $"
-+ 
-+ #
-+ # certdata.txt
-+@@ -103,108 +103,6 @@ CKA_MODIFIABLE CK_BBOOL CK_FALSE
-+ CKA_LABEL UTF8 "Mozilla Builtin Roots"
-+ 
-+ #
-+-# Certificate "Verisign/RSA Secure Server CA"
-+-#
-+-CKA_CLASS CK_OBJECT_CLASS CKO_CERTIFICATE
-+-CKA_TOKEN CK_BBOOL CK_TRUE
-+-CKA_PRIVATE CK_BBOOL CK_FALSE
-+-CKA_MODIFIABLE CK_BBOOL CK_FALSE
-+-CKA_LABEL UTF8 "Verisign/RSA Secure Server CA"
-+-CKA_CERTIFICATE_TYPE CK_CERTIFICATE_TYPE CKC_X_509
-+-CKA_SUBJECT MULTILINE_OCTAL
-+-\060\137\061\013\060\011\006\003\125\004\006\023\002\125\123\061
-+-\040\060\036\006\003\125\004\012\023\027\122\123\101\040\104\141
-+-\164\141\040\123\145\143\165\162\151\164\171\054\040\111\156\143
-+-\056\061\056\060\054\006\003\125\004\013\023\045\123\145\143\165
-+-\162\145\040\123\145\162\166\145\162\040\103\145\162\164\151\146
-+-\151\143\141\164\151\157\156\040\101\165\164\150\157\162\151\164
-+-\171
-+-END
-+-CKA_ID UTF8 "0"
-+-CKA_ISSUER MULTILINE_OCTAL
-+-\060\137\061\013\060\011\006\003\125\004\006\023\002\125\123\061
-+-\040\060\036\006\003\125\004\012\023\027\122\123\101\040\104\141
-+-\164\141\040\123\145\143\165\162\151\164\171\054\040\111\156\143
-+-\056\061\056\060\054\006\003\125\004\013\023\045\123\145\143\165
-+-\162\145\040\123\145\162\166\145\162\040\103\145\162\164\151\146
-+-\151\143\141\164\151\157\156\040\101\165\164\150\157\162\151\164
-+-\171
-+-END
-+-CKA_SERIAL_NUMBER MULTILINE_OCTAL
-+-\002\020\002\255\146\176\116\105\376\136\127\157\074\230\031\136
-+-\335\300
-+-END
-+-CKA_VALUE MULTILINE_OCTAL
-+-\060\202\002\064\060\202\001\241\002\020\002\255\146\176\116\105
-+-\376\136\127\157\074\230\031\136\335\300\060\015\006\011\052\206
-+-\110\206\367\015\001\001\002\005\000\060\137\061\013\060\011\006
-+-\003\125\004\006\023\002\125\123\061\040\060\036\006\003\125\004
-+-\012\023\027\122\123\101\040\104\141\164\141\040\123\145\143\165
-+-\162\151\164\171\054\040\111\156\143\056\061\056\060\054\006\003
-+-\125\004\013\023\045\123\145\143\165\162\145\040\123\145\162\166
-+-\145\162\040\103\145\162\164\151\146\151\143\141\164\151\157\156
-+-\040\101\165\164\150\157\162\151\164\171\060\036\027\015\071\064
-+-\061\061\060\071\060\060\060\060\060\060\132\027\015\061\060\060
-+-\061\060\067\062\063\065\071\065\071\132\060\137\061\013\060\011
-+-\006\003\125\004\006\023\002\125\123\061\040\060\036\006\003\125
-+-\004\012\023\027\122\123\101\040\104\141\164\141\040\123\145\143
-+-\165\162\151\164\171\054\040\111\156\143\056\061\056\060\054\006
-+-\003\125\004\013\023\045\123\145\143\165\162\145\040\123\145\162
-+-\166\145\162\040\103\145\162\164\151\146\151\143\141\164\151\157
-+-\156\040\101\165\164\150\157\162\151\164\171\060\201\233\060\015
-+-\006\011\052\206\110\206\367\015\001\001\001\005\000\003\201\211
-+-\000\060\201\205\002\176\000\222\316\172\301\256\203\076\132\252
-+-\211\203\127\254\045\001\166\014\255\256\216\054\067\316\353\065
-+-\170\144\124\003\345\204\100\121\311\277\217\010\342\212\202\010
-+-\322\026\206\067\125\351\261\041\002\255\166\150\201\232\005\242
-+-\113\311\113\045\146\042\126\154\210\007\217\367\201\131\155\204
-+-\007\145\160\023\161\166\076\233\167\114\343\120\211\126\230\110
-+-\271\035\247\051\032\023\056\112\021\131\234\036\025\325\111\124
-+-\054\163\072\151\202\261\227\071\234\155\160\147\110\345\335\055
-+-\326\310\036\173\002\003\001\000\001\060\015\006\011\052\206\110
-+-\206\367\015\001\001\002\005\000\003\176\000\145\335\176\341\262
-+-\354\260\342\072\340\354\161\106\232\031\021\270\323\307\240\264
-+-\003\100\046\002\076\011\234\341\022\263\321\132\366\067\245\267
-+-\141\003\266\133\026\151\073\306\104\010\014\210\123\014\153\227
-+-\111\307\076\065\334\154\271\273\252\337\134\273\072\057\223\140
-+-\266\251\113\115\362\040\367\315\137\177\144\173\216\334\000\134
-+-\327\372\167\312\071\026\131\157\016\352\323\265\203\177\115\115
-+-\102\126\166\264\311\137\004\370\070\370\353\322\137\165\137\315
-+-\173\374\345\216\200\174\374\120
-+-END
-+-
-+-# Trust for Certificate "Verisign/RSA Secure Server CA"
-+-CKA_CLASS CK_OBJECT_CLASS CKO_NETSCAPE_TRUST
-+-CKA_TOKEN CK_BBOOL CK_TRUE
-+-CKA_PRIVATE CK_BBOOL CK_FALSE
-+-CKA_MODIFIABLE CK_BBOOL CK_FALSE
-+-CKA_LABEL UTF8 "Verisign/RSA Secure Server CA"
-+-CKA_CERT_SHA1_HASH MULTILINE_OCTAL
-+-\104\143\305\061\327\314\301\000\147\224\141\053\266\126\323\277
-+-\202\127\204\157
-+-END
-+-CKA_CERT_MD5_HASH MULTILINE_OCTAL
-+-\164\173\202\003\103\360\000\236\153\263\354\107\277\205\245\223
-+-END
-+-CKA_ISSUER MULTILINE_OCTAL
-+-\060\137\061\013\060\011\006\003\125\004\006\023\002\125\123\061
-+-\040\060\036\006\003\125\004\012\023\027\122\123\101\040\104\141
-+-\164\141\040\123\145\143\165\162\151\164\171\054\040\111\156\143
-+-\056\061\056\060\054\006\003\125\004\013\023\045\123\145\143\165
-+-\162\145\040\123\145\162\166\145\162\040\103\145\162\164\151\146
-+-\151\143\141\164\151\157\156\040\101\165\164\150\157\162\151\164
-+-\171
-+-END
-+-CKA_SERIAL_NUMBER MULTILINE_OCTAL
-+-\002\020\002\255\146\176\116\105\376\136\127\157\074\230\031\136
-+-\335\300
-+-END
-+-CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-+-CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_TRUE
-+-
-+-#
-+ # Certificate "GTE CyberTrust Root CA"
-+ #
-+ CKA_CLASS CK_OBJECT_CLASS CKO_CERTIFICATE
-+@@ -289,10 +187,10 @@ END
-+ CKA_SERIAL_NUMBER MULTILINE_OCTAL
-+ \002\002\001\243
-+ END
-+-CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_TRUE
-++CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-++CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-++CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-++CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-+ 
-+ #
-+ # Certificate "GTE CyberTrust Global Root"
-+@@ -397,275 +295,6 @@ END
-+ CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+ CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+ CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_TRUE
-+-
-+-#
-+-# Certificate "Thawte Personal Basic CA"
-+-#
-+-CKA_CLASS CK_OBJECT_CLASS CKO_CERTIFICATE
-+-CKA_TOKEN CK_BBOOL CK_TRUE
-+-CKA_PRIVATE CK_BBOOL CK_FALSE
-+-CKA_MODIFIABLE CK_BBOOL CK_FALSE
-+-CKA_LABEL UTF8 "Thawte Personal Basic CA"
-+-CKA_CERTIFICATE_TYPE CK_CERTIFICATE_TYPE CKC_X_509
-+-CKA_SUBJECT MULTILINE_OCTAL
-+-\060\201\313\061\013\060\011\006\003\125\004\006\023\002\132\101
-+-\061\025\060\023\006\003\125\004\010\023\014\127\145\163\164\145
-+-\162\156\040\103\141\160\145\061\022\060\020\006\003\125\004\007
-+-\023\011\103\141\160\145\040\124\157\167\156\061\032\060\030\006
-+-\003\125\004\012\023\021\124\150\141\167\164\145\040\103\157\156
-+-\163\165\154\164\151\156\147\061\050\060\046\006\003\125\004\013
-+-\023\037\103\145\162\164\151\146\151\143\141\164\151\157\156\040
-+-\123\145\162\166\151\143\145\163\040\104\151\166\151\163\151\157
-+-\156\061\041\060\037\006\003\125\004\003\023\030\124\150\141\167
-+-\164\145\040\120\145\162\163\157\156\141\154\040\102\141\163\151
-+-\143\040\103\101\061\050\060\046\006\011\052\206\110\206\367\015
-+-\001\011\001\026\031\160\145\162\163\157\156\141\154\055\142\141
-+-\163\151\143\100\164\150\141\167\164\145\056\143\157\155
-+-END
-+-CKA_ID UTF8 "0"
-+-CKA_ISSUER MULTILINE_OCTAL
-+-\060\201\313\061\013\060\011\006\003\125\004\006\023\002\132\101
-+-\061\025\060\023\006\003\125\004\010\023\014\127\145\163\164\145
-+-\162\156\040\103\141\160\145\061\022\060\020\006\003\125\004\007
-+-\023\011\103\141\160\145\040\124\157\167\156\061\032\060\030\006
-+-\003\125\004\012\023\021\124\150\141\167\164\145\040\103\157\156
-+-\163\165\154\164\151\156\147\061\050\060\046\006\003\125\004\013
-+-\023\037\103\145\162\164\151\146\151\143\141\164\151\157\156\040
-+-\123\145\162\166\151\143\145\163\040\104\151\166\151\163\151\157
-+-\156\061\041\060\037\006\003\125\004\003\023\030\124\150\141\167
-+-\164\145\040\120\145\162\163\157\156\141\154\040\102\141\163\151
-+-\143\040\103\101\061\050\060\046\006\011\052\206\110\206\367\015
-+-\001\011\001\026\031\160\145\162\163\157\156\141\154\055\142\141
-+-\163\151\143\100\164\150\141\167\164\145\056\143\157\155
-+-END
-+-CKA_SERIAL_NUMBER MULTILINE_OCTAL
-+-\002\001\000
-+-END
-+-CKA_VALUE MULTILINE_OCTAL
-+-\060\202\003\041\060\202\002\212\240\003\002\001\002\002\001\000
-+-\060\015\006\011\052\206\110\206\367\015\001\001\004\005\000\060
-+-\201\313\061\013\060\011\006\003\125\004\006\023\002\132\101\061
-+-\025\060\023\006\003\125\004\010\023\014\127\145\163\164\145\162
-+-\156\040\103\141\160\145\061\022\060\020\006\003\125\004\007\023
-+-\011\103\141\160\145\040\124\157\167\156\061\032\060\030\006\003
-+-\125\004\012\023\021\124\150\141\167\164\145\040\103\157\156\163
-+-\165\154\164\151\156\147\061\050\060\046\006\003\125\004\013\023
-+-\037\103\145\162\164\151\146\151\143\141\164\151\157\156\040\123
-+-\145\162\166\151\143\145\163\040\104\151\166\151\163\151\157\156
-+-\061\041\060\037\006\003\125\004\003\023\030\124\150\141\167\164
-+-\145\040\120\145\162\163\157\156\141\154\040\102\141\163\151\143
-+-\040\103\101\061\050\060\046\006\011\052\206\110\206\367\015\001
-+-\011\001\026\031\160\145\162\163\157\156\141\154\055\142\141\163
-+-\151\143\100\164\150\141\167\164\145\056\143\157\155\060\036\027
-+-\015\071\066\060\061\060\061\060\060\060\060\060\060\132\027\015
-+-\062\060\061\062\063\061\062\063\065\071\065\071\132\060\201\313
-+-\061\013\060\011\006\003\125\004\006\023\002\132\101\061\025\060
-+-\023\006\003\125\004\010\023\014\127\145\163\164\145\162\156\040
-+-\103\141\160\145\061\022\060\020\006\003\125\004\007\023\011\103
-+-\141\160\145\040\124\157\167\156\061\032\060\030\006\003\125\004
-+-\012\023\021\124\150\141\167\164\145\040\103\157\156\163\165\154
-+-\164\151\156\147\061\050\060\046\006\003\125\004\013\023\037\103
-+-\145\162\164\151\146\151\143\141\164\151\157\156\040\123\145\162
-+-\166\151\143\145\163\040\104\151\166\151\163\151\157\156\061\041
-+-\060\037\006\003\125\004\003\023\030\124\150\141\167\164\145\040
-+-\120\145\162\163\157\156\141\154\040\102\141\163\151\143\040\103
-+-\101\061\050\060\046\006\011\052\206\110\206\367\015\001\011\001
-+-\026\031\160\145\162\163\157\156\141\154\055\142\141\163\151\143
-+-\100\164\150\141\167\164\145\056\143\157\155\060\201\237\060\015
-+-\006\011\052\206\110\206\367\015\001\001\001\005\000\003\201\215
-+-\000\060\201\211\002\201\201\000\274\274\223\123\155\300\120\117
-+-\202\025\346\110\224\065\246\132\276\157\102\372\017\107\356\167
-+-\165\162\335\215\111\233\226\127\240\170\324\312\077\121\263\151
-+-\013\221\166\027\042\007\227\152\304\121\223\113\340\215\357\067
-+-\225\241\014\115\332\064\220\035\027\211\227\340\065\070\127\112
-+-\300\364\010\160\351\074\104\173\120\176\141\232\220\343\043\323
-+-\210\021\106\047\365\013\007\016\273\335\321\177\040\012\210\271
-+-\126\013\056\034\200\332\361\343\236\051\357\024\275\012\104\373
-+-\033\133\030\321\277\043\223\041\002\003\001\000\001\243\023\060
-+-\021\060\017\006\003\125\035\023\001\001\377\004\005\060\003\001
-+-\001\377\060\015\006\011\052\206\110\206\367\015\001\001\004\005
-+-\000\003\201\201\000\055\342\231\153\260\075\172\211\327\131\242
-+-\224\001\037\053\335\022\113\123\302\255\177\252\247\000\134\221
-+-\100\127\045\112\070\252\204\160\271\331\200\017\245\173\134\373
-+-\163\306\275\327\212\141\134\003\343\055\047\250\027\340\204\205
-+-\102\334\136\233\306\267\262\155\273\164\257\344\077\313\247\267
-+-\260\340\135\276\170\203\045\224\322\333\201\017\171\007\155\117
-+-\364\071\025\132\122\001\173\336\062\326\115\070\366\022\134\006
-+-\120\337\005\133\275\024\113\241\337\051\272\073\101\215\367\143
-+-\126\241\337\042\261
-+-END
-+-
-+-# Trust for Certificate "Thawte Personal Basic CA"
-+-CKA_CLASS CK_OBJECT_CLASS CKO_NETSCAPE_TRUST
-+-CKA_TOKEN CK_BBOOL CK_TRUE
-+-CKA_PRIVATE CK_BBOOL CK_FALSE
-+-CKA_MODIFIABLE CK_BBOOL CK_FALSE
-+-CKA_LABEL UTF8 "Thawte Personal Basic CA"
-+-CKA_CERT_SHA1_HASH MULTILINE_OCTAL
-+-\100\347\214\035\122\075\034\331\225\117\254\032\032\263\275\074
-+-\272\241\133\374
-+-END
-+-CKA_CERT_MD5_HASH MULTILINE_OCTAL
-+-\346\013\322\311\312\055\210\333\032\161\016\113\170\353\002\101
-+-END
-+-CKA_ISSUER MULTILINE_OCTAL
-+-\060\201\313\061\013\060\011\006\003\125\004\006\023\002\132\101
-+-\061\025\060\023\006\003\125\004\010\023\014\127\145\163\164\145
-+-\162\156\040\103\141\160\145\061\022\060\020\006\003\125\004\007
-+-\023\011\103\141\160\145\040\124\157\167\156\061\032\060\030\006
-+-\003\125\004\012\023\021\124\150\141\167\164\145\040\103\157\156
-+-\163\165\154\164\151\156\147\061\050\060\046\006\003\125\004\013
-+-\023\037\103\145\162\164\151\146\151\143\141\164\151\157\156\040
-+-\123\145\162\166\151\143\145\163\040\104\151\166\151\163\151\157
-+-\156\061\041\060\037\006\003\125\004\003\023\030\124\150\141\167
-+-\164\145\040\120\145\162\163\157\156\141\154\040\102\141\163\151
-+-\143\040\103\101\061\050\060\046\006\011\052\206\110\206\367\015
-+-\001\011\001\026\031\160\145\162\163\157\156\141\154\055\142\141
-+-\163\151\143\100\164\150\141\167\164\145\056\143\157\155
-+-END
-+-CKA_SERIAL_NUMBER MULTILINE_OCTAL
-+-\002\001\000
-+-END
-+-CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-+-CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-+-
-+-#
-+-# Certificate "Thawte Personal Premium CA"
-+-#
-+-CKA_CLASS CK_OBJECT_CLASS CKO_CERTIFICATE
-+-CKA_TOKEN CK_BBOOL CK_TRUE
-+-CKA_PRIVATE CK_BBOOL CK_FALSE
-+-CKA_MODIFIABLE CK_BBOOL CK_FALSE
-+-CKA_LABEL UTF8 "Thawte Personal Premium CA"
-+-CKA_CERTIFICATE_TYPE CK_CERTIFICATE_TYPE CKC_X_509
-+-CKA_SUBJECT MULTILINE_OCTAL
-+-\060\201\317\061\013\060\011\006\003\125\004\006\023\002\132\101
-+-\061\025\060\023\006\003\125\004\010\023\014\127\145\163\164\145
-+-\162\156\040\103\141\160\145\061\022\060\020\006\003\125\004\007
-+-\023\011\103\141\160\145\040\124\157\167\156\061\032\060\030\006
-+-\003\125\004\012\023\021\124\150\141\167\164\145\040\103\157\156
-+-\163\165\154\164\151\156\147\061\050\060\046\006\003\125\004\013
-+-\023\037\103\145\162\164\151\146\151\143\141\164\151\157\156\040
-+-\123\145\162\166\151\143\145\163\040\104\151\166\151\163\151\157
-+-\156\061\043\060\041\006\003\125\004\003\023\032\124\150\141\167
-+-\164\145\040\120\145\162\163\157\156\141\154\040\120\162\145\155
-+-\151\165\155\040\103\101\061\052\060\050\006\011\052\206\110\206
-+-\367\015\001\011\001\026\033\160\145\162\163\157\156\141\154\055
-+-\160\162\145\155\151\165\155\100\164\150\141\167\164\145\056\143
-+-\157\155
-+-END
-+-CKA_ID UTF8 "0"
-+-CKA_ISSUER MULTILINE_OCTAL
-+-\060\201\317\061\013\060\011\006\003\125\004\006\023\002\132\101
-+-\061\025\060\023\006\003\125\004\010\023\014\127\145\163\164\145
-+-\162\156\040\103\141\160\145\061\022\060\020\006\003\125\004\007
-+-\023\011\103\141\160\145\040\124\157\167\156\061\032\060\030\006
-+-\003\125\004\012\023\021\124\150\141\167\164\145\040\103\157\156
-+-\163\165\154\164\151\156\147\061\050\060\046\006\003\125\004\013
-+-\023\037\103\145\162\164\151\146\151\143\141\164\151\157\156\040
-+-\123\145\162\166\151\143\145\163\040\104\151\166\151\163\151\157
-+-\156\061\043\060\041\006\003\125\004\003\023\032\124\150\141\167
-+-\164\145\040\120\145\162\163\157\156\141\154\040\120\162\145\155
-+-\151\165\155\040\103\101\061\052\060\050\006\011\052\206\110\206
-+-\367\015\001\011\001\026\033\160\145\162\163\157\156\141\154\055
-+-\160\162\145\155\151\165\155\100\164\150\141\167\164\145\056\143
-+-\157\155
-+-END
-+-CKA_SERIAL_NUMBER MULTILINE_OCTAL
-+-\002\001\000
-+-END
-+-CKA_VALUE MULTILINE_OCTAL
-+-\060\202\003\051\060\202\002\222\240\003\002\001\002\002\001\000
-+-\060\015\006\011\052\206\110\206\367\015\001\001\004\005\000\060
-+-\201\317\061\013\060\011\006\003\125\004\006\023\002\132\101\061
-+-\025\060\023\006\003\125\004\010\023\014\127\145\163\164\145\162
-+-\156\040\103\141\160\145\061\022\060\020\006\003\125\004\007\023
-+-\011\103\141\160\145\040\124\157\167\156\061\032\060\030\006\003
-+-\125\004\012\023\021\124\150\141\167\164\145\040\103\157\156\163
-+-\165\154\164\151\156\147\061\050\060\046\006\003\125\004\013\023
-+-\037\103\145\162\164\151\146\151\143\141\164\151\157\156\040\123
-+-\145\162\166\151\143\145\163\040\104\151\166\151\163\151\157\156
-+-\061\043\060\041\006\003\125\004\003\023\032\124\150\141\167\164
-+-\145\040\120\145\162\163\157\156\141\154\040\120\162\145\155\151
-+-\165\155\040\103\101\061\052\060\050\006\011\052\206\110\206\367
-+-\015\001\011\001\026\033\160\145\162\163\157\156\141\154\055\160
-+-\162\145\155\151\165\155\100\164\150\141\167\164\145\056\143\157
-+-\155\060\036\027\015\071\066\060\061\060\061\060\060\060\060\060
-+-\060\132\027\015\062\060\061\062\063\061\062\063\065\071\065\071
-+-\132\060\201\317\061\013\060\011\006\003\125\004\006\023\002\132
-+-\101\061\025\060\023\006\003\125\004\010\023\014\127\145\163\164
-+-\145\162\156\040\103\141\160\145\061\022\060\020\006\003\125\004
-+-\007\023\011\103\141\160\145\040\124\157\167\156\061\032\060\030
-+-\006\003\125\004\012\023\021\124\150\141\167\164\145\040\103\157
-+-\156\163\165\154\164\151\156\147\061\050\060\046\006\003\125\004
-+-\013\023\037\103\145\162\164\151\146\151\143\141\164\151\157\156
-+-\040\123\145\162\166\151\143\145\163\040\104\151\166\151\163\151
-+-\157\156\061\043\060\041\006\003\125\004\003\023\032\124\150\141
-+-\167\164\145\040\120\145\162\163\157\156\141\154\040\120\162\145
-+-\155\151\165\155\040\103\101\061\052\060\050\006\011\052\206\110
-+-\206\367\015\001\011\001\026\033\160\145\162\163\157\156\141\154
-+-\055\160\162\145\155\151\165\155\100\164\150\141\167\164\145\056
-+-\143\157\155\060\201\237\060\015\006\011\052\206\110\206\367\015
-+-\001\001\001\005\000\003\201\215\000\060\201\211\002\201\201\000
-+-\311\146\331\370\007\104\317\271\214\056\360\241\357\023\105\154
-+-\005\337\336\047\026\121\066\101\021\154\154\073\355\376\020\175
-+-\022\236\345\233\102\232\376\140\061\303\146\267\163\072\110\256
-+-\116\320\062\067\224\210\265\015\266\331\363\362\104\331\325\210
-+-\022\335\166\115\362\032\374\157\043\036\172\361\330\230\105\116
-+-\007\020\357\026\102\320\103\165\155\112\336\342\252\311\061\377
-+-\037\000\160\174\146\317\020\045\010\272\372\356\000\351\106\003
-+-\146\047\021\025\073\252\133\362\230\335\066\102\262\332\210\165
-+-\002\003\001\000\001\243\023\060\021\060\017\006\003\125\035\023
-+-\001\001\377\004\005\060\003\001\001\377\060\015\006\011\052\206
-+-\110\206\367\015\001\001\004\005\000\003\201\201\000\151\066\211
-+-\367\064\052\063\162\057\155\073\324\042\262\270\157\232\305\066
-+-\146\016\033\074\241\261\165\132\346\375\065\323\370\250\362\007
-+-\157\205\147\216\336\053\271\342\027\260\072\240\360\016\242\000
-+-\232\337\363\024\025\156\273\310\205\132\230\200\371\377\276\164
-+-\035\075\363\376\060\045\321\067\064\147\372\245\161\171\060\141
-+-\051\162\300\340\054\114\373\126\344\072\250\157\345\062\131\122
-+-\333\165\050\120\131\014\370\013\031\344\254\331\257\226\215\057
-+-\120\333\007\303\352\037\253\063\340\365\053\061\211
-+-END
-+-
-+-# Trust for Certificate "Thawte Personal Premium CA"
-+-CKA_CLASS CK_OBJECT_CLASS CKO_NETSCAPE_TRUST
-+-CKA_TOKEN CK_BBOOL CK_TRUE
-+-CKA_PRIVATE CK_BBOOL CK_FALSE
-+-CKA_MODIFIABLE CK_BBOOL CK_FALSE
-+-CKA_LABEL UTF8 "Thawte Personal Premium CA"
-+-CKA_CERT_SHA1_HASH MULTILINE_OCTAL
-+-\066\206\065\143\375\121\050\307\276\246\360\005\317\351\264\066
-+-\150\010\154\316
-+-END
-+-CKA_CERT_MD5_HASH MULTILINE_OCTAL
-+-\072\262\336\042\232\040\223\111\371\355\310\322\212\347\150\015
-+-END
-+-CKA_ISSUER MULTILINE_OCTAL
-+-\060\201\317\061\013\060\011\006\003\125\004\006\023\002\132\101
-+-\061\025\060\023\006\003\125\004\010\023\014\127\145\163\164\145
-+-\162\156\040\103\141\160\145\061\022\060\020\006\003\125\004\007
-+-\023\011\103\141\160\145\040\124\157\167\156\061\032\060\030\006
-+-\003\125\004\012\023\021\124\150\141\167\164\145\040\103\157\156
-+-\163\165\154\164\151\156\147\061\050\060\046\006\003\125\004\013
-+-\023\037\103\145\162\164\151\146\151\143\141\164\151\157\156\040
-+-\123\145\162\166\151\143\145\163\040\104\151\166\151\163\151\157
-+-\156\061\043\060\041\006\003\125\004\003\023\032\124\150\141\167
-+-\164\145\040\120\145\162\163\157\156\141\154\040\120\162\145\155
-+-\151\165\155\040\103\101\061\052\060\050\006\011\052\206\110\206
-+-\367\015\001\011\001\026\033\160\145\162\163\157\156\141\154\055
-+-\160\162\145\155\151\165\155\100\164\150\141\167\164\145\056\143
-+-\157\155
-+-END
-+-CKA_SERIAL_NUMBER MULTILINE_OCTAL
-+-\002\001\000
-+-END
-+-CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-+-CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+ CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-+ 
-+ #
-+@@ -935,7 +564,7 @@ END
-+ CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+ CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-+ CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_TRUE
-++CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-+ 
-+ #
-+ # Certificate "Thawte Premium Server CA"
-+@@ -1071,7 +700,7 @@ END
-+ CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+ CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-+ CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_TRUE
-++CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-+ 
-+ #
-+ # Certificate "Equifax Secure CA"
-+@@ -1183,138 +812,6 @@ CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+ CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-+ 
-+ #
-+-# Certificate "ABAecom (sub., Am. Bankers Assn.) Root CA"
-+-#
-+-CKA_CLASS CK_OBJECT_CLASS CKO_CERTIFICATE
-+-CKA_TOKEN CK_BBOOL CK_TRUE
-+-CKA_PRIVATE CK_BBOOL CK_FALSE
-+-CKA_MODIFIABLE CK_BBOOL CK_FALSE
-+-CKA_LABEL UTF8 "ABAecom (sub., Am. Bankers Assn.) Root CA"
-+-CKA_CERTIFICATE_TYPE CK_CERTIFICATE_TYPE CKC_X_509
-+-CKA_SUBJECT MULTILINE_OCTAL
-+-\060\201\211\061\013\060\011\006\003\125\004\006\023\002\125\123
-+-\061\013\060\011\006\003\125\004\010\023\002\104\103\061\023\060
-+-\021\006\003\125\004\007\023\012\127\141\163\150\151\156\147\164
-+-\157\156\061\027\060\025\006\003\125\004\012\023\016\101\102\101
-+-\056\105\103\117\115\054\040\111\116\103\056\061\031\060\027\006
-+-\003\125\004\003\023\020\101\102\101\056\105\103\117\115\040\122
-+-\157\157\164\040\103\101\061\044\060\042\006\011\052\206\110\206
-+-\367\015\001\011\001\026\025\141\144\155\151\156\100\144\151\147
-+-\163\151\147\164\162\165\163\164\056\143\157\155
-+-END
-+-CKA_ID UTF8 "0"
-+-CKA_ISSUER MULTILINE_OCTAL
-+-\060\201\211\061\013\060\011\006\003\125\004\006\023\002\125\123
-+-\061\013\060\011\006\003\125\004\010\023\002\104\103\061\023\060
-+-\021\006\003\125\004\007\023\012\127\141\163\150\151\156\147\164
-+-\157\156\061\027\060\025\006\003\125\004\012\023\016\101\102\101
-+-\056\105\103\117\115\054\040\111\116\103\056\061\031\060\027\006
-+-\003\125\004\003\023\020\101\102\101\056\105\103\117\115\040\122
-+-\157\157\164\040\103\101\061\044\060\042\006\011\052\206\110\206
-+-\367\015\001\011\001\026\025\141\144\155\151\156\100\144\151\147
-+-\163\151\147\164\162\165\163\164\056\143\157\155
-+-END
-+-CKA_SERIAL_NUMBER MULTILINE_OCTAL
-+-\002\021\000\320\036\100\220\000\000\106\122\000\000\000\001\000
-+-\000\000\004
-+-END
-+-CKA_VALUE MULTILINE_OCTAL
-+-\060\202\003\265\060\202\002\235\240\003\002\001\002\002\021\000
-+-\320\036\100\220\000\000\106\122\000\000\000\001\000\000\000\004
-+-\060\015\006\011\052\206\110\206\367\015\001\001\005\005\000\060
-+-\201\211\061\013\060\011\006\003\125\004\006\023\002\125\123\061
-+-\013\060\011\006\003\125\004\010\023\002\104\103\061\023\060\021
-+-\006\003\125\004\007\023\012\127\141\163\150\151\156\147\164\157
-+-\156\061\027\060\025\006\003\125\004\012\023\016\101\102\101\056
-+-\105\103\117\115\054\040\111\116\103\056\061\031\060\027\006\003
-+-\125\004\003\023\020\101\102\101\056\105\103\117\115\040\122\157
-+-\157\164\040\103\101\061\044\060\042\006\011\052\206\110\206\367
-+-\015\001\011\001\026\025\141\144\155\151\156\100\144\151\147\163
-+-\151\147\164\162\165\163\164\056\143\157\155\060\036\027\015\071
-+-\071\060\067\061\062\061\067\063\063\065\063\132\027\015\060\071
-+-\060\067\060\071\061\067\063\063\065\063\132\060\201\211\061\013
-+-\060\011\006\003\125\004\006\023\002\125\123\061\013\060\011\006
-+-\003\125\004\010\023\002\104\103\061\023\060\021\006\003\125\004
-+-\007\023\012\127\141\163\150\151\156\147\164\157\156\061\027\060
-+-\025\006\003\125\004\012\023\016\101\102\101\056\105\103\117\115
-+-\054\040\111\116\103\056\061\031\060\027\006\003\125\004\003\023
-+-\020\101\102\101\056\105\103\117\115\040\122\157\157\164\040\103
-+-\101\061\044\060\042\006\011\052\206\110\206\367\015\001\011\001
-+-\026\025\141\144\155\151\156\100\144\151\147\163\151\147\164\162
-+-\165\163\164\056\143\157\155\060\202\001\042\060\015\006\011\052
-+-\206\110\206\367\015\001\001\001\005\000\003\202\001\017\000\060
-+-\202\001\012\002\202\001\001\000\261\323\021\340\171\125\103\007
-+-\010\114\313\005\102\000\342\015\203\106\075\344\223\272\266\006
-+-\323\015\131\275\076\301\316\103\147\001\212\041\250\357\274\314
-+-\320\242\314\260\125\226\123\204\146\005\000\332\104\111\200\330
-+-\124\012\245\045\206\224\355\143\126\377\160\154\243\241\031\322
-+-\170\276\150\052\104\136\057\317\314\030\136\107\274\072\261\106
-+-\075\036\360\271\054\064\137\214\174\114\010\051\235\100\125\353
-+-\074\175\203\336\265\360\367\212\203\016\241\114\264\072\245\263
-+-\137\132\042\227\354\031\233\301\005\150\375\346\267\251\221\224
-+-\054\344\170\110\044\032\045\031\072\353\225\234\071\012\212\317
-+-\102\262\360\034\325\137\373\153\355\150\126\173\071\054\162\070
-+-\260\356\223\251\323\173\167\074\353\161\003\251\070\112\026\154
-+-\211\052\312\332\063\023\171\302\125\214\355\234\273\362\313\133
-+-\020\370\056\141\065\306\051\114\052\320\052\143\321\145\131\264
-+-\370\315\371\364\000\204\266\127\102\205\235\062\250\371\052\124
-+-\373\377\170\101\274\275\161\050\364\273\220\274\377\226\064\004
-+-\343\105\236\241\106\050\100\201\002\003\001\000\001\243\026\060
-+-\024\060\022\006\003\125\035\023\001\001\377\004\010\060\006\001
-+-\001\377\002\001\010\060\015\006\011\052\206\110\206\367\015\001
-+-\001\005\005\000\003\202\001\001\000\004\157\045\206\344\346\226
-+-\047\264\331\102\300\320\311\000\261\177\124\076\207\262\155\044
-+-\251\057\012\176\375\244\104\260\370\124\007\275\033\235\235\312
-+-\173\120\044\173\021\133\111\243\246\277\022\164\325\211\267\267
-+-\057\230\144\045\024\267\141\351\177\140\200\153\323\144\350\253
-+-\275\032\326\121\372\300\264\135\167\032\177\144\010\136\171\306
-+-\005\114\361\172\335\115\175\316\346\110\173\124\322\141\222\201
-+-\326\033\326\000\360\016\236\050\167\240\115\210\307\042\166\031
-+-\303\307\236\033\246\167\170\370\137\233\126\321\360\362\027\254
-+-\216\235\131\346\037\376\127\266\331\136\341\135\237\105\354\141
-+-\150\031\101\341\262\040\046\376\132\060\166\044\377\100\162\074
-+-\171\237\174\042\110\253\106\315\333\263\206\054\217\277\005\101
-+-\323\301\343\024\343\101\027\046\320\174\247\161\114\031\350\112
-+-\017\162\130\061\175\354\140\172\243\042\050\275\031\044\140\077
-+-\073\207\163\300\153\344\313\256\267\253\045\103\262\125\055\173
-+-\253\006\016\165\135\064\345\135\163\155\236\262\165\100\245\131
-+-\311\117\061\161\210\331\210\177\124
-+-END
-+-
-+-# Trust for Certificate "ABAecom (sub., Am. Bankers Assn.) Root CA"
-+-CKA_CLASS CK_OBJECT_CLASS CKO_NETSCAPE_TRUST
-+-CKA_TOKEN CK_BBOOL CK_TRUE
-+-CKA_PRIVATE CK_BBOOL CK_FALSE
-+-CKA_MODIFIABLE CK_BBOOL CK_FALSE
-+-CKA_LABEL UTF8 "ABAecom (sub., Am. Bankers Assn.) Root CA"
-+-CKA_CERT_SHA1_HASH MULTILINE_OCTAL
-+-\172\164\101\017\260\315\134\227\052\066\113\161\277\003\035\210
-+-\246\121\016\236
-+-END
-+-CKA_CERT_MD5_HASH MULTILINE_OCTAL
-+-\101\270\007\367\250\321\011\356\264\232\216\160\115\374\033\170
-+-END
-+-CKA_ISSUER MULTILINE_OCTAL
-+-\060\201\211\061\013\060\011\006\003\125\004\006\023\002\125\123
-+-\061\013\060\011\006\003\125\004\010\023\002\104\103\061\023\060
-+-\021\006\003\125\004\007\023\012\127\141\163\150\151\156\147\164
-+-\157\156\061\027\060\025\006\003\125\004\012\023\016\101\102\101
-+-\056\105\103\117\115\054\040\111\116\103\056\061\031\060\027\006
-+-\003\125\004\003\023\020\101\102\101\056\105\103\117\115\040\122
-+-\157\157\164\040\103\101\061\044\060\042\006\011\052\206\110\206
-+-\367\015\001\011\001\026\025\141\144\155\151\156\100\144\151\147
-+-\163\151\147\164\162\165\163\164\056\143\157\155
-+-END
-+-CKA_SERIAL_NUMBER MULTILINE_OCTAL
-+-\002\021\000\320\036\100\220\000\000\106\122\000\000\000\001\000
-+-\000\000\004
-+-END
-+-CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_TRUE
-+-
-+-#
-+ # Certificate "Digital Signature Trust Co. Global CA 1"
-+ #
-+ CKA_CLASS CK_OBJECT_CLASS CKO_CERTIFICATE
-+@@ -1421,7 +918,7 @@ END
-+ CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+ CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+ CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_TRUE
-++CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-+ 
-+ #
-+ # Certificate "Digital Signature Trust Co. Global CA 3"
-+@@ -1530,287 +1027,7 @@ END
-+ CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+ CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+ CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_TRUE
-+-
-+-#
-+-# Certificate "Digital Signature Trust Co. Global CA 2"
-+-#
-+-CKA_CLASS CK_OBJECT_CLASS CKO_CERTIFICATE
-+-CKA_TOKEN CK_BBOOL CK_TRUE
-+-CKA_PRIVATE CK_BBOOL CK_FALSE
-+-CKA_MODIFIABLE CK_BBOOL CK_FALSE
-+-CKA_LABEL UTF8 "Digital Signature Trust Co. Global CA 2"
-+-CKA_CERTIFICATE_TYPE CK_CERTIFICATE_TYPE CKC_X_509
-+-CKA_SUBJECT MULTILINE_OCTAL
-+-\060\201\251\061\013\060\011\006\003\125\004\006\023\002\165\163
-+-\061\015\060\013\006\003\125\004\010\023\004\125\164\141\150\061
-+-\027\060\025\006\003\125\004\007\023\016\123\141\154\164\040\114
-+-\141\153\145\040\103\151\164\171\061\044\060\042\006\003\125\004
-+-\012\023\033\104\151\147\151\164\141\154\040\123\151\147\156\141
-+-\164\165\162\145\040\124\162\165\163\164\040\103\157\056\061\021
-+-\060\017\006\003\125\004\013\023\010\104\123\124\103\101\040\130
-+-\061\061\026\060\024\006\003\125\004\003\023\015\104\123\124\040
-+-\122\157\157\164\103\101\040\130\061\061\041\060\037\006\011\052
-+-\206\110\206\367\015\001\011\001\026\022\143\141\100\144\151\147
-+-\163\151\147\164\162\165\163\164\056\143\157\155
-+-END
-+-CKA_ID UTF8 "0"
-+-CKA_ISSUER MULTILINE_OCTAL
-+-\060\201\251\061\013\060\011\006\003\125\004\006\023\002\165\163
-+-\061\015\060\013\006\003\125\004\010\023\004\125\164\141\150\061
-+-\027\060\025\006\003\125\004\007\023\016\123\141\154\164\040\114
-+-\141\153\145\040\103\151\164\171\061\044\060\042\006\003\125\004
-+-\012\023\033\104\151\147\151\164\141\154\040\123\151\147\156\141
-+-\164\165\162\145\040\124\162\165\163\164\040\103\157\056\061\021
-+-\060\017\006\003\125\004\013\023\010\104\123\124\103\101\040\130
-+-\061\061\026\060\024\006\003\125\004\003\023\015\104\123\124\040
-+-\122\157\157\164\103\101\040\130\061\061\041\060\037\006\011\052
-+-\206\110\206\367\015\001\011\001\026\022\143\141\100\144\151\147
-+-\163\151\147\164\162\165\163\164\056\143\157\155
-+-END
-+-CKA_SERIAL_NUMBER MULTILINE_OCTAL
-+-\002\021\000\320\036\100\213\000\000\002\174\000\000\000\002\000
-+-\000\000\001
-+-END
-+-CKA_VALUE MULTILINE_OCTAL
-+-\060\202\003\330\060\202\002\300\002\021\000\320\036\100\213\000
-+-\000\002\174\000\000\000\002\000\000\000\001\060\015\006\011\052
-+-\206\110\206\367\015\001\001\005\005\000\060\201\251\061\013\060
-+-\011\006\003\125\004\006\023\002\165\163\061\015\060\013\006\003
-+-\125\004\010\023\004\125\164\141\150\061\027\060\025\006\003\125
-+-\004\007\023\016\123\141\154\164\040\114\141\153\145\040\103\151
-+-\164\171\061\044\060\042\006\003\125\004\012\023\033\104\151\147
-+-\151\164\141\154\040\123\151\147\156\141\164\165\162\145\040\124
-+-\162\165\163\164\040\103\157\056\061\021\060\017\006\003\125\004
-+-\013\023\010\104\123\124\103\101\040\130\061\061\026\060\024\006
-+-\003\125\004\003\023\015\104\123\124\040\122\157\157\164\103\101
-+-\040\130\061\061\041\060\037\006\011\052\206\110\206\367\015\001
-+-\011\001\026\022\143\141\100\144\151\147\163\151\147\164\162\165
-+-\163\164\056\143\157\155\060\036\027\015\071\070\061\062\060\061
-+-\061\070\061\070\065\065\132\027\015\060\070\061\061\062\070\061
-+-\070\061\070\065\065\132\060\201\251\061\013\060\011\006\003\125
-+-\004\006\023\002\165\163\061\015\060\013\006\003\125\004\010\023
-+-\004\125\164\141\150\061\027\060\025\006\003\125\004\007\023\016
-+-\123\141\154\164\040\114\141\153\145\040\103\151\164\171\061\044
-+-\060\042\006\003\125\004\012\023\033\104\151\147\151\164\141\154
-+-\040\123\151\147\156\141\164\165\162\145\040\124\162\165\163\164
-+-\040\103\157\056\061\021\060\017\006\003\125\004\013\023\010\104
-+-\123\124\103\101\040\130\061\061\026\060\024\006\003\125\004\003
-+-\023\015\104\123\124\040\122\157\157\164\103\101\040\130\061\061
-+-\041\060\037\006\011\052\206\110\206\367\015\001\011\001\026\022
-+-\143\141\100\144\151\147\163\151\147\164\162\165\163\164\056\143
-+-\157\155\060\202\001\042\060\015\006\011\052\206\110\206\367\015
-+-\001\001\001\005\000\003\202\001\017\000\060\202\001\012\002\202
-+-\001\001\000\322\306\046\266\347\245\075\301\304\150\325\120\157
-+-\123\305\157\111\023\011\270\257\054\110\215\024\152\243\027\137
-+-\132\371\323\056\165\057\330\050\142\321\223\057\374\115\324\253
-+-\207\345\010\307\231\347\222\077\165\275\353\045\264\025\301\233
-+-\031\075\322\104\215\327\164\040\155\067\002\217\151\223\133\212
-+-\304\031\235\364\262\016\374\026\154\271\261\005\222\203\321\205
-+-\054\140\224\076\105\125\240\331\253\010\041\346\140\350\073\164
-+-\362\231\120\121\150\320\003\055\261\200\276\243\330\122\260\104
-+-\315\103\112\160\216\130\205\225\341\116\054\326\055\101\157\326
-+-\204\347\310\230\104\312\107\333\054\044\245\151\046\317\153\270
-+-\047\142\303\364\311\172\222\043\355\023\147\202\256\105\056\105
-+-\345\176\162\077\205\235\224\142\020\346\074\221\241\255\167\000
-+-\340\025\354\363\204\200\162\172\216\156\140\227\307\044\131\020
-+-\064\203\133\341\245\244\151\266\127\065\034\170\131\306\323\057
-+-\072\163\147\356\224\312\004\023\005\142\006\160\043\263\364\174
-+-\356\105\331\144\013\133\111\252\244\103\316\046\304\104\022\154
-+-\270\335\171\002\003\001\000\001\060\015\006\011\052\206\110\206
-+-\367\015\001\001\005\005\000\003\202\001\001\000\242\067\262\077
-+-\151\373\327\206\171\124\111\061\225\063\053\363\321\011\024\111
-+-\142\140\206\245\260\021\342\120\302\035\006\127\076\055\350\063
-+-\144\276\233\252\255\137\033\115\324\231\225\242\213\232\311\142
-+-\162\265\151\352\331\130\253\065\355\025\242\103\326\266\274\007
-+-\171\145\144\163\175\327\171\312\173\325\132\121\306\341\123\004
-+-\226\215\070\317\243\027\254\071\161\153\001\303\213\123\074\143
-+-\351\356\171\300\344\276\222\062\144\172\263\037\227\224\142\275
-+-\352\262\040\025\225\373\227\362\170\057\143\066\100\070\343\106
-+-\017\035\335\254\225\312\347\113\220\173\261\113\251\324\305\353
-+-\232\332\252\325\243\224\024\106\215\055\037\363\072\326\223\072
-+-\366\076\171\374\350\346\260\165\355\356\075\311\160\307\135\252
-+-\201\113\106\045\034\307\154\025\343\225\116\017\252\062\067\224
-+-\012\027\044\222\023\204\130\322\143\157\053\367\346\133\142\013
-+-\023\027\260\015\122\114\376\376\157\134\342\221\156\035\375\244
-+-\142\327\150\372\216\172\117\322\010\332\223\334\360\222\021\172
-+-\320\334\162\223\014\163\223\142\205\150\320\364
-+-END
-+-
-+-# Trust for Certificate "Digital Signature Trust Co. Global CA 2"
-+-CKA_CLASS CK_OBJECT_CLASS CKO_NETSCAPE_TRUST
-+-CKA_TOKEN CK_BBOOL CK_TRUE
-+-CKA_PRIVATE CK_BBOOL CK_FALSE
-+-CKA_MODIFIABLE CK_BBOOL CK_FALSE
-+-CKA_LABEL UTF8 "Digital Signature Trust Co. Global CA 2"
-+-CKA_CERT_SHA1_HASH MULTILINE_OCTAL
-+-\267\057\377\222\322\316\103\336\012\215\114\124\214\120\067\046
-+-\250\036\053\223
-+-END
-+-CKA_CERT_MD5_HASH MULTILINE_OCTAL
-+-\154\311\247\156\107\361\014\343\123\073\170\114\115\302\152\305
-+-END
-+-CKA_ISSUER MULTILINE_OCTAL
-+-\060\201\251\061\013\060\011\006\003\125\004\006\023\002\165\163
-+-\061\015\060\013\006\003\125\004\010\023\004\125\164\141\150\061
-+-\027\060\025\006\003\125\004\007\023\016\123\141\154\164\040\114
-+-\141\153\145\040\103\151\164\171\061\044\060\042\006\003\125\004
-+-\012\023\033\104\151\147\151\164\141\154\040\123\151\147\156\141
-+-\164\165\162\145\040\124\162\165\163\164\040\103\157\056\061\021
-+-\060\017\006\003\125\004\013\023\010\104\123\124\103\101\040\130
-+-\061\061\026\060\024\006\003\125\004\003\023\015\104\123\124\040
-+-\122\157\157\164\103\101\040\130\061\061\041\060\037\006\011\052
-+-\206\110\206\367\015\001\011\001\026\022\143\141\100\144\151\147
-+-\163\151\147\164\162\165\163\164\056\143\157\155
-+-END
-+-CKA_SERIAL_NUMBER MULTILINE_OCTAL
-+-\002\021\000\320\036\100\213\000\000\002\174\000\000\000\002\000
-+-\000\000\001
-+-END
-+-CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_TRUE
-+-
-+-#
-+-# Certificate "Digital Signature Trust Co. Global CA 4"
-+-#
-+-CKA_CLASS CK_OBJECT_CLASS CKO_CERTIFICATE
-+-CKA_TOKEN CK_BBOOL CK_TRUE
-+-CKA_PRIVATE CK_BBOOL CK_FALSE
-+-CKA_MODIFIABLE CK_BBOOL CK_FALSE
-+-CKA_LABEL UTF8 "Digital Signature Trust Co. Global CA 4"
-+-CKA_CERTIFICATE_TYPE CK_CERTIFICATE_TYPE CKC_X_509
-+-CKA_SUBJECT MULTILINE_OCTAL
-+-\060\201\251\061\013\060\011\006\003\125\004\006\023\002\165\163
-+-\061\015\060\013\006\003\125\004\010\023\004\125\164\141\150\061
-+-\027\060\025\006\003\125\004\007\023\016\123\141\154\164\040\114
-+-\141\153\145\040\103\151\164\171\061\044\060\042\006\003\125\004
-+-\012\023\033\104\151\147\151\164\141\154\040\123\151\147\156\141
-+-\164\165\162\145\040\124\162\165\163\164\040\103\157\056\061\021
-+-\060\017\006\003\125\004\013\023\010\104\123\124\103\101\040\130
-+-\062\061\026\060\024\006\003\125\004\003\023\015\104\123\124\040
-+-\122\157\157\164\103\101\040\130\062\061\041\060\037\006\011\052
-+-\206\110\206\367\015\001\011\001\026\022\143\141\100\144\151\147
-+-\163\151\147\164\162\165\163\164\056\143\157\155
-+-END
-+-CKA_ID UTF8 "0"
-+-CKA_ISSUER MULTILINE_OCTAL
-+-\060\201\251\061\013\060\011\006\003\125\004\006\023\002\165\163
-+-\061\015\060\013\006\003\125\004\010\023\004\125\164\141\150\061
-+-\027\060\025\006\003\125\004\007\023\016\123\141\154\164\040\114
-+-\141\153\145\040\103\151\164\171\061\044\060\042\006\003\125\004
-+-\012\023\033\104\151\147\151\164\141\154\040\123\151\147\156\141
-+-\164\165\162\145\040\124\162\165\163\164\040\103\157\056\061\021
-+-\060\017\006\003\125\004\013\023\010\104\123\124\103\101\040\130
-+-\062\061\026\060\024\006\003\125\004\003\023\015\104\123\124\040
-+-\122\157\157\164\103\101\040\130\062\061\041\060\037\006\011\052
-+-\206\110\206\367\015\001\011\001\026\022\143\141\100\144\151\147
-+-\163\151\147\164\162\165\163\164\056\143\157\155
-+-END
-+-CKA_SERIAL_NUMBER MULTILINE_OCTAL
-+-\002\021\000\320\036\100\213\000\000\167\155\000\000\000\001\000
-+-\000\000\004
-+-END
-+-CKA_VALUE MULTILINE_OCTAL
-+-\060\202\003\330\060\202\002\300\002\021\000\320\036\100\213\000
-+-\000\167\155\000\000\000\001\000\000\000\004\060\015\006\011\052
-+-\206\110\206\367\015\001\001\005\005\000\060\201\251\061\013\060
-+-\011\006\003\125\004\006\023\002\165\163\061\015\060\013\006\003
-+-\125\004\010\023\004\125\164\141\150\061\027\060\025\006\003\125
-+-\004\007\023\016\123\141\154\164\040\114\141\153\145\040\103\151
-+-\164\171\061\044\060\042\006\003\125\004\012\023\033\104\151\147
-+-\151\164\141\154\040\123\151\147\156\141\164\165\162\145\040\124
-+-\162\165\163\164\040\103\157\056\061\021\060\017\006\003\125\004
-+-\013\023\010\104\123\124\103\101\040\130\062\061\026\060\024\006
-+-\003\125\004\003\023\015\104\123\124\040\122\157\157\164\103\101
-+-\040\130\062\061\041\060\037\006\011\052\206\110\206\367\015\001
-+-\011\001\026\022\143\141\100\144\151\147\163\151\147\164\162\165
-+-\163\164\056\143\157\155\060\036\027\015\071\070\061\061\063\060
-+-\062\062\064\066\061\066\132\027\015\060\070\061\061\062\067\062
-+-\062\064\066\061\066\132\060\201\251\061\013\060\011\006\003\125
-+-\004\006\023\002\165\163\061\015\060\013\006\003\125\004\010\023
-+-\004\125\164\141\150\061\027\060\025\006\003\125\004\007\023\016
-+-\123\141\154\164\040\114\141\153\145\040\103\151\164\171\061\044
-+-\060\042\006\003\125\004\012\023\033\104\151\147\151\164\141\154
-+-\040\123\151\147\156\141\164\165\162\145\040\124\162\165\163\164
-+-\040\103\157\056\061\021\060\017\006\003\125\004\013\023\010\104
-+-\123\124\103\101\040\130\062\061\026\060\024\006\003\125\004\003
-+-\023\015\104\123\124\040\122\157\157\164\103\101\040\130\062\061
-+-\041\060\037\006\011\052\206\110\206\367\015\001\011\001\026\022
-+-\143\141\100\144\151\147\163\151\147\164\162\165\163\164\056\143
-+-\157\155\060\202\001\042\060\015\006\011\052\206\110\206\367\015
-+-\001\001\001\005\000\003\202\001\017\000\060\202\001\012\002\202
-+-\001\001\000\334\165\360\214\300\165\226\232\300\142\037\046\367
-+-\304\341\232\352\340\126\163\133\231\315\001\104\250\010\266\325
-+-\247\332\032\004\030\071\222\112\170\243\201\302\365\167\172\120
-+-\264\160\377\232\253\306\307\312\156\203\117\102\230\373\046\013
-+-\332\334\155\326\251\231\125\122\147\351\050\003\222\334\345\260
-+-\005\232\017\025\371\153\131\162\126\362\372\071\374\252\150\356
-+-\017\037\020\203\057\374\235\372\027\226\335\202\343\346\105\175
-+-\300\113\200\104\037\355\054\340\204\375\221\134\222\124\151\045
-+-\345\142\151\334\345\356\000\122\275\063\013\255\165\002\205\247
-+-\144\120\055\305\031\031\060\300\046\333\311\323\375\056\231\255
-+-\131\265\013\115\324\101\256\205\110\103\131\334\267\250\342\242
-+-\336\303\217\327\270\241\142\246\150\120\122\344\317\061\247\224
-+-\205\332\237\106\062\027\126\345\362\353\146\075\022\377\103\333
-+-\230\357\167\317\313\201\215\064\261\306\120\112\046\321\344\076
-+-\101\120\257\154\256\042\064\056\325\153\156\203\272\171\270\166
-+-\145\110\332\011\051\144\143\042\271\373\107\166\205\214\206\104
-+-\313\011\333\002\003\001\000\001\060\015\006\011\052\206\110\206
-+-\367\015\001\001\005\005\000\003\202\001\001\000\265\066\016\135
-+-\341\141\050\132\021\145\300\077\203\003\171\115\276\050\246\013
-+-\007\002\122\205\315\370\221\320\020\154\265\152\040\133\034\220
-+-\331\060\074\306\110\236\212\136\144\371\241\161\167\357\004\047
-+-\037\007\353\344\046\367\163\164\311\104\030\032\146\323\340\103
-+-\257\221\073\321\313\054\330\164\124\072\034\115\312\324\150\315
-+-\043\174\035\020\236\105\351\366\000\156\246\315\031\377\117\054
-+-\051\217\127\115\304\167\222\276\340\114\011\373\135\104\206\146
-+-\041\250\271\062\242\126\325\351\214\203\174\131\077\304\361\013
-+-\347\235\354\236\275\234\030\016\076\302\071\171\050\267\003\015
-+-\010\313\306\347\331\001\067\120\020\354\314\141\026\100\324\257
-+-\061\164\173\374\077\061\247\320\107\163\063\071\033\314\116\152
-+-\327\111\203\021\006\376\353\202\130\063\062\114\360\126\254\036
-+-\234\057\126\232\173\301\112\034\245\375\125\066\316\374\226\115
-+-\364\260\360\354\267\154\202\355\057\061\231\102\114\251\262\015
-+-\270\025\135\361\337\272\311\265\112\324\144\230\263\046\251\060
-+-\310\375\246\354\253\226\041\255\177\302\170\266
-+-END
-+-
-+-# Trust for Certificate "Digital Signature Trust Co. Global CA 4"
-+-CKA_CLASS CK_OBJECT_CLASS CKO_NETSCAPE_TRUST
-+-CKA_TOKEN CK_BBOOL CK_TRUE
-+-CKA_PRIVATE CK_BBOOL CK_FALSE
-+-CKA_MODIFIABLE CK_BBOOL CK_FALSE
-+-CKA_LABEL UTF8 "Digital Signature Trust Co. Global CA 4"
-+-CKA_CERT_SHA1_HASH MULTILINE_OCTAL
-+-\147\353\063\173\150\114\353\016\302\260\166\012\264\210\047\214
-+-\335\225\227\335
-+-END
-+-CKA_CERT_MD5_HASH MULTILINE_OCTAL
-+-\315\073\075\142\133\011\270\011\066\207\236\022\057\161\144\272
-+-END
-+-CKA_ISSUER MULTILINE_OCTAL
-+-\060\201\251\061\013\060\011\006\003\125\004\006\023\002\165\163
-+-\061\015\060\013\006\003\125\004\010\023\004\125\164\141\150\061
-+-\027\060\025\006\003\125\004\007\023\016\123\141\154\164\040\114
-+-\141\153\145\040\103\151\164\171\061\044\060\042\006\003\125\004
-+-\012\023\033\104\151\147\151\164\141\154\040\123\151\147\156\141
-+-\164\165\162\145\040\124\162\165\163\164\040\103\157\056\061\021
-+-\060\017\006\003\125\004\013\023\010\104\123\124\103\101\040\130
-+-\062\061\026\060\024\006\003\125\004\003\023\015\104\123\124\040
-+-\122\157\157\164\103\101\040\130\062\061\041\060\037\006\011\052
-+-\206\110\206\367\015\001\011\001\026\022\143\141\100\144\151\147
-+-\163\151\147\164\162\165\163\164\056\143\157\155
-+-END
-+-CKA_SERIAL_NUMBER MULTILINE_OCTAL
-+-\002\021\000\320\036\100\213\000\000\167\155\000\000\000\001\000
-+-\000\000\004
-+-END
-+-CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_TRUE
-++CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-+ 
-+ #
-+ # Certificate "Verisign Class 1 Public Primary Certification Authority"
-+@@ -2117,7 +1334,7 @@ END
-+ CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+ CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+ CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_TRUE
-++CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-+ 
-+ #
-+ # Certificate "Verisign Class 1 Public Primary Certification Authority - G2"
-+@@ -2649,7 +1866,7 @@ END
-+ CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+ CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+ CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_TRUE
-++CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-+ 
-+ #
-+ # Certificate "GlobalSign Root CA"
-+@@ -3862,7 +3079,7 @@ END
-+ CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+ CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+ CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_TRUE
-++CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-+ 
-+ #
-+ # Certificate "Entrust.net Secure Server CA"
-+@@ -4181,9 +3398,9 @@ END
-+ CKA_SERIAL_NUMBER MULTILINE_OCTAL
-+ \002\004\070\003\221\356
-+ END
-+-CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-++CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-++CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-++CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-+ CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-+ 
-+ #
-+@@ -4767,127 +3984,6 @@ CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+ CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-+ 
-+ #
-+-# Certificate "Visa International Global Root 2"
-+-#
-+-CKA_CLASS CK_OBJECT_CLASS CKO_CERTIFICATE
-+-CKA_TOKEN CK_BBOOL CK_TRUE
-+-CKA_PRIVATE CK_BBOOL CK_FALSE
-+-CKA_MODIFIABLE CK_BBOOL CK_FALSE
-+-CKA_LABEL UTF8 "Visa International Global Root 2"
-+-CKA_CERTIFICATE_TYPE CK_CERTIFICATE_TYPE CKC_X_509
-+-CKA_SUBJECT MULTILINE_OCTAL
-+-\060\141\061\013\060\011\006\003\125\004\006\023\002\125\123\061
-+-\015\060\013\006\003\125\004\012\023\004\126\111\123\101\061\057
-+-\060\055\006\003\125\004\013\023\046\126\151\163\141\040\111\156
-+-\164\145\162\156\141\164\151\157\156\141\154\040\123\145\162\166
-+-\151\143\145\040\101\163\163\157\143\151\141\164\151\157\156\061
-+-\022\060\020\006\003\125\004\003\023\011\107\120\040\122\157\157
-+-\164\040\062
-+-END
-+-CKA_ID UTF8 "0"
-+-CKA_ISSUER MULTILINE_OCTAL
-+-\060\141\061\013\060\011\006\003\125\004\006\023\002\125\123\061
-+-\015\060\013\006\003\125\004\012\023\004\126\111\123\101\061\057
-+-\060\055\006\003\125\004\013\023\046\126\151\163\141\040\111\156
-+-\164\145\162\156\141\164\151\157\156\141\154\040\123\145\162\166
-+-\151\143\145\040\101\163\163\157\143\151\141\164\151\157\156\061
-+-\022\060\020\006\003\125\004\003\023\011\107\120\040\122\157\157
-+-\164\040\062
-+-END
-+-CKA_SERIAL_NUMBER MULTILINE_OCTAL
-+-\002\002\003\036
-+-END
-+-CKA_VALUE MULTILINE_OCTAL
-+-\060\202\003\200\060\202\002\150\240\003\002\001\002\002\002\003
-+-\036\060\015\006\011\052\206\110\206\367\015\001\001\005\005\000
-+-\060\141\061\013\060\011\006\003\125\004\006\023\002\125\123\061
-+-\015\060\013\006\003\125\004\012\023\004\126\111\123\101\061\057
-+-\060\055\006\003\125\004\013\023\046\126\151\163\141\040\111\156
-+-\164\145\162\156\141\164\151\157\156\141\154\040\123\145\162\166
-+-\151\143\145\040\101\163\163\157\143\151\141\164\151\157\156\061
-+-\022\060\020\006\003\125\004\003\023\011\107\120\040\122\157\157
-+-\164\040\062\060\036\027\015\060\060\060\070\061\066\062\062\065
-+-\061\060\060\132\027\015\062\060\060\070\061\065\062\063\065\071
-+-\060\060\132\060\141\061\013\060\011\006\003\125\004\006\023\002
-+-\125\123\061\015\060\013\006\003\125\004\012\023\004\126\111\123
-+-\101\061\057\060\055\006\003\125\004\013\023\046\126\151\163\141
-+-\040\111\156\164\145\162\156\141\164\151\157\156\141\154\040\123
-+-\145\162\166\151\143\145\040\101\163\163\157\143\151\141\164\151
-+-\157\156\061\022\060\020\006\003\125\004\003\023\011\107\120\040
-+-\122\157\157\164\040\062\060\202\001\042\060\015\006\011\052\206
-+-\110\206\367\015\001\001\001\005\000\003\202\001\017\000\060\202
-+-\001\012\002\202\001\001\000\251\001\160\265\252\304\100\360\253
-+-\152\046\141\171\031\000\374\277\233\067\131\014\257\157\144\033
-+-\370\332\225\224\044\151\063\021\160\312\343\126\164\242\027\127
-+-\144\134\040\006\341\326\357\161\267\073\367\253\301\151\320\111
-+-\244\261\004\327\364\127\142\211\134\260\165\055\027\044\151\343
-+-\102\140\344\356\164\326\253\200\126\330\210\050\341\373\155\042
-+-\375\043\174\106\163\117\176\124\163\036\250\054\125\130\165\267
-+-\114\363\132\105\245\002\032\372\332\235\303\105\303\042\136\363
-+-\213\361\140\051\322\307\137\264\014\072\121\203\357\060\370\324
-+-\347\307\362\372\231\243\042\120\276\371\005\067\243\255\355\232
-+-\303\346\354\210\033\266\031\047\033\070\213\200\115\354\271\307
-+-\305\211\313\374\032\062\355\043\360\265\001\130\371\366\217\340
-+-\205\251\114\011\162\071\022\333\263\365\317\116\142\144\332\306
-+-\031\025\072\143\035\351\027\125\241\114\042\074\064\062\106\370
-+-\145\127\272\053\357\066\214\152\372\331\331\104\364\252\335\204
-+-\327\015\034\262\124\254\062\205\264\144\015\336\101\273\261\064
-+-\306\001\206\062\144\325\237\002\003\001\000\001\243\102\060\100
-+-\060\035\006\003\125\035\016\004\026\004\024\236\175\113\064\277
-+-\161\255\302\005\366\003\165\200\316\251\117\032\304\044\114\060
-+-\017\006\003\125\035\023\001\001\377\004\005\060\003\001\001\377
-+-\060\016\006\003\125\035\017\001\001\377\004\004\003\002\001\006
-+-\060\015\006\011\052\206\110\206\367\015\001\001\005\005\000\003
-+-\202\001\001\000\041\245\166\024\125\371\255\047\160\217\074\364
-+-\325\154\310\314\012\253\243\230\013\212\006\043\305\311\141\333
-+-\231\007\151\065\046\061\376\307\056\204\302\231\141\324\015\351
-+-\175\056\023\053\174\216\205\266\205\307\113\317\065\266\054\107
-+-\075\316\051\057\330\157\237\211\034\144\223\277\010\275\166\320
-+-\220\212\224\263\177\050\133\156\254\115\063\054\355\145\334\026
-+-\314\342\315\256\244\075\142\222\006\225\046\277\337\271\344\040
-+-\246\163\152\301\276\367\224\104\326\115\157\052\013\153\030\115
-+-\164\020\066\150\152\132\301\152\247\335\066\051\214\270\060\213
-+-\117\041\077\000\056\124\060\007\072\272\212\344\303\236\312\330
-+-\265\330\173\316\165\105\146\007\364\155\055\330\172\312\351\211
-+-\212\362\043\330\057\313\156\000\066\117\373\360\057\001\314\017
-+-\300\042\145\364\253\342\116\141\055\003\202\175\221\026\265\060
-+-\325\024\336\136\307\220\374\241\374\253\020\257\134\153\160\247
-+-\007\357\051\206\350\262\045\307\040\377\046\335\167\357\171\104
-+-\024\304\275\335\073\305\003\233\167\043\354\240\354\273\132\071
-+-\265\314\255\006
-+-END
-+-
-+-# Trust for Certificate "Visa International Global Root 2"
-+-CKA_CLASS CK_OBJECT_CLASS CKO_NETSCAPE_TRUST
-+-CKA_TOKEN CK_BBOOL CK_TRUE
-+-CKA_PRIVATE CK_BBOOL CK_FALSE
-+-CKA_MODIFIABLE CK_BBOOL CK_FALSE
-+-CKA_LABEL UTF8 "Visa International Global Root 2"
-+-CKA_CERT_SHA1_HASH MULTILINE_OCTAL
-+-\311\015\033\352\210\075\247\321\027\276\073\171\364\041\016\032
-+-\130\224\247\055
-+-END
-+-CKA_CERT_MD5_HASH MULTILINE_OCTAL
-+-\065\110\225\066\112\124\132\162\226\216\340\144\314\357\054\214
-+-END
-+-CKA_ISSUER MULTILINE_OCTAL
-+-\060\141\061\013\060\011\006\003\125\004\006\023\002\125\123\061
-+-\015\060\013\006\003\125\004\012\023\004\126\111\123\101\061\057
-+-\060\055\006\003\125\004\013\023\046\126\151\163\141\040\111\156
-+-\164\145\162\156\141\164\151\157\156\141\154\040\123\145\162\166
-+-\151\143\145\040\101\163\163\157\143\151\141\164\151\157\156\061
-+-\022\060\020\006\003\125\004\003\023\011\107\120\040\122\157\157
-+-\164\040\062
-+-END
-+-CKA_SERIAL_NUMBER MULTILINE_OCTAL
-+-\002\002\003\036
-+-END
-+-CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-+-CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-+-
-+-#
-+ # Certificate "beTRUSTed Root CA"
-+ #
-+ CKA_CLASS CK_OBJECT_CLASS CKO_CERTIFICATE
-+@@ -5026,9 +4122,9 @@ END
-+ CKA_SERIAL_NUMBER MULTILINE_OCTAL
-+ \002\004\071\117\175\207
-+ END
-+-CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-++CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-++CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-++CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-+ CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-+ 
-+ #
-+@@ -5558,150 +4654,6 @@ CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+ CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-+ 
-+ #
-+-# Certificate "Verisign Time Stamping Authority CA"
-+-#
-+-CKA_CLASS CK_OBJECT_CLASS CKO_CERTIFICATE
-+-CKA_TOKEN CK_BBOOL CK_TRUE
-+-CKA_PRIVATE CK_BBOOL CK_FALSE
-+-CKA_MODIFIABLE CK_BBOOL CK_FALSE
-+-CKA_LABEL UTF8 "Verisign Time Stamping Authority CA"
-+-CKA_CERTIFICATE_TYPE CK_CERTIFICATE_TYPE CKC_X_509
-+-CKA_SUBJECT MULTILINE_OCTAL
-+-\060\201\245\061\027\060\025\006\003\125\004\012\023\016\126\145
-+-\162\151\123\151\147\156\054\040\111\156\143\056\061\037\060\035
-+-\006\003\125\004\013\023\026\126\145\162\151\123\151\147\156\040
-+-\124\162\165\163\164\040\116\145\164\167\157\162\153\061\073\060
-+-\071\006\003\125\004\013\023\062\124\145\162\155\163\040\157\146
-+-\040\165\163\145\040\141\164\040\150\164\164\160\163\072\057\057
-+-\167\167\167\056\166\145\162\151\163\151\147\156\056\143\157\155
-+-\057\162\160\141\040\050\143\051\060\060\061\054\060\052\006\003
-+-\125\004\003\023\043\126\145\162\151\123\151\147\156\040\124\151
-+-\155\145\040\123\164\141\155\160\151\156\147\040\101\165\164\150
-+-\157\162\151\164\171\040\103\101
-+-END
-+-CKA_ID UTF8 "0"
-+-CKA_ISSUER MULTILINE_OCTAL
-+-\060\201\301\061\013\060\011\006\003\125\004\006\023\002\125\123
-+-\061\027\060\025\006\003\125\004\012\023\016\126\145\162\151\123
-+-\151\147\156\054\040\111\156\143\056\061\074\060\072\006\003\125
-+-\004\013\023\063\103\154\141\163\163\040\063\040\120\165\142\154
-+-\151\143\040\120\162\151\155\141\162\171\040\103\145\162\164\151
-+-\146\151\143\141\164\151\157\156\040\101\165\164\150\157\162\151
-+-\164\171\040\055\040\107\062\061\072\060\070\006\003\125\004\013
-+-\023\061\050\143\051\040\061\071\071\070\040\126\145\162\151\123
-+-\151\147\156\054\040\111\156\143\056\040\055\040\106\157\162\040
-+-\141\165\164\150\157\162\151\172\145\144\040\165\163\145\040\157
-+-\156\154\171\061\037\060\035\006\003\125\004\013\023\026\126\145
-+-\162\151\123\151\147\156\040\124\162\165\163\164\040\116\145\164
-+-\167\157\162\153
-+-END
-+-CKA_SERIAL_NUMBER MULTILINE_OCTAL
-+-\002\020\123\141\262\140\256\333\161\216\247\224\263\023\063\364
-+-\007\011
-+-END
-+-CKA_VALUE MULTILINE_OCTAL
-+-\060\202\003\315\060\202\003\066\240\003\002\001\002\002\020\123
-+-\141\262\140\256\333\161\216\247\224\263\023\063\364\007\011\060
-+-\015\006\011\052\206\110\206\367\015\001\001\005\005\000\060\201
-+-\301\061\013\060\011\006\003\125\004\006\023\002\125\123\061\027
-+-\060\025\006\003\125\004\012\023\016\126\145\162\151\123\151\147
-+-\156\054\040\111\156\143\056\061\074\060\072\006\003\125\004\013
-+-\023\063\103\154\141\163\163\040\063\040\120\165\142\154\151\143
-+-\040\120\162\151\155\141\162\171\040\103\145\162\164\151\146\151
-+-\143\141\164\151\157\156\040\101\165\164\150\157\162\151\164\171
-+-\040\055\040\107\062\061\072\060\070\006\003\125\004\013\023\061
-+-\050\143\051\040\061\071\071\070\040\126\145\162\151\123\151\147
-+-\156\054\040\111\156\143\056\040\055\040\106\157\162\040\141\165
-+-\164\150\157\162\151\172\145\144\040\165\163\145\040\157\156\154
-+-\171\061\037\060\035\006\003\125\004\013\023\026\126\145\162\151
-+-\123\151\147\156\040\124\162\165\163\164\040\116\145\164\167\157
-+-\162\153\060\036\027\015\060\060\060\071\062\066\060\060\060\060
-+-\060\060\132\027\015\061\060\060\071\062\065\062\063\065\071\065
-+-\071\132\060\201\245\061\027\060\025\006\003\125\004\012\023\016
-+-\126\145\162\151\123\151\147\156\054\040\111\156\143\056\061\037
-+-\060\035\006\003\125\004\013\023\026\126\145\162\151\123\151\147
-+-\156\040\124\162\165\163\164\040\116\145\164\167\157\162\153\061
-+-\073\060\071\006\003\125\004\013\023\062\124\145\162\155\163\040
-+-\157\146\040\165\163\145\040\141\164\040\150\164\164\160\163\072
-+-\057\057\167\167\167\056\166\145\162\151\163\151\147\156\056\143
-+-\157\155\057\162\160\141\040\050\143\051\060\060\061\054\060\052
-+-\006\003\125\004\003\023\043\126\145\162\151\123\151\147\156\040
-+-\124\151\155\145\040\123\164\141\155\160\151\156\147\040\101\165
-+-\164\150\157\162\151\164\171\040\103\101\060\201\237\060\015\006
-+-\011\052\206\110\206\367\015\001\001\001\005\000\003\201\215\000
-+-\060\201\211\002\201\201\000\322\031\235\147\302\000\041\131\142
-+-\316\264\011\042\104\151\212\370\045\132\333\355\015\267\066\176
-+-\116\340\273\224\076\220\045\207\302\141\107\051\331\275\124\270
-+-\143\314\054\175\151\264\063\066\364\067\007\232\301\335\100\124
-+-\374\340\170\235\240\223\271\011\075\043\121\177\104\302\024\164
-+-\333\012\276\313\311\060\064\100\230\076\320\327\045\020\201\224
-+-\275\007\117\234\326\124\047\337\056\250\277\313\220\214\215\165
-+-\113\274\342\350\104\207\315\346\101\012\045\156\350\364\044\002
-+-\305\122\017\156\354\230\165\002\003\001\000\001\243\201\337\060
-+-\201\334\060\017\006\003\125\035\023\004\010\060\006\001\001\377
-+-\002\001\000\060\105\006\003\125\035\040\004\076\060\074\060\072
-+-\006\014\140\206\110\001\206\370\105\001\007\027\001\003\060\052
-+-\060\050\006\010\053\006\001\005\005\007\002\001\026\034\150\164
-+-\164\160\163\072\057\057\167\167\167\056\166\145\162\151\163\151
-+-\147\156\056\143\157\155\057\162\160\141\060\061\006\003\125\035
-+-\037\004\052\060\050\060\046\240\044\240\042\206\040\150\164\164
-+-\160\072\057\057\143\162\154\056\166\145\162\151\163\151\147\156
-+-\056\143\157\155\057\160\143\141\063\056\143\162\154\060\013\006
-+-\003\125\035\017\004\004\003\002\001\006\060\102\006\010\053\006
-+-\001\005\005\007\001\001\004\066\060\064\060\062\006\010\053\006
-+-\001\005\005\007\060\001\246\046\026\044\150\164\164\160\072\057
-+-\057\157\143\163\160\056\166\145\162\151\163\151\147\156\056\143
-+-\157\155\057\157\143\163\160\057\163\164\141\164\165\163\060\015
-+-\006\011\052\206\110\206\367\015\001\001\005\005\000\003\201\201
-+-\000\202\160\150\225\337\266\015\302\001\160\031\112\322\124\126
-+-\036\254\362\105\114\207\270\365\065\353\170\113\005\251\310\235
-+-\073\031\041\056\160\064\112\242\365\211\340\025\165\105\347\050
-+-\067\000\064\047\051\350\067\113\362\357\104\227\153\027\121\032
-+-\303\126\235\074\032\212\366\112\106\106\067\214\372\313\365\144
-+-\132\070\150\056\034\303\357\160\316\270\106\006\026\277\367\176
-+-\347\265\250\076\105\254\251\045\165\042\173\157\077\260\234\224
-+-\347\307\163\253\254\037\356\045\233\300\026\355\267\312\133\360
-+-\024
-+-END
-+-
-+-# Trust for Certificate "Verisign Time Stamping Authority CA"
-+-CKA_CLASS CK_OBJECT_CLASS CKO_NETSCAPE_TRUST
-+-CKA_TOKEN CK_BBOOL CK_TRUE
-+-CKA_PRIVATE CK_BBOOL CK_FALSE
-+-CKA_MODIFIABLE CK_BBOOL CK_FALSE
-+-CKA_LABEL UTF8 "Verisign Time Stamping Authority CA"
-+-CKA_CERT_SHA1_HASH MULTILINE_OCTAL
-+-\246\017\064\310\142\154\201\366\213\367\175\251\366\147\130\212
-+-\220\077\175\066
-+-END
-+-CKA_CERT_MD5_HASH MULTILINE_OCTAL
-+-\211\111\124\214\310\150\232\203\051\354\334\006\163\041\253\227
-+-END
-+-CKA_ISSUER MULTILINE_OCTAL
-+-\060\201\301\061\013\060\011\006\003\125\004\006\023\002\125\123
-+-\061\027\060\025\006\003\125\004\012\023\016\126\145\162\151\123
-+-\151\147\156\054\040\111\156\143\056\061\074\060\072\006\003\125
-+-\004\013\023\063\103\154\141\163\163\040\063\040\120\165\142\154
-+-\151\143\040\120\162\151\155\141\162\171\040\103\145\162\164\151
-+-\146\151\143\141\164\151\157\156\040\101\165\164\150\157\162\151
-+-\164\171\040\055\040\107\062\061\072\060\070\006\003\125\004\013
-+-\023\061\050\143\051\040\061\071\071\070\040\126\145\162\151\123
-+-\151\147\156\054\040\111\156\143\056\040\055\040\106\157\162\040
-+-\141\165\164\150\157\162\151\172\145\144\040\165\163\145\040\157
-+-\156\154\171\061\037\060\035\006\003\125\004\013\023\026\126\145
-+-\162\151\123\151\147\156\040\124\162\165\163\164\040\116\145\164
-+-\167\157\162\153
-+-END
-+-CKA_SERIAL_NUMBER MULTILINE_OCTAL
-+-\002\020\123\141\262\140\256\333\161\216\247\224\263\023\063\364
-+-\007\011
-+-END
-+-CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-+-
-+-#
-+ # Certificate "Thawte Time Stamping CA"
-+ #
-+ CKA_CLASS CK_OBJECT_CLASS CKO_CERTIFICATE
-+@@ -5962,9 +4914,9 @@ END
-+ CKA_SERIAL_NUMBER MULTILINE_OCTAL
-+ \002\004\070\233\021\074
-+ END
-+-CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-++CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-++CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-++CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-+ CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-+ 
-+ #
-+@@ -6114,9 +5066,9 @@ END
-+ CKA_SERIAL_NUMBER MULTILINE_OCTAL
-+ \002\004\070\236\366\344
-+ END
-+-CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-++CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-++CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-++CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-+ CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-+ 
-+ #
-+@@ -6716,9 +5668,9 @@ END
-+ CKA_SERIAL_NUMBER MULTILINE_OCTAL
-+ \002\004\074\265\075\106
-+ END
-+-CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-++CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-++CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-++CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-+ CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-+ 
-+ #
-+@@ -6882,9 +5834,9 @@ END
-+ CKA_SERIAL_NUMBER MULTILINE_OCTAL
-+ \002\004\074\265\117\100
-+ END
-+-CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-++CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-++CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-++CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-+ CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-+ 
-+ #
-+@@ -7035,9 +5987,9 @@ CKA_SERIAL_NUMBER MULTILINE_OCTAL
-+ \002\020\073\131\307\173\315\133\127\236\275\067\122\254\166\264
-+ \252\032
-+ END
-+-CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-++CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-++CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-++CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-+ CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-+ 
-+ #
-+@@ -7153,101 +6105,6 @@ CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+ CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-+ 
-+ #
-+-# Certificate "RSA Security 1024 v3"
-+-#
-+-CKA_CLASS CK_OBJECT_CLASS CKO_CERTIFICATE
-+-CKA_TOKEN CK_BBOOL CK_TRUE
-+-CKA_PRIVATE CK_BBOOL CK_FALSE
-+-CKA_MODIFIABLE CK_BBOOL CK_FALSE
-+-CKA_LABEL UTF8 "RSA Security 1024 v3"
-+-CKA_CERTIFICATE_TYPE CK_CERTIFICATE_TYPE CKC_X_509
-+-CKA_SUBJECT MULTILINE_OCTAL
-+-\060\072\061\031\060\027\006\003\125\004\012\023\020\122\123\101
-+-\040\123\145\143\165\162\151\164\171\040\111\156\143\061\035\060
-+-\033\006\003\125\004\013\023\024\122\123\101\040\123\145\143\165
-+-\162\151\164\171\040\061\060\062\064\040\126\063
-+-END
-+-CKA_ID UTF8 "0"
-+-CKA_ISSUER MULTILINE_OCTAL
-+-\060\072\061\031\060\027\006\003\125\004\012\023\020\122\123\101
-+-\040\123\145\143\165\162\151\164\171\040\111\156\143\061\035\060
-+-\033\006\003\125\004\013\023\024\122\123\101\040\123\145\143\165
-+-\162\151\164\171\040\061\060\062\064\040\126\063
-+-END
-+-CKA_SERIAL_NUMBER MULTILINE_OCTAL
-+-\002\020\012\001\001\001\000\000\002\174\000\000\000\013\000\000
-+-\000\002
-+-END
-+-CKA_VALUE MULTILINE_OCTAL
-+-\060\202\002\134\060\202\001\305\240\003\002\001\002\002\020\012
-+-\001\001\001\000\000\002\174\000\000\000\013\000\000\000\002\060
-+-\015\006\011\052\206\110\206\367\015\001\001\005\005\000\060\072
-+-\061\031\060\027\006\003\125\004\012\023\020\122\123\101\040\123
-+-\145\143\165\162\151\164\171\040\111\156\143\061\035\060\033\006
-+-\003\125\004\013\023\024\122\123\101\040\123\145\143\165\162\151
-+-\164\171\040\061\060\062\064\040\126\063\060\036\027\015\060\061
-+-\060\062\062\062\062\061\060\061\064\071\132\027\015\062\066\060
-+-\062\062\062\062\060\060\061\064\071\132\060\072\061\031\060\027
-+-\006\003\125\004\012\023\020\122\123\101\040\123\145\143\165\162
-+-\151\164\171\040\111\156\143\061\035\060\033\006\003\125\004\013
-+-\023\024\122\123\101\040\123\145\143\165\162\151\164\171\040\061
-+-\060\062\064\040\126\063\060\201\237\060\015\006\011\052\206\110
-+-\206\367\015\001\001\001\005\000\003\201\215\000\060\201\211\002
-+-\201\201\000\325\335\376\146\011\317\044\074\076\256\201\116\116
-+-\212\304\151\200\133\131\073\337\271\115\114\312\265\055\303\047
-+-\055\074\257\000\102\155\274\050\246\226\317\177\327\130\254\203
-+-\012\243\125\265\173\027\220\025\204\114\212\356\046\231\334\130
-+-\357\307\070\246\252\257\320\216\102\310\142\327\253\254\251\373
-+-\112\175\277\352\376\022\115\335\377\046\055\157\066\124\150\310
-+-\322\204\126\356\222\123\141\011\263\077\071\233\250\311\233\275
-+-\316\237\176\324\031\152\026\051\030\276\327\072\151\334\045\133
-+-\063\032\121\002\003\001\000\001\243\143\060\141\060\017\006\003
-+-\125\035\023\001\001\377\004\005\060\003\001\001\377\060\016\006
-+-\003\125\035\017\001\001\377\004\004\003\002\001\006\060\037\006
-+-\003\125\035\043\004\030\060\026\200\024\304\300\034\244\007\224
-+-\375\315\115\001\324\124\332\245\014\137\336\256\005\132\060\035
-+-\006\003\125\035\016\004\026\004\024\304\300\034\244\007\224\375
-+-\315\115\001\324\124\332\245\014\137\336\256\005\132\060\015\006
-+-\011\052\206\110\206\367\015\001\001\005\005\000\003\201\201\000
-+-\077\055\152\343\046\103\225\175\211\227\145\373\165\344\162\035
-+-\106\127\304\141\153\151\237\022\233\054\325\132\350\300\242\360
-+-\103\225\343\037\351\166\315\334\353\274\223\240\145\012\307\115
-+-\117\137\247\257\242\106\024\271\014\363\314\275\152\156\267\235
-+-\336\045\102\320\124\377\236\150\163\143\334\044\353\042\277\250
-+-\162\362\136\000\341\015\116\072\103\156\231\116\077\211\170\003
-+-\230\312\363\125\314\235\256\216\301\252\105\230\372\217\032\240
-+-\215\210\043\361\025\101\015\245\106\076\221\077\213\353\367\161
-+-END
-+-
-+-# Trust for Certificate "RSA Security 1024 v3"
-+-CKA_CLASS CK_OBJECT_CLASS CKO_NETSCAPE_TRUST
-+-CKA_TOKEN CK_BBOOL CK_TRUE
-+-CKA_PRIVATE CK_BBOOL CK_FALSE
-+-CKA_MODIFIABLE CK_BBOOL CK_FALSE
-+-CKA_LABEL UTF8 "RSA Security 1024 v3"
-+-CKA_CERT_SHA1_HASH MULTILINE_OCTAL
-+-\074\273\135\340\374\326\071\174\005\210\345\146\227\275\106\052
-+-\275\371\134\166
-+-END
-+-CKA_CERT_MD5_HASH MULTILINE_OCTAL
-+-\072\345\120\260\071\276\307\106\066\063\241\376\202\076\215\224
-+-END
-+-CKA_ISSUER MULTILINE_OCTAL
-+-\060\072\061\031\060\027\006\003\125\004\012\023\020\122\123\101
-+-\040\123\145\143\165\162\151\164\171\040\111\156\143\061\035\060
-+-\033\006\003\125\004\013\023\024\122\123\101\040\123\145\143\165
-+-\162\151\164\171\040\061\060\062\064\040\126\063
-+-END
-+-CKA_SERIAL_NUMBER MULTILINE_OCTAL
-+-\002\020\012\001\001\001\000\000\002\174\000\000\000\013\000\000
-+-\000\002
-+-END
-+-CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-+-
-+-#
-+ # Certificate "GeoTrust Global CA"
-+ #
-+ CKA_CLASS CK_OBJECT_CLASS CKO_CERTIFICATE
-+@@ -7906,9 +6763,9 @@ CKA_SERIAL_NUMBER MULTILINE_OCTAL
-+ \002\020\104\276\014\213\120\000\044\264\021\323\066\060\113\300
-+ \063\167
-+ END
-+-CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-++CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-++CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-++CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-+ CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-+ 
-+ #
-+@@ -9314,9 +8171,9 @@ END
-+ CKA_SERIAL_NUMBER MULTILINE_OCTAL
-+ \002\001\000
-+ END
-+-CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-++CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-++CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-++CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-+ CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-+ 
-+ #
-+@@ -9538,9 +8395,9 @@ END
-+ CKA_SERIAL_NUMBER MULTILINE_OCTAL
-+ \002\001\000
-+ END
-+-CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-++CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-++CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-++CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-+ CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-+ 
-+ #
-+@@ -9762,9 +8619,9 @@ END
-+ CKA_SERIAL_NUMBER MULTILINE_OCTAL
-+ \002\001\000
-+ END
-+-CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-++CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-++CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-++CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-+ CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-+ 
-+ #
-+@@ -9987,9 +8844,9 @@ END
-+ CKA_SERIAL_NUMBER MULTILINE_OCTAL
-+ \002\001\000
-+ END
-+-CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-++CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-++CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-++CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-+ CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-+ 
-+ #
-+@@ -10212,129 +9069,9 @@ END
-+ CKA_SERIAL_NUMBER MULTILINE_OCTAL
-+ \002\001\000
-+ END
-+-CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-+-
-+-#
-+-# Certificate "IPS Servidores root"
-+-#
-+-CKA_CLASS CK_OBJECT_CLASS CKO_CERTIFICATE
-+-CKA_TOKEN CK_BBOOL CK_TRUE
-+-CKA_PRIVATE CK_BBOOL CK_FALSE
-+-CKA_MODIFIABLE CK_BBOOL CK_FALSE
-+-CKA_LABEL UTF8 "IPS Servidores root"
-+-CKA_CERTIFICATE_TYPE CK_CERTIFICATE_TYPE CKC_X_509
-+-CKA_SUBJECT MULTILINE_OCTAL
-+-\060\201\243\061\013\060\011\006\003\125\004\006\023\002\105\123
-+-\061\022\060\020\006\003\125\004\010\023\011\102\101\122\103\105
-+-\114\117\116\101\061\022\060\020\006\003\125\004\007\023\011\102
-+-\101\122\103\105\114\117\116\101\061\031\060\027\006\003\125\004
-+-\012\023\020\111\120\123\040\123\145\147\165\162\151\144\141\144
-+-\040\103\101\061\030\060\026\006\003\125\004\013\023\017\103\145
-+-\162\164\151\146\151\143\141\143\151\157\156\145\163\061\027\060
-+-\025\006\003\125\004\003\023\016\111\120\123\040\123\105\122\126
-+-\111\104\117\122\105\123\061\036\060\034\006\011\052\206\110\206
-+-\367\015\001\011\001\026\017\151\160\163\100\155\141\151\154\056
-+-\151\160\163\056\145\163
-+-END
-+-CKA_ID UTF8 "0"
-+-CKA_ISSUER MULTILINE_OCTAL
-+-\060\201\243\061\013\060\011\006\003\125\004\006\023\002\105\123
-+-\061\022\060\020\006\003\125\004\010\023\011\102\101\122\103\105
-+-\114\117\116\101\061\022\060\020\006\003\125\004\007\023\011\102
-+-\101\122\103\105\114\117\116\101\061\031\060\027\006\003\125\004
-+-\012\023\020\111\120\123\040\123\145\147\165\162\151\144\141\144
-+-\040\103\101\061\030\060\026\006\003\125\004\013\023\017\103\145
-+-\162\164\151\146\151\143\141\143\151\157\156\145\163\061\027\060
-+-\025\006\003\125\004\003\023\016\111\120\123\040\123\105\122\126
-+-\111\104\117\122\105\123\061\036\060\034\006\011\052\206\110\206
-+-\367\015\001\011\001\026\017\151\160\163\100\155\141\151\154\056
-+-\151\160\163\056\145\163
-+-END
-+-CKA_SERIAL_NUMBER MULTILINE_OCTAL
-+-\002\001\000
-+-END
-+-CKA_VALUE MULTILINE_OCTAL
-+-\060\202\002\267\060\202\002\040\002\001\000\060\015\006\011\052
-+-\206\110\206\367\015\001\001\004\005\000\060\201\243\061\013\060
-+-\011\006\003\125\004\006\023\002\105\123\061\022\060\020\006\003
-+-\125\004\010\023\011\102\101\122\103\105\114\117\116\101\061\022
-+-\060\020\006\003\125\004\007\023\011\102\101\122\103\105\114\117
-+-\116\101\061\031\060\027\006\003\125\004\012\023\020\111\120\123
-+-\040\123\145\147\165\162\151\144\141\144\040\103\101\061\030\060
-+-\026\006\003\125\004\013\023\017\103\145\162\164\151\146\151\143
-+-\141\143\151\157\156\145\163\061\027\060\025\006\003\125\004\003
-+-\023\016\111\120\123\040\123\105\122\126\111\104\117\122\105\123
-+-\061\036\060\034\006\011\052\206\110\206\367\015\001\011\001\026
-+-\017\151\160\163\100\155\141\151\154\056\151\160\163\056\145\163
-+-\060\036\027\015\071\070\060\061\060\061\062\063\062\061\060\067
-+-\132\027\015\060\071\061\062\062\071\062\063\062\061\060\067\132
-+-\060\201\243\061\013\060\011\006\003\125\004\006\023\002\105\123
-+-\061\022\060\020\006\003\125\004\010\023\011\102\101\122\103\105
-+-\114\117\116\101\061\022\060\020\006\003\125\004\007\023\011\102
-+-\101\122\103\105\114\117\116\101\061\031\060\027\006\003\125\004
-+-\012\023\020\111\120\123\040\123\145\147\165\162\151\144\141\144
-+-\040\103\101\061\030\060\026\006\003\125\004\013\023\017\103\145
-+-\162\164\151\146\151\143\141\143\151\157\156\145\163\061\027\060
-+-\025\006\003\125\004\003\023\016\111\120\123\040\123\105\122\126
-+-\111\104\117\122\105\123\061\036\060\034\006\011\052\206\110\206
-+-\367\015\001\011\001\026\017\151\160\163\100\155\141\151\154\056
-+-\151\160\163\056\145\163\060\201\237\060\015\006\011\052\206\110
-+-\206\367\015\001\001\001\005\000\003\201\215\000\060\201\211\002
-+-\201\201\000\254\117\122\164\237\071\352\216\334\045\304\274\230
-+-\135\230\144\044\011\074\041\263\314\031\265\216\224\216\207\321
-+-\370\067\076\241\310\055\130\244\200\065\133\241\165\154\035\105
-+-\014\037\141\143\152\136\157\233\012\114\301\310\270\141\043\065
-+-\201\377\376\254\170\160\055\150\341\072\007\230\225\002\124\335
-+-\315\043\267\200\123\327\310\067\105\162\006\044\022\272\023\141
-+-\041\212\156\165\050\340\305\017\064\375\066\330\105\177\341\270
-+-\066\357\263\341\306\040\216\350\264\070\274\341\076\366\021\336
-+-\214\235\001\002\003\001\000\001\060\015\006\011\052\206\110\206
-+-\367\015\001\001\004\005\000\003\201\201\000\054\363\303\171\130
-+-\044\336\306\073\321\340\102\151\270\356\144\263\075\142\001\271
-+-\263\204\337\043\175\335\230\317\020\251\376\000\330\042\226\005
-+-\023\007\124\127\305\247\336\313\331\270\210\102\366\231\333\024
-+-\167\037\266\376\045\075\341\242\076\003\251\201\322\055\154\107
-+-\365\226\106\214\042\253\310\314\015\016\227\136\213\101\264\073
-+-\304\012\006\100\035\335\106\364\001\335\272\202\056\074\075\170
-+-\160\236\174\030\320\253\370\270\167\007\106\161\361\312\013\143
-+-\134\152\371\162\224\325\001\117\240\333\102
-+-END
-+-
-+-# Trust for Certificate "IPS Servidores root"
-+-CKA_CLASS CK_OBJECT_CLASS CKO_NETSCAPE_TRUST
-+-CKA_TOKEN CK_BBOOL CK_TRUE
-+-CKA_PRIVATE CK_BBOOL CK_FALSE
-+-CKA_MODIFIABLE CK_BBOOL CK_FALSE
-+-CKA_LABEL UTF8 "IPS Servidores root"
-+-CKA_CERT_SHA1_HASH MULTILINE_OCTAL
-+-\044\272\155\154\212\133\130\067\244\215\265\372\351\031\352\147
-+-\134\224\322\027
-+-END
-+-CKA_CERT_MD5_HASH MULTILINE_OCTAL
-+-\173\265\010\231\232\214\030\277\205\047\175\016\256\332\262\253
-+-END
-+-CKA_ISSUER MULTILINE_OCTAL
-+-\060\201\243\061\013\060\011\006\003\125\004\006\023\002\105\123
-+-\061\022\060\020\006\003\125\004\010\023\011\102\101\122\103\105
-+-\114\117\116\101\061\022\060\020\006\003\125\004\007\023\011\102
-+-\101\122\103\105\114\117\116\101\061\031\060\027\006\003\125\004
-+-\012\023\020\111\120\123\040\123\145\147\165\162\151\144\141\144
-+-\040\103\101\061\030\060\026\006\003\125\004\013\023\017\103\145
-+-\162\164\151\146\151\143\141\143\151\157\156\145\163\061\027\060
-+-\025\006\003\125\004\003\023\016\111\120\123\040\123\105\122\126
-+-\111\104\117\122\105\123\061\036\060\034\006\011\052\206\110\206
-+-\367\015\001\011\001\026\017\151\160\163\100\155\141\151\154\056
-+-\151\160\163\056\145\163
-+-END
-+-CKA_SERIAL_NUMBER MULTILINE_OCTAL
-+-\002\001\000
-+-END
-+-CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-++CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-++CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-++CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-+ CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-+ 
-+ #
-+@@ -10564,9 +9301,9 @@ END
-+ CKA_SERIAL_NUMBER MULTILINE_OCTAL
-+ \002\001\000
-+ END
-+-CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-++CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-++CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-++CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-+ CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-+ 
-+ #
-+@@ -13737,167 +12474,6 @@ CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+ CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-+ 
-+ #
-+-# Certificate "StartCom Ltd."
-+-#
-+-CKA_CLASS CK_OBJECT_CLASS CKO_CERTIFICATE
-+-CKA_TOKEN CK_BBOOL CK_TRUE
-+-CKA_PRIVATE CK_BBOOL CK_FALSE
-+-CKA_MODIFIABLE CK_BBOOL CK_FALSE
-+-CKA_LABEL UTF8 "StartCom Ltd."
-+-CKA_CERTIFICATE_TYPE CK_CERTIFICATE_TYPE CKC_X_509
-+-CKA_SUBJECT MULTILINE_OCTAL
-+-\060\201\260\061\013\060\011\006\003\125\004\006\023\002\111\114
-+-\061\017\060\015\006\003\125\004\010\023\006\111\163\162\141\145
-+-\154\061\016\060\014\006\003\125\004\007\023\005\105\151\154\141
-+-\164\061\026\060\024\006\003\125\004\012\023\015\123\164\141\162
-+-\164\103\157\155\040\114\164\144\056\061\032\060\030\006\003\125
-+-\004\013\023\021\103\101\040\101\165\164\150\157\162\151\164\171
-+-\040\104\145\160\056\061\051\060\047\006\003\125\004\003\023\040
-+-\106\162\145\145\040\123\123\114\040\103\145\162\164\151\146\151
-+-\143\141\164\151\157\156\040\101\165\164\150\157\162\151\164\171
-+-\061\041\060\037\006\011\052\206\110\206\367\015\001\011\001\026
-+-\022\141\144\155\151\156\100\163\164\141\162\164\143\157\155\056
-+-\157\162\147
-+-END
-+-CKA_ID UTF8 "0"
-+-CKA_ISSUER MULTILINE_OCTAL
-+-\060\201\260\061\013\060\011\006\003\125\004\006\023\002\111\114
-+-\061\017\060\015\006\003\125\004\010\023\006\111\163\162\141\145
-+-\154\061\016\060\014\006\003\125\004\007\023\005\105\151\154\141
-+-\164\061\026\060\024\006\003\125\004\012\023\015\123\164\141\162
-+-\164\103\157\155\040\114\164\144\056\061\032\060\030\006\003\125
-+-\004\013\023\021\103\101\040\101\165\164\150\157\162\151\164\171
-+-\040\104\145\160\056\061\051\060\047\006\003\125\004\003\023\040
-+-\106\162\145\145\040\123\123\114\040\103\145\162\164\151\146\151
-+-\143\141\164\151\157\156\040\101\165\164\150\157\162\151\164\171
-+-\061\041\060\037\006\011\052\206\110\206\367\015\001\011\001\026
-+-\022\141\144\155\151\156\100\163\164\141\162\164\143\157\155\056
-+-\157\162\147
-+-END
-+-CKA_SERIAL_NUMBER MULTILINE_OCTAL
-+-\002\001\000
-+-END
-+-CKA_VALUE MULTILINE_OCTAL
-+-\060\202\005\026\060\202\004\177\240\003\002\001\002\002\001\000
-+-\060\015\006\011\052\206\110\206\367\015\001\001\004\005\000\060
-+-\201\260\061\013\060\011\006\003\125\004\006\023\002\111\114\061
-+-\017\060\015\006\003\125\004\010\023\006\111\163\162\141\145\154
-+-\061\016\060\014\006\003\125\004\007\023\005\105\151\154\141\164
-+-\061\026\060\024\006\003\125\004\012\023\015\123\164\141\162\164
-+-\103\157\155\040\114\164\144\056\061\032\060\030\006\003\125\004
-+-\013\023\021\103\101\040\101\165\164\150\157\162\151\164\171\040
-+-\104\145\160\056\061\051\060\047\006\003\125\004\003\023\040\106
-+-\162\145\145\040\123\123\114\040\103\145\162\164\151\146\151\143
-+-\141\164\151\157\156\040\101\165\164\150\157\162\151\164\171\061
-+-\041\060\037\006\011\052\206\110\206\367\015\001\011\001\026\022
-+-\141\144\155\151\156\100\163\164\141\162\164\143\157\155\056\157
-+-\162\147\060\036\027\015\060\065\060\063\061\067\061\067\063\067
-+-\064\070\132\027\015\063\065\060\063\061\060\061\067\063\067\064
-+-\070\132\060\201\260\061\013\060\011\006\003\125\004\006\023\002
-+-\111\114\061\017\060\015\006\003\125\004\010\023\006\111\163\162
-+-\141\145\154\061\016\060\014\006\003\125\004\007\023\005\105\151
-+-\154\141\164\061\026\060\024\006\003\125\004\012\023\015\123\164
-+-\141\162\164\103\157\155\040\114\164\144\056\061\032\060\030\006
-+-\003\125\004\013\023\021\103\101\040\101\165\164\150\157\162\151
-+-\164\171\040\104\145\160\056\061\051\060\047\006\003\125\004\003
-+-\023\040\106\162\145\145\040\123\123\114\040\103\145\162\164\151
-+-\146\151\143\141\164\151\157\156\040\101\165\164\150\157\162\151
-+-\164\171\061\041\060\037\006\011\052\206\110\206\367\015\001\011
-+-\001\026\022\141\144\155\151\156\100\163\164\141\162\164\143\157
-+-\155\056\157\162\147\060\201\237\060\015\006\011\052\206\110\206
-+-\367\015\001\001\001\005\000\003\201\215\000\060\201\211\002\201
-+-\201\000\355\204\140\000\043\236\310\112\121\051\047\336\072\241
-+-\071\265\151\253\011\262\057\064\375\141\334\075\323\260\317\261
-+-\327\302\304\302\261\344\226\126\304\276\252\024\016\347\314\072
-+-\120\310\072\142\235\303\243\254\131\173\216\356\125\032\034\107
-+-\276\243\227\071\263\265\357\043\054\010\350\330\257\163\057\271
-+-\311\203\350\355\000\017\310\165\245\057\064\114\030\350\166\210
-+-\043\111\212\333\266\355\150\332\303\265\142\051\114\245\113\267
-+-\230\264\011\024\020\240\370\376\142\166\042\025\013\244\326\010
-+-\057\065\002\003\001\000\001\243\202\002\074\060\202\002\070\060
-+-\017\006\003\125\035\023\001\001\377\004\005\060\003\001\001\377
-+-\060\013\006\003\125\035\017\004\004\003\002\001\346\060\035\006
-+-\003\125\035\016\004\026\004\024\034\211\303\226\314\275\376\062
-+-\325\015\214\201\061\266\230\235\215\050\144\215\060\201\335\006
-+-\003\125\035\043\004\201\325\060\201\322\200\024\034\211\303\226
-+-\314\275\376\062\325\015\214\201\061\266\230\235\215\050\144\215
-+-\241\201\266\244\201\263\060\201\260\061\013\060\011\006\003\125
-+-\004\006\023\002\111\114\061\017\060\015\006\003\125\004\010\023
-+-\006\111\163\162\141\145\154\061\016\060\014\006\003\125\004\007
-+-\023\005\105\151\154\141\164\061\026\060\024\006\003\125\004\012
-+-\023\015\123\164\141\162\164\103\157\155\040\114\164\144\056\061
-+-\032\060\030\006\003\125\004\013\023\021\103\101\040\101\165\164
-+-\150\157\162\151\164\171\040\104\145\160\056\061\051\060\047\006
-+-\003\125\004\003\023\040\106\162\145\145\040\123\123\114\040\103
-+-\145\162\164\151\146\151\143\141\164\151\157\156\040\101\165\164
-+-\150\157\162\151\164\171\061\041\060\037\006\011\052\206\110\206
-+-\367\015\001\011\001\026\022\141\144\155\151\156\100\163\164\141
-+-\162\164\143\157\155\056\157\162\147\202\001\000\060\035\006\003
-+-\125\035\021\004\026\060\024\201\022\141\144\155\151\156\100\163
-+-\164\141\162\164\143\157\155\056\157\162\147\060\035\006\003\125
-+-\035\022\004\026\060\024\201\022\141\144\155\151\156\100\163\164
-+-\141\162\164\143\157\155\056\157\162\147\060\021\006\011\140\206
-+-\110\001\206\370\102\001\001\004\004\003\002\000\007\060\057\006
-+-\011\140\206\110\001\206\370\102\001\015\004\042\026\040\106\162
-+-\145\145\040\123\123\114\040\103\145\162\164\151\146\151\143\141
-+-\164\151\157\156\040\101\165\164\150\157\162\151\164\171\060\062
-+-\006\011\140\206\110\001\206\370\102\001\004\004\045\026\043\150
-+-\164\164\160\072\057\057\143\145\162\164\056\163\164\141\162\164
-+-\143\157\155\056\157\162\147\057\143\141\055\143\162\154\056\143
-+-\162\154\060\050\006\011\140\206\110\001\206\370\102\001\002\004
-+-\033\026\031\150\164\164\160\072\057\057\143\145\162\164\056\163
-+-\164\141\162\164\143\157\155\056\157\162\147\057\060\071\006\011
-+-\140\206\110\001\206\370\102\001\010\004\054\026\052\150\164\164
-+-\160\072\057\057\143\145\162\164\056\163\164\141\162\164\143\157
-+-\155\056\157\162\147\057\151\156\144\145\170\056\160\150\160\077
-+-\141\160\160\075\061\061\061\060\015\006\011\052\206\110\206\367
-+-\015\001\001\004\005\000\003\201\201\000\154\161\045\341\236\064
-+-\221\041\357\333\154\275\001\010\126\217\210\330\101\072\123\365
-+-\162\337\047\127\113\166\204\367\150\244\376\353\077\011\176\050
-+-\270\127\352\037\301\252\342\377\226\237\111\231\346\262\225\163
-+-\226\306\110\307\136\215\007\162\126\370\203\217\237\167\257\051
-+-\323\105\016\244\356\260\066\164\055\360\315\230\043\173\067\113
-+-\332\376\121\230\304\036\064\074\210\375\231\073\120\247\301\213
-+-\063\307\302\122\026\022\225\123\145\042\357\272\213\316\142\333
-+-\160\043\261\200\337\032\040\070\347\176
-+-END
-+-
-+-# Trust for Certificate "StartCom Ltd."
-+-CKA_CLASS CK_OBJECT_CLASS CKO_NETSCAPE_TRUST
-+-CKA_TOKEN CK_BBOOL CK_TRUE
-+-CKA_PRIVATE CK_BBOOL CK_FALSE
-+-CKA_MODIFIABLE CK_BBOOL CK_FALSE
-+-CKA_LABEL UTF8 "StartCom Ltd."
-+-CKA_CERT_SHA1_HASH MULTILINE_OCTAL
-+-\225\346\255\370\327\161\106\002\115\325\152\041\262\347\077\315
-+-\362\073\065\377
-+-END
-+-CKA_CERT_MD5_HASH MULTILINE_OCTAL
-+-\010\174\130\037\122\053\104\264\073\171\315\001\370\305\303\311
-+-END
-+-CKA_ISSUER MULTILINE_OCTAL
-+-\060\201\260\061\013\060\011\006\003\125\004\006\023\002\111\114
-+-\061\017\060\015\006\003\125\004\010\023\006\111\163\162\141\145
-+-\154\061\016\060\014\006\003\125\004\007\023\005\105\151\154\141
-+-\164\061\026\060\024\006\003\125\004\012\023\015\123\164\141\162
-+-\164\103\157\155\040\114\164\144\056\061\032\060\030\006\003\125
-+-\004\013\023\021\103\101\040\101\165\164\150\157\162\151\164\171
-+-\040\104\145\160\056\061\051\060\047\006\003\125\004\003\023\040
-+-\106\162\145\145\040\123\123\114\040\103\145\162\164\151\146\151
-+-\143\141\164\151\157\156\040\101\165\164\150\157\162\151\164\171
-+-\061\041\060\037\006\011\052\206\110\206\367\015\001\011\001\026
-+-\022\141\144\155\151\156\100\163\164\141\162\164\143\157\155\056
-+-\157\162\147
-+-END
-+-CKA_SERIAL_NUMBER MULTILINE_OCTAL
-+-\002\001\000
-+-END
-+-CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+-CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-+-CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-+-
-+-#
-+ # Certificate "StartCom Certification Authority"
-+ #
-+ CKA_CLASS CK_OBJECT_CLASS CKO_CERTIFICATE
-+@@ -22200,3 +20776,153 @@ CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+ CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-+ CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUST_UNKNOWN
-+ CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-++
-++#
-++# Certificate "ACEDICOM Root"
-++#
-++CKA_CLASS CK_OBJECT_CLASS CKO_CERTIFICATE
-++CKA_TOKEN CK_BBOOL CK_TRUE
-++CKA_PRIVATE CK_BBOOL CK_FALSE
-++CKA_MODIFIABLE CK_BBOOL CK_FALSE
-++CKA_LABEL UTF8 "ACEDICOM Root"
-++CKA_CERTIFICATE_TYPE CK_CERTIFICATE_TYPE CKC_X_509
-++CKA_SUBJECT MULTILINE_OCTAL
-++\060\104\061\026\060\024\006\003\125\004\003\014\015\101\103\105
-++\104\111\103\117\115\040\122\157\157\164\061\014\060\012\006\003
-++\125\004\013\014\003\120\113\111\061\017\060\015\006\003\125\004
-++\012\014\006\105\104\111\103\117\115\061\013\060\011\006\003\125
-++\004\006\023\002\105\123
-++END
-++CKA_ID UTF8 "0"
-++CKA_ISSUER MULTILINE_OCTAL
-++\060\104\061\026\060\024\006\003\125\004\003\014\015\101\103\105
-++\104\111\103\117\115\040\122\157\157\164\061\014\060\012\006\003
-++\125\004\013\014\003\120\113\111\061\017\060\015\006\003\125\004
-++\012\014\006\105\104\111\103\117\115\061\013\060\011\006\003\125
-++\004\006\023\002\105\123
-++END
-++CKA_SERIAL_NUMBER MULTILINE_OCTAL
-++\002\010\141\215\307\206\073\001\202\005
-++END
-++CKA_VALUE MULTILINE_OCTAL
-++\060\202\005\265\060\202\003\235\240\003\002\001\002\002\010\141
-++\215\307\206\073\001\202\005\060\015\006\011\052\206\110\206\367
-++\015\001\001\005\005\000\060\104\061\026\060\024\006\003\125\004
-++\003\014\015\101\103\105\104\111\103\117\115\040\122\157\157\164
-++\061\014\060\012\006\003\125\004\013\014\003\120\113\111\061\017
-++\060\015\006\003\125\004\012\014\006\105\104\111\103\117\115\061
-++\013\060\011\006\003\125\004\006\023\002\105\123\060\036\027\015
-++\060\070\060\064\061\070\061\066\062\064\062\062\132\027\015\062
-++\070\060\064\061\063\061\066\062\064\062\062\132\060\104\061\026
-++\060\024\006\003\125\004\003\014\015\101\103\105\104\111\103\117
-++\115\040\122\157\157\164\061\014\060\012\006\003\125\004\013\014
-++\003\120\113\111\061\017\060\015\006\003\125\004\012\014\006\105
-++\104\111\103\117\115\061\013\060\011\006\003\125\004\006\023\002
-++\105\123\060\202\002\042\060\015\006\011\052\206\110\206\367\015
-++\001\001\001\005\000\003\202\002\017\000\060\202\002\012\002\202
-++\002\001\000\377\222\225\341\150\006\166\264\054\310\130\110\312
-++\375\200\124\051\125\143\044\377\220\145\233\020\165\173\303\152
-++\333\142\002\001\362\030\206\265\174\132\070\261\344\130\271\373
-++\323\330\055\237\275\062\067\277\054\025\155\276\265\364\041\322
-++\023\221\331\007\255\001\005\326\363\275\167\316\137\102\201\012
-++\371\152\343\203\000\250\053\056\125\023\143\201\312\107\034\173
-++\134\026\127\172\033\203\140\004\072\076\145\303\315\001\336\336
-++\244\326\014\272\216\336\331\004\356\027\126\042\233\217\143\375
-++\115\026\013\267\173\167\214\371\045\265\321\155\231\022\056\117
-++\032\270\346\352\004\222\256\075\021\271\121\102\075\207\260\061
-++\205\257\171\132\234\376\347\116\136\222\117\103\374\253\072\255
-++\245\022\046\146\271\342\014\327\230\316\324\130\245\225\100\012
-++\267\104\235\023\164\053\302\245\353\042\025\230\020\330\213\305
-++\004\237\035\217\140\345\006\033\233\317\271\171\240\075\242\043
-++\077\102\077\153\372\034\003\173\060\215\316\154\300\277\346\033
-++\137\277\147\270\204\031\325\025\357\173\313\220\066\061\142\311
-++\274\002\253\106\137\233\376\032\150\224\064\075\220\216\255\366
-++\344\035\011\177\112\210\070\077\276\147\375\064\226\365\035\274
-++\060\164\313\070\356\325\154\253\324\374\364\000\267\000\133\205
-++\062\026\166\063\351\330\243\231\235\005\000\252\026\346\363\201
-++\175\157\175\252\206\155\255\025\164\323\304\242\161\252\364\024
-++\175\347\062\270\037\274\325\361\116\275\157\027\002\071\327\016
-++\225\102\072\307\000\076\351\046\143\021\352\013\321\112\377\030
-++\235\262\327\173\057\072\331\226\373\350\036\222\256\023\125\310
-++\331\047\366\334\110\033\260\044\301\205\343\167\235\232\244\363
-++\014\021\035\015\310\264\024\356\265\202\127\011\277\040\130\177
-++\057\042\043\330\160\313\171\154\311\113\362\251\052\310\374\207
-++\053\327\032\120\370\047\350\057\103\343\072\275\330\127\161\375
-++\316\246\122\133\371\335\115\355\345\366\157\211\355\273\223\234
-++\166\041\165\360\222\114\051\367\057\234\001\056\376\120\106\236
-++\144\014\024\263\007\133\305\302\163\154\361\007\134\105\044\024
-++\065\256\203\361\152\115\211\172\372\263\330\055\146\360\066\207
-++\365\053\123\002\003\001\000\001\243\201\252\060\201\247\060\017
-++\006\003\125\035\023\001\001\377\004\005\060\003\001\001\377\060
-++\037\006\003\125\035\043\004\030\060\026\200\024\246\263\341\053
-++\053\111\266\327\163\241\252\224\365\001\347\163\145\114\254\120
-++\060\016\006\003\125\035\017\001\001\377\004\004\003\002\001\206
-++\060\035\006\003\125\035\016\004\026\004\024\246\263\341\053\053
-++\111\266\327\163\241\252\224\365\001\347\163\145\114\254\120\060
-++\104\006\003\125\035\040\004\075\060\073\060\071\006\004\125\035
-++\040\000\060\061\060\057\006\010\053\006\001\005\005\007\002\001
-++\026\043\150\164\164\160\072\057\057\141\143\145\144\151\143\157
-++\155\056\145\144\151\143\157\155\147\162\157\165\160\056\143\157
-++\155\057\144\157\143\060\015\006\011\052\206\110\206\367\015\001
-++\001\005\005\000\003\202\002\001\000\316\054\013\122\121\142\046
-++\175\014\047\203\217\305\366\332\240\150\173\117\222\136\352\244
-++\163\062\021\123\104\262\104\313\235\354\017\171\102\263\020\246
-++\307\015\235\313\266\372\077\072\174\352\277\210\123\033\074\367
-++\202\372\005\065\063\341\065\250\127\300\347\375\215\117\077\223
-++\062\117\170\146\003\167\007\130\351\225\310\176\076\320\171\000
-++\214\362\033\121\063\233\274\224\351\072\173\156\122\055\062\236
-++\043\244\105\373\266\056\023\260\213\030\261\335\316\325\035\247
-++\102\177\125\276\373\133\273\107\324\374\044\315\004\256\226\005
-++\025\326\254\316\060\363\312\013\305\272\342\042\340\246\255\042
-++\344\002\356\164\021\177\114\377\170\035\065\332\346\002\064\353
-++\030\022\141\167\006\011\026\143\352\030\255\242\207\037\362\307
-++\200\011\011\165\116\020\250\217\075\206\270\165\021\300\044\142
-++\212\226\173\112\105\351\354\131\305\276\153\203\346\341\350\254
-++\265\060\036\376\005\007\200\371\341\043\015\120\217\005\230\377
-++\054\137\350\073\266\255\317\201\265\041\207\312\010\052\043\047
-++\060\040\053\317\355\224\133\254\262\172\322\307\050\241\212\013
-++\233\115\112\054\155\205\077\011\162\074\147\342\331\334\007\272
-++\353\145\173\132\001\143\326\220\133\117\027\146\075\177\013\031
-++\243\223\143\020\122\052\237\024\026\130\342\334\245\364\241\026
-++\213\016\221\213\201\312\233\131\372\330\153\221\007\145\125\137
-++\122\037\257\072\373\220\335\151\245\133\234\155\016\054\266\372
-++\316\254\245\174\062\112\147\100\334\060\064\043\335\327\004\043
-++\146\360\374\125\200\247\373\146\031\202\065\147\142\160\071\136
-++\157\307\352\220\100\104\010\036\270\262\326\333\356\131\247\015
-++\030\171\064\274\124\030\136\123\312\064\121\355\105\012\346\216
-++\307\202\066\076\247\070\143\251\060\054\027\020\140\222\237\125
-++\207\022\131\020\302\017\147\151\021\314\116\036\176\112\232\255
-++\257\100\250\165\254\126\220\164\270\240\234\245\171\157\334\351
-++\032\310\151\005\351\272\372\003\263\174\344\340\116\302\316\235
-++\350\266\106\015\156\176\127\072\147\224\302\313\037\234\167\112
-++\147\116\151\206\103\223\070\373\266\333\117\203\221\324\140\176
-++\113\076\053\070\007\125\230\136\244
-++END
-++
-++# Trust for Certificate "ACEDICOM Root"
-++CKA_CLASS CK_OBJECT_CLASS CKO_NETSCAPE_TRUST
-++CKA_TOKEN CK_BBOOL CK_TRUE
-++CKA_PRIVATE CK_BBOOL CK_FALSE
-++CKA_MODIFIABLE CK_BBOOL CK_FALSE
-++CKA_LABEL UTF8 "ACEDICOM Root"
-++CKA_CERT_SHA1_HASH MULTILINE_OCTAL
-++\340\264\062\056\262\366\245\150\266\124\123\204\110\030\112\120
-++\066\207\103\204
-++END
-++CKA_CERT_MD5_HASH MULTILINE_OCTAL
-++\102\201\240\342\034\343\125\020\336\125\211\102\145\226\042\346
-++END
-++CKA_ISSUER MULTILINE_OCTAL
-++\060\104\061\026\060\024\006\003\125\004\003\014\015\101\103\105
-++\104\111\103\117\115\040\122\157\157\164\061\014\060\012\006\003
-++\125\004\013\014\003\120\113\111\061\017\060\015\006\003\125\004
-++\012\014\006\105\104\111\103\117\115\061\013\060\011\006\003\125
-++\004\006\023\002\105\123
-++END
-++CKA_SERIAL_NUMBER MULTILINE_OCTAL
-++\002\010\141\215\307\206\073\001\202\005
-++END
-++CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-++CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-++CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-++CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-+diff --git a/mozilla/security/nss/lib/ckfw/builtins/nssckbi.h b/mozilla/security/nss/lib/ckfw/builtins/nssckbi.h
-+index 6c1d239..6fd5fcc 100644
-+--- a/mozilla/security/nss/lib/ckfw/builtins/nssckbi.h
-++++ b/mozilla/security/nss/lib/ckfw/builtins/nssckbi.h
-+@@ -77,8 +77,8 @@
-+  * of the comment in the CK_VERSION type definition.
-+  */
-+ #define NSS_BUILTINS_LIBRARY_VERSION_MAJOR 1
-+-#define NSS_BUILTINS_LIBRARY_VERSION_MINOR 78
-+-#define NSS_BUILTINS_LIBRARY_VERSION "1.78"
-++#define NSS_BUILTINS_LIBRARY_VERSION_MINOR 79
-++#define NSS_BUILTINS_LIBRARY_VERSION "1.79"
-+ 
-+ /* These version numbers detail the semantic changes to the ckfw engine. */
-+ #define NSS_BUILTINS_HARDWARE_VERSION_MAJOR 1
-diff --git a/meta/recipes-extended/mozilla/nss-3.12.6/25_entropy.patch b/meta/recipes-extended/mozilla/nss-3.12.6/25_entropy.patch
-new file mode 100644
-index 0000000..4e62dcb
---- /dev/null
-+++ b/meta/recipes-extended/mozilla/nss-3.12.6/25_entropy.patch
-@@ -0,0 +1,22 @@
-+## 25_entropy.patch by Mike Hommey <glandium@debian.org>
-+##
-+## All lines beginning with `## DP:' are a description of the patch.
-+## DP: Remove code that called netstat to gain so called entropy. It's pretty
-+## DP: useless on a Linux system. Thanks Wichert Akkerman. bz#51429.
-+
-+diff --git a/mozilla/security/nss/lib/freebl/unix_rand.c b/mozilla/security/nss/lib/freebl/unix_rand.c
-+index c8344b9..6c019da 100644
-+--- a/mozilla/security/nss/lib/freebl/unix_rand.c
-++++ b/mozilla/security/nss/lib/freebl/unix_rand.c
-+@@ -849,7 +849,11 @@ safe_pclose(FILE *fp)
-+ /* Fork netstat to collect its output by default. Do not unset this unless
-+  * another source of entropy is available
-+  */
-++#ifndef LINUX
-+ #define DO_NETSTAT 1
-++#else
-++#undef DO_NETSTAT 
-++#endif
-+ 
-+ void RNG_SystemInfoForRNG(void)
-+ {
-diff --git a/meta/recipes-extended/mozilla/nss-3.12.6/38_hurd.patch b/meta/recipes-extended/mozilla/nss-3.12.6/38_hurd.patch
-new file mode 100644
-index 0000000..837cc50
---- /dev/null
-+++ b/meta/recipes-extended/mozilla/nss-3.12.6/38_hurd.patch
-@@ -0,0 +1,59 @@
-+## 38_hurd.patch by  <glandium@debian.org>
-+##
-+## All lines beginning with `## DP:' are a description of the patch.
-+## DP: Fix FTBFS on Hurd because of MAXPATHLEN
-+
-+diff --git a/mozilla/security/nss/cmd/shlibsign/shlibsign.c b/mozilla/security/nss/cmd/shlibsign/shlibsign.c
-+index 6e93225..e486f7f 100644
-+--- a/mozilla/security/nss/cmd/shlibsign/shlibsign.c
-++++ b/mozilla/security/nss/cmd/shlibsign/shlibsign.c
-+@@ -594,7 +594,6 @@ int main(int argc, char **argv)
-+ #ifdef USES_LINKS
-+     int ret;
-+     struct stat stat_buf;
-+-    char link_buf[MAXPATHLEN+1];
-+     char *link_file = NULL;
-+ #endif
-+ 
-+@@ -871,10 +870,22 @@ int main(int argc, char **argv)
-+     }
-+     if (S_ISLNK(stat_buf.st_mode)) {
-+         char *dirpath,*dirend;
-+-        ret = readlink(input_file, link_buf, sizeof(link_buf) - 1);
-+-        if (ret < 0) {
-+-            perror(input_file);
-+-            goto cleanup;
-++        char *link_buf = NULL;
-++        size_t size = 64;
-++        while (1) {
-++            link_buf = realloc(link_buf, size);
-++            if (!link_buf) {
-++                perror(input_file);
-++                goto cleanup;
-++            }
-++            ret = readlink(input_file, link_buf, size - 1);
-++            if (ret < 0) {
-++                perror(input_file);
-++                goto cleanup;
-++            }
-++            if (ret < size - 1)
-++                break;
-++            size *= 2;
-+         }
-+         link_buf[ret] = 0;
-+         link_file = mkoutput(input_file);
-+diff --git a/mozilla/security/nss/lib/freebl/unix_rand.c b/mozilla/security/nss/lib/freebl/unix_rand.c
-+index 6c019da..78c1769 100644
-+--- a/mozilla/security/nss/lib/freebl/unix_rand.c
-++++ b/mozilla/security/nss/lib/freebl/unix_rand.c
-+@@ -1053,6 +1053,10 @@ void ReadSingleFile(const char *fileName)
-+ #define _POSIX_PTHREAD_SEMANTICS
-+ #include <dirent.h>
-+ 
-++#ifndef PATH_MAX
-++#define PATH_MAX 1024
-++#endif
-++
-+ PRBool
-+ ReadFileOK(char *dir, char *file)
-+ {
-diff --git a/meta/recipes-extended/mozilla/nss-3.12.6/38_kbsd.patch b/meta/recipes-extended/mozilla/nss-3.12.6/38_kbsd.patch
-new file mode 100644
-index 0000000..92bd9ea
---- /dev/null
-+++ b/meta/recipes-extended/mozilla/nss-3.12.6/38_kbsd.patch
-@@ -0,0 +1,152 @@
-+## 38_kbsd.patch by Petr Salinger <Petr.Salinger@seznam.cz>
-+##
-+## All lines beginning with `## DP:' are a description of the patch.
-+## DP: GNU/kFreeBSD support. bz#356011
-+## DP: Added Hurd support.
-+
-+diff --git a/mozilla/security/coreconf/Linux.mk b/mozilla/security/coreconf/Linux.mk
-+index 44b20b2..86d3edc 100644
-+--- a/mozilla/security/coreconf/Linux.mk
-++++ b/mozilla/security/coreconf/Linux.mk
-+@@ -101,7 +101,7 @@ endif
-+ 
-+ LIBC_TAG		= _glibc
-+ 
-+-ifeq ($(OS_RELEASE),2.0)
-++ifeq ($(KERNEL)-$(OS_RELEASE),linux-2.0)
-+ 	OS_REL_CFLAGS	+= -DLINUX2_0
-+ 	MKSHLIB		= $(CC) -shared -Wl,-soname -Wl,$(@:$(OBJDIR)/%.so=%.so) $(RPATH)
-+ 	ifdef MAPFILE
-+@@ -132,14 +132,21 @@ endif
-+ # -ansi on platforms like Android where the system headers are C99 and do
-+ # not build with -ansi.
-+ STANDARDS_CFLAGS	= -ansi -D_POSIX_SOURCE -D_BSD_SOURCE -D_XOPEN_SOURCE
-+-OS_CFLAGS		= $(STANDARDS_CFLAGS) $(DSO_CFLAGS) $(OS_REL_CFLAGS) $(ARCHFLAG) -Wall -Werror-implicit-function-declaration -Wno-switch -pipe -DLINUX -Dlinux -DHAVE_STRERROR
-++OS_CFLAGS		= $(STANDARDS_CFLAGS) $(DSO_CFLAGS) $(OS_REL_CFLAGS) $(ARCHFLAG) -Wall -Werror-implicit-function-declaration -Wno-switch -pipe -DHAVE_STRERROR
-++ifeq ($(KERNEL),linux)
-++OS_CFLAGS		+= -DLINUX -Dlinux
-++endif
-+ OS_LIBS			= $(OS_PTHREAD) -ldl -lc
-+ 
-+ ifdef USE_PTHREADS
-+ 	DEFINES		+= -D_REENTRANT
-+ endif
-+ 
-+-ARCH			= linux
-++ifeq ($(KERNEL),linux)
-++	ARCH		= linux
-++else
-++	ARCH		= gnu
-++endif
-+ 
-+ DSO_CFLAGS		= -fPIC
-+ DSO_LDOPTS		= -shared $(ARCHFLAG)
-+@@ -150,7 +157,7 @@ ZDEFS_FLAG		= -Wl,-z,defs
-+ DSO_LDOPTS		+= $(if $(findstring 2.11.90.0.8,$(shell ld -v)),,$(ZDEFS_FLAG))
-+ LDFLAGS			+= $(ARCHFLAG)
-+ 
-+-# INCLUDES += -I/usr/include -Y/usr/include/linux
-++# INCLUDES += -I/usr/include
-+ G++INCLUDES		= -I/usr/include/g++
-+ 
-+ #
-+diff --git a/mozilla/security/coreconf/Linux2.6.mk b/mozilla/security/coreconf/Linux2.6.mk
-+index 4a6cc1e..8d5cf07 100644
-+--- a/mozilla/security/coreconf/Linux2.6.mk
-++++ b/mozilla/security/coreconf/Linux2.6.mk
-+@@ -37,7 +37,10 @@
-+ 
-+ include $(CORE_DEPTH)/coreconf/Linux.mk
-+ 
-++ifeq ($(KERNEL), linux)
-+ OS_REL_CFLAGS   += -DLINUX2_1
-++endif
-++
-+ MKSHLIB         = $(CC) $(DSO_LDOPTS) -Wl,-soname -Wl,$(@:$(OBJDIR)/%.so=%.so) $(RPATH)
-+ 
-+ ifdef MAPFILE
-+diff --git a/mozilla/security/coreconf/arch.mk b/mozilla/security/coreconf/arch.mk
-+index bd3c02c..86aca7c 100644
-+--- a/mozilla/security/coreconf/arch.mk
-++++ b/mozilla/security/coreconf/arch.mk
-+@@ -155,6 +155,14 @@ ifeq ($(OS_ARCH),Linux)
-+     ifneq ($(words $(OS_RELEASE)),1)
-+ 	OS_RELEASE := $(word 1,$(OS_RELEASE)).$(word 2,$(OS_RELEASE))
-+     endif
-++    KERNEL = linux
-++endif
-++
-++# This check must be last.  Since all uses of OS_ARCH that follow affect only
-++# userland, we can merge other Glibc systems with Linux here.
-++ifneq (, $(filter GNU GNU_%, $(OS_ARCH)))
-++OS_ARCH = Linux
-++OS_RELEASE = 2.6
-+ endif
-+ 
-+ #
-+diff --git a/mozilla/security/coreconf/config.mk b/mozilla/security/coreconf/config.mk
-+index 5b560fb..b9f7e3d 100644
-+--- a/mozilla/security/coreconf/config.mk
-++++ b/mozilla/security/coreconf/config.mk
-+@@ -63,7 +63,7 @@ endif
-+ #######################################################################
-+ 
-+ TARGET_OSES = FreeBSD BSD_OS NetBSD OpenUNIX OS2 QNX Darwin BeOS OpenBSD \
-+-              AIX RISCOS WINNT WIN95 WINCE
-++              AIX RISCOS WINNT WIN95 WINCE GNU GNU_%
-+ 
-+ ifeq (,$(filter-out $(TARGET_OSES),$(OS_TARGET)))
-+ include $(CORE_DEPTH)/coreconf/$(OS_TARGET).mk
-+diff --git a/mozilla/security/nss/lib/freebl/unix_rand.c b/mozilla/security/nss/lib/freebl/unix_rand.c
-+index 78c1769..be212a3 100644
-+--- a/mozilla/security/nss/lib/freebl/unix_rand.c
-++++ b/mozilla/security/nss/lib/freebl/unix_rand.c
-+@@ -188,7 +188,8 @@ static SECStatus RNG_kstat(PRUint32* fed)
-+ 
-+ #if defined(SCO) || defined(UNIXWARE) || defined(BSDI) || defined(FREEBSD) \
-+     || defined(NETBSD) || defined(DARWIN) || defined(OPENBSD) \
-+-    || defined(NTO) || defined(__riscos__)
-++    || defined(NTO) || defined(__riscos__) || defined(__GNU__) \
-++    || defined(__FreeBSD_kernel__) || defined(__NetBSD_kernel__)
-+ #include <sys/times.h>
-+ 
-+ #define getdtablesize() sysconf(_SC_OPEN_MAX)
-+diff --git a/mozilla/security/nss/lib/softoken/softoken.h b/mozilla/security/nss/lib/softoken/softoken.h
-+index 6375f9a..a4ba6b0 100644
-+--- a/mozilla/security/nss/lib/softoken/softoken.h
-++++ b/mozilla/security/nss/lib/softoken/softoken.h
-+@@ -303,7 +303,7 @@ extern PRBool sftk_fatalError;
-+ 
-+ #define CHECK_FORK_MIXED
-+ 
-+-#elif defined(LINUX)
-++#elif defined(LINUX) || defined (__GLIBC__)
-+ 
-+ #define CHECK_FORK_PTHREAD
-+ 
-+diff --git a/mozilla/security/nss/lib/ssl/sslmutex.c b/mozilla/security/nss/lib/ssl/sslmutex.c
-+index 6b5dbd1..edd0b00 100644
-+--- a/mozilla/security/nss/lib/ssl/sslmutex.c
-++++ b/mozilla/security/nss/lib/ssl/sslmutex.c
-+@@ -89,7 +89,7 @@ static SECStatus single_process_sslMutex_Lock(sslMutex* pMutex)
-+     return SECSuccess;
-+ }
-+ 
-+-#if defined(LINUX) || defined(AIX) || defined(BEOS) || defined(BSDI) || (defined(NETBSD) && __NetBSD_Version__ < 500000000) || defined(OPENBSD)
-++#if defined(LINUX) || defined(AIX) || defined(BEOS) || defined(BSDI) || (defined(NETBSD) && __NetBSD_Version__ < 500000000) || defined(OPENBSD) || defined(__GLIBC__)
-+ 
-+ #include <unistd.h>
-+ #include <fcntl.h>
-+diff --git a/mozilla/security/nss/lib/ssl/sslmutex.h b/mozilla/security/nss/lib/ssl/sslmutex.h
-+index 0fdb685..87cd0a9 100644
-+--- a/mozilla/security/nss/lib/ssl/sslmutex.h
-++++ b/mozilla/security/nss/lib/ssl/sslmutex.h
-+@@ -83,7 +83,7 @@ typedef struct
-+ 
-+ typedef int    sslPID;
-+ 
-+-#elif defined(LINUX) || defined(AIX) || defined(BEOS) || defined(BSDI) || (defined(NETBSD) && __NetBSD_Version__ < 500000000) || defined(OPENBSD)
-++#elif defined(LINUX) || defined(AIX) || defined(BEOS) || defined(BSDI) || (defined(NETBSD) && __NetBSD_Version__ < 500000000) || defined(OPENBSD) || defined(__GLIBC__)
-+ 
-+ #include <sys/types.h>
-+ #include "prtypes.h"
-diff --git a/meta/recipes-extended/mozilla/nss-3.12.6/38_mips64_build.patch b/meta/recipes-extended/mozilla/nss-3.12.6/38_mips64_build.patch
-new file mode 100644
-index 0000000..8d4e318
---- /dev/null
-+++ b/meta/recipes-extended/mozilla/nss-3.12.6/38_mips64_build.patch
-@@ -0,0 +1,27 @@
-+## 38_mips64_build.patch by Mike Hommey <glandium@debian.org>
-+##
-+## All lines beginning with `## DP:' are a description of the patch.
-+## DP: Patch from Martin Michlmayr for mips64 builds. bz#330626
-+
-+diff --git a/mozilla/security/coreconf/Linux.mk b/mozilla/security/coreconf/Linux.mk
-+index 86d3edc..4ed2e80 100644
-+--- a/mozilla/security/coreconf/Linux.mk
-++++ b/mozilla/security/coreconf/Linux.mk
-+@@ -80,6 +80,9 @@ else
-+ ifeq (,$(filter-out parisc%,$(OS_TEST)))
-+ 	CPU_ARCH        = hppa
-+ else
-++ifeq ($(OS_TEST),mips64)
-++	CPU_ARCH        = mips
-++else
-+ ifeq (,$(filter-out i%86,$(OS_TEST)))
-+ 	OS_REL_CFLAGS	= -Di386
-+ 	CPU_ARCH	= x86
-+@@ -97,6 +100,7 @@ endif
-+ endif
-+ endif
-+ endif
-++endif
-+ 
-+ 
-+ LIBC_TAG		= _glibc
-diff --git a/meta/recipes-extended/mozilla/nss-3.12.6/80_security_build.patch b/meta/recipes-extended/mozilla/nss-3.12.6/80_security_build.patch
-new file mode 100644
-index 0000000..f228cdf
---- /dev/null
-+++ b/meta/recipes-extended/mozilla/nss-3.12.6/80_security_build.patch
-@@ -0,0 +1,17 @@
-+## 80_security_build.patch by Mike Hommey <glandium@debian.org>
-+##
-+## All lines beginning with `## DP:' are a description of the patch.
-+## DP: Don't automatically create the .chk files, since we will strip
-+## DP: the library in debian/rules.
-+
-+diff --git a/mozilla/security/nss/cmd/shlibsign/Makefile b/mozilla/security/nss/cmd/shlibsign/Makefile
-+index 892a2db..22cfc0c 100644
-+--- a/mozilla/security/nss/cmd/shlibsign/Makefile
-++++ b/mozilla/security/nss/cmd/shlibsign/Makefile
-+@@ -120,5 +120,5 @@ else
-+ 	$(call core_abspath,$(NSPR_LIB_DIR)) $(call core_abspath,$<)
-+ endif
-+ 
-+-libs install :: $(CHECKLOC)
-++libs install ::
-+ 
-diff --git a/meta/recipes-extended/mozilla/nss-3.12.6/80_security_tools.patch b/meta/recipes-extended/mozilla/nss-3.12.6/80_security_tools.patch
-new file mode 100644
-index 0000000..2afe1a1
---- /dev/null
-+++ b/meta/recipes-extended/mozilla/nss-3.12.6/80_security_tools.patch
-@@ -0,0 +1,26 @@
-+## 80_security_tools.patch by Mike Hommey <glandium@debian.org>
-+##
-+## All lines beginning with `## DP:' are a description of the patch.
-+## DP: Enable building of some NSS tools.
-+## DP: Disable rpath.
-+
-+diff --git a/mozilla/security/nss/cmd/platlibs.mk b/mozilla/security/nss/cmd/platlibs.mk
-+index 65969fc..3c41483 100644
-+--- a/mozilla/security/nss/cmd/platlibs.mk
-++++ b/mozilla/security/nss/cmd/platlibs.mk
-+@@ -38,6 +38,7 @@
-+ # set RPATH-type linker instructions here so they can be used in the shared
-+ # version and in the mixed (static nss libs/shared NSPR libs) version.
-+ 
-++ifdef ENABLE_RPATH
-+ ifeq ($(OS_ARCH), SunOS) 
-+ ifeq ($(BUILD_SUN_PKG), 1)
-+ ifeq ($(USE_64), 1)
-+@@ -65,6 +66,7 @@ EXTRA_SHARED_LIBS += -Wl,-rpath,'$$ORIGIN/../lib'
-+ endif
-+ endif
-+ endif
-++endif
-+ 
-+ ifeq ($(OS_ARCH), HP-UX) 
-+ ifeq ($(OS_TEST), ia64)
-diff --git a/meta/recipes-extended/mozilla/nss-3.12.6/81_sonames.patch b/meta/recipes-extended/mozilla/nss-3.12.6/81_sonames.patch
-new file mode 100644
-index 0000000..32fdca5
---- /dev/null
-+++ b/meta/recipes-extended/mozilla/nss-3.12.6/81_sonames.patch
-@@ -0,0 +1,351 @@
-+## 81_sonames.patch by Mike Hommey <glandium@debian.org>
-+##
-+## All lines beginning with `## DP:' are a description of the patch.
-+## DP: Add soname support
-+
-+diff --git a/mozilla/security/coreconf/BSD_OS.mk b/mozilla/security/coreconf/BSD_OS.mk
-+index 95cb706..0edb7cc 100644
-+--- a/mozilla/security/coreconf/BSD_OS.mk
-++++ b/mozilla/security/coreconf/BSD_OS.mk
-+@@ -71,7 +71,7 @@ OS_CFLAGS		= $(DSO_CFLAGS) $(OS_REL_CFLAGS) -Wall -Wno-switch -DBSD_OS -DBSDI -D
-+ ARCH			= bsdos
-+ 
-+ DSO_CFLAGS		= -fPIC -DPIC
-+-DSO_LDOPTS		= -shared -Wl,-soname,lib$(LIBRARY_NAME)$(LIBRARY_VERSION).$(DLL_SUFFIX)
-++DSO_LDOPTS		= -shared -Wl,-soname,$(SONAME)
-+ 
-+ ifdef LIBRUNPATH
-+ DSO_LDOPTS		+= -Wl,-R$(LIBRUNPATH)
-+diff --git a/mozilla/security/coreconf/BeOS.mk b/mozilla/security/coreconf/BeOS.mk
-+index 2695891..511d058 100644
-+--- a/mozilla/security/coreconf/BeOS.mk
-++++ b/mozilla/security/coreconf/BeOS.mk
-+@@ -59,7 +59,7 @@ else
-+ 	CPU_ARCH	= x86
-+ endif
-+ 
-+-MKSHLIB		= $(CC) -nostart -Wl,-soname -Wl,$(@:$(OBJDIR)/%.so=%.so)
-++MKSHLIB		= $(CC) -nostart -Wl,-soname -Wl,$(SONAME)
-+ ifdef BUILD_OPT
-+ 	OPTIMIZER	= -O2
-+ endif
-+diff --git a/mozilla/security/coreconf/FreeBSD.mk b/mozilla/security/coreconf/FreeBSD.mk
-+index 8d1dad7..5979af7 100644
-+--- a/mozilla/security/coreconf/FreeBSD.mk
-++++ b/mozilla/security/coreconf/FreeBSD.mk
-+@@ -56,7 +56,7 @@ endif
-+ OS_CFLAGS		= $(DSO_CFLAGS) -ansi -Wall -Wno-switch -DFREEBSD -DHAVE_STRERROR -DHAVE_BSD_FLOCK
-+ 
-+ DSO_CFLAGS		= -fPIC
-+-DSO_LDOPTS		= -shared -Wl,-soname -Wl,$(notdir $@)
-++DSO_LDOPTS		= -shared -Wl,-soname -Wl,$(SONAME)
-+ 
-+ #
-+ # The default implementation strategy for FreeBSD is pthreads.
-+diff --git a/mozilla/security/coreconf/HP-UX.mk b/mozilla/security/coreconf/HP-UX.mk
-+index 974b831..315b40d 100644
-+--- a/mozilla/security/coreconf/HP-UX.mk
-++++ b/mozilla/security/coreconf/HP-UX.mk
-+@@ -83,7 +83,7 @@ endif
-+ PROCESS_MAP_FILE = grep -v ';+' $< | grep -v ';-' | \
-+          sed -e 's; DATA ;;' -e 's,;;,,' -e 's,;.*,,' -e 's,^,+e ,' > $@
-+ 
-+-DSO_LDOPTS		= -b +h $(notdir $@)
-++DSO_LDOPTS		= -b +h $(SONAME)
-+ RPATH			= +b '$$ORIGIN'
-+ ifneq ($(OS_TEST),ia64)
-+ # pa-risc
-+diff --git a/mozilla/security/coreconf/IRIX.mk b/mozilla/security/coreconf/IRIX.mk
-+index 28f4f05..f1296ee 100644
-+--- a/mozilla/security/coreconf/IRIX.mk
-++++ b/mozilla/security/coreconf/IRIX.mk
-+@@ -102,7 +102,7 @@ ifeq ($(USE_N32),1)
-+ 	SHLIB_LD_OPTS	+= -n32 -mips3
-+ endif
-+ 
-+-MKSHLIB     += $(LD) $(SHLIB_LD_OPTS) -shared -soname $(@:$(OBJDIR)/%.so=%.so)
-++MKSHLIB     += $(LD) $(SHLIB_LD_OPTS) -shared -soname $(SONAME)
-+ ifdef MAPFILE
-+ # Add LD options to restrict exported symbols to those in the map file
-+ endif
-+diff --git a/mozilla/security/coreconf/Linux.mk b/mozilla/security/coreconf/Linux.mk
-+index 4ed2e80..f81ccb9 100644
-+--- a/mozilla/security/coreconf/Linux.mk
-++++ b/mozilla/security/coreconf/Linux.mk
-+@@ -107,7 +107,7 @@ LIBC_TAG		= _glibc
-+ 
-+ ifeq ($(KERNEL)-$(OS_RELEASE),linux-2.0)
-+ 	OS_REL_CFLAGS	+= -DLINUX2_0
-+-	MKSHLIB		= $(CC) -shared -Wl,-soname -Wl,$(@:$(OBJDIR)/%.so=%.so) $(RPATH)
-++	MKSHLIB		= $(CC) -shared -Wl,-soname -Wl,$(SONAME) $(RPATH)
-+ 	ifdef MAPFILE
-+ 		MKSHLIB += -Wl,--version-script,$(MAPFILE)
-+ 	endif
-+diff --git a/mozilla/security/coreconf/Linux2.1.mk b/mozilla/security/coreconf/Linux2.1.mk
-+index e92503a..97f96fa 100644
-+--- a/mozilla/security/coreconf/Linux2.1.mk
-++++ b/mozilla/security/coreconf/Linux2.1.mk
-+@@ -38,7 +38,7 @@
-+ include $(CORE_DEPTH)/coreconf/Linux.mk
-+ ifeq ($(OS_RELEASE),2.1)
-+         OS_REL_CFLAGS   += -DLINUX2_1
-+-        MKSHLIB         = $(CC) $(DSO_LDOPTS) -Wl,-soname -Wl,$(@:$(OBJDIR)/%.so=%.so) $(RPATH)
-++        MKSHLIB         = $(CC) $(DSO_LDOPTS) -Wl,-soname -Wl,$(SONAME) $(RPATH)
-+ 	ifdef MAPFILE
-+ 		MKSHLIB += -Wl,--version-script,$(MAPFILE)
-+ 	endif
-+diff --git a/mozilla/security/coreconf/Linux2.2.mk b/mozilla/security/coreconf/Linux2.2.mk
-+index 4a6cc1e..1378903 100644
-+--- a/mozilla/security/coreconf/Linux2.2.mk
-++++ b/mozilla/security/coreconf/Linux2.2.mk
-+@@ -38,7 +38,7 @@
-+ include $(CORE_DEPTH)/coreconf/Linux.mk
-+ 
-+ OS_REL_CFLAGS   += -DLINUX2_1
-+-MKSHLIB         = $(CC) $(DSO_LDOPTS) -Wl,-soname -Wl,$(@:$(OBJDIR)/%.so=%.so) $(RPATH)
-++MKSHLIB         = $(CC) $(DSO_LDOPTS) -Wl,-soname -Wl,$(SONAME) $(RPATH)
-+ 
-+ ifdef MAPFILE
-+ 	MKSHLIB += -Wl,--version-script,$(MAPFILE)
-+diff --git a/mozilla/security/coreconf/Linux2.4.mk b/mozilla/security/coreconf/Linux2.4.mk
-+index a387672..19cc538 100644
-+--- a/mozilla/security/coreconf/Linux2.4.mk
-++++ b/mozilla/security/coreconf/Linux2.4.mk
-+@@ -38,7 +38,7 @@
-+ include $(CORE_DEPTH)/coreconf/Linux.mk
-+ 
-+ OS_REL_CFLAGS   += -DLINUX2_1
-+-MKSHLIB         = $(CC) $(DSO_LDOPTS) -Wl,-soname -Wl,$(@:$(OBJDIR)/%.so=%.so) $(RPATH)
-++MKSHLIB         = $(CC) $(DSO_LDOPTS) -Wl,-soname -Wl,$(SONAME) $(RPATH)
-+ 
-+ ifdef MAPFILE
-+ 	MKSHLIB += -Wl,--version-script,$(MAPFILE)
-+diff --git a/mozilla/security/coreconf/Linux2.5.mk b/mozilla/security/coreconf/Linux2.5.mk
-+index 4a6cc1e..1378903 100644
-+--- a/mozilla/security/coreconf/Linux2.5.mk
-++++ b/mozilla/security/coreconf/Linux2.5.mk
-+@@ -38,7 +38,7 @@
-+ include $(CORE_DEPTH)/coreconf/Linux.mk
-+ 
-+ OS_REL_CFLAGS   += -DLINUX2_1
-+-MKSHLIB         = $(CC) $(DSO_LDOPTS) -Wl,-soname -Wl,$(@:$(OBJDIR)/%.so=%.so) $(RPATH)
-++MKSHLIB         = $(CC) $(DSO_LDOPTS) -Wl,-soname -Wl,$(SONAME) $(RPATH)
-+ 
-+ ifdef MAPFILE
-+ 	MKSHLIB += -Wl,--version-script,$(MAPFILE)
-+diff --git a/mozilla/security/coreconf/Linux2.6.mk b/mozilla/security/coreconf/Linux2.6.mk
-+index 8d5cf07..d008e3e 100644
-+--- a/mozilla/security/coreconf/Linux2.6.mk
-++++ b/mozilla/security/coreconf/Linux2.6.mk
-+@@ -41,7 +41,7 @@ ifeq ($(KERNEL), linux)
-+ OS_REL_CFLAGS   += -DLINUX2_1
-+ endif
-+ 
-+-MKSHLIB         = $(CC) $(DSO_LDOPTS) -Wl,-soname -Wl,$(@:$(OBJDIR)/%.so=%.so) $(RPATH)
-++MKSHLIB         = $(CC) $(DSO_LDOPTS) -Wl,-soname -Wl,$(SONAME) $(RPATH)
-+ 
-+ ifdef MAPFILE
-+ 	MKSHLIB += -Wl,--version-script,$(MAPFILE)
-+diff --git a/mozilla/security/coreconf/NetBSD.mk b/mozilla/security/coreconf/NetBSD.mk
-+index 551f10f..ca8f123 100644
-+--- a/mozilla/security/coreconf/NetBSD.mk
-++++ b/mozilla/security/coreconf/NetBSD.mk
-+@@ -67,7 +67,7 @@ ARCH			= netbsd
-+ DSO_CFLAGS		= -fPIC -DPIC
-+ DSO_LDOPTS		= -shared
-+ ifeq ($(OBJECT_FMT),ELF)
-+-DSO_LDOPTS		+= -Wl,-soname,lib$(LIBRARY_NAME)$(LIBRARY_VERSION).$(DLL_SUFFIX)
-++DSO_LDOPTS		+= -Wl,-soname,$(SONAME)
-+ endif
-+ 
-+ ifdef LIBRUNPATH
-+diff --git a/mozilla/security/coreconf/OSF1.mk b/mozilla/security/coreconf/OSF1.mk
-+index fd52047..a3f3046 100644
-+--- a/mozilla/security/coreconf/OSF1.mk
-++++ b/mozilla/security/coreconf/OSF1.mk
-+@@ -64,7 +64,7 @@ ifeq ($(USE_PTHREADS),1)
-+ endif
-+ 
-+ # The command to build a shared library on OSF1.
-+-MKSHLIB    += ld -shared -expect_unresolved "*" -soname $(notdir $@)
-++MKSHLIB    += ld -shared -expect_unresolved "*" -soname $(SONAME)
-+ ifdef MAPFILE
-+ MKSHLIB += -hidden -input $(MAPFILE)
-+ endif
-+diff --git a/mozilla/security/coreconf/OpenBSD.mk b/mozilla/security/coreconf/OpenBSD.mk
-+index 6ec4c34..beb0954 100644
-+--- a/mozilla/security/coreconf/OpenBSD.mk
-++++ b/mozilla/security/coreconf/OpenBSD.mk
-+@@ -65,7 +65,7 @@ OS_LIBS			=
-+ ARCH			= openbsd
-+ 
-+ DSO_CFLAGS		= -fPIC -DPIC
-+-DSO_LDOPTS		= -shared -fPIC -Wl,-soname,lib$(LIBRARY_NAME)$(LIBRARY_VERSION).$(DLL_SUFFIX)
-++DSO_LDOPTS		= -shared -fPIC -Wl,-soname,$(SONAME)
-+ 
-+ MKSHLIB			= $(CC) $(DSO_LDOPTS)
-+ 
-+diff --git a/mozilla/security/coreconf/QNX.mk b/mozilla/security/coreconf/QNX.mk
-+index 315bde4..de04c12 100644
-+--- a/mozilla/security/coreconf/QNX.mk
-++++ b/mozilla/security/coreconf/QNX.mk
-+@@ -54,7 +54,7 @@ else
-+ 	CPU_ARCH	= x86
-+ endif
-+ 
-+-MKSHLIB		= $(CC) -shared -Wl,-soname -Wl,$(@:$(OBJDIR)/%.so=%.so)
-++MKSHLIB		= $(CC) -shared -Wl,-soname -Wl,$(SONAME)
-+ ifdef BUILD_OPT
-+ 	OPTIMIZER	= -O2
-+ endif
-+diff --git a/mozilla/security/coreconf/ReliantUNIX.mk b/mozilla/security/coreconf/ReliantUNIX.mk
-+index 671132a..07e13ff 100644
-+--- a/mozilla/security/coreconf/ReliantUNIX.mk
-++++ b/mozilla/security/coreconf/ReliantUNIX.mk
-+@@ -51,7 +51,7 @@ ifdef NS_USE_GCC
-+ 		OPTIMIZER += -O6
-+ 	endif
-+ 	MKSHLIB     = $(LD)
-+-	MKSHLIB    += -G -h $(@:$(OBJDIR)/%.so=%.so)
-++	MKSHLIB    += -G -h $(SONAME)
-+ 	DSO_LDOPTS += -G -Xlinker -Blargedynsym
-+ else
-+ 	## native compiler (CDS++ 1.0)
-+diff --git a/mozilla/security/coreconf/SunOS5.mk b/mozilla/security/coreconf/SunOS5.mk
-+index c3f8e18..dfe9a67 100644
-+--- a/mozilla/security/coreconf/SunOS5.mk
-++++ b/mozilla/security/coreconf/SunOS5.mk
-+@@ -143,7 +143,7 @@ ifdef NS_USE_GCC
-+ ifeq ($(USE_64), 1)
-+ 	DSO_LDOPTS += -m64
-+ endif
-+-	DSO_LDOPTS += -shared -h $(notdir $@)
-++	DSO_LDOPTS += -shared -h $(SONAME)
-+ else
-+ ifeq ($(USE_64), 1)
-+ 	ifeq ($(OS_TEST),i86pc)
-+@@ -152,7 +152,7 @@ ifeq ($(USE_64), 1)
-+ 	    DSO_LDOPTS +=-xarch=v9
-+ 	endif
-+ endif
-+-	DSO_LDOPTS += -G -h $(notdir $@)
-++	DSO_LDOPTS += -G -h $(SONAME)
-+ endif
-+ DSO_LDOPTS += -z combreloc -z defs -z ignore
-+ 
-+diff --git a/mozilla/security/coreconf/rules.mk b/mozilla/security/coreconf/rules.mk
-+index 01cd254..5d430b4 100644
-+--- a/mozilla/security/coreconf/rules.mk
-++++ b/mozilla/security/coreconf/rules.mk
-+@@ -115,6 +115,7 @@ ifeq (,$(filter-out _WIN%,$(NS_USE_GCC)_$(OS_TARGET)))
-+ 	$(INSTALL) -m 644 $(SHARED_LIBRARY:$(DLL_SUFFIX)=pdb) $(SOURCE_LIB_DIR)
-+ endif
-+ endif
-++	$(call MKSHLINKS,$(SOURCE_LIB_DIR))
-+ endif
-+ ifdef IMPORT_LIBRARY
-+ 	$(INSTALL) -m 775 $(IMPORT_LIBRARY) $(SOURCE_LIB_DIR)
-+@@ -258,6 +259,7 @@ endif
-+ release_md::
-+ ifneq ($(MD_LIB_RELEASE_FILES),)
-+ 	$(INSTALL) -m 444 $(MD_LIB_RELEASE_FILES) $(SOURCE_RELEASE_PREFIX)/$(SOURCE_RELEASE_LIB_DIR)
-++	$(call MKSHLINKS,$(SOURCE_RELEASE_PREFIX)/$(SOURCE_RELEASE_LIB_DIR))
-+ endif
-+ ifneq ($(MD_BIN_RELEASE_FILES),)
-+ 	$(INSTALL) -m 555 $(MD_BIN_RELEASE_FILES) $(SOURCE_RELEASE_PREFIX)/$(SOURCE_RELEASE_BIN_DIR)
-+@@ -313,6 +315,8 @@ SUB_SHLOBJS = $(foreach dir,$(SHARED_LIBRARY_DIRS),$(addprefix $(dir)/,$(shell $
-+ endif
-+ endif
-+ 
-++$(SHARED_LIBRARY_LINKS): %: $(SHARED_LIBRARY)
-++
-+ $(SHARED_LIBRARY): $(OBJS) $(RES) $(MAPFILE) $(SUB_SHLOBJS)
-+ 	@$(MAKE_OBJDIR)
-+ 	rm -f $@
-+diff --git a/mozilla/security/coreconf/ruleset.mk b/mozilla/security/coreconf/ruleset.mk
-+index c083378..f6aa6d9 100644
-+--- a/mozilla/security/coreconf/ruleset.mk
-++++ b/mozilla/security/coreconf/ruleset.mk
-+@@ -123,6 +123,25 @@ ifdef LIBRARY_NAME
-+     ifndef SHARED_LIBRARY
-+ 	SHARED_LIBRARY = $(OBJDIR)/$(DLL_PREFIX)$(LIBRARY_NAME)$(LIBRARY_VERSION)$(JDK_DEBUG_SUFFIX).$(DLL_SUFFIX)
-+     endif
-++    SONAME = $(notdir $(SHARED_LIBRARY))
-++    ifdef SO_VERSION
-++    ifneq (,$(findstring $(SONAME),$(MKSHLIB)))
-++        SO_VERSION_MAJOR	:= $(shell echo $(SO_VERSION) | sed 's/^\([^.]*\)\(\.[^.]*\)\?\(\.[^.]*\)\?/\1/')
-++        SO_VERSION_MINOR	:= $(shell echo $(SO_VERSION) | sed 's/^\([^.]*\)\(\.[^.]*\)\?\(\.[^.]*\)\?/\2/')
-++        SO_VERSION_MICRO	:= $(shell echo $(SO_VERSION) | sed 's/^\([^.]*\)\(\.[^.]*\)\?\(\.[^.]*\)\?/\3/')
-++
-++        SHARED_LIBRARY_LINKS	:= $(SONAME)
-++        ifdef SO_VERSION_MINOR
-++            SHARED_LIBRARY_LINKS	+= $(SONAME).$(SO_VERSION_MAJOR)
-++        endif
-++
-++        SONAME			:= $(SONAME).$(SO_VERSION_MAJOR)
-++        SHARED_LIBRARY		:= $(SHARED_LIBRARY).$(SO_VERSION)
-++
-++        MKSHLINKS		= (cd $(1) && for link in $(SHARED_LIBRARY_LINKS); do rm -f $$link; ln -s $(notdir $(SHARED_LIBRARY)) $$link; done)
-++    endif
-++    endif
-++
-+     ifndef MAPFILE_SOURCE
-+ 	MAPFILE_SOURCE = $(LIBRARY_NAME).def
-+     endif
-+@@ -189,7 +208,7 @@ else
-+ endif
-+ 
-+ ALL_TRASH =	$(TARGETS) $(OBJS) $(OBJDIR) LOGS TAGS $(GARBAGE) \
-+-		so_locations $(BUILT_SRCS) $(NOSUCHFILE)
-++		so_locations $(BUILT_SRCS) $(NOSUCHFILE) $(SHARED_LIBRARY_LINKS)
-+ 
-+ ifdef NS_USE_JDK
-+     ALL_TRASH += $(JDK_HEADER_CFILES) $(JDK_STUB_CFILES) \
-+diff --git a/mozilla/security/nss/lib/nss/manifest.mn b/mozilla/security/nss/lib/nss/manifest.mn
-+index b3bbd97..a87a90c 100644
-+--- a/mozilla/security/nss/lib/nss/manifest.mn
-++++ b/mozilla/security/nss/lib/nss/manifest.mn
-+@@ -58,6 +58,7 @@ MAPFILE = $(OBJDIR)/nss.def
-+ 
-+ LIBRARY_NAME = nss
-+ LIBRARY_VERSION = 3
-++SO_VERSION = 1oe
-+ 
-+ # This part of the code, including all sub-dirs, can be optimized for size
-+ export ALLOW_OPT_CODE_SIZE = 1
-+diff --git a/mozilla/security/nss/lib/smime/manifest.mn b/mozilla/security/nss/lib/smime/manifest.mn
-+index a72b413..a782e1d 100644
-+--- a/mozilla/security/nss/lib/smime/manifest.mn
-++++ b/mozilla/security/nss/lib/smime/manifest.mn
-+@@ -79,6 +79,7 @@ REQUIRES = dbm
-+ 
-+ LIBRARY_NAME = smime
-+ LIBRARY_VERSION = 3
-++SO_VERSION = 1oe
-+ 
-+ # This part of the code, including all sub-dirs, can be optimized for size
-+ export ALLOW_OPT_CODE_SIZE = 1
-+diff --git a/mozilla/security/nss/lib/ssl/manifest.mn b/mozilla/security/nss/lib/ssl/manifest.mn
-+index 8451229..ec3495e 100644
-+--- a/mozilla/security/nss/lib/ssl/manifest.mn
-++++ b/mozilla/security/nss/lib/ssl/manifest.mn
-+@@ -78,6 +78,7 @@ CSRCS = \
-+ 
-+ LIBRARY_NAME = ssl
-+ LIBRARY_VERSION = 3
-++SO_VERSION = 1oe
-+ 
-+ # This part of the code, including all sub-dirs, can be optimized for size
-+ export ALLOW_OPT_CODE_SIZE = 1
-+diff --git a/mozilla/security/nss/lib/util/manifest.mn b/mozilla/security/nss/lib/util/manifest.mn
-+index 74ddd92..30f530a 100644
-+--- a/mozilla/security/nss/lib/util/manifest.mn
-++++ b/mozilla/security/nss/lib/util/manifest.mn
-+@@ -106,6 +106,7 @@ MAPFILE = $(OBJDIR)/nssutil.def
-+ 
-+ LIBRARY_NAME = nssutil
-+ LIBRARY_VERSION = 3
-++SO_VERSION = 1oe
-+ 
-+ # This part of the code, including all sub-dirs, can be optimized for size
-+ export ALLOW_OPT_CODE_SIZE = 1
-diff --git a/meta/recipes-extended/mozilla/nss-3.12.6/85_security_load.patch b/meta/recipes-extended/mozilla/nss-3.12.6/85_security_load.patch
-new file mode 100644
-index 0000000..52e7059
---- /dev/null
-+++ b/meta/recipes-extended/mozilla/nss-3.12.6/85_security_load.patch
-@@ -0,0 +1,79 @@
-+## 85_security_load.patch by Mike Hommey <glandium@debian.org>
-+##
-+## All lines beginning with `## DP:' are a description of the patch.
-+## DP: Load modules from $ORIGIN/nss.
-+
-+diff --git a/mozilla/security/nss/cmd/shlibsign/shlibsign.c b/mozilla/security/nss/cmd/shlibsign/shlibsign.c
-+index e486f7f..ae050f9 100644
-+--- a/mozilla/security/nss/cmd/shlibsign/shlibsign.c
-++++ b/mozilla/security/nss/cmd/shlibsign/shlibsign.c
-+@@ -768,6 +768,8 @@ int main(int argc, char **argv)
-+     libname = PR_GetLibraryName(NULL, "softokn3");
-+     assert(libname != NULL);
-+     lib = PR_LoadLibrary(libname);
-++    if (!lib)
-++        lib = PR_LoadLibrary("/usr/lib/nss/libsoftokn3.so");
-+     assert(lib != NULL);
-+     PR_FreeLibraryName(libname);
-+ 
-+diff --git a/mozilla/security/nss/lib/pk11wrap/pk11load.c b/mozilla/security/nss/lib/pk11wrap/pk11load.c
-+index 1929993..2d4f91b 100644
-+--- a/mozilla/security/nss/lib/pk11wrap/pk11load.c
-++++ b/mozilla/security/nss/lib/pk11wrap/pk11load.c
-+@@ -440,6 +440,12 @@ secmod_LoadPKCS11Module(SECMODModule *mod, SECMODModule **oldModule) {
-+ 	 * unload the library if anything goes wrong from here on out...
-+ 	 */
-+ 	library = PR_LoadLibrary(full_name);
-++	if ((library == NULL) &&
-++	    !rindex(full_name, PR_GetDirectorySeparator())) {
-++            library = PORT_LoadLibraryFromOrigin(my_shlib_name,
-++                                      (PRFuncPtr) &softoken_LoadDSO,
-++                                      full_name);
-++	}
-+ 	mod->library = (void *)library;
-+ 	PORT_Free(full_name);
-+ 
-+diff --git a/mozilla/security/nss/lib/util/secload.c b/mozilla/security/nss/lib/util/secload.c
-+index 6f9b527..7d6fc22 100644
-+--- a/mozilla/security/nss/lib/util/secload.c
-++++ b/mozilla/security/nss/lib/util/secload.c
-+@@ -104,9 +104,14 @@ loader_LoadLibInReferenceDir(const char *referencePath, const char *name)
-+ 
-+     /* Remove the trailing filename from referencePath and add the new one */
-+     c = strrchr(referencePath, PR_GetDirectorySeparator());
-++    if (!c) { /* referencePath doesn't contain a / means that dladdr gave us argv[0]
-++               * and program was called from $PATH. Hack to get libs from /usr/lib */
-++        referencePath = "/usr/lib/";
-++        c = &referencePath[8]; /* last / */
-++    }
-+     if (c) {
-+         size_t referencePathSize = 1 + c - referencePath;
-+-        fullName = (char*) PORT_Alloc(strlen(name) + referencePathSize + 1);
-++        fullName = (char*) PORT_Alloc(strlen(name) + referencePathSize + 5);
-+         if (fullName) {
-+             memcpy(fullName, referencePath, referencePathSize);
-+             strcpy(fullName + referencePathSize, name); 
-+@@ -116,6 +121,12 @@ loader_LoadLibInReferenceDir(const char *referencePath, const char *name)
-+ #endif
-+             libSpec.type = PR_LibSpec_Pathname;
-+             libSpec.value.pathname = fullName;
-++            if ((referencePathSize >= 4) &&
-++                (strncmp(fullName + referencePathSize - 4, "bin", 3) == 0)) {
-++                memcpy(fullName + referencePathSize -4, "lib", 3);
-++            }
-++            strcpy(fullName + referencePathSize, "nss/");
-++            strcpy(fullName + referencePathSize + 4, name);
-+             dlh = PR_LoadLibraryWithFlags(libSpec, PR_LD_NOW | PR_LD_LOCAL
-+ #ifdef PR_LD_ALT_SEARCH_PATH
-+             /* allow library's dependencies to be found in the same directory
-+@@ -123,6 +134,10 @@ loader_LoadLibInReferenceDir(const char *referencePath, const char *name)
-+                                           | PR_LD_ALT_SEARCH_PATH 
-+ #endif
-+                                           );
-++            if (! dlh) {
-++                strcpy(fullName + referencePathSize, name);
-++                dlh = PR_LoadLibraryWithFlags(libSpec, PR_LD_NOW | PR_LD_LOCAL);
-++            }
-+             PORT_Free(fullName);
-+         }
-+     }
-diff --git a/meta/recipes-extended/mozilla/nss-3.12.6/90_realpath.patch b/meta/recipes-extended/mozilla/nss-3.12.6/90_realpath.patch
-new file mode 100644
-index 0000000..eb4147a
---- /dev/null
-+++ b/meta/recipes-extended/mozilla/nss-3.12.6/90_realpath.patch
-@@ -0,0 +1,35 @@
-+## 90_realpath.patch by Mike Hommey <glandium@debian.org>
-+##
-+## All lines beginning with `## DP:' are a description of the patch.
-+## DP: Use realpath() for loader_GetOriginalPathname, so that symlinks are
-+## DP: properly followed when determining where the current library lives.
-+
-+diff --git a/mozilla/security/nss/lib/freebl/genload.c b/mozilla/security/nss/lib/freebl/genload.c
-+index fac6e22..d242517 100644
-+--- a/mozilla/security/nss/lib/freebl/genload.c
-++++ b/mozilla/security/nss/lib/freebl/genload.c
-+@@ -62,6 +62,16 @@
-+  */
-+ static char* loader_GetOriginalPathname(const char* link)
-+ {
-++#ifdef __GLIBC__
-++    char* tmp = realpath(link, NULL);
-++    char* resolved;
-++    if (! tmp)
-++    	return NULL;
-++    resolved = PR_Malloc(strlen(tmp) + 1);
-++    strcpy(resolved, tmp); /* This is necessary because PR_Free might not be using free() */
-++    free(tmp);
-++    return resolved;
-++#else
-+     char* resolved = NULL;
-+     char* input = NULL;
-+     PRUint32 iterations = 0;
-+@@ -96,6 +106,7 @@ static char* loader_GetOriginalPathname(const char* link)
-+         input = NULL;
-+     }
-+     return input;
-++#endif
-+ }
-+ #endif /* XP_UNIX */
-+ 
-diff --git a/meta/recipes-extended/mozilla/nss-3.12.6/91_build_pwdecrypt.patch b/meta/recipes-extended/mozilla/nss-3.12.6/91_build_pwdecrypt.patch
-new file mode 100644
-index 0000000..d76f897
---- /dev/null
-+++ b/meta/recipes-extended/mozilla/nss-3.12.6/91_build_pwdecrypt.patch
-@@ -0,0 +1,17 @@
-+## 91_build_pwdecrypt.patch by Paul Wise <pabs@debian.org>
-+##
-+## All lines beginning with `## DP:' are a description of the patch.
-+## DP: Enable building and installing pwdecrypt (Closes: #472303)
-+
-+diff --git a/mozilla/security/nss/cmd/manifest.mn b/mozilla/security/nss/cmd/manifest.mn
-+index 4032e81..6de19aa 100644
-+--- a/mozilla/security/nss/cmd/manifest.mn
-++++ b/mozilla/security/nss/cmd/manifest.mn
-+@@ -65,6 +65,7 @@ DIRS = lib  \
-+  pk12util \
-+  pk11mode \
-+  pp  \
-++ pwdecrypt \
-+  rsaperf \
-+  sdrtest \
-+  selfserv  \
-diff --git a/meta/recipes-extended/mozilla/nss-3.12.6/95_add_spi+cacert_ca_certs.patch b/meta/recipes-extended/mozilla/nss-3.12.6/95_add_spi+cacert_ca_certs.patch
-new file mode 100644
-index 0000000..ac16b47
---- /dev/null
-+++ b/meta/recipes-extended/mozilla/nss-3.12.6/95_add_spi+cacert_ca_certs.patch
-@@ -0,0 +1,1168 @@
-+## 95_add_spi+cacert_ca_certs.patch by martin f. krafft <madduck@debian.org>
-+##
-+## All lines beginning with `## DP:' are a description of the patch.
-+## DP: Adds the SPI Inc. and CAcert.org CA certificates
-+
-+diff --git a/mozilla/security/nss/lib/ckfw/builtins/certdata.c b/mozilla/security/nss/lib/ckfw/builtins/certdata.c
-+index 52b78ad..28fe53c 100644
-+--- a/mozilla/security/nss/lib/ckfw/builtins/certdata.c
-++++ b/mozilla/security/nss/lib/ckfw/builtins/certdata.c
-+@@ -35,7 +35,7 @@
-+  *
-+  * ***** END LICENSE BLOCK ***** */
-+ #ifdef DEBUG
-+-static const char CVS_ID[] = "@(#) $RCSfile: certdata.c,v $ $Revision: 1.67 $ $Date: 2010/04/08 14:28:58 $""; @(#) $RCSfile: certdata.c,v $ $Revision: 1.67 $ $Date: 2010/04/08 14:28:58 $";
-++static const char CVS_ID[] = "@(#) $RCSfile: certdata.txt,v $ $Revision: 1.64 $ $Date: 2010/04/08 14:28:59 $""; @(#) $RCSfile: certdata.perl,v $ $Revision: 1.13 $ $Date: 2010/03/26 22:06:47 $";
-+ #endif /* DEBUG */
-+ 
-+ #ifndef BUILTINS_H
-+@@ -960,6 +960,24 @@ static const CK_ATTRIBUTE_TYPE nss_builtins_types_300 [] = {
-+ static const CK_ATTRIBUTE_TYPE nss_builtins_types_301 [] = {
-+  CKA_CLASS,  CKA_TOKEN,  CKA_PRIVATE,  CKA_MODIFIABLE,  CKA_LABEL,  CKA_CERT_SHA1_HASH,  CKA_CERT_MD5_HASH,  CKA_ISSUER,  CKA_SERIAL_NUMBER,  CKA_TRUST_SERVER_AUTH,  CKA_TRUST_EMAIL_PROTECTION,  CKA_TRUST_CODE_SIGNING,  CKA_TRUST_STEP_UP_APPROVED
-+ };
-++static const CK_ATTRIBUTE_TYPE nss_builtins_types_302 [] = {
-++ CKA_CLASS,  CKA_TOKEN,  CKA_PRIVATE,  CKA_MODIFIABLE,  CKA_LABEL,  CKA_CERTIFICATE_TYPE,  CKA_SUBJECT,  CKA_ID,  CKA_ISSUER,  CKA_SERIAL_NUMBER,  CKA_VALUE
-++};
-++static const CK_ATTRIBUTE_TYPE nss_builtins_types_303 [] = {
-++ CKA_CLASS,  CKA_TOKEN,  CKA_PRIVATE,  CKA_MODIFIABLE,  CKA_LABEL,  CKA_CERT_SHA1_HASH,  CKA_CERT_MD5_HASH,  CKA_ISSUER,  CKA_SERIAL_NUMBER,  CKA_TRUST_SERVER_AUTH,  CKA_TRUST_EMAIL_PROTECTION,  CKA_TRUST_CODE_SIGNING,  CKA_TRUST_STEP_UP_APPROVED
-++};
-++static const CK_ATTRIBUTE_TYPE nss_builtins_types_304 [] = {
-++ CKA_CLASS,  CKA_TOKEN,  CKA_PRIVATE,  CKA_MODIFIABLE,  CKA_LABEL,  CKA_CERTIFICATE_TYPE,  CKA_SUBJECT,  CKA_ID,  CKA_ISSUER,  CKA_SERIAL_NUMBER,  CKA_VALUE
-++};
-++static const CK_ATTRIBUTE_TYPE nss_builtins_types_305 [] = {
-++ CKA_CLASS,  CKA_TOKEN,  CKA_PRIVATE,  CKA_MODIFIABLE,  CKA_LABEL,  CKA_CERT_SHA1_HASH,  CKA_CERT_MD5_HASH,  CKA_ISSUER,  CKA_SERIAL_NUMBER,  CKA_TRUST_SERVER_AUTH,  CKA_TRUST_EMAIL_PROTECTION,  CKA_TRUST_CODE_SIGNING,  CKA_TRUST_STEP_UP_APPROVED
-++};
-++static const CK_ATTRIBUTE_TYPE nss_builtins_types_306 [] = {
-++ CKA_CLASS,  CKA_TOKEN,  CKA_PRIVATE,  CKA_MODIFIABLE,  CKA_LABEL,  CKA_CERTIFICATE_TYPE,  CKA_SUBJECT,  CKA_ID,  CKA_ISSUER,  CKA_SERIAL_NUMBER,  CKA_VALUE
-++};
-++static const CK_ATTRIBUTE_TYPE nss_builtins_types_307 [] = {
-++ CKA_CLASS,  CKA_TOKEN,  CKA_PRIVATE,  CKA_MODIFIABLE,  CKA_LABEL,  CKA_CERT_SHA1_HASH,  CKA_CERT_MD5_HASH,  CKA_ISSUER,  CKA_SERIAL_NUMBER,  CKA_TRUST_SERVER_AUTH,  CKA_TRUST_EMAIL_PROTECTION,  CKA_TRUST_CODE_SIGNING,  CKA_TRUST_STEP_UP_APPROVED
-++};
-+ #ifdef DEBUG
-+ static const NSSItem nss_builtins_items_0 [] = {
-+   { (void *)&cko_data, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-+@@ -968,7 +986,7 @@ static const NSSItem nss_builtins_items_0 [] = {
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-+   { (void *)"CVS ID", (PRUint32)7 },
-+   { (void *)"NSS", (PRUint32)4 },
-+-  { (void *)"@(#) $RCSfile: certdata.c,v $ $Revision: 1.67 $ $Date: 2010/04/08 14:28:58 $""; @(#) $RCSfile: certdata.c,v $ $Revision: 1.67 $ $Date: 2010/04/08 14:28:58 $", (PRUint32)160 }
-++  { (void *)"@(#) $RCSfile: certdata.txt,v $ $Revision: 1.64 $ $Date: 2010/04/08 14:28:59 $""; @(#) $RCSfile: certdata.perl,v $ $Revision: 1.13 $ $Date: 2010/03/26 22:06:47 $", (PRUint32)160 }
-+ };
-+ #endif /* DEBUG */
-+ static const NSSItem nss_builtins_items_1 [] = {
-+@@ -20303,6 +20321,531 @@ static const NSSItem nss_builtins_items_301 [] = {
-+   { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-+   { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-+ };
-++static const NSSItem nss_builtins_items_302 [] = {
-++  { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-++  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-++  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-++  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-++  { (void *)"CAcert.org Class 1 Root CA", (PRUint32)27 },
-++  { (void *)&ckc_x_509, (PRUint32)sizeof(CK_CERTIFICATE_TYPE) },
-++  { (void *)"\060\171\061\020\060\016\006\003\125\004\012\023\007\122\157\157"
-++"\164\040\103\101\061\036\060\034\006\003\125\004\013\023\025\150"
-++"\164\164\160\072\057\057\167\167\167\056\143\141\143\145\162\164"
-++"\056\157\162\147\061\042\060\040\006\003\125\004\003\023\031\103"
-++"\101\040\103\145\162\164\040\123\151\147\156\151\156\147\040\101"
-++"\165\164\150\157\162\151\164\171\061\041\060\037\006\011\052\206"
-++"\110\206\367\015\001\011\001\026\022\163\165\160\160\157\162\164"
-++"\100\143\141\143\145\162\164\056\157\162\147"
-++, (PRUint32)123 },
-++  { (void *)"0", (PRUint32)2 },
-++  { (void *)"\060\171\061\020\060\016\006\003\125\004\012\023\007\122\157\157"
-++"\164\040\103\101\061\036\060\034\006\003\125\004\013\023\025\150"
-++"\164\164\160\072\057\057\167\167\167\056\143\141\143\145\162\164"
-++"\056\157\162\147\061\042\060\040\006\003\125\004\003\023\031\103"
-++"\101\040\103\145\162\164\040\123\151\147\156\151\156\147\040\101"
-++"\165\164\150\157\162\151\164\171\061\041\060\037\006\011\052\206"
-++"\110\206\367\015\001\011\001\026\022\163\165\160\160\157\162\164"
-++"\100\143\141\143\145\162\164\056\157\162\147"
-++, (PRUint32)123 },
-++  { (void *)"\002\001\000"
-++, (PRUint32)3 },
-++  { (void *)"\060\202\007\075\060\202\005\045\240\003\002\001\002\002\001\000"
-++"\060\015\006\011\052\206\110\206\367\015\001\001\004\005\000\060"
-++"\171\061\020\060\016\006\003\125\004\012\023\007\122\157\157\164"
-++"\040\103\101\061\036\060\034\006\003\125\004\013\023\025\150\164"
-++"\164\160\072\057\057\167\167\167\056\143\141\143\145\162\164\056"
-++"\157\162\147\061\042\060\040\006\003\125\004\003\023\031\103\101"
-++"\040\103\145\162\164\040\123\151\147\156\151\156\147\040\101\165"
-++"\164\150\157\162\151\164\171\061\041\060\037\006\011\052\206\110"
-++"\206\367\015\001\011\001\026\022\163\165\160\160\157\162\164\100"
-++"\143\141\143\145\162\164\056\157\162\147\060\036\027\015\060\063"
-++"\060\063\063\060\061\062\062\071\064\071\132\027\015\063\063\060"
-++"\063\062\071\061\062\062\071\064\071\132\060\171\061\020\060\016"
-++"\006\003\125\004\012\023\007\122\157\157\164\040\103\101\061\036"
-++"\060\034\006\003\125\004\013\023\025\150\164\164\160\072\057\057"
-++"\167\167\167\056\143\141\143\145\162\164\056\157\162\147\061\042"
-++"\060\040\006\003\125\004\003\023\031\103\101\040\103\145\162\164"
-++"\040\123\151\147\156\151\156\147\040\101\165\164\150\157\162\151"
-++"\164\171\061\041\060\037\006\011\052\206\110\206\367\015\001\011"
-++"\001\026\022\163\165\160\160\157\162\164\100\143\141\143\145\162"
-++"\164\056\157\162\147\060\202\002\042\060\015\006\011\052\206\110"
-++"\206\367\015\001\001\001\005\000\003\202\002\017\000\060\202\002"
-++"\012\002\202\002\001\000\316\042\300\342\106\175\354\066\050\007"
-++"\120\226\362\240\063\100\214\113\361\073\146\077\061\345\153\002"
-++"\066\333\326\174\366\361\210\217\116\167\066\005\101\225\371\011"
-++"\360\022\317\106\206\163\140\267\156\176\350\300\130\144\256\315"
-++"\260\255\105\027\014\143\372\147\012\350\326\322\277\076\347\230"
-++"\304\360\114\372\340\003\273\065\135\154\041\336\236\040\331\272"
-++"\315\146\062\067\162\372\367\010\365\307\315\130\311\216\347\016"
-++"\136\352\076\376\034\241\024\012\025\154\206\204\133\144\146\052"
-++"\172\251\113\123\171\365\210\242\173\356\057\012\141\053\215\262"
-++"\176\115\126\245\023\354\352\332\222\236\254\104\101\036\130\140"
-++"\145\005\146\370\300\104\275\313\224\367\102\176\013\367\145\150"
-++"\230\121\005\360\363\005\221\004\035\033\027\202\354\310\127\273"
-++"\303\153\172\210\361\260\162\314\045\133\040\221\354\026\002\022"
-++"\217\062\351\027\030\110\320\307\005\056\002\060\102\270\045\234"
-++"\005\153\077\252\072\247\353\123\110\367\350\322\266\007\230\334"
-++"\033\306\064\177\177\311\034\202\172\005\130\053\010\133\363\070"
-++"\242\253\027\135\146\311\230\327\236\020\213\242\322\335\164\232"
-++"\367\161\014\162\140\337\315\157\230\063\235\226\064\166\076\044"
-++"\172\222\260\016\225\036\157\346\240\105\070\107\252\327\101\355"
-++"\112\267\022\366\327\033\203\212\017\056\330\011\266\131\327\252"
-++"\004\377\322\223\175\150\056\335\213\113\253\130\272\057\215\352"
-++"\225\247\240\303\124\211\245\373\333\213\121\042\235\262\303\276"
-++"\021\276\054\221\206\213\226\170\255\040\323\212\057\032\077\306"
-++"\320\121\145\207\041\261\031\001\145\177\105\034\207\365\174\320"
-++"\101\114\117\051\230\041\375\063\037\165\014\004\121\372\031\167"
-++"\333\324\024\034\356\201\303\035\365\230\267\151\006\221\042\335"
-++"\000\120\314\201\061\254\022\007\173\070\332\150\133\346\053\324"
-++"\176\311\137\255\350\353\162\114\363\001\345\113\040\277\232\246"
-++"\127\312\221\000\001\213\241\165\041\067\265\143\015\147\076\106"
-++"\117\160\040\147\316\305\326\131\333\002\340\360\322\313\315\272"
-++"\142\267\220\101\350\335\040\344\051\274\144\051\102\310\042\334"
-++"\170\232\377\103\354\230\033\011\121\113\132\132\302\161\361\304"
-++"\313\163\251\345\241\013\002\003\001\000\001\243\202\001\316\060"
-++"\202\001\312\060\035\006\003\125\035\016\004\026\004\024\026\265"
-++"\062\033\324\307\363\340\346\216\363\275\322\260\072\356\262\071"
-++"\030\321\060\201\243\006\003\125\035\043\004\201\233\060\201\230"
-++"\200\024\026\265\062\033\324\307\363\340\346\216\363\275\322\260"
-++"\072\356\262\071\030\321\241\175\244\173\060\171\061\020\060\016"
-++"\006\003\125\004\012\023\007\122\157\157\164\040\103\101\061\036"
-++"\060\034\006\003\125\004\013\023\025\150\164\164\160\072\057\057"
-++"\167\167\167\056\143\141\143\145\162\164\056\157\162\147\061\042"
-++"\060\040\006\003\125\004\003\023\031\103\101\040\103\145\162\164"
-++"\040\123\151\147\156\151\156\147\040\101\165\164\150\157\162\151"
-++"\164\171\061\041\060\037\006\011\052\206\110\206\367\015\001\011"
-++"\001\026\022\163\165\160\160\157\162\164\100\143\141\143\145\162"
-++"\164\056\157\162\147\202\001\000\060\017\006\003\125\035\023\001"
-++"\001\377\004\005\060\003\001\001\377\060\062\006\003\125\035\037"
-++"\004\053\060\051\060\047\240\045\240\043\206\041\150\164\164\160"
-++"\163\072\057\057\167\167\167\056\143\141\143\145\162\164\056\157"
-++"\162\147\057\162\145\166\157\153\145\056\143\162\154\060\060\006"
-++"\011\140\206\110\001\206\370\102\001\004\004\043\026\041\150\164"
-++"\164\160\163\072\057\057\167\167\167\056\143\141\143\145\162\164"
-++"\056\157\162\147\057\162\145\166\157\153\145\056\143\162\154\060"
-++"\064\006\011\140\206\110\001\206\370\102\001\010\004\047\026\045"
-++"\150\164\164\160\072\057\057\167\167\167\056\143\141\143\145\162"
-++"\164\056\157\162\147\057\151\156\144\145\170\056\160\150\160\077"
-++"\151\144\075\061\060\060\126\006\011\140\206\110\001\206\370\102"
-++"\001\015\004\111\026\107\124\157\040\147\145\164\040\171\157\165"
-++"\162\040\157\167\156\040\143\145\162\164\151\146\151\143\141\164"
-++"\145\040\146\157\162\040\106\122\105\105\040\150\145\141\144\040"
-++"\157\166\145\162\040\164\157\040\150\164\164\160\072\057\057\167"
-++"\167\167\056\143\141\143\145\162\164\056\157\162\147\060\015\006"
-++"\011\052\206\110\206\367\015\001\001\004\005\000\003\202\002\001"
-++"\000\050\307\356\234\202\002\272\134\200\022\312\065\012\035\201"
-++"\157\211\152\231\314\362\150\017\177\247\341\215\130\225\076\275"
-++"\362\006\303\220\132\254\265\140\366\231\103\001\243\210\160\234"
-++"\235\142\235\244\207\257\147\130\015\060\066\073\346\255\110\323"
-++"\313\164\002\206\161\076\342\053\003\150\361\064\142\100\106\073"
-++"\123\352\050\364\254\373\146\225\123\212\115\135\375\073\331\140"
-++"\327\312\171\151\073\261\145\222\246\306\201\202\134\234\315\353"
-++"\115\001\212\245\337\021\125\252\025\312\037\067\300\202\230\160"
-++"\141\333\152\174\226\243\216\056\124\076\117\041\251\220\357\334"
-++"\202\277\334\350\105\255\115\220\163\010\074\224\145\260\004\231"
-++"\166\177\342\274\302\152\025\252\227\004\067\044\330\036\224\116"
-++"\155\016\121\276\326\304\217\312\226\155\367\103\337\350\060\145"
-++"\047\073\173\273\103\103\143\304\103\367\262\354\150\314\341\031"
-++"\216\042\373\230\341\173\132\076\001\067\073\213\010\260\242\363"
-++"\225\116\032\313\233\315\232\261\333\262\160\360\055\112\333\330"
-++"\260\343\157\105\110\063\022\377\376\074\062\052\124\367\304\367"
-++"\212\360\210\043\302\107\376\144\172\161\300\321\036\246\143\260"
-++"\007\176\244\057\323\001\217\334\237\053\266\306\010\251\017\223"
-++"\110\045\374\022\375\237\102\334\363\304\076\366\127\260\327\335"
-++"\151\321\006\167\064\012\113\322\312\240\377\034\306\214\311\026"
-++"\276\304\314\062\067\150\163\137\010\373\121\367\111\123\066\005"
-++"\012\225\002\114\362\171\032\020\366\330\072\165\234\363\035\361"
-++"\242\015\160\147\206\033\263\026\365\057\345\244\353\171\206\371"
-++"\075\013\302\163\013\245\231\254\157\374\147\270\345\057\013\246"
-++"\030\044\215\173\321\110\065\051\030\100\254\223\140\341\226\206"
-++"\120\264\172\131\330\217\041\013\237\317\202\221\306\073\277\153"
-++"\334\007\221\271\227\126\043\252\266\154\224\306\110\006\074\344"
-++"\316\116\252\344\366\057\011\334\123\157\056\374\164\353\072\143"
-++"\231\302\246\254\211\274\247\262\104\240\015\212\020\343\154\362"
-++"\044\313\372\233\237\160\107\056\336\024\213\324\262\040\011\226"
-++"\242\144\361\044\034\334\241\065\234\025\262\324\274\125\056\175"
-++"\006\365\234\016\125\364\132\326\223\332\166\255\045\163\114\305"
-++"\103"
-++, (PRUint32)1857 }
-++};
-++static const NSSItem nss_builtins_items_303 [] = {
-++  { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-++  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-++  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-++  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-++  { (void *)"CAcert.org Class 1 Root CA", (PRUint32)27 },
-++  { (void *)"\023\134\354\066\364\234\270\351\073\032\262\160\315\200\210\106"
-++"\166\316\217\063"
-++, (PRUint32)20 },
-++  { (void *)"\246\033\067\136\071\015\234\066\124\356\275\040\061\106\037\153"
-++, (PRUint32)16 },
-++  { (void *)"\060\171\061\020\060\016\006\003\125\004\012\023\007\122\157\157"
-++"\164\040\103\101\061\036\060\034\006\003\125\004\013\023\025\150"
-++"\164\164\160\072\057\057\167\167\167\056\143\141\143\145\162\164"
-++"\056\157\162\147\061\042\060\040\006\003\125\004\003\023\031\103"
-++"\101\040\103\145\162\164\040\123\151\147\156\151\156\147\040\101"
-++"\165\164\150\157\162\151\164\171\061\041\060\037\006\011\052\206"
-++"\110\206\367\015\001\011\001\026\022\163\165\160\160\157\162\164"
-++"\100\143\141\143\145\162\164\056\157\162\147"
-++, (PRUint32)123 },
-++  { (void *)"\002\001\000"
-++, (PRUint32)3 },
-++  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-++};
-++static const NSSItem nss_builtins_items_304 [] = {
-++  { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-++  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-++  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-++  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-++  { (void *)"CAcert.org Class 3 Root CA", (PRUint32)27 },
-++  { (void *)&ckc_x_509, (PRUint32)sizeof(CK_CERTIFICATE_TYPE) },
-++  { (void *)"\060\124\061\024\060\022\006\003\125\004\012\023\013\103\101\143"
-++"\145\162\164\040\111\156\143\056\061\036\060\034\006\003\125\004"
-++"\013\023\025\150\164\164\160\072\057\057\167\167\167\056\103\101"
-++"\143\145\162\164\056\157\162\147\061\034\060\032\006\003\125\004"
-++"\003\023\023\103\101\143\145\162\164\040\103\154\141\163\163\040"
-++"\063\040\122\157\157\164"
-++, (PRUint32)86 },
-++  { (void *)"0", (PRUint32)2 },
-++  { (void *)"\060\171\061\020\060\016\006\003\125\004\012\023\007\122\157\157"
-++"\164\040\103\101\061\036\060\034\006\003\125\004\013\023\025\150"
-++"\164\164\160\072\057\057\167\167\167\056\143\141\143\145\162\164"
-++"\056\157\162\147\061\042\060\040\006\003\125\004\003\023\031\103"
-++"\101\040\103\145\162\164\040\123\151\147\156\151\156\147\040\101"
-++"\165\164\150\157\162\151\164\171\061\041\060\037\006\011\052\206"
-++"\110\206\367\015\001\011\001\026\022\163\165\160\160\157\162\164"
-++"\100\143\141\143\145\162\164\056\157\162\147"
-++, (PRUint32)123 },
-++  { (void *)"\002\001\001"
-++, (PRUint32)3 },
-++  { (void *)"\060\202\006\010\060\202\003\360\240\003\002\001\002\002\001\001"
-++"\060\015\006\011\052\206\110\206\367\015\001\001\004\005\000\060"
-++"\171\061\020\060\016\006\003\125\004\012\023\007\122\157\157\164"
-++"\040\103\101\061\036\060\034\006\003\125\004\013\023\025\150\164"
-++"\164\160\072\057\057\167\167\167\056\143\141\143\145\162\164\056"
-++"\157\162\147\061\042\060\040\006\003\125\004\003\023\031\103\101"
-++"\040\103\145\162\164\040\123\151\147\156\151\156\147\040\101\165"
-++"\164\150\157\162\151\164\171\061\041\060\037\006\011\052\206\110"
-++"\206\367\015\001\011\001\026\022\163\165\160\160\157\162\164\100"
-++"\143\141\143\145\162\164\056\157\162\147\060\036\027\015\060\065"
-++"\061\060\061\064\060\067\063\066\065\065\132\027\015\063\063\060"
-++"\063\062\070\060\067\063\066\065\065\132\060\124\061\024\060\022"
-++"\006\003\125\004\012\023\013\103\101\143\145\162\164\040\111\156"
-++"\143\056\061\036\060\034\006\003\125\004\013\023\025\150\164\164"
-++"\160\072\057\057\167\167\167\056\103\101\143\145\162\164\056\157"
-++"\162\147\061\034\060\032\006\003\125\004\003\023\023\103\101\143"
-++"\145\162\164\040\103\154\141\163\163\040\063\040\122\157\157\164"
-++"\060\202\002\042\060\015\006\011\052\206\110\206\367\015\001\001"
-++"\001\005\000\003\202\002\017\000\060\202\002\012\002\202\002\001"
-++"\000\253\111\065\021\110\174\322\046\176\123\224\317\103\251\335"
-++"\050\327\102\052\213\363\207\170\031\130\174\017\236\332\211\175"
-++"\341\373\353\162\220\015\164\241\226\144\253\237\240\044\231\163"
-++"\332\342\125\166\307\027\173\365\004\254\106\270\303\276\177\144"
-++"\215\020\154\044\363\141\234\300\362\220\372\121\346\365\151\001"
-++"\143\303\017\126\342\112\102\317\342\104\214\045\050\250\305\171"
-++"\011\175\106\271\212\363\351\363\064\051\010\105\344\034\237\313"
-++"\224\004\034\201\250\024\263\230\145\304\103\354\116\202\215\011"
-++"\321\275\252\133\215\222\320\354\336\220\305\177\012\302\343\353"
-++"\346\061\132\136\164\076\227\063\131\350\303\003\075\140\063\277"
-++"\367\321\157\107\304\315\356\142\203\122\156\056\010\232\244\331"
-++"\025\030\221\246\205\222\107\260\256\110\353\155\267\041\354\205"
-++"\032\150\162\065\253\377\360\020\135\300\364\224\247\152\325\073"
-++"\222\176\114\220\005\176\223\301\054\213\244\216\142\164\025\161"
-++"\156\013\161\003\352\257\025\070\232\324\322\005\162\157\214\371"
-++"\053\353\132\162\045\371\071\106\343\162\033\076\004\303\144\047"
-++"\042\020\052\212\117\130\247\003\255\276\264\056\023\355\135\252"
-++"\110\327\325\175\324\052\173\134\372\106\004\120\344\314\016\102"
-++"\133\214\355\333\362\317\374\226\223\340\333\021\066\124\142\064"
-++"\070\217\014\140\233\073\227\126\070\255\363\322\133\213\240\133"
-++"\352\116\226\270\174\327\325\240\206\160\100\323\221\051\267\242"
-++"\074\255\365\214\273\317\032\222\212\344\064\173\300\330\154\137"
-++"\351\012\302\303\247\040\232\132\337\054\135\122\134\272\107\325"
-++"\233\357\044\050\160\070\040\057\325\177\051\300\262\101\003\150"
-++"\222\314\340\234\314\227\113\105\357\072\020\012\253\160\072\230"
-++"\225\160\255\065\261\352\205\053\244\034\200\041\061\251\256\140"
-++"\172\200\046\110\000\270\001\300\223\143\125\042\221\074\126\347"
-++"\257\333\072\045\363\217\061\124\352\046\213\201\131\371\241\321"
-++"\123\021\305\173\235\003\366\164\021\340\155\261\054\077\054\206"
-++"\221\231\161\232\246\167\213\064\140\321\024\264\054\254\235\257"
-++"\214\020\323\237\304\152\370\157\023\374\163\131\367\146\102\164"
-++"\036\212\343\370\334\322\157\230\234\313\107\230\225\100\005\373"
-++"\351\002\003\001\000\001\243\201\277\060\201\274\060\017\006\003"
-++"\125\035\023\001\001\377\004\005\060\003\001\001\377\060\135\006"
-++"\010\053\006\001\005\005\007\001\001\004\121\060\117\060\043\006"
-++"\010\053\006\001\005\005\007\060\001\206\027\150\164\164\160\072"
-++"\057\057\157\143\163\160\056\103\101\143\145\162\164\056\157\162"
-++"\147\057\060\050\006\010\053\006\001\005\005\007\060\002\206\034"
-++"\150\164\164\160\072\057\057\167\167\167\056\103\101\143\145\162"
-++"\164\056\157\162\147\057\143\141\056\143\162\164\060\112\006\003"
-++"\125\035\040\004\103\060\101\060\077\006\010\053\006\001\004\001"
-++"\201\220\112\060\063\060\061\006\010\053\006\001\005\005\007\002"
-++"\001\026\045\150\164\164\160\072\057\057\167\167\167\056\103\101"
-++"\143\145\162\164\056\157\162\147\057\151\156\144\145\170\056\160"
-++"\150\160\077\151\144\075\061\060\060\015\006\011\052\206\110\206"
-++"\367\015\001\001\004\005\000\003\202\002\001\000\177\010\210\241"
-++"\332\032\120\111\332\211\373\241\010\162\363\212\367\036\304\072"
-++"\264\171\133\040\060\261\105\336\302\135\323\145\151\361\302\135"
-++"\124\124\074\205\137\271\173\102\221\302\231\375\033\121\233\253"
-++"\106\245\241\020\123\236\155\210\254\163\156\054\063\246\360\364"
-++"\236\340\165\301\076\210\105\251\341\146\103\376\126\132\321\172"
-++"\101\170\367\100\332\112\072\361\013\133\245\273\026\006\346\302"
-++"\347\223\271\205\115\227\117\261\036\070\103\200\357\233\015\214"
-++"\357\270\247\140\000\207\127\175\036\104\034\313\043\357\233\074"
-++"\231\235\257\265\051\034\105\171\026\226\115\047\155\361\034\154"
-++"\303\302\125\144\263\274\024\342\363\244\037\036\062\374\047\025"
-++"\005\317\335\056\256\076\202\141\173\360\041\020\030\366\104\352"
-++"\123\071\371\334\320\232\040\340\306\273\340\273\132\117\304\231"
-++"\310\007\275\265\275\242\333\056\142\015\102\064\101\274\377\213"
-++"\212\365\121\042\252\210\060\000\342\260\324\274\276\145\272\325"
-++"\003\127\171\233\350\334\310\115\370\120\355\221\245\122\050\242"
-++"\254\373\066\130\076\351\224\053\221\120\207\033\326\136\326\214"
-++"\314\367\017\020\014\122\116\320\026\141\345\345\012\154\277\027"
-++"\307\162\106\127\234\230\365\154\140\143\172\157\136\271\116\057"
-++"\310\271\271\273\152\205\274\230\015\355\371\076\227\204\064\224"
-++"\256\000\257\241\345\347\222\156\116\275\363\342\331\024\213\134"
-++"\322\353\001\154\240\027\245\055\020\353\234\172\112\275\275\356"
-++"\316\375\355\042\100\253\160\070\210\365\012\207\152\302\253\005"
-++"\140\311\110\005\332\123\301\336\104\167\152\263\363\074\074\355"
-++"\200\274\246\070\112\051\044\137\376\131\073\233\045\172\126\143"
-++"\000\144\271\135\244\142\175\127\066\117\255\203\357\037\222\123"
-++"\240\216\167\127\335\345\141\021\075\043\000\220\114\074\372\243"
-++"\140\223\004\243\257\065\366\016\152\217\117\112\140\247\205\005"
-++"\154\106\241\217\364\307\166\343\241\131\127\367\161\262\304\156"
-++"\024\134\155\155\101\146\337\033\223\261\324\000\303\356\313\317"
-++"\074\075\041\200\251\137\143\145\374\335\340\137\244\364\053\360"
-++"\205\161\101\324\147\045\373\032\261\227\256\326\231\202\023\101"
-++"\322\156\245\033\231\047\200\347\013\251\250\000"
-++, (PRUint32)1548 }
-++};
-++static const NSSItem nss_builtins_items_305 [] = {
-++  { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-++  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-++  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-++  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-++  { (void *)"CAcert.org Class 3 Root CA", (PRUint32)27 },
-++  { (void *)"\333\114\102\151\007\077\351\302\243\175\211\012\134\033\030\304"
-++"\030\116\052\055"
-++, (PRUint32)20 },
-++  { (void *)"\163\077\065\124\035\104\311\351\132\112\357\121\255\003\006\266"
-++, (PRUint32)16 },
-++  { (void *)"\060\171\061\020\060\016\006\003\125\004\012\023\007\122\157\157"
-++"\164\040\103\101\061\036\060\034\006\003\125\004\013\023\025\150"
-++"\164\164\160\072\057\057\167\167\167\056\143\141\143\145\162\164"
-++"\056\157\162\147\061\042\060\040\006\003\125\004\003\023\031\103"
-++"\101\040\103\145\162\164\040\123\151\147\156\151\156\147\040\101"
-++"\165\164\150\157\162\151\164\171\061\041\060\037\006\011\052\206"
-++"\110\206\367\015\001\011\001\026\022\163\165\160\160\157\162\164"
-++"\100\143\141\143\145\162\164\056\157\162\147"
-++, (PRUint32)123 },
-++  { (void *)"\002\001\001"
-++, (PRUint32)3 },
-++  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-++};
-++static const NSSItem nss_builtins_items_306 [] = {
-++  { (void *)&cko_certificate, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-++  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-++  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-++  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-++  { (void *)"Software in the Public Interest, Inc. Root CA (2008)", (PRUint32)53 },
-++  { (void *)&ckc_x_509, (PRUint32)sizeof(CK_CERTIFICATE_TYPE) },
-++  { (void *)"\060\201\274\061\013\060\011\006\003\125\004\006\023\002\125\123"
-++"\061\020\060\016\006\003\125\004\010\023\007\111\156\144\151\141"
-++"\156\141\061\025\060\023\006\003\125\004\007\023\014\111\156\144"
-++"\151\141\156\141\160\157\154\151\163\061\050\060\046\006\003\125"
-++"\004\012\023\037\123\157\146\164\167\141\162\145\040\151\156\040"
-++"\164\150\145\040\120\165\142\154\151\143\040\111\156\164\145\162"
-++"\145\163\164\061\023\060\021\006\003\125\004\013\023\012\150\157"
-++"\163\164\155\141\163\164\145\162\061\036\060\034\006\003\125\004"
-++"\003\023\025\103\145\162\164\151\146\151\143\141\164\145\040\101"
-++"\165\164\150\157\162\151\164\171\061\045\060\043\006\011\052\206"
-++"\110\206\367\015\001\011\001\026\026\150\157\163\164\155\141\163"
-++"\164\145\162\100\163\160\151\055\151\156\143\056\157\162\147"
-++, (PRUint32)191 },
-++  { (void *)"0", (PRUint32)2 },
-++  { (void *)"\060\201\274\061\013\060\011\006\003\125\004\006\023\002\125\123"
-++"\061\020\060\016\006\003\125\004\010\023\007\111\156\144\151\141"
-++"\156\141\061\025\060\023\006\003\125\004\007\023\014\111\156\144"
-++"\151\141\156\141\160\157\154\151\163\061\050\060\046\006\003\125"
-++"\004\012\023\037\123\157\146\164\167\141\162\145\040\151\156\040"
-++"\164\150\145\040\120\165\142\154\151\143\040\111\156\164\145\162"
-++"\145\163\164\061\023\060\021\006\003\125\004\013\023\012\150\157"
-++"\163\164\155\141\163\164\145\162\061\036\060\034\006\003\125\004"
-++"\003\023\025\103\145\162\164\151\146\151\143\141\164\145\040\101"
-++"\165\164\150\157\162\151\164\171\061\045\060\043\006\011\052\206"
-++"\110\206\367\015\001\011\001\026\026\150\157\163\164\155\141\163"
-++"\164\145\162\100\163\160\151\055\151\156\143\056\157\162\147"
-++, (PRUint32)191 },
-++  { (void *)"\002\011\000\350\216\266\311\370\052\024\050"
-++, (PRUint32)11 },
-++  { (void *)"\060\202\010\016\060\202\005\366\240\003\002\001\002\002\011\000"
-++"\350\216\266\311\370\052\024\050\060\015\006\011\052\206\110\206"
-++"\367\015\001\001\005\005\000\060\201\274\061\013\060\011\006\003"
-++"\125\004\006\023\002\125\123\061\020\060\016\006\003\125\004\010"
-++"\023\007\111\156\144\151\141\156\141\061\025\060\023\006\003\125"
-++"\004\007\023\014\111\156\144\151\141\156\141\160\157\154\151\163"
-++"\061\050\060\046\006\003\125\004\012\023\037\123\157\146\164\167"
-++"\141\162\145\040\151\156\040\164\150\145\040\120\165\142\154\151"
-++"\143\040\111\156\164\145\162\145\163\164\061\023\060\021\006\003"
-++"\125\004\013\023\012\150\157\163\164\155\141\163\164\145\162\061"
-++"\036\060\034\006\003\125\004\003\023\025\103\145\162\164\151\146"
-++"\151\143\141\164\145\040\101\165\164\150\157\162\151\164\171\061"
-++"\045\060\043\006\011\052\206\110\206\367\015\001\011\001\026\026"
-++"\150\157\163\164\155\141\163\164\145\162\100\163\160\151\055\151"
-++"\156\143\056\157\162\147\060\036\027\015\060\070\060\065\061\063"
-++"\060\070\060\067\065\066\132\027\015\061\070\060\065\061\061\060"
-++"\070\060\067\065\066\132\060\201\274\061\013\060\011\006\003\125"
-++"\004\006\023\002\125\123\061\020\060\016\006\003\125\004\010\023"
-++"\007\111\156\144\151\141\156\141\061\025\060\023\006\003\125\004"
-++"\007\023\014\111\156\144\151\141\156\141\160\157\154\151\163\061"
-++"\050\060\046\006\003\125\004\012\023\037\123\157\146\164\167\141"
-++"\162\145\040\151\156\040\164\150\145\040\120\165\142\154\151\143"
-++"\040\111\156\164\145\162\145\163\164\061\023\060\021\006\003\125"
-++"\004\013\023\012\150\157\163\164\155\141\163\164\145\162\061\036"
-++"\060\034\006\003\125\004\003\023\025\103\145\162\164\151\146\151"
-++"\143\141\164\145\040\101\165\164\150\157\162\151\164\171\061\045"
-++"\060\043\006\011\052\206\110\206\367\015\001\011\001\026\026\150"
-++"\157\163\164\155\141\163\164\145\162\100\163\160\151\055\151\156"
-++"\143\056\157\162\147\060\202\002\042\060\015\006\011\052\206\110"
-++"\206\367\015\001\001\001\005\000\003\202\002\017\000\060\202\002"
-++"\012\002\202\002\001\000\334\066\346\107\102\302\304\121\165\051"
-++"\207\100\303\330\216\041\006\322\030\116\353\357\040\275\220\074"
-++"\205\020\023\214\051\133\224\143\366\364\055\361\006\102\221\271"
-++"\031\304\102\151\010\277\213\066\105\352\050\005\063\111\110\240"
-++"\047\103\223\065\212\101\330\170\263\360\357\263\156\055\335\321"
-++"\313\175\352\364\165\046\323\076\220\072\356\327\347\054\004\265"
-++"\174\341\365\174\305\116\357\167\275\134\242\223\063\222\316\175"
-++"\201\110\317\153\265\042\054\010\203\375\323\325\317\073\055\375"
-++"\265\111\220\133\366\255\115\023\312\336\323\246\235\123\121\161"
-++"\143\106\370\112\026\134\230\356\055\155\232\026\241\166\220\342"
-++"\140\103\231\326\211\326\154\056\172\230\262\013\003\054\343\172"
-++"\117\307\335\343\314\343\112\152\215\171\122\372\364\301\257\056"
-++"\217\052\010\313\033\051\202\222\162\103\274\316\210\251\252\247"
-++"\212\121\103\125\205\232\067\003\170\223\310\360\275\264\101\310"
-++"\007\102\232\313\065\227\172\212\201\145\336\035\124\010\001\361"
-++"\144\134\267\027\032\121\274\036\303\131\207\166\030\026\230\356"
-++"\277\366\147\201\213\006\065\305\113\155\131\031\307\322\306\110"
-++"\276\156\024\050\203\112\020\234\033\365\157\274\251\216\365\151"
-++"\376\262\301\125\314\347\024\311\371\133\024\123\121\007\352\316"
-++"\075\344\117\050\037\074\141\011\327\063\322\156\247\156\324\307"
-++"\023\011\157\153\135\024\356\235\211\033\245\152\362\366\370\320"
-++"\162\216\352\162\037\057\064\152\051\012\305\012\354\034\100\205"
-++"\022\367\246\245\323\117\255\300\205\214\114\174\163\040\314\123"
-++"\030\361\262\130\114\001\365\277\352\144\325\134\071\305\316\154"
-++"\314\123\132\126\272\101\017\045\337\153\120\266\307\212\240\275"
-++"\002\302\305\073\125\245\262\144\042\204\121\050\126\256\061\356"
-++"\136\373\013\026\115\106\005\221\200\104\355\254\155\360\127\250"
-++"\372\353\141\110\240\313\033\263\037\216\315\305\041\167\003\204"
-++"\036\374\254\243\103\010\143\214\355\371\047\357\264\260\135\147"
-++"\326\117\355\320\213\076\135\133\311\221\275\226\002\204\075\305"
-++"\115\274\102\077\164\375\074\135\254\134\110\066\136\207\061\057"
-++"\030\154\304\150\356\241\213\311\131\320\030\343\000\200\263\124"
-++"\047\056\231\360\025\123\002\003\001\000\001\243\202\002\017\060"
-++"\202\002\013\060\035\006\003\125\035\016\004\026\004\024\064\161"
-++"\321\070\327\025\066\203\107\153\327\067\144\102\073\216\215\122"
-++"\235\253\060\201\361\006\003\125\035\043\004\201\351\060\201\346"
-++"\200\024\064\161\321\070\327\025\066\203\107\153\327\067\144\102"
-++"\073\216\215\122\235\253\241\201\302\244\201\277\060\201\274\061"
-++"\013\060\011\006\003\125\004\006\023\002\125\123\061\020\060\016"
-++"\006\003\125\004\010\023\007\111\156\144\151\141\156\141\061\025"
-++"\060\023\006\003\125\004\007\023\014\111\156\144\151\141\156\141"
-++"\160\157\154\151\163\061\050\060\046\006\003\125\004\012\023\037"
-++"\123\157\146\164\167\141\162\145\040\151\156\040\164\150\145\040"
-++"\120\165\142\154\151\143\040\111\156\164\145\162\145\163\164\061"
-++"\023\060\021\006\003\125\004\013\023\012\150\157\163\164\155\141"
-++"\163\164\145\162\061\036\060\034\006\003\125\004\003\023\025\103"
-++"\145\162\164\151\146\151\143\141\164\145\040\101\165\164\150\157"
-++"\162\151\164\171\061\045\060\043\006\011\052\206\110\206\367\015"
-++"\001\011\001\026\026\150\157\163\164\155\141\163\164\145\162\100"
-++"\163\160\151\055\151\156\143\056\157\162\147\202\011\000\350\216"
-++"\266\311\370\052\024\050\060\017\006\003\125\035\023\001\001\377"
-++"\004\005\060\003\001\001\377\060\021\006\011\140\206\110\001\206"
-++"\370\102\001\001\004\004\003\002\000\007\060\011\006\003\125\035"
-++"\022\004\002\060\000\060\056\006\011\140\206\110\001\206\370\102"
-++"\001\015\004\041\026\037\123\157\146\164\167\141\162\145\040\151"
-++"\156\040\164\150\145\040\120\165\142\154\151\143\040\111\156\164"
-++"\145\162\145\163\164\060\060\006\011\140\206\110\001\206\370\102"
-++"\001\004\004\043\026\041\150\164\164\160\163\072\057\057\143\141"
-++"\056\163\160\151\055\151\156\143\056\157\162\147\057\143\141\055"
-++"\143\162\154\056\160\145\155\060\062\006\011\140\206\110\001\206"
-++"\370\102\001\003\004\045\026\043\150\164\164\160\163\072\057\057"
-++"\143\141\056\163\160\151\055\151\156\143\056\157\162\147\057\143"
-++"\145\162\164\055\143\162\154\056\160\145\155\060\041\006\003\125"
-++"\035\021\004\032\060\030\201\026\150\157\163\164\155\141\163\164"
-++"\145\162\100\163\160\151\055\151\156\143\056\157\162\147\060\016"
-++"\006\003\125\035\017\001\001\377\004\004\003\002\001\006\060\015"
-++"\006\011\052\206\110\206\367\015\001\001\005\005\000\003\202\002"
-++"\001\000\264\315\275\340\271\352\262\003\053\176\062\351\336\162"
-++"\077\311\113\202\136\235\342\257\125\011\242\014\124\350\317\030"
-++"\074\050\040\035\251\273\003\002\057\122\071\042\371\027\317\255"
-++"\147\220\263\003\177\330\025\343\153\176\273\233\126\001\257\065"
-++"\324\332\271\307\147\027\233\324\325\016\067\263\040\101\056\014"
-++"\001\304\133\371\145\076\302\141\350\322\360\152\225\160\303\306"
-++"\157\325\065\244\254\131\162\341\211\337\241\240\235\044\275\051"
-++"\171\351\141\052\331\323\036\311\106\244\010\170\101\222\162\017"
-++"\253\024\165\355\011\360\242\360\134\357\303\012\142\040\267\302"
-++"\050\146\256\114\057\056\217\105\143\046\226\360\356\061\346\213"
-++"\125\233\252\072\371\202\071\035\210\074\342\007\165\032\341\017"
-++"\261\060\274\161\062\322\072\376\372\241\211\363\103\054\326\162"
-++"\304\171\247\025\110\005\300\330\055\162\002\343\313\075\026\152"
-++"\272\311\270\021\020\342\111\205\314\226\107\140\005\045\056\357"
-++"\165\131\063\365\107\031\026\357\332\154\137\007\310\246\120\266"
-++"\035\313\146\064\045\374\146\203\353\305\266\060\101\370\106\104"
-++"\142\250\301\014\124\346\352\114\132\050\346\256\306\267\376\177"
-++"\073\226\250\056\356\307\150\076\335\000\075\051\257\052\143\253"
-++"\137\356\111\052\055\305\334\373\321\306\323\321\227\126\122\206"
-++"\266\224\353\324\140\121\267\374\036\233\314\002\233\324\037\217"
-++"\371\112\217\266\056\050\073\027\314\305\246\005\343\322\323\265"
-++"\306\003\311\341\110\102\233\313\077\344\027\340\376\015\001\225"
-++"\011\272\270\015\161\344\011\160\167\102\330\115\341\102\251\140"
-++"\203\327\027\211\103\322\324\335\247\030\266\253\324\044\045\207"
-++"\265\324\342\374\056\042\151\275\255\150\054\377\162\265\230\252"
-++"\006\234\347\052\152\270\241\223\166\316\260\363\177\234\341\340"
-++"\117\270\330\206\106\245\063\002\054\045\141\067\052\222\310\254"
-++"\201\164\150\143\207\063\166\275\005\177\136\325\325\002\155\275"
-++"\257\377\052\132\252\111\354\230\171\107\123\221\366\016\064\132"
-++"\311\245\306\353\262\343\305\254\266\240\160\065\273\310\121\151"
-++"\320\362\265\242\062\156\274\077\240\067\071\174\161\066\246\005"
-++"\337\014\022\344\026\247\305\326\313\143\243\225\160\077\346\004"
-++"\243\140"
-++, (PRUint32)2066 }
-++};
-++static const NSSItem nss_builtins_items_307 [] = {
-++  { (void *)&cko_netscape_trust, (PRUint32)sizeof(CK_OBJECT_CLASS) },
-++  { (void *)&ck_true, (PRUint32)sizeof(CK_BBOOL) },
-++  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-++  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) },
-++  { (void *)"Software in the Public Interest, Inc. Root CA (2008)", (PRUint32)53 },
-++  { (void *)"\257\160\210\103\203\202\002\025\315\141\306\274\354\375\067\044"
-++"\251\220\103\034"
-++, (PRUint32)20 },
-++  { (void *)"\052\107\237\140\273\203\164\157\001\003\327\013\015\366\015\170"
-++, (PRUint32)16 },
-++  { (void *)"\060\201\274\061\013\060\011\006\003\125\004\006\023\002\125\123"
-++"\061\020\060\016\006\003\125\004\010\023\007\111\156\144\151\141"
-++"\156\141\061\025\060\023\006\003\125\004\007\023\014\111\156\144"
-++"\151\141\156\141\160\157\154\151\163\061\050\060\046\006\003\125"
-++"\004\012\023\037\123\157\146\164\167\141\162\145\040\151\156\040"
-++"\164\150\145\040\120\165\142\154\151\143\040\111\156\164\145\162"
-++"\145\163\164\061\023\060\021\006\003\125\004\013\023\012\150\157"
-++"\163\164\155\141\163\164\145\162\061\036\060\034\006\003\125\004"
-++"\003\023\025\103\145\162\164\151\146\151\143\141\164\145\040\101"
-++"\165\164\150\157\162\151\164\171\061\045\060\043\006\011\052\206"
-++"\110\206\367\015\001\011\001\026\026\150\157\163\164\155\141\163"
-++"\164\145\162\100\163\160\151\055\151\156\143\056\157\162\147"
-++, (PRUint32)191 },
-++  { (void *)"\002\011\000\350\216\266\311\370\052\024\050"
-++, (PRUint32)11 },
-++  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ckt_netscape_trusted_delegator, (PRUint32)sizeof(CK_TRUST) },
-++  { (void *)&ck_false, (PRUint32)sizeof(CK_BBOOL) }
-++};
-+ 
-+ builtinsInternalObject
-+ nss_builtins_data[] = {
-+@@ -20609,11 +21152,17 @@ nss_builtins_data[] = {
-+   { 11, nss_builtins_types_298, nss_builtins_items_298, {NULL} },
-+   { 13, nss_builtins_types_299, nss_builtins_items_299, {NULL} },
-+   { 11, nss_builtins_types_300, nss_builtins_items_300, {NULL} },
-+-  { 13, nss_builtins_types_301, nss_builtins_items_301, {NULL} }
-++  { 13, nss_builtins_types_301, nss_builtins_items_301, {NULL} },
-++  { 11, nss_builtins_types_302, nss_builtins_items_302, {NULL} },
-++  { 13, nss_builtins_types_303, nss_builtins_items_303, {NULL} },
-++  { 11, nss_builtins_types_304, nss_builtins_items_304, {NULL} },
-++  { 13, nss_builtins_types_305, nss_builtins_items_305, {NULL} },
-++  { 11, nss_builtins_types_306, nss_builtins_items_306, {NULL} },
-++  { 13, nss_builtins_types_307, nss_builtins_items_307, {NULL} }
-+ };
-+ const PRUint32
-+ #ifdef DEBUG
-+-  nss_builtins_nObjects = 301+1;
-++  nss_builtins_nObjects = 307+1;
-+ #else
-+-  nss_builtins_nObjects = 301;
-++  nss_builtins_nObjects = 307;
-+ #endif /* DEBUG */
-+diff --git a/mozilla/security/nss/lib/ckfw/builtins/certdata.txt b/mozilla/security/nss/lib/ckfw/builtins/certdata.txt
-+index 93f1854..539f4e1 100644
-+--- a/mozilla/security/nss/lib/ckfw/builtins/certdata.txt
-++++ b/mozilla/security/nss/lib/ckfw/builtins/certdata.txt
-+@@ -20926,3 +20926,558 @@ CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+ CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+ CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-+ CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-++
-++#
-++# Certificate "CAcert.org Class 1 Root CA"
-++#
-++CKA_CLASS CK_OBJECT_CLASS CKO_CERTIFICATE
-++CKA_TOKEN CK_BBOOL CK_TRUE
-++CKA_PRIVATE CK_BBOOL CK_FALSE
-++CKA_MODIFIABLE CK_BBOOL CK_FALSE
-++CKA_LABEL UTF8 "CAcert.org Class 1 Root CA"
-++CKA_CERTIFICATE_TYPE CK_CERTIFICATE_TYPE CKC_X_509
-++CKA_SUBJECT MULTILINE_OCTAL
-++\060\171\061\020\060\016\006\003\125\004\012\023\007\122\157\157
-++\164\040\103\101\061\036\060\034\006\003\125\004\013\023\025\150
-++\164\164\160\072\057\057\167\167\167\056\143\141\143\145\162\164
-++\056\157\162\147\061\042\060\040\006\003\125\004\003\023\031\103
-++\101\040\103\145\162\164\040\123\151\147\156\151\156\147\040\101
-++\165\164\150\157\162\151\164\171\061\041\060\037\006\011\052\206
-++\110\206\367\015\001\011\001\026\022\163\165\160\160\157\162\164
-++\100\143\141\143\145\162\164\056\157\162\147
-++END
-++CKA_ID UTF8 "0"
-++CKA_ISSUER MULTILINE_OCTAL
-++\060\171\061\020\060\016\006\003\125\004\012\023\007\122\157\157
-++\164\040\103\101\061\036\060\034\006\003\125\004\013\023\025\150
-++\164\164\160\072\057\057\167\167\167\056\143\141\143\145\162\164
-++\056\157\162\147\061\042\060\040\006\003\125\004\003\023\031\103
-++\101\040\103\145\162\164\040\123\151\147\156\151\156\147\040\101
-++\165\164\150\157\162\151\164\171\061\041\060\037\006\011\052\206
-++\110\206\367\015\001\011\001\026\022\163\165\160\160\157\162\164
-++\100\143\141\143\145\162\164\056\157\162\147
-++END
-++CKA_SERIAL_NUMBER MULTILINE_OCTAL
-++\002\001\000
-++END
-++CKA_VALUE MULTILINE_OCTAL
-++\060\202\007\075\060\202\005\045\240\003\002\001\002\002\001\000
-++\060\015\006\011\052\206\110\206\367\015\001\001\004\005\000\060
-++\171\061\020\060\016\006\003\125\004\012\023\007\122\157\157\164
-++\040\103\101\061\036\060\034\006\003\125\004\013\023\025\150\164
-++\164\160\072\057\057\167\167\167\056\143\141\143\145\162\164\056
-++\157\162\147\061\042\060\040\006\003\125\004\003\023\031\103\101
-++\040\103\145\162\164\040\123\151\147\156\151\156\147\040\101\165
-++\164\150\157\162\151\164\171\061\041\060\037\006\011\052\206\110
-++\206\367\015\001\011\001\026\022\163\165\160\160\157\162\164\100
-++\143\141\143\145\162\164\056\157\162\147\060\036\027\015\060\063
-++\060\063\063\060\061\062\062\071\064\071\132\027\015\063\063\060
-++\063\062\071\061\062\062\071\064\071\132\060\171\061\020\060\016
-++\006\003\125\004\012\023\007\122\157\157\164\040\103\101\061\036
-++\060\034\006\003\125\004\013\023\025\150\164\164\160\072\057\057
-++\167\167\167\056\143\141\143\145\162\164\056\157\162\147\061\042
-++\060\040\006\003\125\004\003\023\031\103\101\040\103\145\162\164
-++\040\123\151\147\156\151\156\147\040\101\165\164\150\157\162\151
-++\164\171\061\041\060\037\006\011\052\206\110\206\367\015\001\011
-++\001\026\022\163\165\160\160\157\162\164\100\143\141\143\145\162
-++\164\056\157\162\147\060\202\002\042\060\015\006\011\052\206\110
-++\206\367\015\001\001\001\005\000\003\202\002\017\000\060\202\002
-++\012\002\202\002\001\000\316\042\300\342\106\175\354\066\050\007
-++\120\226\362\240\063\100\214\113\361\073\146\077\061\345\153\002
-++\066\333\326\174\366\361\210\217\116\167\066\005\101\225\371\011
-++\360\022\317\106\206\163\140\267\156\176\350\300\130\144\256\315
-++\260\255\105\027\014\143\372\147\012\350\326\322\277\076\347\230
-++\304\360\114\372\340\003\273\065\135\154\041\336\236\040\331\272
-++\315\146\062\067\162\372\367\010\365\307\315\130\311\216\347\016
-++\136\352\076\376\034\241\024\012\025\154\206\204\133\144\146\052
-++\172\251\113\123\171\365\210\242\173\356\057\012\141\053\215\262
-++\176\115\126\245\023\354\352\332\222\236\254\104\101\036\130\140
-++\145\005\146\370\300\104\275\313\224\367\102\176\013\367\145\150
-++\230\121\005\360\363\005\221\004\035\033\027\202\354\310\127\273
-++\303\153\172\210\361\260\162\314\045\133\040\221\354\026\002\022
-++\217\062\351\027\030\110\320\307\005\056\002\060\102\270\045\234
-++\005\153\077\252\072\247\353\123\110\367\350\322\266\007\230\334
-++\033\306\064\177\177\311\034\202\172\005\130\053\010\133\363\070
-++\242\253\027\135\146\311\230\327\236\020\213\242\322\335\164\232
-++\367\161\014\162\140\337\315\157\230\063\235\226\064\166\076\044
-++\172\222\260\016\225\036\157\346\240\105\070\107\252\327\101\355
-++\112\267\022\366\327\033\203\212\017\056\330\011\266\131\327\252
-++\004\377\322\223\175\150\056\335\213\113\253\130\272\057\215\352
-++\225\247\240\303\124\211\245\373\333\213\121\042\235\262\303\276
-++\021\276\054\221\206\213\226\170\255\040\323\212\057\032\077\306
-++\320\121\145\207\041\261\031\001\145\177\105\034\207\365\174\320
-++\101\114\117\051\230\041\375\063\037\165\014\004\121\372\031\167
-++\333\324\024\034\356\201\303\035\365\230\267\151\006\221\042\335
-++\000\120\314\201\061\254\022\007\173\070\332\150\133\346\053\324
-++\176\311\137\255\350\353\162\114\363\001\345\113\040\277\232\246
-++\127\312\221\000\001\213\241\165\041\067\265\143\015\147\076\106
-++\117\160\040\147\316\305\326\131\333\002\340\360\322\313\315\272
-++\142\267\220\101\350\335\040\344\051\274\144\051\102\310\042\334
-++\170\232\377\103\354\230\033\011\121\113\132\132\302\161\361\304
-++\313\163\251\345\241\013\002\003\001\000\001\243\202\001\316\060
-++\202\001\312\060\035\006\003\125\035\016\004\026\004\024\026\265
-++\062\033\324\307\363\340\346\216\363\275\322\260\072\356\262\071
-++\030\321\060\201\243\006\003\125\035\043\004\201\233\060\201\230
-++\200\024\026\265\062\033\324\307\363\340\346\216\363\275\322\260
-++\072\356\262\071\030\321\241\175\244\173\060\171\061\020\060\016
-++\006\003\125\004\012\023\007\122\157\157\164\040\103\101\061\036
-++\060\034\006\003\125\004\013\023\025\150\164\164\160\072\057\057
-++\167\167\167\056\143\141\143\145\162\164\056\157\162\147\061\042
-++\060\040\006\003\125\004\003\023\031\103\101\040\103\145\162\164
-++\040\123\151\147\156\151\156\147\040\101\165\164\150\157\162\151
-++\164\171\061\041\060\037\006\011\052\206\110\206\367\015\001\011
-++\001\026\022\163\165\160\160\157\162\164\100\143\141\143\145\162
-++\164\056\157\162\147\202\001\000\060\017\006\003\125\035\023\001
-++\001\377\004\005\060\003\001\001\377\060\062\006\003\125\035\037
-++\004\053\060\051\060\047\240\045\240\043\206\041\150\164\164\160
-++\163\072\057\057\167\167\167\056\143\141\143\145\162\164\056\157
-++\162\147\057\162\145\166\157\153\145\056\143\162\154\060\060\006
-++\011\140\206\110\001\206\370\102\001\004\004\043\026\041\150\164
-++\164\160\163\072\057\057\167\167\167\056\143\141\143\145\162\164
-++\056\157\162\147\057\162\145\166\157\153\145\056\143\162\154\060
-++\064\006\011\140\206\110\001\206\370\102\001\010\004\047\026\045
-++\150\164\164\160\072\057\057\167\167\167\056\143\141\143\145\162
-++\164\056\157\162\147\057\151\156\144\145\170\056\160\150\160\077
-++\151\144\075\061\060\060\126\006\011\140\206\110\001\206\370\102
-++\001\015\004\111\026\107\124\157\040\147\145\164\040\171\157\165
-++\162\040\157\167\156\040\143\145\162\164\151\146\151\143\141\164
-++\145\040\146\157\162\040\106\122\105\105\040\150\145\141\144\040
-++\157\166\145\162\040\164\157\040\150\164\164\160\072\057\057\167
-++\167\167\056\143\141\143\145\162\164\056\157\162\147\060\015\006
-++\011\052\206\110\206\367\015\001\001\004\005\000\003\202\002\001
-++\000\050\307\356\234\202\002\272\134\200\022\312\065\012\035\201
-++\157\211\152\231\314\362\150\017\177\247\341\215\130\225\076\275
-++\362\006\303\220\132\254\265\140\366\231\103\001\243\210\160\234
-++\235\142\235\244\207\257\147\130\015\060\066\073\346\255\110\323
-++\313\164\002\206\161\076\342\053\003\150\361\064\142\100\106\073
-++\123\352\050\364\254\373\146\225\123\212\115\135\375\073\331\140
-++\327\312\171\151\073\261\145\222\246\306\201\202\134\234\315\353
-++\115\001\212\245\337\021\125\252\025\312\037\067\300\202\230\160
-++\141\333\152\174\226\243\216\056\124\076\117\041\251\220\357\334
-++\202\277\334\350\105\255\115\220\163\010\074\224\145\260\004\231
-++\166\177\342\274\302\152\025\252\227\004\067\044\330\036\224\116
-++\155\016\121\276\326\304\217\312\226\155\367\103\337\350\060\145
-++\047\073\173\273\103\103\143\304\103\367\262\354\150\314\341\031
-++\216\042\373\230\341\173\132\076\001\067\073\213\010\260\242\363
-++\225\116\032\313\233\315\232\261\333\262\160\360\055\112\333\330
-++\260\343\157\105\110\063\022\377\376\074\062\052\124\367\304\367
-++\212\360\210\043\302\107\376\144\172\161\300\321\036\246\143\260
-++\007\176\244\057\323\001\217\334\237\053\266\306\010\251\017\223
-++\110\045\374\022\375\237\102\334\363\304\076\366\127\260\327\335
-++\151\321\006\167\064\012\113\322\312\240\377\034\306\214\311\026
-++\276\304\314\062\067\150\163\137\010\373\121\367\111\123\066\005
-++\012\225\002\114\362\171\032\020\366\330\072\165\234\363\035\361
-++\242\015\160\147\206\033\263\026\365\057\345\244\353\171\206\371
-++\075\013\302\163\013\245\231\254\157\374\147\270\345\057\013\246
-++\030\044\215\173\321\110\065\051\030\100\254\223\140\341\226\206
-++\120\264\172\131\330\217\041\013\237\317\202\221\306\073\277\153
-++\334\007\221\271\227\126\043\252\266\154\224\306\110\006\074\344
-++\316\116\252\344\366\057\011\334\123\157\056\374\164\353\072\143
-++\231\302\246\254\211\274\247\262\104\240\015\212\020\343\154\362
-++\044\313\372\233\237\160\107\056\336\024\213\324\262\040\011\226
-++\242\144\361\044\034\334\241\065\234\025\262\324\274\125\056\175
-++\006\365\234\016\125\364\132\326\223\332\166\255\045\163\114\305
-++\103
-++END
-++
-++# Trust for Certificate "CAcert.org Class 1 Root CA"
-++CKA_CLASS CK_OBJECT_CLASS CKO_NETSCAPE_TRUST
-++CKA_TOKEN CK_BBOOL CK_TRUE
-++CKA_PRIVATE CK_BBOOL CK_FALSE
-++CKA_MODIFIABLE CK_BBOOL CK_FALSE
-++CKA_LABEL UTF8 "CAcert.org Class 1 Root CA"
-++CKA_CERT_SHA1_HASH MULTILINE_OCTAL
-++\023\134\354\066\364\234\270\351\073\032\262\160\315\200\210\106
-++\166\316\217\063
-++END
-++CKA_CERT_MD5_HASH MULTILINE_OCTAL
-++\246\033\067\136\071\015\234\066\124\356\275\040\061\106\037\153
-++END
-++CKA_ISSUER MULTILINE_OCTAL
-++\060\171\061\020\060\016\006\003\125\004\012\023\007\122\157\157
-++\164\040\103\101\061\036\060\034\006\003\125\004\013\023\025\150
-++\164\164\160\072\057\057\167\167\167\056\143\141\143\145\162\164
-++\056\157\162\147\061\042\060\040\006\003\125\004\003\023\031\103
-++\101\040\103\145\162\164\040\123\151\147\156\151\156\147\040\101
-++\165\164\150\157\162\151\164\171\061\041\060\037\006\011\052\206
-++\110\206\367\015\001\011\001\026\022\163\165\160\160\157\162\164
-++\100\143\141\143\145\162\164\056\157\162\147
-++END
-++CKA_SERIAL_NUMBER MULTILINE_OCTAL
-++\002\001\000
-++END
-++CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-++CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-++CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-++CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-++
-++#
-++# Certificate "CAcert.org Class 3 Root CA"
-++#
-++CKA_CLASS CK_OBJECT_CLASS CKO_CERTIFICATE
-++CKA_TOKEN CK_BBOOL CK_TRUE
-++CKA_PRIVATE CK_BBOOL CK_FALSE
-++CKA_MODIFIABLE CK_BBOOL CK_FALSE
-++CKA_LABEL UTF8 "CAcert.org Class 3 Root CA"
-++CKA_CERTIFICATE_TYPE CK_CERTIFICATE_TYPE CKC_X_509
-++CKA_SUBJECT MULTILINE_OCTAL
-++\060\124\061\024\060\022\006\003\125\004\012\023\013\103\101\143
-++\145\162\164\040\111\156\143\056\061\036\060\034\006\003\125\004
-++\013\023\025\150\164\164\160\072\057\057\167\167\167\056\103\101
-++\143\145\162\164\056\157\162\147\061\034\060\032\006\003\125\004
-++\003\023\023\103\101\143\145\162\164\040\103\154\141\163\163\040
-++\063\040\122\157\157\164
-++END
-++CKA_ID UTF8 "0"
-++CKA_ISSUER MULTILINE_OCTAL
-++\060\171\061\020\060\016\006\003\125\004\012\023\007\122\157\157
-++\164\040\103\101\061\036\060\034\006\003\125\004\013\023\025\150
-++\164\164\160\072\057\057\167\167\167\056\143\141\143\145\162\164
-++\056\157\162\147\061\042\060\040\006\003\125\004\003\023\031\103
-++\101\040\103\145\162\164\040\123\151\147\156\151\156\147\040\101
-++\165\164\150\157\162\151\164\171\061\041\060\037\006\011\052\206
-++\110\206\367\015\001\011\001\026\022\163\165\160\160\157\162\164
-++\100\143\141\143\145\162\164\056\157\162\147
-++END
-++CKA_SERIAL_NUMBER MULTILINE_OCTAL
-++\002\001\001
-++END
-++CKA_VALUE MULTILINE_OCTAL
-++\060\202\006\010\060\202\003\360\240\003\002\001\002\002\001\001
-++\060\015\006\011\052\206\110\206\367\015\001\001\004\005\000\060
-++\171\061\020\060\016\006\003\125\004\012\023\007\122\157\157\164
-++\040\103\101\061\036\060\034\006\003\125\004\013\023\025\150\164
-++\164\160\072\057\057\167\167\167\056\143\141\143\145\162\164\056
-++\157\162\147\061\042\060\040\006\003\125\004\003\023\031\103\101
-++\040\103\145\162\164\040\123\151\147\156\151\156\147\040\101\165
-++\164\150\157\162\151\164\171\061\041\060\037\006\011\052\206\110
-++\206\367\015\001\011\001\026\022\163\165\160\160\157\162\164\100
-++\143\141\143\145\162\164\056\157\162\147\060\036\027\015\060\065
-++\061\060\061\064\060\067\063\066\065\065\132\027\015\063\063\060
-++\063\062\070\060\067\063\066\065\065\132\060\124\061\024\060\022
-++\006\003\125\004\012\023\013\103\101\143\145\162\164\040\111\156
-++\143\056\061\036\060\034\006\003\125\004\013\023\025\150\164\164
-++\160\072\057\057\167\167\167\056\103\101\143\145\162\164\056\157
-++\162\147\061\034\060\032\006\003\125\004\003\023\023\103\101\143
-++\145\162\164\040\103\154\141\163\163\040\063\040\122\157\157\164
-++\060\202\002\042\060\015\006\011\052\206\110\206\367\015\001\001
-++\001\005\000\003\202\002\017\000\060\202\002\012\002\202\002\001
-++\000\253\111\065\021\110\174\322\046\176\123\224\317\103\251\335
-++\050\327\102\052\213\363\207\170\031\130\174\017\236\332\211\175
-++\341\373\353\162\220\015\164\241\226\144\253\237\240\044\231\163
-++\332\342\125\166\307\027\173\365\004\254\106\270\303\276\177\144
-++\215\020\154\044\363\141\234\300\362\220\372\121\346\365\151\001
-++\143\303\017\126\342\112\102\317\342\104\214\045\050\250\305\171
-++\011\175\106\271\212\363\351\363\064\051\010\105\344\034\237\313
-++\224\004\034\201\250\024\263\230\145\304\103\354\116\202\215\011
-++\321\275\252\133\215\222\320\354\336\220\305\177\012\302\343\353
-++\346\061\132\136\164\076\227\063\131\350\303\003\075\140\063\277
-++\367\321\157\107\304\315\356\142\203\122\156\056\010\232\244\331
-++\025\030\221\246\205\222\107\260\256\110\353\155\267\041\354\205
-++\032\150\162\065\253\377\360\020\135\300\364\224\247\152\325\073
-++\222\176\114\220\005\176\223\301\054\213\244\216\142\164\025\161
-++\156\013\161\003\352\257\025\070\232\324\322\005\162\157\214\371
-++\053\353\132\162\045\371\071\106\343\162\033\076\004\303\144\047
-++\042\020\052\212\117\130\247\003\255\276\264\056\023\355\135\252
-++\110\327\325\175\324\052\173\134\372\106\004\120\344\314\016\102
-++\133\214\355\333\362\317\374\226\223\340\333\021\066\124\142\064
-++\070\217\014\140\233\073\227\126\070\255\363\322\133\213\240\133
-++\352\116\226\270\174\327\325\240\206\160\100\323\221\051\267\242
-++\074\255\365\214\273\317\032\222\212\344\064\173\300\330\154\137
-++\351\012\302\303\247\040\232\132\337\054\135\122\134\272\107\325
-++\233\357\044\050\160\070\040\057\325\177\051\300\262\101\003\150
-++\222\314\340\234\314\227\113\105\357\072\020\012\253\160\072\230
-++\225\160\255\065\261\352\205\053\244\034\200\041\061\251\256\140
-++\172\200\046\110\000\270\001\300\223\143\125\042\221\074\126\347
-++\257\333\072\045\363\217\061\124\352\046\213\201\131\371\241\321
-++\123\021\305\173\235\003\366\164\021\340\155\261\054\077\054\206
-++\221\231\161\232\246\167\213\064\140\321\024\264\054\254\235\257
-++\214\020\323\237\304\152\370\157\023\374\163\131\367\146\102\164
-++\036\212\343\370\334\322\157\230\234\313\107\230\225\100\005\373
-++\351\002\003\001\000\001\243\201\277\060\201\274\060\017\006\003
-++\125\035\023\001\001\377\004\005\060\003\001\001\377\060\135\006
-++\010\053\006\001\005\005\007\001\001\004\121\060\117\060\043\006
-++\010\053\006\001\005\005\007\060\001\206\027\150\164\164\160\072
-++\057\057\157\143\163\160\056\103\101\143\145\162\164\056\157\162
-++\147\057\060\050\006\010\053\006\001\005\005\007\060\002\206\034
-++\150\164\164\160\072\057\057\167\167\167\056\103\101\143\145\162
-++\164\056\157\162\147\057\143\141\056\143\162\164\060\112\006\003
-++\125\035\040\004\103\060\101\060\077\006\010\053\006\001\004\001
-++\201\220\112\060\063\060\061\006\010\053\006\001\005\005\007\002
-++\001\026\045\150\164\164\160\072\057\057\167\167\167\056\103\101
-++\143\145\162\164\056\157\162\147\057\151\156\144\145\170\056\160
-++\150\160\077\151\144\075\061\060\060\015\006\011\052\206\110\206
-++\367\015\001\001\004\005\000\003\202\002\001\000\177\010\210\241
-++\332\032\120\111\332\211\373\241\010\162\363\212\367\036\304\072
-++\264\171\133\040\060\261\105\336\302\135\323\145\151\361\302\135
-++\124\124\074\205\137\271\173\102\221\302\231\375\033\121\233\253
-++\106\245\241\020\123\236\155\210\254\163\156\054\063\246\360\364
-++\236\340\165\301\076\210\105\251\341\146\103\376\126\132\321\172
-++\101\170\367\100\332\112\072\361\013\133\245\273\026\006\346\302
-++\347\223\271\205\115\227\117\261\036\070\103\200\357\233\015\214
-++\357\270\247\140\000\207\127\175\036\104\034\313\043\357\233\074
-++\231\235\257\265\051\034\105\171\026\226\115\047\155\361\034\154
-++\303\302\125\144\263\274\024\342\363\244\037\036\062\374\047\025
-++\005\317\335\056\256\076\202\141\173\360\041\020\030\366\104\352
-++\123\071\371\334\320\232\040\340\306\273\340\273\132\117\304\231
-++\310\007\275\265\275\242\333\056\142\015\102\064\101\274\377\213
-++\212\365\121\042\252\210\060\000\342\260\324\274\276\145\272\325
-++\003\127\171\233\350\334\310\115\370\120\355\221\245\122\050\242
-++\254\373\066\130\076\351\224\053\221\120\207\033\326\136\326\214
-++\314\367\017\020\014\122\116\320\026\141\345\345\012\154\277\027
-++\307\162\106\127\234\230\365\154\140\143\172\157\136\271\116\057
-++\310\271\271\273\152\205\274\230\015\355\371\076\227\204\064\224
-++\256\000\257\241\345\347\222\156\116\275\363\342\331\024\213\134
-++\322\353\001\154\240\027\245\055\020\353\234\172\112\275\275\356
-++\316\375\355\042\100\253\160\070\210\365\012\207\152\302\253\005
-++\140\311\110\005\332\123\301\336\104\167\152\263\363\074\074\355
-++\200\274\246\070\112\051\044\137\376\131\073\233\045\172\126\143
-++\000\144\271\135\244\142\175\127\066\117\255\203\357\037\222\123
-++\240\216\167\127\335\345\141\021\075\043\000\220\114\074\372\243
-++\140\223\004\243\257\065\366\016\152\217\117\112\140\247\205\005
-++\154\106\241\217\364\307\166\343\241\131\127\367\161\262\304\156
-++\024\134\155\155\101\146\337\033\223\261\324\000\303\356\313\317
-++\074\075\041\200\251\137\143\145\374\335\340\137\244\364\053\360
-++\205\161\101\324\147\045\373\032\261\227\256\326\231\202\023\101
-++\322\156\245\033\231\047\200\347\013\251\250\000
-++END
-++
-++# Trust for Certificate "CAcert.org Class 3 Root CA"
-++CKA_CLASS CK_OBJECT_CLASS CKO_NETSCAPE_TRUST
-++CKA_TOKEN CK_BBOOL CK_TRUE
-++CKA_PRIVATE CK_BBOOL CK_FALSE
-++CKA_MODIFIABLE CK_BBOOL CK_FALSE
-++CKA_LABEL UTF8 "CAcert.org Class 3 Root CA"
-++CKA_CERT_SHA1_HASH MULTILINE_OCTAL
-++\333\114\102\151\007\077\351\302\243\175\211\012\134\033\030\304
-++\030\116\052\055
-++END
-++CKA_CERT_MD5_HASH MULTILINE_OCTAL
-++\163\077\065\124\035\104\311\351\132\112\357\121\255\003\006\266
-++END
-++CKA_ISSUER MULTILINE_OCTAL
-++\060\171\061\020\060\016\006\003\125\004\012\023\007\122\157\157
-++\164\040\103\101\061\036\060\034\006\003\125\004\013\023\025\150
-++\164\164\160\072\057\057\167\167\167\056\143\141\143\145\162\164
-++\056\157\162\147\061\042\060\040\006\003\125\004\003\023\031\103
-++\101\040\103\145\162\164\040\123\151\147\156\151\156\147\040\101
-++\165\164\150\157\162\151\164\171\061\041\060\037\006\011\052\206
-++\110\206\367\015\001\011\001\026\022\163\165\160\160\157\162\164
-++\100\143\141\143\145\162\164\056\157\162\147
-++END
-++CKA_SERIAL_NUMBER MULTILINE_OCTAL
-++\002\001\001
-++END
-++CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-++CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-++CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-++CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-++
-++#
-++# Certificate "Software in the Public Interest, Inc. Root CA (2008)"
-++#
-++CKA_CLASS CK_OBJECT_CLASS CKO_CERTIFICATE
-++CKA_TOKEN CK_BBOOL CK_TRUE
-++CKA_PRIVATE CK_BBOOL CK_FALSE
-++CKA_MODIFIABLE CK_BBOOL CK_FALSE
-++CKA_LABEL UTF8 "Software in the Public Interest, Inc. Root CA (2008)"
-++CKA_CERTIFICATE_TYPE CK_CERTIFICATE_TYPE CKC_X_509
-++CKA_SUBJECT MULTILINE_OCTAL
-++\060\201\274\061\013\060\011\006\003\125\004\006\023\002\125\123
-++\061\020\060\016\006\003\125\004\010\023\007\111\156\144\151\141
-++\156\141\061\025\060\023\006\003\125\004\007\023\014\111\156\144
-++\151\141\156\141\160\157\154\151\163\061\050\060\046\006\003\125
-++\004\012\023\037\123\157\146\164\167\141\162\145\040\151\156\040
-++\164\150\145\040\120\165\142\154\151\143\040\111\156\164\145\162
-++\145\163\164\061\023\060\021\006\003\125\004\013\023\012\150\157
-++\163\164\155\141\163\164\145\162\061\036\060\034\006\003\125\004
-++\003\023\025\103\145\162\164\151\146\151\143\141\164\145\040\101
-++\165\164\150\157\162\151\164\171\061\045\060\043\006\011\052\206
-++\110\206\367\015\001\011\001\026\026\150\157\163\164\155\141\163
-++\164\145\162\100\163\160\151\055\151\156\143\056\157\162\147
-++END
-++CKA_ID UTF8 "0"
-++CKA_ISSUER MULTILINE_OCTAL
-++\060\201\274\061\013\060\011\006\003\125\004\006\023\002\125\123
-++\061\020\060\016\006\003\125\004\010\023\007\111\156\144\151\141
-++\156\141\061\025\060\023\006\003\125\004\007\023\014\111\156\144
-++\151\141\156\141\160\157\154\151\163\061\050\060\046\006\003\125
-++\004\012\023\037\123\157\146\164\167\141\162\145\040\151\156\040
-++\164\150\145\040\120\165\142\154\151\143\040\111\156\164\145\162
-++\145\163\164\061\023\060\021\006\003\125\004\013\023\012\150\157
-++\163\164\155\141\163\164\145\162\061\036\060\034\006\003\125\004
-++\003\023\025\103\145\162\164\151\146\151\143\141\164\145\040\101
-++\165\164\150\157\162\151\164\171\061\045\060\043\006\011\052\206
-++\110\206\367\015\001\011\001\026\026\150\157\163\164\155\141\163
-++\164\145\162\100\163\160\151\055\151\156\143\056\157\162\147
-++END
-++CKA_SERIAL_NUMBER MULTILINE_OCTAL
-++\002\011\000\350\216\266\311\370\052\024\050
-++END
-++CKA_VALUE MULTILINE_OCTAL
-++\060\202\010\016\060\202\005\366\240\003\002\001\002\002\011\000
-++\350\216\266\311\370\052\024\050\060\015\006\011\052\206\110\206
-++\367\015\001\001\005\005\000\060\201\274\061\013\060\011\006\003
-++\125\004\006\023\002\125\123\061\020\060\016\006\003\125\004\010
-++\023\007\111\156\144\151\141\156\141\061\025\060\023\006\003\125
-++\004\007\023\014\111\156\144\151\141\156\141\160\157\154\151\163
-++\061\050\060\046\006\003\125\004\012\023\037\123\157\146\164\167
-++\141\162\145\040\151\156\040\164\150\145\040\120\165\142\154\151
-++\143\040\111\156\164\145\162\145\163\164\061\023\060\021\006\003
-++\125\004\013\023\012\150\157\163\164\155\141\163\164\145\162\061
-++\036\060\034\006\003\125\004\003\023\025\103\145\162\164\151\146
-++\151\143\141\164\145\040\101\165\164\150\157\162\151\164\171\061
-++\045\060\043\006\011\052\206\110\206\367\015\001\011\001\026\026
-++\150\157\163\164\155\141\163\164\145\162\100\163\160\151\055\151
-++\156\143\056\157\162\147\060\036\027\015\060\070\060\065\061\063
-++\060\070\060\067\065\066\132\027\015\061\070\060\065\061\061\060
-++\070\060\067\065\066\132\060\201\274\061\013\060\011\006\003\125
-++\004\006\023\002\125\123\061\020\060\016\006\003\125\004\010\023
-++\007\111\156\144\151\141\156\141\061\025\060\023\006\003\125\004
-++\007\023\014\111\156\144\151\141\156\141\160\157\154\151\163\061
-++\050\060\046\006\003\125\004\012\023\037\123\157\146\164\167\141
-++\162\145\040\151\156\040\164\150\145\040\120\165\142\154\151\143
-++\040\111\156\164\145\162\145\163\164\061\023\060\021\006\003\125
-++\004\013\023\012\150\157\163\164\155\141\163\164\145\162\061\036
-++\060\034\006\003\125\004\003\023\025\103\145\162\164\151\146\151
-++\143\141\164\145\040\101\165\164\150\157\162\151\164\171\061\045
-++\060\043\006\011\052\206\110\206\367\015\001\011\001\026\026\150
-++\157\163\164\155\141\163\164\145\162\100\163\160\151\055\151\156
-++\143\056\157\162\147\060\202\002\042\060\015\006\011\052\206\110
-++\206\367\015\001\001\001\005\000\003\202\002\017\000\060\202\002
-++\012\002\202\002\001\000\334\066\346\107\102\302\304\121\165\051
-++\207\100\303\330\216\041\006\322\030\116\353\357\040\275\220\074
-++\205\020\023\214\051\133\224\143\366\364\055\361\006\102\221\271
-++\031\304\102\151\010\277\213\066\105\352\050\005\063\111\110\240
-++\047\103\223\065\212\101\330\170\263\360\357\263\156\055\335\321
-++\313\175\352\364\165\046\323\076\220\072\356\327\347\054\004\265
-++\174\341\365\174\305\116\357\167\275\134\242\223\063\222\316\175
-++\201\110\317\153\265\042\054\010\203\375\323\325\317\073\055\375
-++\265\111\220\133\366\255\115\023\312\336\323\246\235\123\121\161
-++\143\106\370\112\026\134\230\356\055\155\232\026\241\166\220\342
-++\140\103\231\326\211\326\154\056\172\230\262\013\003\054\343\172
-++\117\307\335\343\314\343\112\152\215\171\122\372\364\301\257\056
-++\217\052\010\313\033\051\202\222\162\103\274\316\210\251\252\247
-++\212\121\103\125\205\232\067\003\170\223\310\360\275\264\101\310
-++\007\102\232\313\065\227\172\212\201\145\336\035\124\010\001\361
-++\144\134\267\027\032\121\274\036\303\131\207\166\030\026\230\356
-++\277\366\147\201\213\006\065\305\113\155\131\031\307\322\306\110
-++\276\156\024\050\203\112\020\234\033\365\157\274\251\216\365\151
-++\376\262\301\125\314\347\024\311\371\133\024\123\121\007\352\316
-++\075\344\117\050\037\074\141\011\327\063\322\156\247\156\324\307
-++\023\011\157\153\135\024\356\235\211\033\245\152\362\366\370\320
-++\162\216\352\162\037\057\064\152\051\012\305\012\354\034\100\205
-++\022\367\246\245\323\117\255\300\205\214\114\174\163\040\314\123
-++\030\361\262\130\114\001\365\277\352\144\325\134\071\305\316\154
-++\314\123\132\126\272\101\017\045\337\153\120\266\307\212\240\275
-++\002\302\305\073\125\245\262\144\042\204\121\050\126\256\061\356
-++\136\373\013\026\115\106\005\221\200\104\355\254\155\360\127\250
-++\372\353\141\110\240\313\033\263\037\216\315\305\041\167\003\204
-++\036\374\254\243\103\010\143\214\355\371\047\357\264\260\135\147
-++\326\117\355\320\213\076\135\133\311\221\275\226\002\204\075\305
-++\115\274\102\077\164\375\074\135\254\134\110\066\136\207\061\057
-++\030\154\304\150\356\241\213\311\131\320\030\343\000\200\263\124
-++\047\056\231\360\025\123\002\003\001\000\001\243\202\002\017\060
-++\202\002\013\060\035\006\003\125\035\016\004\026\004\024\064\161
-++\321\070\327\025\066\203\107\153\327\067\144\102\073\216\215\122
-++\235\253\060\201\361\006\003\125\035\043\004\201\351\060\201\346
-++\200\024\064\161\321\070\327\025\066\203\107\153\327\067\144\102
-++\073\216\215\122\235\253\241\201\302\244\201\277\060\201\274\061
-++\013\060\011\006\003\125\004\006\023\002\125\123\061\020\060\016
-++\006\003\125\004\010\023\007\111\156\144\151\141\156\141\061\025
-++\060\023\006\003\125\004\007\023\014\111\156\144\151\141\156\141
-++\160\157\154\151\163\061\050\060\046\006\003\125\004\012\023\037
-++\123\157\146\164\167\141\162\145\040\151\156\040\164\150\145\040
-++\120\165\142\154\151\143\040\111\156\164\145\162\145\163\164\061
-++\023\060\021\006\003\125\004\013\023\012\150\157\163\164\155\141
-++\163\164\145\162\061\036\060\034\006\003\125\004\003\023\025\103
-++\145\162\164\151\146\151\143\141\164\145\040\101\165\164\150\157
-++\162\151\164\171\061\045\060\043\006\011\052\206\110\206\367\015
-++\001\011\001\026\026\150\157\163\164\155\141\163\164\145\162\100
-++\163\160\151\055\151\156\143\056\157\162\147\202\011\000\350\216
-++\266\311\370\052\024\050\060\017\006\003\125\035\023\001\001\377
-++\004\005\060\003\001\001\377\060\021\006\011\140\206\110\001\206
-++\370\102\001\001\004\004\003\002\000\007\060\011\006\003\125\035
-++\022\004\002\060\000\060\056\006\011\140\206\110\001\206\370\102
-++\001\015\004\041\026\037\123\157\146\164\167\141\162\145\040\151
-++\156\040\164\150\145\040\120\165\142\154\151\143\040\111\156\164
-++\145\162\145\163\164\060\060\006\011\140\206\110\001\206\370\102
-++\001\004\004\043\026\041\150\164\164\160\163\072\057\057\143\141
-++\056\163\160\151\055\151\156\143\056\157\162\147\057\143\141\055
-++\143\162\154\056\160\145\155\060\062\006\011\140\206\110\001\206
-++\370\102\001\003\004\045\026\043\150\164\164\160\163\072\057\057
-++\143\141\056\163\160\151\055\151\156\143\056\157\162\147\057\143
-++\145\162\164\055\143\162\154\056\160\145\155\060\041\006\003\125
-++\035\021\004\032\060\030\201\026\150\157\163\164\155\141\163\164
-++\145\162\100\163\160\151\055\151\156\143\056\157\162\147\060\016
-++\006\003\125\035\017\001\001\377\004\004\003\002\001\006\060\015
-++\006\011\052\206\110\206\367\015\001\001\005\005\000\003\202\002
-++\001\000\264\315\275\340\271\352\262\003\053\176\062\351\336\162
-++\077\311\113\202\136\235\342\257\125\011\242\014\124\350\317\030
-++\074\050\040\035\251\273\003\002\057\122\071\042\371\027\317\255
-++\147\220\263\003\177\330\025\343\153\176\273\233\126\001\257\065
-++\324\332\271\307\147\027\233\324\325\016\067\263\040\101\056\014
-++\001\304\133\371\145\076\302\141\350\322\360\152\225\160\303\306
-++\157\325\065\244\254\131\162\341\211\337\241\240\235\044\275\051
-++\171\351\141\052\331\323\036\311\106\244\010\170\101\222\162\017
-++\253\024\165\355\011\360\242\360\134\357\303\012\142\040\267\302
-++\050\146\256\114\057\056\217\105\143\046\226\360\356\061\346\213
-++\125\233\252\072\371\202\071\035\210\074\342\007\165\032\341\017
-++\261\060\274\161\062\322\072\376\372\241\211\363\103\054\326\162
-++\304\171\247\025\110\005\300\330\055\162\002\343\313\075\026\152
-++\272\311\270\021\020\342\111\205\314\226\107\140\005\045\056\357
-++\165\131\063\365\107\031\026\357\332\154\137\007\310\246\120\266
-++\035\313\146\064\045\374\146\203\353\305\266\060\101\370\106\104
-++\142\250\301\014\124\346\352\114\132\050\346\256\306\267\376\177
-++\073\226\250\056\356\307\150\076\335\000\075\051\257\052\143\253
-++\137\356\111\052\055\305\334\373\321\306\323\321\227\126\122\206
-++\266\224\353\324\140\121\267\374\036\233\314\002\233\324\037\217
-++\371\112\217\266\056\050\073\027\314\305\246\005\343\322\323\265
-++\306\003\311\341\110\102\233\313\077\344\027\340\376\015\001\225
-++\011\272\270\015\161\344\011\160\167\102\330\115\341\102\251\140
-++\203\327\027\211\103\322\324\335\247\030\266\253\324\044\045\207
-++\265\324\342\374\056\042\151\275\255\150\054\377\162\265\230\252
-++\006\234\347\052\152\270\241\223\166\316\260\363\177\234\341\340
-++\117\270\330\206\106\245\063\002\054\045\141\067\052\222\310\254
-++\201\164\150\143\207\063\166\275\005\177\136\325\325\002\155\275
-++\257\377\052\132\252\111\354\230\171\107\123\221\366\016\064\132
-++\311\245\306\353\262\343\305\254\266\240\160\065\273\310\121\151
-++\320\362\265\242\062\156\274\077\240\067\071\174\161\066\246\005
-++\337\014\022\344\026\247\305\326\313\143\243\225\160\077\346\004
-++\243\140
-++END
-++
-++# Trust for Certificate "Software in the Public Interest, Inc. Root CA (2008)"
-++CKA_CLASS CK_OBJECT_CLASS CKO_NETSCAPE_TRUST
-++CKA_TOKEN CK_BBOOL CK_TRUE
-++CKA_PRIVATE CK_BBOOL CK_FALSE
-++CKA_MODIFIABLE CK_BBOOL CK_FALSE
-++CKA_LABEL UTF8 "Software in the Public Interest, Inc. Root CA (2008)"
-++CKA_CERT_SHA1_HASH MULTILINE_OCTAL
-++\257\160\210\103\203\202\002\025\315\141\306\274\354\375\067\044
-++\251\220\103\034
-++END
-++CKA_CERT_MD5_HASH MULTILINE_OCTAL
-++\052\107\237\140\273\203\164\157\001\003\327\013\015\366\015\170
-++END
-++CKA_ISSUER MULTILINE_OCTAL
-++\060\201\274\061\013\060\011\006\003\125\004\006\023\002\125\123
-++\061\020\060\016\006\003\125\004\010\023\007\111\156\144\151\141
-++\156\141\061\025\060\023\006\003\125\004\007\023\014\111\156\144
-++\151\141\156\141\160\157\154\151\163\061\050\060\046\006\003\125
-++\004\012\023\037\123\157\146\164\167\141\162\145\040\151\156\040
-++\164\150\145\040\120\165\142\154\151\143\040\111\156\164\145\162
-++\145\163\164\061\023\060\021\006\003\125\004\013\023\012\150\157
-++\163\164\155\141\163\164\145\162\061\036\060\034\006\003\125\004
-++\003\023\025\103\145\162\164\151\146\151\143\141\164\145\040\101
-++\165\164\150\157\162\151\164\171\061\045\060\043\006\011\052\206
-++\110\206\367\015\001\011\001\026\026\150\157\163\164\155\141\163
-++\164\145\162\100\163\160\151\055\151\156\143\056\157\162\147
-++END
-++CKA_SERIAL_NUMBER MULTILINE_OCTAL
-++\002\011\000\350\216\266\311\370\052\024\050
-++END
-++CKA_TRUST_SERVER_AUTH CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-++CKA_TRUST_EMAIL_PROTECTION CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-++CKA_TRUST_CODE_SIGNING CK_TRUST CKT_NETSCAPE_TRUSTED_DELEGATOR
-++CKA_TRUST_STEP_UP_APPROVED CK_BBOOL CK_FALSE
-diff --git a/meta/recipes-extended/mozilla/nss-3.12.6/96_NSS_VersionCheck.patch b/meta/recipes-extended/mozilla/nss-3.12.6/96_NSS_VersionCheck.patch
-new file mode 100644
-index 0000000..efc6a9d
---- /dev/null
-+++ b/meta/recipes-extended/mozilla/nss-3.12.6/96_NSS_VersionCheck.patch
-@@ -0,0 +1,18 @@
-+Remove runtime check of NSPR version in NSS_VersionCheck, which seems to
-+be pointless.
-+
-+https://bugzilla.mozilla.org/show_bug.cgi?id=542741
-+diff --git a/mozilla/security/nss/lib/nss/nssinit.c b/mozilla/security/nss/lib/nss/nssinit.c
-+index f2e3ffb..66be164 100644
-+--- a/mozilla/security/nss/lib/nss/nssinit.c
-++++ b/mozilla/security/nss/lib/nss/nssinit.c
-+@@ -1198,9 +1198,5 @@ NSS_VersionCheck(const char *importedVersion)
-+         vpatch == NSS_VPATCH && vbuild > NSS_VBUILD) {
-+         return PR_FALSE;
-+     }
-+-    /* Check dependent libraries */
-+-    if (PR_VersionCheck(PR_VERSION) == PR_FALSE) {
-+-        return PR_FALSE;
-+-    }
-+     return PR_TRUE;
-+ }
-diff --git a/meta/recipes-extended/mozilla/nss-3.12.6/97_SSL_RENEGOTIATE_TRANSITIONAL.patch b/meta/recipes-extended/mozilla/nss-3.12.6/97_SSL_RENEGOTIATE_TRANSITIONAL.patch
-new file mode 100644
-index 0000000..f457c55
---- /dev/null
-+++ b/meta/recipes-extended/mozilla/nss-3.12.6/97_SSL_RENEGOTIATE_TRANSITIONAL.patch
-@@ -0,0 +1,21 @@
-+Enable transitional scheme for ssl renegotiation:
-+
-+(from mozilla/security/nss/lib/ssl/ssl.h)
-+Disallow unsafe renegotiation in server sockets only, but allow clients
-+to continue to renegotiate with vulnerable servers.
-+This value should only be used during the transition period when few
-+servers have been upgraded.
-+
-+diff --git a/mozilla/security/nss/lib/ssl/sslsock.c b/mozilla/security/nss/lib/ssl/sslsock.c
-+index f1d1921..c074360 100644
-+--- a/mozilla/security/nss/lib/ssl/sslsock.c
-++++ b/mozilla/security/nss/lib/ssl/sslsock.c
-+@@ -181,7 +181,7 @@ static sslOptions ssl_defaults = {
-+     PR_FALSE,   /* noLocks            */
-+     PR_FALSE,   /* enableSessionTickets */
-+     PR_FALSE,   /* enableDeflate      */
-+-    2,          /* enableRenegotiation (default: requires extension) */
-++    3,          /* enableRenegotiation (default: transitional) */
-+     PR_FALSE,   /* requireSafeNegotiation */
-+ };
-+ 
-diff --git a/meta/recipes-extended/mozilla/nss-3.12.6/build-fix.patch b/meta/recipes-extended/mozilla/nss-3.12.6/build-fix.patch
-new file mode 100644
-index 0000000..971e40d
---- /dev/null
-+++ b/meta/recipes-extended/mozilla/nss-3.12.6/build-fix.patch
-@@ -0,0 +1,63 @@
-+Index: mozilla/security/coreconf/Linux.mk
-+===================================================================
-+--- mozilla.orig/security/coreconf/Linux.mk	2008-07-25 13:48:56.000000000 +0200
-++++ mozilla/security/coreconf/Linux.mk	2008-07-25 13:49:07.000000000 +0200
-+@@ -46,11 +46,11 @@
-+ 	IMPL_STRATEGY = _PTH
-+ endif
-+ 
-+-CC			= gcc
-+-CCC			= g++
-+-RANLIB			= ranlib
-++CC			?= gcc
-++CCC			?= g++
-++RANLIB			?= ranlib
-+ 
-+-DEFAULT_COMPILER = gcc
-++DEFAULT_COMPILER ?= gcc
-+ 
-+ ifeq ($(OS_TEST),m68k)
-+ 	OS_REL_CFLAGS	= -DLINUX1_2 -D_XOPEN_SOURCE
-+Index: mozilla/security/coreconf/arch.mk
-+===================================================================
-+--- mozilla.orig/security/coreconf/arch.mk	2008-07-25 13:47:34.000000000 +0200
-++++ mozilla/security/coreconf/arch.mk	2008-07-25 13:48:51.000000000 +0200
-+@@ -66,7 +66,7 @@
-+ # Attempt to differentiate between sparc and x86 Solaris
-+ #
-+ 
-+-OS_TEST := $(shell uname -m)
-++OS_TEST ?= $(shell uname -m)
-+ ifeq ($(OS_TEST),i86pc)
-+     OS_RELEASE := $(shell uname -r)_$(OS_TEST)
-+ else
-+Index: mozilla/security/nss/lib/softoken/legacydb/manifest.mn
-+===================================================================
-+--- mozilla.orig/security/nss/lib/softoken/legacydb/manifest.mn	2008-07-24 21:21:37.000000000 +0200
-++++ mozilla/security/nss/lib/softoken/legacydb/manifest.mn	2008-07-25 14:01:28.000000000 +0200
-+@@ -48,6 +48,10 @@
-+ 
-+ ifdef MOZILLA_CLIENT
-+ INCLUDES += -I$(DIST)/include/sqlite3
-++
-++ifdef SQLITE3_INCLUDE_DIR
-++INCLUDES += -I$(SQLITE3_INCLUDE_DIR)
-++endif
-+ endif
-+ 
-+ CSRCS = \
-+Index: mozilla/security/nss/lib/softoken/manifest.mn
-+===================================================================
-+--- mozilla.orig/security/nss/lib/softoken/manifest.mn	2008-07-24 21:20:03.000000000 +0200
-++++ mozilla/security/nss/lib/softoken/manifest.mn	2008-07-25 14:00:43.000000000 +0200
-+@@ -49,6 +49,10 @@
-+ 
-+ ifdef MOZILLA_CLIENT
-+ INCLUDES += -I$(DIST)/include/sqlite3
-++
-++ifdef SQLITE3_INCLUDE_DIR
-++INCLUDES += -I$(SQLITE3_INCLUDE_DIR)
-++endif
-+ endif
-+ 
-+ EXPORTS = \
-diff --git a/meta/recipes-extended/mozilla/nss-3.12.6/nss.pc.in b/meta/recipes-extended/mozilla/nss-3.12.6/nss.pc.in
-new file mode 100644
-index 0000000..84e4ef7
---- /dev/null
-+++ b/meta/recipes-extended/mozilla/nss-3.12.6/nss.pc.in
-@@ -0,0 +1,11 @@
-+prefix=/usr
-+exec_prefix=${prefix}
-+libdir=${exec_prefix}/lib
-+includedir=${prefix}/include/mozilla/nss
-+
-+Name: NSS
-+Description: Mozilla Network Security Services
-+Version: @VERSION@
-+Requires: nspr
-+Libs: -L${libdir} -lnss3 -lnssutil3 -lsmime3 -lssl3 
-+Cflags: -I${includedir}
-diff --git a/meta/recipes-extended/mozilla/nss-3.12.6/series b/meta/recipes-extended/mozilla/nss-3.12.6/series
-new file mode 100644
-index 0000000..2b15c0a
---- /dev/null
-+++ b/meta/recipes-extended/mozilla/nss-3.12.6/series
-@@ -0,0 +1,14 @@
-+00_ckbi_1.79.patch
-+25_entropy.patch
-+38_hurd.patch
-+38_kbsd.patch
-+38_mips64_build.patch
-+80_security_build.patch
-+80_security_tools.patch
-+81_sonames.patch
-+85_security_load.patch
-+90_realpath.patch
-+91_build_pwdecrypt.patch
-+95_add_spi+cacert_ca_certs.patch
-+96_NSS_VersionCheck.patch
-+97_SSL_RENEGOTIATE_TRANSITIONAL.patch
-diff --git a/meta/recipes-extended/mozilla/nss_3.12.6.bb b/meta/recipes-extended/mozilla/nss_3.12.6.bb
-new file mode 100644
-index 0000000..49b7245
---- /dev/null
-+++ b/meta/recipes-extended/mozilla/nss_3.12.6.bb
-@@ -0,0 +1,116 @@
-+SUMMARY = "Mozilla's SSL and TLS implementation"
-+DESCRIPTION = "\
-+Network Security Services (NSS) is a set of libraries designed to \
-+support cross-platform development of security-enabled client and \
-+server applications. Applications built with NSS can support SSL v2 \
-+and v3, TLS, PKCS #5, PKCS #7, PKCS #11, PKCS #12, S/MIME, X.509 \
-+v3 certificates, and other security standards. \
-+"
-+
-+HOMEPAGE = "http://www.mozilla.org/projects/security/pki/nss/"
-+
-+PR = "r0"
-+
-+LICENSE = "MPL1.1 | GPL | LGPL"
-+LIC_FILES_CHKSUM = "file://${S}/mozilla/security/nss/lib/freebl/mpi/utils/LICENSE-MPL;md5=6bf96825e3d7ce4de25621ae886cc859"
-+
-+DEPENDS = "sqlite3 nspr"
-+
-+SRC_URI = "\
-+	http://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_3_12_6_RTM/src/${PN}-${PV}.tar.gz;name=archive \
-+	file://00_ckbi_1.79.patch \
-+	file://25_entropy.patch \
-+	file://38_hurd.patch \
-+	file://38_kbsd.patch \
-+	file://38_mips64_build.patch \
-+	file://80_security_build.patch \
-+	file://80_security_tools.patch \
-+	file://81_sonames.patch \
-+	file://85_security_load.patch \
-+	file://90_realpath.patch \
-+	file://91_build_pwdecrypt.patch \
-+	file://95_add_spi+cacert_ca_certs.patch \
-+	file://96_NSS_VersionCheck.patch \
-+	file://97_SSL_RENEGOTIATE_TRANSITIONAL.patch \
-+	file://build-fix.patch;striplevel=0 \
-+	file://nss.pc.in \
-+"
-+
-+SRC_URI[archive.md5sum] = "da42596665f226de5eb3ecfc1ec57cd1"
-+SRC_URI[archive.sha256sum] = "8f9759be1ce928e82830923fde62a66e270c4645f10a4c176acfccb6021a9795"
-+
-+TD = "${S}/tentative-dist"
-+TDS = "${S}/tentative-dist-staging"
-+
-+PARALLEL_MAKE = ""
-+
-+TARGET_CC_ARCH += "${LDFLAGS}"
-+
-+do_compile() {
-+	oe_runmake -C mozilla/security/nss \
-+		build_coreconf \
-+		build_dbm \
-+		export libs program \
-+		MOZILLA_CLIENT=1 \
-+		BUILD_OPT=1 \
-+		OS_TARGET=Linux \
-+		OS_TEST="${TARGET_ARCH}" \
-+		NSPR_INCLUDE_DIR="${STAGING_INCDIR}/mozilla/nspr" \
-+		NSPR_LIB_DIR="${STAGING_LIBDIR}" \
-+		SQLITE3_INCLUDE_DIR="${STAGING_INCDIR}" \
-+		OPTIMIZER="${CFLAGS}" \
-+		NS_USE_GCC=1 \
-+		NSS_USE_SYSTEM_SQLITE=1 \
-+		NSS_ENABLE_ECC=1 \
-+		DEFAULT_COMPILER="${CC}" \
-+		CC="${CC}" \
-+		CCC="${CXX}" \
-+		CXX="${CXX}" \
-+		RANLIB="${RANLIB}" \
-+		NATIVE_CC="${BUILD_CC}" \
-+		NATIVE_FLAGS="${BUILD_CFLAGS}"
-+}
-+
-+do_install() {
-+	oe_runmake -C mozilla/security/nss \
-+		install \
-+		MOZILLA_CLIENT=1 \
-+		BUILD_OPT=1 \
-+		OS_TARGET=Linux \
-+		OS_TEST="${TARGET_ARCH}" \
-+		NSPR_INCLUDE_DIR="${STAGING_INCDIR}/mozilla/nspr" \
-+		NSPR_LIB_DIR="${STAGING_LIBDIR}" \
-+		NS_USE_GCC=1 \
-+		NSS_USE_SYSTEM_SQLITE=1 \
-+		NSS_ENABLE_ECC=1 \
-+		SOURCE_LIB_DIR="${TD}/${libdir}" \
-+		SOURCE_BIN_DIR="${TD}/${bindir}"
-+
-+	install -d ${D}/${libdir}/nss
-+
-+	for shared_lib in ${TD}/${libdir}/*.so.*
-+	do
-+		cp $shared_lib ${D}/${libdir}
-+		ln -sf $(basename $shared_lib) ${D}/${libdir}/$(basename $shared_lib .1oe)
-+	done
-+
-+	install -d ${D}/${includedir}/mozilla/nss
-+	install -m 644 -t ${D}/${includedir}/mozilla/nss mozilla/dist/public/nss/*
-+
-+	for static_lib in ${TD}/${libdir}/*.a
-+	do
-+		oe_libinstall -C ${TD}/${libdir} `basename $static_lib .a` ${D}/${libdir}
-+	done
-+
-+	install -d ${D}/${bindir}
-+	for binary in ${TD}/${bindir}/*
-+	do
-+		install -m 755 -t ${D}/${bindir} $binary
-+	done
-+
-+	install -d ${D}${libdir}/pkgconfig/
-+	sed 's/@VERSION@/${PV}/' ${WORKDIR}/nss.pc.in > ${D}${libdir}/pkgconfig/nss.pc
-+
-+}
-+
-+FILES_${PN} += "${libdir}/lib*.so"
--- 
-1.7.1
+--_000_D5AB6E638E5A3E4B8F4406B113A5A19A504DCCE1shsmsx501ccrcor_
+Content-Type: text/html; charset="gb2312"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:x=3D"urn:schemas-microsoft-com:office:excel" xmlns:m=3D"http://schema=
+s.microsoft.com/office/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-html=
+40"><head><meta http-equiv=3DContent-Type content=3D"text/html; charset=3Dg=
+b2312"><meta name=3DGenerator content=3D"Microsoft Word 12 (filtered medium=
+)"><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:=CB=CE=CC=E5;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@=CB=CE=CC=E5";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	font-size:10.5pt;
+	font-family:"Calibri","sans-serif";}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+p.MsoPlainText, li.MsoPlainText, div.MsoPlainText
+	{mso-style-priority:99;
+	mso-style-link:"Plain Text Char";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:10.5pt;
+	font-family:"Calibri","sans-serif";}
+span.PlainTextChar
+	{mso-style-name:"Plain Text Char";
+	mso-style-priority:99;
+	mso-style-link:"Plain Text";
+	font-family:"Calibri","sans-serif";}
+.MsoChpDefault
+	{mso-style-type:export-only;}
+/* Page Definitions */
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+/* List Definitions */
+@list l0
+	{mso-list-id:64568002;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-744948306 -738313138 67698713 67698715 67698703 676=
+98713 67698715 67698703 67698713 67698715;}
+@list l0:level1
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:18.0pt;
+	text-indent:-18.0pt;}
+@list l0:level2
+	{mso-level-tab-stop:72.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l0:level3
+	{mso-level-tab-stop:108.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l0:level4
+	{mso-level-tab-stop:144.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l0:level5
+	{mso-level-tab-stop:180.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l0:level6
+	{mso-level-tab-stop:216.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l0:level7
+	{mso-level-tab-stop:252.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l0:level8
+	{mso-level-tab-stop:288.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l0:level9
+	{mso-level-tab-stop:324.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l1
+	{mso-list-id:189103186;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1850528476 -1531018400 67698713 67698715 67698703 67=
+698713 67698715 67698703 67698713 67698715;}
+@list l1:level1
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:18.0pt;
+	text-indent:-18.0pt;}
+@list l1:level2
+	{mso-level-tab-stop:72.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l1:level3
+	{mso-level-tab-stop:108.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l1:level4
+	{mso-level-tab-stop:144.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l1:level5
+	{mso-level-tab-stop:180.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l1:level6
+	{mso-level-tab-stop:216.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l1:level7
+	{mso-level-tab-stop:252.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l1:level8
+	{mso-level-tab-stop:288.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l1:level9
+	{mso-level-tab-stop:324.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l2
+	{mso-list-id:432361630;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1397432424 -731369386 67698713 67698715 67698703 67=
+698713 67698715 67698703 67698713 67698715;}
+@list l2:level1
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:18.0pt;
+	text-indent:-18.0pt;}
+@list l3
+	{mso-list-id:781994273;
+	mso-list-type:hybrid;
+	mso-list-template-ids:627209658 1777373934 67698713 67698715 67698703 6769=
+8713 67698715 67698703 67698713 67698715;}
+@list l3:level1
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:18.0pt;
+	text-indent:-18.0pt;}
+@list l4
+	{mso-list-id:1010987349;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1906337174 1763490080 67698713 67698715 67698703 676=
+98713 67698715 67698703 67698713 67698715;}
+@list l4:level1
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:18.0pt;
+	text-indent:-18.0pt;}
+@list l5
+	{mso-list-id:1687753733;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1608696960 -1499415482 67698713 67698715 67698703 67=
+698713 67698715 67698703 67698713 67698715;}
+@list l5:level1
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:18.0pt;
+	text-indent:-18.0pt;}
+@list l5:level2
+	{mso-level-tab-stop:72.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l5:level3
+	{mso-level-tab-stop:108.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l5:level4
+	{mso-level-tab-stop:144.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l5:level5
+	{mso-level-tab-stop:180.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l5:level6
+	{mso-level-tab-stop:216.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l5:level7
+	{mso-level-tab-stop:252.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l5:level8
+	{mso-level-tab-stop:288.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l5:level9
+	{mso-level-tab-stop:324.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l6
+	{mso-list-id:2108889433;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-261745680 965791710 67698713 67698715 67698703 6769=
+8713 67698715 67698703 67698713 67698715;}
+@list l6:level1
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:18.0pt;
+	text-indent:-18.0pt;}
+@list l6:level2
+	{mso-level-tab-stop:72.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l6:level3
+	{mso-level-tab-stop:108.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l6:level4
+	{mso-level-tab-stop:144.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l6:level5
+	{mso-level-tab-stop:180.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l6:level6
+	{mso-level-tab-stop:216.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l6:level7
+	{mso-level-tab-stop:252.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l6:level8
+	{mso-level-tab-stop:288.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l6:level9
+	{mso-level-tab-stop:324.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]--></head><body lang=3DZH-CN link=3Dblue vli=
+nk=3Dpurple style=3D'text-justify-trim:punctuation'><div class=3DWordSectio=
+n1><p class=3DMsoPlainText><span lang=3DEN-US style=3D'font-size:10.0pt;fon=
+t-family:"Arial","sans-serif"'>Hi all,<o:p></o:p></span></p><p class=3DMsoP=
+lainText><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","=
+sans-serif"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; This is the fullpass test=
+ report for Gold Build 20110318. QA finished all functionality testing and =
+now only stress testing is still on-going. 2 new bugs are found after last =
+test report, and there are totally 5 new bugs found in Gold build testing. =
+RPM query could not work with non-root user. Package information may be mes=
+sed with GPLv3/non-GPLv3 building happened in same folder. Only 17 of total=
+ 542 cases are failed or blocked in our testing, with totally 8 open bugs. =
+The two video performance bugs on n450 and crownbay noemgd are marked as WO=
+NTTFIX and NOTABUG.<o:p></o:p></span></p><p class=3DMsoPlainText style=3D't=
+ext-indent:21.0pt'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family=
+:"Arial","sans-serif"'>For bug fixing, there are 17 bugs are verified as fi=
+xed. The good news is that we have verified all zypper/rpm bugs fixed in th=
+is build, except for only one zypper issue on qemuarm(bug 827). All the ima=
+ges and toolchain tarballs are built out. Audio/video come to work on black=
+sand again. There is no critical/major bug on both real hardware and qemu t=
+argets. 2D &amp; 3D graphics benchmark on sugarbay shows a similar score wi=
+th the result of Intel Graphics 2010Q4 release(Check the attached result fo=
+r detailed score). non-GPLv3 build and sstate could work in QA testing now.=
+ Crownbay emgd and noemgd image could work with only one S3 bug. N450 also =
+has 2 non-critical bugs, which have minor impacts. Jasperforest, as well as=
+ routerstationpro and mpc8315e-rdb, pass the testing without any failure.<o=
+:p></o:p></span></p><p class=3DMsoPlainText style=3D'text-indent:21.0pt'><s=
+pan lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"=
+'>Note: The beagleboard board is broken so we could not perform testing for=
+ this build. LSB test result is in attachment as Xiaofeng sent out previous=
+ly.<o:p></o:p></span></p><p class=3DMsoPlainText><span lang=3DEN-US style=
+=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'><o:p>&nbsp;</o:p></s=
+pan></p><p class=3DMsoPlainText><b><span lang=3DEN-US style=3D'font-size:10=
+.0pt;font-family:"Arial","sans-serif"'>Test Summary<o:p></o:p></span></b></=
+p><p class=3DMsoNormal><b><span lang=3DEN-US style=3D'font-size:10.0pt;font=
+-family:"Arial","sans-serif"'>---------------------------------------<o:p><=
+/o:p></span></b></p><table class=3DMsoNormalTable border=3D0 cellspacing=3D=
+0 cellpadding=3D0 width=3D659 style=3D'width:494.0pt;margin-left:-.75pt;bor=
+der-collapse:collapse'><tr><td width=3D98 style=3D'width:73.5pt;padding:0cm=
+ 0cm 0cm 0cm'></td><td width=3D97 colspan=3D4 style=3D'width:72.6pt;padding=
+:0cm 0cm 0cm 0cm'></td><td width=3D173 colspan=3D6 style=3D'width:129.7pt;p=
+adding:0cm 0cm 0cm 0cm'></td><td width=3D75 style=3D'width:56.05pt;padding:=
+0cm 0cm 0cm 0cm'></td><td width=3D127 colspan=3D2 style=3D'width:95.35pt;pa=
+dding:0cm 0cm 0cm 0cm'></td><td width=3D89 colspan=3D3 style=3D'width:66.8p=
+t;padding:0cm 0cm 0cm 0cm'></td></tr><tr><td width=3D98 style=3D'width:73.5=
+pt;padding:0cm 0cm 0cm 0cm'></td><td width=3D22 colspan=3D2 style=3D'width:=
+16.45pt;padding:0cm 0cm 0cm 0cm'></td><td width=3D75 colspan=3D2 style=3D'w=
+idth:56.15pt;padding:0cm 0cm 0cm 0cm'></td><td width=3D92 colspan=3D3 style=
+=3D'width:68.7pt;padding:0cm 0cm 0cm 0cm'></td><td width=3D66 colspan=3D2 s=
+tyle=3D'width:49.8pt;padding:0cm 0cm 0cm 0cm'></td><td width=3D15 style=3D'=
+width:11.2pt;padding:0cm 0cm 0cm 0cm'></td><td width=3D75 style=3D'width:56=
+.05pt;padding:0cm 0cm 0cm 0cm'></td><td width=3D127 colspan=3D2 style=3D'wi=
+dth:95.35pt;padding:0cm 0cm 0cm 0cm'></td><td width=3D28 colspan=3D2 style=
+=3D'width:21.3pt;padding:0cm 0cm 0cm 0cm'></td><td width=3D61 style=3D'widt=
+h:45.5pt;padding:0cm 0cm 0cm 0cm'></td></tr><tr><td width=3D98 style=3D'wid=
+th:73.5pt;padding:0cm 0cm 0cm 0cm'></td><td width=3D22 colspan=3D2 style=3D=
+'width:16.45pt;padding:0cm 0cm 0cm 0cm'></td><td width=3D18 style=3D'width:=
+13.35pt;padding:0cm 0cm 0cm 0cm'></td><td width=3D57 style=3D'width:42.8pt;=
+padding:0cm 0cm 0cm 0cm'></td><td width=3D82 colspan=3D2 style=3D'width:61.=
+25pt;padding:0cm 0cm 0cm 0cm'></td><td width=3D10 style=3D'width:7.45pt;pad=
+ding:0cm 0cm 0cm 0cm'></td><td width=3D53 style=3D'width:39.8pt;padding:0cm=
+ 0cm 0cm 0cm'></td><td width=3D13 style=3D'width:10.0pt;padding:0cm 0cm 0cm=
+ 0cm'></td><td width=3D15 style=3D'width:11.2pt;padding:0cm 0cm 0cm 0cm'></=
+td><td width=3D75 style=3D'width:56.05pt;padding:0cm 0cm 0cm 0cm'></td><td =
+width=3D85 style=3D'width:64.0pt;padding:0cm 0cm 0cm 0cm'></td><td width=3D=
+42 style=3D'width:31.35pt;padding:0cm 0cm 0cm 0cm'></td><td width=3D28 cols=
+pan=3D2 style=3D'width:21.3pt;padding:0cm 0cm 0cm 0cm'></td><td width=3D61 =
+style=3D'width:45.5pt;padding:0cm 0cm 0cm 0cm'></td></tr><tr style=3D'heigh=
+t:14.25pt'><td width=3D579 nowrap colspan=3D15 style=3D'width:434.1pt;borde=
+r:solid windowtext 1.0pt;border-right:solid black 1.0pt;padding:0cm 5.4pt 0=
+cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-=
+align:center'><b><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"=
+Arial","sans-serif";color:black'>Test Result Summary<o:p></o:p></span></b><=
+/p></td><td style=3D'border:none;padding:0cm 0cm 0cm 0cm' width=3D80 colspa=
+n=3D2><p class=3D'MsoNormal'>&nbsp;</td></tr><tr style=3D'height:14.25pt'><=
+td width=3D108 nowrap colspan=3D2 style=3D'width:81.3pt;border:solid window=
+text 1.0pt;border-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p c=
+lass=3DMsoNormal align=3Dleft style=3D'text-align:left'><b><span lang=3DEN-=
+US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>=
+Component<o:p></o:p></span></b></p></td><td width=3D113 nowrap colspan=3D4 =
+style=3D'width:3.0cm;border-top:none;border-left:none;border-bottom:solid w=
+indowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5=
+.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dleft style=3D'text-align:=
+left'><b><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","=
+sans-serif";color:black'>Target<o:p></o:p></span></b></p></td><td width=3D6=
+5 nowrap colspan=3D2 style=3D'width:48.45pt;border-top:none;border-left:non=
+e;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;=
+padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dle=
+ft style=3D'text-align:left'><b><span lang=3DEN-US style=3D'font-size:10.0p=
+t;font-family:"Arial","sans-serif";color:black'>Status<o:p></o:p></span></b=
+></p></td><td width=3D292 colspan=3D7 style=3D'width:219.3pt;border-top:non=
+e;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid =
+windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMso=
+Normal align=3Dleft style=3D'text-align:left'><b><span lang=3DEN-US style=
+=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>Comments=
+<o:p></o:p></span></b></p></td><td style=3D'border:none;padding:0cm 0cm 0cm=
+ 0cm' width=3D80 colspan=3D2><p class=3D'MsoNormal'>&nbsp;</td></tr><tr sty=
+le=3D'height:39.75pt'><td width=3D108 nowrap colspan=3D2 style=3D'width:81.=
+3pt;border:solid windowtext 1.0pt;border-top:none;padding:0cm 5.4pt 0cm 5.4=
+pt;height:39.75pt'><p class=3DMsoNormal align=3Dleft style=3D'text-align:le=
+ft'><b><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sa=
+ns-serif";color:black'>BSP<o:p></o:p></span></b></p></td><td width=3D113 no=
+wrap colspan=3D4 style=3D'width:3.0cm;border-top:none;border-left:none;bord=
+er-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;paddin=
+g:0cm 5.4pt 0cm 5.4pt;height:39.75pt'><p class=3DMsoNormal align=3Dleft sty=
+le=3D'text-align:left'><span lang=3DEN-US style=3D'font-size:10.0pt;font-fa=
+mily:"Arial","sans-serif";color:black'>SugarBay<o:p></o:p></span></p></td><=
+td width=3D65 nowrap colspan=3D2 style=3D'width:48.45pt;border-top:none;bor=
+der-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windo=
+wtext 1.0pt;background:#92D050;padding:0cm 5.4pt 0cm 5.4pt;height:39.75pt'>=
+<p class=3DMsoNormal align=3Dleft style=3D'text-align:left'><span lang=3DEN=
+-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'=
+>GOOD<o:p></o:p></span></p></td><td width=3D292 colspan=3D7 style=3D'width:=
+219.3pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0=
+pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:3=
+9.75pt'><p class=3DMsoNormal align=3Dleft style=3D'text-align:left'><span l=
+ang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";colo=
+r:black'>Everything runs well; 2D &amp; 3D graphics benchmark shows a simil=
+ar score with Intel Graphics 2010Q4 relase score;<o:p></o:p></span></p></td=
+><td style=3D'border:none;padding:0cm 0cm 0cm 0cm' width=3D80 colspan=3D2><=
+p class=3D'MsoNormal'>&nbsp;</td></tr><tr style=3D'height:25.5pt'><td width=
+=3D108 nowrap colspan=3D2 style=3D'width:81.3pt;border:solid windowtext 1.0=
+pt;border-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:25.5pt'><p class=3DMs=
+oNormal align=3Dleft style=3D'text-align:left'><span style=3D'font-size:10.=
+0pt;font-family:=CB=CE=CC=E5;color:black'>=A1=A1<span lang=3DEN-US><o:p></o=
+:p></span></span></p></td><td width=3D113 nowrap colspan=3D4 style=3D'width=
+:3.0cm;border-top:none;border-left:none;border-bottom:solid windowtext 1.0p=
+t;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:25=
+.5pt'><p class=3DMsoNormal align=3Dleft style=3D'text-align:left'><span lan=
+g=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:=
+black'>CrownBay<o:p></o:p></span></p></td><td width=3D65 nowrap colspan=3D2=
+ style=3D'width:48.45pt;border-top:none;border-left:none;border-bottom:soli=
+d windowtext 1.0pt;border-right:solid windowtext 1.0pt;background:#92D050;p=
+adding:0cm 5.4pt 0cm 5.4pt;height:25.5pt'><p class=3DMsoNormal align=3Dleft=
+ style=3D'text-align:left'><span lang=3DEN-US style=3D'font-size:10.0pt;fon=
+t-family:"Arial","sans-serif";color:black'>GOOD<o:p></o:p></span></p></td><=
+td width=3D292 colspan=3D7 style=3D'width:219.3pt;border-top:none;border-le=
+ft:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext =
+1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:25.5pt'><p class=3DMsoNormal align=
+=3Dleft style=3D'text-align:left'><span lang=3DEN-US style=3D'font-size:10.=
+0pt;font-family:"Arial","sans-serif";color:black'>S3 does not work;<o:p></o=
+:p></span></p></td><td style=3D'border:none;padding:0cm 0cm 0cm 0cm' width=
+=3D80 colspan=3D2><p class=3D'MsoNormal'>&nbsp;</td></tr><tr style=3D'heigh=
+t:26.25pt'><td width=3D108 nowrap colspan=3D2 style=3D'width:81.3pt;border:=
+solid windowtext 1.0pt;border-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:2=
+6.25pt'><p class=3DMsoNormal align=3Dleft style=3D'text-align:left'><span s=
+tyle=3D'font-size:10.0pt;font-family:=CB=CE=CC=E5;color:black'>=A1=A1<span =
+lang=3DEN-US><o:p></o:p></span></span></p></td><td width=3D113 nowrap colsp=
+an=3D4 style=3D'width:3.0cm;border-top:none;border-left:none;border-bottom:=
+solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4p=
+t 0cm 5.4pt;height:26.25pt'><p class=3DMsoNormal align=3Dleft style=3D'text=
+-align:left'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Aria=
+l","sans-serif";color:black'>JasperForest<o:p></o:p></span></p></td><td wid=
+th=3D65 nowrap colspan=3D2 style=3D'width:48.45pt;border-top:none;border-le=
+ft:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext =
+1.0pt;background:#92D050;padding:0cm 5.4pt 0cm 5.4pt;height:26.25pt'><p cla=
+ss=3DMsoNormal align=3Dleft style=3D'text-align:left'><span lang=3DEN-US st=
+yle=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>GOOD<=
+o:p></o:p></span></p></td><td width=3D292 colspan=3D7 style=3D'width:219.3p=
+t;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;bor=
+der-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:26.25pt=
+'><p class=3DMsoNormal align=3Dleft style=3D'text-align:left'><span lang=3D=
+EN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:blac=
+k'>Everything runs well<o:p></o:p></span></p></td><td style=3D'border:none;=
+padding:0cm 0cm 0cm 0cm' width=3D80 colspan=3D2><p class=3D'MsoNormal'>&nbs=
+p;</td></tr><tr style=3D'height:36.75pt'><td width=3D108 nowrap colspan=3D2=
+ style=3D'width:81.3pt;border:solid windowtext 1.0pt;border-top:none;paddin=
+g:0cm 5.4pt 0cm 5.4pt;height:36.75pt'><p class=3DMsoNormal align=3Dleft sty=
+le=3D'text-align:left'><span style=3D'font-size:10.0pt;font-family:=CB=CE=
+=CC=E5;color:black'>=A1=A1<span lang=3DEN-US><o:p></o:p></span></span></p><=
+/td><td width=3D113 nowrap colspan=3D4 style=3D'width:3.0cm;border-top:none=
+;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid w=
+indowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:36.75pt'><p class=3DMsoN=
+ormal align=3Dleft style=3D'text-align:left'><span lang=3DEN-US style=3D'fo=
+nt-size:10.0pt;font-family:"Arial","sans-serif";color:black'>Blacksand<o:p>=
+</o:p></span></p></td><td width=3D65 nowrap colspan=3D2 style=3D'width:48.4=
+5pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;b=
+order-right:solid windowtext 1.0pt;background:#92D050;padding:0cm 5.4pt 0cm=
+ 5.4pt;height:36.75pt'><p class=3DMsoNormal align=3Dleft style=3D'text-alig=
+n:left'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","s=
+ans-serif";color:black'>GOOD<o:p></o:p></span></p></td><td width=3D292 cols=
+pan=3D7 style=3D'width:219.3pt;border-top:none;border-left:none;border-bott=
+om:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5=
+.4pt 0cm 5.4pt;height:36.75pt'><p class=3DMsoNormal align=3Dleft style=3D't=
+ext-align:left'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"A=
+rial","sans-serif";color:black'>xuser has no privilege to run rpm query; S3=
+ does not work;<o:p></o:p></span></p></td><td style=3D'border:none;padding:=
+0cm 0cm 0cm 0cm' width=3D80 colspan=3D2><p class=3D'MsoNormal'>&nbsp;</td><=
+/tr><tr style=3D'height:24.75pt'><td width=3D108 nowrap colspan=3D2 style=
+=3D'width:81.3pt;border:solid windowtext 1.0pt;border-top:none;padding:0cm =
+5.4pt 0cm 5.4pt;height:24.75pt'><p class=3DMsoNormal align=3Dleft style=3D'=
+text-align:left'><span style=3D'font-size:10.0pt;font-family:=CB=CE=CC=E5;c=
+olor:black'>=A1=A1<span lang=3DEN-US><o:p></o:p></span></span></p></td><td =
+width=3D113 nowrap colspan=3D4 style=3D'width:3.0cm;border-top:none;border-=
+left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtex=
+t 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:24.75pt'><p class=3DMsoNormal al=
+ign=3Dleft style=3D'text-align:left'><span lang=3DEN-US style=3D'font-size:=
+10.0pt;font-family:"Arial","sans-serif";color:black'>Beagleboard<o:p></o:p>=
+</span></p></td><td width=3D65 nowrap colspan=3D2 style=3D'width:48.45pt;bo=
+rder-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-=
+right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:24.75pt'><p=
+ class=3DMsoNormal align=3Dleft style=3D'text-align:left'><span lang=3DEN-U=
+S style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>N=
+/A<o:p></o:p></span></p></td><td width=3D292 colspan=3D7 style=3D'width:219=
+.3pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;=
+border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:24.7=
+5pt'><p class=3DMsoNormal align=3Dleft style=3D'text-align:left'><span lang=
+=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:b=
+lack'>No test because the board is broken <o:p></o:p></span></p></td><td st=
+yle=3D'border:none;padding:0cm 0cm 0cm 0cm' width=3D80 colspan=3D2><p class=
+=3D'MsoNormal'>&nbsp;</td></tr><tr style=3D'height:26.25pt'><td width=3D108=
+ nowrap colspan=3D2 style=3D'width:81.3pt;border:solid windowtext 1.0pt;bor=
+der-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:26.25pt'><p class=3DMsoNorm=
+al align=3Dleft style=3D'text-align:left'><span style=3D'font-size:10.0pt;f=
+ont-family:=CB=CE=CC=E5;color:black'>=A1=A1<span lang=3DEN-US><o:p></o:p></=
+span></span></p></td><td width=3D113 nowrap colspan=3D4 style=3D'width:3.0c=
+m;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;bor=
+der-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:26.25pt=
+'><p class=3DMsoNormal align=3Dleft style=3D'text-align:left'><span lang=3D=
+EN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:blac=
+k'>Routerstationpro<o:p></o:p></span></p></td><td width=3D65 nowrap colspan=
+=3D2 style=3D'width:48.45pt;border-top:none;border-left:none;border-bottom:=
+solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;background:#92D0=
+50;padding:0cm 5.4pt 0cm 5.4pt;height:26.25pt'><p class=3DMsoNormal align=
+=3Dleft style=3D'text-align:left'><span lang=3DEN-US style=3D'font-size:10.=
+0pt;font-family:"Arial","sans-serif";color:black'>GOOD<o:p></o:p></span></p=
+></td><td width=3D292 colspan=3D7 style=3D'width:219.3pt;border-top:none;bo=
+rder-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid wind=
+owtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:26.25pt'><p class=3DMsoNorm=
+al align=3Dleft style=3D'text-align:left'><span lang=3DEN-US style=3D'font-=
+size:10.0pt;font-family:"Arial","sans-serif";color:black'>Everything runs w=
+ell<o:p></o:p></span></p></td><td style=3D'border:none;padding:0cm 0cm 0cm =
+0cm' width=3D80 colspan=3D2><p class=3D'MsoNormal'>&nbsp;</td></tr><tr styl=
+e=3D'height:26.25pt'><td width=3D108 nowrap colspan=3D2 style=3D'width:81.3=
+pt;border:solid windowtext 1.0pt;border-top:none;padding:0cm 5.4pt 0cm 5.4p=
+t;height:26.25pt'><p class=3DMsoNormal align=3Dleft style=3D'text-align:lef=
+t'><span style=3D'font-size:10.0pt;font-family:=CB=CE=CC=E5;color:black'>=
+=A1=A1<span lang=3DEN-US><o:p></o:p></span></span></p></td><td width=3D113 =
+nowrap colspan=3D4 style=3D'width:3.0cm;border-top:none;border-left:none;bo=
+rder-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padd=
+ing:0cm 5.4pt 0cm 5.4pt;height:26.25pt'><p class=3DMsoNormal align=3Dleft s=
+tyle=3D'text-align:left'><span lang=3DEN-US style=3D'font-size:10.0pt;font-=
+family:"Arial","sans-serif";color:black'>Mpc8315e-rdb<o:p></o:p></span></p>=
+</td><td width=3D65 nowrap colspan=3D2 style=3D'width:48.45pt;border-top:no=
+ne;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid=
+ windowtext 1.0pt;background:#92D050;padding:0cm 5.4pt 0cm 5.4pt;height:26.=
+25pt'><p class=3DMsoNormal align=3Dleft style=3D'text-align:left'><span lan=
+g=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:=
+black'>GOOD<o:p></o:p></span></p></td><td width=3D292 colspan=3D7 style=3D'=
+width:219.3pt;border-top:none;border-left:none;border-bottom:solid windowte=
+xt 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;he=
+ight:26.25pt'><p class=3DMsoNormal align=3Dleft style=3D'text-align:left'><=
+span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif=
+";color:black'>Everything runs well<o:p></o:p></span></p></td><td style=3D'=
+border:none;padding:0cm 0cm 0cm 0cm' width=3D80 colspan=3D2><p class=3D'Mso=
+Normal'>&nbsp;</td></tr><tr style=3D'height:26.25pt'><td width=3D108 nowrap=
+ colspan=3D2 style=3D'width:81.3pt;border:solid windowtext 1.0pt;border-top=
+:none;padding:0cm 5.4pt 0cm 5.4pt;height:26.25pt'><p class=3DMsoNormal alig=
+n=3Dleft style=3D'text-align:left'><b><span lang=3DEN-US style=3D'font-size=
+:10.0pt;font-family:"Arial","sans-serif";color:black'>QEMU<o:p></o:p></span=
+></b></p></td><td width=3D113 nowrap colspan=3D4 style=3D'width:3.0cm;borde=
+r-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-rig=
+ht:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:26.25pt'><p cl=
+ass=3DMsoNormal align=3Dleft style=3D'text-align:left'><span lang=3DEN-US s=
+tyle=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>qemu=
+x86<o:p></o:p></span></p></td><td width=3D65 nowrap colspan=3D2 style=3D'wi=
+dth:48.45pt;border-top:none;border-left:none;border-bottom:solid windowtext=
+ 1.0pt;border-right:solid windowtext 1.0pt;background:#92D050;padding:0cm 5=
+.4pt 0cm 5.4pt;height:26.25pt'><p class=3DMsoNormal align=3Dleft style=3D't=
+ext-align:left'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"A=
+rial","sans-serif";color:black'>GOOD<o:p></o:p></span></p></td><td width=3D=
+292 colspan=3D7 style=3D'width:219.3pt;border-top:none;border-left:none;bor=
+der-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;paddi=
+ng:0cm 5.4pt 0cm 5.4pt;height:26.25pt'><p class=3DMsoNormal align=3Dleft st=
+yle=3D'text-align:left'><span lang=3DEN-US style=3D'font-size:10.0pt;font-f=
+amily:"Arial","sans-serif";color:black'>Everything runs well<o:p></o:p></sp=
+an></p></td><td style=3D'border:none;padding:0cm 0cm 0cm 0cm' width=3D80 co=
+lspan=3D2><p class=3D'MsoNormal'>&nbsp;</td></tr><tr style=3D'height:26.25p=
+t'><td width=3D108 nowrap colspan=3D2 style=3D'width:81.3pt;border:solid wi=
+ndowtext 1.0pt;border-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:26.25pt'>=
+<p class=3DMsoNormal align=3Dleft style=3D'text-align:left'><span style=3D'=
+font-size:10.0pt;font-family:=CB=CE=CC=E5;color:black'>=A1=A1<span lang=3DE=
+N-US><o:p></o:p></span></span></p></td><td width=3D113 nowrap colspan=3D4 s=
+tyle=3D'width:3.0cm;border-top:none;border-left:none;border-bottom:solid wi=
+ndowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.=
+4pt;height:26.25pt'><p class=3DMsoNormal align=3Dleft style=3D'text-align:l=
+eft'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans=
+-serif";color:black'>qemux86-64<o:p></o:p></span></p></td><td width=3D65 no=
+wrap colspan=3D2 style=3D'width:48.45pt;border-top:none;border-left:none;bo=
+rder-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;back=
+ground:#92D050;padding:0cm 5.4pt 0cm 5.4pt;height:26.25pt'><p class=3DMsoNo=
+rmal align=3Dleft style=3D'text-align:left'><span lang=3DEN-US style=3D'fon=
+t-size:10.0pt;font-family:"Arial","sans-serif";color:black'>GOOD<o:p></o:p>=
+</span></p></td><td width=3D292 colspan=3D7 style=3D'width:219.3pt;border-t=
+op:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:=
+solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:26.25pt'><p class=
+=3DMsoNormal align=3Dleft style=3D'text-align:left'><span lang=3DEN-US styl=
+e=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>Everyth=
+ing runs well<o:p></o:p></span></p></td><td style=3D'border:none;padding:0c=
+m 0cm 0cm 0cm' width=3D80 colspan=3D2><p class=3D'MsoNormal'>&nbsp;</td></t=
+r><tr style=3D'height:33.75pt'><td width=3D108 nowrap colspan=3D2 style=3D'=
+width:81.3pt;border:solid windowtext 1.0pt;border-top:none;padding:0cm 5.4p=
+t 0cm 5.4pt;height:33.75pt'><p class=3DMsoNormal align=3Dleft style=3D'text=
+-align:left'><span style=3D'font-size:10.0pt;font-family:=CB=CE=CC=E5;color=
+:black'>=A1=A1<span lang=3DEN-US><o:p></o:p></span></span></p></td><td widt=
+h=3D113 nowrap colspan=3D4 style=3D'width:3.0cm;border-top:none;border-left=
+:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.=
+0pt;padding:0cm 5.4pt 0cm 5.4pt;height:33.75pt'><p class=3DMsoNormal align=
+=3Dleft style=3D'text-align:left'><span lang=3DEN-US style=3D'font-size:10.=
+0pt;font-family:"Arial","sans-serif";color:black'>qemuarm<o:p></o:p></span>=
+</p></td><td width=3D65 nowrap colspan=3D2 style=3D'width:48.45pt;border-to=
+p:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:s=
+olid windowtext 1.0pt;background:#92D050;padding:0cm 5.4pt 0cm 5.4pt;height=
+:33.75pt'><p class=3DMsoNormal align=3Dleft style=3D'text-align:left'><span=
+ lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";co=
+lor:black'>GOOD<o:p></o:p></span></p></td><td width=3D292 colspan=3D7 style=
+=3D'width:219.3pt;border-top:none;border-left:none;border-bottom:solid wind=
+owtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4p=
+t;height:33.75pt'><p class=3DMsoNormal align=3Dleft style=3D'text-align:lef=
+t'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-s=
+erif";color:black'>zypper could only show partial packages installed on sys=
+tem;<o:p></o:p></span></p></td><td style=3D'border:none;padding:0cm 0cm 0cm=
+ 0cm' width=3D80 colspan=3D2><p class=3D'MsoNormal'>&nbsp;</td></tr><tr sty=
+le=3D'height:14.25pt'><td width=3D108 nowrap colspan=3D2 style=3D'width:81.=
+3pt;border:solid windowtext 1.0pt;border-top:none;padding:0cm 5.4pt 0cm 5.4=
+pt;height:14.25pt'><p class=3DMsoNormal align=3Dleft style=3D'text-align:le=
+ft'><span style=3D'font-size:10.0pt;font-family:=CB=CE=CC=E5;color:black'>=
+=A1=A1<span lang=3DEN-US><o:p></o:p></span></span></p></td><td width=3D113 =
+nowrap colspan=3D4 style=3D'width:3.0cm;border-top:none;border-left:none;bo=
+rder-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padd=
+ing:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dleft s=
+tyle=3D'text-align:left'><span lang=3DEN-US style=3D'font-size:10.0pt;font-=
+family:"Arial","sans-serif";color:black'>qemuppc<o:p></o:p></span></p></td>=
+<td width=3D65 nowrap colspan=3D2 style=3D'width:48.45pt;border-top:none;bo=
+rder-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid wind=
+owtext 1.0pt;background:#92D050;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'=
+><p class=3DMsoNormal align=3Dleft style=3D'text-align:left'><span lang=3DE=
+N-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black=
+'>GOOD<o:p></o:p></span></p></td><td width=3D292 colspan=3D7 style=3D'width=
+:219.3pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.=
+0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:=
+14.25pt'><p class=3DMsoNormal align=3Dleft style=3D'text-align:left'><span =
+lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";col=
+or:black'>gcc may segfault;<o:p></o:p></span></p></td><td style=3D'border:n=
+one;padding:0cm 0cm 0cm 0cm' width=3D80 colspan=3D2><p class=3D'MsoNormal'>=
+&nbsp;</td></tr><tr style=3D'height:26.25pt'><td width=3D108 nowrap colspan=
+=3D2 style=3D'width:81.3pt;border:solid windowtext 1.0pt;border-top:none;pa=
+dding:0cm 5.4pt 0cm 5.4pt;height:26.25pt'><p class=3DMsoNormal align=3Dleft=
+ style=3D'text-align:left'><span style=3D'font-size:10.0pt;font-family:=CB=
+=CE=CC=E5;color:black'>=A1=A1<span lang=3DEN-US><o:p></o:p></span></span></=
+p></td><td width=3D113 nowrap colspan=3D4 style=3D'width:3.0cm;border-top:n=
+one;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:soli=
+d windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:26.25pt'><p class=3DM=
+soNormal align=3Dleft style=3D'text-align:left'><span lang=3DEN-US style=3D=
+'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>qemumips<o:=
+p></o:p></span></p></td><td width=3D65 nowrap colspan=3D2 style=3D'width:48=
+.45pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt=
+;border-right:solid windowtext 1.0pt;background:#92D050;padding:0cm 5.4pt 0=
+cm 5.4pt;height:26.25pt'><p class=3DMsoNormal align=3Dleft style=3D'text-al=
+ign:left'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial",=
+"sans-serif";color:black'>GOOD<o:p></o:p></span></p></td><td width=3D292 co=
+lspan=3D7 style=3D'width:219.3pt;border-top:none;border-left:none;border-bo=
+ttom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm=
+ 5.4pt 0cm 5.4pt;height:26.25pt'><p class=3DMsoNormal align=3Dleft style=3D=
+'text-align:left'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:=
+"Arial","sans-serif";color:black'>Everything runs well<o:p></o:p></span></p=
+></td><td style=3D'border:none;padding:0cm 0cm 0cm 0cm' width=3D80 colspan=
+=3D2><p class=3D'MsoNormal'>&nbsp;</td></tr><tr style=3D'height:27.75pt'><t=
+d width=3D108 nowrap colspan=3D2 style=3D'width:81.3pt;border:solid windowt=
+ext 1.0pt;border-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:27.75pt'><p cl=
+ass=3DMsoNormal align=3Dleft style=3D'text-align:left'><b><span lang=3DEN-U=
+S style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>S=
+DK<o:p></o:p></span></b></p></td><td width=3D113 nowrap colspan=3D4 style=
+=3D'width:3.0cm;border-top:none;border-left:none;border-bottom:solid window=
+text 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;=
+height:27.75pt'><p class=3DMsoNormal align=3Dleft style=3D'text-align:left'=
+><span style=3D'font-family:=CB=CE=CC=E5;color:black'>=A1=A1</span><span la=
+ng=3DEN-US style=3D'color:black'><o:p></o:p></span></p></td><td width=3D65 =
+nowrap colspan=3D2 style=3D'width:48.45pt;border-top:none;border-left:none;=
+border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;ba=
+ckground:#FFC000;padding:0cm 5.4pt 0cm 5.4pt;height:27.75pt'><p class=3DMso=
+Normal align=3Dleft style=3D'text-align:left'><span lang=3DEN-US style=3D'f=
+ont-size:10.0pt;font-family:"Arial","sans-serif";color:black'>Buggy<o:p></o=
+:p></span></p></td><td width=3D292 colspan=3D7 style=3D'width:219.3pt;borde=
+r-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-rig=
+ht:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:27.75pt'><p cl=
+ass=3DMsoNormal align=3Dleft style=3D'text-align:left'><span lang=3DEN-US s=
+tyle=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>unfs=
+ does not work with qemuppc<o:p></o:p></span></p></td><td style=3D'border:n=
+one;padding:0cm 0cm 0cm 0cm' width=3D80 colspan=3D2><p class=3D'MsoNormal'>=
+&nbsp;</td></tr><tr style=3D'height:25.5pt'><td width=3D108 nowrap colspan=
+=3D2 style=3D'width:81.3pt;border:solid windowtext 1.0pt;border-top:none;pa=
+dding:0cm 5.4pt 0cm 5.4pt;height:25.5pt'><p class=3DMsoNormal align=3Dleft =
+style=3D'text-align:left'><b><span lang=3DEN-US style=3D'font-size:10.0pt;f=
+ont-family:"Arial","sans-serif";color:black'>Documentation<o:p></o:p></span=
+></b></p></td><td width=3D113 nowrap colspan=3D4 style=3D'width:3.0cm;borde=
+r-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-rig=
+ht:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:25.5pt'><p cla=
+ss=3DMsoNormal align=3Dleft style=3D'text-align:left'><span style=3D'font-f=
+amily:=CB=CE=CC=E5;color:black'>=A1=A1</span><span lang=3DEN-US style=3D'co=
+lor:black'><o:p></o:p></span></p></td><td width=3D65 nowrap colspan=3D2 sty=
+le=3D'width:48.45pt;border-top:none;border-left:none;border-bottom:solid wi=
+ndowtext 1.0pt;border-right:solid windowtext 1.0pt;background:#92D050;paddi=
+ng:0cm 5.4pt 0cm 5.4pt;height:25.5pt'><p class=3DMsoNormal align=3Dleft sty=
+le=3D'text-align:left'><span lang=3DEN-US style=3D'font-size:10.0pt;font-fa=
+mily:"Arial","sans-serif";color:black'>GOOD<o:p></o:p></span></p></td><td w=
+idth=3D292 colspan=3D7 style=3D'width:219.3pt;border-top:none;border-left:n=
+one;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0p=
+t;padding:0cm 5.4pt 0cm 5.4pt;height:25.5pt'><p class=3DMsoNormal align=3Dl=
+eft style=3D'text-align:left'><span lang=3DEN-US style=3D'font-size:10.0pt;=
+font-family:"Arial","sans-serif";color:black'>Poky handbook is tried and no=
+ issue found<o:p></o:p></span></p></td><td style=3D'border:none;padding:0cm=
+ 0cm 0cm 0cm' width=3D80 colspan=3D2><p class=3D'MsoNormal'>&nbsp;</td></tr=
+><tr style=3D'height:17.25pt'><td width=3D108 nowrap colspan=3D2 style=3D'w=
+idth:81.3pt;border-top:none;border-left:solid windowtext 1.0pt;border-botto=
+m:solid windowtext 1.0pt;border-right:none;padding:0cm 5.4pt 0cm 5.4pt;heig=
+ht:17.25pt'><p class=3DMsoNormal align=3Dleft style=3D'text-align:left'><b>=
+<span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-seri=
+f";color:black'>Compliance Test<o:p></o:p></span></b></p></td><td width=3D1=
+13 nowrap colspan=3D4 style=3D'width:3.0cm;border:solid windowtext 1.0pt;bo=
+rder-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:17.25pt'><p class=3DMsoNor=
+mal align=3Dleft style=3D'text-align:left'><span style=3D'font-family:=CB=
+=CE=CC=E5;color:black'>=A1=A1</span><span lang=3DEN-US style=3D'color:black=
+'><o:p></o:p></span></p></td><td width=3D65 nowrap colspan=3D2 style=3D'wid=
+th:48.45pt;border-top:none;border-left:none;border-bottom:solid windowtext =
+1.0pt;border-right:solid windowtext 1.0pt;background:#92D050;padding:0cm 5.=
+4pt 0cm 5.4pt;height:17.25pt'><p class=3DMsoNormal align=3Dleft style=3D'te=
+xt-align:left'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Ar=
+ial","sans-serif";color:black'>GOOD<o:p></o:p></span></p></td><td width=3D2=
+92 colspan=3D7 style=3D'width:219.3pt;border-top:none;border-left:none;bord=
+er-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;paddin=
+g:0cm 5.4pt 0cm 5.4pt;height:17.25pt'><p class=3DMsoNormal align=3Dleft sty=
+le=3D'text-align:left'><span lang=3DEN-US style=3D'font-size:10.0pt;font-fa=
+mily:"Arial","sans-serif";color:black'>Testing is finished, but still needs=
+ analysis. No critical bug found till now<o:p></o:p></span></p></td><td sty=
+le=3D'border:none;padding:0cm 0cm 0cm 0cm' width=3D80 colspan=3D2><p class=
+=3D'MsoNormal'>&nbsp;</td></tr><tr style=3D'height:18.0pt'><td width=3D108 =
+nowrap colspan=3D2 style=3D'width:81.3pt;border:solid windowtext 1.0pt;bord=
+er-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:18.0pt'><p class=3DMsoNormal=
+ align=3Dleft style=3D'text-align:left'><b><span lang=3DEN-US style=3D'font=
+-size:10.0pt;font-family:"Arial","sans-serif";color:black'>Poky<o:p></o:p><=
+/span></b></p></td><td width=3D113 nowrap colspan=3D4 style=3D'width:3.0cm;=
+border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;borde=
+r-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:18.0pt'><=
+p class=3DMsoNormal align=3Dleft style=3D'text-align:left'><span style=3D'f=
+ont-family:=CB=CE=CC=E5;color:black'>=A1=A1</span><span lang=3DEN-US style=
+=3D'color:black'><o:p></o:p></span></p></td><td width=3D65 nowrap colspan=
+=3D2 style=3D'width:48.45pt;border-top:none;border-left:none;border-bottom:=
+solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;background:#92D0=
+50;padding:0cm 5.4pt 0cm 5.4pt;height:18.0pt'><p class=3DMsoNormal align=3D=
+left style=3D'text-align:left'><span lang=3DEN-US style=3D'font-size:10.0pt=
+;font-family:"Arial","sans-serif";color:black'>GOOD<o:p></o:p></span></p></=
+td><td width=3D292 colspan=3D7 style=3D'width:219.3pt;border-top:none;borde=
+r-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowt=
+ext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:18.0pt'><p class=3DMsoNormal a=
+lign=3Dleft style=3D'text-align:left'><span lang=3DEN-US style=3D'font-size=
+:10.0pt;font-family:"Arial","sans-serif";color:black'>non-GPLv3 build and s=
+state work well now;<o:p></o:p></span></p></td><td style=3D'border:none;pad=
+ding:0cm 0cm 0cm 0cm' width=3D80 colspan=3D2><p class=3D'MsoNormal'>&nbsp;<=
+/td></tr><tr style=3D'height:17.25pt'><td width=3D108 nowrap colspan=3D2 st=
+yle=3D'width:81.3pt;border-top:none;border-left:solid windowtext 1.0pt;bord=
+er-bottom:solid windowtext 1.0pt;border-right:none;padding:0cm 5.4pt 0cm 5.=
+4pt;height:17.25pt'><p class=3DMsoNormal align=3Dleft style=3D'text-align:l=
+eft'><b><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","s=
+ans-serif";color:black'>Stress Test<o:p></o:p></span></b></p></td><td width=
+=3D113 nowrap colspan=3D4 style=3D'width:3.0cm;border:solid windowtext 1.0p=
+t;border-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:17.25pt'><p class=3DMs=
+oNormal align=3Dleft style=3D'text-align:left'><span style=3D'font-family:=
+=CB=CE=CC=E5;color:black'>=A1=A1</span><span lang=3DEN-US style=3D'color:bl=
+ack'><o:p></o:p></span></p></td><td width=3D65 nowrap colspan=3D2 style=3D'=
+width:48.45pt;border-top:none;border-left:none;border-bottom:solid windowte=
+xt 1.0pt;border-right:solid windowtext 1.0pt;background:#92D050;padding:0cm=
+ 5.4pt 0cm 5.4pt;height:17.25pt'><p class=3DMsoNormal align=3Dleft style=3D=
+'text-align:left'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:=
+"Arial","sans-serif";color:black'>GOOD<o:p></o:p></span></p></td><td width=
+=3D292 colspan=3D7 style=3D'width:219.3pt;border-top:none;border-left:none;=
+border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;pa=
+dding:0cm 5.4pt 0cm 5.4pt;height:17.25pt'><p class=3DMsoNormal align=3Dleft=
+ style=3D'text-align:left'><span lang=3DEN-US style=3D'font-size:10.0pt;fon=
+t-family:"Arial","sans-serif";color:black'>Testing is not finished yet, has=
+ no issue till now<o:p></o:p></span></p></td><td style=3D'border:none;paddi=
+ng:0cm 0cm 0cm 0cm' width=3D80 colspan=3D2><p class=3D'MsoNormal'>&nbsp;</t=
+d></tr><tr height=3D0><td width=3D98 style=3D'border:none'></td><td width=
+=3D10 style=3D'border:none'></td><td width=3D12 style=3D'border:none'></td>=
+<td width=3D18 style=3D'border:none'></td><td width=3D57 style=3D'border:no=
+ne'></td><td width=3D27 style=3D'border:none'></td><td width=3D55 style=3D'=
+border:none'></td><td width=3D10 style=3D'border:none'></td><td width=3D53 =
+style=3D'border:none'></td><td width=3D13 style=3D'border:none'></td><td wi=
+dth=3D15 style=3D'border:none'></td><td width=3D75 style=3D'border:none'></=
+td><td width=3D85 style=3D'border:none'></td><td width=3D42 style=3D'border=
+:none'></td><td width=3D9 style=3D'border:none'></td><td width=3D19 style=
+=3D'border:none'></td><td width=3D61 style=3D'border:none'></td></tr></tabl=
+e><p class=3DMsoNormal><b><span lang=3DEN-US style=3D'font-size:10.0pt;font=
+-family:"Arial","sans-serif"'><o:p>&nbsp;</o:p></span></b></p><table class=
+=3DMsoNormalTable border=3D0 cellspacing=3D0 cellpadding=3D0 width=3D515 st=
+yle=3D'width:386.15pt;margin-left:-.75pt;border-collapse:collapse'><tr styl=
+e=3D'height:14.25pt'><td width=3D73 nowrap style=3D'width:55.0pt;background=
+:red;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=
+=3Dcenter style=3D'text-align:center'><span style=3D'font-size:10.0pt;font-=
+family:=CB=CE=CC=E5;color:black'>=A1=A1<span lang=3DEN-US><o:p></o:p></span=
+></span></p></td><td width=3D442 nowrap style=3D'width:331.15pt;padding:0cm=
+ 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dleft style=3D=
+'text-align:left'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:=
+"Arial","sans-serif";color:black'>Critical bugs, more than 50% test cases a=
+re blocked<o:p></o:p></span></p></td></tr><tr style=3D'height:14.25pt'><td =
+width=3D73 nowrap style=3D'width:55.0pt;background:#9BBB59;padding:0cm 5.4p=
+t 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'te=
+xt-align:center'><span style=3D'font-size:10.0pt;font-family:=CB=CE=CC=E5;c=
+olor:black'>=A1=A1<span lang=3DEN-US><o:p></o:p></span></span></p></td><td =
+width=3D442 nowrap style=3D'width:331.15pt;padding:0cm 5.4pt 0cm 5.4pt;heig=
+ht:14.25pt'><p class=3DMsoNormal align=3Dleft style=3D'text-align:left'><sp=
+an lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";=
+color:black'>Only Normal, Minor or Enhancement bugs, less than 10% test cas=
+es failed<o:p></o:p></span></p></td></tr><tr style=3D'height:14.25pt'><td w=
+idth=3D73 nowrap style=3D'width:55.0pt;background:#FFC000;padding:0cm 5.4pt=
+ 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'tex=
+t-align:center'><span style=3D'font-size:10.0pt;font-family:=CB=CE=CC=E5;co=
+lor:black'>=A1=A1<span lang=3DEN-US><o:p></o:p></span></span></p></td><td w=
+idth=3D442 nowrap style=3D'width:331.15pt;padding:0cm 5.4pt 0cm 5.4pt;heigh=
+t:14.25pt'><p class=3DMsoNormal align=3Dleft style=3D'text-align:left'><spa=
+n lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";c=
+olor:black'>Normal, Major and Critical bugs, more than 10% test cases faile=
+d<o:p></o:p></span></p></td></tr></table><p class=3DMsoNormal><b><span lang=
+=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'><o:p>&=
+nbsp;</o:p></span></b></p><table class=3DMsoNormalTable border=3D0 cellspac=
+ing=3D0 cellpadding=3D0 width=3D674 style=3D'width:505.25pt;margin-left:-.7=
+5pt;border-collapse:collapse'><tr><td width=3D72 style=3D'width:54.0pt;padd=
+ing:0cm 0cm 0cm 0cm'></td><td width=3D121 style=3D'width:91.0pt;padding:0cm=
+ 0cm 0cm 0cm'></td><td width=3D72 colspan=3D3 style=3D'width:54.25pt;paddin=
+g:0cm 0cm 0cm 0cm'></td><td width=3D72 colspan=3D3 style=3D'width:54.0pt;pa=
+dding:0cm 0cm 0cm 0cm'></td><td width=3D72 colspan=3D3 style=3D'width:54.0p=
+t;padding:0cm 0cm 0cm 0cm'></td><td width=3D130 colspan=3D4 style=3D'width:=
+97.75pt;padding:0cm 0cm 0cm 0cm'></td><td width=3D3 colspan=3D2 style=3D'wi=
+dth:2.25pt;padding:0cm 0cm 0cm 0cm'></td><td width=3D131 colspan=3D3 style=
+=3D'width:98.0pt;padding:0cm 0cm 0cm 0cm'></td></tr><tr><td width=3D72 styl=
+e=3D'width:54.0pt;padding:0cm 0cm 0cm 0cm'></td><td width=3D121 style=3D'wi=
+dth:91.0pt;padding:0cm 0cm 0cm 0cm'></td><td width=3D29 colspan=3D2 style=
+=3D'width:22.0pt;padding:0cm 0cm 0cm 0cm'></td><td width=3D43 style=3D'widt=
+h:32.25pt;padding:0cm 0cm 0cm 0cm'></td><td width=3D29 colspan=3D2 style=3D=
+'width:21.75pt;padding:0cm 0cm 0cm 0cm'></td><td width=3D43 style=3D'width:=
+32.25pt;padding:0cm 0cm 0cm 0cm'></td><td width=3D29 colspan=3D2 style=3D'w=
+idth:21.75pt;padding:0cm 0cm 0cm 0cm'></td><td width=3D43 style=3D'width:32=
+.25pt;padding:0cm 0cm 0cm 0cm'></td><td width=3D29 colspan=3D2 style=3D'wid=
+th:21.75pt;padding:0cm 0cm 0cm 0cm'></td><td width=3D101 colspan=3D2 style=
+=3D'width:76.0pt;padding:0cm 0cm 0cm 0cm'></td><td width=3D2 style=3D'width=
+:1.5pt;padding:0cm 0cm 0cm 0cm'></td><td width=3D1 style=3D'width:.75pt;pad=
+ding:0cm 0cm 0cm 0cm'></td><td width=3D71 colspan=3D2 style=3D'width:53.55p=
+t;padding:0cm 0cm 0cm 0cm'></td><td width=3D59 style=3D'width:44.45pt;paddi=
+ng:0cm 0cm 0cm 0cm'></td></tr><tr style=3D'height:14.25pt'><td width=3D600 =
+nowrap colspan=3D18 style=3D'width:450.0pt;border:solid windowtext 1.0pt;bo=
+rder-right:solid black 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p=
+ class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><b><span lang=
+=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:b=
+lack'>Detailed Test Result for each component<o:p></o:p></span></b></p></td=
+><td style=3D'border:none;padding:0cm 0cm 0cm 0cm' width=3D74 colspan=3D2><=
+p class=3D'MsoNormal'>&nbsp;</td></tr><tr style=3D'height:39.0pt'><td width=
+=3D199 nowrap colspan=3D3 style=3D'width:149.0pt;border:solid windowtext 1.=
+0pt;border-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:39.0pt'><p class=3DM=
+soNormal align=3Dcenter style=3D'text-align:center'><b><span lang=3DEN-US s=
+tyle=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>Targ=
+et<o:p></o:p></span></b></p></td><td width=3D72 colspan=3D3 style=3D'width:=
+54.0pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0p=
+t;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:39=
+.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><b><s=
+pan lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"=
+;color:black'>Total TCs</span></b><span lang=3DEN-US style=3D'font-size:10.=
+0pt;font-family:"Arial","sans-serif";color:black'> <b><o:p></o:p></b></span=
+></p></td><td width=3D72 colspan=3D3 style=3D'width:54.0pt;border-top:none;=
+border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid wi=
+ndowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:39.0pt'><p class=3DMsoNor=
+mal align=3Dcenter style=3D'text-align:center'><b><span lang=3DEN-US style=
+=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>Not Run<=
+o:p></o:p></span></b></p></td><td width=3D72 colspan=3D3 style=3D'width:54.=
+0pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;b=
+order-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:39.0p=
+t'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><b><span=
+ lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";co=
+lor:black'>Passed</span></b><span lang=3DEN-US style=3D'font-size:10.0pt;fo=
+nt-family:"Arial","sans-serif";color:black'> <b><o:p></o:p></b></span></p><=
+/td><td width=3D106 colspan=3D2 style=3D'width:79.6pt;border-top:none;borde=
+r-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowt=
+ext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:39.0pt'><p class=3DMsoNormal a=
+lign=3Dcenter style=3D'text-align:center'><b><span lang=3DEN-US style=3D'fo=
+nt-size:10.0pt;font-family:"Arial","sans-serif";color:black'>Failed</span><=
+/b><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-s=
+erif";color:black'> <b><o:p></o:p></b></span></p></td><td width=3D79 colspa=
+n=3D4 style=3D'width:59.4pt;border-top:none;border-left:none;border-bottom:=
+solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4p=
+t 0cm 5.4pt;height:39.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'tex=
+t-align:center'><b><span lang=3DEN-US style=3D'font-size:10.0pt;font-family=
+:"Arial","sans-serif";color:black'>Not testable (Blocked)</span></b><span l=
+ang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";colo=
+r:black'> <b><o:p></o:p></b></span></p></td><td style=3D'border:none;paddin=
+g:0cm 0cm 0cm 0cm' width=3D74 colspan=3D2><p class=3D'MsoNormal'>&nbsp;</td=
+></tr><tr style=3D'height:14.25pt'><td width=3D199 nowrap colspan=3D3 style=
+=3D'width:149.0pt;border:solid windowtext 1.0pt;border-top:none;padding:0cm=
+ 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter style=
+=3D'text-align:center'><b><span lang=3DEN-US style=3D'font-size:10.0pt;font=
+-family:"Arial","sans-serif";color:black'>Crownbay emgd Sato-SDK<o:p></o:p>=
+</span></b></p></td><td width=3D72 colspan=3D3 style=3D'width:54.0pt;border=
+-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-righ=
+t:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p cla=
+ss=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-U=
+S style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>5=
+4<o:p></o:p></span></p></td><td width=3D72 colspan=3D3 style=3D'width:54.0p=
+t;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;bor=
+der-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt=
+'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lan=
+g=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:=
+black'>0<o:p></o:p></span></p></td><td width=3D72 colspan=3D3 style=3D'widt=
+h:54.0pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.=
+0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:=
+14.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><s=
+pan lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"=
+;color:#00B050'>51<o:p></o:p></span></p></td><td width=3D106 colspan=3D2 st=
+yle=3D'width:79.6pt;border-top:none;border-left:none;border-bottom:solid wi=
+ndowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.=
+4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align=
+:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","=
+sans-serif";color:red'>1 (bug 882)<o:p></o:p></span></p></td><td width=3D79=
+ colspan=3D4 style=3D'width:59.4pt;border-top:none;border-left:none;border-=
+bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0=
+cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter styl=
+e=3D'text-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-f=
+amily:"Arial","sans-serif";color:red'>2 (bug 882)<o:p></o:p></span></p></td=
+><td style=3D'border:none;padding:0cm 0cm 0cm 0cm' width=3D74 colspan=3D2><=
+p class=3D'MsoNormal'>&nbsp;</td></tr><tr style=3D'height:14.25pt'><td widt=
+h=3D199 nowrap colspan=3D3 style=3D'width:149.0pt;border:solid windowtext 1=
+.0pt;border-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=
+=3DMsoNormal align=3Dcenter style=3D'text-align:center'><b><span lang=3DEN-=
+US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>=
+Crownbay noemgd Sato-SDK<o:p></o:p></span></b></p></td><td width=3D72 colsp=
+an=3D3 style=3D'width:54.0pt;border-top:none;border-left:none;border-bottom=
+:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4=
+pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter style=3D't=
+ext-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:=
+"Arial","sans-serif";color:black'>50<o:p></o:p></span></p></td><td width=3D=
+72 colspan=3D3 style=3D'width:54.0pt;border-top:none;border-left:none;borde=
+r-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding=
+:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter st=
+yle=3D'text-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font=
+-family:"Arial","sans-serif";color:black'>0<o:p></o:p></span></p></td><td w=
+idth=3D72 colspan=3D3 style=3D'width:54.0pt;border-top:none;border-left:non=
+e;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;=
+padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dce=
+nter style=3D'text-align:center'><span lang=3DEN-US style=3D'font-size:10.0=
+pt;font-family:"Arial","sans-serif";color:#00B050'>47<o:p></o:p></span></p>=
+</td><td width=3D106 colspan=3D2 style=3D'width:79.6pt;border-top:none;bord=
+er-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid window=
+text 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal=
+ align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D'fon=
+t-size:10.0pt;font-family:"Arial","sans-serif";color:red'>1 (bug 882)<o:p><=
+/o:p></span></p></td><td width=3D79 colspan=3D4 style=3D'width:59.4pt;borde=
+r-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-rig=
+ht:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p cl=
+ass=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-=
+US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:red'>2 =
+(bug 882)<o:p></o:p></span></p></td><td style=3D'border:none;padding:0cm 0c=
+m 0cm 0cm' width=3D74 colspan=3D2><p class=3D'MsoNormal'>&nbsp;</td></tr><t=
+r style=3D'height:14.25pt'><td width=3D199 nowrap colspan=3D3 style=3D'widt=
+h:149.0pt;border:solid windowtext 1.0pt;border-top:none;padding:0cm 5.4pt 0=
+cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-=
+align:center'><b><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"=
+Arial","sans-serif";color:black'>Sugarbay Sato-SDK<o:p></o:p></span></b></p=
+></td><td width=3D72 colspan=3D3 style=3D'width:54.0pt;border-top:none;bord=
+er-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid window=
+text 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal=
+ align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D'fon=
+t-size:10.0pt;font-family:"Arial","sans-serif";color:black'>59<o:p></o:p></=
+span></p></td><td width=3D72 colspan=3D3 style=3D'width:54.0pt;border-top:n=
+one;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:soli=
+d windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DM=
+soNormal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US styl=
+e=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>0<o:p><=
+/o:p></span></p></td><td width=3D72 colspan=3D3 style=3D'width:54.0pt;borde=
+r-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-rig=
+ht:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p cl=
+ass=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-=
+US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:#00B050=
+'>59<o:p></o:p></span></p></td><td width=3D106 colspan=3D2 style=3D'width:7=
+9.6pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt=
+;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.=
+25pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span=
+ lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";co=
+lor:red'>0<o:p></o:p></span></p></td><td width=3D79 colspan=3D4 style=3D'wi=
+dth:59.4pt;border-top:none;border-left:none;border-bottom:solid windowtext =
+1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;heigh=
+t:14.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'>=
+<span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-seri=
+f";color:red'>0<o:p></o:p></span></p></td><td style=3D'border:none;padding:=
+0cm 0cm 0cm 0cm' width=3D74 colspan=3D2><p class=3D'MsoNormal'>&nbsp;</td><=
+/tr><tr style=3D'height:14.25pt'><td width=3D199 nowrap colspan=3D3 style=
+=3D'width:149.0pt;border:solid windowtext 1.0pt;border-top:none;padding:0cm=
+ 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter style=
+=3D'text-align:center'><b><span lang=3DEN-US style=3D'font-size:10.0pt;font=
+-family:"Arial","sans-serif";color:black'>Jasperforest LSB-SDK<o:p></o:p></=
+span></b></p></td><td width=3D72 colspan=3D3 style=3D'width:54.0pt;border-t=
+op:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:=
+solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=
+=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US =
+style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>33<=
+o:p></o:p></span></p></td><td width=3D72 colspan=3D3 style=3D'width:54.0pt;=
+border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;borde=
+r-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>=
+<p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lang=
+=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:b=
+lack'>0<o:p></o:p></span></p></td><td width=3D72 colspan=3D3 style=3D'width=
+:54.0pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0=
+pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:1=
+4.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><sp=
+an lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";=
+color:#00B050'>33<o:p></o:p></span></p></td><td width=3D106 colspan=3D2 sty=
+le=3D'width:79.6pt;border-top:none;border-left:none;border-bottom:solid win=
+dowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4=
+pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:=
+center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","s=
+ans-serif";color:red'>0<o:p></o:p></span></p></td><td width=3D79 colspan=3D=
+4 style=3D'width:59.4pt;border-top:none;border-left:none;border-bottom:soli=
+d windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0c=
+m 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-a=
+lign:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Aria=
+l","sans-serif";color:red'>0<o:p></o:p></span></p></td><td style=3D'border:=
+none;padding:0cm 0cm 0cm 0cm' width=3D74 colspan=3D2><p class=3D'MsoNormal'=
+>&nbsp;</td></tr><tr style=3D'height:16.5pt'><td width=3D199 nowrap colspan=
+=3D3 style=3D'width:149.0pt;border:solid windowtext 1.0pt;border-top:none;p=
+adding:0cm 5.4pt 0cm 5.4pt;height:16.5pt'><p class=3DMsoNormal align=3Dcent=
+er style=3D'text-align:center'><b><span lang=3DEN-US style=3D'font-size:10.=
+0pt;font-family:"Arial","sans-serif";color:black'>n450 Sato-SDK<o:p></o:p><=
+/span></b></p></td><td width=3D72 colspan=3D3 style=3D'width:54.0pt;border-=
+top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right=
+:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:16.5pt'><p class=
+=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US =
+style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>56<=
+o:p></o:p></span></p></td><td width=3D72 colspan=3D3 style=3D'width:54.0pt;=
+border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;borde=
+r-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:16.5pt'><=
+p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lang=
+=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:b=
+lack'>0<o:p></o:p></span></p></td><td width=3D72 colspan=3D3 style=3D'width=
+:54.0pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0=
+pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:1=
+6.5pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><spa=
+n lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";c=
+olor:#00B050'>52<o:p></o:p></span></p></td><td width=3D106 colspan=3D2 styl=
+e=3D'width:79.6pt;border-top:none;border-left:none;border-bottom:solid wind=
+owtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4p=
+t;height:16.5pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:ce=
+nter'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","san=
+s-serif";color:red'>2 (bug 607, 613)<o:p></o:p></span></p></td><td width=3D=
+79 colspan=3D4 style=3D'width:59.4pt;border-top:none;border-left:none;borde=
+r-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding=
+:0cm 5.4pt 0cm 5.4pt;height:16.5pt'><p class=3DMsoNormal align=3Dcenter sty=
+le=3D'text-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-=
+family:"Arial","sans-serif";color:red'>2 (bug 613)<o:p></o:p></span></p></t=
+d><td style=3D'border:none;padding:0cm 0cm 0cm 0cm' width=3D74 colspan=3D2>=
+<p class=3D'MsoNormal'>&nbsp;</td></tr><tr style=3D'height:22.5pt'><td widt=
+h=3D199 colspan=3D3 style=3D'width:149.0pt;border:solid windowtext 1.0pt;bo=
+rder-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:22.5pt'><p class=3DMsoNorm=
+al align=3Dcenter style=3D'text-align:center'><b><span lang=3DEN-US style=
+=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>Routerst=
+ationpro Sato-SDK<o:p></o:p></span></b></p></td><td width=3D72 colspan=3D3 =
+style=3D'width:54.0pt;border-top:none;border-left:none;border-bottom:solid =
+windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm =
+5.4pt;height:22.5pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-alig=
+n:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial",=
+"sans-serif";color:black'>30<o:p></o:p></span></p></td><td width=3D72 colsp=
+an=3D3 style=3D'width:54.0pt;border-top:none;border-left:none;border-bottom=
+:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4=
+pt 0cm 5.4pt;height:22.5pt'><p class=3DMsoNormal align=3Dcenter style=3D'te=
+xt-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"=
+Arial","sans-serif";color:black'>0<o:p></o:p></span></p></td><td width=3D72=
+ colspan=3D3 style=3D'width:54.0pt;border-top:none;border-left:none;border-=
+bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0=
+cm 5.4pt 0cm 5.4pt;height:22.5pt'><p class=3DMsoNormal align=3Dcenter style=
+=3D'text-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-fa=
+mily:"Arial","sans-serif";color:#00B050'>30<o:p></o:p></span></p></td><td w=
+idth=3D106 colspan=3D2 style=3D'width:79.6pt;border-top:none;border-left:no=
+ne;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt=
+;padding:0cm 5.4pt 0cm 5.4pt;height:22.5pt'><p class=3DMsoNormal align=3Dce=
+nter style=3D'text-align:center'><span lang=3DEN-US style=3D'font-size:10.0=
+pt;font-family:"Arial","sans-serif";color:red'>0<o:p></o:p></span></p></td>=
+<td width=3D79 colspan=3D4 style=3D'width:59.4pt;border-top:none;border-lef=
+t:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1=
+.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:22.5pt'><p class=3DMsoNormal align=
+=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D'font-size=
+:10.0pt;font-family:"Arial","sans-serif";color:red'>0<o:p></o:p></span></p>=
+</td><td style=3D'border:none;padding:0cm 0cm 0cm 0cm' width=3D74 colspan=
+=3D2><p class=3D'MsoNormal'>&nbsp;</td></tr><tr style=3D'height:23.25pt'><t=
+d width=3D199 colspan=3D3 style=3D'width:149.0pt;border:solid windowtext 1.=
+0pt;border-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:23.25pt'><p class=3D=
+MsoNormal align=3Dcenter style=3D'text-align:center'><b><span lang=3DEN-US =
+style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>Mpc=
+8315e-rdb Sato-SDK<o:p></o:p></span></b></p></td><td width=3D72 colspan=3D3=
+ style=3D'width:54.0pt;border-top:none;border-left:none;border-bottom:solid=
+ windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm=
+ 5.4pt;height:23.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-al=
+ign:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial=
+","sans-serif";color:black'>29<o:p></o:p></span></p></td><td width=3D72 col=
+span=3D3 style=3D'width:54.0pt;border-top:none;border-left:none;border-bott=
+om:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5=
+.4pt 0cm 5.4pt;height:23.25pt'><p class=3DMsoNormal align=3Dcenter style=3D=
+'text-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-famil=
+y:"Arial","sans-serif";color:black'>0<o:p></o:p></span></p></td><td width=
+=3D72 colspan=3D3 style=3D'width:54.0pt;border-top:none;border-left:none;bo=
+rder-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padd=
+ing:0cm 5.4pt 0cm 5.4pt;height:23.25pt'><p class=3DMsoNormal align=3Dcenter=
+ style=3D'text-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;f=
+ont-family:"Arial","sans-serif";color:#00B050'>29<o:p></o:p></span></p></td=
+><td width=3D106 colspan=3D2 style=3D'width:79.6pt;border-top:none;border-l=
+eft:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext=
+ 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:23.25pt'><p class=3DMsoNormal ali=
+gn=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D'font-si=
+ze:10.0pt;font-family:"Arial","sans-serif";color:red'>0<o:p></o:p></span></=
+p></td><td width=3D79 colspan=3D4 style=3D'width:59.4pt;border-top:none;bor=
+der-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windo=
+wtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:23.25pt'><p class=3DMsoNorma=
+l align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D'fo=
+nt-size:10.0pt;font-family:"Arial","sans-serif";color:red'>0<o:p></o:p></sp=
+an></p></td><td style=3D'border:none;padding:0cm 0cm 0cm 0cm' width=3D74 co=
+lspan=3D2><p class=3D'MsoNormal'>&nbsp;</td></tr><tr style=3D'height:14.25p=
+t'><td width=3D199 nowrap colspan=3D3 style=3D'width:149.0pt;border:solid w=
+indowtext 1.0pt;border-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'=
+><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><b><span l=
+ang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";colo=
+r:black'>Qemux86-64 Sato<o:p></o:p></span></b></p></td><td width=3D72 nowra=
+p colspan=3D3 style=3D'width:54.0pt;border-top:none;border-left:none;border=
+-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:=
+0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter sty=
+le=3D'text-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-=
+family:"Arial","sans-serif";color:black'>21<o:p></o:p></span></p></td><td w=
+idth=3D72 colspan=3D3 valign=3Dtop style=3D'width:54.0pt;border-top:none;bo=
+rder-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid wind=
+owtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNorm=
+al align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D'f=
+ont-size:10.0pt;font-family:"Arial","sans-serif";color:black'>0<o:p></o:p><=
+/span></p></td><td width=3D72 colspan=3D3 valign=3Dtop style=3D'width:54.0p=
+t;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;bor=
+der-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt=
+'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lan=
+g=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:=
+#00B050'>21<o:p></o:p></span></p></td><td width=3D106 nowrap colspan=3D2 st=
+yle=3D'width:79.6pt;border-top:none;border-left:none;border-bottom:solid wi=
+ndowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.=
+4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align=
+:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","=
+sans-serif";color:red'>0<o:p></o:p></span></p></td><td width=3D79 colspan=
+=3D4 style=3D'width:59.4pt;border-top:none;border-left:none;border-bottom:s=
+olid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt=
+ 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'tex=
+t-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"A=
+rial","sans-serif";color:red'>0<o:p></o:p></span></p></td><td style=3D'bord=
+er:none;padding:0cm 0cm 0cm 0cm' width=3D74 colspan=3D2><p class=3D'MsoNorm=
+al'>&nbsp;</td></tr><tr style=3D'height:14.25pt'><td width=3D199 nowrap col=
+span=3D3 style=3D'width:149.0pt;border:solid windowtext 1.0pt;border-top:no=
+ne;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=
+=3Dcenter style=3D'text-align:center'><b><span lang=3DEN-US style=3D'font-s=
+ize:10.0pt;font-family:"Arial","sans-serif";color:black'>Qemux86-64 Sato-SD=
+K<o:p></o:p></span></b></p></td><td width=3D72 nowrap colspan=3D3 style=3D'=
+width:54.0pt;border-top:none;border-left:none;border-bottom:solid windowtex=
+t 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;hei=
+ght:14.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center=
+'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-se=
+rif";color:black'>24<o:p></o:p></span></p></td><td width=3D72 colspan=3D3 v=
+align=3Dtop style=3D'width:54.0pt;border-top:none;border-left:none;border-b=
+ottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0c=
+m 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter style=
+=3D'text-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-fa=
+mily:"Arial","sans-serif";color:black'>0<o:p></o:p></span></p></td><td widt=
+h=3D72 colspan=3D3 valign=3Dtop style=3D'width:54.0pt;border-top:none;borde=
+r-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowt=
+ext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal =
+align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D'font=
+-size:10.0pt;font-family:"Arial","sans-serif";color:#00B050'>24<o:p></o:p><=
+/span></p></td><td width=3D106 nowrap colspan=3D2 style=3D'width:79.6pt;bor=
+der-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-r=
+ight:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p =
+class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lang=3DE=
+N-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:red'>=
+0<o:p></o:p></span></p></td><td width=3D79 colspan=3D4 style=3D'width:59.4p=
+t;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;bor=
+der-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt=
+'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lan=
+g=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:=
+red'>0<o:p></o:p></span></p></td><td style=3D'border:none;padding:0cm 0cm 0=
+cm 0cm' width=3D74 colspan=3D2><p class=3D'MsoNormal'>&nbsp;</td></tr><tr s=
+tyle=3D'height:14.25pt'><td width=3D199 nowrap colspan=3D3 style=3D'width:1=
+49.0pt;border:solid windowtext 1.0pt;border-top:none;padding:0cm 5.4pt 0cm =
+5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-ali=
+gn:center'><b><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Ari=
+al","sans-serif";color:black'>Qemux86 Sato<o:p></o:p></span></b></p></td><t=
+d width=3D72 nowrap colspan=3D3 style=3D'width:54.0pt;border-top:none;borde=
+r-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowt=
+ext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal =
+align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D'font=
+-size:10.0pt;font-family:"Arial","sans-serif";color:black'>21<o:p></o:p></s=
+pan></p></td><td width=3D72 colspan=3D3 valign=3Dtop style=3D'width:54.0pt;=
+border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;borde=
+r-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'>=
+<p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lang=
+=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:b=
+lack'>0<o:p></o:p></span></p></td><td width=3D72 colspan=3D3 valign=3Dtop s=
+tyle=3D'width:54.0pt;border-top:none;border-left:none;border-bottom:solid w=
+indowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5=
+.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-alig=
+n:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial",=
+"sans-serif";color:#00B050'>21<o:p></o:p></span></p></td><td width=3D106 no=
+wrap colspan=3D2 style=3D'width:79.6pt;border-top:none;border-left:none;bor=
+der-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;paddi=
+ng:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter =
+style=3D'text-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;fo=
+nt-family:"Arial","sans-serif";color:red'>0<o:p></o:p></span></p></td><td w=
+idth=3D79 colspan=3D4 style=3D'width:59.4pt;border-top:none;border-left:non=
+e;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;=
+padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dce=
+nter style=3D'text-align:center'><span lang=3DEN-US style=3D'font-size:10.0=
+pt;font-family:"Arial","sans-serif";color:red'>0<o:p></o:p></span></p></td>=
+<td style=3D'border:none;padding:0cm 0cm 0cm 0cm' width=3D74 colspan=3D2><p=
+ class=3D'MsoNormal'>&nbsp;</td></tr><tr style=3D'height:14.25pt'><td width=
+=3D199 nowrap colspan=3D3 style=3D'width:149.0pt;border:solid windowtext 1.=
+0pt;border-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3D=
+MsoNormal align=3Dcenter style=3D'text-align:center'><b><span lang=3DEN-US =
+style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>Qem=
+ux86 Sato-SDK<o:p></o:p></span></b></p></td><td width=3D72 nowrap colspan=
+=3D3 style=3D'width:54.0pt;border-top:none;border-left:none;border-bottom:s=
+olid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt=
+ 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'tex=
+t-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"A=
+rial","sans-serif";color:black'>24<o:p></o:p></span></p></td><td width=3D72=
+ colspan=3D3 valign=3Dtop style=3D'width:54.0pt;border-top:none;border-left=
+:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.=
+0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=
+=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D'font-size=
+:10.0pt;font-family:"Arial","sans-serif";color:black'>0<o:p></o:p></span></=
+p></td><td width=3D72 colspan=3D3 valign=3Dtop style=3D'width:54.0pt;border=
+-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-righ=
+t:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p cla=
+ss=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-U=
+S style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:#00B050'=
+>24<o:p></o:p></span></p></td><td width=3D106 nowrap colspan=3D2 style=3D'w=
+idth:79.6pt;border-top:none;border-left:none;border-bottom:solid windowtext=
+ 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;heig=
+ht:14.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'=
+><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-ser=
+if";color:red'>0<o:p></o:p></span></p></td><td width=3D79 colspan=3D4 style=
+=3D'width:59.4pt;border-top:none;border-left:none;border-bottom:solid windo=
+wtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt=
+;height:14.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:ce=
+nter'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","san=
+s-serif";color:red'>0<o:p></o:p></span></p></td><td style=3D'border:none;pa=
+dding:0cm 0cm 0cm 0cm' width=3D74 colspan=3D2><p class=3D'MsoNormal'>&nbsp;=
+</td></tr><tr style=3D'height:14.25pt'><td width=3D199 nowrap colspan=3D3 s=
+tyle=3D'width:149.0pt;border:solid windowtext 1.0pt;border-top:none;padding=
+:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter st=
+yle=3D'text-align:center'><b><span lang=3DEN-US style=3D'font-size:10.0pt;f=
+ont-family:"Arial","sans-serif";color:black'>Qemumips Sato<o:p></o:p></span=
+></b></p></td><td width=3D72 nowrap colspan=3D3 style=3D'width:54.0pt;borde=
+r-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-rig=
+ht:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p cl=
+ass=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-=
+US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>=
+21<o:p></o:p></span></p></td><td width=3D72 nowrap colspan=3D3 style=3D'wid=
+th:54.0pt;border-top:none;border-left:none;border-bottom:solid windowtext 1=
+.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height=
+:14.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><=
+span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif=
+";color:black'>0<o:p></o:p></span></p></td><td width=3D72 nowrap colspan=3D=
+3 style=3D'width:54.0pt;border-top:none;border-left:none;border-bottom:soli=
+d windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0c=
+m 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-a=
+lign:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Aria=
+l","sans-serif";color:#00B050'>21<o:p></o:p></span></p></td><td width=3D106=
+ nowrap colspan=3D2 style=3D'width:79.6pt;border-top:none;border-left:none;=
+border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;pa=
+dding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcent=
+er style=3D'text-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt=
+;font-family:"Arial","sans-serif";color:red'>0<o:p></o:p></span></p></td><t=
+d width=3D79 colspan=3D4 style=3D'width:59.4pt;border-top:none;border-left:=
+none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0=
+pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=
+=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D'font-size=
+:10.0pt;font-family:"Arial","sans-serif";color:red'>0<o:p></o:p></span></p>=
+</td><td style=3D'border:none;padding:0cm 0cm 0cm 0cm' width=3D74 colspan=
+=3D2><p class=3D'MsoNormal'>&nbsp;</td></tr><tr style=3D'height:14.25pt'><t=
+d width=3D199 nowrap colspan=3D3 style=3D'width:149.0pt;border:solid window=
+text 1.0pt;border-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p c=
+lass=3DMsoNormal align=3Dcenter style=3D'text-align:center'><b><span lang=
+=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:b=
+lack'>Qemumips Sato-SDK<o:p></o:p></span></b></p></td><td width=3D72 nowrap=
+ colspan=3D3 style=3D'width:54.0pt;border-top:none;border-left:none;border-=
+bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0=
+cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter styl=
+e=3D'text-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-f=
+amily:"Arial","sans-serif";color:black'>24<o:p></o:p></span></p></td><td wi=
+dth=3D72 nowrap colspan=3D3 style=3D'width:54.0pt;border-top:none;border-le=
+ft:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext =
+1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal alig=
+n=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D'font-siz=
+e:10.0pt;font-family:"Arial","sans-serif";color:black'>0<o:p></o:p></span><=
+/p></td><td width=3D72 nowrap colspan=3D3 style=3D'width:54.0pt;border-top:=
+none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:sol=
+id windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3D=
+MsoNormal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US sty=
+le=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:#00B050'>24<o=
+:p></o:p></span></p></td><td width=3D106 nowrap colspan=3D2 style=3D'width:=
+79.6pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0p=
+t;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14=
+.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><spa=
+n lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";c=
+olor:red'>0<o:p></o:p></span></p></td><td width=3D79 colspan=3D4 style=3D'w=
+idth:59.4pt;border-top:none;border-left:none;border-bottom:solid windowtext=
+ 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;heig=
+ht:14.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'=
+><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-ser=
+if";color:red'>0<o:p></o:p></span></p></td><td style=3D'border:none;padding=
+:0cm 0cm 0cm 0cm' width=3D74 colspan=3D2><p class=3D'MsoNormal'>&nbsp;</td>=
+</tr><tr style=3D'height:14.25pt'><td width=3D199 nowrap colspan=3D3 style=
+=3D'width:149.0pt;border:solid windowtext 1.0pt;border-top:none;padding:0cm=
+ 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter style=
+=3D'text-align:center'><b><span lang=3DEN-US style=3D'font-size:10.0pt;font=
+-family:"Arial","sans-serif";color:black'>Qemuppc Sato<o:p></o:p></span></b=
+></p></td><td width=3D72 nowrap colspan=3D3 style=3D'width:54.0pt;border-to=
+p:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:s=
+olid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=
+=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US =
+style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>18<=
+o:p></o:p></span></p></td><td width=3D72 nowrap colspan=3D3 style=3D'width:=
+54.0pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0p=
+t;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14=
+.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><spa=
+n lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";c=
+olor:black'>0<o:p></o:p></span></p></td><td width=3D72 nowrap colspan=3D3 s=
+tyle=3D'width:54.0pt;border-top:none;border-left:none;border-bottom:solid w=
+indowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5=
+.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-alig=
+n:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial",=
+"sans-serif";color:#00B050'>18<o:p></o:p></span></p></td><td width=3D106 no=
+wrap colspan=3D2 style=3D'width:79.6pt;border-top:none;border-left:none;bor=
+der-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;paddi=
+ng:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter =
+style=3D'text-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;fo=
+nt-family:"Arial","sans-serif";color:red'>0<o:p></o:p></span></p></td><td w=
+idth=3D79 colspan=3D4 style=3D'width:59.4pt;border-top:none;border-left:non=
+e;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;=
+padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dce=
+nter style=3D'text-align:center'><span lang=3DEN-US style=3D'font-size:10.0=
+pt;font-family:"Arial","sans-serif";color:red'>0<o:p></o:p></span></p></td>=
+<td style=3D'border:none;padding:0cm 0cm 0cm 0cm' width=3D74 colspan=3D2><p=
+ class=3D'MsoNormal'>&nbsp;</td></tr><tr style=3D'height:14.25pt'><td width=
+=3D199 nowrap colspan=3D3 style=3D'width:149.0pt;border:solid windowtext 1.=
+0pt;border-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3D=
+MsoNormal align=3Dcenter style=3D'text-align:center'><b><span lang=3DEN-US =
+style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>Qem=
+uppc Sato-SDK<o:p></o:p></span></b></p></td><td width=3D72 nowrap colspan=
+=3D3 style=3D'width:54.0pt;border-top:none;border-left:none;border-bottom:s=
+olid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt=
+ 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'tex=
+t-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"A=
+rial","sans-serif";color:black'>21<o:p></o:p></span></p></td><td width=3D72=
+ nowrap colspan=3D3 style=3D'width:54.0pt;border-top:none;border-left:none;=
+border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;pa=
+dding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcent=
+er style=3D'text-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt=
+;font-family:"Arial","sans-serif";color:black'>0<o:p></o:p></span></p></td>=
+<td width=3D72 nowrap colspan=3D3 style=3D'width:54.0pt;border-top:none;bor=
+der-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windo=
+wtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNorma=
+l align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D'fo=
+nt-size:10.0pt;font-family:"Arial","sans-serif";color:#00B050'>19<o:p></o:p=
+></span></p></td><td width=3D106 nowrap colspan=3D2 style=3D'width:79.6pt;b=
+order-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border=
+-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><=
+p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lang=
+=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:r=
+ed'>2 (bug 780)<o:p></o:p></span></p></td><td width=3D79 colspan=3D4 style=
+=3D'width:59.4pt;border-top:none;border-left:none;border-bottom:solid windo=
+wtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt=
+;height:14.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:ce=
+nter'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","san=
+s-serif";color:red'>0<o:p></o:p></span></p></td><td style=3D'border:none;pa=
+dding:0cm 0cm 0cm 0cm' width=3D74 colspan=3D2><p class=3D'MsoNormal'>&nbsp;=
+</td></tr><tr style=3D'height:14.25pt'><td width=3D199 nowrap colspan=3D3 s=
+tyle=3D'width:149.0pt;border:solid windowtext 1.0pt;border-top:none;padding=
+:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter st=
+yle=3D'text-align:center'><b><span lang=3DEN-US style=3D'font-size:10.0pt;f=
+ont-family:"Arial","sans-serif";color:black'>Qemuarm Sato<o:p></o:p></span>=
+</b></p></td><td width=3D72 nowrap colspan=3D3 style=3D'width:54.0pt;border=
+-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-righ=
+t:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p cla=
+ss=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-U=
+S style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>2=
+1<o:p></o:p></span></p></td><td width=3D72 nowrap colspan=3D3 style=3D'widt=
+h:54.0pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.=
+0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:=
+14.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><s=
+pan lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"=
+;color:black'>0<o:p></o:p></span></p></td><td width=3D72 nowrap colspan=3D3=
+ style=3D'width:54.0pt;border-top:none;border-left:none;border-bottom:solid=
+ windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm=
+ 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-al=
+ign:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial=
+","sans-serif";color:#00B050'>19<o:p></o:p></span></p></td><td width=3D106 =
+nowrap colspan=3D2 style=3D'width:79.6pt;border-top:none;border-left:none;b=
+order-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;pad=
+ding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcente=
+r style=3D'text-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;=
+font-family:"Arial","sans-serif";color:red'>2 (bug 827)<o:p></o:p></span></=
+p></td><td width=3D79 colspan=3D4 style=3D'width:59.4pt;border-top:none;bor=
+der-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windo=
+wtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNorma=
+l align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D'fo=
+nt-size:10.0pt;font-family:"Arial","sans-serif";color:red'>0<o:p></o:p></sp=
+an></p></td><td style=3D'border:none;padding:0cm 0cm 0cm 0cm' width=3D74 co=
+lspan=3D2><p class=3D'MsoNormal'>&nbsp;</td></tr><tr style=3D'height:14.25p=
+t'><td width=3D199 nowrap colspan=3D3 style=3D'width:149.0pt;border:solid w=
+indowtext 1.0pt;border-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'=
+><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><b><span l=
+ang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";colo=
+r:black'>Qemuarm Sato-SDK<o:p></o:p></span></b></p></td><td width=3D72 nowr=
+ap colspan=3D3 style=3D'width:54.0pt;border-top:none;border-left:none;borde=
+r-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding=
+:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter st=
+yle=3D'text-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font=
+-family:"Arial","sans-serif";color:black'>24<o:p></o:p></span></p></td><td =
+width=3D72 nowrap colspan=3D3 style=3D'width:54.0pt;border-top:none;border-=
+left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtex=
+t 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal al=
+ign=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D'font-s=
+ize:10.0pt;font-family:"Arial","sans-serif";color:black'>0<o:p></o:p></span=
+></p></td><td width=3D72 nowrap colspan=3D3 style=3D'width:54.0pt;border-to=
+p:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:s=
+olid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=
+=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US =
+style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:#00B050'>2=
+2<o:p></o:p></span></p></td><td width=3D106 nowrap colspan=3D2 style=3D'wid=
+th:79.6pt;border-top:none;border-left:none;border-bottom:solid windowtext 1=
+.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height=
+:14.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><=
+span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif=
+";color:red'>2 (bug 827)<o:p></o:p></span></p></td><td width=3D79 colspan=
+=3D4 style=3D'width:59.4pt;border-top:none;border-left:none;border-bottom:s=
+olid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt=
+ 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'tex=
+t-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"A=
+rial","sans-serif";color:red'>0<o:p></o:p></span></p></td><td style=3D'bord=
+er:none;padding:0cm 0cm 0cm 0cm' width=3D74 colspan=3D2><p class=3D'MsoNorm=
+al'>&nbsp;</td></tr><tr style=3D'height:14.25pt'><td width=3D199 nowrap col=
+span=3D3 style=3D'width:149.0pt;border:solid windowtext 1.0pt;border-top:no=
+ne;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=
+=3Dcenter style=3D'text-align:center'><b><span lang=3DEN-US style=3D'font-s=
+ize:10.0pt;font-family:"Arial","sans-serif";color:black'>SDK<o:p></o:p></sp=
+an></b></p></td><td width=3D72 nowrap colspan=3D3 style=3D'width:54.0pt;bor=
+der-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-r=
+ight:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p =
+class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lang=3DE=
+N-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black=
+'>3<o:p></o:p></span></p></td><td width=3D72 nowrap colspan=3D3 style=3D'wi=
+dth:54.0pt;border-top:none;border-left:none;border-bottom:solid windowtext =
+1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;heigh=
+t:14.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'>=
+<span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-seri=
+f";color:black'>0<o:p></o:p></span></p></td><td width=3D72 nowrap colspan=
+=3D3 style=3D'width:54.0pt;border-top:none;border-left:none;border-bottom:s=
+olid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt=
+ 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'tex=
+t-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"A=
+rial","sans-serif";color:#00B050'>2<o:p></o:p></span></p></td><td width=3D1=
+06 nowrap colspan=3D2 style=3D'width:79.6pt;border-top:none;border-left:non=
+e;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;=
+padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dce=
+nter style=3D'text-align:center'><span lang=3DEN-US style=3D'font-size:10.0=
+pt;font-family:"Arial","sans-serif";color:red'>1 (bug 414)<o:p></o:p></span=
+></p></td><td width=3D79 colspan=3D4 style=3D'width:59.4pt;border-top:none;=
+border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid wi=
+ndowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNo=
+rmal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D=
+'font-size:10.0pt;font-family:"Arial","sans-serif";color:red'>0<o:p></o:p><=
+/span></p></td><td style=3D'border:none;padding:0cm 0cm 0cm 0cm' width=3D74=
+ colspan=3D2><p class=3D'MsoNormal'>&nbsp;</td></tr><tr style=3D'height:14.=
+25pt'><td width=3D199 nowrap colspan=3D3 style=3D'width:149.0pt;border:soli=
+d windowtext 1.0pt;border-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:14.25=
+pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><b><spa=
+n lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";c=
+olor:black'>Poky<o:p></o:p></span></b></p></td><td width=3D72 nowrap colspa=
+n=3D3 style=3D'width:54.0pt;border-top:none;border-left:none;border-bottom:=
+solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4p=
+t 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'te=
+xt-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"=
+Arial","sans-serif";color:black'>8<o:p></o:p></span></p></td><td width=3D72=
+ nowrap colspan=3D3 style=3D'width:54.0pt;border-top:none;border-left:none;=
+border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;pa=
+dding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcent=
+er style=3D'text-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt=
+;font-family:"Arial","sans-serif";color:black'>0<o:p></o:p></span></p></td>=
+<td width=3D72 nowrap colspan=3D3 style=3D'width:54.0pt;border-top:none;bor=
+der-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windo=
+wtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNorma=
+l align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D'fo=
+nt-size:10.0pt;font-family:"Arial","sans-serif";color:#00B050'>8<o:p></o:p>=
+</span></p></td><td width=3D106 nowrap colspan=3D2 style=3D'width:79.6pt;bo=
+rder-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-=
+right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p=
+ class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lang=3D=
+EN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:red'=
+>0<o:p></o:p></span></p></td><td width=3D79 colspan=3D4 style=3D'width:59.4=
+pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;bo=
+rder-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25p=
+t'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span la=
+ng=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color=
+:red'>0<o:p></o:p></span></p></td><td style=3D'border:none;padding:0cm 0cm =
+0cm 0cm' width=3D74 colspan=3D2><p class=3D'MsoNormal'>&nbsp;</td></tr><tr =
+style=3D'height:14.25pt'><td width=3D199 nowrap colspan=3D3 style=3D'width:=
+149.0pt;border:solid windowtext 1.0pt;border-top:none;padding:0cm 5.4pt 0cm=
+ 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-al=
+ign:center'><b><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Ar=
+ial","sans-serif";color:black'>Documentation<o:p></o:p></span></b></p></td>=
+<td width=3D72 nowrap colspan=3D3 style=3D'width:54.0pt;border-top:none;bor=
+der-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windo=
+wtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNorma=
+l align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D'fo=
+nt-size:10.0pt;font-family:"Arial","sans-serif";color:black'>1<o:p></o:p></=
+span></p></td><td width=3D72 nowrap colspan=3D3 style=3D'width:54.0pt;borde=
+r-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-rig=
+ht:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p cl=
+ass=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-=
+US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>=
+0<o:p></o:p></span></p></td><td width=3D72 nowrap colspan=3D3 style=3D'widt=
+h:54.0pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.=
+0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:=
+14.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><s=
+pan lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"=
+;color:#00B050'>1<o:p></o:p></span></p></td><td width=3D106 nowrap colspan=
+=3D2 style=3D'width:79.6pt;border-top:none;border-left:none;border-bottom:s=
+olid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt=
+ 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'tex=
+t-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"A=
+rial","sans-serif";color:red'>0<o:p></o:p></span></p></td><td width=3D79 co=
+lspan=3D4 style=3D'width:59.4pt;border-top:none;border-left:none;border-bot=
+tom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm =
+5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter style=
+=3D'text-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-fa=
+mily:"Arial","sans-serif";color:red'>0<o:p></o:p></span></p></td><td style=
+=3D'border:none;padding:0cm 0cm 0cm 0cm' width=3D74 colspan=3D2><p class=3D=
+'MsoNormal'>&nbsp;</td></tr><tr style=3D'height:14.25pt'><td width=3D199 no=
+wrap colspan=3D3 style=3D'width:149.0pt;border:solid windowtext 1.0pt;borde=
+r-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal=
+ align=3Dcenter style=3D'text-align:center'><b><span lang=3DEN-US style=3D'=
+font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>Total<o:p></=
+o:p></span></b></p></td><td width=3D72 nowrap colspan=3D3 style=3D'width:54=
+.0pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;=
+border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.2=
+5pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span =
+lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";col=
+or:black'>542<o:p></o:p></span></p></td><td width=3D72 nowrap colspan=3D3 s=
+tyle=3D'width:54.0pt;border-top:none;border-left:none;border-bottom:solid w=
+indowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5=
+.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-alig=
+n:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial",=
+"sans-serif";color:black'>0<o:p></o:p></span></p></td><td width=3D72 nowrap=
+ colspan=3D3 style=3D'width:54.0pt;border-top:none;border-left:none;border-=
+bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0=
+cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter styl=
+e=3D'text-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-f=
+amily:"Arial","sans-serif";color:black'>525<o:p></o:p></span></p></td><td w=
+idth=3D106 nowrap colspan=3D2 style=3D'width:79.6pt;border-top:none;border-=
+left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtex=
+t 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal al=
+ign=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D'font-s=
+ize:10.0pt;font-family:"Arial","sans-serif";color:red'>11<o:p></o:p></span>=
+</p></td><td width=3D79 colspan=3D4 style=3D'width:59.4pt;border-top:none;b=
+order-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid win=
+dowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNor=
+mal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D'=
+font-size:10.0pt;font-family:"Arial","sans-serif";color:red'>6<o:p></o:p></=
+span></p></td><td style=3D'border:none;padding:0cm 0cm 0cm 0cm' width=3D74 =
+colspan=3D2><p class=3D'MsoNormal'>&nbsp;</td></tr><tr height=3D0><td width=
+=3D72 style=3D'border:none'></td><td width=3D121 style=3D'border:none'></td=
+><td width=3D5 style=3D'border:none'></td><td width=3D24 style=3D'border:no=
+ne'></td><td width=3D43 style=3D'border:none'></td><td width=3D5 style=3D'b=
+order:none'></td><td width=3D24 style=3D'border:none'></td><td width=3D43 s=
+tyle=3D'border:none'></td><td width=3D5 style=3D'border:none'></td><td widt=
+h=3D24 style=3D'border:none'></td><td width=3D43 style=3D'border:none'></td=
+><td width=3D5 style=3D'border:none'></td><td width=3D24 style=3D'border:no=
+ne'></td><td width=3D82 style=3D'border:none'></td><td width=3D19 style=3D'=
+border:none'></td><td width=3D2 style=3D'border:none'></td><td width=3D1 st=
+yle=3D'border:none'></td><td width=3D57 style=3D'border:none'></td><td widt=
+h=3D14 style=3D'border:none'></td><td width=3D59 style=3D'border:none'></td=
+></tr></table><p class=3DMsoPlainText><span lang=3DEN-US style=3D'font-size=
+:10.0pt;font-family:"Arial","sans-serif"'>* You can check the detailed test=
+ result in attachment for each target.<o:p></o:p></span></p><p class=3DMsoP=
+lainText><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","=
+sans-serif"'>** The failed/blocked case number is listed with failed cases=
+=A1=AF bug number.<o:p></o:p></span></p><p class=3DMsoPlainText><span lang=
+=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'><o:p>&=
+nbsp;</o:p></span></p><p class=3DMsoPlainText><b><span lang=3DEN-US style=
+=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'>Images<o:p></o:p></s=
+pan></b></p><p class=3DMsoNormal><b><span lang=3DEN-US style=3D'font-size:1=
+0.0pt;font-family:"Arial","sans-serif"'>-----------------------------------=
+----<o:p></o:p></span></b></p><p class=3DMsoPlainText><span lang=3DEN-US st=
+yle=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'>Image: <a href=3D=
+"http://autobuilder.pokylinux.org/nightly/20110318-3/">http://autobuilder.p=
+okylinux.org/nightly/20110318-3/</a><o:p></o:p></span></p><p class=3DMsoPla=
+inText><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sa=
+ns-serif"'>Tree/Branch: Poky/Bernard<o:p></o:p></span></p><p class=3DMsoPla=
+inText><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sa=
+ns-serif"'>Commit: 82af8b9fb6d6d1439943fd15b8a75c0e663e4a45<o:p></o:p></spa=
+n></p><p class=3DMsoPlainText><span lang=3DEN-US style=3D'font-size:10.0pt;=
+font-family:"Arial","sans-serif"'><o:p>&nbsp;</o:p></span></p><p class=3DMs=
+oPlainText><b><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Ari=
+al","sans-serif"'>Issue Summary<o:p></o:p></span></b></p><p class=3DMsoNorm=
+al><b><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","san=
+s-serif"'>---------------------------------------<o:p></o:p></span></b></p>=
+<p class=3DMsoPlainText><span lang=3DEN-US style=3D'font-size:10.0pt;font-f=
+amily:"Arial","sans-serif"'>Zypper/RPM:<o:p></o:p></span></p><p class=3DMso=
+PlainText style=3D'margin-left:18.0pt;text-indent:-18.0pt;mso-list:l6 level=
+1 lfo1'><![if !supportLists]><span lang=3DEN-US style=3D'font-size:10.0pt;f=
+ont-family:"Arial","sans-serif"'><span style=3D'mso-list:Ignore'>1.<span st=
+yle=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span=
+></span><![endif]><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:=
+"Arial","sans-serif"'>[zypper] zypper can not search any packages after ins=
+talled package by rpm on qemuarm<o:p></o:p></span></p><p class=3DMsoPlainTe=
+xt style=3D'margin-left:18.0pt'><span lang=3DEN-US style=3D'font-size:10.0p=
+t;font-family:"Arial","sans-serif"'><a href=3D"http://bugzilla.pokylinux.or=
+g/show_bug.cgi?id=3D827">http://bugzilla.pokylinux.org/show_bug.cgi?id=3D82=
+7</a><o:p></o:p></span></p><p class=3DMsoPlainText><span lang=3DEN-US style=
+=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'><o:p>&nbsp;</o:p></s=
+pan></p><p class=3DMsoPlainText><span lang=3DEN-US style=3D'font-size:10.0p=
+t;font-family:"Arial","sans-serif"'>Poky:<o:p></o:p></span></p><p class=3DM=
+soPlainText style=3D'margin-left:18.0pt;text-indent:-18.0pt;mso-list:l2 lev=
+el1 lfo6'><![if !supportLists]><span lang=3DEN-US style=3D'font-size:10.0pt=
+;font-family:"Arial","sans-serif"'><span style=3D'mso-list:Ignore'>1.<span =
+style=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></sp=
+an></span><![endif]><span lang=3DEN-US style=3D'font-size:10.0pt;font-famil=
+y:"Arial","sans-serif"'>New! package information messed after building GPLv=
+3/non-GPLv3 for several times<o:p></o:p></span></p><p class=3DMsoPlainText =
+style=3D'margin-left:18.0pt'><span lang=3DEN-US style=3D'font-size:10.0pt;f=
+ont-family:"Arial","sans-serif"'>http://bugzilla.pokylinux.org/show_bug.cgi=
+?id=3D929<o:p></o:p></span></p><p class=3DMsoPlainText><span lang=3DEN-US s=
+tyle=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'><o:p>&nbsp;</o:p=
+></span></p><p class=3DMsoPlainText><span lang=3DEN-US style=3D'font-size:1=
+0.0pt;font-family:"Arial","sans-serif"'>Compliance:<o:p></o:p></span></p><p=
+ class=3DMsoPlainText style=3D'margin-left:18.0pt;text-indent:-18.0pt;mso-l=
+ist:l3 level1 lfo7'><![if !supportLists]><span lang=3DEN-US style=3D'font-s=
+ize:10.0pt;font-family:"Arial","sans-serif"'><span style=3D'mso-list:Ignore=
+'>1.<span style=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; <=
+/span></span></span><![endif]><span lang=3DEN-US style=3D'font-size:10.0pt;=
+font-family:"Arial","sans-serif"'>New! [POSIX] case pthread_cond_broadcast =
+does not kill itself after finished<o:p></o:p></span></p><p class=3DMsoPlai=
+nText style=3D'margin-left:18.0pt'><span lang=3DEN-US style=3D'font-size:10=
+.0pt;font-family:"Arial","sans-serif"'>http://bugzilla.pokylinux.org/show_b=
+ug.cgi?id=3D927<o:p></o:p></span></p><p class=3DMsoPlainText><span lang=3DE=
+N-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'><o:p>&nbsp=
+;</o:p></span></p><p class=3DMsoPlainText><span lang=3DEN-US style=3D'font-=
+size:10.0pt;font-family:"Arial","sans-serif"'>BSP:<o:p></o:p></span></p><p =
+class=3DMsoPlainText style=3D'margin-left:18.0pt;text-indent:-18.0pt;mso-li=
+st:l1 level1 lfo2'><![if !supportLists]><span lang=3DEN-US style=3D'font-si=
+ze:10.0pt;font-family:"Arial","sans-serif"'><span style=3D'mso-list:Ignore'=
+>1.<span style=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </=
+span></span></span><![endif]><span lang=3DEN-US style=3D'font-size:10.0pt;f=
+ont-family:"Arial","sans-serif"'>New! [blacksand] it show poor performance =
+with video player&nbsp; --&nbsp; Marked as WONTFIX<o:p></o:p></span></p><p =
+class=3DMsoPlainText style=3D'margin-left:18.0pt'><span lang=3DEN-US style=
+=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'><a href=3D"http://bu=
+gzilla.pokylinux.org/show_bug.cgi?id=3D921">http://bugzilla.pokylinux.org/s=
+how_bug.cgi?id=3D921</a><o:p></o:p></span></p><p class=3DMsoPlainText style=
+=3D'margin-left:18.0pt;text-indent:-18.0pt;mso-list:l1 level1 lfo2'><![if !=
+supportLists]><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Ari=
+al","sans-serif"'><span style=3D'mso-list:Ignore'>2.<span style=3D'font:7.0=
+pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endi=
+f]><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-s=
+erif"'>New! [crownbay-noemgd] video player has poor performance when playin=
+g video file&nbsp; -- Marked as NOTABUG since it=A1=AFs expected<o:p></o:p>=
+</span></p><p class=3DMsoPlainText style=3D'margin-left:18.0pt'><span lang=
+=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'><a hre=
+f=3D"http://bugzilla.pokylinux.org/show_bug.cgi?id=3D920">http://bugzilla.p=
+okylinux.org/show_bug.cgi?id=3D920</a><o:p></o:p></span></p><p class=3DMsoP=
+lainText style=3D'margin-left:18.0pt;text-indent:-18.0pt;mso-list:l1 level1=
+ lfo2'><![if !supportLists]><span lang=3DEN-US style=3D'font-size:10.0pt;fo=
+nt-family:"Arial","sans-serif"'><span style=3D'mso-list:Ignore'>3.<span sty=
+le=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span>=
+</span><![endif]><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"=
+Arial","sans-serif"'>New! &quot;rpm -qa&quot; can not run for non-root user=
+: Permission denied<o:p></o:p></span></p><p class=3DMsoPlainText style=3D'm=
+argin-left:18.0pt'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family=
+:"Arial","sans-serif"'><a href=3D"http://bugzilla.pokylinux.org/show_bug.cg=
+i?id=3D922">http://bugzilla.pokylinux.org/show_bug.cgi?id=3D922</a><o:p></o=
+:p></span></p><p class=3DMsoPlainText style=3D'margin-left:18.0pt;text-inde=
+nt:-18.0pt;mso-list:l1 level1 lfo2'><![if !supportLists]><span lang=3DEN-US=
+ style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'><span style=3D=
+'mso-list:Ignore'>4.<span style=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbs=
+p;&nbsp;&nbsp; </span></span></span><![endif]><span lang=3DEN-US style=3D'f=
+ont-size:10.0pt;font-family:"Arial","sans-serif"'>[Blacksand]system cannot =
+enter S3 standby mode<o:p></o:p></span></p><p class=3DMsoPlainText style=3D=
+'margin-left:18.0pt'><span lang=3DEN-US style=3D'font-size:10.0pt;font-fami=
+ly:"Arial","sans-serif"'><a href=3D"http://bugzilla.pokylinux.org/show_bug.=
+cgi?id=3D613">http://bugzilla.pokylinux.org/show_bug.cgi?id=3D613</a><o:p><=
+/o:p></span></p><p class=3DMsoPlainText style=3D'margin-left:18.0pt;text-in=
+dent:-18.0pt;mso-list:l1 level1 lfo2'><![if !supportLists]><span lang=3DEN-=
+US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'><span style=
+=3D'mso-list:Ignore'>5.<span style=3D'font:7.0pt "Times New Roman"'>&nbsp;&=
+nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span lang=3DEN-US style=
+=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'>[crownbay] system co=
+uld not enter into S3 with crownbay<o:p></o:p></span></p><p class=3DMsoPlai=
+nText style=3D'margin-left:18.0pt'><span lang=3DEN-US style=3D'font-size:10=
+.0pt;font-family:"Arial","sans-serif"'><a href=3D"http://bugzilla.pokylinux=
+.org/show_bug.cgi?id=3D882">http://bugzilla.pokylinux.org/show_bug.cgi?id=
+=3D882</a><o:p></o:p></span></p><p class=3DMsoPlainText style=3D'margin-lef=
+t:18.0pt;text-indent:-18.0pt;mso-list:l1 level1 lfo2'><![if !supportLists]>=
+<span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-seri=
+f"'><span style=3D'mso-list:Ignore'>6.<span style=3D'font:7.0pt "Times New =
+Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span lang=
+=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'>[Sugar=
+bay] GFX 3D game test fail to run with sugarbay BSP image due to libsdl.so<=
+o:p></o:p></span></p><p class=3DMsoPlainText style=3D'margin-left:18.0pt'><=
+span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif=
+"'><a href=3D"http://bugzilla.pokylinux.org/show_bug.cgi?id=3D883">http://b=
+ugzilla.pokylinux.org/show_bug.cgi?id=3D883</a><o:p></o:p></span></p><p cla=
+ss=3DMsoPlainText style=3D'margin-left:18.0pt;text-indent:-18.0pt;mso-list:=
+l1 level1 lfo2'><![if !supportLists]><span lang=3DEN-US style=3D'font-size:=
+10.0pt;font-family:"Arial","sans-serif"'><span style=3D'mso-list:Ignore'>7.=
+<span style=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </spa=
+n></span></span><![endif]><span lang=3DEN-US style=3D'font-size:10.0pt;font=
+-family:"Arial","sans-serif"'>[Blacksand] Some error information prompted w=
+hen run dmesg command<o:p></o:p></span></p><p class=3DMsoPlainText style=3D=
+'margin-left:18.0pt'><span lang=3DEN-US style=3D'font-size:10.0pt;font-fami=
+ly:"Arial","sans-serif"'><a href=3D"http://bugzilla.pokylinux.org/show_bug.=
+cgi?id=3D607">http://bugzilla.pokylinux.org/show_bug.cgi?id=3D607</a><o:p><=
+/o:p></span></p><p class=3DMsoPlainText><span lang=3DEN-US style=3D'font-si=
+ze:10.0pt;font-family:"Arial","sans-serif"'><o:p>&nbsp;</o:p></span></p><p =
+class=3DMsoPlainText><span lang=3DEN-US style=3D'font-size:10.0pt;font-fami=
+ly:"Arial","sans-serif"'>SDK:<o:p></o:p></span></p><p class=3DMsoPlainText =
+style=3D'margin-left:18.0pt;text-indent:-18.0pt;mso-list:l4 level1 lfo5'><!=
+[if !supportLists]><span lang=3DEN-US style=3D'font-size:10.0pt;font-family=
+:"Arial","sans-serif"'><span style=3D'mso-list:Ignore'>1.<span style=3D'fon=
+t:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><!=
+[endif]><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","s=
+ans-serif"'>[PPC] kernel panic when booting poky-image-sdk-qemuppc through =
+UNFS<o:p></o:p></span></p><p class=3DMsoPlainText style=3D'margin-left:18.0=
+pt'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-=
+serif"'>http://bugzilla.pokylinux.org/show_bug.cgi?id=3D414<o:p></o:p></spa=
+n></p><p class=3DMsoPlainText><span lang=3DEN-US style=3D'font-size:10.0pt;=
+font-family:"Arial","sans-serif"'><o:p>&nbsp;</o:p></span></p><p class=3DMs=
+oPlainText><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial"=
+,"sans-serif"'>Others:<o:p></o:p></span></p><p class=3DMsoPlainText style=
+=3D'margin-left:18.0pt;text-indent:-18.0pt;mso-list:l5 level1 lfo3'><![if !=
+supportLists]><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Ari=
+al","sans-serif"'><span style=3D'mso-list:Ignore'>1.<span style=3D'font:7.0=
+pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endi=
+f]><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-s=
+erif"'>gcc segfault on qemuppc (nightly build 20110226-1)<o:p></o:p></span>=
+</p><p class=3DMsoPlainText style=3D'margin-left:18.0pt'><span lang=3DEN-US=
+ style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'><a href=3D"htt=
+p://bugzilla.pokylinux.org/show_bug.cgi?id=3D780">http://bugzilla.pokylinux=
+.org/show_bug.cgi?id=3D780</a><o:p></o:p></span></p><p class=3DMsoPlainText=
+><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-ser=
+if"'><o:p>&nbsp;</o:p></span></p><p class=3DMsoPlainText><b><span lang=3DEN=
+-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'>Verified Fi=
+xed Bugs:<o:p></o:p></span></b></p><p class=3DMsoPlainText style=3D'margin-=
+left:18.0pt;text-indent:-18.0pt;mso-list:l0 level1 lfo4'><![if !supportList=
+s]><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-s=
+erif"'><span style=3D'mso-list:Ignore'>1.<span style=3D'font:7.0pt "Times N=
+ew Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span la=
+ng=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'>[cro=
+wnbay] emgd crownbay build fail on xserver-xf86-emgd fetch<o:p></o:p></span=
+></p><p class=3DMsoPlainText style=3D'margin-left:18.0pt'><span lang=3DEN-U=
+S style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'><a href=3D"ht=
+tp://bugzilla.pokylinux.org/show_bug.cgi?id=3D885">http://bugzilla.pokylinu=
+x.org/show_bug.cgi?id=3D885</a><o:p></o:p></span></p><p class=3DMsoPlainTex=
+t style=3D'margin-left:18.0pt;text-indent:-18.0pt;mso-list:l0 level1 lfo4'>=
+<![if !supportLists]><span lang=3DEN-US style=3D'font-size:10.0pt;font-fami=
+ly:"Arial","sans-serif"'><span style=3D'mso-list:Ignore'>2.<span style=3D'f=
+ont:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>=
+<![endif]><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial",=
+"sans-serif"'>[n450]Blacksand keyboard/mouse do not work on X window<o:p></=
+o:p></span></p><p class=3DMsoPlainText style=3D'margin-left:18.0pt'><span l=
+ang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'><a =
+href=3D"http://bugzilla.pokylinux.org/show_bug.cgi?id=3D869">http://bugzill=
+a.pokylinux.org/show_bug.cgi?id=3D869</a><o:p></o:p></span></p><p class=3DM=
+soPlainText style=3D'margin-left:18.0pt;text-indent:-18.0pt;mso-list:l0 lev=
+el1 lfo4'><![if !supportLists]><span lang=3DEN-US style=3D'font-size:10.0pt=
+;font-family:"Arial","sans-serif"'><span style=3D'mso-list:Ignore'>3.<span =
+style=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></sp=
+an></span><![endif]><span lang=3DEN-US style=3D'font-size:10.0pt;font-famil=
+y:"Arial","sans-serif"'>matchbox-panel segfault after X startup<o:p></o:p><=
+/span></p><p class=3DMsoPlainText style=3D'margin-left:18.0pt'><span lang=
+=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'><a hre=
+f=3D"http://bugzilla.pokylinux.org/show_bug.cgi?id=3D738">http://bugzilla.p=
+okylinux.org/show_bug.cgi?id=3D738</a><o:p></o:p></span></p><p class=3DMsoP=
+lainText style=3D'margin-left:18.0pt;text-indent:-18.0pt;mso-list:l0 level1=
+ lfo4'><![if !supportLists]><span lang=3DEN-US style=3D'font-size:10.0pt;fo=
+nt-family:"Arial","sans-serif"'><span style=3D'mso-list:Ignore'>4.<span sty=
+le=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span>=
+</span><![endif]><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"=
+Arial","sans-serif"'>[autobuilder] i686 toolchain not copied to sharing fol=
+der<o:p></o:p></span></p><p class=3DMsoPlainText style=3D'margin-left:18.0p=
+t'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-s=
+erif"'><a href=3D"http://bugzilla.pokylinux.org/show_bug.cgi?id=3D884">http=
+://bugzilla.pokylinux.org/show_bug.cgi?id=3D884</a><o:p></o:p></span></p><p=
+ class=3DMsoPlainText style=3D'margin-left:18.0pt;text-indent:-18.0pt;mso-l=
+ist:l0 level1 lfo4'><![if !supportLists]><span lang=3DEN-US style=3D'font-s=
+ize:10.0pt;font-family:"Arial","sans-serif"'><span style=3D'mso-list:Ignore=
+'>5.<span style=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; <=
+/span></span></span><![endif]><span lang=3DEN-US style=3D'font-size:10.0pt;=
+font-family:"Arial","sans-serif"'>audio mixer on BlackSand is muted on boot=
+<o:p></o:p></span></p><p class=3DMsoPlainText style=3D'margin-left:18.0pt'>=
+<span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-seri=
+f"'><a href=3D"http://bugzilla.pokylinux.org/show_bug.cgi?id=3D439">http://=
+bugzilla.pokylinux.org/show_bug.cgi?id=3D439</a><o:p></o:p></span></p><p cl=
+ass=3DMsoPlainText style=3D'margin-left:18.0pt;text-indent:-18.0pt;mso-list=
+:l0 level1 lfo4'><![if !supportLists]><span lang=3DEN-US style=3D'font-size=
+:10.0pt;font-family:"Arial","sans-serif"'><span style=3D'mso-list:Ignore'>6=
+.<span style=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </sp=
+an></span></span><![endif]><span lang=3DEN-US style=3D'font-size:10.0pt;fon=
+t-family:"Arial","sans-serif"'>[blacksand] no sound even all options in ami=
+xer enabled<o:p></o:p></span></p><p class=3DMsoPlainText style=3D'margin-le=
+ft:18.0pt'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial"=
+,"sans-serif"'><a href=3D"http://bugzilla.pokylinux.org/show_bug.cgi?id=3D7=
+98">http://bugzilla.pokylinux.org/show_bug.cgi?id=3D798</a><o:p></o:p></spa=
+n></p><p class=3DMsoPlainText style=3D'margin-left:18.0pt;text-indent:-18.0=
+pt;mso-list:l0 level1 lfo4'><![if !supportLists]><span lang=3DEN-US style=
+=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'><span style=3D'mso-l=
+ist:Ignore'>7.<span style=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbs=
+p;&nbsp; </span></span></span><![endif]><span lang=3DEN-US style=3D'font-si=
+ze:10.0pt;font-family:"Arial","sans-serif"'>[blacksand] configured audiosin=
+k is not working for video player<o:p></o:p></span></p><p class=3DMsoPlainT=
+ext style=3D'margin-left:18.0pt'><span lang=3DEN-US style=3D'font-size:10.0=
+pt;font-family:"Arial","sans-serif"'><a href=3D"http://bugzilla.pokylinux.o=
+rg/show_bug.cgi?id=3D799">http://bugzilla.pokylinux.org/show_bug.cgi?id=3D7=
+99</a><o:p></o:p></span></p><p class=3DMsoPlainText style=3D'margin-left:18=
+.0pt;text-indent:-18.0pt;mso-list:l0 level1 lfo4'><![if !supportLists]><spa=
+n lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'>=
+<span style=3D'mso-list:Ignore'>8.<span style=3D'font:7.0pt "Times New Roma=
+n"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span lang=3DEN=
+-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'>[Connman] x=
+user must be granted privilege to start connman-applet<o:p></o:p></span></p=
+><p class=3DMsoPlainText style=3D'margin-left:18.0pt'><span lang=3DEN-US st=
+yle=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'><a href=3D"http:/=
+/bugzilla.pokylinux.org/show_bug.cgi?id=3D779">http://bugzilla.pokylinux.or=
+g/show_bug.cgi?id=3D779</a><o:p></o:p></span></p><p class=3DMsoPlainText st=
+yle=3D'margin-left:18.0pt;text-indent:-18.0pt;mso-list:l0 level1 lfo4'><![i=
+f !supportLists]><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"=
+Arial","sans-serif"'><span style=3D'mso-list:Ignore'>9.<span style=3D'font:=
+7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![e=
+ndif]><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","san=
+s-serif"'>The bottom icons on Applications and All screen are cut-off in qe=
+mu.<o:p></o:p></span></p><p class=3DMsoPlainText style=3D'margin-left:18.0p=
+t'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-s=
+erif"'><a href=3D"http://bugzilla.pokylinux.org/show_bug.cgi?id=3D658">http=
+://bugzilla.pokylinux.org/show_bug.cgi?id=3D658</a><o:p></o:p></span></p><p=
+ class=3DMsoPlainText style=3D'margin-left:18.0pt;text-indent:-18.0pt;mso-l=
+ist:l0 level1 lfo4'><![if !supportLists]><span lang=3DEN-US style=3D'font-s=
+ize:10.0pt;font-family:"Arial","sans-serif"'><span style=3D'mso-list:Ignore=
+'>10.<span style=3D'font:7.0pt "Times New Roman"'>&nbsp; </span></span></sp=
+an><![endif]><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Aria=
+l","sans-serif"'>[zypper] zypper install does not work on qemux86/atom-pc<o=
+:p></o:p></span></p><p class=3DMsoPlainText style=3D'margin-left:18.0pt'><s=
+pan lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"=
+'><a href=3D"http://bugzilla.pokylinux.org/show_bug.cgi?id=3D803">http://bu=
+gzilla.pokylinux.org/show_bug.cgi?id=3D803</a><o:p></o:p></span></p><p clas=
+s=3DMsoPlainText style=3D'margin-left:18.0pt;text-indent:-18.0pt;mso-list:l=
+0 level1 lfo4'><![if !supportLists]><span lang=3DEN-US style=3D'font-size:1=
+0.0pt;font-family:"Arial","sans-serif"'><span style=3D'mso-list:Ignore'>11.=
+<span style=3D'font:7.0pt "Times New Roman"'>&nbsp; </span></span></span><!=
+[endif]><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","s=
+ans-serif"'>[zypper] zypper lose package information after zypper/rpm insta=
+ll/remove<o:p></o:p></span></p><p class=3DMsoPlainText style=3D'margin-left=
+:18.0pt'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","=
+sans-serif"'><a href=3D"http://bugzilla.pokylinux.org/show_bug.cgi?id=3D804=
+">http://bugzilla.pokylinux.org/show_bug.cgi?id=3D804</a><o:p></o:p></span>=
+</p><p class=3DMsoPlainText style=3D'margin-left:18.0pt;text-indent:-18.0pt=
+;mso-list:l0 level1 lfo4'><![if !supportLists]><span lang=3DEN-US style=3D'=
+font-size:10.0pt;font-family:"Arial","sans-serif"'><span style=3D'mso-list:=
+Ignore'>12.<span style=3D'font:7.0pt "Times New Roman"'>&nbsp; </span></spa=
+n></span><![endif]><span lang=3DEN-US style=3D'font-size:10.0pt;font-family=
+:"Arial","sans-serif"'>[zypper] installation failure on ppc (nightly build =
+20110305-4)<o:p></o:p></span></p><p class=3DMsoPlainText style=3D'margin-le=
+ft:18.0pt'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial"=
+,"sans-serif"'><a href=3D"http://bugzilla.pokylinux.org/show_bug.cgi?id=3D8=
+41">http://bugzilla.pokylinux.org/show_bug.cgi?id=3D841</a><o:p></o:p></spa=
+n></p><p class=3DMsoPlainText style=3D'margin-left:18.0pt;text-indent:-18.0=
+pt;mso-list:l0 level1 lfo4'><![if !supportLists]><span lang=3DEN-US style=
+=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'><span style=3D'mso-l=
+ist:Ignore'>13.<span style=3D'font:7.0pt "Times New Roman"'>&nbsp; </span><=
+/span></span><![endif]><span lang=3DEN-US style=3D'font-size:10.0pt;font-fa=
+mily:"Arial","sans-serif"'>[zypper] zypper install failed on routerstationp=
+ro sdk image<o:p></o:p></span></p><p class=3DMsoPlainText style=3D'margin-l=
+eft:18.0pt'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial=
+","sans-serif"'><a href=3D"http://bugzilla.pokylinux.org/show_bug.cgi?id=3D=
+845">http://bugzilla.pokylinux.org/show_bug.cgi?id=3D845</a><o:p></o:p></sp=
+an></p><p class=3DMsoPlainText style=3D'margin-left:18.0pt;text-indent:-18.=
+0pt;mso-list:l0 level1 lfo4'><![if !supportLists]><span lang=3DEN-US style=
+=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'><span style=3D'mso-l=
+ist:Ignore'>14.<span style=3D'font:7.0pt "Times New Roman"'>&nbsp; </span><=
+/span></span><![endif]><span lang=3DEN-US style=3D'font-size:10.0pt;font-fa=
+mily:"Arial","sans-serif"'>rpm remove package error<o:p></o:p></span></p><p=
+ class=3DMsoPlainText style=3D'margin-left:18.0pt'><span lang=3DEN-US style=
+=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'><a href=3D"http://bu=
+gzilla.pokylinux.org/show_bug.cgi?id=3D787">http://bugzilla.pokylinux.org/s=
+how_bug.cgi?id=3D787</a><o:p></o:p></span></p><p class=3DMsoPlainText style=
+=3D'margin-left:18.0pt;text-indent:-18.0pt;mso-list:l0 level1 lfo4'><![if !=
+supportLists]><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Ari=
+al","sans-serif"'><span style=3D'mso-list:Ignore'>15.<span style=3D'font:7.=
+0pt "Times New Roman"'>&nbsp; </span></span></span><![endif]><span lang=3DE=
+N-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'>[zypper] p=
+ackage removal failure<o:p></o:p></span></p><p class=3DMsoPlainText style=
+=3D'margin-left:18.0pt'><span lang=3DEN-US style=3D'font-size:10.0pt;font-f=
+amily:"Arial","sans-serif"'><a href=3D"http://bugzilla.pokylinux.org/show_b=
+ug.cgi?id=3D491">http://bugzilla.pokylinux.org/show_bug.cgi?id=3D491</a><o:=
+p></o:p></span></p><p class=3DMsoPlainText style=3D'margin-left:18.0pt;text=
+-indent:-18.0pt;mso-list:l0 level1 lfo4'><![if !supportLists]><span lang=3D=
+EN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'><span sty=
+le=3D'mso-list:Ignore'>16.<span style=3D'font:7.0pt "Times New Roman"'>&nbs=
+p; </span></span></span><![endif]><span lang=3DEN-US style=3D'font-size:10.=
+0pt;font-family:"Arial","sans-serif"'>[sstate] do_configure failed with lib=
+tool-cross when local sstate cache used<o:p></o:p></span></p><p class=3DMso=
+PlainText style=3D'margin-left:18.0pt'><span lang=3DEN-US style=3D'font-siz=
+e:10.0pt;font-family:"Arial","sans-serif"'><a href=3D"http://bugzilla.pokyl=
+inux.org/show_bug.cgi?id=3D894">http://bugzilla.pokylinux.org/show_bug.cgi?=
+id=3D894</a><o:p></o:p></span></p><p class=3DMsoPlainText style=3D'margin-l=
+eft:18.0pt;text-indent:-18.0pt;mso-list:l0 level1 lfo4'><![if !supportLists=
+]><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-se=
+rif"'><span style=3D'mso-list:Ignore'>17.<span style=3D'font:7.0pt "Times N=
+ew Roman"'>&nbsp; </span></span></span><![endif]><span lang=3DEN-US style=
+=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'>Fail to build non-GP=
+Lv3 image<o:p></o:p></span></p><p class=3DMsoPlainText style=3D'margin-left=
+:18.0pt'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","=
+sans-serif"'><a href=3D"http://bugzilla.pokylinux.org/show_bug.cgi?id=3D712=
+">http://bugzilla.pokylinux.org/show_bug.cgi?id=3D712</a><o:p></o:p></span>=
+</p><p class=3DMsoPlainText><span lang=3DEN-US style=3D'font-size:10.0pt;fo=
+nt-family:"Arial","sans-serif"'><o:p>&nbsp;</o:p></span></p><p class=3DMsoP=
+lainText><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","=
+sans-serif"'><o:p>&nbsp;</o:p></span></p><p class=3DMsoPlainText><span lang=
+=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'>Best R=
+egards,<o:p></o:p></span></p><p class=3DMsoPlainText><span lang=3DEN-US sty=
+le=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'>Jiajun<o:p></o:p><=
+/span></p></div></body></html>=
+
+--_000_D5AB6E638E5A3E4B8F4406B113A5A19A504DCCE1shsmsx501ccrcor_--
+
+--_005_D5AB6E638E5A3E4B8F4406B113A5A19A504DCCE1shsmsx501ccrcor_
+Content-Type: application/oleobject;
+	name="M4-Gold_20110318_detail_testreport_fullpass.ods"
+Content-Description: M4-Gold_20110318_detail_testreport_fullpass.ods
+Content-Disposition: attachment;
+	filename="M4-Gold_20110318_detail_testreport_fullpass.ods"; size=29727;
+	creation-date="Mon, 21 Mar 2011 22:45:36 GMT";
+	modification-date="Fri, 25 Mar 2011 16:46:45 GMT"
+Content-Transfer-Encoding: base64
+
+UEsDBBQAAAgAANZFeT6FbDmKLgAAAC4AAAAIAAAAbWltZXR5cGVhcHBsaWNhdGlvbi92bmQub2Fz
+aXMub3BlbmRvY3VtZW50LnNwcmVhZHNoZWV0UEsDBBQAAAgAANZFeT4AAAAAAAAAAAAAAAAaAAAA
+Q29uZmlndXJhdGlvbnMyL3N0YXR1c2Jhci9QSwMEFAAICAgA1kV5PgAAAAAAAAAAAAAAACcAAABD
+b25maWd1cmF0aW9uczIvYWNjZWxlcmF0b3IvY3VycmVudC54bWwDAFBLBwgAAAAAAgAAAAAAAABQ
+SwMEFAAACAAA1kV5PgAAAAAAAAAAAAAAABgAAABDb25maWd1cmF0aW9uczIvZmxvYXRlci9QSwME
+FAAACAAA1kV5PgAAAAAAAAAAAAAAABoAAABDb25maWd1cmF0aW9uczIvcG9wdXBtZW51L1BLAwQU
+AAAIAADWRXk+AAAAAAAAAAAAAAAAHAAAAENvbmZpZ3VyYXRpb25zMi9wcm9ncmVzc2Jhci9QSwME
+FAAACAAA1kV5PgAAAAAAAAAAAAAAABgAAABDb25maWd1cmF0aW9uczIvbWVudWJhci9QSwMEFAAA
+CAAA1kV5PgAAAAAAAAAAAAAAABgAAABDb25maWd1cmF0aW9uczIvdG9vbGJhci9QSwMEFAAACAAA
+1kV5PgAAAAAAAAAAAAAAAB8AAABDb25maWd1cmF0aW9uczIvaW1hZ2VzL0JpdG1hcHMvUEsDBBQA
+CAgIANZFeT4AAAAAAAAAAAAAAAALAAAAY29udGVudC54bWztfeuS4zaW5v99CkR2lCMdtiTeSdHt
+mimnw92OdvXUdpVnPNHhyIVISGInb8WLVNk/5gX2577HvsG+ze57LEDdRTKTN1GkeNxhZ4skgIPz
+HRwA5Dkf/vgvXxwbrUgQWp77/R0/5u4QcQ3PtNzF93e/fvpppN39y9v/9kdvPrcMopueETvEjUaG
+50b0L6Kl3VDf3P3+Lg5c3cOhFeoudkioR4bu+cTdldKPn9aTtjZXwujZLlw8efi4dES+REULs2dP
+yuJZ8ZaTh49LmwFeFy3MnqVKPS4+94oW/hLao7lHte74OLLOpPhiW+7T93fLKPL1yWS9Xo/X4tgL
+FhN+Op1Okrt7gY39c34c2MlTpjEhNmGNhRN+zE92zzokwkXlY88ei+TGzowEhVWDI5xC1Q9ISB+h
+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
+wojnL5VMaKqBMZld0r+XueBVENqW8Wy4UvQiIV/aza+vi4TJtSPhT6+O+Oyyg+zYz+upaP5/UEsH
+COfsXNzFDAAAupUAAFBLAwQUAAAIAADWRXk+ASXVb+kDAADpAwAACAAAAG1ldGEueG1sPD94bWwg
+dmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPG9mZmljZTpkb2N1bWVudC1tZXRhIHht
+bG5zOm9mZmljZT0idXJuOm9hc2lzOm5hbWVzOnRjOm9wZW5kb2N1bWVudDp4bWxuczpvZmZpY2U6
+MS4wIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeG1sbnM6ZGM9
+Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIiB4bWxuczptZXRhPSJ1cm46b2FzaXM6
+bmFtZXM6dGM6b3BlbmRvY3VtZW50OnhtbG5zOm1ldGE6MS4wIiB4bWxuczpvb289Imh0dHA6Ly9v
+cGVub2ZmaWNlLm9yZy8yMDA0L29mZmljZSIgeG1sbnM6Z3JkZGw9Imh0dHA6Ly93d3cudzMub3Jn
+LzIwMDMvZy9kYXRhLXZpZXcjIiBvZmZpY2U6dmVyc2lvbj0iMS4yIiBncmRkbDp0cmFuc2Zvcm1h
+dGlvbj0iaHR0cDovL2RvY3Mub2FzaXMtb3Blbi5vcmcvb2ZmaWNlLzEuMi94c2x0L29kZjJyZGYu
+eHNsIj48b2ZmaWNlOm1ldGE+PG1ldGE6Y3JlYXRpb24tZGF0ZT4yMDExLTAzLTAyVDEzOjEzOjE2
+LjgyPC9tZXRhOmNyZWF0aW9uLWRhdGU+PGRjOnRpdGxlPlRlc3RMaW5rPC9kYzp0aXRsZT48ZGM6
+ZGF0ZT4yMDExLTAzLTI1VDE2OjQ2OjQ0LjY0PC9kYzpkYXRlPjxtZXRhOmVkaXRpbmctZHVyYXRp
+b24+UFQ0NkgzMk00M1M8L21ldGE6ZWRpdGluZy1kdXJhdGlvbj48bWV0YTplZGl0aW5nLWN5Y2xl
+cz41NDwvbWV0YTplZGl0aW5nLWN5Y2xlcz48bWV0YTpnZW5lcmF0b3I+T3Blbk9mZmljZS5vcmcv
+My4yJFdpbjMyIE9wZW5PZmZpY2Uub3JnX3Byb2plY3QvMzIwbTE4JEJ1aWxkLTk1MDI8L21ldGE6
+Z2VuZXJhdG9yPjxtZXRhOnByaW50LWRhdGU+MjAxMS0wMy0xNlQxMzozNTo1Ni41ODwvbWV0YTpw
+cmludC1kYXRlPjxtZXRhOmRvY3VtZW50LXN0YXRpc3RpYyBtZXRhOnRhYmxlLWNvdW50PSIyMCIg
+bWV0YTpjZWxsLWNvdW50PSIxNzI5IiBtZXRhOm9iamVjdC1jb3VudD0iMCIvPjwvb2ZmaWNlOm1l
+dGE+PC9vZmZpY2U6ZG9jdW1lbnQtbWV0YT5QSwMEFAAICAgA1kV5PgAAAAAAAAAAAAAAABgAAABU
+aHVtYm5haWxzL3RodW1ibmFpbC5wbmfFWGk41O3bVhSJmMdOluwhspeRoSyJLGNXqOyEbDN2NQpl
+q2TJWLI0MmTKWDIGyZZdGGMna4wxY5sx1lc9///z4T3eD/8P7/G+vy/37z7u476v47jP87zO67qf
+m5kYsDLzM9PR0bEa3tQFH49tdHQn6JhOHv+5g3J56Og4rxrq6liGZBNzrr1GGvM+G0fWnTpjHH9J
+8rLrCVu3taZvrB6zf0n6q9Gphl9G3zuBOA3mgPN+Fd3ZZfulvw/f01CeztlkoCqNaI8L3blyHnP0
+xrWD7t1cH9SGbt9bG/yY9yYzO73hiQciF7VZxE/FPymiU3zJKXL69cmW/7NFwOvO2amuuwd8gp39
+dWaW3KmnKq645ZuX38xAPaw6t2uKkt+hMRmG3rczGQwBMQP1Xr0v4SDbYD3/qhUz9WW3l9gt7Hh0
+xFV16oh+DBSBbfZv83v4Srx5PaQ3/ONEpHBKnPVSa11pTh8+AYZ0DtxagaobOG2PexrJuKdi7xpZ
+nS+g1RHIQtK39IdT8pcMgJJ41LcfWj2tmJTPzecWdgdSJHeueRi6wtcjhGgFjaMa9YqksHPG2U56
+tLCWhY2sjSkpHlfb4IGFvYcNrlrjySkxE5MN61E+eAKxPDvhyfST9DdXcsBLBk0YOXxAif3cxy7t
+/WlUl4dLrbaJTuGLexr8dBwnXv4nV9WNFndt2S1n3MsaMH/9JUaEvLoNPJpuABzY3rD6KQbQ0FiA
+OB9w5g4b1Ro6nlO7DjiUX5Mzd+Hb1HxVeNFEGKt44OCn/slPM/z+sp3EkY6Q14etYNlmg+vxq2Rl
+0gDICOzITvZ7Z8/JZ0ZzvStOW/2FRXv8Mile3Xbt/otvlMDo7VT80lWHW2/zaqroHGtGHamgqJtB
+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
+
+--_005_D5AB6E638E5A3E4B8F4406B113A5A19A504DCCE1shsmsx501ccrcor_
+Content-Type: message/rfc822
+
+Received: from orsmsx602.amr.corp.intel.com (10.22.226.211) by
+ SHSMSX602.ccr.corp.intel.com (10.239.4.104) with Microsoft SMTP Server (TLS)
+ id 8.2.255.0; Fri, 25 Mar 2011 13:31:59 +0800
+Received: from fmsmga001.fm.intel.com (10.253.24.23) by
+ orsmsx602-1.jf.intel.com (10.22.226.211) with Microsoft SMTP Server id
+ 8.2.255.0; Thu, 24 Mar 2011 22:31:57 -0700
+Received: from fmsmga102.fm.intel.com ([10.1.193.69])  by
+ fmsmga001-1.fm.intel.com with ESMTP; 24 Mar 2011 22:31:57 -0700
+Received: from mail.windriver.com ([147.11.1.11])  by mga11.intel.com with
+ ESMTP/TLS/DHE-RSA-AES256-SHA; 24 Mar 2011 22:31:56 -0700
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])	by
+ mail.windriver.com (8.14.3/8.14.3) with ESMTP id p2P5VujL022310
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);	Thu, 24 Mar
+ 2011 22:31:56 -0700 (PDT)
+Received: from [128.224.162.178] (128.224.162.178) by ALA-HCA.corp.ad.wrs.com
+ (147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0; Thu, 24 Mar
+ 2011 22:31:54 -0700
+From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+To: "yocto@linux.intel.com" <yocto@linux.intel.com>
+CC: "Xu, Jiajun" <jiajun.xu@intel.com>
+Content-Class: urn:content-classes:message
+Date: Fri, 25 Mar 2011 13:31:35 +0800
+Subject: Status for lsb test for yocto 1.1 (2011-03-25)
+Thread-Topic: Status for lsb test for yocto 1.1 (2011-03-25)
+Thread-Index: Acvqrfc/3fItPpoXQCuMMdRf4gxlLA==
+Message-ID: <4D8C28B7.10000@windriver.com>
+X-MS-Exchange-Organization-AuthAs: Anonymous
+X-MS-Exchange-Organization-AuthSource: orsmsx602.amr.corp.intel.com
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ironport-anti-spam-filtered: true
+x-ironport-av: E=Sophos;i="4.63,241,1299484800";
+    d="scan'208,217";a="1165540061"
+x-ironport-anti-spam-result:  AkMCALcnjE2TCwELlGdsb2JhbAClThQBAQEBCQsJCRQEIcRLhWkEgXqDPYsQBg
+user-agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.2.13)
+ Gecko/20101208 Thunderbird/3.1.7
+x-originating-ip: [128.224.162.178]
+Content-Type: multipart/alternative;
+	boundary="_000_4D8C28B710000windrivercom_"
+MIME-Version: 1.0
+
+--_000_4D8C28B710000windrivercom_
+Content-Type: text/plain; charset="iso-2022-jp"
+Content-Transfer-Encoding: quoted-printable
+
+Hi jiajun,
+
+The following tables are about the lsb test result for qemux86,pbc83185e an=
+d hardware x86-64.
 
 
+                                                               Table-1     =
+ The lsb test result for qemux86
+
+Test items       Version         Failures Items  Passed Items    Bugs    No=
+tes
+Command Check    v 4.1.0-1       Failures: 14    Passed: 136     520
+
+Library Check    v 4.1.0-1       Failures: 13    Passed: 5522    795 796
+
+Alsa-T2C Tests   v 4.1.0-1       Success         Passed: 695
+
+
+Core tests       V4.4.0-1        No test
+
+        Absent pam resource
+Core-T2C Tests   v 4.1.0-1       Success         Passed: 157
+
+
+Cpp-T2C Tests    v 4.1.0-1       Failures: 265   Passed: 1589    796
+
+Desktop Tests   v 4.1.0-2        Failures: 47    Passed: 11714   567 569 57=
+0
+
+Desktop-T2C Tests        v 4.1.0-1       Failures: 161   Passed: 4970    57=
+1
+
+Libstdc++ Tests  v 4.1.0-13      Failures: 347   Passed: 1443    796
+
+OLVER Core Tests         v 4.1.0-1
+
+
+
+
+Perl Tests       v 4.1.0-1       Failures: 2     Passed: 827     794 850
+
+Printing Tests   v 4.1.0-1       Failures: 22    Passed: 2       904
+
+Python Runtime Tests     v 4.1.1-2       Failures: 2     Passed: 104
+
+
+Qt3-Azov Tests   v 4.1.0-1       No test
+
+        No qt3 pakcages
+Qt4-Azov Tests   v 4.1.0-1       No test
+
+        Absent some Qt4 packages
+Xml2-Azov Tests  v 4.1.0-1       Success         Passed: 1284
+
+
+Xts5 Tests       v 5.1.5-38      there are problems
+
+        Absent some packages
+Apache Tests     v 2.2.14-3      No test
+
+        Install Failed
+Expect Tests     v 5.43.0-11     Success         Passed: 7
+
+
+Groff Tests      v 1.20.1-5      Failures: 3     Passed: 3       879
+
+Raptor Tests     v 1.4.19-3      Success         Passed: 57
+
+
+Rsync Tests      v 3.0.6-3       Success         Passed: 7
+
+
+Samba Tests      v 3.4.3-5       Success         Passed: 7
+
+
+Tcl Tests        v 8.5.7-6       Failures: 151   Passed: 137
+        Relate with hardware
+Xpdf Tests       v 1.01-10       Success         Passed: 4
+
+
+
+
+
+
+
+
+
+Test platform    qemux86
+
+
+
+Image name      poky-image-lsb-qemux86-20110320010141.rootfs.tar.bz2
+
+
+
+
+                                                                           =
+         Table-2   The lsb test result for mpc8315e
+
+Test items       Version         Failures Items  Passed Items    Bug Number=
+      Notes
+Command Check    v 4.1.0-1       Failures: 14    Passed: 136     520
+
+Library Check    v 4.1.0-1       Failures: 6     Passed: 6010    795 796
+
+Alsa-T2C Tests   v 4.1.0-1       Success         Passed: 636
+
+
+Core tests       V4.4.0-1        No test
+        817      No module loop.ko
+Core-T2C Tests   v 4.1.0-1       Success         Passed: 157
+
+
+Cpp-T2C Tests    v 4.1.0-1       Failures: 265   Passed: 1589    796
+
+Desktop Tests   v 4.1.0-2        Failures: 33    Passed: 10432   839 847 84=
+0
+
+Desktop-T2C Tests        v 4.1.0-1       Failures: 172   Passed: 4959    83=
+9 847
+
+Libstdc++ Tests  v 4.1.0-13      Failures: 348   Passed: 1442    796
+
+OLVER Core Tests         v 4.1.0-1
+
+
+        Testing
+Perl Tests       v 4.1.0-1       Failures: 1     Passed: 18      794 850
+
+Printing Tests   v 4.1.0-1       Failures: 22    Passed: 2       904
+
+Python Runtime Tests     v 4.1.1-2       Failures: 8     Passed: 98
+
+
+Qt3-Azov Tests   v 4.1.0-1       No test
+        816      Absent qt3
+Qt4-Azov Tests   v 4.1.0-1       No test
+        848      some qt4 literary don't be supported for platform PPC
+Xml2-Azov Tests  v 4.1.0-1       Success         Passed: 1284
+
+
+Xts5 Tests       v 5.1.5-38
+
+
+        Testing
+Apache Tests     v 2.2.14-3      Success         Passed: 4
+
+
+Expect Tests     v 5.43.0-11     Success         Passed: 7
+
+
+Groff Tests      v 1.20.1-5      Failures: 3     Passed: 3       879
+
+Raptor Tests     v 1.4.19-3      Success         Passed: 57
+
+
+Rsync Tests      v 3.0.6-3       Success         Passed: 7
+
+
+Samba Tests      v 3.4.3-5       Success         Passed: 7
+
+
+Tcl Tests        v 8.5.7-6       Failures: 25    Passed: 139     898
+
+Xpdf Tests       v 1.01-10       Failures: 1     Passed: 3       899
+
+
+
+Test platform    Mpc8315e-rdb
+Image name      poky-image-lsb-sdk-mpc8315e-rdb-20110320142047.rootfs.tar.g=
+z
+
+
+                                                                           =
+   Table-3 The lsb test result for x86-64
+
+Test items       Version         Failures Items  Passed Items    Bug Number=
+      Notes
+Command Check    v 4.1.0-1       Failures: 14    Passed: 136     520
+
+Library Check    v 4.1.0-1       Failures: 28    Passed: 5889    795 796
+
+Alsa-T2C Tests   v 4.1.0-1       Success         Passed: 636
+
+
+Core Tests       v 4.1.0-1       There are problems
+        817      No module loop.ko
+Core-T2C Tests   v 4.1.0-1       Success         Passed: 157
+
+
+Cpp-T2C Tests    v 4.1.0-1       Failures: 265   Passed: 1589    796
+
+Desktop Tests    v 4.1.0-2       Failures: 47    Passed: 10522   839 847 84=
+0
+
+Desktop-T2C Tests        v 4.1.0-1       Failures: 176   Passed: 4955    83=
+9 847
+
+Libstdc++ Tests  v 4.1.0-13      Failures: 347   Passed: 1443    796
+
+OLVER Core Tests         v 4.1.0-1       Failures: 9     Passed: 8318
+
+
+Perl Tests       v 4.1.0-1       Failures: 7     Passed: 822     794 850
+
+Printing Tests   v 4.1.0-1       Failures: 21    Passed: 3       904
+
+Python Runtime Tests     v 4.1.1-2       Failures: 7     Passed: 99
+
+
+Qt3-Azov Tests   v 4.1.0-1       No test
+        816      Absent qt3
+Qt4-Azov Tests   v 4.1.0-1       No test
+        848      Some qt4 literary don't be supported for platform PPC
+Xml2-Azov Tests  v 4.1.0-1       Success         Passed: 1284
+
+
+Xts5 Tests       v 5.1.5-38      Failures: 9     Passed: 3398
+
+
+Apache Tests     v 2.2.14-3      Success         Passed: 4
+
+
+Expect Tests     v 5.43.0-11     Success         Passed: 7
+
+
+Groff Tests      v 1.20.1-5      Failures: 3     Passed: 3       879
+
+Raptor Tests     v 1.4.19-3      Success         Passed: 57
+
+
+Rsync Tests      v 3.0.6-3       Success         Passed: 7
+
+
+Samba Tests      v 3.4.3-5       Success         Passed: 7
+
+
+Tcl Tests        v 8.5.7-6       Failures: 25    Passed: 137     898
+
+Xpdf Tests       v 1.01-10       Success         Passed: 4
+
+
+
+
+Test platform    hardware x86-64
+Image name
+
+
+Issue Summary
+------------------
+1 LSB: Some commands tested by lsb test suite are absent in lsb-image
+http://bugzilla.pokylinux.org/show_bug.cgi?id=3D520
+2 LSB: Some cases (libstdc++.so.6) failed on library check of LSB test
+http://bugzilla.pokylinux.org/show_bug.cgi?id=3D795
+3 LSB: Some cases related to locale failed on libstdcpp and cpp-t2c test of=
+ LSB.
+http://bugzilla.pokylinux.org/show_bug.cgi?id=3D796
+4 "/lib/modules/2.6.37.2-yocto-standard+/kernel/drivers" dir not found in m=
+pc8315e-rdb sato-sdk images results in USB stick do not work (nightly build=
+ 20110305-4)
+http://bugzilla.pokylinux.org/show_bug.cgi?id=3D817
+5 Failed for Qt3 test from lsb test suite
+http://bugzilla.pokylinux.org/show_bug.cgi?id=3D816
+6 LSB: A test case (lib/Config.t) failed during running perl test of LSB
+http://bugzilla.pokylinux.org/show_bug.cgi?id=3D794
+7 LSB 4.1=1B$B!'=1B(Bthe error is related with gdk-pixbuf-loader-*
+http://bugzilla.pokylinux.org/show_bug.cgi?id=3D839
+8 LSB 4.1: absent locale packages in lsb image
+http://bugzilla.pokylinux.org/show_bug.cgi?id=3D847
+9 LSB 4.1: Qt4 can't be tested by lsb test suite
+http://bugzilla.pokylinux.org/show_bug.cgi?id=3D848
+10 LSB: Perl tests interrupted on ppc
+http://bugzilla.pokylinux.org/show_bug.cgi?id=3D850
+11 LSB 4.1: Absent font sets in lsb image
+http://bugzilla.pokylinux.org/show_bug.cgi?id=3D840
+12 LSB 4.1: Groff output doesn't look familiar to the test
+http://bugzilla.pokylinux.org/show_bug.cgi?id=3D879
+13 LSB 4.1: Xts5, The test case contains no test points
+http://bugzilla.pokylinux.org/show_bug.cgi?id=3D889
+14 LSB 4.1:Printing absent cups, foomatic and gs
+http://bugzilla.pokylinux.org/show_bug.cgi?id=3D904
+15 xpdf: can't get expected result
+http://bugzilla.pokylinux.org/show_bug.cgi?id=3D899
+16 LSB 4.1: TCL couldn't open socket: host is unreachable
+http://bugzilla.pokylinux.org/show_bug.cgi?id=3D898
+
+
+
+--_000_4D8C28B710000windrivercom_
+Content-Type: text/html; charset="iso-2022-jp"
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-2022-=
+jp">
+</head>
+<body text=3D"#000000" bgcolor=3D"#ffffff">
+<big>Hi jiajun,<br>
+<br>
+The following tables are about the lsb test result for qemux86,pbc83185e an=
+d hardware x86-64.<br>
+<br>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;=
+ &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp=
+; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbs=
+p; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; Ta=
+ble-1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The lsb test result for qemux86</big><b=
+r>
+<style>body, div, table, thead, tbody, tfoot, tr, th, td, p { font-family: =
+"DejaVu Sans"; font-size: x-small; }</style>
+<table cols=3D"6" frame=3D"VOID" rules=3D"NONE" border=3D"0" cellspacing=3D=
+"0">
+<colgroup><col width=3D"158"><col width=3D"86"><col width=3D"145"><col widt=
+h=3D"188"><col width=3D"86"><col width=3D"238"></colgroup>
+<tbody>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" width=3D"158" a=
+lign=3D"CENTER">
+<big><b><font face=3D"DejaVu Serif">Test items</font></b></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" width=3D"86" align=3D"CENTER"=
+><big><b><font face=3D"DejaVu Serif">Version</font></b></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" width=3D"145" align=3D"CENTER=
+"><big><b><font face=3D"DejaVu Serif">Failures Items</font></b></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" width=3D"188" align=3D"CENTER=
+"><big><b><font face=3D"DejaVu Serif">Passed Items</font></b></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" width=3D"86" align=3D"CENTER"=
+><big><b><font face=3D"DejaVu Serif">Bugs</font></b></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" width=3D"238" align=3D"CENTER=
+"><big><b><font face=3D"DejaVu Serif">Notes</font></b></big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"18" align=3D"LEFT">=
+<big>Command Check</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#ff=
+3333"><big><font face=3D"DejaVu Serif">Failures: 14</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 136</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big>520</bi=
+g></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"18" align=3D"LEFT">=
+<big>Library Check</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#ff=
+3333"><big><font face=3D"DejaVu Serif">Failures: 13</font></big></td>
+<td align=3D"LEFT"><big><font face=3D"DejaVu Serif">Passed: 5522</font></bi=
+g></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big>795 796=
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big>Alsa-T2C Tests</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#23=
+ff23"><big><font face=3D"DejaVu Serif">Success</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 695</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big>Core tests</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">V4.4.0-1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#00=
+66cc"><big><font face=3D"DejaVu Serif">No test</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Absent pam resource</font></big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"20" align=3D"LEFT">=
+<big>Core-T2C Tests</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#23=
+ff23"><big><font face=3D"DejaVu Serif">Success</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 157</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"23" align=3D"LEFT">=
+<big>Cpp-T2C Tests</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#ff=
+3333"><big><font face=3D"DejaVu Serif">Failures: 265</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 1589</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big>796</bi=
+g></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big>Desktop Tests
+</big></td>
+<td align=3D"LEFT"><big><font face=3D"DejaVu Serif">v 4.1.0-2</font></big><=
+/td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#ff=
+3333"><big><font face=3D"DejaVu Serif">Failures: 47</font></big></td>
+<td align=3D"LEFT"><big><font face=3D"DejaVu Serif">Passed: 11714</font></b=
+ig></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big>567 569=
+ 570</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big>Desktop-T2C Tests</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#ff=
+3333"><big><font face=3D"DejaVu Serif">Failures: 161</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 4970</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big>571</bi=
+g></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big>Libstdc&#43;&#43; Tests</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-13</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#ff=
+3333"><big><font face=3D"DejaVu Serif">Failures: 347</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 1443</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big>796</bi=
+g></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"18" align=3D"LEFT">=
+<big>OLVER Core Tests</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big>Perl Tests</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#ff=
+3333"><big><font face=3D"DejaVu Serif">Failures: 2</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 827</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big>794 850=
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"18" align=3D"LEFT">=
+<big>Printing Tests</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#ff=
+3333"><big><font face=3D"DejaVu Serif">Failures: 22</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 2</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big>904</bi=
+g></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"19" align=3D"LEFT">=
+<big>Python Runtime Tests</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.1-2</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#ff=
+3333"><big><font face=3D"DejaVu Serif">Failures: 2</font></big></td>
+<td align=3D"LEFT"><big><font face=3D"DejaVu Serif">Passed: 104</font></big=
+></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td height=3D"19" align=3D"LEFT"><big><font face=3D"DejaVu Serif">Qt3-Azov =
+Tests</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#00=
+66cc"><big><font face=3D"DejaVu Serif">No test</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">No qt3 pakcages</font></big></td>
+</tr>
+<tr>
+<td height=3D"19" align=3D"LEFT"><big><font face=3D"DejaVu Serif">Qt4-Azov =
+Tests</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#00=
+66cc"><big><font face=3D"DejaVu Serif">No test</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Absent some Qt4 packages</font></big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big>Xml2-Azov Tests</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#23=
+ff23"><big><font face=3D"DejaVu Serif">Success</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 1284</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big>Xts5 Tests</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 5.1.5-38</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#c5=
+000b"><big><font face=3D"DejaVu Serif">there are problems</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Absent some packages</font></big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big>Apache Tests</big></td>
+<td align=3D"LEFT"><big><font face=3D"DejaVu Serif">v 2.2.14-3</font></big>=
+</td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#00=
+66cc"><big><font face=3D"DejaVu Serif">No test</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Install Failed</font></big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big>Expect Tests</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 5.43.0-11</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#23=
+ff23"><big><font face=3D"DejaVu Serif">Success</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 7</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big>Groff Tests</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 1.20.1-5</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#ff=
+3333"><big><font face=3D"DejaVu Serif">Failures: 3</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 3</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big>879</bi=
+g></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big>Raptor Tests</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 1.4.19-3</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#23=
+ff23"><big><font face=3D"DejaVu Serif">Success</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 57</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big>Rsync Tests</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 3.0.6-3</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#23=
+ff23"><big><font face=3D"DejaVu Serif">Success</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 7</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big>Samba Tests</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 3.4.3-5</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#23=
+ff23"><big><font face=3D"DejaVu Serif">Success</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 7</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big>Tcl Tests</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 8.5.7-6</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#ff=
+3333"><big><font face=3D"DejaVu Serif">Failures: 151</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 137</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Relate with hardware</font></big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big>Xpdf Tests</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 1.01-10</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#23=
+ff23"><big><font face=3D"DejaVu Serif">Success</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 4</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td height=3D"17" align=3D"LEFT"><big><br>
+</big></td>
+<td align=3D"LEFT"><big><br>
+</big></td>
+<td align=3D"LEFT"><big><br>
+</big></td>
+<td align=3D"LEFT"><big><br>
+</big></td>
+<td align=3D"LEFT"><big><br>
+</big></td>
+<td align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big><b><font face=3D"DejaVu Serif">Test platform</font></b></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big>qemux86</=
+big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" colspan=3D"2" valign=3D"MIDDL=
+E" align=3D"CENTER">
+<big><br>
+</big></td>
+<td align=3D"LEFT"><big><br>
+</big></td>
+<td align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big><b><font face=3D"DejaVu Serif">Image name
+</font></b></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" colspan=3D"3" valign=3D"MIDDL=
+E" align=3D"LEFT">
+<big>poky-image-lsb-qemux86-20110320010141.rootfs.tar.bz2</big></td>
+<td align=3D"LEFT"><big><br>
+</big></td>
+<td align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+</tbody>
+</table>
+<br>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;=
+ &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp=
+; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbs=
+p; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nb=
+sp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&n=
+bsp; &nbsp;&nbsp;&nbsp;
+<big>Table-2&nbsp;&nbsp; The lsb test result for mpc8315e</big><br>
+<style>body, div, table, thead, tbody, tfoot, tr, th, td, p { font-family: =
+"DejaVu Sans"; font-size: x-small; }</style>
+<table cols=3D"6" frame=3D"VOID" rules=3D"NONE" border=3D"0" cellspacing=3D=
+"0">
+<colgroup><col width=3D"145"><col width=3D"92"><col width=3D"150"><col widt=
+h=3D"117"><col width=3D"120"><col width=3D"373"></colgroup>
+<tbody>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"22" width=3D"145" a=
+lign=3D"CENTER">
+<big><b><font face=3D"DejaVu Serif">Test items</font></b></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" width=3D"92" align=3D"CENTER"=
+><big><b><font face=3D"DejaVu Serif">Version</font></b></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" width=3D"150" align=3D"CENTER=
+"><big><b><font face=3D"DejaVu Serif">Failures Items</font></b></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" width=3D"117" align=3D"CENTER=
+"><big><b><font face=3D"DejaVu Serif">Passed Items</font></b></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" width=3D"120" align=3D"CENTER=
+"><big><b><font face=3D"DejaVu Serif">Bug Number</font></b></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" width=3D"373" align=3D"CENTER=
+"><big><b><font face=3D"DejaVu Serif">Notes</font></b></big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"20" align=3D"LEFT">=
+<big>Command Check</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#ff=
+3333"><big><font face=3D"DejaVu Serif">Failures: 14</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 136</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big>520</bi=
+g></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big>Library Check</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#ff=
+3333"><big><font face=3D"DejaVu Serif">Failures: 6</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 6010</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big>795 796=
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big>Alsa-T2C Tests</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#23=
+ff23"><big><font face=3D"DejaVu Serif">Success</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 636</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"21" align=3D"LEFT">=
+<big>Core tests</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">V4.4.0-1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#00=
+66cc"><big><font face=3D"DejaVu Serif">No test</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big>817</bi=
+g></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">No module loop.ko</font></big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"22" align=3D"LEFT">=
+<big>Core-T2C Tests</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#23=
+ff23"><big><font face=3D"DejaVu Serif">Success</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 157</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big>Cpp-T2C Tests</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#ff=
+3333"><big><font face=3D"DejaVu Serif">Failures: 265</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 1589</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big>796</bi=
+g></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big>Desktop Tests
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-2</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#ff=
+3333"><big><font face=3D"DejaVu Serif">Failures: 33</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 10432</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big>839 847=
+ 840</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big>Desktop-T2C Tests</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#ff=
+3333"><big><font face=3D"DejaVu Serif">Failures: 172</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 4959</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big>839 847=
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"21" align=3D"LEFT">=
+<big>Libstdc&#43;&#43; Tests</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-13</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#ff=
+3333"><big><font face=3D"DejaVu Serif">Failures: 348</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 1442</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big>796</bi=
+g></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"20" align=3D"LEFT">=
+<big>OLVER Core Tests</big></td>
+<td align=3D"LEFT"><big><font face=3D"DejaVu Serif">v 4.1.0-1</font></big><=
+/td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Testing</font></big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big>Perl Tests</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#ff=
+3333"><big><font face=3D"DejaVu Serif">Failures: 1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 18</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big>794 850=
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big>Printing Tests</big></td>
+<td align=3D"LEFT"><big><font face=3D"DejaVu Serif">v 4.1.0-1</font></big><=
+/td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#ff=
+3333"><big><font face=3D"DejaVu Serif">Failures: 22</font></big></td>
+<td align=3D"LEFT"><big><font face=3D"DejaVu Serif">Passed: 2</font></big><=
+/td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big>904</bi=
+g></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big>Python Runtime Tests</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.1-2</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#ff=
+3333"><big><font face=3D"DejaVu Serif">Failures: 8</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 98</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"19" align=3D"LEFT">=
+<big><font face=3D"DejaVu Serif">Qt3-Azov Tests</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#00=
+66cc"><big><font face=3D"DejaVu Serif">No test</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big>816</bi=
+g></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Absent qt3
+</font></big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"19" align=3D"LEFT">=
+<big><font face=3D"DejaVu Serif">Qt4-Azov Tests</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#00=
+66cc"><big><font face=3D"DejaVu Serif">No test</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big>848</bi=
+g></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">some qt4 literary don't be supported for platform PPC</f=
+ont></big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big>Xml2-Azov Tests</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#23=
+ff23"><big><font face=3D"DejaVu Serif">Success</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 1284</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big>Xts5 Tests</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 5.1.5-38</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Testing</font></big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big>Apache Tests</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 2.2.14-3</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#23=
+ff23"><big><font face=3D"DejaVu Serif">Success</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 4</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big>Expect Tests</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 5.43.0-11</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#23=
+ff23"><big><font face=3D"DejaVu Serif">Success</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 7</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big>Groff Tests</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 1.20.1-5</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#ff=
+3333"><big><font face=3D"DejaVu Serif">Failures: 3</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 3</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big>879</bi=
+g></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big>Raptor Tests</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 1.4.19-3</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#23=
+ff23"><big><font face=3D"DejaVu Serif">Success</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 57</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big>Rsync Tests</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 3.0.6-3</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#23=
+ff23"><big><font face=3D"DejaVu Serif">Success</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 7</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big>Samba Tests</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 3.4.3-5</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#23=
+ff23"><big><font face=3D"DejaVu Serif">Success</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 7</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big>Tcl Tests</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 8.5.7-6</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#ff=
+3333"><big><font face=3D"DejaVu Serif">Failures: 25</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 139</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big>898</bi=
+g></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big>Xpdf Tests</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 1.01-10</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#ff=
+3333"><big><font face=3D"DejaVu Serif">Failures: 1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 3</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big>899</bi=
+g></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<big></big>
+<td colspan=3D"6" height=3D"17" valign=3D"MIDDLE" align=3D"CENTER"><big><br=
+>
+</big></td>
+<big></big>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big><b><font face=3D"DejaVu Serif">Test platform</font></b></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" colspan=3D"5" valign=3D"MIDDL=
+E" align=3D"LEFT">
+<big>Mpc8315e-rdb</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big><b><font face=3D"DejaVu Serif">Image name
+</font></b></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" colspan=3D"5" valign=3D"MIDDL=
+E" align=3D"LEFT">
+<big>poky-image-lsb-sdk-mpc8315e-rdb-20110320142047.rootfs.tar.gz</big></td=
+>
+</tr>
+</tbody>
+</table>
+<br>
+<br>
+<big>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp; Table-3 The lsb test result for x86-64</big><br>
+<style>body, div, table, thead, tbody, tfoot, tr, th, td, p { font-family: =
+"DejaVu Sans"; font-size: x-small; }</style>
+<table cols=3D"6" frame=3D"VOID" rules=3D"NONE" border=3D"0" cellspacing=3D=
+"0">
+<colgroup><col width=3D"171"><col width=3D"86"><col width=3D"150"><col widt=
+h=3D"115"><col width=3D"118"><col width=3D"374"></colgroup>
+<tbody>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"21" width=3D"171" a=
+lign=3D"CENTER">
+<big><b><font face=3D"DejaVu Serif">Test items</font></b></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" width=3D"86" align=3D"CENTER"=
+><big><b><font face=3D"DejaVu Serif">Version</font></b></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" width=3D"150" align=3D"CENTER=
+"><big><b><font face=3D"DejaVu Serif">Failures Items</font></b></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" width=3D"115" align=3D"CENTER=
+"><big><b><font face=3D"DejaVu Serif">Passed Items</font></b></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" width=3D"118" align=3D"CENTER=
+"><big><b><font face=3D"DejaVu Serif">Bug Number</font></b></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" width=3D"374" align=3D"CENTER=
+"><big><b><font face=3D"DejaVu Serif">Notes</font></b></big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big><font face=3D"DejaVu Serif">Command Check</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#ff=
+3333"><big><font face=3D"DejaVu Serif">Failures: 14</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 136</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big>520</bi=
+g></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big><font face=3D"DejaVu Serif">Library Check</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#ff=
+3333"><big><font face=3D"DejaVu Serif">Failures: 28</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 5889</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big>795 796=
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big><font face=3D"DejaVu Serif">Alsa-T2C Tests</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#23=
+ff23"><big><font face=3D"DejaVu Serif">Success</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 636</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big><font face=3D"DejaVu Serif">Core Tests</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#00=
+66cc"><big><font face=3D"DejaVu Serif">There are problems</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big>817</bi=
+g></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">No module loop.ko</font></big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big><font face=3D"DejaVu Serif">Core-T2C Tests</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#23=
+ff23"><big><font face=3D"DejaVu Serif">Success</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 157</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big><font face=3D"DejaVu Serif">Cpp-T2C Tests</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#ff=
+3333"><big><font face=3D"DejaVu Serif">Failures: 265</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 1589</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big>796</bi=
+g></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big><font face=3D"DejaVu Serif">Desktop Tests</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-2</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#ff=
+3333"><big><font face=3D"DejaVu Serif">Failures: 47</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 10522</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big>839 847=
+ 840</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big><font face=3D"DejaVu Serif">Desktop-T2C Tests</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#ff=
+3333"><big><font face=3D"DejaVu Serif">Failures: 176</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 4955</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big>839 847=
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big><font face=3D"DejaVu Serif">Libstdc&#43;&#43; Tests</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-13</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#ff=
+3333"><big><font face=3D"DejaVu Serif">Failures: 347</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 1443</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big>796</bi=
+g></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big><font face=3D"DejaVu Serif">OLVER Core Tests</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#ff=
+3333"><big><font face=3D"DejaVu Serif">Failures: 9</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 8318</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big><font face=3D"DejaVu Serif">Perl Tests</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#ff=
+3333"><big><font face=3D"DejaVu Serif">Failures: 7</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 822</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big>794 850=
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big><font face=3D"DejaVu Serif">Printing Tests</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#ff=
+3333"><big><font face=3D"DejaVu Serif">Failures: 21</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 3</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big>904</bi=
+g></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big><font face=3D"DejaVu Serif">Python Runtime Tests</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.1-2</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#ff=
+3333"><big><font face=3D"DejaVu Serif">Failures: 7</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 99</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big><font face=3D"DejaVu Serif">Qt3-Azov Tests</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#00=
+66cc"><big><font face=3D"DejaVu Serif">No test</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big>816</bi=
+g></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Absent qt3
+</font></big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big><font face=3D"DejaVu Serif">Qt4-Azov Tests</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#00=
+66cc"><big><font face=3D"DejaVu Serif">No test</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big>848</bi=
+g></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Some qt4 literary don't be supported for platform PPC</f=
+ont></big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big><font face=3D"DejaVu Serif">Xml2-Azov Tests</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 4.1.0-1</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#23=
+ff23"><big><font face=3D"DejaVu Serif">Success</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 1284</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big><font face=3D"DejaVu Serif">Xts5 Tests</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 5.1.5-38</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#ff=
+3333"><big><font face=3D"DejaVu Serif">Failures: 9</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 3398</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big><font face=3D"DejaVu Serif">Apache Tests</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 2.2.14-3</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#23=
+ff23"><big><font face=3D"DejaVu Serif">Success</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 4</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big><font face=3D"DejaVu Serif">Expect Tests</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 5.43.0-11</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#23=
+ff23"><big><font face=3D"DejaVu Serif">Success</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 7</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big><font face=3D"DejaVu Serif">Groff Tests</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 1.20.1-5</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#ff=
+3333"><big><font face=3D"DejaVu Serif">Failures: 3</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 3</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big>879</bi=
+g></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big><font face=3D"DejaVu Serif">Raptor Tests</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 1.4.19-3</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#23=
+ff23"><big><font face=3D"DejaVu Serif">Success</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 57</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big><font face=3D"DejaVu Serif">Rsync Tests</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 3.0.6-3</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#23=
+ff23"><big><font face=3D"DejaVu Serif">Success</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 7</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big><font face=3D"DejaVu Serif">Samba Tests</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 3.4.3-5</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#23=
+ff23"><big><font face=3D"DejaVu Serif">Success</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 7</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big><font face=3D"DejaVu Serif">Tcl Tests</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 8.5.7-6</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#ff=
+3333"><big><font face=3D"DejaVu Serif">Failures: 25</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 137</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big>898</bi=
+g></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big><font face=3D"DejaVu Serif">Xpdf Tests</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">v 1.01-10</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT" bgcolor=3D"#23=
+ff23"><big><font face=3D"DejaVu Serif">Success</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><font fac=
+e=3D"DejaVu Serif">Passed: 4</font></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"CENTER"><big><br>
+</big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" align=3D"LEFT"><big><br>
+</big></td>
+</tr>
+<tr>
+<big></big>
+<td colspan=3D"6" height=3D"17" valign=3D"MIDDLE" align=3D"CENTER"><big><br=
+>
+</big></td>
+<big></big>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big><b><font face=3D"DejaVu Serif">Test platform</font></b></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" colspan=3D"5" valign=3D"MIDDL=
+E" align=3D"LEFT">
+<big>hardware x86-64</big></td>
+</tr>
+<tr>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" height=3D"17" align=3D"LEFT">=
+<big><b><font face=3D"DejaVu Serif">Image name
+</font></b></big></td>
+<td style=3D"border: 1px solid rgb(0, 0, 0);" colspan=3D"5" valign=3D"MIDDL=
+E" align=3D"LEFT">
+<big><br>
+</big></td>
+</tr>
+</tbody>
+</table>
+<b><br>
+</b><big><b>Issue Summary</b><br>
+<b>------------------</b><br>
+1 LSB: Some commands tested by lsb test suite are absent in lsb-image<br>
+<a class=3D"moz-txt-link-freetext" href=3D"http://bugzilla.pokylinux.org/sh=
+ow_bug.cgi?id=3D520">http://bugzilla.pokylinux.org/show_bug.cgi?id=3D520</a=
+><br>
+2 LSB: Some cases (libstdc&#43;&#43;.so.6) failed on library check of LSB t=
+est<br>
+<a class=3D"moz-txt-link-freetext" href=3D"http://bugzilla.pokylinux.org/sh=
+ow_bug.cgi?id=3D795">http://bugzilla.pokylinux.org/show_bug.cgi?id=3D795</a=
+><br>
+3 LSB: Some cases related to locale failed on libstdcpp and cpp-t2c test of=
+ LSB.<br>
+<a class=3D"moz-txt-link-freetext" href=3D"http://bugzilla.pokylinux.org/sh=
+ow_bug.cgi?id=3D796">http://bugzilla.pokylinux.org/show_bug.cgi?id=3D796</a=
+><br>
+4 &quot;/lib/modules/2.6.37.2-yocto-standard&#43;/kernel/drivers&quot; dir =
+not found in mpc8315e-rdb sato-sdk images results in USB stick do not work =
+(nightly build 20110305-4)<br>
+<a class=3D"moz-txt-link-freetext" href=3D"http://bugzilla.pokylinux.org/sh=
+ow_bug.cgi?id=3D817">http://bugzilla.pokylinux.org/show_bug.cgi?id=3D817</a=
+><br>
+5 Failed for Qt3 test from lsb test suite<br>
+<a class=3D"moz-txt-link-freetext" href=3D"http://bugzilla.pokylinux.org/sh=
+ow_bug.cgi?id=3D816">http://bugzilla.pokylinux.org/show_bug.cgi?id=3D816</a=
+><br>
+6 LSB: A test case (lib/Config.t) failed during running perl test of LSB<br=
+>
+<a class=3D"moz-txt-link-freetext" href=3D"http://bugzilla.pokylinux.org/sh=
+ow_bug.cgi?id=3D794">http://bugzilla.pokylinux.org/show_bug.cgi?id=3D794</a=
+><br>
+7 LSB 4.1=1B$B!'=1B(Bthe error is related with gdk-pixbuf-loader-*<br>
+<a class=3D"moz-txt-link-freetext" href=3D"http://bugzilla.pokylinux.org/sh=
+ow_bug.cgi?id=3D839">http://bugzilla.pokylinux.org/show_bug.cgi?id=3D839</a=
+><br>
+8 LSB 4.1: absent locale packages in lsb image<br>
+<a class=3D"moz-txt-link-freetext" href=3D"http://bugzilla.pokylinux.org/sh=
+ow_bug.cgi?id=3D847">http://bugzilla.pokylinux.org/show_bug.cgi?id=3D847</a=
+><br>
+9 LSB 4.1: Qt4 can't be tested by lsb test suite<br>
+<a class=3D"moz-txt-link-freetext" href=3D"http://bugzilla.pokylinux.org/sh=
+ow_bug.cgi?id=3D848">http://bugzilla.pokylinux.org/show_bug.cgi?id=3D848</a=
+><br>
+10 LSB: Perl tests interrupted on ppc<br>
+<a class=3D"moz-txt-link-freetext" href=3D"http://bugzilla.pokylinux.org/sh=
+ow_bug.cgi?id=3D850">http://bugzilla.pokylinux.org/show_bug.cgi?id=3D850</a=
+><br>
+11 LSB 4.1: Absent font sets in lsb image<br>
+<a class=3D"moz-txt-link-freetext" href=3D"http://bugzilla.pokylinux.org/sh=
+ow_bug.cgi?id=3D840">http://bugzilla.pokylinux.org/show_bug.cgi?id=3D840</a=
+><br>
+12 LSB 4.1: Groff output doesn't look familiar to the test<br>
+<a class=3D"moz-txt-link-freetext" href=3D"http://bugzilla.pokylinux.org/sh=
+ow_bug.cgi?id=3D879">http://bugzilla.pokylinux.org/show_bug.cgi?id=3D879</a=
+><br>
+13 LSB 4.1: Xts5, The test case contains no test points<br>
+<a class=3D"moz-txt-link-freetext" href=3D"http://bugzilla.pokylinux.org/sh=
+ow_bug.cgi?id=3D889">http://bugzilla.pokylinux.org/show_bug.cgi?id=3D889</a=
+><br>
+14 LSB 4.1:Printing absent cups, foomatic and gs<br>
+<a class=3D"moz-txt-link-freetext" href=3D"http://bugzilla.pokylinux.org/sh=
+ow_bug.cgi?id=3D904">http://bugzilla.pokylinux.org/show_bug.cgi?id=3D904</a=
+><br>
+15 xpdf: can't get expected result<br>
+<a class=3D"moz-txt-link-freetext" href=3D"http://bugzilla.pokylinux.org/sh=
+ow_bug.cgi?id=3D899">http://bugzilla.pokylinux.org/show_bug.cgi?id=3D899</a=
+><br>
+16 LSB 4.1: TCL couldn't open socket: host is unreachable<br>
+<a class=3D"moz-txt-link-freetext" href=3D"http://bugzilla.pokylinux.org/sh=
+ow_bug.cgi?id=3D898">http://bugzilla.pokylinux.org/show_bug.cgi?id=3D898</a=
+></big><br>
+<br>
+</body>
+</html>
+
+--_000_4D8C28B710000windrivercom_--
+
+--_005_D5AB6E638E5A3E4B8F4406B113A5A19A504DCCE1shsmsx501ccrcor_--
