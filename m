@@ -1,22 +1,30 @@
-Return-Path: <scott.m.rifenbark@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 11B6F4C80AA7
-	for <poky@yoctoproject.org>; Fri, 25 Mar 2011 11:39:53 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 25 Mar 2011 09:39:53 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,243,1299484800"; d="scan'208";a="408701022"
-Received: from unknown (HELO localhost) ([10.255.12.171])
-	by azsmga001.ch.intel.com with ESMTP; 25 Mar 2011 09:39:53 -0700
-Message-Id: <658b3d55bb1e3d4967f91636d71bc05066966620.1301070812.git.scott.m.rifenbark@intel.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 282184C800B7
+	for <poky@yoctoproject.org>; Fri, 25 Mar 2011 11:50:14 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2PGo6WU028131;
+	Fri, 25 Mar 2011 16:50:06 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 27336-09; Fri, 25 Mar 2011 16:50:02 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2PGnvI6028111
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Fri, 25 Mar 2011 16:49:57 GMT
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: scott.m.rifenbark@intel.com
 In-Reply-To: <cover.1301070812.git.scott.m.rifenbark@intel.com>
 References: <cover.1301070812.git.scott.m.rifenbark@intel.com>
-Old-Date: Fri, 25 Mar 2011 10:16:43 -0600
-Date: Fri, 25 Mar 2011 10:40:57 -0600
-To: poky@yoctoproject.org
-CC: 
-From: <scott.m.rifenbark@intel.com>
-Subject: [PATCH 2/2] documentation/yocto-project-qs/yocto-project-qs.xml: [BUGID# 931] - Removed Fedora 14 bitbake native note
+Date: Fri, 25 Mar 2011 16:49:49 +0000
+Message-ID: <1301071789.3018.148.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.2 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/2] [BUGID# 931] - [DOCS] Removed Fedora 14 bitbake native note
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,42 +36,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 25 Mar 2011 16:39:54 -0000
+X-List-Received-Date: Fri, 25 Mar 2011 16:50:14 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-From: Scott Rifenbark <scott.m.rifenbark@intel.com>
+On Fri, 2011-03-25 at 10:40 -0600, scott.m.rifenbark@intel.com wrote:
+> From: Scott Rifenbark <scott.m.rifenbark@intel.com>
+> 
+> [BUGID# 931] - I have removed the Note indicating that the user must run
+> 'bitbake make-native' if running Fedora 14.
+> This is no longer a requirement for YP Release 1.0
+> 
+> The Colin Walters patch can be ignored.
+> 
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>   Branch: srifenbark/qs-work
+>   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=srifenbark/qs-work
+> 
+> Thanks,
+>      <scott.m.rifenbark@intel.com>
+> ---
+> 
+> 
+> Scott Rifenbark (2):
+>   documentation/yocto-project-qs/yocto-project-qs.xml: Bug reference
+>     added courtesy Colin Walters
+>   documentation/yocto-project-qs/yocto-project-qs.xml:  [BUGID# 931] -
+>     Removed Fedora 14 bitbake native note
 
-[BUGID# 931] - I have removed the Note indicating that the user must run
-'bitbake make-native' if running Fedora 14.
-This is no longer a requirement for YP Release 1.0
+Merged to master, thanks.
 
-Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
----
- .../yocto-project-qs/yocto-project-qs.xml          |   11 -----------
- 1 files changed, 0 insertions(+), 11 deletions(-)
-
-diff --git a/documentation/yocto-project-qs/yocto-project-qs.xml b/documentation/yocto-project-qs/yocto-project-qs.xml
-index e6a1da9..b1040a2 100644
---- a/documentation/yocto-project-qs/yocto-project-qs.xml
-+++ b/documentation/yocto-project-qs/yocto-project-qs.xml
-@@ -288,17 +288,6 @@
-      $ bitbake poky-image-sato
-              </literallayout>
-              <note><para>
--                 If you are running Fedora 14 or another distribution 
--                 that ships with GNU, run the following two <filename>BitBake</filename>
--                 commands.  
--                 For more information, see
--                 <ulink url='http://www.mail-archive.com/bug-make@gnu.org/msg06220.html'></ulink>.
--                 <literallayout class='monospaced'>
--     $ bitbake make-native
--     $ bitbake poky-image-sato
--                 </literallayout>
--             </para></note>
--             <note><para>
-                  BitBake requires Python 2.6.  For more information on this requirement, 
-                  see the FAQ appendix in the 
-                  <ulink url='http://www.yoctoproject.org/docs/poky-ref-manual/poky-ref-manual.html'>
--- 
-1.7.1
+Richard
 
 
