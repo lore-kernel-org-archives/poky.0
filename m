@@ -1,41 +1,43 @@
 Return-Path: <sparsh150847@yahoo.com>
-Received: from nm1-vm0.bullet.mail.in.yahoo.com
-	(nm1-vm0.bullet.mail.in.yahoo.com [121.101.151.211])
-	by mx1.pokylinux.org (Postfix) with SMTP id 8CC504C800B8
-	for <poky@yoctoproject.org>; Fri, 25 Mar 2011 08:51:29 -0500 (CDT)
+Received: from nm2-vm0.bullet.mail.in.yahoo.com
+	(nm2-vm0.bullet.mail.in.yahoo.com [121.101.151.210])
+	by mx1.pokylinux.org (Postfix) with SMTP id 1356B4C806DA
+	for <poky@yoctoproject.org>; Fri, 25 Mar 2011 09:06:26 -0500 (CDT)
 Authentication-Results: mx1.pokylinux.org; dkim=pass
 	(1024-bit key; insecure key) header.i=@yahoo.com;
 	x-dkim-adsp=none (insecure policy)
-Received: from [121.101.151.238] by nm1.bullet.mail.in.yahoo.com with NNFMP;
-	25 Mar 2011 13:51:28 -0000
-Received: from [121.101.151.234] by tm3.bullet.mail.in.yahoo.com with NNFMP;
-	25 Mar 2011 13:51:30 -0000
-Received: from [127.0.0.1] by omp1003.mail.in.yahoo.com with NNFMP;
-	25 Mar 2011 13:51:19 -0000
+Received: from [121.101.151.238] by nm2.bullet.mail.in.yahoo.com with NNFMP;
+	25 Mar 2011 14:06:13 -0000
+Received: from [121.101.151.233] by tm3.bullet.mail.in.yahoo.com with NNFMP;
+	25 Mar 2011 14:06:27 -0000
+Received: from [127.0.0.1] by omp1002.mail.in.yahoo.com with NNFMP;
+	25 Mar 2011 14:06:13 -0000
 X-Yahoo-Newman-Property: ymail-3
-X-Yahoo-Newman-Id: 945602.45874.bm@omp1003.mail.in.yahoo.com
-Received: (qmail 29757 invoked by uid 60001); 25 Mar 2011 13:51:28 -0000
+X-Yahoo-Newman-Id: 842195.60791.bm@omp1002.mail.in.yahoo.com
+Received: (qmail 1675 invoked by uid 60001); 25 Mar 2011 14:06:25 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s1024;
-	t=1301061088; bh=wiN8hMGyoGcT+SYvGyIOtWw9Mk8NTLUVvLWoX/OYRWg=;
-	h=Message-ID:X-YMail-OSG:Received:X-Mailer:Date:From:Subject:To:MIME-Version:Content-Type;
-	b=gGlBU7qGoKYKrxJofkPsd6qMNGx5ehKNm6D7+NXID0JF8Nn2hVTVK6CH4Q415vQo5nqIUIie/7Jh+yJkzZw0j9xUI5qCBMyEn3s/R+TXCdcSNZUZS4ZYwJshLBwf/ynmtbsOp7oNJRqk4QX3lTft254eS52yy54ZNOs282/MS6Y=
+	t=1301061985; bh=cO3A/leZsd0A38vrvlSyoxjXk2SyfjHoXnQgJ2/E5tQ=;
+	h=Message-ID:X-YMail-OSG:Received:X-Mailer:Date:From:Subject:To:Cc:In-Reply-To:MIME-Version:Content-Type;
+	b=TEoAVWaMf93JvnoG2apsJ7xff6EHO5HGRfjGUgGX4JvSHuuQqJuf3TysyUa+UH6a0HRHgv942lrhvh/wMysj7D/NqCZVWO0TXpLbnIaep30zBEZZn+C8/QI96wcZwYWVdXNDlbc6HdOedsKCxEw+Wv9N+mtxIEBbTTt0XvkZW7A=
 DomainKey-Signature: a=rsa-sha1; q=dns; c=nofws; s=s1024; d=yahoo.com;
-	h=Message-ID:X-YMail-OSG:Received:X-Mailer:Date:From:Subject:To:MIME-Version:Content-Type;
-	b=liKyGqzirqgfG9MobvT6BJzBG3Sc9jSsM0e5qwqOiCmUoeBnYmBOLfP9M0DJ7KIDoph1hhkk7P/PNe6QJiUnTxwVHB0QkPO5hXPI3LIJIo1nhOT+lo+y1JAw4gJKo/Eo4CN9PMu562ODZzz7BbucH1dZNjQosc7kC9aqLaeJ3rA=;
-Message-ID: <177088.27801.qm@web95702.mail.in.yahoo.com>
-X-YMail-OSG: vCmpsKwVM1k1HGKulrROm9qovVXBGke6Hwp3MtcpEGAbScP
-	cjLthIt5oa2T6.Uyvz92yqwX2pYuRC8jGZvm4_EtXRKJxMZvgjKVo0Rszayk
-	KmrB8jso1YowTmCpEHPpCyPC_V123E1BRPOp9BF0jRFwFwEXRbfLdnY.jSqg
-	6LZ9TWKNB9Oq7Yiqp7pojlJRVjSUEQZc36hjB62RTk29UzdRZRPPk2vAy5_C
-	MLFEI0FRM
-Received: from [115.111.25.162] by web95702.mail.in.yahoo.com via HTTP;
-	Fri, 25 Mar 2011 19:21:28 IST
+	h=Message-ID:X-YMail-OSG:Received:X-Mailer:Date:From:Subject:To:Cc:In-Reply-To:MIME-Version:Content-Type;
+	b=2czvRYarZxycbD57vwjbb9h56pkBRt/lGTYs0HDlzdOybsuvUSJ+YlvI8yQFbq3YcR9KgNYTLLHBcKzBAgyouqhS0fz/dzaTQ7OUlMP7S4h3y2vJfpfZ2+xqAsjqU//ysw8K6/gD+64WLpSZh43GhAKlj0XHRWEOXUPq5OuodiQ=;
+Message-ID: <671167.786.qm@web95705.mail.in.yahoo.com>
+X-YMail-OSG: xrPySQQVM1lCPFwlH9HMd3MeFCF.hsASnQUndWMvkSiRM16
+	8YyuXMXL_vMQHE3mRWFZgJ8AqAkX0e0BOaOwZbHzQdYSzHxzrz7RpongpX1r
+	ADYJgA2h0isMdxaXyp7Pktl0ch8.v9hsZlZbEvRwPm2q5P.4tLUvuBwuQBqp
+	zLkBNyEu.hjpvdjXSDKne0yZwZOFn_4bTKQ_PD3Sst1k.VtqVNbDs6j5wXOD
+	2brv0_G1ZaA--
+Received: from [115.111.25.162] by web95705.mail.in.yahoo.com via HTTP;
+	Fri, 25 Mar 2011 19:36:22 IST
 X-Mailer: YahooMailClassic/12.0.2 YahooMailWebService/0.8.109.295617
-Date: Fri, 25 Mar 2011 19:21:28 +0530 (IST)
+Date: Fri, 25 Mar 2011 19:36:22 +0530 (IST)
 From: Sparsh Wid hope <sparsh150847@yahoo.com>
-To: poky <poky@yoctoproject.org>
+To: Gerard van den Bosch <gerard@de-haardt.com>
+In-Reply-To: <4D8C99FE.4080003@de-haardt.com>
 MIME-Version: 1.0
-Subject: Help me to create poky image for beagleboard
+Cc: poky <poky@yoctoproject.org>
+Subject: Need help to build poky image for beagle board
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -47,278 +49,212 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 25 Mar 2011 13:51:31 -0000
-Content-Type: multipart/alternative; boundary="0-1079076469-1301061088=:27801"
+X-List-Received-Date: Fri, 25 Mar 2011 14:06:33 -0000
+Content-Type: multipart/alternative; boundary="0-1957197798-1301061982=:786"
 
---0-1079076469-1301061088=:27801
+--0-1957197798-1301061982=:786
 Content-Type: text/plain; charset=iso-8859-1
 Content-Transfer-Encoding: quoted-printable
 
-Hi all,
-I'm trying to build a POKY image for beagleboard and getting error.
-I followed the steps as:
-a. Downloaded the source as=A0wget -c http://git.pokylinux.org/cgit/cgit.cg=
-i/poky/snapshot/poky-laverne-4.0.1.tar.bz2=A0and then untar it.b. I modifie=
-d the file laverne-4.0.1/meta/conf/local.conf.sample as
-MACHINE ?=3D "beagleboard"and tried to build as=A0
-source poky-init-build-envbitbake poky-image-minimal-live
-then i got message on my terminal as:
-NOTE: Handling BitBake files: \ (0845/0845) [100 %]Parsing of 845 .bb files=
- complete (798 cached, 47 parsed). 977 targets, 55 skipped, 0 masked, 0 err=
-ors.
-OE Build Configuration:BB_VERSION =A0 =A0 =A0 =A0=3D "1.11.0"METADATA_BRANC=
-H =A0 =3D "<unknown>"METADATA_REVISION =3D "<unknown>"TARGET_ARCH =A0 =A0 =
-=A0 =3D "arm"TARGET_OS =A0 =A0 =A0 =A0 =3D "linux-gnueabi"MACHINE =A0 =A0 =
-=A0 =A0 =A0 =3D "beagleboard"DISTRO =A0 =A0 =A0 =A0 =A0 =A0=3D "poky"DISTRO=
-_VERSION =A0 =A0=3D "0.9"TARGET_FPU =A0 =A0 =A0 =A0=3D "soft"
-NOTE: Resolving any missing task queue dependenciesERROR: Nothing PROVIDES =
-'syslinux'ERROR: Required build target 'poky-image-minimal-live' has no bui=
-ldable providers.Missing or unbuildable dependency chain was: ['poky-image-=
-minimal-live', 'syslinux']Command execution failed: Traceback (most recent =
-call last):=A0=A0File "/home/surya/Surya/pro/POKY/laverne-4.0.1/scripts/../=
-/bitbake/lib/bb/command.py", line 88, in runAsyncCommand=A0=A0 =A0commandme=
-thod(self.cmds_async, self, options)=A0=A0File "/home/surya/Surya/pro/POKY/=
-laverne-4.0.1/scripts/..//bitbake/lib/bb/command.py", line 184, in buildTar=
-gets=A0=A0 =A0command.cooker.buildTargets(pkgs_to_build, task)=A0=A0File "/=
-home/surya/Surya/pro/POKY/laverne-4.0.1/scripts/..//bitbake/lib/bb/cooker.p=
-y", line 758, in buildTargets=A0=A0 =A0taskdata.add_unresolved(localdata, s=
-elf.status)=A0=A0File "/home/surya/Surya/pro/POKY/laverne-4.0.1/scripts/../=
-/bitbake/lib/bb/taskdata.py", line 535, in add_unresolved=A0=A0
- =A0self.remove_buildtarget(targetid)=A0=A0File "/home/surya/Surya/pro/POKY=
-/laverne-4.0.1/scripts/..//bitbake/lib/bb/taskdata.py", line 497, in remove=
-_buildtarget=A0=A0 =A0self.fail_fnid(self.tasks_fnid[taskid], missing_list)=
-=A0=A0File "/home/surya/Surya/pro/POKY/laverne-4.0.1/scripts/..//bitbake/li=
-b/bb/taskdata.py", line 472, in fail_fnid=A0=A0 =A0self.remove_buildtarget(=
-target, missing_list)=A0=A0File "/home/surya/Surya/pro/POKY/laverne-4.0.1/s=
-cripts/..//bitbake/lib/bb/taskdata.py", line 502, in remove_buildtarget=A0=
-=A0 =A0raise bb.providers.NoProvider(target)NoProvider: poky-image-minimal-=
-live_______________________________________________________________________=
-______
-I noticed the dependancy of syslinux and open the file laverne-4.0.1/meta/r=
-ecipes-devtools/syslinux/syslinux_3.86.bb=A0=A0and notice that=A0COMPATIBLE=
-_HOST =3D '(x86_64|i.86).*-(linux|freebsd.*)' =A0=A0so I thought that it is=
- X86 compatible so I downloaded=A0"recipes_images_beagleboard-demo-image.bb=
-" from http://gitorious.org/angstrom/openembedded/blobs/org.openembedded.de=
-v/recipes/images/beagleboard-demo-image.bb and added in laverne-4.0.1/meta/=
-recipes-core/images and then i tried to build as=A0bitbake=A0recipes_images=
-_beagleboard-demo-imageand got error as :
-NOTE: Handling BitBake files: \ (0845/0845) [100 %]Parsing of 845 .bb files=
- complete (797 cached, 48 parsed). 977 targets, 55 skipped, 0 masked, 0 err=
-ors.
-OE Build Configuration:BB_VERSION =A0 =A0 =A0 =A0=3D "1.11.0"METADATA_BRANC=
-H =A0 =3D "<unknown>"METADATA_REVISION =3D "<unknown>"TARGET_ARCH =A0 =A0 =
-=A0 =3D "arm"TARGET_OS =A0 =A0 =A0 =A0 =3D "linux-gnueabi"MACHINE =A0 =A0 =
-=A0 =A0 =A0 =3D "beagleboard"DISTRO =A0 =A0 =A0 =A0 =A0 =A0=3D "poky"DISTRO=
-_VERSION =A0 =A0=3D "0.9"TARGET_FPU =A0 =A0 =A0 =A0=3D "soft"
-ERROR: Nothing PROVIDES 'recipes_images_beagleboard-demo-image'Command exec=
-ution failed: Traceback (most recent call last):=A0=A0File "/home/surya/Sur=
-ya/pro/POKY/laverne-4.0.1/scripts/..//bitbake/lib/bb/command.py", line 88, =
-in runAsyncCommand=A0=A0 =A0commandmethod(self.cmds_async, self, options)=
-=A0=A0File "/home/surya/Surya/pro/POKY/laverne-4.0.1/scripts/..//bitbake/li=
-b/bb/command.py", line 184, in buildTargets=A0=A0 =A0command.cooker.buildTa=
-rgets(pkgs_to_build, task)=A0=A0File "/home/surya/Surya/pro/POKY/laverne-4.=
-0.1/scripts/..//bitbake/lib/bb/cooker.py", line 756, in buildTargets=A0=A0 =
-=A0taskdata.add_provider(localdata, self.status, k)=A0=A0File "/home/surya/=
-Surya/pro/POKY/laverne-4.0.1/scripts/..//bitbake/lib/bb/taskdata.py", line =
-354, in add_provider=A0=A0 =A0self.add_provider_internal(cfgData, dataCache=
-, item)=A0=A0File "/home/surya/Surya/pro/POKY/laverne-4.0.1/scripts/..//bit=
-bake/lib/bb/taskdata.py", line 374, in add_provider_internal=A0=A0 =A0raise
- bb.providers.NoProvider(item)NoProvider: recipes_images_beagleboard-demo-i=
-mage
-please help me to solve the error.
-Thanks in advencedSparsh
+=A0
+=A0=A0Thanks for your suggestion . I tried that=A0bitbake beagleboard-demo-=
+image and have same error. please help if you get anything about it.Thanks =
+in advance
+--- On Fri, 25/3/11, Gerard van den Bosch <gerard@de-haardt.com> wrote:
 
-=0A=0A
+From: Gerard van den Bosch <gerard@de-haardt.com>
+Subject: Re: [poky] Need help to build poky image for beagle board
+To: "Sparsh Wid hope" <sparsh150847@yahoo.com>
+Cc: poky@yoctoproject.org
+Date: Friday, 25 March, 2011, 1:34 PM
 
---0-1079076469-1301061088=:27801
+=0A=0A  =0A=0A    =0A  =0A  =0A    On 03/25/2011 01:57 PM, Sparsh Wid hope =
+wrote:=0A    =0A      =0A        =0A          =0A           =20
+=0A             =20
+=0A             =20
+=0A              =0A                =0A                  =0A               =
+     =0A                      =0A                        =0A               =
+           =0A                            =0A                              =
+=0A                                =0A                                  Hi =
+All,=0A                                   =20
+=0A                                    =0A                                 =
+   I'm trying to=0A                                      build poky image f=
+or beagle=0A                                      board.=A0=0A             =
+                       =0A                                      I followed =
+the steps below-=0A                                    =0A                 =
+                  =20
+=0A                                    =0A                                 =
+   1.Downloaded the=0A                                      source=A0=0A   =
+                                 wget=0A                                   =
+     -c http://git.poky=0A                                          linux.o=
+rg/cgit/=0A                                          cgit.cgi/poky/s=0A    =
+                                      napshot/poky-laverne-4.0.1.tar=0A    =
+                                      .bz2=0A                              =
+     =20
+=0A                                    =0A                                 =
+   2. untar it=0A                                   =20
+=0A                                    =0A                                 =
+   3. I want it=0A                                      build for beagleboa=
+rd, so i=0A                                      downloaded=A0recipes_image=
+s_beagleboard-demo-image.bb=0A                                      recipe=
+=0A                                      from=A0http://gitorious.org/angstr=
+om/openembedded/blobs/org.openembedded.dev/recipes/images/beagleboard-demo-=
+image.bb=0A                                      and copied that in=0A     =
+                                 laverne-4.0.1/meta/recipes-core/images=0A =
+                                  =20
+=0A                                    =0A                                 =
+   4.=0A                                        Build!=0A                  =
+                  =0A                                      cd=A0laverne-4.0=
+.1=0A                                      source poky-init-build-env=0A   =
+                                   bitbake recipes_images_beagleboard-demo-=
+image=0A                                      and get error as =0A         =
+                             =0A                                      ERROR=
+: Nothing PROVIDES 'recipes_images_beagleboard-demo-image'=0ACommand execut=
+ion failed: Traceback (most recent call last):=0A  File "/home/surya/Surya/=
+pro/POKY/laverne-4.0.1/scripts/..//bitbake/lib/bb/command.py", line 88, in =
+runAsyncCommand=0A    commandmethod(self.cmds_async, self, options)=0A  Fil=
+e "/home/surya/Surya/pro/POKY/laverne-4.0.1/scripts/..//bitbake/lib/bb/comm=
+and.py", line 184, in buildTargets=0A    command.cooker.buildTargets(pkgs_t=
+o_build, task)=0A  File "/home/surya/Surya/pro/POKY/laverne-4.0.1/scripts/.=
+.//bitbake/lib/bb/cooker.py", line 756, in buildTargets=0A    taskdata.add_=
+provider(localdata, self.status, k)=0A  File "/home/surya/Surya/pro/POKY/la=
+verne-4.0.1/scripts/..//bitbake/lib/bb/taskdata.py", line 354, in add_provi=
+der=0A    self.add_provider_internal(cfgData, dataCache, item)=0A  File "/h=
+ome/surya/Surya/pro/POKY/laverne-4.0.1/scripts/..//bitbake/lib/bb/taskdata.=
+py", line 374, in add_provider_internal=0A    raise bb.providers.NoProvider=
+(item)=0ANoProvider: recipes_images_beagleboard-demo-image=0A=0A           =
+                          =20
+=0A                                      =0A                               =
+       Help me to solve this error.=0A                                     =
+ Thanks in advance          =0A                                    =0A     =
+                             =0A                                =0A        =
+                      =0A                            =0A                   =
+       =0A                        =0A                      =0A             =
+       =0A                  =0A                  Sparsh=0A              =0A=
+            =0A          =0A        =0A      =0A     =20
+=0A      =0A_______________________________________________=0Apoky mailing =
+list=0Apoky@yoctoproject.org=0Ahttps://lists.yoctoproject.org/listinfo/poky=
+=0A=0A    =0A    Try: =0Abitbake beagleboard-demo-image=0A  =0A=0A=0A=0A
+
+--0-1957197798-1301061982=:786
 Content-Type: text/html; charset=iso-8859-1
 Content-Transfer-Encoding: quoted-printable
 
 <table cellspacing=3D"0" cellpadding=3D"0" border=3D"0" ><tr><td valign=3D"=
-top" style=3D"font: inherit;"><font class=3D"Apple-style-span" face=3D"aria=
-l" size=3D"2">Hi all,</font><div style=3D"font-family: arial; font-size: 10=
-pt; "><br></div><div style=3D"font-family: arial; font-size: 10pt; ">I'm tr=
-ying to build a POKY image for beagleboard and getting error.</div><div sty=
-le=3D"font-family: arial; font-size: 10pt; "><br></div><div style=3D"font-f=
-amily: arial; font-size: 10pt; ">I followed the steps as:</div><div style=
-=3D"font-family: arial; font-size: 10pt; "><br></div><div style=3D"font-fam=
-ily: arial; font-size: 10pt; ">a. Downloaded the source as&nbsp;wget -c <a =
-href=3D"http://git.pokylinux.org/cgit/cgit.cgi/poky/snapshot/poky-laverne-4=
-.0.1.tar.bz2" target=3D"_blank">http://git.pokylinux.org/cgit/<wbr>cgit.cgi=
-/poky/snapshot/poky-<wbr>laverne-4.0.1.tar.bz2</a></div><div style=3D"font-=
-family: arial; font-size: 10pt; ">&nbsp;and then untar it.</div><div style=
-=3D"font-family: arial;
- font-size: 10pt; ">b. I modified the file <span class=3D"Apple-style-span"=
- style=3D"background-color: rgb(128, 255, 0);">laverne-4.0.1/meta/conf/loca=
-l.conf.sample</span> as</div><div style=3D"font-family: arial; font-size: 1=
-0pt; "><br></div><div style=3D"font-family: arial; font-size: 10pt; "><span=
- class=3D"Apple-style-span" style=3D"background-color: rgb(128, 255, 0);">M=
-ACHINE ?=3D "beagleboard"</span></div><div style=3D"font-family: arial; fon=
-t-size: 10pt; ">and tried to build as&nbsp;</div><div style=3D"font-family:=
- arial; font-size: 10pt; "><br></div><div style=3D"font-family: arial; font=
--size: 10pt; "><span class=3D"Apple-style-span" style=3D"background-color: =
-rgb(128, 255, 0);">source poky-init-build-env</span></div><div style=3D"fon=
-t-family: arial; font-size: 10pt; "><span class=3D"Apple-style-span" style=
-=3D"background-color: rgb(128, 255, 0);">bitbake poky-image-minimal-live</s=
-pan></div><div style=3D"font-family: arial; font-size: 10pt; "><br></div><d=
-iv style=3D"font-family:
- arial; font-size: 10pt; ">then i got message on my terminal as:</div><div =
-style=3D"font-family: arial; font-size: 10pt; "><br></div><div><div><font c=
-lass=3D"Apple-style-span" face=3D"arial" size=3D"2">NOTE: Handling BitBake =
-files: \ (0845/0845) [100 %]</font></div><div><font class=3D"Apple-style-sp=
-an" face=3D"arial" size=3D"2">Parsing of 845 .bb files complete (798 cached=
-, 47 parsed). 977 targets, 55 skipped, 0 masked, 0 errors.</font></div><div=
-><font class=3D"Apple-style-span" face=3D"arial" size=3D"2"><br></font></di=
-v><div><font class=3D"Apple-style-span" face=3D"arial" size=3D"2">OE Build =
-Configuration:</font></div><div><font class=3D"Apple-style-span" face=3D"ar=
-ial" size=3D"2">BB_VERSION &nbsp; &nbsp; &nbsp; &nbsp;=3D "1.11.0"</font></=
-div><div><font class=3D"Apple-style-span" face=3D"arial" size=3D"2">METADAT=
-A_BRANCH &nbsp; =3D "&lt;unknown&gt;"</font></div><div><font class=3D"Apple=
--style-span" face=3D"arial" size=3D"2">METADATA_REVISION =3D "&lt;unknown&g=
-t;"</font></div><div><font
- class=3D"Apple-style-span" face=3D"arial" size=3D"2">TARGET_ARCH &nbsp; &n=
-bsp; &nbsp; =3D "arm"</font></div><div><font class=3D"Apple-style-span" fac=
-e=3D"arial" size=3D"2">TARGET_OS &nbsp; &nbsp; &nbsp; &nbsp; =3D "linux-gnu=
-eabi"</font></div><div><font class=3D"Apple-style-span" face=3D"arial" size=
-=3D"2">MACHINE &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =3D "beagleboard"</font><=
-/div><div><font class=3D"Apple-style-span" face=3D"arial" size=3D"2">DISTRO=
- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=3D "poky"</font></div><div><font=
- class=3D"Apple-style-span" face=3D"arial" size=3D"2">DISTRO_VERSION &nbsp;=
- &nbsp;=3D "0.9"</font></div><div><font class=3D"Apple-style-span" face=3D"=
-arial" size=3D"2">TARGET_FPU &nbsp; &nbsp; &nbsp; &nbsp;=3D "soft"</font></=
-div><div><font class=3D"Apple-style-span" face=3D"arial" size=3D"2"><br></f=
-ont></div><div><font class=3D"Apple-style-span" face=3D"arial" size=3D"2">N=
-OTE: Resolving any missing task queue dependencies</font></div><div><font c=
-lass=3D"Apple-style-span" face=3D"arial" size=3D"2">ERROR:
- Nothing PROVIDES 'syslinux'</font></div><div><font class=3D"Apple-style-sp=
-an" face=3D"arial" size=3D"2">ERROR: Required build target 'poky-image-mini=
-mal-live' has no buildable providers.</font></div><div><font class=3D"Apple=
--style-span" face=3D"arial" size=3D"2">Missing or unbuildable dependency ch=
-ain was: ['poky-image-minimal-live', 'syslinux']</font></div><div><font cla=
-ss=3D"Apple-style-span" face=3D"arial" size=3D"2">Command execution failed:=
- Traceback (most recent call last):</font></div><div><font class=3D"Apple-s=
-tyle-span" face=3D"arial" size=3D"2">&nbsp;&nbsp;File "/home/surya/Surya/pr=
-o/POKY/laverne-4.0.1/scripts/..//bitbake/lib/bb/command.py", line 88, in ru=
-nAsyncCommand</font></div><div><font class=3D"Apple-style-span" face=3D"ari=
-al" size=3D"2">&nbsp;&nbsp; &nbsp;commandmethod(self.cmds_async, self, opti=
-ons)</font></div><div><font class=3D"Apple-style-span" face=3D"arial" size=
-=3D"2">&nbsp;&nbsp;File "/home/surya/Surya/pro/POKY/laverne-4.0.1/scripts/.=
-.//bitbake/lib/bb/command.py",
- line 184, in buildTargets</font></div><div><font class=3D"Apple-style-span=
-" face=3D"arial" size=3D"2">&nbsp;&nbsp; &nbsp;command.cooker.buildTargets(=
-pkgs_to_build, task)</font></div><div><font class=3D"Apple-style-span" face=
-=3D"arial" size=3D"2">&nbsp;&nbsp;File "/home/surya/Surya/pro/POKY/laverne-=
-4.0.1/scripts/..//bitbake/lib/bb/cooker.py", line 758, in buildTargets</fon=
-t></div><div><font class=3D"Apple-style-span" face=3D"arial" size=3D"2">&nb=
-sp;&nbsp; &nbsp;taskdata.add_unresolved(localdata, self.status)</font></div=
-><div><font class=3D"Apple-style-span" face=3D"arial" size=3D"2">&nbsp;&nbs=
-p;File "/home/surya/Surya/pro/POKY/laverne-4.0.1/scripts/..//bitbake/lib/bb=
-/taskdata.py", line 535, in add_unresolved</font></div><div><font class=3D"=
-Apple-style-span" face=3D"arial" size=3D"2">&nbsp;&nbsp; &nbsp;self.remove_=
-buildtarget(targetid)</font></div><div><font class=3D"Apple-style-span" fac=
-e=3D"arial" size=3D"2">&nbsp;&nbsp;File
- "/home/surya/Surya/pro/POKY/laverne-4.0.1/scripts/..//bitbake/lib/bb/taskd=
-ata.py", line 497, in remove_buildtarget</font></div><div><font class=3D"Ap=
-ple-style-span" face=3D"arial" size=3D"2">&nbsp;&nbsp; &nbsp;self.fail_fnid=
-(self.tasks_fnid[taskid], missing_list)</font></div><div><font class=3D"App=
-le-style-span" face=3D"arial" size=3D"2">&nbsp;&nbsp;File "/home/surya/Sury=
-a/pro/POKY/laverne-4.0.1/scripts/..//bitbake/lib/bb/taskdata.py", line 472,=
- in fail_fnid</font></div><div><font class=3D"Apple-style-span" face=3D"ari=
-al" size=3D"2">&nbsp;&nbsp; &nbsp;self.remove_buildtarget(target, missing_l=
-ist)</font></div><div><font class=3D"Apple-style-span" face=3D"arial" size=
-=3D"2">&nbsp;&nbsp;File "/home/surya/Surya/pro/POKY/laverne-4.0.1/scripts/.=
-.//bitbake/lib/bb/taskdata.py", line 502, in remove_buildtarget</font></div=
-><div><font class=3D"Apple-style-span" face=3D"arial" size=3D"2">&nbsp;&nbs=
-p; &nbsp;raise bb.providers.NoProvider(target)</font></div><div><font class=
-=3D"Apple-style-span"
- face=3D"arial" size=3D"2">NoProvider: poky-image-minimal-live</font></div>=
-</div><div style=3D"font-family: arial; font-size: 10pt; ">________________=
-_____________________________________________________________</div><div sty=
-le=3D"font-family: arial; font-size: 10pt; "><br></div><div style=3D"font-f=
-amily: arial; font-size: 10pt; ">I noticed the dependancy of syslinux and o=
-pen the file laverne-4.0.1/meta/recipes-devtools/syslinux/<span class=3D"Ap=
-ple-style-span" style=3D"background-color: rgb(128, 255, 0);">syslinux_3.86=
-.bb</span><span class=3D"Apple-style-span" style=3D"background-color: rgb(2=
-55, 255, 255);">&nbsp;&nbsp;</span></div><div style=3D"font-family: arial; =
-font-size: 10pt; "><span class=3D"Apple-style-span" style=3D"background-col=
-or: rgb(255, 255, 255);">and notice that&nbsp;</span><span class=3D"Apple-s=
-tyle-span" style=3D"background-color: rgb(128, 255, 0);">COMPATIBLE_HOST =
-=3D '(x86_64|i.86).*-(linux|freebsd.*)' </span><span class=3D"Apple-style-s=
-pan"
- style=3D"background-color: rgb(255, 255, 255);">&nbsp;&nbsp;</span></div><=
-div style=3D"font-family: arial; font-size: 10pt; "><span class=3D"Apple-st=
-yle-span" style=3D"background-color: rgb(255, 255, 255);">so I thought that=
- it is X86 compatible so I downloaded&nbsp;"recipes_images_beagleboard-demo=
--image.bb" from http://gitorious.org/angstrom/openembedded/blobs/org.openem=
-bedded.dev/recipes/images/beagleboard-demo-image.bb and added in laverne-4.=
-0.1/meta/recipes-core/images and then i tried to build as&nbsp;bitbake&nbsp=
-;recipes_images_beagleboard-demo-image</span></div><div style=3D"font-famil=
-y: arial; font-size: 10pt; "><span class=3D"Apple-style-span" style=3D"back=
-ground-color: rgb(255, 255, 255);">and got error as :</span></div><div styl=
-e=3D"font-family: arial; font-size: 10pt; "><span class=3D"Apple-style-span=
-" style=3D"background-color: rgb(255, 255, 255);"><br></span></div><div><sp=
-an class=3D"Apple-style-span" style=3D"background-color: rgb(255, 255, 255)=
-; "><div><font
- class=3D"Apple-style-span" face=3D"arial" size=3D"2">NOTE: Handling BitBak=
-e files: \ (0845/0845) [100 %]</font></div><div><font class=3D"Apple-style-=
-span" face=3D"arial" size=3D"2">Parsing of 845 .bb files complete (797 cach=
-ed, 48 parsed). 977 targets, 55 skipped, 0 masked, 0 errors.</font></div><d=
-iv><font class=3D"Apple-style-span" face=3D"arial" size=3D"2"><br></font></=
-div><div><font class=3D"Apple-style-span" face=3D"arial" size=3D"2">OE Buil=
-d Configuration:</font></div><div><font class=3D"Apple-style-span" face=3D"=
-arial" size=3D"2">BB_VERSION &nbsp; &nbsp; &nbsp; &nbsp;=3D "1.11.0"</font>=
-</div><div><font class=3D"Apple-style-span" face=3D"arial" size=3D"2">METAD=
-ATA_BRANCH &nbsp; =3D "&lt;unknown&gt;"</font></div><div><font class=3D"App=
-le-style-span" face=3D"arial" size=3D"2">METADATA_REVISION =3D "&lt;unknown=
-&gt;"</font></div><div><font class=3D"Apple-style-span" face=3D"arial" size=
-=3D"2">TARGET_ARCH &nbsp; &nbsp; &nbsp; =3D "arm"</font></div><div><font cl=
-ass=3D"Apple-style-span" face=3D"arial"
- size=3D"2">TARGET_OS &nbsp; &nbsp; &nbsp; &nbsp; =3D "linux-gnueabi"</font=
-></div><div><font class=3D"Apple-style-span" face=3D"arial" size=3D"2">MACH=
-INE &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =3D "beagleboard"</font></div><div><=
-font class=3D"Apple-style-span" face=3D"arial" size=3D"2">DISTRO &nbsp; &nb=
-sp; &nbsp; &nbsp; &nbsp; &nbsp;=3D "poky"</font></div><div><font class=3D"A=
-pple-style-span" face=3D"arial" size=3D"2">DISTRO_VERSION &nbsp; &nbsp;=3D =
-"0.9"</font></div><div><font class=3D"Apple-style-span" face=3D"arial" size=
-=3D"2">TARGET_FPU &nbsp; &nbsp; &nbsp; &nbsp;=3D "soft"</font></div><div><f=
-ont class=3D"Apple-style-span" face=3D"arial" size=3D"2"><br></font></div><=
-div><font class=3D"Apple-style-span" face=3D"arial" size=3D"2">ERROR: Nothi=
-ng PROVIDES 'recipes_images_beagleboard-demo-image'</font></div><div><font =
-class=3D"Apple-style-span" face=3D"arial" size=3D"2">Command execution fail=
-ed: Traceback (most recent call last):</font></div><div><font class=3D"Appl=
-e-style-span" face=3D"arial"
- size=3D"2">&nbsp;&nbsp;File "/home/surya/Surya/pro/POKY/laverne-4.0.1/scri=
-pts/..//bitbake/lib/bb/command.py", line 88, in runAsyncCommand</font></div=
-><div><font class=3D"Apple-style-span" face=3D"arial" size=3D"2">&nbsp;&nbs=
-p; &nbsp;commandmethod(self.cmds_async, self, options)</font></div><div><fo=
-nt class=3D"Apple-style-span" face=3D"arial" size=3D"2">&nbsp;&nbsp;File "/=
-home/surya/Surya/pro/POKY/laverne-4.0.1/scripts/..//bitbake/lib/bb/command.=
-py", line 184, in buildTargets</font></div><div><font class=3D"Apple-style-=
-span" face=3D"arial" size=3D"2">&nbsp;&nbsp; &nbsp;command.cooker.buildTarg=
-ets(pkgs_to_build, task)</font></div><div><font class=3D"Apple-style-span" =
-face=3D"arial" size=3D"2">&nbsp;&nbsp;File "/home/surya/Surya/pro/POKY/lave=
-rne-4.0.1/scripts/..//bitbake/lib/bb/cooker.py", line 756, in buildTargets<=
-/font></div><div><font class=3D"Apple-style-span" face=3D"arial" size=3D"2"=
->&nbsp;&nbsp; &nbsp;taskdata.add_provider(localdata, self.status, k)</font>=
-</div><div><font
- class=3D"Apple-style-span" face=3D"arial" size=3D"2">&nbsp;&nbsp;File "/ho=
-me/surya/Surya/pro/POKY/laverne-4.0.1/scripts/..//bitbake/lib/bb/taskdata.p=
-y", line 354, in add_provider</font></div><div><font class=3D"Apple-style-s=
-pan" face=3D"arial" size=3D"2">&nbsp;&nbsp; &nbsp;self.add_provider_interna=
-l(cfgData, dataCache, item)</font></div><div><font class=3D"Apple-style-spa=
-n" face=3D"arial" size=3D"2">&nbsp;&nbsp;File "/home/surya/Surya/pro/POKY/l=
-averne-4.0.1/scripts/..//bitbake/lib/bb/taskdata.py", line 374, in add_prov=
-ider_internal</font></div><div><font class=3D"Apple-style-span" face=3D"ari=
-al" size=3D"2">&nbsp;&nbsp; &nbsp;raise bb.providers.NoProvider(item)</font=
-></div><div><font class=3D"Apple-style-span" face=3D"arial" size=3D"2">NoPr=
-ovider: recipes_images_beagleboard-demo-image</font></div><div style=3D"fon=
-t-family: arial; font-size: 10pt; "><br></div><div style=3D"font-family: ar=
-ial; font-size: 10pt; ">please help me to solve the error.</div><div style=
-=3D"font-family: arial;
- font-size: 10pt; "><br></div><div style=3D"font-family: arial; font-size: =
-10pt; ">Thanks in advenced</div><div style=3D"font-family: arial; font-size=
-: 10pt; ">Sparsh</div></span></div><div style=3D"font-family: arial; font-s=
-ize: 10pt; "><br></div><div style=3D"font-family: arial; font-size: 10pt; "=
-><br></div></td></tr></table><br>
+top" style=3D"font: inherit;">&nbsp;<br>&nbsp;&nbsp;Thanks for your suggest=
+ion . I tried that&nbsp;bitbake beagleboard-demo-image and have same error.=
+ please help if you get anything about it.<div>Thanks in advance<br>--- On =
+<b>Fri, 25/3/11, Gerard van den Bosch <i>&lt;gerard@de-haardt.com&gt;</i></=
+b> wrote:<br><blockquote style=3D"border-left: 2px solid rgb(16, 16, 255); =
+margin-left: 5px; padding-left: 5px;"><br>From: Gerard van den Bosch &lt;ge=
+rard@de-haardt.com&gt;<br>Subject: Re: [poky] Need help to build poky image=
+ for beagle board<br>To: "Sparsh Wid hope" &lt;sparsh150847@yahoo.com&gt;<b=
+r>Cc: poky@yoctoproject.org<br>Date: Friday, 25 March, 2011, 1:34 PM<br><br=
+><div id=3D"yiv654454608">=0A=0A  =0A=0A    =0A  =0A  =0A    On 03/25/2011 =
+01:57 PM, Sparsh Wid hope wrote:=0A    <blockquote type=3D"cite">=0A      <=
+table border=3D"0" cellpadding=3D"0" cellspacing=3D"0">=0A        <tbody>=
+=0A          <tr>=0A            <td style=3D"font:inherit;" valign=3D"top">=
+<br>=0A              <br>=0A              <br>=0A              <blockquote =
+style=3D"border-left:2px solid rgb(16, 16,=0A                255);margin-le=
+ft:5px;padding-left:5px;">=0A                <div id=3D"yiv654454608">=0A  =
+                <table border=3D"0" cellpadding=3D"0" cellspacing=3D"0">=0A=
+                    <tbody>=0A                      <tr>=0A                =
+        <td style=3D"font:inherit;" valign=3D"top">=0A                     =
+     <div id=3D"yiv654454608">=0A                            <table id=3D"y=
+iv654454608bodyDrftID" class=3D"yiv654454608" border=3D"0" cellpadding=3D"0=
+" cellspacing=3D"0">=0A                              <tbody>=0A            =
+                    <tr>=0A                                  <td id=3D"yiv6=
+54454608drftMsgContent" style=3D"font:inherit;"><font class=3D"yiv654454608=
+Apple-style-span" style=3D"font-size:10pt;font-family:arial;" size=3D"2" fa=
+ce=3D"arial">Hi All,</font>=0A                                    <div styl=
+e=3D"font-family:arial;font-size:10pt;"><br>=0A                            =
+        </div>=0A                                    <div style=3D"font-fam=
+ily:arial;font-size:10pt;">I'm trying to=0A                                =
+      build poky image for beagle=0A                                      b=
+oard.&nbsp;</div>=0A                                    <div style=3D"font-=
+family:arial;font-size:10pt;">=0A                                      <pre=
+ style=3D"font-family:arial;font-size:10pt;"><span class=3D"yiv654454608App=
+le-style-span" style=3D"white-space:normal;">I followed the steps below-</s=
+pan></pre>=0A                                    </div>=0A                 =
+                   <div style=3D"font-family:arial;font-size:10pt;"><br>=0A=
+                                    </div>=0A                              =
+      <div style=3D"font-family:arial;font-size:10pt;">1.Downloaded the=0A =
+                                     source&nbsp;</div>=0A                 =
+                   <div style=3D"font-family:arial;font-size:10pt;"><span c=
+lass=3D"yiv654454608Apple-style-span" style=3D"white-space:pre;">wget=0A   =
+                                     -c <a rel=3D"nofollow" target=3D"_blan=
+k" href=3D"http://git.pokylinux.org/cgit/cgit.cgi/poky/snapshot/poky-lavern=
+e-4.0.1.tar.bz2">http://git.poky=0A                                        =
+  linux.org/cgit/=0A                                          cgit.cgi/poky=
+/s=0A                                          napshot/poky-laverne-4.0.1.t=
+ar=0A                                          .bz2</a></span></div>=0A    =
+                                <div style=3D"font-family:arial;font-size:1=
+0pt;"><br>=0A                                    </div>=0A                 =
+                   <div style=3D"font-family:arial;font-size:10pt;">2. unta=
+r it</div>=0A                                    <div style=3D"font-family:=
+arial;font-size:10pt;"><br>=0A                                    </div>=0A=
+                                    <div style=3D"font-family:arial;font-si=
+ze:10pt;">3. I want it=0A                                      build for be=
+agleboard, so i=0A                                      downloaded&nbsp;rec=
+ipes_images_beagleboard-demo-image.bb=0A                                   =
+   recipe=0A                                      from&nbsp;<a rel=3D"nofol=
+low" class=3D"yiv654454608moz-txt-link-freetext" target=3D"_blank" href=3D"=
+http://gitorious.org/angstrom/openembedded/blobs/org.openembedded.dev/recip=
+es/images/beagleboard-demo-image.bb">http://gitorious.org/angstrom/openembe=
+dded/blobs/org.openembedded.dev/recipes/images/beagleboard-demo-image.bb</a=
+>=0A                                      and copied that in=0A            =
+                          laverne-4.0.1/meta/recipes-core/images</div>=0A  =
+                                  <div style=3D"font-family:arial;font-size=
+:10pt;"><br>=0A                                    </div>=0A               =
+                     <div style=3D"font-family:arial;font-size:10pt;"><span=
+ class=3D"yiv654454608Apple-style-span" style=3D"white-space:pre;">4.=0A   =
+                                     Build!</span></div>=0A                =
+                    <div>=0A                                      <pre styl=
+e=3D"font-family:arial;font-size:10pt;">cd&nbsp;laverne-4.0.1</pre>=0A     =
+                                 <pre style=3D"font-family:arial;font-size:=
+10pt;">source poky-init-build-env</pre>=0A                                 =
+     <pre style=3D"font-family:arial;font-size:10pt;">bitbake recipes_image=
+s_beagleboard-demo-image</pre>=0A                                      <pre=
+ style=3D"font-family:arial;font-size:10pt;">and get error as </pre>=0A    =
+                                  <pre style=3D"font-family:arial;font-size=
+:10pt;"></pre>=0A                                      <pre><font class=3D"=
+yiv654454608Apple-style-span" face=3D"arial">ERROR: Nothing PROVIDES 'recip=
+es_images_beagleboard-demo-image'=0ACommand execution failed: Traceback (mo=
+st recent call last):=0A  File "/home/surya/Surya/pro/POKY/laverne-4.0.1/sc=
+ripts/..//bitbake/lib/bb/command.py", line 88, in runAsyncCommand=0A    com=
+mandmethod(self.cmds_async, self, options)=0A  File "/home/surya/Surya/pro/=
+POKY/laverne-4.0.1/scripts/..//bitbake/lib/bb/command.py", line 184, in bui=
+ldTargets=0A    command.cooker.buildTargets(pkgs_to_build, task)=0A  File "=
+/home/surya/Surya/pro/POKY/laverne-4.0.1/scripts/..//bitbake/lib/bb/cooker.=
+py", line 756, in buildTargets=0A    taskdata.add_provider(localdata, self.=
+status, k)=0A  File "/home/surya/Surya/pro/POKY/laverne-4.0.1/scripts/..//b=
+itbake/lib/bb/taskdata.py", line 354, in add_provider=0A    self.add_provid=
+er_internal(cfgData, dataCache, item)=0A  File "/home/surya/Surya/pro/POKY/=
+laverne-4.0.1/scripts/..//bitbake/lib/bb/taskdata.py", line 374, in add_pro=
+vider_internal=0A    raise bb.providers.NoProvider(item)=0ANoProvider: reci=
+pes_images_beagleboard-demo-image</font><span class=3D"yiv654454608Apple-st=
+yle-span" style=3D"font-family:arial;font-size:10pt;">=0A</span></pre>=0A  =
+                                    <div style=3D"font-family:arial;font-si=
+ze:10pt;"><br>=0A                                      </div>=0A           =
+                           <pre style=3D"font-family:arial;font-size:10pt;"=
+>Help me to solve this error.</pre>=0A                                     =
+ <pre style=3D"font-family:arial;font-size:10pt;">Thanks in advance        =
+  </pre>=0A                                    </div>=0A                   =
+               </td>=0A                                </tr>=0A            =
+                  </tbody>=0A                            </table>=0A       =
+                   </div>=0A                        </td>=0A               =
+       </tr>=0A                    </tbody>=0A                  </table>=0A=
+                  Sparsh</div>=0A              </blockquote>=0A            =
+</td>=0A          </tr>=0A        </tbody>=0A      </table>=0A      <br>=0A=
+      <pre><fieldset class=3D"yiv654454608mimeAttachmentHeader"></fieldset>=
+=0A_______________________________________________=0Apoky mailing list=0A<a=
+ rel=3D"nofollow" class=3D"yiv654454608moz-txt-link-abbreviated" ymailto=3D=
+"mailto:poky@yoctoproject.org" target=3D"_blank" href=3D"/mc/compose?to=3Dp=
+oky@yoctoproject.org">poky@yoctoproject.org</a>=0A<a rel=3D"nofollow" class=
+=3D"yiv654454608moz-txt-link-freetext" target=3D"_blank" href=3D"https://li=
+sts.yoctoproject.org/listinfo/poky">https://lists.yoctoproject.org/listinfo=
+/poky</a>=0A</pre>=0A    </blockquote>=0A    <pre>Try: =0Abitbake beagleboa=
+rd-demo-image</pre>=0A  =0A=0A</div></blockquote></div></td></tr></table><b=
+r>
 
---0-1079076469-1301061088=:27801--
+--0-1957197798-1301061982=:786--
