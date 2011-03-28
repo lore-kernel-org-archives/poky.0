@@ -1,27 +1,32 @@
-Return-Path: <Kai.Kang@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 808364C800B7
-	for <poky@yoctoproject.org>; Sun, 27 Mar 2011 21:43:38 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p2S2haDV014933
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Sun, 27 Mar 2011 19:43:36 -0700 (PDT)
-Received: from [128.224.163.157] (128.224.163.157) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Sun, 27 Mar 2011 19:43:36 -0700
-Message-ID: <4D8FF5E4.70202@windriver.com>
-Date: Mon, 28 Mar 2011 10:43:48 +0800
-From: Kang Kai <Kai.Kang@windriver.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.13) Gecko/20101208 Thunderbird/3.1.7
+Return-Path: <pjcoup@gmail.com>
+Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 418A64C8071D
+	for <poky@yoctoproject.org>; Sun, 27 Mar 2011 22:28:24 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by wwd20 with SMTP id 20so3297591wwd.11
+	for <poky@yoctoproject.org>; Sun, 27 Mar 2011 20:28:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:date:message-id:subject:from:to
+	:content-type; bh=scLMKs59Po6/lhFlkf41RtMZFQIvi+7RbC21GihH9+w=;
+	b=log07YgscGvh+kRUpIV2R2/G7XoVESxl21ZHLZwDoxIADGEjFJBuqvS8AgDyBtZdkK
+	lY+DzA8Yl4OVGgkau5EPejQJgyeaU4KzMbiDhW9pWm90r9TC8LiPgN6ysUYFSAwUn0rv
+	EJctoZ1ks5cbB4go3Hmd2uPuEiSPOyDd+is2k=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:date:message-id:subject:from:to:content-type;
+	b=EVyvVS9NVHHuKIlB64yC06/bx/u374BEqI5457t6A6TISygFl/77JM3N53RS6v1+Ay
+	Ip6UA4vRTlpAGQm9DN5VVmPXspKuvu3K2zOQ1RhYHQWWG3EXQXOw3tk3pykxmC0DazjV
+	L9s5jEgWsWDZ0cWez7Unt5HphjlhTgXOOqRN0=
 MIME-Version: 1.0
-To: Colin Walters <walters@verbum.org>
-References: <cover.1301035479.git.kai.kang@windriver.com>
-	<AANLkTinrzPtDWUoGfVJZBmtSiSHBkM8WuJECkuJf2Q0B@mail.gmail.com>
-In-Reply-To: <AANLkTinrzPtDWUoGfVJZBmtSiSHBkM8WuJECkuJf2Q0B@mail.gmail.com>
-X-Originating-IP: [128.224.163.157]
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/2] LSB: add nspr and nss to pass LSB library check
+Received: by 10.216.141.94 with SMTP id f72mr3299655wej.38.1301282903108; Sun,
+	27 Mar 2011 20:28:23 -0700 (PDT)
+Received: by 10.216.36.147 with HTTP; Sun, 27 Mar 2011 20:28:23 -0700 (PDT)
+Date: Sun, 27 Mar 2011 20:28:23 -0700
+Message-ID: <AANLkTimyMqJN4q1gnG-M9t02GdrotJD5tvxEbr--k3x2@mail.gmail.com>
+From: Pete Couperus <pjcoup@gmail.com>
+To: poky@yoctoproject.org
+Subject: Boost libs built as x86 library with qemumips target
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,45 +38,54 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 28 Mar 2011 02:43:39 -0000
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Mon, 28 Mar 2011 03:28:24 -0000
+Content-Type: multipart/alternative; boundary=0016e6de1501312a99049f828996
 
-On 2011年03月25日 20:50, Colin Walters wrote:
-> On Fri, Mar 25, 2011 at 2:52 AM, Kang Kai<kai.kang@windriver.com>  wrote:
->> From: Kang Kai<kai.kang@windriver.com>
->>
->> add nss and nspr to provide libnss3.so, libssl3.so and libnspr4.so
->> to pass LSB library check.
->> Both are imported from oe, rev 6fe7cef27069415f2eba36bc640cf59013d4979b
-Hi Colin,
+--0016e6de1501312a99049f828996
+Content-Type: text/plain; charset=ISO-8859-1
 
-Thanks for your check.
+Hello,
 
-> I'm new to Yocto but have been around in the general purpose distro
-> land for a while, and there is one thing that has always driven me
-> nuts: patches without any comment.
-> This may not be your fault, but:
->
-> Take for example b/meta/recipes-extended/mozilla/nspr-4.8.7/unbreak-build.diff
->
-> *why*?  Who wrote the patch?  What was broken?  Has the patch ever
-> been sent upstream?
-All the bb files and patches are from OpenEmbedded git repository:
-git://git.openembedded.net/openembedded
+I'm new to poky, and was trying to build 'poky-image-minimal' for a couple
+of targets.
+After success with 'poky-image-minimal' for qemux86, I tried out the
+qemumips target.
+Things seemed to be going fine, until it errored out trying to build libzypp
+with a bunch
+of:
+skipping incompatible
+/home/twocog/poky-builds/build-mips/tmp/sysroots/mips-poky-linux/usr/lib/libboost_signals-mt.so
+when searching for -lboost_signals-mt.
+Indeed, file libboost_signals.so.1.44.0 reports ELF x86, where all of the
+other
+.so in this directory are ELF mips.
+On looking at the boost build artifacts, they all seem to be x86.
+The host machine is x86.
+This is using poky-laverne-4.0.
+Any help/guidance would be appreciated, I realize there are many moving
+pieces here.  I can provide more diagnostics if needed.
+Thanks.
 
-I did not quit understand what the unbreak-build.diff to fix what was 
-broken, but when I checked the new version of nspr, found the patch is 
-not applied, so I keeped it.
+Pete
 
-> Personally I tend to hand-write something similar to "git
-> format-patch" if I'm not actually creating a patch against upstream
-> git (which I try hard to do).
->
-> meta/recipes-extended/mozilla/nspr-4.8.7/30_config_64bits.dpatch
->
-> is one that clearly should be upstream, it's just way saner.
-> Planning to use nspr in my tree, so thought I'd take a look =)
-> Otherwise looks pretty clean to me.
+--0016e6de1501312a99049f828996
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
 
+Hello,<br><br>I&#39;m new to poky, and was trying to build &#39;poky-image-=
+minimal&#39; for a couple of targets.<br>After success with &#39;poky-image=
+-minimal&#39; for qemux86, I tried out the qemumips target.<br>Things seeme=
+d to be going fine, until it errored out trying to build libzypp with a bun=
+ch<br>
+of:<br>skipping incompatible /home/twocog/poky-builds/build-mips/tmp/sysroo=
+ts/mips-poky-linux/usr/lib/libboost_signals-mt.so when searching for -lboos=
+t_signals-mt.<br>Indeed, file libboost_signals.so.1.44.0 reports ELF x86, w=
+here all of the other<br>
+.so in this directory are ELF mips.<br>On looking at the boost build artifa=
+cts, they all seem to be x86.<br>The host machine is x86.<br>This is using =
+poky-laverne-4.0. <br>Any help/guidance would be appreciated, I realize the=
+re are many moving pieces here.=A0 I can provide more diagnostics if needed=
+.<br>
+Thanks.<br><br>Pete<br><br><br>
 
+--0016e6de1501312a99049f828996--
