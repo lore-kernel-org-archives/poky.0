@@ -1,40 +1,19 @@
-Return-Path: <srifenbark@gmail.com>
-Received: from mail-yw0-f48.google.com (mail-yw0-f48.google.com
-	[209.85.213.48])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 06CE04C800AC
-	for <poky@yoctoproject.org>; Mon, 28 Mar 2011 18:15:10 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by ywo32 with SMTP id 32so1756635ywo.35
-	for <poky@yoctoproject.org>; Mon, 28 Mar 2011 16:15:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:message-id:in-reply-to:references:old-date
-	:subject:date:to:cc:from;
-	bh=hjbeewFJyXRQTv2FzgS9/9js52jd8Rpt7ddJTWDG7sQ=;
-	b=r5c/FI9i6Gm4n3imZcjToUjCqUi5kd+GGVswOLed+XYlMoUWVBBDnC22Y0wu3TJb92
-	N6Nsj5gBkTp7YJfmggtvjzlJZ3e6t9anh3GLQoUupcylvbOHbc2oODPGHhoeiKSsouW+
-	lY/bGI7Apw5avzhkl+rxNMfYOsAUXmtnzAnG4=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=message-id:in-reply-to:references:old-date:subject:date:to:cc:from;
-	b=xbCxE/j3BY1sX/JRPoPaC8ZUQ8Fs8P+DWOSp45s3MateLhZIj20lGSTFezpZulblbF
-	1r6AlodfdWOu2R1bb1aV/iqgp3aA4I/OsJa7AtZILQejTAS/B3DXbv2VxXHUmAR1WT+9
-	6Gy35o0FdUarX63HBZPb/BRSPpxPURsQua8aQ=
-Received: by 10.150.193.17 with SMTP id q17mr4284516ybf.189.1301354109753;
-	Mon, 28 Mar 2011 16:15:09 -0700 (PDT)
-Received: from localhost ([190.197.29.62])
-	by mx.google.com with ESMTPS id w15sm1584353ybk.16.2011.03.28.16.15.08
-	(version=TLSv1/SSLv3 cipher=OTHER);
-	Mon, 28 Mar 2011 16:15:09 -0700 (PDT)
-Message-Id: <2639f54ae5c59b1ba15eb05489696db28ca80443.1301351290.git.scott.m.rifenbark@intel.com>
-In-Reply-To: <cover.1301351290.git.scott.m.rifenbark@intel.com>
-References: <cover.1301351290.git.scott.m.rifenbark@intel.com>
-Old-Date: Mon, 28 Mar 2011 17:26:05 -0500
-Date: Mon, 28 Mar 2011 18:15:07 -0500
-To: poky@yoctoproject.org
-CC: 
-From: Scott Rifenbark <srifenbark@gmail.com>
-Subject: [PATCH 1/1] documentation/yocto-project-qs/yocto-project-qs.xml: removed (YP) acronym
+Return-Path: <josh@linux.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 971B44C800AC
+	for <poky@yoctoproject.org>; Mon, 28 Mar 2011 18:31:59 -0500 (CDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 28 Mar 2011 16:31:59 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.63,258,1299484800"; d="scan'208";a="672587512"
+Received: from unknown (HELO localhost) ([10.255.16.103])
+	by fmsmga002.fm.intel.com with ESMTP; 28 Mar 2011 16:31:58 -0700
+Message-Id: <cover.1301354978.git.josh@linux.intel.com>
+Old-Date: Tue, 29 Mar 2011 00:29:38 +0100
+Date: Tue, 29 Mar 2011  0:31:52 +0100
+To: poky@yoctoproject.org,openembedded-core@lists.openembedded.org
+From: Joshua Lock <josh@linux.intel.com>
+Subject: [PATCH 0/4] Recipes for Clutter 1.6 v2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,31 +25,43 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 28 Mar 2011 23:15:10 -0000
+X-List-Received-Date: Mon, 28 Mar 2011 23:31:59 -0000
 
-From: Scott Rifenbark <scott.m.rifenbark@intel.com>
+From: Joshua Lock <josh@linux.intel.com>
 
-I removed this YP acroynm since we never use it.
+v2 of a series series of patches adds recipes for Clutter 1.6 and versions of
+clutter-box2d and clutter-gst which build against it.
 
-Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
+Pull URL: git://git.openembedded.org/openembedded-core-contrib
+  Branch: josh/clutter
+  Browse: http://git.openembedded.org/cgit.cgi/openembedded-core-contrib/log/?h=josh/clutter
+
+Thanks,
+    Joshua Lock <josh@linux.intel.com>
 ---
- .../yocto-project-qs/yocto-project-qs.xml          |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
 
-diff --git a/documentation/yocto-project-qs/yocto-project-qs.xml b/documentation/yocto-project-qs/yocto-project-qs.xml
-index b1040a2..fb06322 100644
---- a/documentation/yocto-project-qs/yocto-project-qs.xml
-+++ b/documentation/yocto-project-qs/yocto-project-qs.xml
-@@ -13,7 +13,7 @@
-     <title>Welcome!</title>
-     <para>
-         Welcome to the Yocto Project!  
--        The Yocto Project (YP) is an open-source collaboration project focused on embedded Linux
-+        The Yocto Project is an open-source collaboration project focused on embedded Linux
-         developers.
-         Amongst other things, YP uses the Poky build tool to construct complete Linux images.
-     </para>
+
+Joshua Lock (4):
+  clutter: add 1.6.8
+  clutter-gst: add 1.3.6 for use with clutter 1.6
+  clutter-box2d: add version 0.10.0 for use with clutter 1.6
+  clutter-gtk: remove duplicate gtk+ DEPENDS entry
+
+ meta/recipes-graphics/clutter/clutter-1.6_1.6.8.bb |   25 +++++++++++++++++
+ .../clutter/clutter-box2d-1.6_0.10.0.bb            |   20 ++++++++++++++
+ meta/recipes-graphics/clutter/clutter-box2d.inc    |    4 +-
+ .../clutter-box2d/fix-disable-introspection.patch  |   28 ++++++++++++++++++++
+ meta/recipes-graphics/clutter/clutter-box2d_git.bb |    2 +-
+ .../clutter/clutter-gst-1.6_1.3.6.bb               |   16 +++++++++++
+ meta/recipes-graphics/clutter/clutter-gst.inc      |    2 +-
+ .../clutter/clutter-gtk-1.4_git.bb                 |    2 +-
+ 8 files changed, 94 insertions(+), 5 deletions(-)
+ create mode 100644 meta/recipes-graphics/clutter/clutter-1.6_1.6.8.bb
+ create mode 100644 meta/recipes-graphics/clutter/clutter-box2d-1.6_0.10.0.bb
+ create mode 100644 meta/recipes-graphics/clutter/clutter-box2d/fix-disable-introspection.patch
+ create mode 100644 meta/recipes-graphics/clutter/clutter-gst-1.6_1.3.6.bb
+
 -- 
-1.7.0.4
+1.7.4.1
 
 
