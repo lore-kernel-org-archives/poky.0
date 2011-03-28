@@ -1,37 +1,27 @@
-Return-Path: <david.c.stewart@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id F07184C800BA
-	for <poky@yoctoproject.org>; Fri, 25 Mar 2011 18:57:20 -0500 (CDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 25 Mar 2011 16:57:20 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,246,1299484800"; d="scan'208";a="901978068"
-Received: from orsmsx602.amr.corp.intel.com ([10.22.226.211])
-	by fmsmga001.fm.intel.com with ESMTP; 25 Mar 2011 16:57:20 -0700
-Received: from orsmsx605.amr.corp.intel.com (10.22.226.10) by
-	orsmsx602.amr.corp.intel.com (10.22.226.211) with Microsoft SMTP Server
-	(TLS) id 8.2.255.0; Fri, 25 Mar 2011 16:57:20 -0700
-Received: from orsmsx501.amr.corp.intel.com ([10.22.226.209]) by
-	orsmsx605.amr.corp.intel.com ([10.22.226.10]) with mapi;
-	Fri, 25 Mar 2011 16:57:19 -0700
-From: "Stewart, David C" <david.c.stewart@intel.com>
-To: "Rifenbark, Scott M" <scott.m.rifenbark@intel.com>,
-	"poky@yoctoproject.org" <poky@yoctoproject.org>
-Date: Fri, 25 Mar 2011 16:57:18 -0700
-Thread-Topic: [poky] [PATCH 2/2]
-	documentation/yocto-project-qs/yocto-project-qs.xml: [BUGID#	931] -
-	Removed Fedora 14 bitbake native note
-Thread-Index: AcvrC0vu+iFI3E7LRKKBpfKs1VhZeAAPQv8w
-Message-ID: <B27EBC40D200ED48A3F4CC2EBEABAE0B25DBE62BED@orsmsx501.amr.corp.intel.com>
-References: <cover.1301070812.git.scott.m.rifenbark@intel.com>
-	<658b3d55bb1e3d4967f91636d71bc05066966620.1301070812.git.scott.m.rifenbark@intel.com>
-In-Reply-To: <658b3d55bb1e3d4967f91636d71bc05066966620.1301070812.git.scott.m.rifenbark@intel.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
+Return-Path: <Kai.Kang@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 808364C800B7
+	for <poky@yoctoproject.org>; Sun, 27 Mar 2011 21:43:38 -0500 (CDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p2S2haDV014933
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Sun, 27 Mar 2011 19:43:36 -0700 (PDT)
+Received: from [128.224.163.157] (128.224.163.157) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
+	Sun, 27 Mar 2011 19:43:36 -0700
+Message-ID: <4D8FF5E4.70202@windriver.com>
+Date: Mon, 28 Mar 2011 10:43:48 +0800
+From: Kang Kai <Kai.Kang@windriver.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.13) Gecko/20101208 Thunderbird/3.1.7
 MIME-Version: 1.0
-Subject: Re: [PATCH 2/2]	documentation/yocto-project-qs/yocto-project-qs.xml: [BUGID#	931] - Removed Fedora 14 bitbake native note
+To: Colin Walters <walters@verbum.org>
+References: <cover.1301035479.git.kai.kang@windriver.com>
+	<AANLkTinrzPtDWUoGfVJZBmtSiSHBkM8WuJECkuJf2Q0B@mail.gmail.com>
+In-Reply-To: <AANLkTinrzPtDWUoGfVJZBmtSiSHBkM8WuJECkuJf2Q0B@mail.gmail.com>
+X-Originating-IP: [128.224.163.157]
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/2] LSB: add nspr and nss to pass LSB library check
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,64 +33,45 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 25 Mar 2011 23:57:21 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Mon, 28 Mar 2011 02:43:39 -0000
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Ooops - ignore my last email - sorry.
+On 2011年03月25日 20:50, Colin Walters wrote:
+> On Fri, Mar 25, 2011 at 2:52 AM, Kang Kai<kai.kang@windriver.com>  wrote:
+>> From: Kang Kai<kai.kang@windriver.com>
+>>
+>> add nss and nspr to provide libnss3.so, libssl3.so and libnspr4.so
+>> to pass LSB library check.
+>> Both are imported from oe, rev 6fe7cef27069415f2eba36bc640cf59013d4979b
+Hi Colin,
 
->-----Original Message-----
->From: poky-bounces@yoctoproject.org [mailto:poky-
->bounces@yoctoproject.org] On Behalf Of scott.m.rifenbark@intel.com
->Sent: Friday, March 25, 2011 9:41 AM
->To: poky@yoctoproject.org
->Subject: [poky] [PATCH 2/2] documentation/yocto-project-qs/yocto-
->project-qs.xml: [BUGID# 931] - Removed Fedora 14 bitbake native note
+Thanks for your check.
+
+> I'm new to Yocto but have been around in the general purpose distro
+> land for a while, and there is one thing that has always driven me
+> nuts: patches without any comment.
+> This may not be your fault, but:
 >
->From: Scott Rifenbark <scott.m.rifenbark@intel.com>
+> Take for example b/meta/recipes-extended/mozilla/nspr-4.8.7/unbreak-build.diff
 >
->[BUGID# 931] - I have removed the Note indicating that the user must run
->'bitbake make-native' if running Fedora 14.
->This is no longer a requirement for YP Release 1.0
+> *why*?  Who wrote the patch?  What was broken?  Has the patch ever
+> been sent upstream?
+All the bb files and patches are from OpenEmbedded git repository:
+git://git.openembedded.net/openembedded
+
+I did not quit understand what the unbreak-build.diff to fix what was 
+broken, but when I checked the new version of nspr, found the patch is 
+not applied, so I keeped it.
+
+> Personally I tend to hand-write something similar to "git
+> format-patch" if I'm not actually creating a patch against upstream
+> git (which I try hard to do).
 >
->Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
->---
-> .../yocto-project-qs/yocto-project-qs.xml          |   11 -----------
-> 1 files changed, 0 insertions(+), 11 deletions(-)
+> meta/recipes-extended/mozilla/nspr-4.8.7/30_config_64bits.dpatch
 >
->diff --git a/documentation/yocto-project-qs/yocto-project-qs.xml
->b/documentation/yocto-project-qs/yocto-project-qs.xml
->index e6a1da9..b1040a2 100644
->--- a/documentation/yocto-project-qs/yocto-project-qs.xml
->+++ b/documentation/yocto-project-qs/yocto-project-qs.xml
->@@ -288,17 +288,6 @@
->      $ bitbake poky-image-sato
->              </literallayout>
->              <note><para>
->-                 If you are running Fedora 14 or another distribution
->-                 that ships with GNU, run the following two
-><filename>BitBake</filename>
->-                 commands.
->-                 For more information, see
->-                 <ulink url=3D'http://www.mail-archive.com/bug-
->make@gnu.org/msg06220.html'></ulink>.
->-                 <literallayout class=3D'monospaced'>
->-     $ bitbake make-native
->-     $ bitbake poky-image-sato
->-                 </literallayout>
->-             </para></note>
->-             <note><para>
->                  BitBake requires Python 2.6.  For more information on
->this requirement,
->                  see the FAQ appendix in the
->                  <ulink url=3D'http://www.yoctoproject.org/docs/poky-ref-
->manual/poky-ref-manual.html'>
->--
->1.7.1
->
->_______________________________________________
->poky mailing list
->poky@yoctoproject.org
->https://lists.yoctoproject.org/listinfo/poky
+> is one that clearly should be upstream, it's just way saner.
+> Planning to use nspr in my tree, so thought I'd take a look =)
+> Otherwise looks pretty clean to me.
+
 
