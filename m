@@ -1,32 +1,19 @@
-Return-Path: <pjcoup@gmail.com>
-Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 418A64C8071D
-	for <poky@yoctoproject.org>; Sun, 27 Mar 2011 22:28:24 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by wwd20 with SMTP id 20so3297591wwd.11
-	for <poky@yoctoproject.org>; Sun, 27 Mar 2011 20:28:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:date:message-id:subject:from:to
-	:content-type; bh=scLMKs59Po6/lhFlkf41RtMZFQIvi+7RbC21GihH9+w=;
-	b=log07YgscGvh+kRUpIV2R2/G7XoVESxl21ZHLZwDoxIADGEjFJBuqvS8AgDyBtZdkK
-	lY+DzA8Yl4OVGgkau5EPejQJgyeaU4KzMbiDhW9pWm90r9TC8LiPgN6ysUYFSAwUn0rv
-	EJctoZ1ks5cbB4go3Hmd2uPuEiSPOyDd+is2k=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:date:message-id:subject:from:to:content-type;
-	b=EVyvVS9NVHHuKIlB64yC06/bx/u374BEqI5457t6A6TISygFl/77JM3N53RS6v1+Ay
-	Ip6UA4vRTlpAGQm9DN5VVmPXspKuvu3K2zOQ1RhYHQWWG3EXQXOw3tk3pykxmC0DazjV
-	L9s5jEgWsWDZ0cWez7Unt5HphjlhTgXOOqRN0=
-MIME-Version: 1.0
-Received: by 10.216.141.94 with SMTP id f72mr3299655wej.38.1301282903108; Sun,
-	27 Mar 2011 20:28:23 -0700 (PDT)
-Received: by 10.216.36.147 with HTTP; Sun, 27 Mar 2011 20:28:23 -0700 (PDT)
-Date: Sun, 27 Mar 2011 20:28:23 -0700
-Message-ID: <AANLkTimyMqJN4q1gnG-M9t02GdrotJD5tvxEbr--k3x2@mail.gmail.com>
-From: Pete Couperus <pjcoup@gmail.com>
-To: poky@yoctoproject.org
-Subject: Boost libs built as x86 library with qemumips target
+Return-Path: <josh@linux.intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 342E04C800B6
+	for <poky@yoctoproject.org>; Mon, 28 Mar 2011 09:28:37 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 28 Mar 2011 07:28:30 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.63,255,1299484800"; d="scan'208";a="409739184"
+Received: from unknown (HELO localhost) ([10.255.16.125])
+	by azsmga001.ch.intel.com with ESMTP; 28 Mar 2011 07:28:29 -0700
+Message-Id: <cover.1301322225.git.josh@linux.intel.com>
+Old-Date: Mon, 28 Mar 2011 15:23:45 +0100
+Date: Mon, 28 Mar 2011 15:28:23 +0100
+To: openembedded-core@lists.openembedded.org,poky@yoctoproject.org
+From: Joshua Lock <josh@linux.intel.com>
+Subject: [PATCH 0/4] Recipes for Clutter 1.6
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,54 +25,43 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 28 Mar 2011 03:28:24 -0000
-Content-Type: multipart/alternative; boundary=0016e6de1501312a99049f828996
+X-List-Received-Date: Mon, 28 Mar 2011 14:28:37 -0000
 
---0016e6de1501312a99049f828996
-Content-Type: text/plain; charset=ISO-8859-1
+From: Joshua Lock <josh@linux.intel.com>
 
-Hello,
+The attached series of patches adds recipes for Clutter 1.6 and versions of
+clutter-box2d and clutter-gst which build against it.
 
-I'm new to poky, and was trying to build 'poky-image-minimal' for a couple
-of targets.
-After success with 'poky-image-minimal' for qemux86, I tried out the
-qemumips target.
-Things seemed to be going fine, until it errored out trying to build libzypp
-with a bunch
-of:
-skipping incompatible
-/home/twocog/poky-builds/build-mips/tmp/sysroots/mips-poky-linux/usr/lib/libboost_signals-mt.so
-when searching for -lboost_signals-mt.
-Indeed, file libboost_signals.so.1.44.0 reports ELF x86, where all of the
-other
-.so in this directory are ELF mips.
-On looking at the boost build artifacts, they all seem to be x86.
-The host machine is x86.
-This is using poky-laverne-4.0.
-Any help/guidance would be appreciated, I realize there are many moving
-pieces here.  I can provide more diagnostics if needed.
-Thanks.
+Pull URL: git://git.openembedded.org/openembedded-core-contrib
+  Branch: josh/clutter
+  Browse: http://git.openembedded.org/cgit.cgi/openembedded-core-contrib/log/?h=josh/clutter
 
-Pete
+Thanks,
+    Joshua Lock <josh@linux.intel.com>
+---
 
---0016e6de1501312a99049f828996
-Content-Type: text/html; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
 
-Hello,<br><br>I&#39;m new to poky, and was trying to build &#39;poky-image-=
-minimal&#39; for a couple of targets.<br>After success with &#39;poky-image=
--minimal&#39; for qemux86, I tried out the qemumips target.<br>Things seeme=
-d to be going fine, until it errored out trying to build libzypp with a bun=
-ch<br>
-of:<br>skipping incompatible /home/twocog/poky-builds/build-mips/tmp/sysroo=
-ts/mips-poky-linux/usr/lib/libboost_signals-mt.so when searching for -lboos=
-t_signals-mt.<br>Indeed, file libboost_signals.so.1.44.0 reports ELF x86, w=
-here all of the other<br>
-.so in this directory are ELF mips.<br>On looking at the boost build artifa=
-cts, they all seem to be x86.<br>The host machine is x86.<br>This is using =
-poky-laverne-4.0. <br>Any help/guidance would be appreciated, I realize the=
-re are many moving pieces here.=A0 I can provide more diagnostics if needed=
-.<br>
-Thanks.<br><br>Pete<br><br><br>
+Joshua Lock (4):
+  clutter: add 1.6.8
+  clutter-gst: add 1.3.6 for use with clutter 1.6
+  clutter-box2d: add version 0.10.0 for use with clutter 1.6
+  clutter-gtk: remove duplicate gtk+ DEPENDS entry
 
---0016e6de1501312a99049f828996--
+ meta/recipes-graphics/clutter/clutter-1.6_1.6.8.bb |   25 +++++++++++++++++
+ .../clutter/clutter-box2d-1.6_0.10.0.bb            |   20 ++++++++++++++
+ meta/recipes-graphics/clutter/clutter-box2d.inc    |    4 +-
+ .../clutter-box2d/fix-disable-introspection.patch  |   28 ++++++++++++++++++++
+ meta/recipes-graphics/clutter/clutter-box2d_git.bb |    2 +-
+ .../clutter/clutter-gst-1.6_1.3.6.bb               |   16 +++++++++++
+ meta/recipes-graphics/clutter/clutter-gst.inc      |    3 +-
+ .../clutter/clutter-gtk-1.4_git.bb                 |    2 +-
+ 8 files changed, 95 insertions(+), 5 deletions(-)
+ create mode 100644 meta/recipes-graphics/clutter/clutter-1.6_1.6.8.bb
+ create mode 100644 meta/recipes-graphics/clutter/clutter-box2d-1.6_0.10.0.bb
+ create mode 100644 meta/recipes-graphics/clutter/clutter-box2d/fix-disable-introspection.patch
+ create mode 100644 meta/recipes-graphics/clutter/clutter-gst-1.6_1.3.6.bb
+
+-- 
+1.7.4
+
+
