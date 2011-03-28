@@ -1,22 +1,30 @@
-Return-Path: <bruce.ashfield@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id DA1D14C804E4
-	for <poky@yoctoproject.org>; Mon, 28 Mar 2011 12:40:24 -0500 (CDT)
-Received: from localhost.localdomain (yow-bashfiel-d2.ottawa.windriver.com
-	[128.224.146.167])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p2SHP3iH027262;
-	Mon, 28 Mar 2011 10:25:05 -0700 (PDT)
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-To: richard.purdie@linuxfoundation.org
-Date: Mon, 28 Mar 2011 13:31:19 -0400
-Message-Id: <4291f28327101ce51565d8b81558d0484914f8ab.1301333355.git.bruce.ashfield@windriver.com>
-X-Mailer: git-send-email 1.7.0.4
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5F6E24C804E4
+	for <poky@yoctoproject.org>; Mon, 28 Mar 2011 14:12:38 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2SJCW5a001436;
+	Mon, 28 Mar 2011 20:12:32 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 01025-07; Mon, 28 Mar 2011 20:12:26 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2SJCN84001430
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Mon, 28 Mar 2011 20:12:24 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Bruce Ashfield <bruce.ashfield@windriver.com>
 In-Reply-To: <cover.1301333355.git.bruce.ashfield@windriver.com>
 References: <cover.1301333355.git.bruce.ashfield@windriver.com>
-In-Reply-To: <cover.1301333355.git.bruce.ashfield@windriver.com>
-References: <cover.1301333355.git.bruce.ashfield@windriver.com>
+Date: Mon, 28 Mar 2011 20:12:20 +0100
+Message-ID: <1301339540.24596.1.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.2 
+X-Virus-Scanned: amavisd-new at rpsys.net
 Cc: poky@yoctoproject.org, openembedded-core@lists.openembedded.org
-Subject: [PATCH 1/1] linux-yocto/meta: fix SRCREV
+Subject: Re: [PATCH 0/1] linux-yocto/meta: fix SRCREV
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,34 +36,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 28 Mar 2011 17:40:25 -0000
+X-List-Received-Date: Mon, 28 Mar 2011 19:12:38 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-The SRCREV that was pushed to meta isn't even a commit Id
-on the meta branch. As a result, the recovery code for bad
-SRCREV can't trigger and fix things up due to conflicting
-files between the branches.
+On Mon, 2011-03-28 at 13:31 -0400, Bruce Ashfield wrote:
+> The SRCREV that was pushed to meta isn't even a commit Id
+> on the meta branch. As a result, the recovery code for bad
+> SRCREV can't trigger and fix things up due to conflicting
+> files between the branches.
+> 
+> Updating to the right SRCREV fixes the problem.
+> 
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>   Branch: zedd/kernel
+>   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/kernel
+> 
+> Thanks,
+>     Bruce Ashfield <bruce.ashfield@windriver.com>
+> ---
+> 
+> 
+> Bruce Ashfield (1):
+>   linux-yocto/meta: fix SRCREV
 
-Updating to the right SRCEV fixes the problem.
+Merged to master, thanks.
 
-Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
----
- .../conf/distro/include/poky-default-revisions.inc |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+Cheers,
 
-diff --git a/meta/conf/distro/include/poky-default-revisions.inc b/meta/conf/distro/include/poky-default-revisions.inc
-index 6ec74ba..d195a9d 100644
---- a/meta/conf/distro/include/poky-default-revisions.inc
-+++ b/meta/conf/distro/include/poky-default-revisions.inc
-@@ -109,7 +109,7 @@ SRCREV_machine_pn-linux-yocto_routerstationpro ?= "78214d7ac1c3103840fe69d3bbbf8
- SRCREV_machine_pn-linux-yocto_mpc8315e-rdb ?= "f700964852b98d6e5c7f5da24ade0256f97cd8cb"
- SRCREV_machine_pn-linux-yocto_beagleboard ?= "17e49db8624324d090dd5aaa18ef977bb2dd5f6d"
- SRCREV_machine_pn-linux-yocto ?= "2b2ef940457f0bb40e0fb76937c921c2962364ca"
--SRCREV_meta_pn-linux-yocto ?= "17e49db8624324d090dd5aaa18ef977bb2dd5f6d"
-+SRCREV_meta_pn-linux-yocto ?= "212cae404e57ff9dc58c808035770d51325c3512"
- SRCREV_pn-linux-libc-headers-yocto ??= "17e49db8624324d090dd5aaa18ef977bb2dd5f6d"
- SRCREV_pn-matchbox-config-gtk ??= "3ed74dfb7c57be088a5ab36e446c0ccde9fa1028"
- SRCREV_pn-matchbox-desktop-sato ??= "76"
--- 
-1.7.0.4
+Richard
 
 
