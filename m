@@ -1,15 +1,15 @@
 Return-Path: <nobody@host.mbanaukri.com>
 Received: from host.mbanaukri.com (unknown [50.28.4.18])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 466704C800AC
-	for <poky@yoctoproject.org>; Tue, 29 Mar 2011 01:06:58 -0500 (CDT)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 0550F4C800AC
+	for <poky@yoctoproject.org>; Tue, 29 Mar 2011 01:11:52 -0500 (CDT)
 Received: from nobody by host.mbanaukri.com with local (Exim 4.69)
-	(envelope-from <nobody@host.mbanaukri.com>) id 1Q4S4u-0005Jn-HI
-	for poky@yoctoproject.org; Tue, 29 Mar 2011 02:06:56 -0400
+	(envelope-from <nobody@host.mbanaukri.com>) id 1Q4S9g-0007Lm-6u
+	for poky@yoctoproject.org; Tue, 29 Mar 2011 02:11:52 -0400
 To: poky@yoctoproject.org
 MIME-Version: 1.0
 From: kubera.samrat@gmail.com
-Message-Id: <E1Q4S4u-0005Jn-HI@host.mbanaukri.com>
-Date: Tue, 29 Mar 2011 02:06:56 -0400
+Message-Id: <E1Q4S9g-0007Lm-6u@host.mbanaukri.com>
+Date: Tue, 29 Mar 2011 02:11:52 -0400
 X-AntiAbuse: This header was added to track abuse,
 	please include it with any abuse report
 X-AntiAbuse: Primary Hostname - host.mbanaukri.com
@@ -28,7 +28,7 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 29 Mar 2011 06:06:58 -0000
+X-List-Received-Date: Tue, 29 Mar 2011 06:11:53 -0000
 Content-type: text/html; charset=iso-8859-1
 
 <table width="650" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#111111">
