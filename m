@@ -1,31 +1,37 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 94AA74C800AC
-	for <poky@yoctoproject.org>; Tue, 29 Mar 2011 05:43:47 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2TAhieK018683;
-	Tue, 29 Mar 2011 11:43:44 +0100
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 18643-01; Tue, 29 Mar 2011 11:43:40 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2TAhZvb018677
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Tue, 29 Mar 2011 11:43:38 +0100
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Patches and discussions about the oe-core layer
+Return-Path: <dexuan.cui@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id EFFA94C800A0
+	for <poky@yoctoproject.org>; Tue, 29 Mar 2011 06:43:31 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 29 Mar 2011 04:43:30 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.63,261,1299484800"; d="scan'208";a="620404337"
+Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
+	by orsmga002.jf.intel.com with ESMTP; 29 Mar 2011 04:43:29 -0700
+Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
+	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
+	(TLS) id 8.2.255.0; Tue, 29 Mar 2011 19:43:28 +0800
+Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
+	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
+	Tue, 29 Mar 2011 19:43:28 +0800
+From: "Cui, Dexuan" <dexuan.cui@intel.com>
+To: 'Patches and discussions about the oe-core layer'
 	<openembedded-core@lists.openembedded.org>
-In-Reply-To: <c9789f2d0873c6b8ff2ae3a7b338b72527cfbf02.1301388474.git.dexuan.cui@intel.com>
+Date: Tue, 29 Mar 2011 19:43:26 +0800
+Thread-Topic: [OE-core] [PATCH 1/1] qt4: remove the option
+	-feliminate-dwarf2-dups to fix the build
+Thread-Index: Acvt/jQpKTcbrkfCTeaFlv8CwIh94gAB/gbw
+Message-ID: <1865303E0DED764181A9D882DEF65FB68A3F6A15D4@shsmsx502.ccr.corp.intel.com>
 References: <cover.1301388474.git.dexuan.cui@intel.com>
 	<c9789f2d0873c6b8ff2ae3a7b338b72527cfbf02.1301388474.git.dexuan.cui@intel.com>
-Date: Tue, 29 Mar 2011 11:43:30 +0100
-Message-ID: <1301395410.24596.22.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.32.2 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@yoctoproject.org
+	<1301395410.24596.22.camel@rex>
+In-Reply-To: <1301395410.24596.22.camel@rex>
+Accept-Language: zh-CN, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: zh-CN, en-US
+MIME-Version: 1.0
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: [OE-core] [PATCH 1/1] qt4: remove the option -feliminate-dwarf2-dups to fix the build
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -38,41 +44,42 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 29 Mar 2011 10:43:48 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 29 Mar 2011 11:43:33 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2011-03-29 at 16:52 +0800, Dexuan Cui wrote:
-> From: Dexuan Cui <dexuan.cui@intel.com>
-> 
-> [YOCTO #932]
-> 
-> After commit 5ea06dc295b657383fd97545c15255b294cf1a79(bitbake.conf: Prune
-> global OPTIMIZATION flags) that adds an option -feliminate-dwarf2-dups,
-> gcc 4.5 reports such an internal compiler error when building Qt4 if the
-> option is used:
-> 
-> | graphicsview/qgridlayoutengine.cpp:1553:1: internal compiler error: in build_abbrev_table, at dwarf2out.c:9806
-> | Please submit a full bug report,
-> | with preprocessed source if appropriate.
-> | See <http://gcc.gnu.org/bugs.html> for instructions.
-> 
-> This is a gcc bug: http://gcc.gnu.org/bugzilla/show_bug.cgi?id=47361
-> 
-> At present we can remove the option as a workaround.
-> 
-> Thanks Robert Berger for reporting the bug and his investigation in gcc
-> bugzilla and thanks Khem Raj for the quick suggestion about removing
-> the option.
+Richard Purdie wrote:
+> On Tue, 2011-03-29 at 16:52 +0800, Dexuan Cui wrote:
+>> From: Dexuan Cui <dexuan.cui@intel.com>
+>>=20
+>> [YOCTO #932]
+>>=20
+>> After commit 5ea06dc295b657383fd97545c15255b294cf1a79(bitbake.conf:
+>> Prune global OPTIMIZATION flags) that adds an option
+>> -feliminate-dwarf2-dups, gcc 4.5 reports such an internal compiler
+>> error when building Qt4 if the option is used:=20
+>>=20
+>>> graphicsview/qgridlayoutengine.cpp:1553:1: internal compiler error:
+>>> in build_abbrev_table, at dwarf2out.c:9806 Please submit a full bug
+>>> report,=20
+>>> with preprocessed source if appropriate.
+>>> See <http://gcc.gnu.org/bugs.html> for instructions.
+>>=20
+>> This is a gcc bug: http://gcc.gnu.org/bugzilla/show_bug.cgi?id=3D47361
+>>=20
+>> At present we can remove the option as a workaround.
+>>=20
+>> Thanks Robert Berger for reporting the bug and his investigation in
+>> gcc bugzilla and thanks Khem Raj for the quick suggestion about
+>> removing=20
+>> the option.
+>=20
+> How about we add the patch for this issue:
+>=20
+> http://gcc.gnu.org/ml/gcc-patches/2011-01/msg01647.html
+Ok,  I'll apply the patch to g++ and test building qt4.
 
-How about we add the patch for this issue:
-
-http://gcc.gnu.org/ml/gcc-patches/2011-01/msg01647.html
-
-?
-
-Cheers,
-
-Richard
-
+Thanks,
+-- Dexuan
 
