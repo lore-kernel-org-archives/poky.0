@@ -1,37 +1,30 @@
-Return-Path: <cgwalters@gmail.com>
-Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
-	[74.125.82.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 88ACB4C80044
-	for <poky@yoctoproject.org>; Tue, 29 Mar 2011 09:46:20 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by wyb40 with SMTP id 40so294824wyb.35
-	for <poky@yoctoproject.org>; Tue, 29 Mar 2011 07:46:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:sender:date:x-google-sender-auth
-	:message-id:subject:from:to:content-type;
-	bh=xL0z6H6krDerY7CCCkKeZ5ej8HbUj2uFDRQj5KFT4pk=;
-	b=uIYBBYs87cZYYvf6+FSWdefPhvCo6Qn0OHmT0PFBbzY4gDuDRKkzDJEpMTN12A0QX5
-	eQu5U5TrH/L+EWyOYtQkPyTyvVECtcINsw21udSF2y6CGkdFffT6c60rFEyfKTqfj7b9
-	DcHBLzsSQbt1IhfK/RfgD99VS4m7tKPv67kVA=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:sender:date:x-google-sender-auth:message-id:subject
-	:from:to:content-type;
-	b=pL8Eyt84OY7FQn7Dzi/rPXPfqyqDUwXE7DMjaps1FunpHK0uhMlNxW9+U3lwC5cZGB
-	MFo9tG+PX8O0WdkpZNIG290sxzJZ+4ce+7tL8SjBMCIaT1NfxjYBsiGChqH4Q74Qur0a
-	W5eb8VijkrEjSKiT5NrOqI6ckqZS34qCH1WNc=
-MIME-Version: 1.0
-Received: by 10.216.240.3 with SMTP id d3mr4187961wer.51.1301409835173; Tue,
-	29 Mar 2011 07:43:55 -0700 (PDT)
-Sender: cgwalters@gmail.com
-Received: by 10.216.49.20 with HTTP; Tue, 29 Mar 2011 07:43:55 -0700 (PDT)
-Date: Tue, 29 Mar 2011 10:43:55 -0400
-X-Google-Sender-Auth: XTT2ykUfCAwn0f57xHn8ZBlE_44
-Message-ID: <AANLkTi=zGTsBJ4t6MR=7pp2cSjwNFhSMJC=xQGy_mMBF@mail.gmail.com>
-From: Colin Walters <walters@verbum.org>
-To: poky@yoctoproject.org
-Subject: [patch] autotools: Remove .la files by default
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5C2AC4C80AB1
+	for <poky@yoctoproject.org>; Tue, 29 Mar 2011 11:03:16 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2TG3EZV022395;
+	Tue, 29 Mar 2011 17:03:14 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 21914-08; Tue, 29 Mar 2011 17:03:10 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2TG35OO022385
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Tue, 29 Mar 2011 17:03:06 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Colin Walters <walters@verbum.org>
+In-Reply-To: <AANLkTi=zGTsBJ4t6MR=7pp2cSjwNFhSMJC=xQGy_mMBF@mail.gmail.com>
+References: <AANLkTi=zGTsBJ4t6MR=7pp2cSjwNFhSMJC=xQGy_mMBF@mail.gmail.com>
+Date: Tue, 29 Mar 2011 17:03:00 +0100
+Message-ID: <1301414580.24596.64.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.2 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky@yoctoproject.org
+Subject: Re: [patch] autotools: Remove .la files by default
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,46 +36,43 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 29 Mar 2011 14:46:20 -0000
-X-Groupsio-MsgNum: 4938
-Content-Type: multipart/mixed; boundary=e0cb4e385316eec84f049fa0166f
+X-List-Received-Date: Tue, 29 Mar 2011 16:03:17 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
---e0cb4e385316eec84f049fa0166f
-Content-Type: text/plain; charset=UTF-8
+On Tue, 2011-03-29 at 10:43 -0400, Colin Walters wrote:
+> From 487753f1bbef085c558befba7f03b6b4f01f392d Mon Sep 17 00:00:00 2001
+> From: Colin Walters <walters@verbum.org>
+> Date: Tue, 29 Mar 2011 10:41:34 -0400
+> Subject: [PATCH] autotools: Remove .la files by default
+> 
+> They are installed by libtool only to make automake's "make uninstall"
+> work; but we don't care about that, since no one sane bases an
+> operating system upgrade/uninstall procedure on automake.  Saner
+> people use higher level abstractions like "packages" or pure image
+> based synchronization.
+> 
+> They are otherwise unnecessary and actually can break things; see:
+> https://live.gnome.org/GnomeShell/RemovingLaFiles
+> http://wiki.debian.org/ReleaseGoals/LAFileRemoval
 
-See attached patch.
+Much as I dislike libtool, I've not seen these files do us much harm and
+they do sometimes give warning of linkage against things we shouldn't be
+linking against. I want to try and stay close to standard libtool in the
+hope we can get some of the more major problems we have like working
+sysroot support sorted out.
 
---e0cb4e385316eec84f049fa0166f
-Content-Type: text/x-patch; charset=US-ASCII; 
-	name="0001-autotools-Remove-.la-files-by-default.patch"
-Content-Disposition: attachment; 
-	filename="0001-autotools-Remove-.la-files-by-default.patch"
-Content-Transfer-Encoding: base64
-X-Attachment-Id: f_gluxt1vz0
+So no, I'm not going to merge this patch at this time. If we were going
+to do something like this I'd rather thrown out libtool entirely and
+switch to something like dolt.
 
-RnJvbSA0ODc3NTNmMWJiZWYwODVjNTU4YmVmYmE3ZjAzYjZiNGYwMWYzOTJkIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBDb2xpbiBXYWx0ZXJzIDx3YWx0ZXJzQHZlcmJ1bS5vcmc+CkRh
-dGU6IFR1ZSwgMjkgTWFyIDIwMTEgMTA6NDE6MzQgLTA0MDAKU3ViamVjdDogW1BBVENIXSBhdXRv
-dG9vbHM6IFJlbW92ZSAubGEgZmlsZXMgYnkgZGVmYXVsdAoKVGhleSBhcmUgaW5zdGFsbGVkIGJ5
-IGxpYnRvb2wgb25seSB0byBtYWtlIGF1dG9tYWtlJ3MgIm1ha2UgdW5pbnN0YWxsIgp3b3JrOyBi
-dXQgd2UgZG9uJ3QgY2FyZSBhYm91dCB0aGF0LCBzaW5jZSBubyBvbmUgc2FuZSBiYXNlcyBhbgpv
-cGVyYXRpbmcgc3lzdGVtIHVwZ3JhZGUvdW5pbnN0YWxsIHByb2NlZHVyZSBvbiBhdXRvbWFrZS4g
-IFNhbmVyCnBlb3BsZSB1c2UgaGlnaGVyIGxldmVsIGFic3RyYWN0aW9ucyBsaWtlICJwYWNrYWdl
-cyIgb3IgcHVyZSBpbWFnZQpiYXNlZCBzeW5jaHJvbml6YXRpb24uCgpUaGV5IGFyZSBvdGhlcndp
-c2UgdW5uZWNlc3NhcnkgYW5kIGFjdHVhbGx5IGNhbiBicmVhayB0aGluZ3M7IHNlZToKaHR0cHM6
-Ly9saXZlLmdub21lLm9yZy9Hbm9tZVNoZWxsL1JlbW92aW5nTGFGaWxlcwpodHRwOi8vd2lraS5k
-ZWJpYW4ub3JnL1JlbGVhc2VHb2Fscy9MQUZpbGVSZW1vdmFsCi0tLQogbWV0YS9jbGFzc2VzL2F1
-dG90b29scy5iYmNsYXNzIHwgICAgNSArKysrKwogMSBmaWxlcyBjaGFuZ2VkLCA1IGluc2VydGlv
-bnMoKyksIDAgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvbWV0YS9jbGFzc2VzL2F1dG90b29s
-cy5iYmNsYXNzIGIvbWV0YS9jbGFzc2VzL2F1dG90b29scy5iYmNsYXNzCmluZGV4IDdlYmY4MzMu
-LjFmNzcyMTIgMTAwNjQ0Ci0tLSBhL21ldGEvY2xhc3Nlcy9hdXRvdG9vbHMuYmJjbGFzcworKysg
-Yi9tZXRhL2NsYXNzZXMvYXV0b3Rvb2xzLmJiY2xhc3MKQEAgLTE2Myw2ICsxNjMsMTEgQEAgYXV0
-b3Rvb2xzX2RvX2luc3RhbGwoKSB7CiAJaWYgWyAtZSAiJHtEfSR7aW5mb2Rpcn0vZGlyIiBdOyB0
-aGVuCiAJCXJtIC1mICR7RH0ke2luZm9kaXJ9L2RpcgogCWZpCisJIyBBbHNvIGtpbGwgb2ZmIC5s
-YSBmaWxlczsgdGhleSBhcmUgd2hvbGx5IHVubmVjZXNzYXJ5IGFuZCBhY3R1YWxseSBjYW4KKwkj
-IGJyZWFrIHRoaW5nczsgc2VlOgorCSMgaHR0cHM6Ly9saXZlLmdub21lLm9yZy9Hbm9tZVNoZWxs
-L1JlbW92aW5nTGFGaWxlcworCSMgaHR0cDovL3dpa2kuZGViaWFuLm9yZy9SZWxlYXNlR29hbHMv
-TEFGaWxlUmVtb3ZhbAorCWZpbmQgJHtEfSR7bGliZGlyfSAtbmFtZSAnKi5sYScgLWRlbGV0ZQog
-fQogCiBpbmhlcml0IHNpdGVjb25maWcKLS0gCjEuNy40Cgo=
+Also note in your gnome shell link above that its listed as required
+because of "the dirty hacks that jhbuild plays to get it to sandbox your
+system" which is hardly a glowing recommendation. We don't have this
+problem.
 
---e0cb4e385316eec84f049fa0166f--
+Cheers,
+
+Richard
+
+
