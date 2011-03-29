@@ -1,27 +1,40 @@
-Return-Path: <koen@dominion.thruhere.net>
-Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
-	[74.125.82.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id DCFD04C806FA
-	for <poky@yoctoproject.org>; Tue, 29 Mar 2011 11:35:26 -0500 (CDT)
-Received: by wyb40 with SMTP id 40so451745wyb.35
-	for <poky@yoctoproject.org>; Tue, 29 Mar 2011 09:35:26 -0700 (PDT)
-Received: by 10.216.230.153 with SMTP id j25mr4339058weq.22.1301416525855;
-	Tue, 29 Mar 2011 09:35:25 -0700 (PDT)
-Received: from [172.20.0.255] (ip545070eb.adsl-surfen.hetnet.nl
-	[84.80.112.235])
-	by mx.google.com with ESMTPS id d6sm2061230wer.26.2011.03.29.09.35.24
-	(version=TLSv1/SSLv3 cipher=OTHER);
-	Tue, 29 Mar 2011 09:35:24 -0700 (PDT)
-Mime-Version: 1.0 (Apple Message framework v1084)
-From: Koen Kooi <koen@dominion.thruhere.net>
-In-Reply-To: <AANLkTim-tPhaRCWsCP=sDW30FUL1MfyxTOHabCSHyeQK@mail.gmail.com>
-Date: Tue, 29 Mar 2011 18:35:22 +0200
-Message-Id: <5ED14C2C-2E5B-492D-87A8-4AB26E65F6D5@dominion.thruhere.net>
+Return-Path: <cgwalters@gmail.com>
+Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8BF4F4C80044
+	for <poky@yoctoproject.org>; Tue, 29 Mar 2011 12:04:10 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by wwd20 with SMTP id 20so448332wwd.11
+	for <poky@yoctoproject.org>; Tue, 29 Mar 2011 10:04:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:sender:in-reply-to:references:date
+	:x-google-sender-auth:message-id:subject:from:to:cc:content-type;
+	bh=gAbyq4wXTi/ORS78klO8FrMcmJQLHXL4702pfH0/dI4=;
+	b=mehxi/NO3WdjbmPQlvdacrOtImm2qDXMhUv9iDH/dHmXskcjUdewJoT2/w2UvQAwBl
+	50Syk0X+AvVlSAXG+W0hRM0ohHlXH9vNSDvi/JFhF3zron5gU74t4JvNNfkbUECpdtIY
+	0yx3Dk7MvAsWIwHcck/KIL1Wf9OuH73dzrAA4=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:sender:in-reply-to:references:date
+	:x-google-sender-auth:message-id:subject:from:to:cc:content-type;
+	b=ra1L0/FwvBaxo7g/ghdScRBeS6JRQzPI2J+Jo1n2SiG3acb0hcWz9H5KqfdCowa54f
+	vlXS9FAcT+NG0UVUCXpmOmUIur5yuxGYkt+ykXJ7+5OruDUiRY5Y5AVWj00w1MEda/Kl
+	nO9X6IoJ6ay4b+Q6Nz1WZKRZJMY9gjWJUljIs=
+MIME-Version: 1.0
+Received: by 10.216.143.228 with SMTP id l78mr36263wej.21.1301418249464; Tue,
+	29 Mar 2011 10:04:09 -0700 (PDT)
+Sender: cgwalters@gmail.com
+Received: by 10.216.49.20 with HTTP; Tue, 29 Mar 2011 10:04:09 -0700 (PDT)
+In-Reply-To: <1301416170.24596.73.camel@rex>
 References: <AANLkTi=zGTsBJ4t6MR=7pp2cSjwNFhSMJC=xQGy_mMBF@mail.gmail.com>
 	<1301414580.24596.64.camel@rex>
 	<AANLkTim-tPhaRCWsCP=sDW30FUL1MfyxTOHabCSHyeQK@mail.gmail.com>
-To: Colin Walters <walters@verbum.org>
-X-Mailer: Apple Mail (2.1084)
+	<1301416170.24596.73.camel@rex>
+Date: Tue, 29 Mar 2011 13:04:09 -0400
+X-Google-Sender-Auth: sFEN3QdvctTf_s1DOcZ2RojNY6A
+Message-ID: <AANLkTi=GPAEXD4CRPrhwGtd82ZfEx=HmW7_zWRxe+ev6@mail.gmail.com>
+From: Colin Walters <walters@verbum.org>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
 Cc: poky@yoctoproject.org
 Subject: Re: [patch] autotools: Remove .la files by default
 X-BeenThere: poky@yoctoproject.org
@@ -35,42 +48,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 29 Mar 2011 16:35:27 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Tue, 29 Mar 2011 17:04:11 -0000
+Content-Type: text/plain; charset=UTF-8
 
+On Tue, Mar 29, 2011 at 12:29 PM, Richard Purdie
+<richard.purdie@linuxfoundation.org> wrote:
+>
+> I can do better than that, we have some limitations in the way .conf
+> files are parsed compared to .bbclass files. If you create a
+> "localchanges.bbclass" containing:
 
-Op 29 mrt 2011, om 18:15 heeft Colin Walters het volgende geschreven:
+Of course I can code it locally, but I think this mechanism would be
+of value to other people creating systems, and hence my proposal to do
+it upstream.
 
-> On Tue, Mar 29, 2011 at 12:03 PM, Richard Purdie
-> <richard.purdie@linuxfoundation.org> wrote:
->=20
->> So no, I'm not going to merge this patch at this time. If we were =
-going
->> to do something like this I'd rather thrown out libtool entirely and
->> switch to something like dolt.
->=20
-> Would you take an option, off by default then?  I definitely do not
-> want these files in my OS; I could remove them in a
-> ROOTFS_POSTPROCESS_COMMAND, but it'd be even better to do in after
-> each build.
->=20
->> Also note in your gnome shell link above that its listed as required
->> because of "the dirty hacks that jhbuild plays to get it to sandbox =
-your
->> system" which is hardly a glowing recommendation. We don't have this
->> problem.
->=20
-> The core problem arises in that often for developers it's convenient
-> to do partial builds; say only rebuild glib and gtk+, but not rebuild
-> pango (which lies between them).  What the libtool pango.la file does
-> is add -L/usr/lib which is 1) unnecessary and 2) forces the linker
-> search first in /usr/lib instead of /opt/gnome like we want.
+> and then do INHERIT += "localchanges"
 
-Isn't that why we have libtool sysroot support? Or does that break with =
-the split you describe above?
+This appears to work, thanks.
 
-regards,
+> Right, but with our build environment, this really becomes a non-issue
 
-Koen=
+I agree it's a non-issue for building the OS.  But it will be an issue
+for people who *after* having the OS installed, want to temporarily
+override system libraries with other versions.   And there's just no
+sane way to fix it without just nuking the files from the OS.
+
+> (and I've been trying to get patches upstream which stop -L/usr/lib
+> being injected anyway as that is a libtool bug).
+
+I think a better fix would actually be an automake option to stop it
+from even installing them, and I looked into this (it's not trivial,
+and effectively requires disabling "make uninstall"), and even if the
+fix landed every project would have to be updated for it.
 
