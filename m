@@ -1,18 +1,19 @@
-Return-Path: <bruce.ashfield@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id EC8A14C80AB7;
-	Wed, 30 Mar 2011 15:53:17 -0500 (CDT)
-Received: from localhost.localdomain (yow-bashfiel-d2.ottawa.windriver.com
-	[128.224.146.167])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p2UKqiab007446;
-	Wed, 30 Mar 2011 13:52:44 -0700 (PDT)
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-To: richard.purdie@linuxfoundation.org
-Date: Wed, 30 Mar 2011 16:53:16 -0400
-Message-Id: <cover.1301518292.git.bruce.ashfield@windriver.com>
-X-Mailer: git-send-email 1.7.0.4
-Cc: yocto@yoctoproject.org, poky@yoctoproject.org
-Subject: [PATCH 0/1] linux-yocto/crownbay: update configuration
+Return-Path: <tom.zanussi@intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2EAD04C8059A
+	for <poky@yoctoproject.org>; Wed, 30 Mar 2011 17:09:45 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 30 Mar 2011 15:09:44 -0700
+Message-Id: <849307$c887ep@azsmga001.ch.intel.com>
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.63,270,1299484800"; d="scan'208";a="411311580"
+Received: from unknown (HELO localhost) ([10.255.12.192])
+	by azsmga001.ch.intel.com with ESMTP; 30 Mar 2011 15:09:44 -0700
+Old-Date: Wed, 30 Mar 2011 17:04:01 -0500
+Date: Wed, 30 Mar 2011 17:09:26 -0500
+To: poky@yoctoproject.org
+From: Tom Zanussi <tom.zanussi@intel.com>
+Subject: [PATCH][meta-intel] Switch crownbay to 2.6.37
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -24,30 +25,21 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 30 Mar 2011 20:53:18 -0000
+X-List-Received-Date: Wed, 30 Mar 2011 22:09:45 -0000
 
-The crownbay has been updated for 2.6.37, the BSP branch
-already contans the changes, and this is the update of meta
-to the new config values:
+From: Tom Zanussi <tom.zanussi@intel.com>
 
-  crownbay: update eg20t config
-  crownbay: set cpu type to MATOM
+Please pull into meta-intel/master.
 
-Tom: the crownbay layer can have its SRCREVs update now
+Pull URL: git://git.pokylinux.org/meta-intel.git
+  Branch: tzanussi/crownbay-2.6.37-switchover
+  Browse: http://git.pokylinux.org/cgit/cgit.cgi/meta-intel/commit/?h=tzanussi/crownbay-2.6.37-switchover
 
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: zedd/crownbay
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/crownbay
+Tom Zanussi (1):
+  meta-crownbay: switch to linux-yocto kernel
 
-Thanks,
-    Bruce Ashfield <bruce.ashfield@windriver.com>
----
-
-
-Bruce Ashfield (1):
-  linux-yocto/crownbay: update configuration
-
- .../conf/distro/include/poky-default-revisions.inc |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ meta-crownbay/conf/machine/crownbay-noemgd.conf |   12 ++++--------
+ meta-crownbay/conf/machine/crownbay.conf        |   12 ++++--------
+ 2 files changed, 8 insertions(+), 16 deletions(-)
 
 
