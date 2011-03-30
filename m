@@ -1,40 +1,37 @@
 Return-Path: <srifenbark@gmail.com>
-Received: from mail-gx0-f176.google.com (mail-gx0-f176.google.com
-	[209.85.161.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 576FA4C800B6
-	for <poky@yoctoproject.org>; Tue, 29 Mar 2011 21:03:23 -0500 (CDT)
+Received: from mail-yw0-f48.google.com (mail-yw0-f48.google.com
+	[209.85.213.48])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4832C4C800A0
+	for <poky@yoctoproject.org>; Wed, 30 Mar 2011 09:33:33 -0500 (CDT)
 Authentication-Results: mx1.pokylinux.org; dkim=pass
 	(1024-bit key; insecure key) header.i=@gmail.com;
 	x-dkim-adsp=none (insecure policy)
-Received: by gxk7 with SMTP id 7so452125gxk.35
-	for <poky@yoctoproject.org>; Tue, 29 Mar 2011 19:03:18 -0700 (PDT)
+Received: by ywo32 with SMTP id 32so686328ywo.35
+	for <poky@yoctoproject.org>; Wed, 30 Mar 2011 07:33:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:message-id:in-reply-to:references:old-date
-	:subject:date:to:cc:from;
-	bh=PGRofA4V3DF9UyI9ZVJhLKLrWADVv/nF/Arct6uVZxA=;
-	b=N45Vg4+s7kDBT7oLY2IVJVjJ0UWtErTPizKFdNOemFv7vfvVGrLk8aFhSiHxdUEyw1
-	utha2qmtuI2jScs2x0PbVnlGN/kWURI5i8Rx9m3OXM9kaU6JDUrUyvgMCVh9vC6bV6+6
-	XtEghdLJreMgTyZPXDQT0ZJ2ZzsUJsOdBT2aM=
+	h=domainkey-signature:message-id:old-date:subject:date:to:cc:from;
+	bh=bnIMxutkh/Gp9L2v1OwiGk95SnDdFg4U9OPtT601v6Q=;
+	b=FY3DfL8W3piVVsa8Pckxwh425VblJh7S5llLS1dAN0T8Fc+8NW/SJAQBFcR+FQpmcr
+	WItdfmmGBI2OQdInyAMv8Yi554EDJfh7C52SCdNdL4Q6K/Yr8qo/yTxCJ/Es1qqCx9Dz
+	FOihLlv0sqpb9J53yuTjX3E2170TAOrq+fovA=
 DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=message-id:in-reply-to:references:old-date:subject:date:to:cc:from;
-	b=T/Q0OccIM+beVCk9UfiollEDdEmLPEqHoIsl1U9to0h9imgm77yR5zpPD8xZv7M3mK
-	cxCI7lc86F1xQ5nCavsYeaOb4fYl5qSxqThBcJz1Bo9kyzAAaNBk1Ur69PCbNk1KYnEC
-	arVDP1rMzOfDqQIBfxVLEyQQE3+sjCrdVmb4U=
-Received: by 10.236.79.74 with SMTP id h50mr830876yhe.82.1301450597962;
-	Tue, 29 Mar 2011 19:03:17 -0700 (PDT)
+	h=message-id:old-date:subject:date:to:cc:from;
+	b=WS1U6XOVMFVKFF+0g2PlWtgcpaIWOtqIb+qNRNK9IZzG9tqcRc5wAm+9PCp2UU/wnM
+	31v6tOn1JJoPoe3Gq4qMdnRa1GsCQTATvv2hKUm9dBAocwauF8keH4SdjqaNSaOiURuD
+	ZtMI2RkbOY6V8vYcRRH3gVarWFkZBD9ZQ90IA=
+Received: by 10.151.86.4 with SMTP id o4mr1571275ybl.339.1301495612871;
+	Wed, 30 Mar 2011 07:33:32 -0700 (PDT)
 Received: from localhost ([190.197.29.62])
-	by mx.google.com with ESMTPS id m25sm2791958yhm.31.2011.03.29.19.03.17
+	by mx.google.com with ESMTPS id t16sm90934ybe.19.2011.03.30.07.33.30
 	(version=TLSv1/SSLv3 cipher=OTHER);
-	Tue, 29 Mar 2011 19:03:17 -0700 (PDT)
-Message-Id: <6992d21fdac5ff10747a4a34856809742a7bd434.1301450505.git.scott.m.rifenbark@intel.com>
-In-Reply-To: <cover.1301450505.git.scott.m.rifenbark@intel.com>
-References: <cover.1301450505.git.scott.m.rifenbark@intel.com>
-Old-Date: Tue, 29 Mar 2011 20:59:55 -0500
-Date: Tue, 29 Mar 2011 21:03:16 -0500
+	Wed, 30 Mar 2011 07:33:31 -0700 (PDT)
+Message-Id: <cover.1301495477.git.scott.m.rifenbark@intel.com>
+Old-Date: Wed, 30 Mar 2011 09:31:17 -0500
+Date: Wed, 30 Mar 2011 07:33:31 -0700 (PDT)
 To: poky@yoctoproject.org
 CC: 
 From: Scott Rifenbark <srifenbark@gmail.com>
-Subject: [PATCH 1/1] documentation/yocto-project-qs/yocto-project-qs.xml: cleaned out another "YP"
+Subject: [PATCH 0/1] [BUGID# 929] - [DOCS] Poky Reference Manual GPL Note
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,32 +43,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 30 Mar 2011 02:03:23 -0000
+X-List-Received-Date: Wed, 30 Mar 2011 14:33:33 -0000
 
 From: Scott Rifenbark <scott.m.rifenbark@intel.com>
 
-Removed "YP" from another spot in the manual.
+[BUGID# 929] - In chapter 2 where we talk about building images I added 
+a new note indicating that the user should not switch around using different
+GPL versions when trying to rebuild an image as it can cause dependency
+failures.
 
-Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: srifenbark/poky-work
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=srifenbark/poky-work
+
+Thanks,
+    Scott Rifenbark <scott.m.rifenbark@intel.com>
 ---
- .../yocto-project-qs/yocto-project-qs.xml          |    3 ++-
- 1 files changed, 2 insertions(+), 1 deletions(-)
 
-diff --git a/documentation/yocto-project-qs/yocto-project-qs.xml b/documentation/yocto-project-qs/yocto-project-qs.xml
-index fb06322..2936fde 100644
---- a/documentation/yocto-project-qs/yocto-project-qs.xml
-+++ b/documentation/yocto-project-qs/yocto-project-qs.xml
-@@ -15,7 +15,8 @@
-         Welcome to the Yocto Project!  
-         The Yocto Project is an open-source collaboration project focused on embedded Linux
-         developers.
--        Amongst other things, YP uses the Poky build tool to construct complete Linux images.
-+        Amongst other things, the Yocto Project uses the Poky build tool to 
-+        construct complete Linux images.
-     </para>
-     <para>
-         This short document will give you some basic information about the environment as well 
--- 
-1.7.0.4
+
+Scott Rifenbark (1):
+  documentation/poky-ref-manual/usingpoky.xml:  [BUGID# 929] - Note
+    added warning about switching up GPL versions
+
+ documentation/poky-ref-manual/usingpoky.xml |    6 ++++++
+ 1 files changed, 6 insertions(+), 0 deletions(-)
 
 
