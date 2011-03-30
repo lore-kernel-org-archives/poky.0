@@ -1,23 +1,26 @@
-Return-Path: <bruce.ashfield@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B35BC4C80AB0
-	for <poky@yoctoproject.org>; Wed, 30 Mar 2011 11:55:39 -0500 (CDT)
-Received: from localhost.localdomain (yow-bashfiel-d2.ottawa.windriver.com
-	[128.224.146.167])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p2UGsiPT024272;
-	Wed, 30 Mar 2011 09:54:47 -0700 (PDT)
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-To: richard.purdie@linuxfoundation.org
-Date: Wed, 30 Mar 2011 12:55:14 -0400
-Message-Id: <80eb591ef244f2a9ebaeca3ed2da985c72b98daf.1301503818.git.bruce.ashfield@windriver.com>
-X-Mailer: git-send-email 1.7.0.4
-In-Reply-To: <cover.1301503818.git.bruce.ashfield@windriver.com>
-References: <cover.1301503818.git.bruce.ashfield@windriver.com>
-In-Reply-To: <cover.1301503818.git.bruce.ashfield@windriver.com>
-References: <cover.1301503818.git.bruce.ashfield@windriver.com>
-Cc: dvhart@linux.intel.com, poky@yoctoproject.org,
-	openembedded-core@lists.openembedded.org
-Subject: [PATCH 1/2] linux-yocto/qemux86-64: enable profiling and latency
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id B698C4C800A0
+	for <poky@yoctoproject.org>; Wed, 30 Mar 2011 12:27:35 -0500 (CDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id C0055166027D; Wed, 30 Mar 2011 11:27:33 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=ham version=3.3.2-r929478
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 67FEF1660182;
+	Wed, 30 Mar 2011 11:27:32 -0600 (MDT)
+Message-ID: <4D936804.8030204@mlbassoc.com>
+Date: Wed, 30 Mar 2011 11:27:32 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
+MIME-Version: 1.0
+To: Poky Project <poky@yoctoproject.org>
+Subject: Autotools problem
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,35 +32,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 30 Mar 2011 16:55:39 -0000
+X-List-Received-Date: Wed, 30 Mar 2011 17:27:36 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The configuration chunks for profiling and latency top have
-been enabled in tree now, so we can drop optional feature
-additions in the recipe itself.
+I'm trying to build a recipe I imported from OE (tcpdump_4.1.1.bb)
+This used to build on Poky, but now fails.  I fixed the issue with
+the LIC_CHKSUM_FILES, but now I have a problem with the automatic
+[re]generation of the config files.
 
-build tests show identical configurations.
+Rebuilding in a fresh tree from today's master (6f4fbfe272f5d85cee95660a9278f3031533aec4),
+I'm getting this error
+| Perl lib version (5.12.2) doesn't match executable version (v5.10.1) at /home/local/p60_poky/tmp/sysroots/i686-linux/usr/lib/perl/5.12.2/Config.pm line 50.
+| Compilation failed in require at /home/local/p60_poky/tmp/sysroots/i686-linux/usr/lib/perl/5.12.2/File/Copy.pm line 14.
+| BEGIN failed--compilation aborted at /home/local/p60_poky/tmp/sysroots/i686-linux/usr/lib/perl/5.12.2/File/Copy.pm line 14.
+| Compilation failed in require at /home/local/p60_poky/tmp/sysroots/i686-linux/usr/share/autoconf/Autom4te/FileUtils.pm line 166.
+| BEGIN failed--compilation aborted at /home/local/p60_poky/tmp/sysroots/i686-linux/usr/share/autoconf/Autom4te/FileUtils.pm line 166.
+| Compilation failed in require at /home/local/p60_poky/tmp/sysroots/i686-linux/usr/bin/autom4te line 41.
+| BEGIN failed--compilation aborted at /home/local/p60_poky/tmp/sysroots/i686-linux/usr/bin/autom4te line 41.
 
-Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
----
- meta/recipes-kernel/linux/linux-yocto_git.bb |    4 ----
- 1 files changed, 0 insertions(+), 4 deletions(-)
+This leads to a cascade of other problems because the configure script is out of date :-(
 
-diff --git a/meta/recipes-kernel/linux/linux-yocto_git.bb b/meta/recipes-kernel/linux/linux-yocto_git.bb
-index f35d1a2..38fbba3 100644
---- a/meta/recipes-kernel/linux/linux-yocto_git.bb
-+++ b/meta/recipes-kernel/linux/linux-yocto_git.bb
-@@ -31,10 +31,6 @@ KERNEL_FEATURES="features/netfilter"
- KERNEL_FEATURES_append_qemux86=" cfg/sound"
- KERNEL_FEATURES_append_qemux86-64=" cfg/sound"
- 
--# Temporary fix for oprofile and latencytop on qemux86-64
--KERNEL_FEATURES_append_qemux86-64=" features/profiling"
--KERNEL_FEATURES_append_qemux86-64=" features/latencytop"
--
- # extra tasks
- addtask kernel_link_vmlinux after do_compile before do_install
- addtask validate_branches before do_patch after do_kernel_checkout
+Any ideas what's going on?
+
+Note: you can look at the recipe at http://www.mlbassoc.com/poky/recipes/tcpdump
+
 -- 
-1.7.0.4
-
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
