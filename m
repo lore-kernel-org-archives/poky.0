@@ -1,34 +1,37 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A286E4C80044
-	for <poky@yoctoproject.org>; Tue, 29 Mar 2011 17:19:04 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2TMJ2P3030471;
-	Tue, 29 Mar 2011 23:19:02 +0100
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 30329-03; Tue, 29 Mar 2011 23:18:58 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2TMItwX030465
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Tue, 29 Mar 2011 23:18:56 +0100
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Colin Walters <walters@verbum.org>
-In-Reply-To: <AANLkTi=GPAEXD4CRPrhwGtd82ZfEx=HmW7_zWRxe+ev6@mail.gmail.com>
-References: <AANLkTi=zGTsBJ4t6MR=7pp2cSjwNFhSMJC=xQGy_mMBF@mail.gmail.com>
-	<1301414580.24596.64.camel@rex>
-	<AANLkTim-tPhaRCWsCP=sDW30FUL1MfyxTOHabCSHyeQK@mail.gmail.com>
-	<1301416170.24596.73.camel@rex>
-	<AANLkTi=GPAEXD4CRPrhwGtd82ZfEx=HmW7_zWRxe+ev6@mail.gmail.com>
-Date: Tue, 29 Mar 2011 23:18:49 +0100
-Message-ID: <1301437129.24596.80.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.32.2 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@yoctoproject.org
-Subject: Re: [patch] autotools: Remove .la files by default
+Return-Path: <srifenbark@gmail.com>
+Received: from mail-yi0-f48.google.com (mail-yi0-f48.google.com
+	[209.85.218.48])
+	by mx1.pokylinux.org (Postfix) with ESMTP id EF1484C80050
+	for <poky@yoctoproject.org>; Tue, 29 Mar 2011 21:03:16 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by yia28 with SMTP id 28so456143yia.35
+	for <poky@yoctoproject.org>; Tue, 29 Mar 2011 19:03:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:message-id:old-date:subject:date:to:cc:from;
+	bh=jnOjYLO1wyFxa6UKSSx0w5U6b1JzGyme/O0+CZIWToQ=;
+	b=riQBm9XuX1+eHfQkVhayHrE9bIyyeSBiW9JHSXnV9IBsJHfTZ3JWMkfhOLgXOvX+R7
+	an0xvpiTSfYGHvUyP+RT7+0SwAv4nRVgnUli75SqubyWV3hVITBbmZQxrXqYn+/EfjlE
+	PXWXabjwNoUkiTwqEL4UWkjdW/lxfH6BELilk=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=message-id:old-date:subject:date:to:cc:from;
+	b=fiirjK4FLGc9k10uPc6aiN7wgoPlJkwS8oILurTLCroJ8yEC1Hq9L92HmteurEei5a
+	eR++U9Sju/X4akDebAjD5ueGjgF1wqyxQVGqTZzbz3XOZD0bxx6D8qKld34cWkFfKmag
+	OQIqA31RkxuWkpmN951thmiZ0RCV51qCBXrE4=
+Received: by 10.236.190.1 with SMTP id d1mr693545yhn.399.1301450596289;
+	Tue, 29 Mar 2011 19:03:16 -0700 (PDT)
+Received: from localhost ([190.197.29.62])
+	by mx.google.com with ESMTPS id u29sm2794080yhn.71.2011.03.29.19.03.14
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Tue, 29 Mar 2011 19:03:15 -0700 (PDT)
+Message-Id: <cover.1301450505.git.scott.m.rifenbark@intel.com>
+Old-Date: Tue, 29 Mar 2011 21:01:45 -0500
+Date: Tue, 29 Mar 2011 21:03:13 -0500
+To: poky@yoctoproject.org
+CC: 
+From: Scott Rifenbark <srifenbark@gmail.com>
+Subject: [PATCH 0/1] [DOCS] Quick Start edit
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,56 +43,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 29 Mar 2011 22:19:05 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 30 Mar 2011 02:03:17 -0000
 
-On Tue, 2011-03-29 at 13:04 -0400, Colin Walters wrote:
-> On Tue, Mar 29, 2011 at 12:29 PM, Richard Purdie
-> <richard.purdie@linuxfoundation.org> wrote:
-> >
-> > I can do better than that, we have some limitations in the way .conf
-> > files are parsed compared to .bbclass files. If you create a
-> > "localchanges.bbclass" containing:
-> 
-> Of course I can code it locally, but I think this mechanism would be
-> of value to other people creating systems, and hence my proposal to do
-> it upstream.
+From: Scott Rifenbark <scott.m.rifenbark@intel.com>
 
-For the reasons I've outlined I really don't want to encourage people to
-be doing this so I'm reluctant to accept such a patch. Note that
-removing them from the install directory removes them from the sysroots
-too and may have undesired side effects on dlopened libraries for
-example.
+I removed another occurance of "YP" as an acronymn.
 
-> > Right, but with our build environment, this really becomes a non-issue
-> 
-> I agree it's a non-issue for building the OS.  But it will be an issue
-> for people who *after* having the OS installed, want to temporarily
-> override system libraries with other versions.   And there's just no
-> sane way to fix it without just nuking the files from the OS.
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: srifenbark/qs-work
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=srifenbark/qs-work
 
-My questions are: How many people actually use the system that way
-rather than generating a new image? Is deleting the .la files really
-that hard if you're doing development on the system?
+Thanks,
+    Scott Rifenbark <scott.m.rifenbark@intel.com>
+---
 
-I appreciate for you it is an issue but I'm not yet convinced this is a
-widespread problem.
 
-> > (and I've been trying to get patches upstream which stop -L/usr/lib
-> > being injected anyway as that is a libtool bug).
-> 
-> I think a better fix would actually be an automake option to stop it
-> from even installing them, and I looked into this (it's not trivial,
-> and effectively requires disabling "make uninstall"), and even if the
-> fix landed every project would have to be updated for it.
+Scott Rifenbark (1):
+  documentation/yocto-project-qs/yocto-project-qs.xml:  cleaned out
+    another "YP"
 
-The nice thing about OE is that it reautoconf's the sources so if you do
-change libtool, we can cascade it to pretty much every package bar some
-of the toolchain pieces automagically!
-
-Cheers,
-
-Richard
+ .../yocto-project-qs/yocto-project-qs.xml          |    3 ++-
+ 1 files changed, 2 insertions(+), 1 deletions(-)
 
 
