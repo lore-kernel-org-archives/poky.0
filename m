@@ -1,24 +1,22 @@
 Return-Path: <mark.hatle@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 42A604C8059A
-	for <poky@yoctoproject.org>; Wed, 30 Mar 2011 15:26:49 -0500 (CDT)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 42B124C80AB1
+	for <poky@yoctoproject.org>; Wed, 30 Mar 2011 15:26:52 -0500 (CDT)
 Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p2UKQiJE002997
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p2UKQhwT002994
 	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Wed, 30 Mar 2011 13:26:44 -0700 (PDT)
+	Wed, 30 Mar 2011 13:26:43 -0700 (PDT)
 Received: from localhost.localdomain (172.25.34.61) by ALA-HCA.corp.ad.wrs.com
 	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Wed, 30 Mar 2011 13:26:43 -0700
+	Wed, 30 Mar 2011 13:26:42 -0700
 From: Mark Hatle <mark.hatle@windriver.com>
 To: <poky@yoctoproject.org>, <openembedded-core@lists.openembedded.org>
-Date: Wed, 30 Mar 2011 15:29:12 -0500
-Message-ID: <c5634cb91376bafa6377dd0376cb7cb9cbf928c5.1301516765.git.mark.hatle@windriver.com>
+Date: Wed, 30 Mar 2011 15:29:11 -0500
+Message-ID: <cover.1301516765.git.mark.hatle@windriver.com>
 X-Mailer: git-send-email 1.7.3.4
-In-Reply-To: <cover.1301516765.git.mark.hatle@windriver.com>
-References: <cover.1301516765.git.mark.hatle@windriver.com>
 MIME-Version: 1.0
 X-Originating-IP: [172.25.34.61]
-Subject: [PATCH 1/3] Fix sat-solver & RPM5 integration issue
+Subject: [PATCH 0/3] Fix zypper integration
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,64 +28,53 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 30 Mar 2011 20:26:49 -0000
+X-List-Received-Date: Wed, 30 Mar 2011 20:26:52 -0000
 Content-Type: text/plain
 
-From Michael Schroeder, fix the configuration of how RPM5 handles obsoletes
-within the sat-solver.
+Fix the zypper integration on Bernard (Poky).  This is also be necessary 
+in master/OE-core as well!  (I have not verified that the C++ workaround 
+is needed on OE-Core, but the same change for MIPS -is- needed due to 
+namespace collision.)
 
-Signed-off-by: Mark Hatle <mark.hatle@windriver.com>
+Fixes [YOCTO #827] Zypper not working on ARM.  (Note, one of the issues 
+resolved actually affects all host types..)
 
-Signed-off-by: Mark Hatle <mark.hatle@windriver.com>
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: mhatle/bernard/zypper
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=mhatle/bernard/zypper
+
+Thanks,
+    Mark Hatle <mark.hatle@windriver.com>
 ---
- .../sat-solver/sat-solver_obsolete.patch           |   20 ++++++++++++++++++++
- meta/recipes-extended/sat-solver/sat-solver_git.bb |    3 ++-
- 2 files changed, 22 insertions(+), 1 deletions(-)
- create mode 100644 meta/recipes-extended/sat-solver/sat-solver/sat-solver_obsolete.patch
 
-diff --git a/meta/recipes-extended/sat-solver/sat-solver/sat-solver_obsolete.patch b/meta/recipes-extended/sat-solver/sat-solver/sat-solver_obsolete.patch
-new file mode 100644
-index 0000000..7685057
---- /dev/null
-+++ b/meta/recipes-extended/sat-solver/sat-solver/sat-solver_obsolete.patch
-@@ -0,0 +1,20 @@
-+Fix obsolete settings with RPM5.
-+
-+The following patch is from Michael Schroeder <mls@suse.de>
-+
-+Signed-off-by: Mark Hatle <mark.hatle@windriver.com>
-+
-+diff -ur git.orig/src/pool.c git/src/pool.c
-+--- git.orig/src/pool.c	2011-03-25 15:49:34.885834194 -0500
-++++ git/src/pool.c	2011-03-28 10:55:13.138786524 -0500
-+@@ -70,6 +70,10 @@
-+   pool->disttype = DISTTYPE_DEB;
-+ # endif
-+ #endif
-++#ifdef RPM5
-++  pool->obsoleteusesprovides = 1;
-++  pool->implicitobsoleteusesprovides = 1;
-++#endif
-+   return pool;
-+ }
-+ 
-diff --git a/meta/recipes-extended/sat-solver/sat-solver_git.bb b/meta/recipes-extended/sat-solver/sat-solver_git.bb
-index ba5af67..33bf939 100644
---- a/meta/recipes-extended/sat-solver/sat-solver_git.bb
-+++ b/meta/recipes-extended/sat-solver/sat-solver_git.bb
-@@ -7,10 +7,11 @@ LIC_FILES_CHKSUM = "file://LICENSE.BSD;md5=62272bd11c97396d4aaf1c41bc11f7d8"
- DEPENDS = "libcheck rpm zlib expat db"
- 
- PV = "0.0-git${SRCPV}"
--PR = "r6"
-+PR = "r7"
- 
- SRC_URI = "git://gitorious.org/opensuse/sat-solver.git;protocol=git \
-            file://sat-solver_rpm5.patch \
-+           file://sat-solver_obsolete.patch \
-            file://cmake.patch \
-            file://db5.patch \
-            file://builtin-arch.patch;apply=no \
+
+Mark Hatle (3):
+  Fix sat-solver & RPM5 integration issue
+  Fix integration of zypper and sat-solver
+  Workaround for Global C++ Constructor problem on ARM
+
+ .../libzypp/libzypp/archconf.patch                 |   15 -
+ .../arm-workaround-global-constructor.patch        |   68 +++
+ .../libzypp/libzypp/builtin-arch.patch             |  122 -----
+ .../libzypp/libzypp/libzypp-pokyarch.patch         |  498 ++++++++++++++++++++
+ .../libzypp/libzypp/no-builtin-arch.patch          |  128 -----
+ meta/recipes-extended/libzypp/libzypp_git.bb       |  120 ++++-
+ .../sat-solver/sat-solver/builtin-arch.patch       |   28 --
+ .../sat-solver/sat-solver/no-builtin-arch.patch    |   29 --
+ .../sat-solver/sat-solver_obsolete.patch           |   20 +
+ .../sat-solver/sat-solver/sat-solver_poky.patch    |  106 +++++
+ meta/recipes-extended/sat-solver/sat-solver_git.bb |   43 +-
+ 11 files changed, 820 insertions(+), 357 deletions(-)
+ delete mode 100644 meta/recipes-extended/libzypp/libzypp/archconf.patch
+ create mode 100644 meta/recipes-extended/libzypp/libzypp/arm-workaround-global-constructor.patch
+ delete mode 100644 meta/recipes-extended/libzypp/libzypp/builtin-arch.patch
+ create mode 100644 meta/recipes-extended/libzypp/libzypp/libzypp-pokyarch.patch
+ delete mode 100644 meta/recipes-extended/libzypp/libzypp/no-builtin-arch.patch
+ delete mode 100644 meta/recipes-extended/sat-solver/sat-solver/builtin-arch.patch
+ delete mode 100644 meta/recipes-extended/sat-solver/sat-solver/no-builtin-arch.patch
+ create mode 100644 meta/recipes-extended/sat-solver/sat-solver/sat-solver_obsolete.patch
+ create mode 100644 meta/recipes-extended/sat-solver/sat-solver/sat-solver_poky.patch
+
 -- 
 1.7.3.4
 
