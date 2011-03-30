@@ -1,24 +1,22 @@
-Return-Path: <mark.hatle@windriver.com>
+Return-Path: <bruce.ashfield@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E9A014C80ABC
-	for <poky@yoctoproject.org>; Wed, 30 Mar 2011 15:26:55 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p2UKQmML003006
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Wed, 30 Mar 2011 13:26:48 -0700 (PDT)
-Received: from localhost.localdomain (172.25.34.61) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Wed, 30 Mar 2011 13:26:47 -0700
-From: Mark Hatle <mark.hatle@windriver.com>
-To: <poky@yoctoproject.org>, <openembedded-core@lists.openembedded.org>
-Date: Wed, 30 Mar 2011 15:29:14 -0500
-Message-ID: <9ee39872d36b80888fdea8b2a8e80eb42670656d.1301516765.git.mark.hatle@windriver.com>
-X-Mailer: git-send-email 1.7.3.4
-In-Reply-To: <cover.1301516765.git.mark.hatle@windriver.com>
-References: <cover.1301516765.git.mark.hatle@windriver.com>
-MIME-Version: 1.0
-X-Originating-IP: [172.25.34.61]
-Subject: [PATCH 3/3] Workaround for Global C++ Constructor problem on ARM
+	by mx1.pokylinux.org (Postfix) with ESMTP id 894FB4C8085F;
+	Wed, 30 Mar 2011 15:53:15 -0500 (CDT)
+Received: from localhost.localdomain (yow-bashfiel-d2.ottawa.windriver.com
+	[128.224.146.167])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p2UKqiac007446;
+	Wed, 30 Mar 2011 13:52:46 -0700 (PDT)
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+To: richard.purdie@linuxfoundation.org
+Date: Wed, 30 Mar 2011 16:53:17 -0400
+Message-Id: <3596f8420135f2bdbff81390cedf4a8d9a895670.1301518292.git.bruce.ashfield@windriver.com>
+X-Mailer: git-send-email 1.7.0.4
+In-Reply-To: <cover.1301518292.git.bruce.ashfield@windriver.com>
+References: <cover.1301518292.git.bruce.ashfield@windriver.com>
+In-Reply-To: <cover.1301518292.git.bruce.ashfield@windriver.com>
+References: <cover.1301518292.git.bruce.ashfield@windriver.com>
+Cc: yocto@yoctoproject.org, poky@yoctoproject.org
+Subject: [PATCH 1/1] linux-yocto/crownbay: update configuration
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,199 +28,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 30 Mar 2011 20:26:56 -0000
-Content-Type: text/plain
+X-List-Received-Date: Wed, 30 Mar 2011 20:53:15 -0000
 
-[YOCTO #938]
+The crownbay has been updated for 2.6.37, the BSP branch
+already contans the changes, and this is the update of meta
+to the new config values:
 
-Workaround for a problem with the order of the global C++ constructors on ARM.
-The workaround is simply to avoid defining the ID numbers outside of the
-usage of the ID's.
+  crownbay: update eg20t config
+  crownbay: set cpu type to MATOM
 
-This also has the effect of fixing a problem on MIPS, where "_mips" is a
-defined symbol and unavailable on the system for a variable name.
-
-Signed-off-by: Mark Hatle <mark.hatle@windriver.com>
+Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
 ---
- .../arm-workaround-global-constructor.patch        |   68 ++++++++++++++++++++
- meta/recipes-extended/libzypp/libzypp_git.bb       |   47 +++++++++++---
- 2 files changed, 105 insertions(+), 10 deletions(-)
- create mode 100644 meta/recipes-extended/libzypp/libzypp/arm-workaround-global-constructor.patch
+ .../conf/distro/include/poky-default-revisions.inc |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
-diff --git a/meta/recipes-extended/libzypp/libzypp/arm-workaround-global-constructor.patch b/meta/recipes-extended/libzypp/libzypp/arm-workaround-global-constructor.patch
-new file mode 100644
-index 0000000..efcadc9
---- /dev/null
-+++ b/meta/recipes-extended/libzypp/libzypp/arm-workaround-global-constructor.patch
-@@ -0,0 +1,68 @@
-+Workaround a problem with the C++ global constructors on ARM.
-+
-+As documented in the Yocto Bugzilla bug 938, the global constructors 
-+that define DEF_BUILTIN [const IdString _foo ( "foo" );] are not running 
-+before the usage of _foo during the initialization of the compatibility 
-+table.
-+
-+The patch, along with a similar change to the recipe generation of the 
-+poky-arch.h file, remove the DEF_BUILTIN globals and replace them with
-+immediate strings wherever they are used.
-+
-+Signed-off-by: Mark Hatle <mark.hatle@windriver.com>
-+
-+diff -ur git.orig/zypp/Arch.cc git/zypp/Arch.cc
-+--- git.orig/zypp/Arch.cc	2011-03-29 14:15:32.695079271 -0500
-++++ git/zypp/Arch.cc	2011-03-29 14:17:22.680910025 -0500
-+@@ -152,13 +152,10 @@
-+     // NOTE: Thake care CompatBits::IntT is able to provide one
-+     //       bit for each architecture.
-+     //
-+-#define DEF_BUILTIN(A) const IdString  _##A( #A );
-+-    DEF_BUILTIN( all );
-+-    DEF_BUILTIN( any );
-+-    DEF_BUILTIN( noarch );
-+ 
-+-#include "poky-arch.h"
-+-#undef DEF_BUILTIN
-++/* Global constructors are not working properly on ARM, avoid the
-++ * known bad case and merge constructors in with the usages
-++ */
-+ 
-+     ///////////////////////////////////////////////////////////////////
-+     //
-+@@ -227,9 +224,9 @@
-+         // _noarch must have _idBit 0.
-+         // Other builtins have 1-bit set
-+         // and are initialized done on the fly.
-+-        _compatSet.insert( Arch::CompatEntry( _all, 0 ) );
-+-        _compatSet.insert( Arch::CompatEntry( _any, 0 ) );
-+-        _compatSet.insert( Arch::CompatEntry( _noarch, 0 ) );
-++        _compatSet.insert( Arch::CompatEntry( IdString ( "all" ), 0 ) );
-++        _compatSet.insert( Arch::CompatEntry( IdString ( "any" ), 0 ) );
-++        _compatSet.insert( Arch::CompatEntry( IdString ( "noarch" ), 0 ) );
-+         ///////////////////////////////////////////////////////////////////
-+         // Define the CompatibleWith relation:
-+         //
-+@@ -305,9 +302,9 @@
-+   ///////////////////////////////////////////////////////////////////
-+ 
-+   const Arch Arch_empty ( IdString::Empty );
-+-  const Arch Arch_all( _all );
-+-  const Arch Arch_any( _any );
-+-  const Arch Arch_noarch( _noarch );
-++  const Arch Arch_all( IdString ( "all" ) );
-++  const Arch Arch_any( IdString ( "any" ) );
-++  const Arch Arch_noarch( IdString ( "noarch" ) );
-+ 
-+ #define POKY_PROTO 1
-+ #include "poky-arch.h"
-+@@ -316,7 +316,7 @@
-+   //	METHOD TYPE : Ctor
-+   //
-+   Arch::Arch()
-+-  : _entry( &ArchCompatSet::instance().assertDef( _noarch ) )
-++  : _entry( &ArchCompatSet::instance().assertDef( IdString ( "noarch" ) ) )
-+   {}
-+ 
-+   Arch::Arch( IdString::IdType id_r )
-diff --git a/meta/recipes-extended/libzypp/libzypp_git.bb b/meta/recipes-extended/libzypp/libzypp_git.bb
-index 809c187..b473b9f 100644
---- a/meta/recipes-extended/libzypp/libzypp_git.bb
-+++ b/meta/recipes-extended/libzypp/libzypp_git.bb
-@@ -25,6 +25,9 @@ SRC_URI = "git://gitorious.org/opensuse/libzypp.git;protocol=git \
- 
- SRC_URI_append_mips = " file://mips-workaround-gcc-tribool-error.patch"
- 
-+# ARM specific global constructor workaround
-+SRC_URI_append_arm  = " file://arm-workaround-global-constructor.patch"
-+
- FILES_${PN} += "${libdir}/zypp ${datadir}/zypp ${datadir}/icons"
- FILES_${PN}-dev += "${datadir}/cmake"
- 
-@@ -32,27 +35,38 @@ EXTRA_OECMAKE += "-DLIB=lib"
- 
- PACKAGE_ARCH = "${MACHINE_ARCH}"
- 
-+AVOID_CONSTRUCTOR = ""
-+
-+# Due to an ARM specific compiler issue
-+AVOID_CONSTRUCTOR_arm = "true"
-+
-+# Due to a potential conflict with '_mips' being a define
-+AVOID_CONSTRUCTOR_mips = "true"
-+
- do_archgen () {
- 	# We need to dynamically generate our arch file based on the machine
- 	# configuration
- 	echo "/* Automatically generated by the libzypp recipes */" 		 > zypp/poky-arch.h
-+	echo "/* Avoid Constructor: ${AVOID_CONSTRUCTOR} */" 			 >> zypp/poky-arch.h
- 	echo ""									>> zypp/poky-arch.h
- 	echo "#ifndef POKY_ARCH_H"						>> zypp/poky-arch.h
- 	echo "#define POKY_ARCH_H 1"						>> zypp/poky-arch.h
- 	echo "#define Arch_machine Arch_${MACHINE_ARCH}"			>> zypp/poky-arch.h
- 	echo "#endif /* POKY_ARCH_H */"						>> zypp/poky-arch.h
- 	echo ""									>> zypp/poky-arch.h
--	echo "#ifdef DEF_BUILTIN"						>> zypp/poky-arch.h
--	echo "/* Specify builtin types */"					>> zypp/poky-arch.h
--	for each_arch in ${PACKAGE_ARCHS} ; do
-+	if [ "${AVOID_CONSTRUCTOR}" != "true" ]; then
-+	  echo "#ifdef DEF_BUILTIN"						>> zypp/poky-arch.h
-+	  echo "/* Specify builtin types */"					>> zypp/poky-arch.h
-+	  for each_arch in ${PACKAGE_ARCHS} ; do
- 		case "$each_arch" in
- 			all | any | noarch)
- 				continue;;
- 		esac
- 		echo "    DEF_BUILTIN( ${each_arch} );"				>> zypp/poky-arch.h
--	done
--	echo "#endif /* DEF_BUILTIN */"						>> zypp/poky-arch.h
--	echo ""									>> zypp/poky-arch.h
-+	  done
-+	  echo "#endif /* DEF_BUILTIN */"						>> zypp/poky-arch.h
-+	  echo ""									>> zypp/poky-arch.h
-+	fi
- 	echo "#ifdef POKY_EXTERN_PROTO"						>> zypp/poky-arch.h
- 	echo "/* Specify extern prototypes */"					>> zypp/poky-arch.h
- 	for each_arch in ${PACKAGE_ARCHS} ; do
-@@ -71,7 +85,11 @@ do_archgen () {
- 			all | any | noarch)
- 				continue;;
- 		esac
--		echo "  const Arch Arch_${each_arch} (_${each_arch});"		>> zypp/poky-arch.h
-+		if [ "${AVOID_CONSTRUCTOR}" != "true" ]; then
-+		  echo "  const Arch Arch_${each_arch} (_${each_arch});"		>> zypp/poky-arch.h
-+		else
-+		  echo "  const Arch Arch_${each_arch} ( IdString ( \"${each_arch}\" ) );"		>> zypp/poky-arch.h
-+		fi
- 	done
- 	echo "#endif /* POKY_PROTO */"						>> zypp/poky-arch.h
- 	echo ""									>> zypp/poky-arch.h
-@@ -89,14 +107,23 @@ do_archgen () {
- 			all | any | noarch)
- 				shift ; continue;;
- 		esac
--		ARCH=_"$1"
-+		if [ "${AVOID_CONSTRUCTOR}" != "true" ]; then
-+		  ARCH="_$1"
-+		else
-+		  ARCH="IdString(\"$1\")"
-+		fi
- 		shift
- 		COMPAT=""
- 		for each_arch in "$@"; do
-+			if [ -z "${AVOID_CONSTRUCTOR}" ]; then
-+			  arch_val="_${each_arch}"
-+			else
-+			  arch_val="IdString(\"${each_arch}\")"
-+			fi
- 			if [ -z "$COMPAT" ]; then
--				COMPAT=_"$each_arch"
-+				COMPAT=${arch_val}
- 			else
--				COMPAT=_"$each_arch,$COMPAT"
-+				COMPAT="${arch_val},$COMPAT"
- 			fi
- 		done
- 		COMPAT_WITH="${ARCH},${COMPAT} $COMPAT_WITH"
+diff --git a/meta/conf/distro/include/poky-default-revisions.inc b/meta/conf/distro/include/poky-default-revisions.inc
+index 98db029..245e0d2 100644
+--- a/meta/conf/distro/include/poky-default-revisions.inc
++++ b/meta/conf/distro/include/poky-default-revisions.inc
+@@ -108,7 +108,7 @@ SRCREV_machine_pn-linux-yocto_atom-pc ?= "69cfbdf9f1ff461a75e5b77d6d7ba35e97db4c
+ SRCREV_machine_pn-linux-yocto_routerstationpro ?= "8db69980d76e1f863af409e70175963f23de83ab"
+ SRCREV_machine_pn-linux-yocto_mpc8315e-rdb ?= "6861d8a4d58f8aa75997f7678cc454791544507a"
+ SRCREV_machine_pn-linux-yocto_beagleboard ?= "69cfbdf9f1ff461a75e5b77d6d7ba35e97db4cc3"
+-SRCREV_machine_pn-linux-yocto ?= "69cfbdf9f1ff461a75e5b77d6d7ba35e97db4cc3"
++SRCREV_machine_pn-linux-yocto ?= "51c761795b078bf3c80104ed6e73b3d995067384"
+ SRCREV_meta_pn-linux-yocto ?= "16cabf8ce412b5f8599f92a9e11dfd0ee6e0ad12"
+ SRCREV_pn-linux-libc-headers-yocto ??= "69cfbdf9f1ff461a75e5b77d6d7ba35e97db4cc3"
+ SRCREV_pn-matchbox-config-gtk ??= "3ed74dfb7c57be088a5ab36e446c0ccde9fa1028"
 -- 
-1.7.3.4
+1.7.0.4
 
 
