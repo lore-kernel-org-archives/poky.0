@@ -1,29 +1,37 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id EACBF4C800A0
-	for <poky@yoctoproject.org>; Thu, 31 Mar 2011 17:18:03 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 31 Mar 2011 15:18:03 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,278,1299484800"; d="scan'208";a="727667509"
-Received: from doubt.jf.intel.com (HELO [10.7.199.90]) ([10.7.199.90])
-	by orsmga001.jf.intel.com with ESMTP; 31 Mar 2011 15:18:03 -0700
-Message-ID: <4D94FD9C.8090208@linux.intel.com>
-Date: Thu, 31 Mar 2011 15:18:04 -0700
-From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.14) Gecko/20110223 Lightning/1.0b2 Thunderbird/3.1.8
-MIME-Version: 1.0
-To: Wolfgang Denk <wd@denx.de>
-References: <cover.1301578942.git.paul.eggleton@linux.intel.com>
-	<41ae31ba057b63d3c518e2edf217109c59b64603.1301578942.git.paul.eggleton@linux.intel.com>
-	<20110331141920.3B1C5F03208@gemini.denx.de>
-	<4D94ACBA.90409@linux.intel.com>
-	<20110331213127.70E96F03208@gemini.denx.de>
-In-Reply-To: <20110331213127.70E96F03208@gemini.denx.de>
-Cc: Paul Eggleton <paul.eggleton@linux.intel.com>, poky@yoctoproject.org,
-	openembedded-core@lists.openembedded.org
-Subject: Re: [PATCH 1/1] README.hardware: remove u-boot flashing instructions for mpc8315e-rdb
+Return-Path: <srifenbark@gmail.com>
+Received: from mail-yi0-f48.google.com (mail-yi0-f48.google.com
+	[209.85.218.48])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 025F04C800A6
+	for <poky@yoctoproject.org>; Thu, 31 Mar 2011 17:48:24 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by yia28 with SMTP id 28so1548295yia.35
+	for <poky@yoctoproject.org>; Thu, 31 Mar 2011 15:48:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:message-id:old-date:subject:date:to:cc:from;
+	bh=7pAdoOyCbn1xfiSytkDy3hxaIxEMwlrl4tXd7/BdUWU=;
+	b=fqPumV4OTZ3NTTmulLmC5teBC38lne6Pqk5aP2A22Qystw5utkott8wWGrgiPXPSIR
+	qVcs3alemmo+YFHUynnH40CKC8w1mySQdhs5ava+SGK+Lg8PiSAMJqgxtQhly0KLrdmT
+	hIn9XuPWFNm4WoMKj07lrhoBjT1hR6W/PVBgc=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=message-id:old-date:subject:date:to:cc:from;
+	b=rdGgjZKNmcHMJNRnJbd+FYSFqEE+epjbLWYeEFOPvXfNbzOzDjnl/BnfETTas3FuGf
+	5TxFHdoSM83ZSN2Adur9DToCAziFr7fkQkfkEzYYrdnwx6W6zQpjIpDTLDEyjm4/WHrX
+	Vwmpr89depyChikytH9iX0vgwIb1qtsveqZxk=
+Received: by 10.147.114.11 with SMTP id r11mr3305203yam.7.1301611704181;
+	Thu, 31 Mar 2011 15:48:24 -0700 (PDT)
+Received: from localhost ([190.197.29.62])
+	by mx.google.com with ESMTPS id h43sm807223yhm.22.2011.03.31.15.48.21
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Thu, 31 Mar 2011 15:48:23 -0700 (PDT)
+Message-Id: <cover.1301611580.git.scott.m.rifenbark@intel.com>
+Old-Date: Thu, 31 Mar 2011 17:46:20 -0500
+Date: Thu, 31 Mar 2011 17:48:16 -0500
+To: poky@yoctoproject.org
+CC: 
+From: Scott Rifenbark <srifenbark@gmail.com>
+Subject: [PATCH 0/1] [DOCS] Updated repo URL for Yocto Eclipse Plug-in
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,43 +43,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 31 Mar 2011 22:18:04 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 31 Mar 2011 22:48:25 -0000
 
+From: Scott Rifenbark <scott.m.rifenbark@intel.com>
 
+The final resting place for the Yocto Eclipse Plug-in was determined
+as http://yoctoproject.org/downloads/eclipse-plugin/1.0.  The section 
+that describes how to install the plug-in was updated to reflect the 
+new location.
 
-On 03/31/2011 02:31 PM, Wolfgang Denk wrote:
-> Dear Darren Hart,
->
-> In message<4D94ACBA.90409@linux.intel.com>  you wrote:
->>
->> Absolutely, this wasn't intended as a final "solution". The issue
->> appears to be related to the 4.5.1 version of gcc failing in various
->> ways to build either u-boot master or v2010.09, or v2010.12. I will
->> report this to the u-boot mailing list just as soon as I can get back to it.
->
-> Why did you not enter this as a bug in bugzilla, then?
-
-Just hectic is all, was on my todo list for today.
-
-http://bugzilla.pokylinux.org/show_bug.cgi?id=943
-
->
-> Will we have a Yocto 1.0 releasse soon, with such known bugs?
-
-Fortunately, the device in question appears to work fine with the stock 
-u-boot. It doesn't seem prudent to delay the release with an adequate 
-work-around for the problem.
-
-Clearly this applies to all powerpc hardware, and it needs to be 
-addressed. Per your request, I'll send a note to the u-boot list so we 
-can discuss it in detail there.
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: srifenbark/adt-work
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=srifenbark/adt-work
 
 Thanks,
+    Scott Rifenbark <scott.m.rifenbark@intel.com>
+---
 
--- 
-Darren Hart
-Intel Open Source Technology Center
-Yocto Project - Linux Kernel
+
+Scott Rifenbark (1):
+  documentation/adt-manual/adt-eclipse.xml:  Updated repo URL for
+    Eclipse Plug-in
+
+ documentation/adt-manual/adt-eclipse.xml |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
 
