@@ -1,26 +1,36 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 3C8BB4C800AC
-	for <poky@yoctoproject.org>; Thu, 31 Mar 2011 11:33:00 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 31 Mar 2011 09:32:59 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,276,1299484800"; d="scan'208";a="411792672"
-Received: from doubt.jf.intel.com (HELO [10.24.0.166]) ([10.24.0.166])
-	by azsmga001.ch.intel.com with ESMTP; 31 Mar 2011 09:32:58 -0700
-Message-ID: <4D94ACBA.90409@linux.intel.com>
-Date: Thu, 31 Mar 2011 09:32:58 -0700
-From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.14) Gecko/20110223 Lightning/1.0b2 Thunderbird/3.1.8
-MIME-Version: 1.0
-To: Wolfgang Denk <wd@denx.de>
-References: <cover.1301578942.git.paul.eggleton@linux.intel.com>	<41ae31ba057b63d3c518e2edf217109c59b64603.1301578942.git.paul.eggleton@linux.intel.com>
-	<20110331141920.3B1C5F03208@gemini.denx.de>
-In-Reply-To: <20110331141920.3B1C5F03208@gemini.denx.de>
-Cc: Paul Eggleton <paul.eggleton@linux.intel.com>, poky@yoctoproject.org,
-	openembedded-core@lists.openembedded.org
-Subject: Re: [PATCH 1/1] README.hardware: remove u-boot flashing	instructions for mpc8315e-rdb
+Return-Path: <srifenbark@gmail.com>
+Received: from mail-gw0-f48.google.com (mail-gw0-f48.google.com [74.125.83.48])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2AB194C804D9
+	for <poky@yoctoproject.org>; Thu, 31 Mar 2011 13:31:29 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by gwj22 with SMTP id 22so1428233gwj.35
+	for <poky@yoctoproject.org>; Thu, 31 Mar 2011 11:31:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:message-id:old-date:subject:date:to:cc:from;
+	bh=casowzZanZJqqJYn0S8gBkQm4UubGeK9J8925z09IZ8=;
+	b=rxc95J+rxu8FOsMdYf9fAID9Zo0UGrs8Bm2TzoKuzPnNrEQ0Yy77jhTNLAw1Vr8IFh
+	JXtz/SRNBXXD+04obUVvAT2D7Qw1EYjWl9xvAZ5te+5tP0QaRYVzSel/9oXy6Fif4n6q
+	VeSaGERNKxXBOFaKh8txuBLGz/WrIBdVG0/iM=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=message-id:old-date:subject:date:to:cc:from;
+	b=V9+oY/MxNNdpr+WehXjfy2/pH7A4GnFI3+waAKOhxe77kQjY+3v7OwbTYO1IoACUFK
+	NK58d5mepif1FH3eVfzzp71UeiKPu8Bj481iCrrp7iTkq3mLNnibF7hb5KkODbFERa3H
+	Je5xF27LmxNhcAk22s9PEghwFz29Seae/j3Wg=
+Received: by 10.236.185.41 with SMTP id t29mr1811929yhm.160.1301596287850;
+	Thu, 31 Mar 2011 11:31:27 -0700 (PDT)
+Received: from localhost ([190.197.29.62])
+	by mx.google.com with ESMTPS id 73sm696069yhl.49.2011.03.31.11.31.26
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Thu, 31 Mar 2011 11:31:27 -0700 (PDT)
+Message-Id: <cover.1301596085.git.scott.m.rifenbark@intel.com>
+Old-Date: Thu, 31 Mar 2011 13:28:05 -0500
+Date: Thu, 31 Mar 2011 13:31:23 -0500
+To: poky@yoctoproject.org
+CC: 
+From: Scott Rifenbark <srifenbark@gmail.com>
+Subject: [PATCH 0/8] [DOCS] YP Quick Start PDF generation
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,57 +42,48 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 31 Mar 2011 16:33:00 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 31 Mar 2011 18:31:29 -0000
+
+From: Scott Rifenbark <scott.m.rifenbark@intel.com>
+
+These commits accomplish PDF generation for the Yocto Project 
+Quick Start.  Prior to this release this manual was generated 
+as an HTML document only.  Release 1.0 of YP saw the need for 
+a PDF version as well.  To accomplish this several new files 
+had to be introduced and the make structure altered.  
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: srifenbark/qs-work
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=srifenbark/qs-work
+
+Thanks,
+    Scott Rifenbark <scott.m.rifenbark@intel.com>
+---
 
 
+Scott Rifenbark (8):
+  documentation/yocto-project-qs/yocto-project-qs.xml:  cleaned out
+    another "YP"
+  documentation/yocto-project-qs/yocto-project-qs.xml: Edits plus Matt
+    Madison note regarding older host systems
+  documentation/yocto-project-qs/Makefile: Updated to create a PDF
+  documentation/yocto-project-qs/figures/ypqs-title.png: New title
+    image
+  documentation/yocto-project-qs/ypqs.xml: New high-level file for PDF
+  documentation/yocto-project-qs/style.css: Updates for PDF generation
+  documentation/yocto-project-qs/yocto-project-qs-customization.xsl:
+    Updated for PDF creation
+  documentation/yocto-project-qs/yocto-project-qs.xml: Updates for PDF
+    creation
 
-On 03/31/2011 07:19 AM, Wolfgang Denk wrote:
-> Dear Paul Eggleton,
->
-> In message<41ae31ba057b63d3c518e2edf217109c59b64603.1301578942.git.paul.eggleton@linux.intel.com>  you wrote:
->> From: Paul Eggleton<paul.eggleton@linux.intel.com>
->>
->> Upgrading u-boot is apparently not necessary with current board revisions,
->> and these instructions may not work properly anyway (our toolchain seems not
->> to be able to compile u-boot in the way described), and given that they are
->> potentially risky they should be removed.
->
-> The instructions you delete appear to be pretty generic ones, and I
-> see no reason why they would not work.
->
+ documentation/yocto-project-qs/Makefile            |   25 ++++---
+ .../yocto-project-qs/figures/ypqs-title.png        |  Bin 0 -> 11324 bytes
+ documentation/yocto-project-qs/style.css           |   10 ++--
+ .../yocto-project-qs-customization.xsl             |    2 -
+ .../yocto-project-qs/yocto-project-qs.xml          |   39 ++++++++---
+ documentation/yocto-project-qs/ypqs.xml            |   67 ++++++++++++++++++++
+ 6 files changed, 114 insertions(+), 29 deletions(-)
+ create mode 100644 documentation/yocto-project-qs/figures/ypqs-title.png
+ create mode 100644 documentation/yocto-project-qs/ypqs.xml
 
-When I followed them I ended up with a dead mpc3815e-rdb. I suspect my 
-u-boot image was bad in some way, but my concern was that others would 
-end up in the same situation following the instructions. Since the 
-existing u-boot version was able to boot the linux-yocto kernel recipe, 
-there appears to be no need to reflash u-boot.
-
-> If the Poky too chain has issues with this, then there is a problem
-> with that tool chain, and you should enter a bug report.
->
-> What exactly would that problem be?
-
-Absolutely, this wasn't intended as a final "solution". The issue 
-appears to be related to the 4.5.1 version of gcc failing in various 
-ways to build either u-boot master or v2010.09, or v2010.12. I will 
-report this to the u-boot mailing list just as soon as I can get back to it.
-
---
-Darren
-
->
-> In any case, just papering over the problems seems not a good
-> startegy to me.
->
-> Best regards,
->
-> Wolfgang Denk
->
-
--- 
-Darren Hart
-Intel Open Source Technology Center
-Yocto Project - Linux Kernel
 
