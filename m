@@ -1,37 +1,40 @@
 Return-Path: <srifenbark@gmail.com>
-Received: from mail-yi0-f48.google.com (mail-yi0-f48.google.com
-	[209.85.218.48])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 85DD44C80889
-	for <poky@yoctoproject.org>; Thu, 31 Mar 2011 13:45:23 -0500 (CDT)
+Received: from mail-yw0-f48.google.com (mail-yw0-f48.google.com
+	[209.85.213.48])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D2E004C80889
+	for <poky@yoctoproject.org>; Thu, 31 Mar 2011 13:45:24 -0500 (CDT)
 Authentication-Results: mx1.pokylinux.org; dkim=pass
 	(1024-bit key; insecure key) header.i=@gmail.com;
 	x-dkim-adsp=none (insecure policy)
-Received: by yia28 with SMTP id 28so1434116yia.35
-	for <poky@yoctoproject.org>; Thu, 31 Mar 2011 11:45:23 -0700 (PDT)
+Received: by ywo32 with SMTP id 32so1428518ywo.35
+	for <poky@yoctoproject.org>; Thu, 31 Mar 2011 11:45:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:message-id:old-date:subject:date:to:cc:from;
-	bh=UwmRC5gOgCBDXCGN+iHScXpah0rDMgtDtJozbq5Ya/s=;
-	b=IOi6u8uitc/1/2CM0ZQVkFwEijSZ4BLvKMgpnLmvRaQq2zqkPVzGus8CdWon+bVqB4
-	MOUGsKJom4EkXFAfDoVT3mwwbtf45XxPiqGRUwrX87619mj2FqCLzZD+8aABbMYLWVSW
-	7Sn5wO0iFrSCipS0Fop1DmwMVR4HibNn2macE=
+	h=domainkey-signature:message-id:in-reply-to:references:old-date
+	:subject:date:to:cc:from;
+	bh=um5z1u41/3JctuyU6tcK+gQaOxkslo1o7zO2zvBMvSc=;
+	b=i64Sdx5arHxSICsWBzbEVyMqklYToKg8ONJ8kloW57Ypyf+z9T7sph/wKF35BrTTo0
+	iofIJ/oNxqbv9NEcMuqZEJynF6FporS9kYM3EtyGBa13d6Jd8ptvMjdg/yWmFMs5C1uc
+	foWzV+5cTkCFJKEAYJ2HSzmimd3VyepmK6sRk=
 DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=message-id:old-date:subject:date:to:cc:from;
-	b=vkucIeaW7Otto6zUQ5znQyDQOPdH0A8Go2ZxeA50yP8rxW0tWyYDXfSUddegKmiw/h
-	R7kL62Z1yaDPtphxjkuxt1ud1I0kyFygAW5NomnFPdx/pZffYrQHlKdj3/52Ny8Uwp2v
-	32I86PS0ZP/uuuTl5EyGdZ4+YVbBLV4+eDuNM=
-Received: by 10.91.110.4 with SMTP id n4mr2954756agm.47.1301597122385;
-	Thu, 31 Mar 2011 11:45:22 -0700 (PDT)
+	h=message-id:in-reply-to:references:old-date:subject:date:to:cc:from;
+	b=SocQMN9/33m34qwDMweXvSdYF4LPB1z84DT9zzJ6tjkvsb0XlMJ9+nUuzkt6RjcIMb
+	r7VuiyNIB2sgNzaDjUnOp05L4gNaCBsMqw0qSLmDximAV3WYpjs9wCBWwOF0Z+hMiKQ/
+	2qq2t5ID7Pu6SIc+r1aVPhAOuwKrhWF1DIpSU=
+Received: by 10.101.20.1 with SMTP id x1mr2337908ani.69.1301597124586;
+	Thu, 31 Mar 2011 11:45:24 -0700 (PDT)
 Received: from localhost ([190.197.29.62])
-	by mx.google.com with ESMTPS id w4sm1447811anw.16.2011.03.31.11.45.20
+	by mx.google.com with ESMTPS id c24sm1447269ana.21.2011.03.31.11.45.23
 	(version=TLSv1/SSLv3 cipher=OTHER);
-	Thu, 31 Mar 2011 11:45:21 -0700 (PDT)
-Message-Id: <cover.1301597020.git.scott.m.rifenbark@intel.com>
-Old-Date: Thu, 31 Mar 2011 13:43:40 -0500
-Date: Thu, 31 Mar 2011 13:45:17 -0500
+	Thu, 31 Mar 2011 11:45:24 -0700 (PDT)
+Message-Id: <1614c11f189b3f0c2de73291bd1fadde430dfb42.1301597020.git.scott.m.rifenbark@intel.com>
+In-Reply-To: <cover.1301597020.git.scott.m.rifenbark@intel.com>
+References: <cover.1301597020.git.scott.m.rifenbark@intel.com>
+Old-Date: Thu, 31 Mar 2011 13:41:51 -0500
+Date: Thu, 31 Mar 2011 13:45:20 -0500
 To: poky@yoctoproject.org
 CC: 
 From: Scott Rifenbark <srifenbark@gmail.com>
-Subject: [PATCH 0/1] [DOCS] BSP Guide tarball creation fix
+Subject: [PATCH 1/1] documentation/bsp-guide/Makefile: Updated to include PDF in tarball
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,26 +46,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 31 Mar 2011 18:45:23 -0000
+X-List-Received-Date: Thu, 31 Mar 2011 18:45:25 -0000
 
 From: Scott Rifenbark <scott.m.rifenbark@intel.com>
 
 For some reason the PDF version of this manual was not being included
-in the tarball created by the Makefile.  I fixed this. 
+in the tarball created by the Makefile.  I fixed this.
 
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: srifenbark/bsp-work
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=srifenbark/bsp-work
-
-Thanks,
-    Scott Rifenbark <scott.m.rifenbark@intel.com>
+Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
 ---
-
-
-Scott Rifenbark (1):
-  documentation/bsp-guide/Makefile:  Updated to include PDF in tarball
-
  documentation/bsp-guide/Makefile |    2 +-
  1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/documentation/bsp-guide/Makefile b/documentation/bsp-guide/Makefile
+index 93f2aab..fdb45ec 100644
+--- a/documentation/bsp-guide/Makefile
++++ b/documentation/bsp-guide/Makefile
+@@ -20,7 +20,7 @@ html:
+ 	xsltproc $(XSLTOPTS) -o bsp-guide.html bsp-guide-customization.xsl bsp-guide.xml
+ 
+ tarball: html
+-	tar -cvzf bsp-guide.tgz style.css bsp-guide.html figures/bsp-title.png
++	tar -cvzf bsp-guide.tgz style.css bsp-guide.html bsp-guide.pdf figures/bsp-title.png
+ 
+ validate:
+ 	xmllint --postvalid --xinclude --noout bsp-guide.xml
+-- 
+1.7.0.4
 
 
