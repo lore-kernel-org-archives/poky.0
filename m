@@ -1,30 +1,37 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 6BFB64C80ACB
-	for <poky@yoctoproject.org>; Thu, 31 Mar 2011 16:00:54 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2VL0pL8032374;
-	Thu, 31 Mar 2011 22:00:51 +0100
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 32204-03; Thu, 31 Mar 2011 22:00:47 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2VL0jIn032368
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Thu, 31 Mar 2011 22:00:46 +0100
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Scott Rifenbark <srifenbark@gmail.com>
-In-Reply-To: <cover.1301597020.git.scott.m.rifenbark@intel.com>
-References: <cover.1301597020.git.scott.m.rifenbark@intel.com>
-Date: Thu, 31 Mar 2011 22:00:42 +0100
-Message-ID: <1301605242.24596.214.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.32.2 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/1] [DOCS] BSP Guide tarball creation fix
+Return-Path: <srifenbark@gmail.com>
+Received: from mail-yw0-f48.google.com (mail-yw0-f48.google.com
+	[209.85.213.48])
+	by mx1.pokylinux.org (Postfix) with ESMTP id B56BC4C804D9
+	for <poky@yoctoproject.org>; Thu, 31 Mar 2011 16:17:24 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by ywo32 with SMTP id 32so1507148ywo.35
+	for <poky@yoctoproject.org>; Thu, 31 Mar 2011 14:17:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:message-id:old-date:subject:date:to:cc:from;
+	bh=fBHEpUl6i8+9Hr/3cgkkMZXAel950cPZzkMv8mhogEs=;
+	b=wbwCx+BcjnlL3OoiTCC7e5xkX7iAS6LUUh0ZUuD4m42P4+qpMYSSG0SwmPaP6efWpz
+	fGgGCxmXlD2vABPVZeAa8X/5hNz0qZZAtWuyj9Z4zR1+YrOfIQ61VzcsJZxBS8iAewGI
+	6JQBAsITOA64wQ6RLyf+mfxyw+1HBoXwtnPxU=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=message-id:old-date:subject:date:to:cc:from;
+	b=DKJ01/ZyOlG2RdbVNArCR4k4wY9o9tcB//n65ruAyfwepRjNoJKEFw+gM/8A6GAMF1
+	GVi2Jl3h4eR+3+ksePUKpvXMcHELrFn8U2sWp7N5PpgcKYAPwPLukJEsWZOr9KmAwbSJ
+	isBxzl/qq2gIldlj7wY7/j221QSqP8rZoquIw=
+Received: by 10.90.135.8 with SMTP id i8mr660698agd.113.1301606244351;
+	Thu, 31 Mar 2011 14:17:24 -0700 (PDT)
+Received: from localhost ([190.197.29.62])
+	by mx.google.com with ESMTPS id d20sm1563601ang.43.2011.03.31.14.17.22
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Thu, 31 Mar 2011 14:17:23 -0700 (PDT)
+Message-Id: <cover.1301606132.git.scott.m.rifenbark@intel.com>
+Old-Date: Thu, 31 Mar 2011 16:15:32 -0500
+Date: Thu, 31 Mar 2011 16:17:18 -0500
+To: poky@yoctoproject.org
+CC: 
+From: Scott Rifenbark <srifenbark@gmail.com>
+Subject: [PATCH 0/1] [DOCS] Removed "YP" from Quick Start
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,30 +43,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 31 Mar 2011 21:00:54 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 31 Mar 2011 21:17:24 -0000
 
-On Thu, 2011-03-31 at 13:45 -0500, Scott Rifenbark wrote:
-> From: Scott Rifenbark <scott.m.rifenbark@intel.com>
-> 
-> For some reason the PDF version of this manual was not being included
-> in the tarball created by the Makefile.  I fixed this. 
-> 
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->   Branch: srifenbark/bsp-work
->   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=srifenbark/bsp-work
-> 
-> Thanks,
->     Scott Rifenbark <scott.m.rifenbark@intel.com>
-> ---
-> 
-> 
-> Scott Rifenbark (1):
->   documentation/bsp-guide/Makefile:  Updated to include PDF in tarball
+From: Scott Rifenbark <scott.m.rifenbark@intel.com>
 
-Merged to master, thanks.
+I removed an occurance of "YP" from the Quick Start.  This acronym is 
+not used.
 
-Richard
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: srifenbark/qs-work
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=srifenbark/qs-work
+
+Thanks,
+    Scott Rifenbark <scott.m.rifenbark@intel.com>
+---
+
+
+Scott Rifenbark (1):
+  documentation/yocto-project-qs/yocto-project-qs.xml: removed a "YP"
+    acronym
+
+ .../yocto-project-qs/yocto-project-qs.xml          |    3 ++-
+ 1 files changed, 2 insertions(+), 1 deletions(-)
 
 
