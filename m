@@ -1,40 +1,30 @@
-Return-Path: <srifenbark@gmail.com>
-Received: from mail-yw0-f48.google.com (mail-yw0-f48.google.com
-	[209.85.213.48])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D2E004C80889
-	for <poky@yoctoproject.org>; Thu, 31 Mar 2011 13:45:24 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by ywo32 with SMTP id 32so1428518ywo.35
-	for <poky@yoctoproject.org>; Thu, 31 Mar 2011 11:45:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:message-id:in-reply-to:references:old-date
-	:subject:date:to:cc:from;
-	bh=um5z1u41/3JctuyU6tcK+gQaOxkslo1o7zO2zvBMvSc=;
-	b=i64Sdx5arHxSICsWBzbEVyMqklYToKg8ONJ8kloW57Ypyf+z9T7sph/wKF35BrTTo0
-	iofIJ/oNxqbv9NEcMuqZEJynF6FporS9kYM3EtyGBa13d6Jd8ptvMjdg/yWmFMs5C1uc
-	foWzV+5cTkCFJKEAYJ2HSzmimd3VyepmK6sRk=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=message-id:in-reply-to:references:old-date:subject:date:to:cc:from;
-	b=SocQMN9/33m34qwDMweXvSdYF4LPB1z84DT9zzJ6tjkvsb0XlMJ9+nUuzkt6RjcIMb
-	r7VuiyNIB2sgNzaDjUnOp05L4gNaCBsMqw0qSLmDximAV3WYpjs9wCBWwOF0Z+hMiKQ/
-	2qq2t5ID7Pu6SIc+r1aVPhAOuwKrhWF1DIpSU=
-Received: by 10.101.20.1 with SMTP id x1mr2337908ani.69.1301597124586;
-	Thu, 31 Mar 2011 11:45:24 -0700 (PDT)
-Received: from localhost ([190.197.29.62])
-	by mx.google.com with ESMTPS id c24sm1447269ana.21.2011.03.31.11.45.23
-	(version=TLSv1/SSLv3 cipher=OTHER);
-	Thu, 31 Mar 2011 11:45:24 -0700 (PDT)
-Message-Id: <1614c11f189b3f0c2de73291bd1fadde430dfb42.1301597020.git.scott.m.rifenbark@intel.com>
-In-Reply-To: <cover.1301597020.git.scott.m.rifenbark@intel.com>
-References: <cover.1301597020.git.scott.m.rifenbark@intel.com>
-Old-Date: Thu, 31 Mar 2011 13:41:51 -0500
-Date: Thu, 31 Mar 2011 13:45:20 -0500
-To: poky@yoctoproject.org
-CC: 
-From: Scott Rifenbark <srifenbark@gmail.com>
-Subject: [PATCH 1/1] documentation/bsp-guide/Makefile: Updated to include PDF in tarball
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2A1ED4C80A6A
+	for <poky@yoctoproject.org>; Thu, 31 Mar 2011 15:59:00 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2VKwvKL032189;
+	Thu, 31 Mar 2011 21:58:57 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 31621-10; Thu, 31 Mar 2011 21:58:53 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2VKwnU0032183
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Thu, 31 Mar 2011 21:58:49 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Scott Rifenbark <srifenbark@gmail.com>
+In-Reply-To: <cover.1301495477.git.scott.m.rifenbark@intel.com>
+References: <cover.1301495477.git.scott.m.rifenbark@intel.com>
+Date: Thu, 31 Mar 2011 21:58:45 +0100
+Message-ID: <1301605125.24596.212.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.2 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/1] [BUGID# 929] - [DOCS] Poky Reference Manual GPL Note
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,32 +36,33 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 31 Mar 2011 18:45:25 -0000
+X-List-Received-Date: Thu, 31 Mar 2011 20:59:01 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-From: Scott Rifenbark <scott.m.rifenbark@intel.com>
+On Wed, 2011-03-30 at 07:33 -0700, Scott Rifenbark wrote:
+> From: Scott Rifenbark <scott.m.rifenbark@intel.com>
+> 
+> [BUGID# 929] - In chapter 2 where we talk about building images I added 
+> a new note indicating that the user should not switch around using different
+> GPL versions when trying to rebuild an image as it can cause dependency
+> failures.
+> 
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>   Branch: srifenbark/poky-work
+>   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=srifenbark/poky-work
+> 
+> Thanks,
+>     Scott Rifenbark <scott.m.rifenbark@intel.com>
+> ---
+> 
+> 
+> Scott Rifenbark (1):
+>   documentation/poky-ref-manual/usingpoky.xml:  [BUGID# 929] - Note
+>     added warning about switching up GPL versions
 
-For some reason the PDF version of this manual was not being included
-in the tarball created by the Makefile.  I fixed this.
+Merged to master, thanks.
 
-Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
----
- documentation/bsp-guide/Makefile |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
-
-diff --git a/documentation/bsp-guide/Makefile b/documentation/bsp-guide/Makefile
-index 93f2aab..fdb45ec 100644
---- a/documentation/bsp-guide/Makefile
-+++ b/documentation/bsp-guide/Makefile
-@@ -20,7 +20,7 @@ html:
- 	xsltproc $(XSLTOPTS) -o bsp-guide.html bsp-guide-customization.xsl bsp-guide.xml
- 
- tarball: html
--	tar -cvzf bsp-guide.tgz style.css bsp-guide.html figures/bsp-title.png
-+	tar -cvzf bsp-guide.tgz style.css bsp-guide.html bsp-guide.pdf figures/bsp-title.png
- 
- validate:
- 	xmllint --postvalid --xinclude --noout bsp-guide.xml
--- 
-1.7.0.4
+Richard
 
 
