@@ -1,19 +1,33 @@
-Return-Path: <tom.zanussi@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 4629B4C8059A
-	for <poky@yoctoproject.org>; Wed, 30 Mar 2011 19:42:13 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 30 Mar 2011 17:42:12 -0700
-Message-Id: <b9dded$ighv6b@orsmga002.jf.intel.com>
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,271,1299484800"; d="scan'208";a="621346003"
-Received: from unknown (HELO localhost) ([10.255.12.192])
-	by orsmga002.jf.intel.com with ESMTP; 30 Mar 2011 17:42:12 -0700
-Old-Date: Wed, 30 Mar 2011 17:34:44 -0500
-Date: Wed, 30 Mar 2011 19:41:53 -0500
+Return-Path: <vsailub4u@gmail.com>
+Received: from mail-pz0-f48.google.com (mail-pz0-f48.google.com
+	[209.85.210.48])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5C40D4C8085F
+	for <poky@yoctoproject.org>; Thu, 31 Mar 2011 05:28:45 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by pzk10 with SMTP id 10so520137pzk.35
+	for <poky@yoctoproject.org>; Thu, 31 Mar 2011 03:28:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:date:message-id:subject:from:to
+	:content-type; bh=Wg9FM1ayRJPDmZlKXW7RVvu4Tyv4AkmGihjiwhFyFLc=;
+	b=P312GuhlKzftkfujXpwFf5NvtPbtuN6GJEnFsszDT2YjERgTff9NfvzuJOwJGHAEBR
+	Gs0u75xZNZdMcXk5LUPHOdujicWoK6clCdRzsBcI7FX8p8ntvBUnKQCl/8SH6pYJWfiG
+	b56Vk32bFbeHR631Bx4dxis08Ot6PS24LB2yo=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:date:message-id:subject:from:to:content-type;
+	b=O2RjhX0Jmkmeb7x7WM+ktsm56TsV0J1+KuBDq2SnxRNPskLGTPMDhZpSkAoAVV7+gw
+	vJitpQX8A9GBg+MjpWoxGFQtMcGnGySYmPnHKo4KGMXbJpwzTA1iLSa6vwwgsKpTTu+H
+	QV4g/TL6PotLdnxIMy5r0DaFw9Rf+ayzvK7/Y=
+MIME-Version: 1.0
+Received: by 10.142.150.22 with SMTP id x22mr1942005wfd.150.1301567324737;
+	Thu, 31 Mar 2011 03:28:44 -0700 (PDT)
+Received: by 10.142.185.20 with HTTP; Thu, 31 Mar 2011 03:28:44 -0700 (PDT)
+Date: Thu, 31 Mar 2011 15:58:44 +0530
+Message-ID: <AANLkTi=K6AGvEvn0JJcFtx4MR9TRwL-VaDnkhaX=t7Lz@mail.gmail.com>
+From: v sailaja <vsailub4u@gmail.com>
 To: poky@yoctoproject.org
-From: Tom Zanussi <tom.zanussi@intel.com>
-Subject: [PATCH 1/1] meta-fishriver: new layer for Fish River Island (Z530/EG20T) systems
+Subject: Problem in linux-yocto kernel 2.6.37 configuration while building with sugarbay machine
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -25,302 +39,310 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 31 Mar 2011 00:42:13 -0000
+X-List-Received-Date: Thu, 31 Mar 2011 10:28:45 -0000
+Content-Type: multipart/alternative; boundary=000e0cd2e27c0ad1be049fc4c298
 
-From: Tom Zanussi <tom.zanussi@intel.com>
+--000e0cd2e27c0ad1be049fc4c298
+Content-Type: text/plain; charset=ISO-8859-1
 
-This layer provides support for Z530 + EG20T Intel systems.
+Hi,
 
-Currently it supports only vesa graphics, which will be upgraded
-shortly.
+I am trying to build linux-yocto kernel  2.6.37 using the* 'sugarbay*'
+machine.I am getting  the following an error.
+*Error Log:*
 
-Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
----
- meta-fishriver/COPYING.MIT                         |   17 ++++
- meta-fishriver/README                              |   94 ++++++++++++++++++++
- meta-fishriver/conf/layer.conf                     |   10 ++
- meta-fishriver/conf/machine/fishriver.conf         |   46 ++++++++++
- .../formfactor/formfactor/fishriver/machconfig     |    3 +
- .../recipes-bsp/formfactor/formfactor_0.0.bbappend |    3 +
- .../xserver-xf86-config/fishriver/xorg.conf        |   26 ++++++
- .../xorg-xserver/xserver-xf86-config_0.1.bbappend  |    3 +
- .../recipes-kernel/linux/linux-yocto_git.bbappend  |    4 +
- 9 files changed, 206 insertions(+), 0 deletions(-)
- create mode 100644 meta-fishriver/COPYING.MIT
- create mode 100644 meta-fishriver/README
- create mode 100644 meta-fishriver/binary/.gitignore
- create mode 100644 meta-fishriver/conf/layer.conf
- create mode 100644 meta-fishriver/conf/machine/fishriver.conf
- create mode 100644 meta-fishriver/recipes-bsp/formfactor/formfactor/fishriver/machconfig
- create mode 100644 meta-fishriver/recipes-bsp/formfactor/formfactor_0.0.bbappend
- create mode 100644 meta-fishriver/recipes-graphics/xorg-xserver/xserver-xf86-config/fishriver/xorg.conf
- create mode 100644 meta-fishriver/recipes-graphics/xorg-xserver/xserver-xf86-config_0.1.bbappend
- create mode 100644 meta-fishriver/recipes-kernel/linux/linux-yocto_git.bbappend
 
-diff --git a/meta-fishriver/COPYING.MIT b/meta-fishriver/COPYING.MIT
-new file mode 100644
-index 0000000..fb950dc
---- /dev/null
-+++ b/meta-fishriver/COPYING.MIT
-@@ -0,0 +1,17 @@
-+Permission is hereby granted, free of charge, to any person obtaining a copy 
-+of this software and associated documentation files (the "Software"), to deal 
-+in the Software without restriction, including without limitation the rights 
-+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell 
-+copies of the Software, and to permit persons to whom the Software is 
-+furnished to do so, subject to the following conditions:
-+
-+The above copyright notice and this permission notice shall be included in 
-+all copies or substantial portions of the Software.
-+
-+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
-+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
-+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN 
-+THE SOFTWARE.
-diff --git a/meta-fishriver/README b/meta-fishriver/README
-new file mode 100644
-index 0000000..57b4926
---- /dev/null
-+++ b/meta-fishriver/README
-@@ -0,0 +1,94 @@
-+This README file contains information on building the meta-fishriver
-+BSP layer, and booting the images contained in the /binary directory.
-+Please see the corresponding sections below for details.
-+
-+
-+Table of Contents
-+=================
-+
-+  I. Special notes on the meta-fishriver BSP layer
-+ II. Building the meta-fishriver BSP layer
-+III. Booting the images in /binary
-+
-+
-+I. Special notes on the meta-fishriver BSP layer
-+================================================
-+
-+The meta-fishriver layer currently and temporarily uses the crownbay
-+kernel branch.  This will change once we have new patches and/or
-+config changes for:
-+
-+- Zigbee
-+- wifi
-+- upstream gma500
-+- EMGD?
-+
-+
-+II. Building the meta-fishriver BSP layer
-+=========================================
-+
-+For each BSP in the 'meta-intel' repository, there are multiple
-+branches, one corresponding to each major release starting with
-+'laverne' (0.90), in addition to the latest code which tracks the
-+current master.
-+
-+In order to build an image with BSP support for a given release, you
-+need to check out the 'meta-intel' branch corresponding to the release
-+you're building against e.g. to build for laverne (0.90), check out
-+the 'laverne' branch of both poky and 'meta-intel'.
-+
-+Having done that, and assuming you cloned the 'meta-intel' repository
-+at the top-level of your yocto build tree, you can build a fishriver
-+image by adding the location of the meta-fishriver layer to
-+bblayers.conf e.g.:
-+
-+  yocto/meta-intel/meta-fishriver \
-+
-+To enable the fishriver layer, add the fishriver MACHINE to local.conf:
-+
-+  MACHINE ?= "fishriver"
-+
-+You should then be able to build a fishriver image as such:
-+
-+  $ source poky-init-build-env
-+  $ bitbake poky-image-sato-live
-+
-+At the end of a successful build, you should have a live image that
-+you can boot from a USB flash drive (see instructions on how to do
-+that below, in the section 'Booting the images from /binary').
-+
-+
-+III. Booting the images in /binary
-+==================================
-+
-+This BSP contains bootable live images, which can be used to directly
-+boot Yocto off of a USB flash drive.
-+
-+Under Linux, insert a USB flash drive.  Assuming the USB flash drive
-+takes device /dev/sdf, use dd to copy the live image to it.  For
-+example:
-+
-+# dd if=poky-image-sato-live-fishriver-20101207053738.hddimg of=/dev/sdf
-+# sync
-+# eject /dev/sdf
-+
-+This should give you a bootable USB flash device.  Insert the device
-+into a bootable USB socket on the target, and power on.  This should
-+result in a system booted to the Sato graphical desktop.
-+
-+If you want a terminal, use the arrows at the top of the UI to move to
-+different pages of available applications, one of which is named
-+'Terminal'.  Clicking that should give you a root terminal.
-+
-+If you want to ssh into the system, you can use the root terminal to
-+ifconfig the IP address and use that to ssh in.  The root password is
-+empty, so to log in type 'root' for the user name and hit 'Enter' at
-+the Password prompt: and you should be in.
-+
-+----
-+
-+If you find you're getting corrupt images on the USB (it doesn't show
-+the syslinux boot: prompt, or the boot: prompt contains strange
-+characters), try doing this first:
-+
-+# dd if=/dev/zero of=/dev/sdf bs=1M count=512
-diff --git a/meta-fishriver/binary/.gitignore b/meta-fishriver/binary/.gitignore
-new file mode 100644
-index 0000000..e69de29
-diff --git a/meta-fishriver/conf/layer.conf b/meta-fishriver/conf/layer.conf
-new file mode 100644
-index 0000000..595bbe3
---- /dev/null
-+++ b/meta-fishriver/conf/layer.conf
-@@ -0,0 +1,10 @@
-+# We have a conf and classes directory, add to BBPATH
-+BBPATH := "${BBPATH}:${LAYERDIR}"
-+
-+# We have a recipes directory, add to BBFILES
-+BBFILES := "${BBFILES} ${LAYERDIR}/recipes-*/*/*.bb \
-+	${LAYERDIR}/recipes-*/*/*.bbappend"
-+
-+BBFILE_COLLECTIONS_fishriver += "fishriver"
-+BBFILE_PATTERN_fishriver := "^${LAYERDIR}/"
-+BBFILE_PRIORITY_fishriver = "6"
-diff --git a/meta-fishriver/conf/machine/fishriver.conf b/meta-fishriver/conf/machine/fishriver.conf
-new file mode 100644
-index 0000000..64c194b
---- /dev/null
-+++ b/meta-fishriver/conf/machine/fishriver.conf
-@@ -0,0 +1,46 @@
-+#@TYPE: Machine
-+#@NAME: fishriver
-+
-+#@DESCRIPTION: Machine configuration for Fish River Island systems
-+# i.e. Z530/E660 + EG20T
-+
-+TARGET_ARCH = "i586"
-+PACKAGE_EXTRA_ARCHS = "x86 atom"
-+
-+include conf/machine/include/tune-atom.inc
-+
-+BASE_PACKAGE_ARCH="atom"
-+
-+MACHINE_FEATURES = "kernel26 screen keyboard pci usbhost ext2 ext3 x86 \
-+                    acpi serial usbgadget"
-+
-+KERNEL_IMAGETYPE = "bzImage"
-+
-+PREFERRED_PROVIDER_virtual/kernel = "linux-yocto"
-+PREFERRED_PROVIDER_linux-libc-headers ?= "linux-libc-headers-yocto"
-+PREFERRED_PROVIDER_virtual/libx11 ?= "libx11-trim"
-+PREFERRED_PROVIDER_virtual/libgl  ?= "mesa-dri"
-+PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xf86-dri-lite"
-+PREFERRED_PROVIDER_virtual/xserver-xf86 ?= "xserver-xf86-dri-lite"
-+XSERVER ?= "xserver-xf86-dri-lite \
-+           xf86-input-mouse \
-+           xf86-input-keyboard \
-+           xf86-input-evdev \
-+           xf86-input-synaptics \
-+           xf86-video-vesa"
-+
-+SERIAL_CONSOLE = "115200 ttyS0"
-+
-+MACHINE_EXTRA_RRECOMMENDS = "kernel-modules eee-acpi-scripts"
-+
-+GUI_MACHINE_CLASS = "bigscreen"
-+
-+IMAGE_ROOTFS_SIZE_ext3 = "1000000"
-+
-+IMAGE_FSTYPES ?= "ext3 cpio.gz"
-+
-+GLIBC_ADDONS = "nptl"
-+GLIBC_EXTRA_OECONF = "--with-tls"
-+
-+SRCREV_machine_pn-linux-yocto_fishriver ?= "86bd1278bbf11589d87639df17d2f5f42db97b60"
-+SRCREV_meta_pn-linux-yocto_fishriver ?= "51c761795b078bf3c80104ed6e73b3d995067384"
-diff --git a/meta-fishriver/recipes-bsp/formfactor/formfactor/fishriver/machconfig b/meta-fishriver/recipes-bsp/formfactor/formfactor/fishriver/machconfig
-new file mode 100644
-index 0000000..ffce012
---- /dev/null
-+++ b/meta-fishriver/recipes-bsp/formfactor/formfactor/fishriver/machconfig
-@@ -0,0 +1,3 @@
-+# Assume a USB mouse and keyboard are connected
-+HAVE_TOUCHSCREEN=0
-+HAVE_KEYBOARD=1
-diff --git a/meta-fishriver/recipes-bsp/formfactor/formfactor_0.0.bbappend b/meta-fishriver/recipes-bsp/formfactor/formfactor_0.0.bbappend
-new file mode 100644
-index 0000000..4a41d48
---- /dev/null
-+++ b/meta-fishriver/recipes-bsp/formfactor/formfactor_0.0.bbappend
-@@ -0,0 +1,3 @@
-+FILESEXTRAPATHS := "${THISDIR}/${PN}"
-+ 
-+PRINC = "1"
-diff --git a/meta-fishriver/recipes-graphics/xorg-xserver/xserver-xf86-config/fishriver/xorg.conf b/meta-fishriver/recipes-graphics/xorg-xserver/xserver-xf86-config/fishriver/xorg.conf
-new file mode 100644
-index 0000000..da4fc3c
---- /dev/null
-+++ b/meta-fishriver/recipes-graphics/xorg-xserver/xserver-xf86-config/fishriver/xorg.conf
-@@ -0,0 +1,26 @@
-+Section "Device"
-+    Identifier	"Generic VESA"
-+    Driver	"vesa"
-+EndSection
-+
-+Section "Monitor"
-+    Identifier    "Generic Monitor"
-+    Option        "DPMS"
-+EndSection
-+
-+Section "Screen"
-+    Identifier    "Default Screen"
-+    Device	  "Generic VESA"
-+    Monitor       "Generic Monitor"
-+    DefaultDepth  24
-+EndSection
-+
-+Section "ServerLayout"
-+    Identifier     "Default Layout"
-+    Screen         "Default Screen"
-+EndSection
-+
-+Section "ServerFlags"
-+    Option        "DontZap"  "0"
-+    Option        "AutoAddDevices"  "False"
-+EndSection
-diff --git a/meta-fishriver/recipes-graphics/xorg-xserver/xserver-xf86-config_0.1.bbappend b/meta-fishriver/recipes-graphics/xorg-xserver/xserver-xf86-config_0.1.bbappend
-new file mode 100644
-index 0000000..4b8d0e6
---- /dev/null
-+++ b/meta-fishriver/recipes-graphics/xorg-xserver/xserver-xf86-config_0.1.bbappend
-@@ -0,0 +1,3 @@
-+THISDIR := "${@os.path.dirname(bb.data.getVar('FILE', d, True))}"
-+FILESPATH =. "${@base_set_filespath(["${THISDIR}/${PN}"], d)}:"
-+
-diff --git a/meta-fishriver/recipes-kernel/linux/linux-yocto_git.bbappend b/meta-fishriver/recipes-kernel/linux/linux-yocto_git.bbappend
-new file mode 100644
-index 0000000..549d085
---- /dev/null
-+++ b/meta-fishriver/recipes-kernel/linux/linux-yocto_git.bbappend
-@@ -0,0 +1,4 @@
-+FILESEXTRAPATHS := "${THISDIR}/${PN}"
-+COMPATIBLE_MACHINE_fishriver = "fishriver"
-+# zzzz /yocto/standard/crownbay->fishriver
-+KMACHINE_fishriver  = "yocto/standard/crownbay"
+----------------------------------------------------------------------------------------******************************************************************----------------------------------------
+
+NOTE: Running task 959 of 1998 (ID: 856,
+/home/sailaja/new-poky/poky/meta/recipes-kernel/linux/linux-yocto_git.bb,
+do_kernel_configcheck)
+NOTE: package
+linux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16:
+task do_kernel_configcheck: Started
+NOTE: validating kernel configuration
+The following Kconfig files no longer exist in this tree:
+      drivers/ieee1394/Kconfig
+      drivers/media/video/zc0301/Kconfig
+*
+This BSP sets 1 invalid/obsolete kernel options.
+These config options are not offered anywhere within this kernel.*
+The full list can be found in your workspace at:
+/home/sailaja/new-poky/x86_64/poky/build/tmp/work/sugarbay-poky-linux/linux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/linux/meta/cfg/yocto/standard/common-pc-64/sugarbay/invalid.cfg
+
+This BSP sets 24 kernel options that are possibly non-hardware related.
+The full list can be found in your workspace at:
+/home/sailaja/new-poky/x86_64/poky/build/tmp/work/sugarbay-poky-linux/linux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/linux/meta/cfg/yocto/standard/common-pc-64/sugarbay/specified_non_hdw.cfg
+
+*WARNING: There were 103 hardware options requested that do not
+         have a corresponding value present in the final ".config" file.
+         This probably means you aren't getting the config you wanted.
+The full list can be found in your workspace at:*
+/home/sailaja/new-poky/x86_64/poky/build/tmp/work/sugarbay-poky-linux/linux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/linux/meta/cfg/yocto/standard/common-pc-64/sugarbay/mismatch.cfg
+
+Waiting a second to make sure you get a chance to see this...
+NOTE: package
+linux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16:
+task do_kernel_configcheck: Succeeded
+NOTE: Running task 960 of 1998 (ID: 857,
+/home/sailaja/new-poky/poky/meta/recipes-kernel/linux/linux-yocto_git.bb,
+do_compile)
+NOTE: package
+linux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16:
+task do_compile: Started
+ERROR: '/home/sailaja/new-poky/poky/meta/recipes-kernel/linux/
+linux-yocto_git.bb' failed
+ERROR: Function 'do_compile' failed (see
+/home/sailaja/new-poky/x86_64/poky/build/tmp/work/sugarbay-poky-linux/linux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/temp/log.do_compile.23825
+for further information)
+ERROR: Logfile of failure stored in:
+/home/sailaja/new-poky/x86_64/poky/build/tmp/work/sugarbay-poky-linux/linux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/temp/log.do_compile.23825
+Log data follows:
+| NOTE: make -j 6 include/linux/version.h CC=i586-poky-linux-gcc
+--sysroot=/home/sailaja/new-poky/x86_64/poky/build/tmp/sysroots/sugarbay
+LD=i586-poky-linux-ld
+--sysroot=/home/sailaja/new-poky/x86_64/poky/build/tmp/sysroots/sugarbay
+--sysroot=/home/sailaja/new-poky/x86_64/poky/build/tmp/sysroots/sugarbay
+| make -C
+/home/sailaja/new-poky/x86_64/poky/build/tmp/work/sugarbay-poky-linux/linux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/linux
+O=/home/sailaja/new-poky/x86_64/poky/build/tmp/work/sugarbay-poky-linux/linux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/linux-sugarbay-standard-build/.
+include/linux/version.h
+|   CHK     include/linux/version.h
+|   UPD     include/linux/version.h
+| NOTE: make -j 6 dep CC=i586-poky-linux-gcc
+--sysroot=/home/sailaja/new-poky/x86_64/poky/build/tmp/sysroots/sugarbay
+LD=i586-poky-linux-ld
+--sysroot=/home/sailaja/new-poky/x86_64/poky/build/tmp/sysroots/sugarbay
+--sysroot=/home/sailaja/new-poky/x86_64/poky/build/tmp/sysroots/sugarbay
+| make -C
+/home/sailaja/new-poky/x86_64/poky/build/tmp/work/sugarbay-poky-linux/linux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/linux
+O=/home/sailaja/new-poky/x86_64/poky/build/tmp/work/sugarbay-poky-linux/linux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/linux-sugarbay-standard-build/.
+dep
+|   GEN
+/home/sailaja/new-poky/x86_64/poky/build/tmp/work/sugarbay-poky-linux/linux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/linux-sugarbay-standard-build/Makefile
+| scripts/kconfig/conf --silentoldconfig Kconfig
+| *** Warning: make dep is unnecessary now.
+| NOTE: make -j 6 bzImage CC=i586-poky-linux-gcc
+--sysroot=/home/sailaja/new-poky/x86_64/poky/build/tmp/sysroots/sugarbay
+LD=i586-poky-linux-ld
+--sysroot=/home/sailaja/new-poky/x86_64/poky/build/tmp/sysroots/sugarbay
+--sysroot=/home/sailaja/new-poky/x86_64/poky/build/tmp/sysroots/sugarbay
+| make -C
+/home/sailaja/new-poky/x86_64/poky/build/tmp/work/sugarbay-poky-linux/linux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/linux
+O=/home/sailaja/new-poky/x86_64/poky/build/tmp/work/sugarbay-poky-linux/linux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/linux-sugarbay-standard-build/.
+bzImage
+|   GEN
+/home/sailaja/new-poky/x86_64/poky/build/tmp/work/sugarbay-poky-linux/linux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/linux-sugarbay-standard-build/Makefile
+|   CHK     include/linux/version.h
+|   HOSTCC  scripts/kallsyms
+|   HOSTCC  scripts/conmakehash
+|   HOSTCC  scripts/bin2c
+|   HOSTCC  scripts/recordmcount
+|   CC      scripts/mod/empty.o
+|
+/home/sailaja/new-poky/x86_64/poky/build/tmp/work/sugarbay-poky-linux/linux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/linux/scripts
+*/mod/empty.c:1:0: error: code model 'kernel' not supported in the 32 bit
+mode*
+|
+/home/sailaja/new-poky/x86_64/poky/build/tmp/work/sugarbay-poky-linux/linux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/linux/scripts
+*/mod/empty.c:1:0: sorry, unimplemented: 64-bit mode not compiled in*
+| make[4]: *** [scripts/mod/empty.o] Error 1
+| make[3]: *** [scripts/mod] Error 2
+| make[3]: *** Waiting for unfinished jobs....
+|   Using
+/home/sailaja/new-poky/x86_64/poky/build/tmp/work/sugarbay-poky-linux/linux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/linux
+as source for kernel
+|   CHK     include/generated/utsrelease.h
+|   UPD     include/generated/utsrelease.h
+|   CC      kernel/bounds.s
+|
+/home/sailaja/new-poky/x86_64/poky/build/tmp/work/sugarbay-poky-linux/linux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/linux/kernel/bounds.c:1:0:
+error: code model 'kernel' not supported in the 32 bit mode
+|
+/home/sailaja/new-poky/x86_64/poky/build/tmp/work/sugarbay-poky-linux/linux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/linux/kernel/bounds.c:1:0:
+sorry, unimplemented: 64-bit mode not compiled in
+| make[3]: *** [kernel/bounds.s] Error 1
+| make[2]: *** [prepare0] Error 2
+| make[2]: *** Waiting for unfinished jobs....
+| make[2]: *** [scripts] Error 2
+| make[1]: *** [sub-make] Error 2
+| make: *** [all] Error 2
+| FATAL: oe_runmake failed
+| ERROR: Function 'do_compile' failed (see
+/home/sailaja/new-poky/x86_64/poky/build/tmp/work/sugarbay-poky-linux/linux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/temp/log.do_compile.23825
+for further information)
+NOTE: package
+linux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16:
+task do_compile: Failed
+
+
+----------------------------------------------------------------------****************************************************----------------------------------------------------------
+
+TARGET_CC_ARCH = "-m64"
+
+I tried with* both 32 and 64 bit*. For both, I am getting the same error.
+
+I am using the ubuntu 10.4 on 64bit machine.
+
+Please Any one help me in finding the solution.
+
+
+
+
 -- 
-1.7.0.4
+Thanks & Regards,
+SAI
 
+--000e0cd2e27c0ad1be049fc4c298
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
 
+Hi,<br><br>I am trying to build linux-yocto kernel=A0 2.6.37 using the<i> &=
+#39;sugarbay</i>&#39; machine.I am getting=A0 the following an error.<br><u=
+>Error Log:</u><br><br>=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+ --------------------------------------------------------------------------=
+--------------*************************************************************=
+*****----------------------------------------<br>
+<br>NOTE: Running task 959 of 1998 (ID: 856, /home/sailaja/new-poky/poky/me=
+ta/recipes-kernel/linux/<a href=3D"http://linux-yocto_git.bb">linux-yocto_g=
+it.bb</a>, do_kernel_configcheck)<br>NOTE: package linux-yocto-2.6.37+git1+=
+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab8=
+80c6e3c1-r16: task do_kernel_configcheck: Started<br>
+NOTE: validating kernel configuration<br>The following Kconfig files no lon=
+ger exist in this tree:<br>=A0=A0=A0=A0=A0 drivers/ieee1394/Kconfig<br>=A0=
+=A0=A0=A0=A0 drivers/media/video/zc0301/Kconfig<br><i><br>This BSP sets 1 i=
+nvalid/obsolete kernel options.<br>
+These config options are not offered anywhere within this kernel.</i><br>Th=
+e full list can be found in your workspace at:<br>/home/sailaja/new-poky/x8=
+6_64/poky/build/tmp/work/sugarbay-poky-linux/linux-yocto-2.6.37+git1+e2caba=
+dc059ad8d91f7e4a023106620d93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3=
+c1-r16/linux/meta/cfg/yocto/standard/common-pc-64/sugarbay/invalid.cfg<br>
+<br>This BSP sets 24 kernel options that are possibly non-hardware related.=
+<br>The full list can be found in your workspace at:<br>/home/sailaja/new-p=
+oky/x86_64/poky/build/tmp/work/sugarbay-poky-linux/linux-yocto-2.6.37+git1+=
+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab8=
+80c6e3c1-r16/linux/meta/cfg/yocto/standard/common-pc-64/sugarbay/specified_=
+non_hdw.cfg<br>
+<br><i>WARNING: <b>There were 103 hardware options requested that do not<br=
+>=A0=A0=A0=A0=A0=A0=A0=A0 have a corresponding value present in the final &=
+quot;.config&quot; file.<br>=A0=A0=A0=A0=A0=A0=A0=A0 This probably means yo=
+u aren&#39;t getting the config you wanted</b>.<br>
+The full list can be found in your workspace at:</i><br>/home/sailaja/new-p=
+oky/x86_64/poky/build/tmp/work/sugarbay-poky-linux/linux-yocto-2.6.37+git1+=
+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab8=
+80c6e3c1-r16/linux/meta/cfg/yocto/standard/common-pc-64/sugarbay/mismatch.c=
+fg<br>
+<br>Waiting a second to make sure you get a chance to see this...<br>NOTE: =
+package linux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+=
+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16: task do_kernel_configcheck: S=
+ucceeded<br>
+NOTE: Running task 960 of 1998 (ID: 857, /home/sailaja/new-poky/poky/meta/r=
+ecipes-kernel/linux/<a href=3D"http://linux-yocto_git.bb">linux-yocto_git.b=
+b</a>, do_compile)<br>NOTE: package linux-yocto-2.6.37+git1+e2cabadc059ad8d=
+91f7e4a023106620d93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16: t=
+ask do_compile: Started<br>
+ERROR: &#39;/home/sailaja/new-poky/poky/meta/recipes-kernel/linux/<a href=
+=3D"http://linux-yocto_git.bb">linux-yocto_git.bb</a>&#39; failed<br>ERROR:=
+ Function &#39;do_compile&#39; failed (see /home/sailaja/new-poky/x86_64/po=
+ky/build/tmp/work/sugarbay-poky-linux/linux-yocto-2.6.37+git1+e2cabadc059ad=
+8d91f7e4a023106620d93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/=
+temp/log.do_compile.23825 for further information)<br>
+ERROR: Logfile of failure stored in: /home/sailaja/new-poky/x86_64/poky/bui=
+ld/tmp/work/sugarbay-poky-linux/linux-yocto-2.6.37+git1+e2cabadc059ad8d91f7=
+e4a023106620d93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/temp/l=
+og.do_compile.23825<br>
+Log data follows:<br>| NOTE: make -j 6 include/linux/version.h CC=3Di586-po=
+ky-linux-gcc=A0 --sysroot=3D/home/sailaja/new-poky/x86_64/poky/build/tmp/sy=
+sroots/sugarbay LD=3Di586-poky-linux-ld --sysroot=3D/home/sailaja/new-poky/=
+x86_64/poky/build/tmp/sysroots/sugarbay=A0 --sysroot=3D/home/sailaja/new-po=
+ky/x86_64/poky/build/tmp/sysroots/sugarbay<br>
+| make -C /home/sailaja/new-poky/x86_64/poky/build/tmp/work/sugarbay-poky-l=
+inux/linux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+2b4=
+12826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/linux O=3D/home/sailaja/new-poky/=
+x86_64/poky/build/tmp/work/sugarbay-poky-linux/linux-yocto-2.6.37+git1+e2ca=
+badc059ad8d91f7e4a023106620d93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab880c6=
+e3c1-r16/linux-sugarbay-standard-build/. include/linux/version.h<br>
+|=A0=A0 CHK=A0=A0=A0=A0 include/linux/version.h<br>|=A0=A0 UPD=A0=A0=A0=A0 =
+include/linux/version.h<br>| NOTE: make -j 6 dep CC=3Di586-poky-linux-gcc=
+=A0 --sysroot=3D/home/sailaja/new-poky/x86_64/poky/build/tmp/sysroots/sugar=
+bay LD=3Di586-poky-linux-ld --sysroot=3D/home/sailaja/new-poky/x86_64/poky/=
+build/tmp/sysroots/sugarbay=A0 --sysroot=3D/home/sailaja/new-poky/x86_64/po=
+ky/build/tmp/sysroots/sugarbay<br>
+| make -C /home/sailaja/new-poky/x86_64/poky/build/tmp/work/sugarbay-poky-l=
+inux/linux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+2b4=
+12826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/linux O=3D/home/sailaja/new-poky/=
+x86_64/poky/build/tmp/work/sugarbay-poky-linux/linux-yocto-2.6.37+git1+e2ca=
+badc059ad8d91f7e4a023106620d93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab880c6=
+e3c1-r16/linux-sugarbay-standard-build/. dep<br>
+|=A0=A0 GEN=A0=A0=A0=A0 /home/sailaja/new-poky/x86_64/poky/build/tmp/work/s=
+ugarbay-poky-linux/linux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d=
+93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/linux-sugarbay-stan=
+dard-build/Makefile<br>
+| scripts/kconfig/conf --silentoldconfig Kconfig<br>| *** Warning: make dep=
+ is unnecessary now.<br>| NOTE: make -j 6 bzImage CC=3Di586-poky-linux-gcc=
+=A0 --sysroot=3D/home/sailaja/new-poky/x86_64/poky/build/tmp/sysroots/sugar=
+bay LD=3Di586-poky-linux-ld --sysroot=3D/home/sailaja/new-poky/x86_64/poky/=
+build/tmp/sysroots/sugarbay=A0 --sysroot=3D/home/sailaja/new-poky/x86_64/po=
+ky/build/tmp/sysroots/sugarbay<br>
+| make -C /home/sailaja/new-poky/x86_64/poky/build/tmp/work/sugarbay-poky-l=
+inux/linux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+2b4=
+12826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/linux O=3D/home/sailaja/new-poky/=
+x86_64/poky/build/tmp/work/sugarbay-poky-linux/linux-yocto-2.6.37+git1+e2ca=
+badc059ad8d91f7e4a023106620d93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab880c6=
+e3c1-r16/linux-sugarbay-standard-build/. bzImage<br>
+|=A0=A0 GEN=A0=A0=A0=A0 /home/sailaja/new-poky/x86_64/poky/build/tmp/work/s=
+ugarbay-poky-linux/linux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d=
+93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/linux-sugarbay-stan=
+dard-build/Makefile<br>
+|=A0=A0 CHK=A0=A0=A0=A0 include/linux/version.h<br>|=A0=A0 HOSTCC=A0 script=
+s/kallsyms<br>|=A0=A0 HOSTCC=A0 scripts/conmakehash<br>|=A0=A0 HOSTCC=A0 sc=
+ripts/bin2c<br>|=A0=A0 HOSTCC=A0 scripts/recordmcount<br>|=A0=A0 CC=A0=A0=
+=A0=A0=A0 scripts/mod/empty.o<br>| /home/sailaja/new-poky/x86_64/poky/build=
+/tmp/work/sugarbay-poky-linux/linux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4=
+a023106620d93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/linux/sc=
+ripts<b><i>/mod/empty.c:1:0: error: code model &#39;kernel&#39; not support=
+ed in the 32 bit mode</i></b><br>
+| /home/sailaja/new-poky/x86_64/poky/build/tmp/work/sugarbay-poky-linux/lin=
+ux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+2b412826bbe=
+b4a16abe2ea74f2456ab880c6e3c1-r16/linux/scripts<b><i>/mod/empty.c:1:0: sorr=
+y, unimplemented: 64-bit mode not compiled in</i></b><br>
+| make[4]: *** [scripts/mod/empty.o] Error 1<br>| make[3]: *** [scripts/mod=
+] Error 2<br>| make[3]: *** Waiting for unfinished jobs....<br>|=A0=A0 Usin=
+g /home/sailaja/new-poky/x86_64/poky/build/tmp/work/sugarbay-poky-linux/lin=
+ux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+2b412826bbe=
+b4a16abe2ea74f2456ab880c6e3c1-r16/linux as source for kernel<br>
+|=A0=A0 CHK=A0=A0=A0=A0 include/generated/utsrelease.h<br>|=A0=A0 UPD=A0=A0=
+=A0=A0 include/generated/utsrelease.h<br>|=A0=A0 CC=A0=A0=A0=A0=A0 kernel/b=
+ounds.s<br>| /home/sailaja/new-poky/x86_64/poky/build/tmp/work/sugarbay-pok=
+y-linux/linux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+=
+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/linux/kernel/bounds.c:1:0: err=
+or: code model &#39;kernel&#39; not supported in the 32 bit mode<br>
+| /home/sailaja/new-poky/x86_64/poky/build/tmp/work/sugarbay-poky-linux/lin=
+ux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+2b412826bbe=
+b4a16abe2ea74f2456ab880c6e3c1-r16/linux/kernel/bounds.c:1:0: sorry, unimple=
+mented: 64-bit mode not compiled in<br>
+| make[3]: *** [kernel/bounds.s] Error 1<br>| make[2]: *** [prepare0] Error=
+ 2<br>| make[2]: *** Waiting for unfinished jobs....<br>| make[2]: *** [scr=
+ipts] Error 2<br>| make[1]: *** [sub-make] Error 2<br>| make: *** [all] Err=
+or 2<br>
+| FATAL: oe_runmake failed<br>| ERROR: Function &#39;do_compile&#39; failed=
+ (see /home/sailaja/new-poky/x86_64/poky/build/tmp/work/sugarbay-poky-linux=
+/linux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+2b41282=
+6bbeb4a16abe2ea74f2456ab880c6e3c1-r16/temp/log.do_compile.23825 for further=
+ information)<br>
+NOTE: package linux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d93abd=
+23a_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16: task do_compile: Failed=
+<br><br>=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0 ----------------------------------------------------------------------*=
+***************************************************------------------------=
+----------------------------------<br>
+<br>TARGET_CC_ARCH =3D &quot;-m64&quot;<br><br>I tried with<b> both 32 and =
+64 bit</b>. For both, I am getting the same error.<br><br>I am using the ub=
+untu 10.4 on 64bit machine.<br><br>Please Any one help me in finding the so=
+lution.<br>
+<br><br><br><br>-- <br>Thanks &amp; Regards,<br>SAI<br><br>
+
+--000e0cd2e27c0ad1be049fc4c298--
