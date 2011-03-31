@@ -1,40 +1,20 @@
-Return-Path: <bruce.ashfield@gmail.com>
-Received: from mail-iy0-f176.google.com (mail-iy0-f176.google.com
-	[209.85.210.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 86B094C800A3
-	for <poky@yoctoproject.org>; Thu, 31 Mar 2011 08:00:55 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by iym1 with SMTP id 1so3413445iym.35
-	for <poky@yoctoproject.org>; Thu, 31 Mar 2011 06:00:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:in-reply-to:references:date
-	:message-id:subject:from:to:cc:content-type;
-	bh=dTt886buB7AGSrS865xGeSAQJZorptGW9H8OFk0jBuU=;
-	b=JvMX0FrODCQnwFKytAOlBCb7CB6n0ztPmkRnCU1f0aeXbnabfz3XxGlQYlTKVu7Zkd
-	N5etsk3l8s549Uyja8Glv5tmqFLkRfk55uFNLjVwpp6IPJOOIqix/NuZXkQcQI9GSBu+
-	C4wgshdG+mpccOjeY0glu59AM/9rjcT7ATEac=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type;
-	b=ep6Mj3vs/xIlBKEjWblbdGDctRCfAGZ8/I6JVvzwGoBX14g3n3EsSndgpqV1vGtz83
-	+YBaEgesobeCEMV0l4H46YzRWQ5RZ++LvM7ElmZYNyrZwmeQGJEd8usLG7s2r1oTCTMH
-	1ISgAYDA4UKWMcT8Ah08kV6Z+qTXYda1E3kOI=
-MIME-Version: 1.0
-Received: by 10.42.149.194 with SMTP id x2mr2953934icv.388.1301576303051; Thu,
-	31 Mar 2011 05:58:23 -0700 (PDT)
-Received: by 10.231.155.138 with HTTP; Thu, 31 Mar 2011 05:58:22 -0700 (PDT)
-In-Reply-To: <AANLkTimri2H+nN4y=Xa2eUsxtENZUqpAX17WqNgnf1Fm@mail.gmail.com>
-References: <AANLkTi=K6AGvEvn0JJcFtx4MR9TRwL-VaDnkhaX=t7Lz@mail.gmail.com>
-	<AANLkTikeonvaG+5-p8Lr32Z36wRxVoSc_AJgCofKtuXS@mail.gmail.com>
-	<AANLkTimri2H+nN4y=Xa2eUsxtENZUqpAX17WqNgnf1Fm@mail.gmail.com>
-Date: Thu, 31 Mar 2011 08:58:22 -0400
-Message-ID: <AANLkTimm282fdW7iwFv0NLvXW3QaC1Rc3S7tHPnNJnij@mail.gmail.com>
-From: Bruce Ashfield <bruce.ashfield@gmail.com>
-To: v sailaja <vsailub4u@gmail.com>
-Cc: poky@yoctoproject.org
-Subject: Re: Problem in linux-yocto kernel 2.6.37 configuration while building with sugarbay machine
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5ED584C806FA
+	for <poky@yoctoproject.org>; Thu, 31 Mar 2011 08:46:14 -0500 (CDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 31 Mar 2011 06:46:14 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.63,275,1299484800"; d="scan'208";a="673728730"
+Received: from unknown (HELO helios) ([10.255.12.217])
+	by fmsmga002.fm.intel.com with SMTP; 31 Mar 2011 06:46:12 -0700
+Received: by helios (sSMTP sendmail emulation); Thu, 31 Mar 2011 14:46:11 +0100
+Message-Id: <cover.1301578942.git.paul.eggleton@linux.intel.com>
+Old-Date: Thu, 31 Mar 2011 14:42:22 +0100
+Date: Thu, 31 Mar 2011 14:46:11 +0100
+To: openembedded-core@lists.openembedded.org,poky@yoctoproject.org
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
+Subject: [PATCH 0/1] remove u-boot flashing instructions for mpc8315e-rdb
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,40 +26,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 31 Mar 2011 13:00:55 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Thu, 31 Mar 2011 13:46:14 -0000
 
-On Thu, Mar 31, 2011 at 8:55 AM, v sailaja <vsailub4u@gmail.com> wrote:
->
-> Hi Bruce,
->
->
-> The following are the layers in the build
->
-> meta
-> meta-intel
-> meta-yocto
->
-> Here I am sending the generated .config file. Please find the attachment.
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
 
-Thanks. I just started my own build here, and once I get through
-some setup steps, I'll compare the two configurations.
+Upgrading u-boot is apparently not necessary with current board revisions,
+and these instructions may not work properly anyway (our toolchain seems not
+to be able to compile u-boot in the way described), and given that they are
+potentially risky they should be removed.
 
-Cheers,
+Pull URL: git://git.openembedded.org/openembedded-core-contrib
+  Branch: paule/readme-hardware-fix3
+  Browse: http://git.openembedded.org/cgit.cgi/openembedded-core-contrib/log/?h=paule/readme-hardware-fix3
 
-Bruce
-
->
->
-> --
-> Thanks & Regards,
-> SAI
->
->
+Thanks,
+    Paul Eggleton <paul.eggleton@linux.intel.com>
+---
 
 
+Paul Eggleton (1):
+  README.hardware: remove u-boot flashing instructions for mpc8315e-rdb
 
--- 
-"Thou shalt not follow the NULL pointer, for chaos and madness await
-thee at its end"
+ README.hardware |   29 +++--------------------------
+ 1 files changed, 3 insertions(+), 26 deletions(-)
+
 
