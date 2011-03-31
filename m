@@ -1,30 +1,36 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0E6384C80ABF
-	for <poky@yoctoproject.org>; Thu, 31 Mar 2011 16:25:09 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2VLP7ZE000343;
-	Thu, 31 Mar 2011 22:25:07 +0100
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 32759-01; Thu, 31 Mar 2011 22:25:03 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p2VLP2ob000326
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Thu, 31 Mar 2011 22:25:03 +0100
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Scott Rifenbark <srifenbark@gmail.com>
-In-Reply-To: <cover.1301450505.git.scott.m.rifenbark@intel.com>
-References: <cover.1301450505.git.scott.m.rifenbark@intel.com>
-Date: Thu, 31 Mar 2011 22:24:58 +0100
-Message-ID: <1301606698.24596.226.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.32.2 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/1] [DOCS] Quick Start edit
+Return-Path: <wd@denx.de>
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
+	by mx1.pokylinux.org (Postfix) with ESMTP id B22034C804D9
+	for <poky@yoctoproject.org>; Thu, 31 Mar 2011 16:31:29 -0500 (CDT)
+Received: from frontend1.mail.m-online.net (unknown [192.168.8.180])
+	by mail-out.m-online.net (Postfix) with ESMTP id 85A031C0F567;
+	Thu, 31 Mar 2011 23:31:28 +0200 (CEST)
+X-Auth-Info: DQEqxIe6UN1p+OEtgZzYvd9O8sCoLrNqh800xVm0X2s=
+Received: from diddl.denx.de (host-80-81-18-216.customer.m-online.net
+	[80.81.18.216])
+	by smtp-auth.mnet-online.de (Postfix) with ESMTPA id 251381C00086;
+	Thu, 31 Mar 2011 23:31:28 +0200 (CEST)
+Received: from gemini.denx.de (unknown [10.0.0.2])
+	by diddl.denx.de (Postfix) with ESMTP id 01EC9329A66F;
+	Thu, 31 Mar 2011 23:31:27 +0200 (CEST)
+Received: from gemini.denx.de (localhost.localdomain [127.0.0.1])
+	by gemini.denx.de (Postfix) with ESMTP id 70E96F03208;
+	Thu, 31 Mar 2011 23:31:27 +0200 (CEST)
+To: Darren Hart <dvhart@linux.intel.com>
+From: Wolfgang Denk <wd@denx.de>
+MIME-Version: 1.0
+In-reply-to: <4D94ACBA.90409@linux.intel.com>
+References: <cover.1301578942.git.paul.eggleton@linux.intel.com>
+	<41ae31ba057b63d3c518e2edf217109c59b64603.1301578942.git.paul.eggleton@linux.intel.com>
+	<20110331141920.3B1C5F03208@gemini.denx.de>
+	<4D94ACBA.90409@linux.intel.com>
+Comments: In-reply-to Darren Hart <dvhart@linux.intel.com>
+	message dated "Thu, 31 Mar 2011 09:32:58 -0700."
+Date: Thu, 31 Mar 2011 23:31:27 +0200
+Message-Id: <20110331213127.70E96F03208@gemini.denx.de>
+Cc: Paul Eggleton <paul.eggleton@linux.intel.com>, poky@yoctoproject.org,
+	openembedded-core@lists.openembedded.org
+Subject: Re: [PATCH 1/1] README.hardware: remove u-boot flashing instructions for mpc8315e-rdb
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,30 +42,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 31 Mar 2011 21:25:10 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 31 Mar 2011 21:31:30 -0000
+Content-type: text/plain; charset=ISO-8859-1
+Content-transfer-encoding: 8bit
 
-On Tue, 2011-03-29 at 21:03 -0500, Scott Rifenbark wrote:
-> From: Scott Rifenbark <scott.m.rifenbark@intel.com>
-> 
-> I removed another occurance of "YP" as an acronymn.
-> 
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->   Branch: srifenbark/qs-work
->   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=srifenbark/qs-work
-> 
-> Thanks,
->     Scott Rifenbark <scott.m.rifenbark@intel.com>
-> ---
-> 
-> 
-> Scott Rifenbark (1):
->   documentation/yocto-project-qs/yocto-project-qs.xml:  cleaned out
->     another "YP"
+Dear Darren Hart,
 
-Merged to master, thanks.
+In message <4D94ACBA.90409@linux.intel.com> you wrote:
+> 
+> Absolutely, this wasn't intended as a final "solution". The issue 
+> appears to be related to the 4.5.1 version of gcc failing in various 
+> ways to build either u-boot master or v2010.09, or v2010.12. I will 
+> report this to the u-boot mailing list just as soon as I can get back to it.
 
-Richard
+Why did you not enter this as a bug in bugzilla, then?
 
+Will we have a Yocto 1.0 releasse soon, with such known bugs?
+
+Best regards,
+
+Wolfgang Denk
+
+-- 
+DENX Software Engineering GmbH,     MD: Wolfgang Denk & Detlev Zundel
+HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
+Phone: (+49)-8142-66989-10 Fax: (+49)-8142-66989-80 Email: wd@denx.de
+A conservative is a man who believes that nothing should be done for
+the first time.                                   - Alfred E. Wiggam
 
