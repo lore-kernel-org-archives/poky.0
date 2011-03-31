@@ -1,37 +1,40 @@
 Return-Path: <srifenbark@gmail.com>
-Received: from mail-yw0-f48.google.com (mail-yw0-f48.google.com
-	[209.85.213.48])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B56BC4C804D9
-	for <poky@yoctoproject.org>; Thu, 31 Mar 2011 16:17:24 -0500 (CDT)
+Received: from mail-yx0-f176.google.com (mail-yx0-f176.google.com
+	[209.85.213.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E74E44C804D9
+	for <poky@yoctoproject.org>; Thu, 31 Mar 2011 16:17:26 -0500 (CDT)
 Authentication-Results: mx1.pokylinux.org; dkim=pass
 	(1024-bit key; insecure key) header.i=@gmail.com;
 	x-dkim-adsp=none (insecure policy)
-Received: by ywo32 with SMTP id 32so1507148ywo.35
-	for <poky@yoctoproject.org>; Thu, 31 Mar 2011 14:17:24 -0700 (PDT)
+Received: by yxd5 with SMTP id 5so1513599yxd.35
+	for <poky@yoctoproject.org>; Thu, 31 Mar 2011 14:17:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:message-id:old-date:subject:date:to:cc:from;
-	bh=fBHEpUl6i8+9Hr/3cgkkMZXAel950cPZzkMv8mhogEs=;
-	b=wbwCx+BcjnlL3OoiTCC7e5xkX7iAS6LUUh0ZUuD4m42P4+qpMYSSG0SwmPaP6efWpz
-	fGgGCxmXlD2vABPVZeAa8X/5hNz0qZZAtWuyj9Z4zR1+YrOfIQ61VzcsJZxBS8iAewGI
-	6JQBAsITOA64wQ6RLyf+mfxyw+1HBoXwtnPxU=
+	h=domainkey-signature:message-id:in-reply-to:references:old-date
+	:subject:date:to:cc:from;
+	bh=Re2KYCy7UC0T4Q9olIneKUG9D0j/vxNSyPTeQXiWxlo=;
+	b=uk5wLUgyOdcQtjpaqRtSYkNIVpW3AHkafxOtKTE/OJjmWZEmjyMwlSuHA6bMe4hhtJ
+	rz6qsb3u9chxnZwqhlSrVRKvdS05BmnaPfN7Yf7c7f1cYhBOvCN2a4xyBwI7FkPb5SCX
+	/HWm1G2DnBzW3NvA0cg6PD5cB6eRkEWK4wupI=
 DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=message-id:old-date:subject:date:to:cc:from;
-	b=DKJ01/ZyOlG2RdbVNArCR4k4wY9o9tcB//n65ruAyfwepRjNoJKEFw+gM/8A6GAMF1
-	GVi2Jl3h4eR+3+ksePUKpvXMcHELrFn8U2sWp7N5PpgcKYAPwPLukJEsWZOr9KmAwbSJ
-	isBxzl/qq2gIldlj7wY7/j221QSqP8rZoquIw=
-Received: by 10.90.135.8 with SMTP id i8mr660698agd.113.1301606244351;
-	Thu, 31 Mar 2011 14:17:24 -0700 (PDT)
+	h=message-id:in-reply-to:references:old-date:subject:date:to:cc:from;
+	b=vZ/OzTupdWK/tjJSZg2CimZzy8NGZFYEMck+8msS3wtpzHI75Vmy6l73QxOmerU0QJ
+	QrPFdjQ3eCBBcLVxpM4PF9GQ/by3lxRRKy7lboMnzGWfzh3eeKg/Abv1nIxUD5O/kWiz
+	MbkfSRhIr8LguKf2HBQbJjhvhKMRJcs9KJyhI=
+Received: by 10.236.183.51 with SMTP id p39mr4855470yhm.20.1301606246660;
+	Thu, 31 Mar 2011 14:17:26 -0700 (PDT)
 Received: from localhost ([190.197.29.62])
-	by mx.google.com with ESMTPS id d20sm1563601ang.43.2011.03.31.14.17.22
+	by mx.google.com with ESMTPS id u65sm763052yhn.92.2011.03.31.14.17.25
 	(version=TLSv1/SSLv3 cipher=OTHER);
-	Thu, 31 Mar 2011 14:17:23 -0700 (PDT)
-Message-Id: <cover.1301606132.git.scott.m.rifenbark@intel.com>
-Old-Date: Thu, 31 Mar 2011 16:15:32 -0500
-Date: Thu, 31 Mar 2011 16:17:18 -0500
+	Thu, 31 Mar 2011 14:17:26 -0700 (PDT)
+Message-Id: <1365e9984334ba6733fcb3441eadf55b9b6f9dd3.1301606132.git.scott.m.rifenbark@intel.com>
+In-Reply-To: <cover.1301606132.git.scott.m.rifenbark@intel.com>
+References: <cover.1301606132.git.scott.m.rifenbark@intel.com>
+Old-Date: Thu, 31 Mar 2011 16:13:57 -0500
+Date: Thu, 31 Mar 2011 16:17:21 -0500
 To: poky@yoctoproject.org
 CC: 
 From: Scott Rifenbark <srifenbark@gmail.com>
-Subject: [PATCH 0/1] [DOCS] Removed "YP" from Quick Start
+Subject: [PATCH 1/1] documentation/yocto-project-qs/yocto-project-qs.xml: removed a "YP" acronym
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,27 +46,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 31 Mar 2011 21:17:24 -0000
+X-List-Received-Date: Thu, 31 Mar 2011 21:17:27 -0000
 
 From: Scott Rifenbark <scott.m.rifenbark@intel.com>
 
-I removed an occurance of "YP" from the Quick Start.  This acronym is 
-not used.
+Removed an occurance of the "YP" acronym.
 
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: srifenbark/qs-work
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=srifenbark/qs-work
-
-Thanks,
-    Scott Rifenbark <scott.m.rifenbark@intel.com>
+Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
 ---
-
-
-Scott Rifenbark (1):
-  documentation/yocto-project-qs/yocto-project-qs.xml: removed a "YP"
-    acronym
-
  .../yocto-project-qs/yocto-project-qs.xml          |    3 ++-
  1 files changed, 2 insertions(+), 1 deletions(-)
+
+diff --git a/documentation/yocto-project-qs/yocto-project-qs.xml b/documentation/yocto-project-qs/yocto-project-qs.xml
+index fb06322..cf45824 100644
+--- a/documentation/yocto-project-qs/yocto-project-qs.xml
++++ b/documentation/yocto-project-qs/yocto-project-qs.xml
+@@ -15,7 +15,8 @@
+         Welcome to the Yocto Project!  
+         The Yocto Project is an open-source collaboration project focused on embedded Linux
+         developers.
+-        Amongst other things, YP uses the Poky build tool to construct complete Linux images.
++        Amongst other things, the Yocto Project uses the Poky build tool to construct complete 
++        Linux images.
+     </para>
+     <para>
+         This short document will give you some basic information about the environment as well 
+-- 
+1.7.0.4
 
 
