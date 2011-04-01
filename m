@@ -1,20 +1,22 @@
 Return-Path: <josh@linux.intel.com>
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 73D534C80878
-	for <poky@yoctoproject.org>; Fri,  1 Apr 2011 08:40:04 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 01 Apr 2011 06:40:04 -0700
+	by mx1.pokylinux.org (Postfix) with ESMTP id 843664C80FEA
+	for <poky@yoctoproject.org>; Fri,  1 Apr 2011 08:40:07 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 01 Apr 2011 06:40:07 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,282,1299484800"; d="scan'208";a="622193698"
+X-IronPort-AV: E=Sophos;i="4.63,282,1299484800"; d="scan'208";a="727931945"
 Received: from unknown (HELO localhost) ([10.255.12.172])
-	by orsmga002.jf.intel.com with ESMTP; 01 Apr 2011 06:40:03 -0700
-Message-Id: <cover.1301664697.git.josh@linux.intel.com>
-Old-Date: Fri, 1 Apr 2011 14:31:37 +0100
-Date: Fri, 01 Apr 2011 14:39:57 +0100
+	by orsmga001.jf.intel.com with ESMTP; 01 Apr 2011 06:40:06 -0700
+Message-Id: <8d834327e2d84b8d4ad72b9c617d261ab8b206e2.1301664697.git.josh@linux.intel.com>
+In-Reply-To: <cover.1301664697.git.josh@linux.intel.com>
+References: <cover.1301664697.git.josh@linux.intel.com>
+Old-Date: Wed, 30 Mar 2011 23:21:50 +0100
+Date: Fri, 01 Apr 2011 14:40:04 +0100
 To: poky@yoctoproject.org
 CC: 
 From: Joshua Lock <josh@linux.intel.com>
-Subject: [PATCH 0/7] Patch series against Bernard for Fedora 15 users
+Subject: [PATCH 1/7] elfutils: fix builds with gcc 4.6
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,46 +28,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 01 Apr 2011 13:40:04 -0000
+X-List-Received-Date: Fri, 01 Apr 2011 13:40:07 -0000
 
 From: Joshua Lock <josh@linux.intel.com>
 
-I decided to punish myself by testing how well our branch fares on Fedora 15.
+gcc 4.6 (as used in Fedora 15) adds some extra warnings which are
+included with Werror. The new unused-but-set variable warning causes
+an error in libasm of elfutils. Work around this by removing
+unused-but-set from Werror.
 
-I don't think any of these should be too controversial and with the series
-applied I am able to build both minimal and sato images on my Fedora 15 box.
-
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: josh/bernard-f15
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=josh/bernard-f15
-
-Thanks,
-    Joshua Lock <josh@linux.intel.com>
+Signed-off-by: Joshua Lock <josh@linux.intel.com>
 ---
+ meta/recipes-devtools/elfutils/elfutils_0.148.bb |    4 ++++
+ 1 files changed, 4 insertions(+), 0 deletions(-)
 
-
-Joshua Lock (7):
-  elfutils: fix builds with gcc 4.6
-  python-native: add missing SRC_URI hashes
-  libx11: add missing SRC_URI hashes
-  xorg-[lib-common|proto-common]: disable use of fop document
-    generation
-  libx11: disable building of specs
-  openjade: fix build with GCC 4.6
-  xserver-xf86: explicitly disable fop document generation
-
- meta/recipes-devtools/elfutils/elfutils_0.148.bb   |    4 +
- .../user-declared-default-constructor.patch        |   88 ++++++++++++++++++++
- .../openjade/openjade-native_1.3.2.bb              |    5 +-
- .../recipes-devtools/python/python-native_2.6.6.bb |    3 +
- meta/recipes-graphics/xorg-lib/libx11.inc          |    2 +-
- meta/recipes-graphics/xorg-lib/libx11_1.3.4.bb     |    3 +
- meta/recipes-graphics/xorg-lib/xorg-lib-common.inc |    2 +-
- .../xorg-proto/xorg-proto-common.inc               |    1 +
- .../xorg-xserver/xserver-xf86-common.inc           |    1 +
- 9 files changed, 105 insertions(+), 4 deletions(-)
- create mode 100644 meta/recipes-devtools/openjade/openjade-1.3.2/user-declared-default-constructor.patch
-
+diff --git a/meta/recipes-devtools/elfutils/elfutils_0.148.bb b/meta/recipes-devtools/elfutils/elfutils_0.148.bb
+index b2f700e..c395be8 100644
+--- a/meta/recipes-devtools/elfutils/elfutils_0.148.bb
++++ b/meta/recipes-devtools/elfutils/elfutils_0.148.bb
+@@ -40,6 +40,10 @@ SRC_URI += "\
+ 
+ inherit autotools
+ 
++# GCC 4.6.0 raises an unused-but-set warning in libasm, for now remove
++# this warning from Werror
++CFLAGS_virtclass-native += "-Wno-error=unused-but-set-variable"
++
+ EXTRA_OECONF = "--program-prefix=eu-"
+ 
+ do_configure_prepend() {
 -- 
 1.7.4.1
 
