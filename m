@@ -1,32 +1,40 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9CE7A4C80050
-	for <poky@yoctoproject.org>; Fri,  1 Apr 2011 12:34:24 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p31HYJ0K016505;
-	Fri, 1 Apr 2011 18:34:19 +0100
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 15946-09; Fri,  1 Apr 2011 18:34:15 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p31HYBVo016499
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Fri, 1 Apr 2011 18:34:13 +0100
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Scott Garman <scott.a.garman@intel.com>
-In-Reply-To: <4D95EDFD.30603@intel.com>
-References: <4D951B0B.3010503@intel.com> <1301657460.24596.281.camel@rex>
-	<4D95EDFD.30603@intel.com>
-Date: Fri, 01 Apr 2011 18:34:10 +0100
-Message-ID: <1301679250.24596.293.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.32.2 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: Paul Eggleton <paul.eggleton@linux.intel.com>,
-	"poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: Broken dependency behavior in master?
+Return-Path: <cgwalters@gmail.com>
+Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 0CACC4C800A0
+	for <poky@yoctoproject.org>; Fri,  1 Apr 2011 13:25:59 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by wwd20 with SMTP id 20so4443960wwd.11
+	for <poky@yoctoproject.org>; Fri, 01 Apr 2011 11:25:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:sender:in-reply-to:references:date
+	:x-google-sender-auth:message-id:subject:from:to:cc:content-type;
+	bh=yYvNzkHECFWpb2PUyN0llU4td8ShOnl0PzPtd3Mb7Bc=;
+	b=HljHkkNFe3g+EHCeW+8lnZ0Xy196V+huYc9muKJlHflpIGyVyofd6r8SkRh6PU4oqI
+	0h2VufW2C5FRt9DZx22Go+4ZS2E0gQh69q+/R7iOXyYbPibqx9yzAqnsIbk+Zz4sXe2r
+	f7DjxS1K8i2STWX2xYQ2ZuBJ25ROl9p4L7+Uo=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:sender:in-reply-to:references:date
+	:x-google-sender-auth:message-id:subject:from:to:cc:content-type;
+	b=rY0EAKCJtFJ7nUSkRmFZgIPvNq+20OF7jPqH23OP61hGZkRgfhjS8qelfxg/cC+7ue
+	jc6z56OLu0qRL4gNxbsAoRP8CmTwvLnmK5b+RW9vHoi4NqzvgCdt9CjbK9qO6kadZYt8
+	7JlkJIR81OpaRUbXMXu7xSWDYwLT055w8BSPM=
+MIME-Version: 1.0
+Received: by 10.216.205.13 with SMTP id i13mr4243516weo.36.1301682358802; Fri,
+	01 Apr 2011 11:25:58 -0700 (PDT)
+Sender: cgwalters@gmail.com
+Received: by 10.216.49.20 with HTTP; Fri, 1 Apr 2011 11:25:58 -0700 (PDT)
+In-Reply-To: <ffbf4efad14a7793d55747fa1272a24c58b3a7fc.1301664697.git.josh@linux.intel.com>
+References: <cover.1301664697.git.josh@linux.intel.com>
+	<ffbf4efad14a7793d55747fa1272a24c58b3a7fc.1301664697.git.josh@linux.intel.com>
+Date: Fri, 1 Apr 2011 14:25:58 -0400
+X-Google-Sender-Auth: OWj1mLd6l3RuktDe6pgBHfn4WRY
+Message-ID: <AANLkTin0Ffx023hsX9W35F2=dASuL6X+aU2N71Mx3oQw@mail.gmail.com>
+From: Colin Walters <walters@verbum.org>
+To: Joshua Lock <josh@linux.intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 4/7] xorg-[lib-common|proto-common]: disable use of fop document generation
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,49 +46,20 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 01 Apr 2011 17:34:25 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 01 Apr 2011 18:26:00 -0000
+Content-Type: text/plain; charset=UTF-8
 
-On Fri, 2011-04-01 at 08:23 -0700, Scott Garman wrote:
-> On 04/01/2011 04:31 AM, Richard Purdie wrote:
-> >> This makes me think something could be seriously broken in master when
-> >> it comes to handling build dependencies.
-> >>
-> >> I've verified that sgml-common-native is showing up as a build
-> >> dependency properly in the dependency explorer.
-> >
-> > I'm not convinced as its clear above that sgml-common-native is being
-> > built before docbook-dsssl-stylesheets-native do_configure runs.
-> 
-> That was the case on the autobuilder. On my local development system, I 
-> proved to myself without a doubt that sgml-common-native only got as far 
-> as do_configure before the docbook-sgml-dtd-3.1-native error was 
-> encountered.
+On Fri, Apr 1, 2011 at 9:38 AM, Joshua Lock <josh@linux.intel.com> wrote:
+> From: Joshua Lock <josh@linux.intel.com>
+>
+> On Fedora 15 I see a huge Java backtrace when document generation runs for
+> some xorg libs. As fop is automatically detected, with the possibility of
+> detecting fop on the host whilst doing target builds, the safest bet is to
+> explicitly disable fop for document generation.
 
-With or without sstate involvement?
+This is actually a bug in the GCJ stack; it should go away if you use
+OpenJDK.  Try using "update-alternatives --config java".
 
-This looks like some kind of sstate issue but without logs this is near
-impossible to comment on. The logs you've pointed at don't show the
-problem you're describing.
-
-I don't think the problem is as simple as you're suggesting it is though
-as the core dependency resolution appears to be working (and has not
-changed in a long time). What perhaps isn't in something in the sstate
-task acceleration.
-
-> I also then ran bitbake sgml-common-native afterward and verified that 
-> the remaining build steps were run to make sure it wasn't a case of 
-> missing log files.
-> 
-> > Did both your builds have rm_work enabled?
-> 
-> My local build did not have rm_work enabled, but I believe it is enabled 
-> on the autobuilder.
-
-It is enabled on the autobuilder and that gives a useful data point,
-thanks.
-
-Richard
-
+But yeah, I doubt any embeds care about the docs, and certainly fop
+pulls in a frightening dependency chain; so cool by me to disable.
 
