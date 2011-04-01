@@ -1,22 +1,37 @@
-Return-Path: <scott.a.garman@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 3D5714C80ABF
-	for <poky@yoctoproject.org>; Thu, 31 Mar 2011 19:23:39 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 31 Mar 2011 17:23:38 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,279,1299484800"; d="scan'208";a="621922995"
-Received: from miles.jf.intel.com (HELO [10.7.199.151]) ([10.7.199.151])
-	by orsmga002.jf.intel.com with ESMTP; 31 Mar 2011 17:23:38 -0700
-Message-ID: <4D951B0B.3010503@intel.com>
-Date: Thu, 31 Mar 2011 17:23:39 -0700
-From: Scott Garman <scott.a.garman@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.14) Gecko/20110223 Lightning/1.0b2 Thunderbird/3.1.8
-MIME-Version: 1.0
-To: Paul Eggleton <paul.eggleton@linux.intel.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Broken dependency behavior in master?
+Return-Path: <srifenbark@gmail.com>
+Received: from mail-yw0-f48.google.com (mail-yw0-f48.google.com
+	[209.85.213.48])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 124D94C80AC8
+	for <poky@yoctoproject.org>; Thu, 31 Mar 2011 20:39:45 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by ywo32 with SMTP id 32so1600477ywo.35
+	for <poky@yoctoproject.org>; Thu, 31 Mar 2011 18:39:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:message-id:old-date:subject:date:to:cc:from;
+	bh=041OSfJYbUhGh4iuvZJ+6lbgjRIQZ9CUFZgY8lCP6Ac=;
+	b=G6hYwgyI15fMO5Oki0ZemE+BatdwAvL70kXGZjswBc8FZ6jpw5jRKvrUyEwhmydtZX
+	BEYOTduBK6VZdu1aW07VguPaUeJrdQeoCHyMlFdicH2BTA39KTiNZfiosMyqCgdbecO6
+	qVeKYHPlXn5h1n+GTSrRYJSYLtlhNp+E3Y23E=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=message-id:old-date:subject:date:to:cc:from;
+	b=VltRB/4vAp8nuLbw/4dqp25UUSKHVR1/wQxKjeaaYlMNRpQcNQ2tZfBXGKG9u1T5MB
+	T+8i/7cWtY4KpNcERJg9pgeIzA3wvN1N+AY7v1H5AnNKgq9+3bSEkXhMHHySkl1mZfEB
+	ZhpduFuGvg1ADeslNSpaJ0bcy7PaNPgvhtFe4=
+Received: by 10.150.74.2 with SMTP id w2mr3605629yba.346.1301621984714;
+	Thu, 31 Mar 2011 18:39:44 -0700 (PDT)
+Received: from localhost ([190.197.29.62])
+	by mx.google.com with ESMTPS id b4sm121618ybn.23.2011.03.31.18.39.43
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Thu, 31 Mar 2011 18:39:44 -0700 (PDT)
+Message-Id: <cover.1301621769.git.scott.m.rifenbark@intel.com>
+Old-Date: Thu, 31 Mar 2011 20:36:09 -0500
+Date: Thu, 31 Mar 2011 20:39:38 -0500
+To: poky@yoctoproject.org
+CC: 
+From: Scott Rifenbark <srifenbark@gmail.com>
+Subject: [PATCH 0/2] [DOCS] Poky Ref Updates
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,42 +43,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 01 Apr 2011 00:23:39 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 01 Apr 2011 01:39:45 -0000
 
-Hi Paul,
+From: Scott Rifenbark <scott.m.rifenbark@intel.com>
 
-Beth pointed me to a failure occurring on the autobuilder when building 
-docbook-sgml-dtd-3.1-native using the latest master:
+Updated the title page revision history table.  Also extensively 
+commented out the chapter on Eclipse and Anjuta.  The information 
+in this chapter can be referenced and is better documented in the 
+ADT Manual.
 
-http://autobuilder.pokylinux.org:8010/builders/nightly-external/builds/88/steps/shell_3/logs/stdio
-
-I am able to reproduce it on my development system. The problem occurs 
-because sgml-common-native is not being fully built before 
-docbook-sgml-dtd-3.1-native, even though it is listed in DEPENDS. I see 
-log files only up to the do_configure step for sgml-common-native.
-
-This makes me think something could be seriously broken in master when 
-it comes to handling build dependencies.
-
-I've verified that sgml-common-native is showing up as a build 
-dependency properly in the dependency explorer.
-
-...ok, looking at the recent commits in master, this one raised my 
-suspicion:
-
-http://git.pokylinux.org/cgit/cgit.cgi/poky/commit/?id=b4268c08c350a7928a0b1a041b04ffe5a44e77b4
-
-I just tried reverting that and doing a new build, and the build 
-completed successfully. Could you take a closer look at it?
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: srifenbark/poky-work
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=srifenbark/poky-work
 
 Thanks,
+    Scott Rifenbark <scott.m.rifenbark@intel.com>
+---
 
-Scott
 
--- 
-Scott Garman
-Embedded Linux Engineer - Yocto Project
-Intel Open Source Technology Center
+Scott Rifenbark (2):
+  documentation/poky-ref-manual/poky-ref-manual.xml: Updated
+    rev-history table
+  documentation/poky-ref-manual/development.xml: Edits for Eclipse and
+    Anjuta
+
+ documentation/poky-ref-manual/development.xml     |   46 +++++++++++++++++----
+ documentation/poky-ref-manual/poky-ref-manual.xml |    4 +-
+ 2 files changed, 39 insertions(+), 11 deletions(-)
+
 
