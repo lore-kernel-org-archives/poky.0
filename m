@@ -1,33 +1,30 @@
-Return-Path: <cahoshing@gmail.com>
-Received: from mail-gy0-f176.google.com (mail-gy0-f176.google.com
-	[209.85.160.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 63F1F4C80B7B
-	for <poky@yoctoproject.org>; Fri,  1 Apr 2011 04:43:39 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by gya6 with SMTP id 6so1733366gya.35
-	for <poky@yoctoproject.org>; Fri, 01 Apr 2011 02:43:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:date:message-id:subject:from:to
-	:content-type; bh=Jiq1pgtUJ3C6scxYiQ4haTvN3AxVv6T5hURO8K68ieQ=;
-	b=uVW6p4PxMboXaHyGFl2zCB3rLbWd2g2mGCoeD4nJVUgogatlcOqM5Ct3uVACLfauNd
-	J50l6vRLmLc3nd1F2yLOEyZVhjLUnt2cTX+m1K4AkSdv3GKHSPc4euolJs/T7xLboKBN
-	VSJDJvV2gMF+bbtLyvKTCcePIxGs09dLCnwqY=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:date:message-id:subject:from:to:content-type;
-	b=v25SV3yv1G4pJfjkZkLEnI3VFjRCqnSW93zfCbjiDAOCBff7d42raX2O898/tLDXVS
-	fIQOlKYfNbo9bjKkV+poQxa1SNtor0W7DgCnh3AjXwn7BAoibpAO0hjCbRiDiInw46Q7
-	C/kzb0fuQAZ0LXhRNq2uXQK5Zq7dmdq8fgxHc=
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4CDFF4C80BD8
+	for <poky@yoctoproject.org>; Fri,  1 Apr 2011 05:15:49 -0500 (CDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id E9CCE1660352; Fri,  1 Apr 2011 04:15:48 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.2-r929478
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 2D0C0166033E;
+	Fri,  1 Apr 2011 04:15:48 -0600 (MDT)
+Message-ID: <4D95A5D4.3030208@mlbassoc.com>
+Date: Fri, 01 Apr 2011 04:15:48 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
 MIME-Version: 1.0
-Received: by 10.151.117.12 with SMTP id u12mr3992001ybm.142.1301651018668;
-	Fri, 01 Apr 2011 02:43:38 -0700 (PDT)
-Received: by 10.147.114.3 with HTTP; Fri, 1 Apr 2011 02:43:38 -0700 (PDT)
-Date: Fri, 1 Apr 2011 15:13:38 +0530
-Message-ID: <AANLkTi=KYP7eC05UOX3as0A6xFZE31VQXPZL3ehrwzuh@mail.gmail.com>
-From: chinmaya hoshing <cahoshing@gmail.com>
-To: poky@yoctoproject.org
-Subject: Error while trying to pull xcb with X11
+To: "Tian, Kevin" <kevin.tian@intel.com>
+References: <4D936804.8030204@mlbassoc.com>
+	<625BA99ED14B2D499DC4E29D8138F15059F629DBAD@shsmsx502.ccr.corp.intel.com>
+In-Reply-To: <625BA99ED14B2D499DC4E29D8138F15059F629DBAD@shsmsx502.ccr.corp.intel.com>
+Cc: Poky Project <poky@yoctoproject.org>
+Subject: Re: Autotools problem
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,94 +36,59 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 01 Apr 2011 09:43:39 -0000
-Content-Type: multipart/alternative; boundary=001e680f177c96db2d049fd83e96
+X-List-Received-Date: Fri, 01 Apr 2011 10:15:49 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
---001e680f177c96db2d049fd83e96
-Content-Type: text/plain; charset=ISO-8859-1
+On 03/31/2011 10:35 PM, Tian, Kevin wrote:
+>> From: Gary Thomas
+>> Sent: Thursday, March 31, 2011 1:28 AM
+>>
+>> I'm trying to build a recipe I imported from OE (tcpdump_4.1.1.bb)
+>> This used to build on Poky, but now fails.  I fixed the issue with
+>> the LIC_CHKSUM_FILES, but now I have a problem with the automatic
+>> [re]generation of the config files.
+>>
+>> Rebuilding in a fresh tree from today's master
+>> (6f4fbfe272f5d85cee95660a9278f3031533aec4),
+>> I'm getting this error
+>> | Perl lib version (5.12.2) doesn't match executable version (v5.10.1) at
+>> /home/local/p60_poky/tmp/sysroots/i686-linux/usr/lib/perl/5.12.2/Config.pm
+>> line 50.
+>> | Compilation failed in require at
+>> /home/local/p60_poky/tmp/sysroots/i686-linux/usr/lib/perl/5.12.2/File/Copy.p
+>> m line 14.
+>> | BEGIN failed--compilation aborted at
+>> /home/local/p60_poky/tmp/sysroots/i686-linux/usr/lib/perl/5.12.2/File/Copy.p
+>> m line 14.
+>> | Compilation failed in require at
+>> /home/local/p60_poky/tmp/sysroots/i686-linux/usr/share/autoconf/Autom4te/
+>> FileUtils.pm line 166.
+>> | BEGIN failed--compilation aborted at
+>> /home/local/p60_poky/tmp/sysroots/i686-linux/usr/share/autoconf/Autom4te/
+>> FileUtils.pm line 166.
+>> | Compilation failed in require at
+>> /home/local/p60_poky/tmp/sysroots/i686-linux/usr/bin/autom4te line 41.
+>> | BEGIN failed--compilation aborted at
+>> /home/local/p60_poky/tmp/sysroots/i686-linux/usr/bin/autom4te line 41.
+>>
+>> This leads to a cascade of other problems because the configure script is out of
+>> date :-(
+>
+> could you post other problems too? Though above does be an issue, it may cause
+> real problem...
 
-Hi,
+The autotools problem has been filed as bug #941
 
-I am trying to get X11 with libxcb file so accordingly I changed in the bb
-file of libx11,also I have included libxcb and xcb-utils as runtime
-dependencies
+My other problem with this recipe was actually the fact that configure sanity
+errors are now treated as fatal (they used to just be warnings).  This particular
+configure script was trying to access some non-existent [Solaris only] libraries
+with absolute paths.  That set off the sanity checker, but was fairly easy to
+identify and remove.
 
-Initially it was in libx11 bb file :--
-EXTRA_OECONF += "--without-xcb"
-I changed it to
-EXTRA_OECONF += "--with-xcb"
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
-Following is the error I get :-
-checking for unistd.h... (cached) yes
-| checking for sys/param.h... yes
-| checking for getpagesize... yes
-| checking for working mmap... yes
-| checking for nl_langinfo... yes
-| checking for X11... no
-| configure: error: Package requirements (xproto >= 7.0.13 xextproto xtrans
-xcb >= 1.1.92 kbproto inputproto) were not met:
-|
-| No package 'xcb' found
-|
-| Consider adjusting the PKG_CONFIG_PATH environment variable if you
-| installed software in a non-standard prefix.
-|
-| Alternatively, you may set the environment variables X11_CFLAGS
-| and X11_LIBS to avoid the need to call pkg-config.
-| See the pkg-config man page for more details.
-| FATAL: oe_runconf failed
-| ERROR: Task failed: ('function do_configure failed',
-'/home/laverne-4.0.1/build/tmp/work/x86_64-linux/libx11-native-1_1.3.4-r0/temp/log.do_configure.13755')
-NOTE: package libx11-native-1_1.3.4-r0: task do_configure: Failed
-ERROR: Task 3573
-(virtual:native:/home/laverne-4.0.1/meta/recipes-graphics/xorg-lib/
-libx11_1.3.4.bb, do_configure) failed with 1
-ERROR: 'virtual:native:/home/laverne-4.0.1/meta/recipes-graphics/xorg-lib/
-libx11_1.3.4.bb' failed
-
-I have libxcb_1.6 version ,also xproto is libxproto_7.0.17
-
-Please can  you help me to find the solution for it.
-
-Chinmaya
-
---001e680f177c96db2d049fd83e96
-Content-Type: text/html; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Hi,</div><div><br></div><div>I am trying to get X11 w=
-ith libxcb file so accordingly I changed in the bb file of libx11,also I ha=
-ve included libxcb and xcb-utils as runtime dependencies =A0</div><div><br>=
-</div>
-<div>Initially it was in libx11 bb file :--</div><div>EXTRA_OECONF +=3D &qu=
-ot;--without-xcb&quot;</div><div>I changed it to=A0</div><div>EXTRA_OECONF =
-+=3D &quot;--with-xcb&quot;</div><div><br></div><div>Following is the error=
- I get :- =A0</div>
-<div>checking for unistd.h... (cached) yes</div><div>| checking for sys/par=
-am.h... yes</div><div>| checking for getpagesize... yes</div><div>| checkin=
-g for working mmap... yes</div><div>| checking for nl_langinfo... yes</div>
-<div>| checking for X11... no</div><div>| configure: error: Package require=
-ments (xproto &gt;=3D 7.0.13 xextproto xtrans xcb &gt;=3D 1.1.92 kbproto in=
-putproto) were not met:</div><div>|=A0</div><div>| No package &#39;xcb&#39;=
- found</div>
-<div>|=A0</div><div>| Consider adjusting the PKG_CONFIG_PATH environment va=
-riable if you</div><div>| installed software in a non-standard prefix.</div=
-><div>|=A0</div><div>| Alternatively, you may set the environment variables=
- X11_CFLAGS</div>
-<div>| and X11_LIBS to avoid the need to call pkg-config.</div><div>| See t=
-he pkg-config man page for more details.</div><div>| FATAL: oe_runconf fail=
-ed</div><div>| ERROR: Task failed: (&#39;function do_configure failed&#39;,=
- &#39;/home/laverne-4.0.1/build/tmp/work/x86_64-linux/libx11-native-1_1.3.4=
--r0/temp/log.do_configure.13755&#39;)</div>
-<div>NOTE: package libx11-native-1_1.3.4-r0: task do_configure: Failed</div=
-><div>ERROR: Task 3573 (virtual:native:/home/laverne-4.0.1/meta/recipes-gra=
-phics/xorg-lib/<a href=3D"http://libx11_1.3.4.bb">libx11_1.3.4.bb</a>, do_c=
-onfigure) failed with 1</div>
-<div>ERROR: &#39;virtual:native:/home/laverne-4.0.1/meta/recipes-graphics/x=
-org-lib/<a href=3D"http://libx11_1.3.4.bb">libx11_1.3.4.bb</a>&#39; failed<=
-/div><div><br></div><div>I have libxcb_1.6 version ,also xproto is libxprot=
-o_7.0.17=A0</div>
-<div><br></div><div>Please can =A0you help me to find the solution for it.<=
-/div><div><br></div><div>Chinmaya</div></div>
-
---001e680f177c96db2d049fd83e96--
