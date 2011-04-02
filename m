@@ -1,29 +1,22 @@
-Return-Path: <yanok@emcraft.com>
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 59C9A4C804D9
-	for <poky@pokylinux.org>; Fri,  1 Apr 2011 19:13:46 -0500 (CDT)
-Received: from frontend1.mail.m-online.net (unknown [192.168.8.180])
-	by mail-out.m-online.net (Postfix) with ESMTP id DE1251C1DA16;
-	Sat,  2 Apr 2011 02:13:43 +0200 (CEST)
-X-Auth-Info: tUyY6O5yN2cCY+PVRDPONmfDEqODw8tpKwv232J17O0=
-Received: from mail.denx.de (host-82-135-33-74.customer.m-online.net
-	[82.135.33.74])
-	by smtp-auth.mnet-online.de (Postfix) with ESMTPA id D9DDA1C00087;
-	Sat,  2 Apr 2011 02:13:43 +0200 (CEST)
-Received: from pollux.denx.de (pollux [192.168.1.1])
-	by mail.denx.de (Postfix) with ESMTP id C1E45471AE76;
-	Sat,  2 Apr 2011 02:13:43 +0200 (CEST)
-Received: by pollux.denx.de (Postfix, from userid 547)
-	id B419818563702; Sat,  2 Apr 2011 02:13:43 +0200 (CEST)
-From: Ilya Yanok <yanok@emcraft.com>
-To: poky@pokylinux.org
-Date: Sat,  2 Apr 2011 02:13:37 +0200
-Message-Id: <1301703217-29637-2-git-send-email-yanok@emcraft.com>
-X-Mailer: git-send-email 1.7.4
-In-Reply-To: <1301703217-29637-1-git-send-email-yanok@emcraft.com>
-References: <1301703217-29637-1-git-send-email-yanok@emcraft.com>
-Cc: Ilya Yanok <yanok@emcraft.com>
-Subject: [PATCH 2/2] qemu-nativesdk: fix do_configure
+Return-Path: <bruce.ashfield@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4BC1F4C80050;
+	Fri,  1 Apr 2011 22:25:37 -0500 (CDT)
+Received: from localhost.localdomain (yow-bashfiel-d2.ottawa.windriver.com
+	[128.224.146.167])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p323PUO0012561;
+	Fri, 1 Apr 2011 20:25:32 -0700 (PDT)
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+To: richard.purdie@linuxfoundation.org
+Date: Fri,  1 Apr 2011 23:26:39 -0400
+Message-Id: <5d754d7ac2efe9fb735a28807acab17668554bca.1301714584.git.bruce.ashfield@windriver.com>
+X-Mailer: git-send-email 1.7.0.4
+In-Reply-To: <cover.1301714584.git.bruce.ashfield@windriver.com>
+References: <cover.1301714584.git.bruce.ashfield@windriver.com>
+In-Reply-To: <cover.1301714584.git.bruce.ashfield@windriver.com>
+References: <cover.1301714584.git.bruce.ashfield@windriver.com>
+Cc: dvhart@linux.intel.com, poky@yoctoproject.org, yocto@yoctoproject.org
+Subject: [PATCH 1/2] linux-yocto/crownbay: update configuration
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,29 +28,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 02 Apr 2011 00:13:46 -0000
+X-List-Received-Date: Sat, 02 Apr 2011 03:25:37 -0000
 
-qemu 0.14 does not need --cross-prefix switch as it uses CC environment
-variables (and friends) which contains the cross prefix already.
+The crownbay has been updated for 2.6.37, the BSP branch
+already contans the changes, and this is the update of meta
+to the new config values:
 
-Signed-off-by: Ilya Yanok <yanok@emcraft.com>
+  crownbay: update eg20t config
+  crownbay: set cpu type to MATOM
+
+Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
 ---
- meta/recipes-devtools/qemu/qemu.inc |    2 +-
+ .../conf/distro/include/poky-default-revisions.inc |    2 +-
  1 files changed, 1 insertions(+), 1 deletions(-)
 
-diff --git a/meta/recipes-devtools/qemu/qemu.inc b/meta/recipes-devtools/qemu/qemu.inc
-index 0367f50..412bdfd 100644
---- a/meta/recipes-devtools/qemu/qemu.inc
-+++ b/meta/recipes-devtools/qemu/qemu.inc
-@@ -40,6 +40,6 @@ do_configure() {
- SRC_URI_append_virtclass-nativesdk = " file://glflags.patch;patch=1"
- DEPENDS_virtclass-nativesdk = "zlib-nativesdk libsdl-nativesdk qemugl-nativesdk"
- RDEPENDS_virtclass-nativesdk = "libsdl-nativesdk"
--EXTRA_OECONF_virtclass-nativesdk += "--target-list=${@get_qemu_target_list(d)} --disable-werror --disable-vnc-tls --cross-prefix=${TARGET_PREFIX}"
-+EXTRA_OECONF_virtclass-nativesdk += "--target-list=${@get_qemu_target_list(d)} --disable-werror --disable-vnc-tls"
- 
- BBCLASSEXTEND = "native nativesdk"
+diff --git a/meta/conf/distro/include/poky-default-revisions.inc b/meta/conf/distro/include/poky-default-revisions.inc
+index 98db029..a2b6a98 100644
+--- a/meta/conf/distro/include/poky-default-revisions.inc
++++ b/meta/conf/distro/include/poky-default-revisions.inc
+@@ -109,7 +109,7 @@ SRCREV_machine_pn-linux-yocto_routerstationpro ?= "8db69980d76e1f863af409e701759
+ SRCREV_machine_pn-linux-yocto_mpc8315e-rdb ?= "6861d8a4d58f8aa75997f7678cc454791544507a"
+ SRCREV_machine_pn-linux-yocto_beagleboard ?= "69cfbdf9f1ff461a75e5b77d6d7ba35e97db4cc3"
+ SRCREV_machine_pn-linux-yocto ?= "69cfbdf9f1ff461a75e5b77d6d7ba35e97db4cc3"
+-SRCREV_meta_pn-linux-yocto ?= "16cabf8ce412b5f8599f92a9e11dfd0ee6e0ad12"
++SRCREV_meta_pn-linux-yocto ?= "51c761795b078bf3c80104ed6e73b3d995067384"
+ SRCREV_pn-linux-libc-headers-yocto ??= "69cfbdf9f1ff461a75e5b77d6d7ba35e97db4cc3"
+ SRCREV_pn-matchbox-config-gtk ??= "3ed74dfb7c57be088a5ab36e446c0ccde9fa1028"
+ SRCREV_pn-matchbox-desktop-sato ??= "76"
 -- 
-1.7.4
+1.7.0.4
 
 
