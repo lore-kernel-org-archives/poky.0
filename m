@@ -1,22 +1,18 @@
 Return-Path: <bruce.ashfield@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 4BC1F4C80050;
+	by mx1.pokylinux.org (Postfix) with ESMTP id CEA754C80050;
 	Fri,  1 Apr 2011 22:25:37 -0500 (CDT)
 Received: from localhost.localdomain (yow-bashfiel-d2.ottawa.windriver.com
 	[128.224.146.167])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p323PUO0012561;
-	Fri, 1 Apr 2011 20:25:32 -0700 (PDT)
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p323PUNx012561;
+	Fri, 1 Apr 2011 20:25:31 -0700 (PDT)
 From: Bruce Ashfield <bruce.ashfield@windriver.com>
 To: richard.purdie@linuxfoundation.org
-Date: Fri,  1 Apr 2011 23:26:39 -0400
-Message-Id: <5d754d7ac2efe9fb735a28807acab17668554bca.1301714584.git.bruce.ashfield@windriver.com>
+Date: Fri,  1 Apr 2011 23:26:38 -0400
+Message-Id: <cover.1301714584.git.bruce.ashfield@windriver.com>
 X-Mailer: git-send-email 1.7.0.4
-In-Reply-To: <cover.1301714584.git.bruce.ashfield@windriver.com>
-References: <cover.1301714584.git.bruce.ashfield@windriver.com>
-In-Reply-To: <cover.1301714584.git.bruce.ashfield@windriver.com>
-References: <cover.1301714584.git.bruce.ashfield@windriver.com>
 Cc: dvhart@linux.intel.com, poky@yoctoproject.org, yocto@yoctoproject.org
-Subject: [PATCH 1/2] linux-yocto/crownbay: update configuration
+Subject: [PATCH 0/2] linux-yocto/meta: update kernel meta-data
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,34 +24,43 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 02 Apr 2011 03:25:37 -0000
+X-List-Received-Date: Sat, 02 Apr 2011 03:25:38 -0000
 
-The crownbay has been updated for 2.6.37, the BSP branch
-already contans the changes, and this is the update of meta
-to the new config values:
+Richard,
 
-  crownbay: update eg20t config
-  crownbay: set cpu type to MATOM
+patch 1 in this series is a re-send of a previous change, since
+it was still on the queue and it was worth keeping it in history
+in order with the second change.
 
-Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
+The second patch addresses [YOCTO #945], and the patch itself
+has the following:
+
+[ 
+  As part of the update to 2.6.37 existing configuration and
+  patches from the -stable kernel were left in place as a reminder
+  of features and configuration carry forward. A lot of these
+  reminders are no longer necessary and the kernel meta data
+  needs to be cleaned up to prepare for activities related to
+  newer kernels.
+
+  Also in this meta update are configuration changes to allow
+  common_pc derived BSPs to have a clean baseline configuration.
+]
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: zedd/kernel
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/kernel
+
+Thanks,
+    Bruce Ashfield <bruce.ashfield@windriver.com>
 ---
+
+
+Bruce Ashfield (2):
+  linux-yocto/crownbay: update configuration
+  linux-yocto/meta: cleanup and streamline kernel meta data
+
  .../conf/distro/include/poky-default-revisions.inc |    2 +-
  1 files changed, 1 insertions(+), 1 deletions(-)
-
-diff --git a/meta/conf/distro/include/poky-default-revisions.inc b/meta/conf/distro/include/poky-default-revisions.inc
-index 98db029..a2b6a98 100644
---- a/meta/conf/distro/include/poky-default-revisions.inc
-+++ b/meta/conf/distro/include/poky-default-revisions.inc
-@@ -109,7 +109,7 @@ SRCREV_machine_pn-linux-yocto_routerstationpro ?= "8db69980d76e1f863af409e701759
- SRCREV_machine_pn-linux-yocto_mpc8315e-rdb ?= "6861d8a4d58f8aa75997f7678cc454791544507a"
- SRCREV_machine_pn-linux-yocto_beagleboard ?= "69cfbdf9f1ff461a75e5b77d6d7ba35e97db4cc3"
- SRCREV_machine_pn-linux-yocto ?= "69cfbdf9f1ff461a75e5b77d6d7ba35e97db4cc3"
--SRCREV_meta_pn-linux-yocto ?= "16cabf8ce412b5f8599f92a9e11dfd0ee6e0ad12"
-+SRCREV_meta_pn-linux-yocto ?= "51c761795b078bf3c80104ed6e73b3d995067384"
- SRCREV_pn-linux-libc-headers-yocto ??= "69cfbdf9f1ff461a75e5b77d6d7ba35e97db4cc3"
- SRCREV_pn-matchbox-config-gtk ??= "3ed74dfb7c57be088a5ab36e446c0ccde9fa1028"
- SRCREV_pn-matchbox-desktop-sato ??= "76"
--- 
-1.7.0.4
 
 
