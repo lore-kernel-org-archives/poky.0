@@ -1,29 +1,30 @@
-Return-Path: <mark.hatle@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 081514C8026D
-	for <poky@yoctoproject.org>; Mon,  4 Apr 2011 08:07:21 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p34D7Jfs007045
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Mon, 4 Apr 2011 06:07:20 -0700 (PDT)
-Received: from ALA-MBA.corp.ad.wrs.com ([169.254.1.73]) by
-	ALA-HCA.corp.ad.wrs.com ([147.11.189.40]) with mapi id 14.01.0255.000;
-	Mon, 4 Apr 2011 06:07:19 -0700
-From: "Hatle, Mark" <mark.hatle@windriver.com>
-To: Gary Thomas <gary@mlbassoc.com>
-Thread-Topic: [poky] Missing debug info
-Thread-Index: AQHL8g8CguBc0c+6kU+6MGAyOSUabpRNA6mAgAAEYgCAAKZLhA==
-Date: Mon, 4 Apr 2011 13:07:18 +0000
-Message-ID: <FF920C20-664D-4F87-AD4D-079A35003054@windriver.com>
-References: <4D988A05.2070609@mlbassoc.com>
-	<4D98D0EB.1070802@windriver.com>,<4D98D498.10905@mlbassoc.com>
-In-Reply-To: <4D98D498.10905@mlbassoc.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-MIME-Version: 1.0
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: Missing debug info
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 610C24C8026D
+	for <poky@pokylinux.org>; Mon,  4 Apr 2011 08:12:23 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p34DCKA9016378;
+	Mon, 4 Apr 2011 14:12:20 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 15963-10; Mon,  4 Apr 2011 14:12:16 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p34DCDLv016372
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Mon, 4 Apr 2011 14:12:14 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Qing He <qing.he@intel.com>
+In-Reply-To: <cover.1301731242.git.qing.he@intel.com>
+References: <cover.1301731242.git.qing.he@intel.com>
+Date: Mon, 04 Apr 2011 14:12:12 +0100
+Message-ID: <1301922732.24596.363.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.2 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky@pokylinux.org
+Subject: Re: [PATCH 0/1] fix the MACHINE_ARCH
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,95 +36,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 04 Apr 2011 13:07:22 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Mon, 04 Apr 2011 13:12:23 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
+On Sat, 2011-04-02 at 16:03 +0800, Qing He wrote:
+> From: Qing He <qing.he@intel.com>
+> 
+> This small patch mangles all machine names that contains a '-',
+> examples are "qemux86-64" and "mpc8135e-rdb".
+> 
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>   Branch: qhe/fix
+>   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=qhe/fix
+> 
+> Thanks,
+>     Qing He <qing.he@intel.com>
+> ---
+> 
+> 
+> Qing He (1):
+>   bitbake.conf: fix MACHINE_ARCH
 
+Merged to master, thanks!
 
+Richard
 
-
-On Apr 3, 2011, at 3:12 PM, "Gary Thomas" <gary@mlbassoc.com> wrote:
-
-> On 04/03/2011 01:56 PM, Mark Hatle wrote:
->> On 4/3/11 9:53 AM, Gary Thomas wrote:
->>> I'm trying to debug some code which uses the openssl library, built fro=
-m
->>> the Poky mainline.  For some reason (not obvious to me), there is no de=
-bug
->>> info for this library, which makes GDB pretty useless :-(
->>>=20
->>> (gdb) info sharedlibrary
->>>  From        To          Syms Read   Shared Object Library
->>> 0x40077790  0x4008f60c  Yes         /tmp/cobra_root/lib/ld-linux.so.3
->>> 0x401abf80  0x401d57d8  Yes (*)     /tmp/cobra_root/usr/lib/libssl.so.0=
-.9.8
->>> 0x40225548  0x402cfbfc  Yes (*)     /tmp/cobra_root/usr/lib/libcrypto.s=
-o.0.9.8
->>> 0x400f28f8  0x4010cf90  Yes         /tmp/cobra_root/usr/lib/libpcap.so.=
-1
->>> 0x40326340  0x4040e8d8  Yes         /tmp/cobra_root/lib/libc.so.6
->>> 0x401278fc  0x40128614  Yes         /tmp/cobra_root/lib/libdl.so.2
->>> (*): Shared library is missing debugging information.
->>>=20
->>> Any idea why these libraries don't have debg info?  how to get it?
->>> Rebuilding that library with printf() is pretty tedious...
->>>=20
->>> Thanks
->>>=20
->>=20
->> Do the libraries in question have corresponding -dbg package that are em=
-pty?  Or
->> is there stuff in there, it's just incomplete?
->>=20
->> What I'm trying to understand is were these items stripped during the re=
-cipe
->> build, or when they're supposed to be by the package.bbclass into the re=
-gular
->> and dbg packages.
->=20
-> Ah, interesting.  The openssl package does have a -dbg version, but not f=
-or
-> libopenssl nor libcrypto (which were built by the same source package).  =
-Any
-> ideas how/why that happened?  I didn't see any magic in the build argumen=
-ts,
-> but it's a pretty complex package so I might have missed something.
->=20
-
-The dbg package is only provided for the corresponding source recipe.  So i=
-f libssl, libcrypto both come from the OpenSSL recipe, then installing the =
-openssl-dbg package is the right answer.
-
-> Just to see what I could learn from this, I tried to install openssl-dbg =
-and got this:
->=20
->  Downloading file:/home/local/p60_poky/tmp/deploy/ipk/armv7a/openssl-dbg_=
-0.9.8p-r3_armv7a.ipk.
->  openssl-dbg: unsatisfied recommendation for libcrypto-dbg
->  openssl-dbg: unsatisfied recommendation for libssl-dbg
-
-This is a common problem that we'll need to address in a future release, bu=
-t the dependency can be safely ignored.  There is no libcrypto/libssl dbg s=
-pecific package.
-
->  Installing openssl (0.9.8p-r3) to root...
->  Downloading file:/home/local/p60_poky/tmp/deploy/ipk/armv7a/openssl_0.9.=
-8p-r3_armv7a.ipk.
->  Configuring openssl.
->  Configuring openssl-dbg.
-
-If the openssl-dbg is installed then the corresponding files in the /usr/li=
-b/.debug and /usr/src/debug should now exist and allow debugging on the tar=
-get.
-
-When you start up gdb, you should see a message that it is loading the debu=
-g symbols.
-
-> --=20
-> ------------------------------------------------------------
-> Gary Thomas                 |  Consulting for the
-> MLB Associates              |    Embedded world
-> ------------------------------------------------------------
 
