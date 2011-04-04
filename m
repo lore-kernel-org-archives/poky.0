@@ -1,32 +1,25 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B14054C80050
-	for <poky@yoctoproject.org>; Mon,  4 Apr 2011 12:03:39 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p34H3Ylo018627;
-	Mon, 4 Apr 2011 18:03:34 +0100
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 18173-07; Mon,  4 Apr 2011 18:03:30 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p34H3Thp018621
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Mon, 4 Apr 2011 18:03:29 +0100
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Paul Eggleton <paul.eggleton@linux.intel.com>
-In-Reply-To: <201104041732.48366.paul.eggleton@linux.intel.com>
-References: <4D951B0B.3010503@intel.com> <1301679250.24596.293.camel@rex>
-	<4D961E29.4070807@intel.com>
-	<201104041732.48366.paul.eggleton@linux.intel.com>
-Date: Mon, 04 Apr 2011 18:03:26 +0100
-Message-ID: <1301936606.24596.405.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.32.2 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: Broken dependency behavior in master?
+Return-Path: <saul.wold@intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id B2B764C80050
+	for <poky@yoctoproject.org>; Mon,  4 Apr 2011 12:16:21 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 04 Apr 2011 10:16:21 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.63,298,1299484800"; d="scan'208";a="413572297"
+Received: from unknown (HELO [10.255.12.228]) ([10.255.12.228])
+	by azsmga001.ch.intel.com with ESMTP; 04 Apr 2011 10:16:20 -0700
+Message-ID: <4D99FCE4.6000209@intel.com>
+Date: Mon, 04 Apr 2011 10:16:20 -0700
+From: Saul Wold <saul.wold@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
+MIME-Version: 1.0
+To: Tom Zanussi <tom.zanussi@intel.com>
+References: <1bdc18$k2a46n@fmsmga002.fm.intel.com>
+In-Reply-To: <1bdc18$k2a46n@fmsmga002.fm.intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/1] meta-fishriver: new BSP
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,43 +31,59 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 04 Apr 2011 17:03:40 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Mon, 04 Apr 2011 17:16:22 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Mon, 2011-04-04 at 17:32 +0100, Paul Eggleton wrote:
-> On Friday 01 April 2011 19:49:13 Scott Garman wrote:
-> > I've reproduced this now, multiple times, using builds from scratch,
-> > including the fact that reverting that commit fixes the the problem for me.
-> 
-> I can confirm this, even though on the face of it the patch should not cause 
-> any issues. 
-> 
-> I haven't completely isolated the cause yet, however the problem occurs in  
-> sstate_task_postfunc -> sstate_install -> docbook_sgml_dtd_sstate_postinst 
-> which oddly seems to be being merged into the do_populate_lic task. I'm not 
-> sure but I'm assuming that these sstate functions should not be being executed 
-> under these circumstances.
+On 03/30/2011 05:41 PM, Tom Zanussi wrote:
+> From: Tom Zanussi<tom.zanussi@intel.com>
+>
+> This patchset implements a new BSP for Fish River Island (Z530/EG20T).
+>
+> The basic platorm support works e.g. network, sato desktop,
+> USB keyboard/mouse, but it currently only supports vesa.
+>
+> Better graphics support and support for more of the Fish River Island
+> devices will be added later.
+>
+> Please pull into meta-intel/master.
+>
+> Pull URL: git://git.pokylinux.org/meta-intel.git
+>    Branch: tzanussi/meta-fishriver-initial-BSP
+>    Browse: http://git.pokylinux.org/cgit/cgit.cgi/meta-intel/log/?h=tzanussi/meta-fishriver-initial-BSP
+>
+> Tom Zanussi (1):
+>    meta-fishriver: new layer for Fish River Island (Z530/EG20T) systems
+>
+>   meta-fishriver/COPYING.MIT                         |   17 ++++
+>   meta-fishriver/README                              |   94 ++++++++++++++++++++
+>   meta-fishriver/conf/layer.conf                     |   10 ++
+>   meta-fishriver/conf/machine/fishriver.conf         |   46 ++++++++++
+>   .../formfactor/formfactor/fishriver/machconfig     |    3 +
+>   .../recipes-bsp/formfactor/formfactor_0.0.bbappend |    3 +
+>   .../xserver-xf86-config/fishriver/xorg.conf        |   26 ++++++
+>   .../xorg-xserver/xserver-xf86-config_0.1.bbappend  |    3 +
+>   .../recipes-kernel/linux/linux-yocto_git.bbappend  |    4 +
+>   9 files changed, 206 insertions(+), 0 deletions(-)
+>   create mode 100644 meta-fishriver/COPYING.MIT
+>   create mode 100644 meta-fishriver/README
+>   create mode 100644 meta-fishriver/binary/.gitignore
+>   create mode 100644 meta-fishriver/conf/layer.conf
+>   create mode 100644 meta-fishriver/conf/machine/fishriver.conf
+>   create mode 100644 meta-fishriver/recipes-bsp/formfactor/formfactor/fishriver/machconfig
+>   create mode 100644 meta-fishriver/recipes-bsp/formfactor/formfactor_0.0.bbappend
+>   create mode 100644 meta-fishriver/recipes-graphics/xorg-xserver/xserver-xf86-config/fishriver/xorg.conf
+>   create mode 100644 meta-fishriver/recipes-graphics/xorg-xserver/xserver-xf86-config_0.1.bbappend
+>   create mode 100644 meta-fishriver/recipes-kernel/linux/linux-yocto_git.bbappend
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
+Pushed into meta-intel master
 
-Some data points on this:
-
-"bitbake docbook-sgml-dtd-3.1-native -c populate_lic"
-
-is the reproducer and the problem is the line:
-
-SSTATEPOSTINSTFUNCS += "docbook_sgml_dtd_sstate_postinst"
-
-in docbook-sgml-dtd-native.inc. This is running at populate_lic time as
-well as populate_sysroot when its meant to run.
-
-The commit Scott found is just a coincidence on some task order and not
-responsible for this issue. I believe Scott is going to test+send a fix
-which ensures the postinst only runs for the populate_sysroot postinst.
-
-Cheers,
-
-Richard
-
-
+Thanks
+	Sau!
 
 
