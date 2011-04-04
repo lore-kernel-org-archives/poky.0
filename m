@@ -1,29 +1,30 @@
-Return-Path: <scott.a.garman@intel.com>
-Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 467694C80AB3
-	for <poky@yoctoproject.org>; Mon,  4 Apr 2011 17:31:04 -0500 (CDT)
-Received: from localhost (c-76-105-143-140.hsd1.or.comcast.net
-	[76.105.143.140])
-	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
-	(No client certificate requested)
-	by masterfoo.zenlinux.com (Postfix) with ESMTP id 2851C308D0
-	for <poky@yoctoproject.org>; Mon,  4 Apr 2011 18:30:59 -0400 (EDT)
-Message-Id: <2a13fbc410a6c19344289643964e1361b273f467.1301956134.git.scott.a.garman@intel.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id AC68C4C80044
+	for <poky@yoctoproject.org>; Mon,  4 Apr 2011 17:46:05 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p34Mk2vB022884;
+	Mon, 4 Apr 2011 23:46:02 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 22763-02; Mon,  4 Apr 2011 23:45:58 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p34MjtlY022878
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Mon, 4 Apr 2011 23:45:56 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Scott Garman <scott.a.garman@intel.com>
 In-Reply-To: <cover.1301956134.git.scott.a.garman@intel.com>
 References: <cover.1301956134.git.scott.a.garman@intel.com>
-Old-Date: Mon, 4 Apr 2011 13:09:26 -0700
-Date: Mon, 04 Apr 2011 15:30:56 -0700
-To: poky@yoctoproject.org
-CC: 
-From: Scott Garman <scott.a.garman@intel.com>
-X-MasterFoo-MailScanner-Information: Please contact the ISP for more
-	information
-X-MailScanner-ID: 2851C308D0.A0B68
-X-MasterFoo-MailScanner: Found to be clean
-X-MasterFoo-MailScanner-SpamCheck: not spam
-X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
-X-Spam-Status: No
-Subject: [PATCH 3/3] docbook-dsssl-stylesheets-native: run install-catalog only during do_populate_sysroot
+Date: Mon, 04 Apr 2011 23:45:51 +0100
+Message-ID: <1301957151.24596.413.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.2 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/3] Fixes for doc-related build failures, v2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,38 +36,44 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 04 Apr 2011 22:31:04 -0000
+X-List-Received-Date: Mon, 04 Apr 2011 22:46:06 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-From: Scott Garman <scott.a.garman@intel.com>
+On Mon, 2011-04-04 at 15:30 -0700, Scott Garman wrote:
+> From: Scott Garman <scott.a.garman@intel.com>
+> 
+> Hi Saul,
+> 
+> Paul identified the root cause of the build failures occurring with
+> the documentation related packages. The problem is that functions
+> appended to SSTATEPOSTINSTFUNCS can now be run for *all* tasks.
+> These commits ensure the sysroot-related operations only happen
+> during the do_populate_sysroot tasks.
+> 
+> This fixes [YOCTO #948] (Thank you Dexuan for the bug report).
+> 
+> v2 of this pull request - tested for both builds from scratch and
+> from sstate.
+> 
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>   Branch: sgarman/docbook-fix
+>   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=sgarman/docbook-fix
+> 
+> Thanks,
+>     Scott Garman <scott.a.garman@intel.com>
+> ---
+> 
+> 
+> Scott Garman (3):
+>   docbook-sgml-dtd-native.inc: run install-catalog only during
+>     do_populate_sysroot
+>   openjade-native: run install-catalog only during do_populate_sysroot
+>   docbook-dsssl-stylesheets-native: run install-catalog only during
+>     do_populate_sysroot
 
-Signed-off-by: Scott Garman <scott.a.garman@intel.com>
----
- .../docbook-dsssl-stylesheets-native_1.79.bb       |   13 ++++++++-----
- 1 files changed, 8 insertions(+), 5 deletions(-)
+Merged to master, thanks!
 
-diff --git a/meta/recipes-devtools/docbook-dsssl-stylesheets/docbook-dsssl-stylesheets-native_1.79.bb b/meta/recipes-devtools/docbook-dsssl-stylesheets/docbook-dsssl-stylesheets-native_1.79.bb
-index fc4d266..88d24dd 100644
---- a/meta/recipes-devtools/docbook-dsssl-stylesheets/docbook-dsssl-stylesheets-native_1.79.bb
-+++ b/meta/recipes-devtools/docbook-dsssl-stylesheets/docbook-dsssl-stylesheets-native_1.79.bb
-@@ -38,9 +38,12 @@ do_install () {
- }
- 
- docbook_dsssl_stylesheets_sstate_postinst () {
--	# Ensure that the catalog file sgml-docbook.cat is properly
--	# updated when the package is installed from sstate cache.
--	install-catalog \
--		--add ${sysconfdir}/sgml/sgml-docbook.cat \
--		${sysconfdir}/sgml/dsssl-docbook-stylesheets.cat
-+	if [ "${BB_CURRENTTASK}" = "populate_sysroot" -o "${BB_CURRENTTASK}" = "populate_sysroot_setscene" ]
-+	then
-+		# Ensure that the catalog file sgml-docbook.cat is properly
-+		# updated when the package is installed from sstate cache.
-+		install-catalog \
-+			--add ${sysconfdir}/sgml/sgml-docbook.cat \
-+			${sysconfdir}/sgml/dsssl-docbook-stylesheets.cat
-+	fi
- }
--- 
-1.7.1
+Richard
 
 
