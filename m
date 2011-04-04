@@ -1,28 +1,29 @@
-Return-Path: <yanok@emcraft.com>
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E696A4C800A2
-	for <poky@pokylinux.org>; Mon,  4 Apr 2011 17:20:25 -0500 (CDT)
-Received: from frontend1.mail.m-online.net (frontend1.mail.intern.m-online.net
-	[192.168.8.180])
-	by mail-out.m-online.net (Postfix) with ESMTP id 42A68188B59C;
-	Tue,  5 Apr 2011 00:20:24 +0200 (CEST)
-X-Auth-Info: C31NvGwQmdq7yrSvmyHIZ1f8jozXArFCO7luvX6sNDY=
-Received: from mail.denx.de (host-82-135-33-74.customer.m-online.net
-	[82.135.33.74])
-	by smtp-auth.mnet-online.de (Postfix) with ESMTPA id 79A101C000E1;
-	Tue,  5 Apr 2011 00:20:24 +0200 (CEST)
-Received: from pollux.denx.de (pollux [192.168.1.1])
-	by mail.denx.de (Postfix) with ESMTP id 444F94BC152B;
-	Tue,  5 Apr 2011 00:20:24 +0200 (CEST)
-Received: by pollux.denx.de (Postfix, from userid 547)
-	id 01D4518563702; Tue,  5 Apr 2011 00:20:23 +0200 (CEST)
-From: Ilya Yanok <yanok@emcraft.com>
-To: poky@pokylinux.org
-Date: Tue,  5 Apr 2011 00:20:20 +0200
-Message-Id: <1301955620-24573-1-git-send-email-yanok@emcraft.com>
-X-Mailer: git-send-email 1.7.4
-Cc: Ilya Yanok <yanok@emcraft.com>
-Subject: [PATCH] xproto: EXTRA_OECONF_append should start with a space
+Return-Path: <scott.a.garman@intel.com>
+Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 931664C800A2
+	for <poky@yoctoproject.org>; Mon,  4 Apr 2011 17:30:57 -0500 (CDT)
+Received: from localhost (c-76-105-143-140.hsd1.or.comcast.net
+	[76.105.143.140])
+	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
+	(No client certificate requested)
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id 807FC308D0
+	for <poky@yoctoproject.org>; Mon,  4 Apr 2011 18:30:53 -0400 (EDT)
+Message-Id: <8cf6c0ff1f3374796de04c85e039c4f678ab7570.1301956134.git.scott.a.garman@intel.com>
+In-Reply-To: <cover.1301956134.git.scott.a.garman@intel.com>
+References: <cover.1301956134.git.scott.a.garman@intel.com>
+Old-Date: Mon, 4 Apr 2011 13:02:05 -0700
+Date: Mon, 04 Apr 2011 15:30:51 -0700
+To: poky@yoctoproject.org
+CC: 
+From: Scott Garman <scott.a.garman@intel.com>
+X-MasterFoo-MailScanner-Information: Please contact the ISP for more
+	information
+X-MailScanner-ID: 807FC308D0.4C6A9
+X-MasterFoo-MailScanner: Found to be clean
+X-MasterFoo-MailScanner-SpamCheck: not spam
+X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
+X-Spam-Status: No
+Subject: [PATCH 1/3] docbook-sgml-dtd-native.inc: run install-catalog only during do_populate_sysroot
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,30 +35,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 04 Apr 2011 22:20:26 -0000
+X-List-Received-Date: Mon, 04 Apr 2011 22:30:57 -0000
 
-EXTRA_OECONF_append variable should start with a space to prevent
-collapsing of two words into one during concatenation.
+From: Scott Garman <scott.a.garman@intel.com>
 
-Signed-off-by: Ilya Yanok <yanok@emcraft.com>
+Signed-off-by: Scott Garman <scott.a.garman@intel.com>
 ---
- meta/recipes-graphics/xorg-proto/xproto_7.0.20.bb |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ .../docbook-sgml-dtd/docbook-sgml-dtd-native.inc   |   13 ++++++++-----
+ 1 files changed, 8 insertions(+), 5 deletions(-)
 
-diff --git a/meta/recipes-graphics/xorg-proto/xproto_7.0.20.bb b/meta/recipes-graphics/xorg-proto/xproto_7.0.20.bb
-index 58520d9..dea1667 100644
---- a/meta/recipes-graphics/xorg-proto/xproto_7.0.20.bb
-+++ b/meta/recipes-graphics/xorg-proto/xproto_7.0.20.bb
-@@ -11,7 +11,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=93ae8952e7d02d855516fbf2efb9a0d2"
- PR = "r0"
- PE = "1"
+diff --git a/meta/recipes-devtools/docbook-sgml-dtd/docbook-sgml-dtd-native.inc b/meta/recipes-devtools/docbook-sgml-dtd/docbook-sgml-dtd-native.inc
+index 83cedbc..ede7bb1 100644
+--- a/meta/recipes-devtools/docbook-sgml-dtd/docbook-sgml-dtd-native.inc
++++ b/meta/recipes-devtools/docbook-sgml-dtd/docbook-sgml-dtd-native.inc
+@@ -39,9 +39,12 @@ do_install () {
+ }
  
--EXTRA_OECONF_append = "--enable-specs=no"
-+EXTRA_OECONF_append = " --enable-specs=no"
- BBCLASSEXTEND = "native nativesdk"
- 
- SRC_URI[md5sum] = "65633168e5315c19defb4652cd3d83c1"
+ docbook_sgml_dtd_sstate_postinst () {
+-	# Ensure that the catalog file sgml-docbook.cat is properly
+-	# updated when the package is installed from sstate cache.
+-	install-catalog \
+-		--add ${sysconfdir}/sgml/sgml-docbook.cat \
+-		${sysconfdir}/sgml/sgml-docbook-dtd-${DTD_VERSION}.cat
++	if [ "${BB_CURRENTTASK}" = "populate_sysroot" -o "${BB_CURRENTTASK}" = "populate_sysroot_setscene" ]
++	then
++		# Ensure that the catalog file sgml-docbook.cat is properly
++		# updated when the package is installed from sstate cache.
++		install-catalog \
++			--add ${sysconfdir}/sgml/sgml-docbook.cat \
++			${sysconfdir}/sgml/sgml-docbook-dtd-${DTD_VERSION}.cat
++	fi
+ }
 -- 
-1.7.4
+1.7.1
 
 
