@@ -1,40 +1,40 @@
 Return-Path: <martin.jansa@gmail.com>
-Received: from mail-yw0-f48.google.com (mail-yw0-f48.google.com
-	[209.85.213.48])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E2CB04C80050
-	for <poky@yoctoproject.org>; Mon,  4 Apr 2011 16:20:48 -0500 (CDT)
+Received: from mail-yi0-f48.google.com (mail-yi0-f48.google.com
+	[209.85.218.48])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2F44B4C80581
+	for <poky@yoctoproject.org>; Mon,  4 Apr 2011 16:37:58 -0500 (CDT)
 Authentication-Results: mx1.pokylinux.org; dkim=pass
 	(1024-bit key; insecure key) header.i=@gmail.com;
 	x-dkim-adsp=none (insecure policy)
-Received: by ywo32 with SMTP id 32so3041475ywo.35
-	for <poky@yoctoproject.org>; Mon, 04 Apr 2011 14:20:48 -0700 (PDT)
+Received: by yia28 with SMTP id 28so3055225yia.35
+	for <poky@yoctoproject.org>; Mon, 04 Apr 2011 14:37:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
 	h=domainkey-signature:mime-version:in-reply-to:references:date
 	:message-id:subject:from:to:cc:content-type
 	:content-transfer-encoding;
-	bh=eZYUP41eRxRgSkmtofJ6YiWMnIODb5sYb3BHkjz3Z5M=;
-	b=D7Q888lI7YVnt2RqEJNNQhtSx4gF9LkOJQoMDMdNDH+sozLTEoGpV2Q6oNvE8GpsK8
-	Kfu/HL3GcRlXchCHSMzgZ43HxQRzkuXyBsrG3ob2pILIGwBxNHQaRBy/n+XlGqutTp9m
-	erLZoHsuyZ6XHOmR5tBvG14X4CbHgN1saav+4=
+	bh=dDIx7O3W27rifrbqWHXKwpvXnw4d0LOZgVZK5O3zQFk=;
+	b=RD4Jf1hMt89WBuktNDqgkFDOMOfg7/5IiWWaF9MNgpEq2zh7HRWpZTRt22xmaQQmQf
+	cHmTRbqs0wrtWwzL8bgh2HMs6zugBUt/qfC47hcMOqoGv6QwTCFhy0IwDWyidho9aHxc
+	Pchom24N8d/RskTmFaslQGwyvJRAlMSc2UUlM=
 DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
 	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
 	:cc:content-type:content-transfer-encoding;
-	b=sn/wdGaDsJimdX2bFQmF8dr4OKEYw9M573K9k/64w3F1C6nK+r/oNeqITqUKB4rqc3
-	nRyrJDAKVK2dmwdzj4VHivyxOXiN08TqR1RH4086PhBV9fFcon4uTjURBcJvYgjy1tuu
-	t6c7tNf97i/jOMIPL8qmd5J+16N3cCfP5zzOA=
+	b=GXGXLkg+8VvowO2LkTACHFAP1cKu+mY0TlNLVp2x42LRsf6icB7UtTUntwOVzxBZFb
+	wrb+yGQBI1NukXOgrOHjmMB8mBVw3QgHUiEwQGc0XW5AWXgi/E25nvrCUSrFz2bltQ52
+	pE7QQz3SqYJIROGHZ33O5Gj5pzcnD8hNvGwQ8=
 MIME-Version: 1.0
-Received: by 10.150.175.21 with SMTP id x21mr3419113ybe.334.1301952048112;
-	Mon, 04 Apr 2011 14:20:48 -0700 (PDT)
-Received: by 10.147.171.12 with HTTP; Mon, 4 Apr 2011 14:20:48 -0700 (PDT)
-In-Reply-To: <ffbf4efad14a7793d55747fa1272a24c58b3a7fc.1301664697.git.josh@linux.intel.com>
+Received: by 10.150.240.17 with SMTP id n17mr7333371ybh.277.1301953077600;
+	Mon, 04 Apr 2011 14:37:57 -0700 (PDT)
+Received: by 10.147.171.12 with HTTP; Mon, 4 Apr 2011 14:37:57 -0700 (PDT)
+In-Reply-To: <8d834327e2d84b8d4ad72b9c617d261ab8b206e2.1301664697.git.josh@linux.intel.com>
 References: <cover.1301664697.git.josh@linux.intel.com>
-	<ffbf4efad14a7793d55747fa1272a24c58b3a7fc.1301664697.git.josh@linux.intel.com>
-Date: Mon, 4 Apr 2011 23:20:48 +0200
-Message-ID: <BANLkTikY1C=3PKVtfwp2E+H2tz+keskjAw@mail.gmail.com>
+	<8d834327e2d84b8d4ad72b9c617d261ab8b206e2.1301664697.git.josh@linux.intel.com>
+Date: Mon, 4 Apr 2011 23:37:57 +0200
+Message-ID: <BANLkTi=etDyw_wqyqbErqoR92cwOXw3R4A@mail.gmail.com>
 From: Martin Jansa <martin.jansa@gmail.com>
 To: Joshua Lock <josh@linux.intel.com>
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 4/7] xorg-[lib-common|proto-common]: disable use of fop document generation
+Subject: Re: [PATCH 1/7] elfutils: fix builds with gcc 4.6
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,79 +46,82 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 04 Apr 2011 21:20:49 -0000
+X-List-Received-Date: Mon, 04 Apr 2011 21:37:58 -0000
 Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Apr 1, 2011 at 3:38 PM, Joshua Lock <josh@linux.intel.com> wrote:
+On Fri, Apr 1, 2011 at 3:40 PM, Joshua Lock <josh@linux.intel.com> wrote:
 > From: Joshua Lock <josh@linux.intel.com>
 >
-> On Fedora 15 I see a huge Java backtrace when document generation runs fo=
-r
-> some xorg libs. As fop is automatically detected, with the possibility of
-> detecting fop on the host whilst doing target builds, the safest bet is t=
-o
-> explicitly disable fop for document generation.
+> gcc 4.6 (as used in Fedora 15) adds some extra warnings which are
+> included with Werror. The new unused-but-set variable warning causes
+> an error in libasm of elfutils. Work around this by removing
+> unused-but-set from Werror.
 >
 > Signed-off-by: Joshua Lock <josh@linux.intel.com>
 > ---
-> =A0meta/recipes-graphics/xorg-lib/xorg-lib-common.inc | =A0 =A02 +-
-> =A0.../xorg-proto/xorg-proto-common.inc =A0 =A0 =A0 =A0 =A0 =A0 =A0 | =A0=
- =A01 +
-> =A02 files changed, 2 insertions(+), 1 deletions(-)
+> =A0meta/recipes-devtools/elfutils/elfutils_0.148.bb | =A0 =A04 ++++
+> =A01 files changed, 4 insertions(+), 0 deletions(-)
 >
-> diff --git a/meta/recipes-graphics/xorg-lib/xorg-lib-common.inc b/meta/re=
-cipes-graphics/xorg-lib/xorg-lib-common.inc
-> index 4ed8c86..d843d65 100644
-> --- a/meta/recipes-graphics/xorg-lib/xorg-lib-common.inc
-> +++ b/meta/recipes-graphics/xorg-lib/xorg-lib-common.inc
-> @@ -13,4 +13,4 @@ S =3D "${WORKDIR}/${XORG_PN}-${PV}"
+> diff --git a/meta/recipes-devtools/elfutils/elfutils_0.148.bb b/meta/reci=
+pes-devtools/elfutils/elfutils_0.148.bb
+> index b2f700e..c395be8 100644
+> --- a/meta/recipes-devtools/elfutils/elfutils_0.148.bb
+> +++ b/meta/recipes-devtools/elfutils/elfutils_0.148.bb
+> @@ -40,6 +40,10 @@ SRC_URI +=3D "\
 >
-> =A0inherit autotools pkgconfig
+> =A0inherit autotools
 >
-> -EXTRA_OECONF =3D "--enable-malloc0returnsnull"
-> +EXTRA_OECONF =3D "--enable-malloc0returnsnull --with-fop=3Dno"
-> diff --git a/meta/recipes-graphics/xorg-proto/xorg-proto-common.inc b/met=
-a/recipes-graphics/xorg-proto/xorg-proto-common.inc
-> index 92aa1fe..ab1af28 100644
-> --- a/meta/recipes-graphics/xorg-proto/xorg-proto-common.inc
-> +++ b/meta/recipes-graphics/xorg-proto/xorg-proto-common.inc
-> @@ -14,6 +14,7 @@ S =3D "${WORKDIR}/${XORG_PN}-${PV}"
-> =A0DEPENDS =3D "util-macros"
+> +# GCC 4.6.0 raises an unused-but-set warning in libasm, for now remove
+> +# this warning from Werror
+> +CFLAGS_virtclass-native +=3D "-Wno-error=3Dunused-but-set-variable"
+> +
+> =A0EXTRA_OECONF =3D "--program-prefix=3Deu-"
+
+this breaks all other distros not yet using gcc-4.6..
+
+
+configure:2892: checking whether the C compiler works
+configure:2914: gcc -Wno-error=3Dunused-but-set-variable
+-isystem/OE/shr-core/tmp/sysroots/x86_64-linux/usr/include
+-L/OE/shr-core/tmp/sysroots/x86_64-linux/usr/lib
+-Wl,-rpath-link,/OE/shr-core/tmp/sysroots/x86_64-linux/usr/lib
+-Wl,-rpath,/OE/shr-core/tmp/sysroots/x86_64-linux/usr/lib -Wl,-O1
+conftest.c  >&5
+cc1: error: -Werror=3Dunused-but-set-variable: No option -Wunused-but-set-v=
+ariable
+configure:2918: $? =3D 1
+configure:2956: result: no
+configure: failed program was:
+| /* confdefs.h */
+| #define PACKAGE_NAME "Red Hat elfutils"
+| #define PACKAGE_TARNAME "elfutils"
+| #define PACKAGE_VERSION "0.148"
+| #define PACKAGE_STRING "Red Hat elfutils 0.148"
+| #define PACKAGE_BUGREPORT "http://bugzilla.redhat.com/bugzilla/"
+| #define PACKAGE_URL ""
+| #define PACKAGE "elfutils"
+| #define VERSION "0.148"
+| #define MODVERSION "Build on jama 2011-04-04T23:34:25+0200"
+| /* end confdefs.h.  */
+|
+| int
+| main ()
+| {
+|
+|   ;
+|   return 0;
+| }
+configure:2961: error: in
+`/OE/shr-core/tmp/work/x86_64-linux/elfutils-native-0.148-r1/elfutils-0.148=
+':
+configure:2965: error: C compiler cannot create executables
+See `config.log' for more details.
+
+Regards,
+
 >
-> =A0inherit autotools pkgconfig
-> +EXTRA_OECONF =3D "--with-fop=3Dno"
-
-after this I get
-
-| checking for xmlto... no
-| configure: WARNING: xmlto not found - documentation targets will be skipp=
-ed
-| configure: error: --with-fop expects 'yes' or 'no'
-| FATAL: oe_runconf failed
-| ERROR: Function 'do_configure' failed (see
-/OE/shr-core/tmp/work/x86_64-linux/xproto-native-1_7.0.20-r0/temp/log.do_co=
-nfigure.29076
-for further information)
-NOTE: package xproto-native-1_7.0.20-r0: task do_configure: Failed
-ERROR: Task 957
-(virtual:native:/OE/shr-core/openembedded-core/meta/recipes-graphics/xorg-p=
-roto/xproto_7.0.20.bb,
-do_configure) failed with exit code '1'
-
-because there is
---with-fop=3Dno--enable-specs=3Dno
-
-so you had to put space after no, or before this
-
-OE nokia900@shr ~/shr-core $ grep OECONF
-openembedded-core/meta/recipes-graphics/xorg-proto/xproto_7.0.20.bb
-EXTRA_OECONF_append =3D "--enable-specs=3Dno"
-
->
-> =A0# ${PN} is empty so we need to tweak -dev and -dbg package dependencie=
-s
-> =A0RDEPENDS_${PN}-dev =3D ""
+> =A0do_configure_prepend() {
 > --
 > 1.7.4.1
 >
