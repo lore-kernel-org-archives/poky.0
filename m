@@ -1,40 +1,40 @@
 Return-Path: <srifenbark@gmail.com>
-Received: from mail-gx0-f176.google.com (mail-gx0-f176.google.com
-	[209.85.161.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 361204C80A70
-	for <poky@yoctoproject.org>; Tue,  5 Apr 2011 08:32:46 -0500 (CDT)
+Received: from mail-yi0-f48.google.com (mail-yi0-f48.google.com
+	[209.85.218.48])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8F3A74C80A70
+	for <poky@yoctoproject.org>; Tue,  5 Apr 2011 08:32:56 -0500 (CDT)
 Authentication-Results: mx1.pokylinux.org; dkim=pass
 	(1024-bit key; insecure key) header.i=@gmail.com;
 	x-dkim-adsp=none (insecure policy)
-Received: by mail-gx0-f176.google.com with SMTP id 7so148925gxk.35
-	for <poky@yoctoproject.org>; Tue, 05 Apr 2011 06:32:46 -0700 (PDT)
+Received: by yia28 with SMTP id 28so149126yia.35
+	for <poky@yoctoproject.org>; Tue, 05 Apr 2011 06:32:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
 	h=domainkey-signature:message-id:in-reply-to:references:old-date
 	:subject:date:to:cc:from;
-	bh=GYwZDgulXW68tJSGnpe1J99vj7kVVVvN7Dn2jtw89j4=;
-	b=SiL7yC4pWzZJjfMOh5K1VYbF3hjEWkH3OCOS5V1z2/+yafSDz3HcOG1QdMgSReRrQn
-	GVUBW1ncCzV9h6l+GdRgB87rbUI2sQ8ETuOYvqbyxsjFZP0d/y4kJFodrMZ6TwJQLox0
-	wzhmnNPdmHuCM/UpU3t06hJC7jeo6hrmJ1hlM=
+	bh=tPvQSHnNrsqDeZxAYaCQXWk0h+ndVQ9udu2nhq0MEXE=;
+	b=kZQhZ5dFpagMYaJ+Qt6zo6H+MGLjT736SqQ9btRFiWFhYc+9vcGCeJdYDrnSGswhz5
+	ESZrDWVD+SyuGKxLxxiZ1usArlr4h2V/6a75XG3aBoWHBK5S0GO4/q6fj7/2TTTf77T6
+	GTY/9XCn3y8IHTSLwKyysRviLO5PAsEgm/mno=
 DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
 	h=message-id:in-reply-to:references:old-date:subject:date:to:cc:from;
-	b=sGHtImt+NpQt0Thh/h/mFqY7GtoXQI/HeHuKENRRiQyWQleUClcNrCY1fhViD2wUA/
-	PMObuSnKOZRuMX6doj9HAzfzNFqnrxJD8fSMQlp3HIRt+FWdOpH3ItqzKqQQRJEtFL2u
-	R+ANDkY8NpYtMvoDMllmIOjO4rfk+AQr2tSl0=
-Received: by 10.91.132.1 with SMTP id j1mr527129agn.186.1302010366041;
-	Tue, 05 Apr 2011 06:32:46 -0700 (PDT)
+	b=VJzfM8rZh9eXkD4HT4vEoeHENJJKroHhDTHk8ccJxqKQfIQJmp5wYlpj3U+W4dxS99
+	8ITUpJvpN5zH8YYGS59Z2s1tPEn/mS3P0MJdEM8m2+agggIWdzQobuE0FSe5xR0IIb7H
+	ntUoMQP74uQtG2kwYi7b6nLHtG6Vl5OhRDghA=
+Received: by 10.236.106.198 with SMTP id m46mr11832792yhg.191.1302010376287;
+	Tue, 05 Apr 2011 06:32:56 -0700 (PDT)
 Received: from localhost ([190.197.29.62])
-	by mx.google.com with ESMTPS id d20sm6521346ang.43.2011.04.05.06.32.44
+	by mx.google.com with ESMTPS id x61sm2834566yhn.48.2011.04.05.06.32.55
 	(version=TLSv1/SSLv3 cipher=OTHER);
-	Tue, 05 Apr 2011 06:32:45 -0700 (PDT)
-Message-Id: <bce848dc135ac702c8950186ed0e8b36a01e2e17.1302009987.git.scott.m.rifenbark@intel.com>
+	Tue, 05 Apr 2011 06:32:55 -0700 (PDT)
+Message-Id: <48959817202a9a21629458c25ec00a21f0e2bdaf.1302009987.git.scott.m.rifenbark@intel.com>
 In-Reply-To: <cover.1302009987.git.scott.m.rifenbark@intel.com>
 References: <cover.1302009987.git.scott.m.rifenbark@intel.com>
-Old-Date: Thu, 31 Mar 2011 20:32:25 -0500
-Date: Tue, 05 Apr 2011 06:32:45 -0700 (PDT)
+Old-Date: Mon, 4 Apr 2011 11:50:37 -0500
+Date: Tue, 05 Apr 2011 06:32:55 -0700 (PDT)
 To: poky@yoctoproject.org
 CC: 
 From: Scott Rifenbark <srifenbark@gmail.com>
-Subject: [PATCH 01/16] documentation/poky-ref-manual/poky-ref-manual.xml: Updated rev-history table
+Subject: [PATCH 05/16] documentation/poky-ref-manual/ref-structure.xml: bitbake section updated
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,32 +46,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 05 Apr 2011 13:32:46 -0000
+X-List-Received-Date: Tue, 05 Apr 2011 13:32:56 -0000
 
 From: Scott Rifenbark <scott.m.rifenbark@intel.com>
 
-Updated the revision history table for the manual.
+Section A.1.1 (bitbake/) contained two URLs.  One supposedly went to
+a BitBake site and the other to the BitBake online manual.  In reality,
+they both went to the online manual.  I removed the one referencing
+the site.
 
 Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
 ---
- documentation/poky-ref-manual/poky-ref-manual.xml |    4 ++--
- 1 files changed, 2 insertions(+), 2 deletions(-)
+ documentation/poky-ref-manual/ref-structure.xml |    5 ++---
+ 1 files changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/documentation/poky-ref-manual/poky-ref-manual.xml b/documentation/poky-ref-manual/poky-ref-manual.xml
-index ed720c4..874d9a1 100644
---- a/documentation/poky-ref-manual/poky-ref-manual.xml
-+++ b/documentation/poky-ref-manual/poky-ref-manual.xml
-@@ -48,9 +48,9 @@
-                 <revremark>Poky Master Documentation</revremark>
-             </revision>
-             <revision>
--                <revnumber>1.0</revnumber>
-+                <revnumber>5.0+git</revnumber>
-                 <date>6 April 2011</date>
--                <revremark>Poky documentation releasing with the Yocto Project 1.0 Release.</revremark>
-+                <revremark>Released with Yocto Project 1.0 (Bernard 5.0).</revremark>
-             </revision>
-         </revhistory>
+diff --git a/documentation/poky-ref-manual/ref-structure.xml b/documentation/poky-ref-manual/ref-structure.xml
+index 74687c5..7ebf9bd 100644
+--- a/documentation/poky-ref-manual/ref-structure.xml
++++ b/documentation/poky-ref-manual/ref-structure.xml
+@@ -32,9 +32,8 @@
+         </para>
+ 
+         <para>
+-            For more information on BitBake, see the BitBake project site at 
+-            <ulink url="http://bitbake.berlios.de/"/> 
+-            and the BitBake on-line manual at <ulink url="http://bitbake.berlios.de/manual/"/>.
++            For more information on BitBake, see the BitBake on-line manual at 
++            <ulink url="http://bitbake.berlios.de/manual/"/>.
+         </para>
+     </section>
  
 -- 
 1.7.0.4
