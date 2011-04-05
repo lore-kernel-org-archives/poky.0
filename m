@@ -1,40 +1,40 @@
 Return-Path: <srifenbark@gmail.com>
-Received: from mail-yi0-f48.google.com (mail-yi0-f48.google.com
-	[209.85.218.48])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 8F3A74C80A70
-	for <poky@yoctoproject.org>; Tue,  5 Apr 2011 08:32:56 -0500 (CDT)
+Received: from mail-gy0-f176.google.com (mail-gy0-f176.google.com
+	[209.85.160.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id BB3554C80A70
+	for <poky@yoctoproject.org>; Tue,  5 Apr 2011 08:32:59 -0500 (CDT)
 Authentication-Results: mx1.pokylinux.org; dkim=pass
 	(1024-bit key; insecure key) header.i=@gmail.com;
 	x-dkim-adsp=none (insecure policy)
-Received: by yia28 with SMTP id 28so149126yia.35
-	for <poky@yoctoproject.org>; Tue, 05 Apr 2011 06:32:56 -0700 (PDT)
+Received: by gya6 with SMTP id 6so148820gya.35
+	for <poky@yoctoproject.org>; Tue, 05 Apr 2011 06:32:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
 	h=domainkey-signature:message-id:in-reply-to:references:old-date
 	:subject:date:to:cc:from;
-	bh=tPvQSHnNrsqDeZxAYaCQXWk0h+ndVQ9udu2nhq0MEXE=;
-	b=kZQhZ5dFpagMYaJ+Qt6zo6H+MGLjT736SqQ9btRFiWFhYc+9vcGCeJdYDrnSGswhz5
-	ESZrDWVD+SyuGKxLxxiZ1usArlr4h2V/6a75XG3aBoWHBK5S0GO4/q6fj7/2TTTf77T6
-	GTY/9XCn3y8IHTSLwKyysRviLO5PAsEgm/mno=
+	bh=KcIZtEi8mXmDIxZtH7xqcyU/1k3FWEFP+6SfkSTbdGo=;
+	b=UDR9bKstw08jOhz3PizZa3GlhmIKo4DjktwgwXNwYny3I/9XDB8I4rKbxe9DuLDlFV
+	bM/PxiVXkTjJZmS9Lp4PvuzVwCGJ3WrdcaFjCHfBbE6uswHHiWmt52DLv7t8dQxHwNvB
+	w2qa2vx+1LFAg/aoTcxzLmg/nUAiZv3IlwcMs=
 DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
 	h=message-id:in-reply-to:references:old-date:subject:date:to:cc:from;
-	b=VJzfM8rZh9eXkD4HT4vEoeHENJJKroHhDTHk8ccJxqKQfIQJmp5wYlpj3U+W4dxS99
-	8ITUpJvpN5zH8YYGS59Z2s1tPEn/mS3P0MJdEM8m2+agggIWdzQobuE0FSe5xR0IIb7H
-	ntUoMQP74uQtG2kwYi7b6nLHtG6Vl5OhRDghA=
-Received: by 10.236.106.198 with SMTP id m46mr11832792yhg.191.1302010376287;
-	Tue, 05 Apr 2011 06:32:56 -0700 (PDT)
+	b=g4w10OTpQQ9qjZw4i3d+e2mYQyI+pBlDFq3u24gm9UGSp8ex0wcfWWQ499EIhpGpGN
+	ItB7af1OTJz3T14Ky+eLQ/xhHG3bBkSIOlMyOilT3tam3FWzdmp0zTQT3rZKcy7F5D9P
+	atBSSQCl6XgTuKDYVt8Q1OsOmFo8dzyeBVmYw=
+Received: by 10.150.47.2 with SMTP id u2mr582031ybu.340.1302010379507;
+	Tue, 05 Apr 2011 06:32:59 -0700 (PDT)
 Received: from localhost ([190.197.29.62])
-	by mx.google.com with ESMTPS id x61sm2834566yhn.48.2011.04.05.06.32.55
+	by mx.google.com with ESMTPS id t16sm2684703ybe.4.2011.04.05.06.32.57
 	(version=TLSv1/SSLv3 cipher=OTHER);
-	Tue, 05 Apr 2011 06:32:55 -0700 (PDT)
-Message-Id: <48959817202a9a21629458c25ec00a21f0e2bdaf.1302009987.git.scott.m.rifenbark@intel.com>
+	Tue, 05 Apr 2011 06:32:58 -0700 (PDT)
+Message-Id: <3532e3a5b5363a80d2f8729c5b4b8bdef890d2c4.1302009987.git.scott.m.rifenbark@intel.com>
 In-Reply-To: <cover.1302009987.git.scott.m.rifenbark@intel.com>
 References: <cover.1302009987.git.scott.m.rifenbark@intel.com>
-Old-Date: Mon, 4 Apr 2011 11:50:37 -0500
-Date: Tue, 05 Apr 2011 06:32:55 -0700 (PDT)
+Old-Date: Mon, 4 Apr 2011 13:56:48 -0500
+Date: Tue, 05 Apr 2011 06:32:58 -0700 (PDT)
 To: poky@yoctoproject.org
 CC: 
 From: Scott Rifenbark <srifenbark@gmail.com>
-Subject: [PATCH 05/16] documentation/poky-ref-manual/ref-structure.xml: bitbake section updated
+Subject: [PATCH 06/16] documentation/poky-ref-manual/ref-bitbake.xml: removed 'varname' style
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,35 +46,48 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 05 Apr 2011 13:32:56 -0000
+X-List-Received-Date: Tue, 05 Apr 2011 13:32:59 -0000
 
 From: Scott Rifenbark <scott.m.rifenbark@intel.com>
 
-Section A.1.1 (bitbake/) contained two URLs.  One supposedly went to
-a BitBake site and the other to the BitBake online manual.  In reality,
-they both went to the online manual.  I removed the one referencing
-the site.
+I replaced varname style with filename style.  Looks better.  We have
+too many styles.
 
 Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
 ---
- documentation/poky-ref-manual/ref-structure.xml |    5 ++---
- 1 files changed, 2 insertions(+), 3 deletions(-)
+ documentation/poky-ref-manual/ref-bitbake.xml |    6 +++---
+ 1 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/documentation/poky-ref-manual/ref-structure.xml b/documentation/poky-ref-manual/ref-structure.xml
-index 74687c5..7ebf9bd 100644
---- a/documentation/poky-ref-manual/ref-structure.xml
-+++ b/documentation/poky-ref-manual/ref-structure.xml
-@@ -32,9 +32,8 @@
-         </para>
- 
+diff --git a/documentation/poky-ref-manual/ref-bitbake.xml b/documentation/poky-ref-manual/ref-bitbake.xml
+index 1a98b04..8076066 100644
+--- a/documentation/poky-ref-manual/ref-bitbake.xml
++++ b/documentation/poky-ref-manual/ref-bitbake.xml
+@@ -34,7 +34,7 @@
          <para>
--            For more information on BitBake, see the BitBake project site at 
--            <ulink url="http://bitbake.berlios.de/"/> 
--            and the BitBake on-line manual at <ulink url="http://bitbake.berlios.de/manual/"/>.
-+            For more information on BitBake, see the BitBake on-line manual at 
-+            <ulink url="http://bitbake.berlios.de/manual/"/>.
+             The first thing BitBake does is look for the <filename>bitbake.conf</filename> file.
+             Poky keeps this file in <filename class="directory">meta/conf/</filename>.
+-            BitBake finds it by examining the <varname>BBPATH</varname> environment 
++            BitBake finds it by examining the <filename>BBPATH</filename> environment 
+             variable and looking for the <filename class="directory">meta/conf/</filename> 
+             directory.
          </para>
-     </section>
+@@ -42,7 +42,7 @@
+         <para>
+             In Poky, <filename>bitbake.conf</filename> lists other configuration 
+             files to include from a <filename class="directory">conf/</filename> 
+-            directory below the directories listed in <varname>BBPATH</varname>. 
++            directory below the directories listed in <filename>BBPATH</filename>. 
+             In general the most important configuration file from a user's perspective 
+             is <filename>local.conf</filename>, which contains a user's customized 
+             settings for Poky. 
+@@ -70,7 +70,7 @@
+             <glossterm><link linkend='var-INHERIT'>INHERIT</link></glossterm>
+             variable are also inculded. 
+             Class files are searched for in a classes subdirectory 
+-            under the paths in <varname>BBPATH</varname> in the same way as
++            under the paths in <filename>BBPATH</filename> in the same way as
+             configuration files.
+         </para>
  
 -- 
 1.7.0.4
