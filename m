@@ -1,24 +1,43 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id DFE554C800A2
-	for <poky@yoctoproject.org>; Mon,  4 Apr 2011 21:06:31 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 04 Apr 2011 19:06:31 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,301,1299484800"; d="scan'208";a="729150927"
-Received: from unknown (HELO [10.255.12.245]) ([10.255.12.245])
-	by orsmga001.jf.intel.com with ESMTP; 04 Apr 2011 19:06:31 -0700
-Message-ID: <4D9A7926.501@linux.intel.com>
-Date: Mon, 04 Apr 2011 19:06:30 -0700
-From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.14) Gecko/20110223 Lightning/1.0b2 Thunderbird/3.1.8
+Return-Path: <raj.khem@gmail.com>
+Received: from mail-px0-f169.google.com (mail-px0-f169.google.com
+	[209.85.212.169])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 1B4554C80050
+	for <poky@yoctoproject.org>; Mon,  4 Apr 2011 21:14:10 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by pxi9 with SMTP id 9so2183957pxi.28
+	for <poky@yoctoproject.org>; Mon, 04 Apr 2011 19:14:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:message-id:date:from:user-agent:mime-version:to
+	:subject:references:in-reply-to:content-type
+	:content-transfer-encoding;
+	bh=9ehYyP1M1YQEFPWHe2OxZENE3rmHjoHfOm9dMM3FRW8=;
+	b=uRRz0rZI5Udw4lVAuZZLw1Pvu7E9/k16McvCe0q80nOuH4Tdmd7OSJxCiTAe8WJ2rD
+	apUeQb3ANXfWN2T3nTtjk+QnuQ/DyM5qS1i/pJaRP57HQzDmIWfDHkvcPiAvQY7f4oyK
+	LKCmQ3Z2sCTVsaq3NX9HHot+S2AwfcCHLFAOQ=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=message-id:date:from:user-agent:mime-version:to:subject:references
+	:in-reply-to:content-type:content-transfer-encoding;
+	b=lK/Zf933Nyiw3koI9o8EzD8+NM/7HE6flxcyr5W6xCJQzJ5E1xI0Iv3SqMSaR2bY1x
+	8KjJl9+GGMEfqRaJVRjxuNvoYsQGShLWoxB1fuNqXuIY6SktDkOAae0CgD0ytbV3AyP2
+	gM/MwMLuDW+qmBM3cvlgAPLMYKgZW/V+Npkds=
+Received: by 10.143.47.6 with SMTP id z6mr1893088wfj.227.1301969649489;
+	Mon, 04 Apr 2011 19:14:09 -0700 (PDT)
+Received: from [192.168.1.70] (99-57-141-118.lightspeed.sntcca.sbcglobal.net
+	[99.57.141.118])
+	by mx.google.com with ESMTPS id y2sm8332592wfd.8.2011.04.04.19.14.06
+	(version=SSLv3 cipher=OTHER); Mon, 04 Apr 2011 19:14:08 -0700 (PDT)
+Message-ID: <4D9A7AEC.9020206@gmail.com>
+Date: Mon, 04 Apr 2011 19:14:04 -0700
+From: Khem Raj <raj.khem@gmail.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US;
+	rv:1.9.2.15) Gecko/20110303 Thunderbird/3.1.9
 MIME-Version: 1.0
-To: Sparsh Wid hope <sparsh150847@yahoo.com>
-References: <177088.27801.qm@web95702.mail.in.yahoo.com>
-In-Reply-To: <177088.27801.qm@web95702.mail.in.yahoo.com>
-Cc: poky <poky@yoctoproject.org>
-Subject: Re: Help me to create poky image for beagleboard
+To: poky@yoctoproject.org
+References: <1301496447.24596.100.camel@rex>
+In-Reply-To: <1301496447.24596.100.camel@rex>
+Subject: Re: lconfig-native is not endian safe
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,160 +49,39 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 05 Apr 2011 02:06:32 -0000
+X-List-Received-Date: Tue, 05 Apr 2011 02:14:10 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
+On 3/30/2011 7:47 AM, Richard Purdie wrote:
+> Hi,
+>
+> Poky has had a ldconfig-native recipe in for a while. Back in the times
+> our RPATHS were totally broken adding in an ld.so.cache was useful. In
+> modern times I'm having trouble working out when this would be useful on
+> a standard system as libraries are pretty much always in one of the two
+> default search locations.
+>
+> ldconfig-native is 32/64 bit safe. I've just been looking at PPC and it
+> is certainly not endian safe though. The endianess of the target system
+> need to match that of the build system for it to work. It wouldn't be
+> much work to make it endian safe though although the codebase will
+> diverge further from that in (e)glibc though.
+>
 
+FWIW it does not work with uclibc as well. So it should be disabled for 
+uclibc for all arches
 
-On 03/25/2011 06:51 AM, Sparsh Wid hope wrote:
-> Hi all,
+> Short term we need to disable it at least for ppc, longer term what
+> should we do?
 >
-> I'm trying to build a POKY image for beagleboard and getting error.
+> Cheers,
 >
-> I followed the steps as:
->
-> a. Downloaded the source as wget -c
-> http://git.pokylinux.org/cgit/cgit.cgi/poky/snapshot/poky-laverne-4.0.1.tar.bz2
-> <http://git.pokylinux.org/cgit/cgit.cgi/poky/snapshot/poky-laverne-4.0.1.tar.bz2>
-> and then untar it.
-> b. I modified the file laverne-4.0.1/meta/conf/local.conf.sample as
->
-> MACHINE ?= "beagleboard"
-> and tried to build as
->
-> source poky-init-build-env
-> bitbake poky-image-minimal-live
-
-The live image is mostly an x86'ism, and therefor depends on syslinux 
-(which doesn't work for ARM). For Beagleboard, just build 
-poky-image-minimal. For instructions on how to install it, see the 
-latest README.hardware.
-
---
-Darren
-
->
-> then i got message on my terminal as:
->
-> NOTE: Handling BitBake files: \ (0845/0845) [100 %]
-> Parsing of 845 .bb files complete (798 cached, 47 parsed). 977 targets,
-> 55 skipped, 0 masked, 0 errors.
->
-> OE Build Configuration:
-> BB_VERSION = "1.11.0"
-> METADATA_BRANCH = "<unknown>"
-> METADATA_REVISION = "<unknown>"
-> TARGET_ARCH = "arm"
-> TARGET_OS = "linux-gnueabi"
-> MACHINE = "beagleboard"
-> DISTRO = "poky"
-> DISTRO_VERSION = "0.9"
-> TARGET_FPU = "soft"
->
-> NOTE: Resolving any missing task queue dependencies
-> ERROR: Nothing PROVIDES 'syslinux'
-> ERROR: Required build target 'poky-image-minimal-live' has no buildable
-> providers.
-> Missing or unbuildable dependency chain was: ['poky-image-minimal-live',
-> 'syslinux']
-> Command execution failed: Traceback (most recent call last):
-> File
-> "/home/surya/Surya/pro/POKY/laverne-4.0.1/scripts/..//bitbake/lib/bb/command.py",
-> line 88, in runAsyncCommand
-> commandmethod(self.cmds_async, self, options)
-> File
-> "/home/surya/Surya/pro/POKY/laverne-4.0.1/scripts/..//bitbake/lib/bb/command.py",
-> line 184, in buildTargets
-> command.cooker.buildTargets(pkgs_to_build, task)
-> File
-> "/home/surya/Surya/pro/POKY/laverne-4.0.1/scripts/..//bitbake/lib/bb/cooker.py",
-> line 758, in buildTargets
-> taskdata.add_unresolved(localdata, self.status)
-> File
-> "/home/surya/Surya/pro/POKY/laverne-4.0.1/scripts/..//bitbake/lib/bb/taskdata.py",
-> line 535, in add_unresolved
-> self.remove_buildtarget(targetid)
-> File
-> "/home/surya/Surya/pro/POKY/laverne-4.0.1/scripts/..//bitbake/lib/bb/taskdata.py",
-> line 497, in remove_buildtarget
-> self.fail_fnid(self.tasks_fnid[taskid], missing_list)
-> File
-> "/home/surya/Surya/pro/POKY/laverne-4.0.1/scripts/..//bitbake/lib/bb/taskdata.py",
-> line 472, in fail_fnid
-> self.remove_buildtarget(target, missing_list)
-> File
-> "/home/surya/Surya/pro/POKY/laverne-4.0.1/scripts/..//bitbake/lib/bb/taskdata.py",
-> line 502, in remove_buildtarget
-> raise bb.providers.NoProvider(target)
-> NoProvider: poky-image-minimal-live
-> _____________________________________________________________________________
->
-> I noticed the dependancy of syslinux and open the file
-> laverne-4.0.1/meta/recipes-devtools/syslinux/syslinux_3.86.bb
-> and notice that COMPATIBLE_HOST = '(x86_64|i.86).*-(linux|freebsd.*)'
-> so I thought that it is X86 compatible so I downloaded
-> "recipes_images_beagleboard-demo-image.bb" from
-> http://gitorious.org/angstrom/openembedded/blobs/org.openembedded.dev/recipes/images/beagleboard-demo-image.bb
-> and added in laverne-4.0.1/meta/recipes-core/images and then i tried to
-> build as bitbake recipes_images_beagleboard-demo-image
-> and got error as :
->
-> NOTE: Handling BitBake files: \ (0845/0845) [100 %]
-> Parsing of 845 .bb files complete (797 cached, 48 parsed). 977 targets,
-> 55 skipped, 0 masked, 0 errors.
->
-> OE Build Configuration:
-> BB_VERSION = "1.11.0"
-> METADATA_BRANCH = "<unknown>"
-> METADATA_REVISION = "<unknown>"
-> TARGET_ARCH = "arm"
-> TARGET_OS = "linux-gnueabi"
-> MACHINE = "beagleboard"
-> DISTRO = "poky"
-> DISTRO_VERSION = "0.9"
-> TARGET_FPU = "soft"
->
-> ERROR: Nothing PROVIDES 'recipes_images_beagleboard-demo-image'
-> Command execution failed: Traceback (most recent call last):
-> File
-> "/home/surya/Surya/pro/POKY/laverne-4.0.1/scripts/..//bitbake/lib/bb/command.py",
-> line 88, in runAsyncCommand
-> commandmethod(self.cmds_async, self, options)
-> File
-> "/home/surya/Surya/pro/POKY/laverne-4.0.1/scripts/..//bitbake/lib/bb/command.py",
-> line 184, in buildTargets
-> command.cooker.buildTargets(pkgs_to_build, task)
-> File
-> "/home/surya/Surya/pro/POKY/laverne-4.0.1/scripts/..//bitbake/lib/bb/cooker.py",
-> line 756, in buildTargets
-> taskdata.add_provider(localdata, self.status, k)
-> File
-> "/home/surya/Surya/pro/POKY/laverne-4.0.1/scripts/..//bitbake/lib/bb/taskdata.py",
-> line 354, in add_provider
-> self.add_provider_internal(cfgData, dataCache, item)
-> File
-> "/home/surya/Surya/pro/POKY/laverne-4.0.1/scripts/..//bitbake/lib/bb/taskdata.py",
-> line 374, in add_provider_internal
-> raise bb.providers.NoProvider(item)
-> NoProvider: recipes_images_beagleboard-demo-image
->
-> please help me to solve the error.
->
-> Thanks in advenced
-> Sparsh
->
->
->
->
+> Richard
 >
 > _______________________________________________
 > poky mailing list
 > poky@yoctoproject.org
 > https://lists.yoctoproject.org/listinfo/poky
 
--- 
-Darren Hart
-Intel Open Source Technology Center
-Yocto Project - Linux Kernel
 
