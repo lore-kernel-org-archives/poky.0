@@ -1,39 +1,40 @@
 Return-Path: <srifenbark@gmail.com>
-Received: from mail-gw0-f48.google.com (unknown [74.125.83.48])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 4F5D84C80AB7
-	for <poky@yoctoproject.org>; Tue,  5 Apr 2011 08:33:35 -0500 (CDT)
+Received: from mail-gy0-f176.google.com (mail-gy0-f176.google.com
+	[209.85.160.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C0A384C80AC3
+	for <poky@yoctoproject.org>; Tue,  5 Apr 2011 08:33:38 -0500 (CDT)
 Authentication-Results: mx1.pokylinux.org; dkim=pass
 	(1024-bit key; insecure key) header.i=@gmail.com;
 	x-dkim-adsp=none (insecure policy)
-Received: by mail-gw0-f48.google.com with SMTP id 22so148292gwj.35
-	for <poky@yoctoproject.org>; Tue, 05 Apr 2011 06:33:35 -0700 (PDT)
+Received: by gya6 with SMTP id 6so149138gya.35
+	for <poky@yoctoproject.org>; Tue, 05 Apr 2011 06:33:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
 	h=domainkey-signature:message-id:in-reply-to:references:old-date
 	:subject:date:to:cc:from;
-	bh=URcFrDsXHuWFhqnfJrGTIRtcSO8nNy7xHWszk9BS/ys=;
-	b=wn6q3re4SDBinZBdG6caB4pFhQOmemY/7mWSPBhxPVN3WcZiwLEYQHll3n+2m3VE/l
-	xQe6a8mM4YBPT/Ia9xVU3idshinBkgt/wqUz0uxGE0mZX2FClqV3qZunllnGjYy8Xa6m
-	MeWjqqAnHq/2CU2dDFZFsKlQSY/ypEhiWA1Ec=
+	bh=PSBK+YCUvCfy4M2C0sHOepCnT5iO0dKicdHF1dB4+k4=;
+	b=a/aMjurN00liAVLL171nuA53dLA2Btw150nyVBVVMWY9Q4XHW0WJOuIWuUUDCzOli0
+	1XMNBQUeTxUzLMMIunnIAv8HSZwW1ZrOHPoiYCqStm9xsQXRmsjcizknqgKv5xtUYIwk
+	PzIn1riB165JFzme/c+MdRpoDc2uU3s6DMzG0=
 DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
 	h=message-id:in-reply-to:references:old-date:subject:date:to:cc:from;
-	b=ExcaD33zlXa2/XFOnJgrY0NnEDibMZjN1bx74Wwn7u6lbP7dgL/CCw4Y4hUlnNrhLL
-	dUx3jgVlfi99LLkN2v1LsdhPv8Wp7z7qlv6tyEQXhhCD2zpLyUiZnWt6WBWXK1V9ctAH
-	UXewL1bu4otimct5gOWw+F20XJAYt5QKloLF0=
-Received: by 10.236.77.199 with SMTP id d47mr9355219yhe.144.1302010415231;
-	Tue, 05 Apr 2011 06:33:35 -0700 (PDT)
+	b=TgUTyi3A2j0wjUXQhtv56lLIlNbHpNjlqOuaNEarvEtavFluJUne6PlVyuZiVL4jrm
+	FyCkLGwePGEvCgEKyTq39L9a7cRNX6f/PrzWuzvJwnNcMKYAHENzY8SVMWW8TIPvee25
+	D+7pP5tWcpIwj+8DhZjcimchhS9wwbyzbGK04=
+Received: by 10.236.170.201 with SMTP id p49mr9225513yhl.302.1302010418552;
+	Tue, 05 Apr 2011 06:33:38 -0700 (PDT)
 Received: from localhost ([190.197.29.62])
-	by mx.google.com with ESMTPS id 8sm2835340yhx.8.2011.04.05.06.33.32
+	by mx.google.com with ESMTPS id 62sm2834702yhl.38.2011.04.05.06.33.36
 	(version=TLSv1/SSLv3 cipher=OTHER);
-	Tue, 05 Apr 2011 06:33:33 -0700 (PDT)
-Message-Id: <725854f9c335ee3b0383d8eebcabc949a58d2a3d.1302009987.git.scott.m.rifenbark@intel.com>
+	Tue, 05 Apr 2011 06:33:37 -0700 (PDT)
+Message-Id: <b5b13af9413164a9163a10c2fc52cd2582c8a1b6.1302009987.git.scott.m.rifenbark@intel.com>
 In-Reply-To: <cover.1302009987.git.scott.m.rifenbark@intel.com>
 References: <cover.1302009987.git.scott.m.rifenbark@intel.com>
-Old-Date: Mon, 4 Apr 2011 18:12:25 -0500
-Date: Tue, 05 Apr 2011 06:33:33 -0700 (PDT)
+Old-Date: Mon, 4 Apr 2011 18:17:46 -0500
+Date: Tue, 05 Apr 2011 06:33:37 -0700 (PDT)
 To: poky@yoctoproject.org
 CC: 
 From: Scott Rifenbark <srifenbark@gmail.com>
-Subject: [PATCH 15/16] documentation/poky-ref-manual/ref-bitbake.xml: BitBake parsing section update
+Subject: [PATCH 16/16] documentation/poky-ref-manual/ref-bitbake.xml: style tags updated
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -45,37 +46,119 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 05 Apr 2011 13:33:35 -0000
+X-List-Received-Date: Tue, 05 Apr 2011 13:33:38 -0000
 
 From: Scott Rifenbark <scott.m.rifenbark@intel.com>
 
-In section B.1 (Parsing) it said that BBFILES variable by default
-specified the direcotyr 'meta/packages/' as the place to look for .bb
-files.  This directory is invalid and needed to be changed to
-'meta/packages/'.
+I got rid of the <filename class='directory'...> and
+<filename class='extension'...> and replaced with simple
+<filename>/</filename> pairs.
 
 Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
 ---
- documentation/poky-ref-manual/ref-bitbake.xml |    6 ++----
- 1 files changed, 2 insertions(+), 4 deletions(-)
+ documentation/poky-ref-manual/ref-bitbake.xml |   36 ++++++++++++------------
+ 1 files changed, 18 insertions(+), 18 deletions(-)
 
 diff --git a/documentation/poky-ref-manual/ref-bitbake.xml b/documentation/poky-ref-manual/ref-bitbake.xml
-index 4bea1e4..d870387 100644
+index d870387..75b3bf5 100644
 --- a/documentation/poky-ref-manual/ref-bitbake.xml
 +++ b/documentation/poky-ref-manual/ref-bitbake.xml
-@@ -80,10 +80,8 @@
+@@ -33,15 +33,15 @@
+ 
+         <para>
+             The first thing BitBake does is look for the <filename>bitbake.conf</filename> file.
+-            Poky keeps this file in <filename class="directory">meta/conf/</filename>.
++            Poky keeps this file in <filename>meta/conf/</filename>.
+             BitBake finds it by examining the <filename>BBPATH</filename> environment 
+-            variable and looking for the <filename class="directory">meta/conf/</filename> 
++            variable and looking for the <filename>meta/conf/</filename> 
+             directory.
+         </para>
+ 
+         <para>
+             In Poky, <filename>bitbake.conf</filename> lists other configuration 
+-            files to include from a <filename class="directory">conf/</filename> 
++            files to include from a <filename>conf/</filename> 
+             directory below the directories listed in <filename>BBPATH</filename>. 
+             In general the most important configuration file from a user's perspective 
+             is <filename>local.conf</filename>, which contains a user's customized 
+@@ -54,11 +54,11 @@
+             The DISTRO and MACHINE environment variables are both usually set in 
+             the <filename>local.conf</filename> file. 
+             Valid distribution 
+-            configuration files are available in the <filename class="directory">
++            configuration files are available in the <filename>
+             meta/conf/distro/</filename> directory and valid machine configuration 
+-            files in the <filename class="directory">meta/conf/machine/</filename> 
++            files in the <filename>meta/conf/machine/</filename> 
+             directory. 
+-            Within the <filename class="directory">meta/conf/machine/include/</filename> 
++            Within the <filename>meta/conf/machine/include/</filename> 
+             directory are various <filename>tune-*.inc</filename> configuration files that provide common 
+             "tuning" settings specific to and shared between particular architectures and machines.
+         </para>
+@@ -79,29 +79,29 @@
+             variable <glossterm><link linkend='var-BBFILES'>BBFILES</link></glossterm> 
              is set, usually in
              <filename>local.conf</filename>, and defines the list of places to search for 
-             <filename class="extension">.bb</filename> files. 
--            By default, the BBFILES variable specifies the <filename class="directory">meta/packages/
--            </filename> directory within Poky, but other directories such as
--            <filename class="directory">meta-extras/</filename> can be included 
--            too. 
-+            By default, the BBFILES variable specifies the <filename class="directory">meta/recipes-*/
-+            </filename> directory within Poky. 
+-            <filename class="extension">.bb</filename> files. 
+-            By default, the BBFILES variable specifies the <filename class="directory">meta/recipes-*/
++            <filename>.bb</filename> files. 
++            By default, the BBFILES variable specifies the <filename>meta/recipes-*/
+             </filename> directory within Poky. 
              Adding extra content to BBFILES is best achieved through the use of BitBake
              <link linkend='usingpoky-changes-layers'>"layers"</link>.
          </para>
+ 
+         <para>
+-            BitBake parses each <filename class="extension">.bb</filename> file in BBFILES and 
++            BitBake parses each <filename>.bb</filename> file in BBFILES and 
+             stores the values of various variables.  
+-            In summary, for each <filename class="extension">.bb</filename> 
++            In summary, for each <filename>.bb</filename> 
+             file the configuration plus the base class of variables are set, followed 
+-            by the data in the <filename class="extension">.bb</filename> file 
++            by the data in the <filename>.bb</filename> file 
+             itself, followed by any inherit commands that
+-            <filename class="extension">.bb</filename> file might contain.
++            <filename>.bb</filename> file might contain.
+         </para>
+ 
+         <para>
+-            Because parsing <filename class="extension">.bb</filename> files is a time 
++            Because parsing <filename>.bb</filename> files is a time 
+             consuming process, a cache is kept to speed up subsequent parsing. 
+-            This cache is invalid if the timestamp of the <filename class="extension">.bb</filename> 
++            This cache is invalid if the timestamp of the <filename>.bb</filename> 
+             file itself changes, or if the timestamps of any of the include, 
+-            configuration or class files the <filename class="extension">.bb</filename>
++            configuration or class files the <filename>.bb</filename>
+             file depends on changes.
+         </para>
+     </section>
+@@ -110,7 +110,7 @@
+         <title>Preferences and Providers</title>
+ 
+         <para>
+-            Once all the <filename class="extension">.bb</filename> files have been 
++            Once all the <filename>.bb</filename> files have been 
+             parsed, BitBake starts to build the target (poky-image-sato in the previous section's 
+             example) and looks for providers of that target.
+             Once a provider is selected, BitBake resolves all the dependencies for  
+@@ -200,11 +200,11 @@ PREFERRED_PROVIDER_virtual/kernel = "linux-rp"
+         <para>
+             As each task completes, a timestamp is written to the directory specified by the 
+             <glossterm><link linkend='var-STAMPS'>STAMPS</link></glossterm> variable (usually 
+-            <filename class="directory">build/tmp/stamps/*/</filename>). 
++            <filename>build/tmp/stamps/*/</filename>). 
+             On subsequent runs, BitBake looks at the STAMPS directory and does not rerun 
+             tasks that are already completed unless a timestamp is found to be invalid. 
+             Currently, invalid timestamps are only considered on a per 
+-            <filename class="extension">.bb</filename> file basis.
++            <filename>.bb</filename> file basis.
+             So, for example, if the configure stamp has a timestamp greater than the 
+             compile timestamp for a given target then the compile task would rerun.
+             Running the compile task again, however, has no effect on other providers 
 -- 
 1.7.0.4
 
