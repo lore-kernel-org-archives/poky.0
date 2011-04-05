@@ -1,40 +1,30 @@
-Return-Path: <srifenbark@gmail.com>
-Received: from mail-gy0-f176.google.com (mail-gy0-f176.google.com
-	[209.85.160.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C0A384C80AC3
-	for <poky@yoctoproject.org>; Tue,  5 Apr 2011 08:33:38 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by gya6 with SMTP id 6so149138gya.35
-	for <poky@yoctoproject.org>; Tue, 05 Apr 2011 06:33:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:message-id:in-reply-to:references:old-date
-	:subject:date:to:cc:from;
-	bh=PSBK+YCUvCfy4M2C0sHOepCnT5iO0dKicdHF1dB4+k4=;
-	b=a/aMjurN00liAVLL171nuA53dLA2Btw150nyVBVVMWY9Q4XHW0WJOuIWuUUDCzOli0
-	1XMNBQUeTxUzLMMIunnIAv8HSZwW1ZrOHPoiYCqStm9xsQXRmsjcizknqgKv5xtUYIwk
-	PzIn1riB165JFzme/c+MdRpoDc2uU3s6DMzG0=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=message-id:in-reply-to:references:old-date:subject:date:to:cc:from;
-	b=TgUTyi3A2j0wjUXQhtv56lLIlNbHpNjlqOuaNEarvEtavFluJUne6PlVyuZiVL4jrm
-	FyCkLGwePGEvCgEKyTq39L9a7cRNX6f/PrzWuzvJwnNcMKYAHENzY8SVMWW8TIPvee25
-	D+7pP5tWcpIwj+8DhZjcimchhS9wwbyzbGK04=
-Received: by 10.236.170.201 with SMTP id p49mr9225513yhl.302.1302010418552;
-	Tue, 05 Apr 2011 06:33:38 -0700 (PDT)
-Received: from localhost ([190.197.29.62])
-	by mx.google.com with ESMTPS id 62sm2834702yhl.38.2011.04.05.06.33.36
-	(version=TLSv1/SSLv3 cipher=OTHER);
-	Tue, 05 Apr 2011 06:33:37 -0700 (PDT)
-Message-Id: <b5b13af9413164a9163a10c2fc52cd2582c8a1b6.1302009987.git.scott.m.rifenbark@intel.com>
-In-Reply-To: <cover.1302009987.git.scott.m.rifenbark@intel.com>
-References: <cover.1302009987.git.scott.m.rifenbark@intel.com>
-Old-Date: Mon, 4 Apr 2011 18:17:46 -0500
-Date: Tue, 05 Apr 2011 06:33:37 -0700 (PDT)
-To: poky@yoctoproject.org
-CC: 
-From: Scott Rifenbark <srifenbark@gmail.com>
-Subject: [PATCH 16/16] documentation/poky-ref-manual/ref-bitbake.xml: style tags updated
+Return-Path: <tom.zanussi@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C26434C802F2
+	for <poky@yoctoproject.org>; Tue,  5 Apr 2011 09:10:14 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 05 Apr 2011 07:10:14 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.63,304,1299484800"; d="scan'208";a="729358395"
+Received: from unknown (HELO [10.255.12.208]) ([10.255.12.208])
+	by orsmga001.jf.intel.com with ESMTP; 05 Apr 2011 07:10:11 -0700
+From: Tom Zanussi <tom.zanussi@intel.com>
+To: v sailaja <vsailub4u@gmail.com>
+In-Reply-To: <BANLkTi=bhCcOF6Mr3v79s3aZ9Ae=+pKRLA@mail.gmail.com>
+References: <AANLkTi=K6AGvEvn0JJcFtx4MR9TRwL-VaDnkhaX=t7Lz@mail.gmail.com>
+	<AANLkTikeonvaG+5-p8Lr32Z36wRxVoSc_AJgCofKtuXS@mail.gmail.com>
+	<AANLkTimri2H+nN4y=Xa2eUsxtENZUqpAX17WqNgnf1Fm@mail.gmail.com>
+	<AANLkTimm282fdW7iwFv0NLvXW3QaC1Rc3S7tHPnNJnij@mail.gmail.com>
+	<AANLkTinWqFSqg8KOy1WVZHEpvqcsraZPna8JUdDLeXqy@mail.gmail.com>
+	<AANLkTi=z3FRBiLs2iCLLDhU3q6AvnbXiEGbsbNczykMN@mail.gmail.com>
+	<BANLkTini9Qz3JrRjWdbEWP5FG9xF_=mOdA@mail.gmail.com>
+	<BANLkTi=bhCcOF6Mr3v79s3aZ9Ae=+pKRLA@mail.gmail.com>
+Date: Tue, 05 Apr 2011 09:10:04 -0500
+Message-ID: <1302012604.23110.374.camel@elmorro>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: Problem in linux-yocto kernel 2.6.37 configuration while building with sugarbay machine
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,120 +36,153 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 05 Apr 2011 13:33:38 -0000
+X-List-Received-Date: Tue, 05 Apr 2011 14:10:15 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-From: Scott Rifenbark <scott.m.rifenbark@intel.com>
+On Tue, 2011-04-05 at 03:06 -0700, v sailaja wrote:
+> 
+> Hi,
+> 
+> I am trying to build poky image "piky-image-minimal-live"  for
+> "sugarbay" machine with linux-yocto kernel 2.6.37 kernel which
+> supports the sandy-bridge.
+> 
+> I clone poky source as git clone git://git.pokylinux.org/poky.git 
+> 
+> And  cloned for meta-intel from
+> http://git.pokylinux.org/cgit/cgit.cgi/meta-intel
+> 
+> Also made entries in bblayers.conf as  "meta-intel /meta-sugarbay"
+> 
+> My machine is 64bit one.
+> 
+> I made changes in sugarbay.conf, for building "i586" , as follows 
+> 
+> TARGET_ARCH = "i586"
+> TARGET_CC_ARCH = "-m32"
+> #TARGET_CC_ARCH = "-m64"
+> 
+> I tried to build it for both 32 and 64 bit.
+> 
+> I got the common error both time.
+> 
+> Error log:1
+> 
+> 
+> ---------------------------------------------*********************************************-----------------------------------
+> This BSP sets 24 kernel options that are possibly non-hardware
+> related.
+> The full list can be found in your workspace at:
+> /home/sailaja/new-poky/x86_64/
+> poky/build/tmp/work/sugarbay-poky-linux/linux-yocto-2.6.37+git1
+> +e2cabadc059ad8d91f7e4a023106620d93abd23a_1
+> +2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/linux/meta/cfg/yocto/standard/common-pc-64/sugarbay/specified_non_hdw.cfg
+> 
+> WARNING: There were 103 hardware options requested that do not
+>          have a corresponding value present in the final ".config"
+> file.
+>          This probably means you aren't getting the config you wanted.
+> The full list can be found in your workspace at:
+> /home/sailaja/new-poky/x86_64/poky/build/tmp/work/sugarbay-poky-linux/linux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/linux/meta/cfg/yocto/standard/common-pc-64/sugarbay/mismatch.cfg
+> 
+> Waiting a second to make sure you get a chance to see this...
+> NOTE: package linux-yocto-2.6.37+git1
+> +e2cabadc059ad8d91f7e4a023106620d93abd23a_1
+> +2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16: task
+> do_kernel_configcheck: Succeeded
+> NOTE: Running task 960 of 1998 (ID:
+> 857, /home/sailaja/new-poky/poky/meta/recipes-kernel/linux/linux-yocto_git.bb, do_compile)
+> NOTE: package linux-yocto-2.6.37+git1
+> +e2cabadc059ad8d91f7e4a023106620d93abd23a_1
+> +2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16: task do_compile:
+> Started
+> ERROR:
+> '/home/sailaja/new-poky/poky/meta/recipes-kernel/linux/linux-yocto_git.bb' failed
+> 
+> 
+> | /home/sailaja/new-poky/poky/build/tmp/work/sugarbay-poky-linux/linux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/linux/kernel/bounds.c:1:0: error: code model 'kernel' not supported in the 32 bit mode
+> | /home/sailaja/new-poky/poky/build/tmp/work/sugarbay-poky-linux/linux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/linux/kernel/bounds.c:1:0: sorry, unimplemented: 64-bit mode not compiled in
+> | make[3]: *** [kernel/bounds.s] Error 1
+> | make[2]: *** [prepare0] Error 2
+> | make[2]: *** Waiting for unfinished jobs....
+> | make[2]: *** [scripts] Error 2
+> | make[1]: *** [sub-make] Error 2
+> | make: *** [all] Error 2
+> | FATAL: oe_runmake failed
+> | ERROR: Function 'do_compile' failed
+> (see /home/sailaja/new-poky/poky/build/tmp/work/sugarbay-poky-linux/linux-yocto-2.6.37+git1+e2cabadc059ad8d91f7e4a023106620d93abd23a_1+2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16/temp/log.do_compile.29452 for further information)
+> NOTE: package linux-yocto-2.6.37+git1
+> +e2cabadc059ad8d91f7e4a023106620d93abd23a_1
+> +2b412826bbeb4a16abe2ea74f2456ab880c6e3c1-r16: task do_compile: Failed
+> ERROR: Task 857
+> (/home/sailaja/new-poky/poky/meta/recipes-kernel/linux/linux-yocto_git.bb, do_compile) failed with exit code '1'
+> ---------------******************************-------------------
+> 
+> I thought, the reason for this error is 
+> As My machine is 64 bit one. It is configured for the default
+> configurations  i.e., it is using the x86_64_defconfig and 64 bit is
+> enabled in the .config file.
+> This is because of misconfiguration.
+> 
+> I configured my kernel.
+> 
+> My build is done. But I am getting an error while building the rootfs.
+> 
+> Error log:2
+> 
+> ---------------------------------------********************************************-------------------------------------------------
+> NOTE: package poky-image-minimal-live-1.0-r0: task do_bootimg: Started
+> ERROR:
+> '/home/sailaja/new-poky/poky/meta/recipes-core/images/poky-image-minimal-live.bb' failed
+> ERROR: Function 'build_boot_bin' failed
+> (see /home/sailaja/new-poky/poky/build/tmp/work/snb-poky-linux/poky-image-minimal-live-1.0-r0/temp/log.do_bootimg.32052 for further information)
+> ERROR: Logfile of failure stored
+> in: /home/sailaja/new-poky/poky/build/tmp/work/snb-poky-linux/poky-image-minimal-live-1.0-r0/temp/log.do_bootimg.32052
+> Log data follows:
+> | install: cannot stat
+> `/home/sailaja/new-poky/poky/build/tmp/sysroots/sugarbay/kernel/bzImage': No such file or directory
+> | ERROR: Function 'build_boot_bin' failed
+> (see /home/sailaja/new-poky/poky/build/tmp/work/snb-poky-linux/poky-image-minimal-live-1.0-r0/temp/log.do_bootimg.32052 for further information)
+> NOTE: package poky-image-minimal-live-1.0-r0: task do_bootimg: Failed
+> ERROR: Task 8
+> (/home/sailaja/new-poky/poky/meta/recipes-core/images/poky-image-minimal-live.bb, do_bootimg) failed with exit code '1' Error
+> 
+> -------------------------------------------------************************************************------------------------------
+> 
+> 
+> Why it is happening?
+> Please Can anyone help me in finding the solution.
+> 
 
-I got rid of the <filename class='directory'...> and
-<filename class='extension'...> and replaced with simple
-<filename>/</filename> pairs.
+I've seen this too with master - bzImage is built ok and exists, but
+doesn't get copied or linked to in sysroots and fails.
 
-Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
----
- documentation/poky-ref-manual/ref-bitbake.xml |   36 ++++++++++++------------
- 1 files changed, 18 insertions(+), 18 deletions(-)
+I would suggest using poky/bernard instead of poky/master.  Using
+meta-intel/master should still be ok.
 
-diff --git a/documentation/poky-ref-manual/ref-bitbake.xml b/documentation/poky-ref-manual/ref-bitbake.xml
-index d870387..75b3bf5 100644
---- a/documentation/poky-ref-manual/ref-bitbake.xml
-+++ b/documentation/poky-ref-manual/ref-bitbake.xml
-@@ -33,15 +33,15 @@
- 
-         <para>
-             The first thing BitBake does is look for the <filename>bitbake.conf</filename> file.
--            Poky keeps this file in <filename class="directory">meta/conf/</filename>.
-+            Poky keeps this file in <filename>meta/conf/</filename>.
-             BitBake finds it by examining the <filename>BBPATH</filename> environment 
--            variable and looking for the <filename class="directory">meta/conf/</filename> 
-+            variable and looking for the <filename>meta/conf/</filename> 
-             directory.
-         </para>
- 
-         <para>
-             In Poky, <filename>bitbake.conf</filename> lists other configuration 
--            files to include from a <filename class="directory">conf/</filename> 
-+            files to include from a <filename>conf/</filename> 
-             directory below the directories listed in <filename>BBPATH</filename>. 
-             In general the most important configuration file from a user's perspective 
-             is <filename>local.conf</filename>, which contains a user's customized 
-@@ -54,11 +54,11 @@
-             The DISTRO and MACHINE environment variables are both usually set in 
-             the <filename>local.conf</filename> file. 
-             Valid distribution 
--            configuration files are available in the <filename class="directory">
-+            configuration files are available in the <filename>
-             meta/conf/distro/</filename> directory and valid machine configuration 
--            files in the <filename class="directory">meta/conf/machine/</filename> 
-+            files in the <filename>meta/conf/machine/</filename> 
-             directory. 
--            Within the <filename class="directory">meta/conf/machine/include/</filename> 
-+            Within the <filename>meta/conf/machine/include/</filename> 
-             directory are various <filename>tune-*.inc</filename> configuration files that provide common 
-             "tuning" settings specific to and shared between particular architectures and machines.
-         </para>
-@@ -79,29 +79,29 @@
-             variable <glossterm><link linkend='var-BBFILES'>BBFILES</link></glossterm> 
-             is set, usually in
-             <filename>local.conf</filename>, and defines the list of places to search for 
--            <filename class="extension">.bb</filename> files. 
--            By default, the BBFILES variable specifies the <filename class="directory">meta/recipes-*/
-+            <filename>.bb</filename> files. 
-+            By default, the BBFILES variable specifies the <filename>meta/recipes-*/
-             </filename> directory within Poky. 
-             Adding extra content to BBFILES is best achieved through the use of BitBake
-             <link linkend='usingpoky-changes-layers'>"layers"</link>.
-         </para>
- 
-         <para>
--            BitBake parses each <filename class="extension">.bb</filename> file in BBFILES and 
-+            BitBake parses each <filename>.bb</filename> file in BBFILES and 
-             stores the values of various variables.  
--            In summary, for each <filename class="extension">.bb</filename> 
-+            In summary, for each <filename>.bb</filename> 
-             file the configuration plus the base class of variables are set, followed 
--            by the data in the <filename class="extension">.bb</filename> file 
-+            by the data in the <filename>.bb</filename> file 
-             itself, followed by any inherit commands that
--            <filename class="extension">.bb</filename> file might contain.
-+            <filename>.bb</filename> file might contain.
-         </para>
- 
-         <para>
--            Because parsing <filename class="extension">.bb</filename> files is a time 
-+            Because parsing <filename>.bb</filename> files is a time 
-             consuming process, a cache is kept to speed up subsequent parsing. 
--            This cache is invalid if the timestamp of the <filename class="extension">.bb</filename> 
-+            This cache is invalid if the timestamp of the <filename>.bb</filename> 
-             file itself changes, or if the timestamps of any of the include, 
--            configuration or class files the <filename class="extension">.bb</filename>
-+            configuration or class files the <filename>.bb</filename>
-             file depends on changes.
-         </para>
-     </section>
-@@ -110,7 +110,7 @@
-         <title>Preferences and Providers</title>
- 
-         <para>
--            Once all the <filename class="extension">.bb</filename> files have been 
-+            Once all the <filename>.bb</filename> files have been 
-             parsed, BitBake starts to build the target (poky-image-sato in the previous section's 
-             example) and looks for providers of that target.
-             Once a provider is selected, BitBake resolves all the dependencies for  
-@@ -200,11 +200,11 @@ PREFERRED_PROVIDER_virtual/kernel = "linux-rp"
-         <para>
-             As each task completes, a timestamp is written to the directory specified by the 
-             <glossterm><link linkend='var-STAMPS'>STAMPS</link></glossterm> variable (usually 
--            <filename class="directory">build/tmp/stamps/*/</filename>). 
-+            <filename>build/tmp/stamps/*/</filename>). 
-             On subsequent runs, BitBake looks at the STAMPS directory and does not rerun 
-             tasks that are already completed unless a timestamp is found to be invalid. 
-             Currently, invalid timestamps are only considered on a per 
--            <filename class="extension">.bb</filename> file basis.
-+            <filename>.bb</filename> file basis.
-             So, for example, if the configure stamp has a timestamp greater than the 
-             compile timestamp for a given target then the compile task would rerun.
-             Running the compile task again, however, has no effect on other providers 
--- 
-1.7.0.4
+FYI, I've put a transcript of a successful build, from git checkout to
+image, here: 
+
+https://wiki.yoctoproject.org/wiki/Transcript:_from_git_checkout_to_meta-intel_BSP
+
+You should be able to just substitute 'sugarbay' for 'fishriver' to
+build for sugarbay...
+
+hth,
+
+Tom
+
+> 
+> 
+> 
+> 
+> 
+> 
+> -- 
+> Thanks & Regards,
+> SAI
+> 
+
 
 
