@@ -1,37 +1,40 @@
 Return-Path: <srifenbark@gmail.com>
-Received: from mail-yi0-f48.google.com (mail-yi0-f48.google.com
-	[209.85.218.48])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B7E7A4C80AC5
-	for <poky@yoctoproject.org>; Tue,  5 Apr 2011 13:23:23 -0500 (CDT)
+Received: from mail-yw0-f48.google.com (mail-yw0-f48.google.com
+	[209.85.213.48])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 9B1764C80B73
+	for <poky@yoctoproject.org>; Tue,  5 Apr 2011 13:23:26 -0500 (CDT)
 Authentication-Results: mx1.pokylinux.org; dkim=pass
 	(1024-bit key; insecure key) header.i=@gmail.com;
 	x-dkim-adsp=none (insecure policy)
-Received: by yia28 with SMTP id 28so350306yia.35
-	for <poky@yoctoproject.org>; Tue, 05 Apr 2011 11:23:23 -0700 (PDT)
+Received: by ywo32 with SMTP id 32so350153ywo.35
+	for <poky@yoctoproject.org>; Tue, 05 Apr 2011 11:23:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:message-id:old-date:subject:date:to:cc:from;
-	bh=byJ8Q2T0DVWbP1ppR9iluIkUsPkcBxQIIvJh+SNhhvM=;
-	b=epWVBwT/58Ua7awIHxJfrhwhZih/rU09cdxnacdpY99JVOsNcKlGBxQaUrcuLuA1jG
-	D4iTk3zRpEH1wuoUK9DNrGn8nch9GQpLj4s1JBnz4QyzuVg5jgH3FAVcvUvh26K2cyO/
-	I783j/XBDNvIhhffyKtYfOzPrC6GLvU6EOw4o=
+	h=domainkey-signature:message-id:in-reply-to:references:old-date
+	:subject:date:to:cc:from;
+	bh=wq9Q2DoirdLXL5AY1FWxtSQfF3DyPf38CdSccDQk4EQ=;
+	b=cACHNObD7bS4cjGAN3AbaTGgEQVUQ+3KrdeSblvxAEt5DCsPS/SVZoWCLlEk40OP5Y
+	DTWo9meyeLIQK28Oyr+MO8raSMdOV6PBRnwYqzcS0qz4G0WTL3+07hocEV/xkDUJLyad
+	lKD/rodBploeEtGKanWEjJVAxmVZDDL/FNLxk=
 DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=message-id:old-date:subject:date:to:cc:from;
-	b=V+hCSgXA3RpL4Mp2s11TcE8iAgIbPLrnSgsVjLw/uDfOWI/ZjBU1p2SEZCLqeKJSnc
-	VszHlRipKUry+tIgkbc6sQPdPngQCNSqz8YL5ENYck9pczovJABiJX70PRqZL43fQMmH
-	JPrYb+tdHJfCW2ViRdvxqIll69y701aE8D+OQ=
-Received: by 10.236.185.1 with SMTP id t1mr127yhm.88.1302027803450;
-	Tue, 05 Apr 2011 11:23:23 -0700 (PDT)
+	h=message-id:in-reply-to:references:old-date:subject:date:to:cc:from;
+	b=HpYuO8fLcteEbc0ppKuLyj81hjmPiPyXrbcQpR2prgBDLenwmOQThSFApFVw/Tj8Iz
+	3WEIyvSAk5CUoD0KPfUVLf4mds5CMvPSFw+gv0LSK4Lk6hXTNKgsug4R66mCsgBY2OvD
+	WI6X+PM/JFtMqSPCtxBVkp7LWPLciPTOCrZ8U=
+Received: by 10.150.213.9 with SMTP id l9mr890305ybg.37.1302027805703;
+	Tue, 05 Apr 2011 11:23:25 -0700 (PDT)
 Received: from localhost ([190.197.29.62])
-	by mx.google.com with ESMTPS id l27sm1830851yhn.5.2011.04.05.11.23.22
+	by mx.google.com with ESMTPS id q34sm229796ybk.3.2011.04.05.11.23.24
 	(version=TLSv1/SSLv3 cipher=OTHER);
-	Tue, 05 Apr 2011 11:23:22 -0700 (PDT)
-Message-Id: <cover.1302026025.git.scott.m.rifenbark@intel.com>
-Old-Date: Tue, 5 Apr 2011 12:53:45 -0500
-Date: Tue, 05 Apr 2011 13:23:20 -0500
+	Tue, 05 Apr 2011 11:23:25 -0700 (PDT)
+Message-Id: <2c1b2cb71752a511714ead6bc01b1e937f606bb3.1302026025.git.scott.m.rifenbark@intel.com>
+In-Reply-To: <cover.1302026025.git.scott.m.rifenbark@intel.com>
+References: <cover.1302026025.git.scott.m.rifenbark@intel.com>
+Old-Date: Thu, 31 Mar 2011 17:43:20 -0500
+Date: Tue, 05 Apr 2011 13:23:22 -0500
 To: poky@yoctoproject.org
 CC: 
 From: Scott Rifenbark <srifenbark@gmail.com>
-Subject: [PATCH 0/2] [DOCS] ADT Manual updates
+Subject: [PATCH 1/2] documentation/adt-manual/adt-eclipse.xml: Updated repo URL for Eclipse Plug-in
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,31 +46,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 05 Apr 2011 18:23:23 -0000
+X-List-Received-Date: Tue, 05 Apr 2011 18:23:26 -0000
 
 From: Scott Rifenbark <scott.m.rifenbark@intel.com>
 
-Updated the makefile so that the tar command includes the PDF file.
-The other commit I thought had been merged but is showing up when I 
-create the pull request.  Please be sure it is in master.  If it has 
-not been merged please merge it.
+Updated the URL that points to the Yocto Eclipse Plug-in to
+http://www.yoctoproject.org/downloads/eclipse-plugin/1.0.
 
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: srifenbark/adt-work
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=srifenbark/adt-work
-
-Thanks,
-    Scott Rifenbark <scott.m.rifenbark@intel.com>
+Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
 ---
-
-
-Scott Rifenbark (2):
-  documentation/adt-manual/adt-eclipse.xml:  Updated repo URL for
-    Eclipse Plug-in
-  documentation/adt-manual/Makefile: Added PDF file to the tarball
-
- documentation/adt-manual/Makefile        |    2 +-
  documentation/adt-manual/adt-eclipse.xml |    2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/documentation/adt-manual/adt-eclipse.xml b/documentation/adt-manual/adt-eclipse.xml
+index 7c0ee06..3e1596d 100644
+--- a/documentation/adt-manual/adt-eclipse.xml
++++ b/documentation/adt-manual/adt-eclipse.xml
+@@ -103,7 +103,7 @@
+                 Expand the items under “Linux Tools” and select “Autotools support for 
+                 CDT (Incubation)”.</para></listitem>
+                 <listitem><para><emphasis>Yocto Plug-in</emphasis> – 
+-                <ulink url='http://www.yoctoproject.org/downloads/eclipse-plugin/'></ulink>:
++                <ulink url='http://www.yoctoproject.org/downloads/eclipse-plugin/1.0'></ulink>:
+                 Check the box next to “Development tools &amp; SDKs for Yocto Linux” 
+                 to select all the items.</para></listitem>
+             </orderedlist>
+-- 
+1.7.0.4
 
 
