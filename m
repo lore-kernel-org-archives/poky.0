@@ -1,23 +1,28 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2E0FD4C802F2;
-	Tue,  5 Apr 2011 14:17:29 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 05 Apr 2011 12:17:28 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,306,1299484800"; d="scan'208";a="414283772"
-Received: from unknown (HELO [10.255.12.228]) ([10.255.12.228])
-	by azsmga001.ch.intel.com with ESMTP; 05 Apr 2011 12:17:14 -0700
-Message-ID: <4D9B6AB9.3000408@linux.intel.com>
-Date: Tue, 05 Apr 2011 12:17:13 -0700
-From: Saul Wold <sgw@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
-MIME-Version: 1.0
-To: Yocto Project Discussion <yocto@yoctoproject.org>, 
-	"poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Patch Comments and Upstream-Status
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 135564C800A2
+	for <poky@yoctoproject.org>; Tue,  5 Apr 2011 16:24:03 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p35LO1di002702;
+	Tue, 5 Apr 2011 22:24:01 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 02402-01-5; Tue,  5 Apr 2011 22:23:53 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p35LLBT3001652
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Tue, 5 Apr 2011 22:21:15 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: poky <poky@yoctoproject.org>, openembedded-core
+	<openembedded-core@lists.openembedded.org>
+Date: Tue, 05 Apr 2011 12:02:45 +0100
+Message-ID: <1302001365.24596.459.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.2 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Subject: Proposed Multilib Implementation Brainstorming
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,73 +34,122 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 05 Apr 2011 19:17:29 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Tue, 05 Apr 2011 21:24:04 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
+One of the items on our post 1.0 schedule is multilib and we need a plan
+of implementation. I've been thinking about this for a while and at
+least have some ideas how some of the issues can be handled.
 
-Yocto Contributors:
+In case anyone isn't familiar with the idea of multilibs, the most
+common example are x86 systems which have both 32 bit and 64 bit
+libraries installed at the same time in /lib/ and /lib64/ directories or
+similar and hence both types of binaries can be used.
 
-Do you ever wonder why a patch exists?  Thought that it should be part 
-of the upstream project?
+The number of libs isn't limited to two choices as for example the mips
+platform has three choices which can be used in parallel. The x32 ABI
+would mean three possible x86 options too. 
 
-Well now's your chance to help as we move forward with our next release, 
-we want to improve the quality of the patch comments and ensure that 
-patches that can be included in the upstream projects are. The goal is 
-to reduce the total number of patches that we need to carry forward and 
-maintain, this will improve the overall quality of the project.
+The first step is being able to build given recipes for each of a set of
+given multilibs. This is very similar in principle to the way
+BBCLASSEXTEND is used, the difference it that whilst the native or
+nativesdk classes are used once, for multilib we need a kind of multiple
+inheritance of a class assuming we don't want one class per multilib.
 
-The wiki has been updated to include information about what we would 
-like to see in the patch comments, including a format for a new field
-Upstream-Status.
+To do this I'm thinking of a new set of include files of the form
+conf/machine/include/multilib-xxxx.inc, similar in nature to the
+tune-xxx.inc files. A given setup would include each of the multilibs it
+requred. Each multilib include file would look something like:
 
-When creating new patches, updating existing recipes, please take a few 
-minutes to ensure that all the patches have the Upstream-Status field 
-and if appropriate start the process of requesting the upstream project 
-to accept the patch.
+conf/machine/include/multilib-x86-lib32.inc:
 
-The format and possible status key works are as follows:
+MULTILIBS += "lib32"
 
-Upstream-Status:
-Pending
-  No determination has been made yet or not yet submitted to upstream
-Submitted
-  Submitted to upstream, waiting approval
-Accepted
-  Accepted in upstream, expect it to be removed at next update, include 
-expected version info
-Backport
-  Backported from new upstream version, because we are at a fixed 
-version, include upstream version info
-Denied
-  Not accepted by upstream, include reason in patch
-Inappropriate [reason]
-  The patch is not appropriate for upstream, include a brief reason on 
-the same line enclosed with []
-  Reason can be:
-	native
-	licensing
-	enable feature
-	disable feature
-	bugfix (add bug url here)
-	embedded specific
-	other (give details in comments)
+BASE_PACKAGE_ARCH_virtclass-multilib-lib32 = "core2-lib32"
+TARGET_CC_ARCH_virtclass-multilib-lib32 = "-m32 -march=core2"
+PACKAGE_EXTRA_ARCHS += "core2-lib32"
 
-If you are a maintainer of recipes, please work through your patches and 
-submit poky  pull requests and upstream patch submissions.
+libdir_virtclass-multilib-lib32 = "${exec_prefix}/lib32"
+base_libdir_virtclass-multilib-lib32 = "${base_prefix}/lib32"
 
-Wiki Page:
+i.e. use overrides to change the target cc architecture specifying the
+required flags to the compiler and also alter the library paths as
+required.
 
-http://wiki.yoctoproject.org/wiki/Best_Known_Methods_%28BKMs%29_for_Package_Updating#Patch_Comments
+I'm envisaging passing an optional new parameter to classes in
+BBCLASSEXTEND so for example the definition of a multilib could look
+something like:
 
-Please let me know if you have any comments or suggestions to improve 
-this process.
+BBCLASSEXTEND_append = " multilib:x86-lib32"
 
-Thanks
-     Sau!
+and all the multilib class would need to do is to manipulation of
+variables including OVERRIDES in a similar way to native.bbclass with
+the complication of handling the parameter.
 
-Saul Wold
-Yocto Component Wrangler @ Intel
-Yocto Project / Poky Build System
+The toolchain bootstrap process would become a little complicated by
+this. We'll need to be able to iterate over the list of multilibs and
+configure the compiler with a configuration appropriate to the multilibs
+requested. The compiler should then take care of generating a suitable
+libgcc for each multilib. Where the compiler currently depends on
+virtual/libc-initial, we'll need with a function called to generate the
+dependecies so for example: "virtual/libc virtual/libc-initial-lib32"
+
+The toolchain bootstrap process would hence become something like:
+
+gcc-cross-initial
+libc-initial
+libc-initial-lib32
+gcc-cross-intermediate
+libc
+libc-lib32
+gcc-cross
+libgcc (package)
+libgcc-lib32 (package)
+gcc-runtime
+gcc-runtime-lib32
+
+So for any multilib, we're stuck with always building the libc due to
+the way gcc handles multilib. For subsequent tasks, only the libs
+requested in a give image in a given ABI would be built.
+
+Note that as far as the build system is concerned there become distinct
+targets for each ABI so "bitbake mysql" would build the default library
+type, "bitbake mysql-lib32" would build the 32 bit version. Including
+both "mysql" and "mysql-lib32" in an image is where things get
+interesting, the build system will ensure they're both built, then it
+becomes the problem of the image creation and package
+creation/management processes.
+
+The final tricky part of the puzzle which is under the guidance of the
+package manager. rpm has extensive pre-existing mutlilib support. opkg
+has none.
+
+It should be possible to convert the build system package name
+libmysql-libx32 into just "libmysql" for the benefit of rpm and use
+rpm's package flavours to handle the multilib issues.
+
+For opkg there are multiple levels we can take the integration to. It
+should be possible for example to install the "weaker" multilibs first,
+then just install the stronger ones over the top, assuming any file
+overwriting is ok and can be ignored. Teaching opkg about proper
+multilib support would be a bigger project but would be much less of a
+hack/workaround.
+
+So to summarise the steps needed are:
+
+a) bitbake enhancement for BBCLASSEXTEND parameter support
+b) Add simple multilib build configuration
+c) Update toolchain bootstrap with multilibs support
+d) Add RPM multilib packaging
+e) Look at opkg multilib integration
+
+
+Does this make sense to everyone, are there any questions/ objections/
+concerns/ things I've missed?
+
+Cheers,
+
+Richard
 
 
