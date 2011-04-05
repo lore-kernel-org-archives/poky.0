@@ -1,40 +1,40 @@
 Return-Path: <srifenbark@gmail.com>
-Received: from mail-yi0-f48.google.com (mail-yi0-f48.google.com
-	[209.85.218.48])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 455514C80ACD
-	for <poky@yoctoproject.org>; Tue,  5 Apr 2011 08:33:24 -0500 (CDT)
+Received: from mail-yw0-f48.google.com (mail-yw0-f48.google.com
+	[209.85.213.48])
+	by mx1.pokylinux.org (Postfix) with ESMTP id DDD634C80ABA
+	for <poky@yoctoproject.org>; Tue,  5 Apr 2011 08:33:27 -0500 (CDT)
 Authentication-Results: mx1.pokylinux.org; dkim=pass
 	(1024-bit key; insecure key) header.i=@gmail.com;
 	x-dkim-adsp=none (insecure policy)
-Received: by mail-yi0-f48.google.com with SMTP id 28so149126yia.35
-	for <poky@yoctoproject.org>; Tue, 05 Apr 2011 06:33:24 -0700 (PDT)
+Received: by mail-yw0-f48.google.com with SMTP id 32so149921ywo.35
+	for <poky@yoctoproject.org>; Tue, 05 Apr 2011 06:33:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
 	h=domainkey-signature:message-id:in-reply-to:references:old-date
 	:subject:date:to:cc:from;
-	bh=d0xVGmLWC6okf2jqnPOJRnQGu5GQYwMoy2gqAbbUFOE=;
-	b=LXdglUmkq3npP47tLPWunzxDfQoss9BRb1NY4LwlsVXRGk4spwFuI6QnyyX0UgwlcX
-	recm3zpPLij5PgE/TCs8m6uIAnNa6E3ObR8F2LLwkQBqM/b93ymSv+BOUVi6MIhD8Qjn
-	8DEtGJ2GV2dhfL34Rjfz3mePKPpfY7iblcrwk=
+	bh=2XvYeHJEmT/fC4uTBi5fKs+muEPYHbbkPQXEJi4FT1I=;
+	b=f+3v//m4+ilr+3DRxo5j0A73rWjSEW52SwrPxnZV98YYbk7IsqjiHFzvznOPNtKfO8
+	rMDMHIlf9T3w3TZLgru3hz4E4vcxpOM0BueZbOvJ/OZrWFeO92NcVLh8X6x3AHPe5xGI
+	IMu+DXSoA4CGqSqcNABZcwOYLRS5h8/D08W28=
 DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
 	h=message-id:in-reply-to:references:old-date:subject:date:to:cc:from;
-	b=ae9UbHMvT+Ke+D2Vit4Opjv7DOXlYQJy2ldEooi8X0RDDZ0WG38eShTdEnKd3WKgDH
-	z0xWAqnjOeW1BW4kcwX+tiAWnZSPyUFLKfF3UEZdoE8qQODLO13iFoKE5ORp+VYzrlBm
-	MYwUL5YXxtl2GNtb4KcEDfGfsRM+5IIc5n+4E=
-Received: by 10.90.195.11 with SMTP id s11mr540127agf.160.1302010404085;
-	Tue, 05 Apr 2011 06:33:24 -0700 (PDT)
+	b=C04duzvtNLUthgj7zjJarQYaoVedjJeiKMGbdJpG75wEZqbYAPea5Yc5EYU+CKD2OC
+	imtjRFQKx0YpQqf5ByTPYNEWELdF+7hRZ12RryxzXSYJ/NKxFW6+Z21AujpLwTyWIIZ+
+	R0y9Kz6or67fPRsdunHNkqQC/0kJ1PjAKHdCE=
+Received: by 10.91.203.40 with SMTP id f40mr525229agq.185.1302010407751;
+	Tue, 05 Apr 2011 06:33:27 -0700 (PDT)
 Received: from localhost ([190.197.29.62])
-	by mx.google.com with ESMTPS id c21sm4385984anc.14.2011.04.05.06.33.22
+	by mx.google.com with ESMTPS id c24sm6523558ana.21.2011.04.05.06.33.25
 	(version=TLSv1/SSLv3 cipher=OTHER);
-	Tue, 05 Apr 2011 06:33:23 -0700 (PDT)
-Message-Id: <d388f1df59c07bbbd70a292e0d3f65d35d145358.1302009987.git.scott.m.rifenbark@intel.com>
+	Tue, 05 Apr 2011 06:33:26 -0700 (PDT)
+Message-Id: <7f8d637204c31d58a1323cfb037aac901e604857.1302009987.git.scott.m.rifenbark@intel.com>
 In-Reply-To: <cover.1302009987.git.scott.m.rifenbark@intel.com>
 References: <cover.1302009987.git.scott.m.rifenbark@intel.com>
-Old-Date: Mon, 4 Apr 2011 16:49:31 -0500
-Date: Tue, 05 Apr 2011 06:33:23 -0700 (PDT)
+Old-Date: Mon, 4 Apr 2011 17:49:11 -0500
+Date: Tue, 05 Apr 2011 06:33:26 -0700 (PDT)
 To: poky@yoctoproject.org
 CC: 
 From: Scott Rifenbark <srifenbark@gmail.com>
-Subject: [PATCH 12/16] documentation/poky-ref-manual/ref-classes.xml: tag updates
+Subject: [PATCH 13/16] documentation/poky-ref-manual/ref-structure.xml: Edits for Rel 1.0
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,164 +46,223 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 05 Apr 2011 13:33:24 -0000
+X-List-Received-Date: Tue, 05 Apr 2011 13:33:28 -0000
 
 From: Scott Rifenbark <scott.m.rifenbark@intel.com>
 
-Removed the various styles for commands and such and replaced with
-simple <filename>/</filename> pairs.
+These edits reflect changes in the directory structure from the 0.9
+version of the software to the 1.0 version.  This set of changes still
+is missing a few items.  Changes were based on Saul Wold's input.
 
 Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
 ---
- documentation/poky-ref-manual/ref-classes.xml |   87 +++++++++----------------
- 1 files changed, 32 insertions(+), 55 deletions(-)
+ documentation/poky-ref-manual/ref-structure.xml |  103 +++++++++++++++++++++--
+ 1 files changed, 97 insertions(+), 6 deletions(-)
 
-diff --git a/documentation/poky-ref-manual/ref-classes.xml b/documentation/poky-ref-manual/ref-classes.xml
-index 1402955..8eb94c2 100644
---- a/documentation/poky-ref-manual/ref-classes.xml
-+++ b/documentation/poky-ref-manual/ref-classes.xml
-@@ -6,14 +6,14 @@
+diff --git a/documentation/poky-ref-manual/ref-structure.xml b/documentation/poky-ref-manual/ref-structure.xml
+index 7ebf9bd..4cfd08f 100644
+--- a/documentation/poky-ref-manual/ref-structure.xml
++++ b/documentation/poky-ref-manual/ref-structure.xml
+@@ -61,7 +61,7 @@
+         </para>
+     </section>
  
- <para>
-     Class files are used to abstract common functionality and share it amongst multiple 
--    <filename class="extension">.bb</filename> files. Any metadata usually found in a 
--    <filename class="extension">.bb</filename> file can also be placed in a class 
-+    <filename>.bb</filename> files. Any metadata usually found in a 
-+    <filename>.bb</filename> file can also be placed in a class 
-     file. Class files are identified by the extension 
--    <filename class="extension">.bbclass</filename> and are usually placed 
--    in a <filename class="directory">classes/</filename> directory beneath the 
--    <filename class="directory">meta*/</filename> directory or the directory pointed
--    by BUILDDIR (e.g. <filename class="directory">build/</filename>)in the same way as
--    <filename class="extension">.conf</filename> files in the <filename 
-+    <filename>.bbclass</filename> and are usually placed 
-+    in a <filename>classes/</filename> directory beneath the 
-+    <filename>meta*/</filename> directory or the directory pointed
-+    by BUILDDIR (e.g. <filename>build/</filename>)in the same way as
-+    <filename>.conf</filename> files in the <filename 
-     class="directory">conf</filename> directory. Class files are searched for 
-     in BBPATH in the same was as <filename>.conf</filename> files too.
- </para>
-@@ -28,7 +28,7 @@
-     <title>The base class - <filename>base.bbclass</filename></title>
+-    <section id='structure-core-meta-extras'>
++<!--    <section id='structure-core-meta-extras'>
+         <title><filename class="directory">meta-extras/</filename></title>
  
-     <para>
--        The base class is special in that every <filename class="extension">.bb</filename> 
-+        The base class is special in that every <filename>.bb</filename> 
-         file inherits it automatically. It contains definitions of standard basic 
-         tasks such as fetching, unpacking, configuring (empty by default), compiling 
-         (runs any Makefile present), installing (empty by default) and packaging 
-@@ -94,54 +94,31 @@
+         <para>
+@@ -70,8 +70,25 @@
+             This metadata is disabled by default and is not supported as part of Poky.
+         </para>
+     </section>
++-->
++
++    <section id='structure-core-meta-demoapps'>
++        <title><filename class="directory">meta-demoapps/</filename></title>
++
++        <para>
++            This directory contains recipes for applications and demos that are not core.
++        </para>
++    </section>
++
++    <section id='structure-core-meta-rt'>
++        <title><filename class="directory">meta-rt/</filename></title>
  
-     <para>
-         Several programs can fulfill the same or similar function and
--        they can be installed with the same name. For example the <command>ar</command> 
-+        be installed with the same name. 
-+        For example, the <filename>ar</filename> 
-         command is available from the "busybox", "binutils" and "elfutils" packages. 
--        This class handles the renaming of the binaries so multiple packages 
--        can be installed which would otherwise conflict and yet the 
--        <command>ar</command> command still works regardless of which are installed
--        or subsequently removed. It renames the conflicting binary in each package 
-+        The <filename>update-alternatives.bbclass</filename> class handles renaming the 
-+        binaries so that multiple packages can be installed without conflicts. 
-+        The <filename>ar</filename> command still works regardless of which packages are installed
-+        or subsequently removed. 
-+        The class renames the conflicting binary in each package 
-         and symlinks the highest priority binary during installation or removal 
-         of packages.
--
-+    </para>
-+    <para>
-         Four variables control this class:
-     </para>
--
--
--    <variablelist>
--    <varlistentry>
--    <term>ALTERNATIVE_NAME</term>
--    <listitem>
--       <para>
--            Name of binary which will be replaced (<command>ar</command> in this example)
--       </para>
--    </listitem>
--    </varlistentry>
--    <varlistentry>
--    <term>ALTERNATIVE_LINK</term>
--    <listitem>
--        <para>
--            Path to resulting binary ("/bin/ar" in this example)
--        </para>
--    </listitem>
--    </varlistentry>
--    <varlistentry>
--    <term>ALTERNATIVE_PATH</term>
--    <listitem>
--        <para>
--            Path to real binary ("/usr/bin/ar.binutils" in this example)
--        </para>
--    </listitem>
--    </varlistentry>
--    <varlistentry>
--    <term>ALTERNATIVE_PRIORITY</term>
--    <listitem>
--        <para>
--            Priority of binary, the version with the most features should have the highest priority
--        </para>
--    </listitem>
--    </varlistentry>
--    </variablelist>
--
-+    <itemizedlist>
-+        <listitem><para><filename>ALTERNATIVE_NAME</filename> &dash; The name of the 
-+        binary that is replaced (<filename>ar</filename> in this example).</para></listitem>
-+        <listitem><para><filename>ALTERNATIVE_LINK</filename> &dash; The path to 
-+        the resulting binary (<filename>/bin/ar</filename> in this example).</para></listitem>
-+        <listitem><para><filename>ALTERNATIVE_PATH</filename> &dash; The path to the 
-+        real binary (<filename>/usr/bin/ar.binutils</filename> in this example).</para></listitem>
-+        <listitem><para><filename>ALTERNATIVE_PRIORITY</filename> &dash; The priority of 
-+        the binary. 
-+        The version with the most features should have the highest priority.</para></listitem>
-+    </itemizedlist>
-     <para>
- 	Currently, only one binary per package is supported.
-     </para>
-@@ -175,7 +152,7 @@
-     <para>
-         During staging Bitbake installs such scripts into the <filename 
-         class="directory">sysroots/</filename> directory. It also changes all
--        paths to point into the <filename class="directory">sysroots/</filename>
-+        paths to point into the <filename>sysroots/</filename>
-         directory so all builds which use the script will use the correct 
-         directories for the cross compiling layout.
-     </para>
-@@ -218,7 +195,7 @@
-     </para>
+-    <section id='structure-core-meta-***'>
++        <para>
++            This directory contains recipes for RealTime.
++        </para>
++    </section>
++
++<!--    <section id='structure-core-meta-***'>
+         <title><filename class="directory">meta-***/</filename></title>
  
-     <para>
--        Result of their work are <filename class="directory">tmp/deploy/source/</filename> 
-+        Result of their work are <filename>tmp/deploy/source/</filename> 
-         subdirs with sources sorted by <glossterm><link linkend='var-LICENSE'>LICENSE</link>
-         </glossterm> field. If recipe lists few licenses (or has entries like "Bitstream Vera") source archive is put in each
-         license dir.
-@@ -322,7 +299,7 @@
-     </para>
-     <para>
-         This means that each kernel module built is packaged separately and inter-module dependencies are
--        created by parsing the <command>modinfo</command> output. If all modules are
-+        created by parsing the <filename>modinfo</filename> output. If all modules are
-         required then installing the "kernel-modules" package will install all
-         packages with modules and various other kernel packages such as "kernel-vmlinux".
-     </para>
-@@ -406,7 +383,7 @@
+         <para>
+@@ -79,6 +96,7 @@
+             The layers are enabled by adding them to the <filename>conf/bblayers.conf</filename> file.
+         </para>
+     </section>
++-->
  
-     <para>
-         Only the most useful/important classes are covered here but there are 
--        others, see the <filename class="directory">meta/classes</filename> directory for the rest. 
-+        others, see the <filename>meta/classes</filename> directory for the rest. 
-     </para>
+     <section id='structure-core-scripts'>
+         <title><filename class="directory">scripts/</filename></title>
+@@ -91,7 +109,7 @@
+         </para>
+     </section>
+ 
+-    <section id='structure-core-sources'>
++<!--    <section id='structure-core-sources'>
+         <title><filename class="directory">sources/</filename></title>
+ 
+         <para>
+@@ -123,6 +141,7 @@
+             <filename class="extension">.md5</filename> file as well.
+         </para>
+     </section>
++-->
+ 
+     <section id='handbook'>
+         <title><filename class="directory">documentation</filename></title>
+@@ -159,11 +178,28 @@
+             like Poky to generate the build output.
+         </para>
+     </section>
++
++    <section id='structure-basic-top-level'>
++        <title><filename>LICENSE, README, and README.hardware</filename></title>
++
++        <para>
++            These files are standard top-level files. 
++        </para>
++    </section>
  </section>
  
+ <section id='structure-build'>
+     <title>The Build Directory - <filename class="directory">build/</filename></title>
+ 
++    <section id='structure-build-pseudodone'>
++        <title><filename>build/pseudodone</filename></title>
++
++        <para>
++            This tag file indicates that the intitial pseudo binar was created. 
++            The first time BitBake is invoked this file is built. 
++        </para>
++    </section>
++
+     <section id='structure-build-conf-local.conf'>
+         <title><filename>build/conf/local.conf</filename></title>
+ 
+@@ -197,6 +233,36 @@
+         </para>
+     </section>
+ 
++    <section id='structure-build-conf-sanity_info'>
++        <title><filename>build/conf/sanity_info</filename></title>
++
++        <para>
++            This file is created during the build to indicate the state of the sanity checks.
++        </para>
++    </section>
++
++    <section id='structure-build-downloads'>
++        <title><filename>build/downloads/</filename></title>
++
++        <para>
++            This directory is used for the upstream source tarballs.
++            The directory can be reused by multiple builds or moved to another location. 
++            You can control the location of this directory through the
++            <glossterm><link linkend='var-DL_DIR'>DL_DIR</link></glossterm> variable.
++        </para>
++    </section>
++
++    <section id='structure-build-sstate-cache'>
++        <title><filename>build/sstate-cache/</filename></title>
++
++        <para>
++            This directory is used for the shared state cache.
++            The directory can be reused by multiple builds or moved to another location. 
++            You can control the location of this directory through the
++            <glossterm><link linkend='var-SSTATE_DIR'>SSTATE_DIR</link></glossterm> variable.
++        </para>
++    </section>
++
+     <section id='structure-build-tmp'>
+         <title><filename class="directory">build/tmp/</filename></title>
+ 
+@@ -210,6 +276,14 @@
+         </para>
+     </section>
+ 
++    <section id='structure-build-tmp-buildstats'>
++        <title><filename class="directory">build/tmp/buildstats/</filename></title>
++
++        <para>
++            This directory stores the build statistics.
++        </para>
++    </section>
++
+     <section id='structure-build-tmp-cache'>
+         <title><filename class="directory">build/tmp/cache/</filename></title>
+ 
+@@ -230,7 +304,7 @@
+         <title><filename class="directory">build/tmp/deploy/deb/</filename></title>
+ 
+         <para>
+-            This directory receives any .deb packages produced by Poky.
++            This directory receives any <filename>.deb</filename> packages produced by Poky.
+             The packages are sorted into feeds for different architecture types.
+         </para>
+     </section>
+@@ -239,7 +313,7 @@
+         <title><filename class="directory">build/tmp/deploy/rpm/</filename></title>
+ 
+         <para>
+-            This directory receives any .rpm packages produced by Poky.  
++            This directory receives any <filename>.rpm</filename> packages produced by Poky.  
+             The packages re sorted into feeds for different architecture types.
+         </para>
+     </section>
+@@ -256,7 +330,7 @@
+     <section id='structure-build-tmp-deploy-ipk'>
+         <title><filename class="directory">build/tmp/deploy/ipk/</filename></title>
+ 
+-        <para>This directory receives .ipk packages produced by Poky.</para>
++        <para>This directory receives <filename>.ipk</filename> packages produced by Poky.</para>
+     </section>
+ 
+     <section id='structure-build-tmp-sysroots'>
+@@ -512,6 +586,15 @@
+         </para>
+     </section>
+ 
++    <section id='structure-meta-recipes-support'>
++        <title><filename class="directory">meta/recipes-support/</filename></title>
++
++        <para>
++            This directory contains recipes that used by other recipes, but that are not directly 
++            included in images (i.e. depenendies of other recipes).
++        </para>
++    </section>
++
+     <section id='structure-meta-site'>
+         <title><filename class="directory">meta/site/</filename></title>
+ 
+@@ -522,6 +605,14 @@
+             passed to "autoconf" for the various architectures. 
+         </para>
+     </section>
++
++    <section id='structure-meta-recipes-txt'>
++        <title><filename class="directory">meta/recipes.txt/</filename></title>
++
++        <para>
++            This file is a description of the contents of <filename>recipes-*</filename>.
++        </para>
++    </section>
+ </section>
+ 
+ </appendix>
 -- 
 1.7.0.4
 
