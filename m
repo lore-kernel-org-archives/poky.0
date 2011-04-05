@@ -1,40 +1,23 @@
-Return-Path: <srifenbark@gmail.com>
-Received: from mail-gy0-f176.google.com (mail-gy0-f176.google.com
-	[209.85.160.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id BE79B4C802F2
-	for <poky@yoctoproject.org>; Tue,  5 Apr 2011 13:36:40 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by gya6 with SMTP id 6so356475gya.35
-	for <poky@yoctoproject.org>; Tue, 05 Apr 2011 11:36:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:message-id:in-reply-to:references:old-date
-	:subject:date:to:cc:from;
-	bh=X/rfhAlmwWJgC+2hahgzlLGQApUCDrzAsH/D7FImD3E=;
-	b=ohEgI36fZBBK/fsQ+t4wx8GBi7GSUwHFXz+wQeeYix9XSL41b+ttw+GcTE7lfC79oh
-	yI4F1tEVFxTXXqFwTZGRwLzppJxpo6wEczHIzTOdFwh7V5M56S71h2v0Vz83EFHqTIU1
-	30KUWSnoyMfLnOGj1Dlbcj+bobYn9GKcUBmbU=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=message-id:in-reply-to:references:old-date:subject:date:to:cc:from;
-	b=D4V2F9J/ixLmpqXJDuxu9xiBb0UoeNUC/7fdjXXivXJunHq6W+DbctLXXc9+g8bmSj
-	nS18UvGr8dgGEdLXCo8qIH3kTKNpOTVirQSlePwluVttd2bR4tAZ/gmeQjQRMbFVnexG
-	nQ0j2f+Tn0is+lNWKOJSXTVHdB3QQ+OmbFRaE=
-Received: by 10.150.72.33 with SMTP id u33mr907907yba.17.1302028600083;
-	Tue, 05 Apr 2011 11:36:40 -0700 (PDT)
-Received: from localhost ([190.197.29.62])
-	by mx.google.com with ESMTPS id a12sm2966324yhk.27.2011.04.05.11.36.38
-	(version=TLSv1/SSLv3 cipher=OTHER);
-	Tue, 05 Apr 2011 11:36:39 -0700 (PDT)
-Message-Id: <9e2d58841dbde012d9e207f704e61c5a59b6a20c.1302028487.git.scott.m.rifenbark@intel.com>
-In-Reply-To: <cover.1302028487.git.scott.m.rifenbark@intel.com>
-References: <cover.1302028487.git.scott.m.rifenbark@intel.com>
-Old-Date: Tue, 5 Apr 2011 13:33:32 -0500
-Date: Tue, 05 Apr 2011 13:36:37 -0500
-To: poky@yoctoproject.org
-CC: 
-From: Scott Rifenbark <srifenbark@gmail.com>
-Subject: [PATCH 1/1] documentation/yocto-project-qs/Makefile: Updated Makefile to include PDF in tar
+Return-Path: <sgw@linux.intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2E0FD4C802F2;
+	Tue,  5 Apr 2011 14:17:29 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 05 Apr 2011 12:17:28 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.63,306,1299484800"; d="scan'208";a="414283772"
+Received: from unknown (HELO [10.255.12.228]) ([10.255.12.228])
+	by azsmga001.ch.intel.com with ESMTP; 05 Apr 2011 12:17:14 -0700
+Message-ID: <4D9B6AB9.3000408@linux.intel.com>
+Date: Tue, 05 Apr 2011 12:17:13 -0700
+From: Saul Wold <sgw@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
+MIME-Version: 1.0
+To: Yocto Project Discussion <yocto@yoctoproject.org>, 
+	"poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Patch Comments and Upstream-Status
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,35 +29,73 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 05 Apr 2011 18:36:40 -0000
+X-List-Received-Date: Tue, 05 Apr 2011 19:17:29 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Scott Rifenbark <scott.m.rifenbark@intel.com>
 
-Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
----
- documentation/yocto-project-qs/Makefile |    4 ++--
- 1 files changed, 2 insertions(+), 2 deletions(-)
+Yocto Contributors:
 
-diff --git a/documentation/yocto-project-qs/Makefile b/documentation/yocto-project-qs/Makefile
-index 9f45058..a267edc 100644
---- a/documentation/yocto-project-qs/Makefile
-+++ b/documentation/yocto-project-qs/Makefile
-@@ -17,12 +17,12 @@ html:
- 	xsltproc $(XSLTOPTS) -o yocto-project-qs.html yocto-project-qs-customization.xsl yocto-project-qs.xml
- 
- tarball: html
--	tar -cvzf yocto-project-qs.tgz yocto-project-qs.html style.css figures/yocto-environment.png figures/building-an-image.png figures/using-a-pre-built-image.png figures/yocto-project-transp.png
-+	tar -cvzf yocto-project-qs.tgz yocto-project-qs.html ypqs.pdf style.css figures/yocto-environment.png figures/building-an-image.png figures/using-a-pre-built-image.png figures/yocto-project-transp.png
- 
- validate:
- 	xmllint --postvalid --xinclude --noout yocto-project-qs.xml
- 
--OUTPUTS = yocto-project-qs.tgz yocto-project-qs.html
-+OUTPUTS = yocto-project-qs.tgz yocto-project-qs.html ypqs.pdf
- SOURCES = *.png *.xml *.css
- 
- publish:
--- 
-1.7.0.4
+Do you ever wonder why a patch exists?  Thought that it should be part 
+of the upstream project?
+
+Well now's your chance to help as we move forward with our next release, 
+we want to improve the quality of the patch comments and ensure that 
+patches that can be included in the upstream projects are. The goal is 
+to reduce the total number of patches that we need to carry forward and 
+maintain, this will improve the overall quality of the project.
+
+The wiki has been updated to include information about what we would 
+like to see in the patch comments, including a format for a new field
+Upstream-Status.
+
+When creating new patches, updating existing recipes, please take a few 
+minutes to ensure that all the patches have the Upstream-Status field 
+and if appropriate start the process of requesting the upstream project 
+to accept the patch.
+
+The format and possible status key works are as follows:
+
+Upstream-Status:
+Pending
+  No determination has been made yet or not yet submitted to upstream
+Submitted
+  Submitted to upstream, waiting approval
+Accepted
+  Accepted in upstream, expect it to be removed at next update, include 
+expected version info
+Backport
+  Backported from new upstream version, because we are at a fixed 
+version, include upstream version info
+Denied
+  Not accepted by upstream, include reason in patch
+Inappropriate [reason]
+  The patch is not appropriate for upstream, include a brief reason on 
+the same line enclosed with []
+  Reason can be:
+	native
+	licensing
+	enable feature
+	disable feature
+	bugfix (add bug url here)
+	embedded specific
+	other (give details in comments)
+
+If you are a maintainer of recipes, please work through your patches and 
+submit poky  pull requests and upstream patch submissions.
+
+Wiki Page:
+
+http://wiki.yoctoproject.org/wiki/Best_Known_Methods_%28BKMs%29_for_Package_Updating#Patch_Comments
+
+Please let me know if you have any comments or suggestions to improve 
+this process.
+
+Thanks
+     Sau!
+
+Saul Wold
+Yocto Component Wrangler @ Intel
+Yocto Project / Poky Build System
 
 
