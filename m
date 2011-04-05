@@ -1,30 +1,30 @@
 Return-Path: <richard.purdie@linuxfoundation.org>
 Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
 	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 64FEB4C8088B
-	for <poky@pokylinux.org>; Tue,  5 Apr 2011 16:24:52 -0500 (CDT)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 11F354C80A86
+	for <poky@yoctoproject.org>; Tue,  5 Apr 2011 16:25:00 -0500 (CDT)
 Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p35LOf7h002910;
-	Tue, 5 Apr 2011 22:24:41 +0100
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p35LOxDk002969;
+	Tue, 5 Apr 2011 22:24:59 +0100
 Received: from tim.rpsys.net ([127.0.0.1])
 	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
 	port 10024) with LMTP
-	id 02402-01-10; Tue,  5 Apr 2011 22:24:33 +0100 (BST)
+	id 02920-01-2; Tue,  5 Apr 2011 22:24:54 +0100 (BST)
 Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p35LLbnS001828
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p35LLl7e001900
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Tue, 5 Apr 2011 22:21:42 +0100
+	Tue, 5 Apr 2011 22:21:51 +0100
 From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Ilya Yanok <yanok@emcraft.com>
-In-Reply-To: <1301966025-26492-1-git-send-email-yanok@emcraft.com>
-References: <1301966025-26492-1-git-send-email-yanok@emcraft.com>
-Date: Tue, 05 Apr 2011 17:14:09 +0100
-Message-ID: <1302020049.24596.493.camel@rex>
+To: Khem Raj <raj.khem@gmail.com>
+In-Reply-To: <4D9A7AEC.9020206@gmail.com>
+References: <1301496447.24596.100.camel@rex>  <4D9A7AEC.9020206@gmail.com>
+Date: Tue, 05 Apr 2011 17:23:01 +0100
+Message-ID: <1302020581.24596.494.camel@rex>
 Mime-Version: 1.0
 X-Mailer: Evolution 2.32.2 
 X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@pokylinux.org
-Subject: Re: [REPOST][PATCH] native, nativesdk, crosssdk: reset TARGET_FPU
+Cc: poky@yoctoproject.org
+Subject: Re: lconfig-native is not endian safe
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,26 +36,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 05 Apr 2011 21:24:52 -0000
+X-List-Received-Date: Tue, 05 Apr 2011 21:25:01 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On Tue, 2011-04-05 at 03:13 +0200, Ilya Yanok wrote:
-> When building one of the native, nativesdk or crosssdk packages TARGET_*
-> variables' values are no longer related to the target we set via MACHINE
-> variable, they are now related to the BUILD (native) or SDK (nativesdk,
-> crosssdk) targets instead. We need to change TARGET_FPU variable
-> accordingly or some of the recipes (the ones that check for TARGET_FPU
-> value, most notably gcc and eglibc) might be confused.
+On Mon, 2011-04-04 at 19:14 -0700, Khem Raj wrote:
+> On 3/30/2011 7:47 AM, Richard Purdie wrote:
+> > Poky has had a ldconfig-native recipe in for a while. Back in the times
+> > our RPATHS were totally broken adding in an ld.so.cache was useful. In
+> > modern times I'm having trouble working out when this would be useful on
+> > a standard system as libraries are pretty much always in one of the two
+> > default search locations.
+> >
+> > ldconfig-native is 32/64 bit safe. I've just been looking at PPC and it
+> > is certainly not endian safe though. The endianess of the target system
+> > need to match that of the build system for it to work. It wouldn't be
+> > much work to make it endian safe though although the codebase will
+> > diverge further from that in (e)glibc though.
+> >
 > 
-> It's probably cleaner not to reset TARGET_FPU but to change it to
-> something like ${BUILD_FPU} (for native) or ${SDK_FPU} (for crosssdk and
-> nativesdk) but as long as BUILD and SDK are x86 it's safe to just reset
-> TARGET_FPU.
-> 
-> Signed-off-by: Ilya Yanok <yanok@emcraft.com>
+> FWIW it does not work with uclibc as well. So it should be disabled for 
+> uclibc for all arches
 
-Merged to master, thanks.
+I've queued a patch to do this.
+
+Cheers,
 
 Richard
 
