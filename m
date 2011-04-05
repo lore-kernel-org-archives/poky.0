@@ -1,30 +1,27 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id ABA574C80593
-	for <poky@yoctoproject.org>; Mon,  4 Apr 2011 17:57:09 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p34Mv2hk023170;
-	Mon, 4 Apr 2011 23:57:02 +0100
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 22731-08; Mon,  4 Apr 2011 23:56:58 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p34MuvW5023164
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Mon, 4 Apr 2011 23:56:57 +0100
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Nitin A Kamble <nitin.a.kamble@intel.com>
-In-Reply-To: <cover.1301921659.git.nitin.a.kamble@intel.com>
-References: <cover.1301921659.git.nitin.a.kamble@intel.com>
-Date: Mon, 04 Apr 2011 23:56:53 +0100
-Message-ID: <1301957813.24596.417.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.32.2 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@yoctoproject.org, openembedded-core@lists.openembedded.org
-Subject: Re: [PATCH 0/3] ldconfig cache generation in cross way
+Return-Path: <yanok@emcraft.com>
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
+	by mx1.pokylinux.org (Postfix) with ESMTP id AF0A94C80050
+	for <poky@pokylinux.org>; Mon,  4 Apr 2011 20:13:50 -0500 (CDT)
+Received: from frontend1.mail.m-online.net (unknown [192.168.8.180])
+	by mail-out.m-online.net (Postfix) with ESMTP id 400B31C1D9E0;
+	Tue,  5 Apr 2011 03:13:49 +0200 (CEST)
+X-Auth-Info: ozmVeg9EdabQAMJlD3rZfmKtXz8y3tVDCuhbBfxmbfY=
+Received: from mail.denx.de (host-82-135-33-74.customer.m-online.net
+	[82.135.33.74])
+	by smtp-auth.mnet-online.de (Postfix) with ESMTPA id 3AC9B1C00097;
+	Tue,  5 Apr 2011 03:13:49 +0200 (CEST)
+Received: from pollux.denx.de (pollux [192.168.1.1])
+	by mail.denx.de (Postfix) with ESMTP id E30E64BC152B;
+	Tue,  5 Apr 2011 03:13:48 +0200 (CEST)
+Received: by pollux.denx.de (Postfix, from userid 547)
+	id 859F218563702; Tue,  5 Apr 2011 03:13:47 +0200 (CEST)
+From: Ilya Yanok <yanok@emcraft.com>
+To: poky@pokylinux.org
+Date: Tue,  5 Apr 2011 03:13:45 +0200
+Message-Id: <1301966025-26492-1-git-send-email-yanok@emcraft.com>
+X-Mailer: git-send-email 1.7.4
+Cc: Ilya Yanok <yanok@emcraft.com>
+Subject: [REPOST][PATCH] native, nativesdk, crosssdk: reset TARGET_FPU
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,31 +33,67 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 04 Apr 2011 22:57:10 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 05 Apr 2011 01:13:51 -0000
 
-On Mon, 2011-04-04 at 05:56 -0700, Nitin A Kamble wrote:
-> From: Nitin A Kamble <nitin.a.kamble@intel.com>
-> 
-> This brings few commits related to the yocto bug #780
-> 
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->   Branch: nitin/bug780
->   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=nitin/bug780
-> 
-> Thanks,
->     Nitin A Kamble <nitin.a.kamble@intel.com>
-> ---
-> 
-> 
-> Nitin A Kamble (3):
->   image.bbclass: make execution ldconfig verbose
->   libxcb: fix for broken library link in the image
->   ldconfig-native-2.12.1: newer recipe with eglibc sources
+When building one of the native, nativesdk or crosssdk packages TARGET_*
+variables' values are no longer related to the target we set via MACHINE
+variable, they are now related to the BUILD (native) or SDK (nativesdk,
+crosssdk) targets instead. We need to change TARGET_FPU variable
+accordingly or some of the recipes (the ones that check for TARGET_FPU
+value, most notably gcc and eglibc) might be confused.
 
-Merged to master, thanks.
+It's probably cleaner not to reset TARGET_FPU but to change it to
+something like ${BUILD_FPU} (for native) or ${SDK_FPU} (for crosssdk and
+nativesdk) but as long as BUILD and SDK are x86 it's safe to just reset
+TARGET_FPU.
 
-Richard
+Signed-off-by: Ilya Yanok <yanok@emcraft.com>
+---
+
+Please apply this patch. TARGET_FPU = "soft" _really_ confuses crosssdk recipes...
+
+ meta/classes/crosssdk.bbclass  |    1 +
+ meta/classes/native.bbclass    |    1 +
+ meta/classes/nativesdk.bbclass |    1 +
+ 3 files changed, 3 insertions(+), 0 deletions(-)
+
+diff --git a/meta/classes/crosssdk.bbclass b/meta/classes/crosssdk.bbclass
+index 75fcfef..3952ebd 100644
+--- a/meta/classes/crosssdk.bbclass
++++ b/meta/classes/crosssdk.bbclass
+@@ -9,6 +9,7 @@ TARGET_VENDOR = "${SDK_VENDOR}"
+ TARGET_OS = "${SDK_OS}"
+ TARGET_PREFIX = "${SDK_PREFIX}"
+ TARGET_CC_ARCH = "${SDK_CC_ARCH}"
++TARGET_FPU = ""
+ 
+ target_libdir = "${SDKPATHNATIVE}${libdir_nativesdk}"
+ target_includedir = "${SDKPATHNATIVE}${includedir_nativesdk}"
+diff --git a/meta/classes/native.bbclass b/meta/classes/native.bbclass
+index cc32cf5..d9e67f6 100644
+--- a/meta/classes/native.bbclass
++++ b/meta/classes/native.bbclass
+@@ -24,6 +24,7 @@ TARGET_OS = "${BUILD_OS}"
+ TARGET_VENDOR = "${BUILD_VENDOR}"
+ TARGET_PREFIX = "${BUILD_PREFIX}"
+ TARGET_CC_ARCH = "${BUILD_CC_ARCH}"
++TARGET_FPU = ""
+ 
+ HOST_ARCH = "${BUILD_ARCH}"
+ HOST_OS = "${BUILD_OS}"
+diff --git a/meta/classes/nativesdk.bbclass b/meta/classes/nativesdk.bbclass
+index 587a907..cd34a79 100644
+--- a/meta/classes/nativesdk.bbclass
++++ b/meta/classes/nativesdk.bbclass
+@@ -34,6 +34,7 @@ TARGET_VENDOR = "${SDK_VENDOR}"
+ TARGET_OS = "${SDK_OS}"
+ TARGET_PREFIX = "${SDK_PREFIX}"
+ TARGET_CC_ARCH = "${SDK_CC_ARCH}"
++TARGET_FPU = ""
+ 
+ CPPFLAGS = "${BUILDSDK_CPPFLAGS}"
+ CFLAGS = "${BUILDSDK_CFLAGS}"
+-- 
+1.7.4
 
 
