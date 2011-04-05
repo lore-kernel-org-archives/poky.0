@@ -1,40 +1,37 @@
 Return-Path: <srifenbark@gmail.com>
-Received: from mail-yx0-f176.google.com (mail-yx0-f176.google.com
-	[209.85.213.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 6F7624C80B73
-	for <poky@yoctoproject.org>; Tue,  5 Apr 2011 13:21:29 -0500 (CDT)
+Received: from mail-yi0-f48.google.com (mail-yi0-f48.google.com
+	[209.85.218.48])
+	by mx1.pokylinux.org (Postfix) with ESMTP id B7E7A4C80AC5
+	for <poky@yoctoproject.org>; Tue,  5 Apr 2011 13:23:23 -0500 (CDT)
 Authentication-Results: mx1.pokylinux.org; dkim=pass
 	(1024-bit key; insecure key) header.i=@gmail.com;
 	x-dkim-adsp=none (insecure policy)
-Received: by mail-yx0-f176.google.com with SMTP id 5so346633yxd.35
-	for <poky@yoctoproject.org>; Tue, 05 Apr 2011 11:21:29 -0700 (PDT)
+Received: by yia28 with SMTP id 28so350306yia.35
+	for <poky@yoctoproject.org>; Tue, 05 Apr 2011 11:23:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:message-id:in-reply-to:references:old-date
-	:subject:date:to:cc:from;
-	bh=y6HACsNHSRF9kAvqcR4FhofKijJh8D4QGTGPeyU6+iw=;
-	b=AzfwuTxRLqMnAgpi2/uy3NqmweOdOZjeOkj3T4fzRvZX6ctcm/UZa6TrObbU4MdmjE
-	DHh5nrPDwpJz9qvS4BsCPuAt9dLU0zsP3RgHlvE5qyWPUkUsKed/AV8HcUWFRZpZoFuK
-	HsNrpKTN/SjoZxPmXcb4Rt5F5N39TvDtM1KW4=
+	h=domainkey-signature:message-id:old-date:subject:date:to:cc:from;
+	bh=byJ8Q2T0DVWbP1ppR9iluIkUsPkcBxQIIvJh+SNhhvM=;
+	b=epWVBwT/58Ua7awIHxJfrhwhZih/rU09cdxnacdpY99JVOsNcKlGBxQaUrcuLuA1jG
+	D4iTk3zRpEH1wuoUK9DNrGn8nch9GQpLj4s1JBnz4QyzuVg5jgH3FAVcvUvh26K2cyO/
+	I783j/XBDNvIhhffyKtYfOzPrC6GLvU6EOw4o=
 DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=message-id:in-reply-to:references:old-date:subject:date:to:cc:from;
-	b=fZ25wXwJSW9hl7kWmcPyhX5HRurkJE8EJp5qS0b0/4M4Wl6b+Fn/zyknpBFfBF1Q0s
-	jBn6PebmB9o/JmLX5kMiG5+Lgki7pxoeuYYI7DBjCVb2NoGDLp4R40ANdVik9Mqt+TDY
-	Bt6lfzGTeCfXiGMWH9IePlTKc7ZPhB/LqIGGk=
-Received: by 10.236.183.5 with SMTP id p5mr9870yhm.16.1302027689288;
-	Tue, 05 Apr 2011 11:21:29 -0700 (PDT)
+	h=message-id:old-date:subject:date:to:cc:from;
+	b=V+hCSgXA3RpL4Mp2s11TcE8iAgIbPLrnSgsVjLw/uDfOWI/ZjBU1p2SEZCLqeKJSnc
+	VszHlRipKUry+tIgkbc6sQPdPngQCNSqz8YL5ENYck9pczovJABiJX70PRqZL43fQMmH
+	JPrYb+tdHJfCW2ViRdvxqIll69y701aE8D+OQ=
+Received: by 10.236.185.1 with SMTP id t1mr127yhm.88.1302027803450;
+	Tue, 05 Apr 2011 11:23:23 -0700 (PDT)
 Received: from localhost ([190.197.29.62])
-	by mx.google.com with ESMTPS id h77sm2956906yhm.0.2011.04.05.11.21.27
+	by mx.google.com with ESMTPS id l27sm1830851yhn.5.2011.04.05.11.23.22
 	(version=TLSv1/SSLv3 cipher=OTHER);
-	Tue, 05 Apr 2011 11:21:27 -0700 (PDT)
-Message-Id: <d35f00f69cb054c792911808b30bdb6ddbabda7a.1302027384.git.scott.m.rifenbark@intel.com>
-In-Reply-To: <cover.1302027384.git.scott.m.rifenbark@intel.com>
-References: <cover.1302027384.git.scott.m.rifenbark@intel.com>
-Old-Date: Tue, 5 Apr 2011 13:12:11 -0500
-Date: Tue, 05 Apr 2011 13:21:25 -0500
+	Tue, 05 Apr 2011 11:23:22 -0700 (PDT)
+Message-Id: <cover.1302026025.git.scott.m.rifenbark@intel.com>
+Old-Date: Tue, 5 Apr 2011 12:53:45 -0500
+Date: Tue, 05 Apr 2011 13:23:20 -0500
 To: poky@yoctoproject.org
 CC: 
 From: Scott Rifenbark <srifenbark@gmail.com>
-Subject: [PATCH 15/15] documentation/kernel-manual/Makefile: Updated Makefile so PDF is in tarball
+Subject: [PATCH 0/2] [DOCS] ADT Manual updates
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,29 +43,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 05 Apr 2011 18:21:29 -0000
+X-List-Received-Date: Tue, 05 Apr 2011 18:23:23 -0000
 
 From: Scott Rifenbark <scott.m.rifenbark@intel.com>
 
-Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
----
- documentation/kernel-manual/Makefile |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+Updated the makefile so that the tar command includes the PDF file.
+The other commit I thought had been merged but is showing up when I 
+create the pull request.  Please be sure it is in master.  If it has 
+not been merged please merge it.
 
-diff --git a/documentation/kernel-manual/Makefile b/documentation/kernel-manual/Makefile
-index dcfcb92..a2eaced 100644
---- a/documentation/kernel-manual/Makefile
-+++ b/documentation/kernel-manual/Makefile
-@@ -27,7 +27,7 @@ html:
- 	xsltproc $(XSLTOPTS) -o kernel-manual.html yocto-project-kernel-manual-customization.xsl kernel-manual.xml
- 
- tarball: html
--	tar -cvzf kernel-manual.tgz kernel-manual.html style.css figures/kernel-title.png figures/kernel-big-picture.png figures/kernel-architecture-overview.png
-+	tar -cvzf kernel-manual.tgz kernel-manual.html kernel-manual.pdf style.css figures/kernel-title.png figures/kernel-big-picture.png figures/kernel-architecture-overview.png
- 
- validate:
- 	xmllint --postvalid --xinclude --noout kernel-manual.xml
--- 
-1.7.0.4
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: srifenbark/adt-work
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=srifenbark/adt-work
+
+Thanks,
+    Scott Rifenbark <scott.m.rifenbark@intel.com>
+---
+
+
+Scott Rifenbark (2):
+  documentation/adt-manual/adt-eclipse.xml:  Updated repo URL for
+    Eclipse Plug-in
+  documentation/adt-manual/Makefile: Added PDF file to the tarball
+
+ documentation/adt-manual/Makefile        |    2 +-
+ documentation/adt-manual/adt-eclipse.xml |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
 
