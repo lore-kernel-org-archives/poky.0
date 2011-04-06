@@ -1,28 +1,27 @@
 Return-Path: <koen@dominion.thruhere.net>
-Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
-	[74.125.82.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id EF3D04C80A46
-	for <poky@yoctoproject.org>; Wed,  6 Apr 2011 02:16:10 -0500 (CDT)
-Received: by wyb40 with SMTP id 40so1565048wyb.35
-	for <poky@yoctoproject.org>; Wed, 06 Apr 2011 00:16:09 -0700 (PDT)
-Received: by 10.216.182.20 with SMTP id n20mr600914wem.113.1302074168733;
-	Wed, 06 Apr 2011 00:16:08 -0700 (PDT)
+Received: from mail-ww0-f42.google.com (mail-ww0-f42.google.com [74.125.82.42])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 480F14C80A46
+	for <poky@yoctoproject.org>; Wed,  6 Apr 2011 02:23:14 -0500 (CDT)
+Received: by wwk4 with SMTP id 4so3934231wwk.5
+	for <poky@yoctoproject.org>; Wed, 06 Apr 2011 00:23:13 -0700 (PDT)
+Received: by 10.216.145.135 with SMTP id p7mr6270234wej.38.1302074593025;
+	Wed, 06 Apr 2011 00:23:13 -0700 (PDT)
 Received: from [172.20.0.255] (ip545070eb.adsl-surfen.hetnet.nl
 	[84.80.112.235])
-	by mx.google.com with ESMTPS id m2sm100202wer.37.2011.04.06.00.16.08
+	by mx.google.com with ESMTPS id h39sm103821wes.29.2011.04.06.00.23.11
 	(version=TLSv1/SSLv3 cipher=OTHER);
-	Wed, 06 Apr 2011 00:16:08 -0700 (PDT)
+	Wed, 06 Apr 2011 00:23:12 -0700 (PDT)
 Mime-Version: 1.0 (Apple Message framework v1084)
 From: Koen Kooi <koen@dominion.thruhere.net>
-In-Reply-To: <1302001365.24596.459.camel@rex>
-Date: Wed, 6 Apr 2011 09:16:07 +0200
-Message-Id: <14238F4D-1D3B-450D-8CE2-FF9D0C4362A1@dominion.thruhere.net>
-References: <1302001365.24596.459.camel@rex>
-To: Patches and discussions about the oe-core layer
-	<openembedded-core@lists.openembedded.org>
+In-Reply-To: <4D9C015F.20403@windriver.com>
+Date: Wed, 6 Apr 2011 09:23:11 +0200
+Message-Id: <97E4C404-D23C-46F7-9ED8-B1B5AF1E43CD@dominion.thruhere.net>
+References: <cover.1300874241.git.kai.kang@windriver.com>
+	<4D9A0A8B.1000003@intel.com> <4D9C015F.20403@windriver.com>
+To: Kang Kai <Kai.Kang@windriver.com>
 X-Mailer: Apple Mail (2.1084)
-Cc: poky <poky@yoctoproject.org>
-Subject: Re: [OE-core] Proposed Multilib Implementation Brainstorming
+Cc: poky@yoctoproject.org, Saul Wold <saul.wold@intel.com>
+Subject: Re: [PATCH 0/1] libjpeg-turbo: add libjpeg-turbo for LSB lib test
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,32 +33,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Apr 2011 07:16:11 -0000
-Content-Type: text/plain; charset=us-ascii
+X-List-Received-Date: Wed, 06 Apr 2011 07:23:14 -0000
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
 
-Op 5 apr 2011, om 13:02 heeft Richard Purdie het volgende geschreven:
+Op 6 apr 2011, om 07:59 heeft Kang Kai het volgende geschreven:
 
-> One of the items on our post 1.0 schedule is multilib and we need a =
-plan
-> of implementation. I've been thinking about this for a while and at
-> least have some ideas how some of the issues can be handled.
+> On 2011=E5=B9=B404=E6=9C=8805=E6=97=A5 02:14, Saul Wold wrote:
+>> On 03/23/2011 06:43 PM, Kang Kai wrote:
+>>> From: Kang Kai<kai.kang@windriver.com>
+>>>=20
+>>> LSB 4.1 library test will check libjpeg.so.62, and
+>>> libjpeg-turbo provide it.
+>>>=20
 >=20
-> In case anyone isn't familiar with the idea of multilibs, the most
-> common example are x86 systems which have both 32 bit and 64 bit
-> libraries installed at the same time in /lib/ and /lib64/ directories =
-or
-> similar and hence both types of binaries can be used.
+> Hi Saul,
+>>=20
+>> We already have a libjpeg recipe, what is wrong with that version?
+> Current libjpeg doesn't provide libjpeg.so.62, and I search Fedora and =
+find libjpeg.so.62 provided by libjpeg-turbo, so added it.
 >=20
-> The number of libs isn't limited to two choices as for example the =
-mips
-> platform has three choices which can be used in parallel. The x32 ABI
-> would mean three possible x86 options too.=20
+> Maybe the direct way to provide libjpeg.so.62 is make it link to =
+libjpeg.so.8.0.2.
+> With your permit I will add a patch to jpeg_8b instead of add =
+libjpeg-turbo. How about this solution?
 
-Sweet, this opens the door for arm multilibs as well. With this can =
-finally build an armv7a without NEON and with NEON in "one" go and use =
-hwcaps to load the right lib.
+Or you can add back the jpeg 6b recipe. The jpeg group didn't make a =
+release for years and then released 7 and 8 in quick succession.
 
 regards,
 
