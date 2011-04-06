@@ -1,32 +1,30 @@
-Return-Path: <Tom_Rini@mentor.com>
-Received: from relay1.mentorg.com (relay1.mentorg.com [192.94.38.131])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 53C404C80044
-	for <poky@yoctoproject.org>; Wed,  6 Apr 2011 13:43:28 -0500 (CDT)
-Received: from svr-orw-fem-01.mgc.mentorg.com ([147.34.98.93])
-	by relay1.mentorg.com with esmtp 
-	id 1Q7XhP-000642-N1 from Tom_Rini@mentor.com 
-	for poky@yoctoproject.org; Wed, 06 Apr 2011 11:43:27 -0700
-Received: from SVR-ORW-FEM-04.mgc.mentorg.com ([147.34.97.41]) by
-	svr-orw-fem-01.mgc.mentorg.com over TLS secured channel with
-	Microsoft SMTPSVC(6.0.3790.4675); Wed, 6 Apr 2011 11:43:27 -0700
-Received: from [172.30.80.151] (147.34.91.1) by svr-orw-fem-04.mgc.mentorg.com
-	(147.34.97.41) with Microsoft SMTP Server id 14.1.270.1;
-	Wed, 6 Apr 2011 11:43:26 -0700
-Message-ID: <4D9CB446.1040308@mentor.com>
-Date: Wed, 6 Apr 2011 11:43:18 -0700
-From: Tom Rini <tom_rini@mentor.com>
-Organization: Mentor Graphics Corporation
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.14) Gecko/20110223 Lightning/1.0b2 Thunderbird/3.1.8
-MIME-Version: 1.0
-To: <poky@yoctoproject.org>
-References: <1302001365.24596.459.camel@rex>	<BANLkTim4ouc6ssOhfU4Dd8OfEq81MfC_gQ@mail.gmail.com>
-	<1302100143.22904.68.camel@rex>
-In-Reply-To: <1302100143.22904.68.camel@rex>
-X-Enigmail-Version: 1.1.1
-X-OriginalArrivalTime: 06 Apr 2011 18:43:27.0572 (UTC)
-	FILETIME=[847E3940:01CBF48A]
-Subject: Re: [OE-core] Proposed Multilib Implementation Brainstorming
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 985194C80050
+	for <poky@yoctoproject.org>; Wed,  6 Apr 2011 14:12:19 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p36JCEdR027158;
+	Wed, 6 Apr 2011 20:12:14 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 23821-06; Wed,  6 Apr 2011 20:12:07 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p36JBsk6027105
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Wed, 6 Apr 2011 20:12:00 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Scott Rifenbark <srifenbark@gmail.com>
+In-Reply-To: <cover.1302026025.git.scott.m.rifenbark@intel.com>
+References: <cover.1302026025.git.scott.m.rifenbark@intel.com>
+Date: Wed, 06 Apr 2011 11:21:33 -0700
+Message-ID: <1302114093.22904.73.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.2 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/2] [DOCS] ADT Manual updates
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,32 +36,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Apr 2011 18:43:28 -0000
-Content-Type: text/plain; charset="ISO-8859-1"
+X-List-Received-Date: Wed, 06 Apr 2011 19:12:20 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On 04/06/2011 07:29 AM, Richard Purdie wrote:
-> On Wed, 2011-04-06 at 10:47 +0200, Frans Meulenbroeks wrote:
->> I think most embedded systems would only use one lib. To take your
->> lib/lib64 example:
->> If I am developing for an embedded system I know whether it will run
->> as 32 or 64 bit, so there is no need to have both.
+On Tue, 2011-04-05 at 13:23 -0500, Scott Rifenbark wrote:
+> From: Scott Rifenbark <scott.m.rifenbark@intel.com>
 > 
-> I agree that this is the most common usecase and that remains unchanged.
+> Updated the makefile so that the tar command includes the PDF file.
+> The other commit I thought had been merged but is showing up when I 
+> create the pull request.  Please be sure it is in master.  If it has 
+> not been merged please merge it.
 > 
->> multilib has its merits when it comes to supporting multiple hardware systems.
->> However as in the embedded world one is typically targeting a specific
->> hardware configuration.
->> (actually I don't recall having seen requests for multilib on the ML
->> before, although I could have missed it).
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>   Branch: srifenbark/adt-work
+>   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=srifenbark/adt-work
 > 
-> These have been requests I've received verbally in general but you'll
-> see from the replies on the mailing list, Montavista is interested, Koen
-> is as are a number of others.
+> Thanks,
+>     Scott Rifenbark <scott.m.rifenbark@intel.com>
+> ---
+> 
+> 
+> Scott Rifenbark (2):
+>   documentation/adt-manual/adt-eclipse.xml:  Updated repo URL for
+>     Eclipse Plug-in
+>   documentation/adt-manual/Makefile: Added PDF file to the tarball
+> 
+>  documentation/adt-manual/Makefile        |    2 +-
+>  documentation/adt-manual/adt-eclipse.xml |    2 +-
+>  2 files changed, 2 insertions(+), 2 deletions(-)
 
-While we're jumping on, Mentor is also interested in this.
+Merged to master, thanks.
 
--- 
-Tom Rini
-Mentor Graphics Corporation
+Richard
+
 
