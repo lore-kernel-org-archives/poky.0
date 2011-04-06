@@ -1,27 +1,23 @@
-Return-Path: <koen@dominion.thruhere.net>
-Received: from mail-ww0-f42.google.com (mail-ww0-f42.google.com [74.125.82.42])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 480F14C80A46
-	for <poky@yoctoproject.org>; Wed,  6 Apr 2011 02:23:14 -0500 (CDT)
-Received: by wwk4 with SMTP id 4so3934231wwk.5
-	for <poky@yoctoproject.org>; Wed, 06 Apr 2011 00:23:13 -0700 (PDT)
-Received: by 10.216.145.135 with SMTP id p7mr6270234wej.38.1302074593025;
-	Wed, 06 Apr 2011 00:23:13 -0700 (PDT)
-Received: from [172.20.0.255] (ip545070eb.adsl-surfen.hetnet.nl
-	[84.80.112.235])
-	by mx.google.com with ESMTPS id h39sm103821wes.29.2011.04.06.00.23.11
-	(version=TLSv1/SSLv3 cipher=OTHER);
-	Wed, 06 Apr 2011 00:23:12 -0700 (PDT)
-Mime-Version: 1.0 (Apple Message framework v1084)
-From: Koen Kooi <koen@dominion.thruhere.net>
-In-Reply-To: <4D9C015F.20403@windriver.com>
-Date: Wed, 6 Apr 2011 09:23:11 +0200
-Message-Id: <97E4C404-D23C-46F7-9ED8-B1B5AF1E43CD@dominion.thruhere.net>
-References: <cover.1300874241.git.kai.kang@windriver.com>
-	<4D9A0A8B.1000003@intel.com> <4D9C015F.20403@windriver.com>
-To: Kang Kai <Kai.Kang@windriver.com>
-X-Mailer: Apple Mail (2.1084)
-Cc: poky@yoctoproject.org, Saul Wold <saul.wold@intel.com>
-Subject: Re: [PATCH 0/1] libjpeg-turbo: add libjpeg-turbo for LSB lib test
+Return-Path: <Kai.Kang@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 9518A4C80A46
+	for <poky@yoctoproject.org>; Wed,  6 Apr 2011 03:06:50 -0500 (CDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p3686nd9020504
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Wed, 6 Apr 2011 01:06:49 -0700 (PDT)
+Received: from localhost (128.224.163.157) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
+	Wed, 6 Apr 2011 01:06:48 -0700
+Message-ID: <cover.1302076785.git.kai.kang@windriver.com>
+Old-Date: Wed, 6 Apr 2011 15:59:45 +0800
+Date: Wed, 6 Apr 2011 16:06:44 +0800
+To: <saul.wold@intel.com>
+From: Kang Kai <kai.kang@windriver.com>
+MIME-Version: 1.0
+X-Originating-IP: [128.224.163.157]
+Cc: poky@yoctoproject.org
+Subject: [PATCH 0/2] LSB: add nspr and nss to pass LSB library check
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,36 +29,86 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Apr 2011 07:23:14 -0000
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Wed, 06 Apr 2011 08:06:50 -0000
+Content-Type: text/plain
+
+From: Kang Kai <kai.kang@windriver.com>
+
+Hi Saul,
+
+I add the exact LICENSE version and update LICENSE files and resend the patches.
+Because the license information exists in every file, so just pick one file's header as LICENSE file.
+
+add nss and nspr to provide libnss3.so, libssl3.so and libnspr4.so
+to pass LSB library check.
+Both are imported from oe, rev 6fe7cef27069415f2eba36bc640cf59013d4979b 
+And add header for each patch
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: kangkai/bugfix-nss
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kangkai/bugfix-nss
+
+Thanks,
+    Kang Kai <kai.kang@windriver.com>
+---
 
 
-Op 6 apr 2011, om 07:59 heeft Kang Kai het volgende geschreven:
+Kang Kai (2):
+  nspr: add nspr to pass LSB library test
+  nss: add nss for LSB library check
 
-> On 2011=E5=B9=B404=E6=9C=8805=E6=97=A5 02:14, Saul Wold wrote:
->> On 03/23/2011 06:43 PM, Kang Kai wrote:
->>> From: Kang Kai<kai.kang@windriver.com>
->>>=20
->>> LSB 4.1 library test will check libjpeg.so.62, and
->>> libjpeg-turbo provide it.
->>>=20
->=20
-> Hi Saul,
->>=20
->> We already have a libjpeg recipe, what is wrong with that version?
-> Current libjpeg doesn't provide libjpeg.so.62, and I search Fedora and =
-find libjpeg.so.62 provided by libjpeg-turbo, so added it.
->=20
-> Maybe the direct way to provide libjpeg.so.62 is make it link to =
-libjpeg.so.8.0.2.
-> With your permit I will add a patch to jpeg_8b instead of add =
-libjpeg-turbo. How about this solution?
+ .../mozilla/nspr-4.8.7/30_config_64bits.dpatch     |   45 +
+ .../mozilla/nspr-4.8.7/30_pkgconfig.dpatch         |   37 +
+ .../mozilla/nspr-4.8.7/81_sonames.dpatch           |  233 +
+ .../mozilla/nspr-4.8.7/unbreak-build.diff          |   50 +
+ .../recipes-extended/mozilla/nspr-tools-native.inc |   29 +
+ .../mozilla/nspr-tools-native_4.8.7.bb             |   16 +
+ meta/recipes-extended/mozilla/nspr.inc             |   44 +
+ meta/recipes-extended/mozilla/nspr_4.8.7.bb        |   17 +
+ .../mozilla/nss-3.12.6/00_ckbi_1.79.patch          | 6390 ++++++++++++++++++++
+ .../mozilla/nss-3.12.6/25_entropy.patch            |   26 +
+ .../mozilla/nss-3.12.6/38_hurd.patch               |   63 +
+ .../mozilla/nss-3.12.6/38_kbsd.patch               |  156 +
+ .../mozilla/nss-3.12.6/38_mips64_build.patch       |   31 +
+ .../mozilla/nss-3.12.6/80_security_build.patch     |   21 +
+ .../mozilla/nss-3.12.6/80_security_tools.patch     |   30 +
+ .../mozilla/nss-3.12.6/81_sonames.patch            |  355 ++
+ .../mozilla/nss-3.12.6/85_security_load.patch      |   83 +
+ .../mozilla/nss-3.12.6/90_realpath.patch           |   39 +
+ .../mozilla/nss-3.12.6/91_build_pwdecrypt.patch    |   21 +
+ .../nss-3.12.6/95_add_spi+cacert_ca_certs.patch    | 1172 ++++
+ .../mozilla/nss-3.12.6/96_NSS_VersionCheck.patch   |   23 +
+ .../97_SSL_RENEGOTIATE_TRANSITIONAL.patch          |   25 +
+ .../mozilla/nss-3.12.6/build-fix.patch             |   67 +
+ meta/recipes-extended/mozilla/nss-3.12.6/nss.pc.in |   11 +
+ meta/recipes-extended/mozilla/nss-3.12.6/series    |   14 +
+ meta/recipes-extended/mozilla/nss_3.12.6.bb        |  116 +
+ 26 files changed, 9114 insertions(+), 0 deletions(-)
+ create mode 100644 meta/recipes-extended/mozilla/nspr-4.8.7/30_config_64bits.dpatch
+ create mode 100644 meta/recipes-extended/mozilla/nspr-4.8.7/30_pkgconfig.dpatch
+ create mode 100644 meta/recipes-extended/mozilla/nspr-4.8.7/81_sonames.dpatch
+ create mode 100644 meta/recipes-extended/mozilla/nspr-4.8.7/unbreak-build.diff
+ create mode 100644 meta/recipes-extended/mozilla/nspr-tools-native.inc
+ create mode 100644 meta/recipes-extended/mozilla/nspr-tools-native_4.8.7.bb
+ create mode 100644 meta/recipes-extended/mozilla/nspr.inc
+ create mode 100644 meta/recipes-extended/mozilla/nspr_4.8.7.bb
+ create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/00_ckbi_1.79.patch
+ create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/25_entropy.patch
+ create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/38_hurd.patch
+ create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/38_kbsd.patch
+ create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/38_mips64_build.patch
+ create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/80_security_build.patch
+ create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/80_security_tools.patch
+ create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/81_sonames.patch
+ create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/85_security_load.patch
+ create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/90_realpath.patch
+ create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/91_build_pwdecrypt.patch
+ create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/95_add_spi+cacert_ca_certs.patch
+ create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/96_NSS_VersionCheck.patch
+ create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/97_SSL_RENEGOTIATE_TRANSITIONAL.patch
+ create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/build-fix.patch
+ create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/nss.pc.in
+ create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/series
+ create mode 100644 meta/recipes-extended/mozilla/nss_3.12.6.bb
 
-Or you can add back the jpeg 6b recipe. The jpeg group didn't make a =
-release for years and then released 7 and 8 in quick succession.
-
-regards,
-
-Koen=
 
