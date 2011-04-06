@@ -1,42 +1,26 @@
-Return-Path: <sparsh150847@yahoo.com>
-Received: from nm1-vm0.bullet.mail.in.yahoo.com
-	(nm1-vm0.bullet.mail.in.yahoo.com [121.101.151.211])
-	by mx1.pokylinux.org (Postfix) with SMTP id 4AEFB4C80579
-	for <poky@yoctoproject.org>; Wed,  6 Apr 2011 05:49:03 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@yahoo.com;
-	x-dkim-adsp=none (insecure policy)
-Received: from [121.101.151.237] by nm1.bullet.mail.in.yahoo.com with NNFMP;
-	06 Apr 2011 10:49:01 -0000
-Received: from [121.101.151.233] by tm2.bullet.mail.in.yahoo.com with NNFMP;
-	06 Apr 2011 10:49:09 -0000
-Received: from [127.0.0.1] by omp1002.mail.in.yahoo.com with NNFMP;
-	06 Apr 2011 10:52:18 -0000
-X-Yahoo-Newman-Property: ymail-3
-X-Yahoo-Newman-Id: 685785.96301.bm@omp1002.mail.in.yahoo.com
-Received: (qmail 16913 invoked by uid 60001); 6 Apr 2011 10:49:01 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s1024;
-	t=1302086941; bh=mu7n65KRjCMxlmbZebTZSlgOaoJio0H/DBXqkp2C3NI=;
-	h=Message-ID:X-YMail-OSG:Received:X-Mailer:Date:From:Subject:To:MIME-Version:Content-Type;
-	b=FMBljLQxYILplvGTyq79LAe2L5ZacLWMkQ2fHWZxdLt4R+NlxFvoGh5GFp4TX2mp0ExFvChYUXY8tZAPk32kZ6UUgg8E91IMGrGGn3fAEWI9hnlDOII3DDUPY2WEZJu5/KYDoiYFIYtZwwFzkZDCcvlbZ6ZALEqSHc+Z5gdY024=
-DomainKey-Signature: a=rsa-sha1; q=dns; c=nofws; s=s1024; d=yahoo.com;
-	h=Message-ID:X-YMail-OSG:Received:X-Mailer:Date:From:Subject:To:MIME-Version:Content-Type;
-	b=5cJZhmETx4Vf7XrvdgdyX71fRySI1vm1b5hMnn2Gnv63fa6+idUlxHlWtAapsVoeemdGdw0hIrVw5VLIEnXSAm3QbaauaUN8cH3JUP0WjRZgmAAY11cqdgss28vgtjrfvVLdjeOazqMP2oHegnoCpKhsRUfIsW44bOIT9htDp6A=;
-Message-ID: <394068.13723.qm@web95713.mail.in.yahoo.com>
-X-YMail-OSG: xBQq_I0VM1nEkMeubP59C2P5xA80ffBdtV3XldWsHIECcCF
-	n4_L6ZYbsLnvlt6.f2AfZr5EzG6U6o3mz3J5NhiDejsVL6IyqC9iMyS1CIze
-	tqR0qXYyTXzLykuWeMqAmzZKTS9c3iIsBoF7KE1nwk0ZGPRkjM78IpbR9tvv
-	P0ufTxkcXx.g0DC9ftkZwVEptHy4f6G53j3Ax_wYOypmctNSLe..C9DjAlCX
-	48TnMcHHnEuY1jE_mva_EiEOtAfinbDYjlzRaoLigUd25MLyD.sAvpxYyqF1
-	td_XhFGAIFHjgJK5J5oUwlQ--
-Received: from [115.111.25.162] by web95713.mail.in.yahoo.com via HTTP;
-	Wed, 06 Apr 2011 16:18:58 IST
-X-Mailer: YahooMailClassic/12.0.2 YahooMailWebService/0.8.109.295617
-Date: Wed, 6 Apr 2011 16:18:58 +0530 (IST)
-From: Sparsh Wid hope <sparsh150847@yahoo.com>
-To: poky <poky@yoctoproject.org>
-MIME-Version: 1.0
-Subject: facing problem in branch validation for beagleboard
+Return-Path: <josh@linux.intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 26EDF4C802F2
+	for <poky@yoctoproject.org>; Wed,  6 Apr 2011 06:16:31 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 06 Apr 2011 04:16:31 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.63,309,1299484800"; d="scan'208";a="414703682"
+Received: from unknown (HELO [10.255.12.213]) ([10.255.12.213])
+	by azsmga001.ch.intel.com with ESMTP; 06 Apr 2011 04:16:30 -0700
+From: Joshua Lock <josh@linux.intel.com>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+Date: Wed, 06 Apr 2011 12:16:29 +0100
+In-Reply-To: <1301957183.24596.414.camel@rex>
+References: <cover.1301664697.git.josh@linux.intel.com>
+	<8d834327e2d84b8d4ad72b9c617d261ab8b206e2.1301664697.git.josh@linux.intel.com>
+	<BANLkTi=etDyw_wqyqbErqoR92cwOXw3R4A@mail.gmail.com>
+	<1301957183.24596.414.camel@rex>
+X-Mailer: Evolution 2.91.92 (2.91.92-2.fc15) 
+Message-ID: <1302088591.2355.7.camel@scimitar>
+Mime-Version: 1.0
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 1/7] elfutils: fix builds with gcc 4.6
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -48,72 +32,95 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Apr 2011 10:49:05 -0000
-Content-Type: multipart/alternative; boundary="0-1832924636-1302086938=:13723"
+X-List-Received-Date: Wed, 06 Apr 2011 11:16:32 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
---0-1832924636-1302086938=:13723
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: quoted-printable
+On Mon, 2011-04-04 at 23:46 +0100, Richard Purdie wrote:
+> On Mon, 2011-04-04 at 23:37 +0200, Martin Jansa wrote:
+> > On Fri, Apr 1, 2011 at 3:40 PM, Joshua Lock <josh@linux.intel.com> wrote:
+> > > From: Joshua Lock <josh@linux.intel.com>
+> > >
+> > > gcc 4.6 (as used in Fedora 15) adds some extra warnings which are
+> > > included with Werror. The new unused-but-set variable warning causes
+> > > an error in libasm of elfutils. Work around this by removing
+> > > unused-but-set from Werror.
+> > >
+> > > Signed-off-by: Joshua Lock <josh@linux.intel.com>
+> > > ---
+> > >  meta/recipes-devtools/elfutils/elfutils_0.148.bb |    4 ++++
+> > >  1 files changed, 4 insertions(+), 0 deletions(-)
+> > >
+> > > diff --git a/meta/recipes-devtools/elfutils/elfutils_0.148.bb b/meta/recipes-devtools/elfutils/elfutils_0.148.bb
+> > > index b2f700e..c395be8 100644
+> > > --- a/meta/recipes-devtools/elfutils/elfutils_0.148.bb
+> > > +++ b/meta/recipes-devtools/elfutils/elfutils_0.148.bb
+> > > @@ -40,6 +40,10 @@ SRC_URI += "\
+> > >
+> > >  inherit autotools
+> > >
+> > > +# GCC 4.6.0 raises an unused-but-set warning in libasm, for now remove
+> > > +# this warning from Werror
+> > > +CFLAGS_virtclass-native += "-Wno-error=unused-but-set-variable"
+> > > +
+> > >  EXTRA_OECONF = "--program-prefix=eu-"
+> > 
+> > this breaks all other distros not yet using gcc-4.6..
+> > 
+> > 
+> > configure:2892: checking whether the C compiler works
+> > configure:2914: gcc -Wno-error=unused-but-set-variable
+> > -isystem/OE/shr-core/tmp/sysroots/x86_64-linux/usr/include
+> > -L/OE/shr-core/tmp/sysroots/x86_64-linux/usr/lib
+> > -Wl,-rpath-link,/OE/shr-core/tmp/sysroots/x86_64-linux/usr/lib
+> > -Wl,-rpath,/OE/shr-core/tmp/sysroots/x86_64-linux/usr/lib -Wl,-O1
+> > conftest.c  >&5
+> > cc1: error: -Werror=unused-but-set-variable: No option -Wunused-but-set-variable
+> > configure:2918: $? = 1
+> > configure:2956: result: no
+> > configure: failed program was:
+> > | /* confdefs.h */
+> > | #define PACKAGE_NAME "Red Hat elfutils"
+> > | #define PACKAGE_TARNAME "elfutils"
+> > | #define PACKAGE_VERSION "0.148"
+> > | #define PACKAGE_STRING "Red Hat elfutils 0.148"
+> > | #define PACKAGE_BUGREPORT "http://bugzilla.redhat.com/bugzilla/"
+> > | #define PACKAGE_URL ""
+> > | #define PACKAGE "elfutils"
+> > | #define VERSION "0.148"
+> > | #define MODVERSION "Build on jama 2011-04-04T23:34:25+0200"
+> > | /* end confdefs.h.  */
+> > |
+> > | int
+> > | main ()
+> > | {
+> > |
+> > |   ;
+> > |   return 0;
+> > | }
+> > configure:2961: error: in
+> > `/OE/shr-core/tmp/work/x86_64-linux/elfutils-native-0.148-r1/elfutils-0.148':
+> > configure:2965: error: C compiler cannot create executables
+> > See `config.log' for more details.
 
-Hi All,
-I'm trying to build a poky image for beagle board with linux-yocto-2.6.37 a=
-nd got following errors.
-Unstaged changes after reset:M =A0 =A0 =A0 .gitignoreM =A0 =A0 =A0 Document=
-ation/hwmon/jc42...error: Your local changes to the following files would b=
-e overwritten by checkout...Please move or remove them before you can switc=
-h branches.Abortingerror: Cannot delete the branch 'meta-temp' which you ar=
-e currently on.error: Your local changes to the following files would be ov=
-erwritten by checkout:...Please move or remove them before you can switch b=
-ranches.Abortingwarning: could not find ktypes/temp.scc./0-meta-temp-a81c58=
-139afe973468e690658cd5f18d.sco: line 14: temp_68b329da9893e34099c7d8ad5cb9c=
-940: command not foundERROR. Could not locate meta series for beagleboard-s=
-tandardERROR: Function 'do_patch' failed (see /home/surya/Surya/pro/my_poky=
-/poky/build/tmp/work/beagleboard-poky-linux-gnueabi/linux-yocto-2.6.37+git3=
-+17e49db8624324d090dd5aaa18ef977bb2dd5f6d_3+17e49db8624324d090dd5aaa18ef977=
-bb2dd5f6d-r16/temp/log.do_patch.13906 for further
- information)--------------------------------------------------------------=
----------------------------------------------------------------------please=
- help me to resolve the problem.Thanks in advanceSparsh
+Sorry about this Martin. Thanks for catching and reporting.
 
---0-1832924636-1302086938=:13723
-Content-Type: text/html; charset=iso-8859-1
-Content-Transfer-Encoding: quoted-printable
+> 
+> Ouch, I'm going to revert this, we'll need an alternative fix. Thanks
+> for reporting!
 
-<table cellspacing=3D"0" cellpadding=3D"0" border=3D"0" ><tr><td valign=3D"=
-top" style=3D"font: inherit;"><font class=3D"Apple-style-span" face=3D"aria=
-l" size=3D"2">Hi All,</font><div style=3D"font-family: arial; font-size: 10=
-pt; "><br></div><div style=3D"font-family: arial; font-size: 10pt; ">I'm tr=
-ying to build a poky image for beagle board with linux-yocto-2.6.37 and got=
- following errors.</div><div style=3D"font-family: arial; font-size: 10pt; =
-"><br></div><div style=3D"font-family: arial; font-size: 10pt; "><div>Unsta=
-ged changes after reset:</div><div>M &nbsp; &nbsp; &nbsp; .gitignore</div><=
-div>M &nbsp; &nbsp; &nbsp; Documentation/hwmon/jc42</div></div><div style=
-=3D"font-family: arial; font-size: 10pt; ">.</div><div style=3D"font-family=
-: arial; font-size: 10pt; ">.</div><div style=3D"font-family: arial; font-s=
-ize: 10pt; ">.</div><div><font class=3D"Apple-style-span" face=3D"arial" si=
-ze=3D"2">error: Your local changes to the following files would be overwrit=
-ten by
- checkout</font></div><div><font class=3D"Apple-style-span" face=3D"arial" =
-size=3D"2">.</font></div><div><font class=3D"Apple-style-span" face=3D"aria=
-l" size=3D"2">.</font></div><div><font class=3D"Apple-style-span" face=3D"a=
-rial" size=3D"2">.</font></div><div><font class=3D"Apple-style-span" face=
-=3D"arial" size=3D"2"><div>Please move or remove them before you can switch=
- branches.</div><div>Aborting</div><div>error: Cannot delete the branch 'me=
-ta-temp' which you are currently on.</div><div>error: Your local changes to=
- the following files would be overwritten by checkout:</div><div>.</div><di=
-v>.</div><div>.</div><div><div>Please move or remove them before you can sw=
-itch branches.</div><div>Aborting</div><div>warning: could not find ktypes/=
-temp.scc</div><div>./0-meta-temp-a81c58139afe973468e690658cd5f18d.sco: line=
- 14: temp_68b329da9893e34099c7d8ad5cb9c940: command not found</div><div>ERR=
-OR. Could not locate meta series for beagleboard-standard</div><div>ERROR: =
-Function 'do_patch'
- failed (see /home/surya/Surya/pro/my_poky/poky/build/tmp/work/beagleboard-=
-poky-linux-gnueabi/linux-yocto-2.6.37+git3+17e49db8624324d090dd5aaa18ef977b=
-b2dd5f6d_3+17e49db8624324d090dd5aaa18ef977bb2dd5f6d-r16/temp/log.do_patch.1=
-3906 for further information)</div></div><div>-----------------------------=
----------------------------------------------------------------------------=
----------------------------</div><div>please help me to resolve the problem=
-.</div><div>Thanks in advance</div><div>Sparsh</div></font></div></td></tr>=
-</table>
+I've worked up an alternative fix and sent a pull request to oe-core. I
+took the approach of consolidating several patches from the upstream
+source repository which remove the unused variables.
 
---0-1832924636-1302086938=:13723--
+I consolidated them into a single patch so that they are easier to drop
+once we update elfutils to 0.152 or higher.
+
+Regards,
+Joshua
+-- 
+Joshua Lock
+        Yocto Build System Monkey
+        Intel Open Source Technology Centre
+
+
