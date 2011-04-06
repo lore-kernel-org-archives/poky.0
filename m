@@ -1,41 +1,30 @@
-Return-Path: <raj.khem@gmail.com>
-Received: from mail-bw0-f48.google.com (mail-bw0-f48.google.com
-	[209.85.214.48])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 6FD354C80132
-	for <poky@yoctoproject.org>; Wed,  6 Apr 2011 12:07:08 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by bwz8 with SMTP id 8so2079776bwz.35
-	for <poky@yoctoproject.org>; Wed, 06 Apr 2011 10:07:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc:content-type:content-transfer-encoding;
-	bh=Cm8iZiQpokCDviuwrpHm9y5ItiWxd020KzXoy59TruA=;
-	b=yFlge2kMDncIrXXL/KsNdrSvbRzMnTpF5fjH0sATgdH9HYR2it/d9LcntRbGGxTvui
-	W8C6Zk3Cu8CBPJjUOHu7cWWiWQ7UfTCV8p5LM8plnH7Q3/JYElXfGl0cjDOUrGl0BOxO
-	dSpooBGT+2GfO7eVlaEcOkZMhZriX+bVPIQwY=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc:content-type:content-transfer-encoding;
-	b=ROvtOpwHiDUlui1wejsfsP5eBAyblRDo+fR+ueaL+WsrHPsORDLCsLSXevT+CsITqG
-	yIw0fs3W28IICTXo/obQQZbzpH+6LGppA3L9bRo6GnYu1oB9NgfUBzCrWHp5bF1+pea2
-	wf+Vn/HSeOsD34xdM1CLkEObWF2zokRlwE42A=
-Received: by 10.204.16.198 with SMTP id p6mr1112730bka.143.1302109627149; Wed,
-	06 Apr 2011 10:07:07 -0700 (PDT)
+Return-Path: <mark.hatle@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 313964C80044
+	for <poky@yoctoproject.org>; Wed,  6 Apr 2011 13:02:02 -0500 (CDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p36I1JYo000646
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Wed, 6 Apr 2011 11:01:19 -0700 (PDT)
+Received: from ALA-MBA.corp.ad.wrs.com ([169.254.1.73]) by
+	ALA-HCA.corp.ad.wrs.com ([147.11.189.40]) with mapi id 14.01.0255.000;
+	Wed, 6 Apr 2011 11:01:19 -0700
+From: "Hatle, Mark" <mark.hatle@windriver.com>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+Thread-Topic: [poky] [OE-core] Proposed Multilib Implementation Brainstorming
+Thread-Index: AQHL89fR9iSKERjfLEG0K3fk5c3eRJRQa0rqgADIVACAAEN9gA==
+Date: Wed, 6 Apr 2011 18:01:18 +0000
+Message-ID: <A69B9A48-C42D-48B5-B09F-46AA5281C048@windriver.com>
+References: <1302001365.24596.459.camel@rex>
+	<87y63n5028.fsf@eha.doredevelopment.dk> <1302091554.22904.18.camel@rex>
+In-Reply-To: <1302091554.22904.18.camel@rex>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
 MIME-Version: 1.0
-Received: by 10.223.23.136 with HTTP; Wed, 6 Apr 2011 10:06:37 -0700 (PDT)
-In-Reply-To: <1302088591.2355.7.camel@scimitar>
-References: <cover.1301664697.git.josh@linux.intel.com>
-	<8d834327e2d84b8d4ad72b9c617d261ab8b206e2.1301664697.git.josh@linux.intel.com>
-	<BANLkTi=etDyw_wqyqbErqoR92cwOXw3R4A@mail.gmail.com>
-	<1301957183.24596.414.camel@rex> <1302088591.2355.7.camel@scimitar>
-From: Khem Raj <raj.khem@gmail.com>
-Date: Wed, 6 Apr 2011 10:06:37 -0700
-Message-ID: <BANLkTik=9jfHyeqiXwzS0dA2p=MDfdb8Yw@mail.gmail.com>
-To: Joshua Lock <josh@linux.intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 1/7] elfutils: fix builds with gcc 4.6
+Cc: Patches and discussions about the oe-core layer
+	<openembedded-core@lists.openembedded.org>, poky <poky@yoctoproject.org>
+Subject: Re: [OE-core] Proposed Multilib Implementation Brainstorming
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -47,110 +36,78 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Apr 2011 17:07:08 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Wed, 06 Apr 2011 18:02:02 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <AB1FA4F4272E0A4D8959D0EB8E9DCF20@corp.ad.wrs.com>
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Apr 6, 2011 at 4:16 AM, Joshua Lock <josh@linux.intel.com> wrote:
-> On Mon, 2011-04-04 at 23:46 +0100, Richard Purdie wrote:
->> On Mon, 2011-04-04 at 23:37 +0200, Martin Jansa wrote:
->> > On Fri, Apr 1, 2011 at 3:40 PM, Joshua Lock <josh@linux.intel.com> wro=
-te:
->> > > From: Joshua Lock <josh@linux.intel.com>
->> > >
->> > > gcc 4.6 (as used in Fedora 15) adds some extra warnings which are
->> > > included with Werror. The new unused-but-set variable warning causes
->> > > an error in libasm of elfutils. Work around this by removing
->> > > unused-but-set from Werror.
->> > >
->> > > Signed-off-by: Joshua Lock <josh@linux.intel.com>
->> > > ---
->> > > =C2=A0meta/recipes-devtools/elfutils/elfutils_0.148.bb | =C2=A0 =C2=
-=A04 ++++
->> > > =C2=A01 files changed, 4 insertions(+), 0 deletions(-)
->> > >
->> > > diff --git a/meta/recipes-devtools/elfutils/elfutils_0.148.bb b/meta=
-/recipes-devtools/elfutils/elfutils_0.148.bb
->> > > index b2f700e..c395be8 100644
->> > > --- a/meta/recipes-devtools/elfutils/elfutils_0.148.bb
->> > > +++ b/meta/recipes-devtools/elfutils/elfutils_0.148.bb
->> > > @@ -40,6 +40,10 @@ SRC_URI +=3D "\
->> > >
->> > > =C2=A0inherit autotools
->> > >
->> > > +# GCC 4.6.0 raises an unused-but-set warning in libasm, for now rem=
-ove
->> > > +# this warning from Werror
->> > > +CFLAGS_virtclass-native +=3D "-Wno-error=3Dunused-but-set-variable"
->> > > +
->> > > =C2=A0EXTRA_OECONF =3D "--program-prefix=3Deu-"
->> >
->> > this breaks all other distros not yet using gcc-4.6..
->> >
->> >
->> > configure:2892: checking whether the C compiler works
->> > configure:2914: gcc -Wno-error=3Dunused-but-set-variable
->> > -isystem/OE/shr-core/tmp/sysroots/x86_64-linux/usr/include
->> > -L/OE/shr-core/tmp/sysroots/x86_64-linux/usr/lib
->> > -Wl,-rpath-link,/OE/shr-core/tmp/sysroots/x86_64-linux/usr/lib
->> > -Wl,-rpath,/OE/shr-core/tmp/sysroots/x86_64-linux/usr/lib -Wl,-O1
->> > conftest.c =C2=A0>&5
->> > cc1: error: -Werror=3Dunused-but-set-variable: No option -Wunused-but-=
-set-variable
->> > configure:2918: $? =3D 1
->> > configure:2956: result: no
->> > configure: failed program was:
->> > | /* confdefs.h */
->> > | #define PACKAGE_NAME "Red Hat elfutils"
->> > | #define PACKAGE_TARNAME "elfutils"
->> > | #define PACKAGE_VERSION "0.148"
->> > | #define PACKAGE_STRING "Red Hat elfutils 0.148"
->> > | #define PACKAGE_BUGREPORT "http://bugzilla.redhat.com/bugzilla/"
->> > | #define PACKAGE_URL ""
->> > | #define PACKAGE "elfutils"
->> > | #define VERSION "0.148"
->> > | #define MODVERSION "Build on jama 2011-04-04T23:34:25+0200"
->> > | /* end confdefs.h. =C2=A0*/
->> > |
->> > | int
->> > | main ()
->> > | {
->> > |
->> > | =C2=A0 ;
->> > | =C2=A0 return 0;
->> > | }
->> > configure:2961: error: in
->> > `/OE/shr-core/tmp/work/x86_64-linux/elfutils-native-0.148-r1/elfutils-=
-0.148':
->> > configure:2965: error: C compiler cannot create executables
->> > See `config.log' for more details.
->
-> Sorry about this Martin. Thanks for catching and reporting.
->
->>
->> Ouch, I'm going to revert this, we'll need an alternative fix. Thanks
->> for reporting!
->
-> I've worked up an alternative fix and sent a pull request to oe-core. I
-> took the approach of consolidating several patches from the upstream
-> source repository which remove the unused variables.
->
-> I consolidated them into a single patch so that they are easier to drop
-> once we update elfutils to 0.152 or higher.
->
 
-Why not update to 0.152 then
 
-> Regards,
-> Joshua
-> --
-> Joshua Lock
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0Yocto Build System Monkey
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0Intel Open Source Technology Centre
->
+
+
+On Apr 6, 2011, at 5:06 AM, "Richard Purdie" <richard.purdie@linuxfoundatio=
+n.org> wrote:
+
+> On Wed, 2011-04-06 at 09:08 +0200, Esben Haabendal wrote:
+>> Richard Purdie <richard.purdie@linuxfoundation.org> writes:
+>>=20
+>>> One of the items on our post 1.0 schedule is multilib and we need a pla=
+n
+>>> of implementation. I've been thinking about this for a while and at
+>>> least have some ideas how some of the issues can be handled.
+>>> ....
+>>> Does this make sense to everyone, are there any questions/ objections/
+>>> concerns/ things I've missed?
+>>=20
+>> Which actual OE use-cases justify this kind of addition to OE?
+>=20
+> Several people wanting to use OECore have a requirement of multilib
+> support. The typical embedded use case is where you have one main
+> application which you might want to run in some kind of large memory
+> mode or with some special optimisation (think a database engine) whilst
+> the rest of the system is "standard". This requires the ability to mix
+> different libraries.
+
+This is a very popular use-case in carrier grade systems.  Back haul voice,=
+ data, etc applications that require large routing databases or billing dat=
+abases.  The other use I've seen for multilibs is some very specialized DVR=
+ systems where large amount of video need to stay in memory for quick retri=
+eval.
+
+>> I know it is on the Yocto post 1.0 schedule, but is it actually a good
+>> thing for OE?  Maintaining OE recipes is clearly not going to get any
+>> easier with multilibs support.
+>=20
+> As detailed in the proposal you will see that the complexity added is
+> minimal. It requires a simple enhancement to BBCLASSEXTEND which is
+> likely desirable for other reasons too and that is the only real bitbake
+> change required. For the metadata, individual recipes remain unaffected
+> and also the core conf files are unchanged too. The toolchain dependency
+> changes will be the only change affecting users at the recipe level and
+> most of the class/machine configuration will be opt in by anyone using
+> multilib. The only other invasive change is the package manager
+> integration. For rpm, it has good support for multilib already and we're
+> just enabling that. For opkg, we still need to determine the best
+> approach but the simplistic approach I mentioned will probably suffice
+> and anyone wanting true support at the package manager level can use
+> rpm.
+>=20
+> For day to day recipe maintenance I don't see much direct impact.
+>=20
+
+What I've seen in the past is the ability to build multilibs has improved t=
+he quality of the software integration by finding poorly constructed header=
+s, hard coded library paths, etc... All things we should fix.
+
+> Cheers,
+>=20
+> Richard
+>=20
+>=20
+>=20
 > _______________________________________________
 > poky mailing list
 > poky@yoctoproject.org
 > https://lists.yoctoproject.org/listinfo/poky
->
 
