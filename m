@@ -1,33 +1,33 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5E98E4C80132
-	for <poky@yoctoproject.org>; Wed,  6 Apr 2011 14:21:21 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p36JLDcD028741;
-	Wed, 6 Apr 2011 20:21:13 +0100
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 28567-02; Wed,  6 Apr 2011 20:21:09 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p36JL4F7028734
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Wed, 6 Apr 2011 20:21:06 +0100
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Paul Eggleton <paul.eggleton@linux.intel.com>
-In-Reply-To: <cover.1302101718.git.paul.eggleton@linux.intel.com>
-References: <cover.1302101718.git.paul.eggleton@linux.intel.com>
-Date: Wed, 06 Apr 2011 11:10:06 -0700
-Message-ID: <1302113406.22904.71.camel@rex>
+Return-Path: <glep-poky@m.gmane.org>
+Received: from lo.gmane.org (lo.gmane.org [80.91.229.12])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 7A6964C80050
+	for <poky@pokylinux.org>; Wed,  6 Apr 2011 14:25:06 -0500 (CDT)
+Received: from list by lo.gmane.org with local (Exim 4.69)
+	(envelope-from <glep-poky@m.gmane.org>) id 1Q7YLg-0006rx-Cu
+	for poky@pokylinux.org; Wed, 06 Apr 2011 21:25:04 +0200
+Received: from 79.167.110.181 ([79.167.110.181])
+	by main.gmane.org with esmtp (Gmexim 0.1 (Debian))
+	id 1AlnuQ-0007hv-00
+	for <poky@pokylinux.org>; Wed, 06 Apr 2011 21:25:04 +0200
+Received: from gmane by 79.167.110.181 with local (Gmexim 0.1 (Debian))
+	id 1AlnuQ-0007hv-00
+	for <poky@pokylinux.org>; Wed, 06 Apr 2011 21:25:04 +0200
+X-Injected-Via-Gmane: http://gmane.org/
+To: poky@pokylinux.org
+From: Robert Berger <gmane@reliableembeddedsystems.com>
+Date: Wed, 06 Apr 2011 22:22:31 +0300
+Organization: Reliable Embedded Systems
+Message-ID: <inieho$3ht$1@dough.gmane.org>
 Mime-Version: 1.0
-X-Mailer: Evolution 2.32.2 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@yoctoproject.org, openembedded-core@lists.openembedded.org
-Subject: Re: [PATCH 0/2] Update Qt4 to 4.7.2, security update
+X-Complaints-To: usenet@dough.gmane.org
+X-Gmane-NNTP-Posting-Host: 79.167.110.181
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.14) Gecko/20110223 Thunderbird/3.1.8
+Subject: webkit with poky(yocto) on top of directfb and not X11
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
+Reply-To: gmane@reliableembeddedsystems.com
 List-Id: Poky build system developer discussion <poky.yoctoproject.org>
 List-Unsubscribe: <https://lists.yoctoproject.org/options/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=unsubscribe>
@@ -36,32 +36,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Apr 2011 19:21:21 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Wed, 06 Apr 2011 19:25:06 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 7bit
 
-On Wed, 2011-04-06 at 15:57 +0100, Paul Eggleton wrote:
-> From: Paul Eggleton <paul.eggleton@linux.intel.com>
-> 
-> Move Qt 4.7.x from 4.7.1 to 4.7.2 and apply security patch from OE.
-> 
-> Pull URL: git://git.openembedded.org/openembedded-core-contrib
->   Branch: paule/qt-4.7.2
->   Browse: http://git.openembedded.org/cgit.cgi/openembedded-core-contrib/log/?h=paule/qt-4.7.2
-> 
-> Thanks,
->     Paul Eggleton <paul.eggleton@linux.intel.com>
-> ---
-> 
-> 
-> Denys Dmytriyenko (1):
->   qt4: security advisory - blacklist fraudulent comodo certificates
-> 
-> Paul Eggleton (1):
->   qt4: replace 4.7.1 with version 4.7.2
+Hi,
 
-Merged to master, thanks.
+I'm trying to figure out how to get a webkit with yocto/poky built
+without X11, but directfb instead.
 
-Richard
+Grepping through the poky tree that's what I see:
+
+sato contains a webkit, which depends on gtk+, which runs on x11/clutter.
+
+... but there is also a qt4-embedded package, which seems to run on top
+of directfb and has a dependency with webkit.
+
+Does this mean, that if I build/install qt4-embedded and kill the
+X-server on a sato image that I'll have a webkit on top of directfb?
+
+Is this supposed to be the right way to achieve webkit over directfb?
+
+Please advise.
+
+Regards,
+
+Robert..."The IQ of the group is the lowest IQ of a member of the group
+divided by the number of people in the group." - unknown
+
+My public pgp key is available at:
+http://pgp.mit.edu:11371/pks/lookup?op=get&search=0x90320BF1
+
 
 
