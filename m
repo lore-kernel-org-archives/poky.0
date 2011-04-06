@@ -1,38 +1,30 @@
-Return-Path: <bruce.ashfield@gmail.com>
-Received: from mail-iy0-f176.google.com (mail-iy0-f176.google.com
-	[209.85.210.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 55D7B4C80044
-	for <poky@yoctoproject.org>; Wed,  6 Apr 2011 13:19:11 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by iym1 with SMTP id 1so2362949iym.35
-	for <poky@yoctoproject.org>; Wed, 06 Apr 2011 11:19:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:in-reply-to:references:date
-	:message-id:subject:from:to:cc:content-type;
-	bh=wY0e3ZaSeMX0+ziy1i+jrcC3wnAtiZqFVCX9bx+wC1Q=;
-	b=HH3Ry0upe6spuPK/UtV3v4U6CcX/5IJfWvh7zVArukNG8u8gEbqh1UNe4V9AFEBpLV
-	OF0qT1P7G/SWlqFgxn2dNiq2vFoZU//AfNj8Wq+LJqMsWiau7kQVFb4+zBjt3C9Tpr5V
-	yi3a86a8rtJg4VF6jqbsmli2d0hplv4JJXHWs=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type;
-	b=ItIyJMJNIdKJLelesCCP3zqbES37AZ0vdrK4DhQa/bketv67D0o/S60A1mKyeWVf+W
-	p4mKkRIFdcd+4ejiAx2iItzWLc9rhmM2RlQHRQt0mS3tuivHIj1i3ZRatRybglaAeZBn
-	+3F8KeEkLfc9wpKaCSV0dW+XYCkEhWqiGYxtU=
+Return-Path: <mark.hatle@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 21AA74C80044
+	for <poky@yoctoproject.org>; Wed,  6 Apr 2011 13:26:08 -0500 (CDT)
+Received: from ALA-HCB.corp.ad.wrs.com (ala-hcb [147.11.189.41])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p36IQ3Nx005228
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Wed, 6 Apr 2011 11:26:03 -0700 (PDT)
+Received: from ALA-MBA.corp.ad.wrs.com ([169.254.1.73]) by
+	ALA-HCB.corp.ad.wrs.com ([147.11.189.41]) with mapi id 14.01.0255.000;
+	Wed, 6 Apr 2011 11:26:03 -0700
+From: "Hatle, Mark" <mark.hatle@windriver.com>
+To: Patches and discussions about the oe-core layer
+	<openembedded-core@lists.openembedded.org>
+Thread-Topic: [OE-core] Proposed Multilib Implementation Brainstorming
+Thread-Index: AQHL89fR9iSKERjfLEG0K3fk5c3eRJRRnYGA
+Date: Wed, 6 Apr 2011 18:26:03 +0000
+Message-ID: <51BF8F9A-3607-4DBF-9A6C-03E2FC1BD284@windriver.com>
+References: <1302001365.24596.459.camel@rex>
+In-Reply-To: <1302001365.24596.459.camel@rex>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
 MIME-Version: 1.0
-Received: by 10.231.186.85 with SMTP id cr21mr1254823ibb.164.1302113950440;
-	Wed, 06 Apr 2011 11:19:10 -0700 (PDT)
-Received: by 10.231.155.138 with HTTP; Wed, 6 Apr 2011 11:19:10 -0700 (PDT)
-In-Reply-To: <670496.25176.qm@web95704.mail.in.yahoo.com>
-References: <670496.25176.qm@web95704.mail.in.yahoo.com>
-Date: Wed, 6 Apr 2011 14:19:10 -0400
-Message-ID: <BANLkTimbfXrXrEujvgNRdakcuynmgUNcAw@mail.gmail.com>
-From: Bruce Ashfield <bruce.ashfield@gmail.com>
-To: Sparsh Wid hope <sparsh150847@yahoo.com>
-Cc: poky <poky@yoctoproject.org>
-Subject: Re: facing problem in branch validation for beagleboard
+Cc: poky <poky@yoctoproject.org>,
+	openembedded-core <openembedded-core@lists.openembedded.org>
+Subject: Re: [OE-core] Proposed Multilib Implementation Brainstorming
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,271 +36,180 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Apr 2011 18:19:11 -0000
-Content-Type: multipart/alternative; boundary=0016369fa3c8791edb04a04407b3
-
---0016369fa3c8791edb04a04407b3
-Content-Type: text/plain; charset=ISO-8859-1
-
-On Wed, Apr 6, 2011 at 9:25 AM, Sparsh Wid hope <sparsh150847@yahoo.com>wrote:
-
->  Thanks for your response but I don't think any package is going to build.
-> I'm sending you whole message on my console after bitbake. Please check it
-> and guide me to solve the problem.
-> Thanks
->
-
-Are you referring to this warning ?:
-
-WARNING: No bb files matched BBFILE_PATTERN_yocto
-'^/home/surya/Surya/pro/my_poky/poky/meta-yocto/'#######| ETA:  00:00:00
-
-I see it here as well, but it won't impact the board. My beagleboard build
-then
-continues and works fine.
-
-What are the top commits in your linux-yocto-2.6.37 repository on the
-beagleboard
-BSP branch ? (find it in build/downloads/git2/).
-
-Bruce
-
-
->
-> --- On *Wed, 6/4/11, Bruce Ashfield <bruce.ashfield@gmail.com>* wrote:
->
->
-> From: Bruce Ashfield <bruce.ashfield@gmail.com>
-> Subject: Re: [poky] facing problem in branch validation for beagleboard
-> To: "Sparsh Wid hope" <sparsh150847@yahoo.com>
-> Cc: "poky" <poky@yoctoproject.org>
-> Date: Wednesday, 6 April, 2011, 12:38 PM
->
->
->
->
-> On Wed, Apr 6, 2011 at 6:48 AM, Sparsh Wid hope <sparsh150847@yahoo.com>wrote:
->
-> Hi All,
->
-> I'm trying to build a poky image for beagle board with linux-yocto-2.6.37
-> and got following errors.
->
->
-> Hmm. This should never happen, it means that something has gone
-> wrong with the clone of linux-yocto-2.6.37.
->
->
->
-> Unstaged changes after reset:
-> M       .gitignore
-> M       Documentation/hwmon/jc42
-> .
-> .
-> .
-> error: Your local changes to the following files would be overwritten by
-> checkout
-> .
-> .
-> .
-> Please move or remove them before you can switch branches.
-> Aborting
-> error: Cannot delete the branch 'meta-temp' which you are currently on.
-> error: Your local changes to the following files would be overwritten by
-> checkout:
-> .
-> .
-> .
-> Please move or remove them before you can switch branches.
-> Aborting
-> warning: could not find ktypes/temp.scc
-> ./0-meta-temp-a81c58139afe973468e690658cd5f18d.sco: line 14: temp_
->
->
-> If this happens, the system was attempting to construct an automatic
-> definition
-> and it couldn't since the tree wasn't recognizable.
->
-> Do any of the qemu targets build ? I'd like to narrow down what could be
-> going wrong.
->
-> Cheers,
->
-> Bruce
->
->
-> 68b329da9893e34099c7d8ad5cb9c940: command not found
-> ERROR. Could not locate meta series for beagleboard-standard
-> ERROR: Function 'do_patch' failed (see
-> /home/surya/Surya/pro/my_poky/poky/build/tmp/work/beagleboard-poky-linux-gnueabi/linux-yocto-2.6.37+git3+17e49db8624324d090dd5aaa18ef977bb2dd5f6d_3+17e49db8624324d090dd5aaa18ef977bb2dd5f6d-r16/temp/log.do_patch.13906
-> for further information)
->
-> -----------------------------------------------------------------------------------------------------------------------------------
-> please help me to resolve the problem.
-> Thanks in advance
-> Sparsh
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
->
->
->
-> --
-> "Thou shalt not follow the NULL pointer, for chaos and madness await thee
-> at its end"
->
->
-
-
--- 
-"Thou shalt not follow the NULL pointer, for chaos and madness await thee at
-its end"
-
---0016369fa3c8791edb04a04407b3
-Content-Type: text/html; charset=ISO-8859-1
+X-List-Received-Date: Wed, 06 Apr 2011 18:26:08 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <B4BF76D51430A047888BF9023691744D@corp.ad.wrs.com>
 Content-Transfer-Encoding: quoted-printable
 
-<div class=3D"gmail_quote">On Wed, Apr 6, 2011 at 9:25 AM, Sparsh Wid hope =
-<span dir=3D"ltr">&lt;<a href=3D"mailto:sparsh150847@yahoo.com" target=3D"_=
-blank">sparsh150847@yahoo.com</a>&gt;</span> wrote:<br><blockquote class=3D=
-"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding=
--left:1ex">
-
-<table cellspacing=3D"0" cellpadding=3D"0" border=3D"0"><tbody><tr><td vali=
-gn=3D"top" style=3D"font:inherit"><div><table cellspacing=3D"0" cellpadding=
-=3D"0" border=3D"0"><tbody><tr><td style=3D"font:inherit;font-family:arial;=
-font-size:10pt">
-
-Thanks for your response but I don&#39;t think any package is going to buil=
-d. I&#39;m sending you whole message on my console after bitbake. Please ch=
-eck it and guide me to solve the problem.<div>Thanks<br></div></td></tr>
-
-</tbody></table></div></td></tr></tbody></table></blockquote><div><br></div=
-><div>Are you referring to this warning ?:</div><div><br></div><div><div>WA=
-RNING: No bb files matched BBFILE_PATTERN_yocto &#39;^/home/surya/Surya/pro=
-/my_poky/poky/meta-yocto/&#39;#######| ETA: =A000:00:00</div>
-
-</div><div><br></div><div>I see it here as well, but it won&#39;t impact th=
-e board. My beagleboard build then</div><div>continues and works fine.=A0</=
-div><div><br></div><div>What are the top commits in your linux-yocto-2.6.37=
- repository on the beagleboard</div>
-<div>BSP branch ? (find it in build/downloads/git2/).</div><div><br></div><=
-div>Bruce</div><div>=A0</div><blockquote class=3D"gmail_quote" style=3D"mar=
-gin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><table cellspac=
-ing=3D"0" cellpadding=3D"0" border=3D"0">
-<tbody><tr><td valign=3D"top" style=3D"font:inherit">
-<div><table cellspacing=3D"0" cellpadding=3D"0" border=3D"0"><tbody><tr><td=
- style=3D"font:inherit;font-family:arial;font-size:10pt"><div><br>--- On <b=
->Wed, 6/4/11, Bruce Ashfield <i>&lt;<a href=3D"mailto:bruce.ashfield@gmail.=
-com" target=3D"_blank">bruce.ashfield@gmail.com</a>&gt;</i></b> wrote:<br>
-
-<blockquote style=3D"border-left:2px solid rgb(16, 16, 255);margin-left:5px=
-;padding-left:5px"><br>From: Bruce Ashfield &lt;<a href=3D"mailto:bruce.ash=
-field@gmail.com" target=3D"_blank">bruce.ashfield@gmail.com</a>&gt;<br>Subj=
-ect: Re: [poky] facing problem in branch validation for beagleboard<br>
-
-To: &quot;Sparsh Wid hope&quot; &lt;<a href=3D"mailto:sparsh150847@yahoo.co=
-m" target=3D"_blank">sparsh150847@yahoo.com</a>&gt;<br>Cc: &quot;poky&quot;=
- &lt;<a href=3D"mailto:poky@yoctoproject.org" target=3D"_blank">poky@yoctop=
-roject.org</a>&gt;<br>
-
-Date: Wednesday, 6 April,
- 2011, 12:38 PM<div><div></div><div><br><br><div><br><br><div>On Wed, Apr 6=
-, 2011 at 6:48 AM, Sparsh Wid hope <span dir=3D"ltr">&lt;<a rel=3D"nofollow=
-">sparsh150847@yahoo.com</a>&gt;</span> wrote:<br><blockquote style=3D"marg=
-in:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
-
-
-<table cellspacing=3D"0" cellpadding=3D"0" border=3D"0"><tbody><tr><td vali=
-gn=3D"top" style=3D"font:inherit"><font face=3D"arial" size=3D"2">Hi All,</=
-font><div style=3D"font-family:arial;font-size:10pt"><br></div><div style=
-=3D"font-family:arial;font-size:10pt">
-
-
-I&#39;m trying to build a poky image for beagle board with linux-yocto-2.6.=
-37 and got following errors.</div></td></tr></tbody></table></blockquote><d=
-iv><br></div><div>Hmm. This should never happen, it means that something ha=
-s gone</div>
-
-
-<div>wrong with the clone of linux-yocto-2.6.37.=A0</div><div>=A0</div><blo=
-ckquote style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:=
-1ex"><table cellspacing=3D"0" cellpadding=3D"0" border=3D"0"><tbody><tr>
-<td valign=3D"top" style=3D"font:inherit"><div style=3D"font-family:arial;f=
-ont-size:10pt"><br></div><div style=3D"font-family:arial;font-size:10pt"><d=
-iv>Unstaged changes after reset:</div><div>M =A0 =A0 =A0 .gitignore</div><d=
-iv>M =A0 =A0 =A0 Documentation/hwmon/jc42</div>
-
-
-</div><div style=3D"font-family:arial;font-size:10pt">.</div><div style=3D"=
-font-family:arial;font-size:10pt">.</div><div style=3D"font-family:arial;fo=
-nt-size:10pt">.</div><div><font face=3D"arial" size=3D"2">error: Your local=
- changes to the following files would be overwritten by
- checkout</font></div><div><font face=3D"arial" size=3D"2">.</font></div><d=
-iv><font face=3D"arial" size=3D"2">.</font></div><div><font face=3D"arial" =
-size=3D"2">.</font></div><div><font face=3D"arial" size=3D"2"><div>Please m=
-ove or remove them before you can switch branches.</div>
-
-
-<div>Aborting</div><div>error: Cannot delete the branch &#39;meta-temp&#39;=
- which you are currently on.</div><div>error: Your local changes to the fol=
-lowing files would be overwritten by checkout:</div><div>.</div><div>.</div=
->
-
-
-<div>.</div><div><div>Please move or remove them before you can switch bran=
-ches.</div><div>Aborting</div><div>warning: could not find ktypes/temp.scc<=
-/div><div>./0-meta-temp-a81c58139afe973468e690658cd5f18d.sco: line 14: temp=
-_</div>
-
-
-</div></font></div></td></tr></tbody></table></blockquote><div><br></div><d=
-iv>If this happens, the system was attempting to construct an automatic def=
-inition=A0</div><div>and it couldn&#39;t since the tree wasn&#39;t recogniz=
-able.</div>
-
-
-<div><br></div><div>Do any of the qemu targets build ? I&#39;d like to narr=
-ow down what could be</div><div>going wrong.</div><div><br></div><div>Cheer=
-s,</div><div><br></div><div>Bruce</div><div>=A0</div><blockquote style=3D"m=
-argin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
-
-
-<table cellspacing=3D"0" cellpadding=3D"0" border=3D"0"><tbody><tr><td vali=
-gn=3D"top" style=3D"font:inherit"><div><font face=3D"arial" size=3D"2"><div=
-><div>68b329da9893e34099c7d8ad5cb9c940: command not found</div><div>ERROR. =
-Could not locate meta series for beagleboard-standard</div>
-
-
-<div>ERROR: Function &#39;do_patch&#39;
- failed (see /home/surya/Surya/pro/my_poky/poky/build/tmp/work/beagleboard-=
-poky-linux-gnueabi/linux-yocto-2.6.37+git3+17e49db8624324d090dd5aaa18ef977b=
-b2dd5f6d_3+17e49db8624324d090dd5aaa18ef977bb2dd5f6d-r16/temp/log.do_patch.1=
-3906 for further information)</div>
-
-
-</div><div>----------------------------------------------------------------=
--------------------------------------------------------------------</div><d=
-iv>please help me to resolve the problem.</div><div>Thanks in advance</div>
-
-
-<div>Sparsh</div></font></div></td></tr></tbody></table><br>_______________=
-________________________________<br>
-poky mailing list<br>
-<a rel=3D"nofollow">poky@yoctoproject.org</a><br>
-<a rel=3D"nofollow" href=3D"https://lists.yoctoproject.org/listinfo/poky" t=
-arget=3D"_blank">https://lists.yoctoproject.org/listinfo/poky</a><br>
-<br></blockquote></div><br><br clear=3D"all"><br>-- <br>&quot;Thou shalt no=
-t follow the NULL pointer, for chaos and madness await thee at its end&quot=
-;<br>
-</div></div></div></blockquote></div></td></tr></tbody></table></div></td><=
-/tr></tbody></table></blockquote></div><br><br clear=3D"all"><br>-- <br>&qu=
-ot;Thou shalt not follow the NULL pointer, for chaos and madness await thee=
- at its end&quot;<br>
+A few comments to the original proposal below...
 
 
 
---0016369fa3c8791edb04a04407b3--
+On Apr 5, 2011, at 2:24 PM, "Richard Purdie" <richard.purdie@linuxfoundatio=
+n.org> wrote:
+
+> One of the items on our post 1.0 schedule is multilib and we need a plan
+> of implementation. I've been thinking about this for a while and at
+> least have some ideas how some of the issues can be handled.
+>=20
+> In case anyone isn't familiar with the idea of multilibs, the most
+> common example are x86 systems which have both 32 bit and 64 bit
+> libraries installed at the same time in /lib/ and /lib64/ directories or
+> similar and hence both types of binaries can be used.
+>=20
+> The number of libs isn't limited to two choices as for example the mips
+> platform has three choices which can be used in parallel. The x32 ABI
+> would mean three possible x86 options too.=20
+>=20
+
+There are really two facets when people talk about multilibs.  The first is=
+ what is discussed above, incompatible ABI that are compatible in regards o=
+f running on the same hardware and can be collocated within a single filesy=
+stem.   The other type of multilibs, common on ARM, is same ABI with differ=
+ent optimizations, machine specific code.
+
+Both types of multilibs need to be supported over time.
+
+
+> The first step is being able to build given recipes for each of a set of
+> given multilibs. This is very similar in principle to the way
+> BBCLASSEXTEND is used, the difference it that whilst the native or
+> nativesdk classes are used once, for multilib we need a kind of multiple
+> inheritance of a class assuming we don't want one class per multilib.
+>=20
+> To do this I'm thinking of a new set of include files of the form
+> conf/machine/include/multilib-xxxx.inc, similar in nature to the
+> tune-xxx.inc files. A given setup would include each of the multilibs it
+> requred. Each multilib include file would look something like:
+>=20
+> conf/machine/include/multilib-x86-lib32.inc:
+>=20
+> MULTILIBS +=3D "lib32"
+>=20
+> BASE_PACKAGE_ARCH_virtclass-multilib-lib32 =3D "core2-lib32"
+> TARGET_CC_ARCH_virtclass-multilib-lib32 =3D "-m32 -march=3Dcore2"
+> PACKAGE_EXTRA_ARCHS +=3D "core2-lib32"
+>=20
+> libdir_virtclass-multilib-lib32 =3D "${exec_prefix}/lib32"
+> base_libdir_virtclass-multilib-lib32 =3D "${base_prefix}/lib32"
+>=20
+> i.e. use overrides to change the target cc architecture specifying the
+> required flags to the compiler and also alter the library paths as
+> required.
+>=20
+> I'm envisaging passing an optional new parameter to classes in
+> BBCLASSEXTEND so for example the definition of a multilib could look
+> something like:
+>=20
+> BBCLASSEXTEND_append =3D " multilib:x86-lib32"
+>=20
+> and all the multilib class would need to do is to manipulation of
+> variables including OVERRIDES in a similar way to native.bbclass with
+> the complication of handling the parameter.
+>=20
+
+One of the complications though is deciding what packages to build for whic=
+h multilibs.  We will need a way to say the default system libraries and co=
+mponents should be say 32-bit.  But I need this one component to be 64-bit.=
+...
+
+> The toolchain bootstrap process would become a little complicated by
+> this. We'll need to be able to iterate over the list of multilibs and
+> configure the compiler with a configuration appropriate to the multilibs
+> requested. The compiler should then take care of generating a suitable
+> libgcc for each multilib. Where the compiler currently depends on
+> virtual/libc-initial, we'll need with a function called to generate the
+> dependecies so for example: "virtual/libc virtual/libc-initial-lib32"
+>=20
+
+I think the toolchain bootstrap is a place where the implementation of the =
+toolchain can make this easier or MUCH harder.  In the environments I am us=
+ed to using (code sorcery based toolchain) its a single binary that enables=
+ the user to use many different multilibs.  However, this is likely not the=
+ best/easiest approach for source based toolchain builds.  It's much easier=
+ for use to just iteratively build toolchains for each multlib.  Using uniq=
+ue filenames can make this fairly easy to implement with minimal changes to=
+ the recipes.
+
+Using something more complex like the CS toolchains, you can do simply by c=
+reating specific wrappers that call the base common toolchain with the righ=
+t parameters to switch the multlib settings..
+
+
+> The toolchain bootstrap process would hence become something like:
+>=20
+> gcc-cross-initial
+> libc-initial
+> libc-initial-lib32
+> gcc-cross-intermediate
+> libc
+> libc-lib32
+> gcc-cross
+> libgcc (package)
+> libgcc-lib32 (package)
+> gcc-runtime
+> gcc-runtime-lib32
+>=20
+> So for any multilib, we're stuck with always building the libc due to
+> the way gcc handles multilib. For subsequent tasks, only the libs
+> requested in a give image in a given ABI would be built.
+>=20
+
+Yes, when building multilibs there is a key set that has to exist before yo=
+u can build anything else.  This normally includes libgcc, libstdcxx, and l=
+ibc.  Otherwise general depenedencies can handle anything we need...  But a=
+s mentioned before we need to understand which items to build and use for f=
+ilesystem construction.
+
+> Note that as far as the build system is concerned there become distinct
+> targets for each ABI so "bitbake mysql" would build the default library
+> type, "bitbake mysql-lib32" would build the 32 bit version. Including
+> both "mysql" and "mysql-lib32" in an image is where things get
+> interesting, the build system will ensure they're both built, then it
+> becomes the problem of the image creation and package
+> creation/management processes.
+>=20
+
+So when constructing a task or dependency list set we can do mysql, if we w=
+ant the default or mysql-lib64 if we want the specific 64 bit version?  I t=
+hink this is a place where we'll want to evaluate how people interact with =
+the system and configuration files to find the best way to implement it.
+
+> The final tricky part of the puzzle which is under the guidance of the
+> package manager. rpm has extensive pre-existing mutlilib support. opkg
+> has none.
+>=20
+> It should be possible to convert the build system package name
+> libmysql-libx32 into just "libmysql" for the benefit of rpm and use
+> rpm's package flavours to handle the multilib issues.
+>=20
+> For opkg there are multiple levels we can take the integration to. It
+> should be possible for example to install the "weaker" multilibs first,
+> then just install the stronger ones over the top, assuming any file
+> overwriting is ok and can be ignored. Teaching opkg about proper
+> multilib support would be a bigger project but would be much less of a
+> hack/workaround.
+>=20
+> So to summarise the steps needed are:
+>=20
+> a) bitbake enhancement for BBCLASSEXTEND parameter support
+> b) Add simple multilib build configuration
+> c) Update toolchain bootstrap with multilibs support
+> d) Add RPM multilib packaging
+> e) Look at opkg multilib integration
+>=20
+>=20
+> Does this make sense to everyone, are there any questions/ objections/
+> concerns/ things I've missed?
+>=20
+> Cheers,
+>=20
+> Richard
+>=20
+>=20
+> _______________________________________________
+> Openembedded-core mailing list
+> Openembedded-core@lists.openembedded.org
+> http://lists.linuxtogo.org/cgi-bin/mailman/listinfo/openembedded-core
+
