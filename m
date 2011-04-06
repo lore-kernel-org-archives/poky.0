@@ -1,25 +1,42 @@
-Return-Path: <Kai.Kang@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B71714C80A46
-	for <poky@yoctoproject.org>; Wed,  6 Apr 2011 03:06:56 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p3686th0020514
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Wed, 6 Apr 2011 01:06:55 -0700 (PDT)
-Received: from localhost (128.224.163.157) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Wed, 6 Apr 2011 01:06:53 -0700
-Message-ID: <07f47177b2f9f70cf923d3de26e86eb0fb9c32f2.1302076785.git.kai.kang@windriver.com>
-In-Reply-To: <cover.1302076785.git.kai.kang@windriver.com>
-References: <cover.1302076785.git.kai.kang@windriver.com>
-Old-Date: Wed, 6 Apr 2011 15:50:08 +0800
-Date: Wed, 6 Apr 2011 16:06:49 +0800
-To: <saul.wold@intel.com>
-From: Kang Kai <kai.kang@windriver.com>
+Return-Path: <sparsh150847@yahoo.com>
+Received: from nm1-vm0.bullet.mail.in.yahoo.com
+	(nm1-vm0.bullet.mail.in.yahoo.com [121.101.151.211])
+	by mx1.pokylinux.org (Postfix) with SMTP id 4AEFB4C80579
+	for <poky@yoctoproject.org>; Wed,  6 Apr 2011 05:49:03 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@yahoo.com;
+	x-dkim-adsp=none (insecure policy)
+Received: from [121.101.151.237] by nm1.bullet.mail.in.yahoo.com with NNFMP;
+	06 Apr 2011 10:49:01 -0000
+Received: from [121.101.151.233] by tm2.bullet.mail.in.yahoo.com with NNFMP;
+	06 Apr 2011 10:49:09 -0000
+Received: from [127.0.0.1] by omp1002.mail.in.yahoo.com with NNFMP;
+	06 Apr 2011 10:52:18 -0000
+X-Yahoo-Newman-Property: ymail-3
+X-Yahoo-Newman-Id: 685785.96301.bm@omp1002.mail.in.yahoo.com
+Received: (qmail 16913 invoked by uid 60001); 6 Apr 2011 10:49:01 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s1024;
+	t=1302086941; bh=mu7n65KRjCMxlmbZebTZSlgOaoJio0H/DBXqkp2C3NI=;
+	h=Message-ID:X-YMail-OSG:Received:X-Mailer:Date:From:Subject:To:MIME-Version:Content-Type;
+	b=FMBljLQxYILplvGTyq79LAe2L5ZacLWMkQ2fHWZxdLt4R+NlxFvoGh5GFp4TX2mp0ExFvChYUXY8tZAPk32kZ6UUgg8E91IMGrGGn3fAEWI9hnlDOII3DDUPY2WEZJu5/KYDoiYFIYtZwwFzkZDCcvlbZ6ZALEqSHc+Z5gdY024=
+DomainKey-Signature: a=rsa-sha1; q=dns; c=nofws; s=s1024; d=yahoo.com;
+	h=Message-ID:X-YMail-OSG:Received:X-Mailer:Date:From:Subject:To:MIME-Version:Content-Type;
+	b=5cJZhmETx4Vf7XrvdgdyX71fRySI1vm1b5hMnn2Gnv63fa6+idUlxHlWtAapsVoeemdGdw0hIrVw5VLIEnXSAm3QbaauaUN8cH3JUP0WjRZgmAAY11cqdgss28vgtjrfvVLdjeOazqMP2oHegnoCpKhsRUfIsW44bOIT9htDp6A=;
+Message-ID: <394068.13723.qm@web95713.mail.in.yahoo.com>
+X-YMail-OSG: xBQq_I0VM1nEkMeubP59C2P5xA80ffBdtV3XldWsHIECcCF
+	n4_L6ZYbsLnvlt6.f2AfZr5EzG6U6o3mz3J5NhiDejsVL6IyqC9iMyS1CIze
+	tqR0qXYyTXzLykuWeMqAmzZKTS9c3iIsBoF7KE1nwk0ZGPRkjM78IpbR9tvv
+	P0ufTxkcXx.g0DC9ftkZwVEptHy4f6G53j3Ax_wYOypmctNSLe..C9DjAlCX
+	48TnMcHHnEuY1jE_mva_EiEOtAfinbDYjlzRaoLigUd25MLyD.sAvpxYyqF1
+	td_XhFGAIFHjgJK5J5oUwlQ--
+Received: from [115.111.25.162] by web95713.mail.in.yahoo.com via HTTP;
+	Wed, 06 Apr 2011 16:18:58 IST
+X-Mailer: YahooMailClassic/12.0.2 YahooMailWebService/0.8.109.295617
+Date: Wed, 6 Apr 2011 16:18:58 +0530 (IST)
+From: Sparsh Wid hope <sparsh150847@yahoo.com>
+To: poky <poky@yoctoproject.org>
 MIME-Version: 1.0
-X-Originating-IP: [128.224.163.157]
-Cc: poky@yoctoproject.org
-Subject: [PATCH 1/2] nspr: add nspr to pass LSB library test
+Subject: facing problem in branch validation for beagleboard
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,556 +48,72 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Apr 2011 08:06:56 -0000
-Content-Type: text/plain
+X-List-Received-Date: Wed, 06 Apr 2011 10:49:05 -0000
+Content-Type: multipart/alternative; boundary="0-1832924636-1302086938=:13723"
 
-From: Kang Kai <kai.kang@windriver.com>
+--0-1832924636-1302086938=:13723
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: quoted-printable
 
-LSB library test will check libnspr4.so which nspr provides.
-Import from OE, rev 6fe7cef27069415f2eba36bc640cf59013d4979b
-Update to 4.8.7, drop 99_configure.dpatch, and adjust files for nspr.
-Update LICENSE and patches' source info.
+Hi All,
+I'm trying to build a poky image for beagle board with linux-yocto-2.6.37 a=
+nd got following errors.
+Unstaged changes after reset:M =A0 =A0 =A0 .gitignoreM =A0 =A0 =A0 Document=
+ation/hwmon/jc42...error: Your local changes to the following files would b=
+e overwritten by checkout...Please move or remove them before you can switc=
+h branches.Abortingerror: Cannot delete the branch 'meta-temp' which you ar=
+e currently on.error: Your local changes to the following files would be ov=
+erwritten by checkout:...Please move or remove them before you can switch b=
+ranches.Abortingwarning: could not find ktypes/temp.scc./0-meta-temp-a81c58=
+139afe973468e690658cd5f18d.sco: line 14: temp_68b329da9893e34099c7d8ad5cb9c=
+940: command not foundERROR. Could not locate meta series for beagleboard-s=
+tandardERROR: Function 'do_patch' failed (see /home/surya/Surya/pro/my_poky=
+/poky/build/tmp/work/beagleboard-poky-linux-gnueabi/linux-yocto-2.6.37+git3=
++17e49db8624324d090dd5aaa18ef977bb2dd5f6d_3+17e49db8624324d090dd5aaa18ef977=
+bb2dd5f6d-r16/temp/log.do_patch.13906 for further
+ information)--------------------------------------------------------------=
+---------------------------------------------------------------------please=
+ help me to resolve the problem.Thanks in advanceSparsh
 
-Signed-off-by: Kang Kai <kai.kang@windriver.com>
----
- .../mozilla/nspr-4.8.7/30_config_64bits.dpatch     |   45 ++++
- .../mozilla/nspr-4.8.7/30_pkgconfig.dpatch         |   37 +++
- .../mozilla/nspr-4.8.7/81_sonames.dpatch           |  233 ++++++++++++++++++++
- .../mozilla/nspr-4.8.7/unbreak-build.diff          |   50 +++++
- .../recipes-extended/mozilla/nspr-tools-native.inc |   29 +++
- .../mozilla/nspr-tools-native_4.8.7.bb             |   16 ++
- meta/recipes-extended/mozilla/nspr.inc             |   44 ++++
- meta/recipes-extended/mozilla/nspr_4.8.7.bb        |   17 ++
- 8 files changed, 471 insertions(+), 0 deletions(-)
- create mode 100644 meta/recipes-extended/mozilla/nspr-4.8.7/30_config_64bits.dpatch
- create mode 100644 meta/recipes-extended/mozilla/nspr-4.8.7/30_pkgconfig.dpatch
- create mode 100644 meta/recipes-extended/mozilla/nspr-4.8.7/81_sonames.dpatch
- create mode 100644 meta/recipes-extended/mozilla/nspr-4.8.7/unbreak-build.diff
- create mode 100644 meta/recipes-extended/mozilla/nspr-tools-native.inc
- create mode 100644 meta/recipes-extended/mozilla/nspr-tools-native_4.8.7.bb
- create mode 100644 meta/recipes-extended/mozilla/nspr.inc
- create mode 100644 meta/recipes-extended/mozilla/nspr_4.8.7.bb
+--0-1832924636-1302086938=:13723
+Content-Type: text/html; charset=iso-8859-1
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/meta/recipes-extended/mozilla/nspr-4.8.7/30_config_64bits.dpatch b/meta/recipes-extended/mozilla/nspr-4.8.7/30_config_64bits.dpatch
-new file mode 100644
-index 0000000..44810b6
---- /dev/null
-+++ b/meta/recipes-extended/mozilla/nspr-4.8.7/30_config_64bits.dpatch
-@@ -0,0 +1,45 @@
-+import from oe, rev 199effd4c7b1b62bc133a577e42d7043ee7202e7
-+
-+Signed-off-by: Kang Kai <kai.kang@windriver.com>
-+
-+--- nsprpub/configure.in
-++++ nsprpub/configure.in
-+@@ -57,7 +57,7 @@
-+ USE_USER_PTHREADS=
-+ USE_NSPR_THREADS=
-+ USE_N32=
-+-USE_64=
-++USE_64=maybe
-+ USE_CPLUS=
-+ USE_IPV6=
-+ USE_MDUPDATE=
-+@@ -222,11 +222,26 @@
-+     fi ])
-+ 
-+ AC_ARG_ENABLE(64bit,
-+-    [  --enable-64bit          Enable 64-bit support (on certain platforms)],
-+-    [ if test "$enableval" = "yes"; then
-+-	    USE_64=1
-++    [  --disable-64bit         Disable 64-bit support (on 64-bit platforms)],
-++    [ if test "$enableval" = "no"; then
-++	    USE_64=
-++      else
-++	    USE_64=1
-+       fi ])
-+ 
-++if test "${USE_64}"; then
-++    AC_MSG_CHECKING(for 64-bit OS)
-++    AC_TRY_COMPILE([],[int assert[(sizeof(long) == 8) ? 1: -1]],
-++        result="yes", result="no")
-++    AC_MSG_RESULT("$result")
-++    if test "$result" = "no" && test "$USE_64" = 1; then
-++        AC_MSG_ERROR([Can't --enable-64bit on non 64-bit platforms])
-++    fi
-++    if test "$result" = "yes"; then
-++        USE_64=1
-++    fi
-++fi
-++
-+ AC_ARG_ENABLE(mdupdate,
-+     [  --enable-mdupdate       Enable use of certain compilers' mdupdate feature],
-+     [ if test "$enableval" = "yes"; then
-diff --git a/meta/recipes-extended/mozilla/nspr-4.8.7/30_pkgconfig.dpatch b/meta/recipes-extended/mozilla/nspr-4.8.7/30_pkgconfig.dpatch
-new file mode 100644
-index 0000000..9df8080
---- /dev/null
-+++ b/meta/recipes-extended/mozilla/nspr-4.8.7/30_pkgconfig.dpatch
-@@ -0,0 +1,37 @@
-+import from oe, rev 199effd4c7b1b62bc133a577e42d7043ee7202e7
-+
-+Signed-off-by: Kang Kai <kai.kang@windriver.com>
-+
-+--- nsprpub/config/Makefile.in
-++++ nsprpub/config/Makefile.in
-+@@ -158,3 +158,7 @@
-+ install:: nspr.m4
-+ 	$(NSINSTALL) -D $(DESTDIR)$(datadir)/aclocal
-+ 	$(NSINSTALL) -t -m 0644 $< $(DESTDIR)$(datadir)/aclocal
-++
-++install:: nspr.pc
-++	$(NSINSTALL) -D $(DESTDIR)$(libdir)/pkgconfig
-++	$(NSINSTALL) -t -m 0644 $< $(DESTDIR)$(libdir)/pkgconfig
-+--- nsprpub/config/nspr.pc.in
-++++ nsprpub/config/nspr.pc.in
-+@@ -0,0 +1,10 @@
-++prefix=@prefix@
-++exec_prefix=@exec_prefix@
-++libdir=@libdir@
-++includedir=@includedir@
-++
-++Name: NSPR
-++Description: The Netscape Portable Runtime
-++Version: @MOD_MAJOR_VERSION@.@MOD_MINOR_VERSION@.@MOD_PATCH_VERSION@
-++Libs: -L@libdir@ -lplds@MOD_MAJOR_VERSION@ -lplc@MOD_MAJOR_VERSION@ -lnspr@MOD_MAJOR_VERSION@ @OS_LIBS@
-++Cflags: -I@includedir@
-+--- nsprpub/configure.in
-++++ nsprpub/configure.in
-+@@ -2766,6 +2766,7 @@
-+ config/nsprincl.mk
-+ config/nsprincl.sh
-+ config/nspr-config
-++config/nspr.pc
-+ lib/Makefile 
-+ lib/ds/Makefile 
-+ lib/libc/Makefile 
-diff --git a/meta/recipes-extended/mozilla/nspr-4.8.7/81_sonames.dpatch b/meta/recipes-extended/mozilla/nspr-4.8.7/81_sonames.dpatch
-new file mode 100644
-index 0000000..c2c495b
---- /dev/null
-+++ b/meta/recipes-extended/mozilla/nspr-4.8.7/81_sonames.dpatch
-@@ -0,0 +1,233 @@
-+import from oe, rev 199effd4c7b1b62bc133a577e42d7043ee7202e7
-+
-+Signed-off-by: Kang Kai <kai.kang@windriver.com>
-+
-+--- nsprpub/config/rules.mk
-++++ nsprpub/config/rules.mk
-+@@ -129,12 +129,35 @@
-+ else
-+ ifdef MKSHLIB
-+ SHARED_LIBRARY	= $(OBJDIR)/lib$(LIBRARY_NAME)$(LIBRARY_VERSION).$(DLL_SUFFIX)
-++SONAME		= $(notdir $(SHARED_LIBRARY))
-++
-++ifdef SO_VERSION
-++ifneq (,$(findstring $(SONAME),$(MKSHLIB)))
-++SO_VERSION_MAJOR	:= $(shell echo $(SO_VERSION) | sed 's/^\([^.]*\)\(\.[^.]*\)\?\(\.[^.]*\)\?/\1/')
-++SO_VERSION_MINOR	:= $(shell echo $(SO_VERSION) | sed 's/^\([^.]*\)\(\.[^.]*\)\?\(\.[^.]*\)\?/\2/')
-++SO_VERSION_MICRO	:= $(shell echo $(SO_VERSION) | sed 's/^\([^.]*\)\(\.[^.]*\)\?\(\.[^.]*\)\?/\3/')
-++
-++SHARED_LIBRARY_LINKS	:= $(SONAME)
-++ifdef SO_VERSION_MINOR
-++SHARED_LIBRARY_LINKS	+= $(SONAME).$(SO_VERSION_MAJOR)
-+ endif
-++ifdef SO_VERSION_MICRO
-++SHARED_LIBRARY_LINKS	+= $(SHARED_LIBRARY).$(SO_VERSION_MAJOR)$(SO_VERSION_MINOR)
-+ endif
-+ 
-++SONAME			:= $(SONAME).$(SO_VERSION_MAJOR)
-++SHARED_LIBRARY		:= $(SHARED_LIBRARY).$(SO_VERSION)
-++
-++MKSHLINKS		= (cd $(1) && for link in $(SHARED_LIBRARY_LINKS); do rm -f $$link; ln -s $(notdir $(SHARED_LIBRARY)) $$link; done)
-+ endif
-+ endif
-+ 
-++endif
-++endif
-++
-++endif
-++endif
-++
-+ ifndef TARGETS
-+ ifeq (,$(filter-out WINNT OS2,$(OS_ARCH)))
-+ TARGETS		= $(LIBRARY) $(SHARED_LIBRARY) $(IMPORT_LIBRARY)
-+@@ -166,7 +189,7 @@
-+ endif
-+ 
-+ ALL_TRASH		= $(TARGETS) $(OBJS) $(RES) $(filter-out . .., $(OBJDIR)) LOGS TAGS $(GARBAGE) \
-+-			  $(NOSUCHFILE) \
-++			  $(SHARED_LIBRARY_LINKS) $(NOSUCHFILE) \
-+ 			  so_locations
-+ 
-+ ifeq ($(OS_ARCH),OpenVMS)
-+@@ -232,6 +255,7 @@
-+ endif
-+ ifdef RELEASE_LIBS
-+ 	$(NSINSTALL) -t -m 0755 $(RELEASE_LIBS) $(DESTDIR)$(libdir)/$(lib_subdir)
-++	$(call MKSHLINKS,$(DESTDIR)$(libdir)/$(lib_subdir))
-+ endif
-+ 	+$(LOOP_OVER_DIRS)
-+ 
-+@@ -325,6 +349,8 @@
-+ 	$(IMPLIB) $@ $(MAPFILE)
-+ endif
-+ 
-++$(SHARED_LIBRARY_LINKS): %: $(SHARED_LIBRARY)
-++
-+ $(SHARED_LIBRARY): $(OBJS) $(RES) $(MAPFILE)
-+ 	@$(MAKE_OBJDIR)
-+ 	rm -f $@
-+--- nsprpub/configure.in
-++++ nsprpub/configure.in
-+@@ -892,7 +892,7 @@
-+         AC_DEFINE(_PR_STAT_HAS_ST_ATIMESPEC)
-+         MKSHLIB='$(CC) -o $@ $(DSO_LDOPTS)'
-+         DSO_CFLAGS=-fPIC
-+-        DSO_LDOPTS='-shared -Wl,-soname,$(@:$(OBJDIR)/%.so=%.so)'
-++        DSO_LDOPTS='-shared -Wl,-soname,$(SONAME)'
-+         STRIP="$STRIP -d"
-+         case "$target_os" in
-+         bsdi4.2* | bsdi4.3* | bsdi5.*)
-+@@ -1042,7 +1042,7 @@
-+     fi
-+     MKSHLIB='$(CC) $(DSO_LDOPTS) -o $@'
-+     DSO_CFLAGS=-fPIC
-+-    DSO_LDOPTS='-shared -Wl,-soname -Wl,$(notdir $@)'
-++    DSO_LDOPTS='-shared -Wl,-soname -Wl,$(SONAME)'
-+     MDCPUCFG_H=_freebsd.cfg
-+     PR_MD_CSRCS=freebsd.c
-+     ;;
-+@@ -1059,7 +1059,7 @@
-+     # workaround this problem.
-+     AC_DEFINE(_PR_POLL_WITH_SELECT)
-+     AC_DEFINE(_USE_BIG_FDS)
-+-    DSO_LDOPTS='-b +h $(notdir $@)'
-++    DSO_LDOPTS='-b +h $(SONAME)'
-+     PR_MD_CSRCS=hpux.c
-+     if test "$OS_TEST" = "ia64"; then
-+         DLL_SUFFIX=so
-+@@ -1304,7 +1304,7 @@
-+     PR_MD_CSRCS=linux.c
-+     MKSHLIB='$(CC) $(DSO_LDOPTS) -o $@'
-+     DSO_CFLAGS=-fPIC
-+-    DSO_LDOPTS='-shared -Wl,-soname -Wl,$(notdir $@)'
-++    DSO_LDOPTS='-shared -Wl,-soname -Wl,$(SONAME)'
-+     _OPTIMIZE_FLAGS=-O2
-+     _DEBUG_FLAGS="-g -fno-inline"  # most people on linux use gcc/gdb, and that
-+                                    # combo is not yet good at debugging inlined
-+@@ -1561,7 +1561,7 @@
-+         else
-+             OBJECT_FMT=ELF
-+             DLL_SUFFIX=so
-+-            DSO_LDOPTS='-shared -Wl,-soname,$(notdir $@)'
-++            DSO_LDOPTS='-shared -Wl,-soname,$(SONAME)'
-+         fi
-+     fi
-+ 
-+@@ -1607,7 +1607,7 @@
-+     AC_DEFINE(HAVE_POINTER_LOCALTIME_R)
-+     MDCPUCFG_H=_nto.cfg
-+     PR_MD_CSRCS=nto.c
-+-    MKSHLIB='$(CC) $(DSO_LDOPTS) -Wl,-soname -Wl,$(notdir $@) -o $@'
-++    MKSHLIB='$(CC) $(DSO_LDOPTS) -Wl,-soname -Wl,$(SONAME) -o $@'
-+     DSO_CFLAGS=-fPIC
-+     DSO_LDOPTS=-shared
-+     OS_LIBS="$OS_LIBS -lsocket"
-+@@ -1685,7 +1685,7 @@
-+     if echo $OS_RELEASE | grep -c V4.0 >/dev/null; then
-+         AC_DEFINE(OSF1V4_MAP_PRIVATE_BUG)
-+     fi
-+-    DSO_LDOPTS='-shared -all -expect_unresolved "*" -soname $(notdir $@)'
-++    DSO_LDOPTS='-shared -all -expect_unresolved "*" -soname $(SONAME)'
-+     MDCPUCFG_H=_osf1.cfg
-+     PR_MD_CSRCS=osf1.c
-+     ;;
-+@@ -1751,7 +1751,7 @@
-+         _OPTIMIZE_FLAGS='-O -F Olimit,4000'
-+     fi
-+ 
-+-    DSO_LDOPTS='-G -z defs -h $(@:$(OBJDIR)/%.so=%.so)'
-++    DSO_LDOPTS='-G -z defs -h $(SONAME)'
-+ 
-+     if test "$OS_RELEASE" = "5.43"; then
-+         AC_DEFINE(IP_MULTICAST)
-+@@ -2200,13 +2200,13 @@
-+         if `$CC -print-prog-name=ld` -v 2>&1 | grep -c GNU >/dev/null; then
-+             GCC_USE_GNU_LD=1
-+         fi
-+-        DSO_LDOPTS='-shared -Wl,-h,$(notdir $@),-z,combreloc,-z,defs,-z,ignore' 
-++        DSO_LDOPTS='-shared -Wl,-h,$(SONAME),-z,combreloc,-z,defs,-z,ignore'
-+         if test -n "$USE_B_DIRECT"; then
-+             DSO_LDOPTS="$DSO_LDOPTS,-Bdirect"
-+         fi
-+     else
-+         DSO_CFLAGS=-KPIC
-+-        DSO_LDOPTS='-G -h $(notdir $@) -z combreloc -z defs -z ignore'
-++        DSO_LDOPTS='-G -h $(SONAME) -z combreloc -z defs -z ignore'
-+         if test -n "$USE_B_DIRECT"; then
-+             DSO_LDOPTS="$DSO_LDOPTS -Bdirect"
-+         fi
-+--- nsprpub/lib/ds/Makefile.in
-++++ nsprpub/lib/ds/Makefile.in
-+@@ -127,6 +127,7 @@
-+ 
-+ LIBRARY_NAME	= plds
-+ LIBRARY_VERSION	= $(MOD_MAJOR_VERSION)
-++SO_VERSION	= 0d
-+ 
-+ RELEASE_HEADERS = $(HEADERS)
-+ RELEASE_HEADERS_DEST = $(RELEASE_INCLUDE_DIR)
-+@@ -185,12 +186,14 @@
-+ export:: $(TARGETS)
-+ 	$(INSTALL) -m 444 $(HEADERS) $(dist_includedir)
-+ 	$(INSTALL) -m 444 $(TARGETS) $(dist_libdir)
-++	$(call MKSHLINKS,$(dist_libdir))
-+ ifdef SHARED_LIBRARY
-+ ifeq ($(OS_ARCH),HP-UX)
-+ 	$(INSTALL) -m 755 $(SHARED_LIBRARY) $(dist_libdir)
-+ 	$(INSTALL) -m 755 $(SHARED_LIBRARY) $(dist_bindir)
-+ else
-+ 	$(INSTALL) -m 444 $(SHARED_LIBRARY) $(dist_bindir)
-++	$(call MKSHLINKS,$(dist_bindir))
-+ endif
-+ endif
-+ ifeq ($(MOZ_BITS),16)
-+--- nsprpub/lib/libc/src/Makefile.in
-++++ nsprpub/lib/libc/src/Makefile.in
-+@@ -69,6 +69,7 @@
-+ 
-+ LIBRARY_NAME	= plc
-+ LIBRARY_VERSION	= $(MOD_MAJOR_VERSION)
-++SO_VERSION	= 0d
-+ 
-+ RELEASE_LIBS = $(TARGETS)
-+ 
-+@@ -187,12 +188,14 @@
-+ 
-+ export:: $(TARGETS)
-+ 	$(INSTALL) -m 444 $(TARGETS) $(dist_libdir)
-++	$(call MKSHLINKS,$(dist_libdir))
-+ ifdef SHARED_LIBRARY
-+ ifeq ($(OS_ARCH),HP-UX)
-+ 	$(INSTALL) -m 755 $(SHARED_LIBRARY) $(dist_libdir)
-+ 	$(INSTALL) -m 755 $(SHARED_LIBRARY) $(dist_bindir)
-+ else
-+ 	$(INSTALL) -m 444 $(SHARED_LIBRARY) $(dist_bindir)
-++	$(call MKSHLINKS,$(dist_bindir))
-+ endif
-+ endif
-+ ifeq ($(MOZ_BITS),16)
-+--- nsprpub/pr/src/Makefile.in
-++++ sprpub/pr/src/Makefile.in
-+@@ -332,6 +332,7 @@
-+ 
-+ LIBRARY_NAME = nspr
-+ LIBRARY_VERSION = $(MOD_MAJOR_VERSION)
-++SO_VERSION = 0d
-+ 
-+ RELEASE_LIBS = $(TARGETS)
-+ 
-+@@ -402,12 +403,14 @@
-+ 
-+ export:: $(TARGETS)
-+ 	$(INSTALL) -m 444 $(TARGETS) $(dist_libdir)
-++	$(call MKSHLINKS,$(dist_libdir))
-+ ifdef SHARED_LIBRARY
-+ ifeq ($(OS_ARCH),HP-UX)
-+ 	$(INSTALL) -m 755 $(SHARED_LIBRARY) $(dist_libdir)
-+ 	$(INSTALL) -m 755 $(SHARED_LIBRARY) $(dist_bindir)
-+ else
-+ 	$(INSTALL) -m 444 $(SHARED_LIBRARY) $(dist_bindir)
-++	$(call MKSHLINKS,$(dist_bindir))
-+ endif
-+ endif
-+ ifeq ($(MOZ_BITS),16)
-diff --git a/meta/recipes-extended/mozilla/nspr-4.8.7/unbreak-build.diff b/meta/recipes-extended/mozilla/nspr-4.8.7/unbreak-build.diff
-new file mode 100644
-index 0000000..fd15f07
---- /dev/null
-+++ b/meta/recipes-extended/mozilla/nspr-4.8.7/unbreak-build.diff
-@@ -0,0 +1,50 @@
-+import from oe, rev 199effd4c7b1b62bc133a577e42d7043ee7202e7
-+
-+Signed-off-by: Kang Kai <kai.kang@windriver.com>
-+
-+Index: nsprpub/configure.in
-+===================================================================
-+--- nsprpub.orig/configure.in	2008-07-23 14:38:19.000000000 +0200
-++++ nsprpub/configure.in	2008-07-23 15:14:45.000000000 +0200
-+@@ -42,7 +42,7 @@
-+ AC_PREREQ(2.12)
-+ AC_INIT(config/libc_r.h)
-+ 
-+-AC_CONFIG_AUX_DIR(${srcdir}/build/autoconf)
-++AC_CONFIG_AUX_DIR(build/autoconf)
-+ AC_CANONICAL_SYSTEM
-+ 
-+ dnl ========================================================
-+@@ -442,7 +442,8 @@
-+ 
-+     AC_MSG_CHECKING([whether the $host compiler ($HOST_CC $HOST_CFLAGS $HOST_LDFLAGS) works])
-+     AC_TRY_COMPILE([], [return(0);], 
-+-        [ac_cv_prog_host_cc_works=1 AC_MSG_RESULT([yes])],
-++        [ac_cv_prog_host_cc_works=1
-++				AC_MSG_RESULT([yes])],
-+         AC_MSG_ERROR([installation or configuration problem: $host compiler $HOST_CC cannot create executables.]) )
-+ 
-+     CC=$_SAVE_CC
-+@@ -2266,9 +2267,8 @@
-+ *-darwin*|*-beos*)
-+     ;;
-+ *)
-+-    AC_CHECK_LIB(dl, dlopen,
-+-        AC_CHECK_HEADER(dlfcn.h,
-+-            OS_LIBS="-ldl $OS_LIBS"))
-++    AC_CHECK_HEADER([dlfcn.h])
-++    AC_CHECK_LIB(dl, dlopen, [OS_LIBS="-ldl $OS_LIBS"])
-+     ;;
-+ esac
-+ 
-+@@ -2366,8 +2366,8 @@
-+ dnl using it
-+ dnl
-+ dnl MOZ_CHECK_PTHREADS(lib, success, failure)
-+-AC_DEFUN(MOZ_CHECK_PTHREADS,
-+-[
-++AC_DEFUN([MOZ_CHECK_PTHREADS],
-++[AC_PREREQ([2.57])dnl
-+ AC_MSG_CHECKING([for pthread_create in -l$1])
-+ echo "
-+     #include <pthread.h> 
-diff --git a/meta/recipes-extended/mozilla/nspr-tools-native.inc b/meta/recipes-extended/mozilla/nspr-tools-native.inc
-new file mode 100644
-index 0000000..0476794
---- /dev/null
-+++ b/meta/recipes-extended/mozilla/nspr-tools-native.inc
-@@ -0,0 +1,29 @@
-+SUMMARY = "Netscape Portable Runtime"
-+
-+DESCRIPTION = "\
-+NSPR provides platform independence for non-GUI operating system \
-+facilities. These facilities include threads, thread synchronization, \
-+normal file and network I/O, interval timing and calendar time, basic \
-+memory management (malloc and free) and shared library linking."
-+
-+HOMEPAGE = "https://www.mozilla.org/projects/nspr"
-+LICENSE = "MPL1.1 | GPLv2+ | LGPLv2.1+" 
-+
-+S = "${WORKDIR}/nspr-${PV}/mozilla/nsprpub"
-+
-+inherit native autotools
-+
-+FILESDIR = "${@os.path.dirname(bb.data.getVar('FILE',d,1))}/nspr-${PV}"
-+
-+do_compile() {
-+	# Build 'now' and 'nsinstall' only.
-+	oe_runmake -C config now nsinstall
-+}
-+
-+NATIVE_INSTALL_WORKS = "1"
-+
-+do_install() {
-+	install -d ${D}${bindir}/nspr-${PV}
-+	install -m 0755 config/now ${D}${bindir}/nspr-${PV}
-+	install -m 0755 config/nsinstall ${D}${bindir}/nspr-${PV}
-+}
-diff --git a/meta/recipes-extended/mozilla/nspr-tools-native_4.8.7.bb b/meta/recipes-extended/mozilla/nspr-tools-native_4.8.7.bb
-new file mode 100644
-index 0000000..0cfadcb
---- /dev/null
-+++ b/meta/recipes-extended/mozilla/nspr-tools-native_4.8.7.bb
-@@ -0,0 +1,16 @@
-+require nspr-tools-native.inc
-+
-+PR = "r0"
-+
-+LIC_FILES_CHKSUM = "file://${S}/pkg/solaris/common_files/copyright;md5=555c634e9953bed3492dd5e6d90cd973"
-+
-+SRC_URI = "\
-+	http://ftp.mozilla.org/pub/mozilla.org/nspr/releases/v${PV}/src/nspr-${PV}.tar.gz;name=archive \
-+	file://30_config_64bits.dpatch;apply=yes \
-+	file://30_pkgconfig.dpatch;apply=yes \
-+	file://81_sonames.dpatch;apply=yes \
-+	file://unbreak-build.diff \
-+	"
-+
-+SRC_URI[archive.md5sum] = "97e30989a56ab813453b71261849c200"
-+SRC_URI[archive.sha256sum] = "eb9459c31d43d1000fb1304f1e0cedab0bdac3c54c71988259c1ac10c1fe16a3"
-diff --git a/meta/recipes-extended/mozilla/nspr.inc b/meta/recipes-extended/mozilla/nspr.inc
-new file mode 100644
-index 0000000..e1e76e5
---- /dev/null
-+++ b/meta/recipes-extended/mozilla/nspr.inc
-@@ -0,0 +1,44 @@
-+SUMMARY = "Netscape Portable Runtime"
-+
-+DESCRIPTION = "\
-+NSPR provides platform independence for non-GUI operating system \
-+facilities. These facilities include threads, thread synchronization, \
-+normal file and network I/O, interval timing and calendar time, basic \
-+memory management (malloc and free) and shared library linking."
-+
-+HOMEPAGE = "https://www.mozilla.org/projects/nspr"
-+LICENSE = "MPL1.1 | GPLv2+ | LGPLv2.1+" 
-+
-+PR = "r0"
-+
-+DEPENDS = "nspr-tools-native"
-+
-+S = "${WORKDIR}/${P}/mozilla/nsprpub"
-+
-+inherit autotools
-+
-+EXTRA_OECONF = "\
-+	--enable-ipv6 \
-+	--with-mozilla \
-+	--includedir=${includedir}/mozilla/nspr \
-+	"
-+
-+TARGET_CC_ARCH += "${LDFLAGS}"
-+
-+do_compile_prepend() {
-+    cp ${STAGING_BINDIR_NATIVE}/${P}/now config/now
-+    touch config/now
-+
-+    cp ${STAGING_BINDIR_NATIVE}/${P}/nsinstall config/nsinstall
-+    touch config/nsinstall
-+}
-+
-+do_install_prepend() {
-+    cp ${STAGING_BINDIR_NATIVE}/${P}/now config/now
-+    touch config/now
-+
-+    cp ${STAGING_BINDIR_NATIVE}/${P}/nsinstall config/nsinstall
-+    touch config/nsinstall
-+}
-+
-+LEAD_SONAME = "libnspr4.so"
-diff --git a/meta/recipes-extended/mozilla/nspr_4.8.7.bb b/meta/recipes-extended/mozilla/nspr_4.8.7.bb
-new file mode 100644
-index 0000000..5fe0cfb
---- /dev/null
-+++ b/meta/recipes-extended/mozilla/nspr_4.8.7.bb
-@@ -0,0 +1,17 @@
-+require nspr.inc
-+
-+LIC_FILES_CHKSUM = "file://${S}/Makefile.in;beginline=4;endline=38;md5=c2b512182a334e1bfa1edc4d1c84a298"
-+
-+SRC_URI = "\
-+	http://ftp.mozilla.org/pub/mozilla.org/nspr/releases/v${PV}/src/nspr-${PV}.tar.gz;name=archive \
-+	file://30_config_64bits.dpatch;apply=yes \
-+	file://30_pkgconfig.dpatch;apply=yes \
-+	file://81_sonames.dpatch;apply=yes \
-+	file://unbreak-build.diff \
-+	"
-+
-+SRC_URI[archive.md5sum] = "7c6e75a0867ce2b9ec62e399a908b5ac"
-+SRC_URI[archive.sha256sum] = "58782b11423359f2a247f0217aab6fe041f32984aac1f411da6d43bd34cfd0db"
-+
-+FILES_${PN} = "${libdir}/lib*"
-+FILES_${PN}-dev += "${bindir}/nspr-config"
--- 
-1.7.1
+<table cellspacing=3D"0" cellpadding=3D"0" border=3D"0" ><tr><td valign=3D"=
+top" style=3D"font: inherit;"><font class=3D"Apple-style-span" face=3D"aria=
+l" size=3D"2">Hi All,</font><div style=3D"font-family: arial; font-size: 10=
+pt; "><br></div><div style=3D"font-family: arial; font-size: 10pt; ">I'm tr=
+ying to build a poky image for beagle board with linux-yocto-2.6.37 and got=
+ following errors.</div><div style=3D"font-family: arial; font-size: 10pt; =
+"><br></div><div style=3D"font-family: arial; font-size: 10pt; "><div>Unsta=
+ged changes after reset:</div><div>M &nbsp; &nbsp; &nbsp; .gitignore</div><=
+div>M &nbsp; &nbsp; &nbsp; Documentation/hwmon/jc42</div></div><div style=
+=3D"font-family: arial; font-size: 10pt; ">.</div><div style=3D"font-family=
+: arial; font-size: 10pt; ">.</div><div style=3D"font-family: arial; font-s=
+ize: 10pt; ">.</div><div><font class=3D"Apple-style-span" face=3D"arial" si=
+ze=3D"2">error: Your local changes to the following files would be overwrit=
+ten by
+ checkout</font></div><div><font class=3D"Apple-style-span" face=3D"arial" =
+size=3D"2">.</font></div><div><font class=3D"Apple-style-span" face=3D"aria=
+l" size=3D"2">.</font></div><div><font class=3D"Apple-style-span" face=3D"a=
+rial" size=3D"2">.</font></div><div><font class=3D"Apple-style-span" face=
+=3D"arial" size=3D"2"><div>Please move or remove them before you can switch=
+ branches.</div><div>Aborting</div><div>error: Cannot delete the branch 'me=
+ta-temp' which you are currently on.</div><div>error: Your local changes to=
+ the following files would be overwritten by checkout:</div><div>.</div><di=
+v>.</div><div>.</div><div><div>Please move or remove them before you can sw=
+itch branches.</div><div>Aborting</div><div>warning: could not find ktypes/=
+temp.scc</div><div>./0-meta-temp-a81c58139afe973468e690658cd5f18d.sco: line=
+ 14: temp_68b329da9893e34099c7d8ad5cb9c940: command not found</div><div>ERR=
+OR. Could not locate meta series for beagleboard-standard</div><div>ERROR: =
+Function 'do_patch'
+ failed (see /home/surya/Surya/pro/my_poky/poky/build/tmp/work/beagleboard-=
+poky-linux-gnueabi/linux-yocto-2.6.37+git3+17e49db8624324d090dd5aaa18ef977b=
+b2dd5f6d_3+17e49db8624324d090dd5aaa18ef977bb2dd5f6d-r16/temp/log.do_patch.1=
+3906 for further information)</div></div><div>-----------------------------=
+---------------------------------------------------------------------------=
+---------------------------</div><div>please help me to resolve the problem=
+.</div><div>Thanks in advance</div><div>Sparsh</div></font></div></td></tr>=
+</table>
 
-
+--0-1832924636-1302086938=:13723--
