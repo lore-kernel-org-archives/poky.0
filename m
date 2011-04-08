@@ -1,25 +1,26 @@
-Return-Path: <ke.yu@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E4F644C800A4
-	for <poky@pokylinux.org>; Thu,  7 Apr 2011 21:07:52 -0500 (CDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 07 Apr 2011 19:07:52 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,321,1299484800"; d="scan'208";a="907009656"
-Received: from kyu3-desk.ccr.corp.intel.com (HELO [10.238.154.142])
-	([10.238.154.142])
-	by fmsmga001.fm.intel.com with ESMTP; 07 Apr 2011 19:07:49 -0700
-Message-ID: <4D9E6DF5.9080304@intel.com>
-Date: Fri, 08 Apr 2011 10:07:49 +0800
-From: Yu Ke <ke.yu@intel.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US;
-	rv:1.9.2.15) Gecko/20110303 Thunderbird/3.1.9
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id A7EDE4C80579
+	for <poky@yoctoproject.org>; Thu,  7 Apr 2011 21:50:48 -0500 (CDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id ECDA81660810; Thu,  7 Apr 2011 20:50:47 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.2-r929478
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 4C7F7166059C;
+	Thu,  7 Apr 2011 20:50:43 -0600 (MDT)
+Message-ID: <4D9E7803.5070308@mlbassoc.com>
+Date: Thu, 07 Apr 2011 20:50:43 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
 MIME-Version: 1.0
-To: gmane@reliableembeddedsystems.com
-References: <inieho$3ht$1@dough.gmane.org>
-In-Reply-To: <inieho$3ht$1@dough.gmane.org>
-Cc: poky@pokylinux.org
-Subject: Re: webkit with poky(yocto) on top of directfb and not X11
+To: Poky Project <poky@yoctoproject.org>
+Subject: [PATCH] Allow JFFS2 image creation options to be overridden
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,51 +32,58 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 08 Apr 2011 02:07:53 -0000
+X-List-Received-Date: Fri, 08 Apr 2011 02:50:49 -0000
+X-Groupsio-MsgNum: 5200
+Content-Type: multipart/mixed; boundary="------------080908000009090701030402"
+
+--------------080908000009090701030402
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-on 2011-4-7 3:22, Robert Berger wrote:
-> Hi,
->
-> I'm trying to figure out how to get a webkit with yocto/poky built
-> without X11, but directfb instead.
->
-> Grepping through the poky tree that's what I see:
->
-> sato contains a webkit, which depends on gtk+, which runs on x11/clutter.
->
-> ... but there is also a qt4-embedded package, which seems to run on top
-> of directfb and has a dependency with webkit.
->
-> Does this mean, that if I build/install qt4-embedded and kill the
-> X-server on a sato image that I'll have a webkit on top of directfb?
->
-> Is this supposed to be the right way to achieve webkit over directfb?
->
-> Please advise.
->
-> Regards,
->
-> Robert..."The IQ of the group is the lowest IQ of a member of the group
-> divided by the number of people in the group." - unknown
->
-> My public pgp key is available at:
-> http://pgp.mit.edu:11371/pks/lookup?op=get&search=0x90320BF1
+Allow the options for creating JFFS2 images to be specified
+by the target/machine.  In other words, not the whole world
+is LittleEndian :-)
 
-I am also new to the DirectFB, some here is just preliminary thought for 
-your referrence.
+Tested on PowerPC target
 
- From the dependency point of view, you want a webkit-fb which is 
-depending on gtk+-fb which in turn is depending on DirectFB. so probably 
-you need:
-- a gtk-fb recipes. it can reuse current gtk+ recipe, but add directfb 
-target, like EXTRA_OECONF += " --with-gdktarget=directfb "
-- a webkit-fb recipe: it can reuse the current webkit-gtk recipe, but 
-add directfb target: EXTRA_OECONF += " --with-target=directfb "
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
-it is not related to qt4-embedded, so you don't need to add qt4-embedded.
+--------------080908000009090701030402
+Content-Type: text/x-patch;
+ name="0001-Allow-JFFS2-image-options-to-be-overridden.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename*0="0001-Allow-JFFS2-image-options-to-be-overridden.patch"
 
-Regards
-Ke
+From 3bf930fcfa7547a926df460931d855bd0bc35caf Mon Sep 17 00:00:00 2001
+From: Gary Thomas <gary@mlbassoc.com>
+Date: Thu, 7 Apr 2011 20:45:40 -0600
+Subject: [PATCH] Allow JFFS2 image options to be overridden
 
+Signed-off-by: Gary Thomas <gary@mlbassoc.com>
+---
+ meta/classes/image_types.bbclass |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/meta/classes/image_types.bbclass b/meta/classes/image_types.bbclass
+index f11a7ed..f23c1f5 100644
+--- a/meta/classes/image_types.bbclass
++++ b/meta/classes/image_types.bbclass
+@@ -63,7 +63,7 @@ IMAGE_CMD_ubi () {
+ IMAGE_CMD_ubifs = "mkfs.ubifs -r ${IMAGE_ROOTFS} -o ${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.ubifs.img ${MKUBIFS_ARGS}"
+ 
+ EXTRA_IMAGECMD = ""
+-EXTRA_IMAGECMD_jffs2 = "--pad --little-endian --eraseblock=0x40000"
++EXTRA_IMAGECMD_jffs2 ?= "--pad --little-endian --eraseblock=0x40000"
+ EXTRA_IMAGECMD_yaffs2 = "1"
+ # Change these if you want default genext2fs behavior (i.e. create minimal inode number)
+ EXTRA_IMAGECMD_ext2 ?= "-i 8192"
+-- 
+1.7.3.4
+
+
+--------------080908000009090701030402--
