@@ -1,30 +1,26 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 242414C802F2
-	for <poky@lists.yoctoproject.org>; Fri,  8 Apr 2011 12:29:19 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p38HTGvU010235;
-	Fri, 8 Apr 2011 18:29:16 +0100
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 09848-07; Fri,  8 Apr 2011 18:29:12 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p38HT6p1010201
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Fri, 8 Apr 2011 18:29:09 +0100
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: openembedded-core <openembedded-core@lists.openembedded.org>
-In-Reply-To: <1302277262.22904.136.camel@rex>
-References: <1302277262.22904.136.camel@rex>
-Date: Fri, 08 Apr 2011 10:29:05 -0700
-Message-ID: <1302283745.22904.146.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.32.2 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky <poky@lists.yoctoproject.org>
-Subject: Re: Illustration of task latency
+Return-Path: <saul.wold@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 23BBC4C80050
+	for <poky@yoctoproject.org>; Fri,  8 Apr 2011 13:12:37 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 08 Apr 2011 11:12:36 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.63,325,1299484800"; d="scan'208";a="730921385"
+Received: from unknown (HELO [10.255.13.36]) ([10.255.13.36])
+	by orsmga001.jf.intel.com with ESMTP; 08 Apr 2011 11:12:35 -0700
+Message-ID: <4D9F5013.6060104@intel.com>
+Date: Fri, 08 Apr 2011 11:12:35 -0700
+From: Saul Wold <saul.wold@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
+MIME-Version: 1.0
+To: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+References: <cover.1301733116.git.xiaofeng.yan@windriver.com>
+	<2f13241403454d83affaff72721a25ad876848bd.1301733116.git.xiaofeng.yan@windriver.com>
+In-Reply-To: <2f13241403454d83affaff72721a25ad876848bd.1301733116.git.xiaofeng.yan@windriver.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 1/1] LSB_Setup.sh: Add function to install all test	packages
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,45 +32,111 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 08 Apr 2011 17:29:20 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Fri, 08 Apr 2011 18:12:37 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Fri, 2011-04-08 at 08:41 -0700, Richard Purdie wrote:
-> We've done a lot of good work in optimising task execution and latency
-> however I was looking at some of our build data and I think we still
-> have work to do. The attached picture is a "bootchart" style picture
-> showing the task execution at the start of a build. Each vertical
-> division represents one second. As you can see, the fetch/patch tasks
-> themselves run very quickly. Those markers are from the task entry/exit.
-> 
-> The worrying part is the empty space between the tasks which looks to be
-> about 1.5 seconds in size *per task*. This is a scary amount of latency
-> to be losing for task execution when you consider we have 4500 of these
-> for our reference build.
-> 
-> More investigation is needed to figure out where this time is being
-> spent but I'm guessing a significant fraction is in parsing the recipe
-> of the task that is about to be executed. We need to confirm that but if
-> that is the case but one possible optimisation is we should ensure we're
-> not parsing every BBCLASSEXTEND variant of the recipe, just the one we
-> want to run. I'm sure there are other ways we might be able to improve
-> this too.
+On 04/02/2011 01:35 AM, Xiaofeng Yan wrote:
+> From: Xiaofeng Yan<xiaofeng.yan@windriver.com>
+>
+> Add function to  install all of lsb test suite packages instead of installing parts of test packages
+>
+> Signed-off-by: Xiaofeng Yan<xiaofeng.yan@windriver.com>
+> ---
+>   meta/recipes-extended/lsb/lsbsetup/LSB_Setup.sh |   50 ++++++++++++++---------
+>   1 files changed, 30 insertions(+), 20 deletions(-)
+>
+> diff --git a/meta/recipes-extended/lsb/lsbsetup/LSB_Setup.sh b/meta/recipes-extended/lsb/lsbsetup/LSB_Setup.sh
+> index 78c33b3..7ce823e 100644
+> --- a/meta/recipes-extended/lsb/lsbsetup/LSB_Setup.sh
+> +++ b/meta/recipes-extended/lsb/lsbsetup/LSB_Setup.sh
+> @@ -17,11 +17,38 @@
+>
+>   ##Prepare Steps
+>   #Steps 0; Confirm the installed LSB Packages
+> -
+> +ARCH=`uname -m`
+> +APP_FILE=`ls /lsb-Application/*.rpm`
+>   if [ ! -f /opt/lsb/test/manager/bin/dist-checker-start.pl ]
+>   then
+>           if [ -d /lsb-dist-testkit ];then
+> -                cd /lsb-dist-testkit&&  sh install.sh&&  cd ../lsb-Application&&  rpm -ivh *.rpm --nodeps --force
+> +		if [ ${ARCH} == i686 ];then
+> +                	echo "i486-suse">>  /etc/rpm/platform
+> +                	echo "i486-noarch">>  /etc/rpm/platform
+> +                	echo "i486-pc">>  /etc/rpm/platform
+> +                	echo "noarch-suse">>  /etc/rpm/platform
+> +		else
+> +                	echo "${ARCH}-suse">>  /etc/rpm/platform
+> +                	echo "${ARCH}-noarch">>  /etc/rpm/platform
+> +                	echo "${ARCH}-pc">>  /etc/rpm/platform
+> +                	echo "noarch-suse">>  /etc/rpm/platform
+> +                fi
+> +                cd /lsb-dist-testkit&&  sh install.sh&&  cd ../lsb-Application
+> +                for i in ${APP_FILE}
+> +                do
+> +                    echo "$i" |grep -q "apache"
+> +                    if [ $? -eq 0 ]
+> +                    then
+> +                        rpm -ivh $i --noscripts --nodeps --force
+> +                    else
+> +                        rpm -ivh $i --nodeps --force
+> +                    fi
+> +                done
+> +                mkdir -p /var/opt/lsb/test/manager/packages/ftp.linuxfoundation.org/pub/lsb/snapshots/appbat/tests/
+> +                mkdir -p  /var/opt/lsb/test/manager/packages/ftp.linuxfoundation.org/pub/lsb/app-battery/tests/
+> +		cp expect-tests.tar  test1.pdf  test2.pdf /var/opt/lsb/test/manager/packages/ftp.linuxfoundation.org/pub/lsb/app-battery/tests/
+> +                cp raptor-tests.tar  tcl-tests.tar /var/opt/lsb//test/manager/packages/ftp.linuxfoundation.org/pub/lsb/snapshots/appbat/tests/
+> +		cd ..
+>           else
+>                   echo "Please install the realted LSB Packages"
+>                   exit 1
+> @@ -33,10 +60,6 @@ id tester
+>   if [ $? -eq  0 ]
+>   then
+>           echo "User tester was existed"
+> -        echo -n "Deleted tester(yes/no):"
+> -        read INPUT
+> -case $INPUT in
+> -yes|y)
+>           sleep 1
+>           userdel -rf tester
+>           if [ $? -eq 0 ] || [ $? -eq 6 ]
+> @@ -45,19 +68,6 @@ yes|y)
+>          else
+>                   echo "Fail to delete user tester"
+>           fi
+> -        ;;
+> -no|n)
+> -        sleep 1
+> -        echo "There must be deleted User test before ran LSB4 on Target"
+> -        echo ""
+> -        exit 1
+> -        ;;
+> -*)
+> -        sleep 1
+> -        echo "Input ERROR, pls reinput that your expected"
+> -        echo ""
+> -        exit 1
+> -esac
+>   else
+>           echo "There was not User tester"
+>   fi
+> @@ -177,7 +187,7 @@ ping -c 5 ftp.linux-foundation.org
+>   check
+>
+>   #Step 7
+> -insmod /lib/modules/2.6.37.2-yocto-standard\+/kernel/drivers/block/loop.ko
+> +insmod /lib/modules/2.6.*/kernel/drivers/block/loop.ko
+>   if [ $? != 0 ];then
+>   	echo "Please insmod loop.ko  manully"
+>   fi
+Pulled into master.
 
-To follow up on this, I added instrumentation to runqueue.py
-fork_off_task(). There are two things of note. On my laptop which is a
-much slower system than the one I showed in the benchmark (a quad core),
-the task overhead isn't 1+ seconds as shown in the graph but 0.4 seconds
-per task. I think the reason is there is a compile job running in
-parallel on the other graph which is starving new tasks of CPU.
+This patch caused a checksum failure, please be sure to update the 
+LIC_FILES_CHKSUM next time.
 
-The second thing of note is 95% of the 0.4 seconds are in the
-loadDataFull() call as suspected. I did notice that the logging changes
-around that point in the code can distort timings but the time is really
-being spent there.
-
-Cheers,
-
-Richard
+Thanks
+	Sau!
 
 
