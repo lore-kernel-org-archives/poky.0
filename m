@@ -1,40 +1,24 @@
-Return-Path: <leon.woestenberg@gmail.com>
-Received: from mail-pv0-f176.google.com (mail-pv0-f176.google.com
-	[74.125.83.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E5C134C80132
-	for <poky@yoctoproject.org>; Fri,  8 Apr 2011 04:02:04 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by pve37 with SMTP id 37so1762150pve.35
-	for <poky@yoctoproject.org>; Fri, 08 Apr 2011 02:02:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:in-reply-to:references:date
-	:message-id:subject:from:to:cc:content-type
-	:content-transfer-encoding;
-	bh=hlBtQhuDahDASuRM1Kb9NDlKe70Gn+mzK0FfwRQGLdM=;
-	b=KIkWR5cOg1iLvOMHTyp5vb33VGCmfBelCkhPaav7KkDfa1zEyTuzw2C27z/8/waUdR
-	7taXKcV9qCf7ZcYm1eRV/2Uwiq/24ZtQcCpyqo4gICC1ykeBydP3P0H5lLZKqcm3reqJ
-	NErmA6n9isP8/gnIi4Vk6azr9IRI3glXiosyY=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type:content-transfer-encoding;
-	b=mpwGRXNhb0/IVc7Rm94tLYPO6/ySdABJFbwl2euaNl6NAtEBlhOv93a85c3W6b+cIk
-	+40nYNpVNBvuHnQxI5e4QwoSpwhNLLNLU8p0qdMW1h8BpmtlFg0Xom7WtT7KRP8/DDmG
-	spPsClXXugIT02x+i4P6DjlMMuumUJ4iTu7Uk=
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id EC8ED4C80132
+	for <poky@yoctoproject.org>; Fri,  8 Apr 2011 04:47:49 -0500 (CDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 08 Apr 2011 02:47:49 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.63,322,1299484800"; d="scan'208";a="907136462"
+Received: from unknown (HELO helios.localnet) ([10.255.12.219])
+	by fmsmga001.fm.intel.com with ESMTP; 08 Apr 2011 02:47:48 -0700
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
+Organization: Intel Corporation (UK)
+To: poky@yoctoproject.org
+Date: Fri, 8 Apr 2011 10:47:47 +0100
+User-Agent: KMail/1.13.5 (Linux/2.6.35-28-generic-pae; KDE/4.6.1; i686; ; )
+References: <inieho$3ht$1@dough.gmane.org>
+In-Reply-To: <inieho$3ht$1@dough.gmane.org>
 MIME-Version: 1.0
-Received: by 10.143.87.3 with SMTP id p3mr1649081wfl.153.1302253324098; Fri,
-	08 Apr 2011 02:02:04 -0700 (PDT)
-Received: by 10.68.56.161 with HTTP; Fri, 8 Apr 2011 02:02:04 -0700 (PDT)
-In-Reply-To: <c736c43ae24bae2af7e059bf3770c6f422c75a71.1302252022.git.xiaofeng.yan@windriver.com>
-References: <cover.1302252022.git.xiaofeng.yan@windriver.com>
-	<c736c43ae24bae2af7e059bf3770c6f422c75a71.1302252022.git.xiaofeng.yan@windriver.com>
-Date: Fri, 8 Apr 2011 11:02:04 +0200
-Message-ID: <BANLkTik+MzYHC1w4fLm+WG5oDzWf6OFvbg@mail.gmail.com>
-From: Leon Woestenberg <leon.woestenberg@gmail.com>
-To: Xiaofeng Yan <xiaofeng.yan@windriver.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 1/1] eglibc-package.inc: Add eglibc-binarys, eglibc-localedatas, eglibc-gconvs and eglibc-charmps to variable PACKAGE
+Message-Id: <201104081047.47169.paul.eggleton@linux.intel.com>
+Cc: gmane@reliableembeddedsystems.com
+Subject: Re: webkit with poky(yocto) on top of directfb and not X11
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,25 +30,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 08 Apr 2011 09:02:05 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Fri, 08 Apr 2011 09:47:50 -0000
+Content-Type: Text/Plain;
+  charset="iso-8859-1"
+Content-Transfer-Encoding: 7bit
 
-Hello,
+On Wednesday 06 April 2011 20:22:31 Robert Berger wrote:
+> ... but there is also a qt4-embedded package, which seems to run on top
+> of directfb and has a dependency with webkit.
+> 
+> Does this mean, that if I build/install qt4-embedded and kill the
+> X-server on a sato image that I'll have a webkit on top of directfb?
+> 
+> Is this supposed to be the right way to achieve webkit over directfb?
 
-On Fri, Apr 8, 2011 at 10:43 AM, Xiaofeng Yan
-<xiaofeng.yan@windriver.com> wrote:
->
-> The purpose to add above variables is for installing them to lsb-image ea=
-sy. or not these packages about locale will occupy too much space in list =
-=A0taks-poky-lsb.bb
-> eglibc-binarys include packages "eglibc-binary-*"
+I don't know that there's one "right" way - Ke has suggested a gtk+ based 
+solution, but qt4-embedded should also work in the way you described, in that 
+it will provide a webkit-based web browsing widget for your application that 
+can be used without X.
 
-Rename eglibc-binary to eglibc-binaries.
+In this scenario you would create a recipe for your application that would 
+inherit from the qt4e bbclass, and then create a custom image that would 
+install your application's package, and shared library dependencies will pull 
+in the appropriate Qt4-embedded packages automatically. The finishing touch 
+would be an init-script that started your application on boot.
 
-Can a native English speaker comment on this pls?
+(I guess it would be useful to document some of this Qt4 stuff in a little more 
+depth at some point.)
 
-Regards,
---=20
-Leon
+Cheers,
+Paul
 
