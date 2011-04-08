@@ -1,25 +1,32 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 756AF4C80044
-	for <poky@yoctoproject.org>; Fri,  8 Apr 2011 11:54:14 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 08 Apr 2011 09:54:00 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,324,1299484800"; d="scan'208";a="625625721"
-Received: from unknown (HELO [10.255.13.36]) ([10.255.13.36])
-	by orsmga002.jf.intel.com with ESMTP; 08 Apr 2011 09:54:00 -0700
-Message-ID: <4D9F3DA8.6020004@linux.intel.com>
-Date: Fri, 08 Apr 2011 09:54:00 -0700
-From: Saul Wold <sgw@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 250504C80044
+	for <poky@yoctoproject.org>; Fri,  8 Apr 2011 12:03:34 -0500 (CDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 9968A16606BB; Fri,  8 Apr 2011 11:03:33 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.2-r929478
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 31E001660505;
+	Fri,  8 Apr 2011 11:03:32 -0600 (MDT)
+Message-ID: <4D9F3FE4.60400@mlbassoc.com>
+Date: Fri, 08 Apr 2011 11:03:32 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
 MIME-Version: 1.0
-To: Darren Hart <dvhart@linux.intel.com>
-References: <24a677317c4a8d2b20c91e9fbc42697b19b94d37.1302123273.git.dvhart@linux.intel.com>
-In-Reply-To: <24a677317c4a8d2b20c91e9fbc42697b19b94d37.1302123273.git.dvhart@linux.intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH] Update trace-cmd and kernelshark distro_tracking
+To: Patches and discussions about the oe-core layer
+	<openembedded-core@lists.openembedded.org>
+References: <4D9F0B82.9080803@mlbassoc.com>	<8B7010C5-9902-4372-BF78-252D85C4BF46@dominion.thruhere.net>	<1302270609.22904.128.camel@rex>	<4D9F1540.6020902@mlbassoc.com>	<4D9F169D.9020502@mlbassoc.com>,
+	<4D9F1909.1060403@mlbassoc.com>
+	<3598D5EC-C050-461B-B540-5B20CB79B936@windriver.com>
+In-Reply-To: <3598D5EC-C050-461B-B540-5B20CB79B936@windriver.com>
+Cc: Poky Project <poky@yoctoproject.org>
+Subject: Re: [OE-core] Early image startup
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,46 +38,80 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 08 Apr 2011 16:54:14 -0000
+X-List-Received-Date: Fri, 08 Apr 2011 17:03:34 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 04/06/2011 01:54 PM, Darren Hart wrote:
-> Signed-off-by: Darren Hart<dvhart@linux.intel.com>
-> ---
->   .../conf/distro/include/distro_tracking_fields.inc |   14 ++++++++++----
->   1 files changed, 10 insertions(+), 4 deletions(-)
->
-> diff --git a/meta/conf/distro/include/distro_tracking_fields.inc b/meta/conf/distro/include/distro_tracking_fields.inc
-> index cadfac2..6384f80 100644
-> --- a/meta/conf/distro/include/distro_tracking_fields.inc
-> +++ b/meta/conf/distro/include/distro_tracking_fields.inc
-> @@ -113,11 +113,17 @@ RECIPE_LATEST_VERSION_pn-subversion = "1.6.15"
->   RECIPE_MANUAL_CHECK_DATE_pn-subversion = "Jan 25, 2011"
->   RECIPE_MAINTAINER_pn-subversion = "Nitin A Kamble<nitin.a.kamble@intel.com>"
->
-> -RECIPE_STATUS_pn-trace-cmd = "red"
-> -RECIPE_LATEST_VERSION_pn-trace-cmd = "check"
-> +RECIPE_STATUS_pn-trace-cmd = "green"
-> +RECIPE_LATEST_VERSION_pn-trace-cmd = "1.1.1"
->   DISTRO_PN_ALIAS_pn-trace-cmd = "Mandriva=trace-cmd Ubuntu=trace-cmd"
-> -RECIPE_LAST_UPDATE_pn-trace-cmd = "Aug 20, 2010"
-> -RECIPE_MAINTAINER_pn-trace-cmd = "Bruce"
-> +RECIPE_LAST_UPDATE_pn-trace-cmd = "Jan 11, 2011"
-> +RECIPE_MAINTAINER_pn-trace-cmd = "Darren Hart<dvhart@linux.intel.com>"
-> +
-> +RECIPE_STATUS_pn-kernelshark = "green"
-> +RECIPE_LATEST_VERSION_pn-kernelshark = "0.2"
-> +DISTRO_PN_ALIAS_pn-kernelshark = "Mandriva=kernelshark Ubuntu=kernelshark"
-> +RECIPE_LAST_UPDATE_pn-kernelshark = "Jan 11, 2011"
-> +RECIPE_MAINTAINER_pn-kernelshark = "Darren Hart<dvhart@linux.intel.com>"
->
->   RECIPE_STATUS_pn-web = "green"
->   RECIPE_LATEST_VERSION_pn-web = "0.0+svnr129"
+On 04/08/2011 10:40 AM, Hatle, Mark wrote:
+> As for the rpm ordering this was preserved from an earlier version.  If there is a more appropriate place to run the late configuration scripts, let's move it.  I think that it's likely a good place to move it to soon after the filesystem has been mounted RW.  Do any of the scripts normally require networking or other system resources?
 
-Pulled into Master
+Hard to say what's perfect, but I certainly don't believe that they need
+to be put off to the very last.   In any case, I think the best thing is
+to make it easily adjustable, per my patch.
 
-Thanks
-	Sau!
+Can we please keep this discussion on the Poky list where it started?
+It seems that OE (and maybe OE-core) handle this differently - I've not
+looked in depth - and I'm mostly interested in getting my Poky builds
+healthy.
 
+> On Apr 8, 2011, at 7:18 AM, "Gary Thomas"<gary@mlbassoc.com>  wrote:
+>
+>> On 04/08/2011 08:07 AM, Gary Thomas wrote:
+>>> On 04/08/2011 08:01 AM, Gary Thomas wrote:
+>>>> On 04/08/2011 07:50 AM, Richard Purdie wrote:
+>>>>> On Fri, 2011-04-08 at 15:30 +0200, Koen Kooi wrote:
+>>>>>> Op 8 apr 2011, om 15:20 heeft Gary Thomas het volgende geschreven:
+>>>>>>
+>>>>>>> I have a Poky image which uses a number of kernel modules. For
+>>>>>>> whatever reason, the raw image has not had the modules configured
+>>>>>>> (no /lib/modules/.../modules.dep) This file is created by 'update-modules'
+>>>>>>> but that is run too late in the boot process. The problem is that
+>>>>>>> other code, e.g. I'm using iptables via modules, requires the modules
+>>>>>>> be configured early and this fails. If I reboot (after 'update-modules'
+>>>>>>> has run), everything is fine.
+>>>>>>
+>>>>>> Sound like you need http://patches.openembedded.org/patch/1917/
+>>>>>
+>>>>> To be honest that sounds like a more fundamental problem as if the user
+>>>>> cares which rtc should be rtc0, there are other ordering constraints
+>>>>> being imposed such as a symlink to the "best" rtc device...
+>>>>
+>>>> Indeed, this patch did not help my situation at all.
+>>>>
+>>>> I think my problem is that of post-install package scripts (hence
+>>>> 'Configuring ...') not being run until quite late.
+>>>
+>>> Looking at the pre-run image, I see that there is /etc/rcS.d/S98configure
+>>> which runs these scripts. Is there any reason I can't move it earlier?
+>>
+>> Found it:
+>>   ipk systems - meta/recipes-devtools/opkg/opkg_0.1.8.bb
+>>   rpm systems - meta/classes/rootfs_rpm.bbclass
+>>
+>> Note: the ipk version is quasi-configurable, the rpm version hardwired at 98.
+>> Since these are package install scripts, which presumable could have been run
+>> at image creation time but needed to run on the target hardware, why put it
+>> off to so late?  I would think that this should be done _first_, not _last_
+>>
+>> --
+>> ------------------------------------------------------------
+>> Gary Thomas                 |  Consulting for the
+>> MLB Associates              |    Embedded world
+>> ------------------------------------------------------------
+>>
+>> _______________________________________________
+>> Openembedded-core mailing list
+>> Openembedded-core@lists.openembedded.org
+>> http://lists.linuxtogo.org/cgi-bin/mailman/listinfo/openembedded-core
+>
+> _______________________________________________
+> Openembedded-core mailing list
+> Openembedded-core@lists.openembedded.org
+> http://lists.linuxtogo.org/cgi-bin/mailman/listinfo/openembedded-core
+
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
