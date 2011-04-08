@@ -1,20 +1,30 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 3A8654C80044
-	for <poky@yoctoproject.org>; Fri,  8 Apr 2011 12:28:03 -0500 (CDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 08 Apr 2011 10:28:02 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,324,1299484800"; d="scan'208";a="907279554"
-Received: from unknown (HELO localhost) ([10.255.12.239])
-	by fmsmga001.fm.intel.com with ESMTP; 08 Apr 2011 10:28:02 -0700
-From: Darren Hart <dvhart@linux.intel.com>
-To: poky@yoctoproject.org
-Date: Fri,  8 Apr 2011 10:27:52 -0700
-Message-Id: <a463a33c7a4aec3b46b7bf9f7b0731869b271e0b.1302283672.git.dvhart@linux.intel.com>
-X-Mailer: git-send-email 1.7.1
-Cc: paul.eggleton@linux.intel.com, Darren Hart <dvhart@linux.intel.com>
-Subject: [PATCH] README.hardware: automate boot process for router station pro
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 242414C802F2
+	for <poky@lists.yoctoproject.org>; Fri,  8 Apr 2011 12:29:19 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p38HTGvU010235;
+	Fri, 8 Apr 2011 18:29:16 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 09848-07; Fri,  8 Apr 2011 18:29:12 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p38HT6p1010201
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Fri, 8 Apr 2011 18:29:09 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: openembedded-core <openembedded-core@lists.openembedded.org>
+In-Reply-To: <1302277262.22904.136.camel@rex>
+References: <1302277262.22904.136.camel@rex>
+Date: Fri, 08 Apr 2011 10:29:05 -0700
+Message-ID: <1302283745.22904.146.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.2 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky <poky@lists.yoctoproject.org>
+Subject: Re: Illustration of task latency
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,44 +36,45 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 08 Apr 2011 17:28:03 -0000
+X-List-Received-Date: Fri, 08 Apr 2011 17:29:20 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Darren Hart <dvhart@linux.intel.com>
----
- README.hardware |   22 ++++++++++++++++++++++
- 1 files changed, 22 insertions(+), 0 deletions(-)
+On Fri, 2011-04-08 at 08:41 -0700, Richard Purdie wrote:
+> We've done a lot of good work in optimising task execution and latency
+> however I was looking at some of our build data and I think we still
+> have work to do. The attached picture is a "bootchart" style picture
+> showing the task execution at the start of a build. Each vertical
+> division represents one second. As you can see, the fetch/patch tasks
+> themselves run very quickly. Those markers are from the task entry/exit.
+> 
+> The worrying part is the empty space between the tasks which looks to be
+> about 1.5 seconds in size *per task*. This is a scary amount of latency
+> to be losing for task execution when you consider we have 4500 of these
+> for our reference build.
+> 
+> More investigation is needed to figure out where this time is being
+> spent but I'm guessing a significant fraction is in parsing the recipe
+> of the task that is about to be executed. We need to confirm that but if
+> that is the case but one possible optimisation is we should ensure we're
+> not parsing every BBCLASSEXTEND variant of the recipe, just the one we
+> want to run. I'm sure there are other ways we might be able to improve
+> this too.
 
-diff --git a/README.hardware b/README.hardware
-index 025c678..b2ce146 100644
---- a/README.hardware
-+++ b/README.hardware
-@@ -392,3 +392,25 @@ To boot the flashed kernel perform the following steps.
- (-e means 'elf', -d 'decompress')
- 
- 2) Execute the kernel using the exec command as above.
-+
-+--- Automating the boot process ---
-+
-+After writing the kernel to flash and testing the load and exec commands
-+manually, you can automate the boot process with a boot script.
-+
-+1) RedBoot> fconfig
-+   (Answer the questions not specified here as they pertain to your environment)
-+2) Run script at boot: true
-+  Boot script: 
-+  .. fis load -d -e kernel
-+  .. exec
-+  Enter script, terminate with empty line
-+  >> fis load -d -e kernel
-+  >> exec -c "console=ttyS0,115200 root=/dev/sda1 rw rootdelay=2 board=UBNT-RSPRO"
-+  >> 
-+3) Answer the remaining questions and write the changes to flash:
-+  Update RedBoot non-volatile configuration - continue (y/n)? y
-+  ... Erase from 0xbfff0000-0xc0000000: .
-+  ... Program from 0x87ff0000-0x88000000 at 0xbfff0000: .
-+4) Power cycle the board.
-+
--- 
-1.7.1
+To follow up on this, I added instrumentation to runqueue.py
+fork_off_task(). There are two things of note. On my laptop which is a
+much slower system than the one I showed in the benchmark (a quad core),
+the task overhead isn't 1+ seconds as shown in the graph but 0.4 seconds
+per task. I think the reason is there is a compile job running in
+parallel on the other graph which is starving new tasks of CPU.
+
+The second thing of note is 95% of the 0.4 seconds are in the
+loadDataFull() call as suspected. I did notice that the logging changes
+around that point in the code can distort timings but the time is really
+being spent there.
+
+Cheers,
+
+Richard
 
 
