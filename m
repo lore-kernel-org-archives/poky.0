@@ -1,24 +1,25 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 1B7BA4C80579
-	for <poky@yoctoproject.org>; Thu,  7 Apr 2011 15:02:11 -0500 (CDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 07 Apr 2011 13:02:10 -0700
+Return-Path: <ke.yu@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E4F644C800A4
+	for <poky@pokylinux.org>; Thu,  7 Apr 2011 21:07:52 -0500 (CDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 07 Apr 2011 19:07:52 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,318,1299484800"; d="scan'208";a="676507278"
-Received: from unknown (HELO [10.255.13.32]) ([10.255.13.32])
-	by fmsmga002.fm.intel.com with ESMTP; 07 Apr 2011 13:02:10 -0700
-Message-ID: <4D9E1645.4050500@linux.intel.com>
-Date: Thu, 07 Apr 2011 12:53:41 -0700
-From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.14) Gecko/20110223 Lightning/1.0b2 Thunderbird/3.1.8
+X-IronPort-AV: E=Sophos;i="4.63,321,1299484800"; d="scan'208";a="907009656"
+Received: from kyu3-desk.ccr.corp.intel.com (HELO [10.238.154.142])
+	([10.238.154.142])
+	by fmsmga001.fm.intel.com with ESMTP; 07 Apr 2011 19:07:49 -0700
+Message-ID: <4D9E6DF5.9080304@intel.com>
+Date: Fri, 08 Apr 2011 10:07:49 +0800
+From: Yu Ke <ke.yu@intel.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US;
+	rv:1.9.2.15) Gecko/20110303 Thunderbird/3.1.9
 MIME-Version: 1.0
-To: Salvatore Fassi <salvatore.fassi@gmail.com>
-References: <BANLkTikROqhGtMmbFA4ZJs+dwDaVpzaKxw@mail.gmail.com>
-In-Reply-To: <BANLkTikROqhGtMmbFA4ZJs+dwDaVpzaKxw@mail.gmail.com>
-Cc: poky@yoctoproject.org
-Subject: Re: Poky issues with tune-cortexa8 and a custom machine
+To: gmane@reliableembeddedsystems.com
+References: <inieho$3ht$1@dough.gmane.org>
+In-Reply-To: <inieho$3ht$1@dough.gmane.org>
+Cc: poky@pokylinux.org
+Subject: Re: webkit with poky(yocto) on top of directfb and not X11
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,69 +31,51 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 07 Apr 2011 20:02:11 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Fri, 08 Apr 2011 02:07:53 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
+on 2011-4-7 3:22, Robert Berger wrote:
+> Hi,
+>
+> I'm trying to figure out how to get a webkit with yocto/poky built
+> without X11, but directfb instead.
+>
+> Grepping through the poky tree that's what I see:
+>
+> sato contains a webkit, which depends on gtk+, which runs on x11/clutter.
+>
+> ... but there is also a qt4-embedded package, which seems to run on top
+> of directfb and has a dependency with webkit.
+>
+> Does this mean, that if I build/install qt4-embedded and kill the
+> X-server on a sato image that I'll have a webkit on top of directfb?
+>
+> Is this supposed to be the right way to achieve webkit over directfb?
+>
+> Please advise.
+>
+> Regards,
+>
+> Robert..."The IQ of the group is the lowest IQ of a member of the group
+> divided by the number of people in the group." - unknown
+>
+> My public pgp key is available at:
+> http://pgp.mit.edu:11371/pks/lookup?op=get&search=0x90320BF1
 
+I am also new to the DirectFB, some here is just preliminary thought for 
+your referrence.
 
-On 04/06/2011 08:53 AM, Salvatore Fassi wrote:
-> Hi all,
-> 
-> I've created a custom machine to match my hardware.
-> This hw is arm based with cortexa8 architecture, so my machine file
-> (myarm.conf) uses:
-> 
-> require conf/machine/include/tune-cortexa8.inc
-> 
-> For the image I use:
-> 
-> bitbake poky-image-minimal
-> 
-> This compiles everything fine but when it starts composing the rootfs by
-> installing ipk's I get errors about some missing packages.
+ From the dependency point of view, you want a webkit-fb which is 
+depending on gtk+-fb which in turn is depending on DirectFB. so probably 
+you need:
+- a gtk-fb recipes. it can reuse current gtk+ recipe, but add directfb 
+target, like EXTRA_OECONF += " --with-gdktarget=directfb "
+- a webkit-fb recipe: it can reuse the current webkit-gtk recipe, but 
+add directfb target: EXTRA_OECONF += " --with-target=directfb "
 
-Does this also happen if you use rpms instead of ipks? (Set in
-local.conf). Can you post the error you receive?
+it is not related to qt4-embedded, so you don't need to add qt4-embedded.
 
-> I've found that the error is due to the fact that poky is compiling two
-> work trees:
-> 
-> build/tmp/work/myarm-poky-linux-gnueabi
-> 
-> and
-> 
-> build/tmp/work/armv7a-poky-linux-gnueabi
-
-This is normal, there are machine packages and architecture packages,
-and shouldn't cause a problem with installation.
-
---
-Darren
-
-> 
-> And the missing ipk's are in the armv7a tree!
-> 
-> I've also noticed that the armv7a "target" definition is inside
-> tune-cortexa8.inc...
-> So...what am I doing wrong?
-> 
-> Thank you.
-> 
-> best regards
-> 
-> Salvo
-> 
-> 
-> 
-> 
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
-
--- 
-Darren Hart
-Intel Open Source Technology Center
-Yocto Project - Linux Kernel
+Regards
+Ke
 
