@@ -1,32 +1,25 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D670A4C80050
-	for <poky@yoctoproject.org>; Fri,  8 Apr 2011 13:32:04 -0500 (CDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 87BCA16606BB; Fri,  8 Apr 2011 12:32:04 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2-r929478
-Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 4599016606B3;
-	Fri,  8 Apr 2011 12:32:02 -0600 (MDT)
-Message-ID: <4D9F54A2.7010109@mlbassoc.com>
-Date: Fri, 08 Apr 2011 12:32:02 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
+Return-Path: <saul.wold@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E3D0F4C80044
+	for <poky@yoctoproject.org>; Fri,  8 Apr 2011 13:39:37 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 08 Apr 2011 11:39:37 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.63,325,1299484800"; d="scan'208";a="625676530"
+Received: from unknown (HELO [10.255.13.36]) ([10.255.13.36])
+	by orsmga002.jf.intel.com with ESMTP; 08 Apr 2011 11:39:37 -0700
+Message-ID: <4D9F5668.80807@intel.com>
+Date: Fri, 08 Apr 2011 11:39:36 -0700
+From: Saul Wold <saul.wold@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
 MIME-Version: 1.0
-To: Saul Wold <saul.wold@intel.com>
-References: <cover.1301388474.git.dexuan.cui@intel.com>	<c9789f2d0873c6b8ff2ae3a7b338b72527cfbf02.1301388474.git.dexuan.cui@intel.com>	<1301395410.24596.22.camel@rex>	<1865303E0DED764181A9D882DEF65FB68A3F6A15D4@shsmsx502.ccr.corp.intel.com>
-	<4D9F5166.1020500@intel.com>
-In-Reply-To: <4D9F5166.1020500@intel.com>
-Cc: 'Patches and discussions about the oe-core layer'
-	<openembedded-core@lists.openembedded.org>,
-	"poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [OE-core] [PATCH 1/1] qt4: remove the option -feliminate-dwarf2-dups to fix the build
+To: Kang Kai <kai.kang@windriver.com>
+References: <cover.1302076785.git.kai.kang@windriver.com>
+In-Reply-To: <cover.1302076785.git.kai.kang@windriver.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/2] LSB: add nspr and nss to pass LSB library check
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,50 +31,108 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 08 Apr 2011 18:32:05 -0000
+X-List-Received-Date: Fri, 08 Apr 2011 18:39:38 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 04/08/2011 12:18 PM, Saul Wold wrote:
-> On 03/29/2011 04:43 AM, Cui, Dexuan wrote:
->> Richard Purdie wrote:
->>> On Tue, 2011-03-29 at 16:52 +0800, Dexuan Cui wrote:
->>>> From: Dexuan Cui<dexuan.cui@intel.com>
->>>>
->>>> [YOCTO #932]
->>>>
->>>> After commit 5ea06dc295b657383fd97545c15255b294cf1a79(bitbake.conf:
->>>> Prune global OPTIMIZATION flags) that adds an option
->>>> -feliminate-dwarf2-dups, gcc 4.5 reports such an internal compiler
->>>> error when building Qt4 if the option is used:
->>>>
->>>>> graphicsview/qgridlayoutengine.cpp:1553:1: internal compiler error:
->>>>> in build_abbrev_table, at dwarf2out.c:9806 Please submit a full bug
->>>>> report,
->>>>> with preprocessed source if appropriate.
->>>>> See<http://gcc.gnu.org/bugs.html> for instructions.
->>>>
->>>> This is a gcc bug: http://gcc.gnu.org/bugzilla/show_bug.cgi?id=47361
->>>>
->>>> At present we can remove the option as a workaround.
->>>>
->>>> Thanks Robert Berger for reporting the bug and his investigation in
->>>> gcc bugzilla and thanks Khem Raj for the quick suggestion about
->>>> removing
->>>> the option.
->>>
->>> How about we add the patch for this issue:
->>>
->>> http://gcc.gnu.org/ml/gcc-patches/2011-01/msg01647.html
->> Ok, I'll apply the patch to g++ and test building qt4.
->>
-> Any update on this patch?
+On 04/06/2011 01:06 AM, Kang Kai wrote:
+> From: Kang Kai<kai.kang@windriver.com>
+>
+> Hi Saul,
+>
+> I add the exact LICENSE version and update LICENSE files and resend the patches.
+> Because the license information exists in every file, so just pick one file's header as LICENSE file.
+>
+Kang,
 
-Does this matter any more, since Richard removed that option globally?
+If the license block is the same as the copyright file, then the correct 
+file is the copyright.  What I was looking for if was multiple licensed 
+was a couple of different files that might have had different license 
+headers.
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+Please use the copyright file for both nspr and nss.
+
+Sorry to make this difficult, we just need to get the license 
+information correct.
+
+Sau!
+
+> add nss and nspr to provide libnss3.so, libssl3.so and libnspr4.so
+> to pass LSB library check.
+> Both are imported from oe, rev 6fe7cef27069415f2eba36bc640cf59013d4979b
+> And add header for each patch
+>
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>    Branch: kangkai/bugfix-nss
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kangkai/bugfix-nss
+>
+> Thanks,
+>      Kang Kai<kai.kang@windriver.com>
+> ---
+>
+>
+> Kang Kai (2):
+>    nspr: add nspr to pass LSB library test
+>    nss: add nss for LSB library check
+>
+>   .../mozilla/nspr-4.8.7/30_config_64bits.dpatch     |   45 +
+>   .../mozilla/nspr-4.8.7/30_pkgconfig.dpatch         |   37 +
+>   .../mozilla/nspr-4.8.7/81_sonames.dpatch           |  233 +
+>   .../mozilla/nspr-4.8.7/unbreak-build.diff          |   50 +
+>   .../recipes-extended/mozilla/nspr-tools-native.inc |   29 +
+>   .../mozilla/nspr-tools-native_4.8.7.bb             |   16 +
+>   meta/recipes-extended/mozilla/nspr.inc             |   44 +
+>   meta/recipes-extended/mozilla/nspr_4.8.7.bb        |   17 +
+>   .../mozilla/nss-3.12.6/00_ckbi_1.79.patch          | 6390 ++++++++++++++++++++
+>   .../mozilla/nss-3.12.6/25_entropy.patch            |   26 +
+>   .../mozilla/nss-3.12.6/38_hurd.patch               |   63 +
+>   .../mozilla/nss-3.12.6/38_kbsd.patch               |  156 +
+>   .../mozilla/nss-3.12.6/38_mips64_build.patch       |   31 +
+>   .../mozilla/nss-3.12.6/80_security_build.patch     |   21 +
+>   .../mozilla/nss-3.12.6/80_security_tools.patch     |   30 +
+>   .../mozilla/nss-3.12.6/81_sonames.patch            |  355 ++
+>   .../mozilla/nss-3.12.6/85_security_load.patch      |   83 +
+>   .../mozilla/nss-3.12.6/90_realpath.patch           |   39 +
+>   .../mozilla/nss-3.12.6/91_build_pwdecrypt.patch    |   21 +
+>   .../nss-3.12.6/95_add_spi+cacert_ca_certs.patch    | 1172 ++++
+>   .../mozilla/nss-3.12.6/96_NSS_VersionCheck.patch   |   23 +
+>   .../97_SSL_RENEGOTIATE_TRANSITIONAL.patch          |   25 +
+>   .../mozilla/nss-3.12.6/build-fix.patch             |   67 +
+>   meta/recipes-extended/mozilla/nss-3.12.6/nss.pc.in |   11 +
+>   meta/recipes-extended/mozilla/nss-3.12.6/series    |   14 +
+>   meta/recipes-extended/mozilla/nss_3.12.6.bb        |  116 +
+>   26 files changed, 9114 insertions(+), 0 deletions(-)
+>   create mode 100644 meta/recipes-extended/mozilla/nspr-4.8.7/30_config_64bits.dpatch
+>   create mode 100644 meta/recipes-extended/mozilla/nspr-4.8.7/30_pkgconfig.dpatch
+>   create mode 100644 meta/recipes-extended/mozilla/nspr-4.8.7/81_sonames.dpatch
+>   create mode 100644 meta/recipes-extended/mozilla/nspr-4.8.7/unbreak-build.diff
+>   create mode 100644 meta/recipes-extended/mozilla/nspr-tools-native.inc
+>   create mode 100644 meta/recipes-extended/mozilla/nspr-tools-native_4.8.7.bb
+>   create mode 100644 meta/recipes-extended/mozilla/nspr.inc
+>   create mode 100644 meta/recipes-extended/mozilla/nspr_4.8.7.bb
+>   create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/00_ckbi_1.79.patch
+>   create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/25_entropy.patch
+>   create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/38_hurd.patch
+>   create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/38_kbsd.patch
+>   create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/38_mips64_build.patch
+>   create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/80_security_build.patch
+>   create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/80_security_tools.patch
+>   create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/81_sonames.patch
+>   create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/85_security_load.patch
+>   create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/90_realpath.patch
+>   create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/91_build_pwdecrypt.patch
+>   create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/95_add_spi+cacert_ca_certs.patch
+>   create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/96_NSS_VersionCheck.patch
+>   create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/97_SSL_RENEGOTIATE_TRANSITIONAL.patch
+>   create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/build-fix.patch
+>   create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/nss.pc.in
+>   create mode 100644 meta/recipes-extended/mozilla/nss-3.12.6/series
+>   create mode 100644 meta/recipes-extended/mozilla/nss_3.12.6.bb
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
+
 
