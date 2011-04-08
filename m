@@ -1,26 +1,23 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A7EDE4C80579
-	for <poky@yoctoproject.org>; Thu,  7 Apr 2011 21:50:48 -0500 (CDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id ECDA81660810; Thu,  7 Apr 2011 20:50:47 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2-r929478
-Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 4C7F7166059C;
-	Thu,  7 Apr 2011 20:50:43 -0600 (MDT)
-Message-ID: <4D9E7803.5070308@mlbassoc.com>
-Date: Thu, 07 Apr 2011 20:50:43 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
-MIME-Version: 1.0
-To: Poky Project <poky@yoctoproject.org>
-Subject: [PATCH] Allow JFFS2 image creation options to be overridden
+Return-Path: <sean@chumby.com>
+Received: from mail-iw0-f176.google.com (mail-iw0-f176.google.com
+	[209.85.214.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 963164C80A8A
+	for <poky@yoctoproject.org>; Fri,  8 Apr 2011 03:36:13 -0500 (CDT)
+Received: by iwr19 with SMTP id 19so4679774iwr.35
+	for <poky@yoctoproject.org>; Fri, 08 Apr 2011 01:36:13 -0700 (PDT)
+Received: by 10.43.53.132 with SMTP id vq4mr1346659icb.472.1302251773375;
+	Fri, 08 Apr 2011 01:36:13 -0700 (PDT)
+Received: from [192.168.1.101] (firewall.muvee.com [203.116.69.162])
+	by mx.google.com with ESMTPS id xe5sm1450221icb.22.2011.04.08.01.36.11
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Fri, 08 Apr 2011 01:36:12 -0700 (PDT)
+From: Sean Cross <sean@chumby.com>
+Date: Fri, 8 Apr 2011 16:36:08 +0800
+Message-Id: <A710DDAD-0F83-40BB-BDED-419D8F3B4EA0@chumby.com>
+To: poky@yoctoproject.org
+Mime-Version: 1.0 (Apple Message framework v1082)
+X-Mailer: Apple Mail (2.1082)
+Subject: Error when building: Unable to find package locale-base-en-gb
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,58 +29,91 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 08 Apr 2011 02:50:49 -0000
-X-Groupsio-MsgNum: 5200
-Content-Type: multipart/mixed; boundary="------------080908000009090701030402"
+X-List-Received-Date: Fri, 08 Apr 2011 08:36:13 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
 
---------------080908000009090701030402
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+Hi,
 
-Allow the options for creating JFFS2 images to be specified
-by the target/machine.  In other words, not the whole world
-is LittleEndian :-)
+I'm trying to port Poky to the chumby-falconwing platform, but I'm =
+having a problem in the very last step.  I'm using poky-laverne-4.0.  =
+I'm running Ubuntu 10.04 LTE.  For some reason, I get an error saying =
+that it's unable to find the package locale-base-en-gb, even though it =
+appears to exist.  I've tried rebuilding eglibc, but the problem =
+remains.  Both the ipk and rpm are present in the deploy directory:
 
-Tested on PowerPC target
+user@ubuntu:~/poky-laverne-4.0/build$ find tmp/deploy -name =
+'locale-base-en-gb*'
+tmp/deploy/ipk/armv5te/locale-base-en-gb_2.12-r9_armv5te.ipk
+tmp/deploy/rpm/armv5te/locale-base-en-gb-2.12-r9.armv5te.rpm
+user@ubuntu:~/poky-laverne-4.0/build$=20
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
-
---------------080908000009090701030402
-Content-Type: text/x-patch;
- name="0001-Allow-JFFS2-image-options-to-be-overridden.patch"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
- filename*0="0001-Allow-JFFS2-image-options-to-be-overridden.patch"
-
-From 3bf930fcfa7547a926df460931d855bd0bc35caf Mon Sep 17 00:00:00 2001
-From: Gary Thomas <gary@mlbassoc.com>
-Date: Thu, 7 Apr 2011 20:45:40 -0600
-Subject: [PATCH] Allow JFFS2 image options to be overridden
-
-Signed-off-by: Gary Thomas <gary@mlbassoc.com>
----
- meta/classes/image_types.bbclass |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
-
-diff --git a/meta/classes/image_types.bbclass b/meta/classes/image_types.bbclass
-index f11a7ed..f23c1f5 100644
---- a/meta/classes/image_types.bbclass
-+++ b/meta/classes/image_types.bbclass
-@@ -63,7 +63,7 @@ IMAGE_CMD_ubi () {
- IMAGE_CMD_ubifs = "mkfs.ubifs -r ${IMAGE_ROOTFS} -o ${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.ubifs.img ${MKUBIFS_ARGS}"
- 
- EXTRA_IMAGECMD = ""
--EXTRA_IMAGECMD_jffs2 = "--pad --little-endian --eraseblock=0x40000"
-+EXTRA_IMAGECMD_jffs2 ?= "--pad --little-endian --eraseblock=0x40000"
- EXTRA_IMAGECMD_yaffs2 = "1"
- # Change these if you want default genext2fs behavior (i.e. create minimal inode number)
- EXTRA_IMAGECMD_ext2 ?= "-i 8192"
--- 
-1.7.3.4
+When I go to actually build poky-image-sato, I get the following output:=20=
 
 
---------------080908000009090701030402--
+user@ubuntu:~/poky-laverne-4.0/build$ bitbake poky-image-sato
+  ...
+NOTE: Running task 5553 of 5556 (ID: 10, =
+/home/user/poky-laverne-4.0/meta/recipes-sato/images/poky-image-sato.bb, =
+do_rootfs)
+NOTE: package poky-image-sato-1.0-r0: task do_rootfs: Started
+ERROR: Task failed: ('function do_rootfs failed', =
+'/home/user/poky-laverne-4.0/build/tmp/work/chumby-falconwing-poky-linux-g=
+nueabi/poky-image-sato-1.0-r0/temp/log.do_rootfs.25117')
+ERROR: Logfile of failure stored in: =
+/home/user/poky-laverne-4.0/build/tmp/work/chumby-falconwing-poky-linux-gn=
+ueabi/poky-image-sato-1.0-r0/temp/log.do_rootfs.25117
+Log data follows:
+| + rm -rf =
+/home/user/poky-laverne-4.0/build/tmp/work/chumby-falconwing-poky-linux-gn=
+ueabi/poky-image-sato-1.0-r0/rootfs
+| + mkdir -p =
+/home/user/poky-laverne-4.0/build/tmp/work/chumby-falconwing-poky-linux-gn=
+ueabi/poky-image-sato-1.0-r0/rootfs
+| + mkdir -p /home/user/poky-laverne-4.0/build/tmp/deploy/images
+| + '[' 0 '!=3D' 1 ']'
+| + rootfs_rpm_do_rootfs
+| + set +x
+| Generating solve db for =
+/home/user/poky-laverne-4.0/build/tmp/deploy/rpm/all...
+|    total:               1      0.000000 MB      0.122722 secs
+|    order:               1      0.000000 MB      0.053324 secs
+|    fingerprint:        52      0.003158 MB      0.008152 secs
+|    install:            38      0.000000 MB      0.030789 secs
+|    dbadd:              38      0.000000 MB      0.016166 secs
+|    dbget:            3348      0.036632 MB      0.001855 secs
+|    dbput:            1769      0.248988 MB      0.003098 secs
+|    readhdr:           381      0.432536 MB      0.001162 secs
+|    hdrload:          3781      5.984096 MB      0.013046 secs
+|    hdrget:          64607      0.000000 MB      0.020991 secs
+| Generating solve db for =
+/home/user/poky-laverne-4.0/build/tmp/deploy/rpm/chumby-falconwing...
+|    total:               1      0.000000 MB      0.814512 secs
+|    order:               1      0.000000 MB      0.168025 secs
+|    fingerprint:       690      0.010686 MB      0.050415 secs
+|    install:           393      0.000000 MB      0.305696 secs
+|    dbadd:             393      0.000000 MB      0.157316 secs
+|    dbget:           12651      1.576036 MB      0.012937 secs
+|    dbput:            7308      2.967748 MB      0.022940 secs
+|    readhdr:          3931      3.000744 MB      0.011413 secs
+|    hdrload:        387891    537.810976 MB      1.247059 secs
+|    hdrget:        7250284      0.000000 MB      1.376680 secs
+| Processing locale-base-en-gb...
+| Unable to find package locale-base-en-gb!
+| ERROR: Task failed: ('function do_rootfs failed', =
+'/home/user/poky-laverne-4.0/build/tmp/work/chumby-falconwing-poky-linux-g=
+nueabi/poky-image-sato-1.0-r0/temp/log.do_rootfs.25117')
+NOTE: package poky-image-sato-1.0-r0: task do_rootfs: Failed
+ERROR: Task 10 =
+(/home/user/poky-laverne-4.0/meta/recipes-sato/images/poky-image-sato.bb, =
+do_rootfs) failed with 1
+ERROR: =
+'/home/user/poky-laverne-4.0/meta/recipes-sato/images/poky-image-sato.bb' =
+failed
+]user@ubuntu:~/poky-laverne-4.0/build$=20
+
+How can I track down the cause of the problem?
+
+
+Sean
+
