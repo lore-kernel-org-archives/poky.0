@@ -1,32 +1,20 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 250504C80044
-	for <poky@yoctoproject.org>; Fri,  8 Apr 2011 12:03:34 -0500 (CDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 9968A16606BB; Fri,  8 Apr 2011 11:03:33 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2-r929478
-Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 31E001660505;
-	Fri,  8 Apr 2011 11:03:32 -0600 (MDT)
-Message-ID: <4D9F3FE4.60400@mlbassoc.com>
-Date: Fri, 08 Apr 2011 11:03:32 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
-MIME-Version: 1.0
-To: Patches and discussions about the oe-core layer
-	<openembedded-core@lists.openembedded.org>
-References: <4D9F0B82.9080803@mlbassoc.com>	<8B7010C5-9902-4372-BF78-252D85C4BF46@dominion.thruhere.net>	<1302270609.22904.128.camel@rex>	<4D9F1540.6020902@mlbassoc.com>	<4D9F169D.9020502@mlbassoc.com>,
-	<4D9F1909.1060403@mlbassoc.com>
-	<3598D5EC-C050-461B-B540-5B20CB79B936@windriver.com>
-In-Reply-To: <3598D5EC-C050-461B-B540-5B20CB79B936@windriver.com>
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: [OE-core] Early image startup
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 3A8654C80044
+	for <poky@yoctoproject.org>; Fri,  8 Apr 2011 12:28:03 -0500 (CDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 08 Apr 2011 10:28:02 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.63,324,1299484800"; d="scan'208";a="907279554"
+Received: from unknown (HELO localhost) ([10.255.12.239])
+	by fmsmga001.fm.intel.com with ESMTP; 08 Apr 2011 10:28:02 -0700
+From: Darren Hart <dvhart@linux.intel.com>
+To: poky@yoctoproject.org
+Date: Fri,  8 Apr 2011 10:27:52 -0700
+Message-Id: <a463a33c7a4aec3b46b7bf9f7b0731869b271e0b.1302283672.git.dvhart@linux.intel.com>
+X-Mailer: git-send-email 1.7.1
+Cc: paul.eggleton@linux.intel.com, Darren Hart <dvhart@linux.intel.com>
+Subject: [PATCH] README.hardware: automate boot process for router station pro
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,80 +26,44 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 08 Apr 2011 17:03:34 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 08 Apr 2011 17:28:03 -0000
 
-On 04/08/2011 10:40 AM, Hatle, Mark wrote:
-> As for the rpm ordering this was preserved from an earlier version.  If there is a more appropriate place to run the late configuration scripts, let's move it.  I think that it's likely a good place to move it to soon after the filesystem has been mounted RW.  Do any of the scripts normally require networking or other system resources?
+Signed-off-by: Darren Hart <dvhart@linux.intel.com>
+---
+ README.hardware |   22 ++++++++++++++++++++++
+ 1 files changed, 22 insertions(+), 0 deletions(-)
 
-Hard to say what's perfect, but I certainly don't believe that they need
-to be put off to the very last.   In any case, I think the best thing is
-to make it easily adjustable, per my patch.
-
-Can we please keep this discussion on the Poky list where it started?
-It seems that OE (and maybe OE-core) handle this differently - I've not
-looked in depth - and I'm mostly interested in getting my Poky builds
-healthy.
-
-> On Apr 8, 2011, at 7:18 AM, "Gary Thomas"<gary@mlbassoc.com>  wrote:
->
->> On 04/08/2011 08:07 AM, Gary Thomas wrote:
->>> On 04/08/2011 08:01 AM, Gary Thomas wrote:
->>>> On 04/08/2011 07:50 AM, Richard Purdie wrote:
->>>>> On Fri, 2011-04-08 at 15:30 +0200, Koen Kooi wrote:
->>>>>> Op 8 apr 2011, om 15:20 heeft Gary Thomas het volgende geschreven:
->>>>>>
->>>>>>> I have a Poky image which uses a number of kernel modules. For
->>>>>>> whatever reason, the raw image has not had the modules configured
->>>>>>> (no /lib/modules/.../modules.dep) This file is created by 'update-modules'
->>>>>>> but that is run too late in the boot process. The problem is that
->>>>>>> other code, e.g. I'm using iptables via modules, requires the modules
->>>>>>> be configured early and this fails. If I reboot (after 'update-modules'
->>>>>>> has run), everything is fine.
->>>>>>
->>>>>> Sound like you need http://patches.openembedded.org/patch/1917/
->>>>>
->>>>> To be honest that sounds like a more fundamental problem as if the user
->>>>> cares which rtc should be rtc0, there are other ordering constraints
->>>>> being imposed such as a symlink to the "best" rtc device...
->>>>
->>>> Indeed, this patch did not help my situation at all.
->>>>
->>>> I think my problem is that of post-install package scripts (hence
->>>> 'Configuring ...') not being run until quite late.
->>>
->>> Looking at the pre-run image, I see that there is /etc/rcS.d/S98configure
->>> which runs these scripts. Is there any reason I can't move it earlier?
->>
->> Found it:
->>   ipk systems - meta/recipes-devtools/opkg/opkg_0.1.8.bb
->>   rpm systems - meta/classes/rootfs_rpm.bbclass
->>
->> Note: the ipk version is quasi-configurable, the rpm version hardwired at 98.
->> Since these are package install scripts, which presumable could have been run
->> at image creation time but needed to run on the target hardware, why put it
->> off to so late?  I would think that this should be done _first_, not _last_
->>
->> --
->> ------------------------------------------------------------
->> Gary Thomas                 |  Consulting for the
->> MLB Associates              |    Embedded world
->> ------------------------------------------------------------
->>
->> _______________________________________________
->> Openembedded-core mailing list
->> Openembedded-core@lists.openembedded.org
->> http://lists.linuxtogo.org/cgi-bin/mailman/listinfo/openembedded-core
->
-> _______________________________________________
-> Openembedded-core mailing list
-> Openembedded-core@lists.openembedded.org
-> http://lists.linuxtogo.org/cgi-bin/mailman/listinfo/openembedded-core
-
+diff --git a/README.hardware b/README.hardware
+index 025c678..b2ce146 100644
+--- a/README.hardware
++++ b/README.hardware
+@@ -392,3 +392,25 @@ To boot the flashed kernel perform the following steps.
+ (-e means 'elf', -d 'decompress')
+ 
+ 2) Execute the kernel using the exec command as above.
++
++--- Automating the boot process ---
++
++After writing the kernel to flash and testing the load and exec commands
++manually, you can automate the boot process with a boot script.
++
++1) RedBoot> fconfig
++   (Answer the questions not specified here as they pertain to your environment)
++2) Run script at boot: true
++  Boot script: 
++  .. fis load -d -e kernel
++  .. exec
++  Enter script, terminate with empty line
++  >> fis load -d -e kernel
++  >> exec -c "console=ttyS0,115200 root=/dev/sda1 rw rootdelay=2 board=UBNT-RSPRO"
++  >> 
++3) Answer the remaining questions and write the changes to flash:
++  Update RedBoot non-volatile configuration - continue (y/n)? y
++  ... Erase from 0xbfff0000-0xc0000000: .
++  ... Program from 0x87ff0000-0x88000000 at 0xbfff0000: .
++4) Power cycle the board.
++
 -- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+1.7.1
+
 
