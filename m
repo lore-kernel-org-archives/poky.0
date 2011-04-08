@@ -1,26 +1,28 @@
 Return-Path: <saul.wold@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 23BBC4C80050
-	for <poky@yoctoproject.org>; Fri,  8 Apr 2011 13:12:37 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 08 Apr 2011 11:12:36 -0700
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 03D414C80050
+	for <poky@yoctoproject.org>; Fri,  8 Apr 2011 13:18:15 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 08 Apr 2011 11:18:15 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,325,1299484800"; d="scan'208";a="730921385"
+X-IronPort-AV: E=Sophos;i="4.63,325,1299484800"; d="scan'208";a="416176586"
 Received: from unknown (HELO [10.255.13.36]) ([10.255.13.36])
-	by orsmga001.jf.intel.com with ESMTP; 08 Apr 2011 11:12:35 -0700
-Message-ID: <4D9F5013.6060104@intel.com>
-Date: Fri, 08 Apr 2011 11:12:35 -0700
+	by azsmga001.ch.intel.com with ESMTP; 08 Apr 2011 11:18:14 -0700
+Message-ID: <4D9F5166.1020500@intel.com>
+Date: Fri, 08 Apr 2011 11:18:14 -0700
 From: Saul Wold <saul.wold@intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
 	Thunderbird/3.0.5
 MIME-Version: 1.0
-To: Xiaofeng Yan <xiaofeng.yan@windriver.com>
-References: <cover.1301733116.git.xiaofeng.yan@windriver.com>
-	<2f13241403454d83affaff72721a25ad876848bd.1301733116.git.xiaofeng.yan@windriver.com>
-In-Reply-To: <2f13241403454d83affaff72721a25ad876848bd.1301733116.git.xiaofeng.yan@windriver.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 1/1] LSB_Setup.sh: Add function to install all test	packages
+To: "Cui, Dexuan" <dexuan.cui@intel.com>
+References: <cover.1301388474.git.dexuan.cui@intel.com>	<c9789f2d0873c6b8ff2ae3a7b338b72527cfbf02.1301388474.git.dexuan.cui@intel.com>	<1301395410.24596.22.camel@rex>
+	<1865303E0DED764181A9D882DEF65FB68A3F6A15D4@shsmsx502.ccr.corp.intel.com>
+In-Reply-To: <1865303E0DED764181A9D882DEF65FB68A3F6A15D4@shsmsx502.ccr.corp.intel.com>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>,
+	'Patches and discussions about the oe-core layer'
+	<openembedded-core@lists.openembedded.org>
+Subject: Re: [OE-core] [PATCH 1/1] qt4: remove the option -feliminate-dwarf2-dups to fix the build
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,111 +34,52 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 08 Apr 2011 18:12:37 -0000
+X-List-Received-Date: Fri, 08 Apr 2011 18:18:16 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 04/02/2011 01:35 AM, Xiaofeng Yan wrote:
-> From: Xiaofeng Yan<xiaofeng.yan@windriver.com>
+On 03/29/2011 04:43 AM, Cui, Dexuan wrote:
+> Richard Purdie wrote:
+>> On Tue, 2011-03-29 at 16:52 +0800, Dexuan Cui wrote:
+>>> From: Dexuan Cui<dexuan.cui@intel.com>
+>>>
+>>> [YOCTO #932]
+>>>
+>>> After commit 5ea06dc295b657383fd97545c15255b294cf1a79(bitbake.conf:
+>>> Prune global OPTIMIZATION flags) that adds an option
+>>> -feliminate-dwarf2-dups, gcc 4.5 reports such an internal compiler
+>>> error when building Qt4 if the option is used:
+>>>
+>>>> graphicsview/qgridlayoutengine.cpp:1553:1: internal compiler error:
+>>>> in build_abbrev_table, at dwarf2out.c:9806 Please submit a full bug
+>>>> report,
+>>>> with preprocessed source if appropriate.
+>>>> See<http://gcc.gnu.org/bugs.html>  for instructions.
+>>>
+>>> This is a gcc bug: http://gcc.gnu.org/bugzilla/show_bug.cgi?id=47361
+>>>
+>>> At present we can remove the option as a workaround.
+>>>
+>>> Thanks Robert Berger for reporting the bug and his investigation in
+>>> gcc bugzilla and thanks Khem Raj for the quick suggestion about
+>>> removing
+>>> the option.
+>>
+>> How about we add the patch for this issue:
+>>
+>> http://gcc.gnu.org/ml/gcc-patches/2011-01/msg01647.html
+> Ok,  I'll apply the patch to g++ and test building qt4.
 >
-> Add function to  install all of lsb test suite packages instead of installing parts of test packages
->
-> Signed-off-by: Xiaofeng Yan<xiaofeng.yan@windriver.com>
-> ---
->   meta/recipes-extended/lsb/lsbsetup/LSB_Setup.sh |   50 ++++++++++++++---------
->   1 files changed, 30 insertions(+), 20 deletions(-)
->
-> diff --git a/meta/recipes-extended/lsb/lsbsetup/LSB_Setup.sh b/meta/recipes-extended/lsb/lsbsetup/LSB_Setup.sh
-> index 78c33b3..7ce823e 100644
-> --- a/meta/recipes-extended/lsb/lsbsetup/LSB_Setup.sh
-> +++ b/meta/recipes-extended/lsb/lsbsetup/LSB_Setup.sh
-> @@ -17,11 +17,38 @@
->
->   ##Prepare Steps
->   #Steps 0; Confirm the installed LSB Packages
-> -
-> +ARCH=`uname -m`
-> +APP_FILE=`ls /lsb-Application/*.rpm`
->   if [ ! -f /opt/lsb/test/manager/bin/dist-checker-start.pl ]
->   then
->           if [ -d /lsb-dist-testkit ];then
-> -                cd /lsb-dist-testkit&&  sh install.sh&&  cd ../lsb-Application&&  rpm -ivh *.rpm --nodeps --force
-> +		if [ ${ARCH} == i686 ];then
-> +                	echo "i486-suse">>  /etc/rpm/platform
-> +                	echo "i486-noarch">>  /etc/rpm/platform
-> +                	echo "i486-pc">>  /etc/rpm/platform
-> +                	echo "noarch-suse">>  /etc/rpm/platform
-> +		else
-> +                	echo "${ARCH}-suse">>  /etc/rpm/platform
-> +                	echo "${ARCH}-noarch">>  /etc/rpm/platform
-> +                	echo "${ARCH}-pc">>  /etc/rpm/platform
-> +                	echo "noarch-suse">>  /etc/rpm/platform
-> +                fi
-> +                cd /lsb-dist-testkit&&  sh install.sh&&  cd ../lsb-Application
-> +                for i in ${APP_FILE}
-> +                do
-> +                    echo "$i" |grep -q "apache"
-> +                    if [ $? -eq 0 ]
-> +                    then
-> +                        rpm -ivh $i --noscripts --nodeps --force
-> +                    else
-> +                        rpm -ivh $i --nodeps --force
-> +                    fi
-> +                done
-> +                mkdir -p /var/opt/lsb/test/manager/packages/ftp.linuxfoundation.org/pub/lsb/snapshots/appbat/tests/
-> +                mkdir -p  /var/opt/lsb/test/manager/packages/ftp.linuxfoundation.org/pub/lsb/app-battery/tests/
-> +		cp expect-tests.tar  test1.pdf  test2.pdf /var/opt/lsb/test/manager/packages/ftp.linuxfoundation.org/pub/lsb/app-battery/tests/
-> +                cp raptor-tests.tar  tcl-tests.tar /var/opt/lsb//test/manager/packages/ftp.linuxfoundation.org/pub/lsb/snapshots/appbat/tests/
-> +		cd ..
->           else
->                   echo "Please install the realted LSB Packages"
->                   exit 1
-> @@ -33,10 +60,6 @@ id tester
->   if [ $? -eq  0 ]
->   then
->           echo "User tester was existed"
-> -        echo -n "Deleted tester(yes/no):"
-> -        read INPUT
-> -case $INPUT in
-> -yes|y)
->           sleep 1
->           userdel -rf tester
->           if [ $? -eq 0 ] || [ $? -eq 6 ]
-> @@ -45,19 +68,6 @@ yes|y)
->          else
->                   echo "Fail to delete user tester"
->           fi
-> -        ;;
-> -no|n)
-> -        sleep 1
-> -        echo "There must be deleted User test before ran LSB4 on Target"
-> -        echo ""
-> -        exit 1
-> -        ;;
-> -*)
-> -        sleep 1
-> -        echo "Input ERROR, pls reinput that your expected"
-> -        echo ""
-> -        exit 1
-> -esac
->   else
->           echo "There was not User tester"
->   fi
-> @@ -177,7 +187,7 @@ ping -c 5 ftp.linux-foundation.org
->   check
->
->   #Step 7
-> -insmod /lib/modules/2.6.37.2-yocto-standard\+/kernel/drivers/block/loop.ko
-> +insmod /lib/modules/2.6.*/kernel/drivers/block/loop.ko
->   if [ $? != 0 ];then
->   	echo "Please insmod loop.ko  manully"
->   fi
-Pulled into master.
+Any update on this patch?
 
-This patch caused a checksum failure, please be sure to update the 
-LIC_FILES_CHKSUM next time.
+Sau!
 
-Thanks
-	Sau!
+> Thanks,
+> -- Dexuan
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
 
 
