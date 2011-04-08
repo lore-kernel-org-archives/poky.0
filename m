@@ -1,27 +1,26 @@
-Return-Path: <josh@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5BD7B4C8008C
-	for <poky@yoctoproject.org>; Fri,  8 Apr 2011 07:28:58 -0500 (CDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 08 Apr 2011 05:28:57 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,323,1299484800"; d="scan'208";a="907176200"
-Received: from unknown (HELO [10.255.12.196]) ([10.255.12.196])
-	by fmsmga001.fm.intel.com with ESMTP; 08 Apr 2011 05:28:57 -0700
-From: Joshua Lock <josh@linux.intel.com>
-To: Khem Raj <raj.khem@gmail.com>
-Date: Fri, 08 Apr 2011 13:28:57 +0100
-In-Reply-To: <BANLkTik=9jfHyeqiXwzS0dA2p=MDfdb8Yw@mail.gmail.com>
-References: <cover.1301664697.git.josh@linux.intel.com>
-	<8d834327e2d84b8d4ad72b9c617d261ab8b206e2.1301664697.git.josh@linux.intel.com>
-	<BANLkTi=etDyw_wqyqbErqoR92cwOXw3R4A@mail.gmail.com>
-	<1301957183.24596.414.camel@rex> <1302088591.2355.7.camel@scimitar>
-	<BANLkTik=9jfHyeqiXwzS0dA2p=MDfdb8Yw@mail.gmail.com>
-X-Mailer: Evolution 2.91.92 (2.91.92-2.fc15) 
-Message-ID: <1302265737.7724.1.camel@scimitar>
-Mime-Version: 1.0
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 1/7] elfutils: fix builds with gcc 4.6
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 7B21C4C80579
+	for <poky@yoctoproject.org>; Fri,  8 Apr 2011 08:20:03 -0500 (CDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 2250F166037A; Fri,  8 Apr 2011 07:20:03 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00,
+	T_FRT_CONTACT autolearn=unavailable version=3.3.2-r929478
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 101D31660334;
+	Fri,  8 Apr 2011 07:20:02 -0600 (MDT)
+Message-ID: <4D9F0B82.9080803@mlbassoc.com>
+Date: Fri, 08 Apr 2011 07:20:02 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
+MIME-Version: 1.0
+To: Poky Project <poky@yoctoproject.org>
+Subject: Early image startup
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,103 +32,66 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 08 Apr 2011 12:28:58 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Fri, 08 Apr 2011 13:20:03 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Wed, 2011-04-06 at 10:06 -0700, Khem Raj wrote:
-> On Wed, Apr 6, 2011 at 4:16 AM, Joshua Lock <josh@linux.intel.com> wrote:
-> > On Mon, 2011-04-04 at 23:46 +0100, Richard Purdie wrote:
-> >> On Mon, 2011-04-04 at 23:37 +0200, Martin Jansa wrote:
-> >> > On Fri, Apr 1, 2011 at 3:40 PM, Joshua Lock <josh@linux.intel.com> wrote:
-> >> > > From: Joshua Lock <josh@linux.intel.com>
-> >> > >
-> >> > > gcc 4.6 (as used in Fedora 15) adds some extra warnings which are
-> >> > > included with Werror. The new unused-but-set variable warning causes
-> >> > > an error in libasm of elfutils. Work around this by removing
-> >> > > unused-but-set from Werror.
-> >> > >
-> >> > > Signed-off-by: Joshua Lock <josh@linux.intel.com>
-> >> > > ---
-> >> > >  meta/recipes-devtools/elfutils/elfutils_0.148.bb |    4 ++++
-> >> > >  1 files changed, 4 insertions(+), 0 deletions(-)
-> >> > >
-> >> > > diff --git a/meta/recipes-devtools/elfutils/elfutils_0.148.bb b/meta/recipes-devtools/elfutils/elfutils_0.148.bb
-> >> > > index b2f700e..c395be8 100644
-> >> > > --- a/meta/recipes-devtools/elfutils/elfutils_0.148.bb
-> >> > > +++ b/meta/recipes-devtools/elfutils/elfutils_0.148.bb
-> >> > > @@ -40,6 +40,10 @@ SRC_URI += "\
-> >> > >
-> >> > >  inherit autotools
-> >> > >
-> >> > > +# GCC 4.6.0 raises an unused-but-set warning in libasm, for now remove
-> >> > > +# this warning from Werror
-> >> > > +CFLAGS_virtclass-native += "-Wno-error=unused-but-set-variable"
-> >> > > +
-> >> > >  EXTRA_OECONF = "--program-prefix=eu-"
-> >> >
-> >> > this breaks all other distros not yet using gcc-4.6..
-> >> >
-> >> >
-> >> > configure:2892: checking whether the C compiler works
-> >> > configure:2914: gcc -Wno-error=unused-but-set-variable
-> >> > -isystem/OE/shr-core/tmp/sysroots/x86_64-linux/usr/include
-> >> > -L/OE/shr-core/tmp/sysroots/x86_64-linux/usr/lib
-> >> > -Wl,-rpath-link,/OE/shr-core/tmp/sysroots/x86_64-linux/usr/lib
-> >> > -Wl,-rpath,/OE/shr-core/tmp/sysroots/x86_64-linux/usr/lib -Wl,-O1
-> >> > conftest.c  >&5
-> >> > cc1: error: -Werror=unused-but-set-variable: No option -Wunused-but-set-variable
-> >> > configure:2918: $? = 1
-> >> > configure:2956: result: no
-> >> > configure: failed program was:
-> >> > | /* confdefs.h */
-> >> > | #define PACKAGE_NAME "Red Hat elfutils"
-> >> > | #define PACKAGE_TARNAME "elfutils"
-> >> > | #define PACKAGE_VERSION "0.148"
-> >> > | #define PACKAGE_STRING "Red Hat elfutils 0.148"
-> >> > | #define PACKAGE_BUGREPORT "http://bugzilla.redhat.com/bugzilla/"
-> >> > | #define PACKAGE_URL ""
-> >> > | #define PACKAGE "elfutils"
-> >> > | #define VERSION "0.148"
-> >> > | #define MODVERSION "Build on jama 2011-04-04T23:34:25+0200"
-> >> > | /* end confdefs.h.  */
-> >> > |
-> >> > | int
-> >> > | main ()
-> >> > | {
-> >> > |
-> >> > |   ;
-> >> > |   return 0;
-> >> > | }
-> >> > configure:2961: error: in
-> >> > `/OE/shr-core/tmp/work/x86_64-linux/elfutils-native-0.148-r1/elfutils-0.148':
-> >> > configure:2965: error: C compiler cannot create executables
-> >> > See `config.log' for more details.
-> >
-> > Sorry about this Martin. Thanks for catching and reporting.
-> >
-> >>
-> >> Ouch, I'm going to revert this, we'll need an alternative fix. Thanks
-> >> for reporting!
-> >
-> > I've worked up an alternative fix and sent a pull request to oe-core. I
-> > took the approach of consolidating several patches from the upstream
-> > source repository which remove the unused variables.
-> >
-> > I consolidated them into a single patch so that they are easier to drop
-> > once we update elfutils to 0.152 or higher.
-> >
-> 
-> Why not update to 0.152 then
+I have a Poky image which uses a number of kernel modules.  For
+whatever reason, the raw image has not had the modules configured
+(no /lib/modules/.../modules.dep)  This file is created by 'update-modules'
+but that is run too late in the boot process.  The problem is that
+other code, e.g. I'm using iptables via modules, requires the modules
+be configured early and this fails.  If I reboot (after 'update-modules'
+has run), everything is fine.
 
-The patch series is intended for a Bernard point release, the Bernard
-release is already out with eflutils 0.148.
+My system is PowerPC and I'm using ipk packaging.
 
-Regards,
-Joshua
+Here's a snippet from my initial boot log:
+   Please wait: booting...
+   Starting udev
+   Configuring network interfaces... udhcpc (v1.17.3) started
+   Setting IP address 0.0.0.0 on eth0
+   Sending discover...
+   PHY: mdio@ff024520:01 - Link is Up - 1000/Full
+   Sending discover...
+     Sending select for 192.168.12.140...
+   Lease of 192.168.12.140 obtained, lease time 600
+   Setting IP address 192.168.12.140 on eth0
+   Deleting routers
+   Adding router 192.168.12.1
+   Recreating /etc/resolv.conf
+    Adding DNS server 192.168.12.1
+   done.
+   modprobe: can't open 'modules.dep': No such file or directory
+   iptables v1.4.9: can't initialize iptables table `filter': iptables who? (do you need to insmod?)
+   Perhaps iptables or your kernel needs to be upgraded.
+   Starting DHCP server: .
+   Fri Apr  8 12:29:00 UTC 2011
+   Configuring update-modules.
+   Configuring kernel-image-2.6.37.3.
+   Configuring kernel-module-nf-conntrack.
+   Configuring kernel-module-x-tables.
+   Configuring kernel-module-ip-tables.
+   Configuring kernel-module-nf-defrag-ipv4.
+   Configuring kernel-module-nf-conntrack-ipv4.
+   Configuring kernel-module-iptable-mangle.
+   Configuring kernel-module-xt-state.
+   Configuring kernel-module-nf-nat.
+   Configuring kernel-module-nf-conntrack-tftp.
+   Configuring kernel-module-nf-nat-tftp.
+   Configuring kernel-module-ipt-masquerade.
+   Configuring kernel-module-iptable-nat.
+   Configuring kernel-module-iptable-filter.
+   Configuring netkit-tftpd.
+   Configuring kernel-module-xt-tcpudp.
+
+So, what decides when these 'configuring' steps run?
+
+Thanks
+
 -- 
-Joshua Lock
-        Yocto Build System Monkey
-        Intel Open Source Technology Centre
-
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
