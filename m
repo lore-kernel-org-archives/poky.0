@@ -1,24 +1,40 @@
-Return-Path: <Xiaofeng.Yan@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 47DA94C80579
-	for <poky@yoctoproject.org>; Fri,  8 Apr 2011 03:53:13 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p388rCeX025988
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Fri, 8 Apr 2011 01:53:12 -0700 (PDT)
-Received: from localhost (128.224.162.28) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Fri, 8 Apr 2011 01:53:12 -0700
-Message-ID: <c736c43ae24bae2af7e059bf3770c6f422c75a71.1302252022.git.xiaofeng.yan@windriver.com>
-In-Reply-To: <cover.1302252022.git.xiaofeng.yan@windriver.com>
-References: <cover.1302252022.git.xiaofeng.yan@windriver.com>
-Old-Date: Fri, 8 Apr 2011 16:30:54 +0800
-Date: Fri, 8 Apr 2011 16:43:44 +0800
-To: <poky@yoctoproject.org>
-From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+Return-Path: <leon.woestenberg@gmail.com>
+Received: from mail-pv0-f176.google.com (mail-pv0-f176.google.com
+	[74.125.83.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E5C134C80132
+	for <poky@yoctoproject.org>; Fri,  8 Apr 2011 04:02:04 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by pve37 with SMTP id 37so1762150pve.35
+	for <poky@yoctoproject.org>; Fri, 08 Apr 2011 02:02:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:in-reply-to:references:date
+	:message-id:subject:from:to:cc:content-type
+	:content-transfer-encoding;
+	bh=hlBtQhuDahDASuRM1Kb9NDlKe70Gn+mzK0FfwRQGLdM=;
+	b=KIkWR5cOg1iLvOMHTyp5vb33VGCmfBelCkhPaav7KkDfa1zEyTuzw2C27z/8/waUdR
+	7taXKcV9qCf7ZcYm1eRV/2Uwiq/24ZtQcCpyqo4gICC1ykeBydP3P0H5lLZKqcm3reqJ
+	NErmA6n9isP8/gnIi4Vk6azr9IRI3glXiosyY=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:cc:content-type:content-transfer-encoding;
+	b=mpwGRXNhb0/IVc7Rm94tLYPO6/ySdABJFbwl2euaNl6NAtEBlhOv93a85c3W6b+cIk
+	+40nYNpVNBvuHnQxI5e4QwoSpwhNLLNLU8p0qdMW1h8BpmtlFg0Xom7WtT7KRP8/DDmG
+	spPsClXXugIT02x+i4P6DjlMMuumUJ4iTu7Uk=
 MIME-Version: 1.0
-X-Originating-IP: [128.224.162.28]
-Subject: [PATCH 1/1] eglibc-package.inc: Add eglibc-binarys, eglibc-localedatas, eglibc-gconvs and eglibc-charmps to variable PACKAGE
+Received: by 10.143.87.3 with SMTP id p3mr1649081wfl.153.1302253324098; Fri,
+	08 Apr 2011 02:02:04 -0700 (PDT)
+Received: by 10.68.56.161 with HTTP; Fri, 8 Apr 2011 02:02:04 -0700 (PDT)
+In-Reply-To: <c736c43ae24bae2af7e059bf3770c6f422c75a71.1302252022.git.xiaofeng.yan@windriver.com>
+References: <cover.1302252022.git.xiaofeng.yan@windriver.com>
+	<c736c43ae24bae2af7e059bf3770c6f422c75a71.1302252022.git.xiaofeng.yan@windriver.com>
+Date: Fri, 8 Apr 2011 11:02:04 +0200
+Message-ID: <BANLkTik+MzYHC1w4fLm+WG5oDzWf6OFvbg@mail.gmail.com>
+From: Leon Woestenberg <leon.woestenberg@gmail.com>
+To: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 1/1] eglibc-package.inc: Add eglibc-binarys, eglibc-localedatas, eglibc-gconvs and eglibc-charmps to variable PACKAGE
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,54 +46,25 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 08 Apr 2011 08:53:13 -0000
-Content-Type: text/plain
+X-List-Received-Date: Fri, 08 Apr 2011 09:02:05 -0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
 
-From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+Hello,
 
-The purpose to add above variables is for installing them to lsb-image easy. or not these packages about locale will occupy too much space in list  taks-poky-lsb.bb
-eglibc-binarys include packages "eglibc-binary-*"
-eglibc-localedatas include packages "eglibc-localedata-*"
-eglibc-gconvs include packages "eglibc-gconv-*"
-eglibc-charmaps include packages "eglibc-charmap-*"
+On Fri, Apr 8, 2011 at 10:43 AM, Xiaofeng Yan
+<xiaofeng.yan@windriver.com> wrote:
+>
+> The purpose to add above variables is for installing them to lsb-image ea=
+sy. or not these packages about locale will occupy too much space in list =
+=A0taks-poky-lsb.bb
+> eglibc-binarys include packages "eglibc-binary-*"
 
-Signed-off-by: Xiaofeng Yan <xiaofeng.yan@windriver.com>
----
- meta/recipes-core/eglibc/eglibc-package.inc |   20 ++++++++++++++++++++
- 1 files changed, 20 insertions(+), 0 deletions(-)
+Rename eglibc-binary to eglibc-binaries.
 
-diff --git a/meta/recipes-core/eglibc/eglibc-package.inc b/meta/recipes-core/eglibc/eglibc-package.inc
-index 01275aa..0b59d63 100644
---- a/meta/recipes-core/eglibc/eglibc-package.inc
-+++ b/meta/recipes-core/eglibc/eglibc-package.inc
-@@ -44,6 +44,26 @@ PACKAGES_DYNAMIC = " \
- 		    eglibc-gconv-* eglibc-charmap-* eglibc-localedata-* eglibc-binary-localedata-* \
- 		    locale-base-*${PKGSUFFIX}"
- 
-+# Create a eglibc-binarys
-+ALLOW_EMPTY_${PN}-binarys = "1"
-+PACKAGES += "${PN}-binarys"
-+RRECOMMENDS_${PN}-binarys =  "${@" ".join([p for p in d.getVar('PACKAGES', True).split() if p.find("eglibc-binary") != -1])}"
-+
-+# Create a eglibc-charmaps package 
-+ALLOW_EMPTY_${PN}-charmaps = "1"
-+PACKAGES += "${PN}-charmaps"
-+RRECOMMENDS_${PN}-charmaps =  "${@" ".join([p for p in d.getVar('PACKAGES', True).split() if p.find("eglibc-charmap") != -1])}"
-+
-+# Create a eglibc-gconvs package 
-+ALLOW_EMPTY_${PN}-gconvs = "1"
-+PACKAGES += "${PN}-gconvs"
-+RRECOMMENDS_${PN}-gconvs =  "${@" ".join([p for p in d.getVar('PACKAGES', True).split() if p.find("eglibc-gconv") != -1])}"
-+
-+# Create a eglibc-localedatas package 
-+ALLOW_EMPTY_${PN}-localedatas = "1"
-+PACKAGES += "${PN}-localedatas"
-+RRECOMMENDS_${PN}-localedatas =  "${@" ".join([p for p in d.getVar('PACKAGES', True).split() if p.find("eglibc-localedata") != -1])}"
-+
- RPROVIDES_eglibc = "glibc"
- RPROVIDES_eglibc-utils = "glibc-utils"
- RPROVIDES_eglibc-pic = "glibc-pic"
--- 
-1.7.0.4
+Can a native English speaker comment on this pls?
 
+Regards,
+--=20
+Leon
 
