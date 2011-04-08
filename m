@@ -1,35 +1,28 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C03484C80A78
-	for <poky@yoctoproject.org>; Fri,  8 Apr 2011 08:21:39 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p38DLXGR007279;
-	Fri, 8 Apr 2011 14:21:33 +0100
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 07176-02; Fri,  8 Apr 2011 14:21:29 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p38DLLbR007273
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Fri, 8 Apr 2011 14:21:23 +0100
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Joshua Lock <josh@linux.intel.com>
-In-Reply-To: <1302265737.7724.1.camel@scimitar>
-References: <cover.1301664697.git.josh@linux.intel.com>
-	<8d834327e2d84b8d4ad72b9c617d261ab8b206e2.1301664697.git.josh@linux.intel.com>
-	<BANLkTi=etDyw_wqyqbErqoR92cwOXw3R4A@mail.gmail.com>
-	<1301957183.24596.414.camel@rex> <1302088591.2355.7.camel@scimitar>
-	<BANLkTik=9jfHyeqiXwzS0dA2p=MDfdb8Yw@mail.gmail.com>
-	<1302265737.7724.1.camel@scimitar>
-Date: Fri, 08 Apr 2011 06:21:18 -0700
-Message-ID: <1302268878.22904.125.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.32.2 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 1/7] elfutils: fix builds with gcc 4.6
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 6A37E4C80579
+	for <poky@yoctoproject.org>; Fri,  8 Apr 2011 08:29:33 -0500 (CDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id CEF911660849; Fri,  8 Apr 2011 07:29:32 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00,
+	T_FRT_CONTACT autolearn=ham version=3.3.2-r929478
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 82E5216605D7;
+	Fri,  8 Apr 2011 07:29:31 -0600 (MDT)
+Message-ID: <4D9F0DBB.8070608@mlbassoc.com>
+Date: Fri, 08 Apr 2011 07:29:31 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
+MIME-Version: 1.0
+To: Poky Project <poky@yoctoproject.org>
+References: <4D9F0B82.9080803@mlbassoc.com>
+In-Reply-To: <4D9F0B82.9080803@mlbassoc.com>
+Subject: Re: Early image startup
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,31 +34,84 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 08 Apr 2011 13:21:40 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Fri, 08 Apr 2011 13:29:33 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Fri, 2011-04-08 at 13:28 +0100, Joshua Lock wrote:
-> On Wed, 2011-04-06 at 10:06 -0700, Khem Raj wrote:
-> > On Wed, Apr 6, 2011 at 4:16 AM, Joshua Lock <josh@linux.intel.com> wrote:
-> > > I've worked up an alternative fix and sent a pull request to oe-core. I
-> > > took the approach of consolidating several patches from the upstream
-> > > source repository which remove the unused variables.
-> > >
-> > > I consolidated them into a single patch so that they are easier to drop
-> > > once we update elfutils to 0.152 or higher.
-> > >
-> > 
-> > Why not update to 0.152 then
-> 
-> The patch series is intended for a Bernard point release, the Bernard
-> release is already out with eflutils 0.148.
+On 04/08/2011 07:20 AM, Gary Thomas wrote:
+> I have a Poky image which uses a number of kernel modules. For
+> whatever reason, the raw image has not had the modules configured
+> (no /lib/modules/.../modules.dep) This file is created by 'update-modules'
+> but that is run too late in the boot process. The problem is that
+> other code, e.g. I'm using iptables via modules, requires the modules
+> be configured early and this fails. If I reboot (after 'update-modules'
+> has run), everything is fine.
+>
+> My system is PowerPC and I'm using ipk packaging.
+>
+> Here's a snippet from my initial boot log:
+> Please wait: booting...
+> Starting udev
+> Configuring network interfaces... udhcpc (v1.17.3) started
+> Setting IP address 0.0.0.0 on eth0
+> Sending discover...
+> PHY: mdio@ff024520:01 - Link is Up - 1000/Full
+> Sending discover...
+> Sending select for 192.168.12.140...
+> Lease of 192.168.12.140 obtained, lease time 600
+> Setting IP address 192.168.12.140 on eth0
+> Deleting routers
+> Adding router 192.168.12.1
+> Recreating /etc/resolv.conf
+> Adding DNS server 192.168.12.1
+> done.
+> modprobe: can't open 'modules.dep': No such file or directory
+> iptables v1.4.9: can't initialize iptables table `filter': iptables who? (do you need to insmod?)
+> Perhaps iptables or your kernel needs to be upgraded.
+> Starting DHCP server: .
+> Fri Apr 8 12:29:00 UTC 2011
+> Configuring update-modules.
+> Configuring kernel-image-2.6.37.3.
+> Configuring kernel-module-nf-conntrack.
+> Configuring kernel-module-x-tables.
+> Configuring kernel-module-ip-tables.
+> Configuring kernel-module-nf-defrag-ipv4.
+> Configuring kernel-module-nf-conntrack-ipv4.
+> Configuring kernel-module-iptable-mangle.
+> Configuring kernel-module-xt-state.
+> Configuring kernel-module-nf-nat.
+> Configuring kernel-module-nf-conntrack-tftp.
+> Configuring kernel-module-nf-nat-tftp.
+> Configuring kernel-module-ipt-masquerade.
+> Configuring kernel-module-iptable-nat.
+> Configuring kernel-module-iptable-filter.
+> Configuring netkit-tftpd.
+> Configuring kernel-module-xt-tcpudp.
+>
+> So, what decides when these 'configuring' steps run?
 
-I think this is a good approach given the issues we know we're going to
-have with Bernard. I'll obviously take a version upgrade patch too :)
+FAOD, these are my init.S steps:
+   /etc/rcS.d:
+    S02banner.sh -> ../init.d/banner.sh
+    S03sysfs.sh -> ../init.d/sysfs.sh
+    S04udev -> ../init.d/udev
+    S10checkroot.sh -> ../init.d/checkroot.sh
+    S20modutils.sh -> ../init.d/modutils.sh
+    S35mountall.sh -> ../init.d/mountall.sh
+    S36udev-cache -> ../init.d/udev-cache
+    S37populate-volatile.sh -> ../init.d/populate-volatile.sh
+    S38devpts.sh -> ../init.d/devpts.sh
+    S39hostname.sh -> ../init.d/hostname.sh
+    S40networking -> ../init.d/networking
+    S41nat_setup -> ../init.d/nat_setup
+    S45mountnfs.sh -> ../init.d/mountnfs.sh
+    S50dhcp-server -> ../init.d/dhcp-server
+    S55bootmisc.sh -> ../init.d/bootmisc.sh
 
-Cheers,
 
-Richard
-
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
