@@ -1,25 +1,31 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 470594C80132
-	for <poky@yoctoproject.org>; Fri,  8 Apr 2011 11:06:25 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 08 Apr 2011 09:06:24 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,324,1299484800"; d="scan'208";a="730871503"
-Received: from unknown (HELO [10.255.13.36]) ([10.255.13.36])
-	by orsmga001.jf.intel.com with ESMTP; 08 Apr 2011 09:06:24 -0700
-Message-ID: <4D9F327D.2010402@intel.com>
-Date: Fri, 08 Apr 2011 09:06:21 -0700
-From: Saul Wold <saul.wold@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id EADDC4C80132
+	for <poky@yoctoproject.org>; Fri,  8 Apr 2011 11:08:27 -0500 (CDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 88DCE1660525; Fri,  8 Apr 2011 10:08:27 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.2-r929478
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id AB31916603DC;
+	Fri,  8 Apr 2011 10:08:26 -0600 (MDT)
+Message-ID: <4D9F32FA.30208@mlbassoc.com>
+Date: Fri, 08 Apr 2011 10:08:26 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
 MIME-Version: 1.0
-To: Paul Eggleton <paul.eggleton@linux.intel.com>
-References: <cover.1302171837.git.paul.eggleton@linux.intel.com>
-In-Reply-To: <cover.1302171837.git.paul.eggleton@linux.intel.com>
-Cc: poky@yoctoproject.org, openembedded-core@lists.openembedded.org
-Subject: Re: [PATCH 0/1] Update distro-tracking-fields.inc for recent qt4	changes
+To: Patches and discussions about the oe-core layer
+	<openembedded-core@lists.openembedded.org>
+References: <4D9F2423.7060900@mlbassoc.com>
+	<DD53E7EC-88AD-4F21-B670-6A846E74B03D@dominion.thruhere.net>
+In-Reply-To: <DD53E7EC-88AD-4F21-B670-6A846E74B03D@dominion.thruhere.net>
+Cc: Poky Project <poky@yoctoproject.org>
+Subject: Re: [OE-core] [PATCH] Control over when package init scripts are run
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,37 +37,33 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 08 Apr 2011 16:06:25 -0000
+X-List-Received-Date: Fri, 08 Apr 2011 16:08:28 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 04/07/2011 03:27 AM, Paul Eggleton wrote:
-> From: Paul Eggleton<paul.eggleton@linux.intel.com>
+On 04/08/2011 09:39 AM, Koen Kooi wrote:
+> Something like this would be better:
 >
-> Pull URL: git://git.openembedded.org/openembedded-core-contrib
->    Branch: paule/disttf-update
->    Browse: http://git.openembedded.org/cgit.cgi/openembedded-core-contrib/log/?h=paule/disttf-update
->
-> Thanks,
->      Paul Eggleton<paul.eggleton@linux.intel.com>
-> ---
->
->
-> Paul Eggleton (1):
->    Update distro-tracking-fields.inc for recent qt4 changes
->
->   .../conf/distro/include/distro_tracking_fields.inc |   39 ++++++++++++++------
->   1 files changed, 27 insertions(+), 12 deletions(-)
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
-Pulled into Master
+> http://cgit.openembedded.org/cgit.cgi/openembedded/commit/?id=e124d03f532aad2ee22c60fda6824a8a1f2ef88f
 
-Thanks for the update
+Possibly, except for the fact that I posted this to the Poky list which
+have different recipes (the one mentioned above does not apply)
 
-Sau!
+> Op 8 apr 2011, om 17:05 heeft Gary Thomas het volgende geschreven:
+>
+>> The script /etc/rcS.d/S98configure is run on the first boot only
+>> to process any postponed package post-install scripts.  The default
+>> position of this (98 == last) can be wrong, so let the distribution
+>> set this (just a matter of ?= assignment).  This patch also removes
+>> some slugos stuff and extends the flexibility to systems which use
+>> RPM packaging as well.
+>>
+>> Tested on my PowerPC router, running as S00configure - works a treat.
 
+
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
