@@ -1,32 +1,23 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id DD1324C80059
-	for <poky@lists.yoctoproject.org>; Sun, 10 Apr 2011 13:04:26 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p3AI4JCW004707;
-	Sun, 10 Apr 2011 19:04:19 +0100
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 04580-02; Sun, 10 Apr 2011 19:04:16 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p3AI45V2004701
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Sun, 10 Apr 2011 19:04:10 +0100
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Patches and discussions about the oe-core layer
-	<openembedded-core@lists.openembedded.org>
-In-Reply-To: <1302366380.22904.153.camel@rex>
-References: <1302277262.22904.136.camel@rex>
-	<1302283745.22904.146.camel@rex>  <1302366380.22904.153.camel@rex>
-Date: Sun, 10 Apr 2011 11:04:01 -0700
-Message-ID: <1302458641.22904.159.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.32.2 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky <poky@lists.yoctoproject.org>
-Subject: Re: [OE-core] Illustration of task latency
+Return-Path: <elizabeth.flanagan@intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 29D3C4C80059
+	for <poky@yoctoproject.org>; Sun, 10 Apr 2011 15:48:43 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 10 Apr 2011 13:48:42 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.63,335,1299484800"; d="scan'208";a="416785029"
+Received: from unknown (HELO [10.255.13.16]) ([10.255.13.16])
+	by azsmga001.ch.intel.com with ESMTP; 10 Apr 2011 13:48:42 -0700
+Message-ID: <4DA217A9.8090709@intel.com>
+Date: Sun, 10 Apr 2011 13:48:41 -0700
+From: Elizabeth Flanagan <elizabeth.flanagan@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.14) Gecko/20110223 Thunderbird/3.1.8
+MIME-Version: 1.0
+To: poky@yoctoproject.org
+References: <1bdc18$k2a46n@fmsmga002.fm.intel.com> <4D99FCE4.6000209@intel.com>
+In-Reply-To: <4D99FCE4.6000209@intel.com>
+Subject: Re: [PATCH 0/1] meta-fishriver: new BSP
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,42 +29,74 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 10 Apr 2011 18:04:27 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Sun, 10 Apr 2011 20:48:43 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Sat, 2011-04-09 at 09:26 -0700, Richard Purdie wrote:
-> I've dug into this a bit. When running a given task, it is parsing all
-> bbclassextend variants again. I have a simple patch which fixes that
-> which I'll cleanup and share.
-> 
-> What I also noticed which was more odd was that the first finalise()
-> call was taking 0.2s, subsequent ones were taking 0.1s. It turns out
-> that the parsercache which is used by the siggen code isn't functioning
-> the way it should with a lot of cache misses. I think this is related to
-> the parallel parsing and only saving out cached data from the core, not
-> the individual recipes (i.e. the cache from the parser subthreads). I
-> suspect we could get some performance improvement by fixing this.
+I'll get this into the autobuilder config this week.
 
-Fixes for the issues I noticed are in:
+-b
 
-http://git.pokylinux.org/cgit/cgit.cgi/poky-contrib/log/?h=rpurdie/bboptimise
+On 04/04/2011 10:16 AM, Saul Wold wrote:
+> On 03/30/2011 05:41 PM, Tom Zanussi wrote:
+>> From: Tom Zanussi<tom.zanussi@intel.com>
+>>
+>> This patchset implements a new BSP for Fish River Island (Z530/EG20T).
+>>
+>> The basic platorm support works e.g. network, sato desktop,
+>> USB keyboard/mouse, but it currently only supports vesa.
+>>
+>> Better graphics support and support for more of the Fish River Island
+>> devices will be added later.
+>>
+>> Please pull into meta-intel/master.
+>>
+>> Pull URL: git://git.pokylinux.org/meta-intel.git
+>>     Branch: tzanussi/meta-fishriver-initial-BSP
+>>     Browse: http://git.pokylinux.org/cgit/cgit.cgi/meta-intel/log/?h=tzanussi/meta-fishriver-initial-BSP
+>>
+>> Tom Zanussi (1):
+>>     meta-fishriver: new layer for Fish River Island (Z530/EG20T) systems
+>>
+>>    meta-fishriver/COPYING.MIT                         |   17 ++++
+>>    meta-fishriver/README                              |   94 ++++++++++++++++++++
+>>    meta-fishriver/conf/layer.conf                     |   10 ++
+>>    meta-fishriver/conf/machine/fishriver.conf         |   46 ++++++++++
+>>    .../formfactor/formfactor/fishriver/machconfig     |    3 +
+>>    .../recipes-bsp/formfactor/formfactor_0.0.bbappend |    3 +
+>>    .../xserver-xf86-config/fishriver/xorg.conf        |   26 ++++++
+>>    .../xorg-xserver/xserver-xf86-config_0.1.bbappend  |    3 +
+>>    .../recipes-kernel/linux/linux-yocto_git.bbappend  |    4 +
+>>    9 files changed, 206 insertions(+), 0 deletions(-)
+>>    create mode 100644 meta-fishriver/COPYING.MIT
+>>    create mode 100644 meta-fishriver/README
+>>    create mode 100644 meta-fishriver/binary/.gitignore
+>>    create mode 100644 meta-fishriver/conf/layer.conf
+>>    create mode 100644 meta-fishriver/conf/machine/fishriver.conf
+>>    create mode 100644 meta-fishriver/recipes-bsp/formfactor/formfactor/fishriver/machconfig
+>>    create mode 100644 meta-fishriver/recipes-bsp/formfactor/formfactor_0.0.bbappend
+>>    create mode 100644 meta-fishriver/recipes-graphics/xorg-xserver/xserver-xf86-config/fishriver/xorg.conf
+>>    create mode 100644 meta-fishriver/recipes-graphics/xorg-xserver/xserver-xf86-config_0.1.bbappend
+>>    create mode 100644 meta-fishriver/recipes-kernel/linux/linux-yocto_git.bbappend
+>>
+>> _______________________________________________
+>> poky mailing list
+>> poky@yoctoproject.org
+>> https://lists.yoctoproject.org/listinfo/poky
+>>
+> Pushed into meta-intel master
+>
+> Thanks
+> 	Sau!
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
-It turns out executing a function at process exit time with
-multiprocessing is quite tricky and I'm not 100% sure I'm using public
-API with the approach I've ended up using.
-
-The speedups have a good feel to them and show the right things with
-benchmarks. It will be interesting to see how much affect they have on
-real world build time (which I'll test when I get home next week).
-They're also showing a significant reduction in parsing time.
-
-I also noticed that skipped recipes were always being reparsed which is
-suboptimial and I've included a work in progress fix for that in the
-above branch too.
-
-Cheers,
-
-Richard
-
+-- 
+------------------
+Elizabeth Flanagan
+Yocto Project
+Release Engineer
 
