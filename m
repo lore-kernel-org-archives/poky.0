@@ -1,21 +1,21 @@
 Return-Path: <ke.yu@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 1D7B14C804DC
-	for <poky@yoctoproject.org>; Sun, 10 Apr 2011 20:21:40 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 10 Apr 2011 18:21:39 -0700
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id CB2174C80A7A
+	for <poky@yoctoproject.org>; Sun, 10 Apr 2011 20:21:41 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 10 Apr 2011 18:21:41 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,336,1299484800"; d="scan'208";a="416839143"
+X-IronPort-AV: E=Sophos;i="4.63,336,1299484800"; d="scan'208";a="731535991"
 Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
-	by azsmga001.ch.intel.com with ESMTP; 10 Apr 2011 18:21:38 -0700
-Message-Id: <b5e34c499be6bf4ac13d59e98c1e61585d1d9a84.1302485033.git.ke.yu@intel.com>
+	by orsmga001.jf.intel.com with ESMTP; 10 Apr 2011 18:21:40 -0700
+Message-Id: <caa1d55c2151fe2da0a933c89c7fa790900a2059.1302485033.git.ke.yu@intel.com>
 In-Reply-To: <cover.1302485033.git.ke.yu@intel.com>
 References: <cover.1302485033.git.ke.yu@intel.com>
-Old-Date: Thu, 7 Apr 2011 17:15:46 +0800
-Date: Mon, 11 Apr 2011  9:28:49 +0800
+Old-Date: Sat, 9 Apr 2011 21:26:45 +0800
+Date: Mon, 11 Apr 2011  9:28:51 +0800
 To: poky@yoctoproject.org,openembedded-core@lists.openembedded.org
 From: Yu Ke <ke.yu@intel.com>
-Subject: [PATCH 5/9] evieext: upgrade from 1.1.0 to 1.1.1
+Subject: [PATCH 6/9] xf86-input-mouse: upgrade from 1.6 to 1.7
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,55 +27,45 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 11 Apr 2011 01:21:40 -0000
+X-List-Received-Date: Mon, 11 Apr 2011 01:21:42 -0000
 
 From: Yu Ke <ke.yu@intel.com>
-
-- also change license checksum, the license is still MIT-X, but corp name
-  is changed from SUN to Oracle
 
 Signed-off-by: Yu Ke <ke.yu@intel.com>
 ---
  .../distro/include/preferred-xorg-versions.inc     |    2 +-
- .../{evieext_1.1.0.bb => evieext_1.1.1.bb}         |    8 ++++----
- 2 files changed, 5 insertions(+), 5 deletions(-)
- rename meta/recipes-graphics/xorg-proto/{evieext_1.1.0.bb => evieext_1.1.1.bb} (54%)
+ ...ut-mouse_1.6.0.bb => xf86-input-mouse_1.7.0.bb} |    4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+ rename meta/recipes-graphics/xorg-driver/{xf86-input-mouse_1.6.0.bb => xf86-input-mouse_1.7.0.bb} (76%)
 
 diff --git a/meta/conf/distro/include/preferred-xorg-versions.inc b/meta/conf/distro/include/preferred-xorg-versions.inc
-index 5fd2040..fabc0da 100644
+index fabc0da..b2d7731 100644
 --- a/meta/conf/distro/include/preferred-xorg-versions.inc
 +++ b/meta/conf/distro/include/preferred-xorg-versions.inc
-@@ -9,7 +9,7 @@ PREFERRED_VERSION_bigreqsproto-nativesdk ?= "1.1.1"
- PREFERRED_VERSION_compositeproto ?= "0.4.2"
- PREFERRED_VERSION_damageproto ?= "1.2.1"
- PREFERRED_VERSION_dmxproto ?= "2.3.1"
--PREFERRED_VERSION_evieext ?= "1.1.0"
-+PREFERRED_VERSION_evieext ?= "1.1.1"
- PREFERRED_VERSION_fixesproto ?= "4.1.2"
- PREFERRED_VERSION_fontcacheproto ?= "0.1.3"
- PREFERRED_VERSION_fontcacheproto-native ?= "0.1.3"
-diff --git a/meta/recipes-graphics/xorg-proto/evieext_1.1.0.bb b/meta/recipes-graphics/xorg-proto/evieext_1.1.1.bb
-similarity index 54%
-rename from meta/recipes-graphics/xorg-proto/evieext_1.1.0.bb
-rename to meta/recipes-graphics/xorg-proto/evieext_1.1.1.bb
-index 5800af1..271398d 100644
---- a/meta/recipes-graphics/xorg-proto/evieext_1.1.0.bb
-+++ b/meta/recipes-graphics/xorg-proto/evieext_1.1.1.bb
-@@ -6,10 +6,10 @@ DESCRIPTION = "This package provides the wire protocol for the X Event \
- Interception Extension.  This extension allows the interception of \
- keyboard and mouse events."
+@@ -142,7 +142,7 @@ PREFERRED_VERSION_libxcb ?= "1.7"
+ PREFERRED_VERSION_libxcb-nativesdk ?= "1.7"
+ PREFERRED_VERSION_libpciaccess ?= "0.12.0"
+ PREFERRED_VERSION_xf86-input-evdev ?= "2.6.0"
+-PREFERRED_VERSION_xf86-input-mouse ?= "1.6.0"
++PREFERRED_VERSION_xf86-input-mouse ?= "1.7.0"
+ PREFERRED_VERSION_xf86-input-keyboard ?= "1.5.0"
+ PREFERRED_VERSION_xf86-input-synaptics ?= "1.4.0"
+ PREFERRED_VERSION_xf86-video-intel ?= "2.14.0"
+diff --git a/meta/recipes-graphics/xorg-driver/xf86-input-mouse_1.6.0.bb b/meta/recipes-graphics/xorg-driver/xf86-input-mouse_1.7.0.bb
+similarity index 76%
+rename from meta/recipes-graphics/xorg-driver/xf86-input-mouse_1.6.0.bb
+rename to meta/recipes-graphics/xorg-driver/xf86-input-mouse_1.7.0.bb
+index 61d73e1..fbc2c66 100644
+--- a/meta/recipes-graphics/xorg-driver/xf86-input-mouse_1.6.0.bb
++++ b/meta/recipes-graphics/xorg-driver/xf86-input-mouse_1.7.0.bb
+@@ -10,5 +10,5 @@ driver."
  
--PR = "r1"
-+PR = "r0"
- PE = "1"
+ LIC_FILES_CHKSUM = "file://COPYING;md5=237eb1d1a602d29ef2af62d8fba60f19"
  
--LIC_FILES_CHKSUM = "file://COPYING;md5=6cf85dc8217152304ac976db1e240ebe"
-+LIC_FILES_CHKSUM = "file://COPYING;md5=4db9fc6a58e873c6392eec53082d89b5"
- 
--SRC_URI[md5sum] = "5c74f61d6f77b2e6a083b2b31000be42"
--SRC_URI[sha256sum] = "47881a52a8d9da1e41e4f028ed32a8b44f738afbead819c0a07253fdc1641885"
-+SRC_URI[md5sum] = "98bd86a13686f65f0873070fdee6efc7"
-+SRC_URI[sha256sum] = "1cf74114436d99f56577a90b6438a32ba31b8128c9e63842bb179aba592733fe"
+-SRC_URI[md5sum] = "cef849b1a2743d2e84de98422f372974"
+-SRC_URI[sha256sum] = "c7ae245e5168276346145f196d1d1faed618f41d5174a2031c71fab6e1a2fbdb"
++SRC_URI[md5sum] = "7f31472689c15b6de62eff04d0fb57d7"
++SRC_URI[sha256sum] = "4e989542b5e9e0c5f9087288b18e70de1064dd27c83a4bc6dce58f3ea9d74994"
 -- 
 1.7.0.4
 
