@@ -1,21 +1,21 @@
 Return-Path: <ke.yu@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0D3F64C80A7A
-	for <poky@yoctoproject.org>; Sun, 10 Apr 2011 20:21:44 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 10 Apr 2011 18:21:44 -0700
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id BD8984C80ABA
+	for <poky@yoctoproject.org>; Sun, 10 Apr 2011 20:21:46 -0500 (CDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 10 Apr 2011 18:21:46 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.63,336,1299484800"; d="scan'208";a="416839168"
+X-IronPort-AV: E=Sophos;i="4.63,336,1299484800"; d="scan'208";a="677398702"
 Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.102])
-	by azsmga001.ch.intel.com with ESMTP; 10 Apr 2011 18:21:44 -0700
-Message-Id: <20da1573410a3bac7d06e635fc720d8494ead484.1302485033.git.ke.yu@intel.com>
+	by fmsmga002.fm.intel.com with ESMTP; 10 Apr 2011 18:21:45 -0700
+Message-Id: <4d6dd4ddbbcea1c13330c6e09537a1ac2332c9e0.1302485033.git.ke.yu@intel.com>
 In-Reply-To: <cover.1302485033.git.ke.yu@intel.com>
 References: <cover.1302485033.git.ke.yu@intel.com>
-Old-Date: Sat, 9 Apr 2011 22:22:31 +0800
-Date: Mon, 11 Apr 2011  9:28:55 +0800
+Old-Date: Sat, 9 Apr 2011 22:27:12 +0800
+Date: Mon, 11 Apr 2011  9:28:56 +0800
 To: poky@yoctoproject.org,openembedded-core@lists.openembedded.org
 From: Yu Ke <ke.yu@intel.com>
-Subject: [PATCH 8/9] xf86-input-keyboard: upgrade from 1.5.0 to 1.6.0
+Subject: [PATCH 9/9] xkbcomp: upgrade from 1.2.0 to 1.2.1
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,45 +27,81 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 11 Apr 2011 01:21:45 -0000
+X-List-Received-Date: Mon, 11 Apr 2011 01:21:46 -0000
 
 From: Yu Ke <ke.yu@intel.com>
 
+- Also remove the cross compiling patch, since it is already included
+ in 1.2.1 release
+
 Signed-off-by: Yu Ke <ke.yu@intel.com>
 ---
- .../distro/include/preferred-xorg-versions.inc     |    2 +-
- ...board_1.5.0.bb => xf86-input-keyboard_1.6.0.bb} |    4 ++--
- 2 files changed, 3 insertions(+), 3 deletions(-)
- rename meta/recipes-graphics/xorg-driver/{xf86-input-keyboard_1.5.0.bb => xf86-input-keyboard_1.6.0.bb} (74%)
+ .../xorg-app/xkbcomp/cross-compile-fix.patch       |   35 --------------------
+ .../{xkbcomp_1.2.0.bb => xkbcomp_1.2.1.bb}         |    5 +--
+ 2 files changed, 2 insertions(+), 38 deletions(-)
+ delete mode 100644 meta/recipes-graphics/xorg-app/xkbcomp/cross-compile-fix.patch
+ rename meta/recipes-graphics/xorg-app/{xkbcomp_1.2.0.bb => xkbcomp_1.2.1.bb} (72%)
 
-diff --git a/meta/conf/distro/include/preferred-xorg-versions.inc b/meta/conf/distro/include/preferred-xorg-versions.inc
-index b2d7731..4e67f1c 100644
---- a/meta/conf/distro/include/preferred-xorg-versions.inc
-+++ b/meta/conf/distro/include/preferred-xorg-versions.inc
-@@ -143,7 +143,7 @@ PREFERRED_VERSION_libxcb-nativesdk ?= "1.7"
- PREFERRED_VERSION_libpciaccess ?= "0.12.0"
- PREFERRED_VERSION_xf86-input-evdev ?= "2.6.0"
- PREFERRED_VERSION_xf86-input-mouse ?= "1.7.0"
--PREFERRED_VERSION_xf86-input-keyboard ?= "1.5.0"
-+PREFERRED_VERSION_xf86-input-keyboard ?= "1.6.0"
- PREFERRED_VERSION_xf86-input-synaptics ?= "1.4.0"
- PREFERRED_VERSION_xf86-video-intel ?= "2.14.0"
+diff --git a/meta/recipes-graphics/xorg-app/xkbcomp/cross-compile-fix.patch b/meta/recipes-graphics/xorg-app/xkbcomp/cross-compile-fix.patch
+deleted file mode 100644
+index ca65345..0000000
+--- a/meta/recipes-graphics/xorg-app/xkbcomp/cross-compile-fix.patch
++++ /dev/null
+@@ -1,35 +0,0 @@
+-commit cc55d8f5ab021861308b071aab9c03016be15187
+-Author: Gaetan Nadon <memsize@videotron.ca>
+-Date:   Sun Oct 31 20:35:24 2010 -0400
+-
+-    config: replace AC_CHECK_FILE with test -f as it fails to cross-compile
+-    
+-    Testing for the presence of xkbparse.c is legitimate as this is a build
+-    file, but the Autoconf macro assumes it is testing on the host system
+-    and fails.
+-    
+-    Tested-by: Abdoulaye Walsimou Gaye <awg@embtoolkit.org>
+-    Signed-off-by: Gaetan Nadon <memsize@videotron.ca>
+-
+-diff --git a/configure.ac b/configure.ac
+-index c69230b..8e6bd6e 100644
+---- a/configure.ac
+-+++ b/configure.ac
+-@@ -34,11 +34,14 @@ XORG_DEFAULT_OPTIONS
+- 
+- AM_CONFIG_HEADER(config.h)
+- 
+-+# If both the C file and YACC are missing, the package cannot be build.
+- AC_PROG_YACC
+- AC_PATH_PROG([YACC_INST], $YACC)
+--AC_CHECK_FILE([$srcdir/xkbparse.c], [],
+--              [test -z "$YACC_INST" && AC_MSG_ERROR([yacc not found - unable to compile xkbparse.y])])
+--
+-+if test ! -f "$srcdir/xkbparse.c"; then
+-+   if test -z "$YACC_INST"; then
+-+      AC_MSG_ERROR([yacc not found - unable to compile xkbparse.y])
+-+   fi
+-+fi
+- 
+- AC_CHECK_FUNCS([strdup strcasecmp])
+- 
+diff --git a/meta/recipes-graphics/xorg-app/xkbcomp_1.2.0.bb b/meta/recipes-graphics/xorg-app/xkbcomp_1.2.1.bb
+similarity index 72%
+rename from meta/recipes-graphics/xorg-app/xkbcomp_1.2.0.bb
+rename to meta/recipes-graphics/xorg-app/xkbcomp_1.2.1.bb
+index f574690..0cf334a 100644
+--- a/meta/recipes-graphics/xorg-app/xkbcomp_1.2.0.bb
++++ b/meta/recipes-graphics/xorg-app/xkbcomp_1.2.1.bb
+@@ -11,9 +11,8 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=08436e4f4476964e2e2dd7e7e41e076a"
  
-diff --git a/meta/recipes-graphics/xorg-driver/xf86-input-keyboard_1.5.0.bb b/meta/recipes-graphics/xorg-driver/xf86-input-keyboard_1.6.0.bb
-similarity index 74%
-rename from meta/recipes-graphics/xorg-driver/xf86-input-keyboard_1.5.0.bb
-rename to meta/recipes-graphics/xorg-driver/xf86-input-keyboard_1.6.0.bb
-index aa8be67..9b1441d 100644
---- a/meta/recipes-graphics/xorg-driver/xf86-input-keyboard_1.5.0.bb
-+++ b/meta/recipes-graphics/xorg-driver/xf86-input-keyboard_1.6.0.bb
-@@ -11,5 +11,5 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=ea2099d24ac9e316a6d4b9f20b3d4e10"
+ DEPENDS += "libxkbfile"
  
- PR = "r0"
+-SRC_URI += "file://cross-compile-fix.patch"
++SRC_URI[md5sum] = "885b4d8a7c8c7afb3312d31934cb3549"
++SRC_URI[sha256sum] = "b7612527914402d091424a93bc16f0d4d8778b4a874171f3f3dc681c690e65eb"
  
--SRC_URI[md5sum] = "b74d7162db5ce7899c17927c6cfa9522"
--SRC_URI[sha256sum] = "2303510e905465ebee91f22cdd75706a15afb108258bc220c7500f213de19cb0"
-+SRC_URI[md5sum] = "e2abe9f13e526a73cb68a7d257546eba"
-+SRC_URI[sha256sum] = "c46c790fec905d696573b7a374b10ab8b4389112a8f69993fe011006c99e858e"
+ BBCLASSEXTEND = "native"
+ 
+-SRC_URI[md5sum] = "0f55995cd8da9b2d88553e1a2e17cd0a"
+-SRC_URI[sha256sum] = "2c64aa414755e764ca548ae5c93e95f7b5bbd5e01bca16bf226fd32bfae77ea4"
 -- 
 1.7.0.4
 
