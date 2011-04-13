@@ -1,33 +1,23 @@
-Return-Path: <glep-poky@m.gmane.org>
-Received: from lo.gmane.org (lo.gmane.org [80.91.229.12])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9794B4C80578
-	for <poky@pokylinux.org>; Tue, 12 Apr 2011 16:43:03 -0500 (CDT)
-Received: from list by lo.gmane.org with local (Exim 4.69)
-	(envelope-from <glep-poky@m.gmane.org>) id 1Q9lMS-0004Wv-JL
-	for poky@pokylinux.org; Tue, 12 Apr 2011 23:43:00 +0200
-Received: from ppp079166127113.dsl.hol.gr ([79.166.127.113])
-	by main.gmane.org with esmtp (Gmexim 0.1 (Debian))
-	id 1AlnuQ-0007hv-00
-	for <poky@pokylinux.org>; Tue, 12 Apr 2011 23:43:00 +0200
-Received: from gmane by ppp079166127113.dsl.hol.gr with local (Gmexim 0.1
-	(Debian)) id 1AlnuQ-0007hv-00
-	for <poky@pokylinux.org>; Tue, 12 Apr 2011 23:43:00 +0200
-X-Injected-Via-Gmane: http://gmane.org/
-To: poky@pokylinux.org
-From: Robert Berger <gmane@reliableembeddedsystems.com>
-Date: Wed, 13 Apr 2011 00:42:41 +0300
-Organization: Reliable Embedded Systems
-Message-ID: <io2h0h$drr$1@dough.gmane.org>
-Mime-Version: 1.0
-X-Complaints-To: usenet@dough.gmane.org
-X-Gmane-NNTP-Posting-Host: ppp079166127113.dsl.hol.gr
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.14) Gecko/20110223 Thunderbird/3.1.8
-Subject: web_svn with yocto 1.0 broken
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 35CEF4C80593
+	for <poky@yoctoproject.org>; Tue, 12 Apr 2011 19:12:03 -0500 (CDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 12 Apr 2011 17:12:02 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.64,200,1301900400"; d="scan'208";a="678275586"
+Received: from unknown (HELO localhost) ([10.255.12.244])
+	by fmsmga002.fm.intel.com with ESMTP; 12 Apr 2011 17:12:02 -0700
+From: Darren Hart <dvhart@linux.intel.com>
+To: poky@yoctoproject.org
+Date: Tue, 12 Apr 2011 17:11:52 -0700
+Message-Id: <f558e569b2182b81bba0a9a08bbba5713489e1b1.1302653512.git.dvhart@linux.intel.com>
+X-Mailer: git-send-email 1.7.1
+Cc: Darren Hart <dvhart@linux.intel.com>
+Subject: [PATCH] bitbake: correct typo in ??= documentation
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
-Reply-To: gmane@reliableembeddedsystems.com
 List-Id: Poky build system developer discussion <poky.yoctoproject.org>
 List-Unsubscribe: <https://lists.yoctoproject.org/options/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=unsubscribe>
@@ -36,41 +26,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 12 Apr 2011 21:43:04 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 13 Apr 2011 00:12:05 -0000
 
-Hi,
+??= is a lazy version of ?=
 
-With the release tag bernard-5.0 I'm trying to bitbake web and get:
+Signed-off-by: Darren Hart <dvhart@linux.intel.com>
+---
+ bitbake/doc/manual/usermanual.xml |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
-OE Build Configuration:
-BB_VERSION        = "1.11.0"
-METADATA_BRANCH   = "bernard-5.0_LOCAL"
-METADATA_REVISION = "8b6416db1e04af83ecdf57522240ac859d5d8031"
-TARGET_ARCH       = "i586"
-TARGET_OS         = "linux"
-MACHINE           = "qemux86"
-DISTRO            = "poky"
-DISTRO_VERSION    = "1.0"
-TARGET_FPU        = ""
-
-...
-
-| web_gtkhtml2.c:525:3: error: too many arguments to function
-'css_parser_parse_stylesheet'
-
-...
-
-Is there a fix for this?
-
-Regards,
-
-Robert..."The pure and simple truth is rarely pure and never simple." -
-Oscar Wilde
-
-My public pgp key is available at:
-http://pgp.mit.edu:11371/pks/lookup?op=get&search=0x90320BF1
-
+diff --git a/bitbake/doc/manual/usermanual.xml b/bitbake/doc/manual/usermanual.xml
+index 32b40ee..d5be5f3 100644
+--- a/bitbake/doc/manual/usermanual.xml
++++ b/bitbake/doc/manual/usermanual.xml
+@@ -97,7 +97,7 @@ share common metadata between many packages.</para></listitem>
+                 <title>Setting a default value (??=)</title>
+                 <para><screen><varname>A</varname> ??= "somevalue"</screen></para>
+                 <para><screen><varname>A</varname> ??= "someothervalue"</screen></para>
+-                <para>If <varname>A</varname> is set before the above, it will retain that value.  If <varname>A</varname> is unset prior to the above, <varname>A</varname> will be set to <literal>someothervalue</literal>.  This is a lazy version of ??=, in that the assignment does not occur until the end of the parsing process, so that the last, rather than the first, ??= assignment to a given variable will be used.</para>
++                <para>If <varname>A</varname> is set before the above, it will retain that value.  If <varname>A</varname> is unset prior to the above, <varname>A</varname> will be set to <literal>someothervalue</literal>.  This is a lazy version of ?=, in that the assignment does not occur until the end of the parsing process, so that the last, rather than the first, ??= assignment to a given variable will be used.</para>
+             </section>
+             <section>
+                 <title>Immediate variable expansion (:=)</title>
+-- 
+1.7.1
 
 
