@@ -1,41 +1,25 @@
-Return-Path: <srifenbark@gmail.com>
-Received: from mail-gy0-f176.google.com (mail-gy0-f176.google.com
-	[209.85.160.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5466F4C80A7E
-	for <poky@yoctoproject.org>; Thu, 14 Apr 2011 11:45:55 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by gya6 with SMTP id 6so762605gya.35
-	for <poky@yoctoproject.org>; Thu, 14 Apr 2011 09:45:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:message-id:in-reply-to:references:old-date
-	:subject:date:to:cc:from;
-	bh=L3DB7ALTKa4wlQFSZNShcRIlsKW0/F+RlNn7Rh9rWAg=;
-	b=lgekzIUU/Axx03tuHJFD7t1sJXwXdGhyP3Rix0Z8VHYf1IM0+zeKTU9Xa3JEVaAzhR
-	IFBCw2fbnEe9tvdONnvB6cTs6n2Es2p3R+1Boawz9SY9xAxd5AVGTOiMH/N6o7rV/fTw
-	jZnupmM9ui9l1k53Z6RVI1ZW2vzZfj1QMG9yI=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=message-id:in-reply-to:references:old-date:subject:date:to:cc:from;
-	b=X8+OemQRx7HoZYgExRCTfl8rryWnJgpOlNBzvZXrOR9Jldb1m3iXTFL/rnIjNoDkYd
-	qbCMJf8bNTAvBQpCd+/IO0Jy9Q2Nt5mhjgZBvdLFvbRLod46WZQNX2sLWfzfDLRK7iO5
-	2XZhY+1BPnQMf087D+dfiec3uIwrJgIi2Ce+w=
-Received: by 10.236.110.180 with SMTP id u40mr1245679yhg.149.1302799554599;
-	Thu, 14 Apr 2011 09:45:54 -0700 (PDT)
-Received: from localhost (h227.63.117.75.dynamic.ip.windstream.net
-	[75.117.63.227])
-	by mx.google.com with ESMTPS id u30sm845331yhl.54.2011.04.14.09.45.54
-	(version=TLSv1/SSLv3 cipher=OTHER);
-	Thu, 14 Apr 2011 09:45:54 -0700 (PDT)
-Message-Id: <fc04ef1ed39840295598e121881957df8168fcb7.1302799451.git.scott.m.rifenbark@intel.com>
-In-Reply-To: <cover.1302799451.git.scott.m.rifenbark@intel.com>
-References: <cover.1302799451.git.scott.m.rifenbark@intel.com>
-Old-Date: Thu, 14 Apr 2011 11:39:53 -0500
-Date: Thu, 14 Apr 2011 11:45:52 -0500
-To: poky@yoctoproject.org
-CC: 
-From: Scott Rifenbark <srifenbark@gmail.com>
-Subject: [PATCH 1/1] documentation/adt-manual/adt-eclipse.xml: Fixed link to autotools.
+Return-Path: <saul.wold@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 34A3A4C803D6
+	for <poky@yoctoproject.org>; Thu, 14 Apr 2011 12:45:46 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 14 Apr 2011 10:45:45 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.64,212,1301900400"; d="scan'208";a="733407566"
+Received: from unknown (HELO [10.255.12.232]) ([10.255.12.232])
+	by orsmga001.jf.intel.com with ESMTP; 14 Apr 2011 10:45:45 -0700
+Message-ID: <4DA732C8.4070705@intel.com>
+Date: Thu, 14 Apr 2011 10:45:44 -0700
+From: Saul Wold <saul.wold@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
+MIME-Version: 1.0
+To: Zhai Edwin <edwin.zhai@intel.com>
+References: <cover.1302739788.git.edwin.zhai@intel.com>
+In-Reply-To: <cover.1302739788.git.edwin.zhai@intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/9] [PULL] UX/X apps upgrade, edwin, Apr 13, 2011
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -47,33 +31,82 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Apr 2011 16:45:55 -0000
+X-List-Received-Date: Thu, 14 Apr 2011 17:45:46 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Scott Rifenbark <scott.m.rifenbark@intel.com>
+On 04/13/2011 05:13 PM, Zhai Edwin wrote:
+> From: Zhai Edwin<edwin.zhai@intel.com>
+>
+> Saul,
+>
+> These are some upgrade for UX/X apps part. Avahi upgrade fix one security issue. Pls. review and pull.
+>
+Edwin,
 
-The link to autotools was incorrect.  It had 'www' in the URL
-when it should not have.  it is now
-'http://download.eclipse.org/technology/linuxtools/update/'
+A number of your updates include patches that have not been updated with 
+the Upstream-Status Tag, please correct this and resend.
 
-Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
----
- documentation/adt-manual/adt-eclipse.xml |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+Also, libsoup has multiple versioned bb files, is there a reason we are 
+keeping the older versions of libsoup-2.4 at this time?
 
-diff --git a/documentation/adt-manual/adt-eclipse.xml b/documentation/adt-manual/adt-eclipse.xml
-index 3e1596d..a81929b 100644
---- a/documentation/adt-manual/adt-eclipse.xml
-+++ b/documentation/adt-manual/adt-eclipse.xml
-@@ -99,7 +99,7 @@
-                 “Remote System Explorer Extended SDK”, “Remote System Explorer User Actions”, 
-                 “RSE Core”, “RSE Terminals UI”, and “Target Management Terminal”.</para></listitem>
-                 <listitem><para><emphasis>Autotools</emphasis> – 
--                <ulink url='http://www.download.eclipse.org/technology/linuxtools/update/'></ulink>:
-+                <ulink url='http://download.eclipse.org/technology/linuxtools/update/'></ulink>:
-                 Expand the items under “Linux Tools” and select “Autotools support for 
-                 CDT (Incubation)”.</para></listitem>
-                 <listitem><para><emphasis>Yocto Plug-in</emphasis> – 
--- 
-1.7.0.4
+Do we still need to keep libsoup vs libsoup-2.4? I know that libsoup is 
+used by eds-dbus, is there a newer version that does not require libsoup?
+
+Thanks
+	Sau!
+
+
+> Thanks,
+> edwin
+>
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>    Branch: gzhai/upgrade04
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=gzhai/upgrade04
+>
+> Thanks,
+>      Zhai Edwin<edwin.zhai@intel.com>
+> ---
+>
+>
+> Zhai Edwin (9):
+>    libsoup-2.4: Upgrade to 2.32.2 (from 2.32.1)
+>    tasks: Upgrade to 0.19 (from 0.18)
+>    avahi: Upgrade to 0.6.30 (from 0.6.28)
+>    x11perf: Upgrade to 1.5.3 (from 1.5.2)
+>    libcanberry: Upgrade to 0.28 (from 0.26)
+>    xz: Upgrade to 5.0.2 (from 5.0.0)
+>    consolekit: Upgrade to 0.4.4 (from 0.4.3)
+>    polkit-gnome: Upgrade to 0.101 (from 0.99)
+>    libgpg-error: Upgrade to 1.10 (from 1.9)
+>
+>   .../distro/include/preferred-xorg-versions.inc     |    2 +-
+>   .../avahi/{avahi_0.6.28.bb =>  avahi_0.6.30.bb}     |    6 +++---
+>   ...{polkit-gnome_0.99.bb =>  polkit-gnome_0.101.bb} |    4 ++--
+>   .../xz/{xz_5.0.0.bb =>  xz_5.0.2.bb}                |    4 ++--
+>   .../{x11perf_1.5.2.bb =>  x11perf_1.5.3.bb}         |    4 ++--
+>   .../{libcanberra_0.26.bb =>  libcanberra_0.28.bb}   |    4 ++--
+>   .../pimlico/{tasks_0.18.bb =>  tasks_0.19.bb}       |    4 ++--
+>   .../{consolekit_0.4.3.bb =>  consolekit_0.4.4.bb}   |    8 +++++---
+>   .../pkgconfig.patch                                |    0
+>   .../{libgpg-error_1.9.bb =>  libgpg-error_1.10.bb}  |    4 ++--
+>   ...libsoup-2.4_2.32.1.bb =>  libsoup-2.4_2.32.2.bb} |    4 ++--
+>   11 files changed, 23 insertions(+), 21 deletions(-)
+>   rename meta/recipes-connectivity/avahi/{avahi_0.6.28.bb =>  avahi_0.6.30.bb} (82%)
+>   rename meta/recipes-extended/polkit/{polkit-gnome_0.99.bb =>  polkit-gnome_0.101.bb} (86%)
+>   rename meta/recipes-extended/xz/{xz_5.0.0.bb =>  xz_5.0.2.bb} (82%)
+>   rename meta/recipes-graphics/xorg-app/{x11perf_1.5.2.bb =>  x11perf_1.5.3.bb} (76%)
+>   rename meta/recipes-multimedia/pulseaudio/{libcanberra_0.26.bb =>  libcanberra_0.28.bb} (85%)
+>   rename meta/recipes-sato/pimlico/{tasks_0.18.bb =>  tasks_0.19.bb} (78%)
+>   rename meta/recipes-support/consolekit/{consolekit_0.4.3.bb =>  consolekit_0.4.4.bb} (79%)
+>   rename meta/recipes-support/libgpg-error/{libgpg-error-1.9 =>  libgpg-error-1.10}/pkgconfig.patch (100%)
+>   rename meta/recipes-support/libgpg-error/{libgpg-error_1.9.bb =>  libgpg-error_1.10.bb} (86%)
+>   rename meta/recipes-support/libsoup/{libsoup-2.4_2.32.1.bb =>  libsoup-2.4_2.32.2.bb} (76%)
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
 
 
