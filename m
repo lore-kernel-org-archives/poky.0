@@ -1,24 +1,38 @@
-Return-Path: <edwin.zhai@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E94AB4C806DA
-	for <poky@pokylinux.org>; Wed, 13 Apr 2011 22:25:40 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 13 Apr 2011 20:25:40 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,208,1301900400"; d="scan'208";a="418894600"
-Received: from shxpwgzhai1a.ccr.corp.intel.com (HELO [10.239.48.130])
-	([10.239.48.130])
-	by azsmga001.ch.intel.com with ESMTP; 13 Apr 2011 20:25:39 -0700
-Message-ID: <4DA66931.9010009@intel.com>
-Date: Thu, 14 Apr 2011 11:25:37 +0800
-From: "Zhai, Edwin" <edwin.zhai@intel.com>
-User-Agent: Thunderbird 2.0.0.17 (Windows/20080914)
-MIME-Version: 1.0
-To: gmane@reliableembeddedsystems.com
-References: <io2h0h$drr$1@dough.gmane.org>
-In-Reply-To: <io2h0h$drr$1@dough.gmane.org>
-Cc: poky@pokylinux.org
-Subject: Re: web_svn with yocto 1.0 broken
+Return-Path: <srifenbark@gmail.com>
+Received: from mail-yx0-f176.google.com (mail-yx0-f176.google.com
+	[209.85.213.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id CCBFD4C806DA
+	for <poky@yoctoproject.org>; Thu, 14 Apr 2011 11:45:53 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by yxd5 with SMTP id 5so1131493yxd.35
+	for <poky@yoctoproject.org>; Thu, 14 Apr 2011 09:45:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:message-id:old-date:subject:date:to:cc:from;
+	bh=I0mKFfPrW+hPPPuJfIwk4F6UenOBZ0BG2TljMrhwG6w=;
+	b=EoA/OeqNl6R3S6ZNVGb0nmq+Xc65MfPfQ+AoWjU1XPdQArQ6qz7gZhXcouNpzh8SUP
+	DegyljIEYKiskxbVY6TIckGZ65qs2IMKgbMZgXKK8o5LlHfZPv2swMWQ7Zh5W46gnSq/
+	C0qF/yAT3EZQSnlu/W2bfgY6CXVDCSeH1L98w=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=message-id:old-date:subject:date:to:cc:from;
+	b=NUdQBp/m8gJ2NHIW+fnb4RDW3I1hTrljS3i7yNBKmCrPdbCNT0D6Fgw3phEWEctdLe
+	D/ypuHF8PhnW9iVgLKPwfSlrRR2vDDY6588/RZ09zxKHapbNyAl+6Vb7BfC+zPnYaBbN
+	QlWA2+oDheg6hHbbbpe2M4HC9sWxM0ec1wjLk=
+Received: by 10.151.148.5 with SMTP id a5mr1703460ybo.353.1302799553094;
+	Thu, 14 Apr 2011 09:45:53 -0700 (PDT)
+Received: from localhost (h227.63.117.75.dynamic.ip.windstream.net
+	[75.117.63.227])
+	by mx.google.com with ESMTPS id w1sm902651ybl.24.2011.04.14.09.45.52
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Thu, 14 Apr 2011 09:45:52 -0700 (PDT)
+Message-Id: <cover.1302799451.git.scott.m.rifenbark@intel.com>
+Old-Date: Thu, 14 Apr 2011 11:44:11 -0500
+Date: Thu, 14 Apr 2011 11:45:50 -0500
+To: poky@yoctoproject.org
+CC: 
+From: Scott Rifenbark <srifenbark@gmail.com>
+Subject: [PATCH 0/1] [DOCS] ADT Manual Update
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,65 +44,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Apr 2011 03:25:41 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 14 Apr 2011 16:45:54 -0000
 
-web is not used for a long time, maybe. Try web-webkit instead.
+From: Scott Rifenbark <scott.m.rifenbark@intel.com>
 
-The build error comes from the interface mismatch.
-        css->sheet = css_parser_parse_stylesheet (css->style,
-                strlen (css->style), NULL, css->media);
+I fixed the URL in the ADT Manual for the Autotools link.  I had
+'www' in the URL when it should not have been there.
 
-gtkhtml2 defines it as following:
-CssStylesheet *
-css_parser_parse_stylesheet (const gchar *str, gint len)
-,which is extended to accept extra base_url parameter in latest upstream 
-(r1161).
- But still mismatch with calling from web:(
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: srifenbark/qs-work
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=srifenbark/qs-work
+
+Thanks,
+    Scott Rifenbark <scott.m.rifenbark@intel.com>
+---
 
 
+Scott Rifenbark (1):
+  documentation/adt-manual/adt-eclipse.xml: Fixed link to autotools.
 
+ documentation/adt-manual/adt-eclipse.xml |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
-Robert Berger wrote:
->
-> Hi,
->
-> With the release tag bernard-5.0 I'm trying to bitbake web and get:
->
-> OE Build Configuration:
-> BB_VERSION        = "1.11.0"
-> METADATA_BRANCH   = "bernard-5.0_LOCAL"
-> METADATA_REVISION = "8b6416db1e04af83ecdf57522240ac859d5d8031"
-> TARGET_ARCH       = "i586"
-> TARGET_OS         = "linux"
-> MACHINE           = "qemux86"
-> DISTRO            = "poky"
-> DISTRO_VERSION    = "1.0"
-> TARGET_FPU        = ""
->
-> ...
->
-> | web_gtkhtml2.c:525:3: error: too many arguments to function
-> 'css_parser_parse_stylesheet'
->
-> ...
->
-> Is there a fix for this?
->
-> Regards,
->
-> Robert..."The pure and simple truth is rarely pure and never simple." -
-> Oscar Wilde
->
-> My public pgp key is available at:
-> http://pgp.mit.edu:11371/pks/lookup?op=get&search=0x90320BF1 
-> <http://pgp.mit.edu:11371/pks/lookup?op=get&search=0x90320BF1>
->
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
 
