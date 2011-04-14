@@ -1,28 +1,25 @@
-Return-Path: <wd@denx.de>
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0CF314C80A75
-	for <poky@yoctoproject.org>; Thu, 14 Apr 2011 14:44:46 -0500 (CDT)
-Received: from frontend1.mail.m-online.net (frontend1.mail.intern.m-online.net
-	[192.168.8.180])
-	by mail-out.m-online.net (Postfix) with ESMTP id CE1D11800920
-	for <poky@yoctoproject.org>; Thu, 14 Apr 2011 21:44:45 +0200 (CEST)
-X-Auth-Info: k2fL6Yj0JTaPJtx4KcDe3HoEV0RcQSkgebwZqdEq6Po=
-Received: from diddl.denx.de (host-80-81-18-216.customer.m-online.net
-	[80.81.18.216])
-	by smtp-auth.mnet-online.de (Postfix) with ESMTPA id CA3501C000AA
-	for <poky@yoctoproject.org>; Thu, 14 Apr 2011 21:44:45 +0200 (CEST)
-Received: from gemini.denx.de (unknown [10.0.0.2])
-	by diddl.denx.de (Postfix) with ESMTP id ABA48327C692
-	for <poky@yoctoproject.org>; Thu, 14 Apr 2011 21:44:45 +0200 (CEST)
-Received: from gemini.denx.de (localhost.localdomain [127.0.0.1])
-	by gemini.denx.de (Postfix) with ESMTP id 9BCC5151F83
-	for <poky@yoctoproject.org>; Thu, 14 Apr 2011 21:44:45 +0200 (CEST)
-To: poky@yoctoproject.org
-From: Wolfgang Denk <wd@denx.de>
+Return-Path: <saul.wold@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C7D114C80ACB
+	for <poky@yoctoproject.org>; Thu, 14 Apr 2011 15:28:23 -0500 (CDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 14 Apr 2011 13:28:23 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.64,213,1301900400"; d="scan'208";a="909699073"
+Received: from unknown (HELO [10.255.12.232]) ([10.255.12.232])
+	by fmsmga001.fm.intel.com with ESMTP; 14 Apr 2011 13:28:23 -0700
+Message-ID: <4DA758E6.7040606@intel.com>
+Date: Thu, 14 Apr 2011 13:28:22 -0700
+From: Saul Wold <saul.wold@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
 MIME-Version: 1.0
-Date: Thu, 14 Apr 2011 21:44:45 +0200
-Message-Id: <20110414194445.9BCC5151F83@gemini.denx.de>
-Subject: Distro policy ?
+To: Wolfgang Denk <wd@denx.de>
+References: <20110414194445.9BCC5151F83@gemini.denx.de>
+In-Reply-To: <20110414194445.9BCC5151F83@gemini.denx.de>
+Cc: poky@yoctoproject.org
+Subject: Re: Distro policy ?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,42 +31,60 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Apr 2011 19:44:47 -0000
-Content-type: text/plain; charset=ISO-8859-1
-Content-transfer-encoding: 8bit
+X-List-Received-Date: Thu, 14 Apr 2011 20:28:24 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-HI,
+On 04/14/2011 12:44 PM, Wolfgang Denk wrote:
+> HI,
+>
+> we're trying to build our own distribution based on Yocto 1.0.  We
+> would like to push all modifications / extensions and our distro stuff
+> upstream into the mainline repository, but we are not sure what is the
+> best way to do this:
+>
+> So far we have put our distro-related changes into a separate layer
+> but it seems that it was not so good idea: it looks like bitbake
+> can't include files from one layer to another and we have to copy
+> includes even if we don't want to change them.
+>
+Wolfgang,
 
-we're trying to build our own distribution based on Yocto 1.0.  We
-would like to push all modifications / extensions and our distro stuff
-upstream into the mainline repository, but we are not sure what is the
-best way to do this:
+I would like to get more details about which include files (.incs) you 
+are needing to modify.  I know that there was some discussion at ELC 
+this week about similar issues.  I also know that we have a "Layering 
+Tools" item on the 1.1 feature list to address these issues.
 
-So far we have put our distro-related changes into a separate layer
-but it seems that it was not so good idea: it looks like bitbake
-can't include files from one layer to another and we have to copy
-includes even if we don't want to change them.
+> Putting our changes back into the main layer would be pretty trivial,
+> but it appears that current tendency is to move all
+> distribution-specific things to their respective layers (like the
+> poky distro configuration itself was moved to the meta-yocto layer).
+>
+Correct, the core is supposed to be clean and distributions are supposed 
+to be in layers.  Your layer can be linked to or hosted on the 
+git.yoctoproject.org site if you would like. Pulling distro specific 
+changes into core is not appropriate. If you have generic changes to 
+core that would be appropriate to all distro, we would consider them.
 
-Putting our changes back into the main layer would be pretty trivial,
-but it appears that current tendency is to move all
-distribution-specific things to their respective layers (like the
-poky distro configuration itself was moved to the meta-yocto layer).
+> So, from the policy side I think we should go with our own layer.
+> On the technical side I'm disappointed with this 'include' problem: I
+> find it rather impractical to copy things we don't want to change and
+> just want to use from one layer to another and then having to keep
+> these in sync with mainline.
+>
+> What is the recommended way to address this issue?
+>
+For the short term, I think that you may need to deal with the copy 
+issue, until we have tooling in place.
 
-So, from the policy side I think we should go with our own layer.
-On the technical side I'm disappointed with this 'include' problem: I
-find it rather impractical to copy things we don't want to change and
-just want to use from one layer to another and then having to keep
-these in sync with mainline.
+I know this is not the answer you wanted to hear right now, we know 
+about the issue and are looking at it.
 
-What is the recommended way to address this issue?
+Sau!
 
-Best regards,
+> Best regards,
+>
+> Wolfgang Denk
+>
 
-Wolfgang Denk
-
--- 
-DENX Software Engineering GmbH,     MD: Wolfgang Denk & Detlev Zundel
-HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
-Phone: (+49)-8142-66989-10 Fax: (+49)-8142-66989-80 Email: wd@denx.de
-How come everyone's going so slow if it's called rush hour?
 
