@@ -1,22 +1,22 @@
 Return-Path: <edwin.zhai@intel.com>
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 034BD4C80ACE
-	for <poky@yoctoproject.org>; Wed, 13 Apr 2011 19:16:05 -0500 (CDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 13 Apr 2011 17:16:00 -0700
+	by mx1.pokylinux.org (Postfix) with ESMTP id B7FE64C80AE6
+	for <poky@yoctoproject.org>; Wed, 13 Apr 2011 19:16:06 -0500 (CDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 13 Apr 2011 17:16:01 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,207,1301900400"; d="scan'208";a="909258377"
+X-IronPort-AV: E=Sophos;i="4.64,207,1301900400"; d="scan'208";a="678771140"
 Received: from yocto-build8.sh.intel.com (HELO localhost) ([10.239.48.1])
-	by fmsmga001.fm.intel.com with ESMTP; 13 Apr 2011 17:16:00 -0700
-Message-Id: <ab9a87c78f65154dade278bbf1bbf091cd245be2.1302739788.git.edwin.zhai@intel.com>
+	by fmsmga002.fm.intel.com with ESMTP; 13 Apr 2011 17:16:01 -0700
+Message-Id: <9f56ebac19e7f7f58f125bcb0435cdca57e5bc1b.1302739788.git.edwin.zhai@intel.com>
 In-Reply-To: <cover.1302739788.git.edwin.zhai@intel.com>
 References: <cover.1302739788.git.edwin.zhai@intel.com>
-Old-Date: Wed, 13 Apr 2011 13:24:22 +0800
-Date: Thu, 14 Apr 2011  8:13:27 +0800
+Old-Date: Wed, 13 Apr 2011 13:29:53 +0800
+Date: Thu, 14 Apr 2011  8:13:28 +0800
 To: poky@yoctoproject.org
 CC: 
 From: Zhai Edwin <edwin.zhai@intel.com>
-Subject: [PATCH 7/9] consolekit: Upgrade to 0.4.4 (from 0.4.3)
+Subject: [PATCH 8/9] polkit-gnome: Upgrade to 0.101 (from 0.99)
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,36 +34,25 @@ From: Zhai Edwin <edwin.zhai@intel.com>
 
 Signed-off-by: Zhai Edwin <edwin.zhai@intel.com>
 ---
- .../{consolekit_0.4.3.bb => consolekit_0.4.4.bb}   |    8 +++++---
- 1 files changed, 5 insertions(+), 3 deletions(-)
- rename meta/recipes-support/consolekit/{consolekit_0.4.3.bb => consolekit_0.4.4.bb} (79%)
+ ...{polkit-gnome_0.99.bb => polkit-gnome_0.101.bb} |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+ rename meta/recipes-extended/polkit/{polkit-gnome_0.99.bb => polkit-gnome_0.101.bb} (86%)
 
-diff --git a/meta/recipes-support/consolekit/consolekit_0.4.3.bb b/meta/recipes-support/consolekit/consolekit_0.4.4.bb
-similarity index 79%
-rename from meta/recipes-support/consolekit/consolekit_0.4.3.bb
-rename to meta/recipes-support/consolekit/consolekit_0.4.4.bb
-index 5bf4c52..4609e2a 100644
---- a/meta/recipes-support/consolekit/consolekit_0.4.3.bb
-+++ b/meta/recipes-support/consolekit/consolekit_0.4.4.bb
-@@ -8,13 +8,15 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=59530bdf33659b29e73d4adb9f9f6552 \
- 
- DEPENDS = "dbus"
- 
-+PR = "r0"
-+
- inherit gnome
- 
--SRC_URI = "http://www.freedesktop.org/software/ConsoleKit/dist/ConsoleKit-0.4.3.tar.bz2 \
-+SRC_URI = "http://www.freedesktop.org/software/ConsoleKit/dist/ConsoleKit-${PV}.tar.bz2 \
-            file://nopolkit.patch;patch=1"
- 
--SRC_URI[md5sum] = "4c39c6eacc75334b890f21eead1d2945"
--SRC_URI[sha256sum] = "fe02aca2b4c21df59aa5fbe6f28ea3ea4b3c9dd64c48c50634e9a53cf9c0dcc5"
-+SRC_URI[md5sum] = "b57eb18eae8c4d3631d5f4f030218a29"
-+SRC_URI[sha256sum] = "f0c00969fb6fe7d628071f0f43ac0d411982a5e798d7dc31747caa772c9716ae"
- S = "${WORKDIR}/ConsoleKit-${PV}"
- 
- FILES_${PN} += "${libdir}/ConsoleKit ${datadir}/dbus-1 ${datadir}/PolicyKit"
+diff --git a/meta/recipes-extended/polkit/polkit-gnome_0.99.bb b/meta/recipes-extended/polkit/polkit-gnome_0.101.bb
+similarity index 86%
+rename from meta/recipes-extended/polkit/polkit-gnome_0.99.bb
+rename to meta/recipes-extended/polkit/polkit-gnome_0.101.bb
+index f4fb337..e619090 100644
+--- a/meta/recipes-extended/polkit/polkit-gnome_0.99.bb
++++ b/meta/recipes-extended/polkit/polkit-gnome_0.101.bb
+@@ -23,5 +23,5 @@ inherit autotools pkgconfig
+ FILES_${PN} += " ${datadir}/dbus-1 \
+                  ${datadir}/PolicyKit \
+                "
+-SRC_URI[md5sum] = "f1a2565083266bc8c05c60aa7d8a0f6a"
+-SRC_URI[sha256sum] = "73c4d04aa89d9a9687f3650327c0ec1cba704e9d5b7fc193958fa81d621208ba"
++SRC_URI[md5sum] = "da6aaff473ed80f8958fd6f67a59defe"
++SRC_URI[sha256sum] = "f1452e37b6681a0ade2c0cbb3734e6f78c421b958ab4d4eb6a2cd3b9f50db8d0"
 -- 
 1.7.1
 
