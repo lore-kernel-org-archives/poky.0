@@ -1,25 +1,28 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 34A3A4C803D6
-	for <poky@yoctoproject.org>; Thu, 14 Apr 2011 12:45:46 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 14 Apr 2011 10:45:45 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,212,1301900400"; d="scan'208";a="733407566"
-Received: from unknown (HELO [10.255.12.232]) ([10.255.12.232])
-	by orsmga001.jf.intel.com with ESMTP; 14 Apr 2011 10:45:45 -0700
-Message-ID: <4DA732C8.4070705@intel.com>
-Date: Thu, 14 Apr 2011 10:45:44 -0700
-From: Saul Wold <saul.wold@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
+Return-Path: <wd@denx.de>
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 0CF314C80A75
+	for <poky@yoctoproject.org>; Thu, 14 Apr 2011 14:44:46 -0500 (CDT)
+Received: from frontend1.mail.m-online.net (frontend1.mail.intern.m-online.net
+	[192.168.8.180])
+	by mail-out.m-online.net (Postfix) with ESMTP id CE1D11800920
+	for <poky@yoctoproject.org>; Thu, 14 Apr 2011 21:44:45 +0200 (CEST)
+X-Auth-Info: k2fL6Yj0JTaPJtx4KcDe3HoEV0RcQSkgebwZqdEq6Po=
+Received: from diddl.denx.de (host-80-81-18-216.customer.m-online.net
+	[80.81.18.216])
+	by smtp-auth.mnet-online.de (Postfix) with ESMTPA id CA3501C000AA
+	for <poky@yoctoproject.org>; Thu, 14 Apr 2011 21:44:45 +0200 (CEST)
+Received: from gemini.denx.de (unknown [10.0.0.2])
+	by diddl.denx.de (Postfix) with ESMTP id ABA48327C692
+	for <poky@yoctoproject.org>; Thu, 14 Apr 2011 21:44:45 +0200 (CEST)
+Received: from gemini.denx.de (localhost.localdomain [127.0.0.1])
+	by gemini.denx.de (Postfix) with ESMTP id 9BCC5151F83
+	for <poky@yoctoproject.org>; Thu, 14 Apr 2011 21:44:45 +0200 (CEST)
+To: poky@yoctoproject.org
+From: Wolfgang Denk <wd@denx.de>
 MIME-Version: 1.0
-To: Zhai Edwin <edwin.zhai@intel.com>
-References: <cover.1302739788.git.edwin.zhai@intel.com>
-In-Reply-To: <cover.1302739788.git.edwin.zhai@intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/9] [PULL] UX/X apps upgrade, edwin, Apr 13, 2011
+Date: Thu, 14 Apr 2011 21:44:45 +0200
+Message-Id: <20110414194445.9BCC5151F83@gemini.denx.de>
+Subject: Distro policy ?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,82 +34,42 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Apr 2011 17:45:46 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 14 Apr 2011 19:44:47 -0000
+Content-type: text/plain; charset=ISO-8859-1
+Content-transfer-encoding: 8bit
 
-On 04/13/2011 05:13 PM, Zhai Edwin wrote:
-> From: Zhai Edwin<edwin.zhai@intel.com>
->
-> Saul,
->
-> These are some upgrade for UX/X apps part. Avahi upgrade fix one security issue. Pls. review and pull.
->
-Edwin,
+HI,
 
-A number of your updates include patches that have not been updated with 
-the Upstream-Status Tag, please correct this and resend.
+we're trying to build our own distribution based on Yocto 1.0.  We
+would like to push all modifications / extensions and our distro stuff
+upstream into the mainline repository, but we are not sure what is the
+best way to do this:
 
-Also, libsoup has multiple versioned bb files, is there a reason we are 
-keeping the older versions of libsoup-2.4 at this time?
+So far we have put our distro-related changes into a separate layer
+but it seems that it was not so good idea: it looks like bitbake
+can't include files from one layer to another and we have to copy
+includes even if we don't want to change them.
 
-Do we still need to keep libsoup vs libsoup-2.4? I know that libsoup is 
-used by eds-dbus, is there a newer version that does not require libsoup?
+Putting our changes back into the main layer would be pretty trivial,
+but it appears that current tendency is to move all
+distribution-specific things to their respective layers (like the
+poky distro configuration itself was moved to the meta-yocto layer).
 
-Thanks
-	Sau!
+So, from the policy side I think we should go with our own layer.
+On the technical side I'm disappointed with this 'include' problem: I
+find it rather impractical to copy things we don't want to change and
+just want to use from one layer to another and then having to keep
+these in sync with mainline.
 
+What is the recommended way to address this issue?
 
-> Thanks,
-> edwin
->
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->    Branch: gzhai/upgrade04
->    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=gzhai/upgrade04
->
-> Thanks,
->      Zhai Edwin<edwin.zhai@intel.com>
-> ---
->
->
-> Zhai Edwin (9):
->    libsoup-2.4: Upgrade to 2.32.2 (from 2.32.1)
->    tasks: Upgrade to 0.19 (from 0.18)
->    avahi: Upgrade to 0.6.30 (from 0.6.28)
->    x11perf: Upgrade to 1.5.3 (from 1.5.2)
->    libcanberry: Upgrade to 0.28 (from 0.26)
->    xz: Upgrade to 5.0.2 (from 5.0.0)
->    consolekit: Upgrade to 0.4.4 (from 0.4.3)
->    polkit-gnome: Upgrade to 0.101 (from 0.99)
->    libgpg-error: Upgrade to 1.10 (from 1.9)
->
->   .../distro/include/preferred-xorg-versions.inc     |    2 +-
->   .../avahi/{avahi_0.6.28.bb =>  avahi_0.6.30.bb}     |    6 +++---
->   ...{polkit-gnome_0.99.bb =>  polkit-gnome_0.101.bb} |    4 ++--
->   .../xz/{xz_5.0.0.bb =>  xz_5.0.2.bb}                |    4 ++--
->   .../{x11perf_1.5.2.bb =>  x11perf_1.5.3.bb}         |    4 ++--
->   .../{libcanberra_0.26.bb =>  libcanberra_0.28.bb}   |    4 ++--
->   .../pimlico/{tasks_0.18.bb =>  tasks_0.19.bb}       |    4 ++--
->   .../{consolekit_0.4.3.bb =>  consolekit_0.4.4.bb}   |    8 +++++---
->   .../pkgconfig.patch                                |    0
->   .../{libgpg-error_1.9.bb =>  libgpg-error_1.10.bb}  |    4 ++--
->   ...libsoup-2.4_2.32.1.bb =>  libsoup-2.4_2.32.2.bb} |    4 ++--
->   11 files changed, 23 insertions(+), 21 deletions(-)
->   rename meta/recipes-connectivity/avahi/{avahi_0.6.28.bb =>  avahi_0.6.30.bb} (82%)
->   rename meta/recipes-extended/polkit/{polkit-gnome_0.99.bb =>  polkit-gnome_0.101.bb} (86%)
->   rename meta/recipes-extended/xz/{xz_5.0.0.bb =>  xz_5.0.2.bb} (82%)
->   rename meta/recipes-graphics/xorg-app/{x11perf_1.5.2.bb =>  x11perf_1.5.3.bb} (76%)
->   rename meta/recipes-multimedia/pulseaudio/{libcanberra_0.26.bb =>  libcanberra_0.28.bb} (85%)
->   rename meta/recipes-sato/pimlico/{tasks_0.18.bb =>  tasks_0.19.bb} (78%)
->   rename meta/recipes-support/consolekit/{consolekit_0.4.3.bb =>  consolekit_0.4.4.bb} (79%)
->   rename meta/recipes-support/libgpg-error/{libgpg-error-1.9 =>  libgpg-error-1.10}/pkgconfig.patch (100%)
->   rename meta/recipes-support/libgpg-error/{libgpg-error_1.9.bb =>  libgpg-error_1.10.bb} (86%)
->   rename meta/recipes-support/libsoup/{libsoup-2.4_2.32.1.bb =>  libsoup-2.4_2.32.2.bb} (76%)
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
+Best regards,
 
+Wolfgang Denk
+
+-- 
+DENX Software Engineering GmbH,     MD: Wolfgang Denk & Detlev Zundel
+HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
+Phone: (+49)-8142-66989-10 Fax: (+49)-8142-66989-80 Email: wd@denx.de
+How come everyone's going so slow if it's called rush hour?
 
