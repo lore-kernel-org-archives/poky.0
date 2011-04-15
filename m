@@ -1,22 +1,22 @@
 Return-Path: <dongxiao.xu@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 425314C80A7E
-	for <poky@yoctoproject.org>; Fri, 15 Apr 2011 00:35:52 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 14 Apr 2011 22:35:51 -0700
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 925B74C80B74
+	for <poky@yoctoproject.org>; Fri, 15 Apr 2011 00:35:53 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 14 Apr 2011 22:35:53 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,216,1301900400"; d="scan'208";a="733679625"
+X-IronPort-AV: E=Sophos;i="4.64,216,1301900400"; d="scan'208";a="629026130"
 Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.20])
-	by orsmga001.jf.intel.com with ESMTP; 14 Apr 2011 22:35:51 -0700
-Message-Id: <c9c27ac4cd31124f574ce49e7d3f304ff8fe03b0.1302845703.git.dongxiao.xu@intel.com>
+	by orsmga002.jf.intel.com with ESMTP; 14 Apr 2011 22:35:52 -0700
+Message-Id: <72a5bb2f001b2625421f8e51d06c0c669192f579.1302845703.git.dongxiao.xu@intel.com>
 In-Reply-To: <cover.1302845703.git.dongxiao.xu@intel.com>
 References: <cover.1302845703.git.dongxiao.xu@intel.com>
-Old-Date: Wed, 13 Apr 2011 08:56:03 +0800
-Date: Fri, 15 Apr 2011 13:36:45 +0800
+Old-Date: Wed, 13 Apr 2011 10:02:24 +0800
+Date: Fri, 15 Apr 2011 13:36:47 +0800
 To: poky@yoctoproject.org
 CC: 
 From: Dongxiao Xu <dongxiao.xu@intel.com>
-Subject: [PATCH 03/14] gst-plugins-good: upgrade to version 0.10.28
+Subject: [PATCH 04/14] gst-plugins-bad: upgrade to version 0.10.21
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,40 +28,40 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Apr 2011 05:35:52 -0000
+X-List-Received-Date: Fri, 15 Apr 2011 05:35:53 -0000
 
 From: Dongxiao Xu <dongxiao.xu@intel.com>
 
 Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
 ---
- ...good_0.10.26.bb => gst-plugins-good_0.10.28.bb} |    6 +++---
+ ...s-bad_0.10.20.bb => gst-plugins-bad_0.10.21.bb} |    6 +++---
  1 files changed, 3 insertions(+), 3 deletions(-)
- rename meta/recipes-multimedia/gstreamer/{gst-plugins-good_0.10.26.bb => gst-plugins-good_0.10.28.bb} (82%)
+ rename meta/recipes-multimedia/gstreamer/{gst-plugins-bad_0.10.20.bb => gst-plugins-bad_0.10.21.bb} (86%)
 
-diff --git a/meta/recipes-multimedia/gstreamer/gst-plugins-good_0.10.26.bb b/meta/recipes-multimedia/gstreamer/gst-plugins-good_0.10.28.bb
-similarity index 82%
-rename from meta/recipes-multimedia/gstreamer/gst-plugins-good_0.10.26.bb
-rename to meta/recipes-multimedia/gstreamer/gst-plugins-good_0.10.28.bb
-index ac47ecf..bc218f1 100644
---- a/meta/recipes-multimedia/gstreamer/gst-plugins-good_0.10.26.bb
-+++ b/meta/recipes-multimedia/gstreamer/gst-plugins-good_0.10.28.bb
-@@ -7,7 +7,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=a6f89e2100d9b6cdffcea4f398e37343 \
+diff --git a/meta/recipes-multimedia/gstreamer/gst-plugins-bad_0.10.20.bb b/meta/recipes-multimedia/gstreamer/gst-plugins-bad_0.10.21.bb
+similarity index 86%
+rename from meta/recipes-multimedia/gstreamer/gst-plugins-bad_0.10.20.bb
+rename to meta/recipes-multimedia/gstreamer/gst-plugins-bad_0.10.21.bb
+index 239072d..2b8a89c 100644
+--- a/meta/recipes-multimedia/gstreamer/gst-plugins-bad_0.10.20.bb
++++ b/meta/recipes-multimedia/gstreamer/gst-plugins-bad_0.10.21.bb
+@@ -9,7 +9,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=0636e73ff0215e8d672dc4c32c317bb3 \
  
- DEPENDS += "gst-plugins-base gconf cairo jpeg libpng gtk+ zlib libid3tag flac \
- 	    speex"
+ DEPENDS += "gst-plugins-base libmusicbrainz tremor librsvg"
+ 
 -PR = "r1"
 +PR = "r0"
  
  inherit gettext
  
-@@ -18,5 +18,5 @@ do_configure_prepend() {
+@@ -23,5 +23,5 @@ do_configure_prepend() {
  	rm ${S}/m4/lib-link.m4 || true
  }
  
--SRC_URI[md5sum] = "e1ed191adbf81edff04f348f8ce8e198"
--SRC_URI[sha256sum] = "ceb3bbea5ce18463b8fe470d34786bc846469e800305c436d799af9fe22bdcc4"
-+SRC_URI[md5sum] = "6ef1588921f59d85c44ee2e49a3c97a0"
-+SRC_URI[sha256sum] = "adfbce68b9fbadb7a7aeda2227af6afe1928ef025af4158726617b9d6834b028"
+-SRC_URI[md5sum] = "7c84766f6d24f41ba90c3f6141012ab8"
+-SRC_URI[sha256sum] = "1031dff866df976a957f34039addbab4c0753406299a275f4cf1780e1dbe2a90"
++SRC_URI[md5sum] = "f501336ab1d18d2565f47c36ce653a82"
++SRC_URI[sha256sum] = "422badacbda37ac33cb446c6751dabcd0b223c308dbb01024a34ded682fa47e3"
 -- 
 1.7.1
 
