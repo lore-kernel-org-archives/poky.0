@@ -1,40 +1,34 @@
-Return-Path: <cgwalters@gmail.com>
-Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A40304C80A71
-	for <poky@yoctoproject.org>; Fri, 15 Apr 2011 08:58:10 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by wwd20 with SMTP id 20so3218432wwd.11
-	for <poky@yoctoproject.org>; Fri, 15 Apr 2011 06:58:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:sender:in-reply-to:references:date
-	:x-google-sender-auth:message-id:subject:from:to:cc:content-type
-	:content-transfer-encoding;
-	bh=RSOAKrElX1XXtsW+cGPGck1TjwjCxvhSwVfTFB7VzIo=;
-	b=E0G8lxhaGg6jJGAMYXQGfUO4oR5YzK+aNhjaHYYDLqjgL+nFsJ15Ees11Uhew8E8S2
-	VkC9Debq/G3/0gac64n36+CxGwKyjYbW86IC6YldjnZl6QG8GwWva//rJzRVp8Z2j8yE
-	ylJwN0B90p3JoIRj9aVX46dSXVchncK44cbuI=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:sender:in-reply-to:references:date
-	:x-google-sender-auth:message-id:subject:from:to:cc:content-type
-	:content-transfer-encoding;
-	b=gmBB1wEQS5EcrNJV3YDx6v3qhzZJyg2vPwTRwYzuPjh1fBTc3BVnMvGoEm8YmCxKCE
-	qTXKu6AAfm1+zEek1ezwMzK+luXgyImIf0zQ0vxaNSYFKLLgaDrGjRjhrflxcQRhQ/1z
-	lweF0g7tHAmhKaO22irriTyX3ntroQDn1iD/Y=
-MIME-Version: 1.0
-Received: by 10.216.145.130 with SMTP id p2mr7952878wej.58.1302875889729; Fri,
-	15 Apr 2011 06:58:09 -0700 (PDT)
-Sender: cgwalters@gmail.com
-Received: by 10.216.254.42 with HTTP; Fri, 15 Apr 2011 06:58:09 -0700 (PDT)
-In-Reply-To: <DE8BA75F34A0404282AC5E15F691BC765118FAE8@orsmsx504.amr.corp.intel.com>
+Return-Path: <scott.m.rifenbark@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 9536F4C800AC
+	for <poky@yoctoproject.org>; Fri, 15 Apr 2011 09:05:03 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 15 Apr 2011 07:05:03 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.64,219,1301900400"; d="scan'208";a="629242739"
+Received: from orsmsx604.amr.corp.intel.com ([10.22.226.87])
+	by orsmga002.jf.intel.com with ESMTP; 15 Apr 2011 07:05:03 -0700
+Received: from orsmsx606.amr.corp.intel.com (10.22.226.128) by
+	orsmsx604.amr.corp.intel.com (10.22.226.87) with Microsoft SMTP Server
+	(TLS) id 8.2.255.0; Fri, 15 Apr 2011 07:05:02 -0700
+Received: from orsmsx504.amr.corp.intel.com ([10.22.226.207]) by
+	orsmsx606.amr.corp.intel.com ([10.22.226.128]) with mapi;
+	Fri, 15 Apr 2011 07:05:02 -0700
+From: "Rifenbark, Scott M" <scott.m.rifenbark@intel.com>
+To: Colin Walters <walters@verbum.org>
+Date: Fri, 15 Apr 2011 07:05:01 -0700
+Thread-Topic: [poky] [patch] yocto-project-qs.xml: Add a title
+Thread-Index: Acv7dSkqShW5ROJSQIerzlmVbJ3+bwAAMzPA
+Message-ID: <DE8BA75F34A0404282AC5E15F691BC765118FAF6@orsmsx504.amr.corp.intel.com>
 References: <BANLkTik2tXVqLPZUf9kf7WW6hrNpVbFWEQ@mail.gmail.com>
 	<DE8BA75F34A0404282AC5E15F691BC765118FAE8@orsmsx504.amr.corp.intel.com>
-Date: Fri, 15 Apr 2011 09:58:09 -0400
-X-Google-Sender-Auth: buCekHbRXnj8LR-XsYYbEs3Fsbg
-Message-ID: <BANLkTinj1RmuowBwU-q4KqWxico6jyJmUg@mail.gmail.com>
-From: Colin Walters <walters@verbum.org>
-To: "Rifenbark, Scott M" <scott.m.rifenbark@intel.com>
+	<BANLkTinj1RmuowBwU-q4KqWxico6jyJmUg@mail.gmail.com>
+In-Reply-To: <BANLkTinj1RmuowBwU-q4KqWxico6jyJmUg@mail.gmail.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
+MIME-Version: 1.0
 Cc: poky <poky@yoctoproject.org>
 Subject: Re: [patch] yocto-project-qs.xml: Add a title
 X-BeenThere: poky@yoctoproject.org
@@ -48,21 +42,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Apr 2011 13:58:11 -0000
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Fri, 15 Apr 2011 14:05:03 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On Fri, Apr 15, 2011 at 9:55 AM, Rifenbark, Scott M
-<scott.m.rifenbark@intel.com> wrote:
-> Hi Colin,
->
-> The Quick Start has a different format than the other Yocto Project manua=
-ls. =C2=A0Namely, there is no title page or large title. =C2=A0We did this =
-purpose. =C2=A0In order to accomplish it within our manual generation schem=
-e I had to hack the DocBook code a bit, which is why the '<title></title>' =
-lame code appears. =C2=A0I can't really offer anything but an explanation a=
-t this point for the way the front matter of the Quick Start is designed.
-
-Oh, hm, can't say I understand exactly, but - can we do a quick hack
-to fixup the HTML after it's generated then?
+Q29saW4sIA0KDQpZZXMgLSBJIGNhbiBwdXQgYSB0aXRsZSBiZXR3ZWVuIHRhZ3MgYW5kIGl0IHdp
+bGwgcmVzdWx0IGluIGFuIGFwcHJvcHJpYXRlbHkgbmFtZWQgdGFiLiAgVGhhbmtzIGZvciBwb2lu
+dGluZyBvdXQuIA0KDQpTY290dFINCg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206
+IGNnd2FsdGVyc0BnbWFpbC5jb20gW21haWx0bzpjZ3dhbHRlcnNAZ21haWwuY29tXSBPbiBCZWhh
+bGYgT2YgQ29saW4gV2FsdGVycw0KU2VudDogRnJpZGF5LCBBcHJpbCAxNSwgMjAxMSA2OjU4IEFN
+DQpUbzogUmlmZW5iYXJrLCBTY290dCBNDQpDYzogcG9reQ0KU3ViamVjdDogUmU6IFtwb2t5XSBb
+cGF0Y2hdIHlvY3RvLXByb2plY3QtcXMueG1sOiBBZGQgYSB0aXRsZQ0KDQpPbiBGcmksIEFwciAx
+NSwgMjAxMSBhdCA5OjU1IEFNLCBSaWZlbmJhcmssIFNjb3R0IE0NCjxzY290dC5tLnJpZmVuYmFy
+a0BpbnRlbC5jb20+IHdyb3RlOg0KPiBIaSBDb2xpbiwNCj4NCj4gVGhlIFF1aWNrIFN0YXJ0IGhh
+cyBhIGRpZmZlcmVudCBmb3JtYXQgdGhhbiB0aGUgb3RoZXIgWW9jdG8gUHJvamVjdCBtYW51YWxz
+LiDCoE5hbWVseSwgdGhlcmUgaXMgbm8gdGl0bGUgcGFnZSBvciBsYXJnZSB0aXRsZS4gwqBXZSBk
+aWQgdGhpcyBwdXJwb3NlLiDCoEluIG9yZGVyIHRvIGFjY29tcGxpc2ggaXQgd2l0aGluIG91ciBt
+YW51YWwgZ2VuZXJhdGlvbiBzY2hlbWUgSSBoYWQgdG8gaGFjayB0aGUgRG9jQm9vayBjb2RlIGEg
+Yml0LCB3aGljaCBpcyB3aHkgdGhlICc8dGl0bGU+PC90aXRsZT4nIGxhbWUgY29kZSBhcHBlYXJz
+LiDCoEkgY2FuJ3QgcmVhbGx5IG9mZmVyIGFueXRoaW5nIGJ1dCBhbiBleHBsYW5hdGlvbiBhdCB0
+aGlzIHBvaW50IGZvciB0aGUgd2F5IHRoZSBmcm9udCBtYXR0ZXIgb2YgdGhlIFF1aWNrIFN0YXJ0
+IGlzIGRlc2lnbmVkLg0KDQpPaCwgaG0sIGNhbid0IHNheSBJIHVuZGVyc3RhbmQgZXhhY3RseSwg
+YnV0IC0gY2FuIHdlIGRvIGEgcXVpY2sgaGFjaw0KdG8gZml4dXAgdGhlIEhUTUwgYWZ0ZXIgaXQn
+cyBnZW5lcmF0ZWQgdGhlbj8NCg==
 
