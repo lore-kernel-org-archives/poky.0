@@ -1,41 +1,38 @@
-Return-Path: <srifenbark@gmail.com>
-Received: from mail-yw0-f48.google.com (mail-yw0-f48.google.com
-	[209.85.213.48])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E091B4C800A3
-	for <poky@yoctoproject.org>; Fri, 15 Apr 2011 08:09:51 -0500 (CDT)
+Return-Path: <bruce.ashfield@gmail.com>
+Received: from mail-vw0-f48.google.com (mail-vw0-f48.google.com
+	[209.85.212.48])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 7C6284C8100B
+	for <poky@yoctoproject.org>; Fri, 15 Apr 2011 08:11:50 -0500 (CDT)
 Authentication-Results: mx1.pokylinux.org; dkim=pass
 	(1024-bit key; insecure key) header.i=@gmail.com;
 	x-dkim-adsp=none (insecure policy)
-Received: by ywk9 with SMTP id 9so257117ywk.35
-	for <poky@yoctoproject.org>; Fri, 15 Apr 2011 06:09:51 -0700 (PDT)
+Received: by vws7 with SMTP id 7so3324471vws.35
+	for <poky@yoctoproject.org>; Fri, 15 Apr 2011 06:11:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:message-id:in-reply-to:references:old-date
-	:subject:date:to:cc:from;
-	bh=jMU2DlaOWWAUnBJ6c7MwfegA796xYrzRJidEAkf+M4Q=;
-	b=hZnpPc1LqntbAjfMmdB2ueaQZ2vyyV2EAmd7zR9HW2CUhWtYGgouDrIXQY9xjgBYlk
-	+oWVoqabgLOGZGbzqrm9Nb0oFTzW7xkS+LVde5YMFewywuH85Joo9xLDbEhRojYpTd6B
-	qddqh00EPPdfd+s11RqJrm1vCmW9EVKVJTuIE=
+	h=domainkey-signature:mime-version:in-reply-to:references:date
+	:message-id:subject:from:to:cc:content-type;
+	bh=tNB7oWTfb65hMXh/N3pKmznEikTXDvIeJ8hnZlqoVD8=;
+	b=ECRxWJNTnWXWgitrSoXWth1UmRc0t4mSPLFVQ0K6QQuTBbDb0xJlMAJ1anMNHT3fxR
+	YamPsdIu/xH8KvHZoYTxSjj5nfX0vyctmkcEmGTQ8HdizeS0t3fapfgIeV9V+VaLeG0t
+	8jy/QS2kerl7PPOCZDoWIQMU2LPEDv8r+Fmzo=
 DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=message-id:in-reply-to:references:old-date:subject:date:to:cc:from;
-	b=gwr3m/iiY/oZUAq7g1kvH0W1Xu6YxZv1+6iqzUqAxvwsmLOUCg2F8mAiBq16OSh/z6
-	O5Kjvj+d5yBmYyOczcm9NLgaBzcfr454hs5cdgfBRFa4AzUevXHgqItMHpUATqR7etqH
-	k8TAaNc3pHXHava8jfrF2wzVQGV949ntksxxU=
-Received: by 10.150.215.16 with SMTP id n16mr2435782ybg.224.1302872990137;
-	Fri, 15 Apr 2011 06:09:50 -0700 (PDT)
-Received: from localhost (h227.63.117.75.dynamic.ip.windstream.net
-	[75.117.63.227])
-	by mx.google.com with ESMTPS id t12sm1258730ybe.15.2011.04.15.06.09.49
-	(version=TLSv1/SSLv3 cipher=OTHER);
-	Fri, 15 Apr 2011 06:09:49 -0700 (PDT)
-Message-Id: <dae65eac72e9e87b22b7a3d554a49361c9dda26f.1302872863.git.scott.m.rifenbark@intel.com>
-In-Reply-To: <cover.1302872863.git.scott.m.rifenbark@intel.com>
-References: <cover.1302872863.git.scott.m.rifenbark@intel.com>
-Old-Date: Fri, 15 Apr 2011 07:57:12 -0500
-Date: Fri, 15 Apr 2011 06:09:49 -0700 (PDT)
-To: poky@yoctoproject.org
-CC: 
-From: Scott Rifenbark <srifenbark@gmail.com>
-Subject: [PATCH 1/1] documentation/kernel-manual/kernel-how-to.xml: replaced 'pokylinux' with 'yoctoproject'
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:cc:content-type;
+	b=eXnPPbLTyuL98hIYfZh4v8UXq079ZI7nulTSJ/+Wt9NUVoZ4QclTXDytVICc8/ydqH
+	TETxrAGfSxgnWV+V+kXjnzfJKLrFVB9+aDObC8K3ELbGSkpTzp4kCtwAiOqZv/unxbZb
+	vGNqrUFLoKCnb5ohamRWwFWBL1lCquhgVHCcY=
+MIME-Version: 1.0
+Received: by 10.52.18.74 with SMTP id u10mr2877106vdd.192.1302873109782; Fri,
+	15 Apr 2011 06:11:49 -0700 (PDT)
+Received: by 10.220.75.198 with HTTP; Fri, 15 Apr 2011 06:11:49 -0700 (PDT)
+In-Reply-To: <201104151329.17014.paul.eggleton@linux.intel.com>
+References: <201104151329.17014.paul.eggleton@linux.intel.com>
+Date: Fri, 15 Apr 2011 09:11:49 -0400
+Message-ID: <BANLkTi=GxLBMpYEbyooDAbHb9jLBB8h88w@mail.gmail.com>
+From: Bruce Ashfield <bruce.ashfield@gmail.com>
+To: Paul Eggleton <paul.eggleton@linux.intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: NFS root & shutdown/reboot
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -47,38 +44,70 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Apr 2011 13:09:52 -0000
+X-List-Received-Date: Fri, 15 Apr 2011 13:11:50 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 
-From: Scott Rifenbark <scott.m.rifenbark@intel.com>
+On Fri, Apr 15, 2011 at 8:29 AM, Paul Eggleton
+<paul.eggleton@linux.intel.com> wrote:
+> Hi all,
+>
+> I have been working on smoothing out some things to do with NFS root this week
+> and I have come across one situation that I'm not quite sure of.
+>
+> At the moment when you shut down a Poky NFS root-based system or reboot it, it
+> gets all the way to the end and then hangs, with an error "nfs: server
+> myserver not responding, still trying". I tracked this down to the -i option
+> that is passed to the final call to shutdown and reboot which is supposed to
+> shut down all network interfaces - if you remove this then it works fine.
+>
+> I'm not sure of the reason for having the -i option, but it was suggested to
+> me that it might be in order to release DHCP leases where applicable; also
+> some systems might otherwise leave their network adapters powered up when the
+> system is shut down in order to receive wake-on-LAN requests, and if you're
+> not using that feature you're just wasting power. I'm guessing for most
+> situations we would want to retain -i. However, where the system is running
+> from an NFS root it would seem that we would have to omit this option, unless
+> there is another solution I'm not aware of.
 
-Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
----
- documentation/kernel-manual/kernel-how-to.xml |    4 ++--
- 1 files changed, 2 insertions(+), 2 deletions(-)
+I can't say exactly when this is required either, but I can say that we've
+also removed -i from our NFS root boots in the past, for just what you
+are describing above.
 
-diff --git a/documentation/kernel-manual/kernel-how-to.xml b/documentation/kernel-manual/kernel-how-to.xml
-index 79c8526..96325fe 100644
---- a/documentation/kernel-manual/kernel-how-to.xml
-+++ b/documentation/kernel-manual/kernel-how-to.xml
-@@ -1022,7 +1022,7 @@ That's it. Configure and build.
-                     You can start with something in <filename>meta/conf/machine</filename> - <filename>
-                     meta/conf/machine/atom-pc.conf</filename> for example.  Or, you can start with a machine 
-                     configuration from any of the BSP layers in the meta-intel repository at 
--                    <ulink url='http://git.pokylinux.org/cgit/cgit.cgi/meta-intel/'></ulink>, such as 
-+                    <ulink url='http://git.yoctoproject.org/cgit/cgit.cgi/meta-intel/'></ulink>, such as 
-                     <filename>meta-intel/meta-emenlow/conf/machine/emenlow.conf</filename>.
-                 </para>
-                 
-@@ -1073,7 +1073,7 @@ That's it. Configure and build.
-                     To create this branch first create a bare clone of the Yocto Project git repository.
-                     Next, create a local clone of that:
-                     <literallayout class='monospaced'>
--     $ git clone --bare git://git.pokylinux.org/linux-yocto-2.6.37.git
-+     $ git clone --bare git://git.yoctoproject.org/linux-yocto-2.6.37.git
-      linux-yocto-2.6.37.git
-      $ git clone linux-yocto-2.6.37.git linux-yocto-2.6.37
-                     </literallayout>
+Shutting down and getting the interface down in the wrong order causes
+the obvious problems you'd expect with a NFS root hanging and not
+being able to complete the rest of the process.
+
+>
+> I've done some googling and not come up with anything concrete in terms of how
+> this should be handled correctly. Any suggestions?
+
+My only suggestion is to make it not present by default, and enable
+it (-i) when a real reason for it is found (i.e. someone really wants
+the nic to shutdown for a power profile). Detecting a NFS root
+(and if the root continues to be NFS after boot) could be more error
+prone that making -i the default.
+
+Just my opinion,
+
+Bruce
+
+>
+> Cheers,
+> Paul
+>
+> --
+>
+> Paul Eggleton
+> Intel Open Source Technology Centre (UK)
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
+
+
+
 -- 
-1.7.0.4
-
+"Thou shalt not follow the NULL pointer, for chaos and madness await
+thee at its end"
 
