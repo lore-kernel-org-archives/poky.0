@@ -1,22 +1,22 @@
 Return-Path: <paul.eggleton@linux.intel.com>
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 36CA94C800A2
-	for <poky@yoctoproject.org>; Fri, 15 Apr 2011 12:00:24 -0500 (CDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 15 Apr 2011 10:00:23 -0700
+	by mx1.pokylinux.org (Postfix) with ESMTP id 082294C800A3
+	for <poky@yoctoproject.org>; Fri, 15 Apr 2011 12:00:27 -0500 (CDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 15 Apr 2011 10:00:27 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,220,1301900400"; d="scan'208";a="910143314"
+X-IronPort-AV: E=Sophos;i="4.64,220,1301900400"; d="scan'208";a="679601307"
 Received: from unknown (HELO helios) ([10.255.12.218])
-	by fmsmga001.fm.intel.com with SMTP; 15 Apr 2011 10:00:22 -0700
-Received: by helios (sSMTP sendmail emulation); Fri, 15 Apr 2011 18:00:15 +0100
-Message-Id: <28086a0fe35538a3aecb00ed405d5cb5a20bcae1.1302886579.git.paul.eggleton@linux.intel.com>
+	by fmsmga002.fm.intel.com with SMTP; 15 Apr 2011 10:00:25 -0700
+Received: by helios (sSMTP sendmail emulation); Fri, 15 Apr 2011 18:00:18 +0100
+Message-Id: <72ccbf03bcbec48a34d830c356e591a9139e3794.1302886579.git.paul.eggleton@linux.intel.com>
 In-Reply-To: <cover.1302886579.git.paul.eggleton@linux.intel.com>
 References: <cover.1302886579.git.paul.eggleton@linux.intel.com>
-Old-Date: Fri, 15 Apr 2011 17:11:49 +0100
-Date: Fri, 15 Apr 2011 18:00:15 +0100
+Old-Date: Fri, 15 Apr 2011 17:14:05 +0100
+Date: Fri, 15 Apr 2011 18:00:18 +0100
 To: openembedded-core@lists.openembedded.org,poky@yoctoproject.org
 From: Paul Eggleton <paul.eggleton@linux.intel.com>
-Subject: [PATCH 1/3] netbase: automatically bring up eth0
+Subject: [PATCH 2/3] netbase: automatically bring up usb0 on beagleboard
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,32 +28,54 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Apr 2011 17:00:24 -0000
+X-List-Received-Date: Fri, 15 Apr 2011 17:00:28 -0000
 
 From: Paul Eggleton <paul.eggleton@linux.intel.com>
 
-This avoids manual configuration for those machines that do not override
-the default /etc/network/interfaces file.
+Avoids manual configuration of the BeagleBoard xM's ethernet port (which
+shows up as usb0).
 
-Fixes [YOCTO #875]
+Fixes [YOCTO #930]
 
 Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
 ---
- meta/recipes-core/netbase/netbase-4.45/interfaces |    1 +
- 1 files changed, 1 insertions(+), 0 deletions(-)
+ .../netbase/netbase-4.45/beagleboard/interfaces    |   27 ++++++++++++++++++++
+ 1 files changed, 27 insertions(+), 0 deletions(-)
+ create mode 100644 meta/recipes-core/netbase/netbase-4.45/beagleboard/interfaces
 
-diff --git a/meta/recipes-core/netbase/netbase-4.45/interfaces b/meta/recipes-core/netbase/netbase-4.45/interfaces
-index b06924f..0acf4cf 100644
---- a/meta/recipes-core/netbase/netbase-4.45/interfaces
-+++ b/meta/recipes-core/netbase/netbase-4.45/interfaces
-@@ -14,6 +14,7 @@ iface wlan0 inet dhcp
- iface atml0 inet dhcp
- 
- # Wired or wireless interfaces
+diff --git a/meta/recipes-core/netbase/netbase-4.45/beagleboard/interfaces b/meta/recipes-core/netbase/netbase-4.45/beagleboard/interfaces
+new file mode 100644
+index 0000000..b6935c1
+--- /dev/null
++++ b/meta/recipes-core/netbase/netbase-4.45/beagleboard/interfaces
+@@ -0,0 +1,27 @@
++# /etc/network/interfaces -- configuration file for ifup(8), ifdown(8)
++ 
++# The loopback interface
++auto lo
++iface lo inet loopback
++
++# Wireless interfaces
++iface wlan0 inet dhcp
++	wireless_mode managed
++	wireless_essid any
++	wpa-driver wext
++	wpa-conf /etc/wpa_supplicant.conf
++
++iface atml0 inet dhcp
++
++# Wired or wireless interfaces
 +auto eth0
- iface eth0 inet dhcp
- iface eth1 inet dhcp
- 
++iface eth0 inet dhcp
++iface eth1 inet dhcp
++
++# Ethernet/RNDIS gadget (g_ether) or LAN9514 on BeagleBoard xM
++auto usb0
++iface usb0 inet dhcp
++
++# Bluetooth networking
++iface bnep0 inet dhcp
++
 -- 
 1.7.1
 
