@@ -1,36 +1,22 @@
-Return-Path: <scott.m.rifenbark@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9536F4C800AC
-	for <poky@yoctoproject.org>; Fri, 15 Apr 2011 09:05:03 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 15 Apr 2011 07:05:03 -0700
+Return-Path: <lei.mei@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2E6F44C80887
+	for <poky@yoctoproject.org>; Fri, 15 Apr 2011 09:17:54 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 15 Apr 2011 07:17:53 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,219,1301900400"; d="scan'208";a="629242739"
-Received: from orsmsx604.amr.corp.intel.com ([10.22.226.87])
-	by orsmga002.jf.intel.com with ESMTP; 15 Apr 2011 07:05:03 -0700
-Received: from orsmsx606.amr.corp.intel.com (10.22.226.128) by
-	orsmsx604.amr.corp.intel.com (10.22.226.87) with Microsoft SMTP Server
-	(TLS) id 8.2.255.0; Fri, 15 Apr 2011 07:05:02 -0700
-Received: from orsmsx504.amr.corp.intel.com ([10.22.226.207]) by
-	orsmsx606.amr.corp.intel.com ([10.22.226.128]) with mapi;
-	Fri, 15 Apr 2011 07:05:02 -0700
-From: "Rifenbark, Scott M" <scott.m.rifenbark@intel.com>
-To: Colin Walters <walters@verbum.org>
-Date: Fri, 15 Apr 2011 07:05:01 -0700
-Thread-Topic: [poky] [patch] yocto-project-qs.xml: Add a title
-Thread-Index: Acv7dSkqShW5ROJSQIerzlmVbJ3+bwAAMzPA
-Message-ID: <DE8BA75F34A0404282AC5E15F691BC765118FAF6@orsmsx504.amr.corp.intel.com>
-References: <BANLkTik2tXVqLPZUf9kf7WW6hrNpVbFWEQ@mail.gmail.com>
-	<DE8BA75F34A0404282AC5E15F691BC765118FAE8@orsmsx504.amr.corp.intel.com>
-	<BANLkTinj1RmuowBwU-q4KqWxico6jyJmUg@mail.gmail.com>
-In-Reply-To: <BANLkTinj1RmuowBwU-q4KqWxico6jyJmUg@mail.gmail.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
-MIME-Version: 1.0
-Cc: poky <poky@yoctoproject.org>
-Subject: Re: [patch] yocto-project-qs.xml: Add a title
+X-IronPort-AV: E=Sophos;i="4.64,219,1301900400"; d="scan'208";a="733869508"
+Received: from daocaoren-desktop.sh.intel.com (HELO localhost)
+	([10.239.47.161])
+	by orsmga001.jf.intel.com with ESMTP; 15 Apr 2011 07:17:53 -0700
+Message-Id: <0a83114532a9307543361fce7bab0a903bd62b7a.1302856116.git.lei.mei@intel.com>
+In-Reply-To: <cover.1302856115.git.lei.mei@intel.com>
+References: <cover.1302856115.git.lei.mei@intel.com>
+Old-Date: Mon, 11 Apr 2011 16:10:52 +0800
+To: poky@yoctoproject.org
+CC: 
+From: Mei Lei <lei.mei@intel.com>
+Subject: [PATCH 1/5] libidn: upgrade from 1.19 to 1.20
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,28 +28,47 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Apr 2011 14:05:03 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Date: Fri, 15 Apr 2011 14:17:54 -0000
+X-Original-Date: 五, 15  4月 2011 22:22:41 +0800
+X-List-Received-Date: Fri, 15 Apr 2011 14:17:54 -0000
 
-Q29saW4sIA0KDQpZZXMgLSBJIGNhbiBwdXQgYSB0aXRsZSBiZXR3ZWVuIHRhZ3MgYW5kIGl0IHdp
-bGwgcmVzdWx0IGluIGFuIGFwcHJvcHJpYXRlbHkgbmFtZWQgdGFiLiAgVGhhbmtzIGZvciBwb2lu
-dGluZyBvdXQuIA0KDQpTY290dFINCg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206
-IGNnd2FsdGVyc0BnbWFpbC5jb20gW21haWx0bzpjZ3dhbHRlcnNAZ21haWwuY29tXSBPbiBCZWhh
-bGYgT2YgQ29saW4gV2FsdGVycw0KU2VudDogRnJpZGF5LCBBcHJpbCAxNSwgMjAxMSA2OjU4IEFN
-DQpUbzogUmlmZW5iYXJrLCBTY290dCBNDQpDYzogcG9reQ0KU3ViamVjdDogUmU6IFtwb2t5XSBb
-cGF0Y2hdIHlvY3RvLXByb2plY3QtcXMueG1sOiBBZGQgYSB0aXRsZQ0KDQpPbiBGcmksIEFwciAx
-NSwgMjAxMSBhdCA5OjU1IEFNLCBSaWZlbmJhcmssIFNjb3R0IE0NCjxzY290dC5tLnJpZmVuYmFy
-a0BpbnRlbC5jb20+IHdyb3RlOg0KPiBIaSBDb2xpbiwNCj4NCj4gVGhlIFF1aWNrIFN0YXJ0IGhh
-cyBhIGRpZmZlcmVudCBmb3JtYXQgdGhhbiB0aGUgb3RoZXIgWW9jdG8gUHJvamVjdCBtYW51YWxz
-LiDCoE5hbWVseSwgdGhlcmUgaXMgbm8gdGl0bGUgcGFnZSBvciBsYXJnZSB0aXRsZS4gwqBXZSBk
-aWQgdGhpcyBwdXJwb3NlLiDCoEluIG9yZGVyIHRvIGFjY29tcGxpc2ggaXQgd2l0aGluIG91ciBt
-YW51YWwgZ2VuZXJhdGlvbiBzY2hlbWUgSSBoYWQgdG8gaGFjayB0aGUgRG9jQm9vayBjb2RlIGEg
-Yml0LCB3aGljaCBpcyB3aHkgdGhlICc8dGl0bGU+PC90aXRsZT4nIGxhbWUgY29kZSBhcHBlYXJz
-LiDCoEkgY2FuJ3QgcmVhbGx5IG9mZmVyIGFueXRoaW5nIGJ1dCBhbiBleHBsYW5hdGlvbiBhdCB0
-aGlzIHBvaW50IGZvciB0aGUgd2F5IHRoZSBmcm9udCBtYXR0ZXIgb2YgdGhlIFF1aWNrIFN0YXJ0
-IGlzIGRlc2lnbmVkLg0KDQpPaCwgaG0sIGNhbid0IHNheSBJIHVuZGVyc3RhbmQgZXhhY3RseSwg
-YnV0IC0gY2FuIHdlIGRvIGEgcXVpY2sgaGFjaw0KdG8gZml4dXAgdGhlIEhUTUwgYWZ0ZXIgaXQn
-cyBnZW5lcmF0ZWQgdGhlbj8NCg==
+From: Mei Lei <lei.mei@intel.com>
+
+Signed-off-by: Mei Lei <lei.mei@intel.com>
+---
+ .../libidn/{libidn_1.19.bb => libidn_1.20.bb}      |    8 ++++----
+ 1 files changed, 4 insertions(+), 4 deletions(-)
+ rename meta/recipes-extended/libidn/{libidn_1.19.bb => libidn_1.20.bb} (68%)
+
+diff --git a/meta/recipes-extended/libidn/libidn_1.19.bb b/meta/recipes-extended/libidn/libidn_1.20.bb
+similarity index 68%
+rename from meta/recipes-extended/libidn/libidn_1.19.bb
+rename to meta/recipes-extended/libidn/libidn_1.20.bb
+index a90a739..fa8953b 100644
+--- a/meta/recipes-extended/libidn/libidn_1.19.bb
++++ b/meta/recipes-extended/libidn/libidn_1.20.bb
+@@ -5,16 +5,16 @@ SECTION = "libs"
+ LICENSE = "LGPLv2.1+ & GPLv3+"
+ LIC_FILES_CHKSUM = "file://COPYING;md5=d32239bcb673463ab874e80d47fae504 \
+                     file://COPYING.LIB;md5=a6f89e2100d9b6cdffcea4f398e37343 \
+-                    file://lib/idna.h;firstline=6;endline=18;md5=643beb30bf98d8c4aed59a51b86fe9ea \
+-                    file://src/idn.c;firstline=6;endline=18;md5=07a57d46977b38a2557aac446dda35dd"
++                    file://lib/idna.h;endline=21;md5=dbd4426bbc38846d5a6b94c3570fd756 \
++                    file://src/idn.c;endline=20;md5=e7bc77cab53f7367b7e381aaa546e76c"
+ PR = "r0"
+ 
+ inherit pkgconfig autotools gettext
+ 
+ SRC_URI = "${GNU_MIRROR}/libidn/${P}.tar.gz"
+ 
+-SRC_URI[md5sum] = "a45142126d28162014c995f969bdb5a8"
+-SRC_URI[sha256sum] = "8ed2e936b1ae3e30b45b54ca3672deaa83ee0f4d20db5ad83dc1af7222d39f41"
++SRC_URI[md5sum] = "03996d474a696e59fdddbee87fc9519c"
++SRC_URI[sha256sum] = "e1bff472e8dce11064508ef5acbd6ac72371d0028f15c65f4a91ed157bfca8b1"
+ 
+ # command tool is under GPLv3+, while libidn itself is under LGPLv2.1+
+ # so package command into a separate package
+-- 
+1.6.3.3
+
 
