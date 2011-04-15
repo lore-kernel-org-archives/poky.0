@@ -1,19 +1,18 @@
-Return-Path: <sgw@linux.intel.com>
+Return-Path: <dvhart@linux.intel.com>
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B262A4C80509
-	for <poky@yoctoproject.org>; Fri, 15 Apr 2011 13:26:44 -0500 (CDT)
+	by mx1.pokylinux.org (Postfix) with ESMTP id AA8574C800AC
+	for <poky@yoctoproject.org>; Fri, 15 Apr 2011 17:37:52 -0500 (CDT)
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 15 Apr 2011 11:26:44 -0700
+	by orsmga101.jf.intel.com with ESMTP; 15 Apr 2011 15:37:52 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,220,1301900400"; d="scan'208";a="733973918"
-Received: from unknown (HELO [10.255.12.232]) ([10.255.12.232])
-	by orsmga001.jf.intel.com with ESMTP; 15 Apr 2011 11:26:44 -0700
-Message-ID: <4DA88DE3.2050702@linux.intel.com>
-Date: Fri, 15 Apr 2011 11:26:43 -0700
-From: Saul Wold <sgw@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="4.64,221,1301900400"; d="scan'208";a="734072271"
+Received: from unknown (HELO [10.255.12.222]) ([10.255.12.222])
+	by orsmga001.jf.intel.com with ESMTP; 15 Apr 2011 15:37:51 -0700
+Message-ID: <4DA8C8C0.4060403@linux.intel.com>
+Date: Fri, 15 Apr 2011 15:37:52 -0700
+From: Darren Hart <dvhart@linux.intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
+	rv:1.9.2.14) Gecko/20110223 Lightning/1.0b2 Thunderbird/3.1.8
 MIME-Version: 1.0
 To: Paul Eggleton <paul.eggleton@linux.intel.com>
 References: <cover.1302886579.git.paul.eggleton@linux.intel.com>
@@ -32,46 +31,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Apr 2011 18:26:44 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Fri, 15 Apr 2011 22:37:52 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 7bit
 
+
+
 On 04/15/2011 10:00 AM, Paul Eggleton wrote:
-> From: Paul Eggleton<paul.eggleton@linux.intel.com>
->
+> From: Paul Eggleton <paul.eggleton@linux.intel.com>
+> 
 > Avoids manual configuration of the BeagleBoard xM's ethernet port (which
 > shows up as usb0).
->
+> 
 > Fixes [YOCTO #930]
->
-> Signed-off-by: Paul Eggleton<paul.eggleton@linux.intel.com>
+> 
+> Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
 > ---
->   .../netbase/netbase-4.45/beagleboard/interfaces    |   27 ++++++++++++++++++++
->   1 files changed, 27 insertions(+), 0 deletions(-)
->   create mode 100644 meta/recipes-core/netbase/netbase-4.45/beagleboard/interfaces
->
-I know this time would come!
-
-So this is up for discussion in a big way!
-
-There was some initial discussion at ELC this last week about what goes 
-where and how layers are going to work moving forward.  I know that we 
-are committed to the qemu* machines in oe-core (meta), and that 
-currently meta-yocto contains a set of core HW (beagleboard among them), 
-so the question then is should the HW specific stuff, such as this patch 
-move to meta-yocto or some other layer?  There are a couple other 
-recipes such as x-load and formfactor that contain HW specific files.
-
-I believe and others will have to confirm this, that some distros may 
-want to use these core files, but not via meta-yocto as a layer, or do 
-those distros have these files modified differently (ie, not just 
-copies, which would be bad).
-
-This is all food for thought.
-
-Sau!
-
-
+>  .../netbase/netbase-4.45/beagleboard/interfaces    |   27 ++++++++++++++++++++
+>  1 files changed, 27 insertions(+), 0 deletions(-)
+>  create mode 100644 meta/recipes-core/netbase/netbase-4.45/beagleboard/interfaces
+> 
 > diff --git a/meta/recipes-core/netbase/netbase-4.45/beagleboard/interfaces b/meta/recipes-core/netbase/netbase-4.45/beagleboard/interfaces
 > new file mode 100644
 > index 0000000..b6935c1
@@ -79,7 +58,7 @@ Sau!
 > +++ b/meta/recipes-core/netbase/netbase-4.45/beagleboard/interfaces
 > @@ -0,0 +1,27 @@
 > +# /etc/network/interfaces -- configuration file for ifup(8), ifdown(8)
-> +
+> + 
 > +# The loopback interface
 > +auto lo
 > +iface lo inet loopback
@@ -97,6 +76,13 @@ Sau!
 > +auto eth0
 > +iface eth0 inet dhcp
 > +iface eth1 inet dhcp
+
+Since we're adding a this specifically for the beagleboard, I don't see
+the value of adding eth0 or eth1. I'm not sure about wifi and bluetooth,
+I believe there are modules out there.
+
+I suppose it doesn't hurt to have them there as examples.
+
 > +
 > +# Ethernet/RNDIS gadget (g_ether) or LAN9514 on BeagleBoard xM
 > +auto usb0
@@ -106,4 +92,8 @@ Sau!
 > +iface bnep0 inet dhcp
 > +
 
+-- 
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
