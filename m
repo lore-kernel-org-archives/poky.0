@@ -1,24 +1,24 @@
 Return-Path: <qing.he@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 3FCF14C80ACD
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 7B26A4C80B74
 	for <poky@yoctoproject.org>; Fri, 15 Apr 2011 05:23:53 -0500 (CDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 15 Apr 2011 03:23:52 -0700
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 15 Apr 2011 03:23:53 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,217,1301900400"; d="scan'208";a="679464866"
+X-IronPort-AV: E=Sophos;i="4.64,217,1301900400"; d="scan'208";a="733787660"
 Received: from qhe2-db.sh.intel.com ([10.239.13.48])
-	by fmsmga002.fm.intel.com with ESMTP; 15 Apr 2011 03:23:52 -0700
+	by orsmga001.jf.intel.com with ESMTP; 15 Apr 2011 03:23:52 -0700
 Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
 	(envelope-from <qing.he@intel.com>)
-	id 1QAg4a-0006GQ-Gm; Fri, 15 Apr 2011 18:16:20 +0800
-Message-Id: <8a1fc420a35f9abea02904bf159ac292a9a053e1.1302862307.git.qing.he@intel.com>
+	id 1QAg4a-0006Gb-J2; Fri, 15 Apr 2011 18:16:20 +0800
+Message-Id: <85dffd92cdfe11471122875109375fbff9381c6e.1302862307.git.qing.he@intel.com>
 In-Reply-To: <cover.1302862307.git.qing.he@intel.com>
 References: <cover.1302862307.git.qing.he@intel.com>
-Old-Date: Fri, 15 Apr 2011 13:32:49 +0800
+Old-Date: Fri, 15 Apr 2011 15:30:32 +0800
 Date: Fri, 15 Apr 2011 18:16:20 +0800
 To: poky@yoctoproject.org
 From: Qing He <qing.he@intel.com>
-Subject: [PATCH 1/4] libexif: upgrade to 0.6.20
+Subject: [PATCH 2/4] libxml2: upgrade to version 2.7.8
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,39 +34,54 @@ X-List-Received-Date: Fri, 15 Apr 2011 10:23:53 -0000
 
 From: Qing He <qing.he@intel.com>
 
-[YOCTO #977]
+[YOCTO #978]
 
-fixes CVE-2007-6351, CVE-2007-6352, CVE-2009-3895
+from 2.7.7
+fixes CVE-2010-4008
 
 Signed-off-by: Qing He <qing.he@intel.com>
 ---
- .../{libexif_0.6.16.bb => libexif_0.6.20.bb}       |    6 +++---
- 1 files changed, 3 insertions(+), 3 deletions(-)
- rename meta/recipes-support/libexif/{libexif_0.6.16.bb => libexif_0.6.20.bb} (61%)
+ .../recipes-core/libxml/libxml2/libxml-64bit.patch |    2 ++
+ meta/recipes-core/libxml/libxml2_2.7.7.bb          |    6 ------
+ meta/recipes-core/libxml/libxml2_2.7.8.bb          |    6 ++++++
+ 3 files changed, 8 insertions(+), 6 deletions(-)
+ delete mode 100644 meta/recipes-core/libxml/libxml2_2.7.7.bb
+ create mode 100644 meta/recipes-core/libxml/libxml2_2.7.8.bb
 
-diff --git a/meta/recipes-support/libexif/libexif_0.6.16.bb b/meta/recipes-support/libexif/libexif_0.6.20.bb
-similarity index 61%
-rename from meta/recipes-support/libexif/libexif_0.6.16.bb
-rename to meta/recipes-support/libexif/libexif_0.6.20.bb
-index d9d1c5e..f233d3f 100644
---- a/meta/recipes-support/libexif/libexif_0.6.16.bb
-+++ b/meta/recipes-support/libexif/libexif_0.6.20.bb
-@@ -2,12 +2,12 @@ DESCRIPTION = "Library to read the extended image information (EXIF) from JPEG p
- HOMEPAGE = "http://sourceforge.net/projects/libexif"
- SECTION = "libs"
- LICENSE = "LGPLv2.1"
--LIC_FILES_CHKSUM = "file://COPYING;md5=0448d3676bc0de00406af227d341a4d1"
-+LIC_FILES_CHKSUM = "file://COPYING;md5=243b725d71bb5df4a1e5920b344b86ad"
- 
- SRC_URI = "${SOURCEFORGE_MIRROR}/libexif/libexif-${PV}.tar.bz2"
- 
--SRC_URI[md5sum] = "deee153b1ded5a944ea05d041d959eca"
--SRC_URI[sha256sum] = "db6885d5e40e3a273ff8bb9708ab739c8ace3c5abdd75509eec8ea31a31aac43"
-+SRC_URI[md5sum] = "19844ce6b5d075af16f0d45de1e8a6a3"
-+SRC_URI[sha256sum] = "a772d20bd8fb9802d7f0d70fde6ac8872f87d0c66c52b0d14026dafcaa83d715"
- 
- inherit autotools gettext
- 
+diff --git a/meta/recipes-core/libxml/libxml2/libxml-64bit.patch b/meta/recipes-core/libxml/libxml2/libxml-64bit.patch
+index fcb7d34..1147017 100644
+--- a/meta/recipes-core/libxml/libxml2/libxml-64bit.patch
++++ b/meta/recipes-core/libxml/libxml2/libxml-64bit.patch
+@@ -1,3 +1,5 @@
++Upstream-Status: Backport [from debian: bugs.debian.org/439843]
++
+ ---
+  libxml.h |    3 +++
+  1 file changed, 3 insertions(+)
+diff --git a/meta/recipes-core/libxml/libxml2_2.7.7.bb b/meta/recipes-core/libxml/libxml2_2.7.7.bb
+deleted file mode 100644
+index 91f4ceb..0000000
+--- a/meta/recipes-core/libxml/libxml2_2.7.7.bb
++++ /dev/null
+@@ -1,6 +0,0 @@
+-require libxml2.inc
+-
+-PR = "r4"
+-
+-SRC_URI[md5sum] = "9abc9959823ca9ff904f1fbcf21df066"
+-SRC_URI[sha256sum] = "af5b781418ba4fff556fa43c50086658ea8a2f31909c2b625c2ce913a1d9eb68"
+diff --git a/meta/recipes-core/libxml/libxml2_2.7.8.bb b/meta/recipes-core/libxml/libxml2_2.7.8.bb
+new file mode 100644
+index 0000000..616fd09
+--- /dev/null
++++ b/meta/recipes-core/libxml/libxml2_2.7.8.bb
+@@ -0,0 +1,6 @@
++require libxml2.inc
++
++PR = "r0"
++
++SRC_URI[md5sum] = "8127a65e8c3b08856093099b52599c86"
++SRC_URI[sha256sum] = "cda23bc9ebd26474ca8f3d67e7d1c4a1f1e7106364b690d822e009fdc3c417ec"
 -- 
 1.7.0
 
