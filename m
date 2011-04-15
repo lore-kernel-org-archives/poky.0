@@ -1,22 +1,33 @@
-Return-Path: <lei.mei@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7F29B4C810CE
-	for <poky@yoctoproject.org>; Fri, 15 Apr 2011 09:18:12 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 15 Apr 2011 07:18:12 -0700
+Return-Path: <scott.m.rifenbark@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 590724C810A9
+	for <poky@yoctoproject.org>; Fri, 15 Apr 2011 09:18:20 -0500 (CDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 15 Apr 2011 07:18:19 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,219,1301900400"; d="scan'208";a="419907205"
-Received: from daocaoren-desktop.sh.intel.com (HELO localhost)
-	([10.239.47.161])
-	by azsmga001.ch.intel.com with ESMTP; 15 Apr 2011 07:18:02 -0700
-Message-Id: <329d8c0b2d5d4be78aed4cb1303d91acbf5ad236.1302856116.git.lei.mei@intel.com>
-In-Reply-To: <cover.1302856115.git.lei.mei@intel.com>
-References: <cover.1302856115.git.lei.mei@intel.com>
-Old-Date: Thu, 14 Apr 2011 17:29:37 +0800
-To: poky@yoctoproject.org
-CC: 
-From: Mei Lei <lei.mei@intel.com>
-Subject: [PATCH 5/5] distro_tracking_fields.inc: update e2fsprogs, libidn, libffi, psmisc information
+X-IronPort-AV: E=Sophos;i="4.64,219,1301900400"; d="scan'208";a="679542709"
+Received: from orsmsx604.amr.corp.intel.com ([10.22.226.87])
+	by fmsmga002.fm.intel.com with ESMTP; 15 Apr 2011 07:18:19 -0700
+Received: from orsmsx504.amr.corp.intel.com ([10.22.226.207]) by
+	orsmsx604.amr.corp.intel.com ([10.250.113.17]) with mapi;
+	Fri, 15 Apr 2011 07:18:19 -0700
+From: "Rifenbark, Scott M" <scott.m.rifenbark@intel.com>
+To: Colin Walters <walters@verbum.org>
+Date: Fri, 15 Apr 2011 07:18:17 -0700
+Thread-Topic: [poky] [patch] yocto-project-qs.xml: Add a title
+Thread-Index: Acv7dSkqShW5ROJSQIerzlmVbJ3+bwAAiB6Q
+Message-ID: <DE8BA75F34A0404282AC5E15F691BC765118FB08@orsmsx504.amr.corp.intel.com>
+References: <BANLkTik2tXVqLPZUf9kf7WW6hrNpVbFWEQ@mail.gmail.com>
+	<DE8BA75F34A0404282AC5E15F691BC765118FAE8@orsmsx504.amr.corp.intel.com>
+	<BANLkTinj1RmuowBwU-q4KqWxico6jyJmUg@mail.gmail.com>
+In-Reply-To: <BANLkTinj1RmuowBwU-q4KqWxico6jyJmUg@mail.gmail.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
+MIME-Version: 1.0
+Cc: poky <poky@yoctoproject.org>
+Subject: Re: [patch] yocto-project-qs.xml: Add a title
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,84 +39,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-Date: Fri, 15 Apr 2011 14:18:12 -0000
-X-Original-Date: 五, 15  4月 2011 22:22:50 +0800
-X-List-Received-Date: Fri, 15 Apr 2011 14:18:12 -0000
+X-List-Received-Date: Fri, 15 Apr 2011 14:18:20 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-From: Mei Lei <lei.mei@intel.com>
-
-Signed-off-by: Mei Lei <lei.mei@intel.com>
----
- .../conf/distro/include/distro_tracking_fields.inc |   27 ++++++++++---------
- 1 files changed, 14 insertions(+), 13 deletions(-)
-
-diff --git a/meta/conf/distro/include/distro_tracking_fields.inc b/meta/conf/distro/include/distro_tracking_fields.inc
-index 8469e96..0d730d0 100644
---- a/meta/conf/distro/include/distro_tracking_fields.inc
-+++ b/meta/conf/distro/include/distro_tracking_fields.inc
-@@ -266,12 +266,12 @@ RECIPE_MAINTAINER_pn-libpng = "Kevin Tian <kevin.tian@intel.com>"
- 
- RECIPE_STATUS_pn-libidn = "green"
- RECIPE_DEPENDENCY_CHECK_pn-libidn = "not done"
--RECIPE_LATEST_VERSION_pn-libidn = "1.19"
-+RECIPE_LATEST_VERSION_pn-libidn = "1.20"
- RECIPE_INTEL_SECTION_pn-libidn = "base libs"
--RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-libidn = "3 months"
--RECIPE_LATEST_RELEASE_DATE_pn-libidn = "05/2010"
-+RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-libidn = "9 months"
-+RECIPE_LATEST_RELEASE_DATE_pn-libidn = "03/2011"
- RECIPE_COMMENTS_pn-libidn = ""
--RECIPE_LAST_UPDATE_pn-libidn = "Jul 20, 2010"
-+RECIPE_LAST_UPDATE_pn-libidn = "Apr 13, 2011"
- RECIPE_MAINTAINER_pn-libidn = "Kevin Tian <kevin.tian@intel.com>"
- 
- RECIPE_STATUS_pn-glibc = "green"
-@@ -615,15 +615,15 @@ RECIPE_MAINTAINER_pn-dbus-wait= "Kevin Tian <kevin.tian@intel.com>"
- 
- RECIPE_STATUS_pn-e2fsprogs = "yellow" # patch comment
- RECIPE_DEPENDENCY_CHECK_pn-e2fsprogs = "not done"
--RECIPE_LATEST_VERSION_pn-e2fsprogs = "1.41.12"
-+RECIPE_LATEST_VERSION_pn-e2fsprogs = "1.41.14"
- RECIPE_PATCH_pn-e2fsprogs+quotefix = "to be pushed upstream"
- RECIPE_PATCH_pn-e2fsprogs+mkdir = "to be pushed upstream; no comment; MKINSTALLDIRS is not supported in new version autotool"
- RECIPE_PATCH_pn-e2fsprogs+acinclude = "to be pushed upstream;"
- RECIPE_INTEL_SECTION_pn-e2fsprogs = "base utils"
--RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-e2fsprogs = "2 months"
--RECIPE_LATEST_RELEASE_DATE_pn-e2fsprogs = "05/2010"
-+RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-e2fsprogs = "9 days"
-+RECIPE_LATEST_RELEASE_DATE_pn-e2fsprogs = "12/2010"
- RECIPE_COMMENTS_pn-e2fsprogs = ""
--RECIPE_LAST_UPDATE_pn-e2fsprogs = "Jun 1, 2010"
-+RECIPE_LAST_UPDATE_pn-e2fsprogs = "Apr 13, 2011"
- RECIPE_MAINTAINER_pn-e2fsprogs = "Kevin Tian <kevin.tian@intel.com>"
- 
- RECIPE_STATUS_pn-initramfs-boot = "green"
-@@ -1115,10 +1115,10 @@ DISTRO_PN_ALIAS_pn-libatomics-ops = "Meego=libatomic-ops Debian=libatomic-ops Ub
- RECIPE_LAST_UPDATE_pn-libatomics-ops = "Nov 22, 2010"
- RECIPE_MAINTAINER_pn-libatomics-ops = "Scott Garman <scott.a.garman@intel.com>"
- 
--RECIPE_STATUS_pn-libffi  = "red"
--RECIPE_LATEST_VERSION_pn-libffi  = "3.0.9"
--RECIPE_LAST_UPDATE_pn-libffi = "Oct 15, 2010"
--RECIPE_MAINTAINER_pn-libffi  = "Kevin Tian <kevin.tian@intel.com>"
-+RECIPE_STATUS_pn-libffi = "red"
-+RECIPE_LATEST_VERSION_pn-libffi = "3.0.10rc0"
-+RECIPE_LAST_UPDATE_pn-libffi = "Apr 13, 2011"
-+RECIPE_MAINTAINER_pn-libffi = "Kevin Tian <kevin.tian@intel.com>"
- 
- RECIPE_STATUS_pn-libgdbus = "green"
- RECIPE_DEPENDENCY_CHECK_pn-libgdbus = "not done"
-@@ -1274,7 +1274,8 @@ RECIPE_MAINTAINER_pn-pm-utils = "Dongxiao Xu <dongxiao.xu@intel.com>"
- 
- RECIPE_STATUS_pn-psmisc = "red"
- RECIPE_LATEST_VERSION_pn-psmisc = "22.13"
--RECIPE_LAST_UPDATE_pn-psmisc = "Jan 18, 2008"
-+RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-pm-utils = "58 days"
-+RECIPE_LAST_UPDATE_pn-psmisc = "Apr 13, 2011"
- RECIPE_MAINTAINER_pn-psmisc = "Kevin Tian <kevin.tian@intel.com>"
- 
- RECIPE_STATUS_pn-boost = "red"
--- 
-1.6.3.3
-
+Q29saW4sIA0KDQpTbyBJIGFtIGxvb2tpbmcgYXQgdGhpcyBhIGJpdCBjbG9zZXIgYW5kIGFsbCBv
+dXIgWVAgbWFudWFscyBoYXZlIHRoZSBIVExNIGNvZGUgJzx0aXRsZT48L3RpdGxlPicgZ2VuZXJh
+dGVkLiAgSXQgaXMgbm90IGp1c3QgdGhlIHF1aWNrIHN0YXJ0LiAgQWxzbywgd2hlbiB3ZSAiTWFr
+ZSIgdGhlIG1hbnVhbHMgdGhlIEhUTUwgY29kZSBpcyBnZW5lcmF0ZWQgZnJvbSBEb2NCb29rIHNv
+dXJjZS4gIFRoZSBIVE1MIGNvZGUgaXMgdGhlbiBpbmNsdWRlZCBpbnRvIHRoZSB0YXJiYWxsIGZv
+ciB0aGUgbWFudWFsIGFuZCBlbmRzIHVwIGluIHRoZSBnaXQgcmVwb3NpdG9yeS4gIFNvIHRvIGNy
+ZWF0ZSBIVE1MIGNvZGUgdGhhdCBoYXMgc29tZXRoaW5nIGJldHdlZW4gdGhlIHRpdGxlIHRhZ3Mg
+SSBhbSBnb2luZyB0byBoYXZlIHRvIGZpZ3VyZSBvdXQgaG93IHRvIGRvIHRoYXQgaW4gdGhlIERv
+Y0Jvb2sgc291cmNlIHNvIHdoZW4gdGhlIG1hbnVhbCBpcyBnZW5lcmF0ZWQgdGhlIEhUTUwgY29k
+ZSB3aWxsIGhhdmUgaXQgYXQgdGhhdCBwb2ludC4gIEkgd2lsbCBoYXZlIHRvIGZ1cnRoZXIgaW52
+ZXN0aWdhdGUgdGhpcy4gDQoNClNjb3R0Ug0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0K
+RnJvbTogY2d3YWx0ZXJzQGdtYWlsLmNvbSBbbWFpbHRvOmNnd2FsdGVyc0BnbWFpbC5jb21dIE9u
+IEJlaGFsZiBPZiBDb2xpbiBXYWx0ZXJzDQpTZW50OiBGcmlkYXksIEFwcmlsIDE1LCAyMDExIDY6
+NTggQU0NClRvOiBSaWZlbmJhcmssIFNjb3R0IE0NCkNjOiBwb2t5DQpTdWJqZWN0OiBSZTogW3Bv
+a3ldIFtwYXRjaF0geW9jdG8tcHJvamVjdC1xcy54bWw6IEFkZCBhIHRpdGxlDQoNCk9uIEZyaSwg
+QXByIDE1LCAyMDExIGF0IDk6NTUgQU0sIFJpZmVuYmFyaywgU2NvdHQgTQ0KPHNjb3R0Lm0ucmlm
+ZW5iYXJrQGludGVsLmNvbT4gd3JvdGU6DQo+IEhpIENvbGluLA0KPg0KPiBUaGUgUXVpY2sgU3Rh
+cnQgaGFzIGEgZGlmZmVyZW50IGZvcm1hdCB0aGFuIHRoZSBvdGhlciBZb2N0byBQcm9qZWN0IG1h
+bnVhbHMuIMKgTmFtZWx5LCB0aGVyZSBpcyBubyB0aXRsZSBwYWdlIG9yIGxhcmdlIHRpdGxlLiDC
+oFdlIGRpZCB0aGlzIHB1cnBvc2UuIMKgSW4gb3JkZXIgdG8gYWNjb21wbGlzaCBpdCB3aXRoaW4g
+b3VyIG1hbnVhbCBnZW5lcmF0aW9uIHNjaGVtZSBJIGhhZCB0byBoYWNrIHRoZSBEb2NCb29rIGNv
+ZGUgYSBiaXQsIHdoaWNoIGlzIHdoeSB0aGUgJzx0aXRsZT48L3RpdGxlPicgbGFtZSBjb2RlIGFw
+cGVhcnMuIMKgSSBjYW4ndCByZWFsbHkgb2ZmZXIgYW55dGhpbmcgYnV0IGFuIGV4cGxhbmF0aW9u
+IGF0IHRoaXMgcG9pbnQgZm9yIHRoZSB3YXkgdGhlIGZyb250IG1hdHRlciBvZiB0aGUgUXVpY2sg
+U3RhcnQgaXMgZGVzaWduZWQuDQoNCk9oLCBobSwgY2FuJ3Qgc2F5IEkgdW5kZXJzdGFuZCBleGFj
+dGx5LCBidXQgLSBjYW4gd2UgZG8gYSBxdWljayBoYWNrDQp0byBmaXh1cCB0aGUgSFRNTCBhZnRl
+ciBpdCdzIGdlbmVyYXRlZCB0aGVuPw0K
 
