@@ -1,24 +1,23 @@
-Return-Path: <Xiaofeng.Yan@windriver.com>
+Return-Path: <Jingdong.Lu@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7F3324C80BBC
-	for <poky@yoctoproject.org>; Fri, 15 Apr 2011 03:38:56 -0500 (CDT)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8BB684C80AC9
+	for <poky@yoctoproject.org>; Fri, 15 Apr 2011 04:31:33 -0500 (CDT)
 Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p3F8cuIg009192
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p3F9VWVu017509
 	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Fri, 15 Apr 2011 01:38:56 -0700 (PDT)
-Received: from localhost (128.224.162.28) by ALA-HCA.corp.ad.wrs.com
+	for <poky@yoctoproject.org>; Fri, 15 Apr 2011 02:31:33 -0700 (PDT)
+Received: from localhost (128.224.162.205) by ALA-HCA.corp.ad.wrs.com
 	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Fri, 15 Apr 2011 01:38:55 -0700
-Message-ID: <dd1d4345d7d5761f8fd3028d009335a4449a2bc4.1302855555.git.xiaofeng.yan@windriver.com>
-In-Reply-To: <cover.1302855555.git.xiaofeng.yan@windriver.com>
-References: <cover.1302855555.git.xiaofeng.yan@windriver.com>
-Old-Date: Fri, 15 Apr 2011 16:09:28 +0800
-Date: Fri, 15 Apr 2011 16:27:44 +0800
+	Fri, 15 Apr 2011 02:31:32 -0700
+Message-ID: <cover.1302597896.git.jingdong.lu@windriver.com>
+Old-Date: Tue, 12 Apr 2011 16:44:56 +0800
+Date: Fri, 15 Apr 2011 17:31:29 +0800
 To: <poky@yoctoproject.org>
-From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+CC: 
+From: Jingdong Lu <jingdong.lu@windriver.com>
 MIME-Version: 1.0
-X-Originating-IP: [128.224.162.28]
-Subject: [PATCH 1/1] task-poky-lsb.bb:Add locale resoures which is needed by LSB Test Suite
+X-Originating-IP: [128.224.162.205]
+Subject: [PATCH 0/2] Fix bug 794 and 796
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,43 +29,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Apr 2011 08:38:56 -0000
+X-List-Received-Date: Fri, 15 Apr 2011 09:31:33 -0000
 Content-Type: text/plain
 
-From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+From: Jingdong Lu <jingdong.lu@windriver.com>
 
-Owning to absent locale resources in lsb-image, I add them to task-poky-lsb.bb
+Fix bug 794: Add "largefile" feature for LSB distro and make perl test passed.
+Fix bug 796: Add "--enable-clocale=gun" option for gcc configuration explicitly for LSB distro. 
 
-Signed-off-by: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: jingdonglu/distro
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=jingdonglu/distro
+
+Thanks,
+    Jingdong Lu <jingdong.lu@windriver.com>
 ---
- meta/recipes-extended/tasks/task-poky-lsb.bb |   10 ++++------
- 1 files changed, 4 insertions(+), 6 deletions(-)
 
-diff --git a/meta/recipes-extended/tasks/task-poky-lsb.bb b/meta/recipes-extended/tasks/task-poky-lsb.bb
-index 6fea613..71a683a 100644
---- a/meta/recipes-extended/tasks/task-poky-lsb.bb
-+++ b/meta/recipes-extended/tasks/task-poky-lsb.bb
-@@ -186,15 +186,13 @@ RDEPENDS_task-poky-lsb-runtime-add = "\
-     liburi-perl \
-     libxml-parser-perl \
-     libxml-perl \
-+    eglibc-localedatas \
-+    eglibc-gconvs \
-+    eglibc-charmaps \
-+    eglibc-binaries \
-     eglibc-localedata-posix \
-     eglibc-extra-nss \
-     eglibc-pcprofile \
-     eglibc-pic \
-     eglibc-utils \
- "
--
--#    eglibc-localedatas \
--#    eglibc-gconvs \
--#    eglibc-charmaps \
--#    eglibc-binarys \
--#
--- 
-1.7.0.4
+
+Jingdong Lu (2):
+  gcc: Add "--enable-clocale=gnu" option for LSB.
+  poky-lsb: Add "largefile" feature for LSB distro.
+
+ meta-yocto/conf/distro/poky-lsb.conf           |    2 +-
+ meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb |    3 ++-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
 
 
