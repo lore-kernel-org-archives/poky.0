@@ -1,24 +1,24 @@
-Return-Path: <koen@dominion.thruhere.net>
-Received: from mail-fx0-f48.google.com (mail-fx0-f48.google.com
-	[209.85.161.48])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 220E94C80AC9
-	for <poky@yoctoproject.org>; Fri, 15 Apr 2011 04:36:23 -0500 (CDT)
-Received: by fxm7 with SMTP id 7so2993669fxm.35
-	for <poky@yoctoproject.org>; Fri, 15 Apr 2011 02:36:23 -0700 (PDT)
-Received: by 10.223.58.72 with SMTP id f8mr1848377fah.137.1302860183016;
-	Fri, 15 Apr 2011 02:36:23 -0700 (PDT)
-Received: from [10.87.55.226] ([80.187.154.98])
-	by mx.google.com with ESMTPS id n1sm742990fam.40.2011.04.15.02.36.20
-	(version=TLSv1/SSLv3 cipher=OTHER);
-	Fri, 15 Apr 2011 02:36:22 -0700 (PDT)
-References: <F3D705F8-F925-42C6-8719-2E09CE9CB93A@beagleboard.org>
-From: Koen Kooi <koen@dominion.thruhere.net>
-X-Mailer: iPhone Mail (8G4)
-Message-Id: <F78663DB-D5CA-45ED-8B41-60FFEF864744@dominion.thruhere.net>
-Date: Fri, 15 Apr 2011 11:36:09 +0200
-To: Poky Project <poky@yoctoproject.org>
-Mime-Version: 1.0 (iPhone Mail 8G4)
-Subject: [PATCH] setuptools: Make options for setup.py more flexible
+Return-Path: <qing.he@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 3FCF14C80ACD
+	for <poky@yoctoproject.org>; Fri, 15 Apr 2011 05:23:53 -0500 (CDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 15 Apr 2011 03:23:52 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.64,217,1301900400"; d="scan'208";a="679464866"
+Received: from qhe2-db.sh.intel.com ([10.239.13.48])
+	by fmsmga002.fm.intel.com with ESMTP; 15 Apr 2011 03:23:52 -0700
+Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
+	(envelope-from <qing.he@intel.com>)
+	id 1QAg4a-0006GQ-Gm; Fri, 15 Apr 2011 18:16:20 +0800
+Message-Id: <8a1fc420a35f9abea02904bf159ac292a9a053e1.1302862307.git.qing.he@intel.com>
+In-Reply-To: <cover.1302862307.git.qing.he@intel.com>
+References: <cover.1302862307.git.qing.he@intel.com>
+Old-Date: Fri, 15 Apr 2011 13:32:49 +0800
+Date: Fri, 15 Apr 2011 18:16:20 +0800
+To: poky@yoctoproject.org
+From: Qing He <qing.he@intel.com>
+Subject: [PATCH 1/4] libexif: upgrade to 0.6.20
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,96 +30,44 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Apr 2011 09:36:24 -0000
-Content-Type: multipart/alternative;
-	boundary=Apple-Mail-1-282947601
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 15 Apr 2011 10:23:53 -0000
 
---Apple-Mail-1-282947601
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;
-	charset=us-ascii
+From: Qing He <qing.he@intel.com>
+
+[YOCTO #977]
+
+fixes CVE-2007-6351, CVE-2007-6352, CVE-2009-3895
+
+Signed-off-by: Qing He <qing.he@intel.com>
+---
+ .../{libexif_0.6.16.bb => libexif_0.6.20.bb}       |    6 +++---
+ 1 files changed, 3 insertions(+), 3 deletions(-)
+ rename meta/recipes-support/libexif/{libexif_0.6.16.bb => libexif_0.6.20.bb} (61%)
+
+diff --git a/meta/recipes-support/libexif/libexif_0.6.16.bb b/meta/recipes-support/libexif/libexif_0.6.20.bb
+similarity index 61%
+rename from meta/recipes-support/libexif/libexif_0.6.16.bb
+rename to meta/recipes-support/libexif/libexif_0.6.20.bb
+index d9d1c5e..f233d3f 100644
+--- a/meta/recipes-support/libexif/libexif_0.6.16.bb
++++ b/meta/recipes-support/libexif/libexif_0.6.20.bb
+@@ -2,12 +2,12 @@ DESCRIPTION = "Library to read the extended image information (EXIF) from JPEG p
+ HOMEPAGE = "http://sourceforge.net/projects/libexif"
+ SECTION = "libs"
+ LICENSE = "LGPLv2.1"
+-LIC_FILES_CHKSUM = "file://COPYING;md5=0448d3676bc0de00406af227d341a4d1"
++LIC_FILES_CHKSUM = "file://COPYING;md5=243b725d71bb5df4a1e5920b344b86ad"
+ 
+ SRC_URI = "${SOURCEFORGE_MIRROR}/libexif/libexif-${PV}.tar.bz2"
+ 
+-SRC_URI[md5sum] = "deee153b1ded5a944ea05d041d959eca"
+-SRC_URI[sha256sum] = "db6885d5e40e3a273ff8bb9708ab739c8ace3c5abdd75509eec8ea31a31aac43"
++SRC_URI[md5sum] = "19844ce6b5d075af16f0d45de1e8a6a3"
++SRC_URI[sha256sum] = "a772d20bd8fb9802d7f0d70fde6ac8872f87d0c66c52b0d14026dafcaa83d715"
+ 
+ inherit autotools gettext
+ 
+-- 
+1.7.0
 
 
-
-
-Begin doorgestuurd bericht:
-
-> Van: Koen Kooi <koen@beagleboard.org>
-> Datum: 15 april 2011 11:17:11 GMT+02:00
-> Aan: Gary Thomas <gary@mlbassoc.com>
-> Kopie: Poky Project <poky@yoctoproject.org>
-> Onderwerp: Antw.: [poky] [PATCH] setuptools: Make options for setup.py mor=
-e flexible
->=20
-
-> stuff that doesn't know about that option is usually distutils based inste=
-ad of setuptools based. using the wrong one usually results in a broken egg f=
-ile
->=20
-> Op 13 apr. 2011 om 23:17 heeft Gary Thomas <gary@mlbassoc.com> het volgend=
-e geschreven:
->=20
->> The setuptools class uses hard-wired options for 'setup.py' during
->> the install step.  In particular, not all versions of setup.py
->> support the "--single-version-externally-managed" option.  This
->> patch allows for a recipe to easily override these options, while
->> leaving the majority (important) setup options intact.
->>=20
->> --=20
->> ------------------------------------------------------------
->> Gary Thomas                 |  Consulting for the
->> MLB Associates              |    Embedded world
->> ------------------------------------------------------------
->> <0001-Make-options-for-setup.py-more-flexible.patch>
->> _______________________________________________
->> poky mailing list
->> poky@yoctoproject.org
->> https://lists.yoctoproject.org/listinfo/poky
-
---Apple-Mail-1-282947601
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html;
-	charset=utf-8
-
-<html><body bgcolor=3D"#FFFFFF"><div><br><br><br>Begin doorgestuurd bericht:=
-<br><br></div><blockquote type=3D"cite"><div><b>Van:</b> Koen Kooi &lt;<a hr=
-ef=3D"mailto:koen@beagleboard.org">koen@beagleboard.org</a>&gt;<br><b>Datum:=
-</b> 15 april 2011 11:17:11 GMT+02:00<br><b>Aan:</b> Gary Thomas &lt;<a href=
-=3D"mailto:gary@mlbassoc.com">gary@mlbassoc.com</a>&gt;<br><b>Kopie:</b> Pok=
-y Project &lt;<a href=3D"mailto:poky@yoctoproject.org">poky@yoctoproject.org=
-</a>&gt;<br><b>Onderwerp:</b> <b>Antw.: [poky] [PATCH] setuptools: Make opti=
-ons for setup.py more flexible</b><br><br></div></blockquote><div></div><blo=
-ckquote type=3D"cite"><div><span>stuff that doesn't know about that option i=
-s usually distutils based instead of setuptools based. using the wrong one u=
-sually results in a broken egg file</span><br><span></span><br><span>Op 13 a=
-pr. 2011 om 23:17 heeft Gary Thomas &lt;<a href=3D"mailto:gary@mlbassoc.com"=
->gary@mlbassoc.com</a>&gt; het volgende geschreven:</span><br><span></span><=
-br><blockquote type=3D"cite"><span>The setuptools class uses hard-wired opti=
-ons for 'setup.py' during</span><br></blockquote><blockquote type=3D"cite"><=
-span>the install step. &nbsp;In particular, not all versions of setup.py</sp=
-an><br></blockquote><blockquote type=3D"cite"><span>support the "--single-ve=
-rsion-externally-managed" option. &nbsp;This</span><br></blockquote><blockqu=
-ote type=3D"cite"><span>patch allows for a recipe to easily override these o=
-ptions, while</span><br></blockquote><blockquote type=3D"cite"><span>leaving=
- the majority (important) setup options intact.</span><br></blockquote><bloc=
-kquote type=3D"cite"><span></span><br></blockquote><blockquote type=3D"cite"=
-><span>-- </span><br></blockquote><blockquote type=3D"cite"><span>----------=
---------------------------------------------------</span><br></blockquote><b=
-lockquote type=3D"cite"><span>Gary Thomas &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;Consul=
-ting for the</span><br></blockquote><blockquote type=3D"cite"><span>MLB Asso=
-ciates &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;| &nbsp;&nbsp;&nbsp;Embedded world</span><br></blockquote><blockquo=
-te type=3D"cite"><span>-----------------------------------------------------=
--------</span><br></blockquote><blockquote type=3D"cite"><span>&lt;0001-Make=
--options-for-setup.py-more-flexible.patch&gt;</span><br></blockquote><blockq=
-uote type=3D"cite"><span>_______________________________________________</sp=
-an><br></blockquote><blockquote type=3D"cite"><span>poky mailing list</span>=
-<br></blockquote><blockquote type=3D"cite"><span><a href=3D"mailto:poky@yoct=
-oproject.org">poky@yoctoproject.org</a></span><br></blockquote><blockquote t=
-ype=3D"cite"><span><a href=3D"https://lists.yoctoproject.org/listinfo/poky">=
-https://lists.yoctoproject.org/listinfo/poky</a></span><br></blockquote></di=
-v></blockquote></body></html>=
-
---Apple-Mail-1-282947601--
