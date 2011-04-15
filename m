@@ -1,22 +1,22 @@
 Return-Path: <dongxiao.xu@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E9D554C80A7E
-	for <poky@yoctoproject.org>; Fri, 15 Apr 2011 00:36:00 -0500 (CDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 14 Apr 2011 22:36:00 -0700
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 72E564C80ACD
+	for <poky@yoctoproject.org>; Fri, 15 Apr 2011 00:36:02 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 14 Apr 2011 22:36:02 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,216,1301900400"; d="scan'208";a="679366620"
+X-IronPort-AV: E=Sophos;i="4.64,216,1301900400"; d="scan'208";a="733679677"
 Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.20])
-	by fmsmga002.fm.intel.com with ESMTP; 14 Apr 2011 22:36:00 -0700
-Message-Id: <013fe7e3f6577a7546002661ec5b572b2042a1bf.1302845703.git.dongxiao.xu@intel.com>
+	by orsmga001.jf.intel.com with ESMTP; 14 Apr 2011 22:36:01 -0700
+Message-Id: <d1466bc044aad0767fc7179b79d7520d70ac52e0.1302845703.git.dongxiao.xu@intel.com>
 In-Reply-To: <cover.1302845703.git.dongxiao.xu@intel.com>
 References: <cover.1302845703.git.dongxiao.xu@intel.com>
-Old-Date: Wed, 13 Apr 2011 14:20:26 +0800
-Date: Fri, 15 Apr 2011 13:36:54 +0800
+Old-Date: Wed, 13 Apr 2011 16:04:47 +0800
+Date: Fri, 15 Apr 2011 13:36:55 +0800
 To: poky@yoctoproject.org
 CC: 
 From: Dongxiao Xu <dongxiao.xu@intel.com>
-Subject: [PATCH 10/14] telepathy-idle: upgrade to version 0.1.8
+Subject: [PATCH 11/14] telepathy-mission-control: upgrade to version 5.7.9
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,34 +28,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Apr 2011 05:36:01 -0000
+X-List-Received-Date: Fri, 15 Apr 2011 05:36:02 -0000
 
 From: Dongxiao Xu <dongxiao.xu@intel.com>
 
 Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
 ---
- ...pathy-idle_0.1.7.bb => telepathy-idle_0.1.8.bb} |    4 ++--
+ ...5.7.1.bb => telepathy-mission-control_5.7.9.bb} |    4 ++--
  1 files changed, 2 insertions(+), 2 deletions(-)
- rename meta/recipes-connectivity/telepathy/{telepathy-idle_0.1.7.bb => telepathy-idle_0.1.8.bb} (81%)
+ rename meta/recipes-connectivity/telepathy/{telepathy-mission-control_5.7.1.bb => telepathy-mission-control_5.7.9.bb} (92%)
 
-diff --git a/meta/recipes-connectivity/telepathy/telepathy-idle_0.1.7.bb b/meta/recipes-connectivity/telepathy/telepathy-idle_0.1.8.bb
-similarity index 81%
-rename from meta/recipes-connectivity/telepathy/telepathy-idle_0.1.7.bb
-rename to meta/recipes-connectivity/telepathy/telepathy-idle_0.1.8.bb
-index 0ee3ca8..5bd4e28 100644
---- a/meta/recipes-connectivity/telepathy/telepathy-idle_0.1.7.bb
-+++ b/meta/recipes-connectivity/telepathy/telepathy-idle_0.1.8.bb
-@@ -9,8 +9,8 @@ PR = "r0"
+diff --git a/meta/recipes-connectivity/telepathy/telepathy-mission-control_5.7.1.bb b/meta/recipes-connectivity/telepathy/telepathy-mission-control_5.7.9.bb
+similarity index 92%
+rename from meta/recipes-connectivity/telepathy/telepathy-mission-control_5.7.1.bb
+rename to meta/recipes-connectivity/telepathy/telepathy-mission-control_5.7.9.bb
+index f5c2745..7805db6 100644
+--- a/meta/recipes-connectivity/telepathy/telepathy-mission-control_5.7.1.bb
++++ b/meta/recipes-connectivity/telepathy/telepathy-mission-control_5.7.9.bb
+@@ -40,5 +40,5 @@ FILES_libmissioncontrol-dbg = "${libdir}/.debug/libmissioncontrol.so.*"
+ FILES_libmissioncontrol-config-dbg = "${libdir}/.debug/libmissioncontrol-config.so.*"
+ FILES_libmissioncontrol-server-dbg = "${libdir}/.debug/libmissioncontrol-server.so.*"
  
- SRC_URI = "http://telepathy.freedesktop.org/releases/${BPN}/${P}.tar.gz"
- 
--SRC_URI[md5sum] = "5ee3aa5c6e1112922b11711e6a209331"
--SRC_URI[sha256sum] = "b65df4f8ebdf1039e1f1e406f53cc7b6106fab6c4d8e784e360709f8d85df0c3"
-+SRC_URI[md5sum] = "82f5eafa07df5e1abc785061143bbfd2"
-+SRC_URI[sha256sum] = "384119cc64022626b6f51aaaef605abf248602d8fae25baff82762a097f20fe9"
- 
- inherit autotools pkgconfig
- 
+-SRC_URI[md5sum] = "9688a3f75c080eaa2dbf6b4d75876dc9"
+-SRC_URI[sha256sum] = "c58f07ee801b023bc5d5a8ec0fce49058a0372b6727e6516fb56d100dacd07fe"
++SRC_URI[md5sum] = "df7e63d857676fab9ec2261cffe5eb4a"
++SRC_URI[sha256sum] = "bc430238d2fb6663d8376702a43251000a75b741ab55af88006cbdb37d8cc086"
 -- 
 1.7.1
 
