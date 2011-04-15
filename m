@@ -1,46 +1,25 @@
-Return-Path: <madison@cisco.com>
-Received: from sj-iport-1.cisco.com (sj-iport-1.cisco.com [171.71.176.70])
-	by mx1.pokylinux.org (Postfix) with ESMTP id BA0F54C80AC6
-	for <poky@yoctoproject.org>; Thu, 14 Apr 2011 18:01:31 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=madison@cisco.com;
-	x-dkim-adsp=none (insecure policy)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-	d=cisco.com; i=madison@cisco.com; l=1184; q=dns/txt;
-	s=iport; t=1302822091; x=1304031691;
-	h=date:subject:from:to:message-id:in-reply-to:mime-version:
-	content-transfer-encoding;
-	bh=qdw53X73XDvoJh4fmHVWfhEm5+aF63apiTwOU8Jtags=;
-	b=Xy4qilRIgiZMI+eRVyOtzx9sotHuGXpeH0Vzl7PzTAIOCnz7hWCN59d6
-	RrXPVFmnfezlpIkXDtM1NCO7ZeTxti9bOvGEKyQKmCjI4voJN3IzdGf7w
-	TRhORb9APDpf8fnio4Sr6dahtTs7u73w94z6+R/D4S3b0gjfUtiQJ9Nlr A=;
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-Anti-Spam-Result: Ah0FAJV8p02rRDoJ/2dsb2JhbAClegJ3iG+eMpx+hW4EhVqIFYN6hXQ
-X-IronPort-AV: E=Sophos;i="4.64,214,1301875200"; d="scan'208";a="430410636"
-Received: from mtv-core-4.cisco.com ([171.68.58.9])
-	by sj-iport-1.cisco.com with ESMTP; 14 Apr 2011 23:00:49 +0000
-Received: from xbh-sjc-231.amer.cisco.com (xbh-sjc-231.cisco.com
-	[128.107.191.100])
-	by mtv-core-4.cisco.com (8.14.3/8.14.3) with ESMTP id p3EN0ntV021799;
-	Thu, 14 Apr 2011 23:00:49 GMT
-Received: from xmb-sjc-217.amer.cisco.com ([171.70.151.175]) by
-	xbh-sjc-231.amer.cisco.com with Microsoft SMTPSVC(6.0.3790.4675); 
-	Thu, 14 Apr 2011 16:00:49 -0700
-Received: from 128.107.159.176 ([128.107.159.176]) by
-	xmb-sjc-217.amer.cisco.com ([171.70.151.175]) with Microsoft
-	Exchange Server HTTP-DAV ; Thu, 14 Apr 2011 23:00:48 +0000
-User-Agent: Microsoft-Entourage/12.28.0.101117
-Date: Thu, 14 Apr 2011 16:00:35 -0700
-From: Matt Madison <madison@cisco.com>
-To: Joshua Lock <josh@linux.intel.com>, Poky Mailer <poky@yoctoproject.org>
-Message-ID: <C9CCCAA3.415A9%madison@cisco.com>
-Thread-Topic: [poky] Distro policy ?
-Thread-Index: Acv698NCHDYePZAnnUmkHGawEI2EkA==
-In-Reply-To: <1302817417.8711.2.camel@scimitar>
-Mime-version: 1.0
-X-OriginalArrivalTime: 14 Apr 2011 23:00:49.0517 (UTC)
-	FILETIME=[CBEA09D0:01CBFAF7]
-Subject: Re: Distro policy ?
+Return-Path: <edwin.zhai@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2AFEB4C80A7E
+	for <poky@yoctoproject.org>; Thu, 14 Apr 2011 20:04:20 -0500 (CDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 14 Apr 2011 18:04:19 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.64,214,1301900400"; d="scan'208";a="909808246"
+Received: from shxpwgzhai1a.ccr.corp.intel.com (HELO [10.239.48.130])
+	([10.239.48.130])
+	by fmsmga001.fm.intel.com with ESMTP; 14 Apr 2011 18:04:19 -0700
+Message-ID: <4DA79992.9090508@intel.com>
+Date: Fri, 15 Apr 2011 09:04:18 +0800
+From: "Zhai, Edwin" <edwin.zhai@intel.com>
+User-Agent: Thunderbird 2.0.0.17 (Windows/20080914)
+MIME-Version: 1.0
+To: "Wold, Saul" <saul.wold@intel.com>
+References: <cover.1302739788.git.edwin.zhai@intel.com>
+	<4DA732C8.4070705@intel.com>
+In-Reply-To: <4DA732C8.4070705@intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/9] [PULL] UX/X apps upgrade, edwin, Apr 13, 2011
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -52,43 +31,107 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Apr 2011 23:01:32 -0000
-Content-type: text/plain;
-	charset="US-ASCII"
-Content-transfer-encoding: 7bit
-
-How about when it's the other way round -- you need to modify just the .inc
-for your layer, and not the recipes that require/include them?  Should all
-recipes in the core be changed to use the path name syntax to enable that?
-
-Thanks,
--Matt
+X-List-Received-Date: Fri, 15 Apr 2011 01:04:20 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
-On 4/14/11 14:43 , "Joshua Lock" <josh@linux.intel.com> wrote:
 
-> On Thu, 2011-04-14 at 21:44 +0200, Wolfgang Denk wrote:
->> HI,
->> 
->> we're trying to build our own distribution based on Yocto 1.0.  We
->> would like to push all modifications / extensions and our distro stuff
->> upstream into the mainline repository, but we are not sure what is the
->> best way to do this:
->> 
->> So far we have put our distro-related changes into a separate layer
->> but it seems that it was not so good idea: it looks like bitbake
->> can't include files from one layer to another and we have to copy
->> includes even if we don't want to change them.
-> 
-> You can you just have to use a path from the top of the BBPATH entry for
-> the layer you're using, so in our meta-demo layer I've used entries
-> like:
-> 
-> require recipes-graphics/clutter/clutter.inc
-> 
-> to use an inc file from meta in Poky.
-> 
-> Cheers,
-> Joshua
+Wold, Saul wrote:
+>
+> On 04/13/2011 05:13 PM, Zhai Edwin wrote:
+> > From: Zhai Edwin<edwin.zhai@intel.com>
+> >
+> > Saul,
+> >
+> > These are some upgrade for UX/X apps part. Avahi upgrade fix one 
+> security issue. Pls. review and pull.
+> >
+> Edwin,
+>
+> A number of your updates include patches that have not been updated with
+> the Upstream-Status Tag, please correct this and resend.
+>
 
+Oops. I have thought this is only required for new added patch. I'll add 
+them.
+>
+> Also, libsoup has multiple versioned bb files, is there a reason we are
+> keeping the older versions of libsoup-2.4 at this time?
+>
+
+I'll remove it.
+>
+> Do we still need to keep libsoup vs libsoup-2.4? I know that libsoup is
+> used by eds-dbus, is there a newer version that does not require libsoup?
+>
+
+eds-dbus and libsyncml still use old libsoup, I'll check it.
+
+> Thanks
+>         Sau!
+>
+>
+> > Thanks,
+> > edwin
+> >
+> > Pull URL: git://git.pokylinux.org/poky-contrib.git
+> >    Branch: gzhai/upgrade04
+> >    Browse: 
+> http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=gzhai/upgrade04
+> >
+> > Thanks,
+> >      Zhai Edwin<edwin.zhai@intel.com>
+> > ---
+> >
+> >
+> > Zhai Edwin (9):
+> >    libsoup-2.4: Upgrade to 2.32.2 (from 2.32.1)
+> >    tasks: Upgrade to 0.19 (from 0.18)
+> >    avahi: Upgrade to 0.6.30 (from 0.6.28)
+> >    x11perf: Upgrade to 1.5.3 (from 1.5.2)
+> >    libcanberry: Upgrade to 0.28 (from 0.26)
+> >    xz: Upgrade to 5.0.2 (from 5.0.0)
+> >    consolekit: Upgrade to 0.4.4 (from 0.4.3)
+> >    polkit-gnome: Upgrade to 0.101 (from 0.99)
+> >    libgpg-error: Upgrade to 1.10 (from 1.9)
+> >
+> >   .../distro/include/preferred-xorg-versions.inc     |    2 +-
+> >   .../avahi/{avahi_0.6.28.bb =>  avahi_0.6.30.bb}     |    6 +++---
+> >   ...{polkit-gnome_0.99.bb =>  polkit-gnome_0.101.bb} |    4 ++--
+> >   .../xz/{xz_5.0.0.bb =>  xz_5.0.2.bb}                |    4 ++--
+> >   .../{x11perf_1.5.2.bb =>  x11perf_1.5.3.bb}         |    4 ++--
+> >   .../{libcanberra_0.26.bb =>  libcanberra_0.28.bb}   |    4 ++--
+> >   .../pimlico/{tasks_0.18.bb =>  tasks_0.19.bb}       |    4 ++--
+> >   .../{consolekit_0.4.3.bb =>  consolekit_0.4.4.bb}   |    8 +++++---
+> >   .../pkgconfig.patch                                |    0
+> >   .../{libgpg-error_1.9.bb =>  libgpg-error_1.10.bb}  |    4 ++--
+> >   ...libsoup-2.4_2.32.1.bb =>  libsoup-2.4_2.32.2.bb} |    4 ++--
+> >   11 files changed, 23 insertions(+), 21 deletions(-)
+> >   rename meta/recipes-connectivity/avahi/{avahi_0.6.28.bb =>  
+> avahi_0.6.30.bb} (82%)
+> >   rename meta/recipes-extended/polkit/{polkit-gnome_0.99.bb =>  
+> polkit-gnome_0.101.bb} (86%)
+> >   rename meta/recipes-extended/xz/{xz_5.0.0.bb =>  xz_5.0.2.bb} (82%)
+> >   rename meta/recipes-graphics/xorg-app/{x11perf_1.5.2.bb =>  
+> x11perf_1.5.3.bb} (76%)
+> >   rename meta/recipes-multimedia/pulseaudio/{libcanberra_0.26.bb =>  
+> libcanberra_0.28.bb} (85%)
+> >   rename meta/recipes-sato/pimlico/{tasks_0.18.bb =>  tasks_0.19.bb} 
+> (78%)
+> >   rename meta/recipes-support/consolekit/{consolekit_0.4.3.bb =>  
+> consolekit_0.4.4.bb} (79%)
+> >   rename meta/recipes-support/libgpg-error/{libgpg-error-1.9 =>  
+> libgpg-error-1.10}/pkgconfig.patch (100%)
+> >   rename meta/recipes-support/libgpg-error/{libgpg-error_1.9.bb =>  
+> libgpg-error_1.10.bb} (86%)
+> >   rename meta/recipes-support/libsoup/{libsoup-2.4_2.32.1.bb =>  
+> libsoup-2.4_2.32.2.bb} (76%)
+> >
+> > _______________________________________________
+> > poky mailing list
+> > poky@yoctoproject.org
+> > https://lists.yoctoproject.org/listinfo/poky
+> >
+>
 
