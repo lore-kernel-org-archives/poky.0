@@ -1,24 +1,22 @@
 Return-Path: <qing.he@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9D8004C80ACD
-	for <poky@yoctoproject.org>; Fri, 15 Apr 2011 05:23:53 -0500 (CDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 15 Apr 2011 03:23:53 -0700
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E3E344C81001
+	for <poky@yoctoproject.org>; Fri, 15 Apr 2011 05:24:12 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 15 Apr 2011 03:23:53 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,217,1301900400"; d="scan'208";a="910009553"
+X-IronPort-AV: E=Sophos;i="4.64,217,1301900400"; d="scan'208";a="629148657"
 Received: from qhe2-db.sh.intel.com ([10.239.13.48])
-	by fmsmga001.fm.intel.com with ESMTP; 15 Apr 2011 03:23:52 -0700
+	by orsmga002.jf.intel.com with ESMTP; 15 Apr 2011 03:23:52 -0700
 Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
 	(envelope-from <qing.he@intel.com>)
-	id 1QAg4a-0006Gm-JX; Fri, 15 Apr 2011 18:16:20 +0800
-Message-Id: <bf89aa00ec37deff82ba03cbc35d5e2bf97e25cc.1302862307.git.qing.he@intel.com>
-In-Reply-To: <cover.1302862307.git.qing.he@intel.com>
-References: <cover.1302862307.git.qing.he@intel.com>
-Old-Date: Fri, 15 Apr 2011 16:11:08 +0800
+	id 1QAg4a-0006GG-DT; Fri, 15 Apr 2011 18:16:20 +0800
+Message-Id: <cover.1302862307.git.qing.he@intel.com>
+Old-Date: Fri, 15 Apr 2011 18:11:47 +0800
 Date: Fri, 15 Apr 2011 18:16:20 +0800
 To: poky@yoctoproject.org
 From: Qing He <qing.he@intel.com>
-Subject: [PATCH 3/4] openssl: upgrade to version 0.9.8r
+Subject: [PATCH 0/4] security fixes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,17 +28,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Apr 2011 10:23:53 -0000
+X-List-Received-Date: Fri, 15 Apr 2011 10:24:13 -0000
 
 From: Qing He <qing.he@intel.com>
 
-[YOCTO #979]
+This patch set upgrades several recipes to address the following CVEs:
 
-from 0.9.8p
-fixes CVE-2010-4180, CVE-2010-4252, CVE-2010-0014
+   libexif: CVE-2007-6351, CVE-2007-6352, CVE-2009-3895
+   libxml2: CVE-2010-4008
+   openssl: CVE-2010-4180, CVE-2010-4252, CVE-2010-0014
+   rsync: CVE-2011-1097
 
-Signed-off-by: Qing He <qing.he@intel.com>
+they are targeting for 1.0 point release
+
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: qhe/cve
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=qhe/cve
+
+Thanks,
+    Qing He <qing.he@intel.com>
 ---
+
+
+Qing He (4):
+  libexif: upgrade to 0.6.20
+  libxml2: upgrade to version 2.7.8
+  openssl: upgrade to version 0.9.8r
+  rsync: upgrade to version 3.0.8
+
  .../configure-targets.patch                        |    1 +
  .../debian/ca.patch                                |    0
  .../debian/config-hurd.patch                       |    0
@@ -66,7 +82,12 @@ Signed-off-by: Qing He <qing.he@intel.com>
  .../shared-libs.patch                              |    2 ++
  meta/recipes-connectivity/openssl/openssl.inc      |    2 +-
  .../{openssl_0.9.8p.bb => openssl_0.9.8r.bb}       |    6 +++---
- 25 files changed, 9 insertions(+), 4 deletions(-)
+ .../recipes-core/libxml/libxml2/libxml-64bit.patch |    2 ++
+ meta/recipes-core/libxml/libxml2_2.7.7.bb          |    6 ------
+ meta/recipes-core/libxml/libxml2_2.7.8.bb          |    6 ++++++
+ .../rsync/{rsync_3.0.7.bb => rsync_3.0.8.bb}       |    6 +++---
+ .../{libexif_0.6.16.bb => libexif_0.6.20.bb}       |    6 +++---
+ 30 files changed, 23 insertions(+), 16 deletions(-)
  rename meta/recipes-connectivity/openssl/{openssl-0.9.8p => openssl-0.9.8r}/configure-targets.patch (97%)
  rename meta/recipes-connectivity/openssl/{openssl-0.9.8p => openssl-0.9.8r}/debian/ca.patch (100%)
  rename meta/recipes-connectivity/openssl/{openssl-0.9.8p => openssl-0.9.8r}/debian/config-hurd.patch (100%)
@@ -91,165 +112,9 @@ Signed-off-by: Qing He <qing.he@intel.com>
  rename meta/recipes-connectivity/openssl/{openssl-0.9.8p => openssl-0.9.8r}/parallel-make-fix.patch (95%)
  rename meta/recipes-connectivity/openssl/{openssl-0.9.8p => openssl-0.9.8r}/shared-libs.patch (97%)
  rename meta/recipes-connectivity/openssl/{openssl_0.9.8p.bb => openssl_0.9.8r.bb} (86%)
-
-diff --git a/meta/recipes-connectivity/openssl/openssl-0.9.8p/configure-targets.patch b/meta/recipes-connectivity/openssl/openssl-0.9.8r/configure-targets.patch
-similarity index 97%
-rename from meta/recipes-connectivity/openssl/openssl-0.9.8p/configure-targets.patch
-rename to meta/recipes-connectivity/openssl/openssl-0.9.8r/configure-targets.patch
-index 6fd2769..2317949 100644
---- a/meta/recipes-connectivity/openssl/openssl-0.9.8p/configure-targets.patch
-+++ b/meta/recipes-connectivity/openssl/openssl-0.9.8r/configure-targets.patch
-@@ -1,3 +1,4 @@
-+Upstream-Status: Inappropriate [embedded specific]
- 
- The number of colons are important :)
- 
-diff --git a/meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/ca.patch b/meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/ca.patch
-similarity index 100%
-rename from meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/ca.patch
-rename to meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/ca.patch
-diff --git a/meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/config-hurd.patch b/meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/config-hurd.patch
-similarity index 100%
-rename from meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/config-hurd.patch
-rename to meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/config-hurd.patch
-diff --git a/meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/debian-targets.patch b/meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/debian-targets.patch
-similarity index 100%
-rename from meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/debian-targets.patch
-rename to meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/debian-targets.patch
-diff --git a/meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/engines-path.patch b/meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/engines-path.patch
-similarity index 100%
-rename from meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/engines-path.patch
-rename to meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/engines-path.patch
-diff --git a/meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/kfreebsd-pipe.patch b/meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/kfreebsd-pipe.patch
-similarity index 100%
-rename from meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/kfreebsd-pipe.patch
-rename to meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/kfreebsd-pipe.patch
-diff --git a/meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/make-targets.patch b/meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/make-targets.patch
-similarity index 100%
-rename from meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/make-targets.patch
-rename to meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/make-targets.patch
-diff --git a/meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/man-dir.patch b/meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/man-dir.patch
-similarity index 100%
-rename from meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/man-dir.patch
-rename to meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/man-dir.patch
-diff --git a/meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/man-section.patch b/meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/man-section.patch
-similarity index 100%
-rename from meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/man-section.patch
-rename to meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/man-section.patch
-diff --git a/meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/no-rpath.patch b/meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/no-rpath.patch
-similarity index 100%
-rename from meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/no-rpath.patch
-rename to meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/no-rpath.patch
-diff --git a/meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/no-symbolic.patch b/meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/no-symbolic.patch
-similarity index 100%
-rename from meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/no-symbolic.patch
-rename to meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/no-symbolic.patch
-diff --git a/meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/perl-path.diff b/meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/perl-path.diff
-similarity index 100%
-rename from meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/perl-path.diff
-rename to meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/perl-path.diff
-diff --git a/meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/pic.patch b/meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/pic.patch
-similarity index 100%
-rename from meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/pic.patch
-rename to meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/pic.patch
-diff --git a/meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/pkg-config.patch b/meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/pkg-config.patch
-similarity index 100%
-rename from meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/pkg-config.patch
-rename to meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/pkg-config.patch
-diff --git a/meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/rc4-amd64.patch b/meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/rc4-amd64.patch
-similarity index 100%
-rename from meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/rc4-amd64.patch
-rename to meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/rc4-amd64.patch
-diff --git a/meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/rehash-crt.patch b/meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/rehash-crt.patch
-similarity index 100%
-rename from meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/rehash-crt.patch
-rename to meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/rehash-crt.patch
-diff --git a/meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/rehash_pod.patch b/meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/rehash_pod.patch
-similarity index 100%
-rename from meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/rehash_pod.patch
-rename to meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/rehash_pod.patch
-diff --git a/meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/series b/meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/series
-similarity index 100%
-rename from meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/series
-rename to meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/series
-diff --git a/meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/shared-lib-ext.patch b/meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/shared-lib-ext.patch
-similarity index 100%
-rename from meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/shared-lib-ext.patch
-rename to meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/shared-lib-ext.patch
-diff --git a/meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/stddef.patch b/meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/stddef.patch
-similarity index 100%
-rename from meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/stddef.patch
-rename to meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/stddef.patch
-diff --git a/meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/version-script.patch b/meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/version-script.patch
-similarity index 100%
-rename from meta/recipes-connectivity/openssl/openssl-0.9.8p/debian/version-script.patch
-rename to meta/recipes-connectivity/openssl/openssl-0.9.8r/debian/version-script.patch
-diff --git a/meta/recipes-connectivity/openssl/openssl-0.9.8p/parallel-make-fix.patch b/meta/recipes-connectivity/openssl/openssl-0.9.8r/parallel-make-fix.patch
-similarity index 95%
-rename from meta/recipes-connectivity/openssl/openssl-0.9.8p/parallel-make-fix.patch
-rename to meta/recipes-connectivity/openssl/openssl-0.9.8r/parallel-make-fix.patch
-index 60fab9d..bfddfc8 100644
---- a/meta/recipes-connectivity/openssl/openssl-0.9.8p/parallel-make-fix.patch
-+++ b/meta/recipes-connectivity/openssl/openssl-0.9.8r/parallel-make-fix.patch
-@@ -1,3 +1,5 @@
-+Upstream-Status: Pending
-+
- fix the parallel build regarding shared libraries.
- 
- Signed-off-by: Qing He <qing.he@intel.com>
-diff --git a/meta/recipes-connectivity/openssl/openssl-0.9.8p/shared-libs.patch b/meta/recipes-connectivity/openssl/openssl-0.9.8r/shared-libs.patch
-similarity index 97%
-rename from meta/recipes-connectivity/openssl/openssl-0.9.8p/shared-libs.patch
-rename to meta/recipes-connectivity/openssl/openssl-0.9.8r/shared-libs.patch
-index 10d9146..19de112 100644
---- a/meta/recipes-connectivity/openssl/openssl-0.9.8p/shared-libs.patch
-+++ b/meta/recipes-connectivity/openssl/openssl-0.9.8r/shared-libs.patch
-@@ -1,3 +1,5 @@
-+Upstream-Status: Inappropriate [configuration]
-+
- diff --git a/Makefile.org b/Makefile.org
- index e87d623..25ff367 100644
- --- a/Makefile.org
-diff --git a/meta/recipes-connectivity/openssl/openssl.inc b/meta/recipes-connectivity/openssl/openssl.inc
-index 68b3d7b..fe168c3 100644
---- a/meta/recipes-connectivity/openssl/openssl.inc
-+++ b/meta/recipes-connectivity/openssl/openssl.inc
-@@ -6,7 +6,7 @@ SECTION = "libs/network"
- 
- # "openssl | SSLeay" dual license
- LICENSE = "openssl"
--LIC_FILES_CHKSUM = "file://LICENSE;md5=83d26c69f6f0172ee7f795790424b453"
-+LIC_FILES_CHKSUM = "file://LICENSE;md5=f9a8f968107345e0b75aa8c2ecaa7ec8"
- 
- DEPENDS = "perl-native"
- 
-diff --git a/meta/recipes-connectivity/openssl/openssl_0.9.8p.bb b/meta/recipes-connectivity/openssl/openssl_0.9.8r.bb
-similarity index 86%
-rename from meta/recipes-connectivity/openssl/openssl_0.9.8p.bb
-rename to meta/recipes-connectivity/openssl/openssl_0.9.8r.bb
-index f42b3cb..5fc38a3 100644
---- a/meta/recipes-connectivity/openssl/openssl_0.9.8p.bb
-+++ b/meta/recipes-connectivity/openssl/openssl_0.9.8r.bb
-@@ -1,6 +1,6 @@
- require openssl.inc
- 
--PR = "r3"
-+PR = "r0"
- SRC_URI += "file://debian/ca.patch \
-             file://debian/config-hurd.patch;apply=no \
-             file://debian/debian-targets.patch \
-@@ -21,8 +21,8 @@ SRC_URI += "file://debian/ca.patch \
-             file://debian/version-script.patch \
-             file://debian/perl-path.diff"
- 
--SRC_URI[md5sum] = "7f24047f70364c9eabc94899e356ce39"
--SRC_URI[sha256sum] = "b2645e2a2af221fa230b5ef6aa2b9388a875801b74cbddbb16be557f80f45242"
-+SRC_URI[md5sum] = "0352932ea863bc02b056cda7c9ac5b79"
-+SRC_URI[sha256sum] = "42b2368f786b05ed3be846838dce126b4e8e3dba8fb2e0ce83102df28c102fad"
- 
- SRC_URI += "file://configure-targets.patch \
-             file://shared-libs.patch"
--- 
-1.7.0
+ delete mode 100644 meta/recipes-core/libxml/libxml2_2.7.7.bb
+ create mode 100644 meta/recipes-core/libxml/libxml2_2.7.8.bb
+ rename meta/recipes-devtools/rsync/{rsync_3.0.7.bb => rsync_3.0.8.bb} (71%)
+ rename meta/recipes-support/libexif/{libexif_0.6.16.bb => libexif_0.6.20.bb} (61%)
 
 
