@@ -1,21 +1,38 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 4A26B4C80579
-	for <poky@yoctoproject.org>; Fri, 15 Apr 2011 07:29:21 -0500 (CDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 15 Apr 2011 05:29:20 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,219,1301900400"; d="scan'208";a="679508342"
-Received: from unknown (HELO helios.localnet) ([10.255.12.218])
-	by fmsmga002.fm.intel.com with ESMTP; 15 Apr 2011 05:29:20 -0700
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-Organization: Intel Corporation (UK)
+Return-Path: <srifenbark@gmail.com>
+Received: from mail-gx0-f176.google.com (mail-gx0-f176.google.com
+	[209.85.161.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 184F34C80887
+	for <poky@yoctoproject.org>; Fri, 15 Apr 2011 07:44:15 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by gxk7 with SMTP id 7so1519613gxk.35
+	for <poky@yoctoproject.org>; Fri, 15 Apr 2011 05:44:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:message-id:old-date:subject:date:to:cc:from;
+	bh=9pTIa+CHMSvo9ZwZbrbLDNSuFtPx+WtvB59lvigM3wQ=;
+	b=WppxzxTeqrumz7IzWSJbXmDYi/oOqwMXRfcJBLN3x63Ayrm34kZygYEsDuHe+YicQM
+	fJMOPgyu1W1xf1JEsv8E/frBQfRDxeKN94YRc0MARO8iKnUSSU3kiQZAXIJFTikyn6VR
+	cyt95LK4aQ1mDG1z9BJjI6Vdsge+VovN+w6PE=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=message-id:old-date:subject:date:to:cc:from;
+	b=SQG77dy1XJr2jAipTdjhQNcxEUzxL3BWxHxkuaZqY/3IUDxKsZugDk1gQSWADgkzTZ
+	kbMBRO7yKFEJDbmyLv1LaZchC/YlOmcDbR02A8x+CD0iVyH+lZi/4jQIu+U/pFv7jVKt
+	b+3oS85w50m5WKQVFVX8qTHumaUk55ANCpuys=
+Received: by 10.150.65.2 with SMTP id n2mr2470036yba.90.1302871454496;
+	Fri, 15 Apr 2011 05:44:14 -0700 (PDT)
+Received: from localhost (h227.63.117.75.dynamic.ip.windstream.net
+	[75.117.63.227])
+	by mx.google.com with ESMTPS id u37sm3076619yba.7.2011.04.15.05.44.13
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Fri, 15 Apr 2011 05:44:14 -0700 (PDT)
+Message-Id: <cover.1302871028.git.scott.m.rifenbark@intel.com>
+Old-Date: Fri, 15 Apr 2011 07:37:08 -0500
+Date: Fri, 15 Apr 2011 05:44:14 -0700 (PDT)
 To: poky@yoctoproject.org
-Date: Fri, 15 Apr 2011 13:29:16 +0100
-User-Agent: KMail/1.13.5 (Linux/2.6.35-28-generic-pae; KDE/4.6.1; i686; ; )
-MIME-Version: 1.0
-Message-Id: <201104151329.17014.paul.eggleton@linux.intel.com>
-Subject: NFS root & shutdown/reboot
+CC: 
+From: Scott Rifenbark <srifenbark@gmail.com>
+Subject: [PATCH 0/5] [DOCS] ADT Manual Updates
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,39 +44,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Apr 2011 12:29:21 -0000
-Content-Type: Text/Plain;
-  charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 15 Apr 2011 12:44:15 -0000
 
-Hi all,
+From: Scott Rifenbark <scott.m.rifenbark@intel.com>
 
-I have been working on smoothing out some things to do with NFS root this week 
-and I have come across one situation that I'm not quite sure of. 
+Several fixes here.  Two URLs fixed so they don't have 'pokylinux.org' 
+and now have 'yoctoproject.org'.  The URL for the Yocto Eclipse Plug-in
+further specified with a '1.0' on the end.  The Makefile updated to 
+include the PDF version of the manual in the tarball.
 
-At the moment when you shut down a Poky NFS root-based system or reboot it, it 
-gets all the way to the end and then hangs, with an error "nfs: server 
-myserver not responding, still trying". I tracked this down to the -i option 
-that is passed to the final call to shutdown and reboot which is supposed to 
-shut down all network interfaces - if you remove this then it works fine.
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: srifenbark/adt-work
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=srifenbark/adt-work
 
-I'm not sure of the reason for having the -i option, but it was suggested to 
-me that it might be in order to release DHCP leases where applicable; also 
-some systems might otherwise leave their network adapters powered up when the 
-system is shut down in order to receive wake-on-LAN requests, and if you're 
-not using that feature you're just wasting power. I'm guessing for most 
-situations we would want to retain -i. However, where the system is running 
-from an NFS root it would seem that we would have to omit this option, unless 
-there is another solution I'm not aware of.
+Thanks,
+    Scott Rifenbark <scott.m.rifenbark@intel.com>
+---
 
-I've done some googling and not come up with anything concrete in terms of how 
-this should be handled correctly. Any suggestions?
 
-Cheers,
-Paul
+Scott Rifenbark (5):
+  documentation/adt-manual/adt-eclipse.xml:  Updated repo URL for
+    Eclipse Plug-in
+  documentation/adt-manual/Makefile: Added PDF file to the tarball
+  documentation/adt-manual/adt-eclipse.xml: Fixed link to autotools.
+  documentation/adt-manual/adt-prepare.xml: Fixed URL for nightly
+    builds
+  documentation/adt-manual/adt-eclipse.xml: Fixed URL with
+    pokylinux.org
 
--- 
-
-Paul Eggleton
-Intel Open Source Technology Centre (UK)
 
