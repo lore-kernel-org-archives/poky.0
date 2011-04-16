@@ -1,31 +1,26 @@
-Return-Path: <koen@dominion.thruhere.net>
-Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
-	[74.125.82.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id DA3604C800A2
-	for <poky@yoctoproject.org>; Fri, 15 Apr 2011 23:31:15 -0500 (CDT)
-Received: by wyb40 with SMTP id 40so4380773wyb.35
-	for <poky@yoctoproject.org>; Fri, 15 Apr 2011 21:31:14 -0700 (PDT)
-Received: by 10.216.46.21 with SMTP id q21mr138718web.113.1302928274476;
-	Fri, 15 Apr 2011 21:31:14 -0700 (PDT)
-Received: from [172.20.2.72] (ip545070eb.adsl-surfen.hetnet.nl [84.80.112.235])
-	by mx.google.com with ESMTPS id e13sm1971570wbi.23.2011.04.15.21.31.13
-	(version=TLSv1/SSLv3 cipher=OTHER);
-	Fri, 15 Apr 2011 21:31:14 -0700 (PDT)
-References: <cover.1302886579.git.paul.eggleton@linux.intel.com>
-	<72ccbf03bcbec48a34d830c356e591a9139e3794.1302886579.git.paul.eggleton@linux.intel.com>
-	<4DA88DE3.2050702@linux.intel.com>
-In-Reply-To: <4DA88DE3.2050702@linux.intel.com>
-Mime-Version: 1.0 (iPhone Mail 8G4)
-Message-Id: <9480BCD7-8617-488A-B034-B30D1195E9C4@dominion.thruhere.net>
-X-Mailer: iPhone Mail (8G4)
-From: Koen Kooi <koen@dominion.thruhere.net>
-Date: Sat, 16 Apr 2011 06:31:09 +0200
-To: Saul Wold <sgw@linux.intel.com>
-Cc: Paul Eggleton <paul.eggleton@linux.intel.com>,
-	"poky@yoctoproject.org" <poky@yoctoproject.org>,
-	"openembedded-core@lists.openembedded.org"
-	<openembedded-core@lists.openembedded.org>
-Subject: Re: [PATCH 2/3] netbase: automatically bring up usb0 on	beagleboard
+Return-Path: <saul.wold@intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 9E69A4C800A2
+	for <poky@yoctoproject.org>; Sat, 16 Apr 2011 01:20:43 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 15 Apr 2011 23:20:43 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.64,223,1301900400"; d="scan'208";a="420311155"
+Received: from unknown (HELO [10.255.12.232]) ([10.255.12.232])
+	by azsmga001.ch.intel.com with ESMTP; 15 Apr 2011 23:20:42 -0700
+Message-ID: <4DA93539.9090904@intel.com>
+Date: Fri, 15 Apr 2011 23:20:41 -0700
+From: Saul Wold <saul.wold@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
+MIME-Version: 1.0
+To: Dongxiao Xu <dongxiao.xu@intel.com>
+References: <cover.1302845703.git.dongxiao.xu@intel.com>
+	<51fdeef3e7bece8d6fd371b34d44d9b085681b33.1302845703.git.dongxiao.xu@intel.com>
+In-Reply-To: <51fdeef3e7bece8d6fd371b34d44d9b085681b33.1302845703.git.dongxiao.xu@intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 08/14] alsa-utils: upgrade to version 1.0.24.2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,45 +32,96 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 16 Apr 2011 04:31:17 -0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;
-	charset=us-ascii
+X-List-Received-Date: Sat, 16 Apr 2011 06:20:44 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
+There seems to be a problem with this patch, I was not able to compile 
+it correctly, it had undefined functions that I tracked to a newer 
+version of libsamplerate0.  Please correct this issue.
 
-Op 15 apr. 2011 om 20:26 heeft Saul Wold <sgw@linux.intel.com> het volgende g=
-eschreven:
+Thanks
+	Sau!
 
-> On 04/15/2011 10:00 AM, Paul Eggleton wrote:
->> From: Paul Eggleton<paul.eggleton@linux.intel.com>
->>=20
->> Avoids manual configuration of the BeagleBoard xM's ethernet port (which
->> shows up as usb0).
->>=20
->> Fixes [YOCTO #930]
->>=20
->> Signed-off-by: Paul Eggleton<paul.eggleton@linux.intel.com>
->> ---
->>  .../netbase/netbase-4.45/beagleboard/interfaces    |   27 ++++++++++++++=
-++++++
->>  1 files changed, 27 insertions(+), 0 deletions(-)
->>  create mode 100644 meta/recipes-core/netbase/netbase-4.45/beagleboard/in=
-terfaces
->>=20
-> I know this time would come!
->=20
-> So this is up for discussion in a big way!
->=20
-> There was some initial discussion at ELC this last week about what goes wh=
-ere and how layers are going to work moving forward.  I know that we are com=
-mitted to the qemu* machines in oe-core (meta), and that currently meta-yoct=
-o contains a set of core HW (beagleboard among them), so the question then i=
-s should the HW specific stuff, such as this patch move to meta-yocto or som=
-e other layer?  There are a couple other recipes such as x-load and formfact=
-or that contain HW specific files.
 
-It should live in the upstream beagleboard BSP layer, which currently is met=
-a-texasinstruments
+On 04/14/2011 10:36 PM, Dongxiao Xu wrote:
+> From: Dongxiao Xu<dongxiao.xu@intel.com>
+>
+> Signed-off-by: Dongxiao Xu<dongxiao.xu@intel.com>
+> ---
+>   .../ncursesfix.patch                               |   22 ++++++++++---------
+>   ...alsa-utils_1.0.23.bb =>  alsa-utils_1.0.24.2.bb} |    4 +-
+>   2 files changed, 14 insertions(+), 12 deletions(-)
+>   rename meta/recipes-multimedia/alsa/{alsa-utils-1.0.23 =>  alsa-utils-1.0.24.2}/ncursesfix.patch (70%)
+>   rename meta/recipes-multimedia/alsa/{alsa-utils_1.0.23.bb =>  alsa-utils_1.0.24.2.bb} (95%)
+>
+> diff --git a/meta/recipes-multimedia/alsa/alsa-utils-1.0.23/ncursesfix.patch b/meta/recipes-multimedia/alsa/alsa-utils-1.0.24.2/ncursesfix.patch
+> similarity index 70%
+> rename from meta/recipes-multimedia/alsa/alsa-utils-1.0.23/ncursesfix.patch
+> rename to meta/recipes-multimedia/alsa/alsa-utils-1.0.24.2/ncursesfix.patch
+> index 0009c1a..9936ded 100644
+> --- a/meta/recipes-multimedia/alsa/alsa-utils-1.0.23/ncursesfix.patch
+> +++ b/meta/recipes-multimedia/alsa/alsa-utils-1.0.24.2/ncursesfix.patch
+> @@ -1,11 +1,13 @@
+> -# alsa-utils: Fix ncurses build failures
+> -# Richard Purdie<rpurdie@linux.intel.com>
+> -# Rebased to 1.0.23, Dongxiao Xu<dongxiao.xu@intel.com>
+> +Rebase the patch to fit 1.0.24.2
+>
+> -diff -ruN alsa-utils-1.0.23-orig/configure.in alsa-utils-1.0.23/configure.in
+> ---- alsa-utils-1.0.23-orig/configure.in	2010-04-16 19:19:12.000000000 +0800
+> -+++ alsa-utils-1.0.23/configure.in	2010-06-22 15:22:06.731202478 +0800
+> -@@ -109,34 +109,16 @@
+> +Upstream-Status: Inappropriate [configuration]
+> +
+> +Signed-off-by: Dongxiao Xu<dongxiao.xu@intel.com>
+> +
+> +diff -ruN alsa-utils-1.0.24.2-orig//configure.in alsa-utils-1.0.24.2/configure.in
+> +--- alsa-utils-1.0.24.2-orig//configure.in	2011-04-13 13:51:20.337665010 +0800
+> ++++ alsa-utils-1.0.24.2/configure.in	2011-04-13 13:51:54.437664986 +0800
+> +@@ -127,34 +127,16 @@
+>      NCURSESLIBSUFFIX=""
+>      CURSES_NLS="no"
+>      if test "$curseslib" = "ncursesw" -o \( "$curseslib" = "auto" -a "$USE_NLS" = "yes" \); then
+> @@ -17,7 +19,7 @@ diff -ruN alsa-utils-1.0.23-orig/configure.in alsa-utils-1.0.23/configure.in
+>   -      CURSES_CFLAGS=`ncursesw5-config --cflags`
+>   -      curseslib="ncursesw"
+>   -    else
+> -       AC_CHECK_LIB(ncursesw, initscr,
+> +       AC_CHECK_LIB(ncursesw, initscr,
+>                     [ CURSESINC='<ncurses.h>'; CURSESLIB='-lncursesw'; curseslib="ncursesw"])
+>   -    fi
+>        if test -n "$CURSESINC"; then
+> @@ -34,9 +36,9 @@ diff -ruN alsa-utils-1.0.23-orig/configure.in alsa-utils-1.0.23/configure.in
+>   -      CURSES_CFLAGS=`ncurses5-config --cflags`
+>   -      curseslib="ncurses"
+>   -    else
+> -       AC_CHECK_LIB(ncurses, initscr,
+> +       AC_CHECK_LIB(ncurses, initscr,
+>                     [ CURSESINC='<ncurses.h>'; CURSESLIB='-lncurses'; curseslib="ncurses"])
+>   -    fi
+>      fi
+>      if test "$curseslib" = "curses" -o "$curseslib" = "auto"; then
+> -     AC_CHECK_LIB(curses, initscr,
+> +     AC_CHECK_LIB(curses, initscr,
+> diff --git a/meta/recipes-multimedia/alsa/alsa-utils_1.0.23.bb b/meta/recipes-multimedia/alsa/alsa-utils_1.0.24.2.bb
+> similarity index 95%
+> rename from meta/recipes-multimedia/alsa/alsa-utils_1.0.23.bb
+> rename to meta/recipes-multimedia/alsa/alsa-utils_1.0.24.2.bb
+> index 46283cc..953a3ac 100644
+> --- a/meta/recipes-multimedia/alsa/alsa-utils_1.0.23.bb
+> +++ b/meta/recipes-multimedia/alsa/alsa-utils_1.0.24.2.bb
+> @@ -11,8 +11,8 @@ PR = "r0"
+>   SRC_URI = "ftp://ftp.alsa-project.org/pub/utils/alsa-utils-${PV}.tar.bz2 \
+>              file://ncursesfix.patch;patch=1 "
+>
+> -SRC_URI[md5sum] = "cb0cf46029ac9549cf3a31bff6a4f4e1"
+> -SRC_URI[sha256sum] = "b7d05e915e25f8540ad151c6dd558cf0fc1e9bb0ee23052d531c983666a1f7b0"
+> +SRC_URI[md5sum] = "8238cd57cb301d1c36bcf0ecb59ce6b2"
+> +SRC_URI[sha256sum] = "95127f740291086486c06c28118cabca0814bde48fd14dac041a9812a5ac1be2"
+>
+>   # lazy hack. needs proper fixing in gettext.m4, see
+>   # http://bugs.openembedded.org/show_bug.cgi?id=2348
 
 
