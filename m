@@ -1,25 +1,25 @@
 Return-Path: <saul.wold@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 1BEE54C800A2
-	for <poky@yoctoproject.org>; Mon, 18 Apr 2011 16:25:41 -0500 (CDT)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D93534C80A5B
+	for <poky@yoctoproject.org>; Mon, 18 Apr 2011 16:27:27 -0500 (CDT)
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 18 Apr 2011 14:25:40 -0700
+	by orsmga101.jf.intel.com with ESMTP; 18 Apr 2011 14:27:27 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,235,1301900400"; d="scan'208";a="735228573"
+X-IronPort-AV: E=Sophos;i="4.64,235,1301900400"; d="scan'208";a="735229227"
 Received: from unknown (HELO [10.255.13.48]) ([10.255.13.48])
-	by orsmga001.jf.intel.com with ESMTP; 18 Apr 2011 14:25:40 -0700
-Message-ID: <4DACAC54.8080304@intel.com>
-Date: Mon, 18 Apr 2011 14:25:40 -0700
+	by orsmga001.jf.intel.com with ESMTP; 18 Apr 2011 14:27:27 -0700
+Message-ID: <4DACACBE.1060903@intel.com>
+Date: Mon, 18 Apr 2011 14:27:26 -0700
 From: Saul Wold <saul.wold@intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
 	Thunderbird/3.0.5
 MIME-Version: 1.0
-To: Xiaofeng Yan <xiaofeng.yan@windriver.com>
-References: <cover.1302252022.git.xiaofeng.yan@windriver.com>
-In-Reply-To: <cover.1302252022.git.xiaofeng.yan@windriver.com>
+To: Colin Walters <walters@verbum.org>
+References: <AANLkTikeUs9N=0-q_TPFr-xsQZTmAh5PORHYtrSMpf8u@mail.gmail.com>
+In-Reply-To: <AANLkTikeUs9N=0-q_TPFr-xsQZTmAh5PORHYtrSMpf8u@mail.gmail.com>
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/1] Add four variables to eglibc-package.inc for installing packages relating to locale
+Subject: Re: [patch] autotools: Override do_compile to specify V=1 if	project uses AM_V_GEN
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,37 +31,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Apr 2011 21:25:41 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Mon, 18 Apr 2011 21:27:28 -0000
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 04/08/2011 01:43 AM, Xiaofeng Yan wrote:
-> From: Xiaofeng Yan<xiaofeng.yan@windriver.com>
+On 03/23/2011 03:30 PM, Colin Walters wrote:
+>      Non-verbose logs are really annoying when trying to debug a build
+>      failure.  A lot of projects are copying in the flag to use
+>      AM_SILENT_RULES which automake gained recently.  We need to undo
+>      this.
 >
-> Because there are thousands of packages about locale which needed by LSB Test Suite in our poky rpms. So for installing them to lsb-image easy I define four variables which instead of thousands of locale packages in list task-poky-lsb.bb
->
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->    Branch: xiaofeng/eglibc-package.inc
->    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=xiaofeng/eglibc-package.inc
->
-> Thanks,
->      Xiaofeng Yan<xiaofeng.yan@windriver.com>
-> ---
+>      Implement this by overriding do_compile in autotools to look for
+>      its signature, and specify V=1 to make if we find it.
 >
 >
-> Xiaofeng Yan (1):
->    eglibc-package.inc: Add eglibc-binarys, eglibc-localedatas,
->      eglibc-gconvs and eglibc-charmps to variable PACKAGE
->
->   meta/recipes-core/eglibc/eglibc-package.inc |   20 ++++++++++++++++++++
->   1 files changed, 20 insertions(+), 0 deletions(-)
 >
 > _______________________________________________
 > poky mailing list
 > poky@yoctoproject.org
 > https://lists.yoctoproject.org/listinfo/poky
->
-Merged
+
+Updated version is now merged into oe-core and master
 
 Thanks
 	Sau!
