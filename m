@@ -1,30 +1,31 @@
 Return-Path: <richard.purdie@linuxfoundation.org>
 Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
 	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C865F4C805A8
-	for <poky@yoctoproject.org>; Mon, 18 Apr 2011 05:02:47 -0500 (CDT)
+	by mx1.pokylinux.org (Postfix) with ESMTP id A40D84C805A8
+	for <poky@yoctoproject.org>; Mon, 18 Apr 2011 05:09:01 -0500 (CDT)
 Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p3IA2cGN011114;
-	Mon, 18 Apr 2011 11:02:38 +0100
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p3IA8w2N011192;
+	Mon, 18 Apr 2011 11:08:58 +0100
 Received: from tim.rpsys.net ([127.0.0.1])
 	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
 	port 10024) with LMTP
-	id 11036-02; Mon, 18 Apr 2011 11:02:34 +0100 (BST)
+	id 11105-02; Mon, 18 Apr 2011 11:08:55 +0100 (BST)
 Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p3IA2Vf9011108
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p3IA8opi011186
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Mon, 18 Apr 2011 11:02:31 +0100
+	Mon, 18 Apr 2011 11:08:51 +0100
 From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Mei Lei <lei.mei@intel.com>
-In-Reply-To: <cover.1302856115.git.lei.mei@intel.com>
-References: <cover.1302856115.git.lei.mei@intel.com>
-Date: Mon, 18 Apr 2011 11:02:23 +0100
-Message-ID: <1303120943.5518.92.camel@rex>
+To: Qing He <qing.he@intel.com>
+In-Reply-To: <a55f9845fafefc56a276a1cd6eb354a7fc0e4549.1302863087.git.qing.he@intel.com>
+References: <cover.1302863087.git.qing.he@intel.com>
+	<a55f9845fafefc56a276a1cd6eb354a7fc0e4549.1302863087.git.qing.he@intel.com>
+Date: Mon, 18 Apr 2011 11:08:42 +0100
+Message-ID: <1303121322.5518.94.camel@rex>
 Mime-Version: 1.0
 X-Mailer: Evolution 2.32.2 
 X-Virus-Scanned: amavisd-new at rpsys.net
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/5]libffi,psmisc,e2fsprogs,libidn upgrade
+Subject: Re: [PATCH 1/1] sat-solver: fix arch=all packages
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,39 +37,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Apr 2011 10:02:48 -0000
+X-List-Received-Date: Mon, 18 Apr 2011 10:09:02 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On Sat, 2011-01-15 at 22:22 +0800, Mei Lei wrote:
-> 	This pull request contain 4 recipes upgrade, please help to review it and pull.
+Hi Qing,
 
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->   Branch: lmei3/upgrade-0413
->   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=lmei3/upgrade-0413
-> 
-> Thanks,
->     Mei Lei <lei.mei@intel.com>
-> ---
-> 
-> 
-> Mei Lei (5):
->   libidn: upgrade from 1.19 to 1.20
->   e2fsprogs: Upgrade from 1.41.12 to 1.41.14
->   psmisc: Upgrade from 22.2 to 22.13
+On Fri, 2011-04-15 at 18:26 +0800, Qing He wrote:
+> +diff --git a/CMakeLists.txt b/CMakeLists.txt
+> +index 443281e..4456a87 100644
+> +--- a/CMakeLists.txt
+> ++++ b/CMakeLists.txt
+> +@@ -45,6 +45,11 @@ MESSAGE(STATUS "Building for Debian")
+> + ADD_DEFINITIONS( -DDEBIAN -DDEBIAN_SEMANTICS)
+> + ENDIF ( DEBIAN )
+> + 
+> ++IF ( POKY )
+> ++MESSAGE(STATUS "Building for Poky")
+> ++ADD_DEFINITIONS( -DPOKY -DPOKY_SEMANTICS)
+> ++ENDIF ( POKY )
 
-I merged these thanks.
-
->   libffi: Upgrade from 3.0.9 to 3.0.10rc0
-
-However this is an upgrade to an rc release. We should wait for the
-3.0.10 stable release before we upgrade unless there is a pressing
-reason to do otherwise.
-
->   distro_tracking_fields.inc: update e2fsprogs,libidn,libffi,psmisc
->     information
-
-I didn't take this as I didn't take the libffi update above.
+We're trying to move away from the Poky branding. Could we use OECORE in
+this patch instead please?
 
 Cheers,
 
