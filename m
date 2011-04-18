@@ -1,25 +1,25 @@
 Return-Path: <saul.wold@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E1C2F4C80AC1
-	for <poky@yoctoproject.org>; Mon, 18 Apr 2011 16:49:34 -0500 (CDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 18 Apr 2011 14:49:34 -0700
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 6E5454C804D4
+	for <poky@yoctoproject.org>; Mon, 18 Apr 2011 16:56:03 -0500 (CDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 18 Apr 2011 14:56:03 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,235,1301900400"; d="scan'208";a="680762161"
+X-IronPort-AV: E=Sophos;i="4.64,235,1301900400"; d="scan'208";a="911312514"
 Received: from unknown (HELO [10.255.13.48]) ([10.255.13.48])
-	by fmsmga002.fm.intel.com with ESMTP; 18 Apr 2011 14:49:34 -0700
-Message-ID: <4DACB1EE.4070509@intel.com>
-Date: Mon, 18 Apr 2011 14:49:34 -0700
+	by fmsmga001.fm.intel.com with ESMTP; 18 Apr 2011 14:56:03 -0700
+Message-ID: <4DACB372.7030106@intel.com>
+Date: Mon, 18 Apr 2011 14:56:02 -0700
 From: Saul Wold <saul.wold@intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
 	Thunderbird/3.0.5
 MIME-Version: 1.0
-To: Zhai Edwin <edwin.zhai@intel.com>
-References: <cover.1302739788.git.edwin.zhai@intel.com>
-In-Reply-To: <cover.1302739788.git.edwin.zhai@intel.com>
+To: Jingdong Lu <jingdong.lu@windriver.com>
+References: <cover.1302597896.git.jingdong.lu@windriver.com>
+In-Reply-To: <cover.1302597896.git.jingdong.lu@windriver.com>
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/9] [PULL] UX/X apps upgrade, edwin, Apr 13, 2011
+Subject: Re: [PATCH 0/2] Fix bug 794 and 796
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,62 +31,33 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Apr 2011 21:49:35 -0000
+X-List-Received-Date: Mon, 18 Apr 2011 21:56:03 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 04/13/2011 05:13 PM, Zhai Edwin wrote:
-> From: Zhai Edwin<edwin.zhai@intel.com>
+On 04/15/2011 02:31 AM, Jingdong Lu wrote:
+> From: Jingdong Lu<jingdong.lu@windriver.com>
 >
-> Saul,
+> Fix bug 794: Add "largefile" feature for LSB distro and make perl test passed.
+> Fix bug 796: Add "--enable-clocale=gun" option for gcc configuration explicitly for LSB distro.
 >
-> These are some upgrade for UX/X apps part. Avahi upgrade fix one security issue. Pls. review and pull.
->
-> Thanks,
-> edwin
 >
 > Pull URL: git://git.pokylinux.org/poky-contrib.git
->    Branch: gzhai/upgrade04
->    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=gzhai/upgrade04
+>    Branch: jingdonglu/distro
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=jingdonglu/distro
 >
 > Thanks,
->      Zhai Edwin<edwin.zhai@intel.com>
+>      Jingdong Lu<jingdong.lu@windriver.com>
 > ---
 >
 >
-> Zhai Edwin (9):
->    libsoup-2.4: Upgrade to 2.32.2 (from 2.32.1)
->    tasks: Upgrade to 0.19 (from 0.18)
->    avahi: Upgrade to 0.6.30 (from 0.6.28)
->    x11perf: Upgrade to 1.5.3 (from 1.5.2)
->    libcanberry: Upgrade to 0.28 (from 0.26)
->    xz: Upgrade to 5.0.2 (from 5.0.0)
->    consolekit: Upgrade to 0.4.4 (from 0.4.3)
->    polkit-gnome: Upgrade to 0.101 (from 0.99)
->    libgpg-error: Upgrade to 1.10 (from 1.9)
+> Jingdong Lu (2):
+>    gcc: Add "--enable-clocale=gnu" option for LSB.
+>    poky-lsb: Add "largefile" feature for LSB distro.
 >
->   .../distro/include/preferred-xorg-versions.inc     |    2 +-
->   .../avahi/{avahi_0.6.28.bb =>  avahi_0.6.30.bb}     |    6 +++---
->   ...{polkit-gnome_0.99.bb =>  polkit-gnome_0.101.bb} |    4 ++--
->   .../xz/{xz_5.0.0.bb =>  xz_5.0.2.bb}                |    4 ++--
->   .../{x11perf_1.5.2.bb =>  x11perf_1.5.3.bb}         |    4 ++--
->   .../{libcanberra_0.26.bb =>  libcanberra_0.28.bb}   |    4 ++--
->   .../pimlico/{tasks_0.18.bb =>  tasks_0.19.bb}       |    4 ++--
->   .../{consolekit_0.4.3.bb =>  consolekit_0.4.4.bb}   |    8 +++++---
->   .../pkgconfig.patch                                |    0
->   .../{libgpg-error_1.9.bb =>  libgpg-error_1.10.bb}  |    4 ++--
->   ...libsoup-2.4_2.32.1.bb =>  libsoup-2.4_2.32.2.bb} |    4 ++--
->   11 files changed, 23 insertions(+), 21 deletions(-)
->   rename meta/recipes-connectivity/avahi/{avahi_0.6.28.bb =>  avahi_0.6.30.bb} (82%)
->   rename meta/recipes-extended/polkit/{polkit-gnome_0.99.bb =>  polkit-gnome_0.101.bb} (86%)
->   rename meta/recipes-extended/xz/{xz_5.0.0.bb =>  xz_5.0.2.bb} (82%)
->   rename meta/recipes-graphics/xorg-app/{x11perf_1.5.2.bb =>  x11perf_1.5.3.bb} (76%)
->   rename meta/recipes-multimedia/pulseaudio/{libcanberra_0.26.bb =>  libcanberra_0.28.bb} (85%)
->   rename meta/recipes-sato/pimlico/{tasks_0.18.bb =>  tasks_0.19.bb} (78%)
->   rename meta/recipes-support/consolekit/{consolekit_0.4.3.bb =>  consolekit_0.4.4.bb} (79%)
->   rename meta/recipes-support/libgpg-error/{libgpg-error-1.9 =>  libgpg-error-1.10}/pkgconfig.patch (100%)
->   rename meta/recipes-support/libgpg-error/{libgpg-error_1.9.bb =>  libgpg-error_1.10.bb} (86%)
->   rename meta/recipes-support/libsoup/{libsoup-2.4_2.32.1.bb =>  libsoup-2.4_2.32.2.bb} (76%)
+>   meta-yocto/conf/distro/poky-lsb.conf           |    2 +-
+>   meta/recipes-devtools/gcc/gcc-runtime_4.5.1.bb |    3 ++-
+>   2 files changed, 3 insertions(+), 2 deletions(-)
 >
 > _______________________________________________
 > poky mailing list
@@ -94,9 +65,8 @@ On 04/13/2011 05:13 PM, Zhai Edwin wrote:
 > https://lists.yoctoproject.org/listinfo/poky
 >
 
-Merged
+Merged into Master
 
 Thanks
 	Sau!
-
 
