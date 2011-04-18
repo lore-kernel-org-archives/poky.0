@@ -1,22 +1,22 @@
 Return-Path: <edwin.zhai@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 95CA54C80AC1
-	for <poky@yoctoproject.org>; Mon, 18 Apr 2011 08:13:07 -0500 (CDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 18 Apr 2011 06:13:06 -0700
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8995B4C80A5B
+	for <poky@yoctoproject.org>; Mon, 18 Apr 2011 08:13:09 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 18 Apr 2011 06:13:09 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,232,1301900400"; d="scan'208";a="680570597"
+X-IronPort-AV: E=Sophos;i="4.64,232,1301900400"; d="scan'208";a="735033162"
 Received: from yocto-build8.sh.intel.com (HELO localhost) ([10.239.48.1])
-	by fmsmga002.fm.intel.com with ESMTP; 18 Apr 2011 06:13:06 -0700
-Message-Id: <7903e19b3174f3a6b7df59615062fc0cb2866666.1303131764.git.edwin.zhai@intel.com>
+	by orsmga001.jf.intel.com with ESMTP; 18 Apr 2011 06:13:08 -0700
+Message-Id: <62c6300f580d5b13497c3b77394e504531c271e4.1303131764.git.edwin.zhai@intel.com>
 In-Reply-To: <cover.1303131764.git.edwin.zhai@intel.com>
 References: <cover.1303131764.git.edwin.zhai@intel.com>
-Old-Date: Wed, 13 Apr 2011 10:46:02 +0800
-Date: Mon, 18 Apr 2011 21:10:04 +0800
+Old-Date: Wed, 13 Apr 2011 13:32:55 +0800
+Date: Mon, 18 Apr 2011 21:10:07 +0800
 To: poky@yoctoproject.org
 CC: 
 From: Zhai Edwin <edwin.zhai@intel.com>
-Subject: [PATCH 2/5] avahi: Upgrade to 0.6.30 (from 0.6.28)
+Subject: [PATCH 4/5] libgpg-error: Upgrade to 1.10 (from 1.9)
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,71 +28,55 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Apr 2011 13:13:07 -0000
+X-List-Received-Date: Mon, 18 Apr 2011 13:13:09 -0000
 
 From: Zhai Edwin <edwin.zhai@intel.com>
 
-This upgrade fix the one security issue:
-http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2011-1002
-[YOCTO #975] fixed.
-
-This should be included in the Bernard point-release.
-
 Signed-off-by: Zhai Edwin <edwin.zhai@intel.com>
 ---
- meta/recipes-connectivity/avahi/avahi.inc          |    2 +-
- .../avahi/{avahi_0.6.28.bb => avahi_0.6.30.bb}     |    6 +++---
- .../avahi/files/initscript.patch                   |    2 ++
- 3 files changed, 6 insertions(+), 4 deletions(-)
- rename meta/recipes-connectivity/avahi/{avahi_0.6.28.bb => avahi_0.6.30.bb} (82%)
+ .../pkgconfig.patch                                |    2 ++
+ .../{libgpg-error_1.9.bb => libgpg-error_1.10.bb}  |    6 +++---
+ 2 files changed, 5 insertions(+), 3 deletions(-)
+ rename meta/recipes-support/libgpg-error/{libgpg-error-1.9 => libgpg-error-1.10}/pkgconfig.patch (98%)
+ rename meta/recipes-support/libgpg-error/{libgpg-error_1.9.bb => libgpg-error_1.10.bb} (82%)
 
-diff --git a/meta/recipes-connectivity/avahi/avahi.inc b/meta/recipes-connectivity/avahi/avahi.inc
-index 6d4b830..b2fa8ca 100644
---- a/meta/recipes-connectivity/avahi/avahi.inc
-+++ b/meta/recipes-connectivity/avahi/avahi.inc
-@@ -24,7 +24,7 @@ RRECOMMENDS_${PN}_append_libc-glibc = "libnss-mdns"
- SRC_URI = "http://avahi.org/download/avahi-${PV}.tar.gz \
-         file://00avahi-autoipd \
-         file://99avahi-autoipd \
--        file://initscript.patch;patch=1"
-+        file://initscript.patch"
+diff --git a/meta/recipes-support/libgpg-error/libgpg-error-1.9/pkgconfig.patch b/meta/recipes-support/libgpg-error/libgpg-error-1.10/pkgconfig.patch
+similarity index 98%
+rename from meta/recipes-support/libgpg-error/libgpg-error-1.9/pkgconfig.patch
+rename to meta/recipes-support/libgpg-error/libgpg-error-1.10/pkgconfig.patch
+index 49e47d8..2764012 100644
+--- a/meta/recipes-support/libgpg-error/libgpg-error-1.9/pkgconfig.patch
++++ b/meta/recipes-support/libgpg-error/libgpg-error-1.10/pkgconfig.patch
+@@ -3,6 +3,8 @@
+ # Patch managed by http://www.mn-logistik.de/unsupported/pxa250/patcher
+ #
  
- inherit autotools pkgconfig update-rc.d gettext
- 
-diff --git a/meta/recipes-connectivity/avahi/avahi_0.6.28.bb b/meta/recipes-connectivity/avahi/avahi_0.6.30.bb
-similarity index 82%
-rename from meta/recipes-connectivity/avahi/avahi_0.6.28.bb
-rename to meta/recipes-connectivity/avahi/avahi_0.6.30.bb
-index 6e034b0..1084c04 100644
---- a/meta/recipes-connectivity/avahi/avahi_0.6.28.bb
-+++ b/meta/recipes-connectivity/avahi/avahi_0.6.30.bb
-@@ -7,7 +7,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=2d5025d4aa3495befef8f17206a5b0a1 \
-                     file://avahi-client/client.h;endline=23;md5=f4ac741a25c4f434039ba3e18c8674cf"
- 
- RDEPENDS_avahi-daemon = "sysvinit-pidof"
--PR = "r2"
-+PR = "r0"
- 
- EXTRA_OECONF += "--disable-gtk3"
- 
-@@ -15,5 +15,5 @@ FILES_avahi-autoipd = "${sbindir}/avahi-autoipd \
-                        ${sysconfdir}/avahi/avahi-autoipd.action \
- 		       ${sysconfdir}/dhcp3/*/avahi-autoipd"
- 
--SRC_URI[md5sum] = "d0143a5aa3265019072e53ab497818d0"
--SRC_URI[sha256sum] = "a0d80aac88212b9f9d5331c248091d3c9c9209f0e41985421636ebd14230fc91"
-+SRC_URI[md5sum] = "e4db89a2a403ff4c47d66ac66fad1f43"
-+SRC_URI[sha256sum] = "f9e4316c2339d0020726edd846d01bee0c39980906db0c247479e5807457ff1f"
-diff --git a/meta/recipes-connectivity/avahi/files/initscript.patch b/meta/recipes-connectivity/avahi/files/initscript.patch
-index f76a965..193889e 100644
---- a/meta/recipes-connectivity/avahi/files/initscript.patch
-+++ b/meta/recipes-connectivity/avahi/files/initscript.patch
-@@ -1,3 +1,5 @@
 +Upstream-Status: Pending
 +
- diff --git a/initscript/debian/avahi-daemon.in b/initscript/debian/avahi-daemon.in
- index 30a2c2f..b5848a8 100755
- --- a/initscript/debian/avahi-daemon.in
+ Index: libgpg-error-1.8/configure.ac
+ ===================================================================
+ --- libgpg-error-1.8.orig/configure.ac	2010-05-06 06:01:08.000000000 -0700
+diff --git a/meta/recipes-support/libgpg-error/libgpg-error_1.9.bb b/meta/recipes-support/libgpg-error/libgpg-error_1.10.bb
+similarity index 82%
+rename from meta/recipes-support/libgpg-error/libgpg-error_1.9.bb
+rename to meta/recipes-support/libgpg-error/libgpg-error_1.10.bb
+index 560340b..6dea084 100644
+--- a/meta/recipes-support/libgpg-error/libgpg-error_1.9.bb
++++ b/meta/recipes-support/libgpg-error/libgpg-error_1.10.bb
+@@ -13,10 +13,10 @@ SECTION = "libs"
+ PR = "r0"
+ 
+ SRC_URI = "ftp://ftp.gnupg.org/gcrypt/libgpg-error/libgpg-error-${PV}.tar.bz2 \
+-           file://pkgconfig.patch;"
++           file://pkgconfig.patch"
+ 
+-SRC_URI[md5sum] = "521b98aa9395e7eaf0ef2236233a0796"
+-SRC_URI[sha256sum] = "54d9326bfbd46c705963c507953f65a40576d04b374e131008dc5b732ff1e3c3"
++SRC_URI[md5sum] = "736a03daa9dc5873047d4eb4a9c22a16"
++SRC_URI[sha256sum] = "520629b4568b5c29b1991c8ffc267c8bdee5f223c7333c42a651b56f9b1c5431"
+ 
+ # move libgpg-error-config into -dev package
+ FILES_${PN} = "${libdir}/lib*.so.*"
 -- 
 1.7.1
 
