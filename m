@@ -1,26 +1,27 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id AA3E54C800A2
-	for <poky@yoctoproject.org>; Mon, 18 Apr 2011 11:07:28 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 18 Apr 2011 09:07:26 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,233,1301900400"; d="scan'208";a="735105448"
-Received: from doubt.jf.intel.com (HELO [10.24.5.31]) ([10.24.5.31])
-	by orsmga001.jf.intel.com with ESMTP; 18 Apr 2011 09:07:26 -0700
-Message-ID: <4DAC61C1.4070406@linux.intel.com>
-Date: Mon, 18 Apr 2011 09:07:29 -0700
-From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.14) Gecko/20110223 Lightning/1.0b2 Thunderbird/3.1.8
-MIME-Version: 1.0
-To: Paul Eggleton <paul.eggleton@linux.intel.com>
-References: <cover.1302886579.git.paul.eggleton@linux.intel.com>
-	<4DA8CA18.3000801@mlbassoc.com> <4DA8CE4A.6090408@linux.intel.com>
-	<201104181012.13920.paul.eggleton@linux.intel.com>
-In-Reply-To: <201104181012.13920.paul.eggleton@linux.intel.com>
-Cc: poky@yoctoproject.org, openembedded-core@lists.openembedded.org
-Subject: Re: [PATCH 2/3] netbase: automatically bring up usb0 on beagleboard
+Return-Path: <scott.a.garman@intel.com>
+Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C65184C804CA
+	for <poky@yoctoproject.org>; Mon, 18 Apr 2011 16:21:33 -0500 (CDT)
+Received: from localhost (c-76-105-143-140.hsd1.or.comcast.net
+	[76.105.143.140])
+	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
+	(No client certificate requested)
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id E73822FFC2
+	for <poky@yoctoproject.org>; Mon, 18 Apr 2011 17:21:22 -0400 (EDT)
+Message-Id: <cover.1302892024.git.scott.a.garman@intel.com>
+Old-Date: Fri, 15 Apr 2011 11:27:04 -0700
+Date: Mon, 18 Apr 2011 14:21:18 -0700
+To: poky@yoctoproject.org
+CC: 
+From: Scott Garman <scott.a.garman@intel.com>
+X-MasterFoo-MailScanner-Information: Please contact the ISP for more
+	information
+X-MailScanner-ID: E73822FFC2.E4C18
+X-MasterFoo-MailScanner: Found to be clean
+X-MasterFoo-MailScanner-SpamCheck: not spam
+X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
+X-Spam-Status: No
+Subject: [PATCH 0/1] cdrtools upgrade
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,32 +33,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Apr 2011 16:07:29 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 18 Apr 2011 21:21:33 -0000
+
+From: Scott Garman <scott.a.garman@intel.com>
+
+Hi Saul,
+
+Here is an upgrade of cdrtools. 
+
+* Addresses CVE-2003-0655
+* Fixes [YOCTO #976]
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: sgarman/cdrtools
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=sgarman/cdrtools
+
+Thanks,
+    Scott Garman <scott.a.garman@intel.com>
+---
 
 
+Scott Garman (1):
+  cdrtools: upgrade to v3.00
 
-On 04/18/2011 02:12 AM, Paul Eggleton wrote:
-> On Saturday 16 April 2011 00:01:30 Darren Hart wrote:
->> On 04/15/2011 03:43 PM, Gary Thomas wrote:
->>> eth1 yes, but doesn't the BeagleBoard xM have eth0?
->>
->> No. The onboard device is usb0.
-> 
-> Looks like we're not the only ones confused by this:
-> 
-> https://bugs.launchpad.net/linux-linaro/+bug/622429
-> 
+ .../cdrtools-native/glibc-conflict-rename.patch    |  228 --------------------
+ .../cdrtools/cdrtools-native/no_usr_src.patch      |   26 ---
+ .../cdrtools/cdrtools-native_2.01.bb               |   26 ---
+ .../cdrtools/cdrtools-native_3.00.bb               |   24 ++
+ 4 files changed, 24 insertions(+), 280 deletions(-)
+ delete mode 100644 meta/recipes-devtools/cdrtools/cdrtools-native/glibc-conflict-rename.patch
+ delete mode 100644 meta/recipes-devtools/cdrtools/cdrtools-native/no_usr_src.patch
+ delete mode 100644 meta/recipes-devtools/cdrtools/cdrtools-native_2.01.bb
+ create mode 100644 meta/recipes-devtools/cdrtools/cdrtools-native_3.00.bb
 
-Perhaps I am missing some context, but I don't see any problem with
-having the name usb0. In fact, I find it informative, and helps to
-explain why things like tftp don't work from u-boot, etc.
-
-While the community remains divided, I plan to stay in the usb0 camp.
-
--- 
-Darren Hart
-Intel Open Source Technology Center
-Yocto Project - Linux Kernel
 
