@@ -1,25 +1,25 @@
 Return-Path: <saul.wold@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0DB444C80A5B
-	for <poky@yoctoproject.org>; Mon, 18 Apr 2011 16:48:40 -0500 (CDT)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E1C2F4C80AC1
+	for <poky@yoctoproject.org>; Mon, 18 Apr 2011 16:49:34 -0500 (CDT)
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 18 Apr 2011 14:48:40 -0700
+	by fmsmga101.fm.intel.com with ESMTP; 18 Apr 2011 14:49:34 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,235,1301900400"; d="scan'208";a="680761937"
+X-IronPort-AV: E=Sophos;i="4.64,235,1301900400"; d="scan'208";a="680762161"
 Received: from unknown (HELO [10.255.13.48]) ([10.255.13.48])
-	by fmsmga002.fm.intel.com with ESMTP; 18 Apr 2011 14:48:40 -0700
-Message-ID: <4DACB1B8.90700@intel.com>
-Date: Mon, 18 Apr 2011 14:48:40 -0700
+	by fmsmga002.fm.intel.com with ESMTP; 18 Apr 2011 14:49:34 -0700
+Message-ID: <4DACB1EE.4070509@intel.com>
+Date: Mon, 18 Apr 2011 14:49:34 -0700
 From: Saul Wold <saul.wold@intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
 	Thunderbird/3.0.5
 MIME-Version: 1.0
-To: Scott Rifenbark <srifenbark@gmail.com>
-References: <cover.1302871028.git.scott.m.rifenbark@intel.com>
-In-Reply-To: <cover.1302871028.git.scott.m.rifenbark@intel.com>
+To: Zhai Edwin <edwin.zhai@intel.com>
+References: <cover.1302739788.git.edwin.zhai@intel.com>
+In-Reply-To: <cover.1302739788.git.edwin.zhai@intel.com>
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/5] [DOCS] ADT Manual Updates
+Subject: Re: [PATCH 0/9] [PULL] UX/X apps upgrade, edwin, Apr 13, 2011
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,49 +31,72 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Apr 2011 21:48:41 -0000
+X-List-Received-Date: Mon, 18 Apr 2011 21:49:35 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 04/15/2011 05:44 AM, Scott Rifenbark wrote:
-> From: Scott Rifenbark<scott.m.rifenbark@intel.com>
+On 04/13/2011 05:13 PM, Zhai Edwin wrote:
+> From: Zhai Edwin<edwin.zhai@intel.com>
 >
-> Several fixes here.  Two URLs fixed so they don't have 'pokylinux.org'
-> and now have 'yoctoproject.org'.  The URL for the Yocto Eclipse Plug-in
-> further specified with a '1.0' on the end.  The Makefile updated to
-> include the PDF version of the manual in the tarball.
+> Saul,
 >
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->    Branch: srifenbark/adt-work
->    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=srifenbark/adt-work
+> These are some upgrade for UX/X apps part. Avahi upgrade fix one security issue. Pls. review and pull.
 >
 > Thanks,
->      Scott Rifenbark<scott.m.rifenbark@intel.com>
+> edwin
+>
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>    Branch: gzhai/upgrade04
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=gzhai/upgrade04
+>
+> Thanks,
+>      Zhai Edwin<edwin.zhai@intel.com>
 > ---
 >
 >
-> Scott Rifenbark (5):
->    documentation/adt-manual/adt-eclipse.xml:  Updated repo URL for
->      Eclipse Plug-in
->    documentation/adt-manual/Makefile: Added PDF file to the tarball
-These 2 patches need to be rebased to the updated oe-core (or master)
-
->    documentation/adt-manual/adt-eclipse.xml: Fixed link to autotools.
->    documentation/adt-manual/adt-prepare.xml: Fixed URL for nightly
->      builds
->    documentation/adt-manual/adt-eclipse.xml: Fixed URL with
->      pokylinux.org
+> Zhai Edwin (9):
+>    libsoup-2.4: Upgrade to 2.32.2 (from 2.32.1)
+>    tasks: Upgrade to 0.19 (from 0.18)
+>    avahi: Upgrade to 0.6.30 (from 0.6.28)
+>    x11perf: Upgrade to 1.5.3 (from 1.5.2)
+>    libcanberry: Upgrade to 0.28 (from 0.26)
+>    xz: Upgrade to 5.0.2 (from 5.0.0)
+>    consolekit: Upgrade to 0.4.4 (from 0.4.3)
+>    polkit-gnome: Upgrade to 0.101 (from 0.99)
+>    libgpg-error: Upgrade to 1.10 (from 1.9)
 >
-These have been pulled into oe-core and master
-
-Thanks
-	Sau!
-
-
+>   .../distro/include/preferred-xorg-versions.inc     |    2 +-
+>   .../avahi/{avahi_0.6.28.bb =>  avahi_0.6.30.bb}     |    6 +++---
+>   ...{polkit-gnome_0.99.bb =>  polkit-gnome_0.101.bb} |    4 ++--
+>   .../xz/{xz_5.0.0.bb =>  xz_5.0.2.bb}                |    4 ++--
+>   .../{x11perf_1.5.2.bb =>  x11perf_1.5.3.bb}         |    4 ++--
+>   .../{libcanberra_0.26.bb =>  libcanberra_0.28.bb}   |    4 ++--
+>   .../pimlico/{tasks_0.18.bb =>  tasks_0.19.bb}       |    4 ++--
+>   .../{consolekit_0.4.3.bb =>  consolekit_0.4.4.bb}   |    8 +++++---
+>   .../pkgconfig.patch                                |    0
+>   .../{libgpg-error_1.9.bb =>  libgpg-error_1.10.bb}  |    4 ++--
+>   ...libsoup-2.4_2.32.1.bb =>  libsoup-2.4_2.32.2.bb} |    4 ++--
+>   11 files changed, 23 insertions(+), 21 deletions(-)
+>   rename meta/recipes-connectivity/avahi/{avahi_0.6.28.bb =>  avahi_0.6.30.bb} (82%)
+>   rename meta/recipes-extended/polkit/{polkit-gnome_0.99.bb =>  polkit-gnome_0.101.bb} (86%)
+>   rename meta/recipes-extended/xz/{xz_5.0.0.bb =>  xz_5.0.2.bb} (82%)
+>   rename meta/recipes-graphics/xorg-app/{x11perf_1.5.2.bb =>  x11perf_1.5.3.bb} (76%)
+>   rename meta/recipes-multimedia/pulseaudio/{libcanberra_0.26.bb =>  libcanberra_0.28.bb} (85%)
+>   rename meta/recipes-sato/pimlico/{tasks_0.18.bb =>  tasks_0.19.bb} (78%)
+>   rename meta/recipes-support/consolekit/{consolekit_0.4.3.bb =>  consolekit_0.4.4.bb} (79%)
+>   rename meta/recipes-support/libgpg-error/{libgpg-error-1.9 =>  libgpg-error-1.10}/pkgconfig.patch (100%)
+>   rename meta/recipes-support/libgpg-error/{libgpg-error_1.9.bb =>  libgpg-error_1.10.bb} (86%)
+>   rename meta/recipes-support/libsoup/{libsoup-2.4_2.32.1.bb =>  libsoup-2.4_2.32.2.bb} (76%)
+>
 > _______________________________________________
 > poky mailing list
 > poky@yoctoproject.org
 > https://lists.yoctoproject.org/listinfo/poky
 >
+
+Merged
+
+Thanks
+	Sau!
 
 
