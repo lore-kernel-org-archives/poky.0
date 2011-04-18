@@ -1,33 +1,28 @@
-Return-Path: <akshat.embedded@gmail.com>
-Received: from mail-qw0-f48.google.com (mail-qw0-f48.google.com
-	[209.85.216.48])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9386D4C804D9
-	for <poky@yoctoproject.org>; Mon, 18 Apr 2011 01:20:21 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by qwj9 with SMTP id 9so3374435qwj.35
-	for <poky@yoctoproject.org>; Sun, 17 Apr 2011 23:20:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:date:message-id:subject:from:to
-	:content-type; bh=1U+Cb2htAogZUz+0rpGp0GJhpulmBT0bLvIaITECq00=;
-	b=tQIrAbXTds3wewTC+12zJ5rb57nWxrrQaFqir3wfUeaY1Lr8MqfW+LNStGe/3lcphJ
-	1RpyEQDFezdRQp7LmhuYQEW4heLk3GD9TZkDYMEuiSMsHuwgkSGKpLQyLyQoWrM7PqIx
-	RgvLGM64DxLKYGS7BAfW0gPUpDFxhZuGaik2Y=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:date:message-id:subject:from:to:content-type;
-	b=Ds4J+IH9ZigZsXs/v7Rryihq5VWDuunFlqCunAH3j/wJXqbwZjXPyXDliXQrIy0Qwp
-	FBV+4nVtdbyXuRkO/i32XSkN4RgR/tpUX4d21XnQnSo8Lsq2VKZZH2yJ6bByfS/fVlWp
-	tkZN7x/LDGMiI70TbQvGg8tabUslrOMzMP0e8=
-MIME-Version: 1.0
-Received: by 10.229.130.168 with SMTP id t40mr3266205qcs.140.1303107621026;
-	Sun, 17 Apr 2011 23:20:21 -0700 (PDT)
-Received: by 10.229.189.71 with HTTP; Sun, 17 Apr 2011 23:20:20 -0700 (PDT)
-Date: Mon, 18 Apr 2011 11:50:20 +0530
-Message-ID: <BANLkTimC2=uXFQiy8bt8UU2Q4OzwcMGFTg@mail.gmail.com>
-From: Akshat Saha <akshat.embedded@gmail.com>
-To: poky@yoctoproject.org
-Subject: Unable to get kernel modules
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 49F564C80A8B
+	for <poky@yoctoproject.org>; Mon, 18 Apr 2011 01:22:11 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p3I6M8ET008927;
+	Mon, 18 Apr 2011 07:22:08 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 08873-01; Mon, 18 Apr 2011 07:22:04 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p3I6M1as008921
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Mon, 18 Apr 2011 07:22:02 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: openembedded-core <openembedded-core@lists.openembedded.org>
+Date: Mon, 18 Apr 2011 07:21:53 +0100
+Message-ID: <1303107713.5518.49.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.2 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Shared work directory proof of concept
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,60 +34,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Apr 2011 06:20:22 -0000
-Content-Type: multipart/alternative; boundary=0015175925fadafab704a12b62ff
+X-List-Received-Date: Mon, 18 Apr 2011 06:22:11 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
---0015175925fadafab704a12b62ff
-Content-Type: text/plain; charset=ISO-8859-1
+One of the items on the 1.1 feature list is sharing work directories.
+This is desirable for example for gcc where the same sources are
+unpacked and patched for gcc-cross-initial, gcc-cross-intermediate,
+gcc-cross, gcc-runtime and so on.
 
-Hi,
+I've done a little experimentation with this and the code linked to
+below shows its at least possible and the kind of changes we might need
+to make to bitbake to support it:
 
-I am building my image with : bitbake poky-image-minimal-live
-But after booting/installing this image, lsmod, does not show any modules
-loaded into the kernel. Also, the folder */lib/modules/2.6.34.7-wr-standard* in
-the rfs does not contains the following files/folders:
+http://git.yoctoproject.org/cgit.cgi/poky-contrib/commit/?h=rpurdie/gcc-sharedwork&id=4a22c2212466ef3bcb20960b1f99f8509347b24d
 
-   - modules.builtin
-   - modules.order
-   - kernel
+There are at least 4 issues I've noted in the commit which we'd need to
+to look before we could start using this code, nothing impossible
+though, just needs more work.
 
-Though they are present in the *
-tmp/sysroots/core2-poky-linux/lib/modules/2.6.34.7-wr-standard.*
-*
-*
-Also, while building, *modules-2.6.34.7-wr-standard-r12-atom-pc.tgz* is
-formed in tmp/deploy/images, which consists of the above mentioned
-files/folders, but does not seem to be integrated into the image.
+Cheers,
 
-Can anyone please suggest/guide me how to integrate loadable modules into
-the image.
+Richard
 
--- 
-Akshat
 
---0015175925fadafab704a12b62ff
-Content-Type: text/html; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
-
-Hi,<div><br></div><div>I am building my image with : bitbake poky-image-min=
-imal-live</div><div>But after booting/installing this image,=A0lsmod, does =
-not show any modules loaded into the kernel. Also, the folder=A0<b>/lib/mod=
-ules/2.6.34.7-wr-standard</b>=A0in the rfs=A0does not contains the followin=
-g files/folders:</div>
-<meta http-equiv=3D"content-type" content=3D"text/html; charset=3Dutf-8"><m=
-eta http-equiv=3D"content-type" content=3D"text/html; charset=3Dutf-8"><div=
-><ul><li>modules.builtin =A0</li><li>modules.order</li><li>kernel</li></ul>=
-<div>Though they are present in the=A0<b>tmp/sysroots/core2-poky-linux/lib/=
-modules/2.6.34.7-wr-standard.</b></div>
-<div><b><br></b></div><div>Also, while building, <b>modules-2.6.34.7-wr-sta=
-ndard-r12-atom-pc.tgz</b> is formed in tmp/deploy/images, which consists of=
- the above mentioned files/folders, but does not seem to be integrated into=
- the image.</div>
-<div><br></div><div>Can anyone please suggest/guide me how to integrate loa=
-dable modules into the image.=A0</div></div><div><br></div><div>-- <br><div=
-><span style=3D"color:rgb(51, 51, 51);font-family:georgia, serif">Akshat=A0=
-</span></div>
-<div><br></div><br>
-</div>
-
---0015175925fadafab704a12b62ff--
