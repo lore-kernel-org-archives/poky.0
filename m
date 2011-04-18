@@ -1,37 +1,26 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from pug.o-hand.com (3a.49.1343.static.theplanet.com [67.19.73.58])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7EB0A4C80A47
-	for <poky@lists.pokylinux.org>; Mon, 18 Apr 2011 03:46:55 -0500 (CDT)
-Received: by pug.o-hand.com (Postfix)
-	id 6CF8412EC105; Mon, 18 Apr 2011 03:46:25 -0500 (CDT)
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by pug.o-hand.com (Postfix) with ESMTP id 0E4AA12EC072
-	for <poky@o-hand.com>; Mon, 18 Apr 2011 03:46:24 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p3I8krBE010356;
-	Mon, 18 Apr 2011 09:46:53 +0100
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 09965-09; Mon, 18 Apr 2011 09:46:49 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p3I8kjNT010350
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Mon, 18 Apr 2011 09:46:45 +0100
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Joe Sauer <jsauer@vernier.com>
-In-Reply-To: <BANLkTikxXCxeCfqnSC9kKRqVvCgF5=Ju+Q@mail.gmail.com>
-References: <BANLkTikxXCxeCfqnSC9kKRqVvCgF5=Ju+Q@mail.gmail.com>
-Date: Mon, 18 Apr 2011 09:46:36 +0100
-Message-ID: <1303116396.5518.79.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.32.2 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@o-hand.com
-Subject: Re: requesting input on specs for a new Poky build server
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5D9C04C805A8
+	for <poky@yoctoproject.org>; Mon, 18 Apr 2011 04:12:29 -0500 (CDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 18 Apr 2011 02:12:28 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.64,231,1301900400"; d="scan'208";a="911015091"
+Received: from unknown (HELO helios.localnet) ([10.255.12.202])
+	by fmsmga001.fm.intel.com with ESMTP; 18 Apr 2011 02:12:15 -0700
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
+Organization: Intel Corporation (UK)
+To: poky@yoctoproject.org
+Date: Mon, 18 Apr 2011 10:12:13 +0100
+User-Agent: KMail/1.13.5 (Linux/2.6.35-28-generic-pae; KDE/4.6.1; i686; ; )
+References: <cover.1302886579.git.paul.eggleton@linux.intel.com>
+	<4DA8CA18.3000801@mlbassoc.com> <4DA8CE4A.6090408@linux.intel.com>
+In-Reply-To: <4DA8CE4A.6090408@linux.intel.com>
+MIME-Version: 1.0
+Message-Id: <201104181012.13920.paul.eggleton@linux.intel.com>
+Cc: Darren Hart <dvhart@linux.intel.com>,
+	openembedded-core@lists.openembedded.org
+Subject: Re: [PATCH 2/3] netbase: automatically bring up usb0 on beagleboard
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,38 +32,23 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Apr 2011 08:46:55 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Mon, 18 Apr 2011 09:12:29 -0000
+Content-Type: Text/Plain;
+  charset="iso-8859-1"
 Content-Transfer-Encoding: 7bit
 
-Hi Joe,
-
-On Mon, 2011-04-11 at 14:50 -0700, Joe Sauer wrote:
-> I have the pleasure of spec'ing out a new server for doing Poky builds
-> (we are at Green 3.3.1).  As a reference point, my desktop machine is
-> a quad-Xeon @ 2.5 GHz with 4GB of RAM and SATA disk.  I can do a full
-> "clean" build for our LabQuest (armv5te) in 2 hours.
+On Saturday 16 April 2011 00:01:30 Darren Hart wrote:
+> On 04/15/2011 03:43 PM, Gary Thomas wrote:
+> > eth1 yes, but doesn't the BeagleBoard xM have eth0?
 > 
-> Here are some questions I would like to get feedback on regarding a
-> build server:
-> 
-> 1.  Would I get better build time going with more procs (8?) or faster
-> procs (3+ GHz)?
-> 
-> 2.  Are SATA drives OK, or should I go with RAID to get better R/W
-> performance?
-> 
-> 3.  If I have to choose one or the other, should I go with faster
-> procs or faster disk I/O?
+> No. The onboard device is usb0.
 
-Good questions and I'm not sure I have a definitive answer for you. Some
-parts of the build are I/O bound, some are CPU bound and I think you
-could see benefits by improving both at this point in time. I'd suspect
-CPU still wins as the bigger bottleneck though. Disk I/O can partly be
-worked around by a little more RAM.
+Looks like we're not the only ones confused by this:
 
-Cheers,
+https://bugs.launchpad.net/linux-linaro/+bug/622429
 
-Richard
+-- 
 
+Paul Eggleton
+Intel Open Source Technology Centre (UK)
 
