@@ -1,25 +1,25 @@
 Return-Path: <saul.wold@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 6BC174C804D4
-	for <poky@yoctoproject.org>; Mon, 18 Apr 2011 18:44:34 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 18 Apr 2011 16:44:33 -0700
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E93144C805A8
+	for <poky@yoctoproject.org>; Mon, 18 Apr 2011 18:52:39 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 18 Apr 2011 16:52:39 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,236,1301900400"; d="scan'208";a="421549308"
+X-IronPort-AV: E=Sophos;i="4.64,236,1301900400"; d="scan'208";a="735280303"
 Received: from unknown (HELO [10.255.13.48]) ([10.255.13.48])
-	by azsmga001.ch.intel.com with ESMTP; 18 Apr 2011 16:44:33 -0700
-Message-ID: <4DACCCE0.9050606@intel.com>
-Date: Mon, 18 Apr 2011 16:44:32 -0700
+	by orsmga001.jf.intel.com with ESMTP; 18 Apr 2011 16:52:39 -0700
+Message-ID: <4DACCEC6.1080405@intel.com>
+Date: Mon, 18 Apr 2011 16:52:38 -0700
 From: Saul Wold <saul.wold@intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
 	Thunderbird/3.0.5
 MIME-Version: 1.0
-To: Dongxiao Xu <dongxiao.xu@intel.com>
-References: <cover.1302845703.git.dongxiao.xu@intel.com>
-In-Reply-To: <cover.1302845703.git.dongxiao.xu@intel.com>
+To: Kang Kai <kai.kang@windriver.com>
+References: <cover.1302847580.git.kai.kang@windriver.com>
+In-Reply-To: <cover.1302847580.git.kai.kang@windriver.com>
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 00/14][PULL] connectivity/multimedia recipe upgrade, Dongxiao, 2011/04/15
+Subject: Re: [PATCH 0/1] jpeg: add link libjpeg.so.62 for LSB library test
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,94 +31,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Apr 2011 23:44:34 -0000
+X-List-Received-Date: Mon, 18 Apr 2011 23:52:40 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 04/14/2011 10:36 PM, Dongxiao Xu wrote:
-> From: Dongxiao Xu<dongxiao.xu@intel.com>
+On 04/15/2011 03:25 AM, Kang Kai wrote:
+> From: Kang Kai<kai.kang@windriver.com>
 >
-> Hi Saul,
+> LSB test just test whether libjpeg.so.62 exists, and no more use of it.
+> So just make link to pass library check.
 >
-> This pull request upgrades some connectivity and multimedia recipes, please help to review and pull.
+> Signed-off-by: Kang Kai<kai.kang@windriver.com>
 >
 > Pull URL: git://git.pokylinux.org/poky-contrib.git
->    Branch: dxu4/upgrade
->    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dxu4/upgrade
+>    Branch: kankang/libjpeg
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kankang/libjpeg
 >
 > Thanks,
->      Dongxiao Xu<dongxiao.xu@intel.com>
+>      Kang Kai<kai.kang@windriver.com>
 > ---
 >
 >
-> Dongxiao Xu (14):
->    gstreamer: upgrade to vesion 0.10.32
->    gst-plugins-base: upgrade to version 0.10.32
->    gst-plugins-good: upgrade to version 0.10.28
->    gst-plugins-bad: upgrade to version 0.10.21
->    gst-plugins-ugly: upgrade to version 0.10.17
->    ofono: upgrade to version 0.45
->    alsa-lib: upgrade to version 1.0.24.1
->    alsa-utils: upgrade to version 1.0.24.2
-I did not pull this due to the discussion we are talking about now.
-
-
->    telepathy-glib: upgrade to version 0.14.3
->    telepathy-idle: upgrade to version 0.1.8
->    telepathy-mission-control: upgrade to version 5.7.9
->    gssdp: upgrade to version 0.10.0
->    gupnp: upgrade to version 0.16.0
->    distro_tracking_fields: update for gstreamer, gupnp, telepathy-glib,
->      etc
+> Kang Kai (1):
+>    jpeg: add link libjpeg.so.62 for LSB library test
 >
->   .../conf/distro/include/distro_tracking_fields.inc |  106 ++++++++++----------
->   .../{files =>  gssdp-0.10.0}/introspection.patch    |    5 +-
->   .../gupnp/{gssdp_0.9.0.bb =>  gssdp_0.10.0.bb}      |    4 +-
->   .../gupnp/{gupnp_0.14.0.bb =>  gupnp_0.16.0.bb}     |    7 +-
->   meta/recipes-connectivity/ofono/ofono_0.37.bb      |    9 --
->   meta/recipes-connectivity/ofono/ofono_0.45.bb      |    9 ++
->   ...thy-glib_0.13.6.bb =>  telepathy-glib_0.14.3.bb} |    4 +-
->   ...pathy-idle_0.1.7.bb =>  telepathy-idle_0.1.8.bb} |    4 +-
->   ...5.7.1.bb =>  telepathy-mission-control_5.7.9.bb} |    4 +-
->   .../fix-tstamp-declaration.patch                   |    2 +
->   .../unbreak_plugindir.patch                        |    2 +
->   .../{alsa-lib_1.0.23.bb =>  alsa-lib_1.0.24.1.bb}   |    4 +-
->   .../ncursesfix.patch                               |   22 ++--
->   ...alsa-utils_1.0.23.bb =>  alsa-utils_1.0.24.2.bb} |    4 +-
->   ...s-bad_0.10.20.bb =>  gst-plugins-bad_0.10.21.bb} |    6 +-
->   .../gst-plugins-base-tremor.patch                  |    2 +
->   ...base_0.10.31.bb =>  gst-plugins-base_0.10.32.bb} |    6 +-
->   ...good_0.10.26.bb =>  gst-plugins-good_0.10.28.bb} |    6 +-
->   ...ugly_0.10.16.bb =>  gst-plugins-ugly_0.10.17.bb} |    3 +
->   .../check_fix.patch                                |    2 +
->   .../gst-inspect-check-error.patch                  |    2 +
->   .../gstregistrybinary.c                            |    0
->   .../gstregistrybinary.h                            |    0
->   .../{gstreamer_0.10.31.bb =>  gstreamer_0.10.32.bb} |    4 +-
->   24 files changed, 116 insertions(+), 101 deletions(-)
->   rename meta/recipes-connectivity/gupnp/{files =>  gssdp-0.10.0}/introspection.patch (97%)
->   rename meta/recipes-connectivity/gupnp/{gssdp_0.9.0.bb =>  gssdp_0.10.0.bb} (83%)
->   rename meta/recipes-connectivity/gupnp/{gupnp_0.14.0.bb =>  gupnp_0.16.0.bb} (85%)
->   delete mode 100644 meta/recipes-connectivity/ofono/ofono_0.37.bb
->   create mode 100644 meta/recipes-connectivity/ofono/ofono_0.45.bb
->   rename meta/recipes-connectivity/telepathy/{telepathy-glib_0.13.6.bb =>  telepathy-glib_0.14.3.bb} (80%)
->   rename meta/recipes-connectivity/telepathy/{telepathy-idle_0.1.7.bb =>  telepathy-idle_0.1.8.bb} (81%)
->   rename meta/recipes-connectivity/telepathy/{telepathy-mission-control_5.7.1.bb =>  telepathy-mission-control_5.7.9.bb} (92%)
->   rename meta/recipes-multimedia/alsa/{alsa-lib-1.0.23 =>  alsa-lib-1.0.24.1}/fix-tstamp-declaration.patch (95%)
->   rename meta/recipes-multimedia/alsa/{alsa-lib-1.0.23 =>  alsa-lib-1.0.24.1}/unbreak_plugindir.patch (91%)
->   rename meta/recipes-multimedia/alsa/{alsa-lib_1.0.23.bb =>  alsa-lib_1.0.24.1.bb} (91%)
->   rename meta/recipes-multimedia/alsa/{alsa-utils-1.0.23 =>  alsa-utils-1.0.24.2}/ncursesfix.patch (70%)
->   rename meta/recipes-multimedia/alsa/{alsa-utils_1.0.23.bb =>  alsa-utils_1.0.24.2.bb} (95%)
->   rename meta/recipes-multimedia/gstreamer/{gst-plugins-bad_0.10.20.bb =>  gst-plugins-bad_0.10.21.bb} (86%)
->   rename meta/recipes-multimedia/gstreamer/{gst-plugins-base-0.10.31 =>  gst-plugins-base-0.10.32}/gst-plugins-base-tremor.patch (94%)
->   rename meta/recipes-multimedia/gstreamer/{gst-plugins-base_0.10.31.bb =>  gst-plugins-base_0.10.32.bb} (86%)
->   rename meta/recipes-multimedia/gstreamer/{gst-plugins-good_0.10.26.bb =>  gst-plugins-good_0.10.28.bb} (82%)
->   rename meta/recipes-multimedia/gstreamer/{gst-plugins-ugly_0.10.16.bb =>  gst-plugins-ugly_0.10.17.bb} (85%)
->   rename meta/recipes-multimedia/gstreamer/{gstreamer-0.10.31 =>  gstreamer-0.10.32}/check_fix.patch (93%)
->   rename meta/recipes-multimedia/gstreamer/{gstreamer-0.10.31 =>  gstreamer-0.10.32}/gst-inspect-check-error.patch (96%)
->   rename meta/recipes-multimedia/gstreamer/{gstreamer-0.10.31 =>  gstreamer-0.10.32}/gstregistrybinary.c (100%)
->   rename meta/recipes-multimedia/gstreamer/{gstreamer-0.10.31 =>  gstreamer-0.10.32}/gstregistrybinary.h (100%)
->   rename meta/recipes-multimedia/gstreamer/{gstreamer_0.10.31.bb =>  gstreamer_0.10.32.bb} (91%)
+>   meta/recipes-core/jpeg/jpeg_8b.bb |   13 ++++++++++++-
+>   1 files changed, 12 insertions(+), 1 deletions(-)
 >
 > _______________________________________________
 > poky mailing list
@@ -126,7 +64,7 @@ I did not pull this due to the discussion we are talking about now.
 > https://lists.yoctoproject.org/listinfo/poky
 >
 
-Merged all but alsa-utils
+Merged into Master
 
 Thanks
 	Sau!
