@@ -1,31 +1,30 @@
 Return-Path: <richard.purdie@linuxfoundation.org>
 Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
 	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9A63E4C808DE
-	for <poky@pokylinux.org>; Mon, 18 Apr 2011 03:38:55 -0500 (CDT)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 7DF724C80A47
+	for <poky@yoctoproject.org>; Mon, 18 Apr 2011 03:41:20 -0500 (CDT)
 Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p3I8cqvh010204;
-	Mon, 18 Apr 2011 09:38:52 +0100
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p3I8fHRj010273;
+	Mon, 18 Apr 2011 09:41:17 +0100
 Received: from tim.rpsys.net ([127.0.0.1])
 	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
 	port 10024) with LMTP
-	id 09965-06; Mon, 18 Apr 2011 09:38:48 +0100 (BST)
+	id 10049-06; Mon, 18 Apr 2011 09:41:14 +0100 (BST)
 Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p3I8chTD010198
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p3I8fBAa010267
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Mon, 18 Apr 2011 09:38:43 +0100
+	Mon, 18 Apr 2011 09:41:11 +0100
 From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: "Zhai, Edwin" <edwin.zhai@intel.com>
-In-Reply-To: <4DABE72B.8080009@intel.com>
-References: <io2h0h$drr$1@dough.gmane.org> <1303105424.5518.40.camel@rex>
-	<4DABE72B.8080009@intel.com>
-Date: Mon, 18 Apr 2011 09:38:35 +0100
-Message-ID: <1303115915.5518.74.camel@rex>
+To: Darren Hart <dvhart@linux.intel.com>
+In-Reply-To: <f558e569b2182b81bba0a9a08bbba5713489e1b1.1302653512.git.dvhart@linux.intel.com>
+References: <f558e569b2182b81bba0a9a08bbba5713489e1b1.1302653512.git.dvhart@linux.intel.com>
+Date: Mon, 18 Apr 2011 09:41:03 +0100
+Message-ID: <1303116063.5518.75.camel@rex>
 Mime-Version: 1.0
 X-Mailer: Evolution 2.32.2 
 X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: gmane@reliableembeddedsystems.com, poky@pokylinux.org
-Subject: Re: web_svn with yocto 1.0 broken
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH] bitbake: correct typo in ??= documentation
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,44 +36,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Apr 2011 08:38:56 -0000
+X-List-Received-Date: Mon, 18 Apr 2011 08:41:21 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On Mon, 2011-04-18 at 15:24 +0800, Zhai, Edwin wrote:
+On Tue, 2011-04-12 at 17:11 -0700, Darren Hart wrote:
+> ??= is a lazy version of ?=
 > 
-> Richard Purdie wrote:
-> >
-> > On Wed, 2011-04-13 at 00:42 +0300, Robert Berger wrote:
-> > >
-> > > ...
-> > >
-> > > | web_gtkhtml2.c:525:3: error: too many arguments to function
-> > > 'css_parser_parse_stylesheet'
-> > >
-> > > ...
-> > >
-> > > Is there a fix for this?
-> >
-> > I've pushed a fix into the web repository for that problem (r131).
->
-> RP,
-> Thanks for your fix.
-> Curious question, who's the current owner of the open-handed's project, 
-> if I have a fix or patch for upstreaming?
+> Signed-off-by: Darren Hart <dvhart@linux.intel.com>
+> ---
+>  bitbake/doc/manual/usermanual.xml |    2 +-
+>  1 files changed, 1 insertions(+), 1 deletions(-)
+> 
+> diff --git a/bitbake/doc/manual/usermanual.xml b/bitbake/doc/manual/usermanual.xml
+> index 32b40ee..d5be5f3 100644
+> --- a/bitbake/doc/manual/usermanual.xml
+> +++ b/bitbake/doc/manual/usermanual.xml
+> @@ -97,7 +97,7 @@ share common metadata between many packages.</para></listitem>
+>                  <title>Setting a default value (??=)</title>
+>                  <para><screen><varname>A</varname> ??= "somevalue"</screen></para>
+>                  <para><screen><varname>A</varname> ??= "someothervalue"</screen></para>
+> -                <para>If <varname>A</varname> is set before the above, it will retain that value.  If <varname>A</varname> is unset prior to the above, <varname>A</varname> will be set to <literal>someothervalue</literal>.  This is a lazy version of ??=, in that the assignment does not occur until the end of the parsing process, so that the last, rather than the first, ??= assignment to a given variable will be used.</para>
+> +                <para>If <varname>A</varname> is set before the above, it will retain that value.  If <varname>A</varname> is unset prior to the above, <varname>A</varname> will be set to <literal>someothervalue</literal>.  This is a lazy version of ?=, in that the assignment does not occur until the end of the parsing process, so that the last, rather than the first, ??= assignment to a given variable will be used.</para>
+>              </section>
+>              <section>
+>                  <title>Immediate variable expansion (:=)</title>
 
-Its complicated. Some projects are orphaned, some do still have people
-who look after them. We're also in the process of migrating them all
-away from SVN over to git too.
-
-If people do have patches for things, send me email offlist and I'll try
-and put you in touch with the right people on a case by case basis.
-
-Cheers,
+Merged into poky master (and will follow into bitbake master), thanks.
 
 Richard
-
-
-
 
 
