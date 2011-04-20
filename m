@@ -1,23 +1,26 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7760A4C804D4
-	for <poky@yoctoproject.org>; Wed, 20 Apr 2011 10:09:30 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 20 Apr 2011 08:09:10 -0700
+Return-Path: <ke.yu@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 61C614C80581
+	for <poky@yoctoproject.org>; Wed, 20 Apr 2011 10:21:48 -0500 (CDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 20 Apr 2011 08:21:47 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,247,1301900400"; d="scan'208";a="736073723"
-Received: from unknown (HELO [10.255.12.227]) ([10.255.12.227])
-	by orsmga001.jf.intel.com with ESMTP; 20 Apr 2011 08:09:09 -0700
-From: Darren Hart <dvhart@linux.intel.com>
-To: Dongxiao Xu <dongxiao.xu@intel.com>
-In-Reply-To: <cover.1302845703.git.dongxiao.xu@intel.com>
-References: <cover.1302845703.git.dongxiao.xu@intel.com>
-Date: Wed, 20 Apr 2011 08:09:13 -0700
-Message-ID: <1303312153.23006.5.camel@doubt>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.30.3 
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 00/14][PULL] connectivity/multimedia recipe upgrade, Dongxiao, 2011/04/15
+X-IronPort-AV: E=Sophos;i="4.64,247,1301900400"; d="scan'208";a="681561284"
+Received: from kyu3-desk.ccr.corp.intel.com (HELO [10.238.154.142])
+	([10.238.154.142])
+	by fmsmga002.fm.intel.com with ESMTP; 20 Apr 2011 08:21:47 -0700
+Message-ID: <4DAEFA0A.9020701@intel.com>
+Date: Wed, 20 Apr 2011 23:21:46 +0800
+From: Yu Ke <ke.yu@intel.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US;
+	rv:1.9.2.15) Gecko/20110303 Thunderbird/3.1.9
+MIME-Version: 1.0
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+References: <33AB447FBD802F4E932063B962385B355290F3F9@shsmsx501.ccr.corp.intel.com>
+	<1303296330.5518.308.camel@rex>
+In-Reply-To: <1303296330.5518.308.camel@rex>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: On Bug 972 - tag does not work in git fetcher
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,106 +32,90 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 20 Apr 2011 15:09:30 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Wed, 20 Apr 2011 15:21:48 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Fri, 2011-04-15 at 13:36 +0800, Dongxiao Xu wrote:
-> From: Dongxiao Xu <dongxiao.xu@intel.com>
-> 
-> Hi Saul,
-> 
-> This pull request upgrades some connectivity and multimedia recipes, please help to review and pull.
+on 2011-4-20 18:45, Richard Purdie wrote:
+> On Wed, 2011-04-20 at 15:51 +0800, Yu, Ke wrote:
+>> I get the root cause of bug 972
+>> (http://bugzilla.pokylinux.org/show_bug.cgi?id=972) , and want to get
+>> your comments on how to fix the bug.
+>>
+>> the culprit of this bug is commit
+>> http://git.pokylinux.org/cgit/cgit.cgi/poky/commit/?id=5920e85c561624e657c126df58f5c378a8950bbc :
+>> "
+>> bitbake/fetch2/git: Ensure unresolved branches are translated into
+>> revisions
+>>
+>> Signed-off-by: Richard Purdie<richard.purdie@linuxfoundation.org>
+>>
+>> diff --git a/bitbake/lib/bb/fetch2/git.py b/bitbake/lib/bb/fetch2/git.py
+>> index 6bcc4a4..f05a360 100644
+>> --- a/bitbake/lib/bb/fetch2/git.py
+>> +++ b/bitbake/lib/bb/fetch2/git.py
+>> @@ -72,7 +72,8 @@ class Git(FetchMethod):
+>>           ud.basecmd = data.getVar("FETCHCMD_git", d, True) or "git"
+>>
+>>           for name in ud.names:
+>> -            if not ud.revisions[name] or ud.revisions[name] == "master":
+>> +            # Ensure anything that doesn't look like a sha256 checksum/revision is translated into one
+>> +            if not ud.revisions[name] or len(ud.revisions[name]) != 40  or (False in [c in "abcdef0123456789" for c in ud.revisions[name]]):
+>>                   ud.revisions[name] = self.latest_revision(url, ud, d, name)
+>>
+>>           ud.localfile = ud.clonedir
+>> "
+>> with this commit, tag is treated as invalid revision since it is not
+>> sha256 checksum, so tag become unusable.
+>>
+>> To fix it,  one option is to revert this commit, another option is to
+>> check if ud.revisions[name] is tag. I prefer the first option to
+>> revert this commit, because if user set incorrect revision, reporting
+>> error to user would be better.  In this case user have chance to fix
+>> it. the above commit actually hide the error from user which sound not
+>> good.
+>>
+>> On the other hand, I don't remember the purpose of this commit, so
+>> want to get your comment to make sure not breaking other things.
+>
+> The reason for the change was because there were problems being able to
+> detect if the checkout needed updating or not. To correctly detect that
+> we need a sha256 ID in the revisions field else need_update() doesn't
+> work correctly amongst other problems.
 
-How have these upgrades been tested? In particular, has rygel from
-meta-demo been shown to work using the updated libraries?
+Could you elaborate more on the problem that the non sha256 ID may 
+cause?  I am curious in which case need_update() will not work correctly.
 
---
-Darren
+Regards
+Ke
 
-> 
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->   Branch: dxu4/upgrade
->   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dxu4/upgrade
-> 
-> Thanks,
->     Dongxiao Xu <dongxiao.xu@intel.com>
-> ---
-> 
-> 
-> Dongxiao Xu (14):
->   gstreamer: upgrade to vesion 0.10.32
->   gst-plugins-base: upgrade to version 0.10.32
->   gst-plugins-good: upgrade to version 0.10.28
->   gst-plugins-bad: upgrade to version 0.10.21
->   gst-plugins-ugly: upgrade to version 0.10.17
->   ofono: upgrade to version 0.45
->   alsa-lib: upgrade to version 1.0.24.1
->   alsa-utils: upgrade to version 1.0.24.2
->   telepathy-glib: upgrade to version 0.14.3
->   telepathy-idle: upgrade to version 0.1.8
->   telepathy-mission-control: upgrade to version 5.7.9
->   gssdp: upgrade to version 0.10.0
->   gupnp: upgrade to version 0.16.0
->   distro_tracking_fields: update for gstreamer, gupnp, telepathy-glib,
->     etc
-> 
->  .../conf/distro/include/distro_tracking_fields.inc |  106 ++++++++++----------
->  .../{files => gssdp-0.10.0}/introspection.patch    |    5 +-
->  .../gupnp/{gssdp_0.9.0.bb => gssdp_0.10.0.bb}      |    4 +-
->  .../gupnp/{gupnp_0.14.0.bb => gupnp_0.16.0.bb}     |    7 +-
->  meta/recipes-connectivity/ofono/ofono_0.37.bb      |    9 --
->  meta/recipes-connectivity/ofono/ofono_0.45.bb      |    9 ++
->  ...thy-glib_0.13.6.bb => telepathy-glib_0.14.3.bb} |    4 +-
->  ...pathy-idle_0.1.7.bb => telepathy-idle_0.1.8.bb} |    4 +-
->  ...5.7.1.bb => telepathy-mission-control_5.7.9.bb} |    4 +-
->  .../fix-tstamp-declaration.patch                   |    2 +
->  .../unbreak_plugindir.patch                        |    2 +
->  .../{alsa-lib_1.0.23.bb => alsa-lib_1.0.24.1.bb}   |    4 +-
->  .../ncursesfix.patch                               |   22 ++--
->  ...alsa-utils_1.0.23.bb => alsa-utils_1.0.24.2.bb} |    4 +-
->  ...s-bad_0.10.20.bb => gst-plugins-bad_0.10.21.bb} |    6 +-
->  .../gst-plugins-base-tremor.patch                  |    2 +
->  ...base_0.10.31.bb => gst-plugins-base_0.10.32.bb} |    6 +-
->  ...good_0.10.26.bb => gst-plugins-good_0.10.28.bb} |    6 +-
->  ...ugly_0.10.16.bb => gst-plugins-ugly_0.10.17.bb} |    3 +
->  .../check_fix.patch                                |    2 +
->  .../gst-inspect-check-error.patch                  |    2 +
->  .../gstregistrybinary.c                            |    0
->  .../gstregistrybinary.h                            |    0
->  .../{gstreamer_0.10.31.bb => gstreamer_0.10.32.bb} |    4 +-
->  24 files changed, 116 insertions(+), 101 deletions(-)
->  rename meta/recipes-connectivity/gupnp/{files => gssdp-0.10.0}/introspection.patch (97%)
->  rename meta/recipes-connectivity/gupnp/{gssdp_0.9.0.bb => gssdp_0.10.0.bb} (83%)
->  rename meta/recipes-connectivity/gupnp/{gupnp_0.14.0.bb => gupnp_0.16.0.bb} (85%)
->  delete mode 100644 meta/recipes-connectivity/ofono/ofono_0.37.bb
->  create mode 100644 meta/recipes-connectivity/ofono/ofono_0.45.bb
->  rename meta/recipes-connectivity/telepathy/{telepathy-glib_0.13.6.bb => telepathy-glib_0.14.3.bb} (80%)
->  rename meta/recipes-connectivity/telepathy/{telepathy-idle_0.1.7.bb => telepathy-idle_0.1.8.bb} (81%)
->  rename meta/recipes-connectivity/telepathy/{telepathy-mission-control_5.7.1.bb => telepathy-mission-control_5.7.9.bb} (92%)
->  rename meta/recipes-multimedia/alsa/{alsa-lib-1.0.23 => alsa-lib-1.0.24.1}/fix-tstamp-declaration.patch (95%)
->  rename meta/recipes-multimedia/alsa/{alsa-lib-1.0.23 => alsa-lib-1.0.24.1}/unbreak_plugindir.patch (91%)
->  rename meta/recipes-multimedia/alsa/{alsa-lib_1.0.23.bb => alsa-lib_1.0.24.1.bb} (91%)
->  rename meta/recipes-multimedia/alsa/{alsa-utils-1.0.23 => alsa-utils-1.0.24.2}/ncursesfix.patch (70%)
->  rename meta/recipes-multimedia/alsa/{alsa-utils_1.0.23.bb => alsa-utils_1.0.24.2.bb} (95%)
->  rename meta/recipes-multimedia/gstreamer/{gst-plugins-bad_0.10.20.bb => gst-plugins-bad_0.10.21.bb} (86%)
->  rename meta/recipes-multimedia/gstreamer/{gst-plugins-base-0.10.31 => gst-plugins-base-0.10.32}/gst-plugins-base-tremor.patch (94%)
->  rename meta/recipes-multimedia/gstreamer/{gst-plugins-base_0.10.31.bb => gst-plugins-base_0.10.32.bb} (86%)
->  rename meta/recipes-multimedia/gstreamer/{gst-plugins-good_0.10.26.bb => gst-plugins-good_0.10.28.bb} (82%)
->  rename meta/recipes-multimedia/gstreamer/{gst-plugins-ugly_0.10.16.bb => gst-plugins-ugly_0.10.17.bb} (85%)
->  rename meta/recipes-multimedia/gstreamer/{gstreamer-0.10.31 => gstreamer-0.10.32}/check_fix.patch (93%)
->  rename meta/recipes-multimedia/gstreamer/{gstreamer-0.10.31 => gstreamer-0.10.32}/gst-inspect-check-error.patch (96%)
->  rename meta/recipes-multimedia/gstreamer/{gstreamer-0.10.31 => gstreamer-0.10.32}/gstregistrybinary.c (100%)
->  rename meta/recipes-multimedia/gstreamer/{gstreamer-0.10.31 => gstreamer-0.10.32}/gstregistrybinary.h (100%)
->  rename meta/recipes-multimedia/gstreamer/{gstreamer_0.10.31.bb => gstreamer_0.10.32.bb} (91%)
-> 
+>
+> The real problem is that we're having a hard time figuring out if that
+> field refers to a tag or a branch, "master" is the latter for example.
+> The question is then whether we're happy to take the local value in any
+> local checkout or whether we want to check the upstream repository in
+> case its changed. Currently we play it safe and use ls-remote to figure
+> it out but that means network access.
+>
+> I think what we need to do is if this is a name, we should, set
+> ud.branches[name] to be ud.revisions[name] (i.e. the tag) and treat it
+> like a branch name for the purposes of the ls-remote command. It won't
+> be perfect as it requires network access to resolve it but it should get
+> the tag parameter working again. So the code would become:
+>
+>              if not ud.revisions[name] or len(ud.revisions[name]) != 40  or (False in [c in "abcdef0123456789" for c in ud.revisions[name]]):
+>                  ud.branches[name] = ud.revisions[name]
+>                  ud.revisions[name] = self.latest_revision(ud.url, ud, d,  name)
+>
+> Cheers,
+>
+> Richard
+>
+>
 > _______________________________________________
 > poky mailing list
 > poky@yoctoproject.org
 > https://lists.yoctoproject.org/listinfo/poky
-
--- 
-Darren Hart
-Yocto Linux Kernel
+>
 
 
