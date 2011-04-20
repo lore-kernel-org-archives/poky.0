@@ -1,27 +1,24 @@
-Return-Path: <koen@dominion.thruhere.net>
-Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B9C9E4C804D4
-	for <poky@yoctoproject.org>; Wed, 20 Apr 2011 11:17:37 -0500 (CDT)
-Received: by wwd20 with SMTP id 20so1048562wwd.11
-	for <poky@yoctoproject.org>; Wed, 20 Apr 2011 09:17:36 -0700 (PDT)
-Received: by 10.216.245.4 with SMTP id n4mr976209wer.83.1303316256417;
-	Wed, 20 Apr 2011 09:17:36 -0700 (PDT)
-Received: from [172.20.0.255] (ip545070eb.adsl-surfen.hetnet.nl
-	[84.80.112.235])
-	by mx.google.com with ESMTPS id y29sm662407wbd.55.2011.04.20.09.17.35
-	(version=TLSv1/SSLv3 cipher=OTHER);
-	Wed, 20 Apr 2011 09:17:35 -0700 (PDT)
-Mime-Version: 1.0 (Apple Message framework v1084)
-From: Koen Kooi <koen@dominion.thruhere.net>
-In-Reply-To: <1303312153.23006.5.camel@doubt>
-Date: Wed, 20 Apr 2011 18:17:34 +0200
-Message-Id: <B83D70C3-A6F2-4318-8678-5E50929C072B@dominion.thruhere.net>
-References: <cover.1302845703.git.dongxiao.xu@intel.com>
-	<1303312153.23006.5.camel@doubt>
-To: Darren Hart <dvhart@linux.intel.com>
-X-Mailer: Apple Mail (2.1084)
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 00/14][PULL] connectivity/multimedia recipe upgrade, Dongxiao, 2011/04/15
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 063464C804D4;
+	Wed, 20 Apr 2011 11:45:34 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 20 Apr 2011 09:45:34 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.64,247,1301900400"; d="scan'208";a="422720266"
+Received: from unknown (HELO [10.255.12.227]) ([10.255.12.227])
+	by azsmga001.ch.intel.com with ESMTP; 20 Apr 2011 09:45:33 -0700
+Message-ID: <4DAF0DB2.5080004@linux.intel.com>
+Date: Wed, 20 Apr 2011 09:45:38 -0700
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.14) Gecko/20110223 Lightning/1.0b2 Thunderbird/3.1.8
+MIME-Version: 1.0
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+References: <1300408987.30423.2172.camel@rex>
+In-Reply-To: <1300408987.30423.2172.camel@rex>
+Cc: yocto <yocto@yoctoproject.org>, poky <poky@yoctoproject.org>
+Subject: Re: Shared State - What does it mean and why should I care?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,143 +30,295 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 20 Apr 2011 16:17:38 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Wed, 20 Apr 2011 16:45:35 -0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
 
+Thanks for the write-up RP. Do we plan to integrate this with the
+reference manual? Perhaps something on the wiki until this is all a bit
+more final and then move it into the ref manual?
 
-Op 20 apr 2011, om 17:09 heeft Darren Hart het volgende geschreven:
+--
+Darren
 
-> On Fri, 2011-04-15 at 13:36 +0800, Dongxiao Xu wrote:
->> From: Dongxiao Xu <dongxiao.xu@intel.com>
->>=20
->> Hi Saul,
->>=20
->> This pull request upgrades some connectivity and multimedia recipes, =
-please help to review and pull.
->=20
-> How have these upgrades been tested? In particular, has rygel from
-> meta-demo been shown to work using the updated libraries?
-
-There was a new rygel release today, a nice opportunity to test the =
-updates :)
-
->=20
-> --
-> Darren
->=20
->>=20
->> Pull URL: git://git.pokylinux.org/poky-contrib.git
->>  Branch: dxu4/upgrade
->>  Browse: =
-http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=3Ddxu4/upgrade
->>=20
->> Thanks,
->>    Dongxiao Xu <dongxiao.xu@intel.com>
->> ---
->>=20
->>=20
->> Dongxiao Xu (14):
->>  gstreamer: upgrade to vesion 0.10.32
->>  gst-plugins-base: upgrade to version 0.10.32
->>  gst-plugins-good: upgrade to version 0.10.28
->>  gst-plugins-bad: upgrade to version 0.10.21
->>  gst-plugins-ugly: upgrade to version 0.10.17
->>  ofono: upgrade to version 0.45
->>  alsa-lib: upgrade to version 1.0.24.1
->>  alsa-utils: upgrade to version 1.0.24.2
->>  telepathy-glib: upgrade to version 0.14.3
->>  telepathy-idle: upgrade to version 0.1.8
->>  telepathy-mission-control: upgrade to version 5.7.9
->>  gssdp: upgrade to version 0.10.0
->>  gupnp: upgrade to version 0.16.0
->>  distro_tracking_fields: update for gstreamer, gupnp, telepathy-glib,
->>    etc
->>=20
->> .../conf/distro/include/distro_tracking_fields.inc |  106 =
-++++++++++----------
->> .../{files =3D> gssdp-0.10.0}/introspection.patch    |    5 +-
->> .../gupnp/{gssdp_0.9.0.bb =3D> gssdp_0.10.0.bb}      |    4 +-
->> .../gupnp/{gupnp_0.14.0.bb =3D> gupnp_0.16.0.bb}     |    7 +-
->> meta/recipes-connectivity/ofono/ofono_0.37.bb      |    9 --
->> meta/recipes-connectivity/ofono/ofono_0.45.bb      |    9 ++
->> ...thy-glib_0.13.6.bb =3D> telepathy-glib_0.14.3.bb} |    4 +-
->> ...pathy-idle_0.1.7.bb =3D> telepathy-idle_0.1.8.bb} |    4 +-
->> ...5.7.1.bb =3D> telepathy-mission-control_5.7.9.bb} |    4 +-
->> .../fix-tstamp-declaration.patch                   |    2 +
->> .../unbreak_plugindir.patch                        |    2 +
->> .../{alsa-lib_1.0.23.bb =3D> alsa-lib_1.0.24.1.bb}   |    4 +-
->> .../ncursesfix.patch                               |   22 ++--
->> ...alsa-utils_1.0.23.bb =3D> alsa-utils_1.0.24.2.bb} |    4 +-
->> ...s-bad_0.10.20.bb =3D> gst-plugins-bad_0.10.21.bb} |    6 +-
->> .../gst-plugins-base-tremor.patch                  |    2 +
->> ...base_0.10.31.bb =3D> gst-plugins-base_0.10.32.bb} |    6 +-
->> ...good_0.10.26.bb =3D> gst-plugins-good_0.10.28.bb} |    6 +-
->> ...ugly_0.10.16.bb =3D> gst-plugins-ugly_0.10.17.bb} |    3 +
->> .../check_fix.patch                                |    2 +
->> .../gst-inspect-check-error.patch                  |    2 +
->> .../gstregistrybinary.c                            |    0
->> .../gstregistrybinary.h                            |    0
->> .../{gstreamer_0.10.31.bb =3D> gstreamer_0.10.32.bb} |    4 +-
->> 24 files changed, 116 insertions(+), 101 deletions(-)
->> rename meta/recipes-connectivity/gupnp/{files =3D> =
-gssdp-0.10.0}/introspection.patch (97%)
->> rename meta/recipes-connectivity/gupnp/{gssdp_0.9.0.bb =3D> =
-gssdp_0.10.0.bb} (83%)
->> rename meta/recipes-connectivity/gupnp/{gupnp_0.14.0.bb =3D> =
-gupnp_0.16.0.bb} (85%)
->> delete mode 100644 meta/recipes-connectivity/ofono/ofono_0.37.bb
->> create mode 100644 meta/recipes-connectivity/ofono/ofono_0.45.bb
->> rename meta/recipes-connectivity/telepathy/{telepathy-glib_0.13.6.bb =
-=3D> telepathy-glib_0.14.3.bb} (80%)
->> rename meta/recipes-connectivity/telepathy/{telepathy-idle_0.1.7.bb =
-=3D> telepathy-idle_0.1.8.bb} (81%)
->> rename =
-meta/recipes-connectivity/telepathy/{telepathy-mission-control_5.7.1.bb =
-=3D> telepathy-mission-control_5.7.9.bb} (92%)
->> rename meta/recipes-multimedia/alsa/{alsa-lib-1.0.23 =3D> =
-alsa-lib-1.0.24.1}/fix-tstamp-declaration.patch (95%)
->> rename meta/recipes-multimedia/alsa/{alsa-lib-1.0.23 =3D> =
-alsa-lib-1.0.24.1}/unbreak_plugindir.patch (91%)
->> rename meta/recipes-multimedia/alsa/{alsa-lib_1.0.23.bb =3D> =
-alsa-lib_1.0.24.1.bb} (91%)
->> rename meta/recipes-multimedia/alsa/{alsa-utils-1.0.23 =3D> =
-alsa-utils-1.0.24.2}/ncursesfix.patch (70%)
->> rename meta/recipes-multimedia/alsa/{alsa-utils_1.0.23.bb =3D> =
-alsa-utils_1.0.24.2.bb} (95%)
->> rename meta/recipes-multimedia/gstreamer/{gst-plugins-bad_0.10.20.bb =
-=3D> gst-plugins-bad_0.10.21.bb} (86%)
->> rename meta/recipes-multimedia/gstreamer/{gst-plugins-base-0.10.31 =3D>=
- gst-plugins-base-0.10.32}/gst-plugins-base-tremor.patch (94%)
->> rename meta/recipes-multimedia/gstreamer/{gst-plugins-base_0.10.31.bb =
-=3D> gst-plugins-base_0.10.32.bb} (86%)
->> rename meta/recipes-multimedia/gstreamer/{gst-plugins-good_0.10.26.bb =
-=3D> gst-plugins-good_0.10.28.bb} (82%)
->> rename meta/recipes-multimedia/gstreamer/{gst-plugins-ugly_0.10.16.bb =
-=3D> gst-plugins-ugly_0.10.17.bb} (85%)
->> rename meta/recipes-multimedia/gstreamer/{gstreamer-0.10.31 =3D> =
-gstreamer-0.10.32}/check_fix.patch (93%)
->> rename meta/recipes-multimedia/gstreamer/{gstreamer-0.10.31 =3D> =
-gstreamer-0.10.32}/gst-inspect-check-error.patch (96%)
->> rename meta/recipes-multimedia/gstreamer/{gstreamer-0.10.31 =3D> =
-gstreamer-0.10.32}/gstregistrybinary.c (100%)
->> rename meta/recipes-multimedia/gstreamer/{gstreamer-0.10.31 =3D> =
-gstreamer-0.10.32}/gstregistrybinary.h (100%)
->> rename meta/recipes-multimedia/gstreamer/{gstreamer_0.10.31.bb =3D> =
-gstreamer_0.10.32.bb} (91%)
->>=20
->> _______________________________________________
->> poky mailing list
->> poky@yoctoproject.org
->> https://lists.yoctoproject.org/listinfo/poky
->=20
-> --=20
-> Darren Hart
-> Yocto Linux Kernel
->=20
+On 03/17/2011 05:43 PM, Richard Purdie wrote:
+> One of the biggest attractions but also one of the biggest problems with
+> the OpenEmbedded architecture has always been the grounding in the build
+> from scratch approach. From one side this is a great advantage and its
+> something many systems struggle with. The downside is that it also means
+> people spend a lot of time rebuilding things from scratch and this is
+> the default approach people take whenever they hit problems.
+> 
+> For a long time we've wanted to find ways to do this better and have
+> better incremental build support. It can be split into some related
+> problems:
+> 
+> a) How do we work out which pieces of the system have not changed and
+> which have changed?
+> b) How do we then remove and replace the pieces that have changed?
+> c) How do we use prebuilt components that don't need to be built from
+> scratch if they're available?
+> 
+> We now have answers to the questions:
+> 
+> a) We detect changes in the "inputs" to a given task by creating a
+> checksum/signature of those inputs. If the checksum/signature changes,
+> the inputs changed and we need to rerun it.
+> b) The shared state (sstate) code tracks which tasks added which output
+> to the build process. This means the output from a given task can be
+> removed/upgraded or otherwise manipulated.
+> c) This question is also addressed partly by b) assuming we can fetch
+> the sstate objects from remote locations and install them if they're
+> deemed to be valid.
+> 
+> I'm now proud to announce that we have all these pieces in place and
+> working. Its not a simple problem and I'm not going to claim its all bug
+> free but the architecture is there, we've tested it and fixed many of
+> the problems. This is by far the most complete and robust answer to the
+> above questions we've ever had, replacing ideas like the several
+> versions of packaged-staging that predate this.
+> 
+> Since its new, this subject is lacking in documentation and I'd
+> therefore like to dive into some of the technical details so these have
+> at least been covered somewhere. I'm going to tell this partly as a
+> story of how we've arrived at the design we have today. Over time we can
+> expand this and include the data in the manuals etc.
+> 
+> Overall Architecture
+> ====================
+> 
+> Firstly, we've made a decision to make all this work on a per-task
+> basis. In previous versions of packaged-staging we did this on a per
+> recipe basis but this didn't work well. Why? Imagine you have the ipk
+> packaging backend enabled and you switch to deb. Your do_install and
+> do_package output is still valid but a per recipe approach wouldn't
+> include the .deb files so you'd have to invalidate the whole thing and
+> re-run it. This is suboptimal. You also end up having to teach the core
+> an awful lot of knowledge about specific tasks. This doesn't scale well
+> and doesn't allow users to add new tasks easily in layers or external
+> recipes without touching the packaged-staging core.
+> 
+> Checksums/Signatures
+> ====================
+> 
+> So we need to detect all the inputs to a given task. For shell tasks
+> this turns out to be fairly easily as we generate the "run" shell script
+> for each task and its possible to checksum that and have a good idea of
+> when the data going into a task changes.
+> 
+> To complicate the problem, there are things we don't want to include in
+> the checksum. Firstly, there is the actual specific build path of a
+> given task (its WORKDIR). We don't really mind if that changes as that
+> shouldn't affect the output for target packages and we also have the
+> objective of making native/cross packages relocatable. We therefore need
+> to exclude WORKDIR. The simplistic approach is therefore to set WORKDIR
+> to some fixed value and checksum that "run" script. The next problem is
+> the "run" scripts were rather full of functions that may or may not get
+> called. Chris Larson added code which allowed us to figure out
+> dependencies between shell functions and we use this to prune the "run"
+> scripts down to the minimum set, thereby alleviating this problem and
+> making the "run" scripts much more readable as an added bonus.
+> 
+> So we have something that would work for shell, what about python tasks?
+> These are harder but the same approach applies, we needed to figure out
+> what variables a python function accesses and what functions it calls.
+> Again, Chris Larson came up with some code for this and this is exactly
+> what we do, figure out the variable and function dependencies, then
+> checksum the data that goes as an input to the task.
+> 
+> Like the WORKDIR case, there are some cases where we do explicitly want
+> to ignore a dependency as we know better than bitbake. This can be done
+> with a line like:
+> 
+> PACKAGE_ARCHS[vardepsexclude] = "MACHINE"
+> 
+> which would ensure that the PACKAGE_ARCHS variable does not depend on
+> the value of MACHINE, even if it does reference it.
+> 
+> Equally, there are some cases where we need to add in dependencies
+> bitbake isn't able to find which can be done as:
+> 
+> PACKAGE_ARCHS[vardeps] = "MACHINE"
+> 
+> which would explicitly add the MACHINE variable as a dependency for
+> PACKAGE_ARCHS. There are some cases with inline python for example where
+> bitbake isn't able to figure out the dependencies. When running in debug
+> mode (-DDD), bitbake does output information when it sees something it
+> can't figure out the dependencies within. We currently have not managed
+> to cover those dependencies in detail and this is something we know we
+> need to fix.
+> 
+> This covers the direct inputs into a task well but there is then the
+> question of the indirect inputs, the things that were already built and
+> present in the build directory. The information so far is referred to as
+> the "basehash" in the code, we then need to add the hashes of all the
+> tasks this task depends upon. Choosing which dependencies to add is a
+> policy decision but the effect is to generate a master
+> checksum/signature which combines the basehash and the hashes of the
+> dependencies.
+> 
+> Figuring out the dependencies and these signatures/checksums is great,
+> what do we then do with the checksum information? We've introduced the
+> notion of a signature handler into bitbake which is responsibility for
+> processing this information. By default there is a dummy "noop"
+> signature handler enabled in bitbake so behaviour is unchanged from
+> previous versions. OECore uses the "basic" signature hander by setting:
+> 
+> BB_SIGNATURE_HANDLER ?= "basic"
+> 
+> in bitbake.conf. At the same point we also give bitbake some extra
+> information to help it handle this information:
+> 
+> BB_HASHBASE_WHITELIST ?= "TMPDIR FILE PATH PWD BB_TASKHASH BBPATH DL_DIR SSTATE_DIR THISDIR FILESEXTRAPATHS FILE_DIRNAME HOME LOGNAME SHELL TERM USER FILESPATH USERNAME STAGING_DIR_HOST STAGING_DIR_TARGET"
+> BB_HASHTASK_WHITELIST ?= "(.*-cross$|.*-native$|.*-cross-initial$|.*-cross-intermediate$|^virtual:native:.*|^virtual:nativesdk:.*)"
+> 
+> The BB_HASHBASE_WHITELIST is effectively a list of global
+> vardepsexclude, those variables are never included in any checksum. This
+> is actually where we exclude WORKDIR since WORKDIR is constructed as a
+> path within TMPDIR and we whitelist TMPDIR.
+> 
+> The BB_HASHTASK_WHITELIST covers dependent tasks and excludes certain
+> kinds of tasks from the dependency chains. The effect of the example
+> above is to isolate the native, target and cross components, so for
+> example, toolchain changes don't force a rebuild of the whole system.
+> 
+> The end result of the "basic" handler is to make some dependency and
+> hash information available to the build. This includes:
+> 
+> BB_BASEHASH_task-<taskname> - the base hashes for each task in the recipe
+> BB_BASEHASH_<filename:taskname> - the base hashes for each dependent task
+> BBHASHDEPS_<filename:taskname> - The task dependencies for each task
+> BB_TASKHASH - the hash of the currently running task
+> 
+> There is also a "basichash" BB_SIGNATURE_HANDLER which is the same as
+> the basic version but adds the task hash to the stamp files. This has
+> the result that any metadata change that changes the task hash,
+> automatically causes the task to rerun. This removes the need to bump PR
+> values and changes to metadata automatically ripple across the build.
+> This isn't the default but its likely we'll do that in future and all
+> the functionality exists. The reason for delaying is the potential
+> impact to distribution feed creation as they need increasing PR fields
+> and we lack a mechanism to automate that yet. Its not a hard problem to
+> fix though.
+> 
+> Shared State
+> ============
+> 
+> I've talked a lot about part a) of the problem above and how we detect
+> changes to the tasks. This solves half the problem, the other half is
+> using this information at the build level and being able to reuse or
+> rebuild specific components.
+> 
+> The sstate class is a relatively generic implementation of how to
+> "capture" a snapshot of a given task. The idea is that from the build
+> point of view we should never need to care where this output came from,
+> it could be freshly built, it could be downloaded and unpacked from
+> somewhere, we should never need to care.
+> 
+> There are two classes of output, one is just about creating a directory
+> in WORKDIR, e.g. the output of do_install or do_package. The other is
+> where a set of data is merged into a shared directory tree such as the
+> sysroot.
+> 
+> We've tried to keep the gory details of the implementation hidden in the
+> sstate class. From a user perspective, adding sstate wrapping to a task
+> is as simple as this do_deploy example taken from do_deploy.bbclass:
+> 
+> DEPLOYDIR = "${WORKDIR}/deploy-${PN}"
+> SSTATETASKS += "do_deploy"
+> do_deploy[sstate-name] = "deploy"
+> do_deploy[sstate-inputdirs] = "${DEPLOYDIR}"
+> do_deploy[sstate-outputdirs] = "${DEPLOY_DIR_IMAGE}"
+> 
+> python do_deploy_setscene () {
+>     sstate_setscene(d)
+> }
+> addtask do_deploy_setscene
+> 
+> Here, we add some extra flags to the task, a name field ("deploy"), an
+> input directory which is where the task outputs data to, the output
+> directory which is where the data from the task should be eventually be
+> copied to. We also add a _setscene variant of the task and add the task
+> name to the SSTATETASKS list.
+> 
+> If there was a directory you just need to ensure has its contents
+> preserved, this can be done with a line like:
+> 
+> do_package[sstate-plaindirs] = "${PKGD} ${PKGDEST}"
+> 
+> Its also worth highlighting mutliple directories can be handled as above
+> or as in the following input/output example:
+> 
+> do_package[sstate-inputdirs] = "${PKGDESTWORK} ${SHLIBSWORKDIR}"
+> do_package[sstate-outputdirs] = "${PKGDATA_DIR} ${SHLIBSDIR}"
+> do_package[sstate-lockfile] = "${PACKAGELOCK}"
+> 
+> This also includes the ability to take a lockfile when manipulating
+> sstate directory structures since some cases are sensitive to file
+> additions/removals.
+> 
+> Behind the scenes, the sstate code works by looking in SSTATE_DIR and
+> also at any SSTATE_MIRRORS for sstate files. An example of a local file
+> url sstate mirror is:
+> 
+> SSTATE_MIRRORS ?= "\
+> file://.* http://someserver.tld/share/sstate/ \n \
+> file://.* file:///some/local/dir/sstate/"
+> 
+> although any standard PREMIRROR/MIRROR syntax can be used for example
+> with http:// urls.
+> 
+> The sstate package validity can be detected just by looking at the
+> filename since the filename contains the task checksum/signature as
+> detailed above. If a valid sstate package is found, it will be
+> downloaded and used to accelerate the task.
+> 
+> The task acceleration phase is what the *_setscene tasks are used for.
+> Bitbake goes through this phase before the main execution code and tries
+> to accelerate any tasks it can find sstate packages for. If a sstate
+> package for a task is available, the sstate package will be used, that
+> task will not be run and importantly, any dependencies that task will
+> also not be executed.
+> 
+> As a real world example, the aim is when building an ipk based image,
+> only the do_package_write_ipk tasks would have their sstate packages
+> fetched and extracted. Since the sysroot isn't used, it would never get
+> extracted. This is another reason to prefer the task based approach
+> sstate takes over any recipe based approach which would have to install
+> the output from every task.
+> 
+> Tips and Tricks
+> ===============
+> 
+> This isn't simple code and when it goes wrong, debugging needs to be
+> straightforward. During development we tried to write strong debugging
+> tools too.
+> 
+> Firstly, whenever a sstate package is written out, so is a
+> corresponding .siginfo file. This is a pickled python database of all
+> the metadata that went into creating the hash for a given sstate
+> package.
+> 
+> If bitbake is run with the --dump-signatures (or -S) option, instead of
+> building the target package specified it will dump out siginfo files in
+> the stamp directory for every task it would have executed.
+> 
+> Finally, there is a bitbake-diffsigs command which can process these
+> siginfo files. If one file is specified, it will dump out the dependency
+> information in the file. If two files are specified, it will compare the
+> two files and dump out the differences between the two.
+> 
+> This allows the question of "What changed between X and Y?" to be
+> answered easily.
+> 
+> 
 > _______________________________________________
 > poky mailing list
 > poky@yoctoproject.org
 > https://lists.yoctoproject.org/listinfo/poky
 
+-- 
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
