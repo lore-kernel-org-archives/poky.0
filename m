@@ -1,33 +1,30 @@
-Return-Path: <vsailub4u@gmail.com>
-Received: from mail-pv0-f176.google.com (mail-pv0-f176.google.com
-	[74.125.83.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 283334C800A2
-	for <poky@yoctoproject.org>; Wed, 20 Apr 2011 04:37:00 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by pve37 with SMTP id 37so414008pve.35
-	for <poky@yoctoproject.org>; Wed, 20 Apr 2011 02:36:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:date:message-id:subject:from:to
-	:content-type; bh=IT6jMyfTKZjRWiIInHcQ0pqTOcf1XoFth3G1718BFKQ=;
-	b=org5Po4Hieh/qUEtBRFHYeDzQ9pqLBE0d60a2hqfl8ETGm1IdYHZckDmgjel4E+RwG
-	uPmQ53ONL568u3lO4xkujdSvRui0Nv9A2HknC4naRydptu928IIUmGLB5rUdfEhgRPta
-	O6iAVRNKEdl5u1+GICIIgyixmeGnIutaMs8tM=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:date:message-id:subject:from:to:content-type;
-	b=JJfBJPKHbdayvmZiPOf5NkbpxPMsbIHU5bdkj2I4n1lqx2+5nGrgloteHFM1Ka53sc
-	0PTaqpMbTZf4GGniD3ZZv9D0an6jhp5AxIcAWFgwK5tNU/0c+S2nM0HBXXZAbbfjxgVa
-	kP7LgZHGQv45aOh5x+exCvZOfWNMhzFRVEkds=
-MIME-Version: 1.0
-Received: by 10.143.153.13 with SMTP id f13mr3919116wfo.380.1303292219661;
-	Wed, 20 Apr 2011 02:36:59 -0700 (PDT)
-Received: by 10.142.44.5 with HTTP; Wed, 20 Apr 2011 02:36:59 -0700 (PDT)
-Date: Wed, 20 Apr 2011 15:06:59 +0530
-Message-ID: <BANLkTinsKNAYMEeNtVCb5MNb=Y0rR_GDkQ@mail.gmail.com>
-From: v sailaja <vsailub4u@gmail.com>
-To: poky@yoctoproject.org
-Subject: rpm folder is not created under the deploy folder in poky
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id B08D54C8016A
+	for <poky@yoctoproject.org>; Wed, 20 Apr 2011 05:45:55 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p3KAjrNL016329;
+	Wed, 20 Apr 2011 11:45:53 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 15991-07; Wed, 20 Apr 2011 11:45:49 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p3KAjhOU016322
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Wed, 20 Apr 2011 11:45:44 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: "Yu, Ke" <ke.yu@intel.com>
+In-Reply-To: <33AB447FBD802F4E932063B962385B355290F3F9@shsmsx501.ccr.corp.intel.com>
+References: <33AB447FBD802F4E932063B962385B355290F3F9@shsmsx501.ccr.corp.intel.com>
+Date: Wed, 20 Apr 2011 11:45:30 +0100
+Message-ID: <1303296330.5518.308.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.2 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: On Bug 972 - tag does not work in git fetcher
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,103 +36,76 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 20 Apr 2011 09:37:00 -0000
-Content-Type: multipart/alternative; boundary=001636e0a52bca9d2504a1565de8
+X-List-Received-Date: Wed, 20 Apr 2011 10:45:56 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
---001636e0a52bca9d2504a1565de8
-Content-Type: text/plain; charset=ISO-8859-1
+On Wed, 2011-04-20 at 15:51 +0800, Yu, Ke wrote:
+> I get the root cause of bug 972
+> (http://bugzilla.pokylinux.org/show_bug.cgi?id=972) , and want to get
+> your comments on how to fix the bug.
+> 
+> the culprit of this bug is commit
+> http://git.pokylinux.org/cgit/cgit.cgi/poky/commit/?id=5920e85c561624e657c126df58f5c378a8950bbc :
+> "
+> bitbake/fetch2/git: Ensure unresolved branches are translated into
+> revisions
+> 
+> Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+> 
+> diff --git a/bitbake/lib/bb/fetch2/git.py b/bitbake/lib/bb/fetch2/git.py
+> index 6bcc4a4..f05a360 100644
+> --- a/bitbake/lib/bb/fetch2/git.py
+> +++ b/bitbake/lib/bb/fetch2/git.py
+> @@ -72,7 +72,8 @@ class Git(FetchMethod):
+>          ud.basecmd = data.getVar("FETCHCMD_git", d, True) or "git"
+>  
+>          for name in ud.names:
+> -            if not ud.revisions[name] or ud.revisions[name] == "master":
+> +            # Ensure anything that doesn't look like a sha256 checksum/revision is translated into one
+> +            if not ud.revisions[name] or len(ud.revisions[name]) != 40  or (False in [c in "abcdef0123456789" for c in ud.revisions[name]]):
+>                  ud.revisions[name] = self.latest_revision(url, ud, d, name)
+>  
+>          ud.localfile = ud.clonedir
+> "
+> with this commit, tag is treated as invalid revision since it is not
+> sha256 checksum, so tag become unusable. 
+> 
+> To fix it,  one option is to revert this commit, another option is to
+> check if ud.revisions[name] is tag. I prefer the first option to
+> revert this commit, because if user set incorrect revision, reporting
+> error to user would be better.  In this case user have chance to fix
+> it. the above commit actually hide the error from user which sound not
+> good.
+> 
+> On the other hand, I don't remember the purpose of this commit, so
+> want to get your comment to make sure not breaking other things.
 
-Hi,
+The reason for the change was because there were problems being able to
+detect if the checkout needed updating or not. To correctly detect that
+we need a sha256 ID in the revisions field else need_update() doesn't
+work correctly amongst other problems.
 
-I am trying to port Poky to the "sandybridge platform" and  using the branch
-"bernard-cur" for "fishriver" machine.
-I am running Ubuntu 10.04 on 64 bit machine.
+The real problem is that we're having a hard time figuring out if that
+field refers to a tag or a branch, "master" is the latter for example.
+The question is then whether we're happy to take the local value in any
+local checkout or whether we want to check the upstream repository in
+case its changed. Currently we play it safe and use ls-remote to figure
+it out but that means network access.
 
-I get an error "*rpm*" doesn't exist.It means the "*rpm*" folder is not
-created under "*tmp/deploy*" folder.
+I think what we need to do is if this is a name, we should, set
+ud.branches[name] to be ud.revisions[name] (i.e. the tag) and treat it
+like a branch name for the purposes of the ls-remote command. It won't
+be perfect as it requires network access to resolve it but it should get
+the tag parameter working again. So the code would become:
 
+            if not ud.revisions[name] or len(ud.revisions[name]) != 40  or (False in [c in "abcdef0123456789" for c in ud.revisions[name]]):
+                ud.branches[name] = ud.revisions[name]
+                ud.revisions[name] = self.latest_revision(ud.url, ud, d,  name)
 
+Cheers,
 
-* Error Log:*
-
-NOTE: Running task 1459 of 3826 (ID: 3783,
-/home/sct/poky-intel/poky_intel/meta/recipes-graphics/xorg-lib/
-libice_1.0.7.bb, do_package)
-NOTE: package libice-1_1.0.7-r0: task do_package: Started
-NOTE: package libice-1_1.0.7-r0: task do_package: Succeeded
-NOTE: Running task 3103 of 3826 (ID: 3786,
-/home/sct/poky-intel/poky_intel/meta/recipes-graphics/xorg-lib/
-libice_1.0.7.bb, do_package_write_rpm)
-ERROR: '/home/sct/poky-intel/poky_intel/meta/recipes-graphics/xorg-lib/
-libice_1.0.7.bb' failed
-NOTE: package libice-1_1.0.7-r0: task do_package_write_rpm: Started
-ERROR: Lockfile destination directory
-'/home/sct/poky-intel/poky_intel/build/tmp/deploy/rpm' does not exist
-ERROR: Function 'do_package_rpm' failed
-ERROR: Logfile of failure stored in:
-/home/sct/poky-intel/poky_intel/build/tmp/work/atom-poky-linux/libice-1_1.0.7-r0/temp/log.do_package_write_rpm.19658
-Log data follows:
-| NOTE: Creating RPM package for libice-dbg
-| NOTE: Creating RPM package for libice6
-| NOTE: Creating RPM package for libice-doc
-| NOTE: Creating RPM package for libice-dev
-| NOTE: Not creating empty RPM package for libice-locale
-| ERROR: *Lockfile destination directory
-'/home/sct/poky-intel/poky_intel/build/tmp/deploy/rpm' does not exist*
-| ERROR: Function 'do_package_rpm' failed
-NOTE: package libice-1_1.0.7-r0: task do_package_write_rpm: Failed
-ERROR: Task 3786
-(/home/sct/poky-intel/poky_intel/meta/recipes-graphics/xorg-lib/
-libice_1.0.7.bb, do_package_write_rpm) failed with exit code '1'
-
-
-Please Can anyone  guide me how to track this problem.
+Richard
 
 
 
--- 
-Thanks & Regards,
-SAI
-
---001636e0a52bca9d2504a1565de8
-Content-Type: text/html; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
-
-Hi,<br><br>I am trying <span>to</span> port Poky <span>to</span>
- the &quot;sandybridge platform&quot; and=A0 using the branch &quot;bernard=
--cur&quot; for &quot;fishriver&quot; machine.<br>I am running Ubuntu 10.04 =
-on 64 bit machine.<br><br>I get an error &quot;<i><b>rpm</b></i>&quot; does=
-n&#39;t exist.It means the &quot;<b><i>rpm</i></b>&quot; folder is not crea=
-ted under &quot;<b><i>tmp/deploy</i></b>&quot; folder.<br>
-<br><br><br><b><u>=A0Error Log:</u></b><br><br>NOTE: Running task 1459 of 3=
-826 (ID: 3783, /home/sct/poky-intel/poky_intel/meta/recipes-graphics/xorg-l=
-ib/<a href=3D"http://libice_1.0.7.bb">libice_1.0.7.bb</a>, do_package)<br>N=
-OTE: package libice-1_1.0.7-r0: task do_package: Started<br>
-NOTE: package libice-1_1.0.7-r0: task do_package: Succeeded<br>NOTE: Runnin=
-g task 3103 of 3826 (ID: 3786, /home/sct/poky-intel/poky_intel/meta/recipes=
--graphics/xorg-lib/<a href=3D"http://libice_1.0.7.bb">libice_1.0.7.bb</a>, =
-do_package_write_rpm)<br>
-ERROR: &#39;/home/sct/poky-intel/poky_intel/meta/recipes-graphics/xorg-lib/=
-<a href=3D"http://libice_1.0.7.bb">libice_1.0.7.bb</a>&#39; failed<br>NOTE:=
- package libice-1_1.0.7-r0: task do_package_write_rpm: Started<br>ERROR: Lo=
-ckfile destination directory &#39;/home/sct/poky-intel/poky_intel/build/tmp=
-/deploy/rpm&#39; does not exist<br>
-ERROR: Function &#39;do_package_rpm&#39; failed<br>ERROR: Logfile of failur=
-e stored in: /home/sct/poky-intel/poky_intel/build/tmp/work/atom-poky-linux=
-/libice-1_1.0.7-r0/temp/log.do_package_write_rpm.19658<br>Log data follows:=
-<br>
-| NOTE: Creating RPM package for libice-dbg<br>| NOTE: Creating RPM package=
- for libice6<br>| NOTE: Creating RPM package for libice-doc<br>| NOTE: Crea=
-ting RPM package for libice-dev<br>| NOTE: Not creating empty RPM package f=
-or libice-locale<br>
-| ERROR: <i><b>Lockfile destination directory &#39;/home/sct/poky-intel/pok=
-y_intel/build/tmp/deploy/rpm&#39; does not exist</b></i><br>| ERROR: Functi=
-on &#39;do_package_rpm&#39; failed<br>NOTE: package libice-1_1.0.7-r0: task=
- do_package_write_rpm: Failed<br>
-ERROR: Task 3786 (/home/sct/poky-intel/poky_intel/meta/recipes-graphics/xor=
-g-lib/<a href=3D"http://libice_1.0.7.bb">libice_1.0.7.bb</a>, do_package_wr=
-ite_rpm) failed with exit code &#39;1&#39;<br><br><br>Please Can anyone=A0 =
-guide me how to track this problem.<br>
-<br><br clear=3D"all"><br>-- <br>Thanks &amp; Regards,<br>SAI<br><br>
-
---001636e0a52bca9d2504a1565de8--
