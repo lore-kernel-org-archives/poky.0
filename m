@@ -1,29 +1,35 @@
-Return-Path: <Pasi.Reponen@elektrobit.com>
-Received: from smtpgw1fi.elektrobit.com (smtpgw1fi.elektrobit.com
-	[194.136.18.128])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 543504C804CA
-	for <poky@yoctoproject.org>; Wed, 20 Apr 2011 01:54:00 -0500 (CDT)
-Received: from fioues07.ebgroup.elektrobit.com
-	(fioues07.ebgroup.elektrobit.com [172.16.33.117])
-	by smtpgw1fi.elektrobit.com (8.13.8/8.13.8) with ESMTP id
-	p3K6rwUp015072
-	for <poky@yoctoproject.org>; Wed, 20 Apr 2011 09:53:58 +0300
-X-MimeOLE: Produced By Microsoft Exchange V6.5
-MIME-Version: 1.0
-Date: Wed, 20 Apr 2011 09:53:56 +0300
-Message-ID: <EF6A1C6B49AA1E42BAAD011E6EED2800024D3FAC@fioues07.ebgroup.elektrobit.com>
+Return-Path: <ke.yu@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 635BE4C804CA
+	for <poky@yoctoproject.org>; Wed, 20 Apr 2011 02:52:52 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 20 Apr 2011 00:52:51 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.64,245,1301900400"; d="scan'208";a="735919672"
+Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
+	by orsmga001.jf.intel.com with ESMTP; 20 Apr 2011 00:52:50 -0700
+Received: from pgsmsx509.gar.corp.intel.com (172.30.13.17) by
+	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
+	(TLS) id 8.2.255.0; Wed, 20 Apr 2011 15:51:24 +0800
+Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
+	PGSMSX509.gar.corp.intel.com (172.30.13.17) with Microsoft SMTP Server
+	(TLS) id 8.2.255.0; Wed, 20 Apr 2011 15:51:23 +0800
+Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
+	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
+	Wed, 20 Apr 2011 15:51:17 +0800
+From: "Yu, Ke" <ke.yu@intel.com>
+To: "Purdie, Richard" <richard.purdie@intel.com>
+Date: Wed, 20 Apr 2011 15:51:16 +0800
+Thread-Topic: On Bug 972 - tag does not work in git fetcher
+Thread-Index: Acv/L7ndazCOujqcQr6NKQgpeeqvhg==
+Message-ID: <33AB447FBD802F4E932063B962385B355290F3F9@shsmsx501.ccr.corp.intel.com>
+Accept-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-Thread-Topic: Problem with local build (using Poky Bernard 5.0)
-Thread-Index: Acv/J7fusw9z2JPTTGmus6+mwBluIQ==
-From: <Pasi.Reponen@elektrobit.com>
-To: <poky@yoctoproject.org>
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.2.3
-	(smtpgw1fi.elektrobit.com [172.16.33.21]);
-	Wed, 20 Apr 2011 09:53:58 +0300 (EEST)
-X-Virus-Scanned: at elektrobit.com
-X-Scanned-By: MIMEDefang 2.67 on 172.16.33.21
-Subject: Problem with local build (using Poky Bernard 5.0)
+acceptlanguage: en-US
+MIME-Version: 1.0
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: On Bug 972 - tag does not work in git fetcher
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,89 +41,55 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 20 Apr 2011 06:54:01 -0000
-Content-class: urn:content-classes:message
-Content-Type: multipart/alternative;
-	boundary="----_=_NextPart_001_01CBFF27.B82ED418"
-
-------_=_NextPart_001_01CBFF27.B82ED418
-Content-Type: text/plain;
-	charset="us-ascii"
+X-List-Received-Date: Wed, 20 Apr 2011 07:52:52 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
-Content-Disposition: inline
 
-Hi,
+Hi Richard,
 
-I'm trying to build locally with Poky Bernard 5.0 (using PREMIRRORS to
-local source package directory and BB_FETCH_PREMIRRORONLY =3D "1"
-configurations). The problem occurs when recipes got environment
-variables in SRC_URI (for example $GNU_MIRROR and $PV). In these cases
-Fetcher is unable to fetch source packages locally and raises "network
-access disabled but required" -exception.=20
+I get the root cause of bug 972 (http://bugzilla.pokylinux.org/show_bug.cgi=
+?id=3D972) , and want to get your comments on how to fix the bug.
 
-Any ideas, is this a bug or have I missed some configuration?
+the culprit of this bug is commit http://git.pokylinux.org/cgit/cgit.cgi/po=
+ky/commit/?id=3D5920e85c561624e657c126df58f5c378a8950bbc :
+"
+bitbake/fetch2/git: Ensure unresolved branches are translated into revision=
+s
 
-Thanks,
+Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
 
-Pasi
+diff --git a/bitbake/lib/bb/fetch2/git.py b/bitbake/lib/bb/fetch2/git.py
+index 6bcc4a4..f05a360 100644
+--- a/bitbake/lib/bb/fetch2/git.py
++++ b/bitbake/lib/bb/fetch2/git.py
+@@ -72,7 +72,8 @@ class Git(FetchMethod):
+         ud.basecmd =3D data.getVar("FETCHCMD_git", d, True) or "git"
+=20
+         for name in ud.names:
+-            if not ud.revisions[name] or ud.revisions[name] =3D=3D "master=
+":
++            # Ensure anything that doesn't look like a sha256 checksum/rev=
+ision is translated into one
++            if not ud.revisions[name] or len(ud.revisions[name]) !=3D 40  =
+or (False in [c in "abcdef0123456789" for c in ud.revisions[name]]):
+                 ud.revisions[name] =3D self.latest_revision(url, ud, d, na=
+me)
+=20
+         ud.localfile =3D ud.clonedir
+"
+with this commit, tag is treated as invalid revision since it is not sha256=
+ checksum, so tag become unusable.=20
 
+To fix it,  one option is to revert this commit, another option is to check=
+ if ud.revisions[name] is tag. I prefer the first option to revert this com=
+mit, because if user set incorrect revision, reporting error to user would =
+be better.  In this case user have chance to fix it. the above commit actua=
+lly hide the error from user which sound not good.
 
+On the other hand, I don't remember the purpose of this commit, so want to =
+get your comment to make sure not breaking other things.
 
-----------------------------------------------------------------
-Please note: This e-mail may contain confidential information
-intended solely for the addressee. If you have received this
-e-mail in error, please do not disclose it to anyone, notify
-the sender promptly, and delete the message from your system.
-Thank you.
+Regards
+Ke
 
-
-------_=_NextPart_001_01CBFF27.B82ED418
-Content-Type: text/html;
-	charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: inline
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
-<HTML>
-<HEAD>
-<META HTTP-EQUIV=3D"Content-Type" CONTENT=3D"text/html; charset=3Dus-ascii">
-<META NAME=3D"Generator" CONTENT=3D"MS Exchange Server version 6.5.7654.12">
-<TITLE>Problem with local build (using Poky Bernard 5.0)</TITLE>
-</HEAD>
-<BODY>
-<!-- Converted from text/rtf format -->
-
-<P><SPAN LANG=3D"fi"><FONT SIZE=3D2 FACE=3D"Arial">Hi,</FONT></SPAN>
-</P>
-
-<P><SPAN LANG=3D"fi"><FONT SIZE=3D2 FACE=3D"Arial">I'm trying to build loca=
-lly with Poky Bernard 5.0 (using PREMIRRORS to local source package directo=
-ry and BB_FETCH_PREMIRRORONLY =3D &quot;1&quot; configurations). The proble=
-m occurs when recipes got environment variables in SRC_URI (for example $GN=
-U_MIRROR and $PV). In these cases Fetcher is unable to fetch source package=
-s locally and raises &#8220;network access disabled but required&#8221; &#8=
-211;exception. </FONT></SPAN></P>
-
-<P><SPAN LANG=3D"fi"><FONT SIZE=3D2 FACE=3D"Arial">Any ideas, is this a bug=
- or have I missed some configuration?</FONT></SPAN>
-</P>
-
-<P><SPAN LANG=3D"fi"><FONT SIZE=3D2 FACE=3D"Arial">Thanks,</FONT></SPAN>
-</P>
-
-<P><SPAN LANG=3D"fi"><FONT SIZE=3D2 FACE=3D"Arial">Pasi</FONT></SPAN>
-</P>
-
-<pre>
-----------------------------------------------------------------
-Please note: This e-mail may contain confidential information
-intended solely for the addressee. If you have received this
-e-mail in error, please do not disclose it to anyone, notify
-the sender promptly, and delete the message from your system.
-Thank you.
-</pre>
-
-</BODY>
-</HTML>=
-
-------_=_NextPart_001_01CBFF27.B82ED418--
