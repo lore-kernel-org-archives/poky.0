@@ -1,33 +1,34 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2104B4C80AAF;
-	Wed, 20 Apr 2011 17:15:17 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p3KMFCCd026110;
-	Wed, 20 Apr 2011 23:15:12 +0100
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 25909-03; Wed, 20 Apr 2011 23:15:08 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p3KMF5YD026101
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Wed, 20 Apr 2011 23:15:05 +0100
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: "Rifenbark, Scott M" <scott.m.rifenbark@intel.com>
-In-Reply-To: <DE8BA75F34A0404282AC5E15F691BC76512BEFF6@orsmsx504.amr.corp.intel.com>
-References: <1300408987.30423.2172.camel@rex>
-	<4DAF0DB2.5080004@linux.intel.com>
-	<DE8BA75F34A0404282AC5E15F691BC76512BEFF6@orsmsx504.amr.corp.intel.com>
-Date: Wed, 20 Apr 2011 23:14:51 +0100
-Message-ID: <1303337691.5518.319.camel@rex>
+Return-Path: <glep-poky@m.gmane.org>
+Received: from lo.gmane.org (lo.gmane.org [80.91.229.12])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E69564C80AC3
+	for <poky@pokylinux.org>; Wed, 20 Apr 2011 17:39:40 -0500 (CDT)
+Received: from list by lo.gmane.org with local (Exim 4.69)
+	(envelope-from <glep-poky@m.gmane.org>) id 1QCg3f-00061I-5z
+	for poky@pokylinux.org; Thu, 21 Apr 2011 00:39:39 +0200
+Received: from ppp92-100-114-118.pppoe.avangarddsl.ru ([92.100.114.118])
+	by main.gmane.org with esmtp (Gmexim 0.1 (Debian))
+	id 1AlnuQ-0007hv-00
+	for <poky@pokylinux.org>; Thu, 21 Apr 2011 00:39:39 +0200
+Received: from yanok by ppp92-100-114-118.pppoe.avangarddsl.ru with local
+	(Gmexim 0.1 (Debian)) id 1AlnuQ-0007hv-00
+	for <poky@pokylinux.org>; Thu, 21 Apr 2011 00:39:39 +0200
+X-Injected-Via-Gmane: http://gmane.org/
+To: poky@pokylinux.org
+From: Ilya Yanok <yanok@emcraft.com>
+Date: Wed, 20 Apr 2011 22:39:26 +0000 (UTC)
+Message-ID: <loom.20110421T003750-846@post.gmane.org>
+References: <20110414194445.9BCC5151F83@gemini.denx.de>
+	<4DA758E6.7040606@intel.com>
+	<BANLkTikLPSrRtUObRTSHFRdWS+h5pTuO0A@mail.gmail.com>
+	<20110414211232.GM21027@jama.jama.net>
+	<BANLkTingVKgsLe5vosf4yi3jWv9MA0zaKg@mail.gmail.com>
 Mime-Version: 1.0
-X-Mailer: Evolution 2.32.2 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: yocto <yocto@yoctoproject.org>, Darren Hart <dvhart@linux.intel.com>,
-	poky <poky@yoctoproject.org>
-Subject: Re: Shared State - What does it mean and why should I care?
+X-Complaints-To: usenet@dough.gmane.org
+X-Gmane-NNTP-Posting-Host: sea.gmane.org
+User-Agent: Loom/3.14 (http://gmane.org/)
+X-Loom-IP: 92.100.114.118 (Mozilla/5.0 (compatible; Konqueror/4.4;
+	Linux) KHTML/4.4.5 (like Gecko))
+Subject: Re: Distro policy ?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,23 +40,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 20 Apr 2011 22:15:18 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Wed, 20 Apr 2011 22:39:41 -0000
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
 
-On Wed, 2011-04-20 at 09:58 -0700, Rifenbark, Scott M wrote:
-> > Thanks for the write-up RP. Do we plan to integrate this with the
-> > reference manual? Perhaps something on the wiki until this is all a
-> > bit more final and then move it into the ref manual?
+Hi Chris,
+
+Chris Larson <clarson@...> writes:
+> > I guess he was talking about
+> > require/include some.inc
+> > used in recipe
+> >
+> > Then I had to copy some.inc to same folder there my recipe is. Even when
+> > it's used in same path relative to layer top dir
 > 
-> Sstate should get integrated into our documentation somewhere.
+> Change the recipe to use require/include recipes/foo/bar.inc, relative
+> to the top of the entry in BBPATH.
 
-In case this isn't clear, Scott is confirming that working that text
-into the reference manual is already on his todo list :)
+Yes, that's exactly the situation we have. Thanks for the tip!
 
-Cheers,
+Regards, Ilya.
 
-Richard
+
+
 
 
 
