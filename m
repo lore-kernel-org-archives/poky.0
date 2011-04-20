@@ -1,31 +1,22 @@
-Return-Path: <glep-poky@m.gmane.org>
-Received: from lo.gmane.org (lo.gmane.org [80.91.229.12])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E63254C80A70
-	for <poky@pokylinux.org>; Wed, 20 Apr 2011 17:56:19 -0500 (CDT)
-Received: from list by lo.gmane.org with local (Exim 4.69)
-	(envelope-from <glep-poky@m.gmane.org>) id 1QCgJm-0007De-AF
-	for poky@pokylinux.org; Thu, 21 Apr 2011 00:56:18 +0200
-Received: from ppp92-100-114-118.pppoe.avangarddsl.ru ([92.100.114.118])
-	by main.gmane.org with esmtp (Gmexim 0.1 (Debian))
-	id 1AlnuQ-0007hv-00
-	for <poky@pokylinux.org>; Thu, 21 Apr 2011 00:56:18 +0200
-Received: from yanok by ppp92-100-114-118.pppoe.avangarddsl.ru with local
-	(Gmexim 0.1 (Debian)) id 1AlnuQ-0007hv-00
-	for <poky@pokylinux.org>; Thu, 21 Apr 2011 00:56:18 +0200
-X-Injected-Via-Gmane: http://gmane.org/
-To: poky@pokylinux.org
-From: Ilya Yanok <yanok@emcraft.com>
-Date: Wed, 20 Apr 2011 22:56:06 +0000 (UTC)
-Message-ID: <loom.20110421T004655-703@post.gmane.org>
-References: <20110414194445.9BCC5151F83@gemini.denx.de>
-	<4DA758E6.7040606@intel.com>
+Return-Path: <josh@linux.intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id BACD44C80A70
+	for <poky@yoctoproject.org>; Wed, 20 Apr 2011 18:17:37 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 20 Apr 2011 16:17:37 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.64,248,1301900400"; d="scan'208";a="631752082"
+Received: from unknown (HELO [10.255.13.72]) ([10.255.13.72])
+	by orsmga002.jf.intel.com with ESMTP; 20 Apr 2011 16:17:14 -0700
+From: Joshua Lock <josh@linux.intel.com>
+To: poky@yoctoproject.org
+Date: Wed, 20 Apr 2011 16:17:13 -0700
+In-Reply-To: <BANLkTinU+JDgmJkcNp60aR5LEwX2uCCbvA@mail.gmail.com>
+References: <BANLkTinU+JDgmJkcNp60aR5LEwX2uCCbvA@mail.gmail.com>
+X-Mailer: Evolution 3.0.0 (3.0.0-1.fc15) 
+Message-ID: <1303341434.2893.23.camel@scimitar>
 Mime-Version: 1.0
-X-Complaints-To: usenet@dough.gmane.org
-X-Gmane-NNTP-Posting-Host: sea.gmane.org
-User-Agent: Loom/3.14 (http://gmane.org/)
-X-Loom-IP: 92.100.114.118 (Mozilla/5.0 (compatible; Konqueror/4.4;
-	Linux) KHTML/4.4.5 (like Gecko))
-Subject: Re: Distro policy ?
+Subject: Re: How to deal with ERROR: Nothing RPROVIDES 'perf'
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,34 +28,44 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 20 Apr 2011 22:56:20 -0000
-Content-Type: text/plain; charset=us-ascii
+X-List-Received-Date: Wed, 20 Apr 2011 23:17:38 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-Hi Saul,
+On Wed, 2011-04-20 at 20:55 +0200, Francis Meyvis wrote:
+> Hello,
+> 
+> I'm using yocto's bernard and trying to build for an arm board (igep0020).
+> For this I created meta/conf/machines/igep0020.conf.
+> And my build/conf/local.conf's MACHINE is set as ipep0020
+> As a start I used the content of the existing beagleboard.conf for igep0020.conf
+> I have also this line in my local.conf:
+> EXTRA_IMAGE_FEATURES = "dbg-pkgs dev-pkgs tools-sdk tools-debug
+> tools-profile tools-testapps debug-tweaks"
+> 
+> A bitbake seems to fail each time with these messages below.
+> If I limit the EXTRA_IMAGE_FEATURES as follows "dbg-pkgs dev-pkgs
+> tools-sdk debug-tweaks" building starts
+> But I'm keen on also having debugging tools available (like strace) on
+> the target ...
+> 
+> What am I missing? Thanks
 
-Saul Wold <saul.wold@...> writes:
-> I would like to get more details about which include files (.incs) you 
-> are needing to modify.  I know that there was some discussion at ELC 
-> this week about similar issues.  I also know that we have a "Layering 
-> Tools" item on the 1.1 feature list to address these issues.
+I'm not too familiar with the igep layer, I assume it's not using the
+one of the yocto-linux kernel recipes?
 
-We had one problem with the recipes that need to include files from the main
-layer. Thanks to the guy now I know that I just need to use the full path to
-solve this.
-Another problem was a strange one. It was about poky's distro includes. When I
-started working on our distro I've just copied conf/distro/poky.conf to our new
-layer with new name and changed it a bit. This worked but I got a bunch of
-warnings about multiply providers. Then I've copied the conf/distro/include
-directory into our layer and all these warnings gone. Unfortunately I can't
-reproduce this behavior any more.
+perf must be enabled in individual kernel recipes, the yocto kernels do
+this through the inherited linux-tools.inc
 
-So, it looks like we have solved the problem with includes and now we are fine
-with our own layer.
+> Should I also post my problem on the yocto mailing list?
 
-Thanks for your help, guys!
+This list is the right one for build system issues :-)
 
-Regards, Ilya.
-
+Regards,
+Joshua
+-- 
+Joshua Lock
+        Yocto Build System Monkey
+        Intel Open Source Technology Centre
 
 
