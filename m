@@ -1,23 +1,26 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 860C94C806FA
-	for <poky@yoctoproject.org>; Wed, 20 Apr 2011 05:52:14 -0500 (CDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 20 Apr 2011 03:52:08 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,246,1301900400"; d="scan'208";a="681444072"
-Received: from unknown (HELO helios) ([10.255.13.37])
-	by fmsmga002.fm.intel.com with SMTP; 20 Apr 2011 03:52:06 -0700
-Received: by helios (sSMTP sendmail emulation); Wed, 20 Apr 2011 11:52:05 +0100
-Message-Id: <3f93d8eda4dc873d1c732ccc297782779f7116f6.1303296533.git.paul.eggleton@linux.intel.com>
-In-Reply-To: <cover.1303296533.git.paul.eggleton@linux.intel.com>
+Return-Path: <koen@dominion.thruhere.net>
+Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
+	by mx1.pokylinux.org (Postfix) with ESMTP id B23884C80581
+	for <poky@yoctoproject.org>; Wed, 20 Apr 2011 06:31:29 -0500 (CDT)
+Received: by wwd20 with SMTP id 20so721443wwd.11
+	for <poky@yoctoproject.org>; Wed, 20 Apr 2011 04:31:28 -0700 (PDT)
+Received: by 10.216.123.74 with SMTP id u52mr7020082weh.24.1303299088413;
+	Wed, 20 Apr 2011 04:31:28 -0700 (PDT)
+Received: from [172.20.0.255] (ip545070eb.adsl-surfen.hetnet.nl
+	[84.80.112.235])
+	by mx.google.com with ESMTPS id c54sm403677wer.30.2011.04.20.04.31.27
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Wed, 20 Apr 2011 04:31:28 -0700 (PDT)
+Mime-Version: 1.0 (Apple Message framework v1084)
+From: Koen Kooi <koen@dominion.thruhere.net>
+In-Reply-To: <3f93d8eda4dc873d1c732ccc297782779f7116f6.1303296533.git.paul.eggleton@linux.intel.com>
+Date: Wed, 20 Apr 2011 13:31:27 +0200
+Message-Id: <55494E8C-B846-41B8-B7D1-91779015006C@dominion.thruhere.net>
 References: <cover.1303296533.git.paul.eggleton@linux.intel.com>
-Old-Date: Wed, 20 Apr 2011 11:45:25 +0100
-Date: Wed, 20 Apr 2011 11:52:05 +0100
-To: poky@yoctoproject.org
-CC: 
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-Subject: [PATCH 1/1] netbase: automatically bring up usb0 on BeagleBoard xM
+	<3f93d8eda4dc873d1c732ccc297782779f7116f6.1303296533.git.paul.eggleton@linux.intel.com>
+To: poky <poky@yoctoproject.org>
+X-Mailer: Apple Mail (2.1084)
+Subject: Re: [PATCH 1/1] netbase: automatically bring up usb0 on BeagleBoard xM
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,66 +32,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 20 Apr 2011 10:52:14 -0000
+X-List-Received-Date: Wed, 20 Apr 2011 11:31:30 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
 
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
 
-Avoids manual configuration of the BeagleBoard xM's ethernet port
-(which shows up as usb0).
+Op 20 apr 2011, om 12:52 heeft Paul Eggleton het volgende geschreven:
 
-Fixes [YOCTO #930]
+> From: Paul Eggleton <paul.eggleton@linux.intel.com>
+>=20
+> Avoids manual configuration of the BeagleBoard xM's ethernet port
+> (which shows up as usb0).
+>=20
+> Fixes [YOCTO #930]
+>=20
+> Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
+> ---
+> .../netbase/netbase-4.45/beagleboard/interfaces    |   27 =
+++++++++++++++++++++
+> .../recipes-core/netbase/netbase_4.45.bbappend     |    3 ++
+> 2 files changed, 30 insertions(+), 0 deletions(-)
+> create mode 100644 =
+meta-yocto/recipes-core/netbase/netbase-4.45/beagleboard/interfaces
+> create mode 100644 =
+meta-yocto/recipes-core/netbase/netbase_4.45.bbappend
 
-Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
----
- .../netbase/netbase-4.45/beagleboard/interfaces    |   27 ++++++++++++++++++++
- .../recipes-core/netbase/netbase_4.45.bbappend     |    3 ++
- 2 files changed, 30 insertions(+), 0 deletions(-)
- create mode 100644 meta-yocto/recipes-core/netbase/netbase-4.45/beagleboard/interfaces
- create mode 100644 meta-yocto/recipes-core/netbase/netbase_4.45.bbappend
-
-diff --git a/meta-yocto/recipes-core/netbase/netbase-4.45/beagleboard/interfaces b/meta-yocto/recipes-core/netbase/netbase-4.45/beagleboard/interfaces
-new file mode 100644
-index 0000000..b6935c1
---- /dev/null
-+++ b/meta-yocto/recipes-core/netbase/netbase-4.45/beagleboard/interfaces
-@@ -0,0 +1,27 @@
-+# /etc/network/interfaces -- configuration file for ifup(8), ifdown(8)
-+ 
-+# The loopback interface
-+auto lo
-+iface lo inet loopback
-+
-+# Wireless interfaces
-+iface wlan0 inet dhcp
-+	wireless_mode managed
-+	wireless_essid any
-+	wpa-driver wext
-+	wpa-conf /etc/wpa_supplicant.conf
-+
-+iface atml0 inet dhcp
-+
-+# Wired or wireless interfaces
-+auto eth0
-+iface eth0 inet dhcp
-+iface eth1 inet dhcp
-+
-+# Ethernet/RNDIS gadget (g_ether) or LAN9514 on BeagleBoard xM
-+auto usb0
-+iface usb0 inet dhcp
-+
-+# Bluetooth networking
-+iface bnep0 inet dhcp
-+
-diff --git a/meta-yocto/recipes-core/netbase/netbase_4.45.bbappend b/meta-yocto/recipes-core/netbase/netbase_4.45.bbappend
-new file mode 100644
-index 0000000..4b8d0e6
---- /dev/null
-+++ b/meta-yocto/recipes-core/netbase/netbase_4.45.bbappend
-@@ -0,0 +1,3 @@
-+THISDIR := "${@os.path.dirname(bb.data.getVar('FILE', d, True))}"
-+FILESPATH =. "${@base_set_filespath(["${THISDIR}/${PN}"], d)}:"
-+
--- 
-1.7.1
-
+You mean meta-texasinstruments, right? Or do you yocto people really =
+want to take over beagleboard?=
 
