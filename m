@@ -1,19 +1,19 @@
 Return-Path: <tom.zanussi@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 799FB4C804CA
-	for <poky@yoctoproject.org>; Wed, 20 Apr 2011 09:16:29 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 20 Apr 2011 07:16:28 -0700
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id B67B34C80A70
+	for <poky@yoctoproject.org>; Wed, 20 Apr 2011 09:33:27 -0500 (CDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 20 Apr 2011 07:33:27 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,246,1301900400"; d="scan'208";a="422625087"
+X-IronPort-AV: E=Sophos;i="4.64,246,1301900400"; d="scan'208";a="681539752"
 Received: from unknown (HELO [10.255.13.45]) ([10.255.13.45])
-	by azsmga001.ch.intel.com with ESMTP; 20 Apr 2011 07:16:27 -0700
+	by fmsmga002.fm.intel.com with ESMTP; 20 Apr 2011 07:33:26 -0700
 From: Tom Zanussi <tom.zanussi@intel.com>
 To: v sailaja <vsailub4u@gmail.com>
 In-Reply-To: <BANLkTinsKNAYMEeNtVCb5MNb=Y0rR_GDkQ@mail.gmail.com>
 References: <BANLkTinsKNAYMEeNtVCb5MNb=Y0rR_GDkQ@mail.gmail.com>
-Date: Wed, 20 Apr 2011 09:15:58 -0500
-Message-ID: <1303308958.29530.122.camel@elmorro>
+Date: Wed, 20 Apr 2011 09:32:57 -0500
+Message-ID: <1303309977.29530.129.camel@elmorro>
 Mime-Version: 1.0
 X-Mailer: Evolution 2.28.3 
 Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
@@ -29,7 +29,7 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 20 Apr 2011 14:16:29 -0000
+X-List-Received-Date: Wed, 20 Apr 2011 14:33:28 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
@@ -40,41 +40,9 @@ On Wed, 2011-04-20 at 02:36 -0700, v sailaja wrote:
 > branch "bernard-cur" for "fishriver" machine.
 > I am running Ubuntu 10.04 on 64 bit machine.
 > 
-
-Hi,
-
-I'm not sure what you're trying to do - there's already a Sandy Bridge
-BSP in meta-intel called meta-sugarbay, so no need to port it from
-fishriver...
-
-Also, if you're having problems building, I put together a step-by-step
-transcript of building a BSP for specific hardware from scratch here:
-
-https://wiki.yoctoproject.org/wiki/Transcript:_from_git_checkout_to_meta-intel_BSP
-
-(
-Also, there's one doing the same thing for qemu if interested
-
-https://wiki.yoctoproject.org/wiki/Transcript:_from_git_checkout_to_qemu_desktop
-)
-
-So you should just be able to build the sugarbay from scratch using the
-instructions above (the meta-intel BSP ones), but substitute "sugarbay"
-every place you see "fishriver".
-
 > I get an error "rpm" doesn't exist.It means the "rpm" folder is not
 > created under "tmp/deploy" folder.
 > 
-
-You might try creating the directory and trying to continue.  Or as a
-last resort rm -rf tmp and sstate-cache and start over - sometimes
-things get into such a state that it's the only thing that seems to
-work.
-
-Someone else may have a more targeted answer for this problem, though...
-
-Tom
-
 > 
 > 
 >  Error Log:
@@ -109,6 +77,17 @@ Tom
 > 
 > Please Can anyone  guide me how to track this problem.
 > 
+
+Also, you can search for a particular problem in bugzilla:
+
+http://bugzilla.pokylinux.org/
+
+and if you don't find a similar problem there, file a new bug report for
+it - it's much more likely to be actually addressed if there's a bug
+report tracking it...
+
+Tom
+
 > 
 > 
 > -- 
