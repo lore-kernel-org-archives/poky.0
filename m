@@ -1,21 +1,19 @@
 Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id F39864C80050
-	for <poky@yoctoproject.org>; Thu, 21 Apr 2011 15:25:29 -0500 (CDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 21 Apr 2011 13:25:29 -0700
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 1FA534C80AB0
+	for <poky@yoctoproject.org>; Thu, 21 Apr 2011 15:25:30 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 21 Apr 2011 13:25:29 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,252,1301900400"; d="scan'208";a="682128772"
+X-IronPort-AV: E=Sophos;i="4.64,252,1301900400"; d="scan'208";a="423486991"
 Received: from nbuild1.sc.intel.com (HELO localhost) ([172.25.110.36])
-	by fmsmga002.fm.intel.com with ESMTP; 21 Apr 2011 13:25:29 -0700
-Message-Id: <86afa66650a2717cb63df109c3d8806e3c52237b.1303417346.git.nitin.a.kamble@intel.com>
-In-Reply-To: <cover.1303417346.git.nitin.a.kamble@intel.com>
-References: <cover.1303417346.git.nitin.a.kamble@intel.com>
-Old-Date: Thu, 7 Apr 2011 04:20:10 -0700
+	by azsmga001.ch.intel.com with ESMTP; 21 Apr 2011 13:25:29 -0700
+Message-Id: <cover.1303417346.git.nitin.a.kamble@intel.com>
+Old-Date: Thu, 21 Apr 2011 13:22:26 -0700
 Date: Thu, 21 Apr 2011 13:25:03 -0700
 To: poky@yoctoproject.org,openembedded-core@lists.openembedded.org
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Subject: [PATCH 1/8] mpfr: upgrade from 3.0.0 to 3.0.1
+Subject: [PATCH 0/8] recipe upgrades & bugfixes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,30 +29,106 @@ X-List-Received-Date: Thu, 21 Apr 2011 20:25:30 -0000
 
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
 
-Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
+These are some of the recipe upgrades and bug fixes I had worked on.
+Thanks,
+Nitin
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: nitin/misc
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=nitin/misc
+
+Thanks,
+    Nitin A Kamble <nitin.a.kamble@intel.com>
 ---
+
+
+Nitin A Kamble (8):
+  mpfr: upgrade from 3.0.0 to 3.0.1
+  python-gst: upgrade from 0.10.19 to 0.10.21
+  git: upgrade from 1.7.3.4 to 1.7.4.3
+  python-pycairo: fix installation path of __init__.py
+  perl-5.12.2: use of PERLHOSTLIB var fix
+  cpan.bbclass: export PERLHOSTLIB for perl modules
+  libxml-parser-perl: upgrade from 2.36 to 2.40
+  distro_tracking: recipe information update
+
+ meta/classes/cpan.bbclass                          |    1 +
+ .../conf/distro/include/distro_tracking_fields.inc |    7 +++++--
+ meta/recipes-devtools/git/files/autotools.patch    |    2 ++
+ .../git/{git_1.7.3.4.bb => git_1.7.4.3.bb}         |    4 ++--
+ .../libperl-5.8.3-create-libperl-soname.patch      |   11 -----------
+ ...e_2.36.bb => libxml-parser-perl-native_2.40.bb} |    0
+ ...ser-perl_2.36.bb => libxml-parser-perl_2.40.bb} |    8 ++++----
+ .../perl/perl-5.12.2/09_fix_installperl.patch      |    2 ++
+ .../Configure-multilib.patch                       |    2 ++
+ .../perl/perl-5.12.2/Makefile.SH.patch             |    2 ++
+ .../perl/perl-5.12.2/Makefile.patch                |    2 ++
+ .../perl/perl-5.12.2/asm-pageh-fix.patch           |    2 ++
+ .../perl/perl-5.12.2/cross-generate_uudmap.patch   |    2 ++
+ .../perl/perl-5.12.2/debian/arm_optim.diff         |    2 ++
+ .../debian/arm_thread_stress_timeout.diff          |    2 ++
+ .../perl/perl-5.12.2/debian/cpan_config_path.diff  |    2 ++
+ .../perl-5.12.2/debian/cpan_definstalldirs.diff    |    2 ++
+ .../perl-5.12.2/debian/cpanplus_config_path.diff   |    2 ++
+ .../debian/cpanplus_definstalldirs.diff            |    2 ++
+ .../perl/perl-5.12.2/debian/db_file_ver.diff       |    2 ++
+ .../perl-5.12.2/debian/deprecate-with-apt.diff     |    2 ++
+ .../debian/devel-ppport-ia64-optim.diff            |    2 ++
+ .../perl-5.12.2/debian/disable-zlib-bundling.diff  |    2 ++
+ .../perl/perl-5.12.2/debian/doc_info.diff          |    2 ++
+ .../perl/perl-5.12.2/debian/enc2xs_inc.diff        |    2 ++
+ .../perl/perl-5.12.2/debian/errno_ver.diff         |    2 ++
+ .../perl/perl-5.12.2/debian/extutils_hacks.diff    |    2 ++
+ .../perl/perl-5.12.2/debian/fakeroot.diff          |    2 ++
+ .../perl-5.12.2/debian/fixes/autodie-flock.diff    |    2 ++
+ .../debian/fixes/concat-stack-corruption.diff      |    2 ++
+ .../debian/fixes/cpanplus-without-home.diff        |    2 ++
+ .../perl-5.12.2/debian/fixes/h2ph-gcc-4.5.diff     |    2 ++
+ .../perl-5.12.2/debian/fixes/hurd-ccflags.diff     |    2 ++
+ .../perl-5.12.2/debian/fixes/lc-numeric-docs.diff  |    2 ++
+ .../debian/fixes/lc-numeric-sprintf.diff           |    2 ++
+ .../perl-5.12.2/debian/fixes/net_smtp_docs.diff    |    2 ++
+ .../perl/perl-5.12.2/debian/fixes/processPL.diff   |    2 ++
+ .../perl/perl-5.12.2/debian/instmodsh_doc.diff     |    2 ++
+ .../perl/perl-5.12.2/debian/ld_run_path.diff       |    2 ++
+ .../perl-5.12.2/debian/libnet_config_path.diff     |    2 ++
+ .../perl-5.12.2/debian/m68k_thread_stress.diff     |    2 ++
+ .../perl/perl-5.12.2/debian/mod_paths.diff         |    2 ++
+ .../debian/module_build_man_extensions.diff        |    2 ++
+ .../perl/perl-5.12.2/debian/perlivp.diff           |    2 ++
+ .../perl/perl-5.12.2/debian/prune_libs.diff        |    2 ++
+ .../debian/squelch-locale-warnings.diff            |    2 ++
+ .../perl/perl-5.12.2/generate-sh.patch             |    2 ++
+ .../perl/perl-5.12.2/installperl.patch             |    2 ++
+ .../{files => perl-5.12.2}/letgcc-find-errno.patch |    2 ++
+ .../perl/perl-5.12.2/native-nopacklist.patch       |    2 ++
+ .../perl/perl-5.12.2/native-perlinc.patch          |    2 ++
+ .../perl/perl-5.12.2/native-ssp.patch              |    2 ++
+ .../perl/perl-5.12.2/parallel_build_fix_1.patch    |    2 ++
+ .../perl/perl-5.12.2/parallel_build_fix_2.patch    |    2 ++
+ .../perl/perl-5.12.2/parallel_build_fix_3.patch    |    2 ++
+ .../perl/perl-5.12.2/parallel_build_fix_4.patch    |    2 ++
+ .../perl/perl-5.12.2/parallel_build_fix_5.patch    |    2 ++
+ .../perl/perl-5.12.2/parallel_build_fix_6.patch    |    2 ++
+ .../perl/perl-5.12.2/perl-configpm-switch.patch    |    2 ++
+ .../perl/perl-5.12.2/perl-dynloader.patch          |   12 ++++++++++--
+ .../perl/perl-5.12.2/perl-enable-gdbm.patch        |    2 ++
+ .../perl/perl-5.12.2/perl-moreconfig.patch         |    2 ++
+ meta/recipes-devtools/perl/perl_5.12.2.bb          |    2 +-
+ .../python/python-gst/python-path.patch            |    2 ++
+ ...python-gst_0.10.19.bb => python-gst_0.10.21.bb} |    6 +++---
+ .../python/python-pycairo_1.8.10.bb                |    8 +++++++-
  .../mpfr/{mpfr_3.0.0.bb => mpfr_3.0.1.bb}          |    4 ++--
- 1 files changed, 2 insertions(+), 2 deletions(-)
+ 67 files changed, 147 insertions(+), 28 deletions(-)
+ rename meta/recipes-devtools/git/{git_1.7.3.4.bb => git_1.7.4.3.bb} (59%)
+ delete mode 100644 meta/recipes-devtools/perl/files/libperl-5.8.3-create-libperl-soname.patch
+ rename meta/recipes-devtools/perl/{libxml-parser-perl-native_2.36.bb => libxml-parser-perl-native_2.40.bb} (100%)
+ rename meta/recipes-devtools/perl/{libxml-parser-perl_2.36.bb => libxml-parser-perl_2.40.bb} (61%)
+ rename meta/recipes-devtools/perl/{files => perl-5.12.2}/Configure-multilib.patch (96%)
+ rename meta/recipes-devtools/perl/{files => perl-5.12.2}/letgcc-find-errno.patch (96%)
+ rename meta/recipes-devtools/python/{python-gst_0.10.19.bb => python-gst_0.10.21.bb} (82%)
  rename meta/recipes-support/mpfr/{mpfr_3.0.0.bb => mpfr_3.0.1.bb} (70%)
 
-diff --git a/meta/recipes-support/mpfr/mpfr_3.0.0.bb b/meta/recipes-support/mpfr/mpfr_3.0.1.bb
-similarity index 70%
-rename from meta/recipes-support/mpfr/mpfr_3.0.0.bb
-rename to meta/recipes-support/mpfr/mpfr_3.0.1.bb
-index 846cdc0..9079e4b 100644
---- a/meta/recipes-support/mpfr/mpfr_3.0.0.bb
-+++ b/meta/recipes-support/mpfr/mpfr_3.0.1.bb
-@@ -7,8 +7,8 @@ PR = "r0"
- 
- SRC_URI = "http://www.mpfr.org/mpfr-${PV}/mpfr-${PV}.tar.bz2"
- 
--SRC_URI[md5sum] = "f45bac3584922c8004a10060ab1a8f9f"
--SRC_URI[sha256sum] = "8f4e5f9c53536cb798a30455ac429b1f9fc75a0f8af32d6e0ac31ebf1024821f"
-+SRC_URI[md5sum] = "bfbecb2eacb6d48432ead5cfc3f7390a"
-+SRC_URI[sha256sum] = "e1977099bb494319c0f0c1f85759050c418a56884e9c6cef1c540b9b13e38e7f"
- S = "${WORKDIR}/mpfr-${PV}"
- 
- BBCLASSEXTEND = "native nativesdk"
 -- 
 1.7.2.2
 
