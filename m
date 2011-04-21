@@ -1,25 +1,21 @@
-Return-Path: <josh@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id ADF934C80050
-	for <poky@yoctoproject.org>; Thu, 21 Apr 2011 12:29:12 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 21 Apr 2011 10:29:12 -0700
+Return-Path: <nitin.a.kamble@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id F39864C80050
+	for <poky@yoctoproject.org>; Thu, 21 Apr 2011 15:25:29 -0500 (CDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 21 Apr 2011 13:25:29 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,252,1301900400"; d="scan'208";a="632165770"
-Received: from vorpal.jf.intel.com (HELO [10.7.199.145]) ([10.7.199.145])
-	by orsmga002.jf.intel.com with ESMTP; 21 Apr 2011 10:29:12 -0700
-From: Joshua Lock <josh@linux.intel.com>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-In-Reply-To: <4DAFC9D3.2040206@linux.intel.com>
-References: <cover.1302845703.git.dongxiao.xu@intel.com>
-	<1303312153.23006.5.camel@doubt>
-	<D5AB6E638E5A3E4B8F4406B113A5A19A5081C5CC@shsmsx501.ccr.corp.intel.com>
-	<4DAFC9D3.2040206@linux.intel.com>
-Date: Thu, 21 Apr 2011 10:25:09 -0700
-Message-ID: <1303406709.9960.45.camel@vorpal>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.30.3 
-Subject: Re: [PATCH 00/14][PULL] connectivity/multimedia recipe upgrade, Dongxiao, 2011/04/15
+X-IronPort-AV: E=Sophos;i="4.64,252,1301900400"; d="scan'208";a="682128772"
+Received: from nbuild1.sc.intel.com (HELO localhost) ([172.25.110.36])
+	by fmsmga002.fm.intel.com with ESMTP; 21 Apr 2011 13:25:29 -0700
+Message-Id: <86afa66650a2717cb63df109c3d8806e3c52237b.1303417346.git.nitin.a.kamble@intel.com>
+In-Reply-To: <cover.1303417346.git.nitin.a.kamble@intel.com>
+References: <cover.1303417346.git.nitin.a.kamble@intel.com>
+Old-Date: Thu, 7 Apr 2011 04:20:10 -0700
+Date: Thu, 21 Apr 2011 13:25:03 -0700
+To: poky@yoctoproject.org,openembedded-core@lists.openembedded.org
+From: Nitin A Kamble <nitin.a.kamble@intel.com>
+Subject: [PATCH 1/8] mpfr: upgrade from 3.0.0 to 3.0.1
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,57 +27,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Apr 2011 17:29:12 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 21 Apr 2011 20:25:30 -0000
 
-On Wed, 2011-04-20 at 23:08 -0700, Saul Wold wrote:
-> On 04/20/2011 10:45 PM, Xu, Dongxiao wrote:
-> >> -----Original Message-----
-> >> From: Darren Hart [mailto:dvhart@linux.intel.com]
-> >> Sent: Wednesday, April 20, 2011 11:09 PM
-> >> To: Xu, Dongxiao
-> >> Cc: poky@yoctoproject.org
-> >> Subject: Re: [poky] [PATCH 00/14][PULL] connectivity/multimedia recipe
-> >> upgrade, Dongxiao, 2011/04/15
-> >>
-> >> On Fri, 2011-04-15 at 13:36 +0800, Dongxiao Xu wrote:
-> >>> From: Dongxiao Xu<dongxiao.xu@intel.com>
-> >>>
-> >>> Hi Saul,
-> >>>
-> >>> This pull request upgrades some connectivity and multimedia recipes, please
-> >> help to review and pull.
-> >>
-> >> How have these upgrades been tested? In particular, has rygel from
-> >> meta-demo been shown to work using the updated libraries?
-> >
-> > Before sending the patch, I verified the basic video/audio player does work in poky-image-sato image on atom-pc platform. However I didn't cover rygel testings.
-> >
-> > Do you meet issues with rygel after my upgrade?
-> >
-> Dongxiao,
-> 
-> I think the request is for you to check the demo layer with the updates 
-> you did, to ensure it does not break rygel.  I think we need to take 
-> some ownership of that layer so that Darren and Tom (kernel guys) don't 
-> have to maintain it.
+From: Nitin A Kamble <nitin.a.kamble@intel.com>
 
-I think that layer is as much mine as anyone else's and my desire for it
-is to move all of the recipes to more appropriate layers.
+Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
+---
+ .../mpfr/{mpfr_3.0.0.bb => mpfr_3.0.1.bb}          |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+ rename meta/recipes-support/mpfr/{mpfr_3.0.0.bb => mpfr_3.0.1.bb} (70%)
 
-Rygel, for example, is a prime candidate for Koen's new gnome layer and
-many of the recipes in meta-demo are just newer versions of recipes in
-oe-core that I needed to get the demo running against Bernard.
-
-In a perfect world the meta-demo layer would only contain custom image
-definitions.
-
-Cheers,
-Joshua
+diff --git a/meta/recipes-support/mpfr/mpfr_3.0.0.bb b/meta/recipes-support/mpfr/mpfr_3.0.1.bb
+similarity index 70%
+rename from meta/recipes-support/mpfr/mpfr_3.0.0.bb
+rename to meta/recipes-support/mpfr/mpfr_3.0.1.bb
+index 846cdc0..9079e4b 100644
+--- a/meta/recipes-support/mpfr/mpfr_3.0.0.bb
++++ b/meta/recipes-support/mpfr/mpfr_3.0.1.bb
+@@ -7,8 +7,8 @@ PR = "r0"
+ 
+ SRC_URI = "http://www.mpfr.org/mpfr-${PV}/mpfr-${PV}.tar.bz2"
+ 
+-SRC_URI[md5sum] = "f45bac3584922c8004a10060ab1a8f9f"
+-SRC_URI[sha256sum] = "8f4e5f9c53536cb798a30455ac429b1f9fc75a0f8af32d6e0ac31ebf1024821f"
++SRC_URI[md5sum] = "bfbecb2eacb6d48432ead5cfc3f7390a"
++SRC_URI[sha256sum] = "e1977099bb494319c0f0c1f85759050c418a56884e9c6cef1c540b9b13e38e7f"
+ S = "${WORKDIR}/mpfr-${PV}"
+ 
+ BBCLASSEXTEND = "native nativesdk"
 -- 
-Joshua Lock
-        Yocto Build System Monkey
-        Intel Open Source Technology Center
+1.7.2.2
 
 
