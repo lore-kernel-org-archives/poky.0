@@ -1,26 +1,21 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5FB814C80A73
-	for <poky@yoctoproject.org>; Thu, 21 Apr 2011 18:46:17 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 21 Apr 2011 16:46:16 -0700
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 00D0D4C80A73
+	for <poky@yoctoproject.org>; Thu, 21 Apr 2011 18:52:52 -0500 (CDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 21 Apr 2011 16:52:52 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,252,1301900400"; d="scan'208";a="423588565"
-Received: from unknown (HELO [10.255.13.58]) ([10.255.13.58])
-	by azsmga001.ch.intel.com with ESMTP; 21 Apr 2011 16:46:15 -0700
-Message-ID: <4DB0C1C7.9030809@linux.intel.com>
-Date: Thu, 21 Apr 2011 16:46:15 -0700
-From: Saul Wold <sgw@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="4.64,252,1301900400"; d="scan'208";a="682198688"
+Received: from unknown (HELO [10.255.13.83]) ([10.255.13.83])
+	by fmsmga002.fm.intel.com with ESMTP; 21 Apr 2011 16:52:52 -0700
+Message-ID: <4DB0C35E.8060004@linux.intel.com>
+Date: Thu, 21 Apr 2011 16:53:02 -0700
+From: Darren Hart <dvhart@linux.intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
+	rv:1.9.2.14) Gecko/20110223 Lightning/1.0b2 Thunderbird/3.1.8
 MIME-Version: 1.0
-To: Patches and discussions about the oe-core layer
-	<openembedded-core@lists.openembedded.org>
-References: <cover.1303417346.git.nitin.a.kamble@intel.com>
-In-Reply-To: <cover.1303417346.git.nitin.a.kamble@intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [OE-core] [PATCH 0/8] recipe upgrades & bugfixes
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Logging: mechanisms and best practices
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,118 +27,88 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Apr 2011 23:46:17 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Thu, 21 Apr 2011 23:52:53 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 7bit
 
-On 04/21/2011 01:25 PM, Nitin A Kamble wrote:
-> From: Nitin A Kamble<nitin.a.kamble@intel.com>
->
-> These are some of the recipe upgrades and bug fixes I had worked on.
-> Thanks,
-> Nitin
->
-Nitin, could you please resubmit this with the Upstream-Status: instead 
-of Upstream-Status=.
+In trying to add some checkpoint logging to the kernel recipes, I wanted
+to understand the proper mechanisms and best practices for logging with
+bitbake recipes.
 
-Thanks
-	Sau!
+From what I could gather, the preferred method is to use the various
+loglevel functions from bb. ie:
 
+bb.fatal()	A fatal error, the recipe will set the error code and
+		abort.
+bb.error()	A non-fatal error. The error code is set, the build
+		will be marked as red in the autobuilder.
+bb.warn()	A non-fatal condition that could affect how things
+		progress.
+bb.debug() 	One of several debug levels.
+bb.note()	A condition the user should be made aware of
+bb.plain()	typically the output of a tool, such as listtasks
 
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->    Branch: nitin/misc
->    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=nitin/misc
->
-> Thanks,
->      Nitin A Kamble<nitin.a.kamble@intel.com>
-> ---
->
->
-> Nitin A Kamble (8):
->    mpfr: upgrade from 3.0.0 to 3.0.1
->    python-gst: upgrade from 0.10.19 to 0.10.21
->    git: upgrade from 1.7.3.4 to 1.7.4.3
->    python-pycairo: fix installation path of __init__.py
->    perl-5.12.2: use of PERLHOSTLIB var fix
->    cpan.bbclass: export PERLHOSTLIB for perl modules
->    libxml-parser-perl: upgrade from 2.36 to 2.40
->    distro_tracking: recipe information update
->
->   meta/classes/cpan.bbclass                          |    1 +
->   .../conf/distro/include/distro_tracking_fields.inc |    7 +++++--
->   meta/recipes-devtools/git/files/autotools.patch    |    2 ++
->   .../git/{git_1.7.3.4.bb =>  git_1.7.4.3.bb}         |    4 ++--
->   .../libperl-5.8.3-create-libperl-soname.patch      |   11 -----------
->   ...e_2.36.bb =>  libxml-parser-perl-native_2.40.bb} |    0
->   ...ser-perl_2.36.bb =>  libxml-parser-perl_2.40.bb} |    8 ++++----
->   .../perl/perl-5.12.2/09_fix_installperl.patch      |    2 ++
->   .../Configure-multilib.patch                       |    2 ++
->   .../perl/perl-5.12.2/Makefile.SH.patch             |    2 ++
->   .../perl/perl-5.12.2/Makefile.patch                |    2 ++
->   .../perl/perl-5.12.2/asm-pageh-fix.patch           |    2 ++
->   .../perl/perl-5.12.2/cross-generate_uudmap.patch   |    2 ++
->   .../perl/perl-5.12.2/debian/arm_optim.diff         |    2 ++
->   .../debian/arm_thread_stress_timeout.diff          |    2 ++
->   .../perl/perl-5.12.2/debian/cpan_config_path.diff  |    2 ++
->   .../perl-5.12.2/debian/cpan_definstalldirs.diff    |    2 ++
->   .../perl-5.12.2/debian/cpanplus_config_path.diff   |    2 ++
->   .../debian/cpanplus_definstalldirs.diff            |    2 ++
->   .../perl/perl-5.12.2/debian/db_file_ver.diff       |    2 ++
->   .../perl-5.12.2/debian/deprecate-with-apt.diff     |    2 ++
->   .../debian/devel-ppport-ia64-optim.diff            |    2 ++
->   .../perl-5.12.2/debian/disable-zlib-bundling.diff  |    2 ++
->   .../perl/perl-5.12.2/debian/doc_info.diff          |    2 ++
->   .../perl/perl-5.12.2/debian/enc2xs_inc.diff        |    2 ++
->   .../perl/perl-5.12.2/debian/errno_ver.diff         |    2 ++
->   .../perl/perl-5.12.2/debian/extutils_hacks.diff    |    2 ++
->   .../perl/perl-5.12.2/debian/fakeroot.diff          |    2 ++
->   .../perl-5.12.2/debian/fixes/autodie-flock.diff    |    2 ++
->   .../debian/fixes/concat-stack-corruption.diff      |    2 ++
->   .../debian/fixes/cpanplus-without-home.diff        |    2 ++
->   .../perl-5.12.2/debian/fixes/h2ph-gcc-4.5.diff     |    2 ++
->   .../perl-5.12.2/debian/fixes/hurd-ccflags.diff     |    2 ++
->   .../perl-5.12.2/debian/fixes/lc-numeric-docs.diff  |    2 ++
->   .../debian/fixes/lc-numeric-sprintf.diff           |    2 ++
->   .../perl-5.12.2/debian/fixes/net_smtp_docs.diff    |    2 ++
->   .../perl/perl-5.12.2/debian/fixes/processPL.diff   |    2 ++
->   .../perl/perl-5.12.2/debian/instmodsh_doc.diff     |    2 ++
->   .../perl/perl-5.12.2/debian/ld_run_path.diff       |    2 ++
->   .../perl-5.12.2/debian/libnet_config_path.diff     |    2 ++
->   .../perl-5.12.2/debian/m68k_thread_stress.diff     |    2 ++
->   .../perl/perl-5.12.2/debian/mod_paths.diff         |    2 ++
->   .../debian/module_build_man_extensions.diff        |    2 ++
->   .../perl/perl-5.12.2/debian/perlivp.diff           |    2 ++
->   .../perl/perl-5.12.2/debian/prune_libs.diff        |    2 ++
->   .../debian/squelch-locale-warnings.diff            |    2 ++
->   .../perl/perl-5.12.2/generate-sh.patch             |    2 ++
->   .../perl/perl-5.12.2/installperl.patch             |    2 ++
->   .../{files =>  perl-5.12.2}/letgcc-find-errno.patch |    2 ++
->   .../perl/perl-5.12.2/native-nopacklist.patch       |    2 ++
->   .../perl/perl-5.12.2/native-perlinc.patch          |    2 ++
->   .../perl/perl-5.12.2/native-ssp.patch              |    2 ++
->   .../perl/perl-5.12.2/parallel_build_fix_1.patch    |    2 ++
->   .../perl/perl-5.12.2/parallel_build_fix_2.patch    |    2 ++
->   .../perl/perl-5.12.2/parallel_build_fix_3.patch    |    2 ++
->   .../perl/perl-5.12.2/parallel_build_fix_4.patch    |    2 ++
->   .../perl/perl-5.12.2/parallel_build_fix_5.patch    |    2 ++
->   .../perl/perl-5.12.2/parallel_build_fix_6.patch    |    2 ++
->   .../perl/perl-5.12.2/perl-configpm-switch.patch    |    2 ++
->   .../perl/perl-5.12.2/perl-dynloader.patch          |   12 ++++++++++--
->   .../perl/perl-5.12.2/perl-enable-gdbm.patch        |    2 ++
->   .../perl/perl-5.12.2/perl-moreconfig.patch         |    2 ++
->   meta/recipes-devtools/perl/perl_5.12.2.bb          |    2 +-
->   .../python/python-gst/python-path.patch            |    2 ++
->   ...python-gst_0.10.19.bb =>  python-gst_0.10.21.bb} |    6 +++---
->   .../python/python-pycairo_1.8.10.bb                |    8 +++++++-
->   .../mpfr/{mpfr_3.0.0.bb =>  mpfr_3.0.1.bb}          |    4 ++--
->   67 files changed, 147 insertions(+), 28 deletions(-)
->   rename meta/recipes-devtools/git/{git_1.7.3.4.bb =>  git_1.7.4.3.bb} (59%)
->   delete mode 100644 meta/recipes-devtools/perl/files/libperl-5.8.3-create-libperl-soname.patch
->   rename meta/recipes-devtools/perl/{libxml-parser-perl-native_2.36.bb =>  libxml-parser-perl-native_2.40.bb} (100%)
->   rename meta/recipes-devtools/perl/{libxml-parser-perl_2.36.bb =>  libxml-parser-perl_2.40.bb} (61%)
->   rename meta/recipes-devtools/perl/{files =>  perl-5.12.2}/Configure-multilib.patch (96%)
->   rename meta/recipes-devtools/perl/{files =>  perl-5.12.2}/letgcc-find-errno.patch (96%)
->   rename meta/recipes-devtools/python/{python-gst_0.10.19.bb =>  python-gst_0.10.21.bb} (82%)
->   rename meta/recipes-support/mpfr/{mpfr_3.0.0.bb =>  mpfr_3.0.1.bb} (70%)
->
+note and plain will go to the console and should be used extremely
+sparingly. debug will only go to the console with the -D[D[D]] bitbake
+arguments, but should always go to the logs.
+
+For annotating your recipe's task's logs, debug should typically be
+used. warn() should be used whenever possible over error() so as to not
+set the error code.
+
+The above only covers the python functions in recipes. Unfortunately,
+many functions are bash. Most of these recipes use "echo", although
+there exist wrappers to echo in base.bbclass:
+
+oenote
+oewarn
+oedebug
+oefatal
+
+As these only wrap echo, none of them go to the console without -D[D[D]]
+flags. Note the absence of oeplain and oeerror. oeplain wouldn't work
+the same as bb.plain() as it doesn't go the console, the existing oenote
+has a similar problem. I've added oeerror() to my local build. oedebug()
+uses "clever" bash tests to check the OEDEBUG loglevel, unfortunately
+this causes the function to exit with a failure code when the condition
+is not met. I've addressed this as well. There are zero users of the oe*
+logging calls in "meta" but I did find several users in oe.
+
+The oe* calls depend on OEDEBUG which is not included in the environment
+whitelists and is not set by the -D[D[D]] arguments. Even adding it to
+the whitelist and my environent it wasn't accessible from the bash
+function. I was unable to to use oedebug() as I couldn't get the OEDEBUG
+value set without hardcoding it into base.bbclass.
+
+A similar variable "BBDEBUG" exists. It can be set in local.conf (the
+sample suggests "yes" as a value). This has zero effect from what I can
+tell. Setting BBDEBUG in the environment is used in the same way as
+-D[D[D]], and if set to "yes" will cause bitbake to error out trying to
+case "yes" to an integer.
+
+So... before I start breaking things, I wanted to make sure I fully
+understand how these mechanisms are intended to be used. Also, I would
+very much like to see a consistent interface between bash and python
+fragments that have the same semantics. There are also at least two more
+logging mechanisms I stumbled across withing the bitbake source. One is
+marked deprecated, and I'm not sure how the other is meant to be used.
+The two I mentioned above seem to be the right ones for recipes to use.
+
+Would people consider the following to be appropriate:
+
+o Remove BBDEBUG from local.conf.sample as it appears not be used.
+o Modify oedebug to always echo the message as all echos only go to the
+  logs anyway. A future change may enhance the oe* calls to print to the
+  console for oenote, a new oeplain, and oedebug based on -D[D[D]] and
+  BBDEBUG.
+o Remove OEDEBUG as it doesn't seem to fit with the current BBDEBUG,
+  -D[D[D]] mechanisms nor with the expectation that all debug statements
+  get sent to the logs.
+
+Thoughts?
+
+-- 
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
