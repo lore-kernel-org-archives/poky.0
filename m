@@ -1,35 +1,26 @@
-Return-Path: <dongxiao.xu@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 749AC4C80AC1
-	for <poky@yoctoproject.org>; Thu, 21 Apr 2011 00:46:00 -0500 (CDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 20 Apr 2011 22:46:00 -0700
+Return-Path: <sgw@linux.intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4E71D4C80050
+	for <poky@yoctoproject.org>; Thu, 21 Apr 2011 01:08:39 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 20 Apr 2011 23:08:38 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,249,1301900400"; d="scan'208";a="912557333"
-Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
-	by fmsmga001.fm.intel.com with ESMTP; 20 Apr 2011 22:45:59 -0700
-Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
-	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
-	(TLS) id 8.2.255.0; Thu, 21 Apr 2011 13:45:35 +0800
-Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
-	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
-	Thu, 21 Apr 2011 13:45:10 +0800
-From: "Xu, Dongxiao" <dongxiao.xu@intel.com>
-To: Darren Hart <dvhart@linux.intel.com>
-Date: Thu, 21 Apr 2011 13:45:08 +0800
-Thread-Topic: [poky] [PATCH 00/14][PULL] connectivity/multimedia recipe
-	upgrade, Dongxiao, 2011/04/15
-Thread-Index: Acv/bOg+SpNaYoO0SiCsjXlNeuaj/gAeYe2w
-Message-ID: <D5AB6E638E5A3E4B8F4406B113A5A19A5081C5CC@shsmsx501.ccr.corp.intel.com>
-References: <cover.1302845703.git.dongxiao.xu@intel.com>
-	<1303312153.23006.5.camel@doubt>
-In-Reply-To: <1303312153.23006.5.camel@doubt>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
+X-IronPort-AV: E=Sophos;i="4.64,250,1301900400"; d="scan'208";a="423073456"
+Received: from unknown (HELO [10.255.13.58]) ([10.255.13.58])
+	by azsmga001.ch.intel.com with ESMTP; 20 Apr 2011 23:08:20 -0700
+Message-ID: <4DAFC9D3.2040206@linux.intel.com>
+Date: Wed, 20 Apr 2011 23:08:19 -0700
+From: Saul Wold <sgw@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
 MIME-Version: 1.0
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+To: "Xu, Dongxiao" <dongxiao.xu@intel.com>
+References: <cover.1302845703.git.dongxiao.xu@intel.com>	<1303312153.23006.5.camel@doubt>
+	<D5AB6E638E5A3E4B8F4406B113A5A19A5081C5CC@shsmsx501.ccr.corp.intel.com>
+In-Reply-To: <D5AB6E638E5A3E4B8F4406B113A5A19A5081C5CC@shsmsx501.ccr.corp.intel.com>
+Cc: Darren Hart <dvhart@linux.intel.com>,
+	"poky@yoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: [PATCH 00/14][PULL] connectivity/multimedia recipe upgrade, Dongxiao, 2011/04/15
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -42,121 +33,160 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Apr 2011 05:46:00 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-List-Received-Date: Thu, 21 Apr 2011 06:08:39 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBEYXJyZW4gSGFydCBbbWFpbHRv
-OmR2aGFydEBsaW51eC5pbnRlbC5jb21dDQo+IFNlbnQ6IFdlZG5lc2RheSwgQXByaWwgMjAsIDIw
-MTEgMTE6MDkgUE0NCj4gVG86IFh1LCBEb25neGlhbw0KPiBDYzogcG9reUB5b2N0b3Byb2plY3Qu
-b3JnDQo+IFN1YmplY3Q6IFJlOiBbcG9reV0gW1BBVENIIDAwLzE0XVtQVUxMXSBjb25uZWN0aXZp
-dHkvbXVsdGltZWRpYSByZWNpcGUNCj4gdXBncmFkZSwgRG9uZ3hpYW8sIDIwMTEvMDQvMTUNCj4g
-DQo+IE9uIEZyaSwgMjAxMS0wNC0xNSBhdCAxMzozNiArMDgwMCwgRG9uZ3hpYW8gWHUgd3JvdGU6
-DQo+ID4gRnJvbTogRG9uZ3hpYW8gWHUgPGRvbmd4aWFvLnh1QGludGVsLmNvbT4NCj4gPg0KPiA+
-IEhpIFNhdWwsDQo+ID4NCj4gPiBUaGlzIHB1bGwgcmVxdWVzdCB1cGdyYWRlcyBzb21lIGNvbm5l
-Y3Rpdml0eSBhbmQgbXVsdGltZWRpYSByZWNpcGVzLCBwbGVhc2UNCj4gaGVscCB0byByZXZpZXcg
-YW5kIHB1bGwuDQo+IA0KPiBIb3cgaGF2ZSB0aGVzZSB1cGdyYWRlcyBiZWVuIHRlc3RlZD8gSW4g
-cGFydGljdWxhciwgaGFzIHJ5Z2VsIGZyb20NCj4gbWV0YS1kZW1vIGJlZW4gc2hvd24gdG8gd29y
-ayB1c2luZyB0aGUgdXBkYXRlZCBsaWJyYXJpZXM/DQoNCkJlZm9yZSBzZW5kaW5nIHRoZSBwYXRj
-aCwgSSB2ZXJpZmllZCB0aGUgYmFzaWMgdmlkZW8vYXVkaW8gcGxheWVyIGRvZXMgd29yayBpbiBw
-b2t5LWltYWdlLXNhdG8gaW1hZ2Ugb24gYXRvbS1wYyBwbGF0Zm9ybS4gSG93ZXZlciBJIGRpZG4n
-dCBjb3ZlciByeWdlbCB0ZXN0aW5ncy4NCg0KRG8geW91IG1lZXQgaXNzdWVzIHdpdGggcnlnZWwg
-YWZ0ZXIgbXkgdXBncmFkZT8NCg0KVGhhbmtzLA0KRG9uZ3hpYW8NCg0KPiANCj4gLS0NCj4gRGFy
-cmVuDQo+IA0KPiA+DQo+ID4gUHVsbCBVUkw6IGdpdDovL2dpdC5wb2t5bGludXgub3JnL3Bva3kt
-Y29udHJpYi5naXQNCj4gPiAgIEJyYW5jaDogZHh1NC91cGdyYWRlDQo+ID4gICBCcm93c2U6DQo+
-ID4gaHR0cDovL2dpdC5wb2t5bGludXgub3JnL2NnaXQuY2dpL3Bva3ktY29udHJpYi9sb2cvP2g9
-ZHh1NC91cGdyYWRlDQo+ID4NCj4gPiBUaGFua3MsDQo+ID4gICAgIERvbmd4aWFvIFh1IDxkb25n
-eGlhby54dUBpbnRlbC5jb20+DQo+ID4gLS0tDQo+ID4NCj4gPg0KPiA+IERvbmd4aWFvIFh1ICgx
-NCk6DQo+ID4gICBnc3RyZWFtZXI6IHVwZ3JhZGUgdG8gdmVzaW9uIDAuMTAuMzINCj4gPiAgIGdz
-dC1wbHVnaW5zLWJhc2U6IHVwZ3JhZGUgdG8gdmVyc2lvbiAwLjEwLjMyDQo+ID4gICBnc3QtcGx1
-Z2lucy1nb29kOiB1cGdyYWRlIHRvIHZlcnNpb24gMC4xMC4yOA0KPiA+ICAgZ3N0LXBsdWdpbnMt
-YmFkOiB1cGdyYWRlIHRvIHZlcnNpb24gMC4xMC4yMQ0KPiA+ICAgZ3N0LXBsdWdpbnMtdWdseTog
-dXBncmFkZSB0byB2ZXJzaW9uIDAuMTAuMTcNCj4gPiAgIG9mb25vOiB1cGdyYWRlIHRvIHZlcnNp
-b24gMC40NQ0KPiA+ICAgYWxzYS1saWI6IHVwZ3JhZGUgdG8gdmVyc2lvbiAxLjAuMjQuMQ0KPiA+
-ICAgYWxzYS11dGlsczogdXBncmFkZSB0byB2ZXJzaW9uIDEuMC4yNC4yDQo+ID4gICB0ZWxlcGF0
-aHktZ2xpYjogdXBncmFkZSB0byB2ZXJzaW9uIDAuMTQuMw0KPiA+ICAgdGVsZXBhdGh5LWlkbGU6
-IHVwZ3JhZGUgdG8gdmVyc2lvbiAwLjEuOA0KPiA+ICAgdGVsZXBhdGh5LW1pc3Npb24tY29udHJv
-bDogdXBncmFkZSB0byB2ZXJzaW9uIDUuNy45DQo+ID4gICBnc3NkcDogdXBncmFkZSB0byB2ZXJz
-aW9uIDAuMTAuMA0KPiA+ICAgZ3VwbnA6IHVwZ3JhZGUgdG8gdmVyc2lvbiAwLjE2LjANCj4gPiAg
-IGRpc3Ryb190cmFja2luZ19maWVsZHM6IHVwZGF0ZSBmb3IgZ3N0cmVhbWVyLCBndXBucCwgdGVs
-ZXBhdGh5LWdsaWIsDQo+ID4gICAgIGV0Yw0KPiA+DQo+ID4gIC4uLi9jb25mL2Rpc3Ryby9pbmNs
-dWRlL2Rpc3Ryb190cmFja2luZ19maWVsZHMuaW5jIHwgIDEwNg0KPiArKysrKysrKysrLS0tLS0t
-LS0tLQ0KPiA+ICAuLi4ve2ZpbGVzID0+IGdzc2RwLTAuMTAuMH0vaW50cm9zcGVjdGlvbi5wYXRj
-aCAgICB8ICAgIDUgKy0NCj4gPiAgLi4uL2d1cG5wL3tnc3NkcF8wLjkuMC5iYiA9PiBnc3NkcF8w
-LjEwLjAuYmJ9ICAgICAgfCAgICA0ICstDQo+ID4gIC4uLi9ndXBucC97Z3VwbnBfMC4xNC4wLmJi
-ID0+IGd1cG5wXzAuMTYuMC5iYn0gICAgIHwgICAgNyArLQ0KPiA+ICBtZXRhL3JlY2lwZXMtY29u
-bmVjdGl2aXR5L29mb25vL29mb25vXzAuMzcuYmIgICAgICB8ICAgIDkgLS0NCj4gPiAgbWV0YS9y
-ZWNpcGVzLWNvbm5lY3Rpdml0eS9vZm9uby9vZm9ub18wLjQ1LmJiICAgICAgfCAgICA5ICsrDQo+
-ID4gIC4uLnRoeS1nbGliXzAuMTMuNi5iYiA9PiB0ZWxlcGF0aHktZ2xpYl8wLjE0LjMuYmJ9IHwg
-ICAgNCArLQ0KPiA+ICAuLi5wYXRoeS1pZGxlXzAuMS43LmJiID0+IHRlbGVwYXRoeS1pZGxlXzAu
-MS44LmJifSB8ICAgIDQgKy0NCj4gPiAgLi4uNS43LjEuYmIgPT4gdGVsZXBhdGh5LW1pc3Npb24t
-Y29udHJvbF81LjcuOS5iYn0gfCAgICA0ICstDQo+ID4gIC4uLi9maXgtdHN0YW1wLWRlY2xhcmF0
-aW9uLnBhdGNoICAgICAgICAgICAgICAgICAgIHwgICAgMiArDQo+ID4gIC4uLi91bmJyZWFrX3Bs
-dWdpbmRpci5wYXRjaCAgICAgICAgICAgICAgICAgICAgICAgIHwgICAgMiArDQo+ID4gIC4uLi97
-YWxzYS1saWJfMS4wLjIzLmJiID0+IGFsc2EtbGliXzEuMC4yNC4xLmJifSAgIHwgICAgNCArLQ0K
-PiA+ICAuLi4vbmN1cnNlc2ZpeC5wYXRjaCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8
-ICAgMjIgKystLQ0KPiA+ICAuLi5hbHNhLXV0aWxzXzEuMC4yMy5iYiA9PiBhbHNhLXV0aWxzXzEu
-MC4yNC4yLmJifSB8ICAgIDQgKy0NCj4gPiAgLi4ucy1iYWRfMC4xMC4yMC5iYiA9PiBnc3QtcGx1
-Z2lucy1iYWRfMC4xMC4yMS5iYn0gfCAgICA2ICstDQo+ID4gIC4uLi9nc3QtcGx1Z2lucy1iYXNl
-LXRyZW1vci5wYXRjaCAgICAgICAgICAgICAgICAgIHwgICAgMiArDQo+ID4gIC4uLmJhc2VfMC4x
-MC4zMS5iYiA9PiBnc3QtcGx1Z2lucy1iYXNlXzAuMTAuMzIuYmJ9IHwgICAgNiArLQ0KPiA+ICAu
-Li5nb29kXzAuMTAuMjYuYmIgPT4gZ3N0LXBsdWdpbnMtZ29vZF8wLjEwLjI4LmJifSB8ICAgIDYg
-Ky0NCj4gPiAgLi4udWdseV8wLjEwLjE2LmJiID0+IGdzdC1wbHVnaW5zLXVnbHlfMC4xMC4xNy5i
-Yn0gfCAgICAzICsNCj4gPiAgLi4uL2NoZWNrX2ZpeC5wYXRjaCAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgfCAgICAyICsNCj4gPiAgLi4uL2dzdC1pbnNwZWN0LWNoZWNrLWVycm9yLnBh
-dGNoICAgICAgICAgICAgICAgICAgfCAgICAyICsNCj4gPiAgLi4uL2dzdHJlZ2lzdHJ5YmluYXJ5
-LmMgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgICAwDQo+ID4gIC4uLi9nc3RyZWdpc3Ry
-eWJpbmFyeS5oICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgICAgMA0KPiA+ICAuLi4ve2dz
-dHJlYW1lcl8wLjEwLjMxLmJiID0+IGdzdHJlYW1lcl8wLjEwLjMyLmJifSB8ICAgIDQgKy0NCj4g
-PiAgMjQgZmlsZXMgY2hhbmdlZCwgMTE2IGluc2VydGlvbnMoKyksIDEwMSBkZWxldGlvbnMoLSkg
-IHJlbmFtZQ0KPiA+IG1ldGEvcmVjaXBlcy1jb25uZWN0aXZpdHkvZ3VwbnAve2ZpbGVzID0+DQo+
-ID4gZ3NzZHAtMC4xMC4wfS9pbnRyb3NwZWN0aW9uLnBhdGNoICg5NyUpICByZW5hbWUNCj4gPiBt
-ZXRhL3JlY2lwZXMtY29ubmVjdGl2aXR5L2d1cG5wL3tnc3NkcF8wLjkuMC5iYiA9PiBnc3NkcF8w
-LjEwLjAuYmJ9DQo+ID4gKDgzJSkgIHJlbmFtZSBtZXRhL3JlY2lwZXMtY29ubmVjdGl2aXR5L2d1
-cG5wL3tndXBucF8wLjE0LjAuYmIgPT4NCj4gPiBndXBucF8wLjE2LjAuYmJ9ICg4NSUpICBkZWxl
-dGUgbW9kZSAxMDA2NDQNCj4gPiBtZXRhL3JlY2lwZXMtY29ubmVjdGl2aXR5L29mb25vL29mb25v
-XzAuMzcuYmINCj4gPiAgY3JlYXRlIG1vZGUgMTAwNjQ0IG1ldGEvcmVjaXBlcy1jb25uZWN0aXZp
-dHkvb2Zvbm8vb2Zvbm9fMC40NS5iYg0KPiA+ICByZW5hbWUgbWV0YS9yZWNpcGVzLWNvbm5lY3Rp
-dml0eS90ZWxlcGF0aHkve3RlbGVwYXRoeS1nbGliXzAuMTMuNi5iYg0KPiA+ID0+IHRlbGVwYXRo
-eS1nbGliXzAuMTQuMy5iYn0gKDgwJSkgIHJlbmFtZQ0KPiA+IG1ldGEvcmVjaXBlcy1jb25uZWN0
-aXZpdHkvdGVsZXBhdGh5L3t0ZWxlcGF0aHktaWRsZV8wLjEuNy5iYiA9Pg0KPiA+IHRlbGVwYXRo
-eS1pZGxlXzAuMS44LmJifSAoODElKSAgcmVuYW1lDQo+ID4gbWV0YS9yZWNpcGVzLWNvbm5lY3Rp
-dml0eS90ZWxlcGF0aHkve3RlbGVwYXRoeS1taXNzaW9uLWNvbnRyb2xfNS43LjEuYg0KPiA+IGIg
-PT4gdGVsZXBhdGh5LW1pc3Npb24tY29udHJvbF81LjcuOS5iYn0gKDkyJSkgIHJlbmFtZQ0KPiA+
-IG1ldGEvcmVjaXBlcy1tdWx0aW1lZGlhL2Fsc2Eve2Fsc2EtbGliLTEuMC4yMyA9Pg0KPiA+IGFs
-c2EtbGliLTEuMC4yNC4xfS9maXgtdHN0YW1wLWRlY2xhcmF0aW9uLnBhdGNoICg5NSUpICByZW5h
-bWUNCj4gPiBtZXRhL3JlY2lwZXMtbXVsdGltZWRpYS9hbHNhL3thbHNhLWxpYi0xLjAuMjMgPT4N
-Cj4gPiBhbHNhLWxpYi0xLjAuMjQuMX0vdW5icmVha19wbHVnaW5kaXIucGF0Y2ggKDkxJSkgIHJl
-bmFtZQ0KPiA+IG1ldGEvcmVjaXBlcy1tdWx0aW1lZGlhL2Fsc2Eve2Fsc2EtbGliXzEuMC4yMy5i
-YiA9Pg0KPiA+IGFsc2EtbGliXzEuMC4yNC4xLmJifSAoOTElKSAgcmVuYW1lDQo+ID4gbWV0YS9y
-ZWNpcGVzLW11bHRpbWVkaWEvYWxzYS97YWxzYS11dGlscy0xLjAuMjMgPT4NCj4gPiBhbHNhLXV0
-aWxzLTEuMC4yNC4yfS9uY3Vyc2VzZml4LnBhdGNoICg3MCUpICByZW5hbWUNCj4gPiBtZXRhL3Jl
-Y2lwZXMtbXVsdGltZWRpYS9hbHNhL3thbHNhLXV0aWxzXzEuMC4yMy5iYiA9Pg0KPiA+IGFsc2Et
-dXRpbHNfMS4wLjI0LjIuYmJ9ICg5NSUpICByZW5hbWUNCj4gPiBtZXRhL3JlY2lwZXMtbXVsdGlt
-ZWRpYS9nc3RyZWFtZXIve2dzdC1wbHVnaW5zLWJhZF8wLjEwLjIwLmJiID0+DQo+ID4gZ3N0LXBs
-dWdpbnMtYmFkXzAuMTAuMjEuYmJ9ICg4NiUpICByZW5hbWUNCj4gPiBtZXRhL3JlY2lwZXMtbXVs
-dGltZWRpYS9nc3RyZWFtZXIve2dzdC1wbHVnaW5zLWJhc2UtMC4xMC4zMSA9Pg0KPiA+IGdzdC1w
-bHVnaW5zLWJhc2UtMC4xMC4zMn0vZ3N0LXBsdWdpbnMtYmFzZS10cmVtb3IucGF0Y2ggKDk0JSkg
-IHJlbmFtZQ0KPiA+IG1ldGEvcmVjaXBlcy1tdWx0aW1lZGlhL2dzdHJlYW1lci97Z3N0LXBsdWdp
-bnMtYmFzZV8wLjEwLjMxLmJiID0+DQo+ID4gZ3N0LXBsdWdpbnMtYmFzZV8wLjEwLjMyLmJifSAo
-ODYlKSAgcmVuYW1lDQo+ID4gbWV0YS9yZWNpcGVzLW11bHRpbWVkaWEvZ3N0cmVhbWVyL3tnc3Qt
-cGx1Z2lucy1nb29kXzAuMTAuMjYuYmIgPT4NCj4gPiBnc3QtcGx1Z2lucy1nb29kXzAuMTAuMjgu
-YmJ9ICg4MiUpICByZW5hbWUNCj4gPiBtZXRhL3JlY2lwZXMtbXVsdGltZWRpYS9nc3RyZWFtZXIv
-e2dzdC1wbHVnaW5zLXVnbHlfMC4xMC4xNi5iYiA9Pg0KPiA+IGdzdC1wbHVnaW5zLXVnbHlfMC4x
-MC4xNy5iYn0gKDg1JSkgIHJlbmFtZQ0KPiA+IG1ldGEvcmVjaXBlcy1tdWx0aW1lZGlhL2dzdHJl
-YW1lci97Z3N0cmVhbWVyLTAuMTAuMzEgPT4NCj4gPiBnc3RyZWFtZXItMC4xMC4zMn0vY2hlY2tf
-Zml4LnBhdGNoICg5MyUpICByZW5hbWUNCj4gPiBtZXRhL3JlY2lwZXMtbXVsdGltZWRpYS9nc3Ry
-ZWFtZXIve2dzdHJlYW1lci0wLjEwLjMxID0+DQo+ID4gZ3N0cmVhbWVyLTAuMTAuMzJ9L2dzdC1p
-bnNwZWN0LWNoZWNrLWVycm9yLnBhdGNoICg5NiUpICByZW5hbWUNCj4gPiBtZXRhL3JlY2lwZXMt
-bXVsdGltZWRpYS9nc3RyZWFtZXIve2dzdHJlYW1lci0wLjEwLjMxID0+DQo+ID4gZ3N0cmVhbWVy
-LTAuMTAuMzJ9L2dzdHJlZ2lzdHJ5YmluYXJ5LmMgKDEwMCUpICByZW5hbWUNCj4gPiBtZXRhL3Jl
-Y2lwZXMtbXVsdGltZWRpYS9nc3RyZWFtZXIve2dzdHJlYW1lci0wLjEwLjMxID0+DQo+ID4gZ3N0
-cmVhbWVyLTAuMTAuMzJ9L2dzdHJlZ2lzdHJ5YmluYXJ5LmggKDEwMCUpICByZW5hbWUNCj4gPiBt
-ZXRhL3JlY2lwZXMtbXVsdGltZWRpYS9nc3RyZWFtZXIve2dzdHJlYW1lcl8wLjEwLjMxLmJiID0+
-DQo+ID4gZ3N0cmVhbWVyXzAuMTAuMzIuYmJ9ICg5MSUpDQo+ID4NCj4gPiBfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPiA+IHBva3kgbWFpbGluZyBsaXN0
-DQo+ID4gcG9reUB5b2N0b3Byb2plY3Qub3JnDQo+ID4gaHR0cHM6Ly9saXN0cy55b2N0b3Byb2pl
-Y3Qub3JnL2xpc3RpbmZvL3Bva3kNCj4gDQo+IC0tDQo+IERhcnJlbiBIYXJ0DQo+IFlvY3RvIExp
-bnV4IEtlcm5lbA0KDQo=
+On 04/20/2011 10:45 PM, Xu, Dongxiao wrote:
+>> -----Original Message-----
+>> From: Darren Hart [mailto:dvhart@linux.intel.com]
+>> Sent: Wednesday, April 20, 2011 11:09 PM
+>> To: Xu, Dongxiao
+>> Cc: poky@yoctoproject.org
+>> Subject: Re: [poky] [PATCH 00/14][PULL] connectivity/multimedia recipe
+>> upgrade, Dongxiao, 2011/04/15
+>>
+>> On Fri, 2011-04-15 at 13:36 +0800, Dongxiao Xu wrote:
+>>> From: Dongxiao Xu<dongxiao.xu@intel.com>
+>>>
+>>> Hi Saul,
+>>>
+>>> This pull request upgrades some connectivity and multimedia recipes, please
+>> help to review and pull.
+>>
+>> How have these upgrades been tested? In particular, has rygel from
+>> meta-demo been shown to work using the updated libraries?
+>
+> Before sending the patch, I verified the basic video/audio player does work in poky-image-sato image on atom-pc platform. However I didn't cover rygel testings.
+>
+> Do you meet issues with rygel after my upgrade?
+>
+Dongxiao,
+
+I think the request is for you to check the demo layer with the updates 
+you did, to ensure it does not break rygel.  I think we need to take 
+some ownership of that layer so that Darren and Tom (kernel guys) don't 
+have to maintain it.
+
+Sau!
+
+> Thanks,
+> Dongxiao
+>
+>>
+>> --
+>> Darren
+>>
+>>>
+>>> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>>>    Branch: dxu4/upgrade
+>>>    Browse:
+>>> http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dxu4/upgrade
+>>>
+>>> Thanks,
+>>>      Dongxiao Xu<dongxiao.xu@intel.com>
+>>> ---
+>>>
+>>>
+>>> Dongxiao Xu (14):
+>>>    gstreamer: upgrade to vesion 0.10.32
+>>>    gst-plugins-base: upgrade to version 0.10.32
+>>>    gst-plugins-good: upgrade to version 0.10.28
+>>>    gst-plugins-bad: upgrade to version 0.10.21
+>>>    gst-plugins-ugly: upgrade to version 0.10.17
+>>>    ofono: upgrade to version 0.45
+>>>    alsa-lib: upgrade to version 1.0.24.1
+>>>    alsa-utils: upgrade to version 1.0.24.2
+>>>    telepathy-glib: upgrade to version 0.14.3
+>>>    telepathy-idle: upgrade to version 0.1.8
+>>>    telepathy-mission-control: upgrade to version 5.7.9
+>>>    gssdp: upgrade to version 0.10.0
+>>>    gupnp: upgrade to version 0.16.0
+>>>    distro_tracking_fields: update for gstreamer, gupnp, telepathy-glib,
+>>>      etc
+>>>
+>>>   .../conf/distro/include/distro_tracking_fields.inc |  106
+>> ++++++++++----------
+>>>   .../{files =>  gssdp-0.10.0}/introspection.patch    |    5 +-
+>>>   .../gupnp/{gssdp_0.9.0.bb =>  gssdp_0.10.0.bb}      |    4 +-
+>>>   .../gupnp/{gupnp_0.14.0.bb =>  gupnp_0.16.0.bb}     |    7 +-
+>>>   meta/recipes-connectivity/ofono/ofono_0.37.bb      |    9 --
+>>>   meta/recipes-connectivity/ofono/ofono_0.45.bb      |    9 ++
+>>>   ...thy-glib_0.13.6.bb =>  telepathy-glib_0.14.3.bb} |    4 +-
+>>>   ...pathy-idle_0.1.7.bb =>  telepathy-idle_0.1.8.bb} |    4 +-
+>>>   ...5.7.1.bb =>  telepathy-mission-control_5.7.9.bb} |    4 +-
+>>>   .../fix-tstamp-declaration.patch                   |    2 +
+>>>   .../unbreak_plugindir.patch                        |    2 +
+>>>   .../{alsa-lib_1.0.23.bb =>  alsa-lib_1.0.24.1.bb}   |    4 +-
+>>>   .../ncursesfix.patch                               |   22 ++--
+>>>   ...alsa-utils_1.0.23.bb =>  alsa-utils_1.0.24.2.bb} |    4 +-
+>>>   ...s-bad_0.10.20.bb =>  gst-plugins-bad_0.10.21.bb} |    6 +-
+>>>   .../gst-plugins-base-tremor.patch                  |    2 +
+>>>   ...base_0.10.31.bb =>  gst-plugins-base_0.10.32.bb} |    6 +-
+>>>   ...good_0.10.26.bb =>  gst-plugins-good_0.10.28.bb} |    6 +-
+>>>   ...ugly_0.10.16.bb =>  gst-plugins-ugly_0.10.17.bb} |    3 +
+>>>   .../check_fix.patch                                |    2 +
+>>>   .../gst-inspect-check-error.patch                  |    2 +
+>>>   .../gstregistrybinary.c                            |    0
+>>>   .../gstregistrybinary.h                            |    0
+>>>   .../{gstreamer_0.10.31.bb =>  gstreamer_0.10.32.bb} |    4 +-
+>>>   24 files changed, 116 insertions(+), 101 deletions(-)  rename
+>>> meta/recipes-connectivity/gupnp/{files =>
+>>> gssdp-0.10.0}/introspection.patch (97%)  rename
+>>> meta/recipes-connectivity/gupnp/{gssdp_0.9.0.bb =>  gssdp_0.10.0.bb}
+>>> (83%)  rename meta/recipes-connectivity/gupnp/{gupnp_0.14.0.bb =>
+>>> gupnp_0.16.0.bb} (85%)  delete mode 100644
+>>> meta/recipes-connectivity/ofono/ofono_0.37.bb
+>>>   create mode 100644 meta/recipes-connectivity/ofono/ofono_0.45.bb
+>>>   rename meta/recipes-connectivity/telepathy/{telepathy-glib_0.13.6.bb
+>>> =>  telepathy-glib_0.14.3.bb} (80%)  rename
+>>> meta/recipes-connectivity/telepathy/{telepathy-idle_0.1.7.bb =>
+>>> telepathy-idle_0.1.8.bb} (81%)  rename
+>>> meta/recipes-connectivity/telepathy/{telepathy-mission-control_5.7.1.b
+>>> b =>  telepathy-mission-control_5.7.9.bb} (92%)  rename
+>>> meta/recipes-multimedia/alsa/{alsa-lib-1.0.23 =>
+>>> alsa-lib-1.0.24.1}/fix-tstamp-declaration.patch (95%)  rename
+>>> meta/recipes-multimedia/alsa/{alsa-lib-1.0.23 =>
+>>> alsa-lib-1.0.24.1}/unbreak_plugindir.patch (91%)  rename
+>>> meta/recipes-multimedia/alsa/{alsa-lib_1.0.23.bb =>
+>>> alsa-lib_1.0.24.1.bb} (91%)  rename
+>>> meta/recipes-multimedia/alsa/{alsa-utils-1.0.23 =>
+>>> alsa-utils-1.0.24.2}/ncursesfix.patch (70%)  rename
+>>> meta/recipes-multimedia/alsa/{alsa-utils_1.0.23.bb =>
+>>> alsa-utils_1.0.24.2.bb} (95%)  rename
+>>> meta/recipes-multimedia/gstreamer/{gst-plugins-bad_0.10.20.bb =>
+>>> gst-plugins-bad_0.10.21.bb} (86%)  rename
+>>> meta/recipes-multimedia/gstreamer/{gst-plugins-base-0.10.31 =>
+>>> gst-plugins-base-0.10.32}/gst-plugins-base-tremor.patch (94%)  rename
+>>> meta/recipes-multimedia/gstreamer/{gst-plugins-base_0.10.31.bb =>
+>>> gst-plugins-base_0.10.32.bb} (86%)  rename
+>>> meta/recipes-multimedia/gstreamer/{gst-plugins-good_0.10.26.bb =>
+>>> gst-plugins-good_0.10.28.bb} (82%)  rename
+>>> meta/recipes-multimedia/gstreamer/{gst-plugins-ugly_0.10.16.bb =>
+>>> gst-plugins-ugly_0.10.17.bb} (85%)  rename
+>>> meta/recipes-multimedia/gstreamer/{gstreamer-0.10.31 =>
+>>> gstreamer-0.10.32}/check_fix.patch (93%)  rename
+>>> meta/recipes-multimedia/gstreamer/{gstreamer-0.10.31 =>
+>>> gstreamer-0.10.32}/gst-inspect-check-error.patch (96%)  rename
+>>> meta/recipes-multimedia/gstreamer/{gstreamer-0.10.31 =>
+>>> gstreamer-0.10.32}/gstregistrybinary.c (100%)  rename
+>>> meta/recipes-multimedia/gstreamer/{gstreamer-0.10.31 =>
+>>> gstreamer-0.10.32}/gstregistrybinary.h (100%)  rename
+>>> meta/recipes-multimedia/gstreamer/{gstreamer_0.10.31.bb =>
+>>> gstreamer_0.10.32.bb} (91%)
+>>>
+>>> _______________________________________________
+>>> poky mailing list
+>>> poky@yoctoproject.org
+>>> https://lists.yoctoproject.org/listinfo/poky
+>>
+>> --
+>> Darren Hart
+>> Yocto Linux Kernel
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
 
