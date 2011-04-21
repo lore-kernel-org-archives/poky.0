@@ -1,25 +1,30 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5CB1C4C80AAE
-	for <poky@yoctoproject.org>; Thu, 21 Apr 2011 04:02:55 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 21 Apr 2011 02:02:54 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,250,1301900400"; d="scan'208";a="736425953"
-Received: from unknown (HELO [10.255.13.58]) ([10.255.13.58])
-	by orsmga001.jf.intel.com with ESMTP; 21 Apr 2011 02:02:54 -0700
-Message-ID: <4DAFF2BE.2050201@intel.com>
-Date: Thu, 21 Apr 2011 02:02:54 -0700
-From: Saul Wold <saul.wold@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
-MIME-Version: 1.0
-To: Pasi.Reponen@elektrobit.com
-References: <EF6A1C6B49AA1E42BAAD011E6EED2800024D3FAC@fioues07.ebgroup.elektrobit.com>
-In-Reply-To: <EF6A1C6B49AA1E42BAAD011E6EED2800024D3FAC@fioues07.ebgroup.elektrobit.com>
-Cc: poky@yoctoproject.org
-Subject: Re: Problem with local build (using Poky Bernard 5.0)
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4267C4C80A54
+	for <poky@yoctoproject.org>; Thu, 21 Apr 2011 04:16:22 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p3L9GIDI002840;
+	Thu, 21 Apr 2011 10:16:18 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 02514-05; Thu, 21 Apr 2011 10:16:14 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p3L9G7wt002834
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Thu, 21 Apr 2011 10:16:10 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Sparsh Wid hope <sparsh150847@yahoo.com>
+In-Reply-To: <20666.63530.qm@web95720.mail.in.yahoo.com>
+References: <20666.63530.qm@web95720.mail.in.yahoo.com>
+Date: Thu, 21 Apr 2011 10:15:52 +0100
+Message-ID: <1303377352.5518.344.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.2 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky <poky@yoctoproject.org>
+Subject: Re: Problem with patch implementation
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,54 +36,43 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Apr 2011 09:02:55 -0000
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Thu, 21 Apr 2011 09:16:22 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-On 04/19/2011 11:53 PM, Pasi.Reponen@elektrobit.com wrote:
-> Hi,
->
-> I'm trying to build locally with Poky Bernard 5.0 (using PREMIRRORS to
-> local source package directory and BB_FETCH_PREMIRRORONLY = "1"
-> configurations). The problem occurs when recipes got environment
-> variables in SRC_URI (for example $GNU_MIRROR and $PV). In these cases
-> Fetcher is unable to fetch source packages locally and raises “network
-> access disabled but required” –exception.
->
+On Thu, 2011-04-21 at 10:20 +0530, Sparsh Wid hope wrote:
+> I am trying to apply patch through poky but it is not working. My
+> patch is working when I'm trying it manually with following message :
+> surya@spectracore-Vostro-220s-Series:~/Desktop/my_kernel/linux$ patch
+> -Np1 -i ../../../Surya/pro/kernel_patch/beagle.patch patching file
+> arch/arm/mach-omap2/board-omap3beagle.c
+> Hunk #7 FAILED at 336.
+> Hunk #8 succeeded at 376 (offset 6 lines).
+> Hunk #9 succeeded at 406 (offset 6 lines).
+> Hunk #10 succeeded at 422 (offset 6 lines).
+> Hunk #11 succeeded at 463 (offset 6 lines).
+> Hunk #12 succeeded at 514 (offset 6 lines).
+> Hunk #13 succeeded at 572 (offset 6 lines).
+> Hunk #14 succeeded at 654 (offset 6 lines).
+> Hunk #15 succeeded at 670 (offset 6 lines).
+> 1 out of 15 hunks FAILED -- saving rejects to file
+> arch/arm/mach-omap2/board-omap3beagle.c.rej
+> patching file drivers/input/touchscreen/tsc2007.c
+> patching file drivers/video/omap2/displays/Kconfig
+> patching file drivers/video/omap2/displays/Makefile
+> patching file drivers/video/omap2/displays/panel-cmel-oled43.c
+> 
+> but with poky do_patch is getting failed.
+> I'm sending my PATCH FILE and ERROR LOG in attachments.
+> 
 
-Do you also have BB_NO_NETWORK = "1"?
+This is not a working patch, it has rejects as shown by the message "1
+out of 15 hunks FAILED -- saving rejects to file". The offsets also show
+the patch has issues too which should be fixed. Poky is perfectly
+correct in failing to apply the patch as the patch is broken.
 
-Do you have all the SCM types setup in PREMIRRORS_prepend, such as svn, 
-cvs to your local package directory?
+Cheers,
 
-Check the original PREMIRRORS in poky.conf to ensure you have all the 
-SCM types set correctly, also make sure you are using PREMIRRORS_prepend.
-
-If you continue to have problems, please send your local.conf file that 
-sets these variable for us to inspect.
-
-Hope this helps you.
-
-Sau!
-
-> Any ideas, is this a bug or have I missed some configuration?
->
-> Thanks,
->
-> Pasi
->
-> ----------------------------------------------------------------
-> Please note: This e-mail may contain confidential information
-> intended solely for the addressee. If you have received this
-> e-mail in error, please do not disclose it to anyone, notify
-> the sender promptly, and delete the message from your system.
-> Thank you.
->
->
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+Richard
 
 
