@@ -1,21 +1,21 @@
 Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 652AC4C80AB9
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8AE814C80AB0
 	for <poky@yoctoproject.org>; Thu, 21 Apr 2011 15:25:30 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 21 Apr 2011 13:25:29 -0700
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 21 Apr 2011 13:25:30 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,252,1301900400"; d="scan'208";a="632249605"
+X-IronPort-AV: E=Sophos;i="4.64,252,1301900400"; d="scan'208";a="736667191"
 Received: from nbuild1.sc.intel.com (HELO localhost) ([172.25.110.36])
-	by orsmga002.jf.intel.com with ESMTP; 21 Apr 2011 13:25:29 -0700
-Message-Id: <7d9b6cfc17cd73e2259cc7b8291264b645ea1b7c.1303417346.git.nitin.a.kamble@intel.com>
+	by orsmga001.jf.intel.com with ESMTP; 21 Apr 2011 13:25:30 -0700
+Message-Id: <47ed53398f5da2324935a1fd57c93c21ae45feb5.1303417346.git.nitin.a.kamble@intel.com>
 In-Reply-To: <cover.1303417346.git.nitin.a.kamble@intel.com>
 References: <cover.1303417346.git.nitin.a.kamble@intel.com>
-Old-Date: Thu, 7 Apr 2011 10:48:14 -0700
+Old-Date: Fri, 15 Apr 2011 18:54:04 -0700
 Date: Thu, 21 Apr 2011 13:25:03 -0700
 To: poky@yoctoproject.org,openembedded-core@lists.openembedded.org
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Subject: [PATCH 3/8] git: upgrade from 1.7.3.4 to 1.7.4.3
+Subject: [PATCH 4/8] python-pycairo: fix installation path of __init__.py
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,38 +31,39 @@ X-List-Received-Date: Thu, 21 Apr 2011 20:25:30 -0000
 
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
 
+This fixes Bug [YOCTO #477]
+
 Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
 ---
- meta/recipes-devtools/git/files/autotools.patch    |    2 ++
- .../git/{git_1.7.3.4.bb => git_1.7.4.3.bb}         |    4 ++--
- 2 files changed, 4 insertions(+), 2 deletions(-)
- rename meta/recipes-devtools/git/{git_1.7.3.4.bb => git_1.7.4.3.bb} (59%)
+ .../python/python-pycairo_1.8.10.bb                |    8 +++++++-
+ 1 files changed, 7 insertions(+), 1 deletions(-)
 
-diff --git a/meta/recipes-devtools/git/files/autotools.patch b/meta/recipes-devtools/git/files/autotools.patch
-index 1c69c22..c190019 100644
---- a/meta/recipes-devtools/git/files/autotools.patch
-+++ b/meta/recipes-devtools/git/files/autotools.patch
-@@ -1,3 +1,5 @@
-+Upstream-Status="Inappropriate [configuration]"
-+
- Index: git-1.7.2.1/configure.ac
- ===================================================================
- --- git-1.7.2.1.orig/configure.ac	2010-07-28 18:03:43.000000000 +0100
-diff --git a/meta/recipes-devtools/git/git_1.7.3.4.bb b/meta/recipes-devtools/git/git_1.7.4.3.bb
-similarity index 59%
-rename from meta/recipes-devtools/git/git_1.7.3.4.bb
-rename to meta/recipes-devtools/git/git_1.7.4.3.bb
-index 2765ef7..603d2fd 100644
---- a/meta/recipes-devtools/git/git_1.7.3.4.bb
-+++ b/meta/recipes-devtools/git/git_1.7.4.3.bb
-@@ -6,5 +6,5 @@ EXTRA_OECONF += "ac_cv_snprintf_returns_bogus=no ac_cv_c_c99_format=yes \
-                  ac_cv_fread_reads_directories=${ac_cv_fread_reads_directories=yes} \
-                  "
+diff --git a/meta/recipes-devtools/python/python-pycairo_1.8.10.bb b/meta/recipes-devtools/python/python-pycairo_1.8.10.bb
+index 7d73dc2..24b3ff2 100644
+--- a/meta/recipes-devtools/python/python-pycairo_1.8.10.bb
++++ b/meta/recipes-devtools/python/python-pycairo_1.8.10.bb
+@@ -6,7 +6,7 @@ LICENSE = "LGPLv2.1 & MPLv1.1"
+ LIC_FILES_CHKSUM = "file://COPYING;md5=f2e071ab72978431b294a0d696327421"
+ # cairo >= 1.8.8
+ DEPENDS = "cairo"
+-PR = "ml0"
++PR = "r1"
  
--SRC_URI[md5sum] = "3a2602016f98c529cda7b9fad1a6e216"
--SRC_URI[sha256sum] = "3e5e2b6547ee4aae82b4c5f589ff084996e9e6e0e2b52c92365e6baa1e4a0171"
-+SRC_URI[md5sum] = "da6c8f4967393342a4397b955db72cb1"
-+SRC_URI[sha256sum] = "44b3ebc87d83b34468718fb6fa424420877e1f66c190389d693d090662a3556d"
+ SRC_URI = "http://cairographics.org/releases/py2cairo-${PV}.tar.gz"
+ 
+@@ -16,6 +16,12 @@ S = "${WORKDIR}/pycairo-${PV}"
+ 
+ inherit distutils pkgconfig
+ 
++do_compile_prepend() {
++#fix the installation path of __init__.py
++#It was going in the sysroot instead of target install location
++	sed -i -e "s#dsy.get_python_lib()#'${D}${PYTHON_SITEPACKAGES_DIR}'#" ${S}/setup.py
++}
++
+ do_install_append () {
+ 	install -d ${D}${includedir}
+ 	install -d ${D}${libdir}
 -- 
 1.7.2.2
 
