@@ -1,26 +1,25 @@
-Return-Path: <koen@dominion.thruhere.net>
-Received: from mail-ww0-f51.google.com (mail-ww0-f51.google.com [74.125.82.51])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 55A704C80050
-	for <poky@lists.yoctoproject.org>; Thu, 21 Apr 2011 03:07:21 -0500 (CDT)
-Received: by wwf26 with SMTP id 26so1700749wwf.8
-	for <poky@lists.yoctoproject.org>; Thu, 21 Apr 2011 01:07:20 -0700 (PDT)
-Received: by 10.216.155.17 with SMTP id i17mr1228845wek.71.1303373238880;
-	Thu, 21 Apr 2011 01:07:18 -0700 (PDT)
-Received: from [172.20.1.5] (ip545070eb.adsl-surfen.hetnet.nl [84.80.112.235])
-	by mx.google.com with ESMTPS id d59sm814993wed.45.2011.04.21.01.07.17
-	(version=TLSv1/SSLv3 cipher=OTHER);
-	Thu, 21 Apr 2011 01:07:17 -0700 (PDT)
-Mime-Version: 1.0 (Apple Message framework v1084)
-From: Koen Kooi <koen@dominion.thruhere.net>
-In-Reply-To: <1303342638.5518.325.camel@rex>
-Date: Thu, 21 Apr 2011 10:07:16 +0200
-Message-Id: <D7FBAE99-F5F4-4293-8DC5-BC356F7CF903@dominion.thruhere.net>
-References: <1303342638.5518.325.camel@rex>
-To: Patches and discussions about the oe-core layer
-	<openembedded-core@lists.openembedded.org>
-X-Mailer: Apple Mail (2.1084)
-Cc: poky <poky@lists.yoctoproject.org>
-Subject: Re: [OE-core] OE-Core Rebranding Phase 1
+Return-Path: <saul.wold@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5CB1C4C80AAE
+	for <poky@yoctoproject.org>; Thu, 21 Apr 2011 04:02:55 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 21 Apr 2011 02:02:54 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.64,250,1301900400"; d="scan'208";a="736425953"
+Received: from unknown (HELO [10.255.13.58]) ([10.255.13.58])
+	by orsmga001.jf.intel.com with ESMTP; 21 Apr 2011 02:02:54 -0700
+Message-ID: <4DAFF2BE.2050201@intel.com>
+Date: Thu, 21 Apr 2011 02:02:54 -0700
+From: Saul Wold <saul.wold@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
+MIME-Version: 1.0
+To: Pasi.Reponen@elektrobit.com
+References: <EF6A1C6B49AA1E42BAAD011E6EED2800024D3FAC@fioues07.ebgroup.elektrobit.com>
+In-Reply-To: <EF6A1C6B49AA1E42BAAD011E6EED2800024D3FAC@fioues07.ebgroup.elektrobit.com>
+Cc: poky@yoctoproject.org
+Subject: Re: Problem with local build (using Poky Bernard 5.0)
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,49 +31,54 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Apr 2011 08:07:21 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Thu, 21 Apr 2011 09:02:55 -0000
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 8bit
 
-
-Op 21 apr 2011, om 01:37 heeft Richard Purdie het volgende geschreven:
-
+On 04/19/2011 11:53 PM, Pasi.Reponen@elektrobit.com wrote:
 > Hi,
->=20
-> At the face to face OE TSC meeting we talked over the "branding" =
-issues
-> on OE-Core and what we were going to do about removing many of the =
-poky
-> references.
->=20
-> This email represents a turning point for OE-Core as it marks the =
-first
-> pass of rebranding and is based on decisions the TSC made at that
-> meeting. I'm not going to claim its 100% complete yet but it does give
-> us a good start at it. =46rom this point on, I'll be taking patches =
-from
-> people to assist with this. The key changes I've made so far are:
->=20
-> * poky-init-build-env -> oe-init-build-env
-> * poky-image-* -> core-image-*
-> * task-poky-* -> task-core-*
-> * git.pokylinux.org -> git.yoctoproject.org
-> * POKYBASE -> COREBASE
-> * poky-qemu -> runqemu
-> * Sanitised local.conf.sample from Poky references
-> * POKY_NATIVE_SYSROOT -> OECORE_NATIVE_SYSROOT
-> * Renamed scrips/poky-* to scripts/oe-*
-> * Renamed the poky-sb override to linuxstdbase
-> * POKY_CONF_VERSION -> LOCALCONF_VERSION
-> * Made sanity versions weak assignment
+>
+> I'm trying to build locally with Poky Bernard 5.0 (using PREMIRRORS to
+> local source package directory and BB_FETCH_PREMIRRORONLY = "1"
+> configurations). The problem occurs when recipes got environment
+> variables in SRC_URI (for example $GNU_MIRROR and $PV). In these cases
+> Fetcher is unable to fetch source packages locally and raises “network
+> access disabled but required” –exception.
+>
 
-Richard,
+Do you also have BB_NO_NETWORK = "1"?
 
-Thanks for taking the time to do this. I did a quick check and meta-oe, =
-meta-efl, meta-angstrom, meta-texasinstruments and meta-shr seem to be =
-up to date with those changes now.
+Do you have all the SCM types setup in PREMIRRORS_prepend, such as svn, 
+cvs to your local package directory?
 
-regards,
+Check the original PREMIRRORS in poky.conf to ensure you have all the 
+SCM types set correctly, also make sure you are using PREMIRRORS_prepend.
 
-Koen=
+If you continue to have problems, please send your local.conf file that 
+sets these variable for us to inspect.
+
+Hope this helps you.
+
+Sau!
+
+> Any ideas, is this a bug or have I missed some configuration?
+>
+> Thanks,
+>
+> Pasi
+>
+> ----------------------------------------------------------------
+> Please note: This e-mail may contain confidential information
+> intended solely for the addressee. If you have received this
+> e-mail in error, please do not disclose it to anyone, notify
+> the sender promptly, and delete the message from your system.
+> Thank you.
+>
+>
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+
 
