@@ -1,30 +1,38 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 4267C4C80A54
-	for <poky@yoctoproject.org>; Thu, 21 Apr 2011 04:16:22 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p3L9GIDI002840;
-	Thu, 21 Apr 2011 10:16:18 +0100
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 02514-05; Thu, 21 Apr 2011 10:16:14 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p3L9G7wt002834
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Thu, 21 Apr 2011 10:16:10 +0100
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Sparsh Wid hope <sparsh150847@yahoo.com>
-In-Reply-To: <20666.63530.qm@web95720.mail.in.yahoo.com>
-References: <20666.63530.qm@web95720.mail.in.yahoo.com>
-Date: Thu, 21 Apr 2011 10:15:52 +0100
-Message-ID: <1303377352.5518.344.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.32.2 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky <poky@yoctoproject.org>
-Subject: Re: Problem with patch implementation
+Return-Path: <gerard@de-haardt.com>
+Received: from cpsmtpb-ews04.kpnxchange.com (cpsmtpb-ews04.kpnxchange.com
+	[213.75.39.7])
+	by mx1.pokylinux.org (Postfix) with ESMTP id ED2964C80A54
+	for <poky@yoctoproject.org>; Thu, 21 Apr 2011 04:24:00 -0500 (CDT)
+Received: from cpbrm-ews18.kpnxchange.com ([10.94.84.149]) by
+	cpsmtpb-ews04.kpnxchange.com with Microsoft SMTPSVC(6.0.3790.4675); 
+	Thu, 21 Apr 2011 11:24:00 +0200
+Received: from CPSMTPM-CMT108.kpnxchange.com ([195.121.3.24]) by
+	cpbrm-ews18.kpnxchange.com with Microsoft SMTPSVC(6.0.3790.4675); 
+	Thu, 21 Apr 2011 11:23:59 +0200
+Received: from mail.de-haardt.com ([86.81.67.223]) by
+	CPSMTPM-CMT108.kpnxchange.com with Microsoft
+	SMTPSVC(7.0.6002.18264); Thu, 21 Apr 2011 11:23:52 +0200
+Received: from [192.168.1.160] ([192.168.1.160])
+	(authenticated user gerard@de-haardt.com) by mail.de-haardt.com
+	(using TLSv1/SSLv3 with cipher AES256-SHA (256 bits));
+	Thu, 21 Apr 2011 11:23:48 +0200
+Message-ID: <4DAFF7A5.7060309@de-haardt.com>
+Date: Thu, 21 Apr 2011 11:23:49 +0200
+From: Gerard van den Bosch <gerard@de-haardt.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.14) Gecko/20110223 Lightning/1.0b2 Thunderbird/3.1.8
+MIME-Version: 1.0
+To: Martin Jansa <martin.jansa@gmail.com>
+References: <4DA2CC29.7040301@de-haardt.com> <4DAEFAF2.3020507@linux.intel.com>
+	<20110420153153.GK5675@jama.jama.net>
+	<4DAF008F.70706@linux.intel.com>
+	<20110421062719.GA6678@jama.jama.net>
+In-Reply-To: <20110421062719.GA6678@jama.jama.net>
+X-OriginalArrivalTime: 21 Apr 2011 09:23:52.0256 (UTC)
+	FILETIME=[D43DD400:01CC0005]
+X-RcptDomain: yoctoproject.org
+Cc: Darren Hart <dvhart@linux.intel.com>, poky <poky@yoctoproject.org>
+Subject: Re: load kernel module at startup
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,43 +44,73 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Apr 2011 09:16:22 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Thu, 21 Apr 2011 09:24:01 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Thu, 2011-04-21 at 10:20 +0530, Sparsh Wid hope wrote:
-> I am trying to apply patch through poky but it is not working. My
-> patch is working when I'm trying it manually with following message :
-> surya@spectracore-Vostro-220s-Series:~/Desktop/my_kernel/linux$ patch
-> -Np1 -i ../../../Surya/pro/kernel_patch/beagle.patch patching file
-> arch/arm/mach-omap2/board-omap3beagle.c
-> Hunk #7 FAILED at 336.
-> Hunk #8 succeeded at 376 (offset 6 lines).
-> Hunk #9 succeeded at 406 (offset 6 lines).
-> Hunk #10 succeeded at 422 (offset 6 lines).
-> Hunk #11 succeeded at 463 (offset 6 lines).
-> Hunk #12 succeeded at 514 (offset 6 lines).
-> Hunk #13 succeeded at 572 (offset 6 lines).
-> Hunk #14 succeeded at 654 (offset 6 lines).
-> Hunk #15 succeeded at 670 (offset 6 lines).
-> 1 out of 15 hunks FAILED -- saving rejects to file
-> arch/arm/mach-omap2/board-omap3beagle.c.rej
-> patching file drivers/input/touchscreen/tsc2007.c
-> patching file drivers/video/omap2/displays/Kconfig
-> patching file drivers/video/omap2/displays/Makefile
-> patching file drivers/video/omap2/displays/panel-cmel-oled43.c
-> 
-> but with poky do_patch is getting failed.
-> I'm sending my PATCH FILE and ERROR LOG in attachments.
-> 
+On 04/21/2011 08:27 AM, Martin Jansa wrote:
+> On Wed, Apr 20, 2011 at 08:49:35AM -0700, Darren Hart wrote:
+>>
+>> On 04/20/2011 08:31 AM, Martin Jansa wrote:
+>>> On Wed, Apr 20, 2011 at 08:25:38AM -0700, Darren Hart wrote:
+>>>>
+>>>> On 04/11/2011 02:38 AM, Gerard van den Bosch wrote:
+>>>>> Hello,
+>>>>>
+>>>>> I would like to modprobe my wireless driver kernel module at startup
+>>>>> automatically.
+>>>>>
+>>>>> This works when I generate a rootfs and then boot up the first time so
+>>>>> the modules file gets generated and then I can manually add the kernel
+>>>>> module in that file and then reboot.
+>>>>>
+>>>>> When I look in the manpage of update-modules it states that a config
+>>>>> file should be added in /etc/modutils but that directory is not in my
+>>>>> rootfs.
+>>>>>
+>>>>> So I was wondering what I have to do to get /etc/modutils directory or
+>>>>> an other way to get the kernel module loaded at startup.
+>>>>>
+>>>>> I am using the Poky 4.0 Laverne release.
+>>>> I believe you can just add the name of the module to:
+>>>>
+>>>> /etc/modules
+>>>>
+>>>> Can you try that?
+>>> module_autoload_module_name to do that, is not supported in Poky?
+>> I am not familiar with this technique.
+> I've checked Poky 5.0 and according to git log it was there from the
+> beginning, so also in Poky 4.0. And also it's inherited by
+> linux-yocto(-stable).
+>
+> if you read classes/kernel.bbclass you'll notice ie:
+> module_autoload_ipv6 = "ipv6"
+>
+> which adds postinst to kernel-module-ipv6 package to "modprobe ipv6" and
+> also creates /etc/modutils/ipv6 file with "ipv6" in it to autoload ipv6
+> module after reboot.
+>
+Added the following line to class/kernel.bbclass:
+module_autoload_libertas-sdio = "libertas-sdio"
+After that I rebuilded the kernel and generated the image but didn't get the modutils file and it didn't autoload either.
 
-This is not a working patch, it has rejects as shown by the message "1
-out of 15 hunks FAILED -- saving rejects to file". The offsets also show
-the patch has issues too which should be fixed. Poky is perfectly
-correct in failing to apply the patch as the patch is broken.
+Also tried adding the line inside my kernel recipe after "inherit kernel" but that also didn't work.
 
-Cheers,
+> similar
+> module_conf_bluez = "alias net-pf-31 bluez"
+> creates
+> /etc/modprobe.d/bluez.conf (or /etc/modutils/bluez.conf for 2.4 kernel)
+> with "alias net-pf-31 bluez"
+>
+> and those files are added to kernel-module-something FILES, so removing
+> module removes autoload and config with it properly.
+>
+> Regards,
+This part I don't understand, how can I figure out what to alias?
+With some googling I came across some list where it's major number related, but there is no difference between /proc/devices when I have the module loaded or not.
 
-Richard
+Regards,
+Gerard
+
 
 
