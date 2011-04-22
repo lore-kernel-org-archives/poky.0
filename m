@@ -1,33 +1,40 @@
-Return-Path: <scott.m.rifenbark@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 3FC4E4C80578
-	for <poky@lists.yoctoproject.org>; Fri, 22 Apr 2011 09:16:44 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 22 Apr 2011 07:16:43 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,253,1301900400"; d="scan'208";a="737047143"
-Received: from orsmsx604.amr.corp.intel.com ([10.22.226.87])
-	by orsmga001.jf.intel.com with ESMTP; 22 Apr 2011 07:16:36 -0700
-Received: from orsmsx504.amr.corp.intel.com ([10.22.226.207]) by
-	orsmsx604.amr.corp.intel.com ([10.250.113.17]) with mapi;
-	Fri, 22 Apr 2011 07:16:35 -0700
-From: "Rifenbark, Scott M" <scott.m.rifenbark@intel.com>
-To: Koen Kooi <koen@dominion.thruhere.net>, Patches and discussions about the
-	oe-core layer <openembedded-core@lists.openembedded.org>
-Date: Fri, 22 Apr 2011 07:16:33 -0700
-Thread-Topic: [poky] [OE-core] OE-Core Rebranding Phase 1
-Thread-Index: Acv/+yoYtNsmbHbRRyGSuvWSnw8lFAA++Clw
-Message-ID: <DE8BA75F34A0404282AC5E15F691BC765136F5ED@orsmsx504.amr.corp.intel.com>
-References: <1303342638.5518.325.camel@rex>
-	<D7FBAE99-F5F4-4293-8DC5-BC356F7CF903@dominion.thruhere.net>
-In-Reply-To: <D7FBAE99-F5F4-4293-8DC5-BC356F7CF903@dominion.thruhere.net>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
+Return-Path: <kergoth@gmail.com>
+Received: from mail-vx0-f181.google.com (mail-vx0-f181.google.com
+	[209.85.220.181])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 3016D4C80A54
+	for <poky@lists.yoctoproject.org>; Fri, 22 Apr 2011 10:47:19 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by vxb39 with SMTP id 39so640814vxb.26
+	for <poky@lists.yoctoproject.org>; Fri, 22 Apr 2011 08:47:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:sender:in-reply-to:references:from
+	:date:x-google-sender-auth:message-id:subject:to:cc:content-type;
+	bh=6SE86IFKR205xN6HBz080ij2yVxmq1HziuUvq2Ui3Ic=;
+	b=Bv1b7HyUtiIeoCLVNE+cnq44O2yUMvYvh1X1k2YO2CDTG8/Q/3G6/tN0NPRYcPkKgs
+	9cQZ0hJH4eY1amF+bbzt3QRCUata6vxJ5K3AcY03SjquwOTfzex3Vj8MbNsH/zw3RZmZ
+	+By8CguHSmqljnBhcxxSJIJ1rzmqbiko2tGxU=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:sender:in-reply-to:references:from:date
+	:x-google-sender-auth:message-id:subject:to:cc:content-type;
+	b=cm+VdJCrceCG6Tj4HGMh542sEOxn6/593yDKAg+RHC3up3IFC32zt4Q+jbq52gbLOh
+	1EArRaTJq1BFwrjzllxx+X7Gwp0cxRzwcp+frYU/J15qpbzHXRu72WfVn7oBnTl2lJ3d
+	QmEbmbIZBdLCwTi+nn6EXbDn47FTMYfzLznR0=
+Received: by 10.52.177.8 with SMTP id cm8mr1853962vdc.78.1303487232615; Fri,
+	22 Apr 2011 08:47:12 -0700 (PDT)
 MIME-Version: 1.0
+Sender: kergoth@gmail.com
+Received: by 10.52.156.226 with HTTP; Fri, 22 Apr 2011 08:46:32 -0700 (PDT)
+In-Reply-To: <1303342638.5518.325.camel@rex>
+References: <1303342638.5518.325.camel@rex>
+From: Chris Larson <clarson@kergoth.com>
+Date: Fri, 22 Apr 2011 08:46:32 -0700
+X-Google-Sender-Auth: 2fflIXX-RtYpIl6HmnXBeVWpod8
+Message-ID: <BANLkTikrcgBm8hQAZ4_68Z134BDCq3V_aA@mail.gmail.com>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
 Cc: poky <poky@lists.yoctoproject.org>
-Subject: Re: [OE-core] OE-Core Rebranding Phase 1
+Subject: Re: OE-Core Rebranding Phase 1
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,53 +46,21 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 22 Apr 2011 14:16:44 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Fri, 22 Apr 2011 15:47:19 -0000
+Content-Type: text/plain; charset=UTF-8
 
-I grep'd all the XML files in the documentation directory and got three hit=
-s:
-
- * 'meta/recipes-sata/tasks/task-poky.bb' appears in the Poky Reference man=
-ual
- * '$ bitbake -c clean task-boot task-base task-poky' appears in the Poky R=
-eference manual
- * 'local.conf.sample' appears in the Poky Reference manual.
-
-Should these be the following:
-
- * meta/recipes-sata/tasks/task-core.bb
- * $ bitbake -c clean task-boot task-base task-core
-
-Not sure what to do with the occurrence of 'local.conf.sample'.  Just remov=
-e it?
-
-ScottR
-
------Original Message-----
-From: poky-bounces@yoctoproject.org [mailto:poky-bounces@yoctoproject.org] =
-On Behalf Of Koen Kooi
-Sent: Thursday, April 21, 2011 1:07 AM
-To: Patches and discussions about the oe-core layer
-Cc: poky
-Subject: Re: [poky] [OE-core] OE-Core Rebranding Phase 1
-
-
-Op 21 apr 2011, om 01:37 heeft Richard Purdie het volgende geschreven:
-
-> Hi,
->=20
+On Wed, Apr 20, 2011 at 4:37 PM, Richard Purdie
+<richard.purdie@linuxfoundation.org> wrote:
 > At the face to face OE TSC meeting we talked over the "branding" issues
 > on OE-Core and what we were going to do about removing many of the poky
 > references.
->=20
+>
 > This email represents a turning point for OE-Core as it marks the first
 > pass of rebranding and is based on decisions the TSC made at that
 > meeting. I'm not going to claim its 100% complete yet but it does give
 > us a good start at it. From this point on, I'll be taking patches from
 > people to assist with this. The key changes I've made so far are:
->=20
+>
 > * poky-init-build-env -> oe-init-build-env
 > * poky-image-* -> core-image-*
 > * task-poky-* -> task-core-*
@@ -99,17 +74,16 @@ Op 21 apr 2011, om 01:37 heeft Richard Purdie het volgende geschreven:
 > * POKY_CONF_VERSION -> LOCALCONF_VERSION
 > * Made sanity versions weak assignment
 
-Richard,
-
-Thanks for taking the time to do this. I did a quick check and meta-oe, met=
-a-efl, meta-angstrom, meta-texasinstruments and meta-shr seem to be up to d=
-ate with those changes now.
-
-regards,
-
-Koen
-_______________________________________________
-poky mailing list
-poky@yoctoproject.org
-https://lists.yoctoproject.org/listinfo/poky
+Aside: if you try to login to the yocto bug tracking system, and get
+your password wrong, it switches the domain from git.yoctoproject.org
+to git.pokylinux.org.  I expect the webserver configuration needs
+fixing for remaining references like this.  Keeping the old ones
+around as vhosts for compatibility is fine, but it should never switch
+to it from the current domains.
+-- 
+Christopher Larson
+clarson at kergoth dot com
+Founder - BitBake, OpenEmbedded, OpenZaurus
+Maintainer - Tslib
+Senior Software Engineer, Mentor Graphics
 
