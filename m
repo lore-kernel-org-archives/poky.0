@@ -1,21 +1,21 @@
 Return-Path: <nitin.a.kamble@intel.com>
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id F274B4C80AC3
-	for <poky@yoctoproject.org>; Thu, 21 Apr 2011 19:53:43 -0500 (CDT)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 3754B4C80AC3
+	for <poky@yoctoproject.org>; Thu, 21 Apr 2011 19:53:44 -0500 (CDT)
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
 	by orsmga102.jf.intel.com with ESMTP; 21 Apr 2011 17:53:43 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,252,1301900400"; d="scan'208";a="736774705"
+X-IronPort-AV: E=Sophos;i="4.64,252,1301900400"; d="scan'208";a="736774702"
 Received: from nbuild1.sc.intel.com (HELO localhost) ([172.25.110.36])
-	by orsmga001.jf.intel.com with ESMTP; 21 Apr 2011 17:53:42 -0700
-Message-Id: <e02f54341eb35b3773d87ecb4de9a1f1ade1c8d2.1303433480.git.nitin.a.kamble@intel.com>
+	by orsmga001.jf.intel.com with ESMTP; 21 Apr 2011 17:53:38 -0700
+Message-Id: <86afa66650a2717cb63df109c3d8806e3c52237b.1303433480.git.nitin.a.kamble@intel.com>
 In-Reply-To: <cover.1303433480.git.nitin.a.kamble@intel.com>
 References: <cover.1303433480.git.nitin.a.kamble@intel.com>
-Old-Date: Wed, 20 Apr 2011 16:27:09 -0700
-Date: Thu, 21 Apr 2011 17:53:13 -0700
+Old-Date: Thu, 7 Apr 2011 04:20:10 -0700
+Date: Thu, 21 Apr 2011 17:53:12 -0700
 To: poky@yoctoproject.org,openembedded-core@lists.openembedded.org
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Subject: [PATCH 6/8] cpan.bbclass: export PERLHOSTLIB for perl modules
+Subject: [PATCH 1/8] mpfr: upgrade from 3.0.0 to 3.0.1
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,66 +31,30 @@ X-List-Received-Date: Fri, 22 Apr 2011 00:53:44 -0000
 
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
 
-This makes sure that native perl .so can get loaded at the buildtime, and
-avoids following kind of errors while building perl modules:
-
-Nitin A Kamble <nitin.a.kamble@intel.com> 2011/04/20
-
-+ perl Makefile.PL
-EXPATLIBPATH=/disk0/pokybuild/build0/tmp/sysroots/qemux86/usr/lib
-EXPATINCPATH=/disk0/pokybuild/build0/tmp/sysroots/qemux86/usr/include
-*** Module name IN:
-/disk0/pokybuild/build0/tmp/sysroots/qemux86/usr/lib/perl/5.12.2/Cwd.pm
-*** Module name OUT:
-/disk0/pokybuild/build0/tmp/sysroots/qemux86/usr/lib/perl/5.12.2/Cwd.pm
-*** Module name IN:
-/disk0/pokybuild/build0/tmp/sysroots/qemux86/usr/lib/perl/5.12.2/Fcntl.pm
-*** Module name OUT:
-/disk0/pokybuild/build0/tmp/sysroots/qemux86/usr/lib/perl/5.12.2/Fcntl.pm
-Can't load
-'/disk0/pokybuild/build0/tmp/sysroots/qemux86/usr/lib/perl/5.12.2/auto/Fcntl/Fcntl.so'
-for module Fcntl:
-/disk0/pokybuild/build0/tmp/sysroots/qemux86/usr/lib/perl/5.12.2/auto/Fcntl/Fcntl.so:
-wrong ELF class: ELFCLASS32 at
-/disk0/pokybuild/build0/tmp/sysroots/qemux86/usr/lib/perl/5.12.2/XSLoader.pm
-line 79.
- at
-/disk0/pokybuild/build0/tmp/sysroots/qemux86/usr/lib/perl/5.12.2/Fcntl.pm
-line 215
-BEGIN failed--compilation aborted at
-/disk0/pokybuild/build0/tmp/sysroots/qemux86/usr/lib/perl/5.12.2/Fcntl.pm
-line 216.
-Compilation failed in require at
-/disk0/pokybuild/build0/tmp/sysroots/qemux86/usr/lib/perl/5.12.2/File/Temp.pm
-line 146.
-BEGIN failed--compilation aborted at
-/disk0/pokybuild/build0/tmp/sysroots/qemux86/usr/lib/perl/5.12.2/File/Temp.pm
-line 146.
-Compilation failed in require at inc/Devel/CheckLib.pm line 12.
-BEGIN failed--compilation aborted at inc/Devel/CheckLib.pm line 12.
-Compilation failed in require at Makefile.PL line 5.
-BEGIN failed--compilation aborted at Makefile.PL line 5.
-ERROR: Function 'do_configure' failed (see
-/disk0/pokybuild/build0/tmp/work/i586-poky-linux/libxml-parser-perl-2.40-r0/temp/log.do_configure.16956
-for further information)
-
 Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
 ---
- meta/classes/cpan.bbclass |    1 +
- 1 files changed, 1 insertions(+), 0 deletions(-)
+ .../mpfr/{mpfr_3.0.0.bb => mpfr_3.0.1.bb}          |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+ rename meta/recipes-support/mpfr/{mpfr_3.0.0.bb => mpfr_3.0.1.bb} (70%)
 
-diff --git a/meta/classes/cpan.bbclass b/meta/classes/cpan.bbclass
-index 1cfd022..9b8431b 100644
---- a/meta/classes/cpan.bbclass
-+++ b/meta/classes/cpan.bbclass
-@@ -13,6 +13,7 @@ export PERLCONFIGTARGET = "${@is_target(d)}"
- export PERL_INC = "${STAGING_LIBDIR}/perl/${@get_perl_version(d)}/CORE"
- export PERL_LIB = "${STAGING_LIBDIR}/perl/${@get_perl_version(d)}"
- export PERL_ARCHLIB = "${STAGING_LIBDIR}/perl/${@get_perl_version(d)}"
-+export PERLHOSTLIB = "${STAGING_LIBDIR_NATIVE}/perl/${@get_perl_version(d)}/"
+diff --git a/meta/recipes-support/mpfr/mpfr_3.0.0.bb b/meta/recipes-support/mpfr/mpfr_3.0.1.bb
+similarity index 70%
+rename from meta/recipes-support/mpfr/mpfr_3.0.0.bb
+rename to meta/recipes-support/mpfr/mpfr_3.0.1.bb
+index 846cdc0..9079e4b 100644
+--- a/meta/recipes-support/mpfr/mpfr_3.0.0.bb
++++ b/meta/recipes-support/mpfr/mpfr_3.0.1.bb
+@@ -7,8 +7,8 @@ PR = "r0"
  
- cpan_do_configure () {
- 	export PERL5LIB="${PERL_ARCHLIB}"
+ SRC_URI = "http://www.mpfr.org/mpfr-${PV}/mpfr-${PV}.tar.bz2"
+ 
+-SRC_URI[md5sum] = "f45bac3584922c8004a10060ab1a8f9f"
+-SRC_URI[sha256sum] = "8f4e5f9c53536cb798a30455ac429b1f9fc75a0f8af32d6e0ac31ebf1024821f"
++SRC_URI[md5sum] = "bfbecb2eacb6d48432ead5cfc3f7390a"
++SRC_URI[sha256sum] = "e1977099bb494319c0f0c1f85759050c418a56884e9c6cef1c540b9b13e38e7f"
+ S = "${WORKDIR}/mpfr-${PV}"
+ 
+ BBCLASSEXTEND = "native nativesdk"
 -- 
 1.7.2.2
 
