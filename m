@@ -1,42 +1,33 @@
-Return-Path: <kergoth@gmail.com>
-Received: from mail-vw0-f48.google.com (mail-vw0-f48.google.com
-	[209.85.212.48])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B7F7F4C80A73
-	for <poky@yoctoproject.org>; Thu, 21 Apr 2011 19:09:23 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by vws7 with SMTP id 7so306443vws.35
-	for <poky@yoctoproject.org>; Thu, 21 Apr 2011 17:09:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:sender:in-reply-to:references:from
-	:date:x-google-sender-auth:message-id:subject:to:cc:content-type
-	:content-transfer-encoding;
-	bh=h/qMIWeB4R+bdREnNPQdhBP37SZXV54MMzqKTaAywDs=;
-	b=ZBGH9QW/ps4FqlmcxrZkFM0875WWkU22Y51eaH8VLtLzDG7oA4Wq+s3E5erugiaTd8
-	tYuLIiW0w/hcLvHgbBV3UlJ3kLkvDBiZyVZ1FJAVAaXv9+duFa7Wp3eLUfYntzaQaLIL
-	VYVIokaWCJkGc8CxEcGVXBitL/uvemvev6AV0=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:sender:in-reply-to:references:from:date
-	:x-google-sender-auth:message-id:subject:to:cc:content-type
-	:content-transfer-encoding;
-	b=piqe7xW7rIjf1kUYXKKc2jhjfuTFvpTMs0AgwbH0gQ0mNAHKtjkAw3sFLSP6V0W/cF
-	Z3cxqR3V1vqpErLyVCYw8YrS+kQl1QusHngEWej1fDcwaft0Pn9WvPl/nw2yrOVrdHc4
-	IMYDRP7Wr39wo3br4jmqKHICyecYctNOXsWaM=
-Received: by 10.52.93.115 with SMTP id ct19mr757551vdb.238.1303430963186; Thu,
-	21 Apr 2011 17:09:23 -0700 (PDT)
+Return-Path: <nitin.a.kamble@intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8AD154C80A73
+	for <poky@yoctoproject.org>; Thu, 21 Apr 2011 19:25:52 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 21 Apr 2011 17:25:51 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.64,252,1301900400"; d="scan'208";a="423604751"
+Received: from orsmsx603.amr.corp.intel.com ([10.22.226.49])
+	by azsmga001.ch.intel.com with ESMTP; 21 Apr 2011 17:25:31 -0700
+Received: from orsmsx504.amr.corp.intel.com ([10.22.226.207]) by
+	orsmsx603.amr.corp.intel.com ([10.22.226.49]) with mapi;
+	Thu, 21 Apr 2011 17:25:30 -0700
+From: "Kamble, Nitin A" <nitin.a.kamble@intel.com>
+To: Saul Wold <sgw@linux.intel.com>, Patches and discussions about the oe-core
+	layer <openembedded-core@lists.openembedded.org>
+Date: Thu, 21 Apr 2011 17:25:27 -0700
+Thread-Topic: [OE-core] [PATCH 0/8] recipe upgrades & bugfixes
+Thread-Index: AcwAfldqDWVAURp0S8mQeCiIG/zX0gABVNAg
+Message-ID: <9DA5872FEF993D41B7173F58FCF6BE94516935C4@orsmsx504.amr.corp.intel.com>
+References: <cover.1303417346.git.nitin.a.kamble@intel.com>
+	<4DB0C1C7.9030809@linux.intel.com>
+In-Reply-To: <4DB0C1C7.9030809@linux.intel.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
 MIME-Version: 1.0
-Sender: kergoth@gmail.com
-Received: by 10.52.156.226 with HTTP; Thu, 21 Apr 2011 17:09:03 -0700 (PDT)
-In-Reply-To: <4DB0C35E.8060004@linux.intel.com>
-References: <4DB0C35E.8060004@linux.intel.com>
-From: Chris Larson <clarson@kergoth.com>
-Date: Thu, 21 Apr 2011 17:09:03 -0700
-X-Google-Sender-Auth: 627QCwfvb4ynotuigwN-YE0sDBg
-Message-ID: <BANLkTikyEPp_4LA5_bZSjFXoBqrbYic8xg@mail.gmail.com>
-To: Darren Hart <dvhart@linux.intel.com>
 Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: Logging: mechanisms and best practices
+Subject: Re: [OE-core] [PATCH 0/8] recipe upgrades & bugfixes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -48,120 +39,130 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 22 Apr 2011 00:09:24 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Fri, 22 Apr 2011 00:25:53 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Apr 21, 2011 at 4:53 PM, Darren Hart <dvhart@linux.intel.com> wrote=
-:
->
-> From what I could gather, the preferred method is to use the various
-> loglevel functions from bb. ie:
->
-> bb.fatal() =C2=A0 =C2=A0 =C2=A0A fatal error, the recipe will set the err=
-or code and
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0abort.
-> bb.error() =C2=A0 =C2=A0 =C2=A0A non-fatal error. The error code is set, =
-the build
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0will be marked as =
-red in the autobuilder.
-> bb.warn() =C2=A0 =C2=A0 =C2=A0 A non-fatal condition that could affect ho=
-w things
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0progress.
-> bb.debug() =C2=A0 =C2=A0 =C2=A0One of several debug levels.
-> bb.note() =C2=A0 =C2=A0 =C2=A0 A condition the user should be made aware =
-of
-> bb.plain() =C2=A0 =C2=A0 =C2=A0typically the output of a tool, such as li=
-sttasks
->
-> note and plain will go to the console and should be used extremely
-> sparingly. debug will only go to the console with the -D[D[D]] bitbake
-> arguments, but should always go to the logs.
+> Nitin, could you please resubmit this with the Upstream-Status: instead
+> of Upstream-Status=3D.
+>=20
+> Thanks
+> 	Sau!
 
-As far as I know, notes from tasks are no longer displayed with
-knotty.  They certainly aren't in master.
+Saul,
+Can you give me an example ?
 
-> For annotating your recipe's task's logs, debug should typically be
-> used. warn() should be used whenever possible over error() so as to not
-> set the error code.
+Thanks,
+Nitin
 
-Correct.
-
-> The above only covers the python functions in recipes. Unfortunately,
-> many functions are bash. Most of these recipes use "echo", although
-> there exist wrappers to echo in base.bbclass:
->
-> oenote
-> oewarn
-> oedebug
-> oefatal
->
-> As these only wrap echo, none of them go to the console without -D[D[D]]
-> flags. Note the absence of oeplain and oeerror. oeplain wouldn't work
-> the same as bb.plain() as it doesn't go the console, the existing oenote
-> has a similar problem. I've added oeerror() to my local build. oedebug()
-> uses "clever" bash tests to check the OEDEBUG loglevel, unfortunately
-> this causes the function to exit with a failure code when the condition
-> is not met. I've addressed this as well. There are zero users of the oe*
-> logging calls in "meta" but I did find several users in oe.
->
-> The oe* calls depend on OEDEBUG which is not included in the environment
-> whitelists and is not set by the -D[D[D]] arguments. Even adding it to
-> the whitelist and my environent it wasn't accessible from the bash
-> function. I was unable to to use oedebug() as I couldn't get the OEDEBUG
-> value set without hardcoding it into base.bbclass.
-
-These are largely remnants.  I'm not opposed to having the shell
-functions that output useful things, but at the very least we can use
-a python snippet to check the current bitbake logging level rather
-than relying on an old env var.  There's currently no way for shell to
-output things to the bitbake UI's display.  In the long term, we
-should be able to provide small command-line scripts which communicate
-with the current running bitbake server the same way the current
-running UI does.
-
-> So... before I start breaking things, I wanted to make sure I fully
-> understand how these mechanisms are intended to be used. Also, I would
-> very much like to see a consistent interface between bash and python
-> fragments that have the same semantics. There are also at least two more
-> logging mechanisms I stumbled across withing the bitbake source. One is
-> marked deprecated, and I'm not sure how the other is meant to be used.
-> The two I mentioned above seem to be the right ones for recipes to use.
-
-This is correct.  Internal bitbake code should be using the python
-logging framework at this time.  For now, the api functions
-bb.{error,warn,...} are correct for the metadata.
-
-> Would people consider the following to be appropriate:
->
-> o Remove BBDEBUG from local.conf.sample as it appears not be used.
-
-Agreed.
-
-> o Modify oedebug to always echo the message as all echos only go to the
-> =C2=A0logs anyway. A future change may enhance the oe* calls to print to =
-the
-> =C2=A0console for oenote, a new oeplain, and oedebug based on -D[D[D]] an=
-d
-> =C2=A0BBDEBUG.
-
-This would lose us functionality unnecessarily.  We can
-programmatically check the bitbake debugging level from ${@}.  E.g.:
-
-if ${@['false', 'true'][bb.msg.debug_level['default']]}; then
-  echo "DEBUG: " "$@"
-fi
-
-> o Remove OEDEBUG as it doesn't seem to fit with the current BBDEBUG,
-> =C2=A0-D[D[D]] mechanisms nor with the expectation that all debug stateme=
-nts
-> =C2=A0get sent to the logs.
-
-Agreed.
---=20
-Christopher Larson
-clarson at kergoth dot com
-Founder - BitBake, OpenEmbedded, OpenZaurus
-Maintainer - Tslib
-Senior Software Engineer, Mentor Graphics
+>=20
+>=20
+> > Pull URL: git://git.pokylinux.org/poky-contrib.git
+> >    Branch: nitin/misc
+> >    Browse: http://git.pokylinux.org/cgit.cgi/poky-
+> contrib/log/?h=3Dnitin/misc
+> >
+> > Thanks,
+> >      Nitin A Kamble<nitin.a.kamble@intel.com>
+> > ---
+> >
+> >
+> > Nitin A Kamble (8):
+> >    mpfr: upgrade from 3.0.0 to 3.0.1
+> >    python-gst: upgrade from 0.10.19 to 0.10.21
+> >    git: upgrade from 1.7.3.4 to 1.7.4.3
+> >    python-pycairo: fix installation path of __init__.py
+> >    perl-5.12.2: use of PERLHOSTLIB var fix
+> >    cpan.bbclass: export PERLHOSTLIB for perl modules
+> >    libxml-parser-perl: upgrade from 2.36 to 2.40
+> >    distro_tracking: recipe information update
+> >
+> >   meta/classes/cpan.bbclass                          |    1 +
+> >   .../conf/distro/include/distro_tracking_fields.inc |    7 +++++--
+> >   meta/recipes-devtools/git/files/autotools.patch    |    2 ++
+> >   .../git/{git_1.7.3.4.bb =3D>  git_1.7.4.3.bb}         |    4 ++--
+> >   .../libperl-5.8.3-create-libperl-soname.patch      |   11 ---------
+> --
+> >   ...e_2.36.bb =3D>  libxml-parser-perl-native_2.40.bb} |    0
+> >   ...ser-perl_2.36.bb =3D>  libxml-parser-perl_2.40.bb} |    8 ++++----
+> >   .../perl/perl-5.12.2/09_fix_installperl.patch      |    2 ++
+> >   .../Configure-multilib.patch                       |    2 ++
+> >   .../perl/perl-5.12.2/Makefile.SH.patch             |    2 ++
+> >   .../perl/perl-5.12.2/Makefile.patch                |    2 ++
+> >   .../perl/perl-5.12.2/asm-pageh-fix.patch           |    2 ++
+> >   .../perl/perl-5.12.2/cross-generate_uudmap.patch   |    2 ++
+> >   .../perl/perl-5.12.2/debian/arm_optim.diff         |    2 ++
+> >   .../debian/arm_thread_stress_timeout.diff          |    2 ++
+> >   .../perl/perl-5.12.2/debian/cpan_config_path.diff  |    2 ++
+> >   .../perl-5.12.2/debian/cpan_definstalldirs.diff    |    2 ++
+> >   .../perl-5.12.2/debian/cpanplus_config_path.diff   |    2 ++
+> >   .../debian/cpanplus_definstalldirs.diff            |    2 ++
+> >   .../perl/perl-5.12.2/debian/db_file_ver.diff       |    2 ++
+> >   .../perl-5.12.2/debian/deprecate-with-apt.diff     |    2 ++
+> >   .../debian/devel-ppport-ia64-optim.diff            |    2 ++
+> >   .../perl-5.12.2/debian/disable-zlib-bundling.diff  |    2 ++
+> >   .../perl/perl-5.12.2/debian/doc_info.diff          |    2 ++
+> >   .../perl/perl-5.12.2/debian/enc2xs_inc.diff        |    2 ++
+> >   .../perl/perl-5.12.2/debian/errno_ver.diff         |    2 ++
+> >   .../perl/perl-5.12.2/debian/extutils_hacks.diff    |    2 ++
+> >   .../perl/perl-5.12.2/debian/fakeroot.diff          |    2 ++
+> >   .../perl-5.12.2/debian/fixes/autodie-flock.diff    |    2 ++
+> >   .../debian/fixes/concat-stack-corruption.diff      |    2 ++
+> >   .../debian/fixes/cpanplus-without-home.diff        |    2 ++
+> >   .../perl-5.12.2/debian/fixes/h2ph-gcc-4.5.diff     |    2 ++
+> >   .../perl-5.12.2/debian/fixes/hurd-ccflags.diff     |    2 ++
+> >   .../perl-5.12.2/debian/fixes/lc-numeric-docs.diff  |    2 ++
+> >   .../debian/fixes/lc-numeric-sprintf.diff           |    2 ++
+> >   .../perl-5.12.2/debian/fixes/net_smtp_docs.diff    |    2 ++
+> >   .../perl/perl-5.12.2/debian/fixes/processPL.diff   |    2 ++
+> >   .../perl/perl-5.12.2/debian/instmodsh_doc.diff     |    2 ++
+> >   .../perl/perl-5.12.2/debian/ld_run_path.diff       |    2 ++
+> >   .../perl-5.12.2/debian/libnet_config_path.diff     |    2 ++
+> >   .../perl-5.12.2/debian/m68k_thread_stress.diff     |    2 ++
+> >   .../perl/perl-5.12.2/debian/mod_paths.diff         |    2 ++
+> >   .../debian/module_build_man_extensions.diff        |    2 ++
+> >   .../perl/perl-5.12.2/debian/perlivp.diff           |    2 ++
+> >   .../perl/perl-5.12.2/debian/prune_libs.diff        |    2 ++
+> >   .../debian/squelch-locale-warnings.diff            |    2 ++
+> >   .../perl/perl-5.12.2/generate-sh.patch             |    2 ++
+> >   .../perl/perl-5.12.2/installperl.patch             |    2 ++
+> >   .../{files =3D>  perl-5.12.2}/letgcc-find-errno.patch |    2 ++
+> >   .../perl/perl-5.12.2/native-nopacklist.patch       |    2 ++
+> >   .../perl/perl-5.12.2/native-perlinc.patch          |    2 ++
+> >   .../perl/perl-5.12.2/native-ssp.patch              |    2 ++
+> >   .../perl/perl-5.12.2/parallel_build_fix_1.patch    |    2 ++
+> >   .../perl/perl-5.12.2/parallel_build_fix_2.patch    |    2 ++
+> >   .../perl/perl-5.12.2/parallel_build_fix_3.patch    |    2 ++
+> >   .../perl/perl-5.12.2/parallel_build_fix_4.patch    |    2 ++
+> >   .../perl/perl-5.12.2/parallel_build_fix_5.patch    |    2 ++
+> >   .../perl/perl-5.12.2/parallel_build_fix_6.patch    |    2 ++
+> >   .../perl/perl-5.12.2/perl-configpm-switch.patch    |    2 ++
+> >   .../perl/perl-5.12.2/perl-dynloader.patch          |   12
+> ++++++++++--
+> >   .../perl/perl-5.12.2/perl-enable-gdbm.patch        |    2 ++
+> >   .../perl/perl-5.12.2/perl-moreconfig.patch         |    2 ++
+> >   meta/recipes-devtools/perl/perl_5.12.2.bb          |    2 +-
+> >   .../python/python-gst/python-path.patch            |    2 ++
+> >   ...python-gst_0.10.19.bb =3D>  python-gst_0.10.21.bb} |    6 +++---
+> >   .../python/python-pycairo_1.8.10.bb                |    8 +++++++-
+> >   .../mpfr/{mpfr_3.0.0.bb =3D>  mpfr_3.0.1.bb}          |    4 ++--
+> >   67 files changed, 147 insertions(+), 28 deletions(-)
+> >   rename meta/recipes-devtools/git/{git_1.7.3.4.bb =3D>
+> git_1.7.4.3.bb} (59%)
+> >   delete mode 100644 meta/recipes-devtools/perl/files/libperl-5.8.3-
+> create-libperl-soname.patch
+> >   rename meta/recipes-devtools/perl/{libxml-parser-perl-
+> native_2.36.bb =3D>  libxml-parser-perl-native_2.40.bb} (100%)
+> >   rename meta/recipes-devtools/perl/{libxml-parser-perl_2.36.bb =3D>
+> libxml-parser-perl_2.40.bb} (61%)
+> >   rename meta/recipes-devtools/perl/{files =3D>  perl-
+> 5.12.2}/Configure-multilib.patch (96%)
+> >   rename meta/recipes-devtools/perl/{files =3D>  perl-5.12.2}/letgcc-
+> find-errno.patch (96%)
+> >   rename meta/recipes-devtools/python/{python-gst_0.10.19.bb =3D>
+> python-gst_0.10.21.bb} (82%)
+> >   rename meta/recipes-support/mpfr/{mpfr_3.0.0.bb =3D>  mpfr_3.0.1.bb}
+> (70%)
+> >
 
