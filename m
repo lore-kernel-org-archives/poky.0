@@ -1,24 +1,26 @@
-Return-Path: <Xiaofeng.Yan@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 702534C800AC
-	for <poky@yoctoproject.org>; Fri, 22 Apr 2011 05:00:00 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p3MA00WM028747
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Fri, 22 Apr 2011 03:00:00 -0700 (PDT)
-Received: from localhost (128.224.162.28) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Fri, 22 Apr 2011 02:59:59 -0700
-Message-ID: <5a650713581d5aa78cb3bdc7896342dc5c815db3.1303465539.git.xiaofeng.yan@windriver.com>
-In-Reply-To: <cover.1303465539.git.xiaofeng.yan@windriver.com>
-References: <cover.1303465539.git.xiaofeng.yan@windriver.com>
-Old-Date: Fri, 22 Apr 2011 17:43:31 +0800
-Date: Fri, 22 Apr 2011 17:47:04 +0800
-To: <poky@yoctoproject.org>
-From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id F02D14C80578
+	for <poky@yoctoproject.org>; Fri, 22 Apr 2011 09:13:42 -0500 (CDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 2EB341660371; Fri, 22 Apr 2011 08:13:42 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=ham version=3.3.2-r929478
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 9D087166031E;
+	Fri, 22 Apr 2011 08:13:41 -0600 (MDT)
+Message-ID: <4DB18D15.9060505@mlbassoc.com>
+Date: Fri, 22 Apr 2011 08:13:41 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
 MIME-Version: 1.0
-X-Originating-IP: [128.224.162.28]
-Subject: [PATCH 1/1] task-poky-lsb.bb: Add qt3, xdg, font to lsb-image
+To: Poky Project <poky@yoctoproject.org>
+Subject: Python missing _ctypes library
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,77 +32,42 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 22 Apr 2011 10:00:00 -0000
-Content-Type: text/plain
+X-List-Received-Date: Fri, 22 Apr 2011 14:13:43 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+Building from master 37ac9a0823690bd3e031c04e2351a41af04e8aa1, any target will
+have this problem.
 
-Fix [YOCTO #816,#520]
-Signed-off-by: Xiaofeng Yan <xiaofeng.yan@windriver.com>
----
- meta/recipes-extended/tasks/task-core-lsb.bb |   13 ++++++++++++-
- 1 files changed, 12 insertions(+), 1 deletions(-)
+Unable to use ctypes/_ctypes module:
+   # python
+   Python 2.6.6 (r266:84292, Mar 30 2011, 10:57:26) [GCC 4.5.2] on linux2
+   Type "help", "copyright", "credits" or "license" for more information.
+   >>> import ctypes
+   Traceback (most recent call last):
+       File "<stdin>", line 1, in <module>
+   File "/usr/lib/python2.6/ctypes/__init__.py", line 10, in <module>
+       from _ctypes import Union, Structure, Array
+   ImportError: No module named _ctypes
 
-diff --git a/meta/recipes-extended/tasks/task-core-lsb.bb b/meta/recipes-extended/tasks/task-core-lsb.bb
-index ef8acb1..85ead18 100644
---- a/meta/recipes-extended/tasks/task-core-lsb.bb
-+++ b/meta/recipes-extended/tasks/task-core-lsb.bb
-@@ -3,7 +3,7 @@
- #
- 
- DESCRIPTION = "Create Small Image Tasks"
--PR = "r3"
-+PR = "r4"
- LICENSE = "MIT"
- LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58 \
-                     file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
-@@ -33,6 +33,7 @@ PACKAGES = "\
-     task-core-lsb-graphic-add \
-     task-core-lsb-runtime-add \
-     task-core-lsb-command-add \
-+    task-core-lsb-qt3 \
-     "
- 
- 
-@@ -50,6 +51,7 @@ RDEPENDS_task-core-lsb = "\
-     task-core-lsb-graphic-add \
-     task-core-lsb-runtime-add \
-     task-core-lsb-command-add \
-+    task-core-lsb-qt3 \
-     "
- 
- RDEPENDS_task-core-sys-extended = "\
-@@ -130,9 +132,14 @@ RDEPENDS_task-core-lsb-command-add = "\
-     mailx \
-     msmtp \
-     chkconfig \
-+    xdg-utils \
- "
- #    cups
- 
-+RDEPENDS_task-core-lsb-qt3 = "\
-+    qt-x11-free \
-+"
-+
- RDEPENDS_task-core-lsb-perl-add = "\
-     perl-modules \
-     perl-dev \
-@@ -160,10 +167,14 @@ RDEPENDS_task-core-lsb-graphic-add = "\
-     libxtst \
-     qt4-plugin-sqldriver-sqlite \
-     libx11-locale \
-+    libqt-mt3 \
-+    lib
-     xorg-minimal-fonts \
-     gdk-pixbuf-loader-ico \
-     gdk-pixbuf-loader-bmp \
-     gdk-pixbuf-loader-ani \
-+    libqt-mt3 \
-+    liberation-fonts \
- "
- 
- RDEPENDS_task-core-lsb-graphic-add_qemux86 = "\
+I believe this is because of this error during the build:
+   autoreconf: Entering directory `Modules/_ctypes/libffi'
+   autoreconf: configure.ac: not using Gettext
+   autoreconf: running: aclocal --force
+   configure.ac:26: error: m4_copy: won't overwrite defined macro: _AC_ARG_VAR_PRECIOUS
+   configure.ac:26: the top level
+   autom4te: /home/local/p60_poky/tmp/sysroots/i686-linux/usr/bin/m4 failed with exit status: 1
+   aclocal: /home/local/p60_poky/tmp/sysroots/i686-linux/usr/bin/autom4te failed with exit status: 1
+   autoreconf: aclocal failed with exit status: 1
+   NOTE: _ctypes failed to autoreconf
+
+Perhaps related to bug #941?
+
+Filed as bug #1003
+
 -- 
-1.7.0.4
-
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
