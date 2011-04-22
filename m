@@ -1,24 +1,25 @@
-Return-Path: <Kai.Kang@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7B4E24C80A7B
-	for <poky@yoctoproject.org>; Thu, 21 Apr 2011 22:10:12 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p3M3ABYe000785
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Thu, 21 Apr 2011 20:10:11 -0700 (PDT)
-Received: from [128.224.163.157] (128.224.163.157) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Thu, 21 Apr 2011 20:10:11 -0700
-Message-ID: <4DB0F192.6020809@windriver.com>
-Date: Fri, 22 Apr 2011 11:10:10 +0800
-From: Kang Kai <Kai.Kang@windriver.com>
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 0BA124C80A7B
+	for <poky@yoctoproject.org>; Thu, 21 Apr 2011 23:23:44 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 21 Apr 2011 21:23:44 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.64,253,1301900400"; d="scan'208";a="423683497"
+Received: from unknown (HELO [10.255.13.83]) ([10.255.13.83])
+	by azsmga001.ch.intel.com with ESMTP; 21 Apr 2011 21:23:44 -0700
+Message-ID: <4DB102DA.5070205@linux.intel.com>
+Date: Thu, 21 Apr 2011 21:23:54 -0700
+From: Darren Hart <dvhart@linux.intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.13) Gecko/20101208 Thunderbird/3.1.7
+	rv:1.9.2.14) Gecko/20110223 Lightning/1.0b2 Thunderbird/3.1.8
 MIME-Version: 1.0
-To: "Hatle, Mark" <mark.hatle@windriver.com>
-X-Originating-IP: [128.224.163.157]
-Cc: poky@yoctoproject.org
-Subject: About minimal image
+To: Chris Larson <clarson@kergoth.com>
+References: <4DB0C35E.8060004@linux.intel.com>
+	<BANLkTikyEPp_4LA5_bZSjFXoBqrbYic8xg@mail.gmail.com>
+In-Reply-To: <BANLkTikyEPp_4LA5_bZSjFXoBqrbYic8xg@mail.gmail.com>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: Logging: mechanisms and best practices
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,189 +31,163 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 22 Apr 2011 03:10:12 -0000
-X-Groupsio-MsgNum: 5482
-Content-Type: multipart/mixed; boundary="------------060803050705070503050108"
-
---------------060803050705070503050108
-Content-Type: multipart/alternative;
-	boundary="------------060109090705030306070604"
-
---------------060109090705030306070604
-Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
+X-List-Received-Date: Fri, 22 Apr 2011 04:23:45 -0000
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Hi Mark,
 
-I have read your mail about minimal image posted on Feb 19 on this mail 
-list.  We try to reduce image size by what your provided:
 
-   1. eglic configurability
-   2. using mklibs
+On 04/21/2011 05:09 PM, Chris Larson wrote:
+> On Thu, Apr 21, 2011 at 4:53 PM, Darren Hart <dvhart@linux.intel.com> wrote:
+>>
+>> From what I could gather, the preferred method is to use the various
+>> loglevel functions from bb. ie:
+>>
+>> bb.fatal()      A fatal error, the recipe will set the error code and
+>>                abort.
+>> bb.error()      A non-fatal error. The error code is set, the build
+>>                will be marked as red in the autobuilder.
+>> bb.warn()       A non-fatal condition that could affect how things
+>>                progress.
+>> bb.debug()      One of several debug levels.
+>> bb.note()       A condition the user should be made aware of
+>> bb.plain()      typically the output of a tool, such as listtasks
+>>
+>> note and plain will go to the console and should be used extremely
+>> sparingly. debug will only go to the console with the -D[D[D]] bitbake
+>> arguments, but should always go to the logs.
+> 
+> As far as I know, notes from tasks are no longer displayed with
+> knotty.  They certainly aren't in master.
 
-Right now after migrate eglic configurability to my local yocto branch, 
-and I only enable 4 options ("locale-code nsswitch rtld-debug 
-posix-clang-wchar ", pls. check in attachment) of eglibc to make compile 
-pass.
 
-When after create minimal image, the rootfs (tar.bz2) is still about 
-3.4M, same size as without configure eglibc.
+Gah, right. I knew that, got lost in maelstrom.
 
-Could you give me some directions what should we do next step? We also 
-hope some information about how to use mklibs to reduce packages and 
-image size?
 
-Thanks and Regards,
-Kai
+> 
+>> For annotating your recipe's task's logs, debug should typically be
+>> used. warn() should be used whenever possible over error() so as to not
+>> set the error code.
+> 
+> Correct.
+> 
+>> The above only covers the python functions in recipes. Unfortunately,
+>> many functions are bash. Most of these recipes use "echo", although
+>> there exist wrappers to echo in base.bbclass:
+>>
+>> oenote
+>> oewarn
+>> oedebug
+>> oefatal
+>>
+>> As these only wrap echo, none of them go to the console without -D[D[D]]
+>> flags. Note the absence of oeplain and oeerror. oeplain wouldn't work
+>> the same as bb.plain() as it doesn't go the console, the existing oenote
+>> has a similar problem. I've added oeerror() to my local build. oedebug()
+>> uses "clever" bash tests to check the OEDEBUG loglevel, unfortunately
+>> this causes the function to exit with a failure code when the condition
+>> is not met. I've addressed this as well. There are zero users of the oe*
+>> logging calls in "meta" but I did find several users in oe.
+>>
+>> The oe* calls depend on OEDEBUG which is not included in the environment
+>> whitelists and is not set by the -D[D[D]] arguments. Even adding it to
+>> the whitelist and my environent it wasn't accessible from the bash
+>> function. I was unable to to use oedebug() as I couldn't get the OEDEBUG
+>> value set without hardcoding it into base.bbclass.
+> 
+> These are largely remnants.  I'm not opposed to having the shell
+> functions that output useful things, but at the very least we can use
+> a python snippet to check the current bitbake logging level rather
+> than relying on an old env var.  There's currently no way for shell to
+> output things to the bitbake UI's display.  In the long term, we
+> should be able to provide small command-line scripts which communicate
+> with the current running bitbake server the same way the current
+> running UI does.
 
---------------060109090705030306070604
-Content-Type: text/html; charset="ISO-8859-1"
-Content-Transfer-Encoding: 7bit
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-  <head>
+If they are remnants, would anyone object to my replacing them with:
 
-    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
-  </head>
-  <body bgcolor="#ffffff" text="#000000">
-    Hi Mark,<br>
-    <br>
-    I have read your mail about minimal image posted on Feb 19 on this
-    mail list.&nbsp; We try to reduce image size by what your provided:<br>
-    <ol>
-      <li>eglic configurability</li>
-      <li>using mklibs<br>
-      </li>
-    </ol>
-    Right now after migrate eglic configurability to my local yocto
-    branch, and I only enable 4 options ("locale-code nsswitch
-    rtld-debug posix-clang-wchar ", pls. check in attachment) of eglibc
-    to make compile pass.<br>
-    <br>
-    When after create minimal image, the rootfs (tar.bz2) is still about
-    3.4M, same size as without configure eglibc. <br>
-    <br>
-    Could you give me some directions what should we do next step? We
-    also hope some information about how to use mklibs to reduce
-    packages and image size?<br>
-    <br>
-    Thanks and Regards,<br>
-    Kai<br>
-  </body>
-</html>
+bbplain()
+bbnote()
+bbwarn()
+bbdebug()
+bberror()
+bbfatal()
 
---------------060109090705030306070604--
+?
 
---------------060803050705070503050108
-Content-Type: text/x-patch;
-	name="0001-eglibc-migrate-configurability-from-oe.patch"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
-	filename="0001-eglibc-migrate-configurability-from-oe.patch"
+My hope is to get something working now, even if it is just to the logs,
+that we can extend the functionality of by integrating it with bitbake
+logging later - without changing the interface.
 
-From 410f884c4bd0b2037d1df22ccdcd0bfb3c54ffdc Mon Sep 17 00:00:00 2001
-From: Kang Kai <kai.kang@windriver.com>
-Date: Thu, 21 Apr 2011 15:23:27 +0800
-Subject: [PATCH] eglibc: migrate configurability from oe
 
-migrate configurability from oe, try to shrink minimal image size
+> 
+>> So... before I start breaking things, I wanted to make sure I fully
+>> understand how these mechanisms are intended to be used. Also, I would
+>> very much like to see a consistent interface between bash and python
+>> fragments that have the same semantics. There are also at least two more
+>> logging mechanisms I stumbled across withing the bitbake source. One is
+>> marked deprecated, and I'm not sure how the other is meant to be used.
+>> The two I mentioned above seem to be the right ones for recipes to use.
+> 
+> This is correct.  Internal bitbake code should be using the python
+> logging framework at this time.  For now, the api functions
+> bb.{error,warn,...} are correct for the metadata.
 
-Signed-off-by: Kang Kai <kai.kang@windriver.com>
----
- meta/recipes-core/eglibc/eglibc-options.inc |   51 +++++++++++++++++++++++++++
- meta/recipes-core/eglibc/eglibc.inc         |   14 +++++++
- 2 files changed, 65 insertions(+), 0 deletions(-)
- create mode 100644 meta/recipes-core/eglibc/eglibc-options.inc
 
-diff --git a/meta/recipes-core/eglibc/eglibc-options.inc b/meta/recipes-core/eglibc/eglibc-options.inc
-new file mode 100644
-index 0000000..0af0aab
---- /dev/null
-+++ b/meta/recipes-core/eglibc/eglibc-options.inc
-@@ -0,0 +1,51 @@
-+def eglibc_cfg(feature, features, tokens, cnf ):
-+	if type(tokens) == type(""):
-+		tokens = [tokens]
-+	if type(features) == type([]) and feature in features:
-+		cnf.extend([token + ' = y' for token in tokens])
-+	else:
-+		cnf.extend([token + ' = n' for token in tokens])
-+
-+# Map distro features to eglibc options settings
-+def features_to_eglibc_settings(d):
-+        cnf = ([])
-+        distro_features = (bb.data.getVar('DISTRO_FEATURES_EGLIBC', d, True) or '').split() 
-+        eglibc_cfg('ipv6',      distro_features, 'OPTION_EGLIBC_ADVANCED_INET6', cnf)
-+        eglibc_cfg('backtrace',      distro_features, 'OPTION_EGLIBC_BACKTRACE', cnf)
-+        eglibc_cfg('big-macros',      distro_features, 'OPTION_EGLIBC_BIG_MACROS', cnf)
-+        eglibc_cfg('bsd',      distro_features, 'OPTION_EGLIBC_BSD', cnf)
-+        eglibc_cfg('cxx-tests',      distro_features, 'OPTION_EGLIBC_CXX_TESTS', cnf)
-+        eglibc_cfg('catgets',      distro_features, 'OPTION_EGLIBC_CATGETS', cnf)
-+        eglibc_cfg('charsets',      distro_features, 'OPTION_EGLIBC_CHARSETS', cnf)
-+        eglibc_cfg('crypt',      distro_features, 'OPTION_EGLIBC_CRYPT', cnf)
-+        eglibc_cfg('crypt-ufc',      distro_features, 'OPTION_EGLIBC_CRYPT_UFC', cnf)
-+        eglibc_cfg('db-aliases',      distro_features, 'OPTION_EGLIBC_DB_ALIASES', cnf)
-+        eglibc_cfg('envz',      distro_features, 'OPTION_EGLIBC_ENVZ', cnf)
-+        eglibc_cfg('fcvt',      distro_features, 'OPTION_EGLIBC_FCVT', cnf)
-+        eglibc_cfg('fmtmsg',      distro_features, 'OPTION_EGLIBC_FMTMSG', cnf)
-+        eglibc_cfg('fstab',      distro_features, 'OPTION_EGLIBC_FSTAB', cnf)
-+        eglibc_cfg('ftraverse',      distro_features, 'OPTION_EGLIBC_FTRAVERSE', cnf)
-+        eglibc_cfg('getlogin',      distro_features, 'OPTION_EGLIBC_GETLOGIN', cnf)
-+        eglibc_cfg('idn',      distro_features, 'OPTION_EGLIBC_IDN', cnf)
-+        eglibc_cfg('inet',      distro_features, 'OPTION_EGLIBC_INET', cnf)
-+        eglibc_cfg('inet-anl',      distro_features, 'OPTION_EGLIBC_INET_ANL', cnf)
-+        eglibc_cfg('libm',      distro_features, 'OPTION_EGLIBC_LIBM', cnf)
-+        eglibc_cfg('libm-big',      distro_features, 'OPTION_EGLIBC_LIBM_BIG', cnf)
-+        eglibc_cfg('locales',      distro_features, 'OPTION_EGLIBC_LOCALES', cnf)
-+        eglibc_cfg('locale-code',      distro_features, 'OPTION_EGLIBC_LOCALE_CODE', cnf)
-+        eglibc_cfg('memusage',      distro_features, 'OPTION_EGLIBC_MEMUSAGE', cnf)
-+        eglibc_cfg('nis',      distro_features, 'OPTION_EGLIBC_NIS', cnf)
-+        eglibc_cfg('nsswitch',      distro_features, 'OPTION_EGLIBC_NSSWITCH', cnf)
-+        eglibc_cfg('rcmd',      distro_features, 'OPTION_EGLIBC_RCMD', cnf)
-+        eglibc_cfg('rtld-debug',      distro_features, 'OPTION_EGLIBC_RTLD_DEBUG', cnf)
-+        eglibc_cfg('spawn',      distro_features, 'OPTION_EGLIBC_SPAWN', cnf)
-+        eglibc_cfg('streams',      distro_features, 'OPTION_EGLIBC_STREAMS', cnf)
-+        eglibc_cfg('sunrpc',      distro_features, 'OPTION_EGLIBC_SUNRPC', cnf)
-+        eglibc_cfg('utmp',      distro_features, 'OPTION_EGLIBC_UTMP', cnf)
-+        eglibc_cfg('utmpx',      distro_features, 'OPTION_EGLIBC_UTMPX', cnf)
-+        eglibc_cfg('wordexp',      distro_features, 'OPTION_EGLIBC_WORDEXP', cnf)
-+        eglibc_cfg('posix-clang-wchar',      distro_features, 'OPTION_POSIX_C_LANG_WIDE_CHAR', cnf)
-+        eglibc_cfg('posix-regexp',      distro_features, 'OPTION_POSIX_REGEXP', cnf)
-+        eglibc_cfg('posix-regexp-glibc',      distro_features, 'OPTION_POSIX_REGEXP_GLIBC', cnf)
-+        eglibc_cfg('posix-wchar-io',      distro_features, 'OPTION_POSIX_WIDE_CHAR_DEVICE_IO', cnf)
-+        return "\n".join(cnf)
-diff --git a/meta/recipes-core/eglibc/eglibc.inc b/meta/recipes-core/eglibc/eglibc.inc
-index 8314cb1..d5016bf 100644
---- a/meta/recipes-core/eglibc/eglibc.inc
-+++ b/meta/recipes-core/eglibc/eglibc.inc
-@@ -28,6 +28,7 @@ DEPENDS = "virtual/${TARGET_PREFIX}gcc-intermediate linux-libc-headers"
- PROVIDES = "virtual/libc virtual/${TARGET_PREFIX}libc-for-gcc"
- PROVIDES += "virtual/libintl virtual/libiconv"
- inherit autotools
-+require eglibc-options.inc
- 
- LEAD_SONAME = "libc.so"
- 
-@@ -37,3 +38,16 @@ INHIBIT_DEFAULT_DEPS = "1"
- ARM_INSTRUCTION_SET = "arm"
- 
- PACKAGES = "glibc catchsegv sln nscd ldd localedef glibc-utils glibc-dev glibc-doc glibc-locale libsegfault glibc-extra-nss glibc-thread-db glibc-pcprofile"
-+
-+
-+DISTRO_FEATURES_EGLIBC = "locale-code nsswitch rtld-debug posix-clang-wchar "
-+#DISTRO_FEATURES_EGLIBC = "ipv6 backtrace big-macros bsd cxx-tests catgets charsets \
-+#                          crypt crypt-ufc db-aliases envz fcvt fmtmsg fstab ftraverse \
-+#                          getlogin idn inet inet-anl libm libm-big locales locale-code \
-+#                          memusage nis nsswitch rcmd rtld-debug spawn streams sunrpc utmp \
-+#                          utmpx wordexp posix-clang-wchar posix-regexp posix-regexp-glibc posix-wchar-io \
-+#                          "
-+OE_FEATURES := "${@features_to_eglibc_settings(d)}"
-+do_configure_prepend() {
-+	echo '${OE_FEATURES}' > ${B}/option-groups.config
-+}
+"For now"... Do you expect to see a change here? I don't want to go off
+canonicalizing my recipes if the recipes logging API is likely to change
+significantly from what I use.
+
+
+> 
+>> Would people consider the following to be appropriate:
+>>
+>> o Remove BBDEBUG from local.conf.sample as it appears not be used.
+> 
+> Agreed.
+> 
+>> o Modify oedebug to always echo the message as all echos only go to the
+>>  logs anyway. A future change may enhance the oe* calls to print to the
+>>  console for oenote, a new oeplain, and oedebug based on -D[D[D]] and
+>>  BBDEBUG.
+> 
+> This would lose us functionality unnecessarily.
+
+
+Well... right now it doesn't work at all ;-)
+
+
+> We can
+> programmatically check the bitbake debugging level from ${@}.  E.g.:
+> 
+> if ${@['false', 'true'][bb.msg.debug_level['default']]}; then
+>   echo "DEBUG: " "$@"
+> fi
+
+
+The problem I have with this approach is that it limits what gets sent
+to the logs. As I understand it, the -D[D[D]] mechanism is meant to
+limit what gets sent to the console, but all debug output should go to
+the logs.
+
+So until we integrate this with the bitbake logger, I think it makes the
+most sense to just print it all to the logs.
+
+Am I off in the weeds here?
+
+
+> 
+>> o Remove OEDEBUG as it doesn't seem to fit with the current BBDEBUG,
+>>  -D[D[D]] mechanisms nor with the expectation that all debug statements
+>>  get sent to the logs.
+> 
+> Agreed.
+
+Thanks for the review and insight Chris!
+
 -- 
-1.7.1
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
-
---------------060803050705070503050108--
