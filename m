@@ -1,40 +1,25 @@
-Return-Path: <kergoth@gmail.com>
-Received: from mail-vx0-f181.google.com (mail-vx0-f181.google.com
-	[209.85.220.181])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 3016D4C80A54
-	for <poky@lists.yoctoproject.org>; Fri, 22 Apr 2011 10:47:19 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by vxb39 with SMTP id 39so640814vxb.26
-	for <poky@lists.yoctoproject.org>; Fri, 22 Apr 2011 08:47:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:sender:in-reply-to:references:from
-	:date:x-google-sender-auth:message-id:subject:to:cc:content-type;
-	bh=6SE86IFKR205xN6HBz080ij2yVxmq1HziuUvq2Ui3Ic=;
-	b=Bv1b7HyUtiIeoCLVNE+cnq44O2yUMvYvh1X1k2YO2CDTG8/Q/3G6/tN0NPRYcPkKgs
-	9cQZ0hJH4eY1amF+bbzt3QRCUata6vxJ5K3AcY03SjquwOTfzex3Vj8MbNsH/zw3RZmZ
-	+By8CguHSmqljnBhcxxSJIJ1rzmqbiko2tGxU=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:sender:in-reply-to:references:from:date
-	:x-google-sender-auth:message-id:subject:to:cc:content-type;
-	b=cm+VdJCrceCG6Tj4HGMh542sEOxn6/593yDKAg+RHC3up3IFC32zt4Q+jbq52gbLOh
-	1EArRaTJq1BFwrjzllxx+X7Gwp0cxRzwcp+frYU/J15qpbzHXRu72WfVn7oBnTl2lJ3d
-	QmEbmbIZBdLCwTi+nn6EXbDn47FTMYfzLznR0=
-Received: by 10.52.177.8 with SMTP id cm8mr1853962vdc.78.1303487232615; Fri,
-	22 Apr 2011 08:47:12 -0700 (PDT)
+Return-Path: <saul.wold@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 96E3E4C800A4
+	for <poky@yoctoproject.org>; Sat, 23 Apr 2011 00:01:18 -0500 (CDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 22 Apr 2011 22:01:18 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.64,257,1301900400"; d="scan'208";a="913374404"
+Received: from unknown (HELO [10.255.12.237]) ([10.255.12.237])
+	by fmsmga001.fm.intel.com with ESMTP; 22 Apr 2011 22:01:17 -0700
+Message-ID: <4DB25D1D.4010105@intel.com>
+Date: Fri, 22 Apr 2011 22:01:17 -0700
+From: Saul Wold <saul.wold@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
 MIME-Version: 1.0
-Sender: kergoth@gmail.com
-Received: by 10.52.156.226 with HTTP; Fri, 22 Apr 2011 08:46:32 -0700 (PDT)
-In-Reply-To: <1303342638.5518.325.camel@rex>
-References: <1303342638.5518.325.camel@rex>
-From: Chris Larson <clarson@kergoth.com>
-Date: Fri, 22 Apr 2011 08:46:32 -0700
-X-Google-Sender-Auth: 2fflIXX-RtYpIl6HmnXBeVWpod8
-Message-ID: <BANLkTikrcgBm8hQAZ4_68Z134BDCq3V_aA@mail.gmail.com>
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-Cc: poky <poky@lists.yoctoproject.org>
-Subject: Re: OE-Core Rebranding Phase 1
+To: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+References: <4DB14AF9.1050402@windriver.com>
+In-Reply-To: <4DB14AF9.1050402@windriver.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/1] Add qt3 to fix [YOCTO #816]
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,44 +31,69 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 22 Apr 2011 15:47:19 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Sat, 23 Apr 2011 05:01:19 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Apr 20, 2011 at 4:37 PM, Richard Purdie
-<richard.purdie@linuxfoundation.org> wrote:
-> At the face to face OE TSC meeting we talked over the "branding" issues
-> on OE-Core and what we were going to do about removing many of the poky
-> references.
+On 04/22/2011 02:31 AM, Xiaofeng Yan wrote:
+> From: Xiaofeng Yan<xiaofeng.yan@windriver.com>
 >
-> This email represents a turning point for OE-Core as it marks the first
-> pass of rebranding and is based on decisions the TSC made at that
-> meeting. I'm not going to claim its 100% complete yet but it does give
-> us a good start at it. From this point on, I'll be taking patches from
-> people to assist with this. The key changes I've made so far are:
+> Add qt3 with a new layer "meta-qt3" and modify other files which is
+> needed by qt3.
 >
-> * poky-init-build-env -> oe-init-build-env
-> * poky-image-* -> core-image-*
-> * task-poky-* -> task-core-*
-> * git.pokylinux.org -> git.yoctoproject.org
-> * POKYBASE -> COREBASE
-> * poky-qemu -> runqemu
-> * Sanitised local.conf.sample from Poky references
-> * POKY_NATIVE_SYSROOT -> OECORE_NATIVE_SYSROOT
-> * Renamed scrips/poky-* to scripts/oe-*
-> * Renamed the poky-sb override to linuxstdbase
-> * POKY_CONF_VERSION -> LOCALCONF_VERSION
-> * Made sanity versions weak assignment
+A new layer means that this should all be self contained within a layer, 
+including the classes and the image recipe that can extend the 
+core-image-lsb recipe.
 
-Aside: if you try to login to the yocto bug tracking system, and get
-your password wrong, it switches the domain from git.yoctoproject.org
-to git.pokylinux.org.  I expect the webserver configuration needs
-fixing for remaining references like this.  Keeping the old ones
-around as vhosts for compatibility is fine, but it should never switch
-to it from the current domains.
--- 
-Christopher Larson
-clarson at kergoth dot com
-Founder - BitBake, OpenEmbedded, OpenZaurus
-Maintainer - Tslib
-Senior Software Engineer, Mentor Graphics
+You should not change bblayers sample, the qt3 layer is an optional 
+layer specifically for LSB and not for general usage.
+
+Also, please rebase your changes to the lastest master as the poky 
+naming has been rebranded to oe-core.
+
+Sau!
+
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+> Branch: xiaofeng/qt3
+> Browse:http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=xiaofeng/qt3
+>
+> Thanks,
+> Xiaofeng Yan<xiaofeng.yan@windriver.com>
+> ---
+>
+>
+> Xiaofeng Yan (1):
+> qt3: Add qt3 to poky for fixing [YOCTO #816]
+>
+> meta-qt3/conf/layer.conf | 10 ++
+> meta-qt3/recipes-qt3/qt3/qt-x11-free-common.inc | 90 ++++++++++++++++++++
+> .../recipes-qt3/qt3/qt-x11-free-native_3.3.5.bb | 71 +++++++++++++++
+> .../recipes-qt3/qt3/qt-x11-free/configure.patch | 51 +++++++++++
+> .../recipes-qt3/qt3/qt-x11-free/gcc4_1-HACK.patch | 28 ++++++
+> .../recipes-qt3/qt3/qt-x11-free/no-examples.patch | 16 ++++
+> meta-qt3/recipes-qt3/qt3/qt-x11-free_3.3.6.bb | 13 +++
+> meta-qt3/recipes-qt3/qt3/qt-x11-free_3.3.7.bb | 16 ++++
+> meta-yocto/conf/bblayers.conf.sample | 5 +-
+> meta-yocto/conf/distro/poky-lsb.conf | 3 +-
+> meta/classes/qt3e.bbclass | 11 +++
+> meta/classes/qt3x11.bbclass | 15 +++
+> meta/recipes-graphics/xorg-lib/libxmu_1.1.0.bb | 1 +
+> 13 files changed, 327 insertions(+), 3 deletions(-)
+> create mode 100755 meta-qt3/conf/layer.conf
+> create mode 100755 meta-qt3/recipes-qt3/qt3/qt-x11-free-common.inc
+> create mode 100755 meta-qt3/recipes-qt3/qt3/qt-x11-free-native_3.3.5.bb
+> create mode 100755 meta-qt3/recipes-qt3/qt3/qt-x11-free/configure.patch
+> create mode 100755 meta-qt3/recipes-qt3/qt3/qt-x11-free/gcc4_1-HACK.patch
+> create mode 100755 meta-qt3/recipes-qt3/qt3/qt-x11-free/no-examples.patch
+> create mode 100755 meta-qt3/recipes-qt3/qt3/qt-x11-free_3.3.6.bb
+> create mode 100755 meta-qt3/recipes-qt3/qt3/qt-x11-free_3.3.7.bb
+> create mode 100644 meta/classes/qt3e.bbclass
+> create mode 100644 meta/classes/qt3x11.bbclass
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
+
 
