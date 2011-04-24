@@ -1,38 +1,25 @@
-Return-Path: <lei.mei@intel.com>
+Return-Path: <sgw@linux.intel.com>
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 67C104C8024E
-	for <poky@yoctoproject.org>; Sun, 24 Apr 2011 10:15:21 -0500 (CDT)
+	by mx1.pokylinux.org (Postfix) with ESMTP id A30714C80578
+	for <poky@yoctoproject.org>; Sun, 24 Apr 2011 15:16:52 -0500 (CDT)
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 24 Apr 2011 08:15:20 -0700
+	by fmsmga102.fm.intel.com with ESMTP; 24 Apr 2011 13:16:52 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,263,1301900400"; d="scan'208";a="683193209"
-Received: from pgsmsx601.gar.corp.intel.com ([10.221.43.69])
-	by fmsmga002.fm.intel.com with ESMTP; 24 Apr 2011 08:15:03 -0700
-Received: from pgsmsx509.gar.corp.intel.com (172.30.13.17) by
-	pgsmsx601.gar.corp.intel.com (10.221.43.69) with Microsoft SMTP Server
-	(TLS) id 8.2.255.0; Sun, 24 Apr 2011 23:14:22 +0800
-Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
-	PGSMSX509.gar.corp.intel.com (172.30.13.17) with Microsoft SMTP Server
-	(TLS) id 8.2.255.0; Sun, 24 Apr 2011 23:14:21 +0800
-Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
-	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
-	Sun, 24 Apr 2011 23:14:20 +0800
-From: "Mei, Lei" <lei.mei@intel.com>
-To: Gerard van den Bosch <gerard@de-haardt.com>, "poky@yoctoproject.org"
-	<poky@yoctoproject.org>
-Date: Sun, 24 Apr 2011 23:14:19 +0800
-Thread-Topic: [poky] [RFC] Request for your comment on package report system
-Thread-Index: AcwAJR0tTdxPqTDWT2CWOus9CDfwpQCbPMJg
-Message-ID: <749B9D3DBF0F054390025D9EAFF47F224A6C7192@shsmsx501.ccr.corp.intel.com>
-References: <749B9D3DBF0F054390025D9EAFF47F224A66A18A@shsmsx501.ccr.corp.intel.com>
-	<4DB02BF4.2040300@de-haardt.com>
-In-Reply-To: <4DB02BF4.2040300@de-haardt.com>
-Accept-Language: zh-CN, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: zh-CN, en-US
+X-IronPort-AV: E=Sophos;i="4.64,263,1301900400"; d="scan'208";a="683260176"
+Received: from unknown (HELO [10.255.12.237]) ([10.255.12.237])
+	by fmsmga002.fm.intel.com with ESMTP; 24 Apr 2011 13:16:51 -0700
+Message-ID: <4DB48532.3030605@linux.intel.com>
+Date: Sun, 24 Apr 2011 13:16:50 -0700
+From: Saul Wold <sgw@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
 MIME-Version: 1.0
-Subject: Re: [RFC] Request for your comment on package report system
+To: "Cui, Dexuan" <dexuan.cui@intel.com>, 
+	'Patches and discussions about the oe-core layer'
+	<openembedded-core@lists.openembedded.org>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: gdb and lttng-ust 0.12
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,66 +31,110 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 24 Apr 2011 15:15:21 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Sun, 24 Apr 2011 20:16:53 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
->-----Original Message-----
->From: Gerard van den Bosch [mailto:gerard@de-haardt.com]
->Sent: Thursday, April 21, 2011 9:07 PM
->To: poky@yoctoproject.org
->Cc: Mei, Lei
->Subject: Re: [poky] [RFC] Request for your comment on package report syste=
-m
->
->On 04/21/2011 06:18 AM, Mei, Lei wrote:
->> Hi all,
->> 	This is a description for package report system, please help to review =
-and
->give your comments on this system. Thanks a lot!
->>
->> The system link is below:
->> http://packages.yoctoproject.org/
->>
->> Yocto package report system is a tool/website which could help people to
->check the latest package information and track the latest/history version
->information. Below is description of its functionalities.
->>
->>
->> --
->>
->>
->> Now we want to do some enhancement for this system in 1.0.1 plan, so do
->you have any comment or thought?
->> Any feedback is welcome :)
->>
->>
->> ---
->> Mei, Lei
->> Email: lei.mei@intel.com
->>
->>
->> _______________________________________________
->> poky mailing list
->> poky@yoctoproject.org
->> https://lists.yoctoproject.org/listinfo/poky
->Looks very nice.
->Maybe it would be useful to extend the package information with a link to =
-the
->recipe in the git repository and "if existing" a list of the patches that =
-the recipe
->includes.
+Dexuan,
 
-Thanks for your comment, I will add this git link feature.
+It seems that when you updated lttng-ust to 0.12, it installed an 
+/usr/include/ust directory that GDB now finds.  This caused the 
+gdbserver code to not build.
 
-Thanks
-Lei
+I investigated this and it seems to be due to gdb having a dependency on 
+UST that causes GDB not to compile.  I think at this point we may want 
+to continue with UST disabled in gdb.
 
->
->Regards,
->Gerard
->
+To reproduce this, ensure that lttng-ust-0.12 is built before building 
+gdb and you should see a compilation failure.
+
+My concern here is that if fix the GDB compilation failures, what else 
+is going to fail as far as debugging with UST enabled on the remote, I 
+know this feature is something we want, and should probably report to 
+the GDB upstream.
+
+The fix seems to be as simple as adding "--without-ust" to the gdb 
+EXTRA_OECONF line.
+
+Comments?
+
+-- 
+     Sau!
+
+Saul Wold
+Yocto Component Wrangler @ Intel
+Yocto Project / Poky Build System
+
+Error while compiling tracepoint.c -> tracepoint-ipa.o (note it's -ipa.o 
+so a different set of flags).
+
+
+| ccache i586-poky-linux-gcc -march=i586 
+--sysroot=/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/sysroots/qemux86 
+-c  -Wall    -I. 
+-I/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver 
+-I/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/../common 
+-I/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/../regformats 
+-I/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/../../include 
+-O2 -pipe -g -feliminate-unused-debug-types 
+-DCONFIG_UST_GDB_INTEGRATION -fPIC -DGDBSERVER -DIN_PROCESS_AGENT 
+-fvisibility=hidden 
+/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/tracepoint.c 
+-o tracepoint-ipa.o
+| 
+/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/tracepoint.c: 
+In function 'first_marker':
+| 
+/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/tracepoint.c:7009:3: 
+warning: return from incompatible pointer type
+| 
+/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/tracepoint.c: 
+In function 'next_marker':
+| 
+/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/tracepoint.c:7024:23: 
+warning: comparison of distinct pointer types lacks a cast
+| 
+/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/tracepoint.c:7027:4: 
+warning: return from incompatible pointer type
+| 
+/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/tracepoint.c: 
+In function 'unprobe_marker_at':
+| 
+/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/tracepoint.c:7105:33: 
+error: request for member 'location' in something not a structure or union
+| 
+/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/tracepoint.c:7109:51: 
+error: request for member 'channel' in something not a structure or union
+| 
+/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/tracepoint.c:7110:23: 
+error: request for member 'name' in something not a structure or union
+| 
+/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/tracepoint.c:7114:17: 
+error: request for member 'channel' in something not a structure or union
+| 
+/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/tracepoint.c:7114:39: 
+error: request for member 'name' in something not a structure or union
+| 
+/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/tracepoint.c: 
+In function 'probe_marker_at':
+| 
+/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/tracepoint.c:7135:43: 
+warning: assignment from incompatible pointer type
+| 
+/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/tracepoint.c:7137:42: 
+warning: assignment from incompatible pointer type
+| 
+/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/tracepoint.c: 
+In function 'cmd_qtstmat':
+| 
+/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/tracepoint.c:7180:43: 
+warning: assignment from incompatible pointer type
+| 
+/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/tracepoint.c:7182:42: 
+warning: assignment from incompatible pointer type
+| make[4]: *** [tracepoint-ipa.o] Error 1
+
+
 
 
