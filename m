@@ -1,38 +1,26 @@
-Return-Path: <dexuan.cui@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A4EEA4C80188
-	for <poky@yoctoproject.org>; Sun, 24 Apr 2011 20:57:12 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 24 Apr 2011 18:57:12 -0700
+Return-Path: <sgw@linux.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 252344C80188
+	for <poky@yoctoproject.org>; Sun, 24 Apr 2011 23:26:04 -0500 (CDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 24 Apr 2011 21:26:03 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,264,1301900400"; d="scan'208";a="633547619"
-Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
-	by orsmga002.jf.intel.com with ESMTP; 24 Apr 2011 18:56:58 -0700
-Received: from pgsmsx509.gar.corp.intel.com (172.30.13.17) by
-	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
-	(TLS) id 8.2.255.0; Mon, 25 Apr 2011 09:56:50 +0800
-Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
-	PGSMSX509.gar.corp.intel.com (172.30.13.17) with Microsoft SMTP Server
-	(TLS) id 8.2.255.0; Mon, 25 Apr 2011 09:56:49 +0800
-Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
-	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
-	Mon, 25 Apr 2011 09:56:48 +0800
-From: "Cui, Dexuan" <dexuan.cui@intel.com>
-To: 'Saul Wold' <sgw@linux.intel.com>, 'Patches and discussions about the
-	oe-core layer' <openembedded-core@lists.openembedded.org>
-Date: Mon, 25 Apr 2011 09:56:48 +0800
-Thread-Topic: gdb and lttng-ust 0.12
-Thread-Index: AcwCvI2yChmt5WNXRPWLnEhSH8PswgALP8Pg
-Message-ID: <1865303E0DED764181A9D882DEF65FB69317AB0ED9@shsmsx502.ccr.corp.intel.com>
-References: <4DB48532.3030605@linux.intel.com>
-In-Reply-To: <4DB48532.3030605@linux.intel.com>
-Accept-Language: zh-CN, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: zh-CN, en-US
+X-IronPort-AV: E=Sophos;i="4.64,264,1301900400"; d="scan'208";a="683449426"
+Received: from unknown (HELO [10.255.12.237]) ([10.255.12.237])
+	by fmsmga002.fm.intel.com with ESMTP; 24 Apr 2011 21:26:03 -0700
+Message-ID: <4DB4F7DB.2020401@linux.intel.com>
+Date: Sun, 24 Apr 2011 21:26:03 -0700
+From: Saul Wold <sgw@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
 MIME-Version: 1.0
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: gdb and lttng-ust 0.12
+To: Patches and discussions about the oe-core layer
+	<openembedded-core@lists.openembedded.org>
+References: <cover.1303417346.git.nitin.a.kamble@intel.com>
+In-Reply-To: <cover.1303417346.git.nitin.a.kamble@intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [OE-core] [PATCH 0/8] recipe upgrades & bugfixes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,115 +32,115 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 25 Apr 2011 01:57:13 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="gb2312"
-Content-Transfer-Encoding: base64
+X-List-Received-Date: Mon, 25 Apr 2011 04:26:04 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-SGkgU2F1bCwNClRoYW5rcyB2ZXJ5IG11Y2ggZm9yIHRoZSBpbnZlc3RpZ2F0aW9uISANCkkgY2Fu
-IHJlcHJvZHVjZSB0aGUgaXNzdWUgbm93IHdoZW4gSSBidWlsZCBnZGIgYWZ0ZXIgYnVpbGRpbmcg
-bHR0bmctdXN0IChwcmV2aW91c2x5IGxvb2tzIEkgYnVpbHQgdGhlbSBpbiB0aGUgcmV2ZXJzZSBv
-cmRlciwgc28gZGlkbid0IGNhdGNoIGl0LikNCg0KSSBoYXZlbid0IHVuZGVyc3Rvb2Qgd2h5IHRo
-aXMgaXNzdWUgb2NjdXJyZWQgYWZ0ZXIgSSB1cGdyYWRlZCB1c3QgZnJvbSAwLjExIHRvIDAuMTIg
-YXMgMC4xMSBhY3R1YWxseSBpbnN0YWxscyAvdXNyL2luY2x1ZGUvdXN0LCB0b28uIEFuZCBnZGIg
-d2FzIG5vdCB1cGdyYWRlZCByZWNlbnRseS4NCg0KSSdtIGxvb2tpbmcgaW50byB0aGlzIG5vdyBh
-bmQgd2lsbCB1cGRhdGUgYXNhcC4NCg0KVGhhbmtzLA0KLS0gRGV4dWFuDQoNCi0tLS0tT3JpZ2lu
-YWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBTYXVsIFdvbGQgW21haWx0bzpzZ3dAbGludXguaW50ZWwu
-Y29tXSANClNlbnQ6IDIwMTHE6jTUwjI1yNUgNDoxNw0KVG86IEN1aSwgRGV4dWFuOyAnUGF0Y2hl
-cyBhbmQgZGlzY3Vzc2lvbnMgYWJvdXQgdGhlIG9lLWNvcmUgbGF5ZXInDQpDYzogcG9reUB5b2N0
-b3Byb2plY3Qub3JnDQpTdWJqZWN0OiBnZGIgYW5kIGx0dG5nLXVzdCAwLjEyDQoNCg0KRGV4dWFu
-LA0KDQpJdCBzZWVtcyB0aGF0IHdoZW4geW91IHVwZGF0ZWQgbHR0bmctdXN0IHRvIDAuMTIsIGl0
-IGluc3RhbGxlZCBhbiANCi91c3IvaW5jbHVkZS91c3QgZGlyZWN0b3J5IHRoYXQgR0RCIG5vdyBm
-aW5kcy4gIFRoaXMgY2F1c2VkIHRoZSANCmdkYnNlcnZlciBjb2RlIHRvIG5vdCBidWlsZC4NCg0K
-SSBpbnZlc3RpZ2F0ZWQgdGhpcyBhbmQgaXQgc2VlbXMgdG8gYmUgZHVlIHRvIGdkYiBoYXZpbmcg
-YSBkZXBlbmRlbmN5IG9uIA0KVVNUIHRoYXQgY2F1c2VzIEdEQiBub3QgdG8gY29tcGlsZS4gIEkg
-dGhpbmsgYXQgdGhpcyBwb2ludCB3ZSBtYXkgd2FudCANCnRvIGNvbnRpbnVlIHdpdGggVVNUIGRp
-c2FibGVkIGluIGdkYi4NCg0KVG8gcmVwcm9kdWNlIHRoaXMsIGVuc3VyZSB0aGF0IGx0dG5nLXVz
-dC0wLjEyIGlzIGJ1aWx0IGJlZm9yZSBidWlsZGluZyANCmdkYiBhbmQgeW91IHNob3VsZCBzZWUg
-YSBjb21waWxhdGlvbiBmYWlsdXJlLg0KDQpNeSBjb25jZXJuIGhlcmUgaXMgdGhhdCBpZiBmaXgg
-dGhlIEdEQiBjb21waWxhdGlvbiBmYWlsdXJlcywgd2hhdCBlbHNlIA0KaXMgZ29pbmcgdG8gZmFp
-bCBhcyBmYXIgYXMgZGVidWdnaW5nIHdpdGggVVNUIGVuYWJsZWQgb24gdGhlIHJlbW90ZSwgSSAN
-Cmtub3cgdGhpcyBmZWF0dXJlIGlzIHNvbWV0aGluZyB3ZSB3YW50LCBhbmQgc2hvdWxkIHByb2Jh
-Ymx5IHJlcG9ydCB0byANCnRoZSBHREIgdXBzdHJlYW0uDQoNClRoZSBmaXggc2VlbXMgdG8gYmUg
-YXMgc2ltcGxlIGFzIGFkZGluZyAiLS13aXRob3V0LXVzdCIgdG8gdGhlIGdkYiANCkVYVFJBX09F
-Q09ORiBsaW5lLg0KDQpDb21tZW50cz8NCg0KLS0gDQogICAgIFNhdSENCg0KU2F1bCBXb2xkDQpZ
-b2N0byBDb21wb25lbnQgV3JhbmdsZXIgQCBJbnRlbA0KWW9jdG8gUHJvamVjdCAvIFBva3kgQnVp
-bGQgU3lzdGVtDQoNCkVycm9yIHdoaWxlIGNvbXBpbGluZyB0cmFjZXBvaW50LmMgLT4gdHJhY2Vw
-b2ludC1pcGEubyAobm90ZSBpdCdzIC1pcGEubyANCnNvIGEgZGlmZmVyZW50IHNldCBvZiBmbGFn
-cykuDQoNCg0KfCBjY2FjaGUgaTU4Ni1wb2t5LWxpbnV4LWdjYyAtbWFyY2g9aTU4NiANCi0tc3lz
-cm9vdD0vdm9sLzEvc2d3L2F1dG9idWlsZGVyL3Bva3ktc2xhdmUvcG9reS1mdWxsLWlhL2J1aWxk
-L2J1aWxkL3RtcC9zeXNyb290cy9xZW11eDg2IA0KLWMgIC1XYWxsICAgIC1JLiANCi1JL3ZvbC8x
-L3Nndy9hdXRvYnVpbGRlci9wb2t5LXNsYXZlL3Bva3ktZnVsbC1pYS9idWlsZC9idWlsZC90bXAv
-d29yay9pNTg2LXBva3ktbGludXgvZ2RiLTcuMi1yMC9nZGItNy4yL2dkYi9nZGJzZXJ2ZXIgDQot
-SS92b2wvMS9zZ3cvYXV0b2J1aWxkZXIvcG9reS1zbGF2ZS9wb2t5LWZ1bGwtaWEvYnVpbGQvYnVp
-bGQvdG1wL3dvcmsvaTU4Ni1wb2t5LWxpbnV4L2dkYi03LjItcjAvZ2RiLTcuMi9nZGIvZ2Ric2Vy
-dmVyLy4uL2NvbW1vbiANCi1JL3ZvbC8xL3Nndy9hdXRvYnVpbGRlci9wb2t5LXNsYXZlL3Bva3kt
-ZnVsbC1pYS9idWlsZC9idWlsZC90bXAvd29yay9pNTg2LXBva3ktbGludXgvZ2RiLTcuMi1yMC9n
-ZGItNy4yL2dkYi9nZGJzZXJ2ZXIvLi4vcmVnZm9ybWF0cyANCi1JL3ZvbC8xL3Nndy9hdXRvYnVp
-bGRlci9wb2t5LXNsYXZlL3Bva3ktZnVsbC1pYS9idWlsZC9idWlsZC90bXAvd29yay9pNTg2LXBv
-a3ktbGludXgvZ2RiLTcuMi1yMC9nZGItNy4yL2dkYi9nZGJzZXJ2ZXIvLi4vLi4vaW5jbHVkZSAN
-Ci1PMiAtcGlwZSAtZyAtZmVsaW1pbmF0ZS11bnVzZWQtZGVidWctdHlwZXMgDQotRENPTkZJR19V
-U1RfR0RCX0lOVEVHUkFUSU9OIC1mUElDIC1ER0RCU0VSVkVSIC1ESU5fUFJPQ0VTU19BR0VOVCAN
-Ci1mdmlzaWJpbGl0eT1oaWRkZW4gDQovdm9sLzEvc2d3L2F1dG9idWlsZGVyL3Bva3ktc2xhdmUv
-cG9reS1mdWxsLWlhL2J1aWxkL2J1aWxkL3RtcC93b3JrL2k1ODYtcG9reS1saW51eC9nZGItNy4y
-LXIwL2dkYi03LjIvZ2RiL2dkYnNlcnZlci90cmFjZXBvaW50LmMgDQotbyB0cmFjZXBvaW50LWlw
-YS5vDQp8IA0KL3ZvbC8xL3Nndy9hdXRvYnVpbGRlci9wb2t5LXNsYXZlL3Bva3ktZnVsbC1pYS9i
-dWlsZC9idWlsZC90bXAvd29yay9pNTg2LXBva3ktbGludXgvZ2RiLTcuMi1yMC9nZGItNy4yL2dk
-Yi9nZGJzZXJ2ZXIvdHJhY2Vwb2ludC5jOiANCkluIGZ1bmN0aW9uICdmaXJzdF9tYXJrZXInOg0K
-fCANCi92b2wvMS9zZ3cvYXV0b2J1aWxkZXIvcG9reS1zbGF2ZS9wb2t5LWZ1bGwtaWEvYnVpbGQv
-YnVpbGQvdG1wL3dvcmsvaTU4Ni1wb2t5LWxpbnV4L2dkYi03LjItcjAvZ2RiLTcuMi9nZGIvZ2Ri
-c2VydmVyL3RyYWNlcG9pbnQuYzo3MDA5OjM6IA0Kd2FybmluZzogcmV0dXJuIGZyb20gaW5jb21w
-YXRpYmxlIHBvaW50ZXIgdHlwZQ0KfCANCi92b2wvMS9zZ3cvYXV0b2J1aWxkZXIvcG9reS1zbGF2
-ZS9wb2t5LWZ1bGwtaWEvYnVpbGQvYnVpbGQvdG1wL3dvcmsvaTU4Ni1wb2t5LWxpbnV4L2dkYi03
-LjItcjAvZ2RiLTcuMi9nZGIvZ2Ric2VydmVyL3RyYWNlcG9pbnQuYzogDQpJbiBmdW5jdGlvbiAn
-bmV4dF9tYXJrZXInOg0KfCANCi92b2wvMS9zZ3cvYXV0b2J1aWxkZXIvcG9reS1zbGF2ZS9wb2t5
-LWZ1bGwtaWEvYnVpbGQvYnVpbGQvdG1wL3dvcmsvaTU4Ni1wb2t5LWxpbnV4L2dkYi03LjItcjAv
-Z2RiLTcuMi9nZGIvZ2Ric2VydmVyL3RyYWNlcG9pbnQuYzo3MDI0OjIzOiANCndhcm5pbmc6IGNv
-bXBhcmlzb24gb2YgZGlzdGluY3QgcG9pbnRlciB0eXBlcyBsYWNrcyBhIGNhc3QNCnwgDQovdm9s
-LzEvc2d3L2F1dG9idWlsZGVyL3Bva3ktc2xhdmUvcG9reS1mdWxsLWlhL2J1aWxkL2J1aWxkL3Rt
-cC93b3JrL2k1ODYtcG9reS1saW51eC9nZGItNy4yLXIwL2dkYi03LjIvZ2RiL2dkYnNlcnZlci90
-cmFjZXBvaW50LmM6NzAyNzo0OiANCndhcm5pbmc6IHJldHVybiBmcm9tIGluY29tcGF0aWJsZSBw
-b2ludGVyIHR5cGUNCnwgDQovdm9sLzEvc2d3L2F1dG9idWlsZGVyL3Bva3ktc2xhdmUvcG9reS1m
-dWxsLWlhL2J1aWxkL2J1aWxkL3RtcC93b3JrL2k1ODYtcG9reS1saW51eC9nZGItNy4yLXIwL2dk
-Yi03LjIvZ2RiL2dkYnNlcnZlci90cmFjZXBvaW50LmM6IA0KSW4gZnVuY3Rpb24gJ3VucHJvYmVf
-bWFya2VyX2F0JzoNCnwgDQovdm9sLzEvc2d3L2F1dG9idWlsZGVyL3Bva3ktc2xhdmUvcG9reS1m
-dWxsLWlhL2J1aWxkL2J1aWxkL3RtcC93b3JrL2k1ODYtcG9reS1saW51eC9nZGItNy4yLXIwL2dk
-Yi03LjIvZ2RiL2dkYnNlcnZlci90cmFjZXBvaW50LmM6NzEwNTozMzogDQplcnJvcjogcmVxdWVz
-dCBmb3IgbWVtYmVyICdsb2NhdGlvbicgaW4gc29tZXRoaW5nIG5vdCBhIHN0cnVjdHVyZSBvciB1
-bmlvbg0KfCANCi92b2wvMS9zZ3cvYXV0b2J1aWxkZXIvcG9reS1zbGF2ZS9wb2t5LWZ1bGwtaWEv
-YnVpbGQvYnVpbGQvdG1wL3dvcmsvaTU4Ni1wb2t5LWxpbnV4L2dkYi03LjItcjAvZ2RiLTcuMi9n
-ZGIvZ2Ric2VydmVyL3RyYWNlcG9pbnQuYzo3MTA5OjUxOiANCmVycm9yOiByZXF1ZXN0IGZvciBt
-ZW1iZXIgJ2NoYW5uZWwnIGluIHNvbWV0aGluZyBub3QgYSBzdHJ1Y3R1cmUgb3IgdW5pb24NCnwg
-DQovdm9sLzEvc2d3L2F1dG9idWlsZGVyL3Bva3ktc2xhdmUvcG9reS1mdWxsLWlhL2J1aWxkL2J1
-aWxkL3RtcC93b3JrL2k1ODYtcG9reS1saW51eC9nZGItNy4yLXIwL2dkYi03LjIvZ2RiL2dkYnNl
-cnZlci90cmFjZXBvaW50LmM6NzExMDoyMzogDQplcnJvcjogcmVxdWVzdCBmb3IgbWVtYmVyICdu
-YW1lJyBpbiBzb21ldGhpbmcgbm90IGEgc3RydWN0dXJlIG9yIHVuaW9uDQp8IA0KL3ZvbC8xL3Nn
-dy9hdXRvYnVpbGRlci9wb2t5LXNsYXZlL3Bva3ktZnVsbC1pYS9idWlsZC9idWlsZC90bXAvd29y
-ay9pNTg2LXBva3ktbGludXgvZ2RiLTcuMi1yMC9nZGItNy4yL2dkYi9nZGJzZXJ2ZXIvdHJhY2Vw
-b2ludC5jOjcxMTQ6MTc6IA0KZXJyb3I6IHJlcXVlc3QgZm9yIG1lbWJlciAnY2hhbm5lbCcgaW4g
-c29tZXRoaW5nIG5vdCBhIHN0cnVjdHVyZSBvciB1bmlvbg0KfCANCi92b2wvMS9zZ3cvYXV0b2J1
-aWxkZXIvcG9reS1zbGF2ZS9wb2t5LWZ1bGwtaWEvYnVpbGQvYnVpbGQvdG1wL3dvcmsvaTU4Ni1w
-b2t5LWxpbnV4L2dkYi03LjItcjAvZ2RiLTcuMi9nZGIvZ2Ric2VydmVyL3RyYWNlcG9pbnQuYzo3
-MTE0OjM5OiANCmVycm9yOiByZXF1ZXN0IGZvciBtZW1iZXIgJ25hbWUnIGluIHNvbWV0aGluZyBu
-b3QgYSBzdHJ1Y3R1cmUgb3IgdW5pb24NCnwgDQovdm9sLzEvc2d3L2F1dG9idWlsZGVyL3Bva3kt
-c2xhdmUvcG9reS1mdWxsLWlhL2J1aWxkL2J1aWxkL3RtcC93b3JrL2k1ODYtcG9reS1saW51eC9n
-ZGItNy4yLXIwL2dkYi03LjIvZ2RiL2dkYnNlcnZlci90cmFjZXBvaW50LmM6IA0KSW4gZnVuY3Rp
-b24gJ3Byb2JlX21hcmtlcl9hdCc6DQp8IA0KL3ZvbC8xL3Nndy9hdXRvYnVpbGRlci9wb2t5LXNs
-YXZlL3Bva3ktZnVsbC1pYS9idWlsZC9idWlsZC90bXAvd29yay9pNTg2LXBva3ktbGludXgvZ2Ri
-LTcuMi1yMC9nZGItNy4yL2dkYi9nZGJzZXJ2ZXIvdHJhY2Vwb2ludC5jOjcxMzU6NDM6IA0Kd2Fy
-bmluZzogYXNzaWdubWVudCBmcm9tIGluY29tcGF0aWJsZSBwb2ludGVyIHR5cGUNCnwgDQovdm9s
-LzEvc2d3L2F1dG9idWlsZGVyL3Bva3ktc2xhdmUvcG9reS1mdWxsLWlhL2J1aWxkL2J1aWxkL3Rt
-cC93b3JrL2k1ODYtcG9reS1saW51eC9nZGItNy4yLXIwL2dkYi03LjIvZ2RiL2dkYnNlcnZlci90
-cmFjZXBvaW50LmM6NzEzNzo0MjogDQp3YXJuaW5nOiBhc3NpZ25tZW50IGZyb20gaW5jb21wYXRp
-YmxlIHBvaW50ZXIgdHlwZQ0KfCANCi92b2wvMS9zZ3cvYXV0b2J1aWxkZXIvcG9reS1zbGF2ZS9w
-b2t5LWZ1bGwtaWEvYnVpbGQvYnVpbGQvdG1wL3dvcmsvaTU4Ni1wb2t5LWxpbnV4L2dkYi03LjIt
-cjAvZ2RiLTcuMi9nZGIvZ2Ric2VydmVyL3RyYWNlcG9pbnQuYzogDQpJbiBmdW5jdGlvbiAnY21k
-X3F0c3RtYXQnOg0KfCANCi92b2wvMS9zZ3cvYXV0b2J1aWxkZXIvcG9reS1zbGF2ZS9wb2t5LWZ1
-bGwtaWEvYnVpbGQvYnVpbGQvdG1wL3dvcmsvaTU4Ni1wb2t5LWxpbnV4L2dkYi03LjItcjAvZ2Ri
-LTcuMi9nZGIvZ2Ric2VydmVyL3RyYWNlcG9pbnQuYzo3MTgwOjQzOiANCndhcm5pbmc6IGFzc2ln
-bm1lbnQgZnJvbSBpbmNvbXBhdGlibGUgcG9pbnRlciB0eXBlDQp8IA0KL3ZvbC8xL3Nndy9hdXRv
-YnVpbGRlci9wb2t5LXNsYXZlL3Bva3ktZnVsbC1pYS9idWlsZC9idWlsZC90bXAvd29yay9pNTg2
-LXBva3ktbGludXgvZ2RiLTcuMi1yMC9nZGItNy4yL2dkYi9nZGJzZXJ2ZXIvdHJhY2Vwb2ludC5j
-OjcxODI6NDI6IA0Kd2FybmluZzogYXNzaWdubWVudCBmcm9tIGluY29tcGF0aWJsZSBwb2ludGVy
-IHR5cGUNCnwgbWFrZVs0XTogKioqIFt0cmFjZXBvaW50LWlwYS5vXSBFcnJvciAxDQoNCg0KDQo=
+On 04/21/2011 01:25 PM, Nitin A Kamble wrote:
+> From: Nitin A Kamble<nitin.a.kamble@intel.com>
+>
+> These are some of the recipe upgrades and bug fixes I had worked on.
+> Thanks,
+> Nitin
+>
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>    Branch: nitin/misc
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=nitin/misc
+>
+> Thanks,
+>      Nitin A Kamble<nitin.a.kamble@intel.com>
+> ---
+>
+>
+> Nitin A Kamble (8):
+>    mpfr: upgrade from 3.0.0 to 3.0.1
+>    python-gst: upgrade from 0.10.19 to 0.10.21
+>    git: upgrade from 1.7.3.4 to 1.7.4.3
+>    python-pycairo: fix installation path of __init__.py
+>    perl-5.12.2: use of PERLHOSTLIB var fix
+>    cpan.bbclass: export PERLHOSTLIB for perl modules
+>    libxml-parser-perl: upgrade from 2.36 to 2.40
+>    distro_tracking: recipe information update
+>
+>   meta/classes/cpan.bbclass                          |    1 +
+>   .../conf/distro/include/distro_tracking_fields.inc |    7 +++++--
+>   meta/recipes-devtools/git/files/autotools.patch    |    2 ++
+>   .../git/{git_1.7.3.4.bb =>  git_1.7.4.3.bb}         |    4 ++--
+>   .../libperl-5.8.3-create-libperl-soname.patch      |   11 -----------
+>   ...e_2.36.bb =>  libxml-parser-perl-native_2.40.bb} |    0
+>   ...ser-perl_2.36.bb =>  libxml-parser-perl_2.40.bb} |    8 ++++----
+>   .../perl/perl-5.12.2/09_fix_installperl.patch      |    2 ++
+>   .../Configure-multilib.patch                       |    2 ++
+>   .../perl/perl-5.12.2/Makefile.SH.patch             |    2 ++
+>   .../perl/perl-5.12.2/Makefile.patch                |    2 ++
+>   .../perl/perl-5.12.2/asm-pageh-fix.patch           |    2 ++
+>   .../perl/perl-5.12.2/cross-generate_uudmap.patch   |    2 ++
+>   .../perl/perl-5.12.2/debian/arm_optim.diff         |    2 ++
+>   .../debian/arm_thread_stress_timeout.diff          |    2 ++
+>   .../perl/perl-5.12.2/debian/cpan_config_path.diff  |    2 ++
+>   .../perl-5.12.2/debian/cpan_definstalldirs.diff    |    2 ++
+>   .../perl-5.12.2/debian/cpanplus_config_path.diff   |    2 ++
+>   .../debian/cpanplus_definstalldirs.diff            |    2 ++
+>   .../perl/perl-5.12.2/debian/db_file_ver.diff       |    2 ++
+>   .../perl-5.12.2/debian/deprecate-with-apt.diff     |    2 ++
+>   .../debian/devel-ppport-ia64-optim.diff            |    2 ++
+>   .../perl-5.12.2/debian/disable-zlib-bundling.diff  |    2 ++
+>   .../perl/perl-5.12.2/debian/doc_info.diff          |    2 ++
+>   .../perl/perl-5.12.2/debian/enc2xs_inc.diff        |    2 ++
+>   .../perl/perl-5.12.2/debian/errno_ver.diff         |    2 ++
+>   .../perl/perl-5.12.2/debian/extutils_hacks.diff    |    2 ++
+>   .../perl/perl-5.12.2/debian/fakeroot.diff          |    2 ++
+>   .../perl-5.12.2/debian/fixes/autodie-flock.diff    |    2 ++
+>   .../debian/fixes/concat-stack-corruption.diff      |    2 ++
+>   .../debian/fixes/cpanplus-without-home.diff        |    2 ++
+>   .../perl-5.12.2/debian/fixes/h2ph-gcc-4.5.diff     |    2 ++
+>   .../perl-5.12.2/debian/fixes/hurd-ccflags.diff     |    2 ++
+>   .../perl-5.12.2/debian/fixes/lc-numeric-docs.diff  |    2 ++
+>   .../debian/fixes/lc-numeric-sprintf.diff           |    2 ++
+>   .../perl-5.12.2/debian/fixes/net_smtp_docs.diff    |    2 ++
+>   .../perl/perl-5.12.2/debian/fixes/processPL.diff   |    2 ++
+>   .../perl/perl-5.12.2/debian/instmodsh_doc.diff     |    2 ++
+>   .../perl/perl-5.12.2/debian/ld_run_path.diff       |    2 ++
+>   .../perl-5.12.2/debian/libnet_config_path.diff     |    2 ++
+>   .../perl-5.12.2/debian/m68k_thread_stress.diff     |    2 ++
+>   .../perl/perl-5.12.2/debian/mod_paths.diff         |    2 ++
+>   .../debian/module_build_man_extensions.diff        |    2 ++
+>   .../perl/perl-5.12.2/debian/perlivp.diff           |    2 ++
+>   .../perl/perl-5.12.2/debian/prune_libs.diff        |    2 ++
+>   .../debian/squelch-locale-warnings.diff            |    2 ++
+>   .../perl/perl-5.12.2/generate-sh.patch             |    2 ++
+>   .../perl/perl-5.12.2/installperl.patch             |    2 ++
+>   .../{files =>  perl-5.12.2}/letgcc-find-errno.patch |    2 ++
+>   .../perl/perl-5.12.2/native-nopacklist.patch       |    2 ++
+>   .../perl/perl-5.12.2/native-perlinc.patch          |    2 ++
+>   .../perl/perl-5.12.2/native-ssp.patch              |    2 ++
+>   .../perl/perl-5.12.2/parallel_build_fix_1.patch    |    2 ++
+>   .../perl/perl-5.12.2/parallel_build_fix_2.patch    |    2 ++
+>   .../perl/perl-5.12.2/parallel_build_fix_3.patch    |    2 ++
+>   .../perl/perl-5.12.2/parallel_build_fix_4.patch    |    2 ++
+>   .../perl/perl-5.12.2/parallel_build_fix_5.patch    |    2 ++
+>   .../perl/perl-5.12.2/parallel_build_fix_6.patch    |    2 ++
+>   .../perl/perl-5.12.2/perl-configpm-switch.patch    |    2 ++
+>   .../perl/perl-5.12.2/perl-dynloader.patch          |   12 ++++++++++--
+>   .../perl/perl-5.12.2/perl-enable-gdbm.patch        |    2 ++
+>   .../perl/perl-5.12.2/perl-moreconfig.patch         |    2 ++
+>   meta/recipes-devtools/perl/perl_5.12.2.bb          |    2 +-
+>   .../python/python-gst/python-path.patch            |    2 ++
+>   ...python-gst_0.10.19.bb =>  python-gst_0.10.21.bb} |    6 +++---
+>   .../python/python-pycairo_1.8.10.bb                |    8 +++++++-
+>   .../mpfr/{mpfr_3.0.0.bb =>  mpfr_3.0.1.bb}          |    4 ++--
+>   67 files changed, 147 insertions(+), 28 deletions(-)
+>   rename meta/recipes-devtools/git/{git_1.7.3.4.bb =>  git_1.7.4.3.bb} (59%)
+>   delete mode 100644 meta/recipes-devtools/perl/files/libperl-5.8.3-create-libperl-soname.patch
+>   rename meta/recipes-devtools/perl/{libxml-parser-perl-native_2.36.bb =>  libxml-parser-perl-native_2.40.bb} (100%)
+>   rename meta/recipes-devtools/perl/{libxml-parser-perl_2.36.bb =>  libxml-parser-perl_2.40.bb} (61%)
+>   rename meta/recipes-devtools/perl/{files =>  perl-5.12.2}/Configure-multilib.patch (96%)
+>   rename meta/recipes-devtools/perl/{files =>  perl-5.12.2}/letgcc-find-errno.patch (96%)
+>   rename meta/recipes-devtools/python/{python-gst_0.10.19.bb =>  python-gst_0.10.21.bb} (82%)
+>   rename meta/recipes-support/mpfr/{mpfr_3.0.0.bb =>  mpfr_3.0.1.bb} (70%)
+>
+Pulled into OE-Core and poky/master
+
+Thanks
+	Sau!
 
