@@ -1,19 +1,19 @@
 Return-Path: <tom.zanussi@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 1BA9D4C80A1D
-	for <poky@yoctoproject.org>; Mon, 25 Apr 2011 16:13:25 -0500 (CDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 25 Apr 2011 14:13:25 -0700
-Message-Id: <b7da2f$r7tac1@fmsmga001.fm.intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 38D0A4C80A1D
+	for <poky@yoctoproject.org>; Mon, 25 Apr 2011 16:13:27 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 25 Apr 2011 14:13:26 -0700
+Message-Id: <0d30dc$m01ree@orsmga001.jf.intel.com>
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,266,1301900400"; d="scan'208";a="914270595"
+X-IronPort-AV: E=Sophos;i="4.64,266,1301900400"; d="scan'208";a="738258386"
 Received: from unknown (HELO localhost) ([10.255.12.226])
-	by fmsmga001.fm.intel.com with ESMTP; 25 Apr 2011 14:13:25 -0700
-Old-Date: Mon, 25 Apr 2011 15:57:43 -0500
-Date: Mon, 25 Apr 2011 16:13:24 -0500
+	by orsmga001.jf.intel.com with ESMTP; 25 Apr 2011 14:13:26 -0700
+Old-Date: Mon, 25 Apr 2011 14:33:01 -0500
+Date: Mon, 25 Apr 2011 16:13:25 -0500
 To: poky@yoctoproject.org
 From: Tom Zanussi <tom.zanussi@intel.com>
-Subject: [PATCH 0/2] meta-intel: README fixes for bernard
+Subject: [PATCH 1/2] meta-emenlow: add hw blurb to README
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -25,25 +25,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 25 Apr 2011 21:13:26 -0000
+X-List-Received-Date: Mon, 25 Apr 2011 21:13:27 -0000
 
 From: Tom Zanussi <tom.zanussi@intel.com>
 
-A couple of updates to meta-intel READMEs.
+Add a small description of the eMenlow platform, for release notes.
 
-Please pull into meta-intel/bernard.
+Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
+---
+ meta-emenlow/README |    3 +++
+ 1 files changed, 3 insertions(+), 0 deletions(-)
 
-Pull URL: git://git.pokylinux.org/meta-intel/tzanussi/README-fixes-bernard
-  Branch: tzanussi/README-fixes-bernard
-  Browse:
-http://git.pokylinux.org/cgit.cgi/meta-intel/log/?h=tzanussi/README-fixes-bernard
-
-Tom Zanussi (2):
-  meta-emenlow: add hw blurb to README
-  meta-crownbay: update documentation with hw and build details
-
- meta-crownbay/README |   42 +++++++++++++++++++++++++++++++-----------
- meta-emenlow/README  |    3 +++
- 2 files changed, 34 insertions(+), 11 deletions(-)
+diff --git a/meta-emenlow/README b/meta-emenlow/README
+index db9f475..e724b13 100644
+--- a/meta-emenlow/README
++++ b/meta-emenlow/README
+@@ -2,6 +2,9 @@ This README file contains information on building the meta-emenlow
+ BSP layer using any of the supported machine configurations, and
+ booting the images contained in the /binary directory.
+ 
++The 'eMenlow' platform consists of the Intel Atom Z5xx processor,
++plus the Intel US15W System Controller Hub.
++
+ If you're only interested in booting the images in the /binary
+ directory of a BSP tarball you've downloaded, there's nothing special
+ to do - the appropriate images are already in the /binary directory
+-- 
+1.7.0.4
 
 
