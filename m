@@ -1,25 +1,31 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id F11CE4C80578
-	for <poky@yoctoproject.org>; Mon, 25 Apr 2011 00:41:30 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 24 Apr 2011 22:41:30 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,264,1301900400"; d="scan'208";a="633645535"
-Received: from unknown (HELO [10.255.12.237]) ([10.255.12.237])
-	by orsmga002.jf.intel.com with ESMTP; 24 Apr 2011 22:41:30 -0700
-Message-ID: <4DB50989.8010605@linux.intel.com>
-Date: Sun, 24 Apr 2011 22:41:29 -0700
-From: Saul Wold <sgw@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
-MIME-Version: 1.0
-To: Tom Zanussi <tom.zanussi@intel.com>
-References: <cover.1303372141.git.tom.zanussi@intel.com>
-In-Reply-To: <cover.1303372141.git.tom.zanussi@intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/1] fix for bug 994 (host infection in compile_perf)
+Return-Path: <eha@dev.doredevelopment.dk>
+Received: from mail.doredevelopment.dk (unknown [77.233.226.4])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 34FAF4C80578;
+	Mon, 25 Apr 2011 02:48:26 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.doredevelopment.dk (Postfix) with ESMTP id 1B3614094;
+	Mon, 25 Apr 2011 09:48:26 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at dev.doredevelopment.dk
+Received: from mail.doredevelopment.dk ([127.0.0.1])
+	by localhost (public.doredevelopment.dk [127.0.0.1]) (amavisd-new,
+	port 10024)
+	with ESMTP id KLvSpJXbsP8o; Mon, 25 Apr 2011 09:48:24 +0200 (CEST)
+Received: from [192.168.1.189] (0x55532124.adsl.cybercity.dk [85.83.33.36])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested) (Authenticated sender: eha)
+	by mail.doredevelopment.dk (Postfix) with ESMTPSA id 482062F66;
+	Mon, 25 Apr 2011 09:48:22 +0200 (CEST)
+From: Esben Haabendal <eha@dev.doredevelopment.dk>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+In-Reply-To: <1300408987.30423.2172.camel@rex>
+References: <1300408987.30423.2172.camel@rex>
+Organization: DoreDevelopment ApS
+Date: Mon, 25 Apr 2011 09:48:13 +0200
+Message-ID: <1303717693.964.10.camel@eha>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.30.3 
+Cc: yocto <yocto@yoctoproject.org>, poky <poky@yoctoproject.org>
+Subject: Re: Shared State - What does it mean and why should I care?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,40 +37,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 25 Apr 2011 05:41:31 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Mon, 25 Apr 2011 07:48:28 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On 04/21/2011 12:54 AM, Tom Zanussi wrote:
-> From: Tom Zanussi<tom.zanussi@intel.com>
->
-> I haven't been able to reproduce the build failures even with libnewt-devel
-> installed, so please test and make sure it fixes the problems you're
-> seeing before applying, Saul.
->
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->    Branch: tzanussi/bugfix-994
->    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=tzanussi/bugfix-994
->
-> Thanks,
->      Tom Zanussi<tom.zanussi@intel.com>
-> ---
->
->
-> Tom Zanussi (1):
->    linux-tools.inc: turn off newt and dwarf for perf
->
->   meta/recipes-kernel/linux/linux-tools.inc |    4 ++--
->   1 files changed, 2 insertions(+), 2 deletions(-)
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
+On Fri, 2011-03-18 at 00:43 +0000, Richard Purdie wrote:
 
-Pulled into oe-core and poky/master
+> As a real world example, the aim is when building an ipk based image,
+> only the do_package_write_ipk tasks would have their sstate packages
+> fetched and extracted. Since the sysroot isn't used, it would never get
+> extracted. This is another reason to prefer the task based approach
+> sstate takes over any recipe based approach which would have to install
+> the output from every task.
 
-Thanks
-	Sau!
+In case anyone cares, the "per-recipe based staging" used in OE-lite,
+and proposed as a future design concept for OE-core (although clearly
+not going to be used in OE-core anytime soon) is also task based in the
+above context, and has the same advantage as described for sstate above.
+
+I just wanted to make the point as the "any recipe based approach" could
+easily give casual readers the assumption that this was a weak point in
+my proposal.
+
+/Esben
+
 
