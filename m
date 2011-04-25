@@ -1,25 +1,19 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A30714C80578
-	for <poky@yoctoproject.org>; Sun, 24 Apr 2011 15:16:52 -0500 (CDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 24 Apr 2011 13:16:52 -0700
+Return-Path: <nitin.a.kamble@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 1ABA14C80578
+	for <poky@yoctoproject.org>; Sun, 24 Apr 2011 19:25:00 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 24 Apr 2011 17:24:59 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,263,1301900400"; d="scan'208";a="683260176"
-Received: from unknown (HELO [10.255.12.237]) ([10.255.12.237])
-	by fmsmga002.fm.intel.com with ESMTP; 24 Apr 2011 13:16:51 -0700
-Message-ID: <4DB48532.3030605@linux.intel.com>
-Date: Sun, 24 Apr 2011 13:16:50 -0700
-From: Saul Wold <sgw@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
-MIME-Version: 1.0
-To: "Cui, Dexuan" <dexuan.cui@intel.com>, 
-	'Patches and discussions about the oe-core layer'
-	<openembedded-core@lists.openembedded.org>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: gdb and lttng-ust 0.12
+X-IronPort-AV: E=Sophos;i="4.64,264,1301900400"; d="scan'208";a="633502458"
+Received: from nbuild1.sc.intel.com (HELO localhost) ([172.25.110.36])
+	by orsmga002.jf.intel.com with ESMTP; 24 Apr 2011 17:24:59 -0700
+Message-Id: <cover.1303690971.git.nitin.a.kamble@intel.com>
+Old-Date: Sun, 24 Apr 2011 17:22:51 -0700
+Date: Sun, 24 Apr 2011 17:24:38 -0700
+To: openembedded-core@lists.openembedded.org,poky@yoctoproject.org
+From: Nitin A Kamble <nitin.a.kamble@intel.com>
+Subject: [PATCH 0/1] perl recipe upgrade
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,110 +25,163 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 24 Apr 2011 20:16:53 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 25 Apr 2011 00:25:00 -0000
+
+From: Nitin A Kamble <nitin.a.kamble@intel.com>
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: nitin/upgrades
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=nitin/upgrades
+
+Thanks,
+    Nitin A Kamble <nitin.a.kamble@intel.com>
+---
 
 
-Dexuan,
+Nitin A Kamble (1):
+  perl: upgrade from 5.12.2 to 5.12.3
 
-It seems that when you updated lttng-ust to 0.12, it installed an 
-/usr/include/ust directory that GDB now finds.  This caused the 
-gdbserver code to not build.
-
-I investigated this and it seems to be due to gdb having a dependency on 
-UST that causes GDB not to compile.  I think at this point we may want 
-to continue with UST disabled in gdb.
-
-To reproduce this, ensure that lttng-ust-0.12 is built before building 
-gdb and you should see a compilation failure.
-
-My concern here is that if fix the GDB compilation failures, what else 
-is going to fail as far as debugging with UST enabled on the remote, I 
-know this feature is something we want, and should probably report to 
-the GDB upstream.
-
-The fix seems to be as simple as adding "--without-ust" to the gdb 
-EXTRA_OECONF line.
-
-Comments?
+ .../09_fix_installperl.patch                       |    6 +-
+ .../Configure-multilib.patch                       |    6 +-
+ .../{perl-5.12.2 => perl-5.12.3}/Makefile.SH.patch |   44 ++++++------
+ .../{perl-5.12.2 => perl-5.12.3}/Makefile.patch    |    6 +-
+ .../asm-pageh-fix.patch                            |    6 +-
+ .../perl/{perl-5.12.2 => perl-5.12.3}/config.sh    |   46 ++++++------
+ .../perl/{perl-5.12.2 => perl-5.12.3}/config.sh-32 |    0
+ .../{perl-5.12.2 => perl-5.12.3}/config.sh-32-be   |    0
+ .../{perl-5.12.2 => perl-5.12.3}/config.sh-32-le   |    0
+ .../perl/{perl-5.12.2 => perl-5.12.3}/config.sh-64 |    0
+ .../{perl-5.12.2 => perl-5.12.3}/config.sh-64-be   |    0
+ .../{perl-5.12.2 => perl-5.12.3}/config.sh-64-le   |    0
+ .../cross-generate_uudmap.patch                    |    0
+ .../debian/arm_optim.diff                          |    2 +-
+ .../debian/arm_thread_stress_timeout.diff          |    2 +-
+ .../debian/cpan_config_path.diff                   |    2 +-
+ .../debian/cpan_definstalldirs.diff                |    2 +-
+ .../debian/cpanplus_config_path.diff               |    2 +-
+ .../debian/cpanplus_definstalldirs.diff            |    2 +-
+ .../debian/db_file_ver.diff                        |    2 +-
+ .../debian/deprecate-with-apt.diff                 |    2 +-
+ .../debian/devel-ppport-ia64-optim.diff            |    2 +-
+ .../debian/disable-zlib-bundling.diff              |    2 +-
+ .../debian/doc_info.diff                           |    6 +-
+ .../debian/enc2xs_inc.diff                         |    9 +-
+ .../debian/errno_ver.diff                          |    2 +-
+ .../debian/extutils_hacks.diff                     |    2 +-
+ .../debian/fakeroot.diff                           |    4 +-
+ .../debian/fixes/autodie-flock.diff                |    2 +-
+ .../debian/fixes/concat-stack-corruption.diff      |    4 +-
+ .../debian/fixes/cpanplus-without-home.diff        |    2 +-
+ .../debian/fixes/h2ph-gcc-4.5.diff                 |    2 +-
+ .../debian/fixes/hurd-ccflags.diff                 |    2 +-
+ .../debian/fixes/lc-numeric-docs.diff              |    2 +-
+ .../debian/fixes/lc-numeric-sprintf.diff           |    2 +-
+ .../debian/fixes/net_smtp_docs.diff                |    2 +-
+ .../debian/fixes/processPL.diff                    |    2 +-
+ .../debian/instmodsh_doc.diff                      |    2 +-
+ .../debian/ld_run_path.diff                        |    2 +-
+ .../debian/libnet_config_path.diff                 |    2 +-
+ .../debian/m68k_thread_stress.diff                 |    2 +-
+ .../debian/mod_paths.diff                          |    2 +-
+ .../debian/module_build_man_extensions.diff        |    2 +-
+ .../perl/perl-5.12.3/debian/patchlevel             |   45 +++++++++++
+ .../debian/perlivp.diff                            |    2 +-
+ .../debian/prune_libs.diff                         |    2 +-
+ .../perl/perl-5.12.3/debian/series                 |   34 +++++++++
+ .../debian/squelch-locale-warnings.diff            |    2 +-
+ .../{perl-5.12.2 => perl-5.12.3}/generate-sh.patch |    0
+ .../{perl-5.12.2 => perl-5.12.3}/installperl.patch |    6 +-
+ .../letgcc-find-errno.patch                        |    6 +-
+ .../native-nopacklist.patch                        |    6 +-
+ .../native-perlinc.patch                           |    4 +-
+ .../{perl-5.12.2 => perl-5.12.3}/native-ssp.patch  |    0
+ .../parallel_build_fix_1.patch                     |    0
+ .../parallel_build_fix_2.patch                     |    0
+ .../parallel_build_fix_3.patch                     |    0
+ .../parallel_build_fix_4.patch                     |    0
+ .../parallel_build_fix_5.patch                     |   52 +++++++-------
+ .../parallel_build_fix_6.patch                     |   36 +++++-----
+ .../perl-configpm-switch.patch                     |    0
+ .../{perl-5.12.2 => perl-5.12.3}/perl-configure.sh |    2 +-
+ .../perl-dynloader.patch                           |    4 +-
+ .../perl-enable-gdbm.patch                         |    0
+ .../perl-moreconfig.patch                          |    0
+ ...perl-native_5.12.2.bb => perl-native_5.12.3.bb} |    8 +-
+ ...depends_5.12.2.inc => perl-rdepends_5.12.3.inc} |    0
+ ...ovides_5.12.2.inc => perl-rprovides_5.12.3.inc} |    0
+ .../perl/{perl_5.12.2.bb => perl_5.12.3.bb}        |   79 ++++++++++----------
+ 69 files changed, 280 insertions(+), 197 deletions(-)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/09_fix_installperl.patch (87%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/Configure-multilib.patch (89%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/Makefile.SH.patch (89%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/Makefile.patch (95%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/asm-pageh-fix.patch (77%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/config.sh (95%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/config.sh-32 (100%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/config.sh-32-be (100%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/config.sh-32-le (100%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/config.sh-64 (100%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/config.sh-64-be (100%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/config.sh-64-le (100%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/cross-generate_uudmap.patch (100%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/debian/arm_optim.diff (92%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/debian/arm_thread_stress_timeout.diff (90%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/debian/cpan_config_path.diff (92%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/debian/cpan_definstalldirs.diff (95%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/debian/cpanplus_config_path.diff (96%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/debian/cpanplus_definstalldirs.diff (95%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/debian/db_file_ver.diff (95%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/debian/deprecate-with-apt.diff (97%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/debian/devel-ppport-ia64-optim.diff (93%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/debian/disable-zlib-bundling.diff (92%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/debian/doc_info.diff (88%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/debian/enc2xs_inc.diff (82%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/debian/errno_ver.diff (94%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/debian/extutils_hacks.diff (99%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/debian/fakeroot.diff (93%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/debian/fixes/autodie-flock.diff (98%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/debian/fixes/concat-stack-corruption.diff (91%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/debian/fixes/cpanplus-without-home.diff (94%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/debian/fixes/h2ph-gcc-4.5.diff (98%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/debian/fixes/hurd-ccflags.diff (92%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/debian/fixes/lc-numeric-docs.diff (98%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/debian/fixes/lc-numeric-sprintf.diff (93%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/debian/fixes/net_smtp_docs.diff (91%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/debian/fixes/processPL.diff (95%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/debian/instmodsh_doc.diff (93%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/debian/ld_run_path.diff (93%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/debian/libnet_config_path.diff (95%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/debian/m68k_thread_stress.diff (95%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/debian/mod_paths.diff (97%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/debian/module_build_man_extensions.diff (96%)
+ create mode 100644 meta/recipes-devtools/perl/perl-5.12.3/debian/patchlevel
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/debian/perlivp.diff (96%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/debian/prune_libs.diff (96%)
+ create mode 100644 meta/recipes-devtools/perl/perl-5.12.3/debian/series
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/debian/squelch-locale-warnings.diff (96%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/generate-sh.patch (100%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/installperl.patch (81%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/letgcc-find-errno.patch (92%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/native-nopacklist.patch (94%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/native-perlinc.patch (88%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/native-ssp.patch (100%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/parallel_build_fix_1.patch (100%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/parallel_build_fix_2.patch (100%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/parallel_build_fix_3.patch (100%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/parallel_build_fix_4.patch (100%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/parallel_build_fix_5.patch (95%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/parallel_build_fix_6.patch (89%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/perl-configpm-switch.patch (100%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/perl-configure.sh (95%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/perl-dynloader.patch (90%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/perl-enable-gdbm.patch (100%)
+ rename meta/recipes-devtools/perl/{perl-5.12.2 => perl-5.12.3}/perl-moreconfig.patch (100%)
+ rename meta/recipes-devtools/perl/{perl-native_5.12.2.bb => perl-native_5.12.3.bb} (94%)
+ rename meta/recipes-devtools/perl/{perl-rdepends_5.12.2.inc => perl-rdepends_5.12.3.inc} (100%)
+ rename meta/recipes-devtools/perl/{perl-rprovides_5.12.2.inc => perl-rprovides_5.12.3.inc} (100%)
+ rename meta/recipes-devtools/perl/{perl_5.12.2.bb => perl_5.12.3.bb} (85%)
 
 -- 
-     Sau!
-
-Saul Wold
-Yocto Component Wrangler @ Intel
-Yocto Project / Poky Build System
-
-Error while compiling tracepoint.c -> tracepoint-ipa.o (note it's -ipa.o 
-so a different set of flags).
-
-
-| ccache i586-poky-linux-gcc -march=i586 
---sysroot=/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/sysroots/qemux86 
--c  -Wall    -I. 
--I/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver 
--I/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/../common 
--I/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/../regformats 
--I/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/../../include 
--O2 -pipe -g -feliminate-unused-debug-types 
--DCONFIG_UST_GDB_INTEGRATION -fPIC -DGDBSERVER -DIN_PROCESS_AGENT 
--fvisibility=hidden 
-/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/tracepoint.c 
--o tracepoint-ipa.o
-| 
-/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/tracepoint.c: 
-In function 'first_marker':
-| 
-/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/tracepoint.c:7009:3: 
-warning: return from incompatible pointer type
-| 
-/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/tracepoint.c: 
-In function 'next_marker':
-| 
-/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/tracepoint.c:7024:23: 
-warning: comparison of distinct pointer types lacks a cast
-| 
-/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/tracepoint.c:7027:4: 
-warning: return from incompatible pointer type
-| 
-/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/tracepoint.c: 
-In function 'unprobe_marker_at':
-| 
-/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/tracepoint.c:7105:33: 
-error: request for member 'location' in something not a structure or union
-| 
-/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/tracepoint.c:7109:51: 
-error: request for member 'channel' in something not a structure or union
-| 
-/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/tracepoint.c:7110:23: 
-error: request for member 'name' in something not a structure or union
-| 
-/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/tracepoint.c:7114:17: 
-error: request for member 'channel' in something not a structure or union
-| 
-/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/tracepoint.c:7114:39: 
-error: request for member 'name' in something not a structure or union
-| 
-/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/tracepoint.c: 
-In function 'probe_marker_at':
-| 
-/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/tracepoint.c:7135:43: 
-warning: assignment from incompatible pointer type
-| 
-/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/tracepoint.c:7137:42: 
-warning: assignment from incompatible pointer type
-| 
-/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/tracepoint.c: 
-In function 'cmd_qtstmat':
-| 
-/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/tracepoint.c:7180:43: 
-warning: assignment from incompatible pointer type
-| 
-/vol/1/sgw/autobuilder/poky-slave/poky-full-ia/build/build/tmp/work/i586-poky-linux/gdb-7.2-r0/gdb-7.2/gdb/gdbserver/tracepoint.c:7182:42: 
-warning: assignment from incompatible pointer type
-| make[4]: *** [tracepoint-ipa.o] Error 1
-
-
+1.7.2.2
 
 
