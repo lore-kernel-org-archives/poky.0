@@ -1,37 +1,24 @@
-Return-Path: <dexuan.cui@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 1D6FF4C800AC
-	for <poky@yoctoproject.org>; Mon, 25 Apr 2011 04:07:21 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 25 Apr 2011 02:07:21 -0700
+Return-Path: <qing.he@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 813A74C80A1D
+	for <poky@yoctoproject.org>; Mon, 25 Apr 2011 04:57:32 -0500 (CDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 25 Apr 2011 02:57:32 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,265,1301900400"; d="scan'208";a="633714341"
-Received: from pgsmsx601.gar.corp.intel.com ([10.221.43.69])
-	by orsmga002.jf.intel.com with ESMTP; 25 Apr 2011 02:07:20 -0700
-Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
-	pgsmsx601.gar.corp.intel.com (10.221.43.69) with Microsoft SMTP Server
-	(TLS) id 8.2.255.0; Mon, 25 Apr 2011 17:06:44 +0800
-Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
-	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
-	Mon, 25 Apr 2011 17:06:44 +0800
-From: "Cui, Dexuan" <dexuan.cui@intel.com>
-To: 'Saul Wold' <sgw@linux.intel.com>, 'Patches and discussions about the
-	oe-core layer' <openembedded-core@lists.openembedded.org>
-Date: Mon, 25 Apr 2011 17:06:43 +0800
-Thread-Topic: gdb and lttng-ust 0.12
-Thread-Index: AcwCvI2yChmt5WNXRPWLnEhSH8PswgALP8PgAAdoBKAABr6OQA==
-Message-ID: <1865303E0DED764181A9D882DEF65FB69317AB0EDE@shsmsx502.ccr.corp.intel.com>
-References: <4DB48532.3030605@linux.intel.com>
-	<1865303E0DED764181A9D882DEF65FB69317AB0ED9@shsmsx502.ccr.corp.intel.com>
-	<1865303E0DED764181A9D882DEF65FB69317AB0EDB@shsmsx502.ccr.corp.intel.com>
-In-Reply-To: <1865303E0DED764181A9D882DEF65FB69317AB0EDB@shsmsx502.ccr.corp.intel.com>
-Accept-Language: zh-CN, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: zh-CN, en-US
-MIME-Version: 1.0
-Cc: "'poky@yoctoproject.org'" <poky@yoctoproject.org>
-Subject: Re: gdb and lttng-ust 0.12
+X-IronPort-AV: E=Sophos;i="4.64,265,1301900400"; d="scan'208";a="683554321"
+Received: from qhe2-db.sh.intel.com ([10.239.13.48])
+	by fmsmga002.fm.intel.com with ESMTP; 25 Apr 2011 02:57:31 -0700
+Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
+	(envelope-from <qing.he@intel.com>)
+	id 1QEIQO-0002Tb-7Z; Mon, 25 Apr 2011 17:49:48 +0800
+Message-Id: <e78daad8bde98c1a4d46048d9eb1d181f0b55981.1303724875.git.qing.he@intel.com>
+In-Reply-To: <cover.1303724875.git.qing.he@intel.com>
+References: <cover.1303724875.git.qing.he@intel.com>
+Old-Date: Wed, 13 Apr 2011 16:59:22 +0800
+Date: Mon, 25 Apr 2011 17:49:48 +0800
+To: poky@yoctoproject.org
+From: Qing He <qing.he@intel.com>
+Subject: [PATCH 1/2] sat-solver: fix arch=all packages
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,137 +30,142 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 25 Apr 2011 09:07:22 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="gb2312"
-Content-Transfer-Encoding: base64
+X-List-Received-Date: Mon, 25 Apr 2011 09:57:32 -0000
 
-SGkgU2F1bCwNCkR1ZSB0byB0aGUgQVBJIGNoYW5nZSBpbiB1c3QtMC4xMiwgd2UnbGwgaGF2ZSB0
-byB3YWl0IHVwc3RyZWFtIGdkYidzIGZpeCAoSSB2ZXJpZmllZCB0aGUgbGF0ZXN0IGdkYiBzbmFw
-c2hvdCBnZGItNy4yLjkwLjIwMTEwNDI1IGhhcyB0aGUgc2FtZSBpc3N1ZS4gSSB3aWxsIHJlcG9y
-dCBhIGJ1ZyBpbiBnZGIgYnVnemlsbGEpIC4NCkkndmUgcmVwb3J0ZWQgaHR0cDovL2J1Z3ppbGxh
-LnBva3lsaW51eC5vcmcvc2hvd19idWcuY2dpP2lkPTEwMDUgdG8gcmVjb3JkIHRoaXMgaXNzdWUu
-DQoNClRoYW5rcywNCi0tIERleHVhbg0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJv
-bTogcG9reS1ib3VuY2VzQHlvY3RvcHJvamVjdC5vcmcgW21haWx0bzpwb2t5LWJvdW5jZXNAeW9j
-dG9wcm9qZWN0Lm9yZ10gT24gQmVoYWxmIE9mIEN1aSwgRGV4dWFuDQpTZW50OiAyMDExxOo01MIy
-NcjVIDEzOjE1DQpUbzogJ1NhdWwgV29sZCc7ICdQYXRjaGVzIGFuZCBkaXNjdXNzaW9ucyBhYm91
-dCB0aGUgb2UtY29yZSBsYXllcicNCkNjOiAncG9reUB5b2N0b3Byb2plY3Qub3JnJw0KU3ViamVj
-dDogUmU6IFtwb2t5XSBnZGIgYW5kIGx0dG5nLXVzdCAwLjEyDQoNCkhpIFNhdWwsDQpJIHByZWZl
-ciAiY29udGludWUgd2l0aCBVU1QgZGlzYWJsZWQgaW4gZ2RiIiBmb3Igbm93Lg0KDQpJJ20gaW52
-ZXN0aWdhdGluZyBtb3JlIHRvIGdldCBhbiBpbi1kZXB0aCB1bmRlcnN0YW5kaW5nIGFib3V0IHRo
-ZSBpc3N1ZS4gZS5nLiwgdXN0LTAuMTEgZG9lc24ndCBicmVhayBidWlsZGluZyBnZGIgd2hpbGUg
-dXN0LTAuMTIgZG9lcyAtLSBob3dldmVyIGJvdGggMC4xMSBhbmQgMC4xMiBpbnN0YWxsIC91c3Iv
-aW5jbHVkZS91c3QvLg0KDQpUaGFua3MsDQotLSBEZXh1YW4NCg0KLS0tLS1PcmlnaW5hbCBNZXNz
-YWdlLS0tLS0NCkZyb206IEN1aSwgRGV4dWFuIA0KU2VudDogMjAxMcTqNNTCMjXI1SA5OjU3DQpU
-bzogJ1NhdWwgV29sZCc7ICdQYXRjaGVzIGFuZCBkaXNjdXNzaW9ucyBhYm91dCB0aGUgb2UtY29y
-ZSBsYXllcicNCkNjOiBwb2t5QHlvY3RvcHJvamVjdC5vcmcNClN1YmplY3Q6IFJFOiBnZGIgYW5k
-IGx0dG5nLXVzdCAwLjEyDQoNCkhpIFNhdWwsDQpUaGFua3MgdmVyeSBtdWNoIGZvciB0aGUgaW52
-ZXN0aWdhdGlvbiEgDQpJIGNhbiByZXByb2R1Y2UgdGhlIGlzc3VlIG5vdyB3aGVuIEkgYnVpbGQg
-Z2RiIGFmdGVyIGJ1aWxkaW5nIGx0dG5nLXVzdCAocHJldmlvdXNseSBsb29rcyBJIGJ1aWx0IHRo
-ZW0gaW4gdGhlIHJldmVyc2Ugb3JkZXIsIHNvIGRpZG4ndCBjYXRjaCBpdC4pDQoNCkkgaGF2ZW4n
-dCB1bmRlcnN0b29kIHdoeSB0aGlzIGlzc3VlIG9jY3VycmVkIGFmdGVyIEkgdXBncmFkZWQgdXN0
-IGZyb20gMC4xMSB0byAwLjEyIGFzIDAuMTEgYWN0dWFsbHkgaW5zdGFsbHMgL3Vzci9pbmNsdWRl
-L3VzdCwgdG9vLiBBbmQgZ2RiIHdhcyBub3QgdXBncmFkZWQgcmVjZW50bHkuDQoNCkknbSBsb29r
-aW5nIGludG8gdGhpcyBub3cgYW5kIHdpbGwgdXBkYXRlIGFzYXAuDQoNClRoYW5rcywNCi0tIERl
-eHVhbg0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogU2F1bCBXb2xkIFttYWls
-dG86c2d3QGxpbnV4LmludGVsLmNvbV0gDQpTZW50OiAyMDExxOo01MIyNcjVIDQ6MTcNClRvOiBD
-dWksIERleHVhbjsgJ1BhdGNoZXMgYW5kIGRpc2N1c3Npb25zIGFib3V0IHRoZSBvZS1jb3JlIGxh
-eWVyJw0KQ2M6IHBva3lAeW9jdG9wcm9qZWN0Lm9yZw0KU3ViamVjdDogZ2RiIGFuZCBsdHRuZy11
-c3QgMC4xMg0KDQoNCkRleHVhbiwNCg0KSXQgc2VlbXMgdGhhdCB3aGVuIHlvdSB1cGRhdGVkIGx0
-dG5nLXVzdCB0byAwLjEyLCBpdCBpbnN0YWxsZWQgYW4gDQovdXNyL2luY2x1ZGUvdXN0IGRpcmVj
-dG9yeSB0aGF0IEdEQiBub3cgZmluZHMuICBUaGlzIGNhdXNlZCB0aGUgDQpnZGJzZXJ2ZXIgY29k
-ZSB0byBub3QgYnVpbGQuDQoNCkkgaW52ZXN0aWdhdGVkIHRoaXMgYW5kIGl0IHNlZW1zIHRvIGJl
-IGR1ZSB0byBnZGIgaGF2aW5nIGEgZGVwZW5kZW5jeSBvbiANClVTVCB0aGF0IGNhdXNlcyBHREIg
-bm90IHRvIGNvbXBpbGUuICBJIHRoaW5rIGF0IHRoaXMgcG9pbnQgd2UgbWF5IHdhbnQgDQp0byBj
-b250aW51ZSB3aXRoIFVTVCBkaXNhYmxlZCBpbiBnZGIuDQoNClRvIHJlcHJvZHVjZSB0aGlzLCBl
-bnN1cmUgdGhhdCBsdHRuZy11c3QtMC4xMiBpcyBidWlsdCBiZWZvcmUgYnVpbGRpbmcgDQpnZGIg
-YW5kIHlvdSBzaG91bGQgc2VlIGEgY29tcGlsYXRpb24gZmFpbHVyZS4NCg0KTXkgY29uY2VybiBo
-ZXJlIGlzIHRoYXQgaWYgZml4IHRoZSBHREIgY29tcGlsYXRpb24gZmFpbHVyZXMsIHdoYXQgZWxz
-ZSANCmlzIGdvaW5nIHRvIGZhaWwgYXMgZmFyIGFzIGRlYnVnZ2luZyB3aXRoIFVTVCBlbmFibGVk
-IG9uIHRoZSByZW1vdGUsIEkgDQprbm93IHRoaXMgZmVhdHVyZSBpcyBzb21ldGhpbmcgd2Ugd2Fu
-dCwgYW5kIHNob3VsZCBwcm9iYWJseSByZXBvcnQgdG8gDQp0aGUgR0RCIHVwc3RyZWFtLg0KDQpU
-aGUgZml4IHNlZW1zIHRvIGJlIGFzIHNpbXBsZSBhcyBhZGRpbmcgIi0td2l0aG91dC11c3QiIHRv
-IHRoZSBnZGIgDQpFWFRSQV9PRUNPTkYgbGluZS4NCg0KQ29tbWVudHM/DQoNCi0tIA0KICAgICBT
-YXUhDQoNClNhdWwgV29sZA0KWW9jdG8gQ29tcG9uZW50IFdyYW5nbGVyIEAgSW50ZWwNCllvY3Rv
-IFByb2plY3QgLyBQb2t5IEJ1aWxkIFN5c3RlbQ0KDQpFcnJvciB3aGlsZSBjb21waWxpbmcgdHJh
-Y2Vwb2ludC5jIC0+IHRyYWNlcG9pbnQtaXBhLm8gKG5vdGUgaXQncyAtaXBhLm8gDQpzbyBhIGRp
-ZmZlcmVudCBzZXQgb2YgZmxhZ3MpLg0KDQoNCnwgY2NhY2hlIGk1ODYtcG9reS1saW51eC1nY2Mg
-LW1hcmNoPWk1ODYgDQotLXN5c3Jvb3Q9L3ZvbC8xL3Nndy9hdXRvYnVpbGRlci9wb2t5LXNsYXZl
-L3Bva3ktZnVsbC1pYS9idWlsZC9idWlsZC90bXAvc3lzcm9vdHMvcWVtdXg4NiANCi1jICAtV2Fs
-bCAgICAtSS4gDQotSS92b2wvMS9zZ3cvYXV0b2J1aWxkZXIvcG9reS1zbGF2ZS9wb2t5LWZ1bGwt
-aWEvYnVpbGQvYnVpbGQvdG1wL3dvcmsvaTU4Ni1wb2t5LWxpbnV4L2dkYi03LjItcjAvZ2RiLTcu
-Mi9nZGIvZ2Ric2VydmVyIA0KLUkvdm9sLzEvc2d3L2F1dG9idWlsZGVyL3Bva3ktc2xhdmUvcG9r
-eS1mdWxsLWlhL2J1aWxkL2J1aWxkL3RtcC93b3JrL2k1ODYtcG9reS1saW51eC9nZGItNy4yLXIw
-L2dkYi03LjIvZ2RiL2dkYnNlcnZlci8uLi9jb21tb24gDQotSS92b2wvMS9zZ3cvYXV0b2J1aWxk
-ZXIvcG9reS1zbGF2ZS9wb2t5LWZ1bGwtaWEvYnVpbGQvYnVpbGQvdG1wL3dvcmsvaTU4Ni1wb2t5
-LWxpbnV4L2dkYi03LjItcjAvZ2RiLTcuMi9nZGIvZ2Ric2VydmVyLy4uL3JlZ2Zvcm1hdHMgDQot
-SS92b2wvMS9zZ3cvYXV0b2J1aWxkZXIvcG9reS1zbGF2ZS9wb2t5LWZ1bGwtaWEvYnVpbGQvYnVp
-bGQvdG1wL3dvcmsvaTU4Ni1wb2t5LWxpbnV4L2dkYi03LjItcjAvZ2RiLTcuMi9nZGIvZ2Ric2Vy
-dmVyLy4uLy4uL2luY2x1ZGUgDQotTzIgLXBpcGUgLWcgLWZlbGltaW5hdGUtdW51c2VkLWRlYnVn
-LXR5cGVzIA0KLURDT05GSUdfVVNUX0dEQl9JTlRFR1JBVElPTiAtZlBJQyAtREdEQlNFUlZFUiAt
-RElOX1BST0NFU1NfQUdFTlQgDQotZnZpc2liaWxpdHk9aGlkZGVuIA0KL3ZvbC8xL3Nndy9hdXRv
-YnVpbGRlci9wb2t5LXNsYXZlL3Bva3ktZnVsbC1pYS9idWlsZC9idWlsZC90bXAvd29yay9pNTg2
-LXBva3ktbGludXgvZ2RiLTcuMi1yMC9nZGItNy4yL2dkYi9nZGJzZXJ2ZXIvdHJhY2Vwb2ludC5j
-IA0KLW8gdHJhY2Vwb2ludC1pcGEubw0KfCANCi92b2wvMS9zZ3cvYXV0b2J1aWxkZXIvcG9reS1z
-bGF2ZS9wb2t5LWZ1bGwtaWEvYnVpbGQvYnVpbGQvdG1wL3dvcmsvaTU4Ni1wb2t5LWxpbnV4L2dk
-Yi03LjItcjAvZ2RiLTcuMi9nZGIvZ2Ric2VydmVyL3RyYWNlcG9pbnQuYzogDQpJbiBmdW5jdGlv
-biAnZmlyc3RfbWFya2VyJzoNCnwgDQovdm9sLzEvc2d3L2F1dG9idWlsZGVyL3Bva3ktc2xhdmUv
-cG9reS1mdWxsLWlhL2J1aWxkL2J1aWxkL3RtcC93b3JrL2k1ODYtcG9reS1saW51eC9nZGItNy4y
-LXIwL2dkYi03LjIvZ2RiL2dkYnNlcnZlci90cmFjZXBvaW50LmM6NzAwOTozOiANCndhcm5pbmc6
-IHJldHVybiBmcm9tIGluY29tcGF0aWJsZSBwb2ludGVyIHR5cGUNCnwgDQovdm9sLzEvc2d3L2F1
-dG9idWlsZGVyL3Bva3ktc2xhdmUvcG9reS1mdWxsLWlhL2J1aWxkL2J1aWxkL3RtcC93b3JrL2k1
-ODYtcG9reS1saW51eC9nZGItNy4yLXIwL2dkYi03LjIvZ2RiL2dkYnNlcnZlci90cmFjZXBvaW50
-LmM6IA0KSW4gZnVuY3Rpb24gJ25leHRfbWFya2VyJzoNCnwgDQovdm9sLzEvc2d3L2F1dG9idWls
-ZGVyL3Bva3ktc2xhdmUvcG9reS1mdWxsLWlhL2J1aWxkL2J1aWxkL3RtcC93b3JrL2k1ODYtcG9r
-eS1saW51eC9nZGItNy4yLXIwL2dkYi03LjIvZ2RiL2dkYnNlcnZlci90cmFjZXBvaW50LmM6NzAy
-NDoyMzogDQp3YXJuaW5nOiBjb21wYXJpc29uIG9mIGRpc3RpbmN0IHBvaW50ZXIgdHlwZXMgbGFj
-a3MgYSBjYXN0DQp8IA0KL3ZvbC8xL3Nndy9hdXRvYnVpbGRlci9wb2t5LXNsYXZlL3Bva3ktZnVs
-bC1pYS9idWlsZC9idWlsZC90bXAvd29yay9pNTg2LXBva3ktbGludXgvZ2RiLTcuMi1yMC9nZGIt
-Ny4yL2dkYi9nZGJzZXJ2ZXIvdHJhY2Vwb2ludC5jOjcwMjc6NDogDQp3YXJuaW5nOiByZXR1cm4g
-ZnJvbSBpbmNvbXBhdGlibGUgcG9pbnRlciB0eXBlDQp8IA0KL3ZvbC8xL3Nndy9hdXRvYnVpbGRl
-ci9wb2t5LXNsYXZlL3Bva3ktZnVsbC1pYS9idWlsZC9idWlsZC90bXAvd29yay9pNTg2LXBva3kt
-bGludXgvZ2RiLTcuMi1yMC9nZGItNy4yL2dkYi9nZGJzZXJ2ZXIvdHJhY2Vwb2ludC5jOiANCklu
-IGZ1bmN0aW9uICd1bnByb2JlX21hcmtlcl9hdCc6DQp8IA0KL3ZvbC8xL3Nndy9hdXRvYnVpbGRl
-ci9wb2t5LXNsYXZlL3Bva3ktZnVsbC1pYS9idWlsZC9idWlsZC90bXAvd29yay9pNTg2LXBva3kt
-bGludXgvZ2RiLTcuMi1yMC9nZGItNy4yL2dkYi9nZGJzZXJ2ZXIvdHJhY2Vwb2ludC5jOjcxMDU6
-MzM6IA0KZXJyb3I6IHJlcXVlc3QgZm9yIG1lbWJlciAnbG9jYXRpb24nIGluIHNvbWV0aGluZyBu
-b3QgYSBzdHJ1Y3R1cmUgb3IgdW5pb24NCnwgDQovdm9sLzEvc2d3L2F1dG9idWlsZGVyL3Bva3kt
-c2xhdmUvcG9reS1mdWxsLWlhL2J1aWxkL2J1aWxkL3RtcC93b3JrL2k1ODYtcG9reS1saW51eC9n
-ZGItNy4yLXIwL2dkYi03LjIvZ2RiL2dkYnNlcnZlci90cmFjZXBvaW50LmM6NzEwOTo1MTogDQpl
-cnJvcjogcmVxdWVzdCBmb3IgbWVtYmVyICdjaGFubmVsJyBpbiBzb21ldGhpbmcgbm90IGEgc3Ry
-dWN0dXJlIG9yIHVuaW9uDQp8IA0KL3ZvbC8xL3Nndy9hdXRvYnVpbGRlci9wb2t5LXNsYXZlL3Bv
-a3ktZnVsbC1pYS9idWlsZC9idWlsZC90bXAvd29yay9pNTg2LXBva3ktbGludXgvZ2RiLTcuMi1y
-MC9nZGItNy4yL2dkYi9nZGJzZXJ2ZXIvdHJhY2Vwb2ludC5jOjcxMTA6MjM6IA0KZXJyb3I6IHJl
-cXVlc3QgZm9yIG1lbWJlciAnbmFtZScgaW4gc29tZXRoaW5nIG5vdCBhIHN0cnVjdHVyZSBvciB1
-bmlvbg0KfCANCi92b2wvMS9zZ3cvYXV0b2J1aWxkZXIvcG9reS1zbGF2ZS9wb2t5LWZ1bGwtaWEv
-YnVpbGQvYnVpbGQvdG1wL3dvcmsvaTU4Ni1wb2t5LWxpbnV4L2dkYi03LjItcjAvZ2RiLTcuMi9n
-ZGIvZ2Ric2VydmVyL3RyYWNlcG9pbnQuYzo3MTE0OjE3OiANCmVycm9yOiByZXF1ZXN0IGZvciBt
-ZW1iZXIgJ2NoYW5uZWwnIGluIHNvbWV0aGluZyBub3QgYSBzdHJ1Y3R1cmUgb3IgdW5pb24NCnwg
-DQovdm9sLzEvc2d3L2F1dG9idWlsZGVyL3Bva3ktc2xhdmUvcG9reS1mdWxsLWlhL2J1aWxkL2J1
-aWxkL3RtcC93b3JrL2k1ODYtcG9reS1saW51eC9nZGItNy4yLXIwL2dkYi03LjIvZ2RiL2dkYnNl
-cnZlci90cmFjZXBvaW50LmM6NzExNDozOTogDQplcnJvcjogcmVxdWVzdCBmb3IgbWVtYmVyICdu
-YW1lJyBpbiBzb21ldGhpbmcgbm90IGEgc3RydWN0dXJlIG9yIHVuaW9uDQp8IA0KL3ZvbC8xL3Nn
-dy9hdXRvYnVpbGRlci9wb2t5LXNsYXZlL3Bva3ktZnVsbC1pYS9idWlsZC9idWlsZC90bXAvd29y
-ay9pNTg2LXBva3ktbGludXgvZ2RiLTcuMi1yMC9nZGItNy4yL2dkYi9nZGJzZXJ2ZXIvdHJhY2Vw
-b2ludC5jOiANCkluIGZ1bmN0aW9uICdwcm9iZV9tYXJrZXJfYXQnOg0KfCANCi92b2wvMS9zZ3cv
-YXV0b2J1aWxkZXIvcG9reS1zbGF2ZS9wb2t5LWZ1bGwtaWEvYnVpbGQvYnVpbGQvdG1wL3dvcmsv
-aTU4Ni1wb2t5LWxpbnV4L2dkYi03LjItcjAvZ2RiLTcuMi9nZGIvZ2Ric2VydmVyL3RyYWNlcG9p
-bnQuYzo3MTM1OjQzOiANCndhcm5pbmc6IGFzc2lnbm1lbnQgZnJvbSBpbmNvbXBhdGlibGUgcG9p
-bnRlciB0eXBlDQp8IA0KL3ZvbC8xL3Nndy9hdXRvYnVpbGRlci9wb2t5LXNsYXZlL3Bva3ktZnVs
-bC1pYS9idWlsZC9idWlsZC90bXAvd29yay9pNTg2LXBva3ktbGludXgvZ2RiLTcuMi1yMC9nZGIt
-Ny4yL2dkYi9nZGJzZXJ2ZXIvdHJhY2Vwb2ludC5jOjcxMzc6NDI6IA0Kd2FybmluZzogYXNzaWdu
-bWVudCBmcm9tIGluY29tcGF0aWJsZSBwb2ludGVyIHR5cGUNCnwgDQovdm9sLzEvc2d3L2F1dG9i
-dWlsZGVyL3Bva3ktc2xhdmUvcG9reS1mdWxsLWlhL2J1aWxkL2J1aWxkL3RtcC93b3JrL2k1ODYt
-cG9reS1saW51eC9nZGItNy4yLXIwL2dkYi03LjIvZ2RiL2dkYnNlcnZlci90cmFjZXBvaW50LmM6
-IA0KSW4gZnVuY3Rpb24gJ2NtZF9xdHN0bWF0JzoNCnwgDQovdm9sLzEvc2d3L2F1dG9idWlsZGVy
-L3Bva3ktc2xhdmUvcG9reS1mdWxsLWlhL2J1aWxkL2J1aWxkL3RtcC93b3JrL2k1ODYtcG9reS1s
-aW51eC9nZGItNy4yLXIwL2dkYi03LjIvZ2RiL2dkYnNlcnZlci90cmFjZXBvaW50LmM6NzE4MDo0
-MzogDQp3YXJuaW5nOiBhc3NpZ25tZW50IGZyb20gaW5jb21wYXRpYmxlIHBvaW50ZXIgdHlwZQ0K
-fCANCi92b2wvMS9zZ3cvYXV0b2J1aWxkZXIvcG9reS1zbGF2ZS9wb2t5LWZ1bGwtaWEvYnVpbGQv
-YnVpbGQvdG1wL3dvcmsvaTU4Ni1wb2t5LWxpbnV4L2dkYi03LjItcjAvZ2RiLTcuMi9nZGIvZ2Ri
-c2VydmVyL3RyYWNlcG9pbnQuYzo3MTgyOjQyOiANCndhcm5pbmc6IGFzc2lnbm1lbnQgZnJvbSBp
-bmNvbXBhdGlibGUgcG9pbnRlciB0eXBlDQp8IG1ha2VbNF06ICoqKiBbdHJhY2Vwb2ludC1pcGEu
-b10gRXJyb3IgMQ0KDQoNCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18NCnBva3kgbWFpbGluZyBsaXN0DQpwb2t5QHlvY3RvcHJvamVjdC5vcmcNCmh0dHBz
-Oi8vbGlzdHMueW9jdG9wcm9qZWN0Lm9yZy9saXN0aW5mby9wb2t5DQo=
+From: Qing He <qing.he@intel.com>
+
+add a new options to set noarch archs as all so platform independent
+packages can be recognized and installed.
+
+fixes [YOCTO #993]
+
+Signed-off-by: Qing He <qing.he@intel.com>
+---
+ ...sat-solver_poky.patch => sat-solver_core.patch} |   27 +++++++++++++++++--
+ meta/recipes-extended/sat-solver/sat-solver_git.bb |   16 ++++++------
+ 2 files changed, 32 insertions(+), 11 deletions(-)
+ rename meta/recipes-extended/sat-solver/sat-solver/{sat-solver_poky.patch => sat-solver_core.patch} (81%)
+
+diff --git a/meta/recipes-extended/sat-solver/sat-solver/sat-solver_poky.patch b/meta/recipes-extended/sat-solver/sat-solver/sat-solver_core.patch
+similarity index 81%
+rename from meta/recipes-extended/sat-solver/sat-solver/sat-solver_poky.patch
+rename to meta/recipes-extended/sat-solver/sat-solver/sat-solver_core.patch
+index b762bac..11bf5b0 100644
+--- a/meta/recipes-extended/sat-solver/sat-solver/sat-solver_poky.patch
++++ b/meta/recipes-extended/sat-solver/sat-solver/sat-solver_core.patch
+@@ -1,3 +1,5 @@
++Upstream-Status: Inappropriate [distribution]
++
+ Fix "arch" integration with Poky.
+ 
+ Add a missing "any" architecture type and update the semantics to use it.
+@@ -5,8 +7,27 @@ Add a missing "any" architecture type and update the semantics to use it.
+ Disable the built-in archpolicies structure, and replace it with one
+ we generate in the recipe.
+ 
++Also add poky semantics option in CMake.
++
+ Signed-off-by: Mark Hatle <mark.hatle@windriver.com>
++Signed-off-by: Qing He <qing.he@intel.com>
+ 
++diff --git a/CMakeLists.txt b/CMakeLists.txt
++index 443281e..4456a87 100644
++--- a/CMakeLists.txt
+++++ b/CMakeLists.txt
++@@ -45,6 +45,11 @@ MESSAGE(STATUS "Building for Debian")
++ ADD_DEFINITIONS( -DDEBIAN -DDEBIAN_SEMANTICS)
++ ENDIF ( DEBIAN )
++ 
+++IF ( OE_CORE )
+++MESSAGE(STATUS "Building for OE core")
+++ADD_DEFINITIONS( -DOE_CORE -DOE_CORE_SEMANTICS)
+++ENDIF ( OE_CORE )
+++
++ IF ( MULTI_SEMANTICS )
++ MESSAGE(STATUS "Enabling multi dist support")
++ ADD_DEFINITIONS( -DMULTI_SEMANTICS)
+ diff --git a/src/knownid.h b/src/knownid.h
+ index 7757ae0..4b8bee7 100644
+ --- a/src/knownid.h
+@@ -27,7 +48,7 @@ index 55c8677..3356ff8 100644
+      }
+  
+    /* we allow changes to/from noarch */
+-+#ifdef POKY_SEMANTICS
+++#ifdef OE_CORE_SEMANTICS
+ +  if (a1 == a2 || 
+ +	a1 == ARCH_NOARCH || a2 == ARCH_NOARCH ||
+ +	a1 == ARCH_ANY || a2 == ARCH_ANY ||
+@@ -86,7 +107,7 @@ index 34a14a3..2d7cd70 100644
+ -  0
+ -};
+ +/* Provide the const char *archpolicies structure */
+-+#include "poky-arch.h"
+++#include "core-arch.h"
+  
+  void
+  pool_setarch(Pool *pool, const char *arch)
+@@ -97,7 +118,7 @@ index 34a14a3..2d7cd70 100644
+ -#ifndef DEBIAN_SEMANTICS
+ -  id = ARCH_NOARCH;
+ -#else
+-+#if defined(DEBIAN_SEMANTICS) || defined(POKY_SEMANTICS)
+++#if defined(DEBIAN_SEMANTICS) || defined(OE_CORE_SEMANTICS)
+    id = ARCH_ALL;
+ +#else
+ +  id = ARCH_NOARCH;
+diff --git a/meta/recipes-extended/sat-solver/sat-solver_git.bb b/meta/recipes-extended/sat-solver/sat-solver_git.bb
+index a693776..2d4d299 100644
+--- a/meta/recipes-extended/sat-solver/sat-solver_git.bb
++++ b/meta/recipes-extended/sat-solver/sat-solver_git.bb
+@@ -7,19 +7,19 @@ LIC_FILES_CHKSUM = "file://LICENSE.BSD;md5=62272bd11c97396d4aaf1c41bc11f7d8"
+ DEPENDS = "libcheck rpm zlib expat db"
+ 
+ PV = "0.0-git${SRCPV}"
+-PR = "r8"
++PR = "r9"
+ 
+ SRC_URI = "git://gitorious.org/opensuse/sat-solver.git;protocol=git \
+            file://sat-solver_rpm5.patch \
+            file://sat-solver_obsolete.patch \
+            file://cmake.patch \
+            file://db5.patch \
+-           file://sat-solver_poky.patch \
++           file://sat-solver_core.patch \
+           "
+ 
+ S = "${WORKDIR}/git"
+ 
+-EXTRA_OECMAKE += "-DLIB=lib -DRPM5=RPM5"
++EXTRA_OECMAKE += "-DLIB=lib -DRPM5=RPM5 -DOE_CORE=OE_CORE"
+ 
+ inherit cmake pkgconfig
+ 
+@@ -38,18 +38,18 @@ do_archgen () {
+ 		INSTALL_PLATFORM_ARCHS="$each_arch $INSTALL_PLATFORM_ARCHS"
+ 	done
+ 
+-	echo "/* Automatically generated by the sat-solver recipe */" > src/poky-arch.h
+-	echo "const char *archpolicies[] = {" >> src/poky-arch.h
++	echo "/* Automatically generated by the sat-solver recipe */" > src/core-arch.h
++	echo "const char *archpolicies[] = {" >> src/core-arch.h
+ 
+         set -- $INSTALL_PLATFORM_ARCHS
+ 
+         save_IFS=$IFS
+         IFS=:
+-        while [ $# -gt 0 ]; do echo "  \"$1\",	"\""$*"\", >> src/poky-arch.h ; shift; done
++        while [ $# -gt 0 ]; do echo "  \"$1\",	"\""$*"\", >> src/core-arch.h ; shift; done
+         IFS=$save_IFS
+ 
+-	echo "  0" >> src/poky-arch.h
+-	echo "};" >> src/poky-arch.h
++	echo "  0" >> src/core-arch.h
++	echo "};" >> src/core-arch.h
+ }
+ 
+ addtask archgen before do_configure after do_patch
+-- 
+1.7.0
+
 
