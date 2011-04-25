@@ -1,25 +1,26 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5510A4C80578
-	for <poky@yoctoproject.org>; Mon, 25 Apr 2011 14:48:56 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 25 Apr 2011 12:48:55 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,266,1301900400"; d="scan'208";a="738226854"
-Received: from doubt.jf.intel.com (HELO [10.7.199.56]) ([10.7.199.56])
-	by orsmga001.jf.intel.com with ESMTP; 25 Apr 2011 12:48:55 -0700
-Message-ID: <4DB5D028.1060604@linux.intel.com>
-Date: Mon, 25 Apr 2011 12:48:56 -0700
-From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.14) Gecko/20110223 Lightning/1.0b2 Thunderbird/3.1.8
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 729E24C80A7C
+	for <poky@yoctoproject.org>; Mon, 25 Apr 2011 14:49:54 -0500 (CDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 24D1816602EA; Mon, 25 Apr 2011 13:49:51 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=ham version=3.3.2-r929478
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id B631116602D7;
+	Mon, 25 Apr 2011 13:49:50 -0600 (MDT)
+Message-ID: <4DB5D05E.1040409@mlbassoc.com>
+Date: Mon, 25 Apr 2011 13:49:50 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
 MIME-Version: 1.0
-To: Saul Wold <sgw@linux.intel.com>
-References: <cover.1303462728.git.xiaofeng.yan@windriver.com>
-	<4DB4FC30.10406@linux.intel.com>
-In-Reply-To: <4DB4FC30.10406@linux.intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/1] Rename creat-lsb-image and improve some	functions in script
+To: Poky Project <poky@yoctoproject.org>
+Subject: [PATCH] Need override for TEMPLATECONF
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,81 +32,63 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 25 Apr 2011 19:48:56 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Mon, 25 Apr 2011 19:49:54 -0000
+X-Groupsio-MsgNum: 5524
+Content-Type: multipart/mixed; boundary="------------050700040806040600070501"
+
+--------------050700040806040600070501
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Xiaofeng,
+The recently upgraded scripts used to setup the build environment
+have made it so that a distribution/layer can no longer provide
+the build templates.  This patch restores that possibility.
 
-Thanks for accepting all the feedback you received and working through
-another patch.
+Note: my patch that created this functionality allowed for the
+distribution/layers to provide XXX/conf/local.conf as well as
+XXX/conf/local.conf.sample  Any comments on why that was removed?
 
-As a matter of process (for the future) please remember to:
-
-1) make sure people who influenced a patch rewrite are CC'd on it
-2) Separate patches into logical blocks
-   o white space fixes
-   o renames
-   o contained functional changes
-
-#1 gives the reviewers an opportunity to perform a follow-up review and
-   ensure the feedback was communicated and received correctly.
-
-#2 is important as with the patch below, the rename and the functional
-   changes are merged into a single patch, so important changes are
-   invisible, making it very difficult to review. Also, if a problem
-   is detected with this file, it is now impossible to revert the
-   functional change without also renaming the file.
-
-Thanks,
-
-Darren Hart
-
-On 04/24/2011 09:44 PM, Saul Wold wrote:
-> On 04/22/2011 02:04 AM, Xiaofeng Yan wrote:
->> From: Xiaofeng Yan<xiaofeng.yan@windriver.com>
->>
->> Thank Darren Hart and Robert to give me suggestions which make this script more professional.
->> The function for this script is to create a 8G lsb image with lsb test suite.
->> Changes for this script:
->> 1 Correct name of this script
->> 2 Improve some function
->>
->> Pull URL: git://git.pokylinux.org/poky-contrib.git
->>    Branch: xiaofeng/Modify_creat-lsb-image
->>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=xiaofeng/Modify_creat-lsb-image
->>
->> Thanks,
->>      Xiaofeng Yan<xiaofeng.yan@windriver.com>
->> ---
->>
->>
->> Xiaofeng Yan (1):
->>    create-lsb-image:Rename creat-lsb-image and improve some function
->>
->>   scripts/creat-lsb-image  |  198 ----------------------------------------
->>   scripts/create-lsb-image |  228 ++++++++++++++++++++++++++++++++++++++++++++++
->>   2 files changed, 228 insertions(+), 198 deletions(-)
->>   delete mode 100755 scripts/creat-lsb-image
->>   create mode 100755 scripts/create-lsb-image
->>
->> _______________________________________________
->> poky mailing list
->> poky@yoctoproject.org
->> https://lists.yoctoproject.org/listinfo/poky
->>
-> Pulled into oe-core and poky/master
-> 
-> Thanks
-> 	Sau!
-> 
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+Thanks
 
 -- 
-Darren Hart
-Intel Open Source Technology Center
-Yocto Project - Linux Kernel
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
+--------------050700040806040600070501
+Content-Type: text/x-patch;
+ name="0001-oe-setup-builddir-Allow-template-directory-to-be-ove.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename*0="0001-oe-setup-builddir-Allow-template-directory-to-be-ove.pa";
+ filename*1="tch"
+
+From e3370ac5f4e902dd517cb196cfe416c96d309210 Mon Sep 17 00:00:00 2001
+From: Gary Thomas <gary@mlbassoc.com>
+Date: Mon, 25 Apr 2011 13:43:39 -0600
+Subject: [PATCH] oe-setup-builddir: Allow template directory to be overridden
+
+Signed-off-by: Gary Thomas <gary@mlbassoc.com>
+---
+ scripts/oe-setup-builddir |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/scripts/oe-setup-builddir b/scripts/oe-setup-builddir
+index 58c9ad6..5b20488 100755
+--- a/scripts/oe-setup-builddir
++++ b/scripts/oe-setup-builddir
+@@ -37,7 +37,7 @@ fi
+ 
+ cd "$BUILDDIR"
+ 
+-TEMPLATECONF=meta-yocto/conf
++TEMPLATECONF=${TEMPLATECONF:-meta-yocto/conf}
+ 
+ # 
+ # $TEMPLATECONF can point to a directory for the template local.conf & bblayers.conf
+-- 
+1.7.3.4
+
+
+--------------050700040806040600070501--
