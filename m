@@ -1,26 +1,27 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 729E24C80A7C
-	for <poky@yoctoproject.org>; Mon, 25 Apr 2011 14:49:54 -0500 (CDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 24D1816602EA; Mon, 25 Apr 2011 13:49:51 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=ham version=3.3.2-r929478
-Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id B631116602D7;
-	Mon, 25 Apr 2011 13:49:50 -0600 (MDT)
-Message-ID: <4DB5D05E.1040409@mlbassoc.com>
-Date: Mon, 25 Apr 2011 13:49:50 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
-MIME-Version: 1.0
-To: Poky Project <poky@yoctoproject.org>
-Subject: [PATCH] Need override for TEMPLATECONF
+Return-Path: <scott.a.garman@intel.com>
+Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
+	by mx1.pokylinux.org (Postfix) with ESMTP id A989E4C804FF
+	for <poky@yoctoproject.org>; Mon, 25 Apr 2011 15:08:22 -0500 (CDT)
+Received: from localhost (c-76-105-143-140.hsd1.or.comcast.net
+	[76.105.143.140])
+	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
+	(No client certificate requested)
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id 6D1E5308CF
+	for <poky@yoctoproject.org>; Mon, 25 Apr 2011 16:08:17 -0400 (EDT)
+Message-Id: <cover.1303761875.git.scott.a.garman@intel.com>
+Old-Date: Mon, 25 Apr 2011 13:04:35 -0700
+Date: Mon, 25 Apr 2011 13:08:11 -0700
+To: poky@yoctoproject.org
+CC: 
+From: Scott Garman <scott.a.garman@intel.com>
+X-MasterFoo-MailScanner-Information: Please contact the ISP for more
+	information
+X-MailScanner-ID: 6D1E5308CF.E0716
+X-MasterFoo-MailScanner: Found to be clean
+X-MasterFoo-MailScanner-SpamCheck: not spam
+X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
+X-Spam-Status: No
+Subject: [PATCH 0/2] cdrtools recipe cleanup
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,63 +33,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 25 Apr 2011 19:49:54 -0000
-X-Groupsio-MsgNum: 5524
-Content-Type: multipart/mixed; boundary="------------050700040806040600070501"
+X-List-Received-Date: Mon, 25 Apr 2011 20:08:22 -0000
 
---------------050700040806040600070501
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+From: Scott Garman <scott.a.garman@intel.com>
 
-The recently upgraded scripts used to setup the build environment
-have made it so that a distribution/layer can no longer provide
-the build templates.  This patch restores that possibility.
+Hi Saul,
 
-Note: my patch that created this functionality allowed for the
-distribution/layers to provide XXX/conf/local.conf as well as
-XXX/conf/local.conf.sample  Any comments on why that was removed?
+Looking closer at the existing cdrtools recipe we have, in fact the
+CVE advisory does not apply, since the problematic utility (rscsi)
+is staged in ${sbindir} and the custom do_install() function only
+packages ${bindir}.
 
-Thanks
+So instead I took the opportunity to do some recipe cleanup, updated
+the patches, and added distro tracking information.
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: sgarman/cdrtools-cve
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=sgarman/cdrtools-cve
 
---------------050700040806040600070501
-Content-Type: text/x-patch;
- name="0001-oe-setup-builddir-Allow-template-directory-to-be-ove.patch"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
- filename*0="0001-oe-setup-builddir-Allow-template-directory-to-be-ove.pa";
- filename*1="tch"
-
-From e3370ac5f4e902dd517cb196cfe416c96d309210 Mon Sep 17 00:00:00 2001
-From: Gary Thomas <gary@mlbassoc.com>
-Date: Mon, 25 Apr 2011 13:43:39 -0600
-Subject: [PATCH] oe-setup-builddir: Allow template directory to be overridden
-
-Signed-off-by: Gary Thomas <gary@mlbassoc.com>
+Thanks,
+    Scott Garman <scott.a.garman@intel.com>
 ---
- scripts/oe-setup-builddir |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
-
-diff --git a/scripts/oe-setup-builddir b/scripts/oe-setup-builddir
-index 58c9ad6..5b20488 100755
---- a/scripts/oe-setup-builddir
-+++ b/scripts/oe-setup-builddir
-@@ -37,7 +37,7 @@ fi
- 
- cd "$BUILDDIR"
- 
--TEMPLATECONF=meta-yocto/conf
-+TEMPLATECONF=${TEMPLATECONF:-meta-yocto/conf}
- 
- # 
- # $TEMPLATECONF can point to a directory for the template local.conf & bblayers.conf
--- 
-1.7.3.4
 
 
---------------050700040806040600070501--
+Scott Garman (2):
+  cdrtools: recipe and patch cleanup
+  distro_tracking_fields.inc: add cdrtools recipe
+
+ .../conf/distro/include/distro_tracking_fields.inc |   11 ++++++++++
+ .../cdrtools-native/glibc-conflict-rename.patch    |    8 +++++++
+ .../cdrtools/cdrtools-native/no_usr_src.patch      |    7 ++++++
+ .../cdrtools/cdrtools-native_2.01.bb               |   21 ++++++++++---------
+ 4 files changed, 37 insertions(+), 10 deletions(-)
+
+
