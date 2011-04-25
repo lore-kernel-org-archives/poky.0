@@ -1,20 +1,22 @@
 Return-Path: <dvhart@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A86794C804FF
-	for <poky@yoctoproject.org>; Mon, 25 Apr 2011 14:36:41 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 25 Apr 2011 12:36:41 -0700
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4DA0A4C80A7C
+	for <poky@yoctoproject.org>; Mon, 25 Apr 2011 14:36:54 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 25 Apr 2011 12:36:53 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,266,1301900400"; d="scan'208";a="633900085"
+X-IronPort-AV: E=Sophos;i="4.64,266,1301900400"; d="scan'208";a="738223839"
 Received: from doubt.jf.intel.com (HELO localhost) ([10.7.199.56])
-	by orsmga002.jf.intel.com with ESMTP; 25 Apr 2011 12:36:41 -0700
+	by orsmga001.jf.intel.com with ESMTP; 25 Apr 2011 12:36:48 -0700
 From: Darren Hart <dvhart@linux.intel.com>
 To: poky@yoctoproject.org
-Date: Mon, 25 Apr 2011 12:36:34 -0700
-Message-Id: <cover.1303760083.git.dvhart@linux.intel.com>
+Date: Mon, 25 Apr 2011 12:36:42 -0700
+Message-Id: <e94f1c19336bce10ad36f5022c6b4f84c2d175fd.1303760083.git.dvhart@linux.intel.com>
 X-Mailer: git-send-email 1.7.1
+In-Reply-To: <cover.1303760083.git.dvhart@linux.intel.com>
+References: <cover.1303760083.git.dvhart@linux.intel.com>
 Cc: Chris Larson <clarson@kergoth.com>, Darren Hart <dvhart@linux.intel.com>
-Subject: [PATCH 0/3] logging updates
+Subject: [PATCH 1/3] logging: fix oedebug loglevel test
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,29 +28,43 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 25 Apr 2011 19:36:41 -0000
+X-List-Received-Date: Mon, 25 Apr 2011 19:36:54 -0000
 
-The first two patches fix issues in the existing bash logging infrastructure.
-The third proposes a new bash logging mechanism.
+When the existing test for loglevel fails, the syntax used results in the recipe
+exiting with a silent failure. Performing any bash command after the test block
+resolves the problem, such as "shift" or "echo ''". Rewriting with 'if []; then'
+blocks provides a cleaner syntax and also resolves the failure.
 
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: dvhart/logging
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dvhart/logging
-
-Thanks,
-    Darren Hart <dvhart@linux.intel.com>
+Signed-off-by: Darren Hart <dvhart@linux.intel.com>
 ---
+ meta/classes/base.bbclass |    8 ++++----
+ 1 files changed, 4 insertions(+), 4 deletions(-)
 
-
-Darren Hart (3):
-  logging: fix oedebug loglevel test
-  logging: remove unused BBDEBUG from local.conf.sample
-  logging: add bb* logging mechanisms for bash recipe functions
-
- meta-yocto/conf/local.conf.sample |    2 -
- meta/classes/base.bbclass         |    9 +++--
- meta/classes/logging.bbclass      |   72 +++++++++++++++++++++++++++++++++++++
- 3 files changed, 77 insertions(+), 6 deletions(-)
- create mode 100644 meta/classes/logging.bbclass
+diff --git a/meta/classes/base.bbclass b/meta/classes/base.bbclass
+index 2157fe9..374ca04 100644
+--- a/meta/classes/base.bbclass
++++ b/meta/classes/base.bbclass
+@@ -53,15 +53,15 @@ oefatal() {
+ }
+ 
+ oedebug() {
+-	test $# -ge 2 || {
++	if [ $# -lt 2]; then
+ 		echo "Usage: oedebug level \"message\""
+ 		exit 1
+-	}
++	fi
+ 
+-	test ${OEDEBUG:-0} -ge $1 && {
++	if [ ${OEDEBUG:-0} -ge $1 ]; then
+ 		shift
+ 		echo "DEBUG:" $*
+-	}
++	fi
+ }
+ 
+ oe_runmake() {
+-- 
+1.7.1
 
 
