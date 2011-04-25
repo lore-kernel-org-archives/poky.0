@@ -1,24 +1,26 @@
-Return-Path: <qing.he@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9122E4C80A7D
-	for <poky@yoctoproject.org>; Mon, 25 Apr 2011 04:57:46 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 25 Apr 2011 02:57:32 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,265,1301900400"; d="scan'208";a="738038212"
-Received: from qhe2-db.sh.intel.com ([10.239.13.48])
-	by orsmga001.jf.intel.com with ESMTP; 25 Apr 2011 02:57:31 -0700
-Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
-	(envelope-from <qing.he@intel.com>)
-	id 1QEIQO-0002Tm-AN; Mon, 25 Apr 2011 17:49:48 +0800
-Message-Id: <030e102cce49156826e86833c70801145289331c.1303724875.git.qing.he@intel.com>
-In-Reply-To: <cover.1303724875.git.qing.he@intel.com>
-References: <cover.1303724875.git.qing.he@intel.com>
-Old-Date: Wed, 13 Apr 2011 17:22:49 +0800
-Date: Mon, 25 Apr 2011 17:49:48 +0800
-To: poky@yoctoproject.org
-From: Qing He <qing.he@intel.com>
-Subject: [PATCH 2/2] quilt: fix test for target build
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E7F184C80506
+	for <poky@yoctoproject.org>; Mon, 25 Apr 2011 07:15:00 -0500 (CDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 34FF8166022F; Mon, 25 Apr 2011 06:14:55 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.2-r929478
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 7739C1660177;
+	Mon, 25 Apr 2011 06:14:54 -0600 (MDT)
+Message-ID: <4DB565BE.7010606@mlbassoc.com>
+Date: Mon, 25 Apr 2011 06:14:54 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
+MIME-Version: 1.0
+To: Poky Project <poky@yoctoproject.org>
+Subject: "core" explosion?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,69 +32,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 25 Apr 2011 09:57:46 -0000
+X-List-Received-Date: Mon, 25 Apr 2011 12:15:01 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Qing He <qing.he@intel.com>
+I've been building from a Poky tree, keeping up to date with
+the master branch for quite some time.  Recently, I used this
+tree to build to do some testing on my [emenlow-like] Atom.
 
-fixes [YOCTO #969]
+Using the external meta-intel, I've built for atom-pc since it's
+supported by core (but sadly doesn't work on my Atom PC!) and
+emenlow (which does work).  I've noticed quite a change in the
+size of images over the past month:
 
-Signed-off-by: Qing He <qing.he@intel.com>
----
- .../quilt/quilt/gnu_patch_test_fix_target.patch    |   26 ++++++++++++++++++++
- meta/recipes-devtools/quilt/quilt_0.48.bb          |    6 +++-
- 2 files changed, 30 insertions(+), 2 deletions(-)
- create mode 100644 meta/recipes-devtools/quilt/quilt/gnu_patch_test_fix_target.patch
+ls -l /work/tmp/*.hddimg
+-rw-r--r-- 1 gthomas gthomas  521244672 Apr 22 15:00 /work/tmp/core-image-sato-live-atom-pc.hddimg
+-rw-r--r-- 1 gthomas gthomas 2056809472 Apr 22 22:28 /work/tmp/core-image-sato-live-emenlow.hddimg
+-rw-r--r-- 1 gthomas gthomas  508077056 Mar 21 12:37 /work/tmp/poky-image-sato-live-atom-pc.hddimg
+-rw-r--r-- 1 gthomas gthomas 1032937472 Mar 22 05:40 /work/tmp/poky-image-sato-live-emenlow.hddimg
 
-diff --git a/meta/recipes-devtools/quilt/quilt/gnu_patch_test_fix_target.patch b/meta/recipes-devtools/quilt/quilt/gnu_patch_test_fix_target.patch
-new file mode 100644
-index 0000000..672155b
---- /dev/null
-+++ b/meta/recipes-devtools/quilt/quilt/gnu_patch_test_fix_target.patch
-@@ -0,0 +1,26 @@
-+Upstream-Status: Pending
-+
-+the test should be skipped for cross compiling.
-+
-+Signed-off-by: Qing He <qing.he@intel.com>
-+
-+diff --git a/configure.ac b/configure.ac
-+index 026a36c..8af591b 100644
-+--- a/configure.ac
-++++ b/configure.ac
-+@@ -245,6 +245,7 @@ fi
-+ QUILT_COMPAT_PROG_PATH(DIFF, diff)
-+ QUILT_COMPAT_PROG_PATH(PATCH, patch)
-+ 
-++if test "x$cross_compiling" != "xyes"; then
-+ # Sun diff and others will not work because GNU patch options are used.
-+ AC_MSG_CHECKING([the version of $DIFF])
-+ if $DIFF --version 2>/dev/null | grep GNU >/dev/null; then
-+@@ -293,6 +294,7 @@ current version of patch from ftp.gnu.org, or if you already have GNU patch
-+ then you can supply its path with the '--with-patch=' option.
-+ ])
-+ fi
-++fi
-+ 
-+ QUILT_COMPAT_PROG_PATH(FIND, find)
-+ 
-diff --git a/meta/recipes-devtools/quilt/quilt_0.48.bb b/meta/recipes-devtools/quilt/quilt_0.48.bb
-index 20a708d..124e2cd 100644
---- a/meta/recipes-devtools/quilt/quilt_0.48.bb
-+++ b/meta/recipes-devtools/quilt/quilt_0.48.bb
-@@ -2,8 +2,10 @@ require quilt.inc
- LICENSE="GPLv2"
- LIC_FILES_CHKSUM = "file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f"
- RDEPENDS_${PN} += "patch diffstat bzip2 util-linux"
--PR = "r0"
--SRC_URI += "file://aclocal.patch"
-+PR = "r1"
-+SRC_URI += "file://aclocal.patch \
-+            file://gnu_patch_test_fix_target.patch \
-+           "
- 
- SRC_URI[md5sum] = "f77adda60039ffa753f3c584a286f12b"
- SRC_URI[sha256sum] = "73fd760d3b5cbf06417576591dc37d67380d189392db9000c21b7cbebee49ffc"
+Notice that with the new "core" images, the size is bigger, but
+why is the emenlow image _doubled_ whereas the atom-pc version only
+grew by around 4%?
+
 -- 
-1.7.0
-
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
