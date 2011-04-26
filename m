@@ -1,27 +1,26 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id DF9C14C804FF
-	for <poky@yoctoproject.org>; Mon, 25 Apr 2011 19:37:57 -0500 (CDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 25 Apr 2011 17:37:57 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,267,1301900400"; d="scan'208";a="914337703"
-Received: from unknown (HELO [10.255.12.237]) ([10.255.12.237])
-	by fmsmga001.fm.intel.com with ESMTP; 25 Apr 2011 17:37:57 -0700
-Message-ID: <4DB613E4.8080306@intel.com>
-Date: Mon, 25 Apr 2011 17:37:56 -0700
-From: Saul Wold <saul.wold@intel.com>
+Return-Path: <Kai.Kang@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 75F8E4C804D4
+	for <poky@yoctoproject.org>; Mon, 25 Apr 2011 20:33:29 -0500 (CDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p3Q1XSYu024366
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Mon, 25 Apr 2011 18:33:28 -0700 (PDT)
+Received: from [128.224.163.157] (128.224.163.157) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
+	Mon, 25 Apr 2011 18:33:27 -0700
+Message-ID: <4DB620F5.3010709@windriver.com>
+Date: Tue, 26 Apr 2011 09:33:41 +0800
+From: Kang Kai <Kai.Kang@windriver.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
+	rv:1.9.2.13) Gecko/20101208 Thunderbird/3.1.7
 MIME-Version: 1.0
-To: "Garman, Scott A" <scott.a.garman@intel.com>
-References: <cover.1303761875.git.scott.a.garman@intel.com>
-	<4bc9d84777225d0cfe23672f290c903f72f28a7a.1303761875.git.scott.a.garman@intel.com>
-	<4DB6102F.7090007@intel.com> <4DB610D3.4020607@intel.com>
-In-Reply-To: <4DB610D3.4020607@intel.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 1/2] cdrtools: recipe and patch cleanup
+To: "Hatle, Mark" <mark.hatle@windriver.com>
+References: <4DB0F192.6020809@windriver.com>
+In-Reply-To: <4DB0F192.6020809@windriver.com>
+X-Originating-IP: [128.224.163.157]
+Cc: poky@yoctoproject.org
+Subject: About minimal image
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,117 +32,194 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 26 Apr 2011 00:37:58 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Tue, 26 Apr 2011 01:33:29 -0000
+X-Groupsio-MsgNum: 5540
+Content-Type: multipart/mixed; boundary="------------040403020208060004050908"
+
+--------------040403020208060004050908
+Content-Type: multipart/alternative;
+	boundary="------------030602060300020100010908"
+
+--------------030602060300020100010908
+Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 04/25/2011 05:24 PM, Garman, Scott A wrote:
-> On 04/25/2011 05:22 PM, Wold, Saul wrote:
->> On 04/25/2011 01:08 PM, Scott Garman wrote:
->>> From: Scott Garman<scott.a.garman@intel.com>
->>>
->>> * Recipe cleanup, added missing metadata fields and fixed
->>>      whitespace issues
->>> * Added Upstream-Status to patches
->>> * Confirmed that CVE-2003-0655 does not apply to this recipe
->>>      as rscsi is not packaged
->>>
->> Scott,
->>
->> You need to add SRC_URI to this recipe.
->
-> The recipe has SRC_URI. Was that a typo?
->
-Yeah, the typo was SRC_URI Checksums!  They are missing from this recipe.
+  Hi Mark,
 
-Sau!
+I have read your mail about minimal image posted on Feb 19 on this mail 
+list.  We try to reduce image size by what your said:
 
-> Scott
->
->
->>
->> Thanks
->>
->> Sau!
->>
->>
->>> Signed-off-by: Scott Garman<scott.a.garman@intel.com>
->>> ---
->>>     .../cdrtools-native/glibc-conflict-rename.patch    |    8 +++++++
->>>     .../cdrtools/cdrtools-native/no_usr_src.patch      |    7 ++++++
->>>     .../cdrtools/cdrtools-native_2.01.bb               |   21 ++++++++++---------
->>>     3 files changed, 26 insertions(+), 10 deletions(-)
->>>
->>> diff --git a/meta/recipes-devtools/cdrtools/cdrtools-native/glibc-conflict-rename.patch b/meta/recipes-devtools/cdrtools/cdrtools-native/glibc-conflict-rename.patch
->>> index 0b9b892..2fd5696 100644
->>> --- a/meta/recipes-devtools/cdrtools/cdrtools-native/glibc-conflict-rename.patch
->>> +++ b/meta/recipes-devtools/cdrtools/cdrtools-native/glibc-conflict-rename.patch
->>> @@ -1,3 +1,11 @@
->>> +This patch fixes collisions between locally defined functions
->>> +and glibc's fexecve() and getline() functions.
->>> +
->>> +Upstream-Status: Inappropriate [Other]
->>> +Upstream no longer maintains a GPL version of this utility.
->>> +
->>> +Signed-off-by: Scott Garman<scott.a.garman@intel.com>
->>> +
->>>     Index: cdrtools-2.01/include/schily.h
->>>     ===================================================================
->>>     --- cdrtools-2.01.orig/include/schily.h	2009-06-18 11:30:45.000000000 +0100
->>> diff --git a/meta/recipes-devtools/cdrtools/cdrtools-native/no_usr_src.patch b/meta/recipes-devtools/cdrtools/cdrtools-native/no_usr_src.patch
->>> index 0318d31..82e57d1 100644
->>> --- a/meta/recipes-devtools/cdrtools/cdrtools-native/no_usr_src.patch
->>> +++ b/meta/recipes-devtools/cdrtools/cdrtools-native/no_usr_src.patch
->>> @@ -1,3 +1,10 @@
->>> +Remove hard-coded references to /usr/src/linux/include to avoid
->>> +host contamination.
->>> +
->>> +Upstream-Status: [Other (build-system specific)]
->>> +
->>> +Signed-off-by: Scott Garman<scott.a.garman@intel.com>
->>> +
->>>     Index: cdrtools-2.01/DEFAULTS/Defaults.gnu
->>>     ===================================================================
->>>     --- cdrtools-2.01.orig/DEFAULTS/Defaults.gnu	2008-09-22 12:42:12.000000000 +0100
->>> diff --git a/meta/recipes-devtools/cdrtools/cdrtools-native_2.01.bb b/meta/recipes-devtools/cdrtools/cdrtools-native_2.01.bb
->>> index 769e5e2..edebf57 100644
->>> --- a/meta/recipes-devtools/cdrtools/cdrtools-native_2.01.bb
->>> +++ b/meta/recipes-devtools/cdrtools/cdrtools-native_2.01.bb
->>> @@ -1,21 +1,22 @@
->>>     # cdrtools-native OE build file
->>>     # Copyright (C) 2004-2006, Advanced Micro Devices, Inc.  All Rights Reserved
->>>     # Released under the MIT license (see packages/COPYING)
->>> -
->>> -LICENSE="GPL"
->>> -DESCRIPTION="A set of tools for CD recording, including cdrecord"
->>> -HOMEPAGE="http://cdrecord.berlios.de/old/private/cdrecord.html"
->>> -PR = "r2"
->>> -
->>> +SUMMARY = "A set of tools for CD recording, including cdrecord"
->>> +DESCRIPTION = "A set of tools for CD recording, including cdrecord"
->>> +HOMEPAGE = "http://cdrecord.berlios.de/private/cdrecord.html"
->>> +SECTION = "console/utils"
->>> +PRIORITY = "optional"
->>> +LICENSE = "GPLv2"
->>>     LIC_FILES_CHKSUM = "file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f"
->>> +PR = "r2"
->>>
->>> -SRC_URI="ftp://ftp.berlios.de/pub/cdrecord/cdrtools-${PV}.tar.bz2 \
->>> -         file://no_usr_src.patch;patch=1 \
->>> -         file://glibc-conflict-rename.patch;patch=1"
->>> +SRC_URI = "ftp://ftp.berlios.de/pub/cdrecord/cdrtools-${PV}.tar.bz2 \
->>> +           file://no_usr_src.patch \
->>> +           file://glibc-conflict-rename.patch"
->>>
->>>     inherit native
->>>
->>> -STAGE_TEMP="${WORKDIR}/image-temp"
->>> +STAGE_TEMP = "${WORKDIR}/image-temp"
->>>
->>>     do_install() {
->>>     	install -d ${STAGE_TEMP}
->>
->
->
+   1. eglic configurability
+   2. using mklibs
 
 
+Right now after migrate eglic configurability to my local yocto branch, 
+and I only enable 4 options ("locale-code nsswitch rtld-debug 
+posix-clang-wchar ", pls. check in attachment) of eglibc just to make 
+compile pass.
+
+When after create minimal image, the rootfs (tar.bz2) is still about 
+3.4M, same size as without adding  configurability to eglibc.
+
+Could you give me some directions what should we do in next step? We 
+also hope some information about how to use mklibs to reduce packages 
+and image size?
+
+Thanks and Regards,
+Kai
+
+
+--------------030602060300020100010908
+Content-Type: text/html; charset="ISO-8859-1"
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta content="text/html; charset=ISO-8859-1"
+      http-equiv="Content-Type">
+  </head>
+  <body bgcolor="#ffffff" text="#000000">
+    &nbsp;Hi Mark,<br>
+    <br>
+    I have read your mail about minimal image posted on Feb 19 on this
+    mail list.&nbsp; We try to reduce image size by what your said:<br>
+    <br>
+    <ol>
+      <li>eglic configurability</li>
+      <li>using mklibs<br>
+      </li>
+    </ol>
+    <br>
+    Right now after migrate eglic configurability to my local yocto
+    branch, and I only enable 4 options ("locale-code nsswitch
+    rtld-debug posix-clang-wchar ", pls. check in attachment) of eglibc
+    just to make compile pass.<br>
+    <br>
+    When after create minimal image, the rootfs (tar.bz2) is still about
+    3.4M, same size as without adding&nbsp; configurability to eglibc. <br>
+    <br>
+    Could you give me some directions what should we do in next step? We
+    also hope some information about how to use mklibs to reduce
+    packages and image size?<br>
+    <br>
+    Thanks and Regards,<br>
+    Kai<br>
+    <br>
+  </body>
+</html>
+
+--------------030602060300020100010908--
+
+--------------040403020208060004050908
+Content-Type: text/x-patch;
+	name="0001-eglibc-migrate-configurability-from-oe.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="0001-eglibc-migrate-configurability-from-oe.patch"
+
+From 410f884c4bd0b2037d1df22ccdcd0bfb3c54ffdc Mon Sep 17 00:00:00 2001
+From: Kang Kai <kai.kang@windriver.com>
+Date: Thu, 21 Apr 2011 15:23:27 +0800
+Subject: [PATCH] eglibc: migrate configurability from oe
+
+migrate configurability from oe, try to shrink minimal image size
+
+Signed-off-by: Kang Kai <kai.kang@windriver.com>
+---
+ meta/recipes-core/eglibc/eglibc-options.inc |   51 +++++++++++++++++++++++++++
+ meta/recipes-core/eglibc/eglibc.inc         |   14 +++++++
+ 2 files changed, 65 insertions(+), 0 deletions(-)
+ create mode 100644 meta/recipes-core/eglibc/eglibc-options.inc
+
+diff --git a/meta/recipes-core/eglibc/eglibc-options.inc b/meta/recipes-core/eglibc/eglibc-options.inc
+new file mode 100644
+index 0000000..0af0aab
+--- /dev/null
++++ b/meta/recipes-core/eglibc/eglibc-options.inc
+@@ -0,0 +1,51 @@
++def eglibc_cfg(feature, features, tokens, cnf ):
++	if type(tokens) == type(""):
++		tokens = [tokens]
++	if type(features) == type([]) and feature in features:
++		cnf.extend([token + ' = y' for token in tokens])
++	else:
++		cnf.extend([token + ' = n' for token in tokens])
++
++# Map distro features to eglibc options settings
++def features_to_eglibc_settings(d):
++        cnf = ([])
++        distro_features = (bb.data.getVar('DISTRO_FEATURES_EGLIBC', d, True) or '').split() 
++        eglibc_cfg('ipv6',      distro_features, 'OPTION_EGLIBC_ADVANCED_INET6', cnf)
++        eglibc_cfg('backtrace',      distro_features, 'OPTION_EGLIBC_BACKTRACE', cnf)
++        eglibc_cfg('big-macros',      distro_features, 'OPTION_EGLIBC_BIG_MACROS', cnf)
++        eglibc_cfg('bsd',      distro_features, 'OPTION_EGLIBC_BSD', cnf)
++        eglibc_cfg('cxx-tests',      distro_features, 'OPTION_EGLIBC_CXX_TESTS', cnf)
++        eglibc_cfg('catgets',      distro_features, 'OPTION_EGLIBC_CATGETS', cnf)
++        eglibc_cfg('charsets',      distro_features, 'OPTION_EGLIBC_CHARSETS', cnf)
++        eglibc_cfg('crypt',      distro_features, 'OPTION_EGLIBC_CRYPT', cnf)
++        eglibc_cfg('crypt-ufc',      distro_features, 'OPTION_EGLIBC_CRYPT_UFC', cnf)
++        eglibc_cfg('db-aliases',      distro_features, 'OPTION_EGLIBC_DB_ALIASES', cnf)
++        eglibc_cfg('envz',      distro_features, 'OPTION_EGLIBC_ENVZ', cnf)
++        eglibc_cfg('fcvt',      distro_features, 'OPTION_EGLIBC_FCVT', cnf)
++        eglibc_cfg('fmtmsg',      distro_features, 'OPTION_EGLIBC_FMTMSG', cnf)
++        eglibc_cfg('fstab',      distro_features, 'OPTION_EGLIBC_FSTAB', cnf)
++        eglibc_cfg('ftraverse',      distro_features, 'OPTION_EGLIBC_FTRAVERSE', cnf)
++        eglibc_cfg('getlogin',      distro_features, 'OPTION_EGLIBC_GETLOGIN', cnf)
++        eglibc_cfg('idn',      distro_features, 'OPTION_EGLIBC_IDN', cnf)
++        eglibc_cfg('inet',      distro_features, 'OPTION_EGLIBC_INET', cnf)
++        eglibc_cfg('inet-anl',      distro_features, 'OPTION_EGLIBC_INET_ANL', cnf)
++        eglibc_cfg('libm',      distro_features, 'OPTION_EGLIBC_LIBM', cnf)
++        eglibc_cfg('libm-big',      distro_features, 'OPTION_EGLIBC_LIBM_BIG', cnf)
++        eglibc_cfg('locales',      distro_features, 'OPTION_EGLIBC_LOCALES', cnf)
++        eglibc_cfg('locale-code',      distro_features, 'OPTION_EGLIBC_LOCALE_CODE', cnf)
++        eglibc_cfg('memusage',      distro_features, 'OPTION_EGLIBC_MEMUSAGE', cnf)
++        eglibc_cfg('nis',      distro_features, 'OPTION_EGLIBC_NIS', cnf)
++        eglibc_cfg('nsswitch',      distro_features, 'OPTION_EGLIBC_NSSWITCH', cnf)
++        eglibc_cfg('rcmd',      distro_features, 'OPTION_EGLIBC_RCMD', cnf)
++        eglibc_cfg('rtld-debug',      distro_features, 'OPTION_EGLIBC_RTLD_DEBUG', cnf)
++        eglibc_cfg('spawn',      distro_features, 'OPTION_EGLIBC_SPAWN', cnf)
++        eglibc_cfg('streams',      distro_features, 'OPTION_EGLIBC_STREAMS', cnf)
++        eglibc_cfg('sunrpc',      distro_features, 'OPTION_EGLIBC_SUNRPC', cnf)
++        eglibc_cfg('utmp',      distro_features, 'OPTION_EGLIBC_UTMP', cnf)
++        eglibc_cfg('utmpx',      distro_features, 'OPTION_EGLIBC_UTMPX', cnf)
++        eglibc_cfg('wordexp',      distro_features, 'OPTION_EGLIBC_WORDEXP', cnf)
++        eglibc_cfg('posix-clang-wchar',      distro_features, 'OPTION_POSIX_C_LANG_WIDE_CHAR', cnf)
++        eglibc_cfg('posix-regexp',      distro_features, 'OPTION_POSIX_REGEXP', cnf)
++        eglibc_cfg('posix-regexp-glibc',      distro_features, 'OPTION_POSIX_REGEXP_GLIBC', cnf)
++        eglibc_cfg('posix-wchar-io',      distro_features, 'OPTION_POSIX_WIDE_CHAR_DEVICE_IO', cnf)
++        return "\n".join(cnf)
+diff --git a/meta/recipes-core/eglibc/eglibc.inc b/meta/recipes-core/eglibc/eglibc.inc
+index 8314cb1..d5016bf 100644
+--- a/meta/recipes-core/eglibc/eglibc.inc
++++ b/meta/recipes-core/eglibc/eglibc.inc
+@@ -28,6 +28,7 @@ DEPENDS = "virtual/${TARGET_PREFIX}gcc-intermediate linux-libc-headers"
+ PROVIDES = "virtual/libc virtual/${TARGET_PREFIX}libc-for-gcc"
+ PROVIDES += "virtual/libintl virtual/libiconv"
+ inherit autotools
++require eglibc-options.inc
+ 
+ LEAD_SONAME = "libc.so"
+ 
+@@ -37,3 +38,16 @@ INHIBIT_DEFAULT_DEPS = "1"
+ ARM_INSTRUCTION_SET = "arm"
+ 
+ PACKAGES = "glibc catchsegv sln nscd ldd localedef glibc-utils glibc-dev glibc-doc glibc-locale libsegfault glibc-extra-nss glibc-thread-db glibc-pcprofile"
++
++
++DISTRO_FEATURES_EGLIBC = "locale-code nsswitch rtld-debug posix-clang-wchar "
++#DISTRO_FEATURES_EGLIBC = "ipv6 backtrace big-macros bsd cxx-tests catgets charsets \
++#                          crypt crypt-ufc db-aliases envz fcvt fmtmsg fstab ftraverse \
++#                          getlogin idn inet inet-anl libm libm-big locales locale-code \
++#                          memusage nis nsswitch rcmd rtld-debug spawn streams sunrpc utmp \
++#                          utmpx wordexp posix-clang-wchar posix-regexp posix-regexp-glibc posix-wchar-io \
++#                          "
++OE_FEATURES := "${@features_to_eglibc_settings(d)}"
++do_configure_prepend() {
++	echo '${OE_FEATURES}' > ${B}/option-groups.config
++}
+-- 
+1.7.1
+
+
+--------------040403020208060004050908--
