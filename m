@@ -1,20 +1,29 @@
-Return-Path: <sposelenov@emcraft.com>
-Received: from ocean.emcraft.com (ocean.emcraft.com [213.221.7.182])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 47A3D4C804FF
-	for <poky@yoctoproject.org>; Tue, 26 Apr 2011 10:14:09 -0500 (CDT)
-Received: from pvr.emcraft.com ([172.17.0.212] helo=localhost.localdomain)
-	by ocean.emcraft.com with esmtps (TLSv1:AES128-SHA:128) (Exim 4.71)
-	(envelope-from <sposelenov@emcraft.com>)
-	id 1QEjxn-0001Sv-Ci; Tue, 26 Apr 2011 19:14:07 +0400
-Date: Tue, 26 Apr 2011 19:14:06 +0400
-From: Sergei Poselenov <sposelenov@emcraft.com>
-To: poky@yoctoproject.org
-Message-ID: <20110426191406.0ec4e81f@emcraft.com>
-Organization: Emcraft Systems
-X-Mailer: Claws Mail 3.7.8 (GTK+ 2.22.0; i386-redhat-linux-gnu)
-Mime-Version: 1.0
-Cc: 'Vlad' <vlad@emcraft.com>, 'Ilya' <yanok@emcraft.com>
-Subject: Poky bernard-5.0 ARM/uclibc meta-toolchain build?
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 0357C4C805A8
+	for <poky@yoctoproject.org>; Tue, 26 Apr 2011 11:00:55 -0500 (CDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 65C4B166035F; Tue, 26 Apr 2011 10:00:54 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=ham version=3.3.2-r929478
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id DD510166032A;
+	Tue, 26 Apr 2011 10:00:53 -0600 (MDT)
+Message-ID: <4DB6EC35.4030806@mlbassoc.com>
+Date: Tue, 26 Apr 2011 10:00:53 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
+MIME-Version: 1.0
+To: v sailaja <vsailub4u@gmail.com>
+References: <BANLkTinq5uWMF2pPC4-udTVAYCxXqwNDJg@mail.gmail.com>
+In-Reply-To: <BANLkTinq5uWMF2pPC4-udTVAYCxXqwNDJg@mail.gmail.com>
+Cc: poky@yoctoproject.org
+Subject: Re: Error while pulling in "nss" package
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,93 +35,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 26 Apr 2011 15:14:10 -0000
-Content-Type: text/plain; charset=US-ASCII
+X-List-Received-Date: Tue, 26 Apr 2011 16:00:55 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hello all,
+On 04/25/2011 11:03 PM, v sailaja wrote:
+>
+>
+> Hi,
+>
+>
+> I get an error while pulling nss package into poky.
+>
+> *ERROR: ld.so: object 'libpseudo.so' from LD_PRELOAD cannot be preloaded: ignored.*
+>
+> I found some solution in poky list and I modified according to the following steps. Still I am facing the same error.
+> I am sending error log file. Please find the attachment.
+> Please Can anyone tell me how to track this error.
 
-I'm newby in poky and I'm trying to build a toolchain, which targets
-the Cortex-M3 CPU, thumb mode. Target kernel 2.6 supports only flat
-binaries, so my choice of Libc is uClibc - is it correct?
+Is this really an error?  I've seen it before and the build carries on.
 
-I created the machine configuratin file for my target in
-meta/conf/machines, it has the following definitions:
----
-TARGET_ARCH = "arm"
+What version of Poky are you using (git branch & rev)?  The pseudo stuff
+has had quite a lot of change in recent weeks/months, so if you're not
+using a recent tree perhaps you should try to upgrade.
 
-TARGET_CC_ARCH="-mcpu=cortex-m3 -mthumb"
-TARGET_FPU="soft"
-BASE_PACKAGE_ARCH="armv7"
-TARGET_OS="linux-uclibc"
+Note: I've built nss_3.12.6 from OE in Poky with only cosmetic changes.
 
-
-# Guesswork                                                                     
-SERIAL_CONSOLE = "115200 ttyAAO2"
-
-#??                                                                             
-PREFERRED_PROVIDER_virtual/kernel ?= "linux-dummy"
-KERNEL_IMAGETYPE = "vmlinux"
-
-#                                                                               
-MACHINE_FEATURES = "kernel26 serial"
-
-
----
-I initialized poky build environment and started the build as
-"POKYLIBC=uclibc bitbake -v meta-toolchain".
-
-After step 88 build failed, last lines of the log are:
-ERROR: Required build target 'meta-toolchain' has no buildable providers.
-Missing or unbuildable dependency chain was: ['meta-toolchain', 'virtual/arm-poky-linux-uclibcgnueabi-compilerlibs', 'desktop-file-utils-native', 'glib-2.0-native']
-NOTE: multiple providers are available for virtual/libc-nativesdk (glibc-nativesdk, eglibc-nativesdk)
-NOTE: consider defining a PREFERRED_PROVIDER entry to match virtual/libc-nativesdk
-ERROR: Nothing PROVIDES 'glib-2.0-native'
-ERROR: Command execution failed: Traceback (most recent call last):
-  File "/home/work/psl/poky/poky/bitbake/lib/bb/command.py", line 102, in runAsyncCommand
-    commandmethod(self.cmds_async, self, options)
-  File "/home/work/psl/poky/poky/bitbake/lib/bb/command.py", line 200, in buildTargets
-    command.cooker.buildTargets(pkgs_to_build, task)
-  File "/home/work/psl/poky/poky/bitbake/lib/bb/cooker.py", line 828, in buildTargets
-    taskdata.add_unresolved(localdata, self.status)
-  File "/home/work/psl/poky/poky/bitbake/lib/bb/taskdata.py", line 534, in add_unresolved
-    self.remove_buildtarget(targetid)
-  File "/home/work/psl/poky/poky/bitbake/lib/bb/taskdata.py", line 491, in remove_buildtarget
-    self.fail_fnid(fnid, missing_list)
-  File "/home/work/psl/poky/poky/bitbake/lib/bb/taskdata.py", line 471, in fail_fnid
-    self.remove_buildtarget(target, missing_list)
-  File "/home/work/psl/poky/poky/bitbake/lib/bb/taskdata.py", line 496, in remove_buildtarget
-    self.fail_fnid(self.tasks_fnid[taskid], missing_list)
-  File "/home/work/psl/poky/poky/bitbake/lib/bb/taskdata.py", line 471, in fail_fnid
-    self.remove_buildtarget(target, missing_list)
-  File "/home/work/psl/poky/poky/bitbake/lib/bb/taskdata.py", line 491, in remove_buildtarget
-    self.fail_fnid(fnid, missing_list)
-  File "/home/work/psl/poky/poky/bitbake/lib/bb/taskdata.py", line 471, in fail_fnid
-    self.remove_buildtarget(target, missing_list)
-  File "/home/work/psl/poky/poky/bitbake/lib/bb/taskdata.py", line 501, in remove_buildtarget
-    raise bb.providers.NoProvider(target)
-NoProvider: meta-toolchain
-
-What are the real reason of the build failure? What should look for in
-the build log?
-
-
-As a test, I started "MACHINE=quemuarm bitbake -v meta-toolchain",
-which built the eglibc-based toolchain successfully. Then I added
-"POKYLIBC=uclibc" to the command above, build failed with the same
-output.
-
-
-Is it possible to build uclibc-based ARM toolchain in poky?
-
-Any help would be appreciated.
-
-Regards,
-Sergei
-
-
-
-
-tried to build with
-"MACHINE=quemuarm POKYLIBC=uclibc"
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
