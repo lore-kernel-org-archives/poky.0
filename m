@@ -1,22 +1,22 @@
 Return-Path: <dongxiao.xu@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id CCBFE4C80B71
-	for <poky@yoctoproject.org>; Tue, 26 Apr 2011 01:43:15 -0500 (CDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 25 Apr 2011 23:43:15 -0700
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 0546A4C80B71
+	for <poky@yoctoproject.org>; Tue, 26 Apr 2011 01:43:16 -0500 (CDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 25 Apr 2011 23:43:16 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,267,1301900400"; d="scan'208";a="914425271"
+X-IronPort-AV: E=Sophos;i="4.64,267,1301900400"; d="scan'208";a="683961458"
 Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.20])
-	by fmsmga001.fm.intel.com with ESMTP; 25 Apr 2011 23:43:15 -0700
-Message-Id: <e0b0147a4ca5e14339746c5cfceaebeb3d815a6d.1303798223.git.dongxiao.xu@intel.com>
+	by fmsmga002.fm.intel.com with ESMTP; 25 Apr 2011 23:43:16 -0700
+Message-Id: <cb8785e6a4c842a275cf6fe92bfd842363e6f778.1303798223.git.dongxiao.xu@intel.com>
 In-Reply-To: <cover.1303798223.git.dongxiao.xu@intel.com>
 References: <cover.1303798223.git.dongxiao.xu@intel.com>
-Old-Date: Wed, 20 Apr 2011 15:09:14 +0800
-Date: Tue, 26 Apr 2011 14:46:10 +0800
+Old-Date: Wed, 13 Apr 2011 13:54:41 +0800
+Date: Tue, 26 Apr 2011 14:46:11 +0800
 To: poky@yoctoproject.org
 CC: 
 From: Dongxiao Xu <dongxiao.xu@intel.com>
-Subject: [PATCH 10/13] libsamplerate0: upgrade to version 0.1.7
+Subject: [PATCH 11/13] alsa-utils: upgrade to version 1.0.24.2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,76 +28,85 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 26 Apr 2011 06:43:16 -0000
+X-List-Received-Date: Tue, 26 Apr 2011 06:43:17 -0000
 
 From: Dongxiao Xu <dongxiao.xu@intel.com>
 
-Add libsamplerate-0.1.7-macro-quoting.patch to fix autoreconf issue
-
 Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
 ---
- .../libsamplerate-0.1.7-macro-quoting.patch        |   22 ++++++++++++++++++++
- ...amplerate0_0.1.2.bb => libsamplerate0_0.1.7.bb} |   11 +++++----
- 2 files changed, 28 insertions(+), 5 deletions(-)
- create mode 100644 meta/recipes-multimedia/libsamplerate/libsamplerate0-0.1.7/libsamplerate-0.1.7-macro-quoting.patch
- rename meta/recipes-multimedia/libsamplerate/{libsamplerate0_0.1.2.bb => libsamplerate0_0.1.7.bb} (59%)
+ .../ncursesfix.patch                               |   22 ++++++++++---------
+ ...alsa-utils_1.0.23.bb => alsa-utils_1.0.24.2.bb} |    4 +-
+ 2 files changed, 14 insertions(+), 12 deletions(-)
+ rename meta/recipes-multimedia/alsa/{alsa-utils-1.0.23 => alsa-utils-1.0.24.2}/ncursesfix.patch (70%)
+ rename meta/recipes-multimedia/alsa/{alsa-utils_1.0.23.bb => alsa-utils_1.0.24.2.bb} (95%)
 
-diff --git a/meta/recipes-multimedia/libsamplerate/libsamplerate0-0.1.7/libsamplerate-0.1.7-macro-quoting.patch b/meta/recipes-multimedia/libsamplerate/libsamplerate0-0.1.7/libsamplerate-0.1.7-macro-quoting.patch
-new file mode 100644
-index 0000000..878f969
---- /dev/null
-+++ b/meta/recipes-multimedia/libsamplerate/libsamplerate0-0.1.7/libsamplerate-0.1.7-macro-quoting.patch
-@@ -0,0 +1,22 @@
-+Upstream-Status: Pending
+diff --git a/meta/recipes-multimedia/alsa/alsa-utils-1.0.23/ncursesfix.patch b/meta/recipes-multimedia/alsa/alsa-utils-1.0.24.2/ncursesfix.patch
+similarity index 70%
+rename from meta/recipes-multimedia/alsa/alsa-utils-1.0.23/ncursesfix.patch
+rename to meta/recipes-multimedia/alsa/alsa-utils-1.0.24.2/ncursesfix.patch
+index 0009c1a..9936ded 100644
+--- a/meta/recipes-multimedia/alsa/alsa-utils-1.0.23/ncursesfix.patch
++++ b/meta/recipes-multimedia/alsa/alsa-utils-1.0.24.2/ncursesfix.patch
+@@ -1,11 +1,13 @@
+-# alsa-utils: Fix ncurses build failures
+-# Richard Purdie <rpurdie@linux.intel.com>
+-# Rebased to 1.0.23, Dongxiao Xu <dongxiao.xu@intel.com>
++Rebase the patch to fit 1.0.24.2
+ 
+-diff -ruN alsa-utils-1.0.23-orig/configure.in alsa-utils-1.0.23/configure.in
+---- alsa-utils-1.0.23-orig/configure.in	2010-04-16 19:19:12.000000000 +0800
+-+++ alsa-utils-1.0.23/configure.in	2010-06-22 15:22:06.731202478 +0800
+-@@ -109,34 +109,16 @@
++Upstream-Status: Inappropriate [configuration]
 +
-+diff -ruN libsamplerate-0.1.7-orig//acinclude.m4 libsamplerate-0.1.7/acinclude.m4
-+--- libsamplerate-0.1.7-orig//acinclude.m4	2011-04-20 15:04:25.147664992 +0800
-++++ libsamplerate-0.1.7/acinclude.m4	2011-04-20 15:04:45.397665029 +0800
-+@@ -135,7 +135,6 @@
-+ 	fi
-+ 
-+ )
-+-]
-+ 
-+ if test $ac_cv_c_byte_order = big ; then
-+ 	ac_cv_c_big_endian=1
-+@@ -154,7 +153,7 @@
-+ 	AC_MSG_WARN([[*****************************************************************]])
-+ 	fi
-+ 
-+-)# AC_C_FIND_ENDIAN
-++])# AC_C_FIND_ENDIAN
-+ 
-+ 
-+ 
-diff --git a/meta/recipes-multimedia/libsamplerate/libsamplerate0_0.1.2.bb b/meta/recipes-multimedia/libsamplerate/libsamplerate0_0.1.7.bb
-similarity index 59%
-rename from meta/recipes-multimedia/libsamplerate/libsamplerate0_0.1.2.bb
-rename to meta/recipes-multimedia/libsamplerate/libsamplerate0_0.1.7.bb
-index 85eb7bc..d08640f 100644
---- a/meta/recipes-multimedia/libsamplerate/libsamplerate0_0.1.2.bb
-+++ b/meta/recipes-multimedia/libsamplerate/libsamplerate0_0.1.7.bb
-@@ -2,14 +2,15 @@ DESCRIPTION = "An audio Sample Rate Conversion library"
- SECTION = "libs"
- LICENSE = "GPLv2+"
- LIC_FILES_CHKSUM = "file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f \
--                    file://src/samplerate.c;beginline=1;endline=17;md5=2deac26142757e825d957e5ac149b292"
-+                    file://src/samplerate.c;beginline=1;endline=17;md5=ed4dfdaa3bdf0f817ebc70cee0cccc88"
- DEPENDS = "flac"
--PR = "r3"
-+PR = "r0"
++Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
++
++diff -ruN alsa-utils-1.0.24.2-orig//configure.in alsa-utils-1.0.24.2/configure.in
++--- alsa-utils-1.0.24.2-orig//configure.in	2011-04-13 13:51:20.337665010 +0800
+++++ alsa-utils-1.0.24.2/configure.in	2011-04-13 13:51:54.437664986 +0800
++@@ -127,34 +127,16 @@
+    NCURSESLIBSUFFIX=""
+    CURSES_NLS="no"
+    if test "$curseslib" = "ncursesw" -o \( "$curseslib" = "auto" -a "$USE_NLS" = "yes" \); then
+@@ -17,7 +19,7 @@ diff -ruN alsa-utils-1.0.23-orig/configure.in alsa-utils-1.0.23/configure.in
+ -      CURSES_CFLAGS=`ncursesw5-config --cflags`
+ -      curseslib="ncursesw"
+ -    else
+-       AC_CHECK_LIB(ncursesw, initscr, 
++       AC_CHECK_LIB(ncursesw, initscr,
+                   [ CURSESINC='<ncurses.h>'; CURSESLIB='-lncursesw'; curseslib="ncursesw"])
+ -    fi
+      if test -n "$CURSESINC"; then
+@@ -34,9 +36,9 @@ diff -ruN alsa-utils-1.0.23-orig/configure.in alsa-utils-1.0.23/configure.in
+ -      CURSES_CFLAGS=`ncurses5-config --cflags`
+ -      curseslib="ncurses"
+ -    else
+-       AC_CHECK_LIB(ncurses, initscr, 
++       AC_CHECK_LIB(ncurses, initscr,
+                   [ CURSESINC='<ncurses.h>'; CURSESLIB='-lncurses'; curseslib="ncurses"])
+ -    fi
+    fi
+    if test "$curseslib" = "curses" -o "$curseslib" = "auto"; then
+-     AC_CHECK_LIB(curses, initscr, 
++     AC_CHECK_LIB(curses, initscr,
+diff --git a/meta/recipes-multimedia/alsa/alsa-utils_1.0.23.bb b/meta/recipes-multimedia/alsa/alsa-utils_1.0.24.2.bb
+similarity index 95%
+rename from meta/recipes-multimedia/alsa/alsa-utils_1.0.23.bb
+rename to meta/recipes-multimedia/alsa/alsa-utils_1.0.24.2.bb
+index 46283cc..953a3ac 100644
+--- a/meta/recipes-multimedia/alsa/alsa-utils_1.0.23.bb
++++ b/meta/recipes-multimedia/alsa/alsa-utils_1.0.24.2.bb
+@@ -11,8 +11,8 @@ PR = "r0"
+ SRC_URI = "ftp://ftp.alsa-project.org/pub/utils/alsa-utils-${PV}.tar.bz2 \
+            file://ncursesfix.patch;patch=1 "
  
--SRC_URI = "http://www.mega-nerd.com/SRC/libsamplerate-${PV}.tar.gz"
-+SRC_URI = "http://www.mega-nerd.com/SRC/libsamplerate-${PV}.tar.gz \
-+           file://libsamplerate-0.1.7-macro-quoting.patch"
+-SRC_URI[md5sum] = "cb0cf46029ac9549cf3a31bff6a4f4e1"
+-SRC_URI[sha256sum] = "b7d05e915e25f8540ad151c6dd558cf0fc1e9bb0ee23052d531c983666a1f7b0"
++SRC_URI[md5sum] = "8238cd57cb301d1c36bcf0ecb59ce6b2"
++SRC_URI[sha256sum] = "95127f740291086486c06c28118cabca0814bde48fd14dac041a9812a5ac1be2"
  
--SRC_URI[md5sum] = "06861c2c6b8e5273c9b80cf736b9fd0e"
--SRC_URI[sha256sum] = "98b8766323c78b7b718dfd4ef6b9292bbf0796b742abb2319b8278cbeee731d4"
-+SRC_URI[md5sum] = "6731a81cb0c622c483b28c0d7f90867d"
-+SRC_URI[sha256sum] = "78ed5d9ff1bf162c4a078f6a3e7432a537dd2f22dc58872b081fb01156027fcc"
- S = "${WORKDIR}/libsamplerate-${PV}"
- 
- inherit autotools pkgconfig
+ # lazy hack. needs proper fixing in gettext.m4, see
+ # http://bugs.openembedded.org/show_bug.cgi?id=2348
 -- 
 1.7.1
 
