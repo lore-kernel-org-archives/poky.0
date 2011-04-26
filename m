@@ -1,22 +1,26 @@
-Return-Path: <nitin.a.kamble@intel.com>
+Return-Path: <saul.wold@intel.com>
 Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 3B8F24C804FF
-	for <poky@yoctoproject.org>; Mon, 25 Apr 2011 19:20:07 -0500 (CDT)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 1C1EB4C80ACE
+	for <poky@yoctoproject.org>; Mon, 25 Apr 2011 19:22:09 -0500 (CDT)
 Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 25 Apr 2011 17:20:06 -0700
+	by azsmga101.ch.intel.com with ESMTP; 25 Apr 2011 17:22:08 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,267,1301900400"; d="scan'208";a="425359209"
-Received: from nbuild1.sc.intel.com (HELO localhost) ([172.25.110.36])
-	by azsmga001.ch.intel.com with ESMTP; 25 Apr 2011 17:20:06 -0700
-Message-Id: <af08fae1636c0ae0c62b5f17dea9824d232c8db6.1303776892.git.nitin.a.kamble@intel.com>
-In-Reply-To: <cover.1303776892.git.nitin.a.kamble@intel.com>
-References: <cover.1303776892.git.nitin.a.kamble@intel.com>
-Old-Date: Mon, 25 Apr 2011 17:08:31 -0700
-Date: Mon, 25 Apr 2011 17:19:46 -0700
-To: scott.a.garman@intel.com, poky@yoctoproject.org,
-	openembedded-core@lists.openembedded.org
-From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Subject: [PATCH 2/2] cpio-2.8 (GPLv2) bug fix
+X-IronPort-AV: E=Sophos;i="4.64,267,1301900400"; d="scan'208";a="425360081"
+Received: from unknown (HELO [10.255.12.237]) ([10.255.12.237])
+	by azsmga001.ch.intel.com with ESMTP; 25 Apr 2011 17:22:08 -0700
+Message-ID: <4DB6102F.7090007@intel.com>
+Date: Mon, 25 Apr 2011 17:22:07 -0700
+From: Saul Wold <saul.wold@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
+MIME-Version: 1.0
+To: Scott Garman <scott.a.garman@intel.com>
+References: <cover.1303761875.git.scott.a.garman@intel.com>
+	<4bc9d84777225d0cfe23672f290c903f72f28a7a.1303761875.git.scott.a.garman@intel.com>
+In-Reply-To: <4bc9d84777225d0cfe23672f290c903f72f28a7a.1303761875.git.scott.a.garman@intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 1/2] cdrtools: recipe and patch cleanup
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,67 +32,102 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 26 Apr 2011 00:20:07 -0000
+X-List-Received-Date: Tue, 26 Apr 2011 00:22:09 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Nitin A Kamble <nitin.a.kamble@intel.com>
+On 04/25/2011 01:08 PM, Scott Garman wrote:
+> From: Scott Garman<scott.a.garman@intel.com>
+>
+> * Recipe cleanup, added missing metadata fields and fixed
+>    whitespace issues
+> * Added Upstream-Status to patches
+> * Confirmed that CVE-2003-0655 does not apply to this recipe
+>    as rscsi is not packaged
+>
+Scott,
 
-Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
----
- .../cpio/cpio-2.8/avoid_heap_overflow.patch        |   25 ++++++++++++++++++++
- meta/recipes-extended/cpio/cpio_2.8.bb             |    6 +++-
- 2 files changed, 29 insertions(+), 2 deletions(-)
- create mode 100644 meta/recipes-extended/cpio/cpio-2.8/avoid_heap_overflow.patch
+You need to add SRC_URI to this recipe.
 
-diff --git a/meta/recipes-extended/cpio/cpio-2.8/avoid_heap_overflow.patch b/meta/recipes-extended/cpio/cpio-2.8/avoid_heap_overflow.patch
-new file mode 100644
-index 0000000..71f5675
---- /dev/null
-+++ b/meta/recipes-extended/cpio/cpio-2.8/avoid_heap_overflow.patch
-@@ -0,0 +1,25 @@
-+Upstream-Status="Inappropriate [bugfix: https://wiki.yoctoproject.org/collab/Tar_GPLv3-v2_transfer_info http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2010-0624]"
-+
-+This patch avoids heap overflow reported by :
-+http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2010-0624
-+
-+This is a clean patch for the GPLv2 tar recipe.
-+
-+the GPLv2 tar recipe patch is also applicable to this GPLv2 cpio 
-+recipe, as they share code.
-+
-+Nitin A Kamble <nitin.a.kamble@intel.com> 2011/04/25
-+
-+Index: tar-1.17/lib/rtapelib.c
-+===================================================================
-+--- tar-1.17.orig/lib/rtapelib.c
-++++ tar-1.17/lib/rtapelib.c
-+@@ -570,7 +570,7 @@ rmt_read__ (int handle, char *buffer, si
-+ 
-+   sprintf (command_buffer, "R%lu\n", (unsigned long) length);
-+   if (do_command (handle, command_buffer) == -1
-+-      || (status = get_status (handle)) == SAFE_READ_ERROR)
-++      || ((status = get_status (handle)) == SAFE_READ_ERROR) || (status > length))
-+     return SAFE_READ_ERROR;
-+ 
-+   for (counter = 0; counter < status; counter += rlen, buffer += rlen)
-diff --git a/meta/recipes-extended/cpio/cpio_2.8.bb b/meta/recipes-extended/cpio/cpio_2.8.bb
-index 412d19f..006e4f6 100644
---- a/meta/recipes-extended/cpio/cpio_2.8.bb
-+++ b/meta/recipes-extended/cpio/cpio_2.8.bb
-@@ -3,9 +3,11 @@ require cpio_v2.inc
- LICENSE = "GPLv2"
- LIC_FILES_CHKSUM = "file://COPYING;md5=b7f772ea3a2489231cb4872656cac34b"
- 
--PR = "r0"
-+PR = "r1"
- 
--SRC_URI += "file://m4extensions.patch"
-+SRC_URI += "file://m4extensions.patch \
-+    file://avoid_heap_overflow.patch \
-+    "
- 
- SRC_URI[md5sum] = "0caa356e69e149fb49b76bacc64615a1"
- SRC_URI[sha256sum] = "1b203248874c3b5a728b351f06513e5282f73e0170b7f207fbf8c39f28f6b4ad"
--- 
-1.7.2.2
+Thanks
+
+Sau!
+
+
+> Signed-off-by: Scott Garman<scott.a.garman@intel.com>
+> ---
+>   .../cdrtools-native/glibc-conflict-rename.patch    |    8 +++++++
+>   .../cdrtools/cdrtools-native/no_usr_src.patch      |    7 ++++++
+>   .../cdrtools/cdrtools-native_2.01.bb               |   21 ++++++++++---------
+>   3 files changed, 26 insertions(+), 10 deletions(-)
+>
+> diff --git a/meta/recipes-devtools/cdrtools/cdrtools-native/glibc-conflict-rename.patch b/meta/recipes-devtools/cdrtools/cdrtools-native/glibc-conflict-rename.patch
+> index 0b9b892..2fd5696 100644
+> --- a/meta/recipes-devtools/cdrtools/cdrtools-native/glibc-conflict-rename.patch
+> +++ b/meta/recipes-devtools/cdrtools/cdrtools-native/glibc-conflict-rename.patch
+> @@ -1,3 +1,11 @@
+> +This patch fixes collisions between locally defined functions
+> +and glibc's fexecve() and getline() functions.
+> +
+> +Upstream-Status: Inappropriate [Other]
+> +Upstream no longer maintains a GPL version of this utility.
+> +
+> +Signed-off-by: Scott Garman<scott.a.garman@intel.com>
+> +
+>   Index: cdrtools-2.01/include/schily.h
+>   ===================================================================
+>   --- cdrtools-2.01.orig/include/schily.h	2009-06-18 11:30:45.000000000 +0100
+> diff --git a/meta/recipes-devtools/cdrtools/cdrtools-native/no_usr_src.patch b/meta/recipes-devtools/cdrtools/cdrtools-native/no_usr_src.patch
+> index 0318d31..82e57d1 100644
+> --- a/meta/recipes-devtools/cdrtools/cdrtools-native/no_usr_src.patch
+> +++ b/meta/recipes-devtools/cdrtools/cdrtools-native/no_usr_src.patch
+> @@ -1,3 +1,10 @@
+> +Remove hard-coded references to /usr/src/linux/include to avoid
+> +host contamination.
+> +
+> +Upstream-Status: [Other (build-system specific)]
+> +
+> +Signed-off-by: Scott Garman<scott.a.garman@intel.com>
+> +
+>   Index: cdrtools-2.01/DEFAULTS/Defaults.gnu
+>   ===================================================================
+>   --- cdrtools-2.01.orig/DEFAULTS/Defaults.gnu	2008-09-22 12:42:12.000000000 +0100
+> diff --git a/meta/recipes-devtools/cdrtools/cdrtools-native_2.01.bb b/meta/recipes-devtools/cdrtools/cdrtools-native_2.01.bb
+> index 769e5e2..edebf57 100644
+> --- a/meta/recipes-devtools/cdrtools/cdrtools-native_2.01.bb
+> +++ b/meta/recipes-devtools/cdrtools/cdrtools-native_2.01.bb
+> @@ -1,21 +1,22 @@
+>   # cdrtools-native OE build file
+>   # Copyright (C) 2004-2006, Advanced Micro Devices, Inc.  All Rights Reserved
+>   # Released under the MIT license (see packages/COPYING)
+> -
+> -LICENSE="GPL"
+> -DESCRIPTION="A set of tools for CD recording, including cdrecord"
+> -HOMEPAGE="http://cdrecord.berlios.de/old/private/cdrecord.html"
+> -PR = "r2"
+> -
+> +SUMMARY = "A set of tools for CD recording, including cdrecord"
+> +DESCRIPTION = "A set of tools for CD recording, including cdrecord"
+> +HOMEPAGE = "http://cdrecord.berlios.de/private/cdrecord.html"
+> +SECTION = "console/utils"
+> +PRIORITY = "optional"
+> +LICENSE = "GPLv2"
+>   LIC_FILES_CHKSUM = "file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f"
+> +PR = "r2"
+>
+> -SRC_URI="ftp://ftp.berlios.de/pub/cdrecord/cdrtools-${PV}.tar.bz2 \
+> -         file://no_usr_src.patch;patch=1 \
+> -         file://glibc-conflict-rename.patch;patch=1"
+> +SRC_URI = "ftp://ftp.berlios.de/pub/cdrecord/cdrtools-${PV}.tar.bz2 \
+> +           file://no_usr_src.patch \
+> +           file://glibc-conflict-rename.patch"
+>
+>   inherit native
+>
+> -STAGE_TEMP="${WORKDIR}/image-temp"
+> +STAGE_TEMP = "${WORKDIR}/image-temp"
+>
+>   do_install() {
+>   	install -d ${STAGE_TEMP}
 
 
