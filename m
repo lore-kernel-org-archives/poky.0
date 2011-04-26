@@ -1,22 +1,43 @@
-Return-Path: <dongxiao.xu@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E66E94C80ACC
-	for <poky@yoctoproject.org>; Tue, 26 Apr 2011 01:43:19 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 25 Apr 2011 23:43:19 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,267,1301900400"; d="scan'208";a="425501357"
-Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.20])
-	by azsmga001.ch.intel.com with ESMTP; 25 Apr 2011 23:43:18 -0700
-Message-Id: <be288ebd414f257ac60fefb02d01ef11bea52c0e.1303798223.git.dongxiao.xu@intel.com>
-In-Reply-To: <cover.1303798223.git.dongxiao.xu@intel.com>
+Return-Path: <martin.jansa@gmail.com>
+Received: from mail-bw0-f48.google.com (mail-bw0-f48.google.com
+	[209.85.214.48])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D21964C80578
+	for <poky@yoctoproject.org>; Tue, 26 Apr 2011 01:47:10 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by bwz8 with SMTP id 8so459155bwz.35
+	for <poky@yoctoproject.org>; Mon, 25 Apr 2011 23:47:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:date:from:to:cc:subject:message-id:references
+	:mime-version:content-type:content-disposition:in-reply-to
+	:user-agent; bh=sMQAHuT9d73uU9oXrUu6EzXSPf8ebCY4+QKsIN13Uks=;
+	b=Ifgr7bwEv2uNjGW0Cy73oJGKsEAr4wyfTWyiaaDdeAcWlUEe9WpoPIgRxGC5VHmdQW
+	hUI9/uQm3KYTohKsQ1KLNBkdqF7+N2HT3ki0H8XCKoGPr9EUvoTluzZv1c0CYNYo435J
+	AhO/yn7WhfsuwkjsQSZzWmxjNIWwIdqRhzBuY=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=date:from:to:cc:subject:message-id:references:mime-version
+	:content-type:content-disposition:in-reply-to:user-agent;
+	b=ssYn55fLfM7GF15bjuH17Mx8svkU0mPpGeAlhGhiwjagicRGv95jTTY7WDnxJGq1ZA
+	fqSPw8+Z7NpQ8uLHBcrFJHLD9SBn20bCd2vmInOQkFtd4fbiDwMesNR6jBWRl1U69AV1
+	o9ukL0aeF6ylMDGFR0NNCueMa+Aew3M/3J7YU=
+Received: by 10.204.151.207 with SMTP id d15mr346457bkw.123.1303800424977;
+	Mon, 25 Apr 2011 23:47:04 -0700 (PDT)
+Received: from localhost ([94.230.152.115])
+	by mx.google.com with ESMTPS id q18sm3654681bka.3.2011.04.25.23.47.03
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Mon, 25 Apr 2011 23:47:03 -0700 (PDT)
+Date: Tue, 26 Apr 2011 08:46:56 +0200
+From: Martin Jansa <martin.jansa@gmail.com>
+To: Dongxiao Xu <dongxiao.xu@intel.com>
+Message-ID: <20110426064656.GA23783@jama.jama.net>
 References: <cover.1303798223.git.dongxiao.xu@intel.com>
-Old-Date: Tue, 26 Apr 2011 14:01:37 +0800
-Date: Tue, 26 Apr 2011 14:46:13 +0800
-To: poky@yoctoproject.org
-CC: 
-From: Dongxiao Xu <dongxiao.xu@intel.com>
-Subject: [PATCH 13/13] distro_tracking_fields: cwautomacros, valgrind, etc
+	<33127d257fd55d857faf16ef8db3d150c6a67893.1303798223.git.dongxiao.xu@intel.com>
+MIME-Version: 1.0
+In-Reply-To: <33127d257fd55d857faf16ef8db3d150c6a67893.1303798223.git.dongxiao.xu@intel.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 06/13] glib-2.0: upgrade to version 2.28.6
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,172 +49,180 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 26 Apr 2011 06:43:20 -0000
+X-List-Received-Date: Tue, 26 Apr 2011 06:47:11 -0000
+X-Groupsio-MsgNum: 5557
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="bp/iNruPH9dso1Pn"
+Content-Disposition: inline
 
-From: Dongxiao Xu <dongxiao.xu@intel.com>
+--bp/iNruPH9dso1Pn
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
----
- .../conf/distro/include/distro_tracking_fields.inc |   72 ++++++++++---------
- 1 files changed, 38 insertions(+), 34 deletions(-)
+On Tue, Apr 26, 2011 at 02:46:04PM +0800, Dongxiao Xu wrote:
+> From: Dongxiao Xu <dongxiao.xu@intel.com>
+>=20
+> Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
+> ---
+>  .../60_wait-longer-for-threads-to-die.patch        |    2 ++
+>  .../glib-2.0/glib-2.0/configure-libtool.patch      |    2 ++
+>  .../glib-2.0/glib-2.0/g_once_init_enter.patch      |    2 ++
+>  .../glib-2.0/glib-2.0/glib-gettextize-dir.patch    |    2 ++
+>  .../{glib-2.0_2.26.1.bb =3D> glib-2.0_2.28.6.bb}     |    8 ++++----
+>  meta/recipes-core/glib-2.0/glib.inc                |    2 +-
+>  6 files changed, 13 insertions(+), 5 deletions(-)
+>  rename meta/recipes-core/glib-2.0/{glib-2.0_2.26.1.bb =3D> glib-2.0_2.28=
+=2E6.bb} (57%)
+>=20
+> diff --git a/meta/recipes-core/glib-2.0/glib-2.0/60_wait-longer-for-threa=
+ds-to-die.patch b/meta/recipes-core/glib-2.0/glib-2.0/60_wait-longer-for-th=
+reads-to-die.patch
+> index 8195bd4..b65a474 100644
+> --- a/meta/recipes-core/glib-2.0/glib-2.0/60_wait-longer-for-threads-to-d=
+ie.patch
+> +++ b/meta/recipes-core/glib-2.0/glib-2.0/60_wait-longer-for-threads-to-d=
+ie.patch
+> @@ -2,6 +2,8 @@ copy from OE, said to borrow from Ubuntu. Not in glib-2.0=
+ upstream yet. Add for
+>  Added to poky by Kevin Tian <kevin.tian@intel.com>, 06/25/2010
+>  Rebased for glib-2.27.3 by Dongxiao Xu <dongxiao.xu@intel.com>, 11/16/20=
+10
+> =20
+> +Upstream-Status: Inappropriate [patches for test code]
+> +
+>  diff -ruN glib-2.27.3-orig/tests/threadpool-test.c glib-2.27.3/tests/thr=
+eadpool-test.c
+>  --- glib-2.27.3-orig/tests/threadpool-test.c	2009-04-01 07:04:21.0000000=
+00 +0800
+>  +++ glib-2.27.3/tests/threadpool-test.c	2010-11-16 12:28:09.002172678 +0=
+800
+> diff --git a/meta/recipes-core/glib-2.0/glib-2.0/configure-libtool.patch =
+b/meta/recipes-core/glib-2.0/glib-2.0/configure-libtool.patch
+> index 7c170be..c21e378 100644
+> --- a/meta/recipes-core/glib-2.0/glib-2.0/configure-libtool.patch
+> +++ b/meta/recipes-core/glib-2.0/glib-2.0/configure-libtool.patch
+> @@ -4,6 +4,8 @@
+>  # from PATH though
+>  # Rebased to glib-2.27.3 by Dongxiao Xu <dongxiao.xu@intel.com>
+> =20
+> +Upstream-Status: Inappropriate [configuration]
+> +
+>  diff -ruN glib-2.27.3-orig/configure.ac glib-2.27.3/configure.ac
+>  --- glib-2.27.3-orig/configure.ac	2010-11-03 11:02:05.000000000 +0800
+>  +++ glib-2.27.3/configure.ac	2010-11-16 12:38:12.610485990 +0800
+> diff --git a/meta/recipes-core/glib-2.0/glib-2.0/g_once_init_enter.patch =
+b/meta/recipes-core/glib-2.0/glib-2.0/g_once_init_enter.patch
+> index a2a506c..2eaa19b 100644
+> --- a/meta/recipes-core/glib-2.0/glib-2.0/g_once_init_enter.patch
+> +++ b/meta/recipes-core/glib-2.0/glib-2.0/g_once_init_enter.patch
+> @@ -7,6 +7,8 @@ http://www.mail-archive.com/openembedded-devel@lists.open=
+embedded.org/msg005
+> =20
+>  Signed-off-by: Darren Hart <dvhart@linux.intel.com>
+> =20
+> +Upstream-Status: Pending
+> +
+>  Index: glib-2.27.5/glib/gthread.h
+>  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>  --- glib-2.27.5.orig/glib/gthread.h
+> diff --git a/meta/recipes-core/glib-2.0/glib-2.0/glib-gettextize-dir.patc=
+h b/meta/recipes-core/glib-2.0/glib-2.0/glib-gettextize-dir.patch
+> index e54a8e5..ee43511 100644
+> --- a/meta/recipes-core/glib-2.0/glib-2.0/glib-gettextize-dir.patch
+> +++ b/meta/recipes-core/glib-2.0/glib-2.0/glib-gettextize-dir.patch
+> @@ -8,6 +8,8 @@
+>  # by Kevin Tian <kevin.tian@intel.com>, 06/25/2010
+>  # Rebased by Dongxiao Xu <dongxiao.xu@intel.com>, 11/16/2010
+> =20
+> +Upstream-Status: Inappropriate [configuration]
+> +
+>  diff -ruN glib-2.27.3-orig/glib-gettextize.in glib-2.27.3/glib-gettextiz=
+e.in
+>  --- glib-2.27.3-orig/glib-gettextize.in	2009-04-01 07:04:20.000000000 +0=
+800
+>  +++ glib-2.27.3/glib-gettextize.in	2010-11-16 12:55:06.874605916 +0800
+> diff --git a/meta/recipes-core/glib-2.0/glib-2.0_2.26.1.bb b/meta/recipes=
+-core/glib-2.0/glib-2.0_2.28.6.bb
+> similarity index 57%
+> rename from meta/recipes-core/glib-2.0/glib-2.0_2.26.1.bb
+> rename to meta/recipes-core/glib-2.0/glib-2.0_2.28.6.bb
+> index 6a1fb6c..c9da861 100644
+> --- a/meta/recipes-core/glib-2.0/glib-2.0_2.26.1.bb
+> +++ b/meta/recipes-core/glib-2.0/glib-2.0_2.28.6.bb
+> @@ -1,16 +1,16 @@
+>  require glib.inc
+> =20
+> -PE =3D "1"
+> +PE =3D "0"
 
-diff --git a/meta/conf/distro/include/distro_tracking_fields.inc b/meta/conf/distro/include/distro_tracking_fields.inc
-index e7201b0..767c05b 100644
---- a/meta/conf/distro/include/distro_tracking_fields.inc
-+++ b/meta/conf/distro/include/distro_tracking_fields.inc
-@@ -169,16 +169,15 @@ RECIPE_MAINTAINER_pn-libdaemon = "Yu Ke <ke.yu@intel.com>"
- RECIPE_STATUS_pn-glib-2.0 = "green"
- DISTRO_PN_ALIAS_pn-glib-2.0 = "Meego=glib2 Fedora=glib2 OpenSuSE=glib2 Ubuntu=glib2.0 Mandriva=glib2.0 Debian=glib2.0"
- RECIPE_DEPENDENCY_CHECK_pn-glib-2.0 = "not done"
--RECIPE_LATEST_VERSION_pn-glib-2.0 = "2.27.5"
-+RECIPE_LATEST_VERSION_pn-glib-2.0 = "2.28.6"
- RECIPE_PATCH_pn-glib-2.0+60_wait-longer-for-threads-to-die = "to be pushed upstream"
- RECIPE_PATCH_pn-glib-2.0+configure-libtool = "local"
- RECIPE_PATCH_pn-glib-2.0+glib-gettextize-dir = "marked as REMOVAL"
- RECIPE_INTEL_SECTION_pn-glib-2.0 = "base libs"
--RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-glib-2.0 = "1 month"
--RECIPE_LATEST_RELEASE_DATE_pn-glib-2.0 = "2010/12/20"
-+RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-glib-2.0 = "15 days"
-+RECIPE_LATEST_RELEASE_DATE_pn-glib-2.0 = "2011/04/14"
- RECIPE_COMMENTS_pn-glib-2.0 = ""
--RECIPE_LAST_UPDATE_pn-glib-2.0 = "Dec 30, 2010"
--RECIPE_NO_UPDATE_REASON_pn-glib-2.0 ="do not upgrade to 2.27.5 because it is unstable version"
-+RECIPE_LAST_UPDATE_pn-glib-2.0 = "Apr 26, 2011"
- RECIPE_MAINTAINER_pn-glib-2.0 = "Dongxiao Xu <dongxiao.xu@intel.com>"
- 
- RECIPE_STATUS_pn-libpam = "green"
-@@ -761,12 +760,12 @@ DISTRO_PN_ALIAS_pn-opkg-utils = "OSPDT upstream=http://svn.openmoko.org/trunk/sr
- 
- RECIPE_STATUS_pn-polkit = "green"
- RECIPE_DEPENDENCY_CHECK_pn-polkit = "not done"
--RECIPE_LATEST_VERSION_pn-polkit = "0.99"
-+RECIPE_LATEST_VERSION_pn-polkit = "0.101"
- RECIPE_INTEL_SECTION_pn-polkit = "base utils"
- RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-polkit = "1 months"
--RECIPE_LATEST_RELEASE_DATE_pn-polkit = "2010/09/15"
-+RECIPE_LATEST_RELEASE_DATE_pn-polkit = "2011/03/03"
- RECIPE_COMMENTS_pn-polkit = ""
--RECIPE_LAST_UPDATE_pn-polkit = "Nov 18, 2010"
-+RECIPE_LAST_UPDATE_pn-polkit = "Apr 26, 2011"
- RECIPE_MAINTAINER_pn-polkit = "Dongxiao Xu <dongxiao.xu@intel.com>"
- 
- RECIPE_STATUS_pn-psplash = "not done"
-@@ -916,12 +915,12 @@ RECIPE_MAINTAINER_pn-gperf = "Scott Garman <scott.a.garman@intel.com>"
- 
- RECIPE_STATUS_pn-valgrind = "green"
- RECIPE_DEPENDENCY_CHECK_pn-valgrind = "not done"
--RECIPE_LATEST_VERSION_pn-valgrind = "3.6.0"
-+RECIPE_LATEST_VERSION_pn-valgrind = "3.6.1"
- RECIPE_INTEL_SECTION_pn-valgrind = "base utils"
--RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-valgrind = "6 months"
--RECIPE_LATEST_RELEASE_DATE_pn-valgrind = "2010/10/21"
-+RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-valgrind = "4 months"
-+RECIPE_LATEST_RELEASE_DATE_pn-valgrind = "2011/02/16"
- RECIPE_COMMENTS_pn-valgrind = ""
--RECIPE_LAST_UPDATE_pn-valgrind = "Nov 16, 2010"
-+RECIPE_LAST_UPDATE_pn-valgrind = "Apr 26, 2011"
- RECIPE_MAINTAINER_pn-valgrind = "Dongxiao Xu <dongxiao.xu@intel.com>"
- 
- RECIPE_STATUS_pn-formfactor = "green"
-@@ -946,12 +945,12 @@ RECIPE_MAINTAINER_pn-makedevs = "Dongxiao Xu <dongxiao.xu@intel.com>"
- 
- RECIPE_STATUS_pn-cwautomacros = "green"
- RECIPE_DEPENDENCY_CHECK_pn-cwautomacros = "not done"
--RECIPE_LATEST_VERSION_pn-cwautomacros = "20090610"
-+RECIPE_LATEST_VERSION_pn-cwautomacros = "20110201"
- RECIPE_INTEL_SECTION_pn-cwautomacros = "base utils"
--RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-cwautomacros = "6 months"
--RECIPE_LATEST_RELEASE_DATE_pn-cwautomacros = "06/2009"
-+RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-cwautomacros = "3 days"
-+RECIPE_LATEST_RELEASE_DATE_pn-cwautomacros = "2011/02/01"
- RECIPE_COMMENTS_pn-cwautomacros = ""
--RECIPE_LAST_UPDATE_pn-cwautomacros = "Aug 6, 2010"
-+RECIPE_LAST_UPDATE_pn-cwautomacros = "Apr 26, 2011"
- RECIPE_MAINTAINER_pn-cwautomacros = "Dongxiao Xu <dongxiao.xu@intel.com>"
- DISTRO_PN_ALIAS_pn-cwautomacros= "OSPDT upstream=http://cwautomacros.berlios.de/"
- 
-@@ -2093,12 +2092,11 @@ RECIPE_LAST_UPDATE_pn-gupnp = "Apr 15, 2011"
- RECIPE_MAINTAINER_pn-gupnp= "Dongxiao Xu <dongxiao.xu@intel.com>"
- 
- RECIPE_STATUS_pn-gupnp-av = "green"
--RECIPE_LATEST_VERSION_pn-gupnp-av = "0.7.1"
-+RECIPE_LATEST_VERSION_pn-gupnp-av = "0.8.0"
- RECIPE_NO_OF_PATCHES_pn-gupnp-av= "0"
--RECIPE_LATEST_RELEASE_DATE_pn-gupnp-av= "2010/11/08"
--RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-gupnp-av= "15 days"
--RECIPE_LAST_UPDATE_pn-gupnp-av = "Nov 25, 2010"
--RECIPE_MANUAL_CHECK_DATE_pn-gupnp-av = "Jan 30, 2011"
-+RECIPE_LATEST_RELEASE_DATE_pn-gupnp-av= "2011/04/08"
-+RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-gupnp-av= "4 months"
-+RECIPE_LAST_UPDATE_pn-gupnp-av = "Apr 26, 2011"
- RECIPE_MAINTAINER_pn-gupnp-av = "Dongxiao Xu <dongxiao.xu@intel.com>"
- 
- RECIPE_STATUS_pn-gupnp-tools = "green"
-@@ -2182,9 +2180,12 @@ RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-telepathy-python="4 months"
- RECIPE_LAST_UPDATE_pn-telepathy-python = "Dec 30, 2010"
- RECIPE_MAINTAINER_pn-telepathy-python = "Dongxiao Xu <dongxiao.xu@intel.com>"
- 
--RECIPE_STATUS_pn-bluez-hcidump = "red"
--RECIPE_LATEST_VERSION_pn-bluez-hcidump = "1.42"
--RECIPE_LAST_UPDATE_pn-bluez-hcidump = "Nov 7, 2008"
-+RECIPE_STATUS_pn-bluez-hcidump = "green"
-+RECIPE_LATEST_VERSION_pn-bluez-hcidump = "2.0"
-+RECIPE_NO_OF_PATCHES_pn-bluez-hcidump = "0"
-+RECIPE_LATEST_RELEASE_DATE_pn-bluez-hcidump = "2011/01/27"
-+RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-bluez-hcidump = "4 months"
-+RECIPE_LAST_UPDATE_pn-bluez-hcidump = "Apr 26, 2011"
- RECIPE_MAINTAINER_pn-bluez-hcidump = "Dongxiao Xu <dongxiao.xu@intel.com>"
- 
- RECIPE_STATUS_pn-ppp-dialin = "red"
-@@ -2624,10 +2625,13 @@ RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-gst-ffmpeg = "4 months"
- RECIPE_LAST_UPDATE_pn-gst-ffmpeg = "Dec 14, 2010"
- RECIPE_MAINTAINER_pn-gst-ffmpeg = "Dongxiao Xu <dongxiao.xu@intel.com>"
- 
--RECIPE_STATUS_pn-libsndfile1 = "red"
-+RECIPE_STATUS_pn-libsndfile1 = "green"
- DISTRO_PN_ALIAS_pn-libsndfile1 = "Meego=libsndfile Fedora=libsndfile OpenSuSE=libsndfile Ubuntu=libsndfile Mandriva=libsndfile Debian=libsndfile"
--RECIPE_LATEST_VERSION_pn-libsndfile1 = "1.0.21 "
--RECIPE_LAST_UPDATE_pn-libsndfile1 = "Nov 11, 2010"
-+RECIPE_LATEST_VERSION_pn-libsndfile1 = "1.0.24"
-+RECIPE_NO_OF_PATCHES_pn-libsndfile1 = "0"
-+RECIPE_LATEST_RELEASE_DATE_pn-libsndfile1 = "2011/03/23"
-+RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-libsndfile1 = "5 months"
-+RECIPE_LAST_UPDATE_pn-libsndfile1 = "Apr 26, 2011"
- RECIPE_MAINTAINER_pn-libsndfile1 = "Dongxiao Xu <dongxiao.xu@intel.com>"
- 
- RECIPE_STATUS_pn-pulseaudio = "green"
-@@ -2662,11 +2666,11 @@ RECIPE_MAINTAINER_pn-gst-fluendo-mp3 = "Dongxiao Xu <dongxiao.xu@intel.com>"
- DISTRO_PN_ALIAS_pn-gst-fluendo-mp3 = "Debian=gstreamer0.10-fluendo-mp3  Ubuntu=gstreamer0.10-fluendo-mp3"
- 
- RECIPE_STATUS_pn-gst-fluendo-mpegdemux = "green"
--RECIPE_LATEST_VERSION_pn-gst-fluendo-mpegdemux = "0.10.20"
-+RECIPE_LATEST_VERSION_pn-gst-fluendo-mpegdemux = "0.10.67"
- RECIPE_NO_OF_PATCHES_pn-gst-fluendo-mpegdemux = "0"
--RECIPE_LATEST_RELEASE_DATE_pn-gst-fluendo-mpegdemux = "2010/10/20"
--RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-gst-fluendo-mpegdemux = "1 months"
--RECIPE_LAST_UPDATE_pn-gst-fluendo-mpegdemux = "Dec 7, 2010"
-+RECIPE_LATEST_RELEASE_DATE_pn-gst-fluendo-mpegdemux = "2011/03/17"
-+RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-gst-fluendo-mpegdemux = "6 days"
-+RECIPE_LAST_UPDATE_pn-gst-fluendo-mpegdemux = "Apr 26, 2011"
- RECIPE_MAINTAINER_pn-gst-fluendo-mpegdemux = "Dongxiao Xu <dongxiao.xu@intel.com>"
- DISTRO_PN_ALIAS_pn-gst-fluendo-mpegdemux = "Ubuntu=gstreamer0.10-fluendo-mpegdemux Debian=gstreamer0.10-fluendo-mpegdemux"
- 
-@@ -2676,11 +2680,11 @@ RECIPE_LAST_UPDATE_pn-libomxil = "Jan 11, 2008"
- RECIPE_MAINTAINER_pn-libomxil = "Dongxiao Xu <dongxiao.xu@intel.com>"
- DISTRO_PN_ALIAS_pn-libomxil = "OSPDT upstream=http://omxil.sourceforge.net/"
- 
--RECIPE_STATUS_pn-libsamplerate0 = "red"
-+RECIPE_STATUS_pn-libsamplerate0 = "green"
- DISTRO_PN_ALIAS_pn-libsamplerate0 = "Meego=libsamplerate Fedora=libsamplerate OpenSuSE=libsamplerate Ubuntu=libsamplerate Mandriva=libsamplerate Debian=libsamplerate"
- RECIPE_LATEST_VERSION_pn-libsamplerate0 = "0.1.7"
--RECIPE_LAST_UPDATE_pn-libsamplerate0 = "Nov 22, 2010"
--RECIPE_MANUAL_CHECK_DATE_pn-libsamplerate0 = "Jan 30, 2011"
-+RECIPE_LAST_UPDATE_pn-libsamplerate0 = "Apr 26, 2011"
-+RECIPE_MANUAL_CHECK_DATE_pn-libsamplerate0 = "Apr 26, 2011"
- RECIPE_MAINTAINER_pn-libsamplerate0 = "Dongxiao Xu <dongxiao.xu@intel.com>"
- 
- RECIPE_STATUS_pn-oprofileui = "green"
--- 
-1.7.1
+Hi,
 
+do you really want PE going backwards?
 
+Regards,
+
+>  PR =3D "r0"
+> =20
+> -SRC_URI =3D "${GNOME_MIRROR}/glib/2.26/glib-${PV}.tar.bz2 \
+> +SRC_URI =3D "${GNOME_MIRROR}/glib/2.28/glib-${PV}.tar.bz2 \
+>             file://configure-libtool.patch \
+>             file://60_wait-longer-for-threads-to-die.patch \
+>             file://g_once_init_enter.patch \
+>            "
+> =20
+> -SRC_URI[md5sum] =3D "17535accceef55bcb17a74d73f9c2aef"
+> -SRC_URI[sha256sum] =3D "7a74ff12b6b9dee1f2d0e520b56b68b621920c4f4250bdf2=
+3468e515625c28d5"
+> +SRC_URI[md5sum] =3D "7d8fc15ae70d5111c0cf2a79d50ef717"
+> +SRC_URI[sha256sum] =3D "557fb7c39d21b9359fbac51fd6b0b883bc97a2561c0166ee=
+f993a4078312f578"
+> =20
+>  SRC_URI_append_virtclass-native =3D " file://glib-gettextize-dir.patch"
+>  BBCLASSEXTEND =3D "native"
+> diff --git a/meta/recipes-core/glib-2.0/glib.inc b/meta/recipes-core/glib=
+-2.0/glib.inc
+> index 5ebff68..9b6e17b 100644
+> --- a/meta/recipes-core/glib-2.0/glib.inc
+> +++ b/meta/recipes-core/glib-2.0/glib.inc
+> @@ -8,7 +8,7 @@ LIC_FILES_CHKSUM =3D "file://COPYING;md5=3D3bf50002aefd00=
+2f49e7bb854063f7e7 \
+>                      file://gmodule/COPYING;md5=3D3bf50002aefd002f49e7bb8=
+54063f7e7 \
+>                      file://gmodule/gmodule.h;startline=3D4;endline=3D17;=
+md5=3D76ab161b37202cd004073c42fac276ed \
+>                      file://glib/pcre/COPYING;md5=3D266ebc3ff74ee9ce6fad6=
+5577667c0f4 \
+> -                    file://glib/pcre/pcre.h;startline=3D11;endline=3D35;=
+md5=3Dcc0858840d3c312ec3e45b28077eb0d8 \
+> +                    file://glib/pcre/pcre.h;startline=3D11;endline=3D35;=
+md5=3Dce867cf87ebbd2bb55e980d90328390d \
+>                      file://docs/reference/COPYING;md5=3Df51a5100c17af6ba=
+e00735cd791e1fcc"
+>  BUGTRACKER =3D "http://bugzilla.gnome.org"
+>  SECTION =3D "libs"
+> --=20
+> 1.7.1
+>=20
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+
+--=20
+Martin 'JaMa' Jansa     jabber: Martin.Jansa@gmail.com
+
+--bp/iNruPH9dso1Pn
+Content-Type: application/pgp-signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.17 (GNU/Linux)
+
+iEYEARECAAYFAk22amAACgkQN1Ujt2V2gBw6ewCgmxHU++EMHFWErDMpQUEKzj82
+NMAAniK5fhyxg1de6ggau+jhN0MKIMJq
+=RQz6
+-----END PGP SIGNATURE-----
+
+--bp/iNruPH9dso1Pn--
