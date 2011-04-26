@@ -1,27 +1,27 @@
-Return-Path: <mark.hatle@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 1E8824C80332
-	for <poky@yoctoproject.org>; Tue, 26 Apr 2011 12:41:32 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p3QHfVxM004479
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Tue, 26 Apr 2011 10:41:31 -0700 (PDT)
-Received: from Macintosh-5.local (172.25.36.228) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server id 14.1.255.0;
-	Tue, 26 Apr 2011 10:41:31 -0700
-Message-ID: <4DB703CA.1000803@windriver.com>
-Date: Tue, 26 Apr 2011 12:41:30 -0500
-From: Mark Hatle <mark.hatle@windriver.com>
-Organization: Wind River Systems
-User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
-	rv:1.9.2.15) Gecko/20110303 Thunderbird/3.1.9
-MIME-Version: 1.0
-To: Kang Kai <Kai.Kang@windriver.com>
-References: <4DB0F192.6020809@windriver.com> <4DB620F5.3010709@windriver.com>
-	<4DB65AB6.4040208@windriver.com>
-In-Reply-To: <4DB65AB6.4040208@windriver.com>
-Cc: poky@yoctoproject.org
-Subject: Re: About minimal image
+Return-Path: <scott.a.garman@intel.com>
+Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5765D4C80852
+	for <poky@yoctoproject.org>; Tue, 26 Apr 2011 13:27:16 -0500 (CDT)
+Received: from localhost (c-76-105-143-140.hsd1.or.comcast.net
+	[76.105.143.140])
+	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
+	(No client certificate requested)
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id 70C26308D8
+	for <poky@yoctoproject.org>; Tue, 26 Apr 2011 14:27:08 -0400 (EDT)
+Message-Id: <cover.1303842200.git.scott.a.garman@intel.com>
+Old-Date: Tue, 26 Apr 2011 11:23:20 -0700
+Date: Tue, 26 Apr 2011 11:27:01 -0700
+To: poky@yoctoproject.org
+CC: 
+From: Scott Garman <scott.a.garman@intel.com>
+X-MasterFoo-MailScanner-Information: Please contact the ISP for more
+	information
+X-MailScanner-ID: 70C26308D8.D3FA8
+X-MasterFoo-MailScanner: Found to be clean
+X-MasterFoo-MailScanner-SpamCheck: not spam
+X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
+X-Spam-Status: No
+Subject: [PATCH 0/2] cdrtools recipe cleanup v2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,85 +33,39 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 26 Apr 2011 17:41:32 -0000
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 26 Apr 2011 18:27:16 -0000
 
-On 4/26/11 12:40 AM, Kang Kai wrote:
-> Hi Mark,
-> 
+From: Scott Garman <scott.a.garman@intel.com>
 
-Apologies for the late response.  I've been out of the office...
+(v2 of this pull request, includes SRC_URI checksums)
 
->> I have read your mail about minimal image posted on Feb 19 on this mail list. 
->> We try to reduce image size by what your said:
->>
->>    1. eglic configurability
+Hi Saul,
 
-eglibc configuration should affect the size of things greatly...
+Looking closer at the existing cdrtools recipe we have, in fact the
+CVE advisory does not apply, since the problematic utility (rscsi)
+is staged in ${sbindir} and the custom do_install() function only
+packages ${bindir}.
 
->>    2. using mklibs
->>
->>
->> Right now after migrate eglic configurability to my local yocto branch, and I
->> only enable 4 options ("locale-code nsswitch rtld-debug posix-clang-wchar ",
->> pls. check in attachment) of eglibc just to make compile pass.
+So instead I took the opportunity to do some recipe cleanup, updated
+the patches, and added distro tracking information.
 
-locale-code, nsswitch and any of the "wchar" options add a significant amount of
-space to the eglibc environment.  (I don't know what rtld-debug does, so I don't
-know how to quantify it's effects on the rootfs size.)
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: sgarman/cdrtools-cve
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=sgarman/cdrtools-cve
 
-If disabling any of these items causes a failure when building eglibc itself, we
-need to fix these issues and/or report them upstream.
+Thanks,
+    Scott Garman <scott.a.garman@intel.com>
+---
 
->> When after create minimal image, the rootfs (tar.bz2) is still about 3.4M,
->> same size as without adding  configurability to eglibc.
->>
 
-You need to look at the files on the image, not the overall size of the image.
-Figure out where the larger items are any why they are there.  This should help
-explain what is making the "optimized" minimal so big.
+Scott Garman (2):
+  cdrtools: recipe and patch cleanup
+  distro_tracking_fields.inc: add cdrtools recipe
 
->> Could you give me some directions what should we do in next step? We also hope
->> some information about how to use mklibs to reduce packages and image size?
-> After open MKLIBS_OPTIMIZED_IMAGES ?= "core-image-minimal" in local.conf, the
-> minimal image decrease from 3.4M to 3.1M, after extraction is 8.1M( vs. 8.4M
-> before using mklibs). It looks like not so efficient as we expected.
-
-mklibs relinks the libc binary to remove objects that were not used.  While the
-eglibc configuration simply disables various features in order to save space.
-The two are complementary.. but the more features you disable, the less mklibs
-will save.
-
-> Should I try to reduce busybox size at same time?Such as remove some not so
-> usually used commands by configurations?
-
-I suspect that the size and configuration of busybox is also affecting which
-items you need to have enabled within the eglibc configuration -- and which
-items mklibs is determining are needed.
-
-> Any suggestion or guild will be appreciate!
-
-I would suggest that you evaluate busybox and see if there are any components
-you can disable there as well -- while leaving the system somewhat functional.
-
-The biggest problem with any of these "smallest system" exercises is that you
-need to have a target of functionality so that you can make the proper
-decisions.  If the target is current configuration -- then likely we're about at
-a minimum already.. however if the target is to boot into a shell, we can
-disable a lot of busybox and simply enable the dash capabilities -- or even one
-of the lesser non-POSIX shells.
-
---Mark
-
-> Thanks and Regards,
-> Kai
->>
->>
->> _______________________________________________
->> poky mailing list
->> poky@yoctoproject.org
->> https://lists.yoctoproject.org/listinfo/poky
-> 
+ .../conf/distro/include/distro_tracking_fields.inc |   11 ++++++++++
+ .../cdrtools-native/glibc-conflict-rename.patch    |    8 +++++++
+ .../cdrtools/cdrtools-native/no_usr_src.patch      |    7 ++++++
+ .../cdrtools/cdrtools-native_2.01.bb               |   22 +++++++++++--------
+ 4 files changed, 39 insertions(+), 9 deletions(-)
 
 
