@@ -1,19 +1,22 @@
-Return-Path: <tom.zanussi@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9438A4C80ADD
-	for <poky@yoctoproject.org>; Mon, 25 Apr 2011 16:14:28 -0500 (CDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 25 Apr 2011 14:14:28 -0700
-Message-Id: <1bdc18$kc3a92@fmsmga002.fm.intel.com>
+Return-Path: <nitin.a.kamble@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D708B4C80A7C
+	for <poky@yoctoproject.org>; Mon, 25 Apr 2011 19:20:06 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 25 Apr 2011 17:20:06 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,266,1301900400"; d="scan'208";a="683780393"
-Received: from unknown (HELO localhost) ([10.255.12.226])
-	by fmsmga002.fm.intel.com with ESMTP; 25 Apr 2011 14:14:28 -0700
-Old-Date: Mon, 25 Apr 2011 15:52:00 -0500
-Date: Mon, 25 Apr 2011 16:14:27 -0500
-To: poky@yoctoproject.org
-From: Tom Zanussi <tom.zanussi@intel.com>
-Subject: [PATCH 2/2] meta-crownbay: update documentation with hw and build details
+X-IronPort-AV: E=Sophos;i="4.64,267,1301900400"; d="scan'208";a="738318122"
+Received: from nbuild1.sc.intel.com (HELO localhost) ([172.25.110.36])
+	by orsmga001.jf.intel.com with ESMTP; 25 Apr 2011 17:20:06 -0700
+Message-Id: <7e9ac75e9a9b792eccedf3c0cd8c3b01064bc94f.1303776892.git.nitin.a.kamble@intel.com>
+In-Reply-To: <cover.1303776892.git.nitin.a.kamble@intel.com>
+References: <cover.1303776892.git.nitin.a.kamble@intel.com>
+Old-Date: Mon, 25 Apr 2011 17:07:37 -0700
+Date: Mon, 25 Apr 2011 17:19:46 -0700
+To: scott.a.garman@intel.com, poky@yoctoproject.org,
+	openembedded-core@lists.openembedded.org
+From: Nitin A Kamble <nitin.a.kamble@intel.com>
+Subject: [PATCH 1/2] tar-1.17 (GPLv2) bugfix
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -25,96 +28,63 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 25 Apr 2011 21:14:28 -0000
+X-List-Received-Date: Tue, 26 Apr 2011 00:20:07 -0000
 
-From: Tom Zanussi <tom.zanussi@intel.com>
+From: Nitin A Kamble <nitin.a.kamble@intel.com>
 
-Add missing info on supported hardware, and update the details with
-respect to building with/without emgd.
-
-Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
+Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
 ---
- meta-crownbay/README |   42 +++++++++++++++++++++++++++++++-----------
- 1 files changed, 31 insertions(+), 11 deletions(-)
+ .../tar/tar-1.17/avoid_heap_overflow.patch         |   22 ++++++++++++++++++++
+ meta/recipes-extended/tar/tar_1.17.bb              |    3 +-
+ 2 files changed, 24 insertions(+), 1 deletions(-)
+ create mode 100644 meta/recipes-extended/tar/tar-1.17/avoid_heap_overflow.patch
 
-diff --git a/meta-crownbay/README b/meta-crownbay/README
-index 468608c..1177024 100644
---- a/meta-crownbay/README
-+++ b/meta-crownbay/README
-@@ -2,6 +2,11 @@ This README file contains information on building the meta-crownbay
- BSP layer, and booting the images contained in the /binary directory.
- Please see the corresponding sections below for details.
- 
-+The Crown Bay platform consists of the Intel Atom Z6xx processor,
-+plus the Intel EG20T Platform Controller Hub (Tunnel Creek + Topcliff).
+diff --git a/meta/recipes-extended/tar/tar-1.17/avoid_heap_overflow.patch b/meta/recipes-extended/tar/tar-1.17/avoid_heap_overflow.patch
+new file mode 100644
+index 0000000..abfd0ae
+--- /dev/null
++++ b/meta/recipes-extended/tar/tar-1.17/avoid_heap_overflow.patch
+@@ -0,0 +1,22 @@
++Upstream-Status="Inappropriate [bugfix: https://wiki.yoctoproject.org/collab/Tar_GPLv3-v2_transfer_info http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2010-0624]"
 +
-+It also supports the E6xx embedded on-chip graphics via the Intel
-+Embedded Media and Graphics Driver (EMGD) 1.5 Gold Driver.
- 
- Table of Contents
- =================
-@@ -21,8 +26,8 @@ current master.
- 
- In order to build an image with BSP support for a given release, you
- need to check out the 'meta-intel' branch corresponding to the release
--you're building against e.g. to build for laverne (0.90), check out
--the 'laverne' branch of both poky and 'meta-intel'.
-+you're building against e.g. to build for bernard (1.0), check out
-+the 'bernard' branch of both poky and 'meta-intel'.
- 
- Having done that, and assuming you cloned the 'meta-intel' repository
- at the top-level of your yocto build tree, you can build a crownbay
-@@ -31,10 +36,22 @@ bblayers.conf e.g.:
- 
-   yocto/meta-intel/meta-crownbay \
- 
--To enable the crownbay layer, add the crownbay MACHINE to local.conf:
-+The meta-crownbay layer contains support for two different machine
-+configurations. These configurations are identical except for the fact
-+that the one prefixed with 'crownbay' makes use of the
-+Intel-proprietary EMGD 1.5 graphics driver, while the one prefixed
-+with 'crownbay-noemgd' does not.
++This patch avoids heap overflow reported by :
++http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2010-0624
 +
-+If you want to enable the layer that supports EMGD graphics add
-+following to the local.conf file:
- 
-   MACHINE ?= "crownbay"
- 
-+If you want to enable the layer that does not support EMGD graphics
-+add the following to the local.conf file:
++This is a clean patch for the GPLv2 tar recipe.
 +
-+  MACHINE ?= "crownbay-noemgd"
++Nitin A Kamble <nitin.a.kamble@intel.com> 2011/04/25
 +
- You should then be able to build a crownbay image as such:
++Index: tar-1.17/lib/rtapelib.c
++===================================================================
++--- tar-1.17.orig/lib/rtapelib.c
+++++ tar-1.17/lib/rtapelib.c
++@@ -570,7 +570,7 @@ rmt_read__ (int handle, char *buffer, si
++ 
++   sprintf (command_buffer, "R%lu\n", (unsigned long) length);
++   if (do_command (handle, command_buffer) == -1
++-      || (status = get_status (handle)) == SAFE_READ_ERROR)
+++      || ((status = get_status (handle)) == SAFE_READ_ERROR) || (status > length))
++     return SAFE_READ_ERROR;
++ 
++   for (counter = 0; counter < status; counter += rlen, buffer += rlen)
+diff --git a/meta/recipes-extended/tar/tar_1.17.bb b/meta/recipes-extended/tar/tar_1.17.bb
+index be74542..138ea71 100644
+--- a/meta/recipes-extended/tar/tar_1.17.bb
++++ b/meta/recipes-extended/tar/tar_1.17.bb
+@@ -3,10 +3,11 @@ require tar.inc
+ LICENSE = "GPLv2"
+ LIC_FILES_CHKSUM = "file://COPYING;md5=59530bdf33659b29e73d4adb9f9f6552"
  
-   $ source poky-init-build-env
-@@ -49,14 +66,17 @@ II. Special notes for building the meta-crownbay BSP layer
- ==========================================================
+-PR = "r0"
++PR = "r1"
  
- The meta-crownbay layer makes use of the proprietary Intel EMGD
--userspace drivers, which at this point in time require that the user
--accept the Intel license by manually extracting the binaries and
--copying them to the proper location in the meta-crownbay layer.
--
--There currently isn't an automated way to do this, thus the manual
--step.  When Yocto supports a click-through installation mechanism, the
--binary files will be packaged as part of the recipe, and this step
--will be unnecessary.
-+userspace drivers when building the "crownbay" machine (but not when
-+building the "crownbay-noemgd" machine).  If you got the BSP from the
-+'BSP Downloads' section of the Yocto website, the EMGD binaries needed
-+to perform the build will already be present in the BSP, located in
-+the recipes-graphics/xorg-xserver/xserver-xf86-emgd-bin directory, and
-+you can ignore the rest of this section.
-+
-+If you didn't get the BSP from the 'BSP Downloads' section of the
-+Yocto website, you'll need to download the a Windows executable from
-+the official EMGD website, extract the binaries from it, and copy them
-+to the proper location in the meta-crownbay layer.
+ SRC_URI += "file://m4extensions.patch \
+     file://gcc43build.patch \
++    file://avoid_heap_overflow.patch \
+     "
  
- These steps require that you run a graphical application in Windows.
- Windows 7 was used for these instructions, but it shouldn't matter
+ SRC_URI[md5sum] = "c6c4f1c075dbf0f75c29737faa58f290"
 -- 
-1.7.0.4
+1.7.2.2
 
 
