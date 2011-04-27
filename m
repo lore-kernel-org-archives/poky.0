@@ -1,26 +1,27 @@
-Return-Path: <josh@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 185F84C80578
-	for <poky@yoctoproject.org>; Tue, 26 Apr 2011 15:49:06 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 26 Apr 2011 13:49:05 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,270,1301900400"; 
-	d="diff'?scan'208";a="738822448"
-Received: from unknown (HELO [10.255.13.84]) ([10.255.13.84])
-	by orsmga001.jf.intel.com with ESMTP; 26 Apr 2011 13:49:05 -0700
-From: Joshua Lock <josh@linux.intel.com>
-To: Michael Sundius <msundius@cisco.com>
-Date: Tue, 26 Apr 2011 13:49:04 -0700
-References: <4DB6FA1F.3010607@cisco.com>
-	<9AFCD584B0B67B48AE8D8585BE30BA9501169C63EC@orsmsx504.amr.corp.intel.com>
-	<4DB70FAC.5050105@cisco.com>
-In-Reply-To: <4DB70FAC.5050105@cisco.com>
-X-Mailer: Evolution 3.0.0 (3.0.0-1.fc15) 
-Message-ID: <1303850945.28281.53.camel@scimitar>
-Mime-Version: 1.0
-Cc: poky <poky@yoctoproject.org>
-Subject: Re: yacto image builder and eclipse plugin for yacto
+Return-Path: <Kai.Kang@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D403F4C803D6
+	for <poky@yoctoproject.org>; Tue, 26 Apr 2011 20:55:19 -0500 (CDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p3R1tJ9i029241
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Tue, 26 Apr 2011 18:55:19 -0700 (PDT)
+Received: from [128.224.163.157] (128.224.163.157) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
+	Tue, 26 Apr 2011 18:55:18 -0700
+Message-ID: <4DB777A3.5080901@windriver.com>
+Date: Wed, 27 Apr 2011 09:55:47 +0800
+From: Kang Kai <Kai.Kang@windriver.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.13) Gecko/20101208 Thunderbird/3.1.7
+MIME-Version: 1.0
+To: Mark Hatle <mark.hatle@windriver.com>
+References: <4DB0F192.6020809@windriver.com> <4DB620F5.3010709@windriver.com>
+	<4DB65AB6.4040208@windriver.com> <4DB703CA.1000803@windriver.com>
+In-Reply-To: <4DB703CA.1000803@windriver.com>
+X-Originating-IP: [128.224.163.157]
+Cc: poky@yoctoproject.org
+Subject: Re: About minimal image
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,142 +33,77 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 26 Apr 2011 20:49:07 -0000
-X-Groupsio-MsgNum: 5566
-Content-Type: multipart/mixed; boundary="=-pzKb9OJL2HLzigSaR6oH"
-
---=-pzKb9OJL2HLzigSaR6oH
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Wed, 27 Apr 2011 01:55:20 -0000
+Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Tue, 2011-04-26 at 12:32 -0600, Michael Sundius wrote:
-> 
-> > -----Original Message-----
-> > From: Michael Sundius [mailto:msundius@cisco.com]
-> >   
-> > ... He was also talking about an "image builder" tool
-> > where a loadable target image could be created from a gui which provides
-> > the means to select which packages or groups of packages are
-> > installed, the format could be selected and possibly some configurable
-> > post processing, could be done.
-> >
-> > I have some thoughts and questions about such a tool (the image builder)
-> > and was wondering if I might pick your brain about it OR if your not
-> > the person, you might know who is.
-> >   
-> Zhang, Jessica wrote:
-> > Hi Michael,
-> >
-> > Josh (cc'd here) is the person mainly working on the "image creator" the UI to bitbake and my team is working with him on delivery image creator for Yocto 1.1.  So you can send your questions to us, as an open source project, we generally encourage people to send their questions to poky@yoctoproject.org mailing list to stir a public discussion, so you can take that route as well.
-> >
-> > Thanks,
-> > Jessica
-> >   
-> 
-> Thanks for your reply Jessica,
-> 
-> In particular our work flow goes like this:
-> 
-> 1) we build a distro that is to run on our set top box from that we 
-> create two results:
->     a) a image that we can load directly on the set top box
->     b) an sdk which our customers to be given to our non OE accecpting 
-> customers
-> 2) Those customers will develop applications based on the SDK
-> 3)  our customers need to create a similar image to the one we made in 
-> "1a" above plus their application
-> 
-> So what, we've done in the past was to create an image in OE and then 
-> install it in the SDK as a tarball. Then provide a makefile that creates 
-> the image from the tarball.
-> 
-> this is a little ugly. what we'd really like to have is an "image 
-> creator" which can simply select the packages (from some feed somewhere) 
-> and install them just as
-> bitbake does.
-> 
-> QUESTIONS
->  so does your image creator use bitbake? or is it stand alone from the 
-> rest of OE/Yacto such that we could simply provide the image creator 
-> along with our sdk (and a link to a package feed).
+Hi Mark,
 
-Our image creator is a Bitake UI (front-end). Development is currently
-being done within the Poky repository but we hope to move that to
-upstream BitBake within the next couple of weeks as the two divergent
-codebases merge.
+> On 4/26/11 12:40 AM, Kang Kai wrote:
+>> Hi Mark,
+>>
+> Apologies for the late response.  I've been out of the office...
+>
+>>> I have read your mail about minimal image posted on Feb 19 on this mail list.
+>>> We try to reduce image size by what your said:
+>>>
+>>>     1. eglic configurability
+> eglibc configuration should affect the size of things greatly...
+>
+>>>     2. using mklibs
+>>>
+>>>
+>>> Right now after migrate eglic configurability to my local yocto branch, and I
+>>> only enable 4 options ("locale-code nsswitch rtld-debug posix-clang-wchar ",
+>>> pls. check in attachment) of eglibc just to make compile pass.
+> locale-code, nsswitch and any of the "wchar" options add a significant amount of
+> space to the eglibc environment.  (I don't know what rtld-debug does, so I don't
+> know how to quantify it's effects on the rootfs size.)
+>
+> If disabling any of these items causes a failure when building eglibc itself, we
+> need to fix these issues and/or report them upstream.
+I'll take that as the direction is right, disable all configurable 
+options to reduce the image size. :)
+And I will try to figure out why disable these 4 options will cause 
+eglibc build failure.
 
-> 
-> If not, could you envision your tool to be made to work that way (given 
-> we provide a bit of effort from our end).
-> 
-> where can I go to see how the image creator works? could I download and 
-> try it out?
+>>> When after create minimal image, the rootfs (tar.bz2) is still about 3.4M,
+>>> same size as without adding  configurability to eglibc.
+>>>
+> You need to look at the files on the image, not the overall size of the image.
+> Figure out where the larger items are any why they are there.  This should help
+> explain what is making the "optimized" minimal so big.
+ok, I'll do it.
 
-Right now the code that we have is very prototype. You can get a feel
-for the direction we're taking but the resultant images aren't well
-tested.
-
-Furthermore I'm not certain how well the code in upstream's repositories
-work. For a snapshot of the current state of things you can use a clone
-of latest Poky[2] with the attached patch applied (the xml-rpc server
-currently offers a better experience - we're working to fix this).
-
-Those disclaimers aside:
-
-bitbake -u hob
-
-will launch the image creator.
-
-> I think we'd like to contribute to this effort if we could.
-
-You'd be very welcome and now would be a great time to do so! :-) 
-
-You can see the work I have planned and in progress at:
-https://wiki.yoctoproject.org/wiki/BitBake/GUI/PostOneOh
-
-Note: Bugs can be filed against the image creator component at
-http://bugzilla.yoctoproject.org/enter_bug.cgi?product=Build%20System
+>>> Could you give me some directions what should we do in next step? We also hope
+>>> some information about how to use mklibs to reduce packages and image size?
+>> After open MKLIBS_OPTIMIZED_IMAGES ?= "core-image-minimal" in local.conf, the
+>> minimal image decrease from 3.4M to 3.1M, after extraction is 8.1M( vs. 8.4M
+>> before using mklibs). It looks like not so efficient as we expected.
+> mklibs relinks the libc binary to remove objects that were not used.  While the
+> eglibc configuration simply disables various features in order to save space.
+> The two are complementary.. but the more features you disable, the less mklibs
+> will save.
+>
+>> Should I try to reduce busybox size at same time?Such as remove some not so
+>> usually used commands by configurations?
+> I suspect that the size and configuration of busybox is also affecting which
+> items you need to have enabled within the eglibc configuration -- and which
+> items mklibs is determining are needed.
+>
+>> Any suggestion or guild will be appreciate!
+> I would suggest that you evaluate busybox and see if there are any components
+> you can disable there as well -- while leaving the system somewhat functional.
+>
+> The biggest problem with any of these "smallest system" exercises is that you
+> need to have a target of functionality so that you can make the proper
+> decisions.  If the target is current configuration -- then likely we're about at
+> a minimum already.. however if the target is to boot into a shell, we can
+> disable a lot of busybox and simply enable the dash capabilities -- or even one
+> of the lesser non-POSIX shells.
+I will ask Saul and Richard for more detailed requirements.
+Thank you very much!
 
 Regards,
-Joshua
+Kai
 
-Note: I've fixed the CC for the poky mailing list.
--- 
-Joshua Lock
-        Yocto Build System Monkey
-        Intel Open Source Technology Centre
-
---=-pzKb9OJL2HLzigSaR6oH
-Content-Description: use-xmlrpc.diff
-Content-Disposition: attachment; filename="use-xmlrpc.diff"; size=927; creation-date="Tue, 26 Apr 2011 14:46:18 GMT"; modification-date="Tue, 26 Apr 2011 14:46:18 GMT"
-Content-Type: text/x-patch; name="use-xmlrpc.diff"; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-
-diff --git a/bitbake/bin/bitbake b/bitbake/bin/bitbake
-index 6d05289..e18671a 100755
---- a/bitbake/bin/bitbake
-+++ b/bitbake/bin/bitbake
-@@ -39,8 +39,8 @@ import bb.msg
- from bb import cooker
- from bb import ui
- from bb import server
--from bb.server import none
--#from bb.server import xmlrpc
-+#from bb.server import none
-+from bb.server import xmlrpc
- 
- __version__ = "1.11.0"
- logger = logging.getLogger("BitBake")
-@@ -175,8 +175,8 @@ Default BBFILES are the .bb files in the current directory.""")
-     loghandler = event.LogHandler()
-     logger.addHandler(loghandler)
- 
--    #server = bb.server.xmlrpc
--    server = bb.server.none
-+    server = bb.server.xmlrpc
-+    #server = bb.server.none
- 
-     # Save a logfile for cooker into the current working directory. When the
-     # server is daemonized this logfile will be truncated.
-
---=-pzKb9OJL2HLzigSaR6oH--
