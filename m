@@ -1,25 +1,25 @@
 Return-Path: <Kai.Kang@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 4CD4E4C80852
-	for <poky@yoctoproject.org>; Wed, 27 Apr 2011 04:29:37 -0500 (CDT)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2BF5B4C80332
+	for <poky@yoctoproject.org>; Wed, 27 Apr 2011 04:29:42 -0500 (CDT)
 Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p3R9TaCn013673
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p3R9Te10013684
 	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Wed, 27 Apr 2011 02:29:36 -0700 (PDT)
+	Wed, 27 Apr 2011 02:29:41 -0700 (PDT)
 Received: from localhost (128.224.163.157) by ALA-HCA.corp.ad.wrs.com
 	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Wed, 27 Apr 2011 02:29:35 -0700
-Message-ID: <059207ed64e1bbe7ab25f0aee8225e3f9a9ed937.1303895739.git.kai.kang@windriver.com>
+	Wed, 27 Apr 2011 02:29:40 -0700
+Message-ID: <e42614d9ad2becbc398aa7096c25f4aea07deba9.1303895739.git.kai.kang@windriver.com>
 In-Reply-To: <cover.1303895739.git.kai.kang@windriver.com>
 References: <cover.1303895739.git.kai.kang@windriver.com>
-Old-Date: Wed, 27 Apr 2011 16:16:46 +0800
-Date: Wed, 27 Apr 2011 17:30:12 +0800
+Old-Date: Wed, 27 Apr 2011 17:14:38 +0800
+Date: Wed, 27 Apr 2011 17:30:16 +0800
 To: <saul.wold@intel.com>
 From: Kang Kai <kai.kang@windriver.com>
 MIME-Version: 1.0
 X-Originating-IP: [128.224.163.157]
 Cc: poky@yoctoproject.org
-Subject: [PATCH 2/3] lsbsetup: add commands install_initd and remove_initd
+Subject: [PATCH 3/3] task-core-lsb: add xdg-utils into lsb image
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,44 +31,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 27 Apr 2011 09:29:37 -0000
+X-List-Received-Date: Wed, 27 Apr 2011 09:29:42 -0000
 Content-Type: text/plain
 
 From: Kang Kai <kai.kang@windriver.com>
 
-Add commands install_initd and remove_initd link to chkconfig, which
-can handler LSB format init.d scripts. Needed by LSB commands check.
-Bump PR to r2
+Add xdg-utils in task-core-lsb, for LSB command check.
 Part fixes [Yocto 520]
 
 Signed-off-by: Kang Kai <kai.kang@windriver.com>
 ---
- meta/recipes-extended/lsb/lsbsetup_0.9.bb |    7 ++++++-
- 1 files changed, 6 insertions(+), 1 deletions(-)
+ meta/recipes-extended/tasks/task-core-lsb.bb |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
 
-diff --git a/meta/recipes-extended/lsb/lsbsetup_0.9.bb b/meta/recipes-extended/lsb/lsbsetup_0.9.bb
-index 5fd0584..73720ea 100644
---- a/meta/recipes-extended/lsb/lsbsetup_0.9.bb
-+++ b/meta/recipes-extended/lsb/lsbsetup_0.9.bb
-@@ -2,7 +2,7 @@ DESCRIPTION = "auto-setup environment for lsb test"
- SECTION = "console/utils"
- PRIORITY = "required"
- LICENSE = "GPLv2"
--PR = "r1"
-+PR = "r2"
+diff --git a/meta/recipes-extended/tasks/task-core-lsb.bb b/meta/recipes-extended/tasks/task-core-lsb.bb
+index ef8acb1..ed705f1 100644
+--- a/meta/recipes-extended/tasks/task-core-lsb.bb
++++ b/meta/recipes-extended/tasks/task-core-lsb.bb
+@@ -130,6 +130,7 @@ RDEPENDS_task-core-lsb-command-add = "\
+     mailx \
+     msmtp \
+     chkconfig \
++    xdg-utils \
+ "
+ #    cups
  
- LIC_FILES_CHKSUM = "file://LSB_Setup.sh;beginline=3;endline=16;md5=97451c7c0786ce5bbe9ac58042945583"
- 
-@@ -14,4 +14,9 @@ do_install() {
-         # Only install file if it has a contents
-         install -d ${D}/usr/bin
-         install -m 0755 ${S}/LSB_Setup.sh ${D}/usr/bin
-+        mkdir -p ${D}/usr/lib/lsb
-+        ln -sf ${base_sbindir}/chkconfig ${D}/${libdir}/lsb/install_initd
-+        ln -sf ${base_sbindir}/chkconfig ${D}/${libdir}/lsb/remove_initd
- }
-+
-+FILES_${PN} += "${libdir}/lsb"
 -- 
 1.7.1
 
