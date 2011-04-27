@@ -1,26 +1,40 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9B56D4C80570
-	for <poky@yoctoproject.org>; Wed, 27 Apr 2011 12:04:24 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 27 Apr 2011 10:04:24 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,275,1301900400"; d="scan'208";a="634894855"
-Received: from unknown (HELO [10.255.13.18]) ([10.255.13.18])
-	by orsmga002.jf.intel.com with ESMTP; 27 Apr 2011 10:04:23 -0700
-Message-ID: <4DB84C96.8010806@intel.com>
-Date: Wed, 27 Apr 2011 10:04:22 -0700
-From: Saul Wold <saul.wold@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
-MIME-Version: 1.0
-To: Kang Kai <kai.kang@windriver.com>
-References: <cover.1303895739.git.kai.kang@windriver.com>
-	<059207ed64e1bbe7ab25f0aee8225e3f9a9ed937.1303895739.git.kai.kang@windriver.com>
-In-Reply-To: <059207ed64e1bbe7ab25f0aee8225e3f9a9ed937.1303895739.git.kai.kang@windriver.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 2/3] lsbsetup: add commands install_initd and	remove_initd
+Return-Path: <srifenbark@gmail.com>
+Received: from mail-gy0-f176.google.com (mail-gy0-f176.google.com
+	[209.85.160.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id DDA444C8026D
+	for <poky@yoctoproject.org>; Wed, 27 Apr 2011 12:42:23 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by gya6 with SMTP id 6so974931gya.35
+	for <poky@yoctoproject.org>; Wed, 27 Apr 2011 10:42:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:message-id:in-reply-to:references:old-date
+	:subject:date:to:cc:from;
+	bh=BAOBgfkA3CCiuiAHKg60ziTANLZ/LwoWZN7qGGmVOGA=;
+	b=trlN8AD0681VuVX6qOxd7YeI8BNVJ9oehPQmbT7augm/RzJL5gfhh1xXDPtBhdJ/9E
+	pOKorQqxEbHvSW3KICk/WdjCZXyGCNDf8vSPqOiZo1lZh6duBCJH3rqHc4AKYyopXgDt
+	Vu1yFL84oVJAN4OV9a9ZvxSzWIq8NRMtiu0nQ=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=message-id:in-reply-to:references:old-date:subject:date:to:cc:from;
+	b=rcJ9z3DhnTZLgbYerCRl5d40442gKJjWUuJSWmVdBvFH50CjmA76z/wWo5Day7xFSM
+	PcTXvbk0Uyp4ktqWfgRptabJAxYLxfH8tMiu7NWBnr4hdJ0f7iPuUUCoCCftevHRAIof
+	s4//3aN4/hUnyIxDH3uC7Q6K8y1GIWhANSRC0=
+Received: by 10.150.118.41 with SMTP id q41mr2163231ybc.314.1303926143468;
+	Wed, 27 Apr 2011 10:42:23 -0700 (PDT)
+Received: from localhost ([190.197.29.62])
+	by mx.google.com with ESMTPS id p41sm908068ybk.14.2011.04.27.10.42.22
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Wed, 27 Apr 2011 10:42:23 -0700 (PDT)
+Message-Id: <850deb778332271b0cf606f853259a5bf155b53a.1303925958.git.scott.m.rifenbark@intel.com>
+In-Reply-To: <cover.1303925958.git.scott.m.rifenbark@intel.com>
+References: <cover.1303925958.git.scott.m.rifenbark@intel.com>
+Old-Date: Wed, 27 Apr 2011 12:23:49 -0500
+Date: Wed, 27 Apr 2011 12:42:21 -0500
+To: poky@yoctoproject.org
+CC: 
+From: Scott Rifenbark <srifenbark@gmail.com>
+Subject: [PATCH 1/2] documentation/poky-ref-manual/extendpoky.xml: removed pokylinux.org link
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,47 +46,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 27 Apr 2011 17:04:24 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 27 Apr 2011 17:42:24 -0000
 
-On 04/27/2011 02:30 AM, Kang Kai wrote:
-> From: Kang Kai<kai.kang@windriver.com>
->
-> Add commands install_initd and remove_initd link to chkconfig, which
-> can handler LSB format init.d scripts. Needed by LSB commands check.
-> Bump PR to r2
-> Part fixes [Yocto 520]
->
-> Signed-off-by: Kang Kai<kai.kang@windriver.com>
-> ---
->   meta/recipes-extended/lsb/lsbsetup_0.9.bb |    7 ++++++-
->   1 files changed, 6 insertions(+), 1 deletions(-)
->
-> diff --git a/meta/recipes-extended/lsb/lsbsetup_0.9.bb b/meta/recipes-extended/lsb/lsbsetup_0.9.bb
-> index 5fd0584..73720ea 100644
-> --- a/meta/recipes-extended/lsb/lsbsetup_0.9.bb
-> +++ b/meta/recipes-extended/lsb/lsbsetup_0.9.bb
-> @@ -2,7 +2,7 @@ DESCRIPTION = "auto-setup environment for lsb test"
->   SECTION = "console/utils"
->   PRIORITY = "required"
->   LICENSE = "GPLv2"
-> -PR = "r1"
-> +PR = "r2"
->
->   LIC_FILES_CHKSUM = "file://LSB_Setup.sh;beginline=3;endline=16;md5=97451c7c0786ce5bbe9ac58042945583"
->
-> @@ -14,4 +14,9 @@ do_install() {
->           # Only install file if it has a contents
->           install -d ${D}/usr/bin
->           install -m 0755 ${S}/LSB_Setup.sh ${D}/usr/bin
-> +        mkdir -p ${D}/usr/lib/lsb
-I think this should be an install -d not a mkdir
+From: Scott Rifenbark <scott.m.rifenbark@intel.com>
 
-> +        ln -sf ${base_sbindir}/chkconfig ${D}/${libdir}/lsb/install_initd
-> +        ln -sf ${base_sbindir}/chkconfig ${D}/${libdir}/lsb/remove_initd
->   }
-> +
-> +FILES_${PN} += "${libdir}/lsb"
+There was a link whose URL was http://autobuilder.pokylinux.org:8010.
+I changed the link to use yoctoproject.org.  Note that this URL
+was not visible to the reader in the manual.  However, it was there
+in the DocBook code.
+
+Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
+---
+ documentation/poky-ref-manual/extendpoky.xml |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/documentation/poky-ref-manual/extendpoky.xml b/documentation/poky-ref-manual/extendpoky.xml
+index 0b1a223..79cb0c4 100644
+--- a/documentation/poky-ref-manual/extendpoky.xml
++++ b/documentation/poky-ref-manual/extendpoky.xml
+@@ -754,7 +754,7 @@ BBFILE_PRIORITY_emenlow = "6"
+                 Experience shows that buildbot is a good fit for this role. 
+                 What works well is to configure buildbot to make two types of builds:
+                 incremental and full (from scratch).  
+-                See <ulink url='http://autobuilder.pokylinux.org:8010'>poky autobuilder</ulink>
++                See <ulink url='http://autobuilder.yoctoproject.org:8010'>poky autobuilder</ulink>
+                 for an example implementation that uses buildbot.
+             </para>
+             <para>
+-- 
+1.7.0.4
 
 
