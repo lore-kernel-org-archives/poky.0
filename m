@@ -1,36 +1,26 @@
-Return-Path: <srifenbark@gmail.com>
-Received: from mail-gw0-f48.google.com (mail-gw0-f48.google.com [74.125.83.48])
-	by mx1.pokylinux.org (Postfix) with ESMTP id CAA464C80A1D
-	for <poky@yoctoproject.org>; Wed, 27 Apr 2011 11:57:36 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by gwj22 with SMTP id 22so958069gwj.35
-	for <poky@yoctoproject.org>; Wed, 27 Apr 2011 09:57:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:message-id:old-date:subject:date:to:cc:from;
-	bh=HOGOmq85mlrtNcHY0OHMFqJQfVyjN3N9cL/aHutMcg4=;
-	b=bT2SRqgLY2D5RjSyXndtIJ3MojLO1KsrQNcjnkA6SpbRKA+QLdYoDOa038vYvQtIxs
-	MVujZ3R+x7Lg07lsugNlxn/iRdd+gwbgJXfsgBh7OidJNWw9iXRrXUCbpjIlsh5Sv6k4
-	y4AjBDcWeQH31t2U8wjZngDtMY4u6zDljovz0=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=message-id:old-date:subject:date:to:cc:from;
-	b=mFxKMTWtYmgHthS6l7+7Zz8jPHJojq3fer88GZjHZ3DWTIIHNgXBbBWDPmM8uizK1v
-	XMus4uRNsPmVNT98PuonmhBmFhKUo72ZC+0B8Ji5GlQ2/ZDARfFaNV73MkOl5Xic+3RA
-	zRJk3OyMVZcTjIU+XfAeIXkU9aSnA3asWaynU=
-Received: by 10.236.187.6 with SMTP id x6mr3171293yhm.370.1303923454433;
-	Wed, 27 Apr 2011 09:57:34 -0700 (PDT)
-Received: from localhost ([190.197.29.62])
-	by mx.google.com with ESMTPS id v62sm468049yhm.36.2011.04.27.09.57.32
-	(version=TLSv1/SSLv3 cipher=OTHER);
-	Wed, 27 Apr 2011 09:57:33 -0700 (PDT)
-Message-Id: <cover.1303923286.git.scott.m.rifenbark@intel.com>
-Old-Date: Wed, 27 Apr 2011 11:54:46 -0500
-Date: Wed, 27 Apr 2011 11:57:31 -0500
-To: poky@yoctoproject.org
-CC: 
-From: Scott Rifenbark <srifenbark@gmail.com>
-Subject: [PATCH 0/1] [DOCS] - [BUGID_1004] Fixed EXTRA_IMAGE_FEATURES
+Return-Path: <saul.wold@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 9B56D4C80570
+	for <poky@yoctoproject.org>; Wed, 27 Apr 2011 12:04:24 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 27 Apr 2011 10:04:24 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.64,275,1301900400"; d="scan'208";a="634894855"
+Received: from unknown (HELO [10.255.13.18]) ([10.255.13.18])
+	by orsmga002.jf.intel.com with ESMTP; 27 Apr 2011 10:04:23 -0700
+Message-ID: <4DB84C96.8010806@intel.com>
+Date: Wed, 27 Apr 2011 10:04:22 -0700
+From: Saul Wold <saul.wold@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
+MIME-Version: 1.0
+To: Kang Kai <kai.kang@windriver.com>
+References: <cover.1303895739.git.kai.kang@windriver.com>
+	<059207ed64e1bbe7ab25f0aee8225e3f9a9ed937.1303895739.git.kai.kang@windriver.com>
+In-Reply-To: <059207ed64e1bbe7ab25f0aee8225e3f9a9ed937.1303895739.git.kai.kang@windriver.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 2/3] lsbsetup: add commands install_initd and	remove_initd
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,27 +32,47 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 27 Apr 2011 16:57:36 -0000
+X-List-Received-Date: Wed, 27 Apr 2011 17:04:24 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Scott Rifenbark <scott.m.rifenbark@intel.com>
+On 04/27/2011 02:30 AM, Kang Kai wrote:
+> From: Kang Kai<kai.kang@windriver.com>
+>
+> Add commands install_initd and remove_initd link to chkconfig, which
+> can handler LSB format init.d scripts. Needed by LSB commands check.
+> Bump PR to r2
+> Part fixes [Yocto 520]
+>
+> Signed-off-by: Kang Kai<kai.kang@windriver.com>
+> ---
+>   meta/recipes-extended/lsb/lsbsetup_0.9.bb |    7 ++++++-
+>   1 files changed, 6 insertions(+), 1 deletions(-)
+>
+> diff --git a/meta/recipes-extended/lsb/lsbsetup_0.9.bb b/meta/recipes-extended/lsb/lsbsetup_0.9.bb
+> index 5fd0584..73720ea 100644
+> --- a/meta/recipes-extended/lsb/lsbsetup_0.9.bb
+> +++ b/meta/recipes-extended/lsb/lsbsetup_0.9.bb
+> @@ -2,7 +2,7 @@ DESCRIPTION = "auto-setup environment for lsb test"
+>   SECTION = "console/utils"
+>   PRIORITY = "required"
+>   LICENSE = "GPLv2"
+> -PR = "r1"
+> +PR = "r2"
+>
+>   LIC_FILES_CHKSUM = "file://LSB_Setup.sh;beginline=3;endline=16;md5=97451c7c0786ce5bbe9ac58042945583"
+>
+> @@ -14,4 +14,9 @@ do_install() {
+>           # Only install file if it has a contents
+>           install -d ${D}/usr/bin
+>           install -m 0755 ${S}/LSB_Setup.sh ${D}/usr/bin
+> +        mkdir -p ${D}/usr/lib/lsb
+I think this should be an install -d not a mkdir
 
-Changed 'IMAGE_EXTRA_FEATURES' to 'EXTRA_IMAGE_FEATURES' in the 
-Poky Reference Manual.
-
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: srifenbark/poky-work
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=srifenbark/poky-work
-
-Thanks,
-    Scott Rifenbark <scott.m.rifenbark@intel.com>
----
-
-
-Scott Rifenbark (1):
-  documentation/poky-ref-manual/ref-images.xml:  [BUGID#_1004] -
-    EXTRA_IMAGE_FEATURE
-
- documentation/poky-ref-manual/ref-images.xml |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+> +        ln -sf ${base_sbindir}/chkconfig ${D}/${libdir}/lsb/install_initd
+> +        ln -sf ${base_sbindir}/chkconfig ${D}/${libdir}/lsb/remove_initd
+>   }
+> +
+> +FILES_${PN} += "${libdir}/lsb"
 
 
