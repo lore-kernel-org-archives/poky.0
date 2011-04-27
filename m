@@ -1,22 +1,24 @@
-Return-Path: <bruce.ashfield@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 183214C80ABD
-	for <poky@yoctoproject.org>; Wed, 27 Apr 2011 13:47:15 -0500 (CDT)
-Received: from localhost.localdomain (yow-bashfiel-d2.ottawa.windriver.com
-	[128.224.146.167])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p3RIkemH000102;
-	Wed, 27 Apr 2011 11:46:42 -0700 (PDT)
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-To: richard.purdie@linuxfoundation.org
-Date: Wed, 27 Apr 2011 14:46:48 -0400
-Message-Id: <446ef7643bff750683836a1b2d3dacb8e1a3b885.1303929862.git.bruce.ashfield@windriver.com>
-X-Mailer: git-send-email 1.7.0.4
-In-Reply-To: <cover.1303929862.git.bruce.ashfield@windriver.com>
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5A1D44C80570
+	for <poky@yoctoproject.org>; Wed, 27 Apr 2011 14:07:46 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 27 Apr 2011 12:07:45 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.64,275,1301900400"; d="scan'208";a="426597517"
+Received: from unknown (HELO [10.255.13.11]) ([10.255.13.11])
+	by azsmga001.ch.intel.com with ESMTP; 27 Apr 2011 12:07:45 -0700
+Message-ID: <4DB8697F.9000802@linux.intel.com>
+Date: Wed, 27 Apr 2011 12:07:43 -0700
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.14) Gecko/20110223 Lightning/1.0b2 Thunderbird/3.1.8
+MIME-Version: 1.0
+To: Bruce Ashfield <bruce.ashfield@windriver.com>
 References: <cover.1303929862.git.bruce.ashfield@windriver.com>
 In-Reply-To: <cover.1303929862.git.bruce.ashfield@windriver.com>
-References: <cover.1303929862.git.bruce.ashfield@windriver.com>
-Cc: dvhart@linux.intel.com, poky@yoctoproject.org, saul.wold@intel.com
-Subject: [PATCH 1/1] linux-yocto: create SMP config fragment
+Cc: poky@yoctoproject.org, saul.wold@intel.com
+Subject: Re: [PATCH 0/1] linux-yocto: create SMP config fragement
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,39 +30,45 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 27 Apr 2011 18:47:15 -0000
+X-List-Received-Date: Wed, 27 Apr 2011 19:07:46 -0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
 
-Updating the meta SRCREVs to stage a SMP config fragment that
-BSPs can use to add the functionality from layers.
+On 04/27/2011 11:46 AM, Bruce Ashfield wrote:
+> Richard/Saul,
+> 
+> Please pull this SRCREV update, the patch pretty much says 
+> it all. We are adding a SMP config fragement so that BSPs
+> can re-use and optionally enable this (for BSPs that may
+> or may not want to always be SMP).
 
-Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
----
- .../conf/distro/include/poky-default-revisions.inc |    4 ++--
- 1 files changed, 2 insertions(+), 2 deletions(-)
+This is required to address Bug 1010, which is targeted for 1.0 Point
+Release. Please apply to the bernard branch. There will be no impact to
+any BSPs with only this change. As soon as this is in, I will commit
+updates to the meta-intel/meta-n450 BSP to build an SMP kernel. The n450
+will be the only affected BSP.
 
-diff --git a/meta/conf/distro/include/poky-default-revisions.inc b/meta/conf/distro/include/poky-default-revisions.inc
-index 5e7ab66..8bf2b5a 100644
---- a/meta/conf/distro/include/poky-default-revisions.inc
-+++ b/meta/conf/distro/include/poky-default-revisions.inc
-@@ -96,7 +96,7 @@ SRCREV_machine_pn-linux-yocto-stable_routerstationpro ?= "49745cd45c92a89e70c6e2
- SRCREV_machine_pn-linux-yocto-stable_mpc8315e-rdb ?= "a1c0ed6bf4060c10874b2a8547d81b3169dcf16a"
- SRCREV_machine_pn-linux-yocto-stable_beagleboard ?= "ef7f944e773950d4016b7643f9ecf052bbe250cd"
- SRCREV_machine_pn-linux-yocto-stable ?= "72ca49ab08b8eb475cec82a10049503602325791"
--SRCREV_meta_pn-linux-yocto-stable ?= "e1f85a470934a0cf6abde5d95533e74501822c6b"
-+SRCREV_meta_pn-linux-yocto-stable ?= "ec26387cb168e9e0976999b528b5a9dd62e3157a"
- # development SRCREVs
- SRCREV_machine_pn-linux-yocto_qemuarm ?= "e5ca41def834db9d18b28393a45d53a8d18f3d05"
- SRCREV_machine_pn-linux-yocto_qemumips ?= "9bbc8e3432406429923fab0de038af5d3e647901"
-@@ -109,7 +109,7 @@ SRCREV_machine_pn-linux-yocto_routerstationpro ?= "8db69980d76e1f863af409e701759
- SRCREV_machine_pn-linux-yocto_mpc8315e-rdb ?= "6861d8a4d58f8aa75997f7678cc454791544507a"
- SRCREV_machine_pn-linux-yocto_beagleboard ?= "69cfbdf9f1ff461a75e5b77d6d7ba35e97db4cc3"
- SRCREV_machine_pn-linux-yocto ?= "69cfbdf9f1ff461a75e5b77d6d7ba35e97db4cc3"
--SRCREV_meta_pn-linux-yocto ?= "727fc4769aa920fc5bb3eb9a81bf92d0e6340903"
-+SRCREV_meta_pn-linux-yocto ?= "ecab1e2bc12a8b0c4d064a00acc3260f6e8528c5"
- SRCREV_pn-linux-libc-headers-yocto ??= "69cfbdf9f1ff461a75e5b77d6d7ba35e97db4cc3"
- SRCREV_pn-matchbox-config-gtk ??= "3ed74dfb7c57be088a5ab36e446c0ccde9fa1028"
- SRCREV_pn-matchbox-desktop-sato ??= "76"
+> 
+> cc: Darren Hart <dvhart@linux.intel.com>
+> 
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>   Branch: zedd/smp
+>   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/smp
+> 
+> Thanks,
+>     Bruce Ashfield <bruce.ashfield@windriver.com>
+> ---
+> 
+> 
+> Bruce Ashfield (1):
+>   linux-yocto: create SMP config fragment
+> 
+>  .../conf/distro/include/poky-default-revisions.inc |    4 ++--
+>  1 files changed, 2 insertions(+), 2 deletions(-)
+> 
+
 -- 
-1.7.0.4
-
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
