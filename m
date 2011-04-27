@@ -1,26 +1,27 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0321D4C80188
-	for <poky@yoctoproject.org>; Wed, 27 Apr 2011 17:47:11 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 27 Apr 2011 15:47:11 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,276,1301900400"; d="scan'208";a="739378903"
-Received: from unknown (HELO [10.255.13.18]) ([10.255.13.18])
-	by orsmga001.jf.intel.com with ESMTP; 27 Apr 2011 15:47:11 -0700
-Message-ID: <4DB89CEE.8050702@intel.com>
-Date: Wed, 27 Apr 2011 15:47:10 -0700
-From: Saul Wold <saul.wold@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
-MIME-Version: 1.0
-To: Kang Kai <kai.kang@windriver.com>
-References: <cover.1303895739.git.kai.kang@windriver.com>
-	<8924c9d60a2f03478c9b18ba54bad461d91553b8.1303895739.git.kai.kang@windriver.com>
-In-Reply-To: <8924c9d60a2f03478c9b18ba54bad461d91553b8.1303895739.git.kai.kang@windriver.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 1/3] groff: update to 1.20.1
+Return-Path: <yanok@emcraft.com>
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
+	by mx1.pokylinux.org (Postfix) with ESMTP id BF3474C80337
+	for <poky@pokylinux.org>; Wed, 27 Apr 2011 17:57:04 -0500 (CDT)
+Received: from frontend1.mail.m-online.net (unknown [192.168.8.180])
+	by mail-out.m-online.net (Postfix) with ESMTP id 846281C1DA14;
+	Thu, 28 Apr 2011 00:57:03 +0200 (CEST)
+X-Auth-Info: 7bzxO4YnNor7mazC6lbwh268Vpv5uuwOu4LWlDaGCXs=
+Received: from mail.denx.de (host-82-135-33-74.customer.m-online.net
+	[82.135.33.74])
+	by smtp-auth.mnet-online.de (Postfix) with ESMTPA id 7FFFC1C0009C;
+	Thu, 28 Apr 2011 00:57:03 +0200 (CEST)
+Received: from pollux.denx.de (pollux [192.168.1.1])
+	by mail.denx.de (Postfix) with ESMTP id 1C00B42E45D8;
+	Thu, 28 Apr 2011 00:57:03 +0200 (CEST)
+Received: by pollux.denx.de (Postfix, from userid 547)
+	id B460218014EEE; Thu, 28 Apr 2011 00:57:02 +0200 (CEST)
+From: Ilya Yanok <yanok@emcraft.com>
+To: poky@pokylinux.org
+Date: Thu, 28 Apr 2011 00:56:58 +0200
+Message-Id: <1303945019-24304-1-git-send-email-yanok@emcraft.com>
+X-Mailer: git-send-email 1.7.4.4
+Cc: Ilya Yanok <yanok@emcraft.com>
+Subject: [PATCH 1/2] libnss-mdns: add $D to postinst paths
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,72 +33,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 27 Apr 2011 22:47:12 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 27 Apr 2011 22:57:05 -0000
 
-On 04/27/2011 02:30 AM, Kang Kai wrote:
-> From: Kang Kai<kai.kang@windriver.com>
->
-> Update groff to 1.20.1, add SUMMARY and LICENSE info
->> From OE 70bf94cd8669f549ca90581e9592d409b6e24e2e
-> Fixes [Yocto 879]
->
-Why did you not updated the existing recipe, via a git mv and then edit 
-it.  We do not keep older recipes around, so they should be cleaned up.
+Post installation script can be called during image creation so paths
+should relative to $D.
 
-Also, why do we need a native for this recipe?  For dealing with 
-documentation native side?
+Signed-off-by: Ilya Yanok <yanok@emcraft.com>
+---
+ .../libnss-mdns/libnss-mdns_0.10.bb                |    6 +++---
+ 1 files changed, 3 insertions(+), 3 deletions(-)
 
-Sau!
-
-> Signed-off-by: Kang Kai<kai.kang@windriver.com>
-> ---
->   meta/recipes-extended/groff/groff_1.20.1.bb |   36 +++++++++++++++++++++++++++
->   1 files changed, 36 insertions(+), 0 deletions(-)
->   create mode 100644 meta/recipes-extended/groff/groff_1.20.1.bb
->
-> diff --git a/meta/recipes-extended/groff/groff_1.20.1.bb b/meta/recipes-extended/groff/groff_1.20.1.bb
-> new file mode 100644
-> index 0000000..e0e198f
-> --- /dev/null
-> +++ b/meta/recipes-extended/groff/groff_1.20.1.bb
-> @@ -0,0 +1,36 @@
-> +SUMMARY = "GNU Troff software"
-> +DESCRIPTION = "The groff (GNU troff) software is a typesetting package which reads plain text mixed with \
-> +formatting commands and produces formatted output."
-> +SECTION = "base"
-> +HOMEPAGE = "ftp://ftp.gnu.org/gnu/groff/"
-> +LICENSE = "GPLv2"
-> +PR = "r0"
-> +
-> +LIC_FILES_CHKSUM = "file://COPYING;md5=d32239bcb673463ab874e80d47fae504"
-> +
-> +SRC_URI = "${GNU_MIRROR}/groff/groff-${PV}.tar.gz"
-> +
-> +SRC_URI[md5sum] = "48fa768dd6fdeb7968041dd5ae8e2b02"
-> +SRC_URI[sha256sum] = "b645878135cb620c6c417c5601bfe96172245af12045540d7344938b4c2cd805"
-> +
-> +DEPENDS = "groff-native"
-> +DEPENDS_virtclass-native = ""
-> +
-> +inherit autotools
-> +
-> +PARALLEL_MAKE = ""
-> +
-> +do_configure_prepend() {
-> +	if [ "${BUILD_SYS}" != "${HOST_SYS}" ]; then
-> +		sed -i \
-> +		    -e '/^GROFFBIN=/s:=.*:=${STAGING_BINDIR_NATIVE}/groff:' \
-> +		    -e '/^TROFFBIN=/s:=.*:=${STAGING_BINDIR_NATIVE}/troff:' \
-> +		    -e '/^GROFF_BIN_PATH=/s:=.*:=${STAGING_BINDIR_NATIVE}:' \
-> +		    -e '/^GROFF_BIN_DIR=/s:=.*:=${STAGING_BINDIR_NATIVE}:' \
-> +		    ${S}/contrib/*/Makefile.sub \
-> +		    ${S}/doc/Makefile.in \
-> +		    ${S}/doc/Makefile.sub
-> +	fi
-> +}
-> +
-> +BBCLASSEXTEND = "native"
+diff --git a/meta/recipes-connectivity/libnss-mdns/libnss-mdns_0.10.bb b/meta/recipes-connectivity/libnss-mdns/libnss-mdns_0.10.bb
+index b04b20a..651a240 100644
+--- a/meta/recipes-connectivity/libnss-mdns/libnss-mdns_0.10.bb
++++ b/meta/recipes-connectivity/libnss-mdns/libnss-mdns_0.10.bb
+@@ -26,9 +26,9 @@ EXTRA_OECONF = "--libdir=/lib --disable-lynx --enable-avahi"
+ 
+ # TODO: pattern based configuration update
+ pkg_postinst_${PN} () {
+-	cat /etc/nsswitch.conf | grep "hosts:\s*files dns$" > /dev/null && {
+-		cat /etc/nsswitch.conf | sed 's/hosts:\s*files dns/& mdns4/' > /tmp/nsswitch.conf
+-		mv /tmp/nsswitch.conf /etc/nsswitch.conf
++	cat $D/etc/nsswitch.conf | grep "hosts:\s*files dns$" > /dev/null && {
++		cat $D/etc/nsswitch.conf | sed 's/hosts:\s*files dns/& mdns4/' > /tmp/nsswitch.conf
++		mv /tmp/nsswitch.conf $D/etc/nsswitch.conf
+ 	}
+ }
+ 
+-- 
+1.7.4.4
 
 
