@@ -1,25 +1,22 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 81C284C805A8
-	for <poky@yoctoproject.org>; Wed, 27 Apr 2011 12:56:11 -0500 (CDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 27 Apr 2011 10:56:11 -0700
+Return-Path: <josh@linux.intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5E5924C8026D
+	for <poky@yoctoproject.org>; Wed, 27 Apr 2011 13:39:04 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 27 Apr 2011 11:39:03 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,275,1301900400"; d="scan'208";a="684851162"
-Received: from unknown (HELO [10.255.13.11]) ([10.255.13.11])
-	by fmsmga002.fm.intel.com with ESMTP; 27 Apr 2011 10:56:10 -0700
-Message-ID: <4DB858B9.3030901@linux.intel.com>
-Date: Wed, 27 Apr 2011 10:56:09 -0700
-From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.14) Gecko/20110223 Lightning/1.0b2 Thunderbird/3.1.8
-MIME-Version: 1.0
-To: Paul Eggleton <paul.eggleton@linux.intel.com>
-References: <cover.1303922644.git.paul.eggleton@linux.intel.com>
-	<318c3139745e74177a23f323881dbd76ddc42006.1303922644.git.paul.eggleton@linux.intel.com>
-In-Reply-To: <318c3139745e74177a23f323881dbd76ddc42006.1303922644.git.paul.eggleton@linux.intel.com>
-Cc: poky@yoctoproject.org, openembedded-core@lists.openembedded.org
-Subject: Re: [PATCH 1/1] initscripts: remove -i from halt/reboot	arguments and allow override
+X-IronPort-AV: E=Sophos;i="4.64,275,1301900400"; d="scan'208";a="634941199"
+Received: from unknown (HELO [10.255.13.15]) ([10.255.13.15])
+	by orsmga002.jf.intel.com with ESMTP; 27 Apr 2011 11:39:03 -0700
+From: Joshua Lock <josh@linux.intel.com>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Date: Wed, 27 Apr 2011 11:39:03 -0700
+References: <789F9655DD1B8F43B48D77C5D30659734C09DCDE@shsmsx501.ccr.corp.intel.com>
+In-Reply-To: <789F9655DD1B8F43B48D77C5D30659734C09DCDE@shsmsx501.ccr.corp.intel.com>
+X-Mailer: Evolution 3.0.0 (3.0.0-1.fc15) 
+Message-ID: <1303929543.2242.20.camel@scimitar>
+Mime-Version: 1.0
+Subject: Re: Processing extra field requested by bitbake -u in Cache
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,87 +28,61 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 27 Apr 2011 17:56:11 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Wed, 27 Apr 2011 18:39:04 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On 04/27/2011 09:49 AM, Paul Eggleton wrote:
-> From: Paul Eggleton <paul.eggleton@linux.intel.com>
+On Wed, 2011-04-27 at 17:34 +0800, Ke, Liping wrote:
+> Hi, all
 > 
-> Introduces a variable HALTARGS which specifies the arguments sent to
-> halt and reboot, and sets the default value to "-d -f", dropping the
-> previous -i (shut down all network interfaces before halt/reboot, which
-> causes a freeze with NFS root.)
-> 
-> Fixes [YOCTO #997].
+> I am looking @ bug 770 Add mechanism to enable UI's to request extra
+> data be stored in the cache. We are now thinking about the possible
+> solutions.
 
-Is the SED_* tag a common search/replace mechanism in OE recipes? It's
-fine, I'm just wondering if there is an accepted best practice for this
-sort of thing. I know we do some sed replacements of /usr/bin and /etc.
+For people wishing to follow:
+http://bugzilla.pokylinux.org/show_bug.cgi?id=770
 
 > 
-> Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
+> There are two choices:
+> 1. Store extra cache fields in a separated small cache file, so non-ui mode will only fetch the base cache file, if in ui-mode, it will load the extra small cache (with the extra 3 fields, such as summary)
+>   Advantage: 1) Will 'not' change the cache invalidation mechanism. For non-ui mode, it will go the old path. If extra fields are required (ui-mode), we need to load the extra field into the memory.
+>             2) disk file size is optimized
+>   Disadvantage: cache code change will be big, since all data load/sync/ methods need to be modified.
 
-Acked-by: Darren Hart <dvhart@linux.intel.com>
+Why must we change the invalidation mechanisms when having a separate
+cache file per UI.
 
-> ---
->  meta/recipes-core/initscripts/initscripts-1.0/halt |    2 +-
->  .../initscripts/initscripts-1.0/reboot             |    2 +-
->  meta/recipes-core/initscripts/initscripts_1.0.bb   |    9 ++++++++-
->  3 files changed, 10 insertions(+), 3 deletions(-)
+My thought is that we'll have a cache file name which encodes the UI and
+then run the usual invalidation tests against that cache.
+
+Say that the UI name is known by the cache and stored in variable
+currentui we can achieve this by:
+
+-        self.cachefile = os.path.join(self.cachedir, "bb_cache.dat")
++        self.cachefile = os.path.join(self.cachedir, "bb_cache_%s.dat"
+% currentui)
+
+Also, surely we *do* need alter the cache invalidation mechanisms for
+multiple files, at least insofar as we must test more than one cache
+file some times.
+
 > 
-> diff --git a/meta/recipes-core/initscripts/initscripts-1.0/halt b/meta/recipes-core/initscripts/initscripts-1.0/halt
-> index 609b793..021d9be 100755
-> --- a/meta/recipes-core/initscripts/initscripts-1.0/halt
-> +++ b/meta/recipes-core/initscripts/initscripts-1.0/halt
-> @@ -24,6 +24,6 @@ then
->  	hddown=""
->  fi
->  
-> -halt -d -f -i -p $hddown
-> +halt SED_HALTARGS -p $hddown
->  
->  : exit 0
-> diff --git a/meta/recipes-core/initscripts/initscripts-1.0/reboot b/meta/recipes-core/initscripts/initscripts-1.0/reboot
-> index 4c55885..cf32e95 100755
-> --- a/meta/recipes-core/initscripts/initscripts-1.0/reboot
-> +++ b/meta/recipes-core/initscripts/initscripts-1.0/reboot
-> @@ -12,4 +12,4 @@
->  PATH=/sbin:/bin:/usr/sbin:/usr/bin
->  
->  echo -n "Rebooting... "
-> -reboot -d -f -i
-> +reboot SED_HALTARGS
-> diff --git a/meta/recipes-core/initscripts/initscripts_1.0.bb b/meta/recipes-core/initscripts/initscripts_1.0.bb
-> index d990925..720c252 100644
-> --- a/meta/recipes-core/initscripts/initscripts_1.0.bb
-> +++ b/meta/recipes-core/initscripts/initscripts_1.0.bb
-> @@ -6,7 +6,7 @@ DEPENDS = "makedevs"
->  RDEPENDS_${PN} = "makedevs"
->  LICENSE = "GPLv2"
->  LIC_FILES_CHKSUM = "file://COPYING;md5=751419260aa954499f7abaabaa882bbe"
-> -PR = "r124"
-> +PR = "r125"
->  
->  SRC_URI = "file://functions \
->             file://halt \
-> @@ -38,6 +38,13 @@ SRC_URI_append_arm = " file://alignment.sh"
->  
->  KERNEL_VERSION = ""
->  
-> +HALTARGS ?= "-d -f"
-> +
-> +do_configure() {
-> +	sed -i -e "s:SED_HALTARGS:${HALTARGS}:g" ${WORKDIR}/halt
-> +	sed -i -e "s:SED_HALTARGS:${HALTARGS}:g" ${WORKDIR}/reboot
-> +}
-> +
->  do_install () {
->  #
->  # Create directories and install device independent scripts
+> 2. Have two big cache files, one is for ui mode, one is for non-ui mode
+>   Advantage: Code change will be a little smaller. When loading, if it's non-ui mode, load smaller cache file. Otherwise, load bigger cache file.  
+>   Disadvantage: 1) Cache invalidation mechanism (timestamp) is broken. When mode switching, we need to invalidate all caches, reparsing, reloading time 30s.
+>               s) disk file size is bigger. 2*original_size (2*6M)
 
+I'm not sure that 6MB disk overhead is worth the code complexity
+increase by having multiple cache files stitched together.
+
+I am definitely keen to hear others opinions here.
+
+Cheers,
+Joshua
 -- 
-Darren Hart
-Intel Open Source Technology Center
-Yocto Project - Linux Kernel
+Joshua Lock
+        Yocto Build System Monkey
+        Intel Open Source Technology Centre
+
+
 
