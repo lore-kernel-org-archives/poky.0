@@ -1,23 +1,38 @@
-Return-Path: <josh@linux.intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9FDB64C80188
-	for <poky@yoctoproject.org>; Wed, 27 Apr 2011 21:23:00 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 27 Apr 2011 19:23:00 -0700
+Return-Path: <liping.ke@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id CB6954C80188
+	for <poky@yoctoproject.org>; Wed, 27 Apr 2011 21:42:24 -0500 (CDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 27 Apr 2011 19:42:24 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,277,1301900400"; d="scan'208";a="426815797"
-Received: from unknown (HELO [10.255.13.20]) ([10.255.13.20])
-	by azsmga001.ch.intel.com with ESMTP; 27 Apr 2011 19:22:59 -0700
-From: Joshua Lock <josh@linux.intel.com>
-To: "Ke, Liping" <liping.ke@intel.com>
-Date: Wed, 27 Apr 2011 19:22:59 -0700
-In-Reply-To: <789F9655DD1B8F43B48D77C5D30659734C09DE4D@shsmsx501.ccr.corp.intel.com>
+X-IronPort-AV: E=Sophos;i="4.64,277,1301900400"; d="scan'208";a="915399402"
+Received: from pgsmsx601.gar.corp.intel.com ([10.221.43.69])
+	by fmsmga001.fm.intel.com with ESMTP; 27 Apr 2011 19:42:23 -0700
+Received: from pgsmsx509.gar.corp.intel.com (172.30.13.17) by
+	pgsmsx601.gar.corp.intel.com (10.221.43.69) with Microsoft SMTP Server
+	(TLS) id 8.2.255.0; Thu, 28 Apr 2011 10:41:31 +0800
+Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
+	PGSMSX509.gar.corp.intel.com (172.30.13.17) with Microsoft SMTP Server
+	(TLS) id 8.2.255.0; Thu, 28 Apr 2011 10:41:31 +0800
+Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
+	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
+	Thu, 28 Apr 2011 10:40:34 +0800
+From: "Ke, Liping" <liping.ke@intel.com>
+To: Joshua Lock <josh@linux.intel.com>
+Date: Thu, 28 Apr 2011 10:40:33 +0800
+Thread-Topic: [poky] Processing extra field requested by bitbake -u in Cache
+Thread-Index: AcwFSzMScs+2tdEVStWNi05zHIlWjgAAcJsg
+Message-ID: <789F9655DD1B8F43B48D77C5D30659734C09DF27@shsmsx501.ccr.corp.intel.com>
 References: <789F9655DD1B8F43B48D77C5D30659734C09DCDE@shsmsx501.ccr.corp.intel.com>
 	<1303929543.2242.20.camel@scimitar>
 	<789F9655DD1B8F43B48D77C5D30659734C09DE4D@shsmsx501.ccr.corp.intel.com>
-X-Mailer: Evolution 3.0.0 (3.0.0-1.fc15) 
-Message-ID: <1303957379.2481.21.camel@scimitar>
-Mime-Version: 1.0
+	<1303957379.2481.21.camel@scimitar>
+In-Reply-To: <1303957379.2481.21.camel@scimitar>
+Accept-Language: zh-CN, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: zh-CN, en-US
+MIME-Version: 1.0
 Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: Processing extra field requested by bitbake -u in Cache
 X-BeenThere: poky@yoctoproject.org
@@ -31,73 +46,40 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 28 Apr 2011 02:23:00 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 28 Apr 2011 02:42:25 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On Thu, 2011-04-28 at 09:22 +0800, Ke, Liping wrote:
-> > Why must we change the invalidation mechanisms when having a separate
-> > cache file per UI.
-> Hi, Josh
-> 
-> Considering the following usage sequence, ui 1 -> non-ui (made changes) 2 -> ui (made changes)  3 -> non-ui (made changes) 4
-> 
-> If we use option 1, no cache invalidation needed.
-
-If there are changes you'll still need to invalidate the cache.
-I guess you're trying  to show something like the following?
-
-== Option 1 (addition cache file for extra fields)
-launch gui
-<make changes>
-launch gui (cache rebuild)
-use cli
-<make changes>
-use cli (cache rebuild)
-launch gui
-use cli
-launch gui
-<make changes>
-launch gui (cache rebuild)
-use cli
-
-=> 3 cache rebuilds
-
-== Option 2 (per ui cache files)
-launch gui
-<make changes>
-launch gui (cache rebuild)
-use cli
-<make changes>
-use cli (cache rebuild)
-launch gui (cache rebuild)
-use cli
-launch gui
-<make changes>
-launch gui (cache rebuild)
-use cli (cache rebuild)
-
-=> 5 cache rebuilds
-
-However I can't imagine people switching UI's this frequently.
-
-> 
-> But if we use option 2, we need invalidate cache each time. I collect some local feedback here, they said it's unbearable. 
-
-What's unbearable? The cache rebuilding time?
-
-I'm still not clear why we need to invalidate the cache each time we
-switch UI's. The cache invalidation test is the same: if any of the
-dependencies have been modified or the file doesn't exist build the
-cache, else load the available cache. If we are using a per UI cache
-file we just run the invalidation tests against a different file each
-time the UI is changed. Or am I missing something here?
-
-Regards,
-Joshua
--- 
-Joshua Lock
-        Yocto Build System Monkey
-        Intel Open Source Technology Centre
-
+PiA+DQo+ID4gQ29uc2lkZXJpbmcgdGhlIGZvbGxvd2luZyB1c2FnZSBzZXF1ZW5jZSwgdWkgMSAt
+PiBub24tdWkgKG1hZGUgY2hhbmdlcykgMiAtPg0KPiB1aSAobWFkZSBjaGFuZ2VzKSAgMyAtPiBu
+b24tdWkgKG1hZGUgY2hhbmdlcykgNA0KPiA+DQo+ID4gSWYgd2UgdXNlIG9wdGlvbiAxLCBubyBj
+YWNoZSBpbnZhbGlkYXRpb24gbmVlZGVkLg0KPiANCj4gSWYgdGhlcmUgYXJlIGNoYW5nZXMgeW91
+J2xsIHN0aWxsIG5lZWQgdG8gaW52YWxpZGF0ZSB0aGUgY2FjaGUuDQo+IEkgZ3Vlc3MgeW91J3Jl
+IHRyeWluZyAgdG8gc2hvdyBzb21ldGhpbmcgbGlrZSB0aGUgZm9sbG93aW5nPw0KPiANCj4gPT0g
+T3B0aW9uIDEgKGFkZGl0aW9uIGNhY2hlIGZpbGUgZm9yIGV4dHJhIGZpZWxkcykNCj4gbGF1bmNo
+IGd1aQ0KPiA8bWFrZSBjaGFuZ2VzPg0KPiBsYXVuY2ggZ3VpIChjYWNoZSByZWJ1aWxkKQ0KPiB1
+c2UgY2xpDQo+IDxtYWtlIGNoYW5nZXM+DQo+IHVzZSBjbGkgKGNhY2hlIHJlYnVpbGQpDQo+IGxh
+dW5jaCBndWkNCj4gdXNlIGNsaQ0KPiBsYXVuY2ggZ3VpDQo+IDxtYWtlIGNoYW5nZXM+DQo+IGxh
+dW5jaCBndWkgKGNhY2hlIHJlYnVpbGQpDQo+IHVzZSBjbGkNCj4gDQo+ID0+IDMgY2FjaGUgcmVi
+dWlsZHMNCj4gDQo+ID09IE9wdGlvbiAyIChwZXIgdWkgY2FjaGUgZmlsZXMpDQo+IGxhdW5jaCBn
+dWkNCj4gPG1ha2UgY2hhbmdlcz4NCj4gbGF1bmNoIGd1aSAoY2FjaGUgcmVidWlsZCkNCj4gdXNl
+IGNsaQ0KPiA8bWFrZSBjaGFuZ2VzPg0KPiB1c2UgY2xpIChjYWNoZSByZWJ1aWxkKQ0KPiBsYXVu
+Y2ggZ3VpIChjYWNoZSByZWJ1aWxkKQ0KPiB1c2UgY2xpDQo+IGxhdW5jaCBndWkNCj4gPG1ha2Ug
+Y2hhbmdlcz4NCj4gbGF1bmNoIGd1aSAoY2FjaGUgcmVidWlsZCkNCj4gdXNlIGNsaSAoY2FjaGUg
+cmVidWlsZCkNCj4gDQo+ID0+IDUgY2FjaGUgcmVidWlsZHMNCj4gDQo+IEhvd2V2ZXIgSSBjYW4n
+dCBpbWFnaW5lIHBlb3BsZSBzd2l0Y2hpbmcgVUkncyB0aGlzIGZyZXF1ZW50bHkuDQo+IA0KSGks
+IEpvc2gNClllcywgSSBhc2tlZCB3aGV0aGVyIHdlIHdvdWxkIGxpa2UgdG8gdXNlIHRoZSBpbWFn
+ZSBjcmVhdG9yLCBzb21lIG9mIHRoZW0gc2FpZCB5ZXMsIHRoZXkgd2lsbC4NCldlJ3JlIGFsbCB3
+YWl0aW5nIG9uIGZ1bmN0aW9uYWxpdHk6IHNlbGVjdCBhIGltYWdlIHR5cGUsIGFuZCBhZGQgb3Ig
+bW92ZSBhIHJlY2lwZSBhbmQgdGhlbiBtYWtlIHJvb3Rmcy4uLg0KSWYgdGhpcyBmdW5jdGlvbmFs
+aXR5IGlzIG9rLCB3ZSBndWVzcyBpbWFnZSBjcmVhdG9yIHdvdWxkIGJlIHZlcnkgdXNlZnVsLg0K
+SSBndWVzcyBpdCdzIHJlYWxseSB2ZXJ5IGhhcmQgdG8ganVkZ2UgdXNlcnMnIHVzYWdlIHNjZW5h
+cmlvPw0KDQpZZXMuIFJlcGFyc2luZyB3aWxsIHRha2UgZXh0cmEgMzBzLiBJIGZvdW5kIGl0J3Mg
+YSBoYXJkIGRlY2lzaW9uIHNpbmNlIHdlJ3JlIGFsd2F5cyB0cnlpbmcgdG8gaW1wcm92ZSB0aGUN
+ClBlcmZvcm1hbmNlIGFuZCByZWR1Y2UgdGhlIGRpc2sgc2l6ZS4gDQoNCmNyaXBpbmcNCj4gPg0K
+PiA+IEJ1dCBpZiB3ZSB1c2Ugb3B0aW9uIDIsIHdlIG5lZWQgaW52YWxpZGF0ZSBjYWNoZSBlYWNo
+IHRpbWUuIEkgY29sbGVjdCBzb21lDQo+IGxvY2FsIGZlZWRiYWNrIGhlcmUsIHRoZXkgc2FpZCBp
+dCdzIHVuYmVhcmFibGUuDQo+IA0KPiBXaGF0J3MgdW5iZWFyYWJsZT8gVGhlIGNhY2hlIHJlYnVp
+bGRpbmcgdGltZT8NCg==
 
