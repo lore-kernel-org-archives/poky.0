@@ -1,26 +1,25 @@
-Return-Path: <mark.hatle@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0E20C4C80578
-	for <poky@yoctoproject.org>; Thu, 28 Apr 2011 10:19:59 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p3SFJwOi023144
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Thu, 28 Apr 2011 08:19:58 -0700 (PDT)
-Received: from Macintosh-5.local (172.25.36.228) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server id 14.1.255.0;
-	Thu, 28 Apr 2011 08:19:57 -0700
-Message-ID: <4DB9859D.7070609@windriver.com>
-Date: Thu, 28 Apr 2011 10:19:57 -0500
-From: Mark Hatle <mark.hatle@windriver.com>
-Organization: Wind River Systems
-User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
-	rv:1.9.2.15) Gecko/20110303 Thunderbird/3.1.9
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id CE4124C80578
+	for <poky@yoctoproject.org>; Thu, 28 Apr 2011 10:24:00 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 28 Apr 2011 08:24:00 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.64,281,1301900400"; d="scan'208";a="427165978"
+Received: from unknown (HELO [10.255.13.11]) ([10.255.13.11])
+	by azsmga001.ch.intel.com with ESMTP; 28 Apr 2011 08:23:59 -0700
+Message-ID: <4DB98687.9000606@linux.intel.com>
+Date: Thu, 28 Apr 2011 08:23:51 -0700
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.14) Gecko/20110223 Lightning/1.0b2 Thunderbird/3.1.8
 MIME-Version: 1.0
-To: <poky@yoctoproject.org>
-References: <C10D3FB0CD45994C8A51FEC1227CE22F2311C1C837@shsmsx502.ccr.corp.intel.com>
-	<20110428092232.GA3259@jama.jama.net>
-In-Reply-To: <20110428092232.GA3259@jama.jama.net>
-Subject: Re: RFC: design of network based PR service
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+References: <cover.1303929862.git.bruce.ashfield@windriver.com>
+	<1303983830.21461.57.camel@rex>
+In-Reply-To: <1303983830.21461.57.camel@rex>
+Cc: poky@yoctoproject.org, saul.wold@intel.com
+Subject: Re: [PATCH 0/1] linux-yocto: create SMP config fragement
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,123 +31,41 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 28 Apr 2011 15:19:59 -0000
-Content-Type: text/plain; charset="ISO-8859-1"
+X-List-Received-Date: Thu, 28 Apr 2011 15:24:01 -0000
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 4/28/11 4:22 AM, Martin Jansa wrote:
-> On Thu, Apr 28, 2011 at 03:08:03PM +0800, Lu, Lianhao wrote:
->> Hi Guys,
+
+
+On 04/28/2011 02:43 AM, Richard Purdie wrote:
+> On Wed, 2011-04-27 at 14:46 -0400, Bruce Ashfield wrote:
+>> Please pull this SRCREV update, the patch pretty much says 
+>> it all. We are adding a SMP config fragement so that BSPs
+>> can re-use and optionally enable this (for BSPs that may
+>> or may not want to always be SMP).
 >>
->> Here is the design of network based PR service, please help to review and 
->> give you comment. Thanks a lot!
+>> cc: Darren Hart <dvhart@linux.intel.com>
+>>
+>> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>>   Branch: zedd/smp
+>>   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/smp
+>>
+>> Thanks,
+>>     Bruce Ashfield <bruce.ashfield@windriver.com>
+>> ---
+>>
+>>
+>> Bruce Ashfield (1):
+>>   linux-yocto: create SMP config fragment
 > 
-> Hi,
-> 
-> looks good, just wondering if we can use the same mechanism for
-> LOCALCOUNT numbers in SRCPV, we can even use same table if we prefix
-> first column ie LOCALCOUNT_${PN} and CheckSum in 2nd column would be
-> actuall git hash (from SRCREV or HEAD for AUTOREV) or 2nd table with
-> similar structure.
-> 
-> But it wont work very well if one builder is using AUTOREV and another
-> one isn't, but that can be resolved by allowing only trusted builders
-> with same configuration (wrt AUTOREV) to send such tuples.
-> 
-> Do we have at least 2 groups of "users".
-> 1) trusted which increments PR when hash is not found
-> 2) public which can query PR for given hash (not sure what they should
->    do if hash is not found)
+> Merged to master as I happened to look at this.
 
-I think this points our something necessary.  There are manual indications of a
-change.  I.e. the current "PR" usage.  If I change the recipe, patches, etc I
-should expect to update the 'PR' to the next value.  However, if something ELSE
-changes (affecting the checksum), or an end user forgets to change the PR, the
-auto increment should be used.
+This is also a fix for a point release bug, 1010, can we please apply to
+bernard as well?
 
-The issue is how do you avoid manual conflicts with the automatic increments.
-One way this is being done for other systems is using the "." syntax.  User
-recipe revisions are captured as such:
 
-PR="r1"
-
-While automatic revisions using a ".N", so the first would be ".0", ".1", ".2", etc.
-
-This way the Version, and PR are still being used.  The checksum is also being
-used by the increment server, and the returned value is a global counter based
-on the checksum simply changing with the assumption that "newer" is "better".
-(A reasonable policy decision!)
-
-I would suggest that the value of the automatically generated PR be constructed
-in some way that can be overridden by project (if necessary).  So if someone
-wants user the revision format of "PR.CUSTOM.AUTOMATIC" it would be easy to
-retrofit into the environment.  (I've seen this format before in distros of
-different versions that want to tag the package/recipe with a revision, add in
-[custom] distribution version, and then have the build incrementing...)
-
-So the suggestion above of using a new variable to handle the incrementing, a
-separate "format" value that the packaging backends would use instead of simply
-PR... and I think we have a good extensible solution to the problem.
-
---Mark
-
-> Regards,
-> 
->> By changing the BB_SIGNATURE_HANDLER from "basic" to "basichash", the 
->> task checksum will be in the stamp file, so this implies the end of PR bumps 
->> since whenever a recipe change happens, the checksum of the appropriate 
->> tasks will change so everything depends on that tasks will automatically got 
->> rebuilt. (The checksum mechanism was introduced here at https://lists.yoctoproject.org/pipermail/yocto/2011-March/001157.html).
->>
->> But there is one piece of building block missing there. Because the package 
->> feeds needs the PR bumps because some relevant fields in the package file(i.e. 
->> Version field in .ipk and .deb file, Release field in .rpm file) need it so the 
->> generated package feeds can be used to upgrade/install new packages in the 
->> user's linux distribution. So RP proposed this network based PR service at 
->> https://lists.yoctoproject.org/pipermail/poky/2011-January/002123.html. 
->>
->> Each embedded linux distribution entity using Yocto to build their distributions 
->> should have a single network based PR service. Multiple build sources could send 
->> the tuple (PN, task checksum) to this network based PR service. If the PR service 
->> finds the corresponding (PN, task checksum) in its database, it will return the PR 
->> values to the client. If not, it will bump the PR for that PN and return the new value 
->> to the client. The returned value will only goes into the generated package files.
->>
->> The PR network service will be a separate process other than bitbake, using the 
->> XMLPRC to communicate with the client(i.e. bitbake process) and sqlite3 as the 
->> backend database. The table definition would be something like
->> (
->>   PN TEXT,
->>   CheckSum TEXT PRIMARY KEY,
->>   PR INT
->> )
->>
->> Because different type of package files are generated in different tasks, (e.g.
->> do_package_write_ipk, do_package_write_rpm), we will use the task checksum 
->> of do_package to ask for PR value, so all the package files will have the same PR value.
->>
->> To be backward compatible, if the PR value is already set in the recipe, the final PR value 
->> that goes into the package files will be "PR in recipe.PR returned by the service".
->>
->> ========================
->> Lianhao Lu
->> OTC SSG, Intel APAC R&D Ltd.
->> 86-21-61167139
->>
->>
->>
->>
->>
->> _______________________________________________
->> poky mailing list
->> poky@yoctoproject.org
->> https://lists.yoctoproject.org/listinfo/poky
-> 
-> 
-> 
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
-
+-- 
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
