@@ -1,26 +1,24 @@
-Return-Path: <Bruce.Ashfield@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A309B4C804D4
-	for <poky@yoctoproject.org>; Thu, 28 Apr 2011 14:23:57 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p3SJNvNV012429
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Thu, 28 Apr 2011 12:23:57 -0700 (PDT)
-Received: from [128.224.146.67] (128.224.146.67) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server id 14.1.255.0;
-	Thu, 28 Apr 2011 12:23:56 -0700
-Message-ID: <4DB9BECA.6090003@windriver.com>
-Date: Thu, 28 Apr 2011 15:23:54 -0400
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.14) Gecko/20110208 Thunderbird/3.1.8 ThunderBrowse/3.3.5
-MIME-Version: 1.0
-To: Kang Kai <Kai.Kang@windriver.com>
-References: <4D5EB1FB.9030704@linux.intel.com> <4D5EC541.2050807@windriver.com>
-	<4DB7ABD6.6060509@windriver.com>
-In-Reply-To: <4DB7ABD6.6060509@windriver.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: Minimal images: kernel config
+Return-Path: <josh@linux.intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2DE524C804D4
+	for <poky@yoctoproject.org>; Thu, 28 Apr 2011 16:08:38 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 28 Apr 2011 14:08:37 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.64,283,1301900400"; d="scan'208";a="635528579"
+Received: from vorpal.jf.intel.com (HELO [10.7.199.68]) ([10.7.199.68])
+	by orsmga002.jf.intel.com with ESMTP; 28 Apr 2011 14:08:37 -0700
+From: Joshua Lock <josh@linux.intel.com>
+To: Mark Hatle <mark.hatle@windriver.com>
+In-Reply-To: <4DB9859D.7070609@windriver.com>
+References: <C10D3FB0CD45994C8A51FEC1227CE22F2311C1C837@shsmsx502.ccr.corp.intel.com>
+	<20110428092232.GA3259@jama.jama.net> <4DB9859D.7070609@windriver.com>
+Date: Thu, 28 Apr 2011 14:04:32 -0700
+Message-ID: <1304024672.2171.396.camel@vorpal>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.30.3 
+Cc: poky@yoctoproject.org
+Subject: Re: RFC: design of network based PR service
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,72 +30,49 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 28 Apr 2011 19:23:58 -0000
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Thu, 28 Apr 2011 21:08:38 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-On 11-04-27 01:38 AM, Kang Kai wrote:
-> On 2011年02月19日 03:15, Bruce Ashfield wrote:
->> On 11-02-18 12:52 PM, Darren Hart wrote:
->>> I've been getting more and more questions regarding flash footprint,
->>> memory footprint, and boot time. All of these fall under the "minimal
->>> image" heading in my head.
->>>
->>> Currently, poky-image-minimal is a simple subset of poky-image-sato. It
->>> uses busybox, but is still dynamically linked and uses the same
->>> somewhat-generic kernel build. By somewhat-generic I mean we have named
->>> features that often cover more drivers than are stricly necessary for a
->>> given board (usb-net comes to mind). I'd like to see minimal become a
->>> truly minimal image from both the userspace and kernel side point of
->>> view.
->>>
->>> Here's my take on this. From userspace this means uclibc and a staticly
->>> linked busybox. From the kernel this means a static build (no modules)
->>> with nothing more than is required for the board's built-in peripherals
->>> to function, with the possible exception of something like usb-storage.
->>> I'd like to see a < 10M flash size and a <8M memory footprint.
->>
->> From the kernel angle, I have a profile/solution for this
->> lurking in the 2.6.34 kernel, and one that we've been updating
->> for the 2.6.37 kernel.
->>
-> Hi Bruce,
->
->> There's a kernel feature called "small", that when overlayed
->> on top of any BSP, converts it to a tuned for small systems
->> BSP. Other than that, we have to hold the line on BSP configurations.
->> Keep them tuned and specific by default and add kernel configurations
->> for optional features when request, not by default.
-> We are working on "minimal image". Right now we try to reduce rootfs
-> size, but we think there are relationships between kernel configurations
-> and rootfs, because rootfs also contains some kernel modules.
-> So would you send us a copy of kernel "small" configuration, more detail
-> will be appreciated.
+On Thu, 2011-04-28 at 10:19 -0500, Mark Hatle wrote:
+> On 4/28/11 4:22 AM, Martin Jansa wrote:
+> > On Thu, Apr 28, 2011 at 03:08:03PM +0800, Lu, Lianhao wrote:
+> >> Hi Guys,
+> >>
+> >> Here is the design of network based PR service, please help to review and 
+> >> give you comment. Thanks a lot!
+> > 
+> > Hi,
+> > 
+> > looks good, just wondering if we can use the same mechanism for
+> > LOCALCOUNT numbers in SRCPV, we can even use same table if we prefix
+> > first column ie LOCALCOUNT_${PN} and CheckSum in 2nd column would be
+> > actuall git hash (from SRCREV or HEAD for AUTOREV) or 2nd table with
+> > similar structure.
+> > 
+> > But it wont work very well if one builder is using AUTOREV and another
+> > one isn't, but that can be resolved by allowing only trusted builders
+> > with same configuration (wrt AUTOREV) to send such tuples.
+> > 
+> > Do we have at least 2 groups of "users".
+> > 1) trusted which increments PR when hash is not found
+> > 2) public which can query PR for given hash (not sure what they should
+> >    do if hash is not found)
+> 
+> I think this points our something necessary.  There are manual indications of a
+> change.  I.e. the current "PR" usage.  If I change the recipe, patches, etc I
+> should expect to update the 'PR' to the next value.  However, if something ELSE
+> changes (affecting the checksum), or an end user forgets to change the PR, the
+> auto increment should be used.
 
-Not ignoring this. Just swamped. I'll dig this up ASAP and
-send it your way.
+Why would you need to update the PR manually? Detecting changes in the
+recipe/patches/etc should all be handled by the checksumming.
 
-Bruce
-
->
-> Thanks and Regards,
-> Kai
->>
->> That's the approach we've been taking without our 150 or so
->> BSPs, and it has worked out really well for producing a
->> general/debug BSP + something that is tuned for a truly
->> embedded deployment.
->>
->> Bruce
->>
->>>
->>> Thoughts on this direction?
->>>
->>
->> _______________________________________________
->> poky mailing list
->> poky@yoctoproject.org
->> https://lists.yoctoproject.org/listinfo/poky
->
+Cheers,
+Joshua
+-- 
+Joshua Lock
+        Yocto Build System Monkey
+        Intel Open Source Technology Center
 
 
