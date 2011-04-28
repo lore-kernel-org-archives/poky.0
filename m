@@ -1,29 +1,45 @@
-Return-Path: <mark.hatle@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9497D4C80578
-	for <poky@yoctoproject.org>; Thu, 28 Apr 2011 16:23:52 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p3SLNeZo003002
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Thu, 28 Apr 2011 14:23:40 -0700 (PDT)
-Received: from Macintosh-5.local (172.25.36.228) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server id 14.1.255.0;
-	Thu, 28 Apr 2011 14:23:40 -0700
-Message-ID: <4DB9DADA.1020304@windriver.com>
-Date: Thu, 28 Apr 2011 16:23:38 -0500
-From: Mark Hatle <mark.hatle@windriver.com>
-Organization: Wind River Systems
-User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
-	rv:1.9.2.15) Gecko/20110303 Thunderbird/3.1.9
+Return-Path: <kergoth@gmail.com>
+Received: from mail-vx0-f176.google.com (mail-vx0-f176.google.com
+	[209.85.220.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 21A784C8024E
+	for <poky@yoctoproject.org>; Thu, 28 Apr 2011 17:03:16 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by vxa37 with SMTP id 37so3776993vxa.35
+	for <poky@yoctoproject.org>; Thu, 28 Apr 2011 15:03:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:sender:in-reply-to:references:from
+	:date:x-google-sender-auth:message-id:subject:to:cc:content-type
+	:content-transfer-encoding;
+	bh=YwKeSX7H0gKvDGm/GtN98YAmPHZLxPvAe1s88BNrGjU=;
+	b=IPid/uFMCNbzv4LUms7FZT/gRPVzU2wQ0t6JJD5UzJCwQ13Ui/khqKZyJJuUeRLnT9
+	DTWkwEvsPKQFKHS5JgAwWki39D1MgSA0XLx9DYlTx2RpIikGNrL7KFUM+312OvVu9CaC
+	fCeuIghNb/+cIf8ABHpxVUBkLGf/6Md/wiv/4=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:sender:in-reply-to:references:from:date
+	:x-google-sender-auth:message-id:subject:to:cc:content-type
+	:content-transfer-encoding;
+	b=icMTJcRZaG9wyRVIclb3Fcft7YZbanTRU0fCcwyM8yChCa1BNFN3risiAUpXaaBA0t
+	QoDtb13Jl+dToL9tUpo0HWTfuDj+Y9mLHM/WBhJ1heFFz93SzeE0fCtAwPLsPQ2TslZw
+	DcFw3ZaQJa0cACBfdUxnvsUXP0y12waFjI43c=
+Received: by 10.52.91.71 with SMTP id cc7mr2934038vdb.288.1304028195058; Thu,
+	28 Apr 2011 15:03:15 -0700 (PDT)
 MIME-Version: 1.0
-To: Joshua Lock <josh@linux.intel.com>
-References: <C10D3FB0CD45994C8A51FEC1227CE22F2311C1C837@shsmsx502.ccr.corp.intel.com>	
-	<20110428092232.GA3259@jama.jama.net>
-	<4DB9859D.7070609@windriver.com> <1304024672.2171.396.camel@vorpal>
-In-Reply-To: <1304024672.2171.396.camel@vorpal>
-Cc: poky@yoctoproject.org, Patches and discussions about the oe-core layer
+Sender: kergoth@gmail.com
+Received: by 10.52.183.162 with HTTP; Thu, 28 Apr 2011 15:02:55 -0700 (PDT)
+In-Reply-To: <4DB9DADA.1020304@windriver.com>
+References: <C10D3FB0CD45994C8A51FEC1227CE22F2311C1C837@shsmsx502.ccr.corp.intel.com>
+	<20110428092232.GA3259@jama.jama.net> <4DB9859D.7070609@windriver.com>
+	<1304024672.2171.396.camel@vorpal> <4DB9DADA.1020304@windriver.com>
+From: Chris Larson <clarson@kergoth.com>
+Date: Thu, 28 Apr 2011 15:02:55 -0700
+X-Google-Sender-Auth: XXttilxwBqIxcWncWk1rdNNLPH8
+Message-ID: <BANLkTimxB2LuGWGtjyBKQgFTkKqb5p3YfA@mail.gmail.com>
+To: Patches and discussions about the oe-core layer
 	<openembedded-core@lists.openembedded.org>
-Subject: Re: RFC: design of network based PR service
+Cc: poky@yoctoproject.org
+Subject: Re: [OE-core] RFC: design of network based PR service
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,86 +51,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 28 Apr 2011 21:23:53 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 28 Apr 2011 22:03:16 -0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-(adding oe-core back to the list as it got dropped off my previous reply)
+On Thu, Apr 28, 2011 at 2:23 PM, Mark Hatle <mark.hatle@windriver.com> wrot=
+e:
+> Checksums and timestamps are not enough to determine a logical progressio=
+n of
+> the components.
+>
+> We need something that informs the user where these changes fit in the gr=
+and
+> scheme of things. =C2=A0Are they newer or older then a recipe of the same=
+ name (and
+> package version)?
 
-On 4/28/11 4:04 PM, Joshua Lock wrote:
-> On Thu, 2011-04-28 at 10:19 -0500, Mark Hatle wrote:
->> On 4/28/11 4:22 AM, Martin Jansa wrote:
->>> On Thu, Apr 28, 2011 at 03:08:03PM +0800, Lu, Lianhao wrote:
->>>> Hi Guys,
->>>>
->>>> Here is the design of network based PR service, please help to review and 
->>>> give you comment. Thanks a lot!
->>>
->>> Hi,
->>>
->>> looks good, just wondering if we can use the same mechanism for
->>> LOCALCOUNT numbers in SRCPV, we can even use same table if we prefix
->>> first column ie LOCALCOUNT_${PN} and CheckSum in 2nd column would be
->>> actuall git hash (from SRCREV or HEAD for AUTOREV) or 2nd table with
->>> similar structure.
->>>
->>> But it wont work very well if one builder is using AUTOREV and another
->>> one isn't, but that can be resolved by allowing only trusted builders
->>> with same configuration (wrt AUTOREV) to send such tuples.
->>>
->>> Do we have at least 2 groups of "users".
->>> 1) trusted which increments PR when hash is not found
->>> 2) public which can query PR for given hash (not sure what they should
->>>    do if hash is not found)
->>
->> I think this points our something necessary.  There are manual indications of a
->> change.  I.e. the current "PR" usage.  If I change the recipe, patches, etc I
->> should expect to update the 'PR' to the next value.  However, if something ELSE
->> changes (affecting the checksum), or an end user forgets to change the PR, the
->> auto increment should be used.
-> 
-> Why would you need to update the PR manually? Detecting changes in the
-> recipe/patches/etc should all be handled by the checksumming.
-
-Checksums and timestamps are not enough to determine a logical progression of
-the components.
-
-We need something that informs the user where these changes fit in the grand
-scheme of things.  Are they newer or older then a recipe of the same name (and
-package version)?
-
-So this really allows us to visualize multiple levels of upstream work:
-
-Level 1 - Upstream "version"  (PV)
-
-Level 2 - Upstream (oe-core) recipe versioning (PR)
-
-...
-
-Level N - Local build and configuration versioning (checksum based & auto
-incrementing)
-
-
-In a lot of projects 1, 2 and N are enough.. but it's understandable to add in
-other intermediate levels to indicate different upstreams along the way.  (Such
-as if a company has their own internal distribution..)
-
-I've seen cases where a level 3 exists to indicate a "distribution version"..
-
-Level N (when done manually) has usually captured major system configuration
-changes and rebuilding in order to enable solver tools to upgrade properly.
-
-
-While the checksum will be able to point a unique instance of the recipe to a
-given PR... it doesn't guaranty any type of logical numbering.. other then a new
-checksum is a new (presumably larger) PR number.  By adding in the various
-levels of version information the checksum becomes "more" unique as it only
-refers to specific 'upstream' revisions, and make it more logical that a level
-1, 2, ... N change means it's a "newer" version of the package.
-
---Mark
-
-> Cheers,
-> Joshua
-
+I think we might want to stop using the term PR to describe what
+you're talking about here.  PR has historically had a quite specific
+meaning to us, given how bitbake has operated, and how stamps worked.
+It sounds like you want to formalize what we've likely all been doing
+manually -- PR .=3D ".1" or whatever in the .bbappend of a given layer.
+Do you think we really need a format string for this, or would
+introducing a new variable that's simply a list of extra version
+components, and which is used by the packaging classes, likely not by
+bitbake itself, get the job done? Am I grasping your need correctly?
+--=20
+Christopher Larson
+clarson at kergoth dot com
+Founder - BitBake, OpenEmbedded, OpenZaurus
+Maintainer - Tslib
+Senior Software Engineer, Mentor Graphics
 
