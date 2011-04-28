@@ -1,34 +1,24 @@
-Return-Path: <liping.ke@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9A9834C8057C
-	for <poky@yoctoproject.org>; Wed, 27 Apr 2011 20:24:00 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 27 Apr 2011 18:24:00 -0700
+Return-Path: <josh@linux.intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 9FDB64C80188
+	for <poky@yoctoproject.org>; Wed, 27 Apr 2011 21:23:00 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 27 Apr 2011 19:23:00 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,277,1301900400"; d="scan'208";a="739442008"
-Received: from pgsmsx603.gar.corp.intel.com ([10.221.43.87])
-	by orsmga001.jf.intel.com with ESMTP; 27 Apr 2011 18:23:57 -0700
-Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
-	pgsmsx603.gar.corp.intel.com (10.221.43.87) with Microsoft SMTP Server
-	(TLS) id 8.2.255.0; Thu, 28 Apr 2011 09:22:11 +0800
-Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
-	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
-	Thu, 28 Apr 2011 09:22:10 +0800
-From: "Ke, Liping" <liping.ke@intel.com>
-To: Joshua Lock <josh@linux.intel.com>, "poky@yoctoproject.org"
-	<poky@yoctoproject.org>
-Date: Thu, 28 Apr 2011 09:22:08 +0800
-Thread-Topic: [poky] Processing extra field requested by bitbake -u in Cache
-Thread-Index: AcwFCmmQYOWQ6pXgQTWaD2gjvWUorAANv2YQ
-Message-ID: <789F9655DD1B8F43B48D77C5D30659734C09DE4D@shsmsx501.ccr.corp.intel.com>
+X-IronPort-AV: E=Sophos;i="4.64,277,1301900400"; d="scan'208";a="426815797"
+Received: from unknown (HELO [10.255.13.20]) ([10.255.13.20])
+	by azsmga001.ch.intel.com with ESMTP; 27 Apr 2011 19:22:59 -0700
+From: Joshua Lock <josh@linux.intel.com>
+To: "Ke, Liping" <liping.ke@intel.com>
+Date: Wed, 27 Apr 2011 19:22:59 -0700
+In-Reply-To: <789F9655DD1B8F43B48D77C5D30659734C09DE4D@shsmsx501.ccr.corp.intel.com>
 References: <789F9655DD1B8F43B48D77C5D30659734C09DCDE@shsmsx501.ccr.corp.intel.com>
 	<1303929543.2242.20.camel@scimitar>
-In-Reply-To: <1303929543.2242.20.camel@scimitar>
-Accept-Language: zh-CN, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: zh-CN, en-US
-MIME-Version: 1.0
+	<789F9655DD1B8F43B48D77C5D30659734C09DE4D@shsmsx501.ccr.corp.intel.com>
+X-Mailer: Evolution 3.0.0 (3.0.0-1.fc15) 
+Message-ID: <1303957379.2481.21.camel@scimitar>
+Mime-Version: 1.0
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: Processing extra field requested by bitbake -u in Cache
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -41,84 +31,73 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 28 Apr 2011 01:24:00 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Thu, 28 Apr 2011 02:23:00 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-> Why must we change the invalidation mechanisms when having a separate
-> cache file per UI.
-Hi, Josh
+On Thu, 2011-04-28 at 09:22 +0800, Ke, Liping wrote:
+> > Why must we change the invalidation mechanisms when having a separate
+> > cache file per UI.
+> Hi, Josh
+> 
+> Considering the following usage sequence, ui 1 -> non-ui (made changes) 2 -> ui (made changes)  3 -> non-ui (made changes) 4
+> 
+> If we use option 1, no cache invalidation needed.
 
-Considering the following usage sequence, ui 1 -> non-ui (made changes) 2 -=
-> ui (made changes)  3 -> non-ui (made changes) 4
+If there are changes you'll still need to invalidate the cache.
+I guess you're trying  to show something like the following?
 
-If we use option 1, no cache invalidation needed.
+== Option 1 (addition cache file for extra fields)
+launch gui
+<make changes>
+launch gui (cache rebuild)
+use cli
+<make changes>
+use cli (cache rebuild)
+launch gui
+use cli
+launch gui
+<make changes>
+launch gui (cache rebuild)
+use cli
 
-But if we use option 2, we need invalidate cache each time. I collect some =
-local feedback here, they said it's unbearable.=20
+=> 3 cache rebuilds
 
-if we want to reduce the unnecessary invalidation, we need very careful tri=
-cky mechanism,
-such as, could it be possible that when ui->no-ui, we don't' invalidation c=
-ache when the mode switching? It's not a two step state machine,
-but more steps?
+== Option 2 (per ui cache files)
+launch gui
+<make changes>
+launch gui (cache rebuild)
+use cli
+<make changes>
+use cli (cache rebuild)
+launch gui (cache rebuild)
+use cli
+launch gui
+<make changes>
+launch gui (cache rebuild)
+use cli (cache rebuild)
 
-And also, yes extra 6 M files are the disk is not a big problem. But actual=
-ly the extra three fields are not a big burden in memory,=20
-it's only about size(fields of the 3) * file_no (<1000)? So the extra 6M vs=
- extra three fields in memory is a dilemma from my me plus the extra invali=
-dation.
-That's why I feel RP's suggestion is reasonable at that time?
+=> 5 cache rebuilds
 
-I am still in a dilemma...
+However I can't imagine people switching UI's this frequently.
 
-Thanks indeed for your idea!
-criping
+> 
+> But if we use option 2, we need invalidate cache each time. I collect some local feedback here, they said it's unbearable. 
 
+What's unbearable? The cache rebuilding time?
 
+I'm still not clear why we need to invalidate the cache each time we
+switch UI's. The cache invalidation test is the same: if any of the
+dependencies have been modified or the file doesn't exist build the
+cache, else load the available cache. If we are using a per UI cache
+file we just run the invalidation tests against a different file each
+time the UI is changed. Or am I missing something here?
 
->=20
-> My thought is that we'll have a cache file name which encodes the UI and
-> then run the usual invalidation tests against that cache.
->=20
-> Say that the UI name is known by the cache and stored in variable
-> currentui we can achieve this by:
->=20
-> -        self.cachefile =3D os.path.join(self.cachedir, "bb_cache.dat")
-> +        self.cachefile =3D os.path.join(self.cachedir, "bb_cache_%s.dat"
-> % currentui)
->=20
-> Also, surely we *do* need alter the cache invalidation mechanisms for
-> multiple files, at least insofar as we must test more than one cache
-> file some times.
->=20
-> >
-> > 2. Have two big cache files, one is for ui mode, one is for non-ui mode
-> >   Advantage: Code change will be a little smaller. When loading, if it'=
-s non-ui
-> mode, load smaller cache file. Otherwise, load bigger cache file.
-> >   Disadvantage: 1) Cache invalidation mechanism (timestamp) is broken.
-> When mode switching, we need to invalidate all caches, reparsing, reloadi=
-ng
-> time 30s.
-> >               s) disk file size is bigger. 2*original_size (2*6M)
->=20
-> I'm not sure that 6MB disk overhead is worth the code complexity
-> increase by having multiple cache files stitched together.
->=20
-> I am definitely keen to hear others opinions here.
->=20
-> Cheers,
-> Joshua
-> --
-> Joshua Lock
->         Yocto Build System Monkey
->         Intel Open Source Technology Centre
->=20
->=20
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+Regards,
+Joshua
+-- 
+Joshua Lock
+        Yocto Build System Monkey
+        Intel Open Source Technology Centre
+
 
