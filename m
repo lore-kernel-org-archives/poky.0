@@ -1,24 +1,23 @@
 Return-Path: <josh@linux.intel.com>
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2DE524C804D4
-	for <poky@yoctoproject.org>; Thu, 28 Apr 2011 16:08:38 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 28 Apr 2011 14:08:37 -0700
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5C1AA4C804D4
+	for <poky@yoctoproject.org>; Thu, 28 Apr 2011 16:23:15 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 28 Apr 2011 14:23:01 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,283,1301900400"; d="scan'208";a="635528579"
+X-IronPort-AV: E=Sophos;i="4.64,283,1301900400"; d="scan'208";a="739890887"
 Received: from vorpal.jf.intel.com (HELO [10.7.199.68]) ([10.7.199.68])
-	by orsmga002.jf.intel.com with ESMTP; 28 Apr 2011 14:08:37 -0700
+	by orsmga001.jf.intel.com with ESMTP; 28 Apr 2011 14:23:01 -0700
 From: Joshua Lock <josh@linux.intel.com>
-To: Mark Hatle <mark.hatle@windriver.com>
-In-Reply-To: <4DB9859D.7070609@windriver.com>
-References: <C10D3FB0CD45994C8A51FEC1227CE22F2311C1C837@shsmsx502.ccr.corp.intel.com>
-	<20110428092232.GA3259@jama.jama.net> <4DB9859D.7070609@windriver.com>
-Date: Thu, 28 Apr 2011 14:04:32 -0700
-Message-ID: <1304024672.2171.396.camel@vorpal>
+To: C Michael Sundius <msundius@sundius.com>
+In-Reply-To: <BANLkTi=FVHHE0+HjkhbRKy-z173cJGghog@mail.gmail.com>
+References: <BANLkTi=FVHHE0+HjkhbRKy-z173cJGghog@mail.gmail.com>
+Date: Thu, 28 Apr 2011 14:18:57 -0700
+Message-ID: <1304025537.2171.426.camel@vorpal>
 Mime-Version: 1.0
 X-Mailer: Evolution 2.30.3 
 Cc: poky@yoctoproject.org
-Subject: Re: RFC: design of network based PR service
+Subject: Re: building images
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,46 +29,55 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 28 Apr 2011 21:08:38 -0000
+X-List-Received-Date: Thu, 28 Apr 2011 21:23:15 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On Thu, 2011-04-28 at 10:19 -0500, Mark Hatle wrote:
-> On 4/28/11 4:22 AM, Martin Jansa wrote:
-> > On Thu, Apr 28, 2011 at 03:08:03PM +0800, Lu, Lianhao wrote:
-> >> Hi Guys,
-> >>
-> >> Here is the design of network based PR service, please help to review and 
-> >> give you comment. Thanks a lot!
-> > 
-> > Hi,
-> > 
-> > looks good, just wondering if we can use the same mechanism for
-> > LOCALCOUNT numbers in SRCPV, we can even use same table if we prefix
-> > first column ie LOCALCOUNT_${PN} and CheckSum in 2nd column would be
-> > actuall git hash (from SRCREV or HEAD for AUTOREV) or 2nd table with
-> > similar structure.
-> > 
-> > But it wont work very well if one builder is using AUTOREV and another
-> > one isn't, but that can be resolved by allowing only trusted builders
-> > with same configuration (wrt AUTOREV) to send such tuples.
-> > 
-> > Do we have at least 2 groups of "users".
-> > 1) trusted which increments PR when hash is not found
-> > 2) public which can query PR for given hash (not sure what they should
-> >    do if hash is not found)
+Hi Michael,
+
+On Wed, 2011-04-27 at 11:40 -0700, C Michael Sundius wrote:
+> I'm wondering if when bitbake builds an image, that is to say if all
+> the necessary package recipes have already been completely built, if
+> just when creating the image, does bitbake make use of the
+> staging/sysroot directory at all? or does it only install packages and
+> run some scripts for pre and post processing of the image?.... 
+
+There was some work to support this, you can see the
+BUILD_IMAGES_FROM_FEEDS variable used in the rootfs_ipk.bbclass and
+rootfs_rpm.bbclass.
+
+I'm not sure how tested this is but the basics of the infrastructure is
+there. There's even a graphical tool (puccho, run with 'bitbake -u
+puccho') that was developed to provide a UI to the BUILD_FROM_FEEDS
+infrastructure.
+
+Once again, not my code but sounds like we have at least a start to the
+functionality you're looking for.
+
+<snip>
+
+> My problem is that some of our customers will not adopt OE for
+> developing applications. (I think they should, but we just can't
+> guarantee that they will, nor do I think we should force them). 
 > 
-> I think this points our something necessary.  There are manual indications of a
-> change.  I.e. the current "PR" usage.  If I change the recipe, patches, etc I
-> should expect to update the 'PR' to the next value.  However, if something ELSE
-> changes (affecting the checksum), or an end user forgets to change the PR, the
-> auto increment should be used.
+> 
+> If we provide:
+> 
+> 
+> 1) an SDK that includes:
+> - all of our interfaces,
+> - all of our utilities and branding info
+> - the tool chain,
+> - some or all the other native utilities (or maybe just take chances
+> that the build host is not Fedora Core 3!)
 
-Why would you need to update the PR manually? Detecting changes in the
-recipe/patches/etc should all be handled by the checksumming.
+You can easily build your customers a "native-tools" tarball, look at
+the meta/recipes-core/meta/external-python-tarball.bb recipe for how
+Richard enabled users without Python 2.6 to use Poky.
 
-Cheers,
+Hope this helps,
 Joshua
+
 -- 
 Joshua Lock
         Yocto Build System Monkey
