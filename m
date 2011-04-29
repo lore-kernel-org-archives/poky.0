@@ -1,37 +1,37 @@
-Return-Path: <lianhao.lu@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D402F4C8024E
-	for <poky@yoctoproject.org>; Fri, 29 Apr 2011 00:28:49 -0500 (CDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 28 Apr 2011 22:28:49 -0700
+Return-Path: <jiajun.xu@intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 0A56E4C80ABA
+	for <poky@yoctoproject.org>; Fri, 29 Apr 2011 01:20:28 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 28 Apr 2011 23:20:28 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,285,1301900400"; d="scan'208";a="685780279"
+X-IronPort-AV: E=Sophos;i="4.64,285,1301900400"; d="scan'208";a="427600450"
 Received: from pgsmsx601.gar.corp.intel.com ([10.221.43.69])
-	by fmsmga002.fm.intel.com with ESMTP; 28 Apr 2011 22:28:48 -0700
-Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
+	by azsmga001.ch.intel.com with ESMTP; 28 Apr 2011 23:20:27 -0700
+Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
 	pgsmsx601.gar.corp.intel.com (10.221.43.69) with Microsoft SMTP Server
-	(TLS) id 8.2.255.0; Fri, 29 Apr 2011 13:28:41 +0800
-Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
-	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
-	Fri, 29 Apr 2011 13:28:40 +0800
-From: "Lu, Lianhao" <lianhao.lu@intel.com>
-To: Patches and discussions about the oe-core layer
-	<openembedded-core@lists.openembedded.org>
-Date: Fri, 29 Apr 2011 13:28:39 +0800
-Thread-Topic: [OE-core] [poky] RFC: design of network based PR service
-Thread-Index: AcwF6pg7JKKjhFgvRG6rIhFWWGaBOAAQa7wg
-Message-ID: <C10D3FB0CD45994C8A51FEC1227CE22F2316D02BB5@shsmsx502.ccr.corp.intel.com>
-References: <C10D3FB0CD45994C8A51FEC1227CE22F2311C1C837@shsmsx502.ccr.corp.intel.com>
-	<20110428092232.GA3259@jama.jama.net>	<4DB9859D.7070609@windriver.com>
-	<1304024672.2171.396.camel@vorpal> <4DB9DADA.1020304@windriver.com>
-In-Reply-To: <4DB9DADA.1020304@windriver.com>
-Accept-Language: zh-CN, en-US
+	(TLS) id 8.2.255.0; Fri, 29 Apr 2011 14:19:18 +0800
+Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
+	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
+	Fri, 29 Apr 2011 14:19:17 +0800
+From: "Xu, Jiajun" <jiajun.xu@intel.com>
+To: "Wold, Saul" <saul.wold@intel.com>
+Date: Fri, 29 Apr 2011 14:19:16 +0800
+Thread-Topic: [poky] [PATCH 1/1] qemuimagetest: Enable toolchain automation
+	tests	in qemuimagetest
+Thread-Index: AcwGK7sO6AKhpz52RO+Zf8abJntabgACTG3g
+Message-ID: <D5AB6E638E5A3E4B8F4406B113A5A19A51F2C729@shsmsx501.ccr.corp.intel.com>
+References: <cover.1304004540.git.jiajun.xu@intel.com>
+	<5b319e5682fdbf8fd0c431b59d8f9d946e325bfe.1304004540.git.jiajun.xu@intel.com>
+	<4DBA4831.6020906@intel.com>
+In-Reply-To: <4DBA4831.6020906@intel.com>
+Accept-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-acceptlanguage: zh-CN, en-US
+acceptlanguage: en-US
 MIME-Version: 1.0
 Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [OE-core] RFC: design of network based PR service
+Subject: Re: [PATCH 1/1] qemuimagetest: Enable toolchain automation tests	in qemuimagetest
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,98 +43,52 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 29 Apr 2011 05:28:50 -0000
+X-List-Received-Date: Fri, 29 Apr 2011 06:20:29 -0000
 Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-Mark Hatle wrote on 2011-04-29:
-> (adding oe-core back to the list as it got dropped off my previous reply)
+>> diff --git a/meta/classes/populate_sdk.bbclass
+>> b/meta/classes/populate_sdk.bbclass
+>> index 413eb52..70670ba 100644
+>> --- a/meta/classes/populate_sdk.bbclass
+>> +++ b/meta/classes/populate_sdk.bbclass
+>> @@ -1,6 +1,9 @@
+>>   inherit meta toolchain-scripts
+>>   inherit populate_sdk_${IMAGE_PKGTYPE}
+>> +IMAGETEST ?=3D "dummy"
+>> +inherit imagetest-${IMAGETEST}
+>> +
+> Why does this need to be added here?
 >=20
-> On 4/28/11 4:04 PM, Joshua Lock wrote:
->> On Thu, 2011-04-28 at 10:19 -0500, Mark Hatle wrote:
->>> On 4/28/11 4:22 AM, Martin Jansa wrote:
->>>> On Thu, Apr 28, 2011 at 03:08:03PM +0800, Lu, Lianhao wrote:
->>>>> Hi Guys,
->>>>>=20
->>>>> Here is the design of network based PR service, please help to
->>>>> review and give you comment. Thanks a lot!
->>>>=20
->>>> Hi,
->>>>=20
->>>> looks good, just wondering if we can use the same mechanism for
->>>> LOCALCOUNT numbers in SRCPV, we can even use same table if we
->>>> prefix first column ie LOCALCOUNT_${PN} and CheckSum in 2nd column
->>>> would be actuall git hash (from SRCREV or HEAD for AUTOREV) or 2nd
->>>> table with similar structure.
->>>>=20
->>>> But it wont work very well if one builder is using AUTOREV and
->>>> another one isn't, but that can be resolved by allowing only
->>>> trusted builders with same configuration (wrt AUTOREV) to send such tu=
-ples.
->>>>=20
->>>> Do we have at least 2 groups of "users".
->>>> 1) trusted which increments PR when hash is not found
->>>> 2) public which can query PR for given hash (not sure what they should
->>>>    do if hash is not found)
->>>=20
->>> I think this points our something necessary.  There are manual
->>> indications of a change.  I.e. the current "PR" usage.  If I change
->>> the recipe, patches, etc I should expect to update the 'PR' to the
->>> next value.  However, if something ELSE changes (affecting the
->>> checksum), or an end user forgets to change the PR, the auto
->>> increment
-> should be used.
->>=20
->> Why would you need to update the PR manually? Detecting changes in
->> the recipe/patches/etc should all be handled by the checksumming.
->=20
-> Checksums and timestamps are not enough to determine a logical
-> progression of the components.
->=20
-> We need something that informs the user where these changes fit in the
-> grand scheme of things.  Are they newer or older then a recipe of the
-> same name (and package version)?
->=20
-> So this really allows us to visualize multiple levels of upstream work:
->=20
-> Level 1 - Upstream "version"  (PV)
->=20
-> Level 2 - Upstream (oe-core) recipe versioning (PR)
->=20
-> ...
->=20
-> Level N - Local build and configuration versioning (checksum based &
-> auto incrementing)
->=20
->=20
-> In a lot of projects 1, 2 and N are enough.. but it's understandable
-> to add in other intermediate levels to indicate different upstreams along=
- the way.
-> (Such as if a company has their own internal distribution..)
->=20
-> I've seen cases where a level 3 exists to indicate a "distribution versio=
-n"..
->=20
-> Level N (when done manually) has usually captured major system
-> configuration changes and rebuilding in order to enable solver tools to u=
-pgrade properly.
->=20
->=20
-> While the checksum will be able to point a unique instance of the
-> recipe to a given PR... it doesn't guaranty any type of logical
-> numbering.. other then a new checksum is a new (presumably larger) PR
-> number.  By adding in the various levels of version information the
-> checksum becomes "more" unique as it only refers to specific
-> 'upstream' revisions, and make it more logical that a level 1, 2, ... N c=
-hange means it's a "newer" version of the package.
+> I understand that when IMAGETEST is set to qemu in the local.conf file
+> that it will be pulled in, but why to populate_sdk?
 >=20
 
-If a new PV(and/or PR) value comes, does the level N value need to be reset=
- to 0? Or should it continue to increase?
+Hi Saul,
+Do you mean IMAGETEST should not be inherited in populate_sdk? Do you think=
+ it OK to inherit IMAGETEST in meta-toolchain.bb?
+
+diff --git a/meta/recipes-core/meta/meta-toolchain.bb b/meta/recipes-core/m=
+eta/meta-toolchain.bb
+index 94c8a91..ab98bf9 100644
+--- a/meta/recipes-core/meta/meta-toolchain.bb
++++ b/meta/recipes-core/meta/meta-toolchain.bb
+@@ -6,6 +6,7 @@ PR =3D "r4"
+ LIC_FILES_CHKSUM =3D "file://${COREBASE}/LICENSE;md5=3D3f40d7994397109285e=
+c7b81fdeb3b58 \
+                     file://${COREBASE}/meta/COPYING.MIT;md5=3D3da9cfbcb788=
+c80a0384361b4de20420"
+
+-inherit populate_sdk
++IMAGETEST ?=3D "dummy"
++inherit populate_sdk imagetest-${IMAGETEST}
+
+
+> Sau!
 
 Best Regards,
-Lianhao
+Jiajun
 
 
 
