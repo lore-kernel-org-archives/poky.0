@@ -1,24 +1,24 @@
 Return-Path: <Xiaofeng.Yan@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 3F77D4C80BBC
-	for <poky@yoctoproject.org>; Fri, 29 Apr 2011 04:44:43 -0500 (CDT)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8BA104C80BD7
+	for <poky@yoctoproject.org>; Fri, 29 Apr 2011 04:44:47 -0500 (CDT)
 Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p3T9igRm020472
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p3T9ilRI020481
 	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Fri, 29 Apr 2011 02:44:42 -0700 (PDT)
+	for <poky@yoctoproject.org>; Fri, 29 Apr 2011 02:44:47 -0700 (PDT)
 Received: from localhost (128.224.162.28) by ALA-HCA.corp.ad.wrs.com
 	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Fri, 29 Apr 2011 02:44:42 -0700
-Message-ID: <8a06bc53c25f9c7023f7a0e15c6e985ae9e7da44.1304070105.git.xiaofeng.yan@windriver.com>
+	Fri, 29 Apr 2011 02:44:46 -0700
+Message-ID: <e3128d4d9e417c7844587593d86225ddbe52744e.1304070105.git.xiaofeng.yan@windriver.com>
 In-Reply-To: <cover.1304070105.git.xiaofeng.yan@windriver.com>
 References: <cover.1304070105.git.xiaofeng.yan@windriver.com>
-Old-Date: Fri, 29 Apr 2011 17:34:52 +0800
-Date: Fri, 29 Apr 2011 17:44:11 +0800
+Old-Date: Fri, 29 Apr 2011 17:39:09 +0800
+Date: Fri, 29 Apr 2011 17:44:16 +0800
 To: <poky@yoctoproject.org>
 From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
 MIME-Version: 1.0
 X-Originating-IP: [128.224.162.28]
-Subject: [PATCH 1/2] task-core-lsb.bb: Add packages liberation-fonts to lsb-imag
+Subject: [PATCH 2/2] LSB_Setup.sh: Add character set to lsb-image
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,30 +30,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 29 Apr 2011 09:44:43 -0000
+X-List-Received-Date: Fri, 29 Apr 2011 09:44:47 -0000
 Content-Type: text/plain
 
 From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
 
-Add font set to lsb-image to solve bugs from lsb test
+Add character set to lsb-image to solve bugs from lsb test
 
 Signed-off-by: Xiaofeng Yan <xiaofeng.yan@windriver.com>
 ---
- meta/recipes-extended/tasks/task-core-lsb.bb |    1 +
+ meta/recipes-extended/lsb/lsbsetup/LSB_Setup.sh |    1 +
  1 files changed, 1 insertions(+), 0 deletions(-)
 
-diff --git a/meta/recipes-extended/tasks/task-core-lsb.bb b/meta/recipes-extended/tasks/task-core-lsb.bb
-index ef8acb1..06220ae 100644
---- a/meta/recipes-extended/tasks/task-core-lsb.bb
-+++ b/meta/recipes-extended/tasks/task-core-lsb.bb
-@@ -164,6 +164,7 @@ RDEPENDS_task-core-lsb-graphic-add = "\
-     gdk-pixbuf-loader-ico \
-     gdk-pixbuf-loader-bmp \
-     gdk-pixbuf-loader-ani \
-+    liberation-fonts \
- "
+diff --git a/meta/recipes-extended/lsb/lsbsetup/LSB_Setup.sh b/meta/recipes-extended/lsb/lsbsetup/LSB_Setup.sh
+index a8189e5..aa3d5ee 100644
+--- a/meta/recipes-extended/lsb/lsbsetup/LSB_Setup.sh
++++ b/meta/recipes-extended/lsb/lsbsetup/LSB_Setup.sh
+@@ -207,6 +207,7 @@ localedef -i en_US -f ISO-8859-15  en_US.ISO-8859-15
+ localedef -i en_US -f UTF-8 en_US.UTF-8
+ localedef -i se_NO -f UTF-8 se_NO.UTF-8
+ localedef -i de_DE -f ISO-8859-1 de_DE
++localedef -i en_US -f ISO-8859-1 en_US.ISO8859-1
  
- RDEPENDS_task-core-lsb-graphic-add_qemux86 = "\
+ #resolve localhost 
+ LOCALHOST=`hostname`
 -- 
 1.7.0.4
 
