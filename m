@@ -1,26 +1,37 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A3C014C8024E
-	for <poky@yoctoproject.org>; Fri, 29 Apr 2011 00:26:05 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 28 Apr 2011 22:26:05 -0700
+Return-Path: <lianhao.lu@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D402F4C8024E
+	for <poky@yoctoproject.org>; Fri, 29 Apr 2011 00:28:49 -0500 (CDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 28 Apr 2011 22:28:49 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,285,1301900400"; d="scan'208";a="635687078"
-Received: from unknown (HELO [10.255.13.18]) ([10.255.13.18])
-	by orsmga002.jf.intel.com with ESMTP; 28 Apr 2011 22:26:04 -0700
-Message-ID: <4DBA4BEB.6040501@intel.com>
-Date: Thu, 28 Apr 2011 22:26:03 -0700
-From: Saul Wold <saul.wold@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
+X-IronPort-AV: E=Sophos;i="4.64,285,1301900400"; d="scan'208";a="685780279"
+Received: from pgsmsx601.gar.corp.intel.com ([10.221.43.69])
+	by fmsmga002.fm.intel.com with ESMTP; 28 Apr 2011 22:28:48 -0700
+Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
+	pgsmsx601.gar.corp.intel.com (10.221.43.69) with Microsoft SMTP Server
+	(TLS) id 8.2.255.0; Fri, 29 Apr 2011 13:28:41 +0800
+Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
+	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
+	Fri, 29 Apr 2011 13:28:40 +0800
+From: "Lu, Lianhao" <lianhao.lu@intel.com>
+To: Patches and discussions about the oe-core layer
+	<openembedded-core@lists.openembedded.org>
+Date: Fri, 29 Apr 2011 13:28:39 +0800
+Thread-Topic: [OE-core] [poky] RFC: design of network based PR service
+Thread-Index: AcwF6pg7JKKjhFgvRG6rIhFWWGaBOAAQa7wg
+Message-ID: <C10D3FB0CD45994C8A51FEC1227CE22F2316D02BB5@shsmsx502.ccr.corp.intel.com>
+References: <C10D3FB0CD45994C8A51FEC1227CE22F2311C1C837@shsmsx502.ccr.corp.intel.com>
+	<20110428092232.GA3259@jama.jama.net>	<4DB9859D.7070609@windriver.com>
+	<1304024672.2171.396.camel@vorpal> <4DB9DADA.1020304@windriver.com>
+In-Reply-To: <4DB9DADA.1020304@windriver.com>
+Accept-Language: zh-CN, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: zh-CN, en-US
 MIME-Version: 1.0
-To: Xiaofeng Yan <xiaofeng.yan@windriver.com>
-References: <cover.1303982282.git.xiaofeng.yan@windriver.com>
-	<ebe3cbba0c84e841d47aa5d1b66d244f0ec24818.1303982282.git.xiaofeng.yan@windriver.com>
-In-Reply-To: <ebe3cbba0c84e841d47aa5d1b66d244f0ec24818.1303982282.git.xiaofeng.yan@windriver.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 1/1] qt3: Add qt3 to poky for fixing [YOCTO #816]
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [OE-core] RFC: design of network based PR service
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,491 +43,98 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 29 Apr 2011 05:26:06 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 29 Apr 2011 05:28:50 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On 04/28/2011 06:26 PM, Xiaofeng Yan wrote:
-> From: Xiaofeng Yan<xiaofeng.yan@windriver.com>
->
-> Add a new layer "meta-qt3" and import recipes-qt3,qt3e.bbclass and qt3x11.bbclass from OE.
-> Qt3 is needed by LSB Test Suite. Changes from the meta-openembedded version:
-> 1  Add "-L ${STAGING_LIBDIR} -I ${STAGING_INCDIR_NATIVE}" to function do_configure() in file qt-x11-free-native_3.3.5.bb
-> 2  Remove do_stage and transfer contents from do_stage to do_install in file qt-x11-free-native_3.3.5.bb
-> 3  Add LIC_FILES_CHKSUM and PR in file qt-x11-free-native_3.3.5.bb
-> 4  Remove -plugin-sql-mysql from "QT_CONFIG_FLAGS" in file qt-x11-free-common.inc
-> 5  Add "install -m 0755 ${STAGING_BINDIR_NATIVE}/moc3 ${S}/bin/moc install -m 0755 ${STAGING_BINDIR_NATIVE}/uic3 ${S}/bin/uic" to function do_compile() in file qt-x11-free-common.inc
-> 6  Change do_stage to do_install_prepend in file qt-x11-free-common.inc
-> 7  Add LIC_FILES_CHKSUM and PR in file qt-x11-free_3.3.7.bb
-> 8  Add links in qt-x11-free-native_3.3.5.bb
->     cd ${D}${bindir}
->     for i in qmake moc uic lrelease lupdate;do
->     ln -s ${i}3 ${i} done
-> 9  Remove depends for qt-x11-free_3.3.7
-> 10 Add images/core-image-lsb-qt3.bb
-> 11 Add tasks/task-core-qt3.bb
-> 12 Add conf/layer.conf
-> ---
->   meta-qt3/classes/qt3e.bbclass                      |   11 +++
->   meta-qt3/classes/qt3x11.bbclass                    |   15 +++
->   meta-qt3/conf/layer.conf                           |   10 ++
->   meta-qt3/recipes-qt3/images/core-image-lsb-qt3.bb  |   10 ++
->   meta-qt3/recipes-qt3/qt3/qt-x11-free-common.inc    |   92 ++++++++++++++++++++
->   .../recipes-qt3/qt3/qt-x11-free-native_3.3.5.bb    |   72 +++++++++++++++
->   .../recipes-qt3/qt3/qt-x11-free/configure.patch    |   51 +++++++++++
->   .../recipes-qt3/qt3/qt-x11-free/gcc4_1-HACK.patch  |   28 ++++++
->   .../recipes-qt3/qt3/qt-x11-free/no-examples.patch  |   16 ++++
->   meta-qt3/recipes-qt3/qt3/qt-x11-free_3.3.6.bb      |   13 +++
->   meta-qt3/recipes-qt3/qt3/qt-x11-free_3.3.7.bb      |   17 ++++
->   meta-qt3/recipes-qt3/tasks/task-core-qt3.bb        |   23 +++++
->   12 files changed, 358 insertions(+), 0 deletions(-)
->   create mode 100644 meta-qt3/classes/qt3e.bbclass
->   create mode 100644 meta-qt3/classes/qt3x11.bbclass
->   create mode 100644 meta-qt3/conf/layer.conf
->   create mode 100644 meta-qt3/recipes-qt3/images/core-image-lsb-qt3.bb
->   create mode 100644 meta-qt3/recipes-qt3/qt3/qt-x11-free-common.inc
->   create mode 100644 meta-qt3/recipes-qt3/qt3/qt-x11-free-native_3.3.5.bb
->   create mode 100644 meta-qt3/recipes-qt3/qt3/qt-x11-free/configure.patch
->   create mode 100644 meta-qt3/recipes-qt3/qt3/qt-x11-free/gcc4_1-HACK.patch
->   create mode 100644 meta-qt3/recipes-qt3/qt3/qt-x11-free/no-examples.patch
->   create mode 100644 meta-qt3/recipes-qt3/qt3/qt-x11-free_3.3.6.bb
->   create mode 100644 meta-qt3/recipes-qt3/qt3/qt-x11-free_3.3.7.bb
->   create mode 100644 meta-qt3/recipes-qt3/tasks/task-core-qt3.bb
->
-> diff --git a/meta-qt3/classes/qt3e.bbclass b/meta-qt3/classes/qt3e.bbclass
-> new file mode 100644
-> index 0000000..d3d4a14
-> --- /dev/null
-> +++ b/meta-qt3/classes/qt3e.bbclass
-> @@ -0,0 +1,11 @@
-> +#
-> +# override variables set by qmake_base to compile Qt/X11 apps
-> +#
-> +export QTDIR="${STAGING_DIR_HOST}/qte3"
-> +export QTEDIR="${STAGING_DIR_HOST}/qte3"
-> +export OE_QMAKE_UIC="${STAGING_BINDIR_NATIVE}/uic3"
-> +export OE_QMAKE_MOC="${STAGING_BINDIR_NATIVE}/moc3"
-> +export OE_QMAKE_CXXFLAGS="${CXXFLAGS} "
-> +export OE_QMAKE_INCDIR_QT="${STAGING_INCDIR}/qte3/include"
-> +export OE_QMAKE_LIBDIR_QT="${STAGING_LIBDIR}/qte3/lib"
-> +export OE_QMAKE_LIBS_QT="qte"
-> diff --git a/meta-qt3/classes/qt3x11.bbclass b/meta-qt3/classes/qt3x11.bbclass
-> new file mode 100644
-> index 0000000..5408b7f
-> --- /dev/null
-> +++ b/meta-qt3/classes/qt3x11.bbclass
-> @@ -0,0 +1,15 @@
-> +DEPENDS_prepend = "${@["qt3x11 ", ""][(bb.data.getVar('PN', d, 1) == 'qt-x11-free')]}"
-> +EXTRA_QMAKEVARS_POST += "CONFIG+=thread"
-> +#
-> +# override variables set by qmake_base to compile Qt/X11 apps
-> +#
-> +export QTDIR = "${STAGING_DIR_HOST}/qt3"
-> +export OE_QMAKE_UIC = "${STAGING_BINDIR_NATIVE}/uic3"
-> +export OE_QMAKE_MOC = "${STAGING_BINDIR_NATIVE}/moc3"
-> +export OE_QMAKE_CXXFLAGS = "${CXXFLAGS} -DQT_NO_XIM"
-> +export OE_QMAKE_INCDIR_QT = "${QTDIR}/include"
-> +export OE_QMAKE_LIBDIR_QT = "${QTDIR}/lib"
-> +export OE_QMAKE_LIBS_QT = "qt"
-> +export OE_QMAKE_LIBS_X11 = "-lXext -lX11 -lm"
-> +export OE_QMAKE_LIBS_OPENGL = "-lGLU -lGL -lXmu"
-> +export OE_QMAKE_LIBS_OPENGL_QT = "-lGL -lXmu"
-> diff --git a/meta-qt3/conf/layer.conf b/meta-qt3/conf/layer.conf
-> new file mode 100644
-> index 0000000..f4597db
-> --- /dev/null
-> +++ b/meta-qt3/conf/layer.conf
-> @@ -0,0 +1,10 @@
-> +# We have a conf and classes directory, add to BBPATH
-> +BBPATH := "${BBPATH}:${LAYERDIR}"
-> +
-> +# We have a packages directory, add to BBFILES
-> +BBFILES := "${BBFILES} ${LAYERDIR}/recipes-*/*/*.bb"
-> +
-> +BBFILE_COLLECTIONS += "qt3"
-> +BBFILE_PATTERN_qt3 := "^${LAYERDIR}/"
-> +BBFILE_PRIORITY_qt3 = "6"
-> +
-> diff --git a/meta-qt3/recipes-qt3/images/core-image-lsb-qt3.bb b/meta-qt3/recipes-qt3/images/core-image-lsb-qt3.bb
-> new file mode 100644
-> index 0000000..b7dc92e
-> --- /dev/null
-> +++ b/meta-qt3/recipes-qt3/images/core-image-lsb-qt3.bb
-> @@ -0,0 +1,10 @@
-> +IMAGE_FEATURES += "apps-console-core ssh-server-openssh"
-> +
-> +IMAGE_INSTALL = "\
-> +    ${POKY_BASE_INSTALL} \
-> +    task-core-basic \
-> +    task-core-lsb \
-> +    task-core-qt-mt3 \
-> +    "
-> +
-> +inherit core-image
-> diff --git a/meta-qt3/recipes-qt3/qt3/qt-x11-free-common.inc b/meta-qt3/recipes-qt3/qt3/qt-x11-free-common.inc
-> new file mode 100644
-> index 0000000..60fbd42
-> --- /dev/null
-> +++ b/meta-qt3/recipes-qt3/qt3/qt-x11-free-common.inc
-> @@ -0,0 +1,92 @@
-> +DESCRIPTION = "Qt/X11 Version ${PV} is a full fledged cross-platform application framework"
-> +SECTION = "x11/libs"
-> +PRIORITY = "optional"
-> +LICENSE = "GPL QPL"
-Is this an "And" (&) or an "or" (|) license choice?  I think there is 
-another case like this also.
+Mark Hatle wrote on 2011-04-29:
+> (adding oe-core back to the list as it got dropped off my previous reply)
+>=20
+> On 4/28/11 4:04 PM, Joshua Lock wrote:
+>> On Thu, 2011-04-28 at 10:19 -0500, Mark Hatle wrote:
+>>> On 4/28/11 4:22 AM, Martin Jansa wrote:
+>>>> On Thu, Apr 28, 2011 at 03:08:03PM +0800, Lu, Lianhao wrote:
+>>>>> Hi Guys,
+>>>>>=20
+>>>>> Here is the design of network based PR service, please help to
+>>>>> review and give you comment. Thanks a lot!
+>>>>=20
+>>>> Hi,
+>>>>=20
+>>>> looks good, just wondering if we can use the same mechanism for
+>>>> LOCALCOUNT numbers in SRCPV, we can even use same table if we
+>>>> prefix first column ie LOCALCOUNT_${PN} and CheckSum in 2nd column
+>>>> would be actuall git hash (from SRCREV or HEAD for AUTOREV) or 2nd
+>>>> table with similar structure.
+>>>>=20
+>>>> But it wont work very well if one builder is using AUTOREV and
+>>>> another one isn't, but that can be resolved by allowing only
+>>>> trusted builders with same configuration (wrt AUTOREV) to send such tu=
+ples.
+>>>>=20
+>>>> Do we have at least 2 groups of "users".
+>>>> 1) trusted which increments PR when hash is not found
+>>>> 2) public which can query PR for given hash (not sure what they should
+>>>>    do if hash is not found)
+>>>=20
+>>> I think this points our something necessary.  There are manual
+>>> indications of a change.  I.e. the current "PR" usage.  If I change
+>>> the recipe, patches, etc I should expect to update the 'PR' to the
+>>> next value.  However, if something ELSE changes (affecting the
+>>> checksum), or an end user forgets to change the PR, the auto
+>>> increment
+> should be used.
+>>=20
+>> Why would you need to update the PR manually? Detecting changes in
+>> the recipe/patches/etc should all be handled by the checksumming.
+>=20
+> Checksums and timestamps are not enough to determine a logical
+> progression of the components.
+>=20
+> We need something that informs the user where these changes fit in the
+> grand scheme of things.  Are they newer or older then a recipe of the
+> same name (and package version)?
+>=20
+> So this really allows us to visualize multiple levels of upstream work:
+>=20
+> Level 1 - Upstream "version"  (PV)
+>=20
+> Level 2 - Upstream (oe-core) recipe versioning (PR)
+>=20
+> ...
+>=20
+> Level N - Local build and configuration versioning (checksum based &
+> auto incrementing)
+>=20
+>=20
+> In a lot of projects 1, 2 and N are enough.. but it's understandable
+> to add in other intermediate levels to indicate different upstreams along=
+ the way.
+> (Such as if a company has their own internal distribution..)
+>=20
+> I've seen cases where a level 3 exists to indicate a "distribution versio=
+n"..
+>=20
+> Level N (when done manually) has usually captured major system
+> configuration changes and rebuilding in order to enable solver tools to u=
+pgrade properly.
+>=20
+>=20
+> While the checksum will be able to point a unique instance of the
+> recipe to a given PR... it doesn't guaranty any type of logical
+> numbering.. other then a new checksum is a new (presumably larger) PR
+> number.  By adding in the various levels of version information the
+> checksum becomes "more" unique as it only refers to specific
+> 'upstream' revisions, and make it more logical that a level 1, 2, ... N c=
+hange means it's a "newer" version of the package.
+>=20
 
-Sau!
+If a new PV(and/or PR) value comes, does the level N value need to be reset=
+ to 0? Or should it continue to increase?
 
-> +HOMEPAGE = "http://www.trolltech.com"
-> +PR = "r0"
-> +
-> +S = "${WORKDIR}/qt-x11-free-${PV}"
-> +
-> +
-> +inherit qmake_base ${COREBASE}/meta-qt3/classes/qt3x11.bbclass
-> +
-> +export QTDIR = "${S}"
-> +STAGING_QT_DIR = "${STAGING_DIR_HOST}/qt3"
-> +ARCH_i686 = "x86"
-> +EXTRA_OEMAKE = "-e"
-> +
-> +QT_CONFIG_FLAGS = "-release -shared -qt-zlib -no-nas-sound -no-sm -qt-libpng -no-gif -no-xinerama \
-> +                   -no-tablet -no-xkb -no-dlopen-opengl -no-nis -no-cups -thread  -verbose"
-> +
-> +EXTRA_ENV = 'QMAKE="${STAGING_BINDIR_NATIVE}/qmake -after INCPATH+=${STAGING_INCDIR} \
-> +             INCPATH+=${STAGING_INCDIR}/freetype2 LIBS+=-L${STAGING_LIBDIR}" \
-> +             QMAKESPEC="${QMAKESPEC}" LINK="${CXX} -Wl,-rpath-link,${STAGING_LIBDIR}" \
-> +             AR="${TARGET_PREFIX}ar cqs" \
-> +             MOC="${STAGING_BINDIR_NATIVE}/moc3" UIC="${STAGING_BINDIR_NATIVE}/uic3" MAKE="make -e"'
-> +
-> +do_configure() {
-> +	echo "yes" | ./configure -prefix ${prefix} ${QT_CONFIG_FLAGS} -no-fast \
-> +		-L${STAGING_LIBDIR} -I${STAGING_INCDIR} -I${STAGING_INCDIR}/freetype2 -I${STAGING_INCDIR}/mysql
-> +
-> +	# force regenerate
-> +	rm -f src/qtmain.pro
-> +	cat Makefile>makefile
-> +	find . -name "Makefile"|xargs rm -f
-> +	(cd src&&  qmake -spec ${QMAKESPEC} )
-> +	(cd plugins/src&&  qmake -spec ${QMAKESPEC} )
-> +	(cd tools&&  qmake -spec ${QMAKESPEC} )
-> +	(cd tools/qvfb&&  qmake -spec ${QMAKESPEC} )
-> +}
-> +
-> +do_compile() {
-> +	unset CFLAGS
-> +	unset CXXFLAGS
-> +
-> +	install -m 0755 ${STAGING_BINDIR_NATIVE}/moc3 ${S}/bin/moc
-> +	install -m 0755 ${STAGING_BINDIR_NATIVE}/uic3 ${S}/bin/uic
-> +
-> +	oe_runmake -C src ${EXTRA_ENV}
-> +	oe_runmake -C plugins/src ${EXTRA_ENV}
-> +	oe_runmake -C tools ${EXTRA_ENV}
-> +}
-> +
-> +do_install_prepend() {
-> +	install -d ${STAGING_QT_DIR}/bin
-> +	ln -sf ${STAGING_BINDIR_NATIVE}/moc3 ${STAGING_QT_DIR}/bin/moc
-> +	ln -sf ${STAGING_BINDIR_NATIVE}/uic3 ${STAGING_QT_DIR}/bin/uic
-> +	ln -sf ${STAGING_BINDIR_NATIVE}/qmake ${STAGING_QT_DIR}/bin/qmake
-> +	install -d ${STAGING_QT_DIR}/lib
-> +	oe_soinstall lib/libqt-mt.so.${PV} ${STAGING_QT_DIR}/lib
-> +	install -d ${STAGING_QT_DIR}/include/private
-> +	for f in include/*.h
-> +	do
-> +		install -m 0644 $f ${STAGING_QT_DIR}/include/
-> +	done
-> +	for f in include/private/*.h
-> +	do
-> +		install -m 0644 $f ${STAGING_QT_DIR}/include/private
-> +	done
-> +	for f in lib/*.prl
-> +	do
-> +		install -m 0644 $f ${STAGING_QT_DIR}/lib
-> +	done
-> +}
-> +
-> +do_install() {
-> +	install -d ${D}${libdir}/
-> +	oe_soinstall lib/libqt-mt.so.${PV} ${D}${libdir}/
-> +	install -d ${D}${bindir}/
-> +	install -d ${D}${prefix}/plugins/
-> +	cp -pPR plugins/imageformats plugins/sqldrivers plugins/designer ${D}${prefix}/plugins/
-> +}
-> +
-> +PACKAGES =+ " libqt-mt3 qt-x11-plugins-imageformats qt-x11-plugins-sqldrivers qt-x11-plugins-designer \
-> +             qt-x11-designer qt-x11-assistant qt-x11-qvfb qt-x11-qtconfig"
-> +FILES_libqt-mt3 = "${D}/{libdir}/libqt-mt*"
-> +FILES_qt-x11-plugins-imageformats = "${prefix}/plugins/imageformats/*.so"
-> +FILES_qt-x11-plugins-sqldrivers = "${prefix}/plugins/sqldrivers/*.so"
-> +FILES_qt-x11-plugins-designer = "${prefix}/plugins/designer/*.so"
-> +FILES_qt-x11-designer = "${bindir}/designer"
-> +FILES_qt-x11-assistant = "${bindir}/assistant"
-> +FILES_qt-x11-qtconfig = "${bindir}/qtconfig"
-> +FILES_qt-x11-dbg += "${prefix}/plugins/*/.debug ${D}/qt-x11-plugins-debug"
-> diff --git a/meta-qt3/recipes-qt3/qt3/qt-x11-free-native_3.3.5.bb b/meta-qt3/recipes-qt3/qt3/qt-x11-free-native_3.3.5.bb
-> new file mode 100644
-> index 0000000..2c55a57
-> --- /dev/null
-> +++ b/meta-qt3/recipes-qt3/qt3/qt-x11-free-native_3.3.5.bb
-> @@ -0,0 +1,72 @@
-> +DESCRIPTION = "Qt/X11 Version ${PV}"
-> +SECTION = "libs"
-> +PRIORITY = "optional"
-> +LICENSE = "GPL QPL"
-> +DEPENDS = "xmu-native"
-> +HOMEPAGE = "http://www.trolltech.com"
-> +PR = "r0"
-> +
-> +PROVIDES += "qt-x11-free-native"
-> +FILESDIR = "${@os.path.dirname(bb.data.getVar('FILE',d,1))}/qt-x11-free"
-> +
-> +LIC_FILES_CHKSUM = "file://LICENSE.GPL;md5=629178675a7d49c9fa19dfe9f43ea256 \
-> +                    file://LICENSE.QPL;md5=fff372435cb41647bc0b3cb940ea5c51"
-> +
-> +SRC_URI = "ftp://ftp.trolltech.com/qt/source/qt-x11-free-${PV}.tar.bz2 \
-> +	   file://no-examples.patch"
-> +S = "${WORKDIR}/qt-x11-free-${PV}"
-> +
-> +#
-> +# FIXME - This should be updated to use OE's qmake_base.oeclass
-> +#         or the full qmake.oeclass.
-> +#
-> +
-> +PROVIDES = "qt-x11-free-native"
-> +export QTDIR = "${S}"
-> +export SYSCONF_CXX = "${CCACHE} g++"
-> +export SYSCONF_CC  = "${CCACHE} gcc"
-> +export SYSCONF_LINK  = "${CCACHE} g++"
-> +THIS_QMAKESPEC = "${STAGING_DATADIR}/qmake/${TARGET_OS}-oe-g++"
-> +export QMAKESPEC = ""
-> +ARCH_i686 = "x86"
-> +
-> +QT_CONFIG_FLAGS = "-release -shared -qt-zlib -no-nas-sound -no-sm -qt-libpng -qt-gif -no-xshape -no-xinerama -no-xcursor -no-xrandr \
-> +                   -no-xrender -no-xft -no-tablet -no-xkb -no-dlopen-opengl -no-freetype -no-nis -no-cups -stl -thread -no-exceptions"
-> +
-> +
-> +inherit native
-> +
-> +do_configure() {
-> +	echo "yes" | ./configure -prefix ${prefix} ${QT_CONFIG_FLAGS} -fast -L ${STAGING_LIBDIR} \
-> +                -I ${STAGING_INCDIR_NATIVE}
-> +}
-> +
-> +do_compile() {
-> +	LD_LIBRARY_PATH=${S}/lib oe_runmake \
-> +		QMAKE="${STAGING_BINDIR_NATIVE}/qmake -after INCLUDEPATH+=${STAGING_INCDIR} LIBS+=-L${STAGING_LIBDIR}" \
-> +		QMAKESPEC="${THIS_QMAKESPEC}"
-> +}
-> +
-> +
-> +do_install() {
-> +    install -d ${D}${bindir}/
-> +    install -m 0755 bin/qmake ${D}${bindir}/qmake3
-> +    for i in moc uic  lrelease lupdate; do
-> +        install -m 0755 bin/${i} ${D}${bindir}/${i}3
-> +    done
-> +
-> +    install -d ${D}${datadir}/qt3/
-> +    cp -PfR mkspecs ${D}${datadir}/qt3/
-> +    ln -sf linux-g++ ${D}${datadir}/qt3/mkspecs/${BUILD_OS}-oe-g++
-> +    ln -s ${D}${datadir}/qt3/mkspecs/ ${D}${datadir}/qmake
-> +    install -d ${D}${libdir}/
-> +    oe_soinstall lib/libqt-mt.so.${PV} ${D}${libdir}/
-> +    cd ${D}${bindir}
-> +    for i in qmake moc uic lrelease lupdate;do
-> +        ln -s ${i}3 ${i}
-> +    done
-> +}
-> +
-> +
-> +SRC_URI[md5sum] = "05d04688c0c0230ed54e89102d689ca4"
-> +SRC_URI[sha256sum] = "aac89e862c74b2f3ead768e50e9fa7ada1e4225fe9d1d9e05723a3279259eb96"
-> diff --git a/meta-qt3/recipes-qt3/qt3/qt-x11-free/configure.patch b/meta-qt3/recipes-qt3/qt3/qt-x11-free/configure.patch
-> new file mode 100644
-> index 0000000..9d6c1e8
-> --- /dev/null
-> +++ b/meta-qt3/recipes-qt3/qt3/qt-x11-free/configure.patch
-> @@ -0,0 +1,51 @@
-> +
-> +#
-> +# Patch managed by http://www.holgerschurig.de/patcher.html
-> +#
-> +
-> +--- qt-x11-free-3.3.2/configure~configure.patch
-> ++++ qt-x11-free-3.3.2/configure
-> +@@ -1754,21 +1754,14 @@
-> + 	    CFG_FREETYPE=yes
-> + 	fi
-> +     fi
-> +-    # add freetype2 include path
-> +-    if [ "$CFG_FREETYPE" = "yes" ]&&  [ -f $outpath/config.tests/x11/xft.inc ];then
-> +-	QMAKE_VARS="$QMAKE_VARS \"INCLUDEPATH+=`cat $outpath/config.tests/x11/xft.inc`\""
-> +-    fi
-> +-    rm -f $outpath/config.tests/x11/xft.inc
-> +     # add Xft specific libraries
-> +     if [ "$CFG_FREETYPE" = "yes" ]&&  [ -f $outpath/config.tests/x11/xft.lib ]; then
-> + 	QMAKE_VARS="$QMAKE_VARS \"QMAKE_LIBS_X11=`cat $outpath/config.tests/x11/xft.lib` \$\$QMAKE_LIBS_X11\""
-> +     fi
-> +-    rm -f $outpath/config.tests/x11/xft.lib
-> +     # add Xft specific config options
-> +     if [ "$CFG_FREETYPE" = "yes" ]&&  [ -f $outpath/config.tests/x11/xft.cfg ]; then
-> + 	QMAKE_CONFIG="$QMAKE_CONFIG `cat $outpath/config.tests/x11/xft.cfg`"
-> +     fi
-> +-    rm -f $outpath/config.tests/x11/xft.cfg
-> +     # auto-detect Session Management support
-> +     if [ "$CFG_SM" = "auto" ]; then
-> + 	if $x11tests/sm.test $XQMAKESPEC $OPT_VERBOSE $L_FLAGS $I_FLAGS; then
-> +@@ -2553,12 +2546,6 @@
-> +     (cd $outpath/qmake; $MAKE || (echo "qmake failed to build. Aborting."&&  exit 2)) || exit 2
-> + fi
-> +
-> +-# clean up temporary qconfig.h and qmodules.h
-> +-rm -f $outpath/include/qmake/qconfig.h
-> +-rm -f $outpath/include/qmake/qmodules.h
-> +-rmdir $outpath/include/qmake
-> +-
-> +-
-> + #-------------------------------------------------------------------------------
-> + # tests that need qmake
-> + #-------------------------------------------------------------------------------
-> +@@ -3605,7 +3592,7 @@
-> +
-> + EOF
-> + 	else
-> +-	    EXEC="$outpath/bin/qmake $QMAKE_SWITCHES $QMAKE_SPEC_ARGS -o $OUTDIR $a"
-> ++	    EXEC="$outpath/bin/qmake $QMAKE_SWITCHES $QMAKE_SPEC_ARGS -o $OUTDIR $a $OE_EXTRA_QMAKE"
-> + 	    if [ "$OPT_VERBOSE" = "yes" ]; then
-> + 		echo " (`basename $SPEC`)"
-> + 		if echo '\c' | grep '\c'>/dev/null; then
-> diff --git a/meta-qt3/recipes-qt3/qt3/qt-x11-free/gcc4_1-HACK.patch b/meta-qt3/recipes-qt3/qt3/qt-x11-free/gcc4_1-HACK.patch
-> new file mode 100644
-> index 0000000..818bced
-> --- /dev/null
-> +++ b/meta-qt3/recipes-qt3/qt3/qt-x11-free/gcc4_1-HACK.patch
-> @@ -0,0 +1,28 @@
-> +
-> +#
-> +# Patch managed by http://www.holgerschurig.de/patcher.html
-> +#
-> +
-> +--- qt-x11-free-3.3.6/src/tools/qstring.h~gcc4_1.patch
-> ++++ qt-x11-free-3.3.6/src/tools/qstring.h
-> +@@ -60,7 +60,7 @@
-> + #endif
-> + #endif
-> +
-> +-
-> ++#define Q_NO_PACKED_REFERENCE
-> + /*****************************************************************************
-> +   QString class
-> +  *****************************************************************************/
-> +@@ -194,9 +194,9 @@
-> +     char latin1() const { return ucs>  0xff ? 0 : (char) ucs; }
-> +     ushort unicode() const { return ucs; }
-> + #ifdef Q_NO_PACKED_REFERENCE
-> +-    ushort&unicode() { return *(&ucs); }
-> ++    ushort&unicode() { return *((ushort*)&ucs); }
-> + #else
-> +-    ushort&unicode() { return ucs; }
-> ++    ushort&unicode() { return (ushort)ucs; }
-> + #endif
-> + #ifndef QT_NO_CAST_ASCII
-> +     // like all ifdef'd code this is undocumented
-> diff --git a/meta-qt3/recipes-qt3/qt3/qt-x11-free/no-examples.patch b/meta-qt3/recipes-qt3/qt3/qt-x11-free/no-examples.patch
-> new file mode 100644
-> index 0000000..b0ee637
-> --- /dev/null
-> +++ b/meta-qt3/recipes-qt3/qt3/qt-x11-free/no-examples.patch
-> @@ -0,0 +1,16 @@
-> +
-> +#
-> +# Patch managed by http://www.mn-logistik.de/unsupported/pxa250/patcher
-> +#
-> +
-> +--- qt-embedded-free-3.3.2/Makefile~no-examples	2003-08-11 16:37:25.000000000 +0200
-> ++++ qt-embedded-free-3.3.2/Makefile	2004-05-11 15:53:53.000000000 +0200
-> +@@ -11,7 +11,7 @@
-> + install: FORCE
-> + 	@$(MAKE) qt.install
-> +
-> +-all: symlinks src-qmake src-moc sub-src sub-tools sub-tutorial sub-examples
-> ++all: symlinks src-qmake src-moc sub-src sub-tools
-> + 	@echo
-> + 	@echo "The Qt library is now built in ./lib"
-> + 	@echo "The Qt examples are built in the directories in ./examples"
-> diff --git a/meta-qt3/recipes-qt3/qt3/qt-x11-free_3.3.6.bb b/meta-qt3/recipes-qt3/qt3/qt-x11-free_3.3.6.bb
-> new file mode 100644
-> index 0000000..789e6fb
-> --- /dev/null
-> +++ b/meta-qt3/recipes-qt3/qt3/qt-x11-free_3.3.6.bb
-> @@ -0,0 +1,13 @@
-> +DEPENDS = "uicmoc3-native freetype virtual/libx11 libxft libxext libxrender libxrandr libxcursor mysql virtual/libgl"
-> +PROVIDES = "qt3x11"
-> +PR = "r3"
-> +
-> +SRC_URI = "ftp://ftp.trolltech.com/qt/source/qt-x11-free-${PV}.tar.bz2 \
-> +	   file://configure.patch \
-> +	   file://no-examples.patch \
-> +           file://gcc4_1-HACK.patch"
-> +
-> +require qt-x11-free-common.inc
-> +
-> +SRC_URI[md5sum] = "dc1384c03ac08af21f6fefab32d982cf"
-> +SRC_URI[sha256sum] = "04f12083f6a6f7a8fd4d34a6c1efd37db76a67580c424f4fb7b7c43c0565e6ae"
-> diff --git a/meta-qt3/recipes-qt3/qt3/qt-x11-free_3.3.7.bb b/meta-qt3/recipes-qt3/qt3/qt-x11-free_3.3.7.bb
-> new file mode 100644
-> index 0000000..9a3bcf9
-> --- /dev/null
-> +++ b/meta-qt3/recipes-qt3/qt3/qt-x11-free_3.3.7.bb
-> @@ -0,0 +1,17 @@
-> +DEPENDS = "qt-x11-free-native freetype virtual/libx11 libxmu libxft libxext libxrender libxrandr libxcursor  virtual/libgl"
-> +PROVIDES = "qt3x11"
-> +PR = "r0"
-> +
-> +PREFERRED_VERSION_qt-x11-free = 3.3.7
-> +LIC_FILES_CHKSUM = "file://LICENSE.GPL;md5=b07b0d5ac6b1822effe47173a1744433 \
-> +                    file://LICENSE.QPL;md5=b81b6b6fc04ed873adde5aa901c0613b"
-> +
-> +SRC_URI = "ftp://ftp.trolltech.com/qt/source/qt-x11-free-${PV}.tar.bz2 \
-> +	   file://configure.patch \
-> +	   file://no-examples.patch \
-> +           file://gcc4_1-HACK.patch"
-> +
-> +require qt-x11-free-common.inc
-> +
-> +SRC_URI[md5sum] = "655e21cf6a7e66daf8ec6ceda81aae1e"
-> +SRC_URI[sha256sum] = "48c05b501029f0640db665fbc7f981a0efbf69ad3cf87a43c5eea4872f4f7ba1"
-> diff --git a/meta-qt3/recipes-qt3/tasks/task-core-qt3.bb b/meta-qt3/recipes-qt3/tasks/task-core-qt3.bb
-> new file mode 100644
-> index 0000000..81479d9
-> --- /dev/null
-> +++ b/meta-qt3/recipes-qt3/tasks/task-core-qt3.bb
-> @@ -0,0 +1,23 @@
-> +#
-> +# Copyright (C) 2011 Wind River
-> +#
-> +
-> +DESCRIPTION = "Create qt3 Tasks"
-> +PR = "r0"
-> +LICENSE = "MIT"
-> +LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58 \
-> +                    file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
-> +
-> +PACKAGES = "\
-> +    task-core-qt-mt3 \
-> +"
-> +
-> +
-> +ALLOW_EMPTY = "1"
-> +
-> +
-> +RDEPENDS_task-core-qt-mt3 = "\
-> +    qt-x11-free \
-> +    libqt-mt3 \
-> +"
-> +
+Best Regards,
+Lianhao
+
 
 
