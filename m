@@ -1,24 +1,22 @@
 Return-Path: <qing.he@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 32F904C80B74
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 53B0C4C80B7B
 	for <poky@yoctoproject.org>; Fri, 29 Apr 2011 04:43:28 -0500 (CDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 29 Apr 2011 02:43:27 -0700
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 29 Apr 2011 02:43:27 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,286,1301900400"; d="scan'208";a="685861705"
+X-IronPort-AV: E=Sophos;i="4.64,286,1301900400"; d="scan'208";a="740127555"
 Received: from qhe2-db.sh.intel.com ([10.239.13.48])
-	by fmsmga002.fm.intel.com with ESMTP; 29 Apr 2011 02:43:27 -0700
+	by orsmga001.jf.intel.com with ESMTP; 29 Apr 2011 02:43:27 -0700
 Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
 	(envelope-from <qing.he@intel.com>)
-	id 1QFk6t-0000FX-GY; Fri, 29 Apr 2011 17:35:39 +0800
-Message-Id: <8b823dab82e1dd0e7c039e57204042e5c6bf1c2a.1304069545.git.qing.he@intel.com>
-In-Reply-To: <cover.1304069545.git.qing.he@intel.com>
-References: <cover.1304069545.git.qing.he@intel.com>
-Old-Date: Fri, 22 Apr 2011 10:07:25 +0800
+	id 1QFk6t-0000Eq-C5; Fri, 29 Apr 2011 17:35:39 +0800
+Message-Id: <cover.1304069545.git.qing.he@intel.com>
+Old-Date: Fri, 29 Apr 2011 17:32:25 +0800
 Date: Fri, 29 Apr 2011 17:35:39 +0800
 To: poky@yoctoproject.org
 From: Qing He <qing.he@intel.com>
-Subject: [PATCH 04/10] curl: upgrade to version 7.21.6
+Subject: [PATCH 00/10] recipe upgrades, Apr. 29
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,72 +32,111 @@ X-List-Received-Date: Fri, 29 Apr 2011 09:43:28 -0000
 
 From: Qing He <qing.he@intel.com>
 
-from 7.21.2
+upgraded 9 recipes
+add 1: nettle as the new dependency of gnutls
 
-Signed-off-by: Qing He <qing.he@intel.com>
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: qhe/upgrade
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=qhe/upgrade
+
+Thanks,
+    Qing He <qing.he@intel.com>
 ---
- meta/recipes-support/curl/curl/noldlibpath.patch   |    2 ++
- meta/recipes-support/curl/curl/pkgconfig_fix.patch |    5 ++++-
- .../curl/{curl_7.21.2.bb => curl_7.21.6.bb}        |    6 +++---
- 3 files changed, 9 insertions(+), 4 deletions(-)
- rename meta/recipes-support/curl/{curl_7.21.2.bb => curl_7.21.6.bb} (92%)
 
-diff --git a/meta/recipes-support/curl/curl/noldlibpath.patch b/meta/recipes-support/curl/curl/noldlibpath.patch
-index a3319a2..f4c72a1 100644
---- a/meta/recipes-support/curl/curl/noldlibpath.patch
-+++ b/meta/recipes-support/curl/curl/noldlibpath.patch
-@@ -1,3 +1,5 @@
-+Upstream-Status: Inappropriate [embedded specific]
-+
- Manipulating LD_LIBRARY_PATH can totally break builds when cross compiling.
- Since we never run compiled binaries for the target, we should *never* need
- to change LD_LIBRARY_PATH.
-diff --git a/meta/recipes-support/curl/curl/pkgconfig_fix.patch b/meta/recipes-support/curl/curl/pkgconfig_fix.patch
-index a59d39b..ad73c00 100644
---- a/meta/recipes-support/curl/curl/pkgconfig_fix.patch
-+++ b/meta/recipes-support/curl/curl/pkgconfig_fix.patch
-@@ -1,3 +1,6 @@
-+Upstream-Status: Inappropriate [packaging]
-+
-+
- Index: curl-7.20.0/libcurl.pc.in
- ===================================================================
- --- curl-7.20.0.orig/libcurl.pc.in	2009-11-17 18:11:07.000000000 +0000
-@@ -5,7 +8,7 @@ Index: curl-7.20.0/libcurl.pc.in
- @@ -35,6 +35,7 @@
-  URL: http://curl.haxx.se/
-  Description: Library to transfer files with ftp, http, etc.
-- Version: @VERSION@
-+ Version: @CURLVERSION@
- -Libs: -L${libdir} -lcurl @LIBS@
- -Libs.private: @LIBCURL_LIBS@ @LIBS@
- +Requires.private: @GNUTLS_REQUIRED@
-diff --git a/meta/recipes-support/curl/curl_7.21.2.bb b/meta/recipes-support/curl/curl_7.21.6.bb
-similarity index 92%
-rename from meta/recipes-support/curl/curl_7.21.2.bb
-rename to meta/recipes-support/curl/curl_7.21.6.bb
-index cc8bbf1..51e14f9 100644
---- a/meta/recipes-support/curl/curl_7.21.2.bb
-+++ b/meta/recipes-support/curl/curl_7.21.6.bb
-@@ -8,14 +8,14 @@ LIC_FILES_CHKSUM = "file://COPYING;beginline=7;md5=3a34942f4ae3fbf1a303160714e66
- DEPENDS = "zlib gnutls"
- DEPENDS_virtclass-native = "zlib-native"
- DEPENDS_virtclass-nativesdk = "zlib-nativesdk"
--PR = "r1"
-+PR = "r0"
- 
- SRC_URI = "http://curl.haxx.se/download/curl-${PV}.tar.bz2 \
-            file://noldlibpath.patch \
-            file://pkgconfig_fix.patch"
- 
--SRC_URI[md5sum] = "ca96df88e044c7c25d19692ec8b250b2"
--SRC_URI[sha256sum] = "f4a632e704f28767e6bbffcc6112db0590b1c9d50d8226d706ad39632355bf21"
-+SRC_URI[md5sum] = "6611989a81ebd7b03a35adc3001ddee0"
-+SRC_URI[sha256sum] = "d9a3d3593796147ad9ca994c9e6834a42b49756420a10e996dbf849495d3d955"
- 
- inherit autotools pkgconfig binconfig
- 
--- 
-1.7.0
+
+Qing He (10):
+  attr: upgrade to version 2.4.46
+  acl: upgrade to version 2.2.51
+  augeas: upgrade to version 0.8.1
+  curl: upgrade to version 7.21.6
+  busybox: upgrade to version 1.18.4
+  nettle: add new recipe
+  gnutls: upgrade to version 2.12.3
+  shared-mime-info: upgrade to version 0.90
+  lzo: upgrade to version 2.05
+  libcap: upgrade to version 2.20
+
+ .../busybox/busybox-1.17.3/make-382-fix.patch      |   25 -
+ .../B921600.patch                                  |    0
+ .../busybox-appletlib-dependency.patch             |    0
+ .../busybox-udhcpc-no_deconfig.patch               |   19 +-
+ .../{busybox-1.17.3 => busybox-1.18.4}/defconfig   |    0
+ .../get_header_tar.patch                           |    4 +-
+ .../run-parts.in.usr-bin.patch                     |    0
+ .../udhcpc-fix-nfsroot.patch                       |    0
+ .../udhcpscript.patch                              |    0
+ .../{busybox_1.17.3.bb => busybox_1.18.4.bb}       |    7 +-
+ meta/recipes-extended/augeas/augeas_0.7.4.bb       |    6 -
+ meta/recipes-extended/augeas/augeas_0.8.1.bb       |    6 +
+ meta/recipes-support/attr/acl_2.2.49.bb            |    6 -
+ meta/recipes-support/attr/acl_2.2.51.bb            |    6 +
+ .../attr/attr-2.4.44/double-free.patch             |   18 -
+ .../attr/attr-2.4.44/memory-leak-in-copy.patch     |   50 -
+ .../attr/attr-2.4.44/memory-leak2.patch            |   18 -
+ .../attr/attr-2.4.44/pull-in-string.h.patch        |   21 -
+ .../attr/attr-2.4.44/thinko-in-restore.patch       |   19 -
+ meta/recipes-support/attr/attr_2.4.44.bb           |   12 -
+ meta/recipes-support/attr/attr_2.4.46.bb           |    6 +
+ meta/recipes-support/attr/ea-acl.inc               |    2 +-
+ .../attr/files/no-fixed-prog-path.patch            |   99 --
+ meta/recipes-support/curl/curl/noldlibpath.patch   |    2 +
+ meta/recipes-support/curl/curl/pkgconfig_fix.patch |    5 +-
+ .../curl/{curl_7.21.2.bb => curl_7.21.6.bb}        |    6 +-
+ .../gnutls/gnutls-2.10.4/gnutls-texinfo-euro.patch |   16 -
+ .../configure-fix.patch                            |   14 +-
+ .../gnutls-openssl.patch                           |    2 +
+ meta/recipes-support/gnutls/gnutls_2.10.4.bb       |   10 -
+ meta/recipes-support/gnutls/gnutls_2.12.3.bb       |   11 +
+ meta/recipes-support/libcap/libcap.inc             |    2 +-
+ meta/recipes-support/libcap/libcap_2.19.bb         |    6 -
+ meta/recipes-support/libcap/libcap_2.20.bb         |    6 +
+ .../lzo/{lzo-2.04 => lzo-2.05}/acinclude.m4        |    0
+ .../lzo/{lzo-2.04 => lzo-2.05}/autoconf.patch      |    4 +-
+ .../lzo/{lzo_2.04.bb => lzo_2.05.bb}               |    8 +-
+ meta/recipes-support/nettle/files/acinclude.m4     | 1062 ++++++++++++++++++++
+ meta/recipes-support/nettle/nettle_2.1.bb          |   31 +
+ .../files/fix-parallel-build.patch                 |   33 +
+ .../shared-mime-info/shared-mime-info_0.80.bb      |    5 -
+ .../shared-mime-info/shared-mime-info_0.90.bb      |    7 +
+ 42 files changed, 1208 insertions(+), 346 deletions(-)
+ delete mode 100644 meta/recipes-core/busybox/busybox-1.17.3/make-382-fix.patch
+ rename meta/recipes-core/busybox/{busybox-1.17.3 => busybox-1.18.4}/B921600.patch (100%)
+ rename meta/recipes-core/busybox/{busybox-1.17.3 => busybox-1.18.4}/busybox-appletlib-dependency.patch (100%)
+ rename meta/recipes-core/busybox/{busybox-1.17.3 => busybox-1.18.4}/busybox-udhcpc-no_deconfig.patch (90%)
+ rename meta/recipes-core/busybox/{busybox-1.17.3 => busybox-1.18.4}/defconfig (100%)
+ rename meta/recipes-core/busybox/{busybox-1.17.3 => busybox-1.18.4}/get_header_tar.patch (76%)
+ rename meta/recipes-core/busybox/{busybox-1.17.3 => busybox-1.18.4}/run-parts.in.usr-bin.patch (100%)
+ rename meta/recipes-core/busybox/{busybox-1.17.3 => busybox-1.18.4}/udhcpc-fix-nfsroot.patch (100%)
+ rename meta/recipes-core/busybox/{busybox-1.17.3 => busybox-1.18.4}/udhcpscript.patch (100%)
+ rename meta/recipes-core/busybox/{busybox_1.17.3.bb => busybox_1.18.4.bb} (81%)
+ delete mode 100644 meta/recipes-extended/augeas/augeas_0.7.4.bb
+ create mode 100644 meta/recipes-extended/augeas/augeas_0.8.1.bb
+ delete mode 100644 meta/recipes-support/attr/acl_2.2.49.bb
+ create mode 100644 meta/recipes-support/attr/acl_2.2.51.bb
+ delete mode 100644 meta/recipes-support/attr/attr-2.4.44/double-free.patch
+ delete mode 100644 meta/recipes-support/attr/attr-2.4.44/memory-leak-in-copy.patch
+ delete mode 100644 meta/recipes-support/attr/attr-2.4.44/memory-leak2.patch
+ delete mode 100644 meta/recipes-support/attr/attr-2.4.44/pull-in-string.h.patch
+ delete mode 100644 meta/recipes-support/attr/attr-2.4.44/thinko-in-restore.patch
+ delete mode 100644 meta/recipes-support/attr/attr_2.4.44.bb
+ create mode 100644 meta/recipes-support/attr/attr_2.4.46.bb
+ delete mode 100644 meta/recipes-support/attr/files/no-fixed-prog-path.patch
+ rename meta/recipes-support/curl/{curl_7.21.2.bb => curl_7.21.6.bb} (92%)
+ delete mode 100644 meta/recipes-support/gnutls/gnutls-2.10.4/gnutls-texinfo-euro.patch
+ rename meta/recipes-support/gnutls/{gnutls-2.10.4 => gnutls-2.12.3}/configure-fix.patch (76%)
+ rename meta/recipes-support/gnutls/{gnutls-2.10.4 => gnutls-2.12.3}/gnutls-openssl.patch (98%)
+ delete mode 100644 meta/recipes-support/gnutls/gnutls_2.10.4.bb
+ create mode 100644 meta/recipes-support/gnutls/gnutls_2.12.3.bb
+ delete mode 100644 meta/recipes-support/libcap/libcap_2.19.bb
+ create mode 100644 meta/recipes-support/libcap/libcap_2.20.bb
+ rename meta/recipes-support/lzo/{lzo-2.04 => lzo-2.05}/acinclude.m4 (100%)
+ rename meta/recipes-support/lzo/{lzo-2.04 => lzo-2.05}/autoconf.patch (84%)
+ rename meta/recipes-support/lzo/{lzo_2.04.bb => lzo_2.05.bb} (59%)
+ create mode 100644 meta/recipes-support/nettle/files/acinclude.m4
+ create mode 100644 meta/recipes-support/nettle/nettle_2.1.bb
+ create mode 100644 meta/recipes-support/shared-mime-info/files/fix-parallel-build.patch
+ delete mode 100644 meta/recipes-support/shared-mime-info/shared-mime-info_0.80.bb
+ create mode 100644 meta/recipes-support/shared-mime-info/shared-mime-info_0.90.bb
 
 
