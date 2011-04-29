@@ -1,22 +1,24 @@
 Return-Path: <Xiaofeng.Yan@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E86D14C80B74
-	for <poky@yoctoproject.org>; Fri, 29 Apr 2011 04:44:38 -0500 (CDT)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 3F77D4C80BBC
+	for <poky@yoctoproject.org>; Fri, 29 Apr 2011 04:44:43 -0500 (CDT)
 Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p3T9icG4020468
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p3T9igRm020472
 	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Fri, 29 Apr 2011 02:44:38 -0700 (PDT)
+	for <poky@yoctoproject.org>; Fri, 29 Apr 2011 02:44:42 -0700 (PDT)
 Received: from localhost (128.224.162.28) by ALA-HCA.corp.ad.wrs.com
 	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Fri, 29 Apr 2011 02:44:37 -0700
-Message-ID: <cover.1304070105.git.xiaofeng.yan@windriver.com>
-Old-Date: Fri, 29 Apr 2011 17:41:45 +0800
-Date: Fri, 29 Apr 2011 17:44:07 +0800
+	Fri, 29 Apr 2011 02:44:42 -0700
+Message-ID: <8a06bc53c25f9c7023f7a0e15c6e985ae9e7da44.1304070105.git.xiaofeng.yan@windriver.com>
+In-Reply-To: <cover.1304070105.git.xiaofeng.yan@windriver.com>
+References: <cover.1304070105.git.xiaofeng.yan@windriver.com>
+Old-Date: Fri, 29 Apr 2011 17:34:52 +0800
+Date: Fri, 29 Apr 2011 17:44:11 +0800
 To: <poky@yoctoproject.org>
 From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
 MIME-Version: 1.0
 X-Originating-IP: [128.224.162.28]
-Subject: [PATCH 0/2] task-lsb: Add new package and new character set to lsb-image
+Subject: [PATCH 1/2] task-core-lsb.bb: Add packages liberation-fonts to lsb-imag
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,29 +30,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 29 Apr 2011 09:44:39 -0000
+X-List-Received-Date: Fri, 29 Apr 2011 09:44:43 -0000
 Content-Type: text/plain
 
 From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
 
-Liberation can add font set to lsb-image
-LSB need en_US.ISO8859-1 
+Add font set to lsb-image to solve bugs from lsb test
 
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: xiaofeng/task-lsb
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=xiaofeng/task-lsb
-
-Thanks,
-    Xiaofeng Yan <xiaofeng.yan@windriver.com>
+Signed-off-by: Xiaofeng Yan <xiaofeng.yan@windriver.com>
 ---
+ meta/recipes-extended/tasks/task-core-lsb.bb |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
 
-
-Xiaofeng Yan (2):
-  task-core-lsb.bb: Add packages  liberation-fonts to lsb-imag
-  LSB_Setup.sh: Add character set to lsb-image
-
- meta/recipes-extended/lsb/lsbsetup/LSB_Setup.sh |    1 +
- meta/recipes-extended/tasks/task-core-lsb.bb    |    1 +
- 2 files changed, 2 insertions(+), 0 deletions(-)
+diff --git a/meta/recipes-extended/tasks/task-core-lsb.bb b/meta/recipes-extended/tasks/task-core-lsb.bb
+index ef8acb1..06220ae 100644
+--- a/meta/recipes-extended/tasks/task-core-lsb.bb
++++ b/meta/recipes-extended/tasks/task-core-lsb.bb
+@@ -164,6 +164,7 @@ RDEPENDS_task-core-lsb-graphic-add = "\
+     gdk-pixbuf-loader-ico \
+     gdk-pixbuf-loader-bmp \
+     gdk-pixbuf-loader-ani \
++    liberation-fonts \
+ "
+ 
+ RDEPENDS_task-core-lsb-graphic-add_qemux86 = "\
+-- 
+1.7.0.4
 
 
