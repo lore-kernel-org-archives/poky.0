@@ -1,24 +1,24 @@
 Return-Path: <qing.he@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id DB94D4C80FBE
-	for <poky@yoctoproject.org>; Fri, 29 Apr 2011 04:43:28 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 29 Apr 2011 02:43:28 -0700
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D72834C80B7B
+	for <poky@yoctoproject.org>; Fri, 29 Apr 2011 04:43:31 -0500 (CDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 29 Apr 2011 02:43:27 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,286,1301900400"; d="scan'208";a="740127560"
+X-IronPort-AV: E=Sophos;i="4.64,286,1301900400"; d="scan'208";a="916069595"
 Received: from qhe2-db.sh.intel.com ([10.239.13.48])
-	by orsmga001.jf.intel.com with ESMTP; 29 Apr 2011 02:43:27 -0700
+	by fmsmga001.fm.intel.com with ESMTP; 29 Apr 2011 02:43:27 -0700
 Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
 	(envelope-from <qing.he@intel.com>)
-	id 1QFk6t-0000Fi-H5; Fri, 29 Apr 2011 17:35:39 +0800
-Message-Id: <8e1abcc657f1e1a5d7a45fe61eb2fa83523bbaf6.1304069545.git.qing.he@intel.com>
+	id 1QFk6t-0000F0-E4; Fri, 29 Apr 2011 17:35:39 +0800
+Message-Id: <edcc0da077bfd69009c8d63ec7bf5766684b3c1a.1304069545.git.qing.he@intel.com>
 In-Reply-To: <cover.1304069545.git.qing.he@intel.com>
 References: <cover.1304069545.git.qing.he@intel.com>
-Old-Date: Mon, 25 Apr 2011 14:06:48 +0800
+Old-Date: Thu, 21 Apr 2011 14:10:45 +0800
 Date: Fri, 29 Apr 2011 17:35:39 +0800
 To: poky@yoctoproject.org
 From: Qing He <qing.he@intel.com>
-Subject: [PATCH 05/10] busybox: upgrade to version 1.18.4
+Subject: [PATCH 01/10] attr: upgrade to version 2.4.46
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,193 +30,339 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 29 Apr 2011 09:43:29 -0000
+X-List-Received-Date: Fri, 29 Apr 2011 09:43:32 -0000
 
 From: Qing He <qing.he@intel.com>
 
-from version 1.17.3
- - remove make-382-fix since it's upstreamed
+from 2.4.44
+ - remove the backported patch that is now in the tarball
+ - prog path issue has also been fixed in the upstream
 
 Signed-off-by: Qing He <qing.he@intel.com>
 ---
- .../busybox/busybox-1.17.3/make-382-fix.patch      |   25 --------------------
- .../B921600.patch                                  |    0
- .../busybox-appletlib-dependency.patch             |    0
- .../busybox-udhcpc-no_deconfig.patch               |   19 ++++++++++----
- .../{busybox-1.17.3 => busybox-1.18.4}/defconfig   |    0
- .../get_header_tar.patch                           |    4 +-
- .../run-parts.in.usr-bin.patch                     |    0
- .../udhcpc-fix-nfsroot.patch                       |    0
- .../udhcpscript.patch                              |    0
- .../{busybox_1.17.3.bb => busybox_1.18.4.bb}       |    7 ++---
- 10 files changed, 18 insertions(+), 37 deletions(-)
- delete mode 100644 meta/recipes-core/busybox/busybox-1.17.3/make-382-fix.patch
- rename meta/recipes-core/busybox/{busybox-1.17.3 => busybox-1.18.4}/B921600.patch (100%)
- rename meta/recipes-core/busybox/{busybox-1.17.3 => busybox-1.18.4}/busybox-appletlib-dependency.patch (100%)
- rename meta/recipes-core/busybox/{busybox-1.17.3 => busybox-1.18.4}/busybox-udhcpc-no_deconfig.patch (90%)
- rename meta/recipes-core/busybox/{busybox-1.17.3 => busybox-1.18.4}/defconfig (100%)
- rename meta/recipes-core/busybox/{busybox-1.17.3 => busybox-1.18.4}/get_header_tar.patch (76%)
- rename meta/recipes-core/busybox/{busybox-1.17.3 => busybox-1.18.4}/run-parts.in.usr-bin.patch (100%)
- rename meta/recipes-core/busybox/{busybox-1.17.3 => busybox-1.18.4}/udhcpc-fix-nfsroot.patch (100%)
- rename meta/recipes-core/busybox/{busybox-1.17.3 => busybox-1.18.4}/udhcpscript.patch (100%)
- rename meta/recipes-core/busybox/{busybox_1.17.3.bb => busybox_1.18.4.bb} (81%)
+ .../attr/attr-2.4.44/double-free.patch             |   18 ----
+ .../attr/attr-2.4.44/memory-leak-in-copy.patch     |   50 ----------
+ .../attr/attr-2.4.44/memory-leak2.patch            |   18 ----
+ .../attr/attr-2.4.44/pull-in-string.h.patch        |   21 ----
+ .../attr/attr-2.4.44/thinko-in-restore.patch       |   19 ----
+ meta/recipes-support/attr/attr_2.4.44.bb           |   12 ---
+ meta/recipes-support/attr/attr_2.4.46.bb           |    6 +
+ meta/recipes-support/attr/ea-acl.inc               |    2 +-
+ .../attr/files/no-fixed-prog-path.patch            |   99 --------------------
+ 9 files changed, 7 insertions(+), 238 deletions(-)
+ delete mode 100644 meta/recipes-support/attr/attr-2.4.44/double-free.patch
+ delete mode 100644 meta/recipes-support/attr/attr-2.4.44/memory-leak-in-copy.patch
+ delete mode 100644 meta/recipes-support/attr/attr-2.4.44/memory-leak2.patch
+ delete mode 100644 meta/recipes-support/attr/attr-2.4.44/pull-in-string.h.patch
+ delete mode 100644 meta/recipes-support/attr/attr-2.4.44/thinko-in-restore.patch
+ delete mode 100644 meta/recipes-support/attr/attr_2.4.44.bb
+ create mode 100644 meta/recipes-support/attr/attr_2.4.46.bb
+ delete mode 100644 meta/recipes-support/attr/files/no-fixed-prog-path.patch
 
-diff --git a/meta/recipes-core/busybox/busybox-1.17.3/make-382-fix.patch b/meta/recipes-core/busybox/busybox-1.17.3/make-382-fix.patch
+diff --git a/meta/recipes-support/attr/attr-2.4.44/double-free.patch b/meta/recipes-support/attr/attr-2.4.44/double-free.patch
 deleted file mode 100644
-index 4ef125d..0000000
---- a/meta/recipes-core/busybox/busybox-1.17.3/make-382-fix.patch
+index 6fc684f..0000000
+--- a/meta/recipes-support/attr/attr-2.4.44/double-free.patch
 +++ /dev/null
-@@ -1,25 +0,0 @@
--From ef6c6d8cfef071435ccf275ad404a501626b706c Mon Sep 17 00:00:00 2001
--From: Thomas Chou <thomas@wytron.com.tw>
--Date: Tue, 19 Oct 2010 07:17:12 +0000
--Subject: mkmakefile: make 3.82 fix
+@@ -1,18 +0,0 @@
+-commit 5b28eb3b0e0430ce6af28edc9100ca23299d1218
+-Author: Kamil Dudka <kdudka@redhat.com>
+-Date:   Thu Jun 3 15:29:54 2010 +0200
 -
--Signed-off-by: Thomas Chou <thomas@wytron.com.tw>
--Signed-off-by: Denys Vlasenko <dvlasenk@redhat.com>
-----
--diff --git a/scripts/mkmakefile b/scripts/mkmakefile
--index 7f9d544..9fc51a7 100755
----- a/scripts/mkmakefile
--+++ b/scripts/mkmakefile
--@@ -31,6 +31,9 @@ all:
+-    attr_parse_attr_conf: eliminate a double free
+-
+-diff --git a/libattr/attr_copy_action.c b/libattr/attr_copy_action.c
+-index 030bbf5..2697328 100644
+---- a/libattr/attr_copy_action.c
+-+++ b/libattr/attr_copy_action.c
+-@@ -81,6 +81,7 @@ repeat:
+- 		fclose(file);
+- 		file = NULL;
+- 		free(text);
+-+		text = NULL;
+- 		size_guess *= 2;
+- 		goto repeat;
+- 	}
+diff --git a/meta/recipes-support/attr/attr-2.4.44/memory-leak-in-copy.patch b/meta/recipes-support/attr/attr-2.4.44/memory-leak-in-copy.patch
+deleted file mode 100644
+index 966632d..0000000
+--- a/meta/recipes-support/attr/attr-2.4.44/memory-leak-in-copy.patch
++++ /dev/null
+@@ -1,50 +0,0 @@
+-commit 972b42a67393f762936e74d3ce929914181f5f28
+-Author: Brandon Philips <brandon@ifup.org>
+-Date:   Thu Dec 17 17:15:57 2009 -0800
+-
+-    libattr: fix memory leak in attr_copy_action()
+-    
+-    stanse found that attr_copy_action returns before freeing the memory
+-    allocated for text.
+-    
+-    Move fopen() above the malloc so this is not a problem.
+-    
+-    Fixes this bug:
+-     https://bugzilla.novell.com/show_bug.cgi?id=564735
+-    
+-    Signed-off-by: Brandon Philips <bphilips@suse.de>
+-
+-diff --git a/libattr/attr_copy_action.c b/libattr/attr_copy_action.c
+-index 0d7aca5..dc94224 100644
+---- a/libattr/attr_copy_action.c
+-+++ b/libattr/attr_copy_action.c
+-@@ -53,7 +53,7 @@ free_attr_actions(void)
+- static int
+- attr_parse_attr_conf(struct error_context *ctx)
+- {
+--	char *text, *t;
+-+	char *text = NULL, *t;
+- 	size_t size_guess = 4096, len;
+- 	FILE *file;
+- 	char *pattern = NULL;
+-@@ -64,15 +64,16 @@ attr_parse_attr_conf(struct error_context *ctx)
+- 		return 0;
 - 
-- Makefile:;
-- 
---\$(filter-out all Makefile,\$(MAKECMDGOALS)) %/:
--+\$(filter-out all Makefile,\$(MAKECMDGOALS)):
--+	\$(MAKE) -C \$(KERNELSRC) O=\$(KERNELOUTPUT) \$@
+- repeat:
+--	text = malloc(size_guess + 1);
+--	if (!text)
+--		goto fail;
+--
+- 	if ((file = fopen(ATTR_CONF, "r")) == NULL) {
+- 		if (errno == ENOENT)
+- 			return 0;
+- 		goto fail;
+- 	}
 -+
--+%/:
-- 	\$(MAKE) -C \$(KERNELSRC) O=\$(KERNELOUTPUT) \$@
-- EOF
----
--cgit v0.8.2.1
-diff --git a/meta/recipes-core/busybox/busybox-1.17.3/B921600.patch b/meta/recipes-core/busybox/busybox-1.18.4/B921600.patch
-similarity index 100%
-rename from meta/recipes-core/busybox/busybox-1.17.3/B921600.patch
-rename to meta/recipes-core/busybox/busybox-1.18.4/B921600.patch
-diff --git a/meta/recipes-core/busybox/busybox-1.17.3/busybox-appletlib-dependency.patch b/meta/recipes-core/busybox/busybox-1.18.4/busybox-appletlib-dependency.patch
-similarity index 100%
-rename from meta/recipes-core/busybox/busybox-1.17.3/busybox-appletlib-dependency.patch
-rename to meta/recipes-core/busybox/busybox-1.18.4/busybox-appletlib-dependency.patch
-diff --git a/meta/recipes-core/busybox/busybox-1.17.3/busybox-udhcpc-no_deconfig.patch b/meta/recipes-core/busybox/busybox-1.18.4/busybox-udhcpc-no_deconfig.patch
-similarity index 90%
-rename from meta/recipes-core/busybox/busybox-1.17.3/busybox-udhcpc-no_deconfig.patch
-rename to meta/recipes-core/busybox/busybox-1.18.4/busybox-udhcpc-no_deconfig.patch
-index cdf56b8..405d482 100644
---- a/meta/recipes-core/busybox/busybox-1.17.3/busybox-udhcpc-no_deconfig.patch
-+++ b/meta/recipes-core/busybox/busybox-1.18.4/busybox-udhcpc-no_deconfig.patch
-@@ -1,3 +1,5 @@
-+Upstream-Status: Pending
+-+	text = malloc(size_guess + 1);
+-+	if (!text)
+-+		goto fail;
+-+
+- 	len = fread(text, 1, size_guess, file);
+- 	if (ferror(file))
+- 		goto fail;
+diff --git a/meta/recipes-support/attr/attr-2.4.44/memory-leak2.patch b/meta/recipes-support/attr/attr-2.4.44/memory-leak2.patch
+deleted file mode 100644
+index 0339542..0000000
+--- a/meta/recipes-support/attr/attr-2.4.44/memory-leak2.patch
++++ /dev/null
+@@ -1,18 +0,0 @@
+-commit 42f50a130d144ffbc01738f15da9d4f1b57505bd
+-Author: Kamil Dudka <kdudka@redhat.com>
+-Date:   Thu Jun 3 15:23:04 2010 +0200
+-
+-    attr_parse_attr_conf: eliminate a memory leak
+-
+-diff --git a/libattr/attr_copy_action.c b/libattr/attr_copy_action.c
+-index dc94224..030bbf5 100644
+---- a/libattr/attr_copy_action.c
+-+++ b/libattr/attr_copy_action.c
+-@@ -129,6 +129,7 @@ repeat:
+- 
+- 		t += strcspn(t, "\n");
+- 	}
+-+	free(text);
+- 	return 0;
+- 
+- parse_error:
+diff --git a/meta/recipes-support/attr/attr-2.4.44/pull-in-string.h.patch b/meta/recipes-support/attr/attr-2.4.44/pull-in-string.h.patch
+deleted file mode 100644
+index ccbc236..0000000
+--- a/meta/recipes-support/attr/attr-2.4.44/pull-in-string.h.patch
++++ /dev/null
+@@ -1,21 +0,0 @@
+-commit 235cdd2af498d288f1af1142e7a23fbd16dff907
+-Author: Mike Frysinger <vapier@gentoo.org>
+-Date:   Fri Jan 8 21:53:19 2010 -0500
+-
+-    quote: pull in string.h for strchr prototype
+-    
+-    Signed-off-by: Mike Frysinger <vapier@gentoo.org>
+-    Signed-off-by: Brandon Philips <brandon@ifup.org>
+-
+-diff --git a/libmisc/quote.c b/libmisc/quote.c
+-index f98c887..bf8f9eb 100644
+---- a/libmisc/quote.c
+-+++ b/libmisc/quote.c
+-@@ -20,6 +20,7 @@
+- #include <stdio.h>
+- #include <stdlib.h>
+- #include <ctype.h>
+-+#include <string.h>
+- #include "misc.h"
+- 
+- const char *quote(const char *str, const char *quote_chars)
+diff --git a/meta/recipes-support/attr/attr-2.4.44/thinko-in-restore.patch b/meta/recipes-support/attr/attr-2.4.44/thinko-in-restore.patch
+deleted file mode 100644
+index a84de94..0000000
+--- a/meta/recipes-support/attr/attr-2.4.44/thinko-in-restore.patch
++++ /dev/null
+@@ -1,19 +0,0 @@
+-commit e8d568c696692eed5c92d5a35498e1c26e13d6b3
+-Author: Kamil Dudka <kdudka@redhat.com>
+-Date:   Thu Jun 3 15:30:19 2010 +0200
+-
+-    setfattr.c: fix thinko in restore()
+-
+-diff --git a/setfattr/setfattr.c b/setfattr/setfattr.c
+-index 491c25a..0a14cfa 100644
+---- a/setfattr/setfattr.c
+-+++ b/setfattr/setfattr.c
+-@@ -120,7 +120,7 @@ int restore(const char *filename)
+- 			break;
+- 		line++;
+- 		if (strncmp(l, "# file: ", 8) != 0) {
+--			if (filename) {
+-+			if (file != stdin) {
+- 				fprintf(stderr, _("%s: %s: No filename found "
+- 				                  "in line %d, aborting\n"),
+- 					progname, filename, backup_line);
+diff --git a/meta/recipes-support/attr/attr_2.4.44.bb b/meta/recipes-support/attr/attr_2.4.44.bb
+deleted file mode 100644
+index a0945f1..0000000
+--- a/meta/recipes-support/attr/attr_2.4.44.bb
++++ /dev/null
+@@ -1,12 +0,0 @@
+-require attr.inc
+-
+-PR = "r3"
+-
+-SRC_URI += "file://memory-leak-in-copy.patch \
+-            file://memory-leak2.patch \
+-            file://double-free.patch \
+-            file://pull-in-string.h.patch \
+-            file://thinko-in-restore.patch"
+-
+-SRC_URI[md5sum] = "d132c119831c27350e10b9f885711adc"
+-SRC_URI[sha256sum] = "9f6214b8e53f4bba651ac5a72c0f6193b12aa21fbf1d675d89a7b4bc45264498"
+diff --git a/meta/recipes-support/attr/attr_2.4.46.bb b/meta/recipes-support/attr/attr_2.4.46.bb
+new file mode 100644
+index 0000000..9fef41b
+--- /dev/null
++++ b/meta/recipes-support/attr/attr_2.4.46.bb
+@@ -0,0 +1,6 @@
++require attr.inc
 +
- Add a new option -D to the udhcpc client that allows for
- dhcp renewal to occur without having to down the interface
- in the process.
-@@ -8,6 +10,11 @@ Updated to latest Busybox 1.17.3
- 
- Signed-off-by: Mark Hatle <mark.hatle@windriver.com>
- 
-+Updated to Busybox 1.18.4
-+option spec is changed
-+
-+Signed-off-by: Qing He <qing.he@intel.com>
-+
- diff -ur busybox-1.17.3.orig/networking/udhcp/dhcpc.c busybox-1.17.3/networking/udhcp/dhcpc.c
- --- busybox-1.17.3.orig/networking/udhcp/dhcpc.c
- +++ busybox-1.17.3/networking/udhcp/dhcpc.c
-@@ -42,10 +49,10 @@ diff -ur busybox-1.17.3.orig/networking/udhcp/dhcpc.c busybox-1.17.3/networking/
-  	bb_info_msg("Entering released state");
-  
- @@ -836,6 +841,7 @@
-- 		OPT_o = 1 << 18,
-- 		OPT_x = 1 << 19,
-- 		OPT_f = 1 << 20,
--+		OPT_D = 1 << 21,
-+ 		OPT_o = 1 << 17,
-+ 		OPT_x = 1 << 18,
-+ 		OPT_f = 1 << 19,
-++		OPT_D = 1 << 20,
-  /* The rest has variable bit positions, need to be clever */
-  		OPTBIT_f = 20,
-  		USE_FOR_MMU(             OPTBIT_b,)
-@@ -53,8 +60,8 @@ diff -ur busybox-1.17.3.orig/networking/udhcp/dhcpc.c busybox-1.17.3/networking/
-  #endif
-  		;
-  	IF_LONG_OPTS(applet_long_options = udhcpc_longopts;)
---	opt = getopt32(argv, "c:CV:H:h:F:i:np:qRr:s:T:t:SA:O:ox:f"
--+	opt = getopt32(argv, "c:CV:H:h:F:i:np:qRr:s:T:t:SA:O:ox:fD"
-+-	opt = getopt32(argv, "CV:H:h:F:i:np:qRr:s:T:t:SA:O:ox:f"
-++	opt = getopt32(argv, "CV:H:h:F:i:np:qRr:s:T:t:SA:O:ox:fD"
-  		USE_FOR_MMU("b")
-  		IF_FEATURE_UDHCPC_ARPING("a")
-  		IF_FEATURE_UDHCP_PORT("P:")
-diff --git a/meta/recipes-core/busybox/busybox-1.17.3/defconfig b/meta/recipes-core/busybox/busybox-1.18.4/defconfig
-similarity index 100%
-rename from meta/recipes-core/busybox/busybox-1.17.3/defconfig
-rename to meta/recipes-core/busybox/busybox-1.18.4/defconfig
-diff --git a/meta/recipes-core/busybox/busybox-1.17.3/get_header_tar.patch b/meta/recipes-core/busybox/busybox-1.18.4/get_header_tar.patch
-similarity index 76%
-rename from meta/recipes-core/busybox/busybox-1.17.3/get_header_tar.patch
-rename to meta/recipes-core/busybox/busybox-1.18.4/get_header_tar.patch
-index bc9b427..c1f881f 100644
---- a/meta/recipes-core/busybox/busybox-1.17.3/get_header_tar.patch
-+++ b/meta/recipes-core/busybox/busybox-1.18.4/get_header_tar.patch
-@@ -7,8 +7,8 @@
- #
- # above comment added by Kevin Tian <kevin.tian@intel.com>, 2010-07-06
- 
----- busybox-1.13.2/archival/libunarchive/get_header_tar.c.orig	2008-11-09 18:28:02.000000000 +0100
--+++ busybox-1.13.2/archival/libunarchive/get_header_tar.c	2009-02-11 22:34:52.000000000 +0100
-+--- busybox-1.13.2/archival/libarchive/get_header_tar.c.orig	2008-11-09 18:28:02.000000000 +0100
-++++ busybox-1.13.2/archival/libarchive/get_header_tar.c	2009-02-11 22:34:52.000000000 +0100
- @@ -252,6 +252,8 @@
-  			file_header->name = concat_path_file(tar.prefix, tar.name);
-  		} else
-diff --git a/meta/recipes-core/busybox/busybox-1.17.3/run-parts.in.usr-bin.patch b/meta/recipes-core/busybox/busybox-1.18.4/run-parts.in.usr-bin.patch
-similarity index 100%
-rename from meta/recipes-core/busybox/busybox-1.17.3/run-parts.in.usr-bin.patch
-rename to meta/recipes-core/busybox/busybox-1.18.4/run-parts.in.usr-bin.patch
-diff --git a/meta/recipes-core/busybox/busybox-1.17.3/udhcpc-fix-nfsroot.patch b/meta/recipes-core/busybox/busybox-1.18.4/udhcpc-fix-nfsroot.patch
-similarity index 100%
-rename from meta/recipes-core/busybox/busybox-1.17.3/udhcpc-fix-nfsroot.patch
-rename to meta/recipes-core/busybox/busybox-1.18.4/udhcpc-fix-nfsroot.patch
-diff --git a/meta/recipes-core/busybox/busybox-1.17.3/udhcpscript.patch b/meta/recipes-core/busybox/busybox-1.18.4/udhcpscript.patch
-similarity index 100%
-rename from meta/recipes-core/busybox/busybox-1.17.3/udhcpscript.patch
-rename to meta/recipes-core/busybox/busybox-1.18.4/udhcpscript.patch
-diff --git a/meta/recipes-core/busybox/busybox_1.17.3.bb b/meta/recipes-core/busybox/busybox_1.18.4.bb
-similarity index 81%
-rename from meta/recipes-core/busybox/busybox_1.17.3.bb
-rename to meta/recipes-core/busybox/busybox_1.18.4.bb
-index 28342fe..696a4db 100644
---- a/meta/recipes-core/busybox/busybox_1.17.3.bb
-+++ b/meta/recipes-core/busybox/busybox_1.18.4.bb
-@@ -1,5 +1,5 @@
- require busybox.inc
--PR = "r2"
 +PR = "r0"
++
++SRC_URI[md5sum] = "db557c17fdfa4f785333ecda08654010"
++SRC_URI[sha256sum] = "dcd69bdca7ff166bc45141eddbcf21967999a6b66b0544be12a1cc2fd6340e1f"
+diff --git a/meta/recipes-support/attr/ea-acl.inc b/meta/recipes-support/attr/ea-acl.inc
+index a09c31c..afe2f1c 100644
+--- a/meta/recipes-support/attr/ea-acl.inc
++++ b/meta/recipes-support/attr/ea-acl.inc
+@@ -1,7 +1,7 @@
+ # this build system is mostly shared by attr and acl
  
- SRC_URI = "http://www.busybox.net/downloads/busybox-${PV}.tar.bz2;name=tarball \
-            file://udhcpscript.patch \
-@@ -8,7 +8,6 @@ SRC_URI = "http://www.busybox.net/downloads/busybox-${PV}.tar.bz2;name=tarball \
-            file://get_header_tar.patch \
-            file://busybox-appletlib-dependency.patch \
-            file://run-parts.in.usr-bin.patch \
--           file://make-382-fix.patch \
-            file://busybox-udhcpc-no_deconfig.patch \
-            file://find-touchscreen.sh \
-            file://busybox-cron \
-@@ -24,7 +23,7 @@ SRC_URI = "http://www.busybox.net/downloads/busybox-${PV}.tar.bz2;name=tarball \
-            file://umount.busybox \
-            file://defconfig"
+ SRC_URI += "file://relative-libdir.patch;striplevel=0 \
+-            file://no-fixed-prog-path.patch"
++           "
  
--SRC_URI[tarball.md5sum] = "a2ce1a951571da8c6e0eaf75b1acef60"
--SRC_URI[tarball.sha256sum] = "de2f0274f61a068d75ad33861e0982e99c6b625681460ce420222371c3511ff2"
-+SRC_URI[tarball.md5sum] = "b03c5b46ced732679e525a920a1a62f5"
-+SRC_URI[tarball.sha256sum] = "4d24d37bd6f1bd153e8cf9a984ec2f32f18464f73ca535e2cc2e8be9694097fa"
+ inherit autotools gettext
  
- EXTRA_OEMAKE += "V=1 ARCH=${TARGET_ARCH} CROSS_COMPILE=${TARGET_PREFIX}"
+diff --git a/meta/recipes-support/attr/files/no-fixed-prog-path.patch b/meta/recipes-support/attr/files/no-fixed-prog-path.patch
+deleted file mode 100644
+index 88d9c0e..0000000
+--- a/meta/recipes-support/attr/files/no-fixed-prog-path.patch
++++ /dev/null
+@@ -1,99 +0,0 @@
+-Not using fixed utility path, but respect $PATH
+-
+-10/09/2010 - created by Qing He <qing.he@intel.com>
+-
+-diff --git a/m4/package_utilies.m4 b/m4/package_utilies.m4
+-index 165db35..0afe578 100644
+---- a/m4/package_utilies.m4
+-+++ b/m4/package_utilies.m4
+-@@ -37,22 +37,22 @@ AC_DEFUN([AC_PACKAGE_UTILITIES],
+-     AC_PACKAGE_NEED_UTILITY($1, "$cc", cc, [C compiler])
+- 
+-     if test -z "$MAKE"; then
+--        AC_PATH_PROG(MAKE, gmake,, /usr/bin:/usr/local/bin:/usr/freeware/bin)
+-+        AC_PATH_PROG(MAKE, gmake)
+-     fi
+-     if test -z "$MAKE"; then
+--        AC_PATH_PROG(MAKE, make,, /usr/bin)
+-+        AC_PATH_PROG(MAKE, make)
+-     fi
+-     make=$MAKE
+-     AC_SUBST(make)
+-     AC_PACKAGE_NEED_UTILITY($1, "$make", make, [GNU make])
+- 
+-     if test -z "$TAR"; then
+--        AC_PATH_PROG(TAR, tar,, /usr/freeware/bin:/bin:/usr/local/bin:/usr/bin)
+-+        AC_PATH_PROG(TAR, tar)
+-     fi
+-     tar=$TAR
+-     AC_SUBST(tar)
+-     if test -z "$ZIP"; then
+--        AC_PATH_PROG(ZIP, gzip,, /bin:/usr/bin:/usr/local/bin:/usr/freeware/bin)
+-+        AC_PATH_PROG(ZIP, gzip)
+-     fi
+- 
+-     zip=$ZIP
+-@@ -65,25 +65,25 @@ AC_DEFUN([AC_PACKAGE_UTILITIES],
+-     AC_SUBST(makedepend)
+- 
+-     if test -z "$AWK"; then
+--        AC_PATH_PROG(AWK, awk,, /bin:/usr/bin)
+-+        AC_PATH_PROG(AWK, awk)
+-     fi
+-     awk=$AWK
+-     AC_SUBST(awk)
+- 
+-     if test -z "$SED"; then
+--        AC_PATH_PROG(SED, sed,, /bin:/usr/bin)
+-+        AC_PATH_PROG(SED, sed)
+-     fi
+-     sed=$SED
+-     AC_SUBST(sed)
+- 
+-     if test -z "$ECHO"; then
+--        AC_PATH_PROG(ECHO, echo,, /bin:/usr/bin)
+-+        AC_PATH_PROG(ECHO, echo)
+-     fi
+-     echo=$ECHO
+-     AC_SUBST(echo)
+- 
+-     if test -z "$SORT"; then
+--        AC_PATH_PROG(SORT, sort,, /bin:/usr/bin)
+-+        AC_PATH_PROG(SORT, sort)
+-     fi
+-     sort=$SORT
+-     AC_SUBST(sort)
+-@@ -93,21 +93,21 @@ AC_DEFUN([AC_PACKAGE_UTILITIES],
+- 
+-     if test "$enable_gettext" = yes; then
+-         if test -z "$MSGFMT"; then
+--                AC_PATH_PROG(MSGFMT, msgfmt,, /usr/bin:/usr/local/bin:/usr/freeware/bin)
+-+                AC_PATH_PROG(MSGFMT, msgfmt)
+-         fi
+-         msgfmt=$MSGFMT
+-         AC_SUBST(msgfmt)
+-         AC_PACKAGE_NEED_UTILITY($1, "$msgfmt", msgfmt, gettext)
+- 
+-         if test -z "$MSGMERGE"; then
+--                AC_PATH_PROG(MSGMERGE, msgmerge,, /usr/bin:/usr/local/bin:/usr/freeware/bin)
+-+                AC_PATH_PROG(MSGMERGE, msgmerge)
+-         fi
+-         msgmerge=$MSGMERGE
+-         AC_SUBST(msgmerge)
+-         AC_PACKAGE_NEED_UTILITY($1, "$msgmerge", msgmerge, gettext)
+- 
+-         if test -z "$XGETTEXT"; then
+--                AC_PATH_PROG(XGETTEXT, xgettext,, /usr/bin:/usr/local/bin:/usr/freeware/bin)
+-+                AC_PATH_PROG(XGETTEXT, xgettext)
+-         fi
+-         xgettext=$XGETTEXT
+-         AC_SUBST(xgettext)
+-@@ -117,7 +117,7 @@ AC_DEFUN([AC_PACKAGE_UTILITIES],
+-     fi
+- 
+-     if test -z "$RPM"; then
+--        AC_PATH_PROG(RPM, rpm,, /bin:/usr/bin:/usr/freeware/bin)
+-+        AC_PATH_PROG(RPM, rpm)
+-     fi
+-     rpm=$RPM
+-     AC_SUBST(rpm)
 -- 
 1.7.0
 
