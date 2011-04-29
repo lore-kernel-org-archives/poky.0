@@ -1,24 +1,24 @@
 Return-Path: <qing.he@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id AAB444C80FB6
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id DE7AF4C80FB6
 	for <poky@yoctoproject.org>; Fri, 29 Apr 2011 04:43:28 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 29 Apr 2011 02:43:28 -0700
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 29 Apr 2011 02:43:28 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,286,1301900400"; d="scan'208";a="635770193"
+X-IronPort-AV: E=Sophos;i="4.64,286,1301900400"; d="scan'208";a="427680137"
 Received: from qhe2-db.sh.intel.com ([10.239.13.48])
-	by orsmga002.jf.intel.com with ESMTP; 29 Apr 2011 02:43:27 -0700
+	by azsmga001.ch.intel.com with ESMTP; 29 Apr 2011 02:43:27 -0700
 Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
 	(envelope-from <qing.he@intel.com>)
-	id 1QFk6t-0000GF-Id; Fri, 29 Apr 2011 17:35:39 +0800
-Message-Id: <727a79bca6f96d727ce48f4f9edf2636c2b04966.1304069545.git.qing.he@intel.com>
+	id 1QFk6t-0000G4-I5; Fri, 29 Apr 2011 17:35:39 +0800
+Message-Id: <ed32ef9e4b8b803ace64d5ebe917ac665e4a781b.1304069545.git.qing.he@intel.com>
 In-Reply-To: <cover.1304069545.git.qing.he@intel.com>
 References: <cover.1304069545.git.qing.he@intel.com>
-Old-Date: Fri, 29 Apr 2011 10:55:05 +0800
+Old-Date: Mon, 25 Apr 2011 14:42:57 +0800
 Date: Fri, 29 Apr 2011 17:35:39 +0800
 To: poky@yoctoproject.org
 From: Qing He <qing.he@intel.com>
-Subject: [PATCH 08/10] shared-mime-info: upgrade to version 0.90
+Subject: [PATCH 07/10] gnutls: upgrade to version 2.12.3
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,86 +30,127 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 29 Apr 2011 09:43:28 -0000
+X-List-Received-Date: Fri, 29 Apr 2011 09:43:29 -0000
 
 From: Qing He <qing.he@intel.com>
 
-from 0.80
- - parallel build with 0.9 is buggy, disable part of the check for now
+from 2.10.4
+ - added nettle dependency
 
 Signed-off-by: Qing He <qing.he@intel.com>
 ---
- .../files/fix-parallel-build.patch                 |   33 ++++++++++++++++++++
- .../shared-mime-info/shared-mime-info_0.80.bb      |    5 ---
- .../shared-mime-info/shared-mime-info_0.90.bb      |    7 ++++
- 3 files changed, 40 insertions(+), 5 deletions(-)
- create mode 100644 meta/recipes-support/shared-mime-info/files/fix-parallel-build.patch
- delete mode 100644 meta/recipes-support/shared-mime-info/shared-mime-info_0.80.bb
- create mode 100644 meta/recipes-support/shared-mime-info/shared-mime-info_0.90.bb
+ .../gnutls/gnutls-2.10.4/gnutls-texinfo-euro.patch |   16 ----------------
+ .../configure-fix.patch                            |   14 ++------------
+ .../gnutls-openssl.patch                           |    2 ++
+ meta/recipes-support/gnutls/gnutls_2.10.4.bb       |   10 ----------
+ meta/recipes-support/gnutls/gnutls_2.12.3.bb       |   11 +++++++++++
+ 5 files changed, 15 insertions(+), 38 deletions(-)
+ delete mode 100644 meta/recipes-support/gnutls/gnutls-2.10.4/gnutls-texinfo-euro.patch
+ rename meta/recipes-support/gnutls/{gnutls-2.10.4 => gnutls-2.12.3}/configure-fix.patch (76%)
+ rename meta/recipes-support/gnutls/{gnutls-2.10.4 => gnutls-2.12.3}/gnutls-openssl.patch (98%)
+ delete mode 100644 meta/recipes-support/gnutls/gnutls_2.10.4.bb
+ create mode 100644 meta/recipes-support/gnutls/gnutls_2.12.3.bb
 
-diff --git a/meta/recipes-support/shared-mime-info/files/fix-parallel-build.patch b/meta/recipes-support/shared-mime-info/files/fix-parallel-build.patch
-new file mode 100644
-index 0000000..ea8b05e
---- /dev/null
-+++ b/meta/recipes-support/shared-mime-info/files/fix-parallel-build.patch
-@@ -0,0 +1,33 @@
-+the check rule will trigger a weird dependency issue in automake,
-+it's possible that update-mime-database are invoked simultaneously in
-+two different threads at the same time.
-+
-+As a workaround, revert it to the logic in 0.80
-+
-+Upstream-Status: Inappropriate [workaround]
-+
-+Signed-off-by: qing He <qing.he@intel.com>
-+
-+diff --git a/Makefile.am b/Makefile.am
-+index 1a887bc..9df581e 100644
-+--- a/Makefile.am
-++++ b/Makefile.am
-+@@ -72,7 +72,7 @@ uninstall-hook:
-+ create-pot:
-+ 	$(MAKE) -C po shared-mime-info.pot
-+ 
-+-check: freedesktop.org.xml update-mime-database check-translations
-++check: freedesktop.org.xml check-translations
-+ 	if test -n $(XMLLINT) ; then \
-+ 		if test -e $(top_builddir)/freedesktop.org.xml; then \
-+ 		xmllint --noout --valid $(top_builddir)/freedesktop.org.xml;	\
-+@@ -80,9 +80,6 @@ check: freedesktop.org.xml update-mime-database check-translations
-+ 		xmllint --noout --valid $(top_srcdir)/freedesktop.org.xml;	\
-+ 		fi \
-+ 	fi
-+-	if test -d .git/ && test -x $(top_builddir)/update-mime-database && test -d $(top_srcdir)/mime-db-tests ; then \
-+-		$(top_builddir)/update-mime-database mime-db-tests/ ; \
-+-	fi
-+ 	if test -d .git/ && test -x ../xdgmime/src/test-mime-data && test -x $(top_builddir)/test-tree-magic ; then \
-+ 		mkdir -p $(top_builddir)/temp-mime-dir/mime/packages ; \
-+ 		cp -a $(top_builddir)/freedesktop.org.xml $(top_builddir)/temp-mime-dir/mime/packages/ ; \
-diff --git a/meta/recipes-support/shared-mime-info/shared-mime-info_0.80.bb b/meta/recipes-support/shared-mime-info/shared-mime-info_0.80.bb
+diff --git a/meta/recipes-support/gnutls/gnutls-2.10.4/gnutls-texinfo-euro.patch b/meta/recipes-support/gnutls/gnutls-2.10.4/gnutls-texinfo-euro.patch
 deleted file mode 100644
-index f809923..0000000
---- a/meta/recipes-support/shared-mime-info/shared-mime-info_0.80.bb
+index a2d2f03..0000000
+--- a/meta/recipes-support/gnutls/gnutls-2.10.4/gnutls-texinfo-euro.patch
 +++ /dev/null
-@@ -1,5 +0,0 @@
--require shared-mime-info.inc
+@@ -1,16 +0,0 @@
+-The version of texinfo in Debian Sarge does not understand the @euro{} command.
+-This patch replaces the @euro{} command with the word "euro".
+-
+---- gnutls-1.3.5/doc/gnutls.texi.orig	2006-04-26 08:06:40.918268000 +0930
+-+++ gnutls-1.3.5/doc/gnutls.texi	2006-04-26 08:06:52.446515440 +0930
+-@@ -11,8 +11,8 @@
+- long as it is difficult enough to generate two different messages with
+- the same hash algorithm output. In that case the same signature could
+- be used as a proof for both messages. Nobody wants to sign an innocent
+--message of donating 1 @euro{} to Greenpeace and find out that he
+--donated 1.000.000 @euro{} to Bad Inc.
+-+message of donating 1 euro to Greenpeace and find out that he
+-+donated 1.000.000 euro to Bad Inc.
+- 
+- For a hash algorithm to be called cryptographic the following three
+- requirements must hold
+diff --git a/meta/recipes-support/gnutls/gnutls-2.10.4/configure-fix.patch b/meta/recipes-support/gnutls/gnutls-2.12.3/configure-fix.patch
+similarity index 76%
+rename from meta/recipes-support/gnutls/gnutls-2.10.4/configure-fix.patch
+rename to meta/recipes-support/gnutls/gnutls-2.12.3/configure-fix.patch
+index 247e324..460a620 100644
+--- a/meta/recipes-support/gnutls/gnutls-2.10.4/configure-fix.patch
++++ b/meta/recipes-support/gnutls/gnutls-2.12.3/configure-fix.patch
+@@ -1,3 +1,5 @@
++Upstream-Status: Inappropriate [packaging]
++
+ rebased from original configure_madness.patch
+ 
+ libtasn1 provides an .pc file in upstream,
+@@ -24,18 +26,6 @@ index 80d3375..1a486f7 100644
+  AC_SUBST(LIBGNUTLS_LIBS)
+  AC_SUBST(LIBGNUTLS_CFLAGS)
+  
+-diff --git a/lib/gnutls.pc.in b/lib/gnutls.pc.in
+-index 3b01c17..de31469 100644
+---- a/lib/gnutls.pc.in
+-+++ b/lib/gnutls.pc.in
+-@@ -20,6 +20,6 @@ Name: GnuTLS
+- Description: Transport Security Layer implementation for the GNU system
+- URL: http://www.gnu.org/software/gnutls/
+- Version: @VERSION@
+-+Requires.private: libgcrypt, libtasn1
+- Libs: -L${libdir} -lgnutls
+--Libs.private: @LIBGNUTLS_LIBS@ @LTLIBTASN1@
+- Cflags: -I${includedir}
+ diff --git a/libextra/configure.ac b/libextra/configure.ac
+ index c08e73f..3313886 100644
+ --- a/libextra/configure.ac
+diff --git a/meta/recipes-support/gnutls/gnutls-2.10.4/gnutls-openssl.patch b/meta/recipes-support/gnutls/gnutls-2.12.3/gnutls-openssl.patch
+similarity index 98%
+rename from meta/recipes-support/gnutls/gnutls-2.10.4/gnutls-openssl.patch
+rename to meta/recipes-support/gnutls/gnutls-2.12.3/gnutls-openssl.patch
+index 413de06..b82ecb7 100644
+--- a/meta/recipes-support/gnutls/gnutls-2.10.4/gnutls-openssl.patch
++++ b/meta/recipes-support/gnutls/gnutls-2.12.3/gnutls-openssl.patch
+@@ -1,3 +1,5 @@
++Upstream-Status: Source Unknown
++
+ Index: gnutls-1.6.0/libextra/gnutls_openssl.c
+ ===================================================================
+ --- gnutls-1.6.0.orig/libextra/gnutls_openssl.c	2006-08-13 22:34:09.000000000 +0200
+diff --git a/meta/recipes-support/gnutls/gnutls_2.10.4.bb b/meta/recipes-support/gnutls/gnutls_2.10.4.bb
+deleted file mode 100644
+index 3924ecd..0000000
+--- a/meta/recipes-support/gnutls/gnutls_2.10.4.bb
++++ /dev/null
+@@ -1,10 +0,0 @@
+-require gnutls.inc
+-
 -PR = "r0"
 -
--SRC_URI[md5sum] = "eb8d24a6a80888849c9db7f30232ba6a"
--SRC_URI[sha256sum] = "80857ba19f8066bfc8d998bfc72b492e241ebd52d49c245aae9fd5b3d233b024"
-diff --git a/meta/recipes-support/shared-mime-info/shared-mime-info_0.90.bb b/meta/recipes-support/shared-mime-info/shared-mime-info_0.90.bb
+-SRC_URI += "file://gnutls-openssl.patch \
+-            file://gnutls-texinfo-euro.patch \
+-            file://configure-fix.patch"
+-
+-SRC_URI[md5sum] = "4e1517084018a8b1fdc96daabea40528"
+-SRC_URI[sha256sum] = "b8bfe36450fe671e99db5ff1e44e6b65fda8a79cacd9e77d550eff7da3745fc8"
+diff --git a/meta/recipes-support/gnutls/gnutls_2.12.3.bb b/meta/recipes-support/gnutls/gnutls_2.12.3.bb
 new file mode 100644
-index 0000000..a806b36
+index 0000000..ca6fc61
 --- /dev/null
-+++ b/meta/recipes-support/shared-mime-info/shared-mime-info_0.90.bb
-@@ -0,0 +1,7 @@
-+require shared-mime-info.inc
++++ b/meta/recipes-support/gnutls/gnutls_2.12.3.bb
+@@ -0,0 +1,11 @@
++require gnutls.inc
++
++DEPENDS += "nettle"
++
 +PR = "r0"
 +
-+SRC_URI += "file://fix-parallel-build.patch"
++SRC_URI += "file://gnutls-openssl.patch \
++            file://configure-fix.patch"
 +
-+SRC_URI[md5sum] = "967d68d3890ba3994cfce3adf5b8f15b"
-+SRC_URI[sha256sum] = "52c9f84a8c72de631a0458542980b1728560f59845eb5e93e1dbe825f4b72304"
++SRC_URI[md5sum] = "04b72b022b42b10df12cbbae051e2d55"
++SRC_URI[sha256sum] = "9fb3dba10d3fa6c2817cd47260b4c39026c69128fb39fc5026f179b3672539d3"
 -- 
 1.7.0
 
