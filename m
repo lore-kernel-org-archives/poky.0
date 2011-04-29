@@ -1,26 +1,26 @@
 Return-Path: <saul.wold@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C550B4C8024E
-	for <poky@yoctoproject.org>; Fri, 29 Apr 2011 00:10:11 -0500 (CDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 28 Apr 2011 22:10:11 -0700
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id A3C014C8024E
+	for <poky@yoctoproject.org>; Fri, 29 Apr 2011 00:26:05 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 28 Apr 2011 22:26:05 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,285,1301900400"; d="scan'208";a="915977363"
+X-IronPort-AV: E=Sophos;i="4.64,285,1301900400"; d="scan'208";a="635687078"
 Received: from unknown (HELO [10.255.13.18]) ([10.255.13.18])
-	by fmsmga001.fm.intel.com with ESMTP; 28 Apr 2011 22:10:10 -0700
-Message-ID: <4DBA4831.6020906@intel.com>
-Date: Thu, 28 Apr 2011 22:10:09 -0700
+	by orsmga002.jf.intel.com with ESMTP; 28 Apr 2011 22:26:04 -0700
+Message-ID: <4DBA4BEB.6040501@intel.com>
+Date: Thu, 28 Apr 2011 22:26:03 -0700
 From: Saul Wold <saul.wold@intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
 	Thunderbird/3.0.5
 MIME-Version: 1.0
-To: Jiajun Xu <jiajun.xu@intel.com>
-References: <cover.1304004540.git.jiajun.xu@intel.com>
-	<5b319e5682fdbf8fd0c431b59d8f9d946e325bfe.1304004540.git.jiajun.xu@intel.com>
-In-Reply-To: <5b319e5682fdbf8fd0c431b59d8f9d946e325bfe.1304004540.git.jiajun.xu@intel.com>
+To: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+References: <cover.1303982282.git.xiaofeng.yan@windriver.com>
+	<ebe3cbba0c84e841d47aa5d1b66d244f0ec24818.1303982282.git.xiaofeng.yan@windriver.com>
+In-Reply-To: <ebe3cbba0c84e841d47aa5d1b66d244f0ec24818.1303982282.git.xiaofeng.yan@windriver.com>
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 1/1] qemuimagetest: Enable toolchain automation tests	in qemuimagetest
+Subject: Re: [PATCH 1/1] qt3: Add qt3 to poky for fixing [YOCTO #816]
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,538 +32,491 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 29 Apr 2011 05:10:12 -0000
+X-List-Received-Date: Fri, 29 Apr 2011 05:26:06 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 04/28/2011 08:32 AM, Jiajun Xu wrote:
-> From: Jiajun Xu<jiajun.xu@intel.com>
+On 04/28/2011 06:26 PM, Xiaofeng Yan wrote:
+> From: Xiaofeng Yan<xiaofeng.yan@windriver.com>
 >
-> Enable toolchain automation tests in qemuimagetest framework. 3 C/C++ test
-> projects are added to test toolchain - cvs, iptables and sudoku-savant. User
-> needs to set TEST_SCEN to "toolchain" in local.conf to enable tests. Test case
-> will check if toolchain tarball exists under "${DEPLOY_DIR}/sdk". And it will
-> extract toolchain tarball into /opt. It requires user to chown /opt to non-root
-> user, who will run qemuimagetest.
->
-> Signed-off-by Jiajun Xu<jiajun.xu@intel.com>
+> Add a new layer "meta-qt3" and import recipes-qt3,qt3e.bbclass and qt3x11.bbclass from OE.
+> Qt3 is needed by LSB Test Suite. Changes from the meta-openembedded version:
+> 1  Add "-L ${STAGING_LIBDIR} -I ${STAGING_INCDIR_NATIVE}" to function do_configure() in file qt-x11-free-native_3.3.5.bb
+> 2  Remove do_stage and transfer contents from do_stage to do_install in file qt-x11-free-native_3.3.5.bb
+> 3  Add LIC_FILES_CHKSUM and PR in file qt-x11-free-native_3.3.5.bb
+> 4  Remove -plugin-sql-mysql from "QT_CONFIG_FLAGS" in file qt-x11-free-common.inc
+> 5  Add "install -m 0755 ${STAGING_BINDIR_NATIVE}/moc3 ${S}/bin/moc install -m 0755 ${STAGING_BINDIR_NATIVE}/uic3 ${S}/bin/uic" to function do_compile() in file qt-x11-free-common.inc
+> 6  Change do_stage to do_install_prepend in file qt-x11-free-common.inc
+> 7  Add LIC_FILES_CHKSUM and PR in file qt-x11-free_3.3.7.bb
+> 8  Add links in qt-x11-free-native_3.3.5.bb
+>     cd ${D}${bindir}
+>     for i in qmake moc uic lrelease lupdate;do
+>     ln -s ${i}3 ${i} done
+> 9  Remove depends for qt-x11-free_3.3.7
+> 10 Add images/core-image-lsb-qt3.bb
+> 11 Add tasks/task-core-qt3.bb
+> 12 Add conf/layer.conf
 > ---
->   meta-yocto/conf/local.conf.sample                  |    2 +-
->   meta/classes/imagetest-qemu.bbclass                |    9 +-
->   meta/classes/populate_sdk.bbclass                  |    3 +
->   scripts/qemuimage-testlib                          |  232 +++++++++++++++++++-
->   .../scenario/qemuarm/meta-toolchain-gmae           |    3 +
->   .../scenario/qemumips/meta-toolchain-gmae          |    3 +
->   .../scenario/qemuppc/meta-toolchain-gmae           |    3 +
->   .../scenario/qemux86-64/meta-toolchain-gmae        |    3 +
->   .../scenario/qemux86/meta-toolchain-gmae           |    3 +
->   scripts/qemuimage-tests/toolchain/cvs              |   31 +++
->   scripts/qemuimage-tests/toolchain/iptables         |   31 +++
->   scripts/qemuimage-tests/toolchain/sudoku-savant    |   31 +++
->   12 files changed, 350 insertions(+), 4 deletions(-)
->   create mode 100644 scripts/qemuimage-tests/scenario/qemuarm/meta-toolchain-gmae
->   create mode 100644 scripts/qemuimage-tests/scenario/qemumips/meta-toolchain-gmae
->   create mode 100644 scripts/qemuimage-tests/scenario/qemuppc/meta-toolchain-gmae
->   create mode 100644 scripts/qemuimage-tests/scenario/qemux86-64/meta-toolchain-gmae
->   create mode 100644 scripts/qemuimage-tests/scenario/qemux86/meta-toolchain-gmae
->   create mode 100755 scripts/qemuimage-tests/toolchain/cvs
->   create mode 100755 scripts/qemuimage-tests/toolchain/iptables
->   create mode 100755 scripts/qemuimage-tests/toolchain/sudoku-savant
+>   meta-qt3/classes/qt3e.bbclass                      |   11 +++
+>   meta-qt3/classes/qt3x11.bbclass                    |   15 +++
+>   meta-qt3/conf/layer.conf                           |   10 ++
+>   meta-qt3/recipes-qt3/images/core-image-lsb-qt3.bb  |   10 ++
+>   meta-qt3/recipes-qt3/qt3/qt-x11-free-common.inc    |   92 ++++++++++++++++++++
+>   .../recipes-qt3/qt3/qt-x11-free-native_3.3.5.bb    |   72 +++++++++++++++
+>   .../recipes-qt3/qt3/qt-x11-free/configure.patch    |   51 +++++++++++
+>   .../recipes-qt3/qt3/qt-x11-free/gcc4_1-HACK.patch  |   28 ++++++
+>   .../recipes-qt3/qt3/qt-x11-free/no-examples.patch  |   16 ++++
+>   meta-qt3/recipes-qt3/qt3/qt-x11-free_3.3.6.bb      |   13 +++
+>   meta-qt3/recipes-qt3/qt3/qt-x11-free_3.3.7.bb      |   17 ++++
+>   meta-qt3/recipes-qt3/tasks/task-core-qt3.bb        |   23 +++++
+>   12 files changed, 358 insertions(+), 0 deletions(-)
+>   create mode 100644 meta-qt3/classes/qt3e.bbclass
+>   create mode 100644 meta-qt3/classes/qt3x11.bbclass
+>   create mode 100644 meta-qt3/conf/layer.conf
+>   create mode 100644 meta-qt3/recipes-qt3/images/core-image-lsb-qt3.bb
+>   create mode 100644 meta-qt3/recipes-qt3/qt3/qt-x11-free-common.inc
+>   create mode 100644 meta-qt3/recipes-qt3/qt3/qt-x11-free-native_3.3.5.bb
+>   create mode 100644 meta-qt3/recipes-qt3/qt3/qt-x11-free/configure.patch
+>   create mode 100644 meta-qt3/recipes-qt3/qt3/qt-x11-free/gcc4_1-HACK.patch
+>   create mode 100644 meta-qt3/recipes-qt3/qt3/qt-x11-free/no-examples.patch
+>   create mode 100644 meta-qt3/recipes-qt3/qt3/qt-x11-free_3.3.6.bb
+>   create mode 100644 meta-qt3/recipes-qt3/qt3/qt-x11-free_3.3.7.bb
+>   create mode 100644 meta-qt3/recipes-qt3/tasks/task-core-qt3.bb
 >
-> diff --git a/meta-yocto/conf/local.conf.sample b/meta-yocto/conf/local.conf.sample
-> index 740f542..5cf3b26 100644
-> --- a/meta-yocto/conf/local.conf.sample
-> +++ b/meta-yocto/conf/local.conf.sample
-> @@ -175,7 +175,7 @@ ENABLE_BINARY_LOCALE_GENERATION = "1"
->   # By default test cases in sanity suite will be ran. If you want to run other
->   # test suite or specific test case(e.g. bat or boot test case under sanity suite),
->   # list them like following.
-> -#TEST_SCEN = "sanity bat sanity:boot"
-> +#TEST_SCEN = "sanity bat sanity:boot toolchain"
->
->   #Because of the QEMU booting slowness issue(see bug #646 and #618), autobuilder
->   #may suffer a timeout issue when running sanity test. We introduce variable
-> diff --git a/meta/classes/imagetest-qemu.bbclass b/meta/classes/imagetest-qemu.bbclass
-> index daeb8d8..e259ae9 100644
-> --- a/meta/classes/imagetest-qemu.bbclass
-> +++ b/meta/classes/imagetest-qemu.bbclass
-> @@ -27,6 +27,7 @@ def qemuimagetest_main(d):
->       import sys
->       import re
->       import os
-> +    import shutil
->
->       """
->       Test Controller for automated testing.
-> @@ -72,6 +73,7 @@ def qemuimagetest_main(d):
->           os.environ["TEST_STATUS"] = bb.data.getVar("TEST_STATUS", d, True)
->           os.environ["TARGET_IPSAVE"] = bb.data.getVar("TARGET_IPSAVE", d, True)
->           os.environ["TEST_SERIALIZE"] = bb.data.getVar("TEST_SERIALIZE", d, True)
-> +        os.environ["SDK_NAME"] = bb.data.getVar("SDK_NAME", d, True)
->
->           """run Test Case"""
->           bb.note("Run %s test in scenario %s" % (case, scen))
-> @@ -120,7 +122,10 @@ def qemuimagetest_main(d):
->           if os.path.isdir(tmppath):
->               for f in os.listdir(tmppath):
->                   tmpfile = os.path.join(tmppath, f)
-> -                os.remove(tmpfile)
-> +		if os.path.isfile(tmpfile):
-> +                    os.remove(tmpfile)
-> +                elif os.path.isdir(tmpfile):
-> +                    shutil.rmtree(tmpfile, True)
->
->       """Before running testing, clean temp folder first"""
->       clean_tmp()
-> @@ -154,7 +159,7 @@ def qemuimagetest_main(d):
->       os.system("touch %s" % resultfile)
->       os.symlink(resultfile, sresultfile)
->       f = open(sresultfile, "a")
-> -    f.write("\tTest Result for %s\n" % machine)
-> +    f.write("\tTest Result for %s %s\n" % (machine, pname))
->       f.write("\t%-15s%-15s%-15s%-15s\n" % ("Testcase", "PASS", "FAIL", "NORESULT"))
->       f.close()
->
-> diff --git a/meta/classes/populate_sdk.bbclass b/meta/classes/populate_sdk.bbclass
-> index 413eb52..70670ba 100644
-> --- a/meta/classes/populate_sdk.bbclass
-> +++ b/meta/classes/populate_sdk.bbclass
-> @@ -1,6 +1,9 @@
->   inherit meta toolchain-scripts
->   inherit populate_sdk_${IMAGE_PKGTYPE}
->
-> +IMAGETEST ?= "dummy"
-> +inherit imagetest-${IMAGETEST}
+> diff --git a/meta-qt3/classes/qt3e.bbclass b/meta-qt3/classes/qt3e.bbclass
+> new file mode 100644
+> index 0000000..d3d4a14
+> --- /dev/null
+> +++ b/meta-qt3/classes/qt3e.bbclass
+> @@ -0,0 +1,11 @@
+> +#
+> +# override variables set by qmake_base to compile Qt/X11 apps
+> +#
+> +export QTDIR="${STAGING_DIR_HOST}/qte3"
+> +export QTEDIR="${STAGING_DIR_HOST}/qte3"
+> +export OE_QMAKE_UIC="${STAGING_BINDIR_NATIVE}/uic3"
+> +export OE_QMAKE_MOC="${STAGING_BINDIR_NATIVE}/moc3"
+> +export OE_QMAKE_CXXFLAGS="${CXXFLAGS} "
+> +export OE_QMAKE_INCDIR_QT="${STAGING_INCDIR}/qte3/include"
+> +export OE_QMAKE_LIBDIR_QT="${STAGING_LIBDIR}/qte3/lib"
+> +export OE_QMAKE_LIBS_QT="qte"
+> diff --git a/meta-qt3/classes/qt3x11.bbclass b/meta-qt3/classes/qt3x11.bbclass
+> new file mode 100644
+> index 0000000..5408b7f
+> --- /dev/null
+> +++ b/meta-qt3/classes/qt3x11.bbclass
+> @@ -0,0 +1,15 @@
+> +DEPENDS_prepend = "${@["qt3x11 ", ""][(bb.data.getVar('PN', d, 1) == 'qt-x11-free')]}"
+> +EXTRA_QMAKEVARS_POST += "CONFIG+=thread"
+> +#
+> +# override variables set by qmake_base to compile Qt/X11 apps
+> +#
+> +export QTDIR = "${STAGING_DIR_HOST}/qt3"
+> +export OE_QMAKE_UIC = "${STAGING_BINDIR_NATIVE}/uic3"
+> +export OE_QMAKE_MOC = "${STAGING_BINDIR_NATIVE}/moc3"
+> +export OE_QMAKE_CXXFLAGS = "${CXXFLAGS} -DQT_NO_XIM"
+> +export OE_QMAKE_INCDIR_QT = "${QTDIR}/include"
+> +export OE_QMAKE_LIBDIR_QT = "${QTDIR}/lib"
+> +export OE_QMAKE_LIBS_QT = "qt"
+> +export OE_QMAKE_LIBS_X11 = "-lXext -lX11 -lm"
+> +export OE_QMAKE_LIBS_OPENGL = "-lGLU -lGL -lXmu"
+> +export OE_QMAKE_LIBS_OPENGL_QT = "-lGL -lXmu"
+> diff --git a/meta-qt3/conf/layer.conf b/meta-qt3/conf/layer.conf
+> new file mode 100644
+> index 0000000..f4597db
+> --- /dev/null
+> +++ b/meta-qt3/conf/layer.conf
+> @@ -0,0 +1,10 @@
+> +# We have a conf and classes directory, add to BBPATH
+> +BBPATH := "${BBPATH}:${LAYERDIR}"
 > +
-Why does this need to be added here?
-
-I understand that when IMAGETEST is set to qemu in the local.conf file 
-that it will be pulled in, but why to populate_sdk?
+> +# We have a packages directory, add to BBFILES
+> +BBFILES := "${BBFILES} ${LAYERDIR}/recipes-*/*/*.bb"
+> +
+> +BBFILE_COLLECTIONS += "qt3"
+> +BBFILE_PATTERN_qt3 := "^${LAYERDIR}/"
+> +BBFILE_PRIORITY_qt3 = "6"
+> +
+> diff --git a/meta-qt3/recipes-qt3/images/core-image-lsb-qt3.bb b/meta-qt3/recipes-qt3/images/core-image-lsb-qt3.bb
+> new file mode 100644
+> index 0000000..b7dc92e
+> --- /dev/null
+> +++ b/meta-qt3/recipes-qt3/images/core-image-lsb-qt3.bb
+> @@ -0,0 +1,10 @@
+> +IMAGE_FEATURES += "apps-console-core ssh-server-openssh"
+> +
+> +IMAGE_INSTALL = "\
+> +    ${POKY_BASE_INSTALL} \
+> +    task-core-basic \
+> +    task-core-lsb \
+> +    task-core-qt-mt3 \
+> +    "
+> +
+> +inherit core-image
+> diff --git a/meta-qt3/recipes-qt3/qt3/qt-x11-free-common.inc b/meta-qt3/recipes-qt3/qt3/qt-x11-free-common.inc
+> new file mode 100644
+> index 0000000..60fbd42
+> --- /dev/null
+> +++ b/meta-qt3/recipes-qt3/qt3/qt-x11-free-common.inc
+> @@ -0,0 +1,92 @@
+> +DESCRIPTION = "Qt/X11 Version ${PV} is a full fledged cross-platform application framework"
+> +SECTION = "x11/libs"
+> +PRIORITY = "optional"
+> +LICENSE = "GPL QPL"
+Is this an "And" (&) or an "or" (|) license choice?  I think there is 
+another case like this also.
 
 Sau!
 
-
-
->   SDK_DIR = "${WORKDIR}/sdk"
->   SDK_OUTPUT = "${SDK_DIR}/image"
->   SDK_DEPLOY = "${TMPDIR}/deploy/sdk"
-> diff --git a/scripts/qemuimage-testlib b/scripts/qemuimage-testlib
-> index 5318ca6..bcf6e43 100755
-> --- a/scripts/qemuimage-testlib
-> +++ b/scripts/qemuimage-testlib
-> @@ -19,6 +19,9 @@ TYPE="ext3"
->   # The folder to hold all scripts running on targets
->   TOOLS="$COREBASE/scripts/qemuimage-tests/tools"
->
-> +# The folder to hold all projects for toolchain testing
-> +TOOLCHAIN_PROJECTS="$COREBASE/scripts/qemuimage-tests/toolchain_projects"
+> +HOMEPAGE = "http://www.trolltech.com"
+> +PR = "r0"
 > +
->   # Test Directory on target for testing
->   TARGET_TEST_DIR="/opt/test"
->
-> @@ -28,6 +31,24 @@ PID=0
->   # Global variable for target ip address
->   TARGET_IPADDR=0
->
-> +# Global variable for test project version during toolchain test
-> +# Version of cvs is 1.11.23
-> +# Version of iptables is 1.4.9
-> +# Version of sudoku-savant is 1.3
-> +PROJECT_PV=0
+> +S = "${WORKDIR}/qt-x11-free-${PV}"
 > +
-> +# Global variable for test project download URL during toolchain test
-> +# URL of cvs is http://ftp.gnu.org/non-gnu/cvs/source/stable/1.11.23/cvs-1.11.23.tar.bz2
-> +# URL of iptables is ftp://ftp.netfilter.org/pub/iptables/iptables-1.4.9.tar.bz2
-> +# URL of sudoku-savant is http://downloads.sourceforge.net/project/sudoku-savant/sudoku-savant/sudoku-savant-1.3/sudoku-savant-1.3.tar.bz2
-> +PROJECT_DOWNLOAD_URL=0
 > +
-> +# SDK folder to hold toolchain tarball
-> +TOOLCHAIN_DIR="${DEPLOY_DIR}/sdk"
+> +inherit qmake_base ${COREBASE}/meta-qt3/classes/qt3x11.bbclass
 > +
-> +# Toolchain test folder to hold extracted toolchain tarball
-> +TOOLCHAIN_TEST="/opt"
+> +export QTDIR = "${S}"
+> +STAGING_QT_DIR = "${STAGING_DIR_HOST}/qt3"
+> +ARCH_i686 = "x86"
+> +EXTRA_OEMAKE = "-e"
 > +
->   # common function for information print
->   Test_Error()
->   {
-> @@ -400,7 +421,7 @@ Test_Create_Qemu()
->   		RUNQEMU=`which runqemu`
->   	else
->   		Test_Error "Can not find runqemu in \$PATH, return fail"
-> -		exit 1
-> +		return 1
->   	fi
->   	
->   	if [ "$QEMUARCH" = "qemux86" -o "$QEMUARCH" = "qemux86-64" ]; then
-> @@ -499,3 +520,212 @@ Test_Create_Qemu()
->   		return $ret
->   	fi
->   }
+> +QT_CONFIG_FLAGS = "-release -shared -qt-zlib -no-nas-sound -no-sm -qt-libpng -no-gif -no-xinerama \
+> +                   -no-tablet -no-xkb -no-dlopen-opengl -no-nis -no-cups -thread  -verbose"
 > +
-> +# Function to prepare test project for toolchain test
-> +# $1 is the folder holding test project file
-> +# $2 is the test project name
-> +Test_Project_Prepare()
-> +{
-> +	local toolchain_dir=$1
-> +	local ret=1
+> +EXTRA_ENV = 'QMAKE="${STAGING_BINDIR_NATIVE}/qmake -after INCPATH+=${STAGING_INCDIR} \
+> +             INCPATH+=${STAGING_INCDIR}/freetype2 LIBS+=-L${STAGING_LIBDIR}" \
+> +             QMAKESPEC="${QMAKESPEC}" LINK="${CXX} -Wl,-rpath-link,${STAGING_LIBDIR}" \
+> +             AR="${TARGET_PREFIX}ar cqs" \
+> +             MOC="${STAGING_BINDIR_NATIVE}/moc3" UIC="${STAGING_BINDIR_NATIVE}/uic3" MAKE="make -e"'
 > +
-> +	if [ ! -d ${toolchain_dir} ]; then
-> +		mkdir -p ${toolchain_dir}
-> +		ret=$?
+> +do_configure() {
+> +	echo "yes" | ./configure -prefix ${prefix} ${QT_CONFIG_FLAGS} -no-fast \
+> +		-L${STAGING_LIBDIR} -I${STAGING_INCDIR} -I${STAGING_INCDIR}/freetype2 -I${STAGING_INCDIR}/mysql
 > +
-> +		if [ $ret -ne 0 ]; then
-> +			Test_Info "Create ${toolchain_dir} fail, return"
-> +			return $ret
-> +		fi
-> +	fi
-> +
-> +	ret=0
-> +	# Download test project tarball if it does not exist
-> +	if [ ! -f ${toolchain_dir}/${2}-${PROJECT_PV}.${suffix} ]; then
-git> +		wget -c -t 5 $PROJECT_DOWNLOAD_URL -O 
-${toolchain_dir}/${2}-${PROJECT_PV}.${suffix}
-> +		ret=$?
-> +	fi
-> +
-> +	# Extract the test project into ${TEST_TMP}
-> +	if [ $ret -eq 0 ]; then
-> +		tar jxf ${toolchain_dir}/${2}-${PROJECT_PV}.${suffix} -C ${TEST_TMP}
-> +		ret=$?
-> +		if [ $ret -eq 0 ]; then
-> +			Test_Info "Extract ${2}-${PROJECT_PV}.${suffix} into ${TEST_TMP} successfully"
-> +			return $ret
-> +		else
-> +			Test_Info "Fail to extract ${2}-${PROJECT_PV}.${suffix} into ${TEST_TMP}"
-> +			return $ret
-> +		fi
-> +	else
-> +		Test_Info "Fail to download ${2}-${PROJECT_PV}.${suffix} from $PROJECT_DOWNLOAD_URL"
-> +		rm -rf ${toolchain_dir}/${2}-${PROJECT_PV}.${suffix}
-> +		return $ret
-> +	fi
+> +	# force regenerate
+> +	rm -f src/qtmain.pro
+> +	cat Makefile>makefile
+> +	find . -name "Makefile"|xargs rm -f
+> +	(cd src&&  qmake -spec ${QMAKESPEC} )
+> +	(cd plugins/src&&  qmake -spec ${QMAKESPEC} )
+> +	(cd tools&&  qmake -spec ${QMAKESPEC} )
+> +	(cd tools/qvfb&&  qmake -spec ${QMAKESPEC} )
 > +}
 > +
-> +# Function to prepare toolchain environment
-> +# $1 is toolchain directory to hold toolchain tarball
-> +# $2 is prefix name for toolchain tarball
-> +Test_Toolchain_Prepare()
-> +{
-> +	local toolchain_dir=$1
-> +	local sdk_name=$2
-> +	local ret=1
+> +do_compile() {
+> +	unset CFLAGS
+> +	unset CXXFLAGS
 > +
-> +	if [ ! -d ${toolchain_dir} ]; then
-> +		Test_Info "No directory ${toolchain_dir}, which holds toolchain tarballs"
-> +		return 1
-> +	fi
+> +	install -m 0755 ${STAGING_BINDIR_NATIVE}/moc3 ${S}/bin/moc
+> +	install -m 0755 ${STAGING_BINDIR_NATIVE}/uic3 ${S}/bin/uic
 > +
-> +	# Check if there is any toolchain tarball under $toolchain_dir with prefix $sdk_name
-> +	for i in `dir ${toolchain_dir}`
+> +	oe_runmake -C src ${EXTRA_ENV}
+> +	oe_runmake -C plugins/src ${EXTRA_ENV}
+> +	oe_runmake -C tools ${EXTRA_ENV}
+> +}
+> +
+> +do_install_prepend() {
+> +	install -d ${STAGING_QT_DIR}/bin
+> +	ln -sf ${STAGING_BINDIR_NATIVE}/moc3 ${STAGING_QT_DIR}/bin/moc
+> +	ln -sf ${STAGING_BINDIR_NATIVE}/uic3 ${STAGING_QT_DIR}/bin/uic
+> +	ln -sf ${STAGING_BINDIR_NATIVE}/qmake ${STAGING_QT_DIR}/bin/qmake
+> +	install -d ${STAGING_QT_DIR}/lib
+> +	oe_soinstall lib/libqt-mt.so.${PV} ${STAGING_QT_DIR}/lib
+> +	install -d ${STAGING_QT_DIR}/include/private
+> +	for f in include/*.h
 > +	do
-> +		echo $i | grep "${sdk_name}-toolchain-gmae"
-> +		if [ $? -eq 0 ]; then
-> +			rm -rf ${TEST_TMP}/opt
-> +			tar jxf ${toolchain_dir}/${i} -C ${TEST_TMP}
-> +			ret=$?
-> +			break
-> +		fi
+> +		install -m 0644 $f ${STAGING_QT_DIR}/include/
 > +	done
-> +
-> +	if [ $ret -eq 0 ]; then
-> +		Test_Info "Check if /opt is accessible for non-root user"
-> +
-> +		# Check if the non-root test user has write access of $TOOLCHAIN_TEST
-> +		if [ -d ${TOOLCHAIN_TEST} ]; then
-> +			touch ${TOOLCHAIN_TEST}
-> +			if [ $? -ne 0 ]; then
-> +				Test_Info "Has no right to modify folder $TOOLCHAIN_TEST, pls. chown it to test user"
-> +				return 2
-> +			fi
-> +		else
-> +			mkdir -p ${TOOLCHAIN_TEST}
-> +			if [ $? -ne 0 ]; then
-> +				Test_Info "Has no right to create folder $TOOLCHAIN_TEST, pls. create it and chown it to test user"
-> +				return 2
-> +			fi
-> +		fi
-> +
-> +		# If there is a toolchain folder under $TOOLCHAIN_TEST, let's remove it
-> +		if [ -d ${TOOLCHAIN_TEST}/poky ]; then
-> +			rm -rf ${TOOLCHAIN_TEST}/poky
-> +		fi
-> +
-> +		# Copy toolchain into $TOOLCHAIN_TEST
-> +		cp -r ${TEST_TMP}/opt/poky ${TOOLCHAIN_TEST}
-> +		ret=$?
-> +
-> +		if [ $ret -eq 0 ]; then
-> +			Test_Info "Successfully copy toolchain into $TOOLCHAIN_TEST"
-> +			return $ret
-> +		else
-> +			Test_Info "Meet error when copy toolchain into $TOOLCHAIN_TEST"
-> +			return $ret
-> +		fi
-> +	else
-> +		Test_Info "No tarball named ${sdk_name}-toolchain-gmae under ${toolchain_dir}"
-> +		return $ret
-> +	fi
-> +}
-> +
-> +# Function to execute command and exit if run out of time
-> +# $1 is timeout value
-> +# $2 is the command to be executed
-> +Test_Time_Out()
-> +{
-> +	local timeout=$1
-> +	shift
-> +	local command=$*
-> +	local date=0
-> +	local tmp=`mktemp`
-> +	local ret=1
-> +
-> +	# Run command in background
-> +	($command; echo $?>  $tmp)&
-> +	while ps -e -o pid | grep -qw $!; do
-> +		if [ $date -ge $timeout ]; then
-> +			Test_Info "$timeout Timeout when running command $command"
-> +			rm -rf $tmp
-> +			return 1
-> +		fi
-> +		sleep 5
-> +		date=`expr $date + 5`
+> +	for f in include/private/*.h
+> +	do
+> +		install -m 0644 $f ${STAGING_QT_DIR}/include/private
 > +	done
-> +	ret=`cat $tmp`
-> +	rm -rf $tmp
-> +	return $ret
+> +	for f in lib/*.prl
+> +	do
+> +		install -m 0644 $f ${STAGING_QT_DIR}/lib
+> +	done
 > +}
 > +
-> +# Function to test toolchain
-> +# $1 is test project name
-> +# $2 is the timeout value
-> +Test_Toolchain()
-> +{
-> +	local test_project=$1
-> +	local timeout=$2
-> +	local ret=1
-> +	local suffix="tar.bz2"
-> +	local env_setup=""
-> +	local pro_install="${TEST_TMP}/pro_install"
-> +
-> +	# Set value for PROJECT_PV and PROJECT_DOWNLOAD_URL accordingly
-> +	if [ $test_project == "cvs" ]; then
-> +		PROJECT_PV=1.11.23
-> +		PROJECT_DOWNLOAD_URL="http://ftp.gnu.org/non-gnu/cvs/source/stable/1.11.23/cvs-1.11.23.tar.bz2"
-> +	elif [ $test_project == "iptables" ]; then
-> +		PROJECT_PV=1.4.9
-> +		PROJECT_DOWNLOAD_URL="ftp://ftp.netfilter.org/pub/iptables/iptables-1.4.9.tar.bz2"
-> +	elif [ $test_project == "sudoku-savant" ]; then
-> +		PROJECT_PV=1.3
-> +		PROJECT_DOWNLOAD_URL="http://downloads.sourceforge.net/project/sudoku-savant/sudoku-savant/sudoku-savant-1.3/sudoku-savant-1.3.tar.bz2"
-> +	else
-> +		Test_Info "Unknown test project name $test_project"
-> +		return 1
-> +	fi
-> +
-> +	# Download test project and extract it
-> +	Test_Project_Prepare $TOOLCHAIN_PROJECTS $test_project
-> +	if [ $? -ne 0 ]; then
-> +		Test_Info "Prepare test project file failed"
-> +		return 1
-> +	fi
-> +
-> +	# Extract toolchain tarball into ${TEST_TMP}
-> +	Test_Toolchain_Prepare $TOOLCHAIN_DIR $SDK_NAME
-> +	ret=$?
-> +	if [ $ret -ne 0 ]; then
-> +		Test_Info "Prepare toolchain test environment failed"
-> +		return $ret
-> +	fi
-> +
-> +	if [ ! -d ${pro_install} ]; then
-> +		mkdir -p ${pro_install}
-> +	fi
-> +
-> +	# Begin to build test project in toolchain environment
-> +	env_setup=`find ${TOOLCHAIN_TEST}/poky -name "environment-setup*"`
-> +
-> +	source $env_setup
-> +
-> +	if [ $test_project == "cvs" -o $test_project == "iptables" ]; then
-> +		cd ${TEST_TMP}/${test_project}-${PROJECT_PV}
-> +		Test_Time_Out $timeout ./configure ${CONFIGURE_FLAGS} || { Test_Info "configure failed with $test_project"; return 1; }
-> +		Test_Time_Out $timeout make -j4 || { Test_Info "make failed with $test_project"; return 1; }
-> +		Test_Time_Out $timeout make install DESTDIR=${pro_install} || { Test_Info "make failed with $test_project"; return 1; }
-> +		cd -
-> +		ret=0
-> +	elif [ $test_project == "sudoku-savant" ]; then
-> +		cd ${TEST_TMP}/${test_project}-${PROJECT_PV}
-> +		Test_Time_Out $timeout ./configure ${CONFIGURE_FLAGS} || { Test_Info "configure failed with $test_project"; return 1; }
-> +		Test_Time_Out $timeout make -j4 || { Test_Info "make failed with $test_project"; return 1; }
-> +		cd -
-> +		ret=0
-> +	else
-> +		Test_Info "Unknown test project $test_project"
-> +		ret=1
-> +	fi
-> +
-> +	return $ret
+> +do_install() {
+> +	install -d ${D}${libdir}/
+> +	oe_soinstall lib/libqt-mt.so.${PV} ${D}${libdir}/
+> +	install -d ${D}${bindir}/
+> +	install -d ${D}${prefix}/plugins/
+> +	cp -pPR plugins/imageformats plugins/sqldrivers plugins/designer ${D}${prefix}/plugins/
 > +}
-> diff --git a/scripts/qemuimage-tests/scenario/qemuarm/meta-toolchain-gmae b/scripts/qemuimage-tests/scenario/qemuarm/meta-toolchain-gmae
+> +
+> +PACKAGES =+ " libqt-mt3 qt-x11-plugins-imageformats qt-x11-plugins-sqldrivers qt-x11-plugins-designer \
+> +             qt-x11-designer qt-x11-assistant qt-x11-qvfb qt-x11-qtconfig"
+> +FILES_libqt-mt3 = "${D}/{libdir}/libqt-mt*"
+> +FILES_qt-x11-plugins-imageformats = "${prefix}/plugins/imageformats/*.so"
+> +FILES_qt-x11-plugins-sqldrivers = "${prefix}/plugins/sqldrivers/*.so"
+> +FILES_qt-x11-plugins-designer = "${prefix}/plugins/designer/*.so"
+> +FILES_qt-x11-designer = "${bindir}/designer"
+> +FILES_qt-x11-assistant = "${bindir}/assistant"
+> +FILES_qt-x11-qtconfig = "${bindir}/qtconfig"
+> +FILES_qt-x11-dbg += "${prefix}/plugins/*/.debug ${D}/qt-x11-plugins-debug"
+> diff --git a/meta-qt3/recipes-qt3/qt3/qt-x11-free-native_3.3.5.bb b/meta-qt3/recipes-qt3/qt3/qt-x11-free-native_3.3.5.bb
 > new file mode 100644
-> index 0000000..199176e
+> index 0000000..2c55a57
 > --- /dev/null
-> +++ b/scripts/qemuimage-tests/scenario/qemuarm/meta-toolchain-gmae
-> @@ -0,0 +1,3 @@
-> +toolchain cvs
-> +toolchain iptables
-> +toolchain sudoku-savant
-> diff --git a/scripts/qemuimage-tests/scenario/qemumips/meta-toolchain-gmae b/scripts/qemuimage-tests/scenario/qemumips/meta-toolchain-gmae
+> +++ b/meta-qt3/recipes-qt3/qt3/qt-x11-free-native_3.3.5.bb
+> @@ -0,0 +1,72 @@
+> +DESCRIPTION = "Qt/X11 Version ${PV}"
+> +SECTION = "libs"
+> +PRIORITY = "optional"
+> +LICENSE = "GPL QPL"
+> +DEPENDS = "xmu-native"
+> +HOMEPAGE = "http://www.trolltech.com"
+> +PR = "r0"
+> +
+> +PROVIDES += "qt-x11-free-native"
+> +FILESDIR = "${@os.path.dirname(bb.data.getVar('FILE',d,1))}/qt-x11-free"
+> +
+> +LIC_FILES_CHKSUM = "file://LICENSE.GPL;md5=629178675a7d49c9fa19dfe9f43ea256 \
+> +                    file://LICENSE.QPL;md5=fff372435cb41647bc0b3cb940ea5c51"
+> +
+> +SRC_URI = "ftp://ftp.trolltech.com/qt/source/qt-x11-free-${PV}.tar.bz2 \
+> +	   file://no-examples.patch"
+> +S = "${WORKDIR}/qt-x11-free-${PV}"
+> +
+> +#
+> +# FIXME - This should be updated to use OE's qmake_base.oeclass
+> +#         or the full qmake.oeclass.
+> +#
+> +
+> +PROVIDES = "qt-x11-free-native"
+> +export QTDIR = "${S}"
+> +export SYSCONF_CXX = "${CCACHE} g++"
+> +export SYSCONF_CC  = "${CCACHE} gcc"
+> +export SYSCONF_LINK  = "${CCACHE} g++"
+> +THIS_QMAKESPEC = "${STAGING_DATADIR}/qmake/${TARGET_OS}-oe-g++"
+> +export QMAKESPEC = ""
+> +ARCH_i686 = "x86"
+> +
+> +QT_CONFIG_FLAGS = "-release -shared -qt-zlib -no-nas-sound -no-sm -qt-libpng -qt-gif -no-xshape -no-xinerama -no-xcursor -no-xrandr \
+> +                   -no-xrender -no-xft -no-tablet -no-xkb -no-dlopen-opengl -no-freetype -no-nis -no-cups -stl -thread -no-exceptions"
+> +
+> +
+> +inherit native
+> +
+> +do_configure() {
+> +	echo "yes" | ./configure -prefix ${prefix} ${QT_CONFIG_FLAGS} -fast -L ${STAGING_LIBDIR} \
+> +                -I ${STAGING_INCDIR_NATIVE}
+> +}
+> +
+> +do_compile() {
+> +	LD_LIBRARY_PATH=${S}/lib oe_runmake \
+> +		QMAKE="${STAGING_BINDIR_NATIVE}/qmake -after INCLUDEPATH+=${STAGING_INCDIR} LIBS+=-L${STAGING_LIBDIR}" \
+> +		QMAKESPEC="${THIS_QMAKESPEC}"
+> +}
+> +
+> +
+> +do_install() {
+> +    install -d ${D}${bindir}/
+> +    install -m 0755 bin/qmake ${D}${bindir}/qmake3
+> +    for i in moc uic  lrelease lupdate; do
+> +        install -m 0755 bin/${i} ${D}${bindir}/${i}3
+> +    done
+> +
+> +    install -d ${D}${datadir}/qt3/
+> +    cp -PfR mkspecs ${D}${datadir}/qt3/
+> +    ln -sf linux-g++ ${D}${datadir}/qt3/mkspecs/${BUILD_OS}-oe-g++
+> +    ln -s ${D}${datadir}/qt3/mkspecs/ ${D}${datadir}/qmake
+> +    install -d ${D}${libdir}/
+> +    oe_soinstall lib/libqt-mt.so.${PV} ${D}${libdir}/
+> +    cd ${D}${bindir}
+> +    for i in qmake moc uic lrelease lupdate;do
+> +        ln -s ${i}3 ${i}
+> +    done
+> +}
+> +
+> +
+> +SRC_URI[md5sum] = "05d04688c0c0230ed54e89102d689ca4"
+> +SRC_URI[sha256sum] = "aac89e862c74b2f3ead768e50e9fa7ada1e4225fe9d1d9e05723a3279259eb96"
+> diff --git a/meta-qt3/recipes-qt3/qt3/qt-x11-free/configure.patch b/meta-qt3/recipes-qt3/qt3/qt-x11-free/configure.patch
 > new file mode 100644
-> index 0000000..199176e
+> index 0000000..9d6c1e8
 > --- /dev/null
-> +++ b/scripts/qemuimage-tests/scenario/qemumips/meta-toolchain-gmae
-> @@ -0,0 +1,3 @@
-> +toolchain cvs
-> +toolchain iptables
-> +toolchain sudoku-savant
-> diff --git a/scripts/qemuimage-tests/scenario/qemuppc/meta-toolchain-gmae b/scripts/qemuimage-tests/scenario/qemuppc/meta-toolchain-gmae
+> +++ b/meta-qt3/recipes-qt3/qt3/qt-x11-free/configure.patch
+> @@ -0,0 +1,51 @@
+> +
+> +#
+> +# Patch managed by http://www.holgerschurig.de/patcher.html
+> +#
+> +
+> +--- qt-x11-free-3.3.2/configure~configure.patch
+> ++++ qt-x11-free-3.3.2/configure
+> +@@ -1754,21 +1754,14 @@
+> + 	    CFG_FREETYPE=yes
+> + 	fi
+> +     fi
+> +-    # add freetype2 include path
+> +-    if [ "$CFG_FREETYPE" = "yes" ]&&  [ -f $outpath/config.tests/x11/xft.inc ];then
+> +-	QMAKE_VARS="$QMAKE_VARS \"INCLUDEPATH+=`cat $outpath/config.tests/x11/xft.inc`\""
+> +-    fi
+> +-    rm -f $outpath/config.tests/x11/xft.inc
+> +     # add Xft specific libraries
+> +     if [ "$CFG_FREETYPE" = "yes" ]&&  [ -f $outpath/config.tests/x11/xft.lib ]; then
+> + 	QMAKE_VARS="$QMAKE_VARS \"QMAKE_LIBS_X11=`cat $outpath/config.tests/x11/xft.lib` \$\$QMAKE_LIBS_X11\""
+> +     fi
+> +-    rm -f $outpath/config.tests/x11/xft.lib
+> +     # add Xft specific config options
+> +     if [ "$CFG_FREETYPE" = "yes" ]&&  [ -f $outpath/config.tests/x11/xft.cfg ]; then
+> + 	QMAKE_CONFIG="$QMAKE_CONFIG `cat $outpath/config.tests/x11/xft.cfg`"
+> +     fi
+> +-    rm -f $outpath/config.tests/x11/xft.cfg
+> +     # auto-detect Session Management support
+> +     if [ "$CFG_SM" = "auto" ]; then
+> + 	if $x11tests/sm.test $XQMAKESPEC $OPT_VERBOSE $L_FLAGS $I_FLAGS; then
+> +@@ -2553,12 +2546,6 @@
+> +     (cd $outpath/qmake; $MAKE || (echo "qmake failed to build. Aborting."&&  exit 2)) || exit 2
+> + fi
+> +
+> +-# clean up temporary qconfig.h and qmodules.h
+> +-rm -f $outpath/include/qmake/qconfig.h
+> +-rm -f $outpath/include/qmake/qmodules.h
+> +-rmdir $outpath/include/qmake
+> +-
+> +-
+> + #-------------------------------------------------------------------------------
+> + # tests that need qmake
+> + #-------------------------------------------------------------------------------
+> +@@ -3605,7 +3592,7 @@
+> +
+> + EOF
+> + 	else
+> +-	    EXEC="$outpath/bin/qmake $QMAKE_SWITCHES $QMAKE_SPEC_ARGS -o $OUTDIR $a"
+> ++	    EXEC="$outpath/bin/qmake $QMAKE_SWITCHES $QMAKE_SPEC_ARGS -o $OUTDIR $a $OE_EXTRA_QMAKE"
+> + 	    if [ "$OPT_VERBOSE" = "yes" ]; then
+> + 		echo " (`basename $SPEC`)"
+> + 		if echo '\c' | grep '\c'>/dev/null; then
+> diff --git a/meta-qt3/recipes-qt3/qt3/qt-x11-free/gcc4_1-HACK.patch b/meta-qt3/recipes-qt3/qt3/qt-x11-free/gcc4_1-HACK.patch
 > new file mode 100644
-> index 0000000..199176e
+> index 0000000..818bced
 > --- /dev/null
-> +++ b/scripts/qemuimage-tests/scenario/qemuppc/meta-toolchain-gmae
-> @@ -0,0 +1,3 @@
-> +toolchain cvs
-> +toolchain iptables
-> +toolchain sudoku-savant
-> diff --git a/scripts/qemuimage-tests/scenario/qemux86-64/meta-toolchain-gmae b/scripts/qemuimage-tests/scenario/qemux86-64/meta-toolchain-gmae
+> +++ b/meta-qt3/recipes-qt3/qt3/qt-x11-free/gcc4_1-HACK.patch
+> @@ -0,0 +1,28 @@
+> +
+> +#
+> +# Patch managed by http://www.holgerschurig.de/patcher.html
+> +#
+> +
+> +--- qt-x11-free-3.3.6/src/tools/qstring.h~gcc4_1.patch
+> ++++ qt-x11-free-3.3.6/src/tools/qstring.h
+> +@@ -60,7 +60,7 @@
+> + #endif
+> + #endif
+> +
+> +-
+> ++#define Q_NO_PACKED_REFERENCE
+> + /*****************************************************************************
+> +   QString class
+> +  *****************************************************************************/
+> +@@ -194,9 +194,9 @@
+> +     char latin1() const { return ucs>  0xff ? 0 : (char) ucs; }
+> +     ushort unicode() const { return ucs; }
+> + #ifdef Q_NO_PACKED_REFERENCE
+> +-    ushort&unicode() { return *(&ucs); }
+> ++    ushort&unicode() { return *((ushort*)&ucs); }
+> + #else
+> +-    ushort&unicode() { return ucs; }
+> ++    ushort&unicode() { return (ushort)ucs; }
+> + #endif
+> + #ifndef QT_NO_CAST_ASCII
+> +     // like all ifdef'd code this is undocumented
+> diff --git a/meta-qt3/recipes-qt3/qt3/qt-x11-free/no-examples.patch b/meta-qt3/recipes-qt3/qt3/qt-x11-free/no-examples.patch
 > new file mode 100644
-> index 0000000..199176e
+> index 0000000..b0ee637
 > --- /dev/null
-> +++ b/scripts/qemuimage-tests/scenario/qemux86-64/meta-toolchain-gmae
-> @@ -0,0 +1,3 @@
-> +toolchain cvs
-> +toolchain iptables
-> +toolchain sudoku-savant
-> diff --git a/scripts/qemuimage-tests/scenario/qemux86/meta-toolchain-gmae b/scripts/qemuimage-tests/scenario/qemux86/meta-toolchain-gmae
+> +++ b/meta-qt3/recipes-qt3/qt3/qt-x11-free/no-examples.patch
+> @@ -0,0 +1,16 @@
+> +
+> +#
+> +# Patch managed by http://www.mn-logistik.de/unsupported/pxa250/patcher
+> +#
+> +
+> +--- qt-embedded-free-3.3.2/Makefile~no-examples	2003-08-11 16:37:25.000000000 +0200
+> ++++ qt-embedded-free-3.3.2/Makefile	2004-05-11 15:53:53.000000000 +0200
+> +@@ -11,7 +11,7 @@
+> + install: FORCE
+> + 	@$(MAKE) qt.install
+> +
+> +-all: symlinks src-qmake src-moc sub-src sub-tools sub-tutorial sub-examples
+> ++all: symlinks src-qmake src-moc sub-src sub-tools
+> + 	@echo
+> + 	@echo "The Qt library is now built in ./lib"
+> + 	@echo "The Qt examples are built in the directories in ./examples"
+> diff --git a/meta-qt3/recipes-qt3/qt3/qt-x11-free_3.3.6.bb b/meta-qt3/recipes-qt3/qt3/qt-x11-free_3.3.6.bb
 > new file mode 100644
-> index 0000000..199176e
+> index 0000000..789e6fb
 > --- /dev/null
-> +++ b/scripts/qemuimage-tests/scenario/qemux86/meta-toolchain-gmae
-> @@ -0,0 +1,3 @@
-> +toolchain cvs
-> +toolchain iptables
-> +toolchain sudoku-savant
-> diff --git a/scripts/qemuimage-tests/toolchain/cvs b/scripts/qemuimage-tests/toolchain/cvs
-> new file mode 100755
-> index 0000000..871d991
+> +++ b/meta-qt3/recipes-qt3/qt3/qt-x11-free_3.3.6.bb
+> @@ -0,0 +1,13 @@
+> +DEPENDS = "uicmoc3-native freetype virtual/libx11 libxft libxext libxrender libxrandr libxcursor mysql virtual/libgl"
+> +PROVIDES = "qt3x11"
+> +PR = "r3"
+> +
+> +SRC_URI = "ftp://ftp.trolltech.com/qt/source/qt-x11-free-${PV}.tar.bz2 \
+> +	   file://configure.patch \
+> +	   file://no-examples.patch \
+> +           file://gcc4_1-HACK.patch"
+> +
+> +require qt-x11-free-common.inc
+> +
+> +SRC_URI[md5sum] = "dc1384c03ac08af21f6fefab32d982cf"
+> +SRC_URI[sha256sum] = "04f12083f6a6f7a8fd4d34a6c1efd37db76a67580c424f4fb7b7c43c0565e6ae"
+> diff --git a/meta-qt3/recipes-qt3/qt3/qt-x11-free_3.3.7.bb b/meta-qt3/recipes-qt3/qt3/qt-x11-free_3.3.7.bb
+> new file mode 100644
+> index 0000000..9a3bcf9
 > --- /dev/null
-> +++ b/scripts/qemuimage-tests/toolchain/cvs
-> @@ -0,0 +1,31 @@
-> +#!/bin/bash
-> +#
-> +# CVS compile Test for toolchain test
-> +# The case extract toolchain tarball into temp folder
-> +# Then compile CVS with the toolchain environment
-> +#
-> +# Author: Jiajun Xu<jiajun.xu@intel.com>
-> +#
-> +# This file is licensed under the GNU General Public License,
-> +# Version 2.
-> +#
-> +. $COREBASE/scripts/qemuimage-testlib
+> +++ b/meta-qt3/recipes-qt3/qt3/qt-x11-free_3.3.7.bb
+> @@ -0,0 +1,17 @@
+> +DEPENDS = "qt-x11-free-native freetype virtual/libx11 libxmu libxft libxext libxrender libxrandr libxcursor  virtual/libgl"
+> +PROVIDES = "qt3x11"
+> +PR = "r0"
 > +
-> +TIMEOUT=120
+> +PREFERRED_VERSION_qt-x11-free = 3.3.7
+> +LIC_FILES_CHKSUM = "file://LICENSE.GPL;md5=b07b0d5ac6b1822effe47173a1744433 \
+> +                    file://LICENSE.QPL;md5=b81b6b6fc04ed873adde5aa901c0613b"
 > +
-> +# Extract and test toolchain tarball
-> +Test_Toolchain cvs ${TIMEOUT}
+> +SRC_URI = "ftp://ftp.trolltech.com/qt/source/qt-x11-free-${PV}.tar.bz2 \
+> +	   file://configure.patch \
+> +	   file://no-examples.patch \
+> +           file://gcc4_1-HACK.patch"
 > +
-> +if [ $? -eq 0 ]; then
-> +	Test_Info "CVS Test PASS"
-> +	Test_Print_Result "CVS" 0
-> +	exit 0
-> +elif [ $? -eq 1 ]; then
-> +	Test_Info "CVS Test FAIL"
-> +	Test_Print_Result "CVS" 1
-> +	exit 1
-> +else
-> +	Test_Info "Skip CVS Test due to some configuration problem"
-> +	Test_Print_Result "CVS" 2
-> +	exit 2
-> +fi
-> diff --git a/scripts/qemuimage-tests/toolchain/iptables b/scripts/qemuimage-tests/toolchain/iptables
-> new file mode 100755
-> index 0000000..af89bbe
+> +require qt-x11-free-common.inc
+> +
+> +SRC_URI[md5sum] = "655e21cf6a7e66daf8ec6ceda81aae1e"
+> +SRC_URI[sha256sum] = "48c05b501029f0640db665fbc7f981a0efbf69ad3cf87a43c5eea4872f4f7ba1"
+> diff --git a/meta-qt3/recipes-qt3/tasks/task-core-qt3.bb b/meta-qt3/recipes-qt3/tasks/task-core-qt3.bb
+> new file mode 100644
+> index 0000000..81479d9
 > --- /dev/null
-> +++ b/scripts/qemuimage-tests/toolchain/iptables
-> @@ -0,0 +1,31 @@
-> +#!/bin/bash
+> +++ b/meta-qt3/recipes-qt3/tasks/task-core-qt3.bb
+> @@ -0,0 +1,23 @@
 > +#
-> +# iptables compile Test for toolchain test
-> +# The case extract toolchain tarball into temp folder
-> +# Then compile iptables with the toolchain environment
+> +# Copyright (C) 2011 Wind River
 > +#
-> +# Author: Jiajun Xu<jiajun.xu@intel.com>
-> +#
-> +# This file is licensed under the GNU General Public License,
-> +# Version 2.
-> +#
-> +. $COREBASE/scripts/qemuimage-testlib
 > +
-> +TIMEOUT=120
+> +DESCRIPTION = "Create qt3 Tasks"
+> +PR = "r0"
+> +LICENSE = "MIT"
+> +LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58 \
+> +                    file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
 > +
-> +# Extract and test toolchain tarball
-> +Test_Toolchain iptables ${TIMEOUT}
+> +PACKAGES = "\
+> +    task-core-qt-mt3 \
+> +"
 > +
-> +if [ $? -eq 0 ]; then
-> +	Test_Info "iptables Test PASS"
-> +	Test_Print_Result "iptables" 0
-> +	exit 0
-> +elif [ $? -eq 1 ]; then
-> +	Test_Info "iptables Test FAIL"
-> +	Test_Print_Result "iptables" 1
-> +	exit 1
-> +else
-> +	Test_Info "Skip iptables Test due to some configuration problem"
-> +	Test_Print_Result "iptables" 2
-> +	exit 2
-> +fi
-> diff --git a/scripts/qemuimage-tests/toolchain/sudoku-savant b/scripts/qemuimage-tests/toolchain/sudoku-savant
-> new file mode 100755
-> index 0000000..603afe6
-> --- /dev/null
-> +++ b/scripts/qemuimage-tests/toolchain/sudoku-savant
-> @@ -0,0 +1,31 @@
-> +#!/bin/bash
-> +#
-> +# sudoku-savant compile Test for toolchain test
-> +# The case extract toolchain tarball into temp folder
-> +# Then compile sudoku-savant with the toolchain environment
-> +#
-> +# Author: Jiajun Xu<jiajun.xu@intel.com>
-> +#
-> +# This file is licensed under the GNU General Public License,
-> +# Version 2.
-> +#
-> +. $COREBASE/scripts/qemuimage-testlib
 > +
-> +TIMEOUT=120
+> +ALLOW_EMPTY = "1"
 > +
-> +# Extract and test toolchain tarball
-> +Test_Toolchain sudoku-savant ${TIMEOUT}
 > +
-> +if [ $? -eq 0 ]; then
-> +	Test_Info "sudoku-savant Test PASS"
-> +	Test_Print_Result "sudoku-savant" 0
-> +	exit 0
-> +elif [ $? -eq 1 ]; then
-> +	Test_Info "sudoku-savant Test FAIL"
-> +	Test_Print_Result "sudoku-savant" 1
-> +	exit 1
-> +else
-> +	Test_Info "Skip sudoku-savant Test due to some configuration problem"
-> +	Test_Print_Result "sudoku-savant" 2
-> +	exit 2
-> +fi
+> +RDEPENDS_task-core-qt-mt3 = "\
+> +    qt-x11-free \
+> +    libqt-mt3 \
+> +"
+> +
 
 
