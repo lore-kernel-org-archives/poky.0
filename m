@@ -1,25 +1,37 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 19A074C8024E
-	for <poky@yoctoproject.org>; Fri, 29 Apr 2011 17:58:40 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 29 Apr 2011 15:58:40 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,290,1301900400"; d="scan'208";a="740391803"
-Received: from unknown (HELO [10.255.13.18]) ([10.255.13.18])
-	by orsmga001.jf.intel.com with ESMTP; 29 Apr 2011 15:58:40 -0700
-Message-ID: <4DBB429F.2000701@intel.com>
-Date: Fri, 29 Apr 2011 15:58:39 -0700
-From: Saul Wold <saul.wold@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
+Return-Path: <vsailub4u@gmail.com>
+Received: from mail-px0-f173.google.com (mail-px0-f173.google.com
+	[209.85.212.173])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 80B7E4C8024E
+	for <poky@yoctoproject.org>; Sat, 30 Apr 2011 00:29:30 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by pxi16 with SMTP id 16so1149311pxi.32
+	for <poky@yoctoproject.org>; Fri, 29 Apr 2011 22:29:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:in-reply-to:references:date
+	:message-id:subject:from:to:content-type;
+	bh=AslIj2WAtuApVc5Q9HCuV7EH/Zl7u/tffYFC69eU0NE=;
+	b=nc9myteisnUPsUautsFuHyF/+/vvfy22lFKi2fJc5ONeXx1jHGxDqpGcKQCWHtJldH
+	dCoGux9vQG+c6Ju2ntdB2EK9e2VHitRQm+4NdtO3R6XeLb+ye5m/eziB2kJ5ANCTHZNC
+	TOybbYbb+yTF6UiFjebuwNR0ZKiNM7vjXhq+k=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:content-type;
+	b=eq2pxtjh4QybNeBBL8tDe6XlCxEYawWuqUe7QS3KA69H4jsEN9EIbjiEFwdliH6NKo
+	FeDGBTKOOEUkbFBaSKCsuhFqgs/nqAGA/SvF3+YO8hYhy9KYkItLOlkbSkLL6URW4Lvt
+	PnkUxZVm5uBFh4Vdx+ysFCpzByfQSR8l0y9Is=
 MIME-Version: 1.0
-To: Qing He <qing.he@intel.com>
-References: <cover.1304069545.git.qing.he@intel.com>
-In-Reply-To: <cover.1304069545.git.qing.he@intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 00/10] recipe upgrades, Apr. 29
+Received: by 10.143.46.3 with SMTP id y3mr2083261wfj.331.1304141369039; Fri,
+	29 Apr 2011 22:29:29 -0700 (PDT)
+Received: by 10.142.241.20 with HTTP; Fri, 29 Apr 2011 22:29:28 -0700 (PDT)
+In-Reply-To: <BANLkTimJegf_7RB3ogUyNkqpf03W2v2tzA@mail.gmail.com>
+References: <BANLkTimJegf_7RB3ogUyNkqpf03W2v2tzA@mail.gmail.com>
+Date: Sat, 30 Apr 2011 10:59:28 +0530
+Message-ID: <BANLkTi=7k_NvJ6QrTQKhJ587dKM-MK+kyg@mail.gmail.com>
+From: v sailaja <vsailub4u@gmail.com>
+To: poky@yoctoproject.org
+Subject: Error while trying to pull "cups" package into poky
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,135 +43,326 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 29 Apr 2011 22:58:41 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Sat, 30 Apr 2011 05:29:31 -0000
+Content-Type: multipart/alternative; boundary=000e0cd4cdc609dae504a21c1313
 
-On 04/29/2011 02:35 AM, Qing He wrote:
-> From: Qing He<qing.he@intel.com>
->
-> upgraded 9 recipes
-> add 1: nettle as the new dependency of gnutls
->
->
-Qing,
+--000e0cd4cdc609dae504a21c1313
+Content-Type: text/plain; charset=ISO-8859-1
 
-I noticed that there are a number of recipes below that you updated, but 
-did not update their patches.  Please update all patches to contain the 
-Upstream-Status: information.
+Hi,
 
-I will a look for an updated pull request early next week.
+I  am trying to integrate the "cups" into poky. I get an error as follows.
 
-Thanks
-	Sau!
-
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->    Branch: qhe/upgrade
->    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=qhe/upgrade
->
-> Thanks,
->      Qing He<qing.he@intel.com>
-> ---
->
->
-> Qing He (10):
->    attr: upgrade to version 2.4.46
->    acl: upgrade to version 2.2.51
->    augeas: upgrade to version 0.8.1
->    curl: upgrade to version 7.21.6
->    busybox: upgrade to version 1.18.4
->    nettle: add new recipe
->    gnutls: upgrade to version 2.12.3
->    shared-mime-info: upgrade to version 0.90
->    lzo: upgrade to version 2.05
->    libcap: upgrade to version 2.20
->
->   .../busybox/busybox-1.17.3/make-382-fix.patch      |   25 -
->   .../B921600.patch                                  |    0
->   .../busybox-appletlib-dependency.patch             |    0
->   .../busybox-udhcpc-no_deconfig.patch               |   19 +-
->   .../{busybox-1.17.3 =>  busybox-1.18.4}/defconfig   |    0
->   .../get_header_tar.patch                           |    4 +-
->   .../run-parts.in.usr-bin.patch                     |    0
->   .../udhcpc-fix-nfsroot.patch                       |    0
->   .../udhcpscript.patch                              |    0
->   .../{busybox_1.17.3.bb =>  busybox_1.18.4.bb}       |    7 +-
->   meta/recipes-extended/augeas/augeas_0.7.4.bb       |    6 -
->   meta/recipes-extended/augeas/augeas_0.8.1.bb       |    6 +
->   meta/recipes-support/attr/acl_2.2.49.bb            |    6 -
->   meta/recipes-support/attr/acl_2.2.51.bb            |    6 +
->   .../attr/attr-2.4.44/double-free.patch             |   18 -
->   .../attr/attr-2.4.44/memory-leak-in-copy.patch     |   50 -
->   .../attr/attr-2.4.44/memory-leak2.patch            |   18 -
->   .../attr/attr-2.4.44/pull-in-string.h.patch        |   21 -
->   .../attr/attr-2.4.44/thinko-in-restore.patch       |   19 -
->   meta/recipes-support/attr/attr_2.4.44.bb           |   12 -
->   meta/recipes-support/attr/attr_2.4.46.bb           |    6 +
->   meta/recipes-support/attr/ea-acl.inc               |    2 +-
->   .../attr/files/no-fixed-prog-path.patch            |   99 --
->   meta/recipes-support/curl/curl/noldlibpath.patch   |    2 +
->   meta/recipes-support/curl/curl/pkgconfig_fix.patch |    5 +-
->   .../curl/{curl_7.21.2.bb =>  curl_7.21.6.bb}        |    6 +-
->   .../gnutls/gnutls-2.10.4/gnutls-texinfo-euro.patch |   16 -
->   .../configure-fix.patch                            |   14 +-
->   .../gnutls-openssl.patch                           |    2 +
->   meta/recipes-support/gnutls/gnutls_2.10.4.bb       |   10 -
->   meta/recipes-support/gnutls/gnutls_2.12.3.bb       |   11 +
->   meta/recipes-support/libcap/libcap.inc             |    2 +-
->   meta/recipes-support/libcap/libcap_2.19.bb         |    6 -
->   meta/recipes-support/libcap/libcap_2.20.bb         |    6 +
->   .../lzo/{lzo-2.04 =>  lzo-2.05}/acinclude.m4        |    0
->   .../lzo/{lzo-2.04 =>  lzo-2.05}/autoconf.patch      |    4 +-
->   .../lzo/{lzo_2.04.bb =>  lzo_2.05.bb}               |    8 +-
->   meta/recipes-support/nettle/files/acinclude.m4     | 1062 ++++++++++++++++++++
->   meta/recipes-support/nettle/nettle_2.1.bb          |   31 +
->   .../files/fix-parallel-build.patch                 |   33 +
->   .../shared-mime-info/shared-mime-info_0.80.bb      |    5 -
->   .../shared-mime-info/shared-mime-info_0.90.bb      |    7 +
->   42 files changed, 1208 insertions(+), 346 deletions(-)
->   delete mode 100644 meta/recipes-core/busybox/busybox-1.17.3/make-382-fix.patch
->   rename meta/recipes-core/busybox/{busybox-1.17.3 =>  busybox-1.18.4}/B921600.patch (100%)
->   rename meta/recipes-core/busybox/{busybox-1.17.3 =>  busybox-1.18.4}/busybox-appletlib-dependency.patch (100%)
->   rename meta/recipes-core/busybox/{busybox-1.17.3 =>  busybox-1.18.4}/busybox-udhcpc-no_deconfig.patch (90%)
->   rename meta/recipes-core/busybox/{busybox-1.17.3 =>  busybox-1.18.4}/defconfig (100%)
->   rename meta/recipes-core/busybox/{busybox-1.17.3 =>  busybox-1.18.4}/get_header_tar.patch (76%)
->   rename meta/recipes-core/busybox/{busybox-1.17.3 =>  busybox-1.18.4}/run-parts.in.usr-bin.patch (100%)
->   rename meta/recipes-core/busybox/{busybox-1.17.3 =>  busybox-1.18.4}/udhcpc-fix-nfsroot.patch (100%)
->   rename meta/recipes-core/busybox/{busybox-1.17.3 =>  busybox-1.18.4}/udhcpscript.patch (100%)
->   rename meta/recipes-core/busybox/{busybox_1.17.3.bb =>  busybox_1.18.4.bb} (81%)
->   delete mode 100644 meta/recipes-extended/augeas/augeas_0.7.4.bb
->   create mode 100644 meta/recipes-extended/augeas/augeas_0.8.1.bb
->   delete mode 100644 meta/recipes-support/attr/acl_2.2.49.bb
->   create mode 100644 meta/recipes-support/attr/acl_2.2.51.bb
->   delete mode 100644 meta/recipes-support/attr/attr-2.4.44/double-free.patch
->   delete mode 100644 meta/recipes-support/attr/attr-2.4.44/memory-leak-in-copy.patch
->   delete mode 100644 meta/recipes-support/attr/attr-2.4.44/memory-leak2.patch
->   delete mode 100644 meta/recipes-support/attr/attr-2.4.44/pull-in-string.h.patch
->   delete mode 100644 meta/recipes-support/attr/attr-2.4.44/thinko-in-restore.patch
->   delete mode 100644 meta/recipes-support/attr/attr_2.4.44.bb
->   create mode 100644 meta/recipes-support/attr/attr_2.4.46.bb
->   delete mode 100644 meta/recipes-support/attr/files/no-fixed-prog-path.patch
->   rename meta/recipes-support/curl/{curl_7.21.2.bb =>  curl_7.21.6.bb} (92%)
->   delete mode 100644 meta/recipes-support/gnutls/gnutls-2.10.4/gnutls-texinfo-euro.patch
->   rename meta/recipes-support/gnutls/{gnutls-2.10.4 =>  gnutls-2.12.3}/configure-fix.patch (76%)
->   rename meta/recipes-support/gnutls/{gnutls-2.10.4 =>  gnutls-2.12.3}/gnutls-openssl.patch (98%)
->   delete mode 100644 meta/recipes-support/gnutls/gnutls_2.10.4.bb
->   create mode 100644 meta/recipes-support/gnutls/gnutls_2.12.3.bb
->   delete mode 100644 meta/recipes-support/libcap/libcap_2.19.bb
->   create mode 100644 meta/recipes-support/libcap/libcap_2.20.bb
->   rename meta/recipes-support/lzo/{lzo-2.04 =>  lzo-2.05}/acinclude.m4 (100%)
->   rename meta/recipes-support/lzo/{lzo-2.04 =>  lzo-2.05}/autoconf.patch (84%)
->   rename meta/recipes-support/lzo/{lzo_2.04.bb =>  lzo_2.05.bb} (59%)
->   create mode 100644 meta/recipes-support/nettle/files/acinclude.m4
->   create mode 100644 meta/recipes-support/nettle/nettle_2.1.bb
->   create mode 100644 meta/recipes-support/shared-mime-info/files/fix-parallel-build.patch
->   delete mode 100644 meta/recipes-support/shared-mime-info/shared-mime-info_0.80.bb
->   create mode 100644 meta/recipes-support/shared-mime-info/shared-mime-info_0.90.bb
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
+*Error log:*
 
 
+
+
+-- NOTE: Running noexec task 3901 of 3904 (ID: 698,
+/home/sailaja/new-sandybridge/poky_intel/meta/recipes-extended/cups/
+cups_1.4.6.bb, do_package_write)
+NOTE: Running task 3902 of 3904 (ID: 193,
+/home/sailaja/new-sandybridge/poky_intel/meta/recipes-core/images/
+poky-image-minimal-logi.bb, do_rootfs)
+NOTE: package poky-image-minimal-logi-1.0-r0: task do_rootfs: Started
+ERROR: '/home/sailaja/new-sandybridge/poky_intel/meta/recipes-core/images/
+poky-image-minimal-logi.bb' failed
+ERROR: Function 'do_rootfs' failed (see
+/home/sailaja/new-sandybridge/poky_intel/build/tmp/work/fishriver-poky-linux/poky-image-minimal-logi-1.0-r0/temp/log.do_rootfs.16257
+for further information)
+ERROR: Logfile of failure stored in:
+/home/sailaja/new-sandybridge/poky_intel/build/tmp/work/fishriver-poky-linux/poky-image-minimal-logi-1.0-r0/temp/log.do_rootfs.16257
+Log data follows:
+| Generating solve db for
+/home/sailaja/new-sandybridge/poky_intel/build/tmp/deploy/rpm/fishriver...
+|    total:               1      0.000000 MB      4.469082 secs
+|    fingerprint:       822      0.008652 MB      0.217907 secs
+|    install:           274      0.000000 MB      0.786088 secs
+|    dbadd:             274      0.000000 MB      0.760582 secs
+|    dbget:            2756      0.000000 MB      0.010102 secs
+|    dbput:             274      1.442972 MB      0.588550 secs
+|    readhdr:          2741      2.819584 MB      0.008667 secs
+|    hdrload:          1370      4.201084 MB      0.008961 secs
+|    hdrget:          49680      0.000000 MB      0.085239 secs
+| Generating solve db for
+/home/sailaja/new-sandybridge/poky_intel/build/tmp/deploy/rpm/atom...
+|    total:               1      0.000000 MB     54.870929 secs
+|    fingerprint:     11997      0.134514 MB      2.439504 secs
+|    install:          3999      0.000000 MB     14.621738 secs
+|    dbadd:            3999      0.000000 MB     14.266923 secs
+|    dbremove:            1      0.000000 MB      0.002237 secs
+|    dbget:           44105      0.020448 MB      0.289932 secs
+|    dbput:            3999     18.211944 MB     12.560493 secs
+|    dbdel:               1      0.003408 MB      0.001985 secs
+|    readhdr:         39991     36.197330 MB      1.246206 secs
+|    hdrload:         23870     70.765426 MB      0.198531 secs
+|    hdrget:         714730      0.000000 MB      1.232643 secs
+| Generating solve db for
+/home/sailaja/new-sandybridge/poky_intel/build/tmp/deploy/rpm/all...
+|    total:               1      0.000000 MB      0.571639 secs
+|    fingerprint:        69      0.000428 MB      0.030842 secs
+|    install:            23      0.000000 MB      0.165934 secs
+|    dbadd:              23      0.000000 MB      0.161301 secs
+|    dbget:             216      0.000000 MB      0.000769 secs
+|    dbput:              23      0.087576 MB      0.060589 secs
+|    readhdr:           231      0.174824 MB      0.000628 secs
+|    hdrload:           118      0.265636 MB      0.000690 secs
+|    hdrget:           3806      0.000000 MB      0.022193 secs
+| Generating solve db for
+/home/sailaja/new-sandybridge/poky_intel/build/tmp/deploy/rpm/all...
+| Processing task-poky-boot...
+| Processing kernel-modules...
+| Processing psplash...
+| Processing xserver-xf86-dri-lite...
+| Processing xf86-input-keyboard...
+| Processing xf86-input-mouse...
+| Processing xf86-video-intel...
+| Processing xinit...
+| Processing xauth...
+| Processing openssl...
+| Processing liberation-fonts...
+| Processing xrandr...
+| Processing gtk-engines...
+| Processing shared-mime-info...
+| Processing gnome-keyring...
+| Processing bzip2...
+| Processing icu...
+| Processing module-init-tools...
+| Processing alsa-utils...
+| Processing xcb-util...
+| Processing orbit2...
+| Processing libx11...
+| Processing xf86-video-vesa...
+| Processing dropbear...
+| Processing libnotify...
+| Processing keyutils...
+| Processing libselinux...
+| Processing curl...
+| Processing cups...
+| error: LOOP:
+| error: removing busybox-1.17.3-r2.atom "Requires(hint): busybox-udhcpc"
+from tsort relations.
+| error: removing busybox-udhcpc-1.17.3-r2.atom "Requires(post): /bin/sh"
+from tsort relations.
+| error: LOOP:
+| error: removing busybox-1.17.3-r2.atom "Requires(hint): busybox-syslog"
+from tsort relations.
+| error: removing busybox-syslog-1.17.3-r2.atom "Requires(post): /bin/sh"
+from tsort relations.
+| error: LOOP:
+| error: removing libudev0-164-r1.atom "Requires: udev = 164-r1" from tsort
+relations.
+| error: removing udev-164-r1.atom "Requires: libudev0 >= 164" from tsort
+relations.
+| Manifest:
+/home/sailaja/new-sandybridge/poky_intel/build/tmp/work/fishriver-poky-linux/poky-image-minimal-logi-1.0-r0/rootfs/install/install.manifest
+| error: LOOP:
+| error: removing busybox-1.17.3-r2.atom "Requires(hint): busybox-udhcpc"
+from tsort relations.
+| error: removing busybox-udhcpc-1.17.3-r2.atom "Requires(post): /bin/sh"
+from tsort relations.
+| error: LOOP:
+| error: removing busybox-syslog-1.17.3-r2.atom "Requires(post): /bin/sh"
+from tsort relations.
+| error: removing busybox-1.17.3-r2.atom "Requires(hint): busybox-syslog"
+from tsort relations.
+| error: LOOP:
+| error: removing udev-164-r1.atom "Requires: libudev0 >= 164" from tsort
+relations.
+| error: removing libudev0-164-r1.atom "Requires: udev = 164-r1" from tsort
+relations.
+| Preparing...
+/home/sailaja/new-sandybridge/poky_intel/build/tmp/work/fishriver-poky-linux/poky-image-minimal-logi-1.0-r0/temp/run.do_rootfs.16257:
+line 507:   777 Segmentation fault      rpm --dbpath /var/lib/rpm
+--define='_openall_before_chroot 1' --root ${target_rootfs} --predefine
+"_rpmds_sysinfo_path ${target_rootfs}/etc/rpm/sysinfo" --predefine
+"_rpmrc_platform_path ${target_rootfs}/etc/rpm/platform" -D "_dbpath
+/var/lib/rpm" --noscripts --notriggers --noparentdirs --nolinktos -D
+"__dbi_txn create nofsync private" -Uhv
+${target_rootfs}/install/install_solution.manifest
+| ERROR: Function 'do_rootfs' failed (see
+/home/sailaja/new-sandybridge/poky_intel/build/tmp/work/fishriver-poky-linux/poky-image-minimal-logi-1.0-r0/temp/log.do_rootfs.16257
+for further information)
+NOTE: package poky-image-minimal-logi-1.0-r0: task do_rootfs: Failed
+ERROR: Task 193
+(/home/sailaja/new-sandybridge/poky_intel/meta/recipes-core/images/
+poky-image-minimal-logi.bb, do_rootfs) failed with exit code '1'
+
+
+Please Can anyone tell me how to track this error.
+
+
+
+ Gentle reminder to help me in finding the solution please.
+
+
+
+Thanks & Regards,
+SAI
+
+--000e0cd4cdc609dae504a21c1313
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
+
+<br><div class=3D"gmail_quote">Hi,<br><br>I=A0 am trying to integrate the &=
+quot;cups&quot; into poky. I get an error as follows.<br><br><u><b>Error lo=
+g:</b></u><br><br><br><br clear=3D"all"><br>-- NOTE: Running noexec task 39=
+01 of 3904 (ID: 698, /home/sailaja/new-sandybridge/poky_intel/meta/recipes-=
+extended/cups/<a href=3D"http://cups_1.4.6.bb" target=3D"_blank">cups_1.4.6=
+.bb</a>, do_package_write)<br>
+
+NOTE: Running task 3902 of 3904 (ID: 193, /home/sailaja/new-sandybridge/pok=
+y_intel/meta/recipes-core/images/<a href=3D"http://poky-image-minimal-logi.=
+bb" target=3D"_blank">poky-image-minimal-logi.bb</a>, do_rootfs)<br>NOTE: p=
+ackage poky-image-minimal-logi-1.0-r0: task do_rootfs: Started<br>
+
+ERROR: &#39;/home/sailaja/new-sandybridge/poky_intel/meta/recipes-core/imag=
+es/<a href=3D"http://poky-image-minimal-logi.bb" target=3D"_blank">poky-ima=
+ge-minimal-logi.bb</a>&#39; failed<br>ERROR: Function &#39;do_rootfs&#39; f=
+ailed (see /home/sailaja/new-sandybridge/poky_intel/build/tmp/work/fishrive=
+r-poky-linux/poky-image-minimal-logi-1.0-r0/temp/log.do_rootfs.16257 for fu=
+rther information)<br>
+
+ERROR: Logfile of failure stored in: /home/sailaja/new-sandybridge/poky_int=
+el/build/tmp/work/fishriver-poky-linux/poky-image-minimal-logi-1.0-r0/temp/=
+log.do_rootfs.16257<br>Log data follows:<br>| Generating solve db for /home=
+/sailaja/new-sandybridge/poky_intel/build/tmp/deploy/rpm/fishriver...<br>
+
+|=A0=A0=A0 total:=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 1=A0=A0=A0=A0=
+=A0 0.000000 MB=A0=A0=A0=A0=A0 4.469082 secs<br>|=A0=A0=A0 fingerprint:=A0=
+=A0=A0=A0=A0=A0 822=A0=A0=A0=A0=A0 0.008652 MB=A0=A0=A0=A0=A0 0.217907 secs=
+<br>|=A0=A0=A0 install:=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 274=A0=A0=A0=A0=A0 0.=
+000000 MB=A0=A0=A0=A0=A0 0.786088 secs<br>|=A0=A0=A0 dbadd:=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0 274=A0=A0=A0=A0=A0 0.000000 MB=A0=A0=A0=A0=A0 0.76058=
+2 secs<br>
+
+|=A0=A0=A0 dbget:=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2756=A0=A0=A0=A0=A0 0.00=
+0000 MB=A0=A0=A0=A0=A0 0.010102 secs<br>|=A0=A0=A0 dbput:=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0 274=A0=A0=A0=A0=A0 1.442972 MB=A0=A0=A0=A0=A0 0.588550 s=
+ecs<br>|=A0=A0=A0 readhdr:=A0=A0=A0=A0=A0=A0=A0=A0=A0 2741=A0=A0=A0=A0=A0 2=
+.819584 MB=A0=A0=A0=A0=A0 0.008667 secs<br>|=A0=A0=A0 hdrload:=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0 1370=A0=A0=A0=A0=A0 4.201084 MB=A0=A0=A0=A0=A0 0.008961 sec=
+s<br>
+
+|=A0=A0=A0 hdrget:=A0=A0=A0=A0=A0=A0=A0=A0=A0 49680=A0=A0=A0=A0=A0 0.000000=
+ MB=A0=A0=A0=A0=A0 0.085239 secs<br>| Generating solve db for /home/sailaja=
+/new-sandybridge/poky_intel/build/tmp/deploy/rpm/atom...<br>|=A0=A0=A0 tota=
+l:=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 1=A0=A0=A0=A0=A0 0.000000 MB=
+=A0=A0=A0=A0 54.870929 secs<br>
+
+|=A0=A0=A0 fingerprint:=A0=A0=A0=A0 11997=A0=A0=A0=A0=A0 0.134514 MB=A0=A0=
+=A0=A0=A0 2.439504 secs<br>|=A0=A0=A0 install:=A0=A0=A0=A0=A0=A0=A0=A0=A0 3=
+999=A0=A0=A0=A0=A0 0.000000 MB=A0=A0=A0=A0 14.621738 secs<br>|=A0=A0=A0 dba=
+dd:=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 3999=A0=A0=A0=A0=A0 0.000000 MB=A0=A0=
+=A0=A0 14.266923 secs<br>|=A0=A0=A0 dbremove:=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0 1=A0=A0=A0=A0=A0 0.000000 MB=A0=A0=A0=A0=A0 0.002237 secs<br>
+
+|=A0=A0=A0 dbget:=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 44105=A0=A0=A0=A0=A0 0.0204=
+48 MB=A0=A0=A0=A0=A0 0.289932 secs<br>|=A0=A0=A0 dbput:=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0 3999=A0=A0=A0=A0 18.211944 MB=A0=A0=A0=A0 12.560493 secs<br=
+>|=A0=A0=A0 dbdel:=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 1=A0=A0=A0=A0=
+=A0 0.003408 MB=A0=A0=A0=A0=A0 0.001985 secs<br>|=A0=A0=A0 readhdr:=A0=A0=
+=A0=A0=A0=A0=A0=A0 39991=A0=A0=A0=A0 36.197330 MB=A0=A0=A0=A0=A0 1.246206 s=
+ecs<br>
+
+|=A0=A0=A0 hdrload:=A0=A0=A0=A0=A0=A0=A0=A0 23870=A0=A0=A0=A0 70.765426 MB=
+=A0=A0=A0=A0=A0 0.198531 secs<br>|=A0=A0=A0 hdrget:=A0=A0=A0=A0=A0=A0=A0=A0=
+ 714730=A0=A0=A0=A0=A0 0.000000 MB=A0=A0=A0=A0=A0 1.232643 secs<br>| Genera=
+ting solve db for /home/sailaja/new-sandybridge/poky_intel/build/tmp/deploy=
+/rpm/all...<br>
+
+|=A0=A0=A0 total:=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 1=A0=A0=A0=A0=
+=A0 0.000000 MB=A0=A0=A0=A0=A0 0.571639 secs<br>|=A0=A0=A0 fingerprint:=A0=
+=A0=A0=A0=A0=A0=A0 69=A0=A0=A0=A0=A0 0.000428 MB=A0=A0=A0=A0=A0 0.030842 se=
+cs<br>|=A0=A0=A0 install:=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 23=A0=A0=A0=A0=
+=A0 0.000000 MB=A0=A0=A0=A0=A0 0.165934 secs<br>|=A0=A0=A0 dbadd:=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 23=A0=A0=A0=A0=A0 0.000000 MB=A0=A0=A0=A0=A0=
+ 0.161301 secs<br>
+
+|=A0=A0=A0 dbget:=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 216=A0=A0=A0=A0=A0 0.=
+000000 MB=A0=A0=A0=A0=A0 0.000769 secs<br>|=A0=A0=A0 dbput:=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0 23=A0=A0=A0=A0=A0 0.087576 MB=A0=A0=A0=A0=A0 0.060=
+589 secs<br>|=A0=A0=A0 readhdr:=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 231=A0=A0=A0=
+=A0=A0 0.174824 MB=A0=A0=A0=A0=A0 0.000628 secs<br>|=A0=A0=A0 hdrload:=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0 118=A0=A0=A0=A0=A0 0.265636 MB=A0=A0=A0=A0=A0 0=
+.000690 secs<br>
+
+|=A0=A0=A0 hdrget:=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 3806=A0=A0=A0=A0=A0 0.0000=
+00 MB=A0=A0=A0=A0=A0 0.022193 secs<br>| Generating solve db for /home/saila=
+ja/new-sandybridge/poky_intel/build/tmp/deploy/rpm/all...<br>| Processing t=
+ask-poky-boot...<br>| Processing kernel-modules...<br>
+
+| Processing psplash...<br>| Processing xserver-xf86-dri-lite...<br>| Proce=
+ssing xf86-input-keyboard...<br>| Processing xf86-input-mouse...<br>| Proce=
+ssing xf86-video-intel...<br>| Processing xinit...<br>| Processing xauth...=
+<br>
+
+| Processing openssl...<br>| Processing liberation-fonts...<br>| Processing=
+ xrandr...<br>| Processing gtk-engines...<br>| Processing shared-mime-info.=
+..<br>| Processing gnome-keyring...<br>| Processing bzip2...<br>| Processin=
+g icu...<br>
+
+| Processing module-init-tools...<br>| Processing alsa-utils...<br>| Proces=
+sing xcb-util...<br>| Processing orbit2...<br>| Processing libx11...<br>| P=
+rocessing xf86-video-vesa...<br>| Processing dropbear...<br>| Processing li=
+bnotify...<br>
+
+| Processing keyutils...<br>| Processing libselinux...<br>| Processing curl=
+...<br>| Processing cups...<br>| error: LOOP:<br>| error: removing busybox-=
+1.17.3-r2.atom &quot;Requires(hint): busybox-udhcpc&quot; from tsort relati=
+ons.<br>
+
+| error: removing busybox-udhcpc-1.17.3-r2.atom &quot;Requires(post): /bin/=
+sh&quot; from tsort relations.<br>| error: LOOP:<br>| error: removing busyb=
+ox-1.17.3-r2.atom &quot;Requires(hint): busybox-syslog&quot; from tsort rel=
+ations.<br>
+
+| error: removing busybox-syslog-1.17.3-r2.atom &quot;Requires(post): /bin/=
+sh&quot; from tsort relations.<br>| error: LOOP:<br>| error: removing libud=
+ev0-164-r1.atom &quot;Requires: udev =3D 164-r1&quot; from tsort relations.=
+<br>
+
+| error: removing udev-164-r1.atom &quot;Requires: libudev0 &gt;=3D 164&quo=
+t; from tsort relations.<br>| Manifest: /home/sailaja/new-sandybridge/poky_=
+intel/build/tmp/work/fishriver-poky-linux/poky-image-minimal-logi-1.0-r0/ro=
+otfs/install/install.manifest<br>
+
+| error: LOOP:<br>| error: removing busybox-1.17.3-r2.atom &quot;Requires(h=
+int): busybox-udhcpc&quot; from tsort relations.<br>| error: removing busyb=
+ox-udhcpc-1.17.3-r2.atom &quot;Requires(post): /bin/sh&quot; from tsort rel=
+ations.<br>
+
+| error: LOOP:<br>| error: removing busybox-syslog-1.17.3-r2.atom &quot;Req=
+uires(post): /bin/sh&quot; from tsort relations.<br>| error: removing busyb=
+ox-1.17.3-r2.atom &quot;Requires(hint): busybox-syslog&quot; from tsort rel=
+ations.<br>
+
+| error: LOOP:<br>| error: removing udev-164-r1.atom &quot;Requires: libude=
+v0 &gt;=3D 164&quot; from tsort relations.<br>| error: removing libudev0-16=
+4-r1.atom &quot;Requires: udev =3D 164-r1&quot; from tsort relations.<br>| =
+Preparing...=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 /home/sailaja/new=
+-sandybridge/poky_intel/build/tmp/work/fishriver-poky-linux/poky-image-mini=
+mal-logi-1.0-r0/temp/run.do_rootfs.16257: line 507:=A0=A0 777 Segmentation =
+fault=A0=A0=A0=A0=A0 rpm --dbpath /var/lib/rpm --define=3D&#39;_openall_bef=
+ore_chroot 1&#39; --root ${target_rootfs} --predefine &quot;_rpmds_sysinfo_=
+path ${target_rootfs}/etc/rpm/sysinfo&quot; --predefine &quot;_rpmrc_platfo=
+rm_path ${target_rootfs}/etc/rpm/platform&quot; -D &quot;_dbpath /var/lib/r=
+pm&quot; --noscripts --notriggers --noparentdirs --nolinktos -D &quot;__dbi=
+_txn create nofsync private&quot; -Uhv ${target_rootfs}/install/install_sol=
+ution.manifest<br>
+
+| ERROR: Function &#39;do_rootfs&#39; failed (see /home/sailaja/new-sandybr=
+idge/poky_intel/build/tmp/work/fishriver-poky-linux/poky-image-minimal-logi=
+-1.0-r0/temp/log.do_rootfs.16257 for further information)<br>NOTE: package =
+poky-image-minimal-logi-1.0-r0: task do_rootfs: Failed<br>
+
+ERROR: Task 193 (/home/sailaja/new-sandybridge/poky_intel/meta/recipes-core=
+/images/<a href=3D"http://poky-image-minimal-logi.bb" target=3D"_blank">pok=
+y-image-minimal-logi.bb</a>, do_rootfs) failed with exit code &#39;1&#39;<b=
+r>
+<br><br>Please Can anyone tell me how to track this error.<br><br>
+<br><br>=A0Gentle reminder to help me in finding the solution please.<br><b=
+r><br><br>Thanks &amp; Regards,<br>SAI<br><br>
+</div><br><br clear=3D"all"><br>
+
+--000e0cd4cdc609dae504a21c1313--
