@@ -1,41 +1,32 @@
-Return-Path: <raj.khem@gmail.com>
-Received: from mail-ey0-f176.google.com (mail-ey0-f176.google.com
-	[209.85.215.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B14A94C800AC
-	for <poky@yoctoproject.org>; Sat, 30 Apr 2011 17:11:13 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by eya28 with SMTP id 28so2127702eya.35
-	for <poky@yoctoproject.org>; Sat, 30 Apr 2011 15:11:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc:content-type:content-transfer-encoding;
-	bh=7nThlgvvwZr3AT2BSaorZrDhC4wEzAXNTCVzzoRvaBs=;
-	b=SJK0neVYxqd8GPsRajR6z6XTKNjqh3CPB2qojsvbYIMSTOHVY6O2o1jXXQKTMbOHW1
-	FK8nppZ9cp0/9qdhx4HQp8yCkmUTO4YUes6AmUjgT+I8JLVpzZg5arIK5eWfngZxnMUK
-	x0vFe5ZhcuRwmscdC4SqFgS1JMsqCE8bOEvws=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc:content-type:content-transfer-encoding;
-	b=DbOSr3UVuAIW9r7fC2QHJPQ/W2WxYnf2/tS0A8hqb7oI7icfx8EOANX1DVYcv4KWXB
-	T8zsqQM1AwRRkwCuIpAz9j16iktZmKr8fxLKo8SjAjEQcQAKf7HCegh5ucSyQzXdo3ss
-	glSFKxrPEytddAVdvmA5lMQB4wSfklcL79fBw=
-Received: by 10.14.11.132 with SMTP id 4mr2720505eex.45.1304201471268; Sat, 30
-	Apr 2011 15:11:11 -0700 (PDT)
+Return-Path: <Pasi.Reponen@elektrobit.com>
+Received: from smtpgw1fi.elektrobit.com (smtpgw2fi.elektrobit.com
+	[194.136.18.129])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 145EC4C80479
+	for <poky@yoctoproject.org>; Mon,  2 May 2011 00:46:37 -0500 (CDT)
+Received: from fioues07.ebgroup.elektrobit.com
+	(fioues07.ebgroup.elektrobit.com [172.16.33.117])
+	by smtpgw1fi.elektrobit.com (8.13.8/8.13.8) with ESMTP id
+	p425kahl030370
+	for <poky@yoctoproject.org>; Mon, 2 May 2011 08:46:36 +0300
+X-MimeOLE: Produced By Microsoft Exchange V6.5
 MIME-Version: 1.0
-Received: by 10.14.47.139 with HTTP; Sat, 30 Apr 2011 15:10:41 -0700 (PDT)
-In-Reply-To: <BANLkTikaf3MHYrnbvHDno3dSv_LhsLyFVg@mail.gmail.com>
-References: <4DB99F31.4000308@mlbassoc.com>
-	<BANLkTikaf3MHYrnbvHDno3dSv_LhsLyFVg@mail.gmail.com>
-From: Khem Raj <raj.khem@gmail.com>
-Date: Sat, 30 Apr 2011 15:10:41 -0700
-Message-ID: <BANLkTi=G-4UfXNdnJSy7qF3gb0-xLr6+4Q@mail.gmail.com>
-To: Gary Thomas <gary@mlbassoc.com>
-Cc: Poky Project <poky@yoctoproject.org>,
-	Patches and discussions about the oe-core layer
-	<openembedded-core@lists.openembedded.org>
-Subject: Re: GCC 4.6.0 on ARM?
+Date: Mon, 2 May 2011 08:46:31 +0300
+Message-ID: <EF6A1C6B49AA1E42BAAD011E6EED280002529147@fioues07.ebgroup.elektrobit.com>
+In-Reply-To: <4DAFF2BE.2050201@intel.com>
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+Thread-Topic: [poky] Problem with local build (using Poky Bernard 5.0)
+Thread-Index: AcwAAugTLPGFLArZRIiYMvT6khyg6QIiLM0g
+References: <EF6A1C6B49AA1E42BAAD011E6EED2800024D3FAC@fioues07.ebgroup.elektrobit.com>
+	<4DAFF2BE.2050201@intel.com>
+From: <Pasi.Reponen@elektrobit.com>
+To: <poky@yoctoproject.org>
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.2.3
+	(smtpgw1fi.elektrobit.com [172.16.33.20]);
+	Mon, 02 May 2011 08:46:36 +0300 (EEST)
+X-Virus-Scanned: at elektrobit.com
+X-Scanned-By: MIMEDefang 2.67 on 172.16.33.20
+Subject: Re: Problem with local build (using Poky Bernard 5.0)
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -47,39 +38,89 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 30 Apr 2011 22:11:14 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Mon, 02 May 2011 05:46:39 -0000
+Content-class: urn:content-classes:message
+Content-Type: text/plain;
+	charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
 
-On Thu, Apr 28, 2011 at 11:23 AM, Khem Raj <raj.khem@gmail.com> wrote:
-> On Thu, Apr 28, 2011 at 10:09 AM, Gary Thomas <gary@mlbassoc.com> wrote:
->> I got my OMAP target to build with GCC-4.6.0 using the latest
->> Poky tree after a fresh rebuild. =C2=A0Sadly, the Linux kernel (2.6.37.3=
-)
->> does not run correctly when built with this compiler. =C2=A0It
->> fails when enumerating the USB bus :-(
->>
->> Are there known issues with the Linux kernel on ARM and GCC-4.6?
->>
+Hi,
+
+My problem is solved, as I noticed that changes in local.conf didn't
+take into account after bitbake had been invoked first time. I deleted
+my build-directory and reset the build environments and after that the
+premirrors worked fine.
+
+Br,
+
+-Pasi=20
+
+-----Original Message-----
+From: Saul Wold [mailto:saul.wold@intel.com]=20
+Sent: 21 April 2011 12:03
+To: Reponen Pasi
+Cc: poky@yoctoproject.org
+Subject: Re: [poky] Problem with local build (using Poky Bernard 5.0)
+
+On 04/19/2011 11:53 PM, Pasi.Reponen@elektrobit.com wrote:
+> Hi,
 >
-> There has been fixes on top of 4.6.0 the one we have right now is vanilla
-> 4.6.0 release. I plan to add second set of patches but you have to dig a =
-bit
-> more to identify the problem
+> I'm trying to build locally with Poky Bernard 5.0 (using PREMIRRORS to
+
+> local source package directory and BB_FETCH_PREMIRRORONLY =3D "1"
+> configurations). The problem occurs when recipes got environment=20
+> variables in SRC_URI (for example $GNU_MIRROR and $PV). In these cases
+
+> Fetcher is unable to fetch source packages locally and raises "network
+
+> access disabled but required" -exception.
 >
 
-I have some updates for gcc 4.6.0
-they are staged in
+Do you also have BB_NO_NETWORK =3D "1"?
 
-http://git.openembedded.org/cgit.cgi/openembedded-core-contrib/log/?h=3Dkra=
-j/gcc-4.6
+Do you have all the SCM types setup in PREMIRRORS_prepend, such as svn,
+cvs to your local package directory?
 
-(top 3 patches)
+Check the original PREMIRRORS in poky.conf to ensure you have all the
+SCM types set correctly, also make sure you are using
+PREMIRRORS_prepend.
 
-Please test them out and if you are lucky
-your problem might be fixed too.
+If you continue to have problems, please send your local.conf file that
+sets these variable for us to inspect.
 
-All, please try these patches and provide any feedback
+Hope this helps you.
 
--Khem
+Sau!
+
+> Any ideas, is this a bug or have I missed some configuration?
+>
+> Thanks,
+>
+> Pasi
+>
+> ----------------------------------------------------------------
+> Please note: This e-mail may contain confidential information intended
+
+> solely for the addressee. If you have received this e-mail in error,=20
+> please do not disclose it to anyone, notify the sender promptly, and=20
+> delete the message from your system.
+> Thank you.
+>
+>
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+
+
+
+----------------------------------------------------------------
+Please note: This e-mail may contain confidential information
+intended solely for the addressee. If you have received this
+e-mail in error, please do not disclose it to anyone, notify
+the sender promptly, and delete the message from your system.
+Thank you.
+
 
