@@ -1,21 +1,24 @@
-Return-Path: <tom.zanussi@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 4BA4A4C8059A
-	for <poky@yoctoproject.org>; Mon,  2 May 2011 15:32:43 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 02 May 2011 13:32:42 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,304,1301900400"; d="scan'208";a="636873555"
-Received: from unknown (HELO localhost) ([10.255.13.75])
-	by orsmga002.jf.intel.com with ESMTP; 02 May 2011 13:32:39 -0700
-Message-Id: <bf5640079454e16c8bde1b4b001ddef165dbca26.1304367136.git.tom.zanussi@intel.com>
-In-Reply-To: <cover.1304367134.git.tom.zanussi@intel.com>
-References: <cover.1304367134.git.tom.zanussi@intel.com>
-Old-Date: Mon, 2 May 2011 14:55:11 -0500
-Date: Mon, 02 May 2011 15:32:34 -0500
-To: poky@yoctoproject.org
-From: Tom Zanussi <tom.zanussi@intel.com>
-Subject: [PATCH 1/1] meta-intel: use default rootfs size for BSPS
+Return-Path: <mark.hatle@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 7D7864C80479
+	for <poky@yoctoproject.org>; Mon,  2 May 2011 16:08:48 -0500 (CDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p42L8hcX026766
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Mon, 2 May 2011 14:08:43 -0700 (PDT)
+Received: from Macintosh-5.local (172.25.36.228) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server id 14.1.255.0;
+	Mon, 2 May 2011 14:08:42 -0700
+Message-ID: <4DBF1D59.2050506@windriver.com>
+Date: Mon, 2 May 2011 16:08:41 -0500
+From: Mark Hatle <mark.hatle@windriver.com>
+Organization: Wind River Systems
+User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
+	rv:1.9.2.17) Gecko/20110414 Thunderbird/3.1.10
+MIME-Version: 1.0
+To: Patches and discussions about the oe-core layer
+	<openembedded-core@lists.openembedded.org>, poky <poky@yoctoproject.org>
+Subject: RFC: Recipe based User & Group addition, modification and deletion
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,104 +30,144 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 02 May 2011 20:32:43 -0000
+X-List-Received-Date: Mon, 02 May 2011 21:08:49 -0000
+Content-Type: text/plain; charset="ISO-8859-1"
+Content-Transfer-Encoding: 7bit
 
-From: Tom Zanussi <tom.zanussi@intel.com>
+RFC: Recipe based User & Group addition, modification and deletion
 
-The default rootfs size if left unspecified is the actual rootfs size
-+ 20%.  There doesn't seem to be a reason to make the default for
-these BSPs anything different, so remove the IMAGE_ROOTFS_SIZE
-overrides.
+Problem:
 
-Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
+In OE-Core we need a method for dynamically adding non-standard user and group
+entries to the system.  This system must be flexible, extensible and easy to use
+by the recipe authors.  We require this functionality in order to address
+numerous system wide security requirements.  Among these requirements is the
+necessity to enable non-root owned files (and eventually directories) in the
+packages constructed by the build system.
+
+Architecture:
+
+The architecture design is based in part on the existing update-rc.d
+infrastructure.  As such three choices for architecture were considered.  In
+each of the descriptions below any references to the passwd file should also
+assume a shadow file may exist, similarly any references to a group file should
+assume a gshadow file may exist.
+
+1) Enable a small set of native tools that can be used to manipulate the passwd
+and group files in both pre and post install scripts as specified in the recipes.
+
+The small set of tools should include: adduser, addgroup, moduser, modgroup,
+deluser, delgroup, passwd and gpasswd.
+
+This set of tools will enable the addition, modification and removal of specific
+user and group entries, as well as enable the ability to set the corresponding
+passwords for a given entry.  The tools in question also need to support shadow
+password files.
+
+In order to leverage the existing tooling it is expected that they will each be
+modified to add a "--root" parameter that enables the program to either chroot
+into a specific directory using the facilities provided by pseudo, or using the
+item as an alternative mechanism to locate files on the disk.
+
+A set of example pre and post install recipe instructions will be generated as
+examples.
+
+2) We add a new variable to the recipe syntax.  The variable will need to allow
+a recipe to specify an arbitrary number of new users and groups, along with
+their corresponding settings.
+
+The update-rc.d.bbclass is used as an example for this item.  The new class
+_useradd.bbclass_ will use a small number of variables to control user and group
+creation.  As with update-rc.d, an 'inherit useradd' will be required in the
+recipe to use this functionality.
+
+The variable USERADD_PACKAGES will control which binary packages will have the
+special user add code.  The corresponding USERADD_PARAM_pkg variable will
+contain a list of parameters in the format of the command line useradd program
+as document by useradd(8) man page.  Multiple parameters will be separated by a
+semicolon (";").
+
+For example, to add two new users for sendmail, you could use:
+
+USERADD_PACKAGES = "sendmail"
+USERADD_PARAM_sendmail = "-u 47 -d /var/spool/mqueue -r -s /bin/true mailnull ;
+-u 51 -d /var/spool/mqueue -r -s /bin/true smmsp"
+
+This would add two users, and their corresponding groups based on the rules of
+the useradd program parameters.
+
+For GROUP control, the vales would be changed to GROUPADD_PACKAGES and
+GROUPADD_PARAM_pkg.  Note, many groups are automatically generated as part of a
+useradd -- so specific group adds are only required in specific circumstances.
+
+If both USERADD and GROUPADD are specified, the GROUPADD will always run before
+the USERADD.  This ensures that new users can rely on similarly new groups.
+
+Removal and modification of existing users is not supported by this approach.
+
+The implementation of the actual add of user and group entries is up to the
+packaging approach with a reasonable default approach specified.
+
+3) Combine approaches 1 and 2.  Ensure that the recipe variable approach (2)
+uses the mechanisms as implemented and defined in the command approach (1).
+
+This will allow for the most flexibility, but also ensure that if a recipe needs
+more then simple 'add' control it can be achieved.
+
 ---
- meta-crownbay/conf/machine/crownbay-noemgd.conf  |    2 --
- meta-crownbay/conf/machine/crownbay.conf         |    2 --
- meta-emenlow/conf/machine/emenlow.conf           |    2 --
- meta-fishriver/conf/machine/fishriver.conf       |    2 --
- meta-jasperforest/conf/machine/jasperforest.conf |    2 --
- meta-sugarbay/conf/machine/sugarbay.conf         |    2 --
- 6 files changed, 0 insertions(+), 12 deletions(-)
 
-diff --git a/meta-crownbay/conf/machine/crownbay-noemgd.conf b/meta-crownbay/conf/machine/crownbay-noemgd.conf
-index a65339b..6470911 100644
---- a/meta-crownbay/conf/machine/crownbay-noemgd.conf
-+++ b/meta-crownbay/conf/machine/crownbay-noemgd.conf
-@@ -35,8 +35,6 @@ MACHINE_EXTRA_RRECOMMENDS = "kernel-modules eee-acpi-scripts"
- 
- GUI_MACHINE_CLASS = "bigscreen"
- 
--IMAGE_ROOTFS_SIZE_ext3 = "2000000"
--
- IMAGE_FSTYPES ?= "ext3 cpio.gz"
- 
- GLIBC_ADDONS = "nptl"
-diff --git a/meta-crownbay/conf/machine/crownbay.conf b/meta-crownbay/conf/machine/crownbay.conf
-index 3660383..b46d783 100644
---- a/meta-crownbay/conf/machine/crownbay.conf
-+++ b/meta-crownbay/conf/machine/crownbay.conf
-@@ -39,8 +39,6 @@ MACHINE_EXTRA_RRECOMMENDS = "kernel-modules eee-acpi-scripts"
- 
- GUI_MACHINE_CLASS = "bigscreen"
- 
--IMAGE_ROOTFS_SIZE_ext3 = "2000000"
--
- IMAGE_FSTYPES ?= "ext3 cpio.gz"
- 
- GLIBC_ADDONS = "nptl"
-diff --git a/meta-emenlow/conf/machine/emenlow.conf b/meta-emenlow/conf/machine/emenlow.conf
-index 6e12c02..7e5e78d 100644
---- a/meta-emenlow/conf/machine/emenlow.conf
-+++ b/meta-emenlow/conf/machine/emenlow.conf
-@@ -36,8 +36,6 @@ MACHINE_EXTRA_RRECOMMENDS = "kernel-modules eee-acpi-scripts"
- 
- GUI_MACHINE_CLASS = "bigscreen"
- 
--IMAGE_ROOTFS_SIZE_ext3 = "2000000"
--
- IMAGE_FSTYPES ?= "ext3 cpio.gz"
- 
- GLIBC_ADDONS = "nptl"
-diff --git a/meta-fishriver/conf/machine/fishriver.conf b/meta-fishriver/conf/machine/fishriver.conf
-index 64c194b..91a1fb6 100644
---- a/meta-fishriver/conf/machine/fishriver.conf
-+++ b/meta-fishriver/conf/machine/fishriver.conf
-@@ -35,8 +35,6 @@ MACHINE_EXTRA_RRECOMMENDS = "kernel-modules eee-acpi-scripts"
- 
- GUI_MACHINE_CLASS = "bigscreen"
- 
--IMAGE_ROOTFS_SIZE_ext3 = "1000000"
--
- IMAGE_FSTYPES ?= "ext3 cpio.gz"
- 
- GLIBC_ADDONS = "nptl"
-diff --git a/meta-jasperforest/conf/machine/jasperforest.conf b/meta-jasperforest/conf/machine/jasperforest.conf
-index f92ffcd..8ae7813 100644
---- a/meta-jasperforest/conf/machine/jasperforest.conf
-+++ b/meta-jasperforest/conf/machine/jasperforest.conf
-@@ -34,8 +34,6 @@ MACHINE_EXTRA_RRECOMMENDS = "kernel-modules eee-acpi-scripts"
- 
- GUI_MACHINE_CLASS = "bigscreen"
- 
--IMAGE_ROOTFS_SIZE_ext3 = "2000000"
--
- IMAGE_FSTYPES ?= "ext3 cpio.gz"
- 
- GLIBC_ADDONS = "nptl"
-diff --git a/meta-sugarbay/conf/machine/sugarbay.conf b/meta-sugarbay/conf/machine/sugarbay.conf
-index 00534a5..845ac64 100644
---- a/meta-sugarbay/conf/machine/sugarbay.conf
-+++ b/meta-sugarbay/conf/machine/sugarbay.conf
-@@ -36,8 +36,6 @@ MACHINE_EXTRA_RRECOMMENDS = "kernel-modules eee-acpi-scripts"
- 
- GUI_MACHINE_CLASS = "bigscreen"
- 
--IMAGE_ROOTFS_SIZE_ext3 = "2000000"
--
- IMAGE_FSTYPES ?= "ext3 cpio.gz"
- 
- GLIBC_ADDONS = "nptl"
--- 
-1.7.0.4
+It is recommended that the 3rd choice above be selected as the architecture for
+the new functionality.  However, no matter which choice above is selected -- or
+potentially even ones that are not listed above there are still some additional
+items that will need to be resolved.
 
+Any pre-installation steps will need to be preformed prior to the do_install()
+stage of recipe building.  Otherwise the necessary user/group entries may not be
+available which could lead to incorrect packaging occurring.  The passwd and
+group files manipulated by this pre-install step will need to be global to the
+sysroot, with PSEUDO specified to use this specific passwd and group file.
+(PSEUDO_PASSWD environment variable specifies the path to a directory containing
+a passwd and group file.)
+
+The above will enable the ability to do, chown new_user:new_group path/file.
+within a do_install() step.
+
+During rootfs image creation, the pre-install steps will also need to be
+executed prior to the package being installed -- or a suitable cleanup step run
+that ensures the correct owners and groups for files (and directories) exist
+after installation.  This will likely require changes to the various rootfs
+classes.  Note, user and group creation will generally have to wait until after
+the default passwd and group files have been installed.
+
+Note, there is no guaranty that the sysroot and rootfs will match.  This is
+intentional as dynamic user and group assignment is expected to create entries
+specific to a given configuration.
+
+The sstate items will need to also be verified to correctly maintain user and
+group entries within the cache, as well as run the pre-install operation against
+the sysroot before the do_install-like sstate operations occur.
+
+Post install script changes can be left as currently implemented, as they will
+not directly affect the rootfs image creation.
+
+Finally some user and group creation policies should be put in place.  This
+policy should include:
+
+1) What are the default user and groups on a system?  (Recommendation LSB or a
+subset of the LSB.)
+
+2) When adding a user and group, should user and group numbers be assigned or
+done dynamically?  (Recommendation done dynamically whenever possible, as this
+avoid conflicting numbers)
+
+3) When adding a user and group, if a specific user/group number must be used
+how do we avoid conflicts.  (Specifically in the case a package embeds the
+user/group id number.  Do we define a registry, or some other mechanism?)
+
+4) When adding a user and group, how to determine if the user and group should
+be a system account or not.
+
+---
+
+Any comments on the above?
 
