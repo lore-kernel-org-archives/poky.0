@@ -1,40 +1,26 @@
-Return-Path: <cgwalters@gmail.com>
-Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 71AF04C8011E
-	for <poky@yoctoproject.org>; Tue,  3 May 2011 18:01:40 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by wwd20 with SMTP id 20so640382wwd.11
-	for <poky@yoctoproject.org>; Tue, 03 May 2011 16:01:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:sender:in-reply-to:references:date
-	:x-google-sender-auth:message-id:subject:from:to:cc:content-type;
-	bh=IHLOn/udyOYwgk89D6SRikYzU4nw2Ur6sa5VcMr+93s=;
-	b=GLG7nriwSm45A5iAl6Wql010ELVAHTnIOg0tNWy8TXnKx9Fiqw1MoNcm5sMRrzGzJ+
-	c6KIH48hwJLkn21UmRhN/h403AinRswJ8SZZuWrGAHlEykuwDeagh+XA2okuJJZ6YXpN
-	9Pa7J/Xf6ZqJ6Jpda7yTOyr9YNJQXv5ic4gjA=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:sender:in-reply-to:references:date
-	:x-google-sender-auth:message-id:subject:from:to:cc:content-type;
-	b=TCbEvJSo4aTPqpJzDTJ4QpCajeoJKbh0nDaBPRXD2iLI5M9+WAj8VXZKQVRtAxhM4i
-	NFllpwn/PTVvpllzSud5tV3Ds44UOyWlgoSAyTlFFUpkjnPZ6B7Bs9OT+31EQI4TXu/p
-	wNVlmfNJXC3RpDBGYU62dhyarTVkOTBP2B/3U=
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E24384C8011E
+	for <poky@yoctoproject.org>; Tue,  3 May 2011 18:09:14 -0500 (CDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id A92EB1660243; Tue,  3 May 2011 17:09:13 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00,
+	NORMAL_HTTP_TO_IP autolearn=unavailable version=3.3.2-r929478
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 138F5166015F;
+	Tue,  3 May 2011 17:09:11 -0600 (MDT)
+Message-ID: <4DC08B17.2070907@mlbassoc.com>
+Date: Tue, 03 May 2011 17:09:11 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
 MIME-Version: 1.0
-Received: by 10.216.239.73 with SMTP id b51mr457273wer.18.1304463699238; Tue,
-	03 May 2011 16:01:39 -0700 (PDT)
-Sender: cgwalters@gmail.com
-Received: by 10.216.8.129 with HTTP; Tue, 3 May 2011 16:01:39 -0700 (PDT)
-In-Reply-To: <1304419011.21461.98.camel@rex>
-References: <BANLkTimaSk6vz1AeoRoT63T24XX=w1TuaA@mail.gmail.com>
-	<1304419011.21461.98.camel@rex>
-Date: Tue, 3 May 2011 19:01:39 -0400
-X-Google-Sender-Auth: znykDBaGpIMKV4-tyH_ucaQLWsk
-Message-ID: <BANLkTi=N_hm-qCo0Gi+zoAH4mH+dszpRdA@mail.gmail.com>
-From: Colin Walters <walters@verbum.org>
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-Cc: poky <poky@yoctoproject.org>
-Subject: Re: post-image-creation postinsts
+To: Poky Project <poky@yoctoproject.org>
+Subject: Zypper question
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,26 +32,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 03 May 2011 23:01:40 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Tue, 03 May 2011 23:09:15 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Richard,
+I'm trying to set up zypper on a qemu based system.  I've built
+the image & additional packages in 192.168.1.125:/local/qemu_test/tmp/deploy/rpm/
+This system is running lighttpd and has the path http://192.168.1.125/qemu-repo
+set to that path.  I verified it by fetching http://192.168.1.125/qemu-repo/solvedb.conf
+which shows up as
+   /local/qemu_test/tmp/deploy/rpm/qemux86/solvedb
+   /local/qemu_test/tmp/deploy/rpm/i586/solvedb
+   /local/qemu_test/tmp/deploy/rpm/all/solvedb
 
-On Tue, May 3, 2011 at 6:36 AM, Richard Purdie
-<richard.purdie@linuxfoundation.org> wrote:
->
->> It seems to me we could add some mechanism for mounting the image
->> filesystem and running a script in there (guestfs?), or maybe an
->> automated QEMU boot, run the postinsts, and sync/shutdown?
->>
-> force the script to run on the target device. If there is a way to run
-> this at image generation time (cross safe), tell us what it is and we
-> can make it happen at image generation time!
+On the QEMU system, I ran
+   # zypper addrepo http://192.168.1.125/qemu-repo yocto
+   # zypper refresh
+No errors were reported
 
-See the bit I quoted from my original mail.  I think the most general
-solution is simply "run qemu, then shutdown", and I can look at
-automating this inside OE, but was just curious if anyone had any
-better ideas.
+When I tried to install a package, I got this:
+   # zypper install gst-plugins-base
+   Error building the cache.
+   [1] Repository type can't be determined.
+   warning: Disabling repository 'yocto' because of the above error.
 
-Would a patch to do this by default for image.bbclass make sense?
+What am I doing wrong?
+
+Note: I tried to follow https://wiki.pokylinux.org/wiki/Zypper_Repository_Setup
+Can I help with this (edit the page, etc)?  If so, how do I get a login?
+
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
