@@ -1,26 +1,30 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 93EF74C80A84
-	for <poky@yoctoproject.org>; Tue,  3 May 2011 06:35:08 -0500 (CDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id E93A5166026F; Tue,  3 May 2011 05:35:07 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=ham version=3.3.2-r929478
-Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 7AA8E16601B2;
-	Tue,  3 May 2011 05:35:07 -0600 (MDT)
-Message-ID: <4DBFE86B.7090702@mlbassoc.com>
-Date: Tue, 03 May 2011 05:35:07 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
-MIME-Version: 1.0
-To: Poky Project <poky@yoctoproject.org>
-Subject: Can't share build trees?
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 1E4554C800A3
+	for <poky@yoctoproject.org>; Tue,  3 May 2011 08:25:33 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p43DPPPK029902;
+	Tue, 3 May 2011 14:25:25 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 25650-05; Tue,  3 May 2011 14:25:17 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p43DP9sK029845
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Tue, 3 May 2011 14:25:13 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Gary Thomas <gary@mlbassoc.com>
+In-Reply-To: <4DBFE86B.7090702@mlbassoc.com>
+References: <4DBFE86B.7090702@mlbassoc.com>
+Date: Tue, 03 May 2011 14:25:08 +0100
+Message-ID: <1304429108.21461.109.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.2 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: Poky Project <poky@yoctoproject.org>
+Subject: Re: Can't share build trees?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,32 +36,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 03 May 2011 11:35:11 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Tue, 03 May 2011 13:25:34 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-I have a system which has both PowerPC and ARM/OMAP components.
-They share a common Poky/Yocto layer, so I thought I'd be able
-to also share a build tree.  So, I tried something like this:
-   % . /opt/poky/oe-init-build-env my_target
-   % MACHINE=MY_OMAP bitbake omap-image
-   % MACHINE=MY_PPC bitbake ppc-image
+On Tue, 2011-05-03 at 05:35 -0600, Gary Thomas wrote:
+> I have a system which has both PowerPC and ARM/OMAP components.
+> They share a common Poky/Yocto layer, so I thought I'd be able
+> to also share a build tree.  So, I tried something like this:
+>    % . /opt/poky/oe-init-build-env my_target
+>    % MACHINE=MY_OMAP bitbake omap-image
+>    % MACHINE=MY_PPC bitbake ppc-image
+> 
+> All seemed fine the first time through.  The images were built
+> as expected and worked well.
+> 
+> Sadly, when I tried to build something else, e.g.
+>    % MACHINE=MY_OMAP bitbake some-package
+> it set off rebuilding the entire cross tool chain :-(
+> 
+> Should this work?  or should I just be aware it does not (and mostly
+> tell my customers not to expect it to work)?
 
-All seemed fine the first time through.  The images were built
-as expected and worked well.
+It should work and its the way I use Poky. Did you update the metadata
+between these builds changing the toolchain version for example (e.g.
+gcc 4.6.0 testing)?
 
-Sadly, when I tried to build something else, e.g.
-   % MACHINE=MY_OMAP bitbake some-package
-it set off rebuilding the entire cross tool chain :-(
+Cheers,
 
-Should this work?  or should I just be aware it does not (and mostly
-tell my customers not to expect it to work)?
+Richard
 
-Thanks
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
 
