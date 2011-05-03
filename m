@@ -1,30 +1,20 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 082094C80A46
-	for <poky@yoctoproject.org>; Tue,  3 May 2011 08:32:07 -0500 (CDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id D69EA166026A; Tue,  3 May 2011 07:32:00 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2-r929478
-Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 45FBE16601DC;
-	Tue,  3 May 2011 07:31:59 -0600 (MDT)
-Message-ID: <4DC003CF.9010104@mlbassoc.com>
-Date: Tue, 03 May 2011 07:31:59 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
-MIME-Version: 1.0
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-References: <4DBFE86B.7090702@mlbassoc.com> <1304429108.21461.109.camel@rex>
-	<4DC00309.6040709@mlbassoc.com>
-In-Reply-To: <4DC00309.6040709@mlbassoc.com>
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: Can't share build trees?
+Return-Path: <jiajun.xu@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 464534C80FBB
+	for <poky@yoctoproject.org>; Tue,  3 May 2011 13:41:50 -0500 (CDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 02 May 2011 22:08:06 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.64,307,1301900400"; d="scan'208";a="917187129"
+Received: from unknown (HELO localhost) ([10.239.48.201])
+	by fmsmga001.fm.intel.com with ESMTP; 02 May 2011 22:08:06 -0700
+Message-Id: <cover.1304400070.git.jiajun.xu@intel.com>
+Old-Date: Tue, 3 May 2011 13:21:10 +0800
+Date: Tue, 03 May 2011 13:24:17 +0800
+To: poky@yoctoproject.org
+CC: 
+From: Jiajun Xu <jiajun.xu@intel.com>
+Subject: [PATCH 0/1] [Resend] qemuimagetest: Enable toolchain automation tests in qemuimagetest
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,43 +26,49 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 03 May 2011 13:32:07 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 03 May 2011 18:41:50 -0000
 
-On 05/03/2011 07:28 AM, Gary Thomas wrote:
-> On 05/03/2011 07:25 AM, Richard Purdie wrote:
->> On Tue, 2011-05-03 at 05:35 -0600, Gary Thomas wrote:
->>> I have a system which has both PowerPC and ARM/OMAP components.
->>> They share a common Poky/Yocto layer, so I thought I'd be able
->>> to also share a build tree. So, I tried something like this:
->>> % . /opt/poky/oe-init-build-env my_target
->>> % MACHINE=MY_OMAP bitbake omap-image
->>> % MACHINE=MY_PPC bitbake ppc-image
->>>
->>> All seemed fine the first time through. The images were built
->>> as expected and worked well.
->>>
->>> Sadly, when I tried to build something else, e.g.
->>> % MACHINE=MY_OMAP bitbake some-package
->>> it set off rebuilding the entire cross tool chain :-(
->>>
->>> Should this work? or should I just be aware it does not (and mostly
->>> tell my customers not to expect it to work)?
->>
->> It should work and its the way I use Poky. Did you update the metadata
->> between these builds changing the toolchain version for example (e.g.
->> gcc 4.6.0 testing)?
->
-> No changes, just changed the MACHINE
+From: Jiajun Xu <jiajun.xu@intel.com>
 
-I'll try it again, just to make sure I can duplicate it.
+Three C/C++ test projects are added to test toolchain - cvs, iptables and sudoku-savant. 
+User needs to set TEST_SCEN to "toolchain" in local.conf to enable tests. Test case will 
+check if toolchain tarball exists under "${DEPLOY_DIR}/sdk". And it will extract toolchain 
+tarball into /opt. It requires user to chown /opt to non-root user, who will run qemuimagetest.
 
-I'm happy to hear that this should work.
+Update the patch by inherit imagetest-qemu in meta-toolchain instead of populate_sdk.
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: jxu49/master
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=jxu49/master
+
+Thanks,
+    Jiajun Xu <jiajun.xu@intel.com>
+---
+
+
+Jiajun Xu (1):
+  qemuimagetest: Enable toolchain automation tests in qemuimagetest
+
+ meta-yocto/conf/local.conf.sample                  |    2 +-
+ meta/classes/imagetest-qemu.bbclass                |    9 +-
+ meta/recipes-core/meta/meta-toolchain.bb           |    3 +-
+ scripts/qemuimage-testlib                          |  232 +++++++++++++++++++-
+ .../scenario/qemuarm/meta-toolchain-gmae           |    3 +
+ .../scenario/qemumips/meta-toolchain-gmae          |    3 +
+ .../scenario/qemuppc/meta-toolchain-gmae           |    3 +
+ .../scenario/qemux86-64/meta-toolchain-gmae        |    3 +
+ .../scenario/qemux86/meta-toolchain-gmae           |    3 +
+ scripts/qemuimage-tests/toolchain/cvs              |   31 +++
+ scripts/qemuimage-tests/toolchain/iptables         |   31 +++
+ scripts/qemuimage-tests/toolchain/sudoku-savant    |   31 +++
+ 12 files changed, 349 insertions(+), 5 deletions(-)
+ create mode 100644 scripts/qemuimage-tests/scenario/qemuarm/meta-toolchain-gmae
+ create mode 100644 scripts/qemuimage-tests/scenario/qemumips/meta-toolchain-gmae
+ create mode 100644 scripts/qemuimage-tests/scenario/qemuppc/meta-toolchain-gmae
+ create mode 100644 scripts/qemuimage-tests/scenario/qemux86-64/meta-toolchain-gmae
+ create mode 100644 scripts/qemuimage-tests/scenario/qemux86/meta-toolchain-gmae
+ create mode 100644 scripts/qemuimage-tests/toolchain/cvs
+ create mode 100644 scripts/qemuimage-tests/toolchain/iptables
+ create mode 100644 scripts/qemuimage-tests/toolchain/sudoku-savant
+
 
