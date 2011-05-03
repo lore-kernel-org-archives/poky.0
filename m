@@ -1,25 +1,30 @@
-Return-Path: <Kai.Kang@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A48D24C80AB8
-	for <poky@yoctoproject.org>; Tue,  3 May 2011 04:26:01 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p439Q0gB009357
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Tue, 3 May 2011 02:26:00 -0700 (PDT)
-Received: from localhost (128.224.163.157) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Tue, 3 May 2011 02:25:59 -0700
-Message-ID: <5625530be6f90e68c3fe26a397d57d6fcb82a1fd.1304412927.git.kai.kang@windriver.com>
-In-Reply-To: <cover.1304412927.git.kai.kang@windriver.com>
-References: <cover.1304412927.git.kai.kang@windriver.com>
-Old-Date: Tue, 3 May 2011 16:50:40 +0800
-Date: Tue, 3 May 2011 17:28:16 +0800
-To: <saul.wold@intel.com>
-From: Kang Kai <kai.kang@windriver.com>
-MIME-Version: 1.0
-X-Originating-IP: [128.224.163.157]
-Cc: poky@yoctoproject.org
-Subject: [PATCH 2/2] ghostscript: added to pass LSB commands check
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 9C14D4C800A3
+	for <poky@yoctoproject.org>; Tue,  3 May 2011 05:37:04 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p43Ab3iY010643;
+	Tue, 3 May 2011 11:37:03 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 10021-01; Tue,  3 May 2011 11:36:59 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p43Aarta010621
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Tue, 3 May 2011 11:36:54 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Colin Walters <walters@verbum.org>
+In-Reply-To: <BANLkTimaSk6vz1AeoRoT63T24XX=w1TuaA@mail.gmail.com>
+References: <BANLkTimaSk6vz1AeoRoT63T24XX=w1TuaA@mail.gmail.com>
+Date: Tue, 03 May 2011 11:36:51 +0100
+Message-ID: <1304419011.21461.98.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.2 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky <poky@yoctoproject.org>
+Subject: Re: post-image-creation postinsts
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,209 +36,50 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 03 May 2011 09:26:01 -0000
-Content-Type: text/plain
+X-List-Received-Date: Tue, 03 May 2011 10:37:05 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-From: Kang Kai <kai.kang@windriver.com>
+On Mon, 2011-05-02 at 11:12 -0400, Colin Walters wrote:
+> Currently from poky-bernard-5.0, in gdk-pixbuf_2.22.1.bb, we have:
+> 
+> postinst_pixbufloader () {
+> if [ "x$D" != "x" ]; then
+>     exit 1
+> fi
+> 
+> GDK_PIXBUF_MODULEDIR=${libdir}/gdk-pixbuf-2.0/${LIBV}/loaders
+> gdk-pixbuf-query-loaders --update-cache
+> 
+> test -x ${bindir}/gtk-update-icon-cache && gtk-update-icon-cache  -q
+> ${datadir}/icons/hicolor
+> }
+> 
+> This results in a first-boot icon cache query in my image, which is
+> pretty lame since we could equally well do this after the image is
+> generated, and not on every computer that boots the image.
+> 
+> It seems to me we could add some mechanism for mounting the image
+> filesystem and running a script in there (guestfs?), or maybe an
+> automated QEMU boot, run the postinsts, and sync/shutdown?
+> 
+> Thoughts?
 
-Add ghostscript to pass LSB commands check and Printing test
+The lines at the top:
 
-Signed-off-by: Kang Kai <kai.kang@windriver.com>
----
- .../ghostscript/ghostscript-native_9.02.bb         |   35 ++++++++
- .../ghostscript-9.02-prevent_recompiling.patch     |   92 ++++++++++++++++++++
- .../ghostscript/ghostscript_9.02.bb                |   40 +++++++++
- 3 files changed, 167 insertions(+), 0 deletions(-)
- create mode 100644 meta/recipes-extended/ghostscript/ghostscript-native_9.02.bb
- create mode 100644 meta/recipes-extended/ghostscript/ghostscript/ghostscript-9.02-prevent_recompiling.patch
- create mode 100644 meta/recipes-extended/ghostscript/ghostscript_9.02.bb
+if [ "x$D" != "x" ]; then
+    exit 1
+fi
 
-diff --git a/meta/recipes-extended/ghostscript/ghostscript-native_9.02.bb b/meta/recipes-extended/ghostscript/ghostscript-native_9.02.bb
-new file mode 100644
-index 0000000..4927348
---- /dev/null
-+++ b/meta/recipes-extended/ghostscript/ghostscript-native_9.02.bb
-@@ -0,0 +1,35 @@
-+SUMMARY = "The GPL Ghostscript PostScript/PDF interpreter"
-+DESCRIPTION = "Only used to cross build Ghostscript itself"
-+HOMEPAGE = "http://www.ghostscript.com"
-+SECTION = "console/utils"
-+
-+LICENSE = "GPLv3"
-+LIC_FILES_CHKSUM = "file://LICENSE;md5=d151214b3131251dfc9d858593acbd24"
-+
-+PR = "r0"
-+
-+DEPENDS += "tiff"
-+
-+SRC_URI = "http://downloads.ghostscript.com/public/ghostscript-${PV}.tar.bz2"
-+
-+SRC_URI[md5sum] = "f67151444bd56a7904579fc75a083dd6"
-+SRC_URI[sha256sum] = "03ea2cad13a36f8f9160912012b79619a826e7148fada6d3531feb25409ee05a"
-+
-+EXTRA_OECONF = "--with-system-libtiff --without-jbig2dec --without-jasper"
-+
-+inherit autotools native
-+
-+do_compile() {
-+    mkdir -p obj
-+    for i in genarch genconf mkromfs echogs gendev genht; do
-+        oe_runmake obj/$i
-+    done
-+}
-+
-+
-+do_install() {
-+    install -d ${D}${bindir}/ghostscript-${PV}
-+    for i in genarch genconf mkromfs echogs gendev genht; do
-+        install -m 755 obj/$i ${D}${bindir}/ghostscript-${PV}/$i
-+    done
-+}
-diff --git a/meta/recipes-extended/ghostscript/ghostscript/ghostscript-9.02-prevent_recompiling.patch b/meta/recipes-extended/ghostscript/ghostscript/ghostscript-9.02-prevent_recompiling.patch
-new file mode 100644
-index 0000000..914042a
---- /dev/null
-+++ b/meta/recipes-extended/ghostscript/ghostscript/ghostscript-9.02-prevent_recompiling.patch
-@@ -0,0 +1,92 @@
-+Just use commands provided by ghostscript-native, preventing recompile them
-+Way to enable cross compile.
-+
-+Signed-off-by: Kang Kai <kai.kang@windriver.com>
-+
-+--- a/base/unix-aux.mak.orig	2011-05-03 15:35:55.196887997 +0800
-++++ b/base/unix-aux.mak	2011-05-03 15:37:57.766888003 +0800
-+@@ -57,45 +57,45 @@ $(GLOBJ)gp_sysv.$(OBJ): $(GLSRC)gp_sysv.
-+ 
-+ # -------------------------- Auxiliary programs --------------------------- #
-+ 
-+-$(ECHOGS_XE): $(GLSRC)echogs.c $(AK) $(stdpre_h)
-+-	$(CCAUX) $(I_)$(GLSRCDIR)$(_I) $(O_)$(ECHOGS_XE) $(GLSRC)echogs.c
-+-
-+-# On the RS/6000 (at least), compiling genarch.c with gcc with -O
-+-# produces a buggy executable.
-+-$(GENARCH_XE): $(GLSRC)genarch.c $(AK) $(GENARCH_DEPS)
-+-	$(CCAUX) $(I_)$(GLSRCDIR)$(_I) $(O_)$(GENARCH_XE) $(GLSRC)genarch.c
-+-
-+-$(GENCONF_XE): $(GLSRC)genconf.c $(AK) $(GENCONF_DEPS)
-+-	$(CCAUX) $(I_)$(GLSRCDIR)$(_I) $(O_)$(GENCONF_XE) $(GLSRC)genconf.c
-+-
-+-$(GENDEV_XE): $(GLSRC)gendev.c $(AK) $(GENDEV_DEPS)
-+-	$(CCAUX) $(I_)$(GLSRCDIR)$(_I) $(O_)$(GENDEV_XE) $(GLSRC)gendev.c
-+-
-+-$(GENHT_XE): $(GLSRC)genht.c $(AK) $(GENHT_DEPS)
-+-	$(CCAUX) $(GENHT_CFLAGS) $(O_)$(GENHT_XE) $(GLSRC)genht.c
-+-
-+-# To get GS to use the system zlib, you remove/hide the gs/zlib directory
-+-# which means that the mkromfs build can't find the zlib source it needs.
-+-# So it's split into two targets, one using the zlib source directly.....
-+-MKROMFS_OBJS_0=$(MKROMFS_ZLIB_OBJS) $(GLOBJ)gscdefs.$(OBJ) $(GLOBJ)gsmisc.$(OBJ) \
-+- $(GLOBJ)gpmisc.$(OBJ) $(GLOBJ)gslibctx.$(OBJ) $(GLOBJ)gp_getnv.$(OBJ) \
-+- $(GLOBJ)gp_unix.$(OBJ) $(GLOBJ)gp_unifs.$(OBJ) $(GLOBJ)gp_unifn.$(OBJ) \
-+- $(GLOBJ)gp_stdia.$(OBJ) $(GLOBJ)gsutil.$(OBJ)
-+-
-+-$(MKROMFS_XE)_0: $(GLSRC)mkromfs.c $(MKROMFS_COMMON_DEPS) $(MKROMFS_OBJS_0)
-+-	$(CCAUX) $(GENOPT) $(CFLAGS) $(I_)$(GLSRCDIR)$(_I) $(I_)$(GLOBJ)$(_I) $(I_)$(ZSRCDIR)$(_I) $(GLSRC)mkromfs.c $(O_)$(MKROMFS_XE)_0 $(MKROMFS_OBJS_0) -lm $(EXTRALIBS)
-+-
-+-# .... and one using the zlib library linked via the command line
-+-MKROMFS_OBJS_1=$(GLOBJ)gscdefs.$(OBJ) $(GLOBJ)gsmisc.$(OBJ) \
-+- $(GLOBJ)gpmisc.$(OBJ) $(GLOBJ)gslibctx.$(OBJ) $(GLOBJ)gp_getnv.$(OBJ) \
-+- $(GLOBJ)gp_unix.$(OBJ) $(GLOBJ)gp_unifs.$(OBJ) $(GLOBJ)gp_unifn.$(OBJ) \
-+- $(GLOBJ)gp_stdia.$(OBJ) $(GLOBJ)gsutil.$(OBJ)
-+-
-+-$(MKROMFS_XE)_1: $(GLSRC)mkromfs.c $(MKROMFS_COMMON_DEPS) $(MKROMFS_OBJS_1)
-+-	$(CCAUX) $(GENOPT) $(CFLAGS) $(I_)$(GLSRCDIR)$(_I) $(I_)$(GLOBJ)$(_I) $(I_)$(ZSRCDIR)$(_I) $(GLSRC)mkromfs.c $(O_)$(MKROMFS_XE)_1 $(MKROMFS_OBJS_1) -lm $(EXTRALIBS)
-+-
-+-$(MKROMFS_XE): $(MKROMFS_XE)_$(SHARE_ZLIB)
-+-	$(CP_) $(MKROMFS_XE)_$(SHARE_ZLIB) $(MKROMFS_XE)
-++#$(ECHOGS_XE): $(GLSRC)echogs.c $(AK) $(stdpre_h)
-++#	$(CCAUX) $(I_)$(GLSRCDIR)$(_I) $(O_)$(ECHOGS_XE) $(GLSRC)echogs.c
-++#
-++## On the RS/6000 (at least), compiling genarch.c with gcc with -O
-++## produces a buggy executable.
-++#$(GENARCH_XE): $(GLSRC)genarch.c $(AK) $(GENARCH_DEPS)
-++#	$(CCAUX) $(I_)$(GLSRCDIR)$(_I) $(O_)$(GENARCH_XE) $(GLSRC)genarch.c
-++#
-++#$(GENCONF_XE): $(GLSRC)genconf.c $(AK) $(GENCONF_DEPS)
-++#	$(CCAUX) $(I_)$(GLSRCDIR)$(_I) $(O_)$(GENCONF_XE) $(GLSRC)genconf.c
-++#
-++#$(GENDEV_XE): $(GLSRC)gendev.c $(AK) $(GENDEV_DEPS)
-++#	$(CCAUX) $(I_)$(GLSRCDIR)$(_I) $(O_)$(GENDEV_XE) $(GLSRC)gendev.c
-++#
-++#$(GENHT_XE): $(GLSRC)genht.c $(AK) $(GENHT_DEPS)
-++#	$(CCAUX) $(GENHT_CFLAGS) $(O_)$(GENHT_XE) $(GLSRC)genht.c
-++#
-++## To get GS to use the system zlib, you remove/hide the gs/zlib directory
-++## which means that the mkromfs build can't find the zlib source it needs.
-++## So it's split into two targets, one using the zlib source directly.....
-++#MKROMFS_OBJS_0=$(MKROMFS_ZLIB_OBJS) $(GLOBJ)gscdefs.$(OBJ) $(GLOBJ)gsmisc.$(OBJ) \
-++# $(GLOBJ)gpmisc.$(OBJ) $(GLOBJ)gslibctx.$(OBJ) $(GLOBJ)gp_getnv.$(OBJ) \
-++# $(GLOBJ)gp_unix.$(OBJ) $(GLOBJ)gp_unifs.$(OBJ) $(GLOBJ)gp_unifn.$(OBJ) \
-++# $(GLOBJ)gp_stdia.$(OBJ) $(GLOBJ)gsutil.$(OBJ)
-++#
-++#$(MKROMFS_XE)_0: $(GLSRC)mkromfs.c $(MKROMFS_COMMON_DEPS) $(MKROMFS_OBJS_0)
-++#	$(CCAUX) $(GENOPT) $(CFLAGS) $(I_)$(GLSRCDIR)$(_I) $(I_)$(GLOBJ)$(_I) $(I_)$(ZSRCDIR)$(_I) $(GLSRC)mkromfs.c $(O_)$(MKROMFS_XE)_0 $(MKROMFS_OBJS_0) -lm $(EXTRALIBS)
-++#
-++## .... and one using the zlib library linked via the command line
-++#MKROMFS_OBJS_1=$(GLOBJ)gscdefs.$(OBJ) $(GLOBJ)gsmisc.$(OBJ) \
-++# $(GLOBJ)gpmisc.$(OBJ) $(GLOBJ)gslibctx.$(OBJ) $(GLOBJ)gp_getnv.$(OBJ) \
-++# $(GLOBJ)gp_unix.$(OBJ) $(GLOBJ)gp_unifs.$(OBJ) $(GLOBJ)gp_unifn.$(OBJ) \
-++# $(GLOBJ)gp_stdia.$(OBJ) $(GLOBJ)gsutil.$(OBJ)
-++#
-++#$(MKROMFS_XE)_1: $(GLSRC)mkromfs.c $(MKROMFS_COMMON_DEPS) $(MKROMFS_OBJS_1)
-++#	$(CCAUX) $(GENOPT) $(CFLAGS) $(I_)$(GLSRCDIR)$(_I) $(I_)$(GLOBJ)$(_I) $(I_)$(ZSRCDIR)$(_I) $(GLSRC)mkromfs.c $(O_)$(MKROMFS_XE)_1 $(MKROMFS_OBJS_1) -lm $(EXTRALIBS)
-++#
-++#$(MKROMFS_XE): $(MKROMFS_XE)_$(SHARE_ZLIB)
-++#	$(CP_) $(MKROMFS_XE)_$(SHARE_ZLIB) $(MKROMFS_XE)
-+ 
-+ # Query the environment to construct gconfig_.h.
-+ # The "else true;" is required because Ultrix's implementation of sh -e
-diff --git a/meta/recipes-extended/ghostscript/ghostscript_9.02.bb b/meta/recipes-extended/ghostscript/ghostscript_9.02.bb
-new file mode 100644
-index 0000000..25e9c2c
---- /dev/null
-+++ b/meta/recipes-extended/ghostscript/ghostscript_9.02.bb
-@@ -0,0 +1,40 @@
-+SUMMARY = "The GPL Ghostscript PostScript/PDF interpreter"
-+DESCRIPTION = "Ghostscript is used for PostScript/PDF preview and printing.  Usually as \
-+a back-end to a program such as ghostview, it can display PostScript and PDF \
-+documents in an X11 environment. \
-+\
-+Furthermore, it can render PostScript and PDF files as graphics to be printed \
-+on non-PostScript printers. Supported printers include common \
-+dot-matrix, inkjet and laser models. \
-+\
-+Package gsfonts contains a set of standard fonts for Ghostscript. \
-+"
-+HOMEPAGE = "http://www.ghostscript.com"
-+SECTION = "console/utils"
-+
-+LICENSE = "GPLv3"
-+LIC_FILES_CHKSUM = "file://LICENSE;md5=d151214b3131251dfc9d858593acbd24"
-+
-+PR = "r0"
-+
-+DEPENDS += "tiff ${PN}-native"
-+
-+SRC_URI = "http://downloads.ghostscript.com/public/ghostscript-${PV}.tar.bz2 \
-+           file://ghostscript-9.02-prevent_recompiling.patch \
-+           "
-+
-+SRC_URI[md5sum] = "f67151444bd56a7904579fc75a083dd6"
-+SRC_URI[sha256sum] = "03ea2cad13a36f8f9160912012b79619a826e7148fada6d3531feb25409ee05a"
-+
-+EXTRA_OECONF = "--with-system-libtiff --without-jbig2dec --without-jasper"
-+
-+do_configure_append() {
-+    # copy tools from the native ghostscript build
-+    mkdir -p obj soobj
-+    for i in genarch genconf mkromfs echogs gendev genht; do
-+        cp ${STAGING_BINDIR_NATIVE}/ghostscript-${PV}/$i obj/$i
-+        cp ${STAGING_BINDIR_NATIVE}/ghostscript-${PV}/$i soobj/$i
-+    done
-+}
-+
-+inherit autotools
--- 
-1.7.1
+force the script to run on the target device. If there is a way to run
+this at image generation time (cross safe), tell us what it is and we
+can make it happen at image generation time!
+
+(postinstalls are run at image generation time with $D set to the
+directory containing the image).
+
+Cheers,
+
+Richard
 
 
