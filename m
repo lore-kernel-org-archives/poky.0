@@ -1,26 +1,47 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E24384C8011E
-	for <poky@yoctoproject.org>; Tue,  3 May 2011 18:09:14 -0500 (CDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id A92EB1660243; Tue,  3 May 2011 17:09:13 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00,
-	NORMAL_HTTP_TO_IP autolearn=unavailable version=3.3.2-r929478
-Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 138F5166015F;
-	Tue,  3 May 2011 17:09:11 -0600 (MDT)
-Message-ID: <4DC08B17.2070907@mlbassoc.com>
-Date: Tue, 03 May 2011 17:09:11 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
+Return-Path: <raj.khem@gmail.com>
+Received: from mail-px0-f182.google.com (mail-px0-f182.google.com
+	[209.85.212.182])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 27E364C80A46
+	for <poky@yoctoproject.org>; Tue,  3 May 2011 18:12:58 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by pxi20 with SMTP id 20so394860pxi.13
+	for <poky@yoctoproject.org>; Tue, 03 May 2011 16:12:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:date:from:to:cc:subject:message-id
+	:mail-followup-to:references:mime-version:content-type
+	:content-disposition:in-reply-to:user-agent;
+	bh=X3UbiYP5LBy/yz7KdyqMWAKeuhqAiKrfkNL++oKltHU=;
+	b=C9MBhfzqU8jQ2TfKarR2RD05Cf/fq5qlhYVdCmK9GHAG3Tr6I6NrQbaiXUJ0myNQpd
+	OQ/VUBBmz+Sztt2d0jFsdmrb8OZPFcihnhxpT1NYX8HQZUANLt36UktCP9MlyTke8q8M
+	HIDZd5X2vKmH2ZqQwWRpJUlEBIPye+Gm0dhJ8=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=date:from:to:cc:subject:message-id:mail-followup-to:references
+	:mime-version:content-type:content-disposition:in-reply-to
+	:user-agent;
+	b=Hlc7mvZ5z2kmIJoDTubXAkEC3gEAWzZFuxQrudV9DLWvctfQwWbVTZuT0PZv8WHBHE
+	Qk5Wi6EPb5VdGsVCv64TQ+tCP8kzt/IHQcUwoxRvjRVKUzCS2msdqQ5vCvHOEEzFkdHU
+	2jDpDBRCaykeflCoxqt5fxdfRltt0WV4xp8UU=
+Received: by 10.142.150.32 with SMTP id x32mr218974wfd.287.1304464377999;
+	Tue, 03 May 2011 16:12:57 -0700 (PDT)
+Received: from sakrah.homelinux.org
+	(99-57-141-118.lightspeed.sntcca.sbcglobal.net [99.57.141.118])
+	by mx.google.com with ESMTPS id w14sm639814wfh.8.2011.05.03.16.12.56
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Tue, 03 May 2011 16:12:56 -0700 (PDT)
+Date: Tue, 3 May 2011 16:12:24 -0700
+From: Khem Raj <raj.khem@gmail.com>
+To: Gary Thomas <gary@mlbassoc.com>
+Message-ID: <20110503231224.GA5966@sakrah.homelinux.org>
+Mail-Followup-To: Gary Thomas <gary@mlbassoc.com>,
+	Poky Project <poky@yoctoproject.org>
+References: <4DC07C9A.8080202@mlbassoc.com>
 MIME-Version: 1.0
-To: Poky Project <poky@yoctoproject.org>
-Subject: Zypper question
+In-Reply-To: <4DC07C9A.8080202@mlbassoc.com>
+User-Agent: Mutt/1.5.20 (2009-06-14)
+Cc: Poky Project <poky@yoctoproject.org>
+Subject: Re: Incorrect startup warning on ARM targets
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,38 +53,40 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 03 May 2011 23:09:15 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 03 May 2011 23:12:59 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-I'm trying to set up zypper on a qemu based system.  I've built
-the image & additional packages in 192.168.1.125:/local/qemu_test/tmp/deploy/rpm/
-This system is running lighttpd and has the path http://192.168.1.125/qemu-repo
-set to that path.  I verified it by fetching http://192.168.1.125/qemu-repo/solvedb.conf
-which shows up as
-   /local/qemu_test/tmp/deploy/rpm/qemux86/solvedb
-   /local/qemu_test/tmp/deploy/rpm/i586/solvedb
-   /local/qemu_test/tmp/deploy/rpm/all/solvedb
+On (03/05/11 16:07), Gary Thomas wrote:
+> When building for an ARM target, you may see this error:
+>   /proc/sys/vm/mmap_min_addr is not <= 65536. This will cause problems with qemu so please fix the value (as root)
+> 
+> This is a show-stopper; bitbake refuses to run until it's fixed.
+> However, I don't believe it is useful or required any longer.  From
+> my understanding, it was there in the past because QEMU for ARM didn't
+> work correctly unless this system parameter was set as indicated.  That
+> was when QEMU was being used during the build to create localization
+> data.  This is no longer being done and QEMU is not used during the
+> build process.
+> 
+> Perhaps we could eliminate this warning or make it conditional
+> somehow?  As is, asking the user to make a system-wide setting
+> as root for something that's not necessary seems wrong.
 
-On the QEMU system, I ran
-   # zypper addrepo http://192.168.1.125/qemu-repo yocto
-   # zypper refresh
-No errors were reported
+This warning is taken care of in qemu-native we build. But I think its
+already fixed in upstream oe-core
 
-When I tried to install a package, I got this:
-   # zypper install gst-plugins-base
-   Error building the cache.
-   [1] Repository type can't be determined.
-   warning: Disabling repository 'yocto' because of the above error.
-
-What am I doing wrong?
-
-Note: I tried to follow https://wiki.pokylinux.org/wiki/Zypper_Repository_Setup
-Can I help with this (edit the page, etc)?  If so, how do I get a login?
+> 
+> -- 
+> ------------------------------------------------------------
+> Gary Thomas                 |  Consulting for the
+> MLB Associates              |    Embedded world
+> ------------------------------------------------------------
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
 -- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+-Khem
 
