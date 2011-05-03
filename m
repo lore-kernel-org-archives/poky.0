@@ -1,24 +1,25 @@
-Return-Path: <josh@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 92BE74C80A9C
-	for <poky@yoctoproject.org>; Tue,  3 May 2011 18:23:04 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 03 May 2011 16:23:03 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,312,1301900400"; d="scan'208";a="741883344"
-Received: from unknown (HELO [10.255.12.238]) ([10.255.12.238])
-	by orsmga001.jf.intel.com with ESMTP; 03 May 2011 16:23:03 -0700
-From: Joshua Lock <josh@linux.intel.com>
-To: poky@yoctoproject.org
-Date: Tue, 03 May 2011 16:22:58 -0700
-In-Reply-To: <BANLkTi=N_hm-qCo0Gi+zoAH4mH+dszpRdA@mail.gmail.com>
-References: <BANLkTimaSk6vz1AeoRoT63T24XX=w1TuaA@mail.gmail.com>
-	<1304419011.21461.98.camel@rex>
-	<BANLkTi=N_hm-qCo0Gi+zoAH4mH+dszpRdA@mail.gmail.com>
-X-Mailer: Evolution 3.0.0 (3.0.0-1.fc15) 
-Message-ID: <1304464983.2033.0.camel@scimitar>
-Mime-Version: 1.0
-Subject: Re: post-image-creation postinsts
+Return-Path: <mark.hatle@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 0CC264C80A46
+	for <poky@yoctoproject.org>; Tue,  3 May 2011 18:36:39 -0500 (CDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p43Nadod013983
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Tue, 3 May 2011 16:36:39 -0700 (PDT)
+Received: from Macintosh-5.local (172.25.36.228) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server id 14.1.255.0;
+	Tue, 3 May 2011 16:36:39 -0700
+Message-ID: <4DC09186.8010905@windriver.com>
+Date: Tue, 3 May 2011 18:36:38 -0500
+From: Mark Hatle <mark.hatle@windriver.com>
+Organization: Wind River Systems
+User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
+	rv:1.9.2.17) Gecko/20110414 Thunderbird/3.1.10
+MIME-Version: 1.0
+To: <poky@yoctoproject.org>
+References: <4DC08B17.2070907@mlbassoc.com>
+In-Reply-To: <4DC08B17.2070907@mlbassoc.com>
+Subject: Re: Zypper question
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,35 +31,47 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 03 May 2011 23:23:05 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Tue, 03 May 2011 23:36:40 -0000
+Content-Type: text/plain; charset="ISO-8859-1"
 Content-Transfer-Encoding: 7bit
 
-On Tue, 2011-05-03 at 19:01 -0400, Colin Walters wrote:
-> Hi Richard,
+On 5/3/11 6:09 PM, Gary Thomas wrote:
+> I'm trying to set up zypper on a qemu based system.  I've built
+> the image & additional packages in 192.168.1.125:/local/qemu_test/tmp/deploy/rpm/
+> This system is running lighttpd and has the path http://192.168.1.125/qemu-repo
+> set to that path.  I verified it by fetching http://192.168.1.125/qemu-repo/solvedb.conf
+> which shows up as
+>    /local/qemu_test/tmp/deploy/rpm/qemux86/solvedb
+>    /local/qemu_test/tmp/deploy/rpm/i586/solvedb
+>    /local/qemu_test/tmp/deploy/rpm/all/solvedb
 > 
-> On Tue, May 3, 2011 at 6:36 AM, Richard Purdie
-> <richard.purdie@linuxfoundation.org> wrote:
-> >
-> >> It seems to me we could add some mechanism for mounting the image
-> >> filesystem and running a script in there (guestfs?), or maybe an
-> >> automated QEMU boot, run the postinsts, and sync/shutdown?
-> >>
-> > force the script to run on the target device. If there is a way to run
-> > this at image generation time (cross safe), tell us what it is and we
-> > can make it happen at image generation time!
+> On the QEMU system, I ran
+>    # zypper addrepo http://192.168.1.125/qemu-repo yocto
+>    # zypper refresh
+> No errors were reported
 > 
-> See the bit I quoted from my original mail.  I think the most general
-> solution is simply "run qemu, then shutdown", 
+> When I tried to install a package, I got this:
+>    # zypper install gst-plugins-base
+>    Error building the cache.
+>    [1] Repository type can't be determined.
+>    warning: Disabling repository 'yocto' because of the above error.
+> 
+> What am I doing wrong?
+> 
+> Note: I tried to follow https://wiki.pokylinux.org/wiki/Zypper_Repository_Setup
+> Can I help with this (edit the page, etc)?  If so, how do I get a login?
+> 
 
-Wouldn't this only work for images where there's kernel support for the
-QEMU emulated devices? 
+This is odd.  I didn't experience these issues when I was doing the development
+/ testing.
 
-Cheers,
-Joshua
--- 
-Joshua Lock
-        Yocto Build System Monkey
-        Intel Open Source Technology Centre
+From the above there is an "Error building the cache."  the only caching steps
+that occur during an install is a sync of the system's RPM cache.  If something
+is wrong there you can get a similar error.
 
+Try simply running "rpm -qa" and make sure you get reasonable output.  If not,
+then RPM isn't installed properly.  (By default on a minimal system, the RPM
+database is removed after the rootfs is populated.)
+
+--Mark
 
