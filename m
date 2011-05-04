@@ -1,24 +1,30 @@
-Return-Path: <Xiaofeng.Yan@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 4E6C04C80FBB
-	for <poky@yoctoproject.org>; Wed,  4 May 2011 06:00:14 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p44B0DiZ017165
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Wed, 4 May 2011 04:00:14 -0700 (PDT)
-Received: from localhost (128.224.162.28) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Wed, 4 May 2011 04:00:13 -0700
-Message-ID: <14d94988bd1dd3fc1707828dac9c738f0325175c.1304496956.git.xiaofeng.yan@windriver.com>
-In-Reply-To: <cover.1304496956.git.xiaofeng.yan@windriver.com>
-References: <cover.1304496956.git.xiaofeng.yan@windriver.com>
-Old-Date: Wed, 4 May 2011 16:09:54 +0800
-Date: Wed, 4 May 2011 19:00:09 +0800
-To: <poky@yoctoproject.org>
-From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C41CD4C80FA5
+	for <poky@yoctoproject.org>; Wed,  4 May 2011 06:21:25 -0500 (CDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 756DD16602BB; Wed,  4 May 2011 05:21:25 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00,
+	NORMAL_HTTP_TO_IP autolearn=unavailable version=3.3.2-r929478
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 59BAB1660285;
+	Wed,  4 May 2011 05:21:24 -0600 (MDT)
+Message-ID: <4DC136B4.208@mlbassoc.com>
+Date: Wed, 04 May 2011 05:21:24 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
 MIME-Version: 1.0
-X-Originating-IP: [128.224.162.28]
-Subject: [PATCH 1/1] qt4: Enable qt4 opengl for ppc
+To: Mark Hatle <mark.hatle@windriver.com>
+References: <4DC08B17.2070907@mlbassoc.com> <4DC09186.8010905@windriver.com>
+	<4DC0AFCC.9080201@mlbassoc.com> <4DC0DAC8.8090005@windriver.com>
+In-Reply-To: <4DC0DAC8.8090005@windriver.com>
+Cc: poky@yoctoproject.org
+Subject: Re: Zypper question
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,31 +36,81 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 04 May 2011 11:00:14 -0000
-Content-Type: text/plain
+X-List-Received-Date: Wed, 04 May 2011 11:21:26 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+On 05/03/2011 10:49 PM, Mark Hatle wrote:
+> On 5/3/11 8:45 PM, Gary Thomas wrote:
+>> On 05/03/2011 05:36 PM, Mark Hatle wrote:
+>>> On 5/3/11 6:09 PM, Gary Thomas wrote:
+>>>> I'm trying to set up zypper on a qemu based system.  I've built
+>>>> the image&   additional packages in 192.168.1.125:/local/qemu_test/tmp/deploy/rpm/
+>>>> This system is running lighttpd and has the path http://192.168.1.125/qemu-repo
+>>>> set to that path.  I verified it by fetching http://192.168.1.125/qemu-repo/solvedb.conf
+>>>> which shows up as
+>>>>      /local/qemu_test/tmp/deploy/rpm/qemux86/solvedb
+>>>>      /local/qemu_test/tmp/deploy/rpm/i586/solvedb
+>>>>      /local/qemu_test/tmp/deploy/rpm/all/solvedb
+>>>>
+>>>> On the QEMU system, I ran
+>>>>      # zypper addrepo http://192.168.1.125/qemu-repo yocto
+>>>>      # zypper refresh
+>>>> No errors were reported
+>>>>
+>>>> When I tried to install a package, I got this:
+>>>>      # zypper install gst-plugins-base
+>>>>      Error building the cache.
+>>>>      [1] Repository type can't be determined.
+>>>>      warning: Disabling repository 'yocto' because of the above error.
+>>>>
+>>>> What am I doing wrong?
+>>>>
+>>>> Note: I tried to follow https://wiki.pokylinux.org/wiki/Zypper_Repository_Setup
+>>>> Can I help with this (edit the page, etc)?  If so, how do I get a login?
+>>>>
+>>>
+>>> This is odd.  I didn't experience these issues when I was doing the development
+>>> / testing.
+>>>
+>>>>  From the above there is an "Error building the cache."  the only caching steps
+>>> that occur during an install is a sync of the system's RPM cache.  If something
+>>> is wrong there you can get a similar error.
+>>>
+>>> Try simply running "rpm -qa" and make sure you get reasonable output.  If not,
+>>> then RPM isn't installed properly.  (By default on a minimal system, the RPM
+>>> database is removed after the rootfs is populated.)
+>>
+>> 'rpm -qa ' worked just fine.
+>>
+>> I started with core-image-sato, so it's a pretty complete system to start.
+>>
+>> Do I have the repo stuff set up correctly?  I can see from the lighttpd logs
+>> that it seems to be looking for files I don't have:
+>>     192.168.7.2 192.168.1.125 - [03/May/2011:16:57:38 -0600] "HEAD /qemu-repo/repodata/repomd.xml HTTP/1.1" 404 0 "-" "ZYpp 8.11.0 (curl 7.21.2)"
+>>     192.168.7.2 192.168.1.125 - [03/May/2011:16:57:38 -0600] "HEAD /qemu-repo/content HTTP/1.1" 404 0 "-" "ZYpp 8.11.0 (curl 7.21.2)"
+>> Neither of these files seems to be in tmp/deploy/rpm
+>>
+>> Did I miss a step?  I ran 'bitbake package-index' just in case.
+>>
+>>
+>
+> did you run createrepo on the /local/qemu_test/tmp/deploy/rpm directory?
+>
+> (step 4 in the wiki page)  I usually run createrepo<path>  -- but apparently it
+> works if you are in the same directory...
 
-Fix [# 1020]
+Indeed, I missed that step.
 
-Signed-off-by: Xiaofeng Yan <xiaofeng.yan@windriver.com>
----
- meta/recipes-qt/qt4/qt4-x11-free.inc |    1 +
- 1 files changed, 1 insertions(+), 0 deletions(-)
+Note: I had expected this operation to be handled by 'bitbake package-index'
+Could it not be done that way so it's always the same, no matter the style
+of package management?
 
-diff --git a/meta/recipes-qt/qt4/qt4-x11-free.inc b/meta/recipes-qt/qt4/qt4-x11-free.inc
-index ba08dc8..a711288 100644
---- a/meta/recipes-qt/qt4/qt4-x11-free.inc
-+++ b/meta/recipes-qt/qt4/qt4-x11-free.inc
-@@ -13,6 +13,7 @@ QT_GLFLAGS_qemux86 = "-opengl"
- QT_GLFLAGS_emenlow = "-opengl"
- QT_GLFLAGS_atom-pc = "-opengl"
- QT_GLFLAGS_qemuppc = "-opengl"
-+QT_GLFLAGS_mpc8315e-rdb = "-opengl"
- QT_CONFIG_FLAGS += "-no-xinerama -no-xkb ${QT_GLFLAGS}"
- QT_BASE_NAME ?= "qt4"
- QT_BASE_LIB  ?= "libqt"
+Thanks
+
 -- 
-1.7.0.4
-
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
