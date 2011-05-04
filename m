@@ -1,29 +1,33 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A29144C80A73
-	for <poky@yoctoproject.org>; Tue,  3 May 2011 20:45:49 -0500 (CDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 5672A166026E; Tue,  3 May 2011 19:45:49 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00,
-	NORMAL_HTTP_TO_IP autolearn=unavailable version=3.3.2-r929478
-Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 57FC4166023D;
-	Tue,  3 May 2011 19:45:48 -0600 (MDT)
-Message-ID: <4DC0AFCC.9080201@mlbassoc.com>
-Date: Tue, 03 May 2011 19:45:48 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
+Return-Path: <cahoshing@gmail.com>
+Received: from mail-pz0-f48.google.com (mail-pz0-f48.google.com
+	[209.85.210.48])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 488FD4C80FE5
+	for <poky@yoctoproject.org>; Tue,  3 May 2011 23:19:58 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by pzk10 with SMTP id 10so497034pzk.35
+	for <poky@yoctoproject.org>; Tue, 03 May 2011 21:19:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:date:message-id:subject:from:to
+	:content-type; bh=2jiBrzczHGKFW4WgqFp4+yXJanCxEcWmoqsPZrPw5IQ=;
+	b=ophk4vyy7AqdDZ7z+hu7a5mCtBWBa57W1EVXRFdW7e0Cs6gMkE5w6vFu39G3Dmy5dp
+	AbkhhooqcGI+BdkYjdcXH/rzFMg//vI1OkK1QWvzHw3i43bQVHWt/MPz9UZsfwWJJS+F
+	LU6jmkwsN9U61VFZ3arYPyRpg/5aT9Jm+L9VE=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:date:message-id:subject:from:to:content-type;
+	b=VZ6HWvzhLrUrJs2NaPvDkGwSqVUA5He4iX5e+FzRa1LbjIbT6hPXSWuMKmkh3VQW/G
+	ew12b+3F2l0Wlk7N/P/pmQN6t4/9z/JVw6URWjsOQrnKDOvB+51NxZjhIYXdqeYVltzB
+	lK8iGHYJU3lkZzZ/xnjBHrurKLThFTrMvpsC8=
 MIME-Version: 1.0
-To: Mark Hatle <mark.hatle@windriver.com>
-References: <4DC08B17.2070907@mlbassoc.com> <4DC09186.8010905@windriver.com>
-In-Reply-To: <4DC09186.8010905@windriver.com>
-Cc: poky@yoctoproject.org
-Subject: Re: Zypper question
+Received: by 10.142.143.8 with SMTP id q8mr389359wfd.32.1304482797721; Tue, 03
+	May 2011 21:19:57 -0700 (PDT)
+Received: by 10.143.158.19 with HTTP; Tue, 3 May 2011 21:19:57 -0700 (PDT)
+Date: Wed, 4 May 2011 09:49:57 +0530
+Message-ID: <BANLkTim0CS8a5Q1Mv-m=KDsBGTPNA3V6mQ@mail.gmail.com>
+From: chinmaya hoshing <cahoshing@gmail.com>
+To: poky@yoctoproject.org
+Subject: Error in pulling nspr package
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,65 +39,117 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 04 May 2011 01:45:51 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 04 May 2011 04:19:58 -0000
+Content-Type: multipart/alternative; boundary=000e0cd3f872c61aef04a26b9127
 
-On 05/03/2011 05:36 PM, Mark Hatle wrote:
-> On 5/3/11 6:09 PM, Gary Thomas wrote:
->> I'm trying to set up zypper on a qemu based system.  I've built
->> the image&  additional packages in 192.168.1.125:/local/qemu_test/tmp/deploy/rpm/
->> This system is running lighttpd and has the path http://192.168.1.125/qemu-repo
->> set to that path.  I verified it by fetching http://192.168.1.125/qemu-repo/solvedb.conf
->> which shows up as
->>     /local/qemu_test/tmp/deploy/rpm/qemux86/solvedb
->>     /local/qemu_test/tmp/deploy/rpm/i586/solvedb
->>     /local/qemu_test/tmp/deploy/rpm/all/solvedb
->>
->> On the QEMU system, I ran
->>     # zypper addrepo http://192.168.1.125/qemu-repo yocto
->>     # zypper refresh
->> No errors were reported
->>
->> When I tried to install a package, I got this:
->>     # zypper install gst-plugins-base
->>     Error building the cache.
->>     [1] Repository type can't be determined.
->>     warning: Disabling repository 'yocto' because of the above error.
->>
->> What am I doing wrong?
->>
->> Note: I tried to follow https://wiki.pokylinux.org/wiki/Zypper_Repository_Setup
->> Can I help with this (edit the page, etc)?  If so, how do I get a login?
->>
+--000e0cd3f872c61aef04a26b9127
+Content-Type: text/plain; charset=ISO-8859-1
+
+Hi,
+
+I am trying to port Poky to the "sandybridge platform" and  using the branch
+"bernard" for "sugarbay" machine.
+I am running Ubuntu 10.10 on 64 bit machine.
+I am getting error for nspr package following is the error log:
+NOTE: package nss-3.12.9-r2: task do_patch: Succeeded
+ERROR: Function 'do_compile' failed (see
+/home/sandybridge/poky/build/tmp/work/snb-poky-linux/nspr-4.8.7-r0/temp/log.do_compile.2326
+for further information)
+ERROR: Logfile of failure stored in:
+/home/sandybridge/poky/build/tmp/work/snb-poky-linux/nspr-4.8.7-r0/temp/log.do_compile.2326
+Log data follows:
+| NOTE: make -j 4
+| make -C config export
+| make[1]: Entering directory
+`/home/sandybridge/poky/build/tmp/work/snb-poky-linux/nspr-4.8.7-r0/nspr-4.8.7/mozilla/nsprpub/config'
+| x86_64-poky-linux-gcc -m64
+--sysroot=/home/sct/logi_sandybridge/poky/build/tmp/sysroots/sugarbay -m32
+-o now.o -c     -fexpensive-optimizations -fomit-frame-pointer
+-frename-registers -O2 -ggdb -feliminate-unused-debug-types -Wall -g
+-fno-inline -fPIC  -UNDEBUG -DDEBUG_sct  -DDEBUG=1
+-DHAVE_VISIBILITY_HIDDEN_ATTRIBUTE=1 -DHAVE_VISIBILITY_PRAGMA=1 -DXP_UNIX=1
+-D_GNU_SOURCE=1 -DHAVE_FCNTL_FILE_LOCKING=1 -DLINUX=1 -Di386=1
+-DHAVE_LCHOWN=1 -DHAVE_STRERROR=1 -D_REENTRANT=1  -DFORCE_PR_LOG
+-D_PR_PTHREADS -UHAVE_CVAR_BUILT_ON_SEM   now.c
+| In file included from
+/home/sandybridge/poky/build/tmp/sysroots/sugarbay/usr/include/features.h:387:0,
+|                  from
+/home/sandybridge/poky/build/tmp/sysroots/sugarbay/usr/include/stdio.h:28,
+|                  from now.c:38:
+|
+/home/sandybridge/poky/build/tmp/sysroots/sugarbay/usr/include/gnu/stubs.h:7:27:
+fatal error: gnu/stubs-32.h: No such file or directory
+| compilation terminated.
+| make[1]: *** [now.o] Error 1
+| make[1]: Leaving directory
+`/home/sandybridge/poky/build/tmp/work/snb-poky-linux/nspr-4.8.7-r0/nspr-4.8.7/mozilla/nsprpub/config'
+| make: *** [export] Error 2
+| FATAL: oe_runmake failed
+| ERROR: Function 'do_compile' failed (see
+/home/sandybridge/poky/build/tmp/work/snb-poky-linux/nspr-4.8.7-r0/temp/log.do_compile.2326
+for further information)
+NOTE: package nspr-4.8.7-r0: task do_compile: Failed
+ERROR: Task 3144 (/home/sandybridge/poky/meta/recipes-connectivity/mozilla/
+nspr_4.8.7.bb, do_compile) failed with exit code '1'
+
+
+Can you help me to find the solution
+
+Chinmaya
+
+--000e0cd3f872c61aef04a26b9127
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><meta http-equiv=3D"content-type" content=3D"text/html; ch=
+arset=3Dutf-8"><span class=3D"Apple-style-span" style=3D"border-collapse: c=
+ollapse; font-family: arial, sans-serif; font-size: 13px; ">Hi,<br><br>I am=
+ trying=A0<span>to</span>=A0port Poky=A0<span>to</span>=A0the &quot;sandybr=
+idge platform&quot; and=A0 using the branch &quot;bernard&quot; for &quot;s=
+ugarbay&quot; machine.<br>
+I am running Ubuntu 10.10 on 64 bit machine.</span><div><span class=3D"Appl=
+e-style-span" style=3D"border-collapse: collapse; font-family: arial, sans-=
+serif; font-size: 13px; ">I am getting error for nspr package following is =
+the error log:</span></div>
+<div><span class=3D"Apple-style-span" style=3D"border-collapse: collapse; f=
+ont-family: arial, sans-serif; font-size: 13px; "><div>NOTE: package nss-3.=
+12.9-r2: task do_patch: Succeeded</div><div>ERROR: Function &#39;do_compile=
+&#39; failed (see /home/sandybridge/poky/build/tmp/work/snb-poky-linux/nspr=
+-4.8.7-r0/temp/log.do_compile.2326 for further information)</div>
+<div>ERROR: Logfile of failure stored in: /home/sandybridge/poky/build/tmp/=
+work/snb-poky-linux/nspr-4.8.7-r0/temp/log.do_compile.2326</div><div>Log da=
+ta follows:</div><div>| NOTE: make -j 4</div><div>| make -C config export</=
+div>
+<div>| make[1]: Entering directory `/home/sandybridge/poky/build/tmp/work/s=
+nb-poky-linux/nspr-4.8.7-r0/nspr-4.8.7/mozilla/nsprpub/config&#39;</div><di=
+v>| x86_64-poky-linux-gcc -m64 --sysroot=3D/home/sct/logi_sandybridge/poky/=
+build/tmp/sysroots/sugarbay -m32 -o now.o -c =A0 =A0 -fexpensive-optimizati=
+ons -fomit-frame-pointer -frename-registers -O2 -ggdb -feliminate-unused-de=
+bug-types -Wall -g -fno-inline -fPIC =A0-UNDEBUG -DDEBUG_sct =A0-DDEBUG=3D1=
+ -DHAVE_VISIBILITY_HIDDEN_ATTRIBUTE=3D1 -DHAVE_VISIBILITY_PRAGMA=3D1 -DXP_U=
+NIX=3D1 -D_GNU_SOURCE=3D1 -DHAVE_FCNTL_FILE_LOCKING=3D1 -DLINUX=3D1 -Di386=
+=3D1 -DHAVE_LCHOWN=3D1 -DHAVE_STRERROR=3D1 -D_REENTRANT=3D1 =A0-DFORCE_PR_L=
+OG -D_PR_PTHREADS -UHAVE_CVAR_BUILT_ON_SEM =A0 now.c</div>
+<div>| In file included from /home/sandybridge/poky/build/tmp/sysroots/suga=
+rbay/usr/include/features.h:387:0,</div><div>| =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
+=A0 =A0from /home/sandybridge/poky/build/tmp/sysroots/sugarbay/usr/include/=
+stdio.h:28,</div>
+<div>| =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0from now.c:38:</div><div>| /home/=
+sandybridge/poky/build/tmp/sysroots/sugarbay/usr/include/gnu/stubs.h:7:27: =
+fatal error: gnu/stubs-32.h: No such file or directory</div><div>| compilat=
+ion terminated.</div>
+<div>| make[1]: *** [now.o] Error 1</div><div>| make[1]: Leaving directory =
+`/home/sandybridge/poky/build/tmp/work/snb-poky-linux/nspr-4.8.7-r0/nspr-4.=
+8.7/mozilla/nsprpub/config&#39;</div><div>| make: *** [export] Error 2</div=
 >
-> This is odd.  I didn't experience these issues when I was doing the development
-> / testing.
->
->> From the above there is an "Error building the cache."  the only caching steps
-> that occur during an install is a sync of the system's RPM cache.  If something
-> is wrong there you can get a similar error.
->
-> Try simply running "rpm -qa" and make sure you get reasonable output.  If not,
-> then RPM isn't installed properly.  (By default on a minimal system, the RPM
-> database is removed after the rootfs is populated.)
+<div>| FATAL: oe_runmake failed</div><div>| ERROR: Function &#39;do_compile=
+&#39; failed (see /home/sandybridge/poky/build/tmp/work/snb-poky-linux/nspr=
+-4.8.7-r0/temp/log.do_compile.2326 for further information)</div><div>NOTE:=
+ package nspr-4.8.7-r0: task do_compile: Failed</div>
+<div>ERROR: Task 3144 (/home/sandybridge/poky/meta/recipes-connectivity/moz=
+illa/<a href=3D"http://nspr_4.8.7.bb">nspr_4.8.7.bb</a>, do_compile) failed=
+ with exit code &#39;1&#39;</div><div><br></div><div><br></div><div>Can you=
+ help me to find the solution</div>
+<div><br></div><div>Chinmaya</div></span></div></div>
 
-'rpm -qa ' worked just fine.
-
-I started with core-image-sato, so it's a pretty complete system to start.
-
-Do I have the repo stuff set up correctly?  I can see from the lighttpd logs
-that it seems to be looking for files I don't have:
-   192.168.7.2 192.168.1.125 - [03/May/2011:16:57:38 -0600] "HEAD /qemu-repo/repodata/repomd.xml HTTP/1.1" 404 0 "-" "ZYpp 8.11.0 (curl 7.21.2)"
-   192.168.7.2 192.168.1.125 - [03/May/2011:16:57:38 -0600] "HEAD /qemu-repo/content HTTP/1.1" 404 0 "-" "ZYpp 8.11.0 (curl 7.21.2)"
-Neither of these files seems to be in tmp/deploy/rpm
-
-Did I miss a step?  I ran 'bitbake package-index' just in case.
-
-
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
-
+--000e0cd3f872c61aef04a26b9127--
