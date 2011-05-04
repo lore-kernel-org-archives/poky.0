@@ -1,30 +1,30 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C41CD4C80FA5
-	for <poky@yoctoproject.org>; Wed,  4 May 2011 06:21:25 -0500 (CDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 756DD16602BB; Wed,  4 May 2011 05:21:25 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00,
-	NORMAL_HTTP_TO_IP autolearn=unavailable version=3.3.2-r929478
-Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 59BAB1660285;
-	Wed,  4 May 2011 05:21:24 -0600 (MDT)
-Message-ID: <4DC136B4.208@mlbassoc.com>
-Date: Wed, 04 May 2011 05:21:24 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
-MIME-Version: 1.0
-To: Mark Hatle <mark.hatle@windriver.com>
-References: <4DC08B17.2070907@mlbassoc.com> <4DC09186.8010905@windriver.com>
-	<4DC0AFCC.9080201@mlbassoc.com> <4DC0DAC8.8090005@windriver.com>
-In-Reply-To: <4DC0DAC8.8090005@windriver.com>
-Cc: poky@yoctoproject.org
-Subject: Re: Zypper question
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4306F4C800B0
+	for <poky@yoctoproject.org>; Wed,  4 May 2011 09:15:07 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p44EF4Lb032124;
+	Wed, 4 May 2011 15:15:04 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 31885-04; Wed,  4 May 2011 15:15:00 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p44EEttk032111
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Wed, 4 May 2011 15:14:55 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Gary Thomas <gary@mlbassoc.com>
+In-Reply-To: <4DC08D31.7000001@mlbassoc.com>
+References: <4DC08D31.7000001@mlbassoc.com>
+Date: Wed, 04 May 2011 15:14:54 +0100
+Message-ID: <1304518494.21461.155.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.2 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: Poky Project <poky@yoctoproject.org>
+Subject: Re: gstreamer not playing nice with gconf?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,81 +36,55 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 04 May 2011 11:21:26 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Wed, 04 May 2011 14:15:07 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On 05/03/2011 10:49 PM, Mark Hatle wrote:
-> On 5/3/11 8:45 PM, Gary Thomas wrote:
->> On 05/03/2011 05:36 PM, Mark Hatle wrote:
->>> On 5/3/11 6:09 PM, Gary Thomas wrote:
->>>> I'm trying to set up zypper on a qemu based system.  I've built
->>>> the image&   additional packages in 192.168.1.125:/local/qemu_test/tmp/deploy/rpm/
->>>> This system is running lighttpd and has the path http://192.168.1.125/qemu-repo
->>>> set to that path.  I verified it by fetching http://192.168.1.125/qemu-repo/solvedb.conf
->>>> which shows up as
->>>>      /local/qemu_test/tmp/deploy/rpm/qemux86/solvedb
->>>>      /local/qemu_test/tmp/deploy/rpm/i586/solvedb
->>>>      /local/qemu_test/tmp/deploy/rpm/all/solvedb
->>>>
->>>> On the QEMU system, I ran
->>>>      # zypper addrepo http://192.168.1.125/qemu-repo yocto
->>>>      # zypper refresh
->>>> No errors were reported
->>>>
->>>> When I tried to install a package, I got this:
->>>>      # zypper install gst-plugins-base
->>>>      Error building the cache.
->>>>      [1] Repository type can't be determined.
->>>>      warning: Disabling repository 'yocto' because of the above error.
->>>>
->>>> What am I doing wrong?
->>>>
->>>> Note: I tried to follow https://wiki.pokylinux.org/wiki/Zypper_Repository_Setup
->>>> Can I help with this (edit the page, etc)?  If so, how do I get a login?
->>>>
->>>
->>> This is odd.  I didn't experience these issues when I was doing the development
->>> / testing.
->>>
->>>>  From the above there is an "Error building the cache."  the only caching steps
->>> that occur during an install is a sync of the system's RPM cache.  If something
->>> is wrong there you can get a similar error.
->>>
->>> Try simply running "rpm -qa" and make sure you get reasonable output.  If not,
->>> then RPM isn't installed properly.  (By default on a minimal system, the RPM
->>> database is removed after the rootfs is populated.)
->>
->> 'rpm -qa ' worked just fine.
->>
->> I started with core-image-sato, so it's a pretty complete system to start.
->>
->> Do I have the repo stuff set up correctly?  I can see from the lighttpd logs
->> that it seems to be looking for files I don't have:
->>     192.168.7.2 192.168.1.125 - [03/May/2011:16:57:38 -0600] "HEAD /qemu-repo/repodata/repomd.xml HTTP/1.1" 404 0 "-" "ZYpp 8.11.0 (curl 7.21.2)"
->>     192.168.7.2 192.168.1.125 - [03/May/2011:16:57:38 -0600] "HEAD /qemu-repo/content HTTP/1.1" 404 0 "-" "ZYpp 8.11.0 (curl 7.21.2)"
->> Neither of these files seems to be in tmp/deploy/rpm
->>
->> Did I miss a step?  I ran 'bitbake package-index' just in case.
->>
->>
->
-> did you run createrepo on the /local/qemu_test/tmp/deploy/rpm directory?
->
-> (step 4 in the wiki page)  I usually run createrepo<path>  -- but apparently it
-> works if you are in the same directory...
+On Tue, 2011-05-03 at 17:18 -0600, Gary Thomas wrote:
+> I'm having troubles with GConf and gstreamer on my Poky/Yocto system.
+> 
+> On my desktop, gstreamer has installed some proper defaults:
+>    % gconftool-2 -R /system//gstreamer
+>    /system/gstreamer/0.10:
+>      /system/gstreamer/0.10/audio:
+>        /system/gstreamer/0.10/audio/profiles:
+>          /system/gstreamer/0.10/audio/profiles/aac:
+>            extension = m4a
+>            name = CD Quality, AAC
+>            active = true
+>            ...
+>      /system/gstreamer/0.10/default:
+>        musicaudiosink_description = Default
+>        videosink = autovideosink
+>        visualization = autoaudiosink
+>        audiosink = autoaudiosink
+>        musicaudiosink = autoaudiosink
+>        chataudiosink_description = Default
+>        audiosrc_description = Default
+>        audiosink_description = Default
+>        chataudiosink = autoaudiosink
+>        audiosrc = alsasrc
+>        videosrc = v4l2src
+> 
+> However, on my Poky/Yocto system, I don't get any of this:
+>    # gconftool-2 -R /system//gstreamer
+>    #
+> (in other words, it's not there)
+> 
+> I can see that /etc/gconf/schemas/gstreamer-0.10.schemas was installed,
+> but it doesn't seem to be processed.  Other schemas in that directory
+> are processed when the gconfd starts up.
+> 
+> Am I missing something in how this works?  I'm trying to run a GNome
+> application (cheese) which needs to get at the gstreamer videosink
+> default, but it's not available which causes it to fail.
+> 
+> Ideas?
 
-Indeed, I missed that step.
+Missing gconf postinstall for gstreamer? I'm just guessing though...
 
-Note: I had expected this operation to be handled by 'bitbake package-index'
-Could it not be done that way so it's always the same, no matter the style
-of package management?
+Cheers,
 
-Thanks
+Richard
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
 
