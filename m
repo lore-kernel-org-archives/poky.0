@@ -1,33 +1,31 @@
-Return-Path: <jessica.zhang@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 500C34C800B6
-	for <poky@pokylinux.org>; Wed,  4 May 2011 12:21:15 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 04 May 2011 10:21:14 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,315,1301900400"; d="scan'208";a="637926517"
-Received: from orsmsx604.amr.corp.intel.com ([10.22.226.87])
-	by orsmga002.jf.intel.com with ESMTP; 04 May 2011 10:21:14 -0700
-Received: from orsmsx601.amr.corp.intel.com (10.22.226.213) by
-	orsmsx604.amr.corp.intel.com (10.22.226.87) with Microsoft SMTP Server
-	(TLS) id 8.2.255.0; Wed, 4 May 2011 10:21:13 -0700
-Received: from orsmsx504.amr.corp.intel.com ([10.22.226.207]) by
-	orsmsx601.amr.corp.intel.com ([10.22.226.213]) with mapi;
-	Wed, 4 May 2011 10:21:14 -0700
-From: "Zhang, Jessica" <jessica.zhang@intel.com>
-To: Ilya Yanok <yanok@emcraft.com>, "poky@pokylinux.org" <poky@pokylinux.org>
-Date: Wed, 4 May 2011 10:21:12 -0700
-Thread-Topic: [poky] opkg and opkg-target aliases for the SDK
-Thread-Index: AcwKfUByxOTSUEyHR+iroieMd8/EbAAAdjjA
-Message-ID: <9AFCD584B0B67B48AE8D8585BE30BA950116E73F04@orsmsx504.amr.corp.intel.com>
-References: <4DC186D1.30302@emcraft.com>
-In-Reply-To: <4DC186D1.30302@emcraft.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
+Return-Path: <Tom_Rini@mentor.com>
+Received: from relay1.mentorg.com (relay1.mentorg.com [192.94.38.131])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 57F184C800B6
+	for <poky@yoctoproject.org>; Wed,  4 May 2011 14:55:53 -0500 (CDT)
+Received: from svr-orw-exc-10.mgc.mentorg.com ([147.34.98.58])
+	by relay1.mentorg.com with esmtp 
+	id 1QHiAq-0005Yg-K2 from Tom_Rini@mentor.com 
+	for poky@yoctoproject.org; Wed, 04 May 2011 12:55:52 -0700
+Received: from SVR-ORW-FEM-05.mgc.mentorg.com ([147.34.97.43]) by
+	SVR-ORW-EXC-10.mgc.mentorg.com with Microsoft
+	SMTPSVC(6.0.3790.4675); Wed, 4 May 2011 12:54:38 -0700
+Received: from [172.30.0.24] (147.34.91.1) by svr-orw-fem-05 (147.34.97.43)
+	with Microsoft SMTP Server id 14.1.270.1; Wed, 4 May 2011 12:55:52 -0700
+Message-ID: <4DC1AF3E.20602@mentor.com>
+Date: Wed, 4 May 2011 12:55:42 -0700
+From: Tom Rini <tom_rini@mentor.com>
+Organization: Mentor Graphics Corporation
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.14) Gecko/20110223 Lightning/1.0b2 Thunderbird/3.1.8
 MIME-Version: 1.0
-Subject: Re: opkg and opkg-target aliases for the SDK
+To: <poky@yoctoproject.org>
+References: <cover.1304496956.git.xiaofeng.yan@windriver.com>
+	<14d94988bd1dd3fc1707828dac9c738f0325175c.1304496956.git.xiaofeng.yan@windriver.com>
+In-Reply-To: <14d94988bd1dd3fc1707828dac9c738f0325175c.1304496956.git.xiaofeng.yan@windriver.com>
+X-Enigmail-Version: 1.1.1
+X-OriginalArrivalTime: 04 May 2011 19:54:38.0469 (UTC)
+	FILETIME=[19B66350:01CC0A95]
+Subject: Re: [PATCH 1/1] qt4: Enable qt4 opengl for ppc
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,41 +37,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 04 May 2011 17:21:20 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Wed, 04 May 2011 19:55:53 -0000
+Content-Type: text/plain; charset="ISO-8859-1"
+Content-Transfer-Encoding: 7bit
 
-Hi Ilya,
+On 05/04/2011 04:00 AM, Xiaofeng Yan wrote:
+> From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+> 
+> Fix [# 1020]
+> 
+> Signed-off-by: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+> ---
+>  meta/recipes-qt/qt4/qt4-x11-free.inc |    1 +
+>  1 files changed, 1 insertions(+), 0 deletions(-)
+> 
+> diff --git a/meta/recipes-qt/qt4/qt4-x11-free.inc b/meta/recipes-qt/qt4/qt4-x11-free.inc
+> index ba08dc8..a711288 100644
+> --- a/meta/recipes-qt/qt4/qt4-x11-free.inc
+> +++ b/meta/recipes-qt/qt4/qt4-x11-free.inc
+> @@ -13,6 +13,7 @@ QT_GLFLAGS_qemux86 = "-opengl"
+>  QT_GLFLAGS_emenlow = "-opengl"
+>  QT_GLFLAGS_atom-pc = "-opengl"
+>  QT_GLFLAGS_qemuppc = "-opengl"
+> +QT_GLFLAGS_mpc8315e-rdb = "-opengl"
+>  QT_CONFIG_FLAGS += "-no-xinerama -no-xkb ${QT_GLFLAGS}"
+>  QT_BASE_NAME ?= "qt4"
+>  QT_BASE_LIB  ?= "libqt"
 
-The removal was part of the changes made for adt-installer which is a new f=
-eature for Yocto 1.0 release.  The old opkg and opkg-target aliases in the =
-environment script was for add packages to the locked location of toolchain=
-(aka SDK) and target sysroot.  With Yocto 1.0 and adt-installer, it's still=
- using opkg to install toolchain under /opt/poky/ but the sysroot is now a =
-customized location that can be anywhere, which is specified in the adt_int=
-aller.conf file...
+Can we use more generic overrides here?  Otherwise we'll just fail on
+the next powerpc board.
 
-Thanks,
-Jessica
-
------Original Message-----
-From: poky-bounces@yoctoproject.org [mailto:poky-bounces@yoctoproject.org] =
-On Behalf Of Ilya Yanok
-Sent: Wednesday, May 04, 2011 10:03 AM
-To: poky@pokylinux.org
-Subject: [poky] opkg and opkg-target aliases for the SDK
-
-Hello guys,
-
-I've found that opkg and opkg-target aliases were removed from the SDK
-environment script by commit f09f8f4.
-However I can't see any note about this in the commit comment. Was this
-removal intentional?
-
-Regards, Ilya.
-_______________________________________________
-poky mailing list
-poky@yoctoproject.org
-https://lists.yoctoproject.org/listinfo/poky
+-- 
+Tom Rini
+Mentor Graphics Corporation
 
