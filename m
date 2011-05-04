@@ -1,26 +1,29 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0CF814C80A73
-	for <poky@yoctoproject.org>; Tue,  3 May 2011 20:39:01 -0500 (CDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 03 May 2011 18:39:01 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,312,1301900400"; d="scan'208";a="917627318"
-Received: from unknown (HELO [10.255.13.11]) ([10.255.13.11])
-	by fmsmga001.fm.intel.com with ESMTP; 03 May 2011 18:39:00 -0700
-Message-ID: <4DC0AE34.6070401@intel.com>
-Date: Tue, 03 May 2011 18:39:00 -0700
-From: Saul Wold <saul.wold@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id A29144C80A73
+	for <poky@yoctoproject.org>; Tue,  3 May 2011 20:45:49 -0500 (CDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 5672A166026E; Tue,  3 May 2011 19:45:49 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00,
+	NORMAL_HTTP_TO_IP autolearn=unavailable version=3.3.2-r929478
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 57FC4166023D;
+	Tue,  3 May 2011 19:45:48 -0600 (MDT)
+Message-ID: <4DC0AFCC.9080201@mlbassoc.com>
+Date: Tue, 03 May 2011 19:45:48 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
 MIME-Version: 1.0
-To: Kang Kai <kai.kang@windriver.com>
-References: <cover.1304412927.git.kai.kang@windriver.com>
-	<5625530be6f90e68c3fe26a397d57d6fcb82a1fd.1304412927.git.kai.kang@windriver.com>
-In-Reply-To: <5625530be6f90e68c3fe26a397d57d6fcb82a1fd.1304412927.git.kai.kang@windriver.com>
+To: Mark Hatle <mark.hatle@windriver.com>
+References: <4DC08B17.2070907@mlbassoc.com> <4DC09186.8010905@windriver.com>
+In-Reply-To: <4DC09186.8010905@windriver.com>
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 2/2] ghostscript: added to pass LSB commands check
+Subject: Re: Zypper question
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,220 +35,65 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 04 May 2011 01:39:02 -0000
+X-List-Received-Date: Wed, 04 May 2011 01:45:51 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 05/03/2011 02:28 AM, Kang Kai wrote:
-> From: Kang Kai<kai.kang@windriver.com>
+On 05/03/2011 05:36 PM, Mark Hatle wrote:
+> On 5/3/11 6:09 PM, Gary Thomas wrote:
+>> I'm trying to set up zypper on a qemu based system.  I've built
+>> the image&  additional packages in 192.168.1.125:/local/qemu_test/tmp/deploy/rpm/
+>> This system is running lighttpd and has the path http://192.168.1.125/qemu-repo
+>> set to that path.  I verified it by fetching http://192.168.1.125/qemu-repo/solvedb.conf
+>> which shows up as
+>>     /local/qemu_test/tmp/deploy/rpm/qemux86/solvedb
+>>     /local/qemu_test/tmp/deploy/rpm/i586/solvedb
+>>     /local/qemu_test/tmp/deploy/rpm/all/solvedb
+>>
+>> On the QEMU system, I ran
+>>     # zypper addrepo http://192.168.1.125/qemu-repo yocto
+>>     # zypper refresh
+>> No errors were reported
+>>
+>> When I tried to install a package, I got this:
+>>     # zypper install gst-plugins-base
+>>     Error building the cache.
+>>     [1] Repository type can't be determined.
+>>     warning: Disabling repository 'yocto' because of the above error.
+>>
+>> What am I doing wrong?
+>>
+>> Note: I tried to follow https://wiki.pokylinux.org/wiki/Zypper_Repository_Setup
+>> Can I help with this (edit the page, etc)?  If so, how do I get a login?
+>>
 >
-> Add ghostscript to pass LSB commands check and Printing test
+> This is odd.  I didn't experience these issues when I was doing the development
+> / testing.
 >
-So these are new recipes?
-
-> Signed-off-by: Kang Kai<kai.kang@windriver.com>
-> ---
->   .../ghostscript/ghostscript-native_9.02.bb         |   35 ++++++++
-
-Can this be re-written to use BBCLASSEXTEND = "native" and merge with 
-the base ghostscript case?
-
->   .../ghostscript-9.02-prevent_recompiling.patch     |   92 ++++++++++++++++++++
-The patch requires an "Upstream-status:" tag indicating the status for 
-upstreaming, please refer to older emails regarding this tag.
-
-Sau!
-
->   .../ghostscript/ghostscript_9.02.bb                |   40 +++++++++
->   3 files changed, 167 insertions(+), 0 deletions(-)
->   create mode 100644 meta/recipes-extended/ghostscript/ghostscript-native_9.02.bb
->   create mode 100644 meta/recipes-extended/ghostscript/ghostscript/ghostscript-9.02-prevent_recompiling.patch
->   create mode 100644 meta/recipes-extended/ghostscript/ghostscript_9.02.bb
+>> From the above there is an "Error building the cache."  the only caching steps
+> that occur during an install is a sync of the system's RPM cache.  If something
+> is wrong there you can get a similar error.
 >
-> diff --git a/meta/recipes-extended/ghostscript/ghostscript-native_9.02.bb b/meta/recipes-extended/ghostscript/ghostscript-native_9.02.bb
-> new file mode 100644
-> index 0000000..4927348
-> --- /dev/null
-> +++ b/meta/recipes-extended/ghostscript/ghostscript-native_9.02.bb
-> @@ -0,0 +1,35 @@
-> +SUMMARY = "The GPL Ghostscript PostScript/PDF interpreter"
-> +DESCRIPTION = "Only used to cross build Ghostscript itself"
-> +HOMEPAGE = "http://www.ghostscript.com"
-> +SECTION = "console/utils"
-> +
-> +LICENSE = "GPLv3"
-> +LIC_FILES_CHKSUM = "file://LICENSE;md5=d151214b3131251dfc9d858593acbd24"
-> +
-> +PR = "r0"
-> +
-> +DEPENDS += "tiff"
-> +
-> +SRC_URI = "http://downloads.ghostscript.com/public/ghostscript-${PV}.tar.bz2"
-> +
-> +SRC_URI[md5sum] = "f67151444bd56a7904579fc75a083dd6"
-> +SRC_URI[sha256sum] = "03ea2cad13a36f8f9160912012b79619a826e7148fada6d3531feb25409ee05a"
-> +
-> +EXTRA_OECONF = "--with-system-libtiff --without-jbig2dec --without-jasper"
-> +
-> +inherit autotools native
-> +
-> +do_compile() {
-> +    mkdir -p obj
-> +    for i in genarch genconf mkromfs echogs gendev genht; do
-> +        oe_runmake obj/$i
-> +    done
-> +}
-> +
-> +
-> +do_install() {
-> +    install -d ${D}${bindir}/ghostscript-${PV}
-> +    for i in genarch genconf mkromfs echogs gendev genht; do
-> +        install -m 755 obj/$i ${D}${bindir}/ghostscript-${PV}/$i
-> +    done
-> +}
-> diff --git a/meta/recipes-extended/ghostscript/ghostscript/ghostscript-9.02-prevent_recompiling.patch b/meta/recipes-extended/ghostscript/ghostscript/ghostscript-9.02-prevent_recompiling.patch
-> new file mode 100644
-> index 0000000..914042a
-> --- /dev/null
-> +++ b/meta/recipes-extended/ghostscript/ghostscript/ghostscript-9.02-prevent_recompiling.patch
-> @@ -0,0 +1,92 @@
-> +Just use commands provided by ghostscript-native, preventing recompile them
-> +Way to enable cross compile.
-> +
-> +Signed-off-by: Kang Kai<kai.kang@windriver.com>
-> +
-> +--- a/base/unix-aux.mak.orig	2011-05-03 15:35:55.196887997 +0800
-> ++++ b/base/unix-aux.mak	2011-05-03 15:37:57.766888003 +0800
-> +@@ -57,45 +57,45 @@ $(GLOBJ)gp_sysv.$(OBJ): $(GLSRC)gp_sysv.
-> +
-> + # -------------------------- Auxiliary programs --------------------------- #
-> +
-> +-$(ECHOGS_XE): $(GLSRC)echogs.c $(AK) $(stdpre_h)
-> +-	$(CCAUX) $(I_)$(GLSRCDIR)$(_I) $(O_)$(ECHOGS_XE) $(GLSRC)echogs.c
-> +-
-> +-# On the RS/6000 (at least), compiling genarch.c with gcc with -O
-> +-# produces a buggy executable.
-> +-$(GENARCH_XE): $(GLSRC)genarch.c $(AK) $(GENARCH_DEPS)
-> +-	$(CCAUX) $(I_)$(GLSRCDIR)$(_I) $(O_)$(GENARCH_XE) $(GLSRC)genarch.c
-> +-
-> +-$(GENCONF_XE): $(GLSRC)genconf.c $(AK) $(GENCONF_DEPS)
-> +-	$(CCAUX) $(I_)$(GLSRCDIR)$(_I) $(O_)$(GENCONF_XE) $(GLSRC)genconf.c
-> +-
-> +-$(GENDEV_XE): $(GLSRC)gendev.c $(AK) $(GENDEV_DEPS)
-> +-	$(CCAUX) $(I_)$(GLSRCDIR)$(_I) $(O_)$(GENDEV_XE) $(GLSRC)gendev.c
-> +-
-> +-$(GENHT_XE): $(GLSRC)genht.c $(AK) $(GENHT_DEPS)
-> +-	$(CCAUX) $(GENHT_CFLAGS) $(O_)$(GENHT_XE) $(GLSRC)genht.c
-> +-
-> +-# To get GS to use the system zlib, you remove/hide the gs/zlib directory
-> +-# which means that the mkromfs build can't find the zlib source it needs.
-> +-# So it's split into two targets, one using the zlib source directly.....
-> +-MKROMFS_OBJS_0=$(MKROMFS_ZLIB_OBJS) $(GLOBJ)gscdefs.$(OBJ) $(GLOBJ)gsmisc.$(OBJ) \
-> +- $(GLOBJ)gpmisc.$(OBJ) $(GLOBJ)gslibctx.$(OBJ) $(GLOBJ)gp_getnv.$(OBJ) \
-> +- $(GLOBJ)gp_unix.$(OBJ) $(GLOBJ)gp_unifs.$(OBJ) $(GLOBJ)gp_unifn.$(OBJ) \
-> +- $(GLOBJ)gp_stdia.$(OBJ) $(GLOBJ)gsutil.$(OBJ)
-> +-
-> +-$(MKROMFS_XE)_0: $(GLSRC)mkromfs.c $(MKROMFS_COMMON_DEPS) $(MKROMFS_OBJS_0)
-> +-	$(CCAUX) $(GENOPT) $(CFLAGS) $(I_)$(GLSRCDIR)$(_I) $(I_)$(GLOBJ)$(_I) $(I_)$(ZSRCDIR)$(_I) $(GLSRC)mkromfs.c $(O_)$(MKROMFS_XE)_0 $(MKROMFS_OBJS_0) -lm $(EXTRALIBS)
-> +-
-> +-# .... and one using the zlib library linked via the command line
-> +-MKROMFS_OBJS_1=$(GLOBJ)gscdefs.$(OBJ) $(GLOBJ)gsmisc.$(OBJ) \
-> +- $(GLOBJ)gpmisc.$(OBJ) $(GLOBJ)gslibctx.$(OBJ) $(GLOBJ)gp_getnv.$(OBJ) \
-> +- $(GLOBJ)gp_unix.$(OBJ) $(GLOBJ)gp_unifs.$(OBJ) $(GLOBJ)gp_unifn.$(OBJ) \
-> +- $(GLOBJ)gp_stdia.$(OBJ) $(GLOBJ)gsutil.$(OBJ)
-> +-
-> +-$(MKROMFS_XE)_1: $(GLSRC)mkromfs.c $(MKROMFS_COMMON_DEPS) $(MKROMFS_OBJS_1)
-> +-	$(CCAUX) $(GENOPT) $(CFLAGS) $(I_)$(GLSRCDIR)$(_I) $(I_)$(GLOBJ)$(_I) $(I_)$(ZSRCDIR)$(_I) $(GLSRC)mkromfs.c $(O_)$(MKROMFS_XE)_1 $(MKROMFS_OBJS_1) -lm $(EXTRALIBS)
-> +-
-> +-$(MKROMFS_XE): $(MKROMFS_XE)_$(SHARE_ZLIB)
-> +-	$(CP_) $(MKROMFS_XE)_$(SHARE_ZLIB) $(MKROMFS_XE)
-> ++#$(ECHOGS_XE): $(GLSRC)echogs.c $(AK) $(stdpre_h)
-> ++#	$(CCAUX) $(I_)$(GLSRCDIR)$(_I) $(O_)$(ECHOGS_XE) $(GLSRC)echogs.c
-> ++#
-> ++## On the RS/6000 (at least), compiling genarch.c with gcc with -O
-> ++## produces a buggy executable.
-> ++#$(GENARCH_XE): $(GLSRC)genarch.c $(AK) $(GENARCH_DEPS)
-> ++#	$(CCAUX) $(I_)$(GLSRCDIR)$(_I) $(O_)$(GENARCH_XE) $(GLSRC)genarch.c
-> ++#
-> ++#$(GENCONF_XE): $(GLSRC)genconf.c $(AK) $(GENCONF_DEPS)
-> ++#	$(CCAUX) $(I_)$(GLSRCDIR)$(_I) $(O_)$(GENCONF_XE) $(GLSRC)genconf.c
-> ++#
-> ++#$(GENDEV_XE): $(GLSRC)gendev.c $(AK) $(GENDEV_DEPS)
-> ++#	$(CCAUX) $(I_)$(GLSRCDIR)$(_I) $(O_)$(GENDEV_XE) $(GLSRC)gendev.c
-> ++#
-> ++#$(GENHT_XE): $(GLSRC)genht.c $(AK) $(GENHT_DEPS)
-> ++#	$(CCAUX) $(GENHT_CFLAGS) $(O_)$(GENHT_XE) $(GLSRC)genht.c
-> ++#
-> ++## To get GS to use the system zlib, you remove/hide the gs/zlib directory
-> ++## which means that the mkromfs build can't find the zlib source it needs.
-> ++## So it's split into two targets, one using the zlib source directly.....
-> ++#MKROMFS_OBJS_0=$(MKROMFS_ZLIB_OBJS) $(GLOBJ)gscdefs.$(OBJ) $(GLOBJ)gsmisc.$(OBJ) \
-> ++# $(GLOBJ)gpmisc.$(OBJ) $(GLOBJ)gslibctx.$(OBJ) $(GLOBJ)gp_getnv.$(OBJ) \
-> ++# $(GLOBJ)gp_unix.$(OBJ) $(GLOBJ)gp_unifs.$(OBJ) $(GLOBJ)gp_unifn.$(OBJ) \
-> ++# $(GLOBJ)gp_stdia.$(OBJ) $(GLOBJ)gsutil.$(OBJ)
-> ++#
-> ++#$(MKROMFS_XE)_0: $(GLSRC)mkromfs.c $(MKROMFS_COMMON_DEPS) $(MKROMFS_OBJS_0)
-> ++#	$(CCAUX) $(GENOPT) $(CFLAGS) $(I_)$(GLSRCDIR)$(_I) $(I_)$(GLOBJ)$(_I) $(I_)$(ZSRCDIR)$(_I) $(GLSRC)mkromfs.c $(O_)$(MKROMFS_XE)_0 $(MKROMFS_OBJS_0) -lm $(EXTRALIBS)
-> ++#
-> ++## .... and one using the zlib library linked via the command line
-> ++#MKROMFS_OBJS_1=$(GLOBJ)gscdefs.$(OBJ) $(GLOBJ)gsmisc.$(OBJ) \
-> ++# $(GLOBJ)gpmisc.$(OBJ) $(GLOBJ)gslibctx.$(OBJ) $(GLOBJ)gp_getnv.$(OBJ) \
-> ++# $(GLOBJ)gp_unix.$(OBJ) $(GLOBJ)gp_unifs.$(OBJ) $(GLOBJ)gp_unifn.$(OBJ) \
-> ++# $(GLOBJ)gp_stdia.$(OBJ) $(GLOBJ)gsutil.$(OBJ)
-> ++#
-> ++#$(MKROMFS_XE)_1: $(GLSRC)mkromfs.c $(MKROMFS_COMMON_DEPS) $(MKROMFS_OBJS_1)
-> ++#	$(CCAUX) $(GENOPT) $(CFLAGS) $(I_)$(GLSRCDIR)$(_I) $(I_)$(GLOBJ)$(_I) $(I_)$(ZSRCDIR)$(_I) $(GLSRC)mkromfs.c $(O_)$(MKROMFS_XE)_1 $(MKROMFS_OBJS_1) -lm $(EXTRALIBS)
-> ++#
-> ++#$(MKROMFS_XE): $(MKROMFS_XE)_$(SHARE_ZLIB)
-> ++#	$(CP_) $(MKROMFS_XE)_$(SHARE_ZLIB) $(MKROMFS_XE)
-> +
-> + # Query the environment to construct gconfig_.h.
-> + # The "else true;" is required because Ultrix's implementation of sh -e
-> diff --git a/meta/recipes-extended/ghostscript/ghostscript_9.02.bb b/meta/recipes-extended/ghostscript/ghostscript_9.02.bb
-> new file mode 100644
-> index 0000000..25e9c2c
-> --- /dev/null
-> +++ b/meta/recipes-extended/ghostscript/ghostscript_9.02.bb
-> @@ -0,0 +1,40 @@
-> +SUMMARY = "The GPL Ghostscript PostScript/PDF interpreter"
-> +DESCRIPTION = "Ghostscript is used for PostScript/PDF preview and printing.  Usually as \
-> +a back-end to a program such as ghostview, it can display PostScript and PDF \
-> +documents in an X11 environment. \
-> +\
-> +Furthermore, it can render PostScript and PDF files as graphics to be printed \
-> +on non-PostScript printers. Supported printers include common \
-> +dot-matrix, inkjet and laser models. \
-> +\
-> +Package gsfonts contains a set of standard fonts for Ghostscript. \
-> +"
-> +HOMEPAGE = "http://www.ghostscript.com"
-> +SECTION = "console/utils"
-> +
-> +LICENSE = "GPLv3"
-> +LIC_FILES_CHKSUM = "file://LICENSE;md5=d151214b3131251dfc9d858593acbd24"
-> +
-> +PR = "r0"
-> +
-> +DEPENDS += "tiff ${PN}-native"
-> +
-> +SRC_URI = "http://downloads.ghostscript.com/public/ghostscript-${PV}.tar.bz2 \
-> +           file://ghostscript-9.02-prevent_recompiling.patch \
-> +           "
-> +
-> +SRC_URI[md5sum] = "f67151444bd56a7904579fc75a083dd6"
-> +SRC_URI[sha256sum] = "03ea2cad13a36f8f9160912012b79619a826e7148fada6d3531feb25409ee05a"
-> +
-> +EXTRA_OECONF = "--with-system-libtiff --without-jbig2dec --without-jasper"
-> +
-> +do_configure_append() {
-> +    # copy tools from the native ghostscript build
-> +    mkdir -p obj soobj
-> +    for i in genarch genconf mkromfs echogs gendev genht; do
-> +        cp ${STAGING_BINDIR_NATIVE}/ghostscript-${PV}/$i obj/$i
-> +        cp ${STAGING_BINDIR_NATIVE}/ghostscript-${PV}/$i soobj/$i
-> +    done
-> +}
-> +
-> +inherit autotools
+> Try simply running "rpm -qa" and make sure you get reasonable output.  If not,
+> then RPM isn't installed properly.  (By default on a minimal system, the RPM
+> database is removed after the rootfs is populated.)
 
+'rpm -qa ' worked just fine.
+
+I started with core-image-sato, so it's a pretty complete system to start.
+
+Do I have the repo stuff set up correctly?  I can see from the lighttpd logs
+that it seems to be looking for files I don't have:
+   192.168.7.2 192.168.1.125 - [03/May/2011:16:57:38 -0600] "HEAD /qemu-repo/repodata/repomd.xml HTTP/1.1" 404 0 "-" "ZYpp 8.11.0 (curl 7.21.2)"
+   192.168.7.2 192.168.1.125 - [03/May/2011:16:57:38 -0600] "HEAD /qemu-repo/content HTTP/1.1" 404 0 "-" "ZYpp 8.11.0 (curl 7.21.2)"
+Neither of these files seems to be in tmp/deploy/rpm
+
+Did I miss a step?  I ran 'bitbake package-index' just in case.
+
+
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
