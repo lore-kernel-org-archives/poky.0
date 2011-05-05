@@ -1,25 +1,22 @@
-Return-Path: <msundius@sundius.com>
-Received: from mail-qy0-f176.google.com (mail-qy0-f176.google.com
-	[209.85.216.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id EEFEE4C800A3
-	for <poky@yoctoproject.org>; Thu,  5 May 2011 13:02:01 -0500 (CDT)
-Received: by qyk30 with SMTP id 30so2330698qyk.14
-	for <poky@yoctoproject.org>; Thu, 05 May 2011 11:02:01 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.229.131.23 with SMTP id v23mr1835705qcs.11.1304618521148; Thu,
-	05 May 2011 11:02:01 -0700 (PDT)
-Received: by 10.229.65.138 with HTTP; Thu, 5 May 2011 11:02:01 -0700 (PDT)
-In-Reply-To: <9AFCD584B0B67B48AE8D8585BE30BA950116D58CCA@orsmsx504.amr.corp.intel.com>
-References: <BANLkTi=FVHHE0+HjkhbRKy-z173cJGghog@mail.gmail.com>
-	<9AFCD584B0B67B48AE8D8585BE30BA950116D58CCA@orsmsx504.amr.corp.intel.com>
-Date: Thu, 5 May 2011 11:02:01 -0700
-Message-ID: <BANLkTi=7OBSsL7DNr2ciU7NEVKYxwiU=Xw@mail.gmail.com>
-From: C Michael Sundius <msundius@sundius.com>
-To: "Zhang, Jessica" <jessica.zhang@intel.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>,
-	"openembedded-devel@lists.openembedded.org"
-	<openembedded-devel@lists.openembedded.org>
-Subject: Re: building images
+Return-Path: <aalonso@secretlab.ca>
+Received: from mail-gw0-f48.google.com (mail-gw0-f48.google.com [74.125.83.48])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 7A1E54C8008F
+	for <poky@yoctoproject.org>; Thu,  5 May 2011 14:10:47 -0500 (CDT)
+Received: by gwj22 with SMTP id 22so1257951gwj.35
+	for <poky@yoctoproject.org>; Thu, 05 May 2011 12:10:47 -0700 (PDT)
+Received: by 10.236.187.70 with SMTP id x46mr3720573yhm.179.1304622646909;
+	Thu, 05 May 2011 12:10:46 -0700 (PDT)
+Received: from localhost.localdomain
+	(adsl-99-66-253-228.dsl.emhril.sbcglobal.net [99.66.253.228])
+	by mx.google.com with ESMTPS id x76sm1126712yhn.94.2011.05.05.12.10.45
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Thu, 05 May 2011 12:10:46 -0700 (PDT)
+From: Adrian Alonso <aalonso@secretlab.ca>
+To: poky@yoctoproject.org
+Date: Thu,  5 May 2011 14:10:44 -0500
+Message-Id: <cover.1304621382.git.aalonso@secretlab.ca>
+X-Mailer: git-send-email 1.7.4.4
+Subject: [PATCH 0/7] Microblaze target arch support
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,90 +28,48 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 May 2011 18:02:02 -0000
-Content-Type: multipart/alternative; boundary=001517576e94853dfa04a28b2bbe
+X-List-Received-Date: Thu, 05 May 2011 19:10:48 -0000
 
---001517576e94853dfa04a28b2bbe
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: quoted-printable
+* Microblaze big-endian soft-cpu support
+* Only external-toolchain support using meta-xilinx layer
+* meta-xilinx layer provides an initramfs-image descriptor
+  so only a limited subset of packages can be built due to basic
+  glibc support
+* To use set in user local.conf
+  POKYMODE = "xilinx-external"
+  XILINX_TOOLCHAIN "Absolute path of prebuilt toolchain"
+* Prebuilt toolchain can be found at:
+  git://git.xilinx.com/xldk/microblaze_v2.0.git
 
-On Fri, Apr 29, 2011 at 10:49 AM, Zhang, Jessica <jessica.zhang@intel.com>w=
-rote:
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: aalonso/external-toolchain
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=aalonso/external-toolchain
 
->
-> Yocto project has a command line script called adt-installer probably you
-> can take a look, what it does is setup your host cross development
-> environment.  It downloads the cross-toolchain for the target and downloa=
-d
-> the corresponding image rootfs and extract it out on the development host=
- as
-> sysroot that contains the target headers and libraries.  The remote packa=
-ge
-> access is based on wget and it=92s using opkg to manipulate ipk packages =
-since
-> it=92s lightweighted.  The adt-installer is running against a installatio=
-n
-> config file basically tells it where (the ipk package repo) to download
-> things and where (on the development host) to setup things, the toolchain=
-,
-> the sysroot etc.  So for the developer perspective, there=92s no dependen=
-cy on
-> OE.  What you need to do is to build out all the needed ipk packages usin=
-g
-> OE/Yocto and setup the ipk package repo.
->
->
->
-Jessica,
-
-I'm not sure if I replied to your email. Thank you. I think that is
-generally what I've been after. I now have a bit of time and will look at i=
-t
-more closely.
-
-Mike
-
---001517576e94853dfa04a28b2bbe
-Content-Type: text/html; charset=windows-1252
-Content-Transfer-Encoding: quoted-printable
-
-<div><div class=3D"gmail_quote">On Fri, Apr 29, 2011 at 10:49 AM, Zhang, Je=
-ssica <span dir=3D"ltr">&lt;<a href=3D"mailto:jessica.zhang@intel.com">jess=
-ica.zhang@intel.com</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quo=
-te" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex;=
-">
+Thanks,
+    Adrian Alonso <aalonso@secretlab.ca>
+---
 
 
+Adrian Alonso (7):
+  insane: add micrblaze target info
+  kernel-arch: add microblaze to valid archs
+  siteinfo: add microblaze target info
+  linux-libc-headers: add microblaze ARCH definition
+  image-mklibs: add microblaze arch support
+  package_rpm: use target vendor information
+  readline: update version
+
+ meta/classes/image-mklibs.bbclass                  |    2 +-
+ meta/classes/insane.bbclass                        |    4 +++-
+ meta/classes/kernel-arch.bbclass                   |    3 ++-
+ meta/classes/package_rpm.bbclass                   |    3 ++-
+ meta/classes/siteinfo.bbclass                      |    1 +
+ meta/recipes-core/readline/readline_6.2.bb         |    6 ++++++
+ .../linux-libc-headers_2.6.37.2.bb                 |    3 ++-
+ 7 files changed, 17 insertions(+), 5 deletions(-)
+ create mode 100644 meta/recipes-core/readline/readline_6.2.bb
+
+-- 
+1.7.4.4
 
 
-
-
-<div lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
-<div>
-<p class=3D"MsoNormal"><font class=3D"Apple-style-span" color=3D"#1F497D"><=
-span class=3D"Apple-style-span" style=3D"font-size: 15px;"><br></span></fon=
-t></p><div><div class=3D"im">
-</div><p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;color:#1F497D"=
->Yocto project has a command line script called adt-installer probably you =
-can take a look, what it does is setup your host cross development environm=
-ent.=A0 It
- downloads the cross-toolchain for the target and download the correspondin=
-g image rootfs and extract it out on the development host as sysroot that c=
-ontains the target headers and libraries.=A0 The remote package access is b=
-ased on wget and it=92s using opkg to
- manipulate ipk packages since it=92s lightweighted.=A0 The adt-installer i=
-s running against a installation config file basically tells it where (the =
-ipk package repo) to download things and where (on the development host) to=
- setup things, the toolchain, the sysroot
- etc.=A0 So for the developer perspective, there=92s no dependency on OE.=
-=A0 What you need to do is to build out all the needed ipk packages using O=
-E/Yocto and setup the ipk package repo.</span></p><div class=3D"im">
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;color:#1F497D">=A0</=
-span></p></div></div></div></div></blockquote><meta http-equiv=3D"content-t=
-ype" content=3D"text/html; charset=3Dutf-8">Jessica,=A0<div><br></div><div>=
-I&#39;m not sure if I replied to your email. Thank you. I think that is gen=
-erally what I&#39;ve been after. I now have a bit of time and will look at =
-it more closely.=A0</div>
-<div><br></div><div>Mike<br><br></div><div>=A0</div></div></div>
-
---001517576e94853dfa04a28b2bbe--
