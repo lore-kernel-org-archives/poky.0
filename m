@@ -1,36 +1,23 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id DBCBF4C80AA2
-	for <poky@yoctoproject.org>; Thu,  5 May 2011 07:59:58 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p45Cxsdp011254;
-	Thu, 5 May 2011 13:59:54 +0100
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 10954-05; Thu,  5 May 2011 13:59:50 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p45CxllV011213
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Thu, 5 May 2011 13:59:48 +0100
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Koen Kooi <koen@dominion.thruhere.net>
-In-Reply-To: <148CCAB7-27BE-4DA5-B1FB-409976E2A918@dominion.thruhere.net>
-References: <cover.1304520272.git.paul.eggleton@linux.intel.com>
-	<21e4929e2ef79647b16852bb6f15537939012b02.1304520272.git.paul.eggleton@linux.intel.com>
-	<1304595529.20791.25.camel@rex>
-	<40F9395F-41E1-4780-9E0C-6F0A91362CEB@dominion.thruhere.net>
-	<1304598075.29269.2.camel@rex>
-	<148CCAB7-27BE-4DA5-B1FB-409976E2A918@dominion.thruhere.net>
-Date: Thu, 05 May 2011 13:59:44 +0100
-Message-ID: <1304600384.29269.22.camel@rex>
+Return-Path: <tom.zanussi@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id DC9194C80A1D
+	for <poky@yoctoproject.org>; Thu,  5 May 2011 09:09:32 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 05 May 2011 07:09:32 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.64,319,1301900400"; d="scan'208";a="638485145"
+Received: from unknown (HELO [10.255.13.90]) ([10.255.13.90])
+	by orsmga002.jf.intel.com with ESMTP; 05 May 2011 07:09:31 -0700
+From: Tom Zanussi <tom.zanussi@intel.com>
+To: chinmaya hoshing <cahoshing@gmail.com>
+In-Reply-To: <BANLkTim-yTAu5cDewMwawEM_FeL_xkNiVA@mail.gmail.com>
+References: <BANLkTim-yTAu5cDewMwawEM_FeL_xkNiVA@mail.gmail.com>
+Date: Thu, 05 May 2011 09:09:52 -0500
+Message-ID: <1304604592.17396.122.camel@elmorro>
 Mime-Version: 1.0
-X-Mailer: Evolution 2.32.2 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@yoctoproject.org, Patches and discussions about the oe-core layer
-	<openembedded-core@lists.openembedded.org>
-Subject: Re: [OE-core] [PATCH 3/3] meta-yocto: add pieces removed from oe-core for beagleboard & atom-pc
+X-Mailer: Evolution 2.28.3 
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: Error in pulling cups package
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,68 +29,111 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 May 2011 12:59:59 -0000
+X-List-Received-Date: Thu, 05 May 2011 14:09:33 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On Thu, 2011-05-05 at 14:31 +0200, Koen Kooi wrote:
-> Op 5 mei 2011, om 14:21 heeft Richard Purdie het volgende geschreven:
+On Thu, 2011-05-05 at 04:25 -0700, chinmaya hoshing wrote:
+> Hi,
 > 
-> > On Thu, 2011-05-05 at 13:46 +0200, Koen Kooi wrote:
-> >> Op 5 mei 2011, om 13:38 heeft Richard Purdie het volgende geschreven:
-> >> 
-> >>> Hi Paul,
-> >>> 
-> >>> Great work in doing this, thanks. I was just looking at it with a view
-> >>> to making machine support cleaner and I think there are still things we
-> >>> can likely to do help with this. As one example:
-> >>> 
-> >>> On Wed, 2011-05-04 at 15:51 +0100, Paul Eggleton wrote:
-> >>>> +++ b/meta-yocto/recipes-qt/qt4/qt4-x11-free_4.6.3.bbappend
-> >>>> @@ -0,0 +1,2 @@
-> >>>> +QT_GLFLAGS_atom-pc = "-opengl"
-> >>>> +
-> >>>> diff --git a/meta-yocto/recipes-qt/qt4/qt4-x11-free_4.7.2.bbappend b/meta-yocto/recipes-qt/qt4/qt4-x11-free_4.7.2.bbappend
-> >>>> new file mode 100644
-> >>>> index 0000000..076ade2
-> >>>> --- /dev/null
-> >>>> +++ b/meta-yocto/recipes-qt/qt4/qt4-x11-free_4.7.2.bbappend
-> >>>> @@ -0,0 +1,2 @@
-> >>>> +QT_GLFLAGS_atom-pc = "-opengl"
-> >>> 
-> >>> could we set QT_GLFLAGS in the machine.conf file instead of using a
-> >>> bbappend?
-> >> 
-> >> Putting such USEFLAGS in machines sounds like a bad idea. In this case
-> >> enabling it globally and falling back to mesa sw rendering at runtime
-> >> is a better idea. The GL flag only enables extra API and libs, so it's
-> >> good to have.
-> > 
-> > Agreed, longer term I think this is going to be the better way to handle
-> > this. In this day and age, defaulting to sw rendering is probably the
-> > sane thing to do.
+> I am trying to port Poky to the "sandybridge platform"  for "sugarbay"
+> machine.
+> I am getting error for cups package following is the error log:
+
+Seems other people are seeing the same error on other platforms too:
+
+http://lists.linuxtogo.org/pipermail/openembedded-core/2011-May/001794.html
+
+Can you file a bug report with the steps to reproduce?
+
+Thanks,
+
+Tom
+
+
 > 
-> Something like SOC_FAMILY would help here.
-
-In some cases.
-
-> > Equally, moving this from a .bbappend to the machine file is a bit
-> > cleaner too though :)
+> Processing google-chrome...
+> | Processing bzip2...
+> | Processing cups...
+> | error: LOOP:
+> | error: removing busybox-1.17.3-r2.snb "Requires(hint):
+> busybox-udhcpc" from tsort relations.
+> | error: removing busybox-udhcpc-1.17.3-r2.snb
+> "Requires(post): /bin/sh" from tsort relations.
+> | error: LOOP:
+> | error: removing nss-dev-3.12.9-r2.snb "Requires: nss = 3.12.9-r2"
+> from tsort relations.
+> | error: removing nss-3.12.9-r2.snb "Requires: nss-dev >= 3.12.9" from
+> tsort relations.
+> | error: LOOP:
+> | error: removing nspr-4.8.7-r0.snb "Requires: nspr-dev >= 4.8.7" from
+> tsort relations.
+> | error: removing nspr-dev-4.8.7-r0.snb "Requires: nspr = 4.8.7-r0"
+> from tsort relations.
+> | error: LOOP:
+> | error: removing busybox-1.17.3-r2.snb "Requires(hint):
+> busybox-syslog" from tsort relations.
+> | error: removing busybox-syslog-1.17.3-r2.snb
+> "Requires(post): /bin/sh" from tsort relations.
+> | error: LOOP:
+> | error: removing libudev0-164-r1.snb "Requires: udev = 164-r1" from
+> tsort relations.
+> | error: removing udev-164-r1.snb "Requires: libudev0 >= 164" from
+> tsort relations.
+> | error: LOOP:
+> | error: removing libdbus-1-3-1.4.1-r1.snb "Requires(hint): dbus-1"
+> from tsort relations.
+> | error: removing dbus-1-1.4.1-r1.snb "Requires: libdbus-1-3 >= 1.4.1"
+> from tsort relations.
+> |
+> Manifest: /home/sct/logi_sandybridge/poky/build/tmp/work/sugarbay-poky-linux/poky-image-minimal-black-1.0-r0/rootfs/install/install.manifest
+> | error: LOOP:
+> | error: removing nspr-4.8.7-r0.snb "Requires: nspr-dev >= 4.8.7" from
+> tsort relations.
+> | error: removing nspr-dev-4.8.7-r0.snb "Requires: nspr = 4.8.7-r0"
+> from tsort relations.
+> | error: LOOP:
+> | error: removing busybox-1.17.3-r2.snb "Requires(hint):
+> busybox-udhcpc" from tsort relations.
+> | error: removing busybox-udhcpc-1.17.3-r2.snb
+> "Requires(post): /bin/sh" from tsort relations.
+> | error: LOOP:
+> | error: removing nss-dev-3.12.9-r2.snb "Requires: nss = 3.12.9-r2"
+> from tsort relations.
+> | error: removing nss-3.12.9-r2.snb "Requires: nss-dev >= 3.12.9" from
+> tsort relations.
+> | error: LOOP:
+> | error: removing busybox-syslog-1.17.3-r2.snb
+> "Requires(post): /bin/sh" from tsort relations.
+> | error: removing busybox-1.17.3-r2.snb "Requires(hint):
+> busybox-syslog" from tsort relations.
+> | error: LOOP:
+> | error: removing dbus-1-1.4.1-r1.snb "Requires: libdbus-1-3 >= 1.4.1"
+> from tsort relations.
+> | error: removing libdbus-1-3-1.4.1-r1.snb "Requires(hint): dbus-1"
+> from tsort relations.
+> | error: LOOP:
+> | error: removing udev-164-r1.snb "Requires: libudev0 >= 164" from
+> tsort relations.
+> | error: removing libudev0-164-r1.snb "Requires: udev = 164-r1" from
+> tsort relations.
+> | Preparing...
+>  /home/sandybridge/poky/build/tmp/work/sugarbay-poky-linux/poky-image-minimal-black-1.0-r0/temp/run.do_rootfs.21768: line 507: 22206 Segmentation fault      rpm --dbpath /var/lib/rpm --define='_openall_before_chroot 1' --root ${target_rootfs} --predefine "_rpmds_sysinfo_path ${target_rootfs}/etc/rpm/sysinfo" --predefine "_rpmrc_platform_path ${target_rootfs}/etc/rpm/platform" -D "_dbpath /var/lib/rpm" --noscripts --notriggers --noparentdirs --nolinktos -D "__dbi_txn create nofsync private" -Uhv ${target_rootfs}/install/install_solution.manifest
+> | ERROR: Function 'do_rootfs' failed
+> (see /home/sandybridge/poky/build/tmp/work/sugarbay-poky-linux/poky-image-minimal-black-1.0-r0/temp/log.do_rootfs.21768 for further information)
+> NOTE: package poky-image-minimal-black-1.0-r0: task do_rootfs: Failed
+> ERROR:
+> '/home/sandybridge/poky/meta/recipes-core/images/poky-image-minimal-black.bb' failed
+> ERROR: Task 179
+> (/home/sandybridge/poky/meta/recipes-core/images/poky-image-minimal-black.bb, do_rootfs) failed with exit code '1'
 > 
-> Is it? Do you really want the machine to know about all the knobs in
-> all the different layers? The .bbappends clearly signals a change to
-> the recipe, hiding it in the machine.conf will just confuse people.
-> And when changing options you need to edit the machine and then use
-> PR_INC in a different file. Using a bbappend limits that to a single
-> file
+> 
+> Can you help me to find the solution !!!!!!
+> 
+> 
+> Chinmaya
+> 
+> 
 
-I'm not saying this makes sense for every bbappend option. For something
-like QT and which is a part of OECore, I'm leaning towards being less
-concerned about it though and making *every* QT machine write a bbappend
-seems a little extreme the other way.
-
-Cheers,
-
-Richard
 
 
