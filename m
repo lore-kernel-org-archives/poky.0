@@ -1,21 +1,21 @@
 Return-Path: <tom.zanussi@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 8DCD84C810BA
-	for <poky@yoctoproject.org>; Thu,  5 May 2011 00:55:19 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 04 May 2011 22:55:19 -0700
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2AC354C810B8
+	for <poky@yoctoproject.org>; Thu,  5 May 2011 00:55:21 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 04 May 2011 22:55:20 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,318,1301900400"; d="scan'208";a="638282627"
+X-IronPort-AV: E=Sophos;i="4.64,318,1301900400"; d="scan'208";a="430866508"
 Received: from unknown (HELO localhost) ([10.255.13.36])
-	by orsmga002.jf.intel.com with ESMTP; 04 May 2011 22:55:18 -0700
-Message-Id: <4dc696ae28a5ebd56277993f30cd4429a2ad02e3.1304574705.git.tom.zanussi@intel.com>
+	by azsmga001.ch.intel.com with ESMTP; 04 May 2011 22:55:20 -0700
+Message-Id: <50f16ee04046f9d24031628334ef0c159a621fd9.1304574705.git.tom.zanussi@intel.com>
 In-Reply-To: <cover.1304574705.git.tom.zanussi@intel.com>
 References: <cover.1304574705.git.tom.zanussi@intel.com>
-Old-Date: Thu, 5 May 2011 00:37:11 -0500
-Date: Thu, 05 May 2011  0:55:35 -0500
+Old-Date: Wed, 4 May 2011 22:42:26 -0500
+Date: Thu, 05 May 2011  0:55:37 -0500
 To: poky@yoctoproject.org
 From: Tom Zanussi <tom.zanussi@intel.com>
-Subject: [PATCH 1/2] core-image-directdisk: add LIC_FILES_CHECKSUM
+Subject: [PATCH 2/2] boot-directdisk: fix bzImage source location
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,30 +27,33 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 May 2011 05:55:19 -0000
+X-List-Received-Date: Thu, 05 May 2011 05:55:21 -0000
 
 From: Tom Zanussi <tom.zanussi@intel.com>
 
-Fix for build failure.
+Fixes yocto [BUGID #876]
+
+boot-directdisk.class looks in the wrong location for the bzImage to
+install.  Make it look in the right place.
 
 Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
 ---
- meta/recipes-core/images/poky-image-directdisk.inc |    3 +++
- 1 files changed, 3 insertions(+), 0 deletions(-)
+ meta/classes/boot-directdisk.bbclass |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
-diff --git a/meta/recipes-core/images/poky-image-directdisk.inc b/meta/recipes-core/images/poky-image-directdisk.inc
-index 64144b9..42e5e14 100644
---- a/meta/recipes-core/images/poky-image-directdisk.inc
-+++ b/meta/recipes-core/images/poky-image-directdisk.inc
-@@ -1,5 +1,8 @@
- inherit boot-directdisk
+diff --git a/meta/classes/boot-directdisk.bbclass b/meta/classes/boot-directdisk.bbclass
+index d87dc22..8879ba8 100644
+--- a/meta/classes/boot-directdisk.bbclass
++++ b/meta/classes/boot-directdisk.bbclass
+@@ -49,7 +49,7 @@ build_boot_dd() {
+ 	IMAGE=${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.hdddirect
  
-+LIC_FILES_CHKSUM = "file://${POKYBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58 \
-+                    file://${POKYBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
-+
- do_bootdirectdisk_prepend () {
- 	import bb
- 	fstypes = bb.data.getVar('IMAGE_FSTYPES', d, True)
+ 	install -d ${HDDDIR}
+-	install -m 0644 ${STAGING_DIR}/${MACHINE}${HOST_VENDOR}-${HOST_OS}/kernel/bzImage ${HDDDIR}/vmlinuz
++	install -m 0644 ${STAGING_DIR_HOST}/kernel/bzImage ${HDDDIR}/vmlinuz
+ 	install -m 444 ${STAGING_LIBDIR}/syslinux/ldlinux.sys ${HDDDIR}/ldlinux.sys
+ 
+ 	BLOCKS=`du -bks ${HDDDIR} | cut -f 1`
 -- 
 1.7.0.4
 
