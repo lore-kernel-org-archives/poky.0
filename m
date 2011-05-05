@@ -1,40 +1,28 @@
-Return-Path: <kergoth@gmail.com>
-Received: from mail-vx0-f176.google.com (mail-vx0-f176.google.com
-	[209.85.220.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 517E44C80097
-	for <poky@yoctoproject.org>; Thu,  5 May 2011 11:38:23 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by vxa37 with SMTP id 37so3955262vxa.35
-	for <poky@yoctoproject.org>; Thu, 05 May 2011 09:38:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:sender:in-reply-to:references:from
-	:date:x-google-sender-auth:message-id:subject:to:cc:content-type
-	:content-transfer-encoding;
-	bh=mnvgfF5VCBqrMhkj8tbCeLS6GGFbT33QkPIzEbZpgRQ=;
-	b=ZJzdMoOg5IcHThGV1wetBNEFJLykqHChBD0tkWn47TXsd/lr90awktQEAnVYCuswx8
-	O9ppdXaYFyvjdXopQ+HS7Lvw4jfu3nQvMaIFZDA+mzK9kA7UC7K5QMPFB6chnpP54aN0
-	nnxvrQxRMnk+1mHntR2dDRCn6wUxQwg1tvI7g=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:sender:in-reply-to:references:from:date
-	:x-google-sender-auth:message-id:subject:to:cc:content-type
-	:content-transfer-encoding;
-	b=XE4pDk7mmbxu7GHVNeUcNVXFQcEFSr2l5SXD8FFqTS7xt+lhivX5+AkngqT/tY0yy5
-	raluuQCGvKHOJXH6m7W8sKY7qvhb5iAYoPbDSfeZi+oezuW2VVBQ2R8bIF0z/Jjq8r7T
-	ve3faq4a8WL/fu9S1mv97TJtMivy+edTYJKBA=
-Received: by 10.52.112.66 with SMTP id io2mr550009vdb.141.1304613497127; Thu,
-	05 May 2011 09:38:17 -0700 (PDT)
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 318714C80097
+	for <poky@yoctoproject.org>; Thu,  5 May 2011 11:48:52 -0500 (CDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id C1E561660251; Thu,  5 May 2011 10:48:51 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.2-r929478
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 95B22166023E;
+	Thu,  5 May 2011 10:48:50 -0600 (MDT)
+Message-ID: <4DC2D4F2.20505@mlbassoc.com>
+Date: Thu, 05 May 2011 10:48:50 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
 MIME-Version: 1.0
-Sender: kergoth@gmail.com
-Received: by 10.52.186.170 with HTTP; Thu, 5 May 2011 09:37:57 -0700 (PDT)
-In-Reply-To: <4DC2D0D6.2030709@mlbassoc.com>
+To: Chris Larson <clarson@kergoth.com>
 References: <4DC16EFA.4070003@mlbassoc.com> <4DC2D0D6.2030709@mlbassoc.com>
-From: Chris Larson <clarson@kergoth.com>
-Date: Thu, 5 May 2011 09:37:57 -0700
-X-Google-Sender-Auth: N1dnCpEArUjgrLT08ZGC80I3sxU
-Message-ID: <BANLkTinkE=5h2KfgOjSobuyU2KQgHH+iPA@mail.gmail.com>
-To: Gary Thomas <gary@mlbassoc.com>
+	<BANLkTinkE=5h2KfgOjSobuyU2KQgHH+iPA@mail.gmail.com>
+In-Reply-To: <BANLkTinkE=5h2KfgOjSobuyU2KQgHH+iPA@mail.gmail.com>
 Cc: Poky Project <poky@yoctoproject.org>
 Subject: Re: Debugging overrides
 X-BeenThere: poky@yoctoproject.org
@@ -48,40 +36,57 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 May 2011 16:38:23 -0000
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Thu, 05 May 2011 16:48:52 -0000
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, May 5, 2011 at 9:31 AM, Gary Thomas <gary@mlbassoc.com> wrote:
->> My .bbappend file (identical in both trees) looks like this:
+On 05/05/2011 10:37 AM, Chris Larson wrote:
+> On Thu, May 5, 2011 at 9:31 AM, Gary Thomas<gary@mlbassoc.com>  wrote:
+>>> My .bbappend file (identical in both trees) looks like this:
+>>>
+>>>
+>>> -----------------------------------------------------------------------------------
+>>> THISDIR := "${@os.path.dirname(bb.data.getVar('FILE', d, True))}"
+>>> FILESPATH =. "${@base_set_filespath(["${THISDIR}/${PN}-${PV}"], d)}:"
+>>> PACKAGE_ARCH = "${MACHINE_ARCH}"
+>>>
+>>> -----------------------------------------------------------------------------------
+>>>
+>>> I've traced through this with -DDD and on one target, I can see the
+>>> fetcher finding the files in my layer. On a different target, it only
+>>> finds the files in the main meta/recipes-core/netbase tree
+>>>
+>>> Any suggestions on where I look to understand what's going on?
 >>
->>
->> ------------------------------------------------------------------------=
------------
->> THISDIR :=3D "${@os.path.dirname(bb.data.getVar('FILE', d, True))}"
->> FILESPATH =3D. "${@base_set_filespath(["${THISDIR}/${PN}-${PV}"], d)}:"
->> PACKAGE_ARCH =3D "${MACHINE_ARCH}"
->>
->> ------------------------------------------------------------------------=
------------
->>
->> I've traced through this with -DDD and on one target, I can see the
->> fetcher finding the files in my layer. On a different target, it only
->> finds the files in the main meta/recipes-core/netbase tree
->>
->> Any suggestions on where I look to understand what's going on?
+>> 'strace' is my friend :-)  It turns out that I had some layering
+>> problems which caused the wrong packages/netbase tree to be searched.
+>> I ran strace on 'bitbake netbase' and was able to see the erroneous
+>> file/path searches which pointed out my problem.
 >
-> 'strace' is my friend :-) =C2=A0It turns out that I had some layering
-> problems which caused the wrong packages/netbase tree to be searched.
-> I ran strace on 'bitbake netbase' and was able to see the erroneous
-> file/path searches which pointed out my problem.
+> Okay, what sort of layer tooling would have helped you identify this
+> problem without strace? :)
 
-Okay, what sort of layer tooling would have helped you identify this
-problem without strace? :)
---=20
-Christopher Larson
-clarson at kergoth dot com
-Founder - BitBake, OpenEmbedded, OpenZaurus
-Maintainer - Tslib
-Senior Software Engineer, Mentor Graphics
+Hard to say.  What I was really hoping for was basically what
+strace gave me - the list of candidate files which were being considered
+to satisfy the SRC_URI.  Since the file I wanted was coming from my target
+layer, what I needed to figure out was why it wasn't on the list.
+
+One thing that should be pretty useful to glean is that bitbake chose
+meta-targetB/packages/netbase/netbase_4.45.bbappend instead of the
+one from meta-targetA.  Note: this was my error, I had two layers
+which contained more or less the same structure enabled.  This data
+was in the -DDD dump, but it wasn't obvious enough for me to catch!
+
+Some way to know where are the pieces for some recipe come from, and
+perhaps the candidates considered as well, would help a lot.  I've
+run into questions/confusions with layers before (bug #807) and this
+error was very similar.
+
+Thanks
+
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
