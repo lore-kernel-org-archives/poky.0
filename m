@@ -1,25 +1,25 @@
 Return-Path: <Kai.Kang@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D97B84C800AF
-	for <poky@yoctoproject.org>; Fri,  6 May 2011 00:16:16 -0500 (CDT)
+	by mx1.pokylinux.org (Postfix) with ESMTP id A6FEB4C800B0
+	for <poky@yoctoproject.org>; Fri,  6 May 2011 00:16:20 -0500 (CDT)
 Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p465GF5w011698
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p465GJGp011707
 	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Thu, 5 May 2011 22:16:15 -0700 (PDT)
+	Thu, 5 May 2011 22:16:19 -0700 (PDT)
 Received: from localhost (128.224.163.157) by ALA-HCA.corp.ad.wrs.com
 	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Thu, 5 May 2011 22:16:14 -0700
-Message-ID: <d367565244fdf39598182342c71dae081f0c7fb4.1304658653.git.kai.kang@windriver.com>
+	Thu, 5 May 2011 22:16:19 -0700
+Message-ID: <7d7f51f90af2780a738d680d5e2d9c683660e207.1304658653.git.kai.kang@windriver.com>
 In-Reply-To: <cover.1304658653.git.kai.kang@windriver.com>
 References: <cover.1304658653.git.kai.kang@windriver.com>
-Old-Date: Fri, 6 May 2011 10:17:59 +0800
-Date: Fri, 6 May 2011 13:16:02 +0800
+Old-Date: Thu, 5 May 2011 15:58:14 +0800
+Date: Fri, 6 May 2011 13:16:06 +0800
 To: <saul.wold@intel.com>
 From: Kang Kai <kai.kang@windriver.com>
 MIME-Version: 1.0
 X-Originating-IP: [128.224.163.157]
 Cc: poky@yoctoproject.org
-Subject: [PATCH 1/2] libxml-sax-perl: added for resolve LSB olver test
+Subject: [PATCH 2/2] task-core-lsb: add gettext-runtime and libxml-sax-perl
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,84 +31,49 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 06 May 2011 05:16:17 -0000
+X-List-Received-Date: Fri, 06 May 2011 05:16:20 -0000
 Content-Type: text/plain
 
 From: Kang Kai <kai.kang@windriver.com>
 
-When run LSB olver core test, it will be blocked.
-Import libxml-sax-perl and libxml-namespacesupport-perl from oe to
-resolve this issue.
-Add LICENSE and reset PR.
+Because gettext is splitted, so add gettext-runtime to provide command gettext
+Add libxml-sax-perl
+Bump PR
 
 Signed-off-by: Kang Kai <kai.kang@windriver.com>
 ---
- .../perl/libxml-namespacesupport-perl_1.11.bb      |   22 ++++++++++++++++
- meta/recipes-extended/perl/libxml-sax-perl_0.96.bb |   26 ++++++++++++++++++++
- 2 files changed, 48 insertions(+), 0 deletions(-)
- create mode 100644 meta/recipes-extended/perl/libxml-namespacesupport-perl_1.11.bb
- create mode 100644 meta/recipes-extended/perl/libxml-sax-perl_0.96.bb
+ meta/recipes-extended/tasks/task-core-lsb.bb |    4 +++-
+ 1 files changed, 3 insertions(+), 1 deletions(-)
 
-diff --git a/meta/recipes-extended/perl/libxml-namespacesupport-perl_1.11.bb b/meta/recipes-extended/perl/libxml-namespacesupport-perl_1.11.bb
-new file mode 100644
-index 0000000..d96430e
---- /dev/null
-+++ b/meta/recipes-extended/perl/libxml-namespacesupport-perl_1.11.bb
-@@ -0,0 +1,22 @@
-+SUMMARY = "Perl module for supporting simple generic namespaces"
-+DESCRIPTION = "XML::NamespaceSupport offers a simple way to process namespace-based XML names. \
-+                It also helps maintain a prefix-to-namespace URI map, and provides a number of \
-+                basic checks. "
-+
-+SECTION = "libs"
-+LICENSE = "Artistic|GPLv1+"
-+PR = "r0"
-+
-+LIC_FILES_CHKSUM = "file://META.yml;beginline=22;endline=22;md5=3b2b564dae8b9af9e8896e85c07dcbe5"
-+
-+SRC_URI = "http://search.cpan.org/CPAN/authors/id/P/PE/PERIGRIN/XML-NamespaceSupport-${PV}.tar.gz"
-+SRC_URI[md5sum] = "222cca76161cd956d724286d36b607da"
-+SRC_URI[sha256sum] = "6d8151f0a3f102313d76b64bfd1c2d9ed46bfe63a16f038e7d860fda287b74ea"
-+
-+
-+S = "${WORKDIR}/XML-NamespaceSupport-${PV}"
-+
-+inherit cpan
-+
-+BBCLASSEXTEND="native"
-+
-diff --git a/meta/recipes-extended/perl/libxml-sax-perl_0.96.bb b/meta/recipes-extended/perl/libxml-sax-perl_0.96.bb
-new file mode 100644
-index 0000000..13956cb
---- /dev/null
-+++ b/meta/recipes-extended/perl/libxml-sax-perl_0.96.bb
-@@ -0,0 +1,26 @@
-+SUMMARY = "Perl module for using and building Perl SAX2 XML processors" 
-+DESCRIPTION = "XML::SAX consists of several framework classes for using and \
-+building Perl SAX2 XML parsers, filters, and drivers.  It is designed \ 
-+around the need to be able to "plug in" different SAX parsers to an \
-+application without requiring programmer intervention.  Those of you \
-+familiar with the DBI will be right at home.  Some of the designs \
-+come from the Java JAXP specification (SAX part), only without the \
-+javaness."
-+
-+SECTION = "libs"
-+LICENSE = "Artistic|GPLv1+"
-+DEPENDS += "libxml-namespacesupport-perl-native"
-+RDEPENDS_${PN} += "libxml-namespacesupport-perl perl-module-file-temp"
-+PR = "r0"
-+
-+LIC_FILES_CHKSUM = "file://LICENSE;md5=65c4cd8f39c24c7135ed70dacbcb09e3"
-+
-+SRC_URI = "http://search.cpan.org/CPAN/authors/id/G/GR/GRANTM/XML-SAX-${PV}.tar.gz"
-+SRC_URI[md5sum] = "bdcd4119a62505184e211e9dfaef0ab1"
-+SRC_URI[sha256sum] = "9bbef613afa42c46df008d537decc5a61df7e92d65463f3c900769f39e5c8e08"
-+
-+S = "${WORKDIR}/XML-SAX-${PV}"
-+
-+inherit cpan
-+
-+BBCLASSEXTEND = "native"
+diff --git a/meta/recipes-extended/tasks/task-core-lsb.bb b/meta/recipes-extended/tasks/task-core-lsb.bb
+index 6de24b4..e80d179 100644
+--- a/meta/recipes-extended/tasks/task-core-lsb.bb
++++ b/meta/recipes-extended/tasks/task-core-lsb.bb
+@@ -3,7 +3,7 @@
+ #
+ 
+ DESCRIPTION = "Create Small Image Tasks"
+-PR = "r3"
++PR = "r4"
+ LICENSE = "MIT"
+ LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58 \
+                     file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
+@@ -111,6 +111,7 @@ RDEPENDS_task-core-tcl = "\
+ RDEPENDS_task-core-misc = "\
+     elfutils \
+     gettext \
++    gettext-runtime \
+     groff \
+     lsb \
+     lsbsetup \
+@@ -188,6 +189,7 @@ RDEPENDS_task-core-lsb-runtime-add = "\
+     liburi-perl \
+     libxml-parser-perl \
+     libxml-perl \
++    libxml-sax-perl \
+     eglibc-localedatas \
+     eglibc-gconvs \
+     eglibc-charmaps \
 -- 
 1.7.1
 
