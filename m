@@ -1,25 +1,21 @@
 Return-Path: <dvhart@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 40AF24C80186
-	for <poky@yoctoproject.org>; Fri,  6 May 2011 13:48:27 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 06 May 2011 11:48:26 -0700
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 54E694C800B0
+	for <poky@yoctoproject.org>; Fri,  6 May 2011 14:07:15 -0500 (CDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 06 May 2011 12:06:55 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,327,1301900400"; d="scan'208";a="639118841"
+X-IronPort-AV: E=Sophos;i="4.64,327,1301900400"; d="scan'208";a="918999314"
 Received: from unknown (HELO [10.255.12.39]) ([10.255.12.39])
-	by orsmga002.jf.intel.com with ESMTP; 06 May 2011 11:48:26 -0700
-Message-ID: <4DC4427D.5040608@linux.intel.com>
-Date: Fri, 06 May 2011 11:48:29 -0700
+	by fmsmga001.fm.intel.com with ESMTP; 06 May 2011 12:06:55 -0700
+Message-ID: <4DC446D2.1080301@linux.intel.com>
+Date: Fri, 06 May 2011 12:06:58 -0700
 From: Darren Hart <dvhart@linux.intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.2.14) Gecko/20110223 Lightning/1.0b2 Thunderbird/3.1.8
 MIME-Version: 1.0
-To: Adrian Alonso <aalonso@secretlab.ca>
-References: <cover.1304621382.git.aalonso@secretlab.ca>	<7577bb0da8badabce577bf8ebd453e6fa7f3bd50.1304621382.git.aalonso@secretlab.ca>	<4DC42DAF.3080605@linux.intel.com>	<BANLkTi=xgBnjob=1U7yaPFyT-y075odAvA@mail.gmail.com>
-	<BANLkTin4cKVhNh1s3kCd3sGyTS4k7gj69Q@mail.gmail.com>
-In-Reply-To: <BANLkTin4cKVhNh1s3kCd3sGyTS4k7gj69Q@mail.gmail.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 6/7] package_rpm: use target vendor information
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: RFC: mkzipimage.sh script
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,125 +27,100 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 06 May 2011 18:48:27 -0000
+X-List-Received-Date: Fri, 06 May 2011 19:07:15 -0000
 Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 7bit
 
+The process for creating the USBZIP format usb key images is tedious, so I threw
+a script together. I suspect there might be demand for an integrated tool to do
+this for the more onerous of the image making processes.
+
+1) Any feedback on this particular script?
+2) Should this go to scripts/contrib? 
+3) Would an image burning tool (ala unetbootin) be of interest to 
+   others?
 
 
-On 05/06/2011 10:58 AM, Adrian Alonso wrote:
-> Op forgot replay all
-> 
-> ---------- Forwarded message ----------
-> From: *Adrian Alonso* <aalonso@secretlab.ca <mailto:aalonso@secretlab.ca>>
-> Date: Fri, May 6, 2011 at 12:49 PM
-> Subject: Re: [poky] [PATCH 6/7] package_rpm: use target vendor information
-> To: Darren Hart <dvhart@linux.intel.com <mailto:dvhart@linux.intel.com>>
-> 
-> 
-> Hi Darren,
-> 
-> In poky-default.inc target vendor is set as:
-> 
-> TARGET_VENDOR="-poky"
-> 
-> In xilinx-meta layer is set as
-> 
-> TARGET_VENDOR="-unknown"
 
-ew... embedded delimiters.
+#!/bin/bash
 
+function usage {
+	echo "Usage: $(basename $0) IMAGE DEVICE"
+}
 
-> 
-> So the result string is correct if TARGET_VENDOR assignment is consistent
-> as in poky-default.inc
+function check_device {
+	if [ ! -b "$1" ] || [ ! -w "$1" ]; then
+		echo "Error opening device '$1'."
+		echo "Device should be a writable block device."
+		exit 1
+	fi
+}
 
-OK, works as it did before I suppose.
+if [ $# -ne 2 ]; then
+	usage
+	exit 1
+fi
 
---
-Darren
+IMAGE=$1
+DEV=$2
 
+if [ ! -f "$IMAGE" ]; then
+	echo "Image '$IMAGE' does not exist."
+	exit 1
+fi
 
-> 
-> Regards
-> 
-> 
-> On Fri, May 6, 2011 at 12:19 PM, Darren Hart <dvhart@linux.intel.com
-> <mailto:dvhart@linux.intel.com>> wrote:
-> 
->     Hi Adrian,
-> 
->     One issue below:
-> 
->     On 05/05/2011 12:11 PM, Adrian Alonso wrote:
->     > * Instead of hardcoding target vendor string "-poky"
->     >   use TARGET_VENDOR information in case of using external
->     >   toolchains
->     >
->     > Signed-off-by: Adrian Alonso <aalonso@secretlab.ca
->     <mailto:aalonso@secretlab.ca>>
->     > ---
->     >  meta/classes/package_rpm.bbclass |    3 ++-
->     >  1 files changed, 2 insertions(+), 1 deletions(-)
->     >
->     > diff --git a/meta/classes/package_rpm.bbclass
->     b/meta/classes/package_rpm.bbclass
->     > index 70170d1..1cf9f79 100644
->     > --- a/meta/classes/package_rpm.bbclass
->     > +++ b/meta/classes/package_rpm.bbclass
->     > @@ -761,13 +761,14 @@ python do_package_rpm () {
->     >       # Setup the rpmbuild arguments...
->     >       rpmbuild = bb.data.getVar('RPMBUILD', d, True)
->     >       targetsys = bb.data.getVar('TARGET_SYS', d, True)
->     > +     targetvendor = bb.data.getVar('TARGET_VENDOR', d, True)
->     >       pkgwritedir =
->     bb.data.expand('${PKGWRITEDIRRPM}/${PACKAGE_ARCH}', d)
->     >       pkgarch = bb.data.expand('${PACKAGE_ARCH}', d)
->     >       bb.mkdirhier(pkgwritedir)
->     >       os.chmod(pkgwritedir, 0755)
->     >
->     >       cmd = rpmbuild
->     > -     cmd = cmd + " --nodeps --short-circuit --target " + pkgarch
->     + "-poky-linux-gnu --buildroot " + pkgd
->     > +     cmd = cmd + " --nodeps --short-circuit --target " + pkgarch
->     + targetvendor + "-linux-gnu --buildroot " + pkgd
-> 
->     You need:
->      + "-" + targetvendor
-> 
->     otherwise you'll merge pkgarch and targetvendor together without a
->     delimiter.
->     Better yet, just format the string in one go and reduce the
->     potential for error:
-> 
->     cmd = "%s --nodeps --short-circuit --target %s-%s-linux-gnu
->     --buildroot %s" % \
->          (rpmbuild, pkgarch, targetvendor, pkgd)
-> 
->     --
->     Darren Hart
->     Intel Open Source Technology Center
->     Yocto Project - Linux Kernel
-> 
-> 
-> 
-> 
-> -- 
-> Adrian Alonso
-> Secret Lab Technologies Ltd.
-> 
-> 
-> 
-> -- 
-> Adrian Alonso
-> Secret Lab Technologies Ltd.
-> 
-> 
-> 
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+check_device $DEV
+
+HS=$(fdisk -l $DEV | egrep ".*heads.*sectors.*cylinders")
+HEADS=$(echo $HS | cut -d' ' -f1)
+SECTORS=$(echo $HS | cut -d' ' -f3)
+
+echo "Preparing $DEV, this may take several minutes."
+mkdiskimage -4 $DEV 0 $HEADS $SECTORS
+if [ $? -ne 0 ]; then
+	echo "Error running mkdiskimage."
+	exit 1
+fi
+
+echo -n "Remove and reinsert the device, then press Enter: "
+read
+echo -n "Enter the new device name [$DEV]: "
+read NEWDEV
+if [ -n "$NEWDEV" ]; then
+	DEV=$NEWDEV
+fi
+check_device $DEV
+
+echo -n "Mounting image and device..."
+mkdir /tmp/image-$$
+mount -o loop $IMAGE /tmp/image-$$
+if [ $? -ne 0 ]; then
+	echo -e "\nError mounting image."
+	exit 1;
+fi
+mkdir /tmp/dev-$$
+mount $DEV\4 /tmp/dev-$$
+if [ $? -ne 0 ]; then
+	echo -e "\nError mounting device."
+	exit 1;
+fi
+echo "Done"
+
+echo -n "Copying image..."
+cp -rf /tmp/image-$$/* /tmp/dev-$$
+sync
+echo "Done"
+
+echo -n "Installing syslinux..."
+syslinux $DEV\4
+echo "Done"
+
+echo "Cleaning up..."
+umount /tmp/image-$$
+rmdir /tmp/image-$$
+umount /tmp/dev-$$
+rmdir /tmp/dev-$$
+echo "Done"
 
 -- 
 Darren Hart
