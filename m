@@ -1,33 +1,43 @@
-Return-Path: <glep-poky@m.gmane.org>
-Received: from lo.gmane.org (lo.gmane.org [80.91.229.12])
-	by mx1.pokylinux.org (Postfix) with ESMTP id AA0204C800AC
-	for <poky@pokylinux.org>; Fri,  6 May 2011 01:28:59 -0500 (CDT)
-Received: from list by lo.gmane.org with local (Exim 4.69)
-	(envelope-from <glep-poky@m.gmane.org>) id 1QIEX2-0004cI-Qr
-	for poky@pokylinux.org; Fri, 06 May 2011 08:28:56 +0200
-Received: from 93.82.200.50 ([93.82.200.50])
-	by main.gmane.org with esmtp (Gmexim 0.1 (Debian))
-	id 1AlnuQ-0007hv-00
-	for <poky@pokylinux.org>; Fri, 06 May 2011 08:28:56 +0200
-Received: from gmane by 93.82.200.50 with local (Gmexim 0.1 (Debian))
-	id 1AlnuQ-0007hv-00
-	for <poky@pokylinux.org>; Fri, 06 May 2011 08:28:56 +0200
-X-Injected-Via-Gmane: http://gmane.org/
-To: poky@pokylinux.org
-From: Robert Berger <gmane@reliableembeddedsystems.com>
-Date: Fri, 06 May 2011 09:28:42 +0300
-Organization: Reliable Embedded Systems
-Message-ID: <iq04eq$4qb$1@dough.gmane.org>
-Mime-Version: 1.0
-X-Complaints-To: usenet@dough.gmane.org
-X-Gmane-NNTP-Posting-Host: 93.82.200.50
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.14) Gecko/20110223 Thunderbird/3.1.8
-Subject: Third party toolchain, kernel, bootloader
+Return-Path: <cahoshing@gmail.com>
+Received: from mail-pw0-f48.google.com (mail-pw0-f48.google.com
+	[209.85.160.48])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 83E974C8007E
+	for <poky@yoctoproject.org>; Fri,  6 May 2011 02:32:31 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by pwi16 with SMTP id 16so1922896pwi.35
+	for <poky@yoctoproject.org>; Fri, 06 May 2011 00:32:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:in-reply-to:references:date
+	:message-id:subject:from:to:cc:content-type;
+	bh=ZNlY6/GgcE7g8if7K31tkEgg6kuf1/i0QnZkMTijH2M=;
+	b=AA8yOt5272xSv3wTZ+TfS619O6XV6kMaP3hZpSCMbBgvdA1VxNqCgyFgf7qi2cizbu
+	deytUgLktYonqEuZm1MjZ2gIbTfyyQu8odscH7xyXWycSBcImdRSLO7sF+F1G8ZtwprB
+	uYtt7Ck6U6VjXv+vRrr6+zD9yKI02abnniyu8=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:cc:content-type;
+	b=jmMs8gd/CPcvvH/jDDQyMsNUQDHhVKIlU3guBXijgD7BU/MJLQxSivReR/nLCRw8xK
+	CHvIvvmsCvwtjVRI6XGNqfMCWFarykSt/IMLUPrmfWWEU1dSTGvhe19wmQ2Fhz3aWkmc
+	YGfbVMUZIk15uNMw+daFF6ZPbKTluav+Abhys=
+MIME-Version: 1.0
+Received: by 10.142.83.8 with SMTP id g8mr1740616wfb.146.1304667151096; Fri,
+	06 May 2011 00:32:31 -0700 (PDT)
+Received: by 10.143.158.19 with HTTP; Fri, 6 May 2011 00:32:31 -0700 (PDT)
+In-Reply-To: <4DC2B2C8.5050106@mlbassoc.com>
+References: <BANLkTim-yTAu5cDewMwawEM_FeL_xkNiVA@mail.gmail.com>
+	<1304604592.17396.122.camel@elmorro>
+	<4DC2B2C8.5050106@mlbassoc.com>
+Date: Fri, 6 May 2011 13:02:31 +0530
+Message-ID: <BANLkTim7_pkGarX_F6RCsM8gF72os-XWRg@mail.gmail.com>
+From: chinmaya hoshing <cahoshing@gmail.com>
+To: Gary Thomas <gary@mlbassoc.com>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: Error in pulling cups package
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
-Reply-To: gmane@reliableembeddedsystems.com
 List-Id: Poky build system developer discussion <poky.yoctoproject.org>
 List-Unsubscribe: <https://lists.yoctoproject.org/options/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=unsubscribe>
@@ -36,49 +46,23 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 06 May 2011 06:29:00 -0000
+X-List-Received-Date: Fri, 06 May 2011 07:32:31 -0000
+Content-Type: multipart/alternative; boundary=001636e1f9da175d9504a2967e49
+
+--001636e1f9da175d9504a2967e49
 Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
 
-Hi,
+Thanks guys a lot,
 
-I'm working on a couple of projects trying to use yocto and it boils
-down to the fact, that the packages and the package management (with a
-few tweaks) are very valuable.
+Gary it worked finaly!!!!!!!!! :-) as said by you I made the changes in
+local.conf for PACKAGE_CLASSES ?= "package_ipk"
 
-On the other hand "just to give it a try" it's a major effort to add
-kernel and bootloader to poky and moreover the gcc which comes with poky
-is not always what I need in terms of stability but also features (need
-e.g. Cortex-A8 support). So I would also need to cook gcc to compile a
-vendor provided kernel and bootloader.
+Chinmaya
 
-What I'm after is to add some packages from poky to some 3rd party
-rootfs. One major problem I have is the dependency on libc6 (>= 2.12)
-Usually I have some older versions of libc6: e.g. libc-2.8.so.
+--001636e1f9da175d9504a2967e49
+Content-Type: text/html; charset=ISO-8859-1
 
-For the projects I'm currently working on kernel and bootloader are
-already compiling/running and tested and I would like to add packages
-like qt-embedded to the various rootfs.
+<div dir="ltr"><br><meta http-equiv="content-type" content="text/html; charset=utf-8"><span class="Apple-style-span" style="border-collapse: collapse; font-family: arial, sans-serif; font-size: 13px; ">Thanks guys a lot,<div>
+<br></div><div>Gary it worked finaly!!!!!!!!! :-) as said by you I made the changes in local.conf for PACKAGE_CLASSES ?= &quot;package_ipk&quot;</div><div><br></div><div>Chinmaya</div><div><br></div></span></div>
 
-To achieve this I would need a mechanism to use a 3rd party toolchain
-with poky (and maybe to skip the build steps for kernel and boot loader).
-
-Is this something yocto/poky was made for, or am I totally off?
-Am I the only one who has such kind of problems?
-How are others tackling these kind of problems?
-
-Please advise,
-
-Regards,
-
-Robert
-
-
-..."Rules of Optimization: Rule1: Don't do it. Rule 2 (for experts
-only): Don't do it yet." - M.A. Jackson (not the singer)
-
-My public pgp key is available at:
-http://pgp.mit.edu:11371/pks/lookup?op=get&search=0x90320BF1
-
-
-
+--001636e1f9da175d9504a2967e49--
