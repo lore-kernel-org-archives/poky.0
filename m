@@ -1,37 +1,19 @@
-Return-Path: <jessica.zhang@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 1E5E64C8007E
-	for <poky@pokylinux.org>; Thu,  5 May 2011 21:39:15 -0500 (CDT)
+Return-Path: <nitin.a.kamble@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 43EA04C8005F
+	for <poky@yoctoproject.org>; Thu,  5 May 2011 22:36:34 -0500 (CDT)
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 05 May 2011 19:39:14 -0700
+	by orsmga102.jf.intel.com with ESMTP; 05 May 2011 20:36:33 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,324,1301900400"; d="scan'208";a="638799783"
-Received: from orsmsx604.amr.corp.intel.com ([10.22.226.87])
-	by orsmga002.jf.intel.com with ESMTP; 05 May 2011 19:39:14 -0700
-Received: from orsmsx601.amr.corp.intel.com (10.22.226.213) by
-	orsmsx604.amr.corp.intel.com (10.22.226.87) with Microsoft SMTP Server
-	(TLS) id 8.2.255.0; Thu, 5 May 2011 19:39:14 -0700
-Received: from orsmsx504.amr.corp.intel.com ([10.22.226.207]) by
-	orsmsx601.amr.corp.intel.com ([10.22.226.213]) with mapi;
-	Thu, 5 May 2011 19:39:14 -0700
-From: "Zhang, Jessica" <jessica.zhang@intel.com>
-To: "Lu, Lianhao" <lianhao.lu@intel.com>, Ilya Yanok <yanok@emcraft.com>
-Date: Thu, 5 May 2011 19:39:13 -0700
-Thread-Topic: [poky] poky and poky-target aliases for the SDK
-Thread-Index: AcwLfJ+e3DmdZVM7QNiRH3UBC8WyGgAEJqrgAAIpgFA=
-Message-ID: <9AFCD584B0B67B48AE8D8585BE30BA950116EE6348@orsmsx504.amr.corp.intel.com>
-References: <4DC186D1.30302@emcraft.com>
-	<9AFCD584B0B67B48AE8D8585BE30BA950116E73F04@orsmsx504.amr.corp.intel.com>
-	<4DC3334C.9030509@emcraft.com>
-	<C10D3FB0CD45994C8A51FEC1227CE22F23220C7AD6@shsmsx502.ccr.corp.intel.com>
-In-Reply-To: <C10D3FB0CD45994C8A51FEC1227CE22F23220C7AD6@shsmsx502.ccr.corp.intel.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
-MIME-Version: 1.0
-Cc: "poky@pokylinux.org" <poky@pokylinux.org>
-Subject: Re: poky and poky-target aliases for the SDK
+X-IronPort-AV: E=Sophos;i="4.64,324,1301900400"; d="scan'208";a="638817571"
+Received: from nbuild2.sc.intel.com (HELO localhost) ([172.25.110.37])
+	by orsmga002.jf.intel.com with ESMTP; 05 May 2011 20:36:33 -0700
+Message-Id: <cover.1304652773.git.nitin.a.kamble@intel.com>
+Old-Date: Thu, 5 May 2011 20:32:53 -0700
+Date: Thu, 05 May 2011 20:36:33 -0700
+To: openembedded-core@lists.openembedded.org,poky@yoctoproject.org
+From: Nitin A Kamble <nitin.a.kamble@intel.com>
+Subject: [PATCH 00/10] gcc-4.6.0 related fixes & patch upstream status updates
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,59 +25,97 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 06 May 2011 02:39:15 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Fri, 06 May 2011 03:36:34 -0000
 
-Ilya,
+From: Nitin A Kamble <nitin.a.kamble@intel.com>
 
-As Lianhao mentioned we're not abandoning meta-toolchain, but since adt ins=
-taller provide you the flexibility to setup your development sysroot at you=
-r customized location which we believe is a big gain in embedded applicatio=
-n development.  Again, since adt is using opkg, you're still able to manage=
- the toolchain install location under /opt/poky, and sysroot location using=
- opkg as you use to do with meta-toolchain, just the opkg and opkg-target n=
-eed to be modified to reflect the new locations based on adt-installer.
+These are few commits for gcc 4.6.0 & patch upstream status.
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: nitin/misc
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=nitin/misc
 
 Thanks,
-Jessica
+    Nitin A Kamble <nitin.a.kamble@intel.com>
+---
 
------Original Message-----
-From: Lu, Lianhao
-Sent: Thursday, May 05, 2011 6:34 PM
-To: Ilya Yanok; Zhang, Jessica
-Cc: poky@pokylinux.org
-Subject: RE: [poky] opkg and opkg-target aliases for the SDK
 
-Ilya Yanok wrote on 2011-05-06:
-> Hi Jessica,
->
-> On 04.05.2011 21:21, Zhang, Jessica wrote:
->> The removal was part of the changes made for adt-installer which is
->> a new
-> feature for Yocto 1.0 release.  The old opkg and opkg-target aliases
-> in the environment script was for add packages to the locked location
-> of toolchain(aka
-> SDK) and target sysroot.  With Yocto 1.0 and adt-installer, it's still
-> using opkg to install toolchain under /opt/poky/ but the sysroot is
-> now a customized location that can be anywhere, which is specified in the=
- adt_intaller.conf file...
->
-> I see. Still as we are meta-toolchain users we are going to miss them...
-> Or is meta-toolchain going to be abandoned and we should move to
-> adt-installer?
->
-Hi Ilya,
+Khem Raj (2):
+  gcc-4.6.0: Apply linaro patches
+  linux-yocto_git.bb: Backport upstream fix for gcc 4.6 compilation
 
-The meta-toolchain is still there for backward compatibilities. Another rea=
-son that the opkg-target and opkg were removed from the environment file in=
- meta-toolchain is that now the meta-toolchain can be created not only by i=
-pk, but by rpm/deb also, and the opkg/opkg-target is miss-leading for the r=
-pm/deb cases.
+Nitin A Kamble (8):
+  libpcre: update upstream status for patches
+  patch-2.6.1: update patch upstream status
+  patch: update upstream status for patches
+  python-imaging: update upstream status for patches
+  subversion: update upstream status for patches
+  sat-solver: fix compilation issue with gcc 4.6.0
+  gcc-4.5.1: update upstream status of patches
+  binutils: update upstream status of patches
 
-Best Regards,
-Lianhao
+ .../binutils/binutils-2.21/110-arm-eabi-conf.patch |    2 +
+ .../binutils-2.21/binutils-2.19.1-ld-sysroot.patch |    2 +
+ .../binutils/binutils-2.21/binutils-poison.patch   |    2 +
+ .../binutils-uclibc-100-uclibc-conf.patch          |    2 +
+ .../gcc/gcc-4.5.1/100-uclibc-conf.patch            |    2 +
+ .../gcc/gcc-4.5.1/103-uclibc-conf-noupstream.patch |    2 +
+ .../gcc/gcc-4.5.1/200-uclibc-locale.patch          |    2 +
+ .../gcc/gcc-4.5.1/203-uclibc-locale-no__x.patch    |    2 +
+ .../gcc-4.5.1/204-uclibc-locale-wchar_fix.patch    |    2 +
+ .../gcc/gcc-4.5.1/205-uclibc-locale-update.patch   |    2 +
+ .../gcc/gcc-4.5.1/301-missing-execinfo_h.patch     |    2 +
+ .../gcc/gcc-4.5.1/302-c99-snprintf.patch           |    2 +
+ .../gcc/gcc-4.5.1/303-c99-complex-ugly-hack.patch  |    2 +
+ .../gcc/gcc-4.5.1/304-index_macro.patch            |    2 +
+ .../gcc-4.5.1/305-libmudflap-susv3-legacy.patch    |    2 +
+ .../gcc/gcc-4.5.1/306-libstdc++-namespace.patch    |    2 +
+ .../gcc/gcc-4.5.1/307-locale_facets.patch          |    2 +
+ .../gcc/gcc-4.5.1/602-sdk-libstdc++-includes.patch |    2 +
+ .../recipes-devtools/gcc/gcc-4.5.1/64bithack.patch |    2 +
+ .../gcc/gcc-4.5.1/740-sh-pr24836.patch             |    2 +
+ .../gcc/gcc-4.5.1/800-arm-bigendian.patch          |    2 +
+ .../gcc/gcc-4.5.1/904-flatten-switch-stmt-00.patch |    2 +
+ .../gcc/gcc-4.5.1/arm-bswapsi2.patch               |    2 +
+ .../gcc/gcc-4.5.1/arm-nolibfloat.patch             |    2 +
+ .../gcc/gcc-4.5.1/arm-softfloat.patch              |    2 +
+ meta/recipes-devtools/gcc/gcc-4.6.0.inc            |    4 +
+ .../gcc-4.6.0/linaro/gcc-4.6-linaro-r106720.patch  |   51 ++
+ .../gcc-4.6.0/linaro/gcc-4.6-linaro-r106723.patch  |   63 ++
+ .../gcc-4.6.0/linaro/gcc-4.6-linaro-r106729.patch  |   32 +
+ .../gcc-4.6.0/linaro/gcc-4.6-linaro-r106731.patch  |   28 +
+ .../gcc-4.6.0/linaro/gcc-4.6-linaro-r106733.patch  |  653 ++++++++++++++++++++
+ .../gcc-4.6.0/linaro/gcc-4.6-linaro-r106737.patch  |  126 ++++
+ .../gcc-4.6.0/linaro/gcc-4.6-linaro-r106738.patch  |  177 ++++++
+ .../gcc/gcc-4_6-branch-linaro-backports.inc        |    9 +
+ .../patch/patch-2.6.1/global-reject-file.diff      |    2 +
+ meta/recipes-devtools/patch/patch/debian.patch     |    2 +
+ .../patch/patch/global-reject-file.diff            |    2 +
+ meta/recipes-devtools/patch/patch/install.patch    |    2 +
+ .../patch/patch/unified-reject-files.diff          |    2 +
+ .../python/python-imaging/path.patch               |    2 +
+ .../subversion/disable-revision-install.patch      |    2 +
+ .../subversion/subversion/libtool2.patch           |    2 +
+ .../subversion/subversion/neon-detection.patch     |    2 +
+ .../sat-solver/fix_gcc-4.6.0_compile_issue.patch   |  115 ++++
+ meta/recipes-extended/sat-solver/sat-solver_git.bb |    5 +-
+ .../perf-tool-Fix-gcc-4.6.0-issues.patch           |  266 ++++++++
+ meta/recipes-kernel/linux/linux-yocto_git.bb       |    4 +-
+ .../libpcre/files/fix-pcre-name-collision.patch    |    1 +
+ .../recipes-support/libpcre/files/pcre-cross.patch |    2 +
+ 49 files changed, 1602 insertions(+), 2 deletions(-)
+ create mode 100644 meta/recipes-devtools/gcc/gcc-4.6.0/linaro/gcc-4.6-linaro-r106720.patch
+ create mode 100644 meta/recipes-devtools/gcc/gcc-4.6.0/linaro/gcc-4.6-linaro-r106723.patch
+ create mode 100644 meta/recipes-devtools/gcc/gcc-4.6.0/linaro/gcc-4.6-linaro-r106729.patch
+ create mode 100644 meta/recipes-devtools/gcc/gcc-4.6.0/linaro/gcc-4.6-linaro-r106731.patch
+ create mode 100644 meta/recipes-devtools/gcc/gcc-4.6.0/linaro/gcc-4.6-linaro-r106733.patch
+ create mode 100644 meta/recipes-devtools/gcc/gcc-4.6.0/linaro/gcc-4.6-linaro-r106737.patch
+ create mode 100644 meta/recipes-devtools/gcc/gcc-4.6.0/linaro/gcc-4.6-linaro-r106738.patch
+ create mode 100644 meta/recipes-devtools/gcc/gcc-4_6-branch-linaro-backports.inc
+ create mode 100644 meta/recipes-extended/sat-solver/sat-solver/fix_gcc-4.6.0_compile_issue.patch
+ create mode 100644 meta/recipes-kernel/linux/linux-yocto/perf-tool-Fix-gcc-4.6.0-issues.patch
 
+-- 
+1.7.3.4
 
 
