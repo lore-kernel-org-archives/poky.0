@@ -1,26 +1,24 @@
-Return-Path: <mark.hatle@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9498C4C8007E
-	for <poky@yoctoproject.org>; Fri,  6 May 2011 10:18:15 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p46FIEIZ011755
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Fri, 6 May 2011 08:18:14 -0700 (PDT)
-Received: from Macintosh-5.local (172.25.36.228) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server id 14.1.255.0;
-	Fri, 6 May 2011 08:18:14 -0700
-Message-ID: <4DC41135.4070708@windriver.com>
-Date: Fri, 6 May 2011 10:18:13 -0500
-From: Mark Hatle <mark.hatle@windriver.com>
-Organization: Wind River Systems
-User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
-	rv:1.9.2.17) Gecko/20110414 Thunderbird/3.1.10
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 77F254C8007E
+	for <poky@pokylinux.org>; Fri,  6 May 2011 12:09:23 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 06 May 2011 10:09:22 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.64,327,1301900400"; d="scan'208";a="639076858"
+Received: from unknown (HELO [10.255.12.39]) ([10.255.12.39])
+	by orsmga002.jf.intel.com with ESMTP; 06 May 2011 10:09:22 -0700
+Message-ID: <4DC42B45.7080504@linux.intel.com>
+Date: Fri, 06 May 2011 10:09:25 -0700
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.14) Gecko/20110223 Lightning/1.0b2 Thunderbird/3.1.8
 MIME-Version: 1.0
-To: <poky@yoctoproject.org>
-References: <BANLkTim-yTAu5cDewMwawEM_FeL_xkNiVA@mail.gmail.com>
-	<4DC3C7B4.1000705@windriver.com>
-In-Reply-To: <4DC3C7B4.1000705@windriver.com>
-Subject: Re: Error in pulling cups package
+To: gmane@reliableembeddedsystems.com
+References: <iq04eq$4qb$1@dough.gmane.org>
+In-Reply-To: <iq04eq$4qb$1@dough.gmane.org>
+Cc: poky@pokylinux.org
+Subject: Re: Third party toolchain, kernel, bootloader
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,155 +30,76 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 06 May 2011 15:18:16 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-
-On 5/6/11 5:04 AM, Kang Kai wrote:
-> On 2011年05月05日 19:25, chinmaya hoshing wrote:
->> Hi,
->>
->> I am trying to port Poky to the "sandybridge platform"  for "sugarbay" machine.
->> I am getting error for cups package following is the error log:
->>
->> Processing google-chrome...
->> | Processing bzip2...
->> | Processing cups...
->> | error: LOOP:
->> | error: removing busybox-1.17.3-r2.snb "Requires(hint): busybox-udhcpc" from
->> tsort relations.
->> | error: removing busybox-udhcpc-1.17.3-r2.snb "Requires(post): /bin/sh" from
->> tsort relations.
->> | error: LOOP:
->> | error: removing nss-dev-3.12.9-r2.snb "Requires: nss = 3.12.9-r2" from tsort
->> relations.
->> | error: removing nss-3.12.9-r2.snb "Requires: nss-dev >= 3.12.9" from tsort
->> relations.
->> | error: LOOP:
->> | error: removing nspr-4.8.7-r0.snb "Requires: nspr-dev >= 4.8.7" from tsort
->> relations.
->> | error: removing nspr-dev-4.8.7-r0.snb "Requires: nspr = 4.8.7-r0" from tsort
->> relations.
->> | error: LOOP:
->> | error: removing busybox-1.17.3-r2.snb "Requires(hint): busybox-syslog" from
->> tsort relations.
->> | error: removing busybox-syslog-1.17.3-r2.snb "Requires(post): /bin/sh" from
->> tsort relations.
->> | error: LOOP:
->> | error: removing libudev0-164-r1.snb "Requires: udev = 164-r1" from tsort
->> relations.
->> | error: removing udev-164-r1.snb "Requires: libudev0 >= 164" from tsort
->> relations.
->> | error: LOOP:
->> | error: removing libdbus-1-3-1.4.1-r1.snb "Requires(hint): dbus-1" from tsort
->> relations.
->> | error: removing dbus-1-1.4.1-r1.snb "Requires: libdbus-1-3 >= 1.4.1" from
->> tsort relations.
->> | Manifest:
->> /home/sct/logi_sandybridge/poky/build/tmp/work/sugarbay-poky-linux/poky-image-minimal-black-1.0-r0/rootfs/install/install.manifest
->> | error: LOOP:
->> | error: removing nspr-4.8.7-r0.snb "Requires: nspr-dev >= 4.8.7" from tsort
->> relations.
->> | error: removing nspr-dev-4.8.7-r0.snb "Requires: nspr = 4.8.7-r0" from tsort
->> relations.
->> | error: LOOP:
->> | error: removing busybox-1.17.3-r2.snb "Requires(hint): busybox-udhcpc" from
->> tsort relations.
->> | error: removing busybox-udhcpc-1.17.3-r2.snb "Requires(post): /bin/sh" from
->> tsort relations.
->> | error: LOOP:
->> | error: removing nss-dev-3.12.9-r2.snb "Requires: nss = 3.12.9-r2" from tsort
->> relations.
->> | error: removing nss-3.12.9-r2.snb "Requires: nss-dev >= 3.12.9" from tsort
->> relations.
->> | error: LOOP:
->> | error: removing busybox-syslog-1.17.3-r2.snb "Requires(post): /bin/sh" from
->> tsort relations.
->> | error: removing busybox-1.17.3-r2.snb "Requires(hint): busybox-syslog" from
->> tsort relations.
->> | error: LOOP:
->> | error: removing dbus-1-1.4.1-r1.snb "Requires: libdbus-1-3 >= 1.4.1" from
->> tsort relations.
->> | error: removing libdbus-1-3-1.4.1-r1.snb "Requires(hint): dbus-1" from tsort
->> relations.
->> | error: LOOP:
->> | error: removing udev-164-r1.snb "Requires: libudev0 >= 164" from tsort
->> relations.
->> | error: removing libudev0-164-r1.snb "Requires: udev = 164-r1" from tsort
->> relations.
->> | Preparing...              
->>  /home/sandybridge/poky/build/tmp/work/sugarbay-poky-linux/poky-image-minimal-black-1.0-r0/temp/run.do_rootfs.21768:
->> line 507: 22206 Segmentation fault      rpm --dbpath /var/lib/rpm
->> --define='_openall_before_chroot 1' --root ${target_rootfs} --predefine
->> "_rpmds_sysinfo_path ${target_rootfs}/etc/rpm/sysinfo" --predefine
->> "_rpmrc_platform_path ${target_rootfs}/etc/rpm/platform" -D "_dbpath
->> /var/lib/rpm" --noscripts --notriggers --noparentdirs --nolinktos -D
->> "__dbi_txn create nofsync private" -Uhv
->> ${target_rootfs}/install/install_solution.manifest
-
-The loops have nothing to do with the segfault.
-
-> I tried to break the loop dependencies, then the "error: LOOP" message disappear.
-> But rpm still Segmentation fault, it is so hard to debug, can anyone give some
-> advices?
-
-If you can get me a reproducer I'll work on trying to identify the segfault and
-work through it.  (What I likely need is a copy of your deploy directory, and
-the items from the tmp/work/<machine>/<image>)
-
-Two ways to attempt to figure out what is going on:
-
-1) Manually reproduce it
-Note, you should be able to reproduce this outside of the build system.  The
-basic steps are:
-
-run pseudo, and setup the environment for the rootfs image creation.
-run the failed script above in gdb
-wait until it segfaults and report on the segfault location...
+X-List-Received-Date: Fri, 06 May 2011 17:09:23 -0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
 
 
-2) Capture a core...
 
-On the command line run: ulimit -c unlimited
-
-Run the bitbake command that fails
-
-Look for the dumped core file, likely in tmp/work/<machine>/<image> "somewhere".
- Should be named "core.XXXXXX" where XXXXXX is a pid.
-
-Run gdb on the core file similar to:
-
-gdb <path>/tmp/sysroots/x86_64-linux/usr/bin/rpm.real <path>/core.XXXXXX
-
-assuming that is successful, you should be able to type "bt" and figure out
-where the crash occurred.
-
-
-Again let me know if you get any reasonable results and I can further investigate.
-
---Mark
-
->> | ERROR: Function 'do_rootfs' failed (see
->> /home/sandybridge/poky/build/tmp/work/sugarbay-poky-linux/poky-image-minimal-black-1.0-r0/temp/log.do_rootfs.21768
->> for further information)
->> NOTE: package poky-image-minimal-black-1.0-r0: task do_rootfs: Failed
->> ERROR:
->> '/home/sandybridge/poky/meta/recipes-core/images/poky-image-minimal-black.bb
->> <http://poky-image-minimal-black.bb>' failed
->> ERROR: Task 179
->> (/home/sandybridge/poky/meta/recipes-core/images/poky-image-minimal-black.bb
->> <http://poky-image-minimal-black.bb>, do_rootfs) failed with exit code '1'
->>
->> Can you help me to find the solution !!!!!!
->>
->> Chinmaya
->>
->>
->> _______________________________________________
->> poky mailing list
->> poky@yoctoproject.org
->> https://lists.yoctoproject.org/listinfo/poky
+On 05/05/2011 11:28 PM, Robert Berger wrote:
+> Hi,
 > 
+> I'm working on a couple of projects trying to use yocto and it boils
+> down to the fact, that the packages and the package management (with a
+> few tweaks) are very valuable.
+> 
+> On the other hand "just to give it a try" it's a major effort to add
+> kernel and bootloader to poky and moreover the gcc which comes with poky
+> is not always what I need in terms of stability but also features (need
+> e.g. Cortex-A8 support). So I would also need to cook gcc to compile a
+> vendor provided kernel and bootloader.
+
+
+We build for Beagleboard xM, which is a Cortex-A8. Are you missing a
+specific feature? Hitting a particular bug?
+
+
+> What I'm after is to add some packages from poky to some 3rd party
+> rootfs. One major problem I have is the dependency on libc6 (>= 2.12)
+> Usually I have some older versions of libc6: e.g. libc-2.8.so.
+> 
+> For the projects I'm currently working on kernel and bootloader are
+> already compiling/running and tested and I would like to add packages
+> like qt-embedded to the various rootfs.
+
+
+Is the third party rootfs built using an older version of poky or oe?
+
+
+> To achieve this I would need a mechanism to use a 3rd party toolchain
+> with poky (and maybe to skip the build steps for kernel and boot loader).
+> 
+> Is this something yocto/poky was made for, or am I totally off?
+> Am I the only one who has such kind of problems?
+> How are others tackling these kind of problems?
+
+
+From the above I'm getting the impressions you're trying to build
+package with a recent yocto for a much older image that might have even
+been built with something other than yocto (or poky).
+
+I wouldn't expect that to work. The package names, dependency names,
+distribution policy, libc version (as you noticed) will fight you the
+whole way.
+
+Please elaborate if I'm misinterpreting what you are trying to do.
+
+--
+Darren
+
+> 
+> Please advise,
+> 
+> Regards,
+> 
+> Robert
+> 
+> 
+> ..."Rules of Optimization: Rule1: Don't do it. Rule 2 (for experts
+> only): Don't do it yet." - M.A. Jackson (not the singer)
+> 
+> My public pgp key is available at:
+> http://pgp.mit.edu:11371/pks/lookup?op=get&search=0x90320BF1
 > 
 > 
 > _______________________________________________
@@ -188,4 +107,8 @@ Again let me know if you get any reasonable results and I can further investigat
 > poky@yoctoproject.org
 > https://lists.yoctoproject.org/listinfo/poky
 
+-- 
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
