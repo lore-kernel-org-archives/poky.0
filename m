@@ -1,25 +1,41 @@
-Return-Path: <Kai.Kang@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A6FEB4C800B0
-	for <poky@yoctoproject.org>; Fri,  6 May 2011 00:16:20 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p465GJGp011707
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Thu, 5 May 2011 22:16:19 -0700 (PDT)
-Received: from localhost (128.224.163.157) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Thu, 5 May 2011 22:16:19 -0700
-Message-ID: <7d7f51f90af2780a738d680d5e2d9c683660e207.1304658653.git.kai.kang@windriver.com>
-In-Reply-To: <cover.1304658653.git.kai.kang@windriver.com>
-References: <cover.1304658653.git.kai.kang@windriver.com>
-Old-Date: Thu, 5 May 2011 15:58:14 +0800
-Date: Fri, 6 May 2011 13:16:06 +0800
-To: <saul.wold@intel.com>
-From: Kang Kai <kai.kang@windriver.com>
+Return-Path: <cahoshing@gmail.com>
+Received: from mail-pw0-f48.google.com (mail-pw0-f48.google.com
+	[209.85.160.48])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 842FC4C8008F
+	for <poky@yoctoproject.org>; Fri,  6 May 2011 00:31:42 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by pwi16 with SMTP id 16so1879741pwi.35
+	for <poky@yoctoproject.org>; Thu, 05 May 2011 22:31:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:in-reply-to:references:date
+	:message-id:subject:from:to:cc:content-type;
+	bh=UDgs2JM7aWW7l7LwYKiFpggOa44DxO6vNnYk42R3opw=;
+	b=jyUW77bKzX+LK/z55vHRU0ypX3xXIoIzqO+movUdiDkKla+Hy6VweZ3MBQqKk79/dO
+	awtjctj9xwemvaOmoFkMtbryOfiYQbaySCkIY2DNxotduflosJAMiaIidqoK/5oxozsr
+	0N6gmZiI4bf4nIu/1GtkxZ5FW/Yc4SvlhUXr0=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:cc:content-type;
+	b=JnwZbf7aa0UGJ/8ROPAZ0gGQEZITy9XTDBBkgZlKzRiObccTBvqHKuFNNrO0nWRW1m
+	y1qkCR1ou14K44q0d6Nqhw5Hl137C/SKl7BHfLmBRMPHvtqhhXLyz3Vy+xrdLC4V2XzC
+	HUdxasXwDcR1x5KF6563O66ZOPiPtQSoXOsI4=
 MIME-Version: 1.0
-X-Originating-IP: [128.224.163.157]
+Received: by 10.142.83.8 with SMTP id g8mr1688092wfb.146.1304659902030; Thu,
+	05 May 2011 22:31:42 -0700 (PDT)
+Received: by 10.143.158.19 with HTTP; Thu, 5 May 2011 22:31:41 -0700 (PDT)
+In-Reply-To: <4DC2B6C8.2010801@windriver.com>
+References: <BANLkTim-yTAu5cDewMwawEM_FeL_xkNiVA@mail.gmail.com>
+	<1304604592.17396.122.camel@elmorro>
+	<4DC2B6C8.2010801@windriver.com>
+Date: Fri, 6 May 2011 11:01:41 +0530
+Message-ID: <BANLkTimyrS1LN-mcRBP9RUVASQv-ep6W9g@mail.gmail.com>
+From: chinmaya hoshing <cahoshing@gmail.com>
+To: Mark Hatle <mark.hatle@windriver.com>, gary@mlbassoc.com,
+	tom.zanussi@intel.com
 Cc: poky@yoctoproject.org
-Subject: [PATCH 2/2] task-core-lsb: add gettext-runtime and libxml-sax-perl
+Subject: Re: Error in pulling cups package
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,50 +47,22 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 06 May 2011 05:16:20 -0000
-Content-Type: text/plain
+X-List-Received-Date: Fri, 06 May 2011 05:31:42 -0000
+Content-Type: multipart/alternative; boundary=001636e1f9da0364c604a294ce28
 
-From: Kang Kai <kai.kang@windriver.com>
+--001636e1f9da0364c604a294ce28
+Content-Type: text/plain; charset=ISO-8859-1
 
-Because gettext is splitted, so add gettext-runtime to provide command gettext
-Add libxml-sax-perl
-Bump PR
+Thanks guys a lot,
 
-Signed-off-by: Kang Kai <kai.kang@windriver.com>
----
- meta/recipes-extended/tasks/task-core-lsb.bb |    4 +++-
- 1 files changed, 3 insertions(+), 1 deletions(-)
+Gary it worked finaly!!!!!!!!! :-) as said by you I made the changes in
+local.conf
 
-diff --git a/meta/recipes-extended/tasks/task-core-lsb.bb b/meta/recipes-extended/tasks/task-core-lsb.bb
-index 6de24b4..e80d179 100644
---- a/meta/recipes-extended/tasks/task-core-lsb.bb
-+++ b/meta/recipes-extended/tasks/task-core-lsb.bb
-@@ -3,7 +3,7 @@
- #
- 
- DESCRIPTION = "Create Small Image Tasks"
--PR = "r3"
-+PR = "r4"
- LICENSE = "MIT"
- LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58 \
-                     file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
-@@ -111,6 +111,7 @@ RDEPENDS_task-core-tcl = "\
- RDEPENDS_task-core-misc = "\
-     elfutils \
-     gettext \
-+    gettext-runtime \
-     groff \
-     lsb \
-     lsbsetup \
-@@ -188,6 +189,7 @@ RDEPENDS_task-core-lsb-runtime-add = "\
-     liburi-perl \
-     libxml-parser-perl \
-     libxml-perl \
-+    libxml-sax-perl \
-     eglibc-localedatas \
-     eglibc-gconvs \
-     eglibc-charmaps \
--- 
-1.7.1
+Chinmaya
 
+--001636e1f9da0364c604a294ce28
+Content-Type: text/html; charset=ISO-8859-1
 
+<div dir="ltr">Thanks guys a lot,<div><br></div><div>Gary it worked finaly!!!!!!!!! :-) as said by you I made the changes in local.conf</div><div><br></div><div>Chinmaya<br><br></div></div>
+
+--001636e1f9da0364c604a294ce28--
