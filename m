@@ -1,38 +1,28 @@
-Return-Path: <cahoshing@gmail.com>
-Received: from mail-pw0-f48.google.com (mail-pw0-f48.google.com
-	[209.85.160.48])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 83E974C8007E
-	for <poky@yoctoproject.org>; Fri,  6 May 2011 02:32:31 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by pwi16 with SMTP id 16so1922896pwi.35
-	for <poky@yoctoproject.org>; Fri, 06 May 2011 00:32:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:in-reply-to:references:date
-	:message-id:subject:from:to:cc:content-type;
-	bh=ZNlY6/GgcE7g8if7K31tkEgg6kuf1/i0QnZkMTijH2M=;
-	b=AA8yOt5272xSv3wTZ+TfS619O6XV6kMaP3hZpSCMbBgvdA1VxNqCgyFgf7qi2cizbu
-	deytUgLktYonqEuZm1MjZ2gIbTfyyQu8odscH7xyXWycSBcImdRSLO7sF+F1G8ZtwprB
-	uYtt7Ck6U6VjXv+vRrr6+zD9yKI02abnniyu8=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type;
-	b=jmMs8gd/CPcvvH/jDDQyMsNUQDHhVKIlU3guBXijgD7BU/MJLQxSivReR/nLCRw8xK
-	CHvIvvmsCvwtjVRI6XGNqfMCWFarykSt/IMLUPrmfWWEU1dSTGvhe19wmQ2Fhz3aWkmc
-	YGfbVMUZIk15uNMw+daFF6ZPbKTluav+Abhys=
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5BECA4C800B0
+	for <poky@yoctoproject.org>; Fri,  6 May 2011 04:19:22 -0500 (CDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id D90AF16602D8; Fri,  6 May 2011 03:19:21 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=ham version=3.3.2-r929478
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 8CA1216602D0;
+	Fri,  6 May 2011 03:19:21 -0600 (MDT)
+Message-ID: <4DC3BD19.5010108@mlbassoc.com>
+Date: Fri, 06 May 2011 03:19:21 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
 MIME-Version: 1.0
-Received: by 10.142.83.8 with SMTP id g8mr1740616wfb.146.1304667151096; Fri,
-	06 May 2011 00:32:31 -0700 (PDT)
-Received: by 10.143.158.19 with HTTP; Fri, 6 May 2011 00:32:31 -0700 (PDT)
-In-Reply-To: <4DC2B2C8.5050106@mlbassoc.com>
-References: <BANLkTim-yTAu5cDewMwawEM_FeL_xkNiVA@mail.gmail.com>
-	<1304604592.17396.122.camel@elmorro>
-	<4DC2B2C8.5050106@mlbassoc.com>
-Date: Fri, 6 May 2011 13:02:31 +0530
-Message-ID: <BANLkTim7_pkGarX_F6RCsM8gF72os-XWRg@mail.gmail.com>
-From: chinmaya hoshing <cahoshing@gmail.com>
-To: Gary Thomas <gary@mlbassoc.com>
+To: chinmaya hoshing <cahoshing@gmail.com>
+References: <BANLkTim-yTAu5cDewMwawEM_FeL_xkNiVA@mail.gmail.com>	<1304604592.17396.122.camel@elmorro>	<4DC2B2C8.5050106@mlbassoc.com>
+	<BANLkTim7_pkGarX_F6RCsM8gF72os-XWRg@mail.gmail.com>
+In-Reply-To: <BANLkTim7_pkGarX_F6RCsM8gF72os-XWRg@mail.gmail.com>
 Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: Error in pulling cups package
 X-BeenThere: poky@yoctoproject.org
@@ -46,23 +36,21 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 06 May 2011 07:32:31 -0000
-Content-Type: multipart/alternative; boundary=001636e1f9da175d9504a2967e49
+X-List-Received-Date: Fri, 06 May 2011 09:19:22 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
---001636e1f9da175d9504a2967e49
-Content-Type: text/plain; charset=ISO-8859-1
+On 05/06/2011 01:32 AM, chinmaya hoshing wrote:
+>
+> Thanks guys a lot,
+>
+> Gary it worked finaly!!!!!!!!! :-) as said by you I made the changes in local.conf for PACKAGE_CLASSES ?= "package_ipk"
 
-Thanks guys a lot,
+So that points to RPM being the cause of the problems you were seeing.
 
-Gary it worked finaly!!!!!!!!! :-) as said by you I made the changes in
-local.conf for PACKAGE_CLASSES ?= "package_ipk"
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
-Chinmaya
-
---001636e1f9da175d9504a2967e49
-Content-Type: text/html; charset=ISO-8859-1
-
-<div dir="ltr"><br><meta http-equiv="content-type" content="text/html; charset=utf-8"><span class="Apple-style-span" style="border-collapse: collapse; font-family: arial, sans-serif; font-size: 13px; ">Thanks guys a lot,<div>
-<br></div><div>Gary it worked finaly!!!!!!!!! :-) as said by you I made the changes in local.conf for PACKAGE_CLASSES ?= &quot;package_ipk&quot;</div><div><br></div><div>Chinmaya</div><div><br></div></span></div>
-
---001636e1f9da175d9504a2967e49--
