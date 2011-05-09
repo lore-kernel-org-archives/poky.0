@@ -1,21 +1,27 @@
-Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id EF0A94C80A1D
-	for <poky@yoctoproject.org>; Mon,  9 May 2011 16:43:38 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 09 May 2011 14:43:37 -0700
+Return-Path: <saul.wold@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id BA78E4C80578
+	for <poky@yoctoproject.org>; Mon,  9 May 2011 16:49:51 -0500 (CDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 09 May 2011 14:49:51 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,342,1301900400"; d="scan'208";a="744714208"
-Received: from nbuild2.sc.intel.com (HELO localhost) ([172.25.110.37])
-	by orsmga001.jf.intel.com with ESMTP; 09 May 2011 14:43:16 -0700
-Message-Id: <b318fd571e15ba02f0153ee8e80da183e158b055.1304977277.git.nitin.a.kamble@intel.com>
-In-Reply-To: <cover.1304977276.git.nitin.a.kamble@intel.com>
-References: <cover.1304977276.git.nitin.a.kamble@intel.com>
-Old-Date: Mon, 9 May 2011 09:01:42 -0700
-Date: Mon, 09 May 2011 14:43:16 -0700
-To: openembedded-core@lists.openembedded.org,poky@yoctoproject.org
-From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Subject: [PATCH 4/5] systemtap: fix for compilation with gcc 4.6.0
+X-IronPort-AV: E=Sophos;i="4.64,342,1301900400"; 
+   d="scan'208";a="23885"
+Received: from unknown (HELO [10.255.12.75]) ([10.255.12.75])
+	by fmsmga001.fm.intel.com with ESMTP; 09 May 2011 14:49:50 -0700
+Message-ID: <4DC8617E.3010209@intel.com>
+Date: Mon, 09 May 2011 14:49:50 -0700
+From: Saul Wold <saul.wold@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
+MIME-Version: 1.0
+To: Tom Rini <tom_rini@mentor.com>
+References: <cover.1304496956.git.xiaofeng.yan@windriver.com>	<14d94988bd1dd3fc1707828dac9c738f0325175c.1304496956.git.xiaofeng.yan@windriver.com>
+	<4DC1AF3E.20602@mentor.com>
+In-Reply-To: <4DC1AF3E.20602@mentor.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 1/1] qt4: Enable qt4 opengl for ppc
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,160 +33,44 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 09 May 2011 21:43:39 -0000
+X-List-Received-Date: Mon, 09 May 2011 21:49:52 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Nitin A Kamble <nitin.a.kamble@intel.com>
+On 05/04/2011 12:55 PM, Tom Rini wrote:
+> On 05/04/2011 04:00 AM, Xiaofeng Yan wrote:
+>> From: Xiaofeng Yan<xiaofeng.yan@windriver.com>
+>>
+>> Fix [# 1020]
+>>
+>> Signed-off-by: Xiaofeng Yan<xiaofeng.yan@windriver.com>
+>> ---
+>>   meta/recipes-qt/qt4/qt4-x11-free.inc |    1 +
+>>   1 files changed, 1 insertions(+), 0 deletions(-)
+>>
+>> diff --git a/meta/recipes-qt/qt4/qt4-x11-free.inc b/meta/recipes-qt/qt4/qt4-x11-free.inc
+>> index ba08dc8..a711288 100644
+>> --- a/meta/recipes-qt/qt4/qt4-x11-free.inc
+>> +++ b/meta/recipes-qt/qt4/qt4-x11-free.inc
+>> @@ -13,6 +13,7 @@ QT_GLFLAGS_qemux86 = "-opengl"
+>>   QT_GLFLAGS_emenlow = "-opengl"
+>>   QT_GLFLAGS_atom-pc = "-opengl"
+>>   QT_GLFLAGS_qemuppc = "-opengl"
+>> +QT_GLFLAGS_mpc8315e-rdb = "-opengl"
+>>   QT_CONFIG_FLAGS += "-no-xinerama -no-xkb ${QT_GLFLAGS}"
+>>   QT_BASE_NAME ?= "qt4"
+>>   QT_BASE_LIB  ?= "libqt"
+>
+> Can we use more generic overrides here?  Otherwise we'll just fail on
+> the next powerpc board.
+>
+Xiaofeng,
 
-Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
----
- .../fix_for_compilation_with_gcc-4.6.0.patch       |  119 ++++++++++++++++++++
- meta/recipes-kernel/systemtap/systemtap_git.bb     |    3 +-
- 2 files changed, 121 insertions(+), 1 deletions(-)
- create mode 100644 meta/recipes-kernel/systemtap/systemtap/fix_for_compilation_with_gcc-4.6.0.patch
+Now that we have re-factored and these changes will meta-yocto or in BSP 
+.bbappend files.  Can you make a more appropriate change that also take 
+the above comment into account.
 
-diff --git a/meta/recipes-kernel/systemtap/systemtap/fix_for_compilation_with_gcc-4.6.0.patch b/meta/recipes-kernel/systemtap/systemtap/fix_for_compilation_with_gcc-4.6.0.patch
-new file mode 100644
-index 0000000..5f60820
---- /dev/null
-+++ b/meta/recipes-kernel/systemtap/systemtap/fix_for_compilation_with_gcc-4.6.0.patch
-@@ -0,0 +1,119 @@
-+Upstream-Status="Pending"
-+
-+Fix following compiler errors with gcc 4.6.0:
-+Nitin A Kamble <nitin.a.kamble@intel.com> 2011/05/09
-+
-+| tapsets.cxx: In member function 'void sdt_query::handle_probe_entry()':
-+| tapsets.cxx:5295:8: error: variable 'kprobe_found' set but not used [-Werror=unused-but-set-variable]
-+| tapsets.cxx: In member function 'virtual void hwbkpt_builder::build(systemtap_session&, probe*, probe_point*, const literal_map_t&, std::vector<derived_probe*>&)':
-+| tapsets.cxx:7655:18: error: variable 'has_symbol_str' set but not used [-Werror=unused-but-set-variable]
-+| cc1plus: all warnings being treated as errors
-+| 
-+| make[2]: *** [stap-tapsets.o] Error 1
-+| translate.cxx: In member function 'virtual void c_unparser::visit_print_format(print_format*)':
-+| translate.cxx:4431:6: error: variable 'width_ix' set but not used [-Werror=unused-but-set-variable]
-+| cc1plus: all warnings being treated as errors
-+| 
-+| make[2]: *** [stap-translate.o] Error 1
-+| common.c: In function 'fatal_handler':
-+| common.c:397:13: error: variable 'rc' set but not used [-Werror=unused-but-set-variable]
-+| cc1: all warnings being treated as errors
-+| 
-+| make[3]: *** [common.o] Error 1
-+| make[3]: *** Waiting for unfinished jobs....
-+| common.c: In function 'fatal_handler':
-+| common.c:397:13: error: variable 'rc' set but not used [-Werror=unused-but-set-variable]
-+| cc1: all warnings being treated as errors
-+| 
-+| mainloop.c: In function 'chld_proc':
-+| mainloop.c:56:11: error: variable 'rc' set but not used [-Werror=unused-but-set-variable]
-+| mainloop.c: In function 'stp_main_loop':
-+| mainloop.c:623:17: error: variable 'rc' set but not used [-Werror=unused-but-set-variable]
-+| cc1: all warnings being treated as errors
-+| 
-+
-+Index: git/tapsets.cxx
-+===================================================================
-+--- git.orig/tapsets.cxx
-++++ git/tapsets.cxx
-+@@ -5292,7 +5292,6 @@ sdt_query::handle_probe_entry()
-+   probe *new_base = convert_location();
-+   probe_point *new_location = new_base->locations[0];
-+ 
-+-  bool kprobe_found = false;
-+   bool need_debug_info = false;
-+ 
-+   Dwarf_Addr bias;
-+@@ -5302,7 +5301,6 @@ sdt_query::handle_probe_entry()
-+   if (have_kprobe())
-+     {
-+       convert_probe(new_base);
-+-      kprobe_found = true;
-+       // Expand the local variables in the probe body
-+       sdt_kprobe_var_expanding_visitor svv (module_val,
-+ 					    provider_name,
-+@@ -7652,7 +7650,7 @@ hwbkpt_builder::build(systemtap_session 
-+ {
-+   string symbol_str_val;
-+   int64_t hwbkpt_address, len;
-+-  bool has_addr, has_symbol_str, has_write, has_rw, has_len;
-++  bool has_addr, has_write, has_rw, has_len;
-+ 
-+   if (! (sess.kernel_config["CONFIG_PERF_EVENTS"] == string("y")))
-+       throw semantic_error ("CONFIG_PERF_EVENTS not available on this kernel",
-+@@ -7662,7 +7660,6 @@ hwbkpt_builder::build(systemtap_session 
-+                             location->components[0]->tok);
-+ 
-+   has_addr = get_param (parameters, TOK_HWBKPT, hwbkpt_address);
-+-  has_symbol_str = get_param (parameters, TOK_HWBKPT, symbol_str_val);
-+   has_len = get_param (parameters, TOK_LENGTH, len);
-+   has_write = (parameters.find(TOK_HWBKPT_WRITE) != parameters.end());
-+   has_rw = (parameters.find(TOK_HWBKPT_RW) != parameters.end());
-+Index: git/translate.cxx
-+===================================================================
-+--- git.orig/translate.cxx
-++++ git/translate.cxx
-+@@ -4428,7 +4428,7 @@ c_unparser::visit_print_format (print_fo
-+ 	  continue;
-+ 
-+ 	/* Take note of the width and precision arguments, if any.  */
-+-	int width_ix = -1, prec_ix= -1;
-++	int __attribute((__unused__)) width_ix = -1, prec_ix= -1;
-+ 	if (components[i].widthtype == print_format::width_dynamic)
-+ 	  width_ix = arg_ix++;
-+ 	if (components[i].prectype == print_format::prec_dynamic)
-+Index: git/runtime/staprun/common.c
-+===================================================================
-+--- git.orig/runtime/staprun/common.c
-++++ git/runtime/staprun/common.c
-+@@ -394,7 +394,7 @@ void parse_modpath(const char *inpath)
-+ #define ERR_MSG "\nUNEXPECTED FATAL ERROR in staprun. Please file a bug report.\n"
-+ static void fatal_handler (int signum)
-+ {
-+-        int rc;
-++        int __attribute__((__unused__)) rc;
-+         char *str = strsignal(signum);
-+         rc = write (STDERR_FILENO, ERR_MSG, sizeof(ERR_MSG));
-+         rc = write (STDERR_FILENO, str, strlen(str));
-+Index: git/runtime/staprun/mainloop.c
-+===================================================================
-+--- git.orig/runtime/staprun/mainloop.c
-++++ git/runtime/staprun/mainloop.c
-+@@ -53,7 +53,7 @@ static void *signal_thread(void *arg)
-+ 
-+ static void chld_proc(int signum)
-+ {
-+-  int32_t rc, btype = STP_EXIT;
-++  int32_t __attribute__((__unused__)) rc, btype = STP_EXIT;
-+   dbug(2, "chld_proc %d (%s)\n", signum, strsignal(signum));
-+   pid_t pid = waitpid(-1, NULL, WNOHANG);
-+   if (pid != target_pid)
-+@@ -620,7 +620,7 @@ int stp_main_loop(void)
-+       {
-+         /* module asks us to start exiting, so send STP_EXIT */
-+         dbug(2, "got STP_REQUEST_EXIT\n");
-+-        int32_t rc, btype = STP_EXIT;
-++        int32_t __attribute__((__unused__))rc, btype = STP_EXIT;
-+         rc = write(control_channel, &btype, sizeof(btype));
-+         break;
-+       }
-diff --git a/meta/recipes-kernel/systemtap/systemtap_git.bb b/meta/recipes-kernel/systemtap/systemtap_git.bb
-index 4df0947..8ac4c14 100644
---- a/meta/recipes-kernel/systemtap/systemtap_git.bb
-+++ b/meta/recipes-kernel/systemtap/systemtap_git.bb
-@@ -5,10 +5,11 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f"
- DEPENDS = "elfutils"
- 
- SRCREV = "4ab3a1863bf4f472acae7a809bf2b38d91658aa8"
--PR = r0
-+PR = "r1"
- PV = "1.4+git${SRCPV}"
- 
- SRC_URI = "git://sources.redhat.com/git/systemtap.git;protocol=git \
-+	file://fix_for_compilation_with_gcc-4.6.0.patch \
-           "
- 
- EXTRA_OECONF = "--prefix=${D} --with-libelf=${STAGING_DIR_TARGET} --without-rpm \
--- 
-1.7.3.4
+Thanks
+	Sau!
 
 
