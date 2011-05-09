@@ -1,40 +1,26 @@
-Return-Path: <liping.ke@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A37EF4C8009D
-	for <poky@yoctoproject.org>; Mon,  9 May 2011 01:59:13 -0500 (CDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 08 May 2011 23:59:13 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,339,1301900400"; d="scan'208";a="690004698"
-Received: from pgsmsx603.gar.corp.intel.com ([10.221.43.87])
-	by fmsmga002.fm.intel.com with ESMTP; 08 May 2011 23:59:12 -0700
-Received: from pgsmsx509.gar.corp.intel.com (172.30.13.17) by
-	pgsmsx603.gar.corp.intel.com (10.221.43.87) with Microsoft SMTP Server
-	(TLS) id 8.2.255.0; Mon, 9 May 2011 14:58:34 +0800
-Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
-	PGSMSX509.gar.corp.intel.com (172.30.13.17) with Microsoft SMTP Server
-	(TLS) id 8.2.255.0; Mon, 9 May 2011 14:58:34 +0800
-Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
-	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi; Mon, 9 May 2011
-	14:58:33 +0800
-From: "Ke, Liping" <liping.ke@intel.com>
-To: "Lock, Joshua" <joshua.lock@intel.com>, "Zhang, Jessica"
-	<jessica.zhang@intel.com>
-Date: Mon, 9 May 2011 14:58:31 +0800
-Thread-Topic: [poky] [PATCH 0/4][Image Creator]Put extra requested fields
-	into	different cache files
-Thread-Index: AcwOFXEDP1+hwUHUSd6hwvV/NLCBSAAAAzqgAAAXr9A=
-Message-ID: <789F9655DD1B8F43B48D77C5D30659734C510B50@shsmsx501.ccr.corp.intel.com>
-References: <cover.1304922517.git.liping.ke@intel.com>
-	<789F9655DD1B8F43B48D77C5D30659734C510B3F@shsmsx501.ccr.corp.intel.com>
-In-Reply-To: <789F9655DD1B8F43B48D77C5D30659734C510B3F@shsmsx501.ccr.corp.intel.com>
-Accept-Language: zh-CN, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: zh-CN, en-US
+Return-Path: <Kai.Kang@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2C43D4C8026D
+	for <poky@yoctoproject.org>; Mon,  9 May 2011 03:19:04 -0500 (CDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p498J005005016
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Mon, 9 May 2011 01:19:00 -0700 (PDT)
+Received: from [128.224.163.157] (128.224.163.157) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
+	Mon, 9 May 2011 01:19:00 -0700
+Message-ID: <4DC7A359.6070907@windriver.com>
+Date: Mon, 9 May 2011 16:18:33 +0800
+From: Kang Kai <Kai.Kang@windriver.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.13) Gecko/20101208 Thunderbird/3.1.7
 MIME-Version: 1.0
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 0/4][Image Creator]Put extra requested fields into	different cache files
+To: Marc <mbalcells@gmail.com>
+References: <BANLkTi=rUWJxJrcP8L5HBOo7+MwXMkPRew@mail.gmail.com>
+In-Reply-To: <BANLkTi=rUWJxJrcP8L5HBOo7+MwXMkPRew@mail.gmail.com>
+X-Originating-IP: [128.224.163.157]
+Cc: poky@yoctoproject.org
+Subject: Re: help adding perl module
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,87 +32,94 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 09 May 2011 06:59:13 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Mon, 09 May 2011 08:19:04 -0000
+Content-Type: multipart/alternative;
+	boundary="------------070106040600000107090305"
 
-Hi, Josh
+--------------070106040600000107090305
+Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Those patches are rebased with latest poky master today. I noticed Richard
-has changed the code of cache, making sure skipped info is saved for avoidi=
-ng
-unnecessary parsing, so that the cache file will remain the same size each =
-time.
-( I found before this change, cache file kept increased).
-I verified that our new introduced patch working with this latest cache cha=
-nges.
+Hi Marc,
 
-Thanks a lot!
-criping
+> Hello, I would like to add a perl module which is not included in 
+> poky, which is the best aproach? should I create a recipe or modify 
+> perl recipe?
+> anybody has an example?
+Please check whether http://git.openembedded.net/ has it already, 
+otherwise maybe need to create a new recipe.
 
-> -----Original Message-----
-> From: Ke, Liping
-> Sent: Monday, May 09, 2011 2:53 PM
-> To: Ke, Liping; poky@yoctoproject.org
-> Subject: RE: [poky] [PATCH 0/4][Image Creator]Put extra requested fields =
-into
-> different cache files
->=20
-> Hi, all
->=20
-> Send twice with the modified subjects since those patches are introduced =
-for
-> image creator backend.
->=20
-> Thanks a lot!
-> criping
->=20
-> > -----Original Message-----
-> > From: poky-bounces@yoctoproject.org
-> > [mailto:poky-bounces@yoctoproject.org] On Behalf Of Liping Ke
-> > Sent: Monday, May 09, 2011 2:40 PM
-> > To: poky@yoctoproject.org
-> > Subject: [poky] [PATCH 0/4][Image Creator]Put extra requested fields in=
-to
-> > different cache files
-> >
-> > From: Liping Ke <liping.ke@intel.com>
-> >
-> > Below four patches are for putting extra requested fields inito differe=
-nt
-> > cache files instead of using only on bb_cache.dat. Now image creator ne=
-ed
-> > extra three fields. And in the future, there might be more similar requ=
-ests.
-> > For each extra requestor, we will save the requested fields data into a
-> > separate cache files so that those who don't need it will not be impact=
-ed
-> > with larger fields and large data files.
-> >
-> > Pull URL: git://git.pokylinux.org/poky-contrib.git
-> >   Branch: lke/cache_impl
-> >   Browse:
-> > http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=3Dlke/cache_impl
-> >
-> > Thanks,
-> >     Liping Ke <liping.ke@intel.com>
-> > ---
-> >
-> >
-> > Liping Ke (4):
-> >   Introduce new param bitbake_mode into Cache.py
-> >   Split Cache Data Retrieve method from Data Fields
-> >   Introduce Extra required fields for image creator
-> >   Implement independent cache for Extra Cache Fields Request
-> >
-> >  bitbake/lib/bb/cache.py  |  189
-> > +++++++++++++++++++++++++++++++++++++---------
-> >  bitbake/lib/bb/cooker.py |   55 ++++++++++----
-> >  2 files changed, 193 insertions(+), 51 deletions(-)
-> >
-> > _______________________________________________
-> > poky mailing list
-> > poky@yoctoproject.org
-> > https://lists.yoctoproject.org/listinfo/poky
+>
+> Thank's
+>
+> -- 
+> Marc.
 
+Regards,
+Kai
+>
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+
+
+--------------070106040600000107090305
+Content-Type: text/html; charset="ISO-8859-1"
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta content="text/html; charset=ISO-8859-1"
+      http-equiv="Content-Type">
+  </head>
+  <body bgcolor="#ffffff" text="#000000">
+    Hi Marc, <br>
+    <br>
+    <blockquote
+      cite="mid:BANLkTi=rUWJxJrcP8L5HBOo7+MwXMkPRew@mail.gmail.com"
+      type="cite">
+      <meta http-equiv="Content-Type" content="text/html;
+        charset=ISO-8859-1">
+      Hello, I would like to add a perl module which is not included in
+      poky, which is the best aproach? should I create a recipe or
+      modify perl recipe?
+      <div>anybody has an example?</div>
+    </blockquote>
+    Please check whether <a class="moz-txt-link-freetext" href="http://git.openembedded.net/">http://git.openembedded.net/</a> has it already,
+    otherwise maybe need to create a new recipe.<br>
+    <br>
+    <blockquote
+      cite="mid:BANLkTi=rUWJxJrcP8L5HBOo7+MwXMkPRew@mail.gmail.com"
+      type="cite">
+      <div><br>
+      </div>
+      <div>Thank's<br clear="all">
+        <br>
+        -- <br>
+        Marc.<br>
+      </div>
+    </blockquote>
+    <br>
+    Regards,<br>
+    Kai<br>
+    <blockquote
+      cite="mid:BANLkTi=rUWJxJrcP8L5HBOo7+MwXMkPRew@mail.gmail.com"
+      type="cite">
+      <div>
+      </div>
+      <pre wrap="">
+<fieldset class="mimeAttachmentHeader"></fieldset>
+_______________________________________________
+poky mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:poky@yoctoproject.org">poky@yoctoproject.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.yoctoproject.org/listinfo/poky">https://lists.yoctoproject.org/listinfo/poky</a>
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------070106040600000107090305--
