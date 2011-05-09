@@ -1,25 +1,19 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 933784C80580
-	for <poky@pokylinux.org>; Mon,  9 May 2011 16:18:10 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 09 May 2011 14:18:10 -0700
+Return-Path: <nitin.a.kamble@intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 6F6C14C80578
+	for <poky@yoctoproject.org>; Mon,  9 May 2011 16:43:16 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 09 May 2011 14:43:15 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,342,1301900400"; d="scan'208";a="640318973"
-Received: from doubt.jf.intel.com (HELO [10.7.199.57]) ([10.7.199.57])
-	by orsmga002.jf.intel.com with ESMTP; 09 May 2011 14:18:10 -0700
-Message-ID: <4DC85A13.5010509@linux.intel.com>
-Date: Mon, 09 May 2011 14:18:11 -0700
-From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.17) Gecko/20110424 Lightning/1.0b2 Thunderbird/3.1.10
-MIME-Version: 1.0
-To: gmane@reliableembeddedsystems.com
-References: <iq04eq$4qb$1@dough.gmane.org>	<4DC42B45.7080504@linux.intel.com>	<iq47ab$t58$1@dough.gmane.org>	<iq98td$jo6$1@dough.gmane.org>	<36510365-CB0D-47CE-B420-56E60650019D@dominion.thruhere.net>
-	<iq9icp$d63$1@dough.gmane.org>
-In-Reply-To: <iq9icp$d63$1@dough.gmane.org>
-Cc: poky@pokylinux.org
-Subject: Re: Third party toolchain, kernel, bootloader
+X-IronPort-AV: E=Sophos;i="4.64,342,1301900400"; d="scan'208";a="433218803"
+Received: from nbuild2.sc.intel.com (HELO localhost) ([172.25.110.37])
+	by azsmga001.ch.intel.com with ESMTP; 09 May 2011 14:43:15 -0700
+Message-Id: <cover.1304977276.git.nitin.a.kamble@intel.com>
+Old-Date: Mon, 9 May 2011 14:41:16 -0700
+Date: Mon, 09 May 2011 14:43:15 -0700
+To: openembedded-core@lists.openembedded.org,poky@yoctoproject.org
+From: Nitin A Kamble <nitin.a.kamble@intel.com>
+Subject: [PATCH 0/5] Misc fixes related to gcc 4.6.0
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,98 +25,61 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 09 May 2011 21:18:10 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 09 May 2011 21:43:16 -0000
+
+From: Nitin A Kamble <nitin.a.kamble@intel.com>
 
 
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: nitin/misc
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=nitin/misc
 
-On 05/09/2011 01:21 PM, Robert Berger wrote:
-> Hi Koen,
-> 
-> On 05/09/2011 08:57 PM, Koen Kooi wrote:
->>>  CC      arch/arm/kernel/sysfs_v7.o
->>> /tmp/ccFfYvGD.s: Assembler messages:
->>> /tmp/ccFfYvGD.s:264: Error: selected processor does not support ARM mode
->>> `smc #0'
->>> /tmp/ccFfYvGD.s:306: Error: selected processor does not support ARM mode
->>> `smc #0'
->>> make[1]: *** [arch/arm/kernel/sysfs_v7.o] Error 1
->>> make: *** [arch/arm/kernel] Error 2
->>> make: *** Waiting for unfinished jobs....
->>
->> That's a 'feature' of binutils 2.21, either switch to 2.20 or do something like http://git.angstrom-distribution.org/cgi-bin/cgit.cgi/meta-texasinstruments/commit/?id=579d8efb3eb25b114de2640d98a511893d2f4841
-> 
-> I tried something like this in /arch/arm/kernel/Makefile:
-> 
-> plus_sec := $(call as-instr,.arch_extension sec,+sec)
-> AFLAGS_sysfs_v7.o :=-Wa,-march=armv7-a$(plus_sec)
-> 
-
-I believe the fix we used was:
-(commit fe297dde5ae8f8bf67d3a87759289a99b48ecb2c angstrom-linux)
-
-$ git show 41ec30ddc42912fec133a533b924e9c56ecda8f9
-commit 41ec30ddc42912fec133a533b924e9c56ecda8f9
-Author: John Rigby <john.rigby@linaro.org>
-Date:   Fri Jan 28 16:40:15 2011 -0800
-
-    OMAP4: enable smc instruction in new assembler versions
-
-    New assemblers need -march=armv7-a+sec on command line or
-    .arch_extension sec inline to enable use of the smc instruction.
-
-    This patch uses as-instr to check the latter to conditionally
-    enable the former in AFLAGS for files that use smc.
-
-    Checked on both old and new binutils to verify that it does
-    not break old versions.
-
-    Signed-off-by: John Rigby <john.rigby@linaro.org>
-    Signed-off-by: Tony Lindgren <tony@atomide.com>
-
-diff --git a/arch/arm/mach-omap2/Makefile b/arch/arm/mach-omap2/Makefile
-index 60e51bc..ee9ef4f 100644
---- a/arch/arm/mach-omap2/Makefile
-+++ b/arch/arm/mach-omap2/Makefile
-@@ -26,8 +26,9 @@ obj-$(CONFIG_LOCAL_TIMERS)            += timer-mpu.o
- obj-$(CONFIG_HOTPLUG_CPU)              += omap-hotplug.o
- obj-$(CONFIG_ARCH_OMAP4)               += omap44xx-smc.o omap4-common.o
-
--AFLAGS_omap-headsmp.o                  :=-Wa,-march=armv7-a
--AFLAGS_omap44xx-smc.o                  :=-Wa,-march=armv7-a
-+plus_sec := $(call as-instr,.arch_extension sec,+sec)
-+AFLAGS_omap-headsmp.o                  :=-Wa,-march=armv7-a$(plus_sec)
-+AFLAGS_omap44xx-smc.o                  :=-Wa,-march=armv7-a$(plus_sec)
-
- # Functions loaded to SRAM
- obj-$(CONFIG_ARCH_OMAP2420)            += sram242x.o
+Thanks,
+    Nitin A Kamble <nitin.a.kamble@intel.com>
+---
 
 
+Khem Raj (1):
+  gcc-4.6.0: Apply linaro patches
 
-> ... but it's not being picked up.
-> 
-> With V=1 I can not see what's passed to the assembler, only the compiler.
-> 
-> Regards,
-> 
-> Robert
-> 
-> 
-> ..."What I look forward to is continued immaturity followed by death." -
-> Dave Barry
-> 
-> My public pgp key is available at:
-> http://pgp.mit.edu:11371/pks/lookup?op=get&search=0x90320BF1
-> 
-> 
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+Nitin A Kamble (4):
+  mdadm: compilation fix for gcc 4.6.0
+  pax: fix for compiling with gcc 4.6.0
+  systemtap: fix for compilation with gcc 4.6.0
+  kexec-tools: fix compiler errors with gcc 4.6.0
+
+ meta/recipes-devtools/gcc/gcc-4.6.0.inc            |    4 +
+ .../gcc-4.6.0/linaro/gcc-4.6-linaro-r106720.patch  |   51 ++
+ .../gcc-4.6.0/linaro/gcc-4.6-linaro-r106723.patch  |   63 ++
+ .../gcc-4.6.0/linaro/gcc-4.6-linaro-r106729.patch  |   32 +
+ .../gcc-4.6.0/linaro/gcc-4.6-linaro-r106731.patch  |   28 +
+ .../gcc-4.6.0/linaro/gcc-4.6-linaro-r106733.patch  |  653 ++++++++++++++++++++
+ .../gcc-4.6.0/linaro/gcc-4.6-linaro-r106737.patch  |  126 ++++
+ .../gcc-4.6.0/linaro/gcc-4.6-linaro-r106738.patch  |  177 ++++++
+ .../gcc/gcc-4_6-branch-linaro-backports.inc        |    9 +
+ .../mdadm/fix_for_compilation_with_gcc-4.6.0.patch |  174 ++++++
+ meta/recipes-extended/mdadm/mdadm_3.2.1.bb         |    5 +-
+ .../pax/pax/fix_for_compile_with_gcc-4.6.0.patch   |   25 +
+ meta/recipes-extended/pax/pax_3.4.bb               |    5 +-
+ .../fix_for_compiling_with_gcc-4.6.0.patch         |   40 ++
+ meta/recipes-kernel/kexec/kexec-tools_2.0.2.bb     |    3 +-
+ .../fix_for_compilation_with_gcc-4.6.0.patch       |  119 ++++
+ meta/recipes-kernel/systemtap/systemtap_git.bb     |    3 +-
+ 17 files changed, 1511 insertions(+), 6 deletions(-)
+ create mode 100644 meta/recipes-devtools/gcc/gcc-4.6.0/linaro/gcc-4.6-linaro-r106720.patch
+ create mode 100644 meta/recipes-devtools/gcc/gcc-4.6.0/linaro/gcc-4.6-linaro-r106723.patch
+ create mode 100644 meta/recipes-devtools/gcc/gcc-4.6.0/linaro/gcc-4.6-linaro-r106729.patch
+ create mode 100644 meta/recipes-devtools/gcc/gcc-4.6.0/linaro/gcc-4.6-linaro-r106731.patch
+ create mode 100644 meta/recipes-devtools/gcc/gcc-4.6.0/linaro/gcc-4.6-linaro-r106733.patch
+ create mode 100644 meta/recipes-devtools/gcc/gcc-4.6.0/linaro/gcc-4.6-linaro-r106737.patch
+ create mode 100644 meta/recipes-devtools/gcc/gcc-4.6.0/linaro/gcc-4.6-linaro-r106738.patch
+ create mode 100644 meta/recipes-devtools/gcc/gcc-4_6-branch-linaro-backports.inc
+ create mode 100644 meta/recipes-extended/mdadm/mdadm/fix_for_compilation_with_gcc-4.6.0.patch
+ create mode 100644 meta/recipes-extended/pax/pax/fix_for_compile_with_gcc-4.6.0.patch
+ create mode 100644 meta/recipes-kernel/kexec/kexec-tools/fix_for_compiling_with_gcc-4.6.0.patch
+ create mode 100644 meta/recipes-kernel/systemtap/systemtap/fix_for_compilation_with_gcc-4.6.0.patch
 
 -- 
-Darren Hart
-Intel Open Source Technology Center
-Yocto Project - Linux Kernel
+1.7.3.4
+
 
