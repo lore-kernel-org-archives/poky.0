@@ -1,38 +1,30 @@
-Return-Path: <glep-poky@m.gmane.org>
-Received: from lo.gmane.org (lo.gmane.org [80.91.229.12])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 95D174C8024E
-	for <poky@pokylinux.org>; Mon,  9 May 2011 15:22:03 -0500 (CDT)
-Received: from list by lo.gmane.org with local (Exim 4.69)
-	(envelope-from <glep-poky@m.gmane.org>) id 1QJWxu-00074H-2g
-	for poky@pokylinux.org; Mon, 09 May 2011 22:22:02 +0200
-Received: from 79.167.116.87 ([79.167.116.87])
-	by main.gmane.org with esmtp (Gmexim 0.1 (Debian))
-	id 1AlnuQ-0007hv-00
-	for <poky@pokylinux.org>; Mon, 09 May 2011 22:22:02 +0200
-Received: from gmane by 79.167.116.87 with local (Gmexim 0.1 (Debian))
-	id 1AlnuQ-0007hv-00
-	for <poky@pokylinux.org>; Mon, 09 May 2011 22:22:02 +0200
-X-Injected-Via-Gmane: http://gmane.org/
+Return-Path: <yanok@emcraft.com>
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 490A14C8024E
+	for <poky@pokylinux.org>; Mon,  9 May 2011 16:13:00 -0500 (CDT)
+Received: from frontend1.mail.m-online.net (unknown [192.168.8.180])
+	by mail-out.m-online.net (Postfix) with ESMTP id 943131C0F578;
+	Mon,  9 May 2011 23:12:58 +0200 (CEST)
+X-Auth-Info: V8T+xpP13oeq6iEldTHnFsEaqe+rQZD+/biY99V+iJg=
+Received: from mail.denx.de (host-82-135-33-74.customer.m-online.net
+	[82.135.33.74])
+	by smtp-auth.mnet-online.de (Postfix) with ESMTPA id 8EA161C00093;
+	Mon,  9 May 2011 23:12:58 +0200 (CEST)
+Received: from pollux.denx.de (pollux [192.168.1.1])
+	by mail.denx.de (Postfix) with ESMTP id 3B2D142FDAD6;
+	Mon,  9 May 2011 23:12:58 +0200 (CEST)
+Received: by pollux.denx.de (Postfix, from userid 547)
+	id C3F6818015018; Mon,  9 May 2011 23:12:57 +0200 (CEST)
+From: Ilya Yanok <yanok@emcraft.com>
 To: poky@pokylinux.org
-From: Robert Berger <gmane@reliableembeddedsystems.com>
-Date: Mon, 09 May 2011 23:21:45 +0300
-Organization: Reliable Embedded Systems
-Message-ID: <iq9icp$d63$1@dough.gmane.org>
-References: <iq04eq$4qb$1@dough.gmane.org>
-	<4DC42B45.7080504@linux.intel.com>	<iq47ab$t58$1@dough.gmane.org>
-	<iq98td$jo6$1@dough.gmane.org>
-	<36510365-CB0D-47CE-B420-56E60650019D@dominion.thruhere.net>
-Mime-Version: 1.0
-X-Complaints-To: usenet@dough.gmane.org
-X-Gmane-NNTP-Posting-Host: 79.167.116.87
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.14) Gecko/20110223 Thunderbird/3.1.8
-In-Reply-To: <36510365-CB0D-47CE-B420-56E60650019D@dominion.thruhere.net>
-Subject: Re: Third party toolchain, kernel, bootloader
+Date: Mon,  9 May 2011 23:12:55 +0200
+Message-Id: <1304975575-5189-1-git-send-email-yanok@emcraft.com>
+X-Mailer: git-send-email 1.7.4.4
+Cc: Ilya Yanok <yanok@emcraft.com>
+Subject: [PATCH] toolchain-qte: include cross-compiler and fix env script
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
-Reply-To: gmane@reliableembeddedsystems.com
 List-Id: Poky build system developer discussion <poky.yoctoproject.org>
 List-Unsubscribe: <https://lists.yoctoproject.org/options/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=unsubscribe>
@@ -41,44 +33,67 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 09 May 2011 20:22:04 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 09 May 2011 21:13:01 -0000
 
-Hi Koen,
+This patch fixes the meta-toolchain-qte recipe:
+ 1. cross-compiler added to the TOOLCHAIN_HOST_TASK.
+ 2. Corrected paths in the environment script.
+ 3. TOOLCHAIN_OUTPUTNAME used instead of SDK_SUFFIX.
 
-On 05/09/2011 08:57 PM, Koen Kooi wrote:
->>  CC      arch/arm/kernel/sysfs_v7.o
->> /tmp/ccFfYvGD.s: Assembler messages:
->> /tmp/ccFfYvGD.s:264: Error: selected processor does not support ARM mode
->> `smc #0'
->> /tmp/ccFfYvGD.s:306: Error: selected processor does not support ARM mode
->> `smc #0'
->> make[1]: *** [arch/arm/kernel/sysfs_v7.o] Error 1
->> make: *** [arch/arm/kernel] Error 2
->> make: *** Waiting for unfinished jobs....
-> 
-> That's a 'feature' of binutils 2.21, either switch to 2.20 or do something like http://git.angstrom-distribution.org/cgi-bin/cgit.cgi/meta-texasinstruments/commit/?id=579d8efb3eb25b114de2640d98a511893d2f4841
+Signed-off-by: Ilya Yanok <yanok@emcraft.com>
+---
+ meta/recipes-qt/meta/meta-toolchain-qte.bb |   33 ++++++++++++++-------------
+ 1 files changed, 17 insertions(+), 16 deletions(-)
 
-I tried something like this in /arch/arm/kernel/Makefile:
-
-plus_sec := $(call as-instr,.arch_extension sec,+sec)
-AFLAGS_sysfs_v7.o :=-Wa,-march=armv7-a$(plus_sec)
-
-... but it's not being picked up.
-
-With V=1 I can not see what's passed to the assembler, only the compiler.
-
-Regards,
-
-Robert
-
-
-..."What I look forward to is continued immaturity followed by death." -
-Dave Barry
-
-My public pgp key is available at:
-http://pgp.mit.edu:11371/pks/lookup?op=get&search=0x90320BF1
-
+diff --git a/meta/recipes-qt/meta/meta-toolchain-qte.bb b/meta/recipes-qt/meta/meta-toolchain-qte.bb
+index da0dda7..72fa702 100644
+--- a/meta/recipes-qt/meta/meta-toolchain-qte.bb
++++ b/meta/recipes-qt/meta/meta-toolchain-qte.bb
+@@ -1,26 +1,27 @@
+ # Qt Embedded toolchain
+ PR = "r5"
+-TOOLCHAIN_HOST_TASK = "task-qte-toolchain-host"
++TOOLCHAIN_HOST_TASK = "task-qte-toolchain-host task-cross-canadian-${TRANSLATED_TARGET_ARCH}"
+ TOOLCHAIN_TARGET_TASK = "task-qte-toolchain-target"
++TOOLCHAIN_OUTPUTNAME = "${SDK_NAME}-toolchain-qte-${DISTRO_VERSION}"
+ 
+ require recipes-core/meta/meta-toolchain.bb
+-SDK_SUFFIX = "toolchain-qte"
+ 
+ QT_DIR_NAME = "qtopia"
++QT_TOOLS_PREFIX = "${SDKPATHNATIVE}${bindir_nativesdk}"
+ 
+ toolchain_create_sdk_env_script_append() {
+-    echo 'export OE_QMAKE_CC=${TARGET_SYS}-gcc' >> $script
+-    echo 'export OE_QMAKE_CXX=${TARGET_SYS}-g++' >> $script
+-    echo 'export OE_QMAKE_LINK=${TARGET_SYS}-g++' >> $script
+-    echo 'export OE_QMAKE_AR=${TARGET_SYS}-ar' >> $script
+-    echo 'export OE_QMAKE_LIBDIR_QT=${SDKPATH}/${TARGET_SYS}/${libdir}' >> $script
+-    echo 'export OE_QMAKE_INCDIR_QT=${SDKPATH}/${TARGET_SYS}/${includedir}/${QT_DIR_NAME}' >> $script
+-    echo 'export OE_QMAKE_MOC=${SDKPATH}/bin/moc4' >> $script
+-    echo 'export OE_QMAKE_UIC=${SDKPATH}/bin/uic4' >> $script
+-    echo 'export OE_QMAKE_UIC3=${SDKPATH}/bin/uic34' >> $script
+-    echo 'export OE_QMAKE_RCC=${SDKPATH}/bin/rcc4' >> $script
+-    echo 'export OE_QMAKE_QDBUSCPP2XML=${SDKPATH}/bin/qdbuscpp2xml4' >> $script
+-    echo 'export OE_QMAKE_QDBUSXML2CPP=${SDKPATH}/bin/qdbusxml2cpp4' >> $script
+-    echo 'export OE_QMAKE_QT_CONFIG=${SDKPATH}/${TARGET_SYS}/${datadir}/${QT_DIR_NAME}/mkspecs/qconfig.pri' >> $script
+-    echo 'export QMAKESPEC=${SDKPATH}/${TARGET_SYS}/${datadir}/${QT_DIR_NAME}/mkspecs/linux-g++' >> $script
++    echo 'export OE_QMAKE_CC=${TARGET_PREFIX}gcc' >> $script
++    echo 'export OE_QMAKE_CXX=${TARGET_PREFIX}g++' >> $script
++    echo 'export OE_QMAKE_LINK=${TARGET_PREFIX}g++' >> $script
++    echo 'export OE_QMAKE_AR=${TARGET_PREFIX}ar' >> $script
++    echo 'export OE_QMAKE_LIBDIR_QT=${SDKTARGETSYSROOT}/${libdir}' >> $script
++    echo 'export OE_QMAKE_INCDIR_QT=${SDKTARGETSYSROOT}/${includedir}/${QT_DIR_NAME}' >> $script
++    echo 'export OE_QMAKE_MOC=${QT_TOOLS_PREFIX}/moc4' >> $script
++    echo 'export OE_QMAKE_UIC=${QT_TOOLS_PREFIX}/uic4' >> $script
++    echo 'export OE_QMAKE_UIC3=${QT_TOOLS_PREFIX}/uic34' >> $script
++    echo 'export OE_QMAKE_RCC=${QT_TOOLS_PREFIX}/rcc4' >> $script
++    echo 'export OE_QMAKE_QDBUSCPP2XML=${QT_TOOLS_PREFIX}/qdbuscpp2xml4' >> $script
++    echo 'export OE_QMAKE_QDBUSXML2CPP=${QT_TOOLS_PREFIX}/qdbusxml2cpp4' >> $script
++    echo 'export OE_QMAKE_QT_CONFIG=${SDKTARGETSYSROOT}/${datadir}/${QT_DIR_NAME}/mkspecs/qconfig.pri' >> $script
++    echo 'export QMAKESPEC=${SDKTARGETSYSROOT}/${datadir}/${QT_DIR_NAME}/mkspecs/linux-g++' >> $script
+ }
+-- 
+1.7.4.4
 
 
