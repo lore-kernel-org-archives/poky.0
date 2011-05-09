@@ -1,24 +1,26 @@
-Return-Path: <aalonso@secretlab.ca>
-Received: from mail-iw0-f176.google.com (mail-iw0-f176.google.com
-	[209.85.214.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 07C764C801BF
-	for <poky@yoctoproject.org>; Mon,  9 May 2011 09:25:00 -0500 (CDT)
-Received: by iwr19 with SMTP id 19so6798177iwr.35
-	for <poky@yoctoproject.org>; Mon, 09 May 2011 07:25:00 -0700 (PDT)
+Return-Path: <sgw@linux.intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id A8A5E4C804B8
+	for <poky@yoctoproject.org>; Mon,  9 May 2011 11:16:37 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 09 May 2011 09:16:37 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.64,341,1301900400"; d="scan'208";a="433042999"
+Received: from unknown (HELO [10.255.12.75]) ([10.255.12.75])
+	by azsmga001.ch.intel.com with ESMTP; 09 May 2011 09:16:36 -0700
+Message-ID: <4DC81364.1080604@linux.intel.com>
+Date: Mon, 09 May 2011 09:16:36 -0700
+From: Saul Wold <sgw@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
 MIME-Version: 1.0
-Received: by 10.231.21.146 with SMTP id j18mr4589570ibb.24.1304951098714; Mon,
-	09 May 2011 07:24:58 -0700 (PDT)
-Received: by 10.231.157.209 with HTTP; Mon, 9 May 2011 07:24:58 -0700 (PDT)
-In-Reply-To: <4DC634D6.2060504@gmail.com>
-References: <cover.1304621382.git.aalonso@secretlab.ca>
-	<04458e66f8ac3c7c3a476c23c178161dc45215e5.1304621382.git.aalonso@secretlab.ca>
-	<4DC634D6.2060504@gmail.com>
-Date: Mon, 9 May 2011 09:24:58 -0500
-Message-ID: <BANLkTikbw3+6SKM37AFDq=urby7X=wMxOw@mail.gmail.com>
-From: Adrian Alonso <aalonso@secretlab.ca>
-To: Khem Raj <raj.khem@gmail.com>
+To: Patches and discussions about the oe-core layer
+	<openembedded-core@lists.openembedded.org>
+References: <cover.1304652773.git.nitin.a.kamble@intel.com>
+In-Reply-To: <cover.1304652773.git.nitin.a.kamble@intel.com>
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 1/7] insane: add micrblaze target info
+Subject: Re: [OE-core] [PATCH 00/10] gcc-4.6.0 related fixes & patch upstream status updates
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,146 +32,101 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 09 May 2011 14:25:01 -0000
-Content-Type: multipart/alternative; boundary=00151773e560b02af904a2d89afb
+X-List-Received-Date: Mon, 09 May 2011 16:16:38 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
---00151773e560b02af904a2d89afb
-Content-Type: text/plain; charset=ISO-8859-1
-
-Hi,
-
-I'm integrating a third party toolchain which triplet is:
-microblaze-unknown-linux-gnu-
-Setting
-TARGET_OS = "linux-gnu"; TARGET_VENDOR = "-unknown" resolves
-the toolchain triplet in bitbake.conf and I'm able to integrate the
-toolchain without
-messing around with the third party toolchain.
-
-Let me work if I can override insane.bbclass to be less third party
-toolchain specific.
-
-Regards
-
-
-On Sun, May 8, 2011 at 1:14 AM, Khem Raj <raj.khem@gmail.com> wrote:
-
-> On 5/5/2011 12:10 PM, Adrian Alonso wrote:
+On 05/05/2011 08:36 PM, Nitin A Kamble wrote:
+> From: Nitin A Kamble<nitin.a.kamble@intel.com>
 >
->> * package_qa_get_machine_dict
->> * Add microblaze dic entry for QA
->> * Prebuilt toolchain triplet microblaze-unknown-linux-gnu-
->> * TARGET_OS is linux-gnu for this toolchain
->>
->> Signed-off-by: Adrian Alonso<aalonso@secretlab.ca>
->> ---
->>  meta/classes/insane.bbclass |    4 +++-
->>  1 files changed, 3 insertions(+), 1 deletions(-)
->>
->> diff --git a/meta/classes/insane.bbclass b/meta/classes/insane.bbclass
->> index 742be5e..e9d4bfa 100644
->> --- a/meta/classes/insane.bbclass
->> +++ b/meta/classes/insane.bbclass
->> @@ -85,7 +85,9 @@ def package_qa_get_machine_dict():
->>              "linux-uclibcspe" : {
->>                          "powerpc":    (20,     0,    0,          False,
->>       32),
->>                        },
->> -
->> +            "linux-gnu" :       {
->> +                        "microblaze": (47787,  0,    0,          False,
->>       32),
->> +                      },
->>
+> These are few commits for gcc 4.6.0&  patch upstream status.
+>
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>    Branch: nitin/misc
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=nitin/misc
+>
+> Thanks,
+>      Nitin A Kamble<nitin.a.kamble@intel.com>
+> ---
 >
 >
-> we generally use *-*-linux except for arm and ppc (with spe ) can
-> microblaze just use the same triplet ?
+> Khem Raj (2):
+>    gcc-4.6.0: Apply linaro patches
+>    linux-yocto_git.bb: Backport upstream fix for gcc 4.6 compilation
 >
->>         }
->>
->>
->>
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+> Nitin A Kamble (8):
+>    libpcre: update upstream status for patches
+>    patch-2.6.1: update patch upstream status
+>    patch: update upstream status for patches
+>    python-imaging: update upstream status for patches
+>    subversion: update upstream status for patches
+>    sat-solver: fix compilation issue with gcc 4.6.0
+>    gcc-4.5.1: update upstream status of patches
+>    binutils: update upstream status of patches
 >
+>   .../binutils/binutils-2.21/110-arm-eabi-conf.patch |    2 +
+>   .../binutils-2.21/binutils-2.19.1-ld-sysroot.patch |    2 +
+>   .../binutils/binutils-2.21/binutils-poison.patch   |    2 +
+>   .../binutils-uclibc-100-uclibc-conf.patch          |    2 +
+>   .../gcc/gcc-4.5.1/100-uclibc-conf.patch            |    2 +
+>   .../gcc/gcc-4.5.1/103-uclibc-conf-noupstream.patch |    2 +
+>   .../gcc/gcc-4.5.1/200-uclibc-locale.patch          |    2 +
+>   .../gcc/gcc-4.5.1/203-uclibc-locale-no__x.patch    |    2 +
+>   .../gcc-4.5.1/204-uclibc-locale-wchar_fix.patch    |    2 +
+>   .../gcc/gcc-4.5.1/205-uclibc-locale-update.patch   |    2 +
+>   .../gcc/gcc-4.5.1/301-missing-execinfo_h.patch     |    2 +
+>   .../gcc/gcc-4.5.1/302-c99-snprintf.patch           |    2 +
+>   .../gcc/gcc-4.5.1/303-c99-complex-ugly-hack.patch  |    2 +
+>   .../gcc/gcc-4.5.1/304-index_macro.patch            |    2 +
+>   .../gcc-4.5.1/305-libmudflap-susv3-legacy.patch    |    2 +
+>   .../gcc/gcc-4.5.1/306-libstdc++-namespace.patch    |    2 +
+>   .../gcc/gcc-4.5.1/307-locale_facets.patch          |    2 +
+>   .../gcc/gcc-4.5.1/602-sdk-libstdc++-includes.patch |    2 +
+>   .../recipes-devtools/gcc/gcc-4.5.1/64bithack.patch |    2 +
+>   .../gcc/gcc-4.5.1/740-sh-pr24836.patch             |    2 +
+>   .../gcc/gcc-4.5.1/800-arm-bigendian.patch          |    2 +
+>   .../gcc/gcc-4.5.1/904-flatten-switch-stmt-00.patch |    2 +
+>   .../gcc/gcc-4.5.1/arm-bswapsi2.patch               |    2 +
+>   .../gcc/gcc-4.5.1/arm-nolibfloat.patch             |    2 +
+>   .../gcc/gcc-4.5.1/arm-softfloat.patch              |    2 +
+>   meta/recipes-devtools/gcc/gcc-4.6.0.inc            |    4 +
+>   .../gcc-4.6.0/linaro/gcc-4.6-linaro-r106720.patch  |   51 ++
+>   .../gcc-4.6.0/linaro/gcc-4.6-linaro-r106723.patch  |   63 ++
+>   .../gcc-4.6.0/linaro/gcc-4.6-linaro-r106729.patch  |   32 +
+>   .../gcc-4.6.0/linaro/gcc-4.6-linaro-r106731.patch  |   28 +
+>   .../gcc-4.6.0/linaro/gcc-4.6-linaro-r106733.patch  |  653 ++++++++++++++++++++
+>   .../gcc-4.6.0/linaro/gcc-4.6-linaro-r106737.patch  |  126 ++++
+>   .../gcc-4.6.0/linaro/gcc-4.6-linaro-r106738.patch  |  177 ++++++
+>   .../gcc/gcc-4_6-branch-linaro-backports.inc        |    9 +
+>   .../patch/patch-2.6.1/global-reject-file.diff      |    2 +
+>   meta/recipes-devtools/patch/patch/debian.patch     |    2 +
+>   .../patch/patch/global-reject-file.diff            |    2 +
+>   meta/recipes-devtools/patch/patch/install.patch    |    2 +
+>   .../patch/patch/unified-reject-files.diff          |    2 +
+>   .../python/python-imaging/path.patch               |    2 +
+>   .../subversion/disable-revision-install.patch      |    2 +
+>   .../subversion/subversion/libtool2.patch           |    2 +
+>   .../subversion/subversion/neon-detection.patch     |    2 +
+>   .../sat-solver/fix_gcc-4.6.0_compile_issue.patch   |  115 ++++
+>   meta/recipes-extended/sat-solver/sat-solver_git.bb |    5 +-
+>   .../perf-tool-Fix-gcc-4.6.0-issues.patch           |  266 ++++++++
+>   meta/recipes-kernel/linux/linux-yocto_git.bb       |    4 +-
+>   .../libpcre/files/fix-pcre-name-collision.patch    |    1 +
+>   .../recipes-support/libpcre/files/pcre-cross.patch |    2 +
+>   49 files changed, 1602 insertions(+), 2 deletions(-)
+>   create mode 100644 meta/recipes-devtools/gcc/gcc-4.6.0/linaro/gcc-4.6-linaro-r106720.patch
+>   create mode 100644 meta/recipes-devtools/gcc/gcc-4.6.0/linaro/gcc-4.6-linaro-r106723.patch
+>   create mode 100644 meta/recipes-devtools/gcc/gcc-4.6.0/linaro/gcc-4.6-linaro-r106729.patch
+>   create mode 100644 meta/recipes-devtools/gcc/gcc-4.6.0/linaro/gcc-4.6-linaro-r106731.patch
+>   create mode 100644 meta/recipes-devtools/gcc/gcc-4.6.0/linaro/gcc-4.6-linaro-r106733.patch
+>   create mode 100644 meta/recipes-devtools/gcc/gcc-4.6.0/linaro/gcc-4.6-linaro-r106737.patch
+>   create mode 100644 meta/recipes-devtools/gcc/gcc-4.6.0/linaro/gcc-4.6-linaro-r106738.patch
+>   create mode 100644 meta/recipes-devtools/gcc/gcc-4_6-branch-linaro-backports.inc
+>   create mode 100644 meta/recipes-extended/sat-solver/sat-solver/fix_gcc-4.6.0_compile_issue.patch
+>   create mode 100644 meta/recipes-kernel/linux/linux-yocto/perf-tool-Fix-gcc-4.6.0-issues.patch
+>
+Merged in oe-core and Master
 
+Thanks
+	Sau!
 
-
--- 
-Adrian Alonso
-Secret Lab Technologies Ltd.
-
---00151773e560b02af904a2d89afb
-Content-Type: text/html; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
-
-Hi,<div><br></div><div>I&#39;m integrating a third party toolchain which tr=
-iplet is:</div><div><meta http-equiv=3D"content-type" content=3D"text/html;=
- charset=3Dutf-8">microblaze-unknown-linux-gnu-</div><div>Setting</div><div=
->TARGET_OS =3D &quot;linux-gnu&quot;; TARGET_VENDOR =3D &quot;-unknown&quot=
-; resolves</div>
-<div>the toolchain triplet in bitbake.conf and I&#39;m able to integrate th=
-e toolchain without</div><div>messing around with the third party toolchain=
-.</div><div><br></div><div>Let me work if I can override insane.bbclass to =
-be less third party toolchain specific.</div>
-<div><br></div><div>Regards</div><div><br></div><div><br><div class=3D"gmai=
-l_quote">On Sun, May 8, 2011 at 1:14 AM, Khem Raj <span dir=3D"ltr">&lt;<a =
-href=3D"mailto:raj.khem@gmail.com">raj.khem@gmail.com</a>&gt;</span> wrote:=
-<br>
-<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
-x #ccc solid;padding-left:1ex;">On 5/5/2011 12:10 PM, Adrian Alonso wrote:<=
-br>
-<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
-x #ccc solid;padding-left:1ex">
-* package_qa_get_machine_dict<br>
-* Add microblaze dic entry for QA<br>
-* Prebuilt toolchain triplet microblaze-unknown-linux-gnu-<br>
-* TARGET_OS is linux-gnu for this toolchain<br>
-<br>
-Signed-off-by: Adrian Alonso&lt;<a href=3D"mailto:aalonso@secretlab.ca" tar=
-get=3D"_blank">aalonso@secretlab.ca</a>&gt;<br>
----<br>
- =A0meta/classes/insane.bbclass | =A0 =A04 +++-<br>
- =A01 files changed, 3 insertions(+), 1 deletions(-)<br>
-<br>
-diff --git a/meta/classes/insane.bbclass b/meta/classes/insane.bbclass<br>
-index 742be5e..e9d4bfa 100644<br>
---- a/meta/classes/insane.bbclass<br>
-+++ b/meta/classes/insane.bbclass<br>
-@@ -85,7 +85,9 @@ def package_qa_get_machine_dict():<br>
- =A0 =A0 =A0 =A0 =A0 =A0 =A0&quot;linux-uclibcspe&quot; : {<br>
- =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0&quot;powerpc&quot;: =
-=A0 =A0(20, =A0 =A0 0, =A0 =A00, =A0 =A0 =A0 =A0 =A0False, =A0 =A0 =A0 =A0 =
-32),<br>
- =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0},<br>
--<br>
-+ =A0 =A0 =A0 =A0 =A0 =A0&quot;linux-gnu&quot; : =A0 =A0 =A0 {<br>
-+ =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0&quot;microblaze&quot;: (4=
-7787, =A00, =A0 =A00, =A0 =A0 =A0 =A0 =A0False, =A0 =A0 =A0 =A0 32),<br>
-+ =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0},<br>
-</blockquote>
-<br>
-<br>
-we generally use *-*-linux except for arm and ppc (with spe ) can microblaz=
-e just use the same triplet ?<br>
-<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
-x #ccc solid;padding-left:1ex">
- =A0 =A0 =A0 =A0 }<br>
-<br>
-<br>
-</blockquote>
-<br>
-_______________________________________________<br>
-poky mailing list<br>
-<a href=3D"mailto:poky@yoctoproject.org" target=3D"_blank">poky@yoctoprojec=
-t.org</a><br>
-<a href=3D"https://lists.yoctoproject.org/listinfo/poky" target=3D"_blank">=
-https://lists.yoctoproject.org/listinfo/poky</a><br>
-</blockquote></div><br><br clear=3D"all"><br>-- <br><div>Adrian Alonso</div=
->Secret Lab Technologies Ltd.<br>
-</div>
-
---00151773e560b02af904a2d89afb--
