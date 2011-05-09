@@ -1,26 +1,39 @@
-Return-Path: <Kai.Kang@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2C43D4C8026D
-	for <poky@yoctoproject.org>; Mon,  9 May 2011 03:19:04 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p498J005005016
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Mon, 9 May 2011 01:19:00 -0700 (PDT)
-Received: from [128.224.163.157] (128.224.163.157) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Mon, 9 May 2011 01:19:00 -0700
-Message-ID: <4DC7A359.6070907@windriver.com>
-Date: Mon, 9 May 2011 16:18:33 +0800
-From: Kang Kai <Kai.Kang@windriver.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.13) Gecko/20101208 Thunderbird/3.1.7
+Return-Path: <cahoshing@gmail.com>
+Received: from mail-px0-f173.google.com (mail-px0-f173.google.com
+	[209.85.212.173])
+	by mx1.pokylinux.org (Postfix) with ESMTP id BA4C24C8009D
+	for <poky@yoctoproject.org>; Mon,  9 May 2011 06:43:23 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by pxi16 with SMTP id 16so3620569pxi.32
+	for <poky@yoctoproject.org>; Mon, 09 May 2011 04:43:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:in-reply-to:references:date
+	:message-id:subject:from:to:cc:content-type;
+	bh=MYbwaZanvcv9SPqEcugKeoauVOWuKybkhyf7eKDC50I=;
+	b=xhbvD5r5yQWZ/pVfXd4AX3ANg3N5Z3nSn9jgr2TUaqIsk2OrVUUbzKguoAKAZhOcKA
+	Y+JzH3Qrq5/HXIMjnlBs9a3EsyLevM70L0X4ioE8DdxZTBLdE3u3VOqvcRZROE600BHn
+	0+fpG0hMa14te16gYCgcp2wvMj8Aiy8APvqNk=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:cc:content-type;
+	b=gb08dEiLwstPjpWBU2qM7nVnppZ296w9xjC3N//1QfrN0J8p9h63R7GhDTPzqbJAOz
+	Lc0TuHy3UyJKf3OxXjDU2a4sFIAHkqmydJ72jeBE3k9jZgDetHC6vrrDru8SKzfxMnCg
+	QyLpFkYXuDZTdyNqSFwBIpLEhgcSYoCz4Il8Y=
 MIME-Version: 1.0
-To: Marc <mbalcells@gmail.com>
-References: <BANLkTi=rUWJxJrcP8L5HBOo7+MwXMkPRew@mail.gmail.com>
-In-Reply-To: <BANLkTi=rUWJxJrcP8L5HBOo7+MwXMkPRew@mail.gmail.com>
-X-Originating-IP: [128.224.163.157]
+Received: by 10.142.249.32 with SMTP id w32mr3229797wfh.317.1304941402617;
+	Mon, 09 May 2011 04:43:22 -0700 (PDT)
+Received: by 10.143.158.19 with HTTP; Mon, 9 May 2011 04:43:22 -0700 (PDT)
+In-Reply-To: <4DC40F99.6020204@mlbassoc.com>
+References: <BANLkTim-yTAu5cDewMwawEM_FeL_xkNiVA@mail.gmail.com>
+	<4DC3C7B4.1000705@windriver.com> <4DC40F99.6020204@mlbassoc.com>
+Date: Mon, 9 May 2011 17:13:22 +0530
+Message-ID: <BANLkTimYaZR5q1qGDpsvyBvEPS3VtgDkxA@mail.gmail.com>
+From: chinmaya hoshing <cahoshing@gmail.com>
+To: Gary Thomas <gary@mlbassoc.com>
 Cc: poky@yoctoproject.org
-Subject: Re: help adding perl module
+Subject: Re: Error in pulling cups package
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,94 +45,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 09 May 2011 08:19:04 -0000
-Content-Type: multipart/alternative;
-	boundary="------------070106040600000107090305"
+X-List-Received-Date: Mon, 09 May 2011 11:43:24 -0000
+Content-Type: multipart/alternative; boundary=001636ed68aac1760504a2d6582f
 
---------------070106040600000107090305
-Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
-Content-Transfer-Encoding: 7bit
-
-Hi Marc,
-
-> Hello, I would like to add a perl module which is not included in 
-> poky, which is the best aproach? should I create a recipe or modify 
-> perl recipe?
-> anybody has an example?
-Please check whether http://git.openembedded.net/ has it already, 
-otherwise maybe need to create a new recipe.
+--001636ed68aac1760504a2d6582f
+Content-Type: text/plain; charset=ISO-8859-1
 
 >
-> Thank's
+> Hi,
 >
-> -- 
-> Marc.
 
-Regards,
-Kai
->
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+   I am trying to pull chromium package from openembedded,I have wriiten my
+own black.bb file which contains all the supporting packages required for it
+all on poky core Bernard branch . The cups package is the one dependency for
+it , for which I was getting the above error.
 
+  Chinmaya
 
---------------070106040600000107090305
-Content-Type: text/html; charset="ISO-8859-1"
-Content-Transfer-Encoding: 7bit
+--001636ed68aac1760504a2d6582f
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-  <head>
-    <meta content="text/html; charset=ISO-8859-1"
-      http-equiv="Content-Type">
-  </head>
-  <body bgcolor="#ffffff" text="#000000">
-    Hi Marc, <br>
-    <br>
-    <blockquote
-      cite="mid:BANLkTi=rUWJxJrcP8L5HBOo7+MwXMkPRew@mail.gmail.com"
-      type="cite">
-      <meta http-equiv="Content-Type" content="text/html;
-        charset=ISO-8859-1">
-      Hello, I would like to add a perl module which is not included in
-      poky, which is the best aproach? should I create a recipe or
-      modify perl recipe?
-      <div>anybody has an example?</div>
-    </blockquote>
-    Please check whether <a class="moz-txt-link-freetext" href="http://git.openembedded.net/">http://git.openembedded.net/</a> has it already,
-    otherwise maybe need to create a new recipe.<br>
-    <br>
-    <blockquote
-      cite="mid:BANLkTi=rUWJxJrcP8L5HBOo7+MwXMkPRew@mail.gmail.com"
-      type="cite">
-      <div><br>
-      </div>
-      <div>Thank's<br clear="all">
-        <br>
-        -- <br>
-        Marc.<br>
-      </div>
-    </blockquote>
-    <br>
-    Regards,<br>
-    Kai<br>
-    <blockquote
-      cite="mid:BANLkTi=rUWJxJrcP8L5HBOo7+MwXMkPRew@mail.gmail.com"
-      type="cite">
-      <div>
-      </div>
-      <pre wrap="">
-<fieldset class="mimeAttachmentHeader"></fieldset>
-_______________________________________________
-poky mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:poky@yoctoproject.org">poky@yoctoproject.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.yoctoproject.org/listinfo/poky">https://lists.yoctoproject.org/listinfo/poky</a>
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
+<div dir=3D"ltr"><div><div class=3D"gmail_quote"><blockquote class=3D"gmail=
+_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:=
+1ex;"><div><div class=3D"h5">Hi,</div></div></blockquote><div><br></div><di=
+v>=A0=A0 I am trying to pull chromium=A0package=A0from openembedded,I have =
+wriiten my own <a href=3D"http://black.bb">black.bb</a> file which contains=
+ all the supporting=A0packages=A0required for it all on poky core Bernard b=
+ranch . The cups=A0package=A0is the one dependency for it , for which I was=
+ getting the above error.</div>
+<div><br></div><div>=A0=A0Chinmaya</div><div><br></div><div>=A0</div></div>=
+<br></div></div>
 
---------------070106040600000107090305--
+--001636ed68aac1760504a2d6582f--
