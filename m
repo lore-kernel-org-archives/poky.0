@@ -1,19 +1,21 @@
 Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 6F6C14C80578
-	for <poky@yoctoproject.org>; Mon,  9 May 2011 16:43:16 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 09 May 2011 14:43:15 -0700
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 1AFED4C80578
+	for <poky@yoctoproject.org>; Mon,  9 May 2011 16:43:17 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 09 May 2011 14:43:16 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,342,1301900400"; d="scan'208";a="433218803"
+X-IronPort-AV: E=Sophos;i="4.64,342,1301900400"; d="scan'208";a="640327360"
 Received: from nbuild2.sc.intel.com (HELO localhost) ([172.25.110.37])
-	by azsmga001.ch.intel.com with ESMTP; 09 May 2011 14:43:15 -0700
-Message-Id: <cover.1304977276.git.nitin.a.kamble@intel.com>
-Old-Date: Mon, 9 May 2011 14:41:16 -0700
-Date: Mon, 09 May 2011 14:43:15 -0700
+	by orsmga002.jf.intel.com with ESMTP; 09 May 2011 14:43:16 -0700
+Message-Id: <d38e1b870f32f4c58d345f2285bd45ab82e2c912.1304977277.git.nitin.a.kamble@intel.com>
+In-Reply-To: <cover.1304977276.git.nitin.a.kamble@intel.com>
+References: <cover.1304977276.git.nitin.a.kamble@intel.com>
+Old-Date: Sun, 8 May 2011 09:24:40 -0700
+Date: Mon, 09 May 2011 14:43:16 -0700
 To: openembedded-core@lists.openembedded.org,poky@yoctoproject.org
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Subject: [PATCH 0/5] Misc fixes related to gcc 4.6.0
+Subject: [PATCH 3/5] pax: fix for compiling with gcc 4.6.0
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -25,60 +27,65 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 09 May 2011 21:43:16 -0000
+X-List-Received-Date: Mon, 09 May 2011 21:43:17 -0000
 
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
 
-
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: nitin/misc
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=nitin/misc
-
-Thanks,
-    Nitin A Kamble <nitin.a.kamble@intel.com>
+Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
 ---
-
-
-Khem Raj (1):
-  gcc-4.6.0: Apply linaro patches
-
-Nitin A Kamble (4):
-  mdadm: compilation fix for gcc 4.6.0
-  pax: fix for compiling with gcc 4.6.0
-  systemtap: fix for compilation with gcc 4.6.0
-  kexec-tools: fix compiler errors with gcc 4.6.0
-
- meta/recipes-devtools/gcc/gcc-4.6.0.inc            |    4 +
- .../gcc-4.6.0/linaro/gcc-4.6-linaro-r106720.patch  |   51 ++
- .../gcc-4.6.0/linaro/gcc-4.6-linaro-r106723.patch  |   63 ++
- .../gcc-4.6.0/linaro/gcc-4.6-linaro-r106729.patch  |   32 +
- .../gcc-4.6.0/linaro/gcc-4.6-linaro-r106731.patch  |   28 +
- .../gcc-4.6.0/linaro/gcc-4.6-linaro-r106733.patch  |  653 ++++++++++++++++++++
- .../gcc-4.6.0/linaro/gcc-4.6-linaro-r106737.patch  |  126 ++++
- .../gcc-4.6.0/linaro/gcc-4.6-linaro-r106738.patch  |  177 ++++++
- .../gcc/gcc-4_6-branch-linaro-backports.inc        |    9 +
- .../mdadm/fix_for_compilation_with_gcc-4.6.0.patch |  174 ++++++
- meta/recipes-extended/mdadm/mdadm_3.2.1.bb         |    5 +-
- .../pax/pax/fix_for_compile_with_gcc-4.6.0.patch   |   25 +
- meta/recipes-extended/pax/pax_3.4.bb               |    5 +-
- .../fix_for_compiling_with_gcc-4.6.0.patch         |   40 ++
- meta/recipes-kernel/kexec/kexec-tools_2.0.2.bb     |    3 +-
- .../fix_for_compilation_with_gcc-4.6.0.patch       |  119 ++++
- meta/recipes-kernel/systemtap/systemtap_git.bb     |    3 +-
- 17 files changed, 1511 insertions(+), 6 deletions(-)
- create mode 100644 meta/recipes-devtools/gcc/gcc-4.6.0/linaro/gcc-4.6-linaro-r106720.patch
- create mode 100644 meta/recipes-devtools/gcc/gcc-4.6.0/linaro/gcc-4.6-linaro-r106723.patch
- create mode 100644 meta/recipes-devtools/gcc/gcc-4.6.0/linaro/gcc-4.6-linaro-r106729.patch
- create mode 100644 meta/recipes-devtools/gcc/gcc-4.6.0/linaro/gcc-4.6-linaro-r106731.patch
- create mode 100644 meta/recipes-devtools/gcc/gcc-4.6.0/linaro/gcc-4.6-linaro-r106733.patch
- create mode 100644 meta/recipes-devtools/gcc/gcc-4.6.0/linaro/gcc-4.6-linaro-r106737.patch
- create mode 100644 meta/recipes-devtools/gcc/gcc-4.6.0/linaro/gcc-4.6-linaro-r106738.patch
- create mode 100644 meta/recipes-devtools/gcc/gcc-4_6-branch-linaro-backports.inc
- create mode 100644 meta/recipes-extended/mdadm/mdadm/fix_for_compilation_with_gcc-4.6.0.patch
+ .../pax/pax/fix_for_compile_with_gcc-4.6.0.patch   |   25 ++++++++++++++++++++
+ meta/recipes-extended/pax/pax_3.4.bb               |    5 ++-
+ 2 files changed, 28 insertions(+), 2 deletions(-)
  create mode 100644 meta/recipes-extended/pax/pax/fix_for_compile_with_gcc-4.6.0.patch
- create mode 100644 meta/recipes-kernel/kexec/kexec-tools/fix_for_compiling_with_gcc-4.6.0.patch
- create mode 100644 meta/recipes-kernel/systemtap/systemtap/fix_for_compilation_with_gcc-4.6.0.patch
 
+diff --git a/meta/recipes-extended/pax/pax/fix_for_compile_with_gcc-4.6.0.patch b/meta/recipes-extended/pax/pax/fix_for_compile_with_gcc-4.6.0.patch
+new file mode 100644
+index 0000000..33554cc
+--- /dev/null
++++ b/meta/recipes-extended/pax/pax/fix_for_compile_with_gcc-4.6.0.patch
+@@ -0,0 +1,25 @@
++Upstream-Status="Pending"
++
++This patch fixes this compiler error with gcc 4.6.0
++
++Nitin A Kamble <nitin.a.kamble@intel.com> 2011/05/08
++
++| fts.c: In function 'pax_fts_set':
++| fts.c:469:7: error: parameter 'sp' set but not used [-Werror=unused-but-set-parameter]
++| cc1: all warnings being treated as errors
++| 
++| make[2]: *** [fts.o] Error 1
++
++Index: pax-3.4/lib/fts.c
++===================================================================
++--- pax-3.4.orig/lib/fts.c
+++++ pax-3.4/lib/fts.c
++@@ -466,7 +466,7 @@ name:		t = sp->fts_path + NAPPEND(p->fts
++ /* ARGSUSED */
++ int
++ fts_set(sp, p, instr)
++-	FTS *sp;
+++	FTS __attribute__((__unused__)) *sp;
++ 	FTSENT *p;
++ 	int instr;
++ {
+diff --git a/meta/recipes-extended/pax/pax_3.4.bb b/meta/recipes-extended/pax/pax_3.4.bb
+index b0f358a..e9c70d6 100644
+--- a/meta/recipes-extended/pax/pax_3.4.bb
++++ b/meta/recipes-extended/pax/pax_3.4.bb
+@@ -10,9 +10,10 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=4b0b674dfdc56daa3832d4069b820ea0 \
+                     file://lib/vis.h;endline=40;md5=b283f759abd4a5ad7e014b80f51fc053"
+ 
+ SECTION = "base"
+-PR = "r0"
++PR = "r1"
+ 
+-SRC_URI = "ftp://ftp.suse.com/pub/people/kukuk/pax/pax-${PV}.tar.bz2"
++SRC_URI = "ftp://ftp.suse.com/pub/people/kukuk/pax/pax-${PV}.tar.bz2 \
++	file://fix_for_compile_with_gcc-4.6.0.patch"
+ 
+ SRC_URI[md5sum] = "fbd9023b590b45ac3ade95870702a0d6"
+ SRC_URI[sha256sum] = "ac3c06048e02828077cf7757d3d142241429238893b91d529af29a2e8cc5623b"
 -- 
 1.7.3.4
 
