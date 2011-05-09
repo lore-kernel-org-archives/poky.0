@@ -1,37 +1,20 @@
-Return-Path: <cahoshing@gmail.com>
-Received: from mail-pz0-f48.google.com (mail-pz0-f48.google.com
-	[209.85.210.48])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C971F4C800BA
-	for <poky@yoctoproject.org>; Mon,  9 May 2011 01:38:07 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by pzk10 with SMTP id 10so3239427pzk.35
-	for <poky@yoctoproject.org>; Sun, 08 May 2011 23:38:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:in-reply-to:references:date
-	:message-id:subject:from:to:content-type;
-	bh=HrtplmSQtm3rgU5kwU8qOs4aOSaMUGepaElYJnXCJeY=;
-	b=v/3t4mVyGiAIGf8QooAwnT4K1oZ/HlRNWj9mACPaEvwL2vUa/HYvaCXLy19eGxtHdJ
-	gjoc3jORR7Se8DhvFupmB6urHaz+KuJnfXypPNjVPA1MiuDZsLaOzphI7u9hyzPt8cX4
-	SK7+mIoUCb0SWMSEUoPJtQfHHLxg3gOx7sPCA=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:content-type;
-	b=LOvIDKQfS6k9GmpOjrZ9ne3ciMt2v2WIogZfDh6NmxIaAsLbpYOsK8vnQKjgPd5TTn
-	az6i+WbqE3jGEYdFtSsKL8K9ny2+YCCmNIhQMvoYImpxfZSb1Y28JIyEr1X33sJeKnpl
-	Kqo9XDYojtBR3dZQrxBCND24+5qTE+U1smljo=
-MIME-Version: 1.0
-Received: by 10.142.149.21 with SMTP id w21mr3422737wfd.431.1304923087361;
-	Sun, 08 May 2011 23:38:07 -0700 (PDT)
-Received: by 10.143.158.19 with HTTP; Sun, 8 May 2011 23:38:07 -0700 (PDT)
-In-Reply-To: <BANLkTi=Rmha4vm8L-K_LA76FM6xkMxaO0g@mail.gmail.com>
-References: <BANLkTi=Rmha4vm8L-K_LA76FM6xkMxaO0g@mail.gmail.com>
-Date: Mon, 9 May 2011 12:08:07 +0530
-Message-ID: <BANLkTimdMZXAeeWWFH2dMrXODiv5tFhtrQ@mail.gmail.com>
-From: chinmaya hoshing <cahoshing@gmail.com>
+Return-Path: <liping.ke@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 237404C800BA
+	for <poky@yoctoproject.org>; Mon,  9 May 2011 01:47:31 -0500 (CDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 08 May 2011 23:47:30 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.64,339,1301900400"; d="scan'208";a="690000759"
+Received: from lke-nhm.sh.intel.com (HELO localhost) ([10.239.36.48])
+	by fmsmga002.fm.intel.com with ESMTP; 08 May 2011 23:47:30 -0700
+Message-Id: <cover.1304922517.git.liping.ke@intel.com>
+Old-Date: Mon, 9 May 2011 14:28:37 +0800
+Date: Mon, 09 May 2011 14:36:29 +0800
 To: poky@yoctoproject.org
-Subject: Re: Error in Pulling cyrus-sasl
+CC: 
+From: Liping Ke <liping.ke@intel.com>
+Subject: [PATCH 0/4] Put extra requested fields into different cache files
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,18 +26,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 09 May 2011 06:38:08 -0000
-Content-Type: multipart/alternative; boundary=000e0cd327d214d82e04a2d21503
+X-List-Received-Date: Mon, 09 May 2011 06:47:31 -0000
 
---000e0cd327d214d82e04a2d21503
-Content-Type: text/plain; charset=ISO-8859-1
+From: Liping Ke <liping.ke@intel.com>
 
-Regards
-Chinmaya
+Below four patches are for putting extra requested fields inito different
+cache files instead of using only on bb_cache.dat. Now image creator need
+extra three fields. And in the future, there might be more similar requests.
+For each extra requestor, we will save the requested fields data into a
+separate cache files so that those who don't need it will not be impacted
+with larger fields and large data files.
 
---000e0cd327d214d82e04a2d21503
-Content-Type: text/html; charset=ISO-8859-1
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: lke/cache_impl
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=lke/cache_impl
 
-<div dir="ltr">Regards<div>Chinmaya</div></div>
+Thanks,
+    Liping Ke <liping.ke@intel.com>
+---
 
---000e0cd327d214d82e04a2d21503--
+
+Liping Ke (4):
+  Introduce new param bitbake_mode into Cache.py
+  Split Cache Data Retrieve method from Data Fields
+  Introduce Extra required fields for image creator
+  Implement independent cache for Extra Cache Fields Request
+
+ bitbake/lib/bb/cache.py  |  189 +++++++++++++++++++++++++++++++++++++---------
+ bitbake/lib/bb/cooker.py |   55 ++++++++++----
+ 2 files changed, 193 insertions(+), 51 deletions(-)
+
+
