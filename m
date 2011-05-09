@@ -1,22 +1,21 @@
 Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B17C04C8057C
-	for <poky@yoctoproject.org>; Mon,  9 May 2011 16:43:17 -0500 (CDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 09 May 2011 14:43:16 -0700
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id EF0A94C80A1D
+	for <poky@yoctoproject.org>; Mon,  9 May 2011 16:43:38 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 09 May 2011 14:43:37 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,342,1301900400"; 
-   d="scan'208";a="21784"
+X-IronPort-AV: E=Sophos;i="4.64,342,1301900400"; d="scan'208";a="744714208"
 Received: from nbuild2.sc.intel.com (HELO localhost) ([172.25.110.37])
-	by fmsmga001.fm.intel.com with ESMTP; 09 May 2011 14:43:16 -0700
-Message-Id: <88ec3bed8311442a27ac5e314fb9bb87ee7bcfda.1304977277.git.nitin.a.kamble@intel.com>
+	by orsmga001.jf.intel.com with ESMTP; 09 May 2011 14:43:16 -0700
+Message-Id: <b318fd571e15ba02f0153ee8e80da183e158b055.1304977277.git.nitin.a.kamble@intel.com>
 In-Reply-To: <cover.1304977276.git.nitin.a.kamble@intel.com>
 References: <cover.1304977276.git.nitin.a.kamble@intel.com>
-Old-Date: Fri, 6 May 2011 10:23:21 -0700
-Date: Mon, 09 May 2011 14:43:15 -0700
+Old-Date: Mon, 9 May 2011 09:01:42 -0700
+Date: Mon, 09 May 2011 14:43:16 -0700
 To: openembedded-core@lists.openembedded.org,poky@yoctoproject.org
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Subject: [PATCH 2/5] mdadm: compilation fix for gcc 4.6.0
+Subject: [PATCH 4/5] systemtap: fix for compilation with gcc 4.6.0
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,214 +27,159 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 09 May 2011 21:43:18 -0000
+X-List-Received-Date: Mon, 09 May 2011 21:43:39 -0000
 
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
 
 Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
 ---
- .../mdadm/fix_for_compilation_with_gcc-4.6.0.patch |  174 ++++++++++++++++++++
- meta/recipes-extended/mdadm/mdadm_3.2.1.bb         |    5 +-
- 2 files changed, 177 insertions(+), 2 deletions(-)
- create mode 100644 meta/recipes-extended/mdadm/mdadm/fix_for_compilation_with_gcc-4.6.0.patch
+ .../fix_for_compilation_with_gcc-4.6.0.patch       |  119 ++++++++++++++++++++
+ meta/recipes-kernel/systemtap/systemtap_git.bb     |    3 +-
+ 2 files changed, 121 insertions(+), 1 deletions(-)
+ create mode 100644 meta/recipes-kernel/systemtap/systemtap/fix_for_compilation_with_gcc-4.6.0.patch
 
-diff --git a/meta/recipes-extended/mdadm/mdadm/fix_for_compilation_with_gcc-4.6.0.patch b/meta/recipes-extended/mdadm/mdadm/fix_for_compilation_with_gcc-4.6.0.patch
+diff --git a/meta/recipes-kernel/systemtap/systemtap/fix_for_compilation_with_gcc-4.6.0.patch b/meta/recipes-kernel/systemtap/systemtap/fix_for_compilation_with_gcc-4.6.0.patch
 new file mode 100644
-index 0000000..31fc83c
+index 0000000..5f60820
 --- /dev/null
-+++ b/meta/recipes-extended/mdadm/mdadm/fix_for_compilation_with_gcc-4.6.0.patch
-@@ -0,0 +1,174 @@
++++ b/meta/recipes-kernel/systemtap/systemtap/fix_for_compilation_with_gcc-4.6.0.patch
+@@ -0,0 +1,119 @@
 +Upstream-Status="Pending"
 +
-+Nitin A Kamble <nitin.a.kamble@intel.com> 2011/05/06
++Fix following compiler errors with gcc 4.6.0:
++Nitin A Kamble <nitin.a.kamble@intel.com> 2011/05/09
 +
-+Fix these compilation errors with gcc 4.6.0
++| tapsets.cxx: In member function 'void sdt_query::handle_probe_entry()':
++| tapsets.cxx:5295:8: error: variable 'kprobe_found' set but not used [-Werror=unused-but-set-variable]
++| tapsets.cxx: In member function 'virtual void hwbkpt_builder::build(systemtap_session&, probe*, probe_point*, const literal_map_t&, std::vector<derived_probe*>&)':
++| tapsets.cxx:7655:18: error: variable 'has_symbol_str' set but not used [-Werror=unused-but-set-variable]
++| cc1plus: all warnings being treated as errors
++| 
++| make[2]: *** [stap-tapsets.o] Error 1
++| translate.cxx: In member function 'virtual void c_unparser::visit_print_format(print_format*)':
++| translate.cxx:4431:6: error: variable 'width_ix' set but not used [-Werror=unused-but-set-variable]
++| cc1plus: all warnings being treated as errors
++| 
++| make[2]: *** [stap-translate.o] Error 1
++| common.c: In function 'fatal_handler':
++| common.c:397:13: error: variable 'rc' set but not used [-Werror=unused-but-set-variable]
++| cc1: all warnings being treated as errors
++| 
++| make[3]: *** [common.o] Error 1
++| make[3]: *** Waiting for unfinished jobs....
++| common.c: In function 'fatal_handler':
++| common.c:397:13: error: variable 'rc' set but not used [-Werror=unused-but-set-variable]
++| cc1: all warnings being treated as errors
++| 
++| mainloop.c: In function 'chld_proc':
++| mainloop.c:56:11: error: variable 'rc' set but not used [-Werror=unused-but-set-variable]
++| mainloop.c: In function 'stp_main_loop':
++| mainloop.c:623:17: error: variable 'rc' set but not used [-Werror=unused-but-set-variable]
++| cc1: all warnings being treated as errors
++| 
 +
-+| super1.c: In function 'calc_sb_1_csum':
-+| super1.c:114:6: error: variable 'i' set but not used [-Werror=unused-but-set-variable]
-+| Query.c: In function 'Query':
-+| Query.c:38:16: error: variable 'superrno' set but not used [-Werror=unused-but-set-variable]
-+| super1.c: In function 'examine_super1':
-+| super1.c:390:7: error: variable 'me' set but not used [-Werror=unused-but-set-variable]
-+| cc1: all warnings being treated as errors
-+| 
-+| make: *** [Query.o] Error 1
-+| make: *** Waiting for unfinished jobs....
-+| mdadm.c: In function 'main':
-+| mdadm.c:106:6: error: variable 'auto_update_home' set but not used [-Werror=unused-but-set-variable]
-+| mdmon.c: In function 'mdmon':
-+| mdmon.c:354:6: error: variable 'ignore' set but not used [-Werror=unused-but-set-variable]
-+| cc1: all warnings being treated as errors
-+| 
-+| make: *** [mdmon.o] Error 1
-+| cc1: all warnings being treated as errors
-+| 
-+| sysfs.c: In function 'sysfs_uevent':
-+| sysfs.c:421:6: error: variable 'n' set but not used [-Werror=unused-but-set-variable]
-+| cc1: all warnings being treated as errors
-+| 
-+| make: *** [mdadm.o] Error 1
-+| make: *** [super1.o] Error 1
-+| cc1: all warnings being treated as errors
-+| 
-+| make: *** [sysfs.o] Error 1
-+| Grow.c: In function 'Grow_reshape':
-+| Grow.c:1315:6: error: variable 'changed' set but not used [-Werror=unused-but-set-variable]
-+| cc1: all warnings being treated as errors
-+| 
-+| make: *** [Grow.o] Error 1
-+| ERROR: oe_runmake failed
-+
-+Index: mdadm-3.2.1/Grow.c
++Index: git/tapsets.cxx
 +===================================================================
-+--- mdadm-3.2.1.orig/Grow.c
-++++ mdadm-3.2.1/Grow.c
-+@@ -1312,7 +1312,6 @@ int Grow_reshape(char *devname, int fd, 
-+ 	char *subarray = NULL;
++--- git.orig/tapsets.cxx
+++++ git/tapsets.cxx
++@@ -5292,7 +5292,6 @@ sdt_query::handle_probe_entry()
++   probe *new_base = convert_location();
++   probe_point *new_location = new_base->locations[0];
 + 
-+ 	int frozen;
-+-	int changed = 0;
-+ 	char *container = NULL;
-+ 	char container_buf[20];
-+ 	int cfd = -1;
-+@@ -1479,7 +1478,6 @@ int Grow_reshape(char *devname, int fd, 
-+ 		if (!quiet)
-+ 			fprintf(stderr, Name ": component size of %s has been set to %lluK\n",
-+ 				devname, size);
-+-		changed = 1;
-+ 	} else if (array.level != LEVEL_CONTAINER) {
-+ 		size = get_component_size(fd)/2;
-+ 		if (size == 0)
-+Index: mdadm-3.2.1/Query.c
-+===================================================================
-+--- mdadm-3.2.1.orig/Query.c
-++++ mdadm-3.2.1/Query.c
-+@@ -35,7 +35,7 @@ int Query(char *dev)
-+ 	int fd = open(dev, O_RDONLY);
-+ 	int vers;
-+ 	int ioctlerr;
-+-	int superror, superrno;
-++	int superror;
-+ 	struct mdinfo info;
-+ 	mdu_array_info_t array;
-+ 	struct supertype *st = NULL;
-+@@ -84,7 +84,6 @@ int Query(char *dev)
-+ 	st = guess_super(fd);
-+ 	if (st) {
-+ 		superror = st->ss->load_super(st, fd, dev);
-+-		superrno = errno;
-+ 	} else
-+ 		superror = -1;
-+ 	close(fd);
-+Index: mdadm-3.2.1/mdadm.c
-+===================================================================
-+--- mdadm-3.2.1.orig/mdadm.c
-++++ mdadm-3.2.1/mdadm.c
-+@@ -103,7 +103,7 @@ int main(int argc, char *argv[])
-+ 	char *shortopt = short_options;
-+ 	int dosyslog = 0;
-+ 	int rebuild_map = 0;
-+-	int auto_update_home = 0;
-++	int __attribute__((__unused__)) auto_update_home = 0;
-+ 	char *subarray = NULL;
-+ 	char *remove_path = NULL;
-+ 	char *udev_filename = NULL;
-+Index: mdadm-3.2.1/mdmon.c
-+===================================================================
-+--- mdadm-3.2.1.orig/mdmon.c
-++++ mdadm-3.2.1/mdmon.c
-+@@ -351,7 +351,6 @@ static int mdmon(char *devname, int devn
-+ 	struct sigaction act;
-+ 	int pfd[2];
-+ 	int status;
-+-	int ignore;
-+ 	pid_t victim = -1;
-+ 	int victim_sock = -1;
++-  bool kprobe_found = false;
++   bool need_debug_info = false;
 + 
-+@@ -459,7 +458,6 @@ static int mdmon(char *devname, int devn
-+ 	if (victim >= 0)
-+ 		victim_sock = connect_monitor(container->devname);
-+ 
-+-	ignore = chdir("/");
-+ 	if (!takeover && victim > 0 && victim_sock >= 0) {
-+ 		if (fping_monitor(victim_sock) == 0) {
-+ 			fprintf(stderr, "mdmon: %s already managed\n",
-+@@ -507,10 +505,8 @@ static int mdmon(char *devname, int devn
-+ 	close(0);
-+ 	open("/dev/null", O_RDWR);
-+ 	close(1);
-+-	ignore = dup(0);
-+ #ifndef DEBUG
-+ 	close(2);
-+-	ignore = dup(0);
-+ #endif
-+ 
-+ 	do_manager(container);
-+Index: mdadm-3.2.1/super1.c
-+===================================================================
-+--- mdadm-3.2.1.orig/super1.c
-++++ mdadm-3.2.1/super1.c
-+@@ -111,7 +111,6 @@ static unsigned int calc_sb_1_csum(struc
-+ 	unsigned long long newcsum;
-+ 	int size = sizeof(*sb) + __le32_to_cpu(sb->max_dev)*2;
-+ 	unsigned int *isuper = (unsigned int*)sb;
-+-	int i;
-+ 
-+ /* make sure I can count... */
-+ 	if (offsetof(struct mdp_superblock_1,data_offset) != 128 ||
-+@@ -123,7 +122,7 @@ static unsigned int calc_sb_1_csum(struc
-+ 	disk_csum = sb->sb_csum;
-+ 	sb->sb_csum = 0;
-+ 	newcsum = 0;
-+-	for (i=0; size>=4; size -= 4 ) {
-++	for (; size>=4; size -= 4 ) {
-+ 		newcsum += __le32_to_cpu(*isuper);
-+ 		isuper++;
-+ 	}
-+@@ -387,13 +386,10 @@ static void examine_super1(struct supert
-+ 	printf("   Array State : ");
-+ 	for (d=0; d<__le32_to_cpu(sb->raid_disks) + delta_extra; d++) {
-+ 		int cnt = 0;
-+-		int me = 0;
-+ 		unsigned int i;
-+ 		for (i=0; i< __le32_to_cpu(sb->max_dev); i++) {
-+ 			unsigned int role = __le16_to_cpu(sb->dev_roles[i]);
-+ 			if (role == d) {
-+-				if (i == __le32_to_cpu(sb->dev_number))
-+-					me = 1;
-+ 				cnt++;
-+ 			}
-+ 		}
-+Index: mdadm-3.2.1/sysfs.c
-+===================================================================
-+--- mdadm-3.2.1.orig/sysfs.c
-++++ mdadm-3.2.1/sysfs.c
-+@@ -418,7 +418,7 @@ int sysfs_set_num(struct mdinfo *sra, st
-+ int sysfs_uevent(struct mdinfo *sra, char *event)
++   Dwarf_Addr bias;
++@@ -5302,7 +5301,6 @@ sdt_query::handle_probe_entry()
++   if (have_kprobe())
++     {
++       convert_probe(new_base);
++-      kprobe_found = true;
++       // Expand the local variables in the probe body
++       sdt_kprobe_var_expanding_visitor svv (module_val,
++ 					    provider_name,
++@@ -7652,7 +7650,7 @@ hwbkpt_builder::build(systemtap_session 
 + {
-+ 	char fname[50];
-+-	int n;
-++	int __attribute__((__unused__)) n;
-+ 	int fd;
++   string symbol_str_val;
++   int64_t hwbkpt_address, len;
++-  bool has_addr, has_symbol_str, has_write, has_rw, has_len;
+++  bool has_addr, has_write, has_rw, has_len;
 + 
-+ 	sprintf(fname, "/sys/block/%s/uevent",
-diff --git a/meta/recipes-extended/mdadm/mdadm_3.2.1.bb b/meta/recipes-extended/mdadm/mdadm_3.2.1.bb
-index 937abad..80fe520 100644
---- a/meta/recipes-extended/mdadm/mdadm_3.2.1.bb
-+++ b/meta/recipes-extended/mdadm/mdadm_3.2.1.bb
-@@ -8,9 +8,10 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=0636e73ff0215e8d672dc4c32c317bb3 \
-                     file://mdmon.c;beginline=4;endline=18;md5=af7d8444d9c4d3e5c7caac0d9d34039d \
-                     file://mdadm.h;beglinlne=4;endline=22;md5=462bc9936ac0d3da110191a3f9994161"
++   if (! (sess.kernel_config["CONFIG_PERF_EVENTS"] == string("y")))
++       throw semantic_error ("CONFIG_PERF_EVENTS not available on this kernel",
++@@ -7662,7 +7660,6 @@ hwbkpt_builder::build(systemtap_session 
++                             location->components[0]->tok);
++ 
++   has_addr = get_param (parameters, TOK_HWBKPT, hwbkpt_address);
++-  has_symbol_str = get_param (parameters, TOK_HWBKPT, symbol_str_val);
++   has_len = get_param (parameters, TOK_LENGTH, len);
++   has_write = (parameters.find(TOK_HWBKPT_WRITE) != parameters.end());
++   has_rw = (parameters.find(TOK_HWBKPT_RW) != parameters.end());
++Index: git/translate.cxx
++===================================================================
++--- git.orig/translate.cxx
+++++ git/translate.cxx
++@@ -4428,7 +4428,7 @@ c_unparser::visit_print_format (print_fo
++ 	  continue;
++ 
++ 	/* Take note of the width and precision arguments, if any.  */
++-	int width_ix = -1, prec_ix= -1;
+++	int __attribute((__unused__)) width_ix = -1, prec_ix= -1;
++ 	if (components[i].widthtype == print_format::width_dynamic)
++ 	  width_ix = arg_ix++;
++ 	if (components[i].prectype == print_format::prec_dynamic)
++Index: git/runtime/staprun/common.c
++===================================================================
++--- git.orig/runtime/staprun/common.c
+++++ git/runtime/staprun/common.c
++@@ -394,7 +394,7 @@ void parse_modpath(const char *inpath)
++ #define ERR_MSG "\nUNEXPECTED FATAL ERROR in staprun. Please file a bug report.\n"
++ static void fatal_handler (int signum)
++ {
++-        int rc;
+++        int __attribute__((__unused__)) rc;
++         char *str = strsignal(signum);
++         rc = write (STDERR_FILENO, ERR_MSG, sizeof(ERR_MSG));
++         rc = write (STDERR_FILENO, str, strlen(str));
++Index: git/runtime/staprun/mainloop.c
++===================================================================
++--- git.orig/runtime/staprun/mainloop.c
+++++ git/runtime/staprun/mainloop.c
++@@ -53,7 +53,7 @@ static void *signal_thread(void *arg)
++ 
++ static void chld_proc(int signum)
++ {
++-  int32_t rc, btype = STP_EXIT;
+++  int32_t __attribute__((__unused__)) rc, btype = STP_EXIT;
++   dbug(2, "chld_proc %d (%s)\n", signum, strsignal(signum));
++   pid_t pid = waitpid(-1, NULL, WNOHANG);
++   if (pid != target_pid)
++@@ -620,7 +620,7 @@ int stp_main_loop(void)
++       {
++         /* module asks us to start exiting, so send STP_EXIT */
++         dbug(2, "got STP_REQUEST_EXIT\n");
++-        int32_t rc, btype = STP_EXIT;
+++        int32_t __attribute__((__unused__))rc, btype = STP_EXIT;
++         rc = write(control_channel, &btype, sizeof(btype));
++         break;
++       }
+diff --git a/meta/recipes-kernel/systemtap/systemtap_git.bb b/meta/recipes-kernel/systemtap/systemtap_git.bb
+index 4df0947..8ac4c14 100644
+--- a/meta/recipes-kernel/systemtap/systemtap_git.bb
++++ b/meta/recipes-kernel/systemtap/systemtap_git.bb
+@@ -5,10 +5,11 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f"
+ DEPENDS = "elfutils"
  
--PR = "r0"
+ SRCREV = "4ab3a1863bf4f472acae7a809bf2b38d91658aa8"
+-PR = r0
 +PR = "r1"
+ PV = "1.4+git${SRCPV}"
  
--SRC_URI = "${KERNELORG_MIRROR}/linux/utils/raid/mdadm/${BPN}-${PV}.tar.bz2"
-+SRC_URI = "${KERNELORG_MIRROR}/linux/utils/raid/mdadm/${BPN}-${PV}.tar.bz2 \
-+	file://fix_for_compilation_with_gcc-4.6.0.patch"
+ SRC_URI = "git://sources.redhat.com/git/systemtap.git;protocol=git \
++	file://fix_for_compilation_with_gcc-4.6.0.patch \
+           "
  
- SRC_URI[md5sum] = "d1e2549202bd79d9e99f1498d1109530"
- SRC_URI[sha256sum] = "7f68f149c6c0e8893d0b9220ac255b46af08e6a6b81223cab57ed54d628ae125"
+ EXTRA_OECONF = "--prefix=${D} --with-libelf=${STAGING_DIR_TARGET} --without-rpm \
 -- 
 1.7.3.4
 
