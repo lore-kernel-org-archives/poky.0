@@ -1,15 +1,15 @@
 Return-Path: <bruce.ashfield@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 012AC4C8057C;
-	Mon,  9 May 2011 13:32:15 -0500 (CDT)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 52DC44C8057C;
+	Mon,  9 May 2011 13:32:16 -0500 (CDT)
 Received: from localhost.localdomain (yow-bashfiel-d2.ottawa.windriver.com
 	[128.224.146.167])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p49IW3FE027948;
-	Mon, 9 May 2011 11:32:06 -0700 (PDT)
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p49IW3FG027948;
+	Mon, 9 May 2011 11:32:09 -0700 (PDT)
 From: Bruce Ashfield <bruce.ashfield@windriver.com>
 To: richard.purdie@linuxfoundation.org
-Date: Mon,  9 May 2011 14:34:04 -0400
-Message-Id: <34f006cb6359cd2a1627af15bf10aae49caa6de0.1304965560.git.bruce.ashfield@windriver.com>
+Date: Mon,  9 May 2011 14:34:06 -0400
+Message-Id: <16e2837c338d7ca6cbcc6f7e6d8d3c3327c4705d.1304965560.git.bruce.ashfield@windriver.com>
 X-Mailer: git-send-email 1.7.0.4
 In-Reply-To: <cover.1304965560.git.bruce.ashfield@windriver.com>
 References: <cover.1304965560.git.bruce.ashfield@windriver.com>
@@ -18,7 +18,7 @@ References: <cover.1304965560.git.bruce.ashfield@windriver.com>
 Cc: yocto@yoctoproject.org, dvhart@linux.intel.com,
 	openembedded-core@lists.openembedded.org, poky@yoctoproject.org,
 	saul.wold@intel.com
-Subject: [PATCH 1/3] linux-yocto: remove non-core (qemu) machine compatibility
+Subject: [PATCH 3/3] linux-yocto: error if meta data not present
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,89 +32,77 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Mon, 09 May 2011 18:32:16 -0000
 
-The machine configuration of the non-core (non-qemu) machines
-exists in other layers. Moving the branch mappings, compatibility
-and SRCREVs of these machines out of the main linux-yocto recipe
-is the first step in that move.
+There are valid reasons to build repositories without meta
+data present and there are times when this is an error. This
+change adds sanity tests to the build process to detect missing
+meta data and throw an informative error message.
+
+Sanity checking is only triggered from recipes (linux-yocto)
+that always require meta data to be present. Other recipes
+are not impacted and can auto-generate meta data as required.
+
+Without this change the build process suceeds, but incorrect
+meta data will be used (with no user knowledge), which is not
+the desired behaviour.
 
 Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
-Acked-by: Darren Hart <dvhart@linux.intel.com>
 ---
- .../recipes-kernel/linux/linux-yocto-stable_git.bb |   10 +---------
- meta/recipes-kernel/linux/linux-yocto_git.bb       |   11 +----------
- 2 files changed, 2 insertions(+), 19 deletions(-)
+ meta/classes/kernel-yocto.bbclass                  |    5 ++++-
+ .../kern-tools/kern-tools-native_git.bb            |    2 +-
+ meta/recipes-kernel/linux/linux-yocto_git.bb       |    4 +++-
+ 3 files changed, 8 insertions(+), 3 deletions(-)
 
-diff --git a/meta/recipes-kernel/linux/linux-yocto-stable_git.bb b/meta/recipes-kernel/linux/linux-yocto-stable_git.bb
-index 93b06fd..66991ae 100644
---- a/meta/recipes-kernel/linux/linux-yocto-stable_git.bb
-+++ b/meta/recipes-kernel/linux/linux-yocto-stable_git.bb
-@@ -7,10 +7,6 @@ KMACHINE_qemux86-64  = "common_pc_64"
- KMACHINE_qemuppc  = "qemu_ppc32"
- KMACHINE_qemumips = "mti_malta32_be"
- KMACHINE_qemuarm  = "arm_versatile_926ejs"
--KMACHINE_atom-pc  = "atom-pc"
--KMACHINE_routerstationpro = "routerstationpro"
--KMACHINE_mpc8315e-rdb = "fsl-mpc8315e-rdb"
--KMACHINE_beagleboard = "beagleboard"
+diff --git a/meta/classes/kernel-yocto.bbclass b/meta/classes/kernel-yocto.bbclass
+index ffc0b4c..818a07e 100644
+--- a/meta/classes/kernel-yocto.bbclass
++++ b/meta/classes/kernel-yocto.bbclass
+@@ -13,7 +13,10 @@ do_patch() {
+ 	fi
  
- LINUX_VERSION ?= "2.6.34"
- LINUX_VERSION_EXTENSION ?= "-yocto-${LINUX_KERNEL_TYPE_EXTENSION}"
-@@ -23,10 +19,6 @@ SRCREV_machine_qemumips = "c32d40f960e3c89d07f079bec4c96dcbfc749f0b"
- SRCREV_machine_qemuppc = "96d6bc31d3caaf62a966255479cc5cee0e76b1e9"
- SRCREV_machine_qemux86 = "72ca49ab08b8eb475cec82a10049503602325791"
- SRCREV_machine_qemux86-64 = "72ca49ab08b8eb475cec82a10049503602325791"
--SRCREV_machine_atom-pc = "72ca49ab08b8eb475cec82a10049503602325791"
--SRCREV_machine_routerstationpro = "49745cd45c92a89e70c6e2334caa80818c134562"
--SRCREV_machine_mpc8315e-rdb = "a1c0ed6bf4060c10874b2a8547d81b3169dcf16a"
--SRCREV_machine_beagleboard = "ef7f944e773950d4016b7643f9ecf052bbe250cd"
- SRCREV_machine = "72ca49ab08b8eb475cec82a10049503602325791"
- SRCREV_meta = "ec26387cb168e9e0976999b528b5a9dd62e3157a"
+ 	# simply ensures that a branch of the right name has been created
+-	createme ${ARCH} ${kbranch} ${defconfig}
++	if [ -n "${YOCTO_KERNEL_META_DATA}" ]; then
++		createme_flags="--disable-meta-gen"
++	fi
++	createme ${createme_flags} ${ARCH} ${kbranch} ${defconfig}
+ 	if [ $? -ne 0 ]; then
+ 		echo "ERROR. Could not create ${kbranch}"
+ 		exit 1
+diff --git a/meta/recipes-kernel/kern-tools/kern-tools-native_git.bb b/meta/recipes-kernel/kern-tools/kern-tools-native_git.bb
+index 820765e..c808e17 100644
+--- a/meta/recipes-kernel/kern-tools/kern-tools-native_git.bb
++++ b/meta/recipes-kernel/kern-tools/kern-tools-native_git.bb
+@@ -4,7 +4,7 @@ LIC_FILES_CHKSUM = "file://git/tools/kgit;beginline=5;endline=9;md5=e2bf4415f3d8
  
-@@ -34,7 +26,7 @@ PR = "r1"
- PV = "${LINUX_VERSION}+git${SRCPV}"
- SRCREV_FORMAT = "meta_machine"
+ DEPENDS = "git-native guilt-native"
  
--COMPATIBLE_MACHINE = "(qemuarm|qemux86|qemuppc|qemumips|qemux86-64|atom-pc|routerstationpro|mpc8315e-rdb|beagleboard)"
-+COMPATIBLE_MACHINE = "(qemuarm|qemux86|qemuppc|qemumips|qemux86-64)"
+-SRCREV = "c5896a60acc61f8966cfee3bb241ff564610cea4"
++SRCREV = "ab49d8e48b7e66d1b4f924385d65d062d25e44f7"
+ PR = r10
+ PV = "0.1+git${SRCPV}"
  
- # this performs a fixup on historical kernel types with embedded _'s
- python __anonymous () {
 diff --git a/meta/recipes-kernel/linux/linux-yocto_git.bb b/meta/recipes-kernel/linux/linux-yocto_git.bb
-index 3b4e77e..d4f2ece 100644
+index d4f2ece..f54033d 100644
 --- a/meta/recipes-kernel/linux/linux-yocto_git.bb
 +++ b/meta/recipes-kernel/linux/linux-yocto_git.bb
-@@ -7,10 +7,6 @@ KMACHINE_qemux86-64  = "yocto/standard/common-pc-64/base"
- KMACHINE_qemuppc  = "yocto/standard/qemu-ppc32"
- KMACHINE_qemumips = "yocto/standard/mti-malta32-be"
- KMACHINE_qemuarm  = "yocto/standard/arm-versatile-926ejs"
--KMACHINE_atom-pc  = "yocto/standard/common-pc/atom-pc"
--KMACHINE_routerstationpro = "yocto/standard/routerstationpro"
--KMACHINE_mpc8315e-rdb = "yocto/standard/fsl-mpc8315e-rdb"
--KMACHINE_beagleboard = "yocto/standard/beagleboard"
- 
- KBRANCH = ${KMACHINE}
- KMETA = meta
-@@ -23,11 +19,6 @@ SRCREV_machine_qemumips = "f5d26f2eda2be8b942172cda8f27de33ebf38ec3"
- SRCREV_machine_qemuppc = "7eb6c68d977d9039a2b5a734172b064a9d19cdc1"
- SRCREV_machine_qemux86 = "ad62d1aab734513cd96c8f4517f816420a218e77"
- SRCREV_machine_qemux86-64 = "b906f358fd404a1e74a961f25079274e0d933ee1"
--SRCREV_machine_emenlow = "c3bbcb676f929c4fc0511a6e66494b8770d015a1"
--SRCREV_machine_atom-pc = "b906f358fd404a1e74a961f25079274e0d933ee1"
--SRCREV_machine_routerstationpro = "95ca94d2e71ca2db6822a37a7f575fa79c3d05d0"
--SRCREV_machine_mpc8315e-rdb = "53c800c244e73d81d2832f6da306eeae3b09e5dc"
--SRCREV_machine_beagleboard = "b906f358fd404a1e74a961f25079274e0d933ee1"
+@@ -22,7 +22,7 @@ SRCREV_machine_qemux86-64 = "b906f358fd404a1e74a961f25079274e0d933ee1"
  SRCREV_machine = "b906f358fd404a1e74a961f25079274e0d933ee1"
  SRCREV_meta = "ecab1e2bc12a8b0c4d064a00acc3260f6e8528c5"
  
-@@ -37,7 +28,7 @@ SRCREV_FORMAT = "meta_machine"
+-PR = "r17"
++PR = "r18"
+ PV = "${LINUX_VERSION}+git${SRCPV}"
+ SRCREV_FORMAT = "meta_machine"
  
- SRC_URI = "git://git.yoctoproject.org/linux-yocto-2.6.37;protocol=git;nocheckout=1;branch=${KBRANCH},meta;name=machine,meta"
+@@ -36,6 +36,8 @@ KERNEL_FEATURES="features/netfilter"
+ KERNEL_FEATURES_append_qemux86=" cfg/sound"
+ KERNEL_FEATURES_append_qemux86-64=" cfg/sound"
  
--COMPATIBLE_MACHINE = "(qemuarm|qemux86|qemuppc|qemumips|qemux86-64|mpc8315e-rdb|routerstationpro|beagleboard)"
-+COMPATIBLE_MACHINE = "(qemuarm|qemux86|qemuppc|qemumips|qemux86-64)"
- 
- # Functionality flags
- KERNEL_REVISION_CHECKING ?= "t"
++YOCTO_KERNEL_META_DATA=t
++
+ # extra tasks
+ addtask kernel_link_vmlinux after do_compile before do_install
+ addtask validate_branches before do_patch after do_kernel_checkout
 -- 
 1.7.0.4
 
