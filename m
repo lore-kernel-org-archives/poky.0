@@ -1,22 +1,31 @@
-Return-Path: <dongxiao.xu@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 058614C80AC9
-	for <poky@yoctoproject.org>; Tue, 10 May 2011 03:56:46 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 10 May 2011 01:56:46 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,345,1301900400"; d="scan'208";a="433485667"
-Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.20])
-	by azsmga001.ch.intel.com with ESMTP; 10 May 2011 01:56:43 -0700
-Message-Id: <af3f391a3332bafee99f8d51810ae058d1c39adb.1305017818.git.dongxiao.xu@intel.com>
-In-Reply-To: <cover.1305017818.git.dongxiao.xu@intel.com>
-References: <cover.1305017818.git.dongxiao.xu@intel.com>
-Old-Date: Tue, 10 May 2011 16:50:53 +0800
-Date: Tue, 10 May 2011 17:02:11 +0800
-To: poky@yoctoproject.org
-CC: 
-From: Dongxiao Xu <dongxiao.xu@intel.com>
-Subject: [PATCH 38/39] wv: add upstream status for wv's patch
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 864284C80578
+	for <poky@yoctoproject.org>; Tue, 10 May 2011 05:01:06 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p4AA13ga004525;
+	Tue, 10 May 2011 11:01:03 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 03424-03-7; Tue, 10 May 2011 11:00:56 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p4A9xdxv004342
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Tue, 10 May 2011 10:59:39 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Saul Wold <sgw@linux.intel.com>
+In-Reply-To: <5c24804728524d8b994c9f001cfe1ebbf7f05c83.1305004683.git.sgw@linux.intel.com>
+References: <cover.1305004683.git.sgw@linux.intel.com>
+	<5c24804728524d8b994c9f001cfe1ebbf7f05c83.1305004683.git.sgw@linux.intel.com>
+Date: Tue, 10 May 2011 10:03:45 +0100
+Message-ID: <1305018225.30391.257.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.2 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: Darren Hart <dvhart@linux.intel.com>, poky@yoctoproject.org
+Subject: Re: [PATCH 1/1] linux-yocto: move non-core machines to meta-yocto
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,26 +37,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 10 May 2011 08:56:47 -0000
+X-List-Received-Date: Tue, 10 May 2011 10:01:07 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-From: Dongxiao Xu <dongxiao.xu@intel.com>
+On Mon, 2011-05-09 at 22:25 -0700, Saul Wold wrote:
+> From: Bruce Ashfield <bruce.ashfield@windriver.com>
+> 
+> The non-qemu compatibility references have been removed from
+> the main linux-yocto recipe. This change restores them in the
+> meta-yocto layer.
+> 
+> Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
+> Acked-by: Darren Hart <dvhart@linux.intel.com>
+> ---
+>  meta-yocto/conf/layer.conf                         |    3 ++-
+>  .../linux/linux-yocto-stable_git.bbappend          |   12 ++++++++++++
+>  .../recipes-kernel/linux/linux-yocto_git.bbappend  |   12 ++++++++++++
+>  3 files changed, 26 insertions(+), 1 deletions(-)
+>  create mode 100644 meta-yocto/recipes-kernel/linux/linux-yocto-stable_git.bbappend
+>  create mode 100644 meta-yocto/recipes-kernel/linux/linux-yocto_git.bbappend
 
-Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
----
- .../recipes-gnome/wv/wv-1.2.0/pkgconfig.patch      |    2 ++
- 1 files changed, 2 insertions(+), 0 deletions(-)
+Merged to master, thanks.
 
-diff --git a/meta-demoapps/recipes-gnome/wv/wv-1.2.0/pkgconfig.patch b/meta-demoapps/recipes-gnome/wv/wv-1.2.0/pkgconfig.patch
-index 136d893..0c0eddf 100644
---- a/meta-demoapps/recipes-gnome/wv/wv-1.2.0/pkgconfig.patch
-+++ b/meta-demoapps/recipes-gnome/wv/wv-1.2.0/pkgconfig.patch
-@@ -1,3 +1,5 @@
-+Upstream-Status: Inappropriate [configuration]
-+
- Index: wv-1.2.0/wv-1.0.pc.in
- ===================================================================
- --- wv-1.2.0.orig/wv-1.0.pc.in	2008-03-19 22:25:18.000000000 +0000
--- 
-1.7.1
+Richard
 
 
