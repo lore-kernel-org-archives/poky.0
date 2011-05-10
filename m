@@ -1,21 +1,22 @@
 Return-Path: <tom.zanussi@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 00AC84C8055B
-	for <poky@yoctoproject.org>; Tue, 10 May 2011 15:49:00 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 10 May 2011 13:49:00 -0700
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 7A5284C80523
+	for <poky@yoctoproject.org>; Tue, 10 May 2011 15:49:06 -0500 (CDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 10 May 2011 13:49:06 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,347,1301900400"; d="scan'208";a="745273571"
+X-IronPort-AV: E=Sophos;i="4.64,347,1301900400"; 
+   d="scan'208";a="541375"
 Received: from unknown (HELO localhost) ([10.255.12.106])
-	by orsmga001.jf.intel.com with ESMTP; 10 May 2011 13:48:59 -0700
-Message-Id: <9f22e4293f5c4e4e2d51a310c3c5069631b0d89a.1305058814.git.tom.zanussi@intel.com>
+	by fmsmga001.fm.intel.com with ESMTP; 10 May 2011 13:48:58 -0700
+Message-Id: <d3a3b40425e885e77428c24f2c0332fcf30ccc0e.1305058814.git.tom.zanussi@intel.com>
 In-Reply-To: <cover.1305058813.git.tom.zanussi@intel.com>
 References: <cover.1305058813.git.tom.zanussi@intel.com>
-Old-Date: Fri, 6 May 2011 22:50:20 -0500
-Date: Tue, 10 May 2011 15:48:50 -0500
+Old-Date: Tue, 3 May 2011 16:56:56 -0500
+Date: Tue, 10 May 2011 15:48:48 -0500
 To: bruce.ashfield@windriver.com,poky@yoctoproject.org
 From: Tom Zanussi <tom.zanussi@intel.com>
-Subject: [KERNEL][linux-yocto-dev PATCH 3/3] yocto/emgd: 2.6.39 fixes
+Subject: [KERNEL][linux-yocto-dev PATCH 2/3] yocto/emgd: build fixups
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,312 +28,124 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 10 May 2011 20:49:01 -0000
+X-List-Received-Date: Tue, 10 May 2011 20:49:06 -0000
 
 From: Tom Zanussi <tom.zanussi@intel.com>
 
-Fixes required for migration to 2.6.39.
+Add emgd config option (DRM_EGD) and modify Makefiles for in-tree
+builds.
 
 Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
 ---
- .../gpu/drm/emgd/emgd/display/mode/plb/mode_plb.c  |    2 +-
- .../gpu/drm/emgd/emgd/display/mode/tnc/mode_tnc.c  |    2 +-
- drivers/gpu/drm/emgd/emgd/drm/emgd_drv.c           |   12 ++++++------
- .../drm/emgd/pvr/services4/srvkm/common/resman.c   |    4 ----
- .../drm/emgd/pvr/services4/srvkm/env/linux/event.c |    4 ----
- .../drm/emgd/pvr/services4/srvkm/env/linux/mm.c    |    4 ----
- .../drm/emgd/pvr/services4/srvkm/env/linux/mm.h    |    4 ----
- .../drm/emgd/pvr/services4/srvkm/env/linux/mmap.c  |    4 ----
- .../emgd/pvr/services4/srvkm/env/linux/module.c    |    4 ----
- .../emgd/pvr/services4/srvkm/env/linux/mutils.c    |    3 ---
- .../emgd/pvr/services4/srvkm/env/linux/mutils.h    |    4 ----
- .../emgd/pvr/services4/srvkm/env/linux/osfunc.c    |   13 ++-----------
- .../drm/emgd/pvr/services4/srvkm/env/linux/proc.c  |    4 ----
- .../emgd/pvr/services4/srvkm/env/linux/pvr_debug.c |    6 +-----
- .../emgd/pvr/services4/srvkm/env/linux/pvr_drm.c   |    4 ----
- 15 files changed, 11 insertions(+), 63 deletions(-)
+ drivers/gpu/drm/Kconfig       |    9 +++++++++
+ drivers/gpu/drm/Makefile      |    1 +
+ drivers/gpu/drm/emgd/Makefile |   41 ++++-------------------------------------
+ 3 files changed, 14 insertions(+), 37 deletions(-)
 
-diff --git a/drivers/gpu/drm/emgd/emgd/display/mode/plb/mode_plb.c b/drivers/gpu/drm/emgd/emgd/display/mode/plb/mode_plb.c
-index d5eef1f..312e90a 100644
---- a/drivers/gpu/drm/emgd/emgd/display/mode/plb/mode_plb.c
-+++ b/drivers/gpu/drm/emgd/emgd/display/mode/plb/mode_plb.c
-@@ -73,7 +73,7 @@ static unsigned long vblank_interrupt_state = 0;
- /* Spin lock for synchronization of the vblank_interrupt_state variable,
-  * between the VBlank interrupt handler and the non-interrupt handler code:
-  */
--static spinlock_t vblank_lock = SPIN_LOCK_UNLOCKED;
-+static DEFINE_SPINLOCK(vblank_lock);
- 
- 
- 
-diff --git a/drivers/gpu/drm/emgd/emgd/display/mode/tnc/mode_tnc.c b/drivers/gpu/drm/emgd/emgd/display/mode/tnc/mode_tnc.c
-index 7bb2176..ba02586 100644
---- a/drivers/gpu/drm/emgd/emgd/display/mode/tnc/mode_tnc.c
-+++ b/drivers/gpu/drm/emgd/emgd/display/mode/tnc/mode_tnc.c
-@@ -84,7 +84,7 @@ static unsigned long vblank_interrupt_state = 0;
- /* Spin lock for synchronization of the vblank_interrupt_state variable,
-  * between the VBlank interrupt handler and the non-interrupt handler code:
-  */
--static spinlock_t vblank_lock = SPIN_LOCK_UNLOCKED;
-+static DEFINE_SPINLOCK(vblank_lock);
- 
- 
- 
-diff --git a/drivers/gpu/drm/emgd/emgd/drm/emgd_drv.c b/drivers/gpu/drm/emgd/emgd/drm/emgd_drv.c
-index 8f384e7..48e2cbf 100644
---- a/drivers/gpu/drm/emgd/emgd/drm/emgd_drv.c
-+++ b/drivers/gpu/drm/emgd/emgd/drm/emgd_drv.c
-@@ -1955,10 +1955,6 @@ static struct drm_driver driver = {
- 		.poll    = drm_poll,
- 		.fasync  = drm_fasync,
- 	},
--	.pci_driver = {
--		.name     = DRIVER_NAME,
--		.id_table = pciidlist,
--	},
- 	.name                = DRIVER_NAME,
- 	.desc                = DRIVER_DESC,
- 	.date                = DRIVER_DATE,
-@@ -1967,6 +1963,10 @@ static struct drm_driver driver = {
- 	.patchlevel          = DRIVER_PATCHLEVEL,
- };
- 
-+static struct pci_driver emgd_pci_driver = {
-+	.name = DRIVER_NAME,
-+	.id_table = pciidlist,
-+};
- 
- /**
-  * Standard procedure to initialize this kernel module when it is loaded.
-@@ -1976,7 +1976,7 @@ static int __init emgd_init(void) {
- 
- 	EMGD_TRACE_ENTER;
- 	driver.num_ioctls = emgd_max_ioctl;
--	ret = drm_init(&driver);
-+	ret = drm_pci_init(&driver, &emgd_pci_driver);
- 	PVRDPFInit();
- 	printk(KERN_INFO "[EMGD] drm_init() returning %d\n", ret);
- 	EMGD_TRACE_EXIT;
-@@ -1988,7 +1988,7 @@ static int __init emgd_init(void) {
-  */
- static void __exit emgd_exit(void) {
- 	EMGD_TRACE_ENTER;
--	drm_exit(&driver);
-+	drm_pci_exit(&driver, &emgd_pci_driver);
- 	EMGD_TRACE_EXIT;
- }
- 
-diff --git a/drivers/gpu/drm/emgd/pvr/services4/srvkm/common/resman.c b/drivers/gpu/drm/emgd/pvr/services4/srvkm/common/resman.c
-index dcbaa4b..7bb860f 100644
---- a/drivers/gpu/drm/emgd/pvr/services4/srvkm/common/resman.c
-+++ b/drivers/gpu/drm/emgd/pvr/services4/srvkm/common/resman.c
+diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+index a6feb78..b041620 100644
+--- a/drivers/gpu/drm/Kconfig
++++ b/drivers/gpu/drm/Kconfig
+@@ -156,3 +156,12 @@ config DRM_SAVAGE
+ 	help
+ 	  Choose this option if you have a Savage3D/4/SuperSavage/Pro/Twister
+ 	  chipset. If M is selected the module will be called savage.
++
++config DRM_EGD
++       tristate "Intel EMGD"
++       depends on DRM
++       select DRM_KMS_HELPER
++       help
++         Choose this option if you have an EMGD-supported chipset
++         (Intel E6xx or System Controller Hub US15W/US15WP/WPT).
++         If M is selected the module will be called emgd.
+diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+index 89cf05a..1eb1dd5 100644
+--- a/drivers/gpu/drm/Makefile
++++ b/drivers/gpu/drm/Makefile
+@@ -35,4 +35,5 @@ obj-$(CONFIG_DRM_SAVAGE)+= savage/
+ obj-$(CONFIG_DRM_VMWGFX)+= vmwgfx/
+ obj-$(CONFIG_DRM_VIA)	+=via/
+ obj-$(CONFIG_DRM_NOUVEAU) +=nouveau/
++obj-$(CONFIG_DRM_EGD)  +=emgd/
+ obj-y			+= i2c/
+diff --git a/drivers/gpu/drm/emgd/Makefile b/drivers/gpu/drm/emgd/Makefile
+index d673fe9..556600f 100755
+--- a/drivers/gpu/drm/emgd/Makefile
++++ b/drivers/gpu/drm/emgd/Makefile
 @@ -24,10 +24,6 @@
- #include "resman.h"
+ #----------------------------------------------------------------------------
+ export EGD_TOPLEVEL = DRM Driver
  
- #ifdef __linux__
--#ifndef AUTOCONF_INCLUDED
-- #include <linux/config.h>
--#endif
+-KERNELVER ?= $(shell uname -r)
+-KERNELDIR ?= /lib/modules/$(KERNELVER)/build
+-INSTALLDIR ?= /lib/modules/$(KERNELVER)/kernel/drivers/gpu/drm/emgd
 -
- #include <linux/version.h>
- #include <linux/sched.h>
- #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,9)
-diff --git a/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/event.c b/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/event.c
-index c1c645c..d412f47 100644
---- a/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/event.c
-+++ b/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/event.c
-@@ -20,10 +20,6 @@
-  THE SOFTWARE.
-  ******************************************************************************/
+ BLUE = \033[34m
+ OFF = \033[0m
+ BUILD ?= release
+@@ -35,7 +31,7 @@ CONFIG_PVR_RELEASE ?= $(BUILD)
+ CONFIG_DRM_EGD ?= m
  
--#ifndef AUTOCONF_INCLUDED
-- #include <linux/config.h>
--#endif
+ # Get the include paths pointed to the right place. 
+-export  EMGD_MOD_DIR ?= $(CURDIR)
++export  EMGD_MOD_DIR ?= $(obj)
+ 
+ # Note the hardcoded '2.6.32-5' directory is a temporary hack for Debian
+ # which structures its kernel headers package into two different
+@@ -52,7 +48,7 @@ PROJECT_INCLUDES = \
+ 	   -I$(EMGD_MOD_DIR)/emgd/cfg \
+ 	   -I$(EMGD_MOD_DIR)/emgd/pal/lpd \
+ 	   -I$(EMGD_MOD_DIR)/emgd/drm \
+-	   -I$(KERNELDIR)/include/drm \
++	   -Iinclude/drm \
+ 	   -I/usr/src/linux-headers-2.6.32-5-common/include/drm \
+ 	   -I$(EMGD_MOD_DIR)/pvr/include4 \
+ 	   -I$(EMGD_MOD_DIR)/pvr/services4/include \
+@@ -125,6 +121,8 @@ ifeq ($(PDUMP),1)
+ 	EXTRA_CFLAGS += -DPDUMP=1
+ endif
+ 
++ccflags-y += $(EXTRA_CFLAGS)
++
+ EMGD_OBJS := \
+ 	emgd/drm/emgd_fb.o \
+ 	emgd/drm/emgd_mmap.o \
+@@ -283,34 +281,3 @@ ifeq ($(PDUMP),1)
+ endif
+ 
+ obj-$(CONFIG_DRM_EGD) += emgd.o
 -
- #include <linux/version.h>
- #include <asm/io.h>
- #include <asm/page.h>
-diff --git a/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/mm.c b/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/mm.c
-index c989f46..c69e615 100644
---- a/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/mm.c
-+++ b/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/mm.c
-@@ -20,10 +20,6 @@
-  THE SOFTWARE.
-  ******************************************************************************/
- 
--#ifndef AUTOCONF_INCLUDED
-- #include <linux/config.h>
--#endif
+-all:: clean modules
 -
- #include <linux/version.h>
- #include <linux/mm.h>
- #include <linux/vmalloc.h>
-diff --git a/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/mm.h b/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/mm.h
-index 35c51c6..6714b3c 100644
---- a/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/mm.h
-+++ b/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/mm.h
-@@ -23,10 +23,6 @@
- #ifndef __IMG_LINUX_MM_H__
- #define __IMG_LINUX_MM_H__
- 
--#ifndef AUTOCONF_INCLUDED
-- #include <linux/config.h>
--#endif
+-modules::
+-	@echo $(CURDIR) -- $(CONFIG_PVR_RELEASE)
+-	@echo "$(MAKE) -C $(KERNELDIR) M=$(CURDIR) modules"
+-	@$(MAKE) -C $(KERNELDIR) M=$(CURDIR) modules
 -
- #include <linux/version.h>
- #include <linux/slab.h>
- #include <linux/mm.h>
-diff --git a/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/mmap.c b/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/mmap.c
-index aabe488..c3264e3 100644
---- a/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/mmap.c
-+++ b/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/mmap.c
-@@ -20,10 +20,6 @@
-  THE SOFTWARE.
-  ******************************************************************************/
- 
--#ifndef AUTOCONF_INCLUDED
-- #include <linux/config.h>
--#endif
+-clean::
+-	@rm -f $(emgd-y)
+-	@rm -f emgd.o emgd.mod.* emgd.ko Module.* modules.order
+-	@find . -name "*.cmd" -exec rm '{}' \;
 -
- #include <linux/version.h>
- #include <linux/mm.h>
- #include <linux/module.h>
-diff --git a/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/module.c b/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/module.c
-index 73b6f69..f6d4114 100644
---- a/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/module.c
-+++ b/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/module.c
-@@ -20,10 +20,6 @@
-  THE SOFTWARE.
-  ******************************************************************************/
- 
--#ifndef AUTOCONF_INCLUDED
-- #include <linux/config.h>
--#endif
+-install::
+-	install -o root -g root -m 755 -d $(INSTALLDIR)
+-	install -o root -g root -m 744 emgd.ko $(INSTALLDIR)
+-	/sbin/depmod -a
 -
- #if !defined(SUPPORT_DRI_DRM)
- 	
- 	#if defined(LDM_PLATFORM)
-diff --git a/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/mutils.c b/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/mutils.c
-index 5ee3a01..cfd1f02 100644
---- a/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/mutils.c
-+++ b/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/mutils.c
-@@ -20,9 +20,6 @@
-  THE SOFTWARE.
-  ******************************************************************************/
- 
--#ifndef AUTOCONF_INCLUDED
--#include <linux/config.h>
--#endif
- #include <linux/version.h>
- 
- #include <linux/spinlock.h>
-diff --git a/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/mutils.h b/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/mutils.h
-index 10473fa..ebc8a32 100644
---- a/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/mutils.h
-+++ b/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/mutils.h
-@@ -23,10 +23,6 @@
- #ifndef __IMG_LINUX_MUTILS_H__
- #define __IMG_LINUX_MUTILS_H__
- 
--#ifndef AUTOCONF_INCLUDED
--#include <linux/config.h>
--#endif
+-uninstall::
+-	rmmod $(INSTALLDIR)/emgd.ko
+-	rm -rf $(INSTALLDIR)/emgd.ko
+-	/sbin/depmod -a
 -
- #include <linux/version.h>
- 
- #if !(defined(__i386__) && (LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,26)))
-diff --git a/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/osfunc.c b/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/osfunc.c
-index 96daf23..4f03922 100644
---- a/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/osfunc.c
-+++ b/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/osfunc.c
-@@ -20,10 +20,6 @@
-  THE SOFTWARE.
-  ******************************************************************************/
- 
--#ifndef AUTOCONF_INCLUDED
-- #include <linux/config.h>
--#endif
+-debug::
+-	export CONFIG_PVR_RELEASE=debug; $(MAKE) modules
 -
- #include <linux/version.h>
- #include <asm/io.h>
- #include <asm/page.h>
-@@ -1692,12 +1688,7 @@ PVRSRV_ERROR OSPCIResumeDev(PVRSRV_PCI_DEV_HANDLE hPVRPCI)
-             return PVRSRV_ERROR_GENERIC;
-     }
- 
--    err = pci_restore_state(psPVRPCI->psPCIDev);
--    if (err != 0)
--    {
--        PVR_DPF((PVR_DBG_ERROR, "OSPCIResumeDev: pci_restore_state failed (%d)", err));
--        return PVRSRV_ERROR_GENERIC;
--    }
-+    pci_restore_state(psPVRPCI->psPCIDev);
- 
-     err = pci_enable_device(psPVRPCI->psPCIDev);
-     if (err != 0)
-@@ -1752,7 +1743,7 @@ static TIMER_CALLBACK_DATA sTimers[OS_MAX_TIMERS];
- #if defined(PVR_LINUX_TIMERS_USING_WORKQUEUES)
- DEFINE_MUTEX(sTimerStructLock);
- #else
--static spinlock_t sTimerStructLock = SPIN_LOCK_UNLOCKED;
-+static DEFINE_SPINLOCK(sTimerStructLock);
- #endif
- 
- static void OSTimerCallbackBody(TIMER_CALLBACK_DATA *psTimerCBData)
-diff --git a/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/proc.c b/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/proc.c
-index 85d2266..a7f8850 100644
---- a/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/proc.c
-+++ b/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/proc.c
-@@ -20,10 +20,6 @@
-  THE SOFTWARE.
-  ******************************************************************************/
- 
--#ifndef AUTOCONF_INCLUDED
-- #include <linux/config.h>
--#endif
+-package:: clean
+-	@echo -e "$(BLUE)Packaging $(EGD_TOPLEVEL)$(OFF)";
+-	mkdir -p $(EGD_PKG)
+-	tar -C $(EMGD_MOD_DIR) --exclude "CVS" -czf $(EGD_PKG)/emgd_drm.tgz *
 -
- #include <linux/init.h>
- #include <linux/module.h>
- #include <linux/version.h>
-diff --git a/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/pvr_debug.c b/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/pvr_debug.c
-index 28ad7cc..d7a9e9f 100644
---- a/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/pvr_debug.c
-+++ b/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/pvr_debug.c
-@@ -21,10 +21,6 @@
-  ******************************************************************************/
- 
-   
--#ifndef AUTOCONF_INCLUDED
-- #include <linux/config.h>
--#endif
--
- #include <asm/io.h>
- #include <asm/uaccess.h>
- #include <linux/kernel.h>
-@@ -56,7 +52,7 @@ static IMG_CHAR gszBufferIRQ[PVR_MAX_MSG_LEN + 1];
- 
- static struct mutex gsDebugMutexNonIRQ;
- 
--static spinlock_t gsDebugLockIRQ = SPIN_LOCK_UNLOCKED;
-+static DEFINE_SPINLOCK(gsDebugLockIRQ);
- 
- #define	USE_SPIN_LOCK (in_interrupt() || !preemptible())
- 
-diff --git a/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/pvr_drm.c b/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/pvr_drm.c
-index 62b3ab0..c8c27f3 100644
---- a/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/pvr_drm.c
-+++ b/drivers/gpu/drm/emgd/pvr/services4/srvkm/env/linux/pvr_drm.c
-@@ -22,10 +22,6 @@
- 
- #if defined(SUPPORT_DRI_DRM)
- 
--#ifndef AUTOCONF_INCLUDED
-- #include <linux/config.h>
--#endif
--
- #include <linux/init.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
 -- 
 1.7.0.4
 
