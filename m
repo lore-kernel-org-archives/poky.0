@@ -1,22 +1,22 @@
 Return-Path: <nitin.a.kamble@intel.com>
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2DCEA4C80523
+	by mx1.pokylinux.org (Postfix) with ESMTP id E91BF4C80523
 	for <poky@yoctoproject.org>; Tue, 10 May 2011 16:16:12 -0500 (CDT)
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 10 May 2011 14:16:11 -0700
+	by fmsmga102.fm.intel.com with ESMTP; 10 May 2011 14:16:12 -0700
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="4.64,347,1301900400"; 
-   d="scan'208";a="562799"
+   d="scan'208";a="562815"
 Received: from nbuild2.sc.intel.com (HELO localhost) ([172.25.110.37])
-	by fmsmga001.fm.intel.com with ESMTP; 10 May 2011 14:16:11 -0700
-Message-Id: <069e20eb83ea99131dc350efff71e2df9ef8badb.1305062028.git.nitin.a.kamble@intel.com>
+	by fmsmga001.fm.intel.com with ESMTP; 10 May 2011 14:16:12 -0700
+Message-Id: <d678d6bd4690e71fccb9489af86932d00bc69d75.1305062028.git.nitin.a.kamble@intel.com>
 In-Reply-To: <cover.1305062026.git.nitin.a.kamble@intel.com>
 References: <cover.1305062026.git.nitin.a.kamble@intel.com>
-Old-Date: Sun, 8 May 2011 09:24:40 -0700
-Date: Tue, 10 May 2011 14:16:11 -0700
+Old-Date: Tue, 10 May 2011 13:07:54 -0700
+Date: Tue, 10 May 2011 14:16:12 -0700
 To: poky@yoctoproject.org,openembedded-core@lists.openembedded.org
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Subject: [PATCH 03/16] pax: fix for compiling with gcc 4.6.0
+Subject: [PATCH 07/16] libpcre: fix the Upstream-Status format
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,65 +28,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 10 May 2011 21:16:12 -0000
+X-List-Received-Date: Tue, 10 May 2011 21:16:13 -0000
 
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
 
 Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
 ---
- .../pax/pax/fix_for_compile_with_gcc-4.6.0.patch   |   25 ++++++++++++++++++++
- meta/recipes-extended/pax/pax_3.4.bb               |    5 ++-
- 2 files changed, 28 insertions(+), 2 deletions(-)
- create mode 100644 meta/recipes-extended/pax/pax/fix_for_compile_with_gcc-4.6.0.patch
+ .../libpcre/files/fix-pcre-name-collision.patch    |    2 +-
+ .../recipes-support/libpcre/files/pcre-cross.patch |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/meta/recipes-extended/pax/pax/fix_for_compile_with_gcc-4.6.0.patch b/meta/recipes-extended/pax/pax/fix_for_compile_with_gcc-4.6.0.patch
-new file mode 100644
-index 0000000..88779c3
---- /dev/null
-+++ b/meta/recipes-extended/pax/pax/fix_for_compile_with_gcc-4.6.0.patch
-@@ -0,0 +1,25 @@
-+Upstream-Status: Pending
-+
-+This patch fixes this compiler error with gcc 4.6.0
-+
-+Nitin A Kamble <nitin.a.kamble@intel.com> 2011/05/08
-+
-+| fts.c: In function 'pax_fts_set':
-+| fts.c:469:7: error: parameter 'sp' set but not used [-Werror=unused-but-set-parameter]
-+| cc1: all warnings being treated as errors
-+| 
-+| make[2]: *** [fts.o] Error 1
-+
-+Index: pax-3.4/lib/fts.c
-+===================================================================
-+--- pax-3.4.orig/lib/fts.c
-++++ pax-3.4/lib/fts.c
-+@@ -466,7 +466,7 @@ name:		t = sp->fts_path + NAPPEND(p->fts
-+ /* ARGSUSED */
-+ int
-+ fts_set(sp, p, instr)
-+-	FTS *sp;
-++	FTS __attribute__((__unused__)) *sp;
-+ 	FTSENT *p;
-+ 	int instr;
-+ {
-diff --git a/meta/recipes-extended/pax/pax_3.4.bb b/meta/recipes-extended/pax/pax_3.4.bb
-index b0f358a..e9c70d6 100644
---- a/meta/recipes-extended/pax/pax_3.4.bb
-+++ b/meta/recipes-extended/pax/pax_3.4.bb
-@@ -10,9 +10,10 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=4b0b674dfdc56daa3832d4069b820ea0 \
-                     file://lib/vis.h;endline=40;md5=b283f759abd4a5ad7e014b80f51fc053"
+diff --git a/meta/recipes-support/libpcre/files/fix-pcre-name-collision.patch b/meta/recipes-support/libpcre/files/fix-pcre-name-collision.patch
+index 4b21ffa..89b44f6 100644
+--- a/meta/recipes-support/libpcre/files/fix-pcre-name-collision.patch
++++ b/meta/recipes-support/libpcre/files/fix-pcre-name-collision.patch
+@@ -1,4 +1,4 @@
+-Upstream-Status="Inappropriate [debian patch]"
++Upstream-Status: Inappropriate [debian patch]
  
- SECTION = "base"
--PR = "r0"
-+PR = "r1"
+ This patch address a namespace collision with libc.
  
--SRC_URI = "ftp://ftp.suse.com/pub/people/kukuk/pax/pax-${PV}.tar.bz2"
-+SRC_URI = "ftp://ftp.suse.com/pub/people/kukuk/pax/pax-${PV}.tar.bz2 \
-+	file://fix_for_compile_with_gcc-4.6.0.patch"
+diff --git a/meta/recipes-support/libpcre/files/pcre-cross.patch b/meta/recipes-support/libpcre/files/pcre-cross.patch
+index 1867395..2ae05a1 100644
+--- a/meta/recipes-support/libpcre/files/pcre-cross.patch
++++ b/meta/recipes-support/libpcre/files/pcre-cross.patch
+@@ -1,4 +1,4 @@
+-Upstream-Status="Inappropriate [configuration]"
++Upstream-Status: Inappropriate [configuration]
  
- SRC_URI[md5sum] = "fbd9023b590b45ac3ade95870702a0d6"
- SRC_URI[sha256sum] = "ac3c06048e02828077cf7757d3d142241429238893b91d529af29a2e8cc5623b"
+ To be upstreamable, this patch requires check for *_FOR_BUILD, otherwise
+ it needs to pass special variables.
 -- 
 1.7.3.4
 
