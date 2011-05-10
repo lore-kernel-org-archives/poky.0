@@ -1,22 +1,23 @@
 Return-Path: <dongxiao.xu@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9396A4C80A70
-	for <poky@yoctoproject.org>; Tue, 10 May 2011 03:56:07 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 10 May 2011 01:56:07 -0700
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id B926F4C80A84
+	for <poky@yoctoproject.org>; Tue, 10 May 2011 03:56:08 -0500 (CDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 10 May 2011 01:56:08 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,345,1301900400"; d="scan'208";a="433485397"
+X-IronPort-AV: E=Sophos;i="4.64,345,1301900400"; 
+   d="scan'208";a="231516"
 Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.20])
-	by azsmga001.ch.intel.com with ESMTP; 10 May 2011 01:56:06 -0700
-Message-Id: <cb15d2f876b8cb192bd7d9c3c1e7601d04db23bd.1305017818.git.dongxiao.xu@intel.com>
+	by fmsmga001.fm.intel.com with ESMTP; 10 May 2011 01:56:08 -0700
+Message-Id: <cc977eb27033f104871de65842bd38dabb5e6fd1.1305017818.git.dongxiao.xu@intel.com>
 In-Reply-To: <cover.1305017818.git.dongxiao.xu@intel.com>
 References: <cover.1305017818.git.dongxiao.xu@intel.com>
-Old-Date: Tue, 10 May 2011 13:27:06 +0800
-Date: Tue, 10 May 2011 17:01:35 +0800
+Old-Date: Tue, 10 May 2011 13:27:50 +0800
+Date: Tue, 10 May 2011 17:01:36 +0800
 To: poky@yoctoproject.org
 CC: 
 From: Dongxiao Xu <dongxiao.xu@intel.com>
-Subject: [PATCH 10/39] telepathy-python: add upstream status for telepahty-python's patches
+Subject: [PATCH 11/39] wireless-tools: add upstream status for wireless-tools's patches
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,28 +29,25 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 10 May 2011 08:56:07 -0000
+X-List-Received-Date: Tue, 10 May 2011 08:56:08 -0000
 
 From: Dongxiao Xu <dongxiao.xu@intel.com>
 
 Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
 ---
- .../telepathy-python-0.15.19/parallel_make.patch   |    2 ++
+ .../wireless-tools/wireless-tools/man.patch        |    2 ++
  1 files changed, 2 insertions(+), 0 deletions(-)
 
-diff --git a/meta/recipes-connectivity/telepathy/telepathy-python-0.15.19/parallel_make.patch b/meta/recipes-connectivity/telepathy/telepathy-python-0.15.19/parallel_make.patch
-index 145e17b..f1f3f56 100644
---- a/meta/recipes-connectivity/telepathy/telepathy-python-0.15.19/parallel_make.patch
-+++ b/meta/recipes-connectivity/telepathy/telepathy-python-0.15.19/parallel_make.patch
-@@ -5,6 +5,8 @@ src/_generated directory that tasks are based on.
- 
- Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
- 
-+Upstream-Status: Pending
+diff --git a/meta/recipes-connectivity/wireless-tools/wireless-tools/man.patch b/meta/recipes-connectivity/wireless-tools/wireless-tools/man.patch
+index fd8cf42..8e16215 100644
+--- a/meta/recipes-connectivity/wireless-tools/wireless-tools/man.patch
++++ b/meta/recipes-connectivity/wireless-tools/wireless-tools/man.patch
+@@ -1,3 +1,5 @@
++Upstream-Status: Inappropriate [configuration]
 +
- diff -ruN telepathy-python-0.15.19-orig/src/Makefile.am telepathy-python-0.15.19/src/Makefile.am
- --- telepathy-python-0.15.19-orig/src/Makefile.am	2011-03-10 08:51:49.000000000 +0800
- +++ telepathy-python-0.15.19/src/Makefile.am	2011-03-10 08:54:45.000000000 +0800
+ --- wireless_tools.26/Makefile.orig	2003-06-18 03:38:58.000000000 +0200
+ +++ wireless_tools.26/Makefile	2004-07-03 23:35:29.000000000 +0200
+ @@ -57,8 +57,8 @@
 -- 
 1.7.1
 
