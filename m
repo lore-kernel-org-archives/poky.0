@@ -1,21 +1,21 @@
 Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 29F624C80523
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id EF7834C80523
 	for <poky@yoctoproject.org>; Tue, 10 May 2011 16:16:13 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 10 May 2011 14:16:12 -0700
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 10 May 2011 14:16:12 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,347,1301900400"; d="scan'208";a="640907873"
+X-IronPort-AV: E=Sophos;i="4.64,347,1301900400"; d="scan'208";a="745285945"
 Received: from nbuild2.sc.intel.com (HELO localhost) ([172.25.110.37])
-	by orsmga002.jf.intel.com with ESMTP; 10 May 2011 14:16:12 -0700
-Message-Id: <5a735b7135c2985010614b43a4febf4aff86cabb.1305062028.git.nitin.a.kamble@intel.com>
+	by orsmga001.jf.intel.com with ESMTP; 10 May 2011 14:16:12 -0700
+Message-Id: <eef69ca3a3c24e1937e6ad46156ad6e5e4f5b5f1.1305062028.git.nitin.a.kamble@intel.com>
 In-Reply-To: <cover.1305062026.git.nitin.a.kamble@intel.com>
 References: <cover.1305062026.git.nitin.a.kamble@intel.com>
-Old-Date: Tue, 10 May 2011 13:10:34 -0700
-Date: Tue, 10 May 2011 14:16:12 -0700
+Old-Date: Mon, 9 May 2011 10:53:43 -0700
+Date: Tue, 10 May 2011 14:16:11 -0700
 To: poky@yoctoproject.org,openembedded-core@lists.openembedded.org
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Subject: [PATCH 08/16] tar: fix Upstream-Status format
+Subject: [PATCH 05/16] kexec-tools: fix compiler errors with gcc 4.6.0
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,25 +27,77 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 10 May 2011 21:16:13 -0000
+X-List-Received-Date: Tue, 10 May 2011 21:16:14 -0000
 
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
 
 Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
 ---
- .../tar/tar-1.17/avoid_heap_overflow.patch         |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ .../fix_for_compiling_with_gcc-4.6.0.patch         |   40 ++++++++++++++++++++
+ meta/recipes-kernel/kexec/kexec-tools_2.0.2.bb     |    3 +-
+ 2 files changed, 42 insertions(+), 1 deletions(-)
+ create mode 100644 meta/recipes-kernel/kexec/kexec-tools/fix_for_compiling_with_gcc-4.6.0.patch
 
-diff --git a/meta/recipes-extended/tar/tar-1.17/avoid_heap_overflow.patch b/meta/recipes-extended/tar/tar-1.17/avoid_heap_overflow.patch
-index b1b2de6..da2ae3c 100644
---- a/meta/recipes-extended/tar/tar-1.17/avoid_heap_overflow.patch
-+++ b/meta/recipes-extended/tar/tar-1.17/avoid_heap_overflow.patch
-@@ -1,4 +1,4 @@
--Upstream-Status="Inappropriate [bugfix: http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2010-0624]"
-+Upstream-Status: Inappropriate [bugfix: http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2010-0624]
+diff --git a/meta/recipes-kernel/kexec/kexec-tools/fix_for_compiling_with_gcc-4.6.0.patch b/meta/recipes-kernel/kexec/kexec-tools/fix_for_compiling_with_gcc-4.6.0.patch
+new file mode 100644
+index 0000000..658699b
+--- /dev/null
++++ b/meta/recipes-kernel/kexec/kexec-tools/fix_for_compiling_with_gcc-4.6.0.patch
+@@ -0,0 +1,40 @@
++Upstream-Status: Pending
++
++Fix following compiler warining/errors with gcc 4.6.0.
++Nitin A Kamble <nitin.a.kamble@intel.com> 2011/05/09
++
++| kexec/kexec.c: In function 'my_exec':
++| kexec/kexec.c:818:6: warning: variable 'result' set but not used [-Wunused-but-set-variable]
++
++| ccache i586-poky-linux-gcc -march=i586 --sysroot=/build_disk/poky_build/build_gcc_4.6.0/tmp/sysroots/qemux86  --no-undefined -nostartfiles -nostdlib -nodefaultlibs -e purgatory_start -r -o purgatory/purgatory.ro purgatory/purgatory.o purgatory/printf.o purgatory/string.o purgatory/arch/i386/entry32-16.o purgatory/arch/i386/entry32-16-debug.o purgatory/arch/i386/entry32.o purgatory/arch/i386/setup-x86.o purgatory/arch/i386/stack.o purgatory/arch/i386/compat_x86_64.o purgatory/arch/i386/purgatory-x86.o purgatory/arch/i386/console-x86.o purgatory/arch/i386/vga.o purgatory/arch/i386/pic.o purgatory/arch/i386/crashdump_backup.o purgatory/sha256.o
++| i586-poky-linux-gcc: error: unrecognized option '--no-undefined'
++| make: *** [purgatory/purgatory.ro] Error 1
++| ERROR: oe_runmake failed
++
++
++Index: kexec-tools-2.0.2/kexec/kexec.c
++===================================================================
++--- kexec-tools-2.0.2.orig/kexec/kexec.c
+++++ kexec-tools-2.0.2/kexec/kexec.c
++@@ -815,7 +815,7 @@ static int my_shutdown(void)
++  */
++ static int my_exec(void)
++ {
++-	int result;
+++	int __attribute__((__unused__)) result;
++ 
++ 	result = kexec_reboot();
++ 	/* I have failed if I make it here */
++Index: kexec-tools-2.0.2/purgatory/Makefile
++===================================================================
++--- kexec-tools-2.0.2.orig/purgatory/Makefile
+++++ kexec-tools-2.0.2/purgatory/Makefile
++@@ -56,7 +56,7 @@ $(PURGATORY): CPPFLAGS=$($(ARCH)_PURGATO
++ 			-I$(srcdir)/include \
++ 			-I$(shell $(CC) -print-file-name=include)
++ $(PURGATORY): LDFLAGS=$($(ARCH)_PURGATORY_EXTRA_CFLAGS)\
++-			--no-undefined -nostartfiles -nostdlib -nodefaultlibs \
+++			-Wl,--no-undefined -nostartfiles -nostdlib -nodefaultlibs \
++ 			-e purgatory_start -r
++ 
++ $(PURGATORY): $(PURGATORY_OBJS)
+diff --git a/meta/recipes-kernel/kexec/kexec-tools_2.0.2.bb b/meta/recipes-kernel/kexec/kexec-tools_2.0.2.bb
+index 0d15b5b..caed816 100644
+--- a/meta/recipes-kernel/kexec/kexec-tools_2.0.2.bb
++++ b/meta/recipes-kernel/kexec/kexec-tools_2.0.2.bb
+@@ -2,7 +2,8 @@ require kexec-tools.inc
+ export LDFLAGS = "-L${STAGING_LIBDIR}"
+ EXTRA_OECONF = " --with-zlib=yes"
  
- This patch avoids heap overflow reported by :
- http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2010-0624
+-PR = "r0"
++PR = "r1"
+ 
++SRC_URI += " file://fix_for_compiling_with_gcc-4.6.0.patch"
+ SRC_URI[md5sum] = "bc401cf3262b25ff7c9a51fc76c8ab91"
+ SRC_URI[sha256sum] = "549ab65c18a2229b6bf21b6875ca6bbe0e579bca08c3543ce6aaf8287a0b4188"
 -- 
 1.7.3.4
 
