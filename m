@@ -1,22 +1,23 @@
 Return-Path: <dongxiao.xu@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A4B3D4C80A8C
-	for <poky@yoctoproject.org>; Tue, 10 May 2011 03:56:15 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 10 May 2011 01:56:15 -0700
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id B45604C80A92
+	for <poky@yoctoproject.org>; Tue, 10 May 2011 03:56:16 -0500 (CDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 10 May 2011 01:56:16 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,345,1301900400"; d="scan'208";a="433485454"
+X-IronPort-AV: E=Sophos;i="4.64,345,1301900400"; 
+   d="scan'208";a="231548"
 Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.20])
-	by azsmga001.ch.intel.com with ESMTP; 10 May 2011 01:56:14 -0700
-Message-Id: <90422de22ca49425f0fb88cca21287de4906ce08.1305017818.git.dongxiao.xu@intel.com>
+	by fmsmga001.fm.intel.com with ESMTP; 10 May 2011 01:56:15 -0700
+Message-Id: <9b17aaa85f5933644afc1c229aa9907892ce992e.1305017818.git.dongxiao.xu@intel.com>
 In-Reply-To: <cover.1305017818.git.dongxiao.xu@intel.com>
 References: <cover.1305017818.git.dongxiao.xu@intel.com>
-Old-Date: Tue, 10 May 2011 15:18:22 +0800
-Date: Tue, 10 May 2011 17:01:43 +0800
+Old-Date: Tue, 10 May 2011 15:20:12 +0800
+Date: Tue, 10 May 2011 17:01:44 +0800
 To: poky@yoctoproject.org
 CC: 
 From: Dongxiao Xu <dongxiao.xu@intel.com>
-Subject: [PATCH 16/39] makedevs: add upstream status for makedevs's patch
+Subject: [PATCH 17/39] opkg: add upstream status for opkg's patches
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,25 +29,39 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 10 May 2011 08:56:15 -0000
+X-List-Received-Date: Tue, 10 May 2011 08:56:16 -0000
 
 From: Dongxiao Xu <dongxiao.xu@intel.com>
 
 Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
 ---
- .../makedevs/makedevs-1.0.0/COPYING.patch          |    2 ++
- 1 files changed, 2 insertions(+), 0 deletions(-)
+ meta/recipes-devtools/opkg/opkg/add_vercmp.patch |    2 ++
+ meta/recipes-devtools/opkg/opkg/headerfix.patch  |    2 ++
+ 2 files changed, 4 insertions(+), 0 deletions(-)
 
-diff --git a/meta/recipes-devtools/makedevs/makedevs-1.0.0/COPYING.patch b/meta/recipes-devtools/makedevs/makedevs-1.0.0/COPYING.patch
-index 3208ad7..c63ab53 100644
---- a/meta/recipes-devtools/makedevs/makedevs-1.0.0/COPYING.patch
-+++ b/meta/recipes-devtools/makedevs/makedevs-1.0.0/COPYING.patch
+diff --git a/meta/recipes-devtools/opkg/opkg/add_vercmp.patch b/meta/recipes-devtools/opkg/opkg/add_vercmp.patch
+index 540be83..1203c54 100644
+--- a/meta/recipes-devtools/opkg/opkg/add_vercmp.patch
++++ b/meta/recipes-devtools/opkg/opkg/add_vercmp.patch
 @@ -1,3 +1,5 @@
-+Upstream-Status: Inapropriate [others]
++Upstream-Status: Inappropriate [function not used]
 +
- diff -ruN makedevs-1.0.0-orig/COPYING makedevs-1.0.0/COPYING
- --- makedevs-1.0.0-orig/COPYING	1970-01-01 08:00:00.000000000 +0800
- +++ makedevs-1.0.0/COPYING	2010-12-09 16:42:20.274984665 +0800
+ Index: trunk/libopkg/opkg.c
+ ===================================================================
+ --- trunk.orig/libopkg/opkg.c	2010-01-26 20:32:19.000000000 +0000
+diff --git a/meta/recipes-devtools/opkg/opkg/headerfix.patch b/meta/recipes-devtools/opkg/opkg/headerfix.patch
+index d0711ec..b3515a0 100644
+--- a/meta/recipes-devtools/opkg/opkg/headerfix.patch
++++ b/meta/recipes-devtools/opkg/opkg/headerfix.patch
+@@ -2,6 +2,8 @@ Without this, the FILE reference in this header can cause compile issues.
+ 
+ RP - 29/1/10
+ 
++Upstream-Status: Pending
++
+ Index: trunk/libopkg/pkg_dest.h
+ ===================================================================
+ --- trunk.orig/libopkg/pkg_dest.h	2010-01-29 09:37:22.000000000 +0000
 -- 
 1.7.1
 
