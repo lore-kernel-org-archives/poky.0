@@ -1,21 +1,21 @@
 Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E4AF74C80A84
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E208F4C800A6
 	for <poky@yoctoproject.org>; Tue, 10 May 2011 16:16:15 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 10 May 2011 14:16:14 -0700
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 10 May 2011 14:16:15 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,347,1301900400"; d="scan'208";a="433888015"
+X-IronPort-AV: E=Sophos;i="4.64,347,1301900400"; d="scan'208";a="640907896"
 Received: from nbuild2.sc.intel.com (HELO localhost) ([172.25.110.37])
-	by azsmga001.ch.intel.com with ESMTP; 10 May 2011 14:16:12 -0700
-Message-Id: <520e750344d82cc40b301c16ed4d527680b8f55d.1305062028.git.nitin.a.kamble@intel.com>
+	by orsmga002.jf.intel.com with ESMTP; 10 May 2011 14:16:15 -0700
+Message-Id: <2a3e88c074c959213ab3555d7a80f83accecbef9.1305062028.git.nitin.a.kamble@intel.com>
 In-Reply-To: <cover.1305062026.git.nitin.a.kamble@intel.com>
 References: <cover.1305062026.git.nitin.a.kamble@intel.com>
-Old-Date: Mon, 9 May 2011 17:45:38 -0700
-Date: Tue, 10 May 2011 14:16:12 -0700
+Old-Date: Tue, 10 May 2011 13:18:08 -0700
+Date: Tue, 10 May 2011 14:16:15 -0700
 To: poky@yoctoproject.org,openembedded-core@lists.openembedded.org
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Subject: [PATCH 06/16] libzypp: fix compilatoin with gcc 4.6.0
+Subject: [PATCH 16/16] gcc-4.5.1: fix upstream-status format
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,60 +33,239 @@ From: Nitin A Kamble <nitin.a.kamble@intel.com>
 
 Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
 ---
- .../libzypp/fix_for_compile_wth_gcc-4.6.0.patch    |   22 ++++++++++++++++++++
- meta/recipes-extended/libzypp/libzypp_git.bb       |    3 +-
- 2 files changed, 24 insertions(+), 1 deletions(-)
- create mode 100644 meta/recipes-extended/libzypp/libzypp/fix_for_compile_wth_gcc-4.6.0.patch
+ .../gcc/gcc-4.5.1/100-uclibc-conf.patch            |    2 +-
+ .../gcc/gcc-4.5.1/103-uclibc-conf-noupstream.patch |    2 +-
+ .../gcc/gcc-4.5.1/200-uclibc-locale.patch          |    2 +-
+ .../gcc/gcc-4.5.1/203-uclibc-locale-no__x.patch    |    2 +-
+ .../gcc-4.5.1/204-uclibc-locale-wchar_fix.patch    |    2 +-
+ .../gcc/gcc-4.5.1/205-uclibc-locale-update.patch   |    2 +-
+ .../gcc/gcc-4.5.1/301-missing-execinfo_h.patch     |    2 +-
+ .../gcc/gcc-4.5.1/302-c99-snprintf.patch           |    2 +-
+ .../gcc/gcc-4.5.1/303-c99-complex-ugly-hack.patch  |    2 +-
+ .../gcc/gcc-4.5.1/304-index_macro.patch            |    2 +-
+ .../gcc-4.5.1/305-libmudflap-susv3-legacy.patch    |    2 +-
+ .../gcc/gcc-4.5.1/306-libstdc++-namespace.patch    |    2 +-
+ .../gcc/gcc-4.5.1/307-locale_facets.patch          |    2 +-
+ .../gcc/gcc-4.5.1/602-sdk-libstdc++-includes.patch |    2 +-
+ .../recipes-devtools/gcc/gcc-4.5.1/64bithack.patch |    2 +-
+ .../gcc/gcc-4.5.1/740-sh-pr24836.patch             |    2 +-
+ .../gcc/gcc-4.5.1/800-arm-bigendian.patch          |    2 +-
+ .../gcc/gcc-4.5.1/904-flatten-switch-stmt-00.patch |    2 +-
+ .../gcc/gcc-4.5.1/arm-bswapsi2.patch               |    2 +-
+ .../gcc/gcc-4.5.1/arm-nolibfloat.patch             |    2 +-
+ .../gcc/gcc-4.5.1/arm-softfloat.patch              |    2 +-
+ 21 files changed, 21 insertions(+), 21 deletions(-)
 
-diff --git a/meta/recipes-extended/libzypp/libzypp/fix_for_compile_wth_gcc-4.6.0.patch b/meta/recipes-extended/libzypp/libzypp/fix_for_compile_wth_gcc-4.6.0.patch
-new file mode 100644
-index 0000000..0f17b48
---- /dev/null
-+++ b/meta/recipes-extended/libzypp/libzypp/fix_for_compile_wth_gcc-4.6.0.patch
-@@ -0,0 +1,22 @@
+diff --git a/meta/recipes-devtools/gcc/gcc-4.5.1/100-uclibc-conf.patch b/meta/recipes-devtools/gcc/gcc-4.5.1/100-uclibc-conf.patch
+index 87716ff..38ae167 100644
+--- a/meta/recipes-devtools/gcc/gcc-4.5.1/100-uclibc-conf.patch
++++ b/meta/recipes-devtools/gcc/gcc-4.5.1/100-uclibc-conf.patch
+@@ -1,4 +1,4 @@
+-Upstream-Status="Pending"
 +Upstream-Status: Pending
-+
-+Fix following compilation errors with gcc 4.6.0
-+Nitin A Kamble <nitin.a.kamble@intel.com> 2011/05/09
-+
-+| i586-poky-linux-g++: error: unrecognized option '--as-needed'
-+| make[2]: *** [zypp/libzypp.so.810.1.0] Error 1
-+
-+
-+Index: git/zypp/CMakeLists.txt
-+===================================================================
-+--- git.orig/zypp/CMakeLists.txt
-++++ git/zypp/CMakeLists.txt
-+@@ -903,7 +903,7 @@ SET_LOGGROUP( "satsolver" ${zypp_sat_SRC
-+ ADD_LIBRARY(zypp SHARED ${zypp_lib_SRCS})
-+ SET_TARGET_PROPERTIES( zypp PROPERTIES VERSION "${LIBZYPP_VERSION_INFO}" )
-+ SET_TARGET_PROPERTIES( zypp PROPERTIES SOVERSION "${LIBZYPP_SOVERSION_INFO}" )
-+-SET_TARGET_PROPERTIES( zypp PROPERTIES LINK_FLAGS "--as-needed" )
-++SET_TARGET_PROPERTIES( zypp PROPERTIES LINK_FLAGS "-Wl,--as-needed" )
-+ ADD_DEPENDENCIES(zypp schema_header)
-+ # System libraries
-+ SET(UTIL_LIBRARY util)
-diff --git a/meta/recipes-extended/libzypp/libzypp_git.bb b/meta/recipes-extended/libzypp/libzypp_git.bb
-index f8535af..824f7a1 100644
---- a/meta/recipes-extended/libzypp/libzypp_git.bb
-+++ b/meta/recipes-extended/libzypp/libzypp_git.bb
-@@ -14,7 +14,7 @@ RDEPENDS_${PN} = "sat-solver"
- S = "${WORKDIR}/git"
- SRCREV = "15b6c52260bbc52b3d8e585e271b67e10cc7c433"
- PV = "0.0-git${SRCPV}"
--PR = "r9"
-+PR = "r10"
  
- SRC_URI = "git://gitorious.org/opensuse/libzypp.git;protocol=git \
-            file://no-doc.patch \
-@@ -22,6 +22,7 @@ SRC_URI = "git://gitorious.org/opensuse/libzypp.git;protocol=git \
-            file://rpm5-no-rpmdbinit.patch \
- 	   file://config-release.patch \
- 	   file://libzypp-pokyarch.patch \
-+	   file://fix_for_compile_wth_gcc-4.6.0.patch \
-           "
+ Index: gcc-4.3.1/contrib/regression/objs-gcc.sh
+ ===================================================================
+diff --git a/meta/recipes-devtools/gcc/gcc-4.5.1/103-uclibc-conf-noupstream.patch b/meta/recipes-devtools/gcc/gcc-4.5.1/103-uclibc-conf-noupstream.patch
+index 530d815..abed095 100644
+--- a/meta/recipes-devtools/gcc/gcc-4.5.1/103-uclibc-conf-noupstream.patch
++++ b/meta/recipes-devtools/gcc/gcc-4.5.1/103-uclibc-conf-noupstream.patch
+@@ -1,4 +1,4 @@
+-Upstream-Status="Pending"
++Upstream-Status: Pending
  
- SRC_URI_append_mips = " file://mips-workaround-gcc-tribool-error.patch"
+ Corrects sub machine arch corectly
+ 
+diff --git a/meta/recipes-devtools/gcc/gcc-4.5.1/200-uclibc-locale.patch b/meta/recipes-devtools/gcc/gcc-4.5.1/200-uclibc-locale.patch
+index 042cda5..d2ba65c 100644
+--- a/meta/recipes-devtools/gcc/gcc-4.5.1/200-uclibc-locale.patch
++++ b/meta/recipes-devtools/gcc/gcc-4.5.1/200-uclibc-locale.patch
+@@ -1,4 +1,4 @@
+-Upstream-Status="Pending"
++Upstream-Status: Pending
+ 
+ Index: gcc-4.5.0/libstdc++-v3/acinclude.m4
+ ===================================================================
+diff --git a/meta/recipes-devtools/gcc/gcc-4.5.1/203-uclibc-locale-no__x.patch b/meta/recipes-devtools/gcc/gcc-4.5.1/203-uclibc-locale-no__x.patch
+index eaa4a2b..c81e782 100644
+--- a/meta/recipes-devtools/gcc/gcc-4.5.1/203-uclibc-locale-no__x.patch
++++ b/meta/recipes-devtools/gcc/gcc-4.5.1/203-uclibc-locale-no__x.patch
+@@ -1,4 +1,4 @@
+-Upstream-Status="Pending"
++Upstream-Status: Pending
+ 
+ Index: gcc-4.3.1/libstdc++-v3/config/locale/uclibc/c++locale_internal.h
+ ===================================================================
+diff --git a/meta/recipes-devtools/gcc/gcc-4.5.1/204-uclibc-locale-wchar_fix.patch b/meta/recipes-devtools/gcc/gcc-4.5.1/204-uclibc-locale-wchar_fix.patch
+index e44414d..d498f89 100644
+--- a/meta/recipes-devtools/gcc/gcc-4.5.1/204-uclibc-locale-wchar_fix.patch
++++ b/meta/recipes-devtools/gcc/gcc-4.5.1/204-uclibc-locale-wchar_fix.patch
+@@ -1,4 +1,4 @@
+-Upstream-Status="Pending"
++Upstream-Status: Pending
+ 
+ --- gcc/libstdc++-v3/config/locale/uclibc/monetary_members.cc.uclibc200_wchar~	2006-03-10 15:32:37 +0100
+ +++ gcc/libstdc++-v3/config/locale/uclibc/monetary_members.cc	2006-03-10 15:37:27 +0100
+diff --git a/meta/recipes-devtools/gcc/gcc-4.5.1/205-uclibc-locale-update.patch b/meta/recipes-devtools/gcc/gcc-4.5.1/205-uclibc-locale-update.patch
+index 3c8fecf..f844695 100644
+--- a/meta/recipes-devtools/gcc/gcc-4.5.1/205-uclibc-locale-update.patch
++++ b/meta/recipes-devtools/gcc/gcc-4.5.1/205-uclibc-locale-update.patch
+@@ -1,4 +1,4 @@
+-Upstream-Status="Pending"
++Upstream-Status: Pending
+ 
+ Index: gcc-4.3.2/libstdc++-v3/config/locale/uclibc/c_locale.cc
+ ===================================================================
+diff --git a/meta/recipes-devtools/gcc/gcc-4.5.1/301-missing-execinfo_h.patch b/meta/recipes-devtools/gcc/gcc-4.5.1/301-missing-execinfo_h.patch
+index 133f9a6..812d3dd 100644
+--- a/meta/recipes-devtools/gcc/gcc-4.5.1/301-missing-execinfo_h.patch
++++ b/meta/recipes-devtools/gcc/gcc-4.5.1/301-missing-execinfo_h.patch
+@@ -1,4 +1,4 @@
+-Upstream-Status="Pending"
++Upstream-Status: Pending
+ 
+ Index: gcc-4.5.0/boehm-gc/include/gc.h
+ ===================================================================
+diff --git a/meta/recipes-devtools/gcc/gcc-4.5.1/302-c99-snprintf.patch b/meta/recipes-devtools/gcc/gcc-4.5.1/302-c99-snprintf.patch
+index a5b68e2..ec8c43e 100644
+--- a/meta/recipes-devtools/gcc/gcc-4.5.1/302-c99-snprintf.patch
++++ b/meta/recipes-devtools/gcc/gcc-4.5.1/302-c99-snprintf.patch
+@@ -1,4 +1,4 @@
+-Upstream-Status="Pending"
++Upstream-Status: Pending
+ 
+ Index: gcc-4.5.0/libstdc++-v3/include/c_std/cstdio
+ ===================================================================
+diff --git a/meta/recipes-devtools/gcc/gcc-4.5.1/303-c99-complex-ugly-hack.patch b/meta/recipes-devtools/gcc/gcc-4.5.1/303-c99-complex-ugly-hack.patch
+index 19d6203..abd032b 100644
+--- a/meta/recipes-devtools/gcc/gcc-4.5.1/303-c99-complex-ugly-hack.patch
++++ b/meta/recipes-devtools/gcc/gcc-4.5.1/303-c99-complex-ugly-hack.patch
+@@ -1,4 +1,4 @@
+-Upstream-Status="Inappropriate [embedded specific]"
++Upstream-Status: Inappropriate [embedded specific]
+ 
+ Index: gcc-4.5.0/libstdc++-v3/configure
+ ===================================================================
+diff --git a/meta/recipes-devtools/gcc/gcc-4.5.1/304-index_macro.patch b/meta/recipes-devtools/gcc/gcc-4.5.1/304-index_macro.patch
+index 1e0bc29..25f4e93 100644
+--- a/meta/recipes-devtools/gcc/gcc-4.5.1/304-index_macro.patch
++++ b/meta/recipes-devtools/gcc/gcc-4.5.1/304-index_macro.patch
+@@ -1,4 +1,4 @@
+-Upstream-Status="Pending"
++Upstream-Status: Pending
+ 
+ Index: gcc-4.5.0/libstdc++-v3/include/ext/rope
+ ===================================================================
+diff --git a/meta/recipes-devtools/gcc/gcc-4.5.1/305-libmudflap-susv3-legacy.patch b/meta/recipes-devtools/gcc/gcc-4.5.1/305-libmudflap-susv3-legacy.patch
+index 3b06731..d148877 100644
+--- a/meta/recipes-devtools/gcc/gcc-4.5.1/305-libmudflap-susv3-legacy.patch
++++ b/meta/recipes-devtools/gcc/gcc-4.5.1/305-libmudflap-susv3-legacy.patch
+@@ -1,4 +1,4 @@
+-Upstream-Status="Inappropriate [embedded specific]"
++Upstream-Status: Inappropriate [embedded specific]
+ 
+ Index: gcc-4.5.0/libmudflap/mf-hooks2.c
+ ===================================================================
+diff --git a/meta/recipes-devtools/gcc/gcc-4.5.1/306-libstdc++-namespace.patch b/meta/recipes-devtools/gcc/gcc-4.5.1/306-libstdc++-namespace.patch
+index 5fa2323..3cc61c3 100644
+--- a/meta/recipes-devtools/gcc/gcc-4.5.1/306-libstdc++-namespace.patch
++++ b/meta/recipes-devtools/gcc/gcc-4.5.1/306-libstdc++-namespace.patch
+@@ -1,4 +1,4 @@
+-Upstream-Status="Pending"
++Upstream-Status: Pending
+ 
+ Index: gcc-4.5.0/libstdc++-v3/config/locale/uclibc/messages_members.h
+ ===================================================================
+diff --git a/meta/recipes-devtools/gcc/gcc-4.5.1/307-locale_facets.patch b/meta/recipes-devtools/gcc/gcc-4.5.1/307-locale_facets.patch
+index 21b14ef..c1636ba 100644
+--- a/meta/recipes-devtools/gcc/gcc-4.5.1/307-locale_facets.patch
++++ b/meta/recipes-devtools/gcc/gcc-4.5.1/307-locale_facets.patch
+@@ -1,4 +1,4 @@
+-Upstream-Status="Pending"
++Upstream-Status: Pending
+ 
+ This patch fixes a bug into ostream::operator<<(double) due to the wrong size
+ passed into the __convert_from_v method. The wrong size is then passed to
+diff --git a/meta/recipes-devtools/gcc/gcc-4.5.1/602-sdk-libstdc++-includes.patch b/meta/recipes-devtools/gcc/gcc-4.5.1/602-sdk-libstdc++-includes.patch
+index 31d3b18..44b8502 100644
+--- a/meta/recipes-devtools/gcc/gcc-4.5.1/602-sdk-libstdc++-includes.patch
++++ b/meta/recipes-devtools/gcc/gcc-4.5.1/602-sdk-libstdc++-includes.patch
+@@ -1,4 +1,4 @@
+-Upstream-Status="Inappropriate [embedded specific]"
++Upstream-Status: Inappropriate [embedded specific]
+ 
+ --- gcc-4.1.0/libstdc++-v3/fragment.am	2005-03-21 11:40:14.000000000 -0600
+ +++ gcc-4.1.0-patched/libstdc++-v3/fragment.am	2005-04-25 20:14:39.856251785 -0500
+diff --git a/meta/recipes-devtools/gcc/gcc-4.5.1/64bithack.patch b/meta/recipes-devtools/gcc/gcc-4.5.1/64bithack.patch
+index 0ee6b78..890cc2f 100644
+--- a/meta/recipes-devtools/gcc/gcc-4.5.1/64bithack.patch
++++ b/meta/recipes-devtools/gcc/gcc-4.5.1/64bithack.patch
+@@ -1,4 +1,4 @@
+-Upstream-Status="Inappropriate [embedded specific]"
++Upstream-Status: Inappropriate [embedded specific]
+ 
+ By default gcc places 64 bit libs in a lib64 directory. This makes it use 
+ "lib" instead.
+diff --git a/meta/recipes-devtools/gcc/gcc-4.5.1/740-sh-pr24836.patch b/meta/recipes-devtools/gcc/gcc-4.5.1/740-sh-pr24836.patch
+index 6506cb7..ace3631 100644
+--- a/meta/recipes-devtools/gcc/gcc-4.5.1/740-sh-pr24836.patch
++++ b/meta/recipes-devtools/gcc/gcc-4.5.1/740-sh-pr24836.patch
+@@ -1,4 +1,4 @@
+-Upstream-Status="Pending"
++Upstream-Status: Pending
+ 
+ http://sourceforge.net/mailarchive/forum.php?thread_id=8959304&forum_id=5348
+ http://gcc.gnu.org/bugzilla/show_bug.cgi?id=24836
+diff --git a/meta/recipes-devtools/gcc/gcc-4.5.1/800-arm-bigendian.patch b/meta/recipes-devtools/gcc/gcc-4.5.1/800-arm-bigendian.patch
+index e4b1f55..f2474de 100644
+--- a/meta/recipes-devtools/gcc/gcc-4.5.1/800-arm-bigendian.patch
++++ b/meta/recipes-devtools/gcc/gcc-4.5.1/800-arm-bigendian.patch
+@@ -1,4 +1,4 @@
+-Upstream-Status="Pending"
++Upstream-Status: Pending
+ 
+ By Lennert Buytenhek <buytenh@wantstofly.org>
+ Adds support for arm*b-linux* big-endian ARM targets
+diff --git a/meta/recipes-devtools/gcc/gcc-4.5.1/904-flatten-switch-stmt-00.patch b/meta/recipes-devtools/gcc/gcc-4.5.1/904-flatten-switch-stmt-00.patch
+index a766aee..62ec949 100644
+--- a/meta/recipes-devtools/gcc/gcc-4.5.1/904-flatten-switch-stmt-00.patch
++++ b/meta/recipes-devtools/gcc/gcc-4.5.1/904-flatten-switch-stmt-00.patch
+@@ -1,4 +1,4 @@
+-Upstream-Status="Pending"
++Upstream-Status: Pending
+ 
+ Hi,
+ 
+diff --git a/meta/recipes-devtools/gcc/gcc-4.5.1/arm-bswapsi2.patch b/meta/recipes-devtools/gcc/gcc-4.5.1/arm-bswapsi2.patch
+index a72aaaf..9b9f874 100644
+--- a/meta/recipes-devtools/gcc/gcc-4.5.1/arm-bswapsi2.patch
++++ b/meta/recipes-devtools/gcc/gcc-4.5.1/arm-bswapsi2.patch
+@@ -1,4 +1,4 @@
+-Upstream-Status="Pending"
++Upstream-Status: Pending
+ 
+ Index: gcc-4.5/gcc/config/arm/arm.md
+ ===================================================================
+diff --git a/meta/recipes-devtools/gcc/gcc-4.5.1/arm-nolibfloat.patch b/meta/recipes-devtools/gcc/gcc-4.5.1/arm-nolibfloat.patch
+index 88e4e3b..871f9cf 100644
+--- a/meta/recipes-devtools/gcc/gcc-4.5.1/arm-nolibfloat.patch
++++ b/meta/recipes-devtools/gcc/gcc-4.5.1/arm-nolibfloat.patch
+@@ -1,4 +1,4 @@
+-Upstream-Status="Pending"
++Upstream-Status: Pending
+ 
+ # Dimitry Andric <dimitry@andric.com>, 2004-05-01
+ #
+diff --git a/meta/recipes-devtools/gcc/gcc-4.5.1/arm-softfloat.patch b/meta/recipes-devtools/gcc/gcc-4.5.1/arm-softfloat.patch
+index dc8b7a5..a0b1a3c 100644
+--- a/meta/recipes-devtools/gcc/gcc-4.5.1/arm-softfloat.patch
++++ b/meta/recipes-devtools/gcc/gcc-4.5.1/arm-softfloat.patch
+@@ -1,4 +1,4 @@
+-Upstream-Status="Pending"
++Upstream-Status: Pending
+ 
+ Index: gcc-4.5.0/gcc/config/arm/t-linux
+ ===================================================================
 -- 
 1.7.3.4
 
