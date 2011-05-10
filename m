@@ -1,26 +1,20 @@
 Return-Path: <sgw@linux.intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2D5694C80263
-	for <poky@yoctoproject.org>; Mon,  9 May 2011 23:55:14 -0500 (CDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 09 May 2011 21:55:13 -0700
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 9CAAC4C80578
+	for <poky@yoctoproject.org>; Tue, 10 May 2011 00:25:41 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 09 May 2011 22:25:41 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,344,1301900400"; d="scan'208";a="690491232"
-Received: from unknown (HELO [10.255.12.75]) ([10.255.12.75])
-	by fmsmga002.fm.intel.com with ESMTP; 09 May 2011 21:55:13 -0700
-Message-ID: <4DC8C531.6040802@linux.intel.com>
-Date: Mon, 09 May 2011 21:55:13 -0700
+X-IronPort-AV: E=Sophos;i="4.64,345,1301900400"; d="scan'208";a="433404604"
+Received: from unknown (HELO localhost) ([10.255.12.75])
+	by azsmga001.ch.intel.com with ESMTP; 09 May 2011 22:25:40 -0700
+Message-Id: <cover.1305004683.git.sgw@linux.intel.com>
+Old-Date: Mon, 9 May 2011 22:18:03 -0700
+Date: Mon, 09 May 2011 22:25:40 -0700
+To: poky@yoctoproject.org
 From: Saul Wold <sgw@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
-MIME-Version: 1.0
-To: Patches and discussions about the oe-core layer
-	<openembedded-core@lists.openembedded.org>
-References: <cover.1304977276.git.nitin.a.kamble@intel.com>
-In-Reply-To: <cover.1304977276.git.nitin.a.kamble@intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [OE-core] [PATCH 0/5] Misc fixes related to gcc 4.6.0
+Cc: Darren Hart <dvhart@linux.intel.com>
+Subject: [PATCH 0/1] POKY - Master Pull Request
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,71 +26,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 10 May 2011 04:55:14 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 10 May 2011 05:25:41 -0000
 
-On 05/09/2011 02:43 PM, Nitin A Kamble wrote:
-> From: Nitin A Kamble<nitin.a.kamble@intel.com>
->
->
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->    Branch: nitin/misc
->    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=nitin/misc
->
-> Thanks,
->      Nitin A Kamble<nitin.a.kamble@intel.com>
-> ---
->
->
-> Khem Raj (1):
->    gcc-4.6.0: Apply linaro patches
->
-> Nitin A Kamble (4):
->    mdadm: compilation fix for gcc 4.6.0
->    pax: fix for compiling with gcc 4.6.0
->    systemtap: fix for compilation with gcc 4.6.0
->    kexec-tools: fix compiler errors with gcc 4.6.0
->
-Nitin,
+From: Saul Wold <sgw@linux.intel.com>
 
-I noticed that you are using "=" instead of ": for the Upstream-status,
-it should be ":" just like "Signed-off-by:", also please use 
-"Uptream-status" capitalization.  If you used "=" before, my apologies 
-for not catching it last time.
+Richard,
 
-Sau!
+This is a change set that matches up with Bruce's changeset
+contained in tonight's consolidated pull request.
 
 
->   meta/recipes-devtools/gcc/gcc-4.6.0.inc            |    4 +
->   .../gcc-4.6.0/linaro/gcc-4.6-linaro-r106720.patch  |   51 ++
->   .../gcc-4.6.0/linaro/gcc-4.6-linaro-r106723.patch  |   63 ++
->   .../gcc-4.6.0/linaro/gcc-4.6-linaro-r106729.patch  |   32 +
->   .../gcc-4.6.0/linaro/gcc-4.6-linaro-r106731.patch  |   28 +
->   .../gcc-4.6.0/linaro/gcc-4.6-linaro-r106733.patch  |  653 ++++++++++++++++++++
->   .../gcc-4.6.0/linaro/gcc-4.6-linaro-r106737.patch  |  126 ++++
->   .../gcc-4.6.0/linaro/gcc-4.6-linaro-r106738.patch  |  177 ++++++
->   .../gcc/gcc-4_6-branch-linaro-backports.inc        |    9 +
->   .../mdadm/fix_for_compilation_with_gcc-4.6.0.patch |  174 ++++++
->   meta/recipes-extended/mdadm/mdadm_3.2.1.bb         |    5 +-
->   .../pax/pax/fix_for_compile_with_gcc-4.6.0.patch   |   25 +
->   meta/recipes-extended/pax/pax_3.4.bb               |    5 +-
->   .../fix_for_compiling_with_gcc-4.6.0.patch         |   40 ++
->   meta/recipes-kernel/kexec/kexec-tools_2.0.2.bb     |    3 +-
->   .../fix_for_compilation_with_gcc-4.6.0.patch       |  119 ++++
->   meta/recipes-kernel/systemtap/systemtap_git.bb     |    3 +-
->   17 files changed, 1511 insertions(+), 6 deletions(-)
->   create mode 100644 meta/recipes-devtools/gcc/gcc-4.6.0/linaro/gcc-4.6-linaro-r106720.patch
->   create mode 100644 meta/recipes-devtools/gcc/gcc-4.6.0/linaro/gcc-4.6-linaro-r106723.patch
->   create mode 100644 meta/recipes-devtools/gcc/gcc-4.6.0/linaro/gcc-4.6-linaro-r106729.patch
->   create mode 100644 meta/recipes-devtools/gcc/gcc-4.6.0/linaro/gcc-4.6-linaro-r106731.patch
->   create mode 100644 meta/recipes-devtools/gcc/gcc-4.6.0/linaro/gcc-4.6-linaro-r106733.patch
->   create mode 100644 meta/recipes-devtools/gcc/gcc-4.6.0/linaro/gcc-4.6-linaro-r106737.patch
->   create mode 100644 meta/recipes-devtools/gcc/gcc-4.6.0/linaro/gcc-4.6-linaro-r106738.patch
->   create mode 100644 meta/recipes-devtools/gcc/gcc-4_6-branch-linaro-backports.inc
->   create mode 100644 meta/recipes-extended/mdadm/mdadm/fix_for_compilation_with_gcc-4.6.0.patch
->   create mode 100644 meta/recipes-extended/pax/pax/fix_for_compile_with_gcc-4.6.0.patch
->   create mode 100644 meta/recipes-kernel/kexec/kexec-tools/fix_for_compiling_with_gcc-4.6.0.patch
->   create mode 100644 meta/recipes-kernel/systemtap/systemtap/fix_for_compilation_with_gcc-4.6.0.patch
->
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: stage/master
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=stage/master
+
+Thanks,
+    Saul Wold <sgw@linux.intel.com>
+---
+
+
+Bruce Ashfield (1):
+  linux-yocto: move non-core machines to meta-yocto
+
+ meta-yocto/conf/layer.conf                         |    3 ++-
+ .../linux/linux-yocto-stable_git.bbappend          |   12 ++++++++++++
+ .../recipes-kernel/linux/linux-yocto_git.bbappend  |   12 ++++++++++++
+ 3 files changed, 26 insertions(+), 1 deletions(-)
+ create mode 100644 meta-yocto/recipes-kernel/linux/linux-yocto-stable_git.bbappend
+ create mode 100644 meta-yocto/recipes-kernel/linux/linux-yocto_git.bbappend
+
 
