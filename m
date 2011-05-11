@@ -1,32 +1,21 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 859E84C81006
-	for <poky@yoctoproject.org>; Wed, 11 May 2011 14:18:21 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p4BJIBE6023853;
-	Wed, 11 May 2011 20:18:11 +0100
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 23675-04; Wed, 11 May 2011 20:18:07 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p4BJI4XE023847
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Wed, 11 May 2011 20:18:05 +0100
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Gary Thomas <gary@mlbassoc.com>
-In-Reply-To: <4DCAD7CF.6000807@mlbassoc.com>
-References: <4DCAD58D.3040501@mlbassoc.com>
-	<BANLkTimxcWskB6AQZZ-cN3kTpegt4vK2jg@mail.gmail.com>
-	<4DCAD7CF.6000807@mlbassoc.com>
-Date: Wed, 11 May 2011 20:17:59 +0100
-Message-ID: <1305141479.30391.471.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.32.2 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: qemuarm hangs
+Return-Path: <josh@linux.intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 1E3694C80FFA
+	for <poky@yoctoproject.org>; Wed, 11 May 2011 15:02:17 -0500 (CDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 11 May 2011 13:02:11 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.64,354,1301900400"; 
+   d="scan'208";a="477120"
+Received: from unknown (HELO localhost) ([10.255.12.51])
+	by fmsmga002.fm.intel.com with ESMTP; 11 May 2011 13:02:10 -0700
+Message-Id: <cover.1305143302.git.josh@linux.intel.com>
+Old-Date: Wed, 11 May 2011 12:48:22 -0700
+Date: Wed, 11 May 2011 13:02:04 -0700
+To: poky@yoctoproject.org
+CC: 
+From: Joshua Lock <josh@linux.intel.com>
+Subject: [PATCH 0/1] Fix GUI's
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,77 +27,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 May 2011 19:18:21 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 11 May 2011 20:02:17 -0000
 
-On Wed, 2011-05-11 at 12:39 -0600, Gary Thomas wrote:
-> On 05/11/2011 12:34 PM, Bruce Ashfield wrote:
-> > On Wed, May 11, 2011 at 2:29 PM, Gary Thomas<gary@mlbassoc.com>  wrote:
-> >> Building from master, updated earlier today.
-> >>
-> >> OE Build Configuration:
-> >> BB_VERSION        = "1.11.0"
-> >> METADATA_BRANCH   = "my_master"
-> >> METADATA_REVISION = "2e4518bf18d977e1249ef7e7cd384df66e7b4801"
-> >> TARGET_ARCH       = "arm"
-> >> TARGET_OS         = "linux-gnueabi"
-> >> MACHINE           = "qemuarm"
-> >> DISTRO            = "poky"
-> >> DISTRO_VERSION    = "1.0+snapshot-20110511"
-> >> TARGET_FPU        = "soft"
-> >>
-> >> When I runqemu on core-image-sato, it brings up the simulated
-> >> video screen and the Yocto splash shows.  The progress bar goes
-> >> to about 60% and then it just hangs there forever.
-> >>
-> >> core-image-minimal boots to a login prompt
-> >>
-> >> Ideas?  How can I figure out where it's bombing out?
-> >
-> > When I saw this go by:
-> >
-> > commit a2e232e2313ee267076bb8de32a1a604dbebc33b
-> > Author: Zhai Edwin<edwin.zhai@intel.com>
-> > Date:   Tue May 10 14:02:35 2011 +0800
-> >
-> >      qemu: Upgrade qemu git to the latest 0.14 branch
-> >
-> >      Also add missing patch to build qemu-git
-> >
-> >      [YOCTO #1013] got fixed
-> >
-> >      (From OE-Core rev: 9b80846152931bed018f33baaaf1ba253e756867)
-> >
-> >      Signed-off-by: Zhai Edwin<edwin.zhai@intel.com>
-> >      Signed-off-by: Richard Purdie<richard.purdie@linuxfoundation.org>
-> >
-> > I wondered about compatibility. Have you tried with the older qemu ?
-> 
-> I believe so.  I ran the same test a few days ago and it worked fine.
-> I'm trying qemux86 now with this latest tree.  After that, I could
-> try reverting the change you mention.
-> 
-> Any clues how to get "under the covers" when booting a qemu image?
-> Once it brings up the video/splash screen, I'm in the dark as to
-> what's going on.
+From: Joshua Lock <josh@linux.intel.com>
 
-Several ways:
+A recent sysnc with upstream BitBake changed the behaviour of cache
+loading such that we need to handle the ParseStarted event not having
+a useful total value.
 
-a) You can redirect the console as Bruce mentions
+This patch ensures that our three Gtk+ GUI's will continue to work as
+expected.
 
-b) there is an option you can add to the kernel commandline to disable
-psplash (psplash=false)
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: josh/gui
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=josh/gui
 
-c) you can switch the console as you normally would under Linux which
-triggers psplash to terminate (Something like Crtl+Alt+F2 then Ctrl+Alt
-+F1 again but I can't remember the exact combination off the top of my
-head)
-
-Cheers,
-
-Richard
+Thanks,
+    Joshua Lock <josh@linux.intel.com>
+---
 
 
+Joshua Lock (1):
+  bitbake/ui: Fix Gtk+ GUI's after recent cache changes
+
+ bitbake/lib/bb/ui/crumbs/hobeventhandler.py |    2 ++
+ bitbake/lib/bb/ui/crumbs/runningbuild.py    |    4 +++-
+ bitbake/lib/bb/ui/depexp.py                 |    2 ++
+ 3 files changed, 7 insertions(+), 1 deletions(-)
+
+-- 
+1.7.5.1
 
 
