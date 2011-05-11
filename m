@@ -1,22 +1,22 @@
 Return-Path: <dexuan.cui@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D845E4C80FED
-	for <poky@yoctoproject.org>; Wed, 11 May 2011 01:29:50 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 10 May 2011 23:29:50 -0700
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2C7454C81016
+	for <poky@yoctoproject.org>; Wed, 11 May 2011 01:29:52 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 10 May 2011 23:29:51 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,350,1301900400"; d="scan'208";a="434107513"
+X-IronPort-AV: E=Sophos;i="4.64,350,1301900400"; d="scan'208";a="745544828"
 Received: from dcui-desktop.sh.intel.com (HELO localhost) ([10.239.13.51])
-	by azsmga001.ch.intel.com with ESMTP; 10 May 2011 23:29:50 -0700
-Message-Id: <d81dbf92794e317516a1b94c39544753992ecf49.1305094351.git.dexuan.cui@intel.com>
+	by orsmga001.jf.intel.com with ESMTP; 10 May 2011 23:29:51 -0700
+Message-Id: <290fc18499df0e94ebb43b4e688a6f675b5ce763.1305094351.git.dexuan.cui@intel.com>
 In-Reply-To: <cover.1305094351.git.dexuan.cui@intel.com>
 References: <cover.1305094351.git.dexuan.cui@intel.com>
-Old-Date: Wed, 11 May 2011 13:45:38 +0800
-Date: Wed, 11 May 2011 14:27:13 +0800
+Old-Date: Wed, 11 May 2011 13:48:36 +0800
+Date: Wed, 11 May 2011 14:27:15 +0800
 To: poky@yoctoproject.org
 CC: 
 From: Dexuan Cui <dexuan.cui@intel.com>
-Subject: [PATCH 23/24] libxklavier: update its patch's Upstream-Status
+Subject: [PATCH 24/24] liblbxutil: update its patch's Upstream-Status
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,25 +28,25 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 May 2011 06:29:51 -0000
+X-List-Received-Date: Wed, 11 May 2011 06:29:52 -0000
 
 From: Dexuan Cui <dexuan.cui@intel.com>
 
 Signed-off-by: Dexuan Cui <dexuan.cui@intel.com>
 ---
- .../libxklavier/libxklavier/pkgconfigfix.patch     |    2 ++
+ .../xorg-lib/liblbxutil/mkg3states.patch           |    2 ++
  1 files changed, 2 insertions(+), 0 deletions(-)
 
-diff --git a/meta-demoapps/recipes-graphics/libxklavier/libxklavier/pkgconfigfix.patch b/meta-demoapps/recipes-graphics/libxklavier/libxklavier/pkgconfigfix.patch
-index 4aaafb2..f58f30b 100644
---- a/meta-demoapps/recipes-graphics/libxklavier/libxklavier/pkgconfigfix.patch
-+++ b/meta-demoapps/recipes-graphics/libxklavier/libxklavier/pkgconfigfix.patch
+diff --git a/meta-demoapps/recipes-graphics/xorg-lib/liblbxutil/mkg3states.patch b/meta-demoapps/recipes-graphics/xorg-lib/liblbxutil/mkg3states.patch
+index 029d761..63c1847 100644
+--- a/meta-demoapps/recipes-graphics/xorg-lib/liblbxutil/mkg3states.patch
++++ b/meta-demoapps/recipes-graphics/xorg-lib/liblbxutil/mkg3states.patch
 @@ -1,3 +1,5 @@
 +Upstream-Status: Inappropriate [configuration]
 +
- Index: libxklavier-3.7/libxklavier.pc.in
- ===================================================================
- --- libxklavier-3.7.orig/libxklavier.pc.in	2009-06-10 15:58:46.000000000 +0100
+ During the build process the mkg3states binary needs to be run. This patch
+ allows it to be built with the build systems gcc allowing this to work.
+ 
 -- 
 1.7.2
 
