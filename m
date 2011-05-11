@@ -1,22 +1,22 @@
-Return-Path: <dexuan.cui@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2C7454C81016
-	for <poky@yoctoproject.org>; Wed, 11 May 2011 01:29:52 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 10 May 2011 23:29:51 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,350,1301900400"; d="scan'208";a="745544828"
-Received: from dcui-desktop.sh.intel.com (HELO localhost) ([10.239.13.51])
-	by orsmga001.jf.intel.com with ESMTP; 10 May 2011 23:29:51 -0700
-Message-Id: <290fc18499df0e94ebb43b4e688a6f675b5ce763.1305094351.git.dexuan.cui@intel.com>
-In-Reply-To: <cover.1305094351.git.dexuan.cui@intel.com>
-References: <cover.1305094351.git.dexuan.cui@intel.com>
-Old-Date: Wed, 11 May 2011 13:48:36 +0800
-Date: Wed, 11 May 2011 14:27:15 +0800
-To: poky@yoctoproject.org
-CC: 
-From: Dexuan Cui <dexuan.cui@intel.com>
-Subject: [PATCH 24/24] liblbxutil: update its patch's Upstream-Status
+Return-Path: <Xiaofeng.Yan@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 771B14C80523
+	for <poky@yoctoproject.org>; Wed, 11 May 2011 03:09:33 -0500 (CDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p4B89WIW019627
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Wed, 11 May 2011 01:09:32 -0700 (PDT)
+Received: from localhost (128.224.162.28) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
+	Wed, 11 May 2011 01:09:32 -0700
+Message-ID: <cover.1305016641.git.xiaofeng.yan@windriver.com>
+Old-Date: Tue, 10 May 2011 16:37:21 +0800
+Date: Wed, 11 May 2011 16:08:53 +0800
+To: <poky@yoctoproject.org>
+From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+MIME-Version: 1.0
+X-Originating-IP: [128.224.162.28]
+Subject: [PATCH 0/3] Add init scripts and make a link for sendmail
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,26 +28,41 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 May 2011 06:29:52 -0000
+X-List-Received-Date: Wed, 11 May 2011 08:09:33 -0000
+Content-Type: text/plain
 
-From: Dexuan Cui <dexuan.cui@intel.com>
+From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
 
-Signed-off-by: Dexuan Cui <dexuan.cui@intel.com>
+I Add init-functios to lsb-image because LSB Test suite need init scripts.
+And I make a link for sendmail because LSB Test Suite need it. 
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: xiaofeng/lsb
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=xiaofeng/lsb
+
+Thanks,
+    Xiaofeng Yan <xiaofeng.yan@windriver.com>
 ---
- .../xorg-lib/liblbxutil/mkg3states.patch           |    2 ++
- 1 files changed, 2 insertions(+), 0 deletions(-)
 
-diff --git a/meta-demoapps/recipes-graphics/xorg-lib/liblbxutil/mkg3states.patch b/meta-demoapps/recipes-graphics/xorg-lib/liblbxutil/mkg3states.patch
-index 029d761..63c1847 100644
---- a/meta-demoapps/recipes-graphics/xorg-lib/liblbxutil/mkg3states.patch
-+++ b/meta-demoapps/recipes-graphics/xorg-lib/liblbxutil/mkg3states.patch
-@@ -1,3 +1,5 @@
-+Upstream-Status: Inappropriate [configuration]
-+
- During the build process the mkg3states binary needs to be run. This patch
- allows it to be built with the build systems gcc allowing this to work.
- 
--- 
-1.7.2
+
+Xiaofeng Yan (3):
+  wq!lsb: Add init-functions to lsb-image
+  init-functions: Conforming applications may install one or more
+    initialization scripts
+  lsbsetup: Add link for sendmail
+
+ meta/recipes-extended/lsb/lsb/init-functions   |   32 +++++++++++++++++
+ meta/recipes-extended/lsb/lsb/lsb_killproc     |    6 +++
+ meta/recipes-extended/lsb/lsb/lsb_log_message  |   27 ++++++++++++++
+ meta/recipes-extended/lsb/lsb/lsb_pidofproc    |    6 +++
+ meta/recipes-extended/lsb/lsb/lsb_start_daemon |   45 ++++++++++++++++++++++++
+ meta/recipes-extended/lsb/lsb_1.4.bb           |   39 +++++++++++++-------
+ meta/recipes-extended/lsb/lsbsetup_0.9.bb      |    1 +
+ 7 files changed, 142 insertions(+), 14 deletions(-)
+ create mode 100755 meta/recipes-extended/lsb/lsb/init-functions
+ create mode 100755 meta/recipes-extended/lsb/lsb/lsb_killproc
+ create mode 100755 meta/recipes-extended/lsb/lsb/lsb_log_message
+ create mode 100755 meta/recipes-extended/lsb/lsb/lsb_pidofproc
+ create mode 100755 meta/recipes-extended/lsb/lsb/lsb_start_daemon
 
 
