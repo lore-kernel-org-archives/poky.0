@@ -1,25 +1,41 @@
-Return-Path: <Bruce.Ashfield@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id CE1CD4C80F9A
-	for <poky@yoctoproject.org>; Wed, 11 May 2011 09:59:22 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p4BExLY0019312
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Wed, 11 May 2011 07:59:21 -0700 (PDT)
-Received: from [128.224.146.67] (128.224.146.67) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server id 14.1.255.0;
-	Wed, 11 May 2011 07:59:21 -0700
-Message-ID: <4DCAA448.2030205@windriver.com>
-Date: Wed, 11 May 2011 10:59:20 -0400
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.15) Gecko/20110419 Thunderbird/3.1.9 ThunderBrowse/3.3.5
+Return-Path: <nitin.a.kamble@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 895AC4C805AF
+	for <poky@yoctoproject.org>; Wed, 11 May 2011 10:35:13 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 11 May 2011 08:35:13 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.64,353,1301900400"; d="scan'208";a="641285170"
+Received: from orsmsx604.amr.corp.intel.com ([10.22.226.87])
+	by orsmga002.jf.intel.com with ESMTP; 11 May 2011 08:35:13 -0700
+Received: from orsmsx605.amr.corp.intel.com (10.22.226.10) by
+	orsmsx604.amr.corp.intel.com (10.22.226.87) with Microsoft SMTP Server
+	(TLS) id 8.2.255.0; Wed, 11 May 2011 08:35:12 -0700
+Received: from orsmsx504.amr.corp.intel.com ([10.22.226.207]) by
+	orsmsx605.amr.corp.intel.com ([10.22.226.10]) with mapi;
+	Wed, 11 May 2011 08:35:12 -0700
+From: "Kamble, Nitin A" <nitin.a.kamble@intel.com>
+To: Gary Thomas <gary@mlbassoc.com>
+Date: Wed, 11 May 2011 08:35:10 -0700
+Thread-Topic: [poky] GCC 4.6.0 on ARM?
+Thread-Index: AcwPysCH6TTDEUkLRyqIsLrSE/GgcAAJeaVg
+Message-ID: <9DA5872FEF993D41B7173F58FCF6BE94D88F0328@orsmsx504.amr.corp.intel.com>
+References: <4DB99F31.4000308@mlbassoc.com>
+	<BANLkTikaf3MHYrnbvHDno3dSv_LhsLyFVg@mail.gmail.com>
+	<BANLkTi=G-4UfXNdnJSy7qF3gb0-xLr6+4Q@mail.gmail.com>
+	<4DBEAA2C.1020601@mlbassoc.com>
+	<9DA5872FEF993D41B7173F58FCF6BE94D88F0101@orsmsx504.amr.corp.intel.com>
+	<4DCA6C60.6050203@mlbassoc.com>
+In-Reply-To: <4DCA6C60.6050203@mlbassoc.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
 MIME-Version: 1.0
-To: Tom Zanussi <tom.zanussi@intel.com>
-References: <cover.1305058857.git.tom.zanussi@intel.com>
-In-Reply-To: <cover.1305058857.git.tom.zanussi@intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [KERNEL][linux-yocto-dev PATCH 0/1] merge emgd feature branch into crownbay for 2.6.39
+Cc: Poky Project <poky@yoctoproject.org>,
+	Patches and discussions about the oe-core layer
+	<openembedded-core@lists.openembedded.org>
+Subject: Re: GCC 4.6.0 on ARM?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,31 +47,20 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 May 2011 14:59:23 -0000
-Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 11 May 2011 15:35:13 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On 11-05-10 04:48 PM, Tom Zanussi wrote:
-> From: Tom Zanussi<tom.zanussi@intel.com>
->
-> This merges the yocto/emgd topic branch into the crownbay branch for 2.6.39.
->
-> Please pull into linux-yocto-dev.
->
-> Pull URL: git://git.pokylinux.org/linux-yocto-2.6.37-contrib
->    Branch: tzanussi/meta-emgdmerge-2.6.39
->    Browse: http://git.pokylinux.org/cgit.cgi/linux-yocto-2.6.37-contrib/log/?h=tzanussi/meta-emgdmerge-2.6.39
+> Yes, that's the only change.  Building the kernel from the same
+> source repository with 4.5.2 (using patches from you and Khem Raj)
+> works perfectly.
+>=20
+Hi Gary,
+  The yocto-linux kernel had to go through few changes to mute some compile=
+r warnings with gcc 4.6.0. Are you building your own kernel?
 
-merged, and tested here. works nicely.
-
-Bruce
-
->
-> Tom Zanussi (1):
->    bsp/crownbay: merge emgd branch
->
->   meta/cfg/kernel-cache/bsp/crownbay/crownbay.scc |    2 ++
->   1 files changed, 2 insertions(+), 0 deletions(-)
->
+Thanks,
+Nitin
 
 
