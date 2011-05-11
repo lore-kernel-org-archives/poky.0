@@ -1,35 +1,30 @@
-Return-Path: <Tom_Rini@mentor.com>
-Received: from relay1.mentorg.com (relay1.mentorg.com [192.94.38.131])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2AFA64C80FBE
-	for <poky@yoctoproject.org>; Wed, 11 May 2011 13:35:59 -0500 (CDT)
-Received: from svr-orw-fem-01.mgc.mentorg.com ([147.34.98.93])
-	by relay1.mentorg.com with esmtp 
-	id 1QKEGL-0003PS-Iv from Tom_Rini@mentor.com ;
-	Wed, 11 May 2011 11:35:57 -0700
-Received: from SVR-ORW-FEM-04.mgc.mentorg.com ([147.34.97.41]) by
-	svr-orw-fem-01.mgc.mentorg.com over TLS secured channel with
-	Microsoft SMTPSVC(6.0.3790.4675); Wed, 11 May 2011 11:35:47 -0700
-Received: from [172.30.80.16] (147.34.91.1) by svr-orw-fem-04.mgc.mentorg.com
-	(147.34.97.41) with Microsoft SMTP Server id 14.1.270.1;
-	Wed, 11 May 2011 11:35:46 -0700
-Message-ID: <4DCAD6EE.5050609@mentor.com>
-Date: Wed, 11 May 2011 11:35:26 -0700
-From: Tom Rini <tom_rini@mentor.com>
-Organization: Mentor Graphics Corporation
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 7641F4C80F9A
+	for <poky@yoctoproject.org>; Wed, 11 May 2011 13:39:51 -0500 (CDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 06B5B166038A; Wed, 11 May 2011 12:39:51 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.2-r929478
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 4230416601B1;
+	Wed, 11 May 2011 12:39:11 -0600 (MDT)
+Message-ID: <4DCAD7CF.6000807@mlbassoc.com>
+Date: Wed, 11 May 2011 12:39:11 -0600
+From: Gary Thomas <gary@mlbassoc.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.17) Gecko/20110424 Lightning/1.0b2 Thunderbird/3.1.10
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
 MIME-Version: 1.0
-To: Darren Hart <dvhart@linux.intel.com>
-References: <4DCAB609.8030601@linux.intel.com>
-In-Reply-To: <4DCAB609.8030601@linux.intel.com>
-X-Enigmail-Version: 1.1.1
-X-OriginalArrivalTime: 11 May 2011 18:35:47.0162 (UTC)
-	FILETIME=[3E867BA0:01CC100A]
-Cc: Otavio Salvador <otavio@ossystems.com.br>,
-	Patches and discussions about the oe-core layer
-	<openembedded-core@lists.openembedded.org>,
-	"poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: RFC: create-pull-request / send-pull-request updates
+To: Bruce Ashfield <bruce.ashfield@gmail.com>
+References: <4DCAD58D.3040501@mlbassoc.com>
+	<BANLkTimxcWskB6AQZZ-cN3kTpegt4vK2jg@mail.gmail.com>
+In-Reply-To: <BANLkTimxcWskB6AQZZ-cN3kTpegt4vK2jg@mail.gmail.com>
+Cc: Poky Project <poky@yoctoproject.org>
+Subject: Re: qemuarm hangs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,46 +36,63 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 May 2011 18:35:59 -0000
-Content-Type: text/plain; charset="ISO-8859-1"
+X-List-Received-Date: Wed, 11 May 2011 18:39:51 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 05/11/2011 09:15 AM, Darren Hart wrote:
-> Between myself and others, there are several outstanding proposals to
-> modify the pull-request scripts. Patches have been sent, but nothing has
-> been merged due to a lack of consensus. I thought I would summarize what
-> I see to be the current weaknesses of the scripts and my proposal to
-> address them. I would like your feedback to ensure we have tools that
-> meet the needs of a broad user base. Once we agree, I'll be happy to
-> write up the patches or help review those written by others.
+On 05/11/2011 12:34 PM, Bruce Ashfield wrote:
+> On Wed, May 11, 2011 at 2:29 PM, Gary Thomas<gary@mlbassoc.com>  wrote:
+>> Building from master, updated earlier today.
+>>
+>> OE Build Configuration:
+>> BB_VERSION        = "1.11.0"
+>> METADATA_BRANCH   = "my_master"
+>> METADATA_REVISION = "2e4518bf18d977e1249ef7e7cd384df66e7b4801"
+>> TARGET_ARCH       = "arm"
+>> TARGET_OS         = "linux-gnueabi"
+>> MACHINE           = "qemuarm"
+>> DISTRO            = "poky"
+>> DISTRO_VERSION    = "1.0+snapshot-20110511"
+>> TARGET_FPU        = "soft"
+>>
+>> When I runqemu on core-image-sato, it brings up the simulated
+>> video screen and the Yocto splash shows.  The progress bar goes
+>> to about 60% and then it just hangs there forever.
+>>
+>> core-image-minimal boots to a login prompt
+>>
+>> Ideas?  How can I figure out where it's bombing out?
+>
+> When I saw this go by:
+>
+> commit a2e232e2313ee267076bb8de32a1a604dbebc33b
+> Author: Zhai Edwin<edwin.zhai@intel.com>
+> Date:   Tue May 10 14:02:35 2011 +0800
+>
+>      qemu: Upgrade qemu git to the latest 0.14 branch
+>
+>      Also add missing patch to build qemu-git
+>
+>      [YOCTO #1013] got fixed
+>
+>      (From OE-Core rev: 9b80846152931bed018f33baaaf1ba253e756867)
+>
+>      Signed-off-by: Zhai Edwin<edwin.zhai@intel.com>
+>      Signed-off-by: Richard Purdie<richard.purdie@linuxfoundation.org>
+>
+> I wondered about compatibility. Have you tried with the older qemu ?
 
-Thanks for taking this up!
+I believe so.  I ran the same test a few days ago and it worked fine.
+I'm trying qemux86 now with this latest tree.  After that, I could
+try reverting the change you mention.
 
-[snip]
-> 2) create-pull-request needs to facilitate the use of multiple
->    repositories (Tom Rini)
-
-So long as (a) it's supported and (b) it's easy to use, I'm fine with
-however you want to implement it :)  Which brings me to...
-
-[snip]
-> 3) Rewrite the scripts in python (Tom)
-> 
->    While I agree that anything of any significant complexity is better
->    written in python than bash, I feel that with the above changes, the
->    current scripts will be smaller and remain simple enough for bash to
->    be a viable option.
-> 
->    I propose we leave the scripts in bash for the time being, leaving
->    the door open to rewrite them at a later date should their complexity
->    increase to merit the effort.
-
-To me, dealing with some sort of prefs file means non-bash.  But if you
-can figure out everything that's needed with a little bit of asking git
-and a little bit of standard-shell-magic (which it sounds like you can),
-yeah, keeping it in bash is fine.
+Any clues how to get "under the covers" when booting a qemu image?
+Once it brings up the video/splash screen, I'm in the dark as to
+what's going on.
 
 -- 
-Tom Rini
-Mentor Graphics Corporation
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
