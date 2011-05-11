@@ -1,31 +1,29 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E06644C80AE6
-	for <poky@yoctoproject.org>; Wed, 11 May 2011 11:16:14 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p4BGG8Kt021733;
-	Wed, 11 May 2011 17:16:08 +0100
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 21623-02; Wed, 11 May 2011 17:16:04 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p4BGG27s021727
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Wed, 11 May 2011 17:16:02 +0100
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Patches and discussions about the oe-core layer
+Return-Path: <koen@dominion.thruhere.net>
+Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
+	[74.125.82.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 3F6964C803BA
+	for <poky@yoctoproject.org>; Wed, 11 May 2011 11:23:06 -0500 (CDT)
+Received: by wyb40 with SMTP id 40so744491wyb.35
+	for <poky@yoctoproject.org>; Wed, 11 May 2011 09:23:05 -0700 (PDT)
+Received: by 10.216.156.70 with SMTP id l48mr702270wek.5.1305130984969;
+	Wed, 11 May 2011 09:23:04 -0700 (PDT)
+Received: from [172.20.0.96] (ip545070eb.adsl-surfen.hetnet.nl [84.80.112.235])
+	by mx.google.com with ESMTPS id g32sm170065wej.27.2011.05.11.09.23.02
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Wed, 11 May 2011 09:23:03 -0700 (PDT)
+Mime-Version: 1.0 (Apple Message framework v1084)
+From: Koen Kooi <koen@dominion.thruhere.net>
+In-Reply-To: <4DCAB609.8030601@linux.intel.com>
+Date: Wed, 11 May 2011 18:22:59 +0200
+Message-Id: <C5BC5F51-14C1-45A6-91DE-9A48DDD565CC@dominion.thruhere.net>
+References: <4DCAB609.8030601@linux.intel.com>
+To: Darren Hart <dvhart@linux.intel.com>
+X-Mailer: Apple Mail (2.1084)
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>,
+	Tom Rini <tom_rini@mentor.com>, Otavio Salvador <otavio@ossystems.com.br>,
+	Patches and discussions about the oe-core layer
 	<openembedded-core@lists.openembedded.org>
-In-Reply-To: <cover.1305062026.git.nitin.a.kamble@intel.com>
-References: <cover.1305062026.git.nitin.a.kamble@intel.com>
-Date: Wed, 11 May 2011 17:15:56 +0100
-Message-ID: <1305130556.30391.394.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.32.2 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@yoctoproject.org
-Subject: Re: [OE-core] [PATCH 00/16] fixes related to gcc 4.6.0 & patch upstream-status fields
+Subject: Re: RFC: create-pull-request / send-pull-request updates
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,41 +35,48 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 May 2011 16:16:15 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 11 May 2011 16:23:06 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2011-05-10 at 14:16 -0700, Nitin A Kamble wrote:
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->   Branch: nitin/misc
->   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=nitin/misc
 
-> Khem Raj (1):
->   gcc-4.6.0: Apply linaro patches
-> 
-> Nitin A Kamble (15):
->   mdadm: compilation fix for gcc 4.6.0
->   pax: fix for compiling with gcc 4.6.0
->   systemtap: fix for compilation with gcc 4.6.0
->   kexec-tools: fix compiler errors with gcc 4.6.0
->   libzypp: fix compilatoin with gcc 4.6.0
->   libpcre: fix the Upstream-Status format
->   tar: fix Upstream-Status format
->   sat-solver: fix Upstream-Status format
->   cpio: fix upstream-status format
->   subversion: fix upstream-status format
->   python-imaging: fix upstream-status format
->   patch-2.5.9: fix upstream-status format
->   patch-2.6.1: fix upstream-status format
->   binutils: fix upstream status format
->   gcc-4.5.1: fix upstream-status format
+Op 11 mei 2011, om 18:15 heeft Darren Hart het volgende geschreven:
 
-Merged to master but I squashed all the upstream-status patches into one
-patch since I didn't see the need for as many commits all making the
-same logical change.
+> Between myself and others, there are several outstanding proposals to
+> modify the pull-request scripts. Patches have been sent, but nothing =
+has
+> been merged due to a lack of consensus. I thought I would summarize =
+what
+> I see to be the current weaknesses of the scripts and my proposal to
+> address them. I would like your feedback to ensure we have tools that
+> meet the needs of a broad user base. Once we agree, I'll be happy to
+> write up the patches or help review those written by others.
+>=20
+> 1) send-pull-request is too aggressive with the auto-cc feature (Khem
+>   Raj)
+>=20
+>   One of the reasons I wrote these scripts was out of frustration with
+>   git-send-email which allowed for a cover letter, but didn't include
+>   all the collected addresses on it. The current script sends every
+>   message to all the collected addresses. Khem (and others) have found
+>   this behavior to be sub-optimal, if not down right annoying.
+>=20
+>   I propose it be modified to only use the addresses local to each
+>   patch for the patches and all the collected addresses only for the
+>   cover letter.
+>=20
+>   a) Do people agree with this policy? If not, and people prefer the
+>      cover-letter only be sent to the recipients specified on the
+>      command line, then this script doesn't add any real value over
+>      'git request-pull' and 'git send-email', and users can easily
+>      wrap those on their own.
 
-Cheers,
+Correct me if I'm wrong, but the current script pick up address from the =
+patches inside the patches as well. The CC: list should only contain the =
+"OE" people involved, not random kernel hackers mentioning in the =
+patches.
 
-Richard
+regards,
 
+Koen=
 
