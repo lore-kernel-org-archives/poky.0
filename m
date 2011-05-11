@@ -1,28 +1,24 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7641F4C80F9A
-	for <poky@yoctoproject.org>; Wed, 11 May 2011 13:39:51 -0500 (CDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 06B5B166038A; Wed, 11 May 2011 12:39:51 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2-r929478
-Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 4230416601B1;
-	Wed, 11 May 2011 12:39:11 -0600 (MDT)
-Message-ID: <4DCAD7CF.6000807@mlbassoc.com>
-Date: Wed, 11 May 2011 12:39:11 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
+Return-Path: <Bruce.Ashfield@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id EE16C4C80FBB
+	for <poky@yoctoproject.org>; Wed, 11 May 2011 13:57:05 -0500 (CDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p4BIv3D5022273
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Wed, 11 May 2011 11:57:03 -0700 (PDT)
+Received: from [128.224.146.67] (128.224.146.67) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server id 14.1.255.0;
+	Wed, 11 May 2011 11:57:03 -0700
+Message-ID: <4DCADBFC.5020409@windriver.com>
+Date: Wed, 11 May 2011 14:57:00 -0400
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.15) Gecko/20110419 Thunderbird/3.1.9 ThunderBrowse/3.3.5
 MIME-Version: 1.0
-To: Bruce Ashfield <bruce.ashfield@gmail.com>
-References: <4DCAD58D.3040501@mlbassoc.com>
-	<BANLkTimxcWskB6AQZZ-cN3kTpegt4vK2jg@mail.gmail.com>
-In-Reply-To: <BANLkTimxcWskB6AQZZ-cN3kTpegt4vK2jg@mail.gmail.com>
+To: Gary Thomas <gary@mlbassoc.com>
+References: <4DCAD58D.3040501@mlbassoc.com>	<BANLkTimxcWskB6AQZZ-cN3kTpegt4vK2jg@mail.gmail.com>
+	<4DCAD7CF.6000807@mlbassoc.com>
+In-Reply-To: <4DCAD7CF.6000807@mlbassoc.com>
 Cc: Poky Project <poky@yoctoproject.org>
 Subject: Re: qemuarm hangs
 X-BeenThere: poky@yoctoproject.org
@@ -36,63 +32,73 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 May 2011 18:39:51 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Wed, 11 May 2011 18:57:06 -0000
+Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 05/11/2011 12:34 PM, Bruce Ashfield wrote:
-> On Wed, May 11, 2011 at 2:29 PM, Gary Thomas<gary@mlbassoc.com>  wrote:
->> Building from master, updated earlier today.
+On 11-05-11 02:39 PM, Gary Thomas wrote:
+> On 05/11/2011 12:34 PM, Bruce Ashfield wrote:
+>> On Wed, May 11, 2011 at 2:29 PM, Gary Thomas<gary@mlbassoc.com> wrote:
+>>> Building from master, updated earlier today.
+>>>
+>>> OE Build Configuration:
+>>> BB_VERSION = "1.11.0"
+>>> METADATA_BRANCH = "my_master"
+>>> METADATA_REVISION = "2e4518bf18d977e1249ef7e7cd384df66e7b4801"
+>>> TARGET_ARCH = "arm"
+>>> TARGET_OS = "linux-gnueabi"
+>>> MACHINE = "qemuarm"
+>>> DISTRO = "poky"
+>>> DISTRO_VERSION = "1.0+snapshot-20110511"
+>>> TARGET_FPU = "soft"
+>>>
+>>> When I runqemu on core-image-sato, it brings up the simulated
+>>> video screen and the Yocto splash shows. The progress bar goes
+>>> to about 60% and then it just hangs there forever.
+>>>
+>>> core-image-minimal boots to a login prompt
+>>>
+>>> Ideas? How can I figure out where it's bombing out?
 >>
->> OE Build Configuration:
->> BB_VERSION        = "1.11.0"
->> METADATA_BRANCH   = "my_master"
->> METADATA_REVISION = "2e4518bf18d977e1249ef7e7cd384df66e7b4801"
->> TARGET_ARCH       = "arm"
->> TARGET_OS         = "linux-gnueabi"
->> MACHINE           = "qemuarm"
->> DISTRO            = "poky"
->> DISTRO_VERSION    = "1.0+snapshot-20110511"
->> TARGET_FPU        = "soft"
+>> When I saw this go by:
 >>
->> When I runqemu on core-image-sato, it brings up the simulated
->> video screen and the Yocto splash shows.  The progress bar goes
->> to about 60% and then it just hangs there forever.
+>> commit a2e232e2313ee267076bb8de32a1a604dbebc33b
+>> Author: Zhai Edwin<edwin.zhai@intel.com>
+>> Date: Tue May 10 14:02:35 2011 +0800
 >>
->> core-image-minimal boots to a login prompt
+>> qemu: Upgrade qemu git to the latest 0.14 branch
 >>
->> Ideas?  How can I figure out where it's bombing out?
+>> Also add missing patch to build qemu-git
+>>
+>> [YOCTO #1013] got fixed
+>>
+>> (From OE-Core rev: 9b80846152931bed018f33baaaf1ba253e756867)
+>>
+>> Signed-off-by: Zhai Edwin<edwin.zhai@intel.com>
+>> Signed-off-by: Richard Purdie<richard.purdie@linuxfoundation.org>
+>>
+>> I wondered about compatibility. Have you tried with the older qemu ?
 >
-> When I saw this go by:
+> I believe so. I ran the same test a few days ago and it worked fine.
+> I'm trying qemux86 now with this latest tree. After that, I could
+> try reverting the change you mention.
 >
-> commit a2e232e2313ee267076bb8de32a1a604dbebc33b
-> Author: Zhai Edwin<edwin.zhai@intel.com>
-> Date:   Tue May 10 14:02:35 2011 +0800
->
->      qemu: Upgrade qemu git to the latest 0.14 branch
->
->      Also add missing patch to build qemu-git
->
->      [YOCTO #1013] got fixed
->
->      (From OE-Core rev: 9b80846152931bed018f33baaaf1ba253e756867)
->
->      Signed-off-by: Zhai Edwin<edwin.zhai@intel.com>
->      Signed-off-by: Richard Purdie<richard.purdie@linuxfoundation.org>
->
-> I wondered about compatibility. Have you tried with the older qemu ?
+> Any clues how to get "under the covers" when booting a qemu image?
+> Once it brings up the video/splash screen, I'm in the dark as to
+> what's going on.
 
-I believe so.  I ran the same test a few days ago and it worked fine.
-I'm trying qemux86 now with this latest tree.  After that, I could
-try reverting the change you mention.
+Typically I'd redirect the console to another tty, but you
+could use SERIAL_LOGFILE as an option to your qemu launch
+to log the tty output to something you can watch while the
+splash screen takes over. But I must warn, that I've never
+actually used that option with poky :)
 
-Any clues how to get "under the covers" when booting a qemu image?
-Once it brings up the video/splash screen, I'm in the dark as to
-what's going on.
+Alternately, removing psplash (or disabling it) in your
+sato rootfs would get you more information, and let you
+know if it is just the graphics causing a problem.
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+Bruce
+
+>
+
 
