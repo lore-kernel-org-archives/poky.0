@@ -1,22 +1,22 @@
 Return-Path: <ke.yu@intel.com>
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0C5044C80A98
-	for <poky@yoctoproject.org>; Wed, 11 May 2011 04:13:49 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 11 May 2011 02:13:49 -0700
+	by mx1.pokylinux.org (Postfix) with ESMTP id A3FDF4C80ADD
+	for <poky@yoctoproject.org>; Wed, 11 May 2011 04:13:51 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 11 May 2011 02:13:51 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,352,1301900400"; d="scan'208";a="745606030"
+X-IronPort-AV: E=Sophos;i="4.64,352,1301900400"; d="scan'208";a="641146026"
 Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.187])
-	by orsmga001.jf.intel.com with ESMTP; 11 May 2011 02:13:49 -0700
-Message-Id: <4e83c657d89d964cab5a6558fed505f7e3071d48.1305105317.git.ke.yu@intel.com>
+	by orsmga002.jf.intel.com with ESMTP; 11 May 2011 02:13:50 -0700
+Message-Id: <d81adaa48929613753f5f50b279c3059b09f8dce.1305105317.git.ke.yu@intel.com>
 In-Reply-To: <cover.1305105317.git.ke.yu@intel.com>
 References: <cover.1305105317.git.ke.yu@intel.com>
-Old-Date: Wed, 11 May 2011 15:17:39 +0800
-Date: Wed, 11 May 2011 17:20:05 +0800
+Old-Date: Wed, 11 May 2011 15:19:21 +0800
+Date: Wed, 11 May 2011 17:20:06 +0800
 To: poky@yoctoproject.org
 CC: 
 From: Yu Ke <ke.yu@intel.com>
-Subject: [PATCH 5/8] qemugl: update patch Upstream-Status
+Subject: [PATCH 6/8] x11-common: update patch Upstream-Status
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,39 +28,42 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 May 2011 09:13:50 -0000
+X-List-Received-Date: Wed, 11 May 2011 09:13:51 -0000
 
 From: Yu Ke <ke.yu@intel.com>
 
 Signed-off-by: Yu Ke <ke.yu@intel.com>
 ---
- .../mesa/qemugl/remove-x11r6-lib-dir.patch         |    2 ++
- meta/recipes-graphics/mesa/qemugl/versionfix.patch |    2 ++
+ .../x11-common/x11-common/gplv2-license.patch      |    2 ++
+ .../xserver-nodm-init/gplv2-license.patch          |    2 ++
  2 files changed, 4 insertions(+), 0 deletions(-)
 
-diff --git a/meta/recipes-graphics/mesa/qemugl/remove-x11r6-lib-dir.patch b/meta/recipes-graphics/mesa/qemugl/remove-x11r6-lib-dir.patch
-index d14ce89..d24d045 100644
---- a/meta/recipes-graphics/mesa/qemugl/remove-x11r6-lib-dir.patch
-+++ b/meta/recipes-graphics/mesa/qemugl/remove-x11r6-lib-dir.patch
-@@ -2,6 +2,8 @@ Remove X11R6 lib directory
+diff --git a/meta/recipes-graphics/x11-common/x11-common/gplv2-license.patch b/meta/recipes-graphics/x11-common/x11-common/gplv2-license.patch
+index ec93253..eff975e 100644
+--- a/meta/recipes-graphics/x11-common/x11-common/gplv2-license.patch
++++ b/meta/recipes-graphics/x11-common/x11-common/gplv2-license.patch
+@@ -4,6 +4,8 @@ this is a local file recipe and the license file is missing.In order
+ to pass the license checksum checking, the license file is needed. So
+ this patch add the GPLv2 license file.
  
- "-L/usr/X11R6/lib" is obsolate in poky. Poky currently use Xserver from X.org (X11R7.x), which puts lib in standard /usr/lib, so no need to specify the extra -L/usr/X11R6/lib. Meanwhile, the -L/usr/X11R6/lib will cause warning: library search path "/usr/X11R6/lib" is unsafe for cross-compilation. so better to remove it.
- 
-+Upstream-Status: Pending
++Upstream-Status: Inappropriate [licensing]
 +
  Signed-off-by: Yu Ke <ke.yu@intel.com>
  
- diff --git a/Makefile b/Makefile
-diff --git a/meta/recipes-graphics/mesa/qemugl/versionfix.patch b/meta/recipes-graphics/mesa/qemugl/versionfix.patch
-index a3d33e8..614b816 100644
---- a/meta/recipes-graphics/mesa/qemugl/versionfix.patch
-+++ b/meta/recipes-graphics/mesa/qemugl/versionfix.patch
-@@ -1,3 +1,5 @@
-+Upstream-Status: Pending
+ diff --git a/COPYING b/COPYING
+diff --git a/meta/recipes-graphics/x11-common/xserver-nodm-init/gplv2-license.patch b/meta/recipes-graphics/x11-common/xserver-nodm-init/gplv2-license.patch
+index ec93253..eff975e 100644
+--- a/meta/recipes-graphics/x11-common/xserver-nodm-init/gplv2-license.patch
++++ b/meta/recipes-graphics/x11-common/xserver-nodm-init/gplv2-license.patch
+@@ -4,6 +4,8 @@ this is a local file recipe and the license file is missing.In order
+ to pass the license checksum checking, the license file is needed. So
+ this patch add the GPLv2 license file.
+ 
++Upstream-Status: Inappropriate [licensing]
 +
- Index: git/Makefile
- ===================================================================
- --- git.orig/Makefile	2009-01-19 23:37:36.000000000 +0000
+ Signed-off-by: Yu Ke <ke.yu@intel.com>
+ 
+ diff --git a/COPYING b/COPYING
 -- 
 1.7.0.4
 
