@@ -1,21 +1,40 @@
 Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id AA0754C800FB
-	for <poky@yoctoproject.org>; Tue, 10 May 2011 21:23:42 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 10 May 2011 19:23:42 -0700
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id B2F3D4C80263
+	for <poky@yoctoproject.org>; Tue, 10 May 2011 22:29:07 -0500 (CDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 10 May 2011 20:29:07 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,350,1301900400"; d="scan'208";a="745470679"
-Received: from nbuild1.sc.intel.com (HELO localhost) ([172.25.110.36])
-	by orsmga001.jf.intel.com with ESMTP; 10 May 2011 19:23:41 -0700
-Message-Id: <4959de180c316a6f7b54bec5e5080eaf110eea2d.1305080470.git.nitin.a.kamble@intel.com>
-In-Reply-To: <cover.1305080470.git.nitin.a.kamble@intel.com>
-References: <cover.1305080470.git.nitin.a.kamble@intel.com>
-Old-Date: Tue, 10 May 2011 19:00:10 -0700
-Date: Tue, 10 May 2011 19:23:44 -0700
-To: openembedded-core@lists.openembedded.org,poky@yoctoproject.org
-From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Subject: [PATCH 1/1] poky-defaults: fix defaults for libgcc recipes
+X-IronPort-AV: E=Sophos;i="4.64,350,1301900400"; 
+   d="scan'208";a="702382"
+Received: from orsmsx604.amr.corp.intel.com ([10.22.226.87])
+	by fmsmga001.fm.intel.com with ESMTP; 10 May 2011 20:28:54 -0700
+Received: from orsmsx601.amr.corp.intel.com (10.22.226.213) by
+	orsmsx604.amr.corp.intel.com (10.22.226.87) with Microsoft SMTP Server
+	(TLS) id 8.2.255.0; Tue, 10 May 2011 20:28:54 -0700
+Received: from orsmsx504.amr.corp.intel.com ([10.22.226.207]) by
+	orsmsx601.amr.corp.intel.com ([10.22.226.213]) with mapi;
+	Tue, 10 May 2011 20:28:54 -0700
+From: "Kamble, Nitin A" <nitin.a.kamble@intel.com>
+To: Gary Thomas <gary@mlbassoc.com>, Khem Raj <raj.khem@gmail.com>
+Date: Tue, 10 May 2011 20:28:53 -0700
+Thread-Topic: [poky] GCC 4.6.0 on ARM?
+Thread-Index: AcwIyJNbynKMIDwESuGhducxL+Cx2wGwuZoQ
+Message-ID: <9DA5872FEF993D41B7173F58FCF6BE94D88F0101@orsmsx504.amr.corp.intel.com>
+References: <4DB99F31.4000308@mlbassoc.com>
+	<BANLkTikaf3MHYrnbvHDno3dSv_LhsLyFVg@mail.gmail.com>
+	<BANLkTi=G-4UfXNdnJSy7qF3gb0-xLr6+4Q@mail.gmail.com>
+	<4DBEAA2C.1020601@mlbassoc.com>
+In-Reply-To: <4DBEAA2C.1020601@mlbassoc.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
+MIME-Version: 1.0
+Cc: Poky Project <poky@yoctoproject.org>,
+	Patches and discussions about the oe-core layer
+	<openembedded-core@lists.openembedded.org>
+Subject: Re: GCC 4.6.0 on ARM?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,44 +46,72 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 May 2011 02:23:42 -0000
+X-List-Received-Date: Wed, 11 May 2011 03:29:08 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-From: Nitin A Kamble <nitin.a.kamble@intel.com>
 
-This fixes bug: [YOCTO #1021]
 
-the libgcc version was getting picked up as latest, which may not match
-with the version of gcc. And because of this the crt*.o files were
-missing from the resulting libgcc-dev package.
+> -----Original Message-----
+> From: poky-bounces@yoctoproject.org [mailto:poky-
+> bounces@yoctoproject.org] On Behalf Of Gary Thomas
+> Sent: Monday, May 02, 2011 5:57 AM
+> To: Khem Raj
+> Cc: Poky Project; Patches and discussions about the oe-core layer
+> Subject: Re: [poky] GCC 4.6.0 on ARM?
+>=20
+> On 04/30/2011 04:10 PM, Khem Raj wrote:
+> > On Thu, Apr 28, 2011 at 11:23 AM, Khem Raj<raj.khem@gmail.com>
+> wrote:
+> >> On Thu, Apr 28, 2011 at 10:09 AM, Gary Thomas<gary@mlbassoc.com>
+> wrote:
+> >>> I got my OMAP target to build with GCC-4.6.0 using the latest
+> >>> Poky tree after a fresh rebuild.  Sadly, the Linux kernel
+> (2.6.37.3)
+> >>> does not run correctly when built with this compiler.  It
+> >>> fails when enumerating the USB bus :-(
+> >>>
+> >>> Are there known issues with the Linux kernel on ARM and GCC-4.6?
+> >>>
+> >>
+> >> There has been fixes on top of 4.6.0 the one we have right now is
+> vanilla
+> >> 4.6.0 release. I plan to add second set of patches but you have to
+> dig a bit
+> >> more to identify the problem
+> >>
+> >
+> > I have some updates for gcc 4.6.0
+> > they are staged in
+> >
+> > http://git.openembedded.org/cgit.cgi/openembedded-core-
+> contrib/log/?h=3Dkraj/gcc-4.6
+> >
+> > (top 3 patches)
+> >
+> > Please test them out and if you are lucky
+> > your problem might be fixed too.
+> >
+> > All, please try these patches and provide any feedback
+>=20
+> I was able to build my kernel (ARM OMAP/3530 based) using this, but
+> the USB still doesn't work, so no improvement, sorry.
 
-libgcc1-4.6.0-r0.i586
-perl-module-extutils-cbuilder-platform-windows-gcc-5.12.3-r0.i586
-gcc-4.5.1-r4.i586
-libgcc-s-dev-4.6.0-r0.i586
-gcc-symlinks-4.5.1-r4.i586
+Gary,
+ Is the USB breakage is due to gcc 4.6.0 ?
 
-/lib
-/lib/libgcc_s.so
+Thanks,
+Nitin
 
-Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
----
- meta/conf/distro/include/poky-default.inc |    2 ++
- 1 files changed, 2 insertions(+), 0 deletions(-)
-
-diff --git a/meta/conf/distro/include/poky-default.inc b/meta/conf/distro/include/poky-default.inc
-index 91985b3..0003865 100644
---- a/meta/conf/distro/include/poky-default.inc
-+++ b/meta/conf/distro/include/poky-default.inc
-@@ -35,6 +35,8 @@ PREFERRED_VERSION_gcc-crosssdk-intermediate ?= "${SDKGCCVERSION}"
- PREFERRED_VERSION_gcc-cross-canadian ?= "${GCCVERSION}"
- PREFERRED_VERSION_gcc-runtime ?= "${GCCVERSION}"
- PREFERRED_VERSION_gcc-runtime-nativesdk ?= "${SDKGCCVERSION}"
-+PREFERRED_VERSION_libgcc ?= "${GCCVERSION}"
-+PREFERRED_VERSION_libgcc-nativesdk ?= "${SDKGCCVERSION}"
- PREFERRED_VERSION_binutils ?= "${BINUVERSION}"
- PREFERRED_VERSION_binutils-cross ?= "${BINUVERSION}"
- PREFERRED_VERSION_binutils-crosssdk ?= "${BINUVERSION}"
--- 
-1.7.2.2
-
+>=20
+> --
+> ------------------------------------------------------------
+> Gary Thomas                 |  Consulting for the
+> MLB Associates              |    Embedded world
+> ------------------------------------------------------------
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
