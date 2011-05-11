@@ -1,24 +1,22 @@
-Return-Path: <Xiaofeng.Yan@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id DD48F4C80A90
-	for <poky@yoctoproject.org>; Wed, 11 May 2011 03:09:46 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p4B89kfb019699
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Wed, 11 May 2011 01:09:46 -0700 (PDT)
-Received: from localhost (128.224.162.28) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Wed, 11 May 2011 01:09:46 -0700
-Message-ID: <d09c56d0d92f2c4722c6647b543ae0b7855de197.1305016641.git.xiaofeng.yan@windriver.com>
-In-Reply-To: <cover.1305016641.git.xiaofeng.yan@windriver.com>
-References: <cover.1305016641.git.xiaofeng.yan@windriver.com>
-Old-Date: Tue, 10 May 2011 16:31:32 +0800
-Date: Wed, 11 May 2011 16:09:08 +0800
-To: <poky@yoctoproject.org>
-From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
-MIME-Version: 1.0
-X-Originating-IP: [128.224.162.28]
-Subject: [PATCH 3/3] lsbsetup: Add link for sendmail
+Return-Path: <ke.yu@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 7ED4F4C800BA
+	for <poky@yoctoproject.org>; Wed, 11 May 2011 04:13:42 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 11 May 2011 02:13:41 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.64,352,1301900400"; d="scan'208";a="641145962"
+Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.187])
+	by orsmga002.jf.intel.com with ESMTP; 11 May 2011 02:13:41 -0700
+Message-Id: <1abd3e83579618798b6e41932170e1b634026650.1305105317.git.ke.yu@intel.com>
+In-Reply-To: <cover.1305105317.git.ke.yu@intel.com>
+References: <cover.1305105317.git.ke.yu@intel.com>
+Old-Date: Wed, 27 Apr 2011 14:53:51 +0800
+Date: Wed, 11 May 2011 17:19:57 +0800
+To: poky@yoctoproject.org
+CC: 
+From: Yu Ke <ke.yu@intel.com>
+Subject: [PATCH 1/8] iputils: update patch Upstream-Status
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,30 +28,69 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 May 2011 08:09:47 -0000
-Content-Type: text/plain
+X-List-Received-Date: Wed, 11 May 2011 09:13:42 -0000
 
-From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+From: Yu Ke <ke.yu@intel.com>
 
-Link /sbin/sendmail/ to /usr/lib/sendmail
-
-Signed-off-by: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+Signed-off-by: Yu Ke <ke.yu@intel.com>
 ---
- meta/recipes-extended/lsb/lsbsetup_0.9.bb |    1 +
- 1 files changed, 1 insertions(+), 0 deletions(-)
+ .../files/debian/add-icmp-return-codes.diff        |    2 ++
+ .../iputils/files/debian/fix-arping-timeouts.diff  |    2 ++
+ .../files/debian/fix-dead-host-ping-stats.diff     |    2 ++
+ .../iputils/files/debian/targets.diff              |    2 ++
+ .../iputils/files/debian/use_gethostbyname2.diff   |    2 ++
+ 5 files changed, 10 insertions(+), 0 deletions(-)
 
-diff --git a/meta/recipes-extended/lsb/lsbsetup_0.9.bb b/meta/recipes-extended/lsb/lsbsetup_0.9.bb
-index 8f7da53..b0d0a3f 100644
---- a/meta/recipes-extended/lsb/lsbsetup_0.9.bb
-+++ b/meta/recipes-extended/lsb/lsbsetup_0.9.bb
-@@ -17,6 +17,7 @@ do_install() {
-         install -d  ${D}/usr/lib/lsb
-         ln -sf ${base_sbindir}/chkconfig ${D}/${libdir}/lsb/install_initd
-         ln -sf ${base_sbindir}/chkconfig ${D}/${libdir}/lsb/remove_initd
-+        ln -sf ${base_sbindir}/sendmail ${D}/${libdir}/lsb/sendmail
- }
- 
- FILES_${PN} += "${libdir}/lsb"
+diff --git a/meta/recipes-extended/iputils/files/debian/add-icmp-return-codes.diff b/meta/recipes-extended/iputils/files/debian/add-icmp-return-codes.diff
+index 86bbf0d..40070c3 100644
+--- a/meta/recipes-extended/iputils/files/debian/add-icmp-return-codes.diff
++++ b/meta/recipes-extended/iputils/files/debian/add-icmp-return-codes.diff
+@@ -1,3 +1,5 @@
++Upstream-Status: Pending [from other distro Debian]
++
+ Index: trunk/ping.c
+ ===================================================================
+ --- trunk.orig/ping.c	2010-05-07 23:13:54.000000000 -0700
+diff --git a/meta/recipes-extended/iputils/files/debian/fix-arping-timeouts.diff b/meta/recipes-extended/iputils/files/debian/fix-arping-timeouts.diff
+index 9f05769..3e34788 100644
+--- a/meta/recipes-extended/iputils/files/debian/fix-arping-timeouts.diff
++++ b/meta/recipes-extended/iputils/files/debian/fix-arping-timeouts.diff
+@@ -1,3 +1,5 @@
++Upstream-Status: Pending [from other distro Debian]
++
+ Index: trunk/arping.c
+ ===================================================================
+ --- trunk.orig/arping.c	2010-05-07 23:13:52.000000000 -0700
+diff --git a/meta/recipes-extended/iputils/files/debian/fix-dead-host-ping-stats.diff b/meta/recipes-extended/iputils/files/debian/fix-dead-host-ping-stats.diff
+index 2a92425..fda42bf 100644
+--- a/meta/recipes-extended/iputils/files/debian/fix-dead-host-ping-stats.diff
++++ b/meta/recipes-extended/iputils/files/debian/fix-dead-host-ping-stats.diff
+@@ -1,3 +1,5 @@
++Upstream-Status: Pending [from other distro Debian]
++
+ Index: trunk/ping_common.c
+ ===================================================================
+ --- trunk.orig/ping_common.c	2010-05-07 23:13:51.000000000 -0700
+diff --git a/meta/recipes-extended/iputils/files/debian/targets.diff b/meta/recipes-extended/iputils/files/debian/targets.diff
+index b5e907a..6b899cb 100644
+--- a/meta/recipes-extended/iputils/files/debian/targets.diff
++++ b/meta/recipes-extended/iputils/files/debian/targets.diff
+@@ -1,3 +1,5 @@
++Upstream-Status: Inappropriate [disable feature]
++
+ Index: trunk/Makefile
+ ===================================================================
+ --- trunk.orig/Makefile	2010-05-07 23:43:00.000000000 -0700
+diff --git a/meta/recipes-extended/iputils/files/debian/use_gethostbyname2.diff b/meta/recipes-extended/iputils/files/debian/use_gethostbyname2.diff
+index 7e6c97c..1d01e15 100644
+--- a/meta/recipes-extended/iputils/files/debian/use_gethostbyname2.diff
++++ b/meta/recipes-extended/iputils/files/debian/use_gethostbyname2.diff
+@@ -1,3 +1,5 @@
++Upstream-Status: Pending [from other distro Debian]
++
+ Index: trunk/tracepath.c
+ ===================================================================
+ --- trunk.orig/tracepath.c	2010-05-07 23:13:52.000000000 -0700
 -- 
 1.7.0.4
 
