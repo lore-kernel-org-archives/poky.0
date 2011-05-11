@@ -1,40 +1,19 @@
 Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B2F3D4C80263
-	for <poky@yoctoproject.org>; Tue, 10 May 2011 22:29:07 -0500 (CDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 10 May 2011 20:29:07 -0700
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id BEA934C80655
+	for <poky@yoctoproject.org>; Wed, 11 May 2011 00:40:20 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 10 May 2011 22:40:20 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,350,1301900400"; 
-   d="scan'208";a="702382"
-Received: from orsmsx604.amr.corp.intel.com ([10.22.226.87])
-	by fmsmga001.fm.intel.com with ESMTP; 10 May 2011 20:28:54 -0700
-Received: from orsmsx601.amr.corp.intel.com (10.22.226.213) by
-	orsmsx604.amr.corp.intel.com (10.22.226.87) with Microsoft SMTP Server
-	(TLS) id 8.2.255.0; Tue, 10 May 2011 20:28:54 -0700
-Received: from orsmsx504.amr.corp.intel.com ([10.22.226.207]) by
-	orsmsx601.amr.corp.intel.com ([10.22.226.213]) with mapi;
-	Tue, 10 May 2011 20:28:54 -0700
-From: "Kamble, Nitin A" <nitin.a.kamble@intel.com>
-To: Gary Thomas <gary@mlbassoc.com>, Khem Raj <raj.khem@gmail.com>
-Date: Tue, 10 May 2011 20:28:53 -0700
-Thread-Topic: [poky] GCC 4.6.0 on ARM?
-Thread-Index: AcwIyJNbynKMIDwESuGhducxL+Cx2wGwuZoQ
-Message-ID: <9DA5872FEF993D41B7173F58FCF6BE94D88F0101@orsmsx504.amr.corp.intel.com>
-References: <4DB99F31.4000308@mlbassoc.com>
-	<BANLkTikaf3MHYrnbvHDno3dSv_LhsLyFVg@mail.gmail.com>
-	<BANLkTi=G-4UfXNdnJSy7qF3gb0-xLr6+4Q@mail.gmail.com>
-	<4DBEAA2C.1020601@mlbassoc.com>
-In-Reply-To: <4DBEAA2C.1020601@mlbassoc.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
-MIME-Version: 1.0
-Cc: Poky Project <poky@yoctoproject.org>,
-	Patches and discussions about the oe-core layer
-	<openembedded-core@lists.openembedded.org>
-Subject: Re: GCC 4.6.0 on ARM?
+X-IronPort-AV: E=Sophos;i="4.64,350,1301900400"; d="scan'208";a="641075140"
+Received: from nbuild2.sc.intel.com (HELO localhost) ([172.25.110.37])
+	by orsmga002.jf.intel.com with ESMTP; 10 May 2011 22:40:20 -0700
+Message-Id: <cover.1305092348.git.nitin.a.kamble@intel.com>
+Old-Date: Tue, 10 May 2011 22:39:08 -0700
+Date: Tue, 10 May 2011 22:40:19 -0700
+To: poky@yoctoproject.org,openembedded-core@lists.openembedded.org
+From: Nitin A Kamble <nitin.a.kamble@intel.com>
+Subject: [PATCH 0/5] more fixes related to gcc 4.6.0
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,72 +25,45 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 May 2011 03:29:08 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Wed, 11 May 2011 05:40:21 -0000
+
+From: Nitin A Kamble <nitin.a.kamble@intel.com>
 
 
-
-> -----Original Message-----
-> From: poky-bounces@yoctoproject.org [mailto:poky-
-> bounces@yoctoproject.org] On Behalf Of Gary Thomas
-> Sent: Monday, May 02, 2011 5:57 AM
-> To: Khem Raj
-> Cc: Poky Project; Patches and discussions about the oe-core layer
-> Subject: Re: [poky] GCC 4.6.0 on ARM?
->=20
-> On 04/30/2011 04:10 PM, Khem Raj wrote:
-> > On Thu, Apr 28, 2011 at 11:23 AM, Khem Raj<raj.khem@gmail.com>
-> wrote:
-> >> On Thu, Apr 28, 2011 at 10:09 AM, Gary Thomas<gary@mlbassoc.com>
-> wrote:
-> >>> I got my OMAP target to build with GCC-4.6.0 using the latest
-> >>> Poky tree after a fresh rebuild.  Sadly, the Linux kernel
-> (2.6.37.3)
-> >>> does not run correctly when built with this compiler.  It
-> >>> fails when enumerating the USB bus :-(
-> >>>
-> >>> Are there known issues with the Linux kernel on ARM and GCC-4.6?
-> >>>
-> >>
-> >> There has been fixes on top of 4.6.0 the one we have right now is
-> vanilla
-> >> 4.6.0 release. I plan to add second set of patches but you have to
-> dig a bit
-> >> more to identify the problem
-> >>
-> >
-> > I have some updates for gcc 4.6.0
-> > they are staged in
-> >
-> > http://git.openembedded.org/cgit.cgi/openembedded-core-
-> contrib/log/?h=3Dkraj/gcc-4.6
-> >
-> > (top 3 patches)
-> >
-> > Please test them out and if you are lucky
-> > your problem might be fixed too.
-> >
-> > All, please try these patches and provide any feedback
->=20
-> I was able to build my kernel (ARM OMAP/3530 based) using this, but
-> the USB still doesn't work, so no improvement, sorry.
-
-Gary,
- Is the USB breakage is due to gcc 4.6.0 ?
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: nitin/misc
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=nitin/misc
 
 Thanks,
-Nitin
+    Nitin A Kamble <nitin.a.kamble@intel.com>
+---
 
->=20
-> --
-> ------------------------------------------------------------
-> Gary Thomas                 |  Consulting for the
-> MLB Associates              |    Embedded world
-> ------------------------------------------------------------
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+
+Nitin A Kamble (5):
+  libunique: Fix for compilation with gcc 4.6.0
+  matchbox-wm-2: fix typo in Makefile
+  web: fix typo in Makefile
+  zaurusd: fix a typo in Makefile
+  dtc: fix compilation with gcc 4.6.0
+
+ .../recipes-bsp/zaurusd/zaurusd/fix_makefile.patch |   19 +++++++
+ meta/recipes-bsp/zaurusd/zaurusd_svn.bb            |    5 +-
+ .../libunique/fix_for_compile_with_gcc-4.6.0.patch |   36 ++++++++++++++
+ meta/recipes-gnome/libunique/libunique_1.1.6.bb    |    5 +-
+ .../matchbox-wm-2/matchbox-wm-2/fix_makefile.patch |   19 +++++++
+ .../matchbox-wm-2/matchbox-wm-2_svn.bb             |    3 +-
+ .../dtc/fix_for_compilation_with_gcc_4.6.0.patch   |   51 ++++++++++++++++++++
+ meta/recipes-kernel/dtc/dtc_git.inc                |    5 +-
+ meta/recipes-sato/web/web/fix_makefile.patch       |   20 ++++++++
+ meta/recipes-sato/web/web_git.bb                   |    3 +-
+ 10 files changed, 158 insertions(+), 8 deletions(-)
+ create mode 100644 meta/recipes-bsp/zaurusd/zaurusd/fix_makefile.patch
+ create mode 100644 meta/recipes-gnome/libunique/libunique/fix_for_compile_with_gcc-4.6.0.patch
+ create mode 100644 meta/recipes-graphics/matchbox-wm-2/matchbox-wm-2/fix_makefile.patch
+ create mode 100644 meta/recipes-kernel/dtc/dtc/fix_for_compilation_with_gcc_4.6.0.patch
+ create mode 100644 meta/recipes-sato/web/web/fix_makefile.patch
+
+-- 
+1.7.3.4
+
 
