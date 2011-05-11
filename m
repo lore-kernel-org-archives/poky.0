@@ -1,21 +1,20 @@
-Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B6F744C80655
-	for <poky@yoctoproject.org>; Wed, 11 May 2011 00:40:24 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 10 May 2011 22:40:24 -0700
+Return-Path: <dexuan.cui@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 517CC4C803D6
+	for <poky@yoctoproject.org>; Wed, 11 May 2011 01:29:22 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 10 May 2011 23:29:21 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,350,1301900400"; d="scan'208";a="434092094"
-Received: from nbuild2.sc.intel.com (HELO localhost) ([172.25.110.37])
-	by azsmga001.ch.intel.com with ESMTP; 10 May 2011 22:40:20 -0700
-Message-Id: <c6f9857df1a8971ad71df4ac2a8fd8b2828e0ac5.1305092349.git.nitin.a.kamble@intel.com>
-In-Reply-To: <cover.1305092348.git.nitin.a.kamble@intel.com>
-References: <cover.1305092348.git.nitin.a.kamble@intel.com>
-Old-Date: Tue, 10 May 2011 22:12:57 -0700
-Date: Tue, 10 May 2011 22:40:20 -0700
-To: poky@yoctoproject.org,openembedded-core@lists.openembedded.org
-From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Subject: [PATCH 2/5] matchbox-wm-2: fix typo in Makefile
+X-IronPort-AV: E=Sophos;i="4.64,350,1301900400"; d="scan'208";a="745544658"
+Received: from dcui-desktop.sh.intel.com (HELO localhost) ([10.239.13.51])
+	by orsmga001.jf.intel.com with ESMTP; 10 May 2011 23:29:21 -0700
+Message-Id: <cover.1305094351.git.dexuan.cui@intel.com>
+Old-Date: Wed, 11 May 2011 14:12:31 +0800
+Date: Wed, 11 May 2011 14:26:45 +0800
+To: poky@yoctoproject.org
+CC: 
+From: Dexuan Cui <dexuan.cui@intel.com>
+Subject: [PATCH 00/24] Upstream-Status Updates
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,59 +26,117 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 May 2011 05:40:24 -0000
+X-List-Received-Date: Wed, 11 May 2011 06:29:22 -0000
 
-From: Nitin A Kamble <nitin.a.kamble@intel.com>
+From: Dexuan Cui <dexuan.cui@intel.com>
 
-Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
+Hi Saul,
+
+These commits update the Upstream-Status field.
+
+For "Inappropriate", I added the reason "configuration" or a specific reason.
+
+Some are "Pending": I will further update them later.
+
+I also removed some patches since they're not used at all now.
+
+Please help to review and pull.
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: dcui/distro
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dcui/distro
+
+Thanks,
+    Dexuan Cui <dexuan.cui@intel.com>
 ---
- .../matchbox-wm-2/matchbox-wm-2/fix_makefile.patch |   19 +++++++++++++++++++
- .../matchbox-wm-2/matchbox-wm-2_svn.bb             |    3 ++-
- 2 files changed, 21 insertions(+), 1 deletions(-)
- create mode 100644 meta/recipes-graphics/matchbox-wm-2/matchbox-wm-2/fix_makefile.patch
 
-diff --git a/meta/recipes-graphics/matchbox-wm-2/matchbox-wm-2/fix_makefile.patch b/meta/recipes-graphics/matchbox-wm-2/matchbox-wm-2/fix_makefile.patch
-new file mode 100644
-index 0000000..8c40e85
---- /dev/null
-+++ b/meta/recipes-graphics/matchbox-wm-2/matchbox-wm-2/fix_makefile.patch
-@@ -0,0 +1,19 @@
-+Upstream-Status: Pending
-+
-+Nitin A Kamble <nitin.a.kamble@intel.com> 2011/05/10
-+Fix following build error:
-+| Makefile:734: *** missing separator (did you mean TAB instead of 8 spaces?).  Stop.
-+| ERROR: oe_runmake failed
-+
-+Index: matchbox-window-manager-2/Makefile.am
-+===================================================================
-+--- matchbox-window-manager-2.orig/Makefile.am
-++++ matchbox-window-manager-2/Makefile.am
-+@@ -3,6 +3,6 @@ SUBDIRS = matchbox data doc util
-+ # Extra clean files so that maintainer-clean removes *everything*
-+ 
-+ snapshot:
-+-        $(MAKE) dist distdir=$(PACKAGE)-snapshot-`date +"%Y%m%d"`
-++	$(MAKE) dist distdir=$(PACKAGE)-snapshot-`date +"%Y%m%d"`
-+ 
-+ MAINTAINERCLEANFILES = aclocal.m4 compile config.guess config.sub configure depcomp install-sh ltmain.sh Makefile.in missing
-diff --git a/meta/recipes-graphics/matchbox-wm-2/matchbox-wm-2_svn.bb b/meta/recipes-graphics/matchbox-wm-2/matchbox-wm-2_svn.bb
-index 3332891..0b5e3f1 100644
---- a/meta/recipes-graphics/matchbox-wm-2/matchbox-wm-2_svn.bb
-+++ b/meta/recipes-graphics/matchbox-wm-2/matchbox-wm-2_svn.bb
-@@ -7,9 +7,10 @@ DEPENDS = "virtual/libx11 libxext libxrender startup-notification expat gconf pa
- 
- SRCREV = "2106"
- PV = "0.0+svnr${SRCPV}"
--PR = "r4"
-+PR = "r5"
- 
- SRC_URI = "svn://svn.o-hand.com/repos/matchbox/trunk;module=matchbox-window-manager-2;proto=http \
-+	file://fix_makefile.patch \
- 	  "
- 
- S = "${WORKDIR}/matchbox-window-manager-2"
+
+Dexuan Cui (24):
+  tcf-agent: update its patch's Upstream-Status
+  screen: update its patch's Upstream-Status
+  which (GPLv2): update its patch's Upstream-Status
+  gnome-vfs: update its patch's Upstream-Status
+  libart-lgpl: update its patch's Upstream-Status
+  librsvg: update its patch's Upstream-Status
+  fontconfig: update its patch's Upstream-Status
+  freetype: update its patch's Upstream-Status
+  libxsettings-client: update its patch's Upstream-Status
+  libxcb: update its patch's Upstream-Status
+  libx11: update its patch's Upstream-Status
+  libx11-trim: update its patch's Upstream-Status
+  libxcalibrate: update its patch's Upstream-Status
+  libxcomposite: update its patch's Upstream-Status
+  libxfont: update its patch's Upstream-Status
+  xtrans: update its patch's Upstream-Status
+  calibrateproto: update its patch's Upstream-Status
+  latencytop: update its patch's Upstream-Status
+  oprofile: update its patch's Upstream-Status and remove an unused
+    patch
+  powertop: update its patch's Upstream-Status
+  settings-daemon: update its patch's Upstream-Status
+  gnome-settings-daemon: update its patch's Upstream-Status
+  libxklavier: update its patch's Upstream-Status
+  liblbxutil: update its patch's Upstream-Status
+
+ .../gnome/gnome-settings-daemon/configurefix.patch |    2 +
+ .../gnome-settings-daemon/desktop-moblin.patch     |    2 +
+ ...-settings-daemon-2.24.0-catch-deviceadded.patch |    2 +
+ .../gnome-settings-daemon-fix-gthread.patch        |    2 +
+ .../gnome-settings-daemon/mojito-cleanup.patch     |    2 +
+ .../gnome/gnome-settings-daemon/mount-plugin.patch |    2 +
+ .../libxklavier/libxklavier/pkgconfigfix.patch     |    2 +
+ .../xorg-lib/liblbxutil/mkg3states.patch           |    2 +
+ .../tcf-agent/tcf-agent/fix_tcf-agent.init.patch   |    2 +
+ .../tcf-agent/tcf-agent/terminals_agent.patch      |    2 +
+ .../screen/screen-4.0.3/configure.patch            |    2 +
+ .../fix_name_conflict_group_member.patch           |    2 +
+ .../gnome/gnome-vfs-2.24.4/gconftool-lossage.patch |    2 +
+ .../gnome-vfs-2.24.4/gnome-vfs-no-kerberos.patch   |    2 +
+ .../gnome/libart-lgpl/Makefile.am.patch            |    2 +
+ .../librsvg/librsvg-2.32.1/doc_Makefile.patch      |    2 +
+ .../fontconfig-2.8.0/fix-pkgconfig.patch           |    2 +
+ .../freetype/freetype-2.4.4/no-hardcode.patch      |    2 +
+ .../libxsettings-client/disable_Os_option.patch    |    2 +
+ .../libxsettings-client/link-x11.patch             |    2 +
+ .../xcb/libxcb/xcbincludedir.patch                 |    2 +
+ .../xorg-lib/libx11-1.3.4/include_fix.patch        |    2 +
+ .../xorg-lib/libx11-1.3.4/nodolt.patch             |    2 +
+ .../libx11-1.3.4/x11_disable_makekeys.patch        |    2 +
+ .../xorg-lib/libx11-git/X18NCMSstubs.diff          |    2 +
+ .../xorg-lib/libx11-git/fix-disable-xlocale.diff   |    2 +
+ .../libx11-git/fix-utf8-wrong-define.patch         |    1 +
+ .../xorg-lib/libx11-git/include_fix.patch          |    2 +
+ .../xorg-lib/libx11-git/nodolt.patch               |    2 +
+ .../xorg-lib/libx11-git/x11_disable_makekeys.patch |    2 +
+ .../recipes-graphics/xorg-lib/libx11-git/xim.patch |   55 -----
+ .../xorg-lib/libx11-trim/include_fix.patch         |    2 +
+ .../xorg-lib/libx11-trim/nodolt.patch              |    2 +
+ .../libx11-trim/x11_disable_makekeys.patch         |    2 +
+ .../xorg-lib/libx11/X18NCMSstubs.diff              |    2 +
+ .../xorg-lib/libx11/fix-disable-xlocale.diff       |    2 +
+ .../xorg-lib/libx11/fix-utf8-wrong-define.patch    |    1 +
+ .../xorg-lib/libx11/include_fix.patch              |    2 +
+ meta/recipes-graphics/xorg-lib/libx11/nodolt.patch |    2 +
+ .../xorg-lib/libx11/x11_disable_makekeys.patch     |    2 +
+ meta/recipes-graphics/xorg-lib/libx11/xim.patch    |   55 -----
+ .../xorg-lib/libxcalibrate/fix-xcb.patch           |    2 +
+ .../libxcomposite/change-include-order.patch       |    2 +
+ .../xorg-lib/libxfont/no-scalable-crash.patch      |    2 +
+ .../xorg-lib/xtrans/abstract_socket_fix.patch      |   58 -----
+ .../xorg-proto/calibrateproto/fix.patch            |    2 +
+ .../latencytop-0.5/latencytop-makefile.patch       |    2 +
+ .../recipes-kernel/oprofile/oprofile/opstart.patch |    2 +
+ .../oprofile/oprofile/xml_callgraph_details.patch  |  232 --------------------
+ .../stub_out_the_ncurses_calls_in_dump_mode.patch  |    2 +
+ .../settings-daemon/files/addsoundkeys.patch       |    2 +
+ .../files/dso_linking_change_build_fix.patch       |    2 +
+ 52 files changed, 94 insertions(+), 400 deletions(-)
+ delete mode 100644 meta/recipes-graphics/xorg-lib/libx11-git/xim.patch
+ delete mode 100644 meta/recipes-graphics/xorg-lib/libx11/xim.patch
+ delete mode 100644 meta/recipes-graphics/xorg-lib/xtrans/abstract_socket_fix.patch
+ delete mode 100644 meta/recipes-kernel/oprofile/oprofile/xml_callgraph_details.patch
+
 -- 
-1.7.3.4
+1.7.2
 
 
