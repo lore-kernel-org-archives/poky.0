@@ -1,45 +1,42 @@
 Return-Path: <raj.khem@gmail.com>
 Received: from mail-ey0-f176.google.com (mail-ey0-f176.google.com
 	[209.85.215.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id F3C674C80523
-	for <poky@yoctoproject.org>; Wed, 11 May 2011 12:03:44 -0500 (CDT)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 6981B4C80B77
+	for <poky@yoctoproject.org>; Wed, 11 May 2011 12:09:03 -0500 (CDT)
 Authentication-Results: mx1.pokylinux.org; dkim=pass
 	(1024-bit key; insecure key) header.i=@gmail.com;
 	x-dkim-adsp=none (insecure policy)
-Received: by eya28 with SMTP id 28so301533eya.35
-	for <poky@yoctoproject.org>; Wed, 11 May 2011 10:03:44 -0700 (PDT)
+Received: by eya28 with SMTP id 28so303769eya.35
+	for <poky@yoctoproject.org>; Wed, 11 May 2011 10:09:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
 	h=domainkey-signature:mime-version:in-reply-to:references:from:date
 	:message-id:subject:to:cc:content-type:content-transfer-encoding;
-	bh=2Ti8dPTiN1CIbemcMhgTK8k/7r9k/QMD0BaywrHvigU=;
-	b=aej4i+ylE3yT7GZKlcDJNRUuuLGCBVBFswGqnaszr/tmXYbxhDU3EwLUFEidb22LhY
-	GaT6FLYs00N9T9zlGu5V+5WCAP4a9r5nJv10YCn+igRyDMBCLDPDx97ZAKHQhQfrJsX6
-	zDPnni3GHtCwTFe2Rz9Qf9F6VucocYN3HHZQA=
+	bh=b5FfhaECNgUSetb91v8PWYAXZjkae3fwUGge9tdgDAw=;
+	b=Hj6d1F2KW3k3JYykAS7DRPM4W+s4qVkvrBYJEdM8BIL6cm2NVBpSt1MJ3W7LJJSY4f
+	Zj8MgTb1o7VcslmaUqt/7iLILo/S/yzY2xGelbdiIOtgmctNwERCdyK/koMmsOqhsDa8
+	W35Z0YLW5MKlcEE6dscx/tCBCOz63PQKGaWac=
 DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
 	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
 	:cc:content-type:content-transfer-encoding;
-	b=XGAFMTWYz3K7amvJ41alTyYO/b7AOT7r1OmFt8+r9G3rZBIDyJfzc/Q+2YOoH2I9Pr
-	DVHtf4bm97YDAbxQ19IOGwlYrv4WG7cnqHz3TPh2661S0yeCrvYv5oRdbqqHd0CSO3p4
-	HEm68gbGwdxoWlycGtVhcM8xHe24EYd1d/NYY=
-Received: by 10.14.41.193 with SMTP id h41mr4108461eeb.48.1305133424206; Wed,
-	11 May 2011 10:03:44 -0700 (PDT)
+	b=KNj/iZwylVxzSWDVUkKMQBYHGmikp3lGKvzhj5beOHc/J1Ah+hAmGwoaco12gj985O
+	RYJMd1hvoLLahtCFnUoVrCaFx6Or2xaSUeYyV+qZH+85ezR2AXXTqYP1mTakDWM55qPc
+	t6IG4qyqTTKNY7qYWuw2Bu1TQ9U4fTjtsd1pU=
+Received: by 10.14.15.78 with SMTP id e54mr4369331eee.80.1305133741249; Wed,
+	11 May 2011 10:09:01 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.14.53.5 with HTTP; Wed, 11 May 2011 10:03:14 -0700 (PDT)
-In-Reply-To: <4DCA6C60.6050203@mlbassoc.com>
-References: <4DB99F31.4000308@mlbassoc.com>
-	<BANLkTikaf3MHYrnbvHDno3dSv_LhsLyFVg@mail.gmail.com>
-	<BANLkTi=G-4UfXNdnJSy7qF3gb0-xLr6+4Q@mail.gmail.com>
-	<4DBEAA2C.1020601@mlbassoc.com>
-	<9DA5872FEF993D41B7173F58FCF6BE94D88F0101@orsmsx504.amr.corp.intel.com>
-	<4DCA6C60.6050203@mlbassoc.com>
+Received: by 10.14.53.5 with HTTP; Wed, 11 May 2011 10:01:15 -0700 (PDT)
+In-Reply-To: <4DCAB609.8030601@linux.intel.com>
+References: <4DCAB609.8030601@linux.intel.com>
 From: Khem Raj <raj.khem@gmail.com>
-Date: Wed, 11 May 2011 10:03:14 -0700
-Message-ID: <BANLkTinwdM_FJiNq9d8cQUX5vA-Y4kLFXQ@mail.gmail.com>
-To: Gary Thomas <gary@mlbassoc.com>
-Cc: Poky Project <poky@yoctoproject.org>,
+Date: Wed, 11 May 2011 10:01:15 -0700
+Message-ID: <BANLkTintvgFGKUUUdvq2M7Q=m+gYuzs2-A@mail.gmail.com>
+To: Darren Hart <dvhart@linux.intel.com>
+Cc: Otavio Salvador <otavio@ossystems.com.br>,
 	Patches and discussions about the oe-core layer
-	<openembedded-core@lists.openembedded.org>
-Subject: Re: GCC 4.6.0 on ARM?
+	<openembedded-core@lists.openembedded.org>,
+	"poky@yoctoproject.org" <poky@yoctoproject.org>,
+	Tom Rini <tom_rini@mentor.com>
+Subject: Re: RFC: create-pull-request / send-pull-request updates
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -51,80 +48,129 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 May 2011 17:03:45 -0000
+X-List-Received-Date: Wed, 11 May 2011 17:09:03 -0000
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, May 11, 2011 at 4:00 AM, Gary Thomas <gary@mlbassoc.com> wrote:
-> On 05/10/2011 09:28 PM, Kamble, Nitin A wrote:
->>
->>
->>> -----Original Message-----
->>> From: poky-bounces@yoctoproject.org [mailto:poky-
->>> bounces@yoctoproject.org] On Behalf Of Gary Thomas
->>> Sent: Monday, May 02, 2011 5:57 AM
->>> To: Khem Raj
->>> Cc: Poky Project; Patches and discussions about the oe-core layer
->>> Subject: Re: [poky] GCC 4.6.0 on ARM?
->>>
->>> On 04/30/2011 04:10 PM, Khem Raj wrote:
->>>>
->>>> On Thu, Apr 28, 2011 at 11:23 AM, Khem Raj<raj.khem@gmail.com>
->>>
->>> wrote:
->>>>>
->>>>> On Thu, Apr 28, 2011 at 10:09 AM, Gary Thomas<gary@mlbassoc.com>
->>>
->>> wrote:
->>>>>>
->>>>>> I got my OMAP target to build with GCC-4.6.0 using the latest
->>>>>> Poky tree after a fresh rebuild. =C2=A0Sadly, the Linux kernel
->>>
->>> (2.6.37.3)
->>>>>>
->>>>>> does not run correctly when built with this compiler. =C2=A0It
->>>>>> fails when enumerating the USB bus :-(
->>>>>>
->>>>>> Are there known issues with the Linux kernel on ARM and GCC-4.6?
->>>>>>
->>>>>
->>>>> There has been fixes on top of 4.6.0 the one we have right now is
->>>
->>> vanilla
->>>>>
->>>>> 4.6.0 release. I plan to add second set of patches but you have to
->>>
->>> dig a bit
->>>>>
->>>>> more to identify the problem
->>>>>
->>>>
->>>> I have some updates for gcc 4.6.0
->>>> they are staged in
->>>>
->>>> http://git.openembedded.org/cgit.cgi/openembedded-core-
->>>
->>> contrib/log/?h=3Dkraj/gcc-4.6
->>>>
->>>> (top 3 patches)
->>>>
->>>> Please test them out and if you are lucky
->>>> your problem might be fixed too.
->>>>
->>>> All, please try these patches and provide any feedback
->>>
->>> I was able to build my kernel (ARM OMAP/3530 based) using this, but
->>> the USB still doesn't work, so no improvement, sorry.
->>
->> Gary,
->> =C2=A0Is the USB breakage is due to gcc 4.6.0 ?
+On Wed, May 11, 2011 at 9:15 AM, Darren Hart <dvhart@linux.intel.com> wrote=
+:
+> Between myself and others, there are several outstanding proposals to
+> modify the pull-request scripts. Patches have been sent, but nothing has
+> been merged due to a lack of consensus. I thought I would summarize what
+> I see to be the current weaknesses of the scripts and my proposal to
+> address them. I would like your feedback to ensure we have tools that
+> meet the needs of a broad user base. Once we agree, I'll be happy to
+> write up the patches or help review those written by others.
 >
-> Yes, that's the only change. =C2=A0Building the kernel from the same
-> source repository with 4.5.2 (using patches from you and Khem Raj)
-> works perfectly.
+> 1) send-pull-request is too aggressive with the auto-cc feature (Khem
+> =C2=A0 Raj)
+>
+> =C2=A0 One of the reasons I wrote these scripts was out of frustration wi=
+th
+> =C2=A0 git-send-email which allowed for a cover letter, but didn't includ=
+e
+> =C2=A0 all the collected addresses on it. The current script sends every
+> =C2=A0 message to all the collected addresses. Khem (and others) have fou=
+nd
+> =C2=A0 this behavior to be sub-optimal, if not down right annoying.
+>
+> =C2=A0 I propose it be modified to only use the addresses local to each
+> =C2=A0 patch for the patches and all the collected addresses only for the
+> =C2=A0 cover letter.
+>
+> =C2=A0 a) Do people agree with this policy? If not, and people prefer the
+> =C2=A0 =C2=A0 =C2=A0cover-letter only be sent to the recipients specified=
+ on the
+> =C2=A0 =C2=A0 =C2=A0command line, then this script doesn't add any real v=
+alue over
+> =C2=A0 =C2=A0 =C2=A0'git request-pull' and 'git send-email', and users ca=
+n easily
+> =C2=A0 =C2=A0 =C2=A0wrap those on their own.
+>
+> 2) create-pull-request needs to facilitate the use of multiple
+> =C2=A0 repositories (Tom Rini)
+>
+> =C2=A0 Some folks find gitorious or github work best for their use. It is
+> =C2=A0 also reasonable to want to use this script with independent layers=
+.
+> =C2=A0 Tom proposed a -l option to specify the PULL_URL leaving some
+> =C2=A0 boiler-plate text in the cover-letter for the user to populate.
+>
+> =C2=A0 This dovetails with something I've been considering. Rather than
+> =C2=A0 duplicate the generation of a pull request cover letter, I'd like =
+to
+> =C2=A0 see us re-use the output of 'git request-pull'. This has the added
+> =C2=A0 benefit of sanity checking the URL and commits. It does however
+> =C2=A0 remove the concept of the BROWSE_URL. We could add the BROWSE_URL
+> =C2=A0 back for recognized locations (git.yoctoproject.org, gitorious, an=
+d
+> =C2=A0 github I believe).
+>
+> =C2=A0 Some have expressed a desire for the URL to be automatically
+> =C2=A0 discoverable. We could try and extract this information from the
+> =C2=A0 current branch and a remote of a specific name, with some URL
+> =C2=A0 rewrites to convert ssh access to generic git access. Unfortunatel=
+y,
+> =C2=A0 this approach breaks under several conditions. I would prefer that
+> =C2=A0 these scripts not be tied to any particular naming conventions for
+> =C2=A0 the git branches or remotes.
+>
+> =C2=A0 I propose we go with something very similar to Tom's -l PULL_URL
+> =C2=A0 proposal and replace the cover letter generation with the output o=
+f
+> =C2=A0 'git request-pull'. The PULL_URL should also be able to be specifi=
+ed
+> =C2=A0 via an environment variable. Now that we are sending patches for
+> =C2=A0 review and not just the pull request itself, I feel we can drop th=
+e
+> =C2=A0 BROWSE_URL.
+>
+> 3) Rely on git-send-email exclusively (Darren Hart)
+>
+> =C2=A0 When I originally wrote these scripts, not all the users were
+> =C2=A0 particularly familiar with git and others may have already had
+> =C2=A0 a local sendmail client configured. At the time I thought it prude=
+nt
+> =C2=A0 to decouple the mail process from git. In retrospect, this serves
+> =C2=A0 only to unnecessarily complicate the send script as users must all
+> =C2=A0 learn git to effectively work within the OE and Yocto environments=
+.
+> =C2=A0 If a local MTA is available, git can be configured to use that. Th=
+ere
+> =C2=A0 is no advantage that I can see to maintain both sending mechanisms
+> =C2=A0 in the scripts. They add complexity and complicate debugging and
+> =C2=A0 maintenance.
+>
+> =C2=A0 I propose the local sendmail mechanism be removed from send-pull-
+> =C2=A0 request and that it rely exclusively on 'git send-email'.
+>
+> 3) Rewrite the scripts in python (Tom)
+>
+> =C2=A0 While I agree that anything of any significant complexity is bette=
+r
+> =C2=A0 written in python than bash, I feel that with the above changes, t=
+he
+> =C2=A0 current scripts will be smaller and remain simple enough for bash =
+to
+> =C2=A0 be a viable option.
+>
+> =C2=A0 I propose we leave the scripts in bash for the time being, leaving
+> =C2=A0 the door open to rewrite them at a later date should their complex=
+ity
+> =C2=A0 increase to merit the effort.
+>
+>
+> Thoughts/Comments?
 >
 
-Unless we dig down and narrow the issue its hard to say if its a gcc
-issue or a latent problem that
-gcc 4.6 brings out.
+I would suggest to alter the process a bit and get rid of the scripts
+completely. Patches are sent to mailing list for review once reviewed
+the final patches are
+sent as git pull-request. It would simplify things.
+
+> --
+> Darren Hart
+> Intel Open Source Technology Center
+> Yocto Project - Linux Kernel
+>
 
