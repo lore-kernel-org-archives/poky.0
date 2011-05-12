@@ -1,36 +1,34 @@
-Return-Path: <glep-poky@m.gmane.org>
-Received: from lo.gmane.org (lo.gmane.org [80.91.229.12])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 78AF24C800BB
-	for <poky@pokylinux.org>; Thu, 12 May 2011 16:38:33 -0500 (CDT)
-Received: from list by lo.gmane.org with local (Exim 4.69)
-	(envelope-from <glep-poky@m.gmane.org>) id 1QKdaW-0001Qh-T5
-	for poky@pokylinux.org; Thu, 12 May 2011 23:38:28 +0200
-Received: from ppp079166130225.dsl.hol.gr ([79.166.130.225])
-	by main.gmane.org with esmtp (Gmexim 0.1 (Debian))
-	id 1AlnuQ-0007hv-00
-	for <poky@pokylinux.org>; Thu, 12 May 2011 23:38:28 +0200
-Received: from gmane by ppp079166130225.dsl.hol.gr with local (Gmexim 0.1
-	(Debian)) id 1AlnuQ-0007hv-00
-	for <poky@pokylinux.org>; Thu, 12 May 2011 23:38:28 +0200
-X-Injected-Via-Gmane: http://gmane.org/
-To: poky@pokylinux.org
-From: Robert Berger <gmane@reliableembeddedsystems.com>
-Date: Fri, 13 May 2011 00:38:15 +0300
-Organization: Reliable Embedded Systems
-Message-ID: <iqhk07$fpf$1@dough.gmane.org>
-References: <iqessi$mok$1@dough.gmane.org> <4DCB16BC.4040205@linux.intel.com>
-	<1305192197.30391.490.camel@rex>
-Mime-Version: 1.0
-X-Complaints-To: usenet@dough.gmane.org
-X-Gmane-NNTP-Posting-Host: ppp079166130225.dsl.hol.gr
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.14) Gecko/20110223 Thunderbird/3.1.8
-In-Reply-To: <1305192197.30391.490.camel@rex>
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id BC6864C810B1
+	for <poky@pokylinux.org>; Thu, 12 May 2011 16:44:57 -0500 (CDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 0F1931660091; Thu, 12 May 2011 15:44:57 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.2-r929478
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id C24C916601B1;
+	Thu, 12 May 2011 15:44:21 -0600 (MDT)
+Message-ID: <4DCC54B5.9060309@mlbassoc.com>
+Date: Thu, 12 May 2011 15:44:21 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
+MIME-Version: 1.0
+To: gmane@reliableembeddedsystems.com
+References: <iqessi$mok$1@dough.gmane.org>
+	<4DCB16BC.4040205@linux.intel.com>	<1305192197.30391.490.camel@rex>
+	<iqhk07$fpf$1@dough.gmane.org>
+In-Reply-To: <iqhk07$fpf$1@dough.gmane.org>
+Cc: poky@pokylinux.org
 Subject: Re: No rootfs for beagleboard after bernard 5.0
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
-Reply-To: gmane@reliableembeddedsystems.com
 List-Id: Poky build system developer discussion <poky.yoctoproject.org>
 List-Unsubscribe: <https://lists.yoctoproject.org/options/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=unsubscribe>
@@ -39,46 +37,64 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 May 2011 21:38:35 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Thu, 12 May 2011 21:44:58 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Darren/Richard,
+On 05/12/2011 03:38 PM, Robert Berger wrote:
+> Hi Darren/Richard,
+>
+> Thanks for the hints.
+> ... but the problem is even more interesting.
+> For some strange reason I can't get a valid .tar.bz from the URL which
+> is in the recipe.
+>
+> What helped was to grab it from somewhere else:
+>
+> diff --git a/meta/recipes-devtools/distcc/distcc_2.18.3.bb
+> b/meta/recipes-devtools/distcc/distcc_2.18.3.bb
+> index b6b7b78..f5ae761 100644
+> --- a/meta/recipes-devtools/distcc/distcc_2.18.3.bb
+> +++ b/meta/recipes-devtools/distcc/distcc_2.18.3.bb
+> @@ -11,7 +11,7 @@ RRECOMMENDS_${PN} = "avahi-daemon"
+>
+>   # Upstream change this patch periodically so store locally
+>   # http://0pointer.de/public/distcc-avahi.patch
+> -SRC_URI = "http://distcc.samba.org/ftp/distcc/distcc-${PV}.tar.bz2 \
+> +SRC_URI =
+> "ftp://ftp.slackware.at/slackware-10.2/source/d/distcc/distcc-${PV}.tar.bz2\
+>              file://distcc-avahi.patch;patch=1 \
+>             file://default \
+>             file://distccmon-gnome.desktop \
 
-Thanks for the hints.
-... but the problem is even more interesting.
-For some strange reason I can't get a valid .tar.bz from the URL which
-is in the recipe.
+Indeed, the samba.org URL is no good:
 
-What helped was to grab it from somewhere else:
-
-diff --git a/meta/recipes-devtools/distcc/distcc_2.18.3.bb
-b/meta/recipes-devtools/distcc/distcc_2.18.3.bb
-index b6b7b78..f5ae761 100644
---- a/meta/recipes-devtools/distcc/distcc_2.18.3.bb
-+++ b/meta/recipes-devtools/distcc/distcc_2.18.3.bb
-@@ -11,7 +11,7 @@ RRECOMMENDS_${PN} = "avahi-daemon"
-
- # Upstream change this patch periodically so store locally
- # http://0pointer.de/public/distcc-avahi.patch
--SRC_URI = "http://distcc.samba.org/ftp/distcc/distcc-${PV}.tar.bz2 \
-+SRC_URI =
-"ftp://ftp.slackware.at/slackware-10.2/source/d/distcc/distcc-${PV}.tar.bz2\
-            file://distcc-avahi.patch;patch=1 \
-           file://default \
-           file://distccmon-gnome.desktop \
-
-Regards,
-
-Robert
-
-..."Gott gebe mir die Gelassenheit, Dinge hinzunehmen, die ich nicht
-ändern kann, den Mut, Dinge zu ändern, die ich ändern kann und die
-Weisheit, das eine von dem anderen zu unterscheiden." (Friedrich
-Christoph Oetinger 1702-1782)
-
-My public pgp key is available at:
-http://pgp.mit.edu:11371/pks/lookup?op=get&search=0x90320BF1
+$ wget http://distcc.samba.org/ftp/distcc/distcc-2.18.3.tar.bz2
+--2011-05-12 15:42:03--  http://distcc.samba.org/ftp/distcc/distcc-2.18.3.tar.bz2
+Resolving distcc.samba.org... 2001:470:1f05:1a07::1, 216.83.154.106
+Connecting to distcc.samba.org|2001:470:1f05:1a07::1|:80... failed: Connection refused.
+Connecting to distcc.samba.org|216.83.154.106|:80... connected.
+HTTP request sent, awaiting response... 301 Moved Permanently
+Location: http://www.distcc.org/ [following]
+--2011-05-12 15:42:04--  http://www.distcc.org/
+Resolving www.distcc.org... 64.202.189.170
+Connecting to www.distcc.org|64.202.189.170|:80... connected.
+HTTP request sent, awaiting response... 302 Found
+Location: http://distcc.googlecode.com/ [following]
+--2011-05-12 15:42:04--  http://distcc.googlecode.com/
+Resolving distcc.googlecode.com... 74.125.95.82
+Connecting to distcc.googlecode.com|74.125.95.82|:80... connected.
+HTTP request sent, awaiting response... 301 Moved Permanently
+Location: http://code.google.com/p/distcc [following]
+--2011-05-12 15:42:04--  http://code.google.com/p/distcc
+Resolving code.google.com... 74.125.95.113, 74.125.95.138, 74.125.95.139, ...
+Connecting to code.google.com|74.125.95.113|:80... connected.
+HTTP request sent, awaiting response... 301 Moved Permanently
 
 
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
