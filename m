@@ -1,21 +1,38 @@
-Return-Path: <tom.zanussi@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 28A5A4C810FE
-	for <poky@yoctoproject.org>; Thu, 12 May 2011 17:04:51 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 12 May 2011 15:04:50 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,360,1301900400"; d="scan'208";a="435222527"
-Received: from unknown (HELO localhost) ([10.255.12.106])
-	by azsmga001.ch.intel.com with ESMTP; 12 May 2011 15:04:42 -0700
-Message-Id: <5157fc3a09d70bf0f604733b855bbcfebb69ea98.1305235994.git.tom.zanussi@intel.com>
-In-Reply-To: <cover.1305235993.git.tom.zanussi@intel.com>
-References: <cover.1305235993.git.tom.zanussi@intel.com>
-Old-Date: Wed, 11 May 2011 09:05:59 -0500
-Date: Thu, 12 May 2011 17:04:18 -0500
-To: bruce.ashfield@windriver.com,poky@yoctoproject.org
-From: Tom Zanussi <tom.zanussi@intel.com>
-Subject: [KERNEL][linux-yocto PATCH 4/4] emgd: backfix for 2.6.37
+Return-Path: <wmills@ti.com>
+Received: from comal.ext.ti.com (comal.ext.ti.com [198.47.26.152])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 63E144C810D2
+	for <poky@yoctoproject.org>; Thu, 12 May 2011 17:05:48 -0500 (CDT)
+Received: from dlep36.itg.ti.com ([157.170.170.91])
+	by comal.ext.ti.com (8.13.7/8.13.7) with ESMTP id p4CM5i03023116
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Thu, 12 May 2011 17:05:44 -0500
+Received: from dlep26.itg.ti.com (localhost [127.0.0.1])
+	by dlep36.itg.ti.com (8.13.8/8.13.8) with ESMTP id p4CM5iEl021430;
+	Thu, 12 May 2011 17:05:44 -0500 (CDT)
+Received: from dlee73.ent.ti.com (localhost [127.0.0.1])
+	by dlep26.itg.ti.com (8.13.8/8.13.8) with ESMTP id p4CM5i5k006963;
+	Thu, 12 May 2011 17:05:44 -0500 (CDT)
+Received: from dlelxv22.itg.ti.com (172.17.1.197) by DLEE73.ent.ti.com
+	(157.170.170.88) with Microsoft SMTP Server id 8.3.106.1;
+	Thu, 12 May 2011 17:05:43 -0500
+Received: from gtwmills.gt.design.ti.com (gtwmills.gt.design.ti.com
+	[158.218.100.52])	by dlelxv22.itg.ti.com (8.13.8/8.13.8) with ESMTP id
+	p4CM5hdG006246;	Thu, 12 May 2011 17:05:43 -0500
+Message-ID: <4DCC59B7.1070309@ti.com>
+Date: Thu, 12 May 2011 18:05:43 -0400
+From: William Mills <wmills@ti.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.14) Gecko/20110223 Thunderbird/3.1.8
+MIME-Version: 1.0
+To: Darren Hart <dvhart@linux.intel.com>
+References: <4DCC3BA6.3010406@windriver.com> <4DCC4A51.9010309@linux.intel.com>
+	<4DCC4D17.7000600@linux.intel.com>
+In-Reply-To: <4DCC4D17.7000600@linux.intel.com>
+Cc: poky <poky@yoctoproject.org>, "openembedded-devel@lists.openembedded.org"
+	<openembedded-devel@lists.openembedded.org>,
+	Patches and discussions about the oe-core layer
+	<openembedded-core@lists.openembedded.org>
+Subject: Re: Commit and Patch message guidelines - fifth draft
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,49 +44,23 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 May 2011 22:04:51 -0000
+X-List-Received-Date: Thu, 12 May 2011 22:05:48 -0000
+Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Tom Zanussi <tom.zanussi@intel.com>
+On 05/12/2011 05:11 PM, Darren Hart wrote:
+> One more thing. There is a great deal of cross-posting to the various
+> lists. We should discourage this. At least mentioning somewhere in here
+> that patches should be sent to the appropriate list with maintainers and
+> involved developers on CC and not cross posted would be a help.
 
-Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
----
- drivers/gpu/drm/emgd/emgd/drm/emgd_drv.c |    8 ++++++--
- 1 files changed, 6 insertions(+), 2 deletions(-)
+Ok, so I am going to go ahead and ask the dumb question.  Where is the 
+write up that say what list is for what?
 
-diff --git a/drivers/gpu/drm/emgd/emgd/drm/emgd_drv.c b/drivers/gpu/drm/emgd/emgd/drm/emgd_drv.c
-index 48e2cbf..33aa681 100644
---- a/drivers/gpu/drm/emgd/emgd/drm/emgd_drv.c
-+++ b/drivers/gpu/drm/emgd/emgd/drm/emgd_drv.c
-@@ -1955,6 +1955,10 @@ static struct drm_driver driver = {
- 		.poll    = drm_poll,
- 		.fasync  = drm_fasync,
- 	},
-+	.pci_driver = {
-+		.name     = DRIVER_NAME,
-+		.id_table = pciidlist,
-+	},
- 	.name                = DRIVER_NAME,
- 	.desc                = DRIVER_DESC,
- 	.date                = DRIVER_DATE,
-@@ -1976,7 +1980,7 @@ static int __init emgd_init(void) {
- 
- 	EMGD_TRACE_ENTER;
- 	driver.num_ioctls = emgd_max_ioctl;
--	ret = drm_pci_init(&driver, &emgd_pci_driver);
-+	ret = drm_init(&driver);
- 	PVRDPFInit();
- 	printk(KERN_INFO "[EMGD] drm_init() returning %d\n", ret);
- 	EMGD_TRACE_EXIT;
-@@ -1988,7 +1992,7 @@ static int __init emgd_init(void) {
-  */
- static void __exit emgd_exit(void) {
- 	EMGD_TRACE_ENTER;
--	drm_pci_exit(&driver, &emgd_pci_driver);
-+	drm_exit(&driver);
- 	EMGD_TRACE_EXIT;
- }
- 
--- 
-1.7.0.4
+It seems to me there is a whole bunch of discussion happening on the 
+poky list about making changes that that would effect everyone using 
+openembedded-core.  Do we have two lists for discussion of stuff that 
+effect the oe-core?
 
+-- Bill
 
