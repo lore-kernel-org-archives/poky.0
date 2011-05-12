@@ -1,20 +1,22 @@
 Return-Path: <tom.zanussi@intel.com>
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C3C764C80A4D
-	for <poky@yoctoproject.org>; Thu, 12 May 2011 17:08:02 -0500 (CDT)
+	by mx1.pokylinux.org (Postfix) with ESMTP id CA0194C80A4D
+	for <poky@yoctoproject.org>; Thu, 12 May 2011 17:08:03 -0500 (CDT)
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 12 May 2011 15:08:02 -0700
+	by fmsmga102.fm.intel.com with ESMTP; 12 May 2011 15:08:03 -0700
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="4.64,360,1301900400"; 
-   d="scan'208";a="997267"
+   d="scan'208";a="997469"
 Received: from unknown (HELO localhost) ([10.255.12.106])
-	by fmsmga002.fm.intel.com with ESMTP; 12 May 2011 15:07:43 -0700
-Message-Id: <cover.1305236058.git.tom.zanussi@intel.com>
-Old-Date: Thu, 12 May 2011 16:34:18 -0500
-Date: Thu, 12 May 2011 17:07:19 -0500
+	by fmsmga002.fm.intel.com with ESMTP; 12 May 2011 15:07:55 -0700
+Message-Id: <13497eaae7ee3893e15be4877953a70b1ac07a30.1305236058.git.tom.zanussi@intel.com>
+In-Reply-To: <cover.1305236058.git.tom.zanussi@intel.com>
+References: <cover.1305236058.git.tom.zanussi@intel.com>
+Old-Date: Thu, 12 May 2011 09:40:26 -0500
+Date: Thu, 12 May 2011 17:07:31 -0500
 To: poky@yoctoproject.org
 From: Tom Zanussi <tom.zanussi@intel.com>
-Subject: [PATCH 0/4] meta-crownbay: emgd 1.6.1 upgrade
+Subject: [PATCH 3/4] meta-crownbay: update crownbay.conf
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,43 +28,47 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 May 2011 22:08:02 -0000
+X-List-Received-Date: Thu, 12 May 2011 22:08:04 -0000
 
 From: Tom Zanussi <tom.zanussi@intel.com>
 
-This patchset upgrades meta-crownbay to make use of the emgd 1.6.1
-support added to linux-yocto, and removes the resulting obsoleted
-recipes.
+Update to reflect new graphics recipes.
 
-Pull URL: git://git.pokylinux.org/meta-intel
-  Branch: tzanussi/emgd-1.6.1-upgrade
-  Browse: http://git.pokylinux.org/cgit.cgi/meta-intel/log/?h=tzanussi/emgd-1.6.1-upgrade
+Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
+---
+ meta-crownbay/conf/machine/crownbay.conf |   12 ++++++------
+ 1 files changed, 6 insertions(+), 6 deletions(-)
 
-Tom Zanussi (4):
-  meta-crownbay: new recipe for emgd 1.6.1 driver binaries
-  meta-crownbay: add xserver-xf86-dri-lite_1.9.3 .bbappend
-  meta-crownbay: update crownbay.conf
-  meta-crownbay: remove obsolete graphics recipes
-
- meta-crownbay/conf/machine/crownbay.conf           |   12 ++--
- .../xorg-xserver/emgd-driver-bin_1.6.1.bb          |   25 ++++++
- .../xserver-xf86-dri-lite_1.9.3.bbappend           |    1 +
- .../xorg-xserver/xserver-xf86-emgd-bin_1.7.99.2.bb |   90 --------------------
- .../xserver-xf86-emgd/crosscompile.patch           |   19 ----
- .../fix_open_max_preprocessor_error.patch          |   13 ---
- .../xserver-xf86-emgd/macro_tweak.patch            |   18 ----
- .../xorg-xserver/xserver-xf86-emgd/nodolt.patch    |   12 ---
- .../xorg-xserver/xserver-xf86-emgd_1.7.99.2.bb     |   25 ------
- 9 files changed, 32 insertions(+), 183 deletions(-)
- create mode 100644 meta-crownbay/recipes-graphics/xorg-xserver/emgd-driver-bin-1.6.1/.gitignore
- create mode 100644 meta-crownbay/recipes-graphics/xorg-xserver/emgd-driver-bin_1.6.1.bb
- create mode 100644 meta-crownbay/recipes-graphics/xorg-xserver/xserver-xf86-dri-lite_1.9.3.bbappend
- delete mode 100644 meta-crownbay/recipes-graphics/xorg-xserver/xserver-xf86-emgd-bin/.gitignore
- delete mode 100644 meta-crownbay/recipes-graphics/xorg-xserver/xserver-xf86-emgd-bin_1.7.99.2.bb
- delete mode 100644 meta-crownbay/recipes-graphics/xorg-xserver/xserver-xf86-emgd/crosscompile.patch
- delete mode 100644 meta-crownbay/recipes-graphics/xorg-xserver/xserver-xf86-emgd/fix_open_max_preprocessor_error.patch
- delete mode 100644 meta-crownbay/recipes-graphics/xorg-xserver/xserver-xf86-emgd/macro_tweak.patch
- delete mode 100644 meta-crownbay/recipes-graphics/xorg-xserver/xserver-xf86-emgd/nodolt.patch
- delete mode 100644 meta-crownbay/recipes-graphics/xorg-xserver/xserver-xf86-emgd_1.7.99.2.bb
+diff --git a/meta-crownbay/conf/machine/crownbay.conf b/meta-crownbay/conf/machine/crownbay.conf
+index b8f107b..65babd7 100644
+--- a/meta-crownbay/conf/machine/crownbay.conf
++++ b/meta-crownbay/conf/machine/crownbay.conf
+@@ -20,18 +20,18 @@ PREFERRED_PROVIDER_virtual/kernel = "linux-yocto"
+ PREFERRED_PROVIDER_linux-libc-headers ?= "linux-libc-headers-yocto"
+ PREFERRED_PROVIDER_virtual/libx11 ?= "libx11-trim"
+ PREFERRED_PROVIDER_virtual/libgl  ?= "mesa-dri"
+-PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xf86-emgd"
+-PREFERRED_PROVIDER_virtual/xserver-xf86 ?= "xserver-xf86-emgd"
+-XSERVER ?= "xserver-xf86-emgd \
+-           xserver-xf86-emgd-bin \
++PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xf86-dri-lite"
++PREFERRED_PROVIDER_virtual/xserver-xf86 ?= "xserver-xf86-dri-lite"
++XSERVER ?= "xserver-xf86-dri-lite \
++           emgd-driver-bin \
+            xf86-input-mouse \
+            xf86-input-keyboard \
+            xf86-input-evdev \
+            xf86-input-synaptics \
+            xf86-video-vesa"
+ 
+-PREFERRED_VERSION_xserver-xf86-emgd ?= "1.7.99.2"
+-PREFERRED_VERSION_xserver-xf86-emgd-bin ?= "1.7.99.2"
++PREFERRED_VERSION_xserver-xf86-dri-lite ?= "1.9.3"
++PREFERRED_VERSION_emgd-driver-bin ?= "1.6.1"
+ 
+ SERIAL_CONSOLE = "115200 ttyS0"
+ 
+-- 
+1.7.0.4
 
 
