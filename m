@@ -1,27 +1,38 @@
-Return-Path: <Liezhi.Yang@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2ABA64C81014
-	for <poky@yoctoproject.org>; Wed, 11 May 2011 19:47:42 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p4C0lfau013712
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Wed, 11 May 2011 17:47:41 -0700 (PDT)
-Received: from [128.224.163.140] (128.224.163.140) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server id 14.1.255.0;
-	Wed, 11 May 2011 17:47:40 -0700
-Message-ID: <4DCB2E2A.2010008@windriver.com>
-Date: Thu, 12 May 2011 08:47:38 +0800
-From: Robert Yang <liezhi.yang@windriver.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.17) Gecko/20110424 Lightning/1.0b2 Thunderbird/3.1.10
+Return-Path: <liping.ke@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 511164C80FFA
+	for <poky@yoctoproject.org>; Wed, 11 May 2011 20:58:16 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 11 May 2011 18:58:12 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.64,355,1301900400"; d="scan'208";a="641536493"
+Received: from pgsmsx603.gar.corp.intel.com ([10.221.43.87])
+	by orsmga002.jf.intel.com with ESMTP; 11 May 2011 18:58:06 -0700
+Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
+	pgsmsx603.gar.corp.intel.com (10.221.43.87) with Microsoft SMTP Server
+	(TLS) id 8.2.255.0; Thu, 12 May 2011 09:56:47 +0800
+Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
+	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
+	Thu, 12 May 2011 09:56:46 +0800
+From: "Ke, Liping" <liping.ke@intel.com>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+Date: Thu, 12 May 2011 09:56:44 +0800
+Thread-Topic: [poky] [PATCH 0/4][Image Creator]Put extra requested fields
+	into different cache files
+Thread-Index: AcwP9Y4Ko1NOOrRXQae2ilhMX/W0FgAUH2/Q
+Message-ID: <789F9655DD1B8F43B48D77C5D30659734C574190@shsmsx501.ccr.corp.intel.com>
+References: <cover.1304922517.git.liping.ke@intel.com>
+	<1304941939.30391.205.camel@rex>
+	<789F9655DD1B8F43B48D77C5D30659734C510EFC@shsmsx501.ccr.corp.intel.com>
+	<1305130036.30391.391.camel@rex>
+In-Reply-To: <1305130036.30391.391.camel@rex>
+Accept-Language: zh-CN, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: zh-CN, en-US
 MIME-Version: 1.0
-To: Darren Hart <dvhart@linux.intel.com>
-References: <cover.1305120861.git.liezhi.yang@windriver.com>
-	<8b4e9efcd34ac73babf6928cb2909ce88c4df69d.1305120861.git.liezhi.yang@windriver.com>
-	<4DCACDDE.1090205@linux.intel.com>
-In-Reply-To: <4DCACDDE.1090205@linux.intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 2/2] Add a skeleton for init scripts
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH 0/4][Image Creator]Put extra requested fields into different cache files
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,175 +44,67 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 May 2011 00:47:42 -0000
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 12 May 2011 01:58:16 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Hi Darren,
-
-Thank you very much for you detailed review, I think that I'd better
-not use the start-stop-daemon(or patch it) to get the output message
-that we need. because the inconsistent output is from
-
-And please see the comments below.
-
-On 05/12/2011 01:56 AM, Darren Hart wrote:
-> Hi Robert,
->
-> Thank you for doing this. This is a great start. As a preface to my
-> comments below, I am going to be incredibly particular about formatting
-> and such as this skeleton will be used by literally thousands of recipes
-> in the future and now is the time to ensure consistent formatting and to
-> eliminate any issues we don't want to see propagated.
->
->
-> On 05/11/2011 06:41 AM, Robert Yang wrote:
->> +	#
->> +	#start-stop-daemon -K --oknodo --exec $DAEMON
->
->
-> What does this command do?
->
-
-if the $DAEMON is not running, exit with 0.
-
->
->> +
->> +	# Many daemons don't delete their pidfiles when they exit.
->> +	rm -f $PIDFILE
->
->
-> Should STDERR be redirected to /dev/null in case the file does not exist?
->
-
-I think rm -f would output nothing when there is no $PIDFILE.
-
-//Robert
-
->
->> +}
->> +
->> +#
->> +# Function that sends a SIGHUP to the daemon/service
->> +#
->> +#do_reload() {
->> +	#
->> +	# If the daemon can reload its configuration without
->> +	# restarting (for example, when it is sent a SIGHUP),
->> +	# then implement that here.
->> +	#
->> +	#start-stop-daemon -K --signal 1 --pidfile $PIDFILE --name $NAME
->> +#}
->> +
->> +#
->> +# Function that shows the daemon/service status
->> +#
->> +status_of_proc () {
->> +	pidof $NAME>/dev/null 2>&1
->> +	case $? in
->> +	  0)
->> +		echo "$NAME is running."
->> +		return 0
->> +		;;
->> +	  127)
->> +		echo "Can't get the status of $NAME (no pidof found)"
->> +		;;
->> +	  *)
->> +		echo "$NAME is not running.">&2
->> +		return 1
->> +		;;
->> +	esac
->> +}
->> +
->> +case "$1" in
->> +  start)
->> +	echo "Starting $DESC ..."
->> +	# Don't need check the return value, start-stop-daemon would
->> +	# print the failed reason automatically.
->> +	do_start
->> +	;;
->> +  stop)
->> +	do_stop
->> +	;;
->> +  status)
->> +	status_of_proc&&  exit 0 || exit $?
->> +	;;
->> +  #reload|force-reload)
->
->
-> We don't want to have force-reload in two locations, even commented out.
-> Going to lead to confusion.
->
->
->> +	#
->> +	# If do_reload() is not implemented then leave this commented out
->> +	# and leave 'force-reload' as an alias for 'restart'.
->> +	#
->> +	#echo "Reloading $DESC ..."
->> +	#do_reload
->> +	#;;
->> +  restart|force-reload)
->> +	#
->> +	# If the "reload" option is implemented then remove the
->> +	# 'force-reload' alias.
->> +	#
->> +	do_stop
->> +	echo "Starting $DESC ..."
->> +	do_start
->> +	;;
->> +  #try-restart)
->> +	# If do_try_restart() is not implemented then leave this commented out
->> +	#echo "Trying to restart $DESC ..."
->
->
-> This needs a description of how it should be implemented. i.e. how is
-> this different from restart?
->
->
->> +	#do_try_restart()
->> +	#;;
->> +  *)
->> +	echo "Usage: $SCRIPTNAME {start|stop|status|restart|force-reload}">&2
->> +	exit 3
->> +	;;
->> +esac
->> +
->> diff --git a/meta-skeleton/recipes-skeleton/service/service_0.1.bb b/meta-skeleton/recipes-skeleton/service/service_0.1.bb
->> new file mode 100644
->> index 0000000..88a7a59
->> --- /dev/null
->> +++ b/meta-skeleton/recipes-skeleton/service/service_0.1.bb
->> @@ -0,0 +1,20 @@
->> +DESCRIPTION = "The canonical example of init scripts"
->> +SECTION = "base"
->> +LICENSE = "GPLv2"
->> +LIC_FILES_CHKSUM = "file://${WORKDIR}/COPYRIGHT;md5=3900421dc55b9e70428bc522557a66d4"
->> +RDEPENDS_${PN} = "initscripts"
->> +PR = "r0"
->> +
->> +SRC_URI = "file://skeleton \
->> +	   file://COPYRIGHT \
->> +	   "
->> +
->> +CONFFILES_${PN} += "${sysconfdir}/init.d/skeleton"
->> +
->> +PACKAGE_ARCH = "all"
->> +
->> +do_install () {
->> +	install -d ${D}/${sysconfdir}/init.d
->> +	install -m 0755 ${WORKDIR}/skeleton ${D}/${sysconfdir}/init.d/
->> +}
->> +
->
-> This installs a file that uses directories like /usr which should be
-> replaced with the appropriate setting. For example, in mediatomb (and
-> others) we do this like this:
->
-> cat ${WORKDIR}/config.xml | \
->      sed -e 's,/etc,${sysconfdir},g' \
-> 	-e 's,/usr/sbin,${sbindir},g' \
-> 	-e 's,/var,${localstatedir},g' \
-> 	-e 's,/usr/bin,${bindir},g' \
-> 	-e 's,/usr,${prefix},g'>  ${D}${sysconfdir}/mediatomb/config.xml
->
+SGksIFJpY2hhcmQNCg0KPiA+ID4NCj4gPiA+IGEpIEFkZHMgImJpdGJha2VfbW9kZSIgYW5kIGFs
+bG93cyBVSXMgdG8gZGVmaW5lIGNhY2hlIGRhdGENCj4gPiA+IGIpIEFkZHMgdGhlIGNhY2hlIGRh
+dGEgdG8gaG9iDQo+ID4gPiBjKSBEcm9wcyB0aGUgY2FjaGUgZGF0YSB1c2VkIG9ubHkgYnkgaG9i
+IGZyb20gdGhlIGNvcmUNCj4gPiBZZXMsIGluIGdlbmVyYWwgSSB3YW50IHRvIGRvIHRoZSBzYW1l
+IHRoaW5nLiBFYWNoIHBhdGNoIGluIHRoZSBzZXJpYWwgd2lsbA0KPiA+IG5vdCBicmVhayB0aGUg
+Y3VycmVudCBjcy4gUGF0Y2hbMS80XSwgcGF0Y2hbMi80XSYgcGF0Y2ggWzMvNF0gYXJlIGZvciBh
+KSBhbmQNCj4gYikuDQo+ID4gQnV0IGZvciBjKSwgYmVjYXVzZSBvZiB0aGUgaW1wbGFudGF0aW9u
+IGFsZ29yaXRobSBJIGFkb3B0ZWQsIGl0J3MgbWVyZ2VkIHdpdGgNCj4gPiBleHRyYSBjYWNoZSBk
+YXRhIGltcGxlbWVudGF0aW9uICh0aGUgYmlnZ2VzdCBwYXRjaCkuDQo+IA0KPiBUaGF0J3MgZmlu
+ZSwgeW91ciBvcmlnaW5hbCBzZXJpZXMgZGlkbid0IHNlZW0gdG8gd29yayBxdWl0ZSBsaWtlIHRo
+aXMNCj4gdGhvdWdoIGFuZCBsb29rZWQgbGlrZSBJJ2QgZ2V0IGZhaWx1cmVzIGlmIEkgb25seSBh
+cHBsaWVkIHRoZSBlYXJseQ0KPiBwYXRjaGVzIGZyb20gd2hhdCBJIHJlbWVtYmVyLg0KDQpzdXJl
+LCBJIHVuZGVyc3RhbmQgdGhpcy4gSSB3aWxsIG1ha2Ugc3VyZSB0aGF0IHRoZSBzZXJpZXMgb2Yg
+cGF0Y2hlcyB3b3JrcyBpbmRlcGVuZGVudGx5DQp3aGVuIHJlc2VuZGluZyB0aGUgcGF0Y2guDQoN
+Cj4gDQo+ID4gPiBJJ3ZlIGFsc28gdGhlIGZvbGxvd2luZyBjb21tZW50cyBvbiB0aGUgY29kZSBp
+biBnZW5lcmFsOg0KPiA+ID4NCj4gPiA+IGEpIENvdWxkIHdlIG1vdmUgdGhlIGhvYiBzcGVjaWZp
+YyBjYWNoZSBkYXRhIGZyb20gY2FjaGUucHkgdG8gaG9iLnB5LiBJZg0KPiA+ID4gbm90LCBJJ2Qg
+bGlrZSB0byB1bmRlcnN0YW5kIHdoeSBub3QgYW5kIG1heWJlIGFkZHJlc3MgdGhvc2UgaXNzdWVz
+LiBNeQ0KPiA+ID4gcG9pbnQgaXMgeW91IHNob3VsZG4ndCBuZWVkIHRvIGNoYW5nZSBjYWNoZS5w
+eSB0byBhZGQgZXh0cmEgY2FjaGUgZGF0YS4NCj4gPg0KPiA+IHlvdSBtZWFuIHRoYXQgd2Ugd2ls
+bCBoYXZlIGEgc2VwYXJhdGUgRXh0cmFDYWNoZSAoSSBndWVzcyBob2Igb3INCj4gYWR0LWluc3Rh
+bGxlciBzaG91bGQgaGF2ZSB0aGUgc2ltaWxhciBsb2dpYz8pDQo+ID4gaW1wbGVtZW50YXRpb24g
+ZmlsZSwgd2hpY2ggaGFzIHNpbWlsYXIgZnVuY3Rpb25hbGl0eSB3aXRoIGNhY2hlLnB5Pw0KPiA+
+IE9oLCBJIGRpZCBub3QgdGhpbmsgb2YgdGhpcyBpbXBsZW1lbnRhdGlvbiBhdCBhbGwgd2hlbiBp
+bXBsZW1lbnQuIEluIG15IG1pbmQsDQo+IGNoYW5nZSBsZXNzIGNvZGUgaXMgdGhlIHByaW5jaXBs
+ZSBzaW5jZQ0KPiA+IHRoaXMgcGFydCBvZiB0aGUgY29kZSBpcyB0aGUgY29yZSBvZiBiaXRiYWtl
+OikgIElmIHNwbGl0LCBtYW55IGNvZGVzIGluIGNhY2hlDQo+IGNvdWxkIGJlIHJldXNlZCBieSBi
+b3RoIGNhY2hlLnB5IGFuZCBob2IucHk/DQo+IA0KPiBJJ20gdGhpbmtpbmcgdGhhdCBjYWNoZS5w
+eSBkZWZpbmVzIHRoZSBjbGFzcyBidXQgdGhlIGhvYiBzcGVjaWZpYw0KPiBkZWZpbml0aW9uIHVz
+aW5nIHRoYXQgY2xhc3MgdG8gZXh0ZW5kIHRoZSBjYWNoZSBkYXRhIHNob3VsZCBiZSBwYXJ0IG9m
+DQo+IHRoZSBob2IgY29kZWJhc2UuIEluIHRoZSBmdXR1cmUgdGhlcmUgbWF5IGJlIGV4dGVybmFs
+IFVJcyBjYWxsaW5nIGludG8NCj4gdGhpcyBjb2RlIGFuZCBuZWVkaW5nIHRoaXMgZnVuY3Rpb25h
+bGl0eSBhbmQgSSdkIHByZWZlciB0aGVtIG5vdCB0byBlYWNoDQo+IG5lZWQgdG8gY2hhbmdlIGNh
+Y2hlLnB5Lg0KDQpIaSwgUmljaGFyZCwganVzdCBhIHF1ZXN0aW9uIGhlcmUuIFlvdSBtZWFuIGV4
+dC1ob2ItY2FjaGUgZGF0YSB3aWxsIGJlIGEgc3ViLWNsYXNzDQpvZiBjYWNoeSBkYXRhPyBJbmhl
+cml0YW5jZSBoZXJlPyBXZSBvcmlnaW5hbGx5IGNvbnNpZGVyIHRoaXMsIHlldCBqdXN0IGZhaWxl
+ZCB0byBmaW5kDQphIGdvb2Qgd2F5LiBOYW1lZHR1cGxlIGhhcyB0aGUgc3RhdGljIGRpY3QgZmll
+bGRzLiBTbyBuYW1lZHR1cGxlIGNsYXNzIGNhbid0IGJlIGV4dGVuZGVkLg0KRm9yIGluaGVyaXRh
+bmNlLCBJIG11c3QgY2hhbmdlIHRoZSBvcmlnaW5hbCBjYWNoZS5weSBpbXBsYW50YXRpb24uIA0K
+SnVzdCB3YW50IHRvIGhlYXIgeW91ciBzdWdnZXN0aW9uIGhlcmUuLi4NCg0KPiANCj4gPiBBbmQg
+YWxzbywgaWYgeW91IHRoaW5rIGl0IGlzIGEgbXVzdCwgY291bGQgd2Ugc3BsaXQgdGhlIHRhc2ss
+IGZvciB0aGlzIHBoYXNlLCBrZWVwDQo+IGl0IGluIHRoZSBzYW1lIGZpbGUuDQo+ID4gQW5kIHRo
+ZW4gcmVmYWN0b3J5IHRoZW0gaW4gYW5vdGhlciBwYXRjaCBsYXRlcj8gU2VlbXMgdGhlcmUncmUg
+bWFueSB0YXNrcw0KPiBmb3IgaW1hZ2UgY3JlYXRvcj8gU2VlbXMgdGhlIHNjaGVkdWxlIGlzDQo+
+ID4gdGlnaHQ/DQo+IA0KPiBJZiB5b3UgZG9uJ3QgdGhpbmsgdGhpcyBpcyByZWFsaXN0aWMgaW4g
+dGhlIHRpbWUgYXZhaWxhYmxlLCBJIG1pZ2h0IGJlDQo+IGFibGUgdG8gdGFrZSBhIGxvb2sgYXQg
+aXQuDQoNCk9oLCBJIGd1ZXNzIEplc3NpY2Egd2lsbCByZS1hcnJhbmdlIHRoZSBzY2hlZHVsZSB0
+b2RheS4uLiBTZWVtcyBmb3IgdGhlIHRhc2ssIHRoZXJlJ3JlDQptYW55IGRpZmZlcmVudCB1bmRl
+cnN0YW5kaW5nIGFib3V0IHRoZSByZXF1aXJlbWVudCBhdCB0aGUgdmVyeSBiZWdpbm5pbmcuLi4g
+SSB3aWxsIHRyeSB0bw0KdW5kZXJzdGFuZCBhbGwgdGhlIGRldGFpbHMgYmVmb3JlIHdyaXRpbmcg
+dGhlIGNvZGUgLTopDQogDQoNCj4gTm8sIEkgbWVhbiBjYW4gd2UgY291bGQgcGFzczoNCj4gDQo+
+IGJpdGJha2VfbW9kZSA9IFsnaG9iJywgJ2F1dG9idWlsZGVyJ10NCj4gDQo+IGFuZCBpdCB0aGVu
+IHVzZXMgdGhyZWUgY2FjaGUgZmlsZXMgc28gYml0YmFrZV9tb2RlIHdvdWxkIGJlY29tZSBhIGxp
+c3QNCj4gcmF0aGVyIHRoYW4gYSBzaW5nbGUgaXRlbS4NCj4gDQpPSywgSSB1bmRlcnN0YW5kIHRo
+aXMgcmVxdWlyZW1lbnQgbm93Lg0KQWZ0ZXIgd2Ugc3luYyB1cCB0b2RheSwgSSBzaG91bGQgaGF2
+ZSBhIGNsZWFyZXIgdW5kZXJzdGFuZGluZyBhYm91dCB0aGUgcmVxdWlyZW1lbnQgYW5kIEkgd2ls
+bCByZWRvIHRoZSBwYXRjaCENCg0KVGhhbmtzIGEgbG90IGZvciB5b3VyIGhlbHAhDQpjcmlwaW5n
+DQoNCg0KPiBDaGVlcnMsDQo+IA0KPiBSaWNoYXJkDQoNCg==
 
