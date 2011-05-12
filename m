@@ -1,22 +1,27 @@
-Return-Path: <tom.zanussi@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id CA0194C80A4D
-	for <poky@yoctoproject.org>; Thu, 12 May 2011 17:08:03 -0500 (CDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 12 May 2011 15:08:03 -0700
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id A76174C80132
+	for <poky@yoctoproject.org>; Thu, 12 May 2011 18:49:35 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 12 May 2011 16:49:29 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,360,1301900400"; 
-   d="scan'208";a="997469"
-Received: from unknown (HELO localhost) ([10.255.12.106])
-	by fmsmga002.fm.intel.com with ESMTP; 12 May 2011 15:07:55 -0700
-Message-Id: <13497eaae7ee3893e15be4877953a70b1ac07a30.1305236058.git.tom.zanussi@intel.com>
-In-Reply-To: <cover.1305236058.git.tom.zanussi@intel.com>
-References: <cover.1305236058.git.tom.zanussi@intel.com>
-Old-Date: Thu, 12 May 2011 09:40:26 -0500
-Date: Thu, 12 May 2011 17:07:31 -0500
-To: poky@yoctoproject.org
-From: Tom Zanussi <tom.zanussi@intel.com>
-Subject: [PATCH 3/4] meta-crownbay: update crownbay.conf
+X-IronPort-AV: E=Sophos;i="4.64,361,1301900400"; d="scan'208";a="746521042"
+Received: from doubt.jf.intel.com (HELO [10.7.199.57]) ([10.7.199.57])
+	by orsmga001.jf.intel.com with ESMTP; 12 May 2011 16:49:29 -0700
+Message-ID: <4DCC721D.8000705@linux.intel.com>
+Date: Thu, 12 May 2011 16:49:49 -0700
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.17) Gecko/20110424 Lightning/1.0b2 Thunderbird/3.1.10
+MIME-Version: 1.0
+To: William Mills <wmills@ti.com>
+References: <4DCC3BA6.3010406@windriver.com> <4DCC4A51.9010309@linux.intel.com>
+	<4DCC4D17.7000600@linux.intel.com> <4DCC59B7.1070309@ti.com>
+In-Reply-To: <4DCC59B7.1070309@ti.com>
+Cc: poky <poky@yoctoproject.org>,
+	Patches and discussions about the oe-core layer
+	<openembedded-core@lists.openembedded.org>
+Subject: Re: Commit and Patch message guidelines - fifth draft
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,47 +33,52 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 May 2011 22:08:04 -0000
+X-List-Received-Date: Thu, 12 May 2011 23:49:35 -0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
 
-From: Tom Zanussi <tom.zanussi@intel.com>
 
-Update to reflect new graphics recipes.
 
-Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
----
- meta-crownbay/conf/machine/crownbay.conf |   12 ++++++------
- 1 files changed, 6 insertions(+), 6 deletions(-)
+On 05/12/2011 03:05 PM, William Mills wrote:
+> On 05/12/2011 05:11 PM, Darren Hart wrote:
+>> One more thing. There is a great deal of cross-posting to the various
+>> lists. We should discourage this. At least mentioning somewhere in here
+>> that patches should be sent to the appropriate list with maintainers and
+>> involved developers on CC and not cross posted would be a help.
+> 
+> Ok, so I am going to go ahead and ask the dumb question.  Where is the 
+> write up that say what list is for what?
 
-diff --git a/meta-crownbay/conf/machine/crownbay.conf b/meta-crownbay/conf/machine/crownbay.conf
-index b8f107b..65babd7 100644
---- a/meta-crownbay/conf/machine/crownbay.conf
-+++ b/meta-crownbay/conf/machine/crownbay.conf
-@@ -20,18 +20,18 @@ PREFERRED_PROVIDER_virtual/kernel = "linux-yocto"
- PREFERRED_PROVIDER_linux-libc-headers ?= "linux-libc-headers-yocto"
- PREFERRED_PROVIDER_virtual/libx11 ?= "libx11-trim"
- PREFERRED_PROVIDER_virtual/libgl  ?= "mesa-dri"
--PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xf86-emgd"
--PREFERRED_PROVIDER_virtual/xserver-xf86 ?= "xserver-xf86-emgd"
--XSERVER ?= "xserver-xf86-emgd \
--           xserver-xf86-emgd-bin \
-+PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xf86-dri-lite"
-+PREFERRED_PROVIDER_virtual/xserver-xf86 ?= "xserver-xf86-dri-lite"
-+XSERVER ?= "xserver-xf86-dri-lite \
-+           emgd-driver-bin \
-            xf86-input-mouse \
-            xf86-input-keyboard \
-            xf86-input-evdev \
-            xf86-input-synaptics \
-            xf86-video-vesa"
- 
--PREFERRED_VERSION_xserver-xf86-emgd ?= "1.7.99.2"
--PREFERRED_VERSION_xserver-xf86-emgd-bin ?= "1.7.99.2"
-+PREFERRED_VERSION_xserver-xf86-dri-lite ?= "1.9.3"
-+PREFERRED_VERSION_emgd-driver-bin ?= "1.6.1"
- 
- SERIAL_CONSOLE = "115200 ttyS0"
- 
+Not a dumb question at all! Unfortunately, I think a lot of people are
+confused about this, which is natural as much of this separation is
+still new to people.
+
+There is: http://www.yoctoproject.org/community/mailing-lists
+
+Which needs to be updated to better reflect the oe-core aspect I think.
+
+And: http://openembedded.org/index.php/Mailing_lists
+
+This accurately describes oe-core (and other oe specific lists).
+
+> 
+> It seems to me there is a whole bunch of discussion happening on the 
+> poky list about making changes that that would effect everyone using 
+> openembedded-core.  Do we have two lists for discussion of stuff that 
+> effect the oe-core?
+
+No. As I understand it, things that go into poky.git/meta and things
+that go into oe-core should be sent to the openembedded-core list. Patch
+series for poky.git should be isolated in such a way so that they do not
+include changes to meta (oe-core) and other areas at the same time.
+
+Does anyone have a different view?
+
+> 
+> -- Bill
+
 -- 
-1.7.0.4
-
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
