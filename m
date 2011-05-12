@@ -1,20 +1,22 @@
 Return-Path: <tom.zanussi@intel.com>
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 34C3D4C80A4D
-	for <poky@yoctoproject.org>; Thu, 12 May 2011 17:01:27 -0500 (CDT)
+	by mx1.pokylinux.org (Postfix) with ESMTP id A413C4C810D5
+	for <poky@yoctoproject.org>; Thu, 12 May 2011 17:04:28 -0500 (CDT)
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 12 May 2011 15:01:21 -0700
+	by fmsmga102.fm.intel.com with ESMTP; 12 May 2011 15:04:28 -0700
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="4.64,360,1301900400"; 
-   d="scan'208";a="1524532"
+   d="scan'208";a="1526285"
 Received: from unknown (HELO localhost) ([10.255.12.106])
-	by fmsmga001.fm.intel.com with ESMTP; 12 May 2011 15:01:20 -0700
-Message-Id: <cover.1305235905.git.tom.zanussi@intel.com>
-Old-Date: Thu, 12 May 2011 16:31:45 -0500
-Date: Thu, 12 May 2011 17:00:56 -0500
+	by fmsmga001.fm.intel.com with ESMTP; 12 May 2011 15:04:26 -0700
+Message-Id: <8113a4d4617967a099c0534e9adf7d2ae4b18890.1305235905.git.tom.zanussi@intel.com>
+In-Reply-To: <cover.1305235905.git.tom.zanussi@intel.com>
+References: <cover.1305235905.git.tom.zanussi@intel.com>
+Old-Date: Wed, 11 May 2011 08:16:02 -0500
+Date: Thu, 12 May 2011 17:04:02 -0500
 To: bruce.ashfield@windriver.com,poky@yoctoproject.org
 From: Tom Zanussi <tom.zanussi@intel.com>
-Subject: [KERNEL][linux-yocto PATCH 0/1] remove emgd-1.5.2 from 2.6.37
+Subject: [KERNEL][linux-yocto PATCH 1/1] emgd: remove for 1.6.1 upgrade
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,21 +28,15 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 May 2011 22:01:27 -0000
+X-List-Received-Date: Thu, 12 May 2011 22:04:29 -0000
 
 From: Tom Zanussi <tom.zanussi@intel.com>
 
-To make way for the 1.6.1 upgrade.
+The emgd topic branch will merge into this branch, so we need to
+remove it to avoid conflicts.
 
-Please pull into linux-yocto.
-
-Pull URL: git://git.pokylinux.org/linux-yocto-2.6.37-contrib
-  Branch: tzanussi/emgd-1.6.1-crownbay-remove-1.5.2
-  Browse: http://git.pokylinux.org/cgit.cgi/linux-yocto-2.6.37-contrib/log/?h=tzanussi/emgd-1.6.1-crownbay-remove-1.5.2
-
-Tom Zanussi (1):
-  emgd: remove for 1.6.1 upgrade
-
+Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
+---
  drivers/gpu/drm/Kconfig                            |    9 -
  drivers/gpu/drm/Makefile                           |    1 -
  drivers/gpu/drm/emgd/COPYING                       |  351 --
@@ -696,5 +692,7 @@ Tom Zanussi (1):
  delete mode 100644 drivers/gpu/drm/emgd/pvr/tools/intern/debug/dbgdriv/linux/kbuild/Makefile
  delete mode 100644 drivers/gpu/drm/emgd/pvr/tools/intern/debug/dbgdriv/linux/main.c
  delete mode 100644 drivers/gpu/drm/emgd/pvr/tools/intern/debug/dbgdriv/linux/makefile.linux.common
+
+Patch too big to post, please see git branch...
 
 
