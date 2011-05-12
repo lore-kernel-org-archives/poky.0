@@ -1,25 +1,30 @@
-Return-Path: <Jingdong.Lu@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 738E34C81062
-	for <poky@yoctoproject.org>; Wed, 11 May 2011 23:33:05 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p4C4X4gQ020733
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Wed, 11 May 2011 21:33:04 -0700 (PDT)
-Received: from localhost (128.224.162.193) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Wed, 11 May 2011 21:33:04 -0700
-Message-ID: <b38ecaede8b66c99351c6f9ddc4387c6f57160cd.1305106462.git.jingdong.lu@windriver.com>
-In-Reply-To: <cover.1305106462.git.jingdong.lu@windriver.com>
-References: <cover.1305106462.git.jingdong.lu@windriver.com>
-Old-Date: Wed, 11 May 2011 17:25:41 +0800
-Date: Thu, 12 May 2011 12:33:02 +0800
-To: <poky@yoctoproject.org>
-CC: 
-From: Jingdong Lu <jingdong.lu@windriver.com>
-MIME-Version: 1.0
-X-Originating-IP: [128.224.162.193]
-Subject: [PATCH 1/1] bash: enable update-alternative to use bash as default shell
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id EEC164C81006
+	for <poky@yoctoproject.org>; Thu, 12 May 2011 04:20:57 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p4C9KtC1030642;
+	Thu, 12 May 2011 10:20:55 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 30116-10; Thu, 12 May 2011 10:20:51 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p4C9KmK5030636
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Thu, 12 May 2011 10:20:49 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Darren Hart <dvhart@linux.intel.com>
+In-Reply-To: <4DCB19C0.3060103@linux.intel.com>
+References: <4DCB19C0.3060103@linux.intel.com>
+Date: Thu, 12 May 2011 10:20:40 +0100
+Message-ID: <1305192040.30391.487.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.2 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: directdisk images - replace the image type with a script?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,43 +36,54 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 May 2011 04:33:05 -0000
-Content-Type: text/plain
+X-List-Received-Date: Thu, 12 May 2011 09:20:58 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-From: Jingdong Lu <jingdong.lu@windriver.com>
+On Wed, 2011-05-11 at 16:20 -0700, Darren Hart wrote:
+> I recently discovered that the directdisk images are malformed:
+> 
+> http://bugzilla.pokylinux.org/show_bug.cgi?id=1028
+> 
+> While reviewing the directdisk recipe, I'm wondering if this image type
+> has any real usage model. These are x86 specific. They partition a file
+> image so when written to a real disk you get goofy partition tables
+> (partitions do not end on cylinder boundaries).
+> 
+> The current recipes mangle the .cfg file (writing binary data over the
+> text file - I'm guessing the dd commands do this).
+> 
+> We could patch this up, but is it worth it? All the other systems create
+> ext3 images which are then installed on a disk per the instructions in
+> the README.hardware document. The live image provides a simple
+> dd-to-disk-and-boot solution. It seems to me the directdisk idea could
+> be replaced with a script "mksyslinuximage.sh" or similar that took the
+> image and kernel to use and the drive to partition, install syslinux on,
+> and copy the filesystem to.
+> 
+> Thoughts?
 
-Signed-off-by: Jingdong Lu <jingdong.lu@windriver.com>
----
- meta/recipes-extended/bash/bash.inc    |    2 +-
- meta/recipes-extended/bash/bash_4.1.bb |    2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+We did get requests for that image type but I agree the implementation
+is flawed. The trouble with the ext3 approach is that you depend on the
+user having a script, syslinux installed, maybe knowing the location of
+some syslinux files (vary by distro?), a set of tools, possibly a kernel
+and that they get all the commands/parameters to the script right.
 
-diff --git a/meta/recipes-extended/bash/bash.inc b/meta/recipes-extended/bash/bash.inc
-index e218304..d55e517 100644
---- a/meta/recipes-extended/bash/bash.inc
-+++ b/meta/recipes-extended/bash/bash.inc
-@@ -7,7 +7,7 @@ LICENSE = "GPLv3+"
- LIC_FILES_CHKSUM = "file://COPYING;md5=d32239bcb673463ab874e80d47fae504"
- DEPENDS = "ncurses bison-native"
- 
--inherit autotools gettext
-+inherit autotools gettext update-alternatives
- 
- PARALLEL_MAKE = ""
- 
-diff --git a/meta/recipes-extended/bash/bash_4.1.bb b/meta/recipes-extended/bash/bash_4.1.bb
-index bf8cdad..c146014 100644
---- a/meta/recipes-extended/bash/bash_4.1.bb
-+++ b/meta/recipes-extended/bash/bash_4.1.bb
-@@ -1,6 +1,6 @@
- require bash.inc
- 
--PR = "r1"
-+PR = "r2"
- 
- SRC_URI = "${GNU_MIRROR}/bash/${BPN}-${PV}.tar.gz;name=tarball \
-            ${GNU_MIRROR}/bash/bash-4.1-patches/bash41-001;apply=yes;striplevel=0;name=patch001 \
--- 
-1.7.0.4
+I strongly dislike the way its currently implemented since it should be
+an image type, not a separate recipe (the same complaint applies to
+-live images).
+
+Since you've looked at it, is it possible to fix it or are there
+variables that can only be determined when you know the final disk
+geometry?
+
+The trouble with -live images is that you have to write them somewhere
+secondary to make them persistent or you hit the overhead of ramdisks.
+Its a fairly ugly format and not what some end users want.
+
+Cheers,
+
+Richard
+
 
 
