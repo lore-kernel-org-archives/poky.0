@@ -1,22 +1,21 @@
 Return-Path: <tom.zanussi@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 16C524C810CC
-	for <poky@yoctoproject.org>; Thu, 12 May 2011 17:07:09 -0500 (CDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 12 May 2011 15:07:08 -0700
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 19CF24C80A4D
+	for <poky@yoctoproject.org>; Thu, 12 May 2011 17:07:55 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 12 May 2011 15:07:54 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,360,1301900400"; 
-   d="scan'208";a="996954"
+X-IronPort-AV: E=Sophos;i="4.64,360,1301900400"; d="scan'208";a="746484576"
 Received: from unknown (HELO localhost) ([10.255.12.106])
-	by fmsmga002.fm.intel.com with ESMTP; 12 May 2011 15:07:08 -0700
-Message-Id: <a2bdb5de3897578b380a0131efc85cb990ff2ee7.1305235949.git.tom.zanussi@intel.com>
-In-Reply-To: <cover.1305235949.git.tom.zanussi@intel.com>
-References: <cover.1305235949.git.tom.zanussi@intel.com>
-Old-Date: Fri, 22 Apr 2011 15:55:12 -0500
-Date: Thu, 12 May 2011 17:06:44 -0500
-To: bruce.ashfield@windriver.com,poky@yoctoproject.org
+	by orsmga001.jf.intel.com with ESMTP; 12 May 2011 15:07:54 -0700
+Message-Id: <d9563fce5cb629e0bc18aef5806fc9f17f26a993.1305236058.git.tom.zanussi@intel.com>
+In-Reply-To: <cover.1305236058.git.tom.zanussi@intel.com>
+References: <cover.1305236058.git.tom.zanussi@intel.com>
+Old-Date: Thu, 12 May 2011 09:33:39 -0500
+Date: Thu, 12 May 2011 17:07:22 -0500
+To: poky@yoctoproject.org
 From: Tom Zanussi <tom.zanussi@intel.com>
-Subject: [KERNEL][linux-yocto PATCH 1/1] bsp/crownbay: merge emgd branch
+Subject: [PATCH 2/4] meta-crownbay: add xserver-xf86-dri-lite_1.9.3 .bbappend
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,30 +27,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 May 2011 22:07:09 -0000
+X-List-Received-Date: Thu, 12 May 2011 22:07:55 -0000
 
 From: Tom Zanussi <tom.zanussi@intel.com>
 
-Add scc commands to merge the yocto/emgd branch into the crownbay BSP.
+emgd 1.6.1 requires xserver 1.9.3, and we need to add a config option
+to enable dga.
 
 Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
 ---
- meta/cfg/kernel-cache/bsp/crownbay/crownbay.scc |    2 ++
- 1 files changed, 2 insertions(+), 0 deletions(-)
+ .../xserver-xf86-dri-lite_1.9.3.bbappend           |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+ create mode 100644 meta-crownbay/recipes-graphics/xorg-xserver/xserver-xf86-dri-lite_1.9.3.bbappend
 
-diff --git a/meta/cfg/kernel-cache/bsp/crownbay/crownbay.scc b/meta/cfg/kernel-cache/bsp/crownbay/crownbay.scc
-index 89a0725..0d02b98 100644
---- a/meta/cfg/kernel-cache/bsp/crownbay/crownbay.scc
-+++ b/meta/cfg/kernel-cache/bsp/crownbay/crownbay.scc
-@@ -1,6 +1,8 @@
- kconf hardware crownbay.cfg
- kconf hardware eg20t.cfg
- 
-+git merge yocto/emgd
-+
- include features/latencytop/latencytop.scc
- include features/profiling/profiling.scc
- include features/serial/8250.scc
+diff --git a/meta-crownbay/recipes-graphics/xorg-xserver/xserver-xf86-dri-lite_1.9.3.bbappend b/meta-crownbay/recipes-graphics/xorg-xserver/xserver-xf86-dri-lite_1.9.3.bbappend
+new file mode 100644
+index 0000000..b2808ef
+--- /dev/null
++++ b/meta-crownbay/recipes-graphics/xorg-xserver/xserver-xf86-dri-lite_1.9.3.bbappend
+@@ -0,0 +1 @@
++EXTRA_OECONF += "--enable-dga"
 -- 
 1.7.0.4
 
