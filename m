@@ -1,27 +1,26 @@
-Return-Path: <yanok@emcraft.com>
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0970A4C81067
-	for <poky@pokylinux.org>; Thu, 12 May 2011 13:11:41 -0500 (CDT)
-Received: from frontend1.mail.m-online.net (unknown [192.168.8.180])
-	by mail-out.m-online.net (Postfix) with ESMTP id 92F641C021F4;
-	Thu, 12 May 2011 20:11:40 +0200 (CEST)
-X-Auth-Info: l3wl1dCkS/0ymybVQ38y59LaZWne+H/Ukx7Y8kK1IKE=
-Received: from mail.denx.de (host-82-135-33-74.customer.m-online.net
-	[82.135.33.74])
-	by smtp-auth.mnet-online.de (Postfix) with ESMTPA id 8E8E71C000A5;
-	Thu, 12 May 2011 20:11:40 +0200 (CEST)
-Received: from pollux.denx.de (pollux [192.168.1.1])
-	by mail.denx.de (Postfix) with ESMTP id 41A8942FDAE7;
-	Thu, 12 May 2011 20:11:40 +0200 (CEST)
-Received: by pollux.denx.de (Postfix, from userid 547)
-	id 73661185C897C; Thu, 12 May 2011 20:11:39 +0200 (CEST)
-From: Ilya Yanok <yanok@emcraft.com>
-To: poky@pokylinux.org
-Date: Thu, 12 May 2011 20:11:37 +0200
-Message-Id: <1305223897-12934-1-git-send-email-yanok@emcraft.com>
-X-Mailer: git-send-email 1.7.4.4
-Cc: Ilya Yanok <yanok@emcraft.com>
-Subject: [PATCH] qt4-tools-nativesdk: -arch is required for nativesdk build
+Return-Path: <sgw@linux.intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E562D4C800BB
+	for <poky@yoctoproject.org>; Thu, 12 May 2011 14:08:48 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 12 May 2011 12:08:48 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.64,359,1301900400"; d="scan'208";a="746405243"
+Received: from unknown (HELO [10.255.12.88]) ([10.255.12.88])
+	by orsmga001.jf.intel.com with ESMTP; 12 May 2011 12:08:39 -0700
+Message-ID: <4DCC3037.1050307@linux.intel.com>
+Date: Thu, 12 May 2011 12:08:39 -0700
+From: Saul Wold <sgw@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
+MIME-Version: 1.0
+To: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+References: <cover.1305195651.git.xiaofeng.yan@windriver.com>
+	<6bb4510297af2c6b6dcaffb4fb231bd710efdd63.1305195651.git.xiaofeng.yan@windriver.com>
+In-Reply-To: <6bb4510297af2c6b6dcaffb4fb231bd710efdd63.1305195651.git.xiaofeng.yan@windriver.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 1/1] meta-qt3: Add discription to README
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,38 +32,47 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 May 2011 18:11:43 -0000
+X-List-Received-Date: Thu, 12 May 2011 19:08:49 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-We need to pass correct -arch option to configure to fix building in
-case of SDK_ARCH != BUILD_ARCH.
+On 05/12/2011 03:34 AM, Xiaofeng Yan wrote:
+> From: Xiaofeng Yan<xiaofeng.yan@windriver.com>
+>
+> Discriptin about how to compile qt3 and install it to image.
+>
+Can you please use a spell checker.
 
-Signed-off-by: Ilya Yanok <yanok@emcraft.com>
----
- meta/recipes-qt/qt4/qt4-tools-nativesdk.inc |    3 +++
- 1 files changed, 3 insertions(+), 0 deletions(-)
+Also, you need to provide more details below.  If there is someone that 
+can help you with the README, that would be very helpful.
 
-diff --git a/meta/recipes-qt/qt4/qt4-tools-nativesdk.inc b/meta/recipes-qt/qt4/qt4-tools-nativesdk.inc
-index f273c9f..5faf40c 100644
---- a/meta/recipes-qt/qt4/qt4-tools-nativesdk.inc
-+++ b/meta/recipes-qt/qt4/qt4-tools-nativesdk.inc
-@@ -25,6 +25,8 @@ LIC_FILES_CHKSUM = "file://LICENSE.LGPL;md5=fbc093901857fcd118f065f900982c24 \
-                     file://LICENSE.GPL3;md5=babc5b6b77441da277f5c06b2e547720 \
-                     file://LGPL_EXCEPTION.txt;md5=411080a56ff917a5a1aa08c98acae354"
- 
-+require qt4_arch.inc
-+
- # FIXME: make it work with "${STAGING_BINDIR_NATIVE}/pkg-config --cflags dbus-1"
- EXTRA_OECONF = "-prefix ${prefix} \
-                 -qt-libjpeg -qt-gif -system-zlib \
-@@ -37,6 +39,7 @@ EXTRA_OECONF = "-prefix ${prefix} \
-                 -verbose -release -fast -static \
-                 -platform ${TARGET_OS}-oe-g++ \
-                 -xplatform ${TARGET_OS}-oe-g++ \
-+                -arch ${@qt_arch(d)} \
-                 -embedded -no-freetype -no-glib -no-iconv \
-                 -qt3support \
-                 -I${STAGING_DIR_HOST}${SDKPATHNATIVE}/usr/include \
--- 
-1.7.4.4
+I was not sure if the DISTRO setting was required, so please update the 
+whole README.
+
+Thanks
+	Sau!
+
+> Signed-off-by: Xiaofeng Yan<xiaofeng.yan@windriver.com>
+> ---
+>   README |    9 +++++++++
+>   1 files changed, 9 insertions(+), 0 deletions(-)
+>
+> diff --git a/README b/README
+> index 9be700e..d615392 100644
+> --- a/README
+> +++ b/README
+> @@ -6,3 +6,12 @@ conf/bblayers.conf file.
+>
+>   You may also have to set DISTRO = "poky-lsb" in your conf/local.conf
+>   file.
+> +
+> +How to include library qt3 in image which you build:
+> +1 For lsb-image
+> +  pc$ bitbake core-image-lsb-qt3
+> +2 For non-lsb-image
+> +  -Compile
+> +   pc$ bitbake qt-x11-free
+> +  -Install qt3 to image
+> +   In this way, you need add "qt-x11-free" to your core-image-*.bb file.
 
 
