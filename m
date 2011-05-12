@@ -1,19 +1,21 @@
 Return-Path: <tom.zanussi@intel.com>
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 000464C80A4D
-	for <poky@yoctoproject.org>; Thu, 12 May 2011 17:04:36 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 12 May 2011 15:04:36 -0700
+	by mx1.pokylinux.org (Postfix) with ESMTP id D6D864C810FF
+	for <poky@yoctoproject.org>; Thu, 12 May 2011 17:04:38 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 12 May 2011 15:04:38 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,360,1301900400"; d="scan'208";a="746482580"
+X-IronPort-AV: E=Sophos;i="4.64,360,1301900400"; d="scan'208";a="641982948"
 Received: from unknown (HELO localhost) ([10.255.12.106])
-	by orsmga001.jf.intel.com with ESMTP; 12 May 2011 15:04:35 -0700
-Message-Id: <cover.1305235993.git.tom.zanussi@intel.com>
-Old-Date: Thu, 12 May 2011 16:33:13 -0500
-Date: Thu, 12 May 2011 17:04:11 -0500
+	by orsmga002.jf.intel.com with ESMTP; 12 May 2011 15:04:37 -0700
+Message-Id: <46d66ddcf1572a9e028187362d3dcb1ea818d95f.1305235993.git.tom.zanussi@intel.com>
+In-Reply-To: <cover.1305235993.git.tom.zanussi@intel.com>
+References: <cover.1305235993.git.tom.zanussi@intel.com>
+Old-Date: Tue, 3 May 2011 16:44:37 -0500
+Date: Thu, 12 May 2011 17:04:13 -0500
 To: bruce.ashfield@windriver.com,poky@yoctoproject.org
 From: Tom Zanussi <tom.zanussi@intel.com>
-Subject: [KERNEL][linux-yocto PATCH 0/4] emgd 1.6.1 upgrade for 2.6.37
+Subject: [KERNEL][linux-yocto PATCH 1/4] yocto/emgd: emgd 1.61 driver
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -25,28 +27,17 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 May 2011 22:04:37 -0000
+X-List-Received-Date: Thu, 12 May 2011 22:04:39 -0000
 
 From: Tom Zanussi <tom.zanussi@intel.com>
 
-This adds emgd 1.6.1 to the new yocto/emgd topic branch in the 2.6.37
-kernel, to be used initially by crownbay, later by fishriver2.
+The starting-point code that subsequent patches will modify.  This is a
+straight copy of the code in the emgd 1.6.1 emgd driver, specifically
+IEMGD_HEAD_Linux/common/drm/emgd_drm.tgz from Lin_EMGD_1_6_1_RC_1952.tgz.
 
-Please pull into linux-yocto.
-
-Pull URL: git://git.pokylinux.org/linux-yocto-2.6.37-contrib
-  Branch: tzanussi/emgd-1.6.1-emgd-add-1.6.1
-  Browse: http://git.pokylinux.org/cgit.cgi/linux-yocto-2.6.37-contrib/log/?h=tzanussi/emgd-1.6.1-emgd-add-1.6.1
-
-Tom Zanussi (4):
-  yocto/emgd: emgd 1.61 driver
-  yocto/emgd: build fixups
-  yocto/emgd: 2.6.39 fixes
-  emgd: backfix for 2.6.37
-
- drivers/gpu/drm/Kconfig                            |    9 +
- drivers/gpu/drm/Makefile                           |    1 +
- drivers/gpu/drm/emgd/Makefile                      |  283 ++
+Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
+---
+ drivers/gpu/drm/emgd/Makefile                      |  316 ++
  drivers/gpu/drm/emgd/emgd/cfg/config.h             |  126 +
  drivers/gpu/drm/emgd/emgd/cfg/config_default.h     |  197 +
  drivers/gpu/drm/emgd/emgd/cfg/config_helper.c      |  239 ++
@@ -87,7 +78,7 @@ Tom Zanussi (4):
  .../drm/emgd/emgd/display/pi/tnc/i2c_gmbus_tnc.c   |  932 +++++
  drivers/gpu/drm/emgd/emgd/drm/bitmap_data.h        |   33 +
  drivers/gpu/drm/emgd/emgd/drm/drm_emgd_private.h   |  146 +
- drivers/gpu/drm/emgd/emgd/drm/emgd_drv.c           | 2005 +++++++++++
+ drivers/gpu/drm/emgd/emgd/drm/emgd_drv.c           | 2001 +++++++++++
  drivers/gpu/drm/emgd/emgd/drm/emgd_drv.h           |  180 +
  drivers/gpu/drm/emgd/emgd/drm/emgd_fb.c            |  654 ++++
  drivers/gpu/drm/emgd/emgd/drm/emgd_interface.c     | 2270 ++++++++++++
@@ -282,7 +273,7 @@ Tom Zanussi (4):
  .../drm/emgd/pvr/services4/srvkm/common/pvrsrv.c   | 1194 +++++++
  .../drm/emgd/pvr/services4/srvkm/common/queue.c    | 1161 ++++++
  .../gpu/drm/emgd/pvr/services4/srvkm/common/ra.c   | 1867 ++++++++++
- .../drm/emgd/pvr/services4/srvkm/common/resman.c   |  703 ++++
+ .../drm/emgd/pvr/services4/srvkm/common/resman.c   |  707 ++++
  .../drm/emgd/pvr/services4/srvkm/devices/sgx/mmu.c | 2772 +++++++++++++++
  .../drm/emgd/pvr/services4/srvkm/devices/sgx/mmu.h |  135 +
  .../drm/emgd/pvr/services4/srvkm/devices/sgx/pb.c  |  454 +++
@@ -298,29 +289,29 @@ Tom Zanussi (4):
  .../pvr/services4/srvkm/devices/sgx/sgxutils.h     |   95 +
  .../emgd/pvr/services4/srvkm/env/linux/env_data.h  |   62 +
  .../pvr/services4/srvkm/env/linux/env_perproc.h    |   52 +
- .../drm/emgd/pvr/services4/srvkm/env/linux/event.c |  265 ++
+ .../drm/emgd/pvr/services4/srvkm/env/linux/event.c |  269 ++
  .../drm/emgd/pvr/services4/srvkm/env/linux/event.h |   28 +
  .../pvr/services4/srvkm/env/linux/kbuild/Makefile  |  151 +
  .../emgd/pvr/services4/srvkm/env/linux/linkage.h   |   57 +
  .../drm/emgd/pvr/services4/srvkm/env/linux/lock.h  |   28 +
- .../drm/emgd/pvr/services4/srvkm/env/linux/mm.c    | 2377 +++++++++++++
- .../drm/emgd/pvr/services4/srvkm/env/linux/mm.h    |  323 ++
- .../drm/emgd/pvr/services4/srvkm/env/linux/mmap.c  | 1149 ++++++
+ .../drm/emgd/pvr/services4/srvkm/env/linux/mm.c    | 2381 +++++++++++++
+ .../drm/emgd/pvr/services4/srvkm/env/linux/mm.h    |  327 ++
+ .../drm/emgd/pvr/services4/srvkm/env/linux/mmap.c  | 1153 ++++++
  .../drm/emgd/pvr/services4/srvkm/env/linux/mmap.h  |  103 +
- .../emgd/pvr/services4/srvkm/env/linux/module.c    |  756 ++++
+ .../emgd/pvr/services4/srvkm/env/linux/module.c    |  760 ++++
  .../drm/emgd/pvr/services4/srvkm/env/linux/mutex.c |   28 +
  .../drm/emgd/pvr/services4/srvkm/env/linux/mutex.h |   37 +
- .../emgd/pvr/services4/srvkm/env/linux/mutils.c    |  126 +
- .../emgd/pvr/services4/srvkm/env/linux/mutils.h    |   93 +
- .../emgd/pvr/services4/srvkm/env/linux/osfunc.c    | 2545 +++++++++++++
+ .../emgd/pvr/services4/srvkm/env/linux/mutils.c    |  129 +
+ .../emgd/pvr/services4/srvkm/env/linux/mutils.h    |   97 +
+ .../emgd/pvr/services4/srvkm/env/linux/osfunc.c    | 2554 +++++++++++++
  .../emgd/pvr/services4/srvkm/env/linux/osperproc.c |  109 +
  .../drm/emgd/pvr/services4/srvkm/env/linux/pdump.c |  658 ++++
  .../pvr/services4/srvkm/env/linux/private_data.h   |   63 +
- .../drm/emgd/pvr/services4/srvkm/env/linux/proc.c  |  962 +++++
+ .../drm/emgd/pvr/services4/srvkm/env/linux/proc.c  |  966 +++++
  .../drm/emgd/pvr/services4/srvkm/env/linux/proc.h  |  111 +
  .../pvr/services4/srvkm/env/linux/pvr_bridge_k.c   |  647 ++++
- .../emgd/pvr/services4/srvkm/env/linux/pvr_debug.c |  418 +++
- .../emgd/pvr/services4/srvkm/env/linux/pvr_drm.c   |  301 ++
+ .../emgd/pvr/services4/srvkm/env/linux/pvr_debug.c |  422 +++
+ .../emgd/pvr/services4/srvkm/env/linux/pvr_drm.c   |  305 ++
  .../emgd/pvr/services4/srvkm/env/linux/pvr_drm.h   |   65 +
  .../emgd/pvr/services4/srvkm/hwdefs/sgx535defs.h   |  633 ++++
  .../emgd/pvr/services4/srvkm/hwdefs/sgx540defs.h   |  586 +++
@@ -370,7 +361,7 @@ Tom Zanussi (4):
  .../intern/debug/dbgdriv/linux/kbuild/Makefile     |   33 +
  .../pvr/tools/intern/debug/dbgdriv/linux/main.c    |  294 ++
  .../debug/dbgdriv/linux/makefile.linux.common      |   38 +
- 326 files changed, 155716 insertions(+), 0 deletions(-)
+ 324 files changed, 155787 insertions(+), 0 deletions(-)
  create mode 100755 drivers/gpu/drm/emgd/Makefile
  create mode 100644 drivers/gpu/drm/emgd/emgd/cfg/config.h
  create mode 100644 drivers/gpu/drm/emgd/emgd/cfg/config_default.h
@@ -695,5 +686,7 @@ Tom Zanussi (4):
  create mode 100644 drivers/gpu/drm/emgd/pvr/tools/intern/debug/dbgdriv/linux/kbuild/Makefile
  create mode 100644 drivers/gpu/drm/emgd/pvr/tools/intern/debug/dbgdriv/linux/main.c
  create mode 100644 drivers/gpu/drm/emgd/pvr/tools/intern/debug/dbgdriv/linux/makefile.linux.common
+
+Patch too big to post, please see git branch...
 
 
