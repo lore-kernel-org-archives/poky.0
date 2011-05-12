@@ -1,38 +1,45 @@
-Return-Path: <liping.ke@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 511164C80FFA
-	for <poky@yoctoproject.org>; Wed, 11 May 2011 20:58:16 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 11 May 2011 18:58:12 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,355,1301900400"; d="scan'208";a="641536493"
-Received: from pgsmsx603.gar.corp.intel.com ([10.221.43.87])
-	by orsmga002.jf.intel.com with ESMTP; 11 May 2011 18:58:06 -0700
-Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
-	pgsmsx603.gar.corp.intel.com (10.221.43.87) with Microsoft SMTP Server
-	(TLS) id 8.2.255.0; Thu, 12 May 2011 09:56:47 +0800
-Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
-	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
-	Thu, 12 May 2011 09:56:46 +0800
-From: "Ke, Liping" <liping.ke@intel.com>
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-Date: Thu, 12 May 2011 09:56:44 +0800
-Thread-Topic: [poky] [PATCH 0/4][Image Creator]Put extra requested fields
-	into different cache files
-Thread-Index: AcwP9Y4Ko1NOOrRXQae2ilhMX/W0FgAUH2/Q
-Message-ID: <789F9655DD1B8F43B48D77C5D30659734C574190@shsmsx501.ccr.corp.intel.com>
-References: <cover.1304922517.git.liping.ke@intel.com>
-	<1304941939.30391.205.camel@rex>
-	<789F9655DD1B8F43B48D77C5D30659734C510EFC@shsmsx501.ccr.corp.intel.com>
-	<1305130036.30391.391.camel@rex>
-In-Reply-To: <1305130036.30391.391.camel@rex>
-Accept-Language: zh-CN, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: zh-CN, en-US
+Return-Path: <raj.khem@gmail.com>
+Received: from mail-ew0-f48.google.com (mail-ew0-f48.google.com
+	[209.85.215.48])
+	by mx1.pokylinux.org (Postfix) with ESMTP id A4D324C81006
+	for <poky@yoctoproject.org>; Wed, 11 May 2011 21:44:03 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by ewy22 with SMTP id 22so481696ewy.35
+	for <poky@yoctoproject.org>; Wed, 11 May 2011 19:44:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc:content-type;
+	bh=tjpJmsD+kwybWDJYLF+f0SzNqZkSZnvhsbuKfLZLyHU=;
+	b=KcvZ4p8y4H/WcMdClnLi+/BEHPJOvZFFUVg9+d/1CeYX/affOF1Z4/FacP61ISts4E
+	wQo8cSnqkCQHJgR51LgD4nhXvMihh2glAWHxQbS+ctwpItOrpnQzSazJZLfp9+ZfD1ys
+	3yUPiB2EBS4QqA6JdwqiEdbw6x+bDlhd2xGik=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+	:cc:content-type;
+	b=ghgp6QnuquXtgh7KGX/ULT31GF16ImqIi9uRDoiak3kfqFIFriM7NZjHdGF4UvFdSB
+	sIjKs9EzyNNQlTvsIpXu4yYsZ8UPSTAUeYxQLe34z6HQgUR2KhMcoa8un3hu+VsAMJFt
+	laiewtzcHu+NuW0bNLYuqWoVe1tUd4VS1o1qo=
+Received: by 10.14.15.20 with SMTP id e20mr4742176eee.16.1305168242148; Wed,
+	11 May 2011 19:44:02 -0700 (PDT)
 MIME-Version: 1.0
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 0/4][Image Creator]Put extra requested fields into different cache files
+Received: by 10.14.53.5 with HTTP; Wed, 11 May 2011 19:43:32 -0700 (PDT)
+In-Reply-To: <1305135637.30391.455.camel@rex>
+References: <4DCAB609.8030601@linux.intel.com>
+	<BANLkTintvgFGKUUUdvq2M7Q=m+gYuzs2-A@mail.gmail.com>
+	<1305135637.30391.455.camel@rex>
+From: Khem Raj <raj.khem@gmail.com>
+Date: Wed, 11 May 2011 19:43:32 -0700
+Message-ID: <BANLkTikco5DBEeucjhRsMsrGhy7XTTJ8Kw@mail.gmail.com>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+Cc: Otavio Salvador <otavio@ossystems.com.br>,
+	Darren Hart <dvhart@linux.intel.com>,
+	Patches and discussions about the oe-core layer
+	<openembedded-core@lists.openembedded.org>,
+	"poky@yoctoproject.org" <poky@yoctoproject.org>,
+	Tom Rini <tom_rini@mentor.com>
+Subject: Re: RFC: create-pull-request / send-pull-request updates
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,67 +51,40 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 May 2011 01:58:16 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-List-Received-Date: Thu, 12 May 2011 02:44:04 -0000
+Content-Type: text/plain; charset=UTF-8
 
-SGksIFJpY2hhcmQNCg0KPiA+ID4NCj4gPiA+IGEpIEFkZHMgImJpdGJha2VfbW9kZSIgYW5kIGFs
-bG93cyBVSXMgdG8gZGVmaW5lIGNhY2hlIGRhdGENCj4gPiA+IGIpIEFkZHMgdGhlIGNhY2hlIGRh
-dGEgdG8gaG9iDQo+ID4gPiBjKSBEcm9wcyB0aGUgY2FjaGUgZGF0YSB1c2VkIG9ubHkgYnkgaG9i
-IGZyb20gdGhlIGNvcmUNCj4gPiBZZXMsIGluIGdlbmVyYWwgSSB3YW50IHRvIGRvIHRoZSBzYW1l
-IHRoaW5nLiBFYWNoIHBhdGNoIGluIHRoZSBzZXJpYWwgd2lsbA0KPiA+IG5vdCBicmVhayB0aGUg
-Y3VycmVudCBjcy4gUGF0Y2hbMS80XSwgcGF0Y2hbMi80XSYgcGF0Y2ggWzMvNF0gYXJlIGZvciBh
-KSBhbmQNCj4gYikuDQo+ID4gQnV0IGZvciBjKSwgYmVjYXVzZSBvZiB0aGUgaW1wbGFudGF0aW9u
-IGFsZ29yaXRobSBJIGFkb3B0ZWQsIGl0J3MgbWVyZ2VkIHdpdGgNCj4gPiBleHRyYSBjYWNoZSBk
-YXRhIGltcGxlbWVudGF0aW9uICh0aGUgYmlnZ2VzdCBwYXRjaCkuDQo+IA0KPiBUaGF0J3MgZmlu
-ZSwgeW91ciBvcmlnaW5hbCBzZXJpZXMgZGlkbid0IHNlZW0gdG8gd29yayBxdWl0ZSBsaWtlIHRo
-aXMNCj4gdGhvdWdoIGFuZCBsb29rZWQgbGlrZSBJJ2QgZ2V0IGZhaWx1cmVzIGlmIEkgb25seSBh
-cHBsaWVkIHRoZSBlYXJseQ0KPiBwYXRjaGVzIGZyb20gd2hhdCBJIHJlbWVtYmVyLg0KDQpzdXJl
-LCBJIHVuZGVyc3RhbmQgdGhpcy4gSSB3aWxsIG1ha2Ugc3VyZSB0aGF0IHRoZSBzZXJpZXMgb2Yg
-cGF0Y2hlcyB3b3JrcyBpbmRlcGVuZGVudGx5DQp3aGVuIHJlc2VuZGluZyB0aGUgcGF0Y2guDQoN
-Cj4gDQo+ID4gPiBJJ3ZlIGFsc28gdGhlIGZvbGxvd2luZyBjb21tZW50cyBvbiB0aGUgY29kZSBp
-biBnZW5lcmFsOg0KPiA+ID4NCj4gPiA+IGEpIENvdWxkIHdlIG1vdmUgdGhlIGhvYiBzcGVjaWZp
-YyBjYWNoZSBkYXRhIGZyb20gY2FjaGUucHkgdG8gaG9iLnB5LiBJZg0KPiA+ID4gbm90LCBJJ2Qg
-bGlrZSB0byB1bmRlcnN0YW5kIHdoeSBub3QgYW5kIG1heWJlIGFkZHJlc3MgdGhvc2UgaXNzdWVz
-LiBNeQ0KPiA+ID4gcG9pbnQgaXMgeW91IHNob3VsZG4ndCBuZWVkIHRvIGNoYW5nZSBjYWNoZS5w
-eSB0byBhZGQgZXh0cmEgY2FjaGUgZGF0YS4NCj4gPg0KPiA+IHlvdSBtZWFuIHRoYXQgd2Ugd2ls
-bCBoYXZlIGEgc2VwYXJhdGUgRXh0cmFDYWNoZSAoSSBndWVzcyBob2Igb3INCj4gYWR0LWluc3Rh
-bGxlciBzaG91bGQgaGF2ZSB0aGUgc2ltaWxhciBsb2dpYz8pDQo+ID4gaW1wbGVtZW50YXRpb24g
-ZmlsZSwgd2hpY2ggaGFzIHNpbWlsYXIgZnVuY3Rpb25hbGl0eSB3aXRoIGNhY2hlLnB5Pw0KPiA+
-IE9oLCBJIGRpZCBub3QgdGhpbmsgb2YgdGhpcyBpbXBsZW1lbnRhdGlvbiBhdCBhbGwgd2hlbiBp
-bXBsZW1lbnQuIEluIG15IG1pbmQsDQo+IGNoYW5nZSBsZXNzIGNvZGUgaXMgdGhlIHByaW5jaXBs
-ZSBzaW5jZQ0KPiA+IHRoaXMgcGFydCBvZiB0aGUgY29kZSBpcyB0aGUgY29yZSBvZiBiaXRiYWtl
-OikgIElmIHNwbGl0LCBtYW55IGNvZGVzIGluIGNhY2hlDQo+IGNvdWxkIGJlIHJldXNlZCBieSBi
-b3RoIGNhY2hlLnB5IGFuZCBob2IucHk/DQo+IA0KPiBJJ20gdGhpbmtpbmcgdGhhdCBjYWNoZS5w
-eSBkZWZpbmVzIHRoZSBjbGFzcyBidXQgdGhlIGhvYiBzcGVjaWZpYw0KPiBkZWZpbml0aW9uIHVz
-aW5nIHRoYXQgY2xhc3MgdG8gZXh0ZW5kIHRoZSBjYWNoZSBkYXRhIHNob3VsZCBiZSBwYXJ0IG9m
-DQo+IHRoZSBob2IgY29kZWJhc2UuIEluIHRoZSBmdXR1cmUgdGhlcmUgbWF5IGJlIGV4dGVybmFs
-IFVJcyBjYWxsaW5nIGludG8NCj4gdGhpcyBjb2RlIGFuZCBuZWVkaW5nIHRoaXMgZnVuY3Rpb25h
-bGl0eSBhbmQgSSdkIHByZWZlciB0aGVtIG5vdCB0byBlYWNoDQo+IG5lZWQgdG8gY2hhbmdlIGNh
-Y2hlLnB5Lg0KDQpIaSwgUmljaGFyZCwganVzdCBhIHF1ZXN0aW9uIGhlcmUuIFlvdSBtZWFuIGV4
-dC1ob2ItY2FjaGUgZGF0YSB3aWxsIGJlIGEgc3ViLWNsYXNzDQpvZiBjYWNoeSBkYXRhPyBJbmhl
-cml0YW5jZSBoZXJlPyBXZSBvcmlnaW5hbGx5IGNvbnNpZGVyIHRoaXMsIHlldCBqdXN0IGZhaWxl
-ZCB0byBmaW5kDQphIGdvb2Qgd2F5LiBOYW1lZHR1cGxlIGhhcyB0aGUgc3RhdGljIGRpY3QgZmll
-bGRzLiBTbyBuYW1lZHR1cGxlIGNsYXNzIGNhbid0IGJlIGV4dGVuZGVkLg0KRm9yIGluaGVyaXRh
-bmNlLCBJIG11c3QgY2hhbmdlIHRoZSBvcmlnaW5hbCBjYWNoZS5weSBpbXBsYW50YXRpb24uIA0K
-SnVzdCB3YW50IHRvIGhlYXIgeW91ciBzdWdnZXN0aW9uIGhlcmUuLi4NCg0KPiANCj4gPiBBbmQg
-YWxzbywgaWYgeW91IHRoaW5rIGl0IGlzIGEgbXVzdCwgY291bGQgd2Ugc3BsaXQgdGhlIHRhc2ss
-IGZvciB0aGlzIHBoYXNlLCBrZWVwDQo+IGl0IGluIHRoZSBzYW1lIGZpbGUuDQo+ID4gQW5kIHRo
-ZW4gcmVmYWN0b3J5IHRoZW0gaW4gYW5vdGhlciBwYXRjaCBsYXRlcj8gU2VlbXMgdGhlcmUncmUg
-bWFueSB0YXNrcw0KPiBmb3IgaW1hZ2UgY3JlYXRvcj8gU2VlbXMgdGhlIHNjaGVkdWxlIGlzDQo+
-ID4gdGlnaHQ/DQo+IA0KPiBJZiB5b3UgZG9uJ3QgdGhpbmsgdGhpcyBpcyByZWFsaXN0aWMgaW4g
-dGhlIHRpbWUgYXZhaWxhYmxlLCBJIG1pZ2h0IGJlDQo+IGFibGUgdG8gdGFrZSBhIGxvb2sgYXQg
-aXQuDQoNCk9oLCBJIGd1ZXNzIEplc3NpY2Egd2lsbCByZS1hcnJhbmdlIHRoZSBzY2hlZHVsZSB0
-b2RheS4uLiBTZWVtcyBmb3IgdGhlIHRhc2ssIHRoZXJlJ3JlDQptYW55IGRpZmZlcmVudCB1bmRl
-cnN0YW5kaW5nIGFib3V0IHRoZSByZXF1aXJlbWVudCBhdCB0aGUgdmVyeSBiZWdpbm5pbmcuLi4g
-SSB3aWxsIHRyeSB0bw0KdW5kZXJzdGFuZCBhbGwgdGhlIGRldGFpbHMgYmVmb3JlIHdyaXRpbmcg
-dGhlIGNvZGUgLTopDQogDQoNCj4gTm8sIEkgbWVhbiBjYW4gd2UgY291bGQgcGFzczoNCj4gDQo+
-IGJpdGJha2VfbW9kZSA9IFsnaG9iJywgJ2F1dG9idWlsZGVyJ10NCj4gDQo+IGFuZCBpdCB0aGVu
-IHVzZXMgdGhyZWUgY2FjaGUgZmlsZXMgc28gYml0YmFrZV9tb2RlIHdvdWxkIGJlY29tZSBhIGxp
-c3QNCj4gcmF0aGVyIHRoYW4gYSBzaW5nbGUgaXRlbS4NCj4gDQpPSywgSSB1bmRlcnN0YW5kIHRo
-aXMgcmVxdWlyZW1lbnQgbm93Lg0KQWZ0ZXIgd2Ugc3luYyB1cCB0b2RheSwgSSBzaG91bGQgaGF2
-ZSBhIGNsZWFyZXIgdW5kZXJzdGFuZGluZyBhYm91dCB0aGUgcmVxdWlyZW1lbnQgYW5kIEkgd2ls
-bCByZWRvIHRoZSBwYXRjaCENCg0KVGhhbmtzIGEgbG90IGZvciB5b3VyIGhlbHAhDQpjcmlwaW5n
-DQoNCg0KPiBDaGVlcnMsDQo+IA0KPiBSaWNoYXJkDQoNCg==
+On Wed, May 11, 2011 at 10:40 AM, Richard Purdie
+<richard.purdie@linuxfoundation.org> wrote:
+> On Wed, 2011-05-11 at 10:01 -0700, Khem Raj wrote:
+>> On Wed, May 11, 2011 at 9:15 AM, Darren Hart <dvhart@linux.intel.com> wrote:
+>> >
+>> > Thoughts/Comments?
+>> >
+>>
+>> I would suggest to alter the process a bit and get rid of the scripts
+>> completely. Patches are sent to mailing list for review once reviewed
+>> the final patches are
+>> sent as git pull-request. It would simplify things.
+>
+> I'd argue that it doesn't. It just means the requests come in different
+> formats, sometimes with key pieces of information missing which means
+> the people trying to handle the requests (like me) get frustrated.
+>
+> I find it easiest to deal with requests that have come through those
+> scripts.
+
+I think review process and pull process are different. and pull follows reviews
+right now they are sort of mixed. There are multiple pull requests that are sent
+and sometimes one patch appears in multiple pull requests. Signoffs
+acks etc. are not collected. Thats why I was suggesting
+to use emails for reviews and there will be trail and then create pull requests
+
+
+>
+> Cheers,
+>
+> Richard
+>
+>
 
