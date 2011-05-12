@@ -1,27 +1,26 @@
-Return-Path: <Liezhi.Yang@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C02974C800B7
-	for <poky@yoctoproject.org>; Thu, 12 May 2011 10:41:26 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p4CFfPEh023839
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Thu, 12 May 2011 08:41:25 -0700 (PDT)
-Received: from [128.224.163.140] (128.224.163.140) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server id 14.1.255.0;
-	Thu, 12 May 2011 08:41:25 -0700
-Message-ID: <4DCBFFA3.4090907@windriver.com>
-Date: Thu, 12 May 2011 23:41:23 +0800
-From: Robert Yang <liezhi.yang@windriver.com>
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C21E54C81050
+	for <poky@yoctoproject.org>; Thu, 12 May 2011 11:10:11 -0500 (CDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 1E2C7166032F; Thu, 12 May 2011 10:10:11 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=ham version=3.3.2-r929478
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 9F53516601DF;
+	Thu, 12 May 2011 10:10:10 -0600 (MDT)
+Message-ID: <4DCC0662.6060404@mlbassoc.com>
+Date: Thu, 12 May 2011 10:10:10 -0600
+From: Gary Thomas <gary@mlbassoc.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.17) Gecko/20110424 Lightning/1.0b2 Thunderbird/3.1.10
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
 MIME-Version: 1.0
-To: Darren Hart <dvhart@linux.intel.com>
-References: <cover.1305120861.git.liezhi.yang@windriver.com>
-	<8b4e9efcd34ac73babf6928cb2909ce88c4df69d.1305120861.git.liezhi.yang@windriver.com>
-	<4DCACDDE.1090205@linux.intel.com>
-In-Reply-To: <4DCACDDE.1090205@linux.intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 2/2] Add a skeleton for init scripts
+To: Poky Project <poky@yoctoproject.org>
+Subject: QEMU networking
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,438 +32,155 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 May 2011 15:41:27 -0000
-Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
+X-List-Received-Date: Thu, 12 May 2011 16:10:12 -0000
+X-Groupsio-MsgNum: 6042
+Content-Type: multipart/mixed; boundary="------------050100070602010204090003"
+
+--------------050100070602010204090003
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Darren,
+I'm having a devil of a time getting networking to work when
+I run qemu (a Poky derived image, of course!)  I'm running this
+on a box which itself is NAT'd to the real internet, like this:
 
-I find that the busybox's pidof can't get the pid of the "shell script"
-(opposite to the binary) currently, it doesn't support the "-x" option,
-so it seems that we should patch the busybox's pidof.c, is this acceptable
-or not?
+    +-------------+        +------------------+
+    |   QEMUarm   |<------>|   My_Desktop     |<----> Internet
+    | 192.168.7.2 |        |   192.168.7.1    |
+    +-------------+        |   192.168.1.125  |
+                           +------------------+
 
-Thank you very much
+Firstly, something is messing with the routing tables over time
+and I can't get past the first hop.  If I reconfigure the network
+on the QEMU system like this:
+   # ifconfig eth0 down
+   # ifconfig eth0 up
+   # route add default gw 192.168.7.1
+I can then access past "My_Desktop", e.g.
+   # ping 192.168.1.101
+      -or-
+   # ping 74.125.225.19    (www.google.com)
+This works fine and the routing table (route.good) is correct.
 
-Robert
+A little while later (minutes), the routing changes and now I can't
+get past 'My_Desktop' (i.e. I can ping 192.168.1.125, but not 192.168.1.101)
+The routing table has changed (route.bad)
 
-On 05/12/2011 01:56 AM, Darren Hart wrote:
-> Hi Robert,
->
-> Thank you for doing this. This is a great start. As a preface to my
-> comments below, I am going to be incredibly particular about formatting
-> and such as this skeleton will be used by literally thousands of recipes
-> in the future and now is the time to ensure consistent formatting and to
-> eliminate any issues we don't want to see propagated.
->
->
-> On 05/11/2011 06:41 AM, Robert Yang wrote:
->> Add a skeleton for init scripts, the original structure is from
->> /etc/init.d/skeleton of Ubuntu 10.10, it is in sysvinit_2.87dsf,
->> so add the COPYRIGHT of sysvinit_2.87dsf, it is GPLv2. I have
->> modified the original skeleton a lot to make it as easy as possible,
->> just use posix shell command, and have tested it in core-image-minimal.
->>
->> * The skeleton implements the following items:
->>    - start, stop, restart, status and force-reload.
->>      And the force-reload is a alias of restart.
->>    - not implements reload and try-restart, since only a few programs
->>      have such functions, so just leave them as placeholders.
->>
->> * Use start-stop-daemon to start and stop the program, it is useful to
->>    deal with the pidfile, check whether there is already a running
->>    program or not, and print relevant messages.
->>
->> * The skeleton will run by default, and output the *simulation* message,
->>    here is the testing result:
->>    1) #./skeleton start (test start)
->>       Starting skeleton ...
->>
->>    2) #./skeleton start (test start the already running program)
->>       Starting skeleton ...
->>       /usr/sbin/skeleton already running.
->>       20426
->>
->>       It outputs two lines when start again, one line would be better, this
->>       is because of the start-stop-daemon, but I'm not sure whether this is
->>       worth.
->>
->>    3) #./skeleton status (test status when running)
->>       skeleton is running.
->
-> We should use a consistent string for the daemon. You use the full path
-> in #2 above and only the basename here in #3.
->
->>
->>    4) #./skeleton stop (test stop)
->>       Stopped skeleton (pid 20426).
->
-> I prefer this format (with the pid listed on the same line) to that in
-> #2. #3 should also list the pid. For example, my dovecot initscript reports:
->
-> $ status dovecot
-> dovecot start/running, process 18529
->
-> It our case something like the following seems adequate.
->
-> $ ./skeleton status
-> skeleton is running (18529)
->
->>
->>    5) #./skeleton stop (test stop again)
->>       No skeleton found running; none killed.
->
-> I'd prefer:
->
-> skeleton is not running; none killed.
->
->>
->>    6) #./skeleton status (test status when stopped)
->>       skeleton is not running.
->>
->>    7) #./skeleton start (test restart when running)
->>       Starting skeleton ...
->>
->>       #./skeleton restart
->>       Stopped skeleton (pid 20444).
->>       Starting skeleton ...
->>
->>    8) #./skeleton stop (test restart when stopped)
->>       Stopped skeleton (pid 20444).
->>
->>       #./skeleton restart
->>       No skeleton found running; none killed.
->
-> skeleton is not running; none killed.
->
->>       Starting skeleton ...
->>
->> * Have used syslogd to test it in a real world(With both
->>    core-image-minimal and core-image-sato)
->>
->> * TODO:
->>    - Move the function status_of_proc to /etc/init.d/functions ?
->
->
-> It's not a bad idea. If so, that has to be part of the base images, not
-> the skeleton.
->
->
->>    - Fix start-stop-daemon to get an one line output when start a
->>      already runing program?
->
->
-> I wouldn't bother. I don't see anything wrong with two lines.
->
->
->>
->> Signed-off-by: Robert Yang<liezhi.yang@windriver.com>
->> ---
->>   .../recipes-skeleton/service/service/COPYRIGHT     |   19 ++
->>   .../recipes-skeleton/service/service/skeleton      |  188 ++++++++++++++++++++
->>   .../recipes-skeleton/service/service_0.1.bb        |   20 ++
->>   3 files changed, 227 insertions(+), 0 deletions(-)
->>   create mode 100644 meta-skeleton/recipes-skeleton/service/service/COPYRIGHT
->>   create mode 100644 meta-skeleton/recipes-skeleton/service/service/skeleton
->>   create mode 100644 meta-skeleton/recipes-skeleton/service/service_0.1.bb
->>
->> diff --git a/meta-skeleton/recipes-skeleton/service/service/COPYRIGHT b/meta-skeleton/recipes-skeleton/service/service/COPYRIGHT
->> new file mode 100644
->> index 0000000..36703d9
->> --- /dev/null
->> +++ b/meta-skeleton/recipes-skeleton/service/service/COPYRIGHT
->> @@ -0,0 +1,19 @@
->> +Sysvinit is Copyright (C) 1991-2004 Miquel van Smoorenburg
->> +
->> +    This program is free software; you can redistribute it and/or modify
->> +    it under the terms of the GNU General Public License as published by
->> +    the Free Software Foundation; either version 2 of the License, or
->> +    (at your option) any later version.
->> +
->> +    This program is distributed in the hope that it will be useful,
->> +    but WITHOUT ANY WARRANTY; without even the implied warranty of
->> +    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
->> +    GNU General Public License for more details.
->> +
->> +    You should have received a copy of the GNU General Public License
->> +    along with this program; if not, write to the Free Software
->> +    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
->> +
->> +On Debian GNU/Linux systems, the complete text of the GNU General
->> +Public License can be found in `/usr/share/common-licenses/GPL'.
->
->
-> You don't need to keep this last bit of where to find it on Debian
-> systems - we aren't a Debian system.
->
->
->> +
->> diff --git a/meta-skeleton/recipes-skeleton/service/service/skeleton b/meta-skeleton/recipes-skeleton/service/service/skeleton
->> new file mode 100644
->> index 0000000..58804e4
->> --- /dev/null
->> +++ b/meta-skeleton/recipes-skeleton/service/service/skeleton
->> @@ -0,0 +1,188 @@
->> +#! /bin/sh
->> +### BEGIN INIT INFO
->> +# Provides:          skeleton
->> +# Required-Start:    $local_fs
->> +# Should-Start:
->> +# Required-Stop:     $local_fs
->> +# Should-Stop:
->> +# Default-Start:     2 3 4 5
->> +# Default-Stop:      0 1 6
->> +# Short-Description: Example initscript
->> +# Description:       This file should be used to construct scripts to be
->> +#                    placed in /etc/init.d.
->> +### END INIT INFO
->> +
->> +# Common steps to convert this skeleton into a real init script
->> +# 1) cp skeleton<the_real_name>
->> +# 2) Set DESC and NAME
->> +# 3) Check whether the daemon app is /usr/sbin/$NAME, if not, set it.
->> +# 4) Set DAEMON_ARGS if there is any
->> +# 5) Remove the useless code
->> +
->> +# PATH should only include /usr/* if it runs after the mountnfs.sh script
->> +PATH=/sbin:/usr/sbin:/bin:/usr/bin
->
->
-> Paths like usr and etc need to be rewritten at install. I wonder if
-> there might not be a better way to represent them in the skeleton.
->
->
->> +
->> +DESC="skeleton"
->> +NAME="skeleton"
->> +DAEMON=/usr/sbin/$NAME
->> +DAEMON_ARGS=""
->> +PIDFILE=/var/run/$NAME.pid
->> +SCRIPTNAME=/etc/init.d/$NAME
->> +
->> +#### Simulation begin
->> +# Simulate the script running, this is only used for printing the
->> +# information by default, it does nothing and should be removed from
->> +# the real init script
->
->
-> It should be removed from the skeleton as well. I suggest writing a test
-> script which calls "skeleton start; skeleton stop" etc. Especially since
-> you're not testing the actual script by running this, and you duplicate
-> code. So if you update it in only one spot, this testing will not catch it.
->
->
->> +fake_do_stop () {
->> +	if [ -f $PIDFILE ]; then
->> +		echo "Stopped $NAME (pid `cat $PIDFILE`)."
->> +		rm -f $PIDFILE
->> +	else
->> +		echo "No $NAME found running; none killed."
->> +	fi
->> +}
->> +
->> +if [ "$NAME" = "skeleton" ]; then
->> +	case $1 in
->> +	  start)
->> +		echo "Starting $DESC ..."
->> +		if [ -f $PIDFILE ]; then
->> +			echo "$DAEMON already running."
->> +			cat $PIDFILE
->> +		else
->> +			echo $$>$PIDFILE
->> +		fi
->> +		;;
->> +	  stop)
->> +		fake_do_stop
->> +		;;
->> +	  status)
->> +		if [ -f $PIDFILE ]; then
->> +			echo "$NAME is running."
->> +		else
->> +			echo "$NAME is not running."
->> +		fi
->> +		;;
->> +	  restart|force-reload)
->> +		fake_do_stop
->> +		echo "Starting $DESC ..."
->> +		echo $$>$PIDFILE
->> +		;;
->> +	  *)
->> +		echo "Usage: $SCRIPTNAME {start|stop|status|restart|force-reload}">&2
->> +		exit 3
->> +		;;
->> +	esac
->> +exit 0
->> +fi
->> +#### Simulation end
->> +
->> +# Exit if the package is not installed
->> +[ -x "$DAEMON" ] || exit 0
->> +
->> +# Read configuration variable file if it is present
->> +[ -r /etc/default/$NAME ]&&  . /etc/default/$NAME
->> +
->> +#
->> +# Function that starts the daemon/service
->> +#
->> +do_start()
->> +{
->> +	start-stop-daemon -S --pidfile $PIDFILE --exec $DAEMON -- $DAEMON_ARGS
->> +	# Add code here, if necessary, that waits for the process to be ready
->> +	# to handle requests from services started subsequently which depend
->> +	# on this one.  As a last resort, sleep for some time.
->> +}
->> +
->> +#
->> +# Function that stops the daemon/service
->> +#
->> +do_stop()
->> +{
->> +	start-stop-daemon -K -v --pidfile $PIDFILE --name $NAME
->> +	# Wait for children to finish too if this is a daemon that forks
->> +	# and if the daemon is only ever run from this initscript.
->> +	# If the above conditions are not satisfied then add some other code
->> +	# that waits for the process to drop all resources that could be
->> +	# needed by services started subsequently.  A last resort is to
->> +	# sleep for some time.
->> +	#
->> +	#start-stop-daemon -K --oknodo --exec $DAEMON
->
->
-> What does this command do?
->
->
->> +
->> +	# Many daemons don't delete their pidfiles when they exit.
->> +	rm -f $PIDFILE
->
->
-> Should STDERR be redirected to /dev/null in case the file does not exist?
->
->
->> +}
->> +
->> +#
->> +# Function that sends a SIGHUP to the daemon/service
->> +#
->> +#do_reload() {
->> +	#
->> +	# If the daemon can reload its configuration without
->> +	# restarting (for example, when it is sent a SIGHUP),
->> +	# then implement that here.
->> +	#
->> +	#start-stop-daemon -K --signal 1 --pidfile $PIDFILE --name $NAME
->> +#}
->> +
->> +#
->> +# Function that shows the daemon/service status
->> +#
->> +status_of_proc () {
->> +	pidof $NAME>/dev/null 2>&1
->> +	case $? in
->> +	  0)
->> +		echo "$NAME is running."
->> +		return 0
->> +		;;
->> +	  127)
->> +		echo "Can't get the status of $NAME (no pidof found)"
->> +		;;
->> +	  *)
->> +		echo "$NAME is not running.">&2
->> +		return 1
->> +		;;
->> +	esac
->> +}
->> +
->> +case "$1" in
->> +  start)
->> +	echo "Starting $DESC ..."
->> +	# Don't need check the return value, start-stop-daemon would
->> +	# print the failed reason automatically.
->> +	do_start
->> +	;;
->> +  stop)
->> +	do_stop
->> +	;;
->> +  status)
->> +	status_of_proc&&  exit 0 || exit $?
->> +	;;
->> +  #reload|force-reload)
->
->
-> We don't want to have force-reload in two locations, even commented out.
-> Going to lead to confusion.
->
->
->> +	#
->> +	# If do_reload() is not implemented then leave this commented out
->> +	# and leave 'force-reload' as an alias for 'restart'.
->> +	#
->> +	#echo "Reloading $DESC ..."
->> +	#do_reload
->> +	#;;
->> +  restart|force-reload)
->> +	#
->> +	# If the "reload" option is implemented then remove the
->> +	# 'force-reload' alias.
->> +	#
->> +	do_stop
->> +	echo "Starting $DESC ..."
->> +	do_start
->> +	;;
->> +  #try-restart)
->> +	# If do_try_restart() is not implemented then leave this commented out
->> +	#echo "Trying to restart $DESC ..."
->
->
-> This needs a description of how it should be implemented. i.e. how is
-> this different from restart?
->
->
->> +	#do_try_restart()
->> +	#;;
->> +  *)
->> +	echo "Usage: $SCRIPTNAME {start|stop|status|restart|force-reload}">&2
->> +	exit 3
->> +	;;
->> +esac
->> +
->> diff --git a/meta-skeleton/recipes-skeleton/service/service_0.1.bb b/meta-skeleton/recipes-skeleton/service/service_0.1.bb
->> new file mode 100644
->> index 0000000..88a7a59
->> --- /dev/null
->> +++ b/meta-skeleton/recipes-skeleton/service/service_0.1.bb
->> @@ -0,0 +1,20 @@
->> +DESCRIPTION = "The canonical example of init scripts"
->> +SECTION = "base"
->> +LICENSE = "GPLv2"
->> +LIC_FILES_CHKSUM = "file://${WORKDIR}/COPYRIGHT;md5=3900421dc55b9e70428bc522557a66d4"
->> +RDEPENDS_${PN} = "initscripts"
->> +PR = "r0"
->> +
->> +SRC_URI = "file://skeleton \
->> +	   file://COPYRIGHT \
->> +	   "
->> +
->> +CONFFILES_${PN} += "${sysconfdir}/init.d/skeleton"
->> +
->> +PACKAGE_ARCH = "all"
->> +
->> +do_install () {
->> +	install -d ${D}/${sysconfdir}/init.d
->> +	install -m 0755 ${WORKDIR}/skeleton ${D}/${sysconfdir}/init.d/
->> +}
->> +
->
-> This installs a file that uses directories like /usr which should be
-> replaced with the appropriate setting. For example, in mediatomb (and
-> others) we do this like this:
->
-> cat ${WORKDIR}/config.xml | \
->      sed -e 's,/etc,${sysconfdir},g' \
-> 	-e 's,/usr/sbin,${sbindir},g' \
-> 	-e 's,/var,${localstatedir},g' \
-> 	-e 's,/usr/bin,${bindir},g' \
-> 	-e 's,/usr,${prefix},g'>  ${D}${sysconfdir}/mediatomb/config.xml
->
+What causes this?  I don't have avahi running anywhere and I've explicitly
+disabled that daemon on the QEMU system.
 
+Finally, there seems to be no name resolution - /etc/resolv.conf comes
+up as:
+   nameserver 127.0.0.1
+If I want to resolve any real names, I have to update it manually.
+
+Note: I'm running core-image-sato with web-webkit added using zypper.
+
+Are others actually using the network with QEMU images?  like this?
+
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
+
+--------------050100070602010204090003
+Content-Type: text/plain;
+ name="route.bad"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename="route.bad"
+
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+192.168.7.0     0.0.0.0         255.255.255.0   U     0      0        0 eth0
+169.254.0.0     0.0.0.0         255.255.0.0     U     0      0        0 eth0
+0.0.0.0         0.0.0.0         0.0.0.0         U     0      0        0 eth0
+0.0.0.0         192.168.7.1     0.0.0.0         UG    0      0        0 eth0
+
+--------------050100070602010204090003
+Content-Type: text/plain;
+ name="route.good"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename="route.good"
+
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+192.168.7.0     0.0.0.0         255.255.255.0   U     0      0        0 eth0
+0.0.0.0         192.168.7.1     0.0.0.0         UG    0      0        0 eth0
+
+--------------050100070602010204090003
+Content-Type: application/postscript;
+ name="qemu.ps"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename="qemu.ps"
+
+F   UID   PID  PPID PRI  NI    VSZ   RSS WCHAN  STAT TTY        TIME COMMAND
+4     0     1     0  20   0   1652   552 poll_s Ss   ?          0:06 init [5]  
+1     0     2     0  20   0      0     0 kthrea S    ?          0:00 [kthreadd]
+1     0     3     2  20   0      0     0 run_ks S    ?          0:00 [ksoftirqd/0]
+1     0     5     2  20   0      0     0 worker S    ?          0:00 [kworker/u:0]
+1     0     6     2   0 -20      0     0 rescue S<   ?          0:00 [khelper]
+1     0     7     2  20   0      0     0 bdi_sy S    ?          0:00 [sync_supers]
+1     0     8     2  20   0      0     0 bdi_fo S    ?          0:00 [bdi-default]
+1     0     9     2   0 -20      0     0 rescue S<   ?          0:00 [kblockd]
+1     0    10     2  20   0      0     0 hub_th S    ?          0:00 [khubd]
+1     0    11     2  20   0      0     0 serio_ S    ?          0:00 [kseriod]
+1     0    12     2   0 -20      0     0 rescue S<   ?          0:00 [md]
+1     0    13     2   0 -20      0     0 rescue S<   ?          0:00 [kmmcd]
+1     0    14     2   0 -20      0     0 rescue S<   ?          0:00 [rpciod]
+1     0    15     2  20   0      0     0 worker S    ?          0:03 [kworker/0:1]
+1     0    16     2  20   0      0     0 kswapd S    ?          0:00 [kswapd0]
+1     0    17     2  20   0      0     0 fsnoti S    ?          0:00 [fsnotify_mark]
+1     0    18     2   0 -20      0     0 rescue S<   ?          0:00 [aio]
+1     0    19     2   0 -20      0     0 rescue S<   ?          0:00 [nfsiod]
+1     0    20     2   0 -20      0     0 rescue S<   ?          0:00 [crypto]
+1     0    25     2  20   0      0     0 scsi_e S    ?          0:00 [scsi_eh_0]
+1     0    26     2  20   0      0     0 worker S    ?          0:00 [kworker/u:1]
+1     0    27     2   0 -20      0     0 rescue S<   ?          0:00 [kpsmoused]
+1     0    28     2   0 -20      0     0 rescue S<   ?          0:00 [kstriped]
+1     0    29     2   0 -20      0     0 rescue S<   ?          0:00 [ksnapd]
+1     0    30     2   0 -20      0     0 rescue S<   ?          0:00 [usbhid_resumer]
+1     0    31     2  20   0      0     0 kjourn S    ?          0:00 [kjournald]
+1     0    56     2  20   0      0     0 bdi_wr S    ?          0:00 [flush-8:0]
+5     0    57     1  16  -4   1972   568 poll_s S<s  ?          0:00 /sbin/udevd -d
+5     1   187     1  20   0   2592   456 poll_s Ss   ?          0:00 /sbin/portmap
+5    43   207     1  20   0   3364   800 poll_s Ss   ?          0:01 /usr/bin/dbus-daemon --system
+5     0   210     1  20   0   3784  1716 poll_s Ss   ?          0:03 /usr/sbin/connmand
+4     0   218     1  20   0   2188   552 wait   S    ?          0:00 -sh -c \/etc\/X11\/Xserver
+4     0   221     1  20   0   4820  1116 poll_s S    ?          0:00 /usr/sbin/wpa_supplicant -u
+4     0   222   218  20   0   2892   644 wait   S    ?          0:00 xinit /etc/X11/Xsession -- /usr/bin/Xfbdev :0 -br -pn -keybd keyboard -mouse tslib -screen 640x480@0x16 -dpi 150 -rgba vrgb
+4     0   237   222  19  -1  11080  7224 -      R<   ?          1:15 /usr/bin/Xfbdev :0 -br -pn -keybd keyboard -mouse tslib -screen 640x480@0x16 -dpi 150 -rgba vrgb
+5     0   238    57  18  -2   1968   548 poll_s S<   ?          0:00 /sbin/udevd -d
+5     0   239    57  18  -2   1968   548 poll_s S<   ?          0:00 /sbin/udevd -d
+4     0   244   222  20   0   6464  2648 poll_s S    ?          0:04 matchbox-window-manager -theme Sato -use_desktop_mode decorated -use_cursor no
+1     0   248     1  20   0   3204   548 poll_s S    ?          0:00 dbus-launch --sh-syntax --exit-with-session
+1     0   249     1  20   0   3364   756 poll_s Ss   ?          0:00 /usr/bin/dbus-daemon --fork --print-pid 5 --print-address 7 --session
+0     0   271   244  20   0  18900  6296 poll_s S    ?          0:05 connman-applet
+0     0   292   244  20   0  19884  8580 poll_s S    ?          0:09 matchbox-desktop
+0     0   293   244  20   0  20300  8332 poll_s S    ?          0:11 matchbox-panel --titlebar --start-applets showdesktop,windowselector --end-applets clock,battery,systray,startup-notify,notify
+0     0   295     1  20   0   4132  1832 poll_s S    ?          0:00 /usr/libexec/gconfd-2
+1     0   296     1  20   0  11344  1260 poll_s S    ?          0:00 /usr/bin/settings-daemon
+1     0   304     1  20   0   2252   356 poll_s Ss   ?          0:00 /usr/sbin/dropbear -r /etc/dropbear/dropbear_rsa_host_key -p 22
+1    44   313     1  25   5   2952   408 wait   SNs  ?          0:00 /usr/bin/distccd --pid-file=/var/run/distcc.pid --daemon --allow 192.168.7.0/24
+1    44   314   313  25   5   2952   192 inet_c SN   ?          0:00 /usr/bin/distccd --pid-file=/var/run/distcc.pid --daemon --allow 192.168.7.0/24
+1    44   325   313  25   5   2952   192 inet_c SN   ?          0:00 /usr/bin/distccd --pid-file=/var/run/distcc.pid --daemon --allow 192.168.7.0/24
+1     0   326     1  20   0   2164   392 poll_s Ss   ?          0:00 /usr/sbin/rpc.mountd -f /etc/exports 
+5     0   328     1  20   0   1872   736 poll_s Ss   ?          0:00 /usr/sbin/rpc.statd
+1    44   330   313  25   5   2952   192 inet_c SN   ?          0:00 /usr/bin/distccd --pid-file=/var/run/distcc.pid --daemon --allow 192.168.7.0/24
+0     0   334     1  20   0   2252   612 skb_re Ss   ?          0:00 /sbin/syslogd -n -C64 -m 20
+4     0   336     1  20   0   2188   540 syslog Ss   ?          0:00 /sbin/klogd -n
+0     0   345     1  20   0   4060  1252 poll_s S    ?          0:00 /usr/bin/oprofile-server
+1     0   349     1  20   0   2132   688 futex_ Ssl  ?          0:01 /usr/sbin/tcf-agent -d -L- -l0
+0     0   354     1  20   0   1908   520 n_tty_ Ss+  ttyAMA0    0:00 /sbin/getty 115200 ttyAMA0
+0     0   355     1  20   0   1908   520 n_tty_ Ss+  tty1       0:00 /sbin/getty 38400 tty1
+0     0   357     1  20   0  24808  6688 poll_s Sl   ?          0:46 matchbox-terminal
+4     0   358   357  20   0   1848   624 unix_s S    ?          0:00 gnome-pty-helper
+4     0   359   357  20   0   2364   836 wait   Ss   pts/0      0:01 /bin/sh
+0     0   377     1  20   0 113372 25180 poll_s Sl   ?          0:32 web2
+1     0   393     2  20   0      0     0 worker S    ?          0:00 [kworker/0:0]
+4     0   429   359  20   0   2196   740 -      R+   pts/0      0:00 ps lax
+
+--------------050100070602010204090003--
