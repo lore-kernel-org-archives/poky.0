@@ -1,19 +1,22 @@
 Return-Path: <tom.zanussi@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 023D24C810CC
-	for <poky@yoctoproject.org>; Thu, 12 May 2011 17:07:07 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 12 May 2011 15:07:07 -0700
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 16C524C810CC
+	for <poky@yoctoproject.org>; Thu, 12 May 2011 17:07:09 -0500 (CDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 12 May 2011 15:07:08 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,360,1301900400"; d="scan'208";a="435223700"
+X-IronPort-AV: E=Sophos;i="4.64,360,1301900400"; 
+   d="scan'208";a="996954"
 Received: from unknown (HELO localhost) ([10.255.12.106])
-	by azsmga001.ch.intel.com with ESMTP; 12 May 2011 15:07:06 -0700
-Message-Id: <cover.1305235949.git.tom.zanussi@intel.com>
-Old-Date: Thu, 12 May 2011 16:32:29 -0500
-Date: Thu, 12 May 2011 17:06:42 -0500
+	by fmsmga002.fm.intel.com with ESMTP; 12 May 2011 15:07:08 -0700
+Message-Id: <a2bdb5de3897578b380a0131efc85cb990ff2ee7.1305235949.git.tom.zanussi@intel.com>
+In-Reply-To: <cover.1305235949.git.tom.zanussi@intel.com>
+References: <cover.1305235949.git.tom.zanussi@intel.com>
+Old-Date: Fri, 22 Apr 2011 15:55:12 -0500
+Date: Thu, 12 May 2011 17:06:44 -0500
 To: bruce.ashfield@windriver.com,poky@yoctoproject.org
 From: Tom Zanussi <tom.zanussi@intel.com>
-Subject: [KERNEL][linux-yocto PATCH 0/1] merge emgd feature branch into crownbay for 2.6.37
+Subject: [KERNEL][linux-yocto PATCH 1/1] bsp/crownbay: merge emgd branch
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -25,22 +28,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 May 2011 22:07:08 -0000
+X-List-Received-Date: Thu, 12 May 2011 22:07:09 -0000
 
 From: Tom Zanussi <tom.zanussi@intel.com>
 
-This merges the yocto/emgd topic branch into the crownbay branch for 2.6.37.
+Add scc commands to merge the yocto/emgd branch into the crownbay BSP.
 
-Please pull into linux-yocto.
-
-Pull URL: git://git.pokylinux.org/linux-yocto-2.6.37-contrib
-  Branch: tzanussi/emgd-1.6.1-meta-merge-emgd
-  Browse: http://git.pokylinux.org/cgit.cgi/linux-yocto-2.6.37-contrib/log/?h=tzanussi/emgd-1.6.1-meta-merge-emgd
-
-Tom Zanussi (1):
-  bsp/crownbay: merge emgd branch
-
+Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
+---
  meta/cfg/kernel-cache/bsp/crownbay/crownbay.scc |    2 ++
  1 files changed, 2 insertions(+), 0 deletions(-)
+
+diff --git a/meta/cfg/kernel-cache/bsp/crownbay/crownbay.scc b/meta/cfg/kernel-cache/bsp/crownbay/crownbay.scc
+index 89a0725..0d02b98 100644
+--- a/meta/cfg/kernel-cache/bsp/crownbay/crownbay.scc
++++ b/meta/cfg/kernel-cache/bsp/crownbay/crownbay.scc
+@@ -1,6 +1,8 @@
+ kconf hardware crownbay.cfg
+ kconf hardware eg20t.cfg
+ 
++git merge yocto/emgd
++
+ include features/latencytop/latencytop.scc
+ include features/profiling/profiling.scc
+ include features/serial/8250.scc
+-- 
+1.7.0.4
 
 
