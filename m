@@ -1,22 +1,23 @@
 Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 597A54C811BD
-	for <poky@yoctoproject.org>; Fri, 13 May 2011 08:59:46 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 13 May 2011 06:59:45 -0700
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id A82B74C811BD
+	for <poky@yoctoproject.org>; Fri, 13 May 2011 08:59:48 -0500 (CDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 13 May 2011 06:59:48 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,364,1301900400"; d="scan'208";a="435610130"
+X-IronPort-AV: E=Sophos;i="4.64,364,1301900400"; 
+   d="scan'208";a="1814926"
 Received: from unknown (HELO helios) ([10.255.16.107])
-	by azsmga001.ch.intel.com with SMTP; 13 May 2011 06:59:44 -0700
-Received: by helios (sSMTP sendmail emulation); Fri, 13 May 2011 14:59:43 +0100
-Message-Id: <4ae5635987c390ce09fb1a85f04335a31390342d.1305295079.git.paul.eggleton@linux.intel.com>
+	by fmsmga001.fm.intel.com with SMTP; 13 May 2011 06:59:46 -0700
+Received: by helios (sSMTP sendmail emulation); Fri, 13 May 2011 14:59:45 +0100
+Message-Id: <8e2a54d05b21f33bd2249bab21343c25170ffc83.1305295079.git.paul.eggleton@linux.intel.com>
 In-Reply-To: <cover.1305295079.git.paul.eggleton@linux.intel.com>
 References: <cover.1305295079.git.paul.eggleton@linux.intel.com>
-Old-Date: Fri, 13 May 2011 10:17:16 +0100
-Date: Fri, 13 May 2011 14:59:43 +0100
+Old-Date: Fri, 13 May 2011 14:28:13 +0100
+Date: Fri, 13 May 2011 14:59:45 +0100
 To: poky@yoctoproject.org,openembedded-core@lists.openembedded.org
 From: Paul Eggleton <paul.eggleton@linux.intel.com>
-Subject: [PATCH 2/3] distro_tracking_fields.inc: update for qt 4.7.3 upgrade
+Subject: [PATCH 3/3] qt4: split out SQL driver config flags to QT_SQL_DRIVER_FLAGS
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,68 +29,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 May 2011 13:59:46 -0000
+X-List-Received-Date: Fri, 13 May 2011 13:59:48 -0000
 
 From: Paul Eggleton <paul.eggleton@linux.intel.com>
 
+This allows meta-oe to override these options easily in order to enable more
+SQL driver plugins.
+
 Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
 ---
- .../conf/distro/include/distro_tracking_fields.inc |   32 ++++++++++----------
- 1 files changed, 16 insertions(+), 16 deletions(-)
+ meta/recipes-qt/qt4/qt4.inc |    4 +++-
+ 1 files changed, 3 insertions(+), 1 deletions(-)
 
-diff --git a/meta/conf/distro/include/distro_tracking_fields.inc b/meta/conf/distro/include/distro_tracking_fields.inc
-index d9fe02c..ad45b94 100644
---- a/meta/conf/distro/include/distro_tracking_fields.inc
-+++ b/meta/conf/distro/include/distro_tracking_fields.inc
-@@ -3352,32 +3352,32 @@ RECIPE_LAST_UPDATE_pn-imake = "Nov 21, 2010"
- RECIPE_MAINTAINER_pn-imake = "Yu Ke <ke.yu@intel.com>"
+diff --git a/meta/recipes-qt/qt4/qt4.inc b/meta/recipes-qt/qt4/qt4.inc
+index b86f89f..7e15b61 100644
+--- a/meta/recipes-qt/qt4/qt4.inc
++++ b/meta/recipes-qt/qt4/qt4.inc
+@@ -9,11 +9,13 @@ QT_ENDIAN = "${@qt_endian(d)}"
+ QT_DISTRO_FLAGS ?= "-no-accessibility -no-sm"
+ QT_DISTRO_FLAGS_linuxstdbase = "-sm"
  
- RECIPE_STATUS_pn-qt4-tools-native = "green" # no update needed
--RECIPE_LATEST_VERSION_pn-qt4-tools-native = "4.7.2"
--RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-qt4-tools-native = "4 months"
--RECIPE_LATEST_RELEASE_DATE_pn-qt4-tools-native = "2011/03/01"
--RECIPE_LAST_UPDATE_pn-qt4-tools-native = "Apr 6, 2011"
-+RECIPE_LATEST_VERSION_pn-qt4-tools-native = "4.7.3"
-+RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-qt4-tools-native = "2 months"
-+RECIPE_LATEST_RELEASE_DATE_pn-qt4-tools-native = "2011/05/04"
-+RECIPE_LAST_UPDATE_pn-qt4-tools-native = "May 12, 2011"
- RECIPE_MAINTAINER_pn-qt4-tools-native = "Paul Eggleton <paul.eggleton@linux.intel.com>"
- DISTRO_PN_ALIAS_pn-qt4-tools-native = "Mandriva=libqt4-devel Ubuntu=libqt4-dev"
++QT_SQL_DRIVER_FLAGS ?= "-no-sql-ibase -no-sql-mysql -no-sql-psql -no-sql-odbc -plugin-sql-sqlite"
++
+ QT_CONFIG_FLAGS += "-release -no-cups -reduce-relocations \
+                     -shared -no-nas-sound -no-nis \
+                     -qt-gif -system-libjpeg -system-libpng -system-zlib \
+-                    -no-sql-ibase -no-sql-mysql -no-sql-psql -no-sql-odbc -plugin-sql-sqlite \
+                     -no-pch -qdbus -stl -glib -phonon -webkit \
++                    ${QT_SQL_DRIVER_FLAGS} \
+                     ${QT_DISTRO_FLAGS} "
  
- RECIPE_STATUS_pn-qt4-tools-nativesdk = "green"
--RECIPE_LATEST_VERSION_pn-qt4-tools-nativesdk = "4.7.2"
--RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-qt4-tools-nativesdk = "4 months"
--RECIPE_LATEST_RELEASE_DATE_pn-qt4-tools-nativesdk = "2011/03/01"
--RECIPE_LAST_UPDATE_pn-qt4-tools-nativesdk = "Apr 6, 2011"
-+RECIPE_LATEST_VERSION_pn-qt4-tools-nativesdk = "4.7.3"
-+RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-qt4-tools-nativesdk = "2 months"
-+RECIPE_LATEST_RELEASE_DATE_pn-qt4-tools-nativesdk = "2011/05/04"
-+RECIPE_LAST_UPDATE_pn-qt4-tools-nativesdk = "May 12, 2011"
- RECIPE_MAINTAINER_pn-qt4-tools-nativesdk = "Paul Eggleton <paul.eggleton@linux.intel.com>"
- 
- RECIPE_STATUS_pn-qt4-embedded = "green"
--RECIPE_LATEST_VERSION_pn-qt4-embedded = "4.7.2"
--RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-qt4-embedded = "4 months"
--RECIPE_LATEST_RELEASE_DATE_pn-qt4-embedded = "2011/03/01"
--RECIPE_LAST_UPDATE_pn-qt4-embedded = "Apr 6, 2011"
-+RECIPE_LATEST_VERSION_pn-qt4-embedded = "4.7.3"
-+RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-qt4-embedded = "2 months"
-+RECIPE_LATEST_RELEASE_DATE_pn-qt4-embedded = "2011/05/04"
-+RECIPE_LAST_UPDATE_pn-qt4-embedded = "May 12, 2011"
- RECIPE_MAINTAINER_pn-qt4-embedded = "Paul Eggleton <paul.eggleton@linux.intel.com>"
- 
- RECIPE_STATUS_pn-qt4-x11-free = "green"
--RECIPE_LATEST_VERSION_pn-qt4-x11-free = "4.7.2"
--RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-qt4-x11-free = "4 months"
--RECIPE_LATEST_RELEASE_DATE_pn-qt4-x11-free = "2011/03/01"
--RECIPE_LAST_UPDATE_pn-qt4-x11-free = "Apr 6, 2011"
-+RECIPE_LATEST_VERSION_pn-qt4-x11-free = "4.7.3"
-+RECIPE_TIME_BETWEEN_LAST_TWO_RELEASES_pn-qt4-x11-free = "2 months"
-+RECIPE_LATEST_RELEASE_DATE_pn-qt4-x11-free = "2011/05/04"
-+RECIPE_LAST_UPDATE_pn-qt4-x11-free = "May 12, 2011"
- RECIPE_MAINTAINER_pn-qt4-x11-free = "Paul Eggleton <paul.eggleton@linux.intel.com"
- DISTRO_PN_ALIAS_pn-qt4-x11-free = "Ubuntu=qt-x11-free Debian=qt-x11-free"
- 
+ EXTRA_OEMAKE = "-e"
 -- 
 1.7.4.4
 
