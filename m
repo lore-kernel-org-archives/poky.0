@@ -1,21 +1,21 @@
 Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 04ACC4C811A7
-	for <poky@yoctoproject.org>; Thu, 12 May 2011 19:20:32 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 12 May 2011 17:20:32 -0700
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 3A6644C811A7
+	for <poky@yoctoproject.org>; Thu, 12 May 2011 19:20:33 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 12 May 2011 17:20:33 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,361,1301900400"; d="scan'208";a="746532599"
+X-IronPort-AV: E=Sophos;i="4.64,361,1301900400"; d="scan'208";a="435293406"
 Received: from nbuild2.sc.intel.com (HELO localhost) ([172.25.110.37])
-	by orsmga001.jf.intel.com with ESMTP; 12 May 2011 17:20:32 -0700
-Message-Id: <904a58fe22c63854f39e5209797569b312c4de07.1305245924.git.nitin.a.kamble@intel.com>
+	by azsmga001.ch.intel.com with ESMTP; 12 May 2011 17:20:33 -0700
+Message-Id: <cc80e008db24d328b27189d4b069ce412d04e4ec.1305245924.git.nitin.a.kamble@intel.com>
 In-Reply-To: <cover.1305245922.git.nitin.a.kamble@intel.com>
 References: <cover.1305245922.git.nitin.a.kamble@intel.com>
-Old-Date: Thu, 12 May 2011 16:41:36 -0700
+Old-Date: Thu, 12 May 2011 16:44:43 -0700
 Date: Thu, 12 May 2011 17:20:32 -0700
 To: poky@yoctoproject.org
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Subject: [PATCH 16/25] make: update upstream-status for patches
+Subject: [PATCH 17/25] perl: update upstream-status for patches
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,18 +33,19 @@ From: Nitin A Kamble <nitin.a.kamble@intel.com>
 
 Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
 ---
- meta/recipes-devtools/make/files/SCCS.patch |    1 +
- 1 files changed, 1 insertions(+), 0 deletions(-)
+ .../perl/files/Configure-multilib.patch            |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
 
-diff --git a/meta/recipes-devtools/make/files/SCCS.patch b/meta/recipes-devtools/make/files/SCCS.patch
-index c998e11..c7ec3bd 100644
---- a/meta/recipes-devtools/make/files/SCCS.patch
-+++ b/meta/recipes-devtools/make/files/SCCS.patch
-@@ -1,3 +1,4 @@
-+Upstream-Status: Pending
- 
- #
- # Patch managed by http://www.mn-logistik.de/unsupported/pxa250/patcher
+diff --git a/meta/recipes-devtools/perl/files/Configure-multilib.patch b/meta/recipes-devtools/perl/files/Configure-multilib.patch
+index 545a8b8..085a2ff 100644
+--- a/meta/recipes-devtools/perl/files/Configure-multilib.patch
++++ b/meta/recipes-devtools/perl/files/Configure-multilib.patch
+@@ -1,3 +1,5 @@
++Upstream-Status: Inappropriate [embedded specific]
++
+ Index: perl-5.12.2/Configure
+ ===================================================================
+ --- perl-5.12.2.orig/Configure
 -- 
 1.7.3.4
 
