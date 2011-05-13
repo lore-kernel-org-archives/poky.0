@@ -1,25 +1,37 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7BD024C811EB
-	for <poky@pokylinux.org>; Fri, 13 May 2011 15:19:34 -0500 (CDT)
+Return-Path: <nitin.a.kamble@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 9DFAA4C8120A
+	for <poky@yoctoproject.org>; Fri, 13 May 2011 15:27:40 -0500 (CDT)
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 13 May 2011 13:19:33 -0700
+	by fmsmga102.fm.intel.com with ESMTP; 13 May 2011 13:27:40 -0700
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="4.64,366,1301900400"; 
-   d="scan'208";a="1428407"
-Received: from unknown (HELO [10.255.12.78]) ([10.255.12.78])
-	by fmsmga002.fm.intel.com with ESMTP; 13 May 2011 13:19:33 -0700
-Message-ID: <4DCD925A.8090501@linux.intel.com>
-Date: Fri, 13 May 2011 13:19:38 -0700
-From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.17) Gecko/20110424 Lightning/1.0b2 Thunderbird/3.1.10
+   d="scan'208";a="1430307"
+Received: from orsmsx603.amr.corp.intel.com ([10.22.226.49])
+	by fmsmga002.fm.intel.com with ESMTP; 13 May 2011 13:27:40 -0700
+Received: from orsmsx601.amr.corp.intel.com (10.22.226.213) by
+	orsmsx603.amr.corp.intel.com (10.22.226.49) with Microsoft SMTP Server
+	(TLS) id 8.2.255.0; Fri, 13 May 2011 13:27:40 -0700
+Received: from orsmsx504.amr.corp.intel.com ([10.22.226.207]) by
+	orsmsx601.amr.corp.intel.com ([10.22.226.213]) with mapi;
+	Fri, 13 May 2011 13:27:40 -0700
+From: "Kamble, Nitin A" <nitin.a.kamble@intel.com>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+Date: Fri, 13 May 2011 13:27:39 -0700
+Thread-Topic: [poky] [PATCH 25/25] m4: update upstream-status for patches
+Thread-Index: AcwRVIMI6VkkuAbLSuirqOOMn5dnSwAV5t4w
+Message-ID: <9DA5872FEF993D41B7173F58FCF6BE94D89C51C9@orsmsx504.amr.corp.intel.com>
+References: <cover.1305245922.git.nitin.a.kamble@intel.com>
+	<483456db6f26684d977870434bbf3b51891c171c.1305245924.git.nitin.a.kamble@intel.com>
+	<1305280774.19606.39.camel@rex>
+In-Reply-To: <1305280774.19606.39.camel@rex>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
 MIME-Version: 1.0
-To: gmane@reliableembeddedsystems.com
-References: <iqjk2n$otv$1@dough.gmane.org> <iqk0lv$264$1@dough.gmane.org>
-In-Reply-To: <iqk0lv$264$1@dough.gmane.org>
-Cc: poky@pokylinux.org
-Subject: Re: beagleboard and latest from git
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH 25/25] m4: update upstream-status for patches
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,82 +43,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 May 2011 20:19:39 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 13 May 2011 20:27:40 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-
-
-On 05/13/2011 12:26 PM, Robert Berger wrote:
-> Hi,
-> 
-> I switched a bit around between various versions in the meantime and
-> that's what I figured out:
-
-Thanks for the analysis Robert. There is a bug open for this:
-
-http://bugzilla.yoctoproject.org/show_bug.cgi?id=1029
-
-If you want to take a shot and preparing a fix, please do. Otherwise,
-we'll get to it for the M1 milestone.
-
-Thanks,
-
-Darren
-
-> 
-> 1) the latest u-boot (or some configuration of it) from git does not
-> seem to work for the beagleboard
-> 
-> 2) if I use U-Boot 2011.03-00038-g8d4addc-dirty (May 13 2011 - 00:01:02)
-> which comes with bernard-5.0.1 things look much better.
-> 
-> U-Boot 2010.12-00038-g8d4addc-dirty (May 13 2011 - 08:44:08) is the
-> suspect. Why does the latest and greatest from git use an older u-boot
-> version than bernard 5.0.1?
-> 
-> I interrupt the u-boot autoboot and do the following:
-> 
-> OMAP3 beagleboard.org # sete console "ttyO2,115200n8"
-> OMAP3 beagleboard.org # mmc rescan ${mmcdev}
-> OMAP3 beagleboard.org # run loaduimage
-> reading uImage
-> 
-> 2632316 bytes read
-> OMAP3 beagleboard.org # run mmcboot
-> 
-> and voila:
-> 
-> Yocto (Built by Poky 5.0) 1.0+snapshot-20110512 beagleboard ttyO2
-> 
-> beagleboard login: root
-> root@beagleboard:~#
-> 
-> This time even with networking.
-> 
-> This means that the latest and greatest rootfs seems OK.
-> 
-> Regards,
-> 
-> Robert
-> 
-> 
-> ..."It is NOT portable (uses 386 task switching etc), and it probably
-> never will support anything other than AT-harddisks, as that's all I
-> have :-(." - Linus Benedict Torvalds(torvalds@klaava.Helsinki.FI),
-> 1991-08-25 23:12:08 PST -
-> 
-> My public pgp key is available at:
-> http://pgp.mit.edu:11371/pks/lookup?op=get&search=0x90320BF1
-> 
-> 
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
-
--- 
-Darren Hart
-Intel Open Source Technology Center
-Yocto Project - Linux Kernel
+SGkgUmljaGFyZCwNCiBUaGFua3MgZm9yIGRldGVjdGluZyB0aGlzLiANCk5pdGluDQoNCg0KPiAt
+LS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBSaWNoYXJkIFB1cmRpZSBbbWFpbHRv
+OnJpY2hhcmQucHVyZGllQGxpbnV4Zm91bmRhdGlvbi5vcmddDQo+IFNlbnQ6IEZyaWRheSwgTWF5
+IDEzLCAyMDExIDM6MDAgQU0NCj4gVG86IEthbWJsZSwgTml0aW4gQQ0KPiBDYzogcG9reUB5b2N0
+b3Byb2plY3Qub3JnDQo+IFN1YmplY3Q6IFJlOiBbcG9reV0gW1BBVENIIDI1LzI1XSBtNDogdXBk
+YXRlIHVwc3RyZWFtLXN0YXR1cyBmb3INCj4gcGF0Y2hlcw0KPiANCj4gSGkgTml0aW4sDQo+IA0K
+PiBPbiBUaHUsIDIwMTEtMDUtMTIgYXQgMTc6MjAgLTA3MDAsIE5pdGluIEEgS2FtYmxlIHdyb3Rl
+Og0KPiA+IEZyb206IE5pdGluIEEgS2FtYmxlIDxuaXRpbi5hLmthbWJsZUBpbnRlbC5jb20+DQo+
+ID4NCj4gPiBTaWduZWQtb2ZmLWJ5OiBOaXRpbiBBIEthbWJsZSA8bml0aW4uYS5rYW1ibGVAaW50
+ZWwuY29tPg0KPiA+IC0tLQ0KPiA+ICBtZXRhL3JlY2lwZXMtZGV2dG9vbHMvbTQvbTQvYWNfY29u
+ZmlnX2xpbmtzLnBhdGNoICB8ICAgIDIgKw0KPiA+ICAuLi4vbTQvbTQvZml4X2Zvcl9jaXJjdWxh
+cl9kZXBlbmRlbmN5LnBhdGNoICAgICAgICB8ICAgIDIgKw0KPiA+ICAuLi4vbTQvbTQvbTQtMS40
+LjlfZXh0cmFfb3B0aW9ucy5wYXRjaCAgICAgICAgICAgICB8ICAxNjkNCj4gKysrKysrKysrKysr
+KysrKysrKysNCj4gPiAgbWV0YS9yZWNpcGVzLWRldnRvb2xzL200L200L21ha2UucGF0Y2ggICAg
+ICAgICAgICAgfCAgICAxICsNCj4gPiAgNCBmaWxlcyBjaGFuZ2VkLCAxNzQgaW5zZXJ0aW9ucygr
+KSwgMCBkZWxldGlvbnMoLSkNCj4gPiAgY3JlYXRlIG1vZGUgMTAwNjQ0IG1ldGEvcmVjaXBlcy1k
+ZXZ0b29scy9tNC9tNC9tNC0NCj4gMS40LjlfZXh0cmFfb3B0aW9ucy5wYXRjaA0KPiANCj4gSSBk
+aWRuJ3QgdGFrZSB0aGlzIHBhdGNoIGFzIHRoZXJlIHNlZW1lZCB0byBiZSBtb3JlIHRoYW4gYSBw
+YXRjaCBoZWFkZXINCj4gYWRkaXRpb24gaW4gdGhpcyBwYXRjaC4uLg0KPiANCj4gQ2hlZXJzLA0K
+PiANCj4gUmljaGFyZA0KDQo=
 
