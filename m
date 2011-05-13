@@ -1,22 +1,24 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 3C4B64C811BD
-	for <poky@yoctoproject.org>; Fri, 13 May 2011 08:59:57 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 13 May 2011 06:59:43 -0700
+Return-Path: <tom.zanussi@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id DE4624C811E1
+	for <poky@yoctoproject.org>; Fri, 13 May 2011 09:04:06 -0500 (CDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 13 May 2011 07:04:01 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,364,1301900400"; d="scan'208";a="746807049"
-Received: from unknown (HELO helios) ([10.255.16.107])
-	by orsmga001.jf.intel.com with SMTP; 13 May 2011 06:59:41 -0700
-Received: by helios (sSMTP sendmail emulation); Fri, 13 May 2011 14:59:40 +0100
-Message-Id: <7b9f4d4a10900dc73e5faea2d59131465b667eea.1305295079.git.paul.eggleton@linux.intel.com>
-In-Reply-To: <cover.1305295079.git.paul.eggleton@linux.intel.com>
-References: <cover.1305295079.git.paul.eggleton@linux.intel.com>
-Old-Date: Thu, 12 May 2011 15:11:16 +0100
-Date: Fri, 13 May 2011 14:59:40 +0100
-To: poky@yoctoproject.org,openembedded-core@lists.openembedded.org
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-Subject: [PATCH 1/3] qt4: update from 4.7.2 to 4.7.3
+X-IronPort-AV: E=Sophos;i="4.64,364,1301900400"; 
+   d="scan'208";a="1280145"
+Received: from unknown (HELO [10.255.12.105]) ([10.255.12.105])
+	by fmsmga002.fm.intel.com with ESMTP; 13 May 2011 07:04:00 -0700
+From: Tom Zanussi <tom.zanussi@intel.com>
+To: Darren Hart <dvhart@linux.intel.com>
+In-Reply-To: <e1b71af1b5924aaba0bcd1d440312f1bd5ce0f6a.1305257454.git.dvhart@linux.intel.com>
+References: <e1b71af1b5924aaba0bcd1d440312f1bd5ce0f6a.1305257454.git.dvhart@linux.intel.com>
+Date: Fri, 13 May 2011 09:03:32 -0500
+Message-ID: <1305295412.21191.0.camel@elmorro>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH][meta-intel] linux-yocto*: extend FILESEXTRAPATHS instead of clobber them
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,152 +30,133 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 May 2011 13:59:57 -0000
+X-List-Received-Date: Fri, 13 May 2011 14:04:07 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
+On Thu, 2011-05-12 at 20:31 -0700, Darren Hart wrote:
+> Clobbering FILESEXTRAPATHS prevents multiple bbappend files providing file://
+> SRC_URIs. Extend the variable in each meta-* layer instead.
+> 
+> Build tested with linux-yocto on n450 and crownbay and linux-yocto-stable on
+> crownbay. Build tested linux-yocto on n450 with a third layer adding a config
+> fragment.
+> 
+> Signed-off-by: Darren Hart <dvhart@linux.intel.com>
+> CC: Tom Zanussi <tom.zanussi@intel.com>
 
-The Comodo certificates patch has been merged upstream so it no longer
-needs to be applied. Some PR values were reset and SRC_URI checksums
-updated but other than this there are no recipe changes.
+Acked-by: Tom Zanussi <tom.zanussi@intel.com>
 
-Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
----
- meta/recipes-qt/qt4/{qt-4.7.2.inc => qt-4.7.3.inc} |    5 ++---
- .../0001-Added-Openembedded-crossarch-option.patch |    0
- .../recipes-qt/qt4/{qt-4.7.2 => qt-4.7.3}/g++.conf |    0
- .../hack-out-pg2-4.7.0.patch                       |    0
- .../qt4/{qt-4.7.2 => qt-4.7.3}/linux.conf          |    0
- ...qt4-embedded_4.7.2.bb => qt4-embedded_4.7.3.bb} |    2 +-
- ...s-native_4.7.2.bb => qt4-tools-native_4.7.3.bb} |    4 ++--
- meta/recipes-qt/qt4/qt4-tools-nativesdk_4.7.2.bb   |    6 ------
- meta/recipes-qt/qt4/qt4-tools-nativesdk_4.7.3.bb   |    6 ++++++
- ...qt4-x11-free_4.7.2.bb => qt4-x11-free_4.7.3.bb} |    2 +-
- 10 files changed, 12 insertions(+), 13 deletions(-)
- rename meta/recipes-qt/qt4/{qt-4.7.2.inc => qt-4.7.3.inc} (89%)
- rename meta/recipes-qt/qt4/{qt-4.7.2 => qt-4.7.3}/0001-Added-Openembedded-crossarch-option.patch (100%)
- rename meta/recipes-qt/qt4/{qt-4.7.2 => qt-4.7.3}/g++.conf (100%)
- rename meta/recipes-qt/qt4/{qt-4.7.2 => qt-4.7.3}/hack-out-pg2-4.7.0.patch (100%)
- rename meta/recipes-qt/qt4/{qt-4.7.2 => qt-4.7.3}/linux.conf (100%)
- rename meta/recipes-qt/qt4/{qt4-embedded_4.7.2.bb => qt4-embedded_4.7.3.bb} (87%)
- rename meta/recipes-qt/qt4/{qt4-tools-native_4.7.2.bb => qt4-tools-native_4.7.3.bb} (61%)
- delete mode 100644 meta/recipes-qt/qt4/qt4-tools-nativesdk_4.7.2.bb
- create mode 100644 meta/recipes-qt/qt4/qt4-tools-nativesdk_4.7.3.bb
- rename meta/recipes-qt/qt4/{qt4-x11-free_4.7.2.bb => qt4-x11-free_4.7.3.bb} (88%)
+> ---
+>  .../linux/linux-yocto-stable_git.bbappend          |    2 +-
+>  .../recipes-kernel/linux/linux-yocto_git.bbappend  |    2 +-
+>  .../linux/linux-yocto-stable_git.bbappend          |    2 +-
+>  .../recipes-kernel/linux/linux-yocto_git.bbappend  |    2 +-
+>  .../recipes-kernel/linux/linux-yocto_git.bbappend  |    2 +-
+>  .../linux/linux-yocto-stable_git.bbappend          |    2 +-
+>  .../recipes-kernel/linux/linux-yocto_git.bbappend  |    2 +-
+>  .../linux/linux-yocto-stable_git.bbappend          |    2 +-
+>  .../recipes-kernel/linux/linux-yocto_git.bbappend  |    2 +-
+>  .../recipes-kernel/linux/linux-yocto_git.bbappend  |    2 +-
+>  10 files changed, 10 insertions(+), 10 deletions(-)
+> 
+> diff --git a/meta-crownbay/recipes-kernel/linux/linux-yocto-stable_git.bbappend b/meta-crownbay/recipes-kernel/linux/linux-yocto-stable_git.bbappend
+> index 4136536..8309478 100644
+> --- a/meta-crownbay/recipes-kernel/linux/linux-yocto-stable_git.bbappend
+> +++ b/meta-crownbay/recipes-kernel/linux/linux-yocto-stable_git.bbappend
+> @@ -1,4 +1,4 @@
+> -FILESEXTRAPATHS := "${THISDIR}/${PN}"
+> +FILESEXTRAPATHS := "${FILESEXTRAPATHS}:${THISDIR}/${PN}"
+>  
+>  COMPATIBLE_MACHINE_crownbay = "crownbay"
+>  KMACHINE_crownbay  = "crownbay"
+> diff --git a/meta-crownbay/recipes-kernel/linux/linux-yocto_git.bbappend b/meta-crownbay/recipes-kernel/linux/linux-yocto_git.bbappend
+> index 32bbd10..5912fb7 100644
+> --- a/meta-crownbay/recipes-kernel/linux/linux-yocto_git.bbappend
+> +++ b/meta-crownbay/recipes-kernel/linux/linux-yocto_git.bbappend
+> @@ -1,3 +1,3 @@
+> -FILESEXTRAPATHS := "${THISDIR}/${PN}"
+> +FILESEXTRAPATHS := "${FILESEXTRAPATHS}:${THISDIR}/${PN}"
+>  COMPATIBLE_MACHINE_crownbay = "crownbay"
+>  KMACHINE_crownbay  = "yocto/standard/crownbay"
+> diff --git a/meta-emenlow/recipes-kernel/linux/linux-yocto-stable_git.bbappend b/meta-emenlow/recipes-kernel/linux/linux-yocto-stable_git.bbappend
+> index 9fa2937..09234dc 100644
+> --- a/meta-emenlow/recipes-kernel/linux/linux-yocto-stable_git.bbappend
+> +++ b/meta-emenlow/recipes-kernel/linux/linux-yocto-stable_git.bbappend
+> @@ -1,3 +1,3 @@
+> -FILESEXTRAPATHS := "${THISDIR}/${PN}"
+> +FILESEXTRAPATHS := "${FILESEXTRAPATHS}:${THISDIR}/${PN}"
+>  COMPATIBLE_MACHINE_emenlow = "emenlow"
+>  KMACHINE_emenlow  = "emenlow"
+> diff --git a/meta-emenlow/recipes-kernel/linux/linux-yocto_git.bbappend b/meta-emenlow/recipes-kernel/linux/linux-yocto_git.bbappend
+> index 360c259..3d7e021 100644
+> --- a/meta-emenlow/recipes-kernel/linux/linux-yocto_git.bbappend
+> +++ b/meta-emenlow/recipes-kernel/linux/linux-yocto_git.bbappend
+> @@ -1,3 +1,3 @@
+> -FILESEXTRAPATHS := "${THISDIR}/${PN}"
+> +FILESEXTRAPATHS := "${FILESEXTRAPATHS}:${THISDIR}/${PN}"
+>  COMPATIBLE_MACHINE_emenlow = "emenlow"
+>  KMACHINE_emenlow  = "yocto/standard/emenlow"
+> diff --git a/meta-fishriver/recipes-kernel/linux/linux-yocto_git.bbappend b/meta-fishriver/recipes-kernel/linux/linux-yocto_git.bbappend
+> index 549d085..2e12221 100644
+> --- a/meta-fishriver/recipes-kernel/linux/linux-yocto_git.bbappend
+> +++ b/meta-fishriver/recipes-kernel/linux/linux-yocto_git.bbappend
+> @@ -1,4 +1,4 @@
+> -FILESEXTRAPATHS := "${THISDIR}/${PN}"
+> +FILESEXTRAPATHS := "${FILESEXTRAPATHS}:${THISDIR}/${PN}"
+>  COMPATIBLE_MACHINE_fishriver = "fishriver"
+>  # zzzz /yocto/standard/crownbay->fishriver
+>  KMACHINE_fishriver  = "yocto/standard/crownbay"
+> diff --git a/meta-jasperforest/recipes-kernel/linux/linux-yocto-stable_git.bbappend b/meta-jasperforest/recipes-kernel/linux/linux-yocto-stable_git.bbappend
+> index 066776b..a6e31d0 100644
+> --- a/meta-jasperforest/recipes-kernel/linux/linux-yocto-stable_git.bbappend
+> +++ b/meta-jasperforest/recipes-kernel/linux/linux-yocto-stable_git.bbappend
+> @@ -1,4 +1,4 @@
+> -FILESEXTRAPATHS := "${THISDIR}/${PN}"
+> +FILESEXTRAPATHS := "${FILESEXTRAPATHS}:${THISDIR}/${PN}"
+>  
+>  COMPATIBLE_MACHINE_jasperforest = "jasperforest"
+>  KMACHINE_jasperforest  = "jasperforest"
+> diff --git a/meta-jasperforest/recipes-kernel/linux/linux-yocto_git.bbappend b/meta-jasperforest/recipes-kernel/linux/linux-yocto_git.bbappend
+> index 988c969..5781326 100644
+> --- a/meta-jasperforest/recipes-kernel/linux/linux-yocto_git.bbappend
+> +++ b/meta-jasperforest/recipes-kernel/linux/linux-yocto_git.bbappend
+> @@ -1,4 +1,4 @@
+> -FILESEXTRAPATHS := "${THISDIR}/${PN}"
+> +FILESEXTRAPATHS := "${FILESEXTRAPATHS}:${THISDIR}/${PN}"
+>  
+>  COMPATIBLE_MACHINE_jasperforest = "jasperforest"
+>  
+> diff --git a/meta-n450/recipes-kernel/linux/linux-yocto-stable_git.bbappend b/meta-n450/recipes-kernel/linux/linux-yocto-stable_git.bbappend
+> index e69c644..73a3ee3 100644
+> --- a/meta-n450/recipes-kernel/linux/linux-yocto-stable_git.bbappend
+> +++ b/meta-n450/recipes-kernel/linux/linux-yocto-stable_git.bbappend
+> @@ -1,4 +1,4 @@
+> -FILESEXTRAPATHS := "${THISDIR}/${PN}"
+> +FILESEXTRAPATHS := "${FILESEXTRAPATHS}:${THISDIR}/${PN}"
+>  KMACHINE_n450 = "atom-pc"
+>  COMPATIBLE_MACHINE_n450 = "n450"
+>  
+> diff --git a/meta-n450/recipes-kernel/linux/linux-yocto_git.bbappend b/meta-n450/recipes-kernel/linux/linux-yocto_git.bbappend
+> index 79706d5..92d666f 100644
+> --- a/meta-n450/recipes-kernel/linux/linux-yocto_git.bbappend
+> +++ b/meta-n450/recipes-kernel/linux/linux-yocto_git.bbappend
+> @@ -1,4 +1,4 @@
+> -FILESEXTRAPATHS := "${THISDIR}/${PN}"
+> +FILESEXTRAPATHS := "${FILESEXTRAPATHS}:${THISDIR}/${PN}"
+>  KMACHINE_n450 = "yocto/standard/common-pc/atom-pc"
+>  COMPATIBLE_MACHINE_n450 = "n450"
+>  
+> diff --git a/meta-sugarbay/recipes-kernel/linux/linux-yocto_git.bbappend b/meta-sugarbay/recipes-kernel/linux/linux-yocto_git.bbappend
+> index fe160c0..c1b9a9e 100644
+> --- a/meta-sugarbay/recipes-kernel/linux/linux-yocto_git.bbappend
+> +++ b/meta-sugarbay/recipes-kernel/linux/linux-yocto_git.bbappend
+> @@ -1,4 +1,4 @@
+> -FILESEXTRAPATHS := "${THISDIR}/${PN}"
+> +FILESEXTRAPATHS := "${FILESEXTRAPATHS}:${THISDIR}/${PN}"
+>  
+>  COMPATIBLE_MACHINE_sugarbay = "sugarbay"
+>  KMACHINE_sugarbay  = "yocto/standard/common-pc-64/sugarbay"
 
-diff --git a/meta/recipes-qt/qt4/qt-4.7.2.inc b/meta/recipes-qt/qt4/qt-4.7.3.inc
-similarity index 89%
-rename from meta/recipes-qt/qt4/qt-4.7.2.inc
-rename to meta/recipes-qt/qt4/qt-4.7.3.inc
-index 0f75a46..7f26b9b 100644
---- a/meta/recipes-qt/qt4/qt-4.7.2.inc
-+++ b/meta/recipes-qt/qt4/qt-4.7.3.inc
-@@ -6,7 +6,6 @@ LIC_FILES_CHKSUM = "file://LICENSE.LGPL;md5=fbc093901857fcd118f065f900982c24 \
- FILESPATH =. "${FILE_DIRNAME}/qt-${PV}:"
- 
- SRC_URI = "http://get.qt.nokia.com/qt/source/qt-everywhere-opensource-src-${PV}.tar.gz \
--           file://blacklist-fraudulent-comodo-certificates-patch.diff \
-            file://0004-no-qmake.patch \
-            file://hack-out-pg2-4.7.0.patch \
-            file://0006-freetype-host-includes.patch \
-@@ -15,8 +14,8 @@ SRC_URI = "http://get.qt.nokia.com/qt/source/qt-everywhere-opensource-src-${PV}.
-            file://linux.conf \
-            "
- 
--SRC_URI[md5sum] = "66b992f5c21145df08c99d21847f4fdb"
--SRC_URI[sha256sum] = "d4783b524b90bcd270ccf6e7a30d5fb51696c47eb5de49ebc2d553cd3eb49336"
-+SRC_URI[md5sum] = "49b96eefb1224cc529af6fe5608654fe"
-+SRC_URI[sha256sum] = "d02b6fd69d089c01f4a787aa18175d074ccaecf8980a5956e328c2991905937e"
- 
- S = "${WORKDIR}/qt-everywhere-opensource-src-${PV}"
- 
-diff --git a/meta/recipes-qt/qt4/qt-4.7.2/0001-Added-Openembedded-crossarch-option.patch b/meta/recipes-qt/qt4/qt-4.7.3/0001-Added-Openembedded-crossarch-option.patch
-similarity index 100%
-rename from meta/recipes-qt/qt4/qt-4.7.2/0001-Added-Openembedded-crossarch-option.patch
-rename to meta/recipes-qt/qt4/qt-4.7.3/0001-Added-Openembedded-crossarch-option.patch
-diff --git a/meta/recipes-qt/qt4/qt-4.7.2/g++.conf b/meta/recipes-qt/qt4/qt-4.7.3/g++.conf
-similarity index 100%
-rename from meta/recipes-qt/qt4/qt-4.7.2/g++.conf
-rename to meta/recipes-qt/qt4/qt-4.7.3/g++.conf
-diff --git a/meta/recipes-qt/qt4/qt-4.7.2/hack-out-pg2-4.7.0.patch b/meta/recipes-qt/qt4/qt-4.7.3/hack-out-pg2-4.7.0.patch
-similarity index 100%
-rename from meta/recipes-qt/qt4/qt-4.7.2/hack-out-pg2-4.7.0.patch
-rename to meta/recipes-qt/qt4/qt-4.7.3/hack-out-pg2-4.7.0.patch
-diff --git a/meta/recipes-qt/qt4/qt-4.7.2/linux.conf b/meta/recipes-qt/qt4/qt-4.7.3/linux.conf
-similarity index 100%
-rename from meta/recipes-qt/qt4/qt-4.7.2/linux.conf
-rename to meta/recipes-qt/qt4/qt-4.7.3/linux.conf
-diff --git a/meta/recipes-qt/qt4/qt4-embedded_4.7.2.bb b/meta/recipes-qt/qt4/qt4-embedded_4.7.3.bb
-similarity index 87%
-rename from meta/recipes-qt/qt4/qt4-embedded_4.7.2.bb
-rename to meta/recipes-qt/qt4/qt4-embedded_4.7.3.bb
-index c3f6713..b88b1e9 100644
---- a/meta/recipes-qt/qt4/qt4-embedded_4.7.2.bb
-+++ b/meta/recipes-qt/qt4/qt4-embedded_4.7.3.bb
-@@ -1,7 +1,7 @@
- require qt-${PV}.inc
- require qt4-embedded.inc
- 
--PR = "${INC_PR}.1"
-+PR = "${INC_PR}.0"
- 
- QT_CONFIG_FLAGS_append_armv6 = " -no-neon "
- 
-diff --git a/meta/recipes-qt/qt4/qt4-tools-native_4.7.2.bb b/meta/recipes-qt/qt4/qt4-tools-native_4.7.3.bb
-similarity index 61%
-rename from meta/recipes-qt/qt4/qt4-tools-native_4.7.2.bb
-rename to meta/recipes-qt/qt4/qt4-tools-native_4.7.3.bb
-index d3c0eda..deb4231 100644
---- a/meta/recipes-qt/qt4/qt4-tools-native_4.7.2.bb
-+++ b/meta/recipes-qt/qt4/qt4-tools-native_4.7.3.bb
-@@ -9,5 +9,5 @@ EXTRA_OECONF += " -no-fast -silent -no-rpath"
- 
- TOBUILD := "src/tools/bootstrap ${TOBUILD}"
- 
--SRC_URI[md5sum] = "66b992f5c21145df08c99d21847f4fdb"
--SRC_URI[sha256sum] = "d4783b524b90bcd270ccf6e7a30d5fb51696c47eb5de49ebc2d553cd3eb49336"
-+SRC_URI[md5sum] = "49b96eefb1224cc529af6fe5608654fe"
-+SRC_URI[sha256sum] = "d02b6fd69d089c01f4a787aa18175d074ccaecf8980a5956e328c2991905937e"
-diff --git a/meta/recipes-qt/qt4/qt4-tools-nativesdk_4.7.2.bb b/meta/recipes-qt/qt4/qt4-tools-nativesdk_4.7.2.bb
-deleted file mode 100644
-index a917ac4..0000000
---- a/meta/recipes-qt/qt4/qt4-tools-nativesdk_4.7.2.bb
-+++ /dev/null
-@@ -1,6 +0,0 @@
--require qt4-tools-nativesdk.inc
--
--PR = "${INC_PR}.0"
--
--SRC_URI[md5sum] = "66b992f5c21145df08c99d21847f4fdb"
--SRC_URI[sha256sum] = "d4783b524b90bcd270ccf6e7a30d5fb51696c47eb5de49ebc2d553cd3eb49336"
-diff --git a/meta/recipes-qt/qt4/qt4-tools-nativesdk_4.7.3.bb b/meta/recipes-qt/qt4/qt4-tools-nativesdk_4.7.3.bb
-new file mode 100644
-index 0000000..d61f312
---- /dev/null
-+++ b/meta/recipes-qt/qt4/qt4-tools-nativesdk_4.7.3.bb
-@@ -0,0 +1,6 @@
-+require qt4-tools-nativesdk.inc
-+
-+PR = "${INC_PR}.0"
-+
-+SRC_URI[md5sum] = "49b96eefb1224cc529af6fe5608654fe"
-+SRC_URI[sha256sum] = "d02b6fd69d089c01f4a787aa18175d074ccaecf8980a5956e328c2991905937e"
-diff --git a/meta/recipes-qt/qt4/qt4-x11-free_4.7.2.bb b/meta/recipes-qt/qt4/qt4-x11-free_4.7.3.bb
-similarity index 88%
-rename from meta/recipes-qt/qt4/qt4-x11-free_4.7.2.bb
-rename to meta/recipes-qt/qt4/qt4-x11-free_4.7.3.bb
-index 75c6314..359a756 100644
---- a/meta/recipes-qt/qt4/qt4-x11-free_4.7.2.bb
-+++ b/meta/recipes-qt/qt4/qt4-x11-free_4.7.3.bb
-@@ -1,7 +1,7 @@
- require qt4-x11-free.inc
- require qt-${PV}.inc
- 
--PR = "${INC_PR}.1"
-+PR = "${INC_PR}.0"
- 
- QT_CONFIG_FLAGS_append_armv6 = " -no-neon "
- 
--- 
-1.7.4.4
 
 
