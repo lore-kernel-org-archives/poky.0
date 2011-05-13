@@ -1,25 +1,31 @@
-Return-Path: <Kai.Kang@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B71304C8112E
-	for <poky@yoctoproject.org>; Fri, 13 May 2011 02:56:56 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p4D7uuXA002564
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Fri, 13 May 2011 00:56:56 -0700 (PDT)
-Received: from localhost (128.224.163.157) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Fri, 13 May 2011 00:56:55 -0700
-Message-ID: <26241e2cb827441765a0446d7311134a1331faa1.1305266909.git.kai.kang@windriver.com>
-In-Reply-To: <cover.1305266909.git.kai.kang@windriver.com>
-References: <cover.1305266909.git.kai.kang@windriver.com>
-Old-Date: Fri, 13 May 2011 11:18:40 +0800
-Date: Fri, 13 May 2011 15:56:09 +0800
-To: <sgw@linux.intel.com>
-From: Kang Kai <kai.kang@windriver.com>
-MIME-Version: 1.0
-X-Originating-IP: [128.224.163.157]
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C2B684C800AF
+	for <poky@yoctoproject.org>; Fri, 13 May 2011 04:59:55 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p4D9xswR015105;
+	Fri, 13 May 2011 10:59:54 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 14858-05; Fri, 13 May 2011 10:59:50 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p4D9xkt3015099
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Fri, 13 May 2011 10:59:46 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Nitin A Kamble <nitin.a.kamble@intel.com>
+In-Reply-To: <483456db6f26684d977870434bbf3b51891c171c.1305245924.git.nitin.a.kamble@intel.com>
+References: <cover.1305245922.git.nitin.a.kamble@intel.com>
+	<483456db6f26684d977870434bbf3b51891c171c.1305245924.git.nitin.a.kamble@intel.com>
+Date: Fri, 13 May 2011 10:59:34 +0100
+Message-ID: <1305280774.19606.39.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.2 
+X-Virus-Scanned: amavisd-new at rpsys.net
 Cc: poky@yoctoproject.org
-Subject: [PATCH 4/4] lsbsetup: recreate locale fr_FR
+Subject: Re: [PATCH 25/25] m4: update upstream-status for patches
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,47 +37,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 May 2011 07:56:56 -0000
-Content-Type: text/plain
+X-List-Received-Date: Fri, 13 May 2011 09:59:56 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-From: Kang Kai <kai.kang@windriver.com>
+Hi Nitin,
 
-Update LSB_Setup.sh to recreate locale fr_FR, which helps to pass
-LSB libstdc++ test.
-Bump PR to r3.
+On Thu, 2011-05-12 at 17:20 -0700, Nitin A Kamble wrote:
+> From: Nitin A Kamble <nitin.a.kamble@intel.com>
+> 
+> Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
+> ---
+>  meta/recipes-devtools/m4/m4/ac_config_links.patch  |    2 +
+>  .../m4/m4/fix_for_circular_dependency.patch        |    2 +
+>  .../m4/m4/m4-1.4.9_extra_options.patch             |  169 ++++++++++++++++++++
+>  meta/recipes-devtools/m4/m4/make.patch             |    1 +
+>  4 files changed, 174 insertions(+), 0 deletions(-)
+>  create mode 100644 meta/recipes-devtools/m4/m4/m4-1.4.9_extra_options.patch
 
-Signed-off-by: Kang Kai <kai.kang@windriver.com>
----
- meta/recipes-extended/lsb/lsbsetup/LSB_Setup.sh |    1 +
- meta/recipes-extended/lsb/lsbsetup_0.9.bb       |    2 +-
- 2 files changed, 2 insertions(+), 1 deletions(-)
+I didn't take this patch as there seemed to be more than a patch header
+addition in this patch...
 
-diff --git a/meta/recipes-extended/lsb/lsbsetup/LSB_Setup.sh b/meta/recipes-extended/lsb/lsbsetup/LSB_Setup.sh
-index aa3d5ee..10d8fb8 100644
---- a/meta/recipes-extended/lsb/lsbsetup/LSB_Setup.sh
-+++ b/meta/recipes-extended/lsb/lsbsetup/LSB_Setup.sh
-@@ -208,6 +208,7 @@ localedef -i en_US -f UTF-8 en_US.UTF-8
- localedef -i se_NO -f UTF-8 se_NO.UTF-8
- localedef -i de_DE -f ISO-8859-1 de_DE
- localedef -i en_US -f ISO-8859-1 en_US.ISO8859-1
-+localedef -i fr_FR -f ISO-8859-1 fr_FR
- 
- #resolve localhost 
- LOCALHOST=`hostname`
-diff --git a/meta/recipes-extended/lsb/lsbsetup_0.9.bb b/meta/recipes-extended/lsb/lsbsetup_0.9.bb
-index b0d0a3f..21bd26e 100644
---- a/meta/recipes-extended/lsb/lsbsetup_0.9.bb
-+++ b/meta/recipes-extended/lsb/lsbsetup_0.9.bb
-@@ -2,7 +2,7 @@ DESCRIPTION = "auto-setup environment for lsb test"
- SECTION = "console/utils"
- PRIORITY = "required"
- LICENSE = "GPLv2"
--PR = "r2"
-+PR = "r3"
- 
- LIC_FILES_CHKSUM = "file://LSB_Setup.sh;beginline=3;endline=16;md5=97451c7c0786ce5bbe9ac58042945583"
- 
--- 
-1.7.1
+Cheers,
+
+Richard
 
 
