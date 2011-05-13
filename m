@@ -1,25 +1,25 @@
 Return-Path: <sgw@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 6A4A34C81201
-	for <poky@yoctoproject.org>; Fri, 13 May 2011 17:25:56 -0500 (CDT)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 9ACFC4C81211
+	for <poky@yoctoproject.org>; Fri, 13 May 2011 17:26:42 -0500 (CDT)
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 13 May 2011 15:25:56 -0700
+	by orsmga102.jf.intel.com with ESMTP; 13 May 2011 15:26:42 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,366,1301900400"; d="scan'208";a="747018976"
+X-IronPort-AV: E=Sophos;i="4.64,366,1301900400"; d="scan'208";a="747019241"
 Received: from unknown (HELO [10.255.12.119]) ([10.255.12.119])
-	by orsmga001.jf.intel.com with ESMTP; 13 May 2011 15:25:55 -0700
-Message-ID: <4DCDAFF0.4030700@linux.intel.com>
-Date: Fri, 13 May 2011 15:25:52 -0700
+	by orsmga001.jf.intel.com with ESMTP; 13 May 2011 15:26:42 -0700
+Message-ID: <4DCDB021.2070607@linux.intel.com>
+Date: Fri, 13 May 2011 15:26:41 -0700
 From: Saul Wold <sgw@linux.intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
 	Thunderbird/3.0.5
 MIME-Version: 1.0
-To: Dongxiao Xu <dongxiao.xu@intel.com>
-References: <cover.1305017818.git.dongxiao.xu@intel.com>
-In-Reply-To: <cover.1305017818.git.dongxiao.xu@intel.com>
+To: Dexuan Cui <dexuan.cui@intel.com>
+References: <cover.1305094351.git.dexuan.cui@intel.com>
+In-Reply-To: <cover.1305094351.git.dexuan.cui@intel.com>
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 00/39][PULL] Upstream Status Update
+Subject: Re: [PATCH 00/24] Upstream-Status Updates
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,176 +31,120 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 May 2011 22:25:56 -0000
+X-List-Received-Date: Fri, 13 May 2011 22:26:42 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 05/10/2011 02:01 AM, Dongxiao Xu wrote:
-> From: Dongxiao Xu<dongxiao.xu@intel.com>
+On 05/10/2011 11:26 PM, Dexuan Cui wrote:
+> From: Dexuan Cui<dexuan.cui@intel.com>
 >
 > Hi Saul,
 >
-> This pull request updates the upstream status for those patches in my owned recipes.
+> These commits update the Upstream-Status field.
 >
-> Please help to review and pull. Thanks!
+> For "Inappropriate", I added the reason "configuration" or a specific reason.
+>
+> Some are "Pending": I will further update them later.
+>
+> I also removed some patches since they're not used at all now.
+>
+> Please help to review and pull.
 >
 > Pull URL: git://git.pokylinux.org/poky-contrib.git
->    Branch: dxu4/upgrade
->    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dxu4/upgrade
+>    Branch: dcui/distro
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dcui/distro
 >
 > Thanks,
->      Dongxiao Xu<dongxiao.xu@intel.com>
+>      Dexuan Cui<dexuan.cui@intel.com>
 > ---
 >
 >
-> Dongxiao Xu (39):
->    hostap: add upstream status for hostap-fw-load.patch
->    lrzsz: add upstream status for lrzsz's patches
->    bluez: add upstream status for bluez's patches
->    bluez-dtl1-workaround: add upstream status for COPYING.patch
->    libgsmd: add upstream status for gsm's patches.
->    gypsy: add upstream status for gypsy's patch
->    libpcap: add upstream status for libpcap's patches
->    ppp: add upstream status for ppp's patches
->    libtelepathy: add upstream status for libtelepathy's patches
->    telepathy-python: add upstream status for telepahty-python's patches
->    wireless-tools: add upstream status for wireless-tools's patches
->    wpa-supplicant: add upstream status for wpa-supplicant
->    zeroconf: add upstream status for zeroconf's patch
->    glibc: add upstream status for glibc's patches
->    dpkg: add upstream status for dpkg's patches
->    makedevs: add upstream status for makedevs's patch
->    opkg: add upstream status for opkg's patches
->    opkg-utils: add upstream status for opkg-utils's patch
->    minicom: add upstream status for minicom patches
->    rpcbind: add upstream status for rpcbind's patch
->    which: add upstream status for which's patch
->    clutter-gst: add upstream status for clutter-gst's patches
->    flac: add upstream status for flac's patches
->    gst-ffmpeg: add upstream status for gst-ffmpeg's patch
->    liba52: add upstream status for liba52's patch
->    libid3tag: add upstream status for libid3tag
->    libmusicbrainz: add upstream status for libmusicbrainz's patch
->    pulseaudio: add upstream status for pulseaudio patches
->    db: add upstream status for db's patch
->    neon: add upstream status for neon's patch
->    taglib: add upstream status for taglib's patches
->    libetpan: add upstream status for libetpan's patch
->    libopensync: add upstream status for libopensync's patches
->    libopensync-plugin-evolution2: add upstream status for its patch
->    libopensync-plugin-syncml: add upstream status for its patch
->    libsyncml: add upstream status for libsyncml's patch
->    empathy: add upstream status for empathy's patch
->    wv: add upstream status for wv's patch
->    xournal: add upstream status for xournal's patch
+> Dexuan Cui (24):
+>    tcf-agent: update its patch's Upstream-Status
+>    screen: update its patch's Upstream-Status
+>    which (GPLv2): update its patch's Upstream-Status
+>    gnome-vfs: update its patch's Upstream-Status
+>    libart-lgpl: update its patch's Upstream-Status
+>    librsvg: update its patch's Upstream-Status
+>    fontconfig: update its patch's Upstream-Status
+>    freetype: update its patch's Upstream-Status
+>    libxsettings-client: update its patch's Upstream-Status
+>    libxcb: update its patch's Upstream-Status
+>    libx11: update its patch's Upstream-Status
+>    libx11-trim: update its patch's Upstream-Status
+>    libxcalibrate: update its patch's Upstream-Status
+>    libxcomposite: update its patch's Upstream-Status
+>    libxfont: update its patch's Upstream-Status
+>    xtrans: update its patch's Upstream-Status
+>    calibrateproto: update its patch's Upstream-Status
+>    latencytop: update its patch's Upstream-Status
+>    oprofile: update its patch's Upstream-Status and remove an unused
+>      patch
+>    powertop: update its patch's Upstream-Status
+>    settings-daemon: update its patch's Upstream-Status
+>    gnome-settings-daemon: update its patch's Upstream-Status
+>    libxklavier: update its patch's Upstream-Status
+>    liblbxutil: update its patch's Upstream-Status
 >
->   .../libetpan/files/cxx-is-here.patch               |    2 ++
->   .../opensync/libopensync-0.37/build-in-src.patch   |    2 ++
->   .../opensync/libopensync-0.37/cmake.patch          |    2 ++
->   .../libopensync-0.37/no-python-check.patch         |    2 ++
->   .../libopensync-plugin-evolution2/0.37-fixes.patch |    2 ++
->   .../libopensync-plugin-syncml/fixerror.patch       |    2 ++
->   .../opensync/libsyncml/build-in-src.patch          |    2 ++
->   .../telepathy/empathy/no-gnome-doc.patch           |    2 ++
->   .../recipes-gnome/wv/wv-1.2.0/pkgconfig.patch      |    2 ++
->   .../recipes-graphics/xournal/files/ldflags.patch   |    2 ++
->   .../xournal/files/no-printing.diff                 |    2 ++
->   meta/recipes-bsp/hostap/files/hostap-fw-load.patch |    2 ++
->   .../lrzsz/lrzsz-0.12.20/autotools.patch            |    2 ++
->   meta/recipes-bsp/lrzsz/lrzsz-0.12.20/gettext.patch |    2 ++
->   .../recipes-bsp/lrzsz/lrzsz-0.12.20/makefile.patch |    2 ++
->   .../bluez/bluez-dtl1-workaround/COPYING.patch      |    2 ++
->   .../fix-dfutool-usb-declaration-mismatch.patch     |    1 +
->   .../bluez/bluez4-4.82/hid2hci_usb_init.patch       |    2 ++
->   .../bluez/bluez4-4.82/sbc-thumb.patch              |    1 +
->   .../gsm/files/0001-Introduce-ports.patch           |    2 ++
->   ...ending-commands-before-restarting-the-mod.patch |    2 ++
->   ...-segment-incoming-usock-data-into-packets.patch |    2 ++
->   .../0004-Handle-read-and-write-return-values.patch |    2 ++
->   .../gsm/files/0005-Add-ask-ds-option-forSMS.patch  |    2 ++
->   .../gsm/files/024_sms-text-in-bracket.patch        |    2 ++
->   .../gsm/files/025_sms-status-report.patch          |    2 ++
->   ...027_phonebook-find-and-read-range-support.patch |    2 ++
->   ...ell-phonebook-find-and-read-range-support.patch |    2 ++
->   .../gsm/files/fix_machine_init.patch               |    2 ++
->   .../gsm/files/install-ts-headers.patch             |    2 ++
->   .../gsm/files/lgsm_send_fix_return_value.patch     |    2 ++
->   meta/recipes-connectivity/gypsy/files/fixups.patch |    2 ++
->   .../libpcap/libpcap-1.1.1/aclocal.patch            |    2 ++
->   .../libpcap/libpcap-1.1.1/ieee80215-arphrd.patch   |    2 ++
->   .../ppp/ppp-2.4.5/cifdefroute.patch                |    2 ++
->   .../ppp/ppp-2.4.5/enable-ipv6.patch                |    2 ++
->   .../makefile-remove-hard-usr-reference.patch       |    2 ++
->   .../ppp/ppp-2.4.5/makefile.patch                   |    2 ++
->   .../ppp/ppp-2.4.5/pppd-resolv-varrun.patch         |    2 ++
->   .../telepathy/libtelepathy/doublefix.patch         |    2 ++
->   .../telepathy/libtelepathy/prefer_python_2.5.patch |    2 ++
->   .../telepathy-python-0.15.19/parallel_make.patch   |    2 ++
->   .../wireless-tools/wireless-tools/man.patch        |    2 ++
->   .../wpa_supplicant-0.5.7-always-scan.patch         |    2 ++
->   ...a_supplicant-fix-deprecated-dbus-function.patch |    2 ++
->   .../zeroconf/zeroconf/compilefix.patch             |    2 ++
->   .../glibc/glibc-2.10.1/arm-check-pf.patch          |    2 ++
->   .../glibc/glibc-2.10.1/arm-longlong.patch          |    2 ++
->   .../arm-lowlevellock-include-tls.patch             |    2 ++
->   .../glibc/glibc-2.10.1/arm-memcpy.patch            |    2 ++
->   .../glibc/glibc-2.10.1/dl-cache-libcmp.patch       |    2 ++
->   .../glibc/glibc-2.10.1/fhs-linux-paths.patch       |    2 ++
->   .../glibc-arm-IO-acquire-lock-fix.diff             |    2 ++
->   .../glibc/glibc-2.10.1/glibc-arm-no-asm-page.patch |    2 ++
->   .../glibc/glibc-2.10.1/glibc-check_pf.patch        |    2 ++
->   .../glibc/glibc-2.10.1/ldd-unbash.patch            |    2 ++
->   .../glibc/glibc-2.10.1/ldsocache-varrun.patch      |    2 ++
->   .../glibc/glibc-2.10.1/local-args6.diff            |    2 ++
->   .../glibc/glibc-2.10.1/march-i686.patch            |    1 +
->   .../glibc/glibc-2.10.1/mips-rld-map-check.patch    |    2 ++
->   .../glibc/glibc-2.10.1/nptl-crosscompile.patch     |    2 ++
->   .../glibc/glibc-2.10.1/nscd-init.patch             |    2 ++
->   .../glibc/glibc-2.10.1/powerpc-sqrt-hack.diff      |    2 ++
->   .../recipes-core/glibc/glibc-2.10.1/rulesfix.patch |    2 ++
->   meta/recipes-devtools/dpkg/dpkg/autofoo.patch      |    2 ++
->   .../dpkg/dpkg/check_snprintf.patch                 |    2 ++
->   .../recipes-devtools/dpkg/dpkg/check_version.patch |    2 ++
->   .../dpkg/dpkg/ignore_extra_fields.patch            |    2 ++
->   meta/recipes-devtools/dpkg/dpkg/nochroot.patch     |    2 ++
->   meta/recipes-devtools/dpkg/dpkg/noman.patch        |    2 ++
->   meta/recipes-devtools/dpkg/dpkg/noupdalt.patch     |    2 ++
->   .../makedevs/makedevs-1.0.0/COPYING.patch          |    2 ++
->   .../opkg-utils/index-ignore-filenotfound.patch     |    2 ++
->   meta/recipes-devtools/opkg/opkg/add_vercmp.patch   |    2 ++
->   meta/recipes-devtools/opkg/opkg/headerfix.patch    |    2 ++
->   .../minicom/minicom-2.4/gcc4-scope.patch           |    2 ++
->   .../minicom-2.4/rename-conflicting-functions.patch |    2 ++
->   .../rpcbind/rpcbind/fix_host_path.patch            |    2 ++
->   .../which/which-2.20/remove-declaration.patch      |    2 ++
->   .../clutter/clutter-gst/autofoo-0.4.patch          |    2 ++
->   ...-9db4a61a25677764bb927369c5c68ada958fb65c.patch |    2 ++
->   .../clutter/clutter-gst/autofoo.patch              |    2 ++
->   .../clutter/clutter-gst/enable_tests-1.4.patch     |    3 +++
->   .../clutter/clutter-gst/enable_tests.patch         |    3 +++
->   .../flac/flac-1.2.1/disable-xmms-plugin.patch      |    1 +
->   .../flac/flac-1.2.1/flac-gcc43-fixes.patch         |    1 +
->   .../gstreamer/gst-ffmpeg-0.10.11/lower-rank.diff   |    2 ++
->   .../liba52/liba52/buildcleanup.patch               |    2 ++
->   .../libid3tag/libid3tag/addpkgconfig.patch         |    2 ++
->   .../fix_build_issue_for_gcc_4.5.0.patch            |    2 ++
->   .../pulseaudio/pulseaudio-0.9.22/armv4+v5asm.patch |    2 ++
->   .../pulseaudio-0.9.22/autoconf_version.patch       |    2 ++
->   .../pulseaudio/pulseaudio-0.9.22/buildfix.patch    |    2 ++
->   .../pulseaudio-0.9.22/configure_silent_rules.patch |    2 ++
->   .../pulseaudio-0.9.22/gcc4-compile-fix.patch       |    2 ++
->   .../pulseaudio/pulseaudio-0.9.22/tls_m4.patch      |    2 ++
->   .../db/db/arm-thumb-mutex_db5.patch                |    2 ++
->   .../neon/neon-0.29.5/pkgconfig.patch               |    2 ++
->   .../taglib/taglib-1.6.3/configuretweak.patch       |    2 ++
->   .../taglib/taglib-1.6.3/nolibtool.patch            |    2 ++
->   100 files changed, 197 insertions(+), 0 deletions(-)
+>   .../gnome/gnome-settings-daemon/configurefix.patch |    2 +
+>   .../gnome-settings-daemon/desktop-moblin.patch     |    2 +
+>   ...-settings-daemon-2.24.0-catch-deviceadded.patch |    2 +
+>   .../gnome-settings-daemon-fix-gthread.patch        |    2 +
+>   .../gnome-settings-daemon/mojito-cleanup.patch     |    2 +
+>   .../gnome/gnome-settings-daemon/mount-plugin.patch |    2 +
+>   .../libxklavier/libxklavier/pkgconfigfix.patch     |    2 +
+>   .../xorg-lib/liblbxutil/mkg3states.patch           |    2 +
+>   .../tcf-agent/tcf-agent/fix_tcf-agent.init.patch   |    2 +
+>   .../tcf-agent/tcf-agent/terminals_agent.patch      |    2 +
+>   .../screen/screen-4.0.3/configure.patch            |    2 +
+>   .../fix_name_conflict_group_member.patch           |    2 +
+>   .../gnome/gnome-vfs-2.24.4/gconftool-lossage.patch |    2 +
+>   .../gnome-vfs-2.24.4/gnome-vfs-no-kerberos.patch   |    2 +
+>   .../gnome/libart-lgpl/Makefile.am.patch            |    2 +
+>   .../librsvg/librsvg-2.32.1/doc_Makefile.patch      |    2 +
+>   .../fontconfig-2.8.0/fix-pkgconfig.patch           |    2 +
+>   .../freetype/freetype-2.4.4/no-hardcode.patch      |    2 +
+>   .../libxsettings-client/disable_Os_option.patch    |    2 +
+>   .../libxsettings-client/link-x11.patch             |    2 +
+>   .../xcb/libxcb/xcbincludedir.patch                 |    2 +
+>   .../xorg-lib/libx11-1.3.4/include_fix.patch        |    2 +
+>   .../xorg-lib/libx11-1.3.4/nodolt.patch             |    2 +
+>   .../libx11-1.3.4/x11_disable_makekeys.patch        |    2 +
+>   .../xorg-lib/libx11-git/X18NCMSstubs.diff          |    2 +
+>   .../xorg-lib/libx11-git/fix-disable-xlocale.diff   |    2 +
+>   .../libx11-git/fix-utf8-wrong-define.patch         |    1 +
+>   .../xorg-lib/libx11-git/include_fix.patch          |    2 +
+>   .../xorg-lib/libx11-git/nodolt.patch               |    2 +
+>   .../xorg-lib/libx11-git/x11_disable_makekeys.patch |    2 +
+>   .../recipes-graphics/xorg-lib/libx11-git/xim.patch |   55 -----
+>   .../xorg-lib/libx11-trim/include_fix.patch         |    2 +
+>   .../xorg-lib/libx11-trim/nodolt.patch              |    2 +
+>   .../libx11-trim/x11_disable_makekeys.patch         |    2 +
+>   .../xorg-lib/libx11/X18NCMSstubs.diff              |    2 +
+>   .../xorg-lib/libx11/fix-disable-xlocale.diff       |    2 +
+>   .../xorg-lib/libx11/fix-utf8-wrong-define.patch    |    1 +
+>   .../xorg-lib/libx11/include_fix.patch              |    2 +
+>   meta/recipes-graphics/xorg-lib/libx11/nodolt.patch |    2 +
+>   .../xorg-lib/libx11/x11_disable_makekeys.patch     |    2 +
+>   meta/recipes-graphics/xorg-lib/libx11/xim.patch    |   55 -----
+>   .../xorg-lib/libxcalibrate/fix-xcb.patch           |    2 +
+>   .../libxcomposite/change-include-order.patch       |    2 +
+>   .../xorg-lib/libxfont/no-scalable-crash.patch      |    2 +
+>   .../xorg-lib/xtrans/abstract_socket_fix.patch      |   58 -----
+>   .../xorg-proto/calibrateproto/fix.patch            |    2 +
+>   .../latencytop-0.5/latencytop-makefile.patch       |    2 +
+>   .../recipes-kernel/oprofile/oprofile/opstart.patch |    2 +
+>   .../oprofile/oprofile/xml_callgraph_details.patch  |  232 --------------------
+>   .../stub_out_the_ncurses_calls_in_dump_mode.patch  |    2 +
+>   .../settings-daemon/files/addsoundkeys.patch       |    2 +
+>   .../files/dso_linking_change_build_fix.patch       |    2 +
+>   52 files changed, 94 insertions(+), 400 deletions(-)
+>   delete mode 100644 meta/recipes-graphics/xorg-lib/libx11-git/xim.patch
+>   delete mode 100644 meta/recipes-graphics/xorg-lib/libx11/xim.patch
+>   delete mode 100644 meta/recipes-graphics/xorg-lib/xtrans/abstract_socket_fix.patch
+>   delete mode 100644 meta/recipes-kernel/oprofile/oprofile/xml_callgraph_details.patch
 >
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
+
 
 Merged, thanks for the great work with these!
 
