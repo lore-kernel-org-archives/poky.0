@@ -1,21 +1,22 @@
 Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 937A84C810FF
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id A386A4C811A9
 	for <poky@yoctoproject.org>; Thu, 12 May 2011 19:20:33 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 12 May 2011 17:20:33 -0700
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 12 May 2011 17:20:33 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,361,1301900400"; d="scan'208";a="642035993"
+X-IronPort-AV: E=Sophos;i="4.64,361,1301900400"; 
+   d="scan'208";a="1582734"
 Received: from nbuild2.sc.intel.com (HELO localhost) ([172.25.110.37])
-	by orsmga002.jf.intel.com with ESMTP; 12 May 2011 17:20:33 -0700
-Message-Id: <c6b7b8097d5d62aabc1c0bcf20101126448ffad8.1305245924.git.nitin.a.kamble@intel.com>
+	by fmsmga001.fm.intel.com with ESMTP; 12 May 2011 17:20:33 -0700
+Message-Id: <d5fac56e533befcde09738f3492dbdcd45a438dd.1305245924.git.nitin.a.kamble@intel.com>
 In-Reply-To: <cover.1305245922.git.nitin.a.kamble@intel.com>
 References: <cover.1305245922.git.nitin.a.kamble@intel.com>
-Old-Date: Thu, 12 May 2011 16:48:37 -0700
+Old-Date: Thu, 12 May 2011 16:47:49 -0700
 Date: Thu, 12 May 2011 17:20:33 -0700
 To: poky@yoctoproject.org
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Subject: [PATCH 20/25] python-pyrex: update upstream-status for patches
+Subject: [PATCH 19/25] python-pygobject: update upstream status for patches
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,19 +34,19 @@ From: Nitin A Kamble <nitin.a.kamble@intel.com>
 
 Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
 ---
- .../python-pyrex/pyrex-fix-optimized-mode.patch    |    2 ++
+ .../python-pygobject/generate-constants.patch      |    2 ++
  1 files changed, 2 insertions(+), 0 deletions(-)
 
-diff --git a/meta/recipes-devtools/python/python-pyrex/pyrex-fix-optimized-mode.patch b/meta/recipes-devtools/python/python-pyrex/pyrex-fix-optimized-mode.patch
-index a1f5bb2..c58c328 100644
---- a/meta/recipes-devtools/python/python-pyrex/pyrex-fix-optimized-mode.patch
-+++ b/meta/recipes-devtools/python/python-pyrex/pyrex-fix-optimized-mode.patch
+diff --git a/meta/recipes-devtools/python/python-pygobject/generate-constants.patch b/meta/recipes-devtools/python/python-pygobject/generate-constants.patch
+index 57a9380..be2ecd3 100644
+--- a/meta/recipes-devtools/python/python-pygobject/generate-constants.patch
++++ b/meta/recipes-devtools/python/python-pygobject/generate-constants.patch
 @@ -1,3 +1,5 @@
 +Upstream-Status: Pending
 +
- Index: Pyrex-0.9.8.4/Pyrex/Distutils/extension.py
+ Index: pygobject-2.14.2/gobject/Makefile.am
  ===================================================================
- --- Pyrex-0.9.8.4.orig/Pyrex/Distutils/extension.py
+ --- pygobject-2.14.2.orig/gobject/Makefile.am
 -- 
 1.7.3.4
 
