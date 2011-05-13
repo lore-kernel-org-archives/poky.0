@@ -1,25 +1,26 @@
 Return-Path: <sgw@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9ACFC4C81211
-	for <poky@yoctoproject.org>; Fri, 13 May 2011 17:26:42 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 13 May 2011 15:26:42 -0700
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4EB424C81213
+	for <poky@yoctoproject.org>; Fri, 13 May 2011 17:27:05 -0500 (CDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 13 May 2011 15:27:04 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,366,1301900400"; d="scan'208";a="747019241"
+X-IronPort-AV: E=Sophos;i="4.64,366,1301900400"; 
+   d="scan'208";a="1469429"
 Received: from unknown (HELO [10.255.12.119]) ([10.255.12.119])
-	by orsmga001.jf.intel.com with ESMTP; 13 May 2011 15:26:42 -0700
-Message-ID: <4DCDB021.2070607@linux.intel.com>
-Date: Fri, 13 May 2011 15:26:41 -0700
+	by fmsmga002.fm.intel.com with ESMTP; 13 May 2011 15:27:03 -0700
+Message-ID: <4DCDB037.3010000@linux.intel.com>
+Date: Fri, 13 May 2011 15:27:03 -0700
 From: Saul Wold <sgw@linux.intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
 	Thunderbird/3.0.5
 MIME-Version: 1.0
-To: Dexuan Cui <dexuan.cui@intel.com>
-References: <cover.1305094351.git.dexuan.cui@intel.com>
-In-Reply-To: <cover.1305094351.git.dexuan.cui@intel.com>
+To: Yu Ke <ke.yu@intel.com>
+References: <cover.1305105317.git.ke.yu@intel.com>
+In-Reply-To: <cover.1305105317.git.ke.yu@intel.com>
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 00/24] Upstream-Status Updates
+Subject: Re: [PATCH 0/8] Update patch upstream-status
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,122 +32,63 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 May 2011 22:26:42 -0000
+X-List-Received-Date: Fri, 13 May 2011 22:27:05 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 05/10/2011 11:26 PM, Dexuan Cui wrote:
-> From: Dexuan Cui<dexuan.cui@intel.com>
->
-> Hi Saul,
->
-> These commits update the Upstream-Status field.
->
-> For "Inappropriate", I added the reason "configuration" or a specific reason.
->
-> Some are "Pending": I will further update them later.
->
-> I also removed some patches since they're not used at all now.
->
-> Please help to review and pull.
+On 05/11/2011 02:19 AM, Yu Ke wrote:
+> From: Yu Ke<ke.yu@intel.com>
 >
 > Pull URL: git://git.pokylinux.org/poky-contrib.git
->    Branch: dcui/distro
->    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dcui/distro
+>    Branch: kyu3/patch-status-05-11
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kyu3/patch-status-05-11
 >
 > Thanks,
->      Dexuan Cui<dexuan.cui@intel.com>
+>      Yu Ke<ke.yu@intel.com>
 > ---
 >
 >
-> Dexuan Cui (24):
->    tcf-agent: update its patch's Upstream-Status
->    screen: update its patch's Upstream-Status
->    which (GPLv2): update its patch's Upstream-Status
->    gnome-vfs: update its patch's Upstream-Status
->    libart-lgpl: update its patch's Upstream-Status
->    librsvg: update its patch's Upstream-Status
->    fontconfig: update its patch's Upstream-Status
->    freetype: update its patch's Upstream-Status
->    libxsettings-client: update its patch's Upstream-Status
->    libxcb: update its patch's Upstream-Status
->    libx11: update its patch's Upstream-Status
->    libx11-trim: update its patch's Upstream-Status
->    libxcalibrate: update its patch's Upstream-Status
->    libxcomposite: update its patch's Upstream-Status
->    libxfont: update its patch's Upstream-Status
->    xtrans: update its patch's Upstream-Status
->    calibrateproto: update its patch's Upstream-Status
->    latencytop: update its patch's Upstream-Status
->    oprofile: update its patch's Upstream-Status and remove an unused
->      patch
->    powertop: update its patch's Upstream-Status
->    settings-daemon: update its patch's Upstream-Status
->    gnome-settings-daemon: update its patch's Upstream-Status
->    libxklavier: update its patch's Upstream-Status
->    liblbxutil: update its patch's Upstream-Status
+> Yu Ke (8):
+>    iputils: update patch Upstream-Status
+>    mktemp: update patch Upstream-Status
+>    xinetd: update Upstream-Status
+>    libdrm: update patch Upstream-Status
+>    qemugl: update patch Upstream-Status
+>    x11-common: update patch Upstream-Status
+>    xorg-app: update patch Upstream-Status
+>    xorg-driver: update patch Upstream-Status
 >
->   .../gnome/gnome-settings-daemon/configurefix.patch |    2 +
->   .../gnome-settings-daemon/desktop-moblin.patch     |    2 +
->   ...-settings-daemon-2.24.0-catch-deviceadded.patch |    2 +
->   .../gnome-settings-daemon-fix-gthread.patch        |    2 +
->   .../gnome-settings-daemon/mojito-cleanup.patch     |    2 +
->   .../gnome/gnome-settings-daemon/mount-plugin.patch |    2 +
->   .../libxklavier/libxklavier/pkgconfigfix.patch     |    2 +
->   .../xorg-lib/liblbxutil/mkg3states.patch           |    2 +
->   .../tcf-agent/tcf-agent/fix_tcf-agent.init.patch   |    2 +
->   .../tcf-agent/tcf-agent/terminals_agent.patch      |    2 +
->   .../screen/screen-4.0.3/configure.patch            |    2 +
->   .../fix_name_conflict_group_member.patch           |    2 +
->   .../gnome/gnome-vfs-2.24.4/gconftool-lossage.patch |    2 +
->   .../gnome-vfs-2.24.4/gnome-vfs-no-kerberos.patch   |    2 +
->   .../gnome/libart-lgpl/Makefile.am.patch            |    2 +
->   .../librsvg/librsvg-2.32.1/doc_Makefile.patch      |    2 +
->   .../fontconfig-2.8.0/fix-pkgconfig.patch           |    2 +
->   .../freetype/freetype-2.4.4/no-hardcode.patch      |    2 +
->   .../libxsettings-client/disable_Os_option.patch    |    2 +
->   .../libxsettings-client/link-x11.patch             |    2 +
->   .../xcb/libxcb/xcbincludedir.patch                 |    2 +
->   .../xorg-lib/libx11-1.3.4/include_fix.patch        |    2 +
->   .../xorg-lib/libx11-1.3.4/nodolt.patch             |    2 +
->   .../libx11-1.3.4/x11_disable_makekeys.patch        |    2 +
->   .../xorg-lib/libx11-git/X18NCMSstubs.diff          |    2 +
->   .../xorg-lib/libx11-git/fix-disable-xlocale.diff   |    2 +
->   .../libx11-git/fix-utf8-wrong-define.patch         |    1 +
->   .../xorg-lib/libx11-git/include_fix.patch          |    2 +
->   .../xorg-lib/libx11-git/nodolt.patch               |    2 +
->   .../xorg-lib/libx11-git/x11_disable_makekeys.patch |    2 +
->   .../recipes-graphics/xorg-lib/libx11-git/xim.patch |   55 -----
->   .../xorg-lib/libx11-trim/include_fix.patch         |    2 +
->   .../xorg-lib/libx11-trim/nodolt.patch              |    2 +
->   .../libx11-trim/x11_disable_makekeys.patch         |    2 +
->   .../xorg-lib/libx11/X18NCMSstubs.diff              |    2 +
->   .../xorg-lib/libx11/fix-disable-xlocale.diff       |    2 +
->   .../xorg-lib/libx11/fix-utf8-wrong-define.patch    |    1 +
->   .../xorg-lib/libx11/include_fix.patch              |    2 +
->   meta/recipes-graphics/xorg-lib/libx11/nodolt.patch |    2 +
->   .../xorg-lib/libx11/x11_disable_makekeys.patch     |    2 +
->   meta/recipes-graphics/xorg-lib/libx11/xim.patch    |   55 -----
->   .../xorg-lib/libxcalibrate/fix-xcb.patch           |    2 +
->   .../libxcomposite/change-include-order.patch       |    2 +
->   .../xorg-lib/libxfont/no-scalable-crash.patch      |    2 +
->   .../xorg-lib/xtrans/abstract_socket_fix.patch      |   58 -----
->   .../xorg-proto/calibrateproto/fix.patch            |    2 +
->   .../latencytop-0.5/latencytop-makefile.patch       |    2 +
->   .../recipes-kernel/oprofile/oprofile/opstart.patch |    2 +
->   .../oprofile/oprofile/xml_callgraph_details.patch  |  232 --------------------
->   .../stub_out_the_ncurses_calls_in_dump_mode.patch  |    2 +
->   .../settings-daemon/files/addsoundkeys.patch       |    2 +
->   .../files/dso_linking_change_build_fix.patch       |    2 +
->   52 files changed, 94 insertions(+), 400 deletions(-)
->   delete mode 100644 meta/recipes-graphics/xorg-lib/libx11-git/xim.patch
->   delete mode 100644 meta/recipes-graphics/xorg-lib/libx11/xim.patch
->   delete mode 100644 meta/recipes-graphics/xorg-lib/xtrans/abstract_socket_fix.patch
->   delete mode 100644 meta/recipes-kernel/oprofile/oprofile/xml_callgraph_details.patch
+>   .../files/debian/add-icmp-return-codes.diff        |    2 ++
+>   .../iputils/files/debian/fix-arping-timeouts.diff  |    2 ++
+>   .../files/debian/fix-dead-host-ping-stats.diff     |    2 ++
+>   .../iputils/files/debian/targets.diff              |    2 ++
+>   .../iputils/files/debian/use_gethostbyname2.diff   |    2 ++
+>   .../mktemp/files/disable-strip.patch               |    2 ++
+>   ...vices-from-inetd.conf-if-a-service-with-t.patch |    2 ++
+>   ...arious-fixes-from-the-previous-maintainer.patch |    2 ++
+>   ...uld-be-able-to-listen-on-IPv6-even-in-ine.patch |    2 ++
+>   .../drm/libdrm-2.4.25/installtests.patch           |    2 +-
+>   .../mesa/qemugl/remove-x11r6-lib-dir.patch         |    2 ++
+>   meta/recipes-graphics/mesa/qemugl/versionfix.patch |    2 ++
+>   .../x11-common/x11-common/gplv2-license.patch      |    2 ++
+>   .../xserver-nodm-init/gplv2-license.patch          |    2 ++
+>   .../xorg-app/xdpyinfo/disable-xkb.patch            |    2 ++
+>   .../xorg-app/xset/disable-xkb.patch                |    2 ++
+>   .../xf86-video-omapfb/omap-blacklist-tv-out.patch  |    4 +++-
+>   .../xf86-video-omapfb/omap-force-plain-mode.patch  |    2 ++
+>   .../omap-revert-set-CRTC-limit.patch               |    2 ++
+>   .../omap-revert-set-virtual-size.patch             |    2 ++
+>   .../xorg-driver/xf86-video-omapfb/omapfb-neon.diff |    2 ++
+>   21 files changed, 42 insertions(+), 2 deletions(-)
 >
-
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
 
 Merged, thanks for the great work with these!
 
 Sau!
+
 
