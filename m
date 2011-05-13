@@ -1,25 +1,25 @@
 Return-Path: <Kai.Kang@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 8C8D24C8071E
-	for <poky@yoctoproject.org>; Fri, 13 May 2011 02:56:44 -0500 (CDT)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 6B6234C8111E
+	for <poky@yoctoproject.org>; Fri, 13 May 2011 02:56:48 -0500 (CDT)
 Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p4D7uhb2002547
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p4D7ulhC002552
 	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Fri, 13 May 2011 00:56:44 -0700 (PDT)
+	Fri, 13 May 2011 00:56:47 -0700 (PDT)
 Received: from localhost (128.224.163.157) by ALA-HCA.corp.ad.wrs.com
 	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Fri, 13 May 2011 00:56:43 -0700
-Message-ID: <15e37ed318e4472791fd52dc9c67fe699c8e4d8b.1305266909.git.kai.kang@windriver.com>
+	Fri, 13 May 2011 00:56:47 -0700
+Message-ID: <7d8bd25d3d5664125484582160518ce857cac2f5.1305266909.git.kai.kang@windriver.com>
 In-Reply-To: <cover.1305266909.git.kai.kang@windriver.com>
 References: <cover.1305266909.git.kai.kang@windriver.com>
-Old-Date: Fri, 6 May 2011 10:17:59 +0800
-Date: Fri, 13 May 2011 15:55:57 +0800
+Old-Date: Fri, 13 May 2011 10:06:44 +0800
+Date: Fri, 13 May 2011 15:56:01 +0800
 To: <sgw@linux.intel.com>
 From: Kang Kai <kai.kang@windriver.com>
 MIME-Version: 1.0
 X-Originating-IP: [128.224.163.157]
 Cc: poky@yoctoproject.org
-Subject: [PATCH 1/4] libxml-sax-perl: added to create LSB olver test report
+Subject: [PATCH 2/4] foomatic-filters: add a link to pass LSB printing test
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,83 +31,45 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 May 2011 07:56:44 -0000
+X-List-Received-Date: Fri, 13 May 2011 07:56:48 -0000
 Content-Type: text/plain
 
 From: Kang Kai <kai.kang@windriver.com>
 
-libxml-sax-perl is need to create LSB olver test report,
-so import it and its dependecy libxml-namespacesupport-perl from oe.
-Add LICENSE and reset PR.
+LSB printing test will test a foomatic-rip under cups' directory,
+so add it as link.
+Part fixes [Yocto 904]
 
 Signed-off-by: Kang Kai <kai.kang@windriver.com>
 ---
- .../perl/libxml-namespacesupport-perl_1.11.bb      |   22 ++++++++++++++++
- meta/recipes-extended/perl/libxml-sax-perl_0.96.bb |   26 ++++++++++++++++++++
- 2 files changed, 48 insertions(+), 0 deletions(-)
- create mode 100644 meta/recipes-extended/perl/libxml-namespacesupport-perl_1.11.bb
- create mode 100644 meta/recipes-extended/perl/libxml-sax-perl_0.96.bb
+ .../foomatic/foomatic-filters_4.0.7.bb             |    9 ++++++++-
+ 1 files changed, 8 insertions(+), 1 deletions(-)
 
-diff --git a/meta/recipes-extended/perl/libxml-namespacesupport-perl_1.11.bb b/meta/recipes-extended/perl/libxml-namespacesupport-perl_1.11.bb
-new file mode 100644
-index 0000000..d96430e
---- /dev/null
-+++ b/meta/recipes-extended/perl/libxml-namespacesupport-perl_1.11.bb
-@@ -0,0 +1,22 @@
-+SUMMARY = "Perl module for supporting simple generic namespaces"
-+DESCRIPTION = "XML::NamespaceSupport offers a simple way to process namespace-based XML names. \
-+                It also helps maintain a prefix-to-namespace URI map, and provides a number of \
-+                basic checks. "
+diff --git a/meta/recipes-extended/foomatic/foomatic-filters_4.0.7.bb b/meta/recipes-extended/foomatic/foomatic-filters_4.0.7.bb
+index 8d70400..43e9c8d 100644
+--- a/meta/recipes-extended/foomatic/foomatic-filters_4.0.7.bb
++++ b/meta/recipes-extended/foomatic/foomatic-filters_4.0.7.bb
+@@ -10,7 +10,7 @@ format using a printer-specific, but spooler-independent PPD file. \
+ "
+ 
+ DEPENDS += "cups perl libxml2"
+-PR = "r0"
++PR = "r1"
+ 
+ LICENSE = "GPLv2+"
+ LIC_FILES_CHKSUM = "file://${WORKDIR}/foomatic-filters-${PV}/COPYING;md5=393a5ca445f6965873eca0259a17f833"
+@@ -20,4 +20,11 @@ SRC_URI = "http://www.openprinting.org/download/foomatic/foomatic-filters-${PV}.
+ SRC_URI[md5sum] = "20abd25c1c98b2dae68709062a132a7d"
+ SRC_URI[sha256sum] = "090313fae40b177f505d9c9b93d7a4d7188b6d5d18b6ae41ab24903ac983478d"
+ 
++do_install_append_linuxstdbase() {
++    install -d ${D}${libdir}/cups/filter
++    ln -sf ../../../bin/foomatic-rip ${D}${libdir}/cups/filter
++}
 +
-+SECTION = "libs"
-+LICENSE = "Artistic|GPLv1+"
-+PR = "r0"
++FILES_${PN} += "${libdir}/cups/filter/foomatic-rip"
 +
-+LIC_FILES_CHKSUM = "file://META.yml;beginline=22;endline=22;md5=3b2b564dae8b9af9e8896e85c07dcbe5"
-+
-+SRC_URI = "http://search.cpan.org/CPAN/authors/id/P/PE/PERIGRIN/XML-NamespaceSupport-${PV}.tar.gz"
-+SRC_URI[md5sum] = "222cca76161cd956d724286d36b607da"
-+SRC_URI[sha256sum] = "6d8151f0a3f102313d76b64bfd1c2d9ed46bfe63a16f038e7d860fda287b74ea"
-+
-+
-+S = "${WORKDIR}/XML-NamespaceSupport-${PV}"
-+
-+inherit cpan
-+
-+BBCLASSEXTEND="native"
-+
-diff --git a/meta/recipes-extended/perl/libxml-sax-perl_0.96.bb b/meta/recipes-extended/perl/libxml-sax-perl_0.96.bb
-new file mode 100644
-index 0000000..13956cb
---- /dev/null
-+++ b/meta/recipes-extended/perl/libxml-sax-perl_0.96.bb
-@@ -0,0 +1,26 @@
-+SUMMARY = "Perl module for using and building Perl SAX2 XML processors" 
-+DESCRIPTION = "XML::SAX consists of several framework classes for using and \
-+building Perl SAX2 XML parsers, filters, and drivers.  It is designed \ 
-+around the need to be able to "plug in" different SAX parsers to an \
-+application without requiring programmer intervention.  Those of you \
-+familiar with the DBI will be right at home.  Some of the designs \
-+come from the Java JAXP specification (SAX part), only without the \
-+javaness."
-+
-+SECTION = "libs"
-+LICENSE = "Artistic|GPLv1+"
-+DEPENDS += "libxml-namespacesupport-perl-native"
-+RDEPENDS_${PN} += "libxml-namespacesupport-perl perl-module-file-temp"
-+PR = "r0"
-+
-+LIC_FILES_CHKSUM = "file://LICENSE;md5=65c4cd8f39c24c7135ed70dacbcb09e3"
-+
-+SRC_URI = "http://search.cpan.org/CPAN/authors/id/G/GR/GRANTM/XML-SAX-${PV}.tar.gz"
-+SRC_URI[md5sum] = "bdcd4119a62505184e211e9dfaef0ab1"
-+SRC_URI[sha256sum] = "9bbef613afa42c46df008d537decc5a61df7e92d65463f3c900769f39e5c8e08"
-+
-+S = "${WORKDIR}/XML-SAX-${PV}"
-+
-+inherit cpan
-+
-+BBCLASSEXTEND = "native"
+ inherit autotools
 -- 
 1.7.1
 
