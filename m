@@ -1,23 +1,19 @@
-Return-Path: <josh@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E6A454C811FD
-	for <poky@yoctoproject.org>; Fri, 13 May 2011 12:14:27 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 13 May 2011 10:14:27 -0700
+Return-Path: <nitin.a.kamble@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 767614C80120
+	for <poky@yoctoproject.org>; Fri, 13 May 2011 12:27:50 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 13 May 2011 10:27:50 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,365,1301900400"; d="scan'208";a="746908527"
-Received: from unknown (HELO [10.7.199.58]) ([10.7.199.58])
-	by orsmga001.jf.intel.com with ESMTP; 13 May 2011 10:14:27 -0700
-From: Joshua Lock <josh@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="4.64,365,1301900400"; d="scan'208";a="642379214"
+Received: from nbuild2.sc.intel.com (HELO localhost) ([172.25.110.37])
+	by orsmga002.jf.intel.com with ESMTP; 13 May 2011 10:27:50 -0700
+Message-Id: <cover.1305307513.git.nitin.a.kamble@intel.com>
+Old-Date: Fri, 13 May 2011 10:25:13 -0700
+Date: Fri, 13 May 2011 10:27:49 -0700
 To: poky@yoctoproject.org
-Date: Fri, 13 May 2011 10:14:27 -0700
-In-Reply-To: <8e2a54d05b21f33bd2249bab21343c25170ffc83.1305295079.git.paul.eggleton@linux.intel.com>
-References: <cover.1305295079.git.paul.eggleton@linux.intel.com>
-	<8e2a54d05b21f33bd2249bab21343c25170ffc83.1305295079.git.paul.eggleton@linux.intel.com>
-X-Mailer: Evolution 3.0.1 (3.0.1-1.fc15) 
-Message-ID: <1305306867.2023.21.camel@scimitar>
-Mime-Version: 1.0
-Subject: Re: [PATCH 3/3] qt4: split out SQL driver config flags to QT_SQL_DRIVER_FLAGS
+From: Nitin A Kamble <nitin.a.kamble@intel.com>
+Subject: [PATCH 0/1] fix a bitbake error for current master branch
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,48 +25,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 May 2011 17:14:28 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 13 May 2011 17:27:50 -0000
 
-On Fri, 2011-05-13 at 14:59 +0100, Paul Eggleton wrote:
-> From: Paul Eggleton <paul.eggleton@linux.intel.com>
-> 
-> This allows meta-oe to override these options easily in order to enable more
-> SQL driver plugins.
-> 
-> Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
+From: Nitin A Kamble <nitin.a.kamble@intel.com>
 
-Cool!
-Reviewed-by: Joshua Lock <josh@linux.intel.com>
+Currently master branch is broken with this error:
+MACHINE=qemuarm bitbake core-image-sato-sdk
+...
+NOTE: Runtime target 'glibc-utilsglibc-utils' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['glibc-utilsglibc-utils']
+NOTE: Runtime target 'task-core-nfs-server' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['task-core-nfs-server', 'glibc-utilsglibc-utils']
 
-> ---
->  meta/recipes-qt/qt4/qt4.inc |    4 +++-
->  1 files changed, 3 insertions(+), 1 deletions(-)
-> 
-> diff --git a/meta/recipes-qt/qt4/qt4.inc b/meta/recipes-qt/qt4/qt4.inc
-> index b86f89f..7e15b61 100644
-> --- a/meta/recipes-qt/qt4/qt4.inc
-> +++ b/meta/recipes-qt/qt4/qt4.inc
-> @@ -9,11 +9,13 @@ QT_ENDIAN = "${@qt_endian(d)}"
->  QT_DISTRO_FLAGS ?= "-no-accessibility -no-sm"
->  QT_DISTRO_FLAGS_linuxstdbase = "-sm"
->  
-> +QT_SQL_DRIVER_FLAGS ?= "-no-sql-ibase -no-sql-mysql -no-sql-psql -no-sql-odbc -plugin-sql-sqlite"
-> +
->  QT_CONFIG_FLAGS += "-release -no-cups -reduce-relocations \
->                      -shared -no-nas-sound -no-nis \
->                      -qt-gif -system-libjpeg -system-libpng -system-zlib \
-> -                    -no-sql-ibase -no-sql-mysql -no-sql-psql -no-sql-odbc -plugin-sql-sqlite \
->                      -no-pch -qdbus -stl -glib -phonon -webkit \
-> +                    ${QT_SQL_DRIVER_FLAGS} \
->                      ${QT_DISTRO_FLAGS} "
->  
->  EXTRA_OEMAKE = "-e"
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: nitin/misc
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=nitin/misc
+
+Thanks,
+    Nitin A Kamble <nitin.a.kamble@intel.com>
+---
+
+
+Nitin A Kamble (1):
+  task-core-nfs: fix a bitbake error
+
+ meta/recipes-core/tasks/task-core-nfs.bb |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
 -- 
-Joshua Lock
-        Yocto Build System Monkey
-        Intel Open Source Technology Centre
+1.7.3.4
 
 
