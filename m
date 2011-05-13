@@ -1,23 +1,23 @@
 Return-Path: <josh@linux.intel.com>
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 3F6464C811FD
-	for <poky@yoctoproject.org>; Fri, 13 May 2011 12:13:56 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 13 May 2011 10:13:55 -0700
+	by mx1.pokylinux.org (Postfix) with ESMTP id C2AF94C811FD
+	for <poky@yoctoproject.org>; Fri, 13 May 2011 12:14:03 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 13 May 2011 10:14:03 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,365,1301900400"; d="scan'208";a="746908112"
+X-IronPort-AV: E=Sophos;i="4.64,365,1301900400"; d="scan'208";a="642367235"
 Received: from unknown (HELO [10.7.199.58]) ([10.7.199.58])
-	by orsmga001.jf.intel.com with ESMTP; 13 May 2011 10:13:35 -0700
+	by orsmga002.jf.intel.com with ESMTP; 13 May 2011 10:14:03 -0700
 From: Joshua Lock <josh@linux.intel.com>
 To: poky@yoctoproject.org
-Date: Fri, 13 May 2011 10:13:34 -0700
-In-Reply-To: <748c06bb7ff87fb396298084a35cb0eb45a088c1.1305269419.git.lei.mei@intel.com>
-References: <cover.1305269419.git.lei.mei@intel.com>
-	<748c06bb7ff87fb396298084a35cb0eb45a088c1.1305269419.git.lei.mei@intel.com>
+Date: Fri, 13 May 2011 10:14:02 -0700
+In-Reply-To: <7b9f4d4a10900dc73e5faea2d59131465b667eea.1305295079.git.paul.eggleton@linux.intel.com>
+References: <cover.1305295079.git.paul.eggleton@linux.intel.com>
+	<7b9f4d4a10900dc73e5faea2d59131465b667eea.1305295079.git.paul.eggleton@linux.intel.com>
 X-Mailer: Evolution 3.0.1 (3.0.1-1.fc15) 
-Message-ID: <1305306814.2023.19.camel@scimitar>
+Message-ID: <1305306842.2023.20.camel@scimitar>
 Mime-Version: 1.0
-Subject: Re: [PATCH 2/2] distrodata.bbclass: Add checklicense task
+Subject: Re: [PATCH 1/3] qt4: update from 4.7.2 to 4.7.3
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,155 +29,156 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 May 2011 17:13:56 -0000
+X-List-Received-Date: Fri, 13 May 2011 17:14:04 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On Thu, 2011-01-13 at 15:04 +0800, Mei Lei wrote:
-> From: Mei Lei <lei.mei@intel.com>
+On Fri, 2011-05-13 at 14:59 +0100, Paul Eggleton wrote:
+> From: Paul Eggleton <paul.eggleton@linux.intel.com>
 > 
-> This task will check which license text is missing
-
-Can you flesh out this commit log some please? Why is this task useful?
-When should it be used? Etc.
-
-Code style comments in line below, thanks!
-
+> The Comodo certificates patch has been merged upstream so it no longer
+> needs to be applied. Some PR values were reset and SRC_URI checksums
+> updated but other than this there are no recipe changes.
 > 
-> Signed-off-by: Mei Lei <lei.mei@intel.com>
+> Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
+Reviewed-by: Joshua Lock <josh@linux.intel.com>
+
 > ---
->  meta/classes/distrodata.bbclass |   88 ++++++++++++++++++++++++---------------
->  1 files changed, 54 insertions(+), 34 deletions(-)
+>  meta/recipes-qt/qt4/{qt-4.7.2.inc => qt-4.7.3.inc} |    5 ++---
+>  .../0001-Added-Openembedded-crossarch-option.patch |    0
+>  .../recipes-qt/qt4/{qt-4.7.2 => qt-4.7.3}/g++.conf |    0
+>  .../hack-out-pg2-4.7.0.patch                       |    0
+>  .../qt4/{qt-4.7.2 => qt-4.7.3}/linux.conf          |    0
+>  ...qt4-embedded_4.7.2.bb => qt4-embedded_4.7.3.bb} |    2 +-
+>  ...s-native_4.7.2.bb => qt4-tools-native_4.7.3.bb} |    4 ++--
+>  meta/recipes-qt/qt4/qt4-tools-nativesdk_4.7.2.bb   |    6 ------
+>  meta/recipes-qt/qt4/qt4-tools-nativesdk_4.7.3.bb   |    6 ++++++
+>  ...qt4-x11-free_4.7.2.bb => qt4-x11-free_4.7.3.bb} |    2 +-
+>  10 files changed, 12 insertions(+), 13 deletions(-)
+>  rename meta/recipes-qt/qt4/{qt-4.7.2.inc => qt-4.7.3.inc} (89%)
+>  rename meta/recipes-qt/qt4/{qt-4.7.2 => qt-4.7.3}/0001-Added-Openembedded-crossarch-option.patch (100%)
+>  rename meta/recipes-qt/qt4/{qt-4.7.2 => qt-4.7.3}/g++.conf (100%)
+>  rename meta/recipes-qt/qt4/{qt-4.7.2 => qt-4.7.3}/hack-out-pg2-4.7.0.patch (100%)
+>  rename meta/recipes-qt/qt4/{qt-4.7.2 => qt-4.7.3}/linux.conf (100%)
+>  rename meta/recipes-qt/qt4/{qt4-embedded_4.7.2.bb => qt4-embedded_4.7.3.bb} (87%)
+>  rename meta/recipes-qt/qt4/{qt4-tools-native_4.7.2.bb => qt4-tools-native_4.7.3.bb} (61%)
+>  delete mode 100644 meta/recipes-qt/qt4/qt4-tools-nativesdk_4.7.2.bb
+>  create mode 100644 meta/recipes-qt/qt4/qt4-tools-nativesdk_4.7.3.bb
+>  rename meta/recipes-qt/qt4/{qt4-x11-free_4.7.2.bb => qt4-x11-free_4.7.3.bb} (88%)
 > 
-> diff --git a/meta/classes/distrodata.bbclass b/meta/classes/distrodata.bbclass
-> index 905dad7..58a2cf7 100644
-> --- a/meta/classes/distrodata.bbclass
-> +++ b/meta/classes/distrodata.bbclass
-> @@ -4,18 +4,8 @@ addhandler distro_eventhandler
->  python distro_eventhandler() {
+> diff --git a/meta/recipes-qt/qt4/qt-4.7.2.inc b/meta/recipes-qt/qt4/qt-4.7.3.inc
+> similarity index 89%
+> rename from meta/recipes-qt/qt4/qt-4.7.2.inc
+> rename to meta/recipes-qt/qt4/qt-4.7.3.inc
+> index 0f75a46..7f26b9b 100644
+> --- a/meta/recipes-qt/qt4/qt-4.7.2.inc
+> +++ b/meta/recipes-qt/qt4/qt-4.7.3.inc
+> @@ -6,7 +6,6 @@ LIC_FILES_CHKSUM = "file://LICENSE.LGPL;md5=fbc093901857fcd118f065f900982c24 \
+>  FILESPATH =. "${FILE_DIRNAME}/qt-${PV}:"
 >  
->      if bb.event.getName(e) == "BuildStarted":
-> -	"""initialize log files."""
-> -	logpath = bb.data.getVar('LOG_DIR', e.data, 1)
-> -	bb.utils.mkdirhier(logpath)
-> -	logfile = os.path.join(logpath, "distrodata.%s.csv" % bb.data.getVar('DATETIME', e.data, 1))
-> -	if not os.path.exists(logfile):
-> -		slogfile = os.path.join(logpath, "distrodata.csv")
-> -		if os.path.exists(slogfile):
-> -			os.remove(slogfile)
-> -		os.system("touch %s" % logfile)
-> -		os.symlink(logfile, slogfile)
-> -		bb.data.setVar('LOG_FILE', logfile, e.data)
+>  SRC_URI = "http://get.qt.nokia.com/qt/source/qt-everywhere-opensource-src-${PV}.tar.gz \
+> -           file://blacklist-fraudulent-comodo-certificates-patch.diff \
+>             file://0004-no-qmake.patch \
+>             file://hack-out-pg2-4.7.0.patch \
+>             file://0006-freetype-host-includes.patch \
+> @@ -15,8 +14,8 @@ SRC_URI = "http://get.qt.nokia.com/qt/source/qt-everywhere-opensource-src-${PV}.
+>             file://linux.conf \
+>             "
+>  
+> -SRC_URI[md5sum] = "66b992f5c21145df08c99d21847f4fdb"
+> -SRC_URI[sha256sum] = "d4783b524b90bcd270ccf6e7a30d5fb51696c47eb5de49ebc2d553cd3eb49336"
+> +SRC_URI[md5sum] = "49b96eefb1224cc529af6fe5608654fe"
+> +SRC_URI[sha256sum] = "d02b6fd69d089c01f4a787aa18175d074ccaecf8980a5956e328c2991905937e"
+>  
+>  S = "${WORKDIR}/qt-everywhere-opensource-src-${PV}"
+>  
+> diff --git a/meta/recipes-qt/qt4/qt-4.7.2/0001-Added-Openembedded-crossarch-option.patch b/meta/recipes-qt/qt4/qt-4.7.3/0001-Added-Openembedded-crossarch-option.patch
+> similarity index 100%
+> rename from meta/recipes-qt/qt4/qt-4.7.2/0001-Added-Openembedded-crossarch-option.patch
+> rename to meta/recipes-qt/qt4/qt-4.7.3/0001-Added-Openembedded-crossarch-option.patch
+> diff --git a/meta/recipes-qt/qt4/qt-4.7.2/g++.conf b/meta/recipes-qt/qt4/qt-4.7.3/g++.conf
+> similarity index 100%
+> rename from meta/recipes-qt/qt4/qt-4.7.2/g++.conf
+> rename to meta/recipes-qt/qt4/qt-4.7.3/g++.conf
+> diff --git a/meta/recipes-qt/qt4/qt-4.7.2/hack-out-pg2-4.7.0.patch b/meta/recipes-qt/qt4/qt-4.7.3/hack-out-pg2-4.7.0.patch
+> similarity index 100%
+> rename from meta/recipes-qt/qt4/qt-4.7.2/hack-out-pg2-4.7.0.patch
+> rename to meta/recipes-qt/qt4/qt-4.7.3/hack-out-pg2-4.7.0.patch
+> diff --git a/meta/recipes-qt/qt4/qt-4.7.2/linux.conf b/meta/recipes-qt/qt4/qt-4.7.3/linux.conf
+> similarity index 100%
+> rename from meta/recipes-qt/qt4/qt-4.7.2/linux.conf
+> rename to meta/recipes-qt/qt4/qt-4.7.3/linux.conf
+> diff --git a/meta/recipes-qt/qt4/qt4-embedded_4.7.2.bb b/meta/recipes-qt/qt4/qt4-embedded_4.7.3.bb
+> similarity index 87%
+> rename from meta/recipes-qt/qt4/qt4-embedded_4.7.2.bb
+> rename to meta/recipes-qt/qt4/qt4-embedded_4.7.3.bb
+> index c3f6713..b88b1e9 100644
+> --- a/meta/recipes-qt/qt4/qt4-embedded_4.7.2.bb
+> +++ b/meta/recipes-qt/qt4/qt4-embedded_4.7.3.bb
+> @@ -1,7 +1,7 @@
+>  require qt-${PV}.inc
+>  require qt4-embedded.inc
+>  
+> -PR = "${INC_PR}.1"
+> +PR = "${INC_PR}.0"
+>  
+>  QT_CONFIG_FLAGS_append_armv6 = " -no-neon "
+>  
+> diff --git a/meta/recipes-qt/qt4/qt4-tools-native_4.7.2.bb b/meta/recipes-qt/qt4/qt4-tools-native_4.7.3.bb
+> similarity index 61%
+> rename from meta/recipes-qt/qt4/qt4-tools-native_4.7.2.bb
+> rename to meta/recipes-qt/qt4/qt4-tools-native_4.7.3.bb
+> index d3c0eda..deb4231 100644
+> --- a/meta/recipes-qt/qt4/qt4-tools-native_4.7.2.bb
+> +++ b/meta/recipes-qt/qt4/qt4-tools-native_4.7.3.bb
+> @@ -9,5 +9,5 @@ EXTRA_OECONF += " -no-fast -silent -no-rpath"
+>  
+>  TOBUILD := "src/tools/bootstrap ${TOBUILD}"
+>  
+> -SRC_URI[md5sum] = "66b992f5c21145df08c99d21847f4fdb"
+> -SRC_URI[sha256sum] = "d4783b524b90bcd270ccf6e7a30d5fb51696c47eb5de49ebc2d553cd3eb49336"
+> +SRC_URI[md5sum] = "49b96eefb1224cc529af6fe5608654fe"
+> +SRC_URI[sha256sum] = "d02b6fd69d089c01f4a787aa18175d074ccaecf8980a5956e328c2991905937e"
+> diff --git a/meta/recipes-qt/qt4/qt4-tools-nativesdk_4.7.2.bb b/meta/recipes-qt/qt4/qt4-tools-nativesdk_4.7.2.bb
+> deleted file mode 100644
+> index a917ac4..0000000
+> --- a/meta/recipes-qt/qt4/qt4-tools-nativesdk_4.7.2.bb
+> +++ /dev/null
+> @@ -1,6 +0,0 @@
+> -require qt4-tools-nativesdk.inc
 > -
-> +	import oe.distro_check as dc
-> +	logfile = dc.create_log_file(e.data,"distrodata.csv")
->  	lf = bb.utils.lockfile(logfile + ".lock")
->  	f = open(logfile, "a")
->  	f.write("Package,Description,Owner,License,ChkSum,Status,VerMatch,Version,Upsteam,Non-Update,Reason,Recipe Status\n")
-> @@ -211,17 +201,8 @@ do_distrodataall() {
->  addhandler checkpkg_eventhandler
->  python checkpkg_eventhandler() {
->      if bb.event.getName(e) == "BuildStarted":
-> -	"""initialize log files."""
-> -	logpath = bb.data.getVar('LOG_DIR', e.data, 1)
-> -	bb.utils.mkdirhier(logpath)
-> -	logfile = os.path.join(logpath, "checkpkg.%s.csv" % bb.data.getVar('DATETIME', e.data, 1))
-> -	if not os.path.exists(logfile):
-> -		slogfile = os.path.join(logpath, "checkpkg.csv")
-> -		if os.path.exists(slogfile):
-> -			os.remove(slogfile)
-> -		os.system("touch %s" % logfile)
-> -		os.symlink(logfile, slogfile)
-> -		bb.data.setVar('LOG_FILE', logfile, e.data)
-> +	import oe.distro_check as dc
-> +	logfile = dc.create_log_file(e.data,"checkpkg.csv")
->  
->  	lf = bb.utils.lockfile(logfile + ".lock")
->  	f = open(logfile, "a")
-> @@ -662,17 +643,8 @@ python check_eventhandler() {
->          distro_check_dir = os.path.join(tmpdir, "distro_check")
->          datetime = bb.data.getVar('DATETIME', e.data, 1)
->          """initialize log files."""
-> -        logpath = bb.data.getVar('LOG_DIR', e.data, 1)
-> -        bb.utils.mkdirhier(logpath)
-> -        logfile = os.path.join(logpath, "distrocheck.%s.csv" % bb.data.getVar('DATETIME', e.data, 1))
-> -        if not os.path.exists(logfile):
-> -                slogfile = os.path.join(logpath, "distrocheck.csv")
-> -                if os.path.exists(slogfile):
-> -                        os.remove(slogfile)
-> -                os.system("touch %s" % logfile)
-> -                os.symlink(logfile, slogfile)
-> -                bb.data.setVar('LOG_FILE', logfile, e.data)
+> -PR = "${INC_PR}.0"
 > -
-> +        import oe.distro_check as dc
-> +        logfile = dc.create_log_file(e.data,"distrocheck.csv")
->      return
->  }
+> -SRC_URI[md5sum] = "66b992f5c21145df08c99d21847f4fdb"
+> -SRC_URI[sha256sum] = "d4783b524b90bcd270ccf6e7a30d5fb51696c47eb5de49ebc2d553cd3eb49336"
+> diff --git a/meta/recipes-qt/qt4/qt4-tools-nativesdk_4.7.3.bb b/meta/recipes-qt/qt4/qt4-tools-nativesdk_4.7.3.bb
+> new file mode 100644
+> index 0000000..d61f312
+> --- /dev/null
+> +++ b/meta/recipes-qt/qt4/qt4-tools-nativesdk_4.7.3.bb
+> @@ -0,0 +1,6 @@
+> +require qt4-tools-nativesdk.inc
+> +
+> +PR = "${INC_PR}.0"
+> +
+> +SRC_URI[md5sum] = "49b96eefb1224cc529af6fe5608654fe"
+> +SRC_URI[sha256sum] = "d02b6fd69d089c01f4a787aa18175d074ccaecf8980a5956e328c2991905937e"
+> diff --git a/meta/recipes-qt/qt4/qt4-x11-free_4.7.2.bb b/meta/recipes-qt/qt4/qt4-x11-free_4.7.3.bb
+> similarity index 88%
+> rename from meta/recipes-qt/qt4/qt4-x11-free_4.7.2.bb
+> rename to meta/recipes-qt/qt4/qt4-x11-free_4.7.3.bb
+> index 75c6314..359a756 100644
+> --- a/meta/recipes-qt/qt4/qt4-x11-free_4.7.2.bb
+> +++ b/meta/recipes-qt/qt4/qt4-x11-free_4.7.3.bb
+> @@ -1,7 +1,7 @@
+>  require qt4-x11-free.inc
+>  require qt-${PV}.inc
 >  
-> @@ -701,3 +673,51 @@ do_distro_checkall[nostamp] = "1"
->  do_distro_checkall() {
->  	:
->  }
-> +##Check Missing License Text
-> +addhandler checklicense_eventhandler
-> +python checklicense_eventhandler() {
-> +    if bb.event.getName(e) == "BuildStarted":
-> +        """initialize log files."""
-> +        import oe.distro_check as dc
-> +        logfile = dc.create_log_file(e.data,"missinglicense.csv")
-Whitespace: logfile = dc.create_log_file(e.data, "missinglicense.csv")
-> +        lf = bb.utils.lockfile(logfile + ".lock")
-Personally I prefer to use string formatting rather for this sort of
-thing:
-+        lf = bb.utils.lockfile("%s.lock" % logfile)
-> +        f = open(logfile, "a")
-> +        f.write("Package\tLicense\tMissingLicense\n")
-> +        f.close()
-> +        bb.utils.unlockfile(lf)
-> +    return
-> +}
-> +
-> +addtask checklicense
-> +do_checklicense[nostamp] = "1"
-> +python do_checklicense() {
-> +    import os
-> +    import bb
-> +    import shutil
-> +    logpath = bb.data.getVar('LOG_DIR', d, 1)
-> +    bb.utils.mkdirhier(logpath)
-> +    pn = bb.data.getVar('PN',d,1)
-
-pn = bb.data.getVar('PN', d, True)
-
-Please try and maintain whitespace style and use boolean values where
-appropriate.
-
-> +    logfile = os.path.join(logpath, "missinglicense.csv")
-> +    generic_directory = bb.data.getVar('COMMON_LICENSE_DIR', d, True)
-> +    license_types = bb.data.getVar('LICENSE', d, True)
-> +    for license_type in ((license_types.replace('+', '').replace('|', '&')
-> +                          .replace('(', '').replace(')', '').replace(';', '')
-> +                          .replace(',', '').replace(" ", "").split("&"))):
-> +        if not os.path.isfile(os.path.join(generic_directory, license_type)):
-> +            lf = bb.utils.lockfile(logfile + ".lock")
-Maybe use string formatters here too:
-+            lf = bb.utils.lockfile("%s.lock" % logfile)
-> +            f = open(logfile,"a") 
-> +            f.write("%s\t%s\t%s\n" % \
-> +        		(pn,license_types,license_type))
-> +            f.close()
-> +            bb.utils.unlockfile(lf)
-> +    return
-> +}
-> +
-> +addtask checklicenseall after do_checklicense
-> +do_checklicenseall[recrdeptask] = "do_checklicense"
-> +do_checklicenseall[nostamp] = "1"
-> +do_checklicenseall() {
-> +	:
-> +}
-> +
-> +
+> -PR = "${INC_PR}.1"
+> +PR = "${INC_PR}.0"
+>  
+>  QT_CONFIG_FLAGS_append_armv6 = " -no-neon "
+>  
 
 -- 
 Joshua Lock
