@@ -1,37 +1,25 @@
-Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9DFAA4C8120A
-	for <poky@yoctoproject.org>; Fri, 13 May 2011 15:27:40 -0500 (CDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 13 May 2011 13:27:40 -0700
+Return-Path: <sgw@linux.intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 6A4A34C81201
+	for <poky@yoctoproject.org>; Fri, 13 May 2011 17:25:56 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 13 May 2011 15:25:56 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,366,1301900400"; 
-   d="scan'208";a="1430307"
-Received: from orsmsx603.amr.corp.intel.com ([10.22.226.49])
-	by fmsmga002.fm.intel.com with ESMTP; 13 May 2011 13:27:40 -0700
-Received: from orsmsx601.amr.corp.intel.com (10.22.226.213) by
-	orsmsx603.amr.corp.intel.com (10.22.226.49) with Microsoft SMTP Server
-	(TLS) id 8.2.255.0; Fri, 13 May 2011 13:27:40 -0700
-Received: from orsmsx504.amr.corp.intel.com ([10.22.226.207]) by
-	orsmsx601.amr.corp.intel.com ([10.22.226.213]) with mapi;
-	Fri, 13 May 2011 13:27:40 -0700
-From: "Kamble, Nitin A" <nitin.a.kamble@intel.com>
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-Date: Fri, 13 May 2011 13:27:39 -0700
-Thread-Topic: [poky] [PATCH 25/25] m4: update upstream-status for patches
-Thread-Index: AcwRVIMI6VkkuAbLSuirqOOMn5dnSwAV5t4w
-Message-ID: <9DA5872FEF993D41B7173F58FCF6BE94D89C51C9@orsmsx504.amr.corp.intel.com>
-References: <cover.1305245922.git.nitin.a.kamble@intel.com>
-	<483456db6f26684d977870434bbf3b51891c171c.1305245924.git.nitin.a.kamble@intel.com>
-	<1305280774.19606.39.camel@rex>
-In-Reply-To: <1305280774.19606.39.camel@rex>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
+X-IronPort-AV: E=Sophos;i="4.64,366,1301900400"; d="scan'208";a="747018976"
+Received: from unknown (HELO [10.255.12.119]) ([10.255.12.119])
+	by orsmga001.jf.intel.com with ESMTP; 13 May 2011 15:25:55 -0700
+Message-ID: <4DCDAFF0.4030700@linux.intel.com>
+Date: Fri, 13 May 2011 15:25:52 -0700
+From: Saul Wold <sgw@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
+	Thunderbird/3.0.5
 MIME-Version: 1.0
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 25/25] m4: update upstream-status for patches
+To: Dongxiao Xu <dongxiao.xu@intel.com>
+References: <cover.1305017818.git.dongxiao.xu@intel.com>
+In-Reply-To: <cover.1305017818.git.dongxiao.xu@intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 00/39][PULL] Upstream Status Update
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,29 +31,178 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 May 2011 20:27:40 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-List-Received-Date: Fri, 13 May 2011 22:25:56 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-SGkgUmljaGFyZCwNCiBUaGFua3MgZm9yIGRldGVjdGluZyB0aGlzLiANCk5pdGluDQoNCg0KPiAt
-LS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBSaWNoYXJkIFB1cmRpZSBbbWFpbHRv
-OnJpY2hhcmQucHVyZGllQGxpbnV4Zm91bmRhdGlvbi5vcmddDQo+IFNlbnQ6IEZyaWRheSwgTWF5
-IDEzLCAyMDExIDM6MDAgQU0NCj4gVG86IEthbWJsZSwgTml0aW4gQQ0KPiBDYzogcG9reUB5b2N0
-b3Byb2plY3Qub3JnDQo+IFN1YmplY3Q6IFJlOiBbcG9reV0gW1BBVENIIDI1LzI1XSBtNDogdXBk
-YXRlIHVwc3RyZWFtLXN0YXR1cyBmb3INCj4gcGF0Y2hlcw0KPiANCj4gSGkgTml0aW4sDQo+IA0K
-PiBPbiBUaHUsIDIwMTEtMDUtMTIgYXQgMTc6MjAgLTA3MDAsIE5pdGluIEEgS2FtYmxlIHdyb3Rl
-Og0KPiA+IEZyb206IE5pdGluIEEgS2FtYmxlIDxuaXRpbi5hLmthbWJsZUBpbnRlbC5jb20+DQo+
-ID4NCj4gPiBTaWduZWQtb2ZmLWJ5OiBOaXRpbiBBIEthbWJsZSA8bml0aW4uYS5rYW1ibGVAaW50
-ZWwuY29tPg0KPiA+IC0tLQ0KPiA+ICBtZXRhL3JlY2lwZXMtZGV2dG9vbHMvbTQvbTQvYWNfY29u
-ZmlnX2xpbmtzLnBhdGNoICB8ICAgIDIgKw0KPiA+ICAuLi4vbTQvbTQvZml4X2Zvcl9jaXJjdWxh
-cl9kZXBlbmRlbmN5LnBhdGNoICAgICAgICB8ICAgIDIgKw0KPiA+ICAuLi4vbTQvbTQvbTQtMS40
-LjlfZXh0cmFfb3B0aW9ucy5wYXRjaCAgICAgICAgICAgICB8ICAxNjkNCj4gKysrKysrKysrKysr
-KysrKysrKysNCj4gPiAgbWV0YS9yZWNpcGVzLWRldnRvb2xzL200L200L21ha2UucGF0Y2ggICAg
-ICAgICAgICAgfCAgICAxICsNCj4gPiAgNCBmaWxlcyBjaGFuZ2VkLCAxNzQgaW5zZXJ0aW9ucygr
-KSwgMCBkZWxldGlvbnMoLSkNCj4gPiAgY3JlYXRlIG1vZGUgMTAwNjQ0IG1ldGEvcmVjaXBlcy1k
-ZXZ0b29scy9tNC9tNC9tNC0NCj4gMS40LjlfZXh0cmFfb3B0aW9ucy5wYXRjaA0KPiANCj4gSSBk
-aWRuJ3QgdGFrZSB0aGlzIHBhdGNoIGFzIHRoZXJlIHNlZW1lZCB0byBiZSBtb3JlIHRoYW4gYSBw
-YXRjaCBoZWFkZXINCj4gYWRkaXRpb24gaW4gdGhpcyBwYXRjaC4uLg0KPiANCj4gQ2hlZXJzLA0K
-PiANCj4gUmljaGFyZA0KDQo=
+On 05/10/2011 02:01 AM, Dongxiao Xu wrote:
+> From: Dongxiao Xu<dongxiao.xu@intel.com>
+>
+> Hi Saul,
+>
+> This pull request updates the upstream status for those patches in my owned recipes.
+>
+> Please help to review and pull. Thanks!
+>
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>    Branch: dxu4/upgrade
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dxu4/upgrade
+>
+> Thanks,
+>      Dongxiao Xu<dongxiao.xu@intel.com>
+> ---
+>
+>
+> Dongxiao Xu (39):
+>    hostap: add upstream status for hostap-fw-load.patch
+>    lrzsz: add upstream status for lrzsz's patches
+>    bluez: add upstream status for bluez's patches
+>    bluez-dtl1-workaround: add upstream status for COPYING.patch
+>    libgsmd: add upstream status for gsm's patches.
+>    gypsy: add upstream status for gypsy's patch
+>    libpcap: add upstream status for libpcap's patches
+>    ppp: add upstream status for ppp's patches
+>    libtelepathy: add upstream status for libtelepathy's patches
+>    telepathy-python: add upstream status for telepahty-python's patches
+>    wireless-tools: add upstream status for wireless-tools's patches
+>    wpa-supplicant: add upstream status for wpa-supplicant
+>    zeroconf: add upstream status for zeroconf's patch
+>    glibc: add upstream status for glibc's patches
+>    dpkg: add upstream status for dpkg's patches
+>    makedevs: add upstream status for makedevs's patch
+>    opkg: add upstream status for opkg's patches
+>    opkg-utils: add upstream status for opkg-utils's patch
+>    minicom: add upstream status for minicom patches
+>    rpcbind: add upstream status for rpcbind's patch
+>    which: add upstream status for which's patch
+>    clutter-gst: add upstream status for clutter-gst's patches
+>    flac: add upstream status for flac's patches
+>    gst-ffmpeg: add upstream status for gst-ffmpeg's patch
+>    liba52: add upstream status for liba52's patch
+>    libid3tag: add upstream status for libid3tag
+>    libmusicbrainz: add upstream status for libmusicbrainz's patch
+>    pulseaudio: add upstream status for pulseaudio patches
+>    db: add upstream status for db's patch
+>    neon: add upstream status for neon's patch
+>    taglib: add upstream status for taglib's patches
+>    libetpan: add upstream status for libetpan's patch
+>    libopensync: add upstream status for libopensync's patches
+>    libopensync-plugin-evolution2: add upstream status for its patch
+>    libopensync-plugin-syncml: add upstream status for its patch
+>    libsyncml: add upstream status for libsyncml's patch
+>    empathy: add upstream status for empathy's patch
+>    wv: add upstream status for wv's patch
+>    xournal: add upstream status for xournal's patch
+>
+>   .../libetpan/files/cxx-is-here.patch               |    2 ++
+>   .../opensync/libopensync-0.37/build-in-src.patch   |    2 ++
+>   .../opensync/libopensync-0.37/cmake.patch          |    2 ++
+>   .../libopensync-0.37/no-python-check.patch         |    2 ++
+>   .../libopensync-plugin-evolution2/0.37-fixes.patch |    2 ++
+>   .../libopensync-plugin-syncml/fixerror.patch       |    2 ++
+>   .../opensync/libsyncml/build-in-src.patch          |    2 ++
+>   .../telepathy/empathy/no-gnome-doc.patch           |    2 ++
+>   .../recipes-gnome/wv/wv-1.2.0/pkgconfig.patch      |    2 ++
+>   .../recipes-graphics/xournal/files/ldflags.patch   |    2 ++
+>   .../xournal/files/no-printing.diff                 |    2 ++
+>   meta/recipes-bsp/hostap/files/hostap-fw-load.patch |    2 ++
+>   .../lrzsz/lrzsz-0.12.20/autotools.patch            |    2 ++
+>   meta/recipes-bsp/lrzsz/lrzsz-0.12.20/gettext.patch |    2 ++
+>   .../recipes-bsp/lrzsz/lrzsz-0.12.20/makefile.patch |    2 ++
+>   .../bluez/bluez-dtl1-workaround/COPYING.patch      |    2 ++
+>   .../fix-dfutool-usb-declaration-mismatch.patch     |    1 +
+>   .../bluez/bluez4-4.82/hid2hci_usb_init.patch       |    2 ++
+>   .../bluez/bluez4-4.82/sbc-thumb.patch              |    1 +
+>   .../gsm/files/0001-Introduce-ports.patch           |    2 ++
+>   ...ending-commands-before-restarting-the-mod.patch |    2 ++
+>   ...-segment-incoming-usock-data-into-packets.patch |    2 ++
+>   .../0004-Handle-read-and-write-return-values.patch |    2 ++
+>   .../gsm/files/0005-Add-ask-ds-option-forSMS.patch  |    2 ++
+>   .../gsm/files/024_sms-text-in-bracket.patch        |    2 ++
+>   .../gsm/files/025_sms-status-report.patch          |    2 ++
+>   ...027_phonebook-find-and-read-range-support.patch |    2 ++
+>   ...ell-phonebook-find-and-read-range-support.patch |    2 ++
+>   .../gsm/files/fix_machine_init.patch               |    2 ++
+>   .../gsm/files/install-ts-headers.patch             |    2 ++
+>   .../gsm/files/lgsm_send_fix_return_value.patch     |    2 ++
+>   meta/recipes-connectivity/gypsy/files/fixups.patch |    2 ++
+>   .../libpcap/libpcap-1.1.1/aclocal.patch            |    2 ++
+>   .../libpcap/libpcap-1.1.1/ieee80215-arphrd.patch   |    2 ++
+>   .../ppp/ppp-2.4.5/cifdefroute.patch                |    2 ++
+>   .../ppp/ppp-2.4.5/enable-ipv6.patch                |    2 ++
+>   .../makefile-remove-hard-usr-reference.patch       |    2 ++
+>   .../ppp/ppp-2.4.5/makefile.patch                   |    2 ++
+>   .../ppp/ppp-2.4.5/pppd-resolv-varrun.patch         |    2 ++
+>   .../telepathy/libtelepathy/doublefix.patch         |    2 ++
+>   .../telepathy/libtelepathy/prefer_python_2.5.patch |    2 ++
+>   .../telepathy-python-0.15.19/parallel_make.patch   |    2 ++
+>   .../wireless-tools/wireless-tools/man.patch        |    2 ++
+>   .../wpa_supplicant-0.5.7-always-scan.patch         |    2 ++
+>   ...a_supplicant-fix-deprecated-dbus-function.patch |    2 ++
+>   .../zeroconf/zeroconf/compilefix.patch             |    2 ++
+>   .../glibc/glibc-2.10.1/arm-check-pf.patch          |    2 ++
+>   .../glibc/glibc-2.10.1/arm-longlong.patch          |    2 ++
+>   .../arm-lowlevellock-include-tls.patch             |    2 ++
+>   .../glibc/glibc-2.10.1/arm-memcpy.patch            |    2 ++
+>   .../glibc/glibc-2.10.1/dl-cache-libcmp.patch       |    2 ++
+>   .../glibc/glibc-2.10.1/fhs-linux-paths.patch       |    2 ++
+>   .../glibc-arm-IO-acquire-lock-fix.diff             |    2 ++
+>   .../glibc/glibc-2.10.1/glibc-arm-no-asm-page.patch |    2 ++
+>   .../glibc/glibc-2.10.1/glibc-check_pf.patch        |    2 ++
+>   .../glibc/glibc-2.10.1/ldd-unbash.patch            |    2 ++
+>   .../glibc/glibc-2.10.1/ldsocache-varrun.patch      |    2 ++
+>   .../glibc/glibc-2.10.1/local-args6.diff            |    2 ++
+>   .../glibc/glibc-2.10.1/march-i686.patch            |    1 +
+>   .../glibc/glibc-2.10.1/mips-rld-map-check.patch    |    2 ++
+>   .../glibc/glibc-2.10.1/nptl-crosscompile.patch     |    2 ++
+>   .../glibc/glibc-2.10.1/nscd-init.patch             |    2 ++
+>   .../glibc/glibc-2.10.1/powerpc-sqrt-hack.diff      |    2 ++
+>   .../recipes-core/glibc/glibc-2.10.1/rulesfix.patch |    2 ++
+>   meta/recipes-devtools/dpkg/dpkg/autofoo.patch      |    2 ++
+>   .../dpkg/dpkg/check_snprintf.patch                 |    2 ++
+>   .../recipes-devtools/dpkg/dpkg/check_version.patch |    2 ++
+>   .../dpkg/dpkg/ignore_extra_fields.patch            |    2 ++
+>   meta/recipes-devtools/dpkg/dpkg/nochroot.patch     |    2 ++
+>   meta/recipes-devtools/dpkg/dpkg/noman.patch        |    2 ++
+>   meta/recipes-devtools/dpkg/dpkg/noupdalt.patch     |    2 ++
+>   .../makedevs/makedevs-1.0.0/COPYING.patch          |    2 ++
+>   .../opkg-utils/index-ignore-filenotfound.patch     |    2 ++
+>   meta/recipes-devtools/opkg/opkg/add_vercmp.patch   |    2 ++
+>   meta/recipes-devtools/opkg/opkg/headerfix.patch    |    2 ++
+>   .../minicom/minicom-2.4/gcc4-scope.patch           |    2 ++
+>   .../minicom-2.4/rename-conflicting-functions.patch |    2 ++
+>   .../rpcbind/rpcbind/fix_host_path.patch            |    2 ++
+>   .../which/which-2.20/remove-declaration.patch      |    2 ++
+>   .../clutter/clutter-gst/autofoo-0.4.patch          |    2 ++
+>   ...-9db4a61a25677764bb927369c5c68ada958fb65c.patch |    2 ++
+>   .../clutter/clutter-gst/autofoo.patch              |    2 ++
+>   .../clutter/clutter-gst/enable_tests-1.4.patch     |    3 +++
+>   .../clutter/clutter-gst/enable_tests.patch         |    3 +++
+>   .../flac/flac-1.2.1/disable-xmms-plugin.patch      |    1 +
+>   .../flac/flac-1.2.1/flac-gcc43-fixes.patch         |    1 +
+>   .../gstreamer/gst-ffmpeg-0.10.11/lower-rank.diff   |    2 ++
+>   .../liba52/liba52/buildcleanup.patch               |    2 ++
+>   .../libid3tag/libid3tag/addpkgconfig.patch         |    2 ++
+>   .../fix_build_issue_for_gcc_4.5.0.patch            |    2 ++
+>   .../pulseaudio/pulseaudio-0.9.22/armv4+v5asm.patch |    2 ++
+>   .../pulseaudio-0.9.22/autoconf_version.patch       |    2 ++
+>   .../pulseaudio/pulseaudio-0.9.22/buildfix.patch    |    2 ++
+>   .../pulseaudio-0.9.22/configure_silent_rules.patch |    2 ++
+>   .../pulseaudio-0.9.22/gcc4-compile-fix.patch       |    2 ++
+>   .../pulseaudio/pulseaudio-0.9.22/tls_m4.patch      |    2 ++
+>   .../db/db/arm-thumb-mutex_db5.patch                |    2 ++
+>   .../neon/neon-0.29.5/pkgconfig.patch               |    2 ++
+>   .../taglib/taglib-1.6.3/configuretweak.patch       |    2 ++
+>   .../taglib/taglib-1.6.3/nolibtool.patch            |    2 ++
+>   100 files changed, 197 insertions(+), 0 deletions(-)
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
+
+Merged, thanks for the great work with these!
+
+Sau!
 
