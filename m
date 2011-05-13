@@ -1,21 +1,22 @@
 Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 3A6644C811A7
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 6D1834C811A9
 	for <poky@yoctoproject.org>; Thu, 12 May 2011 19:20:33 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 12 May 2011 17:20:33 -0700
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 12 May 2011 17:20:33 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,361,1301900400"; d="scan'208";a="435293406"
+X-IronPort-AV: E=Sophos;i="4.64,361,1301900400"; 
+   d="scan'208";a="1059409"
 Received: from nbuild2.sc.intel.com (HELO localhost) ([172.25.110.37])
-	by azsmga001.ch.intel.com with ESMTP; 12 May 2011 17:20:33 -0700
-Message-Id: <cc80e008db24d328b27189d4b069ce412d04e4ec.1305245924.git.nitin.a.kamble@intel.com>
+	by fmsmga002.fm.intel.com with ESMTP; 12 May 2011 17:20:33 -0700
+Message-Id: <ac78560d6e039bc2a9cec1837522cf6c01b75d5e.1305245924.git.nitin.a.kamble@intel.com>
 In-Reply-To: <cover.1305245922.git.nitin.a.kamble@intel.com>
 References: <cover.1305245922.git.nitin.a.kamble@intel.com>
-Old-Date: Thu, 12 May 2011 16:44:43 -0700
-Date: Thu, 12 May 2011 17:20:32 -0700
+Old-Date: Thu, 12 May 2011 16:46:51 -0700
+Date: Thu, 12 May 2011 17:20:33 -0700
 To: poky@yoctoproject.org
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Subject: [PATCH 17/25] perl: update upstream-status for patches
+Subject: [PATCH 18/25] python-pycurl: update upstream-status for patches
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,19 +34,19 @@ From: Nitin A Kamble <nitin.a.kamble@intel.com>
 
 Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
 ---
- .../perl/files/Configure-multilib.patch            |    2 ++
+ .../python/python-pycurl/no-static-link.patch      |    2 ++
  1 files changed, 2 insertions(+), 0 deletions(-)
 
-diff --git a/meta/recipes-devtools/perl/files/Configure-multilib.patch b/meta/recipes-devtools/perl/files/Configure-multilib.patch
-index 545a8b8..085a2ff 100644
---- a/meta/recipes-devtools/perl/files/Configure-multilib.patch
-+++ b/meta/recipes-devtools/perl/files/Configure-multilib.patch
+diff --git a/meta/recipes-devtools/python/python-pycurl/no-static-link.patch b/meta/recipes-devtools/python/python-pycurl/no-static-link.patch
+index b7c5ab9..c97f5dc 100644
+--- a/meta/recipes-devtools/python/python-pycurl/no-static-link.patch
++++ b/meta/recipes-devtools/python/python-pycurl/no-static-link.patch
 @@ -1,3 +1,5 @@
-+Upstream-Status: Inappropriate [embedded specific]
++Upstream-Status: Pending
 +
- Index: perl-5.12.2/Configure
+ Index: pycurl-7.18.2/setup.py
  ===================================================================
- --- perl-5.12.2.orig/Configure
+ --- pycurl-7.18.2.orig/setup.py
 -- 
 1.7.3.4
 
