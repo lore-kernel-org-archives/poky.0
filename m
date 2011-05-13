@@ -1,30 +1,27 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id CD6E34C811F7
-	for <poky@yoctoproject.org>; Fri, 13 May 2011 11:51:05 -0500 (CDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 5D20716603ED; Fri, 13 May 2011 10:51:05 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2-r929478
-Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id F1EBD16602A2;
-	Fri, 13 May 2011 10:51:02 -0600 (MDT)
-Message-ID: <4DCD6176.5020306@mlbassoc.com>
-Date: Fri, 13 May 2011 10:51:02 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
+Return-Path: <mark.hatle@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 85C0F4C811F8
+	for <poky@yoctoproject.org>; Fri, 13 May 2011 11:54:22 -0500 (CDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p4DGsLOo013553
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Fri, 13 May 2011 09:54:21 -0700 (PDT)
+Received: from Macintosh-5.local (172.25.36.228) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server id 14.1.255.0;
+	Fri, 13 May 2011 09:54:21 -0700
+Message-ID: <4DCD623C.1050101@windriver.com>
+Date: Fri, 13 May 2011 11:54:20 -0500
+From: Mark Hatle <mark.hatle@windriver.com>
+Organization: Wind River Systems
+User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
+	rv:1.9.2.17) Gecko/20110414 Thunderbird/3.1.10
 MIME-Version: 1.0
-To: Tom Zanussi <tom.zanussi@intel.com>
-References: <4DCD1F2F.7030805@mlbassoc.com>
-	<1305293225.30469.151.camel@elmorro>
-In-Reply-To: <1305293225.30469.151.camel@elmorro>
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: meta-intel
+To: Saul Wold <sgw@linux.intel.com>
+References: <cover.1305266909.git.kai.kang@windriver.com>	<7d8bd25d3d5664125484582160518ce857cac2f5.1305266909.git.kai.kang@windriver.com>
+	<4DCD6128.6030506@linux.intel.com>
+In-Reply-To: <4DCD6128.6030506@linux.intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 2/4] foomatic-filters: add a link to pass LSB printing test
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,58 +33,69 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 May 2011 16:51:07 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-List-Received-Date: Fri, 13 May 2011 16:54:22 -0000
+Content-Type: text/plain; charset="ISO-8859-1"
 Content-Transfer-Encoding: 7bit
 
-On 05/13/2011 07:27 AM, Tom Zanussi wrote:
-> On Fri, 2011-05-13 at 05:08 -0700, Gary Thomas wrote:
->> I'm using meta-intel (git://git.pokylinux.org/meta-intel.git) to
->> test Poky on my Atom-PC (emenlow works fine).
+On 5/13/11 11:49 AM, Saul Wold wrote:
+> On 05/13/2011 12:56 AM, Kang Kai wrote:
+>> From: Kang Kai<kai.kang@windriver.com>
 >>
->> Where is the best place to ask for help with this?  Perhaps there
->> should be a README in the layer to give such guidance?
+>> LSB printing test will test a foomatic-rip under cups' directory,
+>> so add it as link.
+>> Part fixes [Yocto 904]
 >>
->
-> Yeah, good point - it would make sense to add 'owner' contact info in
-> the BSP READMEs.  I'll do that for all the BSPs in meta-intel.
->
->> Now, to my actual question.  I'm trying to understand the strange
->> network behaviour I see when running qemu (see yesterday's thread).
->> When I build for qemuXXX, I build&  run core-image-sato.  On the
->> real hardware (emenlow), I built core-image-sato-live, so I would
->> think the only difference would be the USB-live packaging.  So
->> why do I see such a different set of tasks running, once I log
->> in via X?  See attached files.
+>> Signed-off-by: Kang Kai<kai.kang@windriver.com>
+>> ---
+>>   .../foomatic/foomatic-filters_4.0.7.bb             |    9 ++++++++-
+>>   1 files changed, 8 insertions(+), 1 deletions(-)
 >>
->
-> Actually, the set of tasks doesn't look all that different to me.  But
-> they're also different BSPs (qemu vs emenlow) so I wouldn't expect them
-> to be exactly the same (different config options, additional packages,
-> etc).
-
-To me, that doesn't make much sense.  I want to run core-image-sato,
-just with different kernels.  The userland experience (i.e. which
-programs run by just starting up) should be pretty much the same.
-
-Why does the qemu image start a bunch of NFS and DISTCC stuff that
-emenlow does not?
-
-I'm still trying to get a grip on why the network works correctly
-on emenlow and fails on qemu...
-
-Thanks
-
->> Interestingly, the network on the real system (emenlow) works
->> properly.  The only problem I have is that /etc/resolv.conf is
->> still wrong, even though I get my network address via DHCP and
->> the DHCP server provides DNS info.
+>> diff --git a/meta/recipes-extended/foomatic/foomatic-filters_4.0.7.bb b/meta/recipes-extended/foomatic/foomatic-filters_4.0.7.bb
+>> index 8d70400..43e9c8d 100644
+>> --- a/meta/recipes-extended/foomatic/foomatic-filters_4.0.7.bb
+>> +++ b/meta/recipes-extended/foomatic/foomatic-filters_4.0.7.bb
+>> @@ -10,7 +10,7 @@ format using a printer-specific, but spooler-independent PPD file. \
+>>   "
 >>
->
+>>   DEPENDS += "cups perl libxml2"
+>> -PR = "r0"
+>> +PR = "r1"
+>>
+>>   LICENSE = "GPLv2+"
+>>   LIC_FILES_CHKSUM = "file://${WORKDIR}/foomatic-filters-${PV}/COPYING;md5=393a5ca445f6965873eca0259a17f833"
+>> @@ -20,4 +20,11 @@ SRC_URI = "http://www.openprinting.org/download/foomatic/foomatic-filters-${PV}.
+>>   SRC_URI[md5sum] = "20abd25c1c98b2dae68709062a132a7d"
+>>   SRC_URI[sha256sum] = "090313fae40b177f505d9c9b93d7a4d7188b6d5d18b6ae41ab24903ac983478d"
+>>
+>> +do_install_append_linuxstdbase() {
+>> +    install -d ${D}${libdir}/cups/filter
+>> +    ln -sf ../../../bin/foomatic-rip ${D}${libdir}/cups/filter
+> Kai Kang:
+> 
+> This should really be an absolute patch instead of a relative, there are 
+> distros that might have a different exec_prefix
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+We should likely audit our environments for these items.  I know at Wind River
+our policy is all links are relative, we do not allow absolute links as the
+values usually cause problems in sysroots, or external SDK environments.
+
+(Note, pseudo has a mechanism internal to it that ensures that absolute links
+don't point off to system files.. but we still avoid it.)
+
+--Mark
+
+>> +}
+>> +
+>> +FILES_${PN} += "${libdir}/cups/filter/foomatic-rip"
+> 
+> Should this be _linuxstdbase also?
+> 
+>> +
+>>   inherit autotools
+> Sau!
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+
 
