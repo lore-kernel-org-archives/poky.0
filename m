@@ -1,21 +1,22 @@
 Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id EF0E34C811A9
-	for <poky@yoctoproject.org>; Thu, 12 May 2011 19:20:33 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 12 May 2011 17:20:33 -0700
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 37AB84C811A9
+	for <poky@yoctoproject.org>; Thu, 12 May 2011 19:20:34 -0500 (CDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 12 May 2011 17:20:33 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,361,1301900400"; d="scan'208";a="435293413"
+X-IronPort-AV: E=Sophos;i="4.64,361,1301900400"; 
+   d="scan'208";a="1582739"
 Received: from nbuild2.sc.intel.com (HELO localhost) ([172.25.110.37])
-	by azsmga001.ch.intel.com with ESMTP; 12 May 2011 17:20:33 -0700
-Message-Id: <3c5feb6aea451569188fa6dc836430d0eed0a296.1305245924.git.nitin.a.kamble@intel.com>
+	by fmsmga001.fm.intel.com with ESMTP; 12 May 2011 17:20:33 -0700
+Message-Id: <6336599082a799ef58177e01fc72cdc5d6356842.1305245924.git.nitin.a.kamble@intel.com>
 In-Reply-To: <cover.1305245922.git.nitin.a.kamble@intel.com>
 References: <cover.1305245922.git.nitin.a.kamble@intel.com>
-Old-Date: Thu, 12 May 2011 16:53:32 -0700
+Old-Date: Thu, 12 May 2011 16:58:20 -0700
 Date: Thu, 12 May 2011 17:20:33 -0700
 To: poky@yoctoproject.org
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Subject: [PATCH 22/25] tcl: update upstream-status for patches
+Subject: [PATCH 24/25] gmp: update upstream-status for patches
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,41 +34,63 @@ From: Nitin A Kamble <nitin.a.kamble@intel.com>
 
 Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
 ---
- .../recipes-devtools/tcltk/tcl/fix-configure.patch |    2 ++
- .../tcltk/tcl/fix_non_native_build_issue.patch     |    2 ++
- .../tcltk/tcl/tcl-add-soname.patch                 |    2 ++
- 3 files changed, 6 insertions(+), 0 deletions(-)
+ .../gmp/gmp-4.2.1/disable-stdc.patch               |    2 ++
+ meta/recipes-support/gmp/gmp/amd64.patch           |    2 ++
+ meta/recipes-support/gmp/gmp/configure.patch       |    2 ++
+ meta/recipes-support/gmp/gmp/sh4-asmfix.patch      |    2 ++
+ meta/recipes-support/gmp/gmp/use-includedir.patch  |    2 ++
+ 5 files changed, 10 insertions(+), 0 deletions(-)
 
-diff --git a/meta/recipes-devtools/tcltk/tcl/fix-configure.patch b/meta/recipes-devtools/tcltk/tcl/fix-configure.patch
-index 8b2654b..b692a0e 100644
---- a/meta/recipes-devtools/tcltk/tcl/fix-configure.patch
-+++ b/meta/recipes-devtools/tcltk/tcl/fix-configure.patch
+diff --git a/meta/recipes-support/gmp/gmp-4.2.1/disable-stdc.patch b/meta/recipes-support/gmp/gmp-4.2.1/disable-stdc.patch
+index 83c9eae..aaffaf1 100644
+--- a/meta/recipes-support/gmp/gmp-4.2.1/disable-stdc.patch
++++ b/meta/recipes-support/gmp/gmp-4.2.1/disable-stdc.patch
 @@ -1,3 +1,5 @@
 +Upstream-Status: Pending
 +
- Index: unix/tcl.m4
- ===================================================================
- --- tcl8.4.11/unix.orig/tcl.m4
-diff --git a/meta/recipes-devtools/tcltk/tcl/fix_non_native_build_issue.patch b/meta/recipes-devtools/tcltk/tcl/fix_non_native_build_issue.patch
-index 0b8b26c..e9b6793 100644
---- a/meta/recipes-devtools/tcltk/tcl/fix_non_native_build_issue.patch
-+++ b/meta/recipes-devtools/tcltk/tcl/fix_non_native_build_issue.patch
+ # "extern inline" in traditional gcc means that the function should be 
+ # inlined wherever it's seen, while in C99, "extern inline" means that i
+ # the function should only be inlined where the inline definition is 
+diff --git a/meta/recipes-support/gmp/gmp/amd64.patch b/meta/recipes-support/gmp/gmp/amd64.patch
+index 67be9dd..38c89c7 100644
+--- a/meta/recipes-support/gmp/gmp/amd64.patch
++++ b/meta/recipes-support/gmp/gmp/amd64.patch
 @@ -1,3 +1,5 @@
 +Upstream-Status: Pending
 +
- Index: unix/Makefile.in
- ===================================================================
- --- unix.orig/Makefile.in
-diff --git a/meta/recipes-devtools/tcltk/tcl/tcl-add-soname.patch b/meta/recipes-devtools/tcltk/tcl/tcl-add-soname.patch
-index 9cb816d..963576d 100644
---- a/meta/recipes-devtools/tcltk/tcl/tcl-add-soname.patch
-+++ b/meta/recipes-devtools/tcltk/tcl/tcl-add-soname.patch
+ --- gmp-4.1.4/longlong.h.orig	2004-04-22 00:34:28.000000000 +0200
+ +++ gmp-4.1.4/longlong.h	2005-07-18 01:13:06.000000000 +0200
+ @@ -738,8 +738,10 @@
+diff --git a/meta/recipes-support/gmp/gmp/configure.patch b/meta/recipes-support/gmp/gmp/configure.patch
+index ed0c02d..638fead 100644
+--- a/meta/recipes-support/gmp/gmp/configure.patch
++++ b/meta/recipes-support/gmp/gmp/configure.patch
 @@ -1,3 +1,5 @@
 +Upstream-Status: Pending
 +
- Index: unix/configure
+  acinclude.m4 |   26 ++++++++++++++------------
+  configure.in |   24 +++++++++---------------
+  2 files changed, 23 insertions(+), 27 deletions(-)
+diff --git a/meta/recipes-support/gmp/gmp/sh4-asmfix.patch b/meta/recipes-support/gmp/gmp/sh4-asmfix.patch
+index 1a01f61..ac25110 100644
+--- a/meta/recipes-support/gmp/gmp/sh4-asmfix.patch
++++ b/meta/recipes-support/gmp/gmp/sh4-asmfix.patch
+@@ -1,3 +1,5 @@
++Upstream-Status: Pending
++
+ --- gmp-4.1.4/mpn/sh/add_n.s	2005/11/17 08:44:00	1.1
+ +++ gmp-4.1.4/mpn/sh/add_n.s	2005/11/17 08:18:57
+ @@ -29,8 +29,8 @@
+diff --git a/meta/recipes-support/gmp/gmp/use-includedir.patch b/meta/recipes-support/gmp/gmp/use-includedir.patch
+index ee3891f..74904a2 100644
+--- a/meta/recipes-support/gmp/gmp/use-includedir.patch
++++ b/meta/recipes-support/gmp/gmp/use-includedir.patch
+@@ -1,3 +1,5 @@
++Upstream-Status: Pending
++
+ Index: gmp-4.2.4/Makefile.am
  ===================================================================
- --- unix.orig/configure
+ --- gmp-4.2.4.orig/Makefile.am	2008-09-10 19:31:27.000000000 +0000
 -- 
 1.7.3.4
 
