@@ -1,23 +1,23 @@
 Return-Path: <josh@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 51F284C810BB
-	for <poky@yoctoproject.org>; Fri, 13 May 2011 12:13:29 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 13 May 2011 10:13:28 -0700
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 3F6464C811FD
+	for <poky@yoctoproject.org>; Fri, 13 May 2011 12:13:56 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 13 May 2011 10:13:55 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,365,1301900400"; d="scan'208";a="642367060"
+X-IronPort-AV: E=Sophos;i="4.64,365,1301900400"; d="scan'208";a="746908112"
 Received: from unknown (HELO [10.7.199.58]) ([10.7.199.58])
-	by orsmga002.jf.intel.com with ESMTP; 13 May 2011 10:13:28 -0700
+	by orsmga001.jf.intel.com with ESMTP; 13 May 2011 10:13:35 -0700
 From: Joshua Lock <josh@linux.intel.com>
 To: poky@yoctoproject.org
-Date: Fri, 13 May 2011 10:13:28 -0700
-In-Reply-To: <767202df6b1d0044bd0b56bf4f50b8a69ceb18b5.1305269419.git.lei.mei@intel.com>
+Date: Fri, 13 May 2011 10:13:34 -0700
+In-Reply-To: <748c06bb7ff87fb396298084a35cb0eb45a088c1.1305269419.git.lei.mei@intel.com>
 References: <cover.1305269419.git.lei.mei@intel.com>
-	<767202df6b1d0044bd0b56bf4f50b8a69ceb18b5.1305269419.git.lei.mei@intel.com>
+	<748c06bb7ff87fb396298084a35cb0eb45a088c1.1305269419.git.lei.mei@intel.com>
 X-Mailer: Evolution 3.0.1 (3.0.1-1.fc15) 
-Message-ID: <1305306808.2023.18.camel@scimitar>
+Message-ID: <1305306814.2023.19.camel@scimitar>
 Mime-Version: 1.0
-Subject: Re: [PATCH 1/2] distro_check.py: Add a new function to reduce the repeat code
+Subject: Re: [PATCH 2/2] distrodata.bbclass: Add checklicense task
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,69 +29,155 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 May 2011 17:13:29 -0000
+X-List-Received-Date: Fri, 13 May 2011 17:13:56 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
 On Thu, 2011-01-13 at 15:04 +0800, Mei Lei wrote:
 > From: Mei Lei <lei.mei@intel.com>
 > 
-> A lot of repeat code in distrodata.bbclass when creating log file, we
-> can define a function called create_log_file to do it.
+> This task will check which license text is missing
 
-I like the intent of the patch, some comments on coding style below.
+Can you flesh out this commit log some please? Why is this task useful?
+When should it be used? Etc.
+
+Code style comments in line below, thanks!
 
 > 
 > Signed-off-by: Mei Lei <lei.mei@intel.com>
 > ---
->  meta/lib/oe/distro_check.py |   15 +++++++++++++++
->  1 files changed, 15 insertions(+), 0 deletions(-)
+>  meta/classes/distrodata.bbclass |   88 ++++++++++++++++++++++++---------------
+>  1 files changed, 54 insertions(+), 34 deletions(-)
 > 
-> diff --git a/meta/lib/oe/distro_check.py b/meta/lib/oe/distro_check.py
-> index c85d4fb..134e92a 100644
-> --- a/meta/lib/oe/distro_check.py
-> +++ b/meta/lib/oe/distro_check.py
-> @@ -341,6 +341,21 @@ def compare_in_distro_packages_list(distro_check_dir, d):
->      bb.note("Matching: %s" % matching_distros)
->      return matching_distros
+> diff --git a/meta/classes/distrodata.bbclass b/meta/classes/distrodata.bbclass
+> index 905dad7..58a2cf7 100644
+> --- a/meta/classes/distrodata.bbclass
+> +++ b/meta/classes/distrodata.bbclass
+> @@ -4,18 +4,8 @@ addhandler distro_eventhandler
+>  python distro_eventhandler() {
 >  
-> +def create_log_file(d, logname):
-> +    #logpath = bb.data.getVar('LOG_DIR', e.data, 1)
-
-No need for this commented line.
-
+>      if bb.event.getName(e) == "BuildStarted":
+> -	"""initialize log files."""
+> -	logpath = bb.data.getVar('LOG_DIR', e.data, 1)
+> -	bb.utils.mkdirhier(logpath)
+> -	logfile = os.path.join(logpath, "distrodata.%s.csv" % bb.data.getVar('DATETIME', e.data, 1))
+> -	if not os.path.exists(logfile):
+> -		slogfile = os.path.join(logpath, "distrodata.csv")
+> -		if os.path.exists(slogfile):
+> -			os.remove(slogfile)
+> -		os.system("touch %s" % logfile)
+> -		os.symlink(logfile, slogfile)
+> -		bb.data.setVar('LOG_FILE', logfile, e.data)
+> -
+> +	import oe.distro_check as dc
+> +	logfile = dc.create_log_file(e.data,"distrodata.csv")
+>  	lf = bb.utils.lockfile(logfile + ".lock")
+>  	f = open(logfile, "a")
+>  	f.write("Package,Description,Owner,License,ChkSum,Status,VerMatch,Version,Upsteam,Non-Update,Reason,Recipe Status\n")
+> @@ -211,17 +201,8 @@ do_distrodataall() {
+>  addhandler checkpkg_eventhandler
+>  python checkpkg_eventhandler() {
+>      if bb.event.getName(e) == "BuildStarted":
+> -	"""initialize log files."""
+> -	logpath = bb.data.getVar('LOG_DIR', e.data, 1)
+> -	bb.utils.mkdirhier(logpath)
+> -	logfile = os.path.join(logpath, "checkpkg.%s.csv" % bb.data.getVar('DATETIME', e.data, 1))
+> -	if not os.path.exists(logfile):
+> -		slogfile = os.path.join(logpath, "checkpkg.csv")
+> -		if os.path.exists(slogfile):
+> -			os.remove(slogfile)
+> -		os.system("touch %s" % logfile)
+> -		os.symlink(logfile, slogfile)
+> -		bb.data.setVar('LOG_FILE', logfile, e.data)
+> +	import oe.distro_check as dc
+> +	logfile = dc.create_log_file(e.data,"checkpkg.csv")
+>  
+>  	lf = bb.utils.lockfile(logfile + ".lock")
+>  	f = open(logfile, "a")
+> @@ -662,17 +643,8 @@ python check_eventhandler() {
+>          distro_check_dir = os.path.join(tmpdir, "distro_check")
+>          datetime = bb.data.getVar('DATETIME', e.data, 1)
+>          """initialize log files."""
+> -        logpath = bb.data.getVar('LOG_DIR', e.data, 1)
+> -        bb.utils.mkdirhier(logpath)
+> -        logfile = os.path.join(logpath, "distrocheck.%s.csv" % bb.data.getVar('DATETIME', e.data, 1))
+> -        if not os.path.exists(logfile):
+> -                slogfile = os.path.join(logpath, "distrocheck.csv")
+> -                if os.path.exists(slogfile):
+> -                        os.remove(slogfile)
+> -                os.system("touch %s" % logfile)
+> -                os.symlink(logfile, slogfile)
+> -                bb.data.setVar('LOG_FILE', logfile, e.data)
+> -
+> +        import oe.distro_check as dc
+> +        logfile = dc.create_log_file(e.data,"distrocheck.csv")
+>      return
+>  }
+>  
+> @@ -701,3 +673,51 @@ do_distro_checkall[nostamp] = "1"
+>  do_distro_checkall() {
+>  	:
+>  }
+> +##Check Missing License Text
+> +addhandler checklicense_eventhandler
+> +python checklicense_eventhandler() {
+> +    if bb.event.getName(e) == "BuildStarted":
+> +        """initialize log files."""
+> +        import oe.distro_check as dc
+> +        logfile = dc.create_log_file(e.data,"missinglicense.csv")
+Whitespace: logfile = dc.create_log_file(e.data, "missinglicense.csv")
+> +        lf = bb.utils.lockfile(logfile + ".lock")
+Personally I prefer to use string formatting rather for this sort of
+thing:
++        lf = bb.utils.lockfile("%s.lock" % logfile)
+> +        f = open(logfile, "a")
+> +        f.write("Package\tLicense\tMissingLicense\n")
+> +        f.close()
+> +        bb.utils.unlockfile(lf)
+> +    return
+> +}
+> +
+> +addtask checklicense
+> +do_checklicense[nostamp] = "1"
+> +python do_checklicense() {
+> +    import os
+> +    import bb
+> +    import shutil
 > +    logpath = bb.data.getVar('LOG_DIR', d, 1)
-
-We are trying to move towards using Boolean values where appropriate to
-aid readability, this line should be:
-
-logpath = bb.data.getVar('LOG_DIR', d, True)
-
 > +    bb.utils.mkdirhier(logpath)
-> +    logfile = logpath +"/" + logname.split(".")[0] + ".%s.csv" % bb.data.getVar('DATETIME', d, 1)
+> +    pn = bb.data.getVar('PN',d,1)
 
-Can you use the Python standard library functions for handling filenames
-here? And a boolean True in the getVar() call.
+pn = bb.data.getVar('PN', d, True)
 
-Something like the following feels more Pythonic:
+Please try and maintain whitespace style and use boolean values where
+appropriate.
 
-logfn, logext = os.path.splitext(logname)
-logfile = os.path.join(logpath, "%s.%s.csv" % (logfn,
-bb.data.getVar('DATETIME', d, True))
-
-> +    if not os.path.exists(logfile):
-> +            slogfile = os.path.join(logpath, logname)
-> +            if os.path.exists(slogfile):
-> +                    os.remove(slogfile)
-> +            os.system("touch %s" % logfile)
-> +            os.symlink(logfile, slogfile)
-> +            bb.data.setVar('LOG_FILE', logfile, d)
-> +    return logfile
+> +    logfile = os.path.join(logpath, "missinglicense.csv")
+> +    generic_directory = bb.data.getVar('COMMON_LICENSE_DIR', d, True)
+> +    license_types = bb.data.getVar('LICENSE', d, True)
+> +    for license_type in ((license_types.replace('+', '').replace('|', '&')
+> +                          .replace('(', '').replace(')', '').replace(';', '')
+> +                          .replace(',', '').replace(" ", "").split("&"))):
+> +        if not os.path.isfile(os.path.join(generic_directory, license_type)):
+> +            lf = bb.utils.lockfile(logfile + ".lock")
+Maybe use string formatters here too:
++            lf = bb.utils.lockfile("%s.lock" % logfile)
+> +            f = open(logfile,"a") 
+> +            f.write("%s\t%s\t%s\n" % \
+> +        		(pn,license_types,license_type))
+> +            f.close()
+> +            bb.utils.unlockfile(lf)
+> +    return
+> +}
+> +
+> +addtask checklicenseall after do_checklicense
+> +do_checklicenseall[recrdeptask] = "do_checklicense"
+> +do_checklicenseall[nostamp] = "1"
+> +do_checklicenseall() {
+> +	:
+> +}
 > +
 > +
->  def save_distro_check_result(result, datetime, d):
->      pn = bb.data.getVar('PN', d, True)
->      logdir = bb.data.getVar('LOG_DIR', d, True)
 
 -- 
 Joshua Lock
