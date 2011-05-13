@@ -1,19 +1,21 @@
 Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 767614C80120
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id A08AD4C81204
 	for <poky@yoctoproject.org>; Fri, 13 May 2011 12:27:50 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 13 May 2011 10:27:50 -0700
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 13 May 2011 10:27:50 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,365,1301900400"; d="scan'208";a="642379214"
+X-IronPort-AV: E=Sophos;i="4.64,365,1301900400"; d="scan'208";a="746913734"
 Received: from nbuild2.sc.intel.com (HELO localhost) ([172.25.110.37])
-	by orsmga002.jf.intel.com with ESMTP; 13 May 2011 10:27:50 -0700
-Message-Id: <cover.1305307513.git.nitin.a.kamble@intel.com>
-Old-Date: Fri, 13 May 2011 10:25:13 -0700
-Date: Fri, 13 May 2011 10:27:49 -0700
+	by orsmga001.jf.intel.com with ESMTP; 13 May 2011 10:27:50 -0700
+Message-Id: <5baf96c4d02f8e3db119e048a532f3aab7bce478.1305307513.git.nitin.a.kamble@intel.com>
+In-Reply-To: <cover.1305307513.git.nitin.a.kamble@intel.com>
+References: <cover.1305307513.git.nitin.a.kamble@intel.com>
+Old-Date: Fri, 13 May 2011 10:24:20 -0700
+Date: Fri, 13 May 2011 10:27:50 -0700
 To: poky@yoctoproject.org
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Subject: [PATCH 0/1] fix a bitbake error for current master branch
+Subject: [PATCH 1/1] task-core-nfs: fix a bitbake error
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,30 +31,31 @@ X-List-Received-Date: Fri, 13 May 2011 17:27:50 -0000
 
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
 
-Currently master branch is broken with this error:
-MACHINE=qemuarm bitbake core-image-sato-sdk
-...
+THis fixes following issue:
+
 NOTE: Runtime target 'glibc-utilsglibc-utils' is unbuildable, removing...
 Missing or unbuildable dependency chain was: ['glibc-utilsglibc-utils']
 NOTE: Runtime target 'task-core-nfs-server' is unbuildable, removing...
 Missing or unbuildable dependency chain was: ['task-core-nfs-server', 'glibc-utilsglibc-utils']
 
-
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: nitin/misc
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=nitin/misc
-
-Thanks,
-    Nitin A Kamble <nitin.a.kamble@intel.com>
+Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
 ---
-
-
-Nitin A Kamble (1):
-  task-core-nfs: fix a bitbake error
-
  meta/recipes-core/tasks/task-core-nfs.bb |    2 +-
  1 files changed, 1 insertions(+), 1 deletions(-)
 
+diff --git a/meta/recipes-core/tasks/task-core-nfs.bb b/meta/recipes-core/tasks/task-core-nfs.bb
+index d5d8291..087f4f0 100644
+--- a/meta/recipes-core/tasks/task-core-nfs.bb
++++ b/meta/recipes-core/tasks/task-core-nfs.bb
+@@ -20,7 +20,7 @@ RDEPENDS_task-core-nfs-server = "\
+     nfs-utils"
+ 
+ # rpcinfo can be useful but only with glibc images
+-GLIBC_DEPENDENCIES = "glibc-utils"
++GLIBC_DEPENDENCIES = " glibc-utils"
+ 
+ RRECOMMENDS_task-core-nfs-server_append_linux = "${GLIBC_DEPENDENCIES}"
+ RRECOMMENDS_task-core-nfs-server_append_linux-gnueabi = "${GLIBC_DEPENDENCIES}"
 -- 
 1.7.3.4
 
