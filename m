@@ -1,26 +1,21 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0B5564C81217
-	for <poky@pokylinux.org>; Fri, 13 May 2011 17:35:29 -0500 (CDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 13 May 2011 15:35:29 -0700
+Return-Path: <lei.mei@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id A54E44C811B6
+	for <poky@yoctoproject.org>; Sat, 14 May 2011 00:55:27 -0500 (CDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 13 May 2011 22:55:27 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,366,1301900400"; 
-   d="scan'208";a="1471509"
-Received: from unknown (HELO [10.255.12.119]) ([10.255.12.119])
-	by fmsmga002.fm.intel.com with ESMTP; 13 May 2011 15:35:29 -0700
-Message-ID: <4DCDB231.7080000@linux.intel.com>
-Date: Fri, 13 May 2011 15:35:29 -0700
-From: Saul Wold <sgw@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
-MIME-Version: 1.0
-To: Ilya Yanok <yanok@emcraft.com>
-References: <1305223897-12934-1-git-send-email-yanok@emcraft.com>
-In-Reply-To: <1305223897-12934-1-git-send-email-yanok@emcraft.com>
-Cc: poky@pokylinux.org
-Subject: Re: [PATCH] qt4-tools-nativesdk: -arch is required for nativesdk build
+X-IronPort-AV: E=Sophos;i="4.64,367,1301900400"; 
+   d="scan'208";a="2099375"
+Received: from daocaoren-desktop.sh.intel.com (HELO localhost)
+	([10.239.47.161])
+	by fmsmga001.fm.intel.com with ESMTP; 13 May 2011 22:55:26 -0700
+Message-Id: <cover.1305352141.git.lei.mei@intel.com>
+Old-Date: Sat, 14 May 2011 13:49:01 +0800
+To: poky@yoctoproject.org
+CC: 
+From: Mei Lei <lei.mei@intel.com>
+Subject: [PATCH 0/1]distro_check: Fix a bug when creating log file
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,46 +27,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 May 2011 22:35:30 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+Date: Sat, 14 May 2011 05:55:28 -0000
+X-Original-Date: 六, 14  5月 2011 14:00:41 +0800
+X-List-Received-Date: Sat, 14 May 2011 05:55:28 -0000
 
-On 05/12/2011 11:11 AM, Ilya Yanok wrote:
-> We need to pass correct -arch option to configure to fix building in
-> case of SDK_ARCH != BUILD_ARCH.
->
-> Signed-off-by: Ilya Yanok<yanok@emcraft.com>
-> ---
->   meta/recipes-qt/qt4/qt4-tools-nativesdk.inc |    3 +++
->   1 files changed, 3 insertions(+), 0 deletions(-)
->
-> diff --git a/meta/recipes-qt/qt4/qt4-tools-nativesdk.inc b/meta/recipes-qt/qt4/qt4-tools-nativesdk.inc
-> index f273c9f..5faf40c 100644
-> --- a/meta/recipes-qt/qt4/qt4-tools-nativesdk.inc
-> +++ b/meta/recipes-qt/qt4/qt4-tools-nativesdk.inc
-> @@ -25,6 +25,8 @@ LIC_FILES_CHKSUM = "file://LICENSE.LGPL;md5=fbc093901857fcd118f065f900982c24 \
->                       file://LICENSE.GPL3;md5=babc5b6b77441da277f5c06b2e547720 \
->                       file://LGPL_EXCEPTION.txt;md5=411080a56ff917a5a1aa08c98acae354"
->
-> +require qt4_arch.inc
-> +
->   # FIXME: make it work with "${STAGING_BINDIR_NATIVE}/pkg-config --cflags dbus-1"
->   EXTRA_OECONF = "-prefix ${prefix} \
->                   -qt-libjpeg -qt-gif -system-zlib \
-> @@ -37,6 +39,7 @@ EXTRA_OECONF = "-prefix ${prefix} \
->                   -verbose -release -fast -static \
->                   -platform ${TARGET_OS}-oe-g++ \
->                   -xplatform ${TARGET_OS}-oe-g++ \
-> +                -arch ${@qt_arch(d)} \
->                   -embedded -no-freetype -no-glib -no-iconv \
->                   -qt3support \
->                   -I${STAGING_DIR_HOST}${SDKPATHNATIVE}/usr/include \
+From: Mei Lei <lei.mei@intel.com>
 
-Merged to oe-core and poky/master.
-
-In the future please send changes that are meta (oe-core) to the oe-core 
-alias only, no need to cross-post.
+Hi Saul,
+	This patch fix a bug when creating log file, because we have created the log file in check_eventhandler, we need to remove the create log process in save_distro_check_result.
 
 Thanks
-	Sau!
+Lei 
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: lmei3/licensecheck
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=lmei3/licensecheck
+
+Thanks,
+    Mei Lei <lei.mei@intel.com>
+---
+
+
+Mei Lei (1):
+  distro_check: Fix a bug in distro_check.py
+
+ meta/classes/distrodata.bbclass |    9 +++++++--
+ meta/lib/oe/distro_check.py     |    9 +--------
+ 2 files changed, 8 insertions(+), 10 deletions(-)
+
 
