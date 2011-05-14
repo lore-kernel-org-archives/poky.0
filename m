@@ -1,28 +1,33 @@
-Return-Path: <Kai.Kang@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 512D14C81220
-	for <poky@yoctoproject.org>; Sat, 14 May 2011 04:54:39 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p4E9sbm0027304
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Sat, 14 May 2011 02:54:38 -0700 (PDT)
-Received: from localhost (128.224.163.157) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Sat, 14 May 2011 02:54:37 -0700
-Message-ID: <5003f74ef67af3d9b8bdf936b7d69a52c70df2be.1305366509.git.kai.kang@windriver.com>
-In-Reply-To: <cover.1305366509.git.kai.kang@windriver.com>
-References: <cover.1305366509.git.kai.kang@windriver.com>
-Old-Date: Fri, 13 May 2011 11:18:40 +0800
-Date: Sat, 14 May 2011 17:53:45 +0800
-To: <saul.wold@intel.com>, <sgw@linux.intel.com>
-From: Kang Kai <kai.kang@windriver.com>
-MIME-Version: 1.0
-X-Originating-IP: [128.224.163.157]
-Cc: poky@yoctoproject.org
-Subject: [PATCH 4/4] lsbsetup: recreate locale fr_FR
+Return-Path: <glep-poky@m.gmane.org>
+Received: from lo.gmane.org (lo.gmane.org [80.91.229.12])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 6051D4C8010A
+	for <poky@pokylinux.org>; Sat, 14 May 2011 10:07:57 -0500 (CDT)
+Received: from list by lo.gmane.org with local (Exim 4.69)
+	(envelope-from <glep-poky@m.gmane.org>) id 1QLGRf-0004md-9b
+	for poky@pokylinux.org; Sat, 14 May 2011 17:07:55 +0200
+Received: from ppp079166139070.dsl.hol.gr ([79.166.139.70])
+	by main.gmane.org with esmtp (Gmexim 0.1 (Debian))
+	id 1AlnuQ-0007hv-00
+	for <poky@pokylinux.org>; Sat, 14 May 2011 17:07:55 +0200
+Received: from gmane by ppp079166139070.dsl.hol.gr with local (Gmexim 0.1
+	(Debian)) id 1AlnuQ-0007hv-00
+	for <poky@pokylinux.org>; Sat, 14 May 2011 17:07:55 +0200
+X-Injected-Via-Gmane: http://gmane.org/
+To: poky@pokylinux.org
+From: Robert Berger <gmane@reliableembeddedsystems.com>
+Date: Sat, 14 May 2011 18:07:41 +0300
+Organization: Reliable Embedded Systems
+Message-ID: <iqm5ru$j5a$1@dough.gmane.org>
+Mime-Version: 1.0
+X-Complaints-To: usenet@dough.gmane.org
+X-Gmane-NNTP-Posting-Host: ppp079166139070.dsl.hol.gr
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.14) Gecko/20110223 Thunderbird/3.1.8
+Subject: beagleboard auto-boot
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
+Reply-To: gmane@reliableembeddedsystems.com
 List-Id: Poky build system developer discussion <poky.yoctoproject.org>
 List-Unsubscribe: <https://lists.yoctoproject.org/options/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=unsubscribe>
@@ -31,47 +36,47 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 14 May 2011 09:54:39 -0000
-Content-Type: text/plain
+X-List-Received-Date: Sat, 14 May 2011 15:07:57 -0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
 
-From: Kang Kai <kai.kang@windriver.com>
+Hi,
 
-Update LSB_Setup.sh to recreate locale fr_FR, which helps to pass
-LSB libstdc++ test.
-Bump PR to r3.
+I was playing around a bit in order to autoboot Linux from u-boot.
 
-Signed-off-by: Kang Kai <kai.kang@windriver.com>
----
- meta/recipes-extended/lsb/lsbsetup/LSB_Setup.sh |    1 +
- meta/recipes-extended/lsb/lsbsetup_0.9.bb       |    2 +-
- 2 files changed, 2 insertions(+), 1 deletions(-)
+What I came up with is this:
 
-diff --git a/meta/recipes-extended/lsb/lsbsetup/LSB_Setup.sh b/meta/recipes-extended/lsb/lsbsetup/LSB_Setup.sh
-index aa3d5ee..10d8fb8 100644
---- a/meta/recipes-extended/lsb/lsbsetup/LSB_Setup.sh
-+++ b/meta/recipes-extended/lsb/lsbsetup/LSB_Setup.sh
-@@ -208,6 +208,7 @@ localedef -i en_US -f UTF-8 en_US.UTF-8
- localedef -i se_NO -f UTF-8 se_NO.UTF-8
- localedef -i de_DE -f ISO-8859-1 de_DE
- localedef -i en_US -f ISO-8859-1 en_US.ISO8859-1
-+localedef -i fr_FR -f ISO-8859-1 fr_FR
- 
- #resolve localhost 
- LOCALHOST=`hostname`
-diff --git a/meta/recipes-extended/lsb/lsbsetup_0.9.bb b/meta/recipes-extended/lsb/lsbsetup_0.9.bb
-index b0d0a3f..21bd26e 100644
---- a/meta/recipes-extended/lsb/lsbsetup_0.9.bb
-+++ b/meta/recipes-extended/lsb/lsbsetup_0.9.bb
-@@ -2,7 +2,7 @@ DESCRIPTION = "auto-setup environment for lsb test"
- SECTION = "console/utils"
- PRIORITY = "required"
- LICENSE = "GPLv2"
--PR = "r2"
-+PR = "r3"
- 
- LIC_FILES_CHKSUM = "file://LSB_Setup.sh;beginline=3;endline=16;md5=97451c7c0786ce5bbe9ac58042945583"
- 
--- 
-1.7.1
+uEnv.txt:
+uenvcmd=mmc rescan ${mmcdev}; fatload mmc ${mmcdev} ${loadaddr}
+boot.scr; source ${loadaddr}
+
+u-boot-env:
+
+sete console "ttyO2,115200n8"
+run mmc rescan ${mmcdev}
+run loaduimage
+run mmcboot
+
+which I compile to a boot.scr
+
+mkimage -A arm -O linux -T script -C none -a 0 -e 0 -n "Beagleboard-xM
+boot script" -d u-boot-env boot.scr
+
+Like this I am also backwards compatible with older versions of u-boot
+which don't support uEnv.txt.
+
+Does anyone have a more elegant way?
+
+How does your uEnv.txt look like for a Beagle-XM?
+
+Regards,
+
+Robert
+..."You are in a twisty little passage of standards, all conflicting." -
+Michael Meissner, meissner@osf.org
+
+My public pgp key is available at:
+http://pgp.mit.edu:11371/pks/lookup?op=get&search=0x90320BF1
+
 
 
