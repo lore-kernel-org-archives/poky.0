@@ -1,23 +1,25 @@
 Return-Path: <Kai.Kang@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0B24E4C8121F
-	for <poky@yoctoproject.org>; Sat, 14 May 2011 04:54:28 -0500 (CDT)
+	by mx1.pokylinux.org (Postfix) with ESMTP id B18A74C8121F
+	for <poky@yoctoproject.org>; Sat, 14 May 2011 04:54:31 -0500 (CDT)
 Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p4E9sLPp027273
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p4E9sTcJ027290
 	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Sat, 14 May 2011 02:54:21 -0700 (PDT)
+	Sat, 14 May 2011 02:54:29 -0700 (PDT)
 Received: from localhost (128.224.163.157) by ALA-HCA.corp.ad.wrs.com
 	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Sat, 14 May 2011 02:54:21 -0700
-Message-ID: <cover.1305366509.git.kai.kang@windriver.com>
-Old-Date: Sat, 14 May 2011 17:48:29 +0800
-Date: Sat, 14 May 2011 17:53:29 +0800
+	Sat, 14 May 2011 02:54:29 -0700
+Message-ID: <a80c48c284b54c134ede990cb3f21f5c62a0938a.1305366509.git.kai.kang@windriver.com>
+In-Reply-To: <cover.1305366509.git.kai.kang@windriver.com>
+References: <cover.1305366509.git.kai.kang@windriver.com>
+Old-Date: Fri, 13 May 2011 10:06:44 +0800
+Date: Sat, 14 May 2011 17:53:37 +0800
 To: <saul.wold@intel.com>, <sgw@linux.intel.com>
 From: Kang Kai <kai.kang@windriver.com>
 MIME-Version: 1.0
 X-Originating-IP: [128.224.163.157]
 Cc: poky@yoctoproject.org
-Subject: [PATCH 0/4] Add some packages for LSB test V2
+Subject: [PATCH 2/4] foomatic-filters: add a link to pass LSB printing test
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,43 +31,46 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 14 May 2011 09:54:29 -0000
+X-List-Received-Date: Sat, 14 May 2011 09:54:31 -0000
 Content-Type: text/plain
 
 From: Kang Kai <kai.kang@windriver.com>
 
-Hi Saul,
+LSB printing test will test a foomatic-rip under cups' directory,
+so add it as link when DISTRO is set to linuxstdbase.
+Part fixes [Yocto 904]
 
-I update the foomatic patch with ${bindir} according to your suggestion
-
-Because gettext is splitted, so add gettext-runtime to provide command gettext.
-Add libxml-sax-perl to help creating olver test report.
-Add foomatic-filters to lsb image.
-Recreate locale fr_FR to pass LSB libstdc++ test.
-
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: kangkai/distro
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kangkai/distro
-
-Thanks,
-    Kang Kai <kai.kang@windriver.com>
+Signed-off-by: Kang Kai <kai.kang@windriver.com>
 ---
+ .../foomatic/foomatic-filters_4.0.7.bb             |    9 ++++++++-
+ 1 files changed, 8 insertions(+), 1 deletions(-)
 
-
-Kang Kai (4):
-  libxml-sax-perl: added to create LSB olver test report
-  foomatic-filters: add a link to pass LSB printing test
-  task-core-lsb: add packages into lsb image
-  lsbsetup: recreate locale fr_FR
-
- .../foomatic/foomatic-filters_4.0.7.bb             |    9 ++++++-
- meta/recipes-extended/lsb/lsbsetup/LSB_Setup.sh    |    1 +
- meta/recipes-extended/lsb/lsbsetup_0.9.bb          |    2 +-
- .../perl/libxml-namespacesupport-perl_1.11.bb      |   22 ++++++++++++++++
- meta/recipes-extended/perl/libxml-sax-perl_0.96.bb |   26 ++++++++++++++++++++
- meta/recipes-extended/tasks/task-core-lsb.bb       |    5 +++-
- 6 files changed, 62 insertions(+), 3 deletions(-)
- create mode 100644 meta/recipes-extended/perl/libxml-namespacesupport-perl_1.11.bb
- create mode 100644 meta/recipes-extended/perl/libxml-sax-perl_0.96.bb
+diff --git a/meta/recipes-extended/foomatic/foomatic-filters_4.0.7.bb b/meta/recipes-extended/foomatic/foomatic-filters_4.0.7.bb
+index 8d70400..9627187 100644
+--- a/meta/recipes-extended/foomatic/foomatic-filters_4.0.7.bb
++++ b/meta/recipes-extended/foomatic/foomatic-filters_4.0.7.bb
+@@ -10,7 +10,7 @@ format using a printer-specific, but spooler-independent PPD file. \
+ "
+ 
+ DEPENDS += "cups perl libxml2"
+-PR = "r0"
++PR = "r1"
+ 
+ LICENSE = "GPLv2+"
+ LIC_FILES_CHKSUM = "file://${WORKDIR}/foomatic-filters-${PV}/COPYING;md5=393a5ca445f6965873eca0259a17f833"
+@@ -20,4 +20,11 @@ SRC_URI = "http://www.openprinting.org/download/foomatic/foomatic-filters-${PV}.
+ SRC_URI[md5sum] = "20abd25c1c98b2dae68709062a132a7d"
+ SRC_URI[sha256sum] = "090313fae40b177f505d9c9b93d7a4d7188b6d5d18b6ae41ab24903ac983478d"
+ 
++do_install_append_linuxstdbase() {
++    install -d ${D}${libdir}/cups/filter
++    ln -sf ${bindir}/foomatic-rip ${D}${libdir}/cups/filter
++}
++
++FILES_${PN}_append_linuxstdbase += "${libdir}/cups/filter/foomatic-rip"
++
+ inherit autotools
+-- 
+1.7.1
 
 
