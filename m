@@ -1,28 +1,33 @@
-Return-Path: <tom.zanussi@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7786C4C80132
-	for <poky@yoctoproject.org>; Sun, 15 May 2011 00:13:54 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 14 May 2011 22:13:53 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,368,1301900400"; d="scan'208";a="436271131"
-Received: from unknown (HELO [10.255.12.105]) ([10.255.12.105])
-	by azsmga001.ch.intel.com with ESMTP; 14 May 2011 22:13:53 -0700
-From: Tom Zanussi <tom.zanussi@intel.com>
-To: "Wold, Saul" <saul.wold@intel.com>
-In-Reply-To: <4DCF53FC.9060109@intel.com>
-References: <cover.1305415455.git.tom.zanussi@intel.com>
-	<92477bdb3d1f4a10cb30a261753cf959b52aab8a.1305415455.git.tom.zanussi@intel.com>
-	<4DCF53FC.9060109@intel.com>
-Date: Sun, 15 May 2011 00:13:12 -0500
-Message-ID: <1305436392.21191.135.camel@elmorro>
+Return-Path: <glep-poky@m.gmane.org>
+Received: from lo.gmane.org (lo.gmane.org [80.91.229.12])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E98744C804C2
+	for <poky@pokylinux.org>; Sun, 15 May 2011 03:58:44 -0500 (CDT)
+Received: from list by lo.gmane.org with local (Exim 4.69)
+	(envelope-from <glep-poky@m.gmane.org>) id 1QLX9u-0007H0-Ls
+	for poky@pokylinux.org; Sun, 15 May 2011 10:58:42 +0200
+Received: from ppp079166102199.dsl.hol.gr ([79.166.102.199])
+	by main.gmane.org with esmtp (Gmexim 0.1 (Debian))
+	id 1AlnuQ-0007hv-00
+	for <poky@pokylinux.org>; Sun, 15 May 2011 10:58:42 +0200
+Received: from gmane by ppp079166102199.dsl.hol.gr with local (Gmexim 0.1
+	(Debian)) id 1AlnuQ-0007hv-00
+	for <poky@pokylinux.org>; Sun, 15 May 2011 10:58:42 +0200
+X-Injected-Via-Gmane: http://gmane.org/
+To: poky@pokylinux.org
+From: Robert Berger <gmane@reliableembeddedsystems.com>
+Date: Sun, 15 May 2011 11:58:29 +0300
+Organization: Reliable Embedded Systems
+Message-ID: <iqo4jm$4mj$1@dough.gmane.org>
 Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 1/4] crownbay: remove custom BASE_PACKAGE_ARCH and	PACKAGE_EXTRA_ARCHS
+X-Complaints-To: usenet@dough.gmane.org
+X-Gmane-NNTP-Posting-Host: ppp079166102199.dsl.hol.gr
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.14) Gecko/20110223 Thunderbird/3.1.8
+Subject: beagle-xm more testing
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
+Reply-To: gmane@reliableembeddedsystems.com
 List-Id: Poky build system developer discussion <poky.yoctoproject.org>
 List-Unsubscribe: <https://lists.yoctoproject.org/options/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=unsubscribe>
@@ -31,55 +36,78 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 15 May 2011 05:13:54 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Sun, 15 May 2011 08:58:46 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 7bit
 
-On Sat, 2011-05-14 at 21:18 -0700, Wold, Saul wrote:
-> On 05/14/2011 08:36 PM, Tom Zanussi wrote:
-> > From: Tom Zanussi<tom.zanussi@intel.com>
-> >
-> > PACKAGE_EXTRA_ARCHS in the conf file gets overwritten by the tune-atom
-> > include following it, preventing the atom BASE_PACKAGE_ARCH from being
-> > included in the final PACKAGE_ARCHS and causing do_rootfs to fail.
-> > Remove the atom BASE_PACKAGE_ARCH and PACKAGE_EXTRA_ARCHS in the conf
-> > file and allow the values in tune-atom to be used as intended.
-> >
-> I think we may still want to change the tune-atom PACKAGE_EXTRA_ARCHS to ?=.
-> 
+Hi,
 
-Yeah, I'll change that along with a couple other changes to that file,
-such as switching -march=core2 to -march=atom, soon...
+with the remotes/origin/bernard-5.0.1 branch and this tweak:
 
-Tom
+diff --git a/meta/recipes-bsp/uboot/u-boot_git.bb
+b/meta/recipes-bsp/uboot/u-boot_git.bb
+index 4686a58..23212aa 100644
+--- a/meta/recipes-bsp/uboot/u-boot_git.bb
++++ b/meta/recipes-bsp/uboot/u-boot_git.bb
+@@ -2,7 +2,7 @@ require u-boot.inc
 
-> > Fixes [BUGID #986].
-> >
-> Should be [YOCTO #986]
-> 
-> > Signed-off-by: Tom Zanussi<tom.zanussi@intel.com>
-> > ---
-> >   meta-crownbay/conf/machine/crownbay.conf |    3 ---
-> >   1 files changed, 0 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/meta-crownbay/conf/machine/crownbay.conf b/meta-crownbay/conf/machine/crownbay.conf
-> > index b8f107b..bc09ada 100644
-> > --- a/meta-crownbay/conf/machine/crownbay.conf
-> > +++ b/meta-crownbay/conf/machine/crownbay.conf
-> > @@ -5,12 +5,9 @@
-> >   # i.e. E660 + EG20T
-> >
-> >   TARGET_ARCH = "i586"
-> > -PACKAGE_EXTRA_ARCHS = "x86 atom"
-> >
-> >   include conf/machine/include/tune-atom.inc
-> >
-> > -BASE_PACKAGE_ARCH="atom"
-> > -
-> >   MACHINE_FEATURES = "kernel26 screen keyboard pci usbhost ext2 ext3 x86 \
-> >                       acpi serial usbgadget"
-> >
-> 
+ LICENSE = "GPLv2+"
+ LIC_FILES_CHKSUM = "file://COPYING;md5=1707d6db1d42237583f50183a5651ecb \
+-
+file://README;beginline=1;endline=22;md5=3a00ef51d3fc96e9d6c1bc4708ccd3b5"
++
+file://README;beginline=1;endline=22;md5=5ba4218ac89af7846802d0348df3fb90"
 
+ FILESDIR =
+"${@os.path.dirname(bb.data.getVar('FILE',d,1))}/u-boot-git/${MACHINE}"
+
+You can get a working poky-sato-sdk well x-server fails, but you end up
+at some login prompt and have networking support.
+
+The poky-lsb-sdk also takes you to a login prompt, but without
+networking from dhcp.
+
+to enable networking from dhcp I did this, which i got from here:
+
+http://git.yoctoproject.org/cgit/cgit.cgi/poky/commit
+/?id=24b30e528554de78bb61022923e70dd6574e94ec
+
+# /etc/network/interfaces -- configuration file for ifup(8), ifdown(8)
+
+# The loopback interface
+auto lo
+iface lo inet loopback
+
+# Wireless interfaces
+iface wlan0 inet dhcp
+wireless_mode managed
+wireless_essid any
+wpa-driver wext
+wpa-conf /etc/wpa_supplicant.conf
+
+iface atml0 inet dhcp
+
+# Wired or wireless interfaces
+auto eth0
+iface eth0 inet dhcp
+iface eth1 inet dhcp
+
+# Ethernet/RNDIS gadget (g_ether) or LAN9514 on BeagleBoard xM
+auto usb0
+iface usb0 inet dhcp
+
+# Bluetooth networking
+iface bnep0 inet dhcp
+
+... which gives me a usable lsb-sdk image for the beagle-xm ...
+
+The inclusion of those fixes in 5.0.1 would be great to get an "out of
+the box" experience, since the latest and greatest from git is not
+really working:
+http://bugzilla.pokylinux.org/show_bug.cgi?id=1071
+
+Regards,
+
+Robert
 
 
