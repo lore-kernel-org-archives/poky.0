@@ -1,33 +1,22 @@
-Return-Path: <glep-poky@m.gmane.org>
-Received: from lo.gmane.org (lo.gmane.org [80.91.229.12])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 6051D4C8010A
-	for <poky@pokylinux.org>; Sat, 14 May 2011 10:07:57 -0500 (CDT)
-Received: from list by lo.gmane.org with local (Exim 4.69)
-	(envelope-from <glep-poky@m.gmane.org>) id 1QLGRf-0004md-9b
-	for poky@pokylinux.org; Sat, 14 May 2011 17:07:55 +0200
-Received: from ppp079166139070.dsl.hol.gr ([79.166.139.70])
-	by main.gmane.org with esmtp (Gmexim 0.1 (Debian))
-	id 1AlnuQ-0007hv-00
-	for <poky@pokylinux.org>; Sat, 14 May 2011 17:07:55 +0200
-Received: from gmane by ppp079166139070.dsl.hol.gr with local (Gmexim 0.1
-	(Debian)) id 1AlnuQ-0007hv-00
-	for <poky@pokylinux.org>; Sat, 14 May 2011 17:07:55 +0200
-X-Injected-Via-Gmane: http://gmane.org/
-To: poky@pokylinux.org
-From: Robert Berger <gmane@reliableembeddedsystems.com>
-Date: Sat, 14 May 2011 18:07:41 +0300
-Organization: Reliable Embedded Systems
-Message-ID: <iqm5ru$j5a$1@dough.gmane.org>
-Mime-Version: 1.0
-X-Complaints-To: usenet@dough.gmane.org
-X-Gmane-NNTP-Posting-Host: ppp079166139070.dsl.hol.gr
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.14) Gecko/20110223 Thunderbird/3.1.8
-Subject: beagleboard auto-boot
+Return-Path: <tom.zanussi@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E45434C800B6
+	for <poky@yoctoproject.org>; Sat, 14 May 2011 22:36:49 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 14 May 2011 20:36:49 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.64,368,1301900400"; d="scan'208";a="642811728"
+Received: from unknown (HELO localhost) ([10.255.12.105])
+	by orsmga002.jf.intel.com with ESMTP; 14 May 2011 20:36:49 -0700
+Message-Id: <cover.1305415455.git.tom.zanussi@intel.com>
+Old-Date: Sat, 14 May 2011 18:24:15 -0500
+Date: Sat, 14 May 2011 22:36:08 -0500
+To: poky@yoctoproject.org
+From: Tom Zanussi <tom.zanussi@intel.com>
+Subject: [PATCH 0/4] crownbay fixes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
-Reply-To: gmane@reliableembeddedsystems.com
 List-Id: Poky build system developer discussion <poky.yoctoproject.org>
 List-Unsubscribe: <https://lists.yoctoproject.org/options/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=unsubscribe>
@@ -36,47 +25,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 14 May 2011 15:07:57 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Sun, 15 May 2011 03:36:50 -0000
 
-Hi,
+From: Tom Zanussi <tom.zanussi@intel.com>
 
-I was playing around a bit in order to autoboot Linux from u-boot.
+This fixes bug 986 for crownbay, crownbay-noemgd and fishriver - thanks
+to Saul Wold for pointing out a fix for it.
 
-What I came up with is this:
+It also adds a missing COMPATIBLE_MACHINE entry for crownbay-noemgd.
 
-uEnv.txt:
-uenvcmd=mmc rescan ${mmcdev}; fatload mmc ${mmcdev} ${loadaddr}
-boot.scr; source ${loadaddr}
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: tzanussi/bugfix-986
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=tzanussi/bugfix-986
 
-u-boot-env:
+Thanks,
+    Tom Zanussi <tom.zanussi@intel.com>
+---
 
-sete console "ttyO2,115200n8"
-run mmc rescan ${mmcdev}
-run loaduimage
-run mmcboot
 
-which I compile to a boot.scr
+Tom Zanussi (4):
+  crownbay: remove custom BASE_PACKAGE_ARCH and PACKAGE_EXTRA_ARCHS
+  crownbay-noemgd: remove custom BASE_PACKAGE_ARCH and
+    PACKAGE_EXTRA_ARCHS
+  fishriver: remove custom BASE_PACKAGE_ARCH and PACKAGE_EXTRA_ARCHS
+  crownbay-noemgd: add crownbay-noemgd as COMPATIBLE_MACHINE to
+    linux-yocto bbappend
 
-mkimage -A arm -O linux -T script -C none -a 0 -e 0 -n "Beagleboard-xM
-boot script" -d u-boot-env boot.scr
-
-Like this I am also backwards compatible with older versions of u-boot
-which don't support uEnv.txt.
-
-Does anyone have a more elegant way?
-
-How does your uEnv.txt look like for a Beagle-XM?
-
-Regards,
-
-Robert
-..."You are in a twisty little passage of standards, all conflicting." -
-Michael Meissner, meissner@osf.org
-
-My public pgp key is available at:
-http://pgp.mit.edu:11371/pks/lookup?op=get&search=0x90320BF1
-
+ meta-crownbay/conf/machine/crownbay-noemgd.conf    |    3 ---
+ meta-crownbay/conf/machine/crownbay.conf           |    3 ---
+ .../recipes-kernel/linux/linux-yocto_git.bbappend  |    4 ++++
+ meta-fishriver/conf/machine/fishriver.conf         |    3 ---
+ 4 files changed, 4 insertions(+), 9 deletions(-)
 
 
