@@ -1,29 +1,26 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C10474C803BA
-	for <poky@yoctoproject.org>; Mon, 16 May 2011 11:49:24 -0500 (CDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 41BD6166019A; Mon, 16 May 2011 10:49:24 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2-r929478
-Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 5EB521660191;
-	Mon, 16 May 2011 10:49:23 -0600 (MDT)
-Message-ID: <4DD15593.5030400@mlbassoc.com>
-Date: Mon, 16 May 2011 10:49:23 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id BDB724C800E0
+	for <poky@yoctoproject.org>; Mon, 16 May 2011 11:56:55 -0500 (CDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 16 May 2011 09:56:55 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.64,375,1301900400"; 
+   d="scan'208";a="2888077"
+Received: from unknown (HELO [10.255.12.132]) ([10.255.12.132])
+	by fmsmga001.fm.intel.com with ESMTP; 16 May 2011 09:56:55 -0700
+Message-ID: <4DD15763.8000200@linux.intel.com>
+Date: Mon, 16 May 2011 09:57:07 -0700
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.17) Gecko/20110424 Lightning/1.0b2 Thunderbird/3.1.10
 MIME-Version: 1.0
-To: Saul Wold <saul.wold@intel.com>
-References: <4DD10B56.1060700@mlbassoc.com> <4DD1524C.9020305@intel.com>
-In-Reply-To: <4DD1524C.9020305@intel.com>
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: [PATCH resend] Kernel command line options for runqemu
+To: Robert Yang <liezhi.yang@windriver.com>
+References: <cover.1305558153.git.liezhi.yang@windriver.com>
+	<e3e569916fb79b1fa249c457846852873e14fc23.1305558153.git.liezhi.yang@windriver.com>
+In-Reply-To: <e3e569916fb79b1fa249c457846852873e14fc23.1305558153.git.liezhi.yang@windriver.com>
+Cc: poky@yoctoproject.org
+Subject: Re: V2 [PATCH 2/3] Add pidofproc to ${sysconfdir}/init.d/functions
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,38 +32,102 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 16 May 2011 16:49:25 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Mon, 16 May 2011 16:56:56 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 7bit
 
-On 05/16/2011 10:35 AM, Saul Wold wrote:
-> On 05/16/2011 04:32 AM, Gary Thomas wrote:
->> This patch lets the user add options to the kernel command line when
->> started via runqemu. Very useful for things like 'psplash=false'
->>
->>
->>
->> _______________________________________________
->> poky mailing list
->> poky@yoctoproject.org
->> https://lists.yoctoproject.org/listinfo/poky
->
-> Gary,
->
-> This is a reasonable idea, but it exposes an internal variable that might change in the future, so am I hesitant to take this.
+On 05/16/2011 08:19 AM, Robert Yang wrote:
+> Add pidofproc to ${sysconfdir}/init.d/functions, this is used for
+> getting the pid of the process. It uses pidof to implement currently, it
+> may also use the pidfile or ps to implement in the future.
+> 
+> Signed-off-by: Robert Yang <liezhi.yang@windriver.com>
+> ---
+>  .../initscripts/initscripts-1.0/functions          |   32 ++++++++++++++++++-
+>  1 files changed, 30 insertions(+), 2 deletions(-)
+> 
+> diff --git a/meta/recipes-core/initscripts/initscripts-1.0/functions b/meta/recipes-core/initscripts/initscripts-1.0/functions
+> index 689fd32..6a51b3b 100644
+> --- a/meta/recipes-core/initscripts/initscripts-1.0/functions
+> +++ b/meta/recipes-core/initscripts/initscripts-1.0/functions
+> @@ -4,11 +4,39 @@
+>  #               shell scripts in the /etc/init.d directory.
+>  #
+>  
+> +# NOTE: The pidofproc () doesn't support the process which is a script unless
+> +#       the pidof supports "-x" option. If you want to use it for such a
+> +#       process:
+> +#       1) If there is no "pidof -x", replace the "pidof $1" with another
+> +#          command like(for core-image-minimal):
+> +#            ps | awk '/'"$1"'/ {print $1}'
+> +#       Or
+> +#       2) If there is "pidof -x", replace "pidof" with "pidof -x".
 
-Without it, the only way to change the kernel command line is by
-editing the script, which doesn't seem very friendly.
+Please document the variables to newly created functions, for shell
+functions, something like:
 
-Would you feel better if it were a special variable, just for
-this purpose, which is by default empty?  I was just using the
-infrastructure that was already in place.
+# pidofproc - print the pid of a process
+# $1: the name of the process
 
-Thanks
+> +pidofproc () {
+> +        local pid status
+
+This patch uses 8 spaces to indent while the existing file uses 4. The
+state of shell script whitespace in the repository is a bit of a
+disaster. We can't really go through it all and just correct it for the
+sake of consistent whitespace, but when modifying shell scripts, please
+do the following:
+
+1) Cleanup the whitespace in the affected file
+   Do this before making functional changes to it and submit the
+   cleanup as a separate patch.
+2) Indent with tabs
+3) Do not indent the cases in a case block
+
+
+> +
+> +        status=0
+> +        # pidof output null when no program is running, so no "2>/dev/null".
+> +        pid=`pidof $1` || status=$?
+> +        case $status in
+
+The following is just my opinion, you may ignore it if you disagree:
+
+I find the "do_this || die" syntax to be awkward, and have seen it lead
+to non-intuitive errors. For testing the success of a command, consider
+removing the status variable and using:
+
+pid=$(pidof $1)
+case $? in
+
+
+
+> +          0)
+> +                echo $pid
+> +                return 0
+> +                ;;
+> +          127)
+> +                echo "ERROR: command pidof not found" >&2
+> +                exit 127
+> +                ;;
+> +          *)
+> +                return $status
+> +                ;;
+> +        esac
+> +}
+> +
+>  machine_id() {		# return the machine ID
+>      awk 'BEGIN { FS=": " } /Hardware/ { gsub(" ", "_", $2); print tolower($2) } ' </proc/cpuinfo
+>  }
+>  
+>  killproc() {		# kill the named process(es)
+> -    pid=`/bin/pidof $1`
+> -    [ "$pid" != "" ] && kill $pid
+> +    pid=`pidofproc $1` && kill $pid
+>  }
 
 -- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
