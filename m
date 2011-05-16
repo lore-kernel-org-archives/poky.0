@@ -1,23 +1,27 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 6FBAA4C80A54
-	for <poky@yoctoproject.org>; Mon, 16 May 2011 11:35:25 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 16 May 2011 09:35:25 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,375,1301900400"; d="scan'208";a="747944393"
-Received: from unknown (HELO [10.255.12.119]) ([10.255.12.119])
-	by orsmga001.jf.intel.com with ESMTP; 16 May 2011 09:35:24 -0700
-Message-ID: <4DD1524C.9020305@intel.com>
-Date: Mon, 16 May 2011 09:35:24 -0700
-From: Saul Wold <saul.wold@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.1.10) Gecko/20100621 Fedora/3.0.5-1.fc13 Lightning/1.0b2pre
-	Thunderbird/3.0.5
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C10474C803BA
+	for <poky@yoctoproject.org>; Mon, 16 May 2011 11:49:24 -0500 (CDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 41BD6166019A; Mon, 16 May 2011 10:49:24 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.2-r929478
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 5EB521660191;
+	Mon, 16 May 2011 10:49:23 -0600 (MDT)
+Message-ID: <4DD15593.5030400@mlbassoc.com>
+Date: Mon, 16 May 2011 10:49:23 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
 MIME-Version: 1.0
-To: Gary Thomas <gary@mlbassoc.com>
-References: <4DD10B56.1060700@mlbassoc.com>
-In-Reply-To: <4DD10B56.1060700@mlbassoc.com>
+To: Saul Wold <saul.wold@intel.com>
+References: <4DD10B56.1060700@mlbassoc.com> <4DD1524C.9020305@intel.com>
+In-Reply-To: <4DD1524C.9020305@intel.com>
 Cc: Poky Project <poky@yoctoproject.org>
 Subject: Re: [PATCH resend] Kernel command line options for runqemu
 X-BeenThere: poky@yoctoproject.org
@@ -31,26 +35,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 16 May 2011 16:35:25 -0000
+X-List-Received-Date: Mon, 16 May 2011 16:49:25 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 05/16/2011 04:32 AM, Gary Thomas wrote:
-> This patch lets the user add options to the kernel command line when
-> started via runqemu. Very useful for things like 'psplash=false'
+On 05/16/2011 10:35 AM, Saul Wold wrote:
+> On 05/16/2011 04:32 AM, Gary Thomas wrote:
+>> This patch lets the user add options to the kernel command line when
+>> started via runqemu. Very useful for things like 'psplash=false'
+>>
+>>
+>>
+>> _______________________________________________
+>> poky mailing list
+>> poky@yoctoproject.org
+>> https://lists.yoctoproject.org/listinfo/poky
 >
+> Gary,
 >
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+> This is a reasonable idea, but it exposes an internal variable that might change in the future, so am I hesitant to take this.
 
-Gary,
+Without it, the only way to change the kernel command line is by
+editing the script, which doesn't seem very friendly.
 
-This is a reasonable idea, but it exposes an internal variable that 
-might change in the future, so am I hesitant to take this.
+Would you feel better if it were a special variable, just for
+this purpose, which is by default empty?  I was just using the
+infrastructure that was already in place.
 
-Sau!
+Thanks
 
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
