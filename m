@@ -1,22 +1,32 @@
-Return-Path: <ke.yu@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 21DAC4C8043A
-	for <poky@yoctoproject.org>; Mon, 16 May 2011 01:40:26 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 15 May 2011 23:40:24 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,373,1301900400"; d="scan'208";a="643137927"
-Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.187])
-	by orsmga002.jf.intel.com with ESMTP; 15 May 2011 23:40:23 -0700
-Message-Id: <86b1c849c05166043e4312d581b14347f5b96ad1.1305528203.git.ke.yu@intel.com>
-In-Reply-To: <cover.1305528202.git.ke.yu@intel.com>
-References: <cover.1305528202.git.ke.yu@intel.com>
-Old-Date: Mon, 16 May 2011 14:04:12 +0800
-Date: Mon, 16 May 2011 14:46:05 +0800
-To: poky@yoctoproject.org
-CC: 
-From: Yu Ke <ke.yu@intel.com>
-Subject: [PATCH 2/2] Upstream-Status update for several recipes
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id E408C4C80263
+	for <poky@yoctoproject.org>; Mon, 16 May 2011 03:36:32 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p4G8aUop017580;
+	Mon, 16 May 2011 09:36:30 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 17039-10; Mon, 16 May 2011 09:36:26 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p4G8aKgA017574
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Mon, 16 May 2011 09:36:21 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Saul Wold <saul.wold@intel.com>
+In-Reply-To: <4DCF53FC.9060109@intel.com>
+References: <cover.1305415455.git.tom.zanussi@intel.com>
+	<92477bdb3d1f4a10cb30a261753cf959b52aab8a.1305415455.git.tom.zanussi@intel.com>
+	<4DCF53FC.9060109@intel.com>
+Date: Mon, 16 May 2011 09:36:03 +0100
+Message-ID: <1305534963.3424.13.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.2 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 1/4] crownbay: remove custom BASE_PACKAGE_ARCH and	PACKAGE_EXTRA_ARCHS
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,301 +38,69 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 16 May 2011 06:40:26 -0000
+X-List-Received-Date: Mon, 16 May 2011 08:36:33 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-From: Yu Ke <ke.yu@intel.com>
+On Sat, 2011-05-14 at 21:18 -0700, Saul Wold wrote:
+> On 05/14/2011 08:36 PM, Tom Zanussi wrote:
+> > From: Tom Zanussi<tom.zanussi@intel.com>
+> >
+> > PACKAGE_EXTRA_ARCHS in the conf file gets overwritten by the tune-atom
+> > include following it, preventing the atom BASE_PACKAGE_ARCH from being
+> > included in the final PACKAGE_ARCHS and causing do_rootfs to fail.
+> > Remove the atom BASE_PACKAGE_ARCH and PACKAGE_EXTRA_ARCHS in the conf
+> > file and allow the values in tune-atom to be used as intended.
+> >
+> I think we may still want to change the tune-atom PACKAGE_EXTRA_ARCHS to ?=.
 
- - modutils
- - module-init-tools
- - libacpi
- - keymaps
- - initscripts
- - console-tools
- - mesa-demos
- - xserver-xf86-lite
+No, we really don't want to do that ;-). 
 
-Signed-off-by: Yu Ke <ke.yu@intel.com>
----
- meta/recipes-bsp/keymaps/files/GPLv2.patch         |    2 ++
- meta/recipes-bsp/libacpi/files/makefile-fix.patch  |    2 ++
- .../console-tools-0.3.2/codepage.patch             |    1 +
- .../console-tools-0.3.2/compile.patch              |    2 ++
- .../console-tools-0.3.2/configure.patch            |    1 +
- .../console-tools-0.3.2/kbdrate.patch              |    2 ++
- .../console-tools-0.3.2/uclibc-fileno.patch        |    2 ++
- .../initscripts/initscripts-1.0/GPLv2.patch        |    2 ++
- .../mesa-demos/dso_linking_change_build_fix.patch  |    1 +
- .../fix_open_max_preprocessor_error.patch          |    2 ++
- .../module-init-tools/files/disable_man.patch      |    2 ++
- .../files/grab_module_memset.patch                 |    2 ++
- .../files/ignore_arch_directory.patch              |    2 ++
- .../files/modutils_extension.patch                 |    3 +++
- .../files/no-static-binaries.patch                 |    2 ++
- meta/recipes-kernel/modutils/files/PD.patch        |    2 ++
- meta/recipes-kernel/modutils/files/armeb.patch     |    2 ++
- meta/recipes-kernel/modutils/files/configure.patch |    1 +
- meta/recipes-kernel/modutils/files/gcc4.patch      |    2 ++
- meta/recipes-kernel/modutils/files/lex.l.diff      |    2 ++
- .../modutils/files/modutils-notest.patch           |    2 ++
- .../modutils/files/program_prefix.patch            |    2 ++
- .../modutils/modutils-cross/module.h.diff          |    2 ++
- 23 files changed, 43 insertions(+), 0 deletions(-)
+The whole point behind the tune-* include files is they are the one
+correct place where these architecture specific flags get setup
+correctly. Experience shows people trying to do it in each machine file
+get it wrong more often than right, this machine file being a perfect
+example.
 
-diff --git a/meta/recipes-bsp/keymaps/files/GPLv2.patch b/meta/recipes-bsp/keymaps/files/GPLv2.patch
-index 2611f22..1ee8181 100644
---- a/meta/recipes-bsp/keymaps/files/GPLv2.patch
-+++ b/meta/recipes-bsp/keymaps/files/GPLv2.patch
-@@ -1,3 +1,5 @@
-+Upstream-Status: Inappropriate [licensing]
-+
- diff --git a/COPYING b/COPYING
- new file mode 100644
- index 0000000..d511905
-diff --git a/meta/recipes-bsp/libacpi/files/makefile-fix.patch b/meta/recipes-bsp/libacpi/files/makefile-fix.patch
-index 9193929..c34ef34 100644
---- a/meta/recipes-bsp/libacpi/files/makefile-fix.patch
-+++ b/meta/recipes-bsp/libacpi/files/makefile-fix.patch
-@@ -1,3 +1,5 @@
-+Upstream-Status: Pending
-+
- ---
-  Makefile  |    6 +++---
-  config.mk |    3 ++-
-diff --git a/meta/recipes-core/console-tools/console-tools-0.3.2/codepage.patch b/meta/recipes-core/console-tools/console-tools-0.3.2/codepage.patch
-index f6bd91e..c287014 100644
---- a/meta/recipes-core/console-tools/console-tools-0.3.2/codepage.patch
-+++ b/meta/recipes-core/console-tools/console-tools-0.3.2/codepage.patch
-@@ -1,3 +1,4 @@
-+Upstream-Status: Pending
- 
- #
- # Patch managed by http://www.mn-logistik.de/unsupported/pxa250/patcher
-diff --git a/meta/recipes-core/console-tools/console-tools-0.3.2/compile.patch b/meta/recipes-core/console-tools/console-tools-0.3.2/compile.patch
-index 29012fe..c93f511 100644
---- a/meta/recipes-core/console-tools/console-tools-0.3.2/compile.patch
-+++ b/meta/recipes-core/console-tools/console-tools-0.3.2/compile.patch
-@@ -1,3 +1,5 @@
-+Upstream-Status: Pending
-+
- --- console-tools-0.3.2/kbdtools/showkey.c~compile	1999-08-25 17:20:08.000000000 -0400
- +++ console-tools-0.3.2/kbdtools/showkey.c	2004-05-09 03:03:23.000000000 -0400
- @@ -264,7 +264,6 @@
-diff --git a/meta/recipes-core/console-tools/console-tools-0.3.2/configure.patch b/meta/recipes-core/console-tools/console-tools-0.3.2/configure.patch
-index f5b7532..60ee8ff 100644
---- a/meta/recipes-core/console-tools/console-tools-0.3.2/configure.patch
-+++ b/meta/recipes-core/console-tools/console-tools-0.3.2/configure.patch
-@@ -1,3 +1,4 @@
-+Upstream-Status: Pending
- 
- #
- # Patch managed by http://www.mn-logistik.de/unsupported/pxa250/patcher
-diff --git a/meta/recipes-core/console-tools/console-tools-0.3.2/kbdrate.patch b/meta/recipes-core/console-tools/console-tools-0.3.2/kbdrate.patch
-index 47d7ea5..f370be8 100644
---- a/meta/recipes-core/console-tools/console-tools-0.3.2/kbdrate.patch
-+++ b/meta/recipes-core/console-tools/console-tools-0.3.2/kbdrate.patch
-@@ -1,6 +1,8 @@
- Patch from Matthias Goebl <oe@m.goebl.net>
- Added via OE bugtracker: bug #478
- 
-+Upstream-Status: Pending
-+
- --- console-tools-0.3.2/kbdtools/kbd_mode.c.orig
- +++ console-tools-0.3.2/kbdtools/kbd_mode.c
- @@ -29,11 +29,16 @@
-diff --git a/meta/recipes-core/console-tools/console-tools-0.3.2/uclibc-fileno.patch b/meta/recipes-core/console-tools/console-tools-0.3.2/uclibc-fileno.patch
-index c73d8a3..0c95068 100644
---- a/meta/recipes-core/console-tools/console-tools-0.3.2/uclibc-fileno.patch
-+++ b/meta/recipes-core/console-tools/console-tools-0.3.2/uclibc-fileno.patch
-@@ -1,6 +1,8 @@
- Fixing the locale issues isn't enough, console-tools also does a couple of
- other pretty stupid things (like FILE *f; f->_fileno instead of fileno(f)),
- 
-+Upstream-Status: Pending
-+
- --- console-tools-0.3.2/lib/cfont/fontstruct.c.ark	2005-05-22 19:12:38.000000000 +0000
- +++ console-tools-0.3.2/lib/cfont/fontstruct.c	2005-05-22 19:13:23.000000000 +0000
- @@ -50,8 +50,7 @@
-diff --git a/meta/recipes-core/initscripts/initscripts-1.0/GPLv2.patch b/meta/recipes-core/initscripts/initscripts-1.0/GPLv2.patch
-index 2611f22..1ee8181 100644
---- a/meta/recipes-core/initscripts/initscripts-1.0/GPLv2.patch
-+++ b/meta/recipes-core/initscripts/initscripts-1.0/GPLv2.patch
-@@ -1,3 +1,5 @@
-+Upstream-Status: Inappropriate [licensing]
-+
- diff --git a/COPYING b/COPYING
- new file mode 100644
- index 0000000..d511905
-diff --git a/meta/recipes-graphics/mesa/mesa-demos/dso_linking_change_build_fix.patch b/meta/recipes-graphics/mesa/mesa-demos/dso_linking_change_build_fix.patch
-index aa2faf9..9b5e952 100644
---- a/meta/recipes-graphics/mesa/mesa-demos/dso_linking_change_build_fix.patch
-+++ b/meta/recipes-graphics/mesa/mesa-demos/dso_linking_change_build_fix.patch
-@@ -11,6 +11,7 @@ This patch avoids these linking errors:
- Nitin A Kamble <nitin.a.kamble@intel.com>
- Date: 2011/02/03
- 
-+Upstream-Status: Pending
- 
- Index: mesa-demos-8.0.1/src/egl/opengl/Makefile.am
- ===================================================================
-diff --git a/meta/recipes-graphics/xorg-xserver/xserver-xf86-lite/fix_open_max_preprocessor_error.patch b/meta/recipes-graphics/xorg-xserver/xserver-xf86-lite/fix_open_max_preprocessor_error.patch
-index 565832e..2f62972 100644
---- a/meta/recipes-graphics/xorg-xserver/xserver-xf86-lite/fix_open_max_preprocessor_error.patch
-+++ b/meta/recipes-graphics/xorg-xserver/xserver-xf86-lite/fix_open_max_preprocessor_error.patch
-@@ -1,3 +1,5 @@
-+Upstream-Status: Pending
-+
- Index: git/os/osdep.h
- ===================================================================
- --- git.orig/os/osdep.h	2008-10-07 18:38:21.000000000 +0100
-diff --git a/meta/recipes-kernel/module-init-tools/files/disable_man.patch b/meta/recipes-kernel/module-init-tools/files/disable_man.patch
-index daf5824..95ad9cf 100644
---- a/meta/recipes-kernel/module-init-tools/files/disable_man.patch
-+++ b/meta/recipes-kernel/module-init-tools/files/disable_man.patch
-@@ -2,6 +2,8 @@
- #
- # by Kevin Tian <kevin.tian@intel.com>, 2010-07-21
- 
-+Upstream-Status: Inappropriate [disable feature]
-+
- diff --git a/Makefile.am b/Makefile.am
- index 6f83c12..32972a8 100644
- --- a/Makefile.am
-diff --git a/meta/recipes-kernel/module-init-tools/files/grab_module_memset.patch b/meta/recipes-kernel/module-init-tools/files/grab_module_memset.patch
-index 9550255..31dc0e9 100644
---- a/meta/recipes-kernel/module-init-tools/files/grab_module_memset.patch
-+++ b/meta/recipes-kernel/module-init-tools/files/grab_module_memset.patch
-@@ -5,6 +5,8 @@
- #
- # Kevin Tian <kevin.tian@intel.com>, 2010-08-06
- 
-+Upstream-Status: Pending
-+
- diff --git a/depmod.c b/depmod.c
- index 647e5e6..46e03e0 100644
- --- a/depmod.c
-diff --git a/meta/recipes-kernel/module-init-tools/files/ignore_arch_directory.patch b/meta/recipes-kernel/module-init-tools/files/ignore_arch_directory.patch
-index 7b30824..d29957d 100644
---- a/meta/recipes-kernel/module-init-tools/files/ignore_arch_directory.patch
-+++ b/meta/recipes-kernel/module-init-tools/files/ignore_arch_directory.patch
-@@ -2,6 +2,8 @@
- #
- # comments added by Kevin Tian <kevin.tian@intel.com>, 2010-07-21
- 
-+Upstream-Status: Pending
-+
- diff -ruN module-init-tools-3.12.orig/modprobe.8 module-init-tools-3.12/modprobe.8
- --- module-init-tools-3.12/modprobe.8.orig
- +++ module-init-tools-3.12/modprobe.8
-diff --git a/meta/recipes-kernel/module-init-tools/files/modutils_extension.patch b/meta/recipes-kernel/module-init-tools/files/modutils_extension.patch
-index 128c953..4a6e0fe 100644
---- a/meta/recipes-kernel/module-init-tools/files/modutils_extension.patch
-+++ b/meta/recipes-kernel/module-init-tools/files/modutils_extension.patch
-@@ -1,6 +1,9 @@
- # poky uses new name to differentiate from modutils, so reflect this new name in source
- #
- # comment added by Kevin Tian <kevin.tian@intel.com>, 2010-07-21
-+
-+Upstream-Status: Inappropriate [embedded specific]
-+
- --- module-init-tools-3.0-pre10.orig/generate-modprobe.conf
- +++ module-init-tools-3.0-pre10/generate-modprobe.conf
- @@ -45,12 +45,12 @@
-diff --git a/meta/recipes-kernel/module-init-tools/files/no-static-binaries.patch b/meta/recipes-kernel/module-init-tools/files/no-static-binaries.patch
-index ca83ec0..33fb6e0 100644
---- a/meta/recipes-kernel/module-init-tools/files/no-static-binaries.patch
-+++ b/meta/recipes-kernel/module-init-tools/files/no-static-binaries.patch
-@@ -9,6 +9,8 @@
- #
- # by Kevin Tian <kevin.tian@intel.com>, 2010-07-21
- 
-+Upstream-Status: Pending
-+
- Index: module-init-tools-3.2.2/Makefile.am
- ===================================================================
- --- module-init-tools-3.2.2.orig/Makefile.am	2010-05-26 15:43:16.000000000 -0400
-diff --git a/meta/recipes-kernel/modutils/files/PD.patch b/meta/recipes-kernel/modutils/files/PD.patch
-index 6e7b76a..21ac49c 100644
---- a/meta/recipes-kernel/modutils/files/PD.patch
-+++ b/meta/recipes-kernel/modutils/files/PD.patch
-@@ -1,3 +1,5 @@
-+Upstream-Status: Inappropriate [licensing]
-+
- Index: modutils-initscripts-1.0/LICENSE
- ===================================================================
- --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-diff --git a/meta/recipes-kernel/modutils/files/armeb.patch b/meta/recipes-kernel/modutils/files/armeb.patch
-index a26a3a2..3198553 100644
---- a/meta/recipes-kernel/modutils/files/armeb.patch
-+++ b/meta/recipes-kernel/modutils/files/armeb.patch
-@@ -1,3 +1,5 @@
-+Upstream-Status: Pending
-+
- --- modutils-2.4.27/include/elf_arm.h.orig	2004-09-21 18:37:00.000000000 -0400
- +++ modutils-2.4.27/include/elf_arm.h	2004-09-21 18:38:18.000000000 -0400
- @@ -1,7 +1,11 @@
-diff --git a/meta/recipes-kernel/modutils/files/configure.patch b/meta/recipes-kernel/modutils/files/configure.patch
-index cdf5015..63e80d7 100644
---- a/meta/recipes-kernel/modutils/files/configure.patch
-+++ b/meta/recipes-kernel/modutils/files/configure.patch
-@@ -1,3 +1,4 @@
-+Upstream-Status: Pending
- 
- #
- # Patch managed by http://www.mn-logistik.de/unsupported/pxa250/patcher
-diff --git a/meta/recipes-kernel/modutils/files/gcc4.patch b/meta/recipes-kernel/modutils/files/gcc4.patch
-index 53750bc..4507b03 100644
---- a/meta/recipes-kernel/modutils/files/gcc4.patch
-+++ b/meta/recipes-kernel/modutils/files/gcc4.patch
-@@ -1,3 +1,5 @@
-+Upstream-Status: Pending
-+
- Index: modutils-2.4.27/depmod/depmod.c
- ===================================================================
- --- modutils-2.4.27.orig/depmod/depmod.c
-diff --git a/meta/recipes-kernel/modutils/files/lex.l.diff b/meta/recipes-kernel/modutils/files/lex.l.diff
-index 65904b6..b2419a4 100644
---- a/meta/recipes-kernel/modutils/files/lex.l.diff
-+++ b/meta/recipes-kernel/modutils/files/lex.l.diff
-@@ -1,3 +1,5 @@
-+Upstream-Status: Pending
-+
- --- modutils-2.4.26.orig/genksyms/lex.l
- +++ modutils-2.4.26/genksyms/lex.l
- @@ -130,6 +130,7 @@
-diff --git a/meta/recipes-kernel/modutils/files/modutils-notest.patch b/meta/recipes-kernel/modutils/files/modutils-notest.patch
-index 0e15a10..ab100f2 100644
---- a/meta/recipes-kernel/modutils/files/modutils-notest.patch
-+++ b/meta/recipes-kernel/modutils/files/modutils-notest.patch
-@@ -2,6 +2,8 @@ This test disables the annoying
-    Note: /etc/modules.conf is more recent than /lib/modules/2.4.19-rmk6-pxa1/modules.dep
- message.
- 
-+Upstream-Status: Inappropriate [disable feature]
-+
- --- modutils-2.4.6/insmod/modprobe.c~notest	Mon Feb 26 02:07:17 2001
- +++ modutils-2.4.6/insmod/modprobe.c	Wed Feb 19 14:31:52 2003
- @@ -785,7 +785,6 @@
-diff --git a/meta/recipes-kernel/modutils/files/program_prefix.patch b/meta/recipes-kernel/modutils/files/program_prefix.patch
-index 2927a23..973705e 100644
---- a/meta/recipes-kernel/modutils/files/program_prefix.patch
-+++ b/meta/recipes-kernel/modutils/files/program_prefix.patch
-@@ -1,3 +1,5 @@
-+Upstream-Status: Pending
-+
- --- modutils-2.4.25/Makefile.common.in	Sun Nov 24 21:23:35 2002
- +++ modutils-2.4.25/Makefile.common.in	Thu Jan 29 17:16:30 2004
- @@ -7,6 +7,7 @@
-diff --git a/meta/recipes-kernel/modutils/modutils-cross/module.h.diff b/meta/recipes-kernel/modutils/modutils-cross/module.h.diff
-index 077baaf..e9f1224 100644
---- a/meta/recipes-kernel/modutils/modutils-cross/module.h.diff
-+++ b/meta/recipes-kernel/modutils/modutils-cross/module.h.diff
-@@ -1,3 +1,5 @@
-+Upstream-Status: Pending
-+
- diff -urN modutils-2.4.27.orig/include/module.h modutils-2.4.27/include/module.h
- --- modutils-2.4.27.orig/include/module.h	2003-01-27 11:22:02.000000000 -0500
- +++ modutils-2.4.27/include/module.h	2004-08-23 19:52:34.756772712 -0400
--- 
-1.7.0.4
+If some different flags are needed, we create a new tune-xxx file which
+can either inherit another and customise or set the correct values
+itself.
+
+Cheers,
+
+Richard
+
+> > Fixes [BUGID #986].
+> >
+> Should be [YOCTO #986]
+> 
+> > Signed-off-by: Tom Zanussi<tom.zanussi@intel.com>
+> > ---
+> >   meta-crownbay/conf/machine/crownbay.conf |    3 ---
+> >   1 files changed, 0 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/meta-crownbay/conf/machine/crownbay.conf b/meta-crownbay/conf/machine/crownbay.conf
+> > index b8f107b..bc09ada 100644
+> > --- a/meta-crownbay/conf/machine/crownbay.conf
+> > +++ b/meta-crownbay/conf/machine/crownbay.conf
+> > @@ -5,12 +5,9 @@
+> >   # i.e. E660 + EG20T
+> >
+> >   TARGET_ARCH = "i586"
+> > -PACKAGE_EXTRA_ARCHS = "x86 atom"
+> >
+> >   include conf/machine/include/tune-atom.inc
+> >
+> > -BASE_PACKAGE_ARCH="atom"
+> > -
+> >   MACHINE_FEATURES = "kernel26 screen keyboard pci usbhost ext2 ext3 x86 \
+> >                       acpi serial usbgadget"
+> >
+> 
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+
 
 
