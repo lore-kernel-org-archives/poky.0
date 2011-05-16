@@ -1,26 +1,25 @@
-Return-Path: <dvhart@linux.intel.com>
+Return-Path: <scott.a.garman@intel.com>
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id BDB724C800E0
-	for <poky@yoctoproject.org>; Mon, 16 May 2011 11:56:55 -0500 (CDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 16 May 2011 09:56:55 -0700
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2B4B84C80334
+	for <poky@yoctoproject.org>; Mon, 16 May 2011 11:58:37 -0500 (CDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 16 May 2011 09:58:36 -0700
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="4.64,375,1301900400"; 
-   d="scan'208";a="2888077"
-Received: from unknown (HELO [10.255.12.132]) ([10.255.12.132])
-	by fmsmga001.fm.intel.com with ESMTP; 16 May 2011 09:56:55 -0700
-Message-ID: <4DD15763.8000200@linux.intel.com>
-Date: Mon, 16 May 2011 09:57:07 -0700
-From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+   d="scan'208";a="2353658"
+Received: from unknown (HELO [10.255.12.130]) ([10.255.12.130])
+	by fmsmga002.fm.intel.com with ESMTP; 16 May 2011 09:58:36 -0700
+Message-ID: <4DD157BC.6050506@intel.com>
+Date: Mon, 16 May 2011 09:58:36 -0700
+From: Scott Garman <scott.a.garman@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
 	rv:1.9.2.17) Gecko/20110424 Lightning/1.0b2 Thunderbird/3.1.10
 MIME-Version: 1.0
-To: Robert Yang <liezhi.yang@windriver.com>
-References: <cover.1305558153.git.liezhi.yang@windriver.com>
-	<e3e569916fb79b1fa249c457846852873e14fc23.1305558153.git.liezhi.yang@windriver.com>
-In-Reply-To: <e3e569916fb79b1fa249c457846852873e14fc23.1305558153.git.liezhi.yang@windriver.com>
-Cc: poky@yoctoproject.org
-Subject: Re: V2 [PATCH 2/3] Add pidofproc to ${sysconfdir}/init.d/functions
+To: poky@yoctoproject.org
+References: <4DD10B56.1060700@mlbassoc.com> <4DD1524C.9020305@intel.com>
+	<4DD15593.5030400@mlbassoc.com>
+In-Reply-To: <4DD15593.5030400@mlbassoc.com>
+Subject: Re: [PATCH resend] Kernel command line options for runqemu
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,102 +31,53 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 16 May 2011 16:56:56 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Mon, 16 May 2011 16:58:37 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 05/16/2011 08:19 AM, Robert Yang wrote:
-> Add pidofproc to ${sysconfdir}/init.d/functions, this is used for
-> getting the pid of the process. It uses pidof to implement currently, it
-> may also use the pidfile or ps to implement in the future.
-> 
-> Signed-off-by: Robert Yang <liezhi.yang@windriver.com>
-> ---
->  .../initscripts/initscripts-1.0/functions          |   32 ++++++++++++++++++-
->  1 files changed, 30 insertions(+), 2 deletions(-)
-> 
-> diff --git a/meta/recipes-core/initscripts/initscripts-1.0/functions b/meta/recipes-core/initscripts/initscripts-1.0/functions
-> index 689fd32..6a51b3b 100644
-> --- a/meta/recipes-core/initscripts/initscripts-1.0/functions
-> +++ b/meta/recipes-core/initscripts/initscripts-1.0/functions
-> @@ -4,11 +4,39 @@
->  #               shell scripts in the /etc/init.d directory.
->  #
->  
-> +# NOTE: The pidofproc () doesn't support the process which is a script unless
-> +#       the pidof supports "-x" option. If you want to use it for such a
-> +#       process:
-> +#       1) If there is no "pidof -x", replace the "pidof $1" with another
-> +#          command like(for core-image-minimal):
-> +#            ps | awk '/'"$1"'/ {print $1}'
-> +#       Or
-> +#       2) If there is "pidof -x", replace "pidof" with "pidof -x".
+On 05/16/2011 09:49 AM, Gary Thomas wrote:
+> On 05/16/2011 10:35 AM, Saul Wold wrote:
+>> On 05/16/2011 04:32 AM, Gary Thomas wrote:
+>>> This patch lets the user add options to the kernel command line when
+>>> started via runqemu. Very useful for things like 'psplash=false'
+>>>
+>>>
+>>>
+>>> _______________________________________________
+>>> poky mailing list
+>>> poky@yoctoproject.org
+>>> https://lists.yoctoproject.org/listinfo/poky
+>>
+>> Gary,
+>>
+>> This is a reasonable idea, but it exposes an internal variable that
+>> might change in the future, so am I hesitant to take this.
+>
+> Without it, the only way to change the kernel command line is by
+> editing the script, which doesn't seem very friendly.
+>
+> Would you feel better if it were a special variable, just for
+> this purpose, which is by default empty? I was just using the
+> infrastructure that was already in place.
 
-Please document the variables to newly created functions, for shell
-functions, something like:
+Hi Gary,
 
-# pidofproc - print the pid of a process
-# $1: the name of the process
+I believe this is being tracked with bug #1019:
 
-> +pidofproc () {
-> +        local pid status
+http://bugzilla.pokylinux.org/show_bug.cgi?id=1019
 
-This patch uses 8 spaces to indent while the existing file uses 4. The
-state of shell script whitespace in the repository is a bit of a
-disaster. We can't really go through it all and just correct it for the
-sake of consistent whitespace, but when modifying shell scripts, please
-do the following:
+I do not have an ETA on this except for "before 1.1". Your workaround 
+could be used in the meantime.
 
-1) Cleanup the whitespace in the affected file
-   Do this before making functional changes to it and submit the
-   cleanup as a separate patch.
-2) Indent with tabs
-3) Do not indent the cases in a case block
+I haven't given any thought to creating an environment variable "API" to 
+the script, so I'm not comfortable taking the patch currently.
 
+As a temporary workaround, you could use the patch locally.
 
-> +
-> +        status=0
-> +        # pidof output null when no program is running, so no "2>/dev/null".
-> +        pid=`pidof $1` || status=$?
-> +        case $status in
-
-The following is just my opinion, you may ignore it if you disagree:
-
-I find the "do_this || die" syntax to be awkward, and have seen it lead
-to non-intuitive errors. For testing the success of a command, consider
-removing the status variable and using:
-
-pid=$(pidof $1)
-case $? in
-
-
-
-> +          0)
-> +                echo $pid
-> +                return 0
-> +                ;;
-> +          127)
-> +                echo "ERROR: command pidof not found" >&2
-> +                exit 127
-> +                ;;
-> +          *)
-> +                return $status
-> +                ;;
-> +        esac
-> +}
-> +
->  machine_id() {		# return the machine ID
->      awk 'BEGIN { FS=": " } /Hardware/ { gsub(" ", "_", $2); print tolower($2) } ' </proc/cpuinfo
->  }
->  
->  killproc() {		# kill the named process(es)
-> -    pid=`/bin/pidof $1`
-> -    [ "$pid" != "" ] && kill $pid
-> +    pid=`pidofproc $1` && kill $pid
->  }
+Scott
 
 -- 
-Darren Hart
+Scott Garman
+Embedded Linux Engineer - Yocto Project
 Intel Open Source Technology Center
-Yocto Project - Linux Kernel
 
